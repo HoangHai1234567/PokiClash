@@ -121,6 +121,7 @@ sát thương = Công × (1 + buff Công) × hệ số đòn × 100 / (100 + Th�
 - Lý do: chỉ số gốc Aola chênh quá. Gia Bỉ (Thường) mạnh hơn hẳn Võ Sư.
 - Cấp +10%, sao +8%.
 - Boss: máu ×1,8, công ×1,1.
+- Boss ải 8 (2026-11-02): đứng một mình, có thẻ **Tiến Hóa** (xem `12_KeHoach_OpenSpec.md`, mục "Boss tiến hóa").
 
 ### Máy địch
 

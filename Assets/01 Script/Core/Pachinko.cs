@@ -9,6 +9,7 @@ namespace PokiClash.Core
 {
     public enum SlotKind { Exp5, Exp10, Exp15, Ball, ChestWood, ChestSilver, ChestGold }
     public enum PegKind { Peg, Bumper, Post }
+    public enum SegKind { Wall, Ceiling, Shoulder, Divider, Roof, Floor }
 
     public struct Peg
     {
@@ -19,11 +20,13 @@ namespace PokiClash.Core
     public struct Seg
     {
         public double x1, y1, x2, y2;
+        public SegKind kind;
     }
 
+    // r > 0: cốc tròn, bi rơi qua tâm thì vào; r = 0: két chữ nhật w × h quanh (x, y), bi lọt vào là vào
     public struct Cup
     {
-        public double x, y, r;
+        public double x, y, r, w, h;
         public SlotKind reward;
     }
 
@@ -59,12 +62,24 @@ namespace PokiClash.Core
         public const double BW = 460, BH = 680, BallR = 9, DropY = 46;
         public const double Left = 14, Right = BW - 14, SlotTop = 572, Floor = BH - 30;
         public const double Swing = 150; // máng thả đung đưa quanh giữa, biên độ này
+        // ô vàng giữa đáy nằm khuất dưới đáy két vàng: bi chỉ vào được khi chui ngang qua khe giữa đáy két và đầu vách ô
         public static readonly SlotKind[] SlotLayout =
         {
-            SlotKind.ChestWood, SlotKind.Exp15, SlotKind.Exp5, SlotKind.Ball, SlotKind.Exp10, SlotKind.Ball, SlotKind.Exp5, SlotKind.Exp15, SlotKind.ChestWood,
+            SlotKind.ChestWood, SlotKind.Exp15, SlotKind.Exp5, SlotKind.Ball, SlotKind.Exp10, SlotKind.ChestGold,
+            SlotKind.Exp10, SlotKind.Ball, SlotKind.Exp5, SlotKind.Exp15, SlotKind.ChestWood,
         };
-        // ô mép (rương gỗ) hẹp, ô giữa rộng
-        public static readonly double[] SlotW = { 22, 50, 66, 30, 96, 30, 66, 50, 22 };
+        // độ rộng ô đo bằng Web/scripts/tune_pachinko.ts để tỉ lệ từng loại ô giữ như mặt máy cũ
+        public static readonly double[] SlotW = { 25.25, 38, 46, 29.75, 59.25, 35.5, 59.25, 29.75, 46, 38, 25.25 };
+
+        // vật liệu chép máy bi tham khảo (chép PHYS của bản web, lý do ở đó): mọi thứ nảy 0,8; tường, vách, nấm, cọc ma sát Fric,
+        // đinh, mái, đáy két trơn; va chậm hơn VRest (tốc pháp tuyến) thì không nảy; bi chạm bi không nảy; cản 0,3; kẹp tốc [VMin, VMax]
+        public const double Gravity = 1100, Drag = 0.3, VMin = 150, VMax = 525;
+        public const double EPeg = 0.8, EBumper = 0.8, EWall = 0.8, EBall = 0, Jitter = 0, Fric = 0.22, VRest = 111;
+        public const double SilverR = 2.5; // bán kính cốc bạc
+
+        // két vàng giữa máy (chép VAULT của bản web): mái chữ ^ có khe ở đỉnh, đinh gác trên khe; đáy chữ V, hai cọc ở hai đầu đáy
+        public const double VaultX = 230, GuardY = 446, GuardR = 6, ApexY = 470, Slit = 25.5, RoofHalf = 60, RoofLowY = 492;
+        public const double FloorHalf = 48, FloorEdgeY = 516, FloorY = 530, VaultPostR = 5, CupHalfW = 40, CupTop = 488, CupBottom = 522;
 
         public readonly List<Peg> pegs = new List<Peg>();
         public readonly List<Cup> cups = new List<Cup>();
@@ -73,9 +88,8 @@ namespace PokiClash.Core
         public List<Ball> balls = new List<Ball>();
         public Rng rng;
         int nextId = 1;
-        public double gravity = 1150;
 
-        public readonly double[] slotW; // độ rộng 9 ô đáy (mặc định SlotW; cửa sổ Cân bằng thử độ rộng khác)
+        public readonly double[] slotW; // độ rộng các ô đáy (mặc định SlotW; cửa sổ Cân bằng thử độ rộng khác)
 
         public Board(uint seed = 1, double[] widths = null)
         {
@@ -83,6 +97,9 @@ namespace PokiClash.Core
             slotW = widths ?? SlotW;
             Build();
         }
+
+        // đinh nằm trong khung két vàng thì bỏ (chừa chỗ cho két)
+        static bool InVault(double x, double y) => Math.Abs(x - VaultX) < RoofHalf + 12 && y > GuardY - 20 && y < FloorY + 20;
 
         void Build()
         {
@@ -96,6 +113,7 @@ namespace PokiClash.Core
                 for (int j = 0; j < n; j++)
                 {
                     double x = (odd ? 45 + gap / 2 : 45) + j * gap;
+                    if (InVault(x, y)) continue;
                     if (i == 3 && (j == 1 || j == 6) || i == 6 && j == 4)
                     {
                         pegs.Add(new Peg { x = x, y = y, r = 15, kind = PegKind.Bumper });
@@ -103,12 +121,7 @@ namespace PokiClash.Core
                     }
                     if (i == 7 && (j == 1 || j == 6))
                     {
-                        cups.Add(new Cup { x = x, y = y + 6, r = 3.5, reward = SlotKind.ChestSilver });
-                        continue;
-                    }
-                    if (i == 4 && j == 4)
-                    {
-                        cups.Add(new Cup { x = x, y = y + 6, r = 3, reward = SlotKind.ChestGold });
+                        cups.Add(new Cup { x = x, y = y + 6, r = SilverR, reward = SlotKind.ChestSilver });
                         continue;
                     }
                     pegs.Add(new Peg { x = x, y = y, r = 5, kind = PegKind.Peg });
@@ -120,18 +133,29 @@ namespace PokiClash.Core
                     pegs.Add(new Peg { x = Right, y = y, r = 10, kind = PegKind.Post });
                 }
             }
+            pegs.Add(new Peg { x = VaultX, y = GuardY, r = GuardR, kind = PegKind.Peg });
+            pegs.Add(new Peg { x = VaultX - FloorHalf, y = FloorEdgeY, r = VaultPostR, kind = PegKind.Post });
+            pegs.Add(new Peg { x = VaultX + FloorHalf, y = FloorEdgeY, r = VaultPostR, kind = PegKind.Post });
+            cups.Add(new Cup { x = VaultX, y = (CupTop + CupBottom) / 2, w = CupHalfW * 2, h = CupBottom - CupTop, reward = SlotKind.ChestGold });
+
             var xs = new List<double> { Left };
             foreach (var w in slotW) xs.Add(xs[xs.Count - 1] + w);
             for (int i = 0; i < SlotLayout.Length; i++) slots.Add(new Slot { x0 = xs[i], x1 = xs[i + 1], reward = SlotLayout[i] });
-            segs.Add(new Seg { x1 = Left, y1 = 0, x2 = Left, y2 = BH });
-            segs.Add(new Seg { x1 = Right, y1 = 0, x2 = Right, y2 = BH });
+            segs.Add(new Seg { x1 = Left, y1 = 0, x2 = Left, y2 = BH, kind = SegKind.Wall });
+            segs.Add(new Seg { x1 = Right, y1 = 0, x2 = Right, y2 = BH, kind = SegKind.Wall });
+            // trần ở ray máng thả: bi nảy cao không bay ra khỏi máy
+            segs.Add(new Seg { x1 = Left, y1 = DropY - 22, x2 = Right, y2 = DropY - 22, kind = SegKind.Ceiling });
             // vai nghiêng hai bên trên cùng: bi thả sát mép trượt vào giữa
-            segs.Add(new Seg { x1 = Left, y1 = 70, x2 = Left + 40, y2 = 104 });
-            segs.Add(new Seg { x1 = Right, y1 = 70, x2 = Right - 40, y2 = 104 });
+            segs.Add(new Seg { x1 = Left, y1 = 70, x2 = Left + 40, y2 = 104, kind = SegKind.Shoulder });
+            segs.Add(new Seg { x1 = Right, y1 = 70, x2 = Right - 40, y2 = 104, kind = SegKind.Shoulder });
+            segs.Add(new Seg { x1 = VaultX - RoofHalf, y1 = RoofLowY, x2 = VaultX - Slit / 2, y2 = ApexY, kind = SegKind.Roof });
+            segs.Add(new Seg { x1 = VaultX + RoofHalf, y1 = RoofLowY, x2 = VaultX + Slit / 2, y2 = ApexY, kind = SegKind.Roof });
+            segs.Add(new Seg { x1 = VaultX - FloorHalf, y1 = FloorEdgeY, x2 = VaultX, y2 = FloorY, kind = SegKind.Floor });
+            segs.Add(new Seg { x1 = VaultX + FloorHalf, y1 = FloorEdgeY, x2 = VaultX, y2 = FloorY, kind = SegKind.Floor });
             for (int i = 1; i < SlotLayout.Length; i++)
             {
                 double x = xs[i];
-                segs.Add(new Seg { x1 = x, y1 = SlotTop, x2 = x, y2 = BH });
+                segs.Add(new Seg { x1 = x, y1 = SlotTop, x2 = x, y2 = BH, kind = SegKind.Divider });
                 pegs.Add(new Peg { x = x, y = SlotTop, r = 3.5, kind = PegKind.Post });
             }
         }
@@ -157,6 +181,20 @@ namespace PokiClash.Core
             return ev;
         }
 
+        // sin, cos góc nhỏ bằng đa thức (chép sinSmall/cosSmall của bản web, cùng thứ tự phép tính): Math.Sin/Cos của
+        // .NET, Mono và V8 khác nhau ở bit cuối, với nảy cao thì bi Unity tách khỏi bi web chỉ sau vài bi
+        public static double SinSmall(double x)
+        {
+            double x2 = x * x;
+            return x * (1 - x2 / 6 * (1 - x2 / 20 * (1 - x2 / 42 * (1 - x2 / 72))));
+        }
+
+        public static double CosSmall(double x)
+        {
+            double x2 = x * x;
+            return 1 - x2 / 2 * (1 - x2 / 12 * (1 - x2 / 30 * (1 - x2 / 56)));
+        }
+
         // Math.hypot(x, y) của V8
         public static double Hypot(double a, double b)
         {
@@ -180,6 +218,18 @@ namespace PokiClash.Core
             return Math.Sqrt(sum) * max;
         }
 
+        // ma sát khi bi chạm tường, vách, nấm, cọc: bớt tốc theo mặt tiếp xúc, tối đa Fric × xung pháp tuyến (jn) và không quá 1/3
+        // tốc tiếp tuyến (bi tròn đặc lăn được thì ma sát chỉ ăn tới đó). Chép rub() của bản web, cùng thứ tự phép tính.
+        static void Rub(Ball b, double nx, double ny, double jn)
+        {
+            double tx = -ny, ty = nx;
+            double vt = b.vx * tx + b.vy * ty;
+            double cut = Math.Min(Math.Abs(vt) / 3, Fric * jn);
+            double dv = vt > 0 ? cut : -cut;
+            b.vx -= dv * tx;
+            b.vy -= dv * ty;
+        }
+
         void Substep(double h, List<PEvent> ev)
         {
             const double R = BallR;
@@ -187,12 +237,24 @@ namespace PokiClash.Core
             {
                 if (!b.alive) continue;
                 b.age += h;
-                b.vy += gravity * h;
+                b.vy += Gravity * h;
+                double damp = 1 - Drag * h;
+                b.vx *= damp;
+                b.vy *= damp;
                 double sp = Hypot(b.vx, b.vy);
-                if (sp > 950)
+                if (sp > VMax)
                 {
-                    b.vx *= 950 / sp;
-                    b.vy *= 950 / sp;
+                    b.vx *= VMax / sp;
+                    b.vy *= VMax / sp;
+                }
+                else if (sp < VMin)
+                {
+                    if (sp > 1e-9)
+                    {
+                        b.vx *= VMin / sp;
+                        b.vy *= VMin / sp;
+                    }
+                    else b.vy = VMin;
                 }
                 b.x += b.vx * h;
                 b.y += b.vy * h;
@@ -210,12 +272,13 @@ namespace PokiClash.Core
                     double vn = b.vx * nx + b.vy * ny;
                     if (vn < 0)
                     {
-                        double e = p.kind == PegKind.Bumper ? 0.75 : 0.5;
+                        double e = -vn > VRest ? (p.kind == PegKind.Bumper ? EBumper : EPeg) : 0;
                         b.vx -= (1 + e) * vn * nx;
                         b.vy -= (1 + e) * vn * ny;
+                        if (p.kind != PegKind.Peg) Rub(b, nx, ny, (1 + e) * -vn);
                         // một chút lệch ngẫu nhiên, để không lần nào giống lần nào
-                        double j = rng.Range(-0.18, 0.18);
-                        double c = Math.Cos(j), s = Math.Sin(j);
+                        double j = rng.Range(-Jitter, Jitter);
+                        double c = CosSmall(j), s = SinSmall(j);
                         double vx = b.vx * c - b.vy * s, vy = b.vx * s + b.vy * c;
                         b.vx = vx * 0.985;
                         b.vy = vy * 0.985;
@@ -241,15 +304,19 @@ namespace PokiClash.Core
                     double vn = b.vx * nx + b.vy * ny;
                     if (vn < 0)
                     {
-                        b.vx -= 1.4 * vn * nx;
-                        b.vy -= 1.4 * vn * ny;
+                        bool smooth = sg.kind == SegKind.Roof || sg.kind == SegKind.Floor;
+                        double e = -vn > VRest ? (smooth ? EPeg : EWall) : 0;
+                        b.vx -= (1 + e) * vn * nx;
+                        b.vy -= (1 + e) * vn * ny;
+                        if (!smooth) Rub(b, nx, ny, (1 + e) * -vn);
                     }
                 }
-                // cốc hứng giữa máy
+                // cốc hứng (tròn: bi đang rơi qua tâm) và két (chữ nhật: bi lọt vào trong)
                 foreach (var c in cups)
                 {
                     double dx = b.x - c.x, dy = b.y - c.y;
-                    if (b.vy > 0 && dx * dx + dy * dy < c.r * c.r)
+                    bool inside = c.r > 0 ? b.vy > 0 && dx * dx + dy * dy < c.r * c.r : Math.Abs(dx) < c.w / 2 && Math.Abs(dy) < c.h / 2;
+                    if (inside)
                     {
                         b.alive = false;
                         ev.Add(new PEvent { land = true, reward = c.reward, slot = -1, cup = true, ball = b });
@@ -290,7 +357,7 @@ namespace PokiClash.Core
                     double rv = (c.vx - a.vx) * nx + (c.vy - a.vy) * ny;
                     if (rv < 0)
                     {
-                        double imp = -(1 + 0.6) * rv / 2;
+                        double imp = -(1 + (-rv > VRest ? EBall : 0)) * rv / 2;
                         a.vx -= imp * nx;
                         a.vy -= imp * ny;
                         c.vx += imp * nx;

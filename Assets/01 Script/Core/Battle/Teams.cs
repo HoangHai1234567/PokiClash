@@ -34,13 +34,33 @@ namespace PokiClash.Core
         // sao của địch theo cấp (chép enemyTeam của Web/src/core/progression.ts); cũng chọn dạng của địch trong dòng tiến hóa
         public static int EnemyStar(int level) => 1 + level / 6;
 
+        // sao để chọn hình (dạng) của địch ngoài trận: như EnemyStar, riêng boss tiến hóa vào trận ở dạng 1 (chép enemyFormStar)
+        public static int EnemyFormStar(StageEnemy e) => e.evo ? 1 : EnemyStar(e.level);
+
+        // sao ứng với dạng thứ form của dòng (dạng 1 là sao 1, dạng sau ở mốc formStars)
+        public static int FormStar(BalanceConfig cfg, int form) => form <= 0 ? 1 : cfg.formStars[System.Math.Min(form, cfg.formStars.Length) - 1];
+
+        // sao để vẽ tướng đang trên sân: boss tiến hóa theo dạng trong trận, còn lại theo sao
+        public static int LookStar(BalanceConfig cfg, Fighter f) => f.evo ? FormStar(cfg, f.form) : f.star;
+
+        // tướng chính của ải (đứng trên nút ải ở màn đảo; chép stageLead): boss, không có thì địch cấp cao nhất, bằng cấp thì độ hiếm
+        // cao hơn
+        public static StageEnemy StageLead(StageDef st, GameData d)
+        {
+            int Score(StageEnemy e) => (e.boss ? 1000 : 0) + e.level * 10 + (int)d.Hero(e.hero).rarity;
+            var best = st.enemies[0];
+            foreach (var e in st.enemies)
+                if (Score(e) > Score(best)) best = e;
+            return best;
+        }
+
         public static TeamSetup Enemy(StageDef st)
         {
             var t = new TeamSetup { name = st.name, ai = true };
             foreach (var e in st.enemies)
                 t.members.Add(new Member
                 {
-                    heroId = e.hero, level = e.level, boss = e.boss, star = EnemyStar(e.level),
+                    heroId = e.hero, level = e.level, boss = e.boss, evo = e.evo, star = EnemyStar(e.level),
                     cardSkill = 1 + e.level / 5, cardUlt = 1 + e.level / 6, cardPassive = 1 + e.level / 6,
                 });
             return t;

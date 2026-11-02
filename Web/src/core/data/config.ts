@@ -24,6 +24,10 @@ export const CFG = {
   starStep: 0.08,
   bossHp: 1.8,
   bossAtk: 1.1,
+  // boss ải 8 (thẻ Tiến Hóa, dòng n dạng): máu các dạng cộng lại bằng bossEvoHp lần máu boss (gánh phần lính đã bỏ), chia theo
+  // tỉ lệ 1 : 2 : … : n (dòng 3 dạng: ×0,25 / 0,5 / 0,75); Công dạng cuối đủ, mỗi dạng trước kém bossEvoAtk
+  bossEvoHp: 1.5,
+  bossEvoAtk: 0.1,
   cardLvStep: 0.15, // mỗi cấp thẻ tăng số của thẻ thêm 15 %
   // giới hạn an toàn: quá số hiệp này thì bên có tổng phần trăm máu cao hơn thắng (hoà thì địch thắng)
   maxRounds: 60,

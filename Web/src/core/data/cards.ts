@@ -168,7 +168,14 @@ const borrow = (hero: string, from: string): CardDef[] =>
     .filter((c) => c.owner === from)
     .map((c) => ({ ...(JSON.parse(JSON.stringify(c)) as CardDef), id: `${hero}_${SUFFIX[c.kind as keyof typeof SUFFIX]}`, owner: hero }));
 
-export const INNATE: CardDef[] = [...OWN, ...Object.entries(BORROW).flatMap(([h, from]) => borrow(h, from))];
+// Thẻ riêng của boss ải 8 (người dùng chốt 2026-11-02): boss vào trận ở dạng 1, yếu nhất; máu dưới ngưỡng (hoặc dính đòn chí tử)
+// thì lên dạng sau, hồi máu và mạnh hơn (CFG.bossEvoHp, bossEvoAtk). Dạng cuối không tiến hóa nữa. Không theo cấp thẻ.
+export const BOSS_EVO: CardDef = {
+  id: 'boss_evo', name: 'Tiến Hóa', rarity: 'legend', kind: 'passive', icon: 'phoenix', trigger: 'lowHp', below: 0.25,
+  effects: [{ k: 'evolve', pct: 1 }], flavor: 'Đây mới là dạng đầu thôi!',
+};
+
+export const INNATE: CardDef[] = [...OWN, ...Object.entries(BORROW).flatMap(([h, from]) => borrow(h, from)), BOSS_EVO];
 
 export const CARD: Record<string, CardDef> = Object.fromEntries([...POOL, ...INNATE].map((c) => [c.id, c]));
 

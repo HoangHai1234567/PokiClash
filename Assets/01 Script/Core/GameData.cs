@@ -162,7 +162,7 @@ namespace PokiClash.Core
             foreach (var x in J.Arr(o, "enemies"))
             {
                 var e = J.Obj(x);
-                s.enemies.Add(new StageEnemy { hero = J.Str(e, "hero"), level = J.Int(e, "level"), boss = J.Bool(e, "boss") });
+                s.enemies.Add(new StageEnemy { hero = J.Str(e, "hero"), level = J.Int(e, "level"), boss = J.Bool(e, "boss"), evo = J.Bool(e, "evo") });
             }
             foreach (var x in J.Arr(o, "drops"))
             {
@@ -187,7 +187,7 @@ namespace PokiClash.Core
             }
             Expect(Heroes.Count, 40, "Số tướng");
             Expect(Pool.Count, 23, "Số thẻ chung");
-            Expect(Innate.Count, 120, "Số thẻ riêng");
+            Expect(Innate.Count, 121, "Số thẻ riêng"); // 40 tướng × 3 + thẻ Tiến Hóa của boss
             Expect(Zones.Count, 5, "Số đảo");
             Expect(Stages.Count, 40, "Số ải");
             if (Cfg == null) err.Add("Thiếu cấu hình cân bằng");

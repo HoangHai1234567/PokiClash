@@ -46,14 +46,20 @@ namespace PokiClash
             cardGrid.gameObject.SetActive(false);
             buttonRow.gameObject.SetActive(false);
             App.Audio.Play("whoosh");
-            for (float t = 0; t < 0.65f && !closed(); t += Time.unscaledDeltaTime)
+            // hồi hộp theo độ quý: gỗ lắc 0,65 giây nhỏ dần; bạc 0,85 giây; vàng 1,1 giây lắc mạnh dần rồi mới bật
+            bool gold = kind == SlotKind.ChestGold, silver = kind == SlotKind.ChestSilver;
+            float shake = gold ? 1.1f : silver ? 0.85f : 0.65f;
+            for (float t = 0; t < shake && !closed(); t += Time.unscaledDeltaTime)
             {
-                ic.localEulerAngles = new Vector3(0, 0, Mathf.Sin(t * 42) * 9 * (1 - t / 0.65f * 0.6f));
+                float k = t / shake;
+                float amp = gold ? 6 + 8 * k : 9 * (1 - k * 0.6f);
+                ic.localEulerAngles = new Vector3(0, 0, Mathf.Sin(t * (gold ? 48 : 42)) * amp);
                 yield return null;
             }
             if (closed()) yield break;
             ic.localEulerAngles = Vector3.zero;
             App.Audio.Play("chest");
+            Haptics.Play(gold ? Haptic.OpenGold : silver ? Haptic.OpenSilver : Haptic.OpenWood);
             App.I.StartCoroutine(ChestBox.Pop(ic, 1.25f));
             Rewards(rewards);
             buttonRow.gameObject.SetActive(true);

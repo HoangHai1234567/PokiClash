@@ -4,7 +4,7 @@ import { CARD } from '../../core/data/cards';
 import { HERO, HEROES } from '../../core/data/heroes';
 import { STAGES } from '../../core/data/stages';
 import { ELEM_COLOR, RARITY_COLOR, RARITY_NAME } from '../../core/elements';
-import { canEvolve, canUpCard, cardReq, cardSum, CARD_MAX, evolve, formOf, MAX_STAR, SLOTS, starNeed, upCard, type CardSlot } from '../../core/progression';
+import { canEvolve, canUpCard, cardReq, cardSum, CARD_MAX, evolve, formOf, MAX_STAR, SLOTS, starNeed, teamSlots, upCard, type CardSlot } from '../../core/progression';
 import { app, type Screen } from '../app';
 import { AolaAnim, ATTACK, HIT, IDLE, SKILL, Sticker } from '../aola';
 import { clear, h } from '../dom';
@@ -201,8 +201,8 @@ export function openHero(id: string, onChange?: () => void) {
               onclick: () => {
                 sfx.click();
                 if (inTeam) s.team = s.team.filter((x) => x !== id);
-                else if (s.team.length >= 3) {
-                  app.toast('Đội đã đủ 3 tướng: bỏ bớt một tướng trước', 'team');
+                else if (s.team.length >= teamSlots(s)) {
+                  app.toast(`Đội đã đủ ${teamSlots(s)} tướng: bỏ bớt một tướng trước`, 'team');
                   return;
                 } else s.team.push(id);
                 app.persist();

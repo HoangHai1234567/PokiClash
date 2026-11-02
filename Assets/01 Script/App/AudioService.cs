@@ -1,5 +1,6 @@
 // Âm thanh: các tiếng tổng hợp (SfxSynth) nướng sẵn thành WAV (Assets/03 Art/Baked/Audio), phát qua một nhóm AudioSource.
-// Tiếng chạm đinh của máy bi bị giới hạn nhịp (35 ms) và đổi cao độ ngẫu nhiên như bản web.
+// Tiếng chạm đinh của máy bi là tiếng lặp nhiều nhất nên bị hãm: cách nhau ít nhất 0,1 giây, ba biến thể cao độ không lặp
+// liền nhau, cao độ ±5% và độ to ±7% ngẫu nhiên quanh biến thể, nhỏ hơn các tiếng thưởng.
 using System.Collections.Generic;
 using PokiClash.UI;
 using UnityEngine;
@@ -14,6 +15,10 @@ namespace PokiClash
         readonly Dictionary<string, AudioClip> clips = new Dictionary<string, AudioClip>();
         int next;
         float lastPeg = -1;
+        int lastPegVariant = -1;
+
+        public const float PegGap = 0.1f, PegMaxVolume = 0.6f;
+        static readonly float[] PegPitch = { 0.92f, 1f, 1.1f };
 
         public bool Enabled { get; set; } = true;
 
@@ -41,14 +46,19 @@ namespace PokiClash
 
         public void Hit(bool crit) => Play(crit ? "hitCrit" : "hit");
 
-        // speed: tốc độ bi lúc chạm (px/giây của khung web), to dần theo tốc độ, tối đa như bản web; tối đa ~25 tiếng mỗi giây
-        public void Peg(float speed)
+        // speed: tốc độ bi lúc chạm (đơn vị máy/giây), to dần theo tốc độ tới PegMaxVolume; tối đa 10 tiếng mỗi giây.
+        // Trả về false nếu bị hãm (để rung chạm đinh đi cùng nhịp với tiếng).
+        public bool Peg(float speed)
         {
             float now = Time.unscaledTime;
-            if (now - lastPeg < 0.04f) return;
+            if (lastPeg >= 0 && now - lastPeg < PegGap) return false;
             lastPeg = now;
-            float vol = Mathf.Min(1f, speed / 540f);
-            Play("peg", vol, (1100f + Random.value * 500f) / 1100f);
+            int v = lastPegVariant < 0 ? Random.Range(0, PegPitch.Length) : Random.Range(0, PegPitch.Length - 1);
+            if (lastPegVariant >= 0 && v >= lastPegVariant) v++;
+            lastPegVariant = v;
+            float vol = Mathf.Min(1f, speed / 540f) * PegMaxVolume * (1 + (Random.value - 0.5f) * 0.14f);
+            Play("peg", vol, PegPitch[v] * (1 + (Random.value - 0.5f) * 0.1f));
+            return true;
         }
     }
 }

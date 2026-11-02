@@ -6,9 +6,9 @@ import type { FarmState } from './farm';
 import type { AdState, Entitlements } from './ads';
 import { CARD } from './data/cards';
 import { HERO, HEROES, LEGEND_MILESTONE_HERO, STARTERS } from './data/heroes';
-import { STAGE, STAGES, ZONE, ZONES, zoneStages, type StageDef } from './data/stages';
+import { STAGE, STAGES, ZONE, ZONES, zoneStages, type StageDef, type StageEnemy } from './data/stages';
 import { Rng } from './rng';
-import type { BattleStart, Elem, HeroDef, HeroForm, Member, Rarity, StatMods, TeamSetup } from './types';
+import { RARITIES, type BattleStart, type Elem, type HeroDef, type HeroForm, type Member, type Rarity, type StatMods, type TeamSetup } from './types';
 
 export type CardSlot = 'skill' | 'ult' | 'passive';
 export const SLOTS: CardSlot[] = ['skill', 'ult', 'passive'];
@@ -321,11 +321,19 @@ export function enemyTeam(st: StageDef): TeamSetup {
   return {
     name: st.name, ai: true,
     members: st.enemies.map((e) => ({
-      heroId: e.hero, level: e.level, boss: e.boss, star: 1 + Math.floor(e.level / 6),
+      heroId: e.hero, level: e.level, boss: e.boss, ...(e.evo ? { evo: true } : {}), star: 1 + Math.floor(e.level / 6),
       cardLv: { skill: 1 + Math.floor(e.level / 5), ult: 1 + Math.floor(e.level / 6), passive: 1 + Math.floor(e.level / 6) },
     })),
   };
 }
+
+// tướng chính của ải (đứng trên nút ải ở màn đảo): boss, không có thì địch cấp cao nhất, bằng cấp thì độ hiếm cao hơn
+export function stageLead(st: StageDef): StageEnemy {
+  const score = (e: StageEnemy) => (e.boss ? 1000 : 0) + e.level * 10 + RARITIES.indexOf(HERO[e.hero].rarity);
+  return st.enemies.reduce((a, e) => (score(e) > score(a) ? e : a));
+}
+// sao để chọn hình (dạng) của địch ngoài trận: như enemyTeam, riêng boss tiến hóa vào trận ở dạng 1
+export const enemyFormStar = (e: StageEnemy) => (e.evo ? 1 : 1 + Math.floor(e.level / 6));
 
 export interface StageReward {
   balls: number;
@@ -336,6 +344,12 @@ export interface StageReward {
 // ---------- ải theo đảo ----------
 
 export const totalCleared = (s: SaveData) => ZONES.reduce((a, z) => a + s.zones[z.id], 0);
+export const zonesDone = (s: SaveData) => ZONES.filter((z) => s.zones[z.id] >= 8).length;
+
+// ô đội mở theo tiến trình (người dùng chốt 2026-11-02): lúc đầu mang 1 tướng; xong 1 đảo (đánh tới đảo thứ 2) mở ô 2,
+// xong 3 đảo (tới đảo thứ 4) mở ô 3. TEAM_SLOT_ZONES[i]: số đảo phải xong để mở ô i + 1. Mô phỏng cân bằng chưa tính luật này.
+export const TEAM_SLOT_ZONES = [0, 1, 3];
+export const teamSlots = (s: SaveData) => TEAM_SLOT_ZONES.filter((n) => zonesDone(s) >= n).length;
 export const stageCleared = (s: SaveData, st: StageDef) => st.idx <= s.zones[st.zone];
 export const stageOpen = (s: SaveData, st: StageDef) => st.idx <= s.zones[st.zone] + 1;
 export function nextStage(s: SaveData, z: Elem): StageDef | null {

@@ -86,6 +86,7 @@ namespace PokiClash
         }
 
         public void FillPlate(int side) => p.plates[side].Fill(b.ActiveOf(side));
+        public void SetPlateName(int side, string n) => p.plates[side].SetName(n);
 
         public void ApplySnap(Snap s)
         {
@@ -127,7 +128,7 @@ namespace PokiClash
             bool mine = t.side == 0;
             p.qHead.gameObject.SetActive(true);
             p.qIcon.sprite = Icon(mine ? "cards" : "skull");
-            p.qTitle.text = mine ? "Hàng thẻ của bạn" : $"Hàng thẻ của {b.ActiveOf(1).hero.name}";
+            p.qTitle.text = mine ? "Hàng thẻ của bạn" : $"Hàng thẻ của {b.ActiveOf(1).Name}";
             p.qCount.text = picking ? $"Chọn {t.picksTotal - t.picksLeft + 1}/{t.picksTotal}" : "Ra đòn!";
 
             NowTile = null;
@@ -269,7 +270,7 @@ namespace PokiClash
             if (t.side != 0 || b.phase != Phase.Picking)
             {
                 if (b.phase == Phase.Over) return;
-                string who = b.ActiveOf(t.side).hero.name;
+                string who = b.ActiveOf(t.side).Name;
                 OfferLabel(t.side == 0 ? $"{who} ra đòn!" : $"{who} (địch) ra đòn!", -120, 70);
                 return;
             }
@@ -333,7 +334,7 @@ namespace PokiClash
             }
             ClearOffer();
             BackCards.Clear();
-            OfferLabel(b.phase == Phase.Picking ? $"{b.ActiveOf(1).hero.name} đang chọn thẻ..." : "Địch ra đòn!", -16, 64);
+            OfferLabel(b.phase == Phase.Picking ? $"{b.ActiveOf(1).Name} đang chọn thẻ..." : "Địch ra đòn!", -16, 64);
             if (b.phase != Phase.Picking) return;
             for (int i = 0; i < t.offer.Count; i++)
             {

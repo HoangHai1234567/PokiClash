@@ -1,8 +1,10 @@
-// Đảo hệ (chép zoneScreen của Web/src/view/screens/zone.ts): ảnh đảo phóng 1,27 lần, cuộn dọc, 8 ải dọc đường mòn.
+// Đảo hệ (chép zoneScreen của Web/src/view/screens/zone.ts): bản đồ đảo (ArtGen/Islands/compose_islands.py) rộng 1,27 màn, cuộn dọc, 8 ải dọc đường.
 // Khung thông tin trên (hệ, cấp đề nghị, độ khó, tiến độ, 2 rương mốc, gợi ý hệ khắc), khung ải tiếp theo dưới.
 // Trong một đảo ải mở lần lượt. args = Elem, hoặc ZoneArgs (mở luôn hộp chuẩn bị của một ải).
-// Prefab màn hình Assets/04 Prefabs/Screens/Zone dùng cho cả 5 đảo: màu biển, ảnh đảo, chữ gán lúc chạy; nút ải (Items/NutAi),
-// vệt đường (Items/VetDuong), sticker đội trưởng (Items/DoiTruongDao), địch ải tiếp (Items/DichAi) sinh theo dữ liệu.
+// Prefab màn hình Assets/04 Prefabs/Screens/Zone dùng cho cả 5 đảo: màu biển, ảnh đảo, chữ gán lúc chạy; bệ ải (Items/BeAi),
+// vệt đường (Items/VetDuong), địch ải tiếp (Items/DichAi) sinh theo dữ liệu.
+// Mỗi ải là một bệ (Items/BeAi, ZoneNode): tướng chính của ải (Teams.StageLead) đứng trên bệ, bảng tên phía ngoài khúc cua.
+// Không hiện tướng của người chơi trên bản đồ (người dùng bỏ sticker đội trưởng cạnh ải đang đánh, 2026-11-02).
 using System;
 using System.Collections;
 using System.Linq;
@@ -23,6 +25,9 @@ namespace PokiClash
     public sealed class ZoneScene : SceneRoot
     {
         public static Elem LastZone = Elem.Thuy;
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] // Play không reload domain
+        static void ResetStatics() => LastZone = Elem.Thuy;
         // bản đồ phóng to và cuộn dọc, để ải ở hai đầu không bị khung trên dưới che
         public const float MK = 1.27f, PadT = 260, PadB = 330;
 
@@ -60,9 +65,12 @@ namespace PokiClash
         [SerializeField] Parts p;
         [SerializeField] ZoneNode nodePrefab;
         [SerializeField] Image dashPrefab;
-        [SerializeField] HeroPortrait leaderPrefab;
         [SerializeField] ZoneEnemy enemyPrefab;
         [SerializeField] ZoneChestDialog chestPrefab;
+        [Tooltip("Biển cuộn theo bản đồ (con đầu của noi_dung, menu Đảo sảnh: ghép ảnh, kéo, mây viền); trống thì chỉ có biển nền")]
+        [SerializeField] Image seaScroll;
+        [Tooltip("Lớp phần động trên ảnh bản đồ (con của ảnh bản đồ, menu Đảo sảnh: ghép ảnh, kéo, mây viền)")]
+        [SerializeField] IslandAnim mapAnim;
 
         Elem zone = Elem.Thuy;
         float mapW, mapH;
@@ -73,12 +81,11 @@ namespace PokiClash
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
         // Dùng khi nướng prefab (Editor).
-        public void Setup(Parts parts, ZoneNode node, Image dash, HeroPortrait leader, ZoneEnemy enemy, ZoneChestDialog chest)
+        public void Setup(Parts parts, ZoneNode node, Image dash, ZoneEnemy enemy, ZoneChestDialog chest)
         {
             p = parts;
             nodePrefab = node;
             dashPrefab = dash;
-            leaderPrefab = leader;
             enemyPrefab = enemy;
             chestPrefab = chest;
         }
@@ -97,7 +104,20 @@ namespace PokiClash
             var z = App.Data.Zone(zone);
             App.Bars.SetTitle(z.name);
 
-            p.sea.color = Theme.Hex(z.sea);
+            // biển: ảnh biển lặp (sea_tile) nếu có, ảnh đảo trong suốt ngoài bờ nằm trên; chưa có thì màu biển của đảo
+            var seaTile = App.Art ? App.Art.Get("sea_tile") : null;
+            foreach (var img in new[] { p.sea, seaScroll })
+            {
+                if (!img) continue;
+                if (!seaTile)
+                {
+                    img.color = Theme.Hex(z.sea);
+                    continue;
+                }
+                img.sprite = seaTile;
+                img.type = Image.Type.Tiled;
+                img.color = Color.white;
+            }
             var sprite = App.Art ? App.Art.Get(z.art) : null;
             float aspect = sprite ? sprite.rect.width / sprite.rect.height : PokiCanvas.RefW / PokiCanvas.RefH;
             mapW = PokiCanvas.RefW * MK;
@@ -106,6 +126,7 @@ namespace PokiClash
             p.map.name = "anh_" + z.art;
             Theme.SetSprite(p.map, sprite);
             p.map.rectTransform.sizeDelta = new Vector2(mapW, mapH);
+            if (mapAnim) mapAnim.Bind(z.art);
 
             entered = true;
             Render();
@@ -137,15 +158,19 @@ namespace PokiClash
             var pts = z.nodes.Select(NodePos).ToList();
             for (int i = 0; i < Mathf.Min(prog, 7); i++) Dashes(pts[i], pts[i + 1]);
 
-            string lead = s.team.FirstOrDefault(t => s.Hero(t)?.owned == true) ?? "tieu_y";
-            for (int i = 0; i < stages.Count; i++)
+            string key = Keys.Of(zone);
+            // vẽ ải trên cao trước, ải thấp sau (đứng đè lên), cho có chiều sâu
+            foreach (int i in Enumerable.Range(0, stages.Count).OrderByDescending(k => pts[k].y))
             {
                 var st = stages[i];
                 var pt = pts[i];
                 bool cleared = Progress.StageCleared(s, st), open = Progress.StageOpen(s, st), current = open && !cleared;
                 var stage = st;
+                var en = Teams.StageLead(st, d);
+                int side = PlateSide(pts, i);
                 var node = Ui.Spawn(nodePrefab, p.nodeLayer);
-                node.Bind(st, open, cleared, current, pt, Icon(st.kind == StageKind.Boss ? "boss" : "crownSm"), () =>
+                var pedestal = App.Art ? App.Art.Get($"be_{key}{(st.kind == StageKind.Boss ? "_boss" : "")}") : null;
+                node.Bind(st, d.Hero(en.hero), Teams.EnemyFormStar(en), en.level, open, cleared, current, pt, side, pedestal, () =>
                 {
                     if (!Progress.StageOpen(App.Save.Data, stage))
                     {
@@ -154,22 +179,20 @@ namespace PokiClash
                     }
                     StagePrep.Open(stage.id);
                 });
-                if (current)
-                {
-                    // sticker đội trưởng đứng cạnh ải đang đánh (nhún nhờ Bob có sẵn trên prefab)
-                    var side = pt.x > mapW / 2 ? -1 : 1;
-                    var por = Ui.Spawn(leaderPrefab, p.nodeLayer);
-                    por.Bind(d.Hero(lead), 160);
-                    var rt = por.Rect;
-                    rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
-                    rt.anchoredPosition = pt + new Vector2(side * 120, 10);
-                    if (side < 0) rt.localScale = new Vector3(-1, 1, 1);
-                }
             }
 
             ShowInfo(z, s, prog);
             ShowBottom(z, s);
             StartCoroutine(ScrollToCurrent(pts[Mathf.Min(7, prog)]));
+        }
+
+        // bảng tên đặt phía ngoài khúc cua của đường (xa hai ải kề), hai đầu đường đặt ngược phía ải kề
+        static int PlateSide(System.Collections.Generic.List<Vector2> pts, int i)
+        {
+            float x = pts[i].x;
+            float nx = i == 0 ? pts[1].x : i == pts.Count - 1 ? pts[i - 1].x : (pts[i - 1].x + pts[i + 1].x) / 2;
+            if (Mathf.Abs(x - nx) < 4) return i % 2 == 0 ? 1 : -1;
+            return x > nx ? 1 : -1;
         }
 
         static void Clear(Transform t)

@@ -65,7 +65,7 @@ export const HEROES: HeroDef[] = [
   hero('canh_cut', 'Cánh Cụt', 'Đầu bếp xứ băng', 'thuy', 'common', [85, 40, 50, 55, 50, 20], 'canh_cut',
     [['Cánh Cụt Con', 'goc_1691'], ['Đầu Bếp Cánh Cụt', 'goc_1692']]),
   hero('giot_suong', 'Giọt Sương', 'Giọt nước hóa rồng', 'thuy', 'uncommon', [50, 50, 50, 50, 50, 50], 'giot_suong',
-    [['Giọt Nước', 'goc_7'], ['Tiên Sương', 'goc_8'], ['Sương Long', 'goc_9']]),
+    [['Giọt Nước', 'thuy_7'], ['Tiên Sương', 'goc_8'], ['Sương Long', 'goc_9']]),
   hero('tam_tay', 'Tám Tay', 'Pháo thủ bong bóng', 'thuy', 'uncommon', [80, 60, 60, 30, 30, 30], 'tam_tay',
     [['Tám Tay Bong Bóng', 'goc_1053'], ['Tám Tay Pháo Thủ', 'goc_1054']]),
   hero('ca_ngua', 'Cá Ngựa', 'Lính gác rạn san hô', 'thuy', 'rare', [80, 40, 60, 60, 40, 40], 'ca_ngua',

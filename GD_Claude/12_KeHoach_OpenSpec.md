@@ -25,6 +25,7 @@ Kiểm tra: `openspec validate --all --strict`. Hiện cả 12 change hợp lệ
 | 10 | `add-monetization-hooks` | Quảng cáo thưởng và IAP qua lớp móc, giới hạn mỗi ngày, không bán bi | 0 | 8 |
 | 11 | `add-ball-trees` | Cây bi trên sảnh thay bi AFK, trang trại ca dài, đường cong cấp vào cấu hình (chốt 2026-10-31) | 5, 9, 10 | 14 |
 | 12 | `convert-to-prefabs` | Mọi thứ là prefab và asset làm sẵn (kể cả UI), runtime không sinh gì; nướng một lần bằng code dựng cũ rồi xoá code dựng | 0–11 | 31 |
+| 13 | `update-pachinko-feel` | Máy bi học Clash of Critters: vật lý bồng bềnh, két vàng có mái và ô vàng khuất (11 ô, kinh tế mỗi bi giữ nguyên), web và Unity trùng từng bit, phản hồi hình, tiếng, rung chia bậc, chậm và rung màn cho rương vàng, prompt FX, nút Rung trong Sổ tay (chốt 2026-11-02) | 4, 12 | 21 |
 
 Mốc 0–4 là vòng lõi chơi được (đánh ải → bi → máy bi → nuôi tướng). Mốc 5–6 làm vòng lõi bền và đo được. Mốc 7–9 là side meta của GDD. Mốc 10 làm song song được với mốc 5 trở đi.
 
@@ -75,7 +76,7 @@ Chốt thêm khi trả lời câu hỏi còn mở (2026-10-31, lượt 2):
   - Mỗi tướng là một dòng tiến hóa, lên sao thì đổi hình.
   - Quái thường lấy dòng 2–4 dạng, boss lấy dòng từ 3 dạng.
   - Prompt đính ảnh tham chiếu aola, GPT vẽ lại theo style riêng và đổi chi tiết.
-  - Đảo Thủy xong prompt (`ArtGen/Heroes/Thuy.md`, 21 ảnh); các hệ khác chờ chọn lại.
+  - Đảo Thủy xong prompt (`ArtGen/Heroes/Thuy.md`, 21 ảnh); các hệ khác chờ chọn lại. **2026-11-02:** bỏ hết file prompt cũ, làm lại (`ArtGen/Heroes/QUY_TRINH.md`, gói sinh bằng `ArtGen/Heroes/build.py`): vẫn vẽ đè lên rig aola, nét vẽ tay như bản đồ, thiết kế học từ tướng aola, vẻ chiến, viền giấy xé do shader; Giọt Sương dạng 1 là tinh linh nước hiệp sĩ tập sự (rig #7).
 
 ## Tiến độ
 
@@ -204,6 +205,94 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
   - Hậu quả: ép cỡ 1024 nên mặt máy bi mờ; nén ASTC trên Android; nhiễu nét rung thành Clamp nên nét gần như đứng yên; danh mục ảnh lẫn sprite nướng.
   - Nay `ArtImporter` bỏ qua `Baked/`, cách nhập đã đặt lại.
   - Nét rung giờ đúng như bản gốc, nên ảnh chụp từ 2026-11-01 lệch khoảng 1% ở viền giấy.
+
+**Sau mốc 12: thanh mốc tiến hóa (2026-11-02).** Người dùng: lấy đủ các dạng tiến hóa; nhận hoặc thu phục tướng thì ở dạng thấp nhất; hộp chi tiết tướng có một thanh dưới tướng thể hiện các mốc tiến hóa.
+- Hình: xuất đủ 83 dạng aola (xem `13_DanhSachTuong.md` mục 6).
+- Nhận tướng: tướng chưa có luôn ở sao 1 nên mở khóa (khởi đầu, tặng, đủ mảnh, mốc Huyền thoại) là dạng 1; test `RosterTests.TuongMoiNhan_ODangThapNhat` chặn.
+- Hộp chi tiết: `EvolutionStrip` (hàng `thanh_tien_hoa` dưới hàng ô xem của `ChiTietTuong`, dựng bằng menu `PokiClash/Prefab/Thêm thanh tiến hóa vào ChiTietTuong`): mỗi dạng một mốc, chia đều trên thanh (mốc cuối ở cuối thanh: dòng 2 dạng có mốc 2 ở cuối, người dùng chốt), dưới mốc ghi sao bắt đầu (1, 3, 5), chân dung, tên dạng; thanh là tiến độ tới dạng cuối (`EvolutionStrip.Fill`, test `ThanhTienHoa_MocCuoiOCuoiThanh`); dạng chưa tới là bóng sẫm; dòng 1 dạng có dòng ghi chú. Nằm dưới sân khấu của bố cục mới. Chỉ làm ở Unity, bản web chưa có.
+- Kiểm: menu `PokiClash/Thử/Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)` chụp `Temp/PokiShots/evo_*.png` (Giọt Sương sao 1, 3, 5; Tiểu Y sao 4; Kiếm Linh; Huyền Vũ chưa có; lưới Tướng), đã soi đủ; EditMode 82/82 đạt.
+- Vào Play không reload domain (người dùng, 2026-11-02; menu `PokiClash/Cài đặt/3. Play không reload domain`, có trong "Dựng tất cả"): bớt khoảng 4,5–5 giây mỗi lần Play, vẫn reload scene. Static runtime có thể đổi được trả về trong `ResetStatics` ([RuntimeInitializeOnLoadMethod(SubsystemRegistration)]) của App, MachineScene, ZoneScene, NotebookDev, SafeArea; thêm static mới thì trả về cùng cách.
+- Chụp qua MCP khi Editor không được focus: Unity chỉ chạy khung hình khi có yêu cầu MCP, nên phải gọi đều (ví dụ đọc `editor/state` mỗi giây) trong lúc chờ; `WaitForEndOfFrame` không tới, menu này tự render camera thay vì chụp màn hình.
+
+**Sau mốc 12: hộp chi tiết tướng kiểu sân khấu (2026-11-02).** Người dùng gửi ảnh màn chi tiết tướng của Clash of Critters, muốn học bố cục: tướng là trọng tâm, việc nuôi tướng đẩy vào hộp con. Hộp cũ dài kín màn, thêm thanh tiến hóa là tràn.
+- `ChiTietTuong` từ trên xuống:
+  - sân khấu rộng hết hộp (cao 620): ô xem 520 (trước 400), 4 nút clip dưới chân; góc trên trái là hệ + tên, sao + huy hiệu + độ hiếm, danh hiệu; góc trên phải là dòng tiến hóa;
+  - thanh mốc tiến hóa;
+  - hàng 4 chỉ số (icon, nhãn, số), dòng "Ở cấp n, sao m" ở đáy khung;
+  - khung mảnh và nơi rơi (tướng chưa có);
+  - 3 thẻ riêng cỡ mini; chạm thẻ mở `ChiTietThe` ở cấp hiện tại; dưới thẻ một chỗ chung: nút "Lên cấp n" khi đủ bản sao, không thì thanh bản sao, hoặc "Cấp tối đa";
+  - dòng điều kiện tiến hóa (hoặc "Đã tiến hóa tối đa"), hàng nút Tiềm năng (`mo_tiem_nang`, nhịp phồng khi còn kết quả khai phá chưa chọn), Tiến hóa, Cho vào / Bỏ khỏi đội.
+- Bỏ: dải Tiềm năng (`PotentialStrip` đã xoá; các ô dòng xem trong hộp Tiềm năng), khung tiến hóa, chữ "Thẻ riêng của tướng".
+- `ChiTietThe`: dòng ghi chú nay theo thẻ (thẻ chung "không lên cấp"; thẻ riêng ghi cấp n/5 và cách lên cấp).
+- Đổi prefab bằng một menu dựng chạy một lần, đã xoá menu sau khi chạy; prefab là bản gốc. Đã chạy menu thử Tướng và Tiềm năng: không lỗi, ảnh đúng.
+- Chưa làm (bước sau): mũi tên ‹ › lướt tướng trong hộp; bong bóng "Tiến hóa được!" trên đầu tướng; hạng chữ cho chỉ số (cần thang ngưỡng, làm ở bản web trước).
+
+**Sau mốc 12: sảnh và đảo hệ vẽ tay (2026-11-02).** Người dùng gen ảnh đảo bằng GPT theo `ArtGen/Islands/PROMPTS.md` (nét bút chì trên giấy như UI).
+- **Sảnh:**
+  - `ArtGen/Islands/compose_islands.py` ghép 6 đảo gen rời thành một đảo lớn liền khối, bờ tự nhiên (thêm vùng mới: gen một đảo, thêm một dòng);
+  - menu `PokiClash/Prefab/Đảo sảnh: ghép ảnh, kéo, mây viền` đưa vào `Screens/Hub`;
+  - sảnh kéo được (`HubPan`, quá giới hạn thì bật về), ra rìa là vành mây che chỗ cho các đảo sau.
+- **Đảo hệ:**
+  - bản đồ dọc GPT gen, đảo kín bề ngang màn, cuộn dọc;
+  - script dò vòng tròn ải trên ảnh làm `ZONES[].nodes` (đã chép vào bản web, xuất, nhập); biển lặp cuộn theo bản đồ;
+  - bản web vẫn vẽ khung 9:16 nên đường ải trên web dồn vào giữa.
+- **Bệ ải** (học ảnh màn ải của một game pet người dùng gửi):
+  - mỗi ải là `Items/BeAi` (ZoneNode, dựng bằng menu `PokiClash/Prefab/Bệ ải (BeAi)`), thay nút tròn `Items/NutAi` (đã xoá);
+  - bệ đất theo đảo (boss: bệ to, viền đá, vòng vàng; ảnh vẽ bằng script);
+  - tướng chính của ải đứng to trên bệ, ải chưa mở là bóng sẫm;
+  - bảng tên phía ngoài khúc cua: số ải, khoá, dấu qua, vương miện, tên tướng, cấp;
+  - vầng sáng nhịp ở ải đang đánh, tướng mình đứng bên kia bệ.
+- Chưa làm:
+  - ~~đặt sheet phần động lên sảnh và đảo~~: đã làm (`IslandAnim`, lớp `dong` dưới ảnh đảo sảnh và ảnh bản đồ; khói, lửa, bánh răng, chuông, xoáy nước, bọt, lấp lánh, lá, gió, sóng, đốm lửa chạy dọc dung nham, gợn nước chạy dọc suối);
+  - đảo 12 ải (đang cố định 8 ở nhiều chỗ, xem `ArtGen/Islands/PROMPTS.md`);
+  - bệ vẽ bằng GPT nếu muốn đẹp hơn.
+
+**Sau mốc 12: ô đội mở theo tiến trình, bể tướng (2026-11-02).** Người dùng chốt:
+- lúc đầu chỉ mang 1 tướng;
+- đánh tới đảo thứ 2 mở ô 2, tới đảo thứ 4 mở ô 3. Hiểu là: xong 1 đảo (8/8 ải, đảo nào cũng được) mở ô 2, xong 3 đảo mở ô 3.
+
+Đã làm:
+- **Luật:** `TEAM_SLOT_ZONES = [0, 1, 3]`, `teamSlots()` trong `Web/src/core/progression.ts`; chép sang `Progress.TeamSlots`. Test `ZoneTests.ODoi_MoTheoSoDaoDaXong`.
+- **Vào trận** chỉ mang đủ số ô đã mở (web `battleScreen`, Unity `BattleController`), nên bản lưu cũ có 3 tướng vẫn đúng luật. Nút "Cho vào đội" ở màn Tướng cũng giới hạn theo số ô.
+- **Hộp Chuẩn bị trận (Unity):**
+  - ô chưa mở hiện "Khoá · xong n đảo", chạm thì báo điều kiện;
+  - chạm ô đã mở thì bật bể tướng `Dialogs/ChonDoi` (TeamPickerDialog, dựng bằng menu `PokiClash/Prefab/Hộp chọn đội (ChonDoi)`): chọn một lần đủ đội, số trước tên là thứ tự ra trận, có mũi tên khắc hệ, "Xong" trả đội về;
+  - lưới kho tướng cũ trong hộp để ẩn.
+- **Bản web:** ô khoá và giới hạn chọn theo số ô; vẫn chọn ngay trong hộp, chưa có bể tướng.
+- **Chưa tính:** mô phỏng cân bằng (sim.ts, ProgressSim, cửa sổ Cân bằng) vẫn cho đội 3 tướng, chưa mô phỏng giai đoạn đầu chỉ 1 tướng. Người chơi mới đi Đảo Thủy bằng 1 tướng: cần xem lại độ khó Đảo Thủy (nhất là boss 3 dạng ải 8).
+  - Menu thử "Người chơi mới đi trọn Đảo Thủy" sau luật mới (máy tự đánh, 30 lượt): 3 thắng, 27 thua, kẹt ở ải 4 (mini boss), cấp 3. Chờ người dùng chọn cách cân lại.
+
+**Sau mốc 12: boss tiến hóa và tướng trên nút ải (2026-11-02).** Người dùng: các mốc ở màn đảo phải hiện tướng chính đứng ở trên; ải boss chỉ có 1 boss, boss có thẻ tiến hóa riêng (dạng đầu gần chết thì lên dạng sau, hồi máu; dạng đầu yếu, mạnh dần). Làm ở web, xuất JSON và golden, chép sang C#.
+- **Tướng trên nút ải:** mỗi nút có tướng chính của ải đứng trên, chân khuất sau mép nút; ải chưa mở thì xám mờ.
+  - Chọn tướng (`stageLead` / `Teams.StageLead`): boss; không có thì địch cấp cao nhất; bằng cấp thì độ hiếm cao hơn.
+  - Hình theo sao của địch; boss tiến hóa hiện dạng 1 (`enemyFormStar`).
+  - Sticker đội trưởng ở ải đang đánh dời ra xa hơn để khỏi đè. Unity dùng lại prefab `DoiTruongDao` (tắt nhún), đặt ở lớp đường.
+- **Ải boss (ải 8):** bỏ lính đi kèm, chỉ còn boss có cờ `evo` (`StageEnemy.evo`, `Member.evo`). Mảnh rơi giữ như cũ, kể cả mảnh của lính đã bỏ (Hỏa: Bồ Đề; Kim: Bọ Ngựa). Mini boss ải 4 không đổi.
+- **Thẻ Tiến Hóa** (`boss_evo`, thẻ riêng thứ 121, bị động, không theo cấp thẻ): "Khi máu dưới 25%, nếu còn dạng sau: tiến hóa, hồi đầy máu, máu và Công tăng."
+  - Kích cả khi dính đòn chí tử (không gục, lên dạng sau). Xoá bỏng, choáng; bị động "máu thấp" của tướng dùng lại được.
+  - Sân trận hiện chữ "Tiến hóa!", đổi hình, đổi tên dạng trên bảng tên.
+- **Chỉ số theo dạng** (`CFG.bossEvoHp` 1,5, `bossEvoAtk` 0,1):
+  - máu các dạng cộng lại bằng 1,5 lần máu boss (gánh phần lính đã bỏ), chia theo tỉ lệ 1 : 2 : … : n. Dòng 3 dạng: ×0,25 / 0,5 / 0,75; dòng 2 dạng: ×0,5 / 1; dòng 1 dạng: ×1,5, không tiến hóa;
+  - Công dạng cuối đủ, mỗi dạng trước kém 10%;
+  - khi tiến hóa, máu tối đa và Công nhân theo tỉ lệ hai dạng, nên phần cộng từ thẻ (Bánh Bao) vẫn giữ.
+- **Hộp chuẩn bị:** boss tiến hóa hiện cả dòng dạng; web có thêm dòng mô tả thẻ.
+- **Máy tự chơi** (200 trận mỗi ô; tỉ lệ thắng ải 8 ở 5 mức cấp, trước → sau):
+
+  | Đảo | Boss (số dạng) | Trước | Sau |
+  |---|---|---|---|
+  | Thủy | Mập Răng Cưa (3) | 0 / 0 / 8 / 43 / 65 | 0 / 0 / 5 / 42 / 69 |
+  | Hỏa | Pháp Luân (1) | 1 / 11 / 42 / 68 / 82 | 5 / 13 / 41 / 65 / 81 |
+  | Kim | Sói Linh Thép (2) | 28 / 48 / 71 / 86 / 94 | 37 / 53 / 73 / 88 / 94 |
+  | Mộc | Giác Long Gỗ (2) | 68 / 81 / 95 / 98 / 100 | 63 / 81 / 91 / 96 / 100 |
+  | Thổ | Cà Sa (1) | 9 / 14 / 27 / 41 / 47 | 2 / 2 / 7 / 18 / 16 |
+
+  - Thổ khó hơn hẳn: boss Huyền thoại gánh 1,5 lần máu, còn lính cũ (Võ Sư) rất yếu. Thử hệ số 1,4 thì 4 đảo kia dễ hơn trước mà Thổ chỉ lên 22%, nên giữ 1,5.
+- **Còn mở:**
+  - Hỏa (Pháp Luân) và Thổ (Cà Sa) là dòng 1 dạng, chưa tiến hóa được; Kim, Mộc chỉ tiến hóa 1 lần. Theo luật "boss lấy dòng từ 3 dạng", khi chọn lại tướng các đảo này thì cơ chế tự chạy đủ.
+  - Đảo Thủy đã chọn boss ải 8 là Huyền Vũ (bảng ở `13_DanhSachTuong.md`), dữ liệu vẫn là Mập Răng Cưa (việc 9 của file đó).
+  - Mini boss ải 4 có tiến hóa không.
+  - Ải 8 Đảo Thủy khi chỉ mang 1 tướng (luật ô đội ở mục trên): Giọt Sương một mình thắng 0% ở cấp 7 và cấp 10, 7% ở cấp 14 (300 trận). Đội 3 tướng (Giọt Sương, Võ Sư, Nữ Hoa) cấp 7 thắng 40%. Lượt thua điển hình: boss dạng cuối dùng Cuồng Nộ (+100% Công), chiêu (645) rồi tuyệt kỹ (1478), vì nộ dồn từ đòn nặng của cả 3 dạng. Cần người dùng chọn cách cân lại cùng với độ khó Đảo Thủy.
+- Unity: đã chạy menu `PokiClash/Nhập dữ liệu` (HeroDb, CardDb, ZoneDb, BalanceConfig có thẻ mới, cờ `evo` và 2 hệ số); EditMode 81/81 đạt, gồm `BossTienHoa_TuDang1LenDangCuoi` và `TuongTrenNutAi_KhopBanWeb`. Đã xem trong Unity bằng menu thử mới `PokiClash/Thử/Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải 8`: tướng đứng trên bệ từng nút ải đúng (ải 8 là Cá Mập Con), hộp chuẩn bị hiện 3 dạng, trong trận boss lên 2 dạng, mỗi lần hồi đầy máu (523, 1046, 1569) và đổi hình, đổi tên. Dòng "… ra đòn", "đang chọn thẻ", "Hàng thẻ của …", "Tuyệt kỹ của …" trước lấy tên dòng, nay theo tên dạng (`fighterName` ở web, `Fighter.Name` ở C#). Sau sửa này EditMode 83/83 đạt. Bảng chỉnh số trong Sổ tay của Unity chưa có 2 hệ số mới (prefab nướng theo danh sách khoá).
 
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 

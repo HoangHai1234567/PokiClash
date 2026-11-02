@@ -27,6 +27,7 @@ namespace PokiClash.EditorTools
             ti.npotScale = TextureImporterNPOTScale.None;
             bool big = assetPath.Contains("/Fallback/") && !assetPath.Contains("/Icons/") || assetPath.Contains("/Islands/") || assetPath.Contains("/BattleBG/");
             ti.maxTextureSize = big ? 2048 : 1024;
+            if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
             var android = ti.GetPlatformTextureSettings("Android");
             android.overridden = true;
             android.maxTextureSize = ti.maxTextureSize;
@@ -103,6 +104,16 @@ namespace PokiClash.EditorTools
                 {
                     "hammer", "helmet", "wing", "moon", "wave", "trident", "revive", "farm_field", "farm_pond", "farm_orchard",
                     "farm_oven", "farm_workshop", "st_burn", "st_stun", "st_regen", "st_evade",
+                },
+            },
+            // ArtGen/Islands: phần động của sảnh và đảo hệ
+            ["ANIM_Sheet"] = new Sheet
+            {
+                cols = 4, rows = 4, prefix = "anim_",
+                names = new[]
+                {
+                    "smoke_big", "smoke_small", "flame_a", "flame_b", "embers", "gear_big", "gear_small", "bell",
+                    "whirlpool", "trident", "wave", "ripple", "foam", "sparkle", "leaf", "wind",
                 },
             },
         };

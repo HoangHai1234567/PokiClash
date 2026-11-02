@@ -45,11 +45,13 @@ namespace PokiClash
         // tướng đang ra sân: tên, hệ, cấp, BOSS
         public void Fill(Fighter f)
         {
-            nameText.text = f.hero.name;
+            nameText.text = f.Name;
             elemTag.Set(f.hero.elem);
             level.text = $"Lv{f.level}";
             boss.SetActive(f.boss);
         }
+
+        public void SetName(string n) => nameText.text = n;
 
         static string Pct(double x) => CardText.Pct(x);
 

@@ -54,6 +54,9 @@ namespace PokiClash.Tests
             int same = 0;
             for (int i = 0; i < wf.Count && i < first.Count && (string)wf[i] == first[i]; i++) same++;
             TestContext.WriteLine($"Trùng từng bi với web: {same}/{wf.Count} bi đầu; khung {frame} (web {J.Int(g, "frames")})");
+            // sin/cos góc lệch là đa thức (Board.SinSmall/CosSmall), mọi phép còn lại là IEEE: Unity và web ra cùng từng bi
+            Assert.AreEqual(wf.Count, same, "400 bi đầu rơi vào cùng chỗ với web");
+            Assert.AreEqual(J.Int(g, "frames"), frame, "cùng số khung");
         }
 
         [Test]
@@ -170,6 +173,38 @@ namespace PokiClash.Tests
             Assert.AreEqual(20, d.Cfg.MaxPerDrop(5));
             Assert.AreEqual(30, d.Cfg.MaxPerDrop(15));
             CollectionAssert.AreEqual(new[] { 1, 2, 3 }, Progress.XAllowed(new SaveData { level = 5 }, d.Cfg));
+        }
+
+        [Test]
+        public void MatMay_KetVangVaOKhuat()
+        {
+            var b = new Board(1);
+            var vault = b.cups.Where(c => c.r == 0).ToList();
+            Assert.AreEqual(1, vault.Count, "một két chữ nhật");
+            Assert.AreEqual(SlotKind.ChestGold, vault[0].reward);
+            Assert.AreEqual(2, b.cups.Count(c => c.r > 0 && c.reward == SlotKind.ChestSilver), "hai cốc bạc");
+            Assert.AreEqual(Board.SlotLayout.Length, b.slots.Count);
+            int mid = b.slots.Count / 2;
+            Assert.AreEqual(SlotKind.ChestGold, b.slots[mid].reward, "ô giữa là ô vàng khuất");
+            // ô vàng khuất nằm trọn dưới đáy két
+            Assert.LessOrEqual(Board.VaultX - Board.FloorHalf, b.slots[mid].x0);
+            Assert.GreaterOrEqual(Board.VaultX + Board.FloorHalf, b.slots[mid].x1);
+            Assert.AreEqual(Board.Right - Board.Left, Board.SlotW.Sum(), 1e-9, "tổng độ rộng ô bằng bề ngang máy");
+            foreach (var s in b.slots) Assert.GreaterOrEqual(s.x1 - s.x0, 22, "ô đủ rộng cho bi 18");
+            Assert.AreEqual(2, b.segs.Count(s => s.kind == SegKind.Roof));
+            Assert.AreEqual(2, b.segs.Count(s => s.kind == SegKind.Floor));
+            Assert.AreEqual(Board.SlotLayout.Length - 1, b.segs.Count(s => s.kind == SegKind.Divider));
+        }
+
+        [Test]
+        public void SinCosGocNho_SaiSoDuoi1e13()
+        {
+            for (int i = -200; i <= 200; i++)
+            {
+                double x = i * 0.001;
+                Assert.AreEqual(System.Math.Sin(x), Board.SinSmall(x), 1e-13, "sin " + x);
+                Assert.AreEqual(System.Math.Cos(x), Board.CosSmall(x), 1e-13, "cos " + x);
+            }
         }
 
         [Test]

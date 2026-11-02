@@ -1,125 +1,114 @@
-# Quy trình gen hình tướng (thay tạo hình trên rig aola)
+# Quy trình gen hình tướng (2026-11-02)
 
-Chốt 2026-11-01 sau khi ảnh `tieu_y_1` gen theo cách cũ bị chê "không đúng theme game". Nội dung rút từ các file md của AolaRipper; đọc bản gốc khi cần chi tiết:
-- `CLAUDE.md`, `AGENT.md`, `TIEN_DO.md`;
-- `reskin/BAI_HOC.md`, nhất là mục 6–8;
-- prompt mẫu của 4 thầy tu: `reskin/monk_*/PROMPTS.md`, `GEN.md`, `MB6_GEN.md`.
+Người dùng chốt (2026-11-02), sau nhiều lần đổi trong ngày:
+- **vẫn vẽ đè lên rig vector của aola** để giữ animation aola;
+- **nét vẽ tay của game** như ảnh mốc bản đồ, **thiết kế** học từ tướng aola;
+- tướng có **vẻ "chiến"**;
+- **viền trắng kiểu giấy xé** quanh tướng do game vẽ (shader), GPT không vẽ.
 
-AolaRipper nằm ở `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper` (gọi tắt là `<aola>`).
+Mọi file prompt tướng cũ (`PROMPTS.md`, `Thuy.md`, `thuy/*.md`) đã xoá; prompt nay sinh từ `build.py`.
 
-## 1. Theme của tướng
+## 1. Phong cách
 
-- **Tướng là sinh vật kiểu thú nuôi đánh nhau** (pet), như Yabi của aola. Không vẽ người kiểu anime hay tranh minh hoạ.
-- **Nét theo hình trận aola**, giống 4 thầy tu đang có trong game:
-  - viền đều;
-  - màu viền là sắc đậm, hơi xỉn của chính màu nó bao, không đen, không một màu nâu cho mọi chỗ;
-  - tô phẳng 2–3 tông, cel shading một lớp, điểm sáng nhỏ.
-- **Không dùng nét sổ tay vẽ tay** (bút chì, sáp, giấy) cho tướng. Nét đó chỉ dành cho UI.
+- **Tướng là sinh vật kiểu thú nuôi đánh nhau**, không phải người.
+- **Nét vẽ** lấy từ `ArtGen/Islands/refs/world_style.png`:
+  - viền mực nâu sẫm `#2B2118` dày đều, hơi rung như bút thật;
+  - tô phẳng màu ấm, bóng bằng chì màu gạch chéo, vài điểm sáng trắng nhỏ;
+  - họa sĩ vẽ tay đẹp: không nguệch ngoạc kiểu trẻ con, không quá chi tiết;
+  - không bóng loáng kiểu số, không chuyển sắc, không 3D.
+- **Thiết kế** học từ tướng aola (người dùng gọi là "style pokemon"): dáng gọn mập, đọc được khi nhỏ, mắt to, hình đơn giản, ít chi tiết. Không lấy nét bóng loáng của aola, không chép con nào.
+- **Vẻ "chiến"**: mày xếch xuống, cười tự tin lộ răng nanh nhỏ, thế sẵn sàng đánh; dễ thương, không linh vật vui tươi, không đáng sợ.
+- **Viền trắng giấy xé**: game vẽ bằng shader (mục 7). Prompt dặn GPT không vẽ viền trắng.
 
-## 2. Nguyên tắc
+Lịch sử 2026-11-02 (để khỏi lặp lại):
+- nét vector bóng như hình gốc: "không giống style game";
+- nét trẻ con vẽ vở nháp: "xấu";
+- nét số bóng loáng kiểu sprite: "mất style vẽ tay";
+- bỏ rig, vẽ bộ mảnh rời: người dùng quay lại rig cũ;
+- kỳ giông, cá chép: bỏ; Giọt Sương dạng 1 là tinh linh nước hiệp sĩ tập sự.
 
-- **Mỗi tướng là một dòng tiến hóa của aola.**
-  - Quái thường lấy dòng có 2–4 dạng, boss lấy dòng có từ 3 dạng.
-  - Mỗi dạng của dòng là một con riêng trong aola.
-  - Lên sao thì đổi sang dạng sau.
-- **Giữ animation của con gốc, thay toàn bộ hình.**
-  - Chỉ con vector (`<aola>/raw/flash/fightassets/pet<id>.swf`) làm được. Con chỉ có ảnh render sẵn (`fightassets/bitmap/...`) thì không.
-  - Mảnh mới đắp lên mảnh cũ ở mọi khung của 4 animation: đứng, trúng đòn, đánh thường, chiêu.
-- **Sinh vật mới phải khác hẳn con gốc, nhưng tay chân phải trùng rig:**
-  - cùng số tay, chân, tai, đuôi;
-  - khớp vai, cổ, hông ở cùng chỗ;
-  - mỗi chi chĩa cùng hướng, đầu nào nối với gì giữ nguyên.
+**Concept đầu tiên được chốt** (2026-11-02): Giọt Sương dạng 1, `inbox/giot_suong_1/concept_duyet.png` (bản giáp ngực trơn, găng giáp bạc, kiếm chắn tay vàng). Chép thành **ảnh mốc style** `refs/style_anchor.png`: concept các tướng sau đính thêm ảnh này (lấy nét và độ chi tiết, không lấy thiết kế).
 
-  Đổi loài, màu, chất liệu, đồ đeo; giữ khung.
-- **Dáng ngoài được đổi, và nên khác bản gốc** (người dùng dặn 2026-11-01). Mỗi mảnh vẫn xoay quanh khớp cũ, nên chia hai loại:
-  - **đổi dáng:** đầu, tai, mào, đuôi, vây, phụ kiện. Viền theo concept, to hơn hoặc khác hình được; chỉ **đầu khớp** (gốc tai, mép nối đuôi, đáy mào) phải ở nguyên chỗ. Đầu to ra thì vẫn phải phủ cổ và đỡ mào;
-  - **giữ viền:** thân, tay, chân. Thân phải phủ kín vai, hông; tay chân đổi cỡ nhiều sẽ lệch khớp.
+## 2. Rig
 
-  Mảnh cần to ra thì khai `frame` trong `groups.json` (thêm mảnh bên cạnh vào khung) để ảnh mẫu có chỗ trống quanh nó. Dáng người (Tiểu Y, Lam Quân) cũng đổi theo cách này.
-- **Bản quyền:**
-  - chuyển động là của Baitian;
-  - ảnh mẫu gửi GPT là hình gốc, nên kết quả là hình phái sinh.
+- **Mỗi tướng là một dòng tiến hóa của aola** (`GD_Claude/13_DanhSachTuong.md`); mỗi dạng vẽ đè lên rig của đúng con aola ứng với dạng đó. Chỉ con vector (`fightassets/pet<id>.swf`) làm được.
+- **Con mới khác hẳn con gốc, nhưng tay chân trùng rig**: cùng số chi, khớp cùng chỗ, chi chĩa cùng hướng, đầu nào nối với gì giữ nguyên.
+- Hai loại nhóm:
+  - **đổi dáng** (đầu, tai, mào, đuôi, phụ kiện): viền theo concept, to hơn được; chỉ đầu khớp ở nguyên chỗ;
+  - **giữ viền** (thân, tay, chân): giữ viền hình gốc, lấy màu, chi tiết, nét từ concept.
+- **Vũ khí, đồ cầm tay**: vẽ riêng thành một mảnh thêm (không có ảnh gốc); bàn tay vẽ nắm chuôi. Claude gắn mảnh vào mảnh cẳng tay khi ghép, nên vũ khí đi theo tay ở mọi khung. Animation vẫn là của con gốc: con gốc không chém thì kiếm chỉ đi theo tay.
+- Ảnh rig của mỗi dạng ở `refs/<hệ>/<mã>/`: `Silhouette.png`, `RegionMap.png`, `Rig_Numbered.png`, `orig/Nxx.png` (hình gốc từng nhóm, vuông 1024, nền trắng, đúng chỗ trên rig). Dựng bằng công cụ AolaRipper (`part_map.py`, `region_map.py`, `orig_refs.py` theo `regions.json`, `groups.json` ở `<aola>/reskin/<hệ>_<id>/`).
+- `<aola>`: máy này `E:\ProjectAtomik\aola` (có `reskin/pet<id>_parts` của 83 dạng; chưa có `thuy_7` với `regions.json`, `groups.json`, phải dựng lại trước khi ghép); máy kia `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper`.
 
-  Người dùng đã tự quyết dùng (2026-11-01). Không đăng công khai.
+## 3. Viết prompt
 
-## 3. Các bước cho một dạng
+- Xem từng mảnh trong ngữ cảnh, ghi bảng giải phẫu: mảnh là gì, hai đầu nối gì, chĩa hướng nào; trái, phải theo người xem.
+- Concept: mục **KEEP FROM THE RIG** (số phần, chỗ khớp, hướng chi, cỡ thân tay chân) và **CHANGE** (từng vùng thành gì).
+- Nhóm: nói rõ đầu nào của chi là gì ("TOP end = shoulder", "hand at the BOTTOM end") và cái **không được vẽ**. Hình mảnh cũ thắng cách hiểu thông thường.
+- **Độ dày viền theo pixel từng nhóm**: ảnh mẫu mỗi nhóm phóng một tỉ lệ khác nhau, ghi chung một tỉ lệ thì ghép xong viền lệch nhau.
+  - tỉ lệ phóng = cỡ vật trong `orig/Nxx.png` ÷ cỡ vùng đó trong `RegionMap.png`;
+  - viền đích ≈ 0,85% chiều cao cả con trong `RegionMap.png` (khoảng 3 px khi con cao 350 px trong game);
+  - số px = viền đích × tỉ lệ phóng. Rig #7: N01, N02 khoảng 10 px; N07 khoảng 25 px; N03–N06, N08 khoảng 28 px; mảnh kiếm vẽ riêng khoảng 18 px.
+- Không nhắc tên game nào trong prompt.
 
-Ví dụ ở dạng 1 dòng Thủy đầu tiên (#7, `<aola>/reskin/pet7_parts`, `<aola>/reskin/thuy_7`). Chạy từ `<aola>`, Python `py -3 -I`. Thư mục tạm cho Chrome là `C:\Users\ADMIN\AppData\Local\Temp\aola_work`, vì đường dẫn thư mục tạm của phiên Claude quá dài.
+## 4. Gói gửi GPT
 
-1. **Tìm clip mặt trước:** `py -3 -I tools/swf_states.py raw/flash/fightassets/pet<id>.swf`. Lấy 4 id của `pet<id>_1` (đứng, trúng đòn, đánh thường, chiêu).
-2. **Xuất SVG bằng FFDec.** Java lấy từ OpenJDK của Unity:
-   - `"C:/Program Files/Unity/Hub/Editor/6000.0.73f1/Editor/Data/PlaybackEngines/AndroidPlayer/OpenJDK/bin/java.exe" -jar tools/ffdec/ffdec-cli.jar -selectid <4 id> -format sprite:svg -export sprite reskin/pet<id>_parts/svg raw/flash/fightassets/pet<id>.swf`
-   - Nếu lệnh bị chặn thì dừng và nhờ người dùng cấp quyền, không lách.
-3. **Đọc rig:**
-   - `tools/svg_frames.py <svg> <frames.json> <id>=1_1 <id>=1_2 <id>=1_4 <id>=1_6`
-   - `tools/swf_timeline.py <swf> <timeline_front.json> 1`
-   - `tools/render_chars.py <svg> <frames.json> <chars> ...`. Hình bị xén thì chạy lại với `--half 1000 --scale 2 --only`.
-   - `tools/part_map.py <svg>/DefineSprite_<đứng>/1.svg <front_idle>`
-   - `tools/analyze_parts.py <parts> <timeline> <tools> > analysis.txt`
-   - `tools/part_context.py <front_idle> <context>`
-4. **Hiểu giải phẫu** (bắt buộc, `BAI_HOC.md` mục 8):
-   - xem `context/full_numbered.png` và tờ `context_*.png` (mảnh tô đỏ trên thân mờ);
-   - gọi đúng chức năng từng mảnh: bắp tay hay cẳng tay, đùi hay ống chân, bàn tay ở đầu nào;
-   - mảnh khó đoán thì xem nó đi cứng với nhóm nào (`analysis.txt`);
-   - ghi **bảng giải phẫu** (mảnh, là gì, hai đầu, hướng; trái, phải theo người xem) vào file tướng.
-5. **Concept:**
-   - viết `regions.json` (vùng theo bộ phận), chạy `tools/region_map.py <front_idle> <regions.json> <ra>/<id>_Front` để được bóng xám và bản đồ vùng;
-   - prompt concept coi bóng xám là **rig**, không phải dáng để tô theo: mục KEEP (số chi, chỗ khớp, hướng chi, cỡ thân tay chân) và mục CHANGE (viền mới từng vùng), mẫu ở `thuy/giot_suong_1.md` (hai chân), `thuy/giot_suong_3.md` (bốn chân);
-   - chờ người dùng duyệt.
-6. **Ảnh mẫu nhóm:**
-   - viết `groups.json`: nhóm theo chi hoặc bộ phận, `draw`, `keep`, `drop`; nhóm đổi dáng to ra thì thêm `frame`;
-   - chạy `tools/orig_refs.py <reskin> <parts>` để được ảnh mẫu `refs/orig/<mã>.png`: hình gốc của nhóm, vuông 1024, nền trắng, đúng khung.
-7. **Gen từng nhóm (MB5):**
-   - mỗi lần đính kèm ảnh mẫu nhóm (ảnh 1) và concept đã duyệt (ảnh 2);
-   - GPT vẽ đè giữ khung;
-   - nét và màu theo hình gốc, không theo concept.
-8. **Ghép:**
-   - chạy `place_parts_2217.py` (đọc chung `groups.json`), rồi `place_variants.py` (hình biến thể ở trúng đòn, đánh thường, chiêu), rồi `build_page_2217.py`;
-   - khai `rebuild` trong `groups.json` để trình chỉnh sửa (`mo_chinh_sua.bat`) ghép lại được.
-9. **Soi:**
-   - tự chụp `so_sanh.html#1_<trạng thái>@<khung>` của cả 4 animation;
-   - so từng chi với concept: đầu nào là bàn tay, bàn chân, ngón cái ở đâu, lớp nào che lớp nào;
-   - liệt kê mảnh cũ còn sót.
+- `build.py` giữ bảng `FORMS` (thiết kế, giải phẫu, prompt concept, prompt từng nhóm, mảnh thêm, thứ tự gen thử) và sinh `gui_gpt/<mã>/`:
+  - `1_concept/`: `00_instructions.txt` + bóng xám, bản đồ vùng, tờ mẫu thiết kế (`refs/style/style_sheet.png`, 8 tướng aola, dựng bằng `tools/make_refs.py`), ảnh mốc nét vẽ (bản đồ);
+  - `2_nhom_manh/`: `00_instructions.txt` + ảnh gốc từng nhóm + concept đã duyệt; GPT vẽ một nhóm mỗi lượt theo thứ tự (2 nhóm gen thử trước, chờ soi);
+  - `HUONG_DAN.md`: tiếng Việt, đường dẫn đầy đủ và mô tả từng ảnh, kiểm từng ảnh, câu sửa nhanh.
+- Người dùng mở thư mục con, chọn hết file, kéo vào ChatGPT, gửi. GPT chỉ dùng được ảnh mẫu khi ảnh đính thẳng vào tin nhắn, nên không gộp vào PDF hay zip.
+- Ảnh GPT trả về để vào `inbox/<mã>/tai_ve/`, không cần đổi tên; Claude nhận ra từng ảnh qua hình.
+- Đính hình aola cho GPT: người dùng cho phép ("cứ đính hình vào", 2026-11-02).
 
-   Đếm "đủ mảnh" không thay được việc xem.
-10. **Đưa vào game:**
-    - người dùng chỉnh trong trình chỉnh sửa rồi bấm Lưu, được `export/anim.json`; Unity đọc file này (`AolaActor`);
-    - không tự đổi số người dùng đã chỉnh (`adjust.json`).
+## 5. Claude duyệt
 
-Thư mục: rig và bộ ghép nằm ở `<aola>/reskin/`. Prompt, ảnh đính kèm và ảnh GPT trả về nằm ở `ArtGen/Heroes/`:
-- `refs/<hệ>/<mã>/`: ảnh đính kèm;
-- `inbox/<mã>/`: ảnh GPT trả về.
+**Concept** ("duyệt concept <mã>"):
+- nét vẽ tay như bản đồ, không bóng loáng; thiết kế gọn, không chép con aola nào; vẻ chiến;
+- đủ, đúng chỗ như rig: số chi, khớp, hướng chi, bàn tay ở đầu dưới;
+- duyệt xong: lưu `inbox/<mã>/concept_duyet.png`, chạy lại `build.py` để gói lượt 2 có concept.
 
-Lúc ghép, Claude chép ảnh từ `inbox/` sang `<aola>/reskin/<tên>/inbox/`.
+**Nhóm** ("soi thử <mã>" cho 2 nhóm đầu, rồi "ghép <mã>"):
+- chồng ảnh lên `orig/Nxx.png`: vật đúng chỗ, đầu khớp đúng chỗ cũ, bàn tay bàn chân đúng đầu;
+- nét như concept, viền dày gần số đã ghi; nền trắng, không viền trắng quanh mảnh.
 
-## 4. Quy tắc viết prompt (người dùng dặn, bắt buộc)
+## 6. Ghép (Claude)
 
-- **Nói rõ từng chi:**
-  - đầu nào là gì ("TOP end = shoulder", "BOTTOM end = hand");
-  - mũi chân chĩa đâu, ngón cái phía nào;
-  - cái **không được vẽ** ("Do NOT put the hand at the top", "NO sleeve").
-- **Hình mảnh cũ thắng cách hiểu thông thường.** Lá hẹp ở vai thì bảo "cuống ở đầu hẹp", không bảo "lá mũi nhọn".
-- **Nhóm gen là các mảnh của cùng một chi hoặc bộ phận.** Mảnh chỉ nằm gần (vòng hông sau nắm tay) không vào nhóm tay.
-- **Mảnh nhỏ trong khối lớn mà bị thay hình ở vài khung** (mắt chớp, mặt hoảng): để khối lớn mang luôn phần đó, bỏ mảnh nhỏ (`drop`). Muốn giữ cử động riêng thì phải gen thêm hình biến thể.
-- **Vũ khí, phụ kiện đổi dáng:** không bắt bám viền cũ. Vật xuyên qua nhiều mảnh (trượng qua tay) chỉ vẽ ở một mảnh.
-- **Khung MB5** dùng nguyên văn, chỉ đổi bảng màu viền. Nhóm **giữ viền** (thân, tay, chân):
+Công cụ ở repo aola (`<aola>/tools/`), cấu hình mỗi dạng ở `<aola>/reskin/<hệ>_<id>/ghep.json` (mẫu: `reskin/thuy_7/ghep.json`):
+- `groups`: nhóm → mảnh (số theo thứ tự vẽ khung đứng đầu, như `Rig_Numbered.png`), mảnh ẩn (`drop`: mắt, má, miệng cũ khi đầu mới đã vẽ mặt);
+- `extra`: mảnh vẽ riêng gắn vào một mảnh (kiếm: `attach`, góc lưỡi, độ dài theo chiều cao con);
+- `variants`: hình biến thể thay một hay nhiều mảnh (ví dụ một hình chứa cả hai tai lúc vẫy tai); `drop_chars` (mặt hoảng, mắt nhắm), `keep_chars` (hiệu ứng). Liệt kê biến thể bằng cách đếm hình không có ở khung đứng đầu rồi xem từng hình.
 
-```
-FRAMING: the same square canvas; every piece keeps its place, size, angle and direction from image 1, so the drawing can be put back on the old puppet. Where image 2 shows this part in another pose or outline, follow image 1: take only colours and details from image 2.
-LINE AND COLOUR: match image 1's drawing style, not the concept's: an outline about 1.5-2% of the piece's size, in a darker shade of each fill (...), never black; flat fills with 2-3 tones; no gradients, no texture.
-Plain white background. Only this group. No text.
-```
+Chạy `py -3 -I tools/ghep_nhom.py reskin/<hệ>_<id>`:
+1. tách nền trắng nối với mép, mép nửa trong suốt tính lại từ độ trắng;
+2. khớp ảnh mẫu nhóm với mảnh gốc ở khung đứng đầu (tỉ lệ, độ dời; in IoU, cần gần 1);
+3. nhóm nhiều mảnh: chia ảnh theo vùng mảnh gốc gần nhất, chồng một dải ở khớp;
+4. dựng lại mọi khung của 4 clip, gắn mảnh thêm; ra `sprites/`, `export/anim.json`, `ghep_log.json`.
 
-  Nhóm **đổi dáng** thay câu FRAMING, nêu tên đầu khớp của mảnh (base end, joint edge…):
+Sau đó:
+- `tools/portrait_png.py reskin/<hệ>_<id>` cho chân dung;
+- **soi**: `tools/so_sanh_reskin.py <hệ>_<id> goc_<id> <ảnh> 6` (mỗi clip 6 khung, hàng trên gốc, hàng dưới mới) và phóng to vài khung xem khuỷu, hông, cổ, chỗ cầm vũ khí; không còn hình cũ lọt vào;
+- đổi `aola` của dạng đó sang `<hệ>_<id>` ở `Web/src/core/data/heroes.ts`, `Assets/02 Data/Json/heroes.json`, `Assets/02 Data/HeroDb.asset`;
+- chụp trong game (menu `PokiClash/Thử/Thanh tiến hóa: chụp hộp chi tiết ở các mốc`).
 
-```
-FRAMING: the same square canvas; the piece keeps its place, angle and direction from image 1, and its <joint end> stays exactly where it is, so the drawing can be put back on the old puppet. The outline follows image 2, not image 1: it may be a different shape and bigger, but stays inside the square with a clear white margin.
-```
+Bộ ghép này thay cho trình chỉnh sửa cũ (`so_sanh.html`, `adjust.json`) của máy kia; muốn chỉnh tay thì sửa `ghep.json` (góc, độ dài kiếm, độ chồng khớp) rồi chạy lại.
 
-## 5. Ghép và kiểm (bẫy đã gặp)
+## 7. Viền trắng giấy xé (Unity, chưa làm)
 
-- **Nền trắng:** chỉ xoá phần trắng nối với mép ảnh, không xoá mọi điểm gần trắng (thủng chỗ sáng). Phóng ảnh RGBA thì nhân trước alpha, dùng bilinear.
-- **Chiều chi:** chồng ảnh gen lên hình gốc trước khi ghép, xem bàn tay, bàn chân có ở đúng đầu không.
-- **Thứ tự lớp của SWF có thể sai với vật mới:** dùng `raise` hoặc `lower` trong `groups.json`.
-- **Mảnh tự chạy** (áo choàng, lửa có timeline riêng): tô lại màu, hoặc vẽ cả tờ lưới một lần (`grid_2217.py`).
-- **Hiệu ứng** (vệt chém, quầng): giữ, hoặc tô lại theo màu hệ (`recolor`).
+- Đã có shader `PokiClash/StickerOutline` (`Assets/03 Art/Shaders/StickerOutline.shader`): tướng aola render ra RenderTexture (`AolaSticker`), shader vẽ viền trắng rồi viền mực quanh **cả hình**.
+- Kiểu giấy xé: thêm nhiễu theo vị trí để bề rộng viền trắng lồi lõm, mép răng cưa nhỏ, có thể thêm bóng mờ dưới giấy.
+- Nếu muốn **viền giấy quanh từng mảnh** (kiểu con rối giấy, lộ mép trắng ở khớp): nướng vào từng PNG mảnh khi xuất (nới alpha, mép răng cưa), không làm bằng shader trên cả hình.
+
+## 8. Thư mục
+
+| Đường dẫn | Chứa gì |
+|---|---|
+| `ArtGen/Heroes/build.py` | Bảng các dạng, prompt, bộ sinh gói |
+| `ArtGen/Heroes/gui_gpt/<mã>/` | Gói gửi GPT (sinh ra, không sửa tay) |
+| `ArtGen/Heroes/refs/<hệ>/<mã>/` | Ảnh rig: bóng xám, bản đồ vùng, rig đánh số, `orig/Nxx.png` |
+| `ArtGen/Heroes/refs/style/` | Tờ mẫu thiết kế từ hình aola (`style_sheet.png`); `parts_example.png` của cách bộ mảnh rời, không dùng nữa |
+| `ArtGen/Heroes/tools/` | `make_refs.py` (tờ mẫu), `explode.py` |
+| `ArtGen/Heroes/inbox/<mã>/tai_ve/` | Ảnh GPT trả về, chưa đặt tên |
+| `ArtGen/Heroes/inbox/<mã>/concept_duyet.png` | Concept đã duyệt |
+| `ArtGen/Heroes/refs/style_anchor.png` | Ảnh mốc style: concept Giọt Sương dạng 1 đã chốt |
+| `ArtGen/Heroes/inbox/<mã>/Concept*.png` | Concept của các lần trước, không dùng nữa |

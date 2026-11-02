@@ -76,7 +76,7 @@ namespace PokiClash
             stage = cave != null ? Potential.CaveStage(d, cave.zone, cave.tier)
                 : badge != null ? Badges.Stage(d, badge.zone, badge.tier, badge.i) : d.Stage(args.stageId) ?? d.Stage(1);
             zone = d.Zone(stage.zone);
-            team = args.team ?? save.team;
+            team = (args.team ?? save.team).Take(Progress.TeamSlots(save)).ToList(); // chỉ mang đủ số ô đội đã mở
             speed = Mathf.Clamp(save.settings.speed, 1, 3);
             int unlock = save.level;
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
@@ -135,8 +135,8 @@ namespace PokiClash
 
         IEnumerator Run()
         {
-            view.Stage.SetActor(0, b.ActiveOf(0).hero, false, true, b.ActiveOf(0).star);
-            view.Stage.SetActor(1, b.ActiveOf(1).hero, b.ActiveOf(1).boss, true, b.ActiveOf(1).star);
+            view.Stage.SetActor(0, b.ActiveOf(0).hero, false, true, Teams.LookStar(b.Data.Cfg, b.ActiveOf(0)));
+            view.Stage.SetActor(1, b.ActiveOf(1).hero, b.ActiveOf(1).boss, true, Teams.LookStar(b.Data.Cfg, b.ActiveOf(1)));
             view.FillPlate(0);
             view.FillPlate(1);
             yield return Intro();
@@ -218,7 +218,7 @@ namespace PokiClash
             for (int i = 0; i < fs.Count; i++)
             {
                 float h = side == 1 && fs[i].boss ? 240 : 192;
-                var p = HeroArt.Portrait(row, fs[i].hero, h, false, fs[i].star);
+                var p = HeroArt.Portrait(row, fs[i].hero, h, false, Teams.LookStar(b.Data.Cfg, fs[i]));
                 p.anchorMin = p.anchorMax = new Vector2(0.5f, 0);
                 p.anchoredPosition = new Vector2((i - (fs.Count - 1) / 2f) * 220, 10);
                 if (side == 1) p.localScale = new Vector3(1, 1, 1);

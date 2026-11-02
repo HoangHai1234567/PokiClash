@@ -16,7 +16,7 @@ Người dùng chốt thêm (2026-11-01):
   - quy trình ở `ArtGen/Heroes/QUY_TRINH.md`;
 - **tướng Thủy đầu tiên là dòng khởi đầu hệ Nước của aola** (7 滴滴 → 8 露滴 → 9 露西亚, tên trong game là Giọt Sương), thay Tiểu Y làm tướng khởi đầu.
 
-Đảo Thủy đã chọn lại theo luật này (prompt ở `ArtGen/Heroes/Thuy.md`). Kim, Mộc, Hỏa, Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại.
+Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Kim, Mộc, Hỏa, Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại.
 
 **File này ghi nguồn aola, chỉ để đối chiếu nội bộ. Không đính kèm cho GPT, không đưa lên mạng.**
 
@@ -44,7 +44,7 @@ Người dùng chốt thêm (2026-11-01):
 
 ## Danh sách
 
-"Nguồn" là id thú trong aola, kèm dạng tiến hóa (→). Cột "Ảnh" là mã trong `ArtGen/Heroes/PROMPTS.md`.
+"Nguồn" là id thú trong aola, kèm dạng tiến hóa (→). Cột "Ảnh" là mã trong `ArtGen/Heroes/PROMPTS.md` cũ (đã bỏ 2026-11-02).
 
 ### Kim
 
@@ -170,17 +170,18 @@ Dữ liệu game vẫn là 11 tướng cũ. Đổi sang 40 tướng là một ch
 4. **Kiểm tra:** xuất lại golden, chạy lại máy tự chơi và quét nhịp.
 5. **Bản lưu:** chuyển tướng, mảnh, thẻ của `gia_bi` và `su_gia` sang tướng khác (hoặc đổi ra bi).
 6. **Hình aola trong Editor** (làm 2026-11-02): đã xuất animation gốc (4 clip mặt trước) và chân dung của 79 dạng thuộc 36 dòng ở bảng trên, ra `reskin/goc_<id>/export/anim.json` và `portrait.png` bằng `tools/goc_batch.py` của AolaRipper. Bảng tướng → các dạng: `reskin/pokiclash_lines.json`, gồm cả 4 thầy tu. Dòng lấy theo chuỗi tiến hóa của `pmDataMap` (cột 26), nên có thêm 2374 (dạng 2 của 2373). Khi dữ liệu có 40 tướng, `aola` của mỗi dạng lấy từ file này.
+   - Máy thứ hai (`E:\ProjectAtomik\aola`, 2026-11-02): bản trên chưa push nên xuất lại cả 83 dạng (40 dòng, gồm 4 thầy tu) bằng `tools/goc_batch.py` và `tools/portrait_png.py` viết lại; `reskin/pokiclash_lines.json` lấy từ `HeroDb.asset`. Unity tự tìm thư mục `Aola*` nằm cạnh thư mục project (ngoài gốc ổ đĩa như trước).
 7. **Dạng tiến hóa** (thêm 2026-11-01):
    - `HeroDef` thêm danh sách dạng: tên, ảnh, cỡ trên sân, sao bắt đầu.
    - Đề xuất mốc: dòng 2 dạng đổi ở sao 3; dòng 3 dạng đổi ở sao 3 và sao 5.
    - Tên tướng hiện theo dạng; sổ tướng hiện cả dòng.
 8. **Dạng của địch:**
    - Địch thường lấy dạng theo sao (sao = 1 + cấp ÷ 6), nên trên đảo Thủy hầu hết là dạng 1.
-   - Boss nên có dạng cố định: thêm trường dạng vào `StageEnemy`. Đề xuất: ải 4 hiện Vạn Quân (dạng 2 của `lam_quan`), ải 8 hiện Huyền Vũ (dạng 3).
+   - ~~Boss nên có dạng cố định~~. Người dùng chốt khác (2026-11-02): boss ải 8 vào trận ở dạng 1 rồi tiến hóa trong trận (thẻ Tiến Hóa, xem `12_KeHoach_OpenSpec.md` mục "Boss tiến hóa"). Mini boss ải 4 vẫn lấy dạng theo sao.
 9. **Ải đảo Thủy:** đổi địch 8 ải theo 8 dòng mới.
    - Tên ải 8 "Xoáy Nước Đinh Ba" hợp Y Trạch; nếu boss là Huyền Vũ thì đổi tên.
    - Boss ải 8 rơi mảnh dòng nào là việc cân bằng, chốt khi làm dữ liệu.
 10. **Bản lưu:** gộp mảnh, thẻ, sao của `y_trach` vào `tieu_y`; của `van_quan`, `hac_duc` vào `lam_quan`.
-11. **Các hệ khác:** chọn lại theo luật dòng tiến hóa, viết prompt như `Thuy.md`.
+11. **Các hệ khác:** chọn lại theo luật dòng tiến hóa, dựng ảnh rig (`refs/<hệ>/<mã>/`) rồi thêm dạng vào bảng `FORMS` của `ArtGen/Heroes/build.py`.
 
 **Tên phiên âm:** Tiểu Y, Y Trạch, Lam Quân, Vạn Quân là phiên âm Hán-Việt tên gốc. Nên đổi tên trước khi phát hành.

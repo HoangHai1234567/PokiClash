@@ -3703,7 +3703,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 300
+  m_PreferredHeight: 420
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -3875,6 +3875,9 @@ MonoBehaviour:
   foePrefab: {fileID: 4090449157947639222, guid: 61cc7e5910220014aa024f7935da39ad, type: 3}
   chipPrefab: {fileID: 5924193368798461004, guid: 49478ba4b660a004fba8052c1f4cfcf8, type: 3}
   cellPrefab: {fileID: 5993056995379183042, guid: 1a75a7a25ad243847aedb658a47c2cbb, type: 3}
+  pickerPrefab: {fileID: 5799787545990506746, guid: 5b2a2aefc4c1ca94ebbc6da3b04ddcf0, type: 3}
+  teamTitle: {fileID: 230612367770800344}
+  teamHint: {fileID: 7770553134697854158}
 --- !u!1001 &6877834873433253043
 PrefabInstance:
   m_ObjectHideFlags: 0

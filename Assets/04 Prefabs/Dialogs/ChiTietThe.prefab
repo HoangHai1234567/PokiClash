@@ -69,7 +69,7 @@ GameObject:
   - component: {fileID: 6464634799010121833}
   - component: {fileID: 3111580321008567300}
   m_Layer: 5
-  m_Name: chu
+  m_Name: ghi_chu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -604,6 +604,7 @@ MonoBehaviour:
   card: {fileID: 2968768504899742582}
   flavor: {fileID: 4432661472197879265}
   unlock: {fileID: 3446183638943674771}
+  note: {fileID: 3111580321008567300}
 --- !u!224 &8495108539775088463 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8109593584369136664, guid: cf27325d048d5de408795cfa786f652b, type: 3}

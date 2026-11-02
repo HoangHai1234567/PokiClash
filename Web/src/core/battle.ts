@@ -4,9 +4,10 @@
 //   3. thẻ chạy lần lượt theo thứ tự xếp, rồi đánh thường (hoặc tuyệt kỹ nếu đã bật).
 // Mọi hàm trả về danh sách sự kiện (kèm ảnh chụp số liệu) để giao diện chiếu lại.
 import { CFG } from './data/config';
-import { CARD, POOL, POOL_WEIGHT } from './data/cards';
+import { BOSS_EVO, CARD, POOL, POOL_WEIGHT } from './data/cards';
 import { HERO } from './data/heroes';
 import { elemMult } from './elements';
+import { formIndex } from './progression';
 import { Rng } from './rng';
 import { scaleEffects, lvFactor } from './cardtext';
 import type { CardDef, Effect, HeroDef, Member, Stat, StatMods, StatusId, TeamSetup } from './types';
@@ -32,6 +33,8 @@ export interface Fighter {
   star: number;
   cardLv: Member['cardLv'];
   boss: boolean;
+  evo: boolean; // boss ải 8: có thẻ Tiến Hóa (dòng 1 dạng thì không tiến hóa được)
+  form: number; // dạng đang hiện trong dòng tiến hóa (tướng thường theo sao, boss tiến hóa từ 0)
   maxHp: number;
   hp: number;
   atk: number;
@@ -118,6 +121,7 @@ export type EvBody =
   | { t: 'swap'; side: SideId; from: number; to: number; forced: boolean }
   | { t: 'death'; side: SideId; idx: number }
   | { t: 'revive'; side: SideId; idx: number; hp: number }
+  | { t: 'evolve'; side: SideId; idx: number; form: number; hp: number }
   | { t: 'end'; winner: SideId };
 export type Ev = EvBody & { snap: Snap };
 
@@ -160,13 +164,23 @@ export function heroStats(h: HeroDef, level: number, star: number, boss = false,
   return { hp: Math.round(hp), atk: Math.round(atk), def: Math.round(def), spd: sp + level };
 }
 
+// boss có thẻ Tiến Hóa: hệ số máu, Công của dạng i trong dòng n dạng (CFG.bossEvoHp, bossEvoAtk). Dòng 1 dạng không tiến hóa
+// nhưng vẫn gánh đủ máu của cả dòng.
+export function evoMult(n: number, i: number) {
+  return { hp: (CFG.bossEvoHp * (i + 1) * 2) / (n * (n + 1)), atk: 1 - CFG.bossEvoAtk * (n - 1 - i) };
+}
+
 function makeFighter(m: Member, side: SideId, idx: number): Fighter {
   const hero = HERO[m.heroId];
   const s = heroStats(hero, m.level, m.star, m.boss, m.mods);
   const st = m.start;
+  const evo = !!m.evo;
+  // boss có thẻ Tiến Hóa vào trận ở dạng 1, yếu nhất
+  const k = evo ? evoMult(hero.forms.length, 0) : null;
+  const hp = k ? Math.round(s.hp * k.hp) : s.hp;
   const f: Fighter = {
-    idx, side, hero, level: m.level, star: m.star, cardLv: m.cardLv, boss: !!m.boss,
-    maxHp: s.hp, hp: s.hp, atk: s.atk, def: s.def, spd: s.spd,
+    idx, side, hero, level: m.level, star: m.star, cardLv: m.cardLv, boss: !!m.boss, evo, form: evo ? 0 : formIndex(hero, m.star),
+    maxHp: hp, hp, atk: k ? Math.round(s.atk * k.atk) : s.atk, def: s.def, spd: s.spd,
     mana: st ? Math.min(CFG.maxMana, st.mana) : 0, rage: st ? Math.min(CFG.maxRage, st.rage) : 0,
     shield: 0, buffs: [], statuses: [], lowHpUsed: false, revived: false, dead: false,
   };
@@ -178,6 +192,8 @@ function makeFighter(m: Member, side: SideId, idx: number): Fighter {
 
 const other = (s: SideId): SideId => (s === 0 ? 1 : 0);
 export const activeOf = (b: Battle, s: SideId) => b.sides[s].fighters[b.sides[s].active];
+// tên hiện trên sân: boss tiến hóa theo dạng đang có, tướng khác theo tên dòng
+export const fighterName = (f: Fighter) => (f.evo ? f.hero.forms[f.form].name : f.hero.name);
 
 export function buffSum(f: Fighter, stat: Stat): number {
   let v = 0;
@@ -503,6 +519,11 @@ function dealDamage(b: Battle, s: SideId, mult: number, kind: DmgKind, pierce: n
 
 function kill(b: Battle, f: Fighter) {
   if (f.dead) return;
+  // boss còn dạng sau thì tiến hóa thay vì gục
+  if (canEvolve(f)) {
+    evolve(b, f);
+    return;
+  }
   // bị động hồi sinh: lần đầu gục thì sống lại ngay, giữ vị trí ra sân, xoá bỏng và choáng (boss không hồi sinh)
   const pc = CARD[f.hero.passive];
   if (pc.trigger === 'death' && !f.revived && !f.boss) {
@@ -564,7 +585,29 @@ function tickBuffs(b: Battle, s: SideId, when: 'end' | 'start') {
   }
 }
 
+const canEvolve = (f: Fighter) => f.evo && !f.dead && f.form < f.hero.forms.length - 1;
+
+// thẻ Tiến Hóa: lên dạng sau, máu tối đa và Công đổi theo hệ số của dạng (giữ phần cộng từ thẻ như Bánh Bao), hồi máu,
+// xoá bỏng và choáng; bị động "máu thấp" của tướng dùng lại được ở dạng mới
+function evolve(b: Battle, f: Fighter) {
+  const n = f.hero.forms.length;
+  const ko = evoMult(n, f.form), kn = evoMult(n, f.form + 1);
+  const heal = BOSS_EVO.effects[0].k === 'evolve' ? BOSS_EVO.effects[0].pct : 1;
+  f.form++;
+  f.maxHp = Math.round(f.maxHp * (kn.hp / ko.hp));
+  f.atk = Math.round(f.atk * (kn.atk / ko.atk));
+  f.hp = Math.max(f.hp, 1, Math.round(f.maxHp * heal));
+  f.statuses = f.statuses.filter((x) => x.id !== 'burn' && x.id !== 'stun');
+  f.lowHpUsed = false;
+  emit(b, { t: 'passive', side: f.side, idx: f.idx, card: BOSS_EVO.id });
+  emit(b, { t: 'evolve', side: f.side, idx: f.idx, form: f.form, hp: f.hp });
+}
+
 function checkLow(b: Battle, f: Fighter) {
+  if (canEvolve(f) && f.hp / f.maxHp < (BOSS_EVO.below ?? 0.25)) {
+    evolve(b, f);
+    return;
+  }
   const c = CARD[f.hero.passive];
   if (c.trigger !== 'lowHp' || f.lowHpUsed || f.dead) return;
   if (f.hp / f.maxHp < (c.below ?? 0.3)) {

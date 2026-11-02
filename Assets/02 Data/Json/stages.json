@@ -170,14 +170,10 @@
    "kind": "boss",
    "enemies": [
     {
-     "hero": "canh_cut",
-     "level": 5,
-     "boss": false
-    },
-    {
      "hero": "map_rang",
      "level": 6,
-     "boss": true
+     "boss": true,
+     "evo": true
     }
    ],
    "drops": [
@@ -347,14 +343,10 @@
    "kind": "boss",
    "enemies": [
     {
-     "hero": "bo_de",
-     "level": 9,
-     "boss": false
-    },
-    {
      "hero": "phap_luan",
      "level": 11,
-     "boss": true
+     "boss": true,
+     "evo": true
     }
    ],
    "drops": [
@@ -529,14 +521,10 @@
    "kind": "boss",
    "enemies": [
     {
-     "hero": "bo_ngua",
-     "level": 15,
-     "boss": false
-    },
-    {
      "hero": "soi_linh",
      "level": 17,
-     "boss": true
+     "boss": true,
+     "evo": true
     }
    ],
    "drops": [
@@ -705,14 +693,10 @@
    "kind": "boss",
    "enemies": [
     {
-     "hero": "mam_go",
-     "level": 20,
-     "boss": false
-    },
-    {
      "hero": "giac_long",
      "level": 22,
-     "boss": true
+     "boss": true,
+     "evo": true
     }
    ],
    "drops": [
@@ -874,14 +858,10 @@
    "kind": "boss",
    "enemies": [
     {
-     "hero": "vo_su",
-     "level": 24,
-     "boss": false
-    },
-    {
      "hero": "ca_sa",
      "level": 23,
-     "boss": true
+     "boss": true,
+     "evo": true
     }
    ],
    "drops": [

@@ -75,7 +75,7 @@ namespace PokiClash.Tests
             Assert.IsEmpty(err, string.Join("\n", err));
             Assert.AreEqual(40, d.Heroes.Count);
             Assert.AreEqual(23, d.Pool.Count);
-            Assert.AreEqual(120, d.Innate.Count);
+            Assert.AreEqual(121, d.Innate.Count); // 40 tướng × 3 + thẻ Tiến Hóa của boss
             Assert.AreEqual(5, d.Zones.Count);
             Assert.AreEqual(40, d.Stages.Count);
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");

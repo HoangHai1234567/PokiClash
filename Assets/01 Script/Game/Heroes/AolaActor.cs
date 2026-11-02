@@ -81,10 +81,22 @@ namespace PokiClash.Game
         }
 
 #if UNITY_EDITOR
-        // Thư mục reskin của AolaRipper: dưới một thư mục gốc ổ đĩa tên bắt đầu bằng "Aola", sâu tối đa 4 cấp, có thư mục
-        // con chứa export/anim.json.
+        // Thư mục reskin của AolaRipper: dưới một thư mục tên bắt đầu bằng "Aola" (không phân biệt hoa thường) nằm cạnh thư mục
+        // project hoặc ở gốc ổ đĩa, sâu tối đa 4 cấp, có thư mục con chứa export/anim.json.
         public static string FindReskin()
         {
+            var parent = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath));
+            if (parent != null)
+            {
+                string[] near;
+                try { near = Directory.GetDirectories(parent, "Aola*"); }
+                catch (Exception) { near = new string[0]; }
+                foreach (var top in near)
+                {
+                    var hit = SearchReskin(top, 4);
+                    if (hit != null) return hit.Replace('\\', '/');
+                }
+            }
             foreach (var drive in DriveInfo.GetDrives())
             {
                 if (drive.DriveType != DriveType.Fixed || !drive.IsReady) continue;

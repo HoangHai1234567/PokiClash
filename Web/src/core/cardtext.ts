@@ -120,12 +120,15 @@ export function effectText(e: Effect): string {
         (e.else ? `. Không thì: ${lowFirst(e.else.map(effectText).join(', '))}` : '');
     case 'revive':
       return `Hồi sinh với ${pct(e.pct)} máu`;
+    case 'evolve':
+      return `Tiến hóa, hồi ${e.pct >= 1 ? 'đầy' : `tới ${pct(e.pct)}`} máu, máu và Công tăng`;
   }
 }
 
 export function cardText(c: CardDef, lv = 1): string {
   const body = scaleEffects(c.effects, lv).map(effectText).join('. ');
   if (c.kind !== 'passive') return body + '.';
+  if (c.effects[0]?.k === 'evolve') return `Khi máu dưới ${pct(c.below ?? 0.25)}, nếu còn dạng sau: ${lowFirst(body)}.`;
   switch (c.trigger) {
     case 'start':
       return `Vào trận: ${body.charAt(0).toLowerCase()}${body.slice(1)}.`;

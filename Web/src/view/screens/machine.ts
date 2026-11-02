@@ -256,11 +256,11 @@ export function machineScreen(): Screen {
     // số đo do scripts/export_data.ts ghi (cùng số với bảng của Unity)
     const pct = (k: string) => `≈ ${((MEASURED_RATES[k] ?? 0) * 100).toFixed(1).replace('.', ',')} %`;
     const rows: [string, string, string][] = [
-      ['chest_gold', 'Rương vàng (cốc nhỏ giữa máy)', pct('chest_gold')],
+      ['chest_gold', 'Rương vàng (két giữa máy và ô khuất dưới két)', pct('chest_gold')],
       ['chest_silver', 'Rương bạc (2 cốc hai bên)', pct('chest_silver')],
       ['chest_wood', 'Rương gỗ (2 ô mép)', pct('chest_wood')],
       ['exp', 'EXP 15 (2 ô)', pct('exp15')],
-      ['exp', 'EXP 10 (ô giữa)', pct('exp10')],
+      ['exp', 'EXP 10 (2 ô cạnh ô vàng)', pct('exp10')],
       ['exp', 'EXP 5 (2 ô)', pct('exp5')],
       ['ball', 'Hoàn 1 bi (2 ô)', pct('ball')],
     ];
@@ -341,14 +341,32 @@ export function machineScreen(): Screen {
         g.fill();
       }
     // vai nghiêng
-    for (const sg of board.segs.slice(2, 4)) rc.line(sg.x1, sg.y1, sg.x2, sg.y2, { stroke: INK, strokeWidth: 4, roughness: 1, seed: 5 });
+    for (const sg of board.segs.filter((s) => s.kind === 'shoulder')) rc.line(sg.x1, sg.y1, sg.x2, sg.y2, { stroke: INK, strokeWidth: 4, roughness: 1, seed: 5 });
     // ô đáy
     board.slots.forEach((sl, i) => {
       const kind = sl.reward;
-      const color = kind.startsWith('chest') ? '#ffe0b0' : kind === 'ball' ? '#ffd2e2' : kind === 'exp15' ? '#e6d2ff' : kind === 'exp10' ? '#efe2ff' : '#f6efff';
+      const color = kind === 'chest_gold' ? '#ffe27a' : kind.startsWith('chest') ? '#ffe0b0' : kind === 'ball' ? '#ffd2e2' : kind === 'exp15' ? '#e6d2ff' : kind === 'exp10' ? '#efe2ff' : '#f6efff';
       rc.rectangle(sl.x0 + 1, SLOT_TOP, sl.x1 - sl.x0 - 2, BH - SLOT_TOP - 8, { stroke: 'none', fill: color, fillStyle: 'hachure', hachureGap: 5, fillWeight: 2, roughness: 1, seed: 20 + i });
     });
-    for (const sg of board.segs.slice(4)) rc.line(sg.x1, sg.y1, sg.x2, sg.y2 - 8, { stroke: INK, strokeWidth: 3, roughness: 0.8, seed: 7 });
+    for (const sg of board.segs.filter((s) => s.kind === 'divider')) rc.line(sg.x1, sg.y1, sg.x2, sg.y2 - 8, { stroke: INK, strokeWidth: 3, roughness: 0.8, seed: 7 });
+    // két vàng: thân tô vàng nhạt giữa mái và đáy, nét mái và đáy dày
+    const roof = board.segs.filter((s) => s.kind === 'roof');
+    const floor = board.segs.filter((s) => s.kind === 'floor');
+    if (roof.length === 2 && floor.length === 2) {
+      g.fillStyle = 'rgba(255,210,74,.35)';
+      g.beginPath();
+      g.moveTo(roof[0].x1, roof[0].y1);
+      g.lineTo(roof[0].x2, roof[0].y2);
+      g.lineTo(roof[1].x2, roof[1].y2);
+      g.lineTo(roof[1].x1, roof[1].y1);
+      g.lineTo(floor[1].x1, floor[1].y1);
+      g.lineTo(floor[1].x2, floor[1].y2);
+      g.lineTo(floor[0].x1, floor[0].y1);
+      g.closePath();
+      g.fill();
+      for (const sg of [...roof, ...floor]) rc.line(sg.x1, sg.y1, sg.x2, sg.y2, { stroke: INK, strokeWidth: 4.5, roughness: 0.9, seed: 11 });
+      drawChest(g, (floor[0].x2 + floor[1].x2) / 2, (roof[0].y2 + floor[0].y2) / 2 + 2, 0.4, '#f39a2d');
+    }
     rc.line(LEFT, BH - 8, RIGHT, BH - 8, { stroke: INK, strokeWidth: 3, roughness: 1, seed: 8 });
     // nhãn ô
     board.slots.forEach((sl) => {
@@ -370,7 +388,7 @@ export function machineScreen(): Screen {
         g.strokeText(sub, cx, FLOOR + 18);
         g.fillStyle = '#fff';
         g.fillText(sub, cx, FLOOR + 18);
-      } else drawChest(g, cx, FLOOR + 4, 0.38, '#c98a4a');
+      } else drawChest(g, cx, FLOOR + 4, 0.38, k === 'chest_gold' ? '#f39a2d' : k === 'chest_silver' ? '#9aa6b2' : '#c98a4a');
     });
     // đinh
     board.pegs.forEach((p) => {
@@ -409,8 +427,9 @@ export function machineScreen(): Screen {
         g.fill();
       }
     });
-    // cốc hứng
+    // cốc hứng tròn (két vàng đã vẽ ở trên)
     for (const cup of board.cups) {
+      if (cup.r <= 0) continue;
       const gold = cup.reward === 'chest_gold';
       const w = gold ? 26 : 30;
       g.fillStyle = gold ? '#ffd24a' : '#dfe6ee';
@@ -588,7 +607,7 @@ export function machineScreen(): Screen {
     leave() {
       active = false;
       cancelAnimationFrame(raf);
-      // bi đang rơi khi rời màn: tính luôn vào ô giữa
+      // bi đang rơi khi rời màn: tính luôn như ô EXP 10
       for (const b of board.balls) onLand('exp10', 4, false, b.x, b.y, b.mult);
       board.balls = [];
       if (session) void sessionEnd();

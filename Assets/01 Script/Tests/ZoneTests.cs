@@ -10,6 +10,25 @@ namespace PokiClash.Tests
     {
         static readonly string[] SlotKey = { "skill", "ult", "passive" };
 
+        // ô đội mở theo số đảo đã xong (TEAM_SLOT_ZONES của bản web): 0 đảo 1 ô, 1 đảo 2 ô, 3 đảo 3 ô
+        [Test]
+        public void ODoi_MoTheoSoDaoDaXong()
+        {
+            var d = TestData.Load();
+            var s = SaveData.New(d, 0);
+            Assert.AreEqual(1, Progress.TeamSlots(s), "mới chơi");
+            s.zones[(int)Elem.Thuy] = 7;
+            Assert.AreEqual(1, Progress.TeamSlots(s), "chưa hạ boss Thủy");
+            s.zones[(int)Elem.Thuy] = 8;
+            Assert.AreEqual(2, Progress.TeamSlots(s), "xong 1 đảo");
+            s.zones[(int)Elem.Hoa] = 8;
+            Assert.AreEqual(2, Progress.TeamSlots(s), "xong 2 đảo");
+            s.zones[(int)Elem.Kim] = 8;
+            Assert.AreEqual(3, Progress.TeamSlots(s), "xong 3 đảo");
+            s.zones[(int)Elem.Moc] = s.zones[(int)Elem.Tho] = 8;
+            Assert.AreEqual(3, Progress.TeamSlots(s), "tối đa 3");
+        }
+
         [Test]
         public void ThuongAi_VaRuongMoc_KhopBanWeb()
         {

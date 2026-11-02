@@ -2866,6 +2866,22 @@
      "pct": 0.35
     }
    ]
+  },
+  {
+   "id": "boss_evo",
+   "name": "Tiến Hóa",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "phoenix",
+   "trigger": "lowHp",
+   "below": 0.25,
+   "effects": [
+    {
+     "k": "evolve",
+     "pct": 1
+    }
+   ],
+   "flavor": "Đây mới là dạng đầu thôi!"
   }
  ]
 }

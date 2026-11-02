@@ -117,6 +117,7 @@ namespace PokiClash.Core
             ["mana"] = EffectKind.Mana, ["rage"] = EffectKind.Rage, ["dmg"] = EffectKind.Dmg, ["shield"] = EffectKind.Shield,
             ["status"] = EffectKind.Status, ["cleanse"] = EffectKind.Cleanse, ["double"] = EffectKind.Double, ["extra"] = EffectKind.Extra,
             ["trueStrike"] = EffectKind.TrueStrike, ["ifLow"] = EffectKind.IfLow, ["revive"] = EffectKind.Revive,
+            ["evolve"] = EffectKind.Evolve,
         };
         static readonly Dictionary<string, CardKind> KindOf = new Dictionary<string, CardKind>
         {

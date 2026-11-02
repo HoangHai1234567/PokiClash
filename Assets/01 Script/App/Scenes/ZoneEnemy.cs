@@ -23,7 +23,7 @@ namespace PokiClash
         {
             name = "dich_" + i;
             ((RectTransform)transform).anchoredPosition = new Vector2(i * 112, 0);
-            portrait.Bind(h, en.boss ? 96 : 80, false, Teams.EnemyStar(en.level));
+            portrait.Bind(h, en.boss ? 96 : 80, false, Teams.EnemyFormStar(en));
             level.text = $"Lv{en.level}{(en.boss ? " BOSS" : "")}";
             level.color = en.boss ? Theme.Red : Theme.Ink;
         }

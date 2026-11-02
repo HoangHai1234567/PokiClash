@@ -342,7 +342,7 @@ namespace PokiClash.EditorTools
         void MachineTab()
         {
             widths = widths ?? (double[])Board.SlotW.Clone();
-            EditorGUILayout.LabelField("Độ rộng 9 ô đáy (trái sang phải): " + string.Join(", ", Board.SlotLayout.Select(Pachinko.Key)), EditorStyles.miniLabel);
+            EditorGUILayout.LabelField($"Độ rộng {Board.SlotLayout.Length} ô đáy (trái sang phải): " + string.Join(", ", Board.SlotLayout.Select(Pachinko.Key)), EditorStyles.miniLabel);
             using (new EditorGUILayout.HorizontalScope())
                 for (int i = 0; i < widths.Length; i++) widths[i] = EditorGUILayout.DoubleField(widths[i], GUILayout.Width(48));
             double sum = widths.Sum(), need = Board.Right - Board.Left;

@@ -64,8 +64,20 @@ namespace PokiClash.EditorTools
             BuildScenes(ui, art);
             UpdateBuildSettings();
             GameViewSizes.EnsureAll();
+            FastPlayMode();
             AssetDatabase.SaveAssets();
             Debug.Log("[Cài đặt] Xong: mở Assets/00 Scenes/Boot.unity rồi bấm Play.");
+        }
+
+        // Vào Play nhanh: không reload domain (vẫn reload scene). Static của mã runtime được trả về trong các hàm
+        // [RuntimeInitializeOnLoadMethod(SubsystemRegistration)] ResetStatics (App, MachineScene, ZoneScene, NotebookDev, SafeArea).
+        [MenuItem("PokiClash/Cài đặt/3. Play không reload domain", priority = 2)]
+        public static void FastPlayMode()
+        {
+            EditorSettings.enterPlayModeOptionsEnabled = true;
+            EditorSettings.enterPlayModeOptions = EnterPlayModeOptions.DisableDomainReload;
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Cài đặt] Vào Play không reload domain (vẫn reload scene).");
         }
 
         // ---------- phông và material ----------

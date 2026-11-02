@@ -196,6 +196,10 @@ namespace PokiClash.Core
         public double starStep;
         public double bossHp;
         public double bossAtk;
+        // boss ải 8 (thẻ Tiến Hóa, dòng n dạng): máu các dạng cộng lại bằng bossEvoHp lần máu boss, chia theo tỉ lệ 1 : 2 : … : n;
+        // Công dạng cuối đủ, mỗi dạng trước kém bossEvoAtk
+        public double bossEvoHp;
+        public double bossEvoAtk;
         public double cardLvStep; // mỗi cấp thẻ tăng số của thẻ thêm 15 %
         public int maxRounds; // giới hạn an toàn số hiệp của một trận
 
@@ -283,6 +287,8 @@ namespace PokiClash.Core
                 starStep = J.Num(o, "starStep"),
                 bossHp = J.Num(o, "bossHp"),
                 bossAtk = J.Num(o, "bossAtk"),
+                bossEvoHp = J.Num(o, "bossEvoHp"),
+                bossEvoAtk = J.Num(o, "bossEvoAtk"),
                 cardLvStep = J.Num(o, "cardLvStep"),
                 maxRounds = J.Int(o, "maxRounds", 60),
                 saveVersion = J.Int(p, "saveVersion"),

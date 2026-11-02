@@ -1,11 +1,14 @@
 // Scene đảo một hệ: ảnh đảo to, 8 ải dọc đường mòn từ bãi dưới lên hang boss, thanh tiến độ có 2 rương mốc,
 // khung "ải tiếp theo" ở dưới. Trong một đảo, ải mở lần lượt.
+import { BOSS_EVO } from '../../core/data/cards';
+import { CFG } from '../../core/data/config';
 import { HERO, HEROES, STARTERS } from '../../core/data/heroes';
 import { STAGE, ZONE, zoneStages, type StageDef } from '../../core/data/stages';
 import { ELEM_COLOR, ELEM_NAME, elemMult, BEATS } from '../../core/elements';
 import {
-  claimZoneChest, nextStage, stageBalls, stageCleared, stageOpen, ZONE_CHEST_AT, zoneChestReady,
+  claimZoneChest, enemyFormStar, FORM_STARS, nextStage, stageBalls, stageCleared, stageLead, stageOpen, TEAM_SLOT_ZONES, teamSlots, ZONE_CHEST_AT, zoneChestReady,
 } from '../../core/progression';
+import { cardText } from '../../core/cardtext';
 import { Rng, randomSeed } from '../../core/rng';
 import type { Elem } from '../../core/types';
 import { app, type Screen } from '../app';
@@ -59,7 +62,7 @@ export function zoneScreen(): Screen {
       : '';
     // ải
     clear(nodes);
-    const lead = s.team.find((t) => s.heroes[t]?.owned) ?? STARTERS[0];
+    const leader = s.team.find((t) => s.heroes[t]?.owned) ?? STARTERS[0];
     stages.forEach((st, i) => {
       const [x, y] = P[i];
       const cleared = stageCleared(s, st), open = stageOpen(s, st), current = open && !cleared;
@@ -86,10 +89,16 @@ export function zoneScreen(): Screen {
         !open ? h('span', { html: icon('lock', 26) }) : null,
       );
       nodes.append(node);
+      // tướng chính của ải đứng trên nút, chân khuất sau mép nút (boss tiến hóa hiện dạng 1); ải chưa mở thì mờ
+      const lead = stageLead(st);
+      const lh = st.kind === 'boss' ? 78 : st.kind === 'mini' ? 64 : 52;
+      nodes.append(h('div', {
+        style: `position:absolute;left:${x}px;top:${y - size / 2 + 12}px;transform:translateX(-50%) translateY(-100%);pointer-events:none;z-index:2;${open ? '' : 'filter:grayscale(.7);opacity:.75'}`,
+      }, heroImg(lead.hero, lh, false, enemyFormStar(lead))));
       if (cleared) nodes.append(h('div', { style: `position:absolute;left:${x + size / 2 - 20}px;top:${y - size / 2 - 10}px;pointer-events:none;z-index:3`, html: icon('check', 28) }));
       if (current) {
         const side = x > MW / 2 ? -1 : 1;
-        nodes.append(h('div', { class: 'bob', style: `position:absolute;left:${x + side * 56 - 36}px;top:${y - 92}px;pointer-events:none;z-index:3` }, heroImg(lead, 80)));
+        nodes.append(h('div', { class: 'bob', style: `position:absolute;left:${x + side * (size / 2 + 50) - 36}px;top:${y - 92}px;pointer-events:none;z-index:3` }, heroImg(leader, 80)));
       }
     });
     // cuộn tới ải đang đánh
@@ -136,7 +145,7 @@ export function zoneScreen(): Screen {
           'div',
           { class: 'col grow', style: 'gap:3px;min-width:0' },
           h('div', { class: 'title', style: 'font-size:19px;line-height:1' }, `Ải ${next.idx}/8 · ${next.name}`),
-          h('div', { class: 'row gap4' }, ...next.enemies.map((e) => h('div', { class: 'col center', style: 'width:52px' }, heroImg(e.hero, e.boss ? 48 : 40), h('span', { class: 'small title', style: 'font-size:11px' }, `Lv${e.level}${e.boss ? ' BOSS' : ''}`)))),
+          h('div', { class: 'row gap4' }, ...next.enemies.map((e) => h('div', { class: 'col center', style: 'width:52px' }, heroImg(e.hero, e.boss ? 48 : 40, false, enemyFormStar(e)), h('span', { class: 'small title', style: 'font-size:11px' }, `Lv${e.level}${e.boss ? ' BOSS' : ''}`)))),
           h('div', { class: 'small' }, `+${stageBalls(next, true)} bi${gift ? ` · ${HERO[gift.hero].name} gia nhập đội!` : next.drops.length ? ` · rơi mảnh ${next.drops.map((x) => HERO[x.hero].name).join(', ')}` : ''}`),
         ),
         h('button', { class: 'btn red big', onclick: () => { sfx.click(); openPrep(next.id); } }, 'Đánh!'),
@@ -190,7 +199,8 @@ export function zoneScreen(): Screen {
 export function openPrep(id: number) {
   const st: StageDef = STAGE[id];
   const s = app.save;
-  const team = s.team.filter((t) => s.heroes[t]?.owned).slice(0, 3);
+  const slotsOpen = teamSlots(s);
+  const team = s.team.filter((t) => s.heroes[t]?.owned).slice(0, slotsOpen);
   const body = h('div', { class: 'col gap8' });
   const m = app.modal(body, { width: 500 });
   const lead = HERO[st.enemies.find((e) => e.boss)?.hero ?? st.enemies[0].hero];
@@ -212,16 +222,26 @@ export function openPrep(id: number) {
     const foes = h('div', { class: 'row gap8 sk thin', style: 'padding:8px;--fill:#fff2ec;justify-content:center;flex-wrap:wrap' });
     for (const e of st.enemies) {
       const hero = HERO[e.hero];
+      const evo = e.evo && hero.forms.length > 1;
       foes.append(
         h(
           'div',
           { class: 'col center', style: 'width:120px' },
-          heroImg(e.hero, e.boss ? 84 : 66),
-          h('div', { class: 'title', style: 'font-size:15px;text-align:center;line-height:1' }, hero.name),
+          heroImg(e.hero, e.boss ? 84 : 66, false, enemyFormStar(e)),
+          h('div', { class: 'title', style: 'font-size:15px;text-align:center;line-height:1' }, evo ? hero.forms[0].name : hero.name),
           h('div', { class: 'row gap4' }, elemTag(hero.elem), h('span', { class: 'title', style: 'font-size:13px' }, `Lv${e.level}`)),
-          e.boss ? h('div', { class: 'small', style: 'color:var(--red);font-weight:bold' }, 'Boss: máu ×1,8') : null,
+          e.boss ? h('div', { class: 'small', style: 'color:var(--red);font-weight:bold' }, evo ? `Boss tiến hóa ${hero.forms.length} dạng` : `Boss: máu ×${String(Math.round(CFG.bossHp * (e.evo ? CFG.bossEvoHp : 1) * 10) / 10).replace('.', ',')}`) : null,
         ),
       );
+      // boss tiến hóa: cả dòng dạng (dạng sau to hơn) và thẻ Tiến Hóa
+      if (evo) {
+        const line = h('div', { class: 'row gap4', style: 'align-items:flex-end' });
+        hero.forms.forEach((fm, i) => {
+          if (i) line.append(h('span', { class: 'title', style: 'font-size:20px;padding-bottom:18px' }, '›'));
+          line.append(h('div', { class: 'col center', style: 'width:76px' }, heroImg(e.hero, 46 + i * 10, false, i ? FORM_STARS[i - 1] : 1), h('div', { class: 'small title', style: 'font-size:11px;text-align:center;line-height:1' }, fm.name)));
+        });
+        foes.append(h('div', { class: 'col center gap4', style: 'width:100%' }, line, h('div', { class: 'small', style: 'text-align:center;line-height:1.2' }, h('b', null, `${BOSS_EVO.name}: `), cardText(BOSS_EVO))));
+      }
     }
     body.append(h('div', { class: 'title', style: 'font-size:15px' }, 'Đối thủ'), foes);
     const first = !stageCleared(s, st);
@@ -238,6 +258,10 @@ export function openPrep(id: number) {
     const slots = h('div', { class: 'row gap8', style: 'justify-content:center' });
     for (let i = 0; i < 3; i++) {
       const id2 = team[i];
+      if (i >= slotsOpen) {
+        slots.append(h('div', { class: 'sk center', style: 'width:112px;height:100px;--fill:#e2dccd;flex-direction:column;--shadow:none', html: icon('lock', 28) }, h('div', { class: 'small muted' }, `Xong ${TEAM_SLOT_ZONES[i]} đảo`)));
+        continue;
+      }
       slots.append(
         h(
           'div',
@@ -247,7 +271,7 @@ export function openPrep(id: number) {
         ),
       );
     }
-    body.append(h('div', { class: 'row', style: 'justify-content:space-between' }, h('div', { class: 'title', style: 'font-size:15px' }, 'Đội của bạn (tối đa 3, tướng đầu ra trước)'), h('span', { class: 'small muted' }, 'chạm để bỏ')), slots);
+    body.append(h('div', { class: 'row', style: 'justify-content:space-between' }, h('div', { class: 'title', style: 'font-size:15px' }, `Đội của bạn (${slotsOpen}/3 ô, tướng đầu ra trước)`), h('span', { class: 'small muted' }, 'chạm để bỏ')), slots);
     const roster = h('div', { class: 'row gap6', style: 'flex-wrap:wrap;justify-content:center' });
     for (const hero of HEROES) {
       const p = s.heroes[hero.id];
@@ -263,8 +287,8 @@ export function openPrep(id: number) {
             onclick: () => {
               sfx.click();
               if (inTeam) team.splice(team.indexOf(hero.id), 1);
-              else if (team.length < 3) team.push(hero.id);
-              else app.toast('Đội tối đa 3 tướng', 'team');
+              else if (team.length < slotsOpen) team.push(hero.id);
+              else app.toast(slotsOpen < 3 ? `Đang mở ${slotsOpen} ô đội: xong thêm đảo để mở ô mới` : 'Đội tối đa 3 tướng', 'team');
               draw();
             },
           },

@@ -2493,9 +2493,10 @@ MonoBehaviour:
     - {fileID: 6088458320839185682}
     - {fileID: 1700978966648018200}
     ball: {fileID: 8498547812596656405, guid: 88f305a7c7230454abce60c93116520d, type: 3}
-    trail: {fileID: 6950454982396314497, guid: d88bee231c51eff4f9fc8b4e68fe3ba8, type: 3}
     pegFlash: {fileID: 4717264661066655223, guid: e8e25df8433b22149a8ab50f421aa87c, type: 3}
     burst: {fileID: 6877297389987181913, guid: ff023ddf4ab917e4a8ef84ce289cad8f, type: 3}
+    particle: {fileID: 2014146167203447461, guid: ef1a873508866c14d9790e77ca7979d3, type: 3}
+    trail: {fileID: 9072181252221005798, guid: bbd3b0600ed7df64c87523ad2367e683, type: 3}
     floatText: {fileID: 5652615399720051072, guid: 653908a5de9a35b42adc3ed341303bec, type: 3}
 --- !u!222 &3201398129559378081
 CanvasRenderer:

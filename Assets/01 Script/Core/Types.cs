@@ -18,7 +18,7 @@ namespace PokiClash.Core
     // End: hết khi kết thúc lượt của chủ (buff đánh); Start: hết khi bắt đầu lượt sau của chủ (buff thủ)
     public enum Until { End, Start }
 
-    public enum EffectKind { Buff, Heal, MaxHp, SelfDmg, Mana, Rage, Dmg, Shield, Status, Cleanse, Double, Extra, TrueStrike, IfLow, Revive }
+    public enum EffectKind { Buff, Heal, MaxHp, SelfDmg, Mana, Rage, Dmg, Shield, Status, Cleanse, Double, Extra, TrueStrike, IfLow, Revive, Evolve }
     public enum CardKind { Pool, Skill, Ult, Passive }
     public enum PassiveTrigger { None, Start, TurnStart, LowHp, OnAttack, OnHit, Death }
     public enum StageKind { Normal, Mini, Boss }
@@ -32,7 +32,7 @@ namespace PokiClash.Core
         public int Turns;
         public Until? Until;
         public Target? On;
-        public double Pct; // heal, maxhp, shield, revive
+        public double Pct; // heal, maxhp, shield, revive, evolve
         public double PctCur; // selfdmg
         public double Mult; // dmg, extra, trueStrike
         public int? Hits;
@@ -127,6 +127,7 @@ namespace PokiClash.Core
         public string hero;
         public int level;
         public bool boss;
+        public bool evo; // boss tiến hóa trong trận (thẻ Tiến Hóa boss_evo)
     }
 
     [Serializable]
@@ -184,6 +185,7 @@ namespace PokiClash.Core
         public int cardUlt = 1;
         public int cardPassive = 1;
         public bool boss;
+        public bool evo; // boss có thẻ Tiến Hóa: vào trận ở dạng 1, gần chết thì lên dạng sau
         public StatMods mods; // phần cộng của side meta (null = không có)
         public BattleStart start; // hiệu ứng đầu trận của tiềm năng (null = không có)
     }

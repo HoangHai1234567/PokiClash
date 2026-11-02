@@ -120,6 +120,70 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunBattle(7, true)));
         }
 
+        [MenuItem("PokiClash/Thử/Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải 8 (đang Play)", priority = 105)]
+        static void TryBossEvo()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunBossEvo()));
+        }
+
+        // Ải 8 Đảo Thủy (boss một mình, dòng 3 dạng): chụp đảo (tướng trên nút ải), hộp chuẩn bị (các dạng), rồi mỗi lần boss lên
+        // dạng thì chụp liền lúc tên dạng mới hiện ra (logic tính trước cả lượt, nên canh chữ trên màn chứ không canh f.form)
+        static IEnumerator RunBossEvo()
+        {
+            shot = 180;
+            var sv = App.Save.Data;
+            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
+            sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            sv.level = 10;
+            sv.zones[(int)Elem.Thuy] = 7;
+            App.Save.Save();
+            yield return Go(SceneIds.Zone, Elem.Thuy);
+            yield return new WaitForSecondsRealtime(0.5f);
+            yield return Shot("dao_thuy_7");
+            StagePrep.Open(App.Data.Stages.First(st => st.zone == Elem.Thuy && st.idx == 8).id);
+            yield return new WaitForSecondsRealtime(0.6f);
+            yield return Shot("chuan_bi_boss");
+            App.Modals.CloseAll();
+            yield return Go(SceneIds.Battle, new BattleArgs { stageId = 8 });
+            var ctl = Object.FindAnyObjectByType<BattleController>();
+            if (!ctl)
+            {
+                Debug.LogError("[Thử] Không thấy BattleController");
+                yield break;
+            }
+            var boss = ctl.Battle.sides[1].fighters[0];
+            yield return new WaitForSecondsRealtime(1.5f);
+            yield return Shot("boss_dang1");
+            ctl.SetAuto(true);
+            ctl.SetSpeed(3);
+            int seen = 0;
+            float t0 = Time.realtimeSinceStartup;
+            while (ctl.Battle.phase != Phase.Over || seen < boss.form)
+            {
+                if (Time.realtimeSinceStartup - t0 > 240) break;
+                if (seen < boss.form)
+                {
+                    string next = boss.hero.forms[seen + 1].name;
+                    if (Object.FindObjectsByType<TMPro.TextMeshProUGUI>(FindObjectsSortMode.None).Any(t => t.isActiveAndEnabled && t.text == next))
+                    {
+                        seen++;
+                        yield return Shot($"tien_hoa_{seen}_a");
+                        yield return new WaitForSecondsRealtime(0.25f);
+                        yield return Shot($"tien_hoa_{seen}_b");
+                        continue;
+                    }
+                }
+                yield return null;
+            }
+            Debug.Log($"[Thử] Boss tiến hóa: {(ctl.Battle.winner == 0 ? "thắng" : "thua")} sau {ctl.Battle.round} hiệp; boss lên {boss.form} lần " +
+                      $"(thấy trên màn {seen}), máu tối đa dạng cuối {boss.maxHp:0}");
+            yield return Until(() => App.Modals.Count > 0, 30);
+            yield return new WaitForSecondsRealtime(1.2f);
+            yield return Shot("boss_ket_qua");
+            Debug.Log($"[Thử] Xong boss tiến hóa: ảnh trong {ShotDir}");
+        }
+
         // Chạy lần lượt mọi menu thử (trừ "Người chơi mới đi trọn Đảo Thủy" vì lâu), ảnh dồn vào một thư mục, đánh số liên tiếp.
         // Dùng để so ảnh trước và sau một thay đổi lớn (bật "Chụp đứng hình" trước).
         [MenuItem("PokiClash/Thử/Chạy mọi menu thử, chụp ảnh (đang Play)", priority = 98)]
@@ -941,15 +1005,22 @@ namespace PokiClash.EditorTools
             {
                 var s = App.Save.Data;
                 var next = Progress.NextStage(s, d, Elem.Thuy);
-                // tướng mới được tặng: cho vào đội (bấm trong kho tướng của hộp chuẩn bị)
+                // tướng mới được tặng: cho vào đội nếu còn ô đội mở (chạm ô đội mở bể tướng, chọn, "Xong")
                 StagePrep.Open(next.id);
                 yield return new WaitForSecondsRealtime(0.4f);
-                foreach (var id in new[] { "vo_su", "nu_hoa" })
-                    if (s.Hero(id).owned && !s.team.Contains(id) && s.team.Count < 3)
-                    {
-                        ClickNamed("kho_" + id);
-                        yield return new WaitForSecondsRealtime(0.2f);
-                    }
+                if (Progress.TeamSlots(s) > 1)
+                {
+                    ClickNamed("o_doi_0");
+                    yield return new WaitForSecondsRealtime(0.4f);
+                    foreach (var id in new[] { "vo_su", "nu_hoa" })
+                        if (s.Hero(id).owned && !s.team.Contains(id))
+                        {
+                            ClickNamed("kho_" + id);
+                            yield return new WaitForSecondsRealtime(0.2f);
+                        }
+                    ClickButton("Xong");
+                    yield return new WaitForSecondsRealtime(0.3f);
+                }
                 if (next.idx == 1 || next.idx == 8) yield return Shot("chuan_bi_ai_" + next.idx);
                 ClickButton("Xuất trận!");
                 yield return WaitScene(SceneIds.Battle);

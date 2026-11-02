@@ -11,7 +11,7 @@ namespace PokiClash.Core
     public enum EvType
     {
         Start, Round, Turn, Card, Innate, Ult, Passive, Attack, Dmg, Heal, MaxHp, Shield, Mana, Rage, Buff, Status,
-        Resist, Cleanse, Double, Stunned, Swap, Death, Revive, End,
+        Resist, Cleanse, Double, Stunned, Swap, Death, Revive, End, Evolve,
     }
 
     public sealed class Buff
@@ -38,6 +38,10 @@ namespace PokiClash.Core
         public int star;
         public int cardSkill, cardUlt, cardPassive;
         public bool boss;
+        public bool evo; // boss ải 8: có thẻ Tiến Hóa (dòng 1 dạng thì không tiến hóa được)
+        public int form; // dạng đang hiện trong dòng tiến hóa (tướng thường theo sao, boss tiến hóa từ 0)
+        // tên hiện trên sân (web fighterName): boss tiến hóa theo dạng đang có, tướng khác theo tên dòng
+        public string Name => evo && form < hero.forms.Length ? hero.forms[form].name : hero.name;
         public double maxHp, hp, atk, def, spd;
         public double mana, rage, shield;
         public List<Buff> buffs = new List<Buff>();
@@ -130,13 +134,14 @@ namespace PokiClash.Core
         public int idx;
         public bool forced;
         public double hp;
+        public int form; // evolve: dạng mới
         public int winner;
         public Snap snap;
 
         public static readonly string[] TypeKeys =
         {
             "start", "round", "turn", "card", "innate", "ult", "passive", "attack", "dmg", "heal", "maxhp", "shield", "mana",
-            "rage", "buff", "status", "resist", "cleanse", "double", "stunned", "swap", "death", "revive", "end",
+            "rage", "buff", "status", "resist", "cleanse", "double", "stunned", "swap", "death", "revive", "end", "evolve",
         };
 
         public static readonly string[] DmgKindKeys = { "attack", "extra", "skill", "ult", "card", "burn", "self" };
@@ -184,6 +189,7 @@ namespace PokiClash.Core
                 case EvType.Death: d["side"] = (double)side; d["idx"] = (double)idx; break;
                 case EvType.Revive: d["side"] = (double)side; d["idx"] = (double)idx; d["hp"] = hp; break;
                 case EvType.End: d["winner"] = (double)winner; break;
+                case EvType.Evolve: d["side"] = (double)side; d["idx"] = (double)idx; d["form"] = (double)form; d["hp"] = hp; break;
             }
             if (withSnap && snap != null) d["snap"] = SnapDict(snap);
             return d;

@@ -20,6 +20,8 @@
   "starStep": 0.08,
   "bossHp": 1.8,
   "bossAtk": 1.1,
+  "bossEvoHp": 1.5,
+  "bossEvoAtk": 0.1,
   "cardLvStep": 0.15,
   "maxRounds": 60
  },
@@ -199,13 +201,13 @@
   "measured": {
    "balls": 6000,
    "rates": {
-    "chest_silver": 0.0597,
-    "exp10": 0.2275,
-    "exp5": 0.296,
-    "exp15": 0.22,
-    "chest_gold": 0.0343,
-    "ball": 0.0878,
-    "chest_wood": 0.0747
+    "chest_silver": 0.056,
+    "chest_wood": 0.0775,
+    "exp10": 0.2212,
+    "chest_gold": 0.0315,
+    "exp15": 0.2207,
+    "exp5": 0.2988,
+    "ball": 0.0943
    }
   }
  },

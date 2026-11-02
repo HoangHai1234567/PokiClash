@@ -178,7 +178,7 @@ namespace PokiClash
                     var c = b.Data.Card(e.card);
                     sfx.Play("ult");
                     st.Flash("#fff3c4");
-                    if (Banner != null) host.StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {b.ActiveOf(e.side).hero.name}", true));
+                    if (Banner != null) host.StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {b.ActiveOf(e.side).Name}", true));
                     yield return PlayClip(e.side, StageView.Skill);
                     break;
                 }
@@ -227,6 +227,22 @@ namespace PokiClash
                     sfx.Play("level");
                     yield return W(700);
                     break;
+                case EvType.Evolve:
+                {
+                    // boss lên dạng sau: hiệu ứng như hồi sinh, đổi hình và tên dạng (thanh máu đổi theo ảnh chụp)
+                    yield return WaitPending();
+                    var f = b.sides[e.side].fighters[e.idx];
+                    string formName = f.hero.forms[e.form].name;
+                    st.Text(e.side, "Tiến hóa!", "#ffe08a", 34);
+                    st.Ring(e.side, "#f7c948");
+                    st.Flash("#fff6c9");
+                    sfx.Play("level");
+                    st.SetActor(e.side, f.hero, f.boss, false, Teams.FormStar(b.Data.Cfg, e.form));
+                    view.SetPlateName(e.side, formName);
+                    st.Text(e.side, formName, "#fff6c8", 22);
+                    yield return W(900);
+                    break;
+                }
                 case EvType.Death:
                     yield return WaitPending();
                     st.Die(e.side);
@@ -239,7 +255,7 @@ namespace PokiClash
                     sfx.Play("swap");
                     yield return W(st.Retreat(e.side) * 1000);
                     var f = b.sides[e.side].fighters[e.to];
-                    st.SetActor(e.side, f.hero, f.boss, true, f.star);
+                    st.SetActor(e.side, f.hero, f.boss, true, Teams.LookStar(b.Data.Cfg, f));
                     view.FillPlate(e.side);
                     st.Text(e.side, e.side == 0 ? $"{f.hero.name}, ra sân!" : $"{f.hero.name} ra sân", "#fff6c8", 22);
                     yield return W(480);

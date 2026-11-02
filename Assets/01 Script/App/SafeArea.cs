@@ -12,6 +12,9 @@ namespace PokiClash
         // dùng để thử trong Editor: vùng an toàn giả (tỉ lệ 0..1), Rect rỗng = tắt
         public static Rect Simulated;
 
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] // Play không reload domain
+        static void ResetStatics() => Simulated = default;
+
         void OnEnable() => Apply(true);
 
         void Update() => Apply(false);

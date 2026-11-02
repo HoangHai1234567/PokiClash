@@ -1,4 +1,4 @@
-// Sổ tay: cài đặt (nét vẽ rung, âm thanh, gợi ý trong trận, tốc độ trận mặc định) có hiệu lực ngay, mục "Gói hỗ trợ"
+// Sổ tay: cài đặt (nét vẽ rung, âm thanh, rung máy, gợi ý trong trận, tốc độ trận mặc định) có hiệu lực ngay, mục "Gói hỗ trợ"
 // (Thẻ Phiêu Lưu, Bỏ quảng cáo: trạng thái, hạn còn lại) và xoá dữ liệu có xác nhận.
 // Bản dev (Editor, Development Build) có thêm Bảng thử, Chỉnh số, Máy tự chơi (App/Dev/NotebookDev.cs). Tờ giấy cuộn dọc.
 // Prefab màn hình Assets/04 Prefabs/Screens/Notebook; thẻ gói là prefab Items/GoiHoTro (PackCard), sinh theo cấu hình.
@@ -22,6 +22,7 @@ namespace PokiClash
         {
             public ScrollRect scroll;
             public SketchButton boil, sound, hints;
+            public SketchButton haptics; // dòng "Rung" (thêm bằng menu PokiClash/Prefab/Sổ tay: thêm dòng Rung)
             public SketchButton[] speed; // ×1, ×2, ×3
             public GameObject packs; // mục "Gói hỗ trợ" (ẩn khi chưa có cửa hàng và chưa có gói)
             public Transform packNote; // dòng "Không bán bi..." trong mục gói: thẻ gói chèn ngay trước
@@ -64,6 +65,8 @@ namespace PokiClash
             Toggle(p.boil, st.boil, x => st.boil = x);
             Toggle(p.sound, st.sound, x => st.sound = x);
             Toggle(p.hints, st.hints, x => st.hints = x);
+            // bật rung thì rung thử một cú để người chơi biết máy có rung
+            if (p.haptics) Toggle(p.haptics, st.haptics, x => st.haptics = x, x => { if (x) Haptics.Play(Haptic.OpenSilver); });
             for (int i = 0; i < p.speed.Length; i++)
             {
                 int sp = i + 1;
@@ -123,7 +126,8 @@ namespace PokiClash
             }
         }
 
-        void Toggle(SketchButton b, bool value, Action<bool> set)
+        // after: gọi sau khi đã lưu và áp cài đặt (giá trị mới)
+        void Toggle(SketchButton b, bool value, Action<bool> set, Action<bool> after = null)
         {
             string label = value ? "Bật" : "Tắt";
             b.name = "nut_" + label;
@@ -133,6 +137,7 @@ namespace PokiClash
             {
                 set(!value);
                 App.Save.Save(); // App áp cài đặt ngay khi bản lưu đổi
+                after?.Invoke(!value);
                 Render();
             });
         }

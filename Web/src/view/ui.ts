@@ -2,6 +2,7 @@
 import { CARD } from '../core/data/cards';
 import { HERO } from '../core/data/heroes';
 import { cardText, costText, KIND_NAME } from '../core/cardtext';
+import { formOf } from '../core/progression';
 import { ELEM_COLOR, ELEM_NAME, RARITY_COLOR, RARITY_NAME } from '../core/elements';
 import type { Elem } from '../core/types';
 import { portrait } from './aola';
@@ -67,9 +68,10 @@ export function stars(n: number, max = 5) {
   return h('span', { class: 'stars', html: Array.from({ length: max }, (_, i) => icon(i < n ? 'star' : 'starOff', 16)).join('') });
 }
 
-export function heroImg(heroId: string, height: number, silhouette = false) {
+// star: chọn dạng trong dòng tiến hóa (mặc định dạng 1)
+export function heroImg(heroId: string, height: number, silhouette = false, star = 1) {
   const img = h('img', { style: `height:${height}px;opacity:0;transition:opacity .25s` }) as HTMLImageElement;
-  void portrait(HERO[heroId].aola, height * 2, silhouette).then((src) => {
+  void portrait(formOf(HERO[heroId], star).aola, height * 2, silhouette).then((src) => {
     if (src) {
       img.src = src;
       img.style.opacity = '1';

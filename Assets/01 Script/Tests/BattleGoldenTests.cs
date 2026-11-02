@@ -27,7 +27,7 @@ namespace PokiClash.Tests
                 var cl = J.Obj(m, "cardLv");
                 t.members.Add(new Member
                 {
-                    heroId = J.Str(m, "heroId"), level = J.Int(m, "level"), star = J.Int(m, "star"), boss = J.Bool(m, "boss"),
+                    heroId = J.Str(m, "heroId"), level = J.Int(m, "level"), star = J.Int(m, "star"), boss = J.Bool(m, "boss"), evo = J.Bool(m, "evo"),
                     cardSkill = J.Int(cl, "skill"), cardUlt = J.Int(cl, "ult"), cardPassive = J.Int(cl, "passive"),
                 });
             }
@@ -154,6 +154,47 @@ namespace PokiClash.Tests
                 }
             }
             Assert.Greater(found, 0, "golden phải có ít nhất một lần hồi sinh");
+        }
+
+        // boss có thẻ Tiến Hóa: vào trận ở dạng 1 (máu bossEvoHp·1/(1+…+n) máu boss), mỗi lần tiến hóa lên đúng một dạng, hồi đầy máu
+        // dạng mới (máu tối đa tăng), không gục khi còn dạng sau
+        [Test]
+        public void BossTienHoa_TuDang1LenDangCuoi()
+        {
+            var d = TestData.Load();
+            var card = d.Card(Battle.BossEvoCard);
+            Assert.AreEqual("Khi máu dưới 25%, nếu còn dạng sau: tiến hóa, hồi đầy máu, máu và Công tăng.", CardText.Text(card, 1, d.Cfg.cardLvStep));
+            var st = d.Stages.Find(x => x.zone == Elem.Thuy && x.kind == StageKind.Boss);
+            Assert.AreEqual(1, st.enemies.Count, "ải boss chỉ có boss");
+            Assert.IsTrue(st.enemies[0].evo);
+            var hero = d.Hero(st.enemies[0].hero);
+            Assert.AreEqual(3, hero.forms.Length);
+            var full = HeroStats.Compute(d.Cfg, hero, st.enemies[0].level, Teams.EnemyStar(st.enemies[0].level), true);
+            // đội mạnh hơn hẳn để chắc đánh tới dạng cuối
+            var p = new TeamSetup { name = "Bạn", ai = true };
+            foreach (var id in new[] { "huyen_vu", "ca_sa", "phap_luan" }) p.members.Add(new Member { heroId = id, level = 30, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
+            var log = new List<BattleEvent>();
+            var b = Battle.Create(d, p, Teams.Enemy(st), 11);
+            Assert.AreEqual(0, b.ActiveOf(1).form);
+            Assert.AreEqual(Js.Round(full.hp * 0.25), b.ActiveOf(1).maxHp, "dạng 1: 1/6 của 1,5 lần máu boss");
+            BattleSim.Run(b, 0.15, log);
+            var evo = log.FindAll(e => e.t == EvType.Evolve);
+            Assert.AreEqual(2, evo.Count, "dòng 3 dạng tiến hóa 2 lần");
+            double lastMax = 0;
+            for (int i = 0; i < evo.Count; i++)
+            {
+                Assert.AreEqual(i + 1, evo[i].form);
+                int k = log.IndexOf(evo[i]);
+                Assert.AreEqual(EvType.Passive, log[k - 1].t);
+                Assert.AreEqual(Battle.BossEvoCard, log[k - 1].card);
+                var f = evo[i].snap.f[1][0];
+                Assert.IsFalse(f.dead);
+                Assert.AreEqual(f.maxHp, f.hp, "hồi đầy máu dạng mới");
+                Assert.Greater(f.maxHp, lastMax);
+                lastMax = f.maxHp;
+            }
+            Assert.AreEqual(0, b.winner, "boss gục ở dạng cuối");
+            Assert.AreEqual(2, b.ActiveOf(1).form);
         }
 
         [Test]

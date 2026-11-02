@@ -24,7 +24,7 @@ namespace PokiClash.EditorTools
             EditorPrefs.DeleteKey(AolaActor.PrefKey);
             AolaActor.ForgetDir();
             var dir = AolaActor.FindDir();
-            Debug.Log(dir != null ? $"[Aola] Thư mục reskin: {dir}" : "[Aola] Không tìm thấy thư mục reskin (cần <ổ>:/Aola*/.../reskin/<tên>/export/anim.json).");
+            Debug.Log(dir != null ? $"[Aola] Thư mục reskin: {dir}" : "[Aola] Không tìm thấy thư mục reskin (cần Aola*/.../reskin/<tên>/export/anim.json cạnh thư mục project hoặc ở gốc ổ đĩa).");
         }
     }
 }

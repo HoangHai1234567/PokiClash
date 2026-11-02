@@ -8,7 +8,8 @@ import { cardText, costText } from '../src/core/cardtext';
 import { INNATE, POOL } from '../src/core/data/cards';
 import { HERO, HEROES } from '../src/core/data/heroes';
 import {
-  addShards, claimZoneChest, enemyTeam, formIndex, memberOf, migrateRosterV3, newSave, playerTeam, rollCardDrop, SLOTS, winStage,
+  addShards, claimZoneChest, enemyFormStar, enemyTeam, formIndex, memberOf, migrateRosterV3, newSave, playerTeam, rollCardDrop, SLOTS,
+  stageLead, winStage,
 } from '../src/core/progression';
 import { afkBoost, afkChestTimes, afkPending, afkSlots, afkTick, afkTravel, claimAfk, openAfkChest } from '../src/core/afk';
 import { adLeft, adUse, buyProduct, migrateAdsV2, passActive } from '../src/core/ads';
@@ -17,7 +18,7 @@ import { Board, BW, openChest, spendBall, SWING, type Reward } from '../src/core
 import { Rng } from '../src/core/rng';
 import { runBattle, zoneTable } from '../src/core/sim';
 import { badgeCount, badgeCurrent, badgeSeed, badgeStage, lineOpen, templeOpen, winBadge } from '../src/core/badges';
-import { STAGE, ZONES } from '../src/core/data/stages';
+import { STAGE, STAGES, ZONES } from '../src/core/data/stages';
 import { potentialTotals, type PotLine } from '../src/core/data/potential';
 import { farmAuto, farmBoost, farmHarvest, farmHours, farmOf, farmPlace, farmRate, farmRemove, farmRestMin, farmTick, farmTravel, spotsOpen } from '../src/core/farm';
 import { caveElem, caveLeft, cavePick, caveStage, keepPotential, spinCost, spinPotential, weekdayOf, winCave } from '../src/core/potential';
@@ -55,11 +56,13 @@ function randomTeam(r: Rng, name: string, ai: boolean): TeamSetup {
   const members = [];
   for (let i = 0; i < n; i++) {
     const h = HEROES[r.int(0, HEROES.length - 1)];
-    members.push({
+    const m = {
       heroId: h.id, level: r.int(1, 30), star: r.int(1, 5),
       cardLv: { skill: r.int(1, 5), ult: r.int(1, 5), passive: r.int(1, 5) },
       boss: r.chance(0.15),
-    });
+    };
+    // boss ải 8: thẻ Tiến Hóa (gồm cả dòng 1 dạng, không tiến hóa nhưng gánh máu cả dòng)
+    members.push(m.boss && r.chance(0.6) ? { ...m, evo: true } : m);
   }
   return { name, ai, members };
 }
@@ -105,7 +108,8 @@ for (let i = 0; i < 200; i++) {
 write('battles.json', { battles }, false);
 write('battle_events.json', { battles: detail }, false);
 const revives = battles.filter((x) => x.kinds.includes('revive')).length;
-console.log(`200 trận: bên 0 thắng ${battles.filter((x) => x.winner === 0).length}, có hồi sinh ${revives}, ` +
+const evolves = battles.filter((x) => x.kinds.includes('evolve')).length;
+console.log(`200 trận: bên 0 thắng ${battles.filter((x) => x.winner === 0).length}, có hồi sinh ${revives}, có tiến hóa ${evolves}, ` +
   `dài nhất ${Math.max(...battles.map((x) => x.round))} hiệp`);
 
 // ---------- tiến trình: chỉ số tướng, thẻ rơi từ rương, mảnh tướng ----------
@@ -543,5 +547,7 @@ const rosterMigrate = rosterIn.map((x) => {
   migrateRosterV3(o);
   return { in: x, out: o };
 });
-write('roster.json', { forms, migrate: rosterMigrate });
+// tướng chính đứng trên nút ải (màn đảo) và sao chọn hình của nó
+const leads = STAGES.map((st) => ({ id: st.id, hero: stageLead(st).hero, star: enemyFormStar(stageLead(st)) }));
+write('roster.json', { forms, migrate: rosterMigrate, leads });
 console.log('40 tướng:', forms.length, 'tướng,', rosterMigrate.length, 'bản lưu nâng v4');

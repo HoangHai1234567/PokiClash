@@ -69,6 +69,13 @@ namespace PokiClash
         static int botStage = -1;
         static string botResult = "";
 
+        [UnityEngine.RuntimeInitializeOnLoadMethod(UnityEngine.RuntimeInitializeLoadType.SubsystemRegistration)] // Play không reload domain
+        static void ResetStatics()
+        {
+            botStage = -1;
+            botResult = "";
+        }
+
         // rebuild: Sổ tay gán lại toàn bộ (sau khi bản lưu hoặc số đổi)
         public static void Bind(NotebookDevPanel panel, Action rebuild)
         {

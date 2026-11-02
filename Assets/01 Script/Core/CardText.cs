@@ -30,6 +30,7 @@ namespace PokiClash.Core
                 case EffectKind.MaxHp:
                 case EffectKind.Shield:
                 case EffectKind.Revive:
+                case EffectKind.Evolve:
                     e.Pct = J.Num(o, "pct");
                     break;
                 case EffectKind.SelfDmg:
@@ -210,6 +211,8 @@ namespace PokiClash.Core
                            (e.Else != null ? $". Không thì: {LowFirst(string.Join(", ", e.Else.Select(EffectText)))}" : "");
                 case EffectKind.Revive:
                     return $"Hồi sinh với {Pct(e.Pct)} máu";
+                case EffectKind.Evolve:
+                    return $"Tiến hóa, hồi {(e.Pct >= 1 ? "đầy" : $"tới {Pct(e.Pct)}")} máu, máu và Công tăng";
             }
             return "";
         }
@@ -219,6 +222,7 @@ namespace PokiClash.Core
             string body = string.Join(". ", ScaleEffects(c.Effects, lv, cardLvStep).Select(EffectText));
             if (c.kind != CardKind.Passive) return body + ".";
             string low = LowFirst(body);
+            if (c.Effects.Count > 0 && c.Effects[0].K == EffectKind.Evolve) return $"Khi máu dưới {Pct(c.below)}, nếu còn dạng sau: {low}.";
             switch (c.trigger)
             {
                 case PassiveTrigger.Start: return $"Vào trận: {low}.";

@@ -1,6 +1,7 @@
 // Hộp Chuẩn bị trận dùng chung cho ải đảo, Đền Huy Hiệu, Hang Tiềm Năng (prefab Assets/04 Prefabs/Dialogs/ChuanBiTran):
-// đầu hộp và nhãn kiểu, cảnh báo quá sức, đối thủ (Items/DoiThu), thưởng (Items/ThuongTran), 3 ô đội hình dựng sẵn,
-// kho tướng (Items/OKho), "Xuất trận!". Mở qua StagePrep.Open / OpenBadge / OpenCave.
+// đầu hộp và nhãn kiểu, cảnh báo quá sức, đối thủ (Items/DoiThu), thưởng (Items/ThuongTran), 3 ô đội hình dựng sẵn, "Xuất trận!".
+// Ô đội mở theo tiến trình (Progress.TeamSlots): ô chưa mở hiện khoá và điều kiện; chạm ô đã mở thì mở bể tướng (TeamPickerDialog,
+// prefab Dialogs/ChonDoi) chọn một lần đủ đội. Lưới kho tướng cũ trong hộp (kho, dòng gợi ý) để ẩn. Mở qua StagePrep.Open / OpenBadge / OpenCave.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace PokiClash
 {
     public sealed class StagePrepDialog : Dialog
     {
-        // một ô đội hình: có tướng thì chân dung và tên (chạm để bỏ), trống thì chữ "Trống"
+        // một ô đội hình: có tướng thì chân dung và tên, trống thì chữ "Trống" (chữ trong empty cũng ghi điều kiện mở ô khoá)
         [Serializable]
         public struct Slot
         {
@@ -41,6 +42,8 @@ namespace PokiClash
         [SerializeField] PrepFoe foePrefab;
         [SerializeField] PrepRewardChip chipPrefab;
         [SerializeField] PrepRosterCell cellPrefab;
+        [SerializeField] TeamPickerDialog pickerPrefab; // menu "Hộp chọn đội (ChonDoi)" gán
+        [SerializeField] TextMeshProUGUI teamTitle, teamHint; // đầu mục đội hình
 
         StageDef st;
         BadgeRef badge;
@@ -66,7 +69,7 @@ namespace PokiClash
             cave = caveRef;
             var d = App.Data;
             var s = App.Save.Data;
-            team = s.team.Where(t => s.Hero(t)?.owned == true).Take(3).ToList();
+            team = s.team.Where(t => s.Hero(t)?.owned == true).Take(Progress.TeamSlots(s)).ToList();
             var z = d.Zone(st.zone);
             leadEnemy = d.Hero((st.enemies.FirstOrDefault(e => e.boss) ?? st.enemies[0]).hero);
             int maxLv = st.enemies.Max(e => e.level);
@@ -80,14 +83,22 @@ namespace PokiClash
             p.warn.SetActive(s.level < maxLv - 2);
             p.warnText.text = $"Cảnh báo: địch cấp {maxLv}, bạn mới cấp {s.level}. Đảo này đang quá mạnh, nên nuôi tướng thêm.";
 
-            // đối thủ
+            // đối thủ; boss tiến hóa (ải 8) đứng một mình nên hiện cả dòng dạng, dạng đầu bên trái
             Clear(p.foes);
-            for (int i = 0; i < st.enemies.Count; i++)
+            var evo = st.enemies.Count == 1 && st.enemies[0].evo && d.Hero(st.enemies[0].hero).forms.Length > 1 ? st.enemies[0] : null;
+            if (evo != null)
             {
-                var en = st.enemies[i];
-                float x = (i - (st.enemies.Count - 1) / 2f) * 280;
-                Ui.Spawn(foePrefab, p.foes).Bind(d.Hero(en.hero), en, x);
+                var h = d.Hero(evo.hero);
+                for (int i = 0; i < h.forms.Length; i++)
+                    Ui.Spawn(foePrefab, p.foes).BindForm(h, evo, i, (i - (h.forms.Length - 1) / 2f) * 280, d.Cfg);
             }
+            else
+                for (int i = 0; i < st.enemies.Count; i++)
+                {
+                    var en = st.enemies[i];
+                    float x = (i - (st.enemies.Count - 1) / 2f) * 280;
+                    Ui.Spawn(foePrefab, p.foes).Bind(d.Hero(en.hero), en, x);
+                }
 
             Rewards(d, s);
             p.hint.text = $"Mũi tên xanh: khắc {Elements.Name(leadEnemy.elem)} của {leadEnemy.name}. Mũi tên đỏ: bị khắc.";
@@ -140,53 +151,60 @@ namespace PokiClash
 
         void Chip(Sprite icon, HeroDef hero, string text, Color fill) => Ui.Spawn(chipPrefab, p.rewards).Bind(icon, hero, text, fill);
 
-        // đội hình và kho tướng: vẽ lại mỗi lần thêm bỏ tướng
+        // đội hình: ô đã mở chạm để mở bể tướng, ô khoá ghi điều kiện mở
         void DrawTeam()
         {
             var d = App.Data;
             var s = App.Save.Data;
+            int open = Progress.TeamSlots(s);
+            if (teamTitle) teamTitle.text = $"Đội của bạn ({open}/{p.slots.Length} ô, tướng đầu ra trước)";
+            if (teamHint) teamHint.text = "chạm ô để chọn tướng";
             for (int i = 0; i < p.slots.Length; i++)
             {
                 string hid = i < team.Count ? team[i] : null;
                 var slot = p.slots[i];
-                bool filled = hid != null;
-                slot.bg.color = filled ? Theme.Hex("#eaf6df") : Theme.Hex("#f6efdc");
+                bool locked = i >= open, filled = hid != null && !locked;
+                slot.bg.color = locked ? Theme.Hex("#e2dccd") : filled ? Theme.Hex("#eaf6df") : Theme.Hex("#f6efdc");
                 slot.portrait.gameObject.SetActive(filled);
                 slot.name.gameObject.SetActive(filled);
                 slot.empty.SetActive(!filled);
-                slot.click.enabled = filled;
+                var emptyText = slot.empty.GetComponentInChildren<TextMeshProUGUI>(true);
+                int need = i < Progress.TeamSlotZones.Length ? Progress.TeamSlotZones[i] : 0;
+                if (emptyText) emptyText.text = locked ? $"Khoá\n<size=70%>xong {need} đảo</size>" : "Trống\n<size=70%>chạm để chọn</size>";
+                slot.click.enabled = true;
                 int k = i;
-                slot.click.OnClick = !filled ? (Action)null : () =>
+                slot.click.OnClick = () =>
                 {
+                    if (k >= Progress.TeamSlots(App.Save.Data))
+                    {
+                        App.Audio.Play("error");
+                        App.Toasts.Show($"Ô đội {k + 1} mở khi xong {need} đảo", Icon("lock"));
+                        return;
+                    }
                     App.Audio.Play("click");
-                    team.RemoveAt(k);
-                    DrawTeam();
+                    OpenPicker();
                 };
                 if (!filled) continue;
                 var h = d.Hero(hid);
-                slot.portrait.Bind(h, 128);
+                slot.portrait.Bind(h, 165);
                 slot.name.text = (i == 0 ? "Ra trước · " : "") + h.name;
             }
 
-            // kho tướng đã có: mũi tên xanh khắc tướng chính của địch, đỏ bị khắc
-            Clear(p.roster);
-            var owned = d.Heroes.Where(h => s.Hero(h.id).owned).ToList();
-            p.rosterLayout.preferredHeight = ((owned.Count + 5) / 6) * 176;
-            foreach (var h in owned)
-            {
-                var hero = h;
-                double adv = Elements.Mult(h.elem, leadEnemy.elem), bad = Elements.Mult(leadEnemy.elem, h.elem);
-                bool khac = adv > 1 || bad > 1;
-                Ui.Spawn(cellPrefab, p.roster).Bind(h, team.Contains(h.id), khac, khac ? Icon(adv > 1 ? "up" : "down") : null, () =>
-                {
-                    App.Audio.Play("click");
-                    if (team.Contains(hero.id)) team.Remove(hero.id);
-                    else if (team.Count < 3) team.Add(hero.id);
-                    else App.Toasts.Show("Đội tối đa 3 tướng", Icon("team"));
-                    DrawTeam();
-                });
-            }
+            // lưới kho tướng cũ trong hộp: thay bằng bể tướng
+            p.roster.gameObject.SetActive(false);
+            p.hint.gameObject.SetActive(false);
             p.go.Interactable = team.Count > 0;
+        }
+
+        // bể tướng: chọn một lần đủ đội, xong thì vẽ lại ô đội
+        void OpenPicker()
+        {
+            var s = App.Save.Data;
+            App.Modals.Open(pickerPrefab).Show(team, Progress.TeamSlots(s), leadEnemy, picked =>
+            {
+                team = picked;
+                DrawTeam();
+            });
         }
 
         void Go()

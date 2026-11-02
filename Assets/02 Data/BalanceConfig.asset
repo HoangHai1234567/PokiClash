@@ -33,6 +33,8 @@ MonoBehaviour:
     starStep: 0.08
     bossHp: 1.8
     bossAtk: 1.1
+    bossEvoHp: 1.5
+    bossEvoAtk: 0.1
     cardLvStep: 0.15
     maxRounds: 60
     saveVersion: 4
@@ -163,19 +165,19 @@ MonoBehaviour:
     ratesBalls: 6000
     rates:
     - k: chest_silver
-      p: 0.0597
+      p: 0.053
     - k: exp10
-      p: 0.2275
-    - k: exp5
-      p: 0.296
-    - k: exp15
-      p: 0.22
-    - k: chest_gold
-      p: 0.0343
+      p: 0.237
     - k: ball
-      p: 0.0878
+      p: 0.088
+    - k: exp15
+      p: 0.21
+    - k: exp5
+      p: 0.292
+    - k: chest_gold
+      p: 0.0333
     - k: chest_wood
-      p: 0.0747
+      p: 0.0867
     afk:
       shardChance: 0.08
       chestEveryH: 3

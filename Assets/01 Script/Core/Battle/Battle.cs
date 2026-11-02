@@ -42,16 +42,25 @@ namespace PokiClash.Core
 
         // chỉ số: HeroStats.Compute (một nguồn cho trận và màn Tướng)
 
+        // boss có thẻ Tiến Hóa: hệ số máu, Công của dạng i trong dòng n dạng (Cfg.bossEvoHp, bossEvoAtk). Dòng 1 dạng không tiến hóa
+        // nhưng vẫn gánh đủ máu của cả dòng.
+        public static (double hp, double atk) EvoMult(BalanceConfig cfg, int n, int i) =>
+            (cfg.bossEvoHp * (i + 1) * 2 / (n * (n + 1)), 1 - cfg.bossEvoAtk * (n - 1 - i));
+
         Fighter MakeFighter(Member m, int side, int idx)
         {
             var hero = Data.Hero(m.heroId);
             var s = HeroStats.Compute(Cfg, hero, m.level, m.star, m.boss, m.mods);
             var st = m.start;
+            // boss có thẻ Tiến Hóa vào trận ở dạng 1, yếu nhất
+            var k = m.evo ? EvoMult(Cfg, Math.Max(1, hero.forms.Length), 0) : (hp: 1.0, atk: 1.0);
+            double hp = m.evo ? Js.Round(s.hp * k.hp) : s.hp;
             var f = new Fighter
             {
                 idx = idx, side = side, hero = hero, level = m.level, star = m.star,
                 cardSkill = m.cardSkill, cardUlt = m.cardUlt, cardPassive = m.cardPassive, boss = m.boss,
-                maxHp = s.hp, hp = s.hp, atk = s.atk, def = s.def, spd = s.spd,
+                evo = m.evo, form = m.evo ? 0 : hero.FormIndex(Cfg.formStars, m.star),
+                maxHp = hp, hp = hp, atk = m.evo ? Js.Round(s.atk * k.atk) : s.atk, def = s.def, spd = s.spd,
                 mana = st != null ? Math.Min(Cfg.maxMana, st.mana) : 0, rage = st != null ? Math.Min(Cfg.maxRage, st.rage) : 0,
             };
             // tiềm năng chí mạng, hút máu: buff cả trận (left ≥ 99 không giảm)
@@ -460,6 +469,12 @@ namespace PokiClash.Core
         void Kill(Fighter f)
         {
             if (f.dead) return;
+            // boss còn dạng sau thì tiến hóa thay vì gục
+            if (CanEvolve(f))
+            {
+                Evolve(f);
+                return;
+            }
             // bị động hồi sinh: lần đầu gục thì sống lại ngay, giữ vị trí ra sân, xoá bỏng và choáng (boss không hồi sinh)
             var pc = Data.Card(f.hero.passive);
             if (pc.trigger == PassiveTrigger.Death && !f.revived && !f.boss)
@@ -537,8 +552,36 @@ namespace PokiClash.Core
             }
         }
 
+        public const string BossEvoCard = "boss_evo";
+
+        static bool CanEvolve(Fighter f) => f.evo && !f.dead && f.form < f.hero.forms.Length - 1;
+
+        // thẻ Tiến Hóa: lên dạng sau, máu tối đa và Công đổi theo hệ số của dạng (giữ phần cộng từ thẻ như Bánh Bao), hồi máu,
+        // xoá bỏng và choáng; bị động "máu thấp" của tướng dùng lại được ở dạng mới
+        void Evolve(Fighter f)
+        {
+            var c = Data.Card(BossEvoCard);
+            int n = f.hero.forms.Length;
+            var ko = EvoMult(Cfg, n, f.form);
+            var kn = EvoMult(Cfg, n, f.form + 1);
+            double heal = c.Effects.Count > 0 && c.Effects[0].K == EffectKind.Evolve ? c.Effects[0].Pct : 1;
+            f.form++;
+            f.maxHp = Js.Round(f.maxHp * (kn.hp / ko.hp));
+            f.atk = Js.Round(f.atk * (kn.atk / ko.atk));
+            f.hp = Math.Max(f.hp, Math.Max(1, Js.Round(f.maxHp * heal)));
+            f.statuses = f.statuses.Where(x => x.id != StatusId.Burn && x.id != StatusId.Stun).ToList();
+            f.lowHpUsed = false;
+            Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
+            Emit(new BattleEvent { t = EvType.Evolve, side = f.side, idx = f.idx, form = f.form, hp = f.hp });
+        }
+
         void CheckLow(Fighter f)
         {
+            if (CanEvolve(f) && f.hp / f.maxHp < Data.Card(BossEvoCard).below)
+            {
+                Evolve(f);
+                return;
+            }
             var c = Data.Card(f.hero.passive);
             if (c.trigger != PassiveTrigger.LowHp || f.lowHpUsed || f.dead) return;
             if (f.hp / f.maxHp < c.below)

@@ -26,6 +26,8 @@ const CFG_LABEL: Partial<Record<keyof typeof CFG, string>> = {
   starStep: 'Tăng mỗi sao',
   bossHp: 'Máu boss ×',
   bossAtk: 'Công boss ×',
+  bossEvoHp: 'Boss tiến hóa: tổng máu các dạng ×',
+  bossEvoAtk: 'Boss tiến hóa: Công kém mỗi dạng',
   cardLvStep: 'Tăng mỗi cấp thẻ',
 };
 

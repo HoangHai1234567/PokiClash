@@ -2,7 +2,7 @@
 import './battle.css';
 import { aiInnate, aiPickIndex, aiSwapChoice } from '../../core/ai';
 import {
-  activeOf, advance, canSwap, createBattle, execute, forceSwap, innateBlock, innateCard, pick, startBattle, swap, useInnate,
+  activeOf, advance, canSwap, createBattle, execute, fighterName, forceSwap, innateBlock, innateCard, pick, startBattle, swap, useInnate,
   type Battle, type Ev, type FSnap, type SideId, type Snap,
 } from '../../core/battle';
 import { CARD } from '../../core/data/cards';
@@ -11,7 +11,7 @@ import { HERO } from '../../core/data/heroes';
 import { STAGE, ZONE, zoneStages } from '../../core/data/stages';
 import { cardText, costText, pct } from '../../core/cardtext';
 import { ELEM_NAME, elemMult, RARITY_COLOR } from '../../core/elements';
-import { enemyTeam, playerTeam, winStage, type StageReward } from '../../core/progression';
+import { enemyTeam, playerTeam, teamSlots, winStage, type StageReward } from '../../core/progression';
 import { Rng, randomSeed } from '../../core/rng';
 import type { Stat } from '../../core/types';
 import { app, type Screen } from '../app';
@@ -79,7 +79,7 @@ class BattleScreen implements Screen {
   enter(params?: unknown) {
     const p = params as BattleParams;
     this.stageId = p.stageId;
-    this.team = p.team;
+    this.team = p.team.slice(0, teamSlots(app.save)); // chỉ mang đủ số ô đội đã mở
     this.speed = app.save.settings.speed || 1;
     const st = STAGE[this.stageId];
     const unlock = app.save.level;
@@ -146,7 +146,7 @@ class BattleScreen implements Screen {
   private fillPlate(side: SideId) {
     const p = this.plates[side];
     const f = activeOf(this.b, side);
-    p.name.textContent = f.hero.name;
+    p.name.textContent = fighterName(f);
     clear(p.meta);
     p.meta.append(elemTag(f.hero.elem), h('span', { class: 'lv' }, `Lv${f.level}`), f.boss ? h('span', { class: 'boss-tag' }, 'BOSS') : '');
   }
@@ -176,8 +176,8 @@ class BattleScreen implements Screen {
     await document.fonts.ready;
     const b = this.b;
     await Promise.all([
-      this.stage.setActor(0, activeOf(b, 0).hero.id, false, true, activeOf(b, 0).star),
-      this.stage.setActor(1, activeOf(b, 1).hero.id, activeOf(b, 1).boss, true, activeOf(b, 1).star),
+      this.stage.setActor(0, activeOf(b, 0).hero.id, false, true, activeOf(b, 0).form),
+      this.stage.setActor(1, activeOf(b, 1).hero.id, activeOf(b, 1).boss, true, activeOf(b, 1).form),
     ]);
     this.fillPlate(0);
     this.fillPlate(1);
@@ -401,7 +401,7 @@ class BattleScreen implements Screen {
     clear(this.qHead);
     this.qHead.append(
       h('span', { html: icon(mine ? 'cards' : 'skull', 24) }),
-      mine ? 'Hàng thẻ của bạn' : `Hàng thẻ của ${activeOf(b, 1).hero.name}`,
+      mine ? 'Hàng thẻ của bạn' : `Hàng thẻ của ${fighterName(activeOf(b, 1))}`,
       h('span', { class: 'cnt sk thin' }, b.phase === 'picking' ? `Chọn ${t.picksTotal - t.picksLeft + 1}/${t.picksTotal}` : 'Ra đòn!'),
     );
     clear(this.qRow);
@@ -437,7 +437,7 @@ class BattleScreen implements Screen {
     this.offer.className = 'offer';
     if (t.side !== 0 || b.phase !== 'picking') {
       if (b.phase === 'over') return;
-      const who = activeOf(b, t.side).hero.name;
+      const who = fighterName(activeOf(b, t.side));
       this.offer.append(h('div', { class: 'foe-think', style: 'padding-top:60px' }, h('div', { class: 'lbl' }, t.side === 0 ? `${who} ra đòn!` : `${who} (địch) ra đòn!`)));
       return;
     }
@@ -458,7 +458,7 @@ class BattleScreen implements Screen {
       return;
     }
     clear(this.offer);
-    const box = h('div', { class: 'foe-think' }, h('div', { class: 'lbl' }, b.phase === 'picking' ? `${activeOf(b, 1).hero.name} đang chọn thẻ...` : 'Địch ra đòn!'));
+    const box = h('div', { class: 'foe-think' }, h('div', { class: 'lbl' }, b.phase === 'picking' ? `${fighterName(activeOf(b, 1))} đang chọn thẻ...` : 'Địch ra đòn!'));
     if (b.phase === 'picking') box.append(h('div', { class: 'row gap12' }, ...t.offer.map(() => h('div', { class: 'back-card sk', html: icon('dice', 70) }))));
     this.offer.append(box);
   }
@@ -628,7 +628,7 @@ class BattleScreen implements Screen {
         const c = CARD[e.card];
         sfx.ult();
         st.flash('#fff3c4');
-        void this.banner(c.name, `Tuyệt kỹ của ${activeOf(this.b, e.side).hero.name}`, true);
+        void this.banner(c.name, `Tuyệt kỹ của ${fighterName(activeOf(this.b, e.side))}`, true);
         let hit!: () => void;
         const hp = new Promise<void>((r) => (hit = r));
         this.pending = st.play(e.side, SKILL, () => hit());
@@ -679,6 +679,21 @@ class BattleScreen implements Screen {
         sfx.level();
         await W(700);
         break;
+      case 'evolve': {
+        // boss lên dạng sau: hiệu ứng như hồi sinh, đổi hình và tên dạng (thanh máu đổi theo ảnh chụp)
+        await this.pending;
+        const f = this.b.sides[e.side].fighters[e.idx];
+        const name = f.hero.forms[e.form].name;
+        st.text(e.side, 'Tiến hóa!', '#ffe08a', 34);
+        st.ring(e.side, '#f7c948');
+        st.flash('#fff6c9');
+        sfx.level();
+        await st.setActor(e.side, f.hero.id, f.boss, false, e.form);
+        this.plates[e.side].name.textContent = name;
+        st.text(e.side, name, '#fff6c8', 22);
+        await W(900);
+        break;
+      }
       case 'death': {
         await this.pending;
         st.die(e.side);
@@ -691,7 +706,7 @@ class BattleScreen implements Screen {
         sfx.swap();
         await st.retreat(e.side);
         const f = this.b.sides[e.side].fighters[e.to];
-        await st.setActor(e.side, f.hero.id, f.boss, true, f.star);
+        await st.setActor(e.side, f.hero.id, f.boss, true, f.form);
         this.fillPlate(e.side);
         st.text(e.side, e.side === 0 ? `${f.hero.name}, ra sân!` : `${f.hero.name} ra sân`, '#fff6c8', 22);
         await W(480);

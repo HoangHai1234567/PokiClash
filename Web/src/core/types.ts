@@ -26,7 +26,8 @@ export type Effect =
   | { k: 'extra'; mult: number }
   | { k: 'trueStrike'; mult: number }
   | { k: 'ifLow'; below: number; then: Effect[]; else?: Effect[] }
-  | { k: 'revive'; pct: number }; // chỉ dùng cho bị động 'death': lần đầu gục thì sống lại với pct máu tối đa
+  | { k: 'revive'; pct: number } // chỉ dùng cho bị động 'death': lần đầu gục thì sống lại với pct máu tối đa
+  | { k: 'evolve'; pct: number }; // chỉ dùng cho thẻ Tiến Hóa của boss: lên dạng sau, hồi tới pct máu tối đa của dạng mới
 
 export type CardKind = 'pool' | 'skill' | 'ult' | 'passive';
 export type PassiveTrigger = 'start' | 'turnStart' | 'lowHp' | 'onAttack' | 'onHit' | 'death';
@@ -94,6 +95,7 @@ export interface Member {
   star: number;
   cardLv: { skill: number; ult: number; passive: number };
   boss?: boolean;
+  evo?: boolean; // boss có thẻ Tiến Hóa (BOSS_EVO): vào trận ở dạng 1, gần chết thì lên dạng sau
   mods?: StatMods;
   start?: BattleStart;
 }

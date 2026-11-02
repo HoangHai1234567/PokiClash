@@ -206,6 +206,16 @@ namespace PokiClash.Core
             d == Difficulty.Done ? "Đã chinh phục" : d == Difficulty.Easy ? "Dễ" : d == Difficulty.Fit ? "Vừa sức" : d == Difficulty.Hard ? "Khó" : "Quá mạnh!";
 
         public static bool ZoneDone(SaveData s, Elem z) => s.zones[(int)z] >= 8;
+        public static int ZonesDone(SaveData s) => s.zones.Count(n => n >= 8);
+
+        // ô đội mở theo tiến trình (chép TEAM_SLOT_ZONES, teamSlots của Web/src/core/progression.ts): lúc đầu mang 1 tướng;
+        // xong 1 đảo (đánh tới đảo thứ 2) mở ô 2, xong 3 đảo (tới đảo thứ 4) mở ô 3. Phần tử i: số đảo phải xong để mở ô i + 1.
+        public static readonly int[] TeamSlotZones = { 0, 1, 3 };
+        public static int TeamSlots(SaveData s)
+        {
+            int done = ZonesDone(s);
+            return TeamSlotZones.Count(n => done >= n);
+        }
 
         // đảo nên đánh: đảo chưa xong đầu tiên (theo thứ tự) mà người chơi theo được (cấp ≥ cận dưới − 3)
         public static ZoneDef RecommendedZone(SaveData s, GameData d)

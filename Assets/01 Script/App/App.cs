@@ -45,6 +45,23 @@ namespace PokiClash
         // nút AFK ở thanh trên sảnh
         public static Action OpenAfk = AfkPanel.Open;
 
+        // Vào Play không reload domain (menu PokiClash/Cài đặt/3): mỗi lần Play trả static về như lúc mới chạy. SubsystemRegistration
+        // chạy trước khi nạp scene, nên SceneRoot.Awake vẫn đặt PendingFirst sau đó.
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        static void ResetStatics()
+        {
+            PendingFirst = null;
+            PendingArgs = null;
+            I = null;
+            Save = null;
+            Audio = null;
+            Router = null;
+            Modals = null;
+            Toasts = null;
+            Bars = null;
+            OpenAfk = AfkPanel.Open;
+        }
+
         [Header("Phần của prefab App (menu PokiClash/Prefab/3. Nướng khung app)")]
         [SerializeField] Camera cam;
         [SerializeField] AudioService audioService;
@@ -143,6 +160,7 @@ namespace PokiClash
             if (st == null) return;
             Theme.SetBoil(st.boil);
             Audio.Enabled = st.sound;
+            Haptics.Enabled = st.haptics;
         }
 
         // nút Back của Android / phím Esc: đóng hộp thoại trên cùng, không có thì quay lại

@@ -12,11 +12,11 @@ namespace PokiClash
         // dòng tỉ lệ, theo thứ tự dựng trong prefab
         public static readonly (SlotKind k, string name)[] Rows =
         {
-            (SlotKind.ChestGold, "Rương vàng (cốc nhỏ giữa máy)"),
+            (SlotKind.ChestGold, "Rương vàng (két giữa máy và ô khuất dưới két)"),
             (SlotKind.ChestSilver, "Rương bạc (2 cốc hai bên)"),
             (SlotKind.ChestWood, "Rương gỗ (2 ô mép)"),
             (SlotKind.Exp15, "EXP 15 (2 ô)"),
-            (SlotKind.Exp10, "EXP 10 (ô giữa)"),
+            (SlotKind.Exp10, "EXP 10 (2 ô cạnh ô vàng)"),
             (SlotKind.Exp5, "EXP 5 (2 ô)"),
             (SlotKind.Ball, "Hoàn 1 bi (2 ô)"),
         };

@@ -1,4 +1,4 @@
-// Tiềm năng của một tướng: dải gọn trong hộp chi tiết tướng (PotentialStrip), hộp riêng để khoá ô, khai phá (PotentialDialog,
+// Tiềm năng của một tướng: nút "Tiềm năng" trong hộp chi tiết tướng mở hộp riêng để khoá ô, khai phá (PotentialDialog,
 // prefab Assets/04 Prefabs/Dialogs/TiemNang) và hộp chọn "Giữ mới" / "Giữ cũ" (PotentialCompareDialog, Dialogs/TiemNangSoSanh).
 // Ô chưa mở ghi "Mở ở n sao". Kết quả khai phá chưa chọn được giữ trong bản lưu (mở lại thì hỏi tiếp).
 using System;

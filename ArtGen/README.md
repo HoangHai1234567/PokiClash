@@ -14,13 +14,13 @@ Spec liên quan: `openspec/changes/setup-unity-foundation/specs/art-assets/spec.
 | Thứ tự | Gói | Số ảnh | Vì sao trước |
 |---|---|---|---|
 | 1 | [UIKit](UIKit/PROMPTS.md) | 8 | **Chốt style nét vẽ tay**; mọi gói sau đính kèm ảnh U1 đã duyệt |
-| 2 | [Islands](Islands/PROMPTS.md) | 6 (4 đã có bản Canva) | Sảnh và đảo hệ là thứ người chơi thấy đầu tiên |
+| 2 | [Islands](Islands/PROMPTS.md) | 6 đảo rời + biển + sheet phần động (đã có); 5 bản đồ đảo hệ gen riêng (tuỳ chọn) | `Islands/compose_islands.py` ghép đảo gen rời thành đảo lớn liền khối cho sảnh (kéo được, vành mây ở rìa) và bản đồ 5 đảo hệ (đảo gen + đường 8 ải); thêm vùng mới dễ |
 | 3 | [Icons](Icons/PROMPTS.md) | 5 sheet × 16 | Icon thẻ, tài nguyên, hệ, chỉ số |
 | 4 | [BattleBG](BattleBG/PROMPTS.md) | 5 | Nền trận theo hệ |
-| 5 | [Pachinko](Pachinko/PROMPTS.md) | 3 | Máy bi |
+| 5 | [Pachinko](Pachinko/PROMPTS.md) | 4 | Máy bi (thân máy, bộ phận, rương lớn, hiệu ứng) |
 | 6 | [Hub](Hub/PROMPTS.md) | 2 sheet (6 công trình, 6 mây) | Công trình trên sảnh (Tướng, Sổ thẻ, Trang trại, Đền, Hang, Máy bi) |
 | 7 | [SideMeta](SideMeta/PROMPTS.md) | 5 | Trang trại, Đền Huy Hiệu, Hang Tiềm Năng, huy hiệu, đá |
-| 8 | [Heroes](Heroes/QUY_TRINH.md) | mỗi dạng 1 concept + các nhóm mảnh | 40 tướng (8 mỗi hệ), mỗi tướng là một dòng tiến hóa aola. **Thay tạo hình trên rig aola**, giữ animation ([Heroes/QUY_TRINH.md](Heroes/QUY_TRINH.md)). Thủy: [Heroes/Thuy.md](Heroes/Thuy.md), làm `giot_suong_1` trước (mỗi dạng một file `Heroes/thuy/<tướng>_<dạng>.md`). Nét theo hình trận aola, không theo khối STYLE bên dưới |
+| 8 | [Heroes](Heroes/QUY_TRINH.md) | mỗi dạng 1 concept + các nhóm mảnh (+ mảnh vũ khí) | 40 tướng (8 mỗi hệ), mỗi tướng là một dòng tiến hóa aola. **Vẽ đè lên rig aola**, giữ animation; nét vẽ tay như ảnh mốc bản đồ, thiết kế học từ tướng aola, vẻ "chiến"; viền giấy xé do shader. Gói gửi GPT sinh bằng `Heroes/build.py` |
 
 ## Khối STYLE (dán vào mọi prompt)
 
@@ -53,7 +53,8 @@ Màu theo hệ và độ hiếm, game dùng thống nhất:
 | Ảnh | Dùng cho |
 |---|---|
 | `StyleRefs/R1_UI_Cards.png` | Thẻ, khung, chữ vẽ tay của bản web (style đã duyệt) |
-| `StyleRefs/R2_UI_Machine.png` | Máy bi của bản web |
+| `StyleRefs/R2_UI_Machine.png` | Máy bi của bản web (bố cục cũ, xem nét) |
+| `StyleRefs/R2b_MayBi_KetVang.png` | Máy bi hiện tại có két vàng (ảnh tĩnh Unity vẽ từ code) |
 | `StyleRefs/R3_UI_Modal.png` | Hộp thoại, con dấu, nút |
 | `StyleRefs/R4_Hub_Sketch.png` | Bố cục sảnh 5 vùng (bản vẽ bằng code) |
 | `guides/G_Sheet3x2.png` | Lưới 3 × 2 đánh số (1536 × 1024) cho sheet 6 món |
@@ -64,8 +65,9 @@ Màu theo hệ và độ hiếm, game dùng thống nhất:
 
 ## Quy tắc
 
+- **Ảnh đính kèm ghi đủ trong file prompt** (người dùng dặn 2026-11-02, cũng có trong `CLAUDE.md`): đường dẫn tuyệt đối, ảnh trông như thế nào (nội dung, cỡ, nền), gửi ở bước nào, là ảnh thứ mấy; ảnh chưa có thì ghi bước sinh ra nó. Người dùng chỉ kéo thả: mỗi lượt một thư mục (ảnh đánh số + `00_instructions.txt`) kèm `HUONG_DAN.md`. Mẫu: `Heroes/gui_gpt/<mã>/`.
 - **Không gửi ảnh chụp game khác cho GPT** (Clash of Critters, Aola, Pokiwar), không nhắc tên game trong prompt. Ảnh vào game thật.
-- **Ngoại lệ, gói Heroes** (người dùng chốt 2026-11-01): prompt tướng đính bóng xám, bản đồ vùng và hình gốc từng nhóm mảnh của rig aola (`Heroes/refs/`). GPT vẽ sinh vật mới đè lên đúng khung đó. Ngoài các ảnh trong `refs/`, không gửi hình aola nào khác; ảnh chụp bản web có tướng cũng không dùng làm tham chiếu.
+- **Ngoại lệ, gói Heroes** (người dùng: "cứ đính hình vào", 2026-11-02): đính bóng xám, bản đồ vùng, hình gốc từng nhóm mảnh của rig aola và tờ mẫu thiết kế từ hình aola (`Heroes/refs/`); dặn chỉ lấy thiết kế và khung, không chép con nào, nét theo bản đồ vẽ tay.
 - Ảnh nhiều món (sheet): nền **trong suốt**, mỗi món nằm gọn trong một ô của lưới, không món nào chạm ô bên cạnh.
 - **Không vẽ chữ lên ảnh**: game tự viết chữ tiếng Việt. Chỉ logo được có chữ.
 - Khổ GPT hỗ trợ: 1024 × 1024, 1536 × 1024, 1024 × 1536. Màn game là 9:16, nên ảnh dọc 1024 × 1536 bị cắt hai bên khoảng 8% mỗi bên. Nội dung chính phải nằm trong dải giữa (`G_Island_2x3_SafeBand.png`).

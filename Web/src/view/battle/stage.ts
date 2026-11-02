@@ -2,7 +2,6 @@
 // Địch đứng trên trái (mặt trước, như clip gốc), phe mình dưới phải (lật ngang). Clip đánh lao sang phải-xuống,
 // nên quãng lao được nắn lại cho trúng đối thủ.
 import { HERO } from '../../core/data/heroes';
-import { formOf } from '../../core/progression';
 import type { ZoneDef } from '../../core/data/stages';
 import type { StatusId } from '../../core/types';
 import { AolaAnim, ATTACK, HIT, IDLE, SKILL, Sticker } from '../aola';
@@ -89,15 +88,16 @@ export class Stage {
   }
 
   // ---------- tướng ----------
-  // star: sao của tướng trên sân, chọn dạng trong dòng tiến hóa (hình và cỡ)
-  async setActor(side: 0 | 1, heroId: string, boss = false, entering = true, star = 1) {
-    const form = formOf(HERO[heroId], star);
+  // form: dạng đang hiện trong dòng tiến hóa (Fighter.form: theo sao, boss tiến hóa thì theo trận), chọn hình và cỡ
+  async setActor(side: 0 | 1, heroId: string, boss = false, entering = true, form = 0) {
+    const forms = HERO[heroId].forms;
+    const fm = forms[Math.min(form, forms.length - 1)];
     const a: Actor = {
-      side, heroId, size: form.size, anim: null, sticker: new Sticker(), clip: IDLE, t: Math.random() * 2, loop: true,
+      side, heroId, size: fm.size, anim: null, sticker: new Sticker(), clip: IDLE, t: Math.random() * 2, loop: true,
       flash: 0, alpha: 1, dead: 0, enter: entering ? 0 : 9, exit: 0, hop: 0, lunge: 0, statuses: [], boss, hitFired: false,
     };
     this.actors[side] = a;
-    a.anim = await AolaAnim.load(form.aola);
+    a.anim = await AolaAnim.load(fm.aola);
   }
 
   retreat(side: 0 | 1): Promise<void> {

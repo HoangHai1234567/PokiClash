@@ -2159,3 +2159,18 @@ MonoBehaviour:
     flavor: 
     owner: ky_lan
     effectsJson: '[{"k":"revive","pct":0.35}]'
+  - id: boss_evo
+    name: "Ti\u1EBFn H\xF3a"
+    rarity: 4
+    kind: 3
+    icon: phoenix
+    costMana: 0
+    costRage: 0
+    trigger: 3
+    hasChance: 0
+    chance: 0
+    below: 0.25
+    unlock: 1
+    flavor: "\u0110\xE2y m\u1EDBi l\xE0 d\u1EA1ng \u0111\u1EA7u th\xF4i!"
+    owner: 
+    effectsJson: '[{"k":"evolve","pct":1}]'
