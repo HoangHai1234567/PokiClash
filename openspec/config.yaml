@@ -1,0 +1,36 @@
+schema: spec-driven
+
+context: |
+  Dự án: PokiClash (tên cũ PokiWar). Game mid-core màn hình dọc: đánh tướng theo lượt bằng thẻ bài, vượt đảo theo
+  Ngũ hành, máy bi (pachinko) nuôi tướng. Thiết kế gốc của chủ dự án: GD_Claude/GDD game Pokiwar *.md. Tài liệu bổ sung:
+  GD_Claude/11_BanWeb_TheBai.md (luật, số liệu đã chạy thử). Các file GD_Claude 01–10 là hướng xếp khối cũ, đã bỏ.
+
+  Bản tham chiếu: bản web thử ở Web/ (Vite + TypeScript) đã được duyệt về luật trận, bố cục scene và phong cách.
+  Logic thuần ở Web/src/core/ là nguồn sự thật cho luật và số; Unity chép sang C#, giữ đúng hành vi.
+  Đích thật: Unity 6000.0.x, URP, uGUI, Input System, màn dọc 1080 × 1920, Android/iOS.
+  Code Unity ở "Assets/01 Script/", scene ở "Assets/00 Scenes/". Có gói MCP for Unity để tự động hoá Editor.
+
+  Bố cục: học Clash of Critters (bản đục ở D:/CrittersRipper, chỉ để tham khảo): mỗi chức năng là một scene riêng,
+  sảnh là đảo lớn chia 5 vùng hệ, scene con có nút quay lại, chuyển scene bằng màn mây. Không dùng thanh tab.
+  Phong cách: "sổ tay phiêu lưu" vẽ tay: giấy kẻ ô, nét mực rung, bút sáp gạch chéo, băng keo, tướng dạng sticker,
+  chữ tượng thanh tiếng Việt. Phông Baloo 2 (tiêu đề, số) và Pangolin (chữ thường), đều có tiếng Việt, giấy phép OFL.
+
+  Hình tướng hiện lấy từ dự án AolaRipper (D:/Aola-20261029T161238Z-1-001/Aola/AolaRipper/AolaRipper/reskin): hình
+  gốc của Baitian, CHỈ dùng trong bản thử, không đưa vào bản phát hành, không đăng lên mạng. Ảnh đảo và UI mới do chủ
+  dự án gen bằng GPT/Tripo theo gói prompt ở ArtGen/ (mỗi gói có PROMPTS.md và inbox/).
+
+  Quy ước người làm: trả lời và viết tài liệu bằng tiếng Việt. Git là việc của chủ dự án: không chạy lệnh git ghi
+  khi chưa được bảo trong lượt đó. Xoá file, đổi ProjectSettings, manifest, asmdef thì hỏi trước.
+
+rules:
+  proposal:
+    - Viết bằng tiếng Việt; tên capability và tên change dùng kebab-case tiếng Anh.
+    - Ghi rõ phụ thuộc vào change khác (mục "Phụ thuộc" trong phần Impact).
+    - Trích dòng nào của GDD gốc mà change này đáp ứng.
+  specs:
+    - Viết bằng tiếng Việt. Giữ nguyên từ khoá OpenSpec tiếng Anh (Requirement, Scenario, WHEN, THEN, AND, SHALL, MUST); câu requirement phải có SHALL hoặc MUST (đọc là "PHẢI").
+    - Số liệu cân bằng ghi ở dạng "giá trị khởi điểm, chỉnh được"; nguồn là Web/src/core/data.
+  design:
+    - Nêu cách chép logic từ Web/src/core sang C# và cách kiểm tra hai bên cho ra cùng kết quả.
+  tasks:
+    - Mỗi việc kiểm chứng được; việc trong Unity kết thúc bằng bước kiểm tra console không lỗi (read_console qua MCP).

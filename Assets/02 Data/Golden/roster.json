@@ -1,0 +1,864 @@
+{
+ "forms": [
+  {
+   "id": "bu_long",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "phao_hop",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "kiem_linh",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "meo_quyen",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "bo_cap",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "bo_ngua",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "soi_linh",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "bach_ho",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "mam_go",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "nu_hoa",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "kien_binh",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "banh_tet",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "de_hoa",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "giac_long",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "phong_linh",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "thanh_long",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "tieu_y",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "canh_cut",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "giot_suong",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "tam_tay",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "ca_ngua",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "map_rang",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "lam_quan",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "huyen_vu",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "heo_lua",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "dom_lua",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "phao_tet",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "su_tu_lua",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "bo_de",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "ho_lua",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "phap_luan",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "chu_tuoc",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "vo_su",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "gau_mo",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "soc_da",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "bo_hung",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "thach_nhan",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "sa_than",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": "ky_lan",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "ca_sa",
+   "n": 1,
+   "idx": [
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "migrate": [
+  {
+   "in": {
+    "heroes": {
+     "tieu_y": {
+      "owned": true,
+      "shards": 0,
+      "star": 2,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 2,
+        "copies": 1
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 3
+       }
+      }
+     },
+     "y_trach": {
+      "owned": true,
+      "shards": 4,
+      "star": 3,
+      "potential": [
+       {
+        "k": "atk",
+        "r": 2
+       },
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 2
+       },
+       "ult": {
+        "lv": 3,
+        "copies": 5
+       },
+       "passive": {
+        "lv": 2,
+        "copies": 0
+       }
+      }
+     },
+     "gia_bi": {
+      "owned": true,
+      "shards": 0,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     },
+     "vo_su": {
+      "owned": true,
+      "shards": 0,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     }
+    },
+    "team": [
+     "y_trach",
+     "tieu_y",
+     "gia_bi"
+    ],
+    "farm": {
+     "lastTick": 0,
+     "boostUntil": 0,
+     "spots": [
+      {
+       "hero": "tieu_y",
+       "energy": 3,
+       "stock": 1
+      },
+      {
+       "hero": "y_trach",
+       "energy": 5,
+       "stock": 2
+      },
+      {
+       "hero": "gia_bi",
+       "energy": 1,
+       "stock": 0
+      }
+     ],
+     "rest": {
+      "y_trach": 900,
+      "tieu_y": 500,
+      "gia_bi": 100
+     }
+    }
+   },
+   "out": {
+    "heroes": {
+     "tieu_y": {
+      "owned": true,
+      "shards": 4,
+      "star": 3,
+      "potential": [
+       {
+        "k": "atk",
+        "r": 2
+       },
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 2,
+        "copies": 3
+       },
+       "ult": {
+        "lv": 3,
+        "copies": 5
+       },
+       "passive": {
+        "lv": 2,
+        "copies": 3
+       }
+      }
+     },
+     "vo_su": {
+      "owned": true,
+      "shards": 0,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     },
+     "nu_hoa": {
+      "owned": true,
+      "shards": 0,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     }
+    },
+    "team": [
+     "tieu_y",
+     "nu_hoa"
+    ],
+    "farm": {
+     "lastTick": 0,
+     "boostUntil": 0,
+     "spots": [
+      {
+       "hero": "tieu_y",
+       "energy": 3,
+       "stock": 1
+      },
+      {
+       "hero": null,
+       "energy": 0,
+       "stock": 2
+      },
+      {
+       "hero": "nu_hoa",
+       "energy": 1,
+       "stock": 0
+      }
+     ],
+     "rest": {
+      "tieu_y": 900,
+      "nu_hoa": 100
+     }
+    }
+   }
+  },
+  {
+   "in": {
+    "heroes": {
+     "lam_quan": {
+      "owned": false,
+      "shards": 3,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     },
+     "van_quan": {
+      "owned": true,
+      "shards": 0,
+      "star": 2,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 2,
+        "copies": 1
+       },
+       "ult": {
+        "lv": 2,
+        "copies": 1
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 1
+       }
+      }
+     },
+     "hac_duc": {
+      "owned": false,
+      "shards": 7,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     },
+     "su_gia": {
+      "owned": false,
+      "shards": 5,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     }
+    },
+    "team": [
+     "van_quan",
+     "hac_duc"
+    ]
+   },
+   "out": {
+    "heroes": {
+     "lam_quan": {
+      "owned": true,
+      "shards": 10,
+      "star": 2,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 2,
+        "copies": 1
+       },
+       "ult": {
+        "lv": 2,
+        "copies": 1
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 1
+       }
+      }
+     },
+     "de_hoa": {
+      "owned": false,
+      "shards": 5,
+      "star": 1,
+      "potential": [
+       null,
+       null,
+       null,
+       null
+      ],
+      "cards": {
+       "skill": {
+        "lv": 1,
+        "copies": 0
+       },
+       "ult": {
+        "lv": 1,
+        "copies": 0
+       },
+       "passive": {
+        "lv": 1,
+        "copies": 0
+       }
+      }
+     }
+    },
+    "team": [
+     "lam_quan"
+    ]
+   }
+  }
+ ]
+}

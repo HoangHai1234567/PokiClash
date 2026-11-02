@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b2924d56e02ae4e8949de8151c8bf0, type: 3}
+  m_Name: UiKit
+  m_EditorClassIdentifier: 
+  buttonBig: {fileID: 8823508506492159087, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
+  buttonNormal: {fileID: 766452507221242286, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
+  buttonSmall: {fileID: 2600853284163519477, guid: 531b15f80cc467d42bbd34fcd2984808, type: 3}
+  buttonTiny: {fileID: 5749544103200889759, guid: b7df0592318f64943872ff49d977ebad, type: 3}
+  buttonRound: {fileID: 329609461185829476, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
+  panel: {fileID: 6973378038525765556, guid: 040477fef76b26040bd03f4437494c8a, type: 3}
+  panelThin: {fileID: 8388820830792058589, guid: aa9d05538f5dea348b136bca07188630, type: 3}
+  tape: {fileID: 133018066274932363, guid: eff7d51c534b6234faacdfbf288057d3, type: 3}
+  stamp: {fileID: 2919452456847537717, guid: f0044c1312c147246ad702add3159abe, type: 3}
+  hint: {fileID: 8129454850564695937, guid: 0e661247ac4d52d41ade3d6cfa0c1921, type: 3}
+  chip: {fileID: 3166668421095258374, guid: a6f379b35471aae4ebc187f323fe637a, type: 3}
+  bar: {fileID: 1266779830320281293, guid: ef501f5e41febfe48a3253d4d6ddd2a4, type: 3}
+  elemTag: {fileID: 4868589014256002294, guid: 93984d5e0a23d024295addd873dc1666, type: 3}
+  stars: {fileID: 5905557536200684823, guid: b9e83a9c974e34947b48258971de501c, type: 3}
+  card: {fileID: 5339551882710513135, guid: 93476899a50b48a43962f589c447b6b2, type: 3}
+  cardMini: {fileID: 7874823228123969934, guid: c6c9ce24de5a66849aa228ed63c5e9cf, type: 3}
+  portrait: {fileID: 3655116150556558112, guid: 7a31fa47154232145ac9453439a3cf1d, type: 3}
+  badge: {fileID: 3220491444615095796, guid: 4673794ce5edf0f4dba4f8ff99dbe5e8, type: 3}
+  chest: {fileID: 5779641360657747468, guid: a08f9c1462c633a4888f8dec3c28e948, type: 3}
+  canvas: {fileID: 3549858131936861955, guid: 21f593f94a0558045b08fa8e061be0ca, type: 3}
+  dialogs:
+  - {fileID: 2391382701405292984, guid: 5eb8445e393ae9346b4024b69ee79b43, type: 3}
+  - {fileID: 2389077440017250221, guid: 8235a07d8fc787e4fabb8038279b72bd, type: 3}
+  - {fileID: 2972494797461317523, guid: 386b4c6bf89772d4a96490f32ab33ea3, type: 3}
+  - {fileID: 279924671199030310, guid: 5cc2c81795a75fd4ba1e0331b193cfb3, type: 3}
+  - {fileID: 4464941129571967385, guid: 8e8482ad99136da4ea98bdf5087057a3, type: 3}
+  - {fileID: 7359378443838889713, guid: 04d8c43a6bda9b048bbcef52c9ecbc81, type: 3}
+  - {fileID: 3667379201523140965, guid: c7ae192a39228ad4a9492ae570dff600, type: 3}
+  - {fileID: 3118030691270581671, guid: 39f3c8716b1ddf54ab5e349388f60a03, type: 3}
+  - {fileID: 7438271855897329611, guid: 1b07306a1813c574d99b310bde774423, type: 3}
+  - {fileID: 4583539034981669580, guid: 3fb33b4035d003e49b5bef080ec67203, type: 3}
+  - {fileID: 8661844558714425364, guid: e7a25fc26a9ee0e4c82407f6431cda43, type: 3}

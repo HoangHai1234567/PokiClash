@@ -1,0 +1,898 @@
+{
+ "stages": [
+  {
+   "id": 1,
+   "zone": "thuy",
+   "idx": 1,
+   "name": "Bãi Vỏ Sò",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "tieu_y",
+     "level": 1,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 2,
+   "zone": "thuy",
+   "idx": 2,
+   "name": "Vũng San Hô",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "canh_cut",
+     "level": 2,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 3,
+   "zone": "thuy",
+   "idx": 3,
+   "name": "Cầu Gỗ Rêu",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "tieu_y",
+     "level": 2,
+     "boss": false
+    },
+    {
+     "hero": "tieu_y",
+     "level": 3,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "vo_su",
+     "chance": 1,
+     "min": 10,
+     "max": 10,
+     "gift": true
+    }
+   ]
+  },
+  {
+   "id": 4,
+   "zone": "thuy",
+   "idx": 4,
+   "name": "Ngọn Hải Đăng",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "ca_ngua",
+     "level": 3,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ca_ngua",
+     "chance": 1,
+     "min": 3,
+     "max": 5,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 5,
+   "zone": "thuy",
+   "idx": 5,
+   "name": "Làng Vỏ Ốc",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "canh_cut",
+     "level": 4,
+     "boss": false
+    },
+    {
+     "hero": "ca_ngua",
+     "level": 4,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 6,
+   "zone": "thuy",
+   "idx": 6,
+   "name": "Thác Bạc",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ca_ngua",
+     "level": 5,
+     "boss": false
+    },
+    {
+     "hero": "tieu_y",
+     "level": 5,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "nu_hoa",
+     "chance": 1,
+     "min": 10,
+     "max": 10,
+     "gift": true
+    }
+   ]
+  },
+  {
+   "id": 7,
+   "zone": "thuy",
+   "idx": 7,
+   "name": "Hồ Gương",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "tieu_y",
+     "level": 5,
+     "boss": false
+    },
+    {
+     "hero": "map_rang",
+     "level": 5,
+     "boss": false
+    },
+    {
+     "hero": "canh_cut",
+     "level": 5,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "map_rang",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 8,
+   "zone": "thuy",
+   "idx": 8,
+   "name": "Xoáy Nước Đinh Ba",
+   "kind": "boss",
+   "enemies": [
+    {
+     "hero": "canh_cut",
+     "level": 5,
+     "boss": false
+    },
+    {
+     "hero": "map_rang",
+     "level": 6,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "map_rang",
+     "chance": 1,
+     "min": 4,
+     "max": 6,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 9,
+   "zone": "hoa",
+   "idx": 1,
+   "name": "Bến Đá Đen",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 6,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 10,
+   "zone": "hoa",
+   "idx": 2,
+   "name": "Suối Dung Nham",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 7,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 11,
+   "zone": "hoa",
+   "idx": 3,
+   "name": "Chùa Liên Hoa",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 7,
+     "boss": false
+    },
+    {
+     "hero": "bo_de",
+     "level": 8,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "bo_de",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 12,
+   "zone": "hoa",
+   "idx": 4,
+   "name": "Lò Lửa Thiền",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 9,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "bo_de",
+     "chance": 1,
+     "min": 3,
+     "max": 5,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 13,
+   "zone": "hoa",
+   "idx": 5,
+   "name": "Rừng Than Hồng",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 9,
+     "boss": false
+    },
+    {
+     "hero": "phap_luan",
+     "level": 8,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 14,
+   "zone": "hoa",
+   "idx": 6,
+   "name": "Cổng Bánh Xe",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phap_luan",
+     "level": 10,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phap_luan",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 15,
+   "zone": "hoa",
+   "idx": 7,
+   "name": "Sườn Núi Khói",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 9,
+     "boss": false
+    },
+    {
+     "hero": "phap_luan",
+     "level": 9,
+     "boss": false
+    },
+    {
+     "hero": "bo_de",
+     "level": 9,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 16,
+   "zone": "hoa",
+   "idx": 8,
+   "name": "Miệng Núi Lửa",
+   "kind": "boss",
+   "enemies": [
+    {
+     "hero": "bo_de",
+     "level": 9,
+     "boss": false
+    },
+    {
+     "hero": "phap_luan",
+     "level": 11,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phap_luan",
+     "chance": 1,
+     "min": 4,
+     "max": 6,
+     "gift": false
+    },
+    {
+     "hero": "bo_de",
+     "chance": 0.5,
+     "min": 2,
+     "max": 3,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 17,
+   "zone": "kim",
+   "idx": 1,
+   "name": "Cảng Sắt",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bu_long",
+     "level": 11,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 18,
+   "zone": "kim",
+   "idx": 2,
+   "name": "Cầu Bánh Răng",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phao_hop",
+     "level": 12,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phao_hop",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 19,
+   "zone": "kim",
+   "idx": 3,
+   "name": "Tháp Canh Thép",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bu_long",
+     "level": 12,
+     "boss": false
+    },
+    {
+     "hero": "phao_hop",
+     "level": 13,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 20,
+   "zone": "kim",
+   "idx": 4,
+   "name": "Gác Chuông Đồng",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "bo_cap",
+     "level": 13,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "bu_long",
+     "chance": 1,
+     "min": 4,
+     "max": 6,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 21,
+   "zone": "kim",
+   "idx": 5,
+   "name": "Mỏ Sắt Ngân",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_ngua",
+     "level": 15,
+     "boss": false
+    },
+    {
+     "hero": "bu_long",
+     "level": 15,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 22,
+   "zone": "kim",
+   "idx": 6,
+   "name": "Xưởng Đúc Chuông",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "bo_cap",
+     "level": 16,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "bo_cap",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 23,
+   "zone": "kim",
+   "idx": 7,
+   "name": "Tổ Cánh Đêm",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "soi_linh",
+     "level": 16,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "soi_linh",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 24,
+   "zone": "kim",
+   "idx": 8,
+   "name": "Thiên Chung Hắc Dực",
+   "kind": "boss",
+   "enemies": [
+    {
+     "hero": "bo_ngua",
+     "level": 15,
+     "boss": false
+    },
+    {
+     "hero": "soi_linh",
+     "level": 17,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "soi_linh",
+     "chance": 1,
+     "min": 4,
+     "max": 6,
+     "gift": false
+    },
+    {
+     "hero": "bo_ngua",
+     "chance": 0.5,
+     "min": 2,
+     "max": 3,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 25,
+   "zone": "moc",
+   "idx": 1,
+   "name": "Bờ Rêu",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "nu_hoa",
+     "level": 16,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 26,
+   "zone": "moc",
+   "idx": 2,
+   "name": "Đồi Nấm",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "mam_go",
+     "level": 17,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 27,
+   "zone": "moc",
+   "idx": 3,
+   "name": "Rừng Dây Leo",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "nu_hoa",
+     "level": 17,
+     "boss": false
+    },
+    {
+     "hero": "mam_go",
+     "level": 18,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 28,
+   "zone": "moc",
+   "idx": 4,
+   "name": "Hang Nanh Gió",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "de_hoa",
+     "level": 18,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "de_hoa",
+     "chance": 1,
+     "min": 3,
+     "max": 5,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 29,
+   "zone": "moc",
+   "idx": 5,
+   "name": "Đồng Hoa Sáng",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "giac_long",
+     "level": 19,
+     "boss": false
+    },
+    {
+     "hero": "nu_hoa",
+     "level": 19,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 30,
+   "zone": "moc",
+   "idx": 6,
+   "name": "Cây Cổ Thụ Con",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "giac_long",
+     "level": 20,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "giac_long",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 31,
+   "zone": "moc",
+   "idx": 7,
+   "name": "Thung Lũng Lá",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "mam_go",
+     "level": 20,
+     "boss": false
+    },
+    {
+     "hero": "de_hoa",
+     "level": 20,
+     "boss": false
+    },
+    {
+     "hero": "nu_hoa",
+     "level": 20,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 32,
+   "zone": "moc",
+   "idx": 8,
+   "name": "Cây Thần Ngàn Năm",
+   "kind": "boss",
+   "enemies": [
+    {
+     "hero": "mam_go",
+     "level": 20,
+     "boss": false
+    },
+    {
+     "hero": "giac_long",
+     "level": 22,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "giac_long",
+     "chance": 1,
+     "min": 4,
+     "max": 6,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 33,
+   "zone": "tho",
+   "idx": 1,
+   "name": "Bãi Cát Vàng",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 21,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 34,
+   "zone": "tho",
+   "idx": 2,
+   "name": "Đồi Đất Nung",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 22,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 35,
+   "zone": "tho",
+   "idx": 3,
+   "name": "Cầu Treo",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 22,
+     "boss": false
+    },
+    {
+     "hero": "vo_su",
+     "level": 23,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 36,
+   "zone": "tho",
+   "idx": 4,
+   "name": "Võ Đường Đá",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 24,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "vo_su",
+     "chance": 1,
+     "min": 3,
+     "max": 5,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 37,
+   "zone": "tho",
+   "idx": 5,
+   "name": "Ruộng Bậc Thang",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 24,
+     "boss": false
+    },
+    {
+     "hero": "ca_sa",
+     "level": 21,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 38,
+   "zone": "tho",
+   "idx": 6,
+   "name": "Chùa Đá",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ca_sa",
+     "level": 22,
+     "boss": false
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ca_sa",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2,
+     "gift": false
+    }
+   ]
+  },
+  {
+   "id": 39,
+   "zone": "tho",
+   "idx": 7,
+   "name": "Sân Tượng Đá",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 25,
+     "boss": false
+    },
+    {
+     "hero": "ca_sa",
+     "level": 23,
+     "boss": false
+    },
+    {
+     "hero": "vo_su",
+     "level": 25,
+     "boss": false
+    }
+   ],
+   "drops": []
+  },
+  {
+   "id": 40,
+   "zone": "tho",
+   "idx": 8,
+   "name": "Kim Tự Viện",
+   "kind": "boss",
+   "enemies": [
+    {
+     "hero": "vo_su",
+     "level": 24,
+     "boss": false
+    },
+    {
+     "hero": "ca_sa",
+     "level": 23,
+     "boss": true
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ca_sa",
+     "chance": 1,
+     "min": 5,
+     "max": 8,
+     "gift": false
+    }
+   ]
+  }
+ ]
+}

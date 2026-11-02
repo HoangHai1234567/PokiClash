@@ -1,0 +1,461 @@
+{
+ "steps": [
+  {
+   "op": "use",
+   "day": 10,
+   "p": "afk_boost",
+   "r": true,
+   "left": 2,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 10,
+   "p": "afk_boost",
+   "r": true,
+   "left": 1,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 2
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 10,
+   "p": "afk_boost",
+   "r": true,
+   "left": 0,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 3
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 10,
+   "p": "afk_boost",
+   "r": false,
+   "left": 0,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 3
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 10,
+   "p": "tree_double",
+   "r": true,
+   "left": 2,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 3,
+     "tree_double": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 10,
+   "p": "cave_extra",
+   "r": true,
+   "left": 0,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 3,
+     "tree_double": 1,
+     "cave_extra": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 10,
+   "p": "cave_extra",
+   "r": false,
+   "left": 0,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 3,
+     "tree_double": 1,
+     "cave_extra": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 9,
+   "p": "afk_boost",
+   "r": false,
+   "left": 0,
+   "state": {
+    "day": 10,
+    "used": {
+     "afk_boost": 3,
+     "tree_double": 1,
+     "cave_extra": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 11,
+   "p": "afk_boost",
+   "r": true,
+   "left": 2,
+   "state": {
+    "day": 11,
+    "used": {
+     "afk_boost": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 11,
+   "p": "farm_boost",
+   "r": true,
+   "left": 2,
+   "state": {
+    "day": 11,
+    "used": {
+     "afk_boost": 1,
+     "farm_boost": 1
+    }
+   }
+  },
+  {
+   "op": "use",
+   "day": 11,
+   "p": "nope",
+   "r": true,
+   "left": 999,
+   "state": {
+    "day": 11,
+    "used": {
+     "afk_boost": 1,
+     "farm_boost": 1,
+     "nope": 1
+    }
+   }
+  }
+ ],
+ "pass": [
+  {
+   "op": "start",
+   "slots": 4,
+   "times": [],
+   "chests": [],
+   "hours": 0,
+   "balls": 10,
+   "pass": false,
+   "stock": 0,
+   "cap": 50,
+   "trees": [
+    0,
+    0
+   ]
+  },
+  {
+   "op": "buy",
+   "r": true,
+   "until": 1902592000000,
+   "slots": 5,
+   "times": [],
+   "chests": [],
+   "hours": 0,
+   "balls": 10,
+   "pass": true,
+   "stock": 0,
+   "cap": 75,
+   "trees": [
+    0,
+    0
+   ]
+  },
+  {
+   "op": "buy",
+   "r": true,
+   "until": 1905184000000,
+   "slots": 5,
+   "times": [],
+   "chests": [],
+   "hours": 0,
+   "balls": 10,
+   "pass": true,
+   "stock": 0,
+   "cap": 75,
+   "trees": [
+    0.0020833333333333333,
+    0.0020833333333333333
+   ]
+  },
+  {
+   "op": "pending",
+   "r": {
+    "hours": 12,
+    "full": true
+   },
+   "slots": 5,
+   "times": [
+    {
+     "start": 1900010800000,
+     "ready": 1900014400000
+    },
+    {
+     "start": 1900021600000,
+     "ready": 1900025200000
+    },
+    {
+     "start": 1900032400000,
+     "ready": 1900036000000
+    },
+    {
+     "start": 1900043200000,
+     "ready": 1900046800000
+    }
+   ],
+   "chests": [
+    1900010800000,
+    1900021600000,
+    1900032400000,
+    1900043200000
+   ],
+   "hours": 12,
+   "balls": 10,
+   "pass": true,
+   "stock": 150,
+   "cap": 75,
+   "trees": [
+    75,
+    75
+   ]
+  },
+  {
+   "op": "harvest",
+   "r": 150,
+   "slots": 5,
+   "times": [
+    {
+     "start": 1900010800000,
+     "ready": 1900014400000
+    },
+    {
+     "start": 1900021600000,
+     "ready": 1900025200000
+    },
+    {
+     "start": 1900032400000,
+     "ready": 1900036000000
+    },
+    {
+     "start": 1900043200000,
+     "ready": 1900046800000
+    }
+   ],
+   "chests": [
+    1900010800000,
+    1900021600000,
+    1900032400000,
+    1900043200000
+   ],
+   "hours": 12,
+   "balls": 160,
+   "pass": true,
+   "stock": 0,
+   "cap": 75,
+   "trees": [
+    0,
+    0
+   ]
+  },
+  {
+   "op": "noads",
+   "r": [
+    true,
+    false
+   ],
+   "noAds": true,
+   "slots": 5,
+   "times": [
+    {
+     "start": 1900010800000,
+     "ready": 1900014400000
+    },
+    {
+     "start": 1900021600000,
+     "ready": 1900025200000
+    },
+    {
+     "start": 1900032400000,
+     "ready": 1900036000000
+    },
+    {
+     "start": 1900043200000,
+     "ready": 1900046800000
+    }
+   ],
+   "chests": [
+    1900010800000,
+    1900021600000,
+    1900032400000,
+    1900043200000
+   ],
+   "hours": 12,
+   "balls": 160,
+   "pass": true,
+   "stock": 0,
+   "cap": 75,
+   "trees": [
+    0,
+    0
+   ]
+  },
+  {
+   "op": "expired",
+   "r": {
+    "hours": 12,
+    "full": true
+   },
+   "slots": 4,
+   "times": [
+    {
+     "start": 1900010800000,
+     "ready": 1900018000000
+    },
+    {
+     "start": 1900021600000,
+     "ready": 1900028800000
+    },
+    {
+     "start": 1900032400000,
+     "ready": 1900039600000
+    },
+    {
+     "start": 1900043200000,
+     "ready": 1900050400000
+    }
+   ],
+   "chests": [
+    1900010800000,
+    1900021600000,
+    1900032400000,
+    1900043200000
+   ],
+   "hours": 12,
+   "balls": 160,
+   "pass": false,
+   "stock": 150,
+   "cap": 50,
+   "trees": [
+    75,
+    75
+   ]
+  }
+ ],
+ "migrate": [
+  {
+   "in": {
+    "afk": {
+     "adDay": 20500,
+     "adOpen": 2,
+     "adBoost": 1
+    },
+    "farm": {
+     "adDay": 20500,
+     "adCount": 3
+    },
+    "cave": {
+     "day": 20500,
+     "wins": 1,
+     "ad": true
+    }
+   },
+   "out": {
+    "afk": {},
+    "farm": {},
+    "cave": {
+     "day": 20500,
+     "wins": 1
+    },
+    "ads": {
+     "day": 20500,
+     "used": {
+      "afk_chest_open": 2,
+      "afk_boost": 1,
+      "farm_boost": 3,
+      "cave_extra": 1
+     }
+    }
+   }
+  },
+  {
+   "in": {
+    "afk": {
+     "adDay": 20499,
+     "adOpen": 4,
+     "adBoost": 3
+    },
+    "farm": {
+     "adDay": 20500,
+     "adCount": 1
+    },
+    "cave": {
+     "day": 20498,
+     "wins": 0,
+     "ad": true
+    }
+   },
+   "out": {
+    "afk": {},
+    "farm": {},
+    "cave": {
+     "day": 20498,
+     "wins": 0
+    },
+    "ads": {
+     "day": 20500,
+     "used": {
+      "farm_boost": 1
+     }
+    }
+   }
+  },
+  {
+   "in": {
+    "afk": {
+     "adDay": 0,
+     "adOpen": 0,
+     "adBoost": 0
+    },
+    "cave": {
+     "day": 20500,
+     "wins": 2,
+     "ad": false
+    }
+   },
+   "out": {
+    "afk": {},
+    "cave": {
+     "day": 20500,
+     "wins": 2
+    }
+   }
+  }
+ ],
+ "t0": 1900000000000
+}

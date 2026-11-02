@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3d8746e53e1394ba595fcc68ac874d, type: 3}
+  m_Name: UiAssets
+  m_EditorClassIdentifier: 
+  title: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+  bold: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+  body: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+  kit: {fileID: 2100000, guid: bce11bf9b32aeaf4f875a5a04e9c69d5, type: 2}
+  plain: {fileID: 2100000, guid: a00c62d16a5393948a5509193321206f, type: 2}
+  sticker: {fileID: 2100000, guid: 28ae982943bff554c9f06657719faa90, type: 2}
+  baked: {fileID: 11400000, guid: 83386d66ad8de514189ac489e2df6951, type: 2}
+  prefabs: {fileID: 11400000, guid: f2e26cbd13b265c43940cfad24a0f23b, type: 2}

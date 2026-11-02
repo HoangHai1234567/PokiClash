@@ -1,0 +1,1441 @@
+{
+ "t0": 1800000000000,
+ "open": 4,
+ "formula": [
+  {
+   "hero": "giot_suong",
+   "hours": 8,
+   "rest": 60,
+   "rates": [
+    2.75,
+    2.2,
+    2.2,
+    2.2,
+    2.2,
+    2.75,
+    2.2,
+    2.2
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "hours": 8,
+   "rest": 60,
+   "rates": [
+    2,
+    2.5,
+    2,
+    2,
+    2,
+    2,
+    2.5,
+    2
+   ]
+  },
+  {
+   "hero": "nu_hoa",
+   "hours": 8,
+   "rest": 60,
+   "rates": [
+    2,
+    2,
+    2.5,
+    2,
+    2,
+    2,
+    2,
+    2.5
+   ]
+  },
+  {
+   "hero": "ca_ngua",
+   "hours": 10,
+   "rest": 60,
+   "rates": [
+    3.66,
+    2.928,
+    2.928,
+    2.928,
+    2.928,
+    3.66,
+    2.928,
+    2.928
+   ]
+  },
+  {
+   "hero": "bo_de",
+   "hours": 8,
+   "rest": 60,
+   "rates": [
+    2.44,
+    2.44,
+    2.44,
+    3.05,
+    2.44,
+    2.44,
+    2.44,
+    2.44
+   ]
+  }
+ ],
+ "steps": [
+  {
+   "op": "tick",
+   "t": 0,
+   "a": null,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800000000000,
+    "boostUntil": 0,
+    "spots": [
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "place",
+   "t": 0,
+   "a": 0,
+   "b": "giot_suong",
+   "r": true,
+   "farm": {
+    "lastTick": 1800000000000,
+    "boostUntil": 0,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "place",
+   "t": 0,
+   "a": 1,
+   "b": "giot_suong",
+   "r": false,
+   "farm": {
+    "lastTick": 1800000000000,
+    "boostUntil": 0,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "place",
+   "t": 0,
+   "a": 1,
+   "b": "vo_su",
+   "r": true,
+   "farm": {
+    "lastTick": 1800000000000,
+    "boostUntil": 0,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "place",
+   "t": 0,
+   "a": 3,
+   "b": "bo_de",
+   "r": true,
+   "farm": {
+    "lastTick": 1800000000000,
+    "boostUntil": 0,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "tick",
+   "t": 1.5,
+   "a": null,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800005400000,
+    "boostUntil": 0,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 6.5,
+      "stock": 4.125
+     },
+     {
+      "hero": "vo_su",
+      "energy": 6.5,
+      "stock": 3.75
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 6.5,
+      "stock": 4.574999999999999
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "boost",
+   "t": 1.5,
+   "a": 100,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800005400000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 6.5,
+      "stock": 4.125
+     },
+     {
+      "hero": "vo_su",
+      "energy": 6.5,
+      "stock": 3.75
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 6.5,
+      "stock": 4.574999999999999
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "boost",
+   "t": 2,
+   "a": 100,
+   "b": null,
+   "r": false,
+   "farm": {
+    "lastTick": 1800007200000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 6,
+      "stock": 6.875
+     },
+     {
+      "hero": "vo_su",
+      "energy": 6,
+      "stock": 6.25
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 6,
+      "stock": 7.624999999999999
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "tick",
+   "t": 3,
+   "a": null,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800010800000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 5,
+      "stock": 11
+     },
+     {
+      "hero": "vo_su",
+      "energy": 5,
+      "stock": 10
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 5,
+      "stock": 12.2
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 10
+  },
+  {
+   "op": "harvest",
+   "t": 3,
+   "a": null,
+   "b": null,
+   "r": 33,
+   "farm": {
+    "lastTick": 1800010800000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "giot_suong",
+      "energy": 5,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 5,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 5,
+      "stock": 0.1999999999999993
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 43
+  },
+  {
+   "op": "remove",
+   "t": 3,
+   "a": 0,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800010800000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 5,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 5,
+      "stock": 0.1999999999999993
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "giot_suong": 1800014400000
+    }
+   },
+   "balls": 43
+  },
+  {
+   "op": "place",
+   "t": 3.2,
+   "a": 0,
+   "b": "giot_suong",
+   "r": false,
+   "farm": {
+    "lastTick": 1800011520000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 4.8,
+      "stock": 0.5
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 4.8,
+      "stock": 0.8099999999999993
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "giot_suong": 1800014400000
+    }
+   },
+   "balls": 43
+  },
+  {
+   "op": "auto",
+   "t": 3.2,
+   "a": null,
+   "b": null,
+   "r": [
+    [
+     0,
+     "ca_ngua"
+    ],
+    [
+     2,
+     "nu_hoa"
+    ]
+   ],
+   "farm": {
+    "lastTick": 1800011520000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 10,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 4.8,
+      "stock": 0.5
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 4.8,
+      "stock": 0.8099999999999993
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "giot_suong": 1800014400000
+    }
+   },
+   "balls": 43
+  },
+  {
+   "op": "tick",
+   "t": 2,
+   "a": null,
+   "b": null,
+   "r": false,
+   "farm": {
+    "lastTick": 1800007200000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 10,
+      "stock": 0
+     },
+     {
+      "hero": "vo_su",
+      "energy": 4.8,
+      "stock": 0.5
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 8,
+      "stock": 0
+     },
+     {
+      "hero": "bo_de",
+      "energy": 4.8,
+      "stock": 0.8099999999999993
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "giot_suong": 1800014400000
+    }
+   },
+   "balls": 43
+  },
+  {
+   "op": "tick",
+   "t": 9,
+   "a": null,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800032400000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 3,
+      "stock": 27.450000000000003
+     },
+     {
+      "hero": "vo_su",
+      "energy": 0,
+      "stock": 13.75
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 1,
+      "stock": 18.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 16.974999999999998
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 43
+  },
+  {
+   "op": "harvest",
+   "t": 9,
+   "a": null,
+   "b": null,
+   "r": 74,
+   "farm": {
+    "lastTick": 1800032400000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 3,
+      "stock": 0.45000000000000284
+     },
+     {
+      "hero": "vo_su",
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 1,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 117
+  },
+  {
+   "op": "remove",
+   "t": 9,
+   "a": 1,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800032400000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 3,
+      "stock": 0.45000000000000284
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 1,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "vo_su": 1800036000000
+    }
+   },
+   "balls": 117
+  },
+  {
+   "op": "remove",
+   "t": 9,
+   "a": 2,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800032400000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 3,
+      "stock": 0.45000000000000284
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "vo_su": 1800036000000,
+     "nu_hoa": 1800036000000
+    }
+   },
+   "balls": 117
+  },
+  {
+   "op": "auto",
+   "t": 9.1,
+   "a": null,
+   "b": null,
+   "r": [
+    [
+     1,
+     "giot_suong"
+    ]
+   ],
+   "farm": {
+    "lastTick": 1800032760000,
+    "boostUntil": 1800009000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 2.9,
+      "stock": 0.816000000000003
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 8,
+      "stock": 0.75
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "vo_su": 1800036000000,
+     "nu_hoa": 1800036000000
+    }
+   },
+   "balls": 117
+  },
+  {
+   "op": "travel",
+   "t": 0,
+   "a": 30,
+   "b": null,
+   "r": null,
+   "farm": {
+    "lastTick": 1799924760000,
+    "boostUntil": 1799901000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 2.9,
+      "stock": 0.816000000000003
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 8,
+      "stock": 0.75
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {
+     "vo_su": 1799928000000,
+     "nu_hoa": 1799928000000
+    }
+   },
+   "balls": 117
+  },
+  {
+   "op": "harvest",
+   "t": 9.1,
+   "a": null,
+   "b": null,
+   "r": 29,
+   "farm": {
+    "lastTick": 1800032760000,
+    "boostUntil": 1799901000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 0,
+      "stock": 0.43000000000000327
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.3500000000000014
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 146
+  },
+  {
+   "op": "auto",
+   "t": 40,
+   "a": null,
+   "b": null,
+   "r": [
+    [
+     2,
+     "nu_hoa"
+    ]
+   ],
+   "farm": {
+    "lastTick": 1800144000000,
+    "boostUntil": 1799901000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 0,
+      "stock": 0.43000000000000327
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.3500000000000014
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 8,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 146
+  },
+  {
+   "op": "tick",
+   "t": 70,
+   "a": null,
+   "b": null,
+   "r": true,
+   "farm": {
+    "lastTick": 1800252000000,
+    "boostUntil": 1799901000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 0,
+      "stock": 0.43000000000000327
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.3500000000000014
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 0,
+      "stock": 20.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 146
+  },
+  {
+   "op": "harvest",
+   "t": 70,
+   "a": null,
+   "b": null,
+   "r": 20,
+   "farm": {
+    "lastTick": 1800252000000,
+    "boostUntil": 1799901000000,
+    "spots": [
+     {
+      "hero": "ca_ngua",
+      "energy": 0,
+      "stock": 0.43000000000000327
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.3500000000000014
+     },
+     {
+      "hero": "nu_hoa",
+      "energy": 0,
+      "stock": 0.75
+     },
+     {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.9749999999999979
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
+     }
+    ],
+    "rest": {}
+   },
+   "balls": 166
+  }
+ ]
+}

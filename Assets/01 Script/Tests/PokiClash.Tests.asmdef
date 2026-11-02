@@ -1,0 +1,27 @@
+{
+    "name": "PokiClash.Tests",
+    "rootNamespace": "PokiClash.Tests",
+    "references": [
+        "PokiClash.Core",
+        "PokiClash.Game",
+        "PokiClash.Editor",
+        "Unity.TextMeshPro",
+        "UnityEngine.TestRunner",
+        "UnityEditor.TestRunner"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

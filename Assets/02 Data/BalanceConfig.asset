@@ -1,0 +1,455 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3739a578d0d03dc4a986727daf487160, type: 3}
+  m_Name: BalanceConfig
+  m_EditorClassIdentifier: 
+  cfg:
+    picks: 5
+    offer: 3
+    manaPerTurn: 20
+    benchMana: 10
+    maxMana: 100
+    maxRage: 100
+    rageOnAttack: 10
+    rageOnHit: 80
+    critBase: 0.05
+    critMult: 1.6
+    defK: 100
+    dmgVar: 0.08
+    shieldCap: 0.6
+    hpBase: 600
+    atkBase: 180
+    defBase: 55
+    lvStep: 0.1
+    starStep: 0.08
+    bossHp: 1.8
+    bossAtk: 1.1
+    cardLvStep: 0.15
+    maxRounds: 60
+    saveVersion: 4
+    maxLevel: 30
+    expBase: 40
+    expPow: 1.35
+    afkCapH: 12
+    legendMilestone: 300
+    cardMax: 5
+    maxStar: 5
+    xSteps:
+    - x: 1
+      lv: 1
+    - x: 2
+      lv: 3
+    - x: 3
+      lv: 5
+    - x: 5
+      lv: 8
+    - x: 10
+      lv: 12
+    cardReq: 000000000200000004000000080000000f000000
+    starCards: 000000000000000005000000080000000b0000000f000000
+    starLevel: 00000000010000000200000005000000090000000e000000
+    formStars: 0300000005000000
+    poolWeight:
+    - 50
+    - 30
+    - 14
+    - 5
+    - 1
+    maxPerDrop: 20
+    maxPerDropHigh: 30
+    maxPerDropLevel: 15
+    legendCopies: 15
+    chests:
+    - kind: chest_wood
+      rolls:
+      - w: 55
+        k: balls
+        min: 2
+        max: 3
+        rar: []
+      - w: 35
+        k: exp
+        min: 15
+        max: 30
+        rar: []
+      - w: 10
+        k: cards
+        min: 1
+        max: 1
+        rar:
+        - rarity: 0
+          w: 70
+        - rarity: 1
+          w: 30
+    - kind: chest_silver
+      rolls:
+      - w: 27.6
+        k: balls
+        min: 3
+        max: 6
+        rar: []
+      - w: 27.6
+        k: exp
+        min: 40
+        max: 70
+        rar: []
+      - w: 32.2
+        k: cards
+        min: 2
+        max: 2
+        rar:
+        - rarity: 0
+          w: 45
+        - rarity: 1
+          w: 35
+        - rarity: 2
+          w: 18
+        - rarity: 3
+          w: 2
+      - w: 4.6
+        k: shards
+        min: 1
+        max: 2
+        rar: []
+      - w: 8
+        k: stones
+        min: 1
+        max: 2
+        rar: []
+    - kind: chest_gold
+      rolls:
+      - w: 17.6
+        k: balls
+        min: 8
+        max: 12
+        rar: []
+      - w: 17.6
+        k: exp
+        min: 100
+        max: 160
+        rar: []
+      - w: 44
+        k: cards
+        min: 3
+        max: 3
+        rar:
+        - rarity: 1
+          w: 45
+        - rarity: 2
+          w: 40
+        - rarity: 3
+          w: 14.99
+        - rarity: 4
+          w: 0.01
+      - w: 8.8
+        k: shards
+        min: 2
+        max: 4
+        rar: []
+      - w: 12
+        k: stones
+        min: 2
+        max: 4
+        rar: []
+    ratesBalls: 6000
+    rates:
+    - k: chest_silver
+      p: 0.0597
+    - k: exp10
+      p: 0.2275
+    - k: exp5
+      p: 0.296
+    - k: exp15
+      p: 0.22
+    - k: chest_gold
+      p: 0.0343
+    - k: ball
+      p: 0.0878
+    - k: chest_wood
+      p: 0.0747
+    afk:
+      shardChance: 0.08
+      chestEveryH: 3
+      chestOpenH: 2
+      boostH: 2
+      boostMult: 2
+      chestSlots: 4
+      chest:
+        kind: chest_afk
+        rolls:
+        - w: 38
+          k: balls
+          min: 4
+          max: 8
+          rar: []
+        - w: 28.5
+          k: exp
+          min: 30
+          max: 60
+          rar: []
+        - w: 28.5
+          k: cards
+          min: 1
+          max: 2
+          rar:
+          - rarity: 0
+            w: 60
+          - rarity: 1
+            w: 30
+          - rarity: 2
+            w: 9.5
+          - rarity: 3
+            w: 0.5
+        - w: 5
+          k: stones
+          min: 1
+          max: 1
+          rar: []
+    simTeams:
+    - zone: 2
+      team:
+      - giot_suong
+      - vo_su
+      - nu_hoa
+      star: 1
+      card: 1
+    - zone: 3
+      team:
+      - ca_ngua
+      - giot_suong
+      - vo_su
+      star: 2
+      card: 2
+    - zone: 0
+      team:
+      - phap_luan
+      - bo_de
+      - ca_ngua
+      star: 2
+      card: 2
+    - zone: 1
+      team:
+      - soi_linh
+      - bo_cap
+      - bu_long
+      star: 3
+      card: 3
+    - zone: 4
+      team:
+      - de_hoa
+      - nu_hoa
+      - soi_linh
+      star: 3
+      card: 3
+    badges:
+      tiers:
+      - "\u0110\u1ED3ng"
+      - "B\u1EA1c"
+      - "V\xE0ng"
+      - "Ng\u1ECDc"
+      - "Kim C\u01B0\u01A1ng"
+      counts: 05000000050000000a0000000a0000000a000000
+      bonus:
+      - 0.05
+      - 0.08
+      - 0.12
+      - 0.16
+      - 0.2
+      levelPerTier: 3
+      ballsBase: 5
+      ballsPerTier: 2
+      chest:
+      - chest_silver
+      - chest_silver
+      - chest_gold
+      - chest_gold
+      - chest_gold
+    potential:
+      values:
+      - 0.03
+      - 0.05
+      - 0.08
+      - 0.12
+      - 0.16
+      - 0.03
+      - 0.05
+      - 0.08
+      - 0.12
+      - 0.16
+      - 0.03
+      - 0.05
+      - 0.08
+      - 0.12
+      - 0.16
+      - 2
+      - 4
+      - 6
+      - 9
+      - 12
+      - 0.02
+      - 0.03
+      - 0.05
+      - 0.07
+      - 0.1
+      - 0.02
+      - 0.03
+      - 0.05
+      - 0.07
+      - 0.1
+      - 5
+      - 10
+      - 15
+      - 20
+      - 30
+      - 5
+      - 10
+      - 15
+      - 20
+      - 30
+      rarityWeight:
+      - 55
+      - 28
+      - 12
+      - 4.5
+      - 0.5
+      caps:
+      - 0.4
+      - 0.4
+      - 0.4
+      - 30
+      - 0.4
+      - 0.4
+      - 50
+      - 50
+      slotStar: 01000000020000000300000004000000
+      lockCost: 2
+      maxLocks: 2
+    cave:
+      tiers:
+      - name: "D\u1EC5"
+        level: 6
+        stones: 2
+      - name: "Th\u01B0\u1EDDng"
+        level: 12
+        stones: 3
+      - name: "Kh\xF3"
+        level: 18
+        stones: 5
+      - name: "\xC1c m\u1ED9ng"
+        level: 24
+        stones: 8
+      winsPerDay: 3
+      adExtra: 1
+      weekday: ffffffff0000000001000000020000000300000004000000ffffffff
+    farm:
+      minHeroes: 3
+      base: 2
+      rarityPower:
+      - 1
+      - 1.1
+      - 1.22
+      - 1.36
+      - 1.5
+      lvStep: 0
+      starStep: 0.1
+      match: 1.25
+      durBase: 8
+      durStar: 1
+      durRarity: 0
+      restPerHour: 15
+      restMin: 15
+      restMax: 60
+      capHours: 10
+      openSpots: 3
+      spotLevels: 080000000b0000000e0000001100000014000000
+      boostH: 1
+      boostMult: 2
+      spots:
+      - id: duck1
+        kind: duck
+        name: "Ao v\u1ECBt"
+        elem: 2
+        x: 0.26
+        y: 0.3
+      - id: veg1
+        kind: veg
+        name: "Ru\u1ED9ng rau"
+        elem: 4
+        x: 0.72
+        y: 0.3
+      - id: orchard1
+        kind: orchard
+        name: "V\u01B0\u1EDDn c\xE2y"
+        elem: 1
+        x: 0.26
+        y: 0.48
+      - id: bakery
+        kind: bakery
+        name: "L\xF2 b\xE1nh"
+        elem: 3
+        x: 0.72
+        y: 0.48
+      - id: smithy
+        kind: smithy
+        name: "X\u01B0\u1EDFng n\xF4ng c\u1EE5"
+        elem: 0
+        x: 0.26
+        y: 0.66
+      - id: duck2
+        kind: duck
+        name: "Ao v\u1ECBt"
+        elem: 2
+        x: 0.72
+        y: 0.66
+      - id: veg2
+        kind: veg
+        name: "Ru\u1ED9ng rau"
+        elem: 4
+        x: 0.26
+        y: 0.84
+      - id: orchard2
+        kind: orchard
+        name: "V\u01B0\u1EDDn c\xE2y"
+        elem: 1
+        x: 0.72
+        y: 0.84
+    ads:
+      limits:
+      - p: tree_double
+        n: 3
+      - p: afk_chest_open
+        n: 4
+      - p: afk_boost
+        n: 3
+      - p: farm_boost
+        n: 3
+      - p: cave_extra
+        n: 1
+      pass:
+        days: 30
+        treeMult: 1.5
+        afkOpenH: 1
+        afkSlots: 5
+      products:
+      - id: adventure_pass
+        name: "Th\u1EBB Phi\xEAu L\u01B0u 30 ng\xE0y"
+        desc: "C\xE2y bi ra nhanh \xD71,5 v\xE0 ch\u1EE9a \xD71,5; khay r\u01B0\u01A1ng
+          AFK 5 \xF4; r\u01B0\u01A1ng AFK m\u1EDF trong 1 gi\u1EDD."
+      - id: no_ads
+        name: "B\u1ECF qu\u1EA3ng c\xE1o"
+        desc: "M\u1ECDi ch\u1ED7 qu\u1EA3ng c\xE1o th\u01B0\u1EDFng trao th\u01B0\u1EDFng
+          ngay, kh\xF4ng c\u1EA7n xem (v\u1EABn theo gi\u1EDBi h\u1EA1n m\u1ED7i
+          ng\xE0y)."
+    trees:
+      perHour: 5
+      cap: 50
+      unlockZones: 02000000030000000000000001000000

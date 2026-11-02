@@ -1,0 +1,12210 @@
+{
+ "stats": [
+  {
+   "id": "bu_long",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 687,
+   "atk": 206,
+   "def": 34,
+   "spd": 11
+  },
+  {
+   "id": "bu_long",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1236,
+   "atk": 227,
+   "def": 34,
+   "spd": 11
+  },
+  {
+   "id": "bu_long",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 797,
+   "atk": 239,
+   "def": 39,
+   "spd": 11
+  },
+  {
+   "id": "bu_long",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1434,
+   "atk": 263,
+   "def": 39,
+   "spd": 11
+  },
+  {
+   "id": "bu_long",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 907,
+   "atk": 272,
+   "def": 45,
+   "spd": 11
+  },
+  {
+   "id": "bu_long",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1632,
+   "atk": 299,
+   "def": 45,
+   "spd": 11
+  },
+  {
+   "id": "bu_long",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1305,
+   "atk": 392,
+   "def": 64,
+   "spd": 20
+  },
+  {
+   "id": "bu_long",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2349,
+   "atk": 431,
+   "def": 64,
+   "spd": 20
+  },
+  {
+   "id": "bu_long",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1514,
+   "atk": 454,
+   "def": 75,
+   "spd": 20
+  },
+  {
+   "id": "bu_long",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2725,
+   "atk": 500,
+   "def": 75,
+   "spd": 20
+  },
+  {
+   "id": "bu_long",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1723,
+   "atk": 517,
+   "def": 85,
+   "spd": 20
+  },
+  {
+   "id": "bu_long",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3101,
+   "atk": 569,
+   "def": 85,
+   "spd": 20
+  },
+  {
+   "id": "bu_long",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1992,
+   "atk": 598,
+   "def": 98,
+   "spd": 30
+  },
+  {
+   "id": "bu_long",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3586,
+   "atk": 657,
+   "def": 98,
+   "spd": 30
+  },
+  {
+   "id": "bu_long",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2311,
+   "atk": 693,
+   "def": 114,
+   "spd": 30
+  },
+  {
+   "id": "bu_long",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4159,
+   "atk": 763,
+   "def": 114,
+   "spd": 30
+  },
+  {
+   "id": "bu_long",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2629,
+   "atk": 789,
+   "def": 130,
+   "spd": 30
+  },
+  {
+   "id": "bu_long",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4733,
+   "atk": 868,
+   "def": 130,
+   "spd": 30
+  },
+  {
+   "id": "bu_long",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2679,
+   "atk": 804,
+   "def": 132,
+   "spd": 40
+  },
+  {
+   "id": "bu_long",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4822,
+   "atk": 884,
+   "def": 132,
+   "spd": 40
+  },
+  {
+   "id": "bu_long",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3108,
+   "atk": 932,
+   "def": 153,
+   "spd": 40
+  },
+  {
+   "id": "bu_long",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5594,
+   "atk": 1026,
+   "def": 153,
+   "spd": 40
+  },
+  {
+   "id": "bu_long",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3536,
+   "atk": 1061,
+   "def": 174,
+   "spd": 40
+  },
+  {
+   "id": "bu_long",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6365,
+   "atk": 1167,
+   "def": 174,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 513,
+   "atk": 224,
+   "def": 46,
+   "spd": 21
+  },
+  {
+   "id": "phao_hop",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 923,
+   "atk": 247,
+   "def": 46,
+   "spd": 21
+  },
+  {
+   "id": "phao_hop",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 595,
+   "atk": 260,
+   "def": 54,
+   "spd": 21
+  },
+  {
+   "id": "phao_hop",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1071,
+   "atk": 286,
+   "def": 54,
+   "spd": 21
+  },
+  {
+   "id": "phao_hop",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 677,
+   "atk": 296,
+   "def": 61,
+   "spd": 21
+  },
+  {
+   "id": "phao_hop",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1218,
+   "atk": 326,
+   "def": 61,
+   "spd": 21
+  },
+  {
+   "id": "phao_hop",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 974,
+   "atk": 427,
+   "def": 88,
+   "spd": 30
+  },
+  {
+   "id": "phao_hop",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1753,
+   "atk": 469,
+   "def": 88,
+   "spd": 30
+  },
+  {
+   "id": "phao_hop",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1130,
+   "atk": 495,
+   "def": 102,
+   "spd": 30
+  },
+  {
+   "id": "phao_hop",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2034,
+   "atk": 544,
+   "def": 102,
+   "spd": 30
+  },
+  {
+   "id": "phao_hop",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1286,
+   "atk": 563,
+   "def": 117,
+   "spd": 30
+  },
+  {
+   "id": "phao_hop",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2315,
+   "atk": 619,
+   "def": 117,
+   "spd": 30
+  },
+  {
+   "id": "phao_hop",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1487,
+   "atk": 651,
+   "def": 135,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2676,
+   "atk": 716,
+   "def": 135,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1725,
+   "atk": 755,
+   "def": 156,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3104,
+   "atk": 831,
+   "def": 156,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1963,
+   "atk": 859,
+   "def": 178,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3533,
+   "atk": 945,
+   "def": 178,
+   "spd": 40
+  },
+  {
+   "id": "phao_hop",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2000,
+   "atk": 876,
+   "def": 181,
+   "spd": 50
+  },
+  {
+   "id": "phao_hop",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3599,
+   "atk": 963,
+   "def": 181,
+   "spd": 50
+  },
+  {
+   "id": "phao_hop",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2319,
+   "atk": 1016,
+   "def": 210,
+   "spd": 50
+  },
+  {
+   "id": "phao_hop",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4175,
+   "atk": 1117,
+   "def": 210,
+   "spd": 50
+  },
+  {
+   "id": "phao_hop",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2639,
+   "atk": 1156,
+   "def": 239,
+   "spd": 50
+  },
+  {
+   "id": "phao_hop",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4751,
+   "atk": 1271,
+   "def": 239,
+   "spd": 50
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 616,
+   "atk": 230,
+   "def": 53,
+   "spd": 76
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1109,
+   "atk": 254,
+   "def": 53,
+   "spd": 76
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 715,
+   "atk": 267,
+   "def": 62,
+   "spd": 76
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1286,
+   "atk": 294,
+   "def": 62,
+   "spd": 76
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 813,
+   "atk": 304,
+   "def": 70,
+   "spd": 76
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1463,
+   "atk": 335,
+   "def": 70,
+   "spd": 76
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1170,
+   "atk": 438,
+   "def": 101,
+   "spd": 85
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2107,
+   "atk": 482,
+   "def": 101,
+   "spd": 85
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1358,
+   "atk": 508,
+   "def": 117,
+   "spd": 85
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2444,
+   "atk": 559,
+   "def": 117,
+   "spd": 85
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1545,
+   "atk": 578,
+   "def": 134,
+   "spd": 85
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2781,
+   "atk": 636,
+   "def": 134,
+   "spd": 85
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1786,
+   "atk": 668,
+   "def": 154,
+   "spd": 95
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3215,
+   "atk": 735,
+   "def": 154,
+   "spd": 95
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2072,
+   "atk": 775,
+   "def": 179,
+   "spd": 95
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3730,
+   "atk": 853,
+   "def": 179,
+   "spd": 95
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2358,
+   "atk": 882,
+   "def": 204,
+   "spd": 95
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4244,
+   "atk": 970,
+   "def": 204,
+   "spd": 95
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2402,
+   "atk": 899,
+   "def": 208,
+   "spd": 105
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4324,
+   "atk": 989,
+   "def": 208,
+   "spd": 105
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2787,
+   "atk": 1043,
+   "def": 241,
+   "spd": 105
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5016,
+   "atk": 1147,
+   "def": 241,
+   "spd": 105
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3171,
+   "atk": 1186,
+   "def": 274,
+   "spd": 105
+  },
+  {
+   "id": "kiem_linh",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5708,
+   "atk": 1305,
+   "def": 274,
+   "spd": 105
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 529,
+   "atk": 205,
+   "def": 69,
+   "spd": 71
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 953,
+   "atk": 225,
+   "def": 69,
+   "spd": 71
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 614,
+   "atk": 238,
+   "def": 80,
+   "spd": 71
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1105,
+   "atk": 262,
+   "def": 80,
+   "spd": 71
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 699,
+   "atk": 271,
+   "def": 91,
+   "spd": 71
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1257,
+   "atk": 298,
+   "def": 91,
+   "spd": 71
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1005,
+   "atk": 389,
+   "def": 130,
+   "spd": 80
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1810,
+   "atk": 428,
+   "def": 130,
+   "spd": 80
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1166,
+   "atk": 452,
+   "def": 151,
+   "spd": 80
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2099,
+   "atk": 497,
+   "def": 151,
+   "spd": 80
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1327,
+   "atk": 514,
+   "def": 172,
+   "spd": 80
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2389,
+   "atk": 565,
+   "def": 172,
+   "spd": 80
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1535,
+   "atk": 594,
+   "def": 199,
+   "spd": 90
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2762,
+   "atk": 654,
+   "def": 199,
+   "spd": 90
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1780,
+   "atk": 689,
+   "def": 231,
+   "spd": 90
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3204,
+   "atk": 758,
+   "def": 231,
+   "spd": 90
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2026,
+   "atk": 785,
+   "def": 263,
+   "spd": 90
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3646,
+   "atk": 863,
+   "def": 263,
+   "spd": 90
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2064,
+   "atk": 799,
+   "def": 268,
+   "spd": 100
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3715,
+   "atk": 879,
+   "def": 268,
+   "spd": 100
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2394,
+   "atk": 927,
+   "def": 310,
+   "spd": 100
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4309,
+   "atk": 1020,
+   "def": 310,
+   "spd": 100
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2724,
+   "atk": 1055,
+   "def": 353,
+   "spd": 100
+  },
+  {
+   "id": "meo_quyen",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4904,
+   "atk": 1161,
+   "def": 353,
+   "spd": 100
+  },
+  {
+   "id": "bo_cap",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 802,
+   "atk": 196,
+   "def": 67,
+   "spd": 71
+  },
+  {
+   "id": "bo_cap",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1443,
+   "atk": 216,
+   "def": 67,
+   "spd": 71
+  },
+  {
+   "id": "bo_cap",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 930,
+   "atk": 228,
+   "def": 78,
+   "spd": 71
+  },
+  {
+   "id": "bo_cap",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1674,
+   "atk": 251,
+   "def": 78,
+   "spd": 71
+  },
+  {
+   "id": "bo_cap",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1058,
+   "atk": 259,
+   "def": 89,
+   "spd": 71
+  },
+  {
+   "id": "bo_cap",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1905,
+   "atk": 285,
+   "def": 89,
+   "spd": 71
+  },
+  {
+   "id": "bo_cap",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1524,
+   "atk": 373,
+   "def": 127,
+   "spd": 80
+  },
+  {
+   "id": "bo_cap",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2742,
+   "atk": 411,
+   "def": 127,
+   "spd": 80
+  },
+  {
+   "id": "bo_cap",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1767,
+   "atk": 433,
+   "def": 148,
+   "spd": 80
+  },
+  {
+   "id": "bo_cap",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3181,
+   "atk": 476,
+   "def": 148,
+   "spd": 80
+  },
+  {
+   "id": "bo_cap",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2011,
+   "atk": 493,
+   "def": 168,
+   "spd": 80
+  },
+  {
+   "id": "bo_cap",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3620,
+   "atk": 542,
+   "def": 168,
+   "spd": 80
+  },
+  {
+   "id": "bo_cap",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2325,
+   "atk": 570,
+   "def": 195,
+   "spd": 90
+  },
+  {
+   "id": "bo_cap",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4186,
+   "atk": 627,
+   "def": 195,
+   "spd": 90
+  },
+  {
+   "id": "bo_cap",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2697,
+   "atk": 661,
+   "def": 226,
+   "spd": 90
+  },
+  {
+   "id": "bo_cap",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4855,
+   "atk": 727,
+   "def": 226,
+   "spd": 90
+  },
+  {
+   "id": "bo_cap",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3070,
+   "atk": 752,
+   "def": 257,
+   "spd": 90
+  },
+  {
+   "id": "bo_cap",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5525,
+   "atk": 827,
+   "def": 257,
+   "spd": 90
+  },
+  {
+   "id": "bo_cap",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3127,
+   "atk": 766,
+   "def": 262,
+   "spd": 100
+  },
+  {
+   "id": "bo_cap",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5629,
+   "atk": 843,
+   "def": 262,
+   "spd": 100
+  },
+  {
+   "id": "bo_cap",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3628,
+   "atk": 889,
+   "def": 304,
+   "spd": 100
+  },
+  {
+   "id": "bo_cap",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6530,
+   "atk": 977,
+   "def": 304,
+   "spd": 100
+  },
+  {
+   "id": "bo_cap",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4128,
+   "atk": 1011,
+   "def": 345,
+   "spd": 100
+  },
+  {
+   "id": "bo_cap",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7430,
+   "atk": 1112,
+   "def": 345,
+   "spd": 100
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 644,
+   "atk": 237,
+   "def": 69,
+   "spd": 61
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1159,
+   "atk": 260,
+   "def": 69,
+   "spd": 61
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 747,
+   "atk": 275,
+   "def": 80,
+   "spd": 61
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1345,
+   "atk": 302,
+   "def": 80,
+   "spd": 61
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 850,
+   "atk": 312,
+   "def": 91,
+   "spd": 61
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1530,
+   "atk": 344,
+   "def": 91,
+   "spd": 61
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1224,
+   "atk": 450,
+   "def": 132,
+   "spd": 70
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2203,
+   "atk": 495,
+   "def": 132,
+   "spd": 70
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1420,
+   "atk": 522,
+   "def": 153,
+   "spd": 70
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2555,
+   "atk": 574,
+   "def": 153,
+   "spd": 70
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1615,
+   "atk": 594,
+   "def": 174,
+   "spd": 70
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2908,
+   "atk": 653,
+   "def": 174,
+   "spd": 70
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1868,
+   "atk": 686,
+   "def": 201,
+   "spd": 80
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3362,
+   "atk": 755,
+   "def": 201,
+   "spd": 80
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2167,
+   "atk": 796,
+   "def": 233,
+   "spd": 80
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3900,
+   "atk": 876,
+   "def": 233,
+   "spd": 80
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2466,
+   "atk": 906,
+   "def": 265,
+   "spd": 80
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4438,
+   "atk": 996,
+   "def": 265,
+   "spd": 80
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2512,
+   "atk": 923,
+   "def": 270,
+   "spd": 90
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4521,
+   "atk": 1015,
+   "def": 270,
+   "spd": 90
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2914,
+   "atk": 1071,
+   "def": 313,
+   "spd": 90
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5245,
+   "atk": 1178,
+   "def": 313,
+   "spd": 90
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3316,
+   "atk": 1218,
+   "def": 356,
+   "spd": 90
+  },
+  {
+   "id": "bo_ngua",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5968,
+   "atk": 1340,
+   "def": 356,
+   "spd": 90
+  },
+  {
+   "id": "soi_linh",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 798,
+   "atk": 250,
+   "def": 75,
+   "spd": 93
+  },
+  {
+   "id": "soi_linh",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1437,
+   "atk": 275,
+   "def": 75,
+   "spd": 93
+  },
+  {
+   "id": "soi_linh",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 926,
+   "atk": 290,
+   "def": 87,
+   "spd": 93
+  },
+  {
+   "id": "soi_linh",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1666,
+   "atk": 319,
+   "def": 87,
+   "spd": 93
+  },
+  {
+   "id": "soi_linh",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1053,
+   "atk": 330,
+   "def": 99,
+   "spd": 93
+  },
+  {
+   "id": "soi_linh",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1896,
+   "atk": 363,
+   "def": 99,
+   "spd": 93
+  },
+  {
+   "id": "soi_linh",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1516,
+   "atk": 475,
+   "def": 142,
+   "spd": 102
+  },
+  {
+   "id": "soi_linh",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2729,
+   "atk": 523,
+   "def": 142,
+   "spd": 102
+  },
+  {
+   "id": "soi_linh",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1759,
+   "atk": 551,
+   "def": 165,
+   "spd": 102
+  },
+  {
+   "id": "soi_linh",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3166,
+   "atk": 606,
+   "def": 165,
+   "spd": 102
+  },
+  {
+   "id": "soi_linh",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2002,
+   "atk": 627,
+   "def": 188,
+   "spd": 102
+  },
+  {
+   "id": "soi_linh",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3603,
+   "atk": 690,
+   "def": 188,
+   "spd": 102
+  },
+  {
+   "id": "soi_linh",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2314,
+   "atk": 725,
+   "def": 217,
+   "spd": 112
+  },
+  {
+   "id": "soi_linh",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4166,
+   "atk": 798,
+   "def": 217,
+   "spd": 112
+  },
+  {
+   "id": "soi_linh",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2685,
+   "atk": 841,
+   "def": 252,
+   "spd": 112
+  },
+  {
+   "id": "soi_linh",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4832,
+   "atk": 925,
+   "def": 252,
+   "spd": 112
+  },
+  {
+   "id": "soi_linh",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3055,
+   "atk": 957,
+   "def": 286,
+   "spd": 112
+  },
+  {
+   "id": "soi_linh",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5499,
+   "atk": 1053,
+   "def": 286,
+   "spd": 112
+  },
+  {
+   "id": "soi_linh",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3112,
+   "atk": 975,
+   "def": 292,
+   "spd": 122
+  },
+  {
+   "id": "soi_linh",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5602,
+   "atk": 1073,
+   "def": 292,
+   "spd": 122
+  },
+  {
+   "id": "soi_linh",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3610,
+   "atk": 1131,
+   "def": 338,
+   "spd": 122
+  },
+  {
+   "id": "soi_linh",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6499,
+   "atk": 1244,
+   "def": 338,
+   "spd": 122
+  },
+  {
+   "id": "soi_linh",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4108,
+   "atk": 1287,
+   "def": 385,
+   "spd": 122
+  },
+  {
+   "id": "soi_linh",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7395,
+   "atk": 1416,
+   "def": 385,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 862,
+   "atk": 286,
+   "def": 81,
+   "spd": 103
+  },
+  {
+   "id": "bach_ho",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1552,
+   "atk": 315,
+   "def": 81,
+   "spd": 103
+  },
+  {
+   "id": "bach_ho",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 1000,
+   "atk": 332,
+   "def": 94,
+   "spd": 103
+  },
+  {
+   "id": "bach_ho",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1800,
+   "atk": 365,
+   "def": 94,
+   "spd": 103
+  },
+  {
+   "id": "bach_ho",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1138,
+   "atk": 378,
+   "def": 107,
+   "spd": 103
+  },
+  {
+   "id": "bach_ho",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 2048,
+   "atk": 415,
+   "def": 107,
+   "spd": 103
+  },
+  {
+   "id": "bach_ho",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1638,
+   "atk": 544,
+   "def": 154,
+   "spd": 112
+  },
+  {
+   "id": "bach_ho",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2948,
+   "atk": 598,
+   "def": 154,
+   "spd": 112
+  },
+  {
+   "id": "bach_ho",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1900,
+   "atk": 631,
+   "def": 178,
+   "spd": 112
+  },
+  {
+   "id": "bach_ho",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3420,
+   "atk": 694,
+   "def": 178,
+   "spd": 112
+  },
+  {
+   "id": "bach_ho",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2162,
+   "atk": 718,
+   "def": 203,
+   "spd": 112
+  },
+  {
+   "id": "bach_ho",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3891,
+   "atk": 789,
+   "def": 203,
+   "spd": 112
+  },
+  {
+   "id": "bach_ho",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2500,
+   "atk": 830,
+   "def": 234,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4500,
+   "atk": 913,
+   "def": 234,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2900,
+   "atk": 963,
+   "def": 272,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 5220,
+   "atk": 1059,
+   "def": 272,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3300,
+   "atk": 1095,
+   "def": 309,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5939,
+   "atk": 1205,
+   "def": 309,
+   "spd": 122
+  },
+  {
+   "id": "bach_ho",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3362,
+   "atk": 1116,
+   "def": 315,
+   "spd": 132
+  },
+  {
+   "id": "bach_ho",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 6051,
+   "atk": 1228,
+   "def": 315,
+   "spd": 132
+  },
+  {
+   "id": "bach_ho",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3900,
+   "atk": 1295,
+   "def": 366,
+   "spd": 132
+  },
+  {
+   "id": "bach_ho",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 7019,
+   "atk": 1424,
+   "def": 366,
+   "spd": 132
+  },
+  {
+   "id": "bach_ho",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4438,
+   "atk": 1473,
+   "def": 416,
+   "spd": 132
+  },
+  {
+   "id": "bach_ho",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7988,
+   "atk": 1620,
+   "def": 416,
+   "spd": 132
+  },
+  {
+   "id": "mam_go",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 528,
+   "atk": 186,
+   "def": 59,
+   "spd": 91
+  },
+  {
+   "id": "mam_go",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 950,
+   "atk": 204,
+   "def": 59,
+   "spd": 91
+  },
+  {
+   "id": "mam_go",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 612,
+   "atk": 215,
+   "def": 69,
+   "spd": 91
+  },
+  {
+   "id": "mam_go",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1102,
+   "atk": 237,
+   "def": 69,
+   "spd": 91
+  },
+  {
+   "id": "mam_go",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 697,
+   "atk": 245,
+   "def": 78,
+   "spd": 91
+  },
+  {
+   "id": "mam_go",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1254,
+   "atk": 270,
+   "def": 78,
+   "spd": 91
+  },
+  {
+   "id": "mam_go",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1003,
+   "atk": 353,
+   "def": 113,
+   "spd": 100
+  },
+  {
+   "id": "mam_go",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1806,
+   "atk": 388,
+   "def": 113,
+   "spd": 100
+  },
+  {
+   "id": "mam_go",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1164,
+   "atk": 409,
+   "def": 131,
+   "spd": 100
+  },
+  {
+   "id": "mam_go",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2094,
+   "atk": 450,
+   "def": 131,
+   "spd": 100
+  },
+  {
+   "id": "mam_go",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1324,
+   "atk": 466,
+   "def": 149,
+   "spd": 100
+  },
+  {
+   "id": "mam_go",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2383,
+   "atk": 512,
+   "def": 149,
+   "spd": 100
+  },
+  {
+   "id": "mam_go",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1531,
+   "atk": 539,
+   "def": 172,
+   "spd": 110
+  },
+  {
+   "id": "mam_go",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2756,
+   "atk": 592,
+   "def": 172,
+   "spd": 110
+  },
+  {
+   "id": "mam_go",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1776,
+   "atk": 625,
+   "def": 199,
+   "spd": 110
+  },
+  {
+   "id": "mam_go",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3197,
+   "atk": 687,
+   "def": 199,
+   "spd": 110
+  },
+  {
+   "id": "mam_go",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2021,
+   "atk": 711,
+   "def": 227,
+   "spd": 110
+  },
+  {
+   "id": "mam_go",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3638,
+   "atk": 782,
+   "def": 227,
+   "spd": 110
+  },
+  {
+   "id": "mam_go",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2059,
+   "atk": 724,
+   "def": 231,
+   "spd": 120
+  },
+  {
+   "id": "mam_go",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3706,
+   "atk": 797,
+   "def": 231,
+   "spd": 120
+  },
+  {
+   "id": "mam_go",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2388,
+   "atk": 840,
+   "def": 268,
+   "spd": 120
+  },
+  {
+   "id": "mam_go",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4299,
+   "atk": 924,
+   "def": 268,
+   "spd": 120
+  },
+  {
+   "id": "mam_go",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2718,
+   "atk": 956,
+   "def": 305,
+   "spd": 120
+  },
+  {
+   "id": "mam_go",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4892,
+   "atk": 1052,
+   "def": 305,
+   "spd": 120
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 531,
+   "atk": 206,
+   "def": 53,
+   "spd": 31
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 955,
+   "atk": 226,
+   "def": 53,
+   "spd": 31
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 616,
+   "atk": 238,
+   "def": 61,
+   "spd": 31
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1108,
+   "atk": 262,
+   "def": 61,
+   "spd": 31
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 701,
+   "atk": 271,
+   "def": 69,
+   "spd": 31
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1261,
+   "atk": 298,
+   "def": 69,
+   "spd": 31
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1009,
+   "atk": 391,
+   "def": 100,
+   "spd": 40
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1815,
+   "atk": 430,
+   "def": 100,
+   "spd": 40
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1170,
+   "atk": 453,
+   "def": 116,
+   "spd": 40
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2106,
+   "atk": 498,
+   "def": 116,
+   "spd": 40
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1331,
+   "atk": 516,
+   "def": 132,
+   "spd": 40
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2396,
+   "atk": 567,
+   "def": 132,
+   "spd": 40
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1539,
+   "atk": 596,
+   "def": 152,
+   "spd": 50
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2771,
+   "atk": 656,
+   "def": 152,
+   "spd": 50
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1786,
+   "atk": 692,
+   "def": 177,
+   "spd": 50
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3214,
+   "atk": 761,
+   "def": 177,
+   "spd": 50
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2032,
+   "atk": 787,
+   "def": 201,
+   "spd": 50
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3657,
+   "atk": 866,
+   "def": 201,
+   "spd": 50
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2070,
+   "atk": 802,
+   "def": 205,
+   "spd": 60
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3726,
+   "atk": 882,
+   "def": 205,
+   "spd": 60
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2401,
+   "atk": 930,
+   "def": 238,
+   "spd": 60
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4322,
+   "atk": 1023,
+   "def": 238,
+   "spd": 60
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2733,
+   "atk": 1058,
+   "def": 271,
+   "spd": 60
+  },
+  {
+   "id": "nu_hoa",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4919,
+   "atk": 1164,
+   "def": 271,
+   "spd": 60
+  },
+  {
+   "id": "kien_binh",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 622,
+   "atk": 198,
+   "def": 64,
+   "spd": 91
+  },
+  {
+   "id": "kien_binh",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1120,
+   "atk": 218,
+   "def": 64,
+   "spd": 91
+  },
+  {
+   "id": "kien_binh",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 722,
+   "atk": 230,
+   "def": 74,
+   "spd": 91
+  },
+  {
+   "id": "kien_binh",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1299,
+   "atk": 253,
+   "def": 74,
+   "spd": 91
+  },
+  {
+   "id": "kien_binh",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 821,
+   "atk": 261,
+   "def": 84,
+   "spd": 91
+  },
+  {
+   "id": "kien_binh",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1478,
+   "atk": 287,
+   "def": 84,
+   "spd": 91
+  },
+  {
+   "id": "kien_binh",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1182,
+   "atk": 376,
+   "def": 121,
+   "spd": 100
+  },
+  {
+   "id": "kien_binh",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2128,
+   "atk": 414,
+   "def": 121,
+   "spd": 100
+  },
+  {
+   "id": "kien_binh",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1371,
+   "atk": 436,
+   "def": 141,
+   "spd": 100
+  },
+  {
+   "id": "kien_binh",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2469,
+   "atk": 480,
+   "def": 141,
+   "spd": 100
+  },
+  {
+   "id": "kien_binh",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1561,
+   "atk": 497,
+   "def": 160,
+   "spd": 100
+  },
+  {
+   "id": "kien_binh",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2809,
+   "atk": 546,
+   "def": 160,
+   "spd": 100
+  },
+  {
+   "id": "kien_binh",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1805,
+   "atk": 574,
+   "def": 185,
+   "spd": 110
+  },
+  {
+   "id": "kien_binh",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3248,
+   "atk": 632,
+   "def": 185,
+   "spd": 110
+  },
+  {
+   "id": "kien_binh",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2093,
+   "atk": 666,
+   "def": 215,
+   "spd": 110
+  },
+  {
+   "id": "kien_binh",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3768,
+   "atk": 733,
+   "def": 215,
+   "spd": 110
+  },
+  {
+   "id": "kien_binh",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2382,
+   "atk": 758,
+   "def": 244,
+   "spd": 110
+  },
+  {
+   "id": "kien_binh",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4288,
+   "atk": 834,
+   "def": 244,
+   "spd": 110
+  },
+  {
+   "id": "kien_binh",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2427,
+   "atk": 772,
+   "def": 249,
+   "spd": 120
+  },
+  {
+   "id": "kien_binh",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4368,
+   "atk": 849,
+   "def": 249,
+   "spd": 120
+  },
+  {
+   "id": "kien_binh",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2815,
+   "atk": 896,
+   "def": 289,
+   "spd": 120
+  },
+  {
+   "id": "kien_binh",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5067,
+   "atk": 985,
+   "def": 289,
+   "spd": 120
+  },
+  {
+   "id": "kien_binh",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3203,
+   "atk": 1019,
+   "def": 328,
+   "spd": 120
+  },
+  {
+   "id": "kien_binh",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5766,
+   "atk": 1121,
+   "def": 328,
+   "spd": 120
+  },
+  {
+   "id": "banh_tet",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 660,
+   "atk": 198,
+   "def": 61,
+   "spd": 51
+  },
+  {
+   "id": "banh_tet",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1188,
+   "atk": 218,
+   "def": 61,
+   "spd": 51
+  },
+  {
+   "id": "banh_tet",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 766,
+   "atk": 230,
+   "def": 70,
+   "spd": 51
+  },
+  {
+   "id": "banh_tet",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1378,
+   "atk": 253,
+   "def": 70,
+   "spd": 51
+  },
+  {
+   "id": "banh_tet",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 871,
+   "atk": 261,
+   "def": 80,
+   "spd": 51
+  },
+  {
+   "id": "banh_tet",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1568,
+   "atk": 287,
+   "def": 80,
+   "spd": 51
+  },
+  {
+   "id": "banh_tet",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1254,
+   "atk": 376,
+   "def": 115,
+   "spd": 60
+  },
+  {
+   "id": "banh_tet",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2257,
+   "atk": 414,
+   "def": 115,
+   "spd": 60
+  },
+  {
+   "id": "banh_tet",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1455,
+   "atk": 436,
+   "def": 133,
+   "spd": 60
+  },
+  {
+   "id": "banh_tet",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2618,
+   "atk": 480,
+   "def": 133,
+   "spd": 60
+  },
+  {
+   "id": "banh_tet",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1655,
+   "atk": 497,
+   "def": 152,
+   "spd": 60
+  },
+  {
+   "id": "banh_tet",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2980,
+   "atk": 546,
+   "def": 152,
+   "spd": 60
+  },
+  {
+   "id": "banh_tet",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1914,
+   "atk": 574,
+   "def": 175,
+   "spd": 70
+  },
+  {
+   "id": "banh_tet",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3445,
+   "atk": 632,
+   "def": 175,
+   "spd": 70
+  },
+  {
+   "id": "banh_tet",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2220,
+   "atk": 666,
+   "def": 204,
+   "spd": 70
+  },
+  {
+   "id": "banh_tet",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3996,
+   "atk": 733,
+   "def": 204,
+   "spd": 70
+  },
+  {
+   "id": "banh_tet",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2526,
+   "atk": 758,
+   "def": 232,
+   "spd": 70
+  },
+  {
+   "id": "banh_tet",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4548,
+   "atk": 834,
+   "def": 232,
+   "spd": 70
+  },
+  {
+   "id": "banh_tet",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2574,
+   "atk": 772,
+   "def": 236,
+   "spd": 80
+  },
+  {
+   "id": "banh_tet",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4633,
+   "atk": 849,
+   "def": 236,
+   "spd": 80
+  },
+  {
+   "id": "banh_tet",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2986,
+   "atk": 896,
+   "def": 274,
+   "spd": 80
+  },
+  {
+   "id": "banh_tet",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5375,
+   "atk": 985,
+   "def": 274,
+   "spd": 80
+  },
+  {
+   "id": "banh_tet",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3398,
+   "atk": 1019,
+   "def": 311,
+   "spd": 80
+  },
+  {
+   "id": "banh_tet",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6116,
+   "atk": 1121,
+   "def": 311,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 518,
+   "atk": 284,
+   "def": 61,
+   "spd": 71
+  },
+  {
+   "id": "de_hoa",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 932,
+   "atk": 312,
+   "def": 61,
+   "spd": 71
+  },
+  {
+   "id": "de_hoa",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 600,
+   "atk": 329,
+   "def": 71,
+   "spd": 71
+  },
+  {
+   "id": "de_hoa",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1081,
+   "atk": 362,
+   "def": 71,
+   "spd": 71
+  },
+  {
+   "id": "de_hoa",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 683,
+   "atk": 374,
+   "def": 81,
+   "spd": 71
+  },
+  {
+   "id": "de_hoa",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1230,
+   "atk": 412,
+   "def": 81,
+   "spd": 71
+  },
+  {
+   "id": "de_hoa",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 983,
+   "atk": 539,
+   "def": 116,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1770,
+   "atk": 593,
+   "def": 116,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1141,
+   "atk": 625,
+   "def": 135,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2053,
+   "atk": 687,
+   "def": 135,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1298,
+   "atk": 711,
+   "def": 154,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2337,
+   "atk": 782,
+   "def": 154,
+   "spd": 80
+  },
+  {
+   "id": "de_hoa",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1501,
+   "atk": 822,
+   "def": 178,
+   "spd": 90
+  },
+  {
+   "id": "de_hoa",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2702,
+   "atk": 904,
+   "def": 178,
+   "spd": 90
+  },
+  {
+   "id": "de_hoa",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1741,
+   "atk": 954,
+   "def": 206,
+   "spd": 90
+  },
+  {
+   "id": "de_hoa",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3134,
+   "atk": 1049,
+   "def": 206,
+   "spd": 90
+  },
+  {
+   "id": "de_hoa",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1981,
+   "atk": 1085,
+   "def": 234,
+   "spd": 90
+  },
+  {
+   "id": "de_hoa",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3566,
+   "atk": 1194,
+   "def": 234,
+   "spd": 90
+  },
+  {
+   "id": "de_hoa",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2019,
+   "atk": 1106,
+   "def": 239,
+   "spd": 100
+  },
+  {
+   "id": "de_hoa",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3634,
+   "atk": 1216,
+   "def": 239,
+   "spd": 100
+  },
+  {
+   "id": "de_hoa",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2342,
+   "atk": 1283,
+   "def": 277,
+   "spd": 100
+  },
+  {
+   "id": "de_hoa",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4215,
+   "atk": 1411,
+   "def": 277,
+   "spd": 100
+  },
+  {
+   "id": "de_hoa",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2665,
+   "atk": 1459,
+   "def": 315,
+   "spd": 100
+  },
+  {
+   "id": "de_hoa",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4796,
+   "atk": 1605,
+   "def": 315,
+   "spd": 100
+  },
+  {
+   "id": "giac_long",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 742,
+   "atk": 223,
+   "def": 65,
+   "spd": 41
+  },
+  {
+   "id": "giac_long",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1336,
+   "atk": 245,
+   "def": 65,
+   "spd": 41
+  },
+  {
+   "id": "giac_long",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 861,
+   "atk": 258,
+   "def": 76,
+   "spd": 41
+  },
+  {
+   "id": "giac_long",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1550,
+   "atk": 284,
+   "def": 76,
+   "spd": 41
+  },
+  {
+   "id": "giac_long",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 980,
+   "atk": 294,
+   "def": 86,
+   "spd": 41
+  },
+  {
+   "id": "giac_long",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1764,
+   "atk": 323,
+   "def": 86,
+   "spd": 41
+  },
+  {
+   "id": "giac_long",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1411,
+   "atk": 423,
+   "def": 124,
+   "spd": 50
+  },
+  {
+   "id": "giac_long",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2539,
+   "atk": 465,
+   "def": 124,
+   "spd": 50
+  },
+  {
+   "id": "giac_long",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1636,
+   "atk": 491,
+   "def": 144,
+   "spd": 50
+  },
+  {
+   "id": "giac_long",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2945,
+   "atk": 540,
+   "def": 144,
+   "spd": 50
+  },
+  {
+   "id": "giac_long",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1862,
+   "atk": 559,
+   "def": 163,
+   "spd": 50
+  },
+  {
+   "id": "giac_long",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3351,
+   "atk": 614,
+   "def": 163,
+   "spd": 50
+  },
+  {
+   "id": "giac_long",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2153,
+   "atk": 646,
+   "def": 189,
+   "spd": 60
+  },
+  {
+   "id": "giac_long",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3875,
+   "atk": 710,
+   "def": 189,
+   "spd": 60
+  },
+  {
+   "id": "giac_long",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2497,
+   "atk": 749,
+   "def": 219,
+   "spd": 60
+  },
+  {
+   "id": "giac_long",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4495,
+   "atk": 824,
+   "def": 219,
+   "spd": 60
+  },
+  {
+   "id": "giac_long",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2842,
+   "atk": 853,
+   "def": 249,
+   "spd": 60
+  },
+  {
+   "id": "giac_long",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5115,
+   "atk": 938,
+   "def": 249,
+   "spd": 60
+  },
+  {
+   "id": "giac_long",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2895,
+   "atk": 869,
+   "def": 254,
+   "spd": 70
+  },
+  {
+   "id": "giac_long",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5212,
+   "atk": 955,
+   "def": 254,
+   "spd": 70
+  },
+  {
+   "id": "giac_long",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3359,
+   "atk": 1008,
+   "def": 295,
+   "spd": 70
+  },
+  {
+   "id": "giac_long",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6045,
+   "atk": 1108,
+   "def": 295,
+   "spd": 70
+  },
+  {
+   "id": "giac_long",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3822,
+   "atk": 1147,
+   "def": 335,
+   "spd": 70
+  },
+  {
+   "id": "giac_long",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6879,
+   "atk": 1261,
+   "def": 335,
+   "spd": 70
+  },
+  {
+   "id": "phong_linh",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 541,
+   "atk": 338,
+   "def": 61,
+   "spd": 31
+  },
+  {
+   "id": "phong_linh",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 973,
+   "atk": 371,
+   "def": 61,
+   "spd": 31
+  },
+  {
+   "id": "phong_linh",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 627,
+   "atk": 392,
+   "def": 70,
+   "spd": 31
+  },
+  {
+   "id": "phong_linh",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1129,
+   "atk": 431,
+   "def": 70,
+   "spd": 31
+  },
+  {
+   "id": "phong_linh",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 714,
+   "atk": 446,
+   "def": 80,
+   "spd": 31
+  },
+  {
+   "id": "phong_linh",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1285,
+   "atk": 490,
+   "def": 80,
+   "spd": 31
+  },
+  {
+   "id": "phong_linh",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1027,
+   "atk": 642,
+   "def": 115,
+   "spd": 40
+  },
+  {
+   "id": "phong_linh",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1849,
+   "atk": 706,
+   "def": 115,
+   "spd": 40
+  },
+  {
+   "id": "phong_linh",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1192,
+   "atk": 744,
+   "def": 134,
+   "spd": 40
+  },
+  {
+   "id": "phong_linh",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2145,
+   "atk": 819,
+   "def": 134,
+   "spd": 40
+  },
+  {
+   "id": "phong_linh",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1356,
+   "atk": 847,
+   "def": 152,
+   "spd": 40
+  },
+  {
+   "id": "phong_linh",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2441,
+   "atk": 932,
+   "def": 152,
+   "spd": 40
+  },
+  {
+   "id": "phong_linh",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1568,
+   "atk": 979,
+   "def": 176,
+   "spd": 50
+  },
+  {
+   "id": "phong_linh",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2822,
+   "atk": 1077,
+   "def": 176,
+   "spd": 50
+  },
+  {
+   "id": "phong_linh",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1819,
+   "atk": 1136,
+   "def": 204,
+   "spd": 50
+  },
+  {
+   "id": "phong_linh",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3274,
+   "atk": 1249,
+   "def": 204,
+   "spd": 50
+  },
+  {
+   "id": "phong_linh",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2070,
+   "atk": 1293,
+   "def": 232,
+   "spd": 50
+  },
+  {
+   "id": "phong_linh",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3725,
+   "atk": 1422,
+   "def": 232,
+   "spd": 50
+  },
+  {
+   "id": "phong_linh",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2109,
+   "atk": 1317,
+   "def": 237,
+   "spd": 60
+  },
+  {
+   "id": "phong_linh",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3796,
+   "atk": 1449,
+   "def": 237,
+   "spd": 60
+  },
+  {
+   "id": "phong_linh",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2446,
+   "atk": 1528,
+   "def": 275,
+   "spd": 60
+  },
+  {
+   "id": "phong_linh",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4403,
+   "atk": 1680,
+   "def": 275,
+   "spd": 60
+  },
+  {
+   "id": "phong_linh",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2783,
+   "atk": 1738,
+   "def": 312,
+   "spd": 60
+  },
+  {
+   "id": "phong_linh",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5010,
+   "atk": 1912,
+   "def": 312,
+   "spd": 60
+  },
+  {
+   "id": "thanh_long",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 805,
+   "atk": 270,
+   "def": 90,
+   "spd": 61
+  },
+  {
+   "id": "thanh_long",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1449,
+   "atk": 297,
+   "def": 90,
+   "spd": 61
+  },
+  {
+   "id": "thanh_long",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 934,
+   "atk": 313,
+   "def": 105,
+   "spd": 61
+  },
+  {
+   "id": "thanh_long",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1681,
+   "atk": 345,
+   "def": 105,
+   "spd": 61
+  },
+  {
+   "id": "thanh_long",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1063,
+   "atk": 356,
+   "def": 119,
+   "spd": 61
+  },
+  {
+   "id": "thanh_long",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1913,
+   "atk": 392,
+   "def": 119,
+   "spd": 61
+  },
+  {
+   "id": "thanh_long",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1529,
+   "atk": 513,
+   "def": 172,
+   "spd": 70
+  },
+  {
+   "id": "thanh_long",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2753,
+   "atk": 564,
+   "def": 172,
+   "spd": 70
+  },
+  {
+   "id": "thanh_long",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1774,
+   "atk": 595,
+   "def": 199,
+   "spd": 70
+  },
+  {
+   "id": "thanh_long",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3194,
+   "atk": 655,
+   "def": 199,
+   "spd": 70
+  },
+  {
+   "id": "thanh_long",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2019,
+   "atk": 677,
+   "def": 227,
+   "spd": 70
+  },
+  {
+   "id": "thanh_long",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3634,
+   "atk": 745,
+   "def": 227,
+   "spd": 70
+  },
+  {
+   "id": "thanh_long",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2334,
+   "atk": 783,
+   "def": 262,
+   "spd": 80
+  },
+  {
+   "id": "thanh_long",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4202,
+   "atk": 861,
+   "def": 262,
+   "spd": 80
+  },
+  {
+   "id": "thanh_long",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2708,
+   "atk": 908,
+   "def": 304,
+   "spd": 80
+  },
+  {
+   "id": "thanh_long",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4874,
+   "atk": 999,
+   "def": 304,
+   "spd": 80
+  },
+  {
+   "id": "thanh_long",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3081,
+   "atk": 1034,
+   "def": 346,
+   "spd": 80
+  },
+  {
+   "id": "thanh_long",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5547,
+   "atk": 1137,
+   "def": 346,
+   "spd": 80
+  },
+  {
+   "id": "thanh_long",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3139,
+   "atk": 1053,
+   "def": 352,
+   "spd": 90
+  },
+  {
+   "id": "thanh_long",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5651,
+   "atk": 1158,
+   "def": 352,
+   "spd": 90
+  },
+  {
+   "id": "thanh_long",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3642,
+   "atk": 1221,
+   "def": 409,
+   "spd": 90
+  },
+  {
+   "id": "thanh_long",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6555,
+   "atk": 1344,
+   "def": 409,
+   "spd": 90
+  },
+  {
+   "id": "thanh_long",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4144,
+   "atk": 1390,
+   "def": 465,
+   "spd": 90
+  },
+  {
+   "id": "thanh_long",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7459,
+   "atk": 1529,
+   "def": 465,
+   "spd": 90
+  },
+  {
+   "id": "tieu_y",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 472,
+   "atk": 214,
+   "def": 54,
+   "spd": 41
+  },
+  {
+   "id": "tieu_y",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 849,
+   "atk": 235,
+   "def": 54,
+   "spd": 41
+  },
+  {
+   "id": "tieu_y",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 547,
+   "atk": 248,
+   "def": 63,
+   "spd": 41
+  },
+  {
+   "id": "tieu_y",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 985,
+   "atk": 273,
+   "def": 63,
+   "spd": 41
+  },
+  {
+   "id": "tieu_y",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 622,
+   "atk": 282,
+   "def": 72,
+   "spd": 41
+  },
+  {
+   "id": "tieu_y",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1120,
+   "atk": 311,
+   "def": 72,
+   "spd": 41
+  },
+  {
+   "id": "tieu_y",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 896,
+   "atk": 406,
+   "def": 103,
+   "spd": 50
+  },
+  {
+   "id": "tieu_y",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1613,
+   "atk": 447,
+   "def": 103,
+   "spd": 50
+  },
+  {
+   "id": "tieu_y",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1039,
+   "atk": 471,
+   "def": 119,
+   "spd": 50
+  },
+  {
+   "id": "tieu_y",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 1871,
+   "atk": 519,
+   "def": 119,
+   "spd": 50
+  },
+  {
+   "id": "tieu_y",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1183,
+   "atk": 536,
+   "def": 136,
+   "spd": 50
+  },
+  {
+   "id": "tieu_y",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2129,
+   "atk": 590,
+   "def": 136,
+   "spd": 50
+  },
+  {
+   "id": "tieu_y",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1367,
+   "atk": 620,
+   "def": 157,
+   "spd": 60
+  },
+  {
+   "id": "tieu_y",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2461,
+   "atk": 682,
+   "def": 157,
+   "spd": 60
+  },
+  {
+   "id": "tieu_y",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1586,
+   "atk": 719,
+   "def": 182,
+   "spd": 60
+  },
+  {
+   "id": "tieu_y",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 2855,
+   "atk": 791,
+   "def": 182,
+   "spd": 60
+  },
+  {
+   "id": "tieu_y",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1805,
+   "atk": 819,
+   "def": 207,
+   "spd": 60
+  },
+  {
+   "id": "tieu_y",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3249,
+   "atk": 901,
+   "def": 207,
+   "spd": 60
+  },
+  {
+   "id": "tieu_y",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 1839,
+   "atk": 834,
+   "def": 211,
+   "spd": 70
+  },
+  {
+   "id": "tieu_y",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3310,
+   "atk": 918,
+   "def": 211,
+   "spd": 70
+  },
+  {
+   "id": "tieu_y",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2133,
+   "atk": 968,
+   "def": 245,
+   "spd": 70
+  },
+  {
+   "id": "tieu_y",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 3840,
+   "atk": 1064,
+   "def": 245,
+   "spd": 70
+  },
+  {
+   "id": "tieu_y",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2428,
+   "atk": 1101,
+   "def": 279,
+   "spd": 70
+  },
+  {
+   "id": "tieu_y",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4370,
+   "atk": 1211,
+   "def": 279,
+   "spd": 70
+  },
+  {
+   "id": "canh_cut",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 544,
+   "atk": 213,
+   "def": 49,
+   "spd": 21
+  },
+  {
+   "id": "canh_cut",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 979,
+   "atk": 234,
+   "def": 49,
+   "spd": 21
+  },
+  {
+   "id": "canh_cut",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 631,
+   "atk": 247,
+   "def": 56,
+   "spd": 21
+  },
+  {
+   "id": "canh_cut",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1136,
+   "atk": 271,
+   "def": 56,
+   "spd": 21
+  },
+  {
+   "id": "canh_cut",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 718,
+   "atk": 281,
+   "def": 64,
+   "spd": 21
+  },
+  {
+   "id": "canh_cut",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1292,
+   "atk": 309,
+   "def": 64,
+   "spd": 21
+  },
+  {
+   "id": "canh_cut",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1034,
+   "atk": 404,
+   "def": 92,
+   "spd": 30
+  },
+  {
+   "id": "canh_cut",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1860,
+   "atk": 445,
+   "def": 92,
+   "spd": 30
+  },
+  {
+   "id": "canh_cut",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1199,
+   "atk": 469,
+   "def": 107,
+   "spd": 30
+  },
+  {
+   "id": "canh_cut",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2158,
+   "atk": 516,
+   "def": 107,
+   "spd": 30
+  },
+  {
+   "id": "canh_cut",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1364,
+   "atk": 534,
+   "def": 122,
+   "spd": 30
+  },
+  {
+   "id": "canh_cut",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2456,
+   "atk": 587,
+   "def": 122,
+   "spd": 30
+  },
+  {
+   "id": "canh_cut",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1577,
+   "atk": 617,
+   "def": 141,
+   "spd": 40
+  },
+  {
+   "id": "canh_cut",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2839,
+   "atk": 679,
+   "def": 141,
+   "spd": 40
+  },
+  {
+   "id": "canh_cut",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1830,
+   "atk": 716,
+   "def": 163,
+   "spd": 40
+  },
+  {
+   "id": "canh_cut",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3294,
+   "atk": 787,
+   "def": 163,
+   "spd": 40
+  },
+  {
+   "id": "canh_cut",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2082,
+   "atk": 814,
+   "def": 186,
+   "spd": 40
+  },
+  {
+   "id": "canh_cut",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3748,
+   "atk": 896,
+   "def": 186,
+   "spd": 40
+  },
+  {
+   "id": "canh_cut",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2121,
+   "atk": 830,
+   "def": 190,
+   "spd": 50
+  },
+  {
+   "id": "canh_cut",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3819,
+   "atk": 913,
+   "def": 190,
+   "spd": 50
+  },
+  {
+   "id": "canh_cut",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2461,
+   "atk": 963,
+   "def": 220,
+   "spd": 50
+  },
+  {
+   "id": "canh_cut",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4430,
+   "atk": 1059,
+   "def": 220,
+   "spd": 50
+  },
+  {
+   "id": "canh_cut",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2800,
+   "atk": 1095,
+   "def": 250,
+   "spd": 50
+  },
+  {
+   "id": "canh_cut",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5041,
+   "atk": 1205,
+   "def": 250,
+   "spd": 50
+  },
+  {
+   "id": "giot_suong",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 660,
+   "atk": 198,
+   "def": 61,
+   "spd": 51
+  },
+  {
+   "id": "giot_suong",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1188,
+   "atk": 218,
+   "def": 61,
+   "spd": 51
+  },
+  {
+   "id": "giot_suong",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 766,
+   "atk": 230,
+   "def": 70,
+   "spd": 51
+  },
+  {
+   "id": "giot_suong",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1378,
+   "atk": 253,
+   "def": 70,
+   "spd": 51
+  },
+  {
+   "id": "giot_suong",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 871,
+   "atk": 261,
+   "def": 80,
+   "spd": 51
+  },
+  {
+   "id": "giot_suong",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1568,
+   "atk": 287,
+   "def": 80,
+   "spd": 51
+  },
+  {
+   "id": "giot_suong",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1254,
+   "atk": 376,
+   "def": 115,
+   "spd": 60
+  },
+  {
+   "id": "giot_suong",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2257,
+   "atk": 414,
+   "def": 115,
+   "spd": 60
+  },
+  {
+   "id": "giot_suong",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1455,
+   "atk": 436,
+   "def": 133,
+   "spd": 60
+  },
+  {
+   "id": "giot_suong",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2618,
+   "atk": 480,
+   "def": 133,
+   "spd": 60
+  },
+  {
+   "id": "giot_suong",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1655,
+   "atk": 497,
+   "def": 152,
+   "spd": 60
+  },
+  {
+   "id": "giot_suong",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2980,
+   "atk": 546,
+   "def": 152,
+   "spd": 60
+  },
+  {
+   "id": "giot_suong",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1914,
+   "atk": 574,
+   "def": 175,
+   "spd": 70
+  },
+  {
+   "id": "giot_suong",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3445,
+   "atk": 632,
+   "def": 175,
+   "spd": 70
+  },
+  {
+   "id": "giot_suong",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2220,
+   "atk": 666,
+   "def": 204,
+   "spd": 70
+  },
+  {
+   "id": "giot_suong",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3996,
+   "atk": 733,
+   "def": 204,
+   "spd": 70
+  },
+  {
+   "id": "giot_suong",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2526,
+   "atk": 758,
+   "def": 232,
+   "spd": 70
+  },
+  {
+   "id": "giot_suong",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4548,
+   "atk": 834,
+   "def": 232,
+   "spd": 70
+  },
+  {
+   "id": "giot_suong",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2574,
+   "atk": 772,
+   "def": 236,
+   "spd": 80
+  },
+  {
+   "id": "giot_suong",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4633,
+   "atk": 849,
+   "def": 236,
+   "spd": 80
+  },
+  {
+   "id": "giot_suong",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2986,
+   "atk": 896,
+   "def": 274,
+   "spd": 80
+  },
+  {
+   "id": "giot_suong",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5375,
+   "atk": 985,
+   "def": 274,
+   "spd": 80
+  },
+  {
+   "id": "giot_suong",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3398,
+   "atk": 1019,
+   "def": 311,
+   "spd": 80
+  },
+  {
+   "id": "giot_suong",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6116,
+   "atk": 1121,
+   "def": 311,
+   "spd": 80
+  },
+  {
+   "id": "tam_tay",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 503,
+   "atk": 246,
+   "def": 56,
+   "spd": 31
+  },
+  {
+   "id": "tam_tay",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 905,
+   "atk": 271,
+   "def": 56,
+   "spd": 31
+  },
+  {
+   "id": "tam_tay",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 583,
+   "atk": 286,
+   "def": 65,
+   "spd": 31
+  },
+  {
+   "id": "tam_tay",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1050,
+   "atk": 314,
+   "def": 65,
+   "spd": 31
+  },
+  {
+   "id": "tam_tay",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 664,
+   "atk": 325,
+   "def": 75,
+   "spd": 31
+  },
+  {
+   "id": "tam_tay",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1195,
+   "atk": 358,
+   "def": 75,
+   "spd": 31
+  },
+  {
+   "id": "tam_tay",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 956,
+   "atk": 468,
+   "def": 107,
+   "spd": 40
+  },
+  {
+   "id": "tam_tay",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1720,
+   "atk": 515,
+   "def": 107,
+   "spd": 40
+  },
+  {
+   "id": "tam_tay",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1108,
+   "atk": 543,
+   "def": 124,
+   "spd": 40
+  },
+  {
+   "id": "tam_tay",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 1995,
+   "atk": 597,
+   "def": 124,
+   "spd": 40
+  },
+  {
+   "id": "tam_tay",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1261,
+   "atk": 618,
+   "def": 142,
+   "spd": 40
+  },
+  {
+   "id": "tam_tay",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2270,
+   "atk": 680,
+   "def": 142,
+   "spd": 40
+  },
+  {
+   "id": "tam_tay",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1458,
+   "atk": 715,
+   "def": 164,
+   "spd": 50
+  },
+  {
+   "id": "tam_tay",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2625,
+   "atk": 786,
+   "def": 164,
+   "spd": 50
+  },
+  {
+   "id": "tam_tay",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1692,
+   "atk": 829,
+   "def": 190,
+   "spd": 50
+  },
+  {
+   "id": "tam_tay",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3045,
+   "atk": 912,
+   "def": 190,
+   "spd": 50
+  },
+  {
+   "id": "tam_tay",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1925,
+   "atk": 943,
+   "def": 216,
+   "spd": 50
+  },
+  {
+   "id": "tam_tay",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3465,
+   "atk": 1037,
+   "def": 216,
+   "spd": 50
+  },
+  {
+   "id": "tam_tay",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 1961,
+   "atk": 961,
+   "def": 220,
+   "spd": 60
+  },
+  {
+   "id": "tam_tay",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3531,
+   "atk": 1057,
+   "def": 220,
+   "spd": 60
+  },
+  {
+   "id": "tam_tay",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2275,
+   "atk": 1115,
+   "def": 255,
+   "spd": 60
+  },
+  {
+   "id": "tam_tay",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4095,
+   "atk": 1226,
+   "def": 255,
+   "spd": 60
+  },
+  {
+   "id": "tam_tay",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2589,
+   "atk": 1268,
+   "def": 291,
+   "spd": 60
+  },
+  {
+   "id": "tam_tay",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4660,
+   "atk": 1395,
+   "def": 291,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 615,
+   "atk": 261,
+   "def": 63,
+   "spd": 41
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1107,
+   "atk": 287,
+   "def": 63,
+   "spd": 41
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 713,
+   "atk": 303,
+   "def": 73,
+   "spd": 41
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1284,
+   "atk": 333,
+   "def": 73,
+   "spd": 41
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 812,
+   "atk": 344,
+   "def": 83,
+   "spd": 41
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1461,
+   "atk": 379,
+   "def": 83,
+   "spd": 41
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1169,
+   "atk": 496,
+   "def": 120,
+   "spd": 50
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2103,
+   "atk": 545,
+   "def": 120,
+   "spd": 50
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1355,
+   "atk": 575,
+   "def": 139,
+   "spd": 50
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2440,
+   "atk": 633,
+   "def": 139,
+   "spd": 50
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1542,
+   "atk": 654,
+   "def": 158,
+   "spd": 50
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2776,
+   "atk": 720,
+   "def": 158,
+   "spd": 50
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1784,
+   "atk": 757,
+   "def": 183,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3210,
+   "atk": 832,
+   "def": 183,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2069,
+   "atk": 878,
+   "def": 212,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3724,
+   "atk": 966,
+   "def": 212,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2354,
+   "atk": 999,
+   "def": 241,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4238,
+   "atk": 1099,
+   "def": 241,
+   "spd": 60
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2399,
+   "atk": 1018,
+   "def": 246,
+   "spd": 70
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4317,
+   "atk": 1119,
+   "def": 246,
+   "spd": 70
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2782,
+   "atk": 1180,
+   "def": 285,
+   "spd": 70
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5008,
+   "atk": 1298,
+   "def": 285,
+   "spd": 70
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3166,
+   "atk": 1343,
+   "def": 324,
+   "spd": 70
+  },
+  {
+   "id": "ca_ngua",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5699,
+   "atk": 1478,
+   "def": 324,
+   "spd": 70
+  },
+  {
+   "id": "map_rang",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 717,
+   "atk": 215,
+   "def": 70,
+   "spd": 91
+  },
+  {
+   "id": "map_rang",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1291,
+   "atk": 237,
+   "def": 70,
+   "spd": 91
+  },
+  {
+   "id": "map_rang",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 832,
+   "atk": 250,
+   "def": 81,
+   "spd": 91
+  },
+  {
+   "id": "map_rang",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1498,
+   "atk": 275,
+   "def": 81,
+   "spd": 91
+  },
+  {
+   "id": "map_rang",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 947,
+   "atk": 284,
+   "def": 92,
+   "spd": 91
+  },
+  {
+   "id": "map_rang",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1704,
+   "atk": 312,
+   "def": 92,
+   "spd": 91
+  },
+  {
+   "id": "map_rang",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1363,
+   "atk": 409,
+   "def": 132,
+   "spd": 100
+  },
+  {
+   "id": "map_rang",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2453,
+   "atk": 450,
+   "def": 132,
+   "spd": 100
+  },
+  {
+   "id": "map_rang",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1581,
+   "atk": 474,
+   "def": 154,
+   "spd": 100
+  },
+  {
+   "id": "map_rang",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2845,
+   "atk": 522,
+   "def": 154,
+   "spd": 100
+  },
+  {
+   "id": "map_rang",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1799,
+   "atk": 540,
+   "def": 175,
+   "spd": 100
+  },
+  {
+   "id": "map_rang",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3238,
+   "atk": 594,
+   "def": 175,
+   "spd": 100
+  },
+  {
+   "id": "map_rang",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2080,
+   "atk": 624,
+   "def": 202,
+   "spd": 110
+  },
+  {
+   "id": "map_rang",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3744,
+   "atk": 686,
+   "def": 202,
+   "spd": 110
+  },
+  {
+   "id": "map_rang",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2413,
+   "atk": 724,
+   "def": 235,
+   "spd": 110
+  },
+  {
+   "id": "map_rang",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4343,
+   "atk": 796,
+   "def": 235,
+   "spd": 110
+  },
+  {
+   "id": "map_rang",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2745,
+   "atk": 824,
+   "def": 267,
+   "spd": 110
+  },
+  {
+   "id": "map_rang",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4942,
+   "atk": 906,
+   "def": 267,
+   "spd": 110
+  },
+  {
+   "id": "map_rang",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2797,
+   "atk": 839,
+   "def": 272,
+   "spd": 120
+  },
+  {
+   "id": "map_rang",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5035,
+   "atk": 923,
+   "def": 272,
+   "spd": 120
+  },
+  {
+   "id": "map_rang",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3245,
+   "atk": 973,
+   "def": 315,
+   "spd": 120
+  },
+  {
+   "id": "map_rang",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5840,
+   "atk": 1071,
+   "def": 315,
+   "spd": 120
+  },
+  {
+   "id": "map_rang",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3692,
+   "atk": 1108,
+   "def": 359,
+   "spd": 120
+  },
+  {
+   "id": "map_rang",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6646,
+   "atk": 1218,
+   "def": 359,
+   "spd": 120
+  },
+  {
+   "id": "lam_quan",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 790,
+   "atk": 266,
+   "def": 70,
+   "spd": 49
+  },
+  {
+   "id": "lam_quan",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1422,
+   "atk": 293,
+   "def": 70,
+   "spd": 49
+  },
+  {
+   "id": "lam_quan",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 916,
+   "atk": 309,
+   "def": 81,
+   "spd": 49
+  },
+  {
+   "id": "lam_quan",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1649,
+   "atk": 340,
+   "def": 81,
+   "spd": 49
+  },
+  {
+   "id": "lam_quan",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1043,
+   "atk": 352,
+   "def": 93,
+   "spd": 49
+  },
+  {
+   "id": "lam_quan",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1877,
+   "atk": 387,
+   "def": 93,
+   "spd": 49
+  },
+  {
+   "id": "lam_quan",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1501,
+   "atk": 506,
+   "def": 133,
+   "spd": 58
+  },
+  {
+   "id": "lam_quan",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2701,
+   "atk": 557,
+   "def": 133,
+   "spd": 58
+  },
+  {
+   "id": "lam_quan",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1741,
+   "atk": 587,
+   "def": 155,
+   "spd": 58
+  },
+  {
+   "id": "lam_quan",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3134,
+   "atk": 646,
+   "def": 155,
+   "spd": 58
+  },
+  {
+   "id": "lam_quan",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1981,
+   "atk": 668,
+   "def": 176,
+   "spd": 58
+  },
+  {
+   "id": "lam_quan",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3566,
+   "atk": 735,
+   "def": 176,
+   "spd": 58
+  },
+  {
+   "id": "lam_quan",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2291,
+   "atk": 772,
+   "def": 203,
+   "spd": 68
+  },
+  {
+   "id": "lam_quan",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4123,
+   "atk": 850,
+   "def": 203,
+   "spd": 68
+  },
+  {
+   "id": "lam_quan",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2657,
+   "atk": 896,
+   "def": 236,
+   "spd": 68
+  },
+  {
+   "id": "lam_quan",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4783,
+   "atk": 985,
+   "def": 236,
+   "spd": 68
+  },
+  {
+   "id": "lam_quan",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3024,
+   "atk": 1019,
+   "def": 269,
+   "spd": 68
+  },
+  {
+   "id": "lam_quan",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5443,
+   "atk": 1121,
+   "def": 269,
+   "spd": 68
+  },
+  {
+   "id": "lam_quan",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3081,
+   "atk": 1039,
+   "def": 274,
+   "spd": 78
+  },
+  {
+   "id": "lam_quan",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5545,
+   "atk": 1143,
+   "def": 274,
+   "spd": 78
+  },
+  {
+   "id": "lam_quan",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3573,
+   "atk": 1205,
+   "def": 317,
+   "spd": 78
+  },
+  {
+   "id": "lam_quan",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6432,
+   "atk": 1325,
+   "def": 317,
+   "spd": 78
+  },
+  {
+   "id": "lam_quan",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4066,
+   "atk": 1371,
+   "def": 361,
+   "spd": 78
+  },
+  {
+   "id": "lam_quan",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7319,
+   "atk": 1508,
+   "def": 361,
+   "spd": 78
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 822,
+   "atk": 312,
+   "def": 75,
+   "spd": 41
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1479,
+   "atk": 343,
+   "def": 75,
+   "spd": 41
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 953,
+   "atk": 362,
+   "def": 87,
+   "spd": 41
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1715,
+   "atk": 398,
+   "def": 87,
+   "spd": 41
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1084,
+   "atk": 412,
+   "def": 99,
+   "spd": 41
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1952,
+   "atk": 453,
+   "def": 99,
+   "spd": 41
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1561,
+   "atk": 592,
+   "def": 143,
+   "spd": 50
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2810,
+   "atk": 652,
+   "def": 143,
+   "spd": 50
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1811,
+   "atk": 687,
+   "def": 166,
+   "spd": 50
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3259,
+   "atk": 756,
+   "def": 166,
+   "spd": 50
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2061,
+   "atk": 782,
+   "def": 189,
+   "spd": 50
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3709,
+   "atk": 860,
+   "def": 189,
+   "spd": 50
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2383,
+   "atk": 904,
+   "def": 218,
+   "spd": 60
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4289,
+   "atk": 995,
+   "def": 218,
+   "spd": 60
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2764,
+   "atk": 1049,
+   "def": 253,
+   "spd": 60
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4975,
+   "atk": 1154,
+   "def": 253,
+   "spd": 60
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3145,
+   "atk": 1193,
+   "def": 288,
+   "spd": 60
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5661,
+   "atk": 1313,
+   "def": 288,
+   "spd": 60
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3204,
+   "atk": 1216,
+   "def": 294,
+   "spd": 70
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5768,
+   "atk": 1337,
+   "def": 294,
+   "spd": 70
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3717,
+   "atk": 1410,
+   "def": 341,
+   "spd": 70
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6690,
+   "atk": 1551,
+   "def": 341,
+   "spd": 70
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4230,
+   "atk": 1605,
+   "def": 388,
+   "spd": 70
+  },
+  {
+   "id": "huyen_vu",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7613,
+   "atk": 1765,
+   "def": 388,
+   "spd": 70
+  },
+  {
+   "id": "heo_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 477,
+   "atk": 215,
+   "def": 54,
+   "spd": 31
+  },
+  {
+   "id": "heo_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 858,
+   "atk": 236,
+   "def": 54,
+   "spd": 31
+  },
+  {
+   "id": "heo_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 553,
+   "atk": 249,
+   "def": 62,
+   "spd": 31
+  },
+  {
+   "id": "heo_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 996,
+   "atk": 274,
+   "def": 62,
+   "spd": 31
+  },
+  {
+   "id": "heo_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 629,
+   "atk": 283,
+   "def": 71,
+   "spd": 31
+  },
+  {
+   "id": "heo_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1133,
+   "atk": 312,
+   "def": 71,
+   "spd": 31
+  },
+  {
+   "id": "heo_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 906,
+   "atk": 408,
+   "def": 102,
+   "spd": 40
+  },
+  {
+   "id": "heo_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1631,
+   "atk": 448,
+   "def": 102,
+   "spd": 40
+  },
+  {
+   "id": "heo_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1051,
+   "atk": 473,
+   "def": 118,
+   "spd": 40
+  },
+  {
+   "id": "heo_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 1892,
+   "atk": 520,
+   "def": 118,
+   "spd": 40
+  },
+  {
+   "id": "heo_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1196,
+   "atk": 538,
+   "def": 134,
+   "spd": 40
+  },
+  {
+   "id": "heo_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2153,
+   "atk": 592,
+   "def": 134,
+   "spd": 40
+  },
+  {
+   "id": "heo_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1383,
+   "atk": 622,
+   "def": 155,
+   "spd": 50
+  },
+  {
+   "id": "heo_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2489,
+   "atk": 684,
+   "def": 155,
+   "spd": 50
+  },
+  {
+   "id": "heo_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1604,
+   "atk": 722,
+   "def": 180,
+   "spd": 50
+  },
+  {
+   "id": "heo_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 2887,
+   "atk": 794,
+   "def": 180,
+   "spd": 50
+  },
+  {
+   "id": "heo_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1825,
+   "atk": 821,
+   "def": 205,
+   "spd": 50
+  },
+  {
+   "id": "heo_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3286,
+   "atk": 904,
+   "def": 205,
+   "spd": 50
+  },
+  {
+   "id": "heo_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 1860,
+   "atk": 837,
+   "def": 209,
+   "spd": 60
+  },
+  {
+   "id": "heo_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3347,
+   "atk": 921,
+   "def": 209,
+   "spd": 60
+  },
+  {
+   "id": "heo_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2157,
+   "atk": 971,
+   "def": 242,
+   "spd": 60
+  },
+  {
+   "id": "heo_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 3883,
+   "atk": 1068,
+   "def": 242,
+   "spd": 60
+  },
+  {
+   "id": "heo_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2455,
+   "atk": 1105,
+   "def": 276,
+   "spd": 60
+  },
+  {
+   "id": "heo_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4419,
+   "atk": 1215,
+   "def": 276,
+   "spd": 60
+  },
+  {
+   "id": "dom_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 578,
+   "atk": 175,
+   "def": 59,
+   "spd": 83
+  },
+  {
+   "id": "dom_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1040,
+   "atk": 192,
+   "def": 59,
+   "spd": 83
+  },
+  {
+   "id": "dom_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 670,
+   "atk": 203,
+   "def": 68,
+   "spd": 83
+  },
+  {
+   "id": "dom_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1206,
+   "atk": 223,
+   "def": 68,
+   "spd": 83
+  },
+  {
+   "id": "dom_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 762,
+   "atk": 231,
+   "def": 77,
+   "spd": 83
+  },
+  {
+   "id": "dom_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1372,
+   "atk": 254,
+   "def": 77,
+   "spd": 83
+  },
+  {
+   "id": "dom_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1097,
+   "atk": 332,
+   "def": 111,
+   "spd": 92
+  },
+  {
+   "id": "dom_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1975,
+   "atk": 365,
+   "def": 111,
+   "spd": 92
+  },
+  {
+   "id": "dom_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1273,
+   "atk": 385,
+   "def": 129,
+   "spd": 92
+  },
+  {
+   "id": "dom_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2291,
+   "atk": 423,
+   "def": 129,
+   "spd": 92
+  },
+  {
+   "id": "dom_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1449,
+   "atk": 438,
+   "def": 147,
+   "spd": 92
+  },
+  {
+   "id": "dom_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2607,
+   "atk": 482,
+   "def": 147,
+   "spd": 92
+  },
+  {
+   "id": "dom_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1675,
+   "atk": 507,
+   "def": 170,
+   "spd": 102
+  },
+  {
+   "id": "dom_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3015,
+   "atk": 557,
+   "def": 170,
+   "spd": 102
+  },
+  {
+   "id": "dom_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1943,
+   "atk": 588,
+   "def": 197,
+   "spd": 102
+  },
+  {
+   "id": "dom_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3497,
+   "atk": 646,
+   "def": 197,
+   "spd": 102
+  },
+  {
+   "id": "dom_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2211,
+   "atk": 669,
+   "def": 224,
+   "spd": 102
+  },
+  {
+   "id": "dom_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3980,
+   "atk": 736,
+   "def": 224,
+   "spd": 102
+  },
+  {
+   "id": "dom_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2252,
+   "atk": 681,
+   "def": 228,
+   "spd": 112
+  },
+  {
+   "id": "dom_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4054,
+   "atk": 749,
+   "def": 228,
+   "spd": 112
+  },
+  {
+   "id": "dom_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2613,
+   "atk": 790,
+   "def": 265,
+   "spd": 112
+  },
+  {
+   "id": "dom_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4703,
+   "atk": 869,
+   "def": 265,
+   "spd": 112
+  },
+  {
+   "id": "dom_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2973,
+   "atk": 899,
+   "def": 301,
+   "spd": 112
+  },
+  {
+   "id": "dom_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5352,
+   "atk": 989,
+   "def": 301,
+   "spd": 112
+  },
+  {
+   "id": "phao_tet",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 511,
+   "atk": 177,
+   "def": 77,
+   "spd": 21
+  },
+  {
+   "id": "phao_tet",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 920,
+   "atk": 195,
+   "def": 77,
+   "spd": 21
+  },
+  {
+   "id": "phao_tet",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 593,
+   "atk": 205,
+   "def": 89,
+   "spd": 21
+  },
+  {
+   "id": "phao_tet",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1067,
+   "atk": 226,
+   "def": 89,
+   "spd": 21
+  },
+  {
+   "id": "phao_tet",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 675,
+   "atk": 234,
+   "def": 101,
+   "spd": 21
+  },
+  {
+   "id": "phao_tet",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1215,
+   "atk": 257,
+   "def": 101,
+   "spd": 21
+  },
+  {
+   "id": "phao_tet",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 971,
+   "atk": 336,
+   "def": 145,
+   "spd": 30
+  },
+  {
+   "id": "phao_tet",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1748,
+   "atk": 370,
+   "def": 145,
+   "spd": 30
+  },
+  {
+   "id": "phao_tet",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1127,
+   "atk": 390,
+   "def": 169,
+   "spd": 30
+  },
+  {
+   "id": "phao_tet",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2028,
+   "atk": 429,
+   "def": 169,
+   "spd": 30
+  },
+  {
+   "id": "phao_tet",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1282,
+   "atk": 444,
+   "def": 192,
+   "spd": 30
+  },
+  {
+   "id": "phao_tet",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2308,
+   "atk": 489,
+   "def": 192,
+   "spd": 30
+  },
+  {
+   "id": "phao_tet",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1483,
+   "atk": 514,
+   "def": 222,
+   "spd": 40
+  },
+  {
+   "id": "phao_tet",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2669,
+   "atk": 565,
+   "def": 222,
+   "spd": 40
+  },
+  {
+   "id": "phao_tet",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1720,
+   "atk": 596,
+   "def": 257,
+   "spd": 40
+  },
+  {
+   "id": "phao_tet",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3096,
+   "atk": 655,
+   "def": 257,
+   "spd": 40
+  },
+  {
+   "id": "phao_tet",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1957,
+   "atk": 678,
+   "def": 293,
+   "spd": 40
+  },
+  {
+   "id": "phao_tet",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3523,
+   "atk": 746,
+   "def": 293,
+   "spd": 40
+  },
+  {
+   "id": "phao_tet",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 1994,
+   "atk": 691,
+   "def": 298,
+   "spd": 50
+  },
+  {
+   "id": "phao_tet",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3589,
+   "atk": 760,
+   "def": 298,
+   "spd": 50
+  },
+  {
+   "id": "phao_tet",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2313,
+   "atk": 801,
+   "def": 346,
+   "spd": 50
+  },
+  {
+   "id": "phao_tet",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4163,
+   "atk": 881,
+   "def": 346,
+   "spd": 50
+  },
+  {
+   "id": "phao_tet",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2632,
+   "atk": 912,
+   "def": 394,
+   "spd": 50
+  },
+  {
+   "id": "phao_tet",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4737,
+   "atk": 1003,
+   "def": 394,
+   "spd": 50
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 600,
+   "atk": 191,
+   "def": 67,
+   "spd": 56
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1081,
+   "atk": 210,
+   "def": 67,
+   "spd": 56
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 696,
+   "atk": 222,
+   "def": 78,
+   "spd": 56
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1254,
+   "atk": 244,
+   "def": 78,
+   "spd": 56
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 793,
+   "atk": 252,
+   "def": 89,
+   "spd": 56
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1427,
+   "atk": 277,
+   "def": 89,
+   "spd": 56
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1141,
+   "atk": 363,
+   "def": 128,
+   "spd": 65
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2053,
+   "atk": 399,
+   "def": 128,
+   "spd": 65
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1323,
+   "atk": 421,
+   "def": 149,
+   "spd": 65
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2382,
+   "atk": 463,
+   "def": 149,
+   "spd": 65
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1506,
+   "atk": 479,
+   "def": 169,
+   "spd": 65
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2711,
+   "atk": 527,
+   "def": 169,
+   "spd": 65
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1741,
+   "atk": 554,
+   "def": 195,
+   "spd": 75
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3134,
+   "atk": 609,
+   "def": 195,
+   "spd": 75
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2020,
+   "atk": 643,
+   "def": 227,
+   "spd": 75
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3636,
+   "atk": 707,
+   "def": 227,
+   "spd": 75
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2298,
+   "atk": 731,
+   "def": 258,
+   "spd": 75
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4137,
+   "atk": 804,
+   "def": 258,
+   "spd": 75
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2342,
+   "atk": 745,
+   "def": 263,
+   "spd": 85
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4215,
+   "atk": 820,
+   "def": 263,
+   "spd": 85
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2716,
+   "atk": 864,
+   "def": 305,
+   "spd": 85
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4889,
+   "atk": 951,
+   "def": 305,
+   "spd": 85
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3091,
+   "atk": 984,
+   "def": 347,
+   "spd": 85
+  },
+  {
+   "id": "su_tu_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5564,
+   "atk": 1082,
+   "def": 347,
+   "spd": 85
+  },
+  {
+   "id": "bo_de",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 705,
+   "atk": 247,
+   "def": 60,
+   "spd": 126
+  },
+  {
+   "id": "bo_de",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1268,
+   "atk": 272,
+   "def": 60,
+   "spd": 126
+  },
+  {
+   "id": "bo_de",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 817,
+   "atk": 287,
+   "def": 70,
+   "spd": 126
+  },
+  {
+   "id": "bo_de",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1471,
+   "atk": 316,
+   "def": 70,
+   "spd": 126
+  },
+  {
+   "id": "bo_de",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 930,
+   "atk": 326,
+   "def": 79,
+   "spd": 126
+  },
+  {
+   "id": "bo_de",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1674,
+   "atk": 359,
+   "def": 79,
+   "spd": 126
+  },
+  {
+   "id": "bo_de",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1339,
+   "atk": 470,
+   "def": 114,
+   "spd": 135
+  },
+  {
+   "id": "bo_de",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2410,
+   "atk": 517,
+   "def": 114,
+   "spd": 135
+  },
+  {
+   "id": "bo_de",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1553,
+   "atk": 545,
+   "def": 133,
+   "spd": 135
+  },
+  {
+   "id": "bo_de",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2796,
+   "atk": 600,
+   "def": 133,
+   "spd": 135
+  },
+  {
+   "id": "bo_de",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1767,
+   "atk": 620,
+   "def": 151,
+   "spd": 135
+  },
+  {
+   "id": "bo_de",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3181,
+   "atk": 682,
+   "def": 151,
+   "spd": 135
+  },
+  {
+   "id": "bo_de",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2044,
+   "atk": 717,
+   "def": 175,
+   "spd": 145
+  },
+  {
+   "id": "bo_de",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3679,
+   "atk": 789,
+   "def": 175,
+   "spd": 145
+  },
+  {
+   "id": "bo_de",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2371,
+   "atk": 832,
+   "def": 203,
+   "spd": 145
+  },
+  {
+   "id": "bo_de",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4267,
+   "atk": 915,
+   "def": 203,
+   "spd": 145
+  },
+  {
+   "id": "bo_de",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2698,
+   "atk": 947,
+   "def": 230,
+   "spd": 145
+  },
+  {
+   "id": "bo_de",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4856,
+   "atk": 1041,
+   "def": 230,
+   "spd": 145
+  },
+  {
+   "id": "bo_de",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2748,
+   "atk": 965,
+   "def": 235,
+   "spd": 155
+  },
+  {
+   "id": "bo_de",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4947,
+   "atk": 1061,
+   "def": 235,
+   "spd": 155
+  },
+  {
+   "id": "bo_de",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3188,
+   "atk": 1119,
+   "def": 272,
+   "spd": 155
+  },
+  {
+   "id": "bo_de",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5739,
+   "atk": 1231,
+   "def": 272,
+   "spd": 155
+  },
+  {
+   "id": "bo_de",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3628,
+   "atk": 1273,
+   "def": 310,
+   "spd": 155
+  },
+  {
+   "id": "bo_de",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6530,
+   "atk": 1400,
+   "def": 310,
+   "spd": 155
+  },
+  {
+   "id": "ho_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 732,
+   "atk": 220,
+   "def": 67,
+   "spd": 101
+  },
+  {
+   "id": "ho_lua",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1318,
+   "atk": 242,
+   "def": 67,
+   "spd": 101
+  },
+  {
+   "id": "ho_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 849,
+   "atk": 255,
+   "def": 78,
+   "spd": 101
+  },
+  {
+   "id": "ho_lua",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1528,
+   "atk": 280,
+   "def": 78,
+   "spd": 101
+  },
+  {
+   "id": "ho_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 966,
+   "atk": 290,
+   "def": 89,
+   "spd": 101
+  },
+  {
+   "id": "ho_lua",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1739,
+   "atk": 319,
+   "def": 89,
+   "spd": 101
+  },
+  {
+   "id": "ho_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1391,
+   "atk": 417,
+   "def": 127,
+   "spd": 110
+  },
+  {
+   "id": "ho_lua",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2503,
+   "atk": 459,
+   "def": 127,
+   "spd": 110
+  },
+  {
+   "id": "ho_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1613,
+   "atk": 484,
+   "def": 148,
+   "spd": 110
+  },
+  {
+   "id": "ho_lua",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2904,
+   "atk": 532,
+   "def": 148,
+   "spd": 110
+  },
+  {
+   "id": "ho_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1836,
+   "atk": 551,
+   "def": 168,
+   "spd": 110
+  },
+  {
+   "id": "ho_lua",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3305,
+   "atk": 606,
+   "def": 168,
+   "spd": 110
+  },
+  {
+   "id": "ho_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2123,
+   "atk": 637,
+   "def": 195,
+   "spd": 120
+  },
+  {
+   "id": "ho_lua",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3821,
+   "atk": 701,
+   "def": 195,
+   "spd": 120
+  },
+  {
+   "id": "ho_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2462,
+   "atk": 739,
+   "def": 226,
+   "spd": 120
+  },
+  {
+   "id": "ho_lua",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4432,
+   "atk": 813,
+   "def": 226,
+   "spd": 120
+  },
+  {
+   "id": "ho_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2802,
+   "atk": 841,
+   "def": 257,
+   "spd": 120
+  },
+  {
+   "id": "ho_lua",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5044,
+   "atk": 925,
+   "def": 257,
+   "spd": 120
+  },
+  {
+   "id": "ho_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2855,
+   "atk": 856,
+   "def": 262,
+   "spd": 130
+  },
+  {
+   "id": "ho_lua",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5139,
+   "atk": 942,
+   "def": 262,
+   "spd": 130
+  },
+  {
+   "id": "ho_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3312,
+   "atk": 993,
+   "def": 304,
+   "spd": 130
+  },
+  {
+   "id": "ho_lua",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5961,
+   "atk": 1093,
+   "def": 304,
+   "spd": 130
+  },
+  {
+   "id": "ho_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3768,
+   "atk": 1131,
+   "def": 345,
+   "spd": 130
+  },
+  {
+   "id": "ho_lua",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6783,
+   "atk": 1244,
+   "def": 345,
+   "spd": 130
+  },
+  {
+   "id": "phap_luan",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 768,
+   "atk": 255,
+   "def": 76,
+   "spd": 131
+  },
+  {
+   "id": "phap_luan",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1382,
+   "atk": 280,
+   "def": 76,
+   "spd": 131
+  },
+  {
+   "id": "phap_luan",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 891,
+   "atk": 295,
+   "def": 88,
+   "spd": 131
+  },
+  {
+   "id": "phap_luan",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1603,
+   "atk": 325,
+   "def": 88,
+   "spd": 131
+  },
+  {
+   "id": "phap_luan",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1013,
+   "atk": 336,
+   "def": 100,
+   "spd": 131
+  },
+  {
+   "id": "phap_luan",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1824,
+   "atk": 370,
+   "def": 100,
+   "spd": 131
+  },
+  {
+   "id": "phap_luan",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1459,
+   "atk": 484,
+   "def": 144,
+   "spd": 140
+  },
+  {
+   "id": "phap_luan",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2626,
+   "atk": 532,
+   "def": 144,
+   "spd": 140
+  },
+  {
+   "id": "phap_luan",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1692,
+   "atk": 561,
+   "def": 168,
+   "spd": 140
+  },
+  {
+   "id": "phap_luan",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3046,
+   "atk": 617,
+   "def": 168,
+   "spd": 140
+  },
+  {
+   "id": "phap_luan",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1926,
+   "atk": 639,
+   "def": 191,
+   "spd": 140
+  },
+  {
+   "id": "phap_luan",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3466,
+   "atk": 702,
+   "def": 191,
+   "spd": 140
+  },
+  {
+   "id": "phap_luan",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2226,
+   "atk": 738,
+   "def": 220,
+   "spd": 150
+  },
+  {
+   "id": "phap_luan",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4008,
+   "atk": 812,
+   "def": 220,
+   "spd": 150
+  },
+  {
+   "id": "phap_luan",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2583,
+   "atk": 857,
+   "def": 256,
+   "spd": 150
+  },
+  {
+   "id": "phap_luan",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4649,
+   "atk": 942,
+   "def": 256,
+   "spd": 150
+  },
+  {
+   "id": "phap_luan",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2939,
+   "atk": 975,
+   "def": 291,
+   "spd": 150
+  },
+  {
+   "id": "phap_luan",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5290,
+   "atk": 1072,
+   "def": 291,
+   "spd": 150
+  },
+  {
+   "id": "phap_luan",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2994,
+   "atk": 993,
+   "def": 296,
+   "spd": 160
+  },
+  {
+   "id": "phap_luan",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5390,
+   "atk": 1092,
+   "def": 296,
+   "spd": 160
+  },
+  {
+   "id": "phap_luan",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3473,
+   "atk": 1152,
+   "def": 344,
+   "spd": 160
+  },
+  {
+   "id": "phap_luan",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6252,
+   "atk": 1267,
+   "def": 344,
+   "spd": 160
+  },
+  {
+   "id": "phap_luan",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3952,
+   "atk": 1311,
+   "def": 391,
+   "spd": 160
+  },
+  {
+   "id": "phap_luan",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7114,
+   "atk": 1442,
+   "def": 391,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 854,
+   "atk": 296,
+   "def": 78,
+   "spd": 151
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1537,
+   "atk": 325,
+   "def": 78,
+   "spd": 151
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 990,
+   "atk": 343,
+   "def": 91,
+   "spd": 151
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1783,
+   "atk": 377,
+   "def": 91,
+   "spd": 151
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1127,
+   "atk": 390,
+   "def": 103,
+   "spd": 151
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 2029,
+   "atk": 429,
+   "def": 103,
+   "spd": 151
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1622,
+   "atk": 562,
+   "def": 149,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2920,
+   "atk": 618,
+   "def": 149,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1882,
+   "atk": 652,
+   "def": 172,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3387,
+   "atk": 717,
+   "def": 172,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2141,
+   "atk": 742,
+   "def": 196,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3854,
+   "atk": 816,
+   "def": 196,
+   "spd": 160
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2476,
+   "atk": 858,
+   "def": 227,
+   "spd": 170
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4457,
+   "atk": 944,
+   "def": 227,
+   "spd": 170
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2872,
+   "atk": 995,
+   "def": 263,
+   "spd": 170
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 5170,
+   "atk": 1094,
+   "def": 263,
+   "spd": 170
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3268,
+   "atk": 1132,
+   "def": 300,
+   "spd": 170
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5883,
+   "atk": 1245,
+   "def": 300,
+   "spd": 170
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3330,
+   "atk": 1154,
+   "def": 305,
+   "spd": 180
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5994,
+   "atk": 1269,
+   "def": 305,
+   "spd": 180
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3863,
+   "atk": 1338,
+   "def": 354,
+   "spd": 180
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6953,
+   "atk": 1472,
+   "def": 354,
+   "spd": 180
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4395,
+   "atk": 1523,
+   "def": 403,
+   "spd": 180
+  },
+  {
+   "id": "chu_tuoc",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7912,
+   "atk": 1675,
+   "def": 403,
+   "spd": 180
+  },
+  {
+   "id": "vo_su",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 627,
+   "atk": 188,
+   "def": 50,
+   "spd": 46
+  },
+  {
+   "id": "vo_su",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1128,
+   "atk": 207,
+   "def": 50,
+   "spd": 46
+  },
+  {
+   "id": "vo_su",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 727,
+   "atk": 218,
+   "def": 58,
+   "spd": 46
+  },
+  {
+   "id": "vo_su",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1309,
+   "atk": 240,
+   "def": 58,
+   "spd": 46
+  },
+  {
+   "id": "vo_su",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 827,
+   "atk": 248,
+   "def": 66,
+   "spd": 46
+  },
+  {
+   "id": "vo_su",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1489,
+   "atk": 273,
+   "def": 66,
+   "spd": 46
+  },
+  {
+   "id": "vo_su",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1191,
+   "atk": 357,
+   "def": 95,
+   "spd": 55
+  },
+  {
+   "id": "vo_su",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2143,
+   "atk": 393,
+   "def": 95,
+   "spd": 55
+  },
+  {
+   "id": "vo_su",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1381,
+   "atk": 414,
+   "def": 110,
+   "spd": 55
+  },
+  {
+   "id": "vo_su",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2486,
+   "atk": 456,
+   "def": 110,
+   "spd": 55
+  },
+  {
+   "id": "vo_su",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1572,
+   "atk": 472,
+   "def": 125,
+   "spd": 55
+  },
+  {
+   "id": "vo_su",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2829,
+   "atk": 519,
+   "def": 125,
+   "spd": 55
+  },
+  {
+   "id": "vo_su",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1817,
+   "atk": 545,
+   "def": 144,
+   "spd": 65
+  },
+  {
+   "id": "vo_su",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3271,
+   "atk": 600,
+   "def": 144,
+   "spd": 65
+  },
+  {
+   "id": "vo_su",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2108,
+   "atk": 632,
+   "def": 167,
+   "spd": 65
+  },
+  {
+   "id": "vo_su",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3795,
+   "atk": 696,
+   "def": 167,
+   "spd": 65
+  },
+  {
+   "id": "vo_su",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2399,
+   "atk": 720,
+   "def": 190,
+   "spd": 65
+  },
+  {
+   "id": "vo_su",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4318,
+   "atk": 792,
+   "def": 190,
+   "spd": 65
+  },
+  {
+   "id": "vo_su",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2444,
+   "atk": 733,
+   "def": 194,
+   "spd": 75
+  },
+  {
+   "id": "vo_su",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4399,
+   "atk": 807,
+   "def": 194,
+   "spd": 75
+  },
+  {
+   "id": "vo_su",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2835,
+   "atk": 851,
+   "def": 225,
+   "spd": 75
+  },
+  {
+   "id": "vo_su",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5103,
+   "atk": 936,
+   "def": 225,
+   "spd": 75
+  },
+  {
+   "id": "vo_su",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3226,
+   "atk": 968,
+   "def": 256,
+   "spd": 75
+  },
+  {
+   "id": "vo_su",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5807,
+   "atk": 1065,
+   "def": 256,
+   "spd": 75
+  },
+  {
+   "id": "gau_mo",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 432,
+   "atk": 224,
+   "def": 53,
+   "spd": 81
+  },
+  {
+   "id": "gau_mo",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 777,
+   "atk": 247,
+   "def": 53,
+   "spd": 81
+  },
+  {
+   "id": "gau_mo",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 501,
+   "atk": 260,
+   "def": 62,
+   "spd": 81
+  },
+  {
+   "id": "gau_mo",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 901,
+   "atk": 286,
+   "def": 62,
+   "spd": 81
+  },
+  {
+   "id": "gau_mo",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 570,
+   "atk": 296,
+   "def": 70,
+   "spd": 81
+  },
+  {
+   "id": "gau_mo",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1025,
+   "atk": 326,
+   "def": 70,
+   "spd": 81
+  },
+  {
+   "id": "gau_mo",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 820,
+   "atk": 426,
+   "def": 101,
+   "spd": 90
+  },
+  {
+   "id": "gau_mo",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1476,
+   "atk": 469,
+   "def": 101,
+   "spd": 90
+  },
+  {
+   "id": "gau_mo",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 951,
+   "atk": 494,
+   "def": 117,
+   "spd": 90
+  },
+  {
+   "id": "gau_mo",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 1712,
+   "atk": 544,
+   "def": 117,
+   "spd": 90
+  },
+  {
+   "id": "gau_mo",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1082,
+   "atk": 562,
+   "def": 133,
+   "spd": 90
+  },
+  {
+   "id": "gau_mo",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 1948,
+   "atk": 619,
+   "def": 133,
+   "spd": 90
+  },
+  {
+   "id": "gau_mo",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1251,
+   "atk": 650,
+   "def": 154,
+   "spd": 100
+  },
+  {
+   "id": "gau_mo",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2253,
+   "atk": 715,
+   "def": 154,
+   "spd": 100
+  },
+  {
+   "id": "gau_mo",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1452,
+   "atk": 754,
+   "def": 179,
+   "spd": 100
+  },
+  {
+   "id": "gau_mo",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 2613,
+   "atk": 830,
+   "def": 179,
+   "spd": 100
+  },
+  {
+   "id": "gau_mo",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1652,
+   "atk": 858,
+   "def": 203,
+   "spd": 100
+  },
+  {
+   "id": "gau_mo",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 2973,
+   "atk": 944,
+   "def": 203,
+   "spd": 100
+  },
+  {
+   "id": "gau_mo",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 1683,
+   "atk": 874,
+   "def": 207,
+   "spd": 110
+  },
+  {
+   "id": "gau_mo",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3029,
+   "atk": 962,
+   "def": 207,
+   "spd": 110
+  },
+  {
+   "id": "gau_mo",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 1952,
+   "atk": 1014,
+   "def": 240,
+   "spd": 110
+  },
+  {
+   "id": "gau_mo",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 3514,
+   "atk": 1116,
+   "def": 240,
+   "spd": 110
+  },
+  {
+   "id": "gau_mo",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2221,
+   "atk": 1154,
+   "def": 273,
+   "spd": 110
+  },
+  {
+   "id": "gau_mo",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 3999,
+   "atk": 1270,
+   "def": 273,
+   "spd": 110
+  },
+  {
+   "id": "soc_da",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 555,
+   "atk": 220,
+   "def": 62,
+   "spd": 21
+  },
+  {
+   "id": "soc_da",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 998,
+   "atk": 242,
+   "def": 62,
+   "spd": 21
+  },
+  {
+   "id": "soc_da",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 643,
+   "atk": 255,
+   "def": 72,
+   "spd": 21
+  },
+  {
+   "id": "soc_da",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1158,
+   "atk": 281,
+   "def": 72,
+   "spd": 21
+  },
+  {
+   "id": "soc_da",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 732,
+   "atk": 290,
+   "def": 82,
+   "spd": 21
+  },
+  {
+   "id": "soc_da",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1318,
+   "atk": 320,
+   "def": 82,
+   "spd": 21
+  },
+  {
+   "id": "soc_da",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1054,
+   "atk": 418,
+   "def": 118,
+   "spd": 30
+  },
+  {
+   "id": "soc_da",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1896,
+   "atk": 460,
+   "def": 118,
+   "spd": 30
+  },
+  {
+   "id": "soc_da",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1222,
+   "atk": 485,
+   "def": 137,
+   "spd": 30
+  },
+  {
+   "id": "soc_da",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2200,
+   "atk": 534,
+   "def": 137,
+   "spd": 30
+  },
+  {
+   "id": "soc_da",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1391,
+   "atk": 552,
+   "def": 156,
+   "spd": 30
+  },
+  {
+   "id": "soc_da",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2503,
+   "atk": 607,
+   "def": 156,
+   "spd": 30
+  },
+  {
+   "id": "soc_da",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1608,
+   "atk": 638,
+   "def": 181,
+   "spd": 40
+  },
+  {
+   "id": "soc_da",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2895,
+   "atk": 702,
+   "def": 181,
+   "spd": 40
+  },
+  {
+   "id": "soc_da",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1865,
+   "atk": 740,
+   "def": 209,
+   "spd": 40
+  },
+  {
+   "id": "soc_da",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3358,
+   "atk": 814,
+   "def": 209,
+   "spd": 40
+  },
+  {
+   "id": "soc_da",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2123,
+   "atk": 842,
+   "def": 238,
+   "spd": 40
+  },
+  {
+   "id": "soc_da",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3821,
+   "atk": 927,
+   "def": 238,
+   "spd": 40
+  },
+  {
+   "id": "soc_da",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2163,
+   "atk": 858,
+   "def": 243,
+   "spd": 50
+  },
+  {
+   "id": "soc_da",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3893,
+   "atk": 944,
+   "def": 243,
+   "spd": 50
+  },
+  {
+   "id": "soc_da",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2509,
+   "atk": 996,
+   "def": 282,
+   "spd": 50
+  },
+  {
+   "id": "soc_da",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4515,
+   "atk": 1095,
+   "def": 282,
+   "spd": 50
+  },
+  {
+   "id": "soc_da",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2855,
+   "atk": 1133,
+   "def": 320,
+   "spd": 50
+  },
+  {
+   "id": "soc_da",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5138,
+   "atk": 1246,
+   "def": 320,
+   "spd": 50
+  },
+  {
+   "id": "bo_hung",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 660,
+   "atk": 229,
+   "def": 49,
+   "spd": 91
+  },
+  {
+   "id": "bo_hung",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1188,
+   "atk": 251,
+   "def": 49,
+   "spd": 91
+  },
+  {
+   "id": "bo_hung",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 766,
+   "atk": 265,
+   "def": 57,
+   "spd": 91
+  },
+  {
+   "id": "bo_hung",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1378,
+   "atk": 292,
+   "def": 57,
+   "spd": 91
+  },
+  {
+   "id": "bo_hung",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 871,
+   "atk": 302,
+   "def": 65,
+   "spd": 91
+  },
+  {
+   "id": "bo_hung",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1568,
+   "atk": 332,
+   "def": 65,
+   "spd": 91
+  },
+  {
+   "id": "bo_hung",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1254,
+   "atk": 434,
+   "def": 94,
+   "spd": 100
+  },
+  {
+   "id": "bo_hung",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2257,
+   "atk": 478,
+   "def": 94,
+   "spd": 100
+  },
+  {
+   "id": "bo_hung",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1455,
+   "atk": 504,
+   "def": 109,
+   "spd": 100
+  },
+  {
+   "id": "bo_hung",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2618,
+   "atk": 554,
+   "def": 109,
+   "spd": 100
+  },
+  {
+   "id": "bo_hung",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1655,
+   "atk": 573,
+   "def": 124,
+   "spd": 100
+  },
+  {
+   "id": "bo_hung",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2980,
+   "atk": 631,
+   "def": 124,
+   "spd": 100
+  },
+  {
+   "id": "bo_hung",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1914,
+   "atk": 663,
+   "def": 143,
+   "spd": 110
+  },
+  {
+   "id": "bo_hung",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3445,
+   "atk": 729,
+   "def": 143,
+   "spd": 110
+  },
+  {
+   "id": "bo_hung",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2220,
+   "atk": 769,
+   "def": 166,
+   "spd": 110
+  },
+  {
+   "id": "bo_hung",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3996,
+   "atk": 846,
+   "def": 166,
+   "spd": 110
+  },
+  {
+   "id": "bo_hung",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2526,
+   "atk": 875,
+   "def": 189,
+   "spd": 110
+  },
+  {
+   "id": "bo_hung",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4548,
+   "atk": 963,
+   "def": 189,
+   "spd": 110
+  },
+  {
+   "id": "bo_hung",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2574,
+   "atk": 892,
+   "def": 193,
+   "spd": 120
+  },
+  {
+   "id": "bo_hung",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4633,
+   "atk": 981,
+   "def": 193,
+   "spd": 120
+  },
+  {
+   "id": "bo_hung",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2986,
+   "atk": 1034,
+   "def": 223,
+   "spd": 120
+  },
+  {
+   "id": "bo_hung",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5375,
+   "atk": 1138,
+   "def": 223,
+   "spd": 120
+  },
+  {
+   "id": "bo_hung",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3398,
+   "atk": 1177,
+   "def": 254,
+   "spd": 120
+  },
+  {
+   "id": "bo_hung",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6116,
+   "atk": 1295,
+   "def": 254,
+   "spd": 120
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 514,
+   "atk": 274,
+   "def": 65,
+   "spd": 26
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 925,
+   "atk": 302,
+   "def": 65,
+   "spd": 26
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 596,
+   "atk": 318,
+   "def": 76,
+   "spd": 26
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1073,
+   "atk": 350,
+   "def": 76,
+   "spd": 26
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 679,
+   "atk": 362,
+   "def": 86,
+   "spd": 26
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1221,
+   "atk": 398,
+   "def": 86,
+   "spd": 26
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 977,
+   "atk": 521,
+   "def": 124,
+   "spd": 35
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 1758,
+   "atk": 574,
+   "def": 124,
+   "spd": 35
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1133,
+   "atk": 605,
+   "def": 144,
+   "spd": 35
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2039,
+   "atk": 665,
+   "def": 144,
+   "spd": 35
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1289,
+   "atk": 688,
+   "def": 164,
+   "spd": 35
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2321,
+   "atk": 757,
+   "def": 164,
+   "spd": 35
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1491,
+   "atk": 796,
+   "def": 189,
+   "spd": 45
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 2683,
+   "atk": 875,
+   "def": 189,
+   "spd": 45
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1729,
+   "atk": 923,
+   "def": 219,
+   "spd": 45
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3113,
+   "atk": 1015,
+   "def": 219,
+   "spd": 45
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 1968,
+   "atk": 1050,
+   "def": 250,
+   "spd": 45
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 3542,
+   "atk": 1156,
+   "def": 250,
+   "spd": 45
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2005,
+   "atk": 1070,
+   "def": 254,
+   "spd": 55
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 3609,
+   "atk": 1177,
+   "def": 254,
+   "spd": 55
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2326,
+   "atk": 1241,
+   "def": 295,
+   "spd": 55
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4186,
+   "atk": 1366,
+   "def": 295,
+   "spd": 55
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 2646,
+   "atk": 1413,
+   "def": 336,
+   "spd": 55
+  },
+  {
+   "id": "thach_nhan",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 4763,
+   "atk": 1554,
+   "def": 336,
+   "spd": 55
+  },
+  {
+   "id": "sa_than",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 765,
+   "atk": 256,
+   "def": 50,
+   "spd": 181
+  },
+  {
+   "id": "sa_than",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1376,
+   "atk": 282,
+   "def": 50,
+   "spd": 181
+  },
+  {
+   "id": "sa_than",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 887,
+   "atk": 297,
+   "def": 57,
+   "spd": 181
+  },
+  {
+   "id": "sa_than",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1596,
+   "atk": 327,
+   "def": 57,
+   "spd": 181
+  },
+  {
+   "id": "sa_than",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1009,
+   "atk": 338,
+   "def": 65,
+   "spd": 181
+  },
+  {
+   "id": "sa_than",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1817,
+   "atk": 372,
+   "def": 65,
+   "spd": 181
+  },
+  {
+   "id": "sa_than",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1453,
+   "atk": 487,
+   "def": 94,
+   "spd": 190
+  },
+  {
+   "id": "sa_than",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2615,
+   "atk": 536,
+   "def": 94,
+   "spd": 190
+  },
+  {
+   "id": "sa_than",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1685,
+   "atk": 565,
+   "def": 109,
+   "spd": 190
+  },
+  {
+   "id": "sa_than",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3033,
+   "atk": 622,
+   "def": 109,
+   "spd": 190
+  },
+  {
+   "id": "sa_than",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1917,
+   "atk": 643,
+   "def": 124,
+   "spd": 190
+  },
+  {
+   "id": "sa_than",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3451,
+   "atk": 707,
+   "def": 124,
+   "spd": 190
+  },
+  {
+   "id": "sa_than",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2217,
+   "atk": 744,
+   "def": 144,
+   "spd": 200
+  },
+  {
+   "id": "sa_than",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3991,
+   "atk": 818,
+   "def": 144,
+   "spd": 200
+  },
+  {
+   "id": "sa_than",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2572,
+   "atk": 863,
+   "def": 167,
+   "spd": 200
+  },
+  {
+   "id": "sa_than",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4629,
+   "atk": 949,
+   "def": 167,
+   "spd": 200
+  },
+  {
+   "id": "sa_than",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2927,
+   "atk": 982,
+   "def": 190,
+   "spd": 200
+  },
+  {
+   "id": "sa_than",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5268,
+   "atk": 1080,
+   "def": 190,
+   "spd": 200
+  },
+  {
+   "id": "sa_than",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2982,
+   "atk": 1000,
+   "def": 193,
+   "spd": 210
+  },
+  {
+   "id": "sa_than",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5367,
+   "atk": 1100,
+   "def": 193,
+   "spd": 210
+  },
+  {
+   "id": "sa_than",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3459,
+   "atk": 1160,
+   "def": 224,
+   "spd": 210
+  },
+  {
+   "id": "sa_than",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6226,
+   "atk": 1276,
+   "def": 224,
+   "spd": 210
+  },
+  {
+   "id": "sa_than",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3936,
+   "atk": 1320,
+   "def": 255,
+   "spd": 210
+  },
+  {
+   "id": "sa_than",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7085,
+   "atk": 1452,
+   "def": 255,
+   "spd": 210
+  },
+  {
+   "id": "ky_lan",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 803,
+   "atk": 241,
+   "def": 77,
+   "spd": 41
+  },
+  {
+   "id": "ky_lan",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1445,
+   "atk": 265,
+   "def": 77,
+   "spd": 41
+  },
+  {
+   "id": "ky_lan",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 931,
+   "atk": 279,
+   "def": 90,
+   "spd": 41
+  },
+  {
+   "id": "ky_lan",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1676,
+   "atk": 307,
+   "def": 90,
+   "spd": 41
+  },
+  {
+   "id": "ky_lan",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1060,
+   "atk": 318,
+   "def": 102,
+   "spd": 41
+  },
+  {
+   "id": "ky_lan",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1907,
+   "atk": 350,
+   "def": 102,
+   "spd": 41
+  },
+  {
+   "id": "ky_lan",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1525,
+   "atk": 458,
+   "def": 147,
+   "spd": 50
+  },
+  {
+   "id": "ky_lan",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2745,
+   "atk": 503,
+   "def": 147,
+   "spd": 50
+  },
+  {
+   "id": "ky_lan",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1769,
+   "atk": 531,
+   "def": 170,
+   "spd": 50
+  },
+  {
+   "id": "ky_lan",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3185,
+   "atk": 584,
+   "def": 170,
+   "spd": 50
+  },
+  {
+   "id": "ky_lan",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2013,
+   "atk": 604,
+   "def": 194,
+   "spd": 50
+  },
+  {
+   "id": "ky_lan",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3624,
+   "atk": 664,
+   "def": 194,
+   "spd": 50
+  },
+  {
+   "id": "ky_lan",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2328,
+   "atk": 698,
+   "def": 224,
+   "spd": 60
+  },
+  {
+   "id": "ky_lan",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4190,
+   "atk": 768,
+   "def": 224,
+   "spd": 60
+  },
+  {
+   "id": "ky_lan",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2700,
+   "atk": 810,
+   "def": 260,
+   "spd": 60
+  },
+  {
+   "id": "ky_lan",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4861,
+   "atk": 891,
+   "def": 260,
+   "spd": 60
+  },
+  {
+   "id": "ky_lan",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3073,
+   "atk": 922,
+   "def": 295,
+   "spd": 60
+  },
+  {
+   "id": "ky_lan",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5531,
+   "atk": 1014,
+   "def": 295,
+   "spd": 60
+  },
+  {
+   "id": "ky_lan",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3131,
+   "atk": 939,
+   "def": 301,
+   "spd": 70
+  },
+  {
+   "id": "ky_lan",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5635,
+   "atk": 1033,
+   "def": 301,
+   "spd": 70
+  },
+  {
+   "id": "ky_lan",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3632,
+   "atk": 1089,
+   "def": 349,
+   "spd": 70
+  },
+  {
+   "id": "ky_lan",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6537,
+   "atk": 1198,
+   "def": 349,
+   "spd": 70
+  },
+  {
+   "id": "ky_lan",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4132,
+   "atk": 1240,
+   "def": 397,
+   "spd": 70
+  },
+  {
+   "id": "ky_lan",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7438,
+   "atk": 1364,
+   "def": 397,
+   "spd": 70
+  },
+  {
+   "id": "ca_sa",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 866,
+   "atk": 279,
+   "def": 83,
+   "spd": 125
+  },
+  {
+   "id": "ca_sa",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1558,
+   "atk": 307,
+   "def": 83,
+   "spd": 125
+  },
+  {
+   "id": "ca_sa",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 1004,
+   "atk": 324,
+   "def": 96,
+   "spd": 125
+  },
+  {
+   "id": "ca_sa",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1808,
+   "atk": 357,
+   "def": 96,
+   "spd": 125
+  },
+  {
+   "id": "ca_sa",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1143,
+   "atk": 369,
+   "def": 109,
+   "spd": 125
+  },
+  {
+   "id": "ca_sa",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 2057,
+   "atk": 406,
+   "def": 109,
+   "spd": 125
+  },
+  {
+   "id": "ca_sa",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1645,
+   "atk": 531,
+   "def": 157,
+   "spd": 134
+  },
+  {
+   "id": "ca_sa",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2961,
+   "atk": 584,
+   "def": 157,
+   "spd": 134
+  },
+  {
+   "id": "ca_sa",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1908,
+   "atk": 616,
+   "def": 182,
+   "spd": 134
+  },
+  {
+   "id": "ca_sa",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3435,
+   "atk": 678,
+   "def": 182,
+   "spd": 134
+  },
+  {
+   "id": "ca_sa",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2171,
+   "atk": 701,
+   "def": 207,
+   "spd": 134
+  },
+  {
+   "id": "ca_sa",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3908,
+   "atk": 771,
+   "def": 207,
+   "spd": 134
+  },
+  {
+   "id": "ca_sa",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2511,
+   "atk": 810,
+   "def": 240,
+   "spd": 144
+  },
+  {
+   "id": "ca_sa",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4519,
+   "atk": 892,
+   "def": 240,
+   "spd": 144
+  },
+  {
+   "id": "ca_sa",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2912,
+   "atk": 940,
+   "def": 278,
+   "spd": 144
+  },
+  {
+   "id": "ca_sa",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 5242,
+   "atk": 1034,
+   "def": 278,
+   "spd": 144
+  },
+  {
+   "id": "ca_sa",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3314,
+   "atk": 1070,
+   "def": 316,
+   "spd": 144
+  },
+  {
+   "id": "ca_sa",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5965,
+   "atk": 1177,
+   "def": 316,
+   "spd": 144
+  },
+  {
+   "id": "ca_sa",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3376,
+   "atk": 1090,
+   "def": 322,
+   "spd": 154
+  },
+  {
+   "id": "ca_sa",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 6078,
+   "atk": 1199,
+   "def": 322,
+   "spd": 154
+  },
+  {
+   "id": "ca_sa",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3917,
+   "atk": 1264,
+   "def": 374,
+   "spd": 154
+  },
+  {
+   "id": "ca_sa",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 7050,
+   "atk": 1391,
+   "def": 374,
+   "spd": 154
+  },
+  {
+   "id": "ca_sa",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4457,
+   "atk": 1439,
+   "def": 425,
+   "spd": 154
+  },
+  {
+   "id": "ca_sa",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 8022,
+   "atk": 1583,
+   "def": 425,
+   "spd": 154
+  }
+ ],
+ "drops": [
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "passive",
+   "giot_suong_pas",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "passive",
+   "giot_suong_pas",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "passive",
+   "giot_suong_pas",
+   "common"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "passive",
+   "giot_suong_pas",
+   "common"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "skill",
+   "cs_skill",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "vo_su",
+   "passive",
+   "vs_pas",
+   "common"
+  ],
+  [
+   "vo_su",
+   "skill",
+   "vs_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "skill",
+   "pl_skill",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "phap_luan",
+   "ult",
+   "pl_ult",
+   "epic"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "phap_luan",
+   "passive",
+   "pl_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "vo_su",
+   "ult",
+   "vs_ult",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "ca_ngua",
+   "ult",
+   "ca_ngua_ult",
+   "epic"
+  ],
+  [
+   "ca_sa",
+   "passive",
+   "cs_pas",
+   "epic"
+  ],
+  [
+   "ca_ngua",
+   "passive",
+   "ca_ngua_pas",
+   "rare"
+  ],
+  [
+   "ca_ngua",
+   "skill",
+   "ca_ngua_skill",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "giot_suong",
+   "ult",
+   "giot_suong_ult",
+   "uncommon"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ],
+  [
+   "giot_suong",
+   "skill",
+   "giot_suong_skill",
+   "common"
+  ],
+  [
+   "ca_sa",
+   "ult",
+   "cs_ult",
+   "legend"
+  ]
+ ],
+ "shards": [
+  [
+   "su_tu_lua",
+   5,
+   false,
+   0
+  ],
+  [
+   "mam_go",
+   4,
+   false,
+   0
+  ],
+  [
+   "meo_quyen",
+   4,
+   false,
+   0
+  ],
+  [
+   "bo_de",
+   3,
+   false,
+   0
+  ],
+  [
+   "thach_nhan",
+   2,
+   false,
+   0
+  ],
+  [
+   "chu_tuoc",
+   5,
+   false,
+   0
+  ],
+  [
+   "phao_tet",
+   1,
+   false,
+   0
+  ],
+  [
+   "giot_suong",
+   2,
+   false,
+   2
+  ],
+  [
+   "phap_luan",
+   5,
+   false,
+   0
+  ],
+  [
+   "kien_binh",
+   1,
+   false,
+   0
+  ],
+  [
+   "chu_tuoc",
+   2,
+   false,
+   0
+  ],
+  [
+   "kien_binh",
+   1,
+   false,
+   0
+  ],
+  [
+   "giot_suong",
+   6,
+   false,
+   6
+  ],
+  [
+   "kien_binh",
+   3,
+   false,
+   0
+  ],
+  [
+   "mam_go",
+   6,
+   true,
+   0
+  ],
+  [
+   "bo_de",
+   6,
+   false,
+   0
+  ],
+  [
+   "ca_ngua",
+   5,
+   false,
+   0
+  ],
+  [
+   "dom_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "dom_lua",
+   4,
+   false,
+   0
+  ],
+  [
+   "de_hoa",
+   5,
+   false,
+   0
+  ],
+  [
+   "heo_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "sa_than",
+   3,
+   false,
+   0
+  ],
+  [
+   "phong_linh",
+   6,
+   false,
+   0
+  ],
+  [
+   "nu_hoa",
+   2,
+   false,
+   0
+  ],
+  [
+   "gau_mo",
+   2,
+   false,
+   0
+  ],
+  [
+   "ca_sa",
+   1,
+   false,
+   0
+  ],
+  [
+   "phong_linh",
+   5,
+   false,
+   0
+  ],
+  [
+   "de_hoa",
+   4,
+   false,
+   0
+  ],
+  [
+   "meo_quyen",
+   1,
+   false,
+   0
+  ],
+  [
+   "ho_lua",
+   4,
+   false,
+   0
+  ],
+  [
+   "kien_binh",
+   6,
+   false,
+   0
+  ],
+  [
+   "phao_hop",
+   5,
+   false,
+   0
+  ],
+  [
+   "ky_lan",
+   2,
+   false,
+   0
+  ],
+  [
+   "map_rang",
+   6,
+   false,
+   0
+  ],
+  [
+   "gau_mo",
+   4,
+   false,
+   0
+  ],
+  [
+   "ky_lan",
+   5,
+   false,
+   0
+  ],
+  [
+   "map_rang",
+   1,
+   false,
+   0
+  ],
+  [
+   "banh_tet",
+   4,
+   false,
+   0
+  ],
+  [
+   "soi_linh",
+   2,
+   false,
+   0
+  ],
+  [
+   "phap_luan",
+   1,
+   false,
+   0
+  ],
+  [
+   "meo_quyen",
+   2,
+   false,
+   0
+  ],
+  [
+   "vo_su",
+   4,
+   false,
+   0
+  ],
+  [
+   "tieu_y",
+   1,
+   false,
+   0
+  ],
+  [
+   "banh_tet",
+   6,
+   false,
+   0
+  ],
+  [
+   "giac_long",
+   5,
+   false,
+   0
+  ],
+  [
+   "ho_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "chu_tuoc",
+   6,
+   false,
+   0
+  ],
+  [
+   "heo_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "phong_linh",
+   3,
+   false,
+   0
+  ],
+  [
+   "kiem_linh",
+   3,
+   false,
+   0
+  ],
+  [
+   "thach_nhan",
+   2,
+   false,
+   0
+  ],
+  [
+   "phap_luan",
+   1,
+   false,
+   0
+  ],
+  [
+   "vo_su",
+   1,
+   false,
+   0
+  ],
+  [
+   "ca_ngua",
+   5,
+   false,
+   0
+  ],
+  [
+   "mam_go",
+   4,
+   false,
+   4
+  ],
+  [
+   "su_tu_lua",
+   2,
+   false,
+   0
+  ],
+  [
+   "kien_binh",
+   6,
+   true,
+   0
+  ],
+  [
+   "dom_lua",
+   3,
+   false,
+   0
+  ],
+  [
+   "ho_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "heo_lua",
+   4,
+   false,
+   0
+  ],
+  [
+   "bu_long",
+   1,
+   false,
+   0
+  ],
+  [
+   "giac_long",
+   3,
+   false,
+   0
+  ],
+  [
+   "dom_lua",
+   6,
+   true,
+   0
+  ],
+  [
+   "huyen_vu",
+   6,
+   false,
+   0
+  ],
+  [
+   "phap_luan",
+   2,
+   false,
+   0
+  ],
+  [
+   "kiem_linh",
+   2,
+   false,
+   0
+  ],
+  [
+   "phao_hop",
+   2,
+   false,
+   0
+  ],
+  [
+   "bo_hung",
+   3,
+   false,
+   0
+  ],
+  [
+   "phao_hop",
+   5,
+   true,
+   0
+  ],
+  [
+   "huyen_vu",
+   2,
+   false,
+   0
+  ],
+  [
+   "bo_hung",
+   5,
+   false,
+   0
+  ],
+  [
+   "ky_lan",
+   2,
+   false,
+   0
+  ],
+  [
+   "kien_binh",
+   5,
+   false,
+   5
+  ],
+  [
+   "map_rang",
+   2,
+   false,
+   0
+  ],
+  [
+   "nu_hoa",
+   4,
+   false,
+   0
+  ],
+  [
+   "vo_su",
+   4,
+   false,
+   0
+  ],
+  [
+   "heo_lua",
+   5,
+   true,
+   0
+  ],
+  [
+   "canh_cut",
+   4,
+   false,
+   0
+  ],
+  [
+   "bach_ho",
+   1,
+   false,
+   0
+  ],
+  [
+   "phong_linh",
+   3,
+   false,
+   0
+  ]
+ ],
+ "shardEnd": [
+  [
+   "bu_long",
+   false,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   "phao_hop",
+   true,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "kiem_linh",
+   false,
+   5,
+   0,
+   0,
+   0
+  ],
+  [
+   "meo_quyen",
+   false,
+   7,
+   0,
+   0,
+   0
+  ],
+  [
+   "bo_cap",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "bo_ngua",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "soi_linh",
+   false,
+   2,
+   0,
+   0,
+   0
+  ],
+  [
+   "bach_ho",
+   false,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   "mam_go",
+   true,
+   0,
+   2,
+   2,
+   0
+  ],
+  [
+   "nu_hoa",
+   false,
+   6,
+   0,
+   0,
+   0
+  ],
+  [
+   "kien_binh",
+   true,
+   0,
+   3,
+   1,
+   1
+  ],
+  [
+   "banh_tet",
+   false,
+   10,
+   0,
+   0,
+   0
+  ],
+  [
+   "de_hoa",
+   false,
+   9,
+   0,
+   0,
+   0
+  ],
+  [
+   "giac_long",
+   false,
+   8,
+   0,
+   0,
+   0
+  ],
+  [
+   "phong_linh",
+   false,
+   17,
+   0,
+   0,
+   0
+  ],
+  [
+   "thanh_long",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "tieu_y",
+   false,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   "canh_cut",
+   false,
+   4,
+   0,
+   0,
+   0
+  ],
+  [
+   "giot_suong",
+   true,
+   0,
+   4,
+   1,
+   3
+  ],
+  [
+   "tam_tay",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "ca_ngua",
+   false,
+   10,
+   0,
+   0,
+   0
+  ],
+  [
+   "map_rang",
+   false,
+   9,
+   0,
+   0,
+   0
+  ],
+  [
+   "lam_quan",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "huyen_vu",
+   false,
+   8,
+   0,
+   0,
+   0
+  ],
+  [
+   "heo_lua",
+   true,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "dom_lua",
+   true,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "phao_tet",
+   false,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   "su_tu_lua",
+   false,
+   7,
+   0,
+   0,
+   0
+  ],
+  [
+   "bo_de",
+   false,
+   9,
+   0,
+   0,
+   0
+  ],
+  [
+   "ho_lua",
+   false,
+   6,
+   0,
+   0,
+   0
+  ],
+  [
+   "phap_luan",
+   false,
+   9,
+   0,
+   0,
+   0
+  ],
+  [
+   "chu_tuoc",
+   false,
+   13,
+   0,
+   0,
+   0
+  ],
+  [
+   "vo_su",
+   false,
+   9,
+   0,
+   0,
+   0
+  ],
+  [
+   "gau_mo",
+   false,
+   6,
+   0,
+   0,
+   0
+  ],
+  [
+   "soc_da",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "bo_hung",
+   false,
+   8,
+   0,
+   0,
+   0
+  ],
+  [
+   "thach_nhan",
+   false,
+   4,
+   0,
+   0,
+   0
+  ],
+  [
+   "sa_than",
+   false,
+   3,
+   0,
+   0,
+   0
+  ],
+  [
+   "ky_lan",
+   false,
+   9,
+   0,
+   0,
+   0
+  ],
+  [
+   "ca_sa",
+   false,
+   1,
+   0,
+   0,
+   0
+  ]
+ ]
+}

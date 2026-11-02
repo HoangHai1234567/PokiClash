@@ -1,0 +1,3109 @@
+{
+ "spins": [
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 296,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 3
+    }
+   ],
+   "keepNew": false,
+   "stones": 291,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 285,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 279,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 2,
+   "res": [
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 277,
+   "pot": [
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 273,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 268,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 264,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 259,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 2,
+   "res": [
+    {
+     "k": "spd",
+     "r": 2
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 257,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 2
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 251,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": null,
+   "keepNew": true,
+   "stones": 251,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 247,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 242,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 240,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 235,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 229,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 223,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": null,
+   "keepNew": true,
+   "stones": 223,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 221,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 2
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 216,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 2
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 212,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 207,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 201,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 3,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 198,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": null,
+   "keepNew": false,
+   "stones": 198,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 194,
+   "pot": [
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    }
+   ],
+   "keepNew": true,
+   "stones": 189,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "mana",
+     "r": 2
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 185,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    true
+   ],
+   "cost": 3,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 2
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 182,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 2
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 176,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 170,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": null,
+   "keepNew": true,
+   "stones": 170,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "crit",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 166,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 2,
+   "res": [
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 164,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 2
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 2
+    }
+   ],
+   "keepNew": true,
+   "stones": 160,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 2
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 155,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    }
+   ],
+   "keepNew": false,
+   "stones": 149,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 143,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 4,
+   "res": null,
+   "keepNew": true,
+   "stones": 143,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 2
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 139,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 2
+    }
+   ],
+   "keepNew": true,
+   "stones": 134,
+   "pot": [
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 2
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 130,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ],
+   "keepNew": false,
+   "stones": 125,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 3,
+   "res": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 122,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 116,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": null,
+   "keepNew": false,
+   "stones": 116,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "def",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "hp",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 112,
+   "pot": [
+    {
+     "k": "def",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "hp",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "spd",
+     "r": 2
+    }
+   ],
+   "keepNew": true,
+   "stones": 107,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "spd",
+     "r": 2
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 105,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 3
+    }
+   ],
+   "keepNew": true,
+   "stones": 100,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 3
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 94,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    }
+   ],
+   "keepNew": false,
+   "stones": 88,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": null,
+   "keepNew": true,
+   "stones": 88,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 86,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    }
+   ],
+   "keepNew": false,
+   "stones": 81,
+   "pot": [
+    {
+     "k": "spd",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    }
+   ],
+   "keepNew": true,
+   "stones": 77,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ],
+   "keepNew": true,
+   "stones": 72,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "giot_suong",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    }
+   ],
+   "keepNew": false,
+   "stones": 66,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    }
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 3,
+   "res": [
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 63,
+   "pot": [
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  }
+ ],
+ "totals": {
+  "lines": [
+   {
+    "k": "atk",
+    "r": 4
+   },
+   {
+    "k": "atk",
+    "r": 4
+   },
+   {
+    "k": "atk",
+    "r": 4
+   },
+   {
+    "k": "mana",
+    "r": 4
+   }
+  ],
+  "totals": {
+   "atk": 0.4,
+   "def": 0,
+   "hp": 0,
+   "spd": 0,
+   "crit": 0,
+   "lifesteal": 0,
+   "mana": 30,
+   "rage": 0
+  }
+ },
+ "members": [
+  {
+   "hero": "giot_suong",
+   "mods": {
+    "hpPct": 0,
+    "atkPct": 0.08,
+    "defPct": 0,
+    "spd": 0
+   },
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "crit": 0.1,
+    "lifesteal": 0
+   }
+  },
+  {
+   "hero": "vo_su",
+   "mods": null,
+   "start": {
+    "mana": 15,
+    "rage": 0,
+    "crit": 0,
+    "lifesteal": 0.07
+   }
+  }
+ ],
+ "fights": [
+  {
+   "stage": 3,
+   "seed": 11,
+   "winner": 0,
+   "round": 2,
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "buffs": [
+     [
+      "crit",
+      0.1,
+      99
+     ]
+    ]
+   }
+  },
+  {
+   "stage": 3,
+   "seed": 12,
+   "winner": 0,
+   "round": 2,
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "buffs": [
+     [
+      "crit",
+      0.1,
+      99
+     ]
+    ]
+   }
+  },
+  {
+   "stage": 3,
+   "seed": 13,
+   "winner": 0,
+   "round": 3,
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "buffs": [
+     [
+      "crit",
+      0.1,
+      99
+     ]
+    ]
+   }
+  },
+  {
+   "stage": 5,
+   "seed": 11,
+   "winner": 0,
+   "round": 4,
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "buffs": [
+     [
+      "crit",
+      0.1,
+      99
+     ]
+    ]
+   }
+  },
+  {
+   "stage": 5,
+   "seed": 12,
+   "winner": 0,
+   "round": 4,
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "buffs": [
+     [
+      "crit",
+      0.1,
+      99
+     ]
+    ]
+   }
+  },
+  {
+   "stage": 5,
+   "seed": 13,
+   "winner": 0,
+   "round": 3,
+   "start": {
+    "mana": 0,
+    "rage": 20,
+    "buffs": [
+     [
+      "crit",
+      0.1,
+      99
+     ]
+    ]
+   }
+  }
+ ],
+ "caveStages": [
+  {
+   "zone": "thuy",
+   "tier": 0,
+   "id": 2000,
+   "enemies": [
+    [
+     "tieu_y",
+     6,
+     true
+    ],
+    [
+     "canh_cut",
+     4,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 1,
+   "id": 2001,
+   "enemies": [
+    [
+     "canh_cut",
+     12,
+     true
+    ],
+    [
+     "giot_suong",
+     10,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 2,
+   "id": 2002,
+   "enemies": [
+    [
+     "giot_suong",
+     18,
+     true
+    ],
+    [
+     "tam_tay",
+     16,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 3,
+   "id": 2003,
+   "enemies": [
+    [
+     "tam_tay",
+     24,
+     true
+    ],
+    [
+     "ca_ngua",
+     22,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 0,
+   "id": 2010,
+   "enemies": [
+    [
+     "heo_lua",
+     6,
+     true
+    ],
+    [
+     "dom_lua",
+     4,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 1,
+   "id": 2011,
+   "enemies": [
+    [
+     "dom_lua",
+     12,
+     true
+    ],
+    [
+     "phao_tet",
+     10,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 2,
+   "id": 2012,
+   "enemies": [
+    [
+     "phao_tet",
+     18,
+     true
+    ],
+    [
+     "su_tu_lua",
+     16,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 3,
+   "id": 2013,
+   "enemies": [
+    [
+     "su_tu_lua",
+     24,
+     true
+    ],
+    [
+     "bo_de",
+     22,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 0,
+   "id": 2020,
+   "enemies": [
+    [
+     "bu_long",
+     6,
+     true
+    ],
+    [
+     "phao_hop",
+     4,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 1,
+   "id": 2021,
+   "enemies": [
+    [
+     "phao_hop",
+     12,
+     true
+    ],
+    [
+     "kiem_linh",
+     10,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 2,
+   "id": 2022,
+   "enemies": [
+    [
+     "kiem_linh",
+     18,
+     true
+    ],
+    [
+     "meo_quyen",
+     16,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 3,
+   "id": 2023,
+   "enemies": [
+    [
+     "meo_quyen",
+     24,
+     true
+    ],
+    [
+     "bo_cap",
+     22,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 0,
+   "id": 2030,
+   "enemies": [
+    [
+     "mam_go",
+     6,
+     true
+    ],
+    [
+     "nu_hoa",
+     4,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 1,
+   "id": 2031,
+   "enemies": [
+    [
+     "nu_hoa",
+     12,
+     true
+    ],
+    [
+     "kien_binh",
+     10,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 2,
+   "id": 2032,
+   "enemies": [
+    [
+     "kien_binh",
+     18,
+     true
+    ],
+    [
+     "banh_tet",
+     16,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 3,
+   "id": 2033,
+   "enemies": [
+    [
+     "banh_tet",
+     24,
+     true
+    ],
+    [
+     "de_hoa",
+     22,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 0,
+   "id": 2040,
+   "enemies": [
+    [
+     "vo_su",
+     6,
+     true
+    ],
+    [
+     "gau_mo",
+     4,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 1,
+   "id": 2041,
+   "enemies": [
+    [
+     "gau_mo",
+     12,
+     true
+    ],
+    [
+     "soc_da",
+     10,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 2,
+   "id": 2042,
+   "enemies": [
+    [
+     "soc_da",
+     18,
+     true
+    ],
+    [
+     "bo_hung",
+     16,
+     false
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 3,
+   "id": 2043,
+   "enemies": [
+    [
+     "bo_hung",
+     24,
+     true
+    ],
+    [
+     "thach_nhan",
+     22,
+     false
+    ]
+   ]
+  }
+ ],
+ "caveDays": [
+  {
+   "day": 20000,
+   "weekday": 5,
+   "elem": "tho"
+  },
+  {
+   "day": 20001,
+   "weekday": 6,
+   "elem": null
+  },
+  {
+   "day": 20002,
+   "weekday": 0,
+   "elem": null
+  },
+  {
+   "day": 20003,
+   "weekday": 1,
+   "elem": "kim"
+  },
+  {
+   "day": 20004,
+   "weekday": 2,
+   "elem": "moc"
+  },
+  {
+   "day": 20005,
+   "weekday": 3,
+   "elem": "thuy"
+  },
+  {
+   "day": 20006,
+   "weekday": 4,
+   "elem": "hoa"
+  },
+  {
+   "day": 20007,
+   "weekday": 5,
+   "elem": "tho"
+  },
+  {
+   "day": 20008,
+   "weekday": 6,
+   "elem": null
+  }
+ ],
+ "caveDay": 20003,
+ "caveSteps": [
+  {
+   "op": "win",
+   "arg": 0,
+   "r": 2,
+   "left": 2,
+   "stones": 2,
+   "elem": "kim"
+  },
+  {
+   "op": "win",
+   "arg": 3,
+   "r": 8,
+   "left": 1,
+   "stones": 10,
+   "elem": "kim"
+  },
+  {
+   "op": "pick",
+   "arg": "moc",
+   "r": false,
+   "left": 1,
+   "stones": 10,
+   "elem": "kim"
+  },
+  {
+   "op": "win",
+   "arg": 1,
+   "r": 3,
+   "left": 0,
+   "stones": 13,
+   "elem": "kim"
+  },
+  {
+   "op": "win",
+   "arg": 2,
+   "r": 0,
+   "left": 0,
+   "stones": 13,
+   "elem": "kim"
+  },
+  {
+   "op": "ad",
+   "arg": 0,
+   "r": true,
+   "left": 1,
+   "stones": 13,
+   "elem": "kim"
+  },
+  {
+   "op": "ad",
+   "arg": 0,
+   "r": false,
+   "left": 1,
+   "stones": 13,
+   "elem": "kim"
+  },
+  {
+   "op": "win",
+   "arg": 2,
+   "r": 5,
+   "left": 0,
+   "stones": 18,
+   "elem": "kim"
+  },
+  {
+   "op": "win",
+   "arg": 2,
+   "r": 0,
+   "left": 0,
+   "stones": 18,
+   "elem": "kim"
+  }
+ ]
+}

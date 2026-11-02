@@ -1,0 +1,172 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23f94acba5abd3f4ba01de4c5b861b69, type: 3}
+  m_Name: BakedArt
+  m_EditorClassIdentifier: 
+  sketch:
+  - name: Panel
+    sprite: {fileID: 21300000, guid: 4afe6e70740b5084faa97f8de6243cf3, type: 3}
+  - name: PanelThin
+    sprite: {fileID: 21300000, guid: 533b42550f143d24093da73b8d043fe0, type: 3}
+  - name: PanelFlat
+    sprite: {fileID: 21300000, guid: d05d21dcb9c0993478782f4cafacb850, type: 3}
+  - name: Button
+    sprite: {fileID: 21300000, guid: e06646e7cb1d24d42809d67075565900, type: 3}
+  - name: ButtonPressed
+    sprite: {fileID: 21300000, guid: 24fed4ee2db52ca41aa3e6a3ecc79322, type: 3}
+  - name: Round
+    sprite: {fileID: 21300000, guid: ed56ea405b43448469ae23241b00bbf7, type: 3}
+  - name: RoundPressed
+    sprite: {fileID: 21300000, guid: 4405a302fff0a01458e6c5da0da610d3, type: 3}
+  - name: CardFrame
+    sprite: {fileID: 21300000, guid: 6f1cd10aec990224fa3adbdd73e05681, type: 3}
+  - name: Pill
+    sprite: {fileID: 21300000, guid: 9ef507240f986ed48b7d7c6bd30ca15f, type: 3}
+  - name: BarTrack
+    sprite: {fileID: 21300000, guid: db399fbfc9580d74e91a501a5814107b, type: 3}
+  - name: BarFill
+    sprite: {fileID: 21300000, guid: 3e148266513ef63418003afd6a877bc0, type: 3}
+  - name: Dot
+    sprite: {fileID: 21300000, guid: 9128e65939554b8479afd8e9c420bf6b, type: 3}
+  - name: InkDot
+    sprite: {fileID: 21300000, guid: ed35e4fd108bf714bb4b25437e275e64, type: 3}
+  - name: Star
+    sprite: {fileID: 21300000, guid: 5a6c5a9a07020604da356525004868a2, type: 3}
+  - name: Cloud
+    sprite: {fileID: 21300000, guid: 99df56862ff8ad84d98478954037cb44, type: 3}
+  - name: Tape
+    sprite: {fileID: 21300000, guid: 40ca6b20ab078764abda8f3c87e587df, type: 3}
+  - name: Ring
+    sprite: {fileID: 21300000, guid: 313bcecf0310feb45bf624d622fd3b8b, type: 3}
+  - name: Ring360
+    sprite: {fileID: 21300000, guid: 6ab2ddf9450131043853bf52e84167e5, type: 3}
+  - name: PaperGrid
+    sprite: {fileID: 21300000, guid: 1309436211a5e054ebefdf2274a22447, type: 3}
+  - name: Burst
+    sprite: {fileID: 21300000, guid: e47c9cff47b928044801124ce9cbb089, type: 3}
+  - name: DashRing
+    sprite: {fileID: 21300000, guid: 1db7e580520434d49b50a96d69b545f5, type: 3}
+  - name: LinedPaper
+    sprite: {fileID: 21300000, guid: 9edb4a6e43eb6744ab5d836d6720e722, type: 3}
+  - name: CloudPuff
+    sprite: {fileID: 21300000, guid: d91b2664574b84041914ec806f4c77d9, type: 3}
+  - name: Stick
+    sprite: {fileID: 21300000, guid: b67e1b0f1b99a1d48abab4965e2a55ed, type: 3}
+  - name: Medal
+    sprite: {fileID: 21300000, guid: 0e6cc80f497f94c489623affda7be602, type: 3}
+  - name: Chest
+    sprite: {fileID: 21300000, guid: cbf1300228eb10945bcac21a9154f124, type: 3}
+  - name: White
+    sprite: {fileID: 21300000, guid: 02c3ac473f4e1fa47ab54b87ebeed38d, type: 3}
+  noise: {fileID: 2800000, guid: a4b7ff5dbe550bb4e942268ad4b8ab08, type: 3}
+  outlines:
+  - font: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+    key: 20
+    material: {fileID: 2100000, guid: 44ebf94f42c90e0449d7cc1ba6b9d8a8, type: 2}
+  - font: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+    key: 22
+    material: {fileID: 2100000, guid: ce438c0d275110d42bb7f81e4e6163c3, type: 2}
+  - font: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+    key: 25
+    material: {fileID: 2100000, guid: b94c83f1bd614d34da8d3cdc4c01e882, type: 2}
+  - font: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+    key: 28
+    material: {fileID: 2100000, guid: d1c960407760b78428a054cd594920ab, type: 2}
+  - font: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+    key: 30
+    material: {fileID: 2100000, guid: 32bc3397b3734964fbb5491e7d5a2eb0, type: 2}
+  - font: {fileID: 11400000, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
+    key: 32
+    material: {fileID: 2100000, guid: 5da227da6ba37d84cbb25444dcc35360, type: 2}
+  - font: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+    key: 20
+    material: {fileID: 2100000, guid: 309b8697b15a5c241a8b392192c97970, type: 2}
+  - font: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+    key: 22
+    material: {fileID: 2100000, guid: 0d3c59580bfd5574d9a5470767ca2252, type: 2}
+  - font: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+    key: 25
+    material: {fileID: 2100000, guid: 2e5288b6e85e03047b96727665314380, type: 2}
+  - font: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+    key: 28
+    material: {fileID: 2100000, guid: 0c44d2341c962324da84703e0ecede74, type: 2}
+  - font: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+    key: 30
+    material: {fileID: 2100000, guid: 6b64bfaa5464c274aa03d3c2e7f584f4, type: 2}
+  - font: {fileID: 11400000, guid: 1a071499232a7524487af81a58cc1845, type: 2}
+    key: 32
+    material: {fileID: 2100000, guid: c16a9c198b54e02418524759849ccd6c, type: 2}
+  - font: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+    key: 20
+    material: {fileID: 2100000, guid: 90ee008310e70344b8cfcd7913935737, type: 2}
+  - font: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+    key: 22
+    material: {fileID: 2100000, guid: c411506ebecc7b3449aed41518360ccc, type: 2}
+  - font: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+    key: 25
+    material: {fileID: 2100000, guid: cecea4553badfaa4db109eb86f55f534, type: 2}
+  - font: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+    key: 28
+    material: {fileID: 2100000, guid: d09974b55166f0048919ef8e6b2c1dae, type: 2}
+  - font: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+    key: 30
+    material: {fileID: 2100000, guid: 3d2a2541a771bd64c847a5f0134ff23b, type: 2}
+  - font: {fileID: 11400000, guid: 28a34ff87c08d884ba713484071674d2, type: 2}
+    key: 32
+    material: {fileID: 2100000, guid: fe9b8ef16abdcd0418d6180e20c26e21, type: 2}
+  sfx:
+  - name: click
+    clip: {fileID: 8300000, guid: 00cbf11426a1cbf43bdae4c5981e44d7, type: 3}
+  - name: pick
+    clip: {fileID: 8300000, guid: 42af636ca799c2348a5e17f8991d2f72, type: 3}
+  - name: deal
+    clip: {fileID: 8300000, guid: 1d1563b9ff335cc428053ba150067cee, type: 3}
+  - name: card
+    clip: {fileID: 8300000, guid: 8e2228d5856cc584f9b98ed9faf843ae, type: 3}
+  - name: hit
+    clip: {fileID: 8300000, guid: 84321e0c669bbab48a533d5c2dbe5451, type: 3}
+  - name: hitCrit
+    clip: {fileID: 8300000, guid: 9d9ea2d9a40c4c34799d7a2f8bb398e8, type: 3}
+  - name: whoosh
+    clip: {fileID: 8300000, guid: 5e29b77428c7b20459f189ee4f3207f0, type: 3}
+  - name: heal
+    clip: {fileID: 8300000, guid: b3d6d6d406932d34c9d8260559bff97f, type: 3}
+  - name: buff
+    clip: {fileID: 8300000, guid: 3e460b66ce703b943b40281d530b30f6, type: 3}
+  - name: debuff
+    clip: {fileID: 8300000, guid: 4e867340039294e43bb3126c99de1763, type: 3}
+  - name: shield
+    clip: {fileID: 8300000, guid: d7f162af1aa21d34783d8d312bdfb42a, type: 3}
+  - name: miss
+    clip: {fileID: 8300000, guid: 6c3b867d363f5e346b78328ffbaeea08, type: 3}
+  - name: coin
+    clip: {fileID: 8300000, guid: 2a745aaa8ee34894db06bb2b50fb1bd0, type: 3}
+  - name: peg
+    clip: {fileID: 8300000, guid: 09be196b6a007df429285772fa6037e4, type: 3}
+  - name: land
+    clip: {fileID: 8300000, guid: 2c7ab6a8d68d01c4584e1bebdb72fc90, type: 3}
+  - name: chest
+    clip: {fileID: 8300000, guid: 765f7c29a15f6354394a9ff8bb9a4776, type: 3}
+  - name: level
+    clip: {fileID: 8300000, guid: ea5b64d86bba311479afbbdc8a318b76, type: 3}
+  - name: win
+    clip: {fileID: 8300000, guid: c618e48e0e5d7e04fa3794743d9e74c2, type: 3}
+  - name: lose
+    clip: {fileID: 8300000, guid: 3876e0adaaf02c449a13f94abb6eae36, type: 3}
+  - name: ult
+    clip: {fileID: 8300000, guid: e1f4f401fb0a84c4fb55c64d64d4ec21, type: 3}
+  - name: swap
+    clip: {fileID: 8300000, guid: 9d69f7a7c12c693429105a4b14aae617, type: 3}
+  - name: error
+    clip: {fileID: 8300000, guid: 27e48bc6ddeb3e249b532f92e87716d1, type: 3}
+  - name: stamp
+    clip: {fileID: 8300000, guid: 6898637837708784f93ca4ce749d4eec, type: 3}

@@ -1,0 +1,758 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3df3f32db49ccc845925e163deb93e98, type: 3}
+  m_Name: ZoneDb
+  m_EditorClassIdentifier: 
+  zones:
+  - id: 2
+    order: 0
+    name: "\u0110\u1EA3o Th\u1EE7y"
+    sub: "\u0110\u1EA7m ph\xE1, th\xE1c b\u1EA1c v\xE0 xo\xE1y n\u01B0\u1EDBc \u0111inh
+      ba"
+    levelMin: 1
+    levelMax: 7
+    art: zone_thuy
+    skyTop: '#bfe6f5'
+    skyBottom: '#f4f1dc'
+    ground: '#8fc9d8'
+    sea: '#3fb3c9'
+    nodes:
+    - x: 0.4
+      y: 0.86
+    - x: 0.4
+      y: 0.75
+    - x: 0.4
+      y: 0.64
+    - x: 0.46
+      y: 0.53
+    - x: 0.55
+      y: 0.44
+    - x: 0.5
+      y: 0.34
+    - x: 0.6
+      y: 0.26
+    - x: 0.66
+      y: 0.15
+    world:
+      x: 0.23
+      y: 0.66
+  - id: 3
+    order: 1
+    name: "\u0110\u1EA3o H\u1ECFa"
+    sub: "Dung nham, ch\xF9a sen l\u1EEDa v\xE0 mi\u1EC7ng n\xFAi ch\xE1y"
+    levelMin: 6
+    levelMax: 12
+    art: zone_hoa
+    skyTop: '#f7c9a8'
+    skyBottom: '#fbe9d0'
+    ground: '#d98a5a'
+    sea: '#7a3a2a'
+    nodes:
+    - x: 0.32
+      y: 0.91
+    - x: 0.48
+      y: 0.81
+    - x: 0.36
+      y: 0.7
+    - x: 0.43
+      y: 0.57
+    - x: 0.6
+      y: 0.48
+    - x: 0.55
+      y: 0.36
+    - x: 0.42
+      y: 0.26
+    - x: 0.56
+      y: 0.09
+    world:
+      x: 0.5
+      y: 0.17
+  - id: 0
+    order: 2
+    name: "\u0110\u1EA3o Kim"
+    sub: "N\xFAi th\xE9p, c\u1EA7u b\xE1nh r\u0103ng v\xE0 th\xE1p chu\xF4ng \u0111\u1ED3ng"
+    levelMin: 11
+    levelMax: 17
+    art: zone_kim
+    skyTop: '#d6dee8'
+    skyBottom: '#f1efe6'
+    ground: '#a9b6c2'
+    sea: '#3d7fb5'
+    nodes:
+    - x: 0.4
+      y: 0.84
+    - x: 0.44
+      y: 0.72
+    - x: 0.46
+      y: 0.62
+    - x: 0.58
+      y: 0.52
+    - x: 0.68
+      y: 0.42
+    - x: 0.62
+      y: 0.33
+    - x: 0.54
+      y: 0.24
+    - x: 0.64
+      y: 0.12
+    world:
+      x: 0.8
+      y: 0.33
+  - id: 1
+    order: 3
+    name: "\u0110\u1EA3o M\u1ED9c"
+    sub: "R\u1EEBng n\u1EA5m, d\xE2y leo v\xE0 c\xE2y th\u1EA7n ng\xE0n n\u0103m"
+    levelMin: 16
+    levelMax: 22
+    art: zone_moc
+    skyTop: '#cfeec0'
+    skyBottom: '#f4f1dc'
+    ground: '#7cc06a'
+    sea: '#3fb3a0'
+    nodes:
+    - x: 0.5
+      y: 0.87
+    - x: 0.36
+      y: 0.77
+    - x: 0.5
+      y: 0.67
+    - x: 0.64
+      y: 0.58
+    - x: 0.48
+      y: 0.49
+    - x: 0.34
+      y: 0.4
+    - x: 0.48
+      y: 0.3
+    - x: 0.52
+      y: 0.15
+    world:
+      x: 0.18
+      y: 0.32
+  - id: 4
+    order: 4
+    name: "\u0110\u1EA3o Th\u1ED5"
+    sub: "V\xE1ch \u0111\u1EA5t nung, ru\u1ED9ng b\u1EADc thang v\xE0 kim t\u1EF1
+      vi\u1EC7n"
+    levelMin: 21
+    levelMax: 28
+    art: zone_tho
+    skyTop: '#f6dfae'
+    skyBottom: '#fbf0d8'
+    ground: '#d9b46a'
+    sea: '#3fb3c9'
+    nodes:
+    - x: 0.46
+      y: 0.87
+    - x: 0.62
+      y: 0.78
+    - x: 0.48
+      y: 0.69
+    - x: 0.34
+      y: 0.6
+    - x: 0.5
+      y: 0.51
+    - x: 0.66
+      y: 0.42
+    - x: 0.5
+      y: 0.31
+    - x: 0.5
+      y: 0.15
+    world:
+      x: 0.7
+      y: 0.67
+  stages:
+  - id: 1
+    zone: 2
+    idx: 1
+    name: "B\xE3i V\u1ECF S\xF2"
+    kind: 0
+    enemies:
+    - hero: tieu_y
+      level: 1
+      boss: 0
+    drops: []
+  - id: 2
+    zone: 2
+    idx: 2
+    name: "V\u0169ng San H\xF4"
+    kind: 0
+    enemies:
+    - hero: canh_cut
+      level: 2
+      boss: 0
+    drops: []
+  - id: 3
+    zone: 2
+    idx: 3
+    name: "C\u1EA7u G\u1ED7 R\xEAu"
+    kind: 0
+    enemies:
+    - hero: tieu_y
+      level: 2
+      boss: 0
+    - hero: tieu_y
+      level: 3
+      boss: 0
+    drops:
+    - hero: vo_su
+      chance: 1
+      min: 10
+      max: 10
+      gift: 1
+  - id: 4
+    zone: 2
+    idx: 4
+    name: "Ng\u1ECDn H\u1EA3i \u0110\u0103ng"
+    kind: 1
+    enemies:
+    - hero: ca_ngua
+      level: 3
+      boss: 1
+    drops:
+    - hero: ca_ngua
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+  - id: 5
+    zone: 2
+    idx: 5
+    name: "L\xE0ng V\u1ECF \u1ED0c"
+    kind: 0
+    enemies:
+    - hero: canh_cut
+      level: 4
+      boss: 0
+    - hero: ca_ngua
+      level: 4
+      boss: 0
+    drops: []
+  - id: 6
+    zone: 2
+    idx: 6
+    name: "Th\xE1c B\u1EA1c"
+    kind: 0
+    enemies:
+    - hero: ca_ngua
+      level: 5
+      boss: 0
+    - hero: tieu_y
+      level: 5
+      boss: 0
+    drops:
+    - hero: nu_hoa
+      chance: 1
+      min: 10
+      max: 10
+      gift: 1
+  - id: 7
+    zone: 2
+    idx: 7
+    name: "H\u1ED3 G\u01B0\u01A1ng"
+    kind: 0
+    enemies:
+    - hero: tieu_y
+      level: 5
+      boss: 0
+    - hero: map_rang
+      level: 5
+      boss: 0
+    - hero: canh_cut
+      level: 5
+      boss: 0
+    drops:
+    - hero: map_rang
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+  - id: 8
+    zone: 2
+    idx: 8
+    name: "Xo\xE1y N\u01B0\u1EDBc \u0110inh Ba"
+    kind: 2
+    enemies:
+    - hero: canh_cut
+      level: 5
+      boss: 0
+    - hero: map_rang
+      level: 6
+      boss: 1
+    drops:
+    - hero: map_rang
+      chance: 1
+      min: 4
+      max: 6
+      gift: 0
+  - id: 9
+    zone: 3
+    idx: 1
+    name: "B\u1EBFn \u0110\xE1 \u0110en"
+    kind: 0
+    enemies:
+    - hero: bo_de
+      level: 6
+      boss: 0
+    drops: []
+  - id: 10
+    zone: 3
+    idx: 2
+    name: "Su\u1ED1i Dung Nham"
+    kind: 0
+    enemies:
+    - hero: bo_de
+      level: 7
+      boss: 0
+    drops: []
+  - id: 11
+    zone: 3
+    idx: 3
+    name: "Ch\xF9a Li\xEAn Hoa"
+    kind: 0
+    enemies:
+    - hero: bo_de
+      level: 7
+      boss: 0
+    - hero: bo_de
+      level: 8
+      boss: 0
+    drops:
+    - hero: bo_de
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+  - id: 12
+    zone: 3
+    idx: 4
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n"
+    kind: 1
+    enemies:
+    - hero: bo_de
+      level: 9
+      boss: 1
+    drops:
+    - hero: bo_de
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+  - id: 13
+    zone: 3
+    idx: 5
+    name: "R\u1EEBng Than H\u1ED3ng"
+    kind: 0
+    enemies:
+    - hero: bo_de
+      level: 9
+      boss: 0
+    - hero: phap_luan
+      level: 8
+      boss: 0
+    drops: []
+  - id: 14
+    zone: 3
+    idx: 6
+    name: "C\u1ED5ng B\xE1nh Xe"
+    kind: 0
+    enemies:
+    - hero: phap_luan
+      level: 10
+      boss: 0
+    drops:
+    - hero: phap_luan
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+  - id: 15
+    zone: 3
+    idx: 7
+    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i"
+    kind: 0
+    enemies:
+    - hero: bo_de
+      level: 9
+      boss: 0
+    - hero: phap_luan
+      level: 9
+      boss: 0
+    - hero: bo_de
+      level: 9
+      boss: 0
+    drops: []
+  - id: 16
+    zone: 3
+    idx: 8
+    name: "Mi\u1EC7ng N\xFAi L\u1EEDa"
+    kind: 2
+    enemies:
+    - hero: bo_de
+      level: 9
+      boss: 0
+    - hero: phap_luan
+      level: 11
+      boss: 1
+    drops:
+    - hero: phap_luan
+      chance: 1
+      min: 4
+      max: 6
+      gift: 0
+    - hero: bo_de
+      chance: 0.5
+      min: 2
+      max: 3
+      gift: 0
+  - id: 17
+    zone: 0
+    idx: 1
+    name: "C\u1EA3ng S\u1EAFt"
+    kind: 0
+    enemies:
+    - hero: bu_long
+      level: 11
+      boss: 0
+    drops: []
+  - id: 18
+    zone: 0
+    idx: 2
+    name: "C\u1EA7u B\xE1nh R\u0103ng"
+    kind: 0
+    enemies:
+    - hero: phao_hop
+      level: 12
+      boss: 0
+    drops:
+    - hero: phao_hop
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+  - id: 19
+    zone: 0
+    idx: 3
+    name: "Th\xE1p Canh Th\xE9p"
+    kind: 0
+    enemies:
+    - hero: bu_long
+      level: 12
+      boss: 0
+    - hero: phao_hop
+      level: 13
+      boss: 0
+    drops: []
+  - id: 20
+    zone: 0
+    idx: 4
+    name: "G\xE1c Chu\xF4ng \u0110\u1ED3ng"
+    kind: 1
+    enemies:
+    - hero: bo_cap
+      level: 13
+      boss: 1
+    drops:
+    - hero: bu_long
+      chance: 1
+      min: 4
+      max: 6
+      gift: 0
+  - id: 21
+    zone: 0
+    idx: 5
+    name: "M\u1ECF S\u1EAFt Ng\xE2n"
+    kind: 0
+    enemies:
+    - hero: bo_ngua
+      level: 15
+      boss: 0
+    - hero: bu_long
+      level: 15
+      boss: 0
+    drops: []
+  - id: 22
+    zone: 0
+    idx: 6
+    name: "X\u01B0\u1EDFng \u0110\xFAc Chu\xF4ng"
+    kind: 0
+    enemies:
+    - hero: bo_cap
+      level: 16
+      boss: 0
+    drops:
+    - hero: bo_cap
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+  - id: 23
+    zone: 0
+    idx: 7
+    name: "T\u1ED5 C\xE1nh \u0110\xEAm"
+    kind: 0
+    enemies:
+    - hero: soi_linh
+      level: 16
+      boss: 0
+    drops:
+    - hero: soi_linh
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+  - id: 24
+    zone: 0
+    idx: 8
+    name: "Thi\xEAn Chung H\u1EAFc D\u1EF1c"
+    kind: 2
+    enemies:
+    - hero: bo_ngua
+      level: 15
+      boss: 0
+    - hero: soi_linh
+      level: 17
+      boss: 1
+    drops:
+    - hero: soi_linh
+      chance: 1
+      min: 4
+      max: 6
+      gift: 0
+    - hero: bo_ngua
+      chance: 0.5
+      min: 2
+      max: 3
+      gift: 0
+  - id: 25
+    zone: 1
+    idx: 1
+    name: "B\u1EDD R\xEAu"
+    kind: 0
+    enemies:
+    - hero: nu_hoa
+      level: 16
+      boss: 0
+    drops: []
+  - id: 26
+    zone: 1
+    idx: 2
+    name: "\u0110\u1ED3i N\u1EA5m"
+    kind: 0
+    enemies:
+    - hero: mam_go
+      level: 17
+      boss: 0
+    drops: []
+  - id: 27
+    zone: 1
+    idx: 3
+    name: "R\u1EEBng D\xE2y Leo"
+    kind: 0
+    enemies:
+    - hero: nu_hoa
+      level: 17
+      boss: 0
+    - hero: mam_go
+      level: 18
+      boss: 0
+    drops: []
+  - id: 28
+    zone: 1
+    idx: 4
+    name: "Hang Nanh Gi\xF3"
+    kind: 1
+    enemies:
+    - hero: de_hoa
+      level: 18
+      boss: 1
+    drops:
+    - hero: de_hoa
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+  - id: 29
+    zone: 1
+    idx: 5
+    name: "\u0110\u1ED3ng Hoa S\xE1ng"
+    kind: 0
+    enemies:
+    - hero: giac_long
+      level: 19
+      boss: 0
+    - hero: nu_hoa
+      level: 19
+      boss: 0
+    drops: []
+  - id: 30
+    zone: 1
+    idx: 6
+    name: "C\xE2y C\u1ED5 Th\u1EE5 Con"
+    kind: 0
+    enemies:
+    - hero: giac_long
+      level: 20
+      boss: 0
+    drops:
+    - hero: giac_long
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+  - id: 31
+    zone: 1
+    idx: 7
+    name: "Thung L\u0169ng L\xE1"
+    kind: 0
+    enemies:
+    - hero: mam_go
+      level: 20
+      boss: 0
+    - hero: de_hoa
+      level: 20
+      boss: 0
+    - hero: nu_hoa
+      level: 20
+      boss: 0
+    drops: []
+  - id: 32
+    zone: 1
+    idx: 8
+    name: "C\xE2y Th\u1EA7n Ng\xE0n N\u0103m"
+    kind: 2
+    enemies:
+    - hero: mam_go
+      level: 20
+      boss: 0
+    - hero: giac_long
+      level: 22
+      boss: 1
+    drops:
+    - hero: giac_long
+      chance: 1
+      min: 4
+      max: 6
+      gift: 0
+  - id: 33
+    zone: 4
+    idx: 1
+    name: "B\xE3i C\xE1t V\xE0ng"
+    kind: 0
+    enemies:
+    - hero: vo_su
+      level: 21
+      boss: 0
+    drops: []
+  - id: 34
+    zone: 4
+    idx: 2
+    name: "\u0110\u1ED3i \u0110\u1EA5t Nung"
+    kind: 0
+    enemies:
+    - hero: vo_su
+      level: 22
+      boss: 0
+    drops: []
+  - id: 35
+    zone: 4
+    idx: 3
+    name: "C\u1EA7u Treo"
+    kind: 0
+    enemies:
+    - hero: vo_su
+      level: 22
+      boss: 0
+    - hero: vo_su
+      level: 23
+      boss: 0
+    drops: []
+  - id: 36
+    zone: 4
+    idx: 4
+    name: "V\xF5 \u0110\u01B0\u1EDDng \u0110\xE1"
+    kind: 1
+    enemies:
+    - hero: vo_su
+      level: 24
+      boss: 1
+    drops:
+    - hero: vo_su
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+  - id: 37
+    zone: 4
+    idx: 5
+    name: "Ru\u1ED9ng B\u1EADc Thang"
+    kind: 0
+    enemies:
+    - hero: vo_su
+      level: 24
+      boss: 0
+    - hero: ca_sa
+      level: 21
+      boss: 0
+    drops: []
+  - id: 38
+    zone: 4
+    idx: 6
+    name: "Ch\xF9a \u0110\xE1"
+    kind: 0
+    enemies:
+    - hero: ca_sa
+      level: 22
+      boss: 0
+    drops:
+    - hero: ca_sa
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+  - id: 39
+    zone: 4
+    idx: 7
+    name: "S\xE2n T\u01B0\u1EE3ng \u0110\xE1"
+    kind: 0
+    enemies:
+    - hero: vo_su
+      level: 25
+      boss: 0
+    - hero: ca_sa
+      level: 23
+      boss: 0
+    - hero: vo_su
+      level: 25
+      boss: 0
+    drops: []
+  - id: 40
+    zone: 4
+    idx: 8
+    name: "Kim T\u1EF1 Vi\u1EC7n"
+    kind: 2
+    enemies:
+    - hero: vo_su
+      level: 24
+      boss: 0
+    - hero: ca_sa
+      level: 23
+      boss: 1
+    drops:
+    - hero: ca_sa
+      chance: 1
+      min: 5
+      max: 8
+      gift: 0
+  village:
+    x: 0.5
+    y: 0.44

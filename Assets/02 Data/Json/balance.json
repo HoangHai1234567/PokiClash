@@ -1,0 +1,596 @@
+{
+ "cfg": {
+  "picks": 5,
+  "offer": 3,
+  "manaPerTurn": 20,
+  "benchMana": 10,
+  "maxMana": 100,
+  "maxRage": 100,
+  "rageOnAttack": 10,
+  "rageOnHit": 80,
+  "critBase": 0.05,
+  "critMult": 1.6,
+  "defK": 100,
+  "dmgVar": 0.08,
+  "shieldCap": 0.6,
+  "hpBase": 600,
+  "atkBase": 180,
+  "defBase": 55,
+  "lvStep": 0.1,
+  "starStep": 0.08,
+  "bossHp": 1.8,
+  "bossAtk": 1.1,
+  "cardLvStep": 0.15,
+  "maxRounds": 60
+ },
+ "progression": {
+  "saveVersion": 4,
+  "maxLevel": 30,
+  "expBase": 40,
+  "expPow": 1.35,
+  "afkCapH": 12,
+  "legendMilestone": 300,
+  "cardMax": 5,
+  "maxStar": 5,
+  "xSteps": [
+   {
+    "x": 1,
+    "lv": 1
+   },
+   {
+    "x": 2,
+    "lv": 3
+   },
+   {
+    "x": 3,
+    "lv": 5
+   },
+   {
+    "x": 5,
+    "lv": 8
+   },
+   {
+    "x": 10,
+    "lv": 12
+   }
+  ],
+  "cardReq": [
+   0,
+   2,
+   4,
+   8,
+   15
+  ],
+  "starCards": [
+   0,
+   0,
+   5,
+   8,
+   11,
+   15
+  ],
+  "starLevel": [
+   0,
+   1,
+   2,
+   5,
+   9,
+   14
+  ],
+  "formStars": [
+   3,
+   5
+  ]
+ },
+ "poolWeight": {
+  "common": 50,
+  "uncommon": 30,
+  "rare": 14,
+  "epic": 5,
+  "legend": 1
+ },
+ "pachinko": {
+  "maxPerDrop": 20,
+  "maxPerDropHigh": 30,
+  "maxPerDropLevel": 15,
+  "legendCopies": 15,
+  "chests": {
+   "chest_wood": [
+    {
+     "w": 55,
+     "k": "balls",
+     "min": 2,
+     "max": 3
+    },
+    {
+     "w": 35,
+     "k": "exp",
+     "min": 15,
+     "max": 30
+    },
+    {
+     "w": 10,
+     "k": "cards",
+     "min": 1,
+     "max": 1,
+     "rar": {
+      "common": 70,
+      "uncommon": 30
+     }
+    }
+   ],
+   "chest_silver": [
+    {
+     "w": 27.6,
+     "k": "balls",
+     "min": 3,
+     "max": 6
+    },
+    {
+     "w": 27.6,
+     "k": "exp",
+     "min": 40,
+     "max": 70
+    },
+    {
+     "w": 32.2,
+     "k": "cards",
+     "min": 2,
+     "max": 2,
+     "rar": {
+      "common": 45,
+      "uncommon": 35,
+      "rare": 18,
+      "epic": 2
+     }
+    },
+    {
+     "w": 4.6,
+     "k": "shards",
+     "min": 1,
+     "max": 2
+    },
+    {
+     "w": 8,
+     "k": "stones",
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "chest_gold": [
+    {
+     "w": 17.6,
+     "k": "balls",
+     "min": 8,
+     "max": 12
+    },
+    {
+     "w": 17.6,
+     "k": "exp",
+     "min": 100,
+     "max": 160
+    },
+    {
+     "w": 44,
+     "k": "cards",
+     "min": 3,
+     "max": 3,
+     "rar": {
+      "uncommon": 45,
+      "rare": 40,
+      "epic": 14.99,
+      "legend": 0.01
+     }
+    },
+    {
+     "w": 8.8,
+     "k": "shards",
+     "min": 2,
+     "max": 4
+    },
+    {
+     "w": 12,
+     "k": "stones",
+     "min": 2,
+     "max": 4
+    }
+   ]
+  },
+  "measured": {
+   "balls": 6000,
+   "rates": {
+    "chest_silver": 0.0597,
+    "exp10": 0.2275,
+    "exp5": 0.296,
+    "exp15": 0.22,
+    "chest_gold": 0.0343,
+    "ball": 0.0878,
+    "chest_wood": 0.0747
+   }
+  }
+ },
+ "afk": {
+  "shardChance": 0.08,
+  "chestEveryH": 3,
+  "chestSlots": 4,
+  "chestOpenH": 2,
+  "boostH": 2,
+  "boostMult": 2,
+  "chest": [
+   {
+    "w": 38,
+    "k": "balls",
+    "min": 4,
+    "max": 8
+   },
+   {
+    "w": 28.5,
+    "k": "exp",
+    "min": 30,
+    "max": 60
+   },
+   {
+    "w": 28.5,
+    "k": "cards",
+    "min": 1,
+    "max": 2,
+    "rar": {
+     "common": 60,
+     "uncommon": 30,
+     "rare": 9.5,
+     "epic": 0.5
+    }
+   },
+   {
+    "w": 5,
+    "k": "stones",
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ "simTeams": {
+  "thuy": {
+   "team": [
+    "giot_suong",
+    "vo_su",
+    "nu_hoa"
+   ],
+   "star": 1,
+   "card": 1
+  },
+  "hoa": {
+   "team": [
+    "ca_ngua",
+    "giot_suong",
+    "vo_su"
+   ],
+   "star": 2,
+   "card": 2
+  },
+  "kim": {
+   "team": [
+    "phap_luan",
+    "bo_de",
+    "ca_ngua"
+   ],
+   "star": 2,
+   "card": 2
+  },
+  "moc": {
+   "team": [
+    "soi_linh",
+    "bo_cap",
+    "bu_long"
+   ],
+   "star": 3,
+   "card": 3
+  },
+  "tho": {
+   "team": [
+    "de_hoa",
+    "nu_hoa",
+    "soi_linh"
+   ],
+   "star": 3,
+   "card": 3
+  }
+ },
+ "badges": {
+  "tiers": [
+   "Đồng",
+   "Bạc",
+   "Vàng",
+   "Ngọc",
+   "Kim Cương"
+  ],
+  "counts": [
+   5,
+   5,
+   10,
+   10,
+   10
+  ],
+  "bonus": [
+   0.05,
+   0.08,
+   0.12,
+   0.16,
+   0.2
+  ],
+  "levelPerTier": 3,
+  "ballsBase": 5,
+  "ballsPerTier": 2,
+  "chest": [
+   "chest_silver",
+   "chest_silver",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold"
+  ]
+ },
+ "potential": {
+  "kinds": [
+   "atk",
+   "def",
+   "hp",
+   "spd",
+   "crit",
+   "lifesteal",
+   "mana",
+   "rage"
+  ],
+  "values": {
+   "atk": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.16
+   ],
+   "def": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.16
+   ],
+   "hp": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.16
+   ],
+   "spd": [
+    2,
+    4,
+    6,
+    9,
+    12
+   ],
+   "crit": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ],
+   "lifesteal": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ],
+   "mana": [
+    5,
+    10,
+    15,
+    20,
+    30
+   ],
+   "rage": [
+    5,
+    10,
+    15,
+    20,
+    30
+   ]
+  },
+  "rarityWeight": [
+   55,
+   28,
+   12,
+   4.5,
+   0.5
+  ],
+  "caps": {
+   "atk": 0.4,
+   "def": 0.4,
+   "hp": 0.4,
+   "spd": 30,
+   "crit": 0.4,
+   "lifesteal": 0.4,
+   "mana": 50,
+   "rage": 50
+  },
+  "slotStar": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "lockCost": 2,
+  "maxLocks": 2
+ },
+ "cave": {
+  "tiers": [
+   {
+    "name": "Dễ",
+    "level": 6,
+    "stones": 2
+   },
+   {
+    "name": "Thường",
+    "level": 12,
+    "stones": 3
+   },
+   {
+    "name": "Khó",
+    "level": 18,
+    "stones": 5
+   },
+   {
+    "name": "Ác mộng",
+    "level": 24,
+    "stones": 8
+   }
+  ],
+  "winsPerDay": 3,
+  "adExtra": 1,
+  "weekday": [
+   null,
+   "kim",
+   "moc",
+   "thuy",
+   "hoa",
+   "tho",
+   null
+  ]
+ },
+ "farm": {
+  "minHeroes": 3,
+  "base": 2,
+  "rarityPower": [
+   1,
+   1.1,
+   1.22,
+   1.36,
+   1.5
+  ],
+  "lvStep": 0,
+  "starStep": 0.1,
+  "match": 1.25,
+  "durBase": 8,
+  "durStar": 1,
+  "durRarity": 0,
+  "restPerHour": 15,
+  "restMin": 15,
+  "restMax": 60,
+  "capHours": 10,
+  "openSpots": 3,
+  "spotLevels": [
+   8,
+   11,
+   14,
+   17,
+   20
+  ],
+  "boostH": 1,
+  "boostMult": 2,
+  "spots": [
+   {
+    "id": "duck1",
+    "kind": "duck",
+    "name": "Ao vịt",
+    "elem": "thuy",
+    "x": 0.26,
+    "y": 0.3
+   },
+   {
+    "id": "veg1",
+    "kind": "veg",
+    "name": "Ruộng rau",
+    "elem": "tho",
+    "x": 0.72,
+    "y": 0.3
+   },
+   {
+    "id": "orchard1",
+    "kind": "orchard",
+    "name": "Vườn cây",
+    "elem": "moc",
+    "x": 0.26,
+    "y": 0.48
+   },
+   {
+    "id": "bakery",
+    "kind": "bakery",
+    "name": "Lò bánh",
+    "elem": "hoa",
+    "x": 0.72,
+    "y": 0.48
+   },
+   {
+    "id": "smithy",
+    "kind": "smithy",
+    "name": "Xưởng nông cụ",
+    "elem": "kim",
+    "x": 0.26,
+    "y": 0.66
+   },
+   {
+    "id": "duck2",
+    "kind": "duck",
+    "name": "Ao vịt",
+    "elem": "thuy",
+    "x": 0.72,
+    "y": 0.66
+   },
+   {
+    "id": "veg2",
+    "kind": "veg",
+    "name": "Ruộng rau",
+    "elem": "tho",
+    "x": 0.26,
+    "y": 0.84
+   },
+   {
+    "id": "orchard2",
+    "kind": "orchard",
+    "name": "Vườn cây",
+    "elem": "moc",
+    "x": 0.72,
+    "y": 0.84
+   }
+  ]
+ },
+ "trees": {
+  "perHour": 5,
+  "cap": 50,
+  "unlockZones": [
+   "thuy",
+   "hoa",
+   "kim",
+   "moc"
+  ]
+ },
+ "ads": {
+  "limits": {
+   "tree_double": 3,
+   "afk_chest_open": 4,
+   "afk_boost": 3,
+   "farm_boost": 3,
+   "cave_extra": 1
+  },
+  "pass": {
+   "days": 30,
+   "treeMult": 1.5,
+   "afkSlots": 5,
+   "afkOpenH": 1
+  },
+  "products": [
+   {
+    "id": "adventure_pass",
+    "name": "Thẻ Phiêu Lưu 30 ngày",
+    "desc": "Cây bi ra nhanh ×1,5 và chứa ×1,5; khay rương AFK 5 ô; rương AFK mở trong 1 giờ."
+   },
+   {
+    "id": "no_ads",
+    "name": "Bỏ quảng cáo",
+    "desc": "Mọi chỗ quảng cáo thưởng trao thưởng ngay, không cần xem (vẫn theo giới hạn mỗi ngày)."
+   }
+  ]
+ }
+}

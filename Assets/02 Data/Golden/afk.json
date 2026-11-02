@@ -1,0 +1,1231 @@
+{
+ "t0": 1700000000000,
+ "steps": [
+  {
+   "op": "tick",
+   "t": 1700007200000,
+   "r": true,
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700007200000,
+    "boostUntil": 0,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 0
+   },
+   "times": [],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "zone",
+   "zone": "thuy",
+   "n": 8,
+   "r": null,
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700007200000,
+    "boostUntil": 0,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 0
+   },
+   "times": [],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "pending",
+   "t": 1700009000000,
+   "r": {
+    "hours": 0.5,
+    "full": false
+   },
+   "afk": {
+    "hours": 0.5,
+    "lastTick": 1700009000000,
+    "boostUntil": 0,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 0
+   },
+   "times": [],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "pending",
+   "t": 1700025200000,
+   "r": {
+    "hours": 5,
+    "full": false
+   },
+   "afk": {
+    "hours": 5,
+    "lastTick": 1700025200000,
+    "boostUntil": 0,
+    "chestAcc": 2,
+    "chests": [
+     1700018000000
+    ],
+    "chainAt": 0
+   },
+   "times": [
+    {
+     "start": 1700018000000,
+     "ready": 1700025200000
+    }
+   ],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "boost",
+   "t": 1700025200000,
+   "r": true,
+   "afk": {
+    "hours": 5,
+    "lastTick": 1700025200000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 2,
+    "chests": [
+     1700018000000
+    ],
+    "chainAt": 0
+   },
+   "times": [
+    {
+     "start": 1700018000000,
+     "ready": 1700025200000
+    }
+   ],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "boost",
+   "t": 1700028800000,
+   "r": false,
+   "afk": {
+    "hours": 7,
+    "lastTick": 1700028800000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 1,
+    "chests": [
+     1700018000000,
+     1700027000000
+    ],
+    "chainAt": 0
+   },
+   "times": [
+    {
+     "start": 1700018000000,
+     "ready": 1700025200000
+    },
+    {
+     "start": 1700027000000,
+     "ready": 1700034200000
+    }
+   ],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "pending",
+   "t": 1700043200000,
+   "r": {
+    "hours": 12,
+    "full": true
+   },
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700043200000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700018000000,
+     1700027000000,
+     1700032400000,
+     1700043200000
+    ],
+    "chainAt": 0
+   },
+   "times": [
+    {
+     "start": 1700018000000,
+     "ready": 1700025200000
+    },
+    {
+     "start": 1700027000000,
+     "ready": 1700034200000
+    },
+    {
+     "start": 1700034200000,
+     "ready": 1700041400000
+    },
+    {
+     "start": 1700043200000,
+     "ready": 1700050400000
+    }
+   ],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "pending",
+   "t": 1700072000000,
+   "r": {
+    "hours": 12,
+    "full": true
+   },
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700018000000,
+     1700027000000,
+     1700032400000,
+     1700043200000
+    ],
+    "chainAt": 0
+   },
+   "times": [
+    {
+     "start": 1700018000000,
+     "ready": 1700025200000
+    },
+    {
+     "start": 1700027000000,
+     "ready": 1700034200000
+    },
+    {
+     "start": 1700034200000,
+     "ready": 1700041400000
+    },
+    {
+     "start": 1700043200000,
+     "ready": 1700050400000
+    }
+   ],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "open",
+   "t": 1700021600000,
+   "early": false,
+   "r": null,
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700021600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700018000000,
+     1700027000000,
+     1700032400000,
+     1700043200000
+    ],
+    "chainAt": 0
+   },
+   "times": [
+    {
+     "start": 1700018000000,
+     "ready": 1700025200000
+    },
+    {
+     "start": 1700027000000,
+     "ready": 1700034200000
+    },
+    {
+     "start": 1700034200000,
+     "ready": 1700041400000
+    },
+    {
+     "start": 1700043200000,
+     "ready": 1700050400000
+    }
+   ],
+   "balls": 10,
+   "exp": 0,
+   "level": 1,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "open",
+   "t": 1700072000000,
+   "early": false,
+   "r": [
+    [
+     "exp",
+     43,
+     1
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700027000000,
+     1700032400000,
+     1700043200000
+    ],
+    "chainAt": 1700025200000
+   },
+   "times": [
+    {
+     "start": 1700027000000,
+     "ready": 1700034200000
+    },
+    {
+     "start": 1700034200000,
+     "ready": 1700041400000
+    },
+    {
+     "start": 1700043200000,
+     "ready": 1700050400000
+    }
+   ],
+   "balls": 10,
+   "exp": 3,
+   "level": 2,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "open",
+   "t": 1700072000000,
+   "early": false,
+   "r": [
+    [
+     "balls",
+     5
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700032400000,
+     1700043200000
+    ],
+    "chainAt": 1700034200000
+   },
+   "times": [
+    {
+     "start": 1700034200000,
+     "ready": 1700041400000
+    },
+    {
+     "start": 1700043200000,
+     "ready": 1700050400000
+    }
+   ],
+   "balls": 15,
+   "exp": 3,
+   "level": 2,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "open",
+   "t": 1700072000000,
+   "early": false,
+   "r": [
+    [
+     "exp",
+     57,
+     0
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700043200000
+    ],
+    "chainAt": 1700041400000
+   },
+   "times": [
+    {
+     "start": 1700043200000,
+     "ready": 1700050400000
+    }
+   ],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "open",
+   "t": 1700072000000,
+   "early": false,
+   "r": [
+    [
+     "card",
+     "vo_su",
+     "skill",
+     "vs_skill",
+     "common"
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 1700050400000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "open",
+   "t": 1700072000000,
+   "early": false,
+   "r": null,
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 1700050400000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700000000000
+  },
+  {
+   "op": "claim",
+   "t": 1700072000000,
+   "mult": 1,
+   "r": {
+    "hours": 12,
+    "shards": [
+     [
+      "ca_ngua",
+      1,
+      false,
+      0
+     ]
+    ]
+   },
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700072000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 1700050400000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "tick",
+   "t": 1700054000000,
+   "r": false,
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700054000000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 1700050400000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "pending",
+   "t": 1700064800000,
+   "r": {
+    "hours": 3,
+    "full": false
+   },
+   "afk": {
+    "hours": 3,
+    "lastTick": 1700064800000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0,
+    "chests": [
+     1700064800000
+    ],
+    "chainAt": 1700050400000
+   },
+   "times": [
+    {
+     "start": 1700064800000,
+     "ready": 1700072000000
+    }
+   ],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "open",
+   "t": 1700066600000,
+   "early": false,
+   "r": null,
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [
+     1700064800000
+    ],
+    "chainAt": 1700050400000
+   },
+   "times": [
+    {
+     "start": 1700064800000,
+     "ready": 1700072000000
+    }
+   ],
+   "balls": 15,
+   "exp": 60,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "open",
+   "t": 1700066600000,
+   "early": true,
+   "r": [
+    [
+     "exp",
+     33,
+     0
+    ]
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "open",
+   "r": [
+    true,
+    3
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "open",
+   "r": [
+    true,
+    2
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "open",
+   "r": [
+    true,
+    1
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "open",
+   "r": [
+    true,
+    0
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "open",
+   "r": [
+    false,
+    0
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "boost",
+   "r": [
+    true,
+    2
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "boost",
+   "r": [
+    true,
+    1
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "boost",
+   "r": [
+    true,
+    0
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 100,
+   "kind": "boost",
+   "r": [
+    false,
+    0
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "ad",
+   "day": 101,
+   "kind": "open",
+   "r": [
+    true,
+    3
+   ],
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700032400000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700066600000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700072000000
+  },
+  {
+   "op": "travel",
+   "ms": 28800000,
+   "r": null,
+   "afk": {
+    "hours": 3.5,
+    "lastTick": 1700037800000,
+    "boostUntil": 1700003600000,
+    "chestAcc": 0.5,
+    "chests": [],
+    "chainAt": 1700037800000
+   },
+   "times": [],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700043200000
+  },
+  {
+   "op": "pending",
+   "t": 1700066600000,
+   "r": {
+    "hours": 11.5,
+    "full": false
+   },
+   "afk": {
+    "hours": 11.5,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700003600000,
+    "chestAcc": 2.5,
+    "chests": [
+     1700046800000,
+     1700057600000
+    ],
+    "chainAt": 1700037800000
+   },
+   "times": [
+    {
+     "start": 1700046800000,
+     "ready": 1700054000000
+    },
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    }
+   ],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700043200000
+  },
+  {
+   "op": "claim",
+   "t": 1700066600000,
+   "mult": 2,
+   "r": {
+    "hours": 11.5,
+    "shards": []
+   },
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700003600000,
+    "chestAcc": 2.5,
+    "chests": [
+     1700046800000,
+     1700057600000
+    ],
+    "chainAt": 1700037800000
+   },
+   "times": [
+    {
+     "start": 1700046800000,
+     "ready": 1700054000000
+    },
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    }
+   ],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "zone",
+   "zone": "hoa",
+   "n": 8,
+   "r": null,
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700066600000,
+    "boostUntil": 1700003600000,
+    "chestAcc": 2.5,
+    "chests": [
+     1700046800000,
+     1700057600000
+    ],
+    "chainAt": 1700037800000
+   },
+   "times": [
+    {
+     "start": 1700046800000,
+     "ready": 1700054000000
+    },
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    }
+   ],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "boost",
+   "t": 1700068400000,
+   "r": true,
+   "afk": {
+    "hours": 0.5,
+    "lastTick": 1700068400000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [
+     1700046800000,
+     1700057600000,
+     1700068400000
+    ],
+    "chainAt": 1700037800000
+   },
+   "times": [
+    {
+     "start": 1700046800000,
+     "ready": 1700054000000
+    },
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    },
+    {
+     "start": 1700068400000,
+     "ready": 1700075600000
+    }
+   ],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "pending",
+   "t": 1700086400000,
+   "r": {
+    "hours": 7.5,
+    "full": false
+   },
+   "afk": {
+    "hours": 7.5,
+    "lastTick": 1700086400000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 3,
+    "chests": [
+     1700046800000,
+     1700057600000,
+     1700068400000,
+     1700073800000
+    ],
+    "chainAt": 1700037800000
+   },
+   "times": [
+    {
+     "start": 1700046800000,
+     "ready": 1700054000000
+    },
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    },
+    {
+     "start": 1700068400000,
+     "ready": 1700075600000
+    },
+    {
+     "start": 1700075600000,
+     "ready": 1700082800000
+    }
+   ],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "pending",
+   "t": 1700144000000,
+   "r": {
+    "hours": 12,
+    "full": true
+   },
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700144000000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 3,
+    "chests": [
+     1700046800000,
+     1700057600000,
+     1700068400000,
+     1700073800000
+    ],
+    "chainAt": 1700037800000
+   },
+   "times": [
+    {
+     "start": 1700046800000,
+     "ready": 1700054000000
+    },
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    },
+    {
+     "start": 1700068400000,
+     "ready": 1700075600000
+    },
+    {
+     "start": 1700075600000,
+     "ready": 1700082800000
+    }
+   ],
+   "balls": 15,
+   "exp": 93,
+   "level": 2,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "open",
+   "t": 1700144000000,
+   "early": false,
+   "r": [
+    [
+     "exp",
+     58,
+     1
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700144000000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [
+     1700057600000,
+     1700068400000,
+     1700073800000,
+     1700144000000
+    ],
+    "chainAt": 1700054000000
+   },
+   "times": [
+    {
+     "start": 1700057600000,
+     "ready": 1700064800000
+    },
+    {
+     "start": 1700068400000,
+     "ready": 1700075600000
+    },
+    {
+     "start": 1700075600000,
+     "ready": 1700082800000
+    },
+    {
+     "start": 1700144000000,
+     "ready": 1700151200000
+    }
+   ],
+   "balls": 15,
+   "exp": 49,
+   "level": 3,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "open",
+   "t": 1700147600000,
+   "early": false,
+   "r": [
+    [
+     "exp",
+     53,
+     0
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700147600000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [
+     1700068400000,
+     1700073800000,
+     1700144000000
+    ],
+    "chainAt": 1700064800000
+   },
+   "times": [
+    {
+     "start": 1700068400000,
+     "ready": 1700075600000
+    },
+    {
+     "start": 1700075600000,
+     "ready": 1700082800000
+    },
+    {
+     "start": 1700144000000,
+     "ready": 1700151200000
+    }
+   ],
+   "balls": 15,
+   "exp": 102,
+   "level": 3,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "open",
+   "t": 1700151200000,
+   "early": false,
+   "r": [
+    [
+     "balls",
+     8
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700151200000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [
+     1700073800000,
+     1700144000000
+    ],
+    "chainAt": 1700075600000
+   },
+   "times": [
+    {
+     "start": 1700075600000,
+     "ready": 1700082800000
+    },
+    {
+     "start": 1700144000000,
+     "ready": 1700151200000
+    }
+   ],
+   "balls": 23,
+   "exp": 102,
+   "level": 3,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "open",
+   "t": 1700154800000,
+   "early": false,
+   "r": [
+    [
+     "card",
+     "nu_hoa",
+     "ult",
+     "nu_hoa_ult",
+     "uncommon"
+    ],
+    [
+     "card",
+     "nu_hoa",
+     "skill",
+     "nu_hoa_skill",
+     "common"
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700154800000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [
+     1700144000000
+    ],
+    "chainAt": 1700082800000
+   },
+   "times": [
+    {
+     "start": 1700144000000,
+     "ready": 1700151200000
+    }
+   ],
+   "balls": 23,
+   "exp": 102,
+   "level": 3,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "open",
+   "t": 1700158400000,
+   "early": false,
+   "r": [
+    [
+     "balls",
+     7
+    ]
+   ],
+   "afk": {
+    "hours": 12,
+    "lastTick": 1700158400000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 1700151200000
+   },
+   "times": [],
+   "balls": 30,
+   "exp": 102,
+   "level": 3,
+   "afkSince": 1700066600000
+  },
+  {
+   "op": "claim",
+   "t": 1700162000000,
+   "mult": 1,
+   "r": {
+    "hours": 12,
+    "shards": [
+     [
+      "ca_ngua",
+      1,
+      false,
+      0
+     ]
+    ]
+   },
+   "afk": {
+    "hours": 0,
+    "lastTick": 1700162000000,
+    "boostUntil": 1700075600000,
+    "chestAcc": 0,
+    "chests": [],
+    "chainAt": 1700151200000
+   },
+   "times": [],
+   "balls": 30,
+   "exp": 102,
+   "level": 3,
+   "afkSince": 1700162000000
+  }
+ ]
+}

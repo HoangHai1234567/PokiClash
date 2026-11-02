@@ -1,0 +1,443 @@
+{
+ "t0": 1800000000000,
+ "steps": [
+  {
+   "op": "tick",
+   "h": 0,
+   "arg": null,
+   "r": true,
+   "open": 0,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800000000000,
+    "stock": []
+   },
+   "balls": 10
+  },
+  {
+   "op": "stock",
+   "h": 5,
+   "arg": null,
+   "r": 0,
+   "open": 0,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800018000000,
+    "stock": []
+   },
+   "balls": 10
+  },
+  {
+   "op": "zone",
+   "h": 5,
+   "arg": "clear1",
+   "r": null,
+   "open": 1,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800018000000,
+    "stock": []
+   },
+   "balls": 10
+  },
+  {
+   "op": "stock",
+   "h": 6,
+   "arg": null,
+   "r": 0,
+   "open": 1,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800021600000,
+    "stock": [
+     0
+    ]
+   },
+   "balls": 10
+  },
+  {
+   "op": "stock",
+   "h": 8.5,
+   "arg": null,
+   "r": 12,
+   "open": 1,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800030600000,
+    "stock": [
+     12.5
+    ]
+   },
+   "balls": 10
+  },
+  {
+   "op": "harvest",
+   "h": 8.5,
+   "arg": null,
+   "r": 12,
+   "open": 1,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800030600000,
+    "stock": [
+     0.5
+    ]
+   },
+   "balls": 22
+  },
+  {
+   "op": "stock",
+   "h": 20,
+   "arg": null,
+   "r": 50,
+   "open": 1,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800072000000,
+    "stock": [
+     50
+    ]
+   },
+   "balls": 22
+  },
+  {
+   "op": "zone",
+   "h": 20,
+   "arg": "thuy",
+   "r": null,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800072000000,
+    "stock": [
+     50
+    ]
+   },
+   "balls": 22
+  },
+  {
+   "op": "stock",
+   "h": 21,
+   "arg": null,
+   "r": 50,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800075600000,
+    "stock": [
+     50,
+     0
+    ]
+   },
+   "balls": 22
+  },
+  {
+   "op": "harvest2",
+   "h": 21,
+   "arg": null,
+   "r": 100,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800075600000,
+    "stock": [
+     0,
+     0
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "stock",
+   "h": 23.25,
+   "arg": null,
+   "r": 22,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800083700000,
+    "stock": [
+     11.25,
+     11.25
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "tick",
+   "h": 22,
+   "arg": null,
+   "r": false,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800079200000,
+    "stock": [
+     11.25,
+     11.25
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "stock",
+   "h": 24,
+   "arg": null,
+   "r": 42,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800086400000,
+    "stock": [
+     21.25,
+     21.25
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "travel",
+   "h": 24,
+   "arg": 30,
+   "r": null,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1799978400000,
+    "stock": [
+     21.25,
+     21.25
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "stock",
+   "h": 24,
+   "arg": null,
+   "r": 100,
+   "open": 2,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800086400000,
+    "stock": [
+     50,
+     50
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "zone",
+   "h": 24,
+   "arg": "hoa",
+   "r": null,
+   "open": 3,
+   "cap": 50,
+   "trees": {
+    "lastTick": 1800086400000,
+    "stock": [
+     50,
+     50
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "pass",
+   "h": 24,
+   "arg": null,
+   "r": true,
+   "open": 3,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800086400000,
+    "stock": [
+     50,
+     50
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "stock",
+   "h": 30,
+   "arg": null,
+   "r": 150,
+   "open": 3,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800108000000,
+    "stock": [
+     75,
+     75,
+     0
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "stock",
+   "h": 50,
+   "arg": null,
+   "r": 225,
+   "open": 3,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800180000000,
+    "stock": [
+     75,
+     75,
+     75
+    ]
+   },
+   "balls": 122
+  },
+  {
+   "op": "harvest",
+   "h": 50,
+   "arg": null,
+   "r": 225,
+   "open": 3,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800180000000,
+    "stock": [
+     0,
+     0,
+     0
+    ]
+   },
+   "balls": 347
+  },
+  {
+   "op": "zone",
+   "h": 50,
+   "arg": "kim",
+   "r": null,
+   "open": 4,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800180000000,
+    "stock": [
+     0,
+     0,
+     0
+    ]
+   },
+   "balls": 347
+  },
+  {
+   "op": "zone",
+   "h": 50,
+   "arg": "moc",
+   "r": null,
+   "open": 5,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800180000000,
+    "stock": [
+     0,
+     0,
+     0
+    ]
+   },
+   "balls": 347
+  },
+  {
+   "op": "stock",
+   "h": 60,
+   "arg": null,
+   "r": 225,
+   "open": 5,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800216000000,
+    "stock": [
+     75,
+     75,
+     75,
+     0,
+     0
+    ]
+   },
+   "balls": 347
+  },
+  {
+   "op": "travel",
+   "h": 60,
+   "arg": 720,
+   "r": null,
+   "open": 5,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1797624000000,
+    "stock": [
+     75,
+     75,
+     75,
+     0,
+     0
+    ]
+   },
+   "balls": 347
+  },
+  {
+   "op": "stock",
+   "h": 60,
+   "arg": null,
+   "r": 375,
+   "open": 5,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800216000000,
+    "stock": [
+     75,
+     75,
+     75,
+     75,
+     75
+    ]
+   },
+   "balls": 347
+  },
+  {
+   "op": "harvest",
+   "h": 60,
+   "arg": null,
+   "r": 375,
+   "open": 5,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800216000000,
+    "stock": [
+     0,
+     0,
+     0,
+     0,
+     0
+    ]
+   },
+   "balls": 722
+  },
+  {
+   "op": "stock",
+   "h": 70,
+   "arg": null,
+   "r": 375,
+   "open": 5,
+   "cap": 75,
+   "trees": {
+    "lastTick": 1800252000000,
+    "stock": [
+     75,
+     75,
+     75,
+     75,
+     75
+    ]
+   },
+   "balls": 722
+  }
+ ]
+}

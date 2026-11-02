@@ -6,6 +6,39 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/00 Scenes/Boot.unity
+    guid: f81469d5b37ca374582fc59b16276550
+  - enabled: 1
+    path: Assets/00 Scenes/Hub.unity
+    guid: ff8838112bd3bed468e47d921ee3e349
+  - enabled: 1
+    path: Assets/00 Scenes/Zone.unity
+    guid: 4440875698fd2b544ab3b1a5dbecccbc
+  - enabled: 1
+    path: Assets/00 Scenes/Battle.unity
+    guid: 48de63b0ae5d32a4eae65f8d22533729
+  - enabled: 1
+    path: Assets/00 Scenes/Machine.unity
+    guid: 1495d28103d01cf4cb636f33d4c72782
+  - enabled: 1
+    path: Assets/00 Scenes/Heroes.unity
+    guid: e8f738d21119ccb4dbe06ed90443ab99
+  - enabled: 1
+    path: Assets/00 Scenes/Cards.unity
+    guid: 31b6f0181ed7c6343989a5c920445345
+  - enabled: 1
+    path: Assets/00 Scenes/Notebook.unity
+    guid: 10662c47ec5b3ad41ac3cf0643ec9afd
+  - enabled: 1
+    path: Assets/00 Scenes/Badges.unity
+    guid: 65c6114ad37ca9640988e580e195bc4d
+  - enabled: 1
+    path: Assets/00 Scenes/Cave.unity
+    guid: a26898ad3bd9181419c03f922ee03998
+  - enabled: 1
+    path: Assets/00 Scenes/Farm.unity
+    guid: 3626ecaf4fa3ca847b1ac70ba43830f0
+  - enabled: 1
     path: Assets/00 Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   m_configObjects:

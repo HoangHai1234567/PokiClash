@@ -23,7 +23,22 @@ Game đánh nhau, vượt ải để thu phục tướng, ghép puzzle xếp kh�
 | [07_MayBi.md](07_MayBi.md) | Máy bi Clash of Critters; khác ClashMaster ở đâu; máy bi Thu phục; chuyện kiếm tiền |
 | [08_KyThuat_Unity.md](08_KyThuat_Unity.md) | Dùng lại logic Block Blast của 2PlayersGame; cấu trúc code; máy tự chơi để cân ải; các mốc |
 | [09_CheDoKhac.md](09_CheDoKhac.md) | Đấu trường cùng hạt giống, đấu thật, boss tuần |
-| [10_BanThu_1v1.md](10_BanThu_1v1.md) | **Bản thử đã chốt**: 1 tướng đấu 1 địch, bàn A và bàn C so nhau, màu là hành động, tướng từ aola, MCP, các bước |
+| [10_BanThu_1v1.md](10_BanThu_1v1.md) | Bản thử Unity xếp khối 1v1 (bàn A và C). **Đã thay bằng lõi thẻ bài từ 2026-10-31** |
+| [11_BanWeb_TheBai.md](11_BanWeb_TheBai.md) | **Bản web thử theo "GDD game Pokiwar"**: trận thẻ bài luân phiên; scene kiểu Clash of Critters: đảo lớn 5 vùng hệ, mỗi hệ một đảo 8 ải; máy bi cược ×N, cấp chung, thẻ riêng, tiến hóa sao, AFK; số đo máy tự chơi; các điểm tự chọn cần duyệt |
+| [12_KeHoach_OpenSpec.md](12_KeHoach_OpenSpec.md) | **Kế hoạch làm trong Unity** theo OpenSpec (`openspec/`): 11 change theo mốc, đối chiếu từng mục GDD, câu hỏi còn mở, gói ảnh cần gen (`ArtGen/`) |
+| [13_DanhSachTuong.md](13_DanhSachTuong.md) | **40 tướng, 8 mỗi hệ**, chọn theo hệ gốc aola; mỗi tướng là một dòng tiến hóa (đảo Thủy đã chọn lại, các hệ khác chờ); nguồn từng dạng, tướng giữ, tướng bỏ; việc dữ liệu còn lại. Prompt hình ở `ArtGen/Heroes` |
+
+## Đã chốt (2026-10-31): đổi lõi sang thẻ bài
+
+| Câu hỏi | Người dùng chốt |
+|---|---|
+| Lõi | **Thẻ bài theo "GDD game Pokiwar"** (chọn 1 trong 3, 5 lần mỗi lượt), bỏ xếp khối |
+| Nhịp | **Luân phiên**: một bên chọn và đánh xong mới tới bên kia |
+| Chiêu, Tuyệt kỹ | Không tốn lần chọn, chỉ tốn mana và nộ |
+| Nút X máy bi | Mức cược: ×N tốn N bi mỗi lần thả, thưởng ×N |
+| Làm thử | Bản web trước (`D:\PokiClash\Web`), duyệt xong mới lên plan Unity |
+
+Mục "Tóm tắt đề xuất" bên trên và file 03–05, 07, 10 là hướng xếp khối cũ. Phần nào còn dùng được (bố cục dọc, mảnh tướng, máy bi in tỉ lệ) đã đưa vào file 11.
 
 ## Đã chốt (2026-10-30)
 
