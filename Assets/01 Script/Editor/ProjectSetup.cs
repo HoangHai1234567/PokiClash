@@ -95,7 +95,8 @@ namespace PokiClash.EditorTools
             ui.body = MakeFont("Pangolin-Regular", 90, 2048);
             ui.kit = MakeMaterial("UIKit", 1);
             ui.plain = MakeMaterial("UIPlain", 0);
-            ui.sticker = MakeSticker();
+            ui.sticker = MakeShaderMaterial("Sticker", "PokiClash/StickerOutline");
+            ui.petPart = MakeShaderMaterial("PetPart", "PokiClash/PetPart");
             EditorUtility.SetDirty(ui);
 
             // phông mặc định của TMP: Pangolin (LiberationSans không có dấu tiếng Việt)
@@ -157,19 +158,35 @@ namespace PokiClash.EditorTools
             return m;
         }
 
-        static Material MakeSticker()
+        static Material MakeShaderMaterial(string name, string shaderName)
         {
-            const string path = ShaderDir + "/Sticker.mat";
+            var path = $"{ShaderDir}/{name}.mat";
             var m = AssetDatabase.LoadAssetAtPath<Material>(path);
-            var shader = Shader.Find("PokiClash/StickerOutline");
+            var shader = Shader.Find(shaderName);
             if (!m)
             {
-                m = new Material(shader) { name = "Sticker" };
+                m = new Material(shader) { name = name };
                 AssetDatabase.CreateAsset(m, path);
             }
             m.shader = shader;
             EditorUtility.SetDirty(m);
             return m;
+        }
+
+        // chỉ thêm material PetPart vào UiAssets (shader hình bộ phận tướng aola vào bản build), không dựng lại gì khác
+        [MenuItem("PokiClash/Cài đặt/4. Material hình tướng (PetPart)", priority = 3)]
+        public static void AddPetPart()
+        {
+            var ui = AssetDatabase.LoadAssetAtPath<UiAssets>(UiAssetsPath);
+            if (!ui)
+            {
+                Debug.LogError("[Cài đặt] Chưa có " + UiAssetsPath + ": chạy \"2. Dựng tất cả\".");
+                return;
+            }
+            ui.petPart = MakeShaderMaterial("PetPart", "PokiClash/PetPart");
+            EditorUtility.SetDirty(ui);
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Cài đặt] UiAssets.petPart = " + AssetDatabase.GetAssetPath(ui.petPart));
         }
 
         // ---------- scene ----------

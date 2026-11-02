@@ -1,5 +1,6 @@
-// Chạy animation tướng xuất từ dự án aola (reskin/<tên>/export/anim.json). CHỈ TRONG EDITOR HOẶC BẢN DEV (define
-// POKICLASH_DEV): hình gốc của Baitian. PNG đọc thẳng từ ổ đĩa lúc chạy, không chép vào Assets (PreBuildCheck chặn).
+// Chạy animation tướng xuất từ dự án aola (reskin/<tên>/export/anim.json): hình gốc của Baitian. Editor đọc thẳng từ ổ đĩa
+// lúc chạy, không chép vào Assets (PreBuildCheck chặn). Bản build mang theo bản chép lúc build nếu bước build AolaDevBuild bật
+// (prototype: mọi bản build), đọc qua AolaDevPack; bản build không mang thì ô tướng để trống.
 // Mỗi hình là một quad, đỉnh tính từ ma trận Flash của khung (có cả nghiêng), nên một Transform thường không đủ.
 // Mọi thứ sinh lúc chạy của hình aola (GameObject, Mesh, Texture2D, Sprite, Material) gói trong file này (ngoại lệ của
 // test chặn prefab).
@@ -8,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using PokiClash.Core;
+using PokiClash.UI;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -76,7 +78,7 @@ namespace PokiClash.Game
             if (foundDir != null) UnityEditor.EditorPrefs.SetString(PrefKey, foundDir);
             return foundDir;
 #else
-            return null;
+            return AolaDevPack.Root;
 #endif
         }
 
@@ -133,12 +135,9 @@ namespace PokiClash.Game
 #endif
 
         // Chân dung tĩnh (reskin/<tên>/export/portrait.png, tools/portrait_png.py của AolaRipper): khung 4:5 như HeroArt,
-        // chân ở giữa và cách đáy HeroArt.FootY. Bản phát hành hoặc chưa xuất: null.
+        // chân ở giữa và cách đáy HeroArt.FootY. Bản build không mang hình tướng hoặc chưa xuất: null.
         public static Sprite Portrait(string aolaName)
         {
-#if !(UNITY_EDITOR || POKICLASH_DEV)
-            return null;
-#else
             if (string.IsNullOrEmpty(aolaName)) return null;
             var root = ReskinDir;
             if (root == null) return null;
@@ -148,10 +147,9 @@ namespace PokiClash.Game
             if (s) s.name = "aola_" + aolaName;
             PortraitCache[aolaName] = s;
             return s;
-#endif
         }
 
-        // Nạp tướng theo tên thư mục aola (HeroDef.aola). Bản phát hành luôn trả false: gọi UsePlaceholder.
+        // Nạp tướng theo tên thư mục aola (HeroDef.aola). Không có hình (bản build không mang, chưa xuất): false.
         public bool LoadHero(string aolaName, float height, bool flipX, int sorting)
         {
             var root = ReskinDir;
@@ -163,10 +161,8 @@ namespace PokiClash.Game
         {
             flip = flipX;
             sortBase = sorting;
-#if !(UNITY_EDITOR || POKICLASH_DEV)
-            return false;
-#else
             string path = Path.Combine(dir, "export", "anim.json");
+            AolaDevPack.Ensure(path);
             if (!File.Exists(path)) return false;
             try
             {
@@ -225,7 +221,6 @@ namespace PokiClash.Game
             block = new MaterialPropertyBlock();
             Play(Idle, true);
             return true;
-#endif
         }
 
         // Bóng: hình xám không màu, nửa trong suốt, bè ngang, trong 3 hình đầu của khung đầu dáng đứng (có con vẽ quầng
@@ -290,6 +285,7 @@ namespace PokiClash.Game
         static Texture2D LoadTexture(string path)
         {
             if (TexCache.TryGetValue(path, out var t) && t) return t; // ảnh đã bị huỷ (thoát Play) thì đọc lại
+            AolaDevPack.Ensure(path);
             if (File.Exists(path))
             {
                 t = new Texture2D(2, 2, TextureFormat.RGBA32, true) { wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Trilinear };
@@ -304,7 +300,8 @@ namespace PokiClash.Game
         {
             var m = add ? additive : material;
             if (m) return m;
-            var sh = Shader.Find("PokiClash/PetPart");
+            // bản build chỉ có shader nào được material tham chiếu: lấy qua UiAssets.petPart, Editor thì tìm theo tên cũng được
+            var sh = Theme.Assets && Theme.Assets.petPart ? Theme.Assets.petPart.shader : Shader.Find("PokiClash/PetPart");
             if (sh)
             {
                 m = new Material(sh);

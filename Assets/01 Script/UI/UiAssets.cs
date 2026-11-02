@@ -16,6 +16,7 @@ namespace PokiClash.UI
         public Material kit; // _Encoded = 1, cho sprite vẽ bằng code
         public Material plain; // _Encoded = 0, cho ảnh thường (icon, ảnh gen)
         public Material sticker; // shader PokiClash/StickerOutline: viền sticker cho tướng aola (bản dev)
+        public Material petPart; // shader PokiClash/PetPart của hình bộ phận tướng aola; có material thì shader vào bản build
 
         [Header("Nướng sẵn (menu PokiClash/Prefab/1. Nướng ảnh và âm thanh)")]
         public BakedArt baked;

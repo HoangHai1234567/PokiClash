@@ -1,6 +1,6 @@
-// Tướng aola trên sân đấu (CHỈ TRONG EDITOR HOẶC BẢN DEV, define POKICLASH_DEV): AolaActor đặt ở xa trong thế giới, một
-// camera riêng render ra RenderTexture, RawImage trên sân hiện ảnh đó qua shader viền sticker. Không có aola (bản phát
-// hành, hoặc tướng chưa xuất anim.json) thì TryCreate trả null và ô tướng trên sân để trống.
+// Tướng aola trên sân đấu (Editor, hoặc bản build mang hình tướng: AolaDevBuild): AolaActor đặt ở xa trong thế giới, một
+// camera riêng render ra RenderTexture, RawImage trên sân hiện ảnh đó qua shader viền sticker. Không có aola (bản build
+// không mang hình, hoặc tướng chưa xuất anim.json) thì TryCreate trả null và ô tướng trên sân để trống.
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;

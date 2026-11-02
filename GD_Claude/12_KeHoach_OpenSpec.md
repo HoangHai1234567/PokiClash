@@ -97,7 +97,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 **Mốc 1 `add-card-battle`: xong (2026-10-31).** 24/24 việc, 23 EditMode test đạt (luật C# khớp web ở 200 trận golden).
 - Luật mới, đổi cả ở web: Phật Tâm thành "lần đầu gục: hồi sinh 35% máu"; boss của địch không hồi sinh; trận dừng ở 60 hiệp.
 - Vào trận: sảnh → đảo → chạm ải → hộp chuẩn bị → Đánh. Thử nhanh: menu `PokiClash/Thử/Đánh thử ải …` (đang Play).
-- Tướng hiện bằng hình giữ chỗ theo hệ. Hình aola chỉ hiện khi bật define `POKICLASH_DEV` (chưa bật).
+- Tướng hiện bằng hình aola. **2026-11-02**, chủ dự án chốt "đây là prototype": mọi bản build mang hình tướng (`Editor/AolaDevBuild.cs`, `AllBuilds`), xem được trên máy thật. Trước khi phát hành công khai phải tắt `AllBuilds` (spec `art-assets`).
 - Số đo đảo Thổ và nhịp trận: `openspec/changes/add-card-battle/design.md`, mục "Kết quả đo".
 
 **Mốc 2 `add-hero-roster`: xong (2026-10-31).** 12/12 việc, 31 EditMode test đạt (chỉ số 11 tướng, thẻ rơi từ rương, mảnh khớp web).

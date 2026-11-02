@@ -26,12 +26,20 @@ Vị trí các vùng trên ảnh đảo lớn và vị trí 8 ải trên mỗi �
 - **WHEN** ảnh `zone_hoa` được gen lại và đường mòn đổi chỗ
 - **THEN** chỉ cần sửa 8 cặp toạ độ trong dữ liệu Đảo Hỏa để ải nằm lại trên đường mòn
 
-### Requirement: Hình tướng aola chỉ trong bản dev
-Animation tướng lấy từ dự án AolaRipper SHALL chỉ được nạp trong bản dev, đọc từ thư mục cấu hình được (không chép vào Assets). Bản phát hành MUST không chứa hình hay dữ liệu chuyển động của Baitian: tướng hiện hình giữ chỗ theo hệ, cho tới khi có hình mới.
+### Requirement: Hình tướng aola không nằm trong Assets
+Animation tướng lấy từ dự án AolaRipper SHALL được Editor đọc từ thư mục cấu hình được, không chép vào Assets.
 
-#### Scenario: Build phát hành
-- **WHEN** chạy bước build phát hành
-- **THEN** bước kiểm tra trước build báo lỗi nếu tìm thấy đường dẫn aola hoặc ảnh `pet*_parts` trong Assets, và bản build dùng hình giữ chỗ
+Bản build lên máy thật SHALL mang theo bản chép của hình tướng: bước build chép tạm vào `StreamingAssets/PokiDev` rồi xoá ngay sau build. Lúc chạy, game đọc bản đó (Android: đọc từ APK, chép ra bộ nhớ app khi cần).
+
+Quyết định của chủ dự án (2026-11-02): giai đoạn prototype thì mọi bản build đều mang hình. Trước khi phát hành công khai MUST tắt `AolaDevBuild.AllBuilds`; khi đó chỉ Development Build mang hình, và bản phát hành MUST không chứa hình hay dữ liệu chuyển động của Baitian.
+
+#### Scenario: Build lên máy (prototype)
+- **WHEN** build Android từ Build Profiles khi `AllBuilds` bật
+- **THEN** bước kiểm tra trước build vẫn báo lỗi nếu Assets có đường dẫn aola hoặc ảnh `pet*_parts`; APK có `assets/PokiDev/reskin/...` đủ hình mọi tướng; sau build `Assets/StreamingAssets/PokiDev` không còn
+
+#### Scenario: Build phát hành công khai
+- **WHEN** `AllBuilds` tắt và build không phải Development
+- **THEN** bản build không mang hình aola, ô tướng để trống cho tới khi có hình mới
 
 #### Scenario: Bản dev đổi máy
 - **WHEN** thư mục aola nằm ở ổ khác trên máy mới
