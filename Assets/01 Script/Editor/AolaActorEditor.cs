@@ -22,7 +22,7 @@ namespace PokiClash.EditorTools
             {
                 var s = forms[i] ? forms[i].LoadPortrait() : null;
                 var cell = new Rect(r.x + i * w, r.y, w, r.height - 16);
-                if (s) GUI.DrawTexture(cell, s.texture, ScaleMode.ScaleToFit, true);
+                if (s) GUI.DrawTexture(cell, s.texture, ScaleMode.ScaleToFit, true, HeroArt.W / (float)HeroArt.H); // ảnh vuông, hiện 4:5
                 GUI.Label(new Rect(cell.x, cell.yMax, w, 16), forms[i] ? forms[i].name : "(thiếu)", EditorStyles.centeredGreyMiniLabel);
             }
         }

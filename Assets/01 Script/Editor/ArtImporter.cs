@@ -33,15 +33,19 @@ namespace PokiClash.EditorTools
             // bản đồ đảo hệ: bản đồ dài đảo 70 ải cao 4288 (ArtGen/Islands/build_zone70.py), nhập ở 4096 (gần đủ nét, máy nào cũng
             // đọc được); ảnh đảo 8 ải dưới 2048 không đổi
             if (assetPath.Contains("/Islands/zone_")) ti.maxTextureSize = 4096;
+            // mặt tướng màn VS (ArtGen/BattleIntro, 384 x 384, mỗi dạng tướng một ảnh, hơn trăm ảnh): ASTC 8x8 cho nhẹ APK
+            bool face = assetPath.Contains("/BattleIntro/Resources/HeroFaces/");
+            if (face) ti.maxTextureSize = 512;
+            var astc = face ? TextureImporterFormat.ASTC_8x8 : TextureImporterFormat.ASTC_6x6;
             var android = ti.GetPlatformTextureSettings("Android");
             android.overridden = true;
             android.maxTextureSize = ti.maxTextureSize;
-            android.format = TextureImporterFormat.ASTC_6x6;
+            android.format = astc;
             ti.SetPlatformTextureSettings(android);
             var ios = ti.GetPlatformTextureSettings("iPhone");
             ios.overridden = true;
             ios.maxTextureSize = ti.maxTextureSize;
-            ios.format = TextureImporterFormat.ASTC_6x6;
+            ios.format = astc;
             ti.SetPlatformTextureSettings(ios);
         }
     }

@@ -2,6 +2,7 @@
 // bắn tia (chiêu mana), chiêu cuối, đánh thường, rồi đối thủ đánh; chụp nhỏ liên tục vào Temp/PokiShots/gs_combat/s<sao>_<đòn>_<n>.jpg;
 // xong trả lại bản lưu như trước.
 // Để soi: con ra đòn nằm trên con kia, chiêu cuối lao tới đối thủ, chiêu mana bắn tia nước to nhỏ theo dạng.
+// Menu Tiểu Y (sao 1, 5: hai dạng): đòn bắn từ xa có đạn và vụ nổ ở chỗ đối thủ (AolaActor hiệu ứng ở xa); ảnh vào tieu_y_combat/.
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -13,12 +14,22 @@ namespace PokiClash.EditorTools
 {
     public static class GiotSuongCombatTour
     {
-        static string Dir => Path.Combine(PlayTour.ShotDir, "gs_combat");
+        static string Dir => Path.Combine(PlayTour.ShotDir, dir);
+        static string hero = "giot_suong", dir = "gs_combat";
+        static int[] stars = { 1, 3, 5 };
 
         [MenuItem("PokiClash/Thử/Giọt Sương ra trận: đánh, bắn tia, chiêu cuối ở 3 dạng (đang Play)", priority = 112)]
-        static void Try()
+        static void Try() => Start("giot_suong", "gs_combat", 1, 3, 5);
+
+        [MenuItem("PokiClash/Thử/Tiểu Y ra trận: đánh từ xa, chiêu cuối ở 2 dạng (đang Play)", priority = 113)]
+        static void TryTieuY() => Start("tieu_y", "tieu_y_combat", 1, 5);
+
+        static void Start(string id, string folder, params int[] at)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
+            hero = id;
+            dir = folder;
+            stars = at;
             App.I.StartCoroutine(Run());
         }
 
@@ -30,13 +41,13 @@ namespace PokiClash.EditorTools
             Directory.CreateDirectory(Dir);
             try
             {
-                foreach (int star in new[] { 1, 3, 5 })
+                foreach (int star in stars)
                 {
                     var s = App.Save.Data;
-                    var hp = s.Hero("giot_suong");
+                    var hp = s.Hero(hero);
                     hp.owned = true;
                     hp.star = star;
-                    s.team = new List<string> { "giot_suong" };
+                    s.team = new List<string> { hero };
                     if (s.level < 7) s.level = 7;
                     App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = 3 });
                     float t0 = Time.realtimeSinceStartup;
@@ -55,7 +66,7 @@ namespace PokiClash.EditorTools
                     t0 = Time.realtimeSinceStartup;
                     while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 20) yield return null;
                     yield return new WaitForSecondsRealtime(0.6f);
-                    Debug.Log($"[Thử] Giọt Sương sao {star}: bắn tia {(st.CanBeam(0) ? "có" : "KHÔNG")}");
+                    Debug.Log($"[Thử] {hero} sao {star}: bắn tia {(st.CanBeam(0) ? "có" : "KHÔNG")}");
                     var acts = new (string name, int side, string clip, bool beam, float len)[]
                     {
                         ("ban", 0, StageView.Cast, true, 2.4f), ("chieu_cuoi", 0, StageView.Skill, false, 3.6f),
@@ -82,7 +93,7 @@ namespace PokiClash.EditorTools
                 }
             }
             App.Router.Go(SceneIds.Hub);
-            Debug.Log("[Thử] Xong Giọt Sương ra trận: " + Dir);
+            Debug.Log($"[Thử] Xong {hero} ra trận: " + Dir);
         }
 
         // chụp nhỏ (540 x 960, jpg) bằng cách tự render camera (Editor không có tiêu điểm thì Game view không vẽ)

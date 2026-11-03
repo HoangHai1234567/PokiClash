@@ -82,6 +82,9 @@ namespace PokiClash
             {
                 body.anchoredPosition = pos;
                 body.localScale = new Vector3(sc, sc, 1);
+                // hiệu ứng ở xa của đòn bắn (đạn, vụ nổ ở chỗ đối thủ của trận gốc): hiện trước mặt trong khung
+                if (clip == Attack || clip == Skill) aola.FarAhead(clip, 1.3f);
+                else aola.Far(clip, null, false);
                 aola.Show(clip, t, idle, 1, silhouette, 0);
                 return;
             }

@@ -81,7 +81,7 @@ namespace PokiClash.EditorTools
                     {
                         int row = forms.Length - 1 - f; // dạng 1 ở trên
                         var portrait = forms[f] ? forms[f].LoadPortrait() : null;
-                        if (portrait) Blit(portrait.texture, sheet, 0, row);
+                        if (portrait) Blit(portrait.texture, sheet, 0, row, HeroArt.W / (float)HeroArt.H); // ảnh vuông, khung 4:5
                         var actor = (AolaActor)PrefabUtility.InstantiatePrefab(prefab);
                         actor.gameObject.hideFlags = HideFlags.HideAndDontSave;
                         actor.transform.position = new Vector3(5000, 0, 0);
@@ -127,12 +127,13 @@ namespace PokiClash.EditorTools
         }
 
         // chân dung (nén, không đọc được điểm ảnh) vẽ qua RenderTexture vào ô (col, row), giữ tỉ lệ
-        static void Blit(Texture src, Texture2D sheet, int col, int row)
+        // aspect: tỉ lệ rộng/cao khi hiện (0: theo ảnh)
+        static void Blit(Texture src, Texture2D sheet, int col, int row, float aspect = 0)
         {
             var tmp = RenderTexture.GetTemporary(Cell, Cell, 0, RenderTextureFormat.ARGB32);
             RenderTexture.active = tmp;
             GL.Clear(true, true, new Color(1, 1, 1, 1));
-            float k = (float)src.width / src.height; // < 1: dọc
+            float k = aspect > 0 ? aspect : (float)src.width / src.height; // < 1: dọc
             Graphics.Blit(src, tmp, new Vector2(1 / k, 1), new Vector2(-(1 - k) / 2 / k, 0));
             var t = new Texture2D(Cell, Cell, TextureFormat.RGBA32, false);
             t.ReadPixels(new Rect(0, 0, Cell, Cell), 0, 0);

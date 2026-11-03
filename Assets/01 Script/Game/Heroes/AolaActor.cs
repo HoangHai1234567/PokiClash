@@ -25,7 +25,15 @@ namespace PokiClash.Game
         {
             public readonly List<float[][]> Frames = new(); // mỗi hình Cols số như trên
             public Vector2 Anchor;                          // tâm bóng dưới chân ở khung đầu, điểm khớp giữa các clip
+            public bool farReady, hasFar;                   // FarOf đã tính; clip có hiệu ứng vẽ ở xa (chỗ đối thủ của bản gốc)
+            public Vector2 farCenter;                       // tâm vùng hiệu ứng ở xa (điểm clip so với Anchor, y xuống)
         }
+
+        // Hiệu ứng ở xa (người dùng 2026-11-03: Tiểu Y thiếu animation so với bản gốc): đòn bắn từ xa của aola vẽ đạn bay và vụ nổ
+        // ở chỗ đối thủ đứng trong trận gốc, cách chân 3-7 lần chiều cao dáng đứng, ngoài khung camera của sticker (±1,7 lần).
+        // Hình có tâm cách chân (về phía trước) quá FarStart lần chiều cao là hiệu ứng ở xa: không tính vào cú lao của thân; khi
+        // có FarTarget (chỗ đối thủ trên sân), hình từ FarRamp lần chiều cao trở ra được kéo dần về đó (tâm vùng xa trùng FarTarget).
+        const float FarStart = 1.5f, FarRamp = 1f;
 
         // animation đã đọc của một dạng, dùng chung cho mọi diễn viên cùng dạng
         sealed class Data
@@ -37,6 +45,7 @@ namespace PokiClash.Game
             public Vector2? muzzle; // chỗ bắn tia ở khung trúng của clip bắn (điểm clip, anim.json "cast")
             public float beam = 1; // cỡ tia của dạng này
             public bool manaClip; // anim.json "mana": "clip": chiêu mana phát clip CHIÊU riêng (boss làm riêng), không bắn tia
+            public HashSet<int> idleSprites; // hình có trong dáng đứng (thân): không bao giờ là hiệu ứng ở xa
         }
 
         // 1_5 (bắn): clip ngắn của chiêu bắn tia (aola tools/anim_moi.py dựng), chỉ dạng có khai "cast" mới có
@@ -295,7 +304,7 @@ namespace PokiClash.Game
                 int k = 0;
                 foreach (var p in c.Frames[i])
                 {
-                    if ((int)p[0] == shadowSprite) continue;
+                    if ((int)p[0] == shadowSprite || FarPiece(c, p, out _)) continue;
                     sx += p[5];
                     sy += p[6];
                     k++;
@@ -365,6 +374,56 @@ namespace PokiClash.Game
 
         // chiều cao dáng đứng tính bằng điểm ảnh clip (để đổi sang toạ độ sân)
         public float IdleHeightPx => loadedHeight / Mathf.Max(1e-6f, unit);
+
+        // hình p của clip c là hiệu ứng ở xa (hình không có trong dáng đứng, tâm quá FarStart lần chiều cao về phía trước: thân
+        // của con lao cận chiến không tính); rel: tâm hình so với Anchor (điểm clip, y xuống, trước mặt là +x)
+        bool FarPiece(Clip c, float[] p, out Vector2 rel)
+        {
+            rel = default;
+            if (data == null) return false;
+            if (data.idleSprites == null)
+            {
+                data.idleSprites = new HashSet<int>();
+                if (clips.TryGetValue(Idle, out var idle))
+                    foreach (var f in idle.Frames)
+                        foreach (var q in f)
+                            data.idleSprites.Add((int)q[0]);
+            }
+            if (data.idleSprites.Contains((int)p[0]) || !Corners(anim, p)) return false;
+            rel = (Quad[0] + Quad[1] + Quad[2] + Quad[3]) * 0.25f - c.Anchor;
+            return rel.x > FarStart * IdleHeightPx;
+        }
+
+        Clip FarOf(Clip c)
+        {
+            if (c.farReady) return c;
+            c.farReady = true;
+            float x0 = float.MaxValue, y0 = float.MaxValue, x1 = float.MinValue, y1 = float.MinValue;
+            foreach (var f in c.Frames)
+                foreach (var p in f)
+                    if (FarPiece(c, p, out var r))
+                    {
+                        x0 = Mathf.Min(x0, r.x);
+                        x1 = Mathf.Max(x1, r.x);
+                        y0 = Mathf.Min(y0, r.y);
+                        y1 = Mathf.Max(y1, r.y);
+                    }
+            c.hasFar = x1 >= x0;
+            if (c.hasFar) c.farCenter = new Vector2((x0 + x1) / 2, (y0 + y1) / 2);
+            return c;
+        }
+
+        public bool HasFar(string clip) => HasAnim && clips.TryGetValue(clip, out var c) && FarOf(c).hasFar;
+
+        // chỗ đối thủ so với chân (chiều cao dáng đứng; trước mặt là +x, lên là +y): hiệu ứng ở xa vẽ về đó; null: như bản gốc
+        Vector2? farTarget;
+
+        public void SetFarTarget(Vector2? t)
+        {
+            if (t == farTarget) return;
+            farTarget = t;
+            shown = -1;
+        }
         float loadedHeight = 1;
 
         public void ShowFrame(string clip, int fi)
@@ -399,14 +458,27 @@ namespace PokiClash.Game
             shown = f;
             var pics = clip.Frames[f];
             while (pool.Count < pics.Length) pool.Add(NewQuad());
+            bool far = farTarget.HasValue && FarOf(clip).hasFar;
+            float hp = IdleHeightPx, r0 = FarRamp * hp;
             for (int i = 0; i < pool.Count; i++)
             {
                 var (r, m, v, u, c) = pool[i];
                 if (i >= pics.Length || !Corners(anim, pics[i])) { r.enabled = false; continue; }
                 var p = pics[i];
+                // hiệu ứng ở xa: kéo dần về chỗ đối thủ (đạn bay giữa đường co lại theo)
+                var sh = Vector2.zero;
+                if (far && data.idleSprites != null && !data.idleSprites.Contains((int)p[0]))
+                {
+                    float d = (Quad[0].x + Quad[1].x + Quad[2].x + Quad[3].x) * 0.25f - clip.Anchor.x;
+                    if (d > r0 && clip.farCenter.x > r0)
+                    {
+                        float w = Mathf.Clamp01((d - r0) / (clip.farCenter.x - r0));
+                        sh = w * (new Vector2(farTarget.Value.x * hp, -farTarget.Value.y * hp) - clip.farCenter);
+                    }
+                }
                 for (int k = 0; k < 4; k++)
                 {
-                    float x = (Quad[k].x - clip.Anchor.x) * unit, y = -(Quad[k].y - clip.Anchor.y) * unit;
+                    float x = (Quad[k].x + sh.x - clip.Anchor.x) * unit, y = -(Quad[k].y + sh.y - clip.Anchor.y) * unit;
                     v[k] = new Vector3(flip ? -x : x, y, 0);
                 }
                 // chỗ hình trong atlas, góc theo thứ tự như Quad (ảnh trong Unity gốc dưới trái)

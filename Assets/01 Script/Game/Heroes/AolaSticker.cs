@@ -20,6 +20,7 @@ namespace PokiClash
         Material mat;
         AolaActor actor;
         GameObject world;
+        Camera cam;
         RenderTexture rt;
         bool flip;
         float stageHeight; // chiều cao dáng đứng trên sân (đơn vị web)
@@ -48,7 +49,7 @@ namespace PokiClash
             var camGo = new GameObject("cam");
             camGo.transform.SetParent(go.transform, false);
             camGo.transform.localPosition = new Vector3(0, Span * (0.5f - FootV), -10);
-            var cam = camGo.AddComponent<Camera>();
+            var cam = s.cam = camGo.AddComponent<Camera>();
             cam.orthographic = true;
             cam.orthographicSize = Span / 2;
             cam.clearFlags = CameraClearFlags.SolidColor;
@@ -117,6 +118,36 @@ namespace PokiClash
             float cs = Mathf.Cos(ang) * k, sn = Mathf.Sin(ang) * k;
             o = new Vector2(mx * cs - my * sn - mx, mx * sn + my * cs - my);
             return true;
+        }
+
+        // Hiệu ứng ở xa của clip (đạn bay, vụ nổ ở chỗ đối thủ của trận gốc, AolaActor.FarTarget): to = đối thủ so với chân
+        // (đơn vị sân, y xuống); null hoặc clip không có: như bản gốc. shift: khung camera dịch về phía đối thủ nửa quãng (thân
+        // vẫn trong khung), ảnh dịch ngược lại để thân đứng yên trên sân (sân đấu; nơi tự đặt chỗ ảnh thì không dịch).
+        public void Far(string clip, Vector2? to, bool shift = true)
+        {
+            var name = ClipName(clip);
+            if (to == null || !actor.HasFar(name))
+            {
+                actor.SetFarTarget(null);
+                if (shift) Shift(Vector2.zero);
+                return;
+            }
+            float h = Mathf.Max(1, stageHeight);
+            var d = to.Value;
+            actor.SetFarTarget(new Vector2((flip ? -d.x : d.x) / h, -d.y / h));
+            if (shift) Shift(new Vector2(Mathf.Clamp(d.x / h * 0.5f, -1.1f, 1.1f), Mathf.Clamp(-d.y / h * 0.5f, -0.8f, 0.8f)));
+        }
+
+        // khung xem tướng (không có đối thủ): hiệu ứng ở xa hiện trước mặt, cách chân heights lần chiều cao, trong khung camera
+        public void FarAhead(string clip, float heights) =>
+            Far(clip, new Vector2((flip ? -1 : 1) * heights * stageHeight, -0.4f * stageHeight), false);
+
+        // dịch khung camera (đơn vị thế giới = chiều cao dáng đứng; +y lên) và ảnh trên sân theo
+        void Shift(Vector2 w)
+        {
+            if (!cam) return;
+            cam.transform.localPosition = new Vector3(w.x, Span * (0.5f - FootV) + w.y, -10);
+            Rect.anchoredPosition = w * stageHeight * StageView.K;
         }
 
         public void Show(string clip, float t, bool loop, float alpha, bool gray, float flash)

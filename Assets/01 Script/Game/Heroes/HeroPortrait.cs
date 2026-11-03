@@ -33,6 +33,7 @@ namespace PokiClash
             body.enabled = aola;
             if (!aola) return;
             Theme.SetSprite(body, aola);
+            body.preserveAspect = false; // ảnh lưu vuông 512x512 kéo giãn từ khung 4:5 (AolaImport.PortraitSide): khung ô trả lại 4:5
             body.color = silhouette ? Theme.Hex("#4a3c30") : Color.white;
         }
     }

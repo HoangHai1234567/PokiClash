@@ -1,12 +1,13 @@
 // Nhập hình tướng aola vào project thành prefab tướng, nén luôn lúc nhập (người dùng chốt 2026-11-02: không để hình chỉ bên
 // AolaRipper). Nguồn: thư mục reskin của AolaRipper (FindDir); dạng nào cần lấy theo Assets/02 Data/Json/heroes.json.
 // - Mỗi dạng → Assets/03 Art/Heroes/Resources/<dạng>/ (atlas và chân dung nạp khi cần bằng Resources.Load, xem AolaAnim):
-//   - <dạng>_atlas.png: mọi hình mảnh, thu nhỏ về độ nét thật sự dùng rồi xếp chung một atlas (nén ASTC 6x6 trên Android, iOS).
+//   - <dạng>_atlas.png: mọi hình mảnh, thu nhỏ về độ nét thật sự dùng rồi xếp chung một atlas (nén ASTC 8x8 trên Android, iOS).
 //     Tướng được vẽ vào RenderTexture tối đa 1024 điểm cho khung 3,4 lần chiều cao dáng đứng (AolaSticker), nên dáng đứng cao
 //     tối đa ~301 điểm; hình mảnh chỉ cần đủ nét cho mức đó, hình không có trong dáng đứng thu thêm (OtherScale); không mipmap,
 //     xếp sát không làm tròn cỡ lên lũy thừa 2. Ma trận trong anim.json
 //     giữ nguyên: AolaAnim.sizes ghi cỡ gốc của từng hình.
-//   - <dạng>_portrait.png: chân dung (sprite, gốc ở chân);
+//   - <dạng>_portrait.png: chân dung (sprite, gốc ở chân), lưu PortraitSide x PortraitSide kéo giãn từ khung 4:5 (HeroPortrait
+//     hiện lại đúng 4:5): Unity không nén ASTC ảnh có mipmap mà cạnh không là lũy thừa 2 (384x480 ra RGBA32, 960 KB mỗi ảnh);
 //   - <dạng>_anim.bytes: anim.json gzip (bỏ danh sách đường dẫn hình);
 //   - <dạng>.asset: AolaAnim trỏ tới ba thứ trên, kèm hình bóng dưới chân tìm sẵn.
 // - Mỗi tướng → Assets/04 Prefabs/Heroes/<id>.prefab: AolaActor giữ các dạng theo thứ tự (Inspector hiện chân dung các dạng,
@@ -30,6 +31,9 @@ namespace PokiClash.EditorTools
 {
     public sealed class AolaImportPostprocessor : AssetPostprocessor
     {
+        // đổi số khi cách nhập ảnh đổi: Unity nhập lại mọi ảnh tướng (2: atlas ASTC 8x8, chân dung vuông có mipmap ASTC 6x6)
+        public override uint GetVersion() => 2;
+
         void OnPreprocessTexture()
         {
             if (!assetPath.StartsWith(AolaImport.ArtDir + "/")) return;
@@ -55,12 +59,14 @@ namespace PokiClash.EditorTools
                 s.spriteMeshType = SpriteMeshType.FullRect;
                 ti.SetTextureSettings(s);
             }
+            // dung lượng build (người dùng 2026-11-03: bản Android 60-70 MB): atlas ASTC 8x8 (2 bit mỗi điểm, tướng vẽ qua
+            // RenderTexture gần 1:1 nên mờ nhẹ ở viền khó thấy), chân dung ASTC 6x6 (UI, nhìn gần)
             foreach (var platform in new[] { "Android", "iPhone" })
             {
                 var p = ti.GetPlatformTextureSettings(platform);
                 p.overridden = true;
                 p.maxTextureSize = ti.maxTextureSize;
-                p.format = TextureImporterFormat.ASTC_6x6;
+                p.format = portrait ? TextureImporterFormat.ASTC_6x6 : TextureImporterFormat.ASTC_8x8;
                 ti.SetPlatformTextureSettings(p);
             }
         }
@@ -80,7 +86,7 @@ namespace PokiClash.EditorTools
         // hình không có trong dáng đứng (tư thế đánh, hiệu ứng chiêu): chạy nhanh, thu thêm. Bỏ lần nhập đầu (×1,25, không thu
         // thêm, PackTextures làm tròn lên lũy thừa 2) ra 516 triệu điểm ảnh; nay khoảng 144 triệu (ASTC 6x6 ~64 MB).
         const float OtherScale = 0.7f;
-        const int PortraitMax = 512;
+        public const int PortraitSide = 512; // chân dung lưu vuông (lũy thừa 2, có mipmap mới nén được)
         const string Version = "2"; // đổi khi cách nhập đổi, để nhập lại mọi dạng
         const string StandMark = "tam-"; // đầu dấu nguồn của dạng vẽ lại đang tạm mang hình gốc goc_<id>
 
@@ -289,7 +295,7 @@ namespace PokiClash.EditorTools
                     : new List<string>();
                 var summary = $"[Tướng aola] {prefabs.Count}/{heroes.Count} prefab tướng, {forms.Count - missing.Count}/{forms.Count} dạng có hình; " +
                               $"nhập mới {made.Count} dạng (hình mảnh {before / 1048576f:0.0} MB PNG gốc → atlas {after / 1048576f:0.0} MB PNG, " +
-                              $"{pixels / 1e6:0.0} triệu điểm ảnh, ASTC 6x6 khoảng {pixels * 16 / 36 / 1048576f:0} MB).";
+                              $"{pixels / 1e6:0.0} triệu điểm ảnh, ASTC 8x8 khoảng {pixels * 16 / 64 / 1048576f:0} MB).";
                 if (missing.Count > 0) summary += $"\nChưa xuất anim.json bên AolaRipper: {string.Join(", ", missing)}";
                 if (stands.Count > 0) summary += $"\nChưa có hình vẽ lại, tạm dùng hình gốc aola: {string.Join(", ", stands)}";
                 if (kept.Count > 0) summary += $"\nMáy này không có bản vẽ lại, giữ hình đã nhập từ máy khác: {string.Join(", ", kept)}";
@@ -490,22 +496,18 @@ namespace PokiClash.EditorTools
             var png = atlas.EncodeToPNG();
             p.bytesAfter = png.Length;
             p.pixels = (long)atlas.width * atlas.height;
-            File.WriteAllBytes(Path.Combine(outDir, form + "_atlas.png"), png);
+            Write(Path.Combine(outDir, form + "_atlas.png"), png);
 
-            // chân dung: cao tối đa PortraitMax
+            // chân dung: khung 4:5 kéo giãn thành PortraitSide x PortraitSide
             var portraitSrc = Path.Combine(dir, "export", "portrait.png");
             if (File.Exists(portraitSrc))
             {
                 var t = new Texture2D(2, 2, TextureFormat.RGBA32, false);
                 if (t.LoadImage(File.ReadAllBytes(portraitSrc)))
                 {
-                    if (t.height > PortraitMax)
-                    {
-                        var s = Shrink(t, Mathf.RoundToInt(t.width * (float)PortraitMax / t.height), PortraitMax);
-                        UnityEngine.Object.DestroyImmediate(t);
-                        t = s;
-                    }
-                    File.WriteAllBytes(Path.Combine(outDir, form + "_portrait.png"), t.EncodeToPNG());
+                    var s = Resize(t, PortraitSide, PortraitSide);
+                    Write(Path.Combine(outDir, form + "_portrait.png"), s.EncodeToPNG());
+                    if (s != t) UnityEngine.Object.DestroyImmediate(s);
                 }
                 UnityEngine.Object.DestroyImmediate(t);
             }
@@ -595,7 +597,30 @@ namespace PokiClash.EditorTools
             return n > 0 && sat / n < 8 && alpha / n < 170;
         }
 
-        static Texture2D Shrink(Texture2D t, int nw, int nh)
+        // ghi file, thử lại khi Unity còn giữ file (Win32 1224: đang ánh xạ vào bộ nhớ lúc băm hay xem trước ảnh vừa đổi)
+        static void Write(string path, byte[] bytes)
+        {
+            for (int i = 0; ; i++)
+                try
+                {
+                    File.WriteAllBytes(path, bytes);
+                    return;
+                }
+                catch (IOException) when (i < 20)
+                {
+                    GC.Collect();
+                    GC.WaitForPendingFinalizers();
+                    System.Threading.Thread.Sleep(150);
+                }
+        }
+
+        static Texture2D Shrink(Texture2D t, int nw, int nh) => Scaled(t, nw, nh, ImageScale.Down);
+
+        // đổi cỡ bất kỳ (mỗi chiều thu nhỏ hoặc phóng to); cùng cỡ thì trả lại t
+        static Texture2D Resize(Texture2D t, int nw, int nh) =>
+            nw == t.width && nh == t.height ? t : Scaled(t, nw, nh, ImageScale.Resize);
+
+        static Texture2D Scaled(Texture2D t, int nw, int nh, Func<byte[], int, int, int, int, byte[]> scale)
         {
             var px = t.GetPixels32();
             var rgba = new byte[px.Length * 4];
@@ -606,7 +631,7 @@ namespace PokiClash.EditorTools
                 rgba[i * 4 + 2] = px[i].b;
                 rgba[i * 4 + 3] = px[i].a;
             }
-            var o = ImageScale.Down(rgba, t.width, t.height, nw, nh);
+            var o = scale(rgba, t.width, t.height, nw, nh);
             var res = new Texture2D(nw, nh, TextureFormat.RGBA32, false);
             var cols = new Color32[nw * nh];
             for (int i = 0; i < cols.Length; i++) cols[i] = new Color32(o[i * 4], o[i * 4 + 1], o[i * 4 + 2], o[i * 4 + 3]);

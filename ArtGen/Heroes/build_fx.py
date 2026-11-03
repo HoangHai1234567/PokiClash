@@ -123,20 +123,22 @@ def build(f):
     return W(p1)
 
 
-# ảnh dùng chung trên sân đấu (StageView.Beam: tia và hiệu ứng lúc phóng, lúc trúng): bước GPT → tên file, khoét lõi trắng (hình vòng)
-STAGE_FX = [("FX09", "tia_nuoc", False), ("FX03", "no_nuoc", False), ("FX04", "giot_nuoc", False),
-            ("FX05", "lap_lanh", False), ("FX08", "vong_song", True)]
+# ảnh dùng chung trên sân đấu (StageView.Beam: tia và hiệu ứng lúc phóng, lúc trúng): bước GPT → tên file, khoét lõi trắng (hình vòng),
+# cạnh dài tối đa (điểm ảnh): theo cỡ hiện lớn nhất trên sân (đơn vị canvas, sân x2): tia kéo dài tới khoảng 800, nổ nước và vòng sóng
+# tới khoảng 500 (boss), giọt và lấp lánh dưới 150 nên 192 là đủ nét
+STAGE_FX = [("FX09", "tia_nuoc", False, 512), ("FX03", "no_nuoc", False, 512), ("FX04", "giot_nuoc", False, 192),
+            ("FX05", "lap_lanh", False, 192), ("FX08", "vong_song", True, 512)]
 
 
 def export_stage(code="giot_suong_fx"):
     """--xuat: các ảnh dùng chung trên sân đấu vào Assets/03 Art/Fx/ (menu PokiClash/Prefab/Sàn đấu: tia nước của chiêu bắn)"""
-    for step, name, hollow in STAGE_FX:
-        export_beam(code, step, name, hollow)
+    for step, name, hollow, side in STAGE_FX:
+        export_beam(code, step, name, hollow, side)
 
 
-def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=False):
+def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=False, side=512):
     """ảnh GPT mới nhất của bước vào Assets/03 Art/Fx/<out_name>.png: cắt nền trắng nối mép (hollow: cả mảng trắng lớn nhất bên
-    trong), cắt sát, thu về tối đa 512 điểm ảnh; chưa có ảnh tia thì vẽ tạm một tia đơn giản để thử trong trận"""
+    trong), cắt sát, thu về cạnh dài tối đa side điểm ảnh, lưu PNG nén kỹ; chưa có ảnh tia thì vẽ tạm một tia đơn giản để thử"""
     import glob
     import numpy as np
     from PIL import Image, ImageDraw
@@ -159,8 +161,8 @@ def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=F
         alpha = cv2.GaussianBlur(alpha, (3, 3), 0)
         im = Image.fromarray(np.dstack([rgb.astype(np.uint8), alpha]), "RGBA")
         im = im.crop(im.getbbox())
-        if max(im.size) > 512:
-            k = 512 / max(im.size)
+        if max(im.size) > side:
+            k = side / max(im.size)
             im = im.resize((int(im.width * k), int(im.height * k)), Image.LANCZOS)
         note = os.path.basename(src[0])
     elif step != "FX09":
@@ -177,8 +179,8 @@ def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=F
         d.ellipse((508, 14, 628, 114), fill=light)
         d.ellipse((540, 34, 600, 76), fill=white)
         note = "hình tạm (chưa có ảnh GPT)"
-    im.save(out)
-    print(f"{W(out)}: {note} {im.size[0]}x{im.size[1]}")
+    im.save(out, optimize=True)
+    print(f"{W(out)}: {note} {im.size[0]}x{im.size[1]}, {os.path.getsize(out) // 1024} KB")
 
 
 if __name__ == "__main__":

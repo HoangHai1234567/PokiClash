@@ -806,6 +806,7 @@ namespace PokiClash
             float ox = 0, oy = 0;
             var other = Pos[a.side == 0 ? 1 : 0];
             float tx = (other.x - p.x) * 0.72f, ty = (other.y - p.y) * 0.72f;
+            bool lunged = false;
             // chiêu cuối của tướng aola chỉ lao khi clip có khai (AolaSticker.Lunge); không khai thì đứng tại chỗ như trước
             if (!a.loop && (a.clip == Attack || a.clip == Skill))
             {
@@ -813,6 +814,7 @@ namespace PokiClash
                 {
                     ox = o.x;
                     oy = o.y;
+                    lunged = true;
                 }
                 else if (a.clip == Attack || a.aola == null)
                 {
@@ -838,6 +840,9 @@ namespace PokiClash
 
             if (a.aola != null)
             {
+                // đòn bắn từ xa (không lao) của aola: đạn bay và vụ nổ vẽ về thân đối thủ (AolaSticker.Far)
+                bool far = !a.loop && !lunged && (a.clip == Attack || a.clip == Skill);
+                a.aola.Far(a.loop ? Idle : a.clip, far ? Body(a.side == 0 ? 1 : 0) - new Vector2(x + ox, y + oy) : (Vector2?)null);
                 a.aola.Show(a.loop ? Idle : a.clip, a.t, a.loop, alpha, a.dead > 0, a.flash);
             }
             else

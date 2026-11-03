@@ -59,6 +59,8 @@ MonoBehaviour:
   - {x: 762, y: 672}
   - {x: 747, y: 676}
   - {x: 774, y: 678}
+  - {x: 20, y: 13}
+  - {x: 112, y: 76}
   - {x: 400, y: 400}
   - {x: 311, y: 117}
   - {x: 934, y: 946}
@@ -290,6 +292,16 @@ MonoBehaviour:
     width: 0.2642857
     height: 0.20277777
   - serializedVersion: 2
+    x: 0.20873016
+    y: 0.98055553
+    width: 0.0031746032
+    height: 0.0020833334
+  - serializedVersion: 2
+    x: 0.18650794
+    y: 0.98055553
+    width: 0.01904762
+    height: 0.011111111
+  - serializedVersion: 2
     x: 0.0015873016
     y: 0.0013888889
     width: 0.27222222
@@ -335,4 +347,4 @@ MonoBehaviour:
     width: 0.008730159
     height: 0.022222223
   shadow: 0
-  source: v2-639291921058403655-2127651
+  source: v2-639293011931696676-2129084

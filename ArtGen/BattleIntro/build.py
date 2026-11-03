@@ -11,7 +11,7 @@
 #   py -3 -I ArtGen/BattleIntro/build.py --duyet vs [ảnh]
 #   py -3 -I ArtGen/BattleIntro/build.py --duyet mat <aola hoặc mã tướng> [ảnh]
 # Ảnh vào Assets/03 Art/BattleIntro/Resources/: BattleIntro/vs_nen.png, BattleIntro/vs_no.png, HeroFaces/mat_<aola>.png (game nạp khi
-# cần: BattleIntro.ArtBg, ArtVs, HeroArt.Face). Nền trắng nối với mép được cắt thành trong suốt (dấu VS, mặt).
+# cần: BattleIntro.ArtBg, ArtVs, HeroArt.Face). Nền trắng nối với mép được cắt thành trong suốt (dấu VS, mặt). Mặt lưu 384 x 384.
 import argparse
 import json
 import sys
@@ -28,6 +28,7 @@ PACK = HERE / "gui_gpt"
 REFS = HERE / "refs"
 INBOX = HERE / "tai_ve"
 UNITY = ROOT / "Assets" / "03 Art" / "BattleIntro" / "Resources"
+FACE = 384  # cỡ ảnh mặt trong game (APK: hơn trăm ảnh, nhập ASTC 8x8 theo ArtPostprocessor); hiện to nhất khoảng 470 px
 WORLD = ART / "Islands" / "refs" / "world_style.png"
 CARDS = ART / "StyleRefs" / "R1_UI_Cards.png"
 SHOT = REFS / "man_vs_hien_tai.png"  # ảnh chụp màn VS trong game (nền tia vẽ bằng code), chép từ vòng thử
@@ -297,7 +298,7 @@ def approve(kind, key, src):
                 aola = line["forms"][0][0]
         src = Path(src) if src else latest(f"{aola}*.png", INBOX / "mat")
         dst = face_out(aola)
-        im = cut_white(Image.open(src)).resize((512, 512), Image.LANCZOS)
+        im = cut_white(Image.open(src)).resize((FACE, FACE), Image.LANCZOS)
     if not src or not Path(src).exists():
         raise SystemExit(f"Không thấy ảnh để duyệt ({kind} {key or ''}).")
     dst.parent.mkdir(parents=True, exist_ok=True)
