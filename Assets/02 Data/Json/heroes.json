@@ -6,19 +6,19 @@
    "title": "Người máy tí hon",
    "aola": "goc_76",
    "elem": "kim",
-   "rarity": "common",
+   "rarity": "uncommon",
    "stats": [
+    55,
     60,
-    42,
-    90,
-    10,
-    90,
+    75,
+    40,
+    75,
     10
    ],
    "skill": "bu_long_skill",
    "ult": "bu_long_ult",
    "passive": "bu_long_pas",
-   "shards": 10,
+   "shards": 15,
    "line": "Dòng Bu Lông",
    "size": 0.9,
    "forms": [
@@ -317,19 +317,19 @@
    "title": "Bông nở lăn tròn",
    "aola": "goc_22",
    "elem": "moc",
-   "rarity": "common",
+   "rarity": "uncommon",
    "stats": [
     40,
-    40,
+    45,
     50,
-    30,
-    30,
+    40,
+    45,
     30
    ],
    "skill": "nu_hoa_skill",
    "ult": "nu_hoa_ult",
    "passive": "nu_hoa_pas",
-   "shards": 10,
+   "shards": 15,
    "line": "Dòng Nụ Hoa",
    "size": 0.9,
    "forms": [
@@ -656,12 +656,12 @@
     },
     {
      "name": "Tiên Sương",
-     "aola": "goc_8",
+     "aola": "thuy_8",
      "size": 1.02
     },
     {
      "name": "Sương Long",
-     "aola": "goc_9",
+     "aola": "thuy_9",
      "size": 1.14
     }
    ]
@@ -1161,11 +1161,11 @@
    "elem": "hoa",
    "rarity": "uncommon",
    "stats": [
+    55,
+    50,
     45,
-    60,
-    40,
-    60,
-    40,
+    50,
+    50,
     55
    ],
    "skill": "su_tu_lua_skill",
@@ -1314,7 +1314,7 @@
    "title": "Quyền thủ áo vải",
    "aola": "monk_boxer",
    "elem": "tho",
-   "rarity": "common",
+   "rarity": "uncommon",
    "stats": [
     45,
     45,
@@ -1326,7 +1326,7 @@
    "skill": "vs_skill",
    "ult": "vs_ult",
    "passive": "vs_pas",
-   "shards": 10,
+   "shards": 15,
    "line": "Dòng Thỏ Võ",
    "size": 1,
    "forms": [
@@ -1435,19 +1435,19 @@
    "title": "Núi đá biết đi",
    "aola": "goc_34",
    "elem": "tho",
-   "rarity": "rare",
+   "rarity": "uncommon",
    "stats": [
-    80,
+    70,
+    95,
+    40,
     85,
     95,
-    30,
-    30,
     25
    ],
    "skill": "thach_nhan_skill",
    "ult": "thach_nhan_ult",
    "passive": "thach_nhan_pas",
-   "shards": 20,
+   "shards": 15,
    "line": "Dòng Thạch Nhân",
    "size": 0.9,
    "forms": [
@@ -1761,7 +1761,11 @@
   }
  ],
  "starters": [
-  "giot_suong"
+  "giot_suong",
+  "su_tu_lua",
+  "bu_long",
+  "nu_hoa",
+  "thach_nhan"
  ],
  "legendMilestoneHero": "ca_sa"
 }

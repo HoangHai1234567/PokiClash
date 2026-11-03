@@ -33,9 +33,14 @@ namespace PokiClash.Game
             public string source;
             public float fps = 25, top; // top: mép trên khung đầu dáng đứng (điểm clip)
             public readonly Dictionary<string, Clip> clips = new();
+            public readonly HashSet<string> lunge = new(); // clip ngoài đòn đánh cũng lao tới đối thủ (anim.json "lunge")
+            public Vector2? muzzle; // chỗ bắn tia ở khung trúng của clip bắn (điểm clip, anim.json "cast")
+            public float beam = 1; // cỡ tia của dạng này
+            public bool manaClip; // anim.json "mana": "clip": chiêu mana phát clip CHIÊU riêng (boss làm riêng), không bắn tia
         }
 
-        public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Skill = "1_6";
+        // 1_5 (bắn): clip ngắn của chiêu bắn tia (aola tools/anim_moi.py dựng), chỉ dạng có khai "cast" mới có
+        public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Cast = "1_5", Skill = "1_6";
 
         static readonly Dictionary<AolaAnim, Data> Cache = new();
         static readonly Dictionary<string, Clip> NoClips = new();
@@ -46,6 +51,7 @@ namespace PokiClash.Game
 
         AolaAnim anim;
         Texture2D atlas;
+        Data data;
         Dictionary<string, Clip> clips = NoClips;
         readonly List<(MeshRenderer r, Mesh m, Vector3[] v, Vector2[] u, Color[] c)> pool = new();
         MaterialPropertyBlock block;
@@ -90,6 +96,7 @@ namespace PokiClash.Game
             anim = a;
             atlas = tex;
             clips = d.clips;
+            data = d;
             fps = d.fps;
             shadowSprite = a.shadow;
             motion.Clear();
@@ -139,6 +146,15 @@ namespace PokiClash.Game
                         clip.Frames.Add(pics);
                     }
                     d.clips[kv.Key] = clip;
+                }
+                d.manaClip = root.TryGetValue("mana", out var mc) && Convert.ToString(mc) == "clip";
+                if (root.TryGetValue("lunge", out var lv) && lv is List<object> ls)
+                    foreach (var n in ls) d.lunge.Add(Convert.ToString(n));
+                if (root.TryGetValue("cast", out var cv) && cv is Dictionary<string, object> cast &&
+                    cast.TryGetValue("muzzle", out var mv) && mv is List<object> mz && mz.Count >= 2)
+                {
+                    d.muzzle = new Vector2(Convert.ToSingle(mz[0]), Convert.ToSingle(mz[1]));
+                    if (cast.TryGetValue("beam", out var bv)) d.beam = Convert.ToSingle(bv);
                 }
             }
             catch (Exception e)
@@ -320,6 +336,23 @@ namespace PokiClash.Game
             m.hit = best > 60 ? bi : Mathf.FloorToInt(n * (name == Skill ? 0.55f : 0.6f));
             motion[name] = m;
             return m;
+        }
+
+        // clip có cú lao kéo tới đối thủ (AolaSticker.Lunge): đòn đánh luôn có; clip khác khi anim.json khai "lunge"
+        public bool Lunges(string clip) => clip == Attack || data != null && data.lunge.Contains(clip);
+
+        // chiêu mana phát clip CHIÊU riêng thay vì bắn tia (số ít boss làm riêng, anim.json "mana": "clip")
+        public bool ManaUsesClip => data != null && data.manaClip;
+
+        // chiêu bắn tia: chỗ bắn so với tâm bóng dưới chân của clip đứng (điểm clip, y xuống) và cỡ tia của dạng; không khai: false
+        public bool Beam(out Vector2 muzzle, out float scale)
+        {
+            muzzle = default;
+            scale = 1;
+            if (data?.muzzle == null || !clips.ContainsKey(Cast)) return false;
+            muzzle = data.muzzle.Value - clips[Idle].Anchor;
+            scale = data.beam;
+            return true;
         }
 
         public int HitFrame(string clip) => MotionOf(clip)?.hit ?? 0;

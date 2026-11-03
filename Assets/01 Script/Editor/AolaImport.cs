@@ -82,6 +82,7 @@ namespace PokiClash.EditorTools
         const float OtherScale = 0.7f;
         const int PortraitMax = 512;
         const string Version = "2"; // đổi khi cách nhập đổi, để nhập lại mọi dạng
+        const string StandMark = "tam-"; // đầu dấu nguồn của dạng vẽ lại đang tạm mang hình gốc goc_<id>
 
         // ---------- thư mục reskin của AolaRipper ----------
 
@@ -187,6 +188,7 @@ namespace PokiClash.EditorTools
             var made = new List<string>();
             var missing = new List<string>();
             var stands = new List<string>();
+            var kept = new List<string>();
             var log = new List<string>();
             long before = 0, after = 0, pixels = 0;
             try
@@ -202,8 +204,17 @@ namespace PokiClash.EditorTools
                         if (EditorUtility.DisplayCancelableProgressBar("Nhập hình tướng aola", $"{form} ({i + 1}/{forms.Count})", (float)i / forms.Count))
                             throw new OperationCanceledException();
                         var dir = Path.Combine(reskin, form);
+                        var old = AssetDatabase.LoadAssetAtPath<AolaAnim>(AnimPath(form));
+                        var mark = "";
                         if (!File.Exists(Path.Combine(dir, "export", "anim.json")))
                         {
+                            // máy này không có bản vẽ lại nhưng asset đã nhập từ bản vẽ lại ở máy khác (dấu không có StandMark): giữ,
+                            // không đè bằng hình gốc
+                            if (old && !string.IsNullOrEmpty(old.source) && !old.source.StartsWith(StandMark) && old.anim)
+                            {
+                                kept.Add(form);
+                                continue;
+                            }
                             // dạng đang vẽ lại (<hệ>_<id>) chưa xuất: tạm lấy hình gốc goc_<id> cùng rig; xuất xong thì dấu bản đổi, tự nhập lại
                             var id = Regex.Match(form, @"^[a-z]+_(\d+)$");
                             var stand = id.Success ? Path.Combine(reskin, "goc_" + id.Groups[1].Value) : null;
@@ -213,10 +224,10 @@ namespace PokiClash.EditorTools
                                 continue;
                             }
                             dir = stand;
+                            mark = StandMark;
                             stands.Add($"{form} ← {Path.GetFileName(stand)}");
                         }
-                        var stamp = Stamp(dir);
-                        var old = AssetDatabase.LoadAssetAtPath<AolaAnim>(AnimPath(form));
+                        var stamp = mark + Stamp(dir);
                         if (!force && old && old.source == stamp && old.anim && old.LoadAtlas()) continue;
                         var p = Write(dir, form, stamp, out string note);
                         before += p.bytesBefore;
@@ -281,6 +292,7 @@ namespace PokiClash.EditorTools
                               $"{pixels / 1e6:0.0} triệu điểm ảnh, ASTC 6x6 khoảng {pixels * 16 / 36 / 1048576f:0} MB).";
                 if (missing.Count > 0) summary += $"\nChưa xuất anim.json bên AolaRipper: {string.Join(", ", missing)}";
                 if (stands.Count > 0) summary += $"\nChưa có hình vẽ lại, tạm dùng hình gốc aola: {string.Join(", ", stands)}";
+                if (kept.Count > 0) summary += $"\nMáy này không có bản vẽ lại, giữ hình đã nhập từ máy khác: {string.Join(", ", kept)}";
                 if (stale.Count > 0) summary += $"\nDạng không còn tướng nào dùng (chưa xoá): {string.Join(", ", stale)}";
                 foreach (var l in log) Debug.LogWarning("[Tướng aola] " + l);
                 Debug.Log(summary);

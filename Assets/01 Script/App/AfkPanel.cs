@@ -1,10 +1,12 @@
-// Hộp AFK (nút đồng hồ ở sảnh): thanh giờ, mảnh tướng, khay rương AFK kèm giờ mở, các nút Nhận mảnh / Mở ngay / Tăng tốc ×2.
-// Bi thụ động không còn ở đây mà ở Cây bi (TreePanel).
+// Hộp AFK (nút đồng hồ ở sảnh): ải đội đang AFK và tướng rơi mảnh, thanh giờ, khay rương AFK kèm giờ mở, các nút Nhận mảnh /
+// Đổi ải / Mở ngay / Tăng tốc ×2. Đổi ải sang đảo của ải đang AFK để chọn ải khác ("AFK ải này" ở hộp chuẩn bị trận); nút ẩn khi
+// hộp mở từ màn đảo. Bi thụ động không còn ở đây mà ở Cây bi (TreePanel).
 // Nút có hình TV đi qua lớp Ads (giới hạn mỗi ngày; bản dev: quảng cáo giả lập 3 giây; chưa có SDK thì ẩn).
 // Thẻ Phiêu Lưu: khay 5 ô, rương mở trong 1 giờ. Số liệu tự làm mới mỗi nửa giây khi hộp đang mở.
 // Prefab Assets/04 Prefabs/Dialogs/Afk (hộp dùng chung, mở bằng AfkPanel.Open); ô khay là Items/RuongAfk.
 using System;
 using System.Collections;
+using System.Linq;
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;
@@ -28,6 +30,7 @@ namespace PokiClash
             public RectTransform tray;
             public AfkSlot slotPrefab;
             public SketchButton claim, openNow, boost;
+            public SketchButton change; // Đổi ải (menu PokiClash/Prefab/AFK theo ải)
         }
 
         [SerializeField] Parts p;
@@ -66,7 +69,17 @@ namespace PokiClash
 
         void Build()
         {
-            p.shardNote.text = $"Mỗi giờ có {D.Cfg.afk.shardChance * 100:0}% cơ hội nhặt mảnh tướng boss đã gặp.";
+            var st = Afk.Stage(S, D);
+            var pool = Afk.Pool(st);
+            p.rate.text = st == null ? "" : $"Đang AFK: {D.Zone(st.zone).name} · Ải {st.idx}";
+            p.shardNote.text = pool.Count > 0
+                ? $"Mỗi giờ {D.Cfg.afk.shardChance * 100:0}% ra 1 mảnh: {string.Join(", ", pool.Select(x => D.Hero(x.hero).name))}"
+                : "Ải này không rơi mảnh tướng, chỉ ra rương";
+            if (p.change)
+            {
+                p.change.gameObject.SetActive(App.Router.Current != SceneIds.Zone);
+                p.change.SetOnClick(ChangeStage);
+            }
 
             for (int i = p.tray.childCount - 1; i >= 0; i--) Destroy(p.tray.GetChild(i).gameObject);
             int n = Afk.Slots(S, D.Cfg, Now); // Thẻ Phiêu Lưu: 5 ô
@@ -108,7 +121,6 @@ namespace PokiClash
             var cfg = D.Cfg;
             double now = Now;
             var pd = Afk.Pending(s, cfg, now);
-            p.rate.text = $"Đội tự đánh {Progress.TotalCleared(s)} ải đã qua, giữ tối đa {cfg.afkCapH:0} giờ.";
             p.bar.Set((float)pd.hours, (float)cfg.afkCapH, 0, $"{Dec(pd.hours)} / {cfg.afkCapH:0} giờ");
 
             var times = Afk.ChestTimes(s, cfg, now);
@@ -154,6 +166,15 @@ namespace PokiClash
             foreach (var x in r.shards)
                 if (x.unlocked) App.Toasts.Show($"Mở khóa {D.Hero(x.hero).name}!", App.Art.Icon("star"));
             Close();
+        }
+
+        // sang đảo của ải đang AFK: chạm ải đã thắng, bấm "AFK ải này"
+        void ChangeStage()
+        {
+            var st = Afk.Stage(S, D);
+            Close();
+            App.Toasts.Show("Chạm ải đã thắng, bấm \"AFK ải này\"", App.Art.Icon("clock"));
+            App.Router.Go(SceneIds.Zone, st != null ? st.zone : ZoneScene.LastZone);
         }
 
         void SlotClick(int i)

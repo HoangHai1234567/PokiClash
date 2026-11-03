@@ -48,7 +48,7 @@ namespace PokiClash
         public override void Enter(object args)
         {
             p.reset.SetOnClick(() =>
-                App.Modals.Confirm("Xoá dữ liệu?", $"Mọi tiến trình mất hết: về cấp 1, 10 bi, chỉ có {App.Data.Hero(App.Data.Starters[0]).name}.", "Xoá", () =>
+                App.Modals.Confirm("Xoá dữ liệu?", "Mọi tiến trình mất hết: về cấp 1, 10 bi, chọn lại tướng khởi đầu.", "Xoá", () =>
                 {
                     App.Save.Reset();
                     App.Router.Go(SceneIds.Hub);

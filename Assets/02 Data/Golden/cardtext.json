@@ -248,20 +248,20 @@
   },
   {
    "id": "bu_long_skill",
-   "lv1": "Gây 100% Công sát thương. 30% cơ hội: Làm địch choáng.",
-   "lv5": "Gây 160% Công sát thương. 48% cơ hội: Làm địch choáng.",
+   "lv1": "Gây 100% Công sát thương. 15% cơ hội: Làm địch choáng.",
+   "lv5": "Gây 160% Công sát thương. 24% cơ hội: Làm địch choáng.",
    "cost": "30 mana"
   },
   {
    "id": "bu_long_ult",
-   "lv1": "Gây 230% Công sát thương. Địch −20% Thủ 2 lượt.",
-   "lv5": "Gây 368% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "lv1": "Gây 200% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 320% Công sát thương. Địch −32% Thủ 2 lượt.",
    "cost": "100 nộ + 40 mana"
   },
   {
    "id": "bu_long_pas",
-   "lv1": "Vào trận: khiên bằng 12% máu tối đa.",
-   "lv5": "Vào trận: khiên bằng 19% máu tối đa.",
+   "lv1": "Vào trận: khiên bằng 6% máu tối đa.",
+   "lv5": "Vào trận: khiên bằng 10% máu tối đa.",
    "cost": ""
   },
   {
@@ -410,20 +410,20 @@
   },
   {
    "id": "nu_hoa_skill",
-   "lv1": "Hồi 7% máu đầu mỗi lượt, 3 lượt. Gây 60% Công sát thương.",
-   "lv5": "Hồi 11% máu đầu mỗi lượt, 3 lượt. Gây 96% Công sát thương.",
+   "lv1": "Hồi 7% máu đầu mỗi lượt, 3 lượt. Gây 70% Công sát thương.",
+   "lv5": "Hồi 11% máu đầu mỗi lượt, 3 lượt. Gây 112% Công sát thương.",
    "cost": "25 mana"
   },
   {
    "id": "nu_hoa_ult",
-   "lv1": "Gây 210% Công sát thương. Địch −20% Thủ 2 lượt.",
-   "lv5": "Gây 336% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "lv1": "Gây 230% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 368% Công sát thương. Địch −32% Thủ 2 lượt.",
    "cost": "100 nộ + 35 mana"
   },
   {
    "id": "nu_hoa_pas",
-   "lv1": "Đầu mỗi lượt: +8 nộ.",
-   "lv5": "Đầu mỗi lượt: +13 nộ.",
+   "lv1": "Đầu mỗi lượt: +10 nộ.",
+   "lv5": "Đầu mỗi lượt: +16 nộ.",
    "cost": ""
   },
   {
@@ -566,8 +566,8 @@
   },
   {
    "id": "giot_suong_pas",
-   "lv1": "Đầu mỗi lượt: hồi 4% máu.",
-   "lv5": "Đầu mỗi lượt: hồi 6% máu.",
+   "lv1": "Đầu mỗi lượt: hồi 5% máu.",
+   "lv5": "Đầu mỗi lượt: hồi 8% máu.",
    "cost": ""
   },
   {
@@ -788,20 +788,20 @@
   },
   {
    "id": "su_tu_lua_skill",
-   "lv1": "Gây 100% Công sát thương. Đốt địch 3 lượt (5% máu mỗi lượt).",
-   "lv5": "Gây 160% Công sát thương. Đốt địch 3 lượt (8% máu mỗi lượt).",
-   "cost": "35 mana"
+   "lv1": "Gây 90% Công sát thương. Đốt địch 3 lượt (6% máu mỗi lượt).",
+   "lv5": "Gây 144% Công sát thương. Đốt địch 3 lượt (10% máu mỗi lượt).",
+   "cost": "30 mana"
   },
   {
    "id": "su_tu_lua_ult",
-   "lv1": "Gây 260% Công sát thương. Đốt địch 3 lượt (8% máu mỗi lượt).",
-   "lv5": "Gây 416% Công sát thương. Đốt địch 3 lượt (13% máu mỗi lượt).",
-   "cost": "100 nộ + 40 mana"
+   "lv1": "Gây 220% Công sát thương. Đốt địch 3 lượt (7% máu mỗi lượt).",
+   "lv5": "Gây 352% Công sát thương. Đốt địch 3 lượt (11% máu mỗi lượt).",
+   "cost": "100 nộ + 35 mana"
   },
   {
    "id": "su_tu_lua_pas",
-   "lv1": "Mỗi đòn đánh thường: 30% cơ hội đốt địch 2 lượt (5% máu mỗi lượt).",
-   "lv5": "Mỗi đòn đánh thường: 48% cơ hội đốt địch 2 lượt (8% máu mỗi lượt).",
+   "lv1": "Mỗi đòn đánh thường: 35% cơ hội đốt địch 2 lượt (5% máu mỗi lượt).",
+   "lv5": "Mỗi đòn đánh thường: 56% cơ hội đốt địch 2 lượt (8% máu mỗi lượt).",
    "cost": ""
   },
   {
@@ -896,20 +896,20 @@
   },
   {
    "id": "thach_nhan_skill",
-   "lv1": "Gây 120% Công sát thương. +10 nộ.",
-   "lv5": "Gây 192% Công sát thương. +16 nộ.",
+   "lv1": "Gây 100% Công sát thương. Khiên bằng 10% máu tối đa.",
+   "lv5": "Gây 160% Công sát thương. Khiên bằng 16% máu tối đa.",
    "cost": "30 mana"
   },
   {
    "id": "thach_nhan_ult",
-   "lv1": "Đánh 5 lần, mỗi lần 50% Công.",
-   "lv5": "Đánh 5 lần, mỗi lần 80% Công.",
+   "lv1": "Gây 220% Công sát thương. Địch −20% Công 2 lượt.",
+   "lv5": "Gây 352% Công sát thương. Địch −32% Công 2 lượt.",
    "cost": "100 nộ + 40 mana"
   },
   {
    "id": "thach_nhan_pas",
-   "lv1": "Vào trận: +15% Thủ cả trận.",
-   "lv5": "Vào trận: +24% Thủ cả trận.",
+   "lv1": "Vào trận: giảm 8% sát thương cả trận.",
+   "lv5": "Vào trận: giảm 13% sát thương cả trận.",
    "cost": ""
   },
   {

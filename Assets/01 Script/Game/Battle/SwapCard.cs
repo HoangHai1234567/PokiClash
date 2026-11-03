@@ -31,7 +31,7 @@ namespace PokiClash
             portrait.Bind(f.hero, 150, false, f.star);
             nameText.text = f.hero.name;
             hp.text = $"{f.hp}/{f.maxHp}";
-            double em = Elements.Mult(f.hero.elem, foe.hero.elem), bad = Elements.Mult(foe.hero.elem, f.hero.elem);
+            double em = Battle.ElemMult(f, foe), bad = Battle.ElemMult(foe, f);
             tip.gameObject.SetActive(em > 1 || bad > 1);
             tip.text = em > 1 ? "Khắc địch" : "Bị khắc";
             tip.color = em > 1 ? Theme.GreenD : Theme.Red;

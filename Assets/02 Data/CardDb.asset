@@ -643,7 +643,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: bu_long
-    effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
+    effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.15,"on":"foe"}]'
   - id: bu_long_ult
     name: "H\u1ED3ng Chung"
     rarity: 1
@@ -658,7 +658,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: bu_long
-    effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
+    effectsJson: '[{"k":"dmg","mult":2},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
   - id: bu_long_pas
     name: "V\u1ECF Th\xE9p"
     rarity: 0
@@ -673,7 +673,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: bu_long
-    effectsJson: '[{"k":"shield","pct":0.12}]'
+    effectsJson: '[{"k":"shield","pct":0.06}]'
   - id: phao_hop_skill
     name: "Chu\xF4ng \u0110\u1ED3ng"
     rarity: 0
@@ -1048,7 +1048,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: nu_hoa
-    effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.07,"on":"self"},{"k":"dmg","mult":0.6}]'
+    effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.07,"on":"self"},{"k":"dmg","mult":0.7}]'
   - id: nu_hoa_ult
     name: "R\u1EEBng Gai"
     rarity: 1
@@ -1063,7 +1063,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: nu_hoa
-    effectsJson: '[{"k":"dmg","mult":2.1},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
+    effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
   - id: nu_hoa_pas
     name: "Quang H\u1EE3p"
     rarity: 0
@@ -1078,7 +1078,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: nu_hoa
-    effectsJson: '[{"k":"rage","v":8}]'
+    effectsJson: '[{"k":"rage","v":10}]'
   - id: kien_binh_skill
     name: "H\u1EA1t Gi\u1ED1ng"
     rarity: 0
@@ -1438,7 +1438,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: giot_suong
-    effectsJson: '[{"k":"heal","pct":0.04}]'
+    effectsJson: '[{"k":"heal","pct":0.05}]'
   - id: tam_tay_skill
     name: "B\u1ECDt N\u01B0\u1EDBc"
     rarity: 0
@@ -1981,10 +1981,10 @@ MonoBehaviour:
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
   - id: su_tu_lua_skill
     name: "Li\xEAn Hoa H\u1ECFa"
-    rarity: 1
+    rarity: 0
     kind: 1
     icon: torch
-    costMana: 35
+    costMana: 30
     costRage: 0
     trigger: 0
     hasChance: 0
@@ -1993,13 +1993,13 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: su_tu_lua
-    effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":3,"v":0.05,"on":"foe"}]'
+    effectsJson: '[{"k":"dmg","mult":0.9},{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
   - id: su_tu_lua_ult
     name: "H\u1ECFa D\u1EF1c Ph\u1EA7n Thi\xEAn"
-    rarity: 3
+    rarity: 1
     kind: 2
     icon: phoenix
-    costMana: 40
+    costMana: 35
     costRage: 100
     trigger: 0
     hasChance: 0
@@ -2008,17 +2008,17 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: su_tu_lua
-    effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
+    effectsJson: '[{"k":"dmg","mult":2.2},{"k":"status","id":"burn","turns":3,"v":0.07,"on":"foe"}]'
   - id: su_tu_lua_pas
     name: "L\u1EEDa Thi\u1EC1n"
-    rarity: 2
+    rarity: 0
     kind: 3
     icon: flame
     costMana: 0
     costRage: 0
     trigger: 4
     hasChance: 1
-    chance: 0.3
+    chance: 0.35
     below: 0.3
     unlock: 1
     flavor: 
@@ -2250,10 +2250,10 @@ MonoBehaviour:
     owner: bo_hung
     effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
   - id: thach_nhan_skill
-    name: "Thi\u1EBFt Quy\u1EC1n"
+    name: "N\xE9m \u0110\xE1"
     rarity: 0
     kind: 1
-    icon: fist
+    icon: rock
     costMana: 30
     costRage: 0
     trigger: 0
@@ -2263,12 +2263,12 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: thach_nhan
-    effectsJson: '[{"k":"dmg","mult":1.2},{"k":"rage","v":10}]'
+    effectsJson: '[{"k":"dmg","mult":1},{"k":"shield","pct":0.1}]'
   - id: thach_nhan_ult
-    name: "B\xE1ch Li\u1EC7t Quy\u1EC1n"
-    rarity: 2
+    name: "N\xFAi L\u1EDF"
+    rarity: 1
     kind: 2
-    icon: fist2
+    icon: crack
     costMana: 40
     costRage: 100
     trigger: 0
@@ -2278,12 +2278,12 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: thach_nhan
-    effectsJson: '[{"k":"dmg","mult":0.5,"hits":5}]'
+    effectsJson: '[{"k":"dmg","mult":2.2},{"k":"buff","stat":"atk","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
   - id: thach_nhan_pas
-    name: "Da \u0110\u1ED3ng"
+    name: "Da \u0110\xE1"
     rarity: 0
     kind: 3
-    icon: shield
+    icon: helmet
     costMana: 0
     costRage: 0
     trigger: 1
@@ -2293,7 +2293,7 @@ MonoBehaviour:
     unlock: 1
     flavor: 
     owner: thach_nhan
-    effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
+    effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.08,"turns":99}]'
   - id: sa_than_skill
     name: "Thi\u1EBFt Quy\u1EC1n"
     rarity: 0

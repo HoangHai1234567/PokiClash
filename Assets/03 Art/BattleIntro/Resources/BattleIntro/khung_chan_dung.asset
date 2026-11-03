@@ -1,0 +1,750 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcef32b6181e7924e958bef0249b6fa2, type: 3}
+  m_Name: khung_chan_dung
+  m_EditorClassIdentifier: 
+  entries:
+  - aola: goc_1000
+    box:
+      serializedVersion: 2
+      x: 0.27083334
+      y: 0.054166667
+      width: 0.546875
+      height: 0.90625
+  - aola: goc_1053
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.039583333
+      width: 0.8203125
+      height: 0.86875004
+  - aola: goc_1054
+    box:
+      serializedVersion: 2
+      x: 0.091145836
+      y: 0.052083332
+      width: 0.8098959
+      height: 0.6645833
+  - aola: goc_1176
+    box:
+      serializedVersion: 2
+      x: 0.075520836
+      y: 0.041666668
+      width: 0.8828125
+      height: 0.41875002
+  - aola: goc_1177
+    box:
+      serializedVersion: 2
+      x: 0.0625
+      y: 0.047916666
+      width: 0.8958333
+      height: 0.5395833
+  - aola: goc_1219
+    box:
+      serializedVersion: 2
+      x: 0.046875
+      y: 0.014583333
+      width: 0.9114583
+      height: 0.64375
+  - aola: goc_1220
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.054166667
+      width: 0.8723958
+      height: 0.6166667
+  - aola: goc_1313
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.8645833
+      height: 0.38333333
+  - aola: goc_1314
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.8411458
+      height: 0.48958334
+  - aola: goc_1319
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0
+      width: 0.8359375
+      height: 0.8625
+  - aola: goc_1320
+    box:
+      serializedVersion: 2
+      x: 0.059895832
+      y: 0.027083334
+      width: 0.8307292
+      height: 0.93333334
+  - aola: goc_1370
+    box:
+      serializedVersion: 2
+      x: 0.122395836
+      y: 0.025
+      width: 0.7994792
+      height: 0.93333334
+  - aola: goc_1371
+    box:
+      serializedVersion: 2
+      x: 0.14322917
+      y: 0.047916666
+      width: 0.8151041
+      height: 0.8020834
+  - aola: goc_16
+    box:
+      serializedVersion: 2
+      x: 0.0546875
+      y: 0.060416665
+      width: 0.8203125
+      height: 0.46874997
+  - aola: goc_1617
+    box:
+      serializedVersion: 2
+      x: 0.2578125
+      y: 0.027083334
+      width: 0.3671875
+      height: 0.93333334
+  - aola: goc_1691
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.04375
+      width: 0.8984375
+      height: 0.4166667
+  - aola: goc_1692
+    box:
+      serializedVersion: 2
+      x: 0.13541667
+      y: 0.052083332
+      width: 0.8255208
+      height: 0.51250005
+  - aola: goc_17
+    box:
+      serializedVersion: 2
+      x: 0.0703125
+      y: 0.19166666
+      width: 0.8333333
+      height: 0.5875
+  - aola: goc_181
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.027083334
+      width: 0.7630208
+      height: 0.68125
+  - aola: goc_182
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.0125
+      width: 0.8880208
+      height: 0.87708336
+  - aola: goc_183
+    box:
+      serializedVersion: 2
+      x: 0.111979164
+      y: 0.027083334
+      width: 0.7786458
+      height: 0.93333334
+  - aola: goc_1831
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.027083334
+      width: 0.8125
+      height: 0.7583333
+  - aola: goc_1832
+    box:
+      serializedVersion: 2
+      x: 0.2265625
+      y: 0.060416665
+      width: 0.734375
+      height: 0.5166667
+  - aola: goc_1889
+    box:
+      serializedVersion: 2
+      x: 0.104166664
+      y: 0.03125
+      width: 0.8567708
+      height: 0.5541667
+  - aola: goc_1890
+    box:
+      serializedVersion: 2
+      x: 0.1640625
+      y: 0.060416665
+      width: 0.796875
+      height: 0.41041666
+  - aola: goc_1911
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.060416665
+      width: 0.7630208
+      height: 0.5395834
+  - aola: goc_205
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.041666668
+      width: 0.9166666
+      height: 0.77708334
+  - aola: goc_206
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.0375
+      width: 0.8359375
+      height: 0.68125
+  - aola: goc_207
+    box:
+      serializedVersion: 2
+      x: 0.106770836
+      y: 0.060416665
+      width: 0.8541667
+      height: 0.675
+  - aola: goc_210
+    box:
+      serializedVersion: 2
+      x: 0.1171875
+      y: 0.05
+      width: 0.84375
+      height: 0.5083333
+  - aola: goc_216
+    box:
+      serializedVersion: 2
+      x: 0.23958333
+      y: 0.058333334
+      width: 0.7213542
+      height: 0.5625
+  - aola: goc_2176
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.07083333
+      width: 0.7890625
+      height: 0.59583336
+  - aola: goc_2177
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.78125
+      height: 0.49166664
+  - aola: goc_22
+    box:
+      serializedVersion: 2
+      x: 0.067708336
+      y: 0.060416665
+      width: 0.8932292
+      height: 0.8854167
+  - aola: goc_23
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.008333334
+      width: 0.8880208
+      height: 0.75208336
+  - aola: goc_2373
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.027083334
+      width: 0.6640625
+      height: 0.75625
+  - aola: goc_2374
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.01875
+      width: 0.7890625
+      height: 0.6958333
+  - aola: goc_2392
+    box:
+      serializedVersion: 2
+      x: 0.078125
+      y: 0.029166667
+      width: 0.8802083
+      height: 0.62083334
+  - aola: goc_2393
+    box:
+      serializedVersion: 2
+      x: 0.052083332
+      y: 0.033333335
+      width: 0.9088542
+      height: 0.5208333
+  - aola: goc_24
+    box:
+      serializedVersion: 2
+      x: 0.057291668
+      y: 0.04375
+      width: 0.8229166
+      height: 0.5541667
+  - aola: goc_2419
+    box:
+      serializedVersion: 2
+      x: 0.096354164
+      y: 0.08958333
+      width: 0.8411458
+      height: 0.78125
+  - aola: goc_2420
+    box:
+      serializedVersion: 2
+      x: 0.171875
+      y: 0.09375
+      width: 0.6666667
+      height: 0.6020833
+  - aola: goc_2955
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.06666667
+      width: 0.921875
+      height: 0.6666667
+  - aola: goc_307
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.060416665
+      width: 0.8645833
+      height: 0.51458335
+  - aola: goc_31
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.010416667
+      width: 0.8046875
+      height: 0.56666666
+  - aola: goc_32
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0
+      width: 0.7578125
+      height: 0.60833335
+  - aola: goc_33
+    box:
+      serializedVersion: 2
+      x: 0.067708336
+      y: 0.054166667
+      width: 0.7578125
+      height: 0.57708335
+  - aola: goc_34
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.047916666
+      width: 0.9010417
+      height: 0.81458336
+  - aola: goc_35
+    box:
+      serializedVersion: 2
+      x: 0.0546875
+      y: 0.01875
+      width: 0.8802083
+      height: 0.78749996
+  - aola: goc_36
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.029166667
+      width: 0.9140625
+      height: 0.85
+  - aola: goc_373
+    box:
+      serializedVersion: 2
+      x: 0.09375
+      y: 0.047916666
+      width: 0.8203125
+      height: 0.9125
+  - aola: goc_4
+    box:
+      serializedVersion: 2
+      x: 0.23958333
+      y: 0.060416665
+      width: 0.6302084
+      height: 0.5520834
+  - aola: goc_494
+    box:
+      serializedVersion: 2
+      x: 0.083333336
+      y: 0.01875
+      width: 0.8776042
+      height: 0.6791667
+  - aola: goc_495
+    box:
+      serializedVersion: 2
+      x: 0.0703125
+      y: 0.029166667
+      width: 0.890625
+      height: 0.5729167
+  - aola: goc_496
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.039583333
+      width: 0.8619792
+      height: 0.49583334
+  - aola: goc_5
+    box:
+      serializedVersion: 2
+      x: 0.104166664
+      y: 0.025
+      width: 0.7239583
+      height: 0.43958333
+  - aola: goc_506
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.033333335
+      width: 0.8802083
+      height: 0.54999995
+  - aola: goc_546
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.14166667
+      width: 0.84375
+      height: 0.75416666
+  - aola: goc_547
+    box:
+      serializedVersion: 2
+      x: 0.080729164
+      y: 0.060416665
+      width: 0.8697916
+      height: 0.7916667
+  - aola: goc_548
+    box:
+      serializedVersion: 2
+      x: 0.057291668
+      y: 0.060416665
+      width: 0.8932291
+      height: 0.8541667
+  - aola: goc_6
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.00625
+      width: 0.8697917
+      height: 0.72499996
+  - aola: goc_676
+    box:
+      serializedVersion: 2
+      x: 0.13541667
+      y: 0.060416665
+      width: 0.8255208
+      height: 0.68125004
+  - aola: goc_677
+    box:
+      serializedVersion: 2
+      x: 0.0546875
+      y: 0.047916666
+      width: 0.90625
+      height: 0.85833335
+  - aola: goc_678
+    box:
+      serializedVersion: 2
+      x: 0.0625
+      y: 0.05
+      width: 0.8984375
+      height: 0.7625
+  - aola: goc_683
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.047916666
+      width: 0.8776042
+      height: 0.79583335
+  - aola: goc_684
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.0375
+      width: 0.8984375
+      height: 0.7625
+  - aola: goc_685
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.047916666
+      width: 0.90625
+      height: 0.6875
+  - aola: goc_713
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.060416665
+      width: 0.9192708
+      height: 0.78333336
+  - aola: goc_714
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.041666668
+      width: 0.8645833
+      height: 0.50624996
+  - aola: goc_715
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.047916666
+      width: 0.7526042
+      height: 0.5916667
+  - aola: goc_758
+    box:
+      serializedVersion: 2
+      x: 0.114583336
+      y: 0.083333336
+      width: 0.8046875
+      height: 0.87708336
+  - aola: goc_759
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.828125
+      height: 0.73333335
+  - aola: goc_76
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.0020833334
+      width: 0.8723958
+      height: 0.8458333
+  - aola: goc_760
+    box:
+      serializedVersion: 2
+      x: 0.0625
+      y: 0.0625
+      width: 0.8880208
+      height: 0.6375
+  - aola: goc_77
+    box:
+      serializedVersion: 2
+      x: 0.171875
+      y: 0.039583333
+      width: 0.6614583
+      height: 0.92083335
+  - aola: goc_78
+    box:
+      serializedVersion: 2
+      x: 0.16145833
+      y: 0.039583333
+      width: 0.6588542
+      height: 0.92083335
+  - aola: goc_8
+    box:
+      serializedVersion: 2
+      x: 0.1875
+      y: 0.060416665
+      width: 0.5833333
+      height: 0.90000004
+  - aola: goc_805
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.7786458
+      height: 0.6854167
+  - aola: goc_806
+    box:
+      serializedVersion: 2
+      x: 0.065104164
+      y: 0.0625
+      width: 0.7135416
+      height: 0.46875
+  - aola: goc_807
+    box:
+      serializedVersion: 2
+      x: 0.052083332
+      y: 0.060416665
+      width: 0.8567709
+      height: 0.65208334
+  - aola: goc_825
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.020833334
+      width: 0.7916666
+      height: 0.63125
+  - aola: goc_826
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.047916666
+      width: 0.7578125
+      height: 0.67083335
+  - aola: goc_829
+    box:
+      serializedVersion: 2
+      x: 0.29427084
+      y: 0.075
+      width: 0.65625
+      height: 0.50208336
+  - aola: goc_830
+    box:
+      serializedVersion: 2
+      x: 0.057291668
+      y: 0.079166666
+      width: 0.8880208
+      height: 0.70625
+  - aola: goc_866
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0
+      width: 0.921875
+      height: 0.54583335
+  - aola: goc_867
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.022916667
+      width: 0.8619792
+      height: 0.83958334
+  - aola: goc_868
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.04375
+      width: 0.90625
+      height: 0.8041667
+  - aola: goc_88
+    box:
+      serializedVersion: 2
+      x: 0.13802083
+      y: 0.047916666
+      width: 0.8229167
+      height: 0.78333336
+  - aola: goc_89
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.025
+      width: 0.8776041
+      height: 0.7291667
+  - aola: goc_9
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.047916666
+      width: 0.7239583
+      height: 0.58125
+  - aola: goc_90
+    box:
+      serializedVersion: 2
+      x: 0.0390625
+      y: 0.045833334
+      width: 0.7135417
+      height: 0.5645833
+  - aola: goc_94
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.8645833
+      height: 0.7395834
+  - aola: goc_943
+    box:
+      serializedVersion: 2
+      x: 0.044270832
+      y: 0.025
+      width: 0.9166667
+      height: 0.84791666
+  - aola: goc_944
+    box:
+      serializedVersion: 2
+      x: 0.044270832
+      y: 0.060416665
+      width: 0.8385417
+      height: 0.74583334
+  - aola: goc_95
+    box:
+      serializedVersion: 2
+      x: 0.1015625
+      y: 0.06666667
+      width: 0.8255208
+      height: 0.68125
+  - aola: goc_96
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.875
+      height: 0.75208336
+  - aola: goc_983
+    box:
+      serializedVersion: 2
+      x: 0.0703125
+      y: 0.060416665
+      width: 0.8802083
+      height: 0.59583336
+  - aola: goc_984
+    box:
+      serializedVersion: 2
+      x: 0.049479168
+      y: 0.060416665
+      width: 0.828125
+      height: 0.68958336
+  - aola: monk_2010
+    box:
+      serializedVersion: 2
+      x: 0.140625
+      y: 0.079166666
+      width: 0.6901042
+      height: 0.5416667
+  - aola: monk_2217
+    box:
+      serializedVersion: 2
+      x: 0.114583336
+      y: 0.1375
+      width: 0.6744792
+      height: 0.51875
+  - aola: monk_500
+    box:
+      serializedVersion: 2
+      x: 0.1328125
+      y: 0.054166667
+      width: 0.625
+      height: 0.85833335
+  - aola: monk_boxer
+    box:
+      serializedVersion: 2
+      x: 0.083333336
+      y: 0.047916666
+      width: 0.6302084
+      height: 0.65000004
+  - aola: thuy_7
+    box:
+      serializedVersion: 2
+      x: 0.075520836
+      y: 0.1
+      width: 0.8151042
+      height: 0.8583333
+  - aola: thuy_8
+    box:
+      serializedVersion: 2
+      x: 0.2109375
+      y: 0.0625
+      width: 0.578125
+      height: 0.8958333
+  - aola: thuy_9
+    box:
+      serializedVersion: 2
+      x: 0.041666668
+      y: 0.05
+      width: 0.71875
+      height: 0.5708333

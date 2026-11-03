@@ -2,7 +2,8 @@
 // - sân khấu: tướng to (Items/OXemTuong) đứng giữa, 4 nút clip dưới chân, góc trên trái là tên, hệ, sao, huy hiệu, độ hiếm, danh hiệu;
 // - thanh mốc tiến hóa (EvolutionStrip), hàng 4 chỉ số, khung mảnh và nơi rơi (tướng chưa có);
 // - 3 thẻ riêng cỡ nhỏ (chạm mở ChiTietThe), dưới mỗi thẻ là nút "Lên cấp n", thanh bản sao hoặc "Cấp tối đa";
-// - dòng điều kiện tiến hóa và hàng nút Tiềm năng, Tiến hóa, đội.
+// - dòng điều kiện tiến hóa và hàng nút Tiềm năng, Tiến hóa, đội;
+// - nút hack tiến hóa ở góc trái sân khấu, trên hàng nút clip, chỉ hiện trong Editor (để thử đổi dạng).
 // Mọi phần có sẵn trong prefab, Render bật tắt và gán dữ liệu.
 using System;
 using PokiClash.Core;
@@ -51,6 +52,8 @@ namespace PokiClash
             public TextMeshProUGUI evolveNeed;
             public SketchButton potentialButton, evolveButton, team;
             public Pulse potentialPulse, evolvePulse;
+            // nút hack tiến hóa để thử (chỉ hiện trong Editor; menu Thêm nút hack tiến hóa vào ChiTietTuong)
+            public SketchButton hackStar;
         }
 
         static readonly string[] ClipIds = { HeroViewer.Idle, HeroViewer.Attack, HeroViewer.Skill, HeroViewer.Hit };
@@ -72,13 +75,34 @@ namespace PokiClash
         {
             id = heroId;
             onChange = changed;
-            p.viewer.Bind(App.Data.Hero(id), viewSize, !App.Save.Data.Hero(id).owned);
+            BindViewer();
             for (int i = 0; i < p.clips.Length && i < ClipIds.Length; i++)
             {
                 var clip = ClipIds[i];
                 p.clips[i].SetOnClick(() => p.viewer.Play(clip));
             }
             Render(null);
+        }
+
+        // dựng lại ô xem theo sao hiện tại (lên sao qua mốc tiến hóa thì đổi dạng)
+        void BindViewer() => p.viewer.Bind(App.Data.Hero(id), viewSize, !App.Save.Data.Hero(id).owned);
+
+        // hack thử (Editor): chưa có thì nhận tướng 1 sao; có rồi thì lên 1 sao, bỏ qua điều kiện; tối đa thì về 1 sao
+        void HackStar()
+        {
+            var s = App.Save.Data;
+            var hp = s.Hero(id);
+            if (!hp.owned)
+            {
+                Progress.UnlockHero(s, id);
+                hp.star = 1;
+            }
+            else hp.star = hp.star < App.Data.Cfg.maxStar ? hp.star + 1 : 1;
+            App.Save.Save();
+            App.Toasts.Show($"Hack: {App.Data.Hero(id).name} {hp.star} sao ({HeroArt.FormOf(App.Data.Hero(id)).name})", Icon("star"));
+            onChange?.Invoke();
+            BindViewer();
+            Render(HeroViewer.Skill);
         }
 
         // vẽ lại theo bản lưu; playClip: clip cho ô xem chạy (bản cũ dựng lại ô xem nên clip về Đứng)
@@ -110,6 +134,13 @@ namespace PokiClash
             for (int i = 0; i < p.stats.Length && i < values.Length; i++) p.stats[i].text = ((long)values[i]).ToString();
             p.statNote.text = $"Ở cấp {s.level}, sao {hp.star}" + (badge > 0 ? $", huy hiệu {Badges.TierName(cfg, badge)} +{Badges.Bonus(cfg, badge) * 100:0}%" : "");
             if (p.evolution) p.evolution.Bind(hero, hp.star, hp.owned, cfg);
+            if (p.hackStar)
+            {
+                p.hackStar.gameObject.SetActive(Application.isEditor);
+                p.hackStar.SetText(!hp.owned ? "Hack: nhận" : hp.star < cfg.maxStar ? $"Hack: {hp.star + 1} sao" : "Hack: 1 sao");
+                p.hackStar.FitWidth();
+                p.hackStar.SetOnClick(HackStar);
+            }
 
             // ---------- tướng chưa có: mảnh, nơi rơi ----------
             p.shardBox.SetActive(!hp.owned);
@@ -192,6 +223,7 @@ namespace PokiClash
                     App.Toasts.Show($"{hero.name} tiến hóa {s.Hero(id).star} sao!", Icon("star"));
                     App.Save.Save();
                     onChange?.Invoke();
+                    BindViewer();
                     Render(HeroViewer.Skill);
                 });
                 p.evolveButton.Interactable = ok;

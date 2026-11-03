@@ -77,7 +77,7 @@ Học theo Clash of Critters (bản đục trong `D:/CrittersRipper`): mỗi ch�
    - Trọng số rút: Thường 50, Khá 30, Hiếm 14, Sử thi 5, Huyền thoại 1.
    - Thẻ mở dần theo cấp người chơi.
 3. **Xen thẻ riêng** lúc đang chọn (không tốn lần chọn):
-   - **Chiêu**: tốn mana, một lần mỗi lượt. Chạy đúng chỗ xếp trong hàng, nên xếp thẻ tăng Công trước Chiêu thì Chiêu mạnh hơn.
+   - **Chiêu**: tốn mana, một lần mỗi lượt. **Ra đòn ngay lúc bấm**, không vào hàng thẻ, rồi chọn tiếp (người dùng chốt 2026-11-03, bản Unity; bản web vẫn xếp Chiêu vào hàng). Thẻ đã xếp chỉ chạy cuối lượt nên không làm Chiêu mạnh hơn. Chiêu hạ tướng đối thủ thì hết lúc chọn: thẻ đã xếp chạy rồi hết lượt.
    - **Tuyệt kỹ**: cần đủ 100 nộ và mana. Thay cú đánh thường cuối lượt.
 4. **Ra đòn**: thẻ chạy lần lượt theo thứ tự xếp, rồi đánh thường (hoặc Tuyệt kỹ).
 5. Hết lượt: buff "lượt này" hết.
@@ -126,7 +126,7 @@ sát thương = Công × (1 + buff Công) × hệ số đòn × 100 / (100 + Th�
 ### Máy địch
 
 - Chấm điểm từng thẻ theo tình huống: máu thấp thì quý thẻ hồi, nộ sắp đầy thì quý thẻ tăng Công.
-- Dùng Chiêu sau khi đã có thẻ tăng Công.
+- Dùng Chiêu ngay khi đủ mana (trừ khi phải để dành mana cho Tuyệt kỹ). Trước 2026-11-03: dùng sau khi đã có thẻ tăng Công.
 - Đổi tướng khi tướng đang đánh bị khắc hệ hoặc còn dưới 25% máu.
 - Ở các ải đầu, máy chọn "kém" hơn (nhiễu cao), để người mới dễ thở.
 

@@ -51,7 +51,7 @@ namespace PokiClash.Core
                         v += e.On == Target.Foe ? Math.Abs(e.V) * 0.5 : e.V * (me.rage < cfg.maxRage ? 0.8 : 0.1);
                         break;
                     case EffectKind.Dmg:
-                        v += e.Mult * (e.Hits ?? 1) * 45 * Elements.Mult(me.hero.elem, foe.hero.elem);
+                        v += e.Mult * (e.Hits ?? 1) * 45 * Battle.ElemMult(me, foe);
                         break;
                     case EffectKind.Shield:
                         v += e.Pct * 110 * (hpR < 0.6 ? 1.3 : 1);
@@ -105,7 +105,7 @@ namespace PokiClash.Core
             return best;
         }
 
-        // gọi trước mỗi lần chọn; trả về chiêu nên dùng ngay (nếu có)
+        // gọi trước mỗi lần chọn; trả về chiêu hoặc tuyệt kỹ nên dùng ngay (nếu có)
         public static InnateKind? Innate(Battle b)
         {
             var t = b.turn;
@@ -119,9 +119,8 @@ namespace PokiClash.Core
                 double reserve = me.rage >= cfg.maxRage - 15 && t.ult == null ? ult.costMana : 0;
                 var sk = b.InnateCard(me, InnateKind.Skill);
                 if (me.mana - sk.card.costMana < reserve) return null;
-                bool atkUp = Battle.BuffSum(me, Stat.Atk) > 0 ||
-                             t.queue.Exists(q => b.Data.Card(q.card).Effects.Exists(e => e.K == EffectKind.Buff && e.Stat == Stat.Atk && e.On != Target.Foe));
-                if (atkUp || t.picksLeft <= 2) return InnateKind.Skill;
+                // chiêu ra ngay, thẻ đã xếp chỉ chạy cuối lượt: chờ trong lượt không mạnh hơn, dùng luôn
+                return InnateKind.Skill;
             }
             return null;
         }
@@ -143,8 +142,8 @@ namespace PokiClash.Core
                 double r = f.hp / f.maxHp;
                 double sc = 0;
                 if (hpR < 0.25 && r > 0.5) sc = 1 + r;
-                bool weakNow = Elements.Mult(foe.hero.elem, me.hero.elem) > 1;
-                bool okThere = Elements.Mult(foe.hero.elem, f.hero.elem) <= 1 && Elements.Mult(f.hero.elem, foe.hero.elem) >= 1;
+                bool weakNow = Battle.ElemMult(foe, me) > 1;
+                bool okThere = Battle.ElemMult(foe, f) <= 1 && Battle.ElemMult(f, foe) >= 1;
                 if (weakNow && okThere && r > 0.6) sc = Math.Max(sc, 0.8 + r * 0.5);
                 if (sc > bestScore)
                 {
@@ -165,7 +164,12 @@ namespace PokiClash.Core
             while (b.phase == Phase.Picking)
             {
                 var inn = Innate(b);
-                if (inn.HasValue) outL.AddRange(b.UseInnate(inn.Value));
+                if (inn.HasValue)
+                {
+                    // chiêu hạ đối thủ thì hết lúc chọn (vòng tự dừng)
+                    outL.AddRange(b.UseInnate(inn.Value));
+                    continue;
+                }
                 outL.AddRange(b.Pick(PickIndex(b, noise)));
             }
             return outL;

@@ -25,7 +25,8 @@ namespace PokiClash
         float stageHeight; // chiều cao dáng đứng trên sân (đơn vị web)
 
         static string ClipName(string c) =>
-            c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Hit ? AolaActor.Hit : AolaActor.Idle;
+            c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Cast ? AolaActor.Cast :
+            c == StageView.Hit ? AolaActor.Hit : AolaActor.Idle;
 
         // aola: tên dạng cần hiện (HeroDef.Form theo sao)
         public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip)
@@ -75,16 +76,33 @@ namespace PokiClash
             return s;
         }
 
-        public float Duration(string clip) => actor.Duration(ClipName(clip));
+        // chiêu bắn của tướng không có clip bắn (1_5): đứng dáng đứng, sân tự nhún tới (StageView.Place), tia phóng ở giữa
+        public const float CastLen = 0.6f;
+        public bool HasCast => actor.HasClip(AolaActor.Cast);
+        public bool ManaUsesClip => actor.ManaUsesClip;
 
-        public float HitTime(string clip) => actor.HitFrame(ClipName(clip)) / actor.Fps;
+        public float Duration(string clip) => clip == StageView.Cast && !HasCast ? CastLen : actor.Duration(ClipName(clip));
+
+        public float HitTime(string clip) =>
+            clip == StageView.Cast && !HasCast ? CastLen * 0.5f : actor.HitFrame(ClipName(clip)) / actor.Fps;
+
+        // Chiêu bắn tia (AolaActor.Beam): chỗ bắn so với chân (đơn vị sân, y xuống, đã lật theo phía) và cỡ tia; không khai: false
+        public bool Beam(out Vector2 muzzle, out float scale)
+        {
+            muzzle = Vector2.zero;
+            if (!actor.Beam(out var m, out scale)) return false;
+            float k = stageHeight / Mathf.Max(1, actor.IdleHeightPx);
+            muzzle = new Vector2((flip ? -m.x : m.x) * k, m.y * k);
+            return true;
+        }
 
         // Độ lệch thêm (đơn vị sân) để đỉnh lao của clip đánh rơi vào 72% quãng tới đối thủ: A·m(t) − m(t) như bản web.
+        // Clip khác (chiêu cuối) chỉ lao khi anim.json khai "lunge" (AolaActor.Lunges).
         public bool Lunge(string clip, float t, float tx, float ty, out Vector2 o)
         {
             o = Vector2.zero;
             var name = ClipName(clip);
-            if (name != AolaActor.Attack || !actor.HasClip(name)) return false;
+            if (!actor.Lunges(name) || !actor.HasClip(name)) return false;
             int n = actor.FrameCount(name);
             int fi = Mathf.Min(n - 1, Mathf.FloorToInt(t * actor.Fps));
             float scale = stageHeight / Mathf.Max(1, actor.IdleHeightPx);

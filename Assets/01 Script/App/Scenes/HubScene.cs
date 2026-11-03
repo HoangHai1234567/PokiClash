@@ -59,15 +59,21 @@ namespace PokiClash
         public override void Enter(object args)
         {
             Render();
-            if (!App.Save.Data.intro) StartCoroutine(IntroLater());
+            if (!App.Save.Data.intro || App.Save.Data.starter == null) StartCoroutine(IntroLater());
         }
 
         public override void Refresh() => Render();
 
+        // người chơi mới: màn giới thiệu, rồi chọn tướng khởi đầu (bản lưu chưa có starter thì mở hộp chọn mỗi lần vào sảnh)
         IEnumerator IntroLater()
         {
             yield return new WaitForSecondsRealtime(0.5f);
-            Dialogs.Intro();
+            void PickStarter()
+            {
+                if (App.Save.Data.starter == null) Dialogs.Starter(_ => Render());
+            }
+            if (!App.Save.Data.intro) Dialogs.Intro(PickStarter);
+            else PickStarter();
         }
 
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;

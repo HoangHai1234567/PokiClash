@@ -5,7 +5,14 @@
    "id": 1,
    "balls": 3,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "giot_suong",
+     4,
+     false,
+     4
+    ]
+   ]
   },
   {
    "t": "win",
@@ -22,7 +29,7 @@
    "shards": [
     [
      "vo_su",
-     10,
+     15,
      true,
      0
     ]
@@ -145,28 +152,14 @@
    "id": 13,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "tieu_y",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
    "id": 14,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "canh_cut",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -201,14 +194,28 @@
    "id": 18,
    "balls": 1,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "canh_cut",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
    "id": 19,
    "balls": 1,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "mi_nhi",
+     1,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -218,7 +225,7 @@
    "shards": [
     [
      "ma_ket",
-     5,
+     3,
      false,
      0
     ]
@@ -232,13 +239,48 @@
     "big": false,
     "cards": [
      [
-      "vo_su",
-      "skill",
-      "vs_skill",
-      "common"
+      "giot_suong",
+      "ult",
+      "giot_suong_ult",
+      "uncommon"
      ]
     ]
    }
+  },
+  {
+   "t": "win",
+   "id": 20,
+   "balls": 1,
+   "first": false,
+   "shards": [
+    [
+     "ma_ket",
+     5,
+     false,
+     0
+    ]
+   ]
+  },
+  {
+   "t": "win",
+   "id": 20,
+   "balls": 1,
+   "first": false,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 20,
+   "balls": 1,
+   "first": false,
+   "shards": [
+    [
+     "ma_ket",
+     3,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -277,34 +319,6 @@
   },
   {
    "t": "win",
-   "id": 20,
-   "balls": 1,
-   "first": false,
-   "shards": [
-    [
-     "ma_ket",
-     3,
-     false,
-     0
-    ]
-   ]
-  },
-  {
-   "t": "win",
-   "id": 20,
-   "balls": 1,
-   "first": false,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 20,
-   "balls": 1,
-   "first": false,
-   "shards": []
-  },
-  {
-   "t": "win",
    "id": 3,
    "balls": 1,
    "first": false,
@@ -315,7 +329,14 @@
    "id": 71,
    "balls": 14,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "su_tu_lua",
+     3,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -332,7 +353,7 @@
    "shards": [
     [
      "bo_de",
-     1,
+     2,
      false,
      0
     ]
@@ -346,7 +367,7 @@
    "shards": [
     [
      "bo_de",
-     3,
+     4,
      false,
      0
     ]
@@ -360,10 +381,10 @@
     "big": false,
     "cards": [
      [
-      "giot_suong",
+      "vo_su",
       "ult",
-      "giot_suong_ult",
-      "uncommon"
+      "vs_ult",
+      "rare"
      ],
      [
       "giot_suong",
@@ -393,14 +414,7 @@
    "id": 23,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "mi_nhi",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -416,8 +430,14 @@
    "first": true,
    "shards": [
     [
-     "nu_hoa",
+     "mam_go",
      10,
+     true,
+     0
+    ],
+    [
+     "ma_ket",
+     2,
      true,
      0
     ]
@@ -459,7 +479,7 @@
    "shards": [
     [
      "vay_lam",
-     4,
+     3,
      false,
      0
     ]
@@ -477,21 +497,21 @@
    "id": 32,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "vay_lam",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
    "id": 33,
    "balls": 1,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "ma_ket",
+     2,
+     false,
+     2
+    ]
+   ]
   },
   {
    "t": "win",
@@ -533,14 +553,7 @@
    "id": 39,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "ma_ket",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -550,7 +563,7 @@
    "shards": [
     [
      "kuba",
-     4,
+     5,
      false,
      0
     ]
@@ -617,7 +630,14 @@
    "id": 49,
    "balls": 2,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "vay_lam",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -627,7 +647,7 @@
    "shards": [
     [
      "thuong_lam",
-     5,
+     3,
      false,
      0
     ]
@@ -666,7 +686,14 @@
    "id": 55,
    "balls": 2,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "vay_lam",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -694,14 +721,7 @@
    "id": 59,
    "balls": 2,
    "first": true,
-   "shards": [
-    [
-     "kuba",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -778,7 +798,20 @@
    "id": 69,
    "balls": 2,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "huyen_vu",
+     1,
+     false,
+     0
+    ],
+    [
+     "thuong_lam",
+     1,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -802,9 +835,9 @@
     "big": false,
     "cards": [
      [
-      "giot_suong",
+      "mam_go",
       "passive",
-      "giot_suong_pas",
+      "mam_go_pas",
       "common"
      ]
     ]
@@ -818,16 +851,16 @@
     "big": false,
     "cards": [
      [
-      "nu_hoa",
-      "ult",
-      "nu_hoa_ult",
-      "uncommon"
+      "ma_ket",
+      "passive",
+      "ma_ket_pas",
+      "rare"
      ],
      [
       "vo_su",
-      "passive",
-      "vs_pas",
-      "common"
+      "ult",
+      "vs_ult",
+      "rare"
      ]
     ]
    }
@@ -840,16 +873,16 @@
     "big": false,
     "cards": [
      [
-      "nu_hoa",
-      "ult",
-      "nu_hoa_ult",
-      "uncommon"
+      "ma_ket",
+      "passive",
+      "ma_ket_pas",
+      "rare"
      ],
      [
-      "nu_hoa",
+      "vo_su",
       "ult",
-      "nu_hoa_ult",
-      "uncommon"
+      "vs_ult",
+      "rare"
      ]
     ]
    }
@@ -862,16 +895,16 @@
     "big": false,
     "cards": [
      [
-      "nu_hoa",
-      "skill",
-      "nu_hoa_skill",
-      "common"
+      "ma_ket",
+      "ult",
+      "ma_ket_ult",
+      "epic"
      ],
      [
-      "nu_hoa",
-      "passive",
-      "nu_hoa_pas",
-      "common"
+      "mam_go",
+      "ult",
+      "mam_go_ult",
+      "uncommon"
      ]
     ]
    }
@@ -885,20 +918,20 @@
     "cards": [
      [
       "vo_su",
-      "skill",
-      "vs_skill",
-      "common"
-     ],
-     [
-      "vo_su",
-      "passive",
-      "vs_pas",
-      "common"
+      "ult",
+      "vs_ult",
+      "rare"
      ],
      [
       "giot_suong",
-      "ult",
-      "giot_suong_ult",
+      "skill",
+      "giot_suong_skill",
+      "common"
+     ],
+     [
+      "ma_ket",
+      "skill",
+      "ma_ket_skill",
       "uncommon"
      ],
      [
@@ -918,17 +951,17 @@
  ],
  "end": {
   "zones": {
-   "thuy": 70,
-   "hoa": 4,
    "kim": 0,
    "moc": 0,
+   "thuy": 70,
+   "hoa": 4,
    "tho": 0
   },
   "zoneChests": {
-   "thuy": 7,
-   "hoa": 1,
    "kim": 0,
    "moc": 0,
+   "thuy": 7,
+   "hoa": 1,
    "tho": 0
   },
   "clears": {
@@ -1009,8 +1042,9 @@
   },
   "balls": 284,
   "owned": [
-   "nu_hoa",
+   "mam_go",
    "giot_suong",
+   "ma_ket",
    "vo_su"
   ]
  }

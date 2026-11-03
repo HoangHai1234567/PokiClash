@@ -149,6 +149,8 @@ Dòng 929–931 là Triệu Vân (nhân vật lịch sử) nên bỏ.
 | `ky_lan` | Kỳ Lân Cát | Bờm cát hoàng kim | Sử thi | 90 沙麒麟 (88 → 89 → 90) | mới | TG39 |
 | `ca_sa` | Đại Sư Cà Sa | Kim cang hộ pháp | Huyền thoại | `monk_2217` (reskin của 2217) | giữ | TG40 |
 
+**Tướng khởi đầu (2026-11-03, `15_TuongKhoiDau.md`):** Giọt Sương, Sư Tử Lửa, Bu Lông, Nụ Hoa, Thạch Nhân, mỗi con đứng ở ải 1 đảo cùng hệ. Cả 5 cùng Võ Sư đổi sang Khá (Bu Lông, Nụ Hoa, Võ Sư từ Thường; Thạch Nhân từ Hiếm), nên số tướng mỗi độ hiếm của Kim, Mộc, Thổ trong bảng trên không còn đúng 2-2-2-1-1.
+
 ### Bỏ khỏi danh sách
 
 | Id game | Tên | Lý do |

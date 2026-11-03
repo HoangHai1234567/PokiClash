@@ -53,7 +53,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 340
+  m_PreferredHeight: 190
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -75,9 +75,9 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 1
-  m_Spacing: 16
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_Spacing: 18
+  m_ChildForceExpandWidth: 0
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 0
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -1031,4 +1031,4 @@ MonoBehaviour:
   cards: {fileID: 8638886863733536587}
   empty: {fileID: 9184178004706008010}
   ok: {fileID: 2031462575256790563}
-  cardPrefab: {fileID: 1649627563236219407, guid: c17ee52eee97dfc48b6fd4ab10c0abcf, type: 3}
+  tilePrefab: {fileID: 8352921323272311300, guid: ac097db7df12d084ebf92a284b30426b, type: 3}

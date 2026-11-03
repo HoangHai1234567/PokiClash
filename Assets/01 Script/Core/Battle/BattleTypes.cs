@@ -40,6 +40,7 @@ namespace PokiClash.Core
         public bool boss;
         public bool evo; // boss ải 8: có thẻ Tiến Hóa (dòng 1 dạng thì không tiến hóa được)
         public int form; // dạng đang hiện trong dòng tiến hóa (tướng thường theo sao, boss tiến hóa từ 0)
+        public bool partner; // tướng đồng hành: không chịu thiệt khi khắc hệ (Battle.ElemMult)
         // tên hiện trên sân (web fighterName): boss tiến hóa theo dạng đang có, tướng khác theo tên dòng
         public string Name => evo && form < hero.forms.Length ? hero.forms[form].name : hero.name;
         public double maxHp, hp, atk, def, spd;
@@ -67,10 +68,8 @@ namespace PokiClash.Core
 
     public sealed class QueueItem
     {
-        public string card;
-        public bool skill; // false = thẻ chung ("pool"), true = chiêu ("skill")
+        public string card; // thẻ chung (chiêu ra ngay, không vào hàng)
         public int lv;
-        public string KindKey => skill ? "skill" : "pool";
     }
 
     public sealed class UltItem
@@ -118,7 +117,7 @@ namespace PokiClash.Core
         public int side;
         public int round, first;
         public string card;
-        public string kind; // card: "pool"/"skill"; innate: "skill"/"ult"
+        public string kind; // card: "pool"; innate: "skill" (ra đòn ngay, hiệu ứng theo sau)/"ult"
         public int lv, rep;
         public bool extra;
         public int from, to;

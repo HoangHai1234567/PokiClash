@@ -1,0 +1,31 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\c01.png (1536 x 1024): an approved battle background of this game: copy its RENDERING (ink, pencil hatching, colours); ignore its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\guides\G_Sheet4x3.png (1536 x 1024): the numbered 4 x 3 grid: one object per cell, in number order
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\fxm.png
+Create the folder if it is missing. If that file already exists, save it as fxm_2.png, fxm_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: a sprite sheet of 12 separate effect objects for the mini-boss battle backgrounds of a vertical mobile game. The game cuts the sheet into 12 sprites and animates them (moves, spins, fades, scales, makes them see-through), so draw each object complete and on its own.
+
+Draw a 1536 x 1024 image with a fully TRANSPARENT background (PNG with alpha), in the rendering of image 1 (same wobbly ink, same pencil hatching, same colours). One object per cell of image 2's numbered 4 x 3 grid (384 x 341 px cells): each object about the size of the cell's inner grey frame and centred in its cell, nothing crossing a cell edge, no ground, no shadow, no background colour, no grid lines, no numbers. Glows and light are drawn as solid pale shapes (the game makes them see-through).
+
+In grid order:
+1 a long cone of lighthouse light: a narrow rounded end at the left, widening to the right edge of the cell; solid pale warm yellow with yellow pencil hatching and a thin ink outline only along its two long sides;
+2 a half-circle rainbow of five soft pencil-hatched bands, no ink outline;
+3 three tall thin wavy streaks of falling white water side by side, with a few short blue ink lines;
+4 a soft round puff of white mist with very pale blue hatching and a faint thin outline;
+5 a round soft glow: a pale pink-white disc with short rays all around it, no ink;
+6 one round water bubble with a white highlight and a thin blue ink outline;
+7 a cluster of five small water bubbles of different sizes;
+8 a glowing firefly: a small yellow-green dot inside a soft round pale-green halo;
+9 a horizontal streak of moonlight on water: short broken white-yellow lines stacked in a narrow band;
+10 a flat ripple ring on water seen at a low angle: a wide thin white ellipse with a thin blue ink edge;
+11 a glowing teal rune circle seen at a low angle (a wide flat ellipse): a hexagon turtle-shell pattern and small dots inside a double ring, pale glowing teal;
+12 a pale green spirit wisp: a small glowing flame-like curl rising upward;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, fish; any UI, frame or border; white sticker outlines.
+
+Remember: save the image to E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\fxm.png

@@ -17,6 +17,7 @@ namespace PokiClash.Core
                 cardSkill = p.skill.lv, cardUlt = p.ult.lv, cardPassive = p.passive.lv,
                 mods = h != null ? Potential.Mods(s, d, h) : null, // huy hiệu + tiềm năng
                 start = h != null ? Potential.Start(s, d, hero) : null,
+                partner = hero == s.starter,
             };
         }
 

@@ -30,7 +30,7 @@ Bộ khung, nút, thanh, thẻ, hộp thoại cho mọi scene (spec `ui-theme`).
 ```
 You are drawing the user-interface kit of a vertical mobile monster-battle game whose whole look is a hand-drawn
 kid's adventure notebook (attached screenshots R1_UI_Cards.png and R3_UI_Modal.png show the approved look: cream
-paper, wobbly dark-brown ink outlines, crayon hatching, hard offset shadows, tape strips). The attached PROMPTS.md
+paper, wobbly dark-brown ink outlines, crayon hatching, tape strips; no shadows). The attached PROMPTS.md
 lists 8 images (U1–U8), each with its own English prompt. Work IN ORDER, ONE IMAGE PER REPLY, starting with U1,
 then stop and wait for "next" or a correction. Never write any text or letters on UI pieces (the game writes
 Vietnamese text itself), except the logo in U7.
@@ -48,8 +48,8 @@ Six blank game buttons on a fully transparent background, 1536 x 1024, one per c
 3 x 2 grid, nothing crossing a cell: 1 red #E8553F, 2 green #6CBF4F, 3 blue #4A90D9, 4 yellow #F7C948,
 5 purple #9A6AD6, 6 cream paper #FBF4E2. Each is a wide rounded rectangle about 400 x 150 px with slightly
 uneven hand-drawn corners, a thick 6 px dark-brown ink outline, diagonal crayon hatching lighter stripes across
-the fill, a darker band on the bottom 35 % (pressed-edge shading), and a HARD offset shadow (solid #2B2118,
-8 px right and 10 px down, no blur). The middle part must be plain so the button can stretch horizontally.
+the fill, a darker band on the bottom 35 % (pressed-edge shading), and no shadow at all (the game
+adds it). The middle part must be plain so the button can stretch horizontally.
 No text, no icons.
 ```
 **Sửa nhanh:** `Keep the same six buttons; outlines thicker and more wobbly, middle area flatter so it can stretch, no text.`
@@ -62,7 +62,7 @@ No text, no icons.
 Six blank UI frames on a transparent background, 1536 x 1024, one per cell of the attached 3 x 2 grid, same ink
 and crayon style as UI_Buttons.png:
 1 a large cream paper sheet for dialogs (about 440 x 300) with a strip of translucent yellow tape at the top centre,
-  hand-drawn uneven border, hard offset shadow;
+  hand-drawn uneven border, no shadow;
 2 a small rounded name plaque (about 400 x 110), cream fill, ink border;
 3 a lined notebook paper panel (about 440 x 300) with faint blue horizontal ruling and a red margin line on the
   left, ink border on the top edge only;
@@ -80,7 +80,7 @@ No text.
 ```
 Six blank playing-card frames on a transparent background, 1536 x 1024, one per cell of the attached 3 x 2 grid,
 each a portrait card about 300 x 440 like the cards in R1_UI_Cards.png: cream paper body with light crayon
-hatching, thick wobbly ink border, hard offset shadow, a coloured top band (about 20 % of the height), a dashed
+hatching, thick wobbly ink border, no shadow, a coloured top band (about 20 % of the height), a dashed
 circle in the upper middle where an icon will go, and a strip of tape on the top edge. Top band colours:
 1 common grey #B9B1A3, 2 uncommon green #6CBF4F, 3 rare blue #4A90D9, 4 epic purple #9A6AD6 with small sparkles,
 5 legendary orange #F39A2D with a golden inner border and sparkles, 6 the card BACK: red #E8553F with diagonal
@@ -97,7 +97,7 @@ Twelve UI pieces on a transparent background, 1536 x 1024, one per cell of the a
 1 an empty progress-bar frame (long rounded rectangle about 340 x 44, cream inside, ink border);
 2 a green health fill strip with diagonal lighter crayon hatching; 3 a blue mana fill strip; 4 an orange rage fill
 strip with a soft glow; 5 a purple experience fill strip; 6 a pale blue striped shield overlay strip;
-7 a small resource chip (rounded pill about 220 x 70, cream, ink border, hard shadow) with an empty round spot on
+7 a small resource chip (rounded pill about 220 x 70, cream, ink border, no shadow) with an empty round spot on
 the left for an icon; 8 a small element tag pill (about 160 x 50) blank; 9 a tiny red notification dot with ink
 border; 10 a round level badge: cream disc with a thick ink ring and an empty groove for an XP arc;
 11 a thin yellow highlight ring (for a selected item); 12 a dashed ink circle (empty icon slot).
@@ -111,7 +111,7 @@ No text.
 
 ```
 Six round button discs on a transparent background, 1536 x 1024, one per cell of the attached 3 x 2 grid, each a
-slightly uneven hand-drawn circle about 300 px with thick ink outline, crayon hatching and hard offset shadow, empty
+slightly uneven hand-drawn circle about 300 px with thick ink outline, crayon hatching, no shadow, empty
 centre for an icon: 1 light green #C9ECB0, 2 light blue #BCD8F5, 3 big yellow #FFE08A (the largest, about 360 px),
 4 coral #FFB3A3, 5 lavender #E3D2FF, 6 a small cream round button (about 200 px) for back/close/pause.
 No text, no icons.
@@ -142,7 +142,7 @@ No text.
 
 ```
 Game logo on a transparent background, 1536 x 1024: the word "PokiClash" in big chunky rounded hand-lettered
-letters, white fill with a thick dark-brown ink outline and a hard offset shadow, slightly bouncy baseline; behind
+letters, white fill with a thick dark-brown ink outline and no shadow, slightly bouncy baseline; behind
 it a small doodled pachinko ball (pink with a white band) and two crossed paper cards; a few crayon sparkles.
 Exactly the letters P-o-k-i-C-l-a-s-h, nothing else written.
 ```

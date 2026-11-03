@@ -12,10 +12,16 @@ Khi người chơi đã qua ít nhất một ải, game SHALL tích luỹ bi AFK
 - **THEN** hộp ghi "Qua ải 1 để mở. Đội sẽ tự đánh các ải đã qua và nhặt bi, cả khi bạn tắt game."
 
 ### Requirement: Mảnh tướng từ AFK
-Mỗi giờ AFK tròn SHALL có 8% cơ hội ra 1 mảnh của một tướng boss hoặc mini boss người chơi đã thắng (không tính tướng tặng). Mảnh của tướng đã có MUST đổi thành bản sao thẻ như mọi nguồn khác.
+Mỗi giờ AFK tròn SHALL có 8% cơ hội ra 1 mảnh của một tướng rơi ở ải đội đang AFK, bốc theo tỉ lệ rơi của ải đó (không tính tướng tặng). Mảnh của tướng đã có MUST đổi thành bản sao thẻ như mọi nguồn khác.
+
+AFK theo ải (Unity, người dùng chọn 2026-11-03; bản web vẫn lấy mọi boss đã thắng): ải đảo đã thắng có nút "AFK ải này". Chưa chọn thì đội AFK ở ải xa nhất đã qua có rơi mảnh. Đổi ải thì mảnh của các giờ tròn đã dồn tính theo ải cũ và nhận luôn, phần giờ lẻ giữ lại.
+
+#### Scenario: Chọn ải AFK
+- **WHEN** người chơi đã qua ải 30 đảo Thủy, mở ải 29 (Ma Kết, Mi Nhi) và bấm "AFK ải này"
+- **THEN** nút đổi thành "Đang AFK", nhãn AFK trên đảo dời xuống ải 29, mảnh AFK từ đó chỉ là Ma Kết hoặc Mi Nhi
 
 #### Scenario: Nhận sau 12 giờ
-- **WHEN** người chơi nhận AFK sau 12 giờ và đã thắng boss Đảo Thủy
+- **WHEN** người chơi nhận AFK sau 12 giờ, đội đang AFK ải boss Đảo Thủy
 - **THEN** có 12 lần thử 8%, mỗi lần trúng ra 1 mảnh Y Trạch (hoặc 1 bản sao thẻ nếu đã có Y Trạch)
 
 ### Requirement: Rương AFK

@@ -777,7 +777,7 @@
      "k": "status",
      "id": "stun",
      "turns": 1,
-     "chance": 0.3,
+     "chance": 0.15,
      "on": "foe"
     }
    ]
@@ -796,7 +796,7 @@
    "effects": [
     {
      "k": "dmg",
-     "mult": 2.3
+     "mult": 2.0
     },
     {
      "k": "buff",
@@ -819,7 +819,7 @@
    "effects": [
     {
      "k": "shield",
-     "pct": 0.12
+     "pct": 0.06
     }
    ]
   },
@@ -1329,7 +1329,7 @@
     },
     {
      "k": "dmg",
-     "mult": 0.6
+     "mult": 0.7
     }
    ]
   },
@@ -1347,7 +1347,7 @@
    "effects": [
     {
      "k": "dmg",
-     "mult": 2.1
+     "mult": 2.3
     },
     {
      "k": "buff",
@@ -1370,7 +1370,7 @@
    "effects": [
     {
      "k": "rage",
-     "v": 8
+     "v": 10
     }
    ]
   },
@@ -1860,7 +1860,7 @@
    "effects": [
     {
      "k": "heal",
-     "pct": 0.04
+     "pct": 0.05
     }
    ]
   },
@@ -2658,22 +2658,22 @@
    "id": "su_tu_lua_skill",
    "owner": "su_tu_lua",
    "name": "Liên Hoa Hỏa",
-   "rarity": "uncommon",
+   "rarity": "common",
    "kind": "skill",
    "icon": "torch",
    "cost": {
-    "mana": 35
+    "mana": 30
    },
    "effects": [
     {
      "k": "dmg",
-     "mult": 1
+     "mult": 0.9
     },
     {
      "k": "status",
      "id": "burn",
      "turns": 3,
-     "v": 0.05,
+     "v": 0.06,
      "on": "foe"
     }
    ]
@@ -2682,23 +2682,23 @@
    "id": "su_tu_lua_ult",
    "owner": "su_tu_lua",
    "name": "Hỏa Dực Phần Thiên",
-   "rarity": "epic",
+   "rarity": "uncommon",
    "kind": "ult",
    "icon": "phoenix",
    "cost": {
     "rage": 100,
-    "mana": 40
+    "mana": 35
    },
    "effects": [
     {
      "k": "dmg",
-     "mult": 2.6
+     "mult": 2.2
     },
     {
      "k": "status",
      "id": "burn",
      "turns": 3,
-     "v": 0.08,
+     "v": 0.07,
      "on": "foe"
     }
    ]
@@ -2707,11 +2707,11 @@
    "id": "su_tu_lua_pas",
    "owner": "su_tu_lua",
    "name": "Lửa Thiền",
-   "rarity": "rare",
+   "rarity": "common",
    "kind": "passive",
    "icon": "flame",
    "trigger": "onAttack",
-   "chance": 0.3,
+   "chance": 0.35,
    "effects": [
     {
      "k": "status",
@@ -3025,31 +3025,31 @@
   {
    "id": "thach_nhan_skill",
    "owner": "thach_nhan",
-   "name": "Thiết Quyền",
+   "name": "Ném Đá",
    "rarity": "common",
    "kind": "skill",
-   "icon": "fist",
+   "icon": "rock",
    "cost": {
     "mana": 30
    },
    "effects": [
     {
      "k": "dmg",
-     "mult": 1.2
+     "mult": 1
     },
     {
-     "k": "rage",
-     "v": 10
+     "k": "shield",
+     "pct": 0.1
     }
    ]
   },
   {
    "id": "thach_nhan_ult",
    "owner": "thach_nhan",
-   "name": "Bách Liệt Quyền",
-   "rarity": "rare",
+   "name": "Núi Lở",
+   "rarity": "uncommon",
    "kind": "ult",
-   "icon": "fist2",
+   "icon": "crack",
    "cost": {
     "rage": 100,
     "mana": 40
@@ -3057,24 +3057,31 @@
    "effects": [
     {
      "k": "dmg",
-     "mult": 0.5,
-     "hits": 5
+     "mult": 2.2
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
     }
    ]
   },
   {
    "id": "thach_nhan_pas",
    "owner": "thach_nhan",
-   "name": "Da Đồng",
+   "name": "Da Đá",
    "rarity": "common",
    "kind": "passive",
-   "icon": "shield",
+   "icon": "helmet",
    "trigger": "start",
    "effects": [
     {
      "k": "buff",
-     "stat": "def",
-     "v": 0.15,
+     "stat": "dmgTaken",
+     "v": -0.08,
      "turns": 99
     }
    ]

@@ -13,7 +13,14 @@
      "buff": -0.2
     }
    ],
-   "drops": [],
+   "drops": [
+    {
+     "hero": "giot_suong",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ],
    "tag": "hero",
    "chapter": 0
   },
@@ -55,9 +62,11 @@
     {
      "hero": "vo_su",
      "chance": 1,
-     "min": 10,
-     "max": 10,
-     "gift": true
+     "min": 15,
+     "max": 15,
+     "gift": true,
+     "altFor": "thach_nhan",
+     "altHero": "meo_quyen"
     }
    ],
    "tag": "minion",
@@ -73,7 +82,7 @@
     {
      "hero": "linh_cua",
      "level": 1,
-     "buff": 0.25
+     "buff": 0.4
     }
    ],
    "drops": [],
@@ -113,11 +122,13 @@
    "enemies": [
     {
      "hero": "linh_cua",
-     "level": 1
+     "level": 1,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua",
-     "level": 1
+     "level": 1,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -134,7 +145,7 @@
     {
      "hero": "tieu_y",
      "level": 1,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -157,11 +168,13 @@
    "enemies": [
     {
      "hero": "tieu_y",
-     "level": 1
+     "level": 1,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua",
-     "level": 1
+     "level": 1,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -185,11 +198,12 @@
     {
      "hero": "tieu_y",
      "level": 1,
-     "buff": 0.15
+     "buff": 0.3
     },
     {
      "hero": "linh_cua",
-     "level": 1
+     "level": 1,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -236,11 +250,13 @@
    "enemies": [
     {
      "hero": "linh_noc",
-     "level": 2
+     "level": 2,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua",
-     "level": 2
+     "level": 2,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -257,7 +273,7 @@
     {
      "hero": "canh_cut",
      "level": 2,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -280,11 +296,13 @@
    "enemies": [
     {
      "hero": "tieu_y",
-     "level": 2
+     "level": 2,
+     "buff": 0.15
     },
     {
      "hero": "linh_noc",
-     "level": 2
+     "level": 2,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -308,11 +326,12 @@
     {
      "hero": "canh_cut",
      "level": 2,
-     "buff": 0.15
+     "buff": 0.3
     },
     {
      "hero": "linh_cua",
-     "level": 2
+     "level": 2,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -359,11 +378,13 @@
    "enemies": [
     {
      "hero": "linh_cua",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     },
     {
      "hero": "linh_noc",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -380,7 +401,7 @@
     {
      "hero": "mi_nhi",
      "level": 3,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -403,11 +424,13 @@
    "enemies": [
     {
      "hero": "canh_cut",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -431,11 +454,12 @@
     {
      "hero": "mi_nhi",
      "level": 3,
-     "buff": 0.15
+     "buff": 0.3
     },
     {
      "hero": "linh_noc",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -459,7 +483,8 @@
     {
      "hero": "ma_ket",
      "level": 3,
-     "boss": true
+     "boss": true,
+     "buff": 0.1
     }
    ],
    "drops": [
@@ -482,11 +507,13 @@
    "enemies": [
     {
      "hero": "linh_cua",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     },
     {
      "hero": "linh_noc",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -503,7 +530,7 @@
     {
      "hero": "ma_ket",
      "level": 3,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -526,11 +553,13 @@
    "enemies": [
     {
      "hero": "mi_nhi",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     },
     {
      "hero": "linh_ngu",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -554,17 +583,17 @@
     {
      "hero": "linh_cua",
      "level": 3,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc",
      "level": 3,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_cua",
      "level": 3,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [],
@@ -580,16 +609,18 @@
    "enemies": [
     {
      "hero": "ma_ket",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     },
     {
      "hero": "canh_cut",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [
     {
-     "hero": "nu_hoa",
+     "hero": "mam_go",
      "chance": 1,
      "min": 10,
      "max": 10,
@@ -621,7 +652,7 @@
     {
      "hero": "ma_ket",
      "level": 3,
-     "buff": 0.25
+     "buff": 0.4
     }
    ],
    "drops": [
@@ -645,11 +676,12 @@
     {
      "hero": "linh_noc",
      "level": 3,
-     "buff": 0.4
+     "buff": 0.55
     },
     {
      "hero": "linh_cua",
-     "level": 3
+     "level": 3,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -666,17 +698,17 @@
     {
      "hero": "ma_ket",
      "level": 3,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc",
      "level": 3,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu",
      "level": 3,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [
@@ -700,12 +732,12 @@
     {
      "hero": "ma_ket",
      "level": 3,
-     "buff": 0.1
+     "buff": 0.25
     },
     {
      "hero": "mi_nhi",
      "level": 3,
-     "buff": 0.1
+     "buff": 0.25
     }
    ],
    "drops": [
@@ -735,7 +767,8 @@
     {
      "hero": "vay_lam",
      "level": 4,
-     "boss": true
+     "boss": true,
+     "buff": 0.1
     }
    ],
    "drops": [
@@ -758,11 +791,13 @@
    "enemies": [
     {
      "hero": "linh_noc",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     },
     {
      "hero": "linh_ngu",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -779,7 +814,7 @@
     {
      "hero": "vay_lam",
      "level": 4,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -802,11 +837,13 @@
    "enemies": [
     {
      "hero": "ma_ket",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -830,17 +867,17 @@
     {
      "hero": "linh_noc",
      "level": 4,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu",
      "level": 4,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc",
      "level": 4,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [],
@@ -856,11 +893,13 @@
    "enemies": [
     {
      "hero": "vay_lam",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     },
     {
      "hero": "mi_nhi",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -890,7 +929,7 @@
     {
      "hero": "vay_lam",
      "level": 4,
-     "buff": 0.25
+     "buff": 0.4
     }
    ],
    "drops": [
@@ -914,11 +953,12 @@
     {
      "hero": "linh_ngu2",
      "level": 4,
-     "buff": 0.4
+     "buff": 0.55
     },
     {
      "hero": "linh_noc2",
-     "level": 4
+     "level": 4,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -935,17 +975,17 @@
     {
      "hero": "vay_lam",
      "level": 4,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu2",
      "level": 4,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_cua2",
      "level": 4,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [
@@ -969,12 +1009,12 @@
     {
      "hero": "vay_lam",
      "level": 4,
-     "buff": 0.1
+     "buff": 0.25
     },
     {
      "hero": "ma_ket",
      "level": 4,
-     "buff": 0.1
+     "buff": 0.25
     }
    ],
    "drops": [
@@ -1004,7 +1044,8 @@
     {
      "hero": "kuba",
      "level": 5,
-     "boss": true
+     "boss": true,
+     "buff": 0.1
     }
    ],
    "drops": [
@@ -1027,11 +1068,13 @@
    "enemies": [
     {
      "hero": "linh_ngu2",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua2",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -1048,7 +1091,7 @@
     {
      "hero": "kuba",
      "level": 5,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -1071,11 +1114,13 @@
    "enemies": [
     {
      "hero": "vay_lam",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     },
     {
      "hero": "linh_noc2",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -1099,17 +1144,17 @@
     {
      "hero": "linh_ngu2",
      "level": 5,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_cua2",
      "level": 5,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu2",
      "level": 5,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [],
@@ -1125,11 +1170,13 @@
    "enemies": [
     {
      "hero": "kuba",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     },
     {
      "hero": "ma_ket",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -1159,7 +1206,7 @@
     {
      "hero": "kuba",
      "level": 5,
-     "buff": 0.25
+     "buff": 0.4
     }
    ],
    "drops": [
@@ -1183,11 +1230,12 @@
     {
      "hero": "linh_cua2",
      "level": 5,
-     "buff": 0.4
+     "buff": 0.55
     },
     {
      "hero": "linh_ngu2",
-     "level": 5
+     "level": 5,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -1204,17 +1252,17 @@
     {
      "hero": "kuba",
      "level": 5,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_cua2",
      "level": 5,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc2",
      "level": 5,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [
@@ -1238,12 +1286,12 @@
     {
      "hero": "kuba",
      "level": 5,
-     "buff": 0.1
+     "buff": 0.25
     },
     {
      "hero": "vay_lam",
      "level": 5,
-     "buff": 0.1
+     "buff": 0.25
     }
    ],
    "drops": [
@@ -1273,7 +1321,8 @@
     {
      "hero": "thuong_lam",
      "level": 6,
-     "boss": true
+     "boss": true,
+     "buff": 0.1
     }
    ],
    "drops": [
@@ -1296,11 +1345,13 @@
    "enemies": [
     {
      "hero": "linh_cua2",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     },
     {
      "hero": "linh_noc2",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -1317,7 +1368,7 @@
     {
      "hero": "thuong_lam",
      "level": 6,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -1340,11 +1391,13 @@
    "enemies": [
     {
      "hero": "kuba",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     },
     {
      "hero": "linh_ngu2",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -1368,17 +1421,17 @@
     {
      "hero": "linh_cua2",
      "level": 6,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc2",
      "level": 6,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_cua2",
      "level": 6,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [],
@@ -1394,11 +1447,13 @@
    "enemies": [
     {
      "hero": "thuong_lam",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     },
     {
      "hero": "vay_lam",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -1428,7 +1483,7 @@
     {
      "hero": "thuong_lam",
      "level": 6,
-     "buff": 0.25
+     "buff": 0.4
     }
    ],
    "drops": [
@@ -1452,11 +1507,12 @@
     {
      "hero": "linh_noc2",
      "level": 6,
-     "buff": 0.4
+     "buff": 0.55
     },
     {
      "hero": "linh_cua2",
-     "level": 6
+     "level": 6,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -1473,17 +1529,17 @@
     {
      "hero": "thuong_lam",
      "level": 6,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc2",
      "level": 6,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu2",
      "level": 6,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [
@@ -1507,12 +1563,12 @@
     {
      "hero": "thuong_lam",
      "level": 6,
-     "buff": 0.1
+     "buff": 0.25
     },
     {
      "hero": "kuba",
      "level": 6,
-     "buff": 0.1
+     "buff": 0.25
     }
    ],
    "drops": [
@@ -1542,7 +1598,8 @@
     {
      "hero": "huyen_vu",
      "level": 7,
-     "boss": true
+     "boss": true,
+     "buff": 0.1
     }
    ],
    "drops": [
@@ -1565,11 +1622,13 @@
    "enemies": [
     {
      "hero": "linh_noc2",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     },
     {
      "hero": "linh_ngu2",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -1586,7 +1645,7 @@
     {
      "hero": "huyen_vu",
      "level": 7,
-     "buff": 0.12
+     "buff": 0.27
     }
    ],
    "drops": [
@@ -1609,11 +1668,13 @@
    "enemies": [
     {
      "hero": "thuong_lam",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     },
     {
      "hero": "linh_cua2",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -1637,17 +1698,17 @@
     {
      "hero": "linh_noc2",
      "level": 7,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu2",
      "level": 7,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_noc2",
      "level": 7,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [],
@@ -1663,11 +1724,13 @@
    "enemies": [
     {
      "hero": "huyen_vu",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     },
     {
      "hero": "kuba",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -1697,7 +1760,7 @@
     {
      "hero": "huyen_vu",
      "level": 7,
-     "buff": 0.25
+     "buff": 0.4
     }
    ],
    "drops": [
@@ -1721,11 +1784,12 @@
     {
      "hero": "linh_ngu2",
      "level": 7,
-     "buff": 0.4
+     "buff": 0.55
     },
     {
      "hero": "linh_noc2",
-     "level": 7
+     "level": 7,
+     "buff": 0.15
     }
    ],
    "drops": [],
@@ -1742,17 +1806,17 @@
     {
      "hero": "huyen_vu",
      "level": 7,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_ngu2",
      "level": 7,
-     "buff": -0.2
+     "buff": -0.05
     },
     {
      "hero": "linh_cua2",
      "level": 7,
-     "buff": -0.2
+     "buff": -0.05
     }
    ],
    "drops": [
@@ -1776,12 +1840,12 @@
     {
      "hero": "huyen_vu",
      "level": 7,
-     "buff": 0.1
+     "buff": 0.25
     },
     {
      "hero": "thuong_lam",
      "level": 7,
-     "buff": 0.1
+     "buff": 0.25
     }
    ],
    "drops": [
@@ -1812,7 +1876,8 @@
      "hero": "lam_quan",
      "level": 8,
      "boss": true,
-     "evo": true
+     "evo": true,
+     "buff": 0.05
     }
    ],
    "drops": [
@@ -1834,12 +1899,19 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "bo_de",
+     "hero": "su_tu_lua",
      "level": 6,
      "boss": false
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "su_tu_lua",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ]
   },
   {
    "id": 72,
@@ -2019,7 +2091,14 @@
      "boss": false
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "bu_long",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ]
   },
   {
    "id": 80,
@@ -2197,7 +2276,14 @@
      "boss": false
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "nu_hoa",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ]
   },
   {
    "id": 88,
@@ -2357,12 +2443,19 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vo_su",
+     "hero": "thach_nhan",
      "level": 21,
      "boss": false
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "thach_nhan",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ]
   },
   {
    "id": 96,

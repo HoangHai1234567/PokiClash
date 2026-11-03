@@ -1,8 +1,8 @@
 // Giao diện trận (chép bố cục Web/src/view/battle/battleScreen.ts + battle.css, khung 540 × 960 nhân 2):
-// thanh trên (tạm dừng, hiệp, nhãn lượt, tốc độ, Tự chơi), sân đấu, bảng thông tin hai bên,
+// thanh trên (tạm dừng, hiệp, nhãn lượt, tốc độ, Tự chơi), sân đấu, bảng thông tin hai bên, hàng mặt địch góc trên trái sân,
 // bảng dưới (hàng thẻ 5 ô + ô đòn kết, 3 thẻ để chọn, chân dung đội, nút Chiêu và Tuyệt kỹ), lớp phủ (băng rôn, VS, gợi ý).
 // Chỉ vẽ; BattleController quyết định khi nào vẽ lại và nối nút bấm.
-// Dựng sẵn trong prefab màn hình Screens/Battle; ô hàng thẻ, ô trống, lá úp, ô đồng đội, băng rôn là prefab mục (dùng lại, thừa thì tắt).
+// Dựng sẵn trong prefab màn hình Screens/Battle; ô hàng thẻ, ô trống, lá úp, ô đồng đội, mặt địch, băng rôn là prefab mục (dùng lại, thừa thì tắt).
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,6 +29,9 @@ namespace PokiClash
             public SketchButton speedBtn, autoBtn, pauseBtn;
             // bảng thông tin: 0 phe mình, 1 địch
             public BattlePlate[] plates;
+            // hàng mặt địch ở góc trên trái sân (dựng sẵn, trong lớp bảng của sân) và ô mặt (prefab mục Items/TranMatDich)
+            public RectTransform foeRow;
+            public FoeFace foePrefab;
             // đầu hàng thẻ
             public Image qIcon;
             public TextMeshProUGUI qTitle, qCount;
@@ -41,8 +44,9 @@ namespace PokiClash
             // hàng dưới: ô đồng đội (prefab mục), Chiêu, Tuyệt kỹ (dựng sẵn)
             public TeamSlot slotPrefab;
             public InnateButton skill, ult;
-            // lớp phủ: màn VS (dựng sẵn), băng rôn (prefab mục)
+            // lớp phủ: màn VS, dải tuyệt kỹ (dựng sẵn), băng rôn (prefab mục)
             public BattleIntro intro;
+            public UltCutIn ultCut;
             public BattleBanner bannerPrefab;
         }
 
@@ -56,6 +60,7 @@ namespace PokiClash
         public SketchButton AutoBtn => p.autoBtn;
         public SketchButton PauseBtn => p.pauseBtn;
         public BattleIntro Intro => p.intro;
+        public UltCutIn UltCut => p.ultCut;
         Battle b;
         GameData d;
 
@@ -67,6 +72,8 @@ namespace PokiClash
         readonly List<RectTransform> empties = new List<RectTransform>();
         readonly List<RectTransform> backs = new List<RectTransform>();
         readonly List<TeamSlot> slots = new List<TeamSlot>();
+        readonly List<FoeFace> foes = new List<FoeFace>();
+        int[] foeStar; // sao để vẽ mặt từng địch (boss tiến hóa đổi theo dạng đang hiện)
         readonly List<UiCard> dealt = new List<UiCard>(); // thẻ chọn đang hiện (bản sao kit, xoá khi vẽ lại)
         readonly List<QueueTile> flyIdle = new List<QueueTile>();
         readonly List<BattleBanner> bannerIdle = new List<BattleBanner>();
@@ -78,11 +85,40 @@ namespace PokiClash
 
         // ---------- bắt đầu trận ----------
 
-        public void Init(Battle battle, ZoneDef zone)
+        // stage: ải trên đảo (chọn sàn đấu theo ải); null với thử thách huy hiệu, hang
+        public void Init(Battle battle, ZoneDef zone, StageDef stage = null)
         {
             b = battle;
             d = battle.Data;
-            p.stage.Init(zone);
+            p.stage.Init(zone, stage);
+            // mặt địch ở góc trên trái thay chấm đội dự bị của bảng địch
+            p.plates[1].ShowBench = !p.foeRow || !p.foePrefab;
+            var en = b.sides[1].fighters;
+            foeStar = new int[en.Count];
+            for (int i = 0; i < en.Count; i++) foeStar[i] = Teams.LookStar(d.Cfg, en[i]);
+            RenderFoes(null);
+        }
+
+        // hàng mặt địch theo ảnh chụp của sự kiện (gục thì có dấu X đúng lúc màn diễn); null: đầu trận
+        void RenderFoes(Snap s)
+        {
+            if (!p.foeRow || !p.foePrefab || foeStar == null) return;
+            var en = b.sides[1].fighters;
+            int act = s != null ? s.active[1] : b.sides[1].active;
+            for (int i = 0; i < en.Count; i++)
+            {
+                if (i >= foes.Count) foes.Add(Ui.Spawn(p.foePrefab, p.foeRow));
+                foes[i].gameObject.SetActive(true);
+                bool dead = s != null && i < s.f[1].Count ? s.f[1][i].dead : en[i].dead;
+                foes[i].Bind(en[i].hero, foeStar[i], i, i == act, dead);
+            }
+            for (int k = en.Count; k < foes.Count; k++) foes[k].gameObject.SetActive(false);
+        }
+
+        // boss lên dạng sau: mặt đổi theo (ảnh chụp kế tiếp vẽ lại)
+        public void SetFoeForm(int i, int form)
+        {
+            if (foeStar != null && i >= 0 && i < foeStar.Length) foeStar[i] = Teams.FormStar(d.Cfg, form);
         }
 
         public void FillPlate(int side) => p.plates[side].Fill(b.ActiveOf(side));
@@ -96,6 +132,7 @@ namespace PokiClash
                 p.plates[side].Apply(s, side, d.Cfg);
                 Stage.SetStatuses(side, f.st);
             }
+            RenderFoes(s);
         }
 
         // ---------- thanh trên ----------
@@ -132,22 +169,22 @@ namespace PokiClash
             p.qCount.text = picking ? $"Chọn {t.picksTotal - t.picksLeft + 1}/{t.picksTotal}" : "Ra đòn!";
 
             NowTile = null;
-            int i = 0, pickedPool = 0;
+            int i = 0;
             foreach (var q in t.queue)
             {
                 var c = d.Card(q.card);
                 var tile = Tile(i);
-                tile.Bind(Icon(c.icon), c.name, Theme.Of(c.rarity), Theme.CardFill, q.skill);
+                tile.Bind(Icon(c.icon), c.name, Theme.Of(c.rarity), Theme.CardFill, false);
                 tile.transform.SetAsLastSibling();
                 if (i < execIdx) tile.Done();
                 if (i == execIdx) Now(tile);
-                if (!q.skill) pickedPool++;
                 i++;
             }
             for (int k = i; k < tiles.Count; k++) tiles[k].gameObject.SetActive(false);
             EmptyTiles.Clear();
             int e = 0;
-            for (int k = pickedPool; k < t.picksTotal; k++)
+            // hàng chỉ có thẻ chung (chiêu ra ngay), ô trống = số lần chọn còn lại
+            for (int k = t.queue.Count; k < t.picksTotal; k++)
             {
                 var slot = Empty(e++);
                 slot.SetAsLastSibling();

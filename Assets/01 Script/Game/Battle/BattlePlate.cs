@@ -24,6 +24,7 @@ namespace PokiClash
         readonly List<Image> dotPool = new List<Image>();
 
         public RectTransform Rect => (RectTransform)transform;
+        public bool ShowBench { get; set; } = true; // bảng địch tắt khi sân có hàng mặt địch (BattleView)
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(TextMeshProUGUI nameLbl, TextMeshProUGUI levelLbl, UiElemTag tag, GameObject bossTag, UiBar hpBar, UiBar manaBar, UiBar rageBar,
@@ -74,7 +75,7 @@ namespace PokiClash
             for (int i = n; i < chipPool.Count; i++) chipPool[i].gameObject.SetActive(false);
 
             int m = 0;
-            if (s.f[side].Count > 1)
+            if (ShowBench && s.f[side].Count > 1)
                 for (int i = 0; i < s.f[side].Count; i++)
                 {
                     var x = s.f[side][i];

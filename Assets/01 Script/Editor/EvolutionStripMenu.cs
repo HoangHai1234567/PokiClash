@@ -123,6 +123,51 @@ namespace PokiClash.EditorTools
             }
         }
 
+        // Nút hack tiến hóa (HeroDetailDialog.HackStar): nút kit Tiny màu tím ở góc trái sân khấu (nền ô xem), ngay trên hàng nút
+        // clip, chỉ hiện trong Editor. Chạy lại thì dựng lại nút.
+        [MenuItem("PokiClash/Prefab/Thêm nút hack tiến hóa vào ChiTietTuong", priority = 61)]
+        static void BuildHack()
+        {
+            var kitGuids = AssetDatabase.FindAssets("t:UiKit");
+            if (kitGuids.Length == 0)
+            {
+                Debug.LogError("[Tiến hóa] Không thấy asset UiKit.");
+                return;
+            }
+            var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(kitGuids[0]));
+            var contents = PrefabUtility.LoadPrefabContents(DialogPath);
+            try
+            {
+                var dlg = contents.GetComponentInChildren<HeroDetailDialog>(true);
+                var so = new SerializedObject(dlg);
+                var stage = (Image)so.FindProperty("p.viewBg").objectReferenceValue;
+                var hack = so.FindProperty("p.hackStar");
+                if (!stage)
+                {
+                    Debug.LogError("[Tiến hóa] ChiTietTuong thiếu nền ô xem (p.viewBg).");
+                    return;
+                }
+                if (hack.objectReferenceValue) Object.DestroyImmediate(((Component)hack.objectReferenceValue).gameObject);
+                var btn = ((GameObject)PrefabUtility.InstantiatePrefab(kit.Button(BtnSize.Tiny).gameObject, stage.transform)).GetComponent<SketchButton>();
+                btn.name = "nut_hack_tien_hoa";
+                btn.SetRole(BtnColor.Purple);
+                btn.SetText("Hack: 2 sao");
+                btn.FitWidth();
+                var rt = btn.Rect;
+                rt.anchorMin = rt.anchorMax = rt.pivot = Vector2.zero;
+                rt.anchoredPosition = new Vector2(18, 64); // trên hàng 4 nút clip (cao khoảng 47 tính từ đáy sân khấu), không che nút nào
+                btn.gameObject.SetActive(false); // Render bật trong Editor
+                hack.objectReferenceValue = btn;
+                so.ApplyModifiedPropertiesWithoutUndo();
+                PrefabUtility.SaveAsPrefabAsset(contents, DialogPath);
+                Debug.Log($"[Tiến hóa] Đã thêm nút hack tiến hóa vào {DialogPath} (góc trái \"{stage.name}\", trên hàng nút clip).");
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(contents);
+            }
+        }
+
         [MenuItem("PokiClash/Thử/Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)", priority = 109)]
         static void TryStrip()
         {
@@ -164,6 +209,86 @@ namespace PokiClash.EditorTools
             {
                 App.Save.Load(); // bỏ mọi thay đổi tạm
                 App.Bars.Refresh();
+            }
+        }
+
+        // Menu thử nút hack (đang Play): mở hộp chi tiết Giọt Sương, chụp, bấm nút hack, lặp 6 lần (đủ một vòng sao) vào
+        // Temp/PokiShots/hack_*.png. Nút hack ghi bản lưu: chép bản lưu ra trước khi thử nếu cần giữ.
+        [MenuItem("PokiClash/Thử/Nút hack tiến hóa: bấm thử và chụp (đang Play)", priority = 110)]
+        static void TryHack()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(RunHack("giot_suong"));
+        }
+
+        static IEnumerator RunHack(string id)
+        {
+            App.Router.Go(SceneIds.Heroes);
+            float t0 = Time.realtimeSinceStartup;
+            while ((App.Router.Busy || App.Router.Current != SceneIds.Heroes) && Time.realtimeSinceStartup - t0 < 30) yield return null;
+            yield return new WaitForSecondsRealtime(0.5f);
+            HeroDetail.Open(id);
+            yield return new WaitForSecondsRealtime(0.8f);
+            for (int i = 0; i < 7; i++)
+            {
+                var hp = App.Save.Data.Hero(id);
+                yield return Shot($"hack_{i}_{(hp.owned ? hp.star + "sao" : "chua_co")}");
+                if (i == 6) break;
+                var go = GameObject.Find("nut_hack_tien_hoa");
+                if (!go)
+                {
+                    Debug.LogError("[Tiến hóa] Không thấy nút hack (menu PokiClash/Prefab/Thêm nút hack tiến hóa vào ChiTietTuong).");
+                    yield break;
+                }
+                go.GetComponent<SketchButton>().SimulateClick();
+                yield return new WaitForSecondsRealtime(1.2f);
+            }
+            App.Modals.CloseAll();
+            Debug.Log("[Tiến hóa] Đã thử nút hack: " + PlayTour.ShotDir);
+        }
+
+        // Menu thử clip đánh (đang Play): mở hộp chi tiết Giọt Sương ở sao 1, 3, 5 (đặt tạm trong bộ nhớ, không ghi bản lưu), cho ô
+        // xem chạy clip đánh, chụp 6 thời điểm vào Temp/PokiShots/danh_sao<n>_<i>.png, rồi nạp lại bản lưu từ đĩa.
+        [MenuItem("PokiClash/Thử/Clip đánh Giọt Sương: chụp các dạng (đang Play)", priority = 111)]
+        static void TryAttack()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(RunAttack("giot_suong"));
+        }
+
+        static IEnumerator RunAttack(string id)
+        {
+            try
+            {
+                App.Router.Go(SceneIds.Heroes);
+                float t0 = Time.realtimeSinceStartup;
+                while ((App.Router.Busy || App.Router.Current != SceneIds.Heroes) && Time.realtimeSinceStartup - t0 < 30) yield return null;
+                yield return new WaitForSecondsRealtime(0.5f);
+                foreach (int star in new[] { 1, 3, 5 })
+                {
+                    var hp = App.Save.Data.Hero(id);
+                    hp.owned = true;
+                    hp.star = star;
+                    HeroDetail.Open(id);
+                    yield return new WaitForSecondsRealtime(0.8f);
+                    var viewer = Object.FindFirstObjectByType<HeroViewer>();
+                    if (!viewer) break;
+                    viewer.Play(HeroViewer.Attack);
+                    float start = Time.realtimeSinceStartup;
+                    for (int i = 0; i < 6; i++)
+                    {
+                        float at = i * 0.3f; // 0, 0.3 ... 1.5 giây
+                        while (Time.realtimeSinceStartup - start < at) yield return null;
+                        yield return Shot($"danh_sao{star}_{i}");
+                    }
+                    App.Modals.CloseAll();
+                    yield return new WaitForSecondsRealtime(0.3f);
+                }
+                Debug.Log("[Tiến hóa] Đã chụp clip đánh: " + PlayTour.ShotDir);
+            }
+            finally
+            {
+                App.Save.Load(); // bỏ mọi thay đổi tạm
             }
         }
 

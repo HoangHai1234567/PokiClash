@@ -46,11 +46,12 @@ namespace PokiClash.Core
         };
 
         // cache: tỉ lệ thắng của máy theo (ải, cấp, đội); dùng chung giữa các kiểu người chơi để chạy nhanh
+        // starter: tướng khởi đầu đã chọn (null = tướng đầu danh sách)
         public static ProgressReport Run(GameData d, PlayerProfile p, int days = 30, uint seed = 1, int simN = 8,
-            Dictionary<string, double> cache = null, Action<int> onDay = null)
+            Dictionary<string, double> cache = null, Action<int> onDay = null, string starter = null)
         {
             cache = cache ?? new Dictionary<string, double>();
-            var s = SaveData.New(d, 0);
+            var s = starter != null ? SaveData.New(d, 0, starter) : SaveData.New(d, 0);
             s.intro = true;
             var rng = new Rng(seed);
             var rep = new ProgressReport { profile = p, days = days, level = new int[days + 1], cleared = new int[days + 1] };
@@ -106,10 +107,10 @@ namespace PokiClash.Core
             // 2. đánh ải
             for (int b = 0; b < p.battles; b++)
             {
-                var team = BestTeam(s, d);
-                if (team.Count == 0) break;
                 var zone = Progress.RecommendedZone(s, d);
                 var target = Progress.NextStage(s, d, zone.id);
+                var team = BestTeam(s, d, target);
+                if (team.Count == 0) break;
                 double pw = target != null ? WinChance(d, s, target, team, p, simN, cache) : 0;
                 if (target == null || pw < 0.3)
                 {
@@ -158,20 +159,24 @@ namespace PokiClash.Core
             if (p.ads && !Afk.Boosting(s, now) && !Afk.Pending(s, d.Cfg, now).full && AdGate.Use(s, d.Cfg, day, AdGate.AfkBoost)) Afk.Boost(s, d.Cfg, now);
         }
 
-        // 3 tướng mạnh nhất đang có: sao, độ hiếm, tổng cấp thẻ
-        static List<string> BestTeam(SaveData s, GameData d)
+        // đội theo số ô đã mở (Progress.TeamSlots): tướng khắc hệ tướng chính của ải trước, rồi sao, độ hiếm, tổng cấp thẻ
+        static List<string> BestTeam(SaveData s, GameData d, StageDef target)
         {
+            var foe = target != null ? d.Hero(Teams.StageLead(target, d).hero).elem : (Elem?)null;
+            double Edge(HeroDef h) => foe is Elem e
+                ? Elements.Mult(h.elem, e, h.id == s.starter, false) - Elements.Mult(e, h.elem, false, h.id == s.starter)
+                : 0;
             var team = d.Heroes.Where(h => s.Hero(h.id).owned)
-                .OrderByDescending(h => s.Hero(h.id).star).ThenByDescending(h => (int)h.rarity)
+                .OrderByDescending(Edge).ThenByDescending(h => s.Hero(h.id).star).ThenByDescending(h => (int)h.rarity)
                 .ThenByDescending(h => Progress.CardSum(s, h.id)).ThenBy(h => d.Heroes.IndexOf(h))
-                .Take(3).Select(h => h.id).ToList();
+                .Take(Progress.TeamSlots(s)).Select(h => h.id).ToList();
             s.team = team;
             return team;
         }
 
         static double WinChance(GameData d, SaveData s, StageDef st, List<string> team, PlayerProfile p, int simN, Dictionary<string, double> cache)
         {
-            var key = $"{st.id}|{s.level}|" + string.Join(",", team.Select(h =>
+            var key = $"{st.id}|{s.level}|{s.starter}|" + string.Join(",", team.Select(h =>
             {
                 var hp = s.Hero(h);
                 return $"{h}:{hp.star}:{hp.skill.lv}{hp.ult.lv}{hp.passive.lv}";

@@ -32,8 +32,10 @@ namespace PokiClash.Tests
             var s = svc.Data;
             Assert.AreEqual(1, s.level);
             Assert.AreEqual(10, s.balls);
-            Assert.AreEqual(new[] { "giot_suong" }, s.team.ToArray());
-            Assert.IsTrue(s.Hero("giot_suong").owned);
+            // chưa chọn tướng khởi đầu: chưa có tướng nào, sảnh mở hộp chọn (15_TuongKhoiDau.md)
+            Assert.IsNull(s.starter);
+            Assert.IsEmpty(s.team);
+            Assert.IsFalse(s.Hero("giot_suong").owned);
             Assert.IsFalse(s.Hero("ca_sa").owned);
             Assert.AreEqual(0, s.zones[(int)Elem.Thuy]);
             Assert.IsTrue(File.Exists(Path.Combine(dir, $"save_v{TestData.Load().Cfg.saveVersion}.json")));
@@ -45,6 +47,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var svc = new SaveService(d, dir);
             svc.Load();
+            svc.Data.ChooseStarter("giot_suong");
             svc.Data.level = 7;
             svc.Data.balls = 123;
             svc.Data.zones[(int)Elem.Hoa] = 3;
@@ -76,6 +79,7 @@ namespace PokiClash.Tests
             Assert.AreEqual("chest_gold", s.chests[0].kind);
             Assert.AreEqual(3, s.chests[0].x);
             Assert.IsFalse(s.extra.ContainsKey("chests"));
+            Assert.AreEqual("giot_suong", s.starter, "tướng khởi đầu đã chọn");
         }
 
         [Test]

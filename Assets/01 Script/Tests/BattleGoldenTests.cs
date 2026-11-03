@@ -1,6 +1,8 @@
 // Đối chiếu luật trận với bản web: 200 trận cố định hạt giống (máy chơi cả hai bên, bên 0 chọn tướng thay qua hộp),
 // 12 trận so từng sự kiện kèm ảnh chụp, 200 trận so kết quả, chuỗi loại sự kiện và ảnh chụp cuối.
 // Golden xuất bằng `npx tsx scripts/export_golden.ts` (thư mục Web).
+// battles.json, battle_events.json: tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md),
+// rồi lần nữa cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm (không vào hàng thẻ).
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -245,6 +247,60 @@ namespace PokiClash.Tests
             Assert.AreEqual(hp0, b.ActiveOf(0).hp, "bên bị choáng không đánh");
             // chạy hết trận bằng máy: phải kết thúc có người thắng
             BattleSim.Run(Battle.Create(d, p, e, 99));
+        }
+
+        // Chiêu ra đòn ngay lúc bấm (người dùng 2026-11-03): không vào hàng thẻ, không tốn lần chọn, rồi chọn tiếp;
+        // chiêu hạ tướng đối thủ thì hết lúc chọn, thẻ đã xếp chạy (không đánh thường) rồi hết lượt
+        [Test]
+        public void Chieu_RaDonNgay_RoiChonTiep()
+        {
+            var d = TestData.Load();
+            var p = new TeamSetup { name = "Bạn", ai = false };
+            p.members.Add(new Member { heroId = "giot_suong", level = 5, star = 1 });
+            var e = new TeamSetup { name = "Địch", ai = true };
+            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
+            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
+
+            var b = Battle.Create(d, p, e, 7);
+            b.StartBattle();
+            var foe = b.ActiveOf(1);
+            b.ActiveOf(0).mana = d.Cfg.maxMana;
+            b.Pick(0);
+            Assert.AreEqual("", b.InnateBlock(InnateKind.Skill));
+            double foeHp = foe.hp + foe.shield;
+            var evs = b.UseInnate(InnateKind.Skill);
+            Assert.AreEqual(EvType.Innate, evs[0].t);
+            Assert.AreEqual("skill", evs[0].kind);
+            Assert.IsTrue(evs.Exists(x => x.t == EvType.Dmg && x.dmgKind == DmgKind.Skill && x.to == 1), "chiêu gây sát thương ngay");
+            Assert.Less(foe.hp + foe.shield, foeHp);
+            Assert.AreEqual(1, b.turn.queue.Count, "chiêu không vào hàng thẻ");
+            Assert.AreEqual(4, b.turn.picksLeft, "không tốn lần chọn");
+            Assert.AreEqual(Phase.Picking, b.phase, "chọn tiếp");
+            Assert.AreEqual("Đã dùng lượt này", b.InnateBlock(InnateKind.Skill));
+            while (b.phase == Phase.Picking) b.Pick(0);
+            var run = b.Execute();
+            Assert.IsFalse(run.Exists(x => x.t == EvType.Dmg && x.dmgKind == DmgKind.Skill), "cuối lượt chiêu không chạy lại");
+            Assert.IsTrue(run.Exists(x => x.t == EvType.Attack), "vẫn đánh thường cuối lượt");
+
+            // chiêu hạ tướng đối thủ (còn tướng dự bị)
+            b = Battle.Create(d, p, e, 7);
+            b.StartBattle();
+            foe = b.ActiveOf(1);
+            b.ActiveOf(0).mana = d.Cfg.maxMana;
+            b.Pick(0);
+            foe.hp = 1;
+            foe.shield = 0;
+            b.UseInnate(InnateKind.Skill);
+            Assert.IsTrue(foe.dead);
+            Assert.AreEqual(Phase.Ready, b.phase, "hết lúc chọn");
+            Assert.AreEqual(0, b.turn.offer.Count);
+            run = b.Execute();
+            Assert.AreEqual(1, run.Count(x => x.t == EvType.Card), "thẻ đã xếp vẫn chạy");
+            Assert.IsFalse(run.Exists(x => x.t == EvType.Attack), "đối thủ gục thì không đánh thường");
+            Assert.AreEqual(Phase.Idle, b.phase);
+            var next = b.Advance();
+            Assert.IsTrue(next.Exists(x => x.t == EvType.Swap && x.side == 1 && x.forced), "địch đưa tướng dự bị ra");
+            Assert.AreEqual(1, b.turn.side);
         }
     }
 }

@@ -10,6 +10,7 @@ Mỗi đảo một tướng mới thì không đủ nội dung cho người chơ
 
 - **Ải tướng** (ra mắt tướng mới): 1, 5, 10, 15, 20, rồi cứ 10 ải một tướng: 30, 40, 50, 60, 70.
   - Ải 1: người chơi đánh với **bóng của chính tướng khởi đầu** (Giọt Sương, yếu đi 20%).
+    - Từ 2026-11-03 (`15_TuongKhoiDau.md`): ải 1 luôn là Giọt Sương; người chọn tướng khởi đầu khác đấu với Giọt Sương thật và thu phục được (rơi 2–4 mảnh).
   - Ải 5, 10, 15: tướng mới, cường hóa +15%.
   - Ải 20–60: tướng mới là mini boss.
   - Ải 70: boss đảo, tiến hóa trong trận (thẻ Tiến Hóa như boss ải 8 cũ).
@@ -39,6 +40,10 @@ Chặng đầu (ải 2–4) chỉ có lính, để tập: 1 cua; 2 cua (mỗi co
 
 Nhóm 3 con bị yếu đi 20% mỗi con: người chơi chỉ mang 1 tướng suốt đảo đầu (ô đội 2 mở khi xong đảo), phải đánh lần lượt cả 3 con.
 
+**Đổi 2026-11-03 (Unity, `15_TuongKhoiDau.md`):**
+- Ô đội mở theo cấp người chơi: ô 2 ở cấp 10, ô 3 ở cấp 30. Đánh đúng cấp đảo Thủy (1–8) thì vẫn chỉ 1 tướng.
+- Võ Sư lên Khá, nên từ ải 4 mọi địch đảo Thủy được cộng thêm cường hóa: +0,15 cho Bầy lính, Cường hóa, Tướng và lính, Lính tinh nhuệ, Hai tướng, Cửa ải; mini boss +0,10; boss +0,05; Tướng mới giữ nguyên. Nhờ vậy Võ Sư một mình vẫn có tỉ lệ thắng như bảng số đo dưới.
+
 ## Đảo Thủy
 
 ### 10 tướng
@@ -60,7 +65,7 @@ Nhóm 3 con bị yếu đi 20% mỗi con: người chơi chỉ mang 1 tướng s
 
 Không có suất trên đảo: Tám Tay, Cá Ngựa, Mập Răng Cưa (Thủy hiện có 13 tướng).
 
-Tướng tặng: Võ Sư ở ải 3 (Thổ, khắc Thủy), Nụ Hoa ở ải 25.
+Tướng tặng: Võ Sư ở ải 3 (Thổ, khắc Thủy), Nụ Hoa ở ải 25. Từ 2026-11-03: Võ Sư lên Khá; người chọn Thạch Nhân nhận Mèo Quyền Sắt thay Võ Sư; quà ải 25 là Mầm Gỗ (Nụ Hoa thành tướng khởi đầu).
 
 ### Lính (6 loại, `Web/src/core/data/minions.ts`)
 
@@ -148,11 +153,11 @@ Từ 2026-11-03 làm ở Unity, bản web chỉ làm khi người dùng yêu c�
 | `Core/Types.cs`, `GameData.cs` | `StageTag`, `StageDef.tag`, `chapter`, `StageEnemy.buff`, `HeroDef.minion`; `GameData.Minions`, `MinionCards` (`Hero(id)` tìm được, không nằm trong `Heroes`) |
 | `Core/Progress.cs`, `Badges.cs`, `Trees.cs` | Bi ải 70, rương 7 cái, xong đảo theo cỡ đảo, đền và dãy huy hiệu theo cỡ đảo và mini boss đầu |
 | `Core/Battle/Teams.cs` | `Enemy(st, d)` gắn phần cộng của địch |
-| `App/Scenes/ZoneScene.cs` | Đường mòn, chấm ải, rương theo tỉ lệ, bảng chặng. Bản đồ dài (2026-11-03, `ZoneDef.path`, `stops`, `plates`): bản đồ rộng 1,27 màn, đường mòn theo con đường cát của ảnh, bệ ải tướng cỡ thật ở bãi của ảnh, bảng tên ngược phía địa danh. Đảo chưa có bản đồ dài: bản đồ ×3, bệ thu nhỏ 0,75 |
-| `ZonePip`, `ZoneChapterRow`, `ZoneChapterDialog` | Prefab `Items/ChamAi`, `Items/DongChang`, `Dialogs/BangChang`, dựng bằng menu `PokiClash/Prefab/Đảo 70 ải (ChamAi, DongChang, BangChang)` |
-| `StagePrepDialog`, `PrepFoe`, `ZoneEnemy` | Nhãn kiểu ải, dòng "Mặt nước in bóng…", "Cường hóa +x%", "Yếu hơn x%", "Lính, không thu phục", máu boss tính cả phần cộng |
+| `App/Scenes/ZoneScene.cs` | Đường mòn, chấm ải, rương theo tỉ lệ. Chạm chấm hay bệ mở hộp chuẩn bị của đúng ải đó, ải khoá cũng xem được (bảng chặng bỏ 2026-11-03). Bản đồ dài (2026-11-03, `ZoneDef.path`, `stops`, `plates`): bản đồ rộng 1,27 màn, đường mòn theo con đường cát của ảnh, bệ ải tướng cỡ thật ở bãi của ảnh, bảng tên ngược phía địa danh. Đảo chưa có bản đồ dài: bản đồ ×3, bệ thu nhỏ 0,75 |
+| `ZonePip`, `ZoneChapterRow`, `ZoneChapterDialog` | Prefab `Items/ChamAi`, `Items/DongChang`, `Dialogs/BangChang`, dựng bằng menu `PokiClash/Prefab/Đảo 70 ải (ChamAi, DongChang, BangChang)`. Bảng chặng không mở nữa từ 2026-11-03 |
+| `StagePrepDialog`, `PrepFoe`, `ZoneEnemy` | Nhãn kiểu ải, dòng "Mặt nước in bóng…", "Cường hóa +x%", "Yếu hơn x%", "Lính, không thu phục", máu boss tính cả phần cộng. Từ 2026-11-03: lực chiến từng đối thủ, dòng so lực chiến địch / đội bạn, thưởng là ô hình (`RewardTile`), ải khoá chỉ xem |
 | `Tests/IslandTests.cs` | So từng ải với golden: kiểu ải, chặng, bi, đội địch, phần cộng khớp từng bit |
-| `Editor/PlayTour.cs` | Menu `PokiClash/Thử/Đảo 70 ải: …` chụp màn đảo, bảng chặng, hộp chuẩn bị, trận có lính |
+| `Editor/PlayTour.cs` | Menu `PokiClash/Thử/Đảo 70 ải: …` chụp màn đảo, hộp chuẩn bị (chạm chấm), trận có lính |
 
 Hình 6 lính đã nhập thành prefab (`Assets/04 Prefabs/Heroes/linh_*.prefab`, nén ASTC). Toàn bộ test EditMode qua (86).
 

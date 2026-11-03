@@ -1,0 +1,40 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\c01.png (1536 x 1024): the approved battle background of this island (a normal stage): copy its rendering, colours, perspective, platform look and brightness; not its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\refs\thuy\hai_dang.png (512 x 512): a crop of this island's map, seen from above, showing the striped lighthouse on its rocks by the bay: draw the same landmark here, seen from the side, with its colours and shapes
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\gui_gpt\thuy\bo_cuc_c05.png (1536 x 1024): the layout sketch of the image you draw now: follow it exactly
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\c05.png
+Create the folder if it is missing. If that file already exists, save it as c05_2.png, c05_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the battle background for the stages at Lighthouse Point (stages 21–29) of the Water island, in a vertical mobile monster-battle game. Two fighters (cut-out stickers with a white paper border, added by the game) fight on it: the enemy on the smaller far platform at the upper left, the player's fighter on the bigger near platform at the lower right.
+
+Draw a 1536 x 1024 image.
+
+RENDERING: exactly as image 1 (the approved battle background of this island): the same ink, hatching, paper, perspective, platform size and look. Draw the landmark like image 2 (the same landmark on the island map, seen from above there; draw it from the side here, much bigger). Not 3D, not glossy, no tiny noisy details. The fighters must stand out: most detail and contrast on the landmark and along the left and right edges; the middle stays simple.
+
+FRAME: phones show only the middle 1192 x 1024 of your 1536 x 1024 image; the dark strips of the sketch (x < 172 and x > 1364) are cut off, so just continue the scene into them with nothing important there.
+
+VIEW: a side three-quarter view like a stage in a picture book: eye level a little above the fighters' heads, looking slightly down; the ground rises towards the horizon and things get smaller with distance. Not a top-down map.
+
+LAYOUT: follow image 3 exactly. It is only a colour-coded plan: pale blue = sky; blue = sea; dark grey = rocks and cliffs; light green = grass, hills or jungle; light grey with an ink edge = the landmark; cream ovals with a thick ink edge = the two platforms; white dashed boxes = the fighters' bodies; grey diagonal lines = covered by the game's panels; dark side strips = cut off on phones. Do not copy its flat colours, its grey diagonal lines, its dashed lines or its dark side strips.
+
+FIGHTERS: the far fighter is up to about 390 px tall (white dashed box x 391-651, y 121-521), the near one up to about 430 px (box x 887-1187, y 495-923). Right behind their bodies keep only calm sky, water, rock or ground: no tall object, bright spot or busy pattern. Keep the diagonal between the two platforms open and calm (flat ground or water, a few small tufts): the fighters lunge across it.
+
+PANELS: the game covers the top-right (x 815-1364, y 0-240) and the bottom-left (x 185-720, y 760-960) with name-and-health panels (grey diagonal lines in the sketch). Draw only plain sky, water or ground there: no landmark, no tree top, no bright spot.
+
+SCENE: a grassy rocky headland by the sea on a fine day. The sea fills the far part up to the horizon at y = 390, with a small rocky islet far on the right; the land comes up to about y = 470 with a rocky edge.
+
+LANDMARK: the striped lighthouse of image 2 on a heap of grey rocks at the far left: the tower x 210-330, y 100-420, the rocks x 175-420, y 390-480; seen from the side, medium size.
+
+DETAILS: grey boulders and round bushes along the cliff edge, beach grass, a wooden fence of three posts, a coil of rope.
+
+PLATFORMS: exactly where the sketch has them, same centre and size: the far one centred at (521, 526), about 400 x 116 px; the near one centred at (1037, 930), about 540 x 160 px, its bottom edge about 14 px above the image bottom. Their tops are flat, level, EMPTY and a little lighter than the ground around them, with a crayon-hatched rim and a soft contact shadow; nothing stands on them. Material: both are flat round slabs of grey rock with a little moss.
+
+LIGHT: fine sunny day, light from the top-left.
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, fish; any UI, frame or border; white sticker outlines; foam, spray, breaking waves, a light beam.
+
+Remember: save the image to E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\c05.png

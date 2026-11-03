@@ -1,6 +1,6 @@
 // Phát lại sự kiện trận kèm hoạt cảnh (chép playEv của Web/src/view/battle/battleScreen.ts).
 // Mỗi loại sự kiện một handler; chờ tính theo 1/tốc độ; đòn đánh, tuyệt kỹ, chiêu chờ tới khung trúng đòn rồi mới chạy tiếp,
-// phần còn lại của clip chạy song song; trước sự kiện card/turn/ult/attack/round/swap thì chờ clip trước xong.
+// phần còn lại của clip chạy song song; trước sự kiện card/turn/ult/attack/round/swap và chiêu (innate "skill") thì chờ clip trước xong.
 // Thanh số chỉ vẽ theo ảnh chụp của sự kiện (không đọc trạng thái trận, vì trạng thái đã đi trước hoạt cảnh).
 using System;
 using System.Collections;
@@ -24,6 +24,7 @@ namespace PokiClash
         public Func<bool> Alive = () => true;
         public Func<int, IEnumerator> OnRound; // băng rôn "Hiệp N"
         public Func<string, string, bool, IEnumerator> Banner;
+        public Func<int, CardDef, IEnumerator> UltCut; // dải tuyệt kỹ: chờ chạy xong rồi mới phát clip (không có thì băng rôn)
         public Action<int> OnTurnFoe; // vẽ lá úp của địch
 
         public BattlePlayer(MonoBehaviour host, Battle b, BattleView view, Func<float> speed)
@@ -62,6 +63,16 @@ namespace PokiClash
             while (!h.hit) yield return null;
         }
 
+        // clip bắn, tới khung trúng thì phóng tia; chờ tia tới thân đối thủ rồi mới hiện sát thương
+        IEnumerator PlayBeam(int side)
+        {
+            float travel = 0;
+            var h = st.Play(side, StageView.Cast, () => travel = st.Beam(side));
+            pending = h;
+            while (!h.hit) yield return null;
+            yield return W((int)(travel * 1000));
+        }
+
         public IEnumerator Play(BattleEvent e)
         {
             var sfx = App.Audio;
@@ -88,13 +99,23 @@ namespace PokiClash
                     var c = b.Data.Card(e.card);
                     sfx.Play("card");
                     host.StartCoroutine(FlyTile(e.side));
-                    st.Text(e.side, c.name, e.kind == "skill" ? "#8ec5ff" : "#fff6c8", 22);
-                    if (e.kind == "skill") yield return PlayClip(e.side, StageView.Skill);
-                    else yield return W(420);
+                    st.Text(e.side, c.name, "#fff6c8", 22);
+                    yield return W(420);
                     break;
                 }
                 case EvType.Innate:
+                {
+                    // bật tuyệt kỹ chỉ đổi đòn cuối lượt; chiêu ra đòn ngay lúc bấm, hiệu ứng của nó là các sự kiện theo sau
+                    if (e.kind != "skill") break;
+                    yield return WaitPending();
+                    var c = b.Data.Card(e.card);
+                    sfx.Play("card");
+                    st.Text(e.side, c.name, "#8ec5ff", 22);
+                    // chiêu dùng mana: tướng có tia (Giọt Sương) bắn tia nước tới đối thủ; clip CHIÊU để dành cho tuyệt kỹ
+                    if (st.CanBeam(e.side)) yield return PlayBeam(e.side);
+                    else yield return PlayClip(e.side, StageView.Skill);
                     break;
+                }
                 case EvType.Buff:
                 {
                     bool up = e.stat == Stat.DmgTaken ? e.v < 0 : e.v > 0;
@@ -178,7 +199,8 @@ namespace PokiClash
                     var c = b.Data.Card(e.card);
                     sfx.Play("ult");
                     st.Flash("#fff3c4");
-                    if (Banner != null) host.StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {b.ActiveOf(e.side).Name}", true));
+                    if (UltCut != null) yield return UltCut(e.side, c);
+                    else if (Banner != null) host.StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {b.ActiveOf(e.side).Name}", true));
                     yield return PlayClip(e.side, StageView.Skill);
                     break;
                 }
@@ -237,6 +259,8 @@ namespace PokiClash
                     st.Ring(e.side, "#f7c948");
                     st.Flash("#fff6c9");
                     sfx.Play("level");
+                    if (e.side == 1) st.SetPhase(e.form + 1); // sàn đấu boss đổi theo dạng (trong lúc chớp trắng)
+                    if (e.side == 1) view.SetFoeForm(e.idx, e.form); // mặt boss ở góc trên trái đổi theo dạng
                     st.SetActor(e.side, f.hero, f.boss, false, Teams.FormStar(b.Data.Cfg, e.form));
                     view.SetPlateName(e.side, formName);
                     st.Text(e.side, formName, "#fff6c8", 22);

@@ -1,104 +1,112 @@
 Read this whole file. Then open the reference images listed below from their full paths, draw ONE image per reply and save each one as its step says. Do not reply with text only.
 
 REFERENCE IMAGES (open each file from its full path):
-image 1 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N01.png: old pieces of group N01: two blue fin-shaped ears
-image 2 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N02.png: old pieces of group N02: a round blue water-drop head with a face
-image 3 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N03.png: old pieces of group N03: a blue water-drop crest, enlarged
-image 4 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N04.png: old pieces of group N04: a drop-shaped blue body with a shell on the chest
-image 5 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N05.png: old pieces of group N05: a thin blue arm, shoulder at the upper right, hand at the bottom
-image 6 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N06.png: old pieces of group N06: a thin blue arm, shoulder at the upper left, hand at the bottom
-image 7 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N07.png: old pieces of group N07: a blue tail, joint edge on the right, tip curling up at the upper left
-image 8 = D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N08.png: old pieces of group N08: two blue leaf-shaped legs
-image 9 = D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\concept_duyet.png: the approved concept of this creature
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N01.png: old pieces of group N01: two blue fin-shaped ears
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N02.png: old pieces of group N02: a round blue water-drop head with a face
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N03.png: old pieces of group N03: a blue water-drop crest, enlarged
+image 4 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N04.png: old pieces of group N04: a drop-shaped blue body with a shell on the chest
+image 5 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N05.png: old pieces of group N05: a thin blue arm, shoulder at the upper right, hand at the bottom
+image 6 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N06.png: old pieces of group N06: a thin blue arm, shoulder at the upper left, hand at the bottom
+image 7 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N07.png: old pieces of group N07: a blue tail, joint edge on the right, tip curling up at the upper left
+image 8 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N08.png: old pieces of group N08: two blue leaf-shaped legs
+image 9 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\concept_duyet.png: the approved concept of this creature
 
 WHAT THIS IS: a creature for a 2D cut-out animation game. Its animation already exists: it moves flat picture pieces around fixed joints. Each step below redraws ONE group of old puppet pieces as the matching part of the approved concept, on the same square canvas, so the old animation can play the new drawings. Inside a step, "image 1" means that step's old-pieces image and "image 2" means the approved concept (reference image 9).
 Every reply: exactly ONE image for ONE step, a square 1024 x 1024 canvas, plain white background, no text; save it where that step says.
 
-SAVE: every step's image goes into D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\ under the step's name (for example N02.png). If that file already exists, add _2, _3 … before .png. Do not change, move or delete any other file.
+SAVE: every step's image goes into E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\ under the step's name (for example N02.png). If that file already exists, add _2, _3 … before .png. Do not change, move or delete any other file.
 
 ORDER: draw step N02 now, save it and stop. When I say "next", draw step N06, save it and stop: I will check both. When I say "continue", draw the remaining steps one per reply, each after I say "next", in this order: N01, N03, N04, N05, N07, N08, N09.
 
 === STEP N01 (helmet wings) ===
-In this step: image 1 = reference image 1 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N01.png); image 2 = reference image 9.
+In this step: image 1 = reference image 1 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N01.png); image 2 = reference image 9.
 Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two fin-shaped ears on the sides of a head (the head is not shown). The viewer-left one points up and to the left, its base (where it joins the head) at its lower RIGHT end. The viewer-right one points up, its base at its LOWER left end. Redraw THESE two pieces as the two small helmet wings of image 2 (the approved concept): each grows from its base end, silver feathers with a blue edge, pointing up and out; they may be a little bigger than the old fins.
 Do NOT draw: a head, rainbow stripes, a smooth horn shape.
 
 FRAMING: the same square canvas; the piece keeps its place, angle and direction from image 1, and its base end stays exactly where it is, so the drawing can be put back on the old puppet. The outline follows image 2, not image 1: it may be a different shape and bigger, but stays inside the square with a clear white margin.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 10 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N01.png (create the folder if it is missing; if that file already exists, save it as N01_2.png, N01_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N01.png (create the folder if it is missing; if that file already exists, save it as N01_2.png, N01_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N02 (head with helmet) ===
-In this step: image 1 = reference image 2 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N02.png); image 2 = reference image 9.
+In this step: image 1 = reference image 2 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N02.png); image 2 = reference image 9.
 Image 1 is one group of a 2D cut-out animation puppet (the old design): a big round water-drop head with a face (two eyes, two cheeks, a mouth) and a lime crescent band near the top. Redraw THIS group as the head of image 2 (the approved concept): a round head of clear blue water with a soft light-blue face, wearing the cute rounded open-face knight helmet that covers the top and back of the head; the helmet's short brow rim sits where the lime crescent is; the big round eyes with a determined look and the small confident smile with a tiny fang exactly where the old eyes and mouth are.
 Keep the bottom edge of the head at the same height as the old one (the neck goes under it) and the top at about the same height (the plume stands on it).
 Do NOT draw: the helmet wings, the plume, a neck, a body, a pointed water-drop top.
 
 FRAMING: the same square canvas; the piece keeps its place, angle and direction from image 1, and its eyes and mouth stays exactly where it is, so the drawing can be put back on the old puppet. The outline follows image 2, not image 1: it may be a different shape and bigger, but stays inside the square with a clear white margin.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 10 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N02.png (create the folder if it is missing; if that file already exists, save it as N02_2.png, N02_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N02.png (create the folder if it is missing; if that file already exists, save it as N02_2.png, N02_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N03 (helmet plume) ===
-In this step: image 1 = reference image 3 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N03.png); image 2 = reference image 9.
+In this step: image 1 = reference image 3 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N03.png); image 2 = reference image 9.
 Image 1 is one piece of a 2D cut-out animation puppet (the old design): a water-drop crest; its lower edge sits in the head and its pointed tip curls up to the upper left. Redraw THIS piece as the helmet plume of image 2 (the approved concept): a water-drop shaped plume of darker blue water, its base along the old lower edge, its tip curling up and to the left like the old tip, about the same size.
 Do NOT draw: a head, a helmet, a feather duster.
 
 FRAMING: the same square canvas; the piece keeps its place, angle and direction from image 1, and its lower edge (the base) stays exactly where it is, so the drawing can be put back on the old puppet. The outline follows image 2, not image 1: it may be a different shape and bigger, but stays inside the square with a clear white margin.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 28 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N03.png (create the folder if it is missing; if that file already exists, save it as N03_2.png, N03_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N03.png (create the folder if it is missing; if that file already exists, save it as N03_2.png, N03_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N04 (body and breastplate) ===
-In this step: image 1 = reference image 4 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N04.png); image 2 = reference image 9.
+In this step: image 1 = reference image 4 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N04.png); image 2 = reference image 9.
 Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a small body shaped like a drop (narrow neck end at the TOP, round belly at the bottom) and a sea shell on the chest. Redraw THESE pieces as the body of image 2 (the approved concept): the body becomes the small round body of blue water with a lighter belly, same outline; the shell becomes the plain silver breastplate with no emblem, same place and size.
 Do NOT draw: arms, legs, a head, a sea shell.
 
 FRAMING: the same square canvas; every piece keeps its place, size, angle and direction from image 1, so the drawing can be put back on the old puppet. Where image 2 shows this part in another pose or outline, follow image 1: take only colours, details and drawing style from image 2.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 28 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N04.png (create the folder if it is missing; if that file already exists, save it as N04_2.png, N04_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N04.png (create the folder if it is missing; if that file already exists, save it as N04_2.png, N04_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N05 (viewer-left arm) ===
-In this step: image 1 = reference image 5 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N05.png); image 2 = reference image 9.
+In this step: image 1 = reference image 5 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N05.png); image 2 = reference image 9.
 Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a thin arm. Its TOP end (upper right) is the shoulder; it runs down to the left; the round hand is at the BOTTOM end, with a lime band at the wrist. Redraw THESE pieces as the viewer-left arm of image 2 (the approved concept): blue water skin, a small fist at the BOTTOM end in a silver gauntlet that covers the fist and the wrist (where the lime band is).
 Do NOT put the hand at the top. Do NOT draw: a sleeve, claws, a body, a weapon.
 
 FRAMING: the same square canvas; every piece keeps its place, size, angle and direction from image 1, so the drawing can be put back on the old puppet. Where image 2 shows this part in another pose or outline, follow image 1: take only colours, details and drawing style from image 2.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 28 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N05.png (create the folder if it is missing; if that file already exists, save it as N05_2.png, N05_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N05.png (create the folder if it is missing; if that file already exists, save it as N05_2.png, N05_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N06 (viewer-right arm) ===
-In this step: image 1 = reference image 6 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N06.png); image 2 = reference image 9.
+In this step: image 1 = reference image 6 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N06.png); image 2 = reference image 9.
 Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a thin arm. Its TOP end (upper left) is the shoulder; it runs down and curves to the right; the round hand is at the BOTTOM end, with a lime band at the wrist. Redraw THESE pieces as the viewer-right arm of image 2 (the approved concept): blue water skin, a small fist at the BOTTOM end closed around the grip of the sword (show only the short piece of the grip inside the fist; the rest of the sword is drawn separately), the fist and the wrist in a silver gauntlet (where the lime band is).
 Do NOT put the hand at the top. Do NOT draw: the sword's blade or guard, a sleeve, claws, a body.
 
 FRAMING: the same square canvas; every piece keeps its place, size, angle and direction from image 1, so the drawing can be put back on the old puppet. Where image 2 shows this part in another pose or outline, follow image 1: take only colours, details and drawing style from image 2.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 28 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N06.png (create the folder if it is missing; if that file already exists, save it as N06_2.png, N06_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N06.png (create the folder if it is missing; if that file already exists, save it as N06_2.png, N06_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N07 (tail) ===
-In this step: image 1 = reference image 7 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N07.png); image 2 = reference image 9.
+In this step: image 1 = reference image 7 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N07.png); image 2 = reference image 9.
 Image 1 is one piece of a 2D cut-out animation puppet (the old design): a tail. The wide straight edge on the RIGHT is where it joins the body (hidden behind it); it sweeps to the left and its tip curls UP at the upper left, with orange and green stripes at the tip. Redraw THIS piece as the wispy tail of swirling water of image 2 (the approved concept), a little bigger than the old tail.
 The joint end stays on the RIGHT, exactly where the old straight edge is; the tip still curls up at the upper left.
 Do NOT draw: rainbow stripes, a body, legs.
 
 FRAMING: the same square canvas; the piece keeps its place, angle and direction from image 1, and its joint edge stays exactly where it is, so the drawing can be put back on the old puppet. The outline follows image 2, not image 1: it may be a different shape and bigger, but stays inside the square with a clear white margin.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 25 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N07.png (create the folder if it is missing; if that file already exists, save it as N07_2.png, N07_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N07.png (create the folder if it is missing; if that file already exists, save it as N07_2.png, N07_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N08 (legs with boots) ===
-In this step: image 1 = reference image 8 (D:\PokiClash\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N08.png); image 2 = reference image 9.
+In this step: image 1 = reference image 8 (E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\giot_suong_1\orig\N08.png); image 2 = reference image 9.
 Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two short legs. Each one has its hip at the TOP (the wide end) and its foot at the BOTTOM (the narrow pointed end, pointing down and slightly to the left). Redraw THESE two pieces as the two short legs of image 2 (the approved concept): blue water skin, small silver boots at the BOTTOM ends, toes pointing down and slightly to the left.
 Do NOT put the feet at the top. Do NOT draw: a body, a tail, long armour plates.
 
 FRAMING: the same square canvas; every piece keeps its place, size, angle and direction from image 1, so the drawing can be put back on the old puppet. Where image 2 shows this part in another pose or outline, follow image 1: take only colours, details and drawing style from image 2.
 LINE AND COLOUR: the hand-drawn rendering of image 2, not image 1's glossy vector look: a dark-brown ink outline (#2B2118) about 28 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N08.png (create the folder if it is missing; if that file already exists, save it as N08_2.png, N08_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N08.png (create the folder if it is missing; if that file already exists, save it as N08_2.png, N08_3.png … in the same folder instead). Do not change, move or delete any other file.
 
 === STEP N09 (sword) ===
 In this step: image 2 = reference image 9; there is no image 1.
@@ -106,6 +114,7 @@ Draw ONLY the short sword of image 2 (the approved concept), on its own: standin
 Do NOT draw: a hand, the creature, a scabbard, glowing effects.
 
 LINE AND COLOUR: the hand-drawn rendering of image 2, as in the concept: a dark-brown ink outline (#2B2118) about 18 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat warm colours shaded with loose diagonal coloured-pencil hatching (strokes thinner than the outline), kept inside the outline; a few small white highlights; no gradients, no glossy shine, no paper texture, no white border around the pieces.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
 Plain white background. Only this group. No text.
-SAVE this step: save it as a PNG to D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N09.png (create the folder if it is missing; if that file already exists, save it as N09_2.png, N09_3.png … in the same folder instead). Do not change, move or delete any other file.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_1\tai_ve\N09.png (create the folder if it is missing; if that file already exists, save it as N09_2.png, N09_3.png … in the same folder instead). Do not change, move or delete any other file.
 

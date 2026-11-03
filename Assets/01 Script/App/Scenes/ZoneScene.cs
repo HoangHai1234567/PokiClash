@@ -4,9 +4,12 @@
 // Prefab màn hình Assets/04 Prefabs/Screens/Zone dùng cho cả 5 đảo: màu biển, ảnh đảo, chữ gán lúc chạy; bệ ải (Items/BeAi),
 // chấm ải (Items/ChamAi), vệt đường (Items/VetDuong), địch ải tiếp (Items/DichAi) sinh theo dữ liệu.
 // - Đảo 8 ải: bản đồ rộng 1,27 màn, mỗi ải một bệ (ZoneNode) ở điểm ải của ảnh đảo; tướng chính của ải (Teams.StageLead) đứng trên
-//   bệ, bảng tên phía ngoài khúc cua. Chạm bệ mở hộp Chuẩn bị trận. Rương mốc ở 4 và 8 ải.
-// - Đảo 70 ải (Islands.IsLong): 10 ải tướng là bệ, ải xen giữa là chấm nhỏ (ZonePip) rải đều giữa hai bệ. Chạm bệ hay chấm mở bảng
-//   chặng (Dialogs/BangChang). Rương mốc mỗi 10 ải, đặt theo tỉ lệ trên thanh tiến độ.
+//   bệ, bảng tên phía ngoài khúc cua. Rương mốc ở 4 và 8 ải.
+// - Đảo 70 ải (Islands.IsLong): 10 ải tướng là bệ, ải xen giữa là chấm nhỏ (ZonePip) rải đều giữa hai bệ. Rương mốc mỗi 10 ải, đặt
+//   theo tỉ lệ trên thanh tiến độ.
+// Chạm bệ hay chấm mở hộp Chuẩn bị trận của đúng ải đó (địch, lực chiến, thưởng); ải chưa mở cũng xem được, chỉ khoá nút Xuất trận
+// (người dùng bỏ bảng chặng liệt kê cả chặng, 2026-11-03; Dialogs/BangChang để lại, không mở nữa).
+// Nhãn AFK (Items/NhanAfk) dưới ải đội đang AFK (Afk.Stage); hộp chuẩn bị gọi PlaceAfkTag khi người chơi chọn ải AFK khác.
 //   - Có bản đồ dài (ZoneDef.path, ArtGen/Islands/build_zone70.py): bản đồ rộng 1,27 màn như đảo 8 ải; đường mòn là tâm con đường
 //     cát của ảnh; bệ cỡ thật đặt ở bãi của ảnh (ZoneDef.stops), bảng tên ngược phía địa danh (ZoneDef.plates).
 //   - Chưa có: bản đồ rộng 3 màn; đường mòn cong qua các điểm ải của ảnh 8 ải (Catmull-Rom như nét vẽ tay của web), bệ thu nhỏ 0,75.
@@ -79,16 +82,20 @@ namespace PokiClash
         [SerializeField] ZoneChestDialog chestPrefab;
         [Tooltip("Chấm ải xen giữa của đảo 70 ải (Items/ChamAi)")]
         [SerializeField] ZonePip pipPrefab;
-        [Tooltip("Bảng chặng của đảo 70 ải (Dialogs/BangChang)")]
+        [Tooltip("Bảng chặng của đảo 70 ải (Dialogs/BangChang), không mở nữa")]
         [SerializeField] ZoneChapterDialog chapterPrefab;
         [Tooltip("Biển cuộn theo bản đồ (con đầu của noi_dung, menu Đảo sảnh: ghép ảnh, kéo, mây viền); trống thì chỉ có biển nền")]
         [SerializeField] Image seaScroll;
         [Tooltip("Lớp phần động trên ảnh bản đồ (con của ảnh bản đồ, menu Đảo sảnh: ghép ảnh, kéo, mây viền)")]
         [SerializeField] IslandAnim mapAnim;
+        [Tooltip("Nhãn AFK dưới ải đội đang AFK (Items/NhanAfk, menu PokiClash/Prefab/AFK theo ải)")]
+        [SerializeField] RectTransform afkTagPrefab;
 
         Elem zone = Elem.Thuy;
         float mapW, mapH;
         bool entered;
+        readonly Dictionary<int, Vector2> afkAt = new Dictionary<int, Vector2>(); // chỗ nhãn AFK của từng ải (id) trên bản đồ
+        RectTransform afkTag;
 
         public override string Title => App.Data.Zone(zone)?.name ?? "Đảo";
 
@@ -167,7 +174,10 @@ namespace PokiClash
             int prog = s.zones[(int)zone];
             Clear(p.pathLayer);
             Clear(p.nodeLayer);
+            afkAt.Clear();
+            afkTag = null;
             var focus = Islands.IsLong(zone) ? RenderTrail(z, d, s, stages, prog) : RenderNodes(z, d, s, stages, prog);
+            PlaceAfkTag();
             ShowInfo(z, s, prog);
             ShowBottom(z, s);
             StartCoroutine(ScrollToCurrent(focus));
@@ -185,22 +195,40 @@ namespace PokiClash
             foreach (int i in Enumerable.Range(0, stages.Count).OrderByDescending(k => pts[k].y))
             {
                 var stage = stages[i];
-                SpawnNode(d, s, stage, pts[i], PlateSide(pts, i), () =>
-                {
-                    if (!Progress.StageOpen(App.Save.Data, stage))
-                    {
-                        App.Toasts.Show($"Qua ải {stage.idx - 1} của {z.name} trước đã", Icon("lock"));
-                        return;
-                    }
-                    StagePrep.Open(stage.id);
-                });
+                SpawnNode(d, s, stage, pts[i], PlateSide(pts, i), () => StagePrep.Open(stage.id));
             }
             return pts[Mathf.Min(last, prog)];
         }
 
+        // nhãn AFK dưới ải đội đang AFK (ải chọn hoặc ải tự chọn), nếu ải đó ở đảo này; gọi lại khi người chơi đổi ải AFK
+        public void PlaceAfkTag()
+        {
+            if (!entered || !afkTagPrefab) return;
+            var st = Afk.Stage(App.Save.Data, App.Data);
+            bool here = st != null && afkAt.ContainsKey(st.id);
+            if (!here)
+            {
+                if (afkTag) afkTag.gameObject.SetActive(false);
+                return;
+            }
+            if (!afkTag)
+            {
+                afkTag = Ui.Spawn(afkTagPrefab, p.nodeLayer);
+                afkTag.name = "nhan_afk";
+            }
+            afkTag.gameObject.SetActive(true);
+            afkTag.anchoredPosition = afkAt[st.id];
+            afkTag.SetAsLastSibling();
+        }
+
+        // chỗ nhãn AFK: dưới chấm ải, hoặc dưới mặt bệ (bệ cao khoảng 0,62 bề rộng, tâm lệch xuống 0,12)
+        static Vector2 PipTag(Vector2 pos) => pos + new Vector2(0, -ZonePip.SizeNow * 0.5f - 30);
+        static Vector2 NodeTag(StageDef st, Vector2 pos, float scale) => pos + new Vector2(0, -(ZoneNode.Width(st.kind) * 0.4f + 26) * scale);
+
         // một bệ ải: tướng chính của ải (boss tiến hóa hiện dạng 1) đứng trên bệ đất của đảo
         ZoneNode SpawnNode(GameData d, SaveData s, StageDef st, Vector2 pt, int side, Action onClick)
         {
+            afkAt[st.id] = NodeTag(st, pt, 1);
             bool cleared = Progress.StageCleared(s, st), open = Progress.StageOpen(s, st), current = open && !cleared;
             var en = Teams.StageLead(st, d);
             var node = Ui.Spawn(nodePrefab, p.nodeLayer);
@@ -370,8 +398,9 @@ namespace PokiClash
                     continue;
                 }
                 bool cleared = Progress.StageCleared(s, st), open = Progress.StageOpen(s, st);
-                int ch = st.chapter;
-                Ui.Spawn(pipPrefab, p.nodeLayer).Bind(st, open, cleared, open && !cleared, pos[i], () => OpenChapter(ch));
+                int id = st.id;
+                Ui.Spawn(pipPrefab, p.nodeLayer).Bind(st, open, cleared, open && !cleared, pos[i], () => StagePrep.Open(id));
+                afkAt[id] = PipTag(pos[i]);
             }
             // bệ trên cao vẽ trước, bệ thấp sau; bảng tên theo dữ liệu (ngược phía địa danh) hoặc phía ngoài khúc cua, lòi ra ngoài màn
             // (bản đồ canh giữa) thì đổi bên
@@ -380,11 +409,12 @@ namespace PokiClash
             foreach (int k in Enumerable.Range(0, heads.Count).OrderByDescending(k => hp[k].y))
             {
                 var st = stages[heads[k]];
-                int ch = st.chapter, side = path && k < z.plates.Count && z.plates[k] != 0 ? z.plates[k] : PlateSide(hp, k);
+                int id = st.id, side = path && k < z.plates.Count && z.plates[k] != 0 ? z.plates[k] : PlateSide(hp, k);
                 float tip = hp[k].x - left + side * ZoneNode.PlateReach(st.kind) * scale;
                 if (tip < 12 || tip > PokiCanvas.RefW - 12) side = -side;
-                var node = SpawnNode(d, s, st, hp[k], side, () => OpenChapter(ch));
+                var node = SpawnNode(d, s, st, hp[k], side, () => StagePrep.Open(id));
                 node.Rect.localScale = Vector3.one * scale;
+                afkAt[id] = NodeTag(st, hp[k], scale);
             }
             return pos[cur];
         }
@@ -399,15 +429,6 @@ namespace PokiClash
                 dash.rectTransform.anchoredPosition = Flip(PointAt(poly, t));
                 dash.rectTransform.localEulerAngles = new Vector3(0, 0, Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg);
             }
-        }
-
-        // bảng chặng: các ải từ ải tướng tới trước ải tướng sau; chạm ải đã mở thì vào chuẩn bị trận
-        void OpenChapter(int ch)
-        {
-            var d = App.Data;
-            var list = d.ZoneStages(zone).Where(st => st.chapter == ch).ToList();
-            if (list.Count == 0) return;
-            App.Modals.Open(chapterPrefab).Show(list, d, App.Save.Data, id => StagePrep.Open(id));
         }
 
         IEnumerator ScrollToCurrent(Vector2 pt)
@@ -493,7 +514,7 @@ namespace PokiClash
             }
             var gift = next.drops.FirstOrDefault(x => x.gift);
             var shards = next.drops.Where(x => !x.gift).Select(x => d.Hero(x.hero).name).Distinct().ToList();
-            string extra = gift != null ? $" · {d.Hero(gift.hero).name} gia nhập đội!" : shards.Count > 0 ? $" · rơi mảnh {string.Join(", ", shards)}" : "";
+            string extra = gift != null ? $" · {d.Hero(gift.HeroFor(s)).name} gia nhập đội!" : shards.Count > 0 ? $" · rơi mảnh {string.Join(", ", shards)}" : "";
             p.reward.text = $"+{Progress.StageBalls(d, next, true)} bi{extra}";
             int id = next.id;
             p.fight.SetOnClick(() => StagePrep.Open(id));

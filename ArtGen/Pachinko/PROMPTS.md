@@ -46,7 +46,7 @@ then wait for "next".
 ```
 1024 x 1536, transparent background around the machine. A cute tall pachinko cabinet seen straight from the front:
 a thick warm wooden and cream frame with rounded top corners, doodled decorations (little stars, a pink ball emblem
-at the top centre), crayon hatching and a hard offset shadow. Inside: one big flat cream play area with a faint dot
+at the top centre), crayon hatching, no shadow. Inside: one big flat cream play area with a faint dot
 pattern, completely empty, its inner edge an ink line; along the top of the play area a thin rail for a launcher;
 at the bottom an empty strip about 12 % of the height for the prize slots (just a darker cream band, no dividers).
 Proportions of the play area about 460 wide by 680 tall.

@@ -1,5 +1,6 @@
 // Đảo hệ so với bản web (golden): thưởng ải lần đầu và đánh lại, tặng tướng, rương mốc;
 // cùng luật mở ải lần lượt, độ khó, đảo gợi ý, điều kiện mở công trình side meta.
+// zones.json (ải 1 rơi mảnh): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -11,23 +12,25 @@ namespace PokiClash.Tests
     {
         static readonly string[] SlotKey = { "skill", "ult", "passive" };
 
-        // ô đội mở theo số đảo đã xong (TEAM_SLOT_ZONES của bản web): 0 đảo 1 ô, 1 đảo 2 ô, 3 đảo 3 ô
+        // ô đội theo cấp người chơi (15_TuongKhoiDau.md; web mở theo số đảo đã xong): lúc đầu 1 ô, ô 2 ở cấp 10, ô 3 ở cấp 30
         [Test]
-        public void ODoi_MoTheoSoDaoDaXong()
+        public void ODoi_MoTheoCapNguoiChoi()
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             Assert.AreEqual(1, Progress.TeamSlots(s), "mới chơi");
-            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
-            Assert.AreEqual(1, Progress.TeamSlots(s), "chưa hạ boss Thủy");
-            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
-            Assert.AreEqual(2, Progress.TeamSlots(s), "xong 1 đảo");
-            s.zones[(int)Elem.Hoa] = Islands.Size(Elem.Hoa);
-            Assert.AreEqual(2, Progress.TeamSlots(s), "xong 2 đảo");
-            s.zones[(int)Elem.Kim] = Islands.Size(Elem.Kim);
-            Assert.AreEqual(3, Progress.TeamSlots(s), "xong 3 đảo");
-            s.zones[(int)Elem.Moc] = s.zones[(int)Elem.Tho] = 8;
-            Assert.AreEqual(3, Progress.TeamSlots(s), "tối đa 3");
+            foreach (var e in Elements.All) s.zones[(int)e] = Islands.Size(e);
+            Assert.AreEqual(1, Progress.TeamSlots(s), "xong hết đảo mà cấp 1 vẫn 1 ô");
+            s.level = 9;
+            Assert.AreEqual(1, Progress.TeamSlots(s), "cấp 9");
+            s.level = 10;
+            Assert.AreEqual(2, Progress.TeamSlots(s), "cấp 10");
+            s.level = 29;
+            Assert.AreEqual(2, Progress.TeamSlots(s), "cấp 29");
+            s.level = 30;
+            Assert.AreEqual(3, Progress.TeamSlots(s), "cấp 30");
+            Assert.AreEqual("đạt cấp 10", Progress.SlotNeed(1));
+            Assert.AreEqual("đạt cấp 30", Progress.SlotNeed(2));
         }
 
         [Test]

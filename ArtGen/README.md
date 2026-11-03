@@ -16,11 +16,21 @@ Spec liên quan: `openspec/changes/setup-unity-foundation/specs/art-assets/spec.
 | 1 | [UIKit](UIKit/PROMPTS.md) | 8 | **Chốt style nét vẽ tay**; mọi gói sau đính kèm ảnh U1 đã duyệt |
 | 2 | [Islands](Islands/PROMPTS.md) | 6 đảo rời + biển + sheet phần động (đã có); 5 bản đồ đảo hệ gen riêng (tuỳ chọn) | `Islands/compose_islands.py` ghép đảo gen rời thành đảo lớn liền khối cho sảnh (kéo được, vành mây ở rìa) và bản đồ 5 đảo hệ (đảo gen + đường 8 ải); thêm vùng mới dễ |
 | 3 | [Icons](Icons/PROMPTS.md) | 5 sheet × 16 | Icon thẻ, tài nguyên, hệ, chỉ số |
-| 4 | [BattleBG](BattleBG/PROMPTS.md) | 5 | Nền trận theo hệ |
+| 4 | [BattleBG](BattleBG/PROMPTS.md) | 5 theo hệ; đảo Thủy 70 ải: 9 thường + 5 mini boss + 3 boss + 2 sheet phần động | Nền trận theo hệ; đảo Thủy theo chặng, mini boss và boss có cảnh riêng và phần động. Gói gửi GPT sinh bằng `BattleBG/build_thuy.py` |
 | 5 | [Pachinko](Pachinko/PROMPTS.md) | 4 | Máy bi (thân máy, bộ phận, rương lớn, hiệu ứng) |
 | 6 | [Hub](Hub/PROMPTS.md) | 2 sheet (6 công trình, 6 mây) | Công trình trên sảnh (Tướng, Sổ thẻ, Trang trại, Đền, Hang, Máy bi) |
 | 7 | [SideMeta](SideMeta/PROMPTS.md) | 5 | Trang trại, Đền Huy Hiệu, Hang Tiềm Năng, huy hiệu, đá |
 | 8 | [Heroes](Heroes/QUY_TRINH.md) | mỗi dạng 1 concept + các nhóm mảnh (+ mảnh vũ khí) | 40 tướng (8 mỗi hệ), mỗi tướng là một dòng tiến hóa aola. **Vẽ đè lên rig aola**, giữ animation; nét vẽ tay như ảnh mốc bản đồ, thiết kế học từ tướng aola, vẻ "chiến"; viền giấy xé do shader. Gói gửi GPT sinh bằng `Heroes/build.py` |
+| 9 | [BattleIntro](BattleIntro/gui_gpt/HUONG_DAN.md) | 1 nền + 1 dấu VS; mặt mỗi dạng tướng (103 dạng, mỗi dòng tiến hóa một file) | Màn VS truyện tranh và dải tuyệt kỹ: nền khung dùng chung (game tô màu theo phe), mặt tướng quay trái nền trắng (game cắt nền). Chưa có ảnh game vẽ tạm. Gói gửi GPT sinh bằng `BattleIntro/build.py`; mặt tướng nào làm lại hình thì gen sau khi có hình mới |
+
+## Luật chung
+
+- **UI và tướng: không vẽ bóng** (người dùng dặn 2026-11-03). Không bóng đổ (drop shadow, bóng lệch cứng dưới khung, nút, chữ), không bóng dưới chân hay bóng in xuống nền, sau lưng. Bóng chì gạch chéo bên trong hình để tạo khối thì vẫn giữ. Game cần bóng thì tự vẽ. Áp cho mọi prompt UI (khung, nút, thẻ, icon, chữ, dấu, huy hiệu, máy bi) và tướng (concept, mảnh, vũ khí, hiệu ứng, mặt tướng); nền trận, đảo, cảnh thì không theo luật này. Câu dán vào prompt:
+
+  ```
+  NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background.
+  Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+  ```
 
 ## Khối STYLE (dán vào mọi prompt)
 

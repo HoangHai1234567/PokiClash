@@ -1,0 +1,47 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\c01.png (1536 x 1024): the approved battle background of this island (a normal stage): copy its rendering, perspective and platform look; not its content, colours or daylight (this stage has its own light)
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\refs\thuy\ho_guong.png (512 x 512): a crop of this island's map, seen from above, showing the round mirror lake ringed with stones: draw the same landmark here, seen from the side, with its colours and shapes
+image 3 = E:\ProjectAtomik\PokiWar\Assets\03 Art\Islands\be_thuy_boss.png (400 x 250): the island map's boss plate: a raised round dais with a flat top, a visible side face and a ring on its top; copy only this idea for the far platform, in the material described below
+image 4 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\gui_gpt\thuy\bo_cuc_m50.png (1536 x 1024): the layout sketch of the image you draw now: follow it exactly
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\m50.png
+Create the folder if it is missing. If that file already exists, save it as m50_2.png, m50_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the battle background for the mini-boss stage at Mirror Lake (stage 50) of the Water island, in a vertical mobile monster-battle game. Two fighters (cut-out stickers with a white paper border, added by the game) fight on it: the boss on the far raised dais at the upper left, the player's fighter on the bigger near platform at the lower right.
+
+Draw a 1536 x 1024 image.
+
+THIS IS A MINI-BOSS STAGE, so it must look special: more dramatic and richer than the normal stages of this place, but still cute and cosy, never scary. Closer to the landmark, which is big and grand; a strong time of day and weather; richer details along the left and right edges; the far platform is a raised boss dais (the idea of image 3, built from the material below).
+
+RENDERING: exactly as image 1 (the approved battle background of this island): the same ink, hatching, paper, perspective, platform size and look. Draw the landmark like image 2 (the same landmark on the island map, seen from above there; draw it from the side here, much bigger). Not 3D, not glossy, no tiny noisy details. The fighters must stand out: most detail and contrast on the landmark and along the left and right edges; the middle stays simple.
+
+FRAME: phones show only the middle 1192 x 1024 of your 1536 x 1024 image; the dark strips of the sketch (x < 172 and x > 1364) are cut off, so just continue the scene into them with nothing important there.
+
+VIEW: a side three-quarter view like a stage in a picture book: eye level a little above the fighters' heads, looking slightly down; the ground rises towards the horizon and things get smaller with distance. Not a top-down map.
+
+LAYOUT: follow image 4 exactly. It is only a colour-coded plan: pale blue = sky; light green = grass, hills or jungle; light blue = pool, stream, waterfall, lake or shallow water; dark grey = rocks and cliffs; light grey with an ink edge = the landmark; cream ovals with a thick ink edge = the two platforms (the far one drawn as a raised dais with a side face and a gold ring); pink dashed outlines = places to keep plain for the game's moving effects (see EFFECTS); white dashed boxes = the fighters' bodies; grey diagonal lines = covered by the game's panels; dark side strips = cut off on phones. Do not copy its flat colours, its grey diagonal lines, its dashed lines or its dark side strips.
+
+FIGHTERS: the far fighter is up to about 390 px tall (white dashed box x 391-651, y 121-521), the near one up to about 430 px (box x 887-1187, y 495-923). Right behind their bodies keep only calm sky, water, rock or ground: no tall object, bright spot or busy pattern. Keep the diagonal between the two platforms open and calm (flat ground or water, a few small tufts): the fighters lunge across it.
+
+PANELS: the game covers the top-right (x 815-1364, y 0-240) and the bottom-left (x 185-720, y 760-960) with name-and-health panels (grey diagonal lines in the sketch). Draw only plain sky, water or ground there: no landmark, no tree top, no bright spot.
+
+SCENE: the mirror lake at night. Dark-blue hills far behind (tops at y 300-360); the perfectly still lake covers the whole ground from y = 360 to the bottom edge; smooth round stones line the far bank and gather in the bottom-left corner. The two platforms stand in the water.
+
+LANDMARK: the mirror lake of image 2 under a big full moon at the upper left (the light-grey disc of the sketch, centre (330, 120), about 150 px across) with a few soft clouds; the water mirrors the moon as a soft column of light below it and reflects the stars.
+
+DETAILS: a few water lilies and reeds near the edges, smooth stones half in the water.
+
+PLATFORMS: exactly where the sketch has them, same centre and size: the far one is a raised boss dais: its flat top centred at (521, 529), about 470 x 136 px, with a side face about 44 px tall below it; the near one centred at (1037, 930), about 540 x 160 px, its bottom edge about 14 px above the image bottom. Their tops are flat, level, EMPTY and a little lighter than the ground around them, with a crayon-hatched rim and a soft contact shadow; nothing stands on them. Far dais: a raised round dais of pale smooth stone standing in the water, a thin silver ring inlaid in its top. Near platform: a big flat round stone just above the water.
+
+LIGHT: calm, silvery and magical: deep blue sky with many small stars, cool moonlight from the top-left, pale silver rims on the stones and platforms.
+
+EFFECTS: the game animates these on top of your image, so leave their places as described and do NOT draw them:
+- mirror reflections of the two fighters in the water below each platform (pink dashed oval below the far platform, and below the near one): keep the water there smooth and plain;
+- fireflies, ripple rings and shimmer on the moon's reflection: no glowing dots, no ripple rings;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, fish; any UI, frame or border; white sticker outlines; fireflies, ripple rings, reflections of creatures.
+
+Remember: save the image to E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\m50.png

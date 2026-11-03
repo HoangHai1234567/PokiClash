@@ -216,14 +216,15 @@ namespace PokiClash.Core
         public static bool ZoneDone(SaveData s, Elem z) => s.zones[(int)z] >= Islands.Size(z);
         public static int ZonesDone(SaveData s) => Elements.All.Count(z => ZoneDone(s, z));
 
-        // ô đội mở theo tiến trình (chép TEAM_SLOT_ZONES, teamSlots của Web/src/core/progression.ts): lúc đầu mang 1 tướng;
-        // xong 1 đảo (đánh tới đảo thứ 2) mở ô 2, xong 3 đảo (tới đảo thứ 4) mở ô 3. Phần tử i: số đảo phải xong để mở ô i + 1.
-        public static readonly int[] TeamSlotZones = { 0, 1, 3 };
-        public static int TeamSlots(SaveData s)
-        {
-            int done = ZonesDone(s);
-            return TeamSlotZones.Count(n => done >= n);
-        }
+        // ô đội mở theo cấp người chơi (người dùng chốt 2026-11-03, GD_Claude/15_TuongKhoiDau.md; web mở theo số đảo đã xong):
+        // lúc đầu mang 1 tướng, ô 2 ở cấp 10, ô 3 ở cấp 30
+        public const int TeamSlotMax = 3;
+        public static readonly int[] SlotLevels = { 1, 10, 30 };
+
+        public static int TeamSlots(SaveData s) => SlotLevels.Count(lv => s.level >= lv);
+
+        // điều kiện mở ô đội i (0..2), hiện ở ô đang khoá: "mở khi …"
+        public static string SlotNeed(int i) => i <= 0 || i >= SlotLevels.Length ? "" : $"đạt cấp {SlotLevels[i]}";
 
         // đảo nên đánh: đảo chưa xong đầu tiên (theo thứ tự) mà người chơi theo được (cấp ≥ cận dưới − 3)
         public static ZoneDef RecommendedZone(SaveData s, GameData d)
@@ -320,7 +321,12 @@ namespace PokiClash.Core
             {
                 if (dr.gift)
                 {
-                    if (first) r.shards.Add(AddShards(s, d, dr.hero, dr.min, rng));
+                    if (!first) continue;
+                    var gh = dr.HeroFor(s);
+                    var res = AddShards(s, d, gh, dr.min, rng);
+                    r.shards.Add(res);
+                    // tướng tặng vào ô đội còn trống (ô 2 mở cùng lúc nhận quà ở ải 3 đảo Thủy, 15_TuongKhoiDau.md)
+                    if (res.unlocked && !s.team.Contains(gh) && s.team.Count < TeamSlots(s)) s.team.Add(gh);
                     continue;
                 }
                 double chance = first ? dr.chance : dr.chance * (dr.chance >= 1 ? 0.5 : 0.8);

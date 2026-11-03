@@ -557,7 +557,14 @@ MonoBehaviour:
       boss: 0
       evo: 0
       buff: -0.2
-    drops: []
+    drops:
+    - hero: giot_suong
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
   - id: 2
     zone: 2
     idx: 2
@@ -593,9 +600,11 @@ MonoBehaviour:
     drops:
     - hero: vo_su
       chance: 1
-      min: 10
-      max: 10
+      min: 15
+      max: 15
       gift: 1
+      altFor: thach_nhan
+      altHero: meo_quyen
   - id: 4
     zone: 2
     idx: 4
@@ -608,7 +617,7 @@ MonoBehaviour:
       level: 1
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.4
     drops: []
   - id: 5
     zone: 2
@@ -629,6 +638,8 @@ MonoBehaviour:
       min: 2
       max: 4
       gift: 0
+      altFor: 
+      altHero: 
   - id: 6
     zone: 2
     idx: 6
@@ -641,12 +652,12 @@ MonoBehaviour:
       level: 1
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua
       level: 1
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 7
     zone: 2
@@ -660,13 +671,15 @@ MonoBehaviour:
       level: 1
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: tieu_y
       chance: 0.3
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 8
     zone: 2
     idx: 8
@@ -679,18 +692,20 @@ MonoBehaviour:
       level: 1
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua
       level: 1
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: tieu_y
       chance: 0.3
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 9
     zone: 2
     idx: 9
@@ -703,18 +718,20 @@ MonoBehaviour:
       level: 1
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.3
     - hero: linh_cua
       level: 1
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: tieu_y
       chance: 0.44999999999999996
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 10
     zone: 2
     idx: 10
@@ -734,6 +751,8 @@ MonoBehaviour:
       min: 2
       max: 4
       gift: 0
+      altFor: 
+      altHero: 
   - id: 11
     zone: 2
     idx: 11
@@ -746,12 +765,12 @@ MonoBehaviour:
       level: 2
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua
       level: 2
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 12
     zone: 2
@@ -765,13 +784,15 @@ MonoBehaviour:
       level: 2
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: canh_cut
       chance: 0.3
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 13
     zone: 2
     idx: 13
@@ -784,18 +805,20 @@ MonoBehaviour:
       level: 2
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_noc
       level: 2
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: tieu_y
       chance: 0.3
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 14
     zone: 2
     idx: 14
@@ -808,18 +831,20 @@ MonoBehaviour:
       level: 2
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.3
     - hero: linh_cua
       level: 2
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: canh_cut
       chance: 0.44999999999999996
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 15
     zone: 2
     idx: 15
@@ -839,6 +864,8 @@ MonoBehaviour:
       min: 2
       max: 4
       gift: 0
+      altFor: 
+      altHero: 
   - id: 16
     zone: 2
     idx: 16
@@ -851,12 +878,12 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_noc
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 17
     zone: 2
@@ -870,13 +897,15 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: mi_nhi
       chance: 0.25
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 18
     zone: 2
     idx: 18
@@ -889,18 +918,20 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: canh_cut
       chance: 0.3
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 19
     zone: 2
     idx: 19
@@ -913,18 +944,20 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.3
     - hero: linh_noc
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: mi_nhi
       chance: 0.375
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 20
     zone: 2
     idx: 20
@@ -937,13 +970,15 @@ MonoBehaviour:
       level: 3
       boss: 1
       evo: 0
-      buff: 0
+      buff: 0.1
     drops:
     - hero: ma_ket
       chance: 1
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 21
     zone: 2
     idx: 21
@@ -956,12 +991,12 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_noc
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 22
     zone: 2
@@ -975,13 +1010,15 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: ma_ket
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 23
     zone: 2
     idx: 23
@@ -994,18 +1031,20 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_ngu
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: mi_nhi
       chance: 0.25
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 24
     zone: 2
     idx: 24
@@ -1018,17 +1057,17 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc
       level: 3
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_cua
       level: 3
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops: []
   - id: 25
     zone: 2
@@ -1042,28 +1081,34 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: canh_cut
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
-    - hero: nu_hoa
+    - hero: mam_go
       chance: 1
       min: 10
       max: 10
       gift: 1
+      altFor: 
+      altHero: 
     - hero: ma_ket
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: canh_cut
       chance: 0.3
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 26
     zone: 2
     idx: 26
@@ -1076,13 +1121,15 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.4
     drops:
     - hero: ma_ket
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 27
     zone: 2
     idx: 27
@@ -1095,12 +1142,12 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.55
     - hero: linh_cua
       level: 3
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 28
     zone: 2
@@ -1114,23 +1161,25 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc
       level: 3
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu
       level: 3
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops:
     - hero: ma_ket
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 29
     zone: 2
     idx: 29
@@ -1143,23 +1192,27 @@ MonoBehaviour:
       level: 3
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     - hero: mi_nhi
       level: 3
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     drops:
     - hero: ma_ket
       chance: 0.30000000000000004
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: mi_nhi
       chance: 0.375
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 30
     zone: 2
     idx: 30
@@ -1172,13 +1225,15 @@ MonoBehaviour:
       level: 4
       boss: 1
       evo: 0
-      buff: 0
+      buff: 0.1
     drops:
     - hero: vay_lam
       chance: 1
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 31
     zone: 2
     idx: 31
@@ -1191,12 +1246,12 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_ngu
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 32
     zone: 2
@@ -1210,13 +1265,15 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: vay_lam
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 33
     zone: 2
     idx: 33
@@ -1229,18 +1286,20 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: ma_ket
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 34
     zone: 2
     idx: 34
@@ -1253,17 +1312,17 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu
       level: 4
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc
       level: 4
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops: []
   - id: 35
     zone: 2
@@ -1277,23 +1336,27 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: mi_nhi
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: vay_lam
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: mi_nhi
       chance: 0.25
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 36
     zone: 2
     idx: 36
@@ -1306,13 +1369,15 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.4
     drops:
     - hero: vay_lam
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 37
     zone: 2
     idx: 37
@@ -1325,12 +1390,12 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.55
     - hero: linh_noc2
       level: 4
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 38
     zone: 2
@@ -1344,23 +1409,25 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu2
       level: 4
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_cua2
       level: 4
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops:
     - hero: vay_lam
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 39
     zone: 2
     idx: 39
@@ -1373,23 +1440,27 @@ MonoBehaviour:
       level: 4
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     - hero: ma_ket
       level: 4
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     drops:
     - hero: vay_lam
       chance: 0.30000000000000004
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: ma_ket
       chance: 0.30000000000000004
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 40
     zone: 2
     idx: 40
@@ -1402,13 +1473,15 @@ MonoBehaviour:
       level: 5
       boss: 1
       evo: 0
-      buff: 0
+      buff: 0.1
     drops:
     - hero: kuba
       chance: 1
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 41
     zone: 2
     idx: 41
@@ -1421,12 +1494,12 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua2
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 42
     zone: 2
@@ -1440,13 +1513,15 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: kuba
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 43
     zone: 2
     idx: 43
@@ -1459,18 +1534,20 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_noc2
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: vay_lam
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 44
     zone: 2
     idx: 44
@@ -1483,17 +1560,17 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_cua2
       level: 5
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu2
       level: 5
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops: []
   - id: 45
     zone: 2
@@ -1507,23 +1584,27 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: ma_ket
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: kuba
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: ma_ket
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 46
     zone: 2
     idx: 46
@@ -1536,13 +1617,15 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.4
     drops:
     - hero: kuba
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 47
     zone: 2
     idx: 47
@@ -1555,12 +1638,12 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.55
     - hero: linh_ngu2
       level: 5
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 48
     zone: 2
@@ -1574,23 +1657,25 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_cua2
       level: 5
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc2
       level: 5
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops:
     - hero: kuba
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 49
     zone: 2
     idx: 49
@@ -1603,23 +1688,27 @@ MonoBehaviour:
       level: 5
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     - hero: vay_lam
       level: 5
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     drops:
     - hero: kuba
       chance: 0.22499999999999998
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: vay_lam
       chance: 0.30000000000000004
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 50
     zone: 2
     idx: 50
@@ -1632,13 +1721,15 @@ MonoBehaviour:
       level: 6
       boss: 1
       evo: 0
-      buff: 0
+      buff: 0.1
     drops:
     - hero: thuong_lam
       chance: 1
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 51
     zone: 2
     idx: 51
@@ -1651,12 +1742,12 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_noc2
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 52
     zone: 2
@@ -1670,13 +1761,15 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: thuong_lam
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 53
     zone: 2
     idx: 53
@@ -1689,18 +1782,20 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_ngu2
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: kuba
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 54
     zone: 2
     idx: 54
@@ -1713,17 +1808,17 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc2
       level: 6
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_cua2
       level: 6
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops: []
   - id: 55
     zone: 2
@@ -1737,23 +1832,27 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: vay_lam
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: thuong_lam
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: vay_lam
       chance: 0.2
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 56
     zone: 2
     idx: 56
@@ -1766,13 +1865,15 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.4
     drops:
     - hero: thuong_lam
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 57
     zone: 2
     idx: 57
@@ -1785,12 +1886,12 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.55
     - hero: linh_cua2
       level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 58
     zone: 2
@@ -1804,23 +1905,25 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc2
       level: 6
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu2
       level: 6
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops:
     - hero: thuong_lam
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 59
     zone: 2
     idx: 59
@@ -1833,23 +1936,27 @@ MonoBehaviour:
       level: 6
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     - hero: kuba
       level: 6
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     drops:
     - hero: thuong_lam
       chance: 0.22499999999999998
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: kuba
       chance: 0.22499999999999998
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 60
     zone: 2
     idx: 60
@@ -1862,13 +1969,15 @@ MonoBehaviour:
       level: 7
       boss: 1
       evo: 0
-      buff: 0
+      buff: 0.1
     drops:
     - hero: huyen_vu
       chance: 1
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 61
     zone: 2
     idx: 61
@@ -1881,12 +1990,12 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_ngu2
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 62
     zone: 2
@@ -1900,13 +2009,15 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.27
     drops:
     - hero: huyen_vu
       chance: 0.1
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 63
     zone: 2
     idx: 63
@@ -1919,18 +2030,20 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: linh_cua2
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: thuong_lam
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 64
     zone: 2
     idx: 64
@@ -1943,17 +2056,17 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu2
       level: 7
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_noc2
       level: 7
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops: []
   - id: 65
     zone: 2
@@ -1967,23 +2080,27 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     - hero: kuba
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops:
     - hero: huyen_vu
       chance: 0.1
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: kuba
       chance: 0.15
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 66
     zone: 2
     idx: 66
@@ -1996,13 +2113,15 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.4
     drops:
     - hero: huyen_vu
       chance: 0.1
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 67
     zone: 2
     idx: 67
@@ -2015,12 +2134,12 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.55
     - hero: linh_noc2
       level: 7
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
     drops: []
   - id: 68
     zone: 2
@@ -2034,23 +2153,25 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_ngu2
       level: 7
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     - hero: linh_cua2
       level: 7
       boss: 0
       evo: 0
-      buff: -0.2
+      buff: -0.05
     drops:
     - hero: huyen_vu
       chance: 0.1
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 69
     zone: 2
     idx: 69
@@ -2063,23 +2184,27 @@ MonoBehaviour:
       level: 7
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     - hero: thuong_lam
       level: 7
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.25
     drops:
     - hero: huyen_vu
       chance: 0.15000000000000002
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
     - hero: thuong_lam
       chance: 0.22499999999999998
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 70
     zone: 2
     idx: 70
@@ -2092,13 +2217,15 @@ MonoBehaviour:
       level: 8
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.05
     drops:
     - hero: lam_quan
       chance: 1
       min: 4
       max: 6
       gift: 0
+      altFor: 
+      altHero: 
   - id: 71
     zone: 3
     idx: 1
@@ -2107,12 +2234,19 @@ MonoBehaviour:
     tag: 0
     chapter: 0
     enemies:
-    - hero: bo_de
+    - hero: su_tu_lua
       level: 6
       boss: 0
       evo: 0
       buff: 0
-    drops: []
+    drops:
+    - hero: su_tu_lua
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
   - id: 72
     zone: 3
     idx: 2
@@ -2151,6 +2285,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 74
     zone: 3
     idx: 4
@@ -2170,6 +2306,8 @@ MonoBehaviour:
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 75
     zone: 3
     idx: 5
@@ -2208,6 +2346,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 77
     zone: 3
     idx: 7
@@ -2251,11 +2391,15 @@ MonoBehaviour:
       min: 4
       max: 6
       gift: 0
+      altFor: 
+      altHero: 
     - hero: bo_de
       chance: 0.5
       min: 2
       max: 3
       gift: 0
+      altFor: 
+      altHero: 
   - id: 79
     zone: 0
     idx: 1
@@ -2269,7 +2413,14 @@ MonoBehaviour:
       boss: 0
       evo: 0
       buff: 0
-    drops: []
+    drops:
+    - hero: bu_long
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
   - id: 80
     zone: 0
     idx: 2
@@ -2289,6 +2440,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 81
     zone: 0
     idx: 3
@@ -2327,6 +2480,8 @@ MonoBehaviour:
       min: 4
       max: 6
       gift: 0
+      altFor: 
+      altHero: 
   - id: 83
     zone: 0
     idx: 5
@@ -2365,6 +2520,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 85
     zone: 0
     idx: 7
@@ -2384,6 +2541,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 86
     zone: 0
     idx: 8
@@ -2403,11 +2562,15 @@ MonoBehaviour:
       min: 4
       max: 6
       gift: 0
+      altFor: 
+      altHero: 
     - hero: bo_ngua
       chance: 0.5
       min: 2
       max: 3
       gift: 0
+      altFor: 
+      altHero: 
   - id: 87
     zone: 1
     idx: 1
@@ -2421,7 +2584,14 @@ MonoBehaviour:
       boss: 0
       evo: 0
       buff: 0
-    drops: []
+    drops:
+    - hero: nu_hoa
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
   - id: 88
     zone: 1
     idx: 2
@@ -2474,6 +2644,8 @@ MonoBehaviour:
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 91
     zone: 1
     idx: 5
@@ -2512,6 +2684,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 93
     zone: 1
     idx: 7
@@ -2555,6 +2729,8 @@ MonoBehaviour:
       min: 4
       max: 6
       gift: 0
+      altFor: 
+      altHero: 
   - id: 95
     zone: 4
     idx: 1
@@ -2563,12 +2739,19 @@ MonoBehaviour:
     tag: 0
     chapter: 0
     enemies:
-    - hero: vo_su
+    - hero: thach_nhan
       level: 21
       boss: 0
       evo: 0
       buff: 0
-    drops: []
+    drops:
+    - hero: thach_nhan
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
   - id: 96
     zone: 4
     idx: 2
@@ -2621,6 +2804,8 @@ MonoBehaviour:
       min: 3
       max: 5
       gift: 0
+      altFor: 
+      altHero: 
   - id: 99
     zone: 4
     idx: 5
@@ -2659,6 +2844,8 @@ MonoBehaviour:
       min: 1
       max: 2
       gift: 0
+      altFor: 
+      altHero: 
   - id: 101
     zone: 4
     idx: 7
@@ -2702,6 +2889,8 @@ MonoBehaviour:
       min: 5
       max: 8
       gift: 0
+      altFor: 
+      altHero: 
   village:
     x: 0.5
     y: 0.44

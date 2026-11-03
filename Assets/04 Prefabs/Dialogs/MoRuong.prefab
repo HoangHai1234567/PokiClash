@@ -518,9 +518,7 @@ MonoBehaviour:
   cardGrid: {fileID: 3980677003187057960}
   buttonRow: {fileID: 8838454993610472245}
   button: {fileID: 6770088573949424479}
-  chipPrefab: {fileID: 4412483074644664319, guid: 03a5656c2da1daf4c8c79859aa0f9e05, type: 3}
-  cardPrefab: {fileID: 2484891765919292277, guid: 96cf3b26aed95e94d8568611d634eb70, type: 3}
-  shardPrefab: {fileID: 5290693484072850263, guid: 2f3ee0c24fc8dd443835577d13fea9e8, type: 3}
+  tilePrefab: {fileID: 8352921323272311300, guid: ac097db7df12d084ebf92a284b30426b, type: 3}
 --- !u!224 &5918876593487669835 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8109593584369136664, guid: cf27325d048d5de408795cfa786f652b, type: 3}

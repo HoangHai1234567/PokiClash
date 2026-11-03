@@ -23,6 +23,14 @@ namespace PokiClash
         }
 
         // Màn giới thiệu lần đầu ("Sổ Tay Phiêu Lưu", 4 ô, "Bắt đầu!"), chỉ hiện một lần.
-        public static Modal Intro() => App.Modals.Open<IntroDialog>().Modal;
+        public static Modal Intro(Action onClose = null) => App.Modals.Open<IntroDialog>(onClose).Modal;
+
+        // Chọn 1 trong 5 tướng khởi đầu (bản lưu chưa có starter), bắt buộc.
+        public static Modal Starter(Action<string> onPicked = null)
+        {
+            var dlg = App.Modals.Open<StarterDialog>(mandatory: true);
+            dlg.Show(onPicked);
+            return dlg.Modal;
+        }
     }
 }

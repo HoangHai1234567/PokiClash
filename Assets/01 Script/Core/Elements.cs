@@ -32,6 +32,14 @@ namespace PokiClash.Core
             return 1;
         }
 
+        // tướng đồng hành (tướng khởi đầu người chơi đã chọn, GD_Claude/15_TuongKhoiDau.md) không chịu thiệt khi khắc hệ: đánh hệ khắc
+        // mình và bị hệ khắc mình đánh đều ×1; vẫn ×1,5 khi mình khắc
+        public static double Mult(Elem att, Elem def, bool attPartner, bool defPartner)
+        {
+            double m = Mult(att, def);
+            return m < 1 && attPartner || m > 1 && defPartner ? 1 : m;
+        }
+
         public static string Name(Elem e)
         {
             switch (e)

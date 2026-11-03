@@ -1,5 +1,6 @@
 // Trang trại so với bản web (golden farm.json): công thức năng suất / thời lượng / nghỉ, rồi chạy lại từng bước (đặt, rút, nghỉ, tự xếp,
 // tăng tốc, thu hoạch, lùi giờ, tua) và so cả trạng thái sau mỗi bước. Thêm: ví dụ trong design, kho 12 giờ, lưu rồi đọc lại.
+// farm.json (Võ Sư lên Khá): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;

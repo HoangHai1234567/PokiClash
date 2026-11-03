@@ -31,10 +31,10 @@ namespace PokiClash.Core
         public static int[] Levels(ZoneDef z) =>
             new[] { z.levelMin - 2, z.levelMin, Js.RoundInt((z.levelMin + z.levelMax) / 2.0), z.levelMax, z.levelMax + 2 }.Select(l => Math.Max(1, l)).ToArray();
 
-        // bản lưu giả cho một ô của bảng: đội, cấp, sao, cấp cả 3 thẻ
-        public static SaveData Setup(GameData d, IList<string> team, int level, int star, int card)
+        // bản lưu giả cho một ô của bảng: đội, cấp, sao, cấp cả 3 thẻ; starter: tướng khởi đầu đã chọn (tướng đồng hành), null = không có
+        public static SaveData Setup(GameData d, IList<string> team, int level, int star, int card, string starter = null)
         {
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, starter);
             s.level = level;
             s.team = new List<string>(team);
             foreach (var h in team)
@@ -124,6 +124,82 @@ namespace PokiClash.Core
                 }
             }
             return (win, total, last);
+        }
+
+        // ---------- tướng khởi đầu (GD_Claude/15_TuongKhoiDau.md) ----------
+
+        // sao người chơi có ở cấp level nếu theo kịp (sao n khi đủ cấp cfg.starLevel[n], như npm run sim -- island)
+        public static int StarAt(BalanceConfig cfg, int level)
+        {
+            int star = 1;
+            while (star < cfg.maxStar && star + 1 < cfg.starLevel.Length && cfg.starLevel[star + 1] <= level) star++;
+            return star;
+        }
+
+        // đội khi tới ải st, chọn tướng khởi đầu starter: tướng khởi đầu và tướng tặng ở các ải trước của đảo (quà theo tướng khởi đầu),
+        // tối đa số ô đã mở, tướng khắc tướng chính của ải ra sân trước. Không tính tướng thu phục bằng mảnh.
+        // oldRules: luật trước khi có 5 tướng khởi đầu (1 ô suốt đảo đầu, quà luôn là tướng gốc, không có tướng đồng hành).
+        public static List<string> StarterTeam(GameData d, string starter, StageDef st, bool oldRules = false)
+        {
+            var s = SaveData.New(d, 0, oldRules ? null : starter);
+            s.zones[(int)st.zone] = st.idx - 1;
+            var owned = new List<string> { starter };
+            foreach (var x in d.ZoneStages(st.zone))
+                if (x.idx < st.idx)
+                    foreach (var dr in x.drops)
+                        if (dr.gift)
+                        {
+                            var h = oldRules ? dr.hero : dr.HeroFor(s);
+                            if (!owned.Contains(h)) owned.Add(h);
+                        }
+            int slots = oldRules ? 1 : Progress.TeamSlots(s);
+            var foe = d.Hero(Teams.StageLead(st, d).hero).elem;
+            bool Partner(string h) => !oldRules && h == starter;
+            double Edge(string h) => Elements.Mult(d.Hero(h).elem, foe, Partner(h), false) - Elements.Mult(foe, d.Hero(h).elem, false, Partner(h));
+            return owned.OrderByDescending(Edge).ThenByDescending(h => (int)d.Hero(h).rarity).Take(slots).ToList();
+        }
+
+        public sealed class StarterRow
+        {
+            public StageDef st;
+            public int level, star;
+            public List<string> team;
+            public SimCell cell;
+        }
+
+        // n trận mỗi ải của đảo z: cấp bằng cấp địch cao nhất của ải, sao theo cấp, cấp thẻ bằng sao, đội theo StarterTeam
+        public static List<StarterRow> StarterIsland(GameData d, string starter, Elem z, int n, bool oldRules = false)
+        {
+            var rows = new List<StarterRow>();
+            foreach (var st in d.ZoneStages(z))
+            {
+                int lv = st.enemies.Max(e => e.level), star = StarAt(d.Cfg, lv);
+                var team = StarterTeam(d, starter, st, oldRules);
+                var s = Setup(d, team, lv, star, star, oldRules ? null : starter);
+                rows.Add(new StarterRow { st = st, level = lv, star = star, team = team, cell = Stage(d, s, st, n) });
+            }
+            return rows;
+        }
+
+        // kiểu ải để gom bảng như npm run sim -- island: mini boss, boss, còn lại theo kiểu ải (đảo 8 ải: "normal")
+        public static string StageKey(StageDef st) =>
+            st.kind == StageKind.Mini ? "mini" : st.kind == StageKind.Boss ? "boss" : Keys.Of(st.tag) ?? "normal";
+
+        // tay đôi a với b cùng cấp, sao theo cấp, cấp thẻ bằng sao, không có tướng đồng hành; nửa số trận đổi bên. Trả tỉ lệ thắng của a.
+        public static double Duel(GameData d, string a, string b, int level, int n, uint seed = 1000)
+        {
+            int star = StarAt(d.Cfg, level), win = 0;
+            var s = Setup(d, new[] { a, b }, level, star, star);
+            for (int i = 0; i < n; i++)
+            {
+                bool flip = i % 2 == 1;
+                var ta = PlayerAi(d, s, new[] { a }, null);
+                var tb = PlayerAi(d, s, new[] { b }, null);
+                var bt = Battle.Create(d, flip ? tb : ta, flip ? ta : tb, (uint)(seed + i * 7919), level, level);
+                BattleSim.Run(bt);
+                if (bt.winner == (flip ? 1 : 0)) win++;
+            }
+            return (double)win / n;
         }
 
         // ---------- máy bi ----------

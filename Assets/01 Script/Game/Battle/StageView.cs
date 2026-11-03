@@ -1,4 +1,4 @@
-// Sân đấu (chép Web/src/view/battle/stage.ts): nền theo hệ đảo, hai tướng dạng sticker, chữ tượng thanh, số sát thương, rung màn.
+// Sân đấu (chép Web/src/view/battle/stage.ts): nền theo hệ đảo (đảo có bộ sàn đấu thì theo ải, kèm phần động ArenaAnim), hai tướng dạng sticker, chữ tượng thanh, số sát thương, rung màn.
 // Địch đứng trên trái, phe mình dưới phải (lật ngang). Toạ độ theo khung web 540 × 464, nhân 2 sang UI (1080 × 928).
 // Tướng: prefab Items/TranTuong, hình là AolaSticker (Editor lúc Play, bản dev); không có aola thì ô trống (hình giữ chỗ vẽ tay
 // đã bỏ 2026-11-02), Body vẫn chạy clip giả (lao tới 35% quãng đường) làm chỗ neo.
@@ -24,7 +24,8 @@ namespace PokiClash
         public const float SW = 540, SH = 464, K = 2;
         public static readonly Vector2[] Pos = { new Vector2(392, 418), new Vector2(158, 236) }; // phe mình, địch
         static readonly float[] Height = { 176, 150 };
-        public const string Idle = "idle", Hit = "hit", Attack = "attack", Skill = "skill";
+        // cast: clip ngắn của chiêu bắn tia (tướng aola có khai, AolaSticker.Beam)
+        public const string Idle = "idle", Hit = "hit", Attack = "attack", Skill = "skill", Cast = "cast";
 
         static readonly string[] WordsHit = { "BỐP!", "CHÁT!", "BỤP!", "HỰ!", "BINH!" };
         static readonly string[] WordsBig = { "ẦM!!", "RẦM!!", "OÀNH!!" };
@@ -34,6 +35,9 @@ namespace PokiClash
         [SerializeField] RectTransform root, actorLayer, fxLayer, plateLayer;
         [SerializeField] StageActor actorPrefab;
         [SerializeField] StageFx textFx, burstFx, ringFx, sparkFx;
+        [SerializeField] StageFx beamFx; // tia nước của chiêu bắn (Items/TiaNuoc, menu "PokiClash/Prefab/Sàn đấu: tia nước của chiêu bắn")
+        [SerializeField] StageFx imageFx; // ảnh hiệu ứng rời, đổi ảnh lúc dùng (Items/AnhHieuUng, cùng menu)
+        [SerializeField] Sprite beamSplash, beamDrops, beamRipple, beamSparkle; // nổ nước, giọt, vòng sóng, lấp lánh (Assets/03 Art/Fx)
         public RectTransform PlateLayer => plateLayer;
         float flashT = -1, flashLife = 0.35f;
         Color flashColor;
@@ -60,6 +64,7 @@ namespace PokiClash
             public List<(StatusId, int)> statuses = new List<(StatusId, int)>();
             public readonly List<RectTransform> statusIcons = new List<RectTransform>();
             public double size = 1; // cỡ của dạng đang hiện (theo sao)
+            public int form, forms = 1; // dạng đang hiện trong dòng tiến hóa và số dạng (cỡ tia của chiêu bắn)
             public float H => Height[side] * (float)size * (boss ? 1.18f : 1);
         }
 
@@ -93,14 +98,48 @@ namespace PokiClash
             sparkFx = spark;
         }
 
-        // nền theo đảo: màu trời trên cùng phủ cả phần dôi (máy dài), rồi ảnh nền trận
-        public void Init(ZoneDef zone)
+        // nền theo đảo: màu trời trên cùng phủ cả phần dôi (máy dài), rồi ảnh nền trận. Đảo có bộ sàn đấu (ArtGen/BattleBG/
+        // build_thuy.py) thì theo ải: ải mini boss, boss "battle_<đảo>_s<ải>", rồi chặng "battle_<đảo>_c<chặng>"; không có thì nền
+        // hệ. Sàn đấu có phần động (ArenaAnim) và màu trời riêng. stage null (thử thách huy hiệu, hang): nền hệ.
+        public void Init(ZoneDef zone, StageDef stage = null)
         {
-            sky.color = Theme.Hex(zone.skyTop);
-            var art = App.Art ? App.Art.Get("battle_" + Keys.Of(zone.id)) : null;
+            this.zone = zone;
+            this.stage = stage;
+            arenaArt = null;
+            ApplyArena(1);
+            flashImg.gameObject.SetActive(false);
+        }
+
+        // boss tiến hóa: nền dạng sau ("…_s70_2", "…_s70_3") nếu có
+        public void SetPhase(int phase) => ApplyArena(phase);
+
+        [SerializeField] ArenaAnim arena; // lớp "PhanDong" ngay trên ảnh nền (menu "PokiClash/Prefab/Sàn đấu: lớp phần động")
+        ZoneDef zone;
+        StageDef stage;
+        string arenaArt;
+
+        static string ArenaArt(ZoneDef zone, StageDef st, int phase)
+        {
+            string z = "battle_" + Keys.Of(zone.id);
+            if (st == null || !App.Art) return z;
+            string s = $"{z}_s{st.idx}";
+            if (phase > 1 && App.Art.HasArt($"{s}_{phase}")) return $"{s}_{phase}";
+            if (App.Art.HasArt(s)) return s;
+            string c = $"{z}_c{st.chapter + 1:00}";
+            return App.Art.HasArt(c) ? c : z;
+        }
+
+        void ApplyArena(int phase)
+        {
+            string name = ArenaArt(zone, stage, phase);
+            if (name == arenaArt) return;
+            arenaArt = name;
+            var art = App.Art ? App.Art.Get(name) : null;
             Theme.SetSprite(bg, art);
             bg.color = art ? Color.white : Theme.Hex(zone.skyBottom);
-            flashImg.gameObject.SetActive(false);
+            string key = name.Substring("battle_".Length);
+            sky.color = Theme.Hex(ArenaAnim.Sky(key) ?? zone.skyTop);
+            if (arena) arena.Bind(key);
         }
 
         // toạ độ web (gốc trên trái, y xuống) -> anchoredPosition trong khung sân (gốc trên trái)
@@ -119,6 +158,8 @@ namespace PokiClash
             }
             var form = App.Data.Cfg.FormOf(hero, star);
             var a = new Actor { side = side, hero = hero, size = form.size, boss = boss, enter = entering ? 0 : 9, t = Random.value * 2 };
+            a.form = hero.FormIndex(App.Data.Cfg.formStars, star);
+            a.forms = Mathf.Max(1, hero.forms.Length);
             var v = Ui.Spawn(actorPrefab, actorLayer);
             v.name = "tuong_" + side;
             a.view = v;
@@ -191,6 +232,8 @@ namespace PokiClash
             {
                 a.handle.hit = a.handle.done = true;
             }
+            if (clip == Skill && arena) arena.Flare(); // sàn đấu bừng sáng theo chiêu, Tuyệt kỹ
+            if (clip != Idle && clip != Hit) a.rt.SetAsLastSibling(); // con đang ra đòn nằm trên con kia
             a.clip = clip;
             a.t = 0;
             a.loop = false;
@@ -247,8 +290,9 @@ namespace PokiClash
 
         // ---------- clip của hình giữ chỗ ----------
 
-        static float ClipLen(string clip) => clip == Attack ? 0.8f : clip == Skill ? 0.9f : clip == Hit ? 0.36f : 1.2f;
-        static float HitAt(string clip) => clip == Skill ? 0.55f : 0.6f;
+        static float ClipLen(string clip) => clip == Attack ? 0.8f : clip == Skill ? 0.9f : clip == Hit ? 0.36f :
+            clip == Cast ? AolaSticker.CastLen : 1.2f;
+        static float HitAt(string clip) => clip == Skill ? 0.55f : clip == Cast ? 0.5f : 0.6f;
 
         // ---------- hiệu ứng ----------
 
@@ -377,6 +421,206 @@ namespace PokiClash
 
         public void Ring(int side, string hex) => Ring(side, Theme.Hex(hex));
 
+        // clip đang chạy của tướng side (menu thử chụp lúc ra đòn)
+        public string ClipOf(int side) => actors[side] == null || actors[side].loop ? Idle : actors[side].clip;
+
+        // chiêu bắn (động tác bắn, tia và hiệu ứng của tia) và clip CHIÊU (tuyệt kỹ, chiêu mana của boss làm riêng) chạy chậm
+        // bằng nửa nhịp sân (người dùng 2026-11-03); đánh thường, trúng đòn, đứng yên giữ nhịp sân
+        const float SkillTime = 2f;
+
+        // Chiêu mana bắn tia (người dùng 2026-11-03): mặc định của mọi tướng, quái thường, phần lớn mini boss; số ít boss làm riêng
+        // khai "mana": "clip" trong anim.json (AolaSticker.ManaUsesClip) thì phát clip CHIÊU như cũ.
+
+        public bool CanBeam(int side) => beamFx && actors[side] != null && !(actors[side].aola?.ManaUsesClip ?? false);
+
+        // Tia từ chỗ bắn của side tới thân đối thủ (người dùng 2026-11-03: to, có hoạt cảnh, tan cho đẹp):
+        // - phóng: nổ nước nhỏ và lấp lánh ở chỗ bắn;
+        // - bay: thân tia vươn ra (đầu bọt dẫn trước), gợn sóng liên tục, lõi sáng mảnh hơn bên trong, giọt nước văng dọc đường;
+        // - trúng (lúc đầu tia tới nơi): nổ nước lớn, giọt văng, vòng sóng loang dưới chân đối thủ, lấp lánh, rung sân nhẹ;
+        // - tan: đuôi tia rút dần về phía đối thủ (nước chảy hết vào chỗ trúng), mảnh dần rồi mờ.
+        // Chỗ bắn và cỡ tia: dạng có clip bắn thì theo anim.json (AolaSticker.Beam); không thì từ trước ngực, cỡ to dần theo dạng trong
+        // dòng (một dạng: vừa), boss to hơn. Ảnh nước dùng chung; tướng hệ khác tạm nhuộm màu hệ tới khi có ảnh riêng.
+        // Trả về thời gian tới nơi (giây sân).
+        public float Beam(int side)
+        {
+            var a = actors[side];
+            if (!beamFx || a == null) return 0;
+            int other = side == 0 ? 1 : 0;
+            Vector2 m;
+            float scale;
+            if (a.aola == null || !a.aola.Beam(out m, out scale))
+            {
+                var dir = Pos[other].x < Pos[side].x ? -1f : 1f;
+                m = new Vector2(dir * a.H * 0.3f, -a.H * 0.5f);
+                scale = a.forms <= 1 ? 1f : 0.7f + 0.7f * a.form / (a.forms - 1f);
+                if (a.boss) scale *= 1.2f;
+            }
+            var from = Pos[side] + m;
+            var to = Body(other);
+            var d = to - from;
+            float len = d.magnitude, ang = Mathf.Atan2(d.y, d.x);
+            var nrm = len > 0 ? new Vector2(-d.y, d.x) / len : Vector2.up; // pháp tuyến (web)
+            var tint = a.hero.elem == Elem.Thuy ? Color.white : Color.Lerp(Color.white, Theme.Of(a.hero.elem), 0.75f);
+            float flipY = d.x < 0 ? -1 : 1; // bắn sang trái thì lật dọc để vệt sáng vẫn ở trên
+            // bề dày tia (đơn vị web): dạng đầu (cỡ 0.7) 84, to dần chậm hơn cỡ (dạng cuối cỡ 1.4 khoảng 127, quái một dạng 104)
+            float h = 84 * Mathf.Pow(scale / 0.7f, 0.6f);
+            // cỡ hiệu ứng phụ (nổ, giọt, lấp lánh): to dần còn chậm hơn, để không che thân tướng bắn
+            float g = Mathf.Pow(scale / 0.7f, 0.4f);
+            const float grow = 0.2f * SkillTime, hold = 0.3f * SkillTime, shrink = 0.22f * SkillTime, life = grow + hold + shrink;
+
+            // thân tia và lõi sáng: vẽ đoạn [đuôi, đầu] của đường bắn, đầu vươn ra nhanh, đuôi rút về đối thủ lúc tan
+            for (int layer = 0; layer < 2; layer++)
+            {
+                bool core = layer == 1;
+                var item = Take(beamFx);
+                if (item.Image) item.Image.color = core ? Color.Lerp(tint, Color.white, 0.7f) : tint;
+                item.Rect.pivot = new Vector2(0, 0.5f);
+                float thick = core ? 0.42f : 1f, phase = core ? 1.7f : 0f;
+                AddFx(item, beamFx, life, (f, k) =>
+                {
+                    float t = k * life;
+                    float head = Mathf.Min(1, t / grow);
+                    head = 1 - (1 - head) * (1 - head) * (1 - head);
+                    float tail = Mathf.Clamp01((t - grow - hold) / shrink);
+                    tail *= tail;
+                    var p0 = from + d * tail;
+                    float wob = 1 + 0.12f * Mathf.Sin(t * 38 + phase) + 0.06f * Mathf.Sin(t * 71 + phase);
+                    f.rt.anchoredPosition = P(p0);
+                    f.rt.sizeDelta = new Vector2(Mathf.Max(1, len * (head - tail)) * K, h * thick * wob * (1 - 0.6f * tail) * K);
+                    f.rt.localEulerAngles = new Vector3(0, 0, -ang * Mathf.Rad2Deg + Mathf.Sin(t * 23 + phase) * 1.5f);
+                    f.rt.localScale = new Vector3(1, flipY, 1);
+                    f.cg.alpha = (core ? 0.6f : 1f) * (tail > 0.6f ? (1 - tail) / 0.4f : 1);
+                });
+            }
+
+            // phóng: nổ nước nhỏ, lấp lánh ở chỗ bắn (nhỏ hơn đầu tướng)
+            Pop(beamSplash, from, 64 * g, tint, 0, 0.3f, 0.4f, 1.1f, Random.value * 360);
+            Pop(beamSparkle, from - nrm * 30 * g, 34 * g, Color.white, 0.03f, 0.3f, 0.3f, 1.2f, 0);
+            // bay: giọt nước văng ra hai bên khi đầu tia đi qua (từ quá nửa đường, xa thân tướng bắn)
+            for (int i = 0; i < 4; i++)
+            {
+                float u = 0.4f + 0.13f * i;
+                float side2 = i % 2 == 0 ? 1 : -1;
+                var at = from + d * u + nrm * side2 * h * 0.35f;
+                var fly = nrm * side2 * 50 * g * (0.7f + Random.value * 0.5f) + d.normalized * 20 * g;
+                float delay = grow / SkillTime * (1 - Mathf.Pow(1 - u, 1f / 3f)); // nhịp thường, Drift tự kéo chậm
+                Drift(beamDrops, at, fly, 30 * g, tint, delay, 0.45f, Random.value * 360);
+            }
+            var victim = actors[other];
+            StartCoroutine(BeamHit(other, to, victim != null ? victim.H : Height[other], g, tint, grow));
+            return grow;
+        }
+
+        // trúng: nổ nước, giọt văng, vòng sóng dưới chân, lấp lánh, rung sân nhẹ; cỡ theo thân con bị trúng (tH),
+        // nhỏ hơn thân để vẫn thấy nó bị trúng, nhỉnh dần theo dạng của con bắn (g)
+        System.Collections.IEnumerator BeamHit(int target, Vector2 at, float tH, float g, Color tint, float after)
+        {
+            yield return new WaitForSecondsRealtime(after / Mathf.Max(0.1f, speed));
+            float e = tH * Mathf.Lerp(1, g, 0.5f);
+            Pop(beamSplash, at, e * 0.75f, tint, 0, 0.4f, 0.35f, 1.25f, Random.value * 360);
+            Pop(beamSplash, at, e * 0.45f, Color.Lerp(tint, Color.white, 0.6f), 0.05f, 0.32f, 0.3f, 1.15f, Random.value * 360);
+            for (int i = 0; i < 3; i++)
+            {
+                float a = Random.value * Mathf.PI * 2;
+                Drift(beamDrops, at, new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.4f) * e * 0.7f, e * 0.2f, tint, 0.02f * i, 0.45f, Random.value * 360);
+            }
+            Ripple(Pos[target], e * 1.1f, tint, 0.03f, 0.5f);
+            Pop(beamSparkle, at + new Vector2(e * 0.4f, -e * 0.35f), e * 0.22f, Color.white, 0.08f, 0.3f, 0.3f, 1.2f, 0);
+            Pop(beamSparkle, at + new Vector2(-e * 0.4f, -e * 0.15f), e * 0.16f, Color.white, 0.14f, 0.3f, 0.3f, 1.2f, 0);
+            Spark(target, Theme.Hex("#cfe9ff"));
+            shake = Mathf.Max(shake, 6);
+        }
+
+        // ảnh hiệu ứng của chiêu bắn nở ra từ s0 tới s1 rồi mờ (cỡ theo bề rộng ảnh, giữ tỉ lệ), sau delay giây
+        // (delay, life của Pop, Drift, Ripple tính theo nhịp thường, chạy chậm theo SkillTime)
+        void Pop(Sprite s, Vector2 at, float size, Color tint, float delay, float life, float s0, float s1, float rot)
+        {
+            if (!imageFx || !s) return;
+            delay *= SkillTime;
+            life *= SkillTime;
+            var item = Take(imageFx);
+            Theme.SetSprite(item.Image, s);
+            item.Image.color = tint;
+            var rt = item.Rect;
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = P(at);
+            float aspect = s.rect.height / Mathf.Max(1, s.rect.width);
+            AddFx(item, imageFx, delay + life, (f, k) =>
+            {
+                float t = k * (delay + life) - delay;
+                if (t < 0)
+                {
+                    f.cg.alpha = 0;
+                    return;
+                }
+                float u = t / life, e = 1 - (1 - u) * (1 - u);
+                float sc = s0 + (s1 - s0) * e;
+                f.rt.sizeDelta = new Vector2(size * sc, size * sc * aspect) * K;
+                f.rt.localEulerAngles = new Vector3(0, 0, -(rot + 25 * u));
+                f.cg.alpha = u < 0.55f ? 1 : (1 - u) / 0.45f;
+            });
+        }
+
+        // ảnh hiệu ứng bay theo vận tốc (đơn vị web mỗi lần sống), rơi xuống, xoay, mờ dần, sau delay giây
+        void Drift(Sprite s, Vector2 at, Vector2 fly, float size, Color tint, float delay, float life, float rot)
+        {
+            if (!imageFx || !s) return;
+            float fall = 160 * life; // quãng rơi theo thời gian sống ở nhịp thường
+            delay *= SkillTime;
+            life *= SkillTime;
+            var item = Take(imageFx);
+            Theme.SetSprite(item.Image, s);
+            item.Image.color = tint;
+            var rt = item.Rect;
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            float aspect = s.rect.height / Mathf.Max(1, s.rect.width);
+            AddFx(item, imageFx, delay + life, (f, k) =>
+            {
+                float t = k * (delay + life) - delay;
+                if (t < 0)
+                {
+                    f.cg.alpha = 0;
+                    return;
+                }
+                float u = t / life;
+                var p = at + fly * u + new Vector2(0, fall * u * u); // rơi
+                f.rt.anchoredPosition = P(p);
+                float sc = 0.6f + 0.5f * u;
+                f.rt.sizeDelta = new Vector2(size * sc, size * sc * aspect) * K;
+                f.rt.localEulerAngles = new Vector3(0, 0, -(rot + 120 * u));
+                f.cg.alpha = u < 0.6f ? 1 : (1 - u) / 0.4f;
+            });
+        }
+
+        // vòng sóng loang dưới chân: dẹt, nở rộng, mờ dần
+        void Ripple(Vector2 feet, float width, Color tint, float delay, float life)
+        {
+            if (!imageFx || !beamRipple) return;
+            delay *= SkillTime;
+            life *= SkillTime;
+            var item = Take(imageFx);
+            Theme.SetSprite(item.Image, beamRipple);
+            item.Image.color = tint;
+            var rt = item.Rect;
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = P(feet);
+            rt.localEulerAngles = Vector3.zero;
+            float aspect = beamRipple.rect.height / Mathf.Max(1, beamRipple.rect.width);
+            AddFx(item, imageFx, delay + life, (f, k) =>
+            {
+                float t = k * (delay + life) - delay;
+                if (t < 0)
+                {
+                    f.cg.alpha = 0;
+                    return;
+                }
+                float u = t / life, e = 1 - (1 - u) * (1 - u);
+                float sc = 0.4f + 0.9f * e;
+                f.rt.sizeDelta = new Vector2(width * sc, width * sc * aspect) * K;
+                f.cg.alpha = u < 0.4f ? 1 : (1 - u) / 0.6f;
+            });
+        }
+
         public void Spark(int side, Color color)
         {
             var b = Body(side);
@@ -466,7 +710,7 @@ namespace PokiClash
             foreach (var a in actors)
             {
                 if (a == null) continue;
-                a.t += dt;
+                a.t += !a.loop && (a.clip == Cast || a.clip == Skill) ? dt / SkillTime : dt;
                 a.flash = Mathf.Max(0, a.flash - dt);
                 if (a.enter < 9) a.enter += dt;
                 if (a.exit > 0) a.exit += dt;
@@ -562,14 +806,15 @@ namespace PokiClash
             float ox = 0, oy = 0;
             var other = Pos[a.side == 0 ? 1 : 0];
             float tx = (other.x - p.x) * 0.72f, ty = (other.y - p.y) * 0.72f;
-            if (!a.loop && (a.clip == Attack || a.clip == Skill && a.aola == null))
+            // chiêu cuối của tướng aola chỉ lao khi clip có khai (AolaSticker.Lunge); không khai thì đứng tại chỗ như trước
+            if (!a.loop && (a.clip == Attack || a.clip == Skill))
             {
                 if (a.aola != null && a.aola.Lunge(a.clip, a.t, tx, ty, out var o))
                 {
                     ox = o.x;
                     oy = o.y;
                 }
-                else
+                else if (a.clip == Attack || a.aola == null)
                 {
                     float len = a.aola != null ? a.aola.Duration(a.clip) : ClipLen(a.clip);
                     float hitT = a.aola != null ? a.aola.HitTime(a.clip) : len * HitAt(a.clip);
@@ -579,6 +824,14 @@ namespace PokiClash
                     ox = tx * lunge;
                     oy = ty * lunge;
                 }
+            }
+            // chiêu bắn của tướng không có clip bắn: nhún nhẹ về phía đối thủ lúc phóng tia
+            if (!a.loop && a.clip == Cast && (a.aola == null || !a.aola.HasCast))
+            {
+                float k = Mathf.Clamp01(a.t / AolaSticker.CastLen);
+                float nudge = Mathf.Sin(k * Mathf.PI) * 0.06f;
+                ox = tx * nudge;
+                oy = ty * nudge;
             }
             a.rt.anchoredPosition = P(x + ox, y + oy);
             a.rt.localEulerAngles = new Vector3(0, 0, -rot * Mathf.Rad2Deg);

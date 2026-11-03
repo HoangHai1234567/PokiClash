@@ -1,5 +1,6 @@
 // 40 tướng (change expand-roster-40): dạng theo sao và bản lưu v3 -> v4 khớp bản web (Golden/roster.json, xuất bằng
 // Web/scripts/export_golden.ts).
+// roster.json (tướng trên nút ải 71, 95): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
 using System.Collections.Generic;
 using NUnit.Framework;
 using PokiClash.Core;
@@ -19,7 +20,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(45, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
                 Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
-            Assert.AreEqual(new[] { "giot_suong" }, d.Starters.ToArray());
+            // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md)
+            Assert.AreEqual(new[] { "giot_suong", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
             Assert.AreEqual(new[] { "goc_1831", "goc_1832", "goc_2955" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));

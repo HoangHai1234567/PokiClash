@@ -54,6 +54,7 @@ namespace PokiClash.Core
         public double chestAcc; // giờ hiệu dụng dồn cho rương AFK tiếp theo
         public List<double> chests = new List<double>(); // lúc từng rương AFK vào khay
         public double chainAt; // rương đầu khay đếm giờ mở từ max(lúc vào khay, chainAt)
+        public int stage; // ải người chơi chọn cho đội AFK (id ải), 0: chưa chọn (Afk.Stage tự lấy ải xa nhất có rơi mảnh)
     }
 
     // Đền Huy Hiệu: bậc cao nhất đã có (0..5) và số trận đã thắng trong bậc đang đánh
@@ -88,25 +89,39 @@ namespace PokiClash.Core
         public Settings settings = new Settings();
         public SaveStats stats = new SaveStats();
         public bool intro;
+        public string starter; // tướng khởi đầu đã chọn (tướng đồng hành); null = chưa chọn, sảnh mở hộp chọn tướng
         public List<PendingChest> chests = new List<PendingChest>(); // rương máy bi đang chờ mở (giữ khi rời máy)
         public Dictionary<string, object> extra = new Dictionary<string, object>(); // khoá chưa biết, giữ nguyên
 
         public HeroProg Hero(string id) => heroes.TryGetValue(id, out var h) ? h : null;
 
-        public static SaveData New(GameData data, long now)
+        // người chơi mới đã chọn tướng khởi đầu đầu danh sách (Giọt Sương): cho test và máy tự chơi
+        public static SaveData New(GameData data, long now) => New(data, now, data.Starters.FirstOrDefault());
+
+        // người chơi mới; starter null = chưa chọn (game mở hộp chọn tướng ở sảnh)
+        public static SaveData New(GameData data, long now, string starter)
         {
             var s = new SaveData { v = data.Cfg.saveVersion, balls = 10, afkSince = now };
             s.afk.lastTick = now;
-            foreach (var h in data.Heroes) s.heroes[h.id] = new HeroProg { owned = data.Starters.Contains(h.id) };
-            s.team.AddRange(data.Starters);
+            foreach (var h in data.Heroes) s.heroes[h.id] = new HeroProg();
+            if (starter != null) s.ChooseStarter(starter);
             return s;
+        }
+
+        // chọn tướng khởi đầu: có tướng đó, đội chỉ có tướng đó
+        public void ChooseStarter(string id)
+        {
+            starter = id;
+            Hero(id).owned = true;
+            team.Clear();
+            team.Add(id);
         }
 
         // Tướng mới thêm vào dữ liệu sau khi đã lưu: bổ sung (giống bản web).
         public void FillMissingHeroes(GameData data)
         {
             foreach (var h in data.Heroes)
-                if (!heroes.ContainsKey(h.id)) heroes[h.id] = new HeroProg { owned = data.Starters.Contains(h.id) };
+                if (!heroes.ContainsKey(h.id)) heroes[h.id] = new HeroProg { owned = h.id == starter };
         }
     }
 
@@ -124,7 +139,24 @@ namespace PokiClash.Core
 
         // Bước di chuyển: từ phiên bản n lên n+1, sửa thẳng trên cây JSON. v1 -> v2 đổi hẳn cấu trúc đảo (không có bước).
         public static readonly Dictionary<int, Action<Dictionary<string, object>>> Migrations =
-            new Dictionary<int, Action<Dictionary<string, object>>> { [2] = MigrateAdsV2, [3] = MigrateRosterV3 };
+            new Dictionary<int, Action<Dictionary<string, object>>> { [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4 };
+
+        // v4 -> v5 (chọn 1 trong 5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md): bản lưu cũ coi như đã chọn Giọt Sương (tướng khởi
+        // đầu duy nhất trước đó); không có Giọt Sương thì tướng đầu tiên đã có; không có tướng nào thì để trống (sảnh mở hộp chọn)
+        public static void MigrateStarterV4(Dictionary<string, object> o)
+        {
+            var hs = J.Obj(o, "heroes");
+            if (hs == null) return;
+            string pick = J.Bool(J.Obj(hs, "giot_suong"), "owned") ? "giot_suong" : null;
+            if (pick == null)
+                foreach (var kv in hs)
+                    if (J.Bool(J.Obj(kv.Value), "owned"))
+                    {
+                        pick = kv.Key;
+                        break;
+                    }
+            if (pick != null) o["starter"] = pick;
+        }
 
         // v3 -> v4 (chép migrateRosterV3 ở Web/src/core/progression.ts, 40 tướng 2026-11-02): tướng cũ thành dạng của tướng khác
         // (gộp) hoặc bị bỏ khỏi danh sách (đổi sang tướng thay)
@@ -257,7 +289,7 @@ namespace PokiClash.Core
         static readonly HashSet<string> Known = new HashSet<string>
         {
             "v", "level", "exp", "balls", "ballsSpent", "legendDone", "heroes", "team", "zones", "zoneChests", "clears",
-            "afkSince", "afk", "badges", "potentialStones", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "chests",
+            "afkSince", "afk", "badges", "potentialStones", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
         };
 
         public static int VersionOf(string json)
@@ -325,6 +357,7 @@ namespace PokiClash.Core
                 legendDone = J.Bool(o, "legendDone"),
                 afkSince = (long)J.Num(o, "afkSince"),
                 intro = J.Bool(o, "intro"),
+                starter = J.Str(o, "starter"),
             };
             var heroes = J.Obj(o, "heroes");
             if (heroes != null)
@@ -426,6 +459,7 @@ namespace PokiClash.Core
                 s.afk.chestAcc = J.Num(af, "chestAcc");
                 foreach (var t in J.Arr(af, "chests")) if (t is double ms) s.afk.chests.Add(ms);
                 s.afk.chainAt = J.Num(af, "chainAt");
+                s.afk.stage = J.Int(af, "stage");
             }
             foreach (var x in J.Arr(o, "chests"))
             {
@@ -502,7 +536,7 @@ namespace PokiClash.Core
                 ["afk"] = new Dictionary<string, object>
                 {
                     ["hours"] = s.afk.hours, ["lastTick"] = s.afk.lastTick, ["boostUntil"] = s.afk.boostUntil, ["chestAcc"] = s.afk.chestAcc,
-                    ["chests"] = s.afk.chests.Cast<object>().ToList(), ["chainAt"] = s.afk.chainAt,
+                    ["chests"] = s.afk.chests.Cast<object>().ToList(), ["chainAt"] = s.afk.chainAt, ["stage"] = s.afk.stage,
                 },
                 ["settings"] = new Dictionary<string, object>
                 {
@@ -515,6 +549,7 @@ namespace PokiClash.Core
                 },
                 ["intro"] = s.intro,
             };
+            if (s.starter != null) o["starter"] = s.starter;
             if (s.trees != null)
                 o["trees"] = new Dictionary<string, object> { ["lastTick"] = s.trees.lastTick, ["stock"] = s.trees.stock.Cast<object>().ToList() };
             if (s.ads != null)

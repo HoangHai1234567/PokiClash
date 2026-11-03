@@ -14,6 +14,7 @@ Trả lời bằng tiếng Việt. Quy tắc chung (auto mode, manual mode, git)
 - Ngay sau đó là mục **SAVE**: đường dẫn đầy đủ để GPT lưu ảnh (trùng tên thì thêm `_2`, `_3`…), dặn không sửa, dời, xoá file khác. Lượt nhiều ảnh thì mỗi bước ghi chỗ lưu riêng.
 - Lượt cần ảnh chưa có (sinh ở lượt trước) thì chưa dựng file prompt của lượt đó. Claude dựng khi duyệt xong lượt trước.
 - **Mọi file prompt đều tự đủ**: GPT và người dùng không phải mở file khác hay đọc chat mới biết dùng ảnh nào, lưu đâu.
+- **UI và tướng không vẽ bóng** (người dùng dặn 2026-11-03): không bóng đổ, bóng lệch cứng, bóng dưới chân hay in xuống nền; bóng chì gạch chéo bên trong hình vẫn giữ. Câu dán vào prompt ở `ArtGen/README.md`, mục "Luật chung".
 - Kèm `HUONG_DAN.md` (tiếng Việt) cho người dùng: file prompt từng lượt; từng ảnh mẫu trông như thế nào (nội dung chính, cỡ ảnh, nền); chỗ lưu; cách kiểm; câu sửa nhanh.
 - Mẫu:
   - `ArtGen/Heroes/build.py`, sinh gói `ArtGen/Heroes/gui_gpt/<mã>/`;

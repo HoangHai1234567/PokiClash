@@ -13,6 +13,86 @@ MonoBehaviour:
   m_Name: ArtLibrary
   m_EditorClassIdentifier: 
   art:
+  - name: san_beam
+    sprite: {fileID: 21300000, guid: 1865219359db8df469f2fe11a37a2739, type: 3}
+  - name: san_bolt
+    sprite: {fileID: 21300000, guid: f881922a04b034c4d9c817dbe3166239, type: 3}
+  - name: san_bubble
+    sprite: {fileID: 21300000, guid: f40b09f29c4023f4398151b5650a0594, type: 3}
+  - name: san_bubbles
+    sprite: {fileID: 21300000, guid: 4243fc84ac1b89a4fae01eaf2506fc82, type: 3}
+  - name: san_cloud
+    sprite: {fileID: 21300000, guid: f15b8f96d0b3c504eb2664c4f07499c9, type: 3}
+  - name: san_fall
+    sprite: {fileID: 21300000, guid: ffde890fd13078541bfcf12933fded44, type: 3}
+  - name: san_firefly
+    sprite: {fileID: 21300000, guid: 9966350fb4041624e843931a7cebba30, type: 3}
+  - name: san_glow
+    sprite: {fileID: 21300000, guid: 8a25c89dbcbe1d247943d67ab66e6bfa, type: 3}
+  - name: san_mist
+    sprite: {fileID: 21300000, guid: 146435ea4a39f7a41b9edff81bbeb539, type: 3}
+  - name: san_moonlight
+    sprite: {fileID: 21300000, guid: e3f43ebf8453fa0449abe3cf50ef5f1c, type: 3}
+  - name: san_rainbow
+    sprite: {fileID: 21300000, guid: 4336400dbfea61942b7d0c09ab587c8c, type: 3}
+  - name: san_ripple
+    sprite: {fileID: 21300000, guid: 211113d4cbc7cf543b782fc936b75fca, type: 3}
+  - name: san_rune
+    sprite: {fileID: 21300000, guid: 9532e772d273b6c49a5e54e57a5d3640, type: 3}
+  - name: san_spout
+    sprite: {fileID: 21300000, guid: 0f6f0f710aa1915498716412a8b44e55, type: 3}
+  - name: san_trident
+    sprite: {fileID: 21300000, guid: 9eba51e21bde2e7458d5a4bfb7400634, type: 3}
+  - name: san_wave
+    sprite: {fileID: 21300000, guid: 05f56d9090209564ea45367b6367648e, type: 3}
+  - name: san_whirlpool
+    sprite: {fileID: 21300000, guid: 6b017234cb2902c4ab7f81c8b7c66949, type: 3}
+  - name: san_wisp
+    sprite: {fileID: 21300000, guid: d6220d3be80c065428963f7d151a2a8d, type: 3}
+  - name: battle_thuy_c01
+    sprite: {fileID: 21300000, guid: 8d6aa6c045fde92428b57fa92547f95e, type: 3}
+  - name: battle_thuy_c02
+    sprite: {fileID: 21300000, guid: dac4289076a186749857a69a22be2237, type: 3}
+  - name: battle_thuy_c03
+    sprite: {fileID: 21300000, guid: 05b6ea69899492d4593258fbd98ba08c, type: 3}
+  - name: battle_thuy_c04
+    sprite: {fileID: 21300000, guid: 0920e764ad5eade4fa58dfea9e4724d8, type: 3}
+  - name: battle_thuy_c05
+    sprite: {fileID: 21300000, guid: 7667a638b757add458179c18201cfc54, type: 3}
+  - name: battle_thuy_c06
+    sprite: {fileID: 21300000, guid: 4b558c82e28f17c439c5a937bde306f4, type: 3}
+  - name: battle_thuy_c07
+    sprite: {fileID: 21300000, guid: 743f25dabb2b11d4fa112d9af9f70de1, type: 3}
+  - name: battle_thuy_c08
+    sprite: {fileID: 21300000, guid: 8f5bdaa1f9ddfc3479395e3faf01f43c, type: 3}
+  - name: battle_thuy_c09
+    sprite: {fileID: 21300000, guid: e5b37a7b948042741ab4e8290408c8dc, type: 3}
+  - name: battle_thuy_s20
+    sprite: {fileID: 21300000, guid: 0ddc771764e371c41a72c79a3585ac68, type: 3}
+  - name: battle_thuy_s30
+    sprite: {fileID: 21300000, guid: b9a10297e73d32342aa13333cfbe4bd6, type: 3}
+  - name: battle_thuy_s40
+    sprite: {fileID: 21300000, guid: 97fc13ea6bcf2cb4c8ade5f6eafd3939, type: 3}
+  - name: battle_thuy_s50
+    sprite: {fileID: 21300000, guid: 18527dea9a29a5248889c24b3d8a536d, type: 3}
+  - name: battle_thuy_s60
+    sprite: {fileID: 21300000, guid: 4c2855d63162cd8478da2e410fc1b93f, type: 3}
+  - name: battle_thuy_s70
+    sprite: {fileID: 21300000, guid: 3e7a4065c638b9444a692af7f5455271, type: 3}
+  - name: battle_thuy_s70_2
+    sprite: {fileID: 21300000, guid: aeca7880a5fc51c40a204ad9b11bae3f, type: 3}
+  - name: battle_thuy_s70_3
+    sprite: {fileID: 21300000, guid: 540c27259bfaa0d4f8716287dee9563f, type: 3}
+  - name: giot_nuoc
+    sprite: {fileID: 21300000, guid: fd9d9b0d02d0fc14a857dba8d8b7e08b, type: 3}
+  - name: lap_lanh
+    sprite: {fileID: 21300000, guid: 275923d3e3053f349877364625793bbd, type: 3}
+  - name: no_nuoc
+    sprite: {fileID: 21300000, guid: 9722abde670c0844faa4a000af3092b4, type: 3}
+  - name: tia_nuoc
+    sprite: {fileID: 21300000, guid: 5655c3ad0c3022b45ba7020481a75f83, type: 3}
+  - name: vong_song
+    sprite: {fileID: 21300000, guid: ce5123d0fe620c044bfe4b5b5a09ba58, type: 3}
   - name: anim_bell
     sprite: {fileID: 21300000, guid: ff8adad226e7c884fba5ab95306656a6, type: 3}
   - name: anim_embers

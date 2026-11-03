@@ -10,8 +10,8 @@ namespace PokiClash
 {
     public sealed class ZonePip : MonoBehaviour
     {
-        // cỡ chấm, chấm ải đang đánh, vùng chạm
-        public const float Size = 22, SizeNow = 34, Hit = 64;
+        // cỡ chấm, chấm ải đang đánh, vùng chạm (người dùng 2026-11-03: chấm to hơn, 22/34/64 cũ nhỏ quá)
+        public const float Size = 32, SizeNow = 46, Hit = 76;
 
         [SerializeField] SketchButton dot;
         [SerializeField] ClickCatcher hit;

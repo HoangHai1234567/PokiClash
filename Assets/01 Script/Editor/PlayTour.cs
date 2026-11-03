@@ -184,6 +184,126 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Thử] Xong boss tiến hóa: ảnh trong {ShotDir}");
         }
 
+        [MenuItem("PokiClash/Thử/Sàn đấu đảo Thủy: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
+        static void TryArenas()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunArenas()));
+        }
+
+        // Mỗi sàn đấu một trận (ArtGen/BattleBG/build_thuy.py): chụp lúc chờ chọn thẻ, rồi 0,8 s sau (phần động đã đổi chỗ)
+        static IEnumerator RunArenas()
+        {
+            shot = 400;
+            foreach (int idx in new[] { 1, 5, 10, 15, 20, 25, 30, 40, 50, 60, 65, 70 })
+            {
+                var st = App.Data.Stages.FirstOrDefault(s => s.zone == Elem.Thuy && s.idx == idx);
+                if (st == null) continue;
+                yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
+                var ctl = Object.FindAnyObjectByType<BattleController>();
+                if (ctl) yield return Until(() => ctl.WaitingPlayer, 30);
+                yield return new WaitForSecondsRealtime(0.5f);
+                yield return Shot($"san_dau_{idx:00}");
+                yield return new WaitForSecondsRealtime(0.8f);
+                yield return Shot($"san_dau_{idx:00}_b");
+            }
+            yield return Go(SceneIds.Hub);
+            Debug.Log($"[Thử] Xong sàn đấu đảo Thủy: ảnh trong {ShotDir}");
+        }
+
+        [MenuItem("PokiClash/Thử/Trận nhiều địch: mặt địch góc trên, dấu X tướng gục (đang Play)", priority = 107)]
+        static void TryFoeRow()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunFoeRow()));
+        }
+
+        [MenuItem("PokiClash/Thử/Sàn đấu boss ải 70: nền đổi theo dạng tiến hóa (đang Play)", priority = 108)]
+        static void TryBossArena()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunBossArena()));
+        }
+
+        // Ải 70 đảo Thủy, đội 3 tướng cấp 10, tự đánh: chụp đầu trận, rồi mỗi lần tên dạng mới của boss hiện trên màn (nền vừa đổi
+        // trong chớp trắng) chụp 2 ảnh cách 1,2 s (thấy mưa, xoáy quay nhanh hơn).
+        static IEnumerator RunBossArena()
+        {
+            shot = 470;
+            var st = App.Data.Stages.FirstOrDefault(s => s.zone == Elem.Thuy && s.idx == Islands.Size(Elem.Thuy));
+            if (st == null) yield break;
+            var sv = App.Save.Data;
+            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
+            sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            sv.level = 10;
+            yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
+            var ctl = Object.FindAnyObjectByType<BattleController>();
+            if (!ctl) yield break;
+            var boss = ctl.Battle.sides[1].fighters[0];
+            yield return Until(() => ctl.WaitingPlayer, 30);
+            yield return new WaitForSecondsRealtime(0.5f);
+            yield return Shot("boss70_dang1");
+            ctl.SetAuto(true);
+            ctl.SetSpeed(3);
+            int seen = 0;
+            float t0 = Time.realtimeSinceStartup;
+            while (Time.realtimeSinceStartup - t0 < 240 && (ctl.Battle.phase != Phase.Over || seen < boss.form))
+            {
+                if (seen < boss.form && seen + 1 < boss.hero.forms.Length)
+                {
+                    string next = boss.hero.forms[seen + 1].name;
+                    if (Object.FindObjectsByType<TMPro.TextMeshProUGUI>(FindObjectsSortMode.None).Any(t => t.isActiveAndEnabled && t.text == next))
+                    {
+                        seen++;
+                        yield return new WaitForSecondsRealtime(0.4f);
+                        yield return Shot($"boss70_dang{seen + 1}");
+                        yield return new WaitForSecondsRealtime(1.2f);
+                        yield return Shot($"boss70_dang{seen + 1}_b");
+                        continue;
+                    }
+                }
+                yield return null;
+            }
+            yield return Until(() => App.Modals.Count > 0, 30);
+            Debug.Log($"[Thử] Xong sàn đấu boss ải 70: boss lên {boss.form} lần, thấy trên màn {seen}; " +
+                      $"{(ctl.Battle.winner == 0 ? "thắng" : "thua")}; ảnh trong {ShotDir}");
+            yield return Go(SceneIds.Hub);
+        }
+
+        // Ải Thủy đầu tiên từ ải 20 có 3 địch, đội mình 3 tướng cấp vừa: hai bên đều có tướng gục. Tự đánh, 3 s chụp một ảnh.
+        static IEnumerator RunFoeRow()
+        {
+            shot = 440;
+            var st = App.Data.Stages.FirstOrDefault(s => s.zone == Elem.Thuy && s.idx >= 20 && s.enemies.Count >= 3);
+            if (st == null)
+            {
+                Debug.LogError("[Thử] Không có ải 3 địch");
+                yield break;
+            }
+            var sv = App.Save.Data;
+            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
+            sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            sv.level = 4;
+            yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
+            var ctl = Object.FindAnyObjectByType<BattleController>();
+            if (!ctl) yield break;
+            yield return Until(() => ctl.WaitingPlayer, 30);
+            yield return new WaitForSecondsRealtime(0.5f);
+            yield return Shot($"nhieu_dich_ai{st.idx}_dau");
+            ctl.SetAuto(true);
+            ctl.SetSpeed(2);
+            float t0 = Time.realtimeSinceStartup;
+            for (int k = 0; k < 14 && ctl.Battle.phase != Phase.Over && Time.realtimeSinceStartup - t0 < 120; k++)
+            {
+                yield return new WaitForSecondsRealtime(3f);
+                yield return Shot($"nhieu_dich_ai{st.idx}_{k:00}");
+            }
+            yield return Until(() => App.Modals.Count > 0, 60);
+            Debug.Log($"[Thử] Xong trận nhiều địch (ải {st.idx}, {st.enemies.Count} địch): " +
+                      $"{(ctl.Battle.winner == 0 ? "thắng" : "thua")}; ảnh trong {ShotDir}");
+            yield return Go(SceneIds.Hub);
+        }
+
         // Chạy lần lượt mọi menu thử (trừ "Người chơi mới đi trọn Đảo Thủy" vì lâu), ảnh dồn vào một thư mục, đánh số liên tiếp.
         // Dùng để so ảnh trước và sau một thay đổi lớn (bật "Chụp đứng hình" trước).
         [MenuItem("PokiClash/Thử/Chạy mọi menu thử, chụp ảnh (đang Play)", priority = 98)]
@@ -969,10 +1089,7 @@ namespace PokiClash.EditorTools
                 yield return new WaitForSecondsRealtime(0.6f);
                 yield return Shot("dao70_" + prog);
                 if (prog != 23) continue;
-                ClickNamed("cham_24");
-                yield return new WaitForSecondsRealtime(0.6f);
-                yield return Shot("bang_chang_20");
-                ClickNamed("ai_24");
+                ClickNamed("cham_24"); // chạm chấm mở thẳng hộp chuẩn bị của ải đó (bảng chặng bỏ 2026-11-03)
                 yield return new WaitForSecondsRealtime(0.6f);
                 yield return Shot("chuan_bi_24");
                 App.Modals.CloseAll();
@@ -1047,6 +1164,13 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot("gioi_thieu");
             ClickButton("Bắt đầu!");
+            // hộp chọn tướng khởi đầu (15_TuongKhoiDau.md): chụp rồi chọn Giọt Sương
+            yield return Until(() => Object.FindAnyObjectByType<StarterDialog>() != null, 3);
+            yield return new WaitForSecondsRealtime(0.6f);
+            yield return Shot("chon_tuong_khoi_dau");
+            App.Save.Data.ChooseStarter("giot_suong");
+            App.Save.Save();
+            App.Modals.CloseAll();
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot("sanh_nguoi_moi");
             yield return Go(SceneIds.Zone, Elem.Thuy);

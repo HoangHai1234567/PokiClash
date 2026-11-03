@@ -143,6 +143,12 @@ namespace PokiClash.Core
         public int min;
         public int max;
         public bool gift; // tướng tặng khi qua ải lần đầu (đủ mảnh mở luôn)
+        // tướng tặng thay: người chơi chọn tướng khởi đầu altFor thì nhận altHero (rỗng là không có; Unity ghi null thành "")
+        public string altFor;
+        public string altHero;
+
+        // tướng rơi mảnh với người chơi s (tướng tặng có thể đổi theo tướng khởi đầu)
+        public string HeroFor(SaveData s) => !string.IsNullOrEmpty(altFor) && s != null && s.starter == altFor ? altHero : hero;
     }
 
     [Serializable]
@@ -201,6 +207,7 @@ namespace PokiClash.Core
         public bool evo; // boss có thẻ Tiến Hóa: vào trận ở dạng 1, gần chết thì lên dạng sau
         public StatMods mods; // phần cộng của side meta (null = không có)
         public BattleStart start; // hiệu ứng đầu trận của tiềm năng (null = không có)
+        public bool partner; // tướng đồng hành (tướng khởi đầu đã chọn): không chịu thiệt khi khắc hệ
     }
 
     public class TeamSetup

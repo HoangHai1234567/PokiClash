@@ -1,5 +1,6 @@
 // Tiến trình so với bản web (golden): chỉ số 11 tướng × cấp 1/10/20/30 × sao 1/3/5 × boss, chuỗi thẻ rơi từ rương,
 // chuỗi mảnh tướng; và luật nâng thẻ, tiến hóa, đội hình.
+// progression.json (chỉ số 5 tướng khởi đầu, Võ Sư): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
 using System.Collections.Generic;
 using NUnit.Framework;
 using PokiClash.Core;

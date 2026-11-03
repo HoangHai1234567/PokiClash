@@ -1,5 +1,6 @@
 // Đối chiếu phần lõi với bản web: số ngẫu nhiên, mô tả thẻ, số lượng dữ liệu.
 // Golden xuất bằng `npx tsx scripts/export_golden.ts` (thư mục Web), dữ liệu bằng `npx tsx scripts/export_data.ts`.
+// Từ 2026-11-03 làm ở Unity: thẻ của 5 tướng khởi đầu trong cardtext.json sửa bên Unity (GD_Claude/15_TuongKhoiDau.md).
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
@@ -82,7 +83,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(102, d.Stages.Count); // Đảo Thủy 70 ải, 4 đảo kia 8 ải
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
-            Assert.AreEqual(4, d.Cfg.saveVersion); // v4: 40 tướng (2026-11-02)
+            Assert.AreEqual(5, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03)
         }
 
         [Test]

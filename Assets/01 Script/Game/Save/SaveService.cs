@@ -90,9 +90,10 @@ namespace PokiClash.Game
             return true;
         }
 
+        // người chơi mới chưa chọn tướng khởi đầu: sảnh mở hộp chọn tướng (StarterDialog)
         public void CreateNew()
         {
-            Data = SaveData.New(data, Now());
+            Data = SaveData.New(data, Now(), null);
             Save();
         }
 
@@ -114,7 +115,7 @@ namespace PokiClash.Game
             Changed?.Invoke();
         }
 
-        // Xoá dữ liệu: về người chơi mới (cấp 1, 10 bi, chỉ có tướng khởi đầu, mọi đảo 0/8).
+        // Xoá dữ liệu: về người chơi mới (cấp 1, 10 bi, chưa có tướng nào: chọn lại tướng khởi đầu, mọi đảo 0).
         public void Reset()
         {
             CreateNew();

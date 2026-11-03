@@ -19,6 +19,10 @@ Mọi file prompt tướng cũ (`PROMPTS.md`, `Thuy.md`, `thuy/*.md`) đã xoá;
 - **Thiết kế** học từ tướng aola (người dùng gọi là "style pokemon"): dáng gọn mập, đọc được khi nhỏ, mắt to, hình đơn giản, ít chi tiết. Không lấy nét bóng loáng của aola, không chép con nào.
 - **Vẻ "chiến"**: mày xếch xuống, cười tự tin lộ răng nanh nhỏ, thế sẵn sàng đánh; dễ thương, không linh vật vui tươi, không đáng sợ.
 - **Viền trắng giấy xé**: game vẽ bằng shader (mục 7). Prompt dặn GPT không vẽ viền trắng.
+- **Không vẽ bóng** (người dùng dặn 2026-11-03, luật chung ở `ArtGen/README.md`):
+  - áp cho concept, mảnh, vũ khí và hiệu ứng: không bóng đổ, không bóng dưới chân, không bóng in xuống nền;
+  - bóng chì gạch chéo bên trong hình vẫn giữ;
+  - `build.py` (`NO_SHADOWS`, gắn vào RENDER và LINE) và `build_fx.py` tự chèn câu này vào mọi file prompt.
 
 Lịch sử 2026-11-02 (để khỏi lặp lại):
 - nét vector bóng như hình gốc: "không giống style game";
@@ -38,7 +42,7 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
   - **giữ viền** (thân, tay, chân): giữ viền hình gốc, lấy màu, chi tiết, nét từ concept.
 - **Vũ khí, đồ cầm tay**: vẽ riêng thành một mảnh thêm (không có ảnh gốc); bàn tay vẽ nắm chuôi. Claude gắn mảnh vào mảnh cẳng tay khi ghép, nên vũ khí đi theo tay ở mọi khung. Animation vẫn là của con gốc: con gốc không chém thì kiếm chỉ đi theo tay.
 - Ảnh rig của mỗi dạng ở `refs/<hệ>/<mã>/`: `Silhouette.png`, `RegionMap.png`, `Rig_Numbered.png`, `orig/Nxx.png` (hình gốc từng nhóm, vuông 1024, nền trắng, đúng chỗ trên rig). Dựng bằng công cụ AolaRipper (`part_map.py`, `region_map.py`, `orig_refs.py` theo `regions.json`, `groups.json` ở `<aola>/reskin/<hệ>_<id>/`).
-- `<aola>`: máy này `E:\ProjectAtomik\aola` (có `reskin/pet<id>_parts` của 83 dạng; chưa có `thuy_7` với `regions.json`, `groups.json`, phải dựng lại trước khi ghép); máy kia `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper`.
+- `<aola>`: máy này `E:\ProjectAtomik\aola` (có `reskin/pet<id>_parts` của 83 dạng và `reskin/thuy_7` đã ghép; `regions.json`, `groups.json` của #7, #8, #9 chỉ có ở máy kia, ảnh rig dựng từ đó đã có trong `refs/thuy/giot_suong_1..3`); máy kia `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper`.
 
 ## 3. Viết prompt
 
@@ -54,7 +58,7 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 ## 4. Gói gửi GPT
 
 - `build.py` giữ bảng `FORMS` (thiết kế, giải phẫu, prompt concept, prompt từng nhóm, mảnh thêm, thứ tự gen thử) và sinh `gui_gpt/<mã>/`:
-  - `luot_1_concept.txt`: ảnh mẫu là bóng xám, bản đồ vùng, tờ mẫu thiết kế (`refs/style/style_sheet.png`, 8 tướng aola, dựng bằng `tools/make_refs.py`), ảnh mốc nét vẽ (bản đồ); GPT lưu `inbox/<mã>/tai_ve/concept.png`;
+  - `luot_1_concept.txt`: ảnh mẫu là bóng xám, bản đồ vùng, tờ mẫu thiết kế (`refs/style/style_sheet.png`, 8 tướng aola, dựng bằng `tools/make_refs.py`), ảnh mốc nét vẽ (bản đồ); dạng 2, 3 của một dòng đính thêm concept đã duyệt của dạng 1 (khoá `prev` trong `FORMS`: giữ màu, mũ, mặt, giáp, nét để cả dòng ra cùng một con lớn lên); GPT lưu `inbox/<mã>/tai_ve/concept.png`;
   - `luot_2_nhom_manh.txt` (chỉ dựng khi đã có concept duyệt): ảnh mẫu là ảnh gốc từng nhóm và concept đã duyệt; GPT vẽ một nhóm mỗi lượt theo thứ tự (2 nhóm gen thử trước, chờ soi), lưu mỗi nhóm thành `inbox/<mã>/tai_ve/<Nxx>.png`;
   - `HUONG_DAN.md`: tiếng Việt, file prompt từng lượt, đường dẫn và mô tả từng ảnh mẫu, kiểm từng ảnh, câu sửa nhanh.
 - Người dùng chỉ gửi GPT đường dẫn file prompt (dặn 2026-11-03). File prompt mở đầu bằng danh sách ảnh mẫu kèm đường dẫn đầy đủ (GPT tự mở), rồi chỗ GPT tự lưu ảnh; trùng tên thì GPT thêm `_2`, `_3`.
@@ -78,7 +82,11 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 Công cụ ở repo aola (`<aola>/tools/`), cấu hình mỗi dạng ở `<aola>/reskin/<hệ>_<id>/ghep.json` (mẫu: `reskin/thuy_7/ghep.json`):
 - `groups`: nhóm → mảnh (số theo thứ tự vẽ khung đứng đầu, như `Rig_Numbered.png`), mảnh ẩn (`drop`: mắt, má, miệng cũ khi đầu mới đã vẽ mặt);
 - `extra`: mảnh vẽ riêng gắn vào một mảnh (kiếm: `attach`, góc lưỡi, độ dài theo chiều cao con);
-- `variants`: hình biến thể thay một hay nhiều mảnh (ví dụ một hình chứa cả hai tai lúc vẫy tai); `drop_chars` (mặt hoảng, mắt nhắm), `keep_chars` (hiệu ứng). Liệt kê biến thể bằng cách đếm hình không có ở khung đứng đầu rồi xem từng hình.
+- `variants`: hình biến thể thay một hay nhiều mảnh (ví dụ một hình chứa cả hai tai lúc vẫy tai); `drop_chars` (mặt hoảng, mắt nhắm), `keep_chars` (hiệu ứng). Liệt kê biến thể bằng cách đếm hình không có ở khung đứng đầu rồi xem từng hình. Có con (như #8) thay đuôi, vây, mào bằng biến thể ngay ở clip đứng, nên phải soi cả clip đứng.
+  - hình chứa nhiều mảnh rời mỗi mảnh xoay riêng (bốn vây của #8): thêm `"split": true` để mỗi mảnh khớp riêng tâm, góc, cỡ; khớp khung bao chung làm mảnh rời khỏi chỗ.
+  - biến thể khác dáng hẳn (thân đuôi uốn của #8): khớp khung bao với `squash` lớn hơn (2,6); muốn đẹp hơn thì cho GPT vẽ lại từng biến thể.
+  - biến thể vẽ lại một mảnh, cùng cỡ nhưng xoay trong khung (đầu, thân, chân, đuôi của #9 lúc đánh, chiêu): `"local": true` để khớp theo khung riêng của hình (giữ góc xoay); hình dài mảnh hơn mảnh gốc thì thêm `"squash"`. Khớp khung bao chung làm mất góc xoay (chân thành cột dựng đứng, vây phồng tròn).
+- Mảnh vẽ lại sau khi ghép: lượt 3 (`luot_3_ve_lai.txt`, khoá `redo` trong `FORMS`), GPT lưu `<mã>_ve_lai.png`; bộ ghép lấy ảnh mới nhất của mỗi nhóm.
 
 Chạy `py -3 -I tools/ghep_nhom.py reskin/<hệ>_<id>`:
 1. tách nền trắng nối với mép, mép nửa trong suốt tính lại từ độ trắng;
@@ -89,10 +97,26 @@ Chạy `py -3 -I tools/ghep_nhom.py reskin/<hệ>_<id>`:
 Sau đó:
 - `tools/portrait_png.py reskin/<hệ>_<id>` cho chân dung;
 - **soi**: `tools/so_sanh_reskin.py <hệ>_<id> goc_<id> <ảnh> 6` (mỗi clip 6 khung, hàng trên gốc, hàng dưới mới) và phóng to vài khung xem khuỷu, hông, cổ, chỗ cầm vũ khí; không còn hình cũ lọt vào;
-- đổi `aola` của dạng đó sang `<hệ>_<id>` ở `Web/src/core/data/heroes.ts`, `Assets/02 Data/Json/heroes.json`, `Assets/02 Data/HeroDb.asset`;
+- đổi `aola` của dạng đó sang `<hệ>_<id>` ở `Assets/02 Data/Json/heroes.json` rồi menu `PokiClash/Nhập dữ liệu` (làm ở Unity, người dùng dặn 2026-11-03; bản web chỉ sửa khi được yêu cầu); nhập lại hình thành prefab như dưới;
 - chụp trong game (menu `PokiClash/Thử/Thanh tiến hóa: chụp hộp chi tiết ở các mốc`).
 
 Bộ ghép này thay cho trình chỉnh sửa cũ (`so_sanh.html`, `adjust.json`) của máy kia; muốn chỉnh tay thì sửa `ghep.json` (góc, độ dài kiếm, độ chồng khớp) rồi chạy lại.
+
+Hình ghép chỉ có ở máy đã ghép (repo aola không mang `reskin/<hệ>_<id>` sang máy kia): ghép xong phải nhập lại thành prefab ở máy đó (menu `PokiClash/Tướng/Nhập hình tướng aola thành prefab`), xem `Library/PokiHeroShots/<tướng>.png` (menu `PokiClash/Tướng/Chụp thử prefab tướng`), rồi commit `Assets/03 Art/Heroes/Resources/<hệ>_<id>/`. Máy không có thư mục ghép thì bộ nhập giữ hình đã nhập, không đè bằng hình gốc.
+
+**Animation viết lại (người dùng dặn 2026-11-03: ghép xong thì sửa animation cho khác bản gốc aola).** `tools/anim_moi.py` dựng lại clip theo khớp từ dáng đứng đầu: mỗi mảnh xoay quanh khớp nối với mảnh cha (khớp tự tìm ở chỗ chồng lên mảnh cha, mảnh chồng nhiều như bắp tay thì ghi `pivot` tay), gốc dời, xoay, co giãn (co ngang qua 0 để xoay người), vệt mờ theo vũ khí, đưa mảnh lên trên trong vài khung. Cấu hình `reskin/<hệ>_<id>/anim_moi.json`; `ghep_nhom.py` tự chạy nó sau khi ghép (ghép lại không mất). Giọt Sương (2026-11-03):
+- dạng 1 đánh: giơ kiếm dựng bên mặt (không giơ qua đầu: đầu to, tay ngắn nên che mặt), lao tới, chém bổ xuống;
+- dạng 2 đánh: giơ kiếm lên trước, lao tới, chém chéo xuống;
+- dạng 3 đánh: lao tới, xoay người (lật ngang) quất đuôi lưỡi kiếm (đuôi là một mảnh cứng nối thấp sau lưng, vung qua đầu kiểu bọ cạp thì quét ngang qua ngực);
+- cả ba: clip đứng và trúng đòn mới; clip chiêu giữ bản gốc. Khung lao xa nhất (game lấy làm lúc trúng đòn) trùng nhát chém: 19, 19, 20.
+- thử: menu `PokiClash/Thử/Clip đánh Giọt Sương: chụp các dạng (đang Play)`.
+
+**Trong trận (người dùng dặn 2026-11-03):**
+- con đang ra đòn nằm trên con kia (StageView.Play);
+- clip CHIÊU (1_6) chỉ dùng cho tuyệt kỹ; khoá `"lunge": true` trong anim_moi.json thì trận kéo nó lao tới đối thủ như đòn đánh. Giọt Sương: dạng 1 lao tới xoay vòng chém, dạng 2 lao tới chém bổ, dạng 3 lao tới xoay người quật đuôi lưỡi kiếm (đòn đánh thường dạng 3 đổi thành vồ tới dậm hai chân trước);
+- chiêu dùng mana bắn tia: **mặc định của mọi tướng, quái thường và phần lớn mini boss** (người dùng: chỉ số ít boss làm riêng, khai `"mana": "clip"` trong anim_moi.json thì phát clip CHIÊU). Dạng có clip bắn `1_5` (20 khung, trúng ở khung 12) + khoá `"cast"` (mảnh, điểm chỗ bắn, khung, cỡ tia) thì dùng đúng clip và chỗ bắn đó; không có thì đứng nhún về phía đối thủ, tia từ trước ngực, cỡ to dần theo dạng (0,7 tới 1,4; một dạng: 1; boss ×1,2). StageView.Beam phóng prefab `Items/TiaNuoc` (ảnh `Assets/03 Art/Fx/tia_nuoc.png` do `build_fx.py --xuat` cắt từ ảnh GPT FX09, menu `PokiClash/Prefab/Sàn đấu: tia nước của chiêu bắn`); tướng hệ khác tạm nhuộm màu hệ tới khi có ảnh tia riêng từng hệ;
+- hiệu ứng vẽ tay của tuyệt kỹ: gói GPT `gui_gpt/giot_suong_fx/` (`build_fx.py`); clip có hiệu ứng nhưng chưa có ảnh thì để `"fx_off": true`;
+- thử: menu `PokiClash/Thử/Giọt Sương ra trận: đánh, bắn tia, chiêu cuối ở 3 dạng (đang Play)`.
 
 ## 7. Viền trắng giấy xé (Unity, chưa làm)
 

@@ -333,6 +333,29 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - **Đã chép sang Unity (2026-11-03).** Từ nay làm ở Unity, bản web chỉ làm khi người dùng yêu cầu. JSON và golden xuất lần cuối từ web (script ở thư mục tạm, không sửa `Web/`), có lính và `Golden/islands.json`. Màn đảo Unity có đường mòn 10 bệ, 60 chấm, 7 rương, bảng chặng `Dialogs/BangChang`. 86 test EditMode qua. Chi tiết ở mục "Unity" của file 14.
 - **Đừng chạy lại `Web/scripts/export_data.ts`, `export_golden.ts` vào Assets:** hai script vẫn xuất 8 ải cũ, sẽ ghi đè mất 70 ải.
 
+**Popup gọn, đội hình màn Tướng, lực chiến (Unity, 2026-11-03).** Người dùng: chạm ô ải chỉ hiện địch và sức mạnh của ải đó; màn Tướng hiện đội ở trên (3 con, con giữa cao hơn, vuốt qua lại); lực chiến từng tướng rõ; popup thưởng ít chữ, nhiều hình (cái gì, bao nhiêu, độ hiếm). Ảnh mẫu từ game gốc: ô tướng ghi Lv và lực chiến, chỉ số là icon kèm số.
+- Chạm chấm hay bệ ải (đảo 8 và 70 ải) mở thẳng hộp Chuẩn bị trận của đúng ải đó; ải chưa mở cũng xem được, nút ghi "Chưa mở". Bảng chặng `Dialogs/BangChang` không mở nữa (prefab và code để lại).
+- Lực chiến (chỉ để hiện, trận không dùng): `HeroStats.Power` = 2·√(máu × (defK + thủ)/defK × công); boss tiến hóa tính máu cả dòng. Hiện ở thẻ tướng, đội hình, từng đối thủ, dòng so "địch / mức khó / đội bạn" trong hộp chuẩn bị (Dễ ≥ 1,25 lần, Vừa ≥ 0,95, Khó ≥ 0,75, còn lại Rất khó).
+- Màn Tướng: khung "Đội hình" (`TeamLineup`): 3 ô đội, tướng aola đứng động, vuốt hay chạm con bên cạnh để xoay, chạm con giữa mở chi tiết; lực chiến đội, nút Đổi đội (hộp ChonDoi), 4 chỉ số có icon của con giữa. Lưới tướng chỉ hiện tướng đã có (xếp theo lực chiến) và tướng chưa mở mà đã có mảnh (bóng sẫm, thanh mảnh); tướng chưa có mảnh nào thì ẩn. Tướng trong đội (tính theo số ô đã mở) tô vàng.
+- Ô thưởng dùng chung `Items/OThuong` (`RewardTile`) ở hộp chuẩn bị, mở rương, rương mốc đảo, kết quả trận. Đã xoá 6 prefab dòng thưởng cũ (`ThuongTran`, `ThuongChip`, `ThuongManh`, `ThuongThe`, `TheRuongDao`, `TranThuong`) và class của chúng.
+- Dựng prefab bằng menu `PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)`; thử bằng `PokiClash/Thử/Popup gọn: đội hình, chạm ải, ô thưởng (đang Play)` (ảnh `Temp/PokiShots/p_*.png`). EditMode 86/86 đạt.
+
+**Màn VS truyện tranh, dải tuyệt kỹ (Unity, 2026-11-03).** Người dùng: vào trận hiện mặt các tướng hai bên trên dưới, ngăn bằng vạch chéo kiểu showdown, như khung truyện tranh; một nền dùng chung, tướng nào có thì gen thêm ảnh mặt; dùng lại khung đó khi ra tuyệt kỹ, cắt thành hình bình hành ngang màn.
+- Màn VS (`BattleIntro`, trong lớp phủ `Screens/Battle`): trang giấy, khung trên đội địch (đỏ), khung dưới đội bạn (xanh), khe chéo viền mực; mỗi tướng một ô mặt `Items/TranVsMat` (`VsFace`: tên, cấp, nhãn BOSS; mặt địch quay trái, phe mình lật quay phải); lực chiến cả đội (như hộp chuẩn bị); khung lời dẫn vàng ghi đảo, ải, tên ải; dấu VS đóng xuống giữa khe, rung. Khung trượt vào theo đường chéo, giữ 1,5 s, tách lên xuống; chạm để bỏ qua. Hình khung tính lúc chạy theo cỡ màn (`PolyGraphic`, `RayGraphic`).
+- Tuyệt kỹ (`UltCutIn`): dải hình bình hành ngang giữa sân, cùng kiểu khung; mặt tướng ra chiêu to về phía phe nó, khung "Tuyệt kỹ · tên tướng", tên chiêu chữ to. Trượt vào từ phía phe ra chiêu, giữ 0,6 s (ngắn lại theo tốc độ trận), rồi mới phát clip tuyệt kỹ (thay băng rôn tuyệt kỹ cũ).
+- Ảnh: nền khung (`vs_nen`, một ảnh tô màu theo phe), dấu VS (`vs_no`), mặt từng dạng tướng (`mat_<aola>`) ở `Assets/03 Art/BattleIntro/Resources`, game nạp khi cần, chưa có thì vẽ tạm: tia bằng code, hình nổ của bộ giấy, chân dung phóng cho đầu lấp ô (hộp hình chân dung đo sẵn: `PortraitBoxes`). Gói gửi GPT: `ArtGen/BattleIntro/build.py` (lượt nền, lượt VS, mỗi dòng tiến hóa một file mặt; `--duyet` cắt nền trắng, chép vào Unity).
+- Dựng bằng menu `PokiClash/Prefab/Trận: màn VS truyện tranh` (nhập thêm tướng thì chạy lại để đo hộp hình); thử bằng `PokiClash/Thử/Màn VS truyện tranh, dải tuyệt kỹ (đang Play)` (ảnh `Temp/PokiShots/vs_*.png`).
+
+**AFK theo ải (Unity, 2026-11-03).** Người dùng hỏi sao ải đã thắng không có nút AFK, rồi chọn AFK theo ải (web giữ AFK chung).
+- Ải đảo đã thắng có nút "AFK ải này" cạnh Xuất trận ở hộp chuẩn bị trận. Ải đang AFK ghi "Đang AFK", chạm thì mở hộp AFK.
+- Mỗi lúc đội AFK một ải (`afk.stage` trong bản lưu). Chưa chọn thì tự lấy ải xa nhất đã qua có rơi mảnh.
+- Mảnh: mỗi giờ tròn 8% ra 1 mảnh, tướng bốc theo tỉ lệ rơi của ải đó (bỏ tướng tặng); ải không rơi mảnh thì chỉ ra rương.
+- Rương AFK, giới hạn 12 giờ, tăng tốc giữ như cũ.
+- Đổi ải: mảnh của các giờ tròn đã dồn tính theo ải cũ và nhận luôn, phần giờ lẻ giữ lại.
+- Hộp AFK ghi ải đang AFK và tướng rơi mảnh, thêm nút "Đổi ải" (sang đảo của ải đó). Bản đồ đảo có nhãn AFK dưới ải đang AFK.
+- Golden `afk.json` tính lại bên Unity: 3 bước nhận đổi mảnh, thêm 6 bước đổi ải. EditMode 95/95 đạt.
+- Dựng bằng menu `PokiClash/Prefab/AFK theo ải (nút, nhãn trên đảo)`; thử bằng `PokiClash/Thử/AFK theo ải: nút ở ải đã thắng, nhãn trên đảo (đang Play)` (ảnh `Temp/PokiShots/afk_*.png`).
+
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 
 1. **Nhịp tiến độ** (mục tiêu: người chơi "vừa" xong 5 đảo khoảng ngày 21). Sau khi có cây bi vẫn là ngày 6. Quét bằng menu `Quét nhịp`:
@@ -377,8 +400,10 @@ Hệ thống 70 ải mỗi đảo (2026-11-02, bản thử đảo Thủy trên w
 15. **10 tướng đảo Thủy:** 7 tướng người dùng gửi cùng Giọt Sương (ải 1), Tiểu Y (5), Cánh Cụt (10). Thứ tự theo độ hiếm: Mi Nhi 15, Ma Kết 20, Vây Lam 30, Kuba 40, Thương Lam 50, Huyền Vũ 60, Lam Quân boss ải 70 (vào trận dạng Lam Quân, tiến hóa lên Vạn Quân rồi Hắc Dực). Đúng ý chưa? Huyền Vũ (Huyền thoại) đứng trước boss Sử thi có ổn không?
 16. **3 tướng Thủy không có suất trên đảo:** Tám Tay, Cá Ngựa, Mập Răng Cưa. Giữ cho máy bi hoặc sự kiện, đưa sang đảo khác, hay bỏ?
 17. **Ô đội:** ô 2 mở khi xong 1 đảo, nên cả 70 ải đảo Thủy chỉ mang 1 tướng. Mở ô 2 sớm hơn (ví dụ ở ải 20 hoặc 30) không? Số đo hiện tính cho 1 tướng.
+    - **Đã chốt 2026-11-03** (`15_TuongKhoiDau.md`): ô đội mở theo cấp người chơi, ô 2 ở cấp 10, ô 3 ở cấp 30. Đánh đảo Thủy đúng cấp vẫn chỉ 1 ô; sức địch từ ải 4 chỉnh nhẹ (+0,05 tới +0,15) vì Võ Sư lên Khá.
 18. **Sức địch:** ở hệ thống mới, tướng địch mọi độ hiếm quy về sức tướng Khá cùng cấp. Nếu không quy, tướng Hiếm trở lên cùng cấp gần như không thua. Giữ cách này, hay hiện cấp cao hơn cho địch hiếm?
 19. **Tướng không khắc hệ đảo:** Giọt Sương (Thủy) đánh đảo Thủy kém Võ Sư (Thổ) 30–50 điểm phần trăm ở mọi kiểu ải khó. Đây là luật khắc hệ có sẵn. Giữ vậy, hay nới cho tướng khởi đầu?
+    - **Đã chốt 2026-11-03** (`15_TuongKhoiDau.md`): người chơi chọn 1 trong 5 tướng khởi đầu; tướng đã chọn (tướng đồng hành) không chịu thiệt khi khắc hệ; luôn ra trận cùng tướng tặng khắc đảo.
 20. **Nhịp và thưởng:** 5 đảo × 70 ải là 350 ải. Người chơi "vừa" (9 trận/ngày) cần ít nhất 39 ngày chỉ để qua lần đầu, so với mục tiêu ngày 21 (câu 1). Bi mỗi ải giảm còn 1–2 để cả đảo Thủy đưa người chơi lên khoảng cấp 7–8. Các hướng: chấp nhận nhịp dài hơn, tăng số trận mỗi lần vào game trong mô phỏng, hay rút số ải? Đo lại bằng `Quét nhịp` sau khi chép sang Unity. Đền Huy Hiệu giờ mở sau ải 70 đảo Thủy: có cần mở sớm hơn không?
 
 ## Ảnh cần gen

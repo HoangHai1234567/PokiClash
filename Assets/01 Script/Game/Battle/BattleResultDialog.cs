@@ -1,5 +1,6 @@
 // Hộp kết quả trận (prefab Assets/04 Prefabs/Dialogs/TranKetQua, bắt buộc): con dấu Thắng/Thua, tên ải, số hiệp và sát thương,
-// dòng thưởng (Items/TranThuong) hoặc lời khuyên khi thua, tối đa 4 nút (dựng sẵn, bật theo trận: ải thường, Hang, Đền Huy Hiệu).
+// hàng ô thưởng (Items/OThuong trong hàng "thuong", menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" dựng) hoặc
+// lời khuyên khi thua, tối đa 4 nút (dựng sẵn, bật theo trận: ải thường, Hang, Đền Huy Hiệu).
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -14,19 +15,21 @@ namespace PokiClash
         [SerializeField] UiStamp stamp;
         [SerializeField] TextMeshProUGUI title, stats, tips;
         [SerializeField] SketchButton[] buttons;
-        [SerializeField] BattleRewardRow rowPrefab;
+        [SerializeField] RewardTile tilePrefab;
+        [SerializeField] RectTransform tileRow;
         int used;
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(UiStamp stampView, TextMeshProUGUI titleText, TextMeshProUGUI statsText, TextMeshProUGUI tipsText, SketchButton[] btns,
-            BattleRewardRow row)
+            RewardTile tile, RectTransform row)
         {
             stamp = stampView;
             title = titleText;
             stats = statsText;
             tips = tipsText;
             buttons = btns;
-            rowPrefab = row;
+            tilePrefab = tile;
+            tileRow = row;
         }
 
         // titleSize: 40 (ải thường), 38 (Hang, Đền). Sau đó gọi Reward / Tips / Button theo thứ tự hiện.
@@ -37,16 +40,19 @@ namespace PokiClash
             title.fontSize = titleSize;
             stats.text = statsText;
             tips.gameObject.SetActive(false);
+            for (int i = tileRow.childCount - 1; i >= 0; i--) Destroy(tileRow.GetChild(i).gameObject);
+            tileRow.gameObject.SetActive(false);
             used = 0;
             foreach (var b in buttons) b.gameObject.SetActive(false);
         }
 
-        // dòng thưởng, thêm trước dòng lời khuyên và hàng nút
-        public void Reward(Sprite icon, HeroDef hero, string titleText, string sub, Color fill)
+        // một ô thưởng trong hàng thưởng (trước dòng lời khuyên và hàng nút); người gọi gán nội dung (Item / Hero / Tag)
+        public RewardTile Reward()
         {
-            var row = Ui.Spawn(rowPrefab, tips.transform.parent);
-            row.transform.SetSiblingIndex(tips.transform.GetSiblingIndex());
-            row.Bind(icon, hero, titleText, sub, fill);
+            tileRow.gameObject.SetActive(true);
+            var t = Ui.Spawn(tilePrefab, tileRow);
+            App.I.StartCoroutine(ChestBox.Pop(t.Rect, 1.15f));
+            return t;
         }
 
         public void Tips(string text)

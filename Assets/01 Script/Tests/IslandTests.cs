@@ -1,5 +1,6 @@
 // Hệ thống 70 ải so với bản web (Golden/islands.json, lần xuất cuối 2026-11-03): cỡ đảo, mini boss đầu, rương mốc, bi lần đầu và
 // đánh lại, đội địch từng ải (cấp, sao, thẻ, boss, phần cộng của địch khớp từng bit); lính tìm được nhưng không thu phục.
+// Cập nhật bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md): sức địch đảo Thủy từ ải 4, ải 1 đảo Hỏa và Thổ.
 using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;
@@ -93,10 +94,10 @@ namespace PokiClash.Tests
             var used = d.Stages.SelectMany(st => st.enemies).Select(e => e.hero).Where(h => d.Hero(h).minion).Distinct().ToList();
             CollectionAssert.AreEquivalent(d.Minions.Select(m => m.id), used, "mọi lính đều có ải");
             Assert.IsFalse(d.Stages.SelectMany(st => st.drops).Any(dr => d.Hero(dr.hero).minion), "lính không rơi mảnh");
-            // ải 1 Đảo Thủy: bóng của tướng khởi đầu, yếu hơn 20%
+            // ải 1 Đảo Thủy: Giọt Sương (tướng khởi đầu hệ Thủy; người chọn nó thì đấu với bóng), yếu hơn 20%
             var first = d.Stage(1);
             Assert.AreEqual(StageTag.Hero, first.tag);
-            CollectionAssert.Contains(d.Starters, first.enemies[0].hero);
+            Assert.AreEqual("giot_suong", first.enemies[0].hero);
             Assert.AreEqual(-0.2, first.enemies[0].buff, 1e-12);
         }
     }

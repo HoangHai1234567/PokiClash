@@ -45,5 +45,31 @@ namespace PokiClash.Core
             }
             return new Stats { hp = Js.Round(hp), atk = Js.Round(atk), def = Js.Round(def), spd = spd + level };
         }
+
+        // Lực chiến (chỉ để hiện, trận không dùng): 2·√(máu hiệu dụng × Công), máu hiệu dụng = Máu × (defK + Thủ) / defK
+        // (sát thương nhận × defK / (defK + Thủ)). Tăng gần đúng tỉ lệ với m: tướng thường cấp 1 khoảng 800.
+        public static int Power(BalanceConfig cfg, Stats s) =>
+            (int)Math.Round(2 * Math.Sqrt(s.hp * (cfg.defK + s.def) / cfg.defK * s.atk));
+
+        // lực chiến của một tướng trong đội (cấp, sao, boss, phần cộng); boss tiến hóa gánh máu cả dòng (cfg.bossEvoHp)
+        public static int Power(BalanceConfig cfg, HeroDef h, Member m)
+        {
+            var s = Compute(cfg, h, m.level, m.star, m.boss, m.mods);
+            if (m.evo) s.hp *= cfg.bossEvoHp;
+            return Power(cfg, s);
+        }
+    }
+
+    public static class TeamPower
+    {
+        public static int Of(BalanceConfig cfg, GameData d, TeamSetup t)
+        {
+            int sum = 0;
+            foreach (var m in t.members) sum += HeroStats.Power(cfg, d.Hero(m.heroId), m);
+            return sum;
+        }
+
+        // 12345 -> "12.345" (dấu chấm ngăn nghìn như tiếng Việt)
+        public static string Text(int v) => v.ToString("#,0", System.Globalization.CultureInfo.InvariantCulture).Replace(',', '.');
     }
 }

@@ -1,0 +1,25 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\b70a.png (1536 x 1024): an approved battle background of this game: copy its RENDERING (ink, pencil hatching, colours); ignore its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\guides\G_Sheet3x2.png (1536 x 1024): the numbered 3 x 2 grid: one object per cell, in number order
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\fxb.png
+Create the folder if it is missing. If that file already exists, save it as fxb_2.png, fxb_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: a sprite sheet of 6 separate effect objects for the final boss battle backgrounds of a vertical mobile game. The game cuts the sheet into 6 sprites and animates them (moves, spins, fades, scales, makes them see-through), so draw each object complete and on its own.
+
+Draw a 1536 x 1024 image with a fully TRANSPARENT background (PNG with alpha), in the rendering of image 1 (same wobbly ink, same pencil hatching, same colours). One object per cell of image 2's numbered 3 x 2 grid (512 x 512 px cells): each object about the size of the cell's inner grey frame and centred in its cell, nothing crossing a cell edge, no ground, no shadow, no background colour, no grid lines, no numbers. Glows and light are drawn as solid pale shapes (the game makes them see-through).
+
+In grid order:
+1 a huge whirlpool spiral seen from straight above, perfectly round, about 420 px across: deep blue to teal spiral arms with white foam lines curling into a dark centre (the game squashes it flat and spins it);
+2 a golden trident standing upright, about 420 px tall: three ornate prongs, a teal gem in its middle, thick ink outline, pencil shading, no glow;
+3 a tall lightning bolt: a zigzag with two small branches, white-yellow core, a pale purple edge, ink outline;
+4 a wide dark storm cloud: lumpy top, flat bottom, purple-grey with darker pencil hatching;
+5 a tall waterspout: a twisting column of water from a foamy base up to a cloud-like tip, tapered in the middle;
+6 a big curling wave crest with white foam, wider than tall;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, fish; any UI, frame or border; white sticker outlines.
+
+Remember: save the image to E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\fxb.png

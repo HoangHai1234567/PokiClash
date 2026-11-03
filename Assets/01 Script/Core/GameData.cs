@@ -184,6 +184,7 @@ namespace PokiClash.Core
                 s.drops.Add(new StageDrop
                 {
                     hero = J.Str(e, "hero"), chance = J.Num(e, "chance"), min = J.Int(e, "min"), max = J.Int(e, "max"), gift = J.Bool(e, "gift"),
+                    altFor = J.Str(e, "altFor"), altHero = J.Str(e, "altHero"),
                 });
             }
             return s;
@@ -244,7 +245,12 @@ namespace PokiClash.Core
                 foreach (var e in s.enemies)
                     if (Hero(e.hero) == null) err.Add($"Ải {s.id}: địch {e.hero} không có");
                 foreach (var dr in s.drops)
+                {
                     if (Hero(dr.hero) == null || Hero(dr.hero).minion) err.Add($"Ải {s.id}: rơi {dr.hero} không phải tướng");
+                    if (string.IsNullOrEmpty(dr.altFor)) continue;
+                    if (!Starters.Contains(dr.altFor)) err.Add($"Ải {s.id}: quà thay theo {dr.altFor}, không phải tướng khởi đầu");
+                    if (Hero(dr.altHero) == null || Hero(dr.altHero).minion) err.Add($"Ải {s.id}: quà thay {dr.altHero} không phải tướng");
+                }
             }
             foreach (var z in Zones)
             {
@@ -254,8 +260,20 @@ namespace PokiClash.Core
                 int tagged = st.Count(x => x.tag != StageTag.None);
                 if (tagged > 0 && tagged < st.Count) err.Add($"{z.name}: {st.Count - tagged} ải thiếu kiểu ải");
             }
+            // mỗi hệ một tướng khởi đầu, đứng ở ải 1 của đảo cùng hệ (15_TuongKhoiDau.md)
             foreach (var id in Starters)
-                if (Hero(id) == null) err.Add($"Tướng khởi đầu {id} không có");
+            {
+                var h = Hero(id);
+                if (h == null)
+                {
+                    err.Add($"Tướng khởi đầu {id} không có");
+                    continue;
+                }
+                if (Starters.Count(x => Hero(x)?.elem == h.elem) > 1) err.Add($"Tướng khởi đầu {h.name}: trùng hệ {Elements.Name(h.elem)}");
+                var first = Stages.FirstOrDefault(s => s.zone == h.elem && s.idx == 1);
+                if (first != null && (first.enemies.Count != 1 || first.enemies[0].hero != id))
+                    err.Add($"Ải 1 {Zone(h.elem)?.name}: cần đúng tướng khởi đầu {h.name}");
+            }
             return err;
         }
     }

@@ -1,5 +1,5 @@
-// Hộp mở rương (prefab Assets/04 Prefabs/Dialogs/MoRuong): tiêu đề, rương lắc rồi bật, thưởng hiện sau khi bật:
-// chip EXP / bi / đá (Items/ThuongChip), lưới thẻ mini kèm tên tướng, gộp bản sao "×n" (Items/ThuongThe), mảnh tướng (Items/ThuongManh).
+// Hộp mở rương (prefab Assets/04 Prefabs/Dialogs/MoRuong): tiêu đề, rương lắc rồi bật, thưởng hiện sau khi bật thành lưới ô hình
+// (Items/OThuong, menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá, thẻ gộp bản sao "×n", mảnh tướng.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,22 +19,17 @@ namespace PokiClash
         [SerializeField] GridLayoutGroup cardGrid;
         [SerializeField] RectTransform buttonRow;
         [SerializeField] SketchButton button;
-        [SerializeField] RewardChipRow chipPrefab;
-        [SerializeField] RewardCardCell cardPrefab;
-        [SerializeField] RewardShardRow shardPrefab;
+        [SerializeField] RewardTile tilePrefab;
 
         // Dùng khi nướng prefab (Editor).
-        public void Setup(TextMeshProUGUI titleText, ChestIcon chestIcon, GridLayoutGroup grid, RectTransform row, SketchButton btn,
-            RewardChipRow chipItem, RewardCardCell cardItem, RewardShardRow shardItem)
+        public void Setup(TextMeshProUGUI titleText, ChestIcon chestIcon, GridLayoutGroup grid, RectTransform row, SketchButton btn, RewardTile tile)
         {
             title = titleText;
             chest = chestIcon;
             cardGrid = grid;
             buttonRow = row;
             button = btn;
-            chipPrefab = chipItem;
-            cardPrefab = cardItem;
-            shardPrefab = shardItem;
+            tilePrefab = tile;
         }
 
         public IEnumerator Play(string titleText, SlotKind kind, Color? fill, List<Reward> rewards, string buttonLabel, Func<bool> closed)
@@ -66,54 +61,52 @@ namespace PokiClash
             while (!closed()) yield return null;
         }
 
-        // thưởng của một rương: chip EXP / bi / đá trước lưới thẻ, mảnh tướng sau lưới thẻ (trên hàng nút)
+        // thưởng của một rương: mọi thứ là ô hình (Items/OThuong) trong một lưới: XP, bi, đá trước, rồi thẻ (gộp bản sao "×n"),
+        // rồi mảnh tướng (MỞ KHÓA! khi đủ mảnh, "→ n thẻ" khi tướng đã có và mảnh đổi thành bản sao thẻ). Ô bật lần lượt.
         void Rewards(List<Reward> rewards)
         {
             var d = App.Data;
-            var s = App.Save.Data;
-            var body = (RectTransform)cardGrid.transform.parent;
-            int at = cardGrid.transform.GetSiblingIndex();
+            var tiles = new List<RewardTile>();
+            RewardTile Tile() { var t = Ui.Spawn(tilePrefab, cardGrid.transform); tiles.Add(t); return t; }
             foreach (var r in rewards.Where(q => q.k == RewardKind.Exp || q.k == RewardKind.Balls || q.k == RewardKind.Stones))
             {
-                var row = Ui.Spawn(chipPrefab, body);
-                row.transform.SetSiblingIndex(at++);
-                string icon = r.k == RewardKind.Exp ? "exp" : r.k == RewardKind.Balls ? "ball" : "rock";
-                string text = r.k == RewardKind.Exp ? $"+{r.n} XP" : r.k == RewardKind.Balls ? $"+{r.n} bi" : $"+{r.n} đá tiềm năng";
-                row.Bind(App.Art.Icon(icon), text, r.k == RewardKind.Stones ? 460 : 320);
-                App.I.StartCoroutine(ChestBox.Pop(row.Chip, 1.15f));
+                if (r.k == RewardKind.Exp) Tile().Item(App.Art.Icon("exp"), $"×{r.n}", "XP");
+                else if (r.k == RewardKind.Balls) Tile().Item(App.Art.Icon("ball"), $"×{r.n}", "Bi");
+                else Tile().Item(App.Art.Icon("rock"), $"×{r.n}", "Đá tiềm năng", Rarity.Epic);
             }
             var cards = rewards.Where(q => q.k == RewardKind.Card)
                 .GroupBy(q => (q.drop.hero, q.drop.slot))
                 .Select(g => (drop: g.First().drop, n: g.Count()))
                 .ToList();
-            if (cards.Count > 0)
+            foreach (var (drop, n) in cards)
             {
-                // hộp rộng 940, lề trong ~840: cỡ thẻ theo số thẻ khác nhau
-                int nc = cards.Count;
-                float k = nc <= 4 ? 0.95f : nc <= 8 ? 0.8f : nc <= 12 ? 0.58f : 0.5f;
-                int perRow = nc <= 4 ? nc : nc <= 8 ? 4 : nc <= 12 ? 6 : 7;
-                var cell = new Vector2(UiCard.MiniSize.x * k + 12, UiCard.MiniSize.y * k + 44);
-                int rows = (cards.Count + perRow - 1) / perRow;
-                cardGrid.gameObject.SetActive(true);
-                cardGrid.cellSize = cell;
-                cardGrid.constraintCount = perRow;
-                cardGrid.GetComponent<LayoutElement>().preferredHeight = rows * cell.y + (rows - 1) * 10;
-                foreach (var (drop, n) in cards)
-                {
-                    var cd = d.Card(drop.card);
-                    var col = Ui.Spawn(cardPrefab, cardGrid.transform);
-                    col.Bind(cd, s.Hero(drop.hero).Card(drop.slot).lv, App.Art.Icon(cd.icon), d.Hero(drop.hero).name, Theme.Of(drop.rarity), n, k, cell);
-                    App.I.StartCoroutine(ChestBox.Pop(col.Rect, 1.12f));
-                }
+                var cd = d.Card(drop.card);
+                Tile().Card(cd, App.Art.Icon(cd.icon), d.Hero(drop.hero), n, drop.rarity);
             }
             foreach (var r in rewards.Where(q => q.k == RewardKind.Shards))
             {
                 var res = r.res;
-                var h = d.Hero(res.hero);
-                var row = Ui.Spawn(shardPrefab, body);
-                row.transform.SetSiblingIndex(buttonRow.GetSiblingIndex());
-                row.Bind(h, res.unlocked ? $"Mở khóa {h.name}!" : res.converted > 0 ? $"{h.name} +{res.n} mảnh\n(đã có tướng: thành {res.converted} bản sao thẻ)" : $"{h.name} +{res.n} mảnh");
+                var t = Tile().Hero(d.Hero(res.hero), $"×{res.n}");
+                if (res.unlocked) t.Tag("MỞ KHÓA!", Theme.Red);
+                else if (res.converted > 0) t.Tag($"→ {res.converted} thẻ", Theme.Paper2);
             }
+            if (tiles.Count == 0) return;
+
+            // hộp rộng 940, lề trong ~840: tới 5 ô một hàng
+            int perRow = Mathf.Min(5, tiles.Count), rows = (tiles.Count + perRow - 1) / perRow;
+            cardGrid.gameObject.SetActive(true);
+            cardGrid.cellSize = new Vector2(RewardTile.W, RewardTile.H);
+            cardGrid.spacing = new Vector2(18, 28); // chừa chỗ nhãn ô hàng dưới
+            cardGrid.constraintCount = perRow;
+            cardGrid.GetComponent<LayoutElement>().preferredHeight = rows * RewardTile.H + (rows - 1) * 28 + 16;
+            for (int i = 0; i < tiles.Count; i++) App.I.StartCoroutine(PopLater(tiles[i].Rect, i * 0.07f));
+        }
+
+        static IEnumerator PopLater(RectTransform rt, float delay)
+        {
+            rt.localScale = Vector3.zero;
+            yield return new WaitForSecondsRealtime(delay);
+            if (rt) yield return ChestBox.Pop(rt, 1.15f);
         }
     }
 }

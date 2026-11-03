@@ -50,7 +50,10 @@ namespace PokiClash
         List<string> team;
         BadgeRef badge;
         CaveRef cave;
-        float speed = 1;
+        float speed = 1; // nấc tốc độ người chơi chọn (×1, ×2, ×3, lưu trong cài đặt)
+        // nhịp thật của từng nấc (người dùng 2026-11-03: đánh và animation nhanh như lúc chạy thử, các tour chạy ×3 cũ): ×1 = ×3 cũ
+        static readonly float[] Paces = { 3f, 4.5f, 6f };
+        float Pace => Paces[Mathf.Clamp((int)speed, 1, 3) - 1];
         bool auto, busy, alive = true, waitingPick;
         bool usedAuto; // có lượt người chơi nào để máy tự chơi (ghi trận)
         float startedAt;
@@ -82,20 +85,21 @@ namespace PokiClash
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
             uint seed = badge != null ? Badges.Seed(d, badge.zone, badge.tier, badge.i) : Rng.RandomSeed();
             b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
-            view.Init(b, zone);
-            view.Stage.speed = speed;
+            view.Init(b, zone, badge == null && cave == null ? stage : null);
+            view.Stage.speed = Pace;
             view.SetSpeed((int)speed);
             view.SpeedBtn.SetOnClick(ToggleSpeed);
             view.AutoBtn.SetOnClick(ToggleAuto);
             view.PauseBtn.SetOnClick(Menu);
             view.OnPickCard = (i, rt) => { if (!busy) StartCoroutine(OnPick(i, rt)); };
-            view.OnInnate = OnInnate;
+            view.OnInnate = (w, rt) => { if (!busy) StartCoroutine(OnInnate(w, rt)); };
             view.OnSwap = i => { if (!busy) StartCoroutine(OnSwap(i)); };
-            player = new BattlePlayer(this, b, view, () => speed)
+            player = new BattlePlayer(this, b, view, () => Pace)
             {
                 Alive = () => alive,
                 OnRound = r => Banner($"Hiệp {r}", "Bạn đi trước", false),
                 Banner = Banner,
+                UltCut = UltCut,
                 OnTurnFoe = _ => view.RenderFoeThinking(),
             };
             StartCoroutine(Run());
@@ -129,7 +133,7 @@ namespace PokiClash
             StopAllCoroutines();
         }
 
-        object W(float ms) => new WaitForSecondsRealtime(ms / 1000f / speed);
+        object W(float ms) => new WaitForSecondsRealtime(ms / 1000f / Pace);
 
         // ---------- vòng trận ----------
 
@@ -168,7 +172,7 @@ namespace PokiClash
                     float t0 = Time.realtimeSinceStartup;
                     int side = b.turn.side;
                     yield return player.PlayAll(b.Execute());
-                    if (side == 0) PlayerTurnSeconds.Add((Time.realtimeSinceStartup - t0) * speed);
+                    if (side == 0) PlayerTurnSeconds.Add((Time.realtimeSinceStartup - t0) * Pace / Paces[0]);
                     continue;
                 }
                 if (b.phase == Phase.Ready)
@@ -181,49 +185,29 @@ namespace PokiClash
             if (alive) yield return Finish();
         }
 
-        // màn VS: đội địch, chữ VS, đội bạn
+        // màn VS kiểu trang truyện tranh (BattleIntro): đội địch khung trên, đội bạn khung dưới, lực chiến cả đội như hộp Chuẩn bị trận
         IEnumerator Intro()
         {
-            var o = view.Intro;
-            o.gameObject.SetActive(true);
-            o.transform.SetAsLastSibling();
-            var cg = o.Group;
-            cg.alpha = 1;
-            o.Title.text = $"{zone.name} · Ải {stage.idx} · {stage.name}";
-            TeamRow(o.Row(1), 1);
-            var vs = o.Vs;
-            TeamRow(o.Row(0), 0);
-            App.Audio.Play("whoosh");
-            for (float t = 0; t < 0.5f; t += Time.unscaledDeltaTime)
-            {
-                float k = Mathf.Min(1, t / 0.5f);
-                float s = k < 0.6f ? Mathf.Lerp(0.3f, 1.12f, k / 0.6f) : Mathf.Lerp(1.12f, 1, (k - 0.6f) / 0.4f);
-                vs.rectTransform.localScale = new Vector3(s, s, 1);
-                yield return null;
-            }
-            yield return new WaitForSecondsRealtime(1.0f);
-            for (float t = 0; t < 0.3f; t += Time.unscaledDeltaTime)
-            {
-                cg.alpha = 1 - t / 0.3f;
-                yield return null;
-            }
-            o.gameObject.SetActive(false);
+            if (!view.Intro || !view.Intro.Ready) yield break;
+            var d = b.Data;
+            int foePower = TeamPower.Of(d.Cfg, d, Teams.Enemy(stage, d));
+            int minePower = TeamPower.Of(d.Cfg, d, Teams.Player(App.Save.Data, team, d));
+            yield return view.Intro.Play($"{zone.name} · Ải {stage.idx}", stage.name, Members(0), Members(1), minePower, foePower);
         }
 
-        // chân dung một đội trong màn VS (hàng dựng sẵn, chân dung là bản sao kit)
-        void TeamRow(RectTransform row, int side)
+        // tướng một phe cho màn VS (dạng theo sao như trên sân)
+        List<BattleIntro.Member> Members(int side) =>
+            b.sides[side].fighters.Select(f => new BattleIntro.Member
+                { hero = f.hero, name = f.Name, star = Teams.LookStar(b.Data.Cfg, f), level = f.level, boss = f.boss }).ToList();
+
+        // tuyệt kỹ: khung truyện tranh cắt thành dải hình bình hành ngang sân (UltCutIn) với mặt tướng ra chiêu và tên chiêu;
+        // prefab chưa có dải thì băng rôn như cũ
+        IEnumerator UltCut(int side, CardDef c)
         {
-            for (int i = row.childCount - 1; i >= 0; i--) Destroy(row.GetChild(i).gameObject);
-            var fs = b.sides[side].fighters;
-            for (int i = 0; i < fs.Count; i++)
-            {
-                float h = side == 1 && fs[i].boss ? 240 : 192;
-                var p = HeroArt.Portrait(row, fs[i].hero, h, false, Teams.LookStar(b.Data.Cfg, fs[i]));
-                p.anchorMin = p.anchorMax = new Vector2(0.5f, 0);
-                p.anchoredPosition = new Vector2((i - (fs.Count - 1) / 2f) * 220, 10);
-                if (side == 1) p.localScale = new Vector3(1, 1, 1);
-                else p.localScale = new Vector3(-1, 1, 1);
-            }
+            var f = b.ActiveOf(side);
+            if (view.UltCut)
+                yield return view.UltCut.Play(f.hero, f.Name, Teams.LookStar(b.Data.Cfg, f), c.name, side == 0, (RectTransform)view.Stage.transform, speed);
+            else StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {f.Name}", true));
         }
 
         // băng rôn giữa sân (hiệp mới, tuyệt kỹ)
@@ -267,7 +251,8 @@ namespace PokiClash
             Hint("pick", null);
             while (alive && waitingPick)
             {
-                if (auto)
+                // bật tự chơi giữa lúc chiêu đang chiếu thì chờ chiếu xong
+                if (auto && !busy)
                 {
                     waitingPick = false;
                     yield return AiPicking();
@@ -319,31 +304,38 @@ namespace PokiClash
             view.ReleaseFlyCard();
         }
 
-        void OnInnate(InnateKind which, RectTransform btn)
+        // Chiêu: ra đòn ngay (chiếu xong mới chọn thẻ tiếp); Tuyệt kỹ: chỉ bật, thay cú đánh thường cuối lượt
+        IEnumerator OnInnate(InnateKind which, RectTransform btn)
         {
-            if (b.turn.side != 0 || auto || busy) return;
+            if (b.phase != Phase.Picking || b.turn.side != 0 || auto || busy) yield break;
             string why = b.InnateBlock(which);
             if (why != "")
             {
                 App.Audio.Play("error");
                 StartCoroutine(view.Shake(btn));
                 App.Toasts.Show(why, App.Art.Icon("info"));
-                return;
+                yield break;
             }
+            busy = true;
             var evs = b.UseInnate(which);
-            if (evs.Count > 0)
-            {
-                player.LastSnap = evs[evs.Count - 1].snap;
-                view.ApplySnap(player.LastSnap);
-            }
             App.Audio.Play("buff");
+            view.RenderBottom(auto); // nút tắt ngay lúc bấm
             if (which == InnateKind.Ult)
             {
                 App.Audio.Play("ult");
                 view.Stage.Text(0, "Tuyệt kỹ sẵn sàng!", "#ff8fb3", 22);
             }
-            view.RenderQueue(-1, true);
+            yield return player.PlayAll(evs);
+            busy = false;
+            view.RenderQueue(-1, b.phase == Phase.Picking);
             view.RenderBottom(auto);
+            // chiêu hạ đối thủ (hoặc xong trận): hết lúc chọn, cất thẻ mời, vòng trận chạy tiếp
+            // (còn chọn thì thẻ mời giữ nguyên, không chia lại)
+            if (b.phase != Phase.Picking)
+            {
+                view.RenderOffer(auto);
+                waitingPick = false;
+            }
         }
 
         IEnumerator OnSwap(int idx)
@@ -392,17 +384,16 @@ namespace PokiClash
                 var inn = BattleAi.Innate(b);
                 if (inn.HasValue)
                 {
-                    var evs = b.UseInnate(inn.Value);
-                    if (evs.Count > 0)
-                    {
-                        player.LastSnap = evs[evs.Count - 1].snap;
-                        view.ApplySnap(player.LastSnap);
-                    }
                     var c = b.InnateCard(b.ActiveOf(side), inn.Value).card;
-                    view.Stage.Text(side, $"{(inn == InnateKind.Ult ? "Tuyệt kỹ" : "Chiêu")}: {c.name}", inn == InnateKind.Ult ? "#ff8fb3" : "#8ec5ff", 20);
+                    var evs = b.UseInnate(inn.Value);
                     App.Audio.Play("buff");
-                    view.RenderQueue(-1, true);
+                    view.RenderBottom(auto);
+                    if (inn == InnateKind.Ult) view.Stage.Text(side, $"Tuyệt kỹ: {c.name}", "#ff8fb3", 20);
+                    // chiêu: tên chiêu và đòn ra ngay trong lúc chiếu sự kiện
+                    yield return player.PlayAll(evs);
+                    view.RenderQueue(-1, b.phase == Phase.Picking);
                     yield return W(380);
+                    continue; // chiêu hạ đối thủ thì hết lúc chọn
                 }
                 // địch ở các ải đầu chọn kém hơn (nhiễu cao), về sau chọn kỹ
                 int i = BattleAi.PickIndex(b, side == 1 ? BattleAi.EnemyNoise(stage.id) : 0.12);
@@ -449,7 +440,7 @@ namespace PokiClash
             if (!s.settings.hints || hinted.Contains(key) || s.stats.battles > 1) return;
             hinted.Add(key);
             string text = key == "pick" ? "Chọn 1 trong 3 thẻ, 5 lần. Thẻ chạy lần lượt rồi tướng đánh thường."
-                : key == "skill" ? "Đủ mana: bấm Chiêu để xen chiêu vào hàng thẻ. Không tốn lần chọn!"
+                : key == "skill" ? "Đủ mana: bấm Chiêu để ra đòn ngay rồi chọn thẻ tiếp. Không tốn lần chọn!"
                 : "Đủ nộ: bật Tuyệt kỹ, nó thay cú đánh thường cuối lượt.";
             var hint = Ui.Spawn(Theme.Prefabs.hint, view.Overlay);
             hint.name = "goi_y";
@@ -481,7 +472,7 @@ namespace PokiClash
         void ToggleSpeed()
         {
             speed = speed >= 3 ? 1 : speed + 1;
-            view.Stage.speed = speed;
+            view.Stage.speed = Pace;
             view.SetSpeed((int)speed);
             App.Save.Data.settings.speed = (int)speed;
             App.Save.Save();
@@ -551,14 +542,14 @@ namespace PokiClash
             m.Show(win, $"{zone.name} · Ải {stage.idx} · {stage.name}", 40, $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
             if (rw != null)
             {
-                m.Reward(App.Art.Icon("ball"), null, $"+{rw.balls} bi", rw.first ? "Lần đầu qua ải" : null, Color.white);
+                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", "Bi").Tag(rw.first ? "Lần đầu" : "", Theme.Yellow);
                 foreach (var sh in rw.shards)
                 {
                     var hero = d.Hero(sh.hero);
                     var prog = s.Hero(sh.hero);
-                    m.Reward(null, hero, sh.unlocked ? $"Mở khóa {hero.name}!" : $"{hero.name} +{sh.n} mảnh",
-                        sh.unlocked ? "Tướng mới đã vào đội hình" : sh.converted > 0 ? $"Đã có tướng: đổi thành {sh.converted} bản sao thẻ" : $"{prog.shards}/{hero.shards} mảnh",
-                        sh.unlocked ? Theme.Hex("#fff3c4") : Color.white);
+                    // nhãn: mở khoá, mảnh đổi thành bản sao thẻ (tướng đã có), hoặc tiến độ mảnh
+                    m.Reward().Hero(hero, $"×{sh.n}").Tag(sh.unlocked ? "MỞ KHÓA!" : sh.converted > 0 ? $"→ {sh.converted} thẻ" : $"{prog.shards}/{hero.shards}",
+                        sh.unlocked ? Theme.Red : Theme.Paper2);
                     if (sh.unlocked) App.Audio.Play("chest");
                 }
             }
@@ -600,8 +591,10 @@ namespace PokiClash
                 $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
             int left = Potential.CaveLeft(s, cfg, cave.day);
             if (win)
-                m.Reward(App.Art.Icon("rock"), null, stones > 0 ? $"+{stones} đá tiềm năng" : "Hết lượt hôm nay: không có đá",
-                    $"Còn {Mathf.Max(0, left)} lượt hôm nay · có {s.potentialStones} đá", Theme.Hex("#f4efff"));
+            {
+                if (stones > 0) m.Reward().Item(App.Art.Icon("rock"), $"×{stones}", "Đá tiềm năng", Rarity.Epic);
+                m.Tips((stones > 0 ? "" : "Hết lượt hôm nay: không có đá. ") + $"Còn {Mathf.Max(0, left)} lượt hôm nay · có {s.potentialStones} đá");
+            }
             else
                 m.Tips($"Thua không mất lượt (còn {left} lượt). Chọn tướng khắc hệ {Elements.Name(cave.zone)}, khai phá tiềm năng hoặc thử tầng dễ hơn.");
             if (left > 0)
@@ -635,7 +628,7 @@ namespace PokiClash
             m.Show(win, $"Đền Huy Hiệu · {Elements.Name(badge.zone)} · {Badges.TierName(cfg, badge.tier)} · Trận {badge.i}/{n}", 38,
                 $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
             if (rw != null)
-                m.Reward(App.Art.Icon("ball"), null, $"+{rw.balls} bi", rw.tierDone > 0 ? "Xong bậc!" : $"Tiến độ {badge.i}/{n}", Color.white);
+                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", "Bi").Tag(rw.tierDone > 0 ? "Xong bậc!" : $"{badge.i}/{n}", Theme.Yellow);
             else
                 m.Tips("Thua thì đánh lại trận này, tiến độ vẫn giữ. Chọn tướng khắc hệ " + Elements.Name(badge.zone) + ", nâng thẻ và tiến hóa để mạnh hơn.");
             var cur = Badges.Current(s, cfg, badge.zone);

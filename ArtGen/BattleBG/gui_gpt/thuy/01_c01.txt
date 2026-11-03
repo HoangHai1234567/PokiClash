@@ -1,0 +1,42 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png (1024 x 1536): the game's approved hand-drawn world map: copy its RENDERING (wobbly dark-brown ink outlines, coloured-pencil hatching on cream paper, chunky cute doodles); ignore its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\refs\thuy\bai_bien.png (1024 x 588): a crop of this island's map, seen from above, showing the beach where the island starts: sandy shore, turquoise sea, giant pastel seashells, palm trees, grey rocks: draw the same landmark here, seen from the side, with its colours and shapes
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\gui_gpt\thuy\bo_cuc_c01.png (1536 x 1024): the layout sketch of the image you draw now: follow it exactly
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\c01.png
+Create the folder if it is missing. If that file already exists, save it as c01_2.png, c01_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the battle background for the stages at Seashell Beach (stages 1–4) of the Water island, in a vertical mobile monster-battle game. Two fighters (cut-out stickers with a white paper border, added by the game) fight on it: the enemy on the smaller far platform at the upper left, the player's fighter on the bigger near platform at the lower right.
+
+Draw a 1536 x 1024 image.
+
+RENDERING: copy image 1's rendering: wobbly dark-brown ink outlines (#2B2118), coloured-pencil hatching on cream paper, flat warm colours with light watercolour washes, chunky cute doodle shapes with clear silhouettes. Ink about 6 px on near things and 3-4 px on far things. Use the colours and the look of the objects of image 2 (pale turquoise hatched grass, warm sand, grey rocks, palm trees, pastel shells). Not 3D, not glossy, no realistic rendering, no tiny noisy details.
+
+CONTRAST: the fighters must stand out, so the background is a little softer and lighter than image 2, with the most detail and contrast on the far landmark and along the left and right edges; the middle stays simple.
+
+FRAME: phones show only the middle 1192 x 1024 of your 1536 x 1024 image; the dark strips of the sketch (x < 172 and x > 1364) are cut off, so just continue the scene into them with nothing important there.
+
+VIEW: a side three-quarter view like a stage in a picture book: eye level a little above the fighters' heads, looking slightly down; the ground rises towards the horizon and things get smaller with distance. Not a top-down map.
+
+LAYOUT: follow image 3 exactly. It is only a colour-coded plan: pale blue = sky; blue = sea; pale sand = sandy ground; light grey with an ink edge = the landmark; cream ovals with a thick ink edge = the two platforms; white dashed boxes = the fighters' bodies; grey diagonal lines = covered by the game's panels; dark side strips = cut off on phones. Do not copy its flat colours, its grey diagonal lines, its dashed lines or its dark side strips.
+
+FIGHTERS: the far fighter is up to about 390 px tall (white dashed box x 391-651, y 121-521), the near one up to about 430 px (box x 887-1187, y 495-923). Right behind their bodies keep only calm sky, water, rock or ground: no tall object, bright spot or busy pattern. Keep the diagonal between the two platforms open and calm (flat ground or water, a few small tufts): the fighters lunge across it.
+
+PANELS: the game covers the top-right (x 815-1364, y 0-240) and the bottom-left (x 185-720, y 760-960) with name-and-health panels (grey diagonal lines in the sketch). Draw only plain sky, water or ground there: no landmark, no tree top, no bright spot.
+
+SCENE: a sunny beach at the water's edge. The turquoise sea fills the far part up to the horizon at y = 380, with small soft wave lines; a thin band of wet sand and a plain wobbly shoreline run from about y = 440 at the left to y = 530 at the right, just behind the far platform. Below it, warm pale sand covers the whole ground.
+
+LANDMARK: a cluster of giant pastel seashells (a big pink scallop, a cream spiral shell, a small blue shell) on the sand at the far left, x 185-375, y 340-480, like the shells of image 2.
+
+DETAILS: a palm tree leaning in from the far left edge and one from the far right edge (mostly inside the cut strips), a few small shells, pebbles, beach-grass tufts, a piece of driftwood near the right edge; two or three fluffy clouds in the upper-left and middle sky.
+
+PLATFORMS: exactly where the sketch has them, same centre and size: the far one centred at (521, 526), about 400 x 116 px; the near one centred at (1037, 930), about 540 x 160 px, its bottom edge about 14 px above the image bottom. Their tops are flat, level, EMPTY and a little lighter than the ground around them, with a crayon-hatched rim and a soft contact shadow; nothing stands on them. Material: both are low round mounds of firm sand ringed with small pebbles and tiny shells.
+
+LIGHT: bright sunny midday, light from the top-left.
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, fish; any UI, frame or border; white sticker outlines; foam, breaking waves, sparkles on the water (the game adds small foam and ripples along the shoreline).
+
+Remember: save the image to E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\thuy\tai_ve\c01.png

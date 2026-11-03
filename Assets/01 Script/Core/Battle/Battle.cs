@@ -1,7 +1,9 @@
-// Trận theo lượt, luân phiên, chép đúng Web/src/core/battle.ts (cùng hạt giống, cùng lựa chọn thì cùng chuỗi sự kiện).
+// Trận theo lượt, luân phiên, gốc là Web/src/core/battle.ts (cùng hạt giống, cùng lựa chọn thì cùng chuỗi sự kiện).
+// Khác bản web từ 2026-11-03: chiêu ra ngay lúc bấm, không vào hàng thẻ.
 // Mỗi hiệp: người chơi (bên 0) đi trước. Mỗi lượt:
 //   1. đầu lượt (trước lần chọn đầu) được đổi tướng;
-//   2. chọn 5 lần, mỗi lần 1 trong 3 thẻ chung; chiêu và tuyệt kỹ dùng xen vào lúc chọn, không tốn lần chọn;
+//   2. chọn 5 lần, mỗi lần 1 trong 3 thẻ chung; chiêu và tuyệt kỹ dùng xen vào lúc chọn, không tốn lần chọn.
+//      Chiêu ra đòn ngay rồi chọn tiếp, tuyệt kỹ thay cú đánh thường cuối lượt;
 //   3. thẻ chạy lần lượt theo thứ tự xếp, rồi đánh thường (hoặc tuyệt kỹ nếu đã bật).
 // Mọi hàm hành động trả về danh sách sự kiện (kèm ảnh chụp số liệu) để màn trận chiếu lại.
 using System;
@@ -59,7 +61,7 @@ namespace PokiClash.Core
             {
                 idx = idx, side = side, hero = hero, level = m.level, star = m.star,
                 cardSkill = m.cardSkill, cardUlt = m.cardUlt, cardPassive = m.cardPassive, boss = m.boss,
-                evo = m.evo, form = m.evo ? 0 : hero.FormIndex(Cfg.formStars, m.star),
+                evo = m.evo, form = m.evo ? 0 : hero.FormIndex(Cfg.formStars, m.star), partner = m.partner,
                 maxHp = hp, hp = hp, atk = m.evo ? Js.Round(s.atk * k.atk) : s.atk, def = s.def, spd = s.spd,
                 mana = st != null ? Math.Min(Cfg.maxMana, st.mana) : 0, rage = st != null ? Math.Min(Cfg.maxRage, st.rage) : 0,
             };
@@ -68,6 +70,9 @@ namespace PokiClash.Core
             if (st != null && st.lifesteal != 0) f.buffs.Add(new Buff { stat = Stat.Lifesteal, v = st.lifesteal, left = 99, until = Until.End });
             return f;
         }
+
+        // khắc hệ giữa hai tướng trên sân (tướng đồng hành không chịu thiệt, Elements.Mult)
+        public static double ElemMult(Fighter a, Fighter d) => Elements.Mult(a.hero.elem, d.hero.elem, a.partner, d.partner);
 
         public static double BuffSum(Fighter f, Stat stat)
         {
@@ -302,7 +307,7 @@ namespace PokiClash.Core
         {
             var t = turn;
             if (phase != Phase.Picking || i < 0 || i >= t.offer.Count) return new List<BattleEvent>();
-            t.queue.Add(new QueueItem { card = t.offer[i], skill = false, lv = 1 });
+            t.queue.Add(new QueueItem { card = t.offer[i], lv = 1 });
             t.firstPick = true;
             t.picksLeft--;
             if (t.picksLeft > 0) t.offer = DrawOffer(t.side);
@@ -344,13 +349,20 @@ namespace PokiClash.Core
             f.mana -= card.costMana;
             f.rage -= card.costRage;
             t.firstPick = true; // đã ra quyết định: hết lúc đổi tướng
-            if (which == InnateKind.Skill)
-            {
-                t.queue.Add(new QueueItem { card = card.id, skill = true, lv = lv });
-                t.skillUsed = true;
-            }
+            if (which == InnateKind.Skill) t.skillUsed = true;
             else t.ult = new UltItem { card = card.id, lv = lv };
             Emit(new BattleEvent { t = EvType.Innate, side = t.side, card = card.id, kind = which == InnateKind.Skill ? "skill" : "ult" });
+            if (which == InnateKind.Skill)
+            {
+                // chiêu ra đòn ngay (người dùng 2026-11-03), thẻ đã xếp vẫn chờ cuối lượt
+                ApplyEffects(t.side, Scaled(card, lv), DmgKind.Skill);
+                // chiêu hạ tướng đối thủ: hết lúc chọn, thẻ đã xếp chạy rồi hết lượt (gục hết đội thì trận đã xong)
+                if (winner < 0 && (ActiveOf(t.side).dead || ActiveOf(Other(t.side)).dead))
+                {
+                    t.offer = new List<string>();
+                    phase = Phase.Ready;
+                }
+            }
             return Flush();
         }
 
@@ -369,8 +381,8 @@ namespace PokiClash.Core
                 for (int r = 0; r < reps; r++)
                 {
                     if (winner >= 0 || ActiveOf(s).dead) break;
-                    Emit(new BattleEvent { t = EvType.Card, side = s, card = item.card, kind = item.KindKey, lv = item.lv, rep = r });
-                    ApplyEffects(s, Scaled(Data.Card(item.card), item.lv), item.skill ? DmgKind.Skill : DmgKind.Card);
+                    Emit(new BattleEvent { t = EvType.Card, side = s, card = item.card, kind = "pool", lv = item.lv, rep = r });
+                    ApplyEffects(s, Scaled(Data.Card(item.card), item.lv), DmgKind.Card);
                 }
             }
             var me = ActiveOf(s);
@@ -439,7 +451,7 @@ namespace PokiClash.Core
                 def = 0;
                 m *= turn.trueStrike;
             }
-            double em = Elements.Mult(A.hero.elem, D.hero.elem);
+            double em = ElemMult(A, D);
             bool crit = rng.Chance(Cfg.critBase + BuffSum(A, Stat.Crit));
             double taken = Math.Max(0.1, 1 + BuffSum(D, Stat.DmgTaken));
             double raw = atk * m * (Cfg.defK / (Cfg.defK + def)) * em * (crit ? Cfg.critMult : 1) * taken *
@@ -734,8 +746,7 @@ namespace PokiClash.Core
             {
                 var f = side.fighters[i];
                 if (f.dead) continue;
-                double sc = f.hp / f.maxHp + (Elements.Mult(f.hero.elem, foe.hero.elem) - 1) -
-                            (Elements.Mult(foe.hero.elem, f.hero.elem) - 1) * 0.6;
+                double sc = f.hp / f.maxHp + (ElemMult(f, foe) - 1) - (ElemMult(foe, f) - 1) * 0.6;
                 if (sc > bestScore)
                 {
                     bestScore = sc;

@@ -1,0 +1,23 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png (1024 x 1536): style reference only: the game's hand-drawn world map (ink lines, colour-pencil hatching on cream paper)
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\BattleIntro\refs\man_vs_hien_tai.png (540 x 960): how the game uses the background: the versus screen with the game's placeholder lines inside the two slanted comic panels (red enemy panel on top, blue player panel at the bottom)
+
+SAVE: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\BattleIntro\tai_ve\vs_nen.png (create the folder if it is missing; if that file already exists, add _2, _3 … before .png). Do not change, move or delete any other file.
+
+WHAT THIS IS: the background texture inside the comic panels of the "versus" screen of a cute hand-drawn mobile game. The game crops this one square into two slanted comic panels (the enemy team on top, the player team at the bottom) and tints it: red for the enemy panel, blue for the player panel. The heroes' face cards sit in the middle. Image 2 shows where it goes: the game currently draws plain placeholder lines there; your image replaces them.
+
+DRAW: a square 1024 x 1024 manga "focus lines" background: speed lines radiating from the centre out to all four edges, like the dramatic concentration lines behind a hero in a comic. Mostly thin lines with a few longer, bolder strokes; soft colour-pencil hatching between some lines and a sprinkle of halftone dots toward the corners.
+
+CENTRE: keep a calm round area about 560 px across in the middle as plain paper with at most a few very faint lines: the face cards cover it.
+
+DENSITY: the lines cover about a quarter of the area, so the panel stays light and the faces stand out.
+
+COLOURS: only cream paper #FBF4E2, warm grey #B9AA90 for most lines and hatching, and dark-brown ink #2B2118 for a few accent strokes. No other colour at all: the game tints the whole image.
+
+EDGES: the lines run off all four edges. No frame, no border, no panel edge, no white margin.
+
+STYLE (image 1): the hand-drawn storybook look of this game: slightly wobbly dark-brown ink outlines #2B2118, flat warm colours, light colour-pencil hatching for shading, cream paper feel. Drawn neatly by a professional illustrator, not scribbly. No glossy highlights, no gradients, no 3D render, no airbrush.
+
+AVOID: characters, faces, text, letters, "VS", symbols, explosions, glow, colour, gradients, photo texture, 3D.

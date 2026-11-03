@@ -1,4 +1,7 @@
-// AFK: ải đã qua tự đánh khi người chơi vắng, ra mảnh tướng boss (tỉ lệ thấp) và rương AFK. Chép Web/src/core/afk.ts.
+// AFK: đội tự đánh một ải đã qua khi người chơi vắng, ra mảnh tướng của ải đó (tỉ lệ thấp) và rương AFK. Chép Web/src/core/afk.ts.
+// AFK theo ải (người dùng chọn 2026-11-03, Unity khác web): người chơi chọn ải đã thắng ("AFK ải này" ở hộp chuẩn bị trận); chưa
+// chọn thì đội AFK ở ải xa nhất đã qua có rơi mảnh. Mỗi giờ tròn shardChance ra 1 mảnh, tướng bốc theo tỉ lệ rơi của ải
+// (bỏ tướng tặng). Đổi ải thì mảnh của các giờ tròn đã dồn tính theo ải cũ và nhận luôn, phần lẻ giữ lại.
 // Bi thụ động đến từ cây bi (Trees.cs).
 // Đồng hồ theo đoạn: mỗi lần tính cộng phần giờ mới từ afk.lastTick; phần nằm trong đoạn tăng tốc tính ×2;
 // giờ hiệu dụng chặn ở afkCapH tới khi nhận; giờ máy lùi thì bỏ qua đoạn đó.
@@ -6,6 +9,7 @@
 // mở xong (hoặc tới giờ) thì rương kế đếm tiếp. Thẻ Phiêu Lưu: khay 5 ô, rương mở trong 1 giờ.
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokiClash.Core
 {
@@ -18,6 +22,7 @@ namespace PokiClash.Core
     public sealed class AfkClaim
     {
         public double hours;
+        public int stage; // ải đội đã AFK (0: chưa qua ải nào)
         public List<ShardResult> shards = new List<ShardResult>();
     }
 
@@ -101,16 +106,73 @@ namespace PokiClash.Core
             return new AfkPending { hours = hours, full = hours >= cfg.afkCapH };
         }
 
-        // nhận mảnh (× mult): mỗi giờ tròn một lần thử
+        // ---------- ải AFK ----------
+
+        // tướng rơi mảnh khi AFK ở ải st: các dòng rơi của ải, bỏ tướng tặng (trùng tướng thì lấy dòng đầu)
+        public static List<StageDrop> Pool(StageDef st)
+        {
+            var outL = new List<StageDrop>();
+            if (st == null) return outL;
+            foreach (var dr in st.drops)
+                if (!dr.gift && dr.chance > 0 && !outL.Exists(x => x.hero == dr.hero)) outL.Add(dr);
+            return outL;
+        }
+
+        // ải đội đang AFK: ải đã chọn (còn hợp lệ), không thì ải xa nhất đã qua có rơi mảnh (đảo sau trước, ải sau trước);
+        // không ải nào rơi mảnh thì ải xa nhất đã qua; chưa qua ải nào thì null
+        public static StageDef Stage(SaveData s, GameData d)
+        {
+            var picked = d.Stage(s.afk.stage);
+            if (picked != null && Progress.StageCleared(s, picked)) return picked;
+            StageDef far = null;
+            foreach (var z in d.Zones.OrderByDescending(z => z.order))
+                foreach (var st in d.ZoneStages(z.id).Where(x => x.idx <= s.zones[(int)z.id]).OrderByDescending(x => x.idx))
+                {
+                    if (Pool(st).Count > 0) return st;
+                    far ??= st;
+                }
+            return far;
+        }
+
+        // ải st đang được AFK do người chơi chọn (không tính ải tự chọn)
+        public static bool Picked(SaveData s, StageDef st) => st != null && s.afk.stage == st.id && Progress.StageCleared(s, st);
+
+        // mỗi giờ tròn một lần thử ra 1 mảnh (× mult) của một tướng trong bể ải AFK, bốc theo tỉ lệ rơi
+        static void Roll(SaveData s, GameData d, AfkClaim r, int hours, int mult, Rng rng)
+        {
+            var pool = Pool(d.Stage(r.stage));
+            for (int h = 0; h < hours; h++)
+                if (pool.Count > 0 && rng.Chance(d.Cfg.afk.shardChance))
+                    r.shards.Add(Progress.AddShards(s, d, rng.Weighted(pool, x => x.chance).hero, 1 * mult, rng));
+        }
+
+        // nhận mảnh (× mult) của ải đang AFK
         public static AfkClaim Claim(SaveData s, GameData d, double now, int mult, Rng rng)
         {
             var p = Pending(s, d.Cfg, now);
-            var r = new AfkClaim { hours = p.hours };
-            var pool = Progress.AfkBossPool(s, d);
-            for (int h = 0; h < Math.Floor(p.hours); h++)
-                if (pool.Count > 0 && rng.Chance(d.Cfg.afk.shardChance)) r.shards.Add(Progress.AddShards(s, d, rng.Pick(pool), 1 * mult, rng));
+            var r = new AfkClaim { hours = p.hours, stage = Stage(s, d)?.id ?? 0 };
+            Roll(s, d, r, (int)Math.Floor(p.hours), mult, rng);
             s.afk.hours = 0;
             s.afkSince = (long)now;
+            return r;
+        }
+
+        // chọn ải AFK (phải đã qua): ải khác ải đang AFK thì mảnh của các giờ tròn đã dồn tính theo ải cũ, nhận luôn, giữ phần lẻ.
+        // Trả null nếu ải chưa qua.
+        public static AfkClaim SetStage(SaveData s, GameData d, int stageId, double now, Rng rng)
+        {
+            var st = d.Stage(stageId);
+            if (st == null || !Progress.StageCleared(s, st)) return null;
+            Tick(s, d.Cfg, now);
+            var r = new AfkClaim { stage = Stage(s, d)?.id ?? 0 };
+            if (r.stage != stageId)
+            {
+                int whole = (int)Math.Floor(s.afk.hours);
+                r.hours = whole;
+                Roll(s, d, r, whole, 1, rng);
+                s.afk.hours -= whole;
+            }
+            s.afk.stage = stageId;
             return r;
         }
 

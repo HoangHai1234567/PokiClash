@@ -295,7 +295,8 @@ namespace PokiClash.EditorTools
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                if (!sprite || path.StartsWith(BakedDir + "/") || path.StartsWith(AolaImport.ArtDir + "/")) continue;
+                // ảnh trong Resources (mặt tướng, nền màn VS: ArtGen/BattleIntro) nạp khi cần, không vào danh mục
+                if (!sprite || path.StartsWith(BakedDir + "/") || path.StartsWith(AolaImport.ArtDir + "/") || path.Contains("/Resources/")) continue;
                 var e = new ArtLibrary.Entry { name = Path.GetFileNameWithoutExtension(path), sprite = sprite };
                 if (path.Contains("/Fallback/Icons/")) lib.icons.Add(e);
                 else if (path.Contains("/Fallback/")) lib.fallback.Add(e);
