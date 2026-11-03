@@ -76,7 +76,7 @@ namespace PokiClash.Tests
                 var stage = Badges.Stage(d, Elem.Thuy, 1, i);
                 var team = Teams.Player(s, null, d);
                 team.ai = true;
-                var b = Battle.Create(d, team, Teams.Enemy(stage), Badges.Seed(d, Elem.Thuy, 1, i), 9, System.Math.Max(9, stage.enemies[0].level));
+                var b = Battle.Create(d, team, Teams.Enemy(stage, d), Badges.Seed(d, Elem.Thuy, 1, i), 9, System.Math.Max(9, stage.enemies[0].level));
                 BattleSim.Run(b);
                 Assert.AreEqual(J.Int(o, "winner"), b.winner, $"trận {i} bên thắng");
                 Assert.AreEqual(J.Int(o, "round"), b.round, $"trận {i} số hiệp");
@@ -88,7 +88,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Kim] = 4;
             var rng = new Rng(31);
             var steps = J.Arr(G, "steps");
@@ -136,7 +136,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             Assert.IsNull(Teams.MemberOf(s, "giot_suong", d).mods, "chưa có huy hiệu thì không có phần cộng");
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.badges[(int)Elem.Thuy].won = 3;
             // thua: không gọi Win, trận đang đánh vẫn là 4
             Assert.AreEqual((1, 4), Badges.Current(s, d.Cfg, Elem.Thuy).Value);

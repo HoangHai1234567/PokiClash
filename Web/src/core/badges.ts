@@ -1,16 +1,16 @@
-// Đền Huy Hiệu: mở đền khi thắng boss Đảo Thủy; dãy hệ X mở khi thắng mini boss (ải 4) Đảo X.
+// Đền Huy Hiệu: mở đền khi thắng boss Đảo Thủy; dãy hệ X mở khi thắng mini boss đầu tiên của Đảo X (ải 4; đảo 70 ải là ải 20).
 // Chuỗi trận sinh từ công thức (không viết tay 125 trận), thua thì đánh lại đúng trận đó, không mất tiến độ.
 import { BADGE } from './data/badges';
 import { HEROES } from './data/heroes';
-import { ZONE, type StageDef } from './data/stages';
+import { ZONE, zoneMiniAt, zoneSize, type StageDef } from './data/stages';
 import { openChest, type Reward } from './pachinko';
 import { badgesFresh, type SaveData } from './progression';
 import type { Rng } from './rng';
 import { RARITIES, type Elem } from './types';
 
 export const badgesOf = (s: SaveData) => (s.badges ??= badgesFresh());
-export const templeOpen = (s: SaveData) => s.zones.thuy >= 8;
-export const lineOpen = (s: SaveData, z: Elem) => templeOpen(s) && s.zones[z] >= 4;
+export const templeOpen = (s: SaveData) => s.zones.thuy >= zoneSize('thuy');
+export const lineOpen = (s: SaveData, z: Elem) => templeOpen(s) && s.zones[z] >= zoneMiniAt(z);
 export const badgeCount = (tier: number) => BADGE.counts[tier - 1];
 export const badgeTierName = (tier: number) => BADGE.tiers[tier - 1];
 

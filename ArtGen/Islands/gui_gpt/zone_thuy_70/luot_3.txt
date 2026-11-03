@@ -1,0 +1,35 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path; all are 1024 x 1536):
+image 1 = D:\PokiClash\ArtGen\Islands\zones\thuy70\doan_2.png: part 2 of this map, already drawn and approved: copy its style, colours, line weight and objects exactly, so all parts look like one picture
+image 2 = D:\PokiClash\ArtGen\Islands\gui_gpt\zone_thuy_70\bo_cuc_3.png: the layout sketch of the image you draw now: follow it exactly; its bottom 160 px strip is not a sketch but the top 160 px of image 1, already painted
+
+SAVE: save the finished image as a 1024 x 1536 PNG to
+D:\PokiClash\ArtGen\Islands\zones\thuy70\tai_ve\doan_3.png
+Create the folder if it is missing. If that file already exists, save it as doan_3_2.png, doan_3_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: part 3 of 3 (the top part) of one long vertical map of the Water island for a vertical mobile game. The player scrolls up the map from the beach at the bottom to the boss at the top; your image goes right above image 1.
+
+Draw a vertical 1024 x 1536 image in exactly the style of image 1.
+
+JOIN: the bottom 160 px of your image must show the same scene as the painted bottom strip of image 2, at the same place: the road at the same position and width, the same ground, trees and rocks. Then continue the map upward following the sketch, so image 1 and your image join into one picture without a seam. Where the painted strip ends (160 px above the bottom edge) there must be no visible line or step: both edges of the road, the hatching, the colours and any object crossing that height continue smoothly.
+
+LAYOUT: copy image 2 exactly: the same road path and width, the same round clearings, the same water shapes, every landmark on its numbered spot. The sketch is only a colour-coded plan: light green = ground, pale sand with an ink edge = road, blue = water, grey spot with a number = a landmark on land, blue spot with a number = a landmark in water, brown bar across the road = a bridge. Do not copy its flat colours, its numbers or its dashed outlines.
+
+THE ROAD (the most important thing): a wide pale-sand road with a wobbly ink edge and light pencil hatching, about 104 px wide as in the sketch, winding up in big S curves. Where the sketch has a round widening, the road opens into a round clearing of the same sand. Keep the road and the clearings completely EMPTY: no rocks, no grass, no props, no circles, no markers on them; the game places the stage markers and the creatures there. The road enters at the bottom and ends in the big round arena near the top.
+
+GROUND: no island outline on the sides: the land runs off the left and right edges. The ground is pale turquoise coloured-pencil hatching like the old Water island map, mixed with sandy patches and soft grass tufts. On both sides of the road, low raised terraces with short cliff faces (top in the ground colour, side in darker hatching) give the map depth. Clusters of palm trees, round tropical bushes, big ferns and grey rocks frame the road edges closely. Small props along the road edges: big shells, crates, fishing nets on poles, a beached rowboat, a wooden signpost without writing, little lanterns. Dense, but every tree, rock and prop is a chunky doodle with a clear silhouette; no tiny noisy details, no 3D, no realistic rendering.
+
+WATER: deeper blue than the ground, with a wobbly ink bank, a thin sandy rim and white ripple scribbles:
+- spot 8 is a round lake; spot 10 is a round rocky basin behind the top arena;
+- a strip of sea along the top edge beyond the rocky northern tip of the island.
+
+LANDMARKS: each stands on its numbered spot of image 2, right beside the road, about the size of that spot, and never covers the road or a clearing:
+- 9 an ancient mossy stone temple whose roof is a dome shaped like a turtle shell, with a stone turtle statue beside its steps;
+- 10 the boss lair: the road ends in the big round empty arena; right behind it, a round rocky basin of calm deep-blue water (the whirlpool and the trident are added later);
+
+Keep the road and the landmarks between x = 130 and x = 894 (narrow phones cut the outer strips); the outer strips have only ground, trees and rocks.
+Moving things are added later as animated sprites, so do NOT draw: foam splashes, breaking wave crests, a whirlpool, a trident.
+No text, no letters, no numbers, no signs with writing, no creatures, no people.
+
+Remember: save the image to D:\PokiClash\ArtGen\Islands\zones\thuy70\tai_ve\doan_3.png

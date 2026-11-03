@@ -1,5 +1,6 @@
 // Xuất dữ liệu game (tướng, thẻ, đảo, ải, cấu hình) ra JSON cho Unity: npx tsx scripts/export_data.ts [thư mục đích]
 // Mặc định ghi vào ../Assets/02 Data/Json. Một nguồn: sửa số ở web rồi chạy lại, Unity không sửa tay.
+import '../src/core/data/stages_v1'; // Unity chưa có hệ thống 70 ải: xuất bộ 8 ải cũ (phải đứng đầu)
 import { TREES } from '../src/core/data/trees';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';

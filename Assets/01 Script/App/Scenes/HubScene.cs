@@ -84,7 +84,7 @@ namespace PokiClash
                 item.gameObject.SetActive(z != null);
                 if (z == null) continue;
                 int prog = s.zones[(int)z.id];
-                item.Bind(z, prog, Progress.DifficultyOf(z, s.level, prog >= 8), z == recoZone);
+                item.Bind(z, prog, Progress.DifficultyOf(z, s.level, Progress.ZoneDone(s, z.id)), z == recoZone);
                 item.SetOnClick(() =>
                 {
                     App.Audio.Play("click");

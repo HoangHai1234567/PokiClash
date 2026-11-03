@@ -61,7 +61,7 @@ namespace PokiClash.Tests
             var g = Golden();
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, 0);
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.afk.lastTick = t0;
             var steps = J.Arr(g, "pass").Select(J.Obj).ToList();
             double t15 = t0 + 15 * 3600000.0;
@@ -169,7 +169,7 @@ namespace PokiClash.Tests
             foreach (var p in d.Cfg.ads.products)
             {
                 var s = SaveData.New(d, 0);
-                s.zones[(int)Elem.Thuy] = 8;
+                s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
                 int balls = s.balls, stones = s.potentialStones, chests = s.chests.Count, afkChests = s.afk.chests.Count;
                 Assert.IsTrue(AdGate.Buy(s, d.Cfg, p.id, 0), p.id);
                 Assert.AreEqual(balls, s.balls, p.id + ": không cho bi");

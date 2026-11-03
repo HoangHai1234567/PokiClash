@@ -1,4 +1,5 @@
-// Hộp rương mốc của đảo (prefab Assets/04 Prefabs/Dialogs/RuongDao): "Rương nửa đảo" / "Rương chinh phục", rương, số bi,
+// Hộp rương mốc của đảo (prefab Assets/04 Prefabs/Dialogs/RuongDao): "Rương nửa đảo" (đảo 8 ải) / "Rương ải N" (đảo 70 ải) /
+// "Rương chinh phục", rương, số bi,
 // hàng thẻ mini kèm tên tướng (Items/TheRuongDao), dòng báo khi chưa có thẻ, nút Nhận. Thưởng đã cộng vào bản lưu trước khi mở.
 using PokiClash.Core;
 using PokiClash.UI;
@@ -32,7 +33,8 @@ namespace PokiClash
 
         public void Show(Progress.ZoneChest r, SaveData s, GameData d)
         {
-            title.text = r.big ? "Rương chinh phục!" : "Rương nửa đảo";
+            var at = Islands.Chests(r.zone);
+            title.text = r.big ? "Rương chinh phục!" : at.Length > 2 ? $"Rương ải {at[r.n]}" : "Rương nửa đảo";
             chest.color = r.big ? Color.white : Theme.Hex("#d6dee8");
             balls.text = $"+{r.balls} bi";
             for (int i = cards.childCount - 1; i >= 0; i--) Destroy(cards.GetChild(i).gameObject);

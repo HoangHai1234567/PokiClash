@@ -18,6 +18,9 @@ namespace PokiClash.UI
         public Material sticker; // shader PokiClash/StickerOutline: viền sticker cho tướng aola (bản dev)
         public Material petPart; // shader PokiClash/PetPart của hình bộ phận tướng aola; có material thì shader vào bản build
 
+        [Header("Prefab tướng (menu PokiClash/Tướng/Nhập hình tướng aola)")]
+        public PokiClash.Game.HeroModels heroes;
+
         [Header("Nướng sẵn (menu PokiClash/Prefab/1. Nướng ảnh và âm thanh)")]
         public BakedArt baked;
 

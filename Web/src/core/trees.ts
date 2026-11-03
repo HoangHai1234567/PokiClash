@@ -3,7 +3,7 @@
 // Thẻ Phiêu Lưu: tốc độ và sức chứa ×PASS.treeMult (đoạn có thẻ tính riêng; hết thẻ thì cây đang chứa quá mức thường giữ nguyên, ngừng ra).
 import { PASS } from './data/ads';
 import { TREES } from './data/trees';
-import { totalCleared, type SaveData } from './progression';
+import { totalCleared, zoneDone, type SaveData } from './progression';
 
 const H = 3600000;
 
@@ -14,7 +14,7 @@ export interface TreeState {
 
 export function treesOpen(s: SaveData): number {
   if (totalCleared(s) === 0) return 0;
-  return 1 + TREES.unlockZones.filter((z) => s.zones[z] >= 8).length;
+  return 1 + TREES.unlockZones.filter((z) => zoneDone(s, z)).length;
 }
 
 export function treesOf(s: SaveData, now: number): TreeState {

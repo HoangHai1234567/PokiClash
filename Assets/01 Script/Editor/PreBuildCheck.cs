@@ -1,6 +1,8 @@
 // Kiểm tra trước build: bản phát hành không được chứa hình hay dữ liệu chuyển động của Baitian (aola).
 // Báo lỗi (dừng build) nếu Assets có ảnh/JSON nằm trong đường dẫn có "aola" hoặc ảnh pet*_parts, hoặc build bật POKICLASH_DEV
 // mà không phải Development Build. Code BanThu cũ (thư mục 01 Script/BanThu) chỉ cảnh báo vì chủ dự án giữ lại.
+// Ngoại lệ: hình tướng aola nhập thành prefab (Assets/03 Art/Heroes, Editor/AolaImport) được vào bản build khi HeroArtInBuild
+// bật (prototype, chủ dự án chốt 2026-11-02); tắt trước khi phát hành công khai thì build báo lỗi cho tới khi thay hết hình.
 // Công cụ dev chạy trong game (01 Script/App/Dev: bảng thử, chỉnh số, máy tự chơi, ghi trận) phải bọc kín
 // "#if UNITY_EDITOR || DEVELOPMENT_BUILD" để không vào bản phát hành.
 using System.Collections.Generic;
@@ -17,6 +19,9 @@ namespace PokiClash.EditorTools
     public sealed class PreBuildCheck : IPreprocessBuildWithReport
     {
         public int callbackOrder => 0;
+
+        // Prototype: hình tướng aola (hình của Baitian) vào mọi bản build. Đặt false trước khi phát hành công khai.
+        public static readonly bool HeroArtInBuild = true;
 
         static readonly Regex PetParts = new Regex(@"pet\d*_parts", RegexOptions.IgnoreCase);
         static readonly string[] MediaExt = { ".png", ".jpg", ".jpeg", ".json", ".swf", ".atlas" };
@@ -88,7 +93,12 @@ namespace PokiClash.EditorTools
                 if (rel.EndsWith(".meta")) continue;
                 var ext = Path.GetExtension(rel).ToLowerInvariant();
                 var lower = rel.ToLowerInvariant();
-                if (MediaExt.Contains(ext) && (lower.Contains("/aola") || lower.Contains("aola/") || PetParts.IsMatch(lower)))
+                if (rel.StartsWith(AolaImport.ArtDir + "/"))
+                {
+                    if (!HeroArtInBuild && (ext == ".png" || ext == ".bytes"))
+                        errors.Add($"Hình tướng aola trong Assets (PreBuildCheck.HeroArtInBuild tắt): {rel}");
+                }
+                else if (MediaExt.Contains(ext) && (lower.Contains("/aola") || lower.Contains("aola/") || PetParts.IsMatch(lower)))
                     errors.Add($"Có tệp aola trong Assets: {rel}");
                 else if (ext == ".cs" && !lower.Contains("/editor/"))
                 {

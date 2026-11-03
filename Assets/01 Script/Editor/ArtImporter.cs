@@ -17,6 +17,8 @@ namespace PokiClash.EditorTools
             if (!assetPath.StartsWith(ArtImporter.ArtDir + "/")) return;
             // ảnh nướng sẵn (sprite giấy/mực mã hoá, mặt máy bi...) tự đặt cách nhập lúc nướng: không ép cỡ, không nén
             if (assetPath.StartsWith(ArtImporter.BakedDir + "/")) return;
+            // hình tướng aola: AolaImportPostprocessor đặt cách nhập (atlas có mipmap, chân dung có gốc ở chân)
+            if (assetPath.StartsWith(AolaImport.ArtDir + "/")) return;
             var ti = (TextureImporter)assetImporter;
             ti.textureType = TextureImporterType.Sprite;
             ti.spriteImportMode = SpriteImportMode.Single;
@@ -28,6 +30,9 @@ namespace PokiClash.EditorTools
             bool big = assetPath.Contains("/Fallback/") && !assetPath.Contains("/Icons/") || assetPath.Contains("/Islands/") || assetPath.Contains("/BattleBG/");
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
+            // bản đồ đảo hệ: bản đồ dài đảo 70 ải cao 4288 (ArtGen/Islands/build_zone70.py), nhập ở 4096 (gần đủ nét, máy nào cũng
+            // đọc được); ảnh đảo 8 ải dưới 2048 không đổi
+            if (assetPath.Contains("/Islands/zone_")) ti.maxTextureSize = 4096;
             var android = ti.GetPlatformTextureSettings("Android");
             android.overridden = true;
             android.maxTextureSize = ti.maxTextureSize;
@@ -149,7 +154,7 @@ namespace PokiClash.EditorTools
                 }
             AssetDatabase.Refresh();
             ApplySlices();
-            SwapFallbackInPrefabs(BuildLibrary());
+            BuildLibrary();
             Debug.Log($"[Ảnh] Đã nhập {n} ảnh từ ArtGen/*/inbox.");
         }
 
@@ -272,7 +277,8 @@ namespace PokiClash.EditorTools
             }
         }
 
-        // Danh mục ảnh theo tên file: ảnh gen (mọi thư mục trừ Fallback), ảnh thay thế, icon thay thế.
+        // Danh mục ảnh theo tên file: ảnh gen (mọi thư mục trừ Fallback), ảnh thay thế, icon thay thế. Ảnh thay thế đã có ảnh gen
+        // cùng tên (icon: "icon_<tên>") thì đổi sang ảnh gen trong mọi prefab rồi bỏ khỏi danh mục, để bản build không mang cả hai.
         [MenuItem("PokiClash/Dựng lại danh mục ảnh", priority = 12)]
         public static ArtLibrary BuildLibrary()
         {
@@ -289,23 +295,24 @@ namespace PokiClash.EditorTools
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 var sprite = AssetDatabase.LoadAssetAtPath<Sprite>(path);
-                if (!sprite || path.StartsWith(BakedDir + "/")) continue;
+                if (!sprite || path.StartsWith(BakedDir + "/") || path.StartsWith(AolaImport.ArtDir + "/")) continue;
                 var e = new ArtLibrary.Entry { name = Path.GetFileNameWithoutExtension(path), sprite = sprite };
                 if (path.Contains("/Fallback/Icons/")) lib.icons.Add(e);
                 else if (path.Contains("/Fallback/")) lib.fallback.Add(e);
                 else if (!path.Contains("/Fonts/")) lib.art.Add(e);
             }
+            SwapFallbackInPrefabs(lib);
+            var gen = new HashSet<string>(lib.art.Select(e => e.name));
+            int dropped = lib.fallback.RemoveAll(e => gen.Contains(e.name)) + lib.icons.RemoveAll(e => gen.Contains("icon_" + e.name));
             lib.Invalidate();
             EditorUtility.SetDirty(lib);
             AssetDatabase.SaveAssets();
-            Debug.Log($"[Ảnh] Danh mục: {lib.art.Count} ảnh gen, {lib.fallback.Count} ảnh thay thế, {lib.icons.Count} icon thay thế.");
+            Debug.Log($"[Ảnh] Danh mục: {lib.art.Count} ảnh gen, {lib.fallback.Count} ảnh thay thế, {lib.icons.Count} icon thay thế " +
+                      $"(bỏ {dropped} ảnh thay thế đã có ảnh gen).");
             return lib;
         }
 
         public const string PrefabDir = "Assets/04 Prefabs";
-
-        [MenuItem("PokiClash/Đổi ảnh thay thế trong prefab", priority = 13)]
-        static void SwapMenu() => SwapFallbackInPrefabs(AssetDatabase.LoadAssetAtPath<ArtLibrary>(LibraryPath));
 
         // Prefab mang sẵn sprite lúc nướng (thường là ảnh thay thế). Có ảnh gen cùng tên (icon: "icon_<tên>") thì thay trong mọi
         // prefab; khung giữ tỉ lệ ảnh (AspectRatioFitter cạnh Image) đổi theo ảnh mới. Phần thuộc prefab lồng mà chưa bị ghi đè

@@ -2,7 +2,7 @@
 import { heroStats } from '../../core/battle';
 import { CARD } from '../../core/data/cards';
 import { HERO, HEROES } from '../../core/data/heroes';
-import { STAGES } from '../../core/data/stages';
+import { STAGES, ZONES } from '../../core/data/stages';
 import { ELEM_COLOR, RARITY_COLOR, RARITY_NAME } from '../../core/elements';
 import { canEvolve, canUpCard, cardReq, cardSum, CARD_MAX, evolve, formOf, MAX_STAR, SLOTS, starNeed, teamSlots, upCard, type CardSlot } from '../../core/progression';
 import { app, type Screen } from '../app';
@@ -137,7 +137,18 @@ export function openHero(id: string, onChange?: () => void) {
       ),
     );
     if (!p.owned) {
-      const from = STAGES.filter((st) => st.drops.some((d) => d.hero === id)).map((st) => `ải ${st.id}`);
+      // nguồn mảnh theo đảo, ải liền nhau gộp thành dải (đảo 70 ải có nhiều ải rơi cùng một tướng)
+      const from = ZONES.flatMap((z) => {
+        const ids = STAGES.filter((st) => st.zone === z.id && st.drops.some((d) => d.hero === id)).map((st) => st.idx);
+        const parts: string[] = [];
+        for (let i = 0; i < ids.length; i++) {
+          let j = i;
+          while (j + 1 < ids.length && ids[j + 1] === ids[j] + 1) j++;
+          parts.push(j > i ? `${ids[i]}–${ids[j]}` : `${ids[i]}`);
+          i = j;
+        }
+        return parts.length ? [`${z.name} ải ${parts.join(', ')}`] : [];
+      });
       body.append(
         h(
           'div',

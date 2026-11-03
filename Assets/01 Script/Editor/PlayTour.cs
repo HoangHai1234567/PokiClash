@@ -106,11 +106,11 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunBattle(1, false)));
         }
 
-        [MenuItem("PokiClash/Thử/Đánh thử ải 8 boss, đội 3 tướng (đang Play)", priority = 104)]
+        [MenuItem("PokiClash/Thử/Đánh thử boss Đảo Thủy (ải 70), đội 3 tướng (đang Play)", priority = 104)]
         static void TryBattle8()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
-            App.I.StartCoroutine(WithSaveBackup(RunBattle(8, true)));
+            App.I.StartCoroutine(WithSaveBackup(RunBattle(Islands.Size(Elem.Thuy), true)));
         }
 
         [MenuItem("PokiClash/Thử/Đánh thử ải 7, đội 3 tướng (đang Play)", priority = 103)]
@@ -120,14 +120,14 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunBattle(7, true)));
         }
 
-        [MenuItem("PokiClash/Thử/Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải 8 (đang Play)", priority = 105)]
+        [MenuItem("PokiClash/Thử/Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải cuối (đang Play)", priority = 105)]
         static void TryBossEvo()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunBossEvo()));
         }
 
-        // Ải 8 Đảo Thủy (boss một mình, dòng 3 dạng): chụp đảo (tướng trên nút ải), hộp chuẩn bị (các dạng), rồi mỗi lần boss lên
+        // Ải cuối Đảo Thủy (boss một mình, dòng 3 dạng): chụp đảo (tướng trên nút ải), hộp chuẩn bị (các dạng), rồi mỗi lần boss lên
         // dạng thì chụp liền lúc tên dạng mới hiện ra (logic tính trước cả lượt, nên canh chữ trên màn chứ không canh f.form)
         static IEnumerator RunBossEvo()
         {
@@ -136,12 +136,12 @@ namespace PokiClash.EditorTools
             foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
             sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
             sv.level = 10;
-            sv.zones[(int)Elem.Thuy] = 7;
+            sv.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
             App.Save.Save();
             yield return Go(SceneIds.Zone, Elem.Thuy);
             yield return new WaitForSecondsRealtime(0.5f);
-            yield return Shot("dao_thuy_7");
-            StagePrep.Open(App.Data.Stages.First(st => st.zone == Elem.Thuy && st.idx == 8).id);
+            yield return Shot("dao_thuy_truoc_boss");
+            StagePrep.Open(App.Data.Stages.First(st => st.zone == Elem.Thuy && st.idx == Islands.Size(Elem.Thuy)).id);
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("chuan_bi_boss");
             App.Modals.CloseAll();
@@ -284,7 +284,7 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Thử] Giọt Sương: thẻ {p.skill.lv}/{p.ult.lv}/{p.passive.lv}, sao {p.star}, cấp người chơi {s.level}");
             // chỉ số trong trận phải khớp màn Tướng
             var st = HeroStats.Compute(d.Cfg, d.Hero("giot_suong"), s.level, p.star);
-            var b = Battle.Create(d, Teams.Player(s), Teams.Enemy(d.Stage(1)), 1);
+            var b = Battle.Create(d, Teams.Player(s), Teams.Enemy(d.Stage(1), d), 1);
             var f = b.ActiveOf(0);
             bool same = f.maxHp == st.hp && f.atk == st.atk && f.def == st.def && f.spd == st.spd;
             if (same) Debug.Log($"[Thử] Chỉ số trong trận khớp màn Tướng: máu {st.hp}, công {st.atk}, thủ {st.def}, tốc {st.spd}");
@@ -418,8 +418,8 @@ namespace PokiClash.EditorTools
             const double H = 3600000;
             var s = App.Save.Data;
             s.zones = new int[5];
-            s.zones[(int)Elem.Thuy] = 8;
-            s.zones[(int)Elem.Hoa] = 2; // 10 ải, qua boss Thủy: 2 cây bi
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
+            s.zones[(int)Elem.Hoa] = 2; // xong Thủy, 2 ải Hỏa: 2 cây bi
             double now = PokiClash.Game.SaveService.Now();
             s.afk = new AfkState { lastTick = now };
             s.afkSince = (long)now;
@@ -585,7 +585,7 @@ namespace PokiClash.EditorTools
             var d = App.Data;
             s.intro = true;
             s.zones = new int[5];
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Hoa] = 4;
             foreach (var bp in s.badges)
             {
@@ -666,7 +666,7 @@ namespace PokiClash.EditorTools
             var d = App.Data;
             s.intro = true;
             s.zones = new int[5];
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Hoa] = 4;
             foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa", "ca_ngua" }) s.Hero(id).owned = true;
             s.level = 9;
@@ -839,7 +839,7 @@ namespace PokiClash.EditorTools
             double Now() => PokiClash.Game.SaveService.Now();
             s.intro = true;
             s.zones = new int[5];
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.afk = new AfkState { lastTick = Now() };
             s.afkSince = (long)Now();
             s.ads = null;
@@ -943,15 +943,67 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunMapShots()));
         }
 
+        [MenuItem("PokiClash/Thử/Đảo 70 ải: đường mòn, bảng chặng, hộp chuẩn bị, trận có lính (đang Play)", priority = 122)]
+        static void TryIslandLong()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunIslandLong()));
+        }
+
+        // Đảo Thủy 70 ải: màn đảo ở 0, 23, 69 ải đã qua; bảng chặng của chấm ải 24; hộp chuẩn bị các kiểu ải (bóng tướng khởi đầu,
+        // bầy lính, nhóm 3 con, cửa ải, mini boss, boss); trận ải 3 (hai lính)
+        static IEnumerator RunIslandLong()
+        {
+            shot = 300;
+            var d = App.Data;
+            var s = App.Save.Data;
+            s.intro = true;
+            s.level = 4;
+            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            foreach (int prog in new[] { 0, 23, 69 })
+            {
+                s.zones[(int)Elem.Thuy] = prog;
+                s.zoneChests[(int)Elem.Thuy] = prog >= 10 ? 1 : 0;
+                App.Save.Save();
+                yield return Go(SceneIds.Zone, Elem.Thuy);
+                yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot("dao70_" + prog);
+                if (prog != 23) continue;
+                ClickNamed("cham_24");
+                yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot("bang_chang_20");
+                ClickNamed("ai_24");
+                yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot("chuan_bi_24");
+                App.Modals.CloseAll();
+            }
+            int Id(int idx) => d.ZoneStages(Elem.Thuy).First(st => st.idx == idx).id;
+            var group3 = d.ZoneStages(Elem.Thuy).First(st => st.enemies.Count == 3);
+            var gate = d.ZoneStages(Elem.Thuy).First(st => st.tag == StageTag.Gate);
+            foreach (var (idx, name) in new[] { (1, "bong"), (2, "bay_linh"), (group3.idx, "nhom_3"), (gate.idx, "cua_ai"), (20, "mini_boss"), (70, "boss") })
+            {
+                StagePrep.Open(Id(idx));
+                yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot($"chuan_bi_{idx}_{name}");
+                App.Modals.CloseAll();
+                yield return new WaitForSecondsRealtime(0.2f);
+            }
+            yield return RunBattle(Id(3), false);
+            App.Modals.CloseAll();
+            yield return Go(SceneIds.Hub);
+            yield return Shot("sanh_70");
+            Debug.Log($"[Thử] Xong đảo 70 ải: ảnh trong {ShotDir}");
+        }
+
         static IEnumerator RunMapShots()
         {
             shot = 100;
             var s = App.Save.Data;
             s.intro = true;
             s.level = 5;
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Hoa] = 5;
-            s.zoneChests[(int)Elem.Thuy] = 2;
+            s.zoneChests[(int)Elem.Thuy] = Islands.Chests(Elem.Thuy).Length;
             Progress.UnlockHero(s, "vo_su");
             Progress.UnlockHero(s, "nu_hoa");
             App.Save.Save();
@@ -1001,7 +1053,9 @@ namespace PokiClash.EditorTools
             yield return Shot("dao_thuy_dau");
             int wins = 0, losses = 0, guard = 0;
             var log = new System.Text.StringBuilder();
-            while (App.Save.Data.zones[(int)Elem.Thuy] < 8 && guard++ < 30)
+            // đảo 70 ải: đánh 12 ải đầu (bóng tướng khởi đầu, tặng Võ Sư ở ải 3, Tiểu Y ải 5, Cánh Cụt ải 10, rương ải 10)
+            const int Upto = 12;
+            while (App.Save.Data.zones[(int)Elem.Thuy] < Upto && guard++ < 40)
             {
                 var s = App.Save.Data;
                 var next = Progress.NextStage(s, d, Elem.Thuy);
@@ -1021,7 +1075,7 @@ namespace PokiClash.EditorTools
                     ClickButton("Xong");
                     yield return new WaitForSecondsRealtime(0.3f);
                 }
-                if (next.idx == 1 || next.idx == 8) yield return Shot("chuan_bi_ai_" + next.idx);
+                if (next.idx == 1 || next.idx == 3 || next.idx == 10) yield return Shot("chuan_bi_ai_" + next.idx);
                 ClickButton("Xuất trận!");
                 yield return WaitScene(SceneIds.Battle);
                 var ctl = Object.FindAnyObjectByType<BattleController>();
@@ -1034,7 +1088,7 @@ namespace PokiClash.EditorTools
                 if (won) wins++;
                 else losses++;
                 log.Append($"ải {next.idx} cấp {App.Save.Data.level}: {(won ? "thắng" : "thua")} ({ctl.Battle.round} hiệp); ");
-                if (next.idx == 8 && won) yield return Shot("ket_qua_boss");
+                if (next.idx == 10 && won) yield return Shot("ket_qua_ai_10");
                 App.Modals.CloseAll();
                 // thả hết bi ở máy bi thật (×1, "Thả liền"), mở rương, đóng hộp lên cấp
                 yield return Go(SceneIds.Machine);
@@ -1048,30 +1102,23 @@ namespace PokiClash.EditorTools
                     yield return SettleMachine(mm, "thuy", 0, false);
                 }
                 yield return Go(SceneIds.Zone, Elem.Thuy);
-                if (App.Save.Data.zones[(int)Elem.Thuy] == 4 && App.Save.Data.zoneChests[(int)Elem.Thuy] == 0)
+                if (Progress.ZoneChestReady(App.Save.Data, Elem.Thuy) == 0)
                 {
                     yield return Shot("dao_thuy_ruong");
                     ClickNamed("ruong_0");
                     yield return new WaitForSecondsRealtime(0.6f);
-                    yield return Shot("ruong_nua_dao");
+                    yield return Shot("ruong_ai_10");
                     App.Modals.CloseAll();
                 }
             }
-            if (App.Save.Data.zoneChests[(int)Elem.Thuy] == 1)
-            {
-                ClickNamed("ruong_1");
-                yield return new WaitForSecondsRealtime(0.6f);
-                yield return Shot("ruong_chinh_phuc");
-                App.Modals.CloseAll();
-            }
             yield return new WaitForSecondsRealtime(0.4f);
-            yield return Shot("dao_thuy_xong");
+            yield return Shot("dao_thuy_" + Upto);
             yield return Go(SceneIds.Hub);
-            yield return Shot("sanh_sau_thuy");
+            yield return Shot("sanh_sau_" + Upto + "_ai");
             var sv = App.Save.Data;
-            Debug.Log($"[Thử] Đảo Thủy: {wins} thắng, {losses} thua; cấp {sv.level}; đã thả {sv.ballsSpent} bi, còn {sv.balls}; tướng có: " +
+            Debug.Log($"[Thử] Đảo Thủy {Upto} ải đầu: {wins} thắng, {losses} thua; cấp {sv.level}; đã thả {sv.ballsSpent} bi, còn {sv.balls}; tướng có: " +
                       string.Join(", ", d.Heroes.Where(h => sv.Hero(h.id).owned).Select(h => $"{h.name} ({sv.Hero(h.id).shards} mảnh)")) +
-                      $"; mảnh Mập Răng Cưa {sv.Hero("map_rang").shards}; rương {sv.zoneChests[(int)Elem.Thuy]}/2; đảo gợi ý {Progress.RecommendedZone(sv, d).name}\n{log}");
+                      $"; mảnh Mập Răng Cưa {sv.Hero("map_rang").shards}; rương {sv.zoneChests[(int)Elem.Thuy]}/{Islands.Chests(Elem.Thuy).Length}; đảo gợi ý {Progress.RecommendedZone(sv, d).name}\n{log}");
         }
 
         static IEnumerator Until(System.Func<bool> cond, float timeout)

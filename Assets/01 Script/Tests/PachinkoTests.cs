@@ -66,7 +66,7 @@ namespace PokiClash.Tests
             var c = J.Obj(G, "chest");
             var s = SaveData.New(d, 0);
             foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua" }) s.Hero(id).owned = true;
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             var r = new Rng(11);
             int i = 0;
             foreach (var x in J.Arr(c, "opens"))

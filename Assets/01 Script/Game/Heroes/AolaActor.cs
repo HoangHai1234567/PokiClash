@@ -1,13 +1,14 @@
-// Chạy animation tướng xuất từ dự án aola (reskin/<tên>/export/anim.json): hình gốc của Baitian. Editor đọc thẳng từ ổ đĩa
-// lúc chạy, không chép vào Assets (PreBuildCheck chặn). Bản build mang theo bản chép lúc build nếu bước build AolaDevBuild bật
-// (prototype: mọi bản build), đọc qua AolaDevPack; bản build không mang thì ô tướng để trống.
-// Mỗi hình là một quad, đỉnh tính từ ma trận Flash của khung (có cả nghiêng), nên một Transform thường không đủ.
-// Mọi thứ sinh lúc chạy của hình aola (GameObject, Mesh, Texture2D, Sprite, Material) gói trong file này (ngoại lệ của
-// test chặn prefab).
+// Diễn viên tướng aola: component gốc của prefab tướng (Assets/04 Prefabs/Heroes/<id>.prefab, mỗi prefab một dòng tiến hóa,
+// forms theo thứ tự dạng). Hình, chân dung, animation là asset AolaAnim trong Assets/03 Art/Heroes/Resources/<dạng>/, nhập từ
+// AolaRipper bằng menu PokiClash/Tướng/Nhập hình tướng aola (Editor/AolaImport); atlas nạp khi nạp dạng. Hình gốc của
+// Baitian, chỉ dùng trong bản thử.
+// Mỗi hình là một quad, đỉnh tính từ ma trận Flash của khung (có cả nghiêng), nên một Transform thường không đủ. Mọi hình của
+// một dạng nằm chung một atlas. Quad, Mesh, Material sinh lúc chạy gói trong file này (ngoại lệ của test chặn prefab).
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using PokiClash.Core;
 using PokiClash.UI;
 using UnityEngine;
@@ -26,15 +27,27 @@ namespace PokiClash.Game
             public Vector2 Anchor;                          // tâm bóng dưới chân ở khung đầu, điểm khớp giữa các clip
         }
 
+        // animation đã đọc của một dạng, dùng chung cho mọi diễn viên cùng dạng
+        sealed class Data
+        {
+            public string source;
+            public float fps = 25, top; // top: mép trên khung đầu dáng đứng (điểm clip)
+            public readonly Dictionary<string, Clip> clips = new();
+        }
+
         public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Skill = "1_6";
 
-        static readonly Dictionary<string, Texture2D> TexCache = new();
-        static readonly Dictionary<string, Sprite> PortraitCache = new();
+        static readonly Dictionary<AolaAnim, Data> Cache = new();
+        static readonly Dictionary<string, Clip> NoClips = new();
+        static readonly Vector2[] Quad = new Vector2[4];
         static Material material, additive;
 
-        readonly Dictionary<string, Clip> clips = new();
-        readonly List<Texture2D> textures = new();
-        readonly List<(MeshRenderer r, Mesh m, Vector3[] v, Color[] c)> pool = new();
+        [SerializeField] AolaAnim[] forms = new AolaAnim[0]; // các dạng theo thứ tự tiến hóa (HeroDef.forms)
+
+        AolaAnim anim;
+        Texture2D atlas;
+        Dictionary<string, Clip> clips = NoClips;
+        readonly List<(MeshRenderer r, Mesh m, Vector3[] v, Vector2[] u, Color[] c)> pool = new();
         MaterialPropertyBlock block;
         float fps = 25, unit = 0.01f, time;
         int shadowSprite = -1;
@@ -43,133 +56,61 @@ namespace PokiClash.Game
         string current = Idle;
         Transform placeholder;
 
+        public AolaAnim[] Forms => forms;
         public bool HasAnim => clips.Count > 0;
         public float Duration(string clip) => clips.TryGetValue(clip, out var c) ? c.Frames.Count / fps : 0.3f;
 
-        // Thư mục reskin: biến môi trường AOLA_RESKIN, hoặc (Editor) EditorPrefs "PokiClash.AolaReskin" (menu PokiClash/Đặt
-        // thư mục aola); EditorPrefs trống thì tự tìm trên các ổ đĩa một lần (FindReskin) rồi ghi vào EditorPrefs.
-        public const string PrefKey = "PokiClash.AolaReskin";
-#if UNITY_EDITOR
-        static string foundDir;
-        static bool searched;
+        // Dùng khi nhập (Editor).
+        public void Setup(AolaAnim[] heroForms) => forms = heroForms;
 
-        public static void ForgetDir()
+        // Prefab tướng có dạng tên form (HeroForm.aola), tra trong UiAssets.heroes. Chưa nhập: false.
+        public static bool Find(string form, out AolaActor prefab, out int formIndex)
         {
-            searched = false;
-            foundDir = null;
-        }
-#endif
-
-        // Chỉ lúc Play: prefab và test EditMode (Editor, không Play) không được gắn sprite đọc từ đĩa; lúc đó ô tướng để trống.
-        public static string ReskinDir => Application.isPlaying ? FindDir() : null;
-
-        // Thư mục reskin bất kể đang Play hay không (menu PokiClash/Tự tìm thư mục aola).
-        public static string FindDir()
-        {
-#if UNITY_EDITOR || POKICLASH_DEV
-            var env = Environment.GetEnvironmentVariable("AOLA_RESKIN");
-            if (!string.IsNullOrEmpty(env)) return env;
-#endif
-#if UNITY_EDITOR
-            if (searched) return foundDir;
-            searched = true;
-            var pref = UnityEditor.EditorPrefs.GetString(PrefKey, "");
-            foundDir = !string.IsNullOrEmpty(pref) && Directory.Exists(pref) ? pref : FindReskin();
-            if (foundDir != null) UnityEditor.EditorPrefs.SetString(PrefKey, foundDir);
-            return foundDir;
-#else
-            return AolaDevPack.Root;
-#endif
+            prefab = null;
+            formIndex = -1;
+            var lib = Theme.Assets ? Theme.Assets.heroes : null;
+            return lib && lib.Find(form, out prefab, out formIndex);
         }
 
-#if UNITY_EDITOR
-        // Thư mục reskin của AolaRipper: dưới một thư mục tên bắt đầu bằng "Aola" (không phân biệt hoa thường) nằm cạnh thư mục
-        // project hoặc ở gốc ổ đĩa, sâu tối đa 4 cấp, có thư mục con chứa export/anim.json.
-        public static string FindReskin()
-        {
-            var parent = Path.GetDirectoryName(Path.GetDirectoryName(Application.dataPath));
-            if (parent != null)
-            {
-                string[] near;
-                try { near = Directory.GetDirectories(parent, "Aola*"); }
-                catch (Exception) { near = new string[0]; }
-                foreach (var top in near)
-                {
-                    var hit = SearchReskin(top, 4);
-                    if (hit != null) return hit.Replace('\\', '/');
-                }
-            }
-            foreach (var drive in DriveInfo.GetDrives())
-            {
-                if (drive.DriveType != DriveType.Fixed || !drive.IsReady) continue;
-                string[] tops;
-                try { tops = Directory.GetDirectories(drive.RootDirectory.FullName, "Aola*"); }
-                catch (Exception) { continue; }
-                foreach (var top in tops)
-                {
-                    var hit = SearchReskin(top, 4);
-                    if (hit != null) return hit.Replace('\\', '/');
-                }
-            }
-            return null;
-        }
+        // Chân dung tĩnh của dạng (tools/portrait_png.py của AolaRipper): khung 4:5 như HeroArt, chân ở giữa và cách đáy
+        // HeroArt.FootY. Chưa nhập: null.
+        public static Sprite Portrait(string form) => Find(form, out var p, out int i) && p.forms[i] ? p.forms[i].LoadPortrait() : null;
 
-        static string SearchReskin(string dir, int depth)
-        {
-            try
-            {
-                var r = Path.Combine(dir, "reskin");
-                if (Directory.Exists(r))
-                    foreach (var sub in Directory.GetDirectories(r))
-                        if (File.Exists(Path.Combine(sub, "export", "anim.json"))) return r;
-                if (depth <= 0) return null;
-                foreach (var sub in Directory.GetDirectories(dir))
-                {
-                    var hit = SearchReskin(sub, depth - 1);
-                    if (hit != null) return hit;
-                }
-            }
-            catch (Exception) { }
-            return null;
-        }
-#endif
+        // Nạp dạng thứ i của prefab. height = chiều cao dáng đứng (đơn vị thế giới); flip = lật ngang
+        public bool LoadForm(int i, float height, bool flipX, int sorting) =>
+            i >= 0 && i < forms.Length && Load(forms[i], height, flipX, sorting);
 
-        // Chân dung tĩnh (reskin/<tên>/export/portrait.png, tools/portrait_png.py của AolaRipper): khung 4:5 như HeroArt,
-        // chân ở giữa và cách đáy HeroArt.FootY. Bản build không mang hình tướng hoặc chưa xuất: null.
-        public static Sprite Portrait(string aolaName)
-        {
-            if (string.IsNullOrEmpty(aolaName)) return null;
-            var root = ReskinDir;
-            if (root == null) return null;
-            if (PortraitCache.TryGetValue(aolaName, out var s) && s) return s;
-            var t = LoadTexture(Path.GetFullPath(Path.Combine(root, aolaName, "export", "portrait.png")));
-            s = t ? Sprite.Create(t, new Rect(0, 0, t.width, t.height), new Vector2(0.5f, HeroArt.FootY), 100) : null;
-            if (s) s.name = "aola_" + aolaName;
-            PortraitCache[aolaName] = s;
-            return s;
-        }
-
-        // Nạp tướng theo tên thư mục aola (HeroDef.aola). Không có hình (bản build không mang, chưa xuất): false.
-        public bool LoadHero(string aolaName, float height, bool flipX, int sorting)
-        {
-            var root = ReskinDir;
-            return root != null && !string.IsNullOrEmpty(aolaName) && Load(Path.Combine(root, aolaName), height, flipX, sorting);
-        }
-
-        // dir = reskin/<tên>; height = chiều cao dáng đứng (đơn vị thế giới); flip = lật ngang
-        public bool Load(string dir, float height, bool flipX, int sorting)
+        public bool Load(AolaAnim a, float height, bool flipX, int sorting)
         {
             flip = flipX;
             sortBase = sorting;
-            string path = Path.Combine(dir, "export", "anim.json");
-            AolaDevPack.Ensure(path);
-            if (!File.Exists(path)) return false;
+            var tex = a ? a.LoadAtlas() : null;
+            var d = tex ? Parse(a) : null;
+            if (d == null) return false;
+            anim = a;
+            atlas = tex;
+            clips = d.clips;
+            fps = d.fps;
+            shadowSprite = a.shadow;
+            motion.Clear();
+            unit = height / Mathf.Max(1f, clips[Idle].Anchor.y - d.top);
+            loadedHeight = height;
+            block = new MaterialPropertyBlock();
+            Play(Idle, true);
+            return true;
+        }
+
+        // anim.json (gzip) → các clip; mọi clip khớp nhau ở tâm bóng dưới chân (AolaAnim.shadow, tìm lúc nhập)
+        static Data Parse(AolaAnim a)
+        {
+            if (Cache.TryGetValue(a, out var d) && d.source == a.source) return d;
             try
             {
-                var root = (Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(path));
-                fps = Convert.ToSingle(root["fps"]);
-                foreach (var sp in (List<object>)root["sprites"])
-                    textures.Add(LoadTexture(Path.GetFullPath(Path.Combine(dir, (string)sp))));
+                string text;
+                using (var z = new GZipStream(new MemoryStream(a.anim.bytes), CompressionMode.Decompress))
+                using (var sr = new StreamReader(z)) text = sr.ReadToEnd();
+                var root = (Dictionary<string, object>)MiniJson.Parse(text);
+                d = new Data { source = a.source, fps = Convert.ToSingle(root["fps"]) };
                 foreach (var kv in (Dictionary<string, object>)root["clips"])
                 {
                     var clip = new Clip();
@@ -197,102 +138,57 @@ namespace PokiClash.Game
                         }
                         clip.Frames.Add(pics);
                     }
-                    clips[kv.Key] = clip;
+                    d.clips[kv.Key] = clip;
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Aola] Không đọc được {path}: {e.Message}");
-                clips.Clear();
-                return false;
+                Debug.LogWarning($"[Aola] Không đọc được animation {a.name}: {e.Message}");
+                return null;
             }
-            if (!clips.ContainsKey(Idle)) { clips.Clear(); return false; }
-
-            // bóng dưới chân (thường là hình vẽ trước tiên của khung đầu dáng đứng); mọi clip khớp nhau ở tâm bóng
-            int shadow = FindShadow();
-            shadowSprite = shadow;
-            foreach (var clip in clips.Values) clip.Anchor = AnchorOf(clip, shadow);
-            float top = float.MaxValue;
-            foreach (var p in clips[Idle].Frames[0])
-                foreach (var q in Corners(p)) top = Mathf.Min(top, q.y);
-            unit = height / Mathf.Max(1f, clips[Idle].Anchor.y - top);
-            loadedHeight = height;
-
-            block = new MaterialPropertyBlock();
-            Play(Idle, true);
-            return true;
+            if (!d.clips.TryGetValue(Idle, out var idle) || idle.Frames.Count == 0) return null;
+            foreach (var clip in d.clips.Values) clip.Anchor = AnchorOf(a, clip);
+            d.top = float.MaxValue;
+            foreach (var p in idle.Frames[0])
+                if (Corners(a, p))
+                    foreach (var q in Quad) d.top = Mathf.Min(d.top, q.y);
+            Cache[a] = d;
+            return d;
         }
 
-        // Bóng: hình xám không màu, nửa trong suốt, bè ngang, trong 3 hình đầu của khung đầu dáng đứng (có con vẽ quầng
-        // trước bóng, như 2955). Bóng trong 79 dạng đã xuất: độ bão hòa 0, alpha 75–130, rộng/cao từ 1.75 (677); hình xám khác
-        // đều đục (alpha ≥ 240). Không có thì -1.
-        int FindShadow()
+        static Vector2 AnchorOf(AolaAnim a, Clip clip)
         {
-            var frame = clips[Idle].Frames[0];
-            for (int i = 0; i < Mathf.Min(3, frame.Length); i++)
-            {
-                int s = (int)frame[i][0];
-                if (textures[s] && IsShadow(textures[s])) return s;
-            }
-            return -1;
-        }
-
-        static bool IsShadow(Texture2D t)
-        {
-            if (t.width < t.height * 1.5f) return false;
-            var px = t.GetPixels32();
-            long n = 0, alpha = 0, sat = 0;
-            for (int i = 0; i < px.Length; i += 5)
-            {
-                var c = px[i];
-                if (c.a <= 10) continue;
-                n++;
-                alpha += c.a;
-                sat += Mathf.Max(c.r, Mathf.Max(c.g, c.b)) - Mathf.Min(c.r, Mathf.Min(c.g, c.b));
-            }
-            return n > 0 && sat / n < 8 && alpha / n < 170;
-        }
-
-        Vector2 AnchorOf(Clip clip, int shadow)
-        {
-            var frame = clip.Frames[0];
-            foreach (var p in frame)
-                if ((int)p[0] == shadow && textures[shadow] != null)
-                {
-                    var t = textures[shadow];
-                    return Map(p, t.width / 2f, t.height / 2f);
-                }
+            var frame = clip.Frames.Count > 0 ? clip.Frames[0] : new float[0][];
+            if (a.shadow >= 0 && a.shadow < a.sizes.Length)
+                foreach (var p in frame)
+                    if ((int)p[0] == a.shadow)
+                    {
+                        var s = a.sizes[a.shadow];
+                        return Map(p, s.x / 2f, s.y / 2f);
+                    }
             // không có bóng: lấy giữa đáy của khung đầu
             float minX = float.MaxValue, maxX = float.MinValue, maxY = float.MinValue;
             foreach (var p in frame)
-                foreach (var q in Corners(p)) { minX = Mathf.Min(minX, q.x); maxX = Mathf.Max(maxX, q.x); maxY = Mathf.Max(maxY, q.y); }
-            return new Vector2((minX + maxX) / 2, maxY);
+                if (Corners(a, p))
+                    foreach (var q in Quad) { minX = Mathf.Min(minX, q.x); maxX = Mathf.Max(maxX, q.x); maxY = Mathf.Max(maxY, q.y); }
+            return maxY > float.MinValue ? new Vector2((minX + maxX) / 2, maxY) : Vector2.zero;
         }
 
         // ma trận Flash: x' = a x + c y + tx, y' = b x + d y + ty (điểm ảnh, y hướng xuống)
         static Vector2 Map(float[] p, float x, float y) => new(p[1] * x + p[3] * y + p[5], p[2] * x + p[4] * y + p[6]);
 
-        IEnumerable<Vector2> Corners(float[] p)
+        // 4 góc hình (trên trái, trên phải, dưới phải, dưới trái) theo cỡ gốc, ghi vào Quad; hình rỗng: false
+        static bool Corners(AolaAnim a, float[] p)
         {
-            var t = textures[(int)p[0]];
-            if (t == null) yield break;
-            yield return Map(p, 0, 0);
-            yield return Map(p, t.width, 0);
-            yield return Map(p, t.width, t.height);
-            yield return Map(p, 0, t.height);
-        }
-
-        static Texture2D LoadTexture(string path)
-        {
-            if (TexCache.TryGetValue(path, out var t) && t) return t; // ảnh đã bị huỷ (thoát Play) thì đọc lại
-            AolaDevPack.Ensure(path);
-            if (File.Exists(path))
-            {
-                t = new Texture2D(2, 2, TextureFormat.RGBA32, true) { wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Trilinear };
-                if (!t.LoadImage(File.ReadAllBytes(path))) t = null;
-            }
-            TexCache[path] = t;
-            return t;
+            int s = (int)p[0];
+            if (s < 0 || s >= a.sizes.Length) return false;
+            var z = a.sizes[s];
+            if (z.x <= 0 || z.y <= 0) return false;
+            Quad[0] = Map(p, 0, 0);
+            Quad[1] = Map(p, z.x, 0);
+            Quad[2] = Map(p, z.x, z.y);
+            Quad[3] = Map(p, 0, z.y);
+            return true;
         }
 
         // PokiClash/PetPart (màu cộng, blend cộng); thiếu shader thì Sprites/Default (chỉ có phần nhân màu)
@@ -472,23 +368,28 @@ namespace PokiClash.Game
             while (pool.Count < pics.Length) pool.Add(NewQuad());
             for (int i = 0; i < pool.Count; i++)
             {
-                var (r, m, v, c) = pool[i];
-                Texture2D t = i < pics.Length ? textures[(int)pics[i][0]] : null;
-                if (t == null) { r.enabled = false; continue; }
+                var (r, m, v, u, c) = pool[i];
+                if (i >= pics.Length || !Corners(anim, pics[i])) { r.enabled = false; continue; }
                 var p = pics[i];
-                int k = 0;
-                foreach (var q in Corners(p))
+                for (int k = 0; k < 4; k++)
                 {
-                    float x = (q.x - clip.Anchor.x) * unit, y = -(q.y - clip.Anchor.y) * unit;
-                    v[k++] = new Vector3(flip ? -x : x, y, 0);
+                    float x = (Quad[k].x - clip.Anchor.x) * unit, y = -(Quad[k].y - clip.Anchor.y) * unit;
+                    v[k] = new Vector3(flip ? -x : x, y, 0);
                 }
+                // chỗ hình trong atlas, góc theo thứ tự như Quad (ảnh trong Unity gốc dưới trái)
+                var uv = anim.uvs[(int)p[0]];
+                u[0] = new Vector2(uv.xMin, uv.yMax);
+                u[1] = new Vector2(uv.xMax, uv.yMax);
+                u[2] = new Vector2(uv.xMax, uv.yMin);
+                u[3] = new Vector2(uv.xMin, uv.yMin);
                 var col = new Color(p[8], p[9], p[10], p[7]);
                 c[0] = c[1] = c[2] = c[3] = col;
                 m.vertices = v;
+                m.uv = u;
                 m.colors = c;
                 m.RecalculateBounds();
                 r.sharedMaterial = Mat(p[14] > 0);
-                block.SetTexture("_MainTex", t);
+                block.SetTexture("_MainTex", atlas);
                 block.SetColor("_Add", new Color(p[11], p[12], p[13], 0));
                 r.SetPropertyBlock(block);
                 r.sortingOrder = sortBase + i;
@@ -496,21 +397,28 @@ namespace PokiClash.Game
             }
         }
 
-        (MeshRenderer, Mesh, Vector3[], Color[]) NewQuad()
+        (MeshRenderer, Mesh, Vector3[], Vector2[], Color[]) NewQuad()
         {
             var go = new GameObject("hinh");
             go.transform.SetParent(transform, false);
             var m = new Mesh();
             var v = new Vector3[4];
+            var u = new Vector2[4];
             var c = new Color[4];
+            // đỉnh theo thứ tự góc trên trái, trên phải, dưới phải, dưới trái của ảnh; UV đặt theo hình mỗi khung (Render)
             m.vertices = v;
-            // đỉnh theo thứ tự góc trên trái, trên phải, dưới phải, dưới trái của ảnh
-            m.uv = new[] { new Vector2(0, 1), new Vector2(1, 1), new Vector2(1, 0), new Vector2(0, 0) };
+            m.uv = u;
             m.triangles = new[] { 0, 1, 2, 0, 2, 3 };
             go.AddComponent<MeshFilter>().sharedMesh = m;
             var r = go.AddComponent<MeshRenderer>();
             r.sharedMaterial = Mat(false);
-            return (r, m, v, c);
+            return (r, m, v, u, c);
+        }
+
+        void OnDestroy()
+        {
+            foreach (var q in pool)
+                if (q.m) Destroy(q.m);
         }
     }
 }

@@ -75,10 +75,15 @@ namespace PokiClash
             int maxLv = st.enemies.Max(e => e.level);
 
             p.title.text = cave != null ? $"Hang Tiềm Năng · {d.Cfg.cave.tiers[cave.tier].name}" : badge != null ? $"Đền Huy Hiệu · {Elements.Name(z.id)}" : $"{z.name} · Ải {st.idx}";
-            p.tag.SetActive(st.kind != StageKind.Normal);
-            p.tagText.text = cave != null ? "HANG" : badge != null ? "THỬ THÁCH" : st.kind == StageKind.Boss ? "BOSS ĐẢO" : "MINI BOSS";
+            // nhãn: boss, mini boss; đảo 70 ải còn ghi kiểu ải (Tướng mới, Bầy lính, Cửa ải…)
+            p.tag.SetActive(st.kind != StageKind.Normal || st.tag != StageTag.None);
+            p.tagText.text = cave != null ? "HANG" : badge != null ? "THỬ THÁCH" : st.kind == StageKind.Boss ? "BOSS ĐẢO" : st.kind == StageKind.Mini ? "MINI BOSS"
+                : ZoneChapterRow.TagText(st).ToUpperInvariant();
+            // ải 1 của đảo 70 ải: đấu với bóng của tướng khởi đầu
+            bool mirror = st.tag == StageTag.Hero && d.Starters.Contains(st.enemies[0].hero);
             p.sub.text = cave != null ? $"Boss hệ {Elements.Name(cave.zone)} · thắng mới trừ lượt"
-                : badge != null ? $"Huy hiệu {Badges.TierName(d.Cfg, badge.tier)} · Trận {badge.i}/{Badges.Count(d.Cfg, badge.tier)}" : st.name;
+                : badge != null ? $"Huy hiệu {Badges.TierName(d.Cfg, badge.tier)} · Trận {badge.i}/{Badges.Count(d.Cfg, badge.tier)}"
+                : mirror ? $"{st.name} · Mặt nước in bóng {d.Hero(st.enemies[0].hero).name} của bạn!" : st.name;
 
             p.warn.SetActive(s.level < maxLv - 2);
             p.warnText.text = $"Cảnh báo: địch cấp {maxLv}, bạn mới cấp {s.level}. Đảo này đang quá mạnh, nên nuôi tướng thêm.";
@@ -93,12 +98,15 @@ namespace PokiClash
                     Ui.Spawn(foePrefab, p.foes).BindForm(h, evo, i, (i - (h.forms.Length - 1) / 2f) * 280, d.Cfg);
             }
             else
+            {
+                var foes = Teams.Enemy(st, d).members;
                 for (int i = 0; i < st.enemies.Count; i++)
                 {
                     var en = st.enemies[i];
                     float x = (i - (st.enemies.Count - 1) / 2f) * 280;
-                    Ui.Spawn(foePrefab, p.foes).Bind(d.Hero(en.hero), en, x);
+                    Ui.Spawn(foePrefab, p.foes).Bind(d.Hero(en.hero), en, x, foes[i].mods);
                 }
+            }
 
             Rewards(d, s);
             p.hint.text = $"Mũi tên xanh: khắc {Elements.Name(leadEnemy.elem)} của {leadEnemy.name}. Mũi tên đỏ: bị khắc.";

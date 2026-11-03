@@ -3,8 +3,9 @@
 // (anim.json trỏ hình bằng đường dẫn tương đối), rồi xoá ngay sau build. Lúc chạy:
 // - Android: StreamingAssets nằm trong APK (assets/PokiDev/...), File không đọc được. File nào AolaActor cần thì đọc thẳng
 //   từ APK (APK là file zip, Application.dataPath trỏ tới nó) rồi chép ra persistentDataPath/PokiDev/reskin lúc cần.
-//   Build mới (stamp khác) thì xoá bản chép cũ;
-// - nền khác: đọc thẳng thư mục StreamingAssets.
+//   Build mới (stamp khác) thì xoá bản chép cũ. Hình trong APK là PNG 256 màu; anim.json nằm dạng anim.json.gz (APK để
+//   StreamingAssets không nén), giải nén lúc chép ra;
+// - nền khác: đọc thẳng thư mục StreamingAssets (json không gzip).
 // Bản build không mang thư mục này (AolaDevBuild.AllBuilds tắt và không phải Development Build) thì Root trả null.
 using System.IO;
 using UnityEngine;
@@ -16,7 +17,7 @@ namespace PokiClash.Game
 {
     public static class AolaDevPack
     {
-        public const string Folder = "PokiDev", Stamp = "stamp.txt";
+        public const string Folder = "PokiDev", Stamp = "stamp.txt", Gz = ".gz";
 
 #if !UNITY_EDITOR
         static bool checkedRoot;
@@ -63,10 +64,22 @@ namespace PokiClash.Game
             if (!InApk || Root == null || File.Exists(fullPath)) return;
             var p = fullPath.Replace('\\', '/');
             if (!p.StartsWith(root + "/")) return;
-            var data = Read("reskin" + p.Substring(root.Length));
+            var rel = "reskin" + p.Substring(root.Length);
+            var data = Read(rel) ?? Gunzip(Read(rel + Gz));
             if (data == null) return;
             Directory.CreateDirectory(Path.GetDirectoryName(p));
             File.WriteAllBytes(p, data);
+        }
+
+        static byte[] Gunzip(byte[] gz)
+        {
+            if (gz == null) return null;
+            using (var z = new GZipStream(new MemoryStream(gz), CompressionMode.Decompress))
+            using (var ms = new MemoryStream())
+            {
+                z.CopyTo(ms);
+                return ms.ToArray();
+            }
         }
 
         // đọc một file của gói trong APK; rel tính từ assets/PokiDev

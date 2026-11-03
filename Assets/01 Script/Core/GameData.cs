@@ -1,5 +1,5 @@
-// Toàn bộ dữ liệu game (tướng, thẻ, đảo, ải, cấu hình) nạp từ JSON xuất bởi Web/scripts/export_data.ts.
-// Một nguồn: sửa ở web rồi xuất lại, menu "PokiClash/Nhập dữ liệu" dựng ScriptableObject từ cùng JSON này.
+// Toàn bộ dữ liệu game (tướng, lính, thẻ, đảo, ải, cấu hình) nạp từ JSON trong Assets/02 Data/Json.
+// JSON là nguồn (lần cuối xuất từ bản web 2026-11-03, từ đó sửa thẳng), menu "PokiClash/Nhập dữ liệu" dựng ScriptableObject từ cùng JSON này.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +13,8 @@ namespace PokiClash.Core
         public List<HeroDef> Heroes = new List<HeroDef>();
         public List<CardDef> Pool = new List<CardDef>(); // thẻ chung
         public List<CardDef> Innate = new List<CardDef>(); // thẻ riêng (chiêu, tuyệt kỹ, bị động)
+        public List<HeroDef> Minions = new List<HeroDef>(); // lính của ải: Hero(id) tìm được, nhưng không nằm trong Heroes (không thu phục)
+        public List<CardDef> MinionCards = new List<CardDef>(); // chiêu, tuyệt kỹ, bị động của lính
         public List<ZoneDef> Zones = new List<ZoneDef>();
         public List<StageDef> Stages = new List<StageDef>();
         public BalanceConfig Cfg;
@@ -32,9 +34,10 @@ namespace PokiClash.Core
 
         public GameData Index()
         {
-            heroById = Heroes.ToDictionary(h => h.id);
-            cardById = Pool.Concat(Innate).ToDictionary(c => c.id);
+            heroById = Heroes.Concat(Minions).ToDictionary(h => h.id);
+            cardById = Pool.Concat(Innate).Concat(MinionCards).ToDictionary(c => c.id);
             stageById = Stages.ToDictionary(s => s.id);
+            Islands.Bind(this);
             return this;
         }
 
@@ -46,12 +49,14 @@ namespace PokiClash.Core
 
             var h = J.Obj(MiniJson.Parse(heroesJson));
             foreach (var x in J.Arr(h, "heroes")) d.Heroes.Add(ParseHero(J.Obj(x)));
+            foreach (var x in J.Arr(h, "minions")) d.Minions.Add(ParseHero(J.Obj(x)));
             foreach (var x in J.Arr(h, "starters")) d.Starters.Add((string)x);
             d.LegendMilestoneHero = J.Str(h, "legendMilestoneHero");
 
             var c = J.Obj(MiniJson.Parse(cardsJson));
             foreach (var x in J.Arr(c, "pool")) d.Pool.Add(ParseCard(J.Obj(x)));
             foreach (var x in J.Arr(c, "innate")) d.Innate.Add(ParseCard(J.Obj(x)));
+            foreach (var x in J.Arr(c, "minions")) d.MinionCards.Add(ParseCard(J.Obj(x)));
 
             var z = J.Obj(MiniJson.Parse(zonesJson));
             foreach (var x in J.Arr(z, "zones")) d.Zones.Add(ParseZone(J.Obj(x)));
@@ -83,6 +88,7 @@ namespace PokiClash.Core
                 shards = J.Int(o, "shards"),
                 line = J.Str(o, "line"),
                 size = J.Num(o, "size", 1),
+                minion = J.Bool(o, "minion"),
             };
             h.stats = new int[st.Count];
             for (int i = 0; i < st.Count; i++) h.stats[i] = (int)(double)st[i];
@@ -146,6 +152,9 @@ namespace PokiClash.Core
                 world = ParsePt(J.Get(o, "world")),
             };
             foreach (var p in J.Arr(o, "nodes")) z.nodes.Add(ParsePt(p));
+            foreach (var p in J.Arr(o, "path")) z.path.Add(ParsePt(p));
+            foreach (var s in J.Arr(o, "stops")) z.stops.Add(Convert.ToDouble(s));
+            foreach (var s in J.Arr(o, "plates")) z.plates.Add(Convert.ToInt32(s));
             return z;
         }
 
@@ -158,11 +167,16 @@ namespace PokiClash.Core
                 idx = J.Int(o, "idx"),
                 name = J.Str(o, "name"),
                 kind = Keys.ToStageKind(J.Str(o, "kind")),
+                tag = Keys.ToStageTag(J.Str(o, "tag")),
+                chapter = J.Int(o, "chapter"),
             };
             foreach (var x in J.Arr(o, "enemies"))
             {
                 var e = J.Obj(x);
-                s.enemies.Add(new StageEnemy { hero = J.Str(e, "hero"), level = J.Int(e, "level"), boss = J.Bool(e, "boss"), evo = J.Bool(e, "evo") });
+                s.enemies.Add(new StageEnemy
+                {
+                    hero = J.Str(e, "hero"), level = J.Int(e, "level"), boss = J.Bool(e, "boss"), evo = J.Bool(e, "evo"), buff = J.Num(e, "buff"),
+                });
             }
             foreach (var x in J.Arr(o, "drops"))
             {
@@ -185,35 +199,60 @@ namespace PokiClash.Core
             {
                 if (got != want) err.Add($"{what}: có {got}, cần {want}");
             }
-            Expect(Heroes.Count, 40, "Số tướng");
+            Expect(Heroes.Count, 45, "Số tướng"); // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02)
             Expect(Pool.Count, 23, "Số thẻ chung");
-            Expect(Innate.Count, 121, "Số thẻ riêng"); // 40 tướng × 3 + thẻ Tiến Hóa của boss
+            Expect(Innate.Count, 136, "Số thẻ riêng"); // 45 tướng × 3 + thẻ Tiến Hóa của boss
+            Expect(Minions.Count, 6, "Số lính"); // 3 loại lính Đảo Thủy, mỗi loại 2 bậc (2026-11-03)
+            Expect(MinionCards.Count, 18, "Số thẻ của lính");
             Expect(Zones.Count, 5, "Số đảo");
-            Expect(Stages.Count, 40, "Số ải");
+            Expect(Stages.Count, 102, "Số ải"); // Đảo Thủy 70 ải, 4 đảo kia 8 ải
             if (Cfg == null) err.Add("Thiếu cấu hình cân bằng");
 
             bool In01(Pt p) => p.x >= 0 && p.x <= 1 && p.y >= 0 && p.y <= 1;
             foreach (var z in Zones)
             {
-                Expect(z.nodes.Count, 8, $"Số ải trên {z.name}");
+                // đảo 70 ải: nodes là các ải tướng; đảo 8 ải: 8 ải
+                int heads = ZoneStages(z.id).Count(x => x.tag == StageTag.Hero);
+                Expect(z.nodes.Count, heads > 0 ? heads : 8, $"Số ải trên {z.name}");
                 for (int i = 0; i < z.nodes.Count; i++)
                     if (!In01(z.nodes[i])) err.Add($"{z.name}: toạ độ ải {i + 1} {z.nodes[i]} ngoài 0–1");
                 if (!In01(z.world)) err.Add($"{z.name}: toạ độ trên đảo lớn {z.world} ngoài 0–1");
+                // bản đồ dài: đường đủ điểm trong ảnh, mỗi ải tướng một chỗ trên đường (tăng dần) và một bên bảng tên
+                if (z.path.Count == 0) continue;
+                if (z.path.Count < 2) err.Add($"{z.name}: đường chỉ có {z.path.Count} điểm");
+                if (z.path.Any(p => !In01(p))) err.Add($"{z.name}: có điểm đường ngoài 0–1");
+                Expect(z.stops.Count, heads, $"Số chỗ ải tướng trên đường {z.name}");
+                for (int i = 0; i < z.stops.Count; i++)
+                    if (z.stops[i] < 0 || z.stops[i] > 1 || i > 0 && z.stops[i] <= z.stops[i - 1])
+                        err.Add($"{z.name}: chỗ ải tướng thứ {i + 1} ({z.stops[i]}) phải trong 0–1 và tăng dần");
+                if (z.plates.Count > 0) Expect(z.plates.Count, heads, $"Số bên bảng tên trên {z.name}");
             }
-            foreach (var h in Heroes)
+            foreach (var h in Heroes.Concat(Minions))
             {
                 foreach (var id in new[] { h.skill, h.ult, h.passive })
                     if (Card(id) == null) err.Add($"{h.name}: thiếu thẻ {id}");
                 if (h.stats.Length != 6) err.Add($"{h.name}: cần 6 chỉ số gốc");
                 if (h.forms.Length < 1 || h.forms.Length > 3) err.Add($"{h.name}: cần 1–3 dạng, có {h.forms.Length}");
             }
+            foreach (var h in Heroes)
+                if (h.minion) err.Add($"{h.name}: lính không được nằm trong danh sách tướng");
+            foreach (var h in Minions)
+                if (!h.minion) err.Add($"{h.name}: thiếu cờ lính");
             if (Cfg != null && Cfg.formStars.Length != 2) err.Add($"Mốc đổi dạng: có {Cfg.formStars.Length}, cần 2");
             foreach (var s in Stages)
             {
                 foreach (var e in s.enemies)
                     if (Hero(e.hero) == null) err.Add($"Ải {s.id}: địch {e.hero} không có");
                 foreach (var dr in s.drops)
-                    if (Hero(dr.hero) == null) err.Add($"Ải {s.id}: rơi {dr.hero} không có");
+                    if (Hero(dr.hero) == null || Hero(dr.hero).minion) err.Add($"Ải {s.id}: rơi {dr.hero} không phải tướng");
+            }
+            foreach (var z in Zones)
+            {
+                var st = ZoneStages(z.id).ToList();
+                for (int i = 0; i < st.Count; i++)
+                    if (st[i].idx != i + 1) err.Add($"{z.name}: ải thứ {i + 1} mang số {st[i].idx}");
+                int tagged = st.Count(x => x.tag != StageTag.None);
+                if (tagged > 0 && tagged < st.Count) err.Add($"{z.name}: {st.Count - tagged} ải thiếu kiểu ải");
             }
             foreach (var id in Starters)
                 if (Hero(id) == null) err.Add($"Tướng khởi đầu {id} không có");

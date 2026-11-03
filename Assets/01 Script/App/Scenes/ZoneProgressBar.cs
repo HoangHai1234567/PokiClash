@@ -1,4 +1,4 @@
-// Thanh tiến độ viền mực của đảo (số ải đã qua / 8), phần đầy tô màu hệ. Nằm trong prefab mục Items/BangVung (sảnh);
+// Thanh tiến độ viền mực của đảo (số ải đã qua / số ải của đảo), phần đầy tô màu hệ.
 // Nằm trong prefab mục Items/BangVung (sảnh) và màn Đảo.
 using UnityEngine;
 using UnityEngine.UI;

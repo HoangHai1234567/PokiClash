@@ -1,4 +1,5 @@
-// Đền Huy Hiệu (chép Web/src/core/badges.ts): mở đền khi thắng boss Đảo Thủy; dãy hệ X mở khi thắng mini boss (ải 4) Đảo X.
+// Đền Huy Hiệu (chép Web/src/core/badges.ts): mở đền khi qua hết Đảo Thủy; dãy hệ X mở khi thắng mini boss đầu của Đảo X
+// (ải 4 ở đảo 8 ải, ải 20 ở đảo 70 ải: Islands.MiniAt).
 // Mỗi dãy 5 bậc; bậc k là chuỗi trận sinh từ công thức, thua thì đánh lại đúng trận đó, không mất tiến độ.
 // Tướng hệ X được cộng Máu, Công, Thủ theo bậc cao nhất (không cộng dồn), áp qua StatMods vào HeroStats.Compute.
 using System.Collections.Generic;
@@ -17,7 +18,7 @@ namespace PokiClash.Core
     public static class Badges
     {
         public static bool TempleOpen(SaveData s) => Progress.BadgesOpen(s);
-        public static bool LineOpen(SaveData s, Elem z) => TempleOpen(s) && s.zones[(int)z] >= 4;
+        public static bool LineOpen(SaveData s, Elem z) => TempleOpen(s) && s.zones[(int)z] >= Islands.MiniAt(z);
         public static int Tier(SaveData s, Elem z) => s.badges[(int)z].tier;
         public static int MaxTier(BalanceConfig cfg) => cfg.badges.counts.Length;
         public static int Count(BalanceConfig cfg, int tier) => cfg.badges.counts[tier - 1];

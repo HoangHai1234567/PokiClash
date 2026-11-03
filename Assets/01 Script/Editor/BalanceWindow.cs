@@ -537,20 +537,20 @@ namespace PokiClash.EditorTools
         }
 
         // bi mỗi ngày từ trang trại theo số lần vào game (2, 4, 8 lần, rải 8 giờ – 23 giờ; mỗi lần: thu hoạch, rút tướng hết sức, tự xếp),
-        // với 3 kho tướng mẫu; so với AFK ải (nhận mỗi lần vào, không quảng cáo) ở 8 / 24 / 40 ải đã qua
+        // với 3 kho tướng mẫu; so với AFK ải (nhận mỗi lần vào, không quảng cáo) khi xong 1 / 3 / 5 đảo
         [MenuItem("PokiClash/Cân bằng nhanh/Trang trại: bi mỗi ngày so với AFK (ghi Console)", priority = 25)]
         static void QuickFarm()
         {
             var d = Load();
             const double H = 3600000;
-            var rosters = new (string name, string[] heroes, int level, int star, int cleared)[]
+            var rosters = new (string name, string[] heroes, int level, int star, int zonesDone)[]
             {
-                ("4 tướng, cấp 9, 1 sao (đầu game)", new[] { "giot_suong", "vo_su", "nu_hoa", "ca_ngua" }, 9, 1, 8),
-                ("8 tướng, cấp 18, 2 sao (giữa game)", d.Heroes.Take(8).Select(h => h.id).ToArray(), 18, 2, 24),
-                ("11 tướng, cấp 28, 4 sao (cuối game)", d.Heroes.Select(h => h.id).ToArray(), 28, 4, 40),
+                ("4 tướng, cấp 9, 1 sao (đầu game)", new[] { "giot_suong", "vo_su", "nu_hoa", "ca_ngua" }, 9, 1, 1),
+                ("8 tướng, cấp 18, 2 sao (giữa game)", d.Heroes.Take(8).Select(h => h.id).ToArray(), 18, 2, 3),
+                ("11 tướng, cấp 28, 4 sao (cuối game)", d.Heroes.Select(h => h.id).ToArray(), 28, 4, 5),
             };
             var lines = new List<string>();
-            foreach (var (name, heroes, level, star, cleared) in rosters)
+            foreach (var (name, heroes, level, star, zonesDone) in rosters)
             {
                 var cells = new[] { 2, 4, 8 }.Select(visits =>
                 {
@@ -559,7 +559,7 @@ namespace PokiClash.EditorTools
                     foreach (var h in heroes) s.Hero(h).star = star;
                     s.level = level;
                     s.zones = new int[5];
-                    for (int c = cleared, z = 0; c > 0; z++, c -= 8) s.zones[(int)d.Zones[z].id] = Math.Min(8, c); // theo thứ tự đảo
+                    for (int z = 0; z < zonesDone; z++) s.zones[(int)d.Zones[z].id] = Islands.Size(d.Zones[z].id); // xong đảo theo thứ tự
                     int farm = 0, tree = 0;
                     const int days = 7;
                     for (int day = 0; day < days; day++)
@@ -575,7 +575,7 @@ namespace PokiClash.EditorTools
                         }
                     return $"vào {visits} lần: trang trại {farm / days} bi/ngày, cây bi {tree / days} bi/ngày";
                 });
-                lines.Add($"{name}, {cleared} ải đã qua: " + string.Join(" · ", cells));
+                lines.Add($"{name}, xong {zonesDone} đảo ({d.Zones.Take(zonesDone).Sum(z => Islands.Size(z.id))} ải): " + string.Join(" · ", cells));
             }
             Debug.Log("[Cân bằng] Trang trại\n" + string.Join("\n", lines));
         }

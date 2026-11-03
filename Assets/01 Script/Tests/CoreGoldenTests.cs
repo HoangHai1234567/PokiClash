@@ -49,7 +49,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var root = J.Obj(MiniJson.Parse(TestData.Read("Golden/cardtext.json")));
             var cards = J.Arr(root, "cards");
-            Assert.AreEqual(d.Pool.Count + d.Innate.Count, cards.Count);
+            Assert.AreEqual(d.Pool.Count + d.Innate.Count + d.MinionCards.Count, cards.Count);
             var fails = new List<string>();
             foreach (var x in cards)
             {
@@ -73,11 +73,13 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var err = d.Validate();
             Assert.IsEmpty(err, string.Join("\n", err));
-            Assert.AreEqual(40, d.Heroes.Count);
+            Assert.AreEqual(45, d.Heroes.Count);
             Assert.AreEqual(23, d.Pool.Count);
-            Assert.AreEqual(121, d.Innate.Count); // 40 tướng × 3 + thẻ Tiến Hóa của boss
+            Assert.AreEqual(136, d.Innate.Count); // 45 tướng × 3 + thẻ Tiến Hóa của boss
+            Assert.AreEqual(6, d.Minions.Count);
+            Assert.AreEqual(18, d.MinionCards.Count);
             Assert.AreEqual(5, d.Zones.Count);
-            Assert.AreEqual(40, d.Stages.Count);
+            Assert.AreEqual(102, d.Stages.Count); // Đảo Thủy 70 ải, 4 đảo kia 8 ải
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
             Assert.AreEqual(4, d.Cfg.saveVersion); // v4: 40 tướng (2026-11-02)

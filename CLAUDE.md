@@ -3,20 +3,21 @@
 Trả lời bằng tiếng Việt. Quy tắc chung (auto mode, manual mode, git) nằm ở CLAUDE.md cá nhân của người dùng.
 
 - Tổng quan và tiến độ: `GD_Claude/README.md`, `GD_Claude/12_KeHoach_OpenSpec.md`.
-- Bản web `Web/` là nguồn số liệu: sửa web, xuất JSON và golden, rồi chép sang C#.
+- **Làm ở Unity** (người dùng dặn 2026-11-03): chỉ làm bản web `Web/` khi người dùng yêu cầu. Số liệu sửa thẳng ở Unity (`Assets/02 Data/Json` rồi menu `PokiClash/Nhập dữ liệu`, hoặc code C#); golden trong `Assets/02 Data/Golden` là bản chụp lần xuất web cuối, đổi luật thì sửa golden và test bên Unity.
 
-## File prompt gen ảnh (`ArtGen/**`, người dùng dặn 2026-11-02)
+## File prompt gen ảnh (`ArtGen/**`, người dùng dặn 2026-11-02, đổi 2026-11-03)
 
-- **Ghi đủ mọi ảnh đính kèm ngay trong file prompt:**
-  - đường dẫn đầy đủ trên máy (tuyệt đối, ví dụ `E:\ProjectAtomik\PokiWar\ArtGen\...`), không ghi đường dẫn tương đối hay "…/";
-  - ảnh trông như thế nào: nội dung chính, cỡ ảnh, nền;
-  - gửi ở bước nào, là ảnh thứ mấy;
-  - ảnh chưa có thì ghi "chưa có" và bước nào sinh ra nó.
-- Mỗi bước ghi lại danh sách đính kèm theo thứ tự kèm mô tả, và chỗ lưu ảnh trả về (đường dẫn đầy đủ), ngay ở bước đó.
-- **Phần gửi GPT mở đầu bằng danh sách ảnh đính kèm theo thứ tự** (`image 1 = <tên file>: <là gì>`), để GPT và người dùng đối chiếu được.
-- **Mọi file prompt đều tự đủ**: không bắt người dùng mở file khác hay đọc chat mới biết đính kèm ảnh nào. Trong chat chỉ chỉ tới file và mục, không chép lại danh sách ảnh.
-- **Người dùng chỉ kéo thả file**: mỗi lượt gen là một thư mục gồm ảnh đánh số đúng thứ tự và `00_instructions.txt` (GPT đọc rồi vẽ), kèm `HUONG_DAN.md` cho người dùng. GPT chỉ dùng được ảnh mẫu khi ảnh đính thẳng vào tin nhắn, nên không gộp ảnh vào PDF hay zip.
-- Mẫu: `ArtGen/Heroes/gui_gpt/<mã>/` (sinh bằng `ArtGen/Heroes/build.py`).
+- **Người dùng chỉ gửi GPT đường dẫn một file prompt**: mỗi lượt gen là một file (tiếng Anh). GPT tự mở ảnh mẫu theo đường dẫn ghi trong file và tự lưu ảnh vào chỗ file chỉ. Trong chat chỉ đưa người dùng đường dẫn file prompt. Không bắt kéo thả, không chép ảnh mẫu vào thư mục gói.
+- **File prompt mở đầu bằng danh sách ảnh mẫu theo thứ tự** (`image 1 = <đường dẫn đầy đủ>: <là gì>`):
+  - đường dẫn tuyệt đối trên máy đang chạy, không ghi đường dẫn tương đối hay "…/";
+  - script sinh gói tính đường dẫn từ chỗ đặt nó, không ghi cứng ổ đĩa (hai máy khác ổ).
+- Ngay sau đó là mục **SAVE**: đường dẫn đầy đủ để GPT lưu ảnh (trùng tên thì thêm `_2`, `_3`…), dặn không sửa, dời, xoá file khác. Lượt nhiều ảnh thì mỗi bước ghi chỗ lưu riêng.
+- Lượt cần ảnh chưa có (sinh ở lượt trước) thì chưa dựng file prompt của lượt đó. Claude dựng khi duyệt xong lượt trước.
+- **Mọi file prompt đều tự đủ**: GPT và người dùng không phải mở file khác hay đọc chat mới biết dùng ảnh nào, lưu đâu.
+- Kèm `HUONG_DAN.md` (tiếng Việt) cho người dùng: file prompt từng lượt; từng ảnh mẫu trông như thế nào (nội dung chính, cỡ ảnh, nền); chỗ lưu; cách kiểm; câu sửa nhanh.
+- Mẫu:
+  - `ArtGen/Heroes/build.py`, sinh gói `ArtGen/Heroes/gui_gpt/<mã>/`;
+  - `ArtGen/Islands/build_zone70.py`, sinh gói `ArtGen/Islands/gui_gpt/zone_thuy_70/`.
 
 ## Hình tướng (người dùng chốt 2026-11-02, bắt buộc)
 
@@ -28,7 +29,7 @@ Trả lời bằng tiếng Việt. Quy tắc chung (auto mode, manual mode, git)
 - **Viền trắng giấy xé** quanh tướng do game vẽ (shader `PokiClash/StickerOutline` thêm mép xé), GPT không vẽ.
 - **Mỗi tướng là một dòng tiến hóa của aola** (`GD_Claude/13_DanhSachTuong.md`), lên sao thì đổi dạng; mỗi dạng dùng rig của đúng con aola ứng với nó.
 - **Viết prompt:** xem từng mảnh trong ngữ cảnh, ghi giải phẫu (là gì, hai đầu nối gì, chĩa hướng nào; trái, phải theo người xem); nói rõ đầu nào của mỗi chi là gì và cái gì không được vẽ; độ dày viền ghi bằng pixel cho từng nhóm theo tỉ lệ phóng của ảnh mẫu; không nhắc tên game.
-- **Gói gửi GPT** sinh bằng `ArtGen/Heroes/build.py` vào `ArtGen/Heroes/gui_gpt/<mã>/` (concept trên rig, rồi từng nhóm mảnh); đính hình aola làm mẫu được (người dùng cho phép). Ảnh GPT trả về ở `ArtGen/Heroes/inbox/<mã>/tai_ve/`.
+- **Gói gửi GPT** sinh bằng `ArtGen/Heroes/build.py` vào `ArtGen/Heroes/gui_gpt/<mã>/`: `luot_1_concept.txt` (concept trên rig), `luot_2_nhom_manh.txt` (từng nhóm mảnh). Dùng hình aola làm ảnh mẫu được (người dùng cho phép). GPT tự lưu ảnh vào `ArtGen/Heroes/inbox/<mã>/tai_ve/`.
 - **Ghép xong phải tự chụp trang so sánh và soi từng chi** trước khi báo. Đếm "đủ mảnh" không thay được việc xem.
 - **Không tự đổi số chỉnh của người dùng** (`reskin/<tên>/adjust.json`).
 - **Rig và bộ ghép:** AolaRipper, máy này `E:\ProjectAtomik\aola` (thư mục `Aola*` cạnh project), máy kia `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper` (`reskin/pet<id>_parts`, `reskin/<hệ>_<id>`). Python `py -3 -I`, in chữ Trung thì `sys.stdout.reconfigure(encoding="utf-8")`; FFDec chạy bằng Java (OpenJDK của Unity nếu máy không có). Chi tiết ở `AGENT.md` của AolaRipper.

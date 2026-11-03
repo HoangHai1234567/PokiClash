@@ -20,7 +20,7 @@ namespace PokiClash.Core
         public static int Open(SaveData s, BalanceConfig cfg)
         {
             if (Progress.TotalCleared(s) == 0) return 0;
-            return 1 + cfg.trees.unlockZones.Count(z => s.zones[(int)z] >= 8);
+            return 1 + cfg.trees.unlockZones.Count(z => Progress.ZoneDone(s, z));
         }
 
         public static TreeState Of(SaveData s, double now) => s.trees ?? (s.trees = new TreeState { lastTick = now });

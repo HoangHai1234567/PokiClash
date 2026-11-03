@@ -1,4 +1,5 @@
-// Một đối thủ trong hộp Chuẩn bị trận (prefab Assets/04 Prefabs/Items/DoiThu): chân dung, tên, nhãn hệ, cấp, dòng "Boss: máu ×1,8".
+// Một đối thủ trong hộp Chuẩn bị trận (prefab Assets/04 Prefabs/Items/DoiThu): chân dung, tên, nhãn hệ, cấp, dòng dưới
+// ("Boss: máu ×1,8", "Cường hóa +12%", "Yếu hơn 20%", "Lính, không thu phục").
 // Khung phủ kín khung "doi_thu" (cao 420 cho chân dung to), dời ngang theo vị trí của đối thủ. Boss tiến hóa: mỗi dạng một ô (BindForm).
 using PokiClash.Core;
 using PokiClash.UI;
@@ -24,8 +25,8 @@ namespace PokiClash
             boss = bossText;
         }
 
-        // x: lệch ngang so với giữa khung
-        public void Bind(HeroDef h, StageEnemy en, float x)
+        // x: lệch ngang so với giữa khung; mods: phần cộng của địch (Islands.EnemyMods) để ghi đúng máu boss
+        public void Bind(HeroDef h, StageEnemy en, float x, StatMods mods = null)
         {
             name = "doi_thu_" + h.id;
             ((RectTransform)transform).anchoredPosition = new Vector2(x, 0);
@@ -34,9 +35,17 @@ namespace PokiClash
             heroName.text = h.name;
             elem.Set(h.elem);
             level.text = $"Lv{en.level}";
-            boss.SetActive(en.boss);
-            // boss ải 8 dòng 1 dạng: không tiến hóa nhưng gánh máu cả dòng
-            if (en.evo) BossText($"Boss: máu ×{Num(App.Data.Cfg.bossHp * App.Data.Cfg.bossEvoHp)}");
+            // dòng dưới: boss (máu ×), cường hóa của ải (đảo 70 ải), lính
+            var cfg = App.Data.Cfg;
+            double hp = 1 + (mods?.hpPct ?? 0);
+            string line = en.boss ? $"Boss: máu ×{Num(cfg.bossHp * (en.evo ? cfg.bossEvoHp : 1) * hp)}" // boss tiến hóa dòng 1 dạng gánh máu cả dòng
+                : en.buff > 0 ? $"Cường hóa +{System.Math.Round(en.buff * 100)}%"
+                : en.buff < 0 ? $"Yếu hơn {System.Math.Round(-en.buff * 100)}%"
+                : h.minion ? "Lính, không thu phục" : null;
+            boss.SetActive(line != null);
+            if (line == null) return;
+            if (h.minion && !en.boss && en.buff != 0) line += " · lính";
+            BossText(line, en.boss || en.buff > 0 ? Theme.Red : en.buff < 0 ? Theme.Hex("#3a8a3a") : Theme.Ink2);
         }
 
         // boss tiến hóa (dòng n dạng): ô của dạng form, dạng sau to hơn
@@ -52,13 +61,15 @@ namespace PokiClash
             elem.Set(h.elem);
             level.text = $"Lv{en.level}";
             boss.SetActive(true);
-            BossText(form == 0 ? $"Boss · dạng 1/{n}" : $"Tiến hóa · dạng {form + 1}/{n}");
+            BossText(form == 0 ? $"Boss · dạng 1/{n}" : $"Tiến hóa · dạng {form + 1}/{n}", Theme.Red);
         }
 
-        void BossText(string t)
+        void BossText(string t, Color color)
         {
             var tmp = boss.GetComponentInChildren<TextMeshProUGUI>(true);
-            if (tmp) tmp.text = t;
+            if (!tmp) return;
+            tmp.text = t;
+            tmp.color = color;
         }
 
         static string Num(double v) => (System.Math.Round(v * 10) / 10).ToString("0.#", System.Globalization.CultureInfo.InvariantCulture).Replace('.', ',');

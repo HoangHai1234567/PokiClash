@@ -54,7 +54,8 @@ namespace PokiClash.Core
             return best;
         }
 
-        public static TeamSetup Enemy(StageDef st)
+        // d: để biết lính và độ hiếm (phần cộng của địch, Islands.EnemyMods)
+        public static TeamSetup Enemy(StageDef st, GameData d)
         {
             var t = new TeamSetup { name = st.name, ai = true };
             foreach (var e in st.enemies)
@@ -62,6 +63,7 @@ namespace PokiClash.Core
                 {
                     heroId = e.hero, level = e.level, boss = e.boss, evo = e.evo, star = EnemyStar(e.level),
                     cardSkill = 1 + e.level / 5, cardUlt = 1 + e.level / 6, cardPassive = 1 + e.level / 6,
+                    mods = Islands.EnemyMods(d, e, st.tag != StageTag.None),
                 });
             return t;
         }

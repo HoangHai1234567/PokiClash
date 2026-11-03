@@ -1,5 +1,6 @@
-// 5 đảo hệ (toạ độ vùng trên đảo lớn, toạ độ 8 ải theo ảnh) và 40 ải, dựng từ zones.json và stages.json.
-// Thay ảnh đảo thì chỉ sửa toạ độ ở bản web (stages.ts) rồi xuất lại.
+// 5 đảo hệ (toạ độ vùng trên đảo lớn, toạ độ ải theo ảnh; đảo có bản đồ dài thêm đường, chỗ ải tướng, bên bảng tên) và các ải,
+// dựng từ zones.json và stages.json bằng menu "PokiClash/Nhập dữ liệu". Bản đồ dài đảo Thủy: ArtGen/Islands/build_zone70.py --xuat
+// ghi toạ độ vào zones.json.
 using System.Collections.Generic;
 using PokiClash.Core;
 using UnityEngine;

@@ -1,6 +1,6 @@
 // Sảnh: đảo lớn chia 5 vùng hệ, làng máy bi ở giữa. Không khoá vùng nào: vùng nào cũng vào được,
 // bảng tên ghi cấp đề nghị và độ khó so với cấp người chơi. Chạm vùng thì sang scene đảo của hệ đó.
-import { WORLD_VILLAGE, ZONES, type ZoneDef } from '../../core/data/stages';
+import { WORLD_VILLAGE, ZONES, zoneSize, type ZoneDef } from '../../core/data/stages';
 import { ELEM_COLOR } from '../../core/elements';
 import { app, type Screen } from '../app';
 import { clear, h } from '../dom';
@@ -19,7 +19,7 @@ export function difficulty(z: ZoneDef, level: number, done: boolean): { cls: str
 
 // vùng nên đánh: vùng chưa xong dễ nhất mà người chơi theo được
 export function recommendedZone(level: number, zones: Record<string, number>): ZoneDef {
-  return ZONES.find((z) => zones[z.id] < 8 && level >= z.level[0] - 3) ?? ZONES.find((z) => zones[z.id] < 8) ?? ZONES[0];
+  return ZONES.find((z) => zones[z.id] < zoneSize(z.id) && level >= z.level[0] - 3) ?? ZONES.find((z) => zones[z.id] < zoneSize(z.id)) ?? ZONES[0];
 }
 
 export function worldScreen(): Screen {
@@ -54,7 +54,7 @@ export function worldScreen(): Screen {
     for (const z of ZONES) {
       const [fx, fy] = z.world;
       const x = fx * SW, y = fy * SH;
-      const done = s.zones[z.id] >= 8;
+      const done = s.zones[z.id] >= zoneSize(z.id);
       const df = difficulty(z, s.level, done);
       const open = () => {
         sfx.click();
@@ -71,8 +71,8 @@ export function worldScreen(): Screen {
           'div',
           { class: 'col grow', style: 'min-width:0;gap:2px' },
           h('div', { class: 'row gap4', style: 'justify-content:space-between' }, h('div', { class: 'zn', style: 'white-space:nowrap' }, z.name), h('span', { class: `diff ${df.cls}` }, df.text)),
-          h('div', { class: 'zl', style: 'white-space:nowrap' }, `Cấp ${z.level[0]}–${z.level[1]} · ${s.zones[z.id]}/8 ải`),
-          h('div', { class: 'zprog', style: `height:8px;border-width:2px;--zc:${ELEM_COLOR[z.id]}` }, h('i', { style: `width:${(s.zones[z.id] / 8) * 100}%` })),
+          h('div', { class: 'zl', style: 'white-space:nowrap' }, `Cấp ${z.level[0]}–${z.level[1]} · ${s.zones[z.id]}/${zoneSize(z.id)} ải`),
+          h('div', { class: 'zprog', style: `height:8px;border-width:2px;--zc:${ELEM_COLOR[z.id]}` }, h('i', { style: `width:${(s.zones[z.id] / zoneSize(z.id)) * 100}%` })),
         ),
       );
       over.append(plaque);

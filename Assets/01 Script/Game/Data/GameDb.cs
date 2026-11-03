@@ -14,10 +14,12 @@ namespace PokiClash.Game
             var d = new GameData
             {
                 Heroes = new List<HeroDef>(heroes.heroes),
+                Minions = new List<HeroDef>(heroes.minions),
                 Starters = new List<string>(heroes.starters),
                 LegendMilestoneHero = heroes.legendMilestoneHero,
                 Pool = new List<CardDef>(cards.pool),
                 Innate = new List<CardDef>(cards.innate),
+                MinionCards = new List<CardDef>(cards.minions),
                 Zones = new List<ZoneDef>(zones.zones),
                 Stages = new List<StageDef>(zones.stages),
                 Village = zones.village,

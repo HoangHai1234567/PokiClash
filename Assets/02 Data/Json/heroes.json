@@ -857,6 +857,196 @@
    ]
   },
   {
+   "id": "mi_nhi",
+   "name": "Mi Nhi",
+   "title": "Tiên cầm sóng biếc",
+   "aola": "goc_983",
+   "elem": "thuy",
+   "rarity": "uncommon",
+   "stats": [
+    50,
+    80,
+    50,
+    40,
+    40,
+    50
+   ],
+   "skill": "mi_nhi_skill",
+   "ult": "mi_nhi_ult",
+   "passive": "mi_nhi_pas",
+   "shards": 15,
+   "line": "Dòng Mi Nhi",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Tiểu Mi",
+     "aola": "goc_983",
+     "size": 0.92
+    },
+    {
+     "name": "Mi Nhi",
+     "aola": "goc_984",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "ma_ket",
+   "name": "Ma Kết",
+   "title": "Thánh giáp sừng bạc",
+   "aola": "goc_758",
+   "elem": "thuy",
+   "rarity": "rare",
+   "stats": [
+    50,
+    80,
+    40,
+    40,
+    50,
+    50
+   ],
+   "skill": "ma_ket_skill",
+   "ult": "ma_ket_ult",
+   "passive": "ma_ket_pas",
+   "shards": 20,
+   "line": "Dòng Ma Kết",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Ma Kết Con",
+     "aola": "goc_758",
+     "size": 0.9
+    },
+    {
+     "name": "Ma Kết Sừng Nhọn",
+     "aola": "goc_759",
+     "size": 1.02
+    },
+    {
+     "name": "Ma Kết Thánh Giáp",
+     "aola": "goc_760",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "vay_lam",
+   "name": "Vây Lam",
+   "title": "Cá mập rẽ sóng",
+   "aola": "goc_546",
+   "elem": "thuy",
+   "rarity": "rare",
+   "stats": [
+    40,
+    60,
+    70,
+    40,
+    70,
+    40
+   ],
+   "skill": "vay_lam_skill",
+   "ult": "vay_lam_ult",
+   "passive": "vay_lam_pas",
+   "shards": 20,
+   "line": "Dòng Vây Lam",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Cá Đốm",
+     "aola": "goc_546",
+     "size": 0.9
+    },
+    {
+     "name": "Cá Song Tiễn",
+     "aola": "goc_547",
+     "size": 1.02
+    },
+    {
+     "name": "Cá Mập Vây Lam",
+     "aola": "goc_548",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "thuong_lam",
+   "name": "Thương Lam",
+   "title": "Rồng lam cánh băng",
+   "aola": "goc_805",
+   "elem": "thuy",
+   "rarity": "epic",
+   "stats": [
+    80,
+    60,
+    60,
+    60,
+    60,
+    20
+   ],
+   "skill": "thuong_lam_skill",
+   "ult": "thuong_lam_ult",
+   "passive": "thuong_lam_pas",
+   "shards": 30,
+   "line": "Dòng Thương Lam",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Thương",
+     "aola": "goc_805",
+     "size": 0.9
+    },
+    {
+     "name": "Thương Nhiễm",
+     "aola": "goc_806",
+     "size": 1.02
+    },
+    {
+     "name": "Thương Lam",
+     "aola": "goc_807",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "kuba",
+   "name": "Kuba",
+   "title": "Mai cứng kim cương",
+   "aola": "goc_94",
+   "elem": "thuy",
+   "rarity": "epic",
+   "stats": [
+    50,
+    70,
+    50,
+    40,
+    50,
+    40
+   ],
+   "skill": "kuba_skill",
+   "ult": "kuba_ult",
+   "passive": "kuba_pas",
+   "shards": 30,
+   "line": "Dòng Kuba",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Kuba",
+     "aola": "goc_94",
+     "size": 0.9
+    },
+    {
+     "name": "Kuba Vỏ Cứng",
+     "aola": "goc_95",
+     "size": 1.02
+    },
+    {
+     "name": "Kuba Kim Cương",
+     "aola": "goc_96",
+     "size": 1.14
+    }
+   ]
+  },
+  {
    "id": "heo_lua",
    "name": "Heo Lửa",
    "title": "Bờm lửa húc liều",
@@ -1374,6 +1564,200 @@
      "size": 1.18
     }
    ]
+  }
+ ],
+ "minions": [
+  {
+   "id": "linh_cua",
+   "name": "Cua Kìm",
+   "title": "Lính gác bãi cát",
+   "aola": "goc_1313",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    44,
+    55,
+    33,
+    55,
+    33,
+    22
+   ],
+   "skill": "linh_cua_skill",
+   "ult": "linh_cua_ult",
+   "passive": "linh_cua_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Cua Kìm",
+     "aola": "goc_1313",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "cua"
+  },
+  {
+   "id": "linh_cua2",
+   "name": "Cua Pháo",
+   "title": "Càng to bắn bọt",
+   "aola": "goc_1314",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    66,
+    77,
+    55,
+    77,
+    55,
+    44
+   ],
+   "skill": "linh_cua2_skill",
+   "ult": "linh_cua2_ult",
+   "passive": "linh_cua2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Cua Pháo",
+     "aola": "goc_1314",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "cua"
+  },
+  {
+   "id": "linh_noc",
+   "name": "Cá Nóc",
+   "title": "Quả bóng gai",
+   "aola": "goc_16",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    40,
+    30,
+    30,
+    40,
+    50,
+    30
+   ],
+   "skill": "linh_noc_skill",
+   "ult": "linh_noc_ult",
+   "passive": "linh_noc_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Cá Nóc",
+     "aola": "goc_16",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "noc"
+  },
+  {
+   "id": "linh_noc2",
+   "name": "Cá Nóc Điện",
+   "title": "Gai điện tê tê",
+   "aola": "goc_17",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    60,
+    40,
+    50,
+    60,
+    70,
+    60
+   ],
+   "skill": "linh_noc2_skill",
+   "ult": "linh_noc2_ult",
+   "passive": "linh_noc2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Cá Nóc Điện",
+     "aola": "goc_17",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "noc"
+  },
+  {
+   "id": "linh_ngu",
+   "name": "Song Ngư Con",
+   "title": "Đôi cá lượn nhanh",
+   "aola": "goc_829",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    80,
+    40,
+    40,
+    60,
+    40,
+    60
+   ],
+   "skill": "linh_ngu_skill",
+   "ult": "linh_ngu_ult",
+   "passive": "linh_ngu_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Song Ngư Con",
+     "aola": "goc_829",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "ngu"
+  },
+  {
+   "id": "linh_ngu2",
+   "name": "Song Ngư",
+   "title": "Đôi cá rẽ sóng",
+   "aola": "goc_830",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    100,
+    60,
+    60,
+    80,
+    60,
+    80
+   ],
+   "skill": "linh_ngu2_skill",
+   "ult": "linh_ngu2_ult",
+   "passive": "linh_ngu2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Song Ngư",
+     "aola": "goc_830",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "ngu"
   }
  ],
  "starters": [

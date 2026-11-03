@@ -36,6 +36,7 @@ MonoBehaviour:
     - name: "Bu L\xF4ng"
       aola: goc_78
       size: 1.14
+    minion: 0
   - id: phao_hop
     name: "Ph\xE1o H\u1ED9p"
     title: "H\u1ED9p s\u1EAFt b\u1EAFn \u0111\u1EA1n"
@@ -56,6 +57,7 @@ MonoBehaviour:
     - name: "Ph\xE1o H\u1ED9p"
       aola: goc_1890
       size: 1.1
+    minion: 0
   - id: kiem_linh
     name: "Ki\u1EBFm Linh"
     title: "Thanh ki\u1EBFm bi\u1EBFt bay"
@@ -73,6 +75,7 @@ MonoBehaviour:
     - name: "Ki\u1EBFm Linh"
       aola: goc_1617
       size: 1
+    minion: 0
   - id: meo_quyen
     name: "M\xE8o Quy\u1EC1n S\u1EAFt"
     title: "N\u1EAFm \u0111\u1EA5m ngh\xECn c\xE2n"
@@ -93,6 +96,7 @@ MonoBehaviour:
     - name: "M\xE8o Quy\u1EC1n S\u1EAFt"
       aola: goc_1177
       size: 1.1
+    minion: 0
   - id: bo_cap
     name: "B\u1ECD C\u1EA1p \u0110\u1ED3ng"
     title: "\u0110u\xF4i pha l\xEA c\xE1t \u0111\u1ECF"
@@ -116,6 +120,7 @@ MonoBehaviour:
     - name: "B\u1ECD C\u1EA1p \u0110\u1ED3ng"
       aola: goc_678
       size: 1.14
+    minion: 0
   - id: bo_ngua
     name: "B\u1ECD Ng\u1EF1a Li\u1EC1m Th\xE9p"
     title: "Song li\u1EC1m ki\u1EBFm kh\xE1ch"
@@ -139,6 +144,7 @@ MonoBehaviour:
     - name: "B\u1ECD Ng\u1EF1a Li\u1EC1m Th\xE9p"
       aola: goc_685
       size: 1.14
+    minion: 0
   - id: soi_linh
     name: "S\xF3i Linh Th\xE9p"
     title: "L\u1EEDa l\u1EA1nh gi\xE1p xanh"
@@ -159,6 +165,7 @@ MonoBehaviour:
     - name: "S\xF3i Linh Th\xE9p"
       aola: goc_2177
       size: 1.1
+    minion: 0
   - id: bach_ho
     name: "B\u1EA1ch H\u1ED5"
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng T\xE2y"
@@ -176,6 +183,7 @@ MonoBehaviour:
     - name: "B\u1EA1ch H\u1ED5"
       aola: goc_1911
       size: 1
+    minion: 0
   - id: mam_go
     name: "M\u1EA7m G\u1ED7"
     title: "H\u1EA1t gi\u1ED1ng nh\xFAt nh\xE1t"
@@ -196,6 +204,7 @@ MonoBehaviour:
     - name: "M\u1EA7m G\u1ED7"
       aola: goc_2374
       size: 1.1
+    minion: 0
   - id: nu_hoa
     name: "N\u1EE5 Hoa"
     title: "B\xF4ng n\u1EDF l\u0103n tr\xF2n"
@@ -219,6 +228,7 @@ MonoBehaviour:
     - name: "N\u1EE5 Hoa"
       aola: goc_24
       size: 1.14
+    minion: 0
   - id: kien_binh
     name: "Ki\u1EBFn Binh"
     title: "L\xEDnh g\xE1c gi\xE1o l\xE1"
@@ -236,6 +246,7 @@ MonoBehaviour:
     - name: "Ki\u1EBFn Binh"
       aola: goc_216
       size: 1
+    minion: 0
   - id: banh_tet
     name: "Hi\u1EC7p S\u0129 B\xE1nh T\xE9t"
     title: "Hi\u1EC7p kh\xE1ch g\xF3i l\xE1"
@@ -259,6 +270,7 @@ MonoBehaviour:
     - name: "Hi\u1EC7p S\u0129 B\xE1nh T\xE9t"
       aola: goc_496
       size: 1.14
+    minion: 0
   - id: de_hoa
     name: "D\xEA Hoa"
     title: "S\u1EEBng g\u1ED7 v\u01B0\u01A1ng mi\u1EC7n hoa"
@@ -282,6 +294,7 @@ MonoBehaviour:
     - name: "D\xEA Hoa"
       aola: goc_868
       size: 1.14
+    minion: 0
   - id: giac_long
     name: "Gi\xE1c Long G\u1ED7"
     title: "S\u1EEBng v\u1ECF c\xE2y xung tr\u1EADn"
@@ -302,6 +315,7 @@ MonoBehaviour:
     - name: "Gi\xE1c Long G\u1ED7"
       aola: goc_2393
       size: 1.1
+    minion: 0
   - id: phong_linh
     name: Phong Linh
     title: "Linh t\u01B0\u1EDBng gi\xF3 l\xE1"
@@ -322,6 +336,7 @@ MonoBehaviour:
     - name: Phong Linh
       aola: goc_944
       size: 1.1
+    minion: 0
   - id: thanh_long
     name: Thanh Long
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng \u0110\xF4ng"
@@ -342,6 +357,7 @@ MonoBehaviour:
     - name: Thanh Long
       aola: goc_1220
       size: 1.1
+    minion: 0
   - id: tieu_y
     name: "Ti\u1EC3u Y"
     title: "B\xE9 con s\xF3ng n\u01B0\u1EDBc"
@@ -362,6 +378,7 @@ MonoBehaviour:
     - name: "Y Tr\u1EA1ch"
       aola: goc_1320
       size: 1.12
+    minion: 0
   - id: canh_cut
     name: "C\xE1nh C\u1EE5t"
     title: "\u0110\u1EA7u b\u1EBFp x\u1EE9 b\u0103ng"
@@ -382,6 +399,7 @@ MonoBehaviour:
     - name: "\u0110\u1EA7u B\u1EBFp C\xE1nh C\u1EE5t"
       aola: goc_1692
       size: 1.1
+    minion: 0
   - id: giot_suong
     name: "Gi\u1ECDt S\u01B0\u01A1ng"
     title: "Gi\u1ECDt n\u01B0\u1EDBc h\xF3a r\u1ED3ng"
@@ -405,6 +423,7 @@ MonoBehaviour:
     - name: "S\u01B0\u01A1ng Long"
       aola: goc_9
       size: 1.14
+    minion: 0
   - id: tam_tay
     name: "T\xE1m Tay"
     title: "Ph\xE1o th\u1EE7 bong b\xF3ng"
@@ -425,6 +444,7 @@ MonoBehaviour:
     - name: "T\xE1m Tay Ph\xE1o Th\u1EE7"
       aola: goc_1054
       size: 1.1
+    minion: 0
   - id: ca_ngua
     name: "C\xE1 Ng\u1EF1a"
     title: "L\xEDnh g\xE1c r\u1EA1n san h\xF4"
@@ -448,6 +468,7 @@ MonoBehaviour:
     - name: "C\xE1 Ng\u1EF1a T\u01B0\u1EDBng Qu\xE2n"
       aola: goc_183
       size: 1.14
+    minion: 0
   - id: map_rang
     name: "M\u1EADp R\u0103ng C\u01B0a"
     title: "R\u0103ng c\u01B0a bi\u1EC3n s\xE2u"
@@ -471,6 +492,7 @@ MonoBehaviour:
     - name: "Vua C\xE1 M\u1EADp"
       aola: goc_33
       size: 1.14
+    minion: 0
   - id: lam_quan
     name: "Lam Qu\xE2n"
     title: "Ti\u1EC3u t\u01B0\u1EDBng chu\xF4ng \u0111\u1ED3ng"
@@ -494,6 +516,7 @@ MonoBehaviour:
     - name: "H\u1EAFc D\u1EF1c V\u1EA1n Qu\xE2n"
       aola: goc_2955
       size: 1.16
+    minion: 0
   - id: huyen_vu
     name: "Huy\u1EC1n V\u0169"
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng B\u1EAFc"
@@ -517,6 +540,124 @@ MonoBehaviour:
     - name: "Huy\u1EC1n V\u0169"
       aola: goc_715
       size: 1.14
+    minion: 0
+  - id: mi_nhi
+    name: Mi Nhi
+    title: "Ti\xEAn c\u1EA7m s\xF3ng bi\u1EBFc"
+    aola: goc_983
+    elem: 2
+    rarity: 1
+    stats: 320000005000000032000000280000002800000032000000
+    skill: mi_nhi_skill
+    ult: mi_nhi_ult
+    passive: mi_nhi_pas
+    shards: 15
+    line: "D\xF2ng Mi Nhi"
+    size: 0.92
+    forms:
+    - name: "Ti\u1EC3u Mi"
+      aola: goc_983
+      size: 0.92
+    - name: Mi Nhi
+      aola: goc_984
+      size: 1.1
+    minion: 0
+  - id: ma_ket
+    name: "Ma K\u1EBFt"
+    title: "Th\xE1nh gi\xE1p s\u1EEBng b\u1EA1c"
+    aola: goc_758
+    elem: 2
+    rarity: 2
+    stats: 320000005000000028000000280000003200000032000000
+    skill: ma_ket_skill
+    ult: ma_ket_ult
+    passive: ma_ket_pas
+    shards: 20
+    line: "D\xF2ng Ma K\u1EBFt"
+    size: 0.9
+    forms:
+    - name: "Ma K\u1EBFt Con"
+      aola: goc_758
+      size: 0.9
+    - name: "Ma K\u1EBFt S\u1EEBng Nh\u1ECDn"
+      aola: goc_759
+      size: 1.02
+    - name: "Ma K\u1EBFt Th\xE1nh Gi\xE1p"
+      aola: goc_760
+      size: 1.14
+    minion: 0
+  - id: vay_lam
+    name: "V\xE2y Lam"
+    title: "C\xE1 m\u1EADp r\u1EBD s\xF3ng"
+    aola: goc_546
+    elem: 2
+    rarity: 2
+    stats: 280000003c00000046000000280000004600000028000000
+    skill: vay_lam_skill
+    ult: vay_lam_ult
+    passive: vay_lam_pas
+    shards: 20
+    line: "D\xF2ng V\xE2y Lam"
+    size: 0.9
+    forms:
+    - name: "C\xE1 \u0110\u1ED1m"
+      aola: goc_546
+      size: 0.9
+    - name: "C\xE1 Song Ti\u1EC5n"
+      aola: goc_547
+      size: 1.02
+    - name: "C\xE1 M\u1EADp V\xE2y Lam"
+      aola: goc_548
+      size: 1.14
+    minion: 0
+  - id: thuong_lam
+    name: "Th\u01B0\u01A1ng Lam"
+    title: "R\u1ED3ng lam c\xE1nh b\u0103ng"
+    aola: goc_805
+    elem: 2
+    rarity: 3
+    stats: 500000003c0000003c0000003c0000003c00000014000000
+    skill: thuong_lam_skill
+    ult: thuong_lam_ult
+    passive: thuong_lam_pas
+    shards: 30
+    line: "D\xF2ng Th\u01B0\u01A1ng Lam"
+    size: 0.9
+    forms:
+    - name: "Th\u01B0\u01A1ng"
+      aola: goc_805
+      size: 0.9
+    - name: "Th\u01B0\u01A1ng Nhi\u1EC5m"
+      aola: goc_806
+      size: 1.02
+    - name: "Th\u01B0\u01A1ng Lam"
+      aola: goc_807
+      size: 1.14
+    minion: 0
+  - id: kuba
+    name: Kuba
+    title: "Mai c\u1EE9ng kim c\u01B0\u01A1ng"
+    aola: goc_94
+    elem: 2
+    rarity: 3
+    stats: 320000004600000032000000280000003200000028000000
+    skill: kuba_skill
+    ult: kuba_ult
+    passive: kuba_pas
+    shards: 30
+    line: "D\xF2ng Kuba"
+    size: 0.9
+    forms:
+    - name: Kuba
+      aola: goc_94
+      size: 0.9
+    - name: "Kuba V\u1ECF C\u1EE9ng"
+      aola: goc_95
+      size: 1.02
+    - name: "Kuba Kim C\u01B0\u01A1ng"
+      aola: goc_96
+      size: 1.14
+    minion: 0
   - id: heo_lua
     name: "Heo L\u1EEDa"
     title: "B\u1EDDm l\u1EEDa h\xFAc li\u1EC1u"
@@ -540,6 +681,7 @@ MonoBehaviour:
     - name: "Heo L\u1EEDa"
       aola: goc_207
       size: 1.14
+    minion: 0
   - id: dom_lua
     name: "\u0110\u1ED1m L\u1EEDa"
     title: "Ng\u1ECDn l\u1EEDa t\u01B0\u01A1i c\u01B0\u1EDDi"
@@ -560,6 +702,7 @@ MonoBehaviour:
     - name: "\u0110\u1ED1m L\u1EEDa"
       aola: goc_2420
       size: 1.1
+    minion: 0
   - id: phao_tet
     name: "Ph\xE1o T\u1EBFt"
     title: "Ba \u0111\u1EA7u n\u1ED5 \u0111\xF9ng"
@@ -580,6 +723,7 @@ MonoBehaviour:
     - name: "Ph\xE1o T\u1EBFt"
       aola: goc_1371
       size: 1.1
+    minion: 0
   - id: su_tu_lua
     name: "S\u01B0 T\u1EED L\u1EEDa"
     title: "B\u1EDDm l\u1EEDa nh\u1ECF"
@@ -603,6 +747,7 @@ MonoBehaviour:
     - name: "S\u01B0 T\u1EED L\u1EEDa"
       aola: goc_6
       size: 1.14
+    minion: 0
   - id: bo_de
     name: "V\xF5 T\u0103ng B\u1ED3 \u0110\u1EC1"
     title: "C\xE1nh l\u1EEDa li\xEAn hoa"
@@ -620,6 +765,7 @@ MonoBehaviour:
     - name: "V\xF5 T\u0103ng B\u1ED3 \u0110\u1EC1"
       aola: monk_500
       size: 1.08
+    minion: 0
   - id: ho_lua
     name: "H\u1ED3 L\u1EEDa"
     title: "Ba \u0111u\xF4i h\u1ECFa h\u1ED3"
@@ -637,6 +783,7 @@ MonoBehaviour:
     - name: "H\u1ED3 L\u1EEDa"
       aola: goc_307
       size: 1
+    minion: 0
   - id: phap_luan
     name: "Thi\u1EC1n S\u01B0 Ph\xE1p Lu\xE2n"
     title: "Ng\u01B0\u1EDDi xoay b\xE1nh xe ph\xE1p"
@@ -654,6 +801,7 @@ MonoBehaviour:
     - name: "Thi\u1EC1n S\u01B0 Ph\xE1p Lu\xE2n"
       aola: monk_2010
       size: 1.12
+    minion: 0
   - id: chu_tuoc
     name: "Chu T\u01B0\u1EDBc"
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng Nam"
@@ -671,6 +819,7 @@ MonoBehaviour:
     - name: "Chu T\u01B0\u1EDBc"
       aola: goc_506
       size: 1
+    minion: 0
   - id: vo_su
     name: "V\xF5 S\u01B0"
     title: "Quy\u1EC1n th\u1EE7 \xE1o v\u1EA3i"
@@ -688,6 +837,7 @@ MonoBehaviour:
     - name: "V\xF5 S\u01B0"
       aola: monk_boxer
       size: 1
+    minion: 0
   - id: gau_mo
     name: "G\u1EA5u Th\u1EE3 M\u1ECF"
     title: "Th\u1EE3 \u0111\xE0o h\u1EA7m"
@@ -705,6 +855,7 @@ MonoBehaviour:
     - name: "G\u1EA5u Th\u1EE3 M\u1ECF"
       aola: goc_373
       size: 1
+    minion: 0
   - id: soc_da
     name: "S\xF3c \u0110\xE1"
     title: "M\xE1 ph\u1ED3ng \u0111\u1EA7y s\u1ECFi"
@@ -725,6 +876,7 @@ MonoBehaviour:
     - name: "S\xF3c \u0110\xE1"
       aola: goc_826
       size: 1.1
+    minion: 0
   - id: bo_hung
     name: "B\u1ECD Hung C\xE1t"
     title: "L\u0103n c\u1EA7u c\xE1t v\xE0ng"
@@ -742,6 +894,7 @@ MonoBehaviour:
     - name: "B\u1ECD Hung C\xE1t"
       aola: goc_210
       size: 1
+    minion: 0
   - id: thach_nhan
     name: "Th\u1EA1ch Nh\xE2n"
     title: "N\xFAi \u0111\xE1 bi\u1EBFt \u0111i"
@@ -765,6 +918,7 @@ MonoBehaviour:
     - name: "Th\u1EA1ch Nh\xE2n"
       aola: goc_36
       size: 1.14
+    minion: 0
   - id: sa_than
     name: "Sa Th\u1EA7n"
     title: "H\u1ED9 v\u1EC7 sa m\u1EA1c"
@@ -782,6 +936,7 @@ MonoBehaviour:
     - name: "Sa Th\u1EA7n"
       aola: goc_1000
       size: 1
+    minion: 0
   - id: ky_lan
     name: "K\u1EF3 L\xE2n C\xE1t"
     title: "B\u1EDDm c\xE1t ho\xE0ng kim"
@@ -805,6 +960,7 @@ MonoBehaviour:
     - name: "K\u1EF3 L\xE2n C\xE1t"
       aola: goc_90
       size: 1.14
+    minion: 0
   - id: ca_sa
     name: "\u0110\u1EA1i S\u01B0 C\xE0 Sa"
     title: "Kim cang h\u1ED9 ph\xE1p"
@@ -822,6 +978,116 @@ MonoBehaviour:
     - name: "\u0110\u1EA1i S\u01B0 C\xE0 Sa"
       aola: monk_2217
       size: 1.18
+    minion: 0
+  minions:
+  - id: linh_cua
+    name: "Cua K\xECm"
+    title: "L\xEDnh g\xE1c b\xE3i c\xE1t"
+    aola: goc_1313
+    elem: 2
+    rarity: 0
+    stats: 2c0000003700000021000000370000002100000016000000
+    skill: linh_cua_skill
+    ult: linh_cua_ult
+    passive: linh_cua_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "Cua K\xECm"
+      aola: goc_1313
+      size: 0.8
+    minion: 1
+  - id: linh_cua2
+    name: "Cua Ph\xE1o"
+    title: "C\xE0ng to b\u1EAFn b\u1ECDt"
+    aola: goc_1314
+    elem: 2
+    rarity: 0
+    stats: 420000004d000000370000004d000000370000002c000000
+    skill: linh_cua2_skill
+    ult: linh_cua2_ult
+    passive: linh_cua2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "Cua Ph\xE1o"
+      aola: goc_1314
+      size: 0.86
+    minion: 1
+  - id: linh_noc
+    name: "C\xE1 N\xF3c"
+    title: "Qu\u1EA3 b\xF3ng gai"
+    aola: goc_16
+    elem: 2
+    rarity: 0
+    stats: 280000001e0000001e00000028000000320000001e000000
+    skill: linh_noc_skill
+    ult: linh_noc_ult
+    passive: linh_noc_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "C\xE1 N\xF3c"
+      aola: goc_16
+      size: 0.8
+    minion: 1
+  - id: linh_noc2
+    name: "C\xE1 N\xF3c \u0110i\u1EC7n"
+    title: "Gai \u0111i\u1EC7n t\xEA t\xEA"
+    aola: goc_17
+    elem: 2
+    rarity: 0
+    stats: 3c00000028000000320000003c000000460000003c000000
+    skill: linh_noc2_skill
+    ult: linh_noc2_ult
+    passive: linh_noc2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "C\xE1 N\xF3c \u0110i\u1EC7n"
+      aola: goc_17
+      size: 0.86
+    minion: 1
+  - id: linh_ngu
+    name: "Song Ng\u01B0 Con"
+    title: "\u0110\xF4i c\xE1 l\u01B0\u1EE3n nhanh"
+    aola: goc_829
+    elem: 2
+    rarity: 0
+    stats: 5000000028000000280000003c000000280000003c000000
+    skill: linh_ngu_skill
+    ult: linh_ngu_ult
+    passive: linh_ngu_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "Song Ng\u01B0 Con"
+      aola: goc_829
+      size: 0.8
+    minion: 1
+  - id: linh_ngu2
+    name: "Song Ng\u01B0"
+    title: "\u0110\xF4i c\xE1 r\u1EBD s\xF3ng"
+    aola: goc_830
+    elem: 2
+    rarity: 0
+    stats: 640000003c0000003c000000500000003c00000050000000
+    skill: linh_ngu2_skill
+    ult: linh_ngu2_ult
+    passive: linh_ngu2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "Song Ng\u01B0"
+      aola: goc_830
+      size: 0.86
+    minion: 1
   starters:
   - giot_suong
   legendMilestoneHero: ca_sa

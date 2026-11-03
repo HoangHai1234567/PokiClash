@@ -23,6 +23,9 @@ namespace PokiClash.Core
     public enum PassiveTrigger { None, Start, TurnStart, LowHp, OnAttack, OnHit, Death }
     public enum StageKind { Normal, Mini, Boss }
 
+    // kiểu ải của hệ thống 70 ải (chép StageTag của Web/src/core/data/islands.ts); None là ải của hệ thống 8 ải cũ
+    public enum StageTag { None, Hero, Minion, Buff, Group, Pair, Elite, Gate }
+
     // Một hiệu ứng của thẻ. Trường nào không dùng cho loại đó thì để mặc định; trường "?" là có thể vắng (giống undefined của web).
     public sealed class Effect
     {
@@ -99,6 +102,7 @@ namespace PokiClash.Core
         public string line; // dòng tiến hóa (để hiển thị)
         public double size = 1; // = forms[0].size
         public HeroForm[] forms = new HeroForm[0]; // 1–3 dạng, dạng 1 trước
+        public bool minion; // lính của ải (GameData.Minions): chỉ làm địch, không thu phục, không rơi mảnh
 
         // dạng ở sao này (chép formIndex của Web/src/core/progression.ts): đủ mốc formStars[i] thì sang dạng i + 2
         public int FormIndex(int[] formStars, int star)
@@ -128,6 +132,7 @@ namespace PokiClash.Core
         public int level;
         public bool boss;
         public bool evo; // boss tiến hóa trong trận (thẻ Tiến Hóa boss_evo)
+        public double buff; // cường hóa của ải: Máu, Công +buff, Thủ +buff/2 (âm là yếu đi, 0 là không có)
     }
 
     [Serializable]
@@ -143,11 +148,13 @@ namespace PokiClash.Core
     [Serializable]
     public class StageDef
     {
-        public int id; // số toàn cục 1..40
+        public int id; // số toàn cục 1..102 (Đảo Thủy 70 ải, mỗi đảo kia 8 ải)
         public Elem zone;
-        public int idx; // 1..8 trong đảo
+        public int idx; // 1..70 hoặc 1..8 trong đảo
         public string name;
         public StageKind kind;
+        public StageTag tag; // đảo 70 ải: kiểu ải; đảo 8 ải: None
+        public int chapter; // đảo 70 ải: chặng (0..9), từ ải tướng tới trước ải tướng sau
         public List<StageEnemy> enemies = new List<StageEnemy>();
         public List<StageDrop> drops = new List<StageDrop>();
     }
@@ -166,7 +173,13 @@ namespace PokiClash.Core
         public string skyBottom;
         public string ground;
         public string sea;
-        public List<Pt> nodes = new List<Pt>(); // 8 ải trên ảnh đảo, tỉ lệ 0..1 theo khung 9:16
+        public List<Pt> nodes = new List<Pt>(); // đảo 8 ải: 8 ải trên ảnh đảo, tỉ lệ 0..1 theo ảnh; đảo 70 ải: các ải tướng
+        // đảo 70 ải có bản đồ dài (ArtGen/Islands/build_zone70.py): tâm con đường cát từ bãi biển lên bãi đấu boss (tỉ lệ 0..1 theo ảnh,
+        // y từ trên), chỗ từng ải tướng theo tỉ lệ chiều dài đường, bên đặt bảng tên của từng ải tướng (1 phải, -1 trái, 0 game tự
+        // chọn; ngược phía địa danh của chặng). Rỗng thì màn đảo vẽ đường mòn qua nodes như cũ.
+        public List<Pt> path = new List<Pt>();
+        public List<double> stops = new List<double>();
+        public List<int> plates = new List<int>();
         public Pt world; // vị trí vùng trên ảnh đảo lớn
     }
 

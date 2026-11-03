@@ -5761,6 +5761,1206 @@
    "spd": 70
   },
   {
+   "id": "mi_nhi",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 590,
+   "atk": 198,
+   "def": 66,
+   "spd": 51
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1063,
+   "atk": 218,
+   "def": 66,
+   "spd": 51
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 685,
+   "atk": 230,
+   "def": 77,
+   "spd": 51
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1233,
+   "atk": 253,
+   "def": 77,
+   "spd": 51
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 779,
+   "atk": 261,
+   "def": 87,
+   "spd": 51
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1403,
+   "atk": 287,
+   "def": 87,
+   "spd": 51
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1122,
+   "atk": 376,
+   "def": 126,
+   "spd": 60
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2019,
+   "atk": 414,
+   "def": 126,
+   "spd": 60
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1301,
+   "atk": 436,
+   "def": 146,
+   "spd": 60
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2342,
+   "atk": 480,
+   "def": 146,
+   "spd": 60
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1481,
+   "atk": 497,
+   "def": 166,
+   "spd": 60
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 2665,
+   "atk": 546,
+   "def": 166,
+   "spd": 60
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 1712,
+   "atk": 574,
+   "def": 192,
+   "spd": 70
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3081,
+   "atk": 632,
+   "def": 192,
+   "spd": 70
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 1986,
+   "atk": 666,
+   "def": 223,
+   "spd": 70
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 3575,
+   "atk": 733,
+   "def": 223,
+   "spd": 70
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2260,
+   "atk": 758,
+   "def": 254,
+   "spd": 70
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4068,
+   "atk": 834,
+   "def": 254,
+   "spd": 70
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2302,
+   "atk": 772,
+   "def": 258,
+   "spd": 80
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4144,
+   "atk": 849,
+   "def": 258,
+   "spd": 80
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 2671,
+   "atk": 896,
+   "def": 300,
+   "spd": 80
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 4807,
+   "atk": 985,
+   "def": 300,
+   "spd": 80
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3039,
+   "atk": 1019,
+   "def": 341,
+   "spd": 80
+  },
+  {
+   "id": "mi_nhi",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 5470,
+   "atk": 1121,
+   "def": 341,
+   "spd": 80
+  },
+  {
+   "id": "ma_ket",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 709,
+   "atk": 213,
+   "def": 71,
+   "spd": 51
+  },
+  {
+   "id": "ma_ket",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1276,
+   "atk": 234,
+   "def": 71,
+   "spd": 51
+  },
+  {
+   "id": "ma_ket",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 822,
+   "atk": 247,
+   "def": 83,
+   "spd": 51
+  },
+  {
+   "id": "ma_ket",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1480,
+   "atk": 271,
+   "def": 83,
+   "spd": 51
+  },
+  {
+   "id": "ma_ket",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 936,
+   "atk": 281,
+   "def": 94,
+   "spd": 51
+  },
+  {
+   "id": "ma_ket",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1684,
+   "atk": 309,
+   "def": 94,
+   "spd": 51
+  },
+  {
+   "id": "ma_ket",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1347,
+   "atk": 404,
+   "def": 135,
+   "spd": 60
+  },
+  {
+   "id": "ma_ket",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2424,
+   "atk": 444,
+   "def": 135,
+   "spd": 60
+  },
+  {
+   "id": "ma_ket",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1562,
+   "atk": 469,
+   "def": 157,
+   "spd": 60
+  },
+  {
+   "id": "ma_ket",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 2812,
+   "atk": 515,
+   "def": 157,
+   "spd": 60
+  },
+  {
+   "id": "ma_ket",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1778,
+   "atk": 533,
+   "def": 178,
+   "spd": 60
+  },
+  {
+   "id": "ma_ket",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3200,
+   "atk": 587,
+   "def": 178,
+   "spd": 60
+  },
+  {
+   "id": "ma_ket",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2055,
+   "atk": 617,
+   "def": 206,
+   "spd": 70
+  },
+  {
+   "id": "ma_ket",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 3700,
+   "atk": 678,
+   "def": 206,
+   "spd": 70
+  },
+  {
+   "id": "ma_ket",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2384,
+   "atk": 715,
+   "def": 239,
+   "spd": 70
+  },
+  {
+   "id": "ma_ket",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4292,
+   "atk": 787,
+   "def": 239,
+   "spd": 70
+  },
+  {
+   "id": "ma_ket",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2713,
+   "atk": 814,
+   "def": 272,
+   "spd": 70
+  },
+  {
+   "id": "ma_ket",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 4884,
+   "atk": 895,
+   "def": 272,
+   "spd": 70
+  },
+  {
+   "id": "ma_ket",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 2764,
+   "atk": 829,
+   "def": 278,
+   "spd": 80
+  },
+  {
+   "id": "ma_ket",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 4975,
+   "atk": 912,
+   "def": 278,
+   "spd": 80
+  },
+  {
+   "id": "ma_ket",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3206,
+   "atk": 962,
+   "def": 322,
+   "spd": 80
+  },
+  {
+   "id": "ma_ket",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 5772,
+   "atk": 1058,
+   "def": 322,
+   "spd": 80
+  },
+  {
+   "id": "ma_ket",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3649,
+   "atk": 1095,
+   "def": 366,
+   "spd": 80
+  },
+  {
+   "id": "ma_ket",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 6568,
+   "atk": 1204,
+   "def": 366,
+   "spd": 80
+  },
+  {
+   "id": "vay_lam",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 770,
+   "atk": 231,
+   "def": 60,
+   "spd": 41
+  },
+  {
+   "id": "vay_lam",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1385,
+   "atk": 254,
+   "def": 60,
+   "spd": 41
+  },
+  {
+   "id": "vay_lam",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 893,
+   "atk": 268,
+   "def": 69,
+   "spd": 41
+  },
+  {
+   "id": "vay_lam",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1607,
+   "atk": 295,
+   "def": 69,
+   "spd": 41
+  },
+  {
+   "id": "vay_lam",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1016,
+   "atk": 305,
+   "def": 79,
+   "spd": 41
+  },
+  {
+   "id": "vay_lam",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1828,
+   "atk": 335,
+   "def": 79,
+   "spd": 41
+  },
+  {
+   "id": "vay_lam",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1462,
+   "atk": 439,
+   "def": 113,
+   "spd": 50
+  },
+  {
+   "id": "vay_lam",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2632,
+   "atk": 483,
+   "def": 113,
+   "spd": 50
+  },
+  {
+   "id": "vay_lam",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1696,
+   "atk": 509,
+   "def": 131,
+   "spd": 50
+  },
+  {
+   "id": "vay_lam",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3053,
+   "atk": 560,
+   "def": 131,
+   "spd": 50
+  },
+  {
+   "id": "vay_lam",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1930,
+   "atk": 579,
+   "def": 150,
+   "spd": 50
+  },
+  {
+   "id": "vay_lam",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3474,
+   "atk": 637,
+   "def": 150,
+   "spd": 50
+  },
+  {
+   "id": "vay_lam",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2232,
+   "atk": 670,
+   "def": 173,
+   "spd": 60
+  },
+  {
+   "id": "vay_lam",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4017,
+   "atk": 736,
+   "def": 173,
+   "spd": 60
+  },
+  {
+   "id": "vay_lam",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2589,
+   "atk": 777,
+   "def": 201,
+   "spd": 60
+  },
+  {
+   "id": "vay_lam",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4660,
+   "atk": 854,
+   "def": 201,
+   "spd": 60
+  },
+  {
+   "id": "vay_lam",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2946,
+   "atk": 884,
+   "def": 228,
+   "spd": 60
+  },
+  {
+   "id": "vay_lam",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5303,
+   "atk": 972,
+   "def": 228,
+   "spd": 60
+  },
+  {
+   "id": "vay_lam",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3001,
+   "atk": 900,
+   "def": 233,
+   "spd": 70
+  },
+  {
+   "id": "vay_lam",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5402,
+   "atk": 990,
+   "def": 233,
+   "spd": 70
+  },
+  {
+   "id": "vay_lam",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3482,
+   "atk": 1044,
+   "def": 270,
+   "spd": 70
+  },
+  {
+   "id": "vay_lam",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6267,
+   "atk": 1149,
+   "def": 270,
+   "spd": 70
+  },
+  {
+   "id": "vay_lam",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3962,
+   "atk": 1189,
+   "def": 307,
+   "spd": 70
+  },
+  {
+   "id": "vay_lam",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7131,
+   "atk": 1307,
+   "def": 307,
+   "spd": 70
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 774,
+   "atk": 268,
+   "def": 71,
+   "spd": 21
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1393,
+   "atk": 295,
+   "def": 71,
+   "spd": 21
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 898,
+   "atk": 311,
+   "def": 82,
+   "spd": 21
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1616,
+   "atk": 342,
+   "def": 82,
+   "spd": 21
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1022,
+   "atk": 354,
+   "def": 94,
+   "spd": 21
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1839,
+   "atk": 389,
+   "def": 94,
+   "spd": 21
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1471,
+   "atk": 510,
+   "def": 135,
+   "spd": 30
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2648,
+   "atk": 560,
+   "def": 135,
+   "spd": 30
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1706,
+   "atk": 591,
+   "def": 156,
+   "spd": 30
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3071,
+   "atk": 650,
+   "def": 156,
+   "spd": 30
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 1942,
+   "atk": 673,
+   "def": 178,
+   "spd": 30
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3495,
+   "atk": 740,
+   "def": 178,
+   "spd": 30
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2245,
+   "atk": 778,
+   "def": 206,
+   "spd": 40
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4041,
+   "atk": 855,
+   "def": 206,
+   "spd": 40
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2604,
+   "atk": 902,
+   "def": 239,
+   "spd": 40
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4687,
+   "atk": 992,
+   "def": 239,
+   "spd": 40
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 2963,
+   "atk": 1027,
+   "def": 272,
+   "spd": 40
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5334,
+   "atk": 1129,
+   "def": 272,
+   "spd": 40
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3019,
+   "atk": 1046,
+   "def": 277,
+   "spd": 50
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5434,
+   "atk": 1150,
+   "def": 277,
+   "spd": 50
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3502,
+   "atk": 1213,
+   "def": 321,
+   "spd": 50
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6304,
+   "atk": 1334,
+   "def": 321,
+   "spd": 50
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 3985,
+   "atk": 1381,
+   "def": 365,
+   "spd": 50
+  },
+  {
+   "id": "thuong_lam",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7173,
+   "atk": 1519,
+   "def": 365,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 1,
+   "st": 1,
+   "boss": false,
+   "hp": 803,
+   "atk": 241,
+   "def": 77,
+   "spd": 41
+  },
+  {
+   "id": "kuba",
+   "lv": 1,
+   "st": 1,
+   "boss": true,
+   "hp": 1445,
+   "atk": 265,
+   "def": 77,
+   "spd": 41
+  },
+  {
+   "id": "kuba",
+   "lv": 1,
+   "st": 3,
+   "boss": false,
+   "hp": 931,
+   "atk": 279,
+   "def": 90,
+   "spd": 41
+  },
+  {
+   "id": "kuba",
+   "lv": 1,
+   "st": 3,
+   "boss": true,
+   "hp": 1676,
+   "atk": 307,
+   "def": 90,
+   "spd": 41
+  },
+  {
+   "id": "kuba",
+   "lv": 1,
+   "st": 5,
+   "boss": false,
+   "hp": 1060,
+   "atk": 318,
+   "def": 102,
+   "spd": 41
+  },
+  {
+   "id": "kuba",
+   "lv": 1,
+   "st": 5,
+   "boss": true,
+   "hp": 1907,
+   "atk": 350,
+   "def": 102,
+   "spd": 41
+  },
+  {
+   "id": "kuba",
+   "lv": 10,
+   "st": 1,
+   "boss": false,
+   "hp": 1525,
+   "atk": 458,
+   "def": 147,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 10,
+   "st": 1,
+   "boss": true,
+   "hp": 2745,
+   "atk": 503,
+   "def": 147,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 10,
+   "st": 3,
+   "boss": false,
+   "hp": 1769,
+   "atk": 531,
+   "def": 170,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 10,
+   "st": 3,
+   "boss": true,
+   "hp": 3185,
+   "atk": 584,
+   "def": 170,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 10,
+   "st": 5,
+   "boss": false,
+   "hp": 2013,
+   "atk": 604,
+   "def": 194,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 10,
+   "st": 5,
+   "boss": true,
+   "hp": 3624,
+   "atk": 664,
+   "def": 194,
+   "spd": 50
+  },
+  {
+   "id": "kuba",
+   "lv": 20,
+   "st": 1,
+   "boss": false,
+   "hp": 2328,
+   "atk": 698,
+   "def": 224,
+   "spd": 60
+  },
+  {
+   "id": "kuba",
+   "lv": 20,
+   "st": 1,
+   "boss": true,
+   "hp": 4190,
+   "atk": 768,
+   "def": 224,
+   "spd": 60
+  },
+  {
+   "id": "kuba",
+   "lv": 20,
+   "st": 3,
+   "boss": false,
+   "hp": 2700,
+   "atk": 810,
+   "def": 260,
+   "spd": 60
+  },
+  {
+   "id": "kuba",
+   "lv": 20,
+   "st": 3,
+   "boss": true,
+   "hp": 4861,
+   "atk": 891,
+   "def": 260,
+   "spd": 60
+  },
+  {
+   "id": "kuba",
+   "lv": 20,
+   "st": 5,
+   "boss": false,
+   "hp": 3073,
+   "atk": 922,
+   "def": 295,
+   "spd": 60
+  },
+  {
+   "id": "kuba",
+   "lv": 20,
+   "st": 5,
+   "boss": true,
+   "hp": 5531,
+   "atk": 1014,
+   "def": 295,
+   "spd": 60
+  },
+  {
+   "id": "kuba",
+   "lv": 30,
+   "st": 1,
+   "boss": false,
+   "hp": 3131,
+   "atk": 939,
+   "def": 301,
+   "spd": 70
+  },
+  {
+   "id": "kuba",
+   "lv": 30,
+   "st": 1,
+   "boss": true,
+   "hp": 5635,
+   "atk": 1033,
+   "def": 301,
+   "spd": 70
+  },
+  {
+   "id": "kuba",
+   "lv": 30,
+   "st": 3,
+   "boss": false,
+   "hp": 3632,
+   "atk": 1089,
+   "def": 349,
+   "spd": 70
+  },
+  {
+   "id": "kuba",
+   "lv": 30,
+   "st": 3,
+   "boss": true,
+   "hp": 6537,
+   "atk": 1198,
+   "def": 349,
+   "spd": 70
+  },
+  {
+   "id": "kuba",
+   "lv": 30,
+   "st": 5,
+   "boss": false,
+   "hp": 4132,
+   "atk": 1240,
+   "def": 397,
+   "spd": 70
+  },
+  {
+   "id": "kuba",
+   "lv": 30,
+   "st": 5,
+   "boss": true,
+   "hp": 7438,
+   "atk": 1364,
+   "def": 397,
+   "spd": 70
+  },
+  {
    "id": "heo_lua",
    "lv": 1,
    "st": 1,
@@ -11405,13 +12605,13 @@
  ],
  "shards": [
   [
-   "su_tu_lua",
+   "phao_tet",
    5,
    false,
    0
   ],
   [
-   "mam_go",
+   "nu_hoa",
    4,
    false,
    0
@@ -11423,103 +12623,19 @@
    0
   ],
   [
-   "bo_de",
+   "su_tu_lua",
    3,
    false,
    0
   ],
   [
-   "thach_nhan",
+   "bo_hung",
    2,
    false,
    0
-  ],
-  [
-   "chu_tuoc",
-   5,
-   false,
-   0
-  ],
-  [
-   "phao_tet",
-   1,
-   false,
-   0
-  ],
-  [
-   "giot_suong",
-   2,
-   false,
-   2
   ],
   [
    "phap_luan",
-   5,
-   false,
-   0
-  ],
-  [
-   "kien_binh",
-   1,
-   false,
-   0
-  ],
-  [
-   "chu_tuoc",
-   2,
-   false,
-   0
-  ],
-  [
-   "kien_binh",
-   1,
-   false,
-   0
-  ],
-  [
-   "giot_suong",
-   6,
-   false,
-   6
-  ],
-  [
-   "kien_binh",
-   3,
-   false,
-   0
-  ],
-  [
-   "mam_go",
-   6,
-   true,
-   0
-  ],
-  [
-   "bo_de",
-   6,
-   false,
-   0
-  ],
-  [
-   "ca_ngua",
-   5,
-   false,
-   0
-  ],
-  [
-   "dom_lua",
-   1,
-   false,
-   0
-  ],
-  [
-   "dom_lua",
-   4,
-   false,
-   0
-  ],
-  [
-   "de_hoa",
    5,
    false,
    0
@@ -11531,25 +12647,115 @@
    0
   ],
   [
-   "sa_than",
-   3,
-   false,
-   0
-  ],
-  [
-   "phong_linh",
-   6,
-   false,
-   0
-  ],
-  [
-   "nu_hoa",
+   "ca_ngua",
    2,
    false,
    0
   ],
   [
+   "bo_hung",
+   2,
+   false,
+   0
+  ],
+  [
+   "bo_de",
+   5,
+   false,
+   0
+  ],
+  [
+   "banh_tet",
+   1,
+   false,
+   0
+  ],
+  [
+   "phap_luan",
+   2,
+   false,
+   0
+  ],
+  [
+   "de_hoa",
+   1,
+   false,
+   0
+  ],
+  [
+   "map_rang",
+   6,
+   false,
+   0
+  ],
+  [
+   "banh_tet",
+   1,
+   false,
+   0
+  ],
+  [
    "gau_mo",
+   2,
+   false,
+   0
+  ],
+  [
+   "giot_suong",
+   6,
+   false,
+   6
+  ],
+  [
+   "huyen_vu",
+   5,
+   false,
+   0
+  ],
+  [
+   "heo_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "kuba",
+   4,
+   false,
+   0
+  ],
+  [
+   "phong_linh",
+   5,
+   false,
+   0
+  ],
+  [
+   "thuong_lam",
+   1,
+   false,
+   0
+  ],
+  [
+   "thach_nhan",
+   3,
+   false,
+   0
+  ],
+  [
+   "thanh_long",
+   6,
+   false,
+   0
+  ],
+  [
+   "banh_tet",
+   2,
+   false,
+   0
+  ],
+  [
+   "vo_su",
    2,
    false,
    0
@@ -11561,13 +12767,13 @@
    0
   ],
   [
-   "phong_linh",
+   "thanh_long",
    5,
    false,
    0
   ],
   [
-   "de_hoa",
+   "phong_linh",
    4,
    false,
    0
@@ -11579,31 +12785,31 @@
    0
   ],
   [
-   "ho_lua",
+   "bo_de",
    4,
    false,
    0
   ],
   [
-   "kien_binh",
+   "banh_tet",
    6,
    false,
    0
   ],
   [
-   "phao_hop",
+   "kiem_linh",
    5,
    false,
    0
   ],
   [
-   "ky_lan",
+   "sa_than",
    2,
    false,
    0
   ],
   [
-   "map_rang",
+   "huyen_vu",
    6,
    false,
    0
@@ -11621,13 +12827,13 @@
    0
   ],
   [
-   "map_rang",
+   "mi_nhi",
    1,
    false,
    0
   ],
   [
-   "banh_tet",
+   "giac_long",
    4,
    false,
    0
@@ -11639,7 +12845,7 @@
    0
   ],
   [
-   "phap_luan",
+   "ho_lua",
    1,
    false,
    0
@@ -11651,26 +12857,56 @@
    0
   ],
   [
-   "vo_su",
+   "chu_tuoc",
    4,
    false,
    0
   ],
   [
-   "tieu_y",
+   "giot_suong",
    1,
    false,
-   0
+   1
   ],
   [
-   "banh_tet",
-   6,
+   "ky_lan",
+   2,
    false,
    0
   ],
   [
-   "giac_long",
+   "phao_tet",
    5,
+   false,
+   0
+  ],
+  [
+   "bo_cap",
+   5,
+   false,
+   0
+  ],
+  [
+   "thach_nhan",
+   4,
+   false,
+   0
+  ],
+  [
+   "bo_ngua",
+   3,
+   false,
+   0
+  ],
+  [
+   "giot_suong",
+   1,
+   false,
+   1
+  ],
+  [
+   "thach_nhan",
+   2,
    false,
    0
   ],
@@ -11682,84 +12918,60 @@
   ],
   [
    "chu_tuoc",
-   6,
-   false,
-   0
-  ],
-  [
-   "heo_lua",
    1,
    false,
    0
   ],
   [
-   "phong_linh",
-   3,
-   false,
-   0
-  ],
-  [
-   "kiem_linh",
-   3,
-   false,
-   0
-  ],
-  [
-   "thach_nhan",
-   2,
-   false,
-   0
-  ],
-  [
-   "phap_luan",
-   1,
-   false,
-   0
-  ],
-  [
-   "vo_su",
-   1,
-   false,
-   0
-  ],
-  [
-   "ca_ngua",
+   "huyen_vu",
    5,
    false,
    0
   ],
   [
-   "mam_go",
+   "nu_hoa",
    4,
    false,
-   4
-  ],
-  [
-   "su_tu_lua",
-   2,
-   false,
    0
   ],
   [
-   "kien_binh",
-   6,
-   true,
-   0
-  ],
-  [
-   "dom_lua",
+   "bo_cap",
    3,
    false,
    0
   ],
   [
-   "ho_lua",
+   "heo_lua",
+   2,
+   false,
+   0
+  ],
+  [
+   "dom_lua",
+   2,
+   false,
+   0
+  ],
+  [
+   "banh_tet",
+   6,
+   true,
+   0
+  ],
+  [
+   "kuba",
+   3,
+   false,
+   0
+  ],
+  [
+   "bo_de",
    1,
    false,
    0
   ],
   [
-   "heo_lua",
+   "thuong_lam",
    4,
    false,
    0
@@ -11771,25 +12983,25 @@
    0
   ],
   [
-   "giac_long",
+   "thanh_long",
    3,
    false,
    0
   ],
   [
-   "dom_lua",
-   6,
-   true,
-   0
-  ],
-  [
-   "huyen_vu",
+   "kuba",
    6,
    false,
    0
   ],
   [
-   "phap_luan",
+   "vay_lam",
+   6,
+   false,
+   0
+  ],
+  [
+   "ho_lua",
    2,
    false,
    0
@@ -11815,11 +13027,11 @@
   [
    "phao_hop",
    5,
-   true,
+   false,
    0
   ],
   [
-   "huyen_vu",
+   "vay_lam",
    2,
    false,
    0
@@ -11837,26 +13049,32 @@
    0
   ],
   [
-   "kien_binh",
+   "de_hoa",
    5,
    false,
-   5
+   0
   ],
   [
-   "map_rang",
+   "de_hoa",
    2,
    false,
    0
   ],
   [
-   "nu_hoa",
+   "ho_lua",
+   1,
+   false,
+   0
+  ],
+  [
+   "heo_lua",
    4,
    false,
    0
   ],
   [
-   "vo_su",
-   4,
+   "de_hoa",
+   2,
    false,
    0
   ],
@@ -11864,24 +13082,6 @@
    "heo_lua",
    5,
    true,
-   0
-  ],
-  [
-   "canh_cut",
-   4,
-   false,
-   0
-  ],
-  [
-   "bach_ho",
-   1,
-   false,
-   0
-  ],
-  [
-   "phong_linh",
-   3,
-   false,
    0
   ]
  ],
@@ -11896,8 +13096,8 @@
   ],
   [
    "phao_hop",
-   true,
-   0,
+   false,
+   7,
    0,
    0,
    0
@@ -11905,7 +13105,7 @@
   [
    "kiem_linh",
    false,
-   5,
+   7,
    0,
    0,
    0
@@ -11921,7 +13121,7 @@
   [
    "bo_cap",
    false,
-   0,
+   8,
    0,
    0,
    0
@@ -11929,7 +13129,7 @@
   [
    "bo_ngua",
    false,
-   0,
+   3,
    0,
    0,
    0
@@ -11945,53 +13145,21 @@
   [
    "bach_ho",
    false,
-   1,
+   0,
    0,
    0,
    0
   ],
   [
    "mam_go",
-   true,
+   false,
    0,
-   2,
-   2,
+   0,
+   0,
    0
   ],
   [
    "nu_hoa",
-   false,
-   6,
-   0,
-   0,
-   0
-  ],
-  [
-   "kien_binh",
-   true,
-   0,
-   3,
-   1,
-   1
-  ],
-  [
-   "banh_tet",
-   false,
-   10,
-   0,
-   0,
-   0
-  ],
-  [
-   "de_hoa",
-   false,
-   9,
-   0,
-   0,
-   0
-  ],
-  [
-   "giac_long",
    false,
    8,
    0,
@@ -11999,9 +13167,41 @@
    0
   ],
   [
+   "kien_binh",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "banh_tet",
+   true,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "de_hoa",
+   false,
+   10,
+   0,
+   0,
+   0
+  ],
+  [
+   "giac_long",
+   false,
+   4,
+   0,
+   0,
+   0
+  ],
+  [
    "phong_linh",
    false,
-   17,
+   9,
    0,
    0,
    0
@@ -12009,7 +13209,7 @@
   [
    "thanh_long",
    false,
-   0,
+   14,
    0,
    0,
    0
@@ -12017,7 +13217,7 @@
   [
    "tieu_y",
    false,
-   1,
+   0,
    0,
    0,
    0
@@ -12025,7 +13225,7 @@
   [
    "canh_cut",
    false,
-   4,
+   0,
    0,
    0,
    0
@@ -12034,8 +13234,8 @@
    "giot_suong",
    true,
    0,
-   4,
-   1,
+   3,
+   2,
    3
   ],
   [
@@ -12049,7 +13249,7 @@
   [
    "ca_ngua",
    false,
-   10,
+   2,
    0,
    0,
    0
@@ -12057,7 +13257,7 @@
   [
    "map_rang",
    false,
-   9,
+   6,
    0,
    0,
    0
@@ -12073,7 +13273,47 @@
   [
    "huyen_vu",
    false,
+   16,
+   0,
+   0,
+   0
+  ],
+  [
+   "mi_nhi",
+   false,
+   1,
+   0,
+   0,
+   0
+  ],
+  [
+   "ma_ket",
+   false,
+   0,
+   0,
+   0,
+   0
+  ],
+  [
+   "vay_lam",
+   false,
    8,
+   0,
+   0,
+   0
+  ],
+  [
+   "thuong_lam",
+   false,
+   5,
+   0,
+   0,
+   0
+  ],
+  [
+   "kuba",
+   false,
+   13,
    0,
    0,
    0
@@ -12088,8 +13328,8 @@
   ],
   [
    "dom_lua",
-   true,
-   0,
+   false,
+   2,
    0,
    0,
    0
@@ -12097,7 +13337,7 @@
   [
    "phao_tet",
    false,
-   1,
+   10,
    0,
    0,
    0
@@ -12105,7 +13345,7 @@
   [
    "su_tu_lua",
    false,
-   7,
+   3,
    0,
    0,
    0
@@ -12113,7 +13353,7 @@
   [
    "bo_de",
    false,
-   9,
+   10,
    0,
    0,
    0
@@ -12121,7 +13361,7 @@
   [
    "ho_lua",
    false,
-   6,
+   5,
    0,
    0,
    0
@@ -12129,7 +13369,7 @@
   [
    "phap_luan",
    false,
-   9,
+   7,
    0,
    0,
    0
@@ -12137,7 +13377,7 @@
   [
    "chu_tuoc",
    false,
-   13,
+   5,
    0,
    0,
    0
@@ -12145,7 +13385,7 @@
   [
    "vo_su",
    false,
-   9,
+   2,
    0,
    0,
    0
@@ -12169,7 +13409,7 @@
   [
    "bo_hung",
    false,
-   8,
+   12,
    0,
    0,
    0
@@ -12177,7 +13417,7 @@
   [
    "thach_nhan",
    false,
-   4,
+   9,
    0,
    0,
    0
@@ -12185,7 +13425,7 @@
   [
    "sa_than",
    false,
-   3,
+   2,
    0,
    0,
    0

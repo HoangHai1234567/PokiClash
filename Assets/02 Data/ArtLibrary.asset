@@ -106,18 +106,6 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 8bfdecaa0e321544cbefc03a7d7f9809, type: 3}
   - name: pk_bumper
     sprite: {fileID: 21300000, guid: 2725a3caa5c07c341a0d8f2e666badb4, type: 3}
-  - name: world
-    sprite: {fileID: 21300000, guid: 7f91e565f95e4324995802198b791a3b, type: 3}
-  - name: zone_hoa
-    sprite: {fileID: 21300000, guid: 27f79cf4f5660b442b4089c076334423, type: 3}
-  - name: zone_kim
-    sprite: {fileID: 21300000, guid: 616a49eff446ec141a59e7922b0ccec6, type: 3}
-  - name: zone_moc
-    sprite: {fileID: 21300000, guid: af5a981b20d14e845b089f15e5dc3450, type: 3}
-  - name: zone_tho
-    sprite: {fileID: 21300000, guid: 23a945cfd15bd1d43977202522088b97, type: 3}
-  - name: zone_thuy
-    sprite: {fileID: 21300000, guid: e8f3288dfcac9ba45aa4f716e51033c5, type: 3}
   icons:
   - name: back
     sprite: {fileID: 21300000, guid: d6bb35eb46d58394aac88610c6d5b2d0, type: 3}

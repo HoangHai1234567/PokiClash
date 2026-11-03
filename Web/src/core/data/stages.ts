@@ -1,14 +1,22 @@
 import type { Elem } from '../types';
+import { buildIsland, ISLANDS, type StageTag } from './islands';
 
 // 5 đảo theo hệ, không khoá đảo nào: đảo sau mạnh hơn hẳn nên vào sớm là thua.
 // Thứ tự gợi ý Thủy → Hỏa → Kim → Mộc → Thổ: mỗi đảo rơi tướng hệ của đảo đó, đúng là hệ khắc đảo kế tiếp
 // (Thủy khắc Hỏa, Hỏa khắc Kim, Kim khắc Mộc, Mộc khắc Thổ). Trong một đảo, ải mở lần lượt.
+// Hệ thống ải mới (2026-11-02): đảo có kế hoạch ở islands.ts có 70 ải (đang làm thử ở Thủy), đảo khác vẫn 8 ải (RAW).
+// Script xuất sang Unity bật bộ ải cũ (stages_v1.ts) tới khi Unity chép hệ thống mới.
+
+const V1 = !!(globalThis as { __POKI_STAGES_V1__?: boolean }).__POKI_STAGES_V1__;
+// đảo đang dùng hệ thống ải mới
+export const V2_ZONES: Elem[] = V1 ? [] : (Object.keys(ISLANDS) as Elem[]);
 
 export interface StageEnemy {
-  hero: string;
+  hero: string; // tướng, hoặc lính (minions.ts)
   level: number;
   boss?: boolean;
   evo?: boolean; // boss tiến hóa trong trận (thẻ Tiến Hóa, cards.ts BOSS_EVO)
+  buff?: number; // cường hóa: cộng phần này vào Máu, Công (Thủ một nửa); âm là yếu đi
 }
 export interface StageDrop {
   hero: string;
@@ -18,13 +26,15 @@ export interface StageDrop {
   gift?: boolean; // tướng tặng khi qua ải lần đầu (đủ mảnh mở luôn)
 }
 export interface StageDef {
-  id: number; // số toàn cục 1..40
+  id: number; // số toàn cục, đánh lần lượt qua các đảo
   zone: Elem;
-  idx: number; // 1..8 trong đảo
+  idx: number; // số ải trong đảo, từ 1
   name: string;
   kind: 'normal' | 'mini' | 'boss';
   enemies: StageEnemy[];
   drops: StageDrop[];
+  tag?: StageTag; // hệ thống ải mới: kiểu ải (islands.ts)
+  chapter?: number; // hệ thống ải mới: chặng (từ ải tướng này tới trước ải tướng sau), từ 0
 }
 export interface ZoneDef {
   id: Elem;
@@ -142,9 +152,26 @@ const RAW: Record<Elem, Row[]> = {
 };
 
 export const STAGES: StageDef[] = [];
-for (const z of ZONES)
+for (const z of ZONES) {
+  const plan = V2_ZONES.includes(z.id) ? ISLANDS[z.id] : undefined;
+  if (plan) {
+    for (const st of buildIsland(z.id, plan)) STAGES.push({ id: STAGES.length + 1, ...st });
+    // cấp đề nghị theo cấp địch của ải đầu và ải cuối
+    z.level = [plan.levels[0][1], plan.levels[plan.levels.length - 1][1]];
+    continue;
+  }
   RAW[z.id].forEach(([name, kind, enemies, drops], i) =>
     STAGES.push({ id: STAGES.length + 1, zone: z.id, idx: i + 1, name, kind, enemies, drops }));
+}
 
 export const STAGE: Record<number, StageDef> = Object.fromEntries(STAGES.map((s) => [s.id, s]));
-export const zoneStages = (z: Elem) => STAGES.filter((s) => s.zone === z);
+const BY_ZONE = Object.fromEntries(ZONES.map((z) => [z.id, STAGES.filter((s) => s.zone === z.id)])) as Record<Elem, StageDef[]>;
+export const zoneStages = (z: Elem) => BY_ZONE[z];
+// số ải của đảo (8 ở hệ thống cũ, 70 ở hệ thống mới)
+export const zoneSize = (z: Elem) => BY_ZONE[z].length;
+// ải mini boss đầu tiên của đảo (Đền Huy Hiệu mở dãy của hệ khi qua ải này)
+export const zoneMiniAt = (z: Elem) => BY_ZONE[z].find((s) => s.kind === 'mini')?.idx ?? 4;
+// rương mốc của đảo: hệ thống cũ qua 4 và 8 ải; hệ thống mới mỗi 10 ải (7 rương)
+export const ZONE_CHESTS = Object.fromEntries(ZONES.map((z) => [z.id, BY_ZONE[z.id].some((s) => s.tag)
+  ? BY_ZONE[z.id].filter((s) => s.idx % 10 === 0).map((s) => s.idx)
+  : [4, 8]])) as Record<Elem, number[]>;

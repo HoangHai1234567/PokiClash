@@ -144,7 +144,7 @@ export interface Battle {
 // ---------- chỉ số ----------
 
 // tổng sức mạnh theo độ hiếm; 6 chỉ số gốc của Aola chỉ quyết dáng (trâu hay công cao), căn bậc hai cho đỡ lệch
-const RARITY_POWER = { common: 1, uncommon: 1.1, rare: 1.22, epic: 1.36, legend: 1.5 } as const;
+export const RARITY_POWER = { common: 1, uncommon: 1.1, rare: 1.22, epic: 1.36, legend: 1.5 } as const;
 
 export function heroStats(h: HeroDef, level: number, star: number, boss = false, mods?: StatMods) {
   const [atkP, defP, matk, mdef, hpS, spd] = h.stats;

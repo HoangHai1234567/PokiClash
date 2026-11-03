@@ -25,7 +25,8 @@ Nền của scene Hub và 5 scene đảo hệ (spec `world-map`, `zone-stages`).
 |---|---|
 | `pieces/` | Đảo gen rời (`isle_<hệ>.png`, `isle_lang.png`) và biển lặp `SEA_Tile.png`: nguồn để ghép sảnh |
 | `inbox/` | Ảnh để menu `PokiClash/Nhập ảnh ArtGen` chép vào game: `ANIM_Sheet.png` (cắt thành `anim_<tên>`) |
-| `zones/` | Bản đồ đảo hệ GPT trả về (`zone_<hệ>.png`, khổ 2:3): Claude cắt dải 9:16 rồi mới đưa vào game |
+| `zones/` | Bản đồ đảo hệ GPT trả về (`zone_<hệ>.png`, khổ 2:3): Claude cắt dải 9:16 rồi mới đưa vào game. `zones/thuy70/`: ảnh bản đồ dài đảo Thủy 70 ải (`tai_ve/` ảnh GPT trả về, `doan_<k>.png` đoạn đã duyệt) |
+| `gui_gpt/zone_thuy_70/` | Gói gửi GPT bản đồ dài đảo Thủy 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70.py` |
 | `refs/` | Ảnh mốc, ảnh không dùng nữa (`tach_roi/`) |
 | `../guides/` | Ảnh bố cục bản đồ đảo hệ `L_zone_<hệ>.png`, toạ độ ải dự kiến `zone_nodes.json` |
 
@@ -139,13 +140,53 @@ Mọi lớp động dùng hiệu ứng nét rung sẵn có của UI; dừng ở 
 - Vòng tròn phải là đĩa kem đặc, viền mực, cỡ đều nhau (script lọc theo màu kem, độ tròn, diện tích). Số vòng dò được là số ải.
 
 **Nhiều ải hơn (ví dụ 12):**
-- Ảnh: xin GPT 12 vòng tròn trên cùng một đường (khổ 1024 × 1536 vẫn đủ: khoảng cách vòng 110 px thay vì 160). Cần dài hơn nữa thì gen hai đoạn bản đồ nối đầu đuôi, script ghép dọc (chưa làm).
+- Ảnh: xin GPT 12 vòng tròn trên cùng một đường (khổ 1024 × 1536 vẫn đủ: khoảng cách vòng 110 px thay vì 160). Cần dài hơn nữa thì gen nhiều đoạn nối dọc như đảo Thủy 70 ải (mục dưới).
 - Game: hiện cố định 8 ải mỗi đảo. Phải sửa ở bản web rồi chép sang Unity:
   - dữ liệu ải (`STAGES`), kiểm tra `GameData` (`Số ải trên … = 8`);
   - chuỗi "x/8 ải" và thanh tiến độ (ZoneScene, HubZone);
   - đảo xong (`ZoneDone`), mở Đền Huy Hiệu (`BadgesOpen`);
   - rương mốc `ZONE_CHEST_AT = [4, 8]`;
   - cân bằng cấp đề nghị, rơi đồ.
+
+### Đảo Thủy 70 ải: bản đồ dài 3 đoạn (2026-11-03)
+
+**Vì sao:** đảo Thủy có 70 ải (10 ải tướng, 60 ải xen giữa) mà vẫn chạy trên ảnh 8 ải. Game phải phóng ảnh 3 lần nên ảnh nhòe, đường chỉ dài khoảng 3.000 px khung 1080, chấm ải cách nhau khoảng 30 px. Ảnh mới cần đường dài khoảng 7.300 px khung 1080 để chấm ải cách nhau khoảng 92 px và bệ tướng về cỡ thật.
+
+**Bản đồ:**
+- 3 ảnh GPT 1024 × 1536 xếp dọc. Hai đoạn kề chồng nhau 160 px: đoạn trên vẽ lại dải đỉnh của đoạn dưới, bố cục của nó có dán sẵn dải đó. Cả bản đồ 1024 × 4288.
+- Màn đảo hiện bản đồ rộng 1,27 màn như đảo 8 ải, nên ảnh không bị nhòe.
+- Đất phủ kín bề ngang. Biển chỉ có ở bãi xuất phát dưới đáy và dải mép trên.
+- Đường cát rộng 104 px. Mỗi chặng là một nửa chữ S, lần lượt lượn trái, phải, nên mọi ải tướng nằm ở chỗ đường cắt qua giữa bản đồ.
+- Mỗi ải tướng có một bãi tròn trên đường. Địa danh của chặng đứng sát bãi; 10 địa danh theo tên chặng ở `GD_Claude/14_HeThongAi.md`.
+- Không vẽ vòng tròn ải: game đặt bệ tướng và chấm ải lên đường.
+- Không địa danh, hồ, suối nào chạm dải nối.
+
+**Script** [build_zone70.py](build_zone70.py) (chạy `py -3 -I ArtGen/Islands/build_zone70.py` từ thư mục gốc dự án):
+- dựng bố cục cả bản đồ `../guides/L_zone70_thuy.png`;
+- ghi toạ độ dự kiến `../guides/zone70_thuy.json`: đường, 10 ải tướng, chỗ và phía của địa danh, theo tỉ lệ 0..1 của bản đồ ghép;
+- dựng gói `gui_gpt/zone_thuy_70/`: mỗi lượt một file prompt `luot_<k>.txt` kèm bố cục `bo_cuc_<k>.png`, và `HUONG_DAN.md`. File prompt ghi đường dẫn đầy đủ của từng ảnh mẫu (GPT tự mở) và chỗ GPT lưu ảnh (`zones/thuy70/tai_ve/doan_<k>.png`).
+- Sửa độ cao ải tướng ở `STAGE_Y`, khoảng cách chấm ở `GAP`; script báo khi chặng cần biên độ quá lớn hoặc địa danh chạm dải nối.
+
+**Làm lần lượt:**
+1. Người dùng gửi GPT đường dẫn `luot_1.txt`; GPT lưu ảnh vào `zones/thuy70/tai_ve/doan_1.png`.
+2. Claude soi rồi chạy `--duyet 1` (tự lấy ảnh mới nhất `tai_ve/doan_1*.png`, hoặc ghi rõ đường dẫn ảnh). Lệnh lưu `zones/thuy70/doan_1.png` và dựng `luot_2.txt`, `bo_cuc_2.png`; bố cục đoạn 2 có dán sẵn dải đỉnh đoạn 1.
+3. Lặp lại cho đoạn 2 và đoạn 3.
+
+**Ghép** (`--ghep`, đã chạy 2026-11-03, ra `zones/thuy70/zone_thuy70.png` 1024 × 4288):
+- GPT giữ nguyên dải dán, nên 3 đoạn nối khít từng pixel. Lỗi chỉ còn ở mép dải dán bên trong đoạn trên: một vạch đổi màu, và mép đường lệch 4–20 px.
+- Script nắn mép đường ở 64 hàng phía trên mép dải cho khớp mép đường bên dưới, kéo màu 48 hàng phía trên về màu dưới mép dải, rồi trộn nhẹ 4 hàng quanh mép.
+- Tâm đường GPT vẽ lệch đường dự kiến trung bình 3 px, 95% điểm dưới 9 px (đo vuông góc với đường), nên game dùng thẳng đường dự kiến trong `../guides/zone70_thuy.json`.
+
+**Đưa vào game** (`--xuat`, đã chạy 2026-11-03), sau đó chạy menu Unity `PokiClash/Nhập dữ liệu`:
+- `Assets/03 Art/Islands/zone_thuy.png`: biển nối với mép trên và mép dưới làm trong suốt để lộ biển lặp của game; suối, hồ, vịnh giữ nguyên. Unity nhập ở 4096 (`ArtImporter`: ảnh `Islands/zone_*`).
+- Khoá `zone_thuy` trong `Assets/03 Art/Islands/island_anim.json`: xoáy nước và đinh ba ở hồ xoáy, bọt chân thác, lấp lánh và gợn ở hồ, đầm, vũng, gợn chạy dọc hai suối, sóng ngoài biển và trong vịnh.
+- Đảo `thuy` trong `Assets/02 Data/Json/zones.json`:
+  - `nodes`: 10 ải tướng;
+  - `path`: tâm đường, mỗi 32 px;
+  - `stops`: chỗ ải tướng theo tỉ lệ chiều dài đường;
+  - `plates`: bên đặt bảng tên, chọn bên chồng ít lên địa danh hơn.
+- Màn đảo (`ZoneScene`): đảo có `path` thì bản đồ rộng 1,27 màn, đường mòn theo `path`, bệ cỡ thật ở `stops`; chấm ải rải đều giữa hai bệ (92 px khung 1080).
+- `compose_islands.py` thấy `zones/thuy70/zone_thuy70.png` thì không đè ảnh, phần động và toạ độ ải của đảo Thủy.
 
 Phần dưới là cách cũ (ảnh bố cục `L_zone_*` + prompt nhiều tầng), giữ để tham khảo khi muốn bản đồ giàu địa hình hơn.
 

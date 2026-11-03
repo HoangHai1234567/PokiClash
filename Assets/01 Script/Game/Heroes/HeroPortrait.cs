@@ -21,8 +21,8 @@ namespace PokiClash
             emblem = emblemImg;
         }
 
-        // cao height; silhouette: bóng sẫm. Hình là chân dung aola (Editor lúc Play, bản dev); không có thì ô để trống (đã bỏ
-        // hình giữ chỗ vẽ tay theo hệ, người dùng chốt 2026-11-02).
+        // cao height; silhouette: bóng sẫm. Hình là chân dung aola trong prefab tướng (AolaActor.Portrait); dạng chưa nhập thì ô
+        // để trống (đã bỏ hình giữ chỗ vẽ tay theo hệ, người dùng chốt 2026-11-02).
         // star: chọn dạng trong dòng tiến hóa (HeroArt.FormOf: 0 là sao của người chơi)
         public void Bind(HeroDef h, float height, bool silhouette = false, int star = 0)
         {

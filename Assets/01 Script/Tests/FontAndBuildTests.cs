@@ -20,6 +20,9 @@ namespace PokiClash.Tests
             foreach (var f in new[] { ui.title, ui.bold, ui.body })
             {
                 Assert.IsNotNull(f);
+                // atlas lệch cỡ thì thêm chữ sẽ ghi tràn bộ nhớ và làm Unity crash: dừng ở đây (FontAtlasGuard)
+                var bad = FontAtlasGuard.Problems(f);
+                Assert.IsEmpty(bad, string.Join("\n", bad));
                 bool ok = f.HasCharacters(ProjectSetup.VietSample, out var missing, false, true);
                 Assert.IsTrue(ok, $"{f.name} thiếu: {(missing == null ? "" : new string(missing.Select(c => (char)c).ToArray()))}");
             }

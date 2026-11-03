@@ -132,6 +132,11 @@ namespace PokiClash.Core
         {
             ["normal"] = StageKind.Normal, ["mini"] = StageKind.Mini, ["boss"] = StageKind.Boss,
         };
+        static readonly Dictionary<string, StageTag> StageTagOf = new Dictionary<string, StageTag>
+        {
+            ["hero"] = StageTag.Hero, ["minion"] = StageTag.Minion, ["buff"] = StageTag.Buff, ["group"] = StageTag.Group,
+            ["pair"] = StageTag.Pair, ["elite"] = StageTag.Elite, ["gate"] = StageTag.Gate,
+        };
 
         static T Of<T>(Dictionary<string, T> map, string s, string what)
         {
@@ -153,6 +158,7 @@ namespace PokiClash.Core
         public static CardKind ToKind(string s) => Of(KindOf, s, "loại thẻ");
         public static PassiveTrigger ToTrigger(string s) => s == null ? PassiveTrigger.None : Of(TriggerOf, s, "kích hoạt");
         public static StageKind ToStageKind(string s) => Of(StageKindOf, s, "loại ải");
+        public static StageTag ToStageTag(string s) => s == null ? StageTag.None : Of(StageTagOf, s, "kiểu ải");
 
         public static bool TryElem(string s, out Elem e) => ElemOf.TryGetValue(s ?? "", out e);
 
@@ -160,5 +166,6 @@ namespace PokiClash.Core
         public static string Of(Rarity r) => KeyOf(RarityOf, r);
         public static string Of(Stat s) => KeyOf(StatOf, s);
         public static string Of(StatusId s) => KeyOf(StatusOf, s);
+        public static string Of(StageTag t) => t == StageTag.None ? null : KeyOf(StageTagOf, t);
     }
 }

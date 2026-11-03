@@ -1,6 +1,6 @@
-// Tướng aola trên sân đấu (Editor, hoặc bản build mang hình tướng: AolaDevBuild): AolaActor đặt ở xa trong thế giới, một
-// camera riêng render ra RenderTexture, RawImage trên sân hiện ảnh đó qua shader viền sticker. Không có aola (bản build
-// không mang hình, hoặc tướng chưa xuất anim.json) thì TryCreate trả null và ô tướng trên sân để trống.
+// Tướng aola trên sân đấu: prefab tướng (AolaActor, Assets/04 Prefabs/Heroes) đặt ở xa trong thế giới, một camera riêng render
+// ra RenderTexture, RawImage trên sân hiện ảnh đó qua shader viền sticker. Dạng chưa nhập vào project (menu PokiClash/Tướng/
+// Nhập hình tướng aola) thì TryCreate trả null và ô tướng trên sân để trống.
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;
@@ -27,15 +27,15 @@ namespace PokiClash
         static string ClipName(string c) =>
             c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Hit ? AolaActor.Hit : AolaActor.Idle;
 
-        // aola: thư mục của dạng cần hiện (HeroDef.Form theo sao)
+        // aola: tên dạng cần hiện (HeroDef.Form theo sao)
         public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip)
         {
-            if (string.IsNullOrEmpty(AolaActor.ReskinDir) || string.IsNullOrEmpty(aola)) return null;
-            var go = new GameObject("aola_" + hero.id);
-            go.transform.position = new Vector3(10000 + 50 * (count++ % 40), 0, 0);
-            var actor = go.AddComponent<AolaActor>();
+            if (!AolaActor.Find(aola, out var prefab, out int form)) return null;
+            var actor = Object.Instantiate(prefab, new Vector3(10000 + 50 * (count++ % 40), 0, 0), Quaternion.identity);
+            var go = actor.gameObject;
+            go.name = "aola_" + hero.id;
             actor.Manual = true;
-            if (!actor.LoadHero(aola, 1f, flip, 0))
+            if (!actor.LoadForm(form, 1f, flip, 0))
             {
                 Object.Destroy(go);
                 return null;

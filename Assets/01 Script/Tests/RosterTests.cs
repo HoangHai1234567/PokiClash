@@ -11,13 +11,14 @@ namespace PokiClash.Tests
         static Dictionary<string, object> Golden() => J.Obj(MiniJson.Parse(TestData.Read("Golden/roster.json")));
 
         [Test]
-        public void DanhSach40Tuong_8MoiHe()
+        public void DanhSach45Tuong_8MoiHe_Thuy13()
         {
+            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy)
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
-            Assert.AreEqual(40, d.Heroes.Count);
+            Assert.AreEqual(45, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
-                Assert.AreEqual(8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
+                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
             Assert.AreEqual(new[] { "giot_suong" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
@@ -111,7 +112,7 @@ namespace PokiClash.Tests
         [Test]
         public void DiChuyenBanLuuV3_DocDuoc()
         {
-            // bản lưu v3 có Y Trạch trong đội: đọc ra v4, Y Trạch gộp vào Tiểu Y, đủ 40 tướng
+            // bản lưu v3 có Y Trạch trong đội: đọc ra v4, Y Trạch gộp vào Tiểu Y, đủ tướng
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
@@ -128,7 +129,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(3, r.Hero("tieu_y").star);
             Assert.IsNull(r.Hero("y_trach"));
             Assert.AreEqual(new[] { "tieu_y", "giot_suong" }, r.team.ToArray());
-            Assert.AreEqual(40, r.heroes.Count);
+            Assert.AreEqual(d.Heroes.Count, r.heroes.Count);
         }
     }
 }

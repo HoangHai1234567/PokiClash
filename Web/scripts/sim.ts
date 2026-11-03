@@ -1,10 +1,13 @@
-// Máy tự chơi đo cân bằng, chạy trong Node: npm run sim -- [pachinko|battle|badges|all] [số trận]
+// Máy tự chơi đo cân bằng, chạy trong Node: npm run sim -- [pachinko|battle|badges|island|all] [số trận]
 import { runBattle, SIM_TEAMS, simSave, zoneTable } from '../src/core/sim';
 import { createBattle } from '../src/core/battle';
 import { badgeCount, badgeSeed, badgeStage } from '../src/core/badges';
 import { BADGE, badgeBonus } from '../src/core/data/badges';
-import { enemyTeam, playerTeam } from '../src/core/progression';
-import { STAGES, ZONES } from '../src/core/data/stages';
+import { HERO } from '../src/core/data/heroes';
+import { TAG_NAME } from '../src/core/data/islands';
+import { MEASURED_RATES } from '../src/core/data/measured';
+import { claimZoneChest, enemyTeam, playerTeam, stageBalls, STAR_LEVEL } from '../src/core/progression';
+import { STAGES, V2_ZONES, ZONE, ZONE_CHESTS, ZONES, zoneStages } from '../src/core/data/stages';
 import { Board, BW, openChest, SLOT_INFO, SWING, type SlotKind } from '../src/core/pachinko';
 import { expToNext, newSave, type SaveData } from '../src/core/progression';
 import { Rng } from '../src/core/rng';
@@ -141,6 +144,66 @@ Dãy ${z.name} · đội ${zt.team.join(', ')}, sao ${zt.star}, thẻ ${zt.card}
   }
 }
 
+// Đảo 70 ải (islands.ts): tỉ lệ thắng từng ải. Người chơi mang 1 tướng (ô đội 2 mở khi xong đảo), cấp = cấp địch cao nhất của ải
+// −1 / 0 / +1; sao theo cấp như người chơi theo kịp (sao n khi đủ cấp STAR_LEVEL[n]), cấp thẻ = sao. Hai tướng: tướng khởi đầu
+// (cùng hệ đảo) và tướng tặng ở ải 3 (hệ khắc đảo). Cuối bảng: bi lần đầu qua cả đảo và cấp lên được nếu thả hết vào máy bi.
+const TWO = process.argv[4] === 'two'; // npm run sim -- island 60 two: thử đội 2 tướng (giot_suong + vo_su)
+function island() {
+  for (const z of V2_ZONES) {
+    const picks = TWO ? [['giot_suong', 'vo_su']] : [['giot_suong'], ['vo_su']];
+    console.log(`\n${ZONE[z].name}: ${zoneStages(z).length} ải, ${N} trận mỗi ô; cột: ${picks.map((p) => p.map((x) => HERO[x].name).join('+')).join(' | ')} ở cấp −1 / 0 / +1`);
+    const stats = new Map<string, number[][]>(); // kiểu ải -> [cột tướng][ải]
+    for (const st of zoneStages(z)) {
+      const rec = Math.max(...st.enemies.map((e) => e.level));
+      const cells = picks.map((team) => [-1, 0, 1].map((dl) => {
+        const lv = Math.max(1, rec + dl);
+        let star = 1;
+        while (star < 5 && STAR_LEVEL[star + 1] <= lv) star++;
+        const s = simSave(team, lv, star, star);
+        let win = 0;
+        for (let i = 0; i < N; i++) if (runBattle(createBattle([{ ...playerTeam(s), ai: true }, enemyTeam(st)], 1000 + i * 7919, [lv, lv])).winner === 0) win++;
+        return Math.round((win / N) * 100);
+      }));
+      const key = st.kind !== 'normal' ? st.kind : st.tag!;
+      const row = stats.get(key) ?? picks.map(() => [] as number[]);
+      cells.forEach((c, i) => row[i].push(c[1]));
+      stats.set(key, row);
+      const foes = st.enemies.map((e) => `${HERO[e.hero].name}${e.boss ? '*' : ''}${e.buff ? (e.buff > 0 ? '+' : '') + Math.round(e.buff * 100) + '%' : ''}`).join(', ');
+      console.log(`  ${String(st.idx).padStart(2)} ${(st.kind !== 'normal' ? st.kind : TAG_NAME[st.tag!]).padEnd(14)} cấp ${String(rec).padEnd(2)} ${foes.padEnd(46).slice(0, 46)} ${cells.map((c) => c.map((v) => `${v}%`.padStart(5)).join('')).join('  |')}`);
+    }
+    console.log(`  Trung bình ở cấp đề nghị theo kiểu ải (${picks.map((p) => p.map((x) => HERO[x].name).join('+')).join(' | ')}):`);
+    const avg = (v: number[]) => Math.round(v.reduce((a, b) => a + b, 0) / v.length);
+    for (const [k, v] of stats) console.log(`    ${(TAG_NAME[k as keyof typeof TAG_NAME] ?? k).padEnd(16)} ${v.map((c) => `${avg(c)}%`.padStart(5)).join(' |')}  (${v[0].length} ải)`);
+    // bi lần đầu qua đảo, rương mốc; EXP mỗi bi (×1) theo tỉ lệ ô đo được và rương mở thử
+    const firstBalls = zoneStages(z).reduce((a, st) => a + stageBalls(st, true), 0);
+    const s = newSave(0);
+    s.zones[z] = zoneStages(z).length;
+    let chestBalls = 0;
+    const rng = new Rng(5);
+    while (true) {
+      const r = claimZoneChest(s, z, rng);
+      if (!r) break;
+      chestBalls += r.balls;
+    }
+    let ev = 0;
+    for (const [k, p] of Object.entries(MEASURED_RATES)) {
+      const info = SLOT_INFO[k as SlotKind];
+      if (info.exp) ev += p * info.exp;
+      else if (!info.balls) {
+        let exp = 0;
+        for (let i = 0; i < 4000; i++) for (const r of openChest(newSave(0), k as 'chest_wood', 1, rng)) if (r.k === 'exp') exp += r.n;
+        ev += (p * exp) / 4000;
+      }
+    }
+    let lv = 1, exp = (firstBalls + chestBalls) * ev;
+    while (exp >= expToNext(lv)) exp -= expToNext(lv++);
+    console.log(`  Bi lần đầu qua: ${firstBalls} (ải) + ${chestBalls} (${ZONE_CHESTS[z].length} rương) ≈ ${Math.round((firstBalls + chestBalls) * ev)} EXP (${ev.toFixed(1)} EXP/bi) → cấp ${lv}, chưa tính cây bi, trang trại, đánh lại`);
+    const rep = zoneStages(z).map((st) => stageBalls(st, false));
+    console.log(`  Bi đánh lại một ải: ${Math.min(...rep)}–${Math.max(...rep)}`);
+  }
+}
+
 if (mode === 'pachinko' || mode === 'all') pachinko();
 if (mode === 'badges' || mode === 'all') badges();
 if (mode === 'battle' || mode === 'all') battles();
+if (mode === 'island' || mode === 'all') island();

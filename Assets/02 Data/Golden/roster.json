@@ -265,6 +265,61 @@
    ]
   },
   {
+   "id": "mi_nhi",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "ma_ket",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "vay_lam",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "thuong_lam",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
+   "id": "kuba",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
    "id": "heo_lua",
    "n": 3,
    "idx": [
@@ -864,201 +919,511 @@
  "leads": [
   {
    "id": 1,
-   "hero": "tieu_y",
+   "hero": "giot_suong",
    "star": 1
   },
   {
    "id": 2,
-   "hero": "canh_cut",
+   "hero": "linh_cua",
    "star": 1
   },
   {
    "id": 3,
-   "hero": "tieu_y",
+   "hero": "linh_cua",
    "star": 1
   },
   {
    "id": 4,
-   "hero": "ca_ngua",
+   "hero": "linh_cua",
    "star": 1
   },
   {
    "id": 5,
-   "hero": "ca_ngua",
+   "hero": "tieu_y",
    "star": 1
   },
   {
    "id": 6,
-   "hero": "ca_ngua",
+   "hero": "linh_cua",
    "star": 1
   },
   {
    "id": 7,
-   "hero": "map_rang",
+   "hero": "tieu_y",
    "star": 1
   },
   {
    "id": 8,
-   "hero": "map_rang",
+   "hero": "tieu_y",
    "star": 1
   },
   {
    "id": 9,
-   "hero": "bo_de",
-   "star": 2
+   "hero": "tieu_y",
+   "star": 1
   },
   {
    "id": 10,
-   "hero": "bo_de",
-   "star": 2
+   "hero": "canh_cut",
+   "star": 1
   },
   {
    "id": 11,
-   "hero": "bo_de",
-   "star": 2
+   "hero": "linh_noc",
+   "star": 1
   },
   {
    "id": 12,
-   "hero": "bo_de",
-   "star": 2
+   "hero": "canh_cut",
+   "star": 1
   },
   {
    "id": 13,
-   "hero": "bo_de",
-   "star": 2
+   "hero": "tieu_y",
+   "star": 1
   },
   {
    "id": 14,
-   "hero": "phap_luan",
-   "star": 2
+   "hero": "canh_cut",
+   "star": 1
   },
   {
    "id": 15,
-   "hero": "phap_luan",
-   "star": 2
+   "hero": "mi_nhi",
+   "star": 1
   },
   {
    "id": 16,
-   "hero": "phap_luan",
+   "hero": "linh_cua",
    "star": 1
   },
   {
    "id": 17,
-   "hero": "bu_long",
-   "star": 2
+   "hero": "mi_nhi",
+   "star": 1
   },
   {
    "id": 18,
-   "hero": "phao_hop",
-   "star": 3
+   "hero": "canh_cut",
+   "star": 1
   },
   {
    "id": 19,
-   "hero": "phao_hop",
-   "star": 3
+   "hero": "mi_nhi",
+   "star": 1
   },
   {
    "id": 20,
-   "hero": "bo_cap",
-   "star": 3
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 21,
-   "hero": "bo_ngua",
-   "star": 3
+   "hero": "linh_cua",
+   "star": 1
   },
   {
    "id": 22,
-   "hero": "bo_cap",
-   "star": 3
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 23,
-   "hero": "soi_linh",
-   "star": 3
+   "hero": "mi_nhi",
+   "star": 1
   },
   {
    "id": 24,
-   "hero": "soi_linh",
+   "hero": "linh_cua",
    "star": 1
   },
   {
    "id": 25,
-   "hero": "nu_hoa",
-   "star": 3
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 26,
-   "hero": "mam_go",
-   "star": 3
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 27,
-   "hero": "mam_go",
-   "star": 4
+   "hero": "linh_noc",
+   "star": 1
   },
   {
    "id": 28,
-   "hero": "de_hoa",
-   "star": 4
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 29,
-   "hero": "giac_long",
-   "star": 4
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 30,
-   "hero": "giac_long",
-   "star": 4
+   "hero": "vay_lam",
+   "star": 1
   },
   {
    "id": 31,
-   "hero": "de_hoa",
-   "star": 4
+   "hero": "linh_noc",
+   "star": 1
   },
   {
    "id": 32,
-   "hero": "giac_long",
+   "hero": "vay_lam",
    "star": 1
   },
   {
    "id": 33,
-   "hero": "vo_su",
-   "star": 4
+   "hero": "ma_ket",
+   "star": 1
   },
   {
    "id": 34,
-   "hero": "vo_su",
-   "star": 4
+   "hero": "linh_noc",
+   "star": 1
   },
   {
    "id": 35,
+   "hero": "vay_lam",
+   "star": 1
+  },
+  {
+   "id": 36,
+   "hero": "vay_lam",
+   "star": 1
+  },
+  {
+   "id": 37,
+   "hero": "linh_ngu2",
+   "star": 1
+  },
+  {
+   "id": 38,
+   "hero": "vay_lam",
+   "star": 1
+  },
+  {
+   "id": 39,
+   "hero": "vay_lam",
+   "star": 1
+  },
+  {
+   "id": 40,
+   "hero": "kuba",
+   "star": 1
+  },
+  {
+   "id": 41,
+   "hero": "linh_ngu2",
+   "star": 1
+  },
+  {
+   "id": 42,
+   "hero": "kuba",
+   "star": 1
+  },
+  {
+   "id": 43,
+   "hero": "vay_lam",
+   "star": 1
+  },
+  {
+   "id": 44,
+   "hero": "linh_ngu2",
+   "star": 1
+  },
+  {
+   "id": 45,
+   "hero": "kuba",
+   "star": 1
+  },
+  {
+   "id": 46,
+   "hero": "kuba",
+   "star": 1
+  },
+  {
+   "id": 47,
+   "hero": "linh_cua2",
+   "star": 1
+  },
+  {
+   "id": 48,
+   "hero": "kuba",
+   "star": 1
+  },
+  {
+   "id": 49,
+   "hero": "kuba",
+   "star": 1
+  },
+  {
+   "id": 50,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 51,
+   "hero": "linh_cua2",
+   "star": 2
+  },
+  {
+   "id": 52,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 53,
+   "hero": "kuba",
+   "star": 2
+  },
+  {
+   "id": 54,
+   "hero": "linh_cua2",
+   "star": 2
+  },
+  {
+   "id": 55,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 56,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 57,
+   "hero": "linh_noc2",
+   "star": 2
+  },
+  {
+   "id": 58,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 59,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 60,
+   "hero": "huyen_vu",
+   "star": 2
+  },
+  {
+   "id": 61,
+   "hero": "linh_noc2",
+   "star": 2
+  },
+  {
+   "id": 62,
+   "hero": "huyen_vu",
+   "star": 2
+  },
+  {
+   "id": 63,
+   "hero": "thuong_lam",
+   "star": 2
+  },
+  {
+   "id": 64,
+   "hero": "linh_noc2",
+   "star": 2
+  },
+  {
+   "id": 65,
+   "hero": "huyen_vu",
+   "star": 2
+  },
+  {
+   "id": 66,
+   "hero": "huyen_vu",
+   "star": 2
+  },
+  {
+   "id": 67,
+   "hero": "linh_ngu2",
+   "star": 2
+  },
+  {
+   "id": 68,
+   "hero": "huyen_vu",
+   "star": 2
+  },
+  {
+   "id": 69,
+   "hero": "huyen_vu",
+   "star": 2
+  },
+  {
+   "id": 70,
+   "hero": "lam_quan",
+   "star": 1
+  },
+  {
+   "id": 71,
+   "hero": "bo_de",
+   "star": 2
+  },
+  {
+   "id": 72,
+   "hero": "bo_de",
+   "star": 2
+  },
+  {
+   "id": 73,
+   "hero": "bo_de",
+   "star": 2
+  },
+  {
+   "id": 74,
+   "hero": "bo_de",
+   "star": 2
+  },
+  {
+   "id": 75,
+   "hero": "bo_de",
+   "star": 2
+  },
+  {
+   "id": 76,
+   "hero": "phap_luan",
+   "star": 2
+  },
+  {
+   "id": 77,
+   "hero": "phap_luan",
+   "star": 2
+  },
+  {
+   "id": 78,
+   "hero": "phap_luan",
+   "star": 1
+  },
+  {
+   "id": 79,
+   "hero": "bu_long",
+   "star": 2
+  },
+  {
+   "id": 80,
+   "hero": "phao_hop",
+   "star": 3
+  },
+  {
+   "id": 81,
+   "hero": "phao_hop",
+   "star": 3
+  },
+  {
+   "id": 82,
+   "hero": "bo_cap",
+   "star": 3
+  },
+  {
+   "id": 83,
+   "hero": "bo_ngua",
+   "star": 3
+  },
+  {
+   "id": 84,
+   "hero": "bo_cap",
+   "star": 3
+  },
+  {
+   "id": 85,
+   "hero": "soi_linh",
+   "star": 3
+  },
+  {
+   "id": 86,
+   "hero": "soi_linh",
+   "star": 1
+  },
+  {
+   "id": 87,
+   "hero": "nu_hoa",
+   "star": 3
+  },
+  {
+   "id": 88,
+   "hero": "mam_go",
+   "star": 3
+  },
+  {
+   "id": 89,
+   "hero": "mam_go",
+   "star": 4
+  },
+  {
+   "id": 90,
+   "hero": "de_hoa",
+   "star": 4
+  },
+  {
+   "id": 91,
+   "hero": "giac_long",
+   "star": 4
+  },
+  {
+   "id": 92,
+   "hero": "giac_long",
+   "star": 4
+  },
+  {
+   "id": 93,
+   "hero": "de_hoa",
+   "star": 4
+  },
+  {
+   "id": 94,
+   "hero": "giac_long",
+   "star": 1
+  },
+  {
+   "id": 95,
    "hero": "vo_su",
    "star": 4
   },
   {
-   "id": 36,
+   "id": 96,
+   "hero": "vo_su",
+   "star": 4
+  },
+  {
+   "id": 97,
+   "hero": "vo_su",
+   "star": 4
+  },
+  {
+   "id": 98,
    "hero": "vo_su",
    "star": 5
   },
   {
-   "id": 37,
+   "id": 99,
    "hero": "vo_su",
    "star": 5
   },
   {
-   "id": 38,
+   "id": 100,
    "hero": "ca_sa",
    "star": 4
   },
   {
-   "id": 39,
+   "id": 101,
    "hero": "vo_su",
    "star": 5
   },
   {
-   "id": 40,
+   "id": 102,
    "hero": "ca_sa",
    "star": 1
   }

@@ -184,6 +184,13 @@ namespace PokiClash.Core
         public static int StageBalls(GameData d, StageDef st, bool first)
         {
             int o = d.Zone(st.zone).order;
+            // đảo 70 ải: 1 bi mỗi 4 cấp địch (cấp 1–4: 1 bi, 5–8: 2 bi); lần đầu qua ải tướng +2, mini boss +4, boss +8
+            if (st.tag != StageTag.None)
+            {
+                int lv = st.enemies.Max(e => e.level);
+                int b = 1 + o * 2 + (lv - 1) / 4;
+                return b + (first ? (st.kind == StageKind.Boss ? 8 : st.kind == StageKind.Mini ? 4 : st.tag == StageTag.Hero ? 2 : 0) : 0);
+            }
             int bas = 3 + o * 4 + (st.idx - 1) / 2;
             int bonus = first ? 5 + o * 2 + (st.kind == StageKind.Boss ? 7 : st.kind == StageKind.Mini ? 3 : 0) : 0;
             return bas + bonus;
@@ -205,8 +212,9 @@ namespace PokiClash.Core
         public static string DifficultyText(Difficulty d) =>
             d == Difficulty.Done ? "Đã chinh phục" : d == Difficulty.Easy ? "Dễ" : d == Difficulty.Fit ? "Vừa sức" : d == Difficulty.Hard ? "Khó" : "Quá mạnh!";
 
-        public static bool ZoneDone(SaveData s, Elem z) => s.zones[(int)z] >= 8;
-        public static int ZonesDone(SaveData s) => s.zones.Count(n => n >= 8);
+        // xong đảo: qua hết ải (70 hoặc 8, Islands.Size)
+        public static bool ZoneDone(SaveData s, Elem z) => s.zones[(int)z] >= Islands.Size(z);
+        public static int ZonesDone(SaveData s) => Elements.All.Count(z => ZoneDone(s, z));
 
         // ô đội mở theo tiến trình (chép TEAM_SLOT_ZONES, teamSlots của Web/src/core/progression.ts): lúc đầu mang 1 tướng;
         // xong 1 đảo (đánh tới đảo thứ 2) mở ô 2, xong 3 đảo (tới đảo thứ 4) mở ô 3. Phần tử i: số đảo phải xong để mở ô i + 1.
@@ -229,22 +237,23 @@ namespace PokiClash.Core
         // hệ khắc hệ z (để gợi ý): Thủy khắc Hỏa...
         public static Elem CounterOf(Elem z) => Elements.All.First(e => Elements.Beats(e) == z);
 
-        // ---------- rương mốc của đảo: qua 4 ải và 8 ải ----------
-
-        public static readonly int[] ZoneChestAt = { 4, 8 };
+        // ---------- rương mốc của đảo: đảo 8 ải qua 4 và 8 ải, đảo 70 ải mỗi 10 ải (Islands.Chests) ----------
 
         public sealed class ZoneChest
         {
+            public Elem zone;
+            public int n; // chỉ số rương trong Islands.Chests(zone)
             public int balls;
             public List<CardDrop> cards = new List<CardDrop>();
             public bool big;
         }
 
-        // rương mở được (chỉ số 0 hoặc 1), -1 nếu chưa
+        // rương mở được (chỉ số trong Islands.Chests), -1 nếu chưa
         public static int ZoneChestReady(SaveData s, Elem z)
         {
             int n = s.zoneChests[(int)z];
-            return n < ZoneChestAt.Length && s.zones[(int)z] >= ZoneChestAt[n] ? n : -1;
+            var at = Islands.Chests(z);
+            return n < at.Length && s.zones[(int)z] >= at[n] ? n : -1;
         }
 
         static readonly Rarity[] ChestRarities = { Rarity.Common, Rarity.Uncommon, Rarity.Rare, Rarity.Epic };
@@ -255,9 +264,19 @@ namespace PokiClash.Core
             int n = ZoneChestReady(s, z);
             if (n < 0) return null;
             int o = d.Zone(z).order;
-            var r = new ZoneChest { balls = (n == 0 ? 10 : 20) + o * (n == 0 ? 5 : 10), big = n == 1 };
+            int N = Islands.Chests(z).Length;
+            bool big = n == N - 1;
+            // 2 rương (đảo 8 ải): 10 bi 2 thẻ, 20 bi 4 thẻ; 7 rương: 4, 5, 6 … bi, 1–2 thẻ, rương cuối 15 bi 4 thẻ
+            var r = new ZoneChest
+            {
+                zone = z,
+                n = n,
+                balls = N == 2 ? (n == 0 ? 10 : 20) + o * (n == 0 ? 5 : 10) : (big ? 15 : 4 + n) + o * (big ? 10 : 5),
+                big = big,
+            };
+            int nCards = N == 2 ? (n == 0 ? 2 : 4) : big ? 4 : n < 3 ? 1 : 2;
             s.balls += r.balls;
-            for (int i = 0; i < (n == 0 ? 2 : 4); i++)
+            for (int i = 0; i < nCards; i++)
             {
                 var rar = rng.Weighted(ChestRarities, x => ChestWeights[(int)x]);
                 var drop = RollCardDrop(s, d, rar, rng);
@@ -285,7 +304,7 @@ namespace PokiClash.Core
         // ---------- công trình side meta ở rìa làng ----------
 
         public static bool FarmOpen(SaveData s) => s.heroes.Values.Count(h => h.owned) >= 3;
-        public static bool BadgesOpen(SaveData s) => s.zones[(int)Elem.Thuy] >= 8;
+        public static bool BadgesOpen(SaveData s) => ZoneDone(s, Elem.Thuy);
         public static bool CaveOpen(SaveData s) => s.zones[(int)Elem.Hoa] >= 4;
 
         public static StageReward WinStage(SaveData s, GameData d, int id, Rng rng)

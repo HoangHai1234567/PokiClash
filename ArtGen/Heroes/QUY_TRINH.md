@@ -54,11 +54,12 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 ## 4. Gói gửi GPT
 
 - `build.py` giữ bảng `FORMS` (thiết kế, giải phẫu, prompt concept, prompt từng nhóm, mảnh thêm, thứ tự gen thử) và sinh `gui_gpt/<mã>/`:
-  - `1_concept/`: `00_instructions.txt` + bóng xám, bản đồ vùng, tờ mẫu thiết kế (`refs/style/style_sheet.png`, 8 tướng aola, dựng bằng `tools/make_refs.py`), ảnh mốc nét vẽ (bản đồ);
-  - `2_nhom_manh/`: `00_instructions.txt` + ảnh gốc từng nhóm + concept đã duyệt; GPT vẽ một nhóm mỗi lượt theo thứ tự (2 nhóm gen thử trước, chờ soi);
-  - `HUONG_DAN.md`: tiếng Việt, đường dẫn đầy đủ và mô tả từng ảnh, kiểm từng ảnh, câu sửa nhanh.
-- Người dùng mở thư mục con, chọn hết file, kéo vào ChatGPT, gửi. GPT chỉ dùng được ảnh mẫu khi ảnh đính thẳng vào tin nhắn, nên không gộp vào PDF hay zip.
-- Ảnh GPT trả về để vào `inbox/<mã>/tai_ve/`, không cần đổi tên; Claude nhận ra từng ảnh qua hình.
+  - `luot_1_concept.txt`: ảnh mẫu là bóng xám, bản đồ vùng, tờ mẫu thiết kế (`refs/style/style_sheet.png`, 8 tướng aola, dựng bằng `tools/make_refs.py`), ảnh mốc nét vẽ (bản đồ); GPT lưu `inbox/<mã>/tai_ve/concept.png`;
+  - `luot_2_nhom_manh.txt` (chỉ dựng khi đã có concept duyệt): ảnh mẫu là ảnh gốc từng nhóm và concept đã duyệt; GPT vẽ một nhóm mỗi lượt theo thứ tự (2 nhóm gen thử trước, chờ soi), lưu mỗi nhóm thành `inbox/<mã>/tai_ve/<Nxx>.png`;
+  - `HUONG_DAN.md`: tiếng Việt, file prompt từng lượt, đường dẫn và mô tả từng ảnh mẫu, kiểm từng ảnh, câu sửa nhanh.
+- Người dùng chỉ gửi GPT đường dẫn file prompt (dặn 2026-11-03). File prompt mở đầu bằng danh sách ảnh mẫu kèm đường dẫn đầy đủ (GPT tự mở), rồi chỗ GPT tự lưu ảnh; trùng tên thì GPT thêm `_2`, `_3`.
+- Đường dẫn trong gói tính từ chỗ đặt `build.py`, nên chạy được trên cả hai máy.
+- Thư mục `1_concept/`, `2_nhom_manh/` trong gói cũ là cách kéo thả trước đây, không dùng nữa.
 - Đính hình aola cho GPT: người dùng cho phép ("cứ đính hình vào", 2026-11-02).
 
 ## 5. Claude duyệt
@@ -104,11 +105,11 @@ Bộ ghép này thay cho trình chỉnh sửa cũ (`so_sanh.html`, `adjust.json`
 | Đường dẫn | Chứa gì |
 |---|---|
 | `ArtGen/Heroes/build.py` | Bảng các dạng, prompt, bộ sinh gói |
-| `ArtGen/Heroes/gui_gpt/<mã>/` | Gói gửi GPT (sinh ra, không sửa tay) |
+| `ArtGen/Heroes/gui_gpt/<mã>/` | Gói gửi GPT: `luot_1_concept.txt`, `luot_2_nhom_manh.txt`, `HUONG_DAN.md` (sinh ra, không sửa tay) |
 | `ArtGen/Heroes/refs/<hệ>/<mã>/` | Ảnh rig: bóng xám, bản đồ vùng, rig đánh số, `orig/Nxx.png` |
 | `ArtGen/Heroes/refs/style/` | Tờ mẫu thiết kế từ hình aola (`style_sheet.png`); `parts_example.png` của cách bộ mảnh rời, không dùng nữa |
 | `ArtGen/Heroes/tools/` | `make_refs.py` (tờ mẫu), `explode.py` |
-| `ArtGen/Heroes/inbox/<mã>/tai_ve/` | Ảnh GPT trả về, chưa đặt tên |
+| `ArtGen/Heroes/inbox/<mã>/tai_ve/` | Ảnh GPT tự lưu (`concept.png`, `<Nxx>.png`), Claude chưa duyệt |
 | `ArtGen/Heroes/inbox/<mã>/concept_duyet.png` | Concept đã duyệt |
 | `ArtGen/Heroes/refs/style_anchor.png` | Ảnh mốc style: concept Giọt Sương dạng 1 đã chốt |
 | `ArtGen/Heroes/inbox/<mã>/Concept*.png` | Concept của các lần trước, không dùng nữa |

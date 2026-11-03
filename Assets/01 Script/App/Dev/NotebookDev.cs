@@ -42,7 +42,7 @@ namespace PokiClash
             }),
             ("Mở hết ải", (s, d) =>
             {
-                for (int i = 0; i < s.zones.Length; i++) s.zones[i] = 8;
+                foreach (var e in Elements.All) s.zones[(int)e] = Islands.Size(e);
             }),
             ("+5 bản sao", (s, d) =>
             {

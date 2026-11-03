@@ -26,21 +26,22 @@ Vị trí các vùng trên ảnh đảo lớn và vị trí 8 ải trên mỗi �
 - **WHEN** ảnh `zone_hoa` được gen lại và đường mòn đổi chỗ
 - **THEN** chỉ cần sửa 8 cặp toạ độ trong dữ liệu Đảo Hỏa để ải nằm lại trên đường mòn
 
-### Requirement: Hình tướng aola không nằm trong Assets
-Animation tướng lấy từ dự án AolaRipper SHALL được Editor đọc từ thư mục cấu hình được, không chép vào Assets.
+### Requirement: Hình tướng aola nhập vào Assets thành prefab tướng
+Quyết định của chủ dự án (2026-11-02, thay cách đọc từ đĩa và chép vào `StreamingAssets` lúc build): tướng lấy từ AolaRipper SHALL được nhập vào project thành prefab tướng và nén ngay lúc nhập, bằng menu `PokiClash/Tướng/Nhập hình tướng aola thành prefab` (`Editor/AolaImport.cs`).
+- Mỗi dạng nằm ở `Assets/03 Art/Heroes/Resources/<dạng>/`, gồm: một atlas (hình mảnh thu nhỏ về độ nét RenderTexture thật sự dùng, ASTC 6x6, không mipmap), chân dung, animation gzip, và asset `AolaAnim`.
+- Mỗi tướng là prefab `Assets/04 Prefabs/Heroes/<id>.prefab` (`AolaActor` giữ các dạng); danh mục `Assets/02 Data/HeroModels.asset` gắn vào `UiAssets.heroes`.
+- Atlas và chân dung SHALL nạp khi cần (`Resources.Load`), không trỏ thẳng từ danh mục; nếu trỏ thẳng thì mọi ảnh tướng vào bộ nhớ ngay lúc mở game.
 
-Bản build lên máy thật SHALL mang theo bản chép của hình tướng: bước build chép tạm vào `StreamingAssets/PokiDev` rồi xoá ngay sau build. Lúc chạy, game đọc bản đó (Android: đọc từ APK, chép ra bộ nhớ app khi cần).
-
-Quyết định của chủ dự án (2026-11-02): giai đoạn prototype thì mọi bản build đều mang hình. Trước khi phát hành công khai MUST tắt `AolaDevBuild.AllBuilds`; khi đó chỉ Development Build mang hình, và bản phát hành MUST không chứa hình hay dữ liệu chuyển động của Baitian.
+Giai đoạn prototype thì mọi bản build đều mang hình. Trước khi phát hành công khai MUST tắt `PreBuildCheck.HeroArtInBuild`; khi đó build báo lỗi cho tới khi thay hết hình Baitian.
 
 #### Scenario: Build lên máy (prototype)
-- **WHEN** build Android từ Build Profiles khi `AllBuilds` bật
-- **THEN** bước kiểm tra trước build vẫn báo lỗi nếu Assets có đường dẫn aola hoặc ảnh `pet*_parts`; APK có `assets/PokiDev/reskin/...` đủ hình mọi tướng; sau build `Assets/StreamingAssets/PokiDev` không còn
+- **WHEN** build Android khi `HeroArtInBuild` bật
+- **THEN** bước kiểm tra trước build vẫn báo lỗi nếu Assets có đường dẫn aola hoặc ảnh `pet*_parts` ngoài `Assets/03 Art/Heroes`; bản build mang hình tướng như asset thường, không chép gì vào `StreamingAssets`
 
 #### Scenario: Build phát hành công khai
-- **WHEN** `AllBuilds` tắt và build không phải Development
-- **THEN** bản build không mang hình aola, ô tướng để trống cho tới khi có hình mới
+- **WHEN** `HeroArtInBuild` tắt
+- **THEN** build báo lỗi nếu `Assets/03 Art/Heroes` còn ảnh hay animation
 
-#### Scenario: Bản dev đổi máy
-- **WHEN** thư mục aola nằm ở ổ khác trên máy mới
-- **THEN** người làm chỉ cần đặt lại đường dẫn trong cài đặt Editor hoặc biến `AOLA_RESKIN`, không sửa code
+#### Scenario: Thêm tướng hoặc sửa hình bên AolaRipper
+- **WHEN** thêm dạng vào dữ liệu web (`forms[].aola`) hoặc xuất lại `reskin/<dạng>/export`
+- **THEN** chạy lại menu nhập: dạng mới hoặc đổi được nhập lại, dạng không đổi bỏ qua; thư mục aola tìm như trước (EditorPrefs hoặc biến `AOLA_RESKIN`)

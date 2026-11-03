@@ -1,6 +1,7 @@
 import type { Elem, HeroDef, HeroForm, Rarity } from '../types';
 
-// 40 tướng, 8 mỗi hệ (2 Thường, 2 Khá, 2 Hiếm, 1 Sử thi, 1 Huyền thoại), chốt ở GD_Claude/13_DanhSachTuong.md.
+// 45 tướng: 8 mỗi hệ (2 Thường, 2 Khá, 2 Hiếm, 1 Sử thi, 1 Huyền thoại), chốt ở GD_Claude/13_DanhSachTuong.md; Thủy thêm 5
+// (2026-11-02, người dùng chọn từ aola cho kịch bản đảo Thủy; tên và độ hiếm tạm).
 // Mỗi tướng là một dòng tiến hóa của aola: lên sao thì đổi dạng (FORM_STARS ở progression.ts). Dạng lấy theo
 // reskin/pokiclash_lines.json của AolaRipper. CHỈ DÙNG TRONG BẢN THỬ: hình và chuyển động gốc của Baitian.
 // Chỉ số gốc là 6 chỉ số aola của dạng 1 (pmDataMap cột 4–9: công, thủ, công phép, thủ phép, máu, tốc); 4 thầy tu, Tiểu Y,
@@ -76,6 +77,17 @@ export const HEROES: HeroDef[] = [
     [['Lam Quân', 'goc_1831'], ['Vạn Quân', 'goc_1832'], ['Hắc Dực Vạn Quân', 'goc_2955']], [0.95, 1.12, 1.16], 'Dòng Vạn Quân'),
   hero('huyen_vu', 'Huyền Vũ', 'Thần thú phương Bắc', 'thuy', 'legend', [80, 60, 40, 40, 50, 40], 'huyen_vu',
     [['Rùa Ngọc', 'goc_713'], ['Rùa Biển Ngọc', 'goc_714'], ['Huyền Vũ', 'goc_715']]),
+  // thêm 2026-11-02 (aola: 小咪-咪儿, 苍-苍染-苍蓝, 摩羯小宝-锐角摩羯-圣铠摩羯, 点点鱼-双箭鱼-蓝鳍海鲨, 库巴-坚壳库巴-金刚库巴)
+  hero('mi_nhi', 'Mi Nhi', 'Tiên cầm sóng biếc', 'thuy', 'uncommon', [50, 80, 50, 40, 40, 50], 'mi_nhi',
+    [['Tiểu Mi', 'goc_983'], ['Mi Nhi', 'goc_984']]),
+  hero('ma_ket', 'Ma Kết', 'Thánh giáp sừng bạc', 'thuy', 'rare', [50, 80, 40, 40, 50, 50], 'ma_ket',
+    [['Ma Kết Con', 'goc_758'], ['Ma Kết Sừng Nhọn', 'goc_759'], ['Ma Kết Thánh Giáp', 'goc_760']]),
+  hero('vay_lam', 'Vây Lam', 'Cá mập rẽ sóng', 'thuy', 'rare', [40, 60, 70, 40, 70, 40], 'vay_lam',
+    [['Cá Đốm', 'goc_546'], ['Cá Song Tiễn', 'goc_547'], ['Cá Mập Vây Lam', 'goc_548']]),
+  hero('thuong_lam', 'Thương Lam', 'Rồng lam cánh băng', 'thuy', 'epic', [80, 60, 60, 60, 60, 20], 'thuong_lam',
+    [['Thương', 'goc_805'], ['Thương Nhiễm', 'goc_806'], ['Thương Lam', 'goc_807']]),
+  hero('kuba', 'Kuba', 'Mai cứng kim cương', 'thuy', 'epic', [50, 70, 50, 40, 50, 40], 'kuba',
+    [['Kuba', 'goc_94'], ['Kuba Vỏ Cứng', 'goc_95'], ['Kuba Kim Cương', 'goc_96']]),
   // ---------- Hỏa ----------
   hero('heo_lua', 'Heo Lửa', 'Bờm lửa húc liều', 'hoa', 'common', [90, 90, 40, 30, 40, 30], 'heo_lua',
     [['Heo Lửa', 'goc_205'], ['Heo Lửa', 'goc_206'], ['Heo Lửa', 'goc_207']]),

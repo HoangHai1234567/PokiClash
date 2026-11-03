@@ -38,6 +38,9 @@ namespace PokiClash
         public static float HeroHeight(StageKind k) => k == StageKind.Boss ? 290 : k == StageKind.Mini ? 230 : 190; // khung chân dung có lề, thân tướng chiếm khoảng 60%
         const float PlateW = 250, PlateH = 86, Badge = 66;
 
+        // bảng tên vươn ra bao xa so với tâm bệ (để chọn bên cho khỏi lòi ra ngoài màn)
+        public static float PlateReach(StageKind k) => Width(k) * 0.5f + PlateW - 18;
+
         public static Color Fill(StageDef st, bool open, bool cleared) =>
             !open ? Theme.Hex("#d9d2c2") : cleared ? Theme.Hex("#c9eab8") : st.kind == StageKind.Boss ? Theme.Hex("#ffb3a3")
             : st.kind == StageKind.Mini ? Theme.Hex("#ffd9a0") : Theme.Hex("#fff3c4");

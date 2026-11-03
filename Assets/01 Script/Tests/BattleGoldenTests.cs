@@ -169,12 +169,13 @@ namespace PokiClash.Tests
             Assert.IsTrue(st.enemies[0].evo);
             var hero = d.Hero(st.enemies[0].hero);
             Assert.AreEqual(3, hero.forms.Length);
-            var full = HeroStats.Compute(d.Cfg, hero, st.enemies[0].level, Teams.EnemyStar(st.enemies[0].level), true);
+            var mods = Teams.Enemy(st, d).members[0].mods; // đảo 70 ải: boss cuối quy về độ hiếm Khá, máu ×0,7
+            var full = HeroStats.Compute(d.Cfg, hero, st.enemies[0].level, Teams.EnemyStar(st.enemies[0].level), true, mods);
             // đội mạnh hơn hẳn để chắc đánh tới dạng cuối
             var p = new TeamSetup { name = "Bạn", ai = true };
             foreach (var id in new[] { "huyen_vu", "ca_sa", "phap_luan" }) p.members.Add(new Member { heroId = id, level = 30, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
             var log = new List<BattleEvent>();
-            var b = Battle.Create(d, p, Teams.Enemy(st), 11);
+            var b = Battle.Create(d, p, Teams.Enemy(st, d), 11);
             Assert.AreEqual(0, b.ActiveOf(1).form);
             Assert.AreEqual(Js.Round(full.hp * 0.25), b.ActiveOf(1).maxHp, "dạng 1: 1/6 của 1,5 lần máu boss");
             BattleSim.Run(b, 0.15, log);

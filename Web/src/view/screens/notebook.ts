@@ -2,7 +2,7 @@
 import { afkTravel } from '../../core/afk';
 import { CFG, CFG_DEFAULT } from '../../core/data/config';
 import { HEROES } from '../../core/data/heroes';
-import { STAGES, ZONE, ZONES } from '../../core/data/stages';
+import { STAGES, ZONE, ZONES, zoneSize } from '../../core/data/stages';
 import { addExp, SLOTS } from '../../core/progression';
 import { simulateStage } from '../../core/sim';
 import { app, type Screen } from '../app';
@@ -85,7 +85,7 @@ export function notebookScreen(): Screen {
           dbg('Tua AFK 1 giờ', () => afkTravel(s, 3600000)),
           dbg('Tua AFK 8 giờ', () => afkTravel(s, 8 * 3600000)),
           dbg('Mở hết tướng', () => HEROES.forEach((x) => (s.heroes[x.id].owned = true))),
-          dbg('Mở hết ải', () => { for (const z of ZONES) s.zones[z.id] = 8; }),
+          dbg('Mở hết ải', () => { for (const z of ZONES) s.zones[z.id] = zoneSize(z.id); }),
           dbg('+5 bản sao mọi thẻ', () => HEROES.forEach((x) => SLOTS.forEach((k) => (s.heroes[x.id].cards[k].copies += 5)))),
           h('button', { class: 'btn small red', onclick: () => confirmReset() }, 'Xoá dữ liệu'),
         ),

@@ -6,7 +6,10 @@ import type { FarmState } from './farm';
 import type { AdState, Entitlements } from './ads';
 import { CARD } from './data/cards';
 import { HERO, HEROES, LEGEND_MILESTONE_HERO, STARTERS } from './data/heroes';
-import { STAGE, STAGES, ZONE, ZONES, zoneStages, type StageDef, type StageEnemy } from './data/stages';
+import { RARITY_POWER } from './battle';
+import { ENEMY_NORM } from './data/islands';
+import { isMinion, MINION_POWER } from './data/minions';
+import { STAGE, STAGES, ZONE, ZONE_CHESTS, ZONES, zoneSize, zoneStages, type StageDef, type StageEnemy } from './data/stages';
 import { Rng } from './rng';
 import { RARITIES, type BattleStart, type Elem, type HeroDef, type HeroForm, type Member, type Rarity, type StatMods, type TeamSetup } from './types';
 
@@ -317,13 +320,37 @@ export function playerTeam(s: SaveData, team = s.team): TeamSetup {
   return { name: 'Đội bạn', ai: false, members: team.filter((h) => s.heroes[h]?.owned).map((h) => memberOf(s, h)) };
 }
 
+// phần cộng của địch: cường hóa của ải (Máu, Công +buff, Thủ +buff/2), độ yếu của lính. Hệ thống 70 ải (v2) còn quy độ hiếm
+// về ENEMY_NORM.rarity và giảm máu, công của mini boss, boss. Hệ thống cũ không cường hóa thì không có phần cộng (golden không đổi).
+export function enemyMods(e: StageEnemy, v2 = false): StatMods | undefined {
+  const b = e.buff ?? 0;
+  let hp = 1 + b, atk = 1 + b, def = 1 + b / 2;
+  if (isMinion(e.hero)) {
+    hp *= MINION_POWER.hp;
+    atk *= MINION_POWER.atk;
+    def *= MINION_POWER.def;
+  }
+  if (v2) {
+    const r = RARITY_POWER[ENEMY_NORM.rarity] / RARITY_POWER[HERO[e.hero].rarity];
+    hp *= r * (e.boss ? (e.evo ? ENEMY_NORM.bossHp : ENEMY_NORM.miniHp) : 1);
+    atk *= r * (e.boss ? ENEMY_NORM.bossAtk : 1);
+    def *= r;
+  }
+  if (hp === 1 && atk === 1 && def === 1) return undefined;
+  return { hpPct: hp - 1, atkPct: atk - 1, defPct: def - 1, spd: 0 };
+}
+
 export function enemyTeam(st: StageDef): TeamSetup {
   return {
     name: st.name, ai: true,
-    members: st.enemies.map((e) => ({
-      heroId: e.hero, level: e.level, boss: e.boss, ...(e.evo ? { evo: true } : {}), star: 1 + Math.floor(e.level / 6),
-      cardLv: { skill: 1 + Math.floor(e.level / 5), ult: 1 + Math.floor(e.level / 6), passive: 1 + Math.floor(e.level / 6) },
-    })),
+    members: st.enemies.map((e) => {
+      const mods = enemyMods(e, !!st.tag);
+      return {
+        heroId: e.hero, level: e.level, boss: e.boss, ...(e.evo ? { evo: true } : {}), star: 1 + Math.floor(e.level / 6),
+        cardLv: { skill: 1 + Math.floor(e.level / 5), ult: 1 + Math.floor(e.level / 6), passive: 1 + Math.floor(e.level / 6) },
+        ...(mods ? { mods } : {}),
+      };
+    }),
   };
 }
 
@@ -344,7 +371,8 @@ export interface StageReward {
 // ---------- ải theo đảo ----------
 
 export const totalCleared = (s: SaveData) => ZONES.reduce((a, z) => a + s.zones[z.id], 0);
-export const zonesDone = (s: SaveData) => ZONES.filter((z) => s.zones[z.id] >= 8).length;
+export const zoneDone = (s: SaveData, z: Elem) => s.zones[z] >= zoneSize(z);
+export const zonesDone = (s: SaveData) => ZONES.filter((z) => zoneDone(s, z.id)).length;
 
 // ô đội mở theo tiến trình (người dùng chốt 2026-11-02): lúc đầu mang 1 tướng; xong 1 đảo (đánh tới đảo thứ 2) mở ô 2,
 // xong 3 đảo (tới đảo thứ 4) mở ô 3. TEAM_SLOT_ZONES[i]: số đảo phải xong để mở ô i + 1. Mô phỏng cân bằng chưa tính luật này.
@@ -359,6 +387,12 @@ export function nextStage(s: SaveData, z: Elem): StageDef | null {
 // bi mỗi ải: đảo sau cho nhiều hơn; lần đầu qua có thưởng thêm
 export function stageBalls(st: StageDef, first: boolean): number {
   const o = ZONE[st.zone].order;
+  // hệ thống 70 ải: 1 bi mỗi 4 cấp địch (cấp 1–4: 1 bi, 5–8: 2 bi); lần đầu qua ải tướng +2, mini boss +4, boss +8
+  if (st.tag) {
+    const lv = Math.max(...st.enemies.map((e) => e.level));
+    const base = 1 + o * 2 + Math.floor((lv - 1) / 4);
+    return base + (first ? (st.kind === 'boss' ? 8 : st.kind === 'mini' ? 4 : st.tag === 'hero' ? 2 : 0) : 0);
+  }
   const base = 3 + o * 4 + Math.floor((st.idx - 1) / 2);
   const bonus = first ? 5 + o * 2 + (st.kind === 'boss' ? 7 : st.kind === 'mini' ? 3 : 0) : 0;
   return base + bonus;
@@ -385,21 +419,23 @@ export function winStage(s: SaveData, id: number, rng: Rng): StageReward {
   return { balls, first, shards };
 }
 
-// ---------- rương mốc của đảo: qua 4 ải và 8 ải ----------
+// ---------- rương mốc của đảo: hệ thống cũ qua 4 ải và 8 ải, hệ thống 70 ải mỗi 10 ải (ZONE_CHESTS) ----------
 
-export const ZONE_CHEST_AT = [4, 8];
 export function zoneChestReady(s: SaveData, z: Elem): number {
-  const n = s.zoneChests[z];
-  return n < ZONE_CHEST_AT.length && s.zones[z] >= ZONE_CHEST_AT[n] ? n : -1;
+  const n = s.zoneChests[z], at = ZONE_CHESTS[z];
+  return n < at.length && s.zones[z] >= at[n] ? n : -1;
 }
 export function claimZoneChest(s: SaveData, z: Elem, rng: Rng) {
   const n = zoneChestReady(s, z);
   if (n < 0) return null;
   const o = ZONE[z].order;
-  const balls = (n === 0 ? 10 : 20) + o * (n === 0 ? 5 : 10);
+  const N = ZONE_CHESTS[z].length, big = n === N - 1;
+  // 2 rương (hệ thống cũ): 10 bi 2 thẻ, 20 bi 4 thẻ; 7 rương: 4, 5, 6 … bi, 1–2 thẻ, rương cuối 15 bi 4 thẻ
+  const balls = N === 2 ? (n === 0 ? 10 : 20) + o * (n === 0 ? 5 : 10) : (big ? 15 : 4 + n) + o * (big ? 10 : 5);
+  const nCards = N === 2 ? (n === 0 ? 2 : 4) : big ? 4 : n < 3 ? 1 : 2;
   s.balls += balls;
   const cards: CardDrop[] = [];
-  for (let i = 0; i < (n === 0 ? 2 : 4); i++) {
+  for (let i = 0; i < nCards; i++) {
     const drop = rollCardDrop(s, rng.weighted(['common', 'uncommon', 'rare', 'epic'] as Rarity[], (r) => ({ common: 30, uncommon: 40, rare: 25, epic: 5 })[r as 'common']), rng);
     if (drop) {
       giveCard(s, drop);
@@ -407,7 +443,7 @@ export function claimZoneChest(s: SaveData, z: Elem, rng: Rng) {
     }
   }
   s.zoneChests[z] = n + 1;
-  return { balls, cards, big: n === 1 };
+  return { balls, cards, big };
 }
 
 // ---------- AFK (đồng hồ, rương, tăng tốc ở afk.ts) ----------

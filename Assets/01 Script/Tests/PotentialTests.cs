@@ -115,7 +115,7 @@ namespace PokiClash.Tests
                 var o = J.Obj(x);
                 var team = Teams.Player(s, null, d);
                 team.ai = true;
-                var b = Battle.Create(d, team, Teams.Enemy(d.Stage(J.Int(o, "stage"))), (uint)J.Num(o, "seed"), 6, 6);
+                var b = Battle.Create(d, team, Teams.Enemy(d.Stage(J.Int(o, "stage")), d), (uint)J.Num(o, "seed"), 6, 6);
                 string at = $"ải {J.Int(o, "stage")} hạt giống {J.Num(o, "seed")}";
                 var f0 = b.sides[0].fighters[0];
                 var ws = J.Obj(o, "start");

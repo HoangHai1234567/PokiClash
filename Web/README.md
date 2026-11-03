@@ -31,7 +31,7 @@ Mỗi chức năng là một **scene** riêng (học theo Clash of Critters). V�
 | Scene | Nội dung |
 |---|---|
 | Sảnh: đảo lớn | Đảo lớn chia 5 vùng hệ, làng máy bi ở giữa. **Không khoá vùng nào**: bảng tên ghi cấp đề nghị và độ khó so với cấp của bạn ("Vừa sức", "Khó", "Quá mạnh!"), mũi tên chỉ vùng nên đánh. Hàng nút dưới: Tướng, Sổ thẻ, Máy Bi, Đánh tiếp, Sổ tay. |
-| Đảo hệ | Ảnh đảo to, cuộn dọc; 8 ải dọc đường mòn từ bãi biển lên hang boss (ải 4 mini boss, ải 8 boss), mở lần lượt. Thanh tiến độ có 2 rương mốc (qua 4 và 8 ải). Khung dưới: ải tiếp theo, địch, thưởng, nút Đánh. |
+| Đảo hệ | Ảnh đảo to, cuộn dọc; ải dọc đường mòn từ bãi biển lên hang boss, mở lần lượt. Khung dưới: ải tiếp theo, địch, thưởng, nút Đánh. **Đảo Thủy (hệ thống mới, 2026-11-02):** 70 ải, 10 ải tướng là mốc lớn, ải xen giữa là chấm nhỏ; chạm mốc mở bảng chặng; 7 rương mốc (mỗi 10 ải). Xem `GD_Claude/14_HeThongAi.md`. **Đảo khác:** 8 ải (ải 4 mini boss, ải 8 boss), 2 rương mốc (qua 4 và 8 ải). |
 | Trận | Lượt luân phiên, bên Tốc cao đi trước mỗi hiệp. Mỗi lượt chọn 5 lần, mỗi lần 1 trong 3 thẻ. Chiêu và Tuyệt kỹ xen vào hàng thẻ, không tốn lần chọn. Đổi tướng đầu lượt. Có tự chơi và tốc độ ×1/×2/×3. |
 | Máy Bi | Pachinko có vật lý. Giữ nút để thả liên tục, tối đa 20 bi một đợt. Nút ×N là mức cược: tốn N bi mỗi lần thả, thưởng ×N. Bảng tỉ lệ ở nút "Tỉ lệ". |
 | Tướng | 11 tướng aola: 4 clip, chỉ số theo cấp, 3 thẻ riêng (nâng bằng bản sao), tiến hóa sao. |
@@ -56,7 +56,8 @@ Dữ liệu lưu ở `localStorage` của trình duyệt. Xoá ở Sổ tay → 
 
 ```
 npm run sim -- pachinko       # tỉ lệ từng ô máy bi, EXP và bi hoàn lại mỗi bi
-npm run sim -- battle 100     # tỉ lệ thắng 40 ải (5 đảo) theo cấp, mỗi đảo một đội khắc hệ
+npm run sim -- battle 100     # tỉ lệ thắng các ải 5 đảo theo cấp, mỗi đảo một đội khắc hệ
+npm run sim -- island 100     # đảo 70 ải: tỉ lệ thắng từng ải với 1 tướng (Giọt Sương, Võ Sư), bi lần đầu qua đảo
 npx tsx scripts/gen_doc.ts    # in bảng tướng, thẻ, ải từ dữ liệu thật
 node scripts/shot.mjs --go "skipintro" --wait 1500 --shot ten   # chụp màn hình bằng Chrome không giao diện (cần npm run dev)
 ```
@@ -82,7 +83,9 @@ src/core/            logic thuần, không đụng trình duyệt, chạy đư�
   types.ts           kiểu dữ liệu: tướng, thẻ, hiệu ứng
   data/heroes.ts     11 tướng (hệ, độ hiếm, chỉ số gốc aola, 3 thẻ)
   data/cards.ts      23 thẻ chung + 33 thẻ riêng; hiệu ứng viết dạng dữ liệu
-  data/stages.ts     5 đảo hệ × 8 ải, toạ độ vùng trên đảo lớn và ải trên ảnh đảo, rơi mảnh, tướng tặng
+  data/stages.ts     5 đảo hệ, ải (8 ải cũ hoặc sinh từ islands.ts), toạ độ vùng trên đảo lớn và ải trên ảnh đảo, rơi mảnh, tướng tặng
+  data/islands.ts    hệ thống 70 ải: 10 tướng mỗi đảo, mẫu ải xen giữa, cường hóa, sức địch
+  data/minions.ts    lính (quái không thu thập được) của ải xen giữa
   data/config.ts     mọi hệ số cân bằng ở một chỗ
   battle.ts          luật trận: lượt, chọn thẻ, chiêu, đổi tướng, sát thương, bị động; trả về sự kiện kèm ảnh chụp số
   ai.ts              máy chọn thẻ, dùng chiêu, đổi tướng

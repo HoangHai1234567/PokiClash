@@ -157,6 +157,7 @@ export const BORROW: Record<string, string> = {
   de_hoa: 'su_gia', giac_long: 'su_gia', phong_linh: 'su_gia', thanh_long: 'su_gia',
   // Thủy: mẫu Tiểu Y (Thường), Y Trạch (Hiếm)
   canh_cut: 'tieu_y', giot_suong: 'tieu_y', tam_tay: 'tieu_y', ca_ngua: 'y_trach', map_rang: 'y_trach', huyen_vu: 'y_trach',
+  mi_nhi: 'tieu_y', ma_ket: 'y_trach', vay_lam: 'y_trach', thuong_lam: 'y_trach', kuba: 'y_trach',
   // Hỏa: mẫu Bồ Đề (Hiếm), Pháp Luân (Sử thi)
   heo_lua: 'bo_de', dom_lua: 'bo_de', phao_tet: 'bo_de', su_tu_lua: 'bo_de', ho_lua: 'bo_de', chu_tuoc: 'phap_luan',
   // Thổ: mẫu Võ Sư (Thường), Cà Sa (Huyền thoại)

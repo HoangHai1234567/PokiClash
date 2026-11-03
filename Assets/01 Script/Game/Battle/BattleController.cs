@@ -81,7 +81,7 @@ namespace PokiClash
             int unlock = save.level;
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
             uint seed = badge != null ? Badges.Seed(d, badge.zone, badge.tier, badge.i) : Rng.RandomSeed();
-            b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
+            b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
             view.Init(b, zone);
             view.Stage.speed = speed;
             view.SetSpeed((int)speed);

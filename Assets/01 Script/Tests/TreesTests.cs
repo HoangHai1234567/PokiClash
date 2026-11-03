@@ -33,7 +33,7 @@ namespace PokiClash.Tests
                     case "travel": Trees.Travel(s, (double)arg * H); break;
                     case "zone":
                         if ((string)arg == "clear1") s.zones[(int)Elem.Thuy] = 1;
-                        else s.zones[(int)Keys.ToElem((string)arg)] = 8;
+                        else s.zones[(int)Keys.ToElem((string)arg)] = Islands.Size(Keys.ToElem((string)arg));
                         break;
                     case "pass": Assert.AreEqual(want, AdGate.Buy(s, d.Cfg, "adventure_pass", t), at); break;
                 }
@@ -59,8 +59,8 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             Assert.AreEqual(0, Trees.Open(s, d.Cfg), "chưa qua ải nào: chưa có cây");
-            s.zones[(int)Elem.Thuy] = 8;
-            s.zones[(int)Elem.Hoa] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
+            s.zones[(int)Elem.Hoa] = Islands.Size(Elem.Hoa);
             Assert.AreEqual(3, Trees.Open(s, d.Cfg), "qua ải 1, boss Thủy, boss Hỏa: 3 cây");
             Trees.Tick(s, d.Cfg, 0);
             Assert.AreEqual(3 * 25, Trees.Stock(s, d.Cfg, 5 * H), "5 giờ: 25 bi mỗi cây");

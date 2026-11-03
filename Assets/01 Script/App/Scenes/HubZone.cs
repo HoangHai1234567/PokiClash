@@ -44,8 +44,8 @@ namespace PokiClash
             p.plaque.rectTransform.localEulerAngles = new Vector3(0, 0, (z.order % 2 == 1 ? -1 : 1) * 1.5f);
             p.name.text = z.name;
             p.difficulty.Set(df);
-            p.level.text = $"Cấp {z.levelMin}–{z.levelMax} · {prog}/8 ải";
-            p.bar.Set(Theme.Of(z.id), prog / 8f);
+            p.level.text = $"Cấp {z.levelMin}–{z.levelMax} · {prog}/{Islands.Size(z.id)} ải";
+            p.bar.Set(Theme.Of(z.id), prog / (float)Islands.Size(z.id));
             p.arrow.SetActive(recommended);
         }
 

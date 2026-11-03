@@ -1,4 +1,4 @@
-// Công cụ cân bằng: bảng 40 ải × 5 mức cấp của Unity phải ra đúng từng ô như npm run sim -- battle (golden sim.json),
+// Công cụ cân bằng: bảng 102 ải × 5 mức cấp của Unity phải ra đúng từng ô như npm run sim -- battle (golden sim.json),
 // mô phỏng máy bi ra tỉ lệ khớp bảng đo của web, mô phỏng tiến độ chạy được và có thứ tự hợp lý giữa các kiểu người chơi.
 using System.Linq;
 using NUnit.Framework;
@@ -9,7 +9,7 @@ namespace PokiClash.Tests
     public class SimTests
     {
         [Test]
-        public void Bang40Ai_KhopTungO_VoiBanWeb()
+        public void BangAi_KhopTungO_VoiBanWeb()
         {
             var d = TestData.Load();
             var g = J.Obj(MiniJson.Parse(TestData.Read("Golden/sim.json")));
@@ -39,7 +39,7 @@ namespace PokiClash.Tests
                     }
                 }
             }
-            Assert.AreEqual(200, cells);
+            Assert.AreEqual(d.Stages.Count * 5, cells);
         }
 
         [Test]

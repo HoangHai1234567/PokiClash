@@ -97,7 +97,37 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 **Mốc 1 `add-card-battle`: xong (2026-10-31).** 24/24 việc, 23 EditMode test đạt (luật C# khớp web ở 200 trận golden).
 - Luật mới, đổi cả ở web: Phật Tâm thành "lần đầu gục: hồi sinh 35% máu"; boss của địch không hồi sinh; trận dừng ở 60 hiệp.
 - Vào trận: sảnh → đảo → chạm ải → hộp chuẩn bị → Đánh. Thử nhanh: menu `PokiClash/Thử/Đánh thử ải …` (đang Play).
-- Tướng hiện bằng hình aola. **2026-11-02**, chủ dự án chốt "đây là prototype": mọi bản build mang hình tướng (`Editor/AolaDevBuild.cs`, `AllBuilds`), xem được trên máy thật. Trước khi phát hành công khai phải tắt `AllBuilds` (spec `art-assets`).
+- Tướng hiện bằng hình aola. **2026-11-02**, chủ dự án chốt "đây là prototype": mọi bản build mang hình tướng, xem được trên máy thật. Ban đầu làm bằng `Editor/AolaDevBuild.cs` (`AllBuilds`); nay thay bằng prefab tướng (mục "Prefab tướng" bên dưới). Trước khi phát hành công khai phải tắt `PreBuildCheck.HeroArtInBuild` (spec `art-assets`).
+- Dung lượng build (2026-11-02): bản build ở công ty hơn 300 MB, trong đó 262 MB là gói hình aola (84 dạng, 5.350 PNG) chép vào StreamingAssets mà APK để không nén. Nay bước build `AolaDevBuild`:
+  - thu nhỏ mỗi hình mảnh về độ nét RenderTexture thật sự dùng (tướng cao tối đa ~301 điểm trong RT 1024, chừa ×1,25), chỉnh ma trận anim.json theo; điểm ảnh còn 22%, RAM trên máy giảm theo;
+  - ghi PNG 256 màu (`Editor/PalettePng.cs`, `ImageScale.cs`, `AolaPngPack.cs`; cache `Library/PokiAolaPng`); lệch màu không thấy bằng mắt;
+  - build Android gzip anim.json (17,6 → 1,7 MB).
+  - Ước gói aola còn khoảng 25 MB. Kèm theo: bỏ 6 ảnh nền thay thế trùng ảnh gen khỏi `ArtLibrary` và `Zone.prefab` (~5 MB); atlas động hai phông lớn 2048 → 1024 (đã bật nhiều atlas). APK ước từ 103 MB (bản 21:46) còn khoảng 60–65 MB.
+  - **Lỗi gây crash, đã sửa 2026-11-02:** Pangolin cũng bị hạ 2048 → 1024 bằng tay mà vùng xếp chữ (`m_FreeGlyphRects`) còn 2047, nên TMP ghi tràn ảnh atlas khi thêm chữ. Unity Editor crash hai lần, và test phông crash ở batchmode. Đã sửa về 1023. `Editor/FontAtlasGuard.cs` tự soát và tự sửa phông lệch mỗi lần Editor nạp code; test phông kiểm trước khi thêm chữ. Sau sửa: 83/83 test EditMode đạt trong Editor.
+  - Chưa đổi cấu hình (cắt code, IL2CPP, gỡ package, URP): chủ dự án chốt như vậy là được. Kiểm: menu `PokiClash/Build/Kiểm tra gói tướng (build Android ra Temp)` in cỡ APK và soát đủ file; lần build đầu chậm thêm vài phút để nén.
+- **Prefab tướng (2026-11-02, thay hai mục trên):** người dùng chốt hình tướng lấy từ aola phải nhập vào Unity thành prefab tướng và nén luôn, không chỉ để bên AolaRipper.
+  - Menu `PokiClash/Tướng/Nhập hình tướng aola thành prefab` (`Editor/AolaImport.cs`) lấy các dạng có trong `heroes.json`.
+  - Mỗi dạng ghi vào `Assets/03 Art/Heroes/Resources/<dạng>/`: atlas ASTC 6x6, chân dung, `anim.bytes` gzip, asset `AolaAnim`.
+  - Mỗi tướng là prefab `Assets/04 Prefabs/Heroes/<id>.prefab`; danh mục `02 Data/HeroModels.asset` gắn vào `UiAssets.heroes`.
+  - Atlas và chân dung nạp khi cần (`Resources.Load`), vì danh mục trỏ thẳng thì mọi ảnh tướng vào bộ nhớ lúc mở game.
+  - Nén:
+    - hình mảnh thu về độ nét RenderTexture 1024 thật sự dùng; hình không có trong dáng đứng (tư thế đánh, hiệu ứng) thu thêm ×0,7;
+    - atlas không mipmap, xếp sát (không làm tròn lên lũy thừa 2).
+  - Kết quả: 45 prefab, 95/97 dạng; atlas 175 triệu điểm ảnh, ASTC 6x6 khoảng 74 MB trước khi build nén thêm. Lần nhập thử đầu (×1,25, mipmap, `PackTextures`) ra 516 triệu điểm ảnh.
+  - So với gói PNG 256 màu cũ (~25 MB trong APK): APK lớn hơn, nhưng mỗi tướng đang hiện chỉ tốn ~0,45 byte/điểm ảnh bộ nhớ đồ họa, thay vì 4 byte khi giải PNG ra RGBA. Muốn APK nhỏ nữa thì đổi ASTC 6x6 sang 8x8 (bớt ~44%, mép nét mờ hơn).
+  - `AolaDevBuild` thôi chép vào StreamingAssets (`Enabled = false`). `AolaDevPack`, `AolaPngPack`, `PalettePng` không còn dùng, chờ chủ dự án quyết xoá.
+  - Trước khi phát hành công khai: tắt `PreBuildCheck.HeroArtInBuild`.
+  - 2026-11-03: 51 prefab (thêm 6 lính, khoá `minions` trong `heroes.json`), 103/103 dạng có hình. `goc_1692` đã xuất.
+  - Dạng vẽ lại `<hệ>_<id>` chưa xuất (`thuy_7`, Giọt Sương dạng 1) thì bộ nhập tạm lấy hình gốc `goc_<id>` cùng rig, tổng kết menu ghi "tạm dùng hình gốc aola". Có `reskin/thuy_7/export/anim.json` thì chạy lại menu, hình vẽ lại tự thay vào.
+  - Ảnh soi từng dạng: menu `PokiClash/Tướng/Chụp thử prefab tướng` ghi vào `Library/PokiHeroShots`.
+- **Thêm 5 tướng Thủy (2026-11-02):** người dùng chọn 7 hình aola cho kịch bản đảo Thủy. Hai con đã có: 远古灵龟 = Huyền Vũ, 万钧 = Vạn Quân (dạng 2 của Lam Quân, người dùng đánh dấu BOSS). Năm con mới:
+  - Mi Nhi (983–984);
+  - Ma Kết (758–760);
+  - Vây Lam (546–548);
+  - Thương Lam (805–807);
+  - Kuba (94–96).
+
+  Tên, độ hiếm, chỉ số là tạm; thẻ mượn của Tiểu Y / Y Trạch. Dữ liệu còn 45 tướng (Thủy 13). Xếp tướng vào ải đảo Thủy: session viết lại hệ thống ải đang làm.
 - Số đo đảo Thổ và nhịp trận: `openspec/changes/add-card-battle/design.md`, mục "Kết quả đo".
 
 **Mốc 2 `add-hero-roster`: xong (2026-10-31).** 12/12 việc, 31 EditMode test đạt (chỉ số 11 tướng, thẻ rơi từ rương, mảnh khớp web).
@@ -294,6 +324,15 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
   - Ải 8 Đảo Thủy khi chỉ mang 1 tướng (luật ô đội ở mục trên): Giọt Sương một mình thắng 0% ở cấp 7 và cấp 10, 7% ở cấp 14 (300 trận). Đội 3 tướng (Giọt Sương, Võ Sư, Nữ Hoa) cấp 7 thắng 40%. Lượt thua điển hình: boss dạng cuối dùng Cuồng Nộ (+100% Công), chiêu (645) rồi tuyệt kỹ (1478), vì nộ dồn từ đòn nặng của cả 3 dạng. Cần người dùng chọn cách cân lại cùng với độ khó Đảo Thủy.
 - Unity: đã chạy menu `PokiClash/Nhập dữ liệu` (HeroDb, CardDb, ZoneDb, BalanceConfig có thẻ mới, cờ `evo` và 2 hệ số); EditMode 81/81 đạt, gồm `BossTienHoa_TuDang1LenDangCuoi` và `TuongTrenNutAi_KhopBanWeb`. Đã xem trong Unity bằng menu thử mới `PokiClash/Thử/Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải 8`: tướng đứng trên bệ từng nút ải đúng (ải 8 là Cá Mập Con), hộp chuẩn bị hiện 3 dạng, trong trận boss lên 2 dạng, mỗi lần hồi đầy máu (523, 1046, 1569) và đổi hình, đổi tên. Dòng "… ra đòn", "đang chọn thẻ", "Hàng thẻ của …", "Tuyệt kỹ của …" trước lấy tên dòng, nay theo tên dạng (`fighterName` ở web, `Fighter.Name` ở C#). Sau sửa này EditMode 83/83 đạt. Bảng chỉnh số trong Sổ tay của Unity chưa có 2 hệ số mới (prefab nướng theo danh sách khoá).
 
+**Hệ thống 70 ải mỗi đảo, bản thử đảo Thủy trên web (2026-11-02).** Người dùng: mỗi đảo một tướng mới thì không đủ nội dung để cày, nên mỗi đảo có 70 ải và 10 tướng. Ải tướng ở ải 1 (bóng tướng khởi đầu), 5, 10, 15, 20, rồi mỗi 10 ải. Ải xen giữa trộn ba kiểu: tướng cũ cường hóa, nhóm 2–3 con, và lính không thu thập được.
+- Chi tiết, số đo: `14_HeThongAi.md`.
+- Đảo Thủy có 70 ải; 4 đảo kia vẫn 8 ải.
+- 6 loại lính dùng hình aola gốc mới xuất (`goc_1313`, `1314`, `16`, `17`, `829`, `830`).
+- Màn đảo web: 10 mốc, chấm ải, bảng chặng.
+- Máy đo: `npm run sim -- island`.
+- **Đã chép sang Unity (2026-11-03).** Từ nay làm ở Unity, bản web chỉ làm khi người dùng yêu cầu. JSON và golden xuất lần cuối từ web (script ở thư mục tạm, không sửa `Web/`), có lính và `Golden/islands.json`. Màn đảo Unity có đường mòn 10 bệ, 60 chấm, 7 rương, bảng chặng `Dialogs/BangChang`. 86 test EditMode qua. Chi tiết ở mục "Unity" của file 14.
+- **Đừng chạy lại `Web/scripts/export_data.ts`, `export_golden.ts` vào Assets:** hai script vẫn xuất 8 ải cũ, sẽ ghi đè mất 70 ải.
+
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 
 1. **Nhịp tiến độ** (mục tiêu: người chơi "vừa" xong 5 đảo khoảng ngày 21). Sau khi có cây bi vẫn là ngày 6. Quét bằng menu `Quét nhịp`:
@@ -309,7 +348,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 2. **Trang trại** có ra thêm EXP không?
 3. **Kiếm tiền:** chọn SDK nào (quảng cáo, IAP)? Giá hai gói?
 4. **Kỹ thuật:** chốt Unity 6 bản vá nào? Có cần Addressables cho ảnh đảo không?
-5. **Hình aola:** (2026-11-02, người dùng bảo "ghép hình aola các tướng đã chọn vào game, cả animation đánh") giờ Editor lúc Play luôn nạp hình aola từ thư mục reskin (tự tìm trên ổ đĩa), không cần define, không đổi ProjectSettings; bản build vẫn chỉ nạp khi có `POKICLASH_DEV`. Hình vẫn KHÔNG nằm trong Assets vì `PreBuildCheck` và test `KhongCoHinhAolaTrongAssets` chặn hình Baitian trong bản phát hành. Còn hỏi: có muốn nhập hình aola vào Assets để chạy trên máy thật (phải bỏ luật chặn đó, hình Baitian sẽ vào bản build) không?
+5. **Đã chốt 2026-11-02: nhập vào Assets thành prefab tướng (xem mục "Prefab tướng" ở trên).** **Hình aola:** (2026-11-02, người dùng bảo "ghép hình aola các tướng đã chọn vào game, cả animation đánh") giờ Editor lúc Play luôn nạp hình aola từ thư mục reskin (tự tìm trên ổ đĩa), không cần define, không đổi ProjectSettings; bản build vẫn chỉ nạp khi có `POKICLASH_DEV`. Hình vẫn KHÔNG nằm trong Assets vì `PreBuildCheck` và test `KhongCoHinhAolaTrongAssets` chặn hình Baitian trong bản phát hành. Còn hỏi: có muốn nhập hình aola vào Assets để chạy trên máy thật (phải bỏ luật chặn đó, hình Baitian sẽ vào bản build) không?
 6. **ProjectSettings:** giữ hay hoàn các thay đổi màn dọc do `BanThuSetup.cs` cũ ghi vào `ProjectSettings.asset`?
 7. **Công cụ dev** bọc theo `UNITY_EDITOR || DEVELOPMENT_BUILD` (có cả trong bản Development) thay vì `POKICLASH_DEV` như design ghi, vì define đó gắn với hình aola. Được không?
 8. **Máy bi và AFK, các chỗ tự chọn cần duyệt:**
@@ -328,10 +367,19 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
     - hái một lần cho mọi cây (Critters hái từng cây);
     - cây mới mở bắt đầu từ lần tính sau;
     - không có trần kho bi (Critters chặn hái khi đã có 420 bi).
-11. **Prefab, hình aola bản dev** (`convert-to-prefabs`): `AolaActor` và `AolaSticker` đọc PNG và json từ thư mục aola ngoài project lúc chạy, tạo quad, material, RenderTexture. Giữ ngoại lệ này (chỉ bản dev, test chặn bỏ qua), hay nhập hình vào project thành asset (loại khỏi bản phát hành)?
+11. **Đã chốt 2026-11-02: nhập hình vào project thành prefab tướng.** **Prefab, hình aola bản dev** (`convert-to-prefabs`): `AolaActor` và `AolaSticker` đọc PNG và json từ thư mục aola ngoài project lúc chạy, tạo quad, material, RenderTexture. Giữ ngoại lệ này (chỉ bản dev, test chặn bỏ qua), hay nhập hình vào project thành asset (loại khỏi bản phát hành)?
 12. **Prefab, scene thử cũ `BanThu`:** không chuyển sang prefab (đã bỏ hướng xếp khối). Để nguyên hay xoá?
 13. **Prefab, cấu trúc (đã chuyển hết theo cách này):** mỗi hộp thoại là biến thể (prefab variant) của tờ giấy gốc `Dialogs/HopThoai`; mỗi màn là `Screens/<Scene>.prefab`; phần lặp theo dữ liệu là `Items/*.prefab`; tên GameObject giữ tiếng Việt không dấu như cũ. Code nướng đã xoá nên sửa giao diện là sửa prefab. Phần có số lượng theo dữ liệu nhưng dựng sẵn cố định trong prefab (5 đảo ở sảnh, 5 nút cược máy bi, 5 nút chọn hệ ở Hang, 3 ô đội hình) phải thêm tay nếu dữ liệu tăng. Ổn chưa?
 14. **Menu thử Tướng** báo "Lệch chỉ số: màn Tướng 1039/471/119, trận 1191/357/95" (có từ trước khi đổi sang prefab): màn Tướng và trận tính chỉ số khác nhau khi tướng có huy hiệu, tiềm năng. Cần xem lại phần nào đúng.
+
+Hệ thống 70 ải mỗi đảo (2026-11-02, bản thử đảo Thủy trên web, `14_HeThongAi.md`):
+
+15. **10 tướng đảo Thủy:** 7 tướng người dùng gửi cùng Giọt Sương (ải 1), Tiểu Y (5), Cánh Cụt (10). Thứ tự theo độ hiếm: Mi Nhi 15, Ma Kết 20, Vây Lam 30, Kuba 40, Thương Lam 50, Huyền Vũ 60, Lam Quân boss ải 70 (vào trận dạng Lam Quân, tiến hóa lên Vạn Quân rồi Hắc Dực). Đúng ý chưa? Huyền Vũ (Huyền thoại) đứng trước boss Sử thi có ổn không?
+16. **3 tướng Thủy không có suất trên đảo:** Tám Tay, Cá Ngựa, Mập Răng Cưa. Giữ cho máy bi hoặc sự kiện, đưa sang đảo khác, hay bỏ?
+17. **Ô đội:** ô 2 mở khi xong 1 đảo, nên cả 70 ải đảo Thủy chỉ mang 1 tướng. Mở ô 2 sớm hơn (ví dụ ở ải 20 hoặc 30) không? Số đo hiện tính cho 1 tướng.
+18. **Sức địch:** ở hệ thống mới, tướng địch mọi độ hiếm quy về sức tướng Khá cùng cấp. Nếu không quy, tướng Hiếm trở lên cùng cấp gần như không thua. Giữ cách này, hay hiện cấp cao hơn cho địch hiếm?
+19. **Tướng không khắc hệ đảo:** Giọt Sương (Thủy) đánh đảo Thủy kém Võ Sư (Thổ) 30–50 điểm phần trăm ở mọi kiểu ải khó. Đây là luật khắc hệ có sẵn. Giữ vậy, hay nới cho tướng khởi đầu?
+20. **Nhịp và thưởng:** 5 đảo × 70 ải là 350 ải. Người chơi "vừa" (9 trận/ngày) cần ít nhất 39 ngày chỉ để qua lần đầu, so với mục tiêu ngày 21 (câu 1). Bi mỗi ải giảm còn 1–2 để cả đảo Thủy đưa người chơi lên khoảng cấp 7–8. Các hướng: chấp nhận nhịp dài hơn, tăng số trận mỗi lần vào game trong mô phỏng, hay rút số ải? Đo lại bằng `Quét nhịp` sau khi chép sang Unity. Đền Huy Hiệu giờ mở sau ải 70 đảo Thủy: có cần mở sớm hơn không?
 
 ## Ảnh cần gen
 

@@ -1,12 +1,16 @@
-// Scene đảo một hệ: ảnh đảo to, 8 ải dọc đường mòn từ bãi dưới lên hang boss, thanh tiến độ có 2 rương mốc,
+// Scene đảo một hệ: ảnh đảo to, các ải dọc đường mòn từ bãi dưới lên hang boss, thanh tiến độ có rương mốc,
 // khung "ải tiếp theo" ở dưới. Trong một đảo, ải mở lần lượt.
+// Đảo 8 ải (hệ thống cũ): mỗi ải một nút. Đảo 70 ải (islands.ts): 10 ải tướng là mốc lớn, ải xen giữa là chấm nhỏ trên đường;
+// chạm mốc hoặc chấm thì mở bảng chặng (các ải từ ải tướng đó tới trước ải tướng sau).
 import { BOSS_EVO } from '../../core/data/cards';
 import { CFG } from '../../core/data/config';
 import { HERO, HEROES, STARTERS } from '../../core/data/heroes';
-import { STAGE, ZONE, zoneStages, type StageDef } from '../../core/data/stages';
+import { TAG_NAME } from '../../core/data/islands';
+import { isMinion } from '../../core/data/minions';
+import { STAGE, V2_ZONES, ZONE, ZONE_CHESTS, zoneSize, zoneStages, type StageDef, type StageEnemy, type ZoneDef } from '../../core/data/stages';
 import { ELEM_COLOR, ELEM_NAME, elemMult, BEATS } from '../../core/elements';
 import {
-  claimZoneChest, enemyFormStar, FORM_STARS, nextStage, stageBalls, stageCleared, stageLead, stageOpen, TEAM_SLOT_ZONES, teamSlots, ZONE_CHEST_AT, zoneChestReady,
+  claimZoneChest, enemyFormStar, FORM_STARS, nextStage, stageBalls, stageCleared, stageLead, stageOpen, TEAM_SLOT_ZONES, teamSlots, zoneChestReady,
 } from '../../core/progression';
 import { cardText } from '../../core/cardtext';
 import { Rng, randomSeed } from '../../core/rng';
@@ -22,15 +26,83 @@ import { difficulty } from './world';
 // hệ khắc hệ z (để gợi ý)
 const counterOf = (z: Elem): Elem => (Object.keys(BEATS) as Elem[]).find((k) => BEATS[k] === z)!;
 
-// bản đồ đảo phóng to và cuộn dọc, để ải ở hai đầu không bị khung trên dưới che
-const MK = 1.27, MW = Math.round(SW * MK), MH = Math.round(SH * MK), PAD_T = 110, PAD_B = 150;
+// bản đồ đảo phóng to và cuộn dọc, để ải ở hai đầu không bị khung trên dưới che; đảo 70 ải phóng to hơn cho đủ chỗ chấm ải
+const MK1 = 1.27, MK2 = 2.2, PAD_T = 110, PAD_B = 150;
+const isV2 = (z: Elem) => V2_ZONES.includes(z);
+const dims = (z: Elem) => {
+  const mk = isV2(z) ? MK2 : MK1;
+  return { mk, MW: Math.round(SW * mk), MH: Math.round(SH * mk) };
+};
+const pathSvg = (d: string, w: number, hh: number) =>
+  `<svg width="${w}" height="${hh}" class="boil-self"><path d="${d}" fill="none" stroke="#2b2118" stroke-width="9" stroke-linecap="round" stroke-dasharray="14 12" opacity=".5"/><path d="${d}" fill="none" stroke="#ffe08a" stroke-width="5" stroke-linecap="round" stroke-dasharray="14 12"/></svg>`;
+const nodeSize = (st: StageDef) => (st.kind === 'boss' ? 86 : st.kind === 'mini' ? 72 : 58);
+// nhãn dưới hình địch: cấp, BOSS, cường hóa (+%) hoặc yếu đi (−%)
+function enemyLabel(e: StageEnemy) {
+  const b = e.buff ? ` ${e.buff > 0 ? '+' : '−'}${Math.round(Math.abs(e.buff) * 100)}%` : '';
+  return `Lv${e.level}${e.boss ? ' BOSS' : ''}${b}`;
+}
+const TAG_FILL = { hero: '#ffd9a0', minion: '#dfe9f3', buff: '#ffc9bd', group: '#e7dcf5', pair: '#e7dcf5', elite: '#ffc9bd', gate: '#ffb3a3' };
+// nhãn kiểu ải (đảo 70 ải)
+function tagChip(st: StageDef) {
+  const text = st.kind === 'boss' ? 'Boss đảo' : st.kind === 'mini' ? 'Mini boss' : TAG_NAME[st.tag!];
+  return h('span', { class: 'chip sk thin', style: `font-size:12px;padding:0 6px;--fill:${TAG_FILL[st.tag!]};white-space:nowrap;align-self:flex-start` }, text);
+}
+
+// ---------- đường mòn của đảo 70 ải ----------
+// Đường cong qua các điểm ải của ảnh đảo (như rc.curve của bản đồ nét tay: Catmull-Rom, hai đầu lặp điểm), lấy mẫu dày để
+// đo chiều dài. Mốc (ải tướng) cách nhau theo số ải xen giữa của chặng, chấm ải rải đều giữa hai mốc.
+interface TrailPt { x: number; y: number; d: number }
+function trailPolyline(z: ZoneDef, MW: number, MH: number): TrailPt[] {
+  const P = z.nodes.map(([x, y]) => [x * MW, y * MH]);
+  const Q = [P[0], ...P, P[P.length - 1]];
+  const out: TrailPt[] = [{ x: P[0][0], y: P[0][1], d: 0 }];
+  for (let i = 1; i + 2 < Q.length; i++) {
+    const [p0, p1, p2, p3] = [Q[i - 1], Q[i], Q[i + 1], Q[i + 2]];
+    const b1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6];
+    const b2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+    for (let k = 1; k <= 24; k++) {
+      const t = k / 24, u = 1 - t;
+      const x = u * u * u * p1[0] + 3 * u * u * t * b1[0] + 3 * u * t * t * b2[0] + t * t * t * p2[0];
+      const y = u * u * u * p1[1] + 3 * u * u * t * b1[1] + 3 * u * t * t * b2[1] + t * t * t * p2[1];
+      const last = out[out.length - 1];
+      out.push({ x, y, d: last.d + Math.hypot(x - last.x, y - last.y) });
+    }
+  }
+  return out;
+}
+function pointAt(poly: TrailPt[], d: number): TrailPt {
+  let i = 1;
+  while (i < poly.length - 1 && poly[i].d < d) i++;
+  const a = poly[i - 1], b = poly[i], t = b.d > a.d ? Math.min(1, Math.max(0, (d - a.d) / (b.d - a.d))) : 0;
+  return { x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t, d };
+}
+// vị trí từng ải (theo idx - 1) trên đường; mỗi chặng chiếm phần đường tỉ lệ với (số chấm + 3)
+function trailLayout(z: ZoneDef, stages: StageDef[], MW: number, MH: number) {
+  const poly = trailPolyline(z, MW, MH);
+  const len = poly[poly.length - 1].d;
+  const heads = stages.filter((st) => st.tag === 'hero');
+  const gaps = heads.slice(0, -1).map((st, c) => heads[c + 1].idx - st.idx - 1 + 3);
+  const total = gaps.reduce((a, b) => a + b, 0);
+  const D = [0];
+  gaps.forEach((g) => D.push(D[D.length - 1] + (len * g) / total));
+  const at: TrailPt[] = [];
+  heads.forEach((st, c) => {
+    at[st.idx - 1] = pointAt(poly, D[c]);
+    if (c + 1 >= heads.length) return;
+    const n = heads[c + 1].idx - st.idx - 1;
+    const a = D[c] + nodeSize(st) / 2 + 10, b = D[c + 1] - nodeSize(heads[c + 1]) / 2 - 10;
+    for (let j = 1; j <= n; j++) at[st.idx - 1 + j] = pointAt(poly, a + ((b - a) * (j - 0.5)) / n);
+  });
+  return { poly, at };
+}
 
 export function zoneScreen(): Screen {
   const bg = h('div', { class: 'fill' });
   const pathLayer = h('div', { class: 'fill', style: 'pointer-events:none' });
   const nodes = h('div', { class: 'fill' });
-  const map = h('div', { style: `position:absolute;left:${(SW - MW) / 2}px;top:${PAD_T}px;width:${MW}px;height:${MH}px` }, bg, pathLayer, nodes);
-  const scroller = h('div', { class: 'scroll', style: 'position:absolute;inset:0;overflow-y:auto;overflow-x:hidden' }, h('div', { style: `position:relative;height:${PAD_T + MH + PAD_B}px` }, map));
+  const map = h('div', { style: 'position:absolute' }, bg, pathLayer, nodes);
+  const holder = h('div', { style: 'position:relative' }, map);
+  const scroller = h('div', { class: 'scroll', style: 'position:absolute;inset:0;overflow-y:auto;overflow-x:hidden' }, holder);
   const info = h('div', { class: 'zinfo sk' });
   const bottom = h('div', { class: 'zbottom sk' });
   const el = h('div', { class: 'screen' }, scroller, info, bottom);
@@ -44,11 +116,79 @@ export function zoneScreen(): Screen {
     bg.replaceChildren();
     await preloadIcons();
     scroller.style.background = z.sea;
-    const node = await sceneBackdrop(z.art, () => drawZoneFallback(z, app.scale * MK * (window.devicePixelRatio || 1)));
+    const node = await sceneBackdrop(z.art, () => drawZoneFallback(z, app.scale * dims(zone).mk * (window.devicePixelRatio || 1)));
     if (loadedFor === zone) bg.replaceChildren(node);
   }
 
   function render() {
+    const { MW, MH } = dims(zone);
+    map.style.cssText = `position:absolute;left:${(SW - MW) / 2}px;top:${PAD_T}px;width:${MW}px;height:${MH}px`;
+    holder.style.height = `${PAD_T + MH + PAD_B}px`;
+    if (isV2(zone)) renderTrail(MW, MH);
+    else renderNodes(MW, MH);
+    renderInfo();
+  }
+
+  // đảo 70 ải: mốc ải tướng, chấm ải xen giữa, đường đã đi tới ải đang đánh
+  function renderTrail(MW: number, MH: number) {
+    const z = ZONE[zone];
+    const s = app.save;
+    const stages = zoneStages(zone);
+    const prog = s.zones[zone];
+    const { poly, at } = trailLayout(z, stages, MW, MH);
+    const cur = Math.min(prog, stages.length - 1); // vị trí (idx - 1) của ải đang đánh, hoặc ải cuối khi đã xong
+    const end = at[cur];
+    let d = '';
+    for (const p of poly) {
+      if (p.d >= end.d) break;
+      d += `${d ? 'L' : 'M'}${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+    }
+    pathLayer.innerHTML = prog && d ? pathSvg(`${d}L${end.x.toFixed(1)},${end.y.toFixed(1)}`, MW, MH) : '';
+    clear(nodes);
+    const leader = s.team.find((t) => s.heroes[t]?.owned) ?? STARTERS[0];
+    stages.forEach((st, i) => {
+      const { x, y } = at[i];
+      const cleared = stageCleared(s, st), open = stageOpen(s, st), current = open && !cleared;
+      const tap = () => {
+        sfx.click();
+        openChapter(st.chapter ?? 0);
+      };
+      if (st.tag === 'hero') {
+        const size = nodeSize(st);
+        const fill = !open ? '#d9d2c2' : cleared ? '#c9eab8' : st.kind === 'boss' ? '#ffb3a3' : st.kind === 'mini' ? '#ffd9a0' : '#fff3c4';
+        nodes.append(h(
+          'div',
+          { class: `znode sk ${open ? '' : 'locked'} ${current ? 'pulse' : ''}`, style: `left:${x - size / 2}px;top:${y - size / 2}px;width:${size}px;height:${size}px;--fill:${fill}`, title: st.name, onclick: tap },
+          st.kind !== 'normal' ? h('span', { html: icon(st.kind === 'boss' ? 'boss' : 'crownSm', st.kind === 'boss' ? 42 : 32) }) : null,
+          h('div', { class: 'num', style: `font-size:${st.kind === 'normal' ? 22 : 15}px` }, String(st.idx)),
+        ));
+        const lead = stageLead(st);
+        const lh = st.kind === 'boss' ? 78 : st.kind === 'mini' ? 64 : 52;
+        nodes.append(h('div', {
+          style: `position:absolute;left:${x}px;top:${y - size / 2 + 12}px;transform:translateX(-50%) translateY(-100%);pointer-events:none;z-index:2;${open ? '' : 'filter:grayscale(.7);opacity:.75'}`,
+        }, heroImg(lead.hero, lh, false, enemyFormStar(lead))));
+        if (cleared) nodes.append(h('div', { style: `position:absolute;left:${x + size / 2 - 20}px;top:${y - size / 2 - 10}px;pointer-events:none;z-index:3`, html: icon('check', 28) }));
+      } else {
+        const size = current ? 18 : 12;
+        const fill = cleared ? '#ffe08a' : current ? '#ff8a6a' : '#d9d2c2';
+        nodes.append(h('div', {
+          class: current ? 'pulse' : '',
+          style: `position:absolute;left:${x - size / 2}px;top:${y - size / 2}px;width:${size}px;height:${size}px;border-radius:50%;background:${fill};border:2.5px solid #2b2118;cursor:pointer;z-index:1`,
+          title: `Ải ${st.idx}`,
+          onclick: tap,
+        }));
+      }
+      if (current) {
+        const side = x > MW / 2 ? -1 : 1;
+        const off = st.tag === 'hero' ? nodeSize(st) / 2 + 50 : 46;
+        nodes.append(h('div', { class: 'bob', style: `position:absolute;left:${x + side * off - 36}px;top:${y - 92}px;pointer-events:none;z-index:3` }, heroImg(leader, 80)));
+      }
+    });
+    requestAnimationFrame(() => (scroller.scrollTop = Math.max(0, PAD_T + end.y - 480)));
+  }
+
+  // đảo 8 ải: mỗi ải một nút tại điểm ải của ảnh đảo
+  function renderNodes(MW: number, MH: number) {
     const z = ZONE[zone];
     const s = app.save;
     const stages = zoneStages(zone);
@@ -57,9 +197,7 @@ export function zoneScreen(): Screen {
     const P = z.nodes.map(([x, y]) => [x * MW, y * MH]);
     let d = '';
     for (let i = 0; i <= Math.min(prog, 7); i++) d += `${i ? 'L' : 'M'}${P[i][0]},${P[i][1]}`;
-    pathLayer.innerHTML = prog
-      ? `<svg width="${MW}" height="${MH}" class="boil-self"><path d="${d}" fill="none" stroke="#2b2118" stroke-width="9" stroke-linecap="round" stroke-dasharray="14 12" opacity=".5"/><path d="${d}" fill="none" stroke="#ffe08a" stroke-width="5" stroke-linecap="round" stroke-dasharray="14 12"/></svg>`
-      : '';
+    pathLayer.innerHTML = prog ? pathSvg(d, MW, MH) : '';
     // ải
     clear(nodes);
     const leader = s.team.find((t) => s.heroes[t]?.owned) ?? STARTERS[0];
@@ -104,20 +242,27 @@ export function zoneScreen(): Screen {
     // cuộn tới ải đang đánh
     const cur = Math.min(7, prog);
     requestAnimationFrame(() => (scroller.scrollTop = Math.max(0, PAD_T + P[cur][1] - 480)));
-    // thông tin đảo + rương mốc
+  }
+
+  // thông tin đảo, rương mốc, ải tiếp theo
+  function renderInfo() {
+    const z = ZONE[zone];
+    const s = app.save;
+    const prog = s.zones[zone], size = zoneSize(zone), chests = ZONE_CHESTS[zone];
     clear(info);
-    const df = difficulty(z, s.level, prog >= 8);
+    const df = difficulty(z, s.level, prog >= size);
     const ready = zoneChestReady(s, zone);
-    const bar = h('div', { class: 'zprog', style: `--zc:${ELEM_COLOR[zone]};margin:10px 22px 4px 4px` }, h('i', { style: `width:${(prog / 8) * 100}%` }));
-    ZONE_CHEST_AT.forEach((at, n) => {
+    const bar = h('div', { class: 'zprog', style: `--zc:${ELEM_COLOR[zone]};margin:10px 22px 4px 4px` }, h('i', { style: `width:${(prog / size) * 100}%` }));
+    chests.forEach((at, n) => {
       const got = s.zoneChests[zone] > n;
       const can = ready === n;
+      const big = n === chests.length - 1;
       bar.append(
         h('div', {
           class: `mk ${can ? 'wob' : ''}`,
-          style: `left:${(at / 8) * 100}%;--chest:${n ? '#f7c948' : '#c9d3dc'};${got ? 'opacity:.45;filter:grayscale(1)' : ''}`,
+          style: `left:${(at / size) * 100}%;--chest:${big ? '#f7c948' : '#c9d3dc'};${got ? 'opacity:.45;filter:grayscale(1)' : ''}`,
           title: got ? 'Đã nhận' : `Qua ${at} ải để mở`,
-          html: icon('chest', 40),
+          html: icon('chest', chests.length > 2 ? (big ? 36 : 28) : 40),
           onclick: () => claim(n),
         }),
       );
@@ -130,7 +275,7 @@ export function zoneScreen(): Screen {
         h('span', { class: 'title', style: 'font-size:15px' }, `Cấp đề nghị ${z.level[0]}–${z.level[1]}`),
         h('span', { class: `diff ${df.cls}` }, df.text),
         h('div', { class: 'grow' }),
-        h('span', { class: 'small muted' }, `${prog}/8 ải`),
+        h('span', { class: 'small muted' }, `${prog}/${size} ải`),
       ),
       bar,
       h('div', { class: 'small', style: 'line-height:1.15' }, `${z.sub}. Địch hệ ${ELEM_NAME[zone]}: dùng tướng hệ ${ELEM_NAME[counterOf(zone)]} để khắc.`),
@@ -140,13 +285,16 @@ export function zoneScreen(): Screen {
     const next = nextStage(s, zone);
     if (next) {
       const gift = next.drops.find((x) => x.gift);
+      const shards = [...new Set(next.drops.filter((x) => !x.gift).map((x) => HERO[x.hero].name))];
       bottom.append(
         h(
           'div',
           { class: 'col grow', style: 'gap:3px;min-width:0' },
-          h('div', { class: 'title', style: 'font-size:19px;line-height:1' }, `Ải ${next.idx}/8 · ${next.name}`),
-          h('div', { class: 'row gap4' }, ...next.enemies.map((e) => h('div', { class: 'col center', style: 'width:52px' }, heroImg(e.hero, e.boss ? 48 : 40, false, enemyFormStar(e)), h('span', { class: 'small title', style: 'font-size:11px' }, `Lv${e.level}${e.boss ? ' BOSS' : ''}`)))),
-          h('div', { class: 'small' }, `+${stageBalls(next, true)} bi${gift ? ` · ${HERO[gift.hero].name} gia nhập đội!` : next.drops.length ? ` · rơi mảnh ${next.drops.map((x) => HERO[x.hero].name).join(', ')}` : ''}`),
+          h('div', { class: 'row gap6', style: 'min-width:0' },
+            h('div', { class: 'title', style: 'font-size:19px;line-height:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis' }, `Ải ${next.idx}/${size} · ${next.name}`),
+            next.tag ? tagChip(next) : null),
+          h('div', { class: 'row gap4' }, ...next.enemies.map((e) => h('div', { class: 'col center', style: 'width:52px' }, heroImg(e.hero, e.boss ? 48 : 40, false, enemyFormStar(e)), h('span', { class: 'small title', style: 'font-size:11px;white-space:nowrap' }, enemyLabel(e))))),
+          h('div', { class: 'small' }, `+${stageBalls(next, true)} bi${gift ? ` · ${HERO[gift.hero].name} gia nhập đội!` : shards.length ? ` · rơi mảnh ${shards.join(', ')}` : ''}`),
         ),
         h('button', { class: 'btn red big', onclick: () => { sfx.click(); openPrep(next.id); } }, 'Đánh!'),
       );
@@ -158,11 +306,54 @@ export function zoneScreen(): Screen {
     }
   }
 
+  // bảng chặng (đảo 70 ải): các ải từ ải tướng tới trước ải tướng sau; chạm ải đã mở thì vào chuẩn bị trận
+  function openChapter(ch: number) {
+    const s = app.save;
+    const list = zoneStages(zone).filter((st) => st.chapter === ch);
+    const head = list[0];
+    const body = h('div', { class: 'col gap6' });
+    const m = app.modal(body, { width: 510 });
+    body.append(
+      h('h2', null, head.name),
+      h('div', { class: 'small', style: 'margin-top:-6px' }, `Ải ${head.idx}–${list[list.length - 1].idx} · ra mắt ${HERO[head.enemies[0].hero].name}`),
+    );
+    const rows = h('div', { class: 'col gap4', style: 'max-height:600px;overflow-y:auto;padding:2px' });
+    for (const st of list) {
+      const cleared = stageCleared(s, st), open = stageOpen(s, st), current = open && !cleared;
+      rows.append(h(
+        'div',
+        {
+          class: `sk thin row gap6 ${current ? 'pulse' : ''}`,
+          style: `padding:4px 8px;align-items:center;cursor:pointer;--fill:${!open ? '#e2dccd' : cleared ? '#eaf6df' : '#fff3c4'};${open ? '' : 'opacity:.8'}`,
+          onclick: () => {
+            if (!open) {
+              sfx.error();
+              app.toast(`Qua ải ${st.idx - 1} trước đã`, 'lock');
+              return;
+            }
+            sfx.click();
+            m.close();
+            openPrep(st.id);
+          },
+        },
+        h('div', { class: 'title', style: 'font-size:22px;width:34px;text-align:center' }, String(st.idx)),
+        h('div', { class: 'col', style: 'width:104px;gap:1px' }, tagChip(st), h('div', { class: 'small muted', style: 'font-size:11px' }, `+${stageBalls(st, !cleared)} bi`)),
+        h('div', { class: 'row gap4 grow', style: `${open ? '' : 'filter:grayscale(.7)'}` }, ...st.enemies.map((e) => h('div', { class: 'col center', style: 'width:50px' }, heroImg(e.hero, e.boss ? 44 : 38, false, enemyFormStar(e)), h('span', { class: 'small title', style: 'font-size:10px;white-space:nowrap' }, enemyLabel(e))))),
+        h('span', { html: icon(cleared ? 'check' : open ? 'play' : 'lock', 26) }),
+      ));
+    }
+    body.append(rows, h('div', { class: 'center' }, h('button', { class: 'btn paper', onclick: () => m.close() }, 'Đóng')));
+    requestAnimationFrame(() => {
+      const i = list.findIndex((st) => stageOpen(s, st) && !stageCleared(s, st));
+      if (i > 3) rows.scrollTop = (rows.children[i] as HTMLElement).offsetTop - 120;
+    });
+  }
+
   function claim(n: number) {
     const s = app.save;
     if (zoneChestReady(s, zone) !== n) {
       sfx.error();
-      app.toast(s.zoneChests[zone] > n ? 'Đã nhận rương này' : `Qua ${ZONE_CHEST_AT[n]} ải của đảo để mở`, 'chest');
+      app.toast(s.zoneChests[zone] > n ? 'Đã nhận rương này' : `Qua ${ZONE_CHESTS[zone][n]} ải của đảo để mở`, 'chest');
       return;
     }
     const r = claimZoneChest(s, zone, new Rng(randomSeed()));
@@ -173,7 +364,7 @@ export function zoneScreen(): Screen {
     list.append(h('div', { class: 'chip sk thin pop', style: 'font-size:22px' }, h('span', { html: icon('ball', 34) }), `+${r.balls} bi`));
     for (const c of r.cards) list.append(h('div', { class: 'col center pop' }, cardEl(c.card, s.heroes[c.hero].cards[c.slot].lv, { mini: true }), h('div', { class: 'small title' }, HERO[c.hero].name)));
     const m = app.modal(
-      h('div', { class: 'col center gap12', style: 'text-align:center' }, h('h2', null, r.big ? 'Rương chinh phục!' : 'Rương nửa đảo'), h('div', { class: 'pop', style: `--chest:${r.big ? '#f7c948' : '#c9d3dc'}`, html: icon('chest', 110) }), list, h('button', { class: 'btn green', onclick: () => m.close() }, 'Nhận')),
+      h('div', { class: 'col center gap12', style: 'text-align:center' }, h('h2', null, r.big ? 'Rương chinh phục!' : ZONE_CHESTS[zone].length > 2 ? `Rương ải ${ZONE_CHESTS[zone][n]}` : 'Rương nửa đảo'), h('div', { class: 'pop', style: `--chest:${r.big ? '#f7c948' : '#c9d3dc'}`, html: icon('chest', 110) }), list, h('button', { class: 'btn green', onclick: () => m.close() }, 'Nhận')),
       { width: 470 },
     );
     render();
@@ -213,10 +404,13 @@ export function openPrep(id: number) {
         'div',
         { class: 'row gap8' },
         h('h2', null, `${ZONE[st.zone].name} · Ải ${st.idx}`),
-        st.kind !== 'normal' ? h('span', { class: 'diff wall', style: 'font-size:13px' }, st.kind === 'boss' ? 'BOSS ĐẢO' : 'MINI BOSS') : null,
+        st.kind !== 'normal' ? h('span', { class: 'diff wall', style: 'font-size:13px' }, st.kind === 'boss' ? 'BOSS ĐẢO' : 'MINI BOSS') : st.tag ? tagChip(st) : null,
       ),
       h('div', { class: 'title', style: 'font-size:20px;margin-top:-6px' }, st.name),
     );
+    // ải 1 của đảo 70 ải: đấu với bóng của tướng khởi đầu
+    if (st.tag === 'hero' && STARTERS.includes(st.enemies[0].hero))
+      body.append(h('div', { class: 'small', style: 'margin-top:-4px' }, `Mặt nước in bóng ${HERO[st.enemies[0].hero].name} của bạn. Thắng chính mình trước đã!`));
     if (s.level < maxLv - 2)
       body.append(h('div', { class: 'sk thin', style: '--fill:#ffd2c8;padding:6px 10px;font-size:15px' }, `Cảnh báo: địch cấp ${maxLv}, bạn mới cấp ${s.level}. Đảo này đang quá mạnh, nên nuôi tướng thêm.`));
     const foes = h('div', { class: 'row gap8 sk thin', style: 'padding:8px;--fill:#fff2ec;justify-content:center;flex-wrap:wrap' });
@@ -231,6 +425,8 @@ export function openPrep(id: number) {
           h('div', { class: 'title', style: 'font-size:15px;text-align:center;line-height:1' }, evo ? hero.forms[0].name : hero.name),
           h('div', { class: 'row gap4' }, elemTag(hero.elem), h('span', { class: 'title', style: 'font-size:13px' }, `Lv${e.level}`)),
           e.boss ? h('div', { class: 'small', style: 'color:var(--red);font-weight:bold' }, evo ? `Boss tiến hóa ${hero.forms.length} dạng` : `Boss: máu ×${String(Math.round(CFG.bossHp * (e.evo ? CFG.bossEvoHp : 1) * 10) / 10).replace('.', ',')}`) : null,
+          e.buff ? h('div', { class: 'small', style: `font-weight:bold;color:${e.buff > 0 ? 'var(--red)' : 'var(--green, #3a8a3a)'}` }, e.buff > 0 ? `Cường hóa +${Math.round(e.buff * 100)}%` : `Yếu hơn ${Math.round(-e.buff * 100)}%`) : null,
+          isMinion(e.hero) ? h('div', { class: 'small muted', style: 'text-align:center;line-height:1.1' }, 'Lính, không thu phục') : null,
         ),
       );
       // boss tiến hóa: cả dòng dạng (dạng sau to hơn) và thẻ Tiến Hóa

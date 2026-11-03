@@ -1,6 +1,7 @@
 // Đảo hệ so với bản web (golden): thưởng ải lần đầu và đánh lại, tặng tướng, rương mốc;
 // cùng luật mở ải lần lượt, độ khó, đảo gợi ý, điều kiện mở công trình side meta.
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;
 
@@ -17,13 +18,13 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             Assert.AreEqual(1, Progress.TeamSlots(s), "mới chơi");
-            s.zones[(int)Elem.Thuy] = 7;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
             Assert.AreEqual(1, Progress.TeamSlots(s), "chưa hạ boss Thủy");
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             Assert.AreEqual(2, Progress.TeamSlots(s), "xong 1 đảo");
-            s.zones[(int)Elem.Hoa] = 8;
+            s.zones[(int)Elem.Hoa] = Islands.Size(Elem.Hoa);
             Assert.AreEqual(2, Progress.TeamSlots(s), "xong 2 đảo");
-            s.zones[(int)Elem.Kim] = 8;
+            s.zones[(int)Elem.Kim] = Islands.Size(Elem.Kim);
             Assert.AreEqual(3, Progress.TeamSlots(s), "xong 3 đảo");
             s.zones[(int)Elem.Moc] = s.zones[(int)Elem.Tho] = 8;
             Assert.AreEqual(3, Progress.TeamSlots(s), "tối đa 3");
@@ -114,10 +115,17 @@ namespace PokiClash.Tests
         public void ThuongAi_CongThuc()
         {
             var d = TestData.Load();
-            var boss8 = d.Stage(8);
-            Assert.AreEqual(3 + 0 + 3 + 5 + 7, Progress.StageBalls(d, boss8, true));
-            Assert.AreEqual(6, Progress.StageBalls(d, boss8, false), "đánh lại boss Thủy: 6 bi cơ bản");
-            Assert.AreEqual(9, Progress.StageBalls(d, d.Stage(3), true), "ải 3 Đảo Thủy: +9 bi");
+            // đảo 70 ải: 1 + (cấp địch − 1)/4 bi, lần đầu ải tướng +2, mini boss +4, boss +8
+            var boss = d.Stages.Find(x => x.zone == Elem.Thuy && x.kind == StageKind.Boss);
+            Assert.AreEqual(70, boss.idx);
+            Assert.AreEqual(1 + 1 + 8, Progress.StageBalls(d, boss, true), "boss Thủy cấp 8, lần đầu");
+            Assert.AreEqual(2, Progress.StageBalls(d, boss, false), "đánh lại boss Thủy");
+            Assert.AreEqual(1 + 2, Progress.StageBalls(d, d.Stage(1), true), "ải 1: ải tướng");
+            Assert.AreEqual(1, Progress.StageBalls(d, d.Stage(3), true), "ải 3: ải lính");
+            // đảo 8 ải (Hỏa, thứ tự 1): 3 + 4 + (ải − 1)/2, lần đầu +5 + 2, boss +7
+            var hoaBoss = d.ZoneStages(Elem.Hoa).Last();
+            Assert.AreEqual(3 + 4 + 3 + 5 + 2 + 7, Progress.StageBalls(d, hoaBoss, true));
+            Assert.AreEqual(10, Progress.StageBalls(d, hoaBoss, false), "đánh lại boss Hỏa: 10 bi cơ bản");
         }
 
         [Test]
@@ -131,6 +139,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(Elem.Thuy, Progress.RecommendedZone(s, d).id);
             s.zones[(int)Elem.Thuy] = 8;
             s.level = 4;
+            Assert.AreEqual(Elem.Thuy, Progress.RecommendedZone(s, d).id, "Thủy mới 8/70 ải: vẫn gợi ý Thủy");
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             Assert.AreEqual(Elem.Hoa, Progress.RecommendedZone(s, d).id, "xong Thủy, cấp 4: gợi ý Hỏa");
             Assert.AreEqual("Đã chinh phục", Progress.DifficultyText(Progress.DifficultyOf(d.Zone(Elem.Thuy), 4, true)));
             Assert.AreEqual(Elem.Tho, Progress.CounterOf(Elem.Thuy), "Thổ khắc Thủy");
@@ -147,7 +157,9 @@ namespace PokiClash.Tests
             Progress.UnlockHero(s, "vo_su");
             Progress.UnlockHero(s, "nu_hoa");
             Assert.IsTrue(Progress.FarmOpen(s), "3 tướng mở Trang trại");
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
+            Assert.IsFalse(Progress.BadgesOpen(s), "chưa hạ boss Thủy");
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             Assert.IsTrue(Progress.BadgesOpen(s));
             s.zones[(int)Elem.Hoa] = 4;
             Assert.IsTrue(Progress.CaveOpen(s));

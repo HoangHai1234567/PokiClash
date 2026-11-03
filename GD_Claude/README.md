@@ -27,6 +27,7 @@ Game đánh nhau, vượt ải để thu phục tướng, ghép puzzle xếp kh�
 | [11_BanWeb_TheBai.md](11_BanWeb_TheBai.md) | **Bản web thử theo "GDD game Pokiwar"**: trận thẻ bài luân phiên; scene kiểu Clash of Critters: đảo lớn 5 vùng hệ, mỗi hệ một đảo 8 ải; máy bi cược ×N, cấp chung, thẻ riêng, tiến hóa sao, AFK; số đo máy tự chơi; các điểm tự chọn cần duyệt |
 | [12_KeHoach_OpenSpec.md](12_KeHoach_OpenSpec.md) | **Kế hoạch làm trong Unity** theo OpenSpec (`openspec/`): 11 change theo mốc, đối chiếu từng mục GDD, câu hỏi còn mở, gói ảnh cần gen (`ArtGen/`) |
 | [13_DanhSachTuong.md](13_DanhSachTuong.md) | **40 tướng, 8 mỗi hệ**, chọn theo hệ gốc aola; mỗi tướng là một dòng tiến hóa (đảo Thủy đã chọn lại, các hệ khác chờ); nguồn từng dạng, tướng giữ, tướng bỏ; việc dữ liệu còn lại. Prompt hình ở `ArtGen/Heroes` |
+| [14_HeThongAi.md](14_HeThongAi.md) | **Hệ thống ải mới: 70 ải, 10 tướng mỗi đảo** (ải tướng 1, 5, 10, 15, 20, rồi mỗi 10 ải; ải xen giữa: cường hóa, nhóm 2–3 con, lính không thu thập được). Bản thử đảo Thủy trên web, số đo máy tự chơi, việc chép sang Unity |
 
 ## Đã chốt (2026-10-31): đổi lõi sang thẻ bài
 

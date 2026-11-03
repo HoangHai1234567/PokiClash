@@ -143,7 +143,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
-            s.zones[(int)Elem.Thuy] = 8;
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Hoa] = 2;
             var p = Afk.Pending(s, d.Cfg, 20 * H);
             Assert.AreEqual(12, p.hours);

@@ -53,6 +53,9 @@ RIM = 26  # bề rộng rìa cát trung bình
 
 # ---------- bản đồ đảo hệ ----------
 ZONE_MAPS = HERE / "zones"
+# đảo có bản đồ dài riêng (build_zone70.py --xuat ghi zone_<hệ>.png, khoá zone_<hệ> trong island_anim.json và đường trong zones.json):
+# script này không đè ảnh, phần động và toạ độ ải của đảo đó
+LONG_MAPS = {"thuy": HERE / "zones" / "thuy70" / "zone_thuy70.png"}
 ISLE_W = 0.77  # đảo chiếm 77% bề ngang ảnh bản đồ (màn thấy 1080 / 1372 = 79% giữa)
 ZW, ZH, ZS = 1372, 1500, 1.25  # bản đồ dựng tạm: khổ ảnh, độ phóng đảo gen
 # 8 ải theo thứ tự tên ải trong dữ liệu, toạ độ trên ảnh đảo gen 1024 (né landmark; ải 8 cạnh hang boss)
@@ -361,6 +364,9 @@ def zone_from_map(zid):
 def zones(preview):
     nodes_out = {}
     for zid, nodes in ZONE_NODES.items():
+        if zid in LONG_MAPS and LONG_MAPS[zid].exists():
+            print(f"zone_{zid}: bản đồ dài, bỏ qua (build_zone70.py --xuat)")
+            continue
         if (ZONE_MAPS / f"zone_{zid}.png").exists():
             canvas, pts = zone_from_map(zid)
             canvas.save(ART / f"zone_{zid}.png")
@@ -657,8 +663,13 @@ def anims(preview):
     items += sea_waves(alpha, 7, (MARGIN - 120, MARGIN + 160, MARGIN + FW + 120, MARGIN + 1640), 5)
     data["world"] = anim_entry(items, rivers, W, H)
 
-    # bản đồ đảo hệ: toạ độ ảnh gen -> ảnh đã cắt (cùng phép cắt của zone_from_map)
+    # bản đồ đảo hệ: toạ độ ảnh gen -> ảnh đã cắt (cùng phép cắt của zone_from_map); đảo có bản đồ dài giữ khoá cũ trong json
+    old = json.loads((ART / "island_anim.json").read_text(encoding="utf-8")) if (ART / "island_anim.json").exists() else {}
     for zid, spec in ZONE_ANIM.items():
+        if zid in LONG_MAPS and LONG_MAPS[zid].exists():
+            if f"zone_{zid}" in old:
+                data[f"zone_{zid}"] = old[f"zone_{zid}"]
+            continue
         src = ZONE_MAPS / f"zone_{zid}.png"
         if not src.exists():
             continue

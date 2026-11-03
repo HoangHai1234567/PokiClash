@@ -165,19 +165,19 @@ MonoBehaviour:
     ratesBalls: 6000
     rates:
     - k: chest_silver
-      p: 0.053
-    - k: exp10
-      p: 0.237
-    - k: ball
-      p: 0.088
-    - k: exp15
-      p: 0.21
-    - k: exp5
-      p: 0.292
-    - k: chest_gold
-      p: 0.0333
+      p: 0.056
     - k: chest_wood
-      p: 0.0867
+      p: 0.0775
+    - k: exp10
+      p: 0.2212
+    - k: chest_gold
+      p: 0.0315
+    - k: exp15
+      p: 0.2207
+    - k: exp5
+      p: 0.2988
+    - k: ball
+      p: 0.0943
     afk:
       shardChance: 0.08
       chestEveryH: 3

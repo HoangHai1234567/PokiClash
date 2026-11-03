@@ -1,5 +1,6 @@
 // Xuất bộ đối chiếu (golden) cho EditMode test của Unity: npx tsx scripts/export_golden.ts [thư mục đích]
 // Mặc định ghi vào ../Assets/02 Data/Golden. Unity chạy lại cùng hạt giống và so từng giá trị.
+import '../src/core/data/stages_v1'; // Unity chưa có hệ thống 70 ải: đối chiếu bộ 8 ải cũ (phải đứng đầu)
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { aiTurn } from '../src/core/ai';

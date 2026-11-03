@@ -1,19 +1,21 @@
 # Sinh gói gửi GPT cho hình tướng: ArtGen/Heroes/gui_gpt/<mã>/ (quy trình: QUY_TRINH.md).
 # Cách làm: vẽ con mới đè lên rig vector của aola (người dùng: "vẫn phải dùng rig cũ", 2026-11-02) để giữ animation aola.
-# Mỗi dạng 2 lượt, mỗi lượt một thư mục con: ảnh đánh số đúng thứ tự đính kèm + 00_instructions.txt (tiếng Anh, GPT đọc rồi vẽ),
-# kèm HUONG_DAN.md (tiếng Việt: gửi gì, lưu đâu, từng ảnh trông ra sao, câu sửa nhanh).
-#   1_concept:   concept cả con trên rig (bóng xám, bản đồ vùng) + tờ mẫu thiết kế (aola) + ảnh mốc nét vẽ (bản đồ).
-#   2_nhom_manh: từng nhóm mảnh vẽ đè lên hình gốc của nhóm (refs/<hệ>/<mã>/orig/Nxx.png) + concept đã duyệt; một ảnh mỗi lượt.
+# Mỗi dạng 2 lượt, mỗi lượt một file prompt (tiếng Anh): người dùng chỉ gửi GPT đường dẫn file đó (người dùng dặn 2026-11-03).
+# File mở đầu bằng danh sách ảnh mẫu kèm đường dẫn đầy đủ (GPT tự mở), rồi chỗ GPT tự lưu ảnh (inbox/<mã>/tai_ve/). Kèm HUONG_DAN.md
+# (tiếng Việt: file prompt từng lượt, ảnh mẫu trông ra sao, lưu đâu, kiểm gì, câu sửa nhanh).
+#   luot_1_concept.txt:   concept cả con trên rig (bóng xám, bản đồ vùng) + tờ mẫu thiết kế (aola) + ảnh mốc nét vẽ (bản đồ).
+#   luot_2_nhom_manh.txt: từng nhóm mảnh vẽ đè lên hình gốc của nhóm (refs/<hệ>/<mã>/orig/Nxx.png) + concept đã duyệt; một ảnh
+#                         mỗi bước. Chỉ dựng khi đã có concept duyệt (inbox/<mã>/concept_duyet.png).
 # Nét: vẽ tay như bản đồ world_style.png; thiết kế học từ tướng aola. Viền trắng giấy xé do game vẽ (shader), GPT không vẽ.
-# Chạy: py -3 -I ArtGen/Heroes/build.py (từ thư mục PokiWar). Ảnh mẫu aola: tools/make_refs.py.
+# Chạy: py -3 -I ArtGen/Heroes/build.py. Đường dẫn tính từ chỗ đặt file này nên chạy được trên cả hai máy. Ảnh mẫu aola:
+# tools/make_refs.py.
 import os
-import shutil
 import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
-ROOT = "E:/ProjectAtomik/PokiWar/ArtGen/Heroes/"
+ROOT = os.path.dirname(os.path.abspath(__file__)).replace("\\", "/") + "/"
 STYLE_SHEET = ROOT + "refs/style/style_sheet.png"
-WORLD_STYLE = "E:/ProjectAtomik/PokiWar/ArtGen/Islands/refs/world_style.png"
+WORLD_STYLE = os.path.normpath(ROOT + "../Islands/refs/world_style.png").replace("\\", "/")
 
 
 def W(p):
@@ -168,95 +170,103 @@ def concept_path(code):
     return ROOT + f"inbox/{code}/concept_duyet.png"
 
 
+def refs_block(refs):
+    """danh sách ảnh mẫu đầu file prompt: image N = đường dẫn đầy đủ: là gì"""
+    return (["REFERENCE IMAGES (open each file from its full path):"]
+            + [f"image {i} = {W(src)}: {en}" for i, (src, en, _) in enumerate(refs, 1)])
+
+
+def save_rule(path):
+    stem = os.path.splitext(os.path.basename(path))[0]
+    return (f"save it as a PNG to {W(path)} (create the folder if it is missing; if that file already exists, save it as "
+            f"{stem}_2.png, {stem}_3.png … in the same folder instead). Do not change, move or delete any other file.")
+
+
 def build(f):
     code = f["code"]
     pk = ROOT + f"gui_gpt/{code}/"
-    shutil.rmtree(pk, ignore_errors=True)
-    os.makedirs(pk)
+    os.makedirs(pk, exist_ok=True)
     save = ROOT + f"inbox/{code}/tai_ve/"
     os.makedirs(save, exist_ok=True)
     rd = rig_dir(f)
+    head = ("Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save "
+            "it as described under SAVE. Do not reply with text only.")
 
     # ----- lượt 1: concept -----
-    d1 = pk + "1_concept/"
-    os.makedirs(d1)
-    a1 = [("01_Silhouette.png", rd + "Silhouette.png", "grey silhouette of the puppet rig",
+    p1 = pk + "luot_1_concept.txt"
+    a1 = [(rd + "Silhouette.png", "grey silhouette of the puppet rig",
            "Bóng xám của con gốc trên nền trắng (779 × 937): " + f["rig_vi"]),
-          ("02_RegionMap.png", rd + "RegionMap.png", "the same figure split into numbered regions",
+          (rd + "RegionMap.png", "the same figure split into numbered regions",
            "Cùng hình, tô màu từng vùng và đánh số (779 × 937, nền trắng): 1 vây tai, 2 đầu, 3 chóp, 4 thân, 5 vỏ sò ở ngực, 6 tay trái, 7 tay phải, 8 đuôi, 9 và 10 hai chân"),
-          ("03_style_sheet.png", STYLE_SHEET, "eight creatures of the game: a DESIGN reference only (do not copy their glossy rendering or their designs)",
+          (STYLE_SHEET, "eight creatures of the game: a DESIGN reference only (do not copy their glossy rendering or their designs)",
            "Tờ mẫu thiết kế (1536 × 1024, nền trắng): 8 tướng aola ở khung đứng đầu (rùa ngọc, rùa biển ngọc, huyền vũ, sư tử lửa con, heo lửa, mèo máy, tiểu tướng mũ sừng, cá ngựa). Chỉ học cách thiết kế, không lấy nét bóng, không chép con nào"),
-          ("04_world_style.png", WORLD_STYLE, "the game's approved hand-drawn map: copy its RENDERING (ink outlines, coloured-pencil hatching), ignore its content",
+          (WORLD_STYLE, "the game's approved hand-drawn map: copy its RENDERING (ink outlines, coloured-pencil hatching), ignore its content",
            "Ảnh mốc nét vẽ đã duyệt (1024 × 1536, nền đặc): bản đồ sảnh vẽ tay, đảo lớn chia 5 vùng màu, viền mực nâu hơi rung, tô chì màu gạch chéo. Lấy nét vẽ, không lấy nội dung")]
-    t1 = ["Read this whole file, then draw ONE image. Do not reply with text only.", "",
-          "ATTACHED IMAGES (in the order they are attached; this text file is not counted):"]
-    t1 += [f"image {i} = {n}: {en}" for i, (n, _, en, _) in enumerate(a1, 1)]
-    t1 += ["", f["concept"].replace("{RENDER}", RENDER).replace("{DESIGN}", DESIGN)]
-    open(d1 + "00_instructions.txt", "w", encoding="utf-8", newline="\n").write("\n".join(t1) + "\n")
-    for n, src, _, _ in a1:
-        shutil.copyfile(src, d1 + n)
+    s1 = save + "concept.png"
+    t1 = [head, ""] + refs_block(a1) + ["", "SAVE: when the image is done, " + save_rule(s1), "",
+                                        f["concept"].replace("{RENDER}", RENDER).replace("{DESIGN}", DESIGN), "",
+                                        f"Remember: save the image to {W(s1)}"]
+    open(p1, "w", encoding="utf-8", newline="\n").write("\n".join(t1) + "\n")
 
-    # ----- lượt 2: nhóm mảnh -----
-    d2 = pk + "2_nhom_manh/"
-    os.makedirs(d2)
+    # ----- lượt 2: nhóm mảnh (chỉ dựng khi đã có concept duyệt) -----
+    p2 = pk + "luot_2_nhom_manh.txt"
     gs = f["groups"]
-    a2 = [(f"{i:02d}_{g[0]}.png", rd + f"orig/{g[0]}.png", f"old pieces of group {g[0]}: {g[5]}", g[6]) for i, g in enumerate(gs, 1)]
+    a2 = [(rd + f"orig/{g[0]}.png", f"old pieces of group {g[0]}: {g[5]}", g[6]) for g in gs]
     ci = len(a2) + 1
-    a2.append((f"{ci:02d}_concept.png", concept_path(code), "the approved concept of this creature",
-               "concept đã duyệt của dạng này (nền trắng)"))
+    a2.append((concept_path(code), "the approved concept of this creature", "concept đã duyệt của dạng này (nền trắng)"))
     have_c = os.path.exists(concept_path(code))
-    for n, src, _, _ in a2:
-        if os.path.exists(src):
-            shutil.copyfile(src, d2 + n)
     order = f["first"] + [g[0] for g in gs if g[0] not in f["first"]] + [e[0] for e in f["extra"]]
-    t2 = ["Read this whole file, then draw ONE image. Do not reply with text only.", "",
-          "ATTACHED IMAGES (in the order they are attached; this text file is not counted):"]
-    t2 += [f"image {i} = {n}: {en}" for i, (n, _, en, _) in enumerate(a2, 1)]
-    t2 += ["", "WHAT THIS IS: a creature for a 2D cut-out animation game. Its animation already exists: it moves flat "
-           "picture pieces around fixed joints. Each step below redraws ONE group of old puppet pieces as the matching "
-           "part of the approved concept, on the same square canvas, so the old animation can play the new drawings. "
-           "Inside a step, \"image 1\" means that step's old-pieces image and \"image 2\" means the approved concept "
-           f"(attached image {ci}).",
-           "Every reply: exactly ONE image for ONE step, a square 1024 x 1024 canvas, plain white background, no text.", "",
-           f"ORDER: draw step {order[0]} now and stop. When I say \"next\", draw step {order[1]} and stop: I will check "
-           f"both. When I say \"continue\", draw the remaining steps one per reply, each after I say \"next\", in this "
-           f"order: {', '.join(order[2:])}.", ""]
-    for i, g in enumerate(gs, 1):
-        code_g, _, en, kind, n, _, _, _, prompt, joint = g
-        frame = KEEP_FRAME if kind == "giu" else free_frame(joint)
-        t2 += [f"=== STEP {code_g} ({en}) ===",
-               f"In this step: image 1 = attached image {i} ({a2[i - 1][0]}); image 2 = attached image {ci} ({a2[ci - 1][0]}).",
-               prompt, "", frame, LINE.format(n=n), ""]
-    for code_e, _, en, n, _, prompt in f["extra"]:
-        t2 += [f"=== STEP {code_e} ({en}) ===",
-               f"In this step: image 2 = attached image {ci} ({a2[ci - 1][0]}); there is no image 1.",
-               prompt, "", LINE.format(n=n).replace("not image 1's glossy vector look", "as in the concept"), ""]
-    open(d2 + "00_instructions.txt", "w", encoding="utf-8", newline="\n").write("\n".join(t2) + "\n")
+    if have_c:
+        t2 = [head.replace("draw ONE image and save it as described under SAVE",
+                           "draw ONE image per reply and save each one as its step says")]
+        t2 += [""] + refs_block(a2)
+        t2 += ["", "WHAT THIS IS: a creature for a 2D cut-out animation game. Its animation already exists: it moves flat "
+               "picture pieces around fixed joints. Each step below redraws ONE group of old puppet pieces as the matching "
+               "part of the approved concept, on the same square canvas, so the old animation can play the new drawings. "
+               "Inside a step, \"image 1\" means that step's old-pieces image and \"image 2\" means the approved concept "
+               f"(reference image {ci}).",
+               "Every reply: exactly ONE image for ONE step, a square 1024 x 1024 canvas, plain white background, no text; "
+               "save it where that step says.", "",
+               f"SAVE: every step's image goes into {W(save)} under the step's name (for example {order[0]}.png). If that file "
+               f"already exists, add _2, _3 … before .png. Do not change, move or delete any other file.", "",
+               f"ORDER: draw step {order[0]} now, save it and stop. When I say \"next\", draw step {order[1]}, save it and stop: "
+               f"I will check both. When I say \"continue\", draw the remaining steps one per reply, each after I say \"next\", "
+               f"in this order: {', '.join(order[2:])}.", ""]
+        for i, g in enumerate(gs, 1):
+            code_g, _, en, kind, n, _, _, _, prompt, joint = g
+            frame = KEEP_FRAME if kind == "giu" else free_frame(joint)
+            t2 += [f"=== STEP {code_g} ({en}) ===",
+                   f"In this step: image 1 = reference image {i} ({W(a2[i - 1][0])}); image 2 = reference image {ci}.",
+                   prompt, "", frame, LINE.format(n=n), f"SAVE this step: {save_rule(save + code_g + '.png')}", ""]
+        for code_e, _, en, n, _, prompt in f["extra"]:
+            t2 += [f"=== STEP {code_e} ({en}) ===",
+                   f"In this step: image 2 = reference image {ci}; there is no image 1.",
+                   prompt, "", LINE.format(n=n).replace("not image 1's glossy vector look", "as in the concept"),
+                   f"SAVE this step: {save_rule(save + code_e + '.png')}", ""]
+        open(p2, "w", encoding="utf-8", newline="\n").write("\n".join(t2) + "\n")
 
     # ----- HUONG_DAN.md -----
     g_ = [f"# Gói gửi GPT: {f['hero']} dạng {f['form']}/{f['forms']} ({f['form_name']}, `{code}`)", "",
           f"{f['role_vi'][:1].upper() + f['role_vi'][1:]}. Thiết kế: {f['design_vi']}. Quy trình: `{W(ROOT + 'QUY_TRINH.md')}`.", "",
-          "Mỗi lượt: mở thư mục con, chọn **hết file** (Ctrl+A), kéo vào ô chat ChatGPT rồi gửi. Không cần dán prompt: GPT đọc "
-          "`00_instructions.txt` rồi vẽ. ChatGPT không cho gửi khi ô chữ trống thì gõ `go`; GPT chỉ trả lời chữ thì gõ `draw it`.", "",
-          f"Ảnh GPT trả về: tải về để vào `{W(save)}`, **không cần đổi tên**. Claude xem rồi đặt tên và chép vào đúng chỗ.", "",
+          "**Mỗi lượt chỉ gửi GPT đường dẫn file prompt.** File ghi sẵn đường dẫn đầy đủ của từng ảnh mẫu (GPT tự mở) và chỗ GPT "
+          f"tự lưu ảnh (`{W(save)}`). Claude xem rồi đặt tên và chép vào đúng chỗ.", "",
           "Viền trắng kiểu giấy xé quanh tướng do game vẽ bằng shader; GPT không vẽ viền đó.", "",
           "## Lượt 1: concept", "",
-          f"Thư mục: `{W(d1)}`. Mở **chat mới**, kéo hết {len(a1) + 1} file vào, gửi. GPT vẽ một ảnh cả con trên rig.", "",
-          "| File trong thư mục | Là ảnh gốc nào | Trông như thế nào |", "|---|---|---|",
-          "| `00_instructions.txt` | lời dặn và prompt | chữ tiếng Anh: thứ tự ảnh, giữ gì của rig, đổi gì từng vùng, nét vẽ |"]
-    g_ += [f"| `{n}` | `{W(src)}` | {vi} |" for n, src, _, vi in a1]
-    g_ += ["", f"Xong thì nhắn Claude \"duyệt concept {code}\". Duyệt xong Claude lưu `{W(concept_path(code))}` và chép vào gói lượt 2.", "",
+          f"File prompt: `{W(p1)}`. Gửi trong **chat mới**. GPT vẽ một ảnh cả con trên rig, lưu vào `{W(s1)}`.", "",
+          "| Ảnh mẫu | Đường dẫn | Trông như thế nào |", "|---|---|---|"]
+    g_ += [f"| {i} | `{W(src)}` | {vi} |" for i, (src, _, vi) in enumerate(a1, 1)]
+    g_ += ["", f"Xong thì nhắn Claude \"duyệt concept {code}\". Duyệt xong Claude lưu `{W(concept_path(code))}` và chạy lại "
+               f"`build.py` để có file prompt lượt 2.", "",
            "## Lượt 2: nhóm mảnh", "",
-           f"Thư mục: `{W(d2)}`. "
-           + (f"Có đủ file. Cùng chat với lượt 1 hoặc chat mới, kéo hết {len(a2) + 1} file vào, gửi." if have_c else
-              f"**Chưa dùng được:** thiếu `{a2[ci - 1][0]}`, Claude chép vào sau khi duyệt concept."), "",
+           (f"File prompt: `{W(p2)}`. Gửi cùng chat với lượt 1 hoặc chat mới. GPT lưu mỗi nhóm thành `{W(save)}<mã nhóm>.png`."
+            if have_c else
+            f"File prompt `{W(p2)}`: **chưa có**, Claude dựng khi đã duyệt concept (cần `{W(concept_path(code))}`)."), "",
            f"1. GPT vẽ {order[0]}. Gõ `next`: GPT vẽ {order[1]}. Nhắn Claude \"soi thử {code}\".",
            f"2. Claude bảo ổn thì gõ `continue`, rồi `next` sau mỗi ảnh: {', '.join(order[2:])}.",
            f"3. Đủ ảnh thì nhắn Claude \"ghép {code}\".", "",
-           "Nếu ChatGPT báo quá nhiều file trong một tin nhắn: gửi `00_instructions.txt`, ảnh concept và 4 ảnh nhóm đầu trước, các ảnh còn lại ở tin nhắn sau.", "",
-           "| File trong thư mục | Là ảnh gốc nào | Trông như thế nào |", "|---|---|---|",
-           "| `00_instructions.txt` | lời dặn và prompt | chữ tiếng Anh: thứ tự ảnh, thứ tự vẽ, prompt từng nhóm |"]
-    g_ += [f"| `{n}` | `{W(src)}` | {vi}{'' if os.path.exists(src) else ': **chưa có**, sinh ở lượt 1'} |" for n, src, _, vi in a2]
+           "| Ảnh mẫu | Đường dẫn | Trông như thế nào |", "|---|---|---|"]
+    g_ += [f"| {i} | `{W(src)}` | {vi}{'' if os.path.exists(src) else ': **chưa có**, sinh ở lượt 1'} |"
+           for i, (src, _, vi) in enumerate(a2, 1)]
     g_ += ["", "Kiểm từng ảnh trước khi lưu:", ""]
     for g in gs:
         g_ += [f"**{g[0]} {g[1]}** ({'giữ viền' if g[3] == 'giu' else 'đổi dáng'}, viền khoảng {g[4]} px):", g[7], ""]
@@ -275,7 +285,7 @@ def build(f):
            "| Nền xám, có bóng đổ, có ô lưới | `Plain pure white background, no shadow, nothing else.` |", "",
            f"Gói này sinh từ `{W(ROOT + 'build.py')}`; sửa prompt ở đó rồi chạy lại.", ""]
     open(pk + "HUONG_DAN.md", "w", encoding="utf-8", newline="").write("\n".join(g_))
-    return pk, sorted(os.listdir(d1)), sorted(os.listdir(d2))
+    return [W(p) for p in (p1, p2) if os.path.exists(p)]
 
 
 if __name__ == "__main__":

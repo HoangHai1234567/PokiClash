@@ -95,7 +95,7 @@ namespace PokiClash.Core
             var tm = team ?? s.team;
             for (int i = 0; i < n; i++)
             {
-                var b = Battle.Create(d, PlayerAi(d, s, tm, bonus, start), Teams.Enemy(st), (uint)(seed + i * 7919), s.level, s.level);
+                var b = Battle.Create(d, PlayerAi(d, s, tm, bonus, start), Teams.Enemy(st, d), (uint)(seed + i * 7919), s.level, s.level);
                 BattleSim.Run(b);
                 if (b.winner == 0) cell.win++;
                 cell.rounds += b.round;
@@ -112,7 +112,7 @@ namespace PokiClash.Core
                 var st = Badges.Stage(d, z, tier, i);
                 for (int k = 0; k < n; k++)
                 {
-                    var b = Battle.Create(d, PlayerAi(d, s, s.team, null), Teams.Enemy(st), (uint)(Badges.Seed(d, z, tier, i) + k * 7919),
+                    var b = Battle.Create(d, PlayerAi(d, s, s.team, null), Teams.Enemy(st, d), (uint)(Badges.Seed(d, z, tier, i) + k * 7919),
                         s.level, Math.Max(s.level, st.enemies[0].level));
                     BattleSim.Run(b);
                     if (b.winner == 0)

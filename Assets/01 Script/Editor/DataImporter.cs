@@ -1,5 +1,6 @@
-// Menu "PokiClash/Nhập dữ liệu": đọc Assets/02 Data/Json/*.json (xuất bằng `npx tsx scripts/export_data.ts` ở thư mục Web),
+// Menu "PokiClash/Nhập dữ liệu": đọc Assets/02 Data/Json/*.json (nguồn số liệu; lần cuối xuất từ bản web 2026-11-03, từ đó sửa thẳng),
 // kiểm tra, rồi dựng HeroDb, CardDb, ZoneDb, BalanceConfig trong Assets/02 Data. Không sửa tay các asset này.
+// Đừng chạy lại Web/scripts/export_data.ts vào thư mục này: script web còn xuất bộ 8 ải cũ, không có lính.
 using System.Collections.Generic;
 using System.IO;
 using PokiClash.Core;
@@ -36,6 +37,7 @@ namespace PokiClash.EditorTools
 
             var heroes = LoadOrCreate<HeroDb>("HeroDb");
             heroes.heroes = d.Heroes;
+            heroes.minions = d.Minions;
             heroes.starters = d.Starters;
             heroes.legendMilestoneHero = d.LegendMilestoneHero;
             EditorUtility.SetDirty(heroes);
@@ -43,6 +45,7 @@ namespace PokiClash.EditorTools
             var cards = LoadOrCreate<CardDb>("CardDb");
             cards.pool = d.Pool;
             cards.innate = d.Innate;
+            cards.minions = d.MinionCards;
             EditorUtility.SetDirty(cards);
 
             var zones = LoadOrCreate<ZoneDb>("ZoneDb");
@@ -57,7 +60,7 @@ namespace PokiClash.EditorTools
 
             AssetDatabase.SaveAssets();
             if (log)
-                Debug.Log($"[Dữ liệu] Đã nhập: {d.Heroes.Count} tướng, {d.Pool.Count} thẻ chung, {d.Innate.Count} thẻ riêng, " +
+                Debug.Log($"[Dữ liệu] Đã nhập: {d.Heroes.Count} tướng, {d.Minions.Count} lính, {d.Pool.Count} thẻ chung, {d.Innate.Count} thẻ riêng, " +
                           $"{d.Zones.Count} đảo, {d.Stages.Count} ải.");
             return true;
         }
