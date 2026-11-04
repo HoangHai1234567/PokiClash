@@ -1,5 +1,6 @@
 // Mặt máy bi trên uGUI (toạ độ máy như bản web: x sang phải, y xuống, khung 460 × 680, hiện ở cỡ K lần). Prefab: phần "May" của Screens/Machine.
-// Phần tĩnh là ảnh nướng Baked/Machine/may_tinh.png + nhãn ô, rương, máng mây, sáng ô dựng sẵn theo bàn mặc định. Lớp động (canvas con "Dong"):
+// Phần tĩnh là ảnh Baked/Machine/may_tinh.png (ghép từ bộ phận vẽ tay: ArtGen/Pachinko/build.py --duyet bo_phan, theo toạ độ
+// Board.Build; đổi mặt máy thì đổi bản chép trong build.py) + nhãn ô, rương, máng mây, sáng ô dựng sẵn theo bàn mặc định. Lớp động (canvas con "Dong"):
 // bi, loé đinh, chữ nổi, loé rương sinh từ prefab mục (Items/BiLan, LoeDinh, ChuNoi, LoeRuong); vệt bi là Items/VetBiDai
 // (TrailGraphic); nấm và hạt hiệu ứng (MachineFx) là bản sao Items/HatMayBi. Bản hết hạn tắt đi để dùng lại.
 // Hiệu ứng chép máy bi tham khảo (GD_Claude/07_MayBi.md): vệt bi 0,3 giây, đinh loé 0,067 giây, nấm phồng xẹp 0,23 giây,
@@ -20,6 +21,7 @@ namespace PokiClash
 
         public static readonly Color XpColor = Theme.Hex("#c18cf0");
         public static readonly Color BallPink = Theme.Hex("#ff8fb3");
+        public static readonly Color ChestTagColor = Theme.Hex("#9a6a1e");
 
         [Serializable]
         public struct Parts
@@ -55,6 +57,14 @@ namespace PokiClash
         float launchT = -1; // thời gian từ lúc thả (máng mây co giãn), âm = không chạy
         MachineFx fx;
         public MachineFx Fx => fx;
+
+        // nhãn số ô đáy theo mức cược (như số trên ô của máy tham khảo đổi theo cược): EXP × cược, "+cược" bi;
+        // rương ở ô, cốc, két có nhãn "×cược" khi cược trên 1. Đổi cược thì các số nhún 1,4 → 1 trong 0,25 giây
+        readonly List<(TextMeshProUGUI t, int exp, float w)> slotNums = new List<(TextMeshProUGUI, int, float)>();
+        readonly List<TextMeshProUGUI> chestTags = new List<TextMeshProUGUI>();
+        int mult = 1;
+        float multT = -1;
+        public const float MultPop = 0.25f;
 
         // đinh sáng: phồng 1,15 → 1 trong 0,067 giây (như máy tham khảo, rồi tắt), ở đây mờ thêm 0,1 giây cho kịp thấy
         public const float FlashPop = 0.067f, FlashTime = FlashPop + 0.1f;
@@ -178,6 +188,7 @@ namespace PokiClash
             }
             if (nums.Count == 0 || subs.Count == 0) return;
             int n = 0;
+            slotNums.Clear();
             foreach (var sl in slots)
             {
                 int exp = Pachinko.Exp(sl.reward);
@@ -186,9 +197,8 @@ namespace PokiClash
                 while (subs.Count <= n) subs.Add(Instantiate(subs[0], labels));
                 float cx = (float)(sl.x0 + sl.x1) / 2 * K, w = (float)(sl.x1 - sl.x0);
                 var num = nums[n];
-                num.text = exp > 0 ? exp.ToString() : "+1";
                 num.color = exp > 0 ? XpColor : BallPink;
-                num.fontSize = (w < 30 ? 13 : 17) * K;
+                slotNums.Add((num, exp, w));
                 num.rectTransform.anchoredPosition = new Vector2(cx, -(float)Board.Floor * K);
                 num.rectTransform.sizeDelta = new Vector2(w * K, num.rectTransform.sizeDelta.y);
                 var sub = subs[n];
@@ -201,6 +211,63 @@ namespace PokiClash
             }
             for (int i = n; i < nums.Count; i++) nums[i].gameObject.SetActive(false);
             for (int i = n; i < subs.Count; i++) subs[i].gameObject.SetActive(false);
+
+            // nhãn "×cược" dưới mỗi rương: bản sao chữ phụ, đặt theo rương nhỏ đã dựng (LayoutChestIcons), cùng thứ tự
+            // (nhãn đã sinh ở lần Bind trước thì dùng lại)
+            var oldTags = new List<TextMeshProUGUI>();
+            foreach (Transform c in labels)
+                if (c.name == "cuoc_ruong" && c.TryGetComponent<TextMeshProUGUI>(out var t)) oldTags.Add(t);
+            chestTags.Clear();
+            foreach (var ic in labels.GetComponentsInChildren<ChestIcon>(false))
+            {
+                var tag = chestTags.Count < oldTags.Count ? oldTags[chestTags.Count] : Instantiate(subs[0], labels);
+                tag.name = "cuoc_ruong";
+                // rương ở ô đáy: nhãn ở hàng chữ phụ ("XP", "bi") của ô; rương trong cốc, két: nhãn bên phải rương
+                var at = ic.Rect.anchoredPosition;
+                var size = ic.Rect.sizeDelta;
+                float tw = 30 * K;
+                bool inSlot = -at.y / K > Board.SlotTop;
+                tag.rectTransform.anchoredPosition = inSlot ? new Vector2(at.x, -(float)(Board.Floor + 14) * K)
+                    : new Vector2(at.x + size.x / 2 + tw / 2 + 1 * K, at.y);
+                tag.rectTransform.sizeDelta = new Vector2(tw, tag.rectTransform.sizeDelta.y);
+                tag.fontSize = subs[0].fontSize * 1.35f;
+                tag.color = ChestTagColor;
+                tag.fontStyle = FontStyles.Bold;
+                if (inSlot) ic.Rect.anchoredPosition = new Vector2(at.x, at.y + 3 * K); // nhích rương lên chừa chỗ nhãn
+                chestTags.Add(tag);
+            }
+            for (int i = chestTags.Count; i < oldTags.Count; i++) oldTags[i].gameObject.SetActive(false);
+            ApplyMult();
+        }
+
+        // số trên máy theo mức cược x (gọi khi vào màn và khi đổi cược); pop: các số nhún lên một cái khi đổi
+        public void SetMult(int x, bool pop = true)
+        {
+            x = Mathf.Max(1, x);
+            if (x == mult) return;
+            mult = x;
+            ApplyMult();
+            if (pop) multT = 0;
+        }
+
+        void ApplyMult()
+        {
+            foreach (var (t, exp, w) in slotNums)
+            {
+                if (!t) continue;
+                string s = exp > 0 ? (exp * mult).ToString() : "+" + mult;
+                t.text = s;
+                // ô hẹp chữ nhỏ hơn; số 3 chữ số co lại cho vừa ô
+                float size = (w < 30 ? 13 : 17) * K;
+                if (s.Length >= 3) size *= w < 30 ? 0.72f : 0.8f;
+                t.fontSize = size;
+            }
+            foreach (var tag in chestTags)
+            {
+                if (!tag) continue;
+                tag.text = "×" + mult;
+                tag.gameObject.SetActive(mult > 1);
+            }
         }
 
         // rương nhỏ (prefab kit Ruong, con của "nhan"): một cái giữa mỗi ô rương ở đáy, một cái trong mỗi cốc và két.
@@ -401,6 +468,17 @@ namespace PokiClash
                 float end = BumpCurve[BumpCurve.Length - 2];
                 bumpers[i].rectTransform.localScale = Vector3.one * (bumpT[i] >= end ? 1 : MachineFx.Curve(BumpCurve, bumpT[i]));
                 if (bumpT[i] >= end) bumpT[i] = -1;
+            }
+            if (multT >= 0)
+            {
+                multT += dt;
+                float k = Mathf.Min(1, multT / MultPop);
+                var sc = Vector3.one * (1 + 0.4f * (1 - k) * (1 - k));
+                foreach (var (t, _, _) in slotNums)
+                    if (t) t.rectTransform.localScale = sc;
+                foreach (var tag in chestTags)
+                    if (tag) tag.rectTransform.localScale = sc;
+                if (k >= 1) multT = -1;
             }
             for (int i = 0; i < glow.Length; i++)
             {

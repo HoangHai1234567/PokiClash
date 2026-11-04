@@ -1,0 +1,33 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\than_may.png (1024 x 1536): the approved cabinet of this machine (transparent background): copy its exact drawing style, ink weight, crayon texture and colours
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\guides\G_Sheet3x2.png (1536 x 1024): the numbered 3 x 2 grid of the sheet you draw: one effect per cell, inside the grey inner box
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\refs\hieu_ung_tam.png (1536 x 1024): the six plain placeholder effect shapes the game uses today, white on a dark background, in the same cell order; draw a hand-made version of each shape
+
+SAVE: save the finished sheet as a 1536 x 1024 PNG with a TRANSPARENT background to
+E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\hieu_ung.png
+Create the folder if it is missing. If that file already exists, save it as hieu_ung_2.png, hieu_ung_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: six small visual-effect sprites for the ball-drop machine of image 1 (sparkles when a ball hits a peg, rings when it lands in a slot, stars for treasure, a puff when a ball is dropped). The game scales, rotates, fades and TINTS them with many colours, so draw them in white and very pale grey only, soft and simple, with at most a thin ink outline.
+
+SHEET: a 1536 x 1024 PNG with a TRANSPARENT background, one item per numbered cell of image 2, in the order of the numbers. Centre each item inside the grey inner box of its cell and let it fill most of that box; it must never touch the cell edge or another item. Do not draw the grid, the magenta lines, the grey boxes or the numbers.
+
+CELLS (image 3 shows today's plain shapes in the same order):
+1 GLOW: a soft round glow: white in the middle fading smoothly to fully transparent at the edge; no outline, no rays.
+2 SPARKLE: a small four-pointed sparkle star with long thin points and a tiny round centre, white with a thin pale-grey edge; points straight up, down, left and right.
+3 RING: a thin round ring of light, hollow in the middle, white, its edges soft; the ring is about one tenth of its diameter thick.
+4 STAR: a chubby five-pointed star with rounded tips, white inside with a thin dark-brown ink outline and a little crayon hatching.
+5 STREAK: a soft tapered streak lying horizontally, like a motion trail: a bright rounded head on the RIGHT end, thinning and fading to nothing toward the LEFT; about 5 : 1 long, filling the width of the inner box.
+6 PUFF: a small round puff of cloud smoke made of four or five round bumps, white with light grey crayon hatching and a thin ink outline.
+
+COLOURS: only white, very pale grey and a little dark-brown ink #2B2118 for the outlines of 4 and 6. No other colour: the game tints every sprite.
+
+STYLE: exactly the rendering of image 1, the approved cabinet of this machine: slightly wobbly dark-brown ink outlines #2B2118, flat warm colours, colour-pencil and crayon hatching for texture, cream paper feel. Drawn neatly by a professional illustrator, not scribbly. Glow and soft fading are allowed only for 1, 2, 3 and 5. No glossy highlights, no gradients, no 3D render, no airbrush, no metal shine.
+
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the items.
+Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+
+AVOID: text, letters, numbers, characters, a background, colours, sparkles outside the cells, two effects in one cell.
+
+Remember: transparent background, white effects, one per cell in the order 1 to 6, save the sheet to E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\hieu_ung.png

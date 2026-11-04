@@ -369,6 +369,45 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - Clip vừa bắt đầu là chậm ngay, xong clip thì nhanh lại trong khoảng 0,1 s. Số chỉnh ở `StageView`: `AttackPace`, `SkillPace`, `SlowEase`. Thay cho `SkillTime` cũ, vốn chỉ kéo chậm clip chiêu.
 - Tour thử trong Editor gọi `BattleController.FastForward(k)` để cả trận, kể cả lúc ra đòn, chạy nhanh gấp k. Chỗ trước đặt ×3 nay dùng `FastForward(2)`, bằng nhịp ×3 cũ lúc không ra đòn.
 
+**Luật rút thẻ: 35 thẻ chung, thẻ đã chọn không ra lại trong lượt (Unity, 2026-11-04).** Người dùng: tăng số thẻ (chọn thêm thẻ mới vào bộ, mỗi lần vẫn hiện 3 thẻ); thẻ đã chọn thì không ra lại trong cùng lượt, có thẻ được ra lại, có thẻ thì không (chọn "theo tác dụng").
+- `Battle.DrawOffer` bỏ khỏi bộ rút các thẻ đã nằm trong hàng thẻ của lượt, trừ thẻ có `"repeat": true` trong `cards.json` (`CardDef.repeat`). Sang lượt sau hàng thẻ trống nên mọi thẻ ra lại. Máy chọn theo cùng luật. Trong một lần rút, 3 thẻ vẫn khác nhau như cũ.
+- Ra lại được (thẻ nhỏ, cộng dồn không phá cân bằng): Mài Vuốt, Băng Gạc, Hít Thở, Gầm Gừ, Ném Đá, Bình Thuốc, Thủ Thế, Tĩnh Tâm, và 3 thẻ mới Cắn Xé, Phóng Lông, Trăng Khuyết. Mỗi lượt một lần: mọi thẻ Hiếm trở lên, Giáp Gỗ, Bánh Bao Thịt, Liều Mạng, Đấm Kép và các thẻ mới còn lại. Đổi thẻ nào thì sửa cờ trong `cards.json` rồi `Nhập dữ liệu`.
+- 12 thẻ mới, dùng hiệu ứng và icon có sẵn. Cấp 1 có 19 thẻ (trước 13):
+
+  | Thẻ | Độ hiếm | Mở ở cấp | Tác dụng | Ra lại |
+  |---|---|---|---|---|
+  | Cắn Xé | Thường | 1 | Gây 30% Công sát thương, hút 50% thành máu. | có |
+  | Nhảy Lùi | Thường | 1 | 25% né đòn đánh thường tới lượt sau. | |
+  | Đứng Tấn | Thường | 1 | +30% Thủ tới lượt sau. | |
+  | Hạt Dẻ | Thường | 1 | Hồi 3% máu đầu mỗi lượt, 3 lượt. | |
+  | Phóng Lông | Khá | 1 | Đánh 3 lần, mỗi lần 20% Công. | có |
+  | Tung Cát | Khá | 1 | Địch −20% Công 1 lượt. | |
+  | Trăng Khuyết | Khá | 2 | Hút 20 mana của địch. | có |
+  | Búa Tạ | Hiếm | 2 | Gây 70% Công sát thương, xuyên 50% Thủ. | |
+  | Suối Trong | Hiếm | 3 | Xoá hiệu ứng xấu. Hồi 12% máu. | |
+  | Sấm Rền | Hiếm | 4 | Gây 60% Công sát thương. 35% cơ hội: làm địch choáng. | |
+  | Lông Phượng | Sử thi | 6 | Hồi 15% máu. Hồi 5% máu đầu mỗi lượt, 3 lượt. | |
+  | Dồn Sức | Sử thi | 8 | +40% Công trong 2 lượt. +20 nộ. | |
+
+- Sổ thẻ xếp theo độ hiếm rồi cấp mở. Hộp chi tiết thẻ ghi "ra lại được trong lượt" hoặc "mỗi lượt chọn một lần".
+- Số đo (máy tự chơi, đảo Thủy, 300 trận mỗi ải, cách đo như `Editor/StarterBalanceMenu`), trước → sau. Cột Võ Sư là người chọn Giọt Sương, Sư Tử Lửa, Bu Lông hay Nụ Hoa (đều ra trận bằng Võ Sư):
+
+  | Kiểu ải | Võ Sư | Thạch Nhân |
+  |---|---|---|
+  | Tướng mới | 97 → 97 | 96 → 97 |
+  | Bầy lính | 88 → 89 | 94 → 95 |
+  | Cường hóa | 90 → 87 | 82 → 77 |
+  | Tướng và lính | 73 → 74 | 83 → 83 |
+  | Lính tinh nhuệ | 74 → 73 | 81 → 79 |
+  | Mini boss | 58 → 58 | 53 → 55 |
+  | Hai tướng | 61 → 55 | 62 → 58 |
+  | Cửa ải | 61 → 55 | 58 → 57 |
+  | Boss ải 70 | 62 → 72 | 64 → 74 |
+  | **Cả đảo** | 78 → 76 | 79 → 78 |
+
+  Lượt máy có thẻ lặp: 68% → 38%. Bảng 102 ải × 5 mức cấp (100 trận mỗi ô): mọi ô lệch không quá 3 điểm. Trận dài thêm chút ít, rõ nhất đảo Thổ (7,3 → 8,1 hiệp). Chưa chỉnh sức địch theo số mới.
+- Golden tính lại bên Unity bằng Core chạy ngoài Editor: `battles`, `battle_events`, `sim`, `badges` (5 trận), `potential` (6 trận); `cardtext` thêm 12 thẻ. Test mới `TheDaChon_KhongRaLaiTrongLuot_TruTheLapLai`. Bản web không đổi (23 thẻ, thẻ ra lại tự do).
+
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 
 1. **Nhịp tiến độ** (mục tiêu: người chơi "vừa" xong 5 đảo khoảng ngày 21). Sau khi có cây bi vẫn là ngày 6. Quét bằng menu `Quét nhịp`:
@@ -381,6 +420,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
    - giảm thẻ trong rương;
    - giảm tiếp bi thụ động;
    - hay nhận nhịp nhanh hơn và thêm ải, tướng sau?
+   - **2026-11-04:** người dùng chốt thang cấp 1–200 kiểu Clash of Critters: cấp địch là cấp cần đạt, mỗi đảo khoảng 40 cấp, đảo Thủy 5–7 ngày, cấp 200 sau ít nhất 30–45 ngày. EXP lên cấp 45 × cấp. Theo máy: người chơi "chăm" xong Thủy ngày 5 và đạt cấp 200 ngày 42; "vừa" xong Thủy ngày 8 và đạt cấp 200 ngày 57 (`14_HeThongAi.md`, mục "Thang cấp 1–200").
 2. **Trang trại** có ra thêm EXP không?
 3. **Kiếm tiền:** chọn SDK nào (quảng cáo, IAP)? Giá hai gói?
 4. **Kỹ thuật:** chốt Unity 6 bản vá nào? Có cần Addressables cho ảnh đảo không?
@@ -418,7 +458,10 @@ Hệ thống 70 ải mỗi đảo (2026-11-02, bản thử đảo Thủy trên w
 19. **Tướng không khắc hệ đảo:** Giọt Sương (Thủy) đánh đảo Thủy kém Võ Sư (Thổ) 30–50 điểm phần trăm ở mọi kiểu ải khó. Đây là luật khắc hệ có sẵn. Giữ vậy, hay nới cho tướng khởi đầu?
     - **Đã chốt 2026-11-03** (`15_TuongKhoiDau.md`): người chơi chọn 1 trong 5 tướng khởi đầu; tướng đã chọn (tướng đồng hành) không chịu thiệt khi khắc hệ; luôn ra trận cùng tướng tặng khắc đảo.
 20. **Nhịp và thưởng:** 5 đảo × 70 ải là 350 ải. Người chơi "vừa" (9 trận/ngày) cần ít nhất 39 ngày chỉ để qua lần đầu, so với mục tiêu ngày 21 (câu 1). Bi mỗi ải giảm còn 1–2 để cả đảo Thủy đưa người chơi lên khoảng cấp 7–8. Các hướng: chấp nhận nhịp dài hơn, tăng số trận mỗi lần vào game trong mô phỏng, hay rút số ải? Đo lại bằng `Quét nhịp` sau khi chép sang Unity. Đền Huy Hiệu giờ mở sau ải 70 đảo Thủy: có cần mở sớm hơn không?
+    - **2026-11-04:** bi mỗi ải đảo 70 ải tính theo số ải: 1 bi ở ải 1–35, 2 bi ở ải 36–70. Các đảo 8 ải dời lên cấp 41–200.
 
 ## Ảnh cần gen
 
 Gói prompt ở `ArtGen/` (gốc dự án), theo quy trình cũ: đọc `PROMPTS.md`, gen bằng GPT (hoặc Tripo cho đảo 3D), lưu vào `inbox/` của gói. Danh sách gói và thứ tự gen: `ArtGen/README.md`.
+
+Máy bi (`ArtGen/Pachinko`): thân máy, bộ phận, hiệu ứng, rương đã vào game ngày 2026-11-04. Việc còn lại ở `07_MayBi.md`, mục "Việc còn lại".

@@ -99,9 +99,10 @@ namespace PokiClash
             sparkFx = spark;
         }
 
-        // nền theo đảo: màu trời trên cùng phủ cả phần dôi (máy dài), rồi ảnh nền trận. Đảo có bộ sàn đấu (ArtGen/BattleBG/
-        // build_thuy.py) thì theo ải: ải mini boss, boss "battle_<đảo>_s<ải>", rồi chặng "battle_<đảo>_c<chặng>"; không có thì nền
-        // hệ. Sàn đấu có phần động (ArenaAnim) và màu trời riêng. stage null (thử thách huy hiệu, hang): nền hệ.
+        // nền theo đảo: màu trời trên cùng phủ cả phần dôi (máy dài), rồi ảnh nền trận (FitBg: ảnh vẽ dư trời thì chìa lên phần dôi).
+        // Đảo có bộ sàn đấu (ArtGen/BattleBG/build_thuy.py) thì theo ải: ải mini boss, boss "battle_<đảo>_s<ải>", rồi chặng
+        // "battle_<đảo>_c<chặng>"; không có thì nền hệ. Sàn đấu có phần động (ArenaAnim) và màu trời riêng. stage null (thử thách huy
+        // hiệu, hang): nền hệ.
         public void Init(ZoneDef zone, StageDef stage = null)
         {
             this.zone = zone;
@@ -141,6 +142,41 @@ namespace PokiClash
             string key = name.Substring("battle_".Length);
             sky.color = Theme.Hex(ArenaAnim.Sky(key) ?? zone.skyTop);
             if (arena) arena.Bind(key);
+            fitRoom = -1;
+            FitBg();
+        }
+
+        // Máy dài hơn 9:16 thì vùng sân cao thêm phía trên khung 1080 × 928 (9:20 thêm 480, 21:9 thêm 600). Ảnh nền rộng 1080, cao theo
+        // ảnh, đáy ảnh trùng đáy khung: ảnh cũ cao đúng 928 thì như trước (phần dôi là màu trời); ảnh vẽ dư trời (ArtGen/BattleBG/
+        // build_troi.py, 1080 × 1528) thì phần trên chìa lên phủ phần dôi, máy thấp hơn cắt bớt từ trên (Image Filled, không méo).
+        // Toạ độ tướng, phần động, bảng vẫn theo khung. Chớp sáng phủ cả vùng sân. Chừa thêm ShakePad cho mép trên khỏi hở lúc rung
+        // (phần chừa nằm dưới thanh trên, thanh trên vẽ sau vùng sân).
+        const float ShakePad = 16;
+        float fitRoom = -1;
+
+        void FitBg()
+        {
+            var area = transform.parent as RectTransform; // Vung san
+            float room = (area ? area.rect.height : SH * K) + ShakePad;
+            if (Mathf.Approximately(room, fitRoom)) return;
+            fitRoom = room;
+            float w = SW * K;
+            var s = bg.sprite;
+            float h = s ? w * s.rect.height / s.rect.width : SH * K;
+            var rt = bg.rectTransform;
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0);
+            rt.anchoredPosition = Vector2.zero;
+            rt.sizeDelta = new Vector2(w, h);
+            bg.type = Image.Type.Filled;
+            bg.fillMethod = Image.FillMethod.Vertical;
+            bg.fillOrigin = (int)Image.OriginVertical.Bottom;
+            bg.fillAmount = Mathf.Min(1, room / h);
+            var fr = flashImg.rectTransform;
+            fr.anchorMin = Vector2.zero;
+            fr.anchorMax = new Vector2(1, 0);
+            fr.pivot = new Vector2(0.5f, 0);
+            fr.anchoredPosition = Vector2.zero;
+            fr.sizeDelta = new Vector2(0, Mathf.Max(room, SH * K));
         }
 
         // toạ độ web (gốc trên trái, y xuống) -> anchoredPosition trong khung sân (gốc trên trái)
@@ -713,6 +749,7 @@ namespace PokiClash
 
         void Update()
         {
+            FitBg(); // xoay màn, đổi khung Game view
             float raw = Mathf.Min(0.05f, Time.unscaledDeltaTime);
             // đang ra đòn: sân về nhịp của clip chậm nhất đang chạy (không nhanh hơn nhịp thường)
             float pace = skillHold > 0 ? SkillPace : float.MaxValue;

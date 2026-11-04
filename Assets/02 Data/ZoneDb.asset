@@ -19,7 +19,7 @@ MonoBehaviour:
     sub: "\u0110\u1EA7m ph\xE1, th\xE1c b\u1EA1c v\xE0 xo\xE1y n\u01B0\u1EDBc \u0111inh
       ba"
     levelMin: 1
-    levelMax: 8
+    levelMax: 40
     art: zone_thuy
     skyTop: '#bfe6f5'
     skyBottom: '#f4f1dc'
@@ -410,8 +410,8 @@ MonoBehaviour:
     order: 1
     name: "\u0110\u1EA3o H\u1ECFa"
     sub: "Dung nham, ch\xF9a sen l\u1EEDa v\xE0 mi\u1EC7ng n\xFAi ch\xE1y"
-    levelMin: 6
-    levelMax: 12
+    levelMin: 41
+    levelMax: 80
     art: zone_hoa
     skyTop: '#f7c9a8'
     skyBottom: '#fbe9d0'
@@ -444,8 +444,8 @@ MonoBehaviour:
     order: 2
     name: "\u0110\u1EA3o Kim"
     sub: "N\xFAi th\xE9p, c\u1EA7u b\xE1nh r\u0103ng v\xE0 th\xE1p chu\xF4ng \u0111\u1ED3ng"
-    levelMin: 11
-    levelMax: 17
+    levelMin: 81
+    levelMax: 120
     art: zone_kim
     skyTop: '#d6dee8'
     skyBottom: '#f1efe6'
@@ -478,8 +478,8 @@ MonoBehaviour:
     order: 3
     name: "\u0110\u1EA3o M\u1ED9c"
     sub: "R\u1EEBng n\u1EA5m, d\xE2y leo v\xE0 c\xE2y th\u1EA7n ng\xE0n n\u0103m"
-    levelMin: 16
-    levelMax: 22
+    levelMin: 121
+    levelMax: 160
     art: zone_moc
     skyTop: '#cfeec0'
     skyBottom: '#f4f1dc'
@@ -513,8 +513,8 @@ MonoBehaviour:
     name: "\u0110\u1EA3o Th\u1ED5"
     sub: "V\xE1ch \u0111\u1EA5t nung, ru\u1ED9ng b\u1EADc thang v\xE0 kim t\u1EF1
       vi\u1EC7n"
-    levelMin: 21
-    levelMax: 28
+    levelMin: 161
+    levelMax: 200
     art: zone_tho
     skyTop: '#f6dfae'
     skyBottom: '#fbf0d8'
@@ -574,7 +574,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: linh_cua
-      level: 1
+      level: 2
       boss: 0
       evo: 0
       buff: 0
@@ -588,12 +588,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: linh_cua
-      level: 1
+      level: 3
       boss: 0
       evo: 0
       buff: -0.25
     - hero: linh_cua
-      level: 1
+      level: 3
       boss: 0
       evo: 0
       buff: -0.25
@@ -614,10 +614,10 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: linh_cua
-      level: 1
+      level: 4
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.35
     drops: []
   - id: 5
     zone: 2
@@ -628,7 +628,7 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 1
+      level: 4
       boss: 0
       evo: 1
       buff: 0.15
@@ -649,15 +649,15 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: linh_cua
-      level: 1
+      level: 5
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_cua
-      level: 1
+      level: 5
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 7
     zone: 2
@@ -668,10 +668,10 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 1
+      level: 6
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: tieu_y
       chance: 0.3
@@ -689,12 +689,12 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 1
+      level: 7
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_cua
-      level: 1
+      level: 7
       boss: 0
       evo: 0
       buff: 0.15
@@ -715,15 +715,15 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 1
+      level: 7
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.35
     - hero: linh_cua
-      level: 1
+      level: 7
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.2
     drops:
     - hero: tieu_y
       chance: 0.44999999999999996
@@ -741,7 +741,7 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: canh_cut
-      level: 2
+      level: 8
       boss: 0
       evo: 1
       buff: 0.15
@@ -762,15 +762,15 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: linh_noc
-      level: 2
+      level: 9
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_cua
-      level: 2
+      level: 9
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 12
     zone: 2
@@ -781,10 +781,10 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: canh_cut
-      level: 2
+      level: 9
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: canh_cut
       chance: 0.3
@@ -802,12 +802,12 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: tieu_y
-      level: 2
+      level: 10
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_noc
-      level: 2
+      level: 10
       boss: 0
       evo: 0
       buff: 0.15
@@ -828,15 +828,15 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: canh_cut
-      level: 2
+      level: 10
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.35
     - hero: linh_cua
-      level: 2
+      level: 10
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.2
     drops:
     - hero: canh_cut
       chance: 0.44999999999999996
@@ -854,7 +854,7 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: mi_nhi
-      level: 3
+      level: 11
       boss: 0
       evo: 1
       buff: 0.15
@@ -875,15 +875,15 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: linh_cua
-      level: 3
+      level: 12
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_noc
-      level: 3
+      level: 12
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 17
     zone: 2
@@ -894,10 +894,10 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: mi_nhi
-      level: 3
+      level: 12
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: mi_nhi
       chance: 0.25
@@ -915,12 +915,12 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: canh_cut
-      level: 3
+      level: 13
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_cua
-      level: 3
+      level: 13
       boss: 0
       evo: 0
       buff: 0.15
@@ -941,15 +941,15 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: mi_nhi
-      level: 3
+      level: 13
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.35
     - hero: linh_noc
-      level: 3
+      level: 13
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.2
     drops:
     - hero: mi_nhi
       chance: 0.375
@@ -967,10 +967,10 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 3
+      level: 14
       boss: 1
       evo: 1
-      buff: 0.1
+      buff: 0
     drops:
     - hero: ma_ket
       chance: 1
@@ -988,15 +988,15 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: linh_cua
-      level: 3
+      level: 15
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_noc
-      level: 3
+      level: 15
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 22
     zone: 2
@@ -1007,10 +1007,10 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 3
+      level: 15
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: ma_ket
       chance: 0.2
@@ -1028,12 +1028,12 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: mi_nhi
-      level: 3
+      level: 16
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_ngu
-      level: 3
+      level: 16
       boss: 0
       evo: 0
       buff: 0.15
@@ -1054,20 +1054,20 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: linh_cua
-      level: 3
+      level: 16
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_noc
-      level: 3
+      level: 16
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_cua
-      level: 3
+      level: 16
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     drops: []
   - id: 25
     zone: 2
@@ -1078,15 +1078,15 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 3
+      level: 17
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: canh_cut
-      level: 3
+      level: 17
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops:
     - hero: mam_go
       chance: 1
@@ -1118,10 +1118,10 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 3
+      level: 17
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.25
     drops:
     - hero: ma_ket
       chance: 0.2
@@ -1139,15 +1139,15 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: linh_noc
-      level: 3
+      level: 18
       boss: 0
       evo: 0
-      buff: 0.55
+      buff: 0.5
     - hero: linh_cua
-      level: 3
+      level: 18
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 28
     zone: 2
@@ -1158,17 +1158,17 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 3
+      level: 19
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_noc
-      level: 3
+      level: 19
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_ngu
-      level: 3
+      level: 19
       boss: 0
       evo: 0
       buff: -0.05
@@ -1189,15 +1189,15 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 3
+      level: 19
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     - hero: mi_nhi
-      level: 3
+      level: 19
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     drops:
     - hero: ma_ket
       chance: 0.30000000000000004
@@ -1222,10 +1222,10 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 4
+      level: 20
       boss: 1
       evo: 1
-      buff: 0.1
+      buff: 0
     drops:
     - hero: vay_lam
       chance: 1
@@ -1243,15 +1243,15 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: linh_noc
-      level: 4
+      level: 20
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_ngu
-      level: 4
+      level: 20
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 32
     zone: 2
@@ -1262,10 +1262,10 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 4
+      level: 21
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1283,12 +1283,12 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: ma_ket
-      level: 4
+      level: 21
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_cua
-      level: 4
+      level: 21
       boss: 0
       evo: 0
       buff: 0.15
@@ -1309,20 +1309,20 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: linh_noc
-      level: 4
+      level: 22
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_ngu
-      level: 4
+      level: 22
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_noc
-      level: 4
+      level: 22
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     drops: []
   - id: 35
     zone: 2
@@ -1333,15 +1333,15 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 4
+      level: 22
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: mi_nhi
-      level: 4
+      level: 22
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1366,10 +1366,10 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 4
+      level: 23
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.25
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1387,15 +1387,15 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: linh_ngu2
-      level: 4
+      level: 23
       boss: 0
       evo: 0
-      buff: 0.55
+      buff: 0.5
     - hero: linh_noc2
-      level: 4
+      level: 23
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 38
     zone: 2
@@ -1406,17 +1406,17 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 4
+      level: 24
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_ngu2
-      level: 4
+      level: 24
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_cua2
-      level: 4
+      level: 24
       boss: 0
       evo: 0
       buff: -0.05
@@ -1437,15 +1437,15 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 4
+      level: 24
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     - hero: ma_ket
-      level: 4
+      level: 24
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     drops:
     - hero: vay_lam
       chance: 0.30000000000000004
@@ -1470,10 +1470,10 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 5
+      level: 25
       boss: 1
       evo: 1
-      buff: 0.1
+      buff: 0
     drops:
     - hero: kuba
       chance: 1
@@ -1491,15 +1491,15 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: linh_ngu2
-      level: 5
+      level: 26
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_cua2
-      level: 5
+      level: 26
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 42
     zone: 2
@@ -1510,10 +1510,10 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 5
+      level: 26
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: kuba
       chance: 0.15
@@ -1531,12 +1531,12 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: vay_lam
-      level: 5
+      level: 27
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_noc2
-      level: 5
+      level: 27
       boss: 0
       evo: 0
       buff: 0.15
@@ -1557,20 +1557,20 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: linh_ngu2
-      level: 5
+      level: 27
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_cua2
-      level: 5
+      level: 27
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_ngu2
-      level: 5
+      level: 27
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     drops: []
   - id: 45
     zone: 2
@@ -1581,15 +1581,15 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 5
+      level: 28
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: ma_ket
-      level: 5
+      level: 28
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops:
     - hero: kuba
       chance: 0.15
@@ -1614,10 +1614,10 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 5
+      level: 28
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.25
     drops:
     - hero: kuba
       chance: 0.15
@@ -1635,15 +1635,15 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: linh_cua2
-      level: 5
+      level: 29
       boss: 0
       evo: 0
-      buff: 0.55
+      buff: 0.5
     - hero: linh_ngu2
-      level: 5
+      level: 29
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 48
     zone: 2
@@ -1654,17 +1654,17 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 5
+      level: 29
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_cua2
-      level: 5
+      level: 29
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_noc2
-      level: 5
+      level: 29
       boss: 0
       evo: 0
       buff: -0.05
@@ -1685,15 +1685,15 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 5
+      level: 30
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     - hero: vay_lam
-      level: 5
+      level: 30
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     drops:
     - hero: kuba
       chance: 0.22499999999999998
@@ -1718,10 +1718,10 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 6
+      level: 30
       boss: 1
       evo: 1
-      buff: 0.1
+      buff: 0
     drops:
     - hero: thuong_lam
       chance: 1
@@ -1739,15 +1739,15 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: linh_cua2
-      level: 6
+      level: 31
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_noc2
-      level: 6
+      level: 31
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 52
     zone: 2
@@ -1758,10 +1758,10 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 6
+      level: 31
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1779,12 +1779,12 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: kuba
-      level: 6
+      level: 32
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_ngu2
-      level: 6
+      level: 32
       boss: 0
       evo: 0
       buff: 0.15
@@ -1805,20 +1805,20 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: linh_cua2
-      level: 6
+      level: 32
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_noc2
-      level: 6
+      level: 32
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_cua2
-      level: 6
+      level: 32
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     drops: []
   - id: 55
     zone: 2
@@ -1829,15 +1829,15 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 6
+      level: 33
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: vay_lam
-      level: 6
+      level: 33
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1862,10 +1862,10 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 6
+      level: 33
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.25
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1883,15 +1883,15 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: linh_noc2
-      level: 6
+      level: 34
       boss: 0
       evo: 0
-      buff: 0.55
+      buff: 0.5
     - hero: linh_cua2
-      level: 6
+      level: 34
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 58
     zone: 2
@@ -1902,17 +1902,17 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 6
+      level: 34
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_noc2
-      level: 6
+      level: 34
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_ngu2
-      level: 6
+      level: 34
       boss: 0
       evo: 0
       buff: -0.05
@@ -1933,15 +1933,15 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 6
+      level: 35
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     - hero: kuba
-      level: 6
+      level: 35
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     drops:
     - hero: thuong_lam
       chance: 0.22499999999999998
@@ -1966,10 +1966,10 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 7
+      level: 35
       boss: 1
       evo: 1
-      buff: 0.1
+      buff: 0
     drops:
     - hero: huyen_vu
       chance: 1
@@ -1987,15 +1987,15 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: linh_noc2
-      level: 7
+      level: 36
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: linh_ngu2
-      level: 7
+      level: 36
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 62
     zone: 2
@@ -2006,10 +2006,10 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 7
+      level: 36
       boss: 0
       evo: 0
-      buff: 0.27
+      buff: 0.12
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2027,12 +2027,12 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: thuong_lam
-      level: 7
+      level: 37
       boss: 0
       evo: 0
       buff: 0.15
     - hero: linh_cua2
-      level: 7
+      level: 37
       boss: 0
       evo: 0
       buff: 0.15
@@ -2053,20 +2053,20 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: linh_noc2
-      level: 7
+      level: 37
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_ngu2
-      level: 7
+      level: 37
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     - hero: linh_noc2
-      level: 7
+      level: 37
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: -0.1
     drops: []
   - id: 65
     zone: 2
@@ -2077,15 +2077,15 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 7
+      level: 38
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     - hero: kuba
-      level: 7
+      level: 38
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2110,10 +2110,10 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 7
+      level: 38
       boss: 0
       evo: 0
-      buff: 0.4
+      buff: 0.25
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2131,15 +2131,15 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: linh_ngu2
-      level: 7
+      level: 39
       boss: 0
       evo: 0
-      buff: 0.55
+      buff: 0.5
     - hero: linh_noc2
-      level: 7
+      level: 39
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.1
     drops: []
   - id: 68
     zone: 2
@@ -2150,17 +2150,17 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 7
+      level: 39
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_ngu2
-      level: 7
+      level: 39
       boss: 0
       evo: 0
       buff: -0.05
     - hero: linh_cua2
-      level: 7
+      level: 39
       boss: 0
       evo: 0
       buff: -0.05
@@ -2181,15 +2181,15 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 7
+      level: 40
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     - hero: thuong_lam
-      level: 7
+      level: 40
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.3
     drops:
     - hero: huyen_vu
       chance: 0.15000000000000002
@@ -2214,10 +2214,10 @@ MonoBehaviour:
     chapter: 9
     enemies:
     - hero: lam_quan
-      level: 8
+      level: 40
       boss: 1
       evo: 1
-      buff: 0.05
+      buff: 0.15
     drops:
     - hero: lam_quan
       chance: 1
@@ -2235,7 +2235,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: su_tu_lua
-      level: 6
+      level: 41
       boss: 0
       evo: 0
       buff: 0
@@ -2256,7 +2256,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_de
-      level: 7
+      level: 48
       boss: 0
       evo: 0
       buff: 0
@@ -2270,12 +2270,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_de
-      level: 7
+      level: 48
       boss: 0
       evo: 0
       buff: 0
     - hero: bo_de
-      level: 8
+      level: 54
       boss: 0
       evo: 0
       buff: 0
@@ -2296,7 +2296,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_de
-      level: 9
+      level: 61
       boss: 1
       evo: 0
       buff: 0
@@ -2317,12 +2317,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_de
-      level: 9
+      level: 61
       boss: 0
       evo: 0
       buff: 0
     - hero: phap_luan
-      level: 8
+      level: 54
       boss: 0
       evo: 0
       buff: 0
@@ -2336,7 +2336,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: phap_luan
-      level: 10
+      level: 67
       boss: 0
       evo: 0
       buff: 0
@@ -2357,17 +2357,17 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_de
-      level: 9
+      level: 61
       boss: 0
       evo: 0
       buff: 0
     - hero: phap_luan
-      level: 9
+      level: 61
       boss: 0
       evo: 0
       buff: 0
     - hero: bo_de
-      level: 9
+      level: 61
       boss: 0
       evo: 0
       buff: 0
@@ -2381,7 +2381,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: phap_luan
-      level: 11
+      level: 74
       boss: 1
       evo: 1
       buff: 0
@@ -2409,7 +2409,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bu_long
-      level: 11
+      level: 81
       boss: 0
       evo: 0
       buff: 0
@@ -2430,7 +2430,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: phao_hop
-      level: 12
+      level: 88
       boss: 0
       evo: 0
       buff: 0
@@ -2451,12 +2451,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bu_long
-      level: 12
+      level: 88
       boss: 0
       evo: 0
       buff: 0
     - hero: phao_hop
-      level: 13
+      level: 94
       boss: 0
       evo: 0
       buff: 0
@@ -2470,7 +2470,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_cap
-      level: 13
+      level: 94
       boss: 1
       evo: 0
       buff: 0
@@ -2491,12 +2491,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_ngua
-      level: 15
+      level: 107
       boss: 0
       evo: 0
       buff: 0
     - hero: bu_long
-      level: 15
+      level: 107
       boss: 0
       evo: 0
       buff: 0
@@ -2510,7 +2510,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_cap
-      level: 16
+      level: 114
       boss: 0
       evo: 0
       buff: 0
@@ -2531,7 +2531,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: soi_linh
-      level: 16
+      level: 114
       boss: 0
       evo: 0
       buff: 0
@@ -2552,7 +2552,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: soi_linh
-      level: 17
+      level: 120
       boss: 1
       evo: 1
       buff: 0
@@ -2580,7 +2580,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: nu_hoa
-      level: 16
+      level: 121
       boss: 0
       evo: 0
       buff: 0
@@ -2601,7 +2601,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: mam_go
-      level: 17
+      level: 128
       boss: 0
       evo: 0
       buff: 0
@@ -2615,12 +2615,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: nu_hoa
-      level: 17
+      level: 128
       boss: 0
       evo: 0
       buff: 0
     - hero: mam_go
-      level: 18
+      level: 134
       boss: 0
       evo: 0
       buff: 0
@@ -2634,7 +2634,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: de_hoa
-      level: 18
+      level: 134
       boss: 1
       evo: 0
       buff: 0
@@ -2655,12 +2655,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: giac_long
-      level: 19
+      level: 141
       boss: 0
       evo: 0
       buff: 0
     - hero: nu_hoa
-      level: 19
+      level: 141
       boss: 0
       evo: 0
       buff: 0
@@ -2674,7 +2674,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: giac_long
-      level: 20
+      level: 147
       boss: 0
       evo: 0
       buff: 0
@@ -2695,17 +2695,17 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: mam_go
-      level: 20
+      level: 147
       boss: 0
       evo: 0
       buff: 0
     - hero: de_hoa
-      level: 20
+      level: 147
       boss: 0
       evo: 0
       buff: 0
     - hero: nu_hoa
-      level: 20
+      level: 147
       boss: 0
       evo: 0
       buff: 0
@@ -2719,7 +2719,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: giac_long
-      level: 22
+      level: 160
       boss: 1
       evo: 1
       buff: 0
@@ -2740,7 +2740,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: thach_nhan
-      level: 21
+      level: 161
       boss: 0
       evo: 0
       buff: 0
@@ -2761,7 +2761,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 22
+      level: 167
       boss: 0
       evo: 0
       buff: 0
@@ -2775,12 +2775,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 22
+      level: 167
       boss: 0
       evo: 0
       buff: 0
     - hero: vo_su
-      level: 23
+      level: 172
       boss: 0
       evo: 0
       buff: 0
@@ -2794,7 +2794,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 24
+      level: 178
       boss: 1
       evo: 0
       buff: 0
@@ -2815,12 +2815,12 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 24
+      level: 178
       boss: 0
       evo: 0
       buff: 0
     - hero: ca_sa
-      level: 21
+      level: 161
       boss: 0
       evo: 0
       buff: 0
@@ -2834,7 +2834,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: ca_sa
-      level: 22
+      level: 167
       boss: 0
       evo: 0
       buff: 0
@@ -2855,17 +2855,17 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 25
+      level: 183
       boss: 0
       evo: 0
       buff: 0
     - hero: ca_sa
-      level: 23
+      level: 172
       boss: 0
       evo: 0
       buff: 0
     - hero: vo_su
-      level: 25
+      level: 183
       boss: 0
       evo: 0
       buff: 0
@@ -2879,7 +2879,7 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: ca_sa
-      level: 23
+      level: 172
       boss: 1
       evo: 1
       buff: 0

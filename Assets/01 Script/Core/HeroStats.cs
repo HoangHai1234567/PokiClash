@@ -1,5 +1,6 @@
 // Chỉ số tướng, một nguồn cho trận và màn Tướng (chép heroStats của Web/src/core/battle.ts).
-//   m    = sức theo độ hiếm × (1 + lvStep·(cấp − 1)) × (1 + starStep·(sao − 1))
+//   m    = sức theo độ hiếm × (1 + lvStep)^(cấp − 1) × (1 + starStep·(sao − 1))
+//          (thang cấp 1–200 từ 2026-11-04: mỗi cấp mạnh thêm lvStep, nhân dồn, để chênh 1 cấp ở cấp 150 nặng như ở cấp 5)
 //   Máu  = hpBase  × √(máu gốc / tb) × m (× bossHp)
 //   Công = atkBase × √(max(công, công phép) / tb) × m (× bossAtk)
 //   Thủ  = defBase × √(tb(thủ, thủ phép) / tb) × m
@@ -27,11 +28,15 @@ namespace PokiClash.Core
 
         public static double PowerOf(Rarity r) => RarityPower[(int)r];
 
+        // hệ số của cấp: (1 + lvStep)^(cấp − 1). Thủ của trận cũng so với defK × hệ số cấp của người đánh (Battle.Hit),
+        // nên hai bên cùng cấp thì thủ giảm sát thương như nhau ở mọi cấp
+        public static double LevelMult(BalanceConfig cfg, int level) => Math.Pow(1 + cfg.lvStep, level - 1);
+
         public static Stats Compute(BalanceConfig cfg, HeroDef h, int level, int star, bool boss = false, StatMods mods = null)
         {
             double atkP = h.stats[0], defP = h.stats[1], matk = h.stats[2], mdef = h.stats[3], hpS = h.stats[4], spd = h.stats[5];
             double a = Math.Max(atkP, matk), d = (defP + mdef) / 2, mean = (a + d + hpS) / 3;
-            double m = RarityPower[(int)h.rarity] * (1 + cfg.lvStep * (level - 1)) * (1 + cfg.starStep * (star - 1));
+            double m = RarityPower[(int)h.rarity] * LevelMult(cfg, level) * (1 + cfg.starStep * (star - 1));
             double hp = cfg.hpBase * Math.Sqrt(hpS / mean) * m * (boss ? cfg.bossHp : 1);
             double atk = cfg.atkBase * Math.Sqrt(a / mean) * m * (boss ? cfg.bossAtk : 1);
             double def = cfg.defBase * Math.Sqrt(d / mean) * m;
@@ -46,10 +51,13 @@ namespace PokiClash.Core
             return new Stats { hp = Js.Round(hp), atk = Js.Round(atk), def = Js.Round(def), spd = spd + level };
         }
 
-        // Lực chiến (chỉ để hiện, trận không dùng): 2·√(máu hiệu dụng × Công), máu hiệu dụng = Máu × (defK + Thủ) / defK
-        // (sát thương nhận × defK / (defK + Thủ)). Tăng gần đúng tỉ lệ với m: tướng thường cấp 1 khoảng 800.
-        public static int Power(BalanceConfig cfg, Stats s) =>
-            (int)Math.Round(2 * Math.Sqrt(s.hp * (cfg.defK + s.def) / cfg.defK * s.atk));
+        // Lực chiến (chỉ để hiện, trận không dùng): 2·√(máu hiệu dụng × Công), máu hiệu dụng = Máu × (k + Thủ) / k với
+        // k = defK × hệ số cấp (sát thương nhận × k / (k + Thủ) khi người đánh cùng cấp). Tăng gần đúng tỉ lệ với m: tướng thường cấp 1 khoảng 800.
+        public static int Power(BalanceConfig cfg, Stats s, int level)
+        {
+            double k = cfg.defK * LevelMult(cfg, level);
+            return (int)Math.Round(2 * Math.Sqrt(s.hp * (k + s.def) / k * s.atk));
+        }
 
         // chỉ số một tướng khi vào trận (khớp Battle.MakeFighter), để hiện ở hộp Chuẩn bị trận; tướng tiến hóa trong trận thì theo
         // dạng form của dòng (máu, Công nhân hệ số của dạng, Battle.EvoMult)
@@ -68,7 +76,7 @@ namespace PokiClash.Core
         {
             var s = Compute(cfg, h, m.level, m.star, m.boss, m.mods);
             if (m.evo) s.hp *= cfg.bossEvoHp;
-            return Power(cfg, s);
+            return Power(cfg, s, m.level);
         }
     }
 

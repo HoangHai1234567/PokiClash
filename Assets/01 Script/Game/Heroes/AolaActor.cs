@@ -27,6 +27,7 @@ namespace PokiClash.Game
             public Vector2 Anchor;                          // tâm bóng dưới chân ở khung đầu, điểm khớp giữa các clip
             public bool farReady, hasFar;                   // FarOf đã tính; clip có hiệu ứng vẽ ở xa (chỗ đối thủ của bản gốc)
             public Vector2 farCenter;                       // tâm vùng hiệu ứng ở xa (điểm clip so với Anchor, y xuống)
+            public Vector2? farAt;                          // anim.json "far_center": tâm vùng xa khai sẵn (điểm clip, y xuống)
         }
 
         // Hiệu ứng ở xa (người dùng 2026-11-03: Tiểu Y thiếu animation so với bản gốc): đòn bắn từ xa của aola vẽ đạn bay và vụ nổ
@@ -157,6 +158,11 @@ namespace PokiClash.Game
                     d.clips[kv.Key] = clip;
                 }
                 d.manaClip = root.TryGetValue("mana", out var mc) && Convert.ToString(mc) == "clip";
+                // tâm hiệu ứng ở xa khai sẵn (aola anim_moi.py "far"): đạn bay dọc đường không kéo tâm lệch về phía con bắn
+                if (root.TryGetValue("far_center", out var fcv) && fcv is Dictionary<string, object> fcs)
+                    foreach (var kv in fcs)
+                        if (d.clips.TryGetValue(kv.Key, out var fc) && kv.Value is List<object> fp && fp.Count >= 2)
+                            fc.farAt = new Vector2(Convert.ToSingle(fp[0]), Convert.ToSingle(fp[1]));
                 if (root.TryGetValue("lunge", out var lv) && lv is List<object> ls)
                     foreach (var n in ls) d.lunge.Add(Convert.ToString(n));
                 if (root.TryGetValue("cast", out var cv) && cv is Dictionary<string, object> cast &&
@@ -409,7 +415,7 @@ namespace PokiClash.Game
                         y1 = Mathf.Max(y1, r.y);
                     }
             c.hasFar = x1 >= x0;
-            if (c.hasFar) c.farCenter = new Vector2((x0 + x1) / 2, (y0 + y1) / 2);
+            if (c.hasFar) c.farCenter = c.farAt.HasValue ? c.farAt.Value - c.Anchor : new Vector2((x0 + x1) / 2, (y0 + y1) / 2);
             return c;
         }
 

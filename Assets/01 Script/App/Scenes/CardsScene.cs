@@ -1,5 +1,5 @@
 // Sổ thẻ (chép cardsScreen của Web/src/view/screens/cards.ts): khung "Cách xếp thẻ", chú giải độ hiếm kèm trọng số rút,
-// lưới 23 thẻ chung (thẻ chưa mở xám, "Mở ở cấp n"). Chạm thẻ xem chi tiết và mô tả ở cấp 5.
+// lưới 35 thẻ chung (thẻ chưa mở xám, "Mở ở cấp n"). Chạm thẻ xem chi tiết và mô tả ở cấp 5.
 // Prefab màn hình Assets/04 Prefabs/Screens/Cards; thẻ sinh từ prefab kit theo dữ liệu, hộp chi tiết là Dialogs/ChiTietThe.
 using PokiClash.Core;
 using PokiClash.UI;

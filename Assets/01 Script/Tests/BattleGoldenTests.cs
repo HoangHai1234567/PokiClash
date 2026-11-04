@@ -2,7 +2,8 @@
 // 12 trận so từng sự kiện kèm ảnh chụp, 200 trận so kết quả, chuỗi loại sự kiện và ảnh chụp cuối.
 // Golden xuất bằng `npx tsx scripts/export_golden.ts` (thư mục Web).
 // battles.json, battle_events.json: tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md),
-// rồi lần nữa cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm (không vào hàng thẻ).
+// rồi lần nữa cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm (không vào hàng thẻ); lần nữa 2026-11-04 khi đổi luật rút thẻ
+// (35 thẻ chung, thẻ đã chọn không ra lại trong lượt).
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -247,6 +248,55 @@ namespace PokiClash.Tests
             Assert.AreEqual(hp0, b.ActiveOf(0).hp, "bên bị choáng không đánh");
             // chạy hết trận bằng máy: phải kết thúc có người thắng
             BattleSim.Run(Battle.Create(d, p, e, 99));
+        }
+
+        // luật rút thẻ (người dùng dặn 2026-11-04): thẻ đã chọn không ra lại trong lượt, trừ thẻ có cờ repeat; sang lượt sau thì ra lại được
+        [Test]
+        public void TheDaChon_KhongRaLaiTrongLuot_TruTheLapLai()
+        {
+            var d = TestData.Load();
+            Assert.IsTrue(d.Card("nem_da").repeat, "Ném Đá ra lại được");
+            Assert.IsFalse(d.Card("cuong_no").repeat, "Cuồng Nộ mỗi lượt một lần");
+            var p = new TeamSetup { name = "Bạn", ai = false };
+            p.members.Add(new Member { heroId = "vo_su", level = 5, star = 1 });
+            var e = new TeamSetup { name = "Địch", ai = true };
+            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
+            int repeatSeen = 0, onceNextTurn = 0;
+            for (uint seed = 1; seed <= 200; seed++)
+            {
+                var b = Battle.Create(d, p, e, seed, 10, 10);
+                b.StartBattle();
+                while (b.phase == Phase.Picking)
+                {
+                    Assert.AreEqual(3, b.turn.offer.Distinct().Count(), "3 thẻ khác nhau");
+                    foreach (var id in b.turn.offer)
+                    {
+                        Assert.LessOrEqual(d.Card(id).unlock, 10, id);
+                        if (!b.turn.queue.Exists(q => q.card == id)) continue;
+                        Assert.IsTrue(d.Card(id).repeat, $"hạt giống {seed}: {id} đã chọn mà ra lại");
+                        repeatSeen++;
+                    }
+                    // ưu tiên thẻ một lần để hàng thẻ có nhiều thẻ bị loại
+                    int i = b.turn.offer.FindIndex(id => !d.Card(id).repeat);
+                    b.Pick(i < 0 ? 0 : i);
+                }
+                var once = b.turn.queue.Select(q => q.card).Where(id => !d.Card(id).repeat).ToList();
+                b.Execute();
+                // máy đánh lượt địch, về lại lượt chọn của người chơi
+                for (int guard = 0; guard < 50 && b.phase != Phase.Over && !(b.phase == Phase.Picking && b.turn.side == 0); guard++)
+                {
+                    if (b.phase == Phase.Picking)
+                    {
+                        BattleAi.Turn(b);
+                        b.Execute();
+                    }
+                    else if (b.phase == Phase.ForceSwap) b.ForceSwap(b.AiForcedChoice(b.turn.side));
+                    else b.Advance();
+                }
+                if (b.phase == Phase.Picking && b.turn.offer.Exists(once.Contains)) onceNextTurn++;
+            }
+            Assert.Greater(repeatSeen, 0, "thẻ có cờ repeat vẫn ra lại trong lượt");
+            Assert.Greater(onceNextTurn, 0, "lượt sau thẻ một lần ra lại được");
         }
 
         // Chiêu ra đòn ngay lúc bấm (người dùng 2026-11-03): không vào hàng thẻ, không tốn lần chọn, rồi chọn tiếp;

@@ -25,6 +25,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: "M\xE0i cho s\u1EAFc r\u1ED3i h\u1EB5ng c\xE0o."
     owner: 
     effectsJson: '[{"k":"buff","stat":"atk","v":0.25,"turns":1}]'
@@ -40,6 +41,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: "G\u1ED7 th\xF4ng, h\u01A1i th\u01A1m."
     owner: 
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.2,"turns":1,"until":"start"}]'
@@ -55,6 +57,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: 
     owner: 
     effectsJson: '[{"k":"heal","pct":0.08}]'
@@ -70,6 +73,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: 
     owner: 
     effectsJson: '[{"k":"mana","v":15}]'
@@ -85,6 +89,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: 
     owner: 
     effectsJson: '[{"k":"rage","v":15}]'
@@ -100,9 +105,74 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: "Vi\xEAn to nh\u1EA5t nh\u1EB7t \u0111\u01B0\u1EE3c."
     owner: 
     effectsJson: '[{"k":"dmg","mult":0.45}]'
+  - id: can_xe
+    name: "C\u1EAFn X\xE9"
+    rarity: 0
+    kind: 0
+    icon: fang
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 1
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"dmg","mult":0.3,"lifesteal":0.5}]'
+  - id: nhay_lui
+    name: "Nh\u1EA3y L\xF9i"
+    rarity: 0
+    kind: 0
+    icon: feather
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"buff","stat":"dodge","v":0.25,"turns":1}]'
+  - id: dung_tan
+    name: "\u0110\u1EE9ng T\u1EA5n"
+    rarity: 0
+    kind: 0
+    icon: helmet
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"buff","stat":"def","v":0.3,"turns":1}]'
+  - id: hat_de
+    name: "H\u1EA1t D\u1EBB"
+    rarity: 0
+    kind: 0
+    icon: seed
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: "Nhai ch\u1EADm th\xEC no l\xE2u."
+    owner: 
+    effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.03,"on":"self"}]'
   - id: binh_thuoc
     name: "B\xECnh Thu\u1ED1c"
     rarity: 1
@@ -115,6 +185,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: 
     owner: 
     effectsJson: '[{"k":"heal","pct":0.18}]'
@@ -130,6 +201,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: "\u0102n xong th\u1EA5y m\xECnh to ra."
     owner: 
     effectsJson: '[{"k":"maxhp","pct":0.12}]'
@@ -145,6 +217,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"selfdmg","pctCur":0.25},{"k":"buff","stat":"atk","v":0.5,"turns":1}]'
@@ -160,6 +233,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: 
     owner: 
     effectsJson: '[{"k":"shield","pct":0.12}]'
@@ -175,9 +249,42 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 1
     flavor: 
     owner: 
     effectsJson: '[{"k":"mana","v":30}]'
+  - id: phong_long
+    name: "Ph\xF3ng L\xF4ng"
+    rarity: 1
+    kind: 0
+    icon: wing
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 1
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"dmg","mult":0.2,"hits":3}]'
+  - id: tung_cat
+    name: "Tung C\xE1t"
+    rarity: 1
+    kind: 0
+    icon: wind
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: "Ch\u01A1i h\u01A1i b\u1EA9n, nh\u01B0ng hi\u1EC7u qu\u1EA3."
+    owner: 
+    effectsJson: '[{"k":"buff","stat":"atk","v":-0.2,"turns":1,"until":"end","on":"foe"}]'
   - id: dam_kep
     name: "\u0110\u1EA5m K\xE9p"
     rarity: 1
@@ -189,10 +296,27 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 2
+    unlock: 7
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"extra","mult":0.5}]'
+  - id: trang_khuyet
+    name: "Tr\u0103ng Khuy\u1EBFt"
+    rarity: 1
+    kind: 0
+    icon: moon
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 7
+    repeat: 1
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"mana","v":-20,"on":"foe"}]'
   - id: cuong_no
     name: "Cu\u1ED3ng N\u1ED9"
     rarity: 2
@@ -205,24 +329,10 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: "B\u1ECF th\u1EE7, d\u1ED3n h\u1EBFt v\xE0o m\u1ED9t c\xFA."
     owner: 
     effectsJson: '[{"k":"buff","stat":"atk","v":1,"turns":1},{"k":"buff","stat":"def","v":-0.3,"turns":2,"until":"start"}]'
-  - id: hut_mau
-    name: "H\xFAt M\xE1u"
-    rarity: 2
-    kind: 0
-    icon: fang
-    costMana: 0
-    costRage: 0
-    trigger: 0
-    hasChance: 0
-    chance: 0
-    below: 0.3
-    unlock: 3
-    flavor: 
-    owner: 
-    effectsJson: '[{"k":"buff","stat":"lifesteal","v":0.5,"turns":1}]'
   - id: pha_giap
     name: "Ph\xE1 Gi\xE1p"
     rarity: 2
@@ -235,9 +345,42 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"buff","stat":"def","v":-0.3,"turns":2,"until":"end","on":"foe"}]'
+  - id: bua_ta
+    name: "B\xFAa T\u1EA1"
+    rarity: 2
+    kind: 0
+    icon: hammer
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 7
+    repeat: 0
+    flavor: "Khi\xEAn n\xE0o c\u0169ng c\xF3 ch\u1ED7 m\u1ECFng."
+    owner: 
+    effectsJson: '[{"k":"dmg","mult":0.7,"pierce":0.5}]'
+  - id: hut_mau
+    name: "H\xFAt M\xE1u"
+    rarity: 2
+    kind: 0
+    icon: fang
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 12
+    repeat: 0
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"buff","stat":"lifesteal","v":0.5,"turns":1}]'
   - id: dot_lua
     name: "\u0110\u1ED1t L\u1EEDa"
     rarity: 2
@@ -249,10 +392,43 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 3
+    unlock: 12
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
+  - id: suoi_trong
+    name: "Su\u1ED1i Trong"
+    rarity: 2
+    kind: 0
+    icon: wave
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 12
+    repeat: 0
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"cleanse"},{"k":"heal","pct":0.12}]'
+  - id: sam_ren
+    name: "S\u1EA5m R\u1EC1n"
+    rarity: 2
+    kind: 0
+    icon: bolt
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 18
+    repeat: 0
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"dmg","mult":0.6},{"k":"status","id":"stun","turns":1,"chance":0.35,"on":"foe"}]'
   - id: guong_doi
     name: "G\u01B0\u01A1ng \u0110\xF4i"
     rarity: 2
@@ -264,7 +440,8 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 5
+    unlock: 23
+    repeat: 0
     flavor: "Th\u1EBB ngay sau n\xF3 ch\u1EA1y hai l\u1EA7n."
     owner: 
     effectsJson: '[{"k":"double"}]'
@@ -279,10 +456,27 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 5
+    unlock: 23
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"buff","stat":"crit","v":0.5,"turns":1}]'
+  - id: long_phuong
+    name: "L\xF4ng Ph\u01B0\u1EE3ng"
+    rarity: 3
+    kind: 0
+    icon: phoenix
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 29
+    repeat: 0
+    flavor: "C\xF2n \u1EA5m nh\u01B0 v\u1EEBa ra kh\u1ECFi l\u1EEDa."
+    owner: 
+    effectsJson: '[{"k":"heal","pct":0.15},{"k":"status","id":"regen","turns":3,"v":0.05,"on":"self"}]'
   - id: bua_choang
     name: "B\xF9a Cho\xE1ng"
     rarity: 3
@@ -294,7 +488,8 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 7
+    unlock: 34
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"status","id":"stun","turns":1,"on":"foe"}]'
@@ -309,7 +504,8 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 7
+    unlock: 34
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"mana","v":30},{"k":"rage","v":30}]'
@@ -324,10 +520,27 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 7
+    unlock: 34
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"status","id":"evade","turns":1,"on":"self"}]'
+  - id: don_suc
+    name: "D\u1ED3n S\u1EE9c"
+    rarity: 3
+    kind: 0
+    icon: sword
+    costMana: 0
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 40
+    repeat: 0
+    flavor: 
+    owner: 
+    effectsJson: '[{"k":"buff","stat":"atk","v":0.4,"turns":2},{"k":"rage","v":20}]'
   - id: nghich_thien
     name: "Ngh\u1ECBch Thi\xEAn"
     rarity: 4
@@ -339,7 +552,8 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 10
+    unlock: 60
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"ifLow","below":0.5,"then":[{"k":"heal","pct":0.4},{"k":"buff","stat":"atk","v":0.6,"turns":1}],"else":[{"k":"buff","stat":"atk","v":0.3,"turns":1}]}]'
@@ -354,7 +568,8 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 10
+    unlock: 60
+    repeat: 0
     flavor: 
     owner: 
     effectsJson: '[{"k":"trueStrike","mult":1.5}]'
@@ -371,6 +586,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: vo_su
     effectsJson: '[{"k":"dmg","mult":1.2},{"k":"rage","v":10}]'
@@ -386,6 +602,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: vo_su
     effectsJson: '[{"k":"dmg","mult":0.5,"hits":5}]'
@@ -401,6 +618,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: vo_su
     effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
@@ -416,6 +634,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_de
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":3,"v":0.05,"on":"foe"}]'
@@ -431,6 +650,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_de
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
@@ -446,6 +666,7 @@ MonoBehaviour:
     chance: 0.3
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_de
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -461,6 +682,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phap_luan
     effectsJson: '[{"k":"dmg","mult":1.3},{"k":"mana","v":-20,"on":"foe"}]'
@@ -476,6 +698,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phap_luan
     effectsJson: '[{"k":"dmg","mult":2.2},{"k":"status","id":"stun","turns":1,"on":"foe"}]'
@@ -491,6 +714,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phap_luan
     effectsJson: '[{"k":"mana","v":10}]'
@@ -506,6 +730,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ca_sa
     effectsJson: '[{"k":"heal","pct":0.25},{"k":"cleanse"}]'
@@ -521,6 +746,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ca_sa
     effectsJson: '[{"k":"dmg","mult":3},{"k":"shield","pct":0.3}]'
@@ -536,6 +762,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ca_sa
     effectsJson: '[{"k":"revive","pct":0.35}]'
@@ -551,6 +778,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: lam_quan
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
@@ -566,6 +794,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: lam_quan
     effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -581,6 +810,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: lam_quan
     effectsJson: '[{"k":"shield","pct":0.12}]'
@@ -596,6 +826,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: tieu_y
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
@@ -611,6 +842,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: tieu_y
     effectsJson: '[{"k":"dmg","mult":2},{"k":"heal","pct":0.15}]'
@@ -626,6 +858,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: tieu_y
     effectsJson: '[{"k":"heal","pct":0.04}]'
@@ -641,6 +874,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bu_long
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.15,"on":"foe"}]'
@@ -656,6 +890,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bu_long
     effectsJson: '[{"k":"dmg","mult":2},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -671,6 +906,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bu_long
     effectsJson: '[{"k":"shield","pct":0.06}]'
@@ -686,6 +922,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phao_hop
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
@@ -701,6 +938,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phao_hop
     effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -716,6 +954,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phao_hop
     effectsJson: '[{"k":"shield","pct":0.12}]'
@@ -731,6 +970,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kiem_linh
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
@@ -746,6 +986,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kiem_linh
     effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -761,6 +1002,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kiem_linh
     effectsJson: '[{"k":"shield","pct":0.12}]'
@@ -776,6 +1018,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: meo_quyen
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
@@ -791,6 +1034,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: meo_quyen
     effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -806,6 +1050,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: meo_quyen
     effectsJson: '[{"k":"shield","pct":0.12}]'
@@ -821,6 +1066,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_cap
     effectsJson: '[{"k":"dmg","mult":1.6}]'
@@ -836,6 +1082,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_cap
     effectsJson: '[{"k":"dmg","mult":2.8},{"k":"status","id":"stun","turns":1,"on":"foe"}]'
@@ -851,6 +1098,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_cap
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.12,"turns":99}]'
@@ -866,6 +1114,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_ngua
     effectsJson: '[{"k":"dmg","mult":1.6}]'
@@ -881,6 +1130,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_ngua
     effectsJson: '[{"k":"dmg","mult":2.8},{"k":"status","id":"stun","turns":1,"on":"foe"}]'
@@ -896,6 +1146,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_ngua
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.12,"turns":99}]'
@@ -911,6 +1162,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: soi_linh
     effectsJson: '[{"k":"dmg","mult":1.5,"lifesteal":0.3}]'
@@ -926,6 +1178,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: soi_linh
     effectsJson: '[{"k":"dmg","mult":3.2,"pierce":0.5}]'
@@ -941,6 +1194,7 @@ MonoBehaviour:
     chance: 0
     below: 0.5
     unlock: 1
+    repeat: 0
     flavor: 
     owner: soi_linh
     effectsJson: '[{"k":"buff","stat":"atk","v":0.25,"turns":99}]'
@@ -956,6 +1210,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bach_ho
     effectsJson: '[{"k":"dmg","mult":1.5,"lifesteal":0.3}]'
@@ -971,6 +1226,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bach_ho
     effectsJson: '[{"k":"dmg","mult":3.2,"pierce":0.5}]'
@@ -986,6 +1242,7 @@ MonoBehaviour:
     chance: 0
     below: 0.5
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bach_ho
     effectsJson: '[{"k":"buff","stat":"atk","v":0.25,"turns":99}]'
@@ -1001,6 +1258,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: mam_go
     effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.07,"on":"self"},{"k":"dmg","mult":0.6}]'
@@ -1016,6 +1274,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: mam_go
     effectsJson: '[{"k":"dmg","mult":2.1},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1031,6 +1290,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: mam_go
     effectsJson: '[{"k":"rage","v":8}]'
@@ -1046,6 +1306,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: nu_hoa
     effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.07,"on":"self"},{"k":"dmg","mult":0.7}]'
@@ -1061,6 +1322,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: nu_hoa
     effectsJson: '[{"k":"dmg","mult":2.3},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1076,6 +1338,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: nu_hoa
     effectsJson: '[{"k":"rage","v":10}]'
@@ -1091,6 +1354,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kien_binh
     effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.07,"on":"self"},{"k":"dmg","mult":0.6}]'
@@ -1106,6 +1370,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kien_binh
     effectsJson: '[{"k":"dmg","mult":2.1},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1121,6 +1386,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kien_binh
     effectsJson: '[{"k":"rage","v":8}]'
@@ -1136,6 +1402,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: banh_tet
     effectsJson: '[{"k":"status","id":"regen","turns":3,"v":0.07,"on":"self"},{"k":"dmg","mult":0.6}]'
@@ -1151,6 +1418,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: banh_tet
     effectsJson: '[{"k":"dmg","mult":2.1},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1166,6 +1434,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: banh_tet
     effectsJson: '[{"k":"rage","v":8}]'
@@ -1181,6 +1450,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: de_hoa
     effectsJson: '[{"k":"dmg","mult":0.75,"hits":2}]'
@@ -1196,6 +1466,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: de_hoa
     effectsJson: '[{"k":"dmg","mult":2.4},{"k":"buff","stat":"atk","v":0.3,"turns":2}]'
@@ -1211,6 +1482,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: de_hoa
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
@@ -1226,6 +1498,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: giac_long
     effectsJson: '[{"k":"dmg","mult":0.75,"hits":2}]'
@@ -1241,6 +1514,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: giac_long
     effectsJson: '[{"k":"dmg","mult":2.4},{"k":"buff","stat":"atk","v":0.3,"turns":2}]'
@@ -1256,6 +1530,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: giac_long
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
@@ -1271,6 +1546,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phong_linh
     effectsJson: '[{"k":"dmg","mult":0.75,"hits":2}]'
@@ -1286,6 +1562,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phong_linh
     effectsJson: '[{"k":"dmg","mult":2.4},{"k":"buff","stat":"atk","v":0.3,"turns":2}]'
@@ -1301,6 +1578,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phong_linh
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
@@ -1316,6 +1594,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thanh_long
     effectsJson: '[{"k":"dmg","mult":0.75,"hits":2}]'
@@ -1331,6 +1610,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thanh_long
     effectsJson: '[{"k":"dmg","mult":2.4},{"k":"buff","stat":"atk","v":0.3,"turns":2}]'
@@ -1346,6 +1626,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thanh_long
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
@@ -1361,6 +1642,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: canh_cut
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
@@ -1376,6 +1658,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: canh_cut
     effectsJson: '[{"k":"dmg","mult":2},{"k":"heal","pct":0.15}]'
@@ -1391,6 +1674,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: canh_cut
     effectsJson: '[{"k":"heal","pct":0.04}]'
@@ -1406,6 +1690,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: giot_suong
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
@@ -1421,6 +1706,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: giot_suong
     effectsJson: '[{"k":"dmg","mult":2},{"k":"heal","pct":0.15}]'
@@ -1436,6 +1722,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: giot_suong
     effectsJson: '[{"k":"heal","pct":0.05}]'
@@ -1451,6 +1738,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: tam_tay
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
@@ -1466,6 +1754,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: tam_tay
     effectsJson: '[{"k":"dmg","mult":2},{"k":"heal","pct":0.15}]'
@@ -1481,6 +1770,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: tam_tay
     effectsJson: '[{"k":"heal","pct":0.04}]'
@@ -1496,6 +1786,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ca_ngua
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1511,6 +1802,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ca_ngua
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1526,6 +1818,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ca_ngua
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1541,6 +1834,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: map_rang
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1556,6 +1850,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: map_rang
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1571,6 +1866,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: map_rang
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1586,6 +1882,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: huyen_vu
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1601,6 +1898,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: huyen_vu
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1616,6 +1914,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: huyen_vu
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1631,6 +1930,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: mi_nhi
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
@@ -1646,6 +1946,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: mi_nhi
     effectsJson: '[{"k":"dmg","mult":2},{"k":"heal","pct":0.15}]'
@@ -1661,6 +1962,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: mi_nhi
     effectsJson: '[{"k":"heal","pct":0.04}]'
@@ -1676,6 +1978,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ma_ket
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1691,6 +1994,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ma_ket
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1706,6 +2010,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ma_ket
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1721,6 +2026,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: vay_lam
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1736,6 +2042,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: vay_lam
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1751,6 +2058,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: vay_lam
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1766,6 +2074,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thuong_lam
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1781,6 +2090,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thuong_lam
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1796,6 +2106,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thuong_lam
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1811,6 +2122,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kuba
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -1826,6 +2138,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kuba
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
@@ -1841,6 +2154,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: kuba
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
@@ -1856,6 +2170,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: heo_lua
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":3,"v":0.05,"on":"foe"}]'
@@ -1871,6 +2186,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: heo_lua
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
@@ -1886,6 +2202,7 @@ MonoBehaviour:
     chance: 0.3
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: heo_lua
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -1901,6 +2218,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: dom_lua
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":3,"v":0.05,"on":"foe"}]'
@@ -1916,6 +2234,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: dom_lua
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
@@ -1931,6 +2250,7 @@ MonoBehaviour:
     chance: 0.3
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: dom_lua
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -1946,6 +2266,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phao_tet
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":3,"v":0.05,"on":"foe"}]'
@@ -1961,6 +2282,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phao_tet
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
@@ -1976,6 +2298,7 @@ MonoBehaviour:
     chance: 0.3
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: phao_tet
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -1991,6 +2314,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: su_tu_lua
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
@@ -2006,6 +2330,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: su_tu_lua
     effectsJson: '[{"k":"dmg","mult":2.2},{"k":"status","id":"burn","turns":3,"v":0.07,"on":"foe"}]'
@@ -2021,6 +2346,7 @@ MonoBehaviour:
     chance: 0.35
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: su_tu_lua
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -2036,6 +2362,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ho_lua
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":3,"v":0.05,"on":"foe"}]'
@@ -2051,6 +2378,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ho_lua
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
@@ -2066,6 +2394,7 @@ MonoBehaviour:
     chance: 0.3
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ho_lua
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -2081,6 +2410,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: chu_tuoc
     effectsJson: '[{"k":"dmg","mult":1.3},{"k":"mana","v":-20,"on":"foe"}]'
@@ -2096,6 +2426,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: chu_tuoc
     effectsJson: '[{"k":"dmg","mult":2.2},{"k":"status","id":"stun","turns":1,"on":"foe"}]'
@@ -2111,6 +2442,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: chu_tuoc
     effectsJson: '[{"k":"mana","v":10}]'
@@ -2126,6 +2458,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: gau_mo
     effectsJson: '[{"k":"dmg","mult":1.2},{"k":"rage","v":10}]'
@@ -2141,6 +2474,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: gau_mo
     effectsJson: '[{"k":"dmg","mult":0.5,"hits":5}]'
@@ -2156,6 +2490,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: gau_mo
     effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
@@ -2171,6 +2506,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: soc_da
     effectsJson: '[{"k":"dmg","mult":1.2},{"k":"rage","v":10}]'
@@ -2186,6 +2522,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: soc_da
     effectsJson: '[{"k":"dmg","mult":0.5,"hits":5}]'
@@ -2201,6 +2538,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: soc_da
     effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
@@ -2216,6 +2554,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_hung
     effectsJson: '[{"k":"dmg","mult":1.2},{"k":"rage","v":10}]'
@@ -2231,6 +2570,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_hung
     effectsJson: '[{"k":"dmg","mult":0.5,"hits":5}]'
@@ -2246,6 +2586,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: bo_hung
     effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
@@ -2261,6 +2602,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thach_nhan
     effectsJson: '[{"k":"dmg","mult":1},{"k":"shield","pct":0.1}]'
@@ -2276,6 +2618,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thach_nhan
     effectsJson: '[{"k":"dmg","mult":2.2},{"k":"buff","stat":"atk","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
@@ -2291,6 +2634,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: thach_nhan
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.08,"turns":99}]'
@@ -2306,6 +2650,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: sa_than
     effectsJson: '[{"k":"dmg","mult":1.2},{"k":"rage","v":10}]'
@@ -2321,6 +2666,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: sa_than
     effectsJson: '[{"k":"dmg","mult":0.5,"hits":5}]'
@@ -2336,6 +2682,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: sa_than
     effectsJson: '[{"k":"buff","stat":"def","v":0.15,"turns":99}]'
@@ -2351,6 +2698,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ky_lan
     effectsJson: '[{"k":"heal","pct":0.25},{"k":"cleanse"}]'
@@ -2366,6 +2714,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ky_lan
     effectsJson: '[{"k":"dmg","mult":3},{"k":"shield","pct":0.3}]'
@@ -2381,6 +2730,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: ky_lan
     effectsJson: '[{"k":"revive","pct":0.35}]'
@@ -2396,6 +2746,7 @@ MonoBehaviour:
     chance: 0
     below: 0.25
     unlock: 1
+    repeat: 0
     flavor: "\u0110\xE2y m\u1EDBi l\xE0 d\u1EA1ng \u0111\u1EA7u th\xF4i!"
     owner: 
     effectsJson: '[{"k":"evolve","pct":1}]'
@@ -2412,6 +2763,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_cua
     effectsJson: '[{"k":"dmg","mult":1}]'
@@ -2427,6 +2779,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_cua
     effectsJson: '[{"k":"dmg","mult":1.6}]'
@@ -2442,6 +2795,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_cua
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.15,"turns":99}]'
@@ -2457,6 +2811,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_cua2
     effectsJson: '[{"k":"dmg","mult":1.2}]'
@@ -2472,6 +2827,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_cua2
     effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
@@ -2487,6 +2843,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_cua2
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.2,"turns":99}]'
@@ -2502,6 +2859,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_noc
     effectsJson: '[{"k":"shield","pct":0.15}]'
@@ -2517,6 +2875,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_noc
     effectsJson: '[{"k":"dmg","mult":1.5}]'
@@ -2532,6 +2891,7 @@ MonoBehaviour:
     chance: 0.3
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_noc
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.04,"on":"foe"}]'
@@ -2547,6 +2907,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_noc2
     effectsJson: '[{"k":"dmg","mult":1.1},{"k":"status","id":"stun","turns":1,"chance":0.15,"on":"foe"}]'
@@ -2562,6 +2923,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_noc2
     effectsJson: '[{"k":"dmg","mult":1.8}]'
@@ -2577,6 +2939,7 @@ MonoBehaviour:
     chance: 0.35
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_noc2
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
@@ -2592,6 +2955,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_ngu
     effectsJson: '[{"k":"extra","mult":0.6}]'
@@ -2607,6 +2971,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_ngu
     effectsJson: '[{"k":"dmg","mult":0.7,"hits":2}]'
@@ -2622,6 +2987,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_ngu
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.12,"turns":99}]'
@@ -2637,6 +3003,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_ngu2
     effectsJson: '[{"k":"extra","mult":0.8}]'
@@ -2652,6 +3019,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_ngu2
     effectsJson: '[{"k":"dmg","mult":0.85,"hits":2}]'
@@ -2667,6 +3035,7 @@ MonoBehaviour:
     chance: 0
     below: 0.3
     unlock: 1
+    repeat: 0
     flavor: 
     owner: linh_ngu2
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'

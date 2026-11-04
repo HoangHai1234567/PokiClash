@@ -1,6 +1,7 @@
 // Tiềm năng so với bản web (golden potential.json): 60 lần khai phá có khoá ô và giữ mới / giữ cũ, trần tổng, phần cộng và hiệu ứng
 // đầu trận của đội, 6 trận thật có hiệu ứng đầu trận, Hang (đội địch, thứ trong tuần, lượt, đá). Thêm: tỉ lệ độ hiếm trên 100.000 lần quay,
-// giá có khoá, lưu rồi đọc lại. Số hiệp 6 trận thật tính lại bên Unity 2026-11-03 khi Chiêu đổi sang ra đòn ngay lúc bấm.
+// giá có khoá, lưu rồi đọc lại. Số hiệp 6 trận thật tính lại bên Unity 2026-11-03 khi Chiêu đổi sang ra đòn ngay lúc bấm,
+// và 2026-11-04 khi đổi luật rút thẻ.
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;

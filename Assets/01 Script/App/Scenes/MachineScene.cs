@@ -2,6 +2,7 @@
 // Nút ×N là mức cược: tốn N bi mỗi lần thả, thưởng ×N. Mỗi đợt tối đa MaxPerDrop(cấp) bi; đợt xong (mọi bi đã rơi) thì mở
 // lần lượt rương trong khay, rồi hộp "Huyền thoại!" (nếu vừa vượt mốc), rồi "Lên cấp!". Rương chờ nằm trong bản lưu.
 // Prefab màn hình Assets/04 Prefabs/Screens/Machine (mặt máy, cột cược, khay rương 3 nút dựng sẵn, nút thả); hộp Dialogs/TiLeMayBi, Dialogs/HuyenThoai.
+// Trên đầu máy là thanh kinh nghiệm (MachineExpBar): EXP rơi vào ô bay lên thanh. Số trên ô đổi theo mức cược (MachineBoard.SetMult).
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -43,6 +44,7 @@ namespace PokiClash
             public UiBar legendBar;
             public MachineRatesDialog ratesDialog;
             public LegendMilestoneDialog legendDialog;
+            public MachineExpBar expBar; // thanh kinh nghiệm trên đầu máy (menu "PokiClash/Prefab/Máy bi: thanh kinh nghiệm")
         }
 
         [SerializeField] Parts p;
@@ -94,7 +96,9 @@ namespace PokiClash
             p.dropHold.Up = () => holding = false;
             p.auto.SetOnClick(Auto);
             x = lastX;
+            if (p.expBar) p.expBar.Bind();
             RefreshUi();
+            view.SetMult(x, false);
             RebuildTray();
         }
 
@@ -134,6 +138,8 @@ namespace PokiClash
             var s = S;
             var allowed = Progress.XAllowed(s, D.Cfg);
             if (!allowed.Contains(x)) x = 1;
+            view.SetMult(x, false);
+            if (p.expBar) p.expBar.Sync();
             foreach (var (b, lockText, bx) in xBtns)
             {
                 bool ok = allowed.Contains(bx);
@@ -166,8 +172,14 @@ namespace PokiClash
                 App.Toasts.Show("Đợt đang chạy, chờ bi rơi hết rồi đổi cược", App.Art.Icon("ball"));
                 return;
             }
+            bool changed = bx != x;
             x = lastX = bx;
+            // số trên ô nhún theo cược mới, chữ "×N" to nổi giữa máy (như bảng hệ số bật lên của máy tham khảo)
+            view.SetMult(x);
             RefreshUi();
+            if (!changed) return;
+            view.Float(Board.BW / 2, Board.BH * 0.4, "×" + x, Theme.Hex("#f39a2d"), 64);
+            App.Audio.Play("pick", 0.7f, 0.9f + Mathf.Min(x, 10) * 0.03f);
         }
 
         // khay "Rương chờ": đếm theo loại, vàng trên cùng; chạm để mở. Nút loại không có rương ẩn, nút còn lại xếp từ trên xuống.
@@ -323,6 +335,7 @@ namespace PokiClash
             {
                 case RewardKind.Exp:
                     view.Float(bx, by - 20, $"+{r.n} XP", MachineBoard.XpColor);
+                    if (p.expBar) p.expBar.Fly(view.World(bx, by), r.n);
                     App.Audio.Play("land");
                     Haptics.Play(Haptic.LandSmall);
                     dirty = true;
@@ -396,8 +409,9 @@ namespace PokiClash
             holding = false;
             SaveNow();
             RefreshUi();
-            // chờ rương cuối bay vào khay, chữ nổi cuối kịp hiện
+            // chờ rương cuối bay vào khay, chữ nổi cuối kịp hiện, sao EXP cuối bay tới thanh
             yield return new WaitForSecondsRealtime(S.chests.Count > 0 ? 0.75f : 0.3f);
+            for (float t = 0; p.expBar && p.expBar.Busy && !leaving && t < 2; t += Time.unscaledDeltaTime) yield return null;
             if (S.chests.Count > 0 && !leaving) yield return OpenChests();
             if (bigReward != null && !leaving)
             {
@@ -497,6 +511,7 @@ namespace PokiClash
             holding = false;
             autoLeft = 0;
             slowT = 0;
+            if (p.expBar) p.expBar.Clear();
             if (board == null) return;
             var s = S;
             // bi còn lăn: tính như rơi vào ô EXP 10 (EXP 10 × mức cược)

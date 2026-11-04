@@ -2,7 +2,8 @@
 // bắn tia (chiêu mana), chiêu cuối, đánh thường, rồi đối thủ đánh; chụp nhỏ liên tục vào Temp/PokiShots/gs_combat/s<sao>_<đòn>_<n>.jpg;
 // xong trả lại bản lưu như trước.
 // Để soi: con ra đòn nằm trên con kia, chiêu cuối lao tới đối thủ, chiêu mana bắn tia nước to nhỏ theo dạng.
-// Menu Tiểu Y (sao 1, 5: hai dạng): đòn bắn từ xa có đạn và vụ nổ ở chỗ đối thủ (AolaActor hiệu ứng ở xa); ảnh vào tieu_y_combat/.
+// Menu Tiểu Y (sao 1, 5: hai dạng): dạng 1 (thuy_1319, 2026-11-04) đâm đinh ba, bắn tia từ mũi đinh ba, chiêu cuối ném quả cầu nước
+// bay tới nổ ở thân đối thủ (AolaActor hiệu ứng ở xa, anim.json "far_center"); dạng 2 còn hình gốc aola; ảnh vào tieu_y_combat/.
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -21,7 +22,7 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Giọt Sương ra trận: đánh, bắn tia, chiêu cuối ở 3 dạng (đang Play)", priority = 112)]
         static void Try() => Start("giot_suong", "gs_combat", 1, 3, 5);
 
-        [MenuItem("PokiClash/Thử/Tiểu Y ra trận: đánh từ xa, chiêu cuối ở 2 dạng (đang Play)", priority = 113)]
+        [MenuItem("PokiClash/Thử/Tiểu Y ra trận: đâm đinh ba, bắn tia, ném cầu nước ở 2 dạng (đang Play)", priority = 113)]
         static void TryTieuY() => Start("tieu_y", "tieu_y_combat", 1, 5);
 
         static void Start(string id, string folder, params int[] at)

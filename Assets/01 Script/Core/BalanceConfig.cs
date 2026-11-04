@@ -146,6 +146,7 @@ namespace PokiClash.Core
         public int[] counts = { 5, 5, 10, 10, 10 }; // số trận mỗi bậc
         public double[] bonus = { 0.05, 0.08, 0.12, 0.16, 0.2 }; // phần cộng Máu, Công, Thủ theo bậc cao nhất
         public int levelPerTier = 3, ballsBase = 5, ballsPerTier = 2;
+        public double levelPerFight = 0.5; // cấp địch thêm mỗi trận trong bậc
         public List<string> chest = new List<string> { "chest_silver", "chest_silver", "chest_gold", "chest_gold", "chest_gold" };
     }
 
@@ -409,6 +410,7 @@ namespace PokiClash.Core
                     counts = Ints(J.Arr(bg, "counts")),
                     bonus = J.Arr(bg, "bonus").Select(x => (double)x).ToArray(),
                     levelPerTier = J.Int(bg, "levelPerTier"), ballsBase = J.Int(bg, "ballsBase"), ballsPerTier = J.Int(bg, "ballsPerTier"),
+                    levelPerFight = J.Num(bg, "levelPerFight", 0.5),
                     chest = J.Arr(bg, "chest").OfType<string>().ToList(),
                 };
             var stm = J.Obj(root, "simTeams");

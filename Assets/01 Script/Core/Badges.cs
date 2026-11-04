@@ -44,7 +44,7 @@ namespace PokiClash.Core
             int n = Count(cfg, tier);
             var hs = d.Heroes.Where(h => h.elem == z).ToList();
             string Pick(int j) => hs[(i + tier + j) % hs.Count].id;
-            int level = d.Zone(z).levelMin + cfg.badges.levelPerTier * (tier - 1) + i / 2;
+            int level = d.Zone(z).levelMin + cfg.badges.levelPerTier * (tier - 1) + (int)(i * cfg.badges.levelPerFight);
             List<string> ids;
             if (i == n)
             {

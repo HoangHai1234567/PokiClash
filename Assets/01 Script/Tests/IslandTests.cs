@@ -1,6 +1,7 @@
 // Hệ thống 70 ải so với bản web (Golden/islands.json, lần xuất cuối 2026-11-03): cỡ đảo, mini boss đầu, rương mốc, bi lần đầu và
 // đánh lại, đội địch từng ải (cấp, sao, thẻ, boss, phần cộng của địch khớp từng bit); lính tìm được nhưng không thu phục.
 // Cập nhật bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md): sức địch đảo Thủy từ ải 4, ải 1 đảo Hỏa và Thổ.
+// Cập nhật 2026-11-04 (cấp địch theo cấp người chơi, 14_HeThongAi.md): đảo Thủy cấp 1–15, các đảo sau dời lên 15–30.
 using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;

@@ -1,5 +1,6 @@
 // Trận theo lượt, luân phiên, gốc là Web/src/core/battle.ts (cùng hạt giống, cùng lựa chọn thì cùng chuỗi sự kiện).
-// Khác bản web từ 2026-11-03: chiêu ra ngay lúc bấm, không vào hàng thẻ.
+// Khác bản web từ 2026-11-03: chiêu ra ngay lúc bấm, không vào hàng thẻ. Từ 2026-11-04: 35 thẻ chung (web 23), thẻ đã chọn
+// không ra lại trong lượt trừ thẻ có cờ repeat.
 // Mỗi hiệp: người chơi (bên 0) đi trước. Mỗi lượt:
 //   1. đầu lượt (trước lần chọn đầu) được đổi tướng;
 //   2. chọn 5 lần, mỗi lần 1 trong 3 thẻ chung; chiêu và tuyệt kỹ dùng xen vào lúc chọn, không tốn lần chọn.
@@ -249,10 +250,13 @@ namespace PokiClash.Core
             phase = Phase.Picking;
         }
 
+        // rút 3 thẻ khác nhau từ thẻ chung đã mở theo cấp, nặng theo độ hiếm. Thẻ đã chọn trong lượt không ra lại,
+        // trừ thẻ có cờ repeat (người dùng dặn 2026-11-04)
         public List<string> DrawOffer(int s)
         {
             int unlock = sides[s].unlock;
-            var pool = Data.Pool.Where(c => c.unlock <= unlock).ToList();
+            var picked = turn.side == s ? turn.queue.Select(q => q.card).ToList() : new List<string>();
+            var pool = Data.Pool.Where(c => c.unlock <= unlock && (c.repeat || !picked.Contains(c.id))).ToList();
             var outL = new List<CardDef>();
             while (outL.Count < Cfg.offer && outL.Count < pool.Count)
             {
@@ -455,7 +459,8 @@ namespace PokiClash.Core
             double em = ElemMult(A, D);
             bool crit = rng.Chance(Cfg.critBase + BuffSum(A, Stat.Crit));
             double taken = Math.Max(0.1, 1 + BuffSum(D, Stat.DmgTaken));
-            double raw = atk * m * (Cfg.defK / (Cfg.defK + def)) * em * (crit ? Cfg.critMult : 1) * taken *
+            double k = Cfg.defK * HeroStats.LevelMult(Cfg, A.level);
+            double raw = atk * m * (k / (k + def)) * em * (crit ? Cfg.critMult : 1) * taken *
                          rng.Range(1 - Cfg.dmgVar, 1 + Cfg.dmgVar);
             double dmg = Math.Max(1, Js.Round(raw));
             double blocked = Math.Min(D.shield, dmg);

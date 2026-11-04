@@ -119,6 +119,7 @@ namespace PokiClash.Core
                 chance = J.Num(o, "chance"),
                 below = J.Num(o, "below", 0.3),
                 unlock = J.Int(o, "unlock", 1),
+                repeat = J.Bool(o, "repeat"),
                 flavor = J.Str(o, "flavor"),
                 owner = J.Str(o, "owner"),
                 effectsJson = MiniJson.Write(J.Get(o, "effects") ?? new List<object>()),
@@ -201,7 +202,7 @@ namespace PokiClash.Core
                 if (got != want) err.Add($"{what}: có {got}, cần {want}");
             }
             Expect(Heroes.Count, 45, "Số tướng"); // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02)
-            Expect(Pool.Count, 23, "Số thẻ chung");
+            Expect(Pool.Count, 35, "Số thẻ chung"); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
             Expect(Innate.Count, 136, "Số thẻ riêng"); // 45 tướng × 3 + thẻ Tiến Hóa của boss
             Expect(Minions.Count, 6, "Số lính"); // 3 loại lính Đảo Thủy, mỗi loại 2 bậc (2026-11-03)
             Expect(MinionCards.Count, 18, "Số thẻ của lính");

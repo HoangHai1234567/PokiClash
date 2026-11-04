@@ -21,16 +21,16 @@ namespace PokiClash.Tests
             Assert.AreEqual(1, Progress.TeamSlots(s), "mới chơi");
             foreach (var e in Elements.All) s.zones[(int)e] = Islands.Size(e);
             Assert.AreEqual(1, Progress.TeamSlots(s), "xong hết đảo mà cấp 1 vẫn 1 ô");
-            s.level = 9;
-            Assert.AreEqual(1, Progress.TeamSlots(s), "cấp 9");
-            s.level = 10;
-            Assert.AreEqual(2, Progress.TeamSlots(s), "cấp 10");
-            s.level = 29;
-            Assert.AreEqual(2, Progress.TeamSlots(s), "cấp 29");
-            s.level = 30;
-            Assert.AreEqual(3, Progress.TeamSlots(s), "cấp 30");
-            Assert.AreEqual("đạt cấp 10", Progress.SlotNeed(1));
-            Assert.AreEqual("đạt cấp 30", Progress.SlotNeed(2));
+            s.level = 59;
+            Assert.AreEqual(1, Progress.TeamSlots(s), "cấp 59");
+            s.level = 60;
+            Assert.AreEqual(2, Progress.TeamSlots(s), "cấp 60");
+            s.level = 199;
+            Assert.AreEqual(2, Progress.TeamSlots(s), "cấp 199");
+            s.level = 200;
+            Assert.AreEqual(3, Progress.TeamSlots(s), "cấp 200");
+            Assert.AreEqual("đạt cấp 60", Progress.SlotNeed(1));
+            Assert.AreEqual("đạt cấp 200", Progress.SlotNeed(2));
         }
 
         [Test]
@@ -118,10 +118,10 @@ namespace PokiClash.Tests
         public void ThuongAi_CongThuc()
         {
             var d = TestData.Load();
-            // đảo 70 ải: 1 + (cấp địch − 1)/4 bi, lần đầu ải tướng +2, mini boss +4, boss +8
+            // đảo 70 ải: 1 + (ải − 1)/35 bi, lần đầu ải tướng +2, mini boss +4, boss +8
             var boss = d.Stages.Find(x => x.zone == Elem.Thuy && x.kind == StageKind.Boss);
             Assert.AreEqual(70, boss.idx);
-            Assert.AreEqual(1 + 1 + 8, Progress.StageBalls(d, boss, true), "boss Thủy cấp 8, lần đầu");
+            Assert.AreEqual(1 + 1 + 8, Progress.StageBalls(d, boss, true), "boss Thủy ải 70, lần đầu");
             Assert.AreEqual(2, Progress.StageBalls(d, boss, false), "đánh lại boss Thủy");
             Assert.AreEqual(1 + 2, Progress.StageBalls(d, d.Stage(1), true), "ải 1: ải tướng");
             Assert.AreEqual(1, Progress.StageBalls(d, d.Stage(3), true), "ải 3: ải lính");

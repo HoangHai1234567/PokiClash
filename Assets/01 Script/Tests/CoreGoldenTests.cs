@@ -1,6 +1,7 @@
 // Đối chiếu phần lõi với bản web: số ngẫu nhiên, mô tả thẻ, số lượng dữ liệu.
 // Golden xuất bằng `npx tsx scripts/export_golden.ts` (thư mục Web), dữ liệu bằng `npx tsx scripts/export_data.ts`.
-// Từ 2026-11-03 làm ở Unity: thẻ của 5 tướng khởi đầu trong cardtext.json sửa bên Unity (GD_Claude/15_TuongKhoiDau.md).
+// Từ 2026-11-03 làm ở Unity: thẻ của 5 tướng khởi đầu trong cardtext.json sửa bên Unity (GD_Claude/15_TuongKhoiDau.md);
+// 2026-11-04 thêm mô tả 12 thẻ chung mới.
 using System.Collections.Generic;
 using System.IO;
 using NUnit.Framework;
@@ -75,7 +76,7 @@ namespace PokiClash.Tests
             var err = d.Validate();
             Assert.IsEmpty(err, string.Join("\n", err));
             Assert.AreEqual(45, d.Heroes.Count);
-            Assert.AreEqual(23, d.Pool.Count);
+            Assert.AreEqual(35, d.Pool.Count); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
             Assert.AreEqual(136, d.Innate.Count); // 45 tướng × 3 + thẻ Tiến Hóa của boss
             Assert.AreEqual(6, d.Minions.Count);
             Assert.AreEqual(18, d.MinionCards.Count);

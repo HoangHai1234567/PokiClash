@@ -7,6 +7,7 @@
    "kind": "pool",
    "icon": "claw",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "buff",
@@ -42,6 +43,7 @@
    "kind": "pool",
    "icon": "bandage",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "heal",
@@ -56,6 +58,7 @@
    "kind": "pool",
    "icon": "drop",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "mana",
@@ -70,6 +73,7 @@
    "kind": "pool",
    "icon": "flame",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "rage",
@@ -84,6 +88,7 @@
    "kind": "pool",
    "icon": "rock",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "dmg",
@@ -93,12 +98,79 @@
    "flavor": "Viên to nhất nhặt được."
   },
   {
+   "id": "can_xe",
+   "name": "Cắn Xé",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "fang",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.3,
+     "lifesteal": 0.5
+    }
+   ]
+  },
+  {
+   "id": "nhay_lui",
+   "name": "Nhảy Lùi",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "feather",
+   "unlock": 1,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.25,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "dung_tan",
+   "name": "Đứng Tấn",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "helmet",
+   "unlock": 1,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.3,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "hat_de",
+   "name": "Hạt Dẻ",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "seed",
+   "unlock": 1,
+   "effects": [
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.03,
+     "on": "self"
+    }
+   ],
+   "flavor": "Nhai chậm thì no lâu."
+  },
+  {
    "id": "binh_thuoc",
    "name": "Bình Thuốc",
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "potion",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "heal",
@@ -148,6 +220,7 @@
    "kind": "pool",
    "icon": "bubble",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "shield",
@@ -162,6 +235,7 @@
    "kind": "pool",
    "icon": "lotus",
    "unlock": 1,
+   "repeat": true,
    "effects": [
     {
      "k": "mana",
@@ -170,16 +244,67 @@
    ]
   },
   {
+   "id": "phong_long",
+   "name": "Phóng Lông",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "wing",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.2,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "tung_cat",
+   "name": "Tung Cát",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "wind",
+   "unlock": 1,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.2,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ],
+   "flavor": "Chơi hơi bẩn, nhưng hiệu quả."
+  },
+  {
    "id": "dam_kep",
    "name": "Đấm Kép",
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "fist2",
-   "unlock": 2,
+   "unlock": 7,
    "effects": [
     {
      "k": "extra",
      "mult": 0.5
+    }
+   ]
+  },
+  {
+   "id": "trang_khuyet",
+   "name": "Trăng Khuyết",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "moon",
+   "unlock": 7,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "mana",
+     "v": -20,
+     "on": "foe"
     }
    ]
   },
@@ -208,22 +333,6 @@
    "flavor": "Bỏ thủ, dồn hết vào một cú."
   },
   {
-   "id": "hut_mau",
-   "name": "Hút Máu",
-   "rarity": "rare",
-   "kind": "pool",
-   "icon": "fang",
-   "unlock": 3,
-   "effects": [
-    {
-     "k": "buff",
-     "stat": "lifesteal",
-     "v": 0.5,
-     "turns": 1
-    }
-   ]
-  },
-  {
    "id": "pha_giap",
    "name": "Phá Giáp",
    "rarity": "rare",
@@ -242,12 +351,44 @@
    ]
   },
   {
+   "id": "bua_ta",
+   "name": "Búa Tạ",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "hammer",
+   "unlock": 7,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "pierce": 0.5
+    }
+   ],
+   "flavor": "Khiên nào cũng có chỗ mỏng."
+  },
+  {
+   "id": "hut_mau",
+   "name": "Hút Máu",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "fang",
+   "unlock": 12,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "lifesteal",
+     "v": 0.5,
+     "turns": 1
+    }
+   ]
+  },
+  {
    "id": "dot_lua",
    "name": "Đốt Lửa",
    "rarity": "rare",
    "kind": "pool",
    "icon": "torch",
-   "unlock": 3,
+   "unlock": 12,
    "effects": [
     {
      "k": "status",
@@ -259,12 +400,50 @@
    ]
   },
   {
+   "id": "suoi_trong",
+   "name": "Suối Trong",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "wave",
+   "unlock": 12,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "heal",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "sam_ren",
+   "name": "Sấm Rền",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "bolt",
+   "unlock": 18,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.35,
+     "on": "foe"
+    }
+   ]
+  },
+  {
    "id": "guong_doi",
    "name": "Gương Đôi",
    "rarity": "rare",
    "kind": "pool",
    "icon": "mirror",
-   "unlock": 5,
+   "unlock": 23,
    "effects": [
     {
      "k": "double"
@@ -278,7 +457,7 @@
    "rarity": "rare",
    "kind": "pool",
    "icon": "eye",
-   "unlock": 5,
+   "unlock": 23,
    "effects": [
     {
      "k": "buff",
@@ -289,12 +468,34 @@
    ]
   },
   {
+   "id": "long_phuong",
+   "name": "Lông Phượng",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "phoenix",
+   "unlock": 29,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.15
+    },
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.05,
+     "on": "self"
+    }
+   ],
+   "flavor": "Còn ấm như vừa ra khỏi lửa."
+  },
+  {
    "id": "bua_choang",
    "name": "Bùa Choáng",
    "rarity": "epic",
    "kind": "pool",
    "icon": "bolt",
-   "unlock": 7,
+   "unlock": 34,
    "effects": [
     {
      "k": "status",
@@ -310,7 +511,7 @@
    "rarity": "epic",
    "kind": "pool",
    "icon": "yinyang",
-   "unlock": 7,
+   "unlock": 34,
    "effects": [
     {
      "k": "mana",
@@ -328,7 +529,7 @@
    "rarity": "epic",
    "kind": "pool",
    "icon": "ghost",
-   "unlock": 7,
+   "unlock": 34,
    "effects": [
     {
      "k": "status",
@@ -339,12 +540,32 @@
    ]
   },
   {
+   "id": "don_suc",
+   "name": "Dồn Sức",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "sword",
+   "unlock": 40,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.4,
+     "turns": 2
+    },
+    {
+     "k": "rage",
+     "v": 20
+    }
+   ]
+  },
+  {
    "id": "nghich_thien",
    "name": "Nghịch Thiên",
    "rarity": "legend",
    "kind": "pool",
    "icon": "phoenix",
-   "unlock": 10,
+   "unlock": 60,
    "effects": [
     {
      "k": "ifLow",
@@ -378,7 +599,7 @@
    "rarity": "legend",
    "kind": "pool",
    "icon": "crown",
-   "unlock": 10,
+   "unlock": 60,
    "effects": [
     {
      "k": "trueStrike",

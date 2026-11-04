@@ -3,7 +3,7 @@
 # Một lượt, một file prompt (tiếng Anh) + HUONG_DAN.md (tiếng Việt), theo quy ước của build.py: file mở đầu bằng danh sách ảnh mẫu
 # kèm đường dẫn đầy đủ (GPT tự mở), mục SAVE, mỗi bước một ảnh; GPT tự lưu vào inbox/<mã>_fx/tai_ve/<bước>.png.
 # Hiệu ứng là hình vẽ tay rời trên nền trắng (game cắt nền), Claude ghép vào clip CHIÊU bằng aola tools/anim_moi.py (khoá "fx").
-# Chạy: py -3 -I ArtGen/Heroes/build_fx.py
+# Chạy: py -3 -I ArtGen/Heroes/build_fx.py [mã gói ...]   (ví dụ tieu_y_fx; không có mã thì dựng lại mọi gói)
 import os
 import sys
 
@@ -23,7 +23,7 @@ FLAT_FIX = ("Flat colour only: every area one even colour coloured with pencil a
 LINE = ("RENDERING: the hand-drawn look of image 1 (the game's map): drawn by hand on paper with a dark-brown ink pen (#2B2118), "
         "an outline about {n} px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; every "
         "area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner "
-        "than the outline). Colours of water from images 2-4 (clear sky blue, light blue, deep blue, white foam); gold only where "
+        "than the outline). Colours of water from {cimg} (clear sky blue, light blue, deep blue, white foam); gold only where "
         "the step says.\n"
         "FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, "
         "no shadows of any kind (no drop shadow, no cast shadow, nothing on the background), no white highlights or shine "
@@ -65,6 +65,36 @@ LINES = [
           "A flat oval ripple ring of water on the ground, seen from a low side angle: an ellipse about three times wider than tall made of splashing water, small splashes rising along its rim, an EMPTY centre (plain white).",
           "vòng sóng nước loang trên mặt đất nhìn chếch thấp: hình bầu dục rộng gấp ba chiều cao, viền có tia nước nhỏ bắn lên, giữa rỗng trắng"),
      ]},
+    # Tiểu Y dạng 1 (người dùng 2026-11-04): chiêu cuối giơ đinh ba tụ quả cầu nước rồi ném về phía địch. Các hiệu ứng khác dùng
+    # lại gói giot_suong_fx (vòng xoáy, giọt, nổ nước, vòng sóng); quả cầu vẽ riêng thay bong bóng FX06 (gen trước luật tô phẳng,
+    # còn vệt sáng trắng, trông như bong bóng xà phòng). Claude ghép bằng anim_moi.py (fx_dir của thuy_1319 có cả hai gói).
+    {"code": "tieu_y_fx", "hero": "Tiểu Y", "elem": "thuy",
+     "forms": ["tieu_y_1"],
+     "what": "a special-attack effect for a 2D creature game with a hand-drawn storybook look: water magic of a little sea god "
+             "who fights with a trident",
+     "intro_vi": "Quả cầu nước của chiêu cuối Tiểu Y dạng 1 (người dùng dặn 2026-11-04): giơ đinh ba tụ quả cầu nước rồi ném về "
+                 "phía địch. Thay bong bóng FX06 của Giọt Sương (còn vệt sáng trắng, trông như bong bóng xà phòng); các hiệu ứng khác "
+                 "của chiêu dùng lại gói `giot_suong_fx`.",
+     "extra": [("inbox/giot_suong_fx/tai_ve/FX01.png",
+                "another effect of the same attack (a swirling water ring that spins around the orb): match its drawing style, "
+                "line weight and water colours, do not copy its shape",
+                "Hiệu ứng vòng nước xoáy FX01 của gói Giọt Sương (1024 × 1024, nền trắng): ba dòng nước cuộn quanh tâm rỗng. Quả cầu "
+                "phải cùng nét, cùng màu với nó")],
+     "steps": [
+         ("FX10", "cau_nuoc", "quả cầu nước", 14,
+          "One water orb: a perfectly round ball of churning sea water seen from the front, the power a little sea god gathers on "
+          "the tip of his trident and throws at the enemy. Inside the round outline, three curling bands of deep blue and light "
+          "blue water spiral around the centre like a small whirlpool caught inside a sphere; small curls of white foam break "
+          "along its rim where the water churns, and three or four small droplets fly off the edge. It is solid rushing water, "
+          "not a soap bubble and not glass: no see-through look, no shine spot, no reflection. The silhouette stays round (the "
+          "game spins and scales it).",
+          "quả cầu nước tròn nhìn thẳng: bên trong ba dải nước xanh đậm và xanh nhạt xoáy quanh tâm như xoáy nước nhốt trong quả "
+          "cầu, bọt trắng cuộn nhỏ dọc mép, ba bốn giọt văng ra; là khối nước cuộn, không phải bong bóng hay thuỷ tinh, không vệt "
+          "sáng; dáng tròn"),
+     ],
+     "fixes": [("Trông như bong bóng, thuỷ tinh, có vệt sáng",
+                "Make it a ball of solid churning water, not a bubble or glass: no see-through look, no shine spot; fill the "
+                "whole ball with spiralling bands of deep blue and light blue water and white foam curls.")]},
 ]
 
 
@@ -79,40 +109,54 @@ def build(f):
     for i, fc in enumerate(f["forms"], 1):
         refs.append((ROOT + f"inbox/{fc}/concept_duyet.png", f"approved concept of stage {i} of this hero: take only its water COLOURS and drawing style, do not draw the creature",
                      f"Concept đã duyệt dạng {i} ({fc}, nền trắng): chỉ lấy màu nước và nét vẽ, không vẽ con"))
+    nc = len(f["forms"])
+    cimg = "image 2" if nc == 1 else f"images 2-{nc + 1}"
+    refs += [(ROOT + p, en, vi) for p, en, vi in f.get("extra", [])]  # ảnh mẫu thêm (hiệu ứng cùng chiêu đã có)
     missing = [W(p) for p, _, _ in refs if not os.path.exists(p)]
     if missing:
         raise SystemExit("thiếu ảnh mẫu: " + ", ".join(missing))
     steps = f["steps"]
     order = [s[0] for s in steps]
+    if len(order) == 1:
+        order_en = f"ORDER: draw step {order[0]} now, save it and stop."
+        order_vi = [f"1. GPT vẽ {order[0]}. Nhắn Claude \"soi {code}\"."]
+    elif len(order) == 2:
+        order_en = (f"ORDER: draw step {order[0]} now, save it and stop. When I say \"next\", draw step {order[1]}, save it and "
+                    "stop.")
+        order_vi = [f"1. GPT vẽ {order[0]}. Gõ `next`: GPT vẽ {order[1]}. Nhắn Claude \"soi {code}\"."]
+    else:
+        order_en = (f"ORDER: draw step {order[0]} now, save it and stop. When I say \"next\", draw step {order[1]}, save it and "
+                    f"stop: I will check both. When I say \"continue\", draw the remaining steps one per reply, each after I say "
+                    f"\"next\", in this order: {', '.join(order[2:])}.")
+        order_vi = [f"1. GPT vẽ {order[0]}. Gõ `next`: GPT vẽ {order[1]}. Nhắn Claude \"soi thử {code}\".",
+                    f"2. Claude bảo ổn thì gõ `continue`, rồi `next` sau mỗi ảnh: {', '.join(order[2:])}.",
+                    f"3. Đủ ảnh thì nhắn Claude \"ghép {code}\"."]
+    what = f.get("what", "special-attack effects for a 2D creature game with a hand-drawn storybook look. Each step is ONE "
+                         "separate effect sprite (water magic for a water knight and its dragon form)")
     p1 = pk + "luot_1_hieu_ung.txt"
     t = ["Read this whole file. Then open the reference images listed below from their full paths, draw ONE image per reply "
          "and save each one as its step says. Do not reply with text only.", "",
          "REFERENCE IMAGES (open each file from its full path):"]
     t += [f"image {i} = {W(p)}: {en}" for i, (p, en, _) in enumerate(refs, 1)]
-    t += ["", "WHAT THIS IS: special-attack effects for a 2D creature game with a hand-drawn storybook look. Each step is ONE "
-          "separate effect sprite (water magic for a water knight and its dragon form). The game animates them (moves, spins, "
+    t += ["", f"WHAT THIS IS: {what}. The game animates them (moves, spins, "
           "scales, fades), so draw each effect alone, still, centred on white.", "",
           f"SAVE: every step's image goes into {W(save)} under the step's name (for example {order[0]}.png). If that file "
           "already exists, add _2, _3 … before .png. Do not change, move or delete any other file.", "",
-          f"ORDER: draw step {order[0]} now, save it and stop. When I say \"next\", draw step {order[1]}, save it and stop: I "
-          f"will check both. When I say \"continue\", draw the remaining steps one per reply, each after I say \"next\", in this "
-          f"order: {', '.join(order[2:])}.", ""]
+          order_en, ""]
     for sc, name, _, n, prompt, _ in steps:
-        t += [f"=== STEP {sc} ({name.replace('_', ' ')}) ===", prompt, "", LINE.format(n=n),
+        t += [f"=== STEP {sc} ({name.replace('_', ' ')}) ===", prompt, "", LINE.format(n=n, cimg=cimg),
               f"SAVE this step: save it as a PNG to {W(save + sc + '.png')} (create the folder if it is missing; if that file "
               f"already exists, save it as {sc}_2.png, {sc}_3.png … in the same folder instead). Do not change, move or delete "
               "any other file.", ""]
     open(p1, "w", encoding="utf-8", newline="\n").write("\n".join(t) + "\n")
 
+    intro = f.get("intro_vi", "Hiệu ứng vẽ tay cho clip CHIÊU của cả ba dạng (thay quầng sáng gốc của aola), người dùng dặn "
+                              "2026-11-03: đẹp và hoành tráng hơn.")
     g = [f"# Gói gửi GPT: hiệu ứng chiêu {f['hero']} (`{code}`)", "",
-         "Hiệu ứng vẽ tay cho clip CHIÊU của cả ba dạng (thay quầng sáng gốc của aola), người dùng dặn 2026-11-03: đẹp và hoành "
-         f"tráng hơn. Mỗi hiệu ứng là một hình rời trên nền trắng; Claude ghép vào clip CHIÊU (aola `tools/anim_moi.py`). Quy trình: "
+         f"{intro} Mỗi hiệu ứng là một hình rời trên nền trắng; Claude ghép vào clip CHIÊU (aola `tools/anim_moi.py`). Quy trình: "
          f"`{W(ROOT + 'QUY_TRINH.md')}`.", "",
-         f"**Chỉ gửi GPT đường dẫn file prompt:** `{W(p1)}` (chat mới). GPT tự mở ảnh mẫu và tự lưu ảnh vào `{W(save)}`.", "",
-         f"1. GPT vẽ {order[0]}. Gõ `next`: GPT vẽ {order[1]}. Nhắn Claude \"soi thử {code}\".",
-         f"2. Claude bảo ổn thì gõ `continue`, rồi `next` sau mỗi ảnh: {', '.join(order[2:])}.",
-         f"3. Đủ ảnh thì nhắn Claude \"ghép {code}\".", "",
-         "| Ảnh mẫu | Đường dẫn | Trông như thế nào |", "|---|---|---|"]
+         f"**Chỉ gửi GPT đường dẫn file prompt:** `{W(p1)}` (chat mới). GPT tự mở ảnh mẫu và tự lưu ảnh vào `{W(save)}`.", ""]
+    g += order_vi + ["", "| Ảnh mẫu | Đường dẫn | Trông như thế nào |", "|---|---|---|"]
     g += [f"| {i} | `{W(p)}` | {vi} |" for i, (p, _, vi) in enumerate(refs, 1)]
     g += ["", "Kiểm từng ảnh trước khi lưu (vẽ tay trên giấy, viền mực nâu, tô chì sáp phẳng; không mảng sáng tối, không điểm sáng, "
           "không bóng loáng, không quầng sáng, không bóng đổ; nền trắng, không chạm mép ảnh, không có con, không chữ):", ""]
@@ -122,7 +166,9 @@ def build(f):
           f"| Quầng sáng, điểm sáng, mảng sáng tối, bóng loáng | `{FLAT_FIX}` |",
           "| Chạm mép ảnh, nền không trắng | `Keep the whole effect inside the canvas with a clear white margin; plain pure white background.` |",
           "| Có con, tay, vũ khí | `Only the effect itself, nothing else.` |",
-          f"| Có bóng đổ, bóng in xuống nền | `{FLAT_FIX}` |", "",
+          f"| Có bóng đổ, bóng in xuống nền | `{FLAT_FIX}` |"]
+    g += [f"| {vi} | `{en}` |" for vi, en in f.get("fixes", [])]
+    g += ["",
           f"Gói này sinh từ `{W(ROOT + 'build_fx.py')}`; sửa prompt ở đó rồi chạy lại.", ""]
     open(pk + "HUONG_DAN.md", "w", encoding="utf-8", newline="").write("\n".join(g))
     return W(p1)
@@ -191,6 +237,8 @@ def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=F
 if __name__ == "__main__":
     if "--xuat" in sys.argv:
         export_stage()
-    else:
+    else:  # py build_fx.py [mã gói ...]: chỉ dựng các gói đó; không có mã thì dựng lại mọi gói
+        want = [a for a in sys.argv[1:] if not a.startswith("--")]
         for f in LINES:
-            print(build(f))
+            if not want or f["code"] in want:
+                print(build(f))

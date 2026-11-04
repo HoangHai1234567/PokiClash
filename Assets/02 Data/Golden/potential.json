@@ -2543,7 +2543,7 @@
    "stage": 3,
    "seed": 11,
    "winner": 0,
-   "round": 2,
+   "round": 3,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2560,7 +2560,7 @@
    "stage": 3,
    "seed": 12,
    "winner": 0,
-   "round": 2,
+   "round": 3,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2577,7 +2577,7 @@
    "stage": 3,
    "seed": 13,
    "winner": 0,
-   "round": 3,
+   "round": 2,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2594,7 +2594,7 @@
    "stage": 5,
    "seed": 11,
    "winner": 0,
-   "round": 2,
+   "round": 3,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2650,12 +2650,12 @@
    "enemies": [
     [
      "tieu_y",
-     6,
+     29,
      true
     ],
     [
      "canh_cut",
-     4,
+     27,
      false
     ]
    ]
@@ -2667,12 +2667,12 @@
    "enemies": [
     [
      "canh_cut",
-     12,
+     80,
      true
     ],
     [
      "giot_suong",
-     10,
+     78,
      false
     ]
    ]
@@ -2684,12 +2684,12 @@
    "enemies": [
     [
      "giot_suong",
-     18,
+     128,
      true
     ],
     [
      "tam_tay",
-     16,
+     126,
      false
     ]
    ]
@@ -2701,12 +2701,12 @@
    "enemies": [
     [
      "tam_tay",
-     24,
+     173,
      true
     ],
     [
      "ca_ngua",
-     22,
+     171,
      false
     ]
    ]
@@ -2718,12 +2718,12 @@
    "enemies": [
     [
      "heo_lua",
-     6,
+     29,
      true
     ],
     [
      "dom_lua",
-     4,
+     27,
      false
     ]
    ]
@@ -2735,12 +2735,12 @@
    "enemies": [
     [
      "dom_lua",
-     12,
+     80,
      true
     ],
     [
      "phao_tet",
-     10,
+     78,
      false
     ]
    ]
@@ -2752,12 +2752,12 @@
    "enemies": [
     [
      "phao_tet",
-     18,
+     128,
      true
     ],
     [
      "su_tu_lua",
-     16,
+     126,
      false
     ]
    ]
@@ -2769,12 +2769,12 @@
    "enemies": [
     [
      "su_tu_lua",
-     24,
+     173,
      true
     ],
     [
      "bo_de",
-     22,
+     171,
      false
     ]
    ]
@@ -2786,12 +2786,12 @@
    "enemies": [
     [
      "bu_long",
-     6,
+     29,
      true
     ],
     [
      "phao_hop",
-     4,
+     27,
      false
     ]
    ]
@@ -2803,12 +2803,12 @@
    "enemies": [
     [
      "phao_hop",
-     12,
+     80,
      true
     ],
     [
      "kiem_linh",
-     10,
+     78,
      false
     ]
    ]
@@ -2820,12 +2820,12 @@
    "enemies": [
     [
      "kiem_linh",
-     18,
+     128,
      true
     ],
     [
      "meo_quyen",
-     16,
+     126,
      false
     ]
    ]
@@ -2837,12 +2837,12 @@
    "enemies": [
     [
      "meo_quyen",
-     24,
+     173,
      true
     ],
     [
      "bo_cap",
-     22,
+     171,
      false
     ]
    ]
@@ -2854,12 +2854,12 @@
    "enemies": [
     [
      "mam_go",
-     6,
+     29,
      true
     ],
     [
      "nu_hoa",
-     4,
+     27,
      false
     ]
    ]
@@ -2871,12 +2871,12 @@
    "enemies": [
     [
      "nu_hoa",
-     12,
+     80,
      true
     ],
     [
      "kien_binh",
-     10,
+     78,
      false
     ]
    ]
@@ -2888,12 +2888,12 @@
    "enemies": [
     [
      "kien_binh",
-     18,
+     128,
      true
     ],
     [
      "banh_tet",
-     16,
+     126,
      false
     ]
    ]
@@ -2905,12 +2905,12 @@
    "enemies": [
     [
      "banh_tet",
-     24,
+     173,
      true
     ],
     [
      "de_hoa",
-     22,
+     171,
      false
     ]
    ]
@@ -2922,12 +2922,12 @@
    "enemies": [
     [
      "vo_su",
-     6,
+     29,
      true
     ],
     [
      "gau_mo",
-     4,
+     27,
      false
     ]
    ]
@@ -2939,12 +2939,12 @@
    "enemies": [
     [
      "gau_mo",
-     12,
+     80,
      true
     ],
     [
      "soc_da",
-     10,
+     78,
      false
     ]
    ]
@@ -2956,12 +2956,12 @@
    "enemies": [
     [
      "soc_da",
-     18,
+     128,
      true
     ],
     [
      "bo_hung",
-     16,
+     126,
      false
     ]
    ]
@@ -2973,12 +2973,12 @@
    "enemies": [
     [
      "bo_hung",
-     24,
+     173,
      true
     ],
     [
      "thach_nhan",
-     22,
+     171,
      false
     ]
    ]

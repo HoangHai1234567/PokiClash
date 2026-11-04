@@ -28,18 +28,18 @@ namespace PokiWar.BanThu
         };
         static readonly string[] ModeNames = { "A · Xếp khối", "A · Xếp khối có sập", "C · Xếp ngọc" };
         static readonly string[] ModeKeys = { "A", "A_sap", "C" };
-        // goc_<id>: tướng giữ nguyên hình gốc (aola tools/export_original.py), xếp theo dòng tiến hóa
+        // goc_<id>: tướng giữ nguyên hình gốc (aola tools/export_original.py); <hệ>_<id>: hình vẽ lại (Tiểu Y thuy_1319, thuy_1320); xếp theo dòng tiến hóa
         static readonly string[] KnownHeroes =
         {
             "monk_2217", "monk_boxer", "monk_500", "monk_2010",
-            "goc_1826", "goc_1837", "goc_1831", "goc_1832", "goc_2955", "goc_1319", "goc_1320",
+            "goc_1826", "goc_1837", "goc_1831", "goc_1832", "goc_2955", "thuy_1319", "thuy_1320",
         };
         static readonly Dictionary<string, string> HeroNames = new()
         {
             ["monk_boxer"] = "Võ sư", ["monk_2217"] = "Đại sư cà sa", ["monk_500"] = "Võ tăng Bồ Đề", ["monk_2010"] = "Thiền sư Pháp Luân",
             // 加比, 使者加比, 蓝钧, 万钧, 黑翼·万钧, 小伊, 伊泽 (âm Hán Việt: chữ Hán không có trong phông mặc định)
             ["goc_1826"] = "Gia Bỉ", ["goc_1837"] = "Sứ giả Gia Bỉ", ["goc_1831"] = "Lam Quân", ["goc_1832"] = "Vạn Quân",
-            ["goc_2955"] = "Hắc Dực Vạn Quân", ["goc_1319"] = "Tiểu Y", ["goc_1320"] = "Y Trạch",
+            ["goc_2955"] = "Hắc Dực Vạn Quân", ["thuy_1319"] = "Tiểu Y", ["thuy_1320"] = "Y Trạch",
         };
         static readonly Color Dark = new(0.22f, 0.24f, 0.32f), Gold = new(1f, 0.78f, 0.25f), Grey = new(0.70f, 0.72f, 0.78f);
         const float ContentW = 9f; // bố cục tính trên bề ngang 9 đơn vị

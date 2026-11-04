@@ -16,7 +16,7 @@
   "hpBase": 600,
   "atkBase": 180,
   "defBase": 55,
-  "lvStep": 0.1,
+  "lvStep": 0.03,
   "starStep": 0.08,
   "bossHp": 1.8,
   "bossAtk": 1.1,
@@ -27,9 +27,9 @@
  },
  "progression": {
   "saveVersion": 5,
-  "maxLevel": 30,
-  "expBase": 40,
-  "expPow": 1.35,
+  "maxLevel": 200,
+  "expBase": 45,
+  "expPow": 1.0,
   "afkCapH": 12,
   "legendMilestone": 300,
   "cardMax": 5,
@@ -41,19 +41,19 @@
    },
    {
     "x": 2,
-    "lv": 3
+    "lv": 12
    },
    {
     "x": 3,
-    "lv": 5
+    "lv": 23
    },
    {
     "x": 5,
-    "lv": 8
+    "lv": 40
    },
    {
     "x": 10,
-    "lv": 12
+    "lv": 80
    }
   ],
   "cardReq": [
@@ -74,10 +74,10 @@
   "starLevel": [
    0,
    1,
-   2,
-   5,
-   9,
-   14
+   7,
+   23,
+   50,
+   96
   ],
   "formStars": [
    3,
@@ -94,7 +94,7 @@
  "pachinko": {
   "maxPerDrop": 20,
   "maxPerDropHigh": 30,
-  "maxPerDropLevel": 15,
+  "maxPerDropLevel": 104,
   "legendCopies": 15,
   "chests": {
    "chest_wood": [
@@ -320,7 +320,8 @@
    0.16,
    0.2
   ],
-  "levelPerTier": 3,
+  "levelPerTier": 20,
+  "levelPerFight": 3,
   "ballsBase": 5,
   "ballsPerTier": 2,
   "chest": [
@@ -430,22 +431,22 @@
   "tiers": [
    {
     "name": "Dễ",
-    "level": 6,
+    "level": 29,
     "stones": 2
    },
    {
     "name": "Thường",
-    "level": 12,
+    "level": 80,
     "stones": 3
    },
    {
     "name": "Khó",
-    "level": 18,
+    "level": 128,
     "stones": 5
    },
    {
     "name": "Ác mộng",
-    "level": 24,
+    "level": 173,
     "stones": 8
    }
   ],
@@ -483,11 +484,11 @@
   "capHours": 10,
   "openSpots": 3,
   "spotLevels": [
-   8,
-   11,
-   14,
-   17,
-   20
+   40,
+   70,
+   96,
+   120,
+   144
   ],
   "boostH": 1,
   "boostMult": 2,

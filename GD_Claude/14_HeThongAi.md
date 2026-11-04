@@ -93,7 +93,12 @@ Lính yếu hơn tướng cùng cấp: Máu ×0,85, Công ×0,9, Thủ ×0,9 (`M
 
 ### Cấp và sức địch
 
-- Cấp địch theo mốc: ải 1 cấp 1, ải 10 cấp 2, ải 15 và 20 cấp 3, rồi mỗi 10 ải +1 cấp, tới ải 70 cấp 8. Giữa hai mốc thì nội suy rồi làm tròn xuống. Cấp đề nghị của đảo: 1–8.
+- **Cấp địch là cấp người chơi cần có; thang cấp 1–200** (người dùng dặn 2026-11-04, học Clash of Critters). Chi tiết và số đo: mục "Thang cấp 1–200" bên dưới.
+  - Mỗi đảo khoảng 40 cấp: Thủy 1–40, Hỏa 41–80, Kim 81–120, Mộc 121–160, Thổ 161–200.
+  - Đảo Thủy: `1 + 39 × ((ải − 1) / 69)^0,85` làm tròn, lên nhanh hơn một chút ở đầu đảo. Ải 5 cấp 4, ải 10 cấp 8, ải 20 cấp 14, ải 30 cấp 20, ải 50 cấp 30, ải 70 cấp 40. Cứ 1–2 ải lên 1 cấp.
+  - Mọi địch trong một ải cùng cấp. Cấp không bao giờ giảm khi sang ải sau.
+  - Các đảo 8 ải (tạm) đổi cấp từng địch tuyến tính từ khoảng cấp cũ sang khoảng mới.
+  - Trước đây: ải 1 cấp 1, ải 10 cấp 2, ải 15–29 cấp 3, rồi mỗi 10 ải +1, tới ải 70 cấp 8; độ khó trong chặng chỉ nhờ % cường hóa.
 - **"Lv" của địch là sức thật**: ở hệ thống mới, mọi tướng địch quy về sức của độ hiếm Khá, nên Huyền Vũ cấp 7 không mạnh hơn tướng Khá cấp 7. Tướng của người chơi vẫn mạnh theo độ hiếm. Không quy như vậy thì từ ải 20, tướng Hiếm, Sử thi, Huyền thoại cùng cấp thắng gần như mọi trận.
 - Boss so với hệ thống cũ (máu ×1,8, công ×1,1): mini boss còn máu ×1,71, công ×1,05; boss tiến hóa máu ×0,7 so với boss cũ (`ENEMY_NORM` ở `islands.ts`).
 
@@ -101,7 +106,7 @@ Lính yếu hơn tướng cùng cấp: Máu ×0,85, Công ×0,9, Thủ ×0,9 (`M
 
 | Thưởng | Số |
 |---|---|
-| Bi mỗi ải | 1 bi (địch cấp 1–4), 2 bi (cấp 5–8) |
+| Bi mỗi ải | 1 bi (ải 1–35), 2 bi (ải 36–70); trước 2026-11-04 tính theo cấp địch |
 | Bi thêm lần đầu qua | ải tướng +2, mini boss +4, boss +8 |
 | Rương mốc | mỗi 10 ải (7 rương): 4, 5 … 9 bi và 1–2 thẻ; rương ải 70 có 15 bi, 4 thẻ |
 | Mảnh: ải tướng | chắc chắn rơi mảnh tướng mới: thường 2–4, mini boss 3–5, boss 4–6 |
@@ -110,6 +115,8 @@ Lính yếu hơn tướng cùng cấp: Máu ×0,85, Công ×0,9, Thủ ×0,9 (`M
 Đánh lại ải: mảnh rơi theo luật cũ (tỉ lệ ×0,8, ải chắc chắn rơi còn 50%).
 
 ## Số đo (máy tự chơi, `npm run sim -- island 100`)
+
+Bảng dưới đo trên web với cấp địch cũ (1–8). Số đo với thang cấp mới nằm ở mục "Thang cấp 1–200".
 
 Người chơi mang 1 tướng, cấp bằng cấp địch của ải. Sao theo kịp cấp (sao 2 từ cấp 2, sao 3 từ cấp 5), cấp thẻ bằng sao. Bảng là tỉ lệ thắng trung bình theo kiểu ải; người thật thường thắng nhiều hơn máy.
 
@@ -128,6 +135,98 @@ Người chơi mang 1 tướng, cấp bằng cấp địch của ải. Sao theo 
 Trong một chặng, độ khó lên xuống kiểu răng cưa: đầu chặng dễ, cửa ải khó nhất, rồi tới tướng mới. Tướng không khắc hệ đảo thì cần hơn địch 1–2 cấp.
 
 Tiến độ: qua lần đầu cả đảo được 137 bi từ ải và 54 bi từ rương, khoảng 1.760 EXP, đủ lên cấp 7. Chưa tính cây bi, trang trại, rương máy bi, đánh lại. Đánh lại một ải được 1–2 bi.
+
+## Thang cấp 1–200 (Unity, 2026-11-04)
+
+### Người dùng yêu cầu
+
+- Người dùng chơi thử thấy Tiểu Y ở ải 5 và ải 8 đều Lv1.
+- Họ muốn cấp địch là cấp người chơi cần có, như Clash of Critters: ở cấp 145 thì đang ở đảo 6. Game chia theo độ sâu cấp trong từng đảo, không chia theo đảo.
+- Đảo đầu (Thủy) phải chơi 5–7 ngày; đảo sau lâu hơn, vì độ khó tăng dần.
+- Cấp tối đa 200. Phải chơi liên tục ít nhất 1 tháng đến 45 ngày mới đạt.
+- Tính lại toàn bộ chỉ số tướng theo cấp.
+
+### Clash of Critters (theo trang tổng hợp chapter của cộng đồng)
+
+- 120 chương, mỗi chương 80 ải, boss ở ải 10, 20 … 80.
+- Cấp địch tăng đều khoảng 0,3–0,4 cấp mỗi ải:
+  - chương 1 từ cấp 7 lên 36;
+  - chương 2 từ 39 lên 62;
+  - chương 6 khoảng 146–170;
+  - chương 12 khoảng 306–330;
+  - chương 72 khoảng 1.900.
+- Cấp tài khoản lên nhờ máy bi; cấp tướng bằng cấp tài khoản, giống game mình.
+- Nguồn: https://clashofcritters.online/chapters/. Logic trong bản rip (`D:\CrittersRipper`) mã hóa, không đọc được số.
+
+### Đã đổi
+
+| Chỗ | Cũ | Mới |
+|---|---|---|
+| Cấp tối đa | 30 | 200 |
+| Sức theo cấp (`HeroStats`) | `1 + 0,1 × (cấp − 1)` | `1,03^(cấp − 1)`, nhân dồn (`lvStep` 0,03): mỗi cấp mạnh thêm 3% ở mọi cấp. Cấp 40: ×3,2; cấp 200: ×360 |
+| Thủ trong trận (`Battle`) | sát thương × 100 / (100 + Thủ) | 100 nhân thêm hệ số cấp của người đánh: hai bên cùng cấp thì Thủ giảm sát thương như nhau ở mọi cấp. Không đổi thì ở cấp cao Thủ chặn gần hết sát thương |
+| Lực chiến | như trên | tính Thủ theo cấp của chính tướng |
+| Sao, cấp thẻ của địch (`Teams`) | 1 + cấp/6, thẻ 1 + cấp/5 | bằng người chơi bình thường ở cùng cấp: sao 2/3/4/5 ở cấp 7/23/50/96 (mốc lên sao của người chơi), thẻ 2/3/4/5 ở cấp 8/18/28/45 (số đo `ProgressSim`) |
+| Địch đảo 70 ải (`Islands.LevelNorm`) | | Máu, Công ×0,8: bù cho sao và thẻ của địch nay ngang người chơi, để % cường hóa từng kiểu ải giữ như thiết kế |
+| % cường hóa đảo Thủy (từ ải 4) | | Bầy lính −0,05, Cường hóa −0,15, Lính tinh nhuệ −0,05, Mini boss −0,15 (chặn ở 0), Hai tướng −0,05, Cửa ải +0,05, Boss +0,10 |
+| EXP lên cấp sau | 40 × cấp^1,35 | 45 × cấp: cấp 40 cần tổng 35.100 EXP, cấp 200 cần 895.500 |
+| Bi mỗi ải đảo 70 ải | theo cấp địch | theo số ải: 1 bi (ải 1–35), 2 bi (ải 36–70), đảo sau thêm 2 mỗi đảo |
+| Ô đội | 2 ở cấp 10, 3 ở cấp 30 | 2 ở cấp 60, 3 ở cấp 200 |
+| Mốc lên sao (`starLevel`) | 1, 2, 5, 9, 14 | 1, 7, 23, 50, 96 |
+| Cược máy bi ×2/×3/×5/×10 | cấp 3/5/8/12 | cấp 12/23/40/80 |
+| Rơi tối đa 30 bi/lần | cấp 15 | cấp 104 |
+| Chỗ trang trại thêm | cấp 8/11/14/17/20 | cấp 40/70/96/120/144 |
+| Thẻ chung mở theo cấp (`unlock`) | 1–10 | 1–60 |
+| Đền Huy Hiệu | cấp đầu đảo + 3/bậc + 0,5/trận | + 20/bậc + 3/trận (`levelPerFight`) |
+| Hang Tiềm Năng | cấp 6/12/18/24 | cấp 29/80/128/173 |
+| Đảo gợi ý, nhãn Khó | cận dưới − 3 | cận dưới − 15 (`Progress.LevelSlack`) |
+| Cảnh báo ở hộp Chuẩn bị trận | thiếu từ 3 cấp | thiếu từ 3 cấp: "Địch cấp X, bạn cấp Y: nên lên thêm cấp" |
+
+Các mốc theo cấp đổi từ thang cũ theo vị trí trên các đảo:
+- cấp cũ 8, 12, 17, 22, 28 (cuối Thủy … Thổ) thành 40, 80, 120, 160, 200;
+- giữa các mốc thì nội suy (`relevel200.py` trong lần làm này).
+
+**Người dùng chốt (2026-11-04):**
+- ô đội 3 giữ ở cấp 200;
+- người chơi "vừa" đạt cấp 200 ở ngày 57 là được;
+- cả 5 đảo đều làm thành 70 ải, nhưng các đảo sau chưa vội: hoàn thiện đảo Thủy cho chuẩn rồi mới sang đảo sau.
+
+### Số đo (máy tự chơi trong Core)
+
+Tỉ lệ thắng đảo Thủy khi người chơi bằng cấp địch: sao, thẻ như địch; đội theo luật tướng khởi đầu, 1 ô vì ô 2 mở ở cấp 60; 100 trận mỗi ải; 5 lựa chọn tướng khởi đầu.
+
+| Kiểu ải | Mục tiêu | Bằng cấp | Thiếu 3 cấp | Thiếu 6 cấp | Thiếu 10 cấp |
+|---|---|---|---|---|---|
+| Ải tướng mới | 100% | 99% | | | |
+| Bầy lính | 91% | 92–96% | 83% | 67% | 33% |
+| Cường hóa | 92% | 93% | 87% | 73% | 43% |
+| Tướng và lính | 78% | 77–86% | 55% | 38% | 8% |
+| Lính tinh nhuệ | 78% | 82–88% | 62% | 47% | 12% |
+| Mini boss | 72% | 70–71% | 38% | 18% | 6% |
+| Hai tướng | 69% | 72–75% | 52% | 32% | 7% |
+| Cửa ải | 62% | 62–63% | 23% | 8% | 1% |
+| Boss ải 70 | 61% | 67–71% | 44% | 26% | 17% |
+
+Các cột thiếu cấp chỉ tính các ải có địch từ cấp 15 trở lên, lấy trung bình 5 lựa chọn tướng khởi đầu.
+
+Nhịp cả game (`ProgressSim` 60 ngày, máy + 15%, tướng khởi đầu Giọt Sương; ngày xong đảo):
+
+| Kiểu người chơi | Thủy | Hỏa | Kim | Mộc | Thổ | Cấp 200 |
+|---|---|---|---|---|---|---|
+| Chăm (6 lần × 5 trận/ngày) | 5 | 10 | 18 | 27 | 36 | ngày 42 |
+| Vừa (3 × 3) | 8 | 13 | 26 | 37 | 49 | ngày 57 |
+| Ít (1 × 2) | 35 | 44 | | | | cấp 83 ở ngày 60 |
+
+- Người chơi "vừa" bị giới hạn bởi số trận: 9 trận mỗi ngày thì 70 ải cần ít nhất 8 ngày.
+- Người chơi "chăm" bị cấp chặn: đánh lại ải cũ 1.664 trên 1.800 trận. Họ qua được ải có địch cao hơn mình khoảng 5–10 cấp, nhờ thắng 30–40% rồi đánh nhiều lần.
+- Đảo Hỏa còn 8 ải tạm nên chỉ mất 5 ngày. Khi làm thành 70 ải, đảo sau sẽ lâu hơn đều.
+- Các đảo 8 ải chưa chỉnh lại độ khó cho thang mới: người chơi qua được địch cao hơn mình khoảng 20 cấp.
+
+Cách đo lại: dự án console biên dịch thẳng `Assets/01 Script/Core`. `Sim.StarterIsland` cho tỉ lệ thắng; `ProgressSim.Run` cho nhịp ngày.
+
+Còn mở:
+- Bốn đảo sau cần thành 70 ải. Cần chọn tướng và lính cho từng đảo, như `14_HeThongAi.md` mục "Còn lại".
+- Bản lưu cũ giữ cấp đang có (tính theo đường EXP cũ) và chỉ dùng cho máy thử.
 
 ## Màn đảo (web)
 

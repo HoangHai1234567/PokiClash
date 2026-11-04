@@ -1,6 +1,6 @@
 {
  "t0": 1800000000000,
- "open": 4,
+ "open": 3,
  "formula": [
   {
    "hero": "giot_suong",
@@ -304,7 +304,7 @@
    "t": 0,
    "a": 3,
    "b": "bo_de",
-   "r": true,
+   "r": false,
    "farm": {
     "lastTick": 1800000000000,
     "boostUntil": 0,
@@ -325,8 +325,8 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 8,
+      "hero": null,
+      "energy": 0,
       "stock": 0
      },
      {
@@ -380,9 +380,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 6.5,
-      "stock": 4.574999999999999
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -435,9 +435,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 6.5,
-      "stock": 4.574999999999999
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -490,9 +490,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 6,
-      "stock": 7.624999999999999
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -545,9 +545,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 5,
-      "stock": 12.2
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -579,7 +579,7 @@
    "t": 3,
    "a": null,
    "b": null,
-   "r": 34,
+   "r": 22,
    "farm": {
     "lastTick": 1800010800000,
     "boostUntil": 1800009000000,
@@ -600,9 +600,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 5,
-      "stock": 0.1999999999999993
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -627,7 +627,7 @@
     ],
     "rest": {}
    },
-   "balls": 44
+   "balls": 32
   },
   {
    "op": "remove",
@@ -655,9 +655,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 5,
-      "stock": 0.1999999999999993
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -684,7 +684,7 @@
      "giot_suong": 1800014400000
     }
    },
-   "balls": 44
+   "balls": 32
   },
   {
    "op": "place",
@@ -712,9 +712,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 4.8,
-      "stock": 0.8099999999999993
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -741,7 +741,7 @@
      "giot_suong": 1800014400000
     }
    },
-   "balls": 44
+   "balls": 32
   },
   {
    "op": "auto",
@@ -778,9 +778,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 4.8,
-      "stock": 0.8099999999999993
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -807,7 +807,7 @@
      "giot_suong": 1800014400000
     }
    },
-   "balls": 44
+   "balls": 32
   },
   {
    "op": "tick",
@@ -835,9 +835,9 @@
       "stock": 0
      },
      {
-      "hero": "bo_de",
-      "energy": 4.8,
-      "stock": 0.8099999999999993
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -864,7 +864,7 @@
      "giot_suong": 1800014400000
     }
    },
-   "balls": 44
+   "balls": 32
   },
   {
    "op": "tick",
@@ -892,9 +892,9 @@
       "stock": 20.625
      },
      {
-      "hero": "bo_de",
+      "hero": null,
       "energy": 0,
-      "stock": 16.974999999999998
+      "stock": 0
      },
      {
       "hero": null,
@@ -919,14 +919,14 @@
     ],
     "rest": {}
    },
-   "balls": 44
+   "balls": 32
   },
   {
    "op": "harvest",
    "t": 9,
    "a": null,
    "b": null,
-   "r": 78,
+   "r": 62,
    "farm": {
     "lastTick": 1800032400000,
     "boostUntil": 1800009000000,
@@ -947,9 +947,9 @@
       "stock": 0.625
      },
      {
-      "hero": "bo_de",
+      "hero": null,
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0
      },
      {
       "hero": null,
@@ -974,7 +974,7 @@
     ],
     "rest": {}
    },
-   "balls": 122
+   "balls": 94
   },
   {
    "op": "remove",
@@ -1002,9 +1002,9 @@
       "stock": 0.625
      },
      {
-      "hero": "bo_de",
+      "hero": null,
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0
      },
      {
       "hero": null,
@@ -1031,7 +1031,7 @@
      "vo_su": 1800036000000
     }
    },
-   "balls": 122
+   "balls": 94
   },
   {
    "op": "remove",
@@ -1059,9 +1059,9 @@
       "stock": 0.625
      },
      {
-      "hero": "bo_de",
+      "hero": null,
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0
      },
      {
       "hero": null,
@@ -1089,7 +1089,7 @@
      "nu_hoa": 1800036000000
     }
    },
-   "balls": 122
+   "balls": 94
   },
   {
    "op": "auto",
@@ -1099,6 +1099,10 @@
    "r": [
     [
      1,
+     "bo_de"
+    ],
+    [
+     2,
      "giot_suong"
     ]
    ],
@@ -1112,19 +1116,19 @@
       "stock": 0.816000000000003
      },
      {
-      "hero": "giot_suong",
+      "hero": "bo_de",
       "energy": 8,
       "stock": 0.125
      },
      {
-      "hero": null,
-      "energy": 0,
+      "hero": "giot_suong",
+      "energy": 8,
       "stock": 0.625
      },
      {
-      "hero": "bo_de",
+      "hero": null,
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0
      },
      {
       "hero": null,
@@ -1152,7 +1156,7 @@
      "nu_hoa": 1800036000000
     }
    },
-   "balls": 122
+   "balls": 94
   },
   {
    "op": "travel",
@@ -1170,19 +1174,19 @@
       "stock": 0.816000000000003
      },
      {
-      "hero": "giot_suong",
+      "hero": "bo_de",
       "energy": 8,
       "stock": 0.125
      },
      {
-      "hero": null,
-      "energy": 0,
+      "hero": "giot_suong",
+      "energy": 8,
       "stock": 0.625
      },
      {
-      "hero": "bo_de",
+      "hero": null,
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0
      },
      {
       "hero": null,
@@ -1210,14 +1214,14 @@
      "nu_hoa": 1799928000000
     }
    },
-   "balls": 122
+   "balls": 94
   },
   {
    "op": "harvest",
    "t": 9.1,
    "a": null,
    "b": null,
-   "r": 28,
+   "r": 48,
    "farm": {
     "lastTick": 1800032760000,
     "boostUntil": 1799901000000,
@@ -1228,19 +1232,19 @@
       "stock": 0.43000000000000327
      },
      {
+      "hero": "bo_de",
+      "energy": 0,
+      "stock": 0.6449999999999996
+     },
+     {
       "hero": "giot_suong",
       "energy": 0,
-      "stock": 0.7250000000000014
+      "stock": 0.22500000000000142
      },
      {
       "hero": null,
       "energy": 0,
-      "stock": 0.625
-     },
-     {
-      "hero": "bo_de",
-      "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0
      },
      {
       "hero": null,
@@ -1265,19 +1269,14 @@
     ],
     "rest": {}
    },
-   "balls": 150
+   "balls": 142
   },
   {
    "op": "auto",
    "t": 40,
    "a": null,
    "b": null,
-   "r": [
-    [
-     2,
-     "nu_hoa"
-    ]
-   ],
+   "r": [],
    "farm": {
     "lastTick": 1800144000000,
     "boostUntil": 1799901000000,
@@ -1288,19 +1287,19 @@
       "stock": 0.43000000000000327
      },
      {
-      "hero": "giot_suong",
-      "energy": 0,
-      "stock": 0.7250000000000014
-     },
-     {
-      "hero": "nu_hoa",
-      "energy": 8,
-      "stock": 0.625
-     },
-     {
       "hero": "bo_de",
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0.6449999999999996
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.22500000000000142
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -1325,7 +1324,7 @@
     ],
     "rest": {}
    },
-   "balls": 150
+   "balls": 142
   },
   {
    "op": "tick",
@@ -1343,19 +1342,19 @@
       "stock": 0.43000000000000327
      },
      {
-      "hero": "giot_suong",
-      "energy": 0,
-      "stock": 0.7250000000000014
-     },
-     {
-      "hero": "nu_hoa",
-      "energy": 0,
-      "stock": 22.625
-     },
-     {
       "hero": "bo_de",
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0.6449999999999996
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.22500000000000142
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -1380,14 +1379,14 @@
     ],
     "rest": {}
    },
-   "balls": 150
+   "balls": 142
   },
   {
    "op": "harvest",
    "t": 70,
    "a": null,
    "b": null,
-   "r": 22,
+   "r": 0,
    "farm": {
     "lastTick": 1800252000000,
     "boostUntil": 1799901000000,
@@ -1398,19 +1397,19 @@
       "stock": 0.43000000000000327
      },
      {
-      "hero": "giot_suong",
-      "energy": 0,
-      "stock": 0.7250000000000014
-     },
-     {
-      "hero": "nu_hoa",
-      "energy": 0,
-      "stock": 0.625
-     },
-     {
       "hero": "bo_de",
       "energy": 0,
-      "stock": 0.9749999999999979
+      "stock": 0.6449999999999996
+     },
+     {
+      "hero": "giot_suong",
+      "energy": 0,
+      "stock": 0.22500000000000142
+     },
+     {
+      "hero": null,
+      "energy": 0,
+      "stock": 0
      },
      {
       "hero": null,
@@ -1435,7 +1434,7 @@
     ],
     "rest": {}
    },
-   "balls": 172
+   "balls": 142
   }
  ]
 }

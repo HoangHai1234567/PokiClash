@@ -36,7 +36,9 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 **Dòng Tiểu Y (`tieu_y_1`, `tieu_y_2`, rig aola #1319, #1320), người dùng chốt 2026-11-04:**
 - **ngoại lệ của luật "không phải người"**: giữ theme thần biển Poseidon, **dạng người** (dạng 1 tiểu thần biển chibi, dạng 2 thần biển trẻ);
 - thiết kế theo `DESIGN_CHIBI` (cách thiết kế như tướng thú nhưng là nhân vật); concept đính thêm ảnh mốc style (`"anchor": True`);
-- hiệu ứng nước tự chạy (lốc nước thay chân, vòng nước, dải nước) giữ hình gốc aola để không mất animation: bỏ khỏi bóng xám, không có nhóm vẽ lại. Tóc của #1320 (mảnh 30, 35, 40) cũng tự chạy: khi ghép phải khớp hình mới vào từng khung con.
+- hiệu ứng nước tự chạy (lốc nước thay chân, vòng nước, dải nước) giữ hình gốc aola để không mất animation: bỏ khỏi bóng xám, không có nhóm vẽ lại.
+  - GPT không vẽ lại (người dùng chốt 2026-11-04). Khi ghép, Claude dùng script tô lại mọi khung con cho hợp nét tướng: viền mực nâu dày như các mảnh khác, tô phẳng hai tông xanh của lốc nước trong concept, bọt trắng viền mực mảnh, vân chì chéo nhẹ, bỏ viền trắng và vụn sáng của aola. Dáng từng khung giữ nguyên.
+  - #1319 có 41 hình: lốc nước c23 19 hình, vòng nước c57 7 hình, c8 15 hình. Tóc của #1320 (mảnh 30, 35, 40) cũng tự chạy: khi ghép phải khớp hình mới vào từng khung con.
 
 **Concept đầu tiên được chốt** (2026-11-02): Giọt Sương dạng 1, `inbox/giot_suong_1/concept_duyet.png` (bản giáp ngực trơn, găng giáp bạc, kiếm chắn tay vàng). Chép thành **ảnh mốc style** `refs/style_anchor.png`: concept các tướng sau đính thêm ảnh này (lấy nét và độ chi tiết, không lấy thiết kế).
 
@@ -84,6 +86,11 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 **Nhóm** ("soi thử <mã>" cho 2 nhóm đầu, rồi "ghép <mã>"):
 - chồng ảnh lên `orig/Nxx.png`: vật đúng chỗ, đầu khớp đúng chỗ cũ, bàn tay bàn chân đúng đầu;
 - nét như concept, viền dày gần số đã ghi; nền trắng, không viền trắng quanh mảnh.
+- lỗi nhẹ thì Claude tự sửa bằng `tools/sua_manh.py`, khỏi gen lại (ảnh GPT giữ nguyên, ảnh sửa mới hơn nên bộ ghép lấy nó):
+  - cả nhóm vẽ lệch chỗ nhưng dáng đúng: `doi <ảnh> <dx> <dy>` ra `<Nxx>_doi_cho.png`;
+  - viền ngoài mỏng hơn số đã ghi: `vien <ảnh> <px>` (nới thêm px) ra `<Nxx>_vien_day.png`;
+  - đo viền: chiều dày nét mực sát nền ngoài, so với số px của nhóm.
+  - Tiểu Y dạng 1 (2026-11-04): N01 lệch lên 180 px; N04, N06, N07 viền 10, 11, 10 px (cần 13, 18, 16) nên nới thêm 3, 7, 6 px.
 
 ## 6. Ghép (Claude)
 
@@ -119,6 +126,22 @@ Hình ghép chỉ có ở máy đã ghép (repo aola không mang `reskin/<hệ>_
 - cả ba: clip đứng và trúng đòn mới; clip chiêu giữ bản gốc. Khung lao xa nhất (game lấy làm lúc trúng đòn) trùng nhát chém: 19, 19, 20.
 - thử: menu `PokiClash/Thử/Clip đánh Giọt Sương: chụp các dạng (đang Play)`.
 
+Tiểu Y dạng 1 (`reskin/thuy_1319`, người dùng dặn 2026-11-04), viết lại cả 5 clip:
+- đứng 40 khung (bằng vòng lốc nước gốc để nước chạy liền); trúng đòn bật lùi;
+- đánh thường: lùi lấy đà, lao tới, đinh ba xoay ngang đâm thẳng, nước bắn ở mũi (đỉnh lao khung 19);
+- chiêu mana (clip bắn 1_5 dựng mới, con gốc không có): chĩa đinh ba ngang về phía địch, tụ nước ở mũi, bắn tia ở khung 12 từ mũi đinh ba;
+- chiêu cuối (1_6, không lao): giơ đinh ba lên trước mặt, tụ quả cầu nước có vòng xoáy, vung tới ném (khung 23), cầu bay ra xa rồi nổ nước ở khung 27 (= 55% clip, lúc trúng);
+- hiệu ứng: quả cầu nước FX10 vẽ riêng (gói `gui_gpt/tieu_y_fx/`, `build_fx.py tieu_y_fx`, thay bong bóng FX06 còn vệt sáng trắng), còn lại dùng gói `giot_suong_fx` (vòng xoáy FX01, giọt FX04, lấp lánh FX05, nổ nước FX03, vòng sóng FX08). `fx_dir` của anim_moi.json là danh sách hai gói, gói Tiểu Y trước;
+- hình vẽ xa hơn 1,5 lần chiều cao về phía trước là hiệu ứng ở xa: trận kéo về chỗ đối thủ (AolaActor). Khoá `"far": [x, y]` của clip trong anim_moi.json ghi tâm vụ nổ (ra `far_center` trong anim.json), để cầu bay dọc đường không kéo vụ nổ lệch khỏi thân đối thủ.
+- Tiểu Y dạng 2 (Y Trạch, `reskin/thuy_1320`, cùng ngày): cùng bộ đòn, người dùng dặn đâm lực hơn và quả cầu to hơn.
+  - Đánh thường: đinh ba xoay ngang kéo lùi hẳn ra sau (mũi cạnh nắm tay, không che mặt), lao nhanh 4 khung, đinh ba trượt qua nắm tay đâm thẳng, vệt mờ, nước nổ to ở mũi.
+  - Chiêu mana: tia cỡ 1,4.
+  - Chiêu cuối: đẩy đinh ba lên cao, tay phải giơ triệu nước, cầu FX10 cỡ 100 (gấp khoảng 1,6 lần dạng 1 trên màn hình), `far` [1100, 150].
+  - GPT vẽ viền chỉ bằng 0,4–0,6 lần số đã ghi ở mọi nhóm: nới bằng `sua_manh.py vien` lên khoảng 0,85 lần.
+  - Ba lọn tóc trước của bờm (45, 46, 50) GPT vẽ to hơn mà che mặt: `"behind"` trong anim_moi.json đưa ra sau đầu.
+  - Hiệu ứng nước tự chạy có màu nhuộm cộng xanh và glow của aola: bộ ghép bỏ ở hình đã tô lại.
+- Công cụ thêm hôm đó: khoá mảnh `[khung, góc, dx, dy]` (dời mảnh, như đâm đinh ba); mảnh tự chạy (lốc nước, vòng nước) phát lại khung con của clip đứng ở mọi clip viết lại; `anim_moi.py` dựng từ `anim_ghep.json` nên chạy lại một mình không cộng dồn; bỏ hình không clip nào dùng; `ghep.json` `"to_nuoc"` tô lại hình nước (`tools/to_nuoc.py`).
+
 **Trong trận (người dùng dặn 2026-11-03):**
 - con đang ra đòn nằm trên con kia (StageView.Play);
 - clip CHIÊU (1_6) chỉ dùng cho tuyệt kỹ; khoá `"lunge": true` trong anim_moi.json thì trận kéo nó lao tới đối thủ như đòn đánh. Giọt Sương: dạng 1 lao tới xoay vòng chém, dạng 2 lao tới chém bổ, dạng 3 lao tới xoay người quật đuôi lưỡi kiếm (đòn đánh thường dạng 3 đổi thành vồ tới dậm hai chân trước);
@@ -140,7 +163,7 @@ Hình ghép chỉ có ở máy đã ghép (repo aola không mang `reskin/<hệ>_
 | `ArtGen/Heroes/gui_gpt/<mã>/` | Gói gửi GPT: `luot_1_concept.txt`, `luot_2_nhom_manh.txt`, `HUONG_DAN.md` (sinh ra, không sửa tay) |
 | `ArtGen/Heroes/refs/<hệ>/<mã>/` | Ảnh rig: bóng xám, bản đồ vùng, rig đánh số, `orig/Nxx.png` |
 | `ArtGen/Heroes/refs/style/` | Tờ mẫu thiết kế từ hình aola (`style_sheet.png`); `parts_example.png` của cách bộ mảnh rời, không dùng nữa |
-| `ArtGen/Heroes/tools/` | `make_refs.py` (tờ mẫu), `explode.py` |
+| `ArtGen/Heroes/tools/` | `make_refs.py` (tờ mẫu), `explode.py`, `sua_manh.py` (dời ảnh nhóm, nới viền) |
 | `ArtGen/Heroes/inbox/<mã>/tai_ve/` | Ảnh GPT tự lưu (`concept.png`, `<Nxx>.png`), Claude chưa duyệt |
 | `ArtGen/Heroes/inbox/<mã>/concept_duyet.png` | Concept đã duyệt |
 | `ArtGen/Heroes/refs/style_anchor.png` | Ảnh mốc style: concept Giọt Sương dạng 1 đã chốt |

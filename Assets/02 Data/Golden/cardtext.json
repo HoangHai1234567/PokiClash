@@ -37,6 +37,30 @@
    "cost": ""
   },
   {
+   "id": "can_xe",
+   "lv1": "Gây 30% Công sát thương, hút 50% thành máu.",
+   "lv5": "Gây 48% Công sát thương, hút 80% thành máu.",
+   "cost": ""
+  },
+  {
+   "id": "nhay_lui",
+   "lv1": "25% né đòn đánh thường tới lượt sau.",
+   "lv5": "40% né đòn đánh thường tới lượt sau.",
+   "cost": ""
+  },
+  {
+   "id": "dung_tan",
+   "lv1": "+30% Thủ tới lượt sau.",
+   "lv5": "+48% Thủ tới lượt sau.",
+   "cost": ""
+  },
+  {
+   "id": "hat_de",
+   "lv1": "Hồi 3% máu đầu mỗi lượt, 3 lượt.",
+   "lv5": "Hồi 5% máu đầu mỗi lượt, 3 lượt.",
+   "cost": ""
+  },
+  {
    "id": "binh_thuoc",
    "lv1": "Hồi 18% máu.",
    "lv5": "Hồi 29% máu.",
@@ -67,9 +91,27 @@
    "cost": ""
   },
   {
+   "id": "phong_long",
+   "lv1": "Đánh 3 lần, mỗi lần 20% Công.",
+   "lv5": "Đánh 3 lần, mỗi lần 32% Công.",
+   "cost": ""
+  },
+  {
+   "id": "tung_cat",
+   "lv1": "Địch −20% Công 1 lượt.",
+   "lv5": "Địch −32% Công 1 lượt.",
+   "cost": ""
+  },
+  {
    "id": "dam_kep",
    "lv1": "Cuối lượt đánh thêm một cú 50% Công.",
    "lv5": "Cuối lượt đánh thêm một cú 80% Công.",
+   "cost": ""
+  },
+  {
+   "id": "trang_khuyet",
+   "lv1": "Hút 20 mana của địch.",
+   "lv5": "Hút 32 mana của địch.",
    "cost": ""
   },
   {
@@ -79,21 +121,39 @@
    "cost": ""
   },
   {
-   "id": "hut_mau",
-   "lv1": "Hút 50% sát thương thành máu lượt này.",
-   "lv5": "Hút 80% sát thương thành máu lượt này.",
-   "cost": ""
-  },
-  {
    "id": "pha_giap",
    "lv1": "Địch −30% Thủ 2 lượt.",
    "lv5": "Địch −48% Thủ 2 lượt.",
    "cost": ""
   },
   {
+   "id": "bua_ta",
+   "lv1": "Gây 70% Công sát thương, xuyên 50% Thủ.",
+   "lv5": "Gây 112% Công sát thương, xuyên 50% Thủ.",
+   "cost": ""
+  },
+  {
+   "id": "hut_mau",
+   "lv1": "Hút 50% sát thương thành máu lượt này.",
+   "lv5": "Hút 80% sát thương thành máu lượt này.",
+   "cost": ""
+  },
+  {
    "id": "dot_lua",
    "lv1": "Đốt địch 3 lượt (6% máu mỗi lượt).",
    "lv5": "Đốt địch 3 lượt (10% máu mỗi lượt).",
+   "cost": ""
+  },
+  {
+   "id": "suoi_trong",
+   "lv1": "Xoá hiệu ứng xấu. Hồi 12% máu.",
+   "lv5": "Xoá hiệu ứng xấu. Hồi 19% máu.",
+   "cost": ""
+  },
+  {
+   "id": "sam_ren",
+   "lv1": "Gây 60% Công sát thương. 35% cơ hội: Làm địch choáng.",
+   "lv5": "Gây 96% Công sát thương. 56% cơ hội: Làm địch choáng.",
    "cost": ""
   },
   {
@@ -106,6 +166,12 @@
    "id": "mat_ung",
    "lv1": "+50% chí mạng lượt này.",
    "lv5": "+80% chí mạng lượt này.",
+   "cost": ""
+  },
+  {
+   "id": "long_phuong",
+   "lv1": "Hồi 15% máu. Hồi 5% máu đầu mỗi lượt, 3 lượt.",
+   "lv5": "Hồi 24% máu. Hồi 8% máu đầu mỗi lượt, 3 lượt.",
    "cost": ""
   },
   {
@@ -124,6 +190,12 @@
    "id": "ao_choang",
    "lv1": "Né trọn đòn đánh kế tiếp.",
    "lv5": "Né trọn đòn đánh kế tiếp.",
+   "cost": ""
+  },
+  {
+   "id": "don_suc",
+   "lv1": "+40% Công trong 2 lượt. +20 nộ.",
+   "lv5": "+64% Công trong 2 lượt. +32 nộ.",
    "cost": ""
   },
   {

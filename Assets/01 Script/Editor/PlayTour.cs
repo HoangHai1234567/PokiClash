@@ -480,11 +480,34 @@ namespace PokiClash.EditorTools
             ClickButton("Thả liền 20");
             yield return new WaitForSecondsRealtime(1.6f);
             yield return Shot("tha_x1");
+            // sao EXP bay lên thanh kinh nghiệm trên đầu máy: chụp lúc sao đầu tiên đang bay và lúc tới thanh
+            var expBar = Object.FindAnyObjectByType<MachineExpBar>();
+            if (expBar)
+            {
+                yield return Until(() => expBar.Busy, 15);
+                yield return new WaitForSecondsRealtime(0.2f);
+                yield return Shot("tha_x1_sao_exp");
+                yield return new WaitForSecondsRealtime(0.3f);
+                yield return Shot("tha_x1_sao_exp2");
+            }
+            else Debug.LogError("[Thử] Màn Máy bi chưa có thanh kinh nghiệm (menu PokiClash/Prefab/Máy bi: thanh kinh nghiệm)");
             yield return Until(() => m.Session >= 20, 10);
             Debug.Log($"[Thử] ×1: thả {m.Session} bi, tốn {s.ballsSpent - spent}");
             yield return SettleMachine(m, "x1", 3);
 
+            // ×3 mở ở cấp cfg.xSteps (đổi theo cân bằng): nâng cấp cho đủ trước khi bấm
+            var x3 = d.Cfg.xSteps.Find(q => q.x == 3);
+            if (x3 != null && s.level < x3.lv)
+            {
+                s.level = x3.lv;
+                s.exp = 0;
+                m.Refresh();
+                yield return new WaitForSecondsRealtime(0.5f);
+            }
             ClickButton("×3");
+            // số trên ô đổi theo cược (nhún 0,25 giây), chữ ×3 nổi giữa máy
+            yield return new WaitForSecondsRealtime(0.12f);
+            yield return Shot("cuoc_x3");
             spent = s.ballsSpent;
             ClickButton("Thả liền 20");
             yield return new WaitForSecondsRealtime(1.6f);

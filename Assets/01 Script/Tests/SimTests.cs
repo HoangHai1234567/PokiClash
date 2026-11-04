@@ -1,7 +1,7 @@
 // Công cụ cân bằng: bảng 102 ải × 5 mức cấp của Unity phải ra đúng từng ô như npm run sim -- battle (golden sim.json),
 // mô phỏng máy bi ra tỉ lệ khớp bảng đo của web, mô phỏng tiến độ chạy được và có thứ tự hợp lý giữa các kiểu người chơi.
 // sim.json tính lại bên Unity 2026-11-03 (5 tướng khởi đầu: chỉ số, thẻ, sức địch đảo Thủy; GD_Claude/15_TuongKhoiDau.md),
-// rồi lần nữa cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm.
+// rồi lần nữa cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm; lần nữa 2026-11-04 khi đổi luật rút thẻ và cấp địch các đảo.
 using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;

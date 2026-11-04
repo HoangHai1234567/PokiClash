@@ -1,0 +1,37 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\than_may.png (1024 x 1536): the approved cabinet of this machine (transparent background): copy its exact drawing style, ink weight, crayon texture and colours
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\guides\G_Sheet4x3.png (1536 x 1024): the numbered 4 x 3 grid of the sheet you draw: one item per cell, inside the grey inner box
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\refs\mat_may_danh_so.png (860 x 1412): the machine in the game today with the plain placeholder parts drawn by code; each numbered pink label points at the part that goes into the cell with the same number; shown so you understand what each part is and how big it is
+
+SAVE: save the finished sheet as a 1536 x 1024 PNG with a TRANSPARENT background to
+E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\bo_phan.png
+Create the folder if it is missing. If that file already exists, save it as bo_phan_2.png, bo_phan_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the separate parts of the board of the ball-drop machine (a vertical pachinko) whose cabinet is image 1. The game places every part at the exact spot of its physics and scales it to the size given below (on a phone), so draw each part alone, seen straight from the front, simple and bold enough to read at that small size. Outlines must be thick: about one tenth of the item's width for the small round parts.
+
+SHEET: a 1536 x 1024 PNG with a TRANSPARENT background, one item per numbered cell of image 2, in the order of the numbers. Centre each item inside the grey inner box of its cell and let it fill most of that box; it must never touch the cell edge or another item. Do not draw the grid, the magenta lines, the grey boxes or the numbers.
+
+CELLS (image 3 shows where each part sits):
+1 PEG (shown 17 px): one small round peg head seen from the front: a dark warm-grey circle with a thick ink outline and one small cream dot near its top left. Round, no stem, nothing around it.
+2 MUSHROOM BUMPER (shown 55 px): a round red mushroom cap seen from straight above: red #E8553F with five round white spots, a cream ring around the edge, thick ink outline. Round.
+3 WALL BUMP (shown 34 px): a round wooden knob, warm brown with a darker ring and a lighter centre, thick ink outline. Draw the full circle; the game hides half of it inside the side wall.
+4 SLOT POST (shown 12 x 180 px): one thin upright wooden post that separates two prize slots: a straight vertical stick, warm brown, with a round knob on its top end and a flat bottom end. About 1 : 12 width to height; as tall as the inner box.
+5 SILVER CUP (shown 40 x 28 px): a small catch cup seen from the front: a trapezoid bucket wider at the top, light silver-grey with a darker rim, thick ink outline, empty inside (the game puts a tiny chest in it). About 3 : 2.
+6 VAULT ROOF PLANK (shown 90 x 11 px): one thick golden plank lying horizontally with rounded ends, yellow-gold #F7C948 with a darker gold edge and two small rivets. About 8 : 1. The game turns it to a slant and mirrors it for the other side.
+7 VAULT FLOOR (shown 165 x 26 px): a shallow V-shaped golden tray: two golden planks meeting at a low point in the middle, with a small round golden knob on each upper end. About 6 : 1.
+8 CLOUD LAUNCHER (shown 110 x 53 px): a cute small white cloud seen from the front, with two dot eyes and a tiny smile, a flat bottom where the ball hangs, thick ink outline, pale grey hatching. About 2 : 1.
+9 BALL (shown 31 px): a round ball with one thin band across its middle, drawn ONLY in white and very light grey with a thick ink outline and one small white dot (the game tints it pink, blue or gold by the bet). Round.
+10 SHOULDER PLANK (shown 90 x 10 px): a short straight wooden plank lying horizontally with rounded ends, warm brown with a darker edge. About 9 : 1. The game turns it to a slant at the top corners of the board.
+11 LAUNCHER RAIL (shown 760 x 8 px): a long thin dark wooden rail lying horizontally with a small round cap at each end. Very long and thin, about 25 : 1, across the whole inner box.
+12 VAULT PLATE (shown 165 x 75 px): a flat pale-golden plate shaped like a wide hexagon (the backing behind the golden vault), soft light yellow #FFE9A8 with light hatching and a thin darker gold edge. About 2.2 : 1.
+
+STYLE: exactly the rendering of image 1, the approved cabinet of this machine: slightly wobbly dark-brown ink outlines #2B2118, flat warm colours, colour-pencil and crayon hatching for texture, cream paper feel. Drawn neatly by a professional illustrator, not scribbly. No glossy highlights, no gradients, no 3D render, no airbrush, no metal shine.
+
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the items.
+Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+
+AVOID: text, letters, numbers, labels, characters, faces except the cloud's, a background, a floor, a board, extra parts, two parts in one cell.
+
+Remember: transparent background, one part per cell in the order 1 to 12, save the sheet to E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\bo_phan.png

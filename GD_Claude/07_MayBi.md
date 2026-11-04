@@ -96,3 +96,64 @@ Lý do và các lần thử ghi ở change `update-pachinko-feel` (design, mục
 **Hạt chạy theo giờ máy:** lúc rương vàng làm máy chạy chậm, hạt cũng chậm.
 
 **Lượt thử soi:** `PokiClash/Thử/Máy bi: soi hiệu ứng`. Nó dừng máy và tua giờ hạt để chụp từng mốc.
+
+## Thanh kinh nghiệm và số theo cược
+
+Chủ dự án dặn (2026-11-04): máy phải có thanh kinh nghiệm ở trên, EXP nhận được thì bay về đó; đổi ×2, ×3… thì số trên máy đổi theo.
+
+**Máy tham khảo làm gì** (bản đục, `D:\CrittersRipper`):
+- Thanh cấp (`pbui_pinball_level_bar`) nằm trên đầu màn máy: vòng cấp bên trái ("LV" và số), thanh bo tròn phần đầy xanh lơ, quầng sáng ở đầu phần đầy, chữ "10/30".
+- Bi vào ô kẹo thì kẹo hiện số rồi bay về thanh. Tiếng theo thứ tự: số nhảy, cộng điểm (0,33 giây), thanh lên (2,1 giây), thanh đầy (trễ 0,55 giây). Rung `ExpbarFull` khi đầy.
+- Mỗi ô có ô chữ tối viền vàng ghi số thưởng (`txt_ball`); code đổi số theo mức cược. Ô thẻ, ô cướp ghi "x10".
+- Nút cược vàng ghi "x15" cạnh nút PUSH; đổi cược thì bảng hệ số bật lên (`multi_popup`).
+- Tủ máy đứng có đỉnh vòm viền bóng đèn và bảng điểm trên đầu.
+
+**Ở đây:**
+- **Thanh kinh nghiệm trên đầu máy** (`MachineExpBar`, phần `thanh_kinh_nghiem` của `Screens/Machine`, dựng bằng menu `PokiClash/Prefab/Máy bi: thanh kinh nghiệm`). Có vòng cấp (chép vòng cấp của thanh trên) và thanh kit `Thanh` loại EXP ghi "số/số", chừa nút Tỉ lệ bên phải.
+- **Sao EXP bay lên thanh:**
+  - bi vào ô EXP thì hiện chữ "+N XP" như cũ, kèm 1–4 sao EXP (10 EXP một sao);
+  - sao văng sang một bên rồi lao về đầu phần đầy trong 0,55–0,67 giây, sao sau trễ 0,06 giây, có vệt lấp lánh tím;
+  - tới nơi thì thanh mới cộng, nảy nhẹ, loé tím; tiếng `pick` nhỏ cao dần khi sao tới liền nhau, cách nhau ít nhất 0,07 giây;
+  - lên cấp thì thanh đầy rồi về 0, vòng cấp nhún, loé vàng, tiếng `level`;
+  - bản lưu vẫn cộng ngay lúc bi rơi, chỉ thanh hiện chậm. Hộp "Lên cấp!" cuối đợt chờ sao cuối tới.
+- **Số trên ô theo cược** (`MachineBoard.SetMult`):
+  - ô EXP ghi EXP × cược, ô bi ghi "+cược";
+  - rương ở ô, cốc, két có nhãn "×cược" khi cược trên 1;
+  - đổi cược thì các số nhún 1,4 → 1 trong 0,25 giây, chữ "×N" cam nổi giữa máy.
+- **Thân máy vẽ tay:** gói prompt `ArtGen/Pachinko/gui_gpt/than_may/` (sinh bằng `ArtGen/Pachinko/build.py`). Tủ đỉnh vòm có bóng đèn, đầu máy có rãnh cho thanh kinh nghiệm, hốc vòng cấp, hốc nút tỉ lệ, mặt chơi trống đúng cỡ bàn.
+  - Ảnh đã vào game (2026-11-04): `Assets/03 Art/Pachinko/pk_than_may.png` (851 × 1401, đúng cỡ hiện trên màn). Nhập bằng `build.py --duyet`, rồi chạy menu `PokiClash/Prefab/Máy bi: thân máy vẽ tay`.
+  - Thân máy nằm sau mặt máy và thay khung giấy tạm. Thanh kinh nghiệm nằm trong rãnh. Nút tỉ lệ thành chữ "i" trong hốc tròn bên phải.
+  - Cột cược và khay rương sát mép màn, thu nhỏ cho khỏi đè viền tủ.
+- **Bộ phận, hiệu ứng, rương vẽ tay** (vào game 2026-11-04, gói `ArtGen/Pachinko/gui_gpt/than_may/` lượt 2–4):
+  - **Mặt máy tĩnh** `Baked/Machine/may_tinh.png` ghép từ 12 bộ phận GPT bằng `build.py --duyet bo_phan`. Chỗ đặt theo hình học `Board.Build`, có bản chép trong `build.py`: đổi mặt máy thì đổi cả hai.
+  - **Nấm, máng mây, bi** là hình động: `pk_bumper` (thay hình tạm cùng tên), `pk_may_tha`, `pk_bi` (trắng xám, game tô màu theo cược). Gắn bằng menu `PokiClash/Prefab/Máy bi: ảnh bộ phận`.
+  - **Hiệu ứng** `fx_glow`, `fx_sparkle`, `fx_ring`, `fx_star`, `fx_streak`, `fx_puff` trong `Assets/03 Art/Pachinko` thay hình tạm cùng tên ở mọi chỗ (menu `PokiClash/Dựng lại danh mục ảnh`).
+  - **Rương** `pk_ruong_go`, `pk_ruong_bac`, `pk_ruong_vang` (bản mở thêm `_mo`): `ChestIcon` tự dùng khi có. Hộp mở rương đổi sang bản mở lúc bật nắp. Rương AFK có màu riêng nên giữ hình vẽ tạm.
+
+## Việc còn lại (ghi 2026-11-04)
+
+Thanh kinh nghiệm, số theo cược, thân máy, bộ phận, hiệu ứng, rương vẽ tay đã vào game (Unity), 96/96 test EditMode qua.
+
+**Làm trước:**
+1. **Thử trên điện thoại Android** (Build thường):
+   - thanh kinh nghiệm đọc được không; sao EXP bay có rõ không; tiếng `pick` khi sao tới có dày quá không lúc "Thả liền";
+   - cột cược và khay rương đã thu còn 0,82–0,84: chữ "×10 / Cấp 80" còn đọc được không;
+   - nút "i" tỉ lệ (khoảng 65 px) có dễ bấm không;
+   - đinh, bi, nấm vẽ tay có rõ ở cỡ nhỏ không.
+2. **Kiểm dung lượng:** chạy menu `PokiClash/Dung lượng: ảnh nặng trong build`. Ảnh mới gồm thân máy 851 × 1401, mặt máy 920 × 1360, 6 rương 320 px, 6 hiệu ứng 256 px.
+
+**Tuỳ chọn:**
+- **Rương AFK** (màu xanh ngọc riêng) vẫn là hình vẽ tạm. Có hai cách: gen thêm rương AFK đóng và mở theo dáng rương mới, hoặc bỏ màu riêng để dùng ảnh rương gỗ.
+- **Hình vẽ code còn lại**, sẽ đẹp theo khi gen các gói chung:
+  - thanh EXP và vòng cấp (`Kit/Thanh`, vòng cấp chép từ thanh trên): chờ gói `ArtGen/UIKit`;
+  - icon XP, bi, rương trên thanh trên cùng và trong ô thưởng: chờ gói `ArtGen/Icons`.
+- **Nền màn máy bi** vẫn là màu xanh nhạt trơn, chưa có ảnh.
+- **Tiếng và rung:** máy tham khảo có tiếng riêng cho thanh lên (`expbar_up` 2,1 giây) và thanh đầy (`expbar_full`), cùng rung `ExpbarFull`. Ở đây đang dùng tiếng `pick`, `level` và rung lên cấp có sẵn.
+- **Thanh trên cùng** ("Cấp n") đổi ngay lúc bi rơi, nên nhanh hơn thanh trên máy một nhịp.
+- **Bản web** chưa có thanh kinh nghiệm và số theo cược. Theo luật 2026-11-03 chỉ làm ở Unity, khi nào dặn mới làm web.
+
+**Lưu ý:**
+- File prompt ghi đường dẫn tuyệt đối của máy đang chạy. Sang máy khác thì chạy `py -3 -I ArtGen/Pachinko/build.py` trước để dựng lại đường dẫn, rồi mới gửi GPT.
+- Đổi bố cục mặt máy trong `Pachinko.cs` thì sửa cả `board_geometry` trong `ArtGen/Pachinko/build.py`, rồi chạy `--duyet bo_phan` lại.
+- Không chạy `Web/scripts/draw_machine.py`: script đó ghi đè mặt máy vẽ tay bằng bản vẽ code.
+- Gen lại tờ nào thì làm theo `ArtGen/Pachinko/gui_gpt/than_may/HUONG_DAN.md`: `build.py --duyet <tờ>`, rồi chạy các menu Unity ghi ở đó.

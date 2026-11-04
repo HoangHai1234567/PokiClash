@@ -361,7 +361,7 @@ MonoBehaviour:
   - id: tieu_y
     name: "Ti\u1EC3u Y"
     title: "B\xE9 con s\xF3ng n\u01B0\u1EDBc"
-    aola: goc_1319
+    aola: thuy_1319
     elem: 2
     rarity: 0
     stats: 500000001e00000046000000500000002300000028000000
@@ -373,10 +373,10 @@ MonoBehaviour:
     size: 0.85
     forms:
     - name: "Ti\u1EC3u Y"
-      aola: goc_1319
+      aola: thuy_1319
       size: 0.85
     - name: "Y Tr\u1EA1ch"
-      aola: goc_1320
+      aola: thuy_1320
       size: 1.12
     minion: 0
   - id: canh_cut

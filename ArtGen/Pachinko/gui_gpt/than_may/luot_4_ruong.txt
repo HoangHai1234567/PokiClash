@@ -1,0 +1,33 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\than_may.png (1024 x 1536): the approved cabinet of this machine (transparent background): copy its exact drawing style, ink weight, crayon texture and colours
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\guides\G_Sheet3x2.png (1536 x 1024): the numbered 3 x 2 grid of the sheet you draw: one chest per cell, inside the grey inner box
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\refs\ruong_hien_tai.png (627 x 574): the chest-opening box in the game today with the plain placeholder chest drawn by code (a golden chest); shown so you understand where the chests appear; do not copy its flat look
+
+SAVE: save the finished sheet as a 1536 x 1024 PNG with a TRANSPARENT background to
+E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\ruong.png
+Create the folder if it is missing. If that file already exists, save it as ruong_2.png, ruong_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the treasure chests of the ball-drop machine of image 1. A ball that falls into a chest slot wins a wooden, silver or golden chest; the chest flies into a tray beside the machine, then opens in a box (image 3). The same drawing is shown small on the board (about 35 px), in the tray (about 90 px) and big in the opening box (about 200 px), so keep it chunky, simple and readable.
+
+SHEET: a 1536 x 1024 PNG with a TRANSPARENT background, one item per numbered cell of image 2, in the order of the numbers. Centre each item inside the grey inner box of its cell and let it fill most of that box; it must never touch the cell edge or another item. Do not draw the grid, the magenta lines, the grey boxes or the numbers.
+
+ALL SIX are the SAME chest shape and size, seen from the front and a little from above: a chunky box with a rounded lid, two metal bands, a round lock plate in the middle of the front. Only the material changes, and the open ones show the lid lifted back.
+1 WOODEN CHEST, closed: warm brown wooden planks with visible plank lines, dark iron bands, a small brass round lock.
+2 WOODEN CHEST, open: the same chest with the lid lifted back; inside a flat light-yellow fill with three or four doodled sparkle stars above it.
+3 SILVER CHEST, closed: pale blue-grey painted wood with shiny-looking silver bands drawn with hatching (no gloss), a round silver lock with a small blue gem.
+4 SILVER CHEST, open: the same silver chest open; inside a flat light-yellow fill with four or five doodled sparkle stars.
+5 GOLDEN CHEST, closed: golden-yellow #F7C948 body with orange-gold bands, a round lock with a red gem, a tiny crown doodle on the lid.
+6 GOLDEN CHEST, open: the same golden chest open, a few gold coins and doodled stars popping out above it, inside a flat light-yellow fill.
+
+LIGHT INSIDE: draw it as a flat light-yellow #FFF2A8 colour with a few doodled star shapes; no airbrush glow, no light rays, no halo (the game adds its own effects).
+
+STYLE: exactly the rendering of image 1, the approved cabinet of this machine: slightly wobbly dark-brown ink outlines #2B2118, flat warm colours, colour-pencil and crayon hatching for texture, cream paper feel. Drawn neatly by a professional illustrator, not scribbly. No glossy highlights, no gradients, no 3D render, no airbrush, no metal shine.
+
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the items.
+Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+
+AVOID: text, letters, numbers, characters, a background, a floor, a table, glow halos, two chests in one cell.
+
+Remember: transparent background, one chest per cell in the order 1 to 6, save the sheet to E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\ruong.png

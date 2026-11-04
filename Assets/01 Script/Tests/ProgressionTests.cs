@@ -144,22 +144,22 @@ namespace PokiClash.Tests
             var cfg = d.Cfg;
             var s = SaveData.New(d, 0);
             var p = s.Hero("giot_suong");
-            // sao 2: tổng cấp thẻ 5, cấp người chơi 2
+            // sao 2: tổng cấp thẻ 5, cấp người chơi 7
             p.skill.lv = 3;
-            s.level = 1;
+            s.level = 6;
             Assert.IsFalse(Progress.CanEvolve(s, cfg, "giot_suong"), "thiếu cấp người chơi");
-            s.level = 2;
+            s.level = 7;
             Assert.IsTrue(Progress.Evolve(s, cfg, "giot_suong"));
             Assert.AreEqual(2, p.star);
-            // sao 3: tổng 8, cấp 5 — đủ thẻ mà thiếu cấp
+            // sao 3: tổng 8, cấp 23 — đủ thẻ mà thiếu cấp
             p.ult.lv = 4;
-            s.level = 4;
+            s.level = 22;
             var need = Progress.StarNeed(cfg, 3);
-            Assert.AreEqual((8, 5), need);
+            Assert.AreEqual((8, 23), need);
             Assert.AreEqual(8, Progress.CardSum(s, "giot_suong"));
             Assert.IsFalse(Progress.CanEvolve(s, cfg, "giot_suong"));
             Assert.AreEqual(0, Progress.HeroAlerts(s, d));
-            s.level = 5;
+            s.level = 23;
             Assert.AreEqual(1, Progress.HeroAlerts(s, d), "một việc chờ: tiến hóa");
         }
 

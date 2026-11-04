@@ -1,5 +1,6 @@
 // Dựng đội cho trận, chép memberOf / playerTeam / enemyTeam của Web/src/core/progression.ts.
 using System.Collections.Generic;
+using System.Linq;
 
 namespace PokiClash.Core
 {
@@ -32,8 +33,18 @@ namespace PokiClash.Core
             return t;
         }
 
-        // sao của địch theo cấp (chép enemyTeam của Web/src/core/progression.ts); cũng chọn dạng của địch trong dòng tiến hóa
-        public static int EnemyStar(int level) => 1 + level / 6;
+        // sao, cấp thẻ của địch theo cấp (thang cấp 1–200 từ 2026-11-04): bằng người chơi bình thường ở cùng cấp, để "Lv" của địch
+        // là cấp người chơi cần có. Sao theo mốc cấp lên sao của người chơi (balance.json progression.starLevel); cấp thẻ theo số đo
+        // ProgressSim (thẻ đến từ rương máy bi: trung bình 2 ở cấp 8, 3 ở cấp 18, 4 ở cấp 28, 5 từ cấp 45).
+        // Sao cũng chọn dạng của địch trong dòng tiến hóa.
+        public static readonly int[] EnemyStarAt = { 7, 23, 50, 96 }; // sao 2, 3, 4, 5
+        public static readonly int[] EnemyCardAt = { 8, 18, 28, 45 }; // cấp 2, 3, 4, 5 của cả 3 thẻ
+
+        static int Step(int[] at, int level) => 1 + at.Count(x => level >= x);
+
+        public static int EnemyCard(int level) => Step(EnemyCardAt, level);
+
+        public static int EnemyStar(int level) => Step(EnemyStarAt, level);
 
         // sao để chọn hình (dạng) của địch ngoài trận: như EnemyStar, riêng boss tiến hóa vào trận ở dạng 1 (chép enemyFormStar)
         public static int EnemyFormStar(StageEnemy e) => e.evo ? 1 : EnemyStar(e.level);
@@ -63,7 +74,7 @@ namespace PokiClash.Core
                 t.members.Add(new Member
                 {
                     heroId = e.hero, level = e.level, boss = e.boss, evo = e.evo, star = EnemyStar(e.level),
-                    cardSkill = 1 + e.level / 5, cardUlt = 1 + e.level / 6, cardPassive = 1 + e.level / 6,
+                    cardSkill = EnemyCard(e.level), cardUlt = EnemyCard(e.level), cardPassive = EnemyCard(e.level),
                     mods = Islands.EnemyMods(d, e, st.tag != StageTag.None),
                 });
             return t;

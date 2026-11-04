@@ -52,6 +52,13 @@ namespace PokiClash.UI
 
         float Width => area.rect.width;
 
+        // đầu phần đầy đang hiện (toạ độ thế giới), giữa chiều cao thanh: chỗ sao EXP của máy bi bay tới
+        public Vector3 TipWorld()
+        {
+            var r = area.rect;
+            return area.TransformPoint(new Vector3(r.xMin + r.width * shown, r.center.y, 0));
+        }
+
         // v/max: giá trị; shieldV: khiên (cùng đơn vị máu); text: chữ thay cho "v/max"
         public void Set(float v, float max, float shieldV = 0, string text = null, bool instant = false)
         {

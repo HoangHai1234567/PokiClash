@@ -184,11 +184,11 @@ namespace PokiClash.Core
         public static int StageBalls(GameData d, StageDef st, bool first)
         {
             int o = d.Zone(st.zone).order;
-            // đảo 70 ải: 1 bi mỗi 4 cấp địch (cấp 1–4: 1 bi, 5–8: 2 bi); lần đầu qua ải tướng +2, mini boss +4, boss +8
+            // đảo 70 ải: 1 bi (ải 1–35), 2 bi (ải 36–70), đảo sau thêm 2 bi mỗi đảo; lần đầu qua ải tướng +2, mini boss +4, boss +8
+            // (trước 2026-11-04 tính theo cấp địch; thang cấp 200 thì theo số ải)
             if (st.tag != StageTag.None)
             {
-                int lv = st.enemies.Max(e => e.level);
-                int b = 1 + o * 2 + (lv - 1) / 4;
+                int b = 1 + o * 2 + (st.idx - 1) / 35;
                 return b + (first ? (st.kind == StageKind.Boss ? 8 : st.kind == StageKind.Mini ? 4 : st.tag == StageTag.Hero ? 2 : 0) : 0);
             }
             int bas = 3 + o * 4 + (st.idx - 1) / 2;
@@ -205,7 +205,7 @@ namespace PokiClash.Core
             if (done) return Difficulty.Done;
             if (level >= z.levelMax) return Difficulty.Easy;
             if (level >= z.levelMin) return Difficulty.Fit;
-            if (level >= z.levelMin - 3) return Difficulty.Hard;
+            if (level >= z.levelMin - LevelSlack) return Difficulty.Hard;
             return Difficulty.Wall;
         }
 
@@ -219,7 +219,11 @@ namespace PokiClash.Core
         // ô đội mở theo cấp người chơi (người dùng chốt 2026-11-03, GD_Claude/15_TuongKhoiDau.md; web mở theo số đảo đã xong):
         // lúc đầu mang 1 tướng, ô 2 ở cấp 10, ô 3 ở cấp 30
         public const int TeamSlotMax = 3;
-        public static readonly int[] SlotLevels = { 1, 10, 30 };
+        // thang cấp 200 (2026-11-04): ô 2 ở cấp 60 (giữa đảo Hỏa, như cấp 10 của thang cũ), ô 3 ở cấp 200 (cấp tối đa, như cấp 30 cũ)
+        public static readonly int[] SlotLevels = { 1, 60, 200 };
+
+        // cấp dưới cận dưới của đảo vẫn tính là theo được (Khó, đảo gợi ý); thang cũ là 3
+        public const int LevelSlack = 15;
 
         public static int TeamSlots(SaveData s) => SlotLevels.Count(lv => s.level >= lv);
 
@@ -230,7 +234,7 @@ namespace PokiClash.Core
         public static ZoneDef RecommendedZone(SaveData s, GameData d)
         {
             var order = d.Zones.OrderBy(z => z.order).ToList();
-            return order.FirstOrDefault(z => !ZoneDone(s, z.id) && s.level >= z.levelMin - 3)
+            return order.FirstOrDefault(z => !ZoneDone(s, z.id) && s.level >= z.levelMin - LevelSlack)
                    ?? order.FirstOrDefault(z => !ZoneDone(s, z.id))
                    ?? order[0];
         }

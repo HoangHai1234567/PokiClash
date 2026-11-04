@@ -1,0 +1,21 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image per reply and save each one as its step says. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's approved hand-drawn map: copy its RENDERING (ink outlines, coloured-pencil hatching), ignore its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_1\concept_duyet.png: approved concept of stage 1 of this hero: take only its water COLOURS and drawing style, do not draw the creature
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_fx\tai_ve\FX01.png: another effect of the same attack (a swirling water ring that spins around the orb): match its drawing style, line weight and water colours, do not copy its shape
+
+WHAT THIS IS: a special-attack effect for a 2D creature game with a hand-drawn storybook look: water magic of a little sea god who fights with a trident. The game animates them (moves, spins, scales, fades), so draw each effect alone, still, centred on white.
+
+SAVE: every step's image goes into E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_fx\tai_ve\ under the step's name (for example FX10.png). If that file already exists, add _2, _3 … before .png. Do not change, move or delete any other file.
+
+ORDER: draw step FX10 now, save it and stop.
+
+=== STEP FX10 (cau nuoc) ===
+One water orb: a perfectly round ball of churning sea water seen from the front, the power a little sea god gathers on the tip of his trident and throws at the enemy. Inside the round outline, three curling bands of deep blue and light blue water spiral around the centre like a small whirlpool caught inside a sphere; small curls of white foam break along its rim where the water churns, and three or four small droplets fly off the edge. It is solid rushing water, not a soap bubble and not glass: no see-through look, no shine spot, no reflection. The silhouette stays round (the game spins and scales it).
+
+RENDERING: the hand-drawn look of image 1 (the game's map): drawn by hand on paper with a dark-brown ink pen (#2B2118), an outline about 14 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner than the outline). Colours of water from image 2 (clear sky blue, light blue, deep blue, white foam); gold only where the step says.
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (no drop shadow, no cast shadow, nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render. White appears only as a flat colour where the step says (foam, a sparkle), never as a light reflection.
+CANVAS: a square 1024 x 1024 image, plain pure white background (the game cuts the white away, so keep a clear white margin all round and do not let the effect touch the edges), the effect centred and filling about 75% of the canvas. Only this effect: no creature, no hand, no weapon, no ground, no text, no frame, no white sticker border.
+SAVE this step: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_fx\tai_ve\FX10.png (create the folder if it is missing; if that file already exists, save it as FX10_2.png, FX10_3.png … in the same folder instead). Do not change, move or delete any other file.
+

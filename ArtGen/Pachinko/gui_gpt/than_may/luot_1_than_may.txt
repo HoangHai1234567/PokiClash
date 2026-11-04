@@ -1,0 +1,36 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png (1024 x 1536): style reference only: the game's approved hand-drawn world map (wobbly dark-brown ink outlines, colour-pencil and crayon hatching on cream paper, chunky cute doodles); copy its rendering, ignore its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\refs\bo_cuc_than_may.png (1024 x 1536): the layout plan of the image you draw now: the exact outline and position of every part of the cabinet, colour-coded; follow it exactly
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\StyleRefs\R2b_MayBi_KetVang.png (920 x 1360): what the game itself draws INSIDE the play window: pegs, red mushroom bumpers, two small cups, a golden vault and eleven prize slots; shown only so you understand the machine; do NOT draw any of it
+image 4 = E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\refs\man_may_bi_hien_tai.png (540 x 960): a screenshot of the machine screen in the game today, with the plain placeholder frame your cabinet replaces, the level bar on top, the bet buttons on the left, the chest tray on the right and the drop buttons below; shown only so you understand the space around the cabinet
+
+SAVE: save the finished image as a 1024 x 1536 PNG with a TRANSPARENT background to
+E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\than_may.png
+Create the folder if it is missing. If that file already exists, save it as than_may_2.png, than_may_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the cabinet of the ball-drop machine (a vertical pachinko) of a cute hand-drawn mobile game. The player taps to drop balls from the top; they bounce down through pegs into prize slots at the bottom. The game draws the pegs, the slots, the balls and every number itself, inside the play window and on the head panel. You draw only the cabinet around them: a chunky toy-like fairground cabinet seen straight from the front.
+
+LAYOUT (image 2, follow it exactly, same pixels): the cabinet fills x 61..963, y 28..1508 of the image; everything outside it is transparent. Image 2 is only a colour-coded plan: grey checker = transparent, orange = cabinet body, light orange half-disc = arched crest, yellow dots = light bulbs, pink circle on the crest = ball emblem, purple rounded bar = level-bar groove, pink circle = level badge socket, blue circle = small round button socket, cream rectangle = play window, brown blocks = feet. Do not copy its flat colours or its straight lines; draw it by hand.
+
+PARTS:
+- PLAY WINDOW x 85..939, y 222..1484: one flat plain cream #FBF4E2 rectangle, completely EMPTY: no pegs, no dots, no slots, no lines, no hatching, no pattern, no glass reflections. Its edge is a clean ink line. The game covers it with the board of image 3, so it must stay flat and plain, and exactly this size.
+- FRAME around the window: a thin warm wooden frame (about 24 px on the left, right and bottom), painted red-orange with a cream inner trim line, a few doodled rivets or little stars. Keep the sides this thin: the bet buttons and the chest tray of the game sit right next to them.
+- HEAD PANEL above the window (y 114..222): a sturdy wooden plate in the same red-orange with a cream inset, like the scoreboard of a fairground machine. In it, three EMPTY sockets where the game places its own pieces:
+  - LEVEL-BAR GROOVE x 152..836, y 141..195: a long rounded slot, sunk into the panel, plain dark brown-purple #4A3A5A inside with an ink rim; no bar, no fill, no marks, no numbers in it (the game draws the experience bar there);
+  - LEVEL BADGE SOCKET at the left end of the groove, circle x 84..189, y 116..221: a round cream plate with a thick golden ring, empty in the middle (the game writes the level number there);
+  - BUTTON SOCKET at the right end of the panel, circle x 859..933, y 132..205: a small round cream plate with a teal ring, empty (the game puts a round info button there).
+- ARCHED CREST on top (y 28..114): a half-round wooden arch in light orange with a row of about fifteen round yellow light bulbs along its edge (each bulb a small yellow circle with an ink outline and a tiny white dot; no glow, no halo, no light rays), and in the middle a round pink ball emblem with a white band, like the ball of the game. A couple of small doodled stars and a teal ribbon line along the arch.
+- FEET: two short chunky wooden feet under the bottom edge, as in image 2.
+
+COLOURS: warm red-orange #E8553F and orange #F39A2D wood, cream #FBF4E2 trims, yellow #F7C948 bulbs, teal #3FB8A9 accents, pink #F07FA6 emblem, dark-brown ink #2B2118 outlines. Cheerful and toy-like, readable at small size on a phone.
+
+STYLE (image 1): the hand-drawn storybook look of this game: slightly wobbly dark-brown ink outlines (about 5 px), flat warm colours, light colour-pencil and crayon hatching for texture, cream paper feel. Drawn neatly by a professional illustrator, not scribbly. No glossy highlights, no gradients, no 3D render, no airbrush, no metal shine.
+
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background.
+Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+
+AVOID: text, letters, numbers, labels, characters, creatures, pegs or balls inside the window, a bar inside the groove, a background, a floor, a table, glow, light rays, sparkles around the cabinet.
+
+Remember: transparent background, cabinet exactly on the plan of image 2, save the image to E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\tai_ve\than_may.png

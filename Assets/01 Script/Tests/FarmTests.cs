@@ -106,9 +106,9 @@ namespace PokiClash.Tests
             Assert.IsFalse(Farm.Open(s, d.Cfg), "1 tướng chưa mở");
             foreach (var id in new[] { "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
             Assert.IsTrue(Farm.Open(s, d.Cfg));
-            s.level = 9;
-            Assert.AreEqual(4, Farm.SpotsOpen(d.Cfg, 9), "cấp 9: 4 chỗ");
-            Assert.AreEqual(11, Farm.SpotLevel(d.Cfg, 4), "chỗ thứ 5 mở ở cấp 11");
+            s.level = 40;
+            Assert.AreEqual(4, Farm.SpotsOpen(d.Cfg, 40), "cấp 40: 4 chỗ");
+            Assert.AreEqual(70, Farm.SpotLevel(d.Cfg, 4), "chỗ thứ 5 mở ở cấp 70");
             Assert.IsTrue(Farm.Place(s, d, 0, 0, "tieu_y"));
             // tướng hết sức sau 8 giờ: vắng 12 giờ vẫn chỉ có năng suất × 8
             Farm.Tick(s, d, 12 * H);

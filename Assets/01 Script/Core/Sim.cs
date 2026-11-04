@@ -137,11 +137,13 @@ namespace PokiClash.Core
         }
 
         // đội khi tới ải st, chọn tướng khởi đầu starter: tướng khởi đầu và tướng tặng ở các ải trước của đảo (quà theo tướng khởi đầu),
-        // tối đa số ô đã mở, tướng khắc tướng chính của ải ra sân trước. Không tính tướng thu phục bằng mảnh.
+        // tối đa số ô đã mở ở cấp bằng cấp địch của ải (ô 2 từ cấp 10), tướng khắc tướng chính của ải ra sân trước.
+        // Không tính tướng thu phục bằng mảnh.
         // oldRules: luật trước khi có 5 tướng khởi đầu (1 ô suốt đảo đầu, quà luôn là tướng gốc, không có tướng đồng hành).
         public static List<string> StarterTeam(GameData d, string starter, StageDef st, bool oldRules = false)
         {
             var s = SaveData.New(d, 0, oldRules ? null : starter);
+            s.level = st.enemies.Max(e => e.level);
             s.zones[(int)st.zone] = st.idx - 1;
             var owned = new List<string> { starter };
             foreach (var x in d.ZoneStages(st.zone))

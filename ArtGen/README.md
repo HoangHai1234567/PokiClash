@@ -16,8 +16,8 @@ Spec liên quan: `openspec/changes/setup-unity-foundation/specs/art-assets/spec.
 | 1 | [UIKit](UIKit/PROMPTS.md) | 8 | **Chốt style nét vẽ tay**; mọi gói sau đính kèm ảnh U1 đã duyệt |
 | 2 | [Islands](Islands/PROMPTS.md) | 6 đảo rời + biển + sheet phần động (đã có); 5 bản đồ đảo hệ gen riêng (tuỳ chọn) | `Islands/compose_islands.py` ghép đảo gen rời thành đảo lớn liền khối cho sảnh (kéo được, vành mây ở rìa) và bản đồ 5 đảo hệ (đảo gen + đường 8 ải); thêm vùng mới dễ |
 | 3 | [Icons](Icons/PROMPTS.md) | 5 sheet × 16 | Icon thẻ, tài nguyên, hệ, chỉ số |
-| 4 | [BattleBG](BattleBG/PROMPTS.md) | 5 theo hệ; đảo Thủy 70 ải: 9 thường + 5 mini boss + 3 boss + 2 sheet phần động | Nền trận theo hệ; đảo Thủy theo chặng, mini boss và boss có cảnh riêng và phần động. Gói gửi GPT sinh bằng `BattleBG/build_thuy.py` |
-| 5 | [Pachinko](Pachinko/PROMPTS.md) | 4 | Máy bi (thân máy, bộ phận, rương lớn, hiệu ứng) |
+| 4 | [BattleBG](BattleBG/PROMPTS.md) | 5 theo hệ; đảo Thủy 70 ải: 9 thường + 5 mini boss + 3 boss + 2 sheet phần động | Nền trận theo hệ; đảo Thủy theo chặng, mini boss và boss có cảnh riêng và phần động. Gói gửi GPT sinh bằng `BattleBG/build_thuy.py`. Máy dài hơn 9:16 hở phần trên sân: nền vẽ dư 600 px trời (1080 × 1528, đáy trùng khung 928), nối trời nền cũ bằng `BattleBG/build_troi.py`; nền đảo mới cũng cần phần dư này |
+| 5 | [Pachinko](Pachinko/PROMPTS.md) | 4 | Máy bi (thân máy, bộ phận, rương lớn, hiệu ứng). Thân máy (tủ đỉnh vòm, đầu máy chứa thanh kinh nghiệm): gói gửi GPT sinh bằng `Pachinko/build.py` |
 | 6 | [Hub](Hub/PROMPTS.md) | 2 sheet (6 công trình, 6 mây) | Công trình trên sảnh (Tướng, Sổ thẻ, Trang trại, Đền, Hang, Máy bi) |
 | 7 | [SideMeta](SideMeta/PROMPTS.md) | 5 | Trang trại, Đền Huy Hiệu, Hang Tiềm Năng, huy hiệu, đá |
 | 8 | [Heroes](Heroes/QUY_TRINH.md) | mỗi dạng 1 concept + các nhóm mảnh (+ mảnh vũ khí) | 40 tướng (8 mỗi hệ), mỗi tướng là một dòng tiến hóa aola. **Vẽ đè lên rig aola**, giữ animation; nét vẽ tay như ảnh mốc bản đồ, thiết kế học từ tướng aola, vẻ "chiến"; viền giấy xé do shader. Gói gửi GPT sinh bằng `Heroes/build.py` |

@@ -171,8 +171,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(balls + 5, s.balls);
             Assert.AreEqual(RewardKind.Chest, Pachinko.SlotReward(s, d.Cfg, SlotKind.ChestGold, 2).k);
             Assert.AreEqual(20, d.Cfg.MaxPerDrop(5));
-            Assert.AreEqual(30, d.Cfg.MaxPerDrop(15));
-            CollectionAssert.AreEqual(new[] { 1, 2, 3 }, Progress.XAllowed(new SaveData { level = 5 }, d.Cfg));
+            Assert.AreEqual(30, d.Cfg.MaxPerDrop(104));
+            CollectionAssert.AreEqual(new[] { 1, 2, 3 }, Progress.XAllowed(new SaveData { level = 23 }, d.Cfg));
         }
 
         [Test]

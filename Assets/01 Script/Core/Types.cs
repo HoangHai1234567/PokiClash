@@ -65,6 +65,7 @@ namespace PokiClash.Core
         public double chance;
         public double below = 0.3; // bị động lowHp: ngưỡng máu
         public int unlock = 1; // thẻ chung: cấp người chơi để mở
+        public bool repeat; // thẻ chung: chọn rồi vẫn ra lại trong lượt (thẻ nhỏ, cộng dồn không phá cân bằng); không có thì mỗi lượt một lần
         public string flavor;
         public string owner; // thẻ nội tại: id tướng
         public string effectsJson; // cây hiệu ứng dạng JSON (Unity không giữ được cây đệ quy)

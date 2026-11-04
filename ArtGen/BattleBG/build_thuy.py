@@ -895,7 +895,8 @@ def build():
 
 # ---------- xuất vào game ----------
 # Nền: cắt khúc khung game khỏi ảnh đã duyệt (góc trên trái x0, y0; s px ảnh GPT mỗi px khung), thu về 1080 x 928, lưu
-# Assets/03 Art/BattleBG/battle_thuy_<khoá>. Khoá: c01..c09 theo chặng, s<ải> cho ải mini boss, boss (s70_2, s70_3: dạng 2, 3).
+# Assets/03 Art/BattleBG/battle_thuy_<khoá>; nền đã nối trời (troi/<mã>.png, build_troi.py) thì lưu bản cao 1080 x 1528 (StageView
+# neo đáy ảnh vào đáy khung). Khoá: c01..c09 theo chặng, s<ải> cho ải mini boss, boss (s70_2, s70_3: dạng 2, 3).
 # Sheet fxm cắt thành BattleBG/Anim/san_<tên> (tiền tố riêng: tên trùng ảnh thay thế, vd fx_glow, thì danh mục ảnh đổi
 # luôn ảnh đó trong mọi prefab). Phần động và màu trời từng nền ghi BattleBG/Resources/arena_fx.json (toạ độ 0..1
 # theo khung, y từ trên; cỡ theo bề ngang khung), ArenaAnim (Unity) đọc.
@@ -992,6 +993,18 @@ def frame_of(i):
         return im.convert("RGB").crop((x0, y0, round(x0 + FW * s), round(y0 + FH * s))).resize((FW, FH), Image.LANCZOS)
 
 
+# nền vẽ dư trời cho máy dài (build_troi.py --duyet): 1080 x 1528, 928 dòng dưới là khung; có thì xuất bản này
+TROI = HERE / "troi"
+
+
+def art_of(i):
+    tall = TROI / f"{i}.png"
+    if tall.exists():
+        with Image.open(tall) as im:
+            return im.convert("RGB")
+    return frame_of(i)
+
+
 def sky_of(im):
     """màu trời phủ phần dôi trên đầu máy dài: trung bình 6 hàng trên cùng"""
     px = im.crop((0, 0, FW, 6)).resize((1, 1), Image.BOX).getpixel((0, 0))
@@ -1022,11 +1035,11 @@ def export():
         i = a["id"]
         if a["kind"] == "fx" or not approved(i).exists():
             continue
-        im = frame_of(i)
+        im = art_of(i)
         key = "thuy_" + art_key(i)
         im.save(OUT / f"battle_{key}.png")
         data[key] = {"sky": sky_of(im), "fx": [to_frame(i, f) for f in FX.get(i, [])]}
-        print(f"  {i} -> battle_{key}.png, trời {data[key]['sky']}, {len(data[key]['fx'])} phần động")
+        print(f"  {i} -> battle_{key}.png ({im.width} x {im.height}), trời {data[key]['sky']}, {len(data[key]['fx'])} phần động")
     if approved("fxm").exists():
         cut_fx_sheet("fxm", 4, 3, FX_NAMES)
     if approved("fxb").exists():

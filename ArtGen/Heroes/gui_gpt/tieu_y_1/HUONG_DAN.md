@@ -1,28 +1,28 @@
 # Gói gửi GPT: Tiểu Y dạng 1/2 (Tiểu Y, `tieu_y_1`)
 
-Tướng Thường hệ Thủy, dạng 1/2, rig aola #1319. Thiết kế: tiểu thần biển dạng người (người dùng chốt 2026-11-04: giữ theme thần Poseidon, dạng người): bé trai chibi tóc xanh thẫm thành năm lọn sóng cuộn, ngọn vỡ bọt trắng; chóp vương miện vàng nhỏ có ngọc trai trên trán, kẹp sao biển vàng trên lọn tóc phải; hai vây tai xanh ngọc viền vàng; da hồng nhạt, mắt xanh ngọc to; hai vai vỏ sò điệp trắng ngà viền vàng; cổ áo chiton trắng viền hoa văn sóng vàng, ghim tròn vàng có ngọc xanh ngọc; tay mũm mĩm đeo vòng vàng mảnh, cầm đinh ba tập sự cán gỗ trôi dạt, ba mũi vỏ sò trắng ngà buộc vàng; nửa dưới là vòi rồng nước nhỏ; mặt quả quyết, cười tự tin. Quy trình: `D:\PokiClash\ArtGen\Heroes\QUY_TRINH.md`.
+Tướng Thường hệ Thủy, dạng 1/2, rig aola #1319. Thiết kế: tiểu thần biển dạng người (người dùng chốt 2026-11-04: giữ theme thần Poseidon, dạng người): bé trai chibi tóc xanh thẫm thành năm lọn sóng cuộn, ngọn vỡ bọt trắng; chóp vương miện vàng nhỏ có ngọc trai trên trán, kẹp sao biển vàng trên lọn tóc phải; hai vây tai xanh ngọc viền vàng; da hồng nhạt, mắt xanh ngọc to; hai vai vỏ sò điệp trắng ngà viền vàng; cổ áo chiton trắng viền hoa văn sóng vàng, ghim tròn vàng có ngọc xanh ngọc; tay mũm mĩm đeo vòng vàng mảnh, cầm đinh ba tập sự cán gỗ trôi dạt, ba mũi vỏ sò trắng ngà buộc vàng; nửa dưới là vòi rồng nước nhỏ; mặt quả quyết, cười tự tin. Quy trình: `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\QUY_TRINH.md`.
 
-**Mỗi lượt chỉ gửi GPT đường dẫn file prompt.** File ghi sẵn đường dẫn đầy đủ của từng ảnh mẫu (GPT tự mở) và chỗ GPT tự lưu ảnh (`D:\PokiClash\ArtGen\Heroes\inbox\tieu_y_1\tai_ve\`). Claude xem rồi đặt tên và chép vào đúng chỗ.
+**Mỗi lượt chỉ gửi GPT đường dẫn file prompt.** File ghi sẵn đường dẫn đầy đủ của từng ảnh mẫu (GPT tự mở) và chỗ GPT tự lưu ảnh (`E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_1\tai_ve\`). Claude xem rồi đặt tên và chép vào đúng chỗ.
 
 Viền trắng kiểu giấy xé quanh tướng do game vẽ bằng shader; GPT không vẽ viền đó.
 
 ## Lượt 1: concept
 
-File prompt: `D:\PokiClash\ArtGen\Heroes\gui_gpt\tieu_y_1\luot_1_concept.txt`. Gửi trong **chat mới**. GPT vẽ một ảnh cả con trên rig, lưu vào `D:\PokiClash\ArtGen\Heroes\inbox\tieu_y_1\tai_ve\concept.png`.
+File prompt: `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\gui_gpt\tieu_y_1\luot_1_concept.txt`. Gửi trong **chat mới**. GPT vẽ một ảnh cả con trên rig, lưu vào `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_1\tai_ve\concept.png`.
 
 | Ảnh mẫu | Đường dẫn | Trông như thế nào |
 |---|---|---|
-| 1 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\Silhouette.png` | Bóng xám của con gốc trên nền trắng (438 × 533): con gốc #1319 là bé chibi nhìn chéo 3/4 quay phải: đầu rất to, chỏm năm lọn tóc to vuốt lên, hai vây tai sau hai bên đầu (vây trái to chĩa lên trái, vây phải mảnh chĩa lên), hai cục vai ở hai bên dưới đầu, cổ giáp nhỏ dưới cằm, không thấy cánh tay; tay trái nắm cây đinh ba ngắn nằm chéo (đuôi cán trên trái, đầu dưới phải), tay phải nắm lại cạnh cằm; nửa dưới là lốc nước thay chân. Bỏ khỏi bóng xám: bóng dưới chân và hai vòng nước |
-| 2 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\RegionMap.png` | Cùng hình, tô màu từng vùng và đánh số (438 × 533, nền trắng): 1 hai vây tai, 2 chỏm năm lọn tóc, 3 đầu và mặt, 4 hai hạt trang sức nhỏ (trán, lọn tóc phải), 5 hai cục vai, 6 cổ giáp dưới cằm, 7 tay trái nắm đinh ba, 8 nắm tay phải, 9 đinh ba, 10 lốc nước thay chân (vùng hồng phía dưới; số 10 in đè lên chỗ đinh ba) |
-| 3 | `D:\PokiClash\ArtGen\Heroes\refs\style\style_sheet.png` | Tờ mẫu thiết kế (1536 × 1024, nền trắng): 8 tướng aola ở khung đứng đầu (rùa ngọc, rùa biển ngọc, huyền vũ, sư tử lửa con, heo lửa, mèo máy, tiểu tướng mũ sừng, cá ngựa). Chỉ học cách thiết kế, không lấy nét bóng, không chép con nào |
-| 4 | `D:\PokiClash\ArtGen\Islands\refs\world_style.png` | Ảnh mốc nét vẽ đã duyệt (1024 × 1536, nền đặc): bản đồ sảnh vẽ tay, đảo lớn chia 5 vùng màu, viền mực nâu hơi rung, tô chì màu gạch chéo. Lấy nét vẽ, không lấy nội dung |
-| 5 | `D:\PokiClash\ArtGen\Heroes\refs\style_anchor.png` | Ảnh mốc style (1143 × 1376, nền trắng): concept Giọt Sương dạng 1 đã chốt, tinh linh nước đội mũ giáp bạc cầm kiếm. Chỉ lấy nét mực và vân chì sáp; không lấy thiết kế, không lấy chấm sáng trắng và mảng tối của nó |
+| 1 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\Silhouette.png` | Bóng xám của con gốc trên nền trắng (438 × 533): con gốc #1319 là bé chibi nhìn chéo 3/4 quay phải: đầu rất to, chỏm năm lọn tóc to vuốt lên, hai vây tai sau hai bên đầu (vây trái to chĩa lên trái, vây phải mảnh chĩa lên), hai cục vai ở hai bên dưới đầu, cổ giáp nhỏ dưới cằm, không thấy cánh tay; tay trái nắm cây đinh ba ngắn nằm chéo (đuôi cán trên trái, đầu dưới phải), tay phải nắm lại cạnh cằm; nửa dưới là lốc nước thay chân. Bỏ khỏi bóng xám: bóng dưới chân và hai vòng nước |
+| 2 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\RegionMap.png` | Cùng hình, tô màu từng vùng và đánh số (438 × 533, nền trắng): 1 hai vây tai, 2 chỏm năm lọn tóc, 3 đầu và mặt, 4 hai hạt trang sức nhỏ (trán, lọn tóc phải), 5 hai cục vai, 6 cổ giáp dưới cằm, 7 tay trái nắm đinh ba, 8 nắm tay phải, 9 đinh ba, 10 lốc nước thay chân (vùng hồng phía dưới; số 10 in đè lên chỗ đinh ba) |
+| 3 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\style\style_sheet.png` | Tờ mẫu thiết kế (1536 × 1024, nền trắng): 8 tướng aola ở khung đứng đầu (rùa ngọc, rùa biển ngọc, huyền vũ, sư tử lửa con, heo lửa, mèo máy, tiểu tướng mũ sừng, cá ngựa). Chỉ học cách thiết kế, không lấy nét bóng, không chép con nào |
+| 4 | `E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png` | Ảnh mốc nét vẽ đã duyệt (1024 × 1536, nền đặc): bản đồ sảnh vẽ tay, đảo lớn chia 5 vùng màu, viền mực nâu hơi rung, tô chì màu gạch chéo. Lấy nét vẽ, không lấy nội dung |
+| 5 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\style_anchor.png` | Ảnh mốc style (1143 × 1376, nền trắng): concept Giọt Sương dạng 1 đã chốt, tinh linh nước đội mũ giáp bạc cầm kiếm. Chỉ lấy nét mực và vân chì sáp; không lấy thiết kế, không lấy chấm sáng trắng và mảng tối của nó |
 
-Xong thì nhắn Claude "duyệt concept tieu_y_1". Duyệt xong Claude lưu `D:\PokiClash\ArtGen\Heroes\inbox\tieu_y_1\concept_duyet.png` và chạy lại `build.py` để có file prompt lượt 2.
+Xong thì nhắn Claude "duyệt concept tieu_y_1". Duyệt xong Claude lưu `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_1\concept_duyet.png` và chạy lại `build.py` để có file prompt lượt 2.
 
 ## Lượt 2: nhóm mảnh
 
-File prompt: `D:\PokiClash\ArtGen\Heroes\gui_gpt\tieu_y_1\luot_2_nhom_manh.txt`. Gửi cùng chat với lượt 1 hoặc chat mới. GPT lưu mỗi nhóm thành `D:\PokiClash\ArtGen\Heroes\inbox\tieu_y_1\tai_ve\<mã nhóm>.png`.
+File prompt: `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\gui_gpt\tieu_y_1\luot_2_nhom_manh.txt`. Gửi cùng chat với lượt 1 hoặc chat mới. GPT lưu mỗi nhóm thành `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_1\tai_ve\<mã nhóm>.png`.
 
 1. GPT vẽ N02. Gõ `next`: GPT vẽ N05. Nhắn Claude "soi thử tieu_y_1".
 2. Claude bảo ổn thì gõ `continue`, rồi `next` sau mỗi ảnh: N01, N03, N04, N06, N07.
@@ -30,14 +30,14 @@ File prompt: `D:\PokiClash\ArtGen\Heroes\gui_gpt\tieu_y_1\luot_2_nhom_manh.txt`.
 
 | Ảnh mẫu | Đường dẫn | Trông như thế nào |
 |---|---|---|
-| 1 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N01.png` | Hai vây xanh lam có vảy (1024 × 1024, nền trắng): vây trái to chĩa lên trái, gốc ở góc dưới bên phải; vây phải mảnh chĩa lên, gốc ở đầu dưới; khoảng trống giữa là chỗ của đầu |
-| 2 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N02.png` | Đầu tròn to (1024 × 1024, nền trắng): mảng tóc nâu trùm đỉnh và trán, mặt da nâu ở dưới, hai mắt to đỏ hơi lệch sang phải, má hồng; năm lọn tóc và hai vây là nhóm khác |
-| 3 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N03.png` | Năm lọn tóc trắng xám to vuốt lên (1024 × 1024, nền trắng): hai lọn lớn trên trái và trên phải, ba lọn nhỏ phía trước trán; hai hạt xanh, một trên lọn trước trán, một trên lọn phải |
-| 4 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N04.png` | Ba mảnh (1024 × 1024, nền trắng): hai cục vàng hình thoi hai bên (vai), giữa là cổ giáp vàng có ngọc xanh, ngay dưới cằm |
-| 5 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N05.png` | Bàn tay nhỏ (1024 × 1024, nền trắng, khung rộng): nắm quanh cán chéo (cán không có trong ảnh), cổ tay ở trên phải có vòng vàng, khớp ngón ở dưới trái |
-| 6 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N06.png` | Nắm tay tròn nhỏ (1024 × 1024, nền trắng, nằm giữa khung rộng): ngón cái ở trên |
-| 7 | `D:\PokiClash\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N07.png` | Đinh ba vàng nằm chéo (1024 × 1024, nền trắng): đuôi cán ở trên trái, đầu ở dưới phải (mũi giữa hình lá, hai mũi bên cong, ngọc xanh ở chỗ nối) |
-| 8 | `D:\PokiClash\ArtGen\Heroes\inbox\tieu_y_1\concept_duyet.png` | concept đã duyệt của dạng này (nền trắng) |
+| 1 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N01.png` | Hai vây xanh lam có vảy (1024 × 1024, nền trắng): vây trái to chĩa lên trái, gốc ở góc dưới bên phải; vây phải mảnh chĩa lên, gốc ở đầu dưới; khoảng trống giữa là chỗ của đầu |
+| 2 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N02.png` | Đầu tròn to (1024 × 1024, nền trắng): mảng tóc nâu trùm đỉnh và trán, mặt da nâu ở dưới, hai mắt to đỏ hơi lệch sang phải, má hồng; năm lọn tóc và hai vây là nhóm khác |
+| 3 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N03.png` | Năm lọn tóc trắng xám to vuốt lên (1024 × 1024, nền trắng): hai lọn lớn trên trái và trên phải, ba lọn nhỏ phía trước trán; hai hạt xanh, một trên lọn trước trán, một trên lọn phải |
+| 4 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N04.png` | Ba mảnh (1024 × 1024, nền trắng): hai cục vàng hình thoi hai bên (vai), giữa là cổ giáp vàng có ngọc xanh, ngay dưới cằm |
+| 5 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N05.png` | Bàn tay nhỏ (1024 × 1024, nền trắng, khung rộng): nắm quanh cán chéo (cán không có trong ảnh), cổ tay ở trên phải có vòng vàng, khớp ngón ở dưới trái |
+| 6 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N06.png` | Nắm tay tròn nhỏ (1024 × 1024, nền trắng, nằm giữa khung rộng): ngón cái ở trên |
+| 7 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\refs\thuy\tieu_y_1\orig\N07.png` | Đinh ba vàng nằm chéo (1024 × 1024, nền trắng): đuôi cán ở trên trái, đầu ở dưới phải (mũi giữa hình lá, hai mũi bên cong, ngọc xanh ở chỗ nối) |
+| 8 | `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tieu_y_1\concept_duyet.png` | concept đã duyệt của dạng này (nền trắng) |
 
 Kiểm từng ảnh trước khi lưu:
 
@@ -95,4 +95,4 @@ Kiểm từng ảnh trước khi lưu:
 | Có bóng đổ, bóng dưới chân, bóng in xuống nền | `Flat colour only: every area one even colour coloured with pencil and wax crayon strokes; no shading, no shadows, no white highlights or shine (only a small catchlight dot in each eye), no glow, no gradients.` |
 | Nền xám, có ô lưới | `Plain pure white background, nothing else.` |
 
-Gói này sinh từ `D:\PokiClash\ArtGen\Heroes\build.py`; sửa prompt ở đó rồi chạy lại.
+Gói này sinh từ `E:\ProjectAtomik\PokiWar\ArtGen\Heroes\build.py`; sửa prompt ở đó rồi chạy lại.

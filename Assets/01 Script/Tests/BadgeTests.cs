@@ -2,7 +2,7 @@
 // chỉ số có phần cộng huy hiệu, 5 trận đánh thật bậc Đồng hệ Thủy, một đoạn tiến độ (mở đền, thắng, lên bậc, rương).
 // Thêm: thua không mất tiến độ, phần cộng theo bậc cao nhất không cộng dồn, không có huy hiệu thì không có mods.
 // badges.json (chỉ số Võ Sư): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md);
-// số hiệp 5 trận thật tính lại cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm.
+// số hiệp 5 trận thật tính lại cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm, và 2026-11-04 khi đổi luật rút thẻ.
 using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;

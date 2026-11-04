@@ -53,6 +53,7 @@ namespace PokiClash
             }
             if (closed()) yield break;
             ic.localEulerAngles = Vector3.zero;
+            chest.Open(); // ảnh rương mở (nếu có ảnh gen)
             App.Audio.Play("chest");
             Haptics.Play(gold ? Haptic.OpenGold : silver ? Haptic.OpenSilver : Haptic.OpenWood);
             App.I.StartCoroutine(ChestBox.Pop(ic, 1.25f));

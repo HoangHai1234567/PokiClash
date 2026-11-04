@@ -18,6 +18,10 @@ namespace PokiClash.Core
         public const Rarity NormRarity = Rarity.Uncommon;
         public const double MiniHp = 0.95, BossHp = 0.7, BossAtk = 0.95;
 
+        // đảo 70 ải, thang cấp 200 (2026-11-04): địch có sao và cấp thẻ như người chơi bình thường cùng cấp (Teams.EnemyStar, EnemyCard),
+        // nên Máu, Công nhân thêm hệ số này để % cường hóa từng kiểu ải giữ như thiết kế mà tỉ lệ thắng vẫn đạt mục tiêu
+        public const double LevelNorm = 0.8;
+
         static readonly string[] TagNames = { "", "Tướng mới", "Bầy lính", "Cường hóa", "Tướng và lính", "Hai tướng", "Lính tinh nhuệ", "Cửa ải" };
         public static string TagName(StageTag t) => TagNames[(int)t];
 
@@ -68,8 +72,8 @@ namespace PokiClash.Core
             if (@long)
             {
                 double r = HeroStats.PowerOf(NormRarity) / HeroStats.PowerOf(h.rarity);
-                hp *= r * (e.boss ? (e.evo ? BossHp : MiniHp) : 1);
-                atk *= r * (e.boss ? BossAtk : 1);
+                hp *= r * (e.boss ? (e.evo ? BossHp : MiniHp) : 1) * LevelNorm;
+                atk *= r * (e.boss ? BossAtk : 1) * LevelNorm;
                 def *= r;
             }
             if (hp == 1 && atk == 1 && def == 1) return null;

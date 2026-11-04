@@ -101,6 +101,7 @@ namespace PokiClash.Core
         // đinh nằm trong khung két vàng thì bỏ (chừa chỗ cho két)
         static bool InVault(double x, double y) => Math.Abs(x - VaultX) < RoofHalf + 12 && y > GuardY - 20 && y < FloorY + 20;
 
+        // ảnh mặt máy tĩnh ghép bộ phận theo đúng hình học này (bản chép trong ArtGen/Pachinko/build.py, board_geometry): đổi ở đây thì đổi ở đó
         void Build()
         {
             for (int i = 0; i < 10; i++)

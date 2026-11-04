@@ -110,8 +110,10 @@ namespace PokiClash
                 : mirror ? st.zone == Elem.Thuy ? $"{st.name} · Mặt nước in bóng {mirrorName} của bạn!" : $"{st.name} · Bóng của {mirrorName} chặn đường!"
                 : st.name;
 
+            // cấp địch là cấp người chơi cần có (thang cấp 200, 2026-11-04): thiếu 3 cấp thì cửa ải còn khoảng 1/4 trận thắng,
+            // thiếu 6 cấp thì ải khó gần như không qua
             p.warn.SetActive(!locked && s.level < maxLv - 2);
-            p.warnText.text = $"Địch cấp {maxLv}, bạn cấp {s.level}: nên nuôi tướng thêm";
+            p.warnText.text = $"Địch cấp {maxLv}, bạn cấp {s.level}: nên lên thêm cấp";
 
             // đối thủ, mỗi con kèm chỉ số khi vào trận; tướng tiến hóa trong trận (ải tướng, boss) chỉ hiện dạng đầu, lực chiến tính cả
             // dòng (như số "Địch" ở dòng lực chiến)
