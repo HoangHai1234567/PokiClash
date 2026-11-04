@@ -1,7 +1,7 @@
 // Popup gọn (người dùng dặn 2026-11-03: popup ít chữ, nhiều hình; thưởng rõ cái gì, bao nhiêu, độ hiếm; lực chiến từng tướng rõ;
 // màn Tướng có đội hình 3 con ở trên). Menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" dựng (chạy lại thì dựng lại):
 // - Items/OThuong (RewardTile): ô thưởng 150 × 190: khung giấy, dải độ hiếm, hình, góc, số lượng, nhãn, tên;
-// - Items/DoiThu: viên lực chiến trên đầu đối thủ (PrepFoe.power);
+// - Items/DoiThu: nay dựng ở menu "Hộp chuẩn bị: ô đối thủ trái phải" (PrepStatsMenu), menu này không đụng;
 // - Dialogs/ChuanBiTran: dòng "luc_chien" sau khung đối thủ (địch / mức khó / đội bạn), gán ô thưởng;
 // - Dialogs/MoRuong, RuongDao: gán ô thưởng (RuongDao: hàng thẻ canh giữa, cao một ô); TranKetQua: hàng "thuong" trước dòng lời khuyên;
 // - Items/TheTuong: viên lực chiến cạnh hàng sao (sao thu nhỏ, dời trái);
@@ -43,7 +43,6 @@ namespace PokiClash.EditorTools
             Theme.Init(assets); // phông, sprite giấy, viền chữ nướng sẵn
             var kit = assets.prefabs;
             var tile = BuildTile(kit);
-            Edit(FoePath, PatchFoe);
             TeamPickerDialog picker = null;
             Edit(PrepPath, root => picker = PatchPrep(root, tile));
             Edit(ChestPath, root => SetRef(root.GetComponent<ChestDialog>(), "tilePrefab", tile));
@@ -52,7 +51,7 @@ namespace PokiClash.EditorTools
             Edit(HeroTilePath, PatchHeroTile);
             Edit(HeroesPath, root => PatchHeroes(root, kit, picker));
             AssetDatabase.SaveAssets();
-            Debug.Log($"[Popup] Đã dựng {TilePath} và sửa DoiThu, ChuanBiTran, MoRuong, RuongDao, TranKetQua, TheTuong, Heroes.");
+            Debug.Log($"[Popup] Đã dựng {TilePath} và sửa ChuanBiTran, MoRuong, RuongDao, TranKetQua, TheTuong, Heroes.");
         }
 
         static T Load<T>() where T : Object =>
@@ -250,22 +249,6 @@ namespace PokiClash.EditorTools
         }
 
         // ---------- hộp Chuẩn bị trận ----------
-
-        // viên lực chiến cạnh nhãn hệ, dưới tên (cấp gộp vào tên, chữ cấp riêng ẩn lúc chạy); nhãn hệ dời trái nhường chỗ; cả hai nằm
-        // trên hàng chỉ số (PrepFoe.StatsH, menu "Hộp chuẩn bị: chỉ số địch")
-        static void PatchFoe(GameObject root)
-        {
-            var so = new SerializedObject(root.GetComponent<PrepFoe>());
-            ((UiElemTag)so.FindProperty("elem").objectReferenceValue).Rect.anchoredPosition = new Vector2(-62, 40 + PrepFoe.StatsH);
-            Remove(root.transform, "luc_chien");
-            var num = IconNumber(root.transform, "luc_chien", "sword", 28, 28, Theme.RedD, Sketch.Pill, out var row);
-            row.anchorMin = row.anchorMax = new Vector2(0.5f, 0);
-            row.pivot = new Vector2(0, 0);
-            row.anchoredPosition = new Vector2(-14, 37 + PrepFoe.StatsH);
-            row.sizeDelta = new Vector2(140, 38);
-            so.FindProperty("power").objectReferenceValue = num;
-            so.ApplyModifiedPropertiesWithoutUndo();
-        }
 
         // dòng lực chiến sau khung đối thủ: [đầu lâu] số địch · nhãn mức khó · số đội bạn [đội]; gán ô thưởng; trả hộp chọn đội
         static TeamPickerDialog PatchPrep(GameObject root, RewardTile tile)

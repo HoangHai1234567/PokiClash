@@ -34,9 +34,13 @@ namespace PokiClash.EditorTools
 {
     public sealed class AolaImportPostprocessor : AssetPostprocessor
     {
-        // đổi số khi cách nhập ảnh đổi: Unity nhập lại mọi ảnh tướng (2: atlas ASTC 8x8, chân dung vuông có mipmap ASTC 6x6;
-        // 3: chân dung ASTC 8x8)
+        // đổi số khi cách nhập ảnh đổi: Unity nhập lại mọi ảnh tướng, nặng (2: atlas ASTC 8x8, chân dung vuông có mipmap ASTC 6x6;
+        // 3: chân dung ASTC 8x8). Chỉ đổi mức nén chân dung thì dùng menu "Nhập lại chân dung tướng (mức nén chân dung)", đừng tăng số.
         public override uint GetVersion() => 3;
+
+        // mức nén chân dung trên Android, iOS (người dùng 2026-11-04: 8x8 làm chân dung mờ, vỡ khối, nhất là bóng sẫm tướng trên bệ ải
+        // chưa mở; so trong game bằng menu "Chân dung: thay thử mức nén", 5x5 sạch, 4x4 gần như ảnh gốc)
+        public const TextureImporterFormat PortraitFormat = TextureImporterFormat.ASTC_5x5;
 
         void OnPreprocessTexture()
         {
@@ -64,14 +68,19 @@ namespace PokiClash.EditorTools
                 ti.SetTextureSettings(s);
             }
             // dung lượng build (người dùng 2026-11-03: bản Android 60-70 MB): atlas ASTC 8x8 (2 bit mỗi điểm, tướng vẽ qua
-            // RenderTexture gần 1:1 nên mờ nhẹ ở viền khó thấy). Chân dung cũng 8x8 (2026-11-04): ảnh 512x512 kéo giãn từ
-            // portrait.png 384x480, nên khối 8x8 chỉ phủ khoảng 6x7,5 điểm ảnh gốc; 6x6 tốn gần gấp đôi (158 KB mỗi ảnh)
+            // RenderTexture gần 1:1 nên mờ nhẹ ở viền khó thấy). Chân dung PortraitFormat: hiện từ 100 tới 400 điểm qua mipmap, ở mức
+            // mipmap nửa một khối 8x8 phủ 16x16 điểm ảnh gốc nên vỡ khối; 5x5 khoảng 226 KB mỗi ảnh (8x8 87 KB, 6x6 158 KB, 4x4 350 KB)
+            SetPlatforms(ti, portrait ? PortraitFormat : TextureImporterFormat.ASTC_8x8);
+        }
+
+        public static void SetPlatforms(TextureImporter ti, TextureImporterFormat format)
+        {
             foreach (var platform in new[] { "Android", "iPhone" })
             {
                 var p = ti.GetPlatformTextureSettings(platform);
                 p.overridden = true;
                 p.maxTextureSize = ti.maxTextureSize;
-                p.format = TextureImporterFormat.ASTC_8x8;
+                p.format = format;
                 ti.SetPlatformTextureSettings(p);
             }
         }
@@ -184,6 +193,34 @@ namespace PokiClash.EditorTools
 
         [MenuItem("PokiClash/Tướng/Xếp lại atlas tướng đã nhập (không đọc nguồn)", priority = 54)]
         static void MenuRepack() => Repack();
+
+        // Nhập lại mọi chân dung theo AolaImportPostprocessor.PortraitFormat, không đụng atlas (không tăng GetVersion: tăng thì nhập lại
+        // mọi ảnh tướng). Ghi mức nén vào .meta của từng chân dung nên máy kia kéo git về cũng tự nhập lại chân dung.
+        [MenuItem("PokiClash/Tướng/Nhập lại chân dung tướng (mức nén chân dung)", priority = 55)]
+        static void MenuReimportPortraits()
+        {
+            var paths = AssetDatabase.FindAssets("t:Texture2D", new[] { ResDir }).Select(AssetDatabase.GUIDToAssetPath)
+                .Where(x => x.EndsWith("_portrait.png")).ToList();
+            int changed = 0;
+            try
+            {
+                AssetDatabase.StartAssetEditing();
+                foreach (var path in paths)
+                {
+                    var ti = (TextureImporter)AssetImporter.GetAtPath(path);
+                    if (ti.GetPlatformTextureSettings("Android").format == AolaImportPostprocessor.PortraitFormat
+                        && ti.GetPlatformTextureSettings("iPhone").format == AolaImportPostprocessor.PortraitFormat) continue;
+                    AolaImportPostprocessor.SetPlatforms(ti, AolaImportPostprocessor.PortraitFormat);
+                    ti.SaveAndReimport();
+                    changed++;
+                }
+            }
+            finally
+            {
+                AssetDatabase.StopAssetEditing();
+            }
+            Debug.Log($"[Tướng] Chân dung {AolaImportPostprocessor.PortraitFormat}: nhập lại {changed}/{paths.Count} ảnh.");
+        }
 
         // Xếp lại atlas đã có trong project bằng Pack: cắt từng hình theo uvs từ PNG atlas trong project (bản chưa nén), xếp lại, ghi
         // PNG và uvs. Không đọc nguồn AolaRipper nên dùng được cho dạng nhập ở máy khác; không đổi dấu nguồn, anim, chân dung.

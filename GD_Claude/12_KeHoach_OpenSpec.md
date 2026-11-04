@@ -408,6 +408,18 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
   Lượt máy có thẻ lặp: 68% → 38%. Bảng 102 ải × 5 mức cấp (100 trận mỗi ô): mọi ô lệch không quá 3 điểm. Trận dài thêm chút ít, rõ nhất đảo Thổ (7,3 → 8,1 hiệp). Chưa chỉnh sức địch theo số mới.
 - Golden tính lại bên Unity bằng Core chạy ngoài Editor: `battles`, `battle_events`, `sim`, `badges` (5 trận), `potential` (6 trận); `cardtext` thêm 12 thẻ. Test mới `TheDaChon_KhongRaLaiTrongLuot_TruTheLapLai`. Bản web không đổi (23 thẻ, thẻ ra lại tự do).
 
+**Hộp Chuẩn bị: đối thủ trái phải, cấp rõ; chân dung nét hơn; tai thỏ (Unity, 2026-11-04).** Người dùng: chân dung bị nén mờ (nhất là bóng sẫm); tướng bên trái, chỉ số bên phải, phóng to tên, hệ…; cấp tướng, địch rõ hơn; thanh trên tránh camera, dải tai thỏ trong suốt hoặc cùng màu UI.
+- Mỗi đối thủ một hàng. Ải một địch dùng hàng to `Items/DoiThu`, cao 340: chân dung trái; bên phải là tên, nhãn hệ và lực chiến, dòng ghi chú, 3 hàng Máu, Công, Thủ có chữ. Ải 2–3 địch dùng hàng gọn `Items/DoiThuGon`, cao 180: ghi chú chung hàng với nhãn hệ, chỉ số xếp ngang. Chân dung phóng cho phần có hình (`PortraitBoxes`) vừa ô, nên lính nhỏ không bé tí.
+- Chip "Cấp N" cùng kiểu chip cấp trên thanh trên, đặt ở góc chân dung. Chữ đỏ khi địch hơn người chơi quá 2 cấp. Ô đội của hộp cũng có chip cấp.
+- Dựng bằng menu `PokiClash/Prefab/Hộp chuẩn bị: ô đối thủ trái phải` (`PrepStatsMenu`). `Popup gọn` không còn đụng `DoiThu`.
+- Chân dung tướng ASTC 8x8 → **5x5** (`AolaImportPostprocessor.PortraitFormat`). Mỗi ảnh 87 → 226 KB, 107 ảnh, bản build nặng thêm khoảng 15 MB; atlas giữ 8x8. Ở cỡ 100–250 điểm game lấy mipmap nửa, khối 8x8 phủ 16x16 điểm ảnh gốc nên vỡ khối.
+  - Đổi mức thì sửa hằng số rồi chạy menu `PokiClash/Tướng/Nhập lại chân dung tướng (mức nén chân dung)`; không tăng `GetVersion` (tăng thì nhập lại mọi ảnh tướng).
+  - Mức nén ghi vào .meta, nên máy kia kéo git về sẽ tự nhập lại.
+  - So trong game: menu `Chân dung: thay thử mức nén trên màn đang mở`, ảnh ở `Temp/PokiShots/nen`.
+- Tai thỏ: các màn đã nằm trong vùng an toàn và lộ nền dưới camera. Riêng màn trận có dải nâu sẫm, nay nền giấy của thanh trên trận (`Thanh tren tran/nen`) kéo cao thêm 300 để phủ dải đó.
+- Thử: menu `PokiClash/Thử/Hộp chuẩn bị: ô đối thủ, cấp, tai thỏ (đang Play)`, ảnh `Temp/PokiShots/cb_*.png`. Vòng này chụp hộp 1, 2, 3 địch; đảo lúc mới qua 2 ải (bóng sẫm); và 6 màn ở khung 1080 × 2400 với tai thỏ giả (`SafeArea.Simulated`).
+- Nền trận: gói `ArtGen/BattleBG/gui_gpt/troi` dựng lại cho máy ổ D (`build_troi.py`). Bước tiếp: gửi GPT file `gop_c02_c09.txt`.
+
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 
 1. **Nhịp tiến độ** (mục tiêu: người chơi "vừa" xong 5 đảo khoảng ngày 21). Sau khi có cây bi vẫn là ngày 6. Quét bằng menu `Quét nhịp`:
@@ -459,6 +471,8 @@ Hệ thống 70 ải mỗi đảo (2026-11-02, bản thử đảo Thủy trên w
     - **Đã chốt 2026-11-03** (`15_TuongKhoiDau.md`): người chơi chọn 1 trong 5 tướng khởi đầu; tướng đã chọn (tướng đồng hành) không chịu thiệt khi khắc hệ; luôn ra trận cùng tướng tặng khắc đảo.
 20. **Nhịp và thưởng:** 5 đảo × 70 ải là 350 ải. Người chơi "vừa" (9 trận/ngày) cần ít nhất 39 ngày chỉ để qua lần đầu, so với mục tiêu ngày 21 (câu 1). Bi mỗi ải giảm còn 1–2 để cả đảo Thủy đưa người chơi lên khoảng cấp 7–8. Các hướng: chấp nhận nhịp dài hơn, tăng số trận mỗi lần vào game trong mô phỏng, hay rút số ải? Đo lại bằng `Quét nhịp` sau khi chép sang Unity. Đền Huy Hiệu giờ mở sau ải 70 đảo Thủy: có cần mở sớm hơn không?
     - **2026-11-04:** bi mỗi ải đảo 70 ải tính theo số ải: 1 bi ở ải 1–35, 2 bi ở ải 36–70. Các đảo 8 ải dời lên cấp 41–200.
+21. **Bóng sẫm tướng chưa mở** (2026-11-04): `HeroPortrait` tô nhân màu nâu `#4a3c30`, nên chi tiết bên trong vẫn lờ mờ hiện ra, nhìn đục. Muốn bóng phẳng một màu (chỉ giữ dáng) thì cần một material UI riêng làm sẵn. Làm không?
+22. **Ảnh mẫu mặt tướng gửi GPT bị giãn ngang** (session hình aola báo 2026-11-04): `ArtGen/BattleIntro/build.py` tưởng chân dung trong Unity là 384x480, trong khi ảnh lưu vuông 512. Sửa không?
 
 ## Ảnh cần gen
 

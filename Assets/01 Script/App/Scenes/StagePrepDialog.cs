@@ -1,6 +1,6 @@
 // Hộp Chuẩn bị trận dùng chung cho ải đảo, Đền Huy Hiệu, Hang Tiềm Năng (prefab Assets/04 Prefabs/Dialogs/ChuanBiTran):
-// đầu hộp và nhãn kiểu, cảnh báo quá sức, đối thủ (Items/DoiThu, kèm lực chiến và Máu, Công, Thủ khi vào trận của từng con, chữ to;
-// tướng tiến hóa trong trận chỉ hiện dạng đầu, đầu mục ghi luật tiến hóa), dòng so lực chiến địch / đội bạn và mức
+// đầu hộp và nhãn kiểu, cảnh báo quá sức, đối thủ mỗi con một hàng (PrepFoe: ải một địch hàng to Items/DoiThu, ải 2–3 địch hàng gọn
+// Items/DoiThuGon; tướng tiến hóa trong trận chỉ hiện dạng đầu, đầu mục ghi luật tiến hóa), dòng so lực chiến địch / đội bạn và mức
 // khó, thưởng là ô hình (Items/OThuong: cái gì, bao nhiêu, độ hiếm), 3 ô đội hình dựng sẵn, "Xuất trận!".
 // Ải đảo chưa mở cũng mở được để xem địch (chạm chấm hay bệ ải trên màn Đảo): nút Xuất trận khoá, ghi ải cần qua trước.
 // Dòng lực chiến, ô thưởng dựng bằng menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)".
@@ -30,6 +30,7 @@ namespace PokiClash
             public HeroPortrait portrait;
             public TextMeshProUGUI name;
             public GameObject empty;
+            public UiChip level; // chip cấp góc trên trái (menu "Hộp chuẩn bị: ô đối thủ trái phải")
         }
 
         [Serializable]
@@ -46,6 +47,8 @@ namespace PokiClash
 
         [SerializeField] Parts p;
         [SerializeField] PrepFoe foePrefab;
+        [Tooltip("Hàng đối thủ gọn cho ải 2–3 địch (Items/DoiThuGon)")]
+        [SerializeField] PrepFoe foeRowPrefab;
         [SerializeField] PrepRosterCell cellPrefab;
         [SerializeField] TeamPickerDialog pickerPrefab; // menu "Hộp chọn đội (ChonDoi)" gán
         [SerializeField] TextMeshProUGUI teamTitle, teamHint; // đầu mục đội hình
@@ -72,6 +75,8 @@ namespace PokiClash
         List<string> team;
         bool locked; // ải đảo chưa mở: chỉ xem
         int foePower;
+
+        const float FoePad = 12, FoeGap = 10; // lề trong khung đối thủ, khe giữa các hàng
 
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
@@ -122,13 +127,19 @@ namespace PokiClash
             foePower = TeamPower.Of(d.Cfg, d, enemy);
             var evo = st.enemies.Any(e => e.evo && d.Hero(e.hero).forms.Length > 1);
             var foes = enemy.members;
+            var row = st.enemies.Count > 1 && foeRowPrefab ? foeRowPrefab : foePrefab;
+            float y = FoePad;
             for (int i = 0; i < st.enemies.Count; i++)
             {
                 var en = st.enemies[i];
-                float x = (i - (st.enemies.Count - 1) / 2f) * 280;
                 var h = d.Hero(en.hero);
-                Ui.Spawn(foePrefab, p.foes).Bind(h, en, x, HeroStats.InBattle(d.Cfg, h, foes[i]), HeroStats.Power(d.Cfg, h, foes[i]));
+                var f = Ui.Spawn(row, p.foes);
+                f.Bind(h, en, HeroStats.InBattle(d.Cfg, h, foes[i]), HeroStats.Power(d.Cfg, h, foes[i]), s.level);
+                f.Place(y);
+                y += f.Height + FoeGap;
             }
+            var foesLayout = p.foes.GetComponent<LayoutElement>();
+            if (foesLayout) foesLayout.preferredHeight = y - FoeGap + FoePad;
             // đầu mục đối thủ: luật tiến hóa (thẻ boss_evo) khi địch tiến hóa trong trận
             if (foeTitle)
             {
@@ -278,6 +289,11 @@ namespace PokiClash
                 slot.portrait.gameObject.SetActive(filled);
                 slot.name.gameObject.SetActive(filled);
                 slot.empty.SetActive(!filled);
+                if (slot.level)
+                {
+                    slot.level.gameObject.SetActive(filled);
+                    slot.level.Value.text = $"Cấp {s.level}";
+                }
                 var emptyText = slot.empty.GetComponentInChildren<TextMeshProUGUI>(true);
                 if (emptyText) emptyText.text = locked ? $"Khoá\n<size=70%>{Progress.SlotNeed(i)}</size>" : "Trống\n<size=70%>chạm để chọn</size>";
                 slot.click.enabled = true;
