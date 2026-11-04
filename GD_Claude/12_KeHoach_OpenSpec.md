@@ -119,6 +119,13 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
   - Trước khi phát hành công khai: tắt `PreBuildCheck.HeroArtInBuild`.
   - 2026-11-03: 51 prefab (thêm 6 lính, khoá `minions` trong `heroes.json`), 103/103 dạng có hình. `goc_1692` đã xuất.
   - Dạng vẽ lại `<hệ>_<id>` chưa xuất (`thuy_7`, Giọt Sương dạng 1) thì bộ nhập tạm lấy hình gốc `goc_<id>` cùng rig, tổng kết menu ghi "tạm dùng hình gốc aola". Có `reskin/thuy_7/export/anim.json` thì chạy lại menu, hình vẽ lại tự thay vào.
+  - **Mảnh tự chạy (2026-11-04).** Sprite có timeline riêng (tóc, lốc nước, vệt chém, tia nổ) trước bị xuất thành một hình đứng yên. `tools/subframes.py` bên AolaRipper vẽ từng khung con, rồi `export_original.py` xuất lại `anim.json`. Từ nay `goc_batch.py` tự làm bước này. 74 dạng cần làm:
+    - Đã vào Unity: `goc_1319`, `goc_1320` (Tiểu Y), cùng 41 dạng nhập ngày 2026-11-04 bằng menu `Nhập dạng aola có nguồn mới hơn bản trong project` (menu nhập thêm `goc_216`, anim không đổi). Đã so: anim trong Unity trùng bản xuất, mảnh thường không lệch; ảnh `Chụp thử prefab tướng` thì dáng đứng giữ nguyên, hiệu ứng đánh và chiêu đổi theo khung con.
+    - **Còn 31 dạng chưa vẽ khung con, để làm sau** (người dùng dặn 2026-11-04): Ma Kết `goc_758 759 760`, Vây Lam `546 547 548`, Thương Lam `805 806 807`, Heo Lửa `205 206 207`, Kuba `95 96`, Đốm Lửa `2419 2420`, Pháo Tết `1370 1371`, Sư Tử Lửa `5 6`, Sóc Đá `825 826`, Hồ Lửa `307`, Chu Tước `506`, Gấu Mỏ `373`, Kỳ Lân `90`; lính `1313 1314 17 829 830`.
+    - Cách làm: một tiến trình, Chrome 1 luồng (`subframes.py <parts> --threads 1`), không chạy cùng lúc Unity nhập hay biên dịch (cả máy sập 2 lần ngày 2026-11-04). Dạng 758 có hình hiệu ứng rất lớn, lần trước kẹt ở đây: xem trước rồi mới vẽ. Xong thì chạy menu `Nhập dạng aola có nguồn mới hơn bản trong project`.
+    - Bản xuất mới có thể ít mảnh hơn bản cũ ở vài khung. Đó là khung con mảnh bị ẩn (SVG trống hoặc `fill-opacity 0`), trước đây vẫn hiện hình khung đầu: đúng, không phải mất mảnh.
+    - Giọt Sương dạng 3 (rig pet9) có 1 mảnh tự chạy: khi ghép `thuy_9` nhớ làm bước này.
+    - Chân dung: `export/portrait.png` ở AolaRipper ổ D không có bóng dưới chân, bản trong git (có lẽ làm ở máy công ty) có bóng. Dạng nhập lại ở máy này thì mất bóng, đúng luật "tướng không vẽ bóng". Tới 2026-11-04 còn 29 dạng có chân dung có bóng. 13 dạng nằm trong 31 dạng chờ nên sẽ tự hết khi nhập. 16 dạng còn lại phải nhập lại riêng chân dung: `goc_76 77 78 1617 22 23 24 182 183 31 33 4`, `monk_500 2010 boxer 2217`.
   - Ảnh soi từng dạng: menu `PokiClash/Tướng/Chụp thử prefab tướng` ghi vào `Library/PokiHeroShots`.
 - **Thêm 5 tướng Thủy (2026-11-02):** người dùng chọn 7 hình aola cho kịch bản đảo Thủy. Hai con đã có: 远古灵龟 = Huyền Vũ, 万钧 = Vạn Quân (dạng 2 của Lam Quân, người dùng đánh dấu BOSS). Năm con mới:
   - Mi Nhi (983–984);
@@ -342,7 +349,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 
 **Màn VS truyện tranh, dải tuyệt kỹ (Unity, 2026-11-03).** Người dùng: vào trận hiện mặt các tướng hai bên trên dưới, ngăn bằng vạch chéo kiểu showdown, như khung truyện tranh; một nền dùng chung, tướng nào có thì gen thêm ảnh mặt; dùng lại khung đó khi ra tuyệt kỹ, cắt thành hình bình hành ngang màn.
 - Màn VS (`BattleIntro`, trong lớp phủ `Screens/Battle`): trang giấy, khung trên đội địch (đỏ), khung dưới đội bạn (xanh), khe chéo viền mực; mỗi tướng một ô mặt `Items/TranVsMat` (`VsFace`: tên, cấp, nhãn BOSS; mặt địch quay trái, phe mình lật quay phải); lực chiến cả đội (như hộp chuẩn bị); khung lời dẫn vàng ghi đảo, ải, tên ải; dấu VS đóng xuống giữa khe, rung. Khung trượt vào theo đường chéo, giữ 1,5 s, tách lên xuống; chạm để bỏ qua. Hình khung tính lúc chạy theo cỡ màn (`PolyGraphic`, `RayGraphic`).
-- Tuyệt kỹ (`UltCutIn`): dải hình bình hành ngang giữa sân, cùng kiểu khung; mặt tướng ra chiêu to về phía phe nó, khung "Tuyệt kỹ · tên tướng", tên chiêu chữ to. Trượt vào từ phía phe ra chiêu, giữ 0,6 s (ngắn lại theo tốc độ trận), rồi mới phát clip tuyệt kỹ (thay băng rôn tuyệt kỹ cũ).
+- Tuyệt kỹ (`UltCutIn`): dải hình bình hành ngang giữa sân, cùng kiểu khung; mặt tướng ra chiêu to về phía phe nó, khung "Tuyệt kỹ · tên tướng", tên chiêu chữ to. Trượt vào từ phía phe ra chiêu, giữ 0,6 s, rồi mới phát clip tuyệt kỹ (thay băng rôn tuyệt kỹ cũ).
 - Ảnh: nền khung (`vs_nen`, một ảnh tô màu theo phe), dấu VS (`vs_no`), mặt từng dạng tướng (`mat_<aola>`, 384 × 384, nhập ASTC 8x8 cho nhẹ APK) ở `Assets/03 Art/BattleIntro/Resources`, game nạp khi cần, chưa có thì vẽ tạm: tia bằng code, hình nổ của bộ giấy, chân dung phóng cho đầu lấp ô (hộp hình chân dung đo sẵn: `PortraitBoxes`). Gói gửi GPT: `ArtGen/BattleIntro/build.py` (lượt nền, lượt VS, mỗi dòng tiến hóa một file mặt; `--duyet` cắt nền trắng, chép vào Unity).
 - Dựng bằng menu `PokiClash/Prefab/Trận: màn VS truyện tranh` (nhập thêm tướng thì chạy lại để đo hộp hình); thử bằng `PokiClash/Thử/Màn VS truyện tranh, dải tuyệt kỹ (đang Play)` (ảnh `Temp/PokiShots/vs_*.png`).
 
@@ -355,6 +362,12 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - Hộp AFK ghi ải đang AFK và tướng rơi mảnh, thêm nút "Đổi ải" (sang đảo của ải đó). Bản đồ đảo có nhãn AFK dưới ải đang AFK.
 - Golden `afk.json` tính lại bên Unity: 3 bước nhận đổi mảnh, thêm 6 bước đổi ải. EditMode 95/95 đạt.
 - Dựng bằng menu `PokiClash/Prefab/AFK theo ải (nút, nhãn trên đảo)`; thử bằng `PokiClash/Thử/AFK theo ải: nút ở ải đã thắng, nhãn trên đảo (đang Play)` (ảnh `Temp/PokiShots/afk_*.png`).
+
+**Chậm lúc ra đòn, bỏ nấc tốc độ (Unity, 2026-11-04).** Người dùng: tướng ra đòn, bắn chiêu thì giảm tốc độ game để nhìn rõ animation; bỏ nấc ×2, ×3.
+- Trận một nhịp: sân chạy ×3 tốc độ gốc aola như nấc ×1 cũ. Đã bỏ nút ×1/×2/×3 ở thanh trên trận, hàng tốc độ ở Sổ tay và khoá `settings.speed` của bản lưu.
+- Lúc có tướng chạy clip đánh, cả sân chậm về ×1,3 tốc độ gốc. Lúc bắn tia (đến khi tia tan) và lúc phát clip CHIÊU thì về ×1. Chậm cả hai tướng, chữ nổi, hiệu ứng, rung và chờ giữa các sự kiện (`StageView.Wait`, giây sân). Clip đánh trung bình 1,68 s thành khoảng 1,3 s thật (trước khoảng 0,56 s); chiêu 1,4 s (trước khoảng 0,93 s).
+- Clip vừa bắt đầu là chậm ngay, xong clip thì nhanh lại trong khoảng 0,1 s. Số chỉnh ở `StageView`: `AttackPace`, `SkillPace`, `SlowEase`. Thay cho `SkillTime` cũ, vốn chỉ kéo chậm clip chiêu.
+- Tour thử trong Editor gọi `BattleController.FastForward(k)` để cả trận, kể cả lúc ra đòn, chạy nhanh gấp k. Chỗ trước đặt ×3 nay dùng `FastForward(2)`, bằng nhịp ×3 cũ lúc không ra đòn.
 
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 

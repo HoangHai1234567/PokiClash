@@ -51,6 +51,18 @@ namespace PokiClash.Core
         public static int Power(BalanceConfig cfg, Stats s) =>
             (int)Math.Round(2 * Math.Sqrt(s.hp * (cfg.defK + s.def) / cfg.defK * s.atk));
 
+        // chỉ số một tướng khi vào trận (khớp Battle.MakeFighter), để hiện ở hộp Chuẩn bị trận; tướng tiến hóa trong trận thì theo
+        // dạng form của dòng (máu, Công nhân hệ số của dạng, Battle.EvoMult)
+        public static Stats InBattle(BalanceConfig cfg, HeroDef h, Member m, int form = 0)
+        {
+            var s = Compute(cfg, h, m.level, m.star, m.boss, m.mods);
+            if (!m.evo) return s;
+            var k = Battle.EvoMult(cfg, Math.Max(1, h.forms.Length), form);
+            s.hp = Js.Round(s.hp * k.hp);
+            s.atk = Js.Round(s.atk * k.atk);
+            return s;
+        }
+
         // lực chiến của một tướng trong đội (cấp, sao, boss, phần cộng); boss tiến hóa gánh máu cả dòng (cfg.bossEvoHp)
         public static int Power(BalanceConfig cfg, HeroDef h, Member m)
         {

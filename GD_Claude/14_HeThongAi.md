@@ -14,6 +14,18 @@ Mỗi đảo một tướng mới thì không đủ nội dung cho người chơ
   - Ải 5, 10, 15: tướng mới, cường hóa +15%.
   - Ải 20–60: tướng mới là mini boss.
   - Ải 70: boss đảo, tiến hóa trong trận (thẻ Tiến Hóa như boss ải 8 cũ).
+  - **Tiến hóa trong trận ở ải 5–60** (người dùng dặn 2026-11-04): tướng mới của ải tướng cũng tiến hóa hết dòng như boss ải 70 (cờ `evo` trong `stages.json`):
+    - vào trận ở dạng 1;
+    - máu cả dòng cộng lại bằng 1,5 lần, chia cho các dạng theo tỉ lệ 1 : 2 (: 3);
+    - Công các dạng trước kém 10% mỗi dạng;
+    - máu dưới 25% thì lên dạng sau và hồi đầy máu.
+    - Mini boss tiến hóa lấy máu ×0,7 như boss ải 70, thay cho ×0,95.
+    - Ải 1 (bóng tướng khởi đầu) không tiến hóa.
+    - Đòn kết liễu (đánh hoặc bỏng) giáng vào tướng còn dạng sau, kể cả khi nó đang trên 25% máu: chừa 1 máu rồi tiến hóa ngay, không gục (người dùng dặn 2026-11-04).
+  - Hộp Chuẩn bị trận (người dùng dặn 2026-11-04):
+    - hiện to Máu, Công, Thủ khi vào trận của từng địch, kèm lực chiến;
+    - không so với tướng người chơi, vì dễ hiểu lầm;
+    - tướng tiến hóa chỉ hiện dạng đầu; đầu mục ghi "còn 25% máu thì tiến hóa, hồi đầy máu"; lực chiến tính cả dòng.
 - **Chặng**: từ một ải tướng tới trước ải tướng sau. Tên chặng là tên địa danh, ví dụ ải 23 là "Ngọn Hải Đăng 4".
 - **Ải xen giữa** trộn 3 kiểu:
   - tướng đã gặp được **cường hóa** (+% Máu và Công, Thủ cộng một nửa);

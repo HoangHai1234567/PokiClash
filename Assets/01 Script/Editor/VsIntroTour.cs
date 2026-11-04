@@ -85,7 +85,7 @@ namespace PokiClash.EditorTools
                     var f = ctl.Battle.ActiveOf(side);
                     var card = d.Card(f.hero.ult);
                     var run = view.UltCut.Play(f.hero, f.Name, Teams.LookStar(d.Cfg, f), card != null ? card.name : "Tuyệt Kỹ",
-                        side == 0, (RectTransform)view.Stage.transform, 1);
+                        side == 0, (RectTransform)view.Stage.transform);
                     App.I.StartCoroutine(run);
                     yield return new WaitForSecondsRealtime(0.1f);
                     yield return Shot($"tuyet_ky_{side}_vao");

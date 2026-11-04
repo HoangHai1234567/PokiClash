@@ -4612,7 +4612,7 @@ MonoBehaviour:
   m_MinWidth: -1
   m_MinHeight: -1
   m_PreferredWidth: -1
-  m_PreferredHeight: 420
+  m_PreferredHeight: 510
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
@@ -4794,6 +4794,7 @@ MonoBehaviour:
     verdict: {fileID: 899085291138288561}
     verdictBg: {fileID: 8281043083356581529}
   afkBtn: {fileID: 3534607545311387976}
+  foeTitle: {fileID: 4545294824320855792}
 --- !u!1001 &6877834873433253043
 PrefabInstance:
   m_ObjectHideFlags: 0

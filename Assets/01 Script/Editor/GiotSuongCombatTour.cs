@@ -60,7 +60,6 @@ namespace PokiClash.EditorTools
                         Debug.LogError("[Thử] Không thấy BattleController hoặc StageView");
                         yield break;
                     }
-                    ctl.SetSpeed(1);
                     st.speed = 1; // sân chạy chậm (×1 thật đã nhanh gấp 3) để chụp đủ khung mà soi
                     // chờ lượt chọn thẻ (trận đứng yên) rồi tự cho sân chạy từng đòn của Giọt Sương (phía 0), cuối cùng đối thủ đánh
                     t0 = Time.realtimeSinceStartup;

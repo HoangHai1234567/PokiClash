@@ -10,19 +10,21 @@ Mọi file prompt tướng cũ (`PROMPTS.md`, `Thuy.md`, `thuy/*.md`) đã xoá;
 
 ## 1. Phong cách
 
-- **Tướng là sinh vật kiểu thú nuôi đánh nhau**, không phải người.
-- **Nét vẽ** lấy từ `ArtGen/Islands/refs/world_style.png`:
-  - viền mực nâu sẫm `#2B2118` dày đều, hơi rung như bút thật;
-  - tô phẳng màu ấm, bóng bằng chì màu gạch chéo, vài điểm sáng trắng nhỏ;
+- **Tướng là sinh vật kiểu thú nuôi đánh nhau**, không phải người (ngoại lệ: dòng Tiểu Y, xem dưới).
+- **Nét vẽ** lấy từ `ArtGen/Islands/refs/world_style.png` (người dùng nhắc lại 2026-11-04):
+  - hình vẽ tay trên giấy bằng bút mực: viền nâu sẫm `#2B2118` dày đều, hơi rung như bút thật;
+  - mỗi vùng tô bằng chì màu và sáp màu, nét tô gạch chéo lộ rõ;
   - họa sĩ vẽ tay đẹp: không nguệch ngoạc kiểu trẻ con, không quá chi tiết;
   - không bóng loáng kiểu số, không chuyển sắc, không 3D.
+- **Tô phẳng, không bóng, không ánh sáng** (người dùng dặn 2026-11-04, áp cho mọi tướng; thay luật 2026-11-03 "bóng chì gạch chéo bên trong hình, vài điểm sáng trắng"):
+  - mỗi vùng một màu đều, nét chì sáp chỉ là vân, không tạo sáng tối; vùng nào đậm hơn là do thiết kế có màu đậm (lòng áo choàng...);
+  - không mảng sáng tối, không bóng đổ, không bóng dưới chân hay in xuống nền, không điểm sáng trắng, không bóng loáng, không quầng sáng; chỉ chừa một chấm sáng nhỏ trong mắt;
+  - áp cho concept, mảnh, vũ khí, hiệu ứng chiêu và mặt tướng: `build.py` (`FLAT`, `RENDER`, `LINE`), `build_fx.py`, `ArtGen/BattleIntro/build.py` (`FACE_STYLE`) tự chèn vào mọi file prompt;
+  - ảnh mốc style (concept Giọt Sương dạng 1) có chấm sáng và mảng tối: prompt dặn chỉ học nét mực và vân chì sáp của nó;
+  - hình Giọt Sương đã gen trước ngày này còn bóng chì gạch chéo và điểm sáng, chưa vẽ lại.
 - **Thiết kế** học từ tướng aola (người dùng gọi là "style pokemon"): dáng gọn mập, đọc được khi nhỏ, mắt to, hình đơn giản, ít chi tiết. Không lấy nét bóng loáng của aola, không chép con nào.
 - **Vẻ "chiến"**: mày xếch xuống, cười tự tin lộ răng nanh nhỏ, thế sẵn sàng đánh; dễ thương, không linh vật vui tươi, không đáng sợ.
 - **Viền trắng giấy xé**: game vẽ bằng shader (mục 7). Prompt dặn GPT không vẽ viền trắng.
-- **Không vẽ bóng** (người dùng dặn 2026-11-03, luật chung ở `ArtGen/README.md`):
-  - áp cho concept, mảnh, vũ khí và hiệu ứng: không bóng đổ, không bóng dưới chân, không bóng in xuống nền;
-  - bóng chì gạch chéo bên trong hình vẫn giữ;
-  - `build.py` (`NO_SHADOWS`, gắn vào RENDER và LINE) và `build_fx.py` tự chèn câu này vào mọi file prompt.
 
 Lịch sử 2026-11-02 (để khỏi lặp lại):
 - nét vector bóng như hình gốc: "không giống style game";
@@ -30,6 +32,11 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 - nét số bóng loáng kiểu sprite: "mất style vẽ tay";
 - bỏ rig, vẽ bộ mảnh rời: người dùng quay lại rig cũ;
 - kỳ giông, cá chép: bỏ; Giọt Sương dạng 1 là tinh linh nước hiệp sĩ tập sự.
+
+**Dòng Tiểu Y (`tieu_y_1`, `tieu_y_2`, rig aola #1319, #1320), người dùng chốt 2026-11-04:**
+- **ngoại lệ của luật "không phải người"**: giữ theme thần biển Poseidon, **dạng người** (dạng 1 tiểu thần biển chibi, dạng 2 thần biển trẻ);
+- thiết kế theo `DESIGN_CHIBI` (cách thiết kế như tướng thú nhưng là nhân vật); concept đính thêm ảnh mốc style (`"anchor": True`);
+- hiệu ứng nước tự chạy (lốc nước thay chân, vòng nước, dải nước) giữ hình gốc aola để không mất animation: bỏ khỏi bóng xám, không có nhóm vẽ lại. Tóc của #1320 (mảnh 30, 35, 40) cũng tự chạy: khi ghép phải khớp hình mới vào từng khung con.
 
 **Concept đầu tiên được chốt** (2026-11-02): Giọt Sương dạng 1, `inbox/giot_suong_1/concept_duyet.png` (bản giáp ngực trơn, găng giáp bạc, kiếm chắn tay vàng). Chép thành **ảnh mốc style** `refs/style_anchor.png`: concept các tướng sau đính thêm ảnh này (lấy nét và độ chi tiết, không lấy thiết kế).
 
@@ -63,13 +70,14 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
   - `HUONG_DAN.md`: tiếng Việt, file prompt từng lượt, đường dẫn và mô tả từng ảnh mẫu, kiểm từng ảnh, câu sửa nhanh.
 - Người dùng chỉ gửi GPT đường dẫn file prompt (dặn 2026-11-03). File prompt mở đầu bằng danh sách ảnh mẫu kèm đường dẫn đầy đủ (GPT tự mở), rồi chỗ GPT tự lưu ảnh; trùng tên thì GPT thêm `_2`, `_3`.
 - Đường dẫn trong gói tính từ chỗ đặt `build.py`, nên chạy được trên cả hai máy.
+- `py -3 -I build.py <mã> ...` chỉ dựng các dạng đó; không có mã thì dựng lại mọi gói. Dạng khai `"anchor": True` thì concept đính thêm ảnh mốc style `refs/style_anchor.png`, vì ảnh mốc này chưa được đính tự động cho các dạng khác.
 - Thư mục `1_concept/`, `2_nhom_manh/` trong gói cũ là cách kéo thả trước đây, không dùng nữa.
 - Đính hình aola cho GPT: người dùng cho phép ("cứ đính hình vào", 2026-11-02).
 
 ## 5. Claude duyệt
 
 **Concept** ("duyệt concept <mã>"):
-- nét vẽ tay như bản đồ, không bóng loáng; thiết kế gọn, không chép con aola nào; vẻ chiến;
+- nét vẽ tay trên giấy như bản đồ (bút mực, chì sáp), tô phẳng: không mảng sáng tối, không điểm sáng, không bóng, không bóng loáng; thiết kế gọn, không chép con aola nào; vẻ chiến;
 - đủ, đúng chỗ như rig: số chi, khớp, hướng chi, bàn tay ở đầu dưới;
 - duyệt xong: lưu `inbox/<mã>/concept_duyet.png`, chạy lại `build.py` để gói lượt 2 có concept.
 

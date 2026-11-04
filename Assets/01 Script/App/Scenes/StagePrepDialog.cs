@@ -1,5 +1,6 @@
 // Hộp Chuẩn bị trận dùng chung cho ải đảo, Đền Huy Hiệu, Hang Tiềm Năng (prefab Assets/04 Prefabs/Dialogs/ChuanBiTran):
-// đầu hộp và nhãn kiểu, cảnh báo quá sức, đối thủ (Items/DoiThu, kèm lực chiến từng con), dòng so lực chiến địch / đội bạn và mức
+// đầu hộp và nhãn kiểu, cảnh báo quá sức, đối thủ (Items/DoiThu, kèm lực chiến và Máu, Công, Thủ khi vào trận của từng con, chữ to;
+// tướng tiến hóa trong trận chỉ hiện dạng đầu, đầu mục ghi luật tiến hóa), dòng so lực chiến địch / đội bạn và mức
 // khó, thưởng là ô hình (Items/OThuong: cái gì, bao nhiêu, độ hiếm), 3 ô đội hình dựng sẵn, "Xuất trận!".
 // Ải đảo chưa mở cũng mở được để xem địch (chạm chấm hay bệ ải trên màn Đảo): nút Xuất trận khoá, ghi ải cần qua trước.
 // Dòng lực chiến, ô thưởng dựng bằng menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)".
@@ -52,6 +53,8 @@ namespace PokiClash
         [SerializeField] PowerRow power;
         [Tooltip("Nút AFK ải này (menu PokiClash/Prefab/AFK theo ải)")]
         [SerializeField] SketchButton afkBtn;
+        [Tooltip("Chữ đầu mục \"Đối thủ\" (menu PokiClash/Prefab/Hộp chuẩn bị: chỉ số địch)")]
+        [SerializeField] TextMeshProUGUI foeTitle;
 
         // dòng so lực chiến: số của địch, số của đội đang chọn, nhãn mức khó (Dễ / Vừa / Khó / Rất khó)
         [Serializable]
@@ -110,27 +113,27 @@ namespace PokiClash
             p.warn.SetActive(!locked && s.level < maxLv - 2);
             p.warnText.text = $"Địch cấp {maxLv}, bạn cấp {s.level}: nên nuôi tướng thêm";
 
-            // đối thủ; boss tiến hóa (ải 8) đứng một mình nên hiện cả dòng dạng, dạng đầu bên trái
+            // đối thủ, mỗi con kèm chỉ số khi vào trận; tướng tiến hóa trong trận (ải tướng, boss) chỉ hiện dạng đầu, lực chiến tính cả
+            // dòng (như số "Địch" ở dòng lực chiến)
             Clear(p.foes);
             var enemy = Teams.Enemy(st, d);
             foePower = TeamPower.Of(d.Cfg, d, enemy);
-            var evo = st.enemies.Count == 1 && st.enemies[0].evo && d.Hero(st.enemies[0].hero).forms.Length > 1 ? st.enemies[0] : null;
-            if (evo != null)
+            var evo = st.enemies.Any(e => e.evo && d.Hero(e.hero).forms.Length > 1);
+            var foes = enemy.members;
+            for (int i = 0; i < st.enemies.Count; i++)
             {
-                var h = d.Hero(evo.hero);
-                for (int i = 0; i < h.forms.Length; i++)
-                    Ui.Spawn(foePrefab, p.foes).BindForm(h, evo, i, (i - (h.forms.Length - 1) / 2f) * 280, d.Cfg, i == 0 ? foePower : 0);
+                var en = st.enemies[i];
+                float x = (i - (st.enemies.Count - 1) / 2f) * 280;
+                var h = d.Hero(en.hero);
+                Ui.Spawn(foePrefab, p.foes).Bind(h, en, x, HeroStats.InBattle(d.Cfg, h, foes[i]), HeroStats.Power(d.Cfg, h, foes[i]));
             }
-            else
+            // đầu mục đối thủ: luật tiến hóa (thẻ boss_evo) khi địch tiến hóa trong trận
+            if (foeTitle)
             {
-                var foes = enemy.members;
-                for (int i = 0; i < st.enemies.Count; i++)
-                {
-                    var en = st.enemies[i];
-                    float x = (i - (st.enemies.Count - 1) / 2f) * 280;
-                    var h = d.Hero(en.hero);
-                    Ui.Spawn(foePrefab, p.foes).Bind(h, en, x, foes[i].mods, HeroStats.Power(d.Cfg, h, foes[i]));
-                }
+                var ec = d.Card(Battle.BossEvoCard);
+                double heal = ec.Effects.Count > 0 && ec.Effects[0].K == EffectKind.Evolve ? ec.Effects[0].Pct : 1;
+                foeTitle.text = evo ? $"Đối thủ · còn {CardText.Pct(ec.below)} máu thì tiến hóa, hồi {(heal >= 1 ? "đầy" : CardText.Pct(heal))} máu"
+                    : "Đối thủ";
             }
 
             Rewards(d, s);

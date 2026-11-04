@@ -49,8 +49,8 @@ namespace PokiClash
             skill = skillText;
         }
 
-        // stage: khung sân (dải nằm ngang giữa sân); speed: nấc tốc độ trận 1..3 (nhanh hơn thì dải ngắn hơn)
-        public IEnumerator Play(HeroDef h, string heroName, int star, string skillName, bool mineSide, RectTransform stage, float speed)
+        // stage: khung sân (dải nằm ngang giữa sân)
+        public IEnumerator Play(HeroDef h, string heroName, int star, string skillName, bool mineSide, RectTransform stage)
         {
             gameObject.SetActive(true);
             transform.SetAsLastSibling();
@@ -92,8 +92,7 @@ namespace PokiClash
             skill.text = skillName;
 
             // trượt vào từ phía phe ra chiêu, giữ, trượt tiếp sang phía kia
-            float k = 1 / (1 + 0.35f * (Mathf.Clamp(speed, 1, 3) - 1));
-            float inT = 0.2f * k, hold = 0.62f * k, outT = 0.2f * k;
+            const float inT = 0.2f, hold = 0.62f, outT = 0.2f;
             float from = -s * (w + 200), to = s * (w + 200), drift = -s * 70;
             textBox.localScale = Vector3.zero;
             for (float t = 0; ; t += Time.unscaledDeltaTime)

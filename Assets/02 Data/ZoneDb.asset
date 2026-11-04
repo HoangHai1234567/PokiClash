@@ -630,7 +630,7 @@ MonoBehaviour:
     - hero: tieu_y
       level: 1
       boss: 0
-      evo: 0
+      evo: 1
       buff: 0.15
     drops:
     - hero: tieu_y
@@ -743,7 +743,7 @@ MonoBehaviour:
     - hero: canh_cut
       level: 2
       boss: 0
-      evo: 0
+      evo: 1
       buff: 0.15
     drops:
     - hero: canh_cut
@@ -856,7 +856,7 @@ MonoBehaviour:
     - hero: mi_nhi
       level: 3
       boss: 0
-      evo: 0
+      evo: 1
       buff: 0.15
     drops:
     - hero: mi_nhi
@@ -969,7 +969,7 @@ MonoBehaviour:
     - hero: ma_ket
       level: 3
       boss: 1
-      evo: 0
+      evo: 1
       buff: 0.1
     drops:
     - hero: ma_ket
@@ -1224,7 +1224,7 @@ MonoBehaviour:
     - hero: vay_lam
       level: 4
       boss: 1
-      evo: 0
+      evo: 1
       buff: 0.1
     drops:
     - hero: vay_lam
@@ -1472,7 +1472,7 @@ MonoBehaviour:
     - hero: kuba
       level: 5
       boss: 1
-      evo: 0
+      evo: 1
       buff: 0.1
     drops:
     - hero: kuba
@@ -1720,7 +1720,7 @@ MonoBehaviour:
     - hero: thuong_lam
       level: 6
       boss: 1
-      evo: 0
+      evo: 1
       buff: 0.1
     drops:
     - hero: thuong_lam
@@ -1968,7 +1968,7 @@ MonoBehaviour:
     - hero: huyen_vu
       level: 7
       boss: 1
-      evo: 0
+      evo: 1
       buff: 0.1
     drops:
     - hero: huyen_vu

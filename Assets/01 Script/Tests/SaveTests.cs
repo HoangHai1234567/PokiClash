@@ -55,7 +55,6 @@ namespace PokiClash.Tests
             svc.Data.Hero("vo_su").owned = true;
             svc.Data.Hero("vo_su").skill.lv = 3;
             svc.Data.team.Add("vo_su");
-            svc.Data.settings.speed = 2;
             svc.Data.settings.boil = false;
             svc.Data.extra["homestead"] = new System.Collections.Generic.Dictionary<string, object> { ["thuy"] = 1.0 };
             svc.Data.chests.Add(new PendingChest { kind = "chest_gold", x = 3 });
@@ -72,7 +71,6 @@ namespace PokiClash.Tests
             Assert.AreEqual(2, s.clears[12]);
             Assert.AreEqual(3, s.Hero("vo_su").skill.lv);
             Assert.AreEqual(new[] { "giot_suong", "vo_su" }, s.team.ToArray());
-            Assert.AreEqual(2, s.settings.speed);
             Assert.IsFalse(s.settings.boil);
             Assert.IsTrue(s.extra.ContainsKey("homestead"), "khoá lạ được giữ nguyên");
             Assert.AreEqual(2, s.chests.Count, "rương máy bi chờ mở");

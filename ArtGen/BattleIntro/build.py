@@ -49,6 +49,17 @@ STYLE = ("STYLE (image 1): the hand-drawn storybook look of this game: slightly 
          "colours, light colour-pencil hatching for shading, cream paper feel. Drawn neatly by a professional illustrator, not "
          "scribbly. No glossy highlights, no gradients, no 3D render, no airbrush.")
 
+# mặt tướng theo luật tướng (người dùng 2026-11-04): vẽ tay trên giấy bằng bút mực, tô chì màu và sáp màu; không bóng, không ánh
+# sáng. Nền khung và dấu VS là UI, vẫn theo STYLE và NO_SHADOWS ở trên.
+FACE_STYLE = ("STYLE (image 1): the hand-drawn look of this game: drawn by hand on paper with a dark-brown ink pen #2B2118, "
+              "slightly wobbly outlines; every area coloured with coloured pencils and wax crayons, the strokes visible as loose "
+              "diagonal hatching. Drawn neatly by a professional illustrator, not scribbly.\n"
+              "FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker "
+              "side, no shadows of any kind (no drop shadow, no offset shadow, nothing on the background), no white highlights or "
+              "shine spots (only one small catchlight dot in each eye), no gloss, no glow, no gradients, no 3D render, no airbrush.")
+FACE_FIX = ("Flat colour only: every area one even colour coloured with pencil and wax crayon strokes; no shading, no shadows, "
+            "no white highlights or shine (only a small catchlight dot in each eye), no glow, no gradients.")
+
 
 def save_rule(p):
     return (f"save it as a PNG to {p} (create the folder if it is missing; if that file already exists, add _2, _3 … before "
@@ -222,7 +233,7 @@ def face_file(n, line):
             f"one creature, \"{line['name']}\", in each of its evolution forms (one step per form)")
     out += [f"WHAT THIS IS: face icons for a cute hand-drawn mobile game: {kind}. The game shows each face inside a small square "
             "comic frame on the versus screen before a battle, and big inside a wide slanted comic strip when the creature uses "
-            "its ultimate move.", "", STYLE, "", NO_SHADOWS, ""]
+            "its ultimate move.", "", FACE_STYLE, ""]
     out += FACE_RULES + [""]
     if many:
         out += [f"ORDER: draw step 1 now, save it and stop. When I say \"next\", draw the next step, save it and stop, until step "
@@ -364,11 +375,12 @@ def guide(nen, vs, faces):
           "| Mặt quay phải | `Mirror it so the face looks to the viewer's left.` |",
           "| Lấy cả thân, đầu nhỏ | `Closer: only the head and the top of the shoulders, the head filling most of the square.` |",
           "| Mặt dữ quá hoặc ngố | `Same face, but brave and cute: brows a little lowered, a confident small grin.` |",
-          "| Bóng loáng kiểu 3D | `Redraw it in the hand-drawn style of image 1: wobbly ink outline, flat colours, pencil "
-          "hatching, no shine.` |",
+          "| Mặt tướng bóng loáng, có mảng sáng tối, điểm sáng | `Redraw it by hand on paper in the style of image 1: wobbly ink "
+          "outline, every area coloured with pencil and wax crayon strokes. " + FACE_FIX + "` |",
           "| Có viền trắng, nền xám | `Same image on a plain pure white background, without a white outline around the head.` |",
-          "| Có bóng đổ, bóng lệch, bóng in xuống nền | `Same image without any shadow: no drop shadow, no offset shadow, nothing on "
+          "| Nền khung, dấu VS có bóng đổ, bóng lệch | `Same image without any shadow: no drop shadow, no offset shadow, nothing on "
           "the background. Keep only the pencil hatching inside the shapes.` |",
+          "| Mặt tướng có bóng đổ, bóng in xuống nền | `Same image without any shadow. " + FACE_FIX + "` |",
           "",
           "## Lệnh (Claude chạy khi bạn nhắn duyệt)", "",
           "```",

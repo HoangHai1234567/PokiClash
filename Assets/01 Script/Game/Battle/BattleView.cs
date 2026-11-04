@@ -1,5 +1,5 @@
 // Giao diện trận (chép bố cục Web/src/view/battle/battleScreen.ts + battle.css, khung 540 × 960 nhân 2):
-// thanh trên (tạm dừng, hiệp, nhãn lượt, tốc độ, Tự chơi), sân đấu, bảng thông tin hai bên, hàng mặt địch góc trên trái sân,
+// thanh trên (tạm dừng, hiệp, nhãn lượt, Tự chơi), sân đấu, bảng thông tin hai bên, hàng mặt địch góc trên trái sân,
 // bảng dưới (hàng thẻ 5 ô + ô đòn kết, 3 thẻ để chọn, chân dung đội, nút Chiêu và Tuyệt kỹ), lớp phủ (băng rôn, VS, gợi ý).
 // Chỉ vẽ; BattleController quyết định khi nào vẽ lại và nối nút bấm.
 // Dựng sẵn trong prefab màn hình Screens/Battle; ô hàng thẻ, ô trống, lá úp, ô đồng đội, mặt địch, băng rôn là prefab mục (dùng lại, thừa thì tắt).
@@ -26,7 +26,7 @@ namespace PokiClash
             // thanh trên
             public TextMeshProUGUI roundLbl, turnLbl;
             public Image turnChip;
-            public SketchButton speedBtn, autoBtn, pauseBtn;
+            public SketchButton autoBtn, pauseBtn;
             // bảng thông tin: 0 phe mình, 1 địch
             public BattlePlate[] plates;
             // hàng mặt địch ở góc trên trái sân (dựng sẵn, trong lớp bảng của sân) và ô mặt (prefab mục Items/TranMatDich)
@@ -56,7 +56,6 @@ namespace PokiClash
         public RectTransform Overlay => p.overlay;
         public RectTransform Offer => p.offer;
         public RectTransform QRow => p.qRow;
-        public SketchButton SpeedBtn => p.speedBtn;
         public SketchButton AutoBtn => p.autoBtn;
         public SketchButton PauseBtn => p.pauseBtn;
         public BattleIntro Intro => p.intro;
@@ -144,8 +143,6 @@ namespace PokiClash
             p.turnLbl.text = side == 0 ? "Lượt bạn" : "Lượt địch";
             p.turnChip.color = side == 0 ? Theme.Green : Theme.Red;
         }
-
-        public void SetSpeed(int sp) => SpeedBtn.SetText("×" + sp);
 
         public void SetAuto(bool on)
         {

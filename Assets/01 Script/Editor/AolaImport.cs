@@ -15,6 +15,9 @@
 // - Danh mục → Assets/02 Data/HeroModels.asset, gắn vào UiAssets.heroes.
 // Dạng đã nhập mà bản nguồn không đổi (thời điểm sửa anim.json, hình mảnh, chân dung) thì bỏ qua. Dạng không còn tướng nào dùng
 // thì chỉ báo, không xoá.
+// Dấu nguồn tính theo giờ sửa file nên khác nhau giữa hai máy: bản trong project kéo về qua git (nhập ở máy kia, có thể có phần
+// bổ sung máy này chưa có) bị menu nhập thường đè bằng nguồn máy này. Menu "Nhập dạng aola có nguồn mới hơn" chỉ nhập dạng có
+// nguồn sửa sau lần ghi asset trong project.
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,8 +34,9 @@ namespace PokiClash.EditorTools
 {
     public sealed class AolaImportPostprocessor : AssetPostprocessor
     {
-        // đổi số khi cách nhập ảnh đổi: Unity nhập lại mọi ảnh tướng (2: atlas ASTC 8x8, chân dung vuông có mipmap ASTC 6x6)
-        public override uint GetVersion() => 2;
+        // đổi số khi cách nhập ảnh đổi: Unity nhập lại mọi ảnh tướng (2: atlas ASTC 8x8, chân dung vuông có mipmap ASTC 6x6;
+        // 3: chân dung ASTC 8x8)
+        public override uint GetVersion() => 3;
 
         void OnPreprocessTexture()
         {
@@ -60,13 +64,14 @@ namespace PokiClash.EditorTools
                 ti.SetTextureSettings(s);
             }
             // dung lượng build (người dùng 2026-11-03: bản Android 60-70 MB): atlas ASTC 8x8 (2 bit mỗi điểm, tướng vẽ qua
-            // RenderTexture gần 1:1 nên mờ nhẹ ở viền khó thấy), chân dung ASTC 6x6 (UI, nhìn gần)
+            // RenderTexture gần 1:1 nên mờ nhẹ ở viền khó thấy). Chân dung cũng 8x8 (2026-11-04): ảnh 512x512 kéo giãn từ
+            // portrait.png 384x480, nên khối 8x8 chỉ phủ khoảng 6x7,5 điểm ảnh gốc; 6x6 tốn gần gấp đôi (158 KB mỗi ảnh)
             foreach (var platform in new[] { "Android", "iPhone" })
             {
                 var p = ti.GetPlatformTextureSettings(platform);
                 p.overridden = true;
                 p.maxTextureSize = ti.maxTextureSize;
-                p.format = portrait ? TextureImporterFormat.ASTC_6x6 : TextureImporterFormat.ASTC_8x8;
+                p.format = TextureImporterFormat.ASTC_8x8;
                 ti.SetPlatformTextureSettings(p);
             }
         }
@@ -86,6 +91,10 @@ namespace PokiClash.EditorTools
         // hình không có trong dáng đứng (tư thế đánh, hiệu ứng chiêu): chạy nhanh, thu thêm. Bỏ lần nhập đầu (×1,25, không thu
         // thêm, PackTextures làm tròn lên lũy thừa 2) ra 516 triệu điểm ảnh; nay khoảng 144 triệu (ASTC 6x6 ~64 MB).
         const float OtherScale = 0.7f;
+        // hình khung con của mảnh tự chạy (subframes.py bên AolaRipper, chars/c<id>_<k>.png: tóc, lốc nước, vệt chém, tia nổ):
+        // mỗi hình chỉ hiện vài khung rồi đổi, nên thu thêm; khung con có trong dáng đứng nhìn lâu hơn nên thu nhẹ hơn
+        const float SubIdleScale = 0.85f, SubOtherScale = 0.7f;
+        static readonly Regex SubFrame = new Regex(@"[\\/]c\d+_\d+\.png$");
         public const int PortraitSide = 512; // chân dung lưu vuông (lũy thừa 2, có mipmap mới nén được)
         const string Version = "2"; // đổi khi cách nhập đổi, để nhập lại mọi dạng
         const string StandMark = "tam-"; // đầu dấu nguồn của dạng vẽ lại đang tạm mang hình gốc goc_<id>
@@ -166,6 +175,101 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Tướng/Nhập lại hết hình tướng aola", priority = 51)]
         static void MenuReimport() => ImportAll(true);
 
+        [MenuItem("PokiClash/Tướng/Nhập dạng aola có nguồn mới hơn bản trong project", priority = 52)]
+        static void MenuImportNewer() => ImportAll(false, true);
+
+        // dạng có bản xuất kèm hình khung con (subframes.py): nhập lại hết, kể cả khi nguồn không đổi (cách thu nhỏ khung con đổi)
+        [MenuItem("PokiClash/Tướng/Nhập lại dạng aola có hình khung con (mảnh tự chạy)", priority = 53)]
+        static void MenuImportSub() => ImportAll(false, subOnly: true);
+
+        [MenuItem("PokiClash/Tướng/Xếp lại atlas tướng đã nhập (không đọc nguồn)", priority = 54)]
+        static void MenuRepack() => Repack();
+
+        // Xếp lại atlas đã có trong project bằng Pack: cắt từng hình theo uvs từ PNG atlas trong project (bản chưa nén), xếp lại, ghi
+        // PNG và uvs. Không đọc nguồn AolaRipper nên dùng được cho dạng nhập ở máy khác; không đổi dấu nguồn, anim, chân dung.
+        public static string Repack()
+        {
+            long before = 0, after = 0;
+            int done = 0, same = 0;
+            var guids = AssetDatabase.FindAssets("t:AolaAnim", new[] { ResDir });
+            try
+            {
+                AssetDatabase.StartAssetEditing();
+                try
+                {
+                    for (int k = 0; k < guids.Length; k++)
+                    {
+                        var a = AssetDatabase.LoadAssetAtPath<AolaAnim>(AssetDatabase.GUIDToAssetPath(guids[k]));
+                        if (!a || a.uvs == null || a.uvs.Length == 0 || string.IsNullOrEmpty(a.res)) continue;
+                        if (EditorUtility.DisplayCancelableProgressBar("Xếp lại atlas tướng", $"{a.name} ({k + 1}/{guids.Length})", (float)k / guids.Length))
+                            throw new OperationCanceledException();
+                        var png = Path.Combine(Application.dataPath, "..", ResDir, a.res + "_atlas.png");
+                        if (!File.Exists(png)) continue;
+                        var src = new Texture2D(2, 2, TextureFormat.RGBA32, false);
+                        if (!src.LoadImage(File.ReadAllBytes(png)))
+                        {
+                            UnityEngine.Object.DestroyImmediate(src);
+                            continue;
+                        }
+                        int W = src.width, H = src.height;
+                        var all = src.GetPixels32();
+                        UnityEngine.Object.DestroyImmediate(src);
+                        var parts = new Texture2D[a.uvs.Length];
+                        for (int i = 0; i < parts.Length; i++)
+                        {
+                            var u = a.uvs[i];
+                            int x = Mathf.RoundToInt(u.x * W), y = Mathf.RoundToInt(u.y * H);
+                            int w = Math.Max(1, Mathf.RoundToInt(u.width * W)), h = Math.Max(1, Mathf.RoundToInt(u.height * H));
+                            var px = new Color32[w * h];
+                            for (int row = 0; row < h; row++) Array.Copy(all, (y + row) * W + x, px, row * w, w);
+                            parts[i] = new Texture2D(w, h, TextureFormat.RGBA32, false);
+                            parts[i].SetPixels32(px);
+                        }
+                        var uvs = new Rect[parts.Length];
+                        var atlas = Pack(parts, uvs, out _);
+                        foreach (var t in parts) UnityEngine.Object.DestroyImmediate(t);
+                        before += (long)W * H;
+                        if (!atlas || (long)atlas.width * atlas.height >= (long)W * H)
+                        {
+                            after += (long)W * H;
+                            same++;
+                            if (atlas) UnityEngine.Object.DestroyImmediate(atlas);
+                            continue;
+                        }
+                        after += (long)atlas.width * atlas.height;
+                        Write(png, atlas.EncodeToPNG());
+                        UnityEngine.Object.DestroyImmediate(atlas);
+                        a.uvs = uvs;
+                        EditorUtility.SetDirty(a);
+                        done++;
+                        if (k % 10 == 9) GC.Collect();
+                    }
+                }
+                finally
+                {
+                    AssetDatabase.StopAssetEditing();
+                }
+                AssetDatabase.SaveAssets();
+                EditorUtility.DisplayProgressBar("Xếp lại atlas tướng", "Nén ảnh...", 0.95f);
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                var summary = $"[Tướng aola] Xếp lại {done} atlas ({same} giữ nguyên): {before / 1e6:0.0} → {after / 1e6:0.0} triệu điểm ảnh " +
+                              $"(ASTC 8x8 {before / 4 / 1048576f:0.0} → {after / 4 / 1048576f:0.0} MB).";
+                Debug.Log(summary);
+                return summary;
+            }
+            catch (OperationCanceledException)
+            {
+                Debug.LogWarning("[Tướng aola] Đã dừng xếp lại atlas; atlas đã xếp xong vẫn giữ, chạy lại menu để xếp tiếp.");
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+                return "đã dừng";
+            }
+            finally
+            {
+                EditorUtility.ClearProgressBar();
+            }
+        }
+
         // Batchmode: Unity -batchmode -projectPath <dự án> -executeMethod PokiClash.EditorTools.AolaImport.Batch [-force]
         public static void Batch()
         {
@@ -179,8 +283,9 @@ namespace PokiClash.EditorTools
             EditorApplication.Exit(code);
         }
 
-        // Trả tóm tắt (cũng in ra Console).
-        public static string ImportAll(bool force)
+        // Trả tóm tắt (cũng in ra Console). newerOnly: chỉ nhập dạng có nguồn sửa sau lần ghi anim trong project; subOnly: chỉ
+        // nhập (luôn nhập) dạng có hình khung con.
+        public static string ImportAll(bool force, bool newerOnly = false, bool subOnly = false)
         {
             var reskin = FindDir();
             if (string.IsNullOrEmpty(reskin) || !Directory.Exists(reskin))
@@ -233,8 +338,16 @@ namespace PokiClash.EditorTools
                             mark = StandMark;
                             stands.Add($"{form} ← {Path.GetFileName(stand)}");
                         }
-                        var stamp = mark + Stamp(dir);
-                        if (!force && old && old.source == stamp && old.anim && old.LoadAtlas()) continue;
+                        var stamp = mark + Stamp(dir, out long sourceTicks);
+                        if (subOnly)
+                        {
+                            if (!HasSubframes(dir)) continue;
+                        }
+                        else if (newerOnly)
+                        {
+                            if (old && old.anim && sourceTicks <= ProjectTicks(form)) continue;
+                        }
+                        else if (!force && old && old.source == stamp && old.anim && old.LoadAtlas()) continue;
                         var p = Write(dir, form, stamp, out string note);
                         before += p.bytesBefore;
                         after += p.bytesAfter;
@@ -355,8 +468,15 @@ namespace PokiClash.EditorTools
             return list;
         }
 
-        // dấu bản nguồn: thời điểm sửa và cỡ của anim.json, chân dung, mọi hình mảnh
-        static string Stamp(string dir)
+        // giờ ghi anim của dạng trong project (lần nhập ở máy này, hoặc lúc git kéo về), 0 nếu chưa có
+        static long ProjectTicks(string form)
+        {
+            var f = new FileInfo(Path.Combine(Application.dataPath, "..", ResDir, form, form + "_anim.bytes"));
+            return f.Exists ? f.LastWriteTimeUtc.Ticks : 0;
+        }
+
+        // dấu bản nguồn: thời điểm sửa và cỡ của anim.json, chân dung, mọi hình mảnh; ticks: thời điểm sửa mới nhất
+        static string Stamp(string dir, out long ticks)
         {
             var anim = Path.Combine(dir, "export", "anim.json");
             var json = (Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(anim));
@@ -371,7 +491,17 @@ namespace PokiClash.EditorTools
             Add(anim);
             Add(Path.Combine(dir, "export", "portrait.png"));
             foreach (var s in (List<object>)json["sprites"]) Add(Path.GetFullPath(Path.Combine(dir, (string)s)));
+            ticks = t;
             return $"v{Version}-{t}-{n}";
+        }
+
+        // bản xuất có hình khung con: thư mục hình mảnh (của hình đầu tiên) có subframes.json
+        static bool HasSubframes(string dir)
+        {
+            var json = (Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(Path.Combine(dir, "export", "anim.json")));
+            if (!(((List<object>)json["sprites"]).FirstOrDefault() is string first)) return false;
+            var chars = Path.GetDirectoryName(Path.GetFullPath(Path.Combine(dir, first)));
+            return chars != null && File.Exists(Path.Combine(chars, "subframes.json"));
         }
 
         sealed class Pending
@@ -441,7 +571,11 @@ namespace PokiClash.EditorTools
                     foreach (List<object> row in frame)
                         inIdle.Add(Convert.ToInt32(row[0]));
             for (int i = 0; i < need.Length; i++)
-                if (!inIdle.Contains(i)) need[i] *= OtherScale;
+            {
+                bool idle = inIdle.Contains(i);
+                if (!idle) need[i] *= OtherScale;
+                if (SubFrame.IsMatch(paths[i])) need[i] *= idle ? SubIdleScale : SubOtherScale;
+            }
 
             // bóng dưới chân: trong 3 hình đầu của khung đầu dáng đứng
             if (idleFrames != null && idleFrames.Count > 0)
@@ -525,43 +659,60 @@ namespace PokiClash.EditorTools
             return p;
         }
 
-        // Xếp hình theo hàng (cao trước), rộng gần vuông; cỡ atlas không làm tròn lên lũy thừa 2 (ASTC không cần, PackTextures
-        // làm tròn nên phí gần nửa). Không vừa MaxAtlas: null, needH là chiều cao (hoặc cạnh) cần.
+        // Xếp hình bằng MaxRects (thử vài chiều rộng quanh căn diện tích, mỗi chiều rộng tìm chiều cao nhỏ nhất xếp vừa, lấy atlas
+        // nhỏ nhất); cỡ atlas không làm tròn lên lũy thừa 2 (ASTC không cần, PackTextures làm tròn nên phí gần nửa). Xếp theo hàng
+        // như trước chỉ lấp được 79% atlas (2026-11-04: 196,6 triệu điểm ảnh cho 154,5 triệu điểm hình và lề).
+        // Không vừa MaxAtlas: null, needH là chiều cao cần nếu rộng MaxAtlas.
         static Texture2D Pack(Texture2D[] tex, Rect[] uvs, out int needH)
         {
             int n = tex.Length;
+            var ws = tex.Select(t => t.width + Padding).ToArray();
+            var hs = tex.Select(t => t.height + Padding).ToArray();
             long area = 0;
-            int maxW = 1;
-            foreach (var t in tex)
+            int maxW = 1, maxH = 1;
+            for (int i = 0; i < n; i++)
             {
-                area += (long)(t.width + Padding) * (t.height + Padding);
-                maxW = Math.Max(maxW, t.width + Padding);
+                area += (long)ws[i] * hs[i];
+                maxW = Math.Max(maxW, ws[i]);
+                maxH = Math.Max(maxH, hs[i]);
             }
-            var order = Enumerable.Range(0, n).OrderByDescending(i => tex[i].height).ThenByDescending(i => tex[i].width).ToArray();
+            var order = Enumerable.Range(0, n).OrderByDescending(i => Math.Max(ws[i], hs[i])).ThenByDescending(i => ws[i] * hs[i]).ToArray();
             var pos = new (int x, int y)[n];
-            int Shelves(int width)
+            var tryPos = new (int x, int y)[n];
+            bool Fits(int w, int h)
             {
-                int x = 0, y = 0, shelf = 0;
+                var bin = new MaxRects(w, h);
                 foreach (int i in order)
                 {
-                    int w = tex[i].width + Padding, h = tex[i].height + Padding;
-                    if (x + w > width)
-                    {
-                        y += shelf;
-                        x = 0;
-                        shelf = 0;
-                    }
-                    pos[i] = (x, y);
-                    x += w;
-                    shelf = Math.Max(shelf, h);
+                    if (!bin.Insert(ws[i], hs[i], out var r)) return false;
+                    tryPos[i] = (r.x, r.y);
                 }
-                return Ceil4(y + shelf);
+                return true;
             }
-            int W = Math.Min(MaxAtlas, Math.Max(maxW, Ceil4((int)Math.Ceiling(Math.Sqrt(area * 1.1)))));
-            int H = Shelves(W);
-            if (H > MaxAtlas && W < MaxAtlas) H = Shelves(W = MaxAtlas);
-            needH = Math.Max(H, maxW);
-            if (H > MaxAtlas || maxW > MaxAtlas) return null;
+            int W = 0, H = 0;
+            double side = Math.Sqrt(area);
+            foreach (var f in new[] { 0.85, 0.92, 1.0, 1.08, 1.17, 1.3 })
+            {
+                int w = Ceil4(Math.Min(MaxAtlas, Math.Max(maxW, (int)Math.Ceiling(side * f))));
+                int lo = Ceil4(Math.Max(maxH, (int)(area / w))), hi = MaxAtlas;
+                if (lo > hi || W > 0 && (long)w * lo >= (long)W * H) continue;
+                if (!Fits(w, hi)) continue;
+                while (hi - lo > 4)
+                {
+                    int mid = Ceil4((lo + hi) / 2);
+                    if (mid >= hi) break;
+                    if (Fits(w, mid)) hi = mid;
+                    else lo = mid;
+                }
+                if (W > 0 && (long)w * hi >= (long)W * H) continue;
+                Fits(w, hi);
+                Array.Copy(tryPos, pos, n);
+                W = w;
+                H = hi;
+            }
+            // không vừa: chiều cao cần ước theo diện tích, luôn quá MaxAtlas để vòng gọi thu nhỏ thêm
+            needH = W > 0 ? H : Math.Max(MaxAtlas + 64, (int)Math.Ceiling(area * 1.15 / MaxAtlas));
+            if (W == 0) return null;
             var px = new Color32[W * H];
             for (int i = 0; i < n; i++)
             {
@@ -578,6 +729,62 @@ namespace PokiClash.EditorTools
         }
 
         static int Ceil4(int v) => (v + 3) & ~3;
+
+        // MaxRects (Jukka Jylänki 2010): giữ mọi ô trống tối đa, đặt hình vào ô có cạnh ngắn còn thừa ít nhất; không xoay hình
+        sealed class MaxRects
+        {
+            readonly List<RectInt> free = new();
+            readonly List<RectInt> split = new();
+
+            public MaxRects(int w, int h) => free.Add(new RectInt(0, 0, w, h));
+
+            public bool Insert(int w, int h, out RectInt r)
+            {
+                r = default;
+                int bestShort = int.MaxValue, bestLong = int.MaxValue;
+                foreach (var f in free)
+                {
+                    if (f.width < w || f.height < h) continue;
+                    int dw = f.width - w, dh = f.height - h;
+                    int s = Math.Min(dw, dh), l = Math.Max(dw, dh);
+                    if (s > bestShort || s == bestShort && l >= bestLong) continue;
+                    bestShort = s;
+                    bestLong = l;
+                    r = new RectInt(f.x, f.y, w, h);
+                }
+                if (bestShort == int.MaxValue) return false;
+                Place(r);
+                return true;
+            }
+
+            // cắt mọi ô trống chạm hình thành tối đa bốn ô quanh nó, bỏ ô mới nằm gọn trong ô khác (ô cũ với nhau đã gọn từ trước)
+            void Place(RectInt u)
+            {
+                split.Clear();
+                for (int i = free.Count - 1; i >= 0; i--)
+                {
+                    var f = free[i];
+                    if (u.x >= f.xMax || u.xMax <= f.x || u.y >= f.yMax || u.yMax <= f.y) continue;
+                    free.RemoveAt(i);
+                    if (u.x > f.x) split.Add(new RectInt(f.x, f.y, u.x - f.x, f.height));
+                    if (u.xMax < f.xMax) split.Add(new RectInt(u.xMax, f.y, f.xMax - u.xMax, f.height));
+                    if (u.y > f.y) split.Add(new RectInt(f.x, f.y, f.width, u.y - f.y));
+                    if (u.yMax < f.yMax) split.Add(new RectInt(f.x, u.yMax, f.width, f.yMax - u.yMax));
+                }
+                for (int i = 0; i < split.Count; i++)
+                {
+                    var a = split[i];
+                    bool inside = false;
+                    for (int j = 0; j < split.Count && !inside; j++)
+                        inside = j != i && Contains(split[j], a) && (!split[j].Equals(a) || j < i);
+                    for (int j = 0; j < free.Count && !inside; j++)
+                        inside = Contains(free[j], a);
+                    if (!inside) free.Add(a);
+                }
+            }
+
+            static bool Contains(RectInt a, RectInt b) => b.x >= a.x && b.y >= a.y && b.xMax <= a.xMax && b.yMax <= a.yMax;
+        }
 
         // Bóng: hình xám không màu, nửa trong suốt, bè ngang. Bóng trong 79 dạng đã xuất: độ bão hòa 0, alpha 75–130, rộng/cao
         // từ 1.75 (677); hình xám khác đều đục (alpha ≥ 240).

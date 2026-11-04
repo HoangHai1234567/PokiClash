@@ -16,17 +16,22 @@ def W(p):
     return p.replace("/", "\\")
 
 
-LINE = ("RENDERING: the hand-drawn look of image 1 (the game's map): a dark-brown ink outline (#2B2118) about {n} px thick on "
-        "this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; flat colours shaded with loose "
-        "diagonal coloured-pencil hatching (strokes thinner than the outline); a few small white highlights; no glossy shine, "
-        "no airbrushed glow, no gradients, no 3D render. Colours of water from images 2-4 (clear sky blue, light blue, deep "
-        "blue, white foam); gold only where the step says.\n"
+# Luật tướng (người dùng 2026-11-04, cả hiệu ứng): vẽ tay trên giấy bằng bút mực, tô chì màu và sáp màu; không bóng, không ánh
+# sáng: mỗi vùng một màu đều, không mảng sáng tối, không điểm sáng, không quầng sáng (thay luật 2026-11-03: bóng chì gạch chéo).
+FLAT_FIX = ("Flat colour only: every area one even colour coloured with pencil and wax crayon strokes; no shading, no shadows, "
+            "no white highlights or shine, no glow, no gradients.")
+LINE = ("RENDERING: the hand-drawn look of image 1 (the game's map): drawn by hand on paper with a dark-brown ink pen (#2B2118), "
+        "an outline about {n} px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; every "
+        "area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner "
+        "than the outline). Colours of water from images 2-4 (clear sky blue, light blue, deep blue, white foam); gold only where "
+        "the step says.\n"
+        "FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, "
+        "no shadows of any kind (no drop shadow, no cast shadow, nothing on the background), no white highlights or shine "
+        "spots, no gloss, no glow or halo, no gradients, no 3D render. White appears only as a flat colour where the step says "
+        "(foam, a sparkle), never as a light reflection.\n"
         "CANVAS: a square 1024 x 1024 image, plain pure white background (the game cuts the white away, so keep a clear white "
         "margin all round and do not let the effect touch the edges), the effect centred and filling about 75% of the canvas. "
-        "Only this effect: no creature, no hand, no weapon, no ground, no text, no frame, no white sticker border.\n"
-        # UI và tướng (cả hiệu ứng) không vẽ bóng (người dùng 2026-11-03, câu dán của ArtGen/README.md mục "Luật chung")
-        "NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or "
-        "background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.")
+        "Only this effect: no creature, no hand, no weapon, no ground, no text, no frame, no white sticker border.")
 
 LINES = [
     {"code": "giot_suong_fx", "hero": "Giọt Sương", "elem": "thuy",
@@ -45,14 +50,14 @@ LINES = [
           "A ring of swirling water seen from the front: three curling streams of water chasing each other around an EMPTY centre (the centre stays plain white and open), each stream thick at its head and thin at its tail, a few droplets flung off the ends. A small whirlpool ring that will spin around the hero.",
           "vòng nước xoáy nhìn thẳng: ba dòng nước cuộn đuổi nhau quanh tâm rỗng (giữa để trắng), đầu dòng dày đuôi mảnh, vài giọt văng ra"),
          ("FX04", "giot_nuoc", "chùm giọt nước", 12,
-          "A loose cluster of five separate water droplets of different sizes, each a clean teardrop with a white highlight, all falling down and to the lower left, with small gaps between them.",
-          "năm giọt nước rời to nhỏ khác nhau, mỗi giọt hình giọt lệ có chấm sáng trắng, cùng rơi xuống chéo trái"),
+          "A loose cluster of five separate water droplets of different sizes, each a clean teardrop of flat light blue with a thin deeper-blue rim, all falling down and to the lower left, with small gaps between them.",
+          "năm giọt nước rời to nhỏ khác nhau, mỗi giọt hình giọt lệ xanh nhạt tô phẳng, viền xanh đậm mảnh, cùng rơi xuống chéo trái"),
          ("FX05", "lap_lanh", "tia lấp lánh", 12,
           "One big four-pointed sparkle star, white with a light-blue rim and a tiny gold centre, plus two small four-pointed sparkles beside it.",
           "một ngôi sao lấp lánh bốn cánh lớn, trắng viền xanh nhạt, tâm vàng nhỏ, cạnh là hai sao nhỏ"),
          ("FX06", "bong_bong", "bong bóng", 14,
-          "One big round water bubble, light blue and see-through looking, with a curved white highlight at the upper left, a small second highlight, and a thin rim of deeper blue. Hand-drawn, not glossy.",
-          "một bong bóng nước tròn lớn xanh nhạt trông trong, vệt sáng cong trắng ở trên trái, viền xanh đậm mảnh"),
+          "One big round water bubble: a very pale blue inside coloured flat with light crayon strokes, a thin rim of deeper blue, and a small curl of white foam stuck to its lower edge. Hand-drawn, flat, not glossy, no shine spot.",
+          "một bong bóng nước tròn lớn: lòng xanh rất nhạt tô phẳng bằng nét sáp nhẹ, viền xanh đậm mảnh, một cụm bọt trắng nhỏ bám ở mép dưới; không vệt sáng"),
          ("FX07", "song_than", "sóng thần cuộn", 18,
           "A big curling wave of water seen from the side, rolling to the RIGHT: it rises from a flat base on the left, climbs and curls over at the top right into a hollow curl, a white foam crest and spray flying from the lip; deep blue body, lighter blue inside the curl. Grand and powerful but cartoon-clean.",
           "sóng lớn nhìn ngang cuộn sang phải: dâng từ chân phẳng bên trái, cuộn lại ở trên phải thành vòm rỗng, mào bọt trắng và bụi nước ở mép sóng"),
@@ -109,15 +114,15 @@ def build(f):
          f"3. Đủ ảnh thì nhắn Claude \"ghép {code}\".", "",
          "| Ảnh mẫu | Đường dẫn | Trông như thế nào |", "|---|---|---|"]
     g += [f"| {i} | `{W(p)}` | {vi} |" for i, (p, _, vi) in enumerate(refs, 1)]
-    g += ["", "Kiểm từng ảnh trước khi lưu (nét vẽ tay như bản đồ, viền mực nâu, không bóng loáng, không quầng sáng mờ, nền trắng, "
-          "không bóng đổ, không chạm mép ảnh, không có con, không chữ):", ""]
+    g += ["", "Kiểm từng ảnh trước khi lưu (vẽ tay trên giấy, viền mực nâu, tô chì sáp phẳng; không mảng sáng tối, không điểm sáng, "
+          "không bóng loáng, không quầng sáng, không bóng đổ; nền trắng, không chạm mép ảnh, không có con, không chữ):", ""]
     g += [f"- **{sc}** {vi_name} (viền khoảng {n} px): {vi}" for sc, _, vi_name, n, _, vi in steps]
     g += ["", "## GPT vẽ sai thì gửi thêm (cùng chat)", "", "| Sai | Gửi thêm |", "|---|---|",
-          "| Quầng sáng mờ, bóng loáng | `Hand-drawn like the map: dark-brown ink outlines, flat colours with coloured-pencil hatching; no glow, no glossy shine, no gradients.` |",
+          "| Không giống vẽ tay trên giấy | `Draw it by hand on paper: dark-brown ink-pen outlines, every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching.` |",
+          f"| Quầng sáng, điểm sáng, mảng sáng tối, bóng loáng | `{FLAT_FIX}` |",
           "| Chạm mép ảnh, nền không trắng | `Keep the whole effect inside the canvas with a clear white margin; plain pure white background.` |",
           "| Có con, tay, vũ khí | `Only the effect itself, nothing else.` |",
-          "| Có bóng đổ, bóng in xuống nền | `NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under "
-          "the feet or on the ground or background. Shade only with colour-pencil hatching inside the shapes.` |", "",
+          f"| Có bóng đổ, bóng in xuống nền | `{FLAT_FIX}` |", "",
           f"Gói này sinh từ `{W(ROOT + 'build_fx.py')}`; sửa prompt ở đó rồi chạy lại.", ""]
     open(pk + "HUONG_DAN.md", "w", encoding="utf-8", newline="").write("\n".join(g))
     return W(p1)

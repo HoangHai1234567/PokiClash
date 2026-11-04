@@ -1,5 +1,6 @@
 // Phát lại sự kiện trận kèm hoạt cảnh (chép playEv của Web/src/view/battle/battleScreen.ts).
-// Mỗi loại sự kiện một handler; chờ tính theo 1/tốc độ; đòn đánh, tuyệt kỹ, chiêu chờ tới khung trúng đòn rồi mới chạy tiếp,
+// Mỗi loại sự kiện một handler; chờ tính theo giây sân (StageView.Wait: lúc ra đòn sân chậm thì chờ chậm cùng); đòn đánh, tuyệt kỹ,
+// chiêu chờ tới khung trúng đòn rồi mới chạy tiếp,
 // phần còn lại của clip chạy song song; trước sự kiện card/turn/ult/attack/round/swap và chiêu (innate "skill") thì chờ clip trước xong.
 // Thanh số chỉ vẽ theo ảnh chụp của sự kiện (không đọc trạng thái trận, vì trạng thái đã đi trước hoạt cảnh).
 using System;
@@ -16,7 +17,6 @@ namespace PokiClash
         readonly Battle b;
         readonly BattleView view;
         readonly StageView st;
-        readonly Func<float> speed;
         readonly MonoBehaviour host;
         ClipHandle pending;
         public int ExecIdx = -1;
@@ -27,19 +27,18 @@ namespace PokiClash
         public Func<int, CardDef, IEnumerator> UltCut; // dải tuyệt kỹ: chờ chạy xong rồi mới phát clip (không có thì băng rôn)
         public Action<int> OnTurnFoe; // vẽ lá úp của địch
 
-        public BattlePlayer(MonoBehaviour host, Battle b, BattleView view, Func<float> speed)
+        public BattlePlayer(MonoBehaviour host, Battle b, BattleView view)
         {
             this.host = host;
             this.b = b;
             this.view = view;
             st = view.Stage;
-            this.speed = speed;
         }
 
         static string StatName(Stat s) =>
             s == Stat.Atk ? "Công" : s == Stat.Def ? "Thủ" : s == Stat.Crit ? "Chí mạng" : s == Stat.Lifesteal ? "Hút máu" : s == Stat.Dodge ? "Né" : "Sát thương nhận";
 
-        object W(float ms) => new WaitForSecondsRealtime(ms / 1000f / Mathf.Max(0.1f, speed()));
+        object W(float ms) => st.Wait(ms / 1000f);
 
         public IEnumerator WaitPending()
         {
@@ -70,7 +69,7 @@ namespace PokiClash
             var h = st.Play(side, StageView.Cast, () => travel = st.Beam(side));
             pending = h;
             while (!h.hit) yield return null;
-            yield return W((int)(travel * 1000));
+            yield return st.Wait(travel);
         }
 
         public IEnumerator Play(BattleEvent e)
@@ -309,7 +308,7 @@ namespace PokiClash
             var target = st.transform.TransformPoint(new Vector3(head.x * StageView.K, -head.y * StageView.K + 40, 0) +
                                                      new Vector3(-((RectTransform)st.transform).rect.width / 2, ((RectTransform)st.transform).rect.height, 0));
             var from = clone.position;
-            float dur = 0.32f / Mathf.Max(0.1f, speed());
+            float dur = 0.32f / Mathf.Max(0.1f, st.speed * st.fast);
             for (float t = 0; t < dur * 1.6f; t += Time.unscaledDeltaTime)
             {
                 if (!clone) yield break;

@@ -1,6 +1,6 @@
 // Điều khiển trận (chép vòng run() của Web/src/view/battle/battleScreen.ts):
 // Picking → người chơi chọn hoặc máy chọn; Ready → Execute; Idle → Advance; ForceSwap → hộp chọn tướng thay.
-// Tự chơi bật/tắt giữa chừng; tốc độ ×1/2/3 lưu vào cài đặt. Hết trận: thưởng ải, hộp kết quả.
+// Tự chơi bật/tắt giữa chừng; một nhịp trận, không có nấc tốc độ (lúc ra đòn sân tự chậm, StageView). Hết trận: thưởng ải, hộp kết quả.
 // Nằm sẵn trên gốc prefab Screens/Battle; hộp Kết quả, Tạm dừng, Đổi tướng, Huy hiệu là prefab Dialogs/Tran*.
 using System;
 using System.Collections;
@@ -50,10 +50,10 @@ namespace PokiClash
         List<string> team;
         BadgeRef badge;
         CaveRef cave;
-        float speed = 1; // nấc tốc độ người chơi chọn (×1, ×2, ×3, lưu trong cài đặt)
-        // nhịp thật của từng nấc (người dùng 2026-11-03: đánh và animation nhanh như lúc chạy thử, các tour chạy ×3 cũ): ×1 = ×3 cũ
-        static readonly float[] Paces = { 3f, 4.5f, 6f };
-        float Pace => Paces[Mathf.Clamp((int)speed, 1, 3) - 1];
+        // nhịp trận (người dùng 2026-11-03: đánh và animation nhanh như lúc chạy thử, ×3 cũ). 2026-11-04 bỏ nấc tốc độ ×2, ×3: lúc ra
+        // đòn sân tự chậm lại cho rõ animation (StageView), ngoài lúc đó chạy nhịp này
+        const float Pace = 3f;
+        float fast = 1; // công cụ thử chạy nhanh (FastForward)
         bool auto, busy, alive = true, waitingPick;
         bool usedAuto; // có lượt người chơi nào để máy tự chơi (ghi trận)
         float startedAt;
@@ -80,21 +80,19 @@ namespace PokiClash
                 : badge != null ? Badges.Stage(d, badge.zone, badge.tier, badge.i) : d.Stage(args.stageId) ?? d.Stage(1);
             zone = d.Zone(stage.zone);
             team = (args.team ?? save.team).Take(Progress.TeamSlots(save)).ToList(); // chỉ mang đủ số ô đội đã mở
-            speed = Mathf.Clamp(save.settings.speed, 1, 3);
             int unlock = save.level;
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
             uint seed = badge != null ? Badges.Seed(d, badge.zone, badge.tier, badge.i) : Rng.RandomSeed();
             b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
             view.Init(b, zone, badge == null && cave == null ? stage : null);
             view.Stage.speed = Pace;
-            view.SetSpeed((int)speed);
-            view.SpeedBtn.SetOnClick(ToggleSpeed);
+            FastForward(1);
             view.AutoBtn.SetOnClick(ToggleAuto);
             view.PauseBtn.SetOnClick(Menu);
             view.OnPickCard = (i, rt) => { if (!busy) StartCoroutine(OnPick(i, rt)); };
             view.OnInnate = (w, rt) => { if (!busy) StartCoroutine(OnInnate(w, rt)); };
             view.OnSwap = i => { if (!busy) StartCoroutine(OnSwap(i)); };
-            player = new BattlePlayer(this, b, view, () => Pace)
+            player = new BattlePlayer(this, b, view)
             {
                 Alive = () => alive,
                 OnRound = r => Banner($"Hiệp {r}", "Bạn đi trước", false),
@@ -105,7 +103,7 @@ namespace PokiClash
             StartCoroutine(Run());
         }
 
-        // cho công cụ thử (menu PokiClash/Thử): bấm thẻ thứ i, bật tự chơi, đặt tốc độ
+        // cho công cụ thử (menu PokiClash/Thử): bấm thẻ thứ i, bật tự chơi, chạy nhanh
         public void TestPick(int i)
         {
             if (busy || i >= view.OfferCards.Count) return;
@@ -113,7 +111,7 @@ namespace PokiClash
         }
 
         public bool WaitingPlayer => waitingPick && !busy;
-        // thời gian phát phần ra đòn mỗi lượt người chơi, quy về tốc độ ×1 (để đo nhịp trận)
+        // thời gian phát phần ra đòn mỗi lượt người chơi, quy về nhịp thường khi công cụ thử chạy nhanh (để đo nhịp trận)
         public readonly List<float> PlayerTurnSeconds = new List<float>();
         public bool Auto => auto;
 
@@ -122,9 +120,11 @@ namespace PokiClash
             if (auto != on) ToggleAuto();
         }
 
-        public void SetSpeed(int s)
+        // công cụ thử: cả trận (kể cả lúc ra đòn) chạy nhanh gấp k; người chơi không có nấc tốc độ
+        public void FastForward(float k)
         {
-            while ((int)speed != Mathf.Clamp(s, 1, 3)) ToggleSpeed();
+            fast = Mathf.Max(1, k);
+            view.Stage.fast = fast;
         }
 
         public void Stop()
@@ -133,7 +133,7 @@ namespace PokiClash
             StopAllCoroutines();
         }
 
-        object W(float ms) => new WaitForSecondsRealtime(ms / 1000f / Pace);
+        object W(float ms) => new WaitForSecondsRealtime(ms / 1000f / (Pace * fast));
 
         // ---------- vòng trận ----------
 
@@ -172,7 +172,7 @@ namespace PokiClash
                     float t0 = Time.realtimeSinceStartup;
                     int side = b.turn.side;
                     yield return player.PlayAll(b.Execute());
-                    if (side == 0) PlayerTurnSeconds.Add((Time.realtimeSinceStartup - t0) * Pace / Paces[0]);
+                    if (side == 0) PlayerTurnSeconds.Add((Time.realtimeSinceStartup - t0) * fast);
                     continue;
                 }
                 if (b.phase == Phase.Ready)
@@ -206,7 +206,7 @@ namespace PokiClash
         {
             var f = b.ActiveOf(side);
             if (view.UltCut)
-                yield return view.UltCut.Play(f.hero, f.Name, Teams.LookStar(b.Data.Cfg, f), c.name, side == 0, (RectTransform)view.Stage.transform, speed);
+                yield return view.UltCut.Play(f.hero, f.Name, Teams.LookStar(b.Data.Cfg, f), c.name, side == 0, (RectTransform)view.Stage.transform);
             else StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {f.Name}", true));
         }
 
@@ -468,15 +468,6 @@ namespace PokiClash
         }
 
         // ---------- nút trên ----------
-
-        void ToggleSpeed()
-        {
-            speed = speed >= 3 ? 1 : speed + 1;
-            view.Stage.speed = Pace;
-            view.SetSpeed((int)speed);
-            App.Save.Data.settings.speed = (int)speed;
-            App.Save.Save();
-        }
 
         void ToggleAuto()
         {

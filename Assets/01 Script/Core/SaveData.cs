@@ -33,7 +33,6 @@ namespace PokiClash.Core
     {
         public bool boil = true; // nét vẽ rung
         public bool sound = true;
-        public int speed = 1; // tốc độ trận mặc định ×1, ×2, ×3
         public bool hints = true; // bong bóng gợi ý trong trận
         public bool haptics = true; // rung (máy bi, mở rương, lên cấp)
     }
@@ -394,7 +393,6 @@ namespace PokiClash.Core
             {
                 s.settings.boil = J.Bool(st, "boil", true);
                 s.settings.sound = J.Bool(st, "sound", true);
-                s.settings.speed = Math.Max(1, Math.Min(3, J.Int(st, "speed", 1)));
                 s.settings.hints = J.Bool(st, "hints", true);
                 s.settings.haptics = J.Bool(st, "haptics", true);
             }
@@ -540,7 +538,7 @@ namespace PokiClash.Core
                 },
                 ["settings"] = new Dictionary<string, object>
                 {
-                    ["boil"] = s.settings.boil, ["sound"] = s.settings.sound, ["speed"] = s.settings.speed, ["hints"] = s.settings.hints,
+                    ["boil"] = s.settings.boil, ["sound"] = s.settings.sound, ["hints"] = s.settings.hints,
                     ["haptics"] = s.settings.haptics,
                 },
                 ["stats"] = new Dictionary<string, object>

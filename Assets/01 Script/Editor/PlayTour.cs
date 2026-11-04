@@ -156,7 +156,7 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(1.5f);
             yield return Shot("boss_dang1");
             ctl.SetAuto(true);
-            ctl.SetSpeed(3);
+            ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
             int seen = 0;
             float t0 = Time.realtimeSinceStartup;
             while (ctl.Battle.phase != Phase.Over || seen < boss.form)
@@ -244,7 +244,7 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot("boss70_dang1");
             ctl.SetAuto(true);
-            ctl.SetSpeed(3);
+            ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
             int seen = 0;
             float t0 = Time.realtimeSinceStartup;
             while (Time.realtimeSinceStartup - t0 < 240 && (ctl.Battle.phase != Phase.Over || seen < boss.form))
@@ -291,7 +291,7 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot($"nhieu_dich_ai{st.idx}_dau");
             ctl.SetAuto(true);
-            ctl.SetSpeed(2);
+            ctl.FastForward(1.5f);
             float t0 = Time.realtimeSinceStartup;
             for (int k = 0; k < 14 && ctl.Battle.phase != Phase.Over && Time.realtimeSinceStartup - t0 < 120; k++)
             {
@@ -674,7 +674,7 @@ namespace PokiClash.EditorTools
             var ctl = Object.FindAnyObjectByType<BattleController>();
             yield return Until(() => ctl.WaitingPlayer, 30);
             Debug.Log($"[Thử] Đầu lượt 1, mana tướng ra trận: {ctl.Battle.ActiveOf(0).mana} (đợi {App.Data.Cfg.manaPerTurn})");
-            ctl.SetSpeed(3);
+            ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
             ctl.SetAuto(true);
             yield return Until(() => ctl.Battle.phase == Phase.Over, 120);
             yield return Until(() => App.Modals.Count > 0, 10);
@@ -735,7 +735,7 @@ namespace PokiClash.EditorTools
             {
                 yield return WaitScene(SceneIds.Battle);
                 var ctl = Object.FindAnyObjectByType<BattleController>();
-                ctl.SetSpeed(3);
+                ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
                 ctl.SetAuto(true);
                 yield return Until(() => ctl.Battle.phase == Phase.Over, 180);
                 bool win = ctl.Battle.winner == 0;
@@ -873,7 +873,7 @@ namespace PokiClash.EditorTools
             ClickButton("Xuất trận!");
             yield return WaitScene(SceneIds.Battle);
             var ctl = Object.FindAnyObjectByType<BattleController>();
-            ctl.SetSpeed(3);
+            ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
             ctl.SetAuto(true);
             yield return Until(() => ctl.Battle.phase == Phase.Over, 180);
             yield return Until(() => App.Modals.Count > 0, 10);
@@ -1203,7 +1203,7 @@ namespace PokiClash.EditorTools
                 ClickButton("Xuất trận!");
                 yield return WaitScene(SceneIds.Battle);
                 var ctl = Object.FindAnyObjectByType<BattleController>();
-                ctl.SetSpeed(3);
+                ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
                 ctl.SetAuto(true);
                 yield return Until(() => ctl.Battle.phase == Phase.Over, 300);
                 yield return Until(() => App.Modals.Count > 0, 30);
@@ -1281,18 +1281,17 @@ namespace PokiClash.EditorTools
             yield return Until(() => ctl.WaitingPlayer, 5);
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot(tag + "_hang_the");
-            ctl.SetSpeed(1);
             ctl.SetAuto(true);
             yield return new WaitForSecondsRealtime(2.2f);
             yield return Shot(tag + "_chay_the");
             yield return new WaitForSecondsRealtime(0.9f);
             yield return Shot(tag + "_danh");
-            ctl.SetSpeed(3);
+            ctl.FastForward(2); // nhịp ×3 cũ ngoài lúc ra đòn
             float t0 = Time.realtimeSinceStartup;
             yield return Until(() => ctl.Battle.phase == Phase.Over, 240);
             var tt = ctl.PlayerTurnSeconds;
-            Debug.Log($"[Thử] Ải {stageId}: trận xong sau {Time.realtimeSinceStartup - t0:0.0} giây (×3), {ctl.Battle.round} hiệp, " +
-                      $"{(ctl.Battle.winner == 0 ? "thắng" : "thua")}; phần ra đòn một lượt người chơi ở ×1: " +
+            Debug.Log($"[Thử] Ải {stageId}: trận xong sau {Time.realtimeSinceStartup - t0:0.0} giây (chạy nhanh ×2), {ctl.Battle.round} hiệp, " +
+                      $"{(ctl.Battle.winner == 0 ? "thắng" : "thua")}; phần ra đòn một lượt người chơi ở nhịp thường: " +
                       $"trung bình {(tt.Count > 0 ? tt.Average() : 0):0.0} giây ({tt.Count} lượt)");
             yield return Until(() => App.Modals.Count > 0, 30);
             yield return new WaitForSecondsRealtime(1.2f);

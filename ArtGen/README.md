@@ -32,6 +32,12 @@ Spec liên quan: `openspec/changes/setup-unity-foundation/specs/art-assets/spec.
   Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
   ```
 
+- **Tướng: tô phẳng, không bóng, không ánh sáng** (người dùng dặn 2026-11-04, thay câu trên cho mọi hình tướng: concept, mảnh, vũ khí, hiệu ứng chiêu, mặt tướng).
+  - Hình vẽ tay trên giấy bằng bút mực, mỗi vùng tô bằng chì màu và sáp màu; nét chì sáp chỉ là vân, không tạo sáng tối.
+  - Không mảng sáng tối, không bóng đổ, không điểm sáng trắng, không bóng loáng, không quầng sáng; chừa một chấm sáng nhỏ trong mắt.
+  - Câu này nằm sẵn trong `Heroes/build.py` (`FLAT`, `RENDER`, `LINE`), `Heroes/build_fx.py`, `BattleIntro/build.py` (`FACE_STYLE`).
+  - UI (khung, nút, thẻ, icon, nền và chữ VS) vẫn theo câu NO SHADOWS ở trên.
+
 ## Khối STYLE (dán vào mọi prompt)
 
 ```

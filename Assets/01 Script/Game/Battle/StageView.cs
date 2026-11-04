@@ -30,7 +30,8 @@ namespace PokiClash
         static readonly string[] WordsHit = { "BỐP!", "CHÁT!", "BỤP!", "HỰ!", "BINH!" };
         static readonly string[] WordsBig = { "ẦM!!", "RẦM!!", "OÀNH!!" };
 
-        public float speed = 1;
+        public float speed = 1; // nhịp sân ngoài lúc ra đòn: giây sân mỗi giây thật (BattleController đặt)
+        public float fast = 1;  // công cụ thử chạy nhanh gấp fast, cả lúc ra đòn (BattleController.FastForward)
         [SerializeField] Image sky, bg, flashImg;
         [SerializeField] RectTransform root, actorLayer, fxLayer, plateLayer;
         [SerializeField] StageActor actorPrefab;
@@ -246,8 +247,15 @@ namespace PokiClash
 
         System.Collections.IEnumerator DoneAfter(ClipHandle h, float s)
         {
-            yield return new WaitForSecondsRealtime(s / Mathf.Max(0.1f, speed));
+            yield return Wait(s);
             h.done = true;
+        }
+
+        // chờ s giây sân (theo nhịp lúc đó: đang ra đòn thì chậm cùng sân); sân tắt thì thôi chờ
+        public System.Collections.IEnumerator Wait(float s)
+        {
+            float end = Clock + s;
+            while (this && isActiveAndEnabled && Clock < end) yield return null;
         }
 
         public void Hurt(int side, bool big = false)
@@ -424,9 +432,14 @@ namespace PokiClash
         // clip đang chạy của tướng side (menu thử chụp lúc ra đòn)
         public string ClipOf(int side) => actors[side] == null || actors[side].loop ? Idle : actors[side].clip;
 
-        // chiêu bắn (động tác bắn, tia và hiệu ứng của tia) và clip CHIÊU (tuyệt kỹ, chiêu mana của boss làm riêng) chạy chậm
-        // bằng nửa nhịp sân (người dùng 2026-11-03); đánh thường, trúng đòn, đứng yên giữ nhịp sân
-        const float SkillTime = 2f;
+        // Lúc ra đòn cả sân chậm lại cho rõ animation (người dùng 2026-11-04, thay cách chỉ kéo chậm clip chiêu của 2026-11-03): tướng đang
+        // chạy clip đánh thì sân chạy ×1,3 tốc độ gốc aola; chiêu bắn (động tác bắn, tia bay, tan) và clip CHIÊU (tuyệt kỹ, chiêu mana của
+        // boss làm riêng) ×1. Cả hai tướng, chữ nổi, hiệu ứng, rung và chờ của BattlePlayer (Wait) cùng chậm. Vào nhịp chậm ngay lúc clip
+        // bắt đầu, ra lại nhịp sân mượt trong SlowEase giây thật.
+        const float AttackPace = 1.3f, SkillPace = 1f, SlowEase = 0.1f;
+        float slow = 1;  // hệ số đang nhân vào nhịp sân (1: nhịp thường)
+        float skillHold; // giây sân còn giữ nhịp chiêu sau clip bắn (tia còn bay, tan)
+        public float Clock { get; private set; } // giây sân đã chạy
 
         // Chiêu mana bắn tia (người dùng 2026-11-03): mặc định của mọi tướng, quái thường, phần lớn mini boss; số ít boss làm riêng
         // khai "mana": "clip" trong anim.json (AolaSticker.ManaUsesClip) thì phát clip CHIÊU như cũ.
@@ -466,7 +479,8 @@ namespace PokiClash
             float h = 84 * Mathf.Pow(scale / 0.7f, 0.6f);
             // cỡ hiệu ứng phụ (nổ, giọt, lấp lánh): to dần còn chậm hơn, để không che thân tướng bắn
             float g = Mathf.Pow(scale / 0.7f, 0.4f);
-            const float grow = 0.2f * SkillTime, hold = 0.3f * SkillTime, shrink = 0.22f * SkillTime, life = grow + hold + shrink;
+            const float grow = 0.2f, hold = 0.3f, shrink = 0.22f, life = grow + hold + shrink;
+            skillHold = Mathf.Max(skillHold, life);
 
             // thân tia và lõi sáng: vẽ đoạn [đuôi, đầu] của đường bắn, đầu vươn ra nhanh, đuôi rút về đối thủ lúc tan
             for (int layer = 0; layer < 2; layer++)
@@ -503,7 +517,7 @@ namespace PokiClash
                 float side2 = i % 2 == 0 ? 1 : -1;
                 var at = from + d * u + nrm * side2 * h * 0.35f;
                 var fly = nrm * side2 * 50 * g * (0.7f + Random.value * 0.5f) + d.normalized * 20 * g;
-                float delay = grow / SkillTime * (1 - Mathf.Pow(1 - u, 1f / 3f)); // nhịp thường, Drift tự kéo chậm
+                float delay = grow * (1 - Mathf.Pow(1 - u, 1f / 3f));
                 Drift(beamDrops, at, fly, 30 * g, tint, delay, 0.45f, Random.value * 360);
             }
             var victim = actors[other];
@@ -515,7 +529,7 @@ namespace PokiClash
         // nhỏ hơn thân để vẫn thấy nó bị trúng, nhỉnh dần theo dạng của con bắn (g)
         System.Collections.IEnumerator BeamHit(int target, Vector2 at, float tH, float g, Color tint, float after)
         {
-            yield return new WaitForSecondsRealtime(after / Mathf.Max(0.1f, speed));
+            yield return Wait(after);
             float e = tH * Mathf.Lerp(1, g, 0.5f);
             Pop(beamSplash, at, e * 0.75f, tint, 0, 0.4f, 0.35f, 1.25f, Random.value * 360);
             Pop(beamSplash, at, e * 0.45f, Color.Lerp(tint, Color.white, 0.6f), 0.05f, 0.32f, 0.3f, 1.15f, Random.value * 360);
@@ -531,13 +545,10 @@ namespace PokiClash
             shake = Mathf.Max(shake, 6);
         }
 
-        // ảnh hiệu ứng của chiêu bắn nở ra từ s0 tới s1 rồi mờ (cỡ theo bề rộng ảnh, giữ tỉ lệ), sau delay giây
-        // (delay, life của Pop, Drift, Ripple tính theo nhịp thường, chạy chậm theo SkillTime)
+        // ảnh hiệu ứng của chiêu bắn nở ra từ s0 tới s1 rồi mờ (cỡ theo bề rộng ảnh, giữ tỉ lệ), sau delay giây sân
         void Pop(Sprite s, Vector2 at, float size, Color tint, float delay, float life, float s0, float s1, float rot)
         {
             if (!imageFx || !s) return;
-            delay *= SkillTime;
-            life *= SkillTime;
             var item = Take(imageFx);
             Theme.SetSprite(item.Image, s);
             item.Image.color = tint;
@@ -565,9 +576,7 @@ namespace PokiClash
         void Drift(Sprite s, Vector2 at, Vector2 fly, float size, Color tint, float delay, float life, float rot)
         {
             if (!imageFx || !s) return;
-            float fall = 160 * life; // quãng rơi theo thời gian sống ở nhịp thường
-            delay *= SkillTime;
-            life *= SkillTime;
+            float fall = 160 * life; // quãng rơi theo thời gian sống
             var item = Take(imageFx);
             Theme.SetSprite(item.Image, s);
             item.Image.color = tint;
@@ -596,8 +605,6 @@ namespace PokiClash
         void Ripple(Vector2 feet, float width, Color tint, float delay, float life)
         {
             if (!imageFx || !beamRipple) return;
-            delay *= SkillTime;
-            life *= SkillTime;
             var item = Take(imageFx);
             Theme.SetSprite(item.Image, beamRipple);
             item.Image.color = tint;
@@ -706,11 +713,24 @@ namespace PokiClash
 
         void Update()
         {
-            float dt = Mathf.Min(0.05f, Time.unscaledDeltaTime) * speed;
+            float raw = Mathf.Min(0.05f, Time.unscaledDeltaTime);
+            // đang ra đòn: sân về nhịp của clip chậm nhất đang chạy (không nhanh hơn nhịp thường)
+            float pace = skillHold > 0 ? SkillPace : float.MaxValue;
+            foreach (var a in actors)
+            {
+                if (a == null || a.loop) continue;
+                if (a.clip == Attack) pace = Mathf.Min(pace, AttackPace);
+                else if (a.clip == Cast || a.clip == Skill) pace = Mathf.Min(pace, SkillPace);
+            }
+            float goal = Mathf.Min(1, pace / Mathf.Max(0.1f, speed));
+            slow = goal < slow ? goal : Mathf.MoveTowards(slow, goal, raw / SlowEase);
+            float dt = raw * speed * slow * fast;
+            Clock += dt;
+            skillHold = Mathf.Max(0, skillHold - dt);
             foreach (var a in actors)
             {
                 if (a == null) continue;
-                a.t += !a.loop && (a.clip == Cast || a.clip == Skill) ? dt / SkillTime : dt;
+                a.t += dt;
                 a.flash = Mathf.Max(0, a.flash - dt);
                 if (a.enter < 9) a.enter += dt;
                 if (a.exit > 0) a.exit += dt;

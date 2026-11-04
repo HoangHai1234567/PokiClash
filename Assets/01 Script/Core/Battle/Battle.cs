@@ -199,6 +199,7 @@ namespace PokiClash.Core
                 {
                     double d = Math.Max(1, Js.Round(f.maxHp * st.v));
                     double toHp = Math.Min(f.hp, d);
+                    if (CanEvolve(f) && toHp >= f.hp) toHp = f.hp - 1; // còn dạng sau: chừa 1 máu, tiến hóa ở CheckLow đầu lượt
                     f.hp -= toHp;
                     Emit(new BattleEvent
                     {
@@ -460,6 +461,9 @@ namespace PokiClash.Core
             double blocked = Math.Min(D.shield, dmg);
             D.shield -= blocked;
             double toHp = Math.Min(D.hp, dmg - blocked);
+            // đòn đủ hạ gục tướng còn dạng sau (kể cả từ trên ngưỡng tiến hóa): chừa 1 máu, ngay sau đòn tiến hóa (CheckLow), không gục
+            // (người dùng dặn 2026-11-04)
+            if (CanEvolve(D) && toHp >= D.hp) toHp = D.hp - 1;
             D.hp -= toHp;
             D.rage = Math.Min(Cfg.maxRage, D.rage + Js.Round((toHp / D.maxHp) * Cfg.rageOnHit));
             dmgDealt[s] += toHp;

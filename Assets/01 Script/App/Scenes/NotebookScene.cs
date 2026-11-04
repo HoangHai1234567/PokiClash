@@ -1,4 +1,4 @@
-// Sổ tay: cài đặt (nét vẽ rung, âm thanh, rung máy, gợi ý trong trận, tốc độ trận mặc định) có hiệu lực ngay, mục "Gói hỗ trợ"
+// Sổ tay: cài đặt (nét vẽ rung, âm thanh, rung máy, gợi ý trong trận) có hiệu lực ngay, mục "Gói hỗ trợ"
 // (Thẻ Phiêu Lưu, Bỏ quảng cáo: trạng thái, hạn còn lại) và xoá dữ liệu có xác nhận.
 // Bản dev (Editor, Development Build) có thêm Bảng thử, Chỉnh số, Máy tự chơi (App/Dev/NotebookDev.cs). Tờ giấy cuộn dọc.
 // Prefab màn hình Assets/04 Prefabs/Screens/Notebook; thẻ gói là prefab Items/GoiHoTro (PackCard), sinh theo cấu hình.
@@ -23,7 +23,6 @@ namespace PokiClash
             public ScrollRect scroll;
             public SketchButton boil, sound, hints;
             public SketchButton haptics; // dòng "Rung" (thêm bằng menu PokiClash/Prefab/Sổ tay: thêm dòng Rung)
-            public SketchButton[] speed; // ×1, ×2, ×3
             public GameObject packs; // mục "Gói hỗ trợ" (ẩn khi chưa có cửa hàng và chưa có gói)
             public Transform packNote; // dòng "Không bán bi..." trong mục gói: thẻ gói chèn ngay trước
             public GameObject packDevNote; // "Bản thử: cửa hàng giả lập..." (chỉ bản dev)
@@ -67,17 +66,6 @@ namespace PokiClash
             Toggle(p.hints, st.hints, x => st.hints = x);
             // bật rung thì rung thử một cú để người chơi biết máy có rung
             if (p.haptics) Toggle(p.haptics, st.haptics, x => st.haptics = x, x => { if (x) Haptics.Play(Haptic.OpenSilver); });
-            for (int i = 0; i < p.speed.Length; i++)
-            {
-                int sp = i + 1;
-                p.speed[i].SetRole(st.speed == sp ? BtnColor.Green : BtnColor.Paper);
-                p.speed[i].SetOnClick(() =>
-                {
-                    App.Save.Data.settings.speed = sp;
-                    App.Save.Save();
-                    Render();
-                });
-            }
 
             Packs();
             p.version.text = $"PokiClash · bản lưu v{App.Data.Cfg.saveVersion} · {Application.version}";

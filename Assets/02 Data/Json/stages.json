@@ -99,7 +99,8 @@
     {
      "hero": "tieu_y",
      "level": 1,
-     "buff": 0.15
+     "buff": 0.15,
+     "evo": true
     }
    ],
    "drops": [
@@ -227,7 +228,8 @@
     {
      "hero": "canh_cut",
      "level": 2,
-     "buff": 0.15
+     "buff": 0.15,
+     "evo": true
     }
    ],
    "drops": [
@@ -355,7 +357,8 @@
     {
      "hero": "mi_nhi",
      "level": 3,
-     "buff": 0.15
+     "buff": 0.15,
+     "evo": true
     }
    ],
    "drops": [
@@ -484,6 +487,7 @@
      "hero": "ma_ket",
      "level": 3,
      "boss": true,
+     "evo": true,
      "buff": 0.1
     }
    ],
@@ -768,6 +772,7 @@
      "hero": "vay_lam",
      "level": 4,
      "boss": true,
+     "evo": true,
      "buff": 0.1
     }
    ],
@@ -1045,6 +1050,7 @@
      "hero": "kuba",
      "level": 5,
      "boss": true,
+     "evo": true,
      "buff": 0.1
     }
    ],
@@ -1322,6 +1328,7 @@
      "hero": "thuong_lam",
      "level": 6,
      "boss": true,
+     "evo": true,
      "buff": 0.1
     }
    ],
@@ -1599,6 +1606,7 @@
      "hero": "huyen_vu",
      "level": 7,
      "boss": true,
+     "evo": true,
      "buff": 0.1
     }
    ],

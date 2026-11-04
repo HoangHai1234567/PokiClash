@@ -15,7 +15,22 @@ namespace PokiClash.EditorTools
         void OnPreprocessTexture()
         {
             if (!assetPath.StartsWith(ArtImporter.ArtDir + "/")) return;
-            // ảnh nướng sẵn (sprite giấy/mực mã hoá, mặt máy bi...) tự đặt cách nhập lúc nướng: không ép cỡ, không nén
+            // mặt máy bi nướng sẵn là ảnh màu thường (không mã hoá kênh như Baked/Sketch): nén ASTC 6x6 như ảnh gen (RGBA32 920x1360
+            // tốn 4,8 MB, nén còn 0,55 MB); cách nhập khác giữ như lúc nướng
+            if (assetPath.StartsWith(ArtImporter.BakedDir + "/Machine/"))
+            {
+                var mi = (TextureImporter)assetImporter;
+                foreach (var platform in new[] { "Android", "iPhone" })
+                {
+                    var p = mi.GetPlatformTextureSettings(platform);
+                    p.overridden = true;
+                    p.maxTextureSize = 2048;
+                    p.format = TextureImporterFormat.ASTC_6x6;
+                    mi.SetPlatformTextureSettings(p);
+                }
+                return;
+            }
+            // ảnh nướng sẵn khác (sprite giấy/mực mã hoá kênh cho shader) tự đặt cách nhập lúc nướng: không ép cỡ, không nén
             if (assetPath.StartsWith(ArtImporter.BakedDir + "/")) return;
             // hình tướng aola: AolaImportPostprocessor đặt cách nhập (atlas có mipmap, chân dung có gốc ở chân)
             if (assetPath.StartsWith(AolaImport.ArtDir + "/")) return;

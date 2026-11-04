@@ -251,16 +251,17 @@ namespace PokiClash.EditorTools
 
         // ---------- hộp Chuẩn bị trận ----------
 
-        // viên lực chiến cạnh nhãn hệ, dưới tên (cấp gộp vào tên, chữ cấp riêng ẩn lúc chạy); nhãn hệ dời trái nhường chỗ
+        // viên lực chiến cạnh nhãn hệ, dưới tên (cấp gộp vào tên, chữ cấp riêng ẩn lúc chạy); nhãn hệ dời trái nhường chỗ; cả hai nằm
+        // trên hàng chỉ số (PrepFoe.StatsH, menu "Hộp chuẩn bị: chỉ số địch")
         static void PatchFoe(GameObject root)
         {
             var so = new SerializedObject(root.GetComponent<PrepFoe>());
-            ((UiElemTag)so.FindProperty("elem").objectReferenceValue).Rect.anchoredPosition = new Vector2(-62, 40);
+            ((UiElemTag)so.FindProperty("elem").objectReferenceValue).Rect.anchoredPosition = new Vector2(-62, 40 + PrepFoe.StatsH);
             Remove(root.transform, "luc_chien");
             var num = IconNumber(root.transform, "luc_chien", "sword", 28, 28, Theme.RedD, Sketch.Pill, out var row);
             row.anchorMin = row.anchorMax = new Vector2(0.5f, 0);
             row.pivot = new Vector2(0, 0);
-            row.anchoredPosition = new Vector2(-14, 37);
+            row.anchoredPosition = new Vector2(-14, 37 + PrepFoe.StatsH);
             row.sizeDelta = new Vector2(140, 38);
             so.FindProperty("power").objectReferenceValue = num;
             so.ApplyModifiedPropertiesWithoutUndo();

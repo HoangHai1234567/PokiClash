@@ -53,7 +53,6 @@ namespace PokiClash.EditorTools
                     Debug.LogError("[Thử] Không thấy BattleController hoặc BattleView");
                     yield break;
                 }
-                ctl.SetSpeed(1);
                 yield return Until(() => ctl.WaitingPlayer, 30);
                 yield return new WaitForSecondsRealtime(0.4f);
                 ctl.TestPick(0);
@@ -95,7 +94,6 @@ namespace PokiClash.EditorTools
                 yield return new WaitForSecondsRealtime(0.5f);
                 ctl = Object.FindAnyObjectByType<BattleController>();
                 view = Object.FindAnyObjectByType<BattleView>();
-                ctl.SetSpeed(1);
                 yield return Until(() => ctl.WaitingPlayer, 30);
                 ctl.TestPick(0);
                 yield return Until(() => ctl.WaitingPlayer, 5);
