@@ -2541,6 +2541,7 @@
  "fights": [
   {
    "stage": 3,
+   "foeLevel": 3,
    "seed": 11,
    "winner": 0,
    "round": 3,
@@ -2558,6 +2559,7 @@
   },
   {
    "stage": 3,
+   "foeLevel": 3,
    "seed": 12,
    "winner": 0,
    "round": 3,
@@ -2575,6 +2577,7 @@
   },
   {
    "stage": 3,
+   "foeLevel": 3,
    "seed": 13,
    "winner": 0,
    "round": 2,
@@ -2592,6 +2595,7 @@
   },
   {
    "stage": 5,
+   "foeLevel": 4,
    "seed": 11,
    "winner": 0,
    "round": 3,
@@ -2609,6 +2613,7 @@
   },
   {
    "stage": 5,
+   "foeLevel": 4,
    "seed": 12,
    "winner": 0,
    "round": 2,
@@ -2626,6 +2631,7 @@
   },
   {
    "stage": 5,
+   "foeLevel": 4,
    "seed": 13,
    "winner": 0,
    "round": 2,
@@ -2909,7 +2915,7 @@
      true
     ],
     [
-     "de_hoa",
+     "giac_long",
      171,
      false
     ]

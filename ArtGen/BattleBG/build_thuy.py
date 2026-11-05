@@ -1045,8 +1045,12 @@ def export():
     if approved("fxb").exists():
         cut_fx_sheet("fxb", 3, 2, FXB_NAMES)
     OUT_JSON.parent.mkdir(parents=True, exist_ok=True)
+    # chỉ thay khoá thuy_*, giữ khoá đảo khác (đảo Mộc: build_moc.py --xuat)
+    old = json.loads(OUT_JSON.read_text(encoding="utf-8")).get("arenas", {}) if OUT_JSON.exists() else {}
+    arenas = {k: v for k, v in old.items() if not k.startswith("thuy_")}
+    arenas.update(data)
     OUT_JSON.write_text(json.dumps({"note": "build_thuy.py --xuat; toạ độ 0..1 theo khung sân 1080 x 928, y từ trên; cỡ theo bề "
-                                            "ngang khung", "arenas": data}, ensure_ascii=False, indent=1), encoding="utf-8")
+                                            "ngang khung", "arenas": arenas}, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"Xuất {len(data)} nền vào {OUT}, phần động {OUT_JSON}")
 
 

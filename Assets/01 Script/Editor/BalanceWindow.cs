@@ -643,7 +643,7 @@ namespace PokiClash.EditorTools
                 {
                     int zi = (int)z.id;
                     string conquer = r.zoneDay[zi] >= 0 ? $"chinh phục ngày {r.zoneDay[zi]}" : $"NGOÀI TẦM {r.days} NGÀY";
-                    string lvDay = r.zoneLevelDay[zi] >= 0 ? $"đạt cấp {z.levelMin} ngày {r.zoneLevelDay[zi]}" : $"chưa tới cấp {z.levelMin} (cuối kỳ cấp {r.level[r.days]})";
+                    string lvDay = r.zoneLevelDay[zi] >= 0 ? $"đạt cấp boss {z.levelMax} ngày {r.zoneLevelDay[zi]}" : $"chưa tới cấp boss {z.levelMax} (cuối kỳ cấp {r.level[r.days]})";
                     var style = r.zoneDay[zi] >= 0 ? EditorStyles.label : EditorStyles.boldLabel;
                     var old = GUI.contentColor;
                     if (r.zoneDay[zi] < 0) GUI.contentColor = new Color(1f, 0.45f, 0.4f);

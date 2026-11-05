@@ -127,6 +127,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
     - Giọt Sương dạng 3 (rig pet9) có 1 mảnh tự chạy: khi ghép `thuy_9` nhớ làm bước này.
     - Chân dung: `export/portrait.png` ở AolaRipper ổ D không có bóng dưới chân, bản trong git (có lẽ làm ở máy công ty) có bóng. Dạng nhập lại ở máy này thì mất bóng, đúng luật "tướng không vẽ bóng". Tới 2026-11-04 còn 29 dạng có chân dung có bóng. 13 dạng nằm trong 31 dạng chờ nên sẽ tự hết khi nhập. 16 dạng còn lại phải nhập lại riêng chân dung: `goc_76 77 78 1617 22 23 24 182 183 31 33 4`, `monk_500 2010 boxer 2217`.
   - Ảnh soi từng dạng: menu `PokiClash/Tướng/Chụp thử prefab tướng` ghi vào `Library/PokiHeroShots`.
+  - **Đảo Hỏa (2026-11-05): đã xuất 19/28 dạng, còn 9 + chạy lại 2.** Xong (ổ D, đã đẩy lên git AolaRipper): `goc_46 47 48 581 582 583 599 600 601 776 777 778 1231 1232 1295 1296 2091 1466 1467` (Khổng Lồ Lửa, Kim Sư, Nham Thần, Hồng Liên, Giáp Long, Huyễn Viêm, Hỏa Tinh). Còn: `py -3 -I tools/goc_batch.py 1449 1450 2828 64 65 13 14 291 292` (Lân Hỏa và 6 lính), rồi `goc_batch.py 5 6 --force` (Sư Tử Lửa, mảnh tự chạy). `reskin/pet1449_parts` dừng giữa bước vẽ mảnh, chạy lại sẽ vẽ lại. Lượt đầu (Chrome 2 luồng) làm máy treo; lượt 1 luồng (`AOLA_THREADS=1`) chạy êm 1 giờ rồi dừng vì người dùng chuyển sang máy công ty. **Chưa nhập prefab dạng nào:** xuất đủ rồi nhập một lần (ở máy công ty: menu nhập thường hoặc "nguồn mới hơn"; ở máy ổ D: chỉ menu "nguồn mới hơn"), rồi chụp soi từng tướng.
 - **Thêm 5 tướng Thủy (2026-11-02):** người dùng chọn 7 hình aola cho kịch bản đảo Thủy. Hai con đã có: 远古灵龟 = Huyền Vũ, 万钧 = Vạn Quân (dạng 2 của Lam Quân, người dùng đánh dấu BOSS). Năm con mới:
   - Mi Nhi (983–984);
   - Ma Kết (758–760);
@@ -418,7 +419,15 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
   - So trong game: menu `Chân dung: thay thử mức nén trên màn đang mở`, ảnh ở `Temp/PokiShots/nen`.
 - Tai thỏ: các màn đã nằm trong vùng an toàn và lộ nền dưới camera. Riêng màn trận có dải nâu sẫm, nay nền giấy của thanh trên trận (`Thanh tren tran/nen`) kéo cao thêm 300 để phủ dải đó.
 - Thử: menu `PokiClash/Thử/Hộp chuẩn bị: ô đối thủ, cấp, tai thỏ (đang Play)`, ảnh `Temp/PokiShots/cb_*.png`. Vòng này chụp hộp 1, 2, 3 địch; đảo lúc mới qua 2 ải (bóng sẫm); và 6 màn ở khung 1080 × 2400 với tai thỏ giả (`SafeArea.Simulated`).
-- Nền trận: gói `ArtGen/BattleBG/gui_gpt/troi` dựng lại cho máy ổ D (`build_troi.py`). Bước tiếp: gửi GPT file `gop_c02_c09.txt`.
+- Nền trận: gói `ArtGen/BattleBG/gui_gpt/troi` dựng lại cho máy ổ D (`build_troi.py`).
+  - 2026-11-05: c02–c09 đã ghép (`--duyet`, đường nối nằm trong vùng trời) và xuất vào game (`build_thuy.py --xuat`), nên đủ 9 chặng. Sau đó m20, m40, m50, m60, b70a cũng vào game.
+  - m30 hỏng ở cả hai bản GPT: vẽ lặp mảng rêu và vách ngay trên mép cũ, nên gãy ngang qua vách và hai thác. Ảnh ghép đổi tên thành `troi/m30_hong_noi_gay.png` để game giữ nền cũ. Prompt `11_m30.txt` đã thêm đoạn dặn chỗ nối, chờ gen lại.
+  - Còn b70b, b70c (`16_b70b.txt`, `17_b70c.txt`, bám theo b70a đã duyệt).
+  - `--xuat` ghi lại cả 27 ảnh không đổi: điểm ảnh y hệt, chỉ khác byte PNG.
+- Bố cục theo cỡ máy (người dùng dặn 2026-11-05: phần dưới giữ chắc trên mọi máy cho khỏi dính vào nhau, phần trên co giãn). Màn trận đã theo cách này:
+  - bảng dưới cao cố định 880; khung sân 1080 × 928 neo đáy (tướng, bệ, bảng máu theo khung);
+  - máy dài hơn 9:16 chỉ thêm trời phía trên; máy tính bảng 3:4 như 9:16, hai bên để nền bàn.
+  - Thử bằng menu `Thử/Trận ở 4 cỡ máy: phần dưới cố định, trời co giãn`, ảnh `cb_tran_*.png`.
 
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 
@@ -473,6 +482,11 @@ Hệ thống 70 ải mỗi đảo (2026-11-02, bản thử đảo Thủy trên w
     - **2026-11-04:** bi mỗi ải đảo 70 ải tính theo số ải: 1 bi ở ải 1–35, 2 bi ở ải 36–70. Các đảo 8 ải dời lên cấp 41–200.
 21. **Bóng sẫm tướng chưa mở** (2026-11-04): `HeroPortrait` tô nhân màu nâu `#4a3c30`, nên chi tiết bên trong vẫn lờ mờ hiện ra, nhìn đục. Muốn bóng phẳng một màu (chỉ giữ dáng) thì cần một material UI riêng làm sẵn. Làm không?
 22. **Ảnh mẫu mặt tướng gửi GPT bị giãn ngang** (session hình aola báo 2026-11-04): `ArtGen/BattleIntro/build.py` tưởng chân dung trong Unity là 384x480, trong khi ảnh lưu vuông 512. Sửa không?
+
+23. **Đảo Hỏa, ải 20** (2026-11-05): hình người dùng gửi là 魔焰吉拉 (aola 501), siêu tiến hóa của chính dòng Sư Tử Lửa ở ải 1. Người dùng để trống để tìm tướng khác; Hồ Lửa đứng tạm. Chọn tướng nào?
+24. **Đảo Hỏa, tên và thẻ tạm:** Khổng Lồ Lửa, Kim Sư, Nham Thần, Hồng Liên, Giáp Long, Huyễn Viêm, Hỏa Tinh, Lân Hỏa và 6 lính (`13_DanhSachTuong.md`, mục Hỏa); độ hiếm tăng theo ải, thẻ thiên về đốt. Hồng Liên, Huyễn Viêm là phiên âm tên gốc. Duyệt hay đổi?
+25. **Tướng Hỏa cũ không có suất trên đảo:** Heo Lửa, Đốm Lửa, Pháo Tết, Võ Tăng Bồ Đề, Thiền Sư Pháp Luân, Chu Tước (Huyền thoại Tứ Tượng cũ). Giữ cho máy bi hoặc sự kiện, đưa sang đảo khác, hay bỏ? (Hồ Lửa đang đứng tạm ở ải 20.)
+26. **Xuất hình aola ở máy này:** máy sập 4 lần trong 2 ngày, lần nào cũng lúc Chrome headless vẽ mảnh; có bản ghi lỗi phần cứng mức Fatal (WHEA). Kiểm phần cứng trước (tắt EasyTune/BIOS mặc định, cập nhật BIOS, chạy thử CPU nặng), xuất ở máy công ty, hay chạy lại 1 luồng khi người dùng ngồi máy? Hướng sửa công cụ: giữ một Chrome mở suốt (DevTools) hoặc vẽ SVG không cần Chrome (resvg).
 
 ## Ảnh cần gen
 

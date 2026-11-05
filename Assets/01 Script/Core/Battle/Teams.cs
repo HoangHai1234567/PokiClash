@@ -76,6 +76,7 @@ namespace PokiClash.Core
                     heroId = e.hero, level = e.level, boss = e.boss, evo = e.evo, star = EnemyStar(e.level),
                     cardSkill = EnemyCard(e.level), cardUlt = EnemyCard(e.level), cardPassive = EnemyCard(e.level),
                     mods = Islands.EnemyMods(d, e, st.tag != StageTag.None),
+                    trait = string.IsNullOrEmpty(e.trait) ? null : e.trait, // asset Unity ghi null thành ""
                 });
             return t;
         }

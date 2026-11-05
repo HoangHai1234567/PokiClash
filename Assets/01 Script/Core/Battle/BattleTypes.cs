@@ -48,6 +48,8 @@ namespace PokiClash.Core
         public List<Buff> buffs = new List<Buff>();
         public List<StatusInst> statuses = new List<StatusInst>();
         public bool lowHpUsed;
+        public string trait; // bị động boss của ải (Member.trait), chạy sau bị động của tướng; null = không có
+        public bool traitLowUsed; // bị động boss kiểu "máu thấp" đã chạy (một lần mỗi trận, kể cả khi boss tiến hóa)
         public bool revived; // đã dùng lần hồi sinh
         public bool dead;
 

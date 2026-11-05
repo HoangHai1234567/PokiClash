@@ -12,19 +12,22 @@ namespace PokiClash.Tests
         static Dictionary<string, object> Golden() => J.Obj(MiniJson.Parse(TestData.Read("Golden/roster.json")));
 
         [Test]
-        public void DanhSach45Tuong_8MoiHe_Thuy13()
+        public void DanhSach60Tuong_Thuy13_Hoa16_Moc15()
         {
-            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy)
+            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy), Mộc thêm 7, Hỏa thêm 8 (2026-11-05, 10 tướng mỗi đảo)
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
-            Assert.AreEqual(45, d.Heroes.Count);
+            Assert.AreEqual(60, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
-                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
+                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : (Elem)e == Elem.Hoa ? 16 : (Elem)e == Elem.Moc ? 15 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
             // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md)
             Assert.AreEqual(new[] { "giot_suong", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
             Assert.AreEqual(new[] { "goc_1831", "goc_1832", "goc_2955" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
+            // Thanh Long là dòng 青龙 (214 → 215 → 1749), dòng 格非 cũ thành Long Vuốt
+            Assert.AreEqual(new[] { "goc_214", "goc_215", "goc_1749" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
+            Assert.AreEqual(new[] { "goc_1219", "goc_1220" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
         }
 
         [Test]

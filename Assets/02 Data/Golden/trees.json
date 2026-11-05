@@ -101,9 +101,9 @@
    "balls": 22
   },
   {
-   "op": "zone",
+   "op": "level",
    "h": 20,
-   "arg": "thuy",
+   "arg": 30,
    "r": null,
    "open": 2,
    "cap": 50,
@@ -228,9 +228,9 @@
    "balls": 122
   },
   {
-   "op": "zone",
+   "op": "level",
    "h": 24,
-   "arg": "hoa",
+   "arg": 50,
    "r": null,
    "open": 3,
    "cap": 50,
@@ -311,9 +311,9 @@
    "balls": 347
   },
   {
-   "op": "zone",
+   "op": "level",
    "h": 50,
-   "arg": "kim",
+   "arg": 80,
    "r": null,
    "open": 4,
    "cap": 75,
@@ -328,9 +328,9 @@
    "balls": 347
   },
   {
-   "op": "zone",
+   "op": "level",
    "h": 50,
-   "arg": "moc",
+   "arg": 110,
    "r": null,
    "open": 5,
    "cap": 75,

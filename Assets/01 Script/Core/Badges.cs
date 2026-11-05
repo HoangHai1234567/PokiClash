@@ -1,5 +1,5 @@
-// Đền Huy Hiệu (chép Web/src/core/badges.ts): mở đền khi qua hết Đảo Thủy; dãy hệ X mở khi thắng mini boss đầu của Đảo X
-// (ải 4 ở đảo 8 ải, ải 20 ở đảo 70 ải: Islands.MiniAt).
+// Đền Huy Hiệu (chép Web/src/core/badges.ts): mở đền khi thắng mini boss đầu của một đảo bất kỳ (trước 2026-11-05 là qua hết Đảo
+// Thủy); dãy hệ X mở khi thắng mini boss đầu của Đảo X (ải 4 ở đảo 8 ải, ải 20 ở đảo 70 ải: Islands.MiniAt).
 // Mỗi dãy 5 bậc; bậc k là chuỗi trận sinh từ công thức, thua thì đánh lại đúng trận đó, không mất tiến độ.
 // Tướng hệ X được cộng Máu, Công, Thủ theo bậc cao nhất (không cộng dồn), áp qua StatMods vào HeroStats.Compute.
 using System.Collections.Generic;
@@ -36,6 +36,11 @@ namespace PokiClash.Core
         public static uint Seed(GameData d, Elem z, int tier, int i) => (uint)(50000 + d.Zone(z).order * 1000 + tier * 100 + i);
         public static int StageId(GameData d, Elem z, int tier, int i) => 1000 + d.Zone(z).order * 100 + tier * 20 + i;
 
+        // cấp nền của dãy hệ z: cấp mini boss đầu của Đảo z (ải mở dãy, Islands.MiniAt). 5 đảo song song đều bắt đầu từ cấp 1 nên từ
+        // 2026-11-05 không lấy cận dưới của đảo nữa
+        public static int BaseLevel(GameData d, Elem z) =>
+            d.ZoneStages(z).FirstOrDefault(st => st.idx == Islands.MiniAt(z))?.enemies.Max(e => e.level) ?? d.Zone(z).levelMin;
+
         // trận i (từ 1) của bậc tier: trận lẻ 1 boss; trận chẵn 2 tướng (tướng đầu là boss); trận cuối 3 tướng, boss là tướng hiếm nhất.
         // Tướng hệ X lấy theo vòng trong danh sách tướng của hệ (hệ chỉ có 2 tướng thì trận cuối lặp tướng).
         public static StageDef Stage(GameData d, Elem z, int tier, int i)
@@ -44,7 +49,7 @@ namespace PokiClash.Core
             int n = Count(cfg, tier);
             var hs = d.Heroes.Where(h => h.elem == z).ToList();
             string Pick(int j) => hs[(i + tier + j) % hs.Count].id;
-            int level = d.Zone(z).levelMin + cfg.badges.levelPerTier * (tier - 1) + (int)(i * cfg.badges.levelPerFight);
+            int level = BaseLevel(d, z) + cfg.badges.levelPerTier * (tier - 1) + (int)(i * cfg.badges.levelPerFight);
             List<string> ids;
             if (i == n)
             {

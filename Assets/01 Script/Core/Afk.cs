@@ -118,19 +118,21 @@ namespace PokiClash.Core
             return outL;
         }
 
-        // ải đội đang AFK: ải đã chọn (còn hợp lệ), không thì ải xa nhất đã qua có rơi mảnh (đảo sau trước, ải sau trước);
-        // không ải nào rơi mảnh thì ải xa nhất đã qua; chưa qua ải nào thì null
+        // ải đội đang AFK: ải đã chọn (còn hợp lệ), không thì ải đã qua có rơi mảnh mà địch cấp cao nhất (5 đảo song song; bằng cấp thì
+        // ải sau trước, rồi đảo sau trước); không ải nào rơi mảnh thì ải cấp cao nhất đã qua; chưa qua ải nào thì null
         public static StageDef Stage(SaveData s, GameData d)
         {
             var picked = d.Stage(s.afk.stage);
             if (picked != null && Progress.StageCleared(s, picked)) return picked;
             StageDef far = null;
-            foreach (var z in d.Zones.OrderByDescending(z => z.order))
-                foreach (var st in d.ZoneStages(z.id).Where(x => x.idx <= s.zones[(int)z.id]).OrderByDescending(x => x.idx))
-                {
-                    if (Pool(st).Count > 0) return st;
-                    far ??= st;
-                }
+            var done = d.Zones.OrderByDescending(z => z.order)
+                .SelectMany(z => d.ZoneStages(z.id).Where(x => x.idx <= s.zones[(int)z.id]))
+                .OrderByDescending(x => x.enemies.Max(e => e.level)).ThenByDescending(x => x.idx);
+            foreach (var st in done)
+            {
+                if (Pool(st).Count > 0) return st;
+                far ??= st;
+            }
             return far;
         }
 

@@ -893,7 +893,7 @@
   {
    "op": "zone",
    "zone": "hoa",
-   "n": 8,
+   "n": 70,
    "r": null,
    "afk": {
     "hours": 0,
@@ -1247,10 +1247,10 @@
    "mult": 1,
    "r": {
     "hours": 12,
-    "stage": 78,
+    "stage": 140,
     "shards": [
      [
-      "phap_luan",
+      "lan_hoa",
       1,
       false,
       0
@@ -1278,7 +1278,7 @@
    "t": 1700181800000,
    "r": {
     "hours": 5,
-    "stage": 78,
+    "stage": 140,
     "shards": []
    },
    "afk": {
@@ -1402,7 +1402,7 @@
   },
   {
    "op": "stage",
-   "id": 79,
+   "id": 141,
    "t": 1700223200000,
    "r": null,
    "afk": {
@@ -1502,7 +1502,26 @@
    "r": {
     "hours": 10,
     "stage": 72,
-    "shards": []
+    "shards": [
+     [
+      "su_tu_lua",
+      1,
+      false,
+      0
+     ],
+     [
+      "su_tu_lua",
+      1,
+      false,
+      0
+     ],
+     [
+      "su_tu_lua",
+      1,
+      false,
+      0
+     ]
+    ]
    },
    "afk": {
     "hours": 0,

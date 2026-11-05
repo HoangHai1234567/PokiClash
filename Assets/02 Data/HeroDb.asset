@@ -271,30 +271,6 @@ MonoBehaviour:
       aola: goc_496
       size: 1.14
     minion: 0
-  - id: de_hoa
-    name: "D\xEA Hoa"
-    title: "S\u1EEBng g\u1ED7 v\u01B0\u01A1ng mi\u1EC7n hoa"
-    aola: goc_866
-    elem: 1
-    rarity: 2
-    stats: 640000003c0000001e000000280000001e00000046000000
-    skill: de_hoa_skill
-    ult: de_hoa_ult
-    passive: de_hoa_pas
-    shards: 20
-    line: "D\xF2ng D\xEA Hoa"
-    size: 0.9
-    forms:
-    - name: "D\xEA Hoa"
-      aola: goc_866
-      size: 0.9
-    - name: "D\xEA Hoa"
-      aola: goc_867
-      size: 1.02
-    - name: "D\xEA Hoa"
-      aola: goc_868
-      size: 1.14
-    minion: 0
   - id: giac_long
     name: "Gi\xE1c Long G\u1ED7"
     title: "S\u1EEBng v\u1ECF c\xE2y xung tr\u1EADn"
@@ -316,47 +292,227 @@ MonoBehaviour:
       aola: goc_2393
       size: 1.1
     minion: 0
+  - id: tien_la
+    name: "Ti\xEAn L\xE1"
+    title: "\xC1nh l\u1EE5c gi\u1EEFa r\u1EEBng"
+    aola: goc_648
+    elem: 1
+    rarity: 0
+    stats: 3c00000028000000320000003c0000003c00000032000000
+    skill: tien_la_skill
+    ult: tien_la_ult
+    passive: tien_la_pas
+    shards: 10
+    line: "D\xF2ng Ti\xEAn L\xE1"
+    size: 0.9
+    forms:
+    - name: "Th\xFA \xC1nh L\u1EE5c"
+      aola: goc_648
+      size: 0.9
+    - name: "Linh \xC1nh L\u1EE5c"
+      aola: goc_649
+      size: 1.02
+    - name: "Ti\xEAn L\xE1"
+      aola: goc_650
+      size: 1.14
+    minion: 0
+  - id: hoa_nhuy
+    name: "Hoa Nh\u1EE5y"
+    title: "Ti\xEAn hoa nh\u1EE5y \u0111\u1ECF"
+    aola: goc_593
+    elem: 1
+    rarity: 0
+    stats: 3c000000280000003c0000003c0000003c00000032000000
+    skill: hoa_nhuy_skill
+    ult: hoa_nhuy_ult
+    passive: hoa_nhuy_pas
+    shards: 10
+    line: "D\xF2ng Hoa Nh\u1EE5y"
+    size: 0.9
+    forms:
+    - name: "Th\xFA Ba L\xE1"
+      aola: goc_593
+      size: 0.9
+    - name: "Th\xFA B\xFAp Hoa"
+      aola: goc_594
+      size: 1.02
+    - name: "Ti\xEAn Hoa Nh\u1EE5y"
+      aola: goc_595
+      size: 1.14
+    minion: 0
+  - id: de_hoa
+    name: "D\xEA Hoa"
+    title: "S\u1EEBng g\u1ED7 v\u01B0\u01A1ng mi\u1EC7n hoa"
+    aola: goc_866
+    elem: 1
+    rarity: 1
+    stats: 640000003c0000001e000000280000001e00000046000000
+    skill: de_hoa_skill
+    ult: de_hoa_ult
+    passive: de_hoa_pas
+    shards: 15
+    line: "D\xF2ng D\xEA Hoa"
+    size: 0.9
+    forms:
+    - name: "D\xEA Hoa Con"
+      aola: goc_866
+      size: 0.9
+    - name: "D\xEA G\u1ED7"
+      aola: goc_867
+      size: 1.02
+    - name: "D\xEA S\u1EEBng Chi\u1EBFn"
+      aola: goc_868
+      size: 1.14
+    minion: 0
+  - id: bom_la
+    name: "B\u1EDDm L\xE1"
+    title: "Chi\u1EBFn s\u01B0 r\u1EEBng xanh"
+    aola: goc_911
+    elem: 1
+    rarity: 1
+    stats: 460000001e0000001e0000003c000000320000003c000000
+    skill: bom_la_skill
+    ult: bom_la_ult
+    passive: bom_la_pas
+    shards: 15
+    line: "D\xF2ng B\u1EDDm L\xE1"
+    size: 0.92
+    forms:
+    - name: "B\u1EDDm L\xE1 Con"
+      aola: goc_911
+      size: 0.92
+    - name: "Chi\u1EBFn S\u01B0 B\u1EDDm L\xE1"
+      aola: goc_912
+      size: 1.1
+    minion: 0
   - id: phong_linh
     name: Phong Linh
     title: "Linh t\u01B0\u1EDBng gi\xF3 l\xE1"
     aola: goc_943
     elem: 1
-    rarity: 3
+    rarity: 2
     stats: 820000003c0000001e0000001e0000001e0000001e000000
     skill: phong_linh_skill
     ult: phong_linh_ult
     passive: phong_linh_pas
-    shards: 30
+    shards: 20
     line: "D\xF2ng Phong Linh"
     size: 0.92
     forms:
-    - name: Phong Linh
+    - name: "Ti\u1EC3u Phong Linh"
       aola: goc_943
       size: 0.92
-    - name: Phong Linh
+    - name: "Phong Linh T\u01B0\u1EDBng"
       aola: goc_944
+      size: 1.1
+    minion: 0
+  - id: gio_loc
+    name: "Gi\xF3 L\u1ED1c"
+    title: "R\u1ED3ng gi\xF3 x\xE9 m\xE2y"
+    aola: goc_850
+    elem: 1
+    rarity: 2
+    stats: 3c000000460000003200000028000000320000003c000000
+    skill: gio_loc_skill
+    ult: gio_loc_ult
+    passive: gio_loc_pas
+    shards: 20
+    line: "D\xF2ng Gi\xF3 L\u1ED1c"
+    size: 0.9
+    forms:
+    - name: "Gi\xF3 Con"
+      aola: goc_850
+      size: 0.9
+    - name: "Gi\xF3 Cu\u1ED9n"
+      aola: goc_851
+      size: 1.02
+    - name: "Gi\xF3 L\u1ED1c"
+      aola: goc_852
+      size: 1.14
+    minion: 0
+  - id: long_vuot
+    name: "Long Vu\u1ED1t"
+    title: "R\u1ED3ng l\xE1 vu\u1ED1t s\u1EAFc"
+    aola: goc_1219
+    elem: 1
+    rarity: 3
+    stats: 32000000280000003200000050000000280000003c000000
+    skill: long_vuot_skill
+    ult: long_vuot_ult
+    passive: long_vuot_pas
+    shards: 30
+    line: "D\xF2ng Long Vu\u1ED1t"
+    size: 0.92
+    forms:
+    - name: "Long Vu\u1ED1t Con"
+      aola: goc_1219
+      size: 0.92
+    - name: "Long Vu\u1ED1t"
+      aola: goc_1220
+      size: 1.1
+    minion: 0
+  - id: tho_hoang
+    name: "Th\u1ECF Ho\xE0ng"
+    title: "Chi\u1EBFn gi\xE1p ho\xE0ng c\u1EF1c"
+    aola: goc_2010
+    elem: 1
+    rarity: 3
+    stats: 6e000000460000005a0000008c0000005a00000082000000
+    skill: tho_hoang_skill
+    ult: tho_hoang_ult
+    passive: tho_hoang_pas
+    shards: 30
+    line: "D\xF2ng Th\u1ECF Ho\xE0ng"
+    size: 1
+    forms:
+    - name: "Th\u1ECF Ho\xE0ng"
+      aola: goc_2010
+      size: 1
+    minion: 0
+  - id: moc_tinh
+    name: "M\u1ED9c Tinh"
+    title: "Th\xFA gi\xE1p pha l\xEA l\u1EE5c"
+    aola: goc_1480
+    elem: 1
+    rarity: 3
+    stats: 3c0000004600000046000000280000002800000028000000
+    skill: moc_tinh_skill
+    ult: moc_tinh_ult
+    passive: moc_tinh_pas
+    shards: 30
+    line: "D\xF2ng M\u1ED9c Tinh"
+    size: 0.92
+    forms:
+    - name: "Ti\u1EC3u M\u1ED9c Tinh"
+      aola: goc_1480
+      size: 0.92
+    - name: "M\u1ED9c Tinh"
+      aola: goc_1481
       size: 1.1
     minion: 0
   - id: thanh_long
     name: Thanh Long
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng \u0110\xF4ng"
-    aola: goc_1219
+    aola: goc_214
     elem: 1
     rarity: 4
-    stats: 32000000280000003200000050000000280000003c000000
+    stats: 3c0000003c000000280000003c000000280000003c000000
     skill: thanh_long_skill
     ult: thanh_long_ult
     passive: thanh_long_pas
     shards: 50
     line: "D\xF2ng Thanh Long"
-    size: 0.92
+    size: 0.95
     forms:
+    - name: Thanh Long Con
+      aola: goc_214
+      size: 0.95
     - name: Thanh Long
-      aola: goc_1219
-      size: 0.92
-    - name: Thanh Long
-      aola: goc_1220
+      aola: goc_215
       size: 1.1
+    - name: "L\xF4i Thanh Long"
+      aola: goc_1749
+      size: 1.16
     minion: 0
   - id: tieu_y
     name: "Ti\u1EC3u Y"
@@ -820,6 +976,192 @@ MonoBehaviour:
       aola: goc_506
       size: 1
     minion: 0
+  - id: khong_lo
+    name: "Kh\u1ED5ng L\u1ED3 L\u1EEDa"
+    title: "S\u1EEBng l\u1EEDa th\xE2n than"
+    aola: goc_46
+    elem: 3
+    rarity: 0
+    stats: 2d000000280000003200000028000000320000003c000000
+    skill: khong_lo_skill
+    ult: khong_lo_ult
+    passive: khong_lo_pas
+    shards: 10
+    line: "D\xF2ng Kh\u1ED5ng L\u1ED3 L\u1EEDa"
+    size: 0.9
+    forms:
+    - name: "Vi\xEAn Than"
+      aola: goc_46
+      size: 0.9
+    - name: "S\u1EEBng Than"
+      aola: goc_47
+      size: 1.02
+    - name: "Kh\u1ED5ng L\u1ED3 L\u1EEDa"
+      aola: goc_48
+      size: 1.14
+    minion: 0
+  - id: kim_su
+    name: "Kim S\u01B0"
+    title: "B\u1EDDm l\u1EEDa gi\xE1p v\xE0ng"
+    aola: goc_581
+    elem: 3
+    rarity: 1
+    stats: 50000000500000001e000000280000001e00000032000000
+    skill: kim_su_skill
+    ult: kim_su_ult
+    passive: kim_su_pas
+    shards: 15
+    line: "D\xF2ng Kim S\u01B0"
+    size: 0.9
+    forms:
+    - name: "S\u01B0 Con"
+      aola: goc_581
+      size: 0.9
+    - name: "Li\u1EC7t H\u1ECFa S\u01B0"
+      aola: goc_582
+      size: 1.02
+    - name: "Kim S\u01B0"
+      aola: goc_583
+      size: 1.14
+    minion: 0
+  - id: nham_than
+    name: "Nham Th\u1EA7n"
+    title: "Ch\xFAa t\u1EC3 dung nham"
+    aola: goc_599
+    elem: 3
+    rarity: 1
+    stats: 3c0000004600000032000000320000003200000050000000
+    skill: nham_than_skill
+    ult: nham_than_ult
+    passive: nham_than_pas
+    shards: 15
+    line: "D\xF2ng Nham Th\u1EA7n"
+    size: 0.9
+    forms:
+    - name: Nham Con
+      aola: goc_599
+      size: 0.9
+    - name: "Nham H\u1ECFa"
+      aola: goc_600
+      size: 1.02
+    - name: "Nham Th\u1EA7n"
+      aola: goc_601
+      size: 1.14
+    minion: 0
+  - id: hong_lien
+    name: "H\u1ED3ng Li\xEAn"
+    title: "C\xE1nh l\u1EEDa sen \u0111\u1ECF"
+    aola: goc_776
+    elem: 3
+    rarity: 2
+    stats: 320000001e0000002800000041000000280000005a000000
+    skill: hong_lien_skill
+    ult: hong_lien_ult
+    passive: hong_lien_pas
+    shards: 20
+    line: "D\xF2ng H\u1ED3ng Li\xEAn"
+    size: 0.9
+    forms:
+    - name: "\u0110\u1ED1m H\u1ED3ng"
+      aola: goc_776
+      size: 0.9
+    - name: "Phi Vi\xEAm"
+      aola: goc_777
+      size: 1.02
+    - name: "H\u1ED3ng Li\xEAn"
+      aola: goc_778
+      size: 1.14
+    minion: 0
+  - id: giap_long
+    name: "Gi\xE1p Long"
+    title: "Gai th\xE9p l\u1EEDa \u0111\u1ECF"
+    aola: goc_1231
+    elem: 3
+    rarity: 3
+    stats: 3c000000280000002d00000041000000280000003c000000
+    skill: giap_long_skill
+    ult: giap_long_ult
+    passive: giap_long_pas
+    shards: 30
+    line: "D\xF2ng Gi\xE1p Long"
+    size: 0.92
+    forms:
+    - name: "Gi\xE1p Long Con"
+      aola: goc_1231
+      size: 0.92
+    - name: "Gi\xE1p Long"
+      aola: goc_1232
+      size: 1.1
+    minion: 0
+  - id: huyen_viem
+    name: "Huy\u1EC5n Vi\xEAm"
+    title: "H\u1ED3 l\u1EEDa \u1EA3o \u1EA3nh"
+    aola: goc_1295
+    elem: 3
+    rarity: 3
+    stats: 32000000500000002800000028000000320000003c000000
+    skill: huyen_viem_skill
+    ult: huyen_viem_ult
+    passive: huyen_viem_pas
+    shards: 30
+    line: "D\xF2ng Huy\u1EC5n Vi\xEAm"
+    size: 0.9
+    forms:
+    - name: "Linh Vi\xEAm"
+      aola: goc_1295
+      size: 0.9
+    - name: "Huy\u1EC5n Vi\xEAm"
+      aola: goc_1296
+      size: 1.02
+    - name: "Th\xE1nh Huy\u1EC5n Vi\xEAm"
+      aola: goc_2091
+      size: 1.14
+    minion: 0
+  - id: hoa_tinh
+    name: "H\u1ECFa Tinh"
+    title: "Th\xFA gi\xE1p l\u1EEDa h\u1ED3ng"
+    aola: goc_1466
+    elem: 3
+    rarity: 3
+    stats: 3c000000280000002d0000005a0000002d00000028000000
+    skill: hoa_tinh_skill
+    ult: hoa_tinh_ult
+    passive: hoa_tinh_pas
+    shards: 30
+    line: "D\xF2ng H\u1ECFa Tinh"
+    size: 0.92
+    forms:
+    - name: "Ti\u1EC3u H\u1ECFa Tinh"
+      aola: goc_1466
+      size: 0.92
+    - name: "H\u1ECFa Tinh"
+      aola: goc_1467
+      size: 1.1
+    minion: 0
+  - id: lan_hoa
+    name: "L\xE2n H\u1ECFa"
+    title: "Th\u1EA7n th\xFA ng\xE0n n\u0103m"
+    aola: goc_1449
+    elem: 3
+    rarity: 4
+    stats: 500000001e000000230000005a0000002300000050000000
+    skill: lan_hoa_skill
+    ult: lan_hoa_ult
+    passive: lan_hoa_pas
+    shards: 50
+    line: "D\xF2ng L\xE2n H\u1ECFa"
+    size: 0.95
+    forms:
+    - name: "L\xE2n Con"
+      aola: goc_1449
+      size: 0.95
+    - name: "L\xE2n Ng\xE0n N\u0103m"
+      aola: goc_1450
+      size: 1.1
+    - name: "Th\xE1nh L\xE2n"
+      aola: goc_2828
+      size: 1.16
+    minion: 0
   - id: vo_su
     name: "V\xF5 S\u01B0"
     title: "Quy\u1EC1n th\u1EE7 \xE1o v\u1EA3i"
@@ -1086,6 +1428,222 @@ MonoBehaviour:
     forms:
     - name: "Song Ng\u01B0"
       aola: goc_830
+      size: 0.86
+    minion: 1
+  - id: linh_bo
+    name: "B\u1ECD S\u1EEBng"
+    title: "Gi\xE1p g\u1ED7 c\u1EE9ng \u0111\u1EA7u"
+    aola: goc_40
+    elem: 1
+    rarity: 0
+    stats: 370000002d0000004000000044000000370000001f000000
+    skill: linh_bo_skill
+    ult: linh_bo_ult
+    passive: linh_bo_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "B\u1ECD S\u1EEBng"
+      aola: goc_40
+      size: 0.8
+    minion: 1
+  - id: linh_bo2
+    name: "B\u1ECD S\u1EEBng G\u1ED7"
+    title: "S\u1EEBng g\u1ED7 h\xFAc tung"
+    aola: goc_41
+    elem: 1
+    rarity: 0
+    stats: 4b000000370000005500000059000000410000002d000000
+    skill: linh_bo2_skill
+    ult: linh_bo2_ult
+    passive: linh_bo2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "B\u1ECD S\u1EEBng G\u1ED7"
+      aola: goc_41
+      size: 0.86
+    minion: 1
+  - id: linh_ran
+    name: "S\xE2u U\u1ED1n"
+    title: "Th\xE2n m\u1EC1m phun \u0111\u1ED9c"
+    aola: goc_58
+    elem: 1
+    rarity: 0
+    stats: 2d000000310000003100000041000000410000002d000000
+    skill: linh_ran_skill
+    ult: linh_ran_ult
+    passive: linh_ran_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "S\xE2u U\u1ED1n"
+      aola: goc_58
+      size: 0.8
+    minion: 1
+  - id: linh_ran2
+    name: "R\u1EAFn Gai"
+    title: "V\u1EA3y gai \u0111\u1ED9c"
+    aola: goc_59
+    elem: 1
+    rarity: 0
+    stats: 3c0000003400000044000000500000004b00000046000000
+    skill: linh_ran2_skill
+    ult: linh_ran2_ult
+    passive: linh_ran2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "R\u1EAFn Gai"
+      aola: goc_59
+      size: 0.86
+    minion: 1
+  - id: linh_chim
+    name: "Chim L\xE1"
+    title: "C\xE1nh l\xE1 l\u01B0\u1EE3n nhanh"
+    aola: goc_82
+    elem: 1
+    rarity: 0
+    stats: 280000002d00000023000000410000003700000046000000
+    skill: linh_chim_skill
+    ult: linh_chim_ult
+    passive: linh_chim_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "Chim L\xE1"
+      aola: goc_82
+      size: 0.8
+    minion: 1
+  - id: linh_chim2
+    name: "Chim L\u01B0u Ly"
+    title: "C\xE1nh ng\u1ECDc x\xE9 gi\xF3"
+    aola: goc_83
+    elem: 1
+    rarity: 0
+    stats: 32000000410000002d00000055000000410000005f000000
+    skill: linh_chim2_skill
+    ult: linh_chim2_ult
+    passive: linh_chim2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "Chim L\u01B0u Ly"
+      aola: goc_83
+      size: 0.86
+    minion: 1
+  - id: linh_lo
+    name: "L\xF2 L\u1EEDa"
+    title: "B\u1EE5ng l\xF2 r\u1EF1c than"
+    aola: goc_64
+    elem: 3
+    rarity: 0
+    stats: 2d000000280000003200000046000000280000001e000000
+    skill: linh_lo_skill
+    ult: linh_lo_ult
+    passive: linh_lo_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "L\xF2 L\u1EEDa"
+      aola: goc_64
+      size: 0.8
+    minion: 1
+  - id: linh_lo2
+    name: "L\xF2 Qu\xE1i"
+    title: "Mi\u1EC7ng l\xF2 phun l\u1EEDa"
+    aola: goc_65
+    elem: 3
+    rarity: 0
+    stats: 3c0000003700000050000000640000003c00000032000000
+    skill: linh_lo2_skill
+    ult: linh_lo2_ult
+    passive: linh_lo2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "L\xF2 Qu\xE1i"
+      aola: goc_65
+      size: 0.86
+    minion: 1
+  - id: linh_nam
+    name: "N\u1EA5m L\u1EEDa"
+    title: "M\u0169 n\u1EA5m \xE2m \u1EC9"
+    aola: goc_13
+    elem: 3
+    rarity: 0
+    stats: 1e0000001e00000028000000410000002800000041000000
+    skill: linh_nam_skill
+    ult: linh_nam_ult
+    passive: linh_nam_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "N\u1EA5m L\u1EEDa"
+      aola: goc_13
+      size: 0.8
+    minion: 1
+  - id: linh_nam2
+    name: "Qu\xE1i Nham"
+    title: "Th\xE2n nham s\xF4i"
+    aola: goc_14
+    elem: 3
+    rarity: 0
+    stats: 2d0000002d0000003c000000500000003c00000055000000
+    skill: linh_nam2_skill
+    ult: linh_nam2_ult
+    passive: linh_nam2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "Qu\xE1i Nham"
+      aola: goc_14
+      size: 0.86
+    minion: 1
+  - id: linh_khi
+    name: "Kh\u1EC9 L\u1EEDa"
+    title: "Tai l\u1EEDa lanh l\u1EB9"
+    aola: goc_291
+    elem: 3
+    rarity: 0
+    stats: 370000001e00000032000000320000003200000047000000
+    skill: linh_khi_skill
+    ult: linh_khi_ult
+    passive: linh_khi_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.8
+    forms:
+    - name: "Kh\u1EC9 L\u1EEDa"
+      aola: goc_291
+      size: 0.8
+    minion: 1
+  - id: linh_khi2
+    name: "Kh\u1EC9 H\u1ECFa Di\u1EC7m"
+    title: "\u0110u\xF4i l\u1EEDa nh\xE0o l\u1ED9n"
+    aola: goc_292
+    elem: 3
+    rarity: 0
+    stats: 4b0000002800000046000000460000004600000065000000
+    skill: linh_khi2_skill
+    ult: linh_khi2_ult
+    passive: linh_khi2_pas
+    shards: 0
+    line: "L\xEDnh"
+    size: 0.86
+    forms:
+    - name: "Kh\u1EC9 H\u1ECFa Di\u1EC7m"
+      aola: goc_292
       size: 0.86
     minion: 1
   starters:

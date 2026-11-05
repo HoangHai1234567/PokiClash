@@ -419,45 +419,6 @@
    ]
   },
   {
-   "id": "de_hoa",
-   "name": "Dê Hoa",
-   "title": "Sừng gỗ vương miện hoa",
-   "aola": "goc_866",
-   "elem": "moc",
-   "rarity": "rare",
-   "stats": [
-    100,
-    60,
-    30,
-    40,
-    30,
-    70
-   ],
-   "skill": "de_hoa_skill",
-   "ult": "de_hoa_ult",
-   "passive": "de_hoa_pas",
-   "shards": 20,
-   "line": "Dòng Dê Hoa",
-   "size": 0.9,
-   "forms": [
-    {
-     "name": "Dê Hoa",
-     "aola": "goc_866",
-     "size": 0.9
-    },
-    {
-     "name": "Dê Hoa",
-     "aola": "goc_867",
-     "size": 1.02
-    },
-    {
-     "name": "Dê Hoa",
-     "aola": "goc_868",
-     "size": 1.14
-    }
-   ]
-  },
-  {
    "id": "giac_long",
    "name": "Giác Long Gỗ",
    "title": "Sừng vỏ cây xung trận",
@@ -492,12 +453,163 @@
    ]
   },
   {
+   "id": "tien_la",
+   "name": "Tiên Lá",
+   "title": "Ánh lục giữa rừng",
+   "aola": "goc_648",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    60,
+    40,
+    50,
+    60,
+    60,
+    50
+   ],
+   "skill": "tien_la_skill",
+   "ult": "tien_la_ult",
+   "passive": "tien_la_pas",
+   "shards": 10,
+   "line": "Dòng Tiên Lá",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Thú Ánh Lục",
+     "aola": "goc_648",
+     "size": 0.9
+    },
+    {
+     "name": "Linh Ánh Lục",
+     "aola": "goc_649",
+     "size": 1.02
+    },
+    {
+     "name": "Tiên Lá",
+     "aola": "goc_650",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "hoa_nhuy",
+   "name": "Hoa Nhụy",
+   "title": "Tiên hoa nhụy đỏ",
+   "aola": "goc_593",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    60,
+    40,
+    60,
+    60,
+    60,
+    50
+   ],
+   "skill": "hoa_nhuy_skill",
+   "ult": "hoa_nhuy_ult",
+   "passive": "hoa_nhuy_pas",
+   "shards": 10,
+   "line": "Dòng Hoa Nhụy",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Thú Ba Lá",
+     "aola": "goc_593",
+     "size": 0.9
+    },
+    {
+     "name": "Thú Búp Hoa",
+     "aola": "goc_594",
+     "size": 1.02
+    },
+    {
+     "name": "Tiên Hoa Nhụy",
+     "aola": "goc_595",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "de_hoa",
+   "name": "Dê Hoa",
+   "title": "Sừng gỗ vương miện hoa",
+   "aola": "goc_866",
+   "elem": "moc",
+   "rarity": "uncommon",
+   "stats": [
+    100,
+    60,
+    30,
+    40,
+    30,
+    70
+   ],
+   "skill": "de_hoa_skill",
+   "ult": "de_hoa_ult",
+   "passive": "de_hoa_pas",
+   "shards": 15,
+   "line": "Dòng Dê Hoa",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Dê Hoa Con",
+     "aola": "goc_866",
+     "size": 0.9
+    },
+    {
+     "name": "Dê Gỗ",
+     "aola": "goc_867",
+     "size": 1.02
+    },
+    {
+     "name": "Dê Sừng Chiến",
+     "aola": "goc_868",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "bom_la",
+   "name": "Bờm Lá",
+   "title": "Chiến sư rừng xanh",
+   "aola": "goc_911",
+   "elem": "moc",
+   "rarity": "uncommon",
+   "stats": [
+    70,
+    30,
+    30,
+    60,
+    50,
+    60
+   ],
+   "skill": "bom_la_skill",
+   "ult": "bom_la_ult",
+   "passive": "bom_la_pas",
+   "shards": 15,
+   "line": "Dòng Bờm Lá",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Bờm Lá Con",
+     "aola": "goc_911",
+     "size": 0.92
+    },
+    {
+     "name": "Chiến Sư Bờm Lá",
+     "aola": "goc_912",
+     "size": 1.1
+    }
+   ]
+  },
+  {
    "id": "phong_linh",
    "name": "Phong Linh",
    "title": "Linh tướng gió lá",
    "aola": "goc_943",
    "elem": "moc",
-   "rarity": "epic",
+   "rarity": "rare",
    "stats": [
     130,
     60,
@@ -509,29 +621,68 @@
    "skill": "phong_linh_skill",
    "ult": "phong_linh_ult",
    "passive": "phong_linh_pas",
-   "shards": 30,
+   "shards": 20,
    "line": "Dòng Phong Linh",
    "size": 0.92,
    "forms": [
     {
-     "name": "Phong Linh",
+     "name": "Tiểu Phong Linh",
      "aola": "goc_943",
      "size": 0.92
     },
     {
-     "name": "Phong Linh",
+     "name": "Phong Linh Tướng",
      "aola": "goc_944",
      "size": 1.1
     }
    ]
   },
   {
-   "id": "thanh_long",
-   "name": "Thanh Long",
-   "title": "Thần thú phương Đông",
+   "id": "gio_loc",
+   "name": "Gió Lốc",
+   "title": "Rồng gió xé mây",
+   "aola": "goc_850",
+   "elem": "moc",
+   "rarity": "rare",
+   "stats": [
+    60,
+    70,
+    50,
+    40,
+    50,
+    60
+   ],
+   "skill": "gio_loc_skill",
+   "ult": "gio_loc_ult",
+   "passive": "gio_loc_pas",
+   "shards": 20,
+   "line": "Dòng Gió Lốc",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Gió Con",
+     "aola": "goc_850",
+     "size": 0.9
+    },
+    {
+     "name": "Gió Cuộn",
+     "aola": "goc_851",
+     "size": 1.02
+    },
+    {
+     "name": "Gió Lốc",
+     "aola": "goc_852",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "long_vuot",
+   "name": "Long Vuốt",
+   "title": "Rồng lá vuốt sắc",
    "aola": "goc_1219",
    "elem": "moc",
-   "rarity": "legend",
+   "rarity": "epic",
    "stats": [
     50,
     40,
@@ -540,22 +691,124 @@
     40,
     60
    ],
+   "skill": "long_vuot_skill",
+   "ult": "long_vuot_ult",
+   "passive": "long_vuot_pas",
+   "shards": 30,
+   "line": "Dòng Long Vuốt",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Long Vuốt Con",
+     "aola": "goc_1219",
+     "size": 0.92
+    },
+    {
+     "name": "Long Vuốt",
+     "aola": "goc_1220",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "tho_hoang",
+   "name": "Thỏ Hoàng",
+   "title": "Chiến giáp hoàng cực",
+   "aola": "goc_2010",
+   "elem": "moc",
+   "rarity": "epic",
+   "stats": [
+    110,
+    70,
+    90,
+    140,
+    90,
+    130
+   ],
+   "skill": "tho_hoang_skill",
+   "ult": "tho_hoang_ult",
+   "passive": "tho_hoang_pas",
+   "shards": 30,
+   "line": "Dòng Thỏ Hoàng",
+   "size": 1,
+   "forms": [
+    {
+     "name": "Thỏ Hoàng",
+     "aola": "goc_2010",
+     "size": 1
+    }
+   ]
+  },
+  {
+   "id": "moc_tinh",
+   "name": "Mộc Tinh",
+   "title": "Thú giáp pha lê lục",
+   "aola": "goc_1480",
+   "elem": "moc",
+   "rarity": "epic",
+   "stats": [
+    60,
+    70,
+    70,
+    40,
+    40,
+    40
+   ],
+   "skill": "moc_tinh_skill",
+   "ult": "moc_tinh_ult",
+   "passive": "moc_tinh_pas",
+   "shards": 30,
+   "line": "Dòng Mộc Tinh",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Tiểu Mộc Tinh",
+     "aola": "goc_1480",
+     "size": 0.92
+    },
+    {
+     "name": "Mộc Tinh",
+     "aola": "goc_1481",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "thanh_long",
+   "name": "Thanh Long",
+   "title": "Thần thú phương Đông",
+   "aola": "goc_214",
+   "elem": "moc",
+   "rarity": "legend",
+   "stats": [
+    60,
+    60,
+    40,
+    60,
+    40,
+    60
+   ],
    "skill": "thanh_long_skill",
    "ult": "thanh_long_ult",
    "passive": "thanh_long_pas",
    "shards": 50,
    "line": "Dòng Thanh Long",
-   "size": 0.92,
+   "size": 0.95,
    "forms": [
     {
-     "name": "Thanh Long",
-     "aola": "goc_1219",
-     "size": 0.92
+     "name": "Thanh Long Con",
+     "aola": "goc_214",
+     "size": 0.95
     },
     {
      "name": "Thanh Long",
-     "aola": "goc_1220",
+     "aola": "goc_215",
      "size": 1.1
+    },
+    {
+     "name": "Lôi Thanh Long",
+     "aola": "goc_1749",
+     "size": 1.16
     }
    ]
   },
@@ -1309,6 +1562,308 @@
    ]
   },
   {
+   "id": "khong_lo",
+   "name": "Khổng Lồ Lửa",
+   "title": "Sừng lửa thân than",
+   "aola": "goc_46",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    45,
+    40,
+    50,
+    40,
+    50,
+    60
+   ],
+   "skill": "khong_lo_skill",
+   "ult": "khong_lo_ult",
+   "passive": "khong_lo_pas",
+   "shards": 10,
+   "line": "Dòng Khổng Lồ Lửa",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Viên Than",
+     "aola": "goc_46",
+     "size": 0.9
+    },
+    {
+     "name": "Sừng Than",
+     "aola": "goc_47",
+     "size": 1.02
+    },
+    {
+     "name": "Khổng Lồ Lửa",
+     "aola": "goc_48",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "kim_su",
+   "name": "Kim Sư",
+   "title": "Bờm lửa giáp vàng",
+   "aola": "goc_581",
+   "elem": "hoa",
+   "rarity": "uncommon",
+   "stats": [
+    80,
+    80,
+    30,
+    40,
+    30,
+    50
+   ],
+   "skill": "kim_su_skill",
+   "ult": "kim_su_ult",
+   "passive": "kim_su_pas",
+   "shards": 15,
+   "line": "Dòng Kim Sư",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Sư Con",
+     "aola": "goc_581",
+     "size": 0.9
+    },
+    {
+     "name": "Liệt Hỏa Sư",
+     "aola": "goc_582",
+     "size": 1.02
+    },
+    {
+     "name": "Kim Sư",
+     "aola": "goc_583",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "nham_than",
+   "name": "Nham Thần",
+   "title": "Chúa tể dung nham",
+   "aola": "goc_599",
+   "elem": "hoa",
+   "rarity": "uncommon",
+   "stats": [
+    60,
+    70,
+    50,
+    50,
+    50,
+    80
+   ],
+   "skill": "nham_than_skill",
+   "ult": "nham_than_ult",
+   "passive": "nham_than_pas",
+   "shards": 15,
+   "line": "Dòng Nham Thần",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Nham Con",
+     "aola": "goc_599",
+     "size": 0.9
+    },
+    {
+     "name": "Nham Hỏa",
+     "aola": "goc_600",
+     "size": 1.02
+    },
+    {
+     "name": "Nham Thần",
+     "aola": "goc_601",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "hong_lien",
+   "name": "Hồng Liên",
+   "title": "Cánh lửa sen đỏ",
+   "aola": "goc_776",
+   "elem": "hoa",
+   "rarity": "rare",
+   "stats": [
+    50,
+    30,
+    40,
+    65,
+    40,
+    90
+   ],
+   "skill": "hong_lien_skill",
+   "ult": "hong_lien_ult",
+   "passive": "hong_lien_pas",
+   "shards": 20,
+   "line": "Dòng Hồng Liên",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Đốm Hồng",
+     "aola": "goc_776",
+     "size": 0.9
+    },
+    {
+     "name": "Phi Viêm",
+     "aola": "goc_777",
+     "size": 1.02
+    },
+    {
+     "name": "Hồng Liên",
+     "aola": "goc_778",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "giap_long",
+   "name": "Giáp Long",
+   "title": "Gai thép lửa đỏ",
+   "aola": "goc_1231",
+   "elem": "hoa",
+   "rarity": "epic",
+   "stats": [
+    60,
+    40,
+    45,
+    65,
+    40,
+    60
+   ],
+   "skill": "giap_long_skill",
+   "ult": "giap_long_ult",
+   "passive": "giap_long_pas",
+   "shards": 30,
+   "line": "Dòng Giáp Long",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Giáp Long Con",
+     "aola": "goc_1231",
+     "size": 0.92
+    },
+    {
+     "name": "Giáp Long",
+     "aola": "goc_1232",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "huyen_viem",
+   "name": "Huyễn Viêm",
+   "title": "Hồ lửa ảo ảnh",
+   "aola": "goc_1295",
+   "elem": "hoa",
+   "rarity": "epic",
+   "stats": [
+    50,
+    80,
+    40,
+    40,
+    50,
+    60
+   ],
+   "skill": "huyen_viem_skill",
+   "ult": "huyen_viem_ult",
+   "passive": "huyen_viem_pas",
+   "shards": 30,
+   "line": "Dòng Huyễn Viêm",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Linh Viêm",
+     "aola": "goc_1295",
+     "size": 0.9
+    },
+    {
+     "name": "Huyễn Viêm",
+     "aola": "goc_1296",
+     "size": 1.02
+    },
+    {
+     "name": "Thánh Huyễn Viêm",
+     "aola": "goc_2091",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "hoa_tinh",
+   "name": "Hỏa Tinh",
+   "title": "Thú giáp lửa hồng",
+   "aola": "goc_1466",
+   "elem": "hoa",
+   "rarity": "epic",
+   "stats": [
+    60,
+    40,
+    45,
+    90,
+    45,
+    40
+   ],
+   "skill": "hoa_tinh_skill",
+   "ult": "hoa_tinh_ult",
+   "passive": "hoa_tinh_pas",
+   "shards": 30,
+   "line": "Dòng Hỏa Tinh",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Tiểu Hỏa Tinh",
+     "aola": "goc_1466",
+     "size": 0.92
+    },
+    {
+     "name": "Hỏa Tinh",
+     "aola": "goc_1467",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "lan_hoa",
+   "name": "Lân Hỏa",
+   "title": "Thần thú ngàn năm",
+   "aola": "goc_1449",
+   "elem": "hoa",
+   "rarity": "legend",
+   "stats": [
+    80,
+    30,
+    35,
+    90,
+    35,
+    80
+   ],
+   "skill": "lan_hoa_skill",
+   "ult": "lan_hoa_ult",
+   "passive": "lan_hoa_pas",
+   "shards": 50,
+   "line": "Dòng Lân Hỏa",
+   "size": 0.95,
+   "forms": [
+    {
+     "name": "Lân Con",
+     "aola": "goc_1449",
+     "size": 0.95
+    },
+    {
+     "name": "Lân Ngàn Năm",
+     "aola": "goc_1450",
+     "size": 1.1
+    },
+    {
+     "name": "Thánh Lân",
+     "aola": "goc_2828",
+     "size": 1.16
+    }
+   ]
+  },
+  {
    "id": "vo_su",
    "name": "Võ Sư",
    "title": "Quyền thủ áo vải",
@@ -1758,6 +2313,390 @@
    "minion": true,
    "tier": 2,
    "kind": "ngu"
+  },
+  {
+   "id": "linh_bo",
+   "name": "Bọ Sừng",
+   "title": "Giáp gỗ cứng đầu",
+   "aola": "goc_40",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    55,
+    45,
+    64,
+    68,
+    55,
+    31
+   ],
+   "skill": "linh_bo_skill",
+   "ult": "linh_bo_ult",
+   "passive": "linh_bo_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Bọ Sừng",
+     "aola": "goc_40",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "bo"
+  },
+  {
+   "id": "linh_bo2",
+   "name": "Bọ Sừng Gỗ",
+   "title": "Sừng gỗ húc tung",
+   "aola": "goc_41",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    75,
+    55,
+    85,
+    89,
+    65,
+    45
+   ],
+   "skill": "linh_bo2_skill",
+   "ult": "linh_bo2_ult",
+   "passive": "linh_bo2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Bọ Sừng Gỗ",
+     "aola": "goc_41",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "bo"
+  },
+  {
+   "id": "linh_ran",
+   "name": "Sâu Uốn",
+   "title": "Thân mềm phun độc",
+   "aola": "goc_58",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    45,
+    49,
+    49,
+    65,
+    65,
+    45
+   ],
+   "skill": "linh_ran_skill",
+   "ult": "linh_ran_ult",
+   "passive": "linh_ran_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Sâu Uốn",
+     "aola": "goc_58",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "ran"
+  },
+  {
+   "id": "linh_ran2",
+   "name": "Rắn Gai",
+   "title": "Vảy gai độc",
+   "aola": "goc_59",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    60,
+    52,
+    68,
+    80,
+    75,
+    70
+   ],
+   "skill": "linh_ran2_skill",
+   "ult": "linh_ran2_ult",
+   "passive": "linh_ran2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Rắn Gai",
+     "aola": "goc_59",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "ran"
+  },
+  {
+   "id": "linh_chim",
+   "name": "Chim Lá",
+   "title": "Cánh lá lượn nhanh",
+   "aola": "goc_82",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    40,
+    45,
+    35,
+    65,
+    55,
+    70
+   ],
+   "skill": "linh_chim_skill",
+   "ult": "linh_chim_ult",
+   "passive": "linh_chim_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Chim Lá",
+     "aola": "goc_82",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "chim"
+  },
+  {
+   "id": "linh_chim2",
+   "name": "Chim Lưu Ly",
+   "title": "Cánh ngọc xé gió",
+   "aola": "goc_83",
+   "elem": "moc",
+   "rarity": "common",
+   "stats": [
+    50,
+    65,
+    45,
+    85,
+    65,
+    95
+   ],
+   "skill": "linh_chim2_skill",
+   "ult": "linh_chim2_ult",
+   "passive": "linh_chim2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Chim Lưu Ly",
+     "aola": "goc_83",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "chim"
+  },
+  {
+   "id": "linh_lo",
+   "name": "Lò Lửa",
+   "title": "Bụng lò rực than",
+   "aola": "goc_64",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    45,
+    40,
+    50,
+    70,
+    40,
+    30
+   ],
+   "skill": "linh_lo_skill",
+   "ult": "linh_lo_ult",
+   "passive": "linh_lo_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Lò Lửa",
+     "aola": "goc_64",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "lo"
+  },
+  {
+   "id": "linh_lo2",
+   "name": "Lò Quái",
+   "title": "Miệng lò phun lửa",
+   "aola": "goc_65",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    60,
+    55,
+    80,
+    100,
+    60,
+    50
+   ],
+   "skill": "linh_lo2_skill",
+   "ult": "linh_lo2_ult",
+   "passive": "linh_lo2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Lò Quái",
+     "aola": "goc_65",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "lo"
+  },
+  {
+   "id": "linh_nam",
+   "name": "Nấm Lửa",
+   "title": "Mũ nấm âm ỉ",
+   "aola": "goc_13",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    30,
+    30,
+    40,
+    65,
+    40,
+    65
+   ],
+   "skill": "linh_nam_skill",
+   "ult": "linh_nam_ult",
+   "passive": "linh_nam_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Nấm Lửa",
+     "aola": "goc_13",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "nam"
+  },
+  {
+   "id": "linh_nam2",
+   "name": "Quái Nham",
+   "title": "Thân nham sôi",
+   "aola": "goc_14",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    45,
+    45,
+    60,
+    80,
+    60,
+    85
+   ],
+   "skill": "linh_nam2_skill",
+   "ult": "linh_nam2_ult",
+   "passive": "linh_nam2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Quái Nham",
+     "aola": "goc_14",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "nam"
+  },
+  {
+   "id": "linh_khi",
+   "name": "Khỉ Lửa",
+   "title": "Tai lửa lanh lẹ",
+   "aola": "goc_291",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    55,
+    30,
+    50,
+    50,
+    50,
+    71
+   ],
+   "skill": "linh_khi_skill",
+   "ult": "linh_khi_ult",
+   "passive": "linh_khi_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Khỉ Lửa",
+     "aola": "goc_291",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "khi"
+  },
+  {
+   "id": "linh_khi2",
+   "name": "Khỉ Hỏa Diệm",
+   "title": "Đuôi lửa nhào lộn",
+   "aola": "goc_292",
+   "elem": "hoa",
+   "rarity": "common",
+   "stats": [
+    75,
+    40,
+    70,
+    70,
+    70,
+    101
+   ],
+   "skill": "linh_khi2_skill",
+   "ult": "linh_khi2_ult",
+   "passive": "linh_khi2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Khỉ Hỏa Diệm",
+     "aola": "goc_292",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "khi"
   }
  ],
  "starters": [

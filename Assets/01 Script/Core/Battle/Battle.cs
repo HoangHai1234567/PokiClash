@@ -62,7 +62,7 @@ namespace PokiClash.Core
             {
                 idx = idx, side = side, hero = hero, level = m.level, star = m.star,
                 cardSkill = m.cardSkill, cardUlt = m.cardUlt, cardPassive = m.cardPassive, boss = m.boss,
-                evo = m.evo, form = m.evo ? 0 : hero.FormIndex(Cfg.formStars, m.star), partner = m.partner,
+                evo = m.evo, form = m.evo ? 0 : hero.FormIndex(Cfg.formStars, m.star), partner = m.partner, trait = m.trait,
                 maxHp = hp, hp = hp, atk = m.evo ? Js.Round(s.atk * k.atk) : s.atk, def = s.def, spd = s.spd,
                 mana = st != null ? Math.Min(Cfg.maxMana, st.mana) : 0, rage = st != null ? Math.Min(Cfg.maxRage, st.rage) : 0,
             };
@@ -604,18 +604,31 @@ namespace PokiClash.Core
                 return;
             }
             var c = Data.Card(f.hero.passive);
-            if (c.trigger != PassiveTrigger.LowHp || f.lowHpUsed || f.dead) return;
-            if (f.hp / f.maxHp < c.below)
+            if (c.trigger == PassiveTrigger.LowHp && !f.lowHpUsed && !f.dead && f.hp / f.maxHp < c.below)
             {
                 f.lowHpUsed = true;
                 Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
                 ApplyEffectsTo(f, Scaled(c, f.cardPassive), DmgKind.Card);
             }
+            // bị động boss kiểu máu thấp: một lần mỗi trận (cờ riêng, không mở lại khi tiến hóa)
+            var t = string.IsNullOrEmpty(f.trait) ? null : Data.Card(f.trait);
+            if (t != null && t.trigger == PassiveTrigger.LowHp && !f.traitLowUsed && !f.dead && f.hp / f.maxHp < t.below)
+            {
+                f.traitLowUsed = true;
+                Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = t.id });
+                ApplyEffectsTo(f, Scaled(t, f.cardPassive), DmgKind.Card);
+            }
         }
 
+        // bị động của tướng, rồi bị động boss của ải (nếu có; cùng cấp thẻ với bị động của tướng)
         void RunPassive(Fighter f, PassiveTrigger trig)
         {
-            var c = Data.Card(f.hero.passive);
+            RunPassiveCard(f, Data.Card(f.hero.passive), trig);
+            if (!string.IsNullOrEmpty(f.trait) && Data.Card(f.trait) is CardDef t) RunPassiveCard(f, t, trig);
+        }
+
+        void RunPassiveCard(Fighter f, CardDef c, PassiveTrigger trig)
+        {
             if (c.trigger != trig || f.dead) return;
             if (c.hasChance && !rng.Chance(Math.Min(1, c.chance * CardText.LvFactor(Cfg.cardLvStep, f.cardPassive)))) return;
             Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });

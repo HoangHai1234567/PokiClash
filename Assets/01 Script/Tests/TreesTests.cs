@@ -35,6 +35,7 @@ namespace PokiClash.Tests
                         if ((string)arg == "clear1") s.zones[(int)Elem.Thuy] = 1;
                         else s.zones[(int)Keys.ToElem((string)arg)] = Islands.Size(Keys.ToElem((string)arg));
                         break;
+                    case "level": s.level = (int)(double)arg; break; // cây 2–5 mở theo cấp người chơi (đảo song song, 2026-11-05)
                     case "pass": Assert.AreEqual(want, AdGate.Buy(s, d.Cfg, "adventure_pass", t), at); break;
                 }
                 Assert.AreEqual(J.Int(o, "open"), Trees.Open(s, d.Cfg), at + " số cây mở");
@@ -59,9 +60,9 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             Assert.AreEqual(0, Trees.Open(s, d.Cfg), "chưa qua ải nào: chưa có cây");
-            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
-            s.zones[(int)Elem.Hoa] = Islands.Size(Elem.Hoa);
-            Assert.AreEqual(3, Trees.Open(s, d.Cfg), "qua ải 1, boss Thủy, boss Hỏa: 3 cây");
+            s.zones[(int)Elem.Thuy] = 1;
+            s.level = d.Cfg.trees.unlockLevels[1];
+            Assert.AreEqual(3, Trees.Open(s, d.Cfg), "qua ải 1, đủ cấp mở cây 3: 3 cây");
             Trees.Tick(s, d.Cfg, 0);
             Assert.AreEqual(3 * 25, Trees.Stock(s, d.Cfg, 5 * H), "5 giờ: 25 bi mỗi cây");
             Assert.AreEqual(3 * 50, Trees.Stock(s, d.Cfg, 10 * H), "10 giờ: đầy 50");

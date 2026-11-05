@@ -55,7 +55,7 @@ namespace PokiClash
             p.go.gameObject.SetActive(false);
             if (!open)
             {
-                p.need.text = Badges.TempleOpen(s) ? $"Thắng mini boss {zone.name} (ải {Islands.MiniAt(z)}) để mở" : "Thắng boss Đảo Thủy để mở Đền Huy Hiệu";
+                p.need.text = Badges.TempleOpen(s) ? $"Thắng mini boss {zone.name} (ải {Islands.MiniAt(z)}) để mở" : "Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu";
                 return;
             }
 

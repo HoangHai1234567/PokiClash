@@ -16,7 +16,7 @@ Người dùng chốt thêm (2026-11-01):
   - quy trình ở `ArtGen/Heroes/QUY_TRINH.md`;
 - **tướng Thủy đầu tiên là dòng khởi đầu hệ Nước của aola** (7 滴滴 → 8 露滴 → 9 露西亚, tên trong game là Giọt Sương), thay Tiểu Y làm tướng khởi đầu.
 
-Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Kim, Mộc, Hỏa, Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại.
+Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Kim, Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại; Mộc, Hỏa chọn lại 2026-11-05.
 
 **File này ghi nguồn aola, chỉ để đối chiếu nội bộ. Không đính kèm cho GPT, không đưa lên mạng.**
 
@@ -59,7 +59,36 @@ Người dùng chốt thêm (2026-11-01):
 | `soi_linh` | Sói Linh Thép | Lửa lạnh giáp xanh | Sử thi | 2176 灵小狼 → 2177 灵狼 | mới | TG07 |
 | `bach_ho` | Bạch Hổ | Thần thú phương Tây | Huyền thoại | 1911 炽燎天 (chỉ lấy dáng thú mặc giáp) | mới | TG08 |
 
-### Mộc
+### Mộc (chọn lại 2026-11-05 theo 10 hình người dùng gửi)
+
+Người dùng gửi 10 hình aola cho đảo Mộc, thứ tự trái sang phải là thứ tự ải tướng (1, 5, 10, 15, 20, 30 … 70). Mỗi hình lấy cả dòng tiến hóa chứa nó; Thanh Long (boss) thêm dạng siêu tiến hóa đầu tiên cho đủ 3 dạng. Tên, độ hiếm, thẻ là tạm; độ hiếm tăng theo ải như đảo Thủy.
+
+| Ải | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn (dạng 1 → 2 → 3) | Trạng thái |
+|---|---|---|---|---|---|---|
+| 1 | `tien_la` | Tiên Lá | Ánh lục giữa rừng | Thường | 648 绿光兽 → 649 绿光小灵 → 650 绿光精灵 | mới |
+| 5 | `hoa_nhuy` | Hoa Nhụy | Tiên hoa nhụy đỏ | Thường | 593 三叶兽 → 594 花苞兽 → 595 花蕊精灵 | mới |
+| 10 | `de_hoa` | Dê Hoa | Sừng gỗ vương miện hoa | Khá (từ Hiếm) | 866 花羊羊 → 867 木尔羊 → 868 阿瑞斯角羊 | giữ, thẻ mới |
+| 15 | `bom_la` | Bờm Lá | Chiến sư rừng xanh | Khá | 911 木叶小兽 → 912 木叶战狮 | mới |
+| 20 | `phong_linh` | Phong Linh | Linh tướng gió lá | Hiếm (từ Sử thi) | 943 小风灵 → 944 风之灵将 | giữ |
+| 30 | `gio_loc` | Gió Lốc | Rồng gió xé mây | Hiếm | 850 风 → 851 卷风 → 852 碎风 (hệ aola 19) | mới |
+| 40 | `long_vuot` | Long Vuốt | Rồng lá vuốt sắc | Sử thi | 1219 格非 → 1220 利爪格非 | mới (dòng của Thanh Long cũ) |
+| 50 | `tho_hoang` | Thỏ Hoàng | Chiến giáp hoàng cực | Sử thi | 2010 皇极兔 (siêu tiến hóa của dòng thỏ 1 → 3; 1 dạng) | mới |
+| 60 | `moc_tinh` | Mộc Tinh | Thú giáp pha lê lục | Sử thi | 1480 木小诺 → 1481 木星诺 | mới |
+| 70 | `thanh_long` | Thanh Long | Thần thú phương Đông | Huyền thoại | 214 青龙幼灵 → 215 青龙灵兽 → 1749 雷霆青龙 (hệ aola 15) | giữ id, đổi dòng |
+
+- Thỏ Hoàng dùng rig `goc_2010`, cùng rig với Thiền Sư Pháp Luân (`monk_2010`, Hỏa, đã vẽ lại). Siêu tiến hóa sau của 2010 là 3295 传奇终结兔 → 3534; chưa lấy.
+- Siêu tiến hóa chưa lấy: Phong Linh 2120 圣域·风灵将, Mộc Tinh 2408 超木星诺.
+- Tướng Mộc cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `mam_go` (quà ải 25 đảo Thủy), `nu_hoa` (tướng khởi đầu, thu phục ở ải 2 đảo Mộc), `kien_binh`, `banh_tet`, `giac_long`.
+
+Lính đảo Mộc (dạng aola hệ Cỏ chưa có trong danh sách tướng):
+
+| Lính | Bậc 1 | Bậc 2 | Vai |
+|---|---|---|---|
+| Bọ Sừng | 40 小角虫 | 41 木角虫 | trâu, như cua |
+| Sâu Uốn / Rắn Gai | 58 扭扭 (con sâu) | 59 扭扭蛇 | phản đòn, như cá nóc |
+| Chim Lá / Chim Lưu Ly | 82 木木鸟 | 83 琉璃鸟 | nhanh, như song ngư |
+
+Danh sách Mộc cũ (2026-10-31), giữ để đối chiếu:
 
 | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn | Trạng thái | Ảnh |
 |---|---|---|---|---|---|---|
@@ -123,7 +152,38 @@ Hệ Nước của aola có khoảng 100 dòng nhiều dạng. Dòng gốc dài 
 
 Dòng 929–931 là Triệu Vân (nhân vật lịch sử) nên bỏ.
 
-### Hỏa
+### Hỏa (chọn lại 2026-11-05 theo 10 hình người dùng gửi)
+
+Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phải là thứ tự ải tướng (1, 5, 10, 15, 20, 30 … 70). Mỗi hình lấy cả dòng tiến hóa chứa nó. Tên, độ hiếm, thẻ là tạm; độ hiếm tăng theo ải như đảo Mộc.
+
+| Ải | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn (dạng 1 → 2 → 3) | Trạng thái |
+|---|---|---|---|---|---|---|
+| 1 | `su_tu_lua` | Sư Tử Lửa | Bờm lửa nhỏ | Khá | 4 吉拉 → 5 吉拉狮 → 6 爆焰吉拉 (hình gửi là dạng 3) | giữ, tướng khởi đầu |
+| 5 | `khong_lo` | Khổng Lồ Lửa | Sừng lửa thân than | Thường | 46 火丁 → 47 火霍仔 → 48 火巨人 | mới |
+| 10 | `kim_su` | Kim Sư | Bờm lửa giáp vàng | Khá | 581 火火狮 → 582 烈火狮 → 583 雷欧火狮 | mới |
+| 15 | `nham_than` | Nham Thần | Chúa tể dung nham | Khá | 599 格纳 → 600 拉格纳 → 601 拉格纳罗斯 | mới |
+| 20 | `ho_lua` | Hồ Lửa | Ba đuôi hỏa hồ | Hiếm | 307 利飞 | **tạm**: hình gửi là 501 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa; người dùng để trống, sẽ tìm tướng khác |
+| 30 | `hong_lien` | Hồng Liên | Cánh lửa sen đỏ | Hiếm | 776 炎 → 777 绯炎 → 778 红莲 (hệ aola 19) | mới |
+| 40 | `giap_long` | Giáp Long | Gai thép lửa đỏ | Sử thi | 1231 鲁迪 → 1232 鲁曼 (hệ aola 16) | mới |
+| 50 | `huyen_viem` | Huyễn Viêm | Hồ lửa ảo ảnh | Sử thi | 1295 灵炎 → 1296 幻炎 → 2091 圣域·幻炎 (hình gửi là siêu tiến hóa; người dùng chọn lấy 3 dạng) | mới |
+| 60 | `hoa_tinh` | Hỏa Tinh | Thú giáp lửa hồng | Sử thi | 1466 火小诺 → 1467 火星诺 (như Mộc Tinh) | mới |
+| 70 | `lan_hoa` | Lân Hỏa | Thần thú ngàn năm | Huyền thoại | 1449 小瑞兽 → 1450 千年瑞兽 → 2828 祥瑞圣兽 (siêu tiến hóa, hệ aola 27) | mới, boss tiến hóa |
+
+- Tên dạng: Viên Than → Sừng Than → Khổng Lồ Lửa; Sư Con → Liệt Hỏa Sư → Kim Sư; Nham Con → Nham Hỏa → Nham Thần; Đốm Hồng → Phi Viêm → Hồng Liên; Giáp Long Con → Giáp Long; Linh Viêm → Huyễn Viêm → Thánh Huyễn Viêm; Tiểu Hỏa Tinh → Hỏa Tinh; Lân Con → Lân Ngàn Năm → Thánh Lân.
+- Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc.
+- Siêu tiến hóa chưa lấy: Hỏa Tinh 5329 烈焰奇迹-火星诺 (không có rig vector). Huyền thoại Hỏa theo Tứ Tượng trước là Chu Tước; nay boss đảo là Lân Hỏa theo hình người dùng gửi.
+- Tướng Hỏa cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `heo_lua`, `dom_lua`, `phao_tet`, `bo_de`, `phap_luan`, `chu_tuoc`. Hồ Lửa đứng tạm ở ải 20.
+- Hình: 22 dạng mới chưa xuất (`goc_batch`), vì máy sập giữa lượt xuất ngày 2026-11-05 (xem `12_KeHoach_OpenSpec.md`, mục "Prefab tướng").
+
+Lính đảo Hỏa (dạng aola hệ Lửa chưa có trong danh sách tướng; người dùng duyệt 2026-11-05):
+
+| Lính | Bậc 1 | Bậc 2 | Vai |
+|---|---|---|---|
+| Lò Lửa / Lò Quái | 64 小火炉 | 65 火炉怪 | trâu, như cua |
+| Nấm Lửa / Quái Nham | 13 炎蘑菇 | 14 熔炎怪 | phản đòn, như cá nóc |
+| Khỉ Lửa / Khỉ Hỏa Diệm | 291 火耳猴 | 292 火焰猴 | nhanh, như song ngư |
+
+Danh sách Hỏa cũ (2026-10-31), giữ để đối chiếu:
 
 | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn | Trạng thái | Ảnh |
 |---|---|---|---|---|---|---|

@@ -180,32 +180,35 @@ namespace PokiClash.Core
         public static StageDef NextStage(SaveData s, GameData d, Elem z) =>
             d.ZoneStages(z).FirstOrDefault(st => st.idx == s.zones[(int)z] + 1);
 
-        // bi mỗi ải: đảo sau cho nhiều hơn; lần đầu qua có thưởng thêm
+        // bi mỗi ải theo độ sâu trong đảo, như nhau ở mọi đảo (5 đảo chơi song song, người dùng sửa 2026-11-05; trước đó đảo sau cho
+        // thêm bi theo thứ tự đảo): đảo 70 ải BallsBase bi ở ải 1, cứ BallsStep ải thêm 1 bi; đảo 8 ải (tạm) quy số ải về thang 70 ải.
+        // Lần đầu qua ải tướng +2, mini boss +4, boss +8.
+        public const int BallsBase = 1, BallsStep = 14;
+
         public static int StageBalls(GameData d, StageDef st, bool first)
         {
-            int o = d.Zone(st.zone).order;
-            // đảo 70 ải: 1 bi (ải 1–35), 2 bi (ải 36–70), đảo sau thêm 2 bi mỗi đảo; lần đầu qua ải tướng +2, mini boss +4, boss +8
-            // (trước 2026-11-04 tính theo cấp địch; thang cấp 200 thì theo số ải)
-            if (st.tag != StageTag.None)
-            {
-                int b = 1 + o * 2 + (st.idx - 1) / 35;
-                return b + (first ? (st.kind == StageKind.Boss ? 8 : st.kind == StageKind.Mini ? 4 : st.tag == StageTag.Hero ? 2 : 0) : 0);
-            }
-            int bas = 3 + o * 4 + (st.idx - 1) / 2;
-            int bonus = first ? 5 + o * 2 + (st.kind == StageKind.Boss ? 7 : st.kind == StageKind.Mini ? 3 : 0) : 0;
-            return bas + bonus;
+            int n = Math.Max(2, Islands.Size(st.zone));
+            int depth = (st.idx - 1) * 69 / (n - 1); // 0..69
+            int b = BallsBase + depth / BallsStep;
+            return b + (first ? (st.kind == StageKind.Boss ? 8 : st.kind == StageKind.Mini ? 4 : st.tag == StageTag.Hero ? 2 : 0) : 0);
         }
 
         // ---------- độ khó, đảo gợi ý ----------
 
         public enum Difficulty { Easy, Fit, Hard, Wall, Done }
 
-        public static Difficulty DifficultyOf(ZoneDef z, int level, bool done)
+        // cấp địch của ải kế tiếp trong đảo z (0 nếu đã qua hết)
+        public static int NextLevel(SaveData s, GameData d, Elem z) => NextStage(s, d, z)?.enemies.Max(e => e.level) ?? 0;
+
+        // độ khó của đảo theo ải kế tiếp (5 đảo song song nên không xét theo khoảng cấp của đảo): hơn địch từ EasyMargin cấp là Dễ,
+        // bằng hoặc hơn là Vừa sức, thiếu tới LevelSlack cấp là Khó, thiếu nhiều hơn là Quá mạnh
+        public static Difficulty DifficultyOf(SaveData s, GameData d, ZoneDef z)
         {
-            if (done) return Difficulty.Done;
-            if (level >= z.levelMax) return Difficulty.Easy;
-            if (level >= z.levelMin) return Difficulty.Fit;
-            if (level >= z.levelMin - LevelSlack) return Difficulty.Hard;
+            if (ZoneDone(s, z.id)) return Difficulty.Done;
+            int lv = NextLevel(s, d, z.id);
+            if (s.level >= lv + EasyMargin) return Difficulty.Easy;
+            if (s.level >= lv) return Difficulty.Fit;
+            if (s.level >= lv - LevelSlack) return Difficulty.Hard;
             return Difficulty.Wall;
         }
 
@@ -222,21 +225,21 @@ namespace PokiClash.Core
         // thang cấp 200 (2026-11-04): ô 2 ở cấp 60 (giữa đảo Hỏa, như cấp 10 của thang cũ), ô 3 ở cấp 200 (cấp tối đa, như cấp 30 cũ)
         public static readonly int[] SlotLevels = { 1, 60, 200 };
 
-        // cấp dưới cận dưới của đảo vẫn tính là theo được (Khó, đảo gợi ý); thang cũ là 3
-        public const int LevelSlack = 15;
+        // thiếu tới LevelSlack cấp so với địch của ải kế vẫn tính là Khó (thiếu 6 cấp: tỉ lệ thắng còn 8–73% tùy kiểu ải); hơn từ
+        // EasyMargin cấp là Dễ
+        public const int LevelSlack = 6, EasyMargin = 10;
 
-        public static int TeamSlots(SaveData s) => SlotLevels.Count(lv => s.level >= lv);
+        public static int TeamSlots(SaveData s) => SlotsAt(s.level);
+        public static int SlotsAt(int level) => SlotLevels.Count(lv => level >= lv);
 
         // điều kiện mở ô đội i (0..2), hiện ở ô đang khoá: "mở khi …"
         public static string SlotNeed(int i) => i <= 0 || i >= SlotLevels.Length ? "" : $"đạt cấp {SlotLevels[i]}";
 
-        // đảo nên đánh: đảo chưa xong đầu tiên (theo thứ tự) mà người chơi theo được (cấp ≥ cận dưới − 3)
+        // đảo nên đánh: 5 đảo chơi song song, nên gợi ý đảo chưa xong có ải kế tiếp cấp thấp nhất (bằng nhau thì theo thứ tự đảo)
         public static ZoneDef RecommendedZone(SaveData s, GameData d)
         {
             var order = d.Zones.OrderBy(z => z.order).ToList();
-            return order.FirstOrDefault(z => !ZoneDone(s, z.id) && s.level >= z.levelMin - LevelSlack)
-                   ?? order.FirstOrDefault(z => !ZoneDone(s, z.id))
-                   ?? order[0];
+            return order.Where(z => !ZoneDone(s, z.id)).OrderBy(z => NextLevel(s, d, z.id)).FirstOrDefault() ?? order[0];
         }
 
         // hệ khắc hệ z (để gợi ý): Thủy khắc Hỏa...
@@ -268,15 +271,15 @@ namespace PokiClash.Core
         {
             int n = ZoneChestReady(s, z);
             if (n < 0) return null;
-            int o = d.Zone(z).order;
             int N = Islands.Chests(z).Length;
             bool big = n == N - 1;
-            // 2 rương (đảo 8 ải): 10 bi 2 thẻ, 20 bi 4 thẻ; 7 rương: 4, 5, 6 … bi, 1–2 thẻ, rương cuối 15 bi 4 thẻ
+            // như nhau ở mọi đảo (đảo song song): 2 rương (đảo 8 ải, tạm): 20 bi 2 thẻ, 40 bi 4 thẻ; 7 rương: 4, 7, 10 … bi (thêm 3 mỗi
+            // rương), 1–2 thẻ, rương cuối 35 bi 4 thẻ
             var r = new ZoneChest
             {
                 zone = z,
                 n = n,
-                balls = N == 2 ? (n == 0 ? 10 : 20) + o * (n == 0 ? 5 : 10) : (big ? 15 : 4 + n) + o * (big ? 10 : 5),
+                balls = N == 2 ? (n == 0 ? 20 : 40) : big ? 35 : 4 + 3 * n,
                 big = big,
             };
             int nCards = N == 2 ? (n == 0 ? 2 : 4) : big ? 4 : n < 3 ? 1 : 2;
@@ -309,8 +312,11 @@ namespace PokiClash.Core
         // ---------- công trình side meta ở rìa làng ----------
 
         public static bool FarmOpen(SaveData s) => s.heroes.Values.Count(h => h.owned) >= 3;
-        public static bool BadgesOpen(SaveData s) => ZoneDone(s, Elem.Thuy);
-        public static bool CaveOpen(SaveData s) => s.zones[(int)Elem.Hoa] >= 4;
+        // đảo song song (2026-11-05): Đền Huy Hiệu mở khi thắng mini boss đầu của một đảo bất kỳ (ải 20, đảo 8 ải là ải 4; trước đây là
+        // qua hết Đảo Thủy); Hang Tiềm Năng mở ở cấp CaveLevel (tầng Dễ cấp 29; trước đây là thắng mini boss Đảo Hỏa)
+        public const int CaveLevel = 30;
+        public static bool BadgesOpen(SaveData s) => Elements.All.Any(z => s.zones[(int)z] >= Islands.MiniAt(z));
+        public static bool CaveOpen(SaveData s) => s.level >= CaveLevel;
 
         public static StageReward WinStage(SaveData s, GameData d, int id, Rng rng)
         {

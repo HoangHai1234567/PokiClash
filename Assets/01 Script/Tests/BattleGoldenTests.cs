@@ -176,7 +176,8 @@ namespace PokiClash.Tests
             var full = HeroStats.Compute(d.Cfg, hero, st.enemies[0].level, Teams.EnemyStar(st.enemies[0].level), true, mods);
             // đội mạnh hơn hẳn để chắc đánh tới dạng cuối
             var p = new TeamSetup { name = "Bạn", ai = true };
-            foreach (var id in new[] { "huyen_vu", "ca_sa", "phap_luan" }) p.members.Add(new Member { heroId = id, level = 30, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
+            int lv = st.enemies[0].level; // ngang cấp boss (thang 200)
+            foreach (var id in new[] { "huyen_vu", "ca_sa", "phap_luan" }) p.members.Add(new Member { heroId = id, level = lv, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
             var log = new List<BattleEvent>();
             var b = Battle.Create(d, p, Teams.Enemy(st, d), 11);
             Assert.AreEqual(0, b.ActiveOf(1).form);

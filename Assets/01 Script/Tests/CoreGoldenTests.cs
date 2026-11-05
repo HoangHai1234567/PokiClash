@@ -19,6 +19,15 @@ namespace PokiClash.Tests
 
         public static GameData Load() => cached ??= GameData.FromJson(
             Read("Json/heroes.json"), Read("Json/cards.json"), Read("Json/zones.json"), Read("Json/stages.json"), Read("Json/balance.json"));
+
+        // bản sao của ải với mọi địch ở cấp lv: các trận so với bản web giữ đúng cấp địch lúc xuất golden (thang cấp đã đổi sau đó,
+        // 5 đảo song song từ 2026-11-05), để vẫn so cơ chế trận mà không phụ thuộc cấp của dữ liệu ải hiện tại
+        public static StageDef AtLevel(StageDef st, int lv)
+        {
+            var c = new StageDef { id = st.id, zone = st.zone, idx = st.idx, name = st.name, kind = st.kind, tag = st.tag, chapter = st.chapter, drops = st.drops };
+            foreach (var e in st.enemies) c.enemies.Add(new StageEnemy { hero = e.hero, level = lv, boss = e.boss, evo = e.evo, buff = e.buff });
+            return c;
+        }
     }
 
     public class CoreGoldenTests
@@ -51,7 +60,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var root = J.Obj(MiniJson.Parse(TestData.Read("Golden/cardtext.json")));
             var cards = J.Arr(root, "cards");
-            Assert.AreEqual(d.Pool.Count + d.Innate.Count + d.MinionCards.Count, cards.Count);
+            Assert.AreEqual(d.Pool.Count + d.Innate.Count + d.MinionCards.Count + d.Traits.Count, cards.Count); // kể cả bị động boss
             var fails = new List<string>();
             foreach (var x in cards)
             {
@@ -75,13 +84,13 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var err = d.Validate();
             Assert.IsEmpty(err, string.Join("\n", err));
-            Assert.AreEqual(45, d.Heroes.Count);
+            Assert.AreEqual(60, d.Heroes.Count);
             Assert.AreEqual(35, d.Pool.Count); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
-            Assert.AreEqual(136, d.Innate.Count); // 45 tướng × 3 + thẻ Tiến Hóa của boss
-            Assert.AreEqual(6, d.Minions.Count);
-            Assert.AreEqual(18, d.MinionCards.Count);
+            Assert.AreEqual(181, d.Innate.Count); // 60 tướng × 3 + thẻ Tiến Hóa của boss
+            Assert.AreEqual(18, d.Minions.Count);
+            Assert.AreEqual(54, d.MinionCards.Count);
             Assert.AreEqual(5, d.Zones.Count);
-            Assert.AreEqual(102, d.Stages.Count); // Đảo Thủy 70 ải, 4 đảo kia 8 ải
+            Assert.AreEqual(226, d.Stages.Count); // Đảo Thủy, Hỏa, Mộc 70 ải, 2 đảo kia 8 ải
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
             Assert.AreEqual(5, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03)

@@ -1,6 +1,7 @@
 // Đảo hệ so với bản web (golden): thưởng ải lần đầu và đánh lại, tặng tướng, rương mốc;
 // cùng luật mở ải lần lượt, độ khó, đảo gợi ý, điều kiện mở công trình side meta.
 // zones.json (ải 1 rơi mảnh): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -118,17 +119,20 @@ namespace PokiClash.Tests
         public void ThuongAi_CongThuc()
         {
             var d = TestData.Load();
-            // đảo 70 ải: 1 + (ải − 1)/35 bi, lần đầu ải tướng +2, mini boss +4, boss +8
+            // như nhau ở mọi đảo (đảo song song): 1 + (ải − 1)/14 bi, lần đầu ải tướng +2, mini boss +4, boss +8
             var boss = d.Stages.Find(x => x.zone == Elem.Thuy && x.kind == StageKind.Boss);
             Assert.AreEqual(70, boss.idx);
-            Assert.AreEqual(1 + 1 + 8, Progress.StageBalls(d, boss, true), "boss Thủy ải 70, lần đầu");
-            Assert.AreEqual(2, Progress.StageBalls(d, boss, false), "đánh lại boss Thủy");
+            Assert.AreEqual(5 + 8, Progress.StageBalls(d, boss, true), "boss Thủy ải 70, lần đầu");
+            Assert.AreEqual(5, Progress.StageBalls(d, boss, false), "đánh lại boss Thủy");
             Assert.AreEqual(1 + 2, Progress.StageBalls(d, d.Stage(1), true), "ải 1: ải tướng");
             Assert.AreEqual(1, Progress.StageBalls(d, d.Stage(3), true), "ải 3: ải lính");
-            // đảo 8 ải (Hỏa, thứ tự 1): 3 + 4 + (ải − 1)/2, lần đầu +5 + 2, boss +7
-            var hoaBoss = d.ZoneStages(Elem.Hoa).Last();
-            Assert.AreEqual(3 + 4 + 3 + 5 + 2 + 7, Progress.StageBalls(d, hoaBoss, true));
-            Assert.AreEqual(10, Progress.StageBalls(d, hoaBoss, false), "đánh lại boss Hỏa: 10 bi cơ bản");
+            var moc = d.ZoneStages(Elem.Moc).ToList();
+            Assert.AreEqual(Progress.StageBalls(d, boss, true), Progress.StageBalls(d, moc[69], true), "boss Mộc bằng boss Thủy");
+            Assert.AreEqual(2 + 4, Progress.StageBalls(d, moc[19], true), "mini boss Mộc ải 20");
+            // đảo 8 ải (tạm): số ải quy về thang 70 ải, ải 8 như ải 70
+            var kimBoss = d.ZoneStages(Elem.Kim).Last();
+            Assert.AreEqual(5 + 8, Progress.StageBalls(d, kimBoss, true));
+            Assert.AreEqual(5, Progress.StageBalls(d, kimBoss, false), "đánh lại boss Kim");
         }
 
         [Test]
@@ -136,16 +140,34 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
-            Assert.AreEqual(Progress.Difficulty.Fit, Progress.DifficultyOf(d.Zone(Elem.Thuy), 1, false), "Đảo Thủy: Vừa sức");
-            foreach (var e in new[] { Elem.Hoa, Elem.Kim, Elem.Moc, Elem.Tho })
-                Assert.AreEqual(Progress.Difficulty.Wall, Progress.DifficultyOf(d.Zone(e), 1, false), e + ": Quá mạnh!");
-            Assert.AreEqual(Elem.Thuy, Progress.RecommendedZone(s, d).id);
+            // 5 đảo song song: đảo nào cũng bắt đầu từ cấp 1, boss cuối 190–200
+            foreach (var z in d.Zones)
+            {
+                Assert.AreEqual(1, z.levelMin, z.name);
+                Assert.That(z.levelMax, Is.InRange(190, 200), z.name);
+                Assert.AreEqual(z.levelMax, d.ZoneStages(z.id).Max(st => st.enemies.Max(e => e.level)), z.name + ": boss cuối là cấp cao nhất");
+                Assert.AreEqual(Progress.Difficulty.Fit, Progress.DifficultyOf(s, d, z), z.name + ": ải 1 Vừa sức");
+            }
+            Assert.AreEqual(Elem.Thuy, Progress.RecommendedZone(s, d).id, "bằng cấp thì theo thứ tự đảo");
+            // độ khó theo ải kế tiếp: Thủy qua 8 ải
             s.zones[(int)Elem.Thuy] = 8;
-            s.level = 4;
-            Assert.AreEqual(Elem.Thuy, Progress.RecommendedZone(s, d).id, "Thủy mới 8/70 ải: vẫn gợi ý Thủy");
+            int next = Progress.NextLevel(s, d, Elem.Thuy);
+            Assert.AreEqual(d.ZoneStages(Elem.Thuy).First(st => st.idx == 9).enemies.Max(e => e.level), next);
+            s.level = next + Progress.EasyMargin;
+            Assert.AreEqual(Progress.Difficulty.Easy, Progress.DifficultyOf(s, d, d.Zone(Elem.Thuy)));
+            s.level = next;
+            Assert.AreEqual(Progress.Difficulty.Fit, Progress.DifficultyOf(s, d, d.Zone(Elem.Thuy)));
+            s.level = next - Progress.LevelSlack;
+            Assert.AreEqual(Progress.Difficulty.Hard, Progress.DifficultyOf(s, d, d.Zone(Elem.Thuy)));
+            s.level = next - Progress.LevelSlack - 1;
+            Assert.AreEqual(Progress.Difficulty.Wall, Progress.DifficultyOf(s, d, d.Zone(Elem.Thuy)));
+            Assert.AreNotEqual(Elem.Thuy, Progress.RecommendedZone(s, d).id, "Thủy đi trước: gợi ý đảo có ải kế cấp thấp hơn");
+            foreach (var e in Elements.All) s.zones[(int)e] = Math.Min(8, Islands.Size(e) - 1);
+            s.zones[(int)Elem.Moc] = 5;
+            Assert.AreEqual(Elem.Moc, Progress.RecommendedZone(s, d).id, "Mộc chậm nhất (ải kế cấp thấp nhất)");
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
-            Assert.AreEqual(Elem.Hoa, Progress.RecommendedZone(s, d).id, "xong Thủy, cấp 4: gợi ý Hỏa");
-            Assert.AreEqual("Đã chinh phục", Progress.DifficultyText(Progress.DifficultyOf(d.Zone(Elem.Thuy), 4, true)));
+            Assert.AreEqual("Đã chinh phục", Progress.DifficultyText(Progress.DifficultyOf(s, d, d.Zone(Elem.Thuy))));
+            Assert.AreEqual(0, Progress.NextLevel(s, d, Elem.Thuy));
             Assert.AreEqual(Elem.Tho, Progress.CounterOf(Elem.Thuy), "Thổ khắc Thủy");
         }
 
@@ -160,11 +182,15 @@ namespace PokiClash.Tests
             Progress.UnlockHero(s, "vo_su");
             Progress.UnlockHero(s, "nu_hoa");
             Assert.IsTrue(Progress.FarmOpen(s), "3 tướng mở Trang trại");
-            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
-            Assert.IsFalse(Progress.BadgesOpen(s), "chưa hạ boss Thủy");
-            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
-            Assert.IsTrue(Progress.BadgesOpen(s));
-            s.zones[(int)Elem.Hoa] = 4;
+            // Đền Huy Hiệu: thắng mini boss đầu của một đảo bất kỳ (đảo song song)
+            s.zones[(int)Elem.Moc] = Islands.MiniAt(Elem.Moc) - 1;
+            Assert.IsFalse(Progress.BadgesOpen(s), "chưa hạ mini boss Mộc");
+            s.zones[(int)Elem.Moc] = Islands.MiniAt(Elem.Moc);
+            Assert.IsTrue(Progress.BadgesOpen(s), "hạ mini boss Mộc (ải 20)");
+            // Hang Tiềm Năng: theo cấp người chơi
+            s.level = Progress.CaveLevel - 1;
+            Assert.IsFalse(Progress.CaveOpen(s));
+            s.level = Progress.CaveLevel;
             Assert.IsTrue(Progress.CaveOpen(s));
         }
     }

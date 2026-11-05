@@ -106,12 +106,14 @@ namespace PokiClash.Core
         public List<ProductDef> products = new List<ProductDef>();
     }
 
-    // Cây bi (Web/src/core/data/trees.ts): mỗi cây perHour bi/giờ, chứa tối đa cap; cây 1 mở khi qua ải 1, cây sau mở khi qua boss các đảo
+    // Cây bi (Web/src/core/data/trees.ts): mỗi cây perHour bi/giờ, chứa tối đa cap; cây 1 mở khi qua ải 1, cây sau mở theo cấp người
+    // chơi (unlockLevels; 5 đảo chơi song song nên từ 2026-11-05 không mở theo boss từng đảo nữa, cấp 40/80/120/160 là lúc trước kia
+    // xong Thủy, Hỏa, Kim, Mộc)
     [Serializable]
     public class TreesConfig
     {
         public double perHour = 5, cap = 50;
-        public List<Elem> unlockZones = new List<Elem>();
+        public List<int> unlockLevels = new List<int>();
     }
 
     // Trang trại (Web/src/core/data/farm.ts)
@@ -334,7 +336,7 @@ namespace PokiClash.Core
             if (tr != null)
             {
                 c.trees = new TreesConfig { perHour = J.Num(tr, "perHour"), cap = J.Num(tr, "cap") };
-                foreach (var z in J.Arr(tr, "unlockZones")) c.trees.unlockZones.Add(Keys.ToElem((string)z));
+                foreach (var lv in J.Arr(tr, "unlockLevels")) c.trees.unlockLevels.Add((int)(double)lv);
             }
             var adc = J.Obj(root, "ads");
             if (adc != null)

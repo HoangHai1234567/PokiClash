@@ -15,6 +15,7 @@ namespace PokiClash.Core
         public List<CardDef> Innate = new List<CardDef>(); // thẻ riêng (chiêu, tuyệt kỹ, bị động)
         public List<HeroDef> Minions = new List<HeroDef>(); // lính của ải: Hero(id) tìm được, nhưng không nằm trong Heroes (không thu phục)
         public List<CardDef> MinionCards = new List<CardDef>(); // chiêu, tuyệt kỹ, bị động của lính
+        public List<CardDef> Traits = new List<CardDef>(); // bị động boss của ải (StageEnemy.trait), 2026-11-05
         public List<ZoneDef> Zones = new List<ZoneDef>();
         public List<StageDef> Stages = new List<StageDef>();
         public BalanceConfig Cfg;
@@ -32,10 +33,18 @@ namespace PokiClash.Core
         public ZoneDef Zone(Elem e) => Zones.FirstOrDefault(z => z.id == e);
         public IEnumerable<StageDef> ZoneStages(Elem e) => Stages.Where(s => s.zone == e);
 
+        // ải thu phục tướng khởi đầu id ở đảo cùng hệ: ải đầu tiên trong ải 1–4 có nó là địch và lần đầu chắc chắn rơi mảnh (không phải quà)
+        public StageDef StarterStage(string id)
+        {
+            var h = Hero(id);
+            return h == null ? null : ZoneStages(h.elem).FirstOrDefault(s => s.idx <= 4 && s.enemies.Any(e => e.hero == id)
+                && s.drops.Any(dr => dr.hero == id && dr.chance >= 1 && !dr.gift));
+        }
+
         public GameData Index()
         {
             heroById = Heroes.Concat(Minions).ToDictionary(h => h.id);
-            cardById = Pool.Concat(Innate).Concat(MinionCards).ToDictionary(c => c.id);
+            cardById = Pool.Concat(Innate).Concat(MinionCards).Concat(Traits).ToDictionary(c => c.id);
             stageById = Stages.ToDictionary(s => s.id);
             Islands.Bind(this);
             return this;
@@ -57,6 +66,7 @@ namespace PokiClash.Core
             foreach (var x in J.Arr(c, "pool")) d.Pool.Add(ParseCard(J.Obj(x)));
             foreach (var x in J.Arr(c, "innate")) d.Innate.Add(ParseCard(J.Obj(x)));
             foreach (var x in J.Arr(c, "minions")) d.MinionCards.Add(ParseCard(J.Obj(x)));
+            foreach (var x in J.Arr(c, "traits")) d.Traits.Add(ParseCard(J.Obj(x)));
 
             var z = J.Obj(MiniJson.Parse(zonesJson));
             foreach (var x in J.Arr(z, "zones")) d.Zones.Add(ParseZone(J.Obj(x)));
@@ -177,6 +187,7 @@ namespace PokiClash.Core
                 s.enemies.Add(new StageEnemy
                 {
                     hero = J.Str(e, "hero"), level = J.Int(e, "level"), boss = J.Bool(e, "boss"), evo = J.Bool(e, "evo"), buff = J.Num(e, "buff"),
+                    trait = J.Str(e, "trait"),
                 });
             }
             foreach (var x in J.Arr(o, "drops"))
@@ -201,13 +212,13 @@ namespace PokiClash.Core
             {
                 if (got != want) err.Add($"{what}: có {got}, cần {want}");
             }
-            Expect(Heroes.Count, 45, "Số tướng"); // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02)
+            Expect(Heroes.Count, 60, "Số tướng"); // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02), Mộc thêm 7, Hỏa thêm 8 (2026-11-05)
             Expect(Pool.Count, 35, "Số thẻ chung"); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
-            Expect(Innate.Count, 136, "Số thẻ riêng"); // 45 tướng × 3 + thẻ Tiến Hóa của boss
-            Expect(Minions.Count, 6, "Số lính"); // 3 loại lính Đảo Thủy, mỗi loại 2 bậc (2026-11-03)
-            Expect(MinionCards.Count, 18, "Số thẻ của lính");
+            Expect(Innate.Count, 181, "Số thẻ riêng"); // 60 tướng × 3 + thẻ Tiến Hóa của boss
+            Expect(Minions.Count, 18, "Số lính"); // 3 loại lính mỗi đảo 70 ải (Thủy, Hỏa, Mộc), mỗi loại 2 bậc
+            Expect(MinionCards.Count, 54, "Số thẻ của lính");
             Expect(Zones.Count, 5, "Số đảo");
-            Expect(Stages.Count, 102, "Số ải"); // Đảo Thủy 70 ải, 4 đảo kia 8 ải
+            Expect(Stages.Count, 226, "Số ải"); // Đảo Thủy, Hỏa, Mộc 70 ải, 2 đảo kia 8 ải
             if (Cfg == null) err.Add("Thiếu cấu hình cân bằng");
 
             bool In01(Pt p) => p.x >= 0 && p.x <= 1 && p.y >= 0 && p.y <= 1;
@@ -241,10 +252,19 @@ namespace PokiClash.Core
             foreach (var h in Minions)
                 if (!h.minion) err.Add($"{h.name}: thiếu cờ lính");
             if (Cfg != null && Cfg.formStars.Length != 2) err.Add($"Mốc đổi dạng: có {Cfg.formStars.Length}, cần 2");
+            // bị động boss: thẻ bị động có kiểu kích hoạt (không dùng "lần đầu gục": boss không hồi sinh), chỉ gắn cho boss của ải
+            foreach (var c in Traits)
+                if (c.kind != CardKind.Passive || c.trigger == PassiveTrigger.None || c.trigger == PassiveTrigger.Death)
+                    err.Add($"Bị động boss {c.id}: phải là thẻ bị động, kích hoạt khác lần đầu gục");
             foreach (var s in Stages)
             {
                 foreach (var e in s.enemies)
+                {
                     if (Hero(e.hero) == null) err.Add($"Ải {s.id}: địch {e.hero} không có");
+                    if (string.IsNullOrEmpty(e.trait)) continue;
+                    if (!Traits.Exists(c => c.id == e.trait)) err.Add($"Ải {s.id}: bị động boss {e.trait} không có trong traits");
+                    if (!e.boss) err.Add($"Ải {s.id}: bị động boss {e.trait} gắn cho {e.hero} không phải boss");
+                }
                 foreach (var dr in s.drops)
                 {
                     if (Hero(dr.hero) == null || Hero(dr.hero).minion) err.Add($"Ải {s.id}: rơi {dr.hero} không phải tướng");
@@ -261,7 +281,8 @@ namespace PokiClash.Core
                 int tagged = st.Count(x => x.tag != StageTag.None);
                 if (tagged > 0 && tagged < st.Count) err.Add($"{z.name}: {st.Count - tagged} ải thiếu kiểu ải");
             }
-            // mỗi hệ một tướng khởi đầu, đứng ở ải 1 của đảo cùng hệ (15_TuongKhoiDau.md)
+            // mỗi hệ một tướng khởi đầu, là địch ở chặng đầu (ải 1–4) của đảo cùng hệ và lần đầu chắc chắn rơi mảnh (15_TuongKhoiDau.md).
+            // Thường đứng một mình ở ải 1; đảo Mộc (làm lại 2026-11-05) nhường ải 1 cho tướng người dùng chọn, Nụ Hoa đứng ở ải 2
             foreach (var id in Starters)
             {
                 var h = Hero(id);
@@ -271,9 +292,9 @@ namespace PokiClash.Core
                     continue;
                 }
                 if (Starters.Count(x => Hero(x)?.elem == h.elem) > 1) err.Add($"Tướng khởi đầu {h.name}: trùng hệ {Elements.Name(h.elem)}");
-                var first = Stages.FirstOrDefault(s => s.zone == h.elem && s.idx == 1);
-                if (first != null && (first.enemies.Count != 1 || first.enemies[0].hero != id))
-                    err.Add($"Ải 1 {Zone(h.elem)?.name}: cần đúng tướng khởi đầu {h.name}");
+                if (!ZoneStages(h.elem).Any()) continue;
+                if (StarterStage(id) == null)
+                    err.Add($"{Zone(h.elem)?.name}: tướng khởi đầu {h.name} phải là địch ở ải 1–4, lần đầu chắc chắn rơi mảnh");
             }
             return err;
         }

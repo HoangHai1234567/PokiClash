@@ -23,8 +23,8 @@ namespace PokiClash
         public static readonly (string name, string icon, string need, float dx, float dy)[] Buildings =
         {
             ("Trang trại", "seed", "Có 3 tướng để mở Trang trại", -0.27f, 0.035f),
-            ("Đền Huy Hiệu", "crown", "Thắng boss Đảo Thủy để mở Đền Huy Hiệu", 0.27f, 0.035f),
-            ("Hang Tiềm Năng", "rock", "Thắng mini boss Đảo Hỏa để mở Hang Tiềm Năng", 0f, 0.155f),
+            ("Đền Huy Hiệu", "crown", "Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu", 0.27f, 0.035f),
+            ("Hang Tiềm Năng", "rock", $"Đạt cấp {Progress.CaveLevel} để mở Hang Tiềm Năng", 0f, 0.155f),
             ("Cây bi", "leaf", "Qua ải 1 để có cây bi đầu tiên", -0.27f, 0.155f),
         };
 
@@ -90,7 +90,7 @@ namespace PokiClash
                 item.gameObject.SetActive(z != null);
                 if (z == null) continue;
                 int prog = s.zones[(int)z.id];
-                item.Bind(z, prog, Progress.DifficultyOf(z, s.level, Progress.ZoneDone(s, z.id)), z == recoZone);
+                item.Bind(z, prog, Progress.NextLevel(s, d, z.id), Progress.DifficultyOf(s, d, z), z == recoZone);
                 item.SetOnClick(() =>
                 {
                     App.Audio.Play("click");

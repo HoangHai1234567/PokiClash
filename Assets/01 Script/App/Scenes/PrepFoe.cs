@@ -61,9 +61,11 @@ namespace PokiClash
                 levelChip.Value.color = en.level > playerLevel + 2 ? Theme.RedD : Theme.Ink;
             }
             elem.Set(h.elem);
-            // dòng ghi chú: boss, cường hóa của ải (đảo 70 ải), lính
+            // dòng ghi chú: boss (kèm tên bị động boss nếu có, mô tả ở dòng gợi ý của hộp), cường hóa của ải (đảo 70 ải), lính
             string buff = en.buff > 0 ? $"Cường hóa +{Math.Round(en.buff * 100)}%" : en.buff < 0 ? $"Yếu hơn {Math.Round(-en.buff * 100)}%" : null;
-            string line = en.boss ? (buff != null ? $"Boss · {buff}" : "Boss") : buff ?? (h.minion ? "Lính, không thu phục" : null);
+            string trait = string.IsNullOrEmpty(en.trait) ? null : App.Data.Card(en.trait)?.name;
+            string head = trait != null ? $"Boss · {trait}" : "Boss";
+            string line = en.boss ? (buff != null ? $"{head} · {buff}" : head) : buff ?? (h.minion ? "Lính, không thu phục" : null);
             boss.SetActive(line != null);
             if (line == null) return;
             if (h.minion && !en.boss && en.buff != 0) line += " · lính";

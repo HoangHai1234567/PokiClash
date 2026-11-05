@@ -42,7 +42,7 @@ namespace PokiClash
         {
             for (int i = row.childCount - 1; i >= 0; i--) Destroy(row.GetChild(i).gameObject);
             var c = D.Cfg.trees;
-            int n = c.unlockZones.Count + 1;
+            int n = c.unlockLevels.Count + 1;
             trees = new TreeCell[n];
             for (int i = 0; i < n; i++)
             {
@@ -70,7 +70,7 @@ namespace PokiClash
             for (int i = 0; i < trees.Length; i++)
             {
                 if (i < st.Count) trees[i].SetOpen(st[i], cap);
-                else trees[i].SetLocked(i == 0 ? "Qua ải 1" : $"Boss\nĐảo {Elements.Name(cfg.trees.unlockZones[i - 1])}");
+                else trees[i].SetLocked(i == 0 ? "Qua ải 1" : $"Đạt\ncấp {cfg.trees.unlockLevels[i - 1]}");
             }
             harvestBtn.SetText(stock > 0 ? $"Hái +{stock}" : "Hái");
             harvestBtn.Interactable = stock > 0;

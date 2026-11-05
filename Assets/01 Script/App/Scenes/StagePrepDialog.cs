@@ -77,6 +77,7 @@ namespace PokiClash
         int foePower;
 
         const float FoePad = 12, FoeGap = 10; // lề trong khung đối thủ, khe giữa các hàng
+        const float FoeTitleH = 40; // cao đầu mục đối thủ một dòng (LayoutElement trong prefab)
 
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
@@ -140,13 +141,26 @@ namespace PokiClash
             }
             var foesLayout = p.foes.GetComponent<LayoutElement>();
             if (foesLayout) foesLayout.preferredHeight = y - FoeGap + FoePad;
-            // đầu mục đối thủ: luật tiến hóa (thẻ boss_evo) khi địch tiến hóa trong trận
+            // đầu mục đối thủ: luật tiến hóa (thẻ boss_evo) khi địch tiến hóa trong trận; bị động boss của ải (5 mốc cuối, 2026-11-05)
+            // ở dòng dưới, đầu mục giãn cao theo chữ
             if (foeTitle)
             {
                 var ec = d.Card(Battle.BossEvoCard);
                 double heal = ec.Effects.Count > 0 && ec.Effects[0].K == EffectKind.Evolve ? ec.Effects[0].Pct : 1;
-                foeTitle.text = evo ? $"Đối thủ · còn {CardText.Pct(ec.below)} máu thì tiến hóa, hồi {(heal >= 1 ? "đầy" : CardText.Pct(heal))} máu"
+                string head = evo ? $"Đối thủ · còn {CardText.Pct(ec.below)} máu thì tiến hóa, hồi {(heal >= 1 ? "đầy" : CardText.Pct(heal))} máu"
                     : "Đối thủ";
+                int ti = st.enemies.FindIndex(e => !string.IsNullOrEmpty(e.trait));
+                if (ti >= 0 && d.Card(st.enemies[ti].trait) is CardDef tc)
+                    head += $"\n<size=85%><color=#{ColorUtility.ToHtmlStringRGB(Theme.Red)}>{tc.name}:</color> " +
+                            $"{CardText.Text(tc, foes[ti].cardPassive, d.Cfg.cardLvStep)}</size>";
+                foeTitle.text = head;
+                var le = foeTitle.GetComponent<LayoutElement>();
+                if (le)
+                {
+                    // bề rộng như khung đối thủ ngay dưới (khung chữ của đầu mục chưa được bố cục kéo giãn lúc này, còn 200 như prefab)
+                    float w = p.foes.rect.width > 300 ? p.foes.rect.width : 880;
+                    le.preferredHeight = Mathf.Max(FoeTitleH, Mathf.Ceil(foeTitle.GetPreferredValues(head, w, 0).y) + 4);
+                }
             }
 
             Rewards(d, s);

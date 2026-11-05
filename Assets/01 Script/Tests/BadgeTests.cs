@@ -75,7 +75,7 @@ namespace PokiClash.Tests
             {
                 var o = J.Obj(x);
                 int i = J.Int(o, "i");
-                var stage = Badges.Stage(d, Elem.Thuy, 1, i);
+                var stage = TestData.AtLevel(Badges.Stage(d, Elem.Thuy, 1, i), J.Int(o, "foeLevel"));
                 var team = Teams.Player(s, null, d);
                 team.ai = true;
                 var b = Battle.Create(d, team, Teams.Enemy(stage, d), Badges.Seed(d, Elem.Thuy, 1, i), 9, System.Math.Max(9, stage.enemies[0].level));

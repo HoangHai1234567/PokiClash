@@ -25,8 +25,8 @@ Nền của scene Hub và 5 scene đảo hệ (spec `world-map`, `zone-stages`).
 |---|---|
 | `pieces/` | Đảo gen rời (`isle_<hệ>.png`, `isle_lang.png`) và biển lặp `SEA_Tile.png`: nguồn để ghép sảnh |
 | `inbox/` | Ảnh để menu `PokiClash/Nhập ảnh ArtGen` chép vào game: `ANIM_Sheet.png` (cắt thành `anim_<tên>`) |
-| `zones/` | Bản đồ đảo hệ GPT trả về (`zone_<hệ>.png`, khổ 2:3): Claude cắt dải 9:16 rồi mới đưa vào game. `zones/thuy70/`: ảnh bản đồ dài đảo Thủy 70 ải (`tai_ve/` ảnh GPT trả về, `doan_<k>.png` đoạn đã duyệt) |
-| `gui_gpt/zone_thuy_70/` | Gói gửi GPT bản đồ dài đảo Thủy 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70.py` |
+| `zones/` | Bản đồ đảo hệ GPT trả về (`zone_<hệ>.png`, khổ 2:3): Claude cắt dải 9:16 rồi mới đưa vào game. `zones/thuy70/`, `zones/moc70/`: ảnh bản đồ dài đảo Thủy, đảo Mộc 70 ải (`tai_ve/` ảnh GPT trả về, `doan_<k>.png` đoạn đã duyệt) |
+| `gui_gpt/zone_thuy_70/`, `gui_gpt/zone_moc_70/` | Gói gửi GPT bản đồ dài đảo Thủy, đảo Mộc 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70.py`, `build_zone70_moc.py` |
 | `refs/` | Ảnh mốc, ảnh không dùng nữa (`tach_roi/`) |
 | `../guides/` | Ảnh bố cục bản đồ đảo hệ `L_zone_<hệ>.png`, toạ độ ải dự kiến `zone_nodes.json` |
 
@@ -187,6 +187,23 @@ Mọi lớp động dùng hiệu ứng nét rung sẵn có của UI; dừng ở 
   - `plates`: bên đặt bảng tên, chọn bên chồng ít lên địa danh hơn.
 - Màn đảo (`ZoneScene`): đảo có `path` thì bản đồ rộng 1,27 màn, đường mòn theo `path`, bệ cỡ thật ở `stops`; chấm ải rải đều giữa hai bệ (92 px khung 1080).
 - `compose_islands.py` thấy `zones/thuy70/zone_thuy70.png` thì không đè ảnh, phần động và toạ độ ải của đảo Thủy.
+
+### Đảo Mộc 70 ải: bản đồ dài 3 đoạn (2026-11-05)
+
+Cùng khuôn đảo Thủy (cỡ 1024 × 4288, 3 đoạn chồng 160 px, đường cát 104 px, cùng độ cao 10 ải tướng). Script [build_zone70_moc.py](build_zone70_moc.py) dùng lại phần chung của `build_zone70.py` (không sửa file đó), gói ở `gui_gpt/zone_moc_70/`, ảnh ở `zones/moc70/`, bố cục `../guides/L_zone70_moc.png`, toạ độ `../guides/zone70_moc.json`. Lệnh như đảo Thủy: `--duyet k`, `--ghep`, `--xuat`.
+
+Khác đảo Thủy:
+- Đường lượn sang trái trước (soi gương), để hai đảo không trùng dáng.
+- Nước: biển ở bờ rêu đáy và dải mép trên; suối chạy ngang, cầu gỗ quấn dây leo ngay trước ải 15 (chặng 4); hồ lá sen có lạch ra mép (chặng 6).
+- Địa danh theo tên chặng ở `GD_Claude/14_HeThongAi.md`: đá rêu và thuyền rêu, đồng hoa chuông, đồi nấm, cầu dây leo, hang nanh đá, hồ lá sen, vách vết vuốt, rừng trúc và miếu, hang pha lê lục, cây thần sau bãi đấu boss.
+- Ảnh mẫu lượt 1: đoạn 1 bản đồ dài đảo Thủy đã duyệt (lấy nét và cách dựng; nét bản đồ đảo đã chốt ở đó), bản đồ Mộc 8 ải cũ (lấy màu, dáng đồ vật). Lượt 2, 3 thêm bản đồ cũ để GPT thấy dáng hang nanh, cây thần.
+- `--xuat` thay `Assets/03 Art/Islands/zone_moc.png` (bản đồ 8 ải cũ), ghi khoá `zone_moc` trong `island_anim.json` (lá rơi, gió ở hang nanh, lấp lánh ở đồng hoa, hang pha lê, miếu cây thần, gợn hồ, sóng, gợn dọc suối và lạch), đường trong `zones.json`. `compose_islands.py` thấy `zones/moc70/zone_moc70.png` thì không đè đảo Mộc.
+- `zone70_moc.json` cũng là nguồn cắt ảnh địa danh cho gói nền trận đảo Mộc (`../BattleBG/build_moc.py`).
+
+**Đã gen, duyệt 3 đoạn (2026-11-05).** Khác đảo Thủy, GPT không giữ nguyên dải dán mà vẽ lại: đoạn 2 cùng chỗ, đoạn 3 vẽ dải lùi lên 33 px. Đường lệch bố cục trung bình 6 px ở đoạn 1, 34 px ở đoạn 2 (có khúc 100 px). Vì vậy:
+- `--ghep` dò dời dọc của mỗi đoạn trên cho dải chồng khớp, cắt giữa dải chồng, trộn 24 hàng hai bên; ghi `zones/moc70/ghep.json`. Đoạn 3 dời xuống 33 px (33 hàng biển trên cùng lấy hàng đầu của đoạn).
+- `--that` dò lại trên bản đồ ghép: tâm đường theo hàng (bắt lại sau cầu), 10 bãi ải là chỗ bề rộng mặt cát đo vuông góc vượt 140 px (đường khoảng 104 px), suối và lạch theo mặt nước; ghi `zones/moc70/that.json` và ảnh soi `soi_that.png`. Địa danh đo tay trên bản đồ ghép (`SPOTS_REAL`).
+- `--xuat [thư_mục_thử]` dùng `that.json` (đường dừng ở giữa bãi đấu boss) thay cho đường dự kiến.
 
 Phần dưới là cách cũ (ảnh bố cục `L_zone_*` + prompt nhiều tầng), giữ để tham khảo khi muốn bản đồ giàu địa hình hơn.
 

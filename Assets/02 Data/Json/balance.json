@@ -562,11 +562,11 @@
  "trees": {
   "perHour": 5,
   "cap": 50,
-  "unlockZones": [
-   "thuy",
-   "hoa",
-   "kim",
-   "moc"
+  "unlockLevels": [
+   30,
+   50,
+   80,
+   110
   ]
  },
  "ads": {

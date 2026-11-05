@@ -2,6 +2,8 @@
 // đánh lại, đội địch từng ải (cấp, sao, thẻ, boss, phần cộng của địch khớp từng bit); lính tìm được nhưng không thu phục.
 // Cập nhật bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md): sức địch đảo Thủy từ ải 4, ải 1 đảo Hỏa và Thổ.
 // Cập nhật 2026-11-04 (cấp địch theo cấp người chơi, 14_HeThongAi.md): đảo Thủy cấp 1–15, các đảo sau dời lên 15–30.
+// Cập nhật 2026-11-05: đảo Mộc thành 70 ải (Editor/IslandGen.cs), golden tính lại bằng menu "Tính lại golden islands.json".
+using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;
@@ -28,7 +30,9 @@ namespace PokiClash.Tests
                 Assert.AreEqual((int)(double)lv[1], d.Zone(z).levelMax, Keys.Of(z));
             }
             Assert.IsTrue(Islands.IsLong(Elem.Thuy));
-            Assert.IsFalse(Islands.IsLong(Elem.Hoa));
+            Assert.IsTrue(Islands.IsLong(Elem.Moc));
+            Assert.IsTrue(Islands.IsLong(Elem.Hoa));
+            Assert.IsFalse(Islands.IsLong(Elem.Kim));
         }
 
         [Test]
@@ -64,6 +68,7 @@ namespace PokiClash.Tests
                     Assert.AreEqual((int)(double)cards[2], m.cardPassive, at2);
                     Assert.AreEqual(J.Bool(w, "boss"), m.boss, at2 + " boss");
                     Assert.AreEqual(J.Bool(w, "evo"), m.evo, at2 + " tiến hóa");
+                    Assert.AreEqual(J.Str(w, "trait"), m.trait, at2 + " bị động boss");
                     var mods = J.Obj(w, "mods");
                     if (mods == null)
                     {
@@ -77,6 +82,57 @@ namespace PokiClash.Tests
                     Assert.AreEqual(J.Num(mods, "spd"), m.mods.spd, at2 + " tốc");
                 }
             }
+        }
+
+        // bị động boss (người dùng dặn 2026-11-05): chỉ mini boss, boss ở 5 mốc cuối (ải 30–70); boss cuối đảo chắc chắn có; không phải
+        // con nào cũng có; con có bị động chỉ số (cường hóa) thấp hơn con không có; trong trận bị động boss chạy như bị động thường
+        [Test]
+        public void BiDongBoss_5MocCuoi()
+        {
+            var d = TestData.Load();
+            foreach (var z in new[] { Elem.Thuy, Elem.Moc })
+            {
+                var heads = d.ZoneStages(z).Where(st => st.tag == StageTag.Hero && st.idx >= 30).ToList();
+                Assert.AreEqual(5, heads.Count, z + ": 5 mốc cuối");
+                Assert.AreEqual(StageKind.Boss, heads[4].kind);
+                Assert.IsNotNull(heads[4].enemies[0].trait, z + ": boss cuối đảo phải có bị động");
+                var with = heads.Where(st => st.kind == StageKind.Mini && st.enemies[0].trait != null).ToList();
+                var without = heads.Where(st => st.enemies[0].trait == null).ToList();
+                Assert.IsNotEmpty(with, z + ": có mini boss mang bị động");
+                Assert.IsNotEmpty(without, z + ": có mini boss không bị động");
+                Assert.Less(with.Max(st => st.enemies[0].buff), without.Min(st => st.enemies[0].buff), z + ": có bị động thì cường hóa thấp hơn");
+                foreach (var st in d.ZoneStages(z).Where(st => st.idx < 30))
+                    Assert.IsTrue(st.enemies.All(e => e.trait == null), $"{z} ải {st.idx}: chỉ 5 mốc cuối có bị động");
+            }
+            foreach (var c in d.Traits)
+            {
+                Assert.AreEqual(CardKind.Passive, c.kind, c.id);
+                Assert.IsNotNull(d.Hero(c.owner), c.id);
+                Assert.IsTrue(d.Stages.Any(st => st.enemies.Any(e => e.trait == c.id && e.hero == c.owner)), c.id + " gắn cho đúng tướng");
+            }
+            // trận thật ở ải boss Mộc: bị động boss (phản đòn khi bị đánh) có chạy, và chỉ boss mới chạy
+            var boss = d.ZoneStages(Elem.Moc).Last();
+            var tr = boss.enemies[0].trait;
+            var p = new TeamSetup { name = "Bạn", ai = true };
+            foreach (var id in new[] { "bu_long", "meo_quyen" })
+                p.members.Add(new Member { heroId = id, level = boss.enemies[0].level, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
+            int fired = 0;
+            for (uint seed = 1; seed <= 10; seed++)
+            {
+                var log = new List<BattleEvent>();
+                BattleSim.Run(Battle.Create(d, p, Teams.Enemy(boss, d), seed), 0.15, log);
+                foreach (var e in log.Where(e => e.t == EvType.Passive && e.card == tr))
+                {
+                    Assert.AreEqual(1, e.side, "bị động boss chỉ ở bên địch");
+                    fired++;
+                }
+            }
+            Assert.Greater(fired, 0, "bị động boss chạy trong trận");
+            // dữ liệu trong game nạp từ asset Unity, nơi chuỗi null thành "": coi như không có bị động boss, trận vẫn chạy
+            var plain = TestData.AtLevel(d.Stage(1), 1);
+            foreach (var e in plain.enemies) e.trait = "";
+            Assert.IsNull(Teams.Enemy(plain, d).members[0].trait);
+            Assert.DoesNotThrow(() => BattleSim.Run(Battle.Create(d, p, Teams.Enemy(plain, d), 1)));
         }
 
         [Test]

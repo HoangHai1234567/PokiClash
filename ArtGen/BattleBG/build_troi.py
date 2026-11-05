@@ -72,10 +72,16 @@ UP = {
             "rims, the sky becoming deeper violet-blue towards the very top. No light beam (the game animates it).",
             "mái nón đỏ của hải đăng bên trái bị cắt ở mép cũ: vẽ nốt tới chóp; trời hoàng hôn bão tiếp lên, mây tím xám viền "
             "hồng cam, lên cao tím xanh đậm dần; không vẽ tia đèn"),
+    # 2026-11-05: hai bản đầu vẽ lặp mảng rêu và vách ngay trên mép cũ (gãy ngang qua vách và hai thác): dặn rõ chỗ nối
     "m30": ("The big mossy grey cliff and its two waterfalls pour from above the old top edge: continue the cliff and both "
             "waterfalls upward, the same width and place, to the cliff top (a mossy edge with ferns, round bushes and a palm "
             "tree) where the water spills over, about y 200-320 of your image; above the cliff and on the right the cool fresh "
-            "morning sky continues upward (soft silver-blue, a few soft white clouds), a little deeper blue towards the very top.",
+            "morning sky continues upward (soft silver-blue, a few soft white clouds), a little deeper blue towards the very top. "
+            "THE JOIN AT y 656 IS THE HARD PART: look at the first rows of image 1 and continue exactly those shapes upward. The two "
+            "waterfall streams keep their exact left and right edges and their white streaks run straight up across the join; the "
+            "rock outlines and cracks that touch the old top edge carry on upward from the same points. The big moss patch with "
+            "hanging vines just below the old top edge is NOT repeated: right above the join the cliff is plain grey rock with a "
+            "few cracks and small tufts, then the mossy cliff top. Never copy or mirror any strip of the old picture above it.",
             "vách đá rêu và hai dòng thác chảy từ trên mép cũ: vẽ tiếp lên tới đỉnh vách (rêu, dương xỉ, bụi, cây cọ) chỗ nước "
             "đổ xuống; trên đó và bên phải là trời sáng sớm xanh bạc, vài đám mây"),
     "m40": ("The magical twilight sky continues upward: the same violet-blue sky, becoming deeper indigo towards the very top, "

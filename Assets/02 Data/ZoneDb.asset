@@ -19,7 +19,7 @@ MonoBehaviour:
     sub: "\u0110\u1EA7m ph\xE1, th\xE1c b\u1EA1c v\xE0 xo\xE1y n\u01B0\u1EDBc \u0111inh
       ba"
     levelMin: 1
-    levelMax: 40
+    levelMax: 195
     art: zone_thuy
     skyTop: '#bfe6f5'
     skyBottom: '#f4f1dc'
@@ -410,8 +410,8 @@ MonoBehaviour:
     order: 1
     name: "\u0110\u1EA3o H\u1ECFa"
     sub: "Dung nham, ch\xF9a sen l\u1EEDa v\xE0 mi\u1EC7ng n\xFAi ch\xE1y"
-    levelMin: 41
-    levelMax: 80
+    levelMin: 1
+    levelMax: 198
     art: zone_hoa
     skyTop: '#f7c9a8'
     skyBottom: '#fbe9d0'
@@ -420,18 +420,22 @@ MonoBehaviour:
     nodes:
     - x: 0.408
       y: 0.9
-    - x: 0.507
-      y: 0.814
-    - x: 0.428
-      y: 0.701
-    - x: 0.483
-      y: 0.575
-    - x: 0.59
-      y: 0.483
-    - x: 0.534
-      y: 0.372
-    - x: 0.466
-      y: 0.266
+    - x: 0.489
+      y: 0.83
+    - x: 0.46
+      y: 0.746
+    - x: 0.449
+      y: 0.654
+    - x: 0.499
+      y: 0.562
+    - x: 0.58
+      y: 0.492
+    - x: 0.548
+      y: 0.4
+    - x: 0.493
+      y: 0.309
+    - x: 0.482
+      y: 0.212
     - x: 0.513
       y: 0.11
     path: []
@@ -444,8 +448,8 @@ MonoBehaviour:
     order: 2
     name: "\u0110\u1EA3o Kim"
     sub: "N\xFAi th\xE9p, c\u1EA7u b\xE1nh r\u0103ng v\xE0 th\xE1p chu\xF4ng \u0111\u1ED3ng"
-    levelMin: 81
-    levelMax: 120
+    levelMin: 1
+    levelMax: 200
     art: zone_kim
     skyTop: '#d6dee8'
     skyBottom: '#f1efe6'
@@ -478,8 +482,8 @@ MonoBehaviour:
     order: 3
     name: "\u0110\u1EA3o M\u1ED9c"
     sub: "R\u1EEBng n\u1EA5m, d\xE2y leo v\xE0 c\xE2y th\u1EA7n ng\xE0n n\u0103m"
-    levelMin: 121
-    levelMax: 160
+    levelMin: 1
+    levelMax: 190
     art: zone_moc
     skyTop: '#cfeec0'
     skyBottom: '#f4f1dc'
@@ -488,18 +492,22 @@ MonoBehaviour:
     nodes:
     - x: 0.495
       y: 0.866
-    - x: 0.404
-      y: 0.773
-    - x: 0.5
-      y: 0.669
-    - x: 0.602
-      y: 0.583
-    - x: 0.494
-      y: 0.493
-    - x: 0.379
-      y: 0.403
-    - x: 0.481
-      y: 0.306
+    - x: 0.419
+      y: 0.788
+    - x: 0.463
+      y: 0.709
+    - x: 0.541
+      y: 0.634
+    - x: 0.579
+      y: 0.564
+    - x: 0.496
+      y: 0.495
+    - x: 0.41
+      y: 0.428
+    - x: 0.429
+      y: 0.356
+    - x: 0.491
+      y: 0.271
     - x: 0.52
       y: 0.166
     path: []
@@ -513,8 +521,8 @@ MonoBehaviour:
     name: "\u0110\u1EA3o Th\u1ED5"
     sub: "V\xE1ch \u0111\u1EA5t nung, ru\u1ED9ng b\u1EADc thang v\xE0 kim t\u1EF1
       vi\u1EC7n"
-    levelMin: 161
-    levelMax: 200
+    levelMin: 1
+    levelMax: 196
     art: zone_tho
     skyTop: '#f6dfae'
     skyBottom: '#fbf0d8'
@@ -557,6 +565,7 @@ MonoBehaviour:
       boss: 0
       evo: 0
       buff: -0.2
+      trait: 
     drops:
     - hero: giot_suong
       chance: 1
@@ -574,10 +583,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: linh_cua
-      level: 2
+      level: 6
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops: []
   - id: 3
     zone: 2
@@ -588,15 +598,17 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: linh_cua
-      level: 3
+      level: 11
       boss: 0
       evo: 0
       buff: -0.25
+      trait: 
     - hero: linh_cua
-      level: 3
+      level: 11
       boss: 0
       evo: 0
       buff: -0.25
+      trait: 
     drops:
     - hero: vo_su
       chance: 1
@@ -614,10 +626,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: linh_cua
-      level: 4
+      level: 14
       boss: 0
       evo: 0
       buff: 0.35
+      trait: 
     drops: []
   - id: 5
     zone: 2
@@ -628,10 +641,11 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 4
+      level: 18
       boss: 0
       evo: 1
       buff: 0.15
+      trait: 
     drops:
     - hero: tieu_y
       chance: 1
@@ -649,15 +663,17 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: linh_cua
-      level: 5
+      level: 22
       boss: 0
       evo: 0
       buff: 0.1
+      trait: 
     - hero: linh_cua
-      level: 5
+      level: 22
       boss: 0
       evo: 0
       buff: 0.1
+      trait: 
     drops: []
   - id: 7
     zone: 2
@@ -668,10 +684,11 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 6
+      level: 25
       boss: 0
       evo: 0
       buff: 0.12
+      trait: 
     drops:
     - hero: tieu_y
       chance: 0.3
@@ -689,15 +706,17 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 7
+      level: 29
       boss: 0
       evo: 0
       buff: 0.15
+      trait: 
     - hero: linh_cua
-      level: 7
+      level: 29
       boss: 0
       evo: 0
       buff: 0.15
+      trait: 
     drops:
     - hero: tieu_y
       chance: 0.3
@@ -715,15 +734,17 @@ MonoBehaviour:
     chapter: 1
     enemies:
     - hero: tieu_y
-      level: 7
+      level: 32
       boss: 0
       evo: 0
       buff: 0.35
+      trait: 
     - hero: linh_cua
-      level: 7
+      level: 32
       boss: 0
       evo: 0
       buff: 0.2
+      trait: 
     drops:
     - hero: tieu_y
       chance: 0.44999999999999996
@@ -741,10 +762,11 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: canh_cut
-      level: 8
+      level: 35
       boss: 0
       evo: 1
       buff: 0.15
+      trait: 
     drops:
     - hero: canh_cut
       chance: 1
@@ -762,15 +784,17 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: linh_noc
-      level: 9
+      level: 39
       boss: 0
       evo: 0
       buff: 0.1
+      trait: 
     - hero: linh_cua
-      level: 9
+      level: 39
       boss: 0
       evo: 0
       buff: 0.1
+      trait: 
     drops: []
   - id: 12
     zone: 2
@@ -781,10 +805,11 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: canh_cut
-      level: 9
+      level: 42
       boss: 0
       evo: 0
       buff: 0.12
+      trait: 
     drops:
     - hero: canh_cut
       chance: 0.3
@@ -802,15 +827,17 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: tieu_y
-      level: 10
+      level: 45
       boss: 0
       evo: 0
       buff: 0.15
+      trait: 
     - hero: linh_noc
-      level: 10
+      level: 45
       boss: 0
       evo: 0
       buff: 0.15
+      trait: 
     drops:
     - hero: tieu_y
       chance: 0.3
@@ -828,15 +855,17 @@ MonoBehaviour:
     chapter: 2
     enemies:
     - hero: canh_cut
-      level: 10
+      level: 48
       boss: 0
       evo: 0
       buff: 0.35
+      trait: 
     - hero: linh_cua
-      level: 10
+      level: 48
       boss: 0
       evo: 0
       buff: 0.2
+      trait: 
     drops:
     - hero: canh_cut
       chance: 0.44999999999999996
@@ -854,10 +883,11 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: mi_nhi
-      level: 11
+      level: 51
       boss: 0
       evo: 1
       buff: 0.15
+      trait: 
     drops:
     - hero: mi_nhi
       chance: 1
@@ -875,15 +905,17 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: linh_cua
-      level: 12
+      level: 54
       boss: 0
       evo: 0
       buff: 0.1
+      trait: 
     - hero: linh_noc
-      level: 12
+      level: 54
       boss: 0
       evo: 0
       buff: 0.1
+      trait: 
     drops: []
   - id: 17
     zone: 2
@@ -894,10 +926,11 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: mi_nhi
-      level: 12
+      level: 57
       boss: 0
       evo: 0
       buff: 0.12
+      trait: 
     drops:
     - hero: mi_nhi
       chance: 0.25
@@ -915,15 +948,17 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: canh_cut
-      level: 13
+      level: 60
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     - hero: linh_cua
-      level: 13
+      level: 60
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     drops:
     - hero: canh_cut
       chance: 0.3
@@ -941,15 +976,17 @@ MonoBehaviour:
     chapter: 3
     enemies:
     - hero: mi_nhi
-      level: 13
+      level: 63
       boss: 0
       evo: 0
-      buff: 0.35
+      buff: 0.8
+      trait: 
     - hero: linh_noc
-      level: 13
+      level: 63
       boss: 0
       evo: 0
-      buff: 0.2
+      buff: 0.65
+      trait: 
     drops:
     - hero: mi_nhi
       chance: 0.375
@@ -967,10 +1004,11 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 14
+      level: 66
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.4
+      trait: 
     drops:
     - hero: ma_ket
       chance: 1
@@ -988,15 +1026,17 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: linh_cua
-      level: 15
+      level: 69
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: linh_noc
-      level: 15
+      level: 69
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 22
     zone: 2
@@ -1007,10 +1047,11 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 15
+      level: 72
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.72
+      trait: 
     drops:
     - hero: ma_ket
       chance: 0.2
@@ -1028,15 +1069,17 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: mi_nhi
-      level: 16
+      level: 74
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     - hero: linh_ngu
-      level: 16
+      level: 74
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     drops:
     - hero: mi_nhi
       chance: 0.25
@@ -1054,20 +1097,23 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: linh_cua
-      level: 16
+      level: 77
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_noc
-      level: 16
+      level: 77
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_cua
-      level: 16
+      level: 77
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     drops: []
   - id: 25
     zone: 2
@@ -1078,15 +1124,17 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 17
+      level: 80
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: canh_cut
-      level: 17
+      level: 80
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops:
     - hero: mam_go
       chance: 1
@@ -1118,10 +1166,11 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 17
+      level: 83
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.85
+      trait: 
     drops:
     - hero: ma_ket
       chance: 0.2
@@ -1139,15 +1188,17 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: linh_noc
-      level: 18
+      level: 86
       boss: 0
       evo: 0
-      buff: 0.5
+      buff: 0.95
+      trait: 
     - hero: linh_cua
-      level: 18
+      level: 86
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 28
     zone: 2
@@ -1158,20 +1209,23 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 19
+      level: 88
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_noc
-      level: 19
+      level: 88
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_ngu
-      level: 19
+      level: 88
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     drops:
     - hero: ma_ket
       chance: 0.2
@@ -1189,15 +1243,17 @@ MonoBehaviour:
     chapter: 4
     enemies:
     - hero: ma_ket
-      level: 19
+      level: 91
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     - hero: mi_nhi
-      level: 19
+      level: 91
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     drops:
     - hero: ma_ket
       chance: 0.30000000000000004
@@ -1222,10 +1278,11 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 20
+      level: 94
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.5
+      trait: 
     drops:
     - hero: vay_lam
       chance: 1
@@ -1243,15 +1300,17 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: linh_noc
-      level: 20
+      level: 97
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: linh_ngu
-      level: 20
+      level: 97
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 32
     zone: 2
@@ -1262,10 +1321,11 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 21
+      level: 99
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.72
+      trait: 
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1283,15 +1343,17 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: ma_ket
-      level: 21
+      level: 102
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     - hero: linh_cua
-      level: 21
+      level: 102
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     drops:
     - hero: ma_ket
       chance: 0.2
@@ -1309,20 +1371,23 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: linh_noc
-      level: 22
+      level: 105
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_ngu
-      level: 22
+      level: 105
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_noc
-      level: 22
+      level: 105
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     drops: []
   - id: 35
     zone: 2
@@ -1333,15 +1398,17 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 22
+      level: 107
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: mi_nhi
-      level: 22
+      level: 107
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1366,10 +1433,11 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 23
+      level: 110
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.85
+      trait: 
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1387,15 +1455,17 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: linh_ngu2
-      level: 23
+      level: 113
       boss: 0
       evo: 0
-      buff: 0.5
+      buff: 0.95
+      trait: 
     - hero: linh_noc2
-      level: 23
+      level: 113
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 38
     zone: 2
@@ -1406,20 +1476,23 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 24
+      level: 115
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_ngu2
-      level: 24
+      level: 115
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_cua2
-      level: 24
+      level: 115
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1437,15 +1510,17 @@ MonoBehaviour:
     chapter: 5
     enemies:
     - hero: vay_lam
-      level: 24
+      level: 118
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     - hero: ma_ket
-      level: 24
+      level: 118
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     drops:
     - hero: vay_lam
       chance: 0.30000000000000004
@@ -1470,10 +1545,11 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 25
+      level: 120
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.35
+      trait: kuba_boss
     drops:
     - hero: kuba
       chance: 1
@@ -1491,15 +1567,17 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: linh_ngu2
-      level: 26
+      level: 123
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: linh_cua2
-      level: 26
+      level: 123
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 42
     zone: 2
@@ -1510,10 +1588,11 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 26
+      level: 126
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.72
+      trait: 
     drops:
     - hero: kuba
       chance: 0.15
@@ -1531,15 +1610,17 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: vay_lam
-      level: 27
+      level: 128
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     - hero: linh_noc2
-      level: 27
+      level: 128
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     drops:
     - hero: vay_lam
       chance: 0.2
@@ -1557,20 +1638,23 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: linh_ngu2
-      level: 27
+      level: 131
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_cua2
-      level: 27
+      level: 131
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_ngu2
-      level: 27
+      level: 131
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     drops: []
   - id: 45
     zone: 2
@@ -1581,15 +1665,17 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 28
+      level: 133
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: ma_ket
-      level: 28
+      level: 133
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops:
     - hero: kuba
       chance: 0.15
@@ -1614,10 +1700,11 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 28
+      level: 136
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.85
+      trait: 
     drops:
     - hero: kuba
       chance: 0.15
@@ -1635,15 +1722,17 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: linh_cua2
-      level: 29
+      level: 138
       boss: 0
       evo: 0
-      buff: 0.5
+      buff: 0.95
+      trait: 
     - hero: linh_ngu2
-      level: 29
+      level: 138
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 48
     zone: 2
@@ -1654,20 +1743,23 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 29
+      level: 141
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_cua2
-      level: 29
+      level: 141
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_noc2
-      level: 29
+      level: 141
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     drops:
     - hero: kuba
       chance: 0.15
@@ -1685,15 +1777,17 @@ MonoBehaviour:
     chapter: 6
     enemies:
     - hero: kuba
-      level: 30
+      level: 144
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     - hero: vay_lam
-      level: 30
+      level: 144
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     drops:
     - hero: kuba
       chance: 0.22499999999999998
@@ -1718,10 +1812,11 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 30
+      level: 146
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.5
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 1
@@ -1739,15 +1834,17 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: linh_cua2
-      level: 31
+      level: 149
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: linh_noc2
-      level: 31
+      level: 149
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 52
     zone: 2
@@ -1758,10 +1855,11 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 31
+      level: 151
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.72
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1779,15 +1877,17 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: kuba
-      level: 32
+      level: 154
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     - hero: linh_ngu2
-      level: 32
+      level: 154
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     drops:
     - hero: kuba
       chance: 0.15
@@ -1805,20 +1905,23 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: linh_cua2
-      level: 32
+      level: 156
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_noc2
-      level: 32
+      level: 156
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_cua2
-      level: 32
+      level: 156
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     drops: []
   - id: 55
     zone: 2
@@ -1829,15 +1932,17 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 33
+      level: 159
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: vay_lam
-      level: 33
+      level: 159
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1862,10 +1967,11 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 33
+      level: 161
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.85
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1883,15 +1989,17 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: linh_noc2
-      level: 34
+      level: 163
       boss: 0
       evo: 0
-      buff: 0.5
+      buff: 0.95
+      trait: 
     - hero: linh_cua2
-      level: 34
+      level: 163
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 58
     zone: 2
@@ -1902,20 +2010,23 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 34
+      level: 166
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_noc2
-      level: 34
+      level: 166
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_ngu2
-      level: 34
+      level: 166
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -1933,15 +2044,17 @@ MonoBehaviour:
     chapter: 7
     enemies:
     - hero: thuong_lam
-      level: 35
+      level: 168
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     - hero: kuba
-      level: 35
+      level: 168
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 0.22499999999999998
@@ -1966,10 +2079,11 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 35
+      level: 171
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.4
+      trait: huyen_vu_boss
     drops:
     - hero: huyen_vu
       chance: 1
@@ -1987,15 +2101,17 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: linh_noc2
-      level: 36
+      level: 173
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: linh_ngu2
-      level: 36
+      level: 173
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 62
     zone: 2
@@ -2006,10 +2122,11 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 36
+      level: 176
       boss: 0
       evo: 0
-      buff: 0.12
+      buff: 0.72
+      trait: 
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2027,15 +2144,17 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: thuong_lam
-      level: 37
+      level: 178
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     - hero: linh_cua2
-      level: 37
+      level: 178
       boss: 0
       evo: 0
-      buff: 0.15
+      buff: 0.6
+      trait: 
     drops:
     - hero: thuong_lam
       chance: 0.15
@@ -2053,20 +2172,23 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: linh_noc2
-      level: 37
+      level: 181
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_ngu2
-      level: 37
+      level: 181
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     - hero: linh_noc2
-      level: 37
+      level: 181
       boss: 0
       evo: 0
-      buff: -0.1
+      buff: 0.2
+      trait: 
     drops: []
   - id: 65
     zone: 2
@@ -2077,15 +2199,17 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 38
+      level: 183
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     - hero: kuba
-      level: 38
+      level: 183
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2110,10 +2234,11 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 38
+      level: 185
       boss: 0
       evo: 0
-      buff: 0.25
+      buff: 0.85
+      trait: 
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2131,15 +2256,17 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: linh_ngu2
-      level: 39
+      level: 188
       boss: 0
       evo: 0
-      buff: 0.5
+      buff: 0.95
+      trait: 
     - hero: linh_noc2
-      level: 39
+      level: 188
       boss: 0
       evo: 0
-      buff: 0.1
+      buff: 0.55
+      trait: 
     drops: []
   - id: 68
     zone: 2
@@ -2150,20 +2277,23 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 39
+      level: 190
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_ngu2
-      level: 39
+      level: 190
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     - hero: linh_cua2
-      level: 39
+      level: 190
       boss: 0
       evo: 0
-      buff: -0.05
+      buff: 0.25
+      trait: 
     drops:
     - hero: huyen_vu
       chance: 0.1
@@ -2181,15 +2311,17 @@ MonoBehaviour:
     chapter: 8
     enemies:
     - hero: huyen_vu
-      level: 40
+      level: 193
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     - hero: thuong_lam
-      level: 40
+      level: 193
       boss: 0
       evo: 0
-      buff: 0.3
+      buff: 0.75
+      trait: 
     drops:
     - hero: huyen_vu
       chance: 0.15000000000000002
@@ -2214,10 +2346,11 @@ MonoBehaviour:
     chapter: 9
     enemies:
     - hero: lam_quan
-      level: 40
+      level: 195
       boss: 1
       evo: 1
-      buff: 0.15
+      buff: 0.85
+      trait: lam_quan_boss
     drops:
     - hero: lam_quan
       chance: 1
@@ -2231,14 +2364,15 @@ MonoBehaviour:
     idx: 1
     name: "B\u1EBFn \u0110\xE1 \u0110en"
     kind: 0
-    tag: 0
+    tag: 1
     chapter: 0
     enemies:
     - hero: su_tu_lua
-      level: 41
+      level: 1
       boss: 0
-      evo: 0
-      buff: 0
+      evo: 1
+      buff: 0.15
+      trait: 
     drops:
     - hero: su_tu_lua
       chance: 1
@@ -2250,157 +2384,1801 @@ MonoBehaviour:
   - id: 72
     zone: 3
     idx: 2
-    name: "Su\u1ED1i Dung Nham"
+    name: "B\u1EBFn \u0110\xE1 \u0110en 2"
     kind: 0
-    tag: 0
+    tag: 4
     chapter: 0
     enemies:
-    - hero: bo_de
-      level: 48
+    - hero: su_tu_lua
+      level: 6
       boss: 0
       evo: 0
-      buff: 0
-    drops: []
-  - id: 73
-    zone: 3
-    idx: 3
-    name: "Ch\xF9a Li\xEAn Hoa"
-    kind: 0
-    tag: 0
-    chapter: 0
-    enemies:
-    - hero: bo_de
-      level: 48
+      buff: 0.15
+      trait: 
+    - hero: linh_lo
+      level: 6
       boss: 0
       evo: 0
-      buff: 0
-    - hero: bo_de
-      level: 54
-      boss: 0
-      evo: 0
-      buff: 0
+      buff: 0.15
+      trait: 
     drops:
-    - hero: bo_de
-      chance: 0.3
-      min: 1
-      max: 2
-      gift: 0
-      altFor: 
-      altHero: 
-  - id: 74
-    zone: 3
-    idx: 4
-    name: "L\xF2 L\u1EEDa Thi\u1EC1n"
-    kind: 1
-    tag: 0
-    chapter: 0
-    enemies:
-    - hero: bo_de
-      level: 61
-      boss: 1
-      evo: 0
-      buff: 0
-    drops:
-    - hero: bo_de
-      chance: 1
-      min: 3
-      max: 5
-      gift: 0
-      altFor: 
-      altHero: 
-  - id: 75
-    zone: 3
-    idx: 5
-    name: "R\u1EEBng Than H\u1ED3ng"
-    kind: 0
-    tag: 0
-    chapter: 0
-    enemies:
-    - hero: bo_de
-      level: 61
-      boss: 0
-      evo: 0
-      buff: 0
-    - hero: phap_luan
-      level: 54
-      boss: 0
-      evo: 0
-      buff: 0
-    drops: []
-  - id: 76
-    zone: 3
-    idx: 6
-    name: "C\u1ED5ng B\xE1nh Xe"
-    kind: 0
-    tag: 0
-    chapter: 0
-    enemies:
-    - hero: phap_luan
-      level: 67
-      boss: 0
-      evo: 0
-      buff: 0
-    drops:
-    - hero: phap_luan
+    - hero: su_tu_lua
       chance: 0.25
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
+  - id: 73
+    zone: 3
+    idx: 3
+    name: "B\u1EBFn \u0110\xE1 \u0110en 3"
+    kind: 0
+    tag: 2
+    chapter: 0
+    enemies:
+    - hero: linh_lo
+      level: 11
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_lo
+      level: 11
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
+  - id: 74
+    zone: 3
+    idx: 4
+    name: "B\u1EBFn \u0110\xE1 \u0110en 4"
+    kind: 0
+    tag: 7
+    chapter: 0
+    enemies:
+    - hero: su_tu_lua
+      level: 15
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_lo
+      level: 15
+      boss: 0
+      evo: 0
+      buff: 0.2
+      trait: 
+    drops:
+    - hero: su_tu_lua
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 75
+    zone: 3
+    idx: 5
+    name: "Su\u1ED1i Dung Nham"
+    kind: 0
+    tag: 1
+    chapter: 1
+    enemies:
+    - hero: khong_lo
+      level: 19
+      boss: 0
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: khong_lo
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 76
+    zone: 3
+    idx: 6
+    name: "Su\u1ED1i Dung Nham 2"
+    kind: 0
+    tag: 2
+    chapter: 1
+    enemies:
+    - hero: linh_lo
+      level: 22
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_nam
+      level: 22
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
   - id: 77
     zone: 3
     idx: 7
-    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i"
+    name: "Su\u1ED1i Dung Nham 3"
     kind: 0
-    tag: 0
-    chapter: 0
+    tag: 3
+    chapter: 1
     enemies:
-    - hero: bo_de
-      level: 61
+    - hero: khong_lo
+      level: 26
       boss: 0
       evo: 0
-      buff: 0
-    - hero: phap_luan
-      level: 61
-      boss: 0
-      evo: 0
-      buff: 0
-    - hero: bo_de
-      level: 61
-      boss: 0
-      evo: 0
-      buff: 0
-    drops: []
+      buff: 0.12
+      trait: 
+    drops:
+    - hero: khong_lo
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
   - id: 78
     zone: 3
     idx: 8
-    name: "Mi\u1EC7ng N\xFAi L\u1EEDa"
-    kind: 2
-    tag: 0
-    chapter: 0
+    name: "Su\u1ED1i Dung Nham 4"
+    kind: 0
+    tag: 4
+    chapter: 1
     enemies:
-    - hero: phap_luan
-      level: 74
+    - hero: su_tu_lua
+      level: 29
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    - hero: linh_lo
+      level: 29
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: su_tu_lua
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 79
+    zone: 3
+    idx: 9
+    name: "Su\u1ED1i Dung Nham 5"
+    kind: 0
+    tag: 7
+    chapter: 1
+    enemies:
+    - hero: khong_lo
+      level: 33
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_nam
+      level: 33
+      boss: 0
+      evo: 0
+      buff: 0.2
+      trait: 
+    drops:
+    - hero: khong_lo
+      chance: 0.44999999999999996
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 80
+    zone: 3
+    idx: 10
+    name: "R\u1EEBng Than H\u1ED3ng"
+    kind: 0
+    tag: 1
+    chapter: 2
+    enemies:
+    - hero: kim_su
+      level: 36
+      boss: 0
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: kim_su
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 81
+    zone: 3
+    idx: 11
+    name: "R\u1EEBng Than H\u1ED3ng 2"
+    kind: 0
+    tag: 2
+    chapter: 2
+    enemies:
+    - hero: linh_khi
+      level: 39
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_lo
+      level: 39
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
+  - id: 82
+    zone: 3
+    idx: 12
+    name: "R\u1EEBng Than H\u1ED3ng 3"
+    kind: 0
+    tag: 3
+    chapter: 2
+    enemies:
+    - hero: kim_su
+      level: 42
+      boss: 0
+      evo: 0
+      buff: 0.12
+      trait: 
+    drops:
+    - hero: kim_su
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 83
+    zone: 3
+    idx: 13
+    name: "R\u1EEBng Than H\u1ED3ng 4"
+    kind: 0
+    tag: 4
+    chapter: 2
+    enemies:
+    - hero: khong_lo
+      level: 46
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    - hero: linh_nam
+      level: 46
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: khong_lo
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 84
+    zone: 3
+    idx: 14
+    name: "R\u1EEBng Than H\u1ED3ng 5"
+    kind: 0
+    tag: 7
+    chapter: 2
+    enemies:
+    - hero: kim_su
+      level: 49
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_khi
+      level: 49
+      boss: 0
+      evo: 0
+      buff: 0.2
+      trait: 
+    drops:
+    - hero: kim_su
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 85
+    zone: 3
+    idx: 15
+    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i"
+    kind: 0
+    tag: 1
+    chapter: 3
+    enemies:
+    - hero: nham_than
+      level: 52
+      boss: 0
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: nham_than
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 86
+    zone: 3
+    idx: 16
+    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i 2"
+    kind: 0
+    tag: 2
+    chapter: 3
+    enemies:
+    - hero: linh_nam
+      level: 55
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_khi
+      level: 55
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
+  - id: 87
+    zone: 3
+    idx: 17
+    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i 3"
+    kind: 0
+    tag: 3
+    chapter: 3
+    enemies:
+    - hero: nham_than
+      level: 58
+      boss: 0
+      evo: 0
+      buff: 0.12
+      trait: 
+    drops:
+    - hero: nham_than
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 88
+    zone: 3
+    idx: 18
+    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i 4"
+    kind: 0
+    tag: 4
+    chapter: 3
+    enemies:
+    - hero: kim_su
+      level: 61
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    - hero: linh_lo
+      level: 61
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: kim_su
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 89
+    zone: 3
+    idx: 19
+    name: "S\u01B0\u1EDDn N\xFAi Kh\xF3i 5"
+    kind: 0
+    tag: 7
+    chapter: 3
+    enemies:
+    - hero: nham_than
+      level: 64
+      boss: 0
+      evo: 0
+      buff: 0.85
+      trait: 
+    - hero: linh_nam
+      level: 64
+      boss: 0
+      evo: 0
+      buff: 0.7
+      trait: 
+    drops:
+    - hero: nham_than
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 90
+    zone: 3
+    idx: 20
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n"
+    kind: 1
+    tag: 1
+    chapter: 4
+    enemies:
+    - hero: ho_lua
+      level: 67
+      boss: 1
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 91
+    zone: 3
+    idx: 21
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 2"
+    kind: 0
+    tag: 2
+    chapter: 4
+    enemies:
+    - hero: linh_lo
+      level: 70
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: linh_nam
+      level: 70
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 92
+    zone: 3
+    idx: 22
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 3"
+    kind: 0
+    tag: 3
+    chapter: 4
+    enemies:
+    - hero: ho_lua
+      level: 73
+      boss: 0
+      evo: 0
+      buff: 0.82
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 93
+    zone: 3
+    idx: 23
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 4"
+    kind: 0
+    tag: 4
+    chapter: 4
+    enemies:
+    - hero: nham_than
+      level: 76
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    - hero: linh_khi
+      level: 76
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: nham_than
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 94
+    zone: 3
+    idx: 24
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 5"
+    kind: 0
+    tag: 2
+    chapter: 4
+    enemies:
+    - hero: linh_lo
+      level: 78
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_nam
+      level: 78
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_lo
+      level: 78
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    drops: []
+  - id: 95
+    zone: 3
+    idx: 25
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 6"
+    kind: 0
+    tag: 5
+    chapter: 4
+    enemies:
+    - hero: ho_lua
+      level: 81
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: kim_su
+      level: 81
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: kim_su
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 96
+    zone: 3
+    idx: 26
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 7"
+    kind: 0
+    tag: 3
+    chapter: 4
+    enemies:
+    - hero: ho_lua
+      level: 84
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 97
+    zone: 3
+    idx: 27
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 8"
+    kind: 0
+    tag: 6
+    chapter: 4
+    enemies:
+    - hero: linh_nam
+      level: 87
+      boss: 0
+      evo: 0
+      buff: 1
+      trait: 
+    - hero: linh_lo
+      level: 87
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 98
+    zone: 3
+    idx: 28
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 9"
+    kind: 0
+    tag: 4
+    chapter: 4
+    enemies:
+    - hero: ho_lua
+      level: 90
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_nam
+      level: 90
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_khi
+      level: 90
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 99
+    zone: 3
+    idx: 29
+    name: "L\xF2 L\u1EEDa Thi\u1EC1n 10"
+    kind: 0
+    tag: 7
+    chapter: 4
+    enemies:
+    - hero: ho_lua
+      level: 93
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: nham_than
+      level: 93
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: nham_than
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 100
+    zone: 3
+    idx: 30
+    name: "Ch\xF9a Li\xEAn Hoa"
+    kind: 1
+    tag: 1
+    chapter: 5
+    enemies:
+    - hero: hong_lien
+      level: 95
       boss: 1
       evo: 1
-      buff: 0
+      buff: 0.65
+      trait: hong_lien_boss
     drops:
-    - hero: phap_luan
+    - hero: hong_lien
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 101
+    zone: 3
+    idx: 31
+    name: "Ch\xF9a Li\xEAn Hoa 2"
+    kind: 0
+    tag: 2
+    chapter: 5
+    enemies:
+    - hero: linh_nam
+      level: 98
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: linh_khi
+      level: 98
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 102
+    zone: 3
+    idx: 32
+    name: "Ch\xF9a Li\xEAn Hoa 3"
+    kind: 0
+    tag: 3
+    chapter: 5
+    enemies:
+    - hero: hong_lien
+      level: 101
+      boss: 0
+      evo: 0
+      buff: 0.82
+      trait: 
+    drops:
+    - hero: hong_lien
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 103
+    zone: 3
+    idx: 33
+    name: "Ch\xF9a Li\xEAn Hoa 4"
+    kind: 0
+    tag: 4
+    chapter: 5
+    enemies:
+    - hero: ho_lua
+      level: 104
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    - hero: linh_lo
+      level: 104
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: ho_lua
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 104
+    zone: 3
+    idx: 34
+    name: "Ch\xF9a Li\xEAn Hoa 5"
+    kind: 0
+    tag: 2
+    chapter: 5
+    enemies:
+    - hero: linh_nam
+      level: 106
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_khi
+      level: 106
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_nam
+      level: 106
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    drops: []
+  - id: 105
+    zone: 3
+    idx: 35
+    name: "Ch\xF9a Li\xEAn Hoa 6"
+    kind: 0
+    tag: 5
+    chapter: 5
+    enemies:
+    - hero: hong_lien
+      level: 109
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: nham_than
+      level: 109
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops:
+    - hero: hong_lien
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: nham_than
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 106
+    zone: 3
+    idx: 36
+    name: "Ch\xF9a Li\xEAn Hoa 7"
+    kind: 0
+    tag: 3
+    chapter: 5
+    enemies:
+    - hero: hong_lien
+      level: 112
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: hong_lien
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 107
+    zone: 3
+    idx: 37
+    name: "Ch\xF9a Li\xEAn Hoa 8"
+    kind: 0
+    tag: 6
+    chapter: 5
+    enemies:
+    - hero: linh_khi2
+      level: 114
+      boss: 0
+      evo: 0
+      buff: 1
+      trait: 
+    - hero: linh_nam2
+      level: 114
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 108
+    zone: 3
+    idx: 38
+    name: "Ch\xF9a Li\xEAn Hoa 9"
+    kind: 0
+    tag: 4
+    chapter: 5
+    enemies:
+    - hero: hong_lien
+      level: 117
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_khi2
+      level: 117
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_lo2
+      level: 117
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    drops:
+    - hero: hong_lien
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 109
+    zone: 3
+    idx: 39
+    name: "Ch\xF9a Li\xEAn Hoa 10"
+    kind: 0
+    tag: 7
+    chapter: 5
+    enemies:
+    - hero: hong_lien
+      level: 120
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: ho_lua
+      level: 120
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: hong_lien
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: ho_lua
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 110
+    zone: 3
+    idx: 40
+    name: "L\xF2 R\xE8n Gai Th\xE9p"
+    kind: 1
+    tag: 1
+    chapter: 6
+    enemies:
+    - hero: giap_long
+      level: 122
+      boss: 1
+      evo: 1
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 111
+    zone: 3
+    idx: 41
+    name: "L\xF2 R\xE8n Gai Th\xE9p 2"
+    kind: 0
+    tag: 2
+    chapter: 6
+    enemies:
+    - hero: linh_khi2
+      level: 125
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: linh_lo2
+      level: 125
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 112
+    zone: 3
+    idx: 42
+    name: "L\xF2 R\xE8n Gai Th\xE9p 3"
+    kind: 0
+    tag: 3
+    chapter: 6
+    enemies:
+    - hero: giap_long
+      level: 128
+      boss: 0
+      evo: 0
+      buff: 0.82
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 113
+    zone: 3
+    idx: 43
+    name: "L\xF2 R\xE8n Gai Th\xE9p 4"
+    kind: 0
+    tag: 4
+    chapter: 6
+    enemies:
+    - hero: hong_lien
+      level: 130
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    - hero: linh_nam2
+      level: 130
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: hong_lien
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 114
+    zone: 3
+    idx: 44
+    name: "L\xF2 R\xE8n Gai Th\xE9p 5"
+    kind: 0
+    tag: 2
+    chapter: 6
+    enemies:
+    - hero: linh_khi2
+      level: 133
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_lo2
+      level: 133
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_khi2
+      level: 133
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    drops: []
+  - id: 115
+    zone: 3
+    idx: 45
+    name: "L\xF2 R\xE8n Gai Th\xE9p 6"
+    kind: 0
+    tag: 5
+    chapter: 6
+    enemies:
+    - hero: giap_long
+      level: 135
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: ho_lua
+      level: 135
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: ho_lua
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 116
+    zone: 3
+    idx: 46
+    name: "L\xF2 R\xE8n Gai Th\xE9p 7"
+    kind: 0
+    tag: 3
+    chapter: 6
+    enemies:
+    - hero: giap_long
+      level: 138
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 117
+    zone: 3
+    idx: 47
+    name: "L\xF2 R\xE8n Gai Th\xE9p 8"
+    kind: 0
+    tag: 6
+    chapter: 6
+    enemies:
+    - hero: linh_lo2
+      level: 141
+      boss: 0
+      evo: 0
+      buff: 1
+      trait: 
+    - hero: linh_khi2
+      level: 141
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 118
+    zone: 3
+    idx: 48
+    name: "L\xF2 R\xE8n Gai Th\xE9p 9"
+    kind: 0
+    tag: 4
+    chapter: 6
+    enemies:
+    - hero: giap_long
+      level: 143
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_lo2
+      level: 143
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_nam2
+      level: 143
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 119
+    zone: 3
+    idx: 49
+    name: "L\xF2 R\xE8n Gai Th\xE9p 10"
+    kind: 0
+    tag: 7
+    chapter: 6
+    enemies:
+    - hero: giap_long
+      level: 146
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: hong_lien
+      level: 146
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: hong_lien
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 120
+    zone: 3
+    idx: 50
+    name: "R\u1EEBng L\u1EEDa \u1EA2o"
+    kind: 1
+    tag: 1
+    chapter: 7
+    enemies:
+    - hero: huyen_viem
+      level: 148
+      boss: 1
+      evo: 1
+      buff: 0.65
+      trait: huyen_viem_boss
+    drops:
+    - hero: huyen_viem
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 121
+    zone: 3
+    idx: 51
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 2"
+    kind: 0
+    tag: 2
+    chapter: 7
+    enemies:
+    - hero: linh_lo2
+      level: 151
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: linh_nam2
+      level: 151
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 122
+    zone: 3
+    idx: 52
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 3"
+    kind: 0
+    tag: 3
+    chapter: 7
+    enemies:
+    - hero: huyen_viem
+      level: 153
+      boss: 0
+      evo: 0
+      buff: 0.82
+      trait: 
+    drops:
+    - hero: huyen_viem
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 123
+    zone: 3
+    idx: 53
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 4"
+    kind: 0
+    tag: 4
+    chapter: 7
+    enemies:
+    - hero: giap_long
+      level: 156
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    - hero: linh_khi2
+      level: 156
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: giap_long
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 124
+    zone: 3
+    idx: 54
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 5"
+    kind: 0
+    tag: 2
+    chapter: 7
+    enemies:
+    - hero: linh_lo2
+      level: 158
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_nam2
+      level: 158
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_lo2
+      level: 158
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    drops: []
+  - id: 125
+    zone: 3
+    idx: 55
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 6"
+    kind: 0
+    tag: 5
+    chapter: 7
+    enemies:
+    - hero: huyen_viem
+      level: 161
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: hong_lien
+      level: 161
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops:
+    - hero: huyen_viem
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: hong_lien
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 126
+    zone: 3
+    idx: 56
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 7"
+    kind: 0
+    tag: 3
+    chapter: 7
+    enemies:
+    - hero: huyen_viem
+      level: 163
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: huyen_viem
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 127
+    zone: 3
+    idx: 57
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 8"
+    kind: 0
+    tag: 6
+    chapter: 7
+    enemies:
+    - hero: linh_nam2
+      level: 166
+      boss: 0
+      evo: 0
+      buff: 1
+      trait: 
+    - hero: linh_lo2
+      level: 166
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 128
+    zone: 3
+    idx: 58
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 9"
+    kind: 0
+    tag: 4
+    chapter: 7
+    enemies:
+    - hero: huyen_viem
+      level: 168
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_nam2
+      level: 168
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_khi2
+      level: 168
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    drops:
+    - hero: huyen_viem
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 129
+    zone: 3
+    idx: 59
+    name: "R\u1EEBng L\u1EEDa \u1EA2o 10"
+    kind: 0
+    tag: 7
+    chapter: 7
+    enemies:
+    - hero: huyen_viem
+      level: 171
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: giap_long
+      level: 171
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: huyen_viem
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: giap_long
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 130
+    zone: 3
+    idx: 60
+    name: "Hang H\u1ED3ng Ng\u1ECDc"
+    kind: 1
+    tag: 1
+    chapter: 8
+    enemies:
+    - hero: hoa_tinh
+      level: 173
+      boss: 1
+      evo: 1
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: hoa_tinh
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 131
+    zone: 3
+    idx: 61
+    name: "Hang H\u1ED3ng Ng\u1ECDc 2"
+    kind: 0
+    tag: 2
+    chapter: 8
+    enemies:
+    - hero: linh_nam2
+      level: 176
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: linh_khi2
+      level: 176
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 132
+    zone: 3
+    idx: 62
+    name: "Hang H\u1ED3ng Ng\u1ECDc 3"
+    kind: 0
+    tag: 3
+    chapter: 8
+    enemies:
+    - hero: hoa_tinh
+      level: 178
+      boss: 0
+      evo: 0
+      buff: 0.82
+      trait: 
+    drops:
+    - hero: hoa_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 133
+    zone: 3
+    idx: 63
+    name: "Hang H\u1ED3ng Ng\u1ECDc 4"
+    kind: 0
+    tag: 4
+    chapter: 8
+    enemies:
+    - hero: huyen_viem
+      level: 181
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    - hero: linh_lo2
+      level: 181
+      boss: 0
+      evo: 0
+      buff: 0.65
+      trait: 
+    drops:
+    - hero: huyen_viem
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 134
+    zone: 3
+    idx: 64
+    name: "Hang H\u1ED3ng Ng\u1ECDc 5"
+    kind: 0
+    tag: 2
+    chapter: 8
+    enemies:
+    - hero: linh_nam2
+      level: 183
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_khi2
+      level: 183
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    - hero: linh_nam2
+      level: 183
+      boss: 0
+      evo: 0
+      buff: 0.25
+      trait: 
+    drops: []
+  - id: 135
+    zone: 3
+    idx: 65
+    name: "Hang H\u1ED3ng Ng\u1ECDc 6"
+    kind: 0
+    tag: 5
+    chapter: 8
+    enemies:
+    - hero: hoa_tinh
+      level: 186
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    - hero: giap_long
+      level: 186
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops:
+    - hero: hoa_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: giap_long
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 136
+    zone: 3
+    idx: 66
+    name: "Hang H\u1ED3ng Ng\u1ECDc 7"
+    kind: 0
+    tag: 3
+    chapter: 8
+    enemies:
+    - hero: hoa_tinh
+      level: 188
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: hoa_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 137
+    zone: 3
+    idx: 67
+    name: "Hang H\u1ED3ng Ng\u1ECDc 8"
+    kind: 0
+    tag: 6
+    chapter: 8
+    enemies:
+    - hero: linh_khi2
+      level: 191
+      boss: 0
+      evo: 0
+      buff: 1
+      trait: 
+    - hero: linh_nam2
+      level: 191
+      boss: 0
+      evo: 0
+      buff: 0.6
+      trait: 
+    drops: []
+  - id: 138
+    zone: 3
+    idx: 68
+    name: "Hang H\u1ED3ng Ng\u1ECDc 9"
+    kind: 0
+    tag: 4
+    chapter: 8
+    enemies:
+    - hero: hoa_tinh
+      level: 193
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_khi2
+      level: 193
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    - hero: linh_lo2
+      level: 193
+      boss: 0
+      evo: 0
+      buff: 0.3
+      trait: 
+    drops:
+    - hero: hoa_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 139
+    zone: 3
+    idx: 69
+    name: "Hang H\u1ED3ng Ng\u1ECDc 10"
+    kind: 0
+    tag: 7
+    chapter: 8
+    enemies:
+    - hero: hoa_tinh
+      level: 196
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: huyen_viem
+      level: 196
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: hoa_tinh
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: huyen_viem
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 140
+    zone: 3
+    idx: 70
+    name: "Mi\u1EC7ng N\xFAi L\u1EEDa"
+    kind: 2
+    tag: 1
+    chapter: 9
+    enemies:
+    - hero: lan_hoa
+      level: 198
+      boss: 1
+      evo: 1
+      buff: 0.95
+      trait: lan_hoa_boss
+    drops:
+    - hero: lan_hoa
       chance: 1
       min: 4
       max: 6
       gift: 0
       altFor: 
       altHero: 
-    - hero: bo_de
-      chance: 0.5
-      min: 2
-      max: 3
-      gift: 0
-      altFor: 
-      altHero: 
-  - id: 79
+  - id: 141
     zone: 0
     idx: 1
     name: "C\u1EA3ng S\u1EAFt"
@@ -2409,10 +4187,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bu_long
-      level: 81
+      level: 1
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: bu_long
       chance: 1
@@ -2421,7 +4200,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 80
+  - id: 142
     zone: 0
     idx: 2
     name: "C\u1EA7u B\xE1nh R\u0103ng"
@@ -2430,10 +4209,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: phao_hop
-      level: 88
+      level: 39
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: phao_hop
       chance: 0.3
@@ -2442,7 +4222,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 81
+  - id: 143
     zone: 0
     idx: 3
     name: "Th\xE1p Canh Th\xE9p"
@@ -2451,17 +4231,19 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bu_long
-      level: 88
+      level: 64
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     - hero: phao_hop
-      level: 94
+      level: 70
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops: []
-  - id: 82
+  - id: 144
     zone: 0
     idx: 4
     name: "G\xE1c Chu\xF4ng \u0110\u1ED3ng"
@@ -2470,10 +4252,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_cap
-      level: 94
+      level: 98
       boss: 1
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: bu_long
       chance: 1
@@ -2482,7 +4265,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 83
+  - id: 145
     zone: 0
     idx: 5
     name: "M\u1ECF S\u1EAFt Ng\xE2n"
@@ -2491,17 +4274,19 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_ngua
-      level: 107
+      level: 125
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     - hero: bu_long
-      level: 107
+      level: 125
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops: []
-  - id: 84
+  - id: 146
     zone: 0
     idx: 6
     name: "X\u01B0\u1EDFng \u0110\xFAc Chu\xF4ng"
@@ -2510,10 +4295,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: bo_cap
-      level: 114
+      level: 151
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: bo_cap
       chance: 0.3
@@ -2522,7 +4308,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 85
+  - id: 147
     zone: 0
     idx: 7
     name: "T\u1ED5 C\xE1nh \u0110\xEAm"
@@ -2531,10 +4317,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: soi_linh
-      level: 114
+      level: 176
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: soi_linh
       chance: 0.25
@@ -2543,7 +4330,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 86
+  - id: 148
     zone: 0
     idx: 8
     name: "Thi\xEAn Chung H\u1EAFc D\u1EF1c"
@@ -2552,10 +4339,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: soi_linh
-      level: 120
+      level: 200
       boss: 1
       evo: 1
       buff: 0
+      trait: 
     drops:
     - hero: soi_linh
       chance: 1
@@ -2571,19 +4359,48 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 87
+  - id: 149
     zone: 1
     idx: 1
     name: "B\u1EDD R\xEAu"
     kind: 0
-    tag: 0
+    tag: 1
+    chapter: 0
+    enemies:
+    - hero: tien_la
+      level: 1
+      boss: 0
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: tien_la
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 150
+    zone: 1
+    idx: 2
+    name: "B\u1EDD R\xEAu 2"
+    kind: 0
+    tag: 4
     chapter: 0
     enemies:
     - hero: nu_hoa
-      level: 121
+      level: 6
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.15
+      trait: 
+    - hero: linh_bo
+      level: 6
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
     drops:
     - hero: nu_hoa
       chance: 1
@@ -2592,146 +4409,1776 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 88
-    zone: 1
-    idx: 2
-    name: "\u0110\u1ED3i N\u1EA5m"
-    kind: 0
-    tag: 0
-    chapter: 0
-    enemies:
-    - hero: mam_go
-      level: 128
-      boss: 0
-      evo: 0
-      buff: 0
-    drops: []
-  - id: 89
+  - id: 151
     zone: 1
     idx: 3
-    name: "R\u1EEBng D\xE2y Leo"
+    name: "B\u1EDD R\xEAu 3"
     kind: 0
-    tag: 0
+    tag: 2
     chapter: 0
     enemies:
-    - hero: nu_hoa
-      level: 128
+    - hero: linh_bo
+      level: 10
       boss: 0
       evo: 0
-      buff: 0
-    - hero: mam_go
-      level: 134
+      buff: 0.1
+      trait: 
+    - hero: linh_bo
+      level: 10
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.1
+      trait: 
     drops: []
-  - id: 90
+  - id: 152
     zone: 1
     idx: 4
-    name: "Hang Nanh Gi\xF3"
-    kind: 1
-    tag: 0
+    name: "B\u1EDD R\xEAu 4"
+    kind: 0
+    tag: 7
     chapter: 0
     enemies:
-    - hero: de_hoa
-      level: 134
-      boss: 1
+    - hero: tien_la
+      level: 14
+      boss: 0
       evo: 0
-      buff: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_bo
+      level: 14
+      boss: 0
+      evo: 0
+      buff: 0.2
+      trait: 
     drops:
-    - hero: de_hoa
-      chance: 1
-      min: 3
-      max: 5
+    - hero: tien_la
+      chance: 0.44999999999999996
+      min: 1
+      max: 2
       gift: 0
       altFor: 
       altHero: 
-  - id: 91
+  - id: 153
     zone: 1
     idx: 5
     name: "\u0110\u1ED3ng Hoa S\xE1ng"
     kind: 0
-    tag: 0
-    chapter: 0
+    tag: 1
+    chapter: 1
     enemies:
-    - hero: giac_long
-      level: 141
+    - hero: hoa_nhuy
+      level: 18
       boss: 0
-      evo: 0
-      buff: 0
-    - hero: nu_hoa
-      level: 141
-      boss: 0
-      evo: 0
-      buff: 0
-    drops: []
-  - id: 92
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: hoa_nhuy
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 154
     zone: 1
     idx: 6
-    name: "C\xE2y C\u1ED5 Th\u1EE5 Con"
+    name: "\u0110\u1ED3ng Hoa S\xE1ng 2"
     kind: 0
-    tag: 0
-    chapter: 0
+    tag: 2
+    chapter: 1
     enemies:
-    - hero: giac_long
-      level: 147
+    - hero: linh_bo
+      level: 21
       boss: 0
       evo: 0
-      buff: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_ran
+      level: 21
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
+  - id: 155
+    zone: 1
+    idx: 7
+    name: "\u0110\u1ED3ng Hoa S\xE1ng 3"
+    kind: 0
+    tag: 3
+    chapter: 1
+    enemies:
+    - hero: hoa_nhuy
+      level: 25
+      boss: 0
+      evo: 0
+      buff: 0.12
+      trait: 
     drops:
-    - hero: giac_long
+    - hero: hoa_nhuy
       chance: 0.3
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-  - id: 93
-    zone: 1
-    idx: 7
-    name: "Thung L\u0169ng L\xE1"
-    kind: 0
-    tag: 0
-    chapter: 0
-    enemies:
-    - hero: mam_go
-      level: 147
-      boss: 0
-      evo: 0
-      buff: 0
-    - hero: de_hoa
-      level: 147
-      boss: 0
-      evo: 0
-      buff: 0
-    - hero: nu_hoa
-      level: 147
-      boss: 0
-      evo: 0
-      buff: 0
-    drops: []
-  - id: 94
+  - id: 156
     zone: 1
     idx: 8
-    name: "C\xE2y Th\u1EA7n Ng\xE0n N\u0103m"
-    kind: 2
-    tag: 0
-    chapter: 0
+    name: "\u0110\u1ED3ng Hoa S\xE1ng 4"
+    kind: 0
+    tag: 4
+    chapter: 1
     enemies:
-    - hero: giac_long
-      level: 160
+    - hero: tien_la
+      level: 28
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    - hero: linh_bo
+      level: 28
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: tien_la
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 157
+    zone: 1
+    idx: 9
+    name: "\u0110\u1ED3ng Hoa S\xE1ng 5"
+    kind: 0
+    tag: 7
+    chapter: 1
+    enemies:
+    - hero: hoa_nhuy
+      level: 31
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_ran
+      level: 31
+      boss: 0
+      evo: 0
+      buff: 0.2
+      trait: 
+    drops:
+    - hero: hoa_nhuy
+      chance: 0.44999999999999996
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 158
+    zone: 1
+    idx: 10
+    name: "\u0110\u1ED3i N\u1EA5m"
+    kind: 0
+    tag: 1
+    chapter: 2
+    enemies:
+    - hero: de_hoa
+      level: 34
+      boss: 0
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: de_hoa
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 159
+    zone: 1
+    idx: 11
+    name: "\u0110\u1ED3i N\u1EA5m 2"
+    kind: 0
+    tag: 2
+    chapter: 2
+    enemies:
+    - hero: linh_chim
+      level: 38
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_bo
+      level: 38
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
+  - id: 160
+    zone: 1
+    idx: 12
+    name: "\u0110\u1ED3i N\u1EA5m 3"
+    kind: 0
+    tag: 3
+    chapter: 2
+    enemies:
+    - hero: de_hoa
+      level: 41
+      boss: 0
+      evo: 0
+      buff: 0.12
+      trait: 
+    drops:
+    - hero: de_hoa
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 161
+    zone: 1
+    idx: 13
+    name: "\u0110\u1ED3i N\u1EA5m 4"
+    kind: 0
+    tag: 4
+    chapter: 2
+    enemies:
+    - hero: hoa_nhuy
+      level: 44
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    - hero: linh_ran
+      level: 44
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: hoa_nhuy
+      chance: 0.3
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 162
+    zone: 1
+    idx: 14
+    name: "\u0110\u1ED3i N\u1EA5m 5"
+    kind: 0
+    tag: 7
+    chapter: 2
+    enemies:
+    - hero: de_hoa
+      level: 47
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_chim
+      level: 47
+      boss: 0
+      evo: 0
+      buff: 0.2
+      trait: 
+    drops:
+    - hero: de_hoa
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 163
+    zone: 1
+    idx: 15
+    name: "R\u1EEBng D\xE2y Leo"
+    kind: 0
+    tag: 1
+    chapter: 3
+    enemies:
+    - hero: bom_la
+      level: 50
+      boss: 0
+      evo: 1
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: bom_la
+      chance: 1
+      min: 2
+      max: 4
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 164
+    zone: 1
+    idx: 16
+    name: "R\u1EEBng D\xE2y Leo 2"
+    kind: 0
+    tag: 2
+    chapter: 3
+    enemies:
+    - hero: linh_ran
+      level: 53
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    - hero: linh_chim
+      level: 53
+      boss: 0
+      evo: 0
+      buff: 0.1
+      trait: 
+    drops: []
+  - id: 165
+    zone: 1
+    idx: 17
+    name: "R\u1EEBng D\xE2y Leo 3"
+    kind: 0
+    tag: 3
+    chapter: 3
+    enemies:
+    - hero: bom_la
+      level: 56
+      boss: 0
+      evo: 0
+      buff: 0.12
+      trait: 
+    drops:
+    - hero: bom_la
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 166
+    zone: 1
+    idx: 18
+    name: "R\u1EEBng D\xE2y Leo 4"
+    kind: 0
+    tag: 4
+    chapter: 3
+    enemies:
+    - hero: de_hoa
+      level: 58
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    - hero: linh_bo
+      level: 58
+      boss: 0
+      evo: 0
+      buff: 0.15
+      trait: 
+    drops:
+    - hero: de_hoa
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 167
+    zone: 1
+    idx: 19
+    name: "R\u1EEBng D\xE2y Leo 5"
+    kind: 0
+    tag: 7
+    chapter: 3
+    enemies:
+    - hero: bom_la
+      level: 61
+      boss: 0
+      evo: 0
+      buff: 1
+      trait: 
+    - hero: linh_ran
+      level: 61
+      boss: 0
+      evo: 0
+      buff: 0.85
+      trait: 
+    drops:
+    - hero: bom_la
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 168
+    zone: 1
+    idx: 20
+    name: "Hang Nanh Gi\xF3"
+    kind: 1
+    tag: 1
+    chapter: 4
+    enemies:
+    - hero: phong_linh
+      level: 64
       boss: 1
       evo: 1
-      buff: 0
+      buff: 1
+      trait: 
     drops:
-    - hero: giac_long
+    - hero: phong_linh
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 169
+    zone: 1
+    idx: 21
+    name: "Hang Nanh Gi\xF3 2"
+    kind: 0
+    tag: 2
+    chapter: 4
+    enemies:
+    - hero: linh_bo
+      level: 67
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: linh_ran
+      level: 67
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 170
+    zone: 1
+    idx: 22
+    name: "Hang Nanh Gi\xF3 3"
+    kind: 0
+    tag: 3
+    chapter: 4
+    enemies:
+    - hero: phong_linh
+      level: 70
+      boss: 0
+      evo: 0
+      buff: 1.17
+      trait: 
+    drops:
+    - hero: phong_linh
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 171
+    zone: 1
+    idx: 23
+    name: "Hang Nanh Gi\xF3 4"
+    kind: 0
+    tag: 4
+    chapter: 4
+    enemies:
+    - hero: bom_la
+      level: 73
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: linh_chim
+      level: 73
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: bom_la
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 172
+    zone: 1
+    idx: 24
+    name: "Hang Nanh Gi\xF3 5"
+    kind: 0
+    tag: 2
+    chapter: 4
+    enemies:
+    - hero: linh_bo
+      level: 75
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_ran
+      level: 75
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_bo
+      level: 75
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    drops: []
+  - id: 173
+    zone: 1
+    idx: 25
+    name: "Hang Nanh Gi\xF3 6"
+    kind: 0
+    tag: 5
+    chapter: 4
+    enemies:
+    - hero: phong_linh
+      level: 78
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: de_hoa
+      level: 78
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: phong_linh
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: de_hoa
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 174
+    zone: 1
+    idx: 26
+    name: "Hang Nanh Gi\xF3 7"
+    kind: 0
+    tag: 3
+    chapter: 4
+    enemies:
+    - hero: phong_linh
+      level: 81
+      boss: 0
+      evo: 0
+      buff: 1.3
+      trait: 
+    drops:
+    - hero: phong_linh
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 175
+    zone: 1
+    idx: 27
+    name: "Hang Nanh Gi\xF3 8"
+    kind: 0
+    tag: 6
+    chapter: 4
+    enemies:
+    - hero: linh_ran
+      level: 83
+      boss: 0
+      evo: 0
+      buff: 1.15
+      trait: 
+    - hero: linh_bo
+      level: 83
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 176
+    zone: 1
+    idx: 28
+    name: "Hang Nanh Gi\xF3 9"
+    kind: 0
+    tag: 4
+    chapter: 4
+    enemies:
+    - hero: phong_linh
+      level: 86
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_ran
+      level: 86
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_chim
+      level: 86
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    drops:
+    - hero: phong_linh
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 177
+    zone: 1
+    idx: 29
+    name: "Hang Nanh Gi\xF3 10"
+    kind: 0
+    tag: 7
+    chapter: 4
+    enemies:
+    - hero: phong_linh
+      level: 89
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    - hero: bom_la
+      level: 89
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: phong_linh
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: bom_la
+      chance: 0.375
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 178
+    zone: 1
+    idx: 30
+    name: "Thung L\u0169ng L\xE1"
+    kind: 1
+    tag: 1
+    chapter: 5
+    enemies:
+    - hero: gio_loc
+      level: 91
+      boss: 1
+      evo: 1
+      buff: 0.85
+      trait: gio_loc_boss
+    drops:
+    - hero: gio_loc
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 179
+    zone: 1
+    idx: 31
+    name: "Thung L\u0169ng L\xE1 2"
+    kind: 0
+    tag: 2
+    chapter: 5
+    enemies:
+    - hero: linh_ran
+      level: 94
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: linh_chim
+      level: 94
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 180
+    zone: 1
+    idx: 32
+    name: "Thung L\u0169ng L\xE1 3"
+    kind: 0
+    tag: 3
+    chapter: 5
+    enemies:
+    - hero: gio_loc
+      level: 97
+      boss: 0
+      evo: 0
+      buff: 1.17
+      trait: 
+    drops:
+    - hero: gio_loc
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 181
+    zone: 1
+    idx: 33
+    name: "Thung L\u0169ng L\xE1 4"
+    kind: 0
+    tag: 4
+    chapter: 5
+    enemies:
+    - hero: phong_linh
+      level: 99
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: linh_bo
+      level: 99
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: phong_linh
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 182
+    zone: 1
+    idx: 34
+    name: "Thung L\u0169ng L\xE1 5"
+    kind: 0
+    tag: 2
+    chapter: 5
+    enemies:
+    - hero: linh_ran
+      level: 102
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_chim
+      level: 102
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_ran
+      level: 102
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    drops: []
+  - id: 183
+    zone: 1
+    idx: 35
+    name: "Thung L\u0169ng L\xE1 6"
+    kind: 0
+    tag: 5
+    chapter: 5
+    enemies:
+    - hero: gio_loc
+      level: 105
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: bom_la
+      level: 105
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: gio_loc
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: bom_la
+      chance: 0.25
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 184
+    zone: 1
+    idx: 36
+    name: "Thung L\u0169ng L\xE1 7"
+    kind: 0
+    tag: 3
+    chapter: 5
+    enemies:
+    - hero: gio_loc
+      level: 107
+      boss: 0
+      evo: 0
+      buff: 1.3
+      trait: 
+    drops:
+    - hero: gio_loc
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 185
+    zone: 1
+    idx: 37
+    name: "Thung L\u0169ng L\xE1 8"
+    kind: 0
+    tag: 6
+    chapter: 5
+    enemies:
+    - hero: linh_chim2
+      level: 110
+      boss: 0
+      evo: 0
+      buff: 1.15
+      trait: 
+    - hero: linh_ran2
+      level: 110
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 186
+    zone: 1
+    idx: 38
+    name: "Thung L\u0169ng L\xE1 9"
+    kind: 0
+    tag: 4
+    chapter: 5
+    enemies:
+    - hero: gio_loc
+      level: 112
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_chim2
+      level: 112
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_bo2
+      level: 112
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    drops:
+    - hero: gio_loc
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 187
+    zone: 1
+    idx: 39
+    name: "Thung L\u0169ng L\xE1 10"
+    kind: 0
+    tag: 7
+    chapter: 5
+    enemies:
+    - hero: gio_loc
+      level: 115
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    - hero: phong_linh
+      level: 115
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: gio_loc
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: phong_linh
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 188
+    zone: 1
+    idx: 40
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng"
+    kind: 1
+    tag: 1
+    chapter: 6
+    enemies:
+    - hero: long_vuot
+      level: 117
+      boss: 1
+      evo: 1
+      buff: 1.1
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 189
+    zone: 1
+    idx: 41
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 2"
+    kind: 0
+    tag: 2
+    chapter: 6
+    enemies:
+    - hero: linh_chim2
+      level: 120
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: linh_bo2
+      level: 120
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 190
+    zone: 1
+    idx: 42
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 3"
+    kind: 0
+    tag: 3
+    chapter: 6
+    enemies:
+    - hero: long_vuot
+      level: 122
+      boss: 0
+      evo: 0
+      buff: 1.17
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 191
+    zone: 1
+    idx: 43
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 4"
+    kind: 0
+    tag: 4
+    chapter: 6
+    enemies:
+    - hero: gio_loc
+      level: 125
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: linh_ran2
+      level: 125
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: gio_loc
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 192
+    zone: 1
+    idx: 44
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 5"
+    kind: 0
+    tag: 2
+    chapter: 6
+    enemies:
+    - hero: linh_chim2
+      level: 127
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_bo2
+      level: 127
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_chim2
+      level: 127
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    drops: []
+  - id: 193
+    zone: 1
+    idx: 45
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 6"
+    kind: 0
+    tag: 5
+    chapter: 6
+    enemies:
+    - hero: long_vuot
+      level: 130
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: phong_linh
+      level: 130
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: phong_linh
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 194
+    zone: 1
+    idx: 46
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 7"
+    kind: 0
+    tag: 3
+    chapter: 6
+    enemies:
+    - hero: long_vuot
+      level: 132
+      boss: 0
+      evo: 0
+      buff: 1.3
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 195
+    zone: 1
+    idx: 47
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 8"
+    kind: 0
+    tag: 6
+    chapter: 6
+    enemies:
+    - hero: linh_bo2
+      level: 135
+      boss: 0
+      evo: 0
+      buff: 1.15
+      trait: 
+    - hero: linh_chim2
+      level: 135
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 196
+    zone: 1
+    idx: 48
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 9"
+    kind: 0
+    tag: 4
+    chapter: 6
+    enemies:
+    - hero: long_vuot
+      level: 137
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_bo2
+      level: 137
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_ran2
+      level: 137
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 197
+    zone: 1
+    idx: 49
+    name: "V\xE1ch Vu\u1ED1t R\u1ED3ng 10"
+    kind: 0
+    tag: 7
+    chapter: 6
+    enemies:
+    - hero: long_vuot
+      level: 140
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    - hero: gio_loc
+      level: 140
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: gio_loc
+      chance: 0.30000000000000004
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 198
+    zone: 1
+    idx: 50
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc"
+    kind: 1
+    tag: 1
+    chapter: 7
+    enemies:
+    - hero: tho_hoang
+      level: 142
+      boss: 1
+      evo: 0
+      buff: 1
+      trait: tho_hoang_boss
+    drops:
+    - hero: tho_hoang
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 199
+    zone: 1
+    idx: 51
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 2"
+    kind: 0
+    tag: 2
+    chapter: 7
+    enemies:
+    - hero: linh_bo2
+      level: 145
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: linh_ran2
+      level: 145
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 200
+    zone: 1
+    idx: 52
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 3"
+    kind: 0
+    tag: 3
+    chapter: 7
+    enemies:
+    - hero: tho_hoang
+      level: 147
+      boss: 0
+      evo: 0
+      buff: 1.17
+      trait: 
+    drops:
+    - hero: tho_hoang
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 201
+    zone: 1
+    idx: 53
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 4"
+    kind: 0
+    tag: 4
+    chapter: 7
+    enemies:
+    - hero: long_vuot
+      level: 150
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: linh_chim2
+      level: 150
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: long_vuot
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 202
+    zone: 1
+    idx: 54
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 5"
+    kind: 0
+    tag: 2
+    chapter: 7
+    enemies:
+    - hero: linh_bo2
+      level: 152
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_ran2
+      level: 152
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_bo2
+      level: 152
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    drops: []
+  - id: 203
+    zone: 1
+    idx: 55
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 6"
+    kind: 0
+    tag: 5
+    chapter: 7
+    enemies:
+    - hero: tho_hoang
+      level: 154
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: gio_loc
+      level: 154
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: tho_hoang
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: gio_loc
+      chance: 0.2
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 204
+    zone: 1
+    idx: 56
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 7"
+    kind: 0
+    tag: 3
+    chapter: 7
+    enemies:
+    - hero: tho_hoang
+      level: 157
+      boss: 0
+      evo: 0
+      buff: 1.3
+      trait: 
+    drops:
+    - hero: tho_hoang
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 205
+    zone: 1
+    idx: 57
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 8"
+    kind: 0
+    tag: 6
+    chapter: 7
+    enemies:
+    - hero: linh_ran2
+      level: 159
+      boss: 0
+      evo: 0
+      buff: 1.15
+      trait: 
+    - hero: linh_bo2
+      level: 159
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 206
+    zone: 1
+    idx: 58
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 9"
+    kind: 0
+    tag: 4
+    chapter: 7
+    enemies:
+    - hero: tho_hoang
+      level: 162
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_ran2
+      level: 162
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_chim2
+      level: 162
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    drops:
+    - hero: tho_hoang
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 207
+    zone: 1
+    idx: 59
+    name: "R\u1EEBng Tr\xFAc Ng\u1ECDc 10"
+    kind: 0
+    tag: 7
+    chapter: 7
+    enemies:
+    - hero: tho_hoang
+      level: 164
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    - hero: long_vuot
+      level: 164
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: tho_hoang
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: long_vuot
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 208
+    zone: 1
+    idx: 60
+    name: "Hang Pha L\xEA L\u1EE5c"
+    kind: 1
+    tag: 1
+    chapter: 8
+    enemies:
+    - hero: moc_tinh
+      level: 166
+      boss: 1
+      evo: 1
+      buff: 1.1
+      trait: 
+    drops:
+    - hero: moc_tinh
+      chance: 1
+      min: 3
+      max: 5
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 209
+    zone: 1
+    idx: 61
+    name: "Hang Pha L\xEA L\u1EE5c 2"
+    kind: 0
+    tag: 2
+    chapter: 8
+    enemies:
+    - hero: linh_ran2
+      level: 169
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: linh_chim2
+      level: 169
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 210
+    zone: 1
+    idx: 62
+    name: "Hang Pha L\xEA L\u1EE5c 3"
+    kind: 0
+    tag: 3
+    chapter: 8
+    enemies:
+    - hero: moc_tinh
+      level: 171
+      boss: 0
+      evo: 0
+      buff: 1.17
+      trait: 
+    drops:
+    - hero: moc_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 211
+    zone: 1
+    idx: 63
+    name: "Hang Pha L\xEA L\u1EE5c 4"
+    kind: 0
+    tag: 4
+    chapter: 8
+    enemies:
+    - hero: tho_hoang
+      level: 174
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    - hero: linh_bo2
+      level: 174
+      boss: 0
+      evo: 0
+      buff: 0.8
+      trait: 
+    drops:
+    - hero: tho_hoang
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 212
+    zone: 1
+    idx: 64
+    name: "Hang Pha L\xEA L\u1EE5c 5"
+    kind: 0
+    tag: 2
+    chapter: 8
+    enemies:
+    - hero: linh_ran2
+      level: 176
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_chim2
+      level: 176
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    - hero: linh_ran2
+      level: 176
+      boss: 0
+      evo: 0
+      buff: 0.35
+      trait: 
+    drops: []
+  - id: 213
+    zone: 1
+    idx: 65
+    name: "Hang Pha L\xEA L\u1EE5c 6"
+    kind: 0
+    tag: 5
+    chapter: 8
+    enemies:
+    - hero: moc_tinh
+      level: 178
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    - hero: long_vuot
+      level: 178
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops:
+    - hero: moc_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: long_vuot
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 214
+    zone: 1
+    idx: 66
+    name: "Hang Pha L\xEA L\u1EE5c 7"
+    kind: 0
+    tag: 3
+    chapter: 8
+    enemies:
+    - hero: moc_tinh
+      level: 181
+      boss: 0
+      evo: 0
+      buff: 1.3
+      trait: 
+    drops:
+    - hero: moc_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 215
+    zone: 1
+    idx: 67
+    name: "Hang Pha L\xEA L\u1EE5c 8"
+    kind: 0
+    tag: 6
+    chapter: 8
+    enemies:
+    - hero: linh_chim2
+      level: 183
+      boss: 0
+      evo: 0
+      buff: 1.15
+      trait: 
+    - hero: linh_ran2
+      level: 183
+      boss: 0
+      evo: 0
+      buff: 0.75
+      trait: 
+    drops: []
+  - id: 216
+    zone: 1
+    idx: 68
+    name: "Hang Pha L\xEA L\u1EE5c 9"
+    kind: 0
+    tag: 4
+    chapter: 8
+    enemies:
+    - hero: moc_tinh
+      level: 185
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_chim2
+      level: 185
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    - hero: linh_bo2
+      level: 185
+      boss: 0
+      evo: 0
+      buff: 0.4
+      trait: 
+    drops:
+    - hero: moc_tinh
+      chance: 0.15
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 217
+    zone: 1
+    idx: 69
+    name: "Hang Pha L\xEA L\u1EE5c 10"
+    kind: 0
+    tag: 7
+    chapter: 8
+    enemies:
+    - hero: moc_tinh
+      level: 188
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    - hero: tho_hoang
+      level: 188
+      boss: 0
+      evo: 0
+      buff: 0.95
+      trait: 
+    drops:
+    - hero: moc_tinh
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+    - hero: tho_hoang
+      chance: 0.22499999999999998
+      min: 1
+      max: 2
+      gift: 0
+      altFor: 
+      altHero: 
+  - id: 218
+    zone: 1
+    idx: 70
+    name: "C\xE2y Th\u1EA7n Ng\xE0n N\u0103m"
+    kind: 2
+    tag: 1
+    chapter: 9
+    enemies:
+    - hero: thanh_long
+      level: 190
+      boss: 1
+      evo: 1
+      buff: 0.95
+      trait: thanh_long_boss
+    drops:
+    - hero: thanh_long
       chance: 1
       min: 4
       max: 6
       gift: 0
       altFor: 
       altHero: 
-  - id: 95
+  - id: 219
     zone: 4
     idx: 1
     name: "B\xE3i C\xE1t V\xE0ng"
@@ -2740,10 +6187,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: thach_nhan
-      level: 161
+      level: 1
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: thach_nhan
       chance: 1
@@ -2752,7 +6200,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 96
+  - id: 220
     zone: 4
     idx: 2
     name: "\u0110\u1ED3i \u0110\u1EA5t Nung"
@@ -2761,12 +6209,13 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 167
+      level: 38
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops: []
-  - id: 97
+  - id: 221
     zone: 4
     idx: 3
     name: "C\u1EA7u Treo"
@@ -2775,17 +6224,19 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 167
+      level: 63
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     - hero: vo_su
-      level: 172
+      level: 68
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops: []
-  - id: 98
+  - id: 222
     zone: 4
     idx: 4
     name: "V\xF5 \u0110\u01B0\u1EDDng \u0110\xE1"
@@ -2794,10 +6245,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 178
+      level: 96
       boss: 1
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: vo_su
       chance: 1
@@ -2806,7 +6258,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 99
+  - id: 223
     zone: 4
     idx: 5
     name: "Ru\u1ED9ng B\u1EADc Thang"
@@ -2815,17 +6267,19 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 178
+      level: 122
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     - hero: ca_sa
-      level: 161
+      level: 105
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops: []
-  - id: 100
+  - id: 224
     zone: 4
     idx: 6
     name: "Ch\xF9a \u0110\xE1"
@@ -2834,10 +6288,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: ca_sa
-      level: 167
+      level: 147
       boss: 0
       evo: 0
       buff: 0
+      trait: 
     drops:
     - hero: ca_sa
       chance: 0.2
@@ -2846,7 +6301,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-  - id: 101
+  - id: 225
     zone: 4
     idx: 7
     name: "S\xE2n T\u01B0\u1EE3ng \u0110\xE1"
@@ -2855,22 +6310,25 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: vo_su
-      level: 183
-      boss: 0
-      evo: 0
-      buff: 0
-    - hero: ca_sa
       level: 172
       boss: 0
       evo: 0
       buff: 0
-    - hero: vo_su
-      level: 183
+      trait: 
+    - hero: ca_sa
+      level: 161
       boss: 0
       evo: 0
       buff: 0
+      trait: 
+    - hero: vo_su
+      level: 172
+      boss: 0
+      evo: 0
+      buff: 0
+      trait: 
     drops: []
-  - id: 102
+  - id: 226
     zone: 4
     idx: 8
     name: "Kim T\u1EF1 Vi\u1EC7n"
@@ -2879,10 +6337,11 @@ MonoBehaviour:
     chapter: 0
     enemies:
     - hero: ca_sa
-      level: 172
+      level: 196
       boss: 1
       evo: 1
       buff: 0
+      trait: 
     drops:
     - hero: ca_sa
       chance: 1

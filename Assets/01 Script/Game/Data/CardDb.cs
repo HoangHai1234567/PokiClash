@@ -11,5 +11,6 @@ namespace PokiClash.Game
         public List<CardDef> pool = new List<CardDef>();
         public List<CardDef> innate = new List<CardDef>();
         public List<CardDef> minions = new List<CardDef>(); // thẻ của lính
+        public List<CardDef> traits = new List<CardDef>(); // bị động boss của ải
     }
 }

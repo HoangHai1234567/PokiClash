@@ -106,3 +106,35 @@ Boss tiến hóa thì đổi nền `b70a` → `b70b` → `b70c` trong lúc chớ
    - Boss tiến hóa: `StageView.SetPhase` đổi sang nền `…_s70_2`, `…_s70_3` nếu có (trong lúc chớp trắng).
    - Thử: menu `PokiClash/Thử/Sàn đấu đảo Thủy: chụp nền từng chặng, mini boss, boss (đang Play)`.
 4. Đã đủ 19 ảnh (2026-11-03). Boss 70: ba nền dạng 1, 2, 3 đổi theo tiến hóa; sheet `fxb` cắt thành `san_whirlpool`, `san_trident`, `san_bolt`, `san_cloud`, `san_spout`, `san_wave` (dạng 2 thêm mưa, mây bão, vòi rồng; dạng 3 thêm sét). Còn chưa làm: bóng tướng dưới hồ gương (`m50`); nạp nền sàn đấu theo trận (hiện cả 17 nền nằm trong danh mục ảnh, khoảng 7,7 MB, nạp từ lúc mở game).
+
+## Đảo Mộc 70 ải: 8 nền dùng chung, khổ dọc có trời dư (2026-11-05)
+
+Người dùng dặn nền trận đảo Mộc tiết kiệm dung lượng, dùng lại tuỳ nền. Gói gửi GPT sinh bằng `build_moc.py` vào `gui_gpt/moc/` (file prompt từng lượt, bố cục `bo_cuc_<mã>.png`, `HUONG_DAN.md`); ảnh GPT lưu vào `moc/tai_ve/`, bản duyệt `moc/<mã>.png`.
+
+**Dùng lại:** 8 nền thay cho 17 nền của đảo Thủy (ước khoảng 5,6 MB thay cho 11,9 MB, ASTC 6×6 cỡ 1080 × 1528).
+
+| Mã | Nền | Ải dùng | Ghi chú |
+|---|---|---|---|
+| `c12` | Bờ Rêu + Đồng Hoa Sáng | 1–9 | Chốt nét đảo Mộc; ảnh mẫu là nền Bãi Vỏ Sò đảo Thủy bản cao (`troi/c01.png`) |
+| `c34` | Đồi Nấm + Rừng Dây Leo | 10–19 | Bệ là mặt gốc cây cưa |
+| `c05` | Hang Nanh Gió | 20 (mini boss Phong Linh), 21–29 | Chiều lộng gió |
+| `c06` | Thung Lũng Lá | 30 (mini boss Gió Lốc), 31–39 | Chiều vàng, hồ lá sen |
+| `c07` | Vách Vuốt Rồng | 40 (mini boss Long Vuốt), 41–49 | Sáng sương |
+| `c08` | Rừng Trúc Ngọc | 50 (mini boss Thỏ Hoàng), 51–59 | Chạng vạng, đèn đá |
+| `c09` | Hang Pha Lê Lục | 60 (mini boss Mộc Tinh), 61–69 | Trong cửa hang, pha lê sáng |
+| `b70` | Cây Thần Ngàn Năm | 70 (boss Thanh Long, 3 dạng) | Dạng 2, 3: game phủ tối dần, thêm mây bão, mưa, sét |
+| `fx` | sheet 3 × 2 | | Lốc lá, cánh hoa, lá trúc, tia nắng, vòng phù văn lá, hạt bồ công anh |
+
+- Chặng có mini boss vẽ một nền có giờ, thời tiết riêng và địa danh to nhưng đủ sáng cho ải thường; bệ địch là bệ nổi thấp có mặt bên cho mọi địch ở chặng đó. Ải mini boss: game phủ màu tối nhẹ, thêm phần động mạnh hơn.
+- Phần động dùng lại ảnh có sẵn: `Islands/Anim` (anim_leaf, anim_wind, anim_sparkle), `BattleBG/Anim` (san_firefly, san_wisp, san_glow, san_mist, san_bolt, san_cloud). Sheet `fx` chỉ vẽ món chưa có.
+
+**Khổ:** GPT vẽ dọc 1024 × 1536 một lượt. 880 px dưới (y 656..1536) là khung sân 1080 × 928 thu về bề ngang 1024; phía trên là trời, tán cây dư cho máy dài, nên không cần lượt nối trời như `build_troi.py`. Game lấy y 87..1536 phóng về 1080 × 1528 (`--duyet` ghi sẵn bản này: `moc/cao_<mã>.png`). Hai chỗ đứng, khung thân tướng, bảng máu đổi từ số của `build_thuy.py` sang khổ dọc.
+
+**Ảnh địa danh:** đoạn bản đồ dài đảo Mộc nào đã duyệt (`../Islands/build_zone70_moc.py`) thì `build_moc.py` cắt địa danh trong đoạn đó (`refs/moc/`) và thêm vào file prompt của nền có địa danh ấy. Chưa có thì dùng bản đồ Mộc 8 ải cũ.
+
+**Đã gen, duyệt đủ 9 ảnh (2026-11-05).** Ghi chú duyệt: bệ GPT vẽ to hơn bố cục khoảng 20%, bệ gần cao hơn khoảng 20 px (chân tướng vẫn trên mặt bệ, xuất theo khúc cắt chuẩn); `c05` miệng hang to hơn dặn, nanh phải ở sau nửa trái thân địch (chấp nhận); sheet `fx` có quầng trắng mờ quanh mỗi món, `--xuat` lọc theo màu (giữ nét mực và vùng có màu, cụm tơ bồ công anh giữ nguyên).
+
+**Đưa vào game:**
+1. `py -3 -I ArtGen/BattleBG/build_moc.py --xuat [thư_mục_thử]`: lưu `Assets/03 Art/BattleBG/battle_moc_<khoá>.png` cho 8 nền (bản cao 1080 × 1528), cắt sheet `fx` thành `BattleBG/Anim/san_<tên>`, gộp 17 khoá `moc_*` vào `arena_fx.json` (`sky`, `use` cho khoá mượn ảnh, `tint` màu phủ, `fx`). Không xoá khoá đảo khác; `build_thuy.py --xuat` cũng đã sửa để chỉ thay khoá `thuy_*`.
+2. Code: `StageView.ArenaArt` coi khoá có `use` trong `arena_fx.json` như có ảnh, `ApplyArena` lấy ảnh theo `use` và phủ `tint` lên ảnh nền (boss dạng 2, 3 là khoá `moc_s70_2`, `moc_s70_3` mượn ảnh `moc_s70`). `ArenaAnim` cho lá rơi, quầng sáng, phù văn, đốm hồn, sương nhận `img` riêng (cánh hoa, lá trúc, tia nắng, vòng phù văn lá, hạt bồ công anh).
+3. Unity: refresh, menu `PokiClash/Dựng lại danh mục ảnh`; thử bằng menu chụp sàn đấu.

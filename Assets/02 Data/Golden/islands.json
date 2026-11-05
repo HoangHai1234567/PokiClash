@@ -15,20 +15,25 @@
    ],
    "level": [
     1,
-    40
+    195
    ]
   },
   {
    "id": "hoa",
-   "size": 8,
-   "miniAt": 4,
+   "size": 70,
+   "miniAt": 20,
    "chests": [
-    4,
-    8
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70
    ],
    "level": [
-    41,
-    80
+    1,
+    198
    ]
   },
   {
@@ -40,21 +45,26 @@
     8
    ],
    "level": [
-    81,
-    120
+    1,
+    200
    ]
   },
   {
    "id": "moc",
-   "size": 8,
-   "miniAt": 4,
+   "size": 70,
+   "miniAt": 20,
    "chests": [
-    4,
-    8
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70
    ],
    "level": [
-    121,
-    160
+    1,
+    190
    ]
   },
   {
@@ -66,8 +76,8 @@
     8
    ],
    "level": [
-    161,
-    200
+    1,
+    196
    ]
   }
  ],
@@ -92,10 +102,11 @@
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.3599999999999999,
-      "atkPct": -0.3599999999999999,
-      "defPct": -0.09999999999999998,
+      "hpPct": -0.35999999999999988,
+      "atkPct": -0.35999999999999988,
+      "defPct": -0.099999999999999978,
       "spd": 0
      }
     }
@@ -112,7 +123,7 @@
    "members": [
     {
      "hero": "linh_cua",
-     "level": 2,
+     "level": 6,
      "star": 1,
      "cards": [
       1,
@@ -121,10 +132,11 @@
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2519999999999999,
+      "hpPct": -0.25199999999999989,
       "atkPct": -0.20799999999999985,
-      "defPct": -0.009999999999999898,
+      "defPct": -0.0099999999999998979,
       "spd": 0
      }
     }
@@ -141,36 +153,38 @@
    "members": [
     {
      "hero": "linh_cua",
-     "level": 3,
-     "star": 1,
+     "level": 11,
+     "star": 2,
      "cards": [
-      1,
-      1,
-      1
+      2,
+      2,
+      2
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.43899999999999995,
-      "atkPct": -0.4059999999999999,
+      "atkPct": -0.40599999999999992,
       "defPct": -0.13374999999999992,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 3,
-     "star": 1,
+     "level": 11,
+     "star": 2,
      "cards": [
-      1,
-      1,
-      1
+      2,
+      2,
+      2
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.43899999999999995,
-      "atkPct": -0.4059999999999999,
+      "atkPct": -0.40599999999999992,
       "defPct": -0.13374999999999992,
       "spd": 0
      }
@@ -188,17 +202,18 @@
    "members": [
     {
      "hero": "linh_cua",
-     "level": 4,
-     "star": 1,
+     "level": 14,
+     "star": 2,
      "cards": [
-      1,
-      1,
-      1
+      2,
+      2,
+      2
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.009800000000000031,
+      "hpPct": 0.0098000000000000309,
       "atkPct": 0.06920000000000015,
       "defPct": 0.16325000000000012,
       "spd": 0
@@ -217,19 +232,20 @@
    "members": [
     {
      "hero": "tieu_y",
-     "level": 4,
-     "star": 1,
+     "level": 18,
+     "star": 2,
      "cards": [
-      1,
-      1,
-      1
+      3,
+      3,
+      3
      ],
      "boss": false,
      "evo": true,
+     "trait": null,
      "mods": {
-      "hpPct": 0.01200000000000001,
-      "atkPct": 0.01200000000000001,
-      "defPct": 0.1825000000000001,
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
       "spd": 0
      }
     }
@@ -246,37 +262,39 @@
    "members": [
     {
      "hero": "linh_cua",
-     "level": 5,
-     "star": 1,
+     "level": 22,
+     "star": 2,
      "cards": [
-      1,
-      1,
-      1
+      3,
+      3,
+      3
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.1771999999999998,
       "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "defPct": 0.039500000000000091,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 5,
-     "star": 1,
+     "level": 22,
+     "star": 2,
      "cards": [
-      1,
-      1,
-      1
+      3,
+      3,
+      3
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.1771999999999998,
       "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "defPct": 0.039500000000000091,
       "spd": 0
      }
     }
@@ -293,15 +311,16 @@
    "members": [
     {
      "hero": "tieu_y",
-     "level": 6,
-     "star": 1,
+     "level": 25,
+     "star": 3,
      "cards": [
-      1,
-      1,
-      1
+      3,
+      3,
+      3
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.014399999999999746,
       "atkPct": -0.014399999999999746,
@@ -322,36 +341,38 @@
    "members": [
     {
      "hero": "tieu_y",
-     "level": 7,
-     "star": 2,
+     "level": 29,
+     "star": 3,
      "cards": [
-      1,
-      1,
-      1
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.01200000000000001,
-      "atkPct": 0.01200000000000001,
-      "defPct": 0.1825000000000001,
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 7,
-     "star": 2,
+     "level": 29,
+     "star": 3,
      "cards": [
-      1,
-      1,
-      1
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
+      "atkPct": -0.089199999999999946,
       "defPct": 0.06425000000000014,
       "spd": 0
      }
@@ -369,15 +390,16 @@
    "members": [
     {
      "hero": "tieu_y",
-     "level": 7,
-     "star": 2,
+     "level": 32,
+     "star": 3,
      "cards": [
-      1,
-      1,
-      1
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": 0.18800000000000017,
       "atkPct": 0.18800000000000017,
@@ -387,15 +409,16 @@
     },
     {
      "hero": "linh_cua",
-     "level": 7,
-     "star": 2,
+     "level": 32,
+     "star": 3,
      "cards": [
-      1,
-      1,
-      1
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.10239999999999982,
       "atkPct": -0.049599999999999866,
@@ -416,19 +439,20 @@
    "members": [
     {
      "hero": "canh_cut",
-     "level": 8,
-     "star": 2,
+     "level": 35,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": true,
+     "trait": null,
      "mods": {
-      "hpPct": 0.01200000000000001,
-      "atkPct": 0.01200000000000001,
-      "defPct": 0.1825000000000001,
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
       "spd": 0
      }
     }
@@ -445,37 +469,39 @@
    "members": [
     {
      "hero": "linh_noc",
-     "level": 9,
-     "star": 2,
+     "level": 39,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.1771999999999998,
       "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "defPct": 0.039500000000000091,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 9,
-     "star": 2,
+     "level": 39,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.1771999999999998,
       "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "defPct": 0.039500000000000091,
       "spd": 0
      }
     }
@@ -492,15 +518,16 @@
    "members": [
     {
      "hero": "canh_cut",
-     "level": 9,
-     "star": 2,
+     "level": 42,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.014399999999999746,
       "atkPct": -0.014399999999999746,
@@ -521,36 +548,38 @@
    "members": [
     {
      "hero": "tieu_y",
-     "level": 10,
-     "star": 2,
+     "level": 45,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.01200000000000001,
-      "atkPct": 0.01200000000000001,
-      "defPct": 0.1825000000000001,
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 10,
-     "star": 2,
+     "level": 45,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
+      "atkPct": -0.089199999999999946,
       "defPct": 0.06425000000000014,
       "spd": 0
      }
@@ -568,15 +597,16 @@
    "members": [
     {
      "hero": "canh_cut",
-     "level": 10,
-     "star": 2,
+     "level": 48,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": 0.18800000000000017,
       "atkPct": 0.18800000000000017,
@@ -586,15 +616,16 @@
     },
     {
      "hero": "linh_cua",
-     "level": 10,
-     "star": 2,
+     "level": 48,
+     "star": 3,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.10239999999999982,
       "atkPct": -0.049599999999999866,
@@ -609,25 +640,26 @@
    "tag": "hero",
    "chapter": 3,
    "balls": [
-    3,
-    1
+    4,
+    2
    ],
    "members": [
     {
      "hero": "mi_nhi",
-     "level": 11,
-     "star": 2,
+     "level": 51,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": true,
+     "trait": null,
      "mods": {
-      "hpPct": -0.08000000000000007,
-      "atkPct": -0.08000000000000007,
-      "defPct": 0.07499999999999996,
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
       "spd": 0
      }
     }
@@ -638,43 +670,45 @@
    "tag": "minion",
    "chapter": 3,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "linh_cua",
-     "level": 12,
-     "star": 2,
+     "level": 54,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.1771999999999998,
       "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "defPct": 0.039500000000000091,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 12,
-     "star": 2,
+     "level": 54,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.1771999999999998,
       "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "defPct": 0.039500000000000091,
       "spd": 0
      }
     }
@@ -685,25 +719,26 @@
    "tag": "buff",
    "chapter": 3,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "mi_nhi",
-     "level": 12,
-     "star": 2,
+     "level": 57,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
       "hpPct": -0.10399999999999987,
       "atkPct": -0.10399999999999987,
-      "defPct": 0.06000000000000005,
+      "defPct": 0.060000000000000053,
       "spd": 0
      }
     }
@@ -714,43 +749,45 @@
    "tag": "group",
    "chapter": 3,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "canh_cut",
-     "level": 13,
-     "star": 2,
+     "level": 60,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.01200000000000001,
-      "atkPct": 0.01200000000000001,
-      "defPct": 0.1825000000000001,
+      "hpPct": 0.40800000000000036,
+      "atkPct": 0.40800000000000036,
+      "defPct": 0.43000000000000016,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 13,
-     "star": 2,
+     "level": 60,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
-      "defPct": 0.06425000000000014,
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
       "spd": 0
      }
     }
@@ -761,43 +798,45 @@
    "tag": "gate",
    "chapter": 3,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "mi_nhi",
-     "level": 13,
-     "star": 2,
+     "level": 63,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.08000000000000007,
-      "atkPct": 0.08000000000000007,
-      "defPct": 0.17500000000000004,
+      "hpPct": 0.44000000000000017,
+      "atkPct": 0.44000000000000017,
+      "defPct": 0.39999999999999991,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 13,
-     "star": 2,
+     "level": 63,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.10239999999999982,
-      "atkPct": -0.049599999999999866,
-      "defPct": 0.08900000000000019,
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
       "spd": 0
      }
     }
@@ -808,25 +847,26 @@
    "tag": "hero",
    "chapter": 4,
    "balls": [
-    5,
-    1
+    6,
+    2
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 14,
-     "star": 2,
+     "level": 66,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": true,
      "evo": true,
+     "trait": null,
      "mods": {
-      "hpPct": -0.4950819672131147,
-      "atkPct": -0.3147540983606556,
-      "defPct": -0.0983606557377048,
+      "hpPct": -0.29311475409836063,
+      "atkPct": -0.040655737704917927,
+      "defPct": 0.081967213114754189,
       "spd": 0
      }
     }
@@ -837,43 +877,45 @@
    "tag": "minion",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "linh_cua",
-     "level": 15,
-     "star": 2,
+     "level": 69,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 15,
-     "star": 2,
+     "level": 69,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -884,25 +926,26 @@
    "tag": "buff",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 15,
-     "star": 2,
+     "level": 72,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.19213114754098337,
-      "atkPct": -0.19213114754098337,
-      "defPct": -0.044262295081966996,
+      "hpPct": 0.24065573770491833,
+      "atkPct": 0.24065573770491833,
+      "defPct": 0.22622950819672139,
       "spd": 0
      }
     }
@@ -913,43 +956,45 @@
    "tag": "group",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "mi_nhi",
-     "level": 16,
-     "star": 2,
+     "level": 74,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.08000000000000007,
-      "atkPct": -0.08000000000000007,
-      "defPct": 0.07499999999999996,
+      "hpPct": 0.28000000000000025,
+      "atkPct": 0.28000000000000025,
+      "defPct": 0.30000000000000004,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu",
-     "level": 16,
-     "star": 2,
+     "level": 74,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
-      "defPct": 0.06425000000000014,
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
       "spd": 0
      }
     }
@@ -960,61 +1005,64 @@
    "tag": "minion",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "linh_cua",
-     "level": 16,
-     "star": 2,
+     "level": 77,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 16,
-     "star": 2,
+     "level": 77,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 16,
-     "star": 2,
+     "level": 77,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     }
@@ -1025,43 +1073,45 @@
    "tag": "pair",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 17,
-     "star": 2,
+     "level": 80,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2065573770491801,
-      "atkPct": -0.2065573770491801,
-      "defPct": -0.05327868852459006,
+      "hpPct": 0.11803278688524621,
+      "atkPct": 0.11803278688524621,
+      "defPct": 0.14959016393442637,
       "spd": 0
      }
     },
     {
      "hero": "canh_cut",
-     "level": 17,
-     "star": 2,
+     "level": 80,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.031999999999999806,
-      "atkPct": -0.031999999999999806,
-      "defPct": 0.15500000000000025,
+      "hpPct": 0.36400000000000032,
+      "atkPct": 0.36400000000000032,
+      "defPct": 0.40250000000000008,
       "spd": 0
      }
     }
@@ -1072,25 +1122,26 @@
    "tag": "buff",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 17,
-     "star": 2,
+     "level": 83,
+     "star": 4,
      "cards": [
-      2,
-      2,
-      2
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.0983606557377048,
-      "atkPct": -0.0983606557377048,
-      "defPct": 0.014344262295082011,
+      "hpPct": 0.334426229508197,
+      "atkPct": 0.334426229508197,
+      "defPct": 0.28483606557377072,
       "spd": 0
      }
     }
@@ -1101,43 +1152,45 @@
    "tag": "elite",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "linh_noc",
-     "level": 18,
-     "star": 2,
+     "level": 86,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.12200000000000011,
-      "atkPct": 0.18800000000000017,
-      "defPct": 0.23750000000000004,
+      "hpPct": 0.45860000000000012,
+      "atkPct": 0.54440000000000022,
+      "defPct": 0.46025000000000027,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 18,
-     "star": 2,
+     "level": 86,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -1148,61 +1201,64 @@
    "tag": "group",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    2,
+    2
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 19,
-     "star": 2,
+     "level": 88,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.3147540983606556,
-      "atkPct": -0.3147540983606556,
-      "defPct": -0.12090163934426224,
+      "hpPct": -0.0983606557377048,
+      "atkPct": -0.0983606557377048,
+      "defPct": 0.014344262295082011,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 19,
-     "star": 2,
+     "level": 88,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu",
-     "level": 19,
-     "star": 2,
+     "level": 88,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     }
@@ -1213,43 +1269,45 @@
    "tag": "gate",
    "chapter": 4,
    "balls": [
-    1,
-    1
+    3,
+    3
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 19,
-     "star": 2,
+     "level": 91,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.062295081967212895,
-      "atkPct": -0.062295081967212895,
-      "defPct": 0.03688524590163933,
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
       "spd": 0
      }
     },
     {
      "hero": "mi_nhi",
-     "level": 19,
-     "star": 2,
+     "level": 91,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.040000000000000036,
-      "atkPct": 0.040000000000000036,
-      "defPct": 0.1499999999999999,
+      "hpPct": 0.40000000000000013,
+      "atkPct": 0.40000000000000013,
+      "defPct": 0.375,
       "spd": 0
      }
     }
@@ -1260,25 +1318,26 @@
    "tag": "hero",
    "chapter": 5,
    "balls": [
-    5,
-    1
+    7,
+    3
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 20,
-     "star": 2,
+     "level": 94,
+     "star": 4,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": true,
      "evo": true,
+     "trait": null,
      "mods": {
-      "hpPct": -0.4950819672131147,
-      "atkPct": -0.3147540983606556,
-      "defPct": -0.0983606557377048,
+      "hpPct": -0.242622950819672,
+      "atkPct": 0.027868852459016491,
+      "defPct": 0.12704918032786905,
       "spd": 0
      }
     }
@@ -1289,43 +1348,45 @@
    "tag": "minion",
    "chapter": 5,
    "balls": [
-    1,
-    1
+    3,
+    3
    ],
    "members": [
     {
      "hero": "linh_noc",
-     "level": 20,
-     "star": 2,
+     "level": 97,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu",
-     "level": 20,
-     "star": 2,
+     "level": 97,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -1336,25 +1397,26 @@
    "tag": "buff",
    "chapter": 5,
    "balls": [
-    1,
-    1
+    3,
+    3
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 21,
-     "star": 2,
+     "level": 99,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.19213114754098337,
-      "atkPct": -0.19213114754098337,
-      "defPct": -0.044262295081966996,
+      "hpPct": 0.24065573770491833,
+      "atkPct": 0.24065573770491833,
+      "defPct": 0.22622950819672139,
       "spd": 0
      }
     }
@@ -1365,43 +1427,45 @@
    "tag": "group",
    "chapter": 5,
    "balls": [
-    1,
-    1
+    3,
+    3
    ],
    "members": [
     {
      "hero": "ma_ket",
-     "level": 21,
-     "star": 2,
+     "level": 102,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1704918032786884,
-      "atkPct": -0.1704918032786884,
-      "defPct": -0.030737704918032738,
+      "hpPct": 0.154098360655738,
+      "atkPct": 0.154098360655738,
+      "defPct": 0.17213114754098369,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
-     "level": 21,
-     "star": 2,
+     "level": 102,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
-      "defPct": 0.06425000000000014,
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
       "spd": 0
      }
     }
@@ -1412,61 +1476,64 @@
    "tag": "minion",
    "chapter": 5,
    "balls": [
-    1,
-    1
+    3,
+    3
    ],
    "members": [
     {
      "hero": "linh_noc",
-     "level": 22,
-     "star": 2,
+     "level": 105,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu",
-     "level": 22,
-     "star": 2,
+     "level": 105,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
-     "level": 22,
-     "star": 2,
+     "level": 105,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     }
@@ -1477,43 +1544,45 @@
    "tag": "pair",
    "chapter": 5,
    "balls": [
-    1,
-    1
+    3,
+    3
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 22,
-     "star": 2,
+     "level": 107,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2065573770491801,
-      "atkPct": -0.2065573770491801,
-      "defPct": -0.05327868852459006,
+      "hpPct": 0.11803278688524621,
+      "atkPct": 0.11803278688524621,
+      "defPct": 0.14959016393442637,
       "spd": 0
      }
     },
     {
      "hero": "mi_nhi",
-     "level": 22,
-     "star": 2,
+     "level": 107,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.11999999999999988,
-      "atkPct": -0.11999999999999988,
-      "defPct": 0.050000000000000044,
+      "hpPct": 0.24000000000000021,
+      "atkPct": 0.24000000000000021,
+      "defPct": 0.27499999999999991,
       "spd": 0
      }
     }
@@ -1524,25 +1593,26 @@
    "tag": "buff",
    "chapter": 5,
    "balls": [
-    2,
-    2
+    3,
+    3
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 23,
-     "star": 3,
+     "level": 110,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.0983606557377048,
-      "atkPct": -0.0983606557377048,
-      "defPct": 0.014344262295082011,
+      "hpPct": 0.334426229508197,
+      "atkPct": 0.334426229508197,
+      "defPct": 0.28483606557377072,
       "spd": 0
      }
     }
@@ -1553,43 +1623,45 @@
    "tag": "elite",
    "chapter": 5,
    "balls": [
-    2,
-    2
+    3,
+    3
    ],
    "members": [
     {
      "hero": "linh_ngu2",
-     "level": 23,
-     "star": 3,
+     "level": 113,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.12200000000000011,
-      "atkPct": 0.18800000000000017,
-      "defPct": 0.23750000000000004,
+      "hpPct": 0.45860000000000012,
+      "atkPct": 0.54440000000000022,
+      "defPct": 0.46025000000000027,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 23,
-     "star": 3,
+     "level": 113,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -1600,61 +1672,64 @@
    "tag": "group",
    "chapter": 5,
    "balls": [
-    2,
-    2
+    3,
+    3
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 24,
-     "star": 3,
+     "level": 115,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.3147540983606556,
-      "atkPct": -0.3147540983606556,
-      "defPct": -0.12090163934426224,
+      "hpPct": -0.0983606557377048,
+      "atkPct": -0.0983606557377048,
+      "defPct": 0.014344262295082011,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 24,
-     "star": 3,
+     "level": 115,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 24,
-     "star": 3,
+     "level": 115,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     }
@@ -1665,43 +1740,45 @@
    "tag": "gate",
    "chapter": 5,
    "balls": [
-    2,
-    2
+    3,
+    3
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 24,
-     "star": 3,
+     "level": 118,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.062295081967212895,
-      "atkPct": -0.062295081967212895,
-      "defPct": 0.03688524590163933,
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
       "spd": 0
      }
     },
     {
      "hero": "ma_ket",
-     "level": 24,
-     "star": 3,
+     "level": 118,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.062295081967212895,
-      "atkPct": -0.062295081967212895,
-      "defPct": 0.03688524590163933,
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
       "spd": 0
      }
     }
@@ -1712,25 +1789,26 @@
    "tag": "hero",
    "chapter": 6,
    "balls": [
-    6,
-    2
+    7,
+    3
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 25,
-     "star": 3,
+     "level": 120,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": true,
      "evo": true,
+     "trait": "kuba_boss",
      "mods": {
-      "hpPct": -0.5470588235294118,
-      "atkPct": -0.3852941176470588,
-      "defPct": -0.19117647058823528,
+      "hpPct": -0.38852941176470579,
+      "atkPct": -0.17014705882352932,
+      "defPct": -0.049632352941176405,
       "spd": 0
      }
     }
@@ -1741,43 +1819,45 @@
    "tag": "minion",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    3,
+    3
    ],
    "members": [
     {
      "hero": "linh_ngu2",
-     "level": 26,
-     "star": 3,
+     "level": 123,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 26,
-     "star": 3,
+     "level": 123,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -1788,25 +1868,26 @@
    "tag": "buff",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    3,
+    3
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 26,
-     "star": 3,
+     "level": 126,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2752941176470587,
-      "atkPct": -0.2752941176470587,
-      "defPct": -0.14264705882352935,
+      "hpPct": 0.11294117647058832,
+      "atkPct": 0.11294117647058832,
+      "defPct": 0.099999999999999867,
       "spd": 0
      }
     }
@@ -1817,43 +1898,45 @@
    "tag": "group",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "vay_lam",
-     "level": 27,
-     "star": 3,
+     "level": 128,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1704918032786884,
-      "atkPct": -0.1704918032786884,
-      "defPct": -0.030737704918032738,
+      "hpPct": 0.154098360655738,
+      "atkPct": 0.154098360655738,
+      "defPct": 0.17213114754098369,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 27,
-     "star": 3,
+     "level": 128,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
-      "defPct": 0.06425000000000014,
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
       "spd": 0
      }
     }
@@ -1864,61 +1947,64 @@
    "tag": "minion",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "linh_ngu2",
-     "level": 27,
-     "star": 3,
+     "level": 131,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 27,
-     "star": 3,
+     "level": 131,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 27,
-     "star": 3,
+     "level": 131,
+     "star": 5,
      "cards": [
-      3,
-      3,
-      3
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     }
@@ -1929,43 +2015,45 @@
    "tag": "pair",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 28,
-     "star": 3,
+     "level": 133,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2882352941176469,
-      "atkPct": -0.2882352941176469,
-      "defPct": -0.15073529411764697,
+      "hpPct": 0.0029411764705882248,
+      "atkPct": 0.0029411764705882248,
+      "defPct": 0.03125,
       "spd": 0
      }
     },
     {
      "hero": "ma_ket",
-     "level": 28,
-     "star": 3,
+     "level": 133,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2065573770491801,
-      "atkPct": -0.2065573770491801,
-      "defPct": -0.05327868852459006,
+      "hpPct": 0.11803278688524621,
+      "atkPct": 0.11803278688524621,
+      "defPct": 0.14959016393442637,
       "spd": 0
      }
     }
@@ -1976,25 +2064,26 @@
    "tag": "buff",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 28,
-     "star": 3,
+     "level": 136,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.09007352941176472,
+      "hpPct": 0.19705882352941195,
+      "atkPct": 0.19705882352941195,
+      "defPct": 0.15257352941176472,
       "spd": 0
      }
     }
@@ -2005,43 +2094,45 @@
    "tag": "elite",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "linh_cua2",
-     "level": 29,
-     "star": 3,
+     "level": 138,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.12200000000000011,
-      "atkPct": 0.18800000000000017,
-      "defPct": 0.23750000000000004,
+      "hpPct": 0.45860000000000012,
+      "atkPct": 0.54440000000000022,
+      "defPct": 0.46025000000000027,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 29,
-     "star": 3,
+     "level": 138,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -2052,61 +2143,64 @@
    "tag": "group",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 29,
-     "star": 3,
+     "level": 141,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.3852941176470588,
-      "atkPct": -0.3852941176470588,
-      "defPct": -0.21139705882352944,
+      "hpPct": -0.19117647058823528,
+      "atkPct": -0.19117647058823528,
+      "defPct": -0.090073529411764719,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 29,
-     "star": 3,
+     "level": 141,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 29,
-     "star": 3,
+     "level": 141,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     }
@@ -2117,43 +2211,45 @@
    "tag": "gate",
    "chapter": 6,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 30,
-     "star": 3,
+     "level": 144,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.06985294117647067,
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
       "spd": 0
      }
     },
     {
      "hero": "vay_lam",
-     "level": 30,
-     "star": 3,
+     "level": 144,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.062295081967212895,
-      "atkPct": -0.062295081967212895,
-      "defPct": 0.03688524590163933,
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
       "spd": 0
      }
     }
@@ -2164,25 +2260,26 @@
    "tag": "hero",
    "chapter": 7,
    "balls": [
-    6,
-    2
+    8,
+    4
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 30,
-     "star": 3,
+     "level": 146,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": true,
      "evo": true,
+     "trait": null,
      "mods": {
-      "hpPct": -0.5470588235294118,
-      "atkPct": -0.3852941176470588,
-      "defPct": -0.19117647058823528,
+      "hpPct": -0.32058823529411762,
+      "atkPct": -0.07794117647058818,
+      "defPct": 0.011029411764705843,
       "spd": 0
      }
     }
@@ -2193,43 +2290,45 @@
    "tag": "minion",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "linh_cua2",
-     "level": 31,
-     "star": 3,
+     "level": 149,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 31,
-     "star": 3,
+     "level": 149,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -2240,25 +2339,26 @@
    "tag": "buff",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 31,
-     "star": 3,
+     "level": 151,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2752941176470587,
-      "atkPct": -0.2752941176470587,
-      "defPct": -0.14264705882352935,
+      "hpPct": 0.11294117647058832,
+      "atkPct": 0.11294117647058832,
+      "defPct": 0.099999999999999867,
       "spd": 0
      }
     }
@@ -2269,43 +2369,45 @@
    "tag": "group",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "kuba",
-     "level": 32,
-     "star": 3,
+     "level": 154,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.25588235294117645,
-      "atkPct": -0.25588235294117645,
-      "defPct": -0.13051470588235292,
+      "hpPct": 0.03529411764705892,
+      "atkPct": 0.03529411764705892,
+      "defPct": 0.051470588235294157,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 32,
-     "star": 3,
+     "level": 154,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
-      "defPct": 0.06425000000000014,
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
       "spd": 0
      }
     }
@@ -2316,61 +2418,64 @@
    "tag": "minion",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "linh_cua2",
-     "level": 32,
-     "star": 3,
+     "level": 156,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 32,
-     "star": 3,
+     "level": 156,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 32,
-     "star": 3,
+     "level": 156,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     }
@@ -2381,43 +2486,45 @@
    "tag": "pair",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 33,
-     "star": 3,
+     "level": 159,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2882352941176469,
-      "atkPct": -0.2882352941176469,
-      "defPct": -0.15073529411764697,
+      "hpPct": 0.0029411764705882248,
+      "atkPct": 0.0029411764705882248,
+      "defPct": 0.03125,
       "spd": 0
      }
     },
     {
      "hero": "vay_lam",
-     "level": 33,
-     "star": 3,
+     "level": 159,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2065573770491801,
-      "atkPct": -0.2065573770491801,
-      "defPct": -0.05327868852459006,
+      "hpPct": 0.11803278688524621,
+      "atkPct": 0.11803278688524621,
+      "defPct": 0.14959016393442637,
       "spd": 0
      }
     }
@@ -2428,25 +2535,26 @@
    "tag": "buff",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    4,
+    4
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 33,
-     "star": 3,
+     "level": 161,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.09007352941176472,
+      "hpPct": 0.19705882352941195,
+      "atkPct": 0.19705882352941195,
+      "defPct": 0.15257352941176472,
       "spd": 0
      }
     }
@@ -2457,43 +2565,45 @@
    "tag": "elite",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "linh_noc2",
-     "level": 34,
-     "star": 3,
+     "level": 163,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.12200000000000011,
-      "atkPct": 0.18800000000000017,
-      "defPct": 0.23750000000000004,
+      "hpPct": 0.45860000000000012,
+      "atkPct": 0.54440000000000022,
+      "defPct": 0.46025000000000027,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 34,
-     "star": 3,
+     "level": 163,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -2504,61 +2614,64 @@
    "tag": "group",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 34,
-     "star": 3,
+     "level": 166,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.3852941176470588,
-      "atkPct": -0.3852941176470588,
-      "defPct": -0.21139705882352944,
+      "hpPct": -0.19117647058823528,
+      "atkPct": -0.19117647058823528,
+      "defPct": -0.090073529411764719,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 34,
-     "star": 3,
+     "level": 166,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 34,
-     "star": 3,
+     "level": 166,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     }
@@ -2569,43 +2682,45 @@
    "tag": "gate",
    "chapter": 7,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 35,
-     "star": 3,
+     "level": 168,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.06985294117647067,
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
       "spd": 0
      }
     },
     {
      "hero": "kuba",
-     "level": 35,
-     "star": 3,
+     "level": 168,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.06985294117647067,
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
       "spd": 0
      }
     }
@@ -2616,25 +2731,26 @@
    "tag": "hero",
    "chapter": 8,
    "balls": [
-    6,
-    2
+    9,
+    5
    ],
    "members": [
     {
      "hero": "huyen_vu",
-     "level": 35,
-     "star": 3,
+     "level": 171,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": true,
      "evo": true,
+     "trait": "huyen_vu_boss",
      "mods": {
-      "hpPct": -0.5893333333333333,
-      "atkPct": -0.44266666666666665,
-      "defPct": -0.2666666666666666,
+      "hpPct": -0.4250666666666667,
+      "atkPct": -0.21973333333333334,
+      "defPct": -0.12,
       "spd": 0
      }
     }
@@ -2645,43 +2761,45 @@
    "tag": "minion",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "linh_noc2",
-     "level": 36,
-     "star": 3,
+     "level": 173,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 36,
-     "star": 3,
+     "level": 173,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -2692,25 +2810,26 @@
    "tag": "buff",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "huyen_vu",
-     "level": 36,
-     "star": 3,
+     "level": 176,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.3429333333333331,
-      "atkPct": -0.3429333333333331,
-      "defPct": -0.22266666666666657,
+      "hpPct": 0.0090666666666667783,
+      "atkPct": 0.0090666666666667783,
+      "defPct": -0.002666666666666706,
       "spd": 0
      }
     }
@@ -2721,43 +2840,45 @@
    "tag": "group",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "thuong_lam",
-     "level": 37,
-     "star": 3,
+     "level": 178,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.25588235294117645,
-      "atkPct": -0.25588235294117645,
-      "defPct": -0.13051470588235292,
+      "hpPct": 0.03529411764705892,
+      "atkPct": 0.03529411764705892,
+      "defPct": 0.051470588235294157,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 37,
-     "star": 3,
+     "level": 178,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.13979999999999992,
-      "atkPct": -0.08919999999999995,
-      "defPct": 0.06425000000000014,
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
       "spd": 0
      }
     }
@@ -2768,61 +2889,64 @@
    "tag": "minion",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "linh_noc2",
-     "level": 37,
-     "star": 3,
+     "level": 181,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 37,
-     "star": 3,
+     "level": 181,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 37,
-     "star": 3,
+     "level": 181,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.32679999999999987,
-      "atkPct": -0.2871999999999999,
-      "defPct": -0.0595,
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
       "spd": 0
      }
     }
@@ -2833,43 +2957,45 @@
    "tag": "pair",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "huyen_vu",
-     "level": 38,
-     "star": 3,
+     "level": 183,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.35466666666666646,
-      "atkPct": -0.35466666666666646,
-      "defPct": -0.22999999999999987,
+      "hpPct": -0.090666666666666451,
+      "atkPct": -0.090666666666666451,
+      "defPct": -0.064999999999999947,
       "spd": 0
      }
     },
     {
      "hero": "kuba",
-     "level": 38,
-     "star": 3,
+     "level": 183,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2882352941176469,
-      "atkPct": -0.2882352941176469,
-      "defPct": -0.15073529411764697,
+      "hpPct": 0.0029411764705882248,
+      "atkPct": 0.0029411764705882248,
+      "defPct": 0.03125,
       "spd": 0
      }
     }
@@ -2880,25 +3006,26 @@
    "tag": "buff",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "huyen_vu",
-     "level": 38,
-     "star": 3,
+     "level": 185,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2666666666666665,
-      "atkPct": -0.2666666666666665,
-      "defPct": -0.17499999999999993,
+      "hpPct": 0.0853333333333337,
+      "atkPct": 0.0853333333333337,
+      "defPct": 0.045000000000000151,
       "spd": 0
      }
     }
@@ -2909,43 +3036,45 @@
    "tag": "elite",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "linh_ngu2",
-     "level": 39,
-     "star": 3,
+     "level": 188,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": 0.12200000000000011,
-      "atkPct": 0.18800000000000017,
-      "defPct": 0.23750000000000004,
+      "hpPct": 0.45860000000000012,
+      "atkPct": 0.54440000000000022,
+      "defPct": 0.46025000000000027,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
-     "level": 39,
-     "star": 3,
+     "level": 188,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.1771999999999998,
-      "atkPct": -0.1287999999999998,
-      "defPct": 0.03950000000000009,
+      "hpPct": 0.1594,
+      "atkPct": 0.22760000000000025,
+      "defPct": 0.26225000000000009,
       "spd": 0
      }
     }
@@ -2956,61 +3085,64 @@
    "tag": "group",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "huyen_vu",
-     "level": 39,
-     "star": 3,
+     "level": 190,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.44266666666666654,
-      "atkPct": -0.44266666666666654,
-      "defPct": -0.2849999999999999,
+      "hpPct": -0.2666666666666665,
+      "atkPct": -0.2666666666666665,
+      "defPct": -0.17499999999999993,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
-     "level": 39,
-     "star": 3,
+     "level": 190,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
-     "level": 39,
-     "star": 3,
+     "level": 190,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.2893999999999999,
-      "atkPct": -0.24759999999999993,
-      "defPct": -0.03474999999999995,
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
       "spd": 0
      }
     }
@@ -3021,43 +3153,45 @@
    "tag": "gate",
    "chapter": 8,
    "balls": [
-    2,
-    2
+    5,
+    5
    ],
    "members": [
     {
      "hero": "huyen_vu",
-     "level": 40,
-     "star": 3,
+     "level": 193,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.23733333333333317,
-      "atkPct": -0.23733333333333317,
-      "defPct": -0.15666666666666662,
+      "hpPct": 0.026666666666666838,
+      "atkPct": 0.026666666666666838,
+      "defPct": 0.0083333333333333037,
       "spd": 0
      }
     },
     {
      "hero": "thuong_lam",
-     "level": 40,
-     "star": 3,
+     "level": 193,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.06985294117647067,
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
       "spd": 0
      }
     }
@@ -3068,25 +3202,26 @@
    "tag": "hero",
    "chapter": 9,
    "balls": [
-    10,
-    2
+    13,
+    5
    ],
    "members": [
     {
      "hero": "lam_quan",
-     "level": 40,
-     "star": 3,
+     "level": 195,
+     "star": 5,
      "cards": [
-      4,
-      4,
-      4
+      5,
+      5,
+      5
      ],
      "boss": true,
      "evo": true,
+     "trait": "lam_quan_boss",
      "mods": {
-      "hpPct": -0.47911764705882354,
-      "atkPct": -0.29308823529411765,
-      "defPct": -0.13051470588235292,
+      "hpPct": -0.1620588235294117,
+      "atkPct": 0.1372058823529414,
+      "defPct": 0.15257352941176472,
       "spd": 0
      }
     }
@@ -3094,16 +3229,302 @@
   },
   {
    "id": 71,
-   "tag": null,
-   "chapter": null,
+   "tag": "hero",
+   "chapter": 0,
    "balls": [
-    14,
-    7
+    3,
+    1
    ],
    "members": [
     {
      "hero": "su_tu_lua",
-     "level": 41,
+     "level": 1,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 72,
+   "tag": "group",
+   "chapter": 0,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "su_tu_lua",
+     "level": 6,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 6,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 73,
+   "tag": "minion",
+   "chapter": 0,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "linh_lo",
+     "level": 11,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 11,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 74,
+   "tag": "gate",
+   "chapter": 0,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "su_tu_lua",
+     "level": 15,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.080000000000000071,
+      "atkPct": 0.080000000000000071,
+      "defPct": 0.17500000000000004,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 15,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 75,
+   "tag": "hero",
+   "chapter": 1,
+   "balls": [
+    3,
+    1
+   ],
+   "members": [
+    {
+     "hero": "khong_lo",
+     "level": 19,
+     "star": 2,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 76,
+   "tag": "minion",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "linh_lo",
+     "level": 22,
+     "star": 2,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 22,
+     "star": 2,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 77,
+   "tag": "buff",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "khong_lo",
+     "level": 26,
+     "star": 3,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.014399999999999746,
+      "atkPct": -0.014399999999999746,
+      "defPct": 0.16600000000000015,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 78,
+   "tag": "group",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "su_tu_lua",
+     "level": 29,
      "star": 3,
      "cards": [
       4,
@@ -3112,22 +3533,205 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 29,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 72,
-   "tag": null,
-   "chapter": null,
+   "id": 79,
+   "tag": "gate",
+   "chapter": 1,
    "balls": [
-    14,
-    7
+    1,
+    1
    ],
    "members": [
     {
-     "hero": "bo_de",
-     "level": 48,
+     "hero": "khong_lo",
+     "level": 33,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.18800000000000017,
+      "atkPct": 0.18800000000000017,
+      "defPct": 0.2925000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 33,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 80,
+   "tag": "hero",
+   "chapter": 2,
+   "balls": [
+    3,
+    1
+   ],
+   "members": [
+    {
+     "hero": "kim_su",
+     "level": 36,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 81,
+   "tag": "minion",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "linh_khi",
+     "level": 39,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 39,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 82,
+   "tag": "buff",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "kim_su",
+     "level": 42,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10399999999999987,
+      "atkPct": -0.10399999999999987,
+      "defPct": 0.060000000000000053,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 83,
+   "tag": "group",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "khong_lo",
+     "level": 46,
      "star": 3,
      "cards": [
       5,
@@ -3136,22 +3740,17 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 73,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    15,
-    8
-   ],
-   "members": [
+     "trait": null,
+     "mods": {
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
+      "spd": 0
+     }
+    },
     {
-     "hero": "bo_de",
-     "level": 48,
+     "hero": "linh_nam",
+     "level": 46,
      "star": 3,
      "cards": [
       5,
@@ -3160,11 +3759,107 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 84,
+   "tag": "gate",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "kim_su",
+     "level": 49,
+     "star": 3,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.080000000000000071,
+      "atkPct": 0.080000000000000071,
+      "defPct": 0.17500000000000004,
+      "spd": 0
+     }
     },
     {
-     "hero": "bo_de",
-     "level": 54,
+     "hero": "linh_khi",
+     "level": 49,
+     "star": 3,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 85,
+   "tag": "hero",
+   "chapter": 3,
+   "balls": [
+    4,
+    2
+   ],
+   "members": [
+    {
+     "hero": "nham_than",
+     "level": 52,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 86,
+   "tag": "minion",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_nam",
+     "level": 55,
      "star": 4,
      "cards": [
       5,
@@ -3173,21 +3868,76 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi",
+     "level": 55,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 74,
-   "tag": null,
-   "chapter": null,
+   "id": 87,
+   "tag": "buff",
+   "chapter": 3,
    "balls": [
-    18,
-    8
+    2,
+    2
    ],
    "members": [
     {
-     "hero": "bo_de",
+     "hero": "nham_than",
+     "level": 58,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10399999999999987,
+      "atkPct": -0.10399999999999987,
+      "defPct": 0.060000000000000053,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 88,
+   "tag": "group",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "kim_su",
      "level": 61,
      "star": 4,
      "cards": [
@@ -3195,23 +3945,18 @@
       5,
       5
      ],
-     "boss": true,
+     "boss": false,
      "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 75,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    16,
-    9
-   ],
-   "members": [
+     "trait": null,
+     "mods": {
+      "hpPct": 0.32000000000000006,
+      "atkPct": 0.32000000000000006,
+      "defPct": 0.32499999999999996,
+      "spd": 0
+     }
+    },
     {
-     "hero": "bo_de",
+     "hero": "linh_lo",
      "level": 61,
      "star": 4,
      "cards": [
@@ -3221,11 +3966,28 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    },
+     "trait": null,
+     "mods": {
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 89,
+   "tag": "gate",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
     {
-     "hero": "phap_luan",
-     "level": 54,
+     "hero": "nham_than",
+     "level": 64,
      "star": 4,
      "cards": [
       5,
@@ -3234,21 +3996,46 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4800000000000002,
+      "atkPct": 0.4800000000000002,
+      "defPct": 0.42500000000000004,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 64,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.27160000000000006,
+      "atkPct": 0.34640000000000026,
+      "defPct": 0.33650000000000024,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 76,
-   "tag": null,
-   "chapter": null,
+   "id": 90,
+   "tag": "hero",
+   "chapter": 4,
    "balls": [
-    16,
-    9
+    6,
+    2
    ],
    "members": [
     {
-     "hero": "phap_luan",
+     "hero": "ho_lua",
      "level": 67,
      "star": 4,
      "cards": [
@@ -3256,97 +4043,225 @@
       5,
       5
      ],
-     "boss": false,
-     "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 77,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    17,
-    10
-   ],
-   "members": [
-    {
-     "hero": "bo_de",
-     "level": 61,
-     "star": 4,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
-    },
-    {
-     "hero": "phap_luan",
-     "level": 61,
-     "star": 4,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
-    },
-    {
-     "hero": "bo_de",
-     "level": 61,
-     "star": 4,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 78,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    24,
-    10
-   ],
-   "members": [
-    {
-     "hero": "phap_luan",
-     "level": 74,
-     "star": 4,
-     "cards": [
-      5,
-      5,
-      5
-     ],
      "boss": true,
-     "evo": true,
-     "mods": null
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.13065573770491823,
+      "atkPct": 0.13065573770491823,
+      "defPct": 0.194672131147541,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 79,
-   "tag": null,
-   "chapter": null,
+   "id": 91,
+   "tag": "minion",
+   "chapter": 4,
    "balls": [
-    20,
-    11
+    2,
+    2
    ],
    "members": [
     {
-     "hero": "bu_long",
+     "hero": "linh_lo",
+     "level": 70,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 70,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 92,
+   "tag": "buff",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "ho_lua",
+     "level": 73,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.3127868852459017,
+      "atkPct": 0.3127868852459017,
+      "defPct": 0.27131147540983624,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 93,
+   "tag": "group",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "nham_than",
+     "level": 76,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.32000000000000006,
+      "atkPct": 0.32000000000000006,
+      "defPct": 0.32499999999999996,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi",
+     "level": 76,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 94,
+   "tag": "minion",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_lo",
+     "level": 78,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 78,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 78,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 95,
+   "tag": "pair",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "ho_lua",
      "level": 81,
      "star": 4,
      "cards": [
@@ -3356,59 +4271,17 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 80,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    20,
-    11
-   ],
-   "members": [
-    {
-     "hero": "phao_hop",
-     "level": 88,
-     "star": 4,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 81,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    21,
-    12
-   ],
-   "members": [
-    {
-     "hero": "bu_long",
-     "level": 88,
-     "star": 4,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.154098360655738,
+      "atkPct": 0.154098360655738,
+      "defPct": 0.17213114754098369,
+      "spd": 0
+     }
     },
     {
-     "hero": "phao_hop",
-     "level": 94,
+     "hero": "kim_su",
+     "level": 81,
      "star": 4,
      "cards": [
       5,
@@ -3417,22 +4290,224 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.28000000000000025,
+      "atkPct": 0.28000000000000025,
+      "defPct": 0.30000000000000004,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 82,
-   "tag": null,
-   "chapter": null,
+   "id": 96,
+   "tag": "buff",
+   "chapter": 4,
    "balls": [
-    24,
-    12
+    2,
+    2
    ],
    "members": [
     {
-     "hero": "bo_cap",
-     "level": 94,
+     "hero": "ho_lua",
+     "level": 84,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4065573770491806,
+      "atkPct": 0.4065573770491806,
+      "defPct": 0.32991803278688558,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 97,
+   "tag": "elite",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_nam",
+     "level": 87,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.49600000000000022,
+      "atkPct": 0.5840000000000003,
+      "defPct": 0.48500000000000032,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 87,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 98,
+   "tag": "group",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "ho_lua",
+     "level": 90,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.062295081967212895,
+      "atkPct": -0.062295081967212895,
+      "defPct": 0.03688524590163933,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 90,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi",
+     "level": 90,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 99,
+   "tag": "gate",
+   "chapter": 4,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "ho_lua",
+     "level": 93,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2983606557377052,
+      "atkPct": 0.2983606557377052,
+      "defPct": 0.26229508196721318,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "nham_than",
+     "level": 93,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.44000000000000017,
+      "atkPct": 0.44000000000000017,
+      "defPct": 0.39999999999999991,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 100,
+   "tag": "hero",
+   "chapter": 5,
+   "balls": [
+    7,
+    3
+   ],
+   "members": [
+    {
+     "hero": "hong_lien",
+     "level": 95,
      "star": 4,
      "cards": [
       5,
@@ -3440,23 +4515,29 @@
       5
      ],
      "boss": true,
-     "evo": false,
-     "mods": null
+     "evo": true,
+     "trait": "hong_lien_boss",
+     "mods": {
+      "hpPct": -0.16688524590163933,
+      "atkPct": 0.13065573770491823,
+      "defPct": 0.194672131147541,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 83,
-   "tag": null,
-   "chapter": null,
+   "id": 101,
+   "tag": "minion",
+   "chapter": 5,
    "balls": [
-    22,
-    13
+    3,
+    3
    ],
    "members": [
     {
-     "hero": "bo_ngua",
-     "level": 107,
+     "hero": "linh_nam",
+     "level": 98,
      "star": 5,
      "cards": [
       5,
@@ -3465,11 +4546,17 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
     },
     {
-     "hero": "bu_long",
-     "level": 107,
+     "hero": "linh_khi",
+     "level": 98,
      "star": 5,
      "cards": [
       5,
@@ -3478,21 +4565,253 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 84,
-   "tag": null,
-   "chapter": null,
+   "id": 102,
+   "tag": "buff",
+   "chapter": 5,
    "balls": [
-    22,
-    13
+    3,
+    3
    ],
    "members": [
     {
-     "hero": "bo_cap",
+     "hero": "hong_lien",
+     "level": 101,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.3127868852459017,
+      "atkPct": 0.3127868852459017,
+      "defPct": 0.27131147540983624,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 103,
+   "tag": "group",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "ho_lua",
+     "level": 104,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19016393442622959,
+      "atkPct": 0.19016393442622959,
+      "defPct": 0.194672131147541,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo",
+     "level": 104,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 104,
+   "tag": "minion",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_nam",
+     "level": 106,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi",
+     "level": 106,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam",
+     "level": 106,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 105,
+   "tag": "pair",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "hong_lien",
+     "level": 109,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.154098360655738,
+      "atkPct": 0.154098360655738,
+      "defPct": 0.17213114754098369,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "nham_than",
+     "level": 109,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.28000000000000025,
+      "atkPct": 0.28000000000000025,
+      "defPct": 0.30000000000000004,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 106,
+   "tag": "buff",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "hong_lien",
+     "level": 112,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4065573770491806,
+      "atkPct": 0.4065573770491806,
+      "defPct": 0.32991803278688558,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 107,
+   "tag": "elite",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_khi2",
      "level": 114,
      "star": 5,
      "cards": [
@@ -3502,21 +4821,16 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 85,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    23,
-    14
-   ],
-   "members": [
+     "trait": null,
+     "mods": {
+      "hpPct": 0.49600000000000022,
+      "atkPct": 0.5840000000000003,
+      "defPct": 0.48500000000000032,
+      "spd": 0
+     }
+    },
     {
-     "hero": "soi_linh",
+     "hero": "linh_nam2",
      "level": 114,
      "star": 5,
      "cards": [
@@ -3526,21 +4840,95 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 86,
-   "tag": null,
-   "chapter": null,
+   "id": 108,
+   "tag": "group",
+   "chapter": 5,
    "balls": [
-    30,
-    14
+    3,
+    3
    ],
    "members": [
     {
-     "hero": "soi_linh",
+     "hero": "hong_lien",
+     "level": 117,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.062295081967212895,
+      "atkPct": -0.062295081967212895,
+      "defPct": 0.03688524590163933,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 117,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 117,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 109,
+   "tag": "gate",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "hong_lien",
      "level": 120,
      "star": 5,
      "cards": [
@@ -3548,24 +4936,19 @@
       5,
       5
      ],
-     "boss": true,
-     "evo": true,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 87,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    26,
-    15
-   ],
-   "members": [
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2983606557377052,
+      "atkPct": 0.2983606557377052,
+      "defPct": 0.26229508196721318,
+      "spd": 0
+     }
+    },
     {
-     "hero": "nu_hoa",
-     "level": 121,
+     "hero": "ho_lua",
+     "level": 120,
      "star": 5,
      "cards": [
       5,
@@ -3574,21 +4957,106 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2983606557377052,
+      "atkPct": 0.2983606557377052,
+      "defPct": 0.26229508196721318,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 88,
-   "tag": null,
-   "chapter": null,
+   "id": 110,
+   "tag": "hero",
+   "chapter": 6,
    "balls": [
-    26,
-    15
+    7,
+    3
    ],
    "members": [
     {
-     "hero": "mam_go",
+     "hero": "giap_long",
+     "level": 122,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.20735294117647063,
+      "atkPct": 0.075735294117647012,
+      "defPct": 0.11213235294117641,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 111,
+   "tag": "minion",
+   "chapter": 6,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_khi2",
+     "level": 125,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 125,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 112,
+   "tag": "buff",
+   "chapter": 6,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "giap_long",
      "level": 128,
      "star": 5,
      "cards": [
@@ -3598,22 +5066,28 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.17764705882352927,
+      "atkPct": 0.17764705882352927,
+      "defPct": 0.14044117647058818,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 89,
-   "tag": null,
-   "chapter": null,
+   "id": 113,
+   "tag": "group",
+   "chapter": 6,
    "balls": [
-    27,
-    16
+    4,
+    4
    ],
    "members": [
     {
-     "hero": "nu_hoa",
-     "level": 128,
+     "hero": "hong_lien",
+     "level": 130,
      "star": 5,
      "cards": [
       5,
@@ -3622,11 +5096,17 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19016393442622959,
+      "atkPct": 0.19016393442622959,
+      "defPct": 0.194672131147541,
+      "spd": 0
+     }
     },
     {
-     "hero": "mam_go",
-     "level": 134,
+     "hero": "linh_nam2",
+     "level": 130,
      "star": 5,
      "cards": [
       5,
@@ -3635,45 +5115,174 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 90,
-   "tag": null,
-   "chapter": null,
+   "id": 114,
+   "tag": "minion",
+   "chapter": 6,
    "balls": [
-    30,
-    16
+    4,
+    4
    ],
    "members": [
     {
-     "hero": "de_hoa",
-     "level": 134,
+     "hero": "linh_khi2",
+     "level": 133,
      "star": 5,
      "cards": [
       5,
       5,
       5
      ],
-     "boss": true,
+     "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 133,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 133,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 91,
-   "tag": null,
-   "chapter": null,
+   "id": 115,
+   "tag": "pair",
+   "chapter": 6,
    "balls": [
-    28,
-    17
+    4,
+    4
    ],
    "members": [
     {
-     "hero": "giac_long",
+     "hero": "giap_long",
+     "level": 135,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.03529411764705892,
+      "atkPct": 0.03529411764705892,
+      "defPct": 0.051470588235294157,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "ho_lua",
+     "level": 135,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.154098360655738,
+      "atkPct": 0.154098360655738,
+      "defPct": 0.17213114754098369,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 116,
+   "tag": "buff",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "giap_long",
+     "level": 138,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 117,
+   "tag": "elite",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_lo2",
      "level": 141,
      "star": 5,
      "cards": [
@@ -3683,10 +5292,16 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.49600000000000022,
+      "atkPct": 0.5840000000000003,
+      "defPct": 0.48500000000000032,
+      "spd": 0
+     }
     },
     {
-     "hero": "nu_hoa",
+     "hero": "linh_khi2",
      "level": 141,
      "star": 5,
      "cards": [
@@ -3696,22 +5311,28 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 92,
-   "tag": null,
-   "chapter": null,
+   "id": 118,
+   "tag": "group",
+   "chapter": 6,
    "balls": [
-    28,
-    17
+    4,
+    4
    ],
    "members": [
     {
-     "hero": "giac_long",
-     "level": 147,
+     "hero": "giap_long",
+     "level": 143,
      "star": 5,
      "cards": [
       5,
@@ -3720,35 +5341,17 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 93,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    29,
-    18
-   ],
-   "members": [
-    {
-     "hero": "mam_go",
-     "level": 147,
-     "star": 5,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.15882352941176459,
+      "atkPct": -0.15882352941176459,
+      "defPct": -0.069852941176470673,
+      "spd": 0
+     }
     },
     {
-     "hero": "de_hoa",
-     "level": 147,
+     "hero": "linh_lo2",
+     "level": 143,
      "star": 5,
      "cards": [
       5,
@@ -3757,11 +5360,17 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
     },
     {
-     "hero": "nu_hoa",
-     "level": 147,
+     "hero": "linh_nam2",
+     "level": 143,
      "star": 5,
      "cards": [
       5,
@@ -3770,22 +5379,77 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
     }
    ]
   },
   {
-   "id": 94,
-   "tag": null,
-   "chapter": null,
+   "id": 119,
+   "tag": "gate",
+   "chapter": 6,
    "balls": [
-    36,
-    18
+    4,
+    4
    ],
    "members": [
     {
-     "hero": "giac_long",
-     "level": 160,
+     "hero": "giap_long",
+     "level": 146,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "hong_lien",
+     "level": 146,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2983606557377052,
+      "atkPct": 0.2983606557377052,
+      "defPct": 0.26229508196721318,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 120,
+   "tag": "hero",
+   "chapter": 7,
+   "balls": [
+    8,
+    4
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 148,
      "star": 5,
      "cards": [
       5,
@@ -3794,71 +5458,4432 @@
      ],
      "boss": true,
      "evo": true,
+     "trait": "huyen_viem_boss",
+     "mods": {
+      "hpPct": -0.25264705882352945,
+      "atkPct": 0.014264705882352846,
+      "defPct": 0.071691176470588314,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 121,
+   "tag": "minion",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_lo2",
+     "level": 151,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam2",
+     "level": 151,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 122,
+   "tag": "buff",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 153,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.17764705882352927,
+      "atkPct": 0.17764705882352927,
+      "defPct": 0.14044117647058818,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 123,
+   "tag": "group",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "giap_long",
+     "level": 156,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0676470588235294,
+      "atkPct": 0.0676470588235294,
+      "defPct": 0.071691176470588314,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 156,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 124,
+   "tag": "minion",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_lo2",
+     "level": 158,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam2",
+     "level": 158,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 158,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 125,
+   "tag": "pair",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 161,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.03529411764705892,
+      "atkPct": 0.03529411764705892,
+      "defPct": 0.051470588235294157,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "hong_lien",
+     "level": 161,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.154098360655738,
+      "atkPct": 0.154098360655738,
+      "defPct": 0.17213114754098369,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 126,
+   "tag": "buff",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 163,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 127,
+   "tag": "elite",
+   "chapter": 7,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_nam2",
+     "level": 166,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.49600000000000022,
+      "atkPct": 0.5840000000000003,
+      "defPct": 0.48500000000000032,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 166,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 128,
+   "tag": "group",
+   "chapter": 7,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 168,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.15882352941176459,
+      "atkPct": -0.15882352941176459,
+      "defPct": -0.069852941176470673,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam2",
+     "level": 168,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 168,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 129,
+   "tag": "gate",
+   "chapter": 7,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 171,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "giap_long",
+     "level": 171,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 130,
+   "tag": "hero",
+   "chapter": 8,
+   "balls": [
+    9,
+    5
+   ],
+   "members": [
+    {
+     "hero": "hoa_tinh",
+     "level": 173,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.20735294117647063,
+      "atkPct": 0.075735294117647012,
+      "defPct": 0.11213235294117641,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 131,
+   "tag": "minion",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_nam2",
+     "level": 176,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 176,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 132,
+   "tag": "buff",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "hoa_tinh",
+     "level": 178,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.17764705882352927,
+      "atkPct": 0.17764705882352927,
+      "defPct": 0.14044117647058818,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 133,
+   "tag": "group",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "huyen_viem",
+     "level": 181,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0676470588235294,
+      "atkPct": 0.0676470588235294,
+      "defPct": 0.071691176470588314,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 181,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.23419999999999996,
+      "atkPct": 0.30679999999999996,
+      "defPct": 0.31174999999999997,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 134,
+   "tag": "minion",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_nam2",
+     "level": 183,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 183,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam2",
+     "level": 183,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.064999999999999836,
+      "atkPct": -0.0099999999999998979,
+      "defPct": 0.11375000000000002,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 135,
+   "tag": "pair",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "hoa_tinh",
+     "level": 186,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.03529411764705892,
+      "atkPct": 0.03529411764705892,
+      "defPct": 0.051470588235294157,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "giap_long",
+     "level": 186,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.03529411764705892,
+      "atkPct": 0.03529411764705892,
+      "defPct": 0.051470588235294157,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 136,
+   "tag": "buff",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "hoa_tinh",
+     "level": 188,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 137,
+   "tag": "elite",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_khi2",
+     "level": 191,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.49600000000000022,
+      "atkPct": 0.5840000000000003,
+      "defPct": 0.48500000000000032,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_nam2",
+     "level": 191,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.19680000000000031,
+      "atkPct": 0.26720000000000033,
+      "defPct": 0.28700000000000037,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 138,
+   "tag": "group",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "hoa_tinh",
+     "level": 193,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.15882352941176459,
+      "atkPct": -0.15882352941176459,
+      "defPct": -0.069852941176470673,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_khi2",
+     "level": 193,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_lo2",
+     "level": 193,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.027599999999999847,
+      "atkPct": 0.029600000000000293,
+      "defPct": 0.13850000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 139,
+   "tag": "gate",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "hoa_tinh",
+     "level": 196,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "huyen_viem",
+     "level": 196,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 140,
+   "tag": "hero",
+   "chapter": 9,
+   "balls": [
+    13,
+    5
+   ],
+   "members": [
+    {
+     "hero": "lan_hoa",
+     "level": 198,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": "lan_hoa_boss",
+     "mods": {
+      "hpPct": -0.19920000000000004,
+      "atkPct": 0.086799999999999988,
+      "defPct": 0.081666666666666776,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 141,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "bu_long",
+     "level": 1,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
      "mods": null
     }
    ]
   },
   {
-   "id": 95,
+   "id": 142,
    "tag": null,
    "chapter": null,
    "balls": [
-    32,
-    19
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "phao_hop",
+     "level": 39,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 143,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "bu_long",
+     "level": 64,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    },
+    {
+     "hero": "phao_hop",
+     "level": 70,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 144,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    7,
+    3
+   ],
+   "members": [
+    {
+     "hero": "bo_cap",
+     "level": 98,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 145,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "bo_ngua",
+     "level": 125,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    },
+    {
+     "hero": "bu_long",
+     "level": 125,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 146,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "bo_cap",
+     "level": 151,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 147,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "soi_linh",
+     "level": 176,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 148,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    13,
+    5
+   ],
+   "members": [
+    {
+     "hero": "soi_linh",
+     "level": 200,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 149,
+   "tag": "hero",
+   "chapter": 0,
+   "balls": [
+    3,
+    1
+   ],
+   "members": [
+    {
+     "hero": "tien_la",
+     "level": 1,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 150,
+   "tag": "group",
+   "chapter": 0,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "nu_hoa",
+     "level": 6,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 6,
+     "star": 1,
+     "cards": [
+      1,
+      1,
+      1
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 151,
+   "tag": "minion",
+   "chapter": 0,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "linh_bo",
+     "level": 10,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 10,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 152,
+   "tag": "gate",
+   "chapter": 0,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "tien_la",
+     "level": 14,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.18800000000000017,
+      "atkPct": 0.18800000000000017,
+      "defPct": 0.2925000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 14,
+     "star": 2,
+     "cards": [
+      2,
+      2,
+      2
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 153,
+   "tag": "hero",
+   "chapter": 1,
+   "balls": [
+    3,
+    1
+   ],
+   "members": [
+    {
+     "hero": "hoa_nhuy",
+     "level": 18,
+     "star": 2,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 154,
+   "tag": "minion",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "linh_bo",
+     "level": 21,
+     "star": 2,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 21,
+     "star": 2,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 155,
+   "tag": "buff",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "hoa_nhuy",
+     "level": 25,
+     "star": 3,
+     "cards": [
+      3,
+      3,
+      3
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.014399999999999746,
+      "atkPct": -0.014399999999999746,
+      "defPct": 0.16600000000000015,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 156,
+   "tag": "group",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "tien_la",
+     "level": 28,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 28,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 157,
+   "tag": "gate",
+   "chapter": 1,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "hoa_nhuy",
+     "level": 31,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.18800000000000017,
+      "atkPct": 0.18800000000000017,
+      "defPct": 0.2925000000000002,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 31,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 158,
+   "tag": "hero",
+   "chapter": 2,
+   "balls": [
+    3,
+    1
+   ],
+   "members": [
+    {
+     "hero": "de_hoa",
+     "level": 34,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 159,
+   "tag": "minion",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "linh_chim",
+     "level": 38,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 38,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 160,
+   "tag": "buff",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "de_hoa",
+     "level": 41,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10399999999999987,
+      "atkPct": -0.10399999999999987,
+      "defPct": 0.060000000000000053,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 161,
+   "tag": "group",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "hoa_nhuy",
+     "level": 44,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.012000000000000011,
+      "atkPct": 0.012000000000000011,
+      "defPct": 0.18250000000000011,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 44,
+     "star": 3,
+     "cards": [
+      4,
+      4,
+      4
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 162,
+   "tag": "gate",
+   "chapter": 2,
+   "balls": [
+    1,
+    1
+   ],
+   "members": [
+    {
+     "hero": "de_hoa",
+     "level": 47,
+     "star": 3,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.080000000000000071,
+      "atkPct": 0.080000000000000071,
+      "defPct": 0.17500000000000004,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim",
+     "level": 47,
+     "star": 3,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10239999999999982,
+      "atkPct": -0.049599999999999866,
+      "defPct": 0.08900000000000019,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 163,
+   "tag": "hero",
+   "chapter": 3,
+   "balls": [
+    4,
+    2
+   ],
+   "members": [
+    {
+     "hero": "bom_la",
+     "level": 50,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 164,
+   "tag": "minion",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_ran",
+     "level": 53,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim",
+     "level": 53,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.1771999999999998,
+      "atkPct": -0.1287999999999998,
+      "defPct": 0.039500000000000091,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 165,
+   "tag": "buff",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "bom_la",
+     "level": 56,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.10399999999999987,
+      "atkPct": -0.10399999999999987,
+      "defPct": 0.060000000000000053,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 166,
+   "tag": "group",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "de_hoa",
+     "level": 58,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 58,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.13979999999999992,
+      "atkPct": -0.089199999999999946,
+      "defPct": 0.06425000000000014,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 167,
+   "tag": "gate",
+   "chapter": 3,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "bom_la",
+     "level": 61,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.60000000000000009,
+      "atkPct": 0.60000000000000009,
+      "defPct": 0.5,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 61,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.38380000000000014,
+      "atkPct": 0.46520000000000028,
+      "defPct": 0.41075000000000017,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 168,
+   "tag": "hero",
+   "chapter": 4,
+   "balls": [
+    6,
+    2
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 64,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098360655737705915,
+      "atkPct": 0.3704918032786888,
+      "defPct": 0.35245901639344268,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 169,
+   "tag": "minion",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_bo",
+     "level": 67,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 67,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 170,
+   "tag": "buff",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 70,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.56524590163934452,
+      "atkPct": 0.56524590163934452,
+      "defPct": 0.42909836065573792,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 171,
+   "tag": "group",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "bom_la",
+     "level": 73,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.44000000000000017,
+      "atkPct": 0.44000000000000017,
+      "defPct": 0.39999999999999991,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim",
+     "level": 73,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.34640000000000026,
+      "atkPct": 0.4256000000000002,
+      "defPct": 0.38600000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 172,
+   "tag": "minion",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_bo",
+     "level": 75,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 75,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 75,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 173,
+   "tag": "pair",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 78,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "de_hoa",
+     "level": 78,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.40000000000000013,
+      "atkPct": 0.40000000000000013,
+      "defPct": 0.375,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 174,
+   "tag": "buff",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 81,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.65901639344262319,
+      "atkPct": 0.65901639344262319,
+      "defPct": 0.48770491803278704,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 175,
+   "tag": "elite",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "linh_ran",
+     "level": 83,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.60820000000000007,
+      "atkPct": 0.70280000000000031,
+      "defPct": 0.55925,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 83,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 176,
+   "tag": "group",
+   "chapter": 4,
+   "balls": [
+    2,
+    2
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 86,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098360655737705915,
+      "atkPct": 0.0098360655737705915,
+      "defPct": 0.081967213114754189,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 86,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim",
+     "level": 86,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 177,
+   "tag": "gate",
+   "chapter": 4,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 89,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4065573770491806,
+      "atkPct": 0.4065573770491806,
+      "defPct": 0.32991803278688558,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "bom_la",
+     "level": 89,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.56,
+      "atkPct": 0.56,
+      "defPct": 0.47500000000000009,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 178,
+   "tag": "hero",
+   "chapter": 5,
+   "balls": [
+    7,
+    3
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 91,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": "gio_loc_boss",
+     "mods": {
+      "hpPct": -0.065901639344262186,
+      "atkPct": 0.26770491803278729,
+      "defPct": 0.28483606557377072,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 179,
+   "tag": "minion",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_ran",
+     "level": 94,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim",
+     "level": 94,
+     "star": 4,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 180,
+   "tag": "buff",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 97,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.56524590163934452,
+      "atkPct": 0.56524590163934452,
+      "defPct": 0.42909836065573792,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 181,
+   "tag": "group",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "phong_linh",
+     "level": 99,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2983606557377052,
+      "atkPct": 0.2983606557377052,
+      "defPct": 0.26229508196721318,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo",
+     "level": 99,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.34640000000000026,
+      "atkPct": 0.4256000000000002,
+      "defPct": 0.38600000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 182,
+   "tag": "minion",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_ran",
+     "level": 102,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim",
+     "level": 102,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran",
+     "level": 102,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 183,
+   "tag": "pair",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 105,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "bom_la",
+     "level": 105,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.40000000000000013,
+      "atkPct": 0.40000000000000013,
+      "defPct": 0.375,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 184,
+   "tag": "buff",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 107,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.65901639344262319,
+      "atkPct": 0.65901639344262319,
+      "defPct": 0.48770491803278704,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 185,
+   "tag": "elite",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_chim2",
+     "level": 110,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.60820000000000007,
+      "atkPct": 0.70280000000000031,
+      "defPct": 0.55925,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 110,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 186,
+   "tag": "group",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 112,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098360655737705915,
+      "atkPct": 0.0098360655737705915,
+      "defPct": 0.081967213114754189,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 112,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 112,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 187,
+   "tag": "gate",
+   "chapter": 5,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 115,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4065573770491806,
+      "atkPct": 0.4065573770491806,
+      "defPct": 0.32991803278688558,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "phong_linh",
+     "level": 115,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4065573770491806,
+      "atkPct": 0.4065573770491806,
+      "defPct": 0.32991803278688558,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 188,
+   "tag": "hero",
+   "chapter": 6,
+   "balls": [
+    7,
+    3
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 117,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.04882352941176471,
+      "atkPct": 0.29088235294117659,
+      "defPct": 0.25367647058823528,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 189,
+   "tag": "minion",
+   "chapter": 6,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "linh_chim2",
+     "level": 120,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 120,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 190,
+   "tag": "buff",
+   "chapter": 6,
+   "balls": [
+    3,
+    3
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 122,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.40411764705882347,
+      "atkPct": 0.40411764705882347,
+      "defPct": 0.28198529411764706,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 191,
+   "tag": "group",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "gio_loc",
+     "level": 125,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2983606557377052,
+      "atkPct": 0.2983606557377052,
+      "defPct": 0.26229508196721318,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 125,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.34640000000000026,
+      "atkPct": 0.4256000000000002,
+      "defPct": 0.38600000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 192,
+   "tag": "minion",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_chim2",
+     "level": 127,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 127,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 127,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 193,
+   "tag": "pair",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 130,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "phong_linh",
+     "level": 130,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 194,
+   "tag": "buff",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 132,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4882352941176471,
+      "atkPct": 0.4882352941176471,
+      "defPct": 0.33455882352941169,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 195,
+   "tag": "elite",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_bo2",
+     "level": 135,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.60820000000000007,
+      "atkPct": 0.70280000000000031,
+      "defPct": 0.55925,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 135,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 196,
+   "tag": "group",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 137,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.094117647058823528,
+      "atkPct": -0.094117647058823528,
+      "defPct": -0.029411764705882359,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 137,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 137,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 197,
+   "tag": "gate",
+   "chapter": 6,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 140,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "gio_loc",
+     "level": 140,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4065573770491806,
+      "atkPct": 0.4065573770491806,
+      "defPct": 0.32991803278688558,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 198,
+   "tag": "hero",
+   "chapter": 7,
+   "balls": [
+    8,
+    4
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 142,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": false,
+     "trait": "tho_hoang_boss",
+     "mods": {
+      "hpPct": 0.22941176470588243,
+      "atkPct": 0.22941176470588243,
+      "defPct": 0.21323529411764719,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 199,
+   "tag": "minion",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_bo2",
+     "level": 145,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 145,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 200,
+   "tag": "buff",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 147,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.40411764705882347,
+      "atkPct": 0.40411764705882347,
+      "defPct": 0.28198529411764706,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 201,
+   "tag": "group",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "long_vuot",
+     "level": 150,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 150,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.34640000000000026,
+      "atkPct": 0.4256000000000002,
+      "defPct": 0.38600000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 202,
+   "tag": "minion",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "linh_bo2",
+     "level": 152,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 152,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 152,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 203,
+   "tag": "pair",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 154,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "gio_loc",
+     "level": 154,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.26229508196721341,
+      "atkPct": 0.26229508196721341,
+      "defPct": 0.23975409836065587,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 204,
+   "tag": "buff",
+   "chapter": 7,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 157,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4882352941176471,
+      "atkPct": 0.4882352941176471,
+      "defPct": 0.33455882352941169,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 205,
+   "tag": "elite",
+   "chapter": 7,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_ran2",
+     "level": 159,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.60820000000000007,
+      "atkPct": 0.70280000000000031,
+      "defPct": 0.55925,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 159,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 206,
+   "tag": "group",
+   "chapter": 7,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 162,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.094117647058823528,
+      "atkPct": -0.094117647058823528,
+      "defPct": -0.029411764705882359,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 162,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 162,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 207,
+   "tag": "gate",
+   "chapter": 7,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 164,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "long_vuot",
+     "level": 164,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 208,
+   "tag": "hero",
+   "chapter": 8,
+   "balls": [
+    9,
+    5
+   ],
+   "members": [
+    {
+     "hero": "moc_tinh",
+     "level": 166,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.04882352941176471,
+      "atkPct": 0.29088235294117659,
+      "defPct": 0.25367647058823528,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 209,
+   "tag": "minion",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_ran2",
+     "level": 169,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 169,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 210,
+   "tag": "buff",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "moc_tinh",
+     "level": 171,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.40411764705882347,
+      "atkPct": 0.40411764705882347,
+      "defPct": 0.28198529411764706,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 211,
+   "tag": "group",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "tho_hoang",
+     "level": 174,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.16470588235294126,
+      "atkPct": 0.16470588235294126,
+      "defPct": 0.13235294117647056,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 174,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.34640000000000026,
+      "atkPct": 0.4256000000000002,
+      "defPct": 0.38600000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 212,
+   "tag": "minion",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_ran2",
+     "level": 176,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 176,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 176,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.0098000000000000309,
+      "atkPct": 0.06920000000000015,
+      "defPct": 0.16325000000000012,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 213,
+   "tag": "pair",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "moc_tinh",
+     "level": 178,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "long_vuot",
+     "level": 178,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.13235294117647056,
+      "atkPct": 0.13235294117647056,
+      "defPct": 0.11213235294117641,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 214,
+   "tag": "buff",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "moc_tinh",
+     "level": 181,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.4882352941176471,
+      "atkPct": 0.4882352941176471,
+      "defPct": 0.33455882352941169,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 215,
+   "tag": "elite",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "linh_chim2",
+     "level": 183,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.60820000000000007,
+      "atkPct": 0.70280000000000031,
+      "defPct": 0.55925,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_ran2",
+     "level": 183,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.30900000000000016,
+      "atkPct": 0.38600000000000012,
+      "defPct": 0.36125000000000007,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 216,
+   "tag": "group",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "moc_tinh",
+     "level": 185,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": -0.094117647058823528,
+      "atkPct": -0.094117647058823528,
+      "defPct": -0.029411764705882359,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_chim2",
+     "level": 185,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "linh_bo2",
+     "level": 185,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.047200000000000131,
+      "atkPct": 0.10880000000000023,
+      "defPct": 0.18800000000000017,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 217,
+   "tag": "gate",
+   "chapter": 8,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "moc_tinh",
+     "level": 188,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    },
+    {
+     "hero": "tho_hoang",
+     "level": 188,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": {
+      "hpPct": 0.2617647058823529,
+      "atkPct": 0.2617647058823529,
+      "defPct": 0.19301470588235303,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 218,
+   "tag": "hero",
+   "chapter": 9,
+   "balls": [
+    13,
+    5
+   ],
+   "members": [
+    {
+     "hero": "thanh_long",
+     "level": 190,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": true,
+     "evo": true,
+     "trait": "thanh_long_boss",
+     "mods": {
+      "hpPct": -0.19920000000000004,
+      "atkPct": 0.086799999999999988,
+      "defPct": 0.081666666666666776,
+      "spd": 0
+     }
+    }
+   ]
+  },
+  {
+   "id": 219,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    1,
+    1
    ],
    "members": [
     {
      "hero": "thach_nhan",
-     "level": 161,
-     "star": 5,
+     "level": 1,
+     "star": 1,
      "cards": [
-      5,
-      5,
-      5
+      1,
+      1,
+      1
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": null
     }
    ]
   },
   {
-   "id": 96,
+   "id": 220,
    "tag": null,
    "chapter": null,
    "balls": [
-    32,
-    19
+    1,
+    1
    ],
    "members": [
     {
      "hero": "vo_su",
-     "level": 167,
-     "star": 5,
+     "level": 38,
+     "star": 3,
      "cards": [
-      5,
-      5,
-      5
+      4,
+      4,
+      4
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": null
     }
    ]
   },
   {
-   "id": 97,
+   "id": 221,
    "tag": null,
    "chapter": null,
    "balls": [
-    33,
-    20
+    2,
+    2
    ],
    "members": [
     {
      "hero": "vo_su",
-     "level": 167,
-     "star": 5,
+     "level": 63,
+     "star": 4,
      "cards": [
       5,
       5,
@@ -3866,12 +9891,13 @@
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": null
     },
     {
      "hero": "vo_su",
-     "level": 172,
-     "star": 5,
+     "level": 68,
+     "star": 4,
      "cards": [
       5,
       5,
@@ -3879,22 +9905,23 @@
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
      "mods": null
     }
    ]
   },
   {
-   "id": 98,
+   "id": 222,
    "tag": null,
    "chapter": null,
    "balls": [
-    36,
-    20
+    7,
+    3
    ],
    "members": [
     {
      "hero": "vo_su",
-     "level": 178,
+     "level": 96,
      "star": 5,
      "cards": [
       5,
@@ -3903,22 +9930,23 @@
      ],
      "boss": true,
      "evo": false,
+     "trait": null,
      "mods": null
     }
    ]
   },
   {
-   "id": 99,
+   "id": 223,
    "tag": null,
    "chapter": null,
    "balls": [
-    34,
-    21
+    3,
+    3
    ],
    "members": [
     {
      "hero": "vo_su",
-     "level": 178,
+     "level": 122,
      "star": 5,
      "cards": [
       5,
@@ -3927,6 +9955,71 @@
      ],
      "boss": false,
      "evo": false,
+     "trait": null,
+     "mods": null
+    },
+    {
+     "hero": "ca_sa",
+     "level": 105,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 224,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    4,
+    4
+   ],
+   "members": [
+    {
+     "hero": "ca_sa",
+     "level": 147,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
+     "mods": null
+    }
+   ]
+  },
+  {
+   "id": 225,
+   "tag": null,
+   "chapter": null,
+   "balls": [
+    5,
+    5
+   ],
+   "members": [
+    {
+     "hero": "vo_su",
+     "level": 172,
+     "star": 5,
+     "cards": [
+      5,
+      5,
+      5
+     ],
+     "boss": false,
+     "evo": false,
+     "trait": null,
      "mods": null
     },
     {
@@ -3940,58 +10033,11 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 100,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    34,
-    21
-   ],
-   "members": [
-    {
-     "hero": "ca_sa",
-     "level": 167,
-     "star": 5,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
-     "mods": null
-    }
-   ]
-  },
-  {
-   "id": 101,
-   "tag": null,
-   "chapter": null,
-   "balls": [
-    35,
-    22
-   ],
-   "members": [
-    {
-     "hero": "vo_su",
-     "level": 183,
-     "star": 5,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
+     "trait": null,
      "mods": null
     },
     {
-     "hero": "ca_sa",
+     "hero": "vo_su",
      "level": 172,
      "star": 5,
      "cards": [
@@ -4001,35 +10047,23 @@
      ],
      "boss": false,
      "evo": false,
-     "mods": null
-    },
-    {
-     "hero": "vo_su",
-     "level": 183,
-     "star": 5,
-     "cards": [
-      5,
-      5,
-      5
-     ],
-     "boss": false,
-     "evo": false,
+     "trait": null,
      "mods": null
     }
    ]
   },
   {
-   "id": 102,
+   "id": 226,
    "tag": null,
    "chapter": null,
    "balls": [
-    42,
-    22
+    13,
+    5
    ],
    "members": [
     {
      "hero": "ca_sa",
-     "level": 172,
+     "level": 196,
      "star": 5,
      "cards": [
       5,
@@ -4038,6 +10072,7 @@
      ],
      "boss": true,
      "evo": true,
+     "trait": null,
      "mods": null
     }
    ]

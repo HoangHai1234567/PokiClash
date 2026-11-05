@@ -1,6 +1,6 @@
 // Mô phỏng tiến độ: N ngày theo các kiểu người chơi (chăm, vừa, ít). Mỗi lần vào game:
 //   1. nhận AFK (×2 nếu xem quảng cáo), mở rương AFK tới giờ (và "Mở ngay" nếu xem quảng cáo);
-//   2. đánh ải kế tiếp của đảo gợi ý; tỉ lệ thắng = máy tự chơi (đội và cấp thật lúc đó) + mức "người giỏi hơn máy";
+//   2. đánh ải kế tiếp của đảo gợi ý (đảo có ải kế cấp thấp nhất); tỉ lệ thắng = máy tự chơi (đội và cấp thật lúc đó) + mức "người giỏi hơn máy";
 //      ải kế quá khó (< 30%) thì đánh lại ải đã qua nhiều bi nhất mà gần chắc thắng;
 //   3. thả hết bi (ô rơi theo tỉ lệ đo của máy, ×1), mở rương máy bi; 4. nâng thẻ, tiến hóa khi đủ;
 //   5. rời game thì bật tăng tốc AFK (nếu xem quảng cáo).
@@ -29,7 +29,7 @@ namespace PokiClash.Core
         public int[] level; // cấp cuối mỗi ngày, [0] = lúc mới chơi
         public int[] cleared; // tổng số ải đã qua cuối mỗi ngày
         public int[] zoneDay = new int[5]; // ngày chinh phục từng đảo (theo Elem), -1 = chưa
-        public int[] zoneLevelDay = new int[5]; // ngày đạt cấp đề nghị thấp nhất của đảo, -1 = chưa
+        public int[] zoneLevelDay = new int[5]; // ngày đạt cấp boss cuối đảo (levelMax; đảo song song đều bắt đầu từ cấp 1), -1 = chưa
         public int battles, wins, replays, ballsDropped, ballsFromStages, ballsFromTrees, ballsFromFarm, afkChests, cardUps, evolves;
     }
 
@@ -78,7 +78,7 @@ namespace PokiClash.Core
             {
                 int i = (int)z.id;
                 if (rep.zoneDay[i] < 0 && Progress.ZoneDone(s, z.id)) rep.zoneDay[i] = day;
-                if (rep.zoneLevelDay[i] < 0 && s.level >= z.levelMin) rep.zoneLevelDay[i] = day;
+                if (rep.zoneLevelDay[i] < 0 && s.level >= z.levelMax) rep.zoneLevelDay[i] = day;
             }
         }
 

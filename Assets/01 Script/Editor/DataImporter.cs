@@ -46,6 +46,7 @@ namespace PokiClash.EditorTools
             cards.pool = d.Pool;
             cards.innate = d.Innate;
             cards.minions = d.MinionCards;
+            cards.traits = d.Traits;
             EditorUtility.SetDirty(cards);
 
             var zones = LoadOrCreate<ZoneDb>("ZoneDb");

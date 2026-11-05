@@ -20,6 +20,7 @@ namespace PokiClash.Game
                 Pool = new List<CardDef>(cards.pool),
                 Innate = new List<CardDef>(cards.innate),
                 MinionCards = new List<CardDef>(cards.minions),
+                Traits = new List<CardDef>(cards.traits),
                 Zones = new List<ZoneDef>(zones.zones),
                 Stages = new List<StageDef>(zones.stages),
                 Village = zones.village,

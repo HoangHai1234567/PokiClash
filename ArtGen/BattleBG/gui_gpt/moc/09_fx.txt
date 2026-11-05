@@ -1,0 +1,25 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = D:\PokiClash\ArtGen\BattleBG\moc\c12.png (1024 x 1536): an approved battle background of this game: copy its RENDERING (ink, pencil hatching, colours); ignore its content
+image 2 = D:\PokiClash\ArtGen\guides\G_Sheet3x2.png (1536 x 1024): the numbered 3 x 2 grid: one object per cell, in number order
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+D:\PokiClash\ArtGen\BattleBG\moc\tai_ve\fx.png
+Create the folder if it is missing. If that file already exists, save it as fx_2.png, fx_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: a sprite sheet of 6 separate effect objects for the battle backgrounds of the Wood island (a forest island) of a vertical mobile game. The game cuts the sheet into 6 sprites and animates them (moves, spins, fades, scales, makes them see-through), so draw each object complete and on its own.
+
+Draw a 1536 x 1024 image with a fully TRANSPARENT background (PNG with alpha), in the rendering of image 1 (same wobbly ink, same pencil hatching, same colours). One object per cell of image 2's numbered 3 x 2 grid (512 x 512 px cells): each object about the size of the cell's inner grey frame and centred in its cell, nothing crossing a cell edge, no ground, no shadow, no background colour, no grid lines, no numbers. Glows and light are drawn as solid pale shapes (the game makes them see-through).
+
+In grid order:
+1 a small whirlwind: a tall twisting funnel of pale wind lines, narrow at the bottom and wide at the top, with five or six green leaves caught in it, thin ink outline;
+2 a single pink flower petal, slightly curled, with a thin ink outline;
+3 a long slim jade-green bamboo leaf with a pointed tip and a thin ink outline;
+4 a long soft diagonal sunbeam: a band of pale warm yellow light, wider at the bottom, solid pale yellow with soft yellow pencil hatching, no ink outline;
+5 a glowing green rune circle seen at a low angle (a wide flat ellipse): a ring of leaf and vine patterns and small dots inside a double ring, pale glowing green;
+6 a dandelion seed: a small brown seed with a round white puff of fine threads on a thin stem;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, insects; any UI, frame or border; white sticker outlines.
+
+Remember: save the image to D:\PokiClash\ArtGen\BattleBG\moc\tai_ve\fx.png

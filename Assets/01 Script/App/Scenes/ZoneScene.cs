@@ -448,8 +448,9 @@ namespace PokiClash
             int size = Islands.Size(z.id);
             var at = Islands.Chests(z.id);
             p.elem.Set(z.id);
-            p.level.text = $"Cấp đề nghị {z.levelMin}–{z.levelMax}";
-            p.diff.Set(Progress.DifficultyOf(z, s.level, Progress.ZoneDone(s, z.id)));
+            int next = Progress.NextLevel(s, App.Data, z.id);
+            p.level.text = next > 0 ? $"Ải kế cấp {next} · boss cấp {z.levelMax}" : $"Boss cấp {z.levelMax}";
+            p.diff.Set(Progress.DifficultyOf(s, App.Data, z));
             p.count.text = $"{prog}/{size} ải";
             p.bar.Set(Theme.Of(z.id), prog / (float)size);
             // rương mốc đặt theo tỉ lệ số ải trên thanh; rương cuối (vàng, to) ở cuối thanh; rương thừa trong prefab thì ẩn

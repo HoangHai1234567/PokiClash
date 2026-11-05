@@ -164,7 +164,7 @@
   {
    "t": "win",
    "id": 15,
-   "balls": 3,
+   "balls": 4,
    "first": true,
    "shards": [
     [
@@ -178,21 +178,21 @@
   {
    "t": "win",
    "id": 16,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 17,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 18,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": [
     [
@@ -206,7 +206,7 @@
   {
    "t": "win",
    "id": 19,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": [
     [
@@ -220,7 +220,7 @@
   {
    "t": "win",
    "id": 20,
-   "balls": 5,
+   "balls": 6,
    "first": true,
    "shards": [
     [
@@ -235,7 +235,7 @@
    "t": "chest",
    "z": "thuy",
    "r": {
-    "balls": 5,
+    "balls": 7,
     "big": false,
     "cards": [
      [
@@ -250,7 +250,7 @@
   {
    "t": "win",
    "id": 20,
-   "balls": 1,
+   "balls": 2,
    "first": false,
    "shards": [
     [
@@ -264,14 +264,14 @@
   {
    "t": "win",
    "id": 20,
-   "balls": 1,
+   "balls": 2,
    "first": false,
    "shards": []
   },
   {
    "t": "win",
    "id": 20,
-   "balls": 1,
+   "balls": 2,
    "first": false,
    "shards": [
     [
@@ -285,7 +285,7 @@
   {
    "t": "win",
    "id": 20,
-   "balls": 1,
+   "balls": 2,
    "first": false,
    "shards": [
     [
@@ -299,14 +299,14 @@
   {
    "t": "win",
    "id": 20,
-   "balls": 1,
+   "balls": 2,
    "first": false,
    "shards": []
   },
   {
    "t": "win",
    "id": 20,
-   "balls": 1,
+   "balls": 2,
    "first": false,
    "shards": [
     [
@@ -327,7 +327,7 @@
   {
    "t": "win",
    "id": 71,
-   "balls": 14,
+   "balls": 3,
    "first": true,
    "shards": [
     [
@@ -341,18 +341,11 @@
   {
    "t": "win",
    "id": 72,
-   "balls": 14,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 73,
-   "balls": 15,
+   "balls": 1,
    "first": true,
    "shards": [
     [
-     "bo_de",
+     "su_tu_lua",
      2,
      false,
      0
@@ -361,13 +354,20 @@
   },
   {
    "t": "win",
+   "id": 73,
+   "balls": 1,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
    "id": 74,
-   "balls": 18,
+   "balls": 1,
    "first": true,
    "shards": [
     [
-     "bo_de",
-     4,
+     "su_tu_lua",
+     2,
      false,
      0
     ]
@@ -376,68 +376,45 @@
   {
    "t": "chest",
    "z": "hoa",
-   "r": {
-    "balls": 15,
-    "big": false,
-    "cards": [
-     [
-      "vo_su",
-      "ult",
-      "vs_ult",
-      "rare"
-     ],
-     [
-      "giot_suong",
-      "ult",
-      "giot_suong_ult",
-      "uncommon"
-     ]
-    ]
-   }
+   "r": null
   },
   {
    "t": "win",
    "id": 21,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 22,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 23,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 24,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 25,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": [
     [
      "mam_go",
      10,
-     true,
-     0
-    ],
-    [
-     "ma_ket",
-     2,
      true,
      0
     ]
@@ -446,40 +423,47 @@
   {
    "t": "win",
    "id": 26,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 27,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 28,
-   "balls": 1,
+   "balls": 2,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 29,
-   "balls": 1,
+   "balls": 3,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "ma_ket",
+     2,
+     true,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
    "id": 30,
-   "balls": 5,
+   "balls": 7,
    "first": true,
    "shards": [
     [
      "vay_lam",
-     3,
+     4,
      false,
      0
     ]
@@ -488,77 +472,84 @@
   {
    "t": "win",
    "id": 31,
-   "balls": 1,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 32,
-   "balls": 1,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 33,
-   "balls": 1,
+   "balls": 3,
    "first": true,
-   "shards": [
-    [
-     "ma_ket",
-     2,
-     false,
-     2
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
    "id": 34,
-   "balls": 1,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 35,
-   "balls": 1,
+   "balls": 3,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "mi_nhi",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
    "id": 36,
-   "balls": 2,
+   "balls": 3,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "vay_lam",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
    "id": 37,
-   "balls": 2,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 38,
-   "balls": 2,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 39,
-   "balls": 2,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 40,
-   "balls": 6,
+   "balls": 7,
    "first": true,
    "shards": [
     [
@@ -572,77 +563,77 @@
   {
    "t": "win",
    "id": 41,
-   "balls": 2,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 42,
-   "balls": 2,
+   "balls": 3,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 43,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 44,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 45,
-   "balls": 2,
+   "balls": 4,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "ma_ket",
+     2,
+     false,
+     2
+    ]
+   ]
   },
   {
    "t": "win",
    "id": 46,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 47,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 48,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 49,
-   "balls": 2,
+   "balls": 4,
    "first": true,
-   "shards": [
-    [
-     "vay_lam",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
    "id": 50,
-   "balls": 6,
+   "balls": 8,
    "first": true,
    "shards": [
     [
@@ -656,39 +647,67 @@
   {
    "t": "win",
    "id": 51,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 52,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 53,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 54,
-   "balls": 2,
+   "balls": 4,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 55,
-   "balls": 2,
+   "balls": 4,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 56,
+   "balls": 4,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 57,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 58,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 59,
+   "balls": 5,
    "first": true,
    "shards": [
     [
-     "vay_lam",
+     "thuong_lam",
      2,
      false,
      0
@@ -697,41 +716,13 @@
   },
   {
    "t": "win",
-   "id": 56,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 57,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 58,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 59,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
    "id": 60,
-   "balls": 6,
+   "balls": 9,
    "first": true,
    "shards": [
     [
      "huyen_vu",
-     3,
+     5,
      false,
      0
     ]
@@ -740,71 +731,23 @@
   {
    "t": "win",
    "id": 61,
-   "balls": 2,
+   "balls": 5,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 62,
-   "balls": 2,
+   "balls": 5,
    "first": true,
    "shards": []
   },
   {
    "t": "win",
    "id": 63,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 64,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 65,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 66,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 67,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 68,
-   "balls": 2,
-   "first": true,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 69,
-   "balls": 2,
+   "balls": 5,
    "first": true,
    "shards": [
-    [
-     "huyen_vu",
-     1,
-     false,
-     0
-    ],
     [
      "thuong_lam",
      1,
@@ -815,13 +758,55 @@
   },
   {
    "t": "win",
+   "id": 64,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 65,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 66,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 67,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 68,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
+   "id": 69,
+   "balls": 5,
+   "first": true,
+   "shards": []
+  },
+  {
+   "t": "win",
    "id": 70,
-   "balls": 10,
+   "balls": 13,
    "first": true,
    "shards": [
     [
      "lam_quan",
-     4,
+     5,
      false,
      0
     ]
@@ -831,7 +816,7 @@
    "t": "chest",
    "z": "thuy",
    "r": {
-    "balls": 6,
+    "balls": 10,
     "big": false,
     "cards": [
      [
@@ -847,7 +832,29 @@
    "t": "chest",
    "z": "thuy",
    "r": {
-    "balls": 7,
+    "balls": 13,
+    "big": false,
+    "cards": [
+     [
+      "mam_go",
+      "passive",
+      "mam_go_pas",
+      "common"
+     ],
+     [
+      "mam_go",
+      "passive",
+      "mam_go_pas",
+      "common"
+     ]
+    ]
+   }
+  },
+  {
+   "t": "chest",
+   "z": "thuy",
+   "r": {
+    "balls": 16,
     "big": false,
     "cards": [
      [
@@ -869,7 +876,7 @@
    "t": "chest",
    "z": "thuy",
    "r": {
-    "balls": 8,
+    "balls": 19,
     "big": false,
     "cards": [
      [
@@ -891,8 +898,8 @@
    "t": "chest",
    "z": "thuy",
    "r": {
-    "balls": 9,
-    "big": false,
+    "balls": 35,
+    "big": true,
     "cards": [
      [
       "ma_ket",
@@ -905,17 +912,7 @@
       "ult",
       "mam_go_ult",
       "uncommon"
-     ]
-    ]
-   }
-  },
-  {
-   "t": "chest",
-   "z": "thuy",
-   "r": {
-    "balls": 15,
-    "big": true,
-    "cards": [
+     ],
      [
       "vo_su",
       "ult",
@@ -927,18 +924,6 @@
       "skill",
       "giot_suong_skill",
       "common"
-     ],
-     [
-      "ma_ket",
-      "skill",
-      "ma_ket_skill",
-      "uncommon"
-     ],
-     [
-      "giot_suong",
-      "ult",
-      "giot_suong_ult",
-      "uncommon"
      ]
     ]
    }
@@ -951,17 +936,17 @@
  ],
  "end": {
   "zones": {
-   "kim": 0,
-   "moc": 0,
    "thuy": 70,
    "hoa": 4,
+   "kim": 0,
+   "moc": 0,
    "tho": 0
   },
   "zoneChests": {
+   "thuy": 7,
+   "hoa": 0,
    "kim": 0,
    "moc": 0,
-   "thuy": 7,
-   "hoa": 1,
    "tho": 0
   },
   "clears": {
@@ -1040,7 +1025,7 @@
    "73": 1,
    "74": 1
   },
-  "balls": 288,
+  "balls": 379,
   "owned": [
    "mam_go",
    "giot_suong",

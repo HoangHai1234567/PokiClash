@@ -134,6 +134,7 @@ namespace PokiClash.Core
         public bool boss;
         public bool evo; // boss tiến hóa trong trận (thẻ Tiến Hóa boss_evo)
         public double buff; // cường hóa của ải: Máu, Công +buff, Thủ +buff/2 (âm là yếu đi, 0 là không có)
+        public string trait; // bị động boss của ải (thẻ trong "traits" của cards.json), chạy thêm cạnh bị động của tướng; null = không có
     }
 
     [Serializable]
@@ -209,6 +210,7 @@ namespace PokiClash.Core
         public StatMods mods; // phần cộng của side meta (null = không có)
         public BattleStart start; // hiệu ứng đầu trận của tiềm năng (null = không có)
         public bool partner; // tướng đồng hành (tướng khởi đầu đã chọn): không chịu thiệt khi khắc hệ
+        public string trait; // bị động boss của ải (StageEnemy.trait), null = không có
     }
 
     public class TeamSetup

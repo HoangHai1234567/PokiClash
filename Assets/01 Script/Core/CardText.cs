@@ -233,7 +233,13 @@ namespace PokiClash.Core
                     double ch = Math.Min(1, (c.Chance ?? 1) * LvFactor(cardLvStep, lv));
                     return $"Mỗi đòn đánh thường: {Pct(ch)} cơ hội {low}.";
                 }
-                case PassiveTrigger.OnHit: return $"Mỗi lần bị đánh: {low}.";
+                case PassiveTrigger.OnHit:
+                {
+                    // có tỉ lệ thì ghi tỉ lệ (trước 2026-11-05 chữ thiếu tỉ lệ, vd. Cá Nóc "bị đánh có 30% gây bỏng")
+                    if (!c.hasChance) return $"Mỗi lần bị đánh: {low}.";
+                    double ch = Math.Min(1, c.chance * LvFactor(cardLvStep, lv));
+                    return $"Mỗi lần bị đánh: {Pct(ch)} cơ hội {low}.";
+                }
                 case PassiveTrigger.Death: return $"Lần đầu gục: {low}.";
             }
             return body + ".";

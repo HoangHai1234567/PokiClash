@@ -1,5 +1,5 @@
 // Chọn 1 trong 5 tướng khởi đầu (GD_Claude/15_TuongKhoiDau.md): người chơi mới chưa có tướng, chọn xong có đúng 1; mỗi hệ một tướng
-// đứng ở ải 1 đảo cùng hệ; bản lưu v4 -> v5; ô đội 2 mở ở ải 3 đảo Thủy cùng quà theo lựa chọn; tướng đồng hành không bị khắc hệ.
+// thu phục được ở chặng đầu đảo cùng hệ (ải 1, riêng Nụ Hoa ở ải 2 đảo Mộc từ 2026-11-05); bản lưu v4 -> v5; ô đội 2 mở ở ải 3 đảo Thủy cùng quà theo lựa chọn; tướng đồng hành không bị khắc hệ.
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -35,7 +35,7 @@ namespace PokiClash.Tests
         }
 
         [Test]
-        public void MoiHeMotTuong_DungO_Ai1_DaoCungHe_RoiManh()
+        public void MoiHeMotTuong_ThuPhucO_ChangDau_DaoCungHe_RoiManh()
         {
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
@@ -46,11 +46,23 @@ namespace PokiClash.Tests
                 var h = d.Hero(id);
                 Assert.AreEqual(Rarity.Uncommon, h.rarity, id + " cùng độ hiếm Khá");
                 Assert.AreEqual(3, h.forms.Length, id + " dòng 3 dạng");
-                var first = d.ZoneStages(h.elem).First(st => st.idx == 1);
-                Assert.AreEqual(1, first.enemies.Count, id);
-                Assert.AreEqual(id, first.enemies[0].hero, $"ải 1 đảo {h.elem}");
-                var dr = first.drops.Single(x => x.hero == id);
+                var at = d.StarterStage(id);
+                Assert.IsNotNull(at, id);
+                // đảo Mộc nhường ải 1 cho Tiên Lá (10 tướng người dùng chọn 2026-11-05): Nụ Hoa đứng cùng một lính ở ải 2
+                if (h.elem == Elem.Moc)
+                {
+                    Assert.AreEqual(2, at.idx, id);
+                    Assert.AreEqual("tien_la", d.ZoneStages(Elem.Moc).First(st => st.idx == 1).enemies[0].hero);
+                }
+                else
+                {
+                    Assert.AreEqual(1, at.idx, id);
+                    Assert.AreEqual(1, at.enemies.Count, id);
+                }
+                var dr = at.drops.Single(x => x.hero == id);
                 Assert.AreEqual(1, dr.chance, id + " lần đầu chắc chắn rơi mảnh");
+                Assert.AreEqual(2, dr.min, id);
+                Assert.AreEqual(4, dr.max, id);
                 Assert.IsFalse(dr.gift, id + " phải thu phục, không tặng");
             }
         }

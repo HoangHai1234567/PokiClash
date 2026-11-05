@@ -106,6 +106,33 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Chuẩn bị] Xong vòng thử: ảnh cb_*.png trong {PlayTour.ShotDir}");
         }
 
+        // Một trận (ải 25, nền chặng có trời vẽ dư) ở 4 cỡ máy: 9:16, 20:9, 21:9, máy tính bảng 3:4. Người dùng dặn 2026-11-05: phần dưới
+        // (bảng thẻ, sân, tướng) giữ nguyên trên mọi máy cho khỏi dính vào nhau, phần trên (trời) co giãn. Ảnh "cb_tran_<rộng>x<cao>.png".
+        [MenuItem("PokiClash/Thử/Trận ở 4 cỡ máy: phần dưới cố định, trời co giãn (đang Play)", priority = 124)]
+        static void TryFrames()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(RunFrames());
+        }
+
+        static IEnumerator RunFrames()
+        {
+            var st = App.Data.Stages.First(x => x.zone == Elem.Thuy && x.idx == 25);
+            yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
+            var ctl = Object.FindAnyObjectByType<BattleController>();
+            float t0 = Time.realtimeSinceStartup;
+            while (ctl && !ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 30) yield return null;
+            foreach (var (w, h) in new[] { (1080, 1920), (1080, 2400), (1080, 2520), (1536, 2048) })
+            {
+                GameViewSizes.Select(w, h);
+                yield return new WaitForSecondsRealtime(0.6f);
+                yield return Shot($"tran_{w}x{h}", false);
+            }
+            GameViewSizes.Select(1080, 1920);
+            yield return Go(SceneIds.Hub);
+            Debug.Log($"[Chuẩn bị] Xong trận ở 4 cỡ máy: ảnh cb_tran_*.png trong {PlayTour.ShotDir}");
+        }
+
         static IEnumerator Go(string scene, object args = null)
         {
             App.Router.Go(scene, args);

@@ -94,8 +94,8 @@ Lính yếu hơn tướng cùng cấp: Máu ×0,85, Công ×0,9, Thủ ×0,9 (`M
 ### Cấp và sức địch
 
 - **Cấp địch là cấp người chơi cần có; thang cấp 1–200** (người dùng dặn 2026-11-04, học Clash of Critters). Chi tiết và số đo: mục "Thang cấp 1–200" bên dưới.
-  - Mỗi đảo khoảng 40 cấp: Thủy 1–40, Hỏa 41–80, Kim 81–120, Mộc 121–160, Thổ 161–200.
-  - Đảo Thủy: `1 + 39 × ((ải − 1) / 69)^0,85` làm tròn, lên nhanh hơn một chút ở đầu đảo. Ải 5 cấp 4, ải 10 cấp 8, ải 20 cấp 14, ải 30 cấp 20, ải 50 cấp 30, ải 70 cấp 40. Cứ 1–2 ải lên 1 cấp.
+  - **5 đảo chơi song song** (người dùng sửa 2026-11-05): đảo nào cũng từ cấp 1 lên gần cấp 200, boss cuối mỗi đảo 190–200. Chi tiết: mục "5 đảo song song" bên dưới.
+  - Cách cũ (2026-11-04, hiểu sai): mỗi đảo một dải 40 cấp nối tiếp, Thủy 1–40, Hỏa 41–80, Kim 81–120, Mộc 121–160, Thổ 161–200.
   - Mọi địch trong một ải cùng cấp. Cấp không bao giờ giảm khi sang ải sau.
   - Các đảo 8 ải (tạm) đổi cấp từng địch tuyến tính từ khoảng cấp cũ sang khoảng mới.
   - Trước đây: ải 1 cấp 1, ải 10 cấp 2, ải 15–29 cấp 3, rồi mỗi 10 ải +1, tới ải 70 cấp 8; độ khó trong chặng chỉ nhờ % cường hóa.
@@ -228,6 +228,126 @@ Còn mở:
 - Bốn đảo sau cần thành 70 ải. Cần chọn tướng và lính cho từng đảo, như `14_HeThongAi.md` mục "Còn lại".
 - Bản lưu cũ giữ cấp đang có (tính theo đường EXP cũ) và chỉ dùng cho máy thử.
 
+## 5 đảo song song (2026-11-05)
+
+### Người dùng sửa
+
+- "Các tướng ở từng mốc nhìn chung ở 5 đảo này level/sức mạnh có chênh lệch nhưng cũng chỉ ngang ngang nhau thôi, nghĩa là người chơi có thể chinh phục 5 đảo cùng 1 lúc chứ không phải lần lượt từng đảo."
+- Ví dụ của người dùng với cấp tối đa 200: boss cuối Thủy 195, Hỏa 198, Mộc 190, Kim 200.
+- Phiên 2026-11-04 hiểu câu "ở cấp 145 thì đang ở đảo 6… chia theo độ sâu cấp trong từng đảo" thành 5 dải 40 cấp nối tiếp. Nghĩa đúng: cấp tăng theo độ sâu trong mỗi đảo.
+
+### Cấp
+
+- Mọi đảo dùng một đường cấp: `1 + (đỉnh − 1) × ((ải − 1) / 69)^0,85` làm tròn (`IslandGen.LevelPow`). Mọi địch trong một ải cùng cấp.
+- Đỉnh (boss cuối): Thủy 195, Hỏa 198, Kim 200, Mộc 190, Thổ 196. `zones.json` ghi `level` là [1, đỉnh].
+- Cấp các mốc ở đảo Thủy: ải 5 cấp 18, ải 10 cấp 35, ải 15 cấp 51, ải 20 cấp 66, ải 30 cấp 94, ải 40 cấp 120, ải 50 cấp 146, ải 60 cấp 171, ải 70 cấp 195. Đảo Mộc thấp hơn 1–5 cấp ở cùng mốc.
+- Đảo 8 ải (tạm; từ 2026-11-05 còn Kim, Thổ): ải i ứng với ải `1 + (i − 1) × 69/7` của đường chung. Địch mạnh nhất của ải lấy cấp đó, địch khác giữ độ lệch cấp cũ trong ải. Chưa chỉnh độ khó.
+
+### Bù ô đội theo cấp
+
+- Từ cấp 60 người chơi có 2 ô đội, từ cấp 200 có 3 ô (`Progress.SlotsAt`). Đảo song song nên ở mọi đảo, ải từ cấp 60 được cộng thêm cường hóa (`IslandGen.Plan.extra`, theo số ô ở cấp của ải). Trước đây chỉ đảo Mộc cộng, vì cả đảo nằm ở cấp 121–160.
+- Bảng cộng thêm có 6 nhóm: ải tướng thường, ải 1 địch, 2 địch, 3 địch, mini boss, boss.
+- Hệ khắc làm số đo lệch nhiều giữa các đảo. Cùng một bảng thì đảo Thủy (đội Thổ khắc hệ) chỉ thắng mini boss 20%, đảo Mộc (đội Kim) thắng 77%. Vì vậy mỗi đảo dò riêng, với đội 2 tướng Khá khắc hệ, bằng cấp địch, sao và thẻ theo cấp, 150 trận mỗi ải (lệnh `tune` của dự án console).
+
+| Nhóm (2 ô) | Thủy | Hỏa | Mộc | Mục tiêu |
+|---|---|---|---|---|
+| Ải tướng thường | +0,20 (không có ải nào ≥ cấp 60) | +0,20 | +0,20 | 100% |
+| 1 địch (cường hóa) | +0,60 | +0,70 | +1,05 | 92% |
+| 2 địch | +0,45 | +0,50 | +0,65 | 76% (trung bình các kiểu) |
+| 3 địch | +0,30 | +0,35 | +0,45 | 84% |
+| Mini boss | +0,40 | +0,65 | +1,00 | 72% |
+| Boss | +0,85 | +0,95 | +0,95 | 61% |
+
+Số đo: Thủy cường hóa 93%, 2 địch 76%, 3 địch 86%, mini boss 72%, boss 59–68%. Mộc cường hóa 92%, 2 địch 74%, 3 địch 84%, mini boss 73%, boss 59–63%. Hỏa (đội Thủy: Giọt Sương, Mi Nhi; 2026-11-05) cường hóa 93%, 2 địch 75%, 3 địch 85%, mini boss 74%, boss 56%. Đảo mới phải dò lại; bảng mặc định là của Mộc.
+
+### Bi, rương, mở công trình
+
+| Chỗ | Cũ (đảo nối tiếp) | Mới (đảo song song) |
+|---|---|---|
+| Bi mỗi ải | đảo 70 ải 1–2 bi, đảo sau thêm 2 mỗi đảo | `1 + (ải − 1)/14`: 1 bi ở ải 1–14 tới 5 bi ở ải 57–70, như nhau mọi đảo; đảo 8 ải quy số ải về thang 70 |
+| Thưởng lần đầu | ải tướng +2, mini boss +4, boss +8 (đảo 8 ải có cách tính riêng) | như cũ, áp cho mọi đảo |
+| Rương mốc (7 rương) | 4, 5 … 9 bi, rương cuối 15, đảo sau thêm 5 (rương cuối thêm 10) | 4, 7, 10 … 19 bi (thêm 3 mỗi rương), rương cuối 35 bi |
+| Rương đảo 8 ải | 10 và 20 bi, cộng theo thứ tự đảo | 20 và 40 bi |
+| Cây bi 2–5 | qua boss Thủy, Hỏa, Kim, Mộc | đạt cấp 30, 50, 80, 110 (`trees.unlockLevels`) |
+| Đền Huy Hiệu | qua hết Đảo Thủy | thắng mini boss đầu của một đảo bất kỳ (ải 20; đảo 8 ải là ải 4) |
+| Cấp dãy huy hiệu hệ X | cận dưới của Đảo X + 20/bậc + 3/trận | cấp mini boss đầu của Đảo X (`Badges.BaseLevel`) + 20/bậc + 3/trận |
+| Hang Tiềm Năng | thắng mini boss Đảo Hỏa | đạt cấp 30 (`Progress.CaveLevel`) |
+| Độ khó trên bảng đảo | theo khoảng cấp của đảo | theo ải kế tiếp: hơn từ 10 cấp là Dễ, bằng là Vừa sức, thiếu tới 6 cấp là Khó, thiếu hơn là Quá mạnh |
+| Đảo gợi ý | đảo chưa xong đầu tiên theo thứ tự | đảo chưa xong có ải kế tiếp cấp thấp nhất |
+| Ải AFK tự chọn | đảo sau trước | ải cấp cao nhất đã qua có rơi mảnh |
+| Bảng đảo trên sảnh | "Cấp 1–40 · x/70 ải" | "Ải kế cấp X · x/70 ải" |
+
+Mốc cây bi chọn để người chơi Vừa đạt cấp 200 vào khoảng ngày 57 như đã chốt. Lần đầu thử 40/80/120/160 thì người chơi Vừa mới tới cấp 185 ở ngày 60.
+
+### Nhịp (ProgressSim 60 ngày, tướng khởi đầu Giọt Sương)
+
+Hỏa, Kim, Thổ còn 8 ải nên đo bằng đảo giả 70 ải (kế hoạch Mộc, tướng cùng hệ xếp theo độ hiếm, lính mượn của Thủy/Mộc, đỉnh 198/200/196). Đảo giả không ghi vào dữ liệu. Bảng dưới đo trước khi đảo Hỏa có 70 ải thật (2026-11-05), chưa đo lại.
+
+| Kiểu người chơi | Cấp ngày 7 | 14 | 21 | 30 | 42 | 57 | Xong 5 đảo | Cấp 200 |
+|---|---|---|---|---|---|---|---|---|
+| Chăm (6 lần × 5 trận) | 41 | 73 | 102 | 136 | 175 | 200 | ngày 46–49 | ngày 51 |
+| Vừa (3 × 3) | 37 | 67 | 92 | 123 | 160 | 198 | ngày 53–57 | ngày 58 |
+| Ít (1 × 2) | 14 | 25 | 35 | 47 | 64 | 83 | chưa | cấp 86 ở ngày 60 |
+
+- Bi chủ yếu từ cây bi (Vừa: 47.650 bi từ cây, 17.700 từ trang trại, 1.700 từ ải), nên nhịp đổi chủ yếu theo mốc mở cây.
+- Chăm chậm hơn trước (cấp 200 ngày 51, trước là 42) vì phải qua 350 ải thay vì 164, và bị cấp chặn (1.359 trận đánh lại).
+
+### Bị động boss ở 5 mốc cuối
+
+Người dùng dặn: mini boss, boss ở 5 mốc cuối (ải 30, 40, 50, 60, 70) có thể có bị động riêng. Không nhất thiết cả 5 con; con có bị động thì giảm chỉ số, con không có thì tăng; boss cuối đảo chắc chắn có.
+
+- Dữ liệu: thẻ ở `cards.json` khoá `traits` (kiểu bị động, `owner` là tướng); địch trong ải mang `trait`. Trong trận chạy sau bị động của tướng, cùng cấp thẻ (địch từ cấp 45 có thẻ cấp 5, ×1,6). Hộp chuẩn bị ghi tên bị động trên dòng ghi chú của đối thủ ("Boss · Hồng Chung Dội · Cường hóa +85%") và mô tả ở dòng thứ hai của đầu mục "Đối thủ" (đầu mục giãn cao theo chữ).
+- Trận rất ngắn (mỗi bên khoảng 2 lượt) và địch gần như không đánh thường (0,26 lần mỗi trận), nên bị động kiểu "đánh thường", "đầu lượt" hầu như không chạy. Bị động có tác dụng là "bị đánh", "máu thấp", "vào trận". Các bản thử bỏ đi: Huyền Vũ hút mana khi đánh thường, Lam Quân Công +5% mỗi lượt cộng dồn, Gió Lốc hút nộ khi đánh thường, Lam Quân +nộ khi bị đánh (tuyệt kỹ còn cần mana).
+- Con không có bị động: cường hóa +0,10. Con có bị động: dò cường hóa để tỉ lệ thắng bằng con không có (đội 2 tướng Khá khắc hệ, bằng cấp, 300 trận).
+
+| Mốc | Đảo Thủy | Bị động (chữ ở thẻ cấp 5) | Cường hóa thêm | Thắng |
+|---|---|---|---|---|
+| 30 | Vây Lam | không | +0,10 | 52% |
+| 40 | Kuba | Mai Kim Cương: mỗi lần bị đánh 48% cơ hội khiên bằng 11% máu tối đa | −0,05 | 57% |
+| 50 | Thương Lam | không | +0,10 | 63% |
+| 60 | Huyền Vũ | Thần Quy Hộ Thể: lần đầu máu dưới 50%, khiên bằng 40% máu tối đa, hồi 16% máu | 0 | 62% |
+| 70 | Lam Quân (boss) | Hồng Chung Dội: mỗi lần bị đánh 6% cơ hội làm địch choáng | −0,15 | 61% |
+
+| Mốc | Đảo Mộc | Bị động (chữ ở thẻ cấp 5) | Cường hóa thêm | Thắng |
+|---|---|---|---|---|
+| 30 | Gió Lốc | Gió Cuốn: mỗi lần bị đánh hút 3 mana của địch | −0,15 | 58% |
+| 40 | Long Vuốt | không | +0,10 | 65% |
+| 50 | Thỏ Hoàng | Hoàng Giáp Hộ Thân: lần đầu máu dưới 50%, xoá hiệu ứng xấu, hồi 16% máu, Thủ +32% 2 lượt | 0 | 60% |
+| 60 | Mộc Tinh | không | +0,10 | 56% |
+| 70 | Thanh Long (boss) | Long Lân Phản Đòn: mỗi lần bị đánh 24% cơ hội gây 80% Công sát thương | −0,15 | 56% |
+
+- Mini boss 5 mốc cuối nay khó hơn mục tiêu cũ (72%) vì con không bị động được +0,10 và con có bị động dò theo mức đó: thắng 52–65%.
+- Huyền Vũ và Thỏ Hoàng tự thân yếu hơn các mini boss khác, nên dù có bị động vẫn giữ cường hóa 0 (không giảm).
+- Kim, Thổ chưa có tướng các mốc nên chưa có bị động boss.
+
+| Mốc | Đảo Hỏa | Bị động (chữ ở thẻ cấp 5) | Cường hóa thêm | Thắng |
+|---|---|---|---|---|
+| 30 | Hồng Liên | Niết Bàn Hỏa: lần đầu máu dưới 50%, hồi 24% máu, Công +40% 2 lượt | 0 | 70% |
+| 40 | Giáp Long | không | +0,10 | 71% |
+| 50 | Huyễn Viêm | Ảo Ảnh Hồ Ly: mỗi lần bị đánh 40% cơ hội hồi 8% máu | 0 | 69% |
+| 60 | Hỏa Tinh | không | +0,10 | 55% |
+| 70 | Lân Hỏa (boss) | Thánh Lân Hộ Thể: lần đầu máu dưới 50%, xoá hiệu ứng xấu, khiên 40% máu tối đa, đốt địch 3 lượt (13% máu mỗi lượt) | −0,15 | 57% |
+
+- Đội Thủy Khá khắc hệ (Giọt Sương, Mi Nhi), bằng cấp, 300 trận. Hồng Liên và Huyễn Viêm tự thân yếu nên dù có bị động vẫn giữ cường hóa 0 (như Huyền Vũ, Thỏ Hoàng). Bản thử bỏ đi: Hồng Liên "mỗi lần bị đánh 48% cơ hội đốt địch" (bỏng quá yếu trong trận ngắn: không giảm vẫn thắng 82%).
+- Sửa kèm: chữ thẻ bị động "bị đánh" có tỉ lệ nay ghi tỉ lệ (trước đó thiếu, vd. Cá Nóc "Mỗi lần bị đánh: 30% cơ hội đốt địch…").
+
+### Code
+
+| File | Đổi |
+|---|---|
+| `Editor/IslandGen.cs` | Kế hoạch đảo Thủy (`IslandGen.Thuy`, sinh ra trùng khít 70 ải Thủy cũ khi đặt lại cấp cũ), `All`; đường cấp chung, `SlotExtra` và `Plan.extra` 6 nhóm; `Intro.trait`, `Intro.buff`; quà có `altFor`; golden `zones.json` (`ZonesGolden`) |
+| `Editor/IslandGenMenu.cs` | Menu `PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc)`; menu golden ghi thêm `zones.json` |
+| `Core/Progress.cs` | `SlotsAt`, `NextLevel`, `DifficultyOf(s, d, z)`, `RecommendedZone`, bi ải, rương, `BadgesOpen`, `CaveOpen`, `CaveLevel` |
+| `Core/Trees.cs`, `BalanceConfig.cs`, `balance.json` | `trees.unlockLevels` thay `unlockZones` |
+| `Core/Badges.cs` | `BaseLevel` |
+| `Core/Afk.cs` | ải AFK tự chọn theo cấp |
+| `Core/Types.cs`, `GameData.cs`, `Battle/*`, `Game/Data/CardDb.cs`, `GameDb.cs`, `Editor/DataImporter.cs` | `StageEnemy.trait`, `Member.trait`, `Fighter.trait`, `GameData.Traits`, thẻ `traits` trong `CardDb`; bị động boss chạy trong trận; chuỗi rỗng (asset Unity ghi null thành "") là không có |
+| `Core/CardText.cs` | Bị động "bị đánh" ghi tỉ lệ |
+| `App/Scenes/HubZone.cs`, `HubScene.cs`, `ZoneScene.cs`, `BadgePedestal.cs`, `App/TreePanel.cs`, `PrepFoe.cs`, `StagePrepDialog.cs` | Chữ cấp ải kế, điều kiện mở công trình, cây bi "Đạt cấp X", bị động boss trong hộp chuẩn bị |
+| Tests | `ZoneTests` (bi, độ khó, đảo gợi ý, mở công trình), `TreesTests`, `AdsTests`, `IslandTests.BiDongBoss_5MocCuoi`; trận so bản web ở `BadgeTests`, `PotentialTests` ghim cấp địch cũ (`foeLevel` trong golden, `TestData.AtLevel`) |
+
+Dự án console để đo (biên dịch `Core/**` và `Editor/IslandGen.cs`): lệnh `apply` (ghi cấp mới vào dữ liệu), `tune` (bù 2 ô), `bosscurve`, `bosstune` (bị động boss), `pace` (nhịp, có đảo giả), `trace` (đếm sự kiện trận). Nằm ở scratchpad của phiên, có thể mất; golden vẫn tính trong Unity.
+
 ## Màn đảo (web)
 
 - Đảo 70 ải phóng to bản đồ (×2,2 thay vì ×1,27).
@@ -252,6 +372,98 @@ Thử nhanh: `chay_web.bat`, rồi vào Sổ tay để dùng bảng thử; hoặ
 | `Web/src/view/screens/zone.ts` | Đường mòn mốc và chấm, bảng chặng, nhãn kiểu ải |
 | `Web/scripts/sim.ts` | Chế độ `island` |
 
+## Đảo Mộc (làm lại 2026-11-05)
+
+Người dùng gửi 10 hình aola cho đảo Mộc và dặn xếp theo thứ tự trái sang phải. Đảo Mộc thành 70 ải, sinh bằng bộ sinh đã chép sang Unity (`Editor/IslandGen.cs`, menu `PokiClash/Dữ liệu/Đảo Mộc: sinh lại 70 ải`). Danh sách tướng và nguồn aola: `13_DanhSachTuong.md`, mục Mộc.
+
+### 10 tướng
+
+| Ải | Chặng | Tướng | Độ hiếm (tạm) | Loại ải |
+|---|---|---|---|---|
+| 1 | Bờ Rêu | Tiên Lá | Thường | thường, tiến hóa |
+| 5 | Đồng Hoa Sáng | Hoa Nhụy | Thường | thường, tiến hóa |
+| 10 | Đồi Nấm | Dê Hoa | Khá | thường, tiến hóa |
+| 15 | Rừng Dây Leo | Bờm Lá | Khá | thường, tiến hóa |
+| 20 | Hang Nanh Gió | Phong Linh | Hiếm | mini boss |
+| 30 | Thung Lũng Lá | Gió Lốc | Hiếm | mini boss |
+| 40 | Vách Vuốt Rồng | Long Vuốt | Sử thi | mini boss |
+| 50 | Rừng Trúc Ngọc | Thỏ Hoàng | Sử thi | mini boss (1 dạng, không tiến hóa) |
+| 60 | Hang Pha Lê Lục | Mộc Tinh | Sử thi | mini boss |
+| 70 | Cây Thần Ngàn Năm | Thanh Long (Thanh Long Con → Thanh Long → Lôi Thanh Long) | Huyền thoại | boss tiến hóa |
+
+- **Tướng khởi đầu Nụ Hoa** mất ải 1, vì người dùng muốn ải 1 là Tiên Lá. Nụ Hoa đứng ở ải 2 cùng một lính, lần đầu chắc chắn rơi 2–4 mảnh như ải 1 cũ. Luật đổi thành "tướng khởi đầu là địch ở ải 1–4 đảo cùng hệ, lần đầu chắc chắn rơi mảnh" (`GameData.StarterStage`, `Validate`, `StarterTests`). Ải bóng (người chơi đấu với bóng tướng mình chọn) vẫn chỉ ở ải 1, nên người chọn Nụ Hoa gặp Nụ Hoa thật ở ải 2.
+- Chặng đầu (ải 2–4): Nụ Hoa + lính; bầy lính; cửa ải Tiên Lá + lính. Không có tướng tặng.
+- Lính: Bọ Sừng (trâu), Sâu Uốn → Rắn Gai (phản đòn), Chim (nhanh); thẻ chép lính đảo Thủy cùng vai. Loại 2 mở từ chặng 1, loại 3 từ chặng 2; bậc 2 từ ải 35.
+- Cấp địch: `121 + 39 × ((ải − 1)/69)^0,85` làm tròn, như đường cong đảo Thủy dời lên 121–160.
+- Tướng Mộc cũ không có suất trên đảo: Mầm Gỗ, Kiến Binh, Hiệp Sĩ Bánh Tét, Giác Long Gỗ (giữ trong danh sách, như Tám Tay ở đảo Thủy).
+- Toạ độ 10 ải tướng trên ảnh đảo Mộc cũ (8 vòng) chia đều theo đường nối 8 vòng. Đảo Mộc chưa có bản đồ dài, màn đảo dùng bản đồ ×3.
+
+### Sức địch
+
+> Từ 2026-11-05 đảo Mộc nằm ở cấp 1–190 (5 đảo song song) và bảng cộng thêm áp theo số ô đội ở cấp của ải, dò lại theo 6 nhóm: xem mục "5 đảo song song". Phần dưới là số đo lúc đảo Mộc còn ở cấp 121–160.
+
+Mẫu ải và % cường hóa lấy theo đảo Thủy hiện tại (đã chỉnh 2026-11-03/04). Đảo Thủy đo với 1 tướng; ở cấp 121 người chơi có 2 ô đội (ô 2 mở ở cấp 60) và đánh lần lượt hai tướng, nên đảo Mộc cộng thêm vào cường hóa của mọi địch (`IslandGen.Plan.extra`):
+
+| Kiểu ải | Cộng thêm |
+|---|---|
+| Ải tướng mới thường (1, 5, 10, 15) | +0,20 |
+| Ải một địch: cường hóa, mini boss, boss | +0,95 |
+| Ải hai địch | +0,65 |
+| Ải ba địch | +0,50 |
+
+Vì cộng thẳng vào cường hóa, hộp chuẩn bị trận đảo Mộc ghi "Cường hóa" từ +35% (ải tướng thường) tới +120% (cường hóa cuối chặng).
+
+Số đo (máy tự chơi trong Core, 60 trận mỗi ải, bằng cấp địch, sao và thẻ theo cấp):
+
+| Kiểu ải | Mục tiêu (đảo Thủy) | 2 tướng Kim khắc hệ (Bu Lông, Mèo Quyền Sắt) | Thiếu 6 cấp | 1 Kim + 1 trung tính (Bu Lông, Giọt Sương) | 2 trung tính (Giọt Sương, Mi Nhi) |
+|---|---|---|---|---|---|
+| Ải tướng mới | 100% | 98% | 90% | 89% | 78% |
+| Bầy lính | 91% | 87% | 60% | 62% | 27% |
+| Cường hóa | 92% | 94% | 80% | 79% | 40% |
+| Tướng và lính | 78% | 78% | 45% | 48% | 15% |
+| Lính tinh nhuệ | 78% | 75% | 41% | 41% | 10% |
+| Mini boss | 72% | 79% | 48% | 39% | 12% |
+| Hai tướng | 69% | 75% | 44% | 47% | 11% |
+| Cửa ải | 62% | 68% | 32% | 37% | 7% |
+| Boss ải 70 | 61% | 63% | 40% | 15% | 3% |
+
+Chỉnh theo đội mạnh nhất (2 tướng khắc đảo), như đảo Thủy chỉnh theo Võ Sư. Người chơi không có 2 tướng Kim sẽ thấy đảo Mộc khó hơn nhiều. Chưa chạy lại `Quét nhịp`.
+
+## Đảo Hỏa (làm lại 2026-11-05)
+
+Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phải là thứ tự ải tướng. Đảo Hỏa thành 70 ải bằng `IslandGen.Hoa` (menu `PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc)`). Danh sách tướng và nguồn aola: `13_DanhSachTuong.md`, mục Hỏa.
+
+| Ải | Chặng | Tướng | Độ hiếm (tạm) | Loại ải |
+|---|---|---|---|---|
+| 1 | Bến Đá Đen | Sư Tử Lửa (tướng khởi đầu) | Khá | thường, tiến hóa |
+| 5 | Suối Dung Nham | Khổng Lồ Lửa | Thường | thường, tiến hóa |
+| 10 | Rừng Than Hồng | Kim Sư | Khá | thường, tiến hóa |
+| 15 | Sườn Núi Khói | Nham Thần | Khá | thường, tiến hóa |
+| 20 | Lò Lửa Thiền | Hồ Lửa (**tạm**) | Hiếm | mini boss (1 dạng) |
+| 30 | Chùa Liên Hoa | Hồng Liên | Hiếm | mini boss, bị động |
+| 40 | Lò Rèn Gai Thép | Giáp Long | Sử thi | mini boss |
+| 50 | Rừng Lửa Ảo | Huyễn Viêm | Sử thi | mini boss, bị động |
+| 60 | Hang Hồng Ngọc | Hỏa Tinh | Sử thi | mini boss |
+| 70 | Miệng Núi Lửa | Lân Hỏa (Lân Con → Lân Ngàn Năm → Thánh Lân) | Huyền thoại | boss tiến hóa, bị động |
+
+- **Ải 1 vẫn là Sư Tử Lửa:** hình ải 1 người dùng gửi (爆焰吉拉) là dạng 3 của dòng Sư Tử Lửa, nên không phải dời tướng khởi đầu như Nụ Hoa ở đảo Mộc. Ải 1 là Sư Tử Lửa thật (không phải bóng như đảo Thủy), lần đầu chắc chắn rơi 2–4 mảnh.
+- **Ải 20 để trống:** hình người dùng gửi là 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa. Người dùng sẽ tìm tướng khác; Hồ Lửa đứng tạm. Có tướng thì đổi một dòng trong `IslandGen.Hoa` rồi chạy menu sinh lại.
+- Chặng đầu (ải 2–4): Sư Tử Lửa + lính; bầy lính; cửa ải Sư Tử Lửa + lính. Không có tướng tặng.
+- Lính: Lò Lửa → Lò Quái (trâu), Nấm Lửa → Quái Nham (phản đòn), Khỉ Lửa → Khỉ Hỏa Diệm (nhanh); thẻ chép lính đảo Thủy, Mộc cùng vai. Loại 2 mở từ chặng 1, loại 3 từ chặng 2; bậc 2 từ ải 35.
+- Cấp: đường chung, đỉnh 198 (ải 5 cấp 19, ải 20 cấp 67, ải 40 cấp 122, ải 70 cấp 198).
+- Bù 2 ô và bị động boss: xem mục "5 đảo song song". Tỉ lệ thắng theo kiểu ải (đội Giọt Sương + Mi Nhi, bằng cấp, 100 trận mỗi ải), so với đảo Mộc (đội Bu Lông + Mèo Quyền Sắt):
+
+| Kiểu ải | Hỏa | Mộc |
+|---|---|---|
+| 1 ô: ải tướng / cửa ải / bầy lính | 89% / 82% / 96% | 81% / 81% / 94% |
+| 2 ô: cường hóa | 93% | 93% |
+| 2 ô: tướng và lính / hai tướng / cửa ải / lính tinh nhuệ | 81% / 77% / 62% / 68% | 79% / 72% / 61% / 70% |
+| 2 ô: bầy lính | 89% | 87% |
+| 2 ô: mini boss / boss | 68% / 58% | 65% / 55% |
+
+- Toạ độ 10 ải tướng chia đều theo đường nối 8 vòng của ảnh đảo Hỏa cũ. Đảo Hỏa chưa có bản đồ dài, màn đảo dùng bản đồ ×3.
+- Hình 22 dạng tướng mới và 6 lính chưa xuất (máy sập giữa lượt xuất, xem `12_KeHoach_OpenSpec.md`), nên các tướng này chưa có hình trong game.
+
 ## Unity (chép 2026-11-03)
 
 Từ 2026-11-03 làm ở Unity, bản web chỉ làm khi người dùng yêu cầu. Lần xuất cuối từ web dùng script trong thư mục tạm (không sửa `Web/`): JSON có 102 ải và khoá `minions` ở `heroes.json`, `cards.json`; golden có thêm `islands.json`. Từ nay số liệu sửa thẳng trong `Assets/02 Data/Json` rồi chạy menu `PokiClash/Nhập dữ liệu`.
@@ -269,14 +481,15 @@ Từ 2026-11-03 làm ở Unity, bản web chỉ làm khi người dùng yêu c�
 | `StagePrepDialog`, `PrepFoe`, `ZoneEnemy` | Nhãn kiểu ải, dòng "Mặt nước in bóng…", "Cường hóa +x%", "Yếu hơn x%", "Lính, không thu phục", máu boss tính cả phần cộng. Từ 2026-11-03: lực chiến từng đối thủ, dòng so lực chiến địch / đội bạn, thưởng là ô hình (`RewardTile`), ải khoá chỉ xem |
 | `Tests/IslandTests.cs` | So từng ải với golden: kiểu ải, chặng, bi, đội địch, phần cộng khớp từng bit |
 | `Editor/PlayTour.cs` | Menu `PokiClash/Thử/Đảo 70 ải: …` chụp màn đảo, hộp chuẩn bị (chạm chấm), trận có lính |
+| `Editor/IslandGen.cs`, `IslandGenMenu.cs` (2026-11-05) | Bộ sinh 70 ải chép từ `islands.ts`, với % cường hóa đảo Thủy hiện tại; kế hoạch đảo Thủy, Hỏa, Mộc (`IslandGen.Thuy`, `Hoa`, `Moc`); menu `PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc)`, menu `PokiClash/Thử/Tính lại golden islands, roster, cardtext, zones` |
 
 Hình 6 lính đã nhập thành prefab (`Assets/04 Prefabs/Heroes/linh_*.prefab`, nén ASTC). Toàn bộ test EditMode qua (86).
 
 ## Còn lại
 
-1. **Chạy lại `Quét nhịp`** (ProgressSim) để xem nhịp ngày với 70 ải.
+1. **Nhịp ngày:** đo lại 2026-11-05 với 5 đảo song song (đảo giả cho Hỏa, Kim, Thổ), xem mục "5 đảo song song". Đo lại khi ba đảo kia có 70 ải thật.
 2. **Ảnh đảo Thủy mới: xong (2026-11-03).** Bản đồ dài 1024 × 4288 ghép từ 3 đoạn GPT (`ArtGen/Islands/PROMPTS.md`, mục "Đảo Thủy 70 ải"), đã vào game: chấm ải cách nhau 92 px khung 1080 (trước khoảng 30 px), bệ tướng cỡ thật, 10 địa danh sát bãi ải tướng. Đảo khác muốn 70 ải thì làm bản đồ dài theo cùng cách.
-3. **Bốn đảo còn lại:** chọn 10 tướng, 3 loại lính mỗi đảo. Bộ sinh 70 ải (`islands.ts`) hiện chỉ có ở web; danh sách ải trong Unity là dữ liệu đã sinh sẵn. Làm đảo mới thì chép bộ sinh sang Unity (menu Editor ghi `stages.json`), hoặc dùng web nếu người dùng cho.
+3. **Hai đảo còn lại (Kim, Thổ; Hỏa xong 2026-11-05 trừ ải 20):** chọn 10 tướng, 3 loại lính mỗi đảo. Thêm một `Plan` như `IslandGen.Moc` vào `IslandGen.All` (đỉnh cấp 196–200), dò `extra` theo đội khắc hệ, chọn bị động boss cho 5 mốc cuối rồi dò cường hóa từng con.
 4. **Bản lưu:** bản lưu cũ có `zones.thuy = 8` nay thành 8/70. Số ải toàn cục của đảo sau đổi (Hỏa từ 71), nhưng chỉ ảnh hưởng `clears`, chưa chỗ nào đọc.
 
 Câu hỏi còn mở ghi ở `12_KeHoach_OpenSpec.md`, mục "Câu hỏi còn mở" (15–20).

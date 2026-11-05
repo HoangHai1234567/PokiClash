@@ -195,7 +195,7 @@ namespace PokiClash.EditorTools
         static IEnumerator RunArenas()
         {
             shot = 400;
-            foreach (int idx in new[] { 1, 5, 10, 15, 20, 25, 30, 40, 50, 60, 65, 70 })
+            foreach (int idx in new[] { 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 }) // đủ 9 chặng, 5 mini boss, boss
             {
                 var st = App.Data.Stages.FirstOrDefault(s => s.zone == Elem.Thuy && s.idx == idx);
                 if (st == null) continue;

@@ -614,14 +614,18 @@ namespace PokiClash.EditorTools
                 if (SubFrame.IsMatch(paths[i])) need[i] *= idle ? SubIdleScale : SubOtherScale;
             }
 
-            // bóng dưới chân: trong 3 hình đầu của khung đầu dáng đứng
+            // bóng dưới chân: trong 3 hình đầu của khung đầu dáng đứng, tâm nằm ở 30% dưới của khung (2026-11-05: goc_215 có vệt gió
+            // xám bè ngang ngang lưng bị nhận nhầm làm bóng, điểm neo chân lên lưng nên con bị phóng to, lệch xuống)
             if (idleFrames != null && idleFrames.Count > 0)
             {
                 var first = (List<object>)idleFrames[0];
                 for (int i = 0; i < Math.Min(3, first.Count); i++)
                 {
-                    int s = Convert.ToInt32(((List<object>)first[i])[0]);
-                    if (src[s] && IsShadow(src[s]))
+                    var row = (List<object>)first[i];
+                    int s = Convert.ToInt32(row[0]);
+                    var z = p.sizes[s];
+                    double cy = Convert.ToDouble(row[2]) * z.x / 2 + Convert.ToDouble(row[4]) * z.y / 2 + Convert.ToDouble(row[6]);
+                    if (src[s] && IsShadow(src[s]) && cy >= top + 0.7 * (bottom - top))
                     {
                         p.shadow = s;
                         break;
