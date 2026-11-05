@@ -42,11 +42,20 @@ namespace PokiClash.Core
             return ups;
         }
 
+        // mức cược đang mở: theo số bi đang có (×1 luôn mở). Bi tụt dưới mốc thì mất mức đó cho tới khi có lại.
         public static List<int> XAllowed(SaveData s, BalanceConfig cfg)
         {
             var l = new List<int>();
-            foreach (var x in cfg.xSteps) if (s.level >= x.lv) l.Add(x.x);
+            foreach (var x in cfg.xSteps) if (x.x == 1 || s.balls >= x.balls) l.Add(x.x);
             return l;
+        }
+
+        // mức cược cao nhất đang mở, không quá want
+        public static int XBest(SaveData s, BalanceConfig cfg, int want)
+        {
+            int best = 1;
+            foreach (int x in XAllowed(s, cfg)) if (x <= want && x > best) best = x;
+            return best;
         }
 
         // ---------- thẻ riêng và sao ----------

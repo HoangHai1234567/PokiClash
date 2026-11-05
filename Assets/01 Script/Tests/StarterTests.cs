@@ -1,5 +1,5 @@
 // Chọn 1 trong 5 tướng khởi đầu (GD_Claude/15_TuongKhoiDau.md): người chơi mới chưa có tướng, chọn xong có đúng 1; mỗi hệ một tướng
-// thu phục được ở chặng đầu đảo cùng hệ (ải 1, riêng Nụ Hoa ở ải 2 đảo Mộc từ 2026-11-05); bản lưu v4 -> v5; ô đội 2 mở ở ải 3 đảo Thủy cùng quà theo lựa chọn; tướng đồng hành không bị khắc hệ.
+// thu phục được ở chặng đầu đảo cùng hệ (ải 1, riêng Nụ Hoa ở ải 2 đảo Mộc và Bu Lông ở ải 2 đảo Kim từ 2026-11-05); bản lưu v4 -> v5; ô đội 2 mở ở ải 3 đảo Thủy cùng quà theo lựa chọn; tướng đồng hành không bị khắc hệ.
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -48,11 +48,12 @@ namespace PokiClash.Tests
                 Assert.AreEqual(3, h.forms.Length, id + " dòng 3 dạng");
                 var at = d.StarterStage(id);
                 Assert.IsNotNull(at, id);
-                // đảo Mộc nhường ải 1 cho Tiên Lá (10 tướng người dùng chọn 2026-11-05): Nụ Hoa đứng cùng một lính ở ải 2
-                if (h.elem == Elem.Moc)
+                // đảo Mộc nhường ải 1 cho Tiên Lá, đảo Kim cho Bọ Cạp Đồng (10 tướng người dùng chọn 2026-11-05): Nụ Hoa, Bu Lông
+                // đứng cùng một lính ở ải 2
+                if (h.elem == Elem.Moc || h.elem == Elem.Kim)
                 {
                     Assert.AreEqual(2, at.idx, id);
-                    Assert.AreEqual("tien_la", d.ZoneStages(Elem.Moc).First(st => st.idx == 1).enemies[0].hero);
+                    Assert.AreEqual(h.elem == Elem.Moc ? "tien_la" : "bo_cap", d.ZoneStages(h.elem).First(st => st.idx == 1).enemies[0].hero);
                 }
                 else
                 {

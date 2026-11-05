@@ -12,14 +12,14 @@ namespace PokiClash.Tests
         static Dictionary<string, object> Golden() => J.Obj(MiniJson.Parse(TestData.Read("Golden/roster.json")));
 
         [Test]
-        public void DanhSach60Tuong_Thuy13_Hoa16_Moc15()
+        public void DanhSach68Tuong_Thuy13_Hoa16_Kim16_Moc15()
         {
-            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy), Mộc thêm 7, Hỏa thêm 8 (2026-11-05, 10 tướng mỗi đảo)
+            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy), Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 (2026-11-05, 10 tướng mỗi đảo)
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
-            Assert.AreEqual(60, d.Heroes.Count);
+            Assert.AreEqual(68, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
-                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : (Elem)e == Elem.Hoa ? 16 : (Elem)e == Elem.Moc ? 15 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
+                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : (Elem)e == Elem.Hoa || (Elem)e == Elem.Kim ? 16 : (Elem)e == Elem.Moc ? 15 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
             // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md)
             Assert.AreEqual(new[] { "giot_suong", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
@@ -28,6 +28,8 @@ namespace PokiClash.Tests
             // Thanh Long là dòng 青龙 (214 → 215 → 1749), dòng 格非 cũ thành Long Vuốt
             Assert.AreEqual(new[] { "goc_214", "goc_215", "goc_1749" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
             Assert.AreEqual(new[] { "goc_1219", "goc_1220" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
+            // đảo Kim (2026-11-05): boss Kim Nghê là dòng 克亚 → 克里亚斯 (2 dạng, aola không có siêu tiến hóa)
+            Assert.AreEqual(new[] { "goc_1840", "goc_1841" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
         }
 
         [Test]

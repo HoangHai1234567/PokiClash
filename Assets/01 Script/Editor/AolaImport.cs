@@ -104,6 +104,12 @@ namespace PokiClash.EditorTools
         // mỗi hình chỉ hiện vài khung rồi đổi, nên thu thêm; khung con có trong dáng đứng nhìn lâu hơn nên thu nhẹ hơn
         const float SubIdleScale = 0.85f, SubOtherScale = 0.7f;
         static readonly Regex SubFrame = new Regex(@"[\\/]c\d+_\d+\.png$");
+        // hình nướng bộ lọc Flash (bake_filters.py bên AolaRipper, goc_<id>/fx/, 2026-11-05): quầng glow (_q) chỉ là vùng màu mờ
+        // nằm dưới hình gốc, hình đã làm mờ (_b: vệt chuyển động, blur) mềm sẵn, nên thu nhỏ hơn hình thường mà mắt không thấy khác.
+        // Ma trận của chúng đã gồm phần bake_filters thu nhỏ, nên hệ số này tính trên cỡ cần như mọi hình.
+        const float HaloScale = 0.3f, BlurredScale = 0.6f;
+        static readonly Regex HaloPic = new Regex(@"[\\/]fx[\\/][^\\/]+_q[0-9a-f]{8}\.png$");
+        static readonly Regex BlurredPic = new Regex(@"[\\/]fx[\\/][^\\/]+_b[0-9a-f]{8}\.png$");
         public const int PortraitSide = 512; // chân dung lưu vuông (lũy thừa 2, có mipmap mới nén được)
         const string Version = "2"; // đổi khi cách nhập đổi, để nhập lại mọi dạng
         const string StandMark = "tam-"; // đầu dấu nguồn của dạng vẽ lại đang tạm mang hình gốc goc_<id>
@@ -612,6 +618,8 @@ namespace PokiClash.EditorTools
                 bool idle = inIdle.Contains(i);
                 if (!idle) need[i] *= OtherScale;
                 if (SubFrame.IsMatch(paths[i])) need[i] *= idle ? SubIdleScale : SubOtherScale;
+                if (HaloPic.IsMatch(paths[i])) need[i] *= HaloScale;
+                else if (BlurredPic.IsMatch(paths[i])) need[i] *= BlurredScale;
             }
 
             // bóng dưới chân: trong 3 hình đầu của khung đầu dáng đứng, tâm nằm ở 30% dưới của khung (2026-11-05: goc_215 có vệt gió

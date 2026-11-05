@@ -1,7 +1,9 @@
 // Thanh kinh nghiệm trên đầu máy bi (như thanh cấp trên máy tham khảo: vòng cấp bên trái, thanh EXP, "số/số").
-// Bi rơi vào ô EXP thì sao EXP bay từ ô lên đầu phần đầy của thanh; tới nơi thanh mới cộng, nảy nhẹ, loé tím. Thanh hiện chậm
-// hơn bản lưu trong lúc sao còn bay (bản lưu cộng ngay lúc bi rơi). Lên cấp: thanh đầy rồi về 0, vòng cấp nhún, loé to.
-// Prefab: phần "thanh_kinh_nghiem" của Screens/Machine, dựng bằng menu "PokiClash/Prefab/Máy bi: thanh kinh nghiệm".
+// Bi rơi vào ô EXP thì sao EXP bay từ ô lên đầu phần đầy của thanh; tới nơi thanh mới cộng, loé tím, và cả khung thanh
+// (rãnh vẽ tay cắt từ thân máy + thanh + chữ) nhún như thanh năng lượng của máy tham khảo. Thanh hiện chậm hơn bản lưu trong
+// lúc sao còn bay (bản lưu cộng ngay lúc bi rơi). Lên cấp: thanh đầy rồi về 0, vòng cấp nhún, loé to.
+// Prefab: phần "thanh_kinh_nghiem" của Screens/Machine, dựng bằng menu "PokiClash/Prefab/Máy bi: thanh kinh nghiệm";
+// nhóm "khung_thanh" (rãnh + thanh) do menu "Máy bi: thân máy vẽ tay" dựng theo số đo rãnh.
 // Sao và hạt là bản sao Items/HatMayBi trên lớp bay "lop_bay" phủ cả khối máy.
 using System.Collections;
 using System.Collections.Generic;
@@ -21,10 +23,17 @@ namespace PokiClash
         [SerializeField] RectTransform badge; // vòng cấp
         [SerializeField] RectTransform flyLayer;
         [SerializeField] Image particle; // Items/HatMayBi
+        [SerializeField] RectTransform frame; // "khung_thanh": rãnh vẽ tay + thanh, nhún cùng nhau (thiếu thì chỉ thanh nhún)
 
         // sao bay: FlyTime giây (thêm ngẫu nhiên tới FlyJitter), sao sau trễ FlyGap giây; tối đa MaxStars sao một lần rơi
         public const float FlyTime = 0.55f, FlyJitter = 0.12f, FlyGap = 0.06f, StarSize = 56, SoundGap = 0.07f;
         public const int MaxStars = 4;
+
+        // nhún khi cộng: dáng chép thanh năng lượng của máy tham khảo (nền và phần đầy cùng phóng 1,2 → 1,08 → 1,2 → 1,08 → 1,2 → 1
+        // trong 0,25 giây, chữ số phóng mạnh hơn). Thanh này dài nên biên độ chia theo trục: ngang PunchX, dọc PunchY, chữ thêm PunchText.
+        // Không bao giờ nhỏ hơn 1, để bản rãnh nhún luôn che kín rãnh vẽ sẵn của thân máy bên dưới.
+        public static readonly float[] PunchCurve = { 0, 1, 0.05f, 0.4f, 0.1f, 1, 0.15f, 0.4f, 0.2f, 0.7f, 0.25f, 0 };
+        public const float PunchX = 0.03f, PunchY = 0.18f, PunchText = 0.12f;
 
         int level, exp; // đang hiện
         int flying;
@@ -49,6 +58,61 @@ namespace PokiClash
             badge = badgeRt;
             flyLayer = layer;
             particle = item;
+        }
+
+        // Dùng khi nướng prefab (Editor): nhóm rãnh + thanh nhún cùng nhau.
+        public void SetFrame(RectTransform f) => frame = f;
+
+        public RectTransform Frame => frame;
+
+        // nhún khung thanh (sao tới, hoặc công cụ thử)
+        public void Punch() => bumpT = 0;
+
+        // loé ở một điểm thế giới trên lớp bay (mốc quà của máy dùng): big = loé to như lên cấp
+        public void Burst(Vector3 world, bool big)
+        {
+            if (!bound) return;
+            fx.Emit(big ? LevelUp : Hit, Anch(world), 40);
+        }
+
+        // một icon bay từ from tới to (thế giới) theo đường cong trên lớp bay, trễ delay giây, tới nơi gọi arrive
+        // (mốc quà của máy dùng cho bi quà bay về dòng đếm). Hạt lấy từ kho Items/HatMayBi như sao EXP.
+        public void FlyIcon(Sprite sprite, Vector3 from, Vector3 to, float delay, System.Action arrive)
+        {
+            if (!bound)
+            {
+                arrive?.Invoke();
+                return;
+            }
+            StartCoroutine(FlyIconRun(sprite, from, to, delay, arrive));
+        }
+
+        IEnumerator FlyIconRun(Sprite sprite, Vector3 from, Vector3 to, float delay, System.Action arrive)
+        {
+            var img = fx.Take(flyLayer);
+            stars.Add(img);
+            img.sprite = sprite;
+            img.color = Color.white;
+            img.enabled = false;
+            var rt = img.rectTransform;
+            rt.sizeDelta = Vector2.one * 44;
+            rt.localEulerAngles = Vector3.zero;
+            for (float w = 0; w < delay; w += Time.unscaledDeltaTime) yield return null;
+            img.enabled = true;
+            var a = Anch(from);
+            var b = Anch(to);
+            var c = (a + b) / 2 + new Vector2(Random.Range(-90f, 90f), 150 + Random.Range(0, 80));
+            const float dur = 0.5f;
+            for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
+            {
+                float k = t / dur;
+                float e = k * k * (3 - 2 * k);
+                rt.anchoredPosition = (1 - e) * (1 - e) * a + 2 * (1 - e) * e * c + e * e * b;
+                rt.localScale = Vector3.one * Mathf.Lerp(1.2f, 0.7f, k);
+                yield return null;
+            }
+            Return(img);
+            arrive?.Invoke();
         }
 
         // vào màn: hiện đúng bản lưu, không chạy
@@ -189,13 +253,16 @@ namespace PokiClash
             if (!bound) return;
             float dt = Time.unscaledDeltaTime;
             fx.Update(dt);
-            // thanh nảy 1 → 1,06 → 1 trong 0,16 giây mỗi lần sao tới
+            // khung thanh (rãnh + thanh) nhún mỗi lần sao tới, chữ số nhún thêm
             if (bumpT >= 0)
             {
                 bumpT += dt;
-                float k = bumpT / 0.16f;
-                bar.transform.localScale = new Vector3(1 + 0.04f * Mathf.Sin(Mathf.Min(1, k) * Mathf.PI), 1 + 0.12f * Mathf.Sin(Mathf.Min(1, k) * Mathf.PI), 1);
-                if (k >= 1) bumpT = -1;
+                float end = PunchCurve[PunchCurve.Length - 2];
+                float k = bumpT >= end ? 0 : MachineFx.Curve(PunchCurve, bumpT);
+                var target = frame ? frame : bar.transform;
+                target.localScale = new Vector3(1 + PunchX * k, 1 + PunchY * k, 1);
+                if (bar.Label) bar.Label.rectTransform.localScale = Vector3.one * (1 + PunchText * k);
+                if (bumpT >= end) bumpT = -1;
             }
             // vòng cấp nhún khi lên cấp: 1,35 → 0,92 → 1 trong 0,4 giây
             if (popT >= 0 && badge)

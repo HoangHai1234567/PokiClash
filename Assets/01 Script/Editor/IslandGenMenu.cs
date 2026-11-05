@@ -1,5 +1,5 @@
 // Menu của bộ sinh ải đảo 70 ải (IslandGen.cs):
-// - "PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc)": ghi lại các ải của mọi đảo có kế hoạch (IslandGen.All) trong stages.json
+// - "PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Kim, Mộc)": ghi lại các ải của mọi đảo có kế hoạch (IslandGen.All) trong stages.json
 //   (đánh lại id toàn cục), rồi chạy "Nhập dữ liệu". Sửa kế hoạch đảo (tướng, tên chặng, lính, đỉnh cấp, cường hóa) trong IslandGen.cs
 //   rồi chạy menu này. Cấp đảo trong zones.json ([1, đỉnh]) sửa tay cho khớp levelMax của kế hoạch.
 // - "PokiClash/Thử/Tính lại golden islands, roster, cardtext, zones": ghi 4 golden phụ thuộc dữ liệu ải, tướng, thẻ từ code hiện tại.
@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
         static GameData Load() =>
             GameData.FromJson(R("Json/heroes.json"), R("Json/cards.json"), R("Json/zones.json"), R("Json/stages.json"), R("Json/balance.json"));
 
-        [MenuItem("PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc) (stages.json)", priority = 11)]
+        [MenuItem("PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Kim, Mộc) (stages.json)", priority = 11)]
         static void Regen()
         {
             var d = Load();

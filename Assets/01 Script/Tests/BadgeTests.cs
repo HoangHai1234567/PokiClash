@@ -91,7 +91,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
-            s.zones[(int)Elem.Kim] = 4;
+            s.zones[(int)Elem.Kim] = Islands.MiniAt(Elem.Kim); // qua mini boss đầu đảo Kim (ải 4 khi còn 8 ải, ải 20 từ 2026-11-05)
             var rng = new Rng(31);
             var steps = J.Arr(G, "steps");
             var first = J.Obj(steps[0]);

@@ -71,6 +71,7 @@ namespace PokiClash.Core
         public int balls;
         public int ballsSpent;
         public bool legendDone;
+        public int gift, giftTier; // mốc quà máy bi: bi đã tiêu vào mốc đang chạy, số mốc đã nhận
         public Dictionary<string, HeroProg> heroes = new Dictionary<string, HeroProg>(); // theo thứ tự tướng trong dữ liệu
         public List<string> team = new List<string>();
         public int[] zones = new int[5]; // số ải đã qua trong từng đảo, chỉ số theo Elem
@@ -287,7 +288,7 @@ namespace PokiClash.Core
 
         static readonly HashSet<string> Known = new HashSet<string>
         {
-            "v", "level", "exp", "balls", "ballsSpent", "legendDone", "heroes", "team", "zones", "zoneChests", "clears",
+            "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "heroes", "team", "zones", "zoneChests", "clears",
             "afkSince", "afk", "badges", "potentialStones", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
         };
 
@@ -354,6 +355,8 @@ namespace PokiClash.Core
                 balls = J.Int(o, "balls"),
                 ballsSpent = J.Int(o, "ballsSpent"),
                 legendDone = J.Bool(o, "legendDone"),
+                gift = J.Int(o, "gift"),
+                giftTier = J.Int(o, "giftTier"),
                 afkSince = (long)J.Num(o, "afkSince"),
                 intro = J.Bool(o, "intro"),
                 starter = J.Str(o, "starter"),
@@ -520,6 +523,8 @@ namespace PokiClash.Core
                 ["balls"] = s.balls,
                 ["ballsSpent"] = s.ballsSpent,
                 ["legendDone"] = s.legendDone,
+                ["gift"] = s.gift,
+                ["giftTier"] = s.giftTier,
                 ["heroes"] = heroes,
                 ["team"] = s.team.Cast<object>().ToList(),
                 ["zones"] = zones,

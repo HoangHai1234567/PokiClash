@@ -2,7 +2,7 @@
 //   1. nhận AFK (×2 nếu xem quảng cáo), mở rương AFK tới giờ (và "Mở ngay" nếu xem quảng cáo);
 //   2. đánh ải kế tiếp của đảo gợi ý (đảo có ải kế cấp thấp nhất); tỉ lệ thắng = máy tự chơi (đội và cấp thật lúc đó) + mức "người giỏi hơn máy";
 //      ải kế quá khó (< 30%) thì đánh lại ải đã qua nhiều bi nhất mà gần chắc thắng;
-//   3. thả hết bi (ô rơi theo tỉ lệ đo của máy, ×1), mở rương máy bi; 4. nâng thẻ, tiến hóa khi đủ;
+//   3. thả hết bi (ô rơi theo tỉ lệ đo của máy, ×1), mở rương máy bi và rương mốc quà; 4. nâng thẻ, tiến hóa khi đủ;
 //   5. rời game thì bật tăng tốc AFK (nếu xem quảng cáo).
 // Có trang trại (thu hoạch, đổi ca, tự xếp mỗi lần vào). Huy hiệu và tiềm năng chưa mô phỏng (cần chơi tay).
 using System;
@@ -140,7 +140,9 @@ namespace PokiClash.Core
             int guard = 0;
             while (s.balls >= 1 && guard++ < 100000)
             {
-                Pachinko.SpendBall(s, d, 1);
+                var legend = Pachinko.SpendBall(s, d, 1);
+                foreach (var g in Pachinko.GiftAdd(s, d, Pachinko.GiftCredit(s, d.Cfg, 1, legend)))
+                    if (g.k == RewardKind.Chest) Pachinko.OpenChest(s, d, g.chest, 1, rng);
                 rep.ballsDropped++;
                 var k = rng.Weighted(kinds, x => d.Cfg.Rate(Pachinko.Key(x)));
                 if (Pachinko.SlotReward(s, d.Cfg, k, 1).k == RewardKind.Chest) Pachinko.OpenChest(s, d, k, 1, rng);

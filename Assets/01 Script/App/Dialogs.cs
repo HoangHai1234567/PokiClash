@@ -1,4 +1,4 @@
-// Hộp thoại dùng ở nhiều scene: "Lên cấp!" (con dấu tím, cấp mới, nút cược vừa mở, thẻ chung vừa vào bộ rút) và màn giới thiệu.
+// Hộp thoại dùng ở nhiều scene: "Lên cấp!" (con dấu tím, cấp mới, thẻ chung vừa vào bộ rút) và màn giới thiệu.
 // Prefab Dialogs/LenCap, Dialogs/GioiThieu (tra trong Theme.Prefabs.dialogs).
 using System;
 using System.Linq;
@@ -14,10 +14,9 @@ namespace PokiClash
             var d = App.Data;
             App.Audio.Play("level");
             var newCards = d.Pool.Where(c => c.unlock > from && c.unlock <= to).ToList();
-            var newX = d.Cfg.xSteps.Where(x => x.lv > from && x.lv <= to).ToList();
+            // nút cược máy bi mở theo số bi đang có, không theo cấp (BalanceConfig.xSteps), nên dòng "mở nút ×N" để trống
             var dlg = App.Modals.Open<LevelUpDialog>(onClose);
-            dlg.Show(to,
-                newX.Count > 0 ? "Mở nút " + string.Join(", ", newX.Select(x => "×" + x.x)) + " ở máy bi" : null,
+            dlg.Show(to, null,
                 newCards.Count > 0 ? "Thẻ mới vào bộ rút: " + string.Join(", ", newCards.Select(c => c.name)) : null);
             return dlg.Modal;
         }

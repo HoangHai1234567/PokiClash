@@ -16,7 +16,7 @@ Người dùng chốt thêm (2026-11-01):
   - quy trình ở `ArtGen/Heroes/QUY_TRINH.md`;
 - **tướng Thủy đầu tiên là dòng khởi đầu hệ Nước của aola** (7 滴滴 → 8 露滴 → 9 露西亚, tên trong game là Giọt Sương), thay Tiểu Y làm tướng khởi đầu.
 
-Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Kim, Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại; Mộc, Hỏa chọn lại 2026-11-05.
+Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại; Mộc, Hỏa, Kim chọn lại 2026-11-05.
 
 **File này ghi nguồn aola, chỉ để đối chiếu nội bộ. Không đính kèm cho GPT, không đưa lên mạng.**
 
@@ -46,7 +46,40 @@ Người dùng chốt thêm (2026-11-01):
 
 "Nguồn" là id thú trong aola, kèm dạng tiến hóa (→). Cột "Ảnh" là mã trong `ArtGen/Heroes/PROMPTS.md` cũ (đã bỏ 2026-11-02).
 
-### Kim
+### Kim (chọn lại 2026-11-05 theo 10 hình người dùng gửi)
+
+Người dùng gửi 10 hình aola cho đảo Kim, thứ tự trái sang phải là thứ tự ải tướng (1, 5, 10, 15, 20, 30 … 70). Mỗi hình lấy cả dòng tiến hóa chứa nó. Tên, độ hiếm, thẻ là tạm; độ hiếm tăng theo ải như đảo Mộc, Hỏa. Kế hoạch ải: `Editor/IslandGen.cs`, `IslandGen.Kim`.
+
+| Ải | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn (dạng 1 → 2 → 3) | Trạng thái |
+|---|---|---|---|---|---|---|
+| 1 | `bo_cap` | Bọ Cạp Đồng | Đuôi pha lê cát đỏ | Thường (từ Hiếm) | 676 水晶小蝎 → 677 绿岩石蝎 → 678 赤砂巨蝎 | giữ, thẻ mới |
+| 5 | `doc_giac` | Độc Giác Thép | Ngựa một sừng giáp bạc | Thường | 656 铠甲独角兽 (1 dạng) | mới |
+| 10 | `bo_ngua` | Bọ Ngựa Liềm Thép | Song liềm kiếm khách | Khá (từ Hiếm) | 683 螳螂小宝 → 684 利刃螳螂 → 685 巨镰螳螂 | giữ, thẻ mới |
+| 15 | `phi_thuong` | Phi Thương | Kỵ sĩ máy song thương | Khá | 835 兰亚 → 836 兰亚斯特 | mới |
+| 20 | `khien_bac` | Khiên Bạc | Vệ sĩ khiên bạc | Hiếm | 784 铁盾豆丁 → 785 银盾卫士 | mới |
+| 30 | `chien_than` | Chiến Thần | Pháo thủ giáp vàng | Hiếm | 1083 小战灵 → 1084 战武巨神 | mới, bị động boss |
+| 40 | `thiet_phu` | Thiết Phủ | Người thiếc rìu bén | Sử thi | 1533 铁皮人 → 1534 利斧铁皮人 | mới |
+| 50 | `tam_kiem` | Tam Kiếm | Giáp vương ba kiếm | Sử thi | 1223 小备 → 1224 阿备 → 1225 刘备 | mới, bị động boss |
+| 60 | `ung_thep` | Ưng Thép | Thợ săn trời cánh pha lê | Sử thi | 1696 猎小空 → 1697 猎空 (aola gắn nhãn BOSS, hệ aola 2) | mới |
+| 70 | `kim_nghe` | Kim Nghê | Thần thú giáp lửa lam | Huyền thoại | 1840 克亚 → 1841 克里亚斯 (2 dạng, aola không có siêu tiến hóa) | mới, boss tiến hóa |
+
+- Tên dạng: Bọ Cạp Pha Lê → Bọ Cạp Đá Lục → Bọ Cạp Đồng; Bọ Ngựa Con → Bọ Ngựa Lưỡi Bén → Bọ Ngựa Liềm Thép; Phi Thương Con → Phi Thương; Khiên Sắt Tí Hon → Vệ Sĩ Khiên Bạc; Chiến Linh Con → Chiến Thần; Người Thiếc → Thiết Phủ; Kiếm Sĩ Nhí → Song Kiếm → Tam Kiếm Vương; Ưng Thép Con → Ưng Thép; Nghê Con → Kim Nghê.
+- Dòng 刘备 (1223–1225) trước bị loại vì là nhân vật lịch sử; người dùng gửi hình nên lấy, tên trong game là Tam Kiếm, không dùng tên gốc.
+- Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc, Hỏa.
+- Bu Lông (tướng khởi đầu hệ Kim) nhường ải 1 cho Bọ Cạp Đồng, đứng cùng một lính ở ải 2 (như Nụ Hoa ở đảo Mộc), vẫn thu phục được.
+- Siêu tiến hóa chưa lấy: Khiên Bạc 2146 金盾卫士, Ưng Thép 2532 超猎空, Tam Kiếm 2336 昭烈刘备 trở đi, Chiến Thần 6087 (không có rig vector). Huyền thoại Kim theo Tứ Tượng trước là Bạch Hổ; nay boss đảo là Kim Nghê theo hình người dùng gửi.
+- Tướng Kim cũ không có suất trên đảo (giữ trong danh sách): `phao_hop`, `kiem_linh`, `meo_quyen` (vẫn là quà ải 3 đảo Thủy khi chọn Thạch Nhân), `soi_linh`, `bach_ho`.
+- Đo bằng máy tự chơi (đội Hỏa Khá khắc hệ: Sư Tử Lửa, Kim Sư; bằng cấp; 150 trận mỗi ải, ải tướng 300): cường hóa 93%, 2 địch 76%, 3 địch 84%, mini boss 63–73% (Khiên Bạc 63, Chiến Thần 73, Thiết Phủ 69, Tam Kiếm 69, Ưng Thép 67), boss Kim Nghê 63%.
+
+Lính đảo Kim (dạng aola hệ Cơ khí chưa có trong danh sách tướng; Claude chọn, người dùng chưa duyệt):
+
+| Lính | Bậc 1 | Bậc 2 | Vai |
+|---|---|---|---|
+| Giáp Vệ / Chiến Giáp | 121 机甲护卫 | 122 机甲战士 | trâu, như cua |
+| Nóc Sắt / Nóc Khiên | 1061 铁甲小豚 | 1062 坚甲河豚 | phản đòn, như cá nóc |
+| Máy Bay Con / Phản Lực | 949 飞飞机 | 950 喷气飞飞机 | nhanh, như song ngư |
+
+Danh sách Kim cũ (2026-10-31), giữ để đối chiếu:
 
 | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn | Trạng thái | Ảnh |
 |---|---|---|---|---|---|---|
@@ -173,7 +206,7 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 - Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc.
 - Siêu tiến hóa chưa lấy: Hỏa Tinh 5329 烈焰奇迹-火星诺 (không có rig vector). Huyền thoại Hỏa theo Tứ Tượng trước là Chu Tước; nay boss đảo là Lân Hỏa theo hình người dùng gửi.
 - Tướng Hỏa cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `heo_lua`, `dom_lua`, `phao_tet`, `bo_de`, `phap_luan`, `chu_tuoc`. Hồ Lửa đứng tạm ở ải 20.
-- Hình: 22 dạng mới chưa xuất (`goc_batch`), vì máy sập giữa lượt xuất ngày 2026-11-05 (xem `12_KeHoach_OpenSpec.md`, mục "Prefab tướng").
+- Hình: 22 dạng mới và 6 lính đã vào Unity thành prefab (2026-11-05, xem `12_KeHoach_OpenSpec.md`, mục "Prefab tướng").
 
 Lính đảo Hỏa (dạng aola hệ Lửa chưa có trong danh sách tướng; người dùng duyệt 2026-11-05):
 

@@ -47,15 +47,15 @@ MonoBehaviour:
     maxStar: 5
     xSteps:
     - x: 1
-      lv: 1
+      balls: 0
     - x: 2
-      lv: 12
+      balls: 0
     - x: 3
-      lv: 23
+      balls: 150
     - x: 5
-      lv: 40
+      balls: 300
     - x: 10
-      lv: 80
+      balls: 700
     cardReq: 000000000200000004000000080000000f000000
     starCards: 000000000000000005000000080000000b0000000f000000
     starLevel: 000000000100000007000000170000003200000060000000
@@ -162,6 +162,22 @@ MonoBehaviour:
         min: 2
         max: 4
         rar: []
+    gifts:
+    - n: 30
+      k: chest_wood
+      v: 0
+    - n: 40
+      k: balls
+      v: 8
+    - n: 50
+      k: chest_silver
+      v: 0
+    - n: 60
+      k: exp
+      v: 120
+    - n: 80
+      k: chest_gold
+      v: 0
     ratesBalls: 6000
     rates:
     - k: chest_silver

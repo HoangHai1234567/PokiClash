@@ -1,0 +1,632 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ad3c4f85db4a64ab4bb3bc7516c9f6, type: 3}
+  m_Name: goc_1084
+  m_EditorClassIdentifier: 
+  res: goc_1084/goc_1084
+  anim: {fileID: 4900000, guid: 7c345b916f2c7df4f90a58da87f5d650, type: 3}
+  sizes:
+  - {x: 680, y: 158}
+  - {x: 150, y: 148}
+  - {x: 236, y: 215}
+  - {x: 302, y: 433}
+  - {x: 159, y: 159}
+  - {x: 210, y: 238}
+  - {x: 184, y: 223}
+  - {x: 100, y: 123}
+  - {x: 56, y: 79}
+  - {x: 146, y: 111}
+  - {x: 235, y: 217}
+  - {x: 236, y: 292}
+  - {x: 192, y: 165}
+  - {x: 296, y: 274}
+  - {x: 74, y: 98}
+  - {x: 268, y: 320}
+  - {x: 136, y: 114}
+  - {x: 250, y: 226}
+  - {x: 154, y: 148}
+  - {x: 165, y: 119}
+  - {x: 361, y: 279}
+  - {x: 544, y: 407}
+  - {x: 185, y: 155}
+  - {x: 89, y: 124}
+  - {x: 52, y: 157}
+  - {x: 258, y: 240}
+  - {x: 270, y: 313}
+  - {x: 60, y: 56}
+  - {x: 84, y: 128}
+  - {x: 63, y: 95}
+  - {x: 86, y: 177}
+  - {x: 242, y: 201}
+  - {x: 327, y: 334}
+  - {x: 86, y: 113}
+  - {x: 264, y: 279}
+  - {x: 173, y: 107}
+  - {x: 178, y: 128}
+  - {x: 164, y: 138}
+  - {x: 202, y: 223}
+  - {x: 108, y: 96}
+  - {x: 118, y: 95}
+  - {x: 74, y: 103}
+  - {x: 114, y: 95}
+  - {x: 184, y: 197}
+  - {x: 114, y: 135}
+  - {x: 58, y: 86}
+  - {x: 54, y: 61}
+  - {x: 364, y: 840}
+  - {x: 1060, y: 1060}
+  - {x: 1063, y: 1063}
+  - {x: 1064, y: 1064}
+  - {x: 1060, y: 1060}
+  - {x: 1063, y: 1063}
+  - {x: 1064, y: 1064}
+  - {x: 1061, y: 1060}
+  - {x: 1063, y: 1063}
+  - {x: 1064, y: 1064}
+  - {x: 1061, y: 1060}
+  - {x: 1063, y: 1062}
+  - {x: 1064, y: 1064}
+  - {x: 1060, y: 1060}
+  - {x: 1063, y: 1062}
+  - {x: 1064, y: 1064}
+  - {x: 1061, y: 1060}
+  - {x: 1063, y: 1062}
+  - {x: 1064, y: 1064}
+  - {x: 1060, y: 1060}
+  - {x: 1063, y: 1063}
+  - {x: 1064, y: 1063}
+  - {x: 1060, y: 1060}
+  - {x: 1063, y: 1063}
+  - {x: 1064, y: 1064}
+  - {x: 1061, y: 1060}
+  - {x: 1063, y: 1063}
+  - {x: 1064, y: 1064}
+  - {x: 296, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 296, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 297, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 297, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 296, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 297, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 296, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 297}
+  - {x: 296, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  - {x: 297, y: 296}
+  - {x: 297, y: 297}
+  - {x: 298, y: 298}
+  uvs:
+  - serializedVersion: 2
+    x: 0.0018796993
+    y: 0.39895833
+    width: 0.20488721
+    height: 0.053125
+  - serializedVersion: 2
+    x: 0.9520677
+    y: 0.5520833
+    width: 0.04511278
+    height: 0.048958335
+  - serializedVersion: 2
+    x: 0.63251877
+    y: 0.55
+    width: 0.071428575
+    height: 0.071875
+  - serializedVersion: 2
+    x: 0.33082706
+    y: 0.15104167
+    width: 0.091165416
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.93233085
+    y: 0.8625
+    width: 0.04793233
+    height: 0.053125
+  - serializedVersion: 2
+    x: 0.70770675
+    y: 0.55
+    width: 0.06296992
+    height: 0.079166666
+  - serializedVersion: 2
+    x: 0.54417294
+    y: 0.6489583
+    width: 0.05545113
+    height: 0.07395833
+  - serializedVersion: 2
+    x: 0.23402256
+    y: 0.9135417
+    width: 0.030075189
+    height: 0.040625
+  - serializedVersion: 2
+    x: 0.7781955
+    y: 0.471875
+    width: 0.016917294
+    height: 0.026041666
+  - serializedVersion: 2
+    x: 0.9520677
+    y: 0.509375
+    width: 0.04605263
+    height: 0.038541667
+  - serializedVersion: 2
+    x: 0.46522558
+    y: 0.915625
+    width: 0.075187966
+    height: 0.077083334
+  - serializedVersion: 2
+    x: 0.9229323
+    y: 0.28020832
+    width: 0.071428575
+    height: 0.09791667
+  - serializedVersion: 2
+    x: 0.7048872
+    y: 0.6333333
+    width: 0.067669176
+    height: 0.06458333
+  - serializedVersion: 2
+    x: 0.53571427
+    y: 0.55
+    width: 0.093045115
+    height: 0.094791666
+  - serializedVersion: 2
+    x: 0.9201128
+    y: 0.509375
+    width: 0.02349624
+    height: 0.034375
+  - serializedVersion: 2
+    x: 0.27725562
+    y: 0.48125
+    width: 0.080827065
+    height: 0.10729167
+  - serializedVersion: 2
+    x: 0.9520677
+    y: 0.60520834
+    width: 0.041353382
+    height: 0.038541667
+  - serializedVersion: 2
+    x: 0.0018796993
+    y: 0.9135417
+    width: 0.075187966
+    height: 0.075
+  - serializedVersion: 2
+    x: 0.54417294
+    y: 0.94895834
+    width: 0.04605263
+    height: 0.048958335
+  - serializedVersion: 2
+    x: 0.80075186
+    y: 0.21354167
+    width: 0.04981203
+    height: 0.039583333
+  - serializedVersion: 2
+    x: 0.2706767
+    y: 0.903125
+    width: 0.10902256
+    height: 0.092708334
+  - serializedVersion: 2
+    x: 0.15883459
+    y: 0.19270833
+    width: 0.16353384
+    height: 0.13541667
+  - serializedVersion: 2
+    x: 0.21052632
+    y: 0.39583334
+    width: 0.05545113
+    height: 0.052083332
+  - serializedVersion: 2
+    x: 0.8383459
+    y: 0.79583335
+    width: 0.02725564
+    height: 0.041666668
+  - serializedVersion: 2
+    x: 0.7781955
+    y: 0.415625
+    width: 0.015977444
+    height: 0.052083332
+  - serializedVersion: 2
+    x: 0.38345864
+    y: 0.915625
+    width: 0.07800752
+    height: 0.08020833
+  - serializedVersion: 2
+    x: 0.8665413
+    y: 0.54895836
+    width: 0.08176692
+    height: 0.104166664
+  - serializedVersion: 2
+    x: 0.80075186
+    y: 0.25729167
+    width: 0.017857144
+    height: 0.01875
+  - serializedVersion: 2
+    x: 0.80921054
+    y: 0.79583335
+    width: 0.02537594
+    height: 0.042708334
+  - serializedVersion: 2
+    x: 0.9793233
+    y: 0.14583333
+    width: 0.018796992
+    height: 0.03125
+  - serializedVersion: 2
+    x: 0.23778196
+    y: 0.33229166
+    width: 0.02631579
+    height: 0.059375
+  - serializedVersion: 2
+    x: 0.080827065
+    y: 0.9135417
+    width: 0.073308274
+    height: 0.06666667
+  - serializedVersion: 2
+    x: 0.0018796993
+    y: 0.45625
+    width: 0.13721804
+    height: 0.15520833
+  - serializedVersion: 2
+    x: 0.3618421
+    y: 0.48125
+    width: 0.035714287
+    height: 0.052083332
+  - serializedVersion: 2
+    x: 0.6635338
+    y: 0.415625
+    width: 0.11090226
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.15789473
+    y: 0.9135417
+    width: 0.07236842
+    height: 0.05
+  - serializedVersion: 2
+    x: 0.15883459
+    y: 0.33229166
+    width: 0.075187966
+    height: 0.059375
+  - serializedVersion: 2
+    x: 0.63251877
+    y: 0.62604165
+    width: 0.06860902
+    height: 0.06458333
+  - serializedVersion: 2
+    x: 0.7781955
+    y: 0.54895836
+    width: 0.084586464
+    height: 0.104166664
+  - serializedVersion: 2
+    x: 0.23402256
+    y: 0.9583333
+    width: 0.032894738
+    height: 0.032291666
+  - serializedVersion: 2
+    x: 0.41165414
+    y: 0.44479167
+    width: 0.035714287
+    height: 0.03125
+  - serializedVersion: 2
+    x: 0.6033835
+    y: 0.6489583
+    width: 0.02255639
+    height: 0.034375
+  - serializedVersion: 2
+    x: 0.45112783
+    y: 0.44479167
+    width: 0.034774438
+    height: 0.03125
+  - serializedVersion: 2
+    x: 0.9201128
+    y: 0.41458333
+    width: 0.07612782
+    height: 0.090625
+  - serializedVersion: 2
+    x: 0.80075186
+    y: 0.146875
+    width: 0.04793233
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.9793233
+    y: 0.18125
+    width: 0.018796992
+    height: 0.03125
+  - serializedVersion: 2
+    x: 0.7781955
+    y: 0.50208336
+    width: 0.015977444
+    height: 0.020833334
+  - serializedVersion: 2
+    x: 0.0018796993
+    y: 0.0020833334
+    width: 0.15319549
+    height: 0.39270833
+  - serializedVersion: 2
+    x: 0.15883459
+    y: 0.0020833334
+    width: 0.16823308
+    height: 0.18645833
+  - serializedVersion: 2
+    x: 0.0018796993
+    y: 0.615625
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.4050752
+    y: 0.48125
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.556391
+    y: 0.28125
+    width: 0.1174812
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.0018796993
+    y: 0.76458335
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.41165414
+    y: 0.3
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.85714287
+    y: 0.14583333
+    width: 0.118421055
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.1362782
+    y: 0.615625
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.42575186
+    y: 0.15104167
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.556391
+    y: 0.146875
+    width: 0.118421055
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.14285715
+    y: 0.45625
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.46522558
+    y: 0.0020833334
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.67763156
+    y: 0.28125
+    width: 0.1174812
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.1362782
+    y: 0.76458335
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.4050752
+    y: 0.62604165
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.6785714
+    y: 0.146875
+    width: 0.118421055
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.2706767
+    y: 0.60520834
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.4050752
+    y: 0.7708333
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.7988722
+    y: 0.41458333
+    width: 0.1174812
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.2706767
+    y: 0.75416666
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.85714287
+    y: 0.0020833334
+    width: 0.12687969
+    height: 0.13958333
+  - serializedVersion: 2
+    x: 0.54229325
+    y: 0.415625
+    width: 0.1174812
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.27725562
+    y: 0.33229166
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.59586465
+    y: 0.0020833334
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.80075186
+    y: 0.28020832
+    width: 0.118421055
+    height: 0.13020833
+  - serializedVersion: 2
+    x: 0.33082706
+    y: 0.0020833334
+    width: 0.13063909
+    height: 0.14479166
+  - serializedVersion: 2
+    x: 0.72650373
+    y: 0.0020833334
+    width: 0.12687969
+    height: 0.140625
+  - serializedVersion: 2
+    x: 0.6701128
+    y: 0.70208335
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.6033835
+    y: 0.6947917
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.67763156
+    y: 0.9166667
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.7443609
+    y: 0.84583336
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.53571427
+    y: 0.7270833
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.74248123
+    y: 0.9166667
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.80921054
+    y: 0.7291667
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.53571427
+    y: 0.80104166
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.73590225
+    y: 0.70208335
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.8693609
+    y: 0.7291667
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.54417294
+    y: 0.875
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.7443609
+    y: 0.7739583
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.92951125
+    y: 0.7291667
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.60244364
+    y: 0.76875
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.80075186
+    y: 0.65729165
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.87218046
+    y: 0.79583335
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.61090225
+    y: 0.84270835
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.8656015
+    y: 0.65729165
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.93233085
+    y: 0.79583335
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.66917294
+    y: 0.76875
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.80733085
+    y: 0.91770834
+    width: 0.061090227
+    height: 0.06666667
+  - serializedVersion: 2
+    x: 0.87218046
+    y: 0.8625
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.61090225
+    y: 0.9166667
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.93045115
+    y: 0.65729165
+    width: 0.061090227
+    height: 0.067708336
+  - serializedVersion: 2
+    x: 0.87218046
+    y: 0.9291667
+    width: 0.05639098
+    height: 0.0625
+  - serializedVersion: 2
+    x: 0.67763156
+    y: 0.84270835
+    width: 0.06296992
+    height: 0.06979167
+  - serializedVersion: 2
+    x: 0.80733085
+    y: 0.84583336
+    width: 0.061090227
+    height: 0.067708336
+  shadow: 0
+  source: v2-639294691645276885-9987529

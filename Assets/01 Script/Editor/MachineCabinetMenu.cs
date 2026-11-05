@@ -1,7 +1,8 @@
 // Đặt thân máy vẽ tay (ArtGen/Pachinko, ảnh đã duyệt bằng "build.py --duyet") vào Screens/Machine:
 // - "than_may_ve": ảnh Assets/03 Art/Pachinko/pk_than_may.png sau mặt máy, đúng khung đo trong ảnh (px khối máy);
 // - tắt khung giấy tạm "May/than_may" (thân máy vẽ tay thay nó);
-// - dời thanh kinh nghiệm vào rãnh của đầu máy (thanh vừa trong rãnh, vòng cấp đè lên hốc tròn bên trái);
+// - dời thanh kinh nghiệm vào rãnh của đầu máy (thanh vừa trong rãnh, vòng cấp đè lên hốc tròn bên trái); rãnh cắt riêng
+//   (pk_ranh_exp.png của ArtGen/Pachinko/cat_ranh.py) đặt trùng khít lên rãnh, cùng thanh gom thành "khung_thanh" để nhún cả viền;
 // - nút tỉ lệ thành nút tròn trong suốt chỉ có chữ "i", nằm trong hốc tròn bên phải (chữ "Tỉ lệ" ẩn, vẫn giữ để công cụ thử tìm nút);
 // - cột cược và khay rương sát mép màn, thu nhỏ cho khỏi đè viền tủ.
 // Số đo đọc từ ArtGen/Pachinko/refs/than_may_da_duyet.json. Chạy lại được (đặt lại vị trí theo số đo mới).
@@ -20,11 +21,19 @@ namespace PokiClash.EditorTools
         const string BlockPath = "Canvas/An toan/Khung/Noi dung/khoi_may";
         const float Margin = 6, Gap = 4; // cột cược, khay rương: cách mép màn, cách viền tủ
         static string JsonPath => Path.GetFullPath(Path.Combine(Application.dataPath, "../ArtGen/Pachinko/refs/than_may_da_duyet.json"));
+        const string RanhPath = "Assets/03 Art/Pachinko/pk_ranh_exp.png";
+        static string RanhJsonPath => Path.GetFullPath(Path.Combine(Application.dataPath, "../ArtGen/Pachinko/refs/ranh_exp.json"));
 
         [System.Serializable]
         sealed class Measure
         {
             public float[] cabinet, window, groove, badge, info; // khung x0, y0, x1, y1; hốc tròn cx, cy, d (px khối máy, y xuống)
+        }
+
+        [System.Serializable]
+        sealed class Ranh
+        {
+            public float[] block; // ảnh rãnh cắt: x0, y0, x1, y1 (px khối máy, y xuống)
         }
 
         // mép phải (right) hoặc trái nhất của các nút trong cột, theo px khối máy (gốc trái)
@@ -98,9 +107,58 @@ namespace PokiClash.EditorTools
                     float gx0 = m.groove[0], gy0 = m.groove[1], gx1 = m.groove[2], gy1 = m.groove[3];
                     float gcy = (gy0 + gy1) / 2, gh = gy1 - gy0;
                     float x0 = m.badge[0] - m.badge[2] / 2 - 4, h = Mathf.Max(gh, m.badge[2]) + 8;
-                    bar.Place(new Vector2(0, 1), new Vector2(x0, -(gcy - h / 2)), new Vector2(gx1 + 2 - x0, h), new Vector2(0, 1));
-                    var thanh = bar.Find("thanh_exp") as RectTransform;
-                    if (thanh) thanh.Place(new Vector2(0, 0.5f), new Vector2(gx0 + 3 - x0, 0), new Vector2(gx1 - gx0 - 6, gh - 6), new Vector2(0, 0.5f));
+                    float top = gcy - h / 2;
+                    bar.Place(new Vector2(0, 1), new Vector2(x0, -top), new Vector2(gx1 + 2 - x0, h), new Vector2(0, 1));
+                    var thanh = (bar.Find("thanh_exp") ?? bar.Find("khung_thanh/thanh_exp")) as RectTransform;
+                    // khung_thanh: rãnh vẽ tay cắt từ thân máy (ArtGen/Pachinko/cat_ranh.py) đặt trùng khít rãnh của thân máy, cùng
+                    // thanh nằm trong; MachineExpBar nhún cả nhóm (viền nhún theo phần đầy). Thiếu ảnh rãnh thì thanh nằm thẳng trong bar.
+                    var ranhSprite = AssetDatabase.LoadAssetAtPath<Sprite>(RanhPath);
+                    var pill = File.Exists(RanhJsonPath) ? JsonUtility.FromJson<Ranh>(File.ReadAllText(RanhJsonPath)).block : null;
+                    RectTransform khung = bar.Find("khung_thanh") as RectTransform;
+                    if (ranhSprite && pill != null && pill.Length == 4)
+                    {
+                        if (!khung)
+                        {
+                            var kg = new GameObject("khung_thanh", typeof(RectTransform));
+                            khung = (RectTransform)kg.transform;
+                            khung.SetParent(bar, false);
+                        }
+                        khung.SetSiblingIndex(0);
+                        khung.localScale = Vector3.one;
+                        float pcx = (pill[0] + pill[2]) / 2, pcy = (pill[1] + pill[3]) / 2;
+                        khung.Place(new Vector2(0, 1), new Vector2(pcx - x0, -(pcy - top)), new Vector2(pill[2] - pill[0], pill[3] - pill[1]), new Vector2(0.5f, 0.5f));
+                        var ranh = khung.Find("ranh") as RectTransform;
+                        if (!ranh)
+                        {
+                            var rg = new GameObject("ranh", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
+                            ranh = (RectTransform)rg.transform;
+                            ranh.SetParent(khung, false);
+                        }
+                        ranh.SetSiblingIndex(0);
+                        ranh.Stretch();
+                        var ri = ranh.GetComponent<Image>();
+                        ri.sprite = ranhSprite;
+                        ri.raycastTarget = false;
+                        ri.color = Color.white;
+                        if (thanh)
+                        {
+                            thanh.SetParent(khung, false);
+                            thanh.localScale = Vector3.one;
+                            thanh.Place(new Vector2(0, 0.5f), new Vector2(gx0 + 3 - pill[0], -(gcy - pcy)), new Vector2(gx1 - gx0 - 6, gh - 6), new Vector2(0, 0.5f));
+                        }
+                    }
+                    else if (thanh)
+                    {
+                        Debug.LogWarning("[Máy bi] Chưa có ảnh rãnh " + RanhPath + " (chạy py -3 -I ArtGen/Pachinko/cat_ranh.py): thanh EXP nhún không kèm viền");
+                        thanh.SetParent(bar, false);
+                        thanh.Place(new Vector2(0, 0.5f), new Vector2(gx0 + 3 - x0, 0), new Vector2(gx1 - gx0 - 6, gh - 6), new Vector2(0, 0.5f));
+                    }
+                    var view = bar.GetComponent<MachineExpBar>();
+                    if (view)
+                    {
+                        view.SetFrame(khung && khung.Find("thanh_exp") ? khung : null);
+                        EditorUtility.SetDirty(view);
+                    }
                     var badge = bar.Find("vong_cap") as RectTransform;
                     if (badge)
                     {

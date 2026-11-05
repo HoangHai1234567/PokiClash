@@ -93,6 +93,7 @@ namespace PokiClash
 
         Elem zone = Elem.Thuy;
         float mapW, mapH;
+        float levelSize; // cỡ chữ dòng cấp trong prefab (FitLevelLine thu nhỏ khi dòng dài)
         bool entered;
         readonly Dictionary<int, Vector2> afkAt = new Dictionary<int, Vector2>(); // chỗ nhãn AFK của từng ải (id) trên bản đồ
         RectTransform afkTag;
@@ -451,6 +452,7 @@ namespace PokiClash
             int next = Progress.NextLevel(s, App.Data, z.id);
             p.level.text = next > 0 ? $"Ải kế cấp {next} · boss cấp {z.levelMax}" : $"Boss cấp {z.levelMax}";
             p.diff.Set(Progress.DifficultyOf(s, App.Data, z));
+            FitLevelLine();
             p.count.text = $"{prog}/{size} ải";
             p.bar.Set(Theme.Of(z.id), prog / (float)size);
             // rương mốc đặt theo tỉ lệ số ải trên thanh; rương cuối (vàng, to) ở cuối thanh; rương thừa trong prefab thì ẩn
@@ -471,6 +473,31 @@ namespace PokiClash
                 if (!can) c.image.rectTransform.localEulerAngles = Vector3.zero;
             }
             p.desc.text = $"{z.sub}. Địch hệ {Elements.Name(z.id)}: dùng tướng hệ {Elements.Name(Progress.CounterOf(z.id))} để khắc.";
+        }
+
+        // nhãn độ khó đứng ngay sau dòng cấp (đặt cứng thì cấp 3 chữ số như "boss cấp 190" chui xuống dưới nhãn); dòng dài quá chỗ
+        // trước số ải thì chữ tự thu nhỏ
+        void FitLevelLine()
+        {
+            const float Gap = 14;
+            var lv = p.level.rectTransform;
+            var tag = (RectTransform)p.diff.transform;
+            var count = p.count.rectTransform;
+            float panelW = ((RectTransform)lv.parent).rect.width;
+            float room = panelW + count.anchoredPosition.x - count.sizeDelta.x - Gap - tag.sizeDelta.x - Gap - lv.anchoredPosition.x;
+            if (levelSize <= 0) levelSize = p.level.fontSize;
+            p.level.enableAutoSizing = false;
+            p.level.fontSize = levelSize;
+            float w = p.level.GetPreferredValues(p.level.text).x;
+            if (w > room)
+            {
+                p.level.fontSizeMax = levelSize;
+                p.level.fontSizeMin = 20;
+                p.level.enableAutoSizing = true;
+                w = room;
+            }
+            lv.sizeDelta = new Vector2(w, lv.sizeDelta.y);
+            tag.anchoredPosition = new Vector2(lv.anchoredPosition.x + w + Gap, tag.anchoredPosition.y);
         }
 
         void Claim(int n)
@@ -508,10 +535,16 @@ namespace PokiClash
             // đảo 70 ải: kèm kiểu ải (Tướng mới, Bầy lính, Cửa ải…)
             string tag = next.tag != StageTag.None ? $" · {ZoneChapterRow.TagText(next)}" : "";
             p.nextTitle.text = $"Ải {next.idx}/{Islands.Size(zone)} · {next.name}{tag}";
+            // địch xếp từ mép trái chữ tên ải, mỗi con rộng bằng nhãn của nó
+            float x = p.nextTitle.rectTransform.offsetMin.x;
             for (int i = 0; i < next.enemies.Count; i++)
             {
                 var en = next.enemies[i];
-                Ui.Spawn(enemyPrefab, p.enemies).Bind(d.Hero(en.hero), en, i);
+                var e = Ui.Spawn(enemyPrefab, p.enemies);
+                e.Bind(d.Hero(en.hero), en, i);
+                float w = e.Width;
+                e.PlaceAt(x + w / 2);
+                x += w;
             }
             var gift = next.drops.FirstOrDefault(x => x.gift);
             var shards = next.drops.Where(x => !x.gift).Select(x => d.Hero(x.hero).name).Distinct().ToList();

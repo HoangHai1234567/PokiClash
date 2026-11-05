@@ -239,8 +239,47 @@ namespace PokiClash.EditorTools
             },
         };
 
+        // Đảo Kim (người dùng gửi 10 hình aola 2026-11-05, thứ tự trái sang phải là thứ tự ải tướng). Bu Lông (tướng khởi đầu hệ Kim)
+        // nhường ải 1 cho Bọ Cạp Đồng, đứng ở ải 2 cùng một lính như Nụ Hoa ở đảo Mộc. Tên, thẻ của 8 tướng mới là tạm.
+        public static Plan Kim => new Plan
+        {
+            zone = Elem.Kim,
+            intros = new[]
+            {
+                // 5 mốc cuối (2026-11-05): đội Hỏa Khá khắc hệ (Sư Tử Lửa, Kim Sư), bằng cấp, 300 trận: Chiến Thần 73%, Thiết Phủ 69%,
+                // Tam Kiếm 69%, Ưng Thép 67%, Kim Nghê 63%. Thiết Phủ, Ưng Thép không có bị động boss nhưng tự thân yếu nên +20%, +30%
+                new Intro(1, "bo_cap", "Cảng Sắt"),
+                new Intro(5, "doc_giac", "Cầu Bánh Răng"),
+                new Intro(10, "bo_ngua", "Rừng Lưỡi Liềm"),
+                new Intro(15, "phi_thuong", "Tháp Canh Thép"),
+                new Intro(20, "khien_bac", "Gác Chuông Đồng"),
+                new Intro(30, "chien_than", "Xưởng Đúc Chuông", "chien_than_boss", 0),
+                new Intro(40, "thiet_phu", "Mỏ Sắt Ngân", null, 0.2),
+                new Intro(50, "tam_kiem", "Thành Ba Kiếm", "tam_kiem_boss", 0),
+                new Intro(60, "ung_thep", "Tổ Cánh Pha Lê", null, 0.3),
+                new Intro(70, "kim_nghe", "Tháp Thiên Chung", "kim_nghe_boss", -0.15),
+            },
+            levelMax = 193,
+            minions = new[] { new[] { "linh_giap", "linh_giap2" }, new[] { "linh_khien", "linh_khien2" }, new[] { "linh_may", "linh_may2" } },
+            minionFrom = new[] { 0, 1, 2 },
+            starter = "bu_long",
+            // đội Hỏa khắc Kim (Sư Tử Lửa, Kim Sư), 150 trận mỗi ải: cường hóa 93%, 2 địch 76%, 3 địch 84%, mini boss 68%, boss 63%
+            extra = new[]
+            {
+                new[] { 0.0, 0, 0, 0, 0, 0 },
+                new[] { 0.2, 0.88, 0.47, 0.34, 0.67, 0.8 },
+                new[] { 0.2, 0.88, 0.47, 0.34, 0.67, 0.8 },
+            },
+            first = new[]
+            {
+                new Pattern(StageTag.Group, (Slot.S, 0.15), (Slot.M, 0.15)),
+                new Pattern(StageTag.Minion, (Slot.M, 0.1), (Slot.N, 0.1)),
+                new Pattern(StageTag.Gate, (Slot.H, 0.35), (Slot.M, 0.2)),
+            },
+        };
+
         // các đảo đã có kế hoạch 70 ải (menu "sinh lại ải" ghi lại tất cả)
-        public static Plan[] All => new[] { Thuy, Hoa, Moc };
+        public static Plan[] All => new[] { Thuy, Hoa, Kim, Moc };
 
         public static int Level(Plan p, int at) =>
             p.levelMin + (int)Math.Floor((p.levelMax - p.levelMin) * Math.Pow((at - 1) / (double)(p.size - 1), LevelPow) + 0.5);

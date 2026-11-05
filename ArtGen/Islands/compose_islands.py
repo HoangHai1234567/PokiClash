@@ -53,9 +53,10 @@ RIM = 26  # bề rộng rìa cát trung bình
 
 # ---------- bản đồ đảo hệ ----------
 ZONE_MAPS = HERE / "zones"
-# đảo có bản đồ dài riêng (build_zone70.py, build_zone70_moc.py --xuat ghi zone_<hệ>.png, khoá zone_<hệ> trong island_anim.json và
-# đường trong zones.json): script này không đè ảnh, phần động và toạ độ ải của đảo đó (khi đã ghép xong bản đồ dài)
-LONG_MAPS = {"thuy": HERE / "zones" / "thuy70" / "zone_thuy70.png", "moc": HERE / "zones" / "moc70" / "zone_moc70.png"}
+# đảo có bản đồ dài riêng (build_zone70.py, build_zone70_moc.py, build_zone70_hoa.py, build_zone70_kim.py --xuat ghi zone_<hệ>.png, khoá zone_<hệ> trong
+# island_anim.json và đường trong zones.json): script này không đè ảnh, phần động và toạ độ ải của đảo đó (khi đã ghép xong bản đồ dài)
+LONG_MAPS = {"thuy": HERE / "zones" / "thuy70" / "zone_thuy70.png", "moc": HERE / "zones" / "moc70" / "zone_moc70.png",
+             "hoa": HERE / "zones" / "hoa70" / "zone_hoa70.png", "kim": HERE / "zones" / "kim70" / "zone_kim70.png"}
 ISLE_W = 0.77  # đảo chiếm 77% bề ngang ảnh bản đồ (màn thấy 1080 / 1372 = 79% giữa)
 ZW, ZH, ZS = 1372, 1500, 1.25  # bản đồ dựng tạm: khổ ảnh, độ phóng đảo gen
 # 8 ải theo thứ tự tên ải trong dữ liệu, toạ độ trên ảnh đảo gen 1024 (né landmark; ải 8 cạnh hang boss)

@@ -172,7 +172,63 @@ namespace PokiClash.Tests
             Assert.AreEqual(RewardKind.Chest, Pachinko.SlotReward(s, d.Cfg, SlotKind.ChestGold, 2).k);
             Assert.AreEqual(20, d.Cfg.MaxPerDrop(5));
             Assert.AreEqual(30, d.Cfg.MaxPerDrop(104));
-            CollectionAssert.AreEqual(new[] { 1, 2, 3 }, Progress.XAllowed(new SaveData { level = 23 }, d.Cfg));
+        }
+
+        [Test]
+        public void CuocMoTheoSoBiDangCo()
+        {
+            var cfg = TestData.Load().Cfg;
+            int need3 = cfg.xSteps.Find(q => q.x == 3).balls, need10 = cfg.xSteps.Find(q => q.x == 10).balls;
+            Assert.Greater(need3, 0, "×3 cần giữ bi mới mở");
+            CollectionAssert.AreEqual(new[] { 1, 2 }, Progress.XAllowed(new SaveData { balls = 0, level = 200 }, cfg), "cấp cao không mở cược");
+            CollectionAssert.AreEqual(new[] { 1, 2, 3 }, Progress.XAllowed(new SaveData { balls = need3 }, cfg));
+            Assert.AreEqual(2, Progress.XBest(new SaveData { balls = need3 - 1 }, cfg, 10), "tụt dưới mốc ×3 thì về ×2");
+            Assert.AreEqual(10, Progress.XBest(new SaveData { balls = need10 }, cfg, 10));
+            Assert.AreEqual(3, Progress.XBest(new SaveData { balls = need10 }, cfg, 3), "không vượt mức đang chọn");
+        }
+
+        [Test]
+        public void MocQua_SauHuyenThoai_TinhTheoBiVaVongLai()
+        {
+            var d = TestData.Load();
+            var cfg = d.Cfg;
+            Assert.GreaterOrEqual(cfg.gifts.Count, 2);
+            var s = SaveData.New(d, 0);
+            s.balls = 100000;
+            // trước mốc Huyền thoại: không tính
+            Reward legend = null;
+            while (legend == null)
+            {
+                legend = Pachinko.SpendBall(s, d, 7);
+                if (legend == null) Assert.AreEqual(0, Pachinko.GiftCredit(s, cfg, 7, legend));
+            }
+            // lần thả vượt mốc chỉ tính phần dư
+            int over = s.ballsSpent - cfg.legendMilestone;
+            Assert.AreEqual(over, Pachinko.GiftCredit(s, cfg, 7, legend));
+            Assert.AreEqual(0, Pachinko.GiftAdd(s, d, over).Count);
+            Assert.AreEqual(over, s.gift);
+            // đủ n của mốc đang chạy thì nhận đúng quà, phần dư sang mốc kế; hết bảng thì vòng lại
+            var first = Pachinko.GiftAdd(s, d, cfg.gifts[0].n - over + 1);
+            Assert.AreEqual(1, first.Count);
+            Assert.AreEqual(1, s.giftTier);
+            Assert.AreEqual(1, s.gift, "phần dư sang mốc kế");
+            for (int i = 1; i <= cfg.gifts.Count; i++)
+            {
+                var g = cfg.gifts[i % cfg.gifts.Count];
+                Assert.AreSame(g, Pachinko.GiftNow(s, cfg));
+                int b = s.balls;
+                var got = Pachinko.GiftAdd(s, d, g.n);
+                Assert.AreEqual(1, got.Count, $"mốc {i}");
+                if (g.k == "balls") Assert.AreEqual(b + g.v, s.balls);
+                else if (g.k == "exp") Assert.AreEqual(RewardKind.Exp, got[0].k);
+                else Assert.AreEqual(Pachinko.FromKey(g.k), got[0].chest);
+            }
+            Assert.AreEqual(cfg.gifts.Count + 1, s.giftTier);
+            Assert.AreEqual(1, s.gift);
+            // lưu rồi đọc lại giữ mốc
+            Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(SaveCodec.Write(s), d, out var back));
+            Assert.AreEqual(s.gift, back.gift);
+            Assert.AreEqual(s.giftTier, back.giftTier);
         }
 
         [Test]

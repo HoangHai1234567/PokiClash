@@ -27,6 +27,7 @@ Nền của scene Hub và 5 scene đảo hệ (spec `world-map`, `zone-stages`).
 | `inbox/` | Ảnh để menu `PokiClash/Nhập ảnh ArtGen` chép vào game: `ANIM_Sheet.png` (cắt thành `anim_<tên>`) |
 | `zones/` | Bản đồ đảo hệ GPT trả về (`zone_<hệ>.png`, khổ 2:3): Claude cắt dải 9:16 rồi mới đưa vào game. `zones/thuy70/`, `zones/moc70/`: ảnh bản đồ dài đảo Thủy, đảo Mộc 70 ải (`tai_ve/` ảnh GPT trả về, `doan_<k>.png` đoạn đã duyệt) |
 | `gui_gpt/zone_thuy_70/`, `gui_gpt/zone_moc_70/` | Gói gửi GPT bản đồ dài đảo Thủy, đảo Mộc 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70.py`, `build_zone70_moc.py` |
+| `gui_gpt/zone_kim_70/` | Gói gửi GPT bản đồ dài đảo Kim 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70_kim.py` |
 | `refs/` | Ảnh mốc, ảnh không dùng nữa (`tach_roi/`) |
 | `../guides/` | Ảnh bố cục bản đồ đảo hệ `L_zone_<hệ>.png`, toạ độ ải dự kiến `zone_nodes.json` |
 
@@ -204,6 +205,35 @@ Khác đảo Thủy:
 - `--ghep` dò dời dọc của mỗi đoạn trên cho dải chồng khớp, cắt giữa dải chồng, trộn 24 hàng hai bên; ghi `zones/moc70/ghep.json`. Đoạn 3 dời xuống 33 px (33 hàng biển trên cùng lấy hàng đầu của đoạn).
 - `--that` dò lại trên bản đồ ghép: tâm đường theo hàng (bắt lại sau cầu), 10 bãi ải là chỗ bề rộng mặt cát đo vuông góc vượt 140 px (đường khoảng 104 px), suối và lạch theo mặt nước; ghi `zones/moc70/that.json` và ảnh soi `soi_that.png`. Địa danh đo tay trên bản đồ ghép (`SPOTS_REAL`).
 - `--xuat [thư_mục_thử]` dùng `that.json` (đường dừng ở giữa bãi đấu boss) thay cho đường dự kiến.
+
+### Đảo Hỏa 70 ải: bản đồ dài 3 đoạn (2026-11-05)
+
+Cùng khuôn đảo Mộc. Script [build_zone70_hoa.py](build_zone70_hoa.py) dùng lại phần chung của `build_zone70.py` và `band_offset` của `build_zone70_moc.py` (không sửa hai file đó), gói ở `gui_gpt/zone_hoa_70/`, ảnh ở `zones/hoa70/`, bố cục `../guides/L_zone70_hoa.png`, toạ độ `../guides/zone70_hoa.json`. Lệnh: `--duyet k`, `--ghep`, `--that`, `--xuat`.
+
+Khác đảo Mộc:
+- Đường lượn sang phải trước (ngược đảo Mộc), cùng độ cao 10 ải tướng.
+- Sông dung nham chạy ngang, cầu đá bazan ngay sau bãi ải 5 (chặng 2, Suối Dung Nham). Đặt trước bãi như đảo Mộc thì sông nằm sát bãi cát, trông như chảy dọc bờ. Hồ dung nham có lá sen đá và chùa mái đỏ, lạch dung nham ra mép (chặng 6, Chùa Liên Hoa). Núi lửa sau bãi đấu boss, đỉnh chạm dải biển trên.
+- Địa danh theo tên chặng ở `Assets/01 Script/Editor/IslandGen.cs` (`Hoa`): bến đá bazan và thuyền gỗ, cầu đá qua sông dung nham, rừng cây cháy tán cam, sườn đá có lỗ phun lưu huỳnh, lò vòm đá và bệ thiền, hồ dung nham với chùa sen, lò rèn gai thép, rừng cây tán hình ngọn lửa, hang hồng ngọc, núi lửa.
+- Ảnh mẫu lượt 1: đoạn 1 bản đồ dài đảo Mộc đã duyệt (lấy nét và cách dựng), bản đồ Hỏa 8 ải cũ (lấy màu, dáng đồ vật, bỏ bánh xe vàng của boss cũ). Lượt 2, 3 thêm bản đồ cũ để GPT thấy dáng chùa sen, núi lửa.
+- Khói, lửa, tàn lửa, quầng sáng, bọt dung nham không vẽ: game có sẵn phần động `smoke`, `flame`, `sparkle` và dòng `lava` (`IslandAnim`). Dung nham vẽ phẳng cam vàng có vân vỏ sẫm.
+- **Đã gen, duyệt 3 đoạn, ghép và xuất (2026-11-05).** Đường lệch bố cục trung vị 4 px (đoạn 1), 1,5 px (đoạn 2). Đoạn 2 giữ nguyên dải dán (trùng từng điểm ảnh, ghép không cần dời) nhưng chỗ phần GPT vẽ gặp dải dán có dải khoảng 25 hàng phủ vạch sáng dọc mờ, hai mép đường có mẩu mực thừa và lệch 12–21 px. `--duyet k` (k ≥ 2) nay tự sửa (`va_noi`): trừ mẫu vạch theo cột (trung vị qua các hàng lõi, nét gạch chéo không lẫn vào), nắn mép đường 28 hàng. Ảnh GPT trong `tai_ve/` giữ nguyên. Tô lấp bằng `cv2.inpaint` làm nhòe vân, chép vân từ trên xuống kéo cả đá vào dải: đã thử, bỏ.
+- Đoạn 3 lệch bố cục khoảng 30 px sang trái ở khúc bãi ải 60, bãi đấu boss to hơn bố cục; dải dán lại trùng từng điểm ảnh và có cùng lỗi vạch sọc (đã tự sửa). `--ghep`: cả hai chỗ nối dời 0 px.
+- `--that` dò đường như đảo Mộc (đủ 10 bãi ải, ngưỡng 140 px, đường 105 px). Sông và lạch dung nham lấy đường dự kiến (đoạn 1, 2 vẽ sát bố cục, đã chồng soi). Địa danh (`SPOTS_REAL`) và chỗ phần động (`ANIM`: khói ở miệng núi lửa, ba lỗ phun, lư hương, ống khói lò rèn; lửa ở cửa lò; lấp lánh ở sen vàng, pha lê, hồng ngọc; sóng) đo tay trên bản đồ ghép.
+- `--xuat` thay `Assets/03 Art/Islands/zone_hoa.png` (bản đồ 8 ải cũ), khoá `zone_hoa` trong `island_anim.json` (thêm hai dòng `lava`), khối `hoa` trong `zones.json` (giữ kiểu xuống dòng của file). `compose_islands.py` thấy `zones/hoa70/zone_hoa70.png` thì không đè đảo Hỏa.
+
+### Đảo Kim 70 ải: bản đồ dài 3 đoạn (2026-11-05)
+
+Cùng khuôn đảo Hỏa. Script [build_zone70_kim.py](build_zone70_kim.py) dùng lại phần chung của `build_zone70.py` và `band_offset` của `build_zone70_moc.py` (không sửa các file đảo khác), gói ở `gui_gpt/zone_kim_70/`, ảnh ở `zones/kim70/`, bố cục `../guides/L_zone70_kim.png`, toạ độ `../guides/zone70_kim.json`. Lệnh: `--duyet k` (k ≥ 2 tự sửa chỗ nối như đảo Hỏa), `--ghep`. `--that`, `--xuat` viết khi có bản đồ ghép (đo tay địa danh, chỗ phần động trên ảnh thật).
+
+Khác đảo Hỏa:
+- Đường lượn sang trái trước (như đảo Mộc), cùng độ cao 10 ải tướng.
+- Sông nước xám xanh chạy ngang, cầu tấm sắt có hai bánh răng đồng ngay sau bãi ải 5 (chặng 2, Cầu Bánh Răng). Hồ nước làm nguội trước xưởng đúc chuông, lạch nước ra mép (chặng 6, Xưởng Đúc Chuông). Núi thép đỉnh tuyết có tháp chuông mái đồng sau bãi đấu boss, đỉnh chạm dải biển trên.
+- Địa danh theo tên chặng ở `Assets/01 Script/Editor/IslandGen.cs` (`Kim`): cảng sắt có cần cẩu, cầu bánh răng, rừng cây lá lưỡi liềm, tháp canh thép, nhà chuông đồng, xưởng đúc chuông bên hồ, mỏ bạc có xe goòng, cổng thành với ba thanh kiếm khổng lồ (Tam Kiếm), tổ thép có pha lê như lông cánh (Ưng Thép), tháp Thiên Chung.
+- Ảnh mẫu lượt 1: đoạn 1 bản đồ dài đảo Mộc đã duyệt (lấy nét và cách dựng), bản đồ Kim 8 ải cũ (lấy màu xám xanh, dáng đồ vật). Lượt 2, 3 thêm bản đồ cũ để GPT thấy dáng lò đúc, cửa mỏ, tổ thép, núi.
+- Khói, hơi nước, tia lửa, lấp lánh, quầng sáng không vẽ: game có sẵn phần động (`IslandAnim`). Đồng nóng chảy trong nồi vẽ phẳng cam vàng. Không người, người máy, sinh vật (đảo cơ khí dễ ra người máy).
+- **Đã gen, duyệt 3 đoạn, ghép và xuất (2026-11-05).** Đường lệch bố cục trung vị 10 px (đoạn 1), 14 px (đoạn 2; khúc cong phải trên bãi ải 30 nông hơn, lệch tới 88 px), 15 px (đoạn 3). Hai dải dán GPT giữ trùng từng điểm ảnh; `va_noi` trừ vạch sọc (đoạn 2 lệch cột 15,4) và nắn mép đường. Còn một vệt ngang rất mờ ở chỗ nối đoạn 1–2, bậc đá có hàng rào bên trái bị cắt phẳng. `--ghep`: cả hai chỗ nối dời 0 px.
+- `--that` dò đường (đủ 10 bãi ải, đường 106 px), sông và lạch dò theo màu nước trên ảnh (sông GPT vẽ lệch bố cục khoảng 50 px ở mép phải). Địa danh (`SPOTS_REAL`) và phần động (`ANIM`: khói ở ống khói lò đúc; lấp lánh ở các chuông, xe goòng quặng bạc, chuôi kiếm, pha lê; gợn ở hồ; sóng) đo tay. Không dùng `gear`, `bell` vì bánh răng, chuông đã vẽ trên ảnh.
+- `--xuat` thay `Assets/03 Art/Islands/zone_kim.png` (bản đồ 8 ải cũ), khoá `zone_kim` trong `island_anim.json`, khối `kim` trong `zones.json`. `compose_islands.py` thấy `zones/kim70/zone_kim70.png` thì không đè đảo Kim.
 
 Phần dưới là cách cũ (ảnh bố cục `L_zone_*` + prompt nhiều tầng), giữ để tham khảo khi muốn bản đồ giàu địa hình hơn.
 

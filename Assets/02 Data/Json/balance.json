@@ -37,23 +37,23 @@
   "xSteps": [
    {
     "x": 1,
-    "lv": 1
+    "balls": 0
    },
    {
     "x": 2,
-    "lv": 12
+    "balls": 0
    },
    {
     "x": 3,
-    "lv": 23
+    "balls": 150
    },
    {
     "x": 5,
-    "lv": 40
+    "balls": 300
    },
    {
     "x": 10,
-    "lv": 80
+    "balls": 700
    }
   ],
   "cardReq": [
@@ -96,6 +96,30 @@
   "maxPerDropHigh": 30,
   "maxPerDropLevel": 104,
   "legendCopies": 15,
+  "gifts": [
+   {
+    "n": 30,
+    "k": "chest_wood"
+   },
+   {
+    "n": 40,
+    "k": "balls",
+    "v": 8
+   },
+   {
+    "n": 50,
+    "k": "chest_silver"
+   },
+   {
+    "n": 60,
+    "k": "exp",
+    "v": 120
+   },
+   {
+    "n": 80,
+    "k": "chest_gold"
+   }
+  ],
   "chests": {
    "chest_wood": [
     {

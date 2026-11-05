@@ -43,9 +43,9 @@ namespace PokiClash.Tests
             Assert.AreEqual(a.hp, b.hp);
             Assert.AreEqual(Js.Round(a.atk * 1.1), b.atk, 1);
             Assert.AreEqual(a.spd + 3, b.spd);
-            // Bọ Cạp Đồng (Hiếm) mạnh hơn Bu Lông (Thường) cùng cấp, cùng sao
+            // Khiên Bạc (Hiếm) mạnh hơn Bu Lông (Khá) cùng cấp, cùng sao (Bọ Cạp Đồng thành Thường khi làm đảo Kim 2026-11-05)
             var c = HeroStats.Compute(d.Cfg, d.Hero("bu_long"), 10, 1);
-            var v = HeroStats.Compute(d.Cfg, d.Hero("bo_cap"), 10, 1);
+            var v = HeroStats.Compute(d.Cfg, d.Hero("khien_bac"), 10, 1);
             Assert.Greater(v.hp + v.atk + v.def, c.hp + c.atk + c.def);
         }
 

@@ -142,7 +142,7 @@
    "title": "Đuôi pha lê cát đỏ",
    "aola": "goc_676",
    "elem": "kim",
-   "rarity": "rare",
+   "rarity": "common",
    "stats": [
     40,
     70,
@@ -154,17 +154,17 @@
    "skill": "bo_cap_skill",
    "ult": "bo_cap_ult",
    "passive": "bo_cap_pas",
-   "shards": 20,
+   "shards": 10,
    "line": "Dòng Bọ Cạp Đồng",
    "size": 0.9,
    "forms": [
     {
-     "name": "Bọ Cạp Đồng",
+     "name": "Bọ Cạp Pha Lê",
      "aola": "goc_676",
      "size": 0.9
     },
     {
-     "name": "Bọ Cạp Đồng",
+     "name": "Bọ Cạp Đá Lục",
      "aola": "goc_677",
      "size": 1.02
     },
@@ -181,7 +181,7 @@
    "title": "Song liềm kiếm khách",
    "aola": "goc_683",
    "elem": "kim",
-   "rarity": "rare",
+   "rarity": "uncommon",
    "stats": [
     60,
     40,
@@ -193,17 +193,17 @@
    "skill": "bo_ngua_skill",
    "ult": "bo_ngua_ult",
    "passive": "bo_ngua_pas",
-   "shards": 20,
+   "shards": 15,
    "line": "Dòng Bọ Ngựa Liềm Thép",
    "size": 0.9,
    "forms": [
     {
-     "name": "Bọ Ngựa Liềm Thép",
+     "name": "Bọ Ngựa Con",
      "aola": "goc_683",
      "size": 0.9
     },
     {
-     "name": "Bọ Ngựa Liềm Thép",
+     "name": "Bọ Ngựa Lưỡi Bén",
      "aola": "goc_684",
      "size": 1.02
     },
@@ -274,6 +274,278 @@
      "name": "Bạch Hổ",
      "aola": "goc_1911",
      "size": 1
+    }
+   ]
+  },
+  {
+   "id": "doc_giac",
+   "name": "Độc Giác Thép",
+   "title": "Ngựa một sừng giáp bạc",
+   "aola": "goc_656",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    100,
+    100,
+    120,
+    60,
+    70,
+    115
+   ],
+   "skill": "doc_giac_skill",
+   "ult": "doc_giac_ult",
+   "passive": "doc_giac_pas",
+   "shards": 10,
+   "line": "Dòng Độc Giác Thép",
+   "size": 1,
+   "forms": [
+    {
+     "name": "Độc Giác Thép",
+     "aola": "goc_656",
+     "size": 1
+    }
+   ]
+  },
+  {
+   "id": "phi_thuong",
+   "name": "Phi Thương",
+   "title": "Kỵ sĩ máy song thương",
+   "aola": "goc_835",
+   "elem": "kim",
+   "rarity": "uncommon",
+   "stats": [
+    60,
+    60,
+    60,
+    30,
+    60,
+    30
+   ],
+   "skill": "phi_thuong_skill",
+   "ult": "phi_thuong_ult",
+   "passive": "phi_thuong_pas",
+   "shards": 15,
+   "line": "Dòng Phi Thương",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Phi Thương Con",
+     "aola": "goc_835",
+     "size": 0.92
+    },
+    {
+     "name": "Phi Thương",
+     "aola": "goc_836",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "khien_bac",
+   "name": "Khiên Bạc",
+   "title": "Vệ sĩ khiên bạc",
+   "aola": "goc_784",
+   "elem": "kim",
+   "rarity": "rare",
+   "stats": [
+    50,
+    40,
+    50,
+    45,
+    50,
+    40
+   ],
+   "skill": "khien_bac_skill",
+   "ult": "khien_bac_ult",
+   "passive": "khien_bac_pas",
+   "shards": 20,
+   "line": "Dòng Khiên Bạc",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Khiên Sắt Tí Hon",
+     "aola": "goc_784",
+     "size": 0.92
+    },
+    {
+     "name": "Vệ Sĩ Khiên Bạc",
+     "aola": "goc_785",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "chien_than",
+   "name": "Chiến Thần",
+   "title": "Pháo thủ giáp vàng",
+   "aola": "goc_1083",
+   "elem": "kim",
+   "rarity": "rare",
+   "stats": [
+    60,
+    80,
+    40,
+    40,
+    40,
+    80
+   ],
+   "skill": "chien_than_skill",
+   "ult": "chien_than_ult",
+   "passive": "chien_than_pas",
+   "shards": 20,
+   "line": "Dòng Chiến Thần",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Chiến Linh Con",
+     "aola": "goc_1083",
+     "size": 0.92
+    },
+    {
+     "name": "Chiến Thần",
+     "aola": "goc_1084",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "thiet_phu",
+   "name": "Thiết Phủ",
+   "title": "Người thiếc rìu bén",
+   "aola": "goc_1533",
+   "elem": "kim",
+   "rarity": "epic",
+   "stats": [
+    60,
+    70,
+    75,
+    30,
+    50,
+    20
+   ],
+   "skill": "thiet_phu_skill",
+   "ult": "thiet_phu_ult",
+   "passive": "thiet_phu_pas",
+   "shards": 30,
+   "line": "Dòng Thiết Phủ",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Người Thiếc",
+     "aola": "goc_1533",
+     "size": 0.92
+    },
+    {
+     "name": "Thiết Phủ",
+     "aola": "goc_1534",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "tam_kiem",
+   "name": "Tam Kiếm",
+   "title": "Giáp vương ba kiếm",
+   "aola": "goc_1223",
+   "elem": "kim",
+   "rarity": "epic",
+   "stats": [
+    50,
+    60,
+    50,
+    50,
+    60,
+    60
+   ],
+   "skill": "tam_kiem_skill",
+   "ult": "tam_kiem_ult",
+   "passive": "tam_kiem_pas",
+   "shards": 30,
+   "line": "Dòng Tam Kiếm",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Kiếm Sĩ Nhí",
+     "aola": "goc_1223",
+     "size": 0.9
+    },
+    {
+     "name": "Song Kiếm",
+     "aola": "goc_1224",
+     "size": 1.02
+    },
+    {
+     "name": "Tam Kiếm Vương",
+     "aola": "goc_1225",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "ung_thep",
+   "name": "Ưng Thép",
+   "title": "Thợ săn trời cánh pha lê",
+   "aola": "goc_1696",
+   "elem": "kim",
+   "rarity": "epic",
+   "stats": [
+    60,
+    25,
+    45,
+    82,
+    45,
+    78
+   ],
+   "skill": "ung_thep_skill",
+   "ult": "ung_thep_ult",
+   "passive": "ung_thep_pas",
+   "shards": 30,
+   "line": "Dòng Ưng Thép",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Ưng Thép Con",
+     "aola": "goc_1696",
+     "size": 0.92
+    },
+    {
+     "name": "Ưng Thép",
+     "aola": "goc_1697",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "kim_nghe",
+   "name": "Kim Nghê",
+   "title": "Thần thú giáp lửa lam",
+   "aola": "goc_1840",
+   "elem": "kim",
+   "rarity": "legend",
+   "stats": [
+    40,
+    115,
+    40,
+    30,
+    40,
+    60
+   ],
+   "skill": "kim_nghe_skill",
+   "ult": "kim_nghe_ult",
+   "passive": "kim_nghe_pas",
+   "shards": 50,
+   "line": "Dòng Kim Nghê",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Nghê Con",
+     "aola": "goc_1840",
+     "size": 0.92
+    },
+    {
+     "name": "Kim Nghê",
+     "aola": "goc_1841",
+     "size": 1.1
     }
    ]
   },
@@ -2697,6 +2969,198 @@
    "minion": true,
    "tier": 2,
    "kind": "khi"
+  },
+  {
+   "id": "linh_giap",
+   "name": "Giáp Vệ",
+   "title": "Người máy gác cổng",
+   "aola": "goc_121",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    40,
+    70,
+    60,
+    20,
+    20,
+    65
+   ],
+   "skill": "linh_giap_skill",
+   "ult": "linh_giap_ult",
+   "passive": "linh_giap_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Giáp Vệ",
+     "aola": "goc_121",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "giap"
+  },
+  {
+   "id": "linh_giap2",
+   "name": "Chiến Giáp",
+   "title": "Nắm đấm thép tím",
+   "aola": "goc_122",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    60,
+    100,
+    80,
+    35,
+    35,
+    90
+   ],
+   "skill": "linh_giap2_skill",
+   "ult": "linh_giap2_ult",
+   "passive": "linh_giap2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Chiến Giáp",
+     "aola": "goc_122",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "giap"
+  },
+  {
+   "id": "linh_khien",
+   "name": "Nóc Sắt",
+   "title": "Cá nóc vỏ thép",
+   "aola": "goc_1061",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    40,
+    40,
+    80,
+    30,
+    80,
+    30
+   ],
+   "skill": "linh_khien_skill",
+   "ult": "linh_khien_ult",
+   "passive": "linh_khien_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Nóc Sắt",
+     "aola": "goc_1061",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "khien"
+  },
+  {
+   "id": "linh_khien2",
+   "name": "Nóc Khiên",
+   "title": "Khiên gai phản đòn",
+   "aola": "goc_1062",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    95,
+    90,
+    120,
+    70,
+    120,
+    70
+   ],
+   "skill": "linh_khien2_skill",
+   "ult": "linh_khien2_ult",
+   "passive": "linh_khien2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Nóc Khiên",
+     "aola": "goc_1062",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "khien"
+  },
+  {
+   "id": "linh_may",
+   "name": "Máy Bay Con",
+   "title": "Cánh quạt tí hon",
+   "aola": "goc_949",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    50,
+    40,
+    40,
+    50,
+    40,
+    45
+   ],
+   "skill": "linh_may_skill",
+   "ult": "linh_may_ult",
+   "passive": "linh_may_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Máy Bay Con",
+     "aola": "goc_949",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "may"
+  },
+  {
+   "id": "linh_may2",
+   "name": "Phản Lực",
+   "title": "Lao vút như tên",
+   "aola": "goc_950",
+   "elem": "kim",
+   "rarity": "common",
+   "stats": [
+    100,
+    75,
+    90,
+    100,
+    85,
+    95
+   ],
+   "skill": "linh_may2_skill",
+   "ult": "linh_may2_ult",
+   "passive": "linh_may2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Phản Lực",
+     "aola": "goc_950",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "may"
   }
  ],
  "starters": [

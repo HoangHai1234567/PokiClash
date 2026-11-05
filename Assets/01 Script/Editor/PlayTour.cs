@@ -199,6 +199,14 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunArenas(Elem.Moc, 430)));
         }
 
+        // đảo Hỏa dùng chung nền như đảo Mộc (ArtGen/BattleBG/build_hoa.py)
+        [MenuItem("PokiClash/Thử/Sàn đấu đảo Hỏa: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
+        static void TryArenasHoa()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunArenas(Elem.Hoa, 470)));
+        }
+
         // Mỗi sàn đấu một trận (ArtGen/BattleBG/build_thuy.py, build_moc.py): chụp lúc chờ chọn thẻ, rồi 0,8 s sau (phần động đã đổi chỗ)
         static IEnumerator RunArenas(Elem zone, int first)
         {
@@ -436,6 +444,116 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunMachine()));
         }
 
+        [MenuItem("PokiClash/Thử/Máy bi: mốc quà, cược theo số bi (đang Play)", priority = 112)]
+        static void TryMachineGifts()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunMachineGifts()));
+        }
+
+        // mốc quà sau mốc Huyền thoại (ô quà theo mốc, nhận thì quà bay ra rồi ô đổi sang quà kế), khung thanh EXP nhún cả rãnh,
+        // nút cược mở và hạ theo số bi đang có
+        static IEnumerator RunMachineGifts()
+        {
+            shot = 140;
+            var s = App.Save.Data;
+            var d = App.Data;
+            var cfg = d.Cfg;
+            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            s.level = 8;
+            s.exp = 0;
+            s.legendDone = true;
+            s.ballsSpent = cfg.legendMilestone + 10;
+            s.gift = s.giftTier = 0;
+            var x3 = cfg.xSteps.Find(q => q.x == 3);
+            s.balls = x3.balls - 1;
+            s.chests.Clear();
+            App.Save.Save();
+            yield return Go(SceneIds.Machine);
+            var m = Object.FindAnyObjectByType<MachineScene>();
+            if (!m)
+            {
+                Debug.LogError("[Thử] Không thấy MachineScene");
+                yield break;
+            }
+            if (!GameObject.Find("o_qua")) Debug.LogError("[Thử] Màn Máy bi chưa có ô quà mốc (menu PokiClash/Prefab/Máy bi: mốc quà)");
+            yield return new WaitForSecondsRealtime(0.5f);
+            yield return Shot("moc_qua_dau");
+            // ×3 khi chưa đủ bi: báo cần bao nhiêu bi
+            ClickButton("×3");
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot("cuoc_x3_khoa");
+            // đủ bi: mở ×3 (báo, nút nhún)
+            s.balls = x3.balls + 40;
+            m.Refresh();
+            yield return new WaitForSecondsRealtime(0.2f);
+            yield return Shot("cuoc_x3_mo");
+            // khung thanh EXP (rãnh + thanh) nhún cùng nhau
+            var expBar = Object.FindAnyObjectByType<MachineExpBar>();
+            if (expBar)
+            {
+                if (!expBar.Frame) Debug.LogError("[Thử] Thanh EXP chưa có khung_thanh (chạy cat_ranh.py rồi menu Máy bi: thân máy vẽ tay)");
+                expBar.Punch();
+                yield return null;
+                yield return Shot("thanh_exp_nhun");
+            }
+            yield return new WaitForSecondsRealtime(0.5f);
+
+            // gần đủ mốc đầu (rương): thả ×3, quà bay vào khay
+            ClickButton("×3");
+            var g0 = Pachinko.GiftNow(s, cfg);
+            s.gift = g0.n - 4;
+            m.Refresh();
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot("moc_qua_gan_du");
+            int tier = s.giftTier;
+            ClickButton("Thả liền " + cfg.MaxPerDrop(s.level));
+            yield return Until(() => s.giftTier > tier, 5);
+            yield return new WaitForSecondsRealtime(0.12f);
+            yield return Shot("moc_qua_nhan");
+            yield return new WaitForSecondsRealtime(0.45f);
+            yield return Shot("moc_qua_bay");
+            yield return new WaitForSecondsRealtime(0.6f);
+            yield return Shot("moc_qua_ke");
+            yield return SettleMachine(m, "moc_qua", 1);
+            var gn = Pachinko.GiftNow(s, cfg);
+            Debug.Log($"[Thử] Mốc quà: đã nhận {s.giftTier} mốc, đang {s.gift}/{gn.n} bi tới {Pachinko.GiftName(gn)}; {s.balls} bi, rương chờ {s.chests.Count}");
+
+            // hai quà kế (bi, XP): đặt ngay trước mốc rồi thả ×1
+            for (int k = 0; k < 2; k++)
+            {
+                var g = Pachinko.GiftNow(s, cfg);
+                s.gift = g.n - 1;
+                s.balls = Mathf.Max(s.balls, 60);
+                m.Refresh();
+                ClickButton("×1");
+                int t2 = s.giftTier, b0 = s.balls;
+                ClickButton("Thả liền " + cfg.MaxPerDrop(s.level));
+                yield return Until(() => s.giftTier > t2, 5);
+                yield return new WaitForSecondsRealtime(0.55f);
+                yield return Shot("moc_qua_" + g.k);
+                yield return SettleMachine(m, "moc_qua_" + g.k, 0, false);
+                Debug.Log($"[Thử] Mốc {Pachinko.GiftName(g)}: nhận xong, bi {b0} → {s.balls}, cấp {s.level}");
+            }
+
+            // bi tụt dưới mốc ×3 lúc máy rảnh: cược tự về ×2 (báo)
+            s.balls = x3.balls + 10;
+            m.Refresh();
+            ClickButton("×3");
+            s.balls = x3.balls - 5;
+            m.Refresh();
+            yield return new WaitForSecondsRealtime(0.25f);
+            yield return Shot("cuoc_ve_x2");
+            // chạm ô quà: báo các mốc kế
+            var badge = GameObject.Find("o_qua");
+            var btn = badge ? badge.GetComponent<UnityEngine.UI.Button>() : null;
+            if (btn) btn.onClick.Invoke();
+            yield return new WaitForSecondsRealtime(0.3f);
+            yield return Shot("moc_qua_bao");
+            yield return Go(SceneIds.Hub);
+            Debug.Log("[Thử] Xong mốc quà máy bi.");
+        }
+
         // đóng lần lượt mọi hộp (rương, Huyền thoại, lên cấp) tới khi máy rảnh; chụp vài hộp đầu
         static IEnumerator SettleMachine(MachineScene m, string tag, int shots, bool log = true)
         {
@@ -503,12 +621,11 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Thử] ×1: thả {m.Session} bi, tốn {s.ballsSpent - spent}");
             yield return SettleMachine(m, "x1", 3);
 
-            // ×3 mở ở cấp cfg.xSteps (đổi theo cân bằng): nâng cấp cho đủ trước khi bấm
+            // ×3 mở khi có đủ bi theo cfg.xSteps (đổi theo cân bằng): thêm bi cho đủ trước khi bấm
             var x3 = d.Cfg.xSteps.Find(q => q.x == 3);
-            if (x3 != null && s.level < x3.lv)
+            if (x3 != null && s.balls < x3.balls + 60)
             {
-                s.level = x3.lv;
-                s.exp = 0;
+                s.balls = x3.balls + 60;
                 m.Refresh();
                 yield return new WaitForSecondsRealtime(0.5f);
             }
@@ -1098,14 +1215,36 @@ namespace PokiClash.EditorTools
         static void TryIslandLong()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
-            App.I.StartCoroutine(WithSaveBackup(RunIslandLong()));
+            App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Thuy, 300)));
         }
 
-        // Đảo Thủy 70 ải: màn đảo ở 0, 23, 69 ải đã qua; bảng chặng của chấm ải 24; hộp chuẩn bị các kiểu ải (bóng tướng khởi đầu,
-        // bầy lính, nhóm 3 con, cửa ải, mini boss, boss); trận ải 3 (hai lính)
-        static IEnumerator RunIslandLong()
+        [MenuItem("PokiClash/Thử/Đảo Mộc 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 123)]
+        static void TryIslandLongMoc()
         {
-            shot = 300;
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Moc, 340)));
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 124)]
+        static void TryIslandLongHoa()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Hoa, 380)));
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Kim 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 125)]
+        static void TryIslandLongKim()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Kim, 420)));
+        }
+
+        // Đảo 70 ải (Thủy, Mộc): màn đảo ở 0, 23, 69 ải đã qua; hộp chuẩn bị của chấm ải 24; hộp chuẩn bị các kiểu ải (bóng tướng
+        // khởi đầu, bầy lính, nhóm 3 con, cửa ải, mini boss, boss); trận ải 3 (hai lính)
+        static IEnumerator RunIslandLong(Elem zone, int first)
+        {
+            shot = first;
+            string tag = Keys.Of(zone);
             var d = App.Data;
             var s = App.Save.Data;
             s.intro = true;
@@ -1113,34 +1252,34 @@ namespace PokiClash.EditorTools
             foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
             foreach (int prog in new[] { 0, 23, 69 })
             {
-                s.zones[(int)Elem.Thuy] = prog;
-                s.zoneChests[(int)Elem.Thuy] = prog >= 10 ? 1 : 0;
+                s.zones[(int)zone] = prog;
+                s.zoneChests[(int)zone] = prog >= 10 ? 1 : 0;
                 App.Save.Save();
-                yield return Go(SceneIds.Zone, Elem.Thuy);
+                yield return Go(SceneIds.Zone, zone);
                 yield return new WaitForSecondsRealtime(0.6f);
-                yield return Shot("dao70_" + prog);
+                yield return Shot($"dao70_{tag}_{prog}");
                 if (prog != 23) continue;
                 ClickNamed("cham_24"); // chạm chấm mở thẳng hộp chuẩn bị của ải đó (bảng chặng bỏ 2026-11-03)
                 yield return new WaitForSecondsRealtime(0.6f);
-                yield return Shot("chuan_bi_24");
+                yield return Shot($"chuan_bi_{tag}_24");
                 App.Modals.CloseAll();
             }
-            int Id(int idx) => d.ZoneStages(Elem.Thuy).First(st => st.idx == idx).id;
-            var group3 = d.ZoneStages(Elem.Thuy).First(st => st.enemies.Count == 3);
-            var gate = d.ZoneStages(Elem.Thuy).First(st => st.tag == StageTag.Gate);
+            int Id(int idx) => d.ZoneStages(zone).First(st => st.idx == idx).id;
+            var group3 = d.ZoneStages(zone).First(st => st.enemies.Count == 3);
+            var gate = d.ZoneStages(zone).First(st => st.tag == StageTag.Gate);
             foreach (var (idx, name) in new[] { (1, "bong"), (2, "bay_linh"), (group3.idx, "nhom_3"), (gate.idx, "cua_ai"), (20, "mini_boss"), (70, "boss") })
             {
                 StagePrep.Open(Id(idx));
                 yield return new WaitForSecondsRealtime(0.6f);
-                yield return Shot($"chuan_bi_{idx}_{name}");
+                yield return Shot($"chuan_bi_{tag}_{idx}_{name}");
                 App.Modals.CloseAll();
                 yield return new WaitForSecondsRealtime(0.2f);
             }
             yield return RunBattle(Id(3), false);
             App.Modals.CloseAll();
             yield return Go(SceneIds.Hub);
-            yield return Shot("sanh_70");
-            Debug.Log($"[Thử] Xong đảo 70 ải: ảnh trong {ShotDir}");
+            yield return Shot($"sanh_70_{tag}");
+            Debug.Log($"[Thử] Xong đảo 70 ải {zone}: ảnh trong {ShotDir}");
         }
 
         static IEnumerator RunMapShots()

@@ -2,7 +2,7 @@
 // đánh lại, đội địch từng ải (cấp, sao, thẻ, boss, phần cộng của địch khớp từng bit); lính tìm được nhưng không thu phục.
 // Cập nhật bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md): sức địch đảo Thủy từ ải 4, ải 1 đảo Hỏa và Thổ.
 // Cập nhật 2026-11-04 (cấp địch theo cấp người chơi, 14_HeThongAi.md): đảo Thủy cấp 1–15, các đảo sau dời lên 15–30.
-// Cập nhật 2026-11-05: đảo Mộc thành 70 ải (Editor/IslandGen.cs), golden tính lại bằng menu "Tính lại golden islands.json".
+// Cập nhật 2026-11-05: đảo Mộc, Hỏa, Kim thành 70 ải (Editor/IslandGen.cs), golden tính lại bằng menu "Tính lại golden islands.json".
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -32,7 +32,8 @@ namespace PokiClash.Tests
             Assert.IsTrue(Islands.IsLong(Elem.Thuy));
             Assert.IsTrue(Islands.IsLong(Elem.Moc));
             Assert.IsTrue(Islands.IsLong(Elem.Hoa));
-            Assert.IsFalse(Islands.IsLong(Elem.Kim));
+            Assert.IsTrue(Islands.IsLong(Elem.Kim));
+            Assert.IsFalse(Islands.IsLong(Elem.Tho));
         }
 
         [Test]
@@ -90,7 +91,7 @@ namespace PokiClash.Tests
         public void BiDongBoss_5MocCuoi()
         {
             var d = TestData.Load();
-            foreach (var z in new[] { Elem.Thuy, Elem.Moc })
+            foreach (var z in new[] { Elem.Thuy, Elem.Moc, Elem.Kim })
             {
                 var heads = d.ZoneStages(z).Where(st => st.tag == StageTag.Hero && st.idx >= 30).ToList();
                 Assert.AreEqual(5, heads.Count, z + ": 5 mốc cuối");

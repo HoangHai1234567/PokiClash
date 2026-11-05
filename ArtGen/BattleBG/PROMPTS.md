@@ -138,3 +138,28 @@ Người dùng dặn nền trận đảo Mộc tiết kiệm dung lượng, dùn
 1. `py -3 -I ArtGen/BattleBG/build_moc.py --xuat [thư_mục_thử]`: lưu `Assets/03 Art/BattleBG/battle_moc_<khoá>.png` cho 8 nền (bản cao 1080 × 1528), cắt sheet `fx` thành `BattleBG/Anim/san_<tên>`, gộp 17 khoá `moc_*` vào `arena_fx.json` (`sky`, `use` cho khoá mượn ảnh, `tint` màu phủ, `fx`). Không xoá khoá đảo khác; `build_thuy.py --xuat` cũng đã sửa để chỉ thay khoá `thuy_*`.
 2. Code: `StageView.ArenaArt` coi khoá có `use` trong `arena_fx.json` như có ảnh, `ApplyArena` lấy ảnh theo `use` và phủ `tint` lên ảnh nền (boss dạng 2, 3 là khoá `moc_s70_2`, `moc_s70_3` mượn ảnh `moc_s70`). `ArenaAnim` cho lá rơi, quầng sáng, phù văn, đốm hồn, sương nhận `img` riêng (cánh hoa, lá trúc, tia nắng, vòng phù văn lá, hạt bồ công anh).
 3. Unity: refresh, menu `PokiClash/Dựng lại danh mục ảnh`; thử bằng menu chụp sàn đấu.
+
+## Đảo Hỏa 70 ải: 8 nền dùng chung, mỗi nền một giờ riêng (2026-11-05)
+
+Người dùng dặn như đảo Mộc: tiết kiệm dung lượng, dùng lại nếu được, nhưng vẫn độc đáo, khác biệt. Gói sinh bằng `build_hoa.py` (sinh từ `build_moc.py`: cùng khuôn, cùng số đo khung, khác dữ liệu nền, ảnh mẫu và chữ) vào `gui_gpt/hoa/`; ảnh GPT lưu vào `hoa/tai_ve/`, bản duyệt `hoa/<mã>.png`.
+
+| Mã | Nền | Ải dùng | Giờ, thời tiết |
+|---|---|---|---|
+| `c12` | Bến Đá Đen + Suối Dung Nham | 1–9 | Sáng trong. Chốt nét đảo Hỏa; ảnh mẫu nét là `moc/c12.png`, màu lấy đoạn 1 bản đồ dài đảo Hỏa |
+| `c34` | Rừng Than Hồng + Sườn Núi Khói | 10–19 | Chiều hanh hổ phách; bệ là mặt đá dung nham nguội |
+| `c05` | Lò Lửa Thiền | 20 (mini boss, đang tạm Hồ Lửa), 21–29 | Chạng vạng xanh, sân đá tu viện |
+| `c06` | Chùa Liên Hoa | 30 (mini boss Hồng Liên), 31–39 | Bình minh hồng, hồ dung nham lá sen đá |
+| `c07` | Lò Rèn Gai Thép | 40 (mini boss Giáp Long), 41–49 | Trưa u ám xám thép |
+| `c08` | Rừng Lửa Ảo | 50 (mini boss Huyễn Viêm), 51–59 | Chạng vạng tím, trăng lưỡi liềm |
+| `c09` | Hang Hồng Ngọc | 60 (mini boss Hỏa Tinh), 61–69 | Đêm trăng tròn, ngoài cửa hang (đảo Mộc ở trong hang) |
+| `b70` | Miệng Núi Lửa | 70 (boss Lân Hỏa, 3 dạng) | Hoàng hôn đỏ thẫm; dạng 2, 3 game phủ tối đỏ, thêm mây tro, tro rơi, sét |
+| `fx` | sheet 3 × 2 | | Vảy tro, bọt dung nham nổ, vòng phù văn lửa, chùm tia lửa, lửa ma tím, cục dung nham bay |
+
+- Tướng Hỏa phần lớn đỏ, cam: mọi file prompt dặn đất đỏ cam dịu (không đỏ rực), mặt bệ sáng (xám tro, kem, đá nhạt).
+- Phần động dùng lại: `Islands/Anim` (anim_smoke_big, anim_smoke_small, anim_flame_a, anim_flame_b, anim_embers, anim_sparkle), `BattleBG/Anim` (san_glow, san_mist, san_wisp, san_firefly, san_petal làm cánh sen, san_cloud, san_bolt). `ArenaAnim` chưa có kiểu khói, lửa: thêm khi xuất.
+- Ảnh địa danh: cắt từ bản đồ dài đảo Hỏa đã duyệt đủ 3 đoạn, theo chỗ đo tay (`SPOT_FIX` = `SPOTS_REAL` của `../Islands/build_zone70_hoa.py`), vào `refs/hoa/`.
+- `--xuat`: như đảo Mộc, khoá `hoa_*` trong `arena_fx.json`. Bảng phần động từng nền (`FX`) để trống, đo trên ảnh đã duyệt rồi điền.
+- **Đã duyệt `c12`** (2026-11-05): đất (251, 138, 99) sáng và dịu hơn đất bản đồ (183, 70, 24); bệ xa đúng chỗ code, bệ gần cao hơn khoảng 20 px (chân tướng vẫn trên mặt bệ, như đảo Mộc); cầu gỗ lấn vào sau chân trái tướng địch một chút (chấp nhận). Đã dựng đủ 8 lượt còn lại; chúng chỉ cần `c12` nên gửi theo thứ tự nào cũng được.
+- **Đã gen đủ 9 ảnh (2026-11-05).** Đạt: `c34` (gò lỗ phun vẽ rộng tới x 340, lỗ thứ ba sau chân trái tướng địch: khói chỉ đặt ở hai lỗ trái), `c05`, `c06` (một đèn đá sau thân tướng địch, thân tướng che gần hết), `c09`, `fx` (nền trong suốt, đủ 6 món). `b70`: núi lửa nằm hết ở phần trời (máy 20:9 thấy gần đủ, 9:16 chỉ thấy gờ miệng núi lửa, chấp nhận). **Cần sửa** (`sua_<mã>.txt`, bảng `FIXES`): `c07` lò rèn tràn tới x 440 nên đe, thùng, xích nằm sau lưng tướng địch, đất đỏ rực; `c08`, `b70` bệ xa vẽ cao hơn chỗ đứng 75 và 60 px (chân tướng rơi vào mặt bên bệ). Cả ba đã sửa (`<mã>_2.png`, GPT giữ nguyên phần còn lại) và duyệt.
+- **Đã xuất (2026-11-05):** 8 nền `battle_hoa_<khoá>.png` (khoá `c01`, `c03`, `c05`..`c09`, `s70`), sheet cắt thành `Anim/san_ash`, `san_firerune`, `san_foxfire`, `san_lavablob`, `san_lavapop`, `san_sparks`, 17 khoá `hoa_*` trong `arena_fx.json` (giữ 34 khoá đảo khác). Phần động (`FX`) không thêm kiểu mới vào `ArenaAnim`: khói là `wisp` với ảnh khói bản đồ đảo, lửa lò là `glow` với `anim_flame_a`, bọt dung nham là `spout`, tro rơi và cánh sen là `leaf`, tàn lửa, tia lửa, lửa ma, cục dung nham là `wisp`. Thử: menu `PokiClash/Thử/Sàn đấu đảo Hỏa: …` (ảnh 470–499).
+- **Đã vào game và chụp thử (2026-11-05):** refresh, `Dựng lại danh mục ảnh` (thêm 14 ảnh), tour 15 ải: mọi chặng đúng nền, tướng đứng trên bệ, mini boss có màu phủ, boss có vòng phù văn lửa. Bỏ sương động ở `hoa_c08`, `hoa_s50` (thành cục mây trắng giữa cảnh hồng tím; ảnh đã vẽ sương).

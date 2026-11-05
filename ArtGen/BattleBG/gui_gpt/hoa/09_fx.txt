@@ -1,0 +1,25 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\hoa\c12.png (1024 x 1536): an approved battle background of this game: copy its RENDERING (ink, pencil hatching, colours); ignore its content
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\guides\G_Sheet3x2.png (1536 x 1024): the numbered 3 x 2 grid: one object per cell, in number order
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\hoa\tai_ve\fx.png
+Create the folder if it is missing. If that file already exists, save it as fx_2.png, fx_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: a sprite sheet of 6 separate effect objects for the battle backgrounds of the Fire island (a volcanic island) of a vertical mobile game. The game cuts the sheet into 6 sprites and animates them (moves, spins, fades, scales, makes them see-through), so draw each object complete and on its own.
+
+Draw a 1536 x 1024 image with a fully TRANSPARENT background (PNG with alpha), in the rendering of image 1 (same wobbly ink, same pencil hatching, same colours). One object per cell of image 2's numbered 3 x 2 grid (512 x 512 px cells): each object about the size of the cell's inner grey frame and centred in its cell, nothing crossing a cell edge, no ground, no shadow, no background colour, no grid lines, no numbers. Glows and light are drawn as solid pale shapes (the game makes them see-through).
+
+In grid order:
+1 a falling ash flake: a small soft curled flake of grey ash with a glowing orange edge on one side, thin ink outline;
+2 a lava bubble bursting: a round dome of orange lava splitting open at the top, three or four small yellow-orange droplets flying up, thin ink outline;
+3 a glowing fire rune circle seen at a low angle (a wide flat ellipse): a ring of flame and cloud patterns and small dots inside a double ring, pale glowing orange;
+4 a burst of sparks: a fan of ten or twelve short bright yellow-orange spark streaks spreading up and out from one point, each with a tiny round tip, no ink outline;
+5 a will-o'-the-wisp flame: a small soft flame shaped like a teardrop with a curled tip, pink at the core and violet at the edge, thin ink outline;
+6 a flying blob of lava: a round orange-yellow blob with a dark crust patch and a short tapering trail of lighter orange behind it, thin ink outline;
+
+Do not draw: text, letters, numbers, signs with writing; creatures, people, birds, insects; any UI, frame or border; white sticker outlines.
+
+Remember: save the image to E:\ProjectAtomik\PokiWar\ArtGen\BattleBG\hoa\tai_ve\fx.png

@@ -39,7 +39,7 @@ Research kết luận máy bi kiểu Critters đặt sai chỗ ở ClashMaster, 
 - **Canh lúc thả:** một mái chèo đung đưa trên đỉnh. Thả đúng lúc thì bi dễ vào giữa hơn một chút. Ghi rõ tác dụng này trên máy.
 - **Tiếng và hiệu ứng tỉ lệ với giá trị thật:** ô vàng chỉ kêu nhỏ; ô hiếm mới có kèn. Research ghi đây là cách chữa đã được chứng minh cho việc "lỗ mà tưởng thắng".
 - **In tỉ lệ lên mặt máy.** Apple buộc công bố tỉ lệ cho mọi thứ ngẫu nhiên bán bằng tiền.
-- **Thả nhiều bi một lúc** (×5, ×10) chỉ để nhanh, không nhân thưởng, không cần giữ bi mới mở.
+- **Thả nhiều bi một lúc** (×5, ×10) chỉ để nhanh, không nhân thưởng, không cần giữ bi mới mở. (Đề xuất ban đầu. Đã đổi 2026-11-05: mức cược mở theo số bi đang có, như Critters, xem mục "Cược theo số bi" bên dưới.)
 
 ## Nếu muốn kiếm tiền từ máy
 
@@ -130,6 +130,27 @@ Chủ dự án dặn (2026-11-04): máy phải có thanh kinh nghiệm ở trên
   - **Hiệu ứng** `fx_glow`, `fx_sparkle`, `fx_ring`, `fx_star`, `fx_streak`, `fx_puff` trong `Assets/03 Art/Pachinko` thay hình tạm cùng tên ở mọi chỗ (menu `PokiClash/Dựng lại danh mục ảnh`).
   - **Rương** `pk_ruong_go`, `pk_ruong_bac`, `pk_ruong_vang` (bản mở thêm `_mo`): `ChestIcon` tự dùng khi có. Hộp mở rương đổi sang bản mở lúc bật nắp. Rương AFK có màu riêng nên giữ hình vẽ tạm.
 
+## Cược theo số bi, mốc quà, thanh nhún cả viền (2026-11-05)
+
+Chủ dự án dặn: thanh kinh nghiệm phải nhún cả viền; học mốc quà của Critters (thả n bi nhận một món rồi đổi món mới); nút ×N mở theo số bi đang có chứ không theo cấp. Change `add-ball-milestones`.
+
+**Critters làm gì** (bản đục; ảnh dựng lại từ prefab ở `D:\CrittersRipper\analysis\ui_shots\sheet.png`):
+- Bảng cược `multi_popup`: "Mọi phần thưởng ×2"; ở mức tối đa ghi "Mốc tiếp theo: mở khi có 8000 bi". Ngưỡng theo wiki: ×1, ×2 luôn mở, ×3 từ 240, ×5 từ 360, ×10 từ 600–720, ×20 từ 1.200 … ×100 từ 7.200 bi đang có (khoảng 60–80 lần thả). Tụt dưới ngưỡng thì mất mức đó.
+- Thanh cấp: nền và phần đầy cùng nhún 1,2 → 1,08 → 1,2 → 1,08 → 1,2 → 1 trong 0,25 giây; dọc thanh có mốc nhỏ (icon hệ, mũi tên lên).
+- Quà theo tiến độ: nấm trứng có vòng, đầy thì ra tướng hoặc bi, mỗi ngày tối đa vài lần ("2/3", đếm ngược); sự kiện 150 bậc quà, số món theo cược.
+
+**Ở đây:**
+- **Cược:** ×1, ×2 luôn mở; ×3 từ 150, ×5 từ 300, ×10 từ 700 bi (`progression.xSteps[].balls`). Mô phỏng: người chăm có 600–1.200 bi một ngày, người ít 50–150.
+  - Nút chưa mở mờ, ghi "n bi", chạm thì báo. Đủ bi mở thêm mức thì báo và nút nhún.
+  - Bi tụt dưới ngưỡng thì hết đợt cược về mức cao nhất còn mở.
+- **Mốc quà** (`pachinko.gifts`): sau mốc Huyền thoại, cứ tiêu đủ bi (×N tính N) thì nhận một món, rồi sang món kế, hết thì vòng lại.
+  - Bảng: 30 bi rương gỗ, 40 bi +8 bi, 50 bi rương bạc, 60 bi +120 XP, 80 bi rương vàng. Thêm khoảng 7–8 % giá trị mỗi vòng 260 bi.
+  - Thanh mốc nằm chỗ thanh Huyền thoại cũ, có ô quà tròn ở đầu thanh. Nhận quà thì ô nhún, quà bay ra (rương vào khay, sao EXP lên thanh, bi về dòng đếm), rồi ô đổi sang món kế.
+  - Chạm thanh hoặc ô quà thì báo ba mốc kế.
+- **Thanh kinh nghiệm nhún cả viền:** rãnh vẽ tay cắt khỏi thân máy (`ArtGen/Pachinko/cat_ranh.py` → `pk_ranh_exp.png`), đặt trùng khít lên rãnh, gom với thanh thành `khung_thanh`. Cả nhóm nhún theo dáng Critters (ngang 3 %, dọc 18 %, chữ thêm 12 %), không nhỏ hơn cỡ gốc.
+- **Menu:** `PokiClash/Prefab/Máy bi: thân máy vẽ tay` (dựng `khung_thanh`), `PokiClash/Prefab/Máy bi: mốc quà` (ô quà). Tour thử: `PokiClash/Thử/Máy bi: mốc quà, cược theo số bi`.
+- Duyệt lại thân máy (`build.py --duyet`) thì chạy lại `cat_ranh.py` rồi menu thân máy.
+
 ## Việc còn lại (ghi 2026-11-04)
 
 Thanh kinh nghiệm, số theo cược, thân máy, bộ phận, hiệu ứng, rương vẽ tay đã vào game (Unity), 96/96 test EditMode qua.
@@ -137,7 +158,7 @@ Thanh kinh nghiệm, số theo cược, thân máy, bộ phận, hiệu ứng, r
 **Làm trước:**
 1. **Thử trên điện thoại Android** (Build thường):
    - thanh kinh nghiệm đọc được không; sao EXP bay có rõ không; tiếng `pick` khi sao tới có dày quá không lúc "Thả liền";
-   - cột cược và khay rương đã thu còn 0,82–0,84: chữ "×10 / Cấp 80" còn đọc được không;
+   - cột cược và khay rương đã thu còn 0,82–0,84: chữ "×10 / 700 bi" còn đọc được không;
    - nút "i" tỉ lệ (khoảng 65 px) có dễ bấm không;
    - đinh, bi, nấm vẽ tay có rõ ở cỡ nhỏ không.
 2. **Kiểm dung lượng:** chạy menu `PokiClash/Dung lượng: ảnh nặng trong build`. Ảnh mới gồm thân máy 851 × 1401, mặt máy 920 × 1360, 6 rương 320 px, 6 hiệu ứng 256 px.

@@ -479,5 +479,52 @@ namespace PokiClash.Core
             }
             return null;
         }
+
+        // ---------- mốc quà ----------
+        // Sau mốc Huyền thoại, mỗi bi tiêu (theo cược) cộng một nấc vào mốc đang chạy (cfg.gifts, hết thì vòng lại từ đầu).
+        // Đủ n thì nhận quà rồi sang mốc kế, phần dư chuyển sang mốc kế. Quà rương trả về để người gọi đưa vào hàng chờ mở
+        // (như rương ở ô); bi và EXP cộng ngay.
+
+        public static GiftStep GiftNow(SaveData s, BalanceConfig cfg) => cfg.gifts.Count == 0 ? null : cfg.gifts[s.giftTier % cfg.gifts.Count];
+
+        // mốc thứ i tính từ mốc đang chạy (0 = đang chạy)
+        public static GiftStep GiftAt(SaveData s, BalanceConfig cfg, int i) => cfg.gifts.Count == 0 ? null : cfg.gifts[(s.giftTier + i) % cfg.gifts.Count];
+
+        // số bi của lần thả vừa rồi tính vào mốc quà: lần thả vượt mốc Huyền thoại (legend khác null) chỉ tính phần dư
+        public static int GiftCredit(SaveData s, BalanceConfig cfg, int x, Reward legend) =>
+            legend != null ? Math.Max(0, Math.Min(x, s.ballsSpent - cfg.legendMilestone)) : s.legendDone ? x : 0;
+
+        public static List<Reward> GiftAdd(SaveData s, GameData d, int n)
+        {
+            var got = new List<Reward>();
+            var cfg = d.Cfg;
+            if (n <= 0 || cfg.gifts.Count == 0) return got;
+            s.gift += n;
+            for (var g = GiftNow(s, cfg); g != null && g.n > 0 && s.gift >= g.n; g = GiftNow(s, cfg))
+            {
+                s.gift -= g.n;
+                s.giftTier++;
+                got.Add(GiftGive(s, cfg, g));
+            }
+            return got;
+        }
+
+        static Reward GiftGive(SaveData s, BalanceConfig cfg, GiftStep g)
+        {
+            switch (g.k)
+            {
+                case "balls":
+                    s.balls += g.v;
+                    return new Reward { k = RewardKind.Balls, n = g.v };
+                case "exp":
+                    return new Reward { k = RewardKind.Exp, n = g.v, ups = Progress.AddExp(s, g.v, cfg) };
+                default:
+                    return new Reward { k = RewardKind.Chest, chest = FromKey(g.k) };
+            }
+        }
+
+        // "Rương Bạc", "+10 bi", "+120 XP"
+        public static string GiftName(GiftStep g) =>
+            g.k == "balls" ? $"+{g.v} bi" : g.k == "exp" ? $"+{g.v} XP" : ChestName(FromKey(g.k));
     }
 }

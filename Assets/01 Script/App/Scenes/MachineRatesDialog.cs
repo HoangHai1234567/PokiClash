@@ -73,6 +73,11 @@ namespace PokiClash
 
         public static string Footer(BalanceConfig cfg) =>
             "Thẻ trong rương là bản sao thẻ nội tại của tướng bạn đã có, mỗi thẻ rút riêng. Thẻ Huyền thoại trong Rương vàng: 0,01 % mỗi thẻ. " +
-            $"Mảnh tướng lấy từ boss đã gặp. Thả đủ {cfg.legendMilestone} bi: chắc chắn ra tướng Huyền thoại đầu tiên.";
+            $"Mảnh tướng lấy từ boss đã gặp. Thả đủ {cfg.legendMilestone} bi: chắc chắn ra tướng Huyền thoại đầu tiên." +
+            (cfg.gifts.Count > 0
+                ? " Sau đó là mốc quà, tính theo số bi đã thả (cược ×N tính N bi), hết thì vòng lại: " +
+                  string.Join(", ", cfg.gifts.Select(g => $"{g.n} bi {Pachinko.GiftName(g)}")) + "."
+                : "") +
+            " Nút cược mở theo số bi đang có: " + string.Join(", ", cfg.xSteps.Where(q => q.balls > 0).Select(q => $"×{q.x} từ {q.balls} bi")) + ".";
     }
 }

@@ -6,11 +6,21 @@ using System.Linq;
 
 namespace PokiClash.Core
 {
+    // mức cược ×x của máy bi mở khi đang có ít nhất `balls` bi (như máy tham khảo: có nhiều bi thì được thả nhanh hơn)
     [Serializable]
     public class XStep
     {
         public int x;
-        public int lv;
+        public int balls;
+    }
+
+    // một mốc quà của máy bi: tiêu đủ n bi (tính theo cược) thì nhận k (chest_wood, chest_silver, chest_gold; balls, exp với số v)
+    [Serializable]
+    public class GiftStep
+    {
+        public int n;
+        public string k;
+        public int v;
     }
 
     [Serializable]
@@ -228,6 +238,7 @@ namespace PokiClash.Core
         // máy bi: giới hạn mỗi đợt theo cấp, bản sao khi mốc Huyền thoại đã có tướng, bảng rương
         public int maxPerDrop = 20, maxPerDropHigh = 30, maxPerDropLevel = 15, legendCopies = 15;
         public List<ChestTable> chests = new List<ChestTable>();
+        public List<GiftStep> gifts = new List<GiftStep>(); // mốc quà sau mốc Huyền thoại, hết thì vòng lại từ đầu
         public int ratesBalls; // số bi của lần mô phỏng đo tỉ lệ
         public List<SlotRate> rates = new List<SlotRate>();
 
@@ -260,6 +271,7 @@ namespace PokiClash.Core
             c.formStars = (int[])formStars.Clone();
             c.poolWeight = (double[])poolWeight.Clone();
             c.chests = new List<ChestTable>(chests);
+            c.gifts = new List<GiftStep>(gifts);
             c.rates = new List<SlotRate>(rates);
             return c;
         }
@@ -308,7 +320,7 @@ namespace PokiClash.Core
             foreach (var x in J.Arr(p, "xSteps"))
             {
                 var xo = J.Obj(x);
-                c.xSteps.Add(new XStep { x = J.Int(xo, "x"), lv = J.Int(xo, "lv") });
+                c.xSteps.Add(new XStep { x = J.Int(xo, "x"), balls = J.Int(xo, "balls") });
             }
             var w = J.Obj(root, "poolWeight");
             c.poolWeight = new double[5];
@@ -326,6 +338,11 @@ namespace PokiClash.Core
                     {
                         c.chests.Add(new ChestTable { kind = kv.Key, rolls = Rolls(J.Arr(kv.Value)) });
                     }
+                foreach (var g in J.Arr(pk, "gifts"))
+                {
+                    var go = J.Obj(g);
+                    c.gifts.Add(new GiftStep { n = J.Int(go, "n"), k = J.Str(go, "k"), v = J.Int(go, "v") });
+                }
                 var m = J.Obj(pk, "measured");
                 c.ratesBalls = J.Int(m, "balls");
                 var rates = J.Obj(m, "rates");

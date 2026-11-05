@@ -1470,7 +1470,7 @@
    "enemies": [
     [
      "kiem_linh",
-     101,
+     68,
      true
     ]
    ]
@@ -1485,12 +1485,12 @@
    "enemies": [
     [
      "meo_quyen",
-     104,
+     71,
      true
     ],
     [
      "bo_cap",
-     104,
+     71,
      false
     ]
    ]
@@ -1505,7 +1505,7 @@
    "enemies": [
     [
      "bo_cap",
-     107,
+     74,
      true
     ]
    ]
@@ -1520,12 +1520,12 @@
    "enemies": [
     [
      "bo_ngua",
-     110,
+     77,
      true
     ],
     [
      "soi_linh",
-     110,
+     77,
      false
     ]
    ]
@@ -1540,17 +1540,17 @@
    "enemies": [
     [
      "bach_ho",
-     113,
+     80,
      true
     ],
     [
      "soi_linh",
-     113,
+     80,
      false
     ],
     [
      "bach_ho",
-     113,
+     80,
      false
     ]
    ]
@@ -1565,7 +1565,7 @@
    "enemies": [
     [
      "meo_quyen",
-     121,
+     88,
      true
     ]
    ]
@@ -1580,12 +1580,12 @@
    "enemies": [
     [
      "bo_cap",
-     124,
+     91,
      true
     ],
     [
      "bo_ngua",
-     124,
+     91,
      false
     ]
    ]
@@ -1600,7 +1600,7 @@
    "enemies": [
     [
      "bo_ngua",
-     127,
+     94,
      true
     ]
    ]
@@ -1615,12 +1615,12 @@
    "enemies": [
     [
      "soi_linh",
-     130,
+     97,
      true
     ],
     [
      "bach_ho",
-     130,
+     97,
      false
     ]
    ]
@@ -1635,17 +1635,17 @@
    "enemies": [
     [
      "bach_ho",
-     133,
+     100,
      true
     ],
     [
      "bach_ho",
-     133,
+     100,
      false
     ],
     [
-     "bu_long",
-     133,
+     "doc_giac",
+     100,
      false
     ]
    ]
@@ -1660,7 +1660,7 @@
    "enemies": [
     [
      "bo_cap",
-     141,
+     108,
      true
     ]
    ]
@@ -1675,12 +1675,12 @@
    "enemies": [
     [
      "bo_ngua",
-     144,
+     111,
      true
     ],
     [
      "soi_linh",
-     144,
+     111,
      false
     ]
    ]
@@ -1695,7 +1695,7 @@
    "enemies": [
     [
      "soi_linh",
-     147,
+     114,
      true
     ]
    ]
@@ -1710,12 +1710,12 @@
    "enemies": [
     [
      "bach_ho",
-     150,
+     117,
      true
     ],
     [
-     "bu_long",
-     150,
+     "doc_giac",
+     117,
      false
     ]
    ]
@@ -1729,8 +1729,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "bu_long",
-     153,
+     "doc_giac",
+     120,
      true
     ]
    ]
@@ -1744,13 +1744,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "phao_hop",
-     156,
+     "phi_thuong",
+     123,
      true
     ],
     [
-     "kiem_linh",
-     156,
+     "khien_bac",
+     123,
      false
     ]
    ]
@@ -1764,8 +1764,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "kiem_linh",
-     159,
+     "khien_bac",
+     126,
      true
     ]
    ]
@@ -1779,13 +1779,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "meo_quyen",
-     162,
+     "chien_than",
+     129,
      true
     ],
     [
-     "bo_cap",
-     162,
+     "thiet_phu",
+     129,
      false
     ]
    ]
@@ -1799,8 +1799,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_cap",
-     165,
+     "thiet_phu",
+     132,
      true
     ]
    ]
@@ -1815,17 +1815,17 @@
    "enemies": [
     [
      "bach_ho",
-     168,
+     135,
      true
     ],
     [
-     "bo_ngua",
-     168,
+     "tam_kiem",
+     135,
      false
     ],
     [
-     "soi_linh",
-     168,
+     "ung_thep",
+     135,
      false
     ]
    ]
@@ -1840,7 +1840,7 @@
    "enemies": [
     [
      "bo_ngua",
-     161,
+     128,
      true
     ]
    ]
@@ -1855,12 +1855,12 @@
    "enemies": [
     [
      "soi_linh",
-     164,
+     131,
      true
     ],
     [
      "bach_ho",
-     164,
+     131,
      false
     ]
    ]
@@ -1875,7 +1875,7 @@
    "enemies": [
     [
      "bach_ho",
-     167,
+     134,
      true
     ]
    ]
@@ -1889,13 +1889,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "bu_long",
-     170,
+     "doc_giac",
+     137,
      true
     ],
     [
-     "phao_hop",
-     170,
+     "phi_thuong",
+     137,
      false
     ]
    ]
@@ -1909,8 +1909,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "phao_hop",
-     173,
+     "phi_thuong",
+     140,
      true
     ]
    ]
@@ -1924,13 +1924,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "kiem_linh",
-     176,
+     "khien_bac",
+     143,
      true
     ],
     [
-     "meo_quyen",
-     176,
+     "chien_than",
+     143,
      false
     ]
    ]
@@ -1944,8 +1944,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "meo_quyen",
-     179,
+     "chien_than",
+     146,
      true
     ]
    ]
@@ -1959,13 +1959,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_cap",
-     182,
+     "thiet_phu",
+     149,
      true
     ],
     [
-     "bo_ngua",
-     182,
+     "tam_kiem",
+     149,
      false
     ]
    ]
@@ -1979,8 +1979,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_ngua",
-     185,
+     "tam_kiem",
+     152,
      true
     ]
    ]
@@ -1995,17 +1995,17 @@
    "enemies": [
     [
      "bach_ho",
-     188,
+     155,
      true
     ],
     [
-     "soi_linh",
-     188,
+     "ung_thep",
+     155,
      false
     ],
     [
-     "bach_ho",
-     188,
+     "kim_nghe",
+     155,
      false
     ]
    ]
@@ -2020,7 +2020,7 @@
    "enemies": [
     [
      "soi_linh",
-     181,
+     148,
      true
     ]
    ]
@@ -2035,12 +2035,12 @@
    "enemies": [
     [
      "bach_ho",
-     184,
+     151,
      true
     ],
     [
-     "bu_long",
-     184,
+     "doc_giac",
+     151,
      false
     ]
    ]
@@ -2054,8 +2054,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "bu_long",
-     187,
+     "doc_giac",
+     154,
      true
     ]
    ]
@@ -2069,13 +2069,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "phao_hop",
-     190,
+     "phi_thuong",
+     157,
      true
     ],
     [
-     "kiem_linh",
-     190,
+     "khien_bac",
+     157,
      false
     ]
    ]
@@ -2089,8 +2089,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "kiem_linh",
-     193,
+     "khien_bac",
+     160,
      true
     ]
    ]
@@ -2104,13 +2104,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "meo_quyen",
-     196,
+     "chien_than",
+     163,
      true
     ],
     [
-     "bo_cap",
-     196,
+     "thiet_phu",
+     163,
      false
     ]
    ]
@@ -2124,8 +2124,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_cap",
-     199,
+     "thiet_phu",
+     166,
      true
     ]
    ]
@@ -2139,13 +2139,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_ngua",
-     202,
+     "tam_kiem",
+     169,
      true
     ],
     [
-     "soi_linh",
-     202,
+     "ung_thep",
+     169,
      false
     ]
    ]
@@ -2159,8 +2159,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "soi_linh",
-     205,
+     "ung_thep",
+     172,
      true
     ]
    ]
@@ -2175,17 +2175,17 @@
    "enemies": [
     [
      "bach_ho",
-     208,
+     175,
      true
     ],
     [
-     "bach_ho",
-     208,
+     "kim_nghe",
+     175,
      false
     ],
     [
      "bu_long",
-     208,
+     175,
      false
     ]
    ]
