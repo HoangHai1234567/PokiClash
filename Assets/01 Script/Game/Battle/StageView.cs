@@ -125,21 +125,27 @@ namespace PokiClash
             string z = "battle_" + Keys.Of(zone.id);
             if (st == null || !App.Art) return z;
             string s = $"{z}_s{st.idx}";
-            if (phase > 1 && App.Art.HasArt($"{s}_{phase}")) return $"{s}_{phase}";
-            if (App.Art.HasArt(s)) return s;
+            if (phase > 1 && HasArena($"{s}_{phase}")) return $"{s}_{phase}";
+            if (HasArena(s)) return s;
             string c = $"{z}_c{st.chapter + 1:00}";
-            return App.Art.HasArt(c) ? c : z;
+            return HasArena(c) ? c : z;
         }
+
+        // nền có ảnh riêng, hoặc mượn ảnh nền khác: đảo Mộc dùng chung nền (ArtGen/BattleBG/build_moc.py), khoá trong arena_fx.json có
+        // "use" (khoá nền có ảnh) và "tint" (màu phủ ảnh: ải mini boss, boss dạng 2, 3)
+        static bool HasArena(string name) => App.Art.HasArt(name) || ArenaAnim.Use(name.Substring("battle_".Length)) != null;
 
         void ApplyArena(int phase)
         {
             string name = ArenaArt(zone, stage, phase);
             if (name == arenaArt) return;
             arenaArt = name;
-            var art = App.Art ? App.Art.Get(name) : null;
-            Theme.SetSprite(bg, art);
-            bg.color = art ? Color.white : Theme.Hex(zone.skyBottom);
             string key = name.Substring("battle_".Length);
+            string use = ArenaAnim.Use(key);
+            var art = App.Art ? App.Art.Get(use != null ? "battle_" + use : name) : null;
+            Theme.SetSprite(bg, art);
+            string tint = ArenaAnim.Tint(key);
+            bg.color = art ? (tint != null ? Theme.Hex(tint) : Color.white) : Theme.Hex(zone.skyBottom);
             sky.color = Theme.Hex(ArenaAnim.Sky(key) ?? zone.skyTop);
             if (arena) arena.Bind(key);
             fitRoom = -1;

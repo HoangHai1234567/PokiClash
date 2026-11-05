@@ -188,16 +188,24 @@ namespace PokiClash.EditorTools
         static void TryArenas()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
-            App.I.StartCoroutine(WithSaveBackup(RunArenas()));
+            App.I.StartCoroutine(WithSaveBackup(RunArenas(Elem.Thuy, 400)));
         }
 
-        // Mỗi sàn đấu một trận (ArtGen/BattleBG/build_thuy.py): chụp lúc chờ chọn thẻ, rồi 0,8 s sau (phần động đã đổi chỗ)
-        static IEnumerator RunArenas()
+        // đảo Mộc dùng chung nền (ArtGen/BattleBG/build_moc.py): ải 5 mượn nền ải 1, ải 20 mượn nền chặng 21–29 kèm màu phủ
+        [MenuItem("PokiClash/Thử/Sàn đấu đảo Mộc: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
+        static void TryArenasMoc()
         {
-            shot = 400;
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunArenas(Elem.Moc, 430)));
+        }
+
+        // Mỗi sàn đấu một trận (ArtGen/BattleBG/build_thuy.py, build_moc.py): chụp lúc chờ chọn thẻ, rồi 0,8 s sau (phần động đã đổi chỗ)
+        static IEnumerator RunArenas(Elem zone, int first)
+        {
+            shot = first;
             foreach (int idx in new[] { 1, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70 }) // đủ 9 chặng, 5 mini boss, boss
             {
-                var st = App.Data.Stages.FirstOrDefault(s => s.zone == Elem.Thuy && s.idx == idx);
+                var st = App.Data.Stages.FirstOrDefault(s => s.zone == zone && s.idx == idx);
                 if (st == null) continue;
                 yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
                 var ctl = Object.FindAnyObjectByType<BattleController>();
@@ -208,7 +216,7 @@ namespace PokiClash.EditorTools
                 yield return Shot($"san_dau_{idx:00}_b");
             }
             yield return Go(SceneIds.Hub);
-            Debug.Log($"[Thử] Xong sàn đấu đảo Thủy: ảnh trong {ShotDir}");
+            Debug.Log($"[Thử] Xong sàn đấu đảo {zone}: ảnh trong {ShotDir}");
         }
 
         [MenuItem("PokiClash/Thử/Trận nhiều địch: mặt địch góc trên, dấu X tướng gục (đang Play)", priority = 107)]

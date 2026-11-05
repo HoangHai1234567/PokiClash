@@ -3,7 +3,8 @@
 // nằm ngay trên ảnh nền, dưới tướng, trong prefab Screens/Battle (menu "PokiClash/Prefab/Sàn đấu: lớp phần động"); StageView gọi
 // Bind(khoá nền) mỗi lần đổi nền (boss tiến hóa đổi sang nền dạng sau). Mỗi hình sinh từ prefab mục Items/HinhDong.
 // Món: lấp lánh, bọt, bụi nước, sóng, gợn tròn, quầng sáng, tia đèn hải đăng, mưa, nước thác, sương, cầu vồng, bong bóng, đom đóm,
-// vệt trăng, vòng phù văn, đốm hồn, lá rơi, xoáy nước, đinh ba, sét (nền loé theo), mây bão, vòi rồng. "img" trong json đổi ảnh của
+// vệt trăng, vòng phù văn, đốm hồn, lá rơi, xoáy nước, đinh ba, sét (nền loé theo), mây bão, vòi rồng. Nền dùng chung (đảo Mộc): khoá có
+// "use" mượn ảnh nền khác, "tint" phủ màu ảnh nền (StageView). "img" trong json đổi ảnh của
 // món (boss 70 dùng xoáy, đinh ba, sóng cỡ lớn san_*). Flare(): quầng sáng, phù văn, tia đèn bừng lên, xoáy quay nhanh
 // (khi tướng dùng chiêu, Tuyệt kỹ). Tắt "nét vẽ rung" (hoặc chụp ảnh tĩnh) thì đứng yên như IslandAnim.
 using System.Collections.Generic;
@@ -52,6 +53,10 @@ namespace PokiClash
         // màu trời phủ phần dôi trên đầu máy dài; null khi nền không có trong json
         public static string Sky(string key) => J.Str(Entry(key), "sky");
 
+        // nền dùng chung (đảo Mộc, build_moc.py --xuat): khoá mượn ảnh của khoá khác ("use") và phủ màu lên ảnh nền ("tint")
+        public static string Use(string key) => J.Str(Entry(key), "use");
+        public static string Tint(string key) => J.Str(Entry(key), "tint");
+
         // Dùng khi dựng prefab (Editor).
         public void Setup(Image item) => itemPrefab = item;
 
@@ -90,18 +95,18 @@ namespace PokiClash
                 case "spray": return new Spray { img = Images("anim_foam", 1)[0] };
                 case "wave": return new Drift { items = Images(img ?? "anim_wave", n) };
                 case "ripple": return new Ripple { items = Images("san_ripple", n) };
-                case "glow": return new Glow { img = Images("san_glow", 1, J.Str(it, "c"))[0] };
+                case "glow": return new Glow { img = Images(img ?? "san_glow", 1, J.Str(it, "c"))[0] };
                 case "beam": return new Beam { img = Images("san_beam", 1)[0], angle = (float)J.Num(it, "a"), thin = (float)J.Num(it, "q", 0.4) };
                 case "rain": return new Rain { items = Images(null, n, "#e8f0ff") };
                 case "fall": return new Fall { items = Images("san_fall", 3), top = (float)J.Num(it, "t"), bottom = (float)J.Num(it, "b", 1) };
-                case "mist": return new Mist { items = Images("san_mist", n) };
+                case "mist": return new Mist { items = Images(img ?? "san_mist", n) };
                 case "rainbow": return new Rainbow { img = Images("san_rainbow", 1)[0] };
                 case "bubbles": return new Bubbles { items = Images("san_bubble", n), many = Sprite("san_bubbles") };
                 case "firefly": return new Firefly { items = Images("san_firefly", n) };
                 case "shimmer": return new Shimmer { img = Images("san_moonlight", 1)[0] };
-                case "rune": return new Rune { img = Images("san_rune", 1)[0] };
-                case "wisp": return new Wisp { items = Images("san_wisp", n) };
-                case "leaf": return new Leaf { items = Images("anim_leaf", 2) };
+                case "rune": return new Rune { img = Images(img ?? "san_rune", 1)[0] };
+                case "wisp": return new Wisp { items = Images(img ?? "san_wisp", n) };
+                case "leaf": return new Leaf { items = Images(img ?? "anim_leaf", J.Int(it, "n", 2)) };
                 case "whirlpool": return MakeWhirl((float)J.Num(it, "q", 0.2), (float)J.Num(it, "v", 1), img ?? "anim_whirlpool");
                 case "trident": return new Trident { img = Images(img ?? "anim_trident", 1)[0] };
                 case "bolt": return new Bolt { flash = Images(null, 1, "#e6e0ff")[0], img = Images(img ?? "san_bolt", 1)[0] };
