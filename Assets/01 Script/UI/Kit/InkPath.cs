@@ -56,11 +56,14 @@ namespace PokiClash.UI
             SetVerticesDirty();
         }
 
+#if UNITY_EDITOR
+        // Graphic.OnValidate chỉ có trong Editor: không bọc thì bản build báo CS0115
         protected override void OnValidate()
         {
             base.OnValidate();
             cum = null;
         }
+#endif
 
         void Measure()
         {
