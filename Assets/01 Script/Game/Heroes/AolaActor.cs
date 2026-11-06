@@ -73,6 +73,18 @@ namespace PokiClash.Game
         Transform placeholder;
 
         public AolaAnim[] Forms => forms;
+
+        // không vẽ bóng dưới chân (màn boot: luật UI không vẽ bóng); đổi thì vẽ lại khung
+        bool hideShadow;
+        public bool HideShadow
+        {
+            get => hideShadow;
+            set
+            {
+                hideShadow = value;
+                shown = -1;
+            }
+        }
         public bool HasAnim => clips.Count > 0;
         public float Duration(string clip) => clips.TryGetValue(clip, out var c) ? c.Frames.Count / fps : 0.3f;
 
@@ -469,7 +481,7 @@ namespace PokiClash.Game
             for (int i = 0; i < pool.Count; i++)
             {
                 var (r, m, v, u, c) = pool[i];
-                if (i >= pics.Length || !Corners(anim, pics[i])) { r.enabled = false; continue; }
+                if (i >= pics.Length || (hideShadow && (int)pics[i][0] == shadowSprite) || !Corners(anim, pics[i])) { r.enabled = false; continue; }
                 var p = pics[i];
                 // hiệu ứng ở xa: kéo dần về chỗ đối thủ (đạn bay giữa đường co lại theo)
                 var sh = Vector2.zero;

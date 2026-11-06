@@ -28,6 +28,7 @@ Nền của scene Hub và 5 scene đảo hệ (spec `world-map`, `zone-stages`).
 | `zones/` | Bản đồ đảo hệ GPT trả về (`zone_<hệ>.png`, khổ 2:3): Claude cắt dải 9:16 rồi mới đưa vào game. `zones/thuy70/`, `zones/moc70/`: ảnh bản đồ dài đảo Thủy, đảo Mộc 70 ải (`tai_ve/` ảnh GPT trả về, `doan_<k>.png` đoạn đã duyệt) |
 | `gui_gpt/zone_thuy_70/`, `gui_gpt/zone_moc_70/` | Gói gửi GPT bản đồ dài đảo Thủy, đảo Mộc 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70.py`, `build_zone70_moc.py` |
 | `gui_gpt/zone_kim_70/` | Gói gửi GPT bản đồ dài đảo Kim 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70_kim.py` |
+| `gui_gpt/zone_tho_70/` | Gói gửi GPT bản đồ dài đảo Thổ 70 ải (3 lượt, `HUONG_DAN.md`), sinh bằng `build_zone70_tho.py` |
 | `refs/` | Ảnh mốc, ảnh không dùng nữa (`tach_roi/`) |
 | `../guides/` | Ảnh bố cục bản đồ đảo hệ `L_zone_<hệ>.png`, toạ độ ải dự kiến `zone_nodes.json` |
 
@@ -234,6 +235,23 @@ Khác đảo Hỏa:
 - **Đã gen, duyệt 3 đoạn, ghép và xuất (2026-11-05).** Đường lệch bố cục trung vị 10 px (đoạn 1), 14 px (đoạn 2; khúc cong phải trên bãi ải 30 nông hơn, lệch tới 88 px), 15 px (đoạn 3). Hai dải dán GPT giữ trùng từng điểm ảnh; `va_noi` trừ vạch sọc (đoạn 2 lệch cột 15,4) và nắn mép đường. Còn một vệt ngang rất mờ ở chỗ nối đoạn 1–2, bậc đá có hàng rào bên trái bị cắt phẳng. `--ghep`: cả hai chỗ nối dời 0 px.
 - `--that` dò đường (đủ 10 bãi ải, đường 106 px), sông và lạch dò theo màu nước trên ảnh (sông GPT vẽ lệch bố cục khoảng 50 px ở mép phải). Địa danh (`SPOTS_REAL`) và phần động (`ANIM`: khói ở ống khói lò đúc; lấp lánh ở các chuông, xe goòng quặng bạc, chuôi kiếm, pha lê; gợn ở hồ; sóng) đo tay. Không dùng `gear`, `bell` vì bánh răng, chuông đã vẽ trên ảnh.
 - `--xuat` thay `Assets/03 Art/Islands/zone_kim.png` (bản đồ 8 ải cũ), khoá `zone_kim` trong `island_anim.json`, khối `kim` trong `zones.json`. `compose_islands.py` thấy `zones/kim70/zone_kim70.png` thì không đè đảo Kim.
+
+### Đảo Thổ 70 ải: bản đồ dài 3 đoạn (2026-11-06)
+
+Cùng khuôn đảo Kim. Script [build_zone70_tho.py](build_zone70_tho.py) dùng lại phần chung của `build_zone70.py`, `band_offset` của `build_zone70_moc.py` và `va_noi`, `water_mask`, `trace_across` của `build_zone70_kim.py` (không sửa các file đảo khác), gói ở `gui_gpt/zone_tho_70/`, ảnh ở `zones/tho70/`, bố cục `../guides/L_zone70_tho.png`, toạ độ `../guides/zone70_tho.json`. Lệnh: `--duyet k` (k ≥ 2 tự sửa chỗ nối như đảo Kim), `--ghep`, `--that`, `--xuat`.
+
+Khác đảo Kim:
+- Đường lượn sang phải trước (như đảo Thủy, Hỏa), cùng độ cao 10 ải tướng.
+- Không có sông: hẻm núi khô chạy ngang hết bề ngang ngay sau bãi ải 5, đường qua cầu treo gỗ. Cầu không gắn với chặng nào (chặng 2 Hang Lửng có địa danh riêng). Hẻm nghiêng từ mép trái thấp lên mép phải cao như sông dung nham đảo Hỏa; nghiêng như đảo Kim thì hẻm ôm sát mép trên bãi ải 5. Hồ nước dưới gốc sồi cổ thụ, lạch ra mép trái (chặng 6, Rừng Sồi Già). Kim tự tháp bậc có đền mái vàng và hai sư tử đá sau bãi đấu boss, đỉnh chạm dải biển trên.
+- Địa danh theo tên chặng ở `Assets/01 Script/Editor/IslandGen.cs` (`Tho`): bãi đá cuội có tháp đá xếp, hang lửng, đồi pha lê ngọc lục bảo, mỏ pha lê hồng có mũi khoan, vòng đá đền phù văn (hoa văn, không chữ), hồ dưới sồi cổ thụ, đồi ruộng bậc thang, vách đá có kim cương, xưởng gốm có lò cổ chai, Kim Tự Viện.
+- Nền vàng đất phải đậm hơn hẳn đường cát kem (game dò đường theo màu cát nhạt, `sand_mask`); prompt và `HUONG_DAN.md` dặn riêng, có câu sửa nhanh khi đường lẫn vào nền.
+- Ảnh mẫu lượt 1: đoạn 1 bản đồ dài đảo Mộc đã duyệt (lấy nét và cách dựng), bản đồ Thổ 8 ải cũ (lấy màu vàng đất, núi đất đỏ đỉnh bằng, đồi bậc thang, đền mái vàng, sư tử đá; bỏ lòng sông khô và ốc đảo dừa). Lượt 2, 3 thêm bản đồ cũ để GPT thấy dáng đền, sư tử đá.
+- Khói, bụi, lửa, lấp lánh, quầng sáng không vẽ: game thêm phần động (`IslandAnim`). Cửa lò gốm tối, không lửa; pha lê, kim cương tô phẳng.
+- **Đoạn 1 đã gen, duyệt (2026-11-06).** Đủ 5 địa danh đúng chỗ, hẻm khô, cầu treo rộng bằng đường; nền vàng chanh đậm như bản đồ cũ, đường cát kem tách rõ. Đường lệch bố cục trung vị 28 px, lớn nhất khoảng 100 px ở bãi ải 10 (dời sang trái); hẻm gần như nằm ngang, cầu cao hơn bố cục khoảng 55 px. Đủ 5 bãi phình (rộng 150–265 px, ngưỡng dò 140). Mép trên đường ra ở tâm 766 (bố cục 791), nên bố cục lượt 2 lệch 20–30 px ở chỗ dán.
+- **Đoạn 2 đã gen, duyệt (2026-11-06).** Hồ dưới sồi cổ thụ có lạch ra mép trái, đồi ruộng bậc thang có chòi và đống rơm, vách đá có kim cương (dời trái khoảng 170 px, tràn ra dải ngoài bên trái). Đường lệch bố cục trung vị 9 px, 90% dưới 45 px; 3 bãi phình rộng 256–288 px; mép trên ra ở tâm 241 (bố cục 240). Dải dán trùng từng điểm ảnh. Chỗ nối: mép phải đường có bậc khoảng 8 px, `va_noi` nắn được (vạch sọc lệch cột 2,7); còn một chấm mực nhỏ ở mép phải đường và vệt ngang rất mờ.
+- **Đoạn 3 đã gen, duyệt; ghép và xuất (2026-11-06).** Kim tự tháp bậc có đền cột đỏ mái vàng, cầu thang xuống bãi đấu, hai sư tử đá; lò gốm cổ chai có kệ chum, bàn xoay, củi. Đường lệch bố cục trung vị 2 px. Dải dán trùng từng điểm ảnh, `va_noi` nắn mép đường (vạch sọc lệch cột 1,8). `--ghep`: cả hai chỗ nối dời 0 px, nhìn cỡ thật không thấy vết.
+- `--that` khác đảo Kim: nền vàng chanh (b gần 0, r, g cao) lọt mặt nạ "cát lỏng" của đảo Kim, nên bề rộng đo trên `sand_mask` đóng lỗ 5 px; bậc kim tự tháp màu cát nối liền bãi đấu boss nên bỏ mặt cát trên `STOP_Y = 300`. Đủ 10 bãi ải, đường 104 px, dài 5540 px. Lạch dò theo màu nước, đảo chiều cho chảy từ hồ ra mép trái. Địa danh (`SPOTS_REAL`) và phần động (`ANIM`: khói ở miệng lò gốm; lấp lánh ở quả cầu mái đền, kim cương, pha lê lục bảo, pha lê hồng tím, cục vàng; gợn ở hồ; lá sồi; gió cát; sóng) đo tay, đã chồng soi `soi_that.png`.
+- `--xuat` thay `Assets/03 Art/Islands/zone_tho.png` (bản đồ 8 ải cũ), khoá `zone_tho` trong `island_anim.json` (21 món, 1 dòng lạch), khối `tho` trong `zones.json` (bảng tên `[1, 1, -1, 1, -1, 1, -1, 1, 1, 0]`). Xuất thử ra thư mục tạm trước: chỉ khác phần đảo Thổ. `compose_islands.py` thấy `zones/tho70/zone_tho70.png` thì không đè đảo Thổ. Sau đó chạy menu Unity `PokiClash/Nhập dữ liệu` để dựng lại `ZoneDb.asset`.
 
 Phần dưới là cách cũ (ảnh bố cục `L_zone_*` + prompt nhiều tầng), giữ để tham khảo khi muốn bản đồ giàu địa hình hơn.
 

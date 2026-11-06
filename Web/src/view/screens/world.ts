@@ -115,7 +115,7 @@ export function worldScreen(): Screen {
       render();
       if (!shownIntro && !app.save.intro) {
         shownIntro = true;
-        setTimeout(() => intro(), 500);
+        app.afterBoot(() => setTimeout(() => intro(), 500));
       }
     },
   };

@@ -32,6 +32,7 @@ export class AolaAnim {
   clips: Record<string, Clip> = {};
   imgs: HTMLImageElement[] = [];
   idleH = 200;
+  shadow = -1; // sprite bóng dưới chân (mảnh đầu của dáng đứng)
 
   static load(dir: string): Promise<AolaAnim | null> {
     let p = cache.get(dir);
@@ -74,6 +75,7 @@ export class AolaAnim {
   private prepare() {
     const idle = this.clips[IDLE];
     const shadow = idle.frames[0][0][0];
+    this.shadow = shadow;
     const center = (p: Pic): [number, number] => {
       const im = this.imgs[p[0]];
       const x = (im?.naturalWidth || 0) / 2, y = (im?.naturalHeight || 0) / 2;
@@ -143,11 +145,12 @@ export class AolaAnim {
   }
 
   // vẽ một khung, gốc toạ độ ở điểm khớp (bóng dưới chân); ctx đã đặt sẵn biến đổi ngoài
-  drawFrame(ctx: CanvasRenderingContext2D, name: string, fi: number, scale: number) {
+  drawFrame(ctx: CanvasRenderingContext2D, name: string, fi: number, scale: number, noShadow = false) {
     const c = this.clip(name);
     const frame = c.frames[fi] ?? c.frames[0];
     const base = ctx.getTransform();
     for (const p of frame) {
+      if (noShadow && p[0] === this.shadow) continue;
       let im: CanvasImageSource = this.imgs[p[0]];
       const el = this.imgs[p[0]];
       if (!el || !el.complete || !el.naturalWidth) continue;
@@ -298,8 +301,8 @@ export class Sticker {
     this.b = document.createElement('canvas').getContext('2d')!;
   }
   // vẽ lại khi khung, clip hay cỡ đổi; px = cỡ thật trên màn (đã nhân tỉ lệ màn và dpr)
-  render(anim: AolaAnim, clip: string, fi: number, px: number, flip: boolean, outline = true, silhouette = false) {
-    const key = `${anim.dir}|${clip}|${fi}|${px.toFixed(3)}|${flip}|${outline}|${silhouette}`;
+  render(anim: AolaAnim, clip: string, fi: number, px: number, flip: boolean, outline = true, silhouette = false, noShadow = false) {
+    const key = `${anim.dir}|${clip}|${fi}|${px.toFixed(3)}|${flip}|${outline}|${silhouette}|${noShadow}`;
     if (key === this.key) return;
     this.key = key;
     const c = anim.clip(clip);
@@ -322,7 +325,7 @@ export class Sticker {
       g.scale(-1, 1);
     }
     g.translate(ax, ay);
-    anim.drawFrame(g, clip, fi, px);
+    anim.drawFrame(g, clip, fi, px, noShadow);
     g.setTransform(1, 0, 0, 1, 0, 0);
     if (silhouette) {
       g.globalCompositeOperation = 'source-in';

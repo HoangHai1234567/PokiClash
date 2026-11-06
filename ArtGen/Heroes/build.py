@@ -709,6 +709,252 @@ Do NOT draw: the fist, a spear-shaped middle prong, a blue gem, glowing effects.
         "extra": [],
         "first": ["N03", "N11"],  # gen thử trước: đầu có vương miện (đổi dáng), bàn tay mở nhiều ngón (giữ viền)
     },
+    # Dòng Cánh Cụt (aola 1691 → 1692), tướng Thường ải 10 đảo Thủy, "Đầu bếp xứ băng". Thiết kế Claude đề xuất 2026-11-06 (người
+    # dùng chưa duyệt): cánh cụt mào kiểu rockhopper (mặt xanh thẫm, mày lông vàng xếch cho vẻ chiến), khác con gốc (xanh trời, mặt
+    # trắng, khăn đỏ, cá băng, đĩa sứ bánh cá, chim con tím). Dạng 1 tập sự bếp cầm chảo gang; dạng 2 bếp trưởng, khay băng cá nướng,
+    # chim non phụ bếp. Vòng băng có sao băng (tự chạy) và hơi nóng trên đĩa giữ hình gốc: bỏ khỏi bóng xám, không có nhóm; khi ghép
+    # Claude tô lại cho hợp nét tướng như hiệu ứng nước của Tiểu Y. Bộ ghép: <aola>/reskin/thuy_1691, thuy_1692 (regions.json,
+    # groups.json). Viền px = 0,85% chiều cao cả con trong RegionMap × tỉ lệ phóng của orig/Nxx.png.
+    {
+        "code": "canh_cut_1", "elem": "thuy", "aola": 1691,
+        "hero": "Cánh Cụt", "form": 1, "forms": 2, "form_name": "Cánh Cụt Con",
+        "role_vi": "tướng Thường hệ Thủy (ải 10 đảo Thủy), dạng 1/2, rig aola #1691",
+        "design_vi": ("cánh cụt con tập sự bếp kiểu cánh cụt mào: đầu, lưng và mặt xanh thẫm, bụng trắng lên tới dưới mỏ, mắt to "
+                      "lòng trắng, mày lông vàng xếch xuống phía mỏ, chóp lông nhọn ở hai bên; mào lông nhọn xanh thẫm trên đỉnh; mỏ "
+                      "cam đỏ cười nhếch; khăn bếp xanh trời viền trắng thắt nút bên trái; hai vây ôm chảo gang nhỏ giơ như chùy (mép "
+                      "chảo đóng sương trắng, băng nhũ nhỏ, cán gỗ quấn dây xanh trời, vòng treo tròn); đuôi nhọn xanh thẫm; chân màng "
+                      "hồng nhạt; mặt quả quyết"),
+        "rig_vi": ("con gốc #1691 là chim cánh cụt con mập nhìn thẳng hơi quay phải: đầu liền thân thành một khối tròn, chỏm lông "
+                   "hai thùy trên đỉnh, mỏ hơi lệch phải, khăn vắt ngang ngực thắt nút bên trái hai vạt bay sang trái, hai vây ngắn "
+                   "ôm con cá băng dựng đứng trước bụng (đầu cá trên phải, đuôi cá tròn ở dưới), đuôi nhọn lộ sau thân ở dưới trái, "
+                   "hai bàn chân màng phẳng. Bỏ khỏi bóng xám: bóng dưới chân và vòng băng có sao băng"),
+        "regions_vi": ("1 chỏm lông, 2 đầu liền thân và mặt, 3 mỏ, 4 dải khăn, 5 hai vạt nút khăn, 6 con cá cầm tay (thành chảo), "
+                       "7 vây trái, 8 vây phải, 9 đuôi, 10 hai bàn chân"),
+        "anchor": True,
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: a little PENGUIN COOK, a scrappy apprentice cook from the icy seas who fights with a small frying pan, the first stage of a two-stage Water evolution line, in the same front view (turned a little to the viewer's right) and pose as image 1, on a plain white background. A chubby penguin chick in the spirit of a crested rockhopper penguin, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one round chubby blob that is the head and the body together (no neck), one small crest on top, one beak, a neckerchief (a band across the chest and two knot ends), one small frying pan held upright in front of the belly, two short flippers holding it, one short tail, two flat webbed feet; no arms or hands, no legs showing, no wings, no extra limbs;
+- every joint where it is: the crest sits on top of the head; the beak sits on the face a little right of centre, between the eyes; the neckerchief band wraps across the chest where the head part meets the belly part, its knot at the viewer-left side; the flippers start at the sides of the body and reach in front of the belly from the left and the right, closing around the pan where its round part meets the handle; the tail sticks out from behind the lower left of the body; the feet sit flat under the bottom of the body;
+- every part pointing the same way: the face is turned a little to the viewer's right; the upper knot end points up and to the left, the lower one out to the left; the pan's round part is at the TOP, a little right of centre, and its handle curves down and to the left to a round end at the BOTTOM, between the feet; the tail tip points up and to the left;
+- the body, the flippers and the feet about the size and shape of regions 2, 7, 8 and 10; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 crest: a short spiky crest of three or four navy-blue feathers standing up on top of the head, about the size of region 1.
+2 head and body: a round chubby penguin chick: dark navy-blue head, back and sides, and a dark navy face; a white belly that rises up to just under the beak; two big round eyes (a white eye-white, a large dark pupil, one small catchlight dot), and over each eye a bright yellow feather brow that angles down toward the beak and ends in a few short spiky tips at the side of the head, inside the outline: a fierce look. No blush on the cheeks.
+3 beak: a short stubby orange-red beak set in a confident smirk.
+4 and 5 neckerchief: a sky-blue cook's neckerchief with a thin white edge, tied at the viewer-left, its two knot ends fluttering out to the left like the two pieces of region 5.
+6 frying pan: a small black iron frying pan held up like a club: the round pan at the top where region 6 is wide, seen face-on as a tilted oval with the inside of the pan facing the viewer, a crust of white frost and tiny icicles along its rim; a short wooden handle wrapped in sky-blue cord, curving down and to the left and ending in a round hanging ring at the bottom.
+7 and 8 flippers: two short navy flippers with a lighter blue underside, closed around the pan where its round part meets the handle.
+9 tail: a short pointed navy tail.
+10 feet: two flat webbed feet, pale pink.
+
+ATTITUDE: a scrappy apprentice cook ready to fight: brows angled down, a confident smirk, the pan gripped tight in both flippers, chest out; cute and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.
+
+COLOURS: dark navy blue, with a lighter blue on the flipper undersides; a white belly; bright yellow brows; an orange-red beak; pale pink feet; a sky-blue neckerchief; a black iron pan with white frost and a pale wood handle. Few colours.
+
+AVOID: a bright sky-blue body, a white face, a tan belly, pink blush cheeks, a red scarf, a fish held in the flippers, a round two-lobed tuft, a chef hat, ice crystals, snowflakes or rings around the creature (the game adds them), a human face or body, arms or hands, extra limbs, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #1691, khung đứng đầu (21 mảnh): 1 bóng, 2 và 21 vòng băng có sao băng (tự chạy, giữ gốc), 3 chân phải, 4 chân
+        # trái, 5 đuôi, 6 đầu liền thân, 7 chỏm lông, 8 mỏ, 9 và 10 hai vạt nút khăn, 11 dải khăn, 12 cá băng, 13 và 14 vân trên
+        # cá, 15 vây phải, 16 vây trái, 17 má phải, 18 mắt phải, 19 má trái, 20 mắt trái. Clip đứng có mắt nhắm (biến thể), clip
+        # chiêu có chỏm lông dựng gai và mặt há mỏ: xử lý khi ghép.
+        "groups": [
+            ("N01", "mào lông", "head crest", "doi", 17,
+             "a small blue tuft with two round lobes, its flat bottom edge sits on the head",
+             "Chỏm lông xanh hai thùy (1024 × 1024, nền trắng): thùy trái to, thùy phải nhỏ; mép dưới phẳng là chỗ cắm vào đỉnh đầu",
+             """- mép dưới (chỗ cắm vào đầu) đúng chỗ mép dưới cũ, rộng như cũ;
+- ba bốn lông xanh thẫm nhọn dựng lên như concept, cao hơn chỏm cũ một chút được;
+- không vẽ đầu, không chỏm tròn hai thùy, không lông vàng.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small blue tuft with two round lobes (a big one at the left, a small one at the right); its flat BOTTOM edge sits on the top of the head (the head is not shown). Redraw THIS piece as the crest of image 2 (the approved concept): a short spiky crest of three or four navy-blue feathers standing up, its base along the old bottom edge and about as wide, a little taller than the old tuft if needed.
+Do NOT draw: the head, round lobes, yellow feathers.""", "bottom edge (the base)"),
+            ("N02", "đầu liền thân, mặt, mỏ", "head-body with face and beak", "giu", 8,
+             "one round blue blob that is head and body together: white face with two black eyes and pink cheeks, a yellow beak, a tan and white belly",
+             "Khối tròn xanh là đầu liền thân (1024 × 1024, nền trắng): mặt trắng, hai mắt đen, má hồng, mỏ vàng hơi lệch phải; bụng nâu nhạt và trắng; mép dưới phẳng là đáy thân",
+             """- giữ viền ngoài khối tròn như cũ (đỉnh, hai bên, đáy phẳng);
+- đầu, lưng, hai bên và mặt xanh thẫm; bụng trắng lên tới ngay dưới mỏ;
+- hai mắt to (lòng trắng, con ngươi đen, một chấm sáng nhỏ) đúng chỗ mắt cũ; mày lông vàng xếch xuống phía mỏ, chóp lông nhọn ở hai bên nằm trong viền;
+- mỏ cam đỏ ngắn đúng chỗ mỏ cũ, cười nhếch tự tin; không má hồng;
+- không vẽ khăn, mào, vây, chảo, chân.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): one round blob that is the head and the body together (no neck), with a white face, two black eyes, pink cheeks, a yellow beak a little right of centre, and a tan and white belly; its flat BOTTOM edge is the bottom of the body. Redraw THESE pieces as the head and body of image 2 (the approved concept), keeping the outline of the blob: dark navy-blue head, back, sides and face; a white belly rising up to just under the beak; the two big round eyes (a white eye-white, a large dark pupil, one small catchlight dot) exactly where the old eyes are, under the bright yellow feather brows that angle down toward the beak and end in short spiky tips at the sides, inside the outline; the short orange-red beak where the old beak is, in a confident smirk.
+The neckerchief, the flippers and the pan are drawn over this group later: draw the whole body under them.
+Do NOT draw: the neckerchief, the crest, the flippers, the frying pan, the feet, pink cheeks, a white face, a tan belly.""", None),
+            ("N03", "khăn bếp", "neckerchief", "doi", 6,
+             "a red scarf: a band curving across the chest, its knot at the left with two ends fluttering out to the left",
+             "Khăn đỏ (1024 × 1024, nền trắng): dải khăn cong lõm xuống vắt ngang ngực, nút ở đầu trái với hai vạt bay sang trái (vạt trên chĩa lên trái, vạt dưới chĩa trái); đầu phải nhọn cong lên",
+             """- dải khăn đi đúng đường cong cũ, hai đầu dải đúng chỗ cũ;
+- nút ở đầu trái, hai vạt bay sang trái đúng hướng cũ, cỡ như cũ;
+- khăn xanh trời viền trắng mảnh như concept; không khăn đỏ;
+- không vẽ thân, đầu.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): a red scarf: a band that curves across the chest from the left to the right (the body is not shown), its knot at the LEFT end with two ends fluttering out to the left (the upper one points up and to the left, the lower one out to the left); the right end of the band curls up. Redraw THESE pieces as the neckerchief of image 2 (the approved concept): a sky-blue cook's neckerchief with a thin white edge, the band following exactly the old curve, the knot and its two ends at the left, each end in the place and direction of the old one, about the same size.
+Do NOT draw: the body, the head, a red scarf.""", "band curve and the knot at the left end"),
+            ("N04", "chảo gang", "frying pan", "doi", 14,
+             "a pale-blue frozen fish held upright: wide head at the upper right, body curving down to the left to a round tail at the bottom",
+             "Con cá băng xanh nhạt dựng đứng (1024 × 1024, nền trắng): đầu cá rộng hình bầu dục ở trên bên phải, thân cong xuống trái, đuôi tròn ở dưới",
+             """- mặt chảo tròn ở chỗ đầu cá (trên phải), cán cong xuống trái tới vòng treo tròn ở chỗ đuôi cá (dưới); cỡ như cá cũ;
+- chảo gang đen, lòng chảo quay ra người xem, mép đóng sương trắng và băng nhũ nhỏ; cán gỗ nhạt quấn dây xanh trời;
+- không vẽ vây (nhóm N05), không vẽ cá, không hơi nóng.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): a frozen fish held upright: its wide oval head at the UPPER RIGHT, its body curving down and to the left, a round tail at the BOTTOM. Two flippers hold it around the middle (the flippers are another group). Redraw THESE pieces as the small frying pan of image 2 (the approved concept), held up like a club: the round pan where the fish's head is, seen face-on as a tilted oval with the inside of the pan facing the viewer, black iron with a crust of white frost and tiny icicles along its rim; the short pale wooden handle, wrapped in sky-blue cord, following the fish's curve down and to the left and ending in a round hanging ring where the round tail is. About the same size as the fish.
+Do NOT draw: the flippers, a fish, glowing effects, steam.""", "handle line and its round bottom end"),
+            ("N05", "hai vây", "two flippers", "giu", 10,
+             "two short blue flippers: the left one wide, root at its left end, tip at the right; the right one smaller, root at the right, tip at the left",
+             "Hai vây xanh ngắn (1024 × 1024, nền trắng): vây trái to bè, gốc ở đầu trái, chóp tròn ở bên phải; vây phải nhỏ hơn, gốc ở bên phải, chóp ở bên trái; khoảng trống giữa là chỗ cán chảo",
+             """- viền và chỗ hai vây như cũ;
+- vây xanh thẫm, mặt dưới xanh nhạt hơn; chóp hai vây khép về phía khoảng trống (chỗ cán chảo);
+- không vẽ chảo, thân, ngón tay, móng.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two short flippers that reach across the front of the belly (the body is not shown) and hold an object between them (the object is another group). The viewer-left flipper is the wide one: its root is at its LEFT end, its rounded tip at the right. The viewer-right flipper is smaller: its root is at its RIGHT end, its tip at the left. Redraw THESE two pieces as the flippers of image 2 (the approved concept): dark navy flippers with a lighter blue underside, the tips closed toward the gap between them, as if gripping the pan's handle there.
+Do NOT draw: the frying pan, the body, claws, fingers.""", None),
+            ("N06", "đuôi và hai bàn chân", "tail and feet", "giu", 8,
+             "a pointed blue tail at the upper left (narrow tip at the top, wide end at the bottom right) and two flat orange webbed feet at the bottom",
+             "Đuôi xanh nhọn ở trên trái (chóp hẹp ở trên, đầu rộng ở dưới phải là chỗ giấu sau thân) và hai bàn chân màng cam phẳng ở dưới: chân trái dưới đuôi, chân phải ở bên phải",
+             """- đuôi và hai bàn chân đúng chỗ, đúng cỡ, đúng hướng cũ;
+- đuôi xanh thẫm, chóp nhọn ở trên trái; hai bàn chân màng hồng nhạt;
+- không vẽ thân, không vẽ chân dài.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): a short pointed tail (its narrow tip at the TOP LEFT, its wide end at the bottom right, where it hides behind the body) and two flat orange webbed feet at the bottom (the viewer-left foot under the tail, the viewer-right foot at the right). The body is not shown. Redraw THESE pieces as image 2 (the approved concept) shows them: a short pointed dark navy tail and two flat pale-pink webbed feet, each in its old place, size and direction.
+Do NOT draw: the body, legs, orange feet.""", None),
+        ],
+        "extra": [],
+        "first": ["N02", "N04"],  # gen thử trước: đầu liền thân có mặt (giữ viền), chảo (đổi dáng)
+    },
+    {
+        "code": "canh_cut_2", "elem": "thuy", "aola": 1692,
+        "hero": "Cánh Cụt", "form": 2, "forms": 2, "form_name": "Đầu Bếp Cánh Cụt",
+        "role_vi": "tướng Thường hệ Thủy (ải 10 đảo Thủy), dạng 2/2, rig aola #1692",
+        "design_vi": ("cánh cụt bếp trưởng, lớn lên từ dạng 1: cùng màu xanh thẫm, bụng trắng, mắt to lòng trắng, mày lông vàng dài "
+                      "xếch thành chùm lông nhọn hai bên đầu; mỏ cam đỏ há như đang hô; mào lông nhọn trên đỉnh; mũ bếp trắng cao có "
+                      "nếp, đai xanh trời, nghiêng trái; cổ áo bếp trắng viền xanh trời, tạp dề trắng mép sóng xanh trời; khăn xanh "
+                      "trời nút to giữa ngực; vây trái cuộn như nắm đấm; vây phải đỡ khay băng trong có ba con cá nướng; chim cánh cụt "
+                      "con lông tơ xám (phụ bếp) ngồi trước chân ôm cá nướng; chân hồng nhạt; oai, quả quyết"),
+        "rig_vi": ("con gốc #1692 là chim cánh cụt mập đứng nhìn thẳng hơi quay phải: đầu tròn to (mỏ há), chỏm lông trên đỉnh, mũ "
+                   "bếp phồng nghiêng bên trái đầu, cổ áo hai miếng và tạp dề, khăn nút giữa ngực hai vạt rủ, vây trái giơ trước "
+                   "người như giơ ngón cái, vây phải giấu sau thân đỡ cái đĩa chìa ra bên phải có ba bánh cá, đuôi lộ sau thân ở "
+                   "dưới trái, hai bàn chân màng, chim cánh cụt con tím ngồi trước chân ôm bánh cá. Bỏ khỏi bóng xám: bóng, vòng "
+                   "băng có sao băng, hơi nóng bốc trên đĩa"),
+        "regions_vi": ("1 chỏm lông, 2 mũ bếp, 3 đầu và mặt, 4 mỏ há, 5 thân, 6 cổ áo và tạp dề, 7 khăn, 8 vây trái, 9 vây phải "
+                       "(gần như khuất sau thân, đỡ đĩa), 10 đĩa, 11 ba món trên đĩa, 12 đuôi, 13 hai bàn chân, 14 chim cánh cụt "
+                       "con"),
+        "anchor": True,
+        "prev": [("canh_cut_1", "the approved FIRST stage of this evolution line: keep its colours, crest, face, brows, beak, "
+                                "neckerchief and drawing style",
+                  "dạng 1, cánh cụt con tập sự bếp: xanh thẫm, bụng trắng, mày lông vàng xếch, mỏ cam đỏ, khăn bếp xanh trời, "
+                  "cầm chảo gang. Giữ màu, mào, mặt, mày, mỏ, khăn, nét vẽ")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND and final stage of a two-stage Water evolution line whose first stage is image 6. The scrappy apprentice penguin cook of image 6 has grown into a big, proud HEAD CHEF of the icy seas: a chubby, strong penguin in a chef's toque and apron, one flipper raised in a fist, the other holding out a platter of clear ice with three grilled fish, and its own tiny chick apprentice sitting at its feet. Same front view (turned a little to the viewer's right) and pose as image 1, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big round head with a small crest on top and a chef's hat on its viewer-left side, one open beak, one chubby body, two jacket collar pieces at the neck and an apron over the belly, a neckerchief (a band across the chest, a knot near the centre, two tails hanging down), two flippers, one platter with three grilled fish on it, one short tail, two flat webbed feet, and one tiny chick sitting in front of the feet hugging a small fish; no arms or hands, no legs showing, no wings, no extra limbs;
+- every joint where it is: the head sits on the body (no neck shows); the crest stands on top of the head and the hat sits tilted on the upper viewer-left of the head; the collar pieces sit at both sides under the face; the apron covers the belly; the neckerchief wraps across the chest under the face, its knot a little right of centre; the viewer-left flipper is held up in front of the body at the left; the viewer-right flipper rises behind the body on the right and holds the platter up from below (it is almost hidden); the platter is held out at the viewer-right, level with the chin; the tail sticks out from behind the lower left of the body; the feet sit flat under the bottom of the body; the chick sits on the ground in front of the feet, a little right of centre;
+- every part pointing the same way: the face is turned a little to the viewer's right; the hat leans to the upper left; the crest's feathers point up; the two neckerchief tails hang down, the right one longer and flaring out to the lower right; the tip of the viewer-left flipper curls up; the platter lies flat, seen almost edge-on, its long side running left to right; the tail's tip points down to the lower right;
+- the head, the body, the flippers and the feet about the size and shape of regions 3, 5, 8, 9 and 13; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 crest: a spiky crest of navy feathers on top of the head, a little bigger than in image 6.
+2 hat: a tall pleated white chef's toque with a sky-blue band, leaning to the upper left, about the size of region 2 or a little taller.
+3 head: the same dark navy head and face as image 6, grown up: two big round eyes (a white eye-white, a large dark pupil, one small catchlight dot) under long bright yellow feather brows that angle down toward the beak and sweep out into spiky plumes at the sides of the head; a white throat under the beak. No blush on the cheeks.
+4 beak: a bigger orange-red beak, open in a confident battle shout, a small red mouth inside.
+5 body: a big chubby body: navy sides and a white belly.
+6 collar and apron: the white collar of a chef's jacket with sky-blue piping, in two pieces at both sides under the face; a white apron with a sky-blue wavy hem over the belly, its bottom edge following the lower outline of region 6.
+7 neckerchief: the sky-blue neckerchief of image 6 grown big, with a thin white edge: a band across the chest, a big knot and two tails hanging down.
+8 viewer-left flipper: a short navy flipper with a lighter blue underside, curled up in front of the body like a fist ready to punch, its tip curled up where region 8 has a bump at the top.
+9 viewer-right flipper: navy, raised behind the body, holding the platter up from below; only small bits of it show.
+10 platter: a flat oval platter carved from clear pale-blue ice, with a frosty white rim, held out at the viewer-right like region 10.
+11 food: three grilled fish lying on the platter, golden brown with dark grill stripes, their tails curled up, piled like region 11.
+12 tail: a short pointed navy tail.
+13 feet: two flat webbed feet, pale pink.
+14 chick: a tiny round penguin chick of fluffy pale-grey down with a white face, two tiny yellow brow tufts, small fierce open eyes, a stubby orange-red beak and pink feet, hugging a small grilled fish to its chest: the head chef's own little apprentice, about the size of region 14.
+
+ATTITUDE: a proud, fiery head chef ready to fight: brows angled down, the beak open in a confident shout, the fist raised, the platter held high; the chick looks just as determined; strong and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this line: keep its colours, crest, face, brows, beak, neckerchief and drawing style, so both stages read as the same creature growing up.
+
+COLOURS: as in image 6: dark navy blue with a lighter blue on the flipper undersides; white belly, collar, apron and hat; sky-blue neckerchief, hat band and trims; bright yellow brows; an orange-red beak; pale pink feet; clear pale-blue ice; golden brown fish; a pale grey chick. Few colours.
+
+AVOID: a bright sky-blue body, a white face, a tan belly, pink blush cheeks, a red scarf, a white porcelain plate, cakes or pastries, a purple chick, a chick with closed eyes, a frying pan, steam or smoke, ice crystals, snowflakes or rings around the creature (the game adds them), a human face or body, arms or hands, extra limbs, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #1692, khung đứng đầu (44 mảnh): 1 bóng, 2 và 44 vòng băng có sao băng, 41 và 42 hơi nóng (giữ gốc); 3 chân trái,
+        # 4 đuôi, 5 chân phải, 6 vây phải (sau thân, đỡ đĩa), 7 thân, 8 đầu, 9 và 21 cổ áo, 10 tạp dề, 11 mỏ, 12 miệng, 13 lưỡi,
+        # 14 và 15 má, 16 mắt phải, 43 mắt trái, 17 và 33 dải khăn, 34 nút khăn, 19 và 20 hai vạt, 18 vây trái, 22-32 chim con
+        # (thân, chân, má, bánh cá, vây, mỏ, mắt), 35 chỏm lông, 36 mũ bếp, 37 đĩa, 38-40 ba bánh cá. Đòn đánh tung chim con lao
+        # tới đối thủ (hình chim con trượt to là biến thể): xử lý khi ghép.
+        "groups": [
+            ("N01", "mào lông và mũ bếp", "head crest and chef hat", "doi", 12,
+             "a puffy white chef hat at the left, tilted; a blue crest of rounded feathers at the right, its flat bottom edge on the head",
+             "Mũ bếp trắng phồng ở bên trái (nghiêng sang trái, đáy mũ ở dưới phải là chỗ đội lên đầu); chỏm lông xanh ba thùy tròn ở bên phải, mép dưới phẳng cắm vào đỉnh đầu",
+             """- đáy mũ và mép dưới chỏm lông đúng chỗ cũ;
+- mũ bếp trắng cao có nếp gấp, đai xanh trời, nghiêng lên trái; chỏm lông xanh thẫm nhọn dựng lên;
+- không vẽ đầu, mặt.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design). At the LEFT, a puffy white chef hat tilted to the left; its bottom, at its lower right, sits on the upper viewer-left of the head (the head is not shown). At the RIGHT, a blue crest of three rounded feathers; its flat BOTTOM edge sits on the top of the head. Redraw THESE two pieces as image 2 (the approved concept) shows them: the tall pleated white chef's toque with a sky-blue band, leaning to the upper left, its bottom where the old hat's bottom is; the spiky crest of navy feathers, its base along the old bottom edge. Each about the size of the old piece; the hat may be a little taller.
+Do NOT draw: the head, a face, round blue lobes.""", "bottom of the hat and the base of the crest"),
+            ("N02", "đầu, mặt, mỏ", "head with face and beak", "doi", 10,
+             "a big round head: blue top and sides, white face with two black eyes, pink cheeks and an open yellow beak; tan chin at the bottom",
+             "Đầu tròn to (1024 × 1024, nền trắng): đỉnh và hai bên xanh, mặt trắng, hai mắt đen, má hồng, mỏ vàng há có lưỡi đỏ hơi lệch phải; cằm nâu nhạt ở dưới",
+             """- mép dưới (cằm), hai mắt, mỏ đúng chỗ cũ; đầu cỡ như cũ;
+- đầu và mặt xanh thẫm như concept, họng trắng dưới mỏ; mắt to lòng trắng, con ngươi đen, một chấm sáng; mày lông vàng dài xếch, chùm lông nhọn ở hai bên đầu;
+- mỏ cam đỏ há như đang hô, miệng đỏ nhỏ; không má hồng, không thè lưỡi;
+- không vẽ mũ, mào trên đỉnh, khăn, thân.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a big round head: blue top and sides, a white face with two black eyes and pink cheeks, an open yellow beak with a tongue a little right of centre, a tan chin at the bottom. Redraw THESE pieces as the head of image 2 (the approved concept): the dark navy head and face with a white throat under the beak; the two big round eyes (a white eye-white, a large dark pupil, one small catchlight dot) exactly where the old eyes are, under long bright yellow feather brows that angle down toward the beak and sweep out into spiky plumes at the sides of the head; the bigger orange-red beak, open in a confident shout with a small red mouth inside, where the old beak is.
+Keep the bottom edge (the chin) where it is and the head about the same size: the hat, the crest, the collar and the neckerchief are drawn over it in other groups.
+Do NOT draw: the chef hat, the crest on top, the neckerchief, the body, pink cheeks, a white face, a tongue sticking out.""", "eyes, beak and the bottom edge (the chin)"),
+            ("N03", "thân, cổ áo, tạp dề", "body, collar and apron", "giu", 10,
+             "a chubby body: tan front, blue sides, white top; two white collar pieces with a blue stripe at the top corners; a light-blue apron with a wave pattern and a bottom edge with two V points",
+             "Thân mập (1024 × 1024, nền trắng): trước nâu nhạt, hai bên xanh, đỉnh trắng; hai miếng cổ áo trắng sọc xanh ở hai góc trên; tạp dề xanh nhạt hoa văn sóng, mép dưới có hai mũi chữ V",
+             """- viền thân như cũ; hai miếng cổ áo và tạp dề đúng chỗ, đúng cỡ;
+- thân hai bên xanh thẫm, bụng trắng; cổ áo bếp trắng viền xanh trời; tạp dề trắng mép sóng xanh trời, mép dưới như cũ;
+- không vẽ đầu, khăn, vây, chân, chim con.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a chubby body (a tan front, blue sides, a white top where the head goes over it); at its top corners two white collar pieces with a blue stripe; over the belly a light-blue apron with a wave pattern and a bottom edge with two V points. Redraw THESE pieces as the body of image 2 (the approved concept), keeping the outline: navy sides and a white belly; the two collar pieces become the white collar of a chef's jacket with sky-blue piping; the apron becomes the white apron with a sky-blue wavy hem, the same outline and bottom edge.
+Do NOT draw: the head, the neckerchief, the flippers, the feet, the chick, a tan belly, a light-blue apron.""", None),
+            ("N04", "khăn bếp", "neckerchief", "doi", 9,
+             "a red neckerchief: a band across the chest, a round knot a little right of centre, two tails hanging down (the right one longer, flaring to the lower right)",
+             "Khăn đỏ (1024 × 1024, nền trắng): dải khăn vắt ngang ngực, nút tròn hơi lệch phải, hai vạt rủ xuống (vạt trái thẳng xuống, vạt phải dài xòe xuống phải)",
+             """- dải, nút, hai vạt đúng chỗ, đúng hướng cũ;
+- khăn xanh trời viền trắng mảnh như dạng 1; không khăn đỏ;
+- không vẽ thân, đầu, cổ áo.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a red neckerchief: a band across the chest from the left to the right (the body is not shown), a round knot a little right of centre, and two tails hanging down from the knot (the left one straight down, the right one longer, flaring out to the lower right). Redraw THESE pieces as the neckerchief of image 2 (the approved concept): sky-blue with a thin white edge, the band along exactly the old line, the knot where the old knot is, both tails in the places and directions of the old tails, about the same size.
+Do NOT draw: the body, the head, the collar, a red scarf.""", "band line and the knot"),
+            ("N05", "hai vây", "two flippers", "giu", 9,
+             "two flippers: at the left a round blue mitten with a thumb-like bump at the top; at the right a long dark-blue flipper with a tan palm, wide at the top, pointed at the bottom",
+             "Hai vây (1024 × 1024, nền trắng): bên trái vây tròn như găng có cục ngón cái ở trên; bên phải vây dài xanh thẫm có lòng nâu nhạt, đầu rộng ở trên (đỡ đĩa), nhọn ở dưới",
+             """- viền và chỗ hai vây như cũ;
+- vây trái xanh thẫm, mặt dưới xanh nhạt, cuộn lại như nắm đấm, chóp cong lên ở chỗ cục ngón cái cũ;
+- vây phải xanh thẫm, mặt dưới xanh nhạt (thay lòng nâu nhạt), đầu rộng ở trên;
+- không vẽ khay, thân, ngón tay.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design). At the LEFT, the viewer-left flipper: a round mitten-like flipper held up in front of the body, with a thumb-like bump at its top. At the RIGHT, the viewer-right flipper: a long dark-blue flipper with a tan palm; it rises behind the body, its wide TOP end holding the platter up from below, its narrow pointed end at the bottom. Redraw THESE two pieces as the flippers of image 2 (the approved concept): dark navy with a lighter blue underside (instead of the tan palm); the viewer-left one curled up like a fist ready to punch, its tip curled up where the bump is.
+Do NOT draw: the platter, the body, fingers, a thumbnail, claws.""", None),
+            ("N06", "khay băng cá nướng", "ice platter with grilled fish", "doi", 15,
+             "a white plate seen almost edge-on with three golden fish-shaped cakes piled on it",
+             "Đĩa trắng nhìn gần ngang (1024 × 1024, nền trắng) với ba bánh cá vàng chất lên, chiếc lớn nhất nằm trên cùng",
+             """- khay đúng chỗ, đúng cỡ, đúng độ nghiêng của đĩa cũ; ba con cá nằm đúng chỗ ba bánh cũ;
+- khay băng trong xanh nhạt, mép sương trắng; **đúng ba** con cá nướng vàng nâu có sọc nướng sẫm, đuôi cong lên (concept vẽ bốn con, rig chỉ có ba mảnh món ăn);
+- không vẽ hơi nóng, bánh, đĩa sứ trắng, vây.""",
+             """Image 1 is four pieces of a 2D cut-out animation puppet (the old design): a flat white plate seen almost edge-on and three golden fish-shaped cakes piled on it, the biggest one on top. A flipper holds the plate up from below at its left part (the flipper is another group). Redraw THESE pieces as image 2 (the approved concept) shows them: a flat oval platter carved from clear pale-blue ice with a frosty white rim, in the place, size and tilt of the old plate; exactly THREE grilled fish, golden brown with dark grill stripes, their tails curled up, each in the place of an old cake and about its size (image 2 shows four fish: draw only three, one for each old cake, because each fish is a separate puppet piece).
+Do NOT draw: steam, cakes or pastries, a white porcelain plate, the flipper, a fourth fish.""", "plate's place and tilt"),
+            ("N07", "đuôi và hai bàn chân", "tail and feet", "giu", 9,
+             "a blue tail at the left (rounded upper left, pointed lower right) and two flat orange webbed feet at the bottom",
+             "Đuôi xanh ở bên trái (đầu tròn ở trên trái, nhọn ở dưới phải) và hai bàn chân màng cam phẳng ở dưới: chân trái dưới đuôi, chân phải ở bên phải",
+             """- đuôi và hai bàn chân đúng chỗ, đúng cỡ cũ;
+- đuôi xanh thẫm; hai bàn chân màng hồng nhạt như dạng 1;
+- không vẽ thân, chim con.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): a tail (rounded at its upper left, narrowing to a point at its lower right; it sticks out from behind the body, which is not shown) and two flat orange webbed feet at the bottom (the viewer-left foot under the tail, the viewer-right foot at the right). Redraw THESE pieces as image 2 (the approved concept) shows them: a short dark navy tail and two flat pale-pink webbed feet, each in its old place, size and direction.
+Do NOT draw: the body, legs, the chick, orange feet.""", None),
+            ("N08", "chim cánh cụt con phụ bếp", "chick helper", "doi", 25,
+             "a tiny purple penguin chick sitting, eyes squeezed shut, hugging a golden fish-shaped cake, two small feet at the bottom",
+             "Chim cánh cụt con tím ngồi (1024 × 1024, nền trắng): mắt nhắm tịt hình > <, má hồng, mỏ vàng, hai vây ôm bánh cá vàng trước ngực, hai bàn chân nhỏ ở dưới",
+             """- chim con đúng chỗ, cỡ như cũ, hai bàn chân ở dưới đúng chỗ cũ;
+- lông tơ xám nhạt, mặt trắng, hai túm mày vàng nhỏ, mắt nhỏ mở quả quyết, mỏ cam đỏ, chân hồng, ôm con cá nướng nhỏ;
+- không tím, không mắt nhắm, không bánh.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a tiny penguin chick sitting on the ground, its eyes squeezed shut, hugging a golden fish-shaped cake to its chest with its two small flippers, two small feet at the bottom. Redraw THESE pieces as the chick of image 2 (the approved concept): a tiny round penguin chick of fluffy pale-grey down with a white face, two tiny yellow brow tufts, small fierce open eyes, a stubby orange-red beak and pink feet, hugging a small grilled fish (golden brown with dark grill stripes) to its chest; in the same place and about the same size, the feet where the old feet are.
+Do NOT draw: the big penguin, purple colours, closed eyes, a cake.""", "feet and its place on the ground"),
+        ],
+        "extra": [],
+        "first": ["N02", "N03"],  # gen thử trước: đầu (đổi dáng), thân có tạp dề (giữ viền)
+    },
 ]
 
 

@@ -29,6 +29,7 @@ Game đánh nhau, vượt ải để thu phục tướng, ghép puzzle xếp kh�
 | [13_DanhSachTuong.md](13_DanhSachTuong.md) | **40 tướng, 8 mỗi hệ**, chọn theo hệ gốc aola; mỗi tướng là một dòng tiến hóa (đảo Thủy đã chọn lại, các hệ khác chờ); nguồn từng dạng, tướng giữ, tướng bỏ; việc dữ liệu còn lại. Prompt hình ở `ArtGen/Heroes` |
 | [14_HeThongAi.md](14_HeThongAi.md) | **Hệ thống ải mới: 70 ải, 10 tướng mỗi đảo** (ải tướng 1, 5, 10, 15, 20, rồi mỗi 10 ải; ải xen giữa: cường hóa, nhóm 2–3 con, lính không thu thập được). Bản thử đảo Thủy trên web, số đo máy tự chơi, việc chép sang Unity |
 | [15_TuongKhoiDau.md](15_TuongKhoiDau.md) | **Kế hoạch chọn 1 trong 5 tướng khởi đầu** (mỗi hệ một con): chỗ lệch do khắc hệ, thứ tự đảo, 1 ô đội; 4 luật cho đảo đầu; bảng đo và tiêu chí đạt; các bước làm; câu cần chốt |
+| [16_ManBoot.md](16_ManBoot.md) | **Màn boot (màn mở game): 3 ý tưởng** (A sa bàn giấy pop-up, B ấn Ngũ Hành, C bìa sổ chiến thuật), đều vẽ vòng khắc; bản web thử ở `Web/src/view/boot/`, việc chuyển sang Unity |
 
 ## Đã chốt (2026-10-31): đổi lõi sang thẻ bài
 

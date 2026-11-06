@@ -40,6 +40,15 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
   - GPT không vẽ lại (người dùng chốt 2026-11-04). Khi ghép, Claude dùng script tô lại mọi khung con cho hợp nét tướng: viền mực nâu dày như các mảnh khác, tô phẳng hai tông xanh của lốc nước trong concept, bọt trắng viền mực mảnh, vân chì chéo nhẹ, bỏ viền trắng và vụn sáng của aola. Dáng từng khung giữ nguyên.
   - #1319 có 41 hình: lốc nước c23 19 hình, vòng nước c57 7 hình, c8 15 hình. Tóc của #1320 (mảnh 30, 35, 40) cũng tự chạy: khi ghép phải khớp hình mới vào từng khung con.
 
+**Dòng Cánh Cụt (`canh_cut_1`, `canh_cut_2`, rig aola #1691, #1692), Claude đề xuất 2026-11-06, người dùng chưa duyệt:**
+- cánh cụt mào kiểu rockhopper: đầu, lưng, mặt xanh thẫm, bụng trắng, mắt to lòng trắng, mày lông vàng xếch (cho vẻ chiến), mỏ cam đỏ, chân hồng nhạt, khăn bếp xanh trời; khác con gốc (xanh trời, mặt trắng, bụng nâu nhạt, khăn đỏ, má hồng);
+- dạng 1 tập sự bếp: chảo gang mép đóng sương thay con cá băng; dạng 2 bếp trưởng: mũ bếp cao đai xanh, cổ áo và tạp dề trắng, khay băng trong có ba con cá nướng thay đĩa sứ bánh cá, chim non lông tơ xám thay chim con tím;
+- vòng băng có sao băng (tự chạy) và hơi nóng trên đĩa giữ hình gốc, bỏ khỏi bóng xám; khi ghép Claude tô lại như hiệu ứng nước của Tiểu Y;
+- đòn đánh dạng 2 tung chim con lao tới đối thủ (hình chim trượt to là biến thể), clip chiêu dạng 1 có chỏm lông dựng gai, mặt há mỏ: xử lý khi ghép.
+- concept dạng 1 Claude duyệt 2026-11-06 (lần gen đầu): đủ phần, đúng hướng như rig; thân hình trứng cao và hẹp hơn khối tròn của rig, chảo cao ngang mỏ (rig: cá ngay dưới mỏ). N02 giữ viền rig và mắt đúng chỗ mắt cũ (xa nhau hơn concept), nên khi soi thử xem mặt có bị dãn không.
+- concept dạng 2 duyệt cùng ngày (lần gen đầu): đủ phần, đúng chỗ; vây trái giơ cao hơn rig (ngang khăn), khay có bốn con cá (rig ba mảnh món ăn) nên prompt N06 ép đúng ba con.
+- nhóm dạng 1 (GPT vẽ cả 6 nhóm một lượt, 2026-11-06): đúng chỗ, đúng đầu chi, mắt và mỏ trùng chỗ cũ. GPT vẽ nét mực đều khoảng 13–16 px ở mọi nhóm, nên N02, N03, N06 dày gấp khoảng 2 lần số đã ghi (8, 6, 8 px); N01, N04, N05 gần đúng. Mào N01 hẹp hơn chỏm cũ, đuôi N06 cao hơn đuôi cũ. Khi ghép: mài mỏng viền ngoài ba nhóm dày (bỏ phần mực phía ngoài, hình co chưa tới 1%) thay vì gen lại.
+
 **Concept đầu tiên được chốt** (2026-11-02): Giọt Sương dạng 1, `inbox/giot_suong_1/concept_duyet.png` (bản giáp ngực trơn, găng giáp bạc, kiếm chắn tay vàng). Chép thành **ảnh mốc style** `refs/style_anchor.png`: concept các tướng sau đính thêm ảnh này (lấy nét và độ chi tiết, không lấy thiết kế).
 
 ## 2. Rig

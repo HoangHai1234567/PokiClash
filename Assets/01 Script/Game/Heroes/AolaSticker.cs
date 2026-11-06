@@ -165,6 +165,9 @@ namespace PokiClash
             }
         }
 
+        // bỏ bóng dưới chân (màn boot)
+        public void HideShadow() => actor.HideShadow = true;
+
         public void Destroy()
         {
             if (world) Object.Destroy(world);

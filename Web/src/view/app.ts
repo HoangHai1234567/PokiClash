@@ -242,6 +242,18 @@ export class App {
 
   openAfk: () => void = () => {};
 
+  // màn boot đang che sảnh: việc nào cần hiện sau boot (hộp giới thiệu) thì chờ
+  booting = false;
+  private bootWaiters: (() => void)[] = [];
+  afterBoot(f: () => void) {
+    if (!this.booting) f();
+    else this.bootWaiters.push(f);
+  }
+  endBoot() {
+    this.booting = false;
+    for (const f of this.bootWaiters.splice(0)) f();
+  }
+
   refreshHud() {
     if (!this.hudParts) return;
     const s = this.save;

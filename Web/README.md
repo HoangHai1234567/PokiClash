@@ -20,6 +20,8 @@ npm run dev
 
 **Thử trên điện thoại:** máy tính và điện thoại cùng wifi. Mở địa chỉ `Network: http://192.168.x.x:5180/` mà cửa sổ dòng lệnh in ra. Màn hình dọc, khung 540 × 960 tự co theo máy.
 
+**Ảnh dùng chung với Unity** (đảo, bệ đá) đọc thẳng từ `../Assets/03 Art` qua đường `/unity/`.
+
 **Hình tướng** đọc thẳng từ `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper\reskin`, không chép vào đây.
 - Thư mục aola ở chỗ khác thì đặt biến môi trường `AOLA_RESKIN` trước khi chạy.
 - Hình là của Baitian, chỉ dùng trong bản thử: không đăng bản web này lên mạng.
@@ -30,6 +32,7 @@ Mỗi chức năng là một **scene** riêng (học theo Clash of Critters). V�
 
 | Scene | Nội dung |
 |---|---|
+| Màn boot | Mở game là diễn cảnh mở (~4 giây, thanh tải kèm mẹo) rồi "Chạm để bắt đầu" vào sảnh. 3 ý tưởng để chọn, đổi bằng thanh "Ý tưởng" trên cùng: A sa bàn giấy, B ấn Ngũ Hành, C bìa sổ. Xem `GD_Claude/16_ManBoot.md`. |
 | Sảnh: đảo lớn | Đảo lớn chia 5 vùng hệ, làng máy bi ở giữa. **Không khoá vùng nào**: bảng tên ghi cấp đề nghị và độ khó so với cấp của bạn ("Vừa sức", "Khó", "Quá mạnh!"), mũi tên chỉ vùng nên đánh. Hàng nút dưới: Tướng, Sổ thẻ, Máy Bi, Đánh tiếp, Sổ tay. |
 | Đảo hệ | Ảnh đảo to, cuộn dọc; ải dọc đường mòn từ bãi biển lên hang boss, mở lần lượt. Khung dưới: ải tiếp theo, địch, thưởng, nút Đánh. **Đảo Thủy (hệ thống mới, 2026-11-02):** 70 ải, 10 ải tướng là mốc lớn, ải xen giữa là chấm nhỏ; chạm mốc mở bảng chặng; 7 rương mốc (mỗi 10 ải). Xem `GD_Claude/14_HeThongAi.md`. **Đảo khác:** 8 ải (ải 4 mini boss, ải 8 boss), 2 rương mốc (qua 4 và 8 ải). |
 | Trận | Lượt luân phiên, bên Tốc cao đi trước mỗi hiệp. Mỗi lượt chọn 5 lần, mỗi lần 1 trong 3 thẻ. Chiêu và Tuyệt kỹ xen vào hàng thẻ, không tốn lần chọn. Đổi tướng đầu lượt. Có tự chơi và tốc độ ×1/×2/×3. |
@@ -47,7 +50,8 @@ Dữ liệu lưu ở `localStorage` của trình duyệt. Xoá ở Sổ tay → 
 
 Đường dẫn tắt khi thử:
 - `?fresh`: bắt đầu lại từ đầu;
-- `?skipintro`: bỏ màn giới thiệu;
+- `?skipintro`: bỏ màn giới thiệu (và màn boot);
+- `?skipboot`: bỏ màn boot; `?boot=a|b|c`: chọn ý tưởng màn boot;
 - `?screen=machine`: mở thẳng một scene (`world`, `heroes`, `cards`, `machine`, `notebook`);
 - `?screen=zone&zone=hoa`: mở thẳng một đảo hệ;
 - `?screen=battle&stage=5`: vào thẳng trận.
