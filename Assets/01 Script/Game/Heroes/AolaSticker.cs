@@ -168,10 +168,19 @@ namespace PokiClash
         // bỏ bóng dưới chân (màn boot)
         public void HideShadow() => actor.HideShadow = true;
 
+        // Xoá cả ảnh trên UI, RT và material. Nơi dựng lại trong cùng khung (ô xem tướng khi tiến hóa, đội hình màn Tướng) mà để
+        // sót ảnh cũ thì nó trỏ vào RT đã giải phóng: trên Android hiện thành ô đen đặc che sau tướng mới.
         public void Destroy()
         {
+            if (cam) cam.enabled = false;
+            if (img) Object.Destroy(img.gameObject);
             if (world) Object.Destroy(world);
-            if (rt) rt.Release();
+            if (rt)
+            {
+                rt.Release();
+                Object.Destroy(rt);
+            }
+            if (mat) Object.Destroy(mat);
         }
     }
 }

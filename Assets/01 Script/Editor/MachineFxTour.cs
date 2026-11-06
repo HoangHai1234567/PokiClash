@@ -68,6 +68,33 @@ namespace PokiClash.EditorTools
             var v = Object.FindAnyObjectByType<MachineBoard>();
             var b = v.Board;
 
+            // 0. màn rảnh: nút vòm, viên cược, đèn vòm chạy; rồi giữ nút thả 0,3 giây (nắp lún, vòng nhịp), nhả
+            yield return Shot("fx_nut");
+            HoldArea hold = null;
+            foreach (var h in Object.FindObjectsByType<HoldArea>(FindObjectsSortMode.None))
+                if (h.name == "nut_tha_bi") hold = h;
+            if (hold)
+            {
+                hold.Down?.Invoke();
+                yield return new WaitForSecondsRealtime(0.3f);
+                yield return Shot("fx_giu");
+                hold.Up?.Invoke();
+                // chờ đợt xong và đóng mọi hộp hiện ra sau đó (mở rương, "Lên cấp!"): máy rảnh, không hộp nào trong 1,5 giây liền
+                t0 = Time.realtimeSinceStartup;
+                float calm = 0;
+                while (calm < 1.5f && Time.realtimeSinceStartup - t0 < 40)
+                {
+                    if (App.Modals.Count > 0)
+                    {
+                        calm = 0;
+                        yield return new WaitForSecondsRealtime(0.5f);
+                        App.Modals.Back();
+                    }
+                    calm = m.Idle && App.Modals.Count == 0 ? calm + Time.unscaledDeltaTime : 0;
+                    yield return null;
+                }
+            }
+
             // 1. vệt bi và đinh sáng lúc bi đang lăn
             Click("×1");
             Click("Thả liền 20");
@@ -84,6 +111,9 @@ namespace PokiClash.EditorTools
             v.SlotFx(1);
             v.SlotFx(4);
             v.SlotFx(8);
+            v.Glow(1, 0); // lớp tia sáng ô: EXP, bi, rương gỗ
+            v.Glow(3, 0);
+            v.Glow(0, 1);
             var cup = b.cups.Find(c => c.r > 0);
             v.CupFx(cup.x, cup.y);
             v.Launch(Board.BW / 2);
@@ -114,6 +144,8 @@ namespace PokiClash.EditorTools
             v.Burst(Board.VaultX, 505, MachineBoard.ChestColor(SlotKind.ChestGold), 1.8f);
             v.JackpotFx(Board.VaultX, 505);
             v.Glow(5, 2);
+            v.CupFx(Board.VaultX, 505); // két sáng
+            v.CloudFace("pk_may_tha_wow", 1.2f);
             age = 0;
             foreach (var at in new[] { 0.03f, 0.1f, 0.2f, 0.35f, 0.5f })
             {

@@ -3,6 +3,7 @@
 // Prefab Assets/04 Prefabs/App/App.prefab chứa sẵn camera, EventSystem, âm thanh, canvas thanh trên và canvas phủ.
 // Chạy trước mọi component khác trong Boot (camera UI, Theme, dữ liệu phải có trước khi canvas và thanh trên Awake).
 using System;
+using System.Collections;
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;
@@ -24,9 +25,23 @@ namespace PokiClash
         public UiAssets uiAssets;
         public ArtLibrary artLibrary;
 
+        [Header("Màn mở game (menu PokiClash/Prefab/Màn mở game: sa bàn)")]
+        public BootTitle bootTitle;
+
         [Header("Thử trong Editor")]
         [Tooltip("Scene mở đầu tiên (để trống là Hub)")]
         public string firstScene = SceneIds.Hub;
+
+        // màn mở game đang che sảnh: hộp giới thiệu, nút Back chờ nó xong
+        public static bool Booting => BootTitle.Current != null;
+
+#if UNITY_EDITOR
+        // menu "PokiClash/Thử/Bỏ màn mở game": Play vào thẳng sảnh
+        public const string SkipBootPref = "PokiClash.SkipBoot";
+        static bool SkipBoot => UnityEditor.EditorPrefs.GetBool(SkipBootPref, false);
+#else
+        const bool SkipBoot = false;
+#endif
 
         // bấm Play thẳng ở một scene chức năng: scene đó nạp Boot rồi Boot mở lại scene đó
         public static string PendingFirst;
@@ -142,6 +157,8 @@ namespace PokiClash
         {
             ApplySettings();
             var first = !string.IsNullOrEmpty(PendingFirst) ? PendingFirst : string.IsNullOrEmpty(firstScene) ? SceneIds.Hub : firstScene;
+            // chạy thẳng vào sảnh (không phải bấm Play ở scene khác): màn mở game diễn trên sảnh đang nạp
+            if (string.IsNullOrEmpty(PendingFirst) && first == SceneIds.Hub && !SkipBoot) BootTitle.Spawn(bootTitle);
             Router.Go(first, PendingArgs);
             PendingFirst = null;
             PendingArgs = null;
@@ -163,10 +180,20 @@ namespace PokiClash
             Haptics.Enabled = st.haptics;
         }
 
+        // khép mây, làm việc giữa chừng (lúc đã che kín), rồi mở mây (màn mở game tắt dưới mây)
+        public static IEnumerator CoverThen(Action mid)
+        {
+            Audio?.Play("whoosh");
+            yield return I.cloud.Close();
+            mid?.Invoke();
+            yield return new WaitForSecondsRealtime(0.06f);
+            yield return I.cloud.Open();
+        }
+
         // nút Back của Android / phím Esc: đóng hộp thoại trên cùng, không có thì quay lại
         public static void Back()
         {
-            if (Router.Busy) return;
+            if (Router.Busy || Booting) return;
             if (Modals.Back()) return;
             Router.Back();
         }

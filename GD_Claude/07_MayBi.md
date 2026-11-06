@@ -78,6 +78,11 @@ Lý do và các lần thử ghi ở change `update-pachinko-feel` (design, mục
 
 **Phần của mình:** hình hạt (`fx_*`, sau này là ảnh gen P4). Code ở `Assets/01 Script/Game/Machine/MachineFx.cs`.
 
+**Tô phẳng (2026-11-06):** lớp quầng mềm của máy đó (glow, flash) đổi sang hình vẽ tay phẳng có viền mực `pk_fx_*` (loé, vòng dày,
+vòng đứt, tia toả, chấm), theo luật hiệu ứng không quầng. Cỡ khoảng một nửa cỡ quầng cũ, tô màu nhạt. Cùng đợt có nút vòm, viên cược,
+đèn vòm chạy, trạng thái sáng của đinh, nấm, cốc, két, ô. Bảng đối chiếu toàn bộ bộ phận và 36 hiệu ứng của máy đó:
+`ArtGen/Pachinko/THAM_KHAO_MAY_BI.md`.
+
 **Đơn vị:** cỡ và tốc tính theo u của Critters, đổi ra px như sau:
 - hiệu ứng theo bi: 1 u = 191 px canvas;
 - hiệu ứng ô: theo bề rộng ô (ô Critters rộng 0,9 u).

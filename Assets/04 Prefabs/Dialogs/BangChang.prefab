@@ -668,7 +668,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4837925218644821566}
+  - {fileID: 4556168788935532212}
   m_Father: {fileID: 5634499884256289248}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -730,6 +730,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 325846232752786677, guid: cf27325d048d5de408795cfa786f652b, type: 3}
+      propertyPath: m_Color.a
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346358848873541315, guid: cf27325d048d5de408795cfa786f652b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2525754505515027276, guid: cf27325d048d5de408795cfa786f652b, type: 3}
       propertyPath: m_Name
       value: BangChang
@@ -737,6 +745,14 @@ PrefabInstance:
     - target: {fileID: 8109593584369136664, guid: cf27325d048d5de408795cfa786f652b, type: 3}
       propertyPath: m_SizeDelta.x
       value: 980
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227562994353468828, guid: cf27325d048d5de408795cfa786f652b, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8227562994353468828, guid: cf27325d048d5de408795cfa786f652b, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 9154014485409040561, guid: cf27325d048d5de408795cfa786f652b, type: 3}
       propertyPath: m_Pivot.x
@@ -850,7 +866,7 @@ MonoBehaviour:
   sub: {fileID: 7238570881213689718}
   scroll: {fileID: 2169709695517188751}
   list: {fileID: 8859461878763551337}
-  close: {fileID: 704204112128234653}
+  close: {fileID: 8492898213660331031}
   rowPrefab: {fileID: 1081828174657601256, guid: c7432e6724da58c41bdfa7dc6358cf52, type: 3}
 --- !u!224 &8353115112424280363 stripped
 RectTransform:
@@ -986,7 +1002,12 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
---- !u!114 &704204112128234653 stripped
+--- !u!224 &4556168788935532212 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4631084481923408653, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
+  m_PrefabInstance: {fileID: 9186826001301585337}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8492898213660331031 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 766452507221242286, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
   m_PrefabInstance: {fileID: 9186826001301585337}
@@ -997,8 +1018,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc860f1eb0e885849bbe9d4bd9e6e361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &4837925218644821566 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4631084481923408653, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
-  m_PrefabInstance: {fileID: 9186826001301585337}
-  m_PrefabAsset: {fileID: 0}

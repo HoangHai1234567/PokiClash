@@ -1,0 +1,128 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ad3c4f85db4a64ab4bb3bc7516c9f6, type: 3}
+  m_Name: thuy_1691
+  m_EditorClassIdentifier: 
+  res: thuy_1691/thuy_1691
+  anim: {fileID: 4900000, guid: 5022d0f299b38af4c925f6a27ef9612c, type: 3}
+  sizes:
+  - {x: 826, y: 372}
+  - {x: 818, y: 830}
+  - {x: 243, y: 209}
+  - {x: 249, y: 144}
+  - {x: 665, y: 348}
+  - {x: 589, y: 838}
+  - {x: 288, y: 199}
+  - {x: 390, y: 224}
+  - {x: 257, y: 97}
+  - {x: 265, y: 110}
+  - {x: 235, y: 237}
+  - {x: 374, y: 80}
+  - {x: 512, y: 505}
+  - {x: 475, y: 511}
+  - {x: 380, y: 512}
+  - {x: 512, y: 483}
+  - {x: 512, y: 488}
+  - {x: 512, y: 183}
+  uvs:
+  - serializedVersion: 2
+    x: 0.6932624
+    y: 0.6848341
+    width: 0.22695035
+    height: 0.06872038
+  - serializedVersion: 2
+    x: 0.0035460992
+    y: 0.35308057
+    width: 0.4858156
+    height: 0.32938388
+  - serializedVersion: 2
+    x: 0.6826241
+    y: 0.0023696683
+    width: 0.1861702
+    height: 0.10663507
+  - serializedVersion: 2
+    x: 0.49468085
+    y: 0.8744076
+    width: 0.19148937
+    height: 0.07464455
+  - serializedVersion: 2
+    x: 0.0035460992
+    y: 0.16706161
+    width: 0.51950353
+    height: 0.18127961
+  - serializedVersion: 2
+    x: 0.49468085
+    y: 0.68720376
+    width: 0.19148937
+    height: 0.18246445
+  - serializedVersion: 2
+    x: 0.84574467
+    y: 0.9300948
+    width: 0.13120568
+    height: 0.06042654
+  - serializedVersion: 2
+    x: 0.6932624
+    y: 0.75829387
+    width: 0.17730497
+    height: 0.06753554
+  - serializedVersion: 2
+    x: 0.65957445
+    y: 0.95379144
+    width: 0.15248227
+    height: 0.039099526
+  - serializedVersion: 2
+    x: 0.49468085
+    y: 0.95379144
+    width: 0.15780142
+    height: 0.043838862
+  - serializedVersion: 2
+    x: 0.84574467
+    y: 0.83056873
+    width: 0.14184397
+    height: 0.09478673
+  - serializedVersion: 2
+    x: 0.53014183
+    y: 0.16706161
+    width: 0.4397163
+    height: 0.062796205
+  - serializedVersion: 2
+    x: 0.53014183
+    y: 0.23459716
+    width: 0.41843972
+    height: 0.2748815
+  - serializedVersion: 2
+    x: 0.6932624
+    y: 0.83056873
+    width: 0.14539006
+    height: 0.1042654
+  - serializedVersion: 2
+    x: 0.7606383
+    y: 0.51421803
+    width: 0.18439716
+    height: 0.16587678
+  - serializedVersion: 2
+    x: 0.0035460992
+    y: 0.68720376
+    width: 0.48404256
+    height: 0.30450237
+  - serializedVersion: 2
+    x: 0.4964539
+    y: 0.51421803
+    width: 0.2570922
+    height: 0.16469194
+  - serializedVersion: 2
+    x: 0.0035460992
+    y: 0.0023696683
+    width: 0.6719858
+    height: 0.15995261
+  shadow: 11
+  source: v2-639295494672491849-4745490

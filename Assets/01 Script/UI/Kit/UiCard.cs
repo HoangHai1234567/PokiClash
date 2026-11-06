@@ -105,6 +105,8 @@ namespace PokiClash.UI
         {
             if (onClick == null) return;
             SketchButton.Sound?.Invoke("pick");
+            UiMotion.Of(this).Punch(0.8f); // bộ UI Sa Bàn: chạm thẻ thì nảy, nét mực bung
+            if (e != null) InkBurst.At(this, e);
             onClick();
         }
     }

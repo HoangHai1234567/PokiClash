@@ -3,7 +3,8 @@
 // - thanh mốc tiến hóa (EvolutionStrip), hàng 4 chỉ số, khung mảnh và nơi rơi (tướng chưa có);
 // - 3 thẻ riêng cỡ nhỏ (chạm mở ChiTietThe), dưới mỗi thẻ là nút "Lên cấp n", thanh bản sao hoặc "Cấp tối đa";
 // - dòng điều kiện tiến hóa và hàng nút Tiềm năng, Tiến hóa, đội;
-// - nút hack tiến hóa ở góc trái sân khấu, trên hàng nút clip, chỉ hiện trong Editor (để thử đổi dạng).
+// - nút hack tiến hóa ở góc trái sân khấu, trên hàng nút clip, để thử đổi dạng; hiện cả ở bản build (thử trên máy, người dùng
+//   dặn 2026-11-06), nhớ tắt trước khi phát hành.
 // Mọi phần có sẵn trong prefab, Render bật tắt và gán dữ liệu.
 using System;
 using PokiClash.Core;
@@ -52,7 +53,7 @@ namespace PokiClash
             public TextMeshProUGUI evolveNeed;
             public SketchButton potentialButton, evolveButton, team;
             public Pulse potentialPulse, evolvePulse;
-            // nút hack tiến hóa để thử (chỉ hiện trong Editor; menu Thêm nút hack tiến hóa vào ChiTietTuong)
+            // nút hack tiến hóa để thử (hiện cả ở bản build; menu Thêm nút hack tiến hóa vào ChiTietTuong)
             public SketchButton hackStar;
         }
 
@@ -87,7 +88,7 @@ namespace PokiClash
         // dựng lại ô xem theo sao hiện tại (lên sao qua mốc tiến hóa thì đổi dạng)
         void BindViewer() => p.viewer.Bind(App.Data.Hero(id), viewSize, !App.Save.Data.Hero(id).owned);
 
-        // hack thử (Editor): chưa có thì nhận tướng 1 sao; có rồi thì lên 1 sao, bỏ qua điều kiện; tối đa thì về 1 sao
+        // hack thử: chưa có thì nhận tướng 1 sao; có rồi thì lên 1 sao, bỏ qua điều kiện; tối đa thì về 1 sao
         void HackStar()
         {
             var s = App.Save.Data;
@@ -136,7 +137,7 @@ namespace PokiClash
             if (p.evolution) p.evolution.Bind(hero, hp.star, hp.owned, cfg);
             if (p.hackStar)
             {
-                p.hackStar.gameObject.SetActive(Application.isEditor);
+                p.hackStar.gameObject.SetActive(true); // hiện cả ở bản build để thử trên máy (người dùng dặn 2026-11-06)
                 p.hackStar.SetText(!hp.owned ? "Hack: nhận" : hp.star < cfg.maxStar ? $"Hack: {hp.star + 1} sao" : "Hack: 1 sao");
                 p.hackStar.FitWidth();
                 p.hackStar.SetOnClick(HackStar);

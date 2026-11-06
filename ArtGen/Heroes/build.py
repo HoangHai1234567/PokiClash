@@ -955,6 +955,644 @@ Do NOT draw: the big penguin, purple colours, closed eyes, a cake.""", "feet and
         "extra": [],
         "first": ["N02", "N03"],  # gen thử trước: đầu (đổi dáng), thân có tạp dề (giữ viền)
     },
+    # Dòng Mi Nhi (aola 983 → 984), tướng Khá ải 15 đảo Thủy, "Tiên cầm sóng biếc". Người dùng chốt 2026-11-06: giữ tiên cá DẠNG
+    # NGƯỜI (ngoại lệ thứ hai của luật "tướng là thú nuôi", như dòng Tiểu Y), thiết kế theo DESIGN_CHIBI. Thiết kế mới khác bản gốc
+    # (tóc xanh ngọc, kẹp sao vàng, mắt xanh lá, đàn vàng đỏ, đuôi xanh lam): tóc tím oải hương ngọn bọt trắng, mắt xanh sapphire, kẹp
+    # vỏ sò hồng giữ ngọc trai, đuôi xanh ngọc bích vây tím nhạt, đàn san hô và xương trắng ngà dây bạc. Vòng sao (tự chạy) giữ hình
+    # gốc: bỏ khỏi bóng xám, không có nhóm. Bộ ghép: <aola>/reskin/thuy_983, thuy_984 (regions.json, groups.json). Viền px = 0,85%
+    # chiều cao cả con trong RegionMap × tỉ lệ phóng của orig/Nxx.png.
+    {
+        "code": "mi_nhi_1", "elem": "thuy", "aola": 983,
+        "hero": "Mi Nhi", "form": 1, "forms": 2, "form_name": "Tiểu Mi",
+        "role_vi": "tướng Khá hệ Thủy (ải 15 đảo Thủy), dạng 1/2, rig aola #983",
+        "design_vi": ("tiên cá nhỏ chơi đàn dạng người (người dùng chốt 2026-11-06: giữ tiên cá dạng người): bé gái chibi tóc tím oải "
+                      "hương, mái và lọn tóc cuộn bọt trắng ở ngọn, một lọn tóc dựng cong trên đỉnh; vây tai xanh nhạt gân tím viền trắng "
+                      "ngọc; kẹp vỏ sò hồng giữ ngọc trai trắng; da hồng nhạt, mắt xanh sapphire to, mày xếch quả quyết; áo vảy vỏ sò "
+                      "hồng nhạt; tay mũm mĩm đeo vòng ngọc trai; đàn lia nhỏ bằng san hô trắng hồng, dây bạc, ngọc trai trên đỉnh, đế "
+                      "vỏ ốc hồng; đuôi cá xanh ngọc bích vảy chấm đậm, vây tím nhạt"),
+        "rig_vi": ("con gốc #983 là bé tiên cá chibi nhìn thẳng hơi quay phải: đầu rất to, mái tóc dày, hai lọn tóc hai bên mặt, một "
+                   "lọn tóc dựng cong trên đỉnh vắt sang phải, tóc dài phía sau xõa xuống dưới trái, một vây tai to sau bên trái đầu, "
+                   "kẹp sao ở trên trái đầu; thân nhỏ dưới đầu; hai tay ngắn với sang phải gảy cây đàn lia nhỏ dựng ở bên phải; dưới "
+                   "là đuôi cá ngắn cuộn ở dưới, vây nhỏ chĩa trái. Bỏ khỏi bóng xám: bóng dưới chân và vòng sao"),
+        "regions_vi": ("1 vây tai, 2 tóc trên đầu (mái, lọn hai bên, lọn dựng trên đỉnh), 3 tóc dài phía sau, 4 mặt, 5 kẹp tóc, "
+                       "6 thân, 7 tay sau, 8 tay trước, 9 đàn lia, 10 đuôi cá"),
+        "anchor": True, "design": DESIGN_CHIBI,
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original character: a LITTLE MERMAID BARD, a chibi mermaid girl who fights with music, plucking a small lyre to raise the waves, the first stage of a two-stage Water evolution line, in the same front view (turned a little to the viewer's right) and pose as image 1, on a plain white background. An original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new character will be animated on. They tell you where each part and joint is, NOT what the character looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big round head with its hair (thick bangs, two short locks at the sides of the face, one long curl standing on top), long back hair hanging behind, one big fin ear behind the viewer-left side of the head, one hair ornament at the upper left of the head; a small torso under the head; two short arms; one small lyre; a short fish tail with one small fin. No legs, no feet, no wings, no extra limbs;
+- every joint where it is: the head sits straight on the torso (no neck shows); the curl grows from the top of the head; the back hair grows from the back of the head; the fin ear grows from behind the viewer-left side of the head; the arms start at the shoulders at the top of the torso; the tail starts at the bottom of the torso;
+- every part pointing the same way: the face is turned a little to the viewer's right; the curl rises from the top of the head and arcs over to the right, its tip pointing down-right; the fin ear opens up and out to the left; the back hair sweeps down to the lower left; both arms reach to the viewer's right toward the lyre, the front hand on the strings; the lyre stands upright at the right, its scroll at the upper right and its base at the bottom; the tail curls at the bottom, its small fin pointing to the left and its end curving down to the lower right;
+- the head and hair together about the size and shape of regions 2, 3 and 4 (more than half of the figure: a chibi); the torso, the arms, the lyre and the tail about the size of regions 6, 7, 8, 9 and 10; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 fin ear: a pale aqua fin with lilac ribs and a thin pearl-white edge, opening like a fan to the left.
+2 hair on the head: lavender-lilac hair, thick soft bangs, the locks at the sides and the curl on top ending in little white sea-foam curls; the curl keeps the place and the arc of region 2's curl.
+3 back hair: long lavender-lilac hair flowing down to the lower left in soft waves, its tips curling into white sea foam.
+4 face: a chibi girl's face: light warm peach skin, big round sapphire-blue eyes, short brows angled down, a small determined smile.
+5 hair ornament: a pink scallop-shell hair clip holding a white pearl, about the size of region 5.
+6 torso: a small chibi torso with a short top of overlapping pale-pink seashell scales.
+7 and 8 arms: two short chubby arms with light warm peach skin and a thin pearl bracelet on the front wrist; the front hand plucks the strings.
+9 lyre: a small lyre carved from a pale coral branch, white with a soft pink tint, its arms curling like the frame of region 9, silver strings, a white pearl set in the scroll at the top, a base made of a pink conch shell.
+10 tail: a short fish tail of jade-teal scales with a few darker dots and a lilac fin.
+
+ATTITUDE: a brave little sea bard about to play a battle song: brows angled down, a small determined smile, the hand ready on the strings; cute and small, never scary, never a goofy mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.
+
+COLOURS: lavender-lilac hair with white foam; light warm peach skin; sapphire-blue eyes; pale aqua and lilac fin; pale-pink shells; white-pink coral and silver; jade-teal tail with a lilac fin. Few colours.
+
+AVOID: cyan or turquoise hair, green eyes, star-shaped clips or stars, a gold lyre, an orange base, a blue tail, a dark navy fin, legs or feet, a crown, wings, armour, rings of stars or water around the character (the game adds them), text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #983, khung đứng đầu (27 mảnh): 1 bóng, 2 và 27 vòng sao (tự chạy, giữ gốc), 3 và 4 tóc dài sau, 5 vây nhỏ của đuôi,
+        # 6 và 7 lọn tóc bên phải, 8 cẳng tay sau, 9 chóp đuôi, 10 thân, 11 đế đàn, 12 đàn, 13 mặt, 14 15 mắt, 16 miệng, 17 vây
+        # tai, 18 lọn tóc trước trái, 19 lọn bên phải, 20 mái, 21 lọn dựng trên đỉnh, 22 kẹp sao, 23 bắp tay sau, 24 bắp tay
+        # trước, 25 bàn tay trước, 26 cẳng tay trước. Khung N05, N06, N07 nới rộng (mảnh nhỏ).
+        "groups": [
+            ("N01", "vây tai", "fin ear", "doi", 16,
+             "a dark-blue webbed fin: its right edge is the base behind the head, ribs fanning out to a point at the left",
+             "Vây tai xanh lam đậm có gân (1024 × 1024, nền trắng): mép phải dựng đứng là gốc (nằm sau đầu), các gân xòe ra trái, chóp nhọn ở trên trái và dưới",
+             """- gốc (mép phải) đúng chỗ cũ, vây xòe ra trái như cũ, cỡ như cũ hoặc to hơn chút;
+- vây xanh nhạt, gân tím nhạt, viền trắng ngọc mảnh;
+- không vẽ đầu, tóc; không xanh lam đậm.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a webbed fin ear behind the side of a head (the head is not shown). Its RIGHT edge, standing upright, is the base where it joins the head; the ribs fan out to the left and end in points at the upper left and at the bottom. Redraw THIS piece as the fin ear of image 2 (the approved concept): a pale aqua fin with lilac ribs and a thin pearl-white edge, its base along the old right edge, opening to the left like the old fin, about the same size or a little bigger.
+Do NOT draw: the head, hair, a dark navy fin.""", "right edge (the base)"),
+            ("N02", "mặt", "face", "doi", 13,
+             "a chibi face: pink skin, two big green eyes, a small open mouth, turned a little to the right; no hair",
+             "Mặt chibi (1024 × 1024, nền trắng): da hồng, hai mắt xanh lá to (mắt trái to hơn), miệng nhỏ há, hơi quay phải; tóc là nhóm khác",
+             """- mặt đúng chỗ, đúng cỡ cũ; hai mắt đúng chỗ hai mắt cũ, miệng đúng chỗ cũ;
+- da hồng nhạt, mắt xanh sapphire to, mày xếch quả quyết, cười nhỏ;
+- không vẽ tóc (mái tóc phủ lên mặt ở nhóm N03); không mắt xanh lá.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a chibi face turned a little to the viewer's right: pink skin, two big green eyes (the viewer-left one bigger), a small open mouth. The hair is another group drawn over it. Redraw THESE pieces as the face of image 2 (the approved concept): light warm peach skin, big round sapphire-blue eyes exactly where the old eyes are, short brows angled down, a small determined smile where the old mouth is. Keep the outline of the face (the bangs cover its top) and its size.
+Do NOT draw: hair, a neck, a body, green eyes.""", "eyes, mouth and the chin"),
+            ("N03", "tóc trên đầu và kẹp tóc", "hair on the head and hair clip", "doi", 9,
+             "cyan bangs over the forehead, two short locks at the sides, a long curl standing on top arcing to the right, a gold star clip at the upper left",
+             "Tóc xanh ngọc trên đầu (1024 × 1024, nền trắng): mái dày trùm trán, hai lọn ngắn hai bên mặt, một lọn dài dựng trên đỉnh cong sang phải, kẹp sao vàng ở trên trái; chỗ trống ở giữa dưới là chỗ của mặt",
+             """- mái, hai lọn hai bên, lọn dựng trên đỉnh đúng chỗ, đúng hướng, cỡ như cũ; chỗ trống cho mặt như cũ;
+- tóc tím oải hương, ngọn cuộn bọt trắng nhỏ;
+- chỗ kẹp sao: kẹp vỏ sò hồng giữ ngọc trai trắng;
+- không vẽ mặt, vây tai, tóc dài phía sau; không tóc xanh ngọc, không sao.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): the hair on a chibi head (the face is not shown): thick cyan bangs over the forehead, two short locks at the sides of the face, one long curl standing on top that arcs over to the right with its tip pointing down-right, and a gold star clip at the upper left. Redraw THESE pieces as image 2 (the approved concept) shows them: lavender-lilac hair, the bangs, the side locks and the curl each in the place, direction and about the size of the old ones, their tips ending in little white sea-foam curls; where the star clip is, the pink scallop-shell clip holding a white pearl. Keep the open space for the face where it is.
+Do NOT draw: the face, the fin ear, the long back hair, cyan hair, stars.""", "hairline around the face and the root of the curl"),
+            ("N04", "tóc dài phía sau", "long back hair", "doi", 9,
+             "long cyan hair hanging behind: a big wavy mass at the left ending in pointed tips at the lower left, a smaller lock at the right",
+             "Tóc dài xanh ngọc phía sau (1024 × 1024, nền trắng): mảng lớn lượn sóng bên trái, ngọn nhọn ở dưới trái; lọn nhỏ hơn bên phải; mép trên là chỗ mọc từ sau đầu",
+             """- hai mảng tóc đúng chỗ, đúng hướng; mép trên (chỗ mọc sau đầu) đúng chỗ cũ;
+- tóc tím oải hương lượn sóng, ngọn cuộn bọt trắng;
+- không vẽ đầu, mặt, vây tai; không tóc xanh ngọc.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): long hair hanging behind the head and body: a big wavy mass at the left that sweeps down to pointed tips at the lower left, and a smaller lock at the right. Their TOP edges grow from the back of the head (the head is not shown). Redraw THESE pieces as the long back hair of image 2 (the approved concept): lavender-lilac hair in soft waves, its tips curling into white sea foam, each part in the place, direction and about the size of the old one.
+Do NOT draw: the head, the face, the fin ear, cyan hair.""", "top edge where the hair grows from the head"),
+            ("N05", "thân", "torso", "giu", 15,
+             "a small chibi torso: pink skin on top, a blue band and blue scales below",
+             "Thân chibi nhỏ (1024 × 1024, nền trắng, khung rộng): trên là da hồng (vai, ngực), dưới là dải xanh và vảy xanh lam",
+             """- viền thân như cũ;
+- da hồng nhạt ở trên, áo ngắn bằng vảy vỏ sò hồng nhạt chồng lên nhau ở dưới;
+- không vẽ đầu, tay, đuôi.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small chibi torso: pink skin at the top (the shoulders and the chest), a blue band and blue scales below. The head, the arms and the tail are other groups. Redraw THIS piece as the torso of image 2 (the approved concept), keeping its outline: light warm peach skin at the top, the short top of overlapping pale-pink seashell scales below.
+Do NOT draw: the head, the arms, the tail, blue scales.""", None),
+            ("N06", "hai tay", "two arms", "giu", 21,
+             "two short pink arms reaching to the right: the back arm above, the front arm below it with a small hand at its right end",
+             "Hai tay hồng ngắn với sang phải (1024 × 1024, nền trắng, khung rộng): tay sau ở trên, tay trước ở dưới có bàn tay nhỏ ở đầu phải; đầu trái của mỗi tay là vai",
+             """- viền và chỗ hai tay như cũ; vai ở đầu trái, bàn tay ở đầu phải;
+- tay mũm mĩm da hồng nhạt, vòng ngọc trai mảnh ở cổ tay trước;
+- không vẽ đàn, thân.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): two short arms reaching to the viewer's right: the back arm above, the front arm below it with a small hand at its RIGHT end. The LEFT end of each arm is the shoulder. Redraw THESE pieces as the arms of image 2 (the approved concept): short chubby arms with light warm peach skin, a thin pearl bracelet on the front wrist, each in its old place, outline and direction; the front hand plucks the strings (the lyre is another group).
+Do NOT put the hands at the left. Do NOT draw: the lyre, the torso, claws.""", None),
+            ("N07", "đàn lia san hô", "coral lyre", "doi", 21,
+             "a small golden lyre: an S-shaped frame with a scroll at the top right and a curl at the bottom left, teal strings, an orange round base at the bottom left",
+             "Đàn lia vàng nhỏ (1024 × 1024, nền trắng): khung chữ S, cuộn tròn ở trên phải và ở dưới trái, dây xanh ngọc, đế tròn cam ở dưới trái",
+             """- khung đàn đúng đường cong cũ, cuộn trên phải và dưới trái đúng chỗ, đế ở dưới trái; cỡ như cũ;
+- khung bằng san hô trắng ánh hồng, dây bạc, ngọc trai trắng ở cuộn trên, đế là vỏ sò điệp hồng như concept;
+- không vẽ bàn tay; không vàng, không cam.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a small lyre standing upright: an S-shaped gold frame with a scroll at the TOP RIGHT and a curl at the bottom left, teal strings, and a round orange base at the bottom left. A hand plucks it (the hand is another group). Redraw THESE pieces as the coral lyre of image 2 (the approved concept): the frame carved from pale coral, white with a soft pink tint, along exactly the old curve, silver strings, a white pearl set in the top scroll, a base made of a pink scallop shell where the orange base is, as in the concept; about the same size.
+Do NOT draw: the hand, a gold frame, an orange base, glowing effects.""", "frame curve and the base"),
+            ("N08", "đuôi cá", "fish tail", "giu", 16,
+             "a short blue fish tail: a small fin pointing left at the upper left, the tail end curving down to a point at the lower right",
+             "Đuôi cá xanh lam ngắn (1024 × 1024, nền trắng): vây nhỏ chĩa trái ở trên trái, chóp đuôi cong xuống thành mũi nhọn ở dưới phải; mép trên là chỗ nối thân",
+             """- viền đuôi và vây như cũ; vây chĩa trái, chóp đuôi cong xuống phải;
+- vảy xanh ngọc bích có chấm đậm, vây tím nhạt;
+- không vẽ thân, chân; không xanh lam.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a short fish tail: a small fin pointing to the left at the upper left, and the tail end curving down to a point at the lower right. Its top edge joins the torso (the torso is not shown). Redraw THESE pieces as the tail of image 2 (the approved concept), keeping their outline: jade-teal scales with a few darker dots, a lilac fin.
+Do NOT draw: the torso, legs, feet, a blue tail.""", None),
+        ],
+        "extra": [],
+        "first": ["N02", "N06"],  # gen thử trước: mặt (đổi dáng), hai tay (giữ viền)
+    },
+    {
+        "code": "mi_nhi_2", "elem": "thuy", "aola": 984,
+        "hero": "Mi Nhi", "form": 2, "forms": 2, "form_name": "Mi Nhi",
+        "role_vi": "tướng Khá hệ Thủy (ải 15 đảo Thủy), dạng 2/2, rig aola #984",
+        "design_vi": ("tiên cá nghệ sĩ dạng người, lớn lên từ dạng 1: tóc tím oải hương rất dài bay ra sau, ngọn cuộn bọt trắng, lọn "
+                      "dựng trên đỉnh; quạt san hô hồng hai thùy cài sau đầu; vây tai xanh nhạt gân tím; kẹp vỏ sò hồng giữ ngọc trai; "
+                      "mắt xanh sapphire, mày xếch quả quyết; áo lụa biển tím nhạt có chuỗi ngọc trai, diềm vây xanh nhạt ở hai vai; khăn "
+                      "quấn hông trắng ngọc viền tím; đuôi cá xanh ngọc bích vây tím nhạt; tay da hồng nhạt, vòng ngọc trai; đàn hạc cao "
+                      "khung xương trắng ngà uốn như sóng, cuộn san hô hồng trên đỉnh, chân xoắn vỏ ốc, dây bạc"),
+        "rig_vi": ("con gốc #984 là tiên cá chibi nhìn thẳng hơi quay phải, đứng cạnh cây đàn hạc cao hơn người: đầu to tóc ngắn có mái, "
+                   "hai kẹp sao, một lọn dựng trên đỉnh bên phải; vật trang trí hình lá dựng sau trên trái đầu; vây tai xanh đậm sau bên "
+                   "trái đầu; tóc rất dài bay ra sau xuống dưới trái; thân nhỏ, áo hai vỏ sò, diềm ở hai vai; khăn sọc quấn hông; đuôi cá "
+                   "đi xuống, vây ở dưới trái; tay trước duỗi sang phải, bàn tay xòe trên dây đàn; tay sau ở sau dây đàn; đàn hạc dựng "
+                   "bên phải: cuộn đỏ ở trên trái sau đầu, khung vòng qua bên phải xuống chân xoắn vàng ở dưới. Bỏ khỏi bóng xám: bóng "
+                   "và vòng sao"),
+        "regions_vi": ("1 vật trang trí sau đầu, 2 đầu và mặt, 3 lọn tóc dựng trên đỉnh, 4 tóc rất dài phía sau, 5 vây tai, 6 thân, "
+                       "áo và diềm vai, 7 khăn quấn hông, 8 đuôi cá, 9 tay trước, 10 tay sau, 11 đàn hạc"),
+        "anchor": True, "design": DESIGN_CHIBI,
+        "prev": [("mi_nhi_1", "the approved FIRST stage of this evolution line: keep its colours, hair, face, eyes, fin ear, "
+                              "shell clip and drawing style",
+                  "dạng 1, tiên cá nhỏ chơi đàn lia: tóc tím oải hương ngọn bọt trắng, mắt xanh sapphire, vây tai xanh nhạt gân "
+                  "tím, kẹp vỏ sò hồng giữ ngọc trai, đuôi xanh ngọc bích vây tím. Giữ màu, tóc, mặt, mắt, vây tai, kẹp, nét vẽ")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original character: the SECOND and final stage of a two-stage Water evolution line whose first stage is image 6. The little mermaid bard of image 6 has grown into a MERMAID MAESTRO: an older chibi mermaid girl with very long flowing hair, standing beside a tall harp taller than herself, one hand sweeping the strings to call up the waves. Same front view (turned a little to the viewer's right) and pose as image 1, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new character will be animated on. They tell you where each part and joint is, NOT what the character looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big head with short hair and bangs and its hair clips, one curl standing on top at the right, one ornament standing up behind the upper left of the head, very long hair streaming behind, one fin ear behind the viewer-left side of the head; a small torso with frills at both shoulders; a wrap around the hips; a fish tail; two arms; one very tall harp. No legs, no feet, no wings, no extra limbs;
+- every joint where it is: the head sits on the torso (no neck shows); the curl grows from the top of the head; the ornament stands behind the upper left of the head; the long hair grows from the back of the head; the fin ear grows from behind the viewer-left side of the head; the arms start at the shoulders; the hip wrap sits at the bottom of the torso; the tail goes down from the hips; the harp stands on the ground at the right, its top scroll behind the upper left of the head;
+- every part pointing the same way: the face is turned a little to the viewer's right; the curl arcs up and over to the right; the ornament points up and to the upper left; the long hair streams down to the lower left almost to the ground; the fin ear points to the left; the front arm stretches to the right at chest height with the open hand on the strings, fingers spread; the back hand is on the strings behind, at the right; the tail goes down and curves to the left, its forked fin at the lower left; the harp frame arcs from its top scroll at the upper left over the right side and down to a spiral foot at the bottom, its strings standing upright;
+- the head about the size of region 2 (a chibi), the torso, the arms and the tail about the size of regions 6, 8, 9 and 10, the harp as tall as region 11; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 ornament: a pale-pink sea-fan coral ornament with two lobes standing up behind the head, about the size of region 1.
+2 head: the same face as image 6, a little older: light warm peach skin, big sapphire-blue eyes under short brows angled down, a small determined open mouth as if singing a battle song; short lavender-lilac hair with thick bangs; the pink scallop-shell clip with a white pearl of image 6 where region 2's clips are.
+3 curl: a lavender-lilac curl of hair arcing over to the right, its tip curling into white sea foam.
+4 long hair: very long lavender-lilac hair streaming down to the lower left in big soft waves, its tips curling into white sea foam.
+5 fin ear: the fin ear of image 6 grown sharper: pale aqua with lilac ribs and a pearl-white edge.
+6 torso: a short top of lilac sea-silk with a string of small pearls, little frilly fins of pale aqua at both shoulders.
+7 hip wrap: a sash of pearl-white sea-silk with a lilac edge wrapped around the hips, one end hanging down at the right.
+8 tail: a fish tail of jade-teal scales with a few darker dots and a lilac forked fin.
+9 front arm: light warm peach skin, a pearl bracelet at the wrist, an open hand sweeping the strings.
+10 back arm: the same skin, its hand on the strings behind.
+11 harp: a tall harp whose frame is a curving wave of pearl-white bone, a coral-pink scroll at the top, a spiral foot shaped like a pale lilac sea-snail shell at the bottom, four silver strings; the same height and place as region 11.
+
+ATTITUDE: a proud young sea maestro calling up a storm with her harp: brows angled down, a determined open mouth singing, the hand sweeping the strings; graceful and strong, never scary, never a goofy mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this line: keep its colours, hair, face, eyes, fin ear, shell clip and drawing style, so both stages read as the same character growing up.
+
+COLOURS: as in image 6: lavender-lilac hair with white foam; light warm peach skin; sapphire-blue eyes; pale aqua and lilac fins; pale-pink coral and shells; pearl white; jade-teal tail with a lilac fin; silver strings. Few colours.
+
+AVOID: cyan or turquoise hair, green eyes, star-shaped clips or stars, a red or gold harp, a blue tail, a striped blue sash, a dark navy fin, legs or feet, a crown, wings, armour, rings of stars or water around the character (the game adds them), text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #984, khung đứng đầu (26 mảnh): 1 bóng, 2 và 26 vòng sao (tự chạy, giữ gốc), 3 bắp tay sau, 4 bàn tay sau, 5 đàn
+        # hạc, 6 và 7 vật trang trí hình lá, 8 tóc dài, 9 và 19 diềm vai, 10 vây đuôi, 11 và 12 đuôi, 13 thân, 14 15 hai vỏ sò,
+        # 16 đuôi khăn, 17 và 18 khăn quấn hông, 20 vây tai, 21 lọn dựng trên đỉnh, 22 bắp tay trước, 23 bàn tay trước, 24 cẳng tay
+        # trước có vòng, 25 đầu (cả mặt, mái, kẹp sao). Khung N01, N04, N05, N06 nới rộng (mảnh nhỏ).
+        "groups": [
+            ("N01", "quạt san hô sau đầu", "sea-fan ornament", "doi", 16,
+             "a light-blue two-lobed leaf ornament pointing up-left, its narrow base at the lower right",
+             "Vật trang trí hình lá hai thùy xanh nhạt (1024 × 1024, nền trắng, khung rộng): chĩa lên trái, gốc hẹp ở dưới phải (cắm sau đầu)",
+             """- gốc (dưới phải) đúng chỗ cũ, chĩa lên trái như cũ, cỡ như cũ;
+- quạt san hô hồng nhạt hai thùy, gân san hô mảnh;
+- không vẽ đầu, tóc, đàn.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): an ornament standing up behind a head (the head is not shown): two leaf-shaped lobes pointing up and to the upper left; its narrow base at the LOWER RIGHT joins the back of the head. Redraw THESE pieces as the ornament of image 2 (the approved concept): a pale-pink sea-fan coral with two lobes and fine coral ribs, its base where the old base is, pointing the same way, about the same size.
+Do NOT draw: the head, hair, the harp, leaves, feathers.""", "base at the lower right"),
+            ("N02", "đầu, mặt, kẹp tóc, lọn dựng", "head with face, clip and curl", "doi", 14,
+             "a big head: cyan bob hair with bangs, two gold star clips at the upper left, a long curl on top at the right, a pink face with two big green eyes and a small open mouth",
+             "Đầu to (1024 × 1024, nền trắng): tóc ngắn xanh ngọc có mái, hai kẹp sao vàng ở trên trái, lọn dài dựng trên đỉnh bên phải, mặt hồng, hai mắt xanh lá to, miệng nhỏ há",
+             """- đầu cỡ như cũ, cằm, hai mắt, miệng đúng chỗ cũ; lọn dựng trên đỉnh đúng chỗ, đúng hướng;
+- tóc tím oải hương, mái dày, ngọn cuộn bọt trắng; mắt xanh sapphire, mày xếch, miệng há nhỏ như đang hát;
+- chỗ hai kẹp sao: kẹp vỏ sò hồng giữ ngọc trai như dạng 1;
+- không vẽ tóc dài phía sau, vây tai, quạt san hô; không tóc xanh ngọc, không mắt xanh lá, không sao.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a big chibi head turned a little to the viewer's right: cyan bob hair with thick bangs, two gold star clips at the upper left, a pink face with two big green eyes and a small open mouth; and a long curl of hair standing on top at the right, arcing over. Redraw THESE pieces as the head of image 2 (the approved concept): short lavender-lilac hair with thick bangs and little white sea-foam curls at the tips, the curl in its old place and arc; light warm peach skin, big sapphire-blue eyes exactly where the old eyes are, brows angled down, a small determined open mouth as if singing where the old mouth is; the pink scallop-shell clip with a white pearl where the star clips are.
+Keep the chin where it is and the head about the same size.
+Do NOT draw: the long back hair, the fin ear, the ornament behind the head, cyan hair, green eyes, stars.""", "eyes, mouth and the chin"),
+            ("N03", "tóc dài", "long hair", "doi", 9,
+             "very long cyan hair streaming from the top down to the lower left in two big locks with pointed tips",
+             "Tóc rất dài xanh ngọc (1024 × 1024, nền trắng): từ trên (sau đầu) bay xuống dưới trái thành hai lọn lớn, ngọn nhọn",
+             """- đầu trên (chỗ mọc sau đầu) đúng chỗ cũ; hai lọn bay xuống dưới trái đúng hướng, dài như cũ;
+- tóc tím oải hương lượn sóng lớn, ngọn cuộn bọt trắng;
+- không vẽ đầu, mặt; không tóc xanh ngọc.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): very long hair that grows from the back of the head at the TOP and streams down to the lower left in two big locks with pointed tips. Redraw THIS piece as the long hair of image 2 (the approved concept): very long lavender-lilac hair in big soft waves, its tips curling into white sea foam, the top where the old top is, streaming the same way and as long.
+Do NOT draw: the head, the face, cyan hair.""", "top where the hair grows from the head"),
+            ("N04", "vây tai", "fin ear", "doi", 15,
+             "a small dark-navy fin pointing left, its base at the right",
+             "Vây tai nhỏ xanh tím đậm (1024 × 1024, nền trắng, khung rộng): chĩa sang trái, gốc ở bên phải (sau đầu)",
+             """- gốc (bên phải) đúng chỗ cũ, chĩa trái như cũ, cỡ như cũ hoặc to hơn chút;
+- vây xanh nhạt gân tím, viền trắng ngọc như dạng 1;
+- không vẽ đầu; không xanh tím đậm.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small fin ear behind the side of a head (the head is not shown), pointing to the left; its base is its RIGHT end. Redraw THIS piece as the fin ear of image 2 (the approved concept): pale aqua with lilac ribs and a thin pearl-white edge, its base where the old base is, pointing the same way, about the same size or a little bigger.
+Do NOT draw: the head, a dark navy fin.""", "base at the right"),
+            ("N05", "thân, áo, diềm vai", "torso, top and shoulder frills", "giu", 22,
+             "a small torso: pink skin, a top of two blue scallop shells, little pale-blue frills at both shoulders",
+             "Thân nhỏ (1024 × 1024, nền trắng, khung rộng): da hồng, áo hai vỏ sò xanh, diềm xanh nhạt nhỏ ở hai vai",
+             """- viền thân, hai diềm vai đúng chỗ, đúng cỡ cũ;
+- da hồng nhạt, áo lụa biển tím nhạt có chuỗi ngọc trai nhỏ, diềm vây xanh nhạt ở hai vai;
+- không vẽ đầu, tay, khăn hông; không vỏ sò xanh.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a small torso with pink skin, a top made of two blue scallop shells, and little pale-blue frills at both shoulders. Redraw THESE pieces as the torso of image 2 (the approved concept), keeping the outline and the place of each piece: light warm peach skin, the short top of lilac sea-silk with a string of small pearls, the little frilly pale-aqua fins at both shoulders.
+Do NOT draw: the head, the arms, the hip wrap, blue shells.""", None),
+            ("N06", "khăn quấn hông", "hip wrap", "giu", 24,
+             "a striped light-blue sash wrapped around the hips, its end hanging down at the right",
+             "Khăn sọc xanh nhạt quấn hông (1024 × 1024, nền trắng, khung rộng): vòng quanh hông, một đầu khăn rủ xuống bên phải",
+             """- viền khăn và đầu khăn rủ đúng chỗ cũ;
+- lụa trắng ngọc viền tím nhạt, không sọc xanh;
+- không vẽ thân, đuôi.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a striped sash wrapped around the hips, one end hanging down at the right. Redraw THESE pieces as the hip wrap of image 2 (the approved concept), keeping their outline and place: pearl-white sea-silk with a lilac edge.
+Do NOT draw: the torso, the tail, blue stripes.""", None),
+            ("N07", "đuôi cá", "fish tail", "giu", 21,
+             "a blue fish tail going down from the hips, curving to the left, with a forked fin at the bottom left",
+             "Đuôi cá xanh lam (1024 × 1024, nền trắng): từ hông đi xuống, cong sang trái, vây chẻ đôi ở dưới trái; mép trên là chỗ nối hông",
+             """- viền đuôi và vây như cũ;
+- vảy xanh ngọc bích có chấm đậm, vây chẻ đôi tím nhạt;
+- không vẽ khăn hông, thân, chân; không xanh lam.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a fish tail that goes down from the hips (its TOP edge) and curves to the left, ending in a forked fin at the lower left. Redraw THESE pieces as the tail of image 2 (the approved concept), keeping their outline: jade-teal scales with a few darker dots, a lilac forked fin.
+Do NOT draw: the hip wrap, the torso, legs, a blue tail.""", None),
+            ("N08", "hai tay", "two arms", "giu", 21,
+             "the front arm stretched to the right (upper arm, forearm with a gold bracelet, an open hand with fingers spread at the right end), the back hand above it at the right",
+             "Hai tay (1024 × 1024, nền trắng): tay trước duỗi sang phải (bắp tay, cẳng tay đeo vòng vàng, bàn tay xòe ngón ở đầu phải); bàn tay sau ở trên, bên phải, ngón giơ lên; vai ở đầu trái",
+             """- viền và chỗ từng mảnh như cũ; vai ở đầu trái, bàn tay xòe ở đầu phải;
+- da hồng nhạt, vòng ngọc trai ở cổ tay trước (thay vòng vàng);
+- không vẽ đàn, dây đàn, thân; không móng dài.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): the front arm stretched to the viewer's right at chest height (its LEFT end is the shoulder; then the forearm with a gold bracelet; an open hand with fingers spread at the RIGHT end), and the back hand above it at the right with fingers raised. Redraw THESE pieces as the arms of image 2 (the approved concept): light warm peach skin, a pearl bracelet at the front wrist instead of the gold one, every piece in its old place, outline and direction; the fingers keep their old shapes.
+Do NOT put the hand at the shoulder end. Do NOT draw: the harp, its strings, the torso, long nails.""", None),
+            ("N09", "đàn hạc", "harp", "doi", 7,
+             "a very tall red-and-gold harp: a red scroll at the top left, the frame arcing over the right side and down to a gold spiral foot at the bottom, four thin cyan strings",
+             "Đàn hạc đỏ vàng rất cao (1024 × 1024, nền trắng): cuộn đỏ ở trên trái, khung vòng qua bên phải xuống chân xoắn vàng ở dưới, bốn dây xanh mảnh",
+             """- khung đàn đi đúng đường cũ, cuộn trên trái và chân xoắn dưới đúng chỗ, cao như cũ;
+- khung xương trắng ngà uốn như sóng, cuộn san hô hồng ở trên, chân xoắn vỏ ốc tím nhạt, bốn dây bạc;
+- không vẽ tay; không đỏ, không vàng.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a very tall harp: a red scroll at the TOP LEFT, the frame arcing over the right side and down to a gold spiral foot at the BOTTOM, four thin strings standing upright inside. Hands play it (they are another group). Redraw THIS piece as the harp of image 2 (the approved concept): a frame of pearl-white bone curving like a wave along exactly the old line, a coral-pink scroll at the top, a spiral foot shaped like a pale lilac sea-snail shell at the bottom, four silver strings; the same height.
+Do NOT draw: the hands, a red or gold frame, glowing effects.""", "frame line, the top scroll and the foot"),
+        ],
+        "extra": [],
+        "first": ["N02", "N08"],  # gen thử trước: đầu (đổi dáng), hai tay (giữ viền)
+    },
+    # Dòng Ma Kết (aola 758 → 759 → 760), tướng Hiếm ải 20 đảo Thủy (mini boss), "Thánh giáp sừng bạc". Claude đề xuất
+    # 2026-11-06, chờ duyệt concept: dê biển (thân dê, đuôi cá), khác bản gốc (lông trắng xù, xoáy lông trên trán, tai thỏ hồng,
+    # mắt đỏ, sừng nâu nhạt; dạng 2 sừng tím hồng, mắt xanh ngọc; dạng 3 giáp vàng ngọc xanh lá, vây xanh tím): lông xanh mòng két,
+    # mõm và len trắng kem, sừng bạc có ngấn, tai là vây cam san hô, mắt hổ phách; giáp vỏ sò điệp hồng san hô viền bạc lớn dần (dạng
+    # 2 vỏ sò đeo ngực, dạng 3 mũ và giáp vai). Rig: <aola>/reskin/thuy_758, thuy_759, thuy_760 (regions.json; groups.json của
+    # #758 tạm, chốt khi duyệt concept). Prompt nhóm viết sau khi duyệt concept.
+    {
+        "code": "ma_ket_1", "elem": "thuy", "aola": 758,
+        "hero": "Ma Kết", "form": 1, "forms": 3, "form_name": "Ma Kết Con",
+        "role_vi": "tướng Hiếm hệ Thủy (ải 20 đảo Thủy, mini boss), dạng 1/3, rig aola #758",
+        "design_vi": ("dê biển con lơ lửng, thân dê đuôi cá: lông ngắn xanh mòng két, mõm và cằm trắng kem, chỏm len trắng kem ba lọn "
+                      "nhọn trên trán (không xoáy); hai sừng bạc ngắn có ngấn; tai là vây cam san hô gân xanh mòng két; mắt hổ phách "
+                      "to, vệt mày xếch; cười nhếch; thân tròn bụng kem, thon thành đuôi cá ngắn có vảy, vây đuôi cam san hô; móng "
+                      "xanh thẫm; mặt quả quyết"),
+        "rig_vi": ("con gốc #758 là dê biển con lơ lửng, nhìn thẳng hơi quay phải: đầu rất to lông trắng xù có xoáy lông cuộn trên "
+                   "trán, hai sừng nâu nhạt (sừng trái to, sừng phải nhỏ sau đầu, cả hai chĩa lên hơi nghiêng trái), hai tai thỏ "
+                   "hồng chìa ngang hai bên đầu, mắt đỏ to (mắt trái to, mắt phải nhỏ sát mép phải), má hồng; thân tròn nhỏ dưới "
+                   "đầu, hai chân trước ngắn buông thẳng; thân thon thành đuôi cá ngắn ở dưới trái, vây đuôi màu kem rủ xuống. Bỏ "
+                   "khỏi bóng xám: bóng dưới chân"),
+        "regions_vi": ("1 sừng trái to, 2 sừng phải nhỏ, 3 tai trái, 4 tai phải, 5 đầu có mặt và hai mắt, 6 thân tròn (đuôi cá bắt "
+                       "đầu ở dưới trái), 7 chân trước trái, 8 chân trước phải, 9 vây đuôi"),
+        "anchor": True,
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: a little SEA-GOAT KID, a brave baby goat of the reef whose body ends in a fish tail and who fights by butting with its small silver horns, the first stage of a three-stage Water evolution line, in the same front view (turned a little to the viewer's right) and pose as image 1, floating a little above the ground, on a plain white background. A chubby baby goat with a fish tail, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big round head (more than half of the figure: a chibi baby), two horns on top of it (a big one at the viewer-left, a small one behind the head at the right), two ears sticking out at the sides of the head, one small round body under the head, two short front legs, and a short fish tail ending in one fin; no hind legs, no arms or hands, no wings, no extra limbs;
+- every joint where it is: the big horn grows from the upper left of the head and the small horn from behind its upper right; the ears grow from the left and the right side of the head, just under the horns; the head sits right on the body (no neck shows); the two front legs hang side by side from the front of the body, a little right of centre; the fish tail starts at the lower left of the body and ends in the fin at the lower left of the figure;
+- every part pointing the same way: the face is turned a little to the viewer's right, so the two big eyes sit a little right of the middle of the face, the viewer-left eye bigger and the viewer-right eye smaller near the right edge of the face; both horns point up, leaning a little to the left, their tips at the TOP; the viewer-left ear points out to the left, the viewer-right ear out to the right; the front legs hang straight down with the hooves at the BOTTOM; the fin hangs down at the lower left, its wide end at the bottom;
+- the head, the body, the legs and the fin about the size and shape of regions 5, 6, 7, 8 and 9; the horns about as long as regions 1 and 2; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 and 2 horns: two short, strong silver horns with three or four ring ridges across them and pointed tips; the viewer-left one big like region 1, the viewer-right one small like region 2.
+3 and 4 ears: each ear is a small fin instead of a goat ear: a coral-orange fin membrane stretched over three deep-teal ribs, its tip pointing out like region 3 and region 4.
+5 head: a round, chubby kid-goat head covered in short deep-teal fur, with a cream-white muzzle and chin and a small dark nose; on the forehead a short tuft of cream-white wool in three spiky locks (no curl, no swirl). Two big round amber-gold eyes (a large dark pupil, one small catchlight dot), each under a short dark-teal brow mark angled down toward the nose: a fierce look. A small confident smirk. No blush on the cheeks.
+6 body: a small round deep-teal body with a cream-white belly patch; at its lower left it narrows into a short deep-teal fish tail with a few darker scale marks.
+7 and 8 front legs: two short deep-teal legs with small dark navy hooves at the bottom.
+9 fin: a coral-orange tail fin with deep-teal ribs, the shape of region 9.
+
+ATTITUDE: a scrappy little sea-goat kid ready to butt: brows angled down, a confident smirk, chin up; cute and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.
+
+COLOURS: deep teal fur; a cream-white muzzle, belly and forehead tuft; silver horns with grey ridges; amber-gold eyes; coral-orange fins with deep-teal ribs; dark navy hooves. Few colours.
+
+AVOID: a white fluffy woolly head, a swirl or curl on the forehead, pink rabbit-like ears, red eyes, pink blush cheeks, tan or brown horns, a cream or tan tail fin, hind legs, a human face or body, arms or hands, wings, water rings or bubbles around the creature (the game adds them), text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #758, khung đứng đầu (12 mảnh): 1 bóng, 2 vây đuôi, 3 thân, 4 chân trước phải, 5 chân trước trái, 6 sừng phải,
+        # 7 sừng trái, 8 tai phải, 9 đầu (mũi, miệng, má liền đầu), 10 mắt trái, 11 mắt phải, 12 tai trái. Nhóm tạm (groups.json):
+        # N01 hai sừng, N02 hai tai, N03 đầu có mặt, N04 thân, N05 hai chân trước, N06 vây đuôi.
+        # Viền px = 0,85% chiều cao cả con trong RegionMap (594 px, 4 px mỗi đơn vị SVG) × k của orig_groups.json:
+        # N01–N03 k 7,5 → 10 px; N04 k 18,3 → 23 px; N05 k 17,3 → 22 px; N06 k 12,9 → 16 px.
+        "groups": [
+            ("N01", "hai sừng", "two horns", "doi", 10,
+             "two tan horns: a big one at the left (wide base at its lower right, tip at the top left) and a small one at the right (base at the bottom, tip at the top)",
+             "Hai sừng nâu nhạt (1024 × 1024, nền trắng): sừng trái to (gốc rộng ở dưới phải, cong lên tới chóp ở trên trái), sừng phải nhỏ (gốc ở dưới, chóp ở trên); đầu không có trong ảnh",
+             """- gốc hai sừng đúng chỗ gốc cũ, rộng như cũ; sừng to bên trái, sừng nhỏ bên phải, chóp chĩa lên hơi nghiêng trái như cũ;
+- sừng bạc một màu xám bạc đều, ba bốn ngấn xám sẫm ngang, chóp nhọn; cỡ gần như cũ;
+- không vẽ đầu, chỏm len, tai; không sừng nâu.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two tan horns standing on the head (the head is not shown). The viewer-left horn is the big one: its wide BASE is at its lower right, where it sits on the head, and it curves up to a pointed tip at the TOP LEFT. The viewer-right horn is the small one: its base is at the BOTTOM, behind the head, and its tip at the TOP. Redraw THESE two pieces as the horns of image 2 (the approved concept): strong silver horns, one even silver-grey colour with three or four darker grey ring ridges drawn across them, pointed tips; each with its base along the old base, pointing the same way, about the size of the old horn.
+Do NOT draw: the head, the wool tuft, the ears, tan or brown horns, light and dark bands on the horns.""", "horn base line"),
+            ("N02", "hai vây tai", "two fin ears", "doi", 10,
+             "two pink-lined ears sticking out sideways: a big one at the left (base at its right end), a small one at the right (base at its left end)",
+             "Hai tai thỏ lòng hồng chìa ngang (1024 × 1024, nền trắng): tai trái to chĩa sang trái (gốc ở đầu phải, có mẩu nhỏ nối vào đầu), tai phải nhỏ chĩa sang phải (gốc ở đầu trái)",
+             """- gốc mỗi tai đúng chỗ gốc cũ (tai trái gốc ở bên phải, tai phải gốc ở bên trái); tai trái mở sang trái, tai phải mở sang phải;
+- mỗi tai là vây: màng cam san hô căng trên ba gân xanh mòng két tỏa từ gốc, mép ngoài lượn sóng, gân trên cùng xanh mòng két như concept; cỡ gần như tai cũ, to hơn chút được;
+- không vẽ đầu, sừng; không tai thỏ hồng.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two ears sticking out sideways from the head (the head is not shown). The viewer-left ear is the big one: its BASE is at its RIGHT end, where it joins the head, and it opens out to the left. The viewer-right ear is the small one: its BASE is at its LEFT end and it opens out to the right. Redraw THESE two pieces as the fin ears of image 2 (the approved concept): each ear a small fin, a coral-orange membrane stretched over three deep-teal ribs that fan out from the base, the top rib a thicker deep-teal edge, the outer edge scalloped; each with its base where the old base is, opening the same way, about the size of the old ear or a little bigger.
+Do NOT draw: the head, the horns, pink rabbit ears.""", "joint line at the base of each ear"),
+            ("N03", "đầu có mặt", "head with face", "giu", 10,
+             "a big fluffy white head with a curled swirl at the upper right, two red eyes, pink cheeks, a small nose and mouth",
+             "Đầu lông trắng xù rất to (1024 × 1024, nền trắng): xoáy lông cuộn ở trên phải, hai mắt đỏ (mắt trái to, mắt phải nhỏ sát mép phải), má hồng, mũi và miệng nhỏ; mép dưới gần phẳng",
+             """- giữ viền ngoài đầu như cũ (hai bên, mép dưới); chỉ chỏm len kem được nhô lên khỏi mép trên một chút;
+- lông ngắn xanh mòng két, mõm và cằm trắng kem, mũi xanh thẫm nhỏ, cười nhếch; chỏm len kem ba lọn nhọn trên trán, không xoáy;
+- hai mắt hổ phách to (con ngươi đen, một chấm sáng) đúng chỗ mắt cũ, vệt mày xanh thẫm xếch xuống phía mũi;
+- không má hồng; không vẽ sừng, tai, thân.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a big round fluffy white head with a curled swirl of wool at its upper right, two red eyes (the viewer-left eye big, the viewer-right eye smaller near the right edge), pink cheeks, a small nose and mouth; its bottom edge is almost flat. Redraw THESE pieces as the head of image 2 (the approved concept), keeping the outline of the old head: short deep-teal fur; a cream-white muzzle and chin; a small dark navy nose and a confident smirk; a short tuft of cream-white wool in three spiky locks on the forehead, which may rise a little above the old top edge; the two big round amber-gold eyes (a large dark pupil, one small catchlight dot) exactly where the old eyes are, each under a short dark-teal brow mark angled down toward the nose.
+The horns and the ears are other groups: draw only the head.
+Do NOT draw: the horns, the ears, the body, a swirl or curl, white fluffy fur, pink cheeks, red eyes.""", None),
+            ("N04", "thân", "body", "giu", 23,
+             "a small round lavender body with a tan patch at the lower left where the tail starts; its top is hidden under the head",
+             "Thân tròn nhỏ tím trắng (1024 × 1024, nền trắng): mảng nâu nhạt ở dưới trái là chỗ đuôi cá bắt đầu; mép trên hở vì đầu che",
+             """- giữ viền thân như cũ;
+- thân xanh mòng két, bụng kem phía trước; dưới trái thon thành khúc đuôi cá xanh mòng két có vài vảy sẫm như concept;
+- không vẽ đầu, chân, vây đuôi; không thân tím trắng.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small round body; the head covers its top (the head is not shown), the two front legs hang in front of it (another group), and at its lower left a tan patch is where the fish tail starts. Redraw THIS piece as the body of image 2 (the approved concept), keeping its outline: deep-teal fur with a cream-white belly patch at the front; at the lower left the body narrows into the start of the deep-teal fish tail with a few darker scale marks, as in image 2.
+Draw the whole body under the legs: they are drawn over it later.
+Do NOT draw: the head, the legs, the tail fin, a lavender or white body, a tan patch.""", None),
+            ("N05", "hai chân trước", "two front legs", "giu", 22,
+             "two short pale legs hanging down side by side, cream hooves at the bottom; their tops hidden under the body",
+             "Hai chân trước ngắn màu trắng (1024 × 1024, nền trắng): chân trái và chân phải buông thẳng, móng kem ở dưới; mép trên hở là chỗ nối vào thân",
+             """- viền và chỗ hai chân như cũ; móng ở đầu dưới;
+- chân xanh mòng két, móng xanh thẫm nhỏ;
+- không vẽ thân, bụng kem; không móng kem.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two short front legs hanging straight down side by side (the body is not shown): the TOP of each leg is where it joins the body, a small hoof at the BOTTOM. Redraw THESE two pieces as the front legs of image 2 (the approved concept): short deep-teal legs with small dark navy hooves at the bottom, each in its old place, outline and direction.
+Do NOT draw: the body, the belly, cream hooves, toes or claws.""", None),
+            ("N06", "vây đuôi", "tail fin", "doi", 16,
+             "a tan bean-shaped fin with brown lines, hanging down at the lower left; it joins the tail at its upper right end",
+             "Vây đuôi nâu nhạt hình hạt đậu có vân nâu (1024 × 1024, nền trắng): rủ xuống ở dưới trái, đầu trên phải là chỗ nối vào khúc đuôi",
+             """- đầu nối (trên phải) đúng chỗ cũ, vây rủ xuống như cũ, cỡ như cũ hoặc to hơn chút;
+- vây cam san hô hình quạt, gân xanh mòng két tỏa từ chỗ nối, mép lượn, gốc xanh mòng két như concept;
+- không vẽ thân, khúc đuôi có vảy; không vây nâu.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a bean-shaped tail fin hanging down at the lower left; its upper right end is where it joins the fish tail (the tail and the body are not shown). Redraw THIS piece as the tail fin of image 2 (the approved concept): a coral-orange fan-shaped fin with deep-teal ribs spreading from a small deep-teal base at the joint, a scalloped outer edge; its joint where the old joint is, hanging down like the old fin, about its size or a little bigger.
+Do NOT draw: the body, the scaled part of the tail, a tan fin.""", "upper right joint"),
+        ],
+        "extra": [],
+        "first": ["N03", "N02"],  # gen thử trước: đầu có mặt (giữ viền), vây tai (đổi dáng)
+    },
+    {
+        "code": "ma_ket_2", "elem": "thuy", "aola": 759,
+        "hero": "Ma Kết", "form": 2, "forms": 3, "form_name": "Ma Kết Sừng Nhọn",
+        "role_vi": "tướng Hiếm hệ Thủy (ải 20 đảo Thủy, mini boss), dạng 2/3, rig aola #759",
+        "design_vi": ("dê biển trẻ, lớn lên từ dạng 1: cùng lông xanh mòng két, mõm kem dài hơn, mắt hổ phách, vệt mày xếch; sừng bạc "
+                      "dài nhọn có ngấn; vây tai cam san hô to hơn; túm len má và chỏm len trắng kem nhọn (chỏm hất sang phải như ngọn "
+                      "sóng); ngực kem đeo vỏ sò điệp hồng san hô trên vòng bạc (mảnh giáp đầu tiên); chân khỏe móng chẻ xanh thẫm; "
+                      "đuôi cá xanh mòng két vảy xanh thẫm, vây đuôi to cam san hô"),
+        "rig_vi": ("con gốc #759 là dê biển đứng trên hai chân trước, nhìn ba phần tư quay phải: đầu trắng, hai sừng tím hồng nhọn "
+                   "(sừng trái to vươn lên trái, sừng phải nhỏ chĩa lên), một tai hồng ở trên trái đầu, túm lông má bên trái, chỏm "
+                   "lông nhọn trên phải đầu, mắt xanh ngọc; thân trắng tím nhạt, hai chân trước móng tím (chân trái trước, chân phải "
+                   "sau), đuôi cá xanh ngọc sau thân, vây đuôi to hai thùy ở bên trái. Bỏ khỏi bóng xám: bóng"),
+        "regions_vi": ("1 sừng trái to, 2 sừng phải nhỏ, 3 tai, 4 đầu có mặt, 5 túm lông má trái, 6 chỏm lông trên phải đầu, 7 thân, "
+                       "8 chân trước trái và móng, 9 chân trước phải và móng, 10 đuôi cá, 11 vây đuôi"),
+        "anchor": True,
+        "prev": [("ma_ket_1", "the approved FIRST stage of this evolution line: keep its colours, horns, fin ears, face and "
+                              "drawing style",
+                  "dạng 1, dê biển con: lông xanh mòng két, mõm kem, chỏm len kem, sừng bạc ngắn có ngấn, vây tai và vây đuôi cam "
+                  "san hô, mắt hổ phách. Giữ màu, sừng, vây tai, mặt, nét vẽ")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6. The little sea-goat kid of image 6 has grown into a bold YOUNG SEA-GOAT: a goat in front with two strong front legs and long pointed silver horns, its body ending in a big fish tail, the first piece of its shell armour hanging on its chest; still a cute, chunky creature. Same front three-quarter view (facing the viewer's right) and pose as image 1, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one head with its face, two horns (a big one at the viewer-left, a small one at the right), one ear at the upper left of the head (the other ear is hidden), a cheek ruff at the left side of the head, a spiky tuft at the upper right of the head, one body, two front legs with hooves, one fish tail with one big fin; no hind legs, no second ear, no arms or hands, no wings, no extra limbs;
+- every joint where it is: the head sits on the front of the body at the upper right; the big horn grows from the top of the head at its left and the small horn from its upper right, behind the tuft; the ear grows from the upper left of the head, under the big horn; the cheek ruff grows from the left side of the head, behind the face; the tuft sits on the upper right of the head; the front legs start under the front of the body, the viewer-left leg in front and the viewer-right leg behind it at the right; the fish tail starts at the back of the body on the left and ends in the big fin at the left;
+- every part pointing the same way: the face is turned to the viewer's right; the big horn rises up and to the left, its tip at the TOP LEFT; the small horn points up; the ear points up and to the left; the ruff's spiky locks point to the left; the tuft's spiky locks point to the right; the viewer-left leg goes straight down and the viewer-right leg goes down and a little to the right, each with its hoof at the BOTTOM; the tail fin has two lobes, the upper one pointing up and the lower one pointing to the left;
+- the head, the body, the legs, the tail and the fin about the size and shape of regions 4, 7, 8, 9, 10 and 11; the horns about as long as regions 1 and 2; the whole figure about the same size.
+
+CHANGE (the new look, region by region):
+1 and 2 horns: the silver horns of image 6 grown long and pointed: silver with grey ring ridges, the big one curving up and to the left like region 1, the small one like region 2.
+3 ear: the coral-orange fin ear of image 6 grown bigger: a coral-orange fin membrane over three deep-teal ribs, pointing up and to the left.
+4 head: the deep-teal head of image 6 grown up: a longer cream-white muzzle and chin, a small dark nose, two big amber-gold eyes (a large dark pupil, one small catchlight dot) under dark-teal brow marks angled down: a fierce look; a confident smirk. No blush on the cheeks.
+5 cheek ruff: a ruff of cream-white wool in spiky locks pointing to the left, like region 5.
+6 tuft: a cream-white wool forelock in spiky locks swept to the right like a breaking wave, like region 6.
+7 body: a deep-teal body with a cream-white chest; on the chest hangs a small pale coral-pink scallop shell with cream ribs on a silver ring: the first piece of its shell armour.
+8 and 9 front legs: strong deep-teal legs with dark navy split hooves at the bottom.
+10 fish tail: a deep-teal fish tail with darker navy scale marks.
+11 tail fin: a big coral-orange fin with deep-teal ribs, the shape of region 11.
+
+ATTITUDE: a bold young sea-goat ready to charge horns first: brows angled down, a confident smirk, chest out, legs braced; cute and chunky, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this line: keep its colours, horns, fin ears, face and drawing style, so both stages read as the same creature growing up.
+
+COLOURS: as in image 6: deep teal fur; a cream-white muzzle, chest, ruff and tuft; silver horns with grey ridges; amber-gold eyes; coral-orange fins with deep-teal ribs; dark navy hooves and scale marks; a pale coral-pink shell on a silver ring. Few colours.
+
+AVOID: a white or lavender body, mauve, pink or purple horns, teal-green eyes, a pink goat ear, a turquoise tail or fin, hind legs, a human face or body, arms or hands, wings, water rings or bubbles around the creature (the game adds them), text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #759, khung đứng đầu (17 mảnh): 1 bóng, 2 chân trước phải, 3 móng phải, 4 sừng phải, 5 vây đuôi, 6 đuôi cá,
+        # 7 thân, 8 chân trước trái, 9 đầu, 10 mắt phải, 11 túm lông má trái, 12 chỏm lông trên phải, 13 sừng trái, 14 móng trái,
+        # 15 tai, 16 mắt trái, 17 miệng. Nhóm (groups.json): N01 hai sừng (13, 4), N02 vây tai (15), N03 đầu, mặt, túm len má,
+        # chỏm len (9, 10, 16, 17, 11, 12), N04 thân (7), N05 hai chân trước (8, 14, 2, 3), N06 đuôi cá và vây (6, 5).
+        # Viền px = 0,85% × 695 px (chiều cao cả con trong RegionMap) ÷ 4 × k: N01 10, N02 11, N03 11, N04 21, N05 18, N06 13.
+        "groups": [
+            ("N01", "hai sừng", "two horns", "doi", 10,
+             "two mauve horns: a big one at the left (wide base at its lower right, curving up to a tip at the top left) and a small one at the right (base at the bottom, tip at the top)",
+             "Hai sừng tím hồng (1024 × 1024, nền trắng): sừng trái to (gốc rộng ở dưới phải, cong lên tới chóp ở trên trái), sừng phải nhỏ (gốc ở dưới, chóp ở trên); đầu không có trong ảnh",
+             """- gốc hai sừng đúng chỗ gốc cũ, rộng như cũ; sừng to vươn lên trái, sừng nhỏ chĩa lên như cũ;
+- sừng bạc một màu xám bạc đều, bốn năm ngấn xám sẫm ngang, chóp nhọn như concept; cỡ gần như cũ;
+- không vẽ đầu, chỏm len, tai; không sừng tím.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two mauve horns standing on the head (the head is not shown). The viewer-left horn is the big one: its wide BASE is at its lower right, where it sits on the head, and it curves up to a pointed tip at the TOP LEFT. The viewer-right horn is the small one: its base is at the BOTTOM and its tip at the TOP. Redraw THESE two pieces as the long pointed horns of image 2 (the approved concept): silver horns, one even silver-grey colour with four or five darker grey ring ridges drawn across them, sharp tips; each with its base along the old base, pointing the same way, about the size of the old horn.
+Do NOT draw: the head, the wool tuft, the ear, mauve or purple horns, light and dark bands on the horns.""", "horn base line"),
+            ("N02", "vây tai", "fin ear", "doi", 11,
+             "one long goat ear with a pink inside, pointing to the upper left: its tip at the left end, its base at the right end",
+             "Một tai dê dài lòng hồng (1024 × 1024, nền trắng): chĩa lên trái, chóp ở đầu trái, gốc (mép hở) ở đầu phải là chỗ nối vào đầu",
+             """- gốc tai (đầu phải) đúng chỗ gốc cũ; vây mở lên trái như tai cũ, to hơn tai cũ được như concept;
+- màng cam san hô căng trên ba gân xanh mòng két tỏa từ gốc, mép trên là gân xanh mòng két dày, mép ngoài lượn sóng;
+- không vẽ đầu, sừng, túm len; không tai dê lòng hồng.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): one long goat ear pointing to the upper left; its tip is at its LEFT end and its BASE is at its RIGHT end, where it joins the head (the head is not shown). Redraw THIS piece as the fin ear of image 2 (the approved concept): a big fin, a coral-orange membrane stretched over three deep-teal ribs that fan out from the base, the top edge a thicker deep-teal rib, the outer edge scalloped; its base where the old base is, opening up and to the left like the old ear, bigger than the old ear as in image 2.
+Do NOT draw: the head, the horns, the wool, a goat ear with a pink inside.""", "joint line at the base of the ear (its right end)"),
+            ("N03", "đầu, mặt, túm len má, chỏm len", "head with face and wool", "giu", 11,
+             "a white head facing right with two teal eyes, a small nose and mouth; a spiky white cheek ruff at its left and a spiky white-and-lavender tuft at its upper right",
+             "Đầu trắng quay phải (1024 × 1024, nền trắng): hai mắt xanh ngọc, mũi và miệng nhỏ; túm lông má trắng nhọn ở bên trái, chỏm lông nhọn trắng tím ở trên phải",
+             """- giữ viền ngoài đầu như cũ; túm len má ở bên trái và chỏm len ở trên phải đúng chỗ cũ, cỡ như cũ;
+- đầu lông xanh mòng két, mõm và cằm trắng kem, mũi xanh thẫm nhỏ, cười nhếch; túm len má kem lọn nhọn chĩa trái; chỏm len kem lọn nhọn hất sang phải;
+- hai mắt hổ phách to (con ngươi đen, một chấm sáng) đúng chỗ mắt cũ, vệt mày xanh thẫm xếch;
+- không má hồng; không vẽ sừng, tai, thân, vỏ sò.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a white head turned to the viewer's right, with two teal eyes (the viewer-right eye smaller, near the right edge), a small nose and a small mouth; a spiky white cheek ruff sticks out at its LEFT side and a spiky white-and-lavender tuft sits on its UPPER RIGHT. Redraw THESE pieces as the head of image 2 (the approved concept), keeping the outline of the old head, ruff and tuft: short deep-teal fur; a cream-white muzzle and chin; a small dark navy nose and a confident smirk; the two big round amber-gold eyes (a large dark pupil, one small catchlight dot) exactly where the old eyes are, under dark-teal brow marks angled down; the cheek ruff as cream-white wool in spiky locks pointing to the left; the tuft as a cream-white wool forelock in spiky locks swept to the right.
+The horns, the ear and the body are other groups: draw only these pieces.
+Do NOT draw: the horns, the ear, the body, the shell necklace, a white face, teal eyes, pink cheeks.""", None),
+            ("N04", "thân", "body", "giu", 21,
+             "a chubby lavender-white body with a white chest patch and a small fur mark; open at the upper right where the head covers it",
+             "Thân mập tím trắng (1024 × 1024, nền trắng): mảng ngực trắng, vệt lông nhỏ; mép trên phải hở vì đầu che",
+             """- giữ viền thân như cũ;
+- thân xanh mòng két, ngực trắng kem mép lông xù ở phía trước bên phải;
+- trên ngực, ngay dưới cằm: vỏ sò điệp nhỏ hồng san hô nhạt gân kem treo trên vòng bạc như concept;
+- không vẽ đầu, chân, đuôi; không thân tím trắng.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a chubby body; the head covers its upper right (the head is not shown), the front legs hang from its bottom and the fish tail starts behind its left side (other groups). Redraw THIS piece as the body of image 2 (the approved concept), keeping its outline: deep-teal fur with a cream-white chest at the front right, its edge in soft fur tufts; on the chest, just under where the chin comes, a small pale coral-pink scallop shell with cream ribs hanging on a silver ring, as in image 2.
+Draw the whole body under the legs and the head: they are drawn over it later.
+Do NOT draw: the head, the legs, the tail, a lavender or white body.""", None),
+            ("N05", "hai chân trước", "two front legs", "giu", 18,
+             "two front legs: the left one straight down, the right one going down to the right; pale lavender legs with dark mauve split hooves at the bottom",
+             "Hai chân trước (1024 × 1024, nền trắng): chân trái thẳng xuống, chân phải chĩa xuống phải; chân tím trắng, móng chẻ tím sẫm ở dưới; mép trên hở là chỗ nối vào thân",
+             """- viền và chỗ hai chân như cũ; móng ở đầu dưới;
+- chân xanh mòng két, móng chẻ xanh thẫm;
+- không vẽ thân, ngực kem; không móng tím.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): two front legs (the body is not shown). The viewer-left leg goes straight down; the viewer-right leg goes down and a little to the right. The TOP of each leg is where it joins the body; a split hoof is at the BOTTOM. Redraw THESE pieces as the front legs of image 2 (the approved concept): strong deep-teal legs with dark navy split hooves at the bottom, each in its old place, outline and direction.
+Do NOT draw: the body, the chest, mauve hooves, toes or claws.""", None),
+            ("N06", "đuôi cá và vây", "fish tail and fin", "giu", 13,
+             "a turquoise fish tail: its thick base at the right (hidden behind the body) and a big two-lobed fin at the left (one lobe pointing up, one pointing left)",
+             "Đuôi cá xanh ngọc (1024 × 1024, nền trắng): khúc đuôi dày ở bên phải (giấu sau thân), vây to hai thùy ở bên trái (thùy trên chĩa lên, thùy dưới chĩa trái)",
+             """- viền khúc đuôi và vây như cũ; hai thùy chĩa đúng hướng cũ;
+- khúc đuôi xanh mòng két vảy cong xanh thẫm; vây cam san hô, gân xanh mòng két dọc mỗi thùy, mép trước xanh mòng két như concept;
+- không vẽ thân, chân; không vây xanh ngọc.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a fish tail: its thick base at the RIGHT, where it starts behind the body (the body is not shown), and a big fin with two lobes at the LEFT, one lobe pointing up and one pointing to the left. Redraw THESE pieces as the tail of image 2 (the approved concept), keeping their outline: a deep-teal fish tail with curved darker navy scale marks, and a coral-orange fin with a deep-teal rib along each lobe and a deep-teal leading edge.
+Do NOT draw: the body, the legs, a turquoise fin.""", None),
+        ],
+        "extra": [],
+        "first": ["N03", "N02"],  # gen thử trước: đầu có len (giữ viền), vây tai (đổi dáng)
+    },
+    {
+        "code": "ma_ket_3", "elem": "thuy", "aola": 760,
+        "hero": "Ma Kết", "form": 3, "forms": 3, "form_name": "Ma Kết Thánh Giáp",
+        "role_vi": "tướng Hiếm hệ Thủy (ải 20 đảo Thủy, mini boss), dạng 3/3, rig aola #760",
+        "design_vi": ("dê biển thánh giáp, lớn lên từ dạng 2: thân thon xanh mòng két, ngực và mõm kem, bờm len trắng kem hất ra sau "
+                      "thành lọn nhọn, mắt hổ phách; sừng bạc dài sắc có ngấn; mũ thánh giáp bằng vỏ sò điệp hồng san hô gân kem viền "
+                      "bạc, ngọc trai xanh thẫm trước trán; giáp vai cùng vỏ sò viền bạc, dây da nâu sẫm; vây tai cam san hô; bờm "
+                      "sau mũ xanh thẫm; đuôi cá vảy xanh thẫm, ba vây lớn cam san hô căng giữa gai xanh mòng két, ba vây nhỏ xanh "
+                      "thẫm; khom thấp sắp vồ, oai, không đáng sợ"),
+        "rig_vi": ("con gốc #760 là dê biển giáp vàng nhìn nghiêng quay phải, khom thấp như sắp vồ: đầu thấp ở bên phải mõm chĩa "
+                   "phải, bờm trắng hất ra sau, mũ giáp vàng có ngọc xanh lá, sừng xanh xám to vươn ra sau lên trái và sừng nhỏ ở "
+                   "bên phải mũ, tai trong nâu, bờm sẫm sau mũ; giáp vai vàng có dây dưới ngực; chân trước gần chạm đất, móng chĩa "
+                   "ra sau, chân trước xa gập dưới ngực; đuôi cá xanh tím chạy sang trái với vây gai rất lớn dựng lên (hình chữ L), "
+                   "vây giữa, vây dưới dài và ba vây nhỏ sẫm. Bỏ khỏi bóng xám: bóng"),
+        "regions_vi": ("1 sừng to, 2 sừng nhỏ, 3 mũ giáp có ngọc, 4 đầu có mặt và bờm hất sau, 5 tai, 6 bờm sẫm sau mũ, 7 thân, "
+                       "8 giáp vai và dây, 9 chân trước gần, 10 chân trước xa (gập), 11 đuôi cá, 12 vây gai lớn dựng lên, 13 vây "
+                       "giữa, 14 vây dưới dài, 15 ba vây nhỏ"),
+        "anchor": True,
+        "prev": [("ma_ket_1", "the approved FIRST stage of this evolution line: keep its colours, horns, fin ears, face and "
+                              "drawing style",
+                  "dạng 1, dê biển con: lông xanh mòng két, mõm kem, chỏm len kem, sừng bạc ngắn có ngấn, vây tai và vây đuôi cam "
+                  "san hô, mắt hổ phách. Giữ màu, sừng, vây tai, mặt, nét vẽ"),
+                 ("ma_ket_2", "the approved SECOND stage of this evolution line: keep its colours, horns, fin ear, face, wool, "
+                              "shell and drawing style",
+                  "dạng 2, dê biển trẻ: sừng bạc dài nhọn, vây tai cam san hô, túm len má và chỏm len kem, vỏ sò hồng san hô trên "
+                  "ngực, đuôi cá xanh mòng két vây cam san hô. Giữ màu, sừng, vây tai, mặt, len, vỏ sò, nét vẽ")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first two stages are image 6 and image 7. The sea-goat kid of image 6, who grew into the young sea-goat of image 7, has become a HOLY-ARMOURED SEA-GOAT, a knight of the deep: a sleek, powerful sea-goat in shell armour, crouched low and ready to pounce, its fish tail spread into huge spiky fins. Seen from the side facing the viewer's right, in the same pose as image 1, on a plain white background. Noble and strong but still appealing, never scary; not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one head facing right with its face and a mane sweeping back, one helmet on the head with a gem at its front, two horns (a big one sweeping up and back from the helmet, a small one at the right end of the helmet), one ear behind the helmet, a dark back mane showing behind the helmet, one body, one shoulder armour plate with a strap, two front legs (a near one and a far one folded under the chest), one long fish tail going back to the left, one huge tail fin spike, one middle back fin, one long lower fin and three small fins; no hind legs, no arms or hands, no wings, no weapon, no extra limbs;
+- every joint where it is: the head is low at the right end of the body, its snout at the far right; the mane grows from the back of the head and sweeps back over the neck; the helmet sits on top of the head, its gem just above the eye; the big horn rises from the top of the helmet; the small horn rises from the right end of the helmet; the ear and the dark back mane stick out from behind the helmet; the shoulder plate lies across the shoulder behind the head, its strap under the chest; the near front leg starts at the shoulder and reaches down to the ground; the far front leg is folded under the chest; the fish tail starts at the back of the body and runs to the left; the huge fin spike, the middle fin and one small fin rise from the top of the tail; the long lower fin and two small fins hang from its underside;
+- every part pointing the same way: the head and the snout point right, a little down; the mane's spiky locks sweep back to the upper left; the big horn sweeps up and back to the upper left, its tip at the TOP; the small horn points up; the ear points up and back to the upper left; the near front leg goes down to the ground with its hoof at the BOTTOM, the hoof pointing back to the left; the hoof of the folded far leg points to the left; the huge fin spike rises almost straight up from the tail, with a second long point running back to the left from its base (an L shape like region 12); the middle fin points up and to the left; the long lower fin points to the lower left;
+- the head, the body, the legs, the tail and the big fins about the size and shape of regions 4, 7, 9, 10, 11, 12, 13 and 14; the whole figure about the same size.
+
+CHANGE (the new look, region by region):
+1 and 2 horns: the silver horns of image 7, now long and sharp: silver with grey ring ridges; the big one sweeping up and back like region 1, the small one like region 2.
+3 helmet: a holy helmet made of a pale coral-pink scallop shell with cream ribs and a silver rim, its crest rising like region 3, a deep-blue round pearl set at its front above the eye.
+4 head: the deep-teal head of image 7 grown sleek and noble: a long cream-white muzzle, a small dark nose, a fierce amber-gold eye (a large dark pupil, one small catchlight dot) under a dark-teal brow mark angled down, a confident set mouth; a mane of cream-white wool sweeping back from the head in long spiky locks, like region 4.
+5 ear: the coral-orange fin ear of image 7, bigger: a coral-orange fin membrane over deep-teal ribs, pointing up and back.
+6 back mane: deep navy-teal spiky locks showing behind the helmet.
+7 body: a sleek deep-teal body with a cream-white chest.
+8 shoulder armour: a curved shoulder plate of the same pale coral-pink shell with cream ribs and a silver rim, held by a dark-brown leather strap.
+9 and 10 front legs: strong deep-teal legs with dark navy hooves.
+11 fish tail: a long deep-teal fish tail with darker navy scale marks.
+12, 13 and 14 big fins: coral-orange fin membranes stretched between deep-teal spines along their edges, each the shape of its region.
+15 small fins: three small deep navy-teal fins.
+
+ATTITUDE: a noble armoured sea-goat about to pounce: a focused, fierce eye, the brow angled down, a confident set mouth, the body low and coiled; powerful and proud, with chunky, readable shapes; never scary.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 and image 7 are the approved first and second stages of this line: keep their colours, silver horns, fin ears, face, cream wool and coral-pink shell, so all three stages read as the same creature growing up.
+
+COLOURS: as in image 7: deep teal fur; a cream-white muzzle, chest and mane; silver horns with grey ridges; an amber-gold eye; coral-orange fins with deep-teal spines; pale coral-pink shell armour with cream ribs and silver rims; a deep-blue pearl; a deep navy-teal back mane and small fins; dark navy hooves; a dark-brown strap. Few colours.
+
+AVOID: a gold helmet, a green gem, violet or blue-purple fins, a white or lavender body, blue-grey horns, blue eyes, a brown inner ear, hind legs, a human face or body, arms or hands, wings, a weapon, water rings, bubbles or slashes around the creature (the game adds them), text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #760, khung đứng đầu (26 mảnh): 1 bóng, 2 3 4 ba vây nhỏ sẫm, 5 móng chân xa, 6 7 chân trước xa (gập), 8 đuôi cá,
+        # 9 vây dưới dài, 10 vây gai lớn chữ L, 11 vây giữa, 12 dây giáp, 13 thân, 14 giáp vai, 15 bờm sẫm sau mũ, 16 đầu và bờm,
+        # 17 sừng to, 18 tai, 19 sừng nhỏ, 20 má mũ bên phải, 21 mũ giáp, 22 miệng, 23 mắt, 24 móng chân gần, 25 26 chân trước
+        # gần. Clip đánh gốc có hình sừng xanh to quét ngang (biến thể): xử lý khi ghép. Nhóm (groups.json): N01 hai sừng (17, 19),
+        # N02 mũ (21, 20), N03 đầu và bờm (16, 22, 23), N04 tai và bờm sẫm (15, 18), N05 thân (13), N06 giáp vai và dây (14, 12),
+        # N07 chân gần (26, 25, 24), N08 chân xa (6, 7, 5), N09 đuôi cá và ba vây nhỏ (8, 2, 3, 4), N10 ba vây lớn (10, 11, 9).
+        # Viền px = 0,85% × 957 px ÷ 4 × k: N01 14, N02 14, N03 13, N04 14, N05 16, N06 16, N07 19, N08 21, N09 11, N10 8.
+        "groups": [
+            ("N01", "hai sừng", "two horns", "doi", 14,
+             "two blue-grey horns: a big one curving up and back to a tip at the top left (base at its lower right), a small one at the right (base at the bottom, tip at the top)",
+             "Hai sừng xanh xám (1024 × 1024, nền trắng): sừng to cong lên ra sau, chóp ở trên trái, gốc ở dưới phải; sừng nhỏ ở bên phải, gốc ở dưới, chóp ở trên",
+             """- gốc hai sừng đúng chỗ gốc cũ; sừng to vươn lên ra sau, sừng nhỏ chĩa lên như cũ;
+- sừng bạc một màu xám bạc đều, ngấn xám sẫm ngang, chóp sắc như concept; cỡ gần như cũ;
+- không vẽ mũ, đầu, tai; không sừng xanh xám.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two blue-grey horns that rise from the helmet (the helmet and the head are not shown). The big horn's BASE is at its lower right and it curves up and back to a sharp tip at the TOP LEFT. The small horn stands at the right: its base at the BOTTOM, its tip at the TOP. Redraw THESE two pieces as the horns of image 2 (the approved concept): long, sharp silver horns, one even silver-grey colour with darker grey ring ridges drawn across them; each with its base where the old base is, pointing the same way, about the size of the old horn.
+Do NOT draw: the helmet, the head, the ear, blue-grey horns, light and dark bands on the horns.""", "horn base line"),
+            ("N02", "mũ thánh giáp", "shell helmet", "doi", 14,
+             "a gold helmet crest rising to a point, a green gem at its lower right front, a small gold side piece at its right",
+             "Mũ giáp vàng (1024 × 1024, nền trắng): mào vàng nhọn dựng lên, ngọc xanh lá ở phía trước dưới phải, mảnh vàng nhỏ bên phải; mép dưới là chỗ ôm đầu",
+             """- mép dưới (chỗ ôm đầu) và chỗ ngọc đúng chỗ cũ; mũ to hơn mũ cũ được như concept;
+- vành bạc ôm trán, quạt vỏ sò điệp hồng san hô gân kem dựng lên sau vành, ngọc trai xanh thẫm gắn trên vành ở chỗ ngọc cũ;
+- không chấm sáng trên ngọc; không vẽ sừng, đầu, mắt; không mũ vàng, không ngọc xanh lá.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a gold helmet sitting on top of the head (the head is not shown): a crest rising to a point, a green gem at its lower right front, just above the eye, and a small gold side piece at its right end. Redraw THESE pieces as the helmet of image 2 (the approved concept): a silver circlet hugging the forehead along the old lower edge, a fan of pale coral-pink scallop shell with cream ribs rising behind it in place of the crest, and a deep-blue round pearl set in the silver at the front, where the old gem is. It may be bigger than the old helmet, as in image 2.
+Do NOT draw: the horns, the head, the eye, a gold helmet, a green gem, a white shine spot on the pearl.""", "lower edge on the head and the gem's place"),
+            ("N03", "đầu và bờm", "head with face and mane", "giu", 13,
+             "a white head facing right: a blue eye, a mouth line, the snout at the right; long lavender-white mane spikes sweeping back to the upper left",
+             "Đầu trắng quay phải (1024 × 1024, nền trắng): mắt xanh, nét miệng, mõm ở bên phải; bờm trắng tím nhạt thành gai dài hất ra sau lên trái",
+             """- giữ viền đầu và các gai bờm như cũ; mắt, miệng đúng chỗ cũ;
+- đầu xanh mòng két, mõm và hàm dưới trắng kem, mũi xanh thẫm nhỏ, cười tự tin; mắt hổ phách (con ngươi đen, một chấm sáng) dưới vệt mày xanh thẫm xếch;
+- các gai bờm hất ra sau là len trắng kem;
+- không vẽ mũ, sừng, tai.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a white head seen from the side, facing right (the snout at the RIGHT end), with a blue eye and a mouth line; long lavender-white mane spikes sweep back from it to the upper left. Redraw THESE pieces as the head of image 2 (the approved concept), keeping the outline of the head and of every mane spike: a deep-teal head; a cream-white muzzle and lower jaw; a small dark navy nose and a confident smile; a fierce amber-gold eye (a large dark pupil, one small catchlight dot) exactly where the old eye is, under a dark-teal brow mark angled down; the mane spikes as cream-white wool locks sweeping back.
+The helmet, the horns and the ear are drawn over this group later: draw the whole head under them.
+Do NOT draw: the helmet, the horns, the ear, a white head, a blue eye.""", None),
+            ("N04", "vây tai và bờm sẫm", "fin ear and back mane", "doi", 14,
+             "a long ear with a brown inside pointing up and to the left, and behind it a grey back mane with two points (one up-left, one up)",
+             "Tai dài lòng nâu chĩa lên trái và bờm xám sau nó có hai mũi (một chĩa lên trái, một chĩa lên) (1024 × 1024, nền trắng); mép dưới là chỗ giấu sau mũ",
+             """- tai chĩa lên ra sau (lên trái) như tai cũ, gốc đúng chỗ cũ; không nằm ngang ra sau;
+- tai là vây: màng cam san hô căng trên gân xanh mòng két, mép trên là gân xanh mòng két dày;
+- bờm sẫm xanh thẫm, lọn nhọn đúng chỗ hai mũi cũ;
+- không vẽ mũ, đầu, sừng; không tai lòng nâu, không bờm xám.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design), both sticking out from behind the helmet (the helmet and the head are not shown): in front, a long ear with a brown inside, pointing UP and back to the upper left, its base at its lower right; behind it, a grey back mane with two points, one pointing up and to the left, one pointing up at the right. Redraw THESE pieces as image 2 (the approved concept) shows them: the ear as a fin, a coral-orange membrane over deep-teal ribs with a thicker deep-teal top edge, pointing up and back like the old ear (not lying flat); the back mane as deep navy-teal spiky locks, their tips where the old points are.
+Do NOT draw: the helmet, the head, the horns, a brown-lined ear, a grey mane.""", "base, hidden behind the helmet at the lower right,"),
+            ("N05", "thân", "body", "giu", 16,
+             "a grey-lavender body seen from the side: a pointed back edge at the upper left, the chest at the lower right",
+             "Thân xám tím nhìn nghiêng (1024 × 1024, nền trắng): mép lưng có mũi nhọn ở trên trái, ngực ở dưới phải; đầu, chân, đuôi không có trong ảnh",
+             """- giữ viền thân như cũ;
+- thân xanh mòng két, ngực trắng kem ở phía trước dưới phải như concept;
+- không vẽ đầu, giáp vai, chân, đuôi; không thân xám tím.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): the body seen from the side; the head joins it at the right, the tail at the left, the legs under it (other groups). Redraw THIS piece as the body of image 2 (the approved concept), keeping its outline: sleek deep-teal fur with a cream-white chest at its lower right front.
+Draw the whole body under the other parts: they are drawn over it later.
+Do NOT draw: the head, the mane, the shoulder armour, the legs, the tail, a grey or lavender body.""", None),
+            ("N06", "giáp vai và dây", "shoulder armour and strap", "doi", 16,
+             "a gold crescent plate running from the upper left down to the lower right, and a brown strap curling up to the right at its lower end",
+             "Giáp vai vàng hình lưỡi liềm (1024 × 1024, nền trắng): chạy từ trên trái xuống dưới phải; dây nâu cong lên bên phải ở đầu dưới",
+             """- giáp nằm đúng chỗ, đúng hướng giáp cũ (trên trái xuống dưới phải), to hơn được như concept; dây đúng chỗ dây cũ;
+- giáp vỏ sò điệp hồng san hô gân kem, viền bạc; dây da nâu sẫm có khoen bạc nhỏ;
+- không vẽ thân, chân, bờm; không giáp vàng.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a gold crescent shoulder plate lying across the shoulder, running from the upper left down to the lower right, and a brown strap that curls up to the right from its lower end, under the chest (the body is not shown). Redraw THESE pieces as image 2 (the approved concept) shows them: the plate as a curved shoulder guard of pale coral-pink scallop shell with cream ribs and a silver rim, in the place and direction of the old plate, it may be wider as in image 2; the strap as a dark-brown leather strap with a small silver ring, along the old strap.
+Do NOT draw: the body, the legs, the mane, a gold plate.""", "plate line and strap end"),
+            ("N07", "chân trước gần", "near front leg", "giu", 19,
+             "a white-lavender front leg: fluffy points at its top (the shoulder), bent lower down, a blue-grey hoof at the bottom left pointing left",
+             "Chân trước gần trắng tím (1024 × 1024, nền trắng): đầu trên có mấy mũi lông xù là vai, gập ở dưới, móng xanh xám ở dưới trái chĩa sang trái",
+             """- viền và chỗ chân như cũ; vai ở đầu trên, móng ở đầu dưới chĩa trái;
+- chân xanh mòng két, mấy mũi lông ở vai trắng kem, móng xanh thẫm;
+- không vẽ thân, giáp vai; không móng xanh xám.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): the near front leg (the body is not shown). Its TOP end, with a few fluffy points, is the shoulder; the leg comes down and bends, and its hoof is at the BOTTOM LEFT, pointing to the left. Redraw THESE pieces as the near front leg of image 2 (the approved concept), keeping the outline: a deep-teal leg, the fluffy points at the shoulder in cream-white wool, a dark navy hoof at the bottom pointing left.
+Do NOT put the hoof at the shoulder end. Do NOT draw: the body, the shoulder armour, a blue-grey hoof.""", None),
+            ("N08", "chân trước xa", "far front leg", "giu", 21,
+             "a grey-lavender front leg folded under the chest: fluffy points at its top, a blue-grey hoof at the bottom left pointing left",
+             "Chân trước xa xám tím gập dưới ngực (1024 × 1024, nền trắng): đầu trên có mũi lông xù là vai, móng xanh xám ở dưới trái chĩa sang trái",
+             """- viền và chỗ chân như cũ; móng ở đầu dưới chĩa trái;
+- chân xanh mòng két (cùng màu chân gần, không tô sẫm hơn), mũi lông ở vai trắng kem, móng xanh thẫm;
+- không vẽ thân, chân gần.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): the far front leg, folded under the chest (the body is not shown). Its TOP end, with fluffy points, is the shoulder; its hoof is at the BOTTOM LEFT, pointing to the left. Redraw THESE pieces as the far front leg of image 2 (the approved concept), keeping the outline: a deep-teal leg in the same colour as the near leg (not darker), the fluffy points in cream-white wool, a dark navy hoof pointing left.
+Do NOT put the hoof at the shoulder end. Do NOT draw: the body, the near leg, a grey leg, a blue-grey hoof.""", None),
+            ("N09", "đuôi cá và ba vây nhỏ", "fish tail and small fins", "giu", 11,
+             "a navy-blue rounded tail piece with three small dark fins: one on top at the left, one at the left end, one underneath",
+             "Khúc đuôi xanh tím tròn (1024 × 1024, nền trắng) với ba vây nhỏ sẫm: một vây trên ở bên trái, một vây ở đầu trái, một vây dưới",
+             """- viền khúc đuôi và ba vây nhỏ như cũ;
+- khúc đuôi xanh mòng két, vảy cong xanh thẫm; ba vây nhỏ xanh thẫm;
+- không vẽ vây lớn, thân; không xanh tím.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a rounded navy-blue tail piece (its wide end at the right joins the body, which is not shown) with three small dark fins: one on its top at the left, one at its left end and one underneath. Redraw THESE pieces as image 2 (the approved concept) shows them, keeping every outline: the tail in deep-teal fur turning into curved darker navy scale marks; the three small fins deep navy-teal.
+Do NOT draw: the big fins, the body, violet or blue-purple colours.""", None),
+            ("N10", "ba vây lớn", "three big fins", "giu", 8,
+             "three blue-violet fins: a huge L-shaped spike (one point up, one point to the left), a smaller fin pointing up at the right, a long fin pointing to the lower left at the bottom",
+             "Ba vây xanh tím (1024 × 1024, nền trắng): vây gai rất lớn hình chữ L (một mũi chĩa lên, một mũi chĩa trái), vây nhỏ hơn chĩa lên ở bên phải, vây dài chĩa xuống trái ở dưới",
+             """- viền ba vây như cũ, đúng hướng cũ;
+- màng vây cam san hô, gân và mép trước xanh mòng két như concept;
+- không vẽ đuôi, thân; không vây xanh tím.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): three blue-violet fins that grow from the tail (the tail is not shown): a huge L-shaped fin spike (one long point straight up, one long point to the left, its base at the lower right), a smaller fin at the right pointing up and to the left, and a long fin at the bottom pointing to the lower left. Redraw THESE pieces as the fins of image 2 (the approved concept), keeping their outlines: coral-orange fin membranes with deep-teal spines along their edges and a deep-teal rib inside.
+Do NOT draw: the tail, the body, blue or violet fins.""", None),
+        ],
+        "extra": [],
+        "first": ["N03", "N02"],  # gen thử trước: đầu và bờm (giữ viền), mũ vỏ sò (đổi dáng)
+    },
 ]
 
 
@@ -1105,8 +1743,10 @@ def build(f):
                f"`build.py` để có file prompt lượt 2.", "",
            "## Lượt 2: nhóm mảnh", ""]
     if not (have_c and have_g):
+        orig_note = (f"Ảnh gốc từng nhóm (GPT vẽ đè lên) đã có ở `{W(rd + 'orig')}`." if os.path.isdir(rd + "orig")
+                     else "Ảnh gốc từng nhóm (GPT vẽ đè lên) Claude dựng cùng lúc.")
         g_ += [f"File prompt `{W(p2)}`: **chưa có**. Claude viết prompt từng nhóm và dựng file này khi đã duyệt concept "
-               f"(cần `{W(concept_path(code))}`). Ảnh gốc từng nhóm (GPT vẽ đè lên) đã có ở `{W(rd + 'orig')}`.", ""]
+               f"(cần `{W(concept_path(code))}`). {orig_note}", ""]
         if have_prev:  # bảng câu sửa nhanh cho lượt concept
             g_ += ["## Concept sai thì gửi thêm (cùng chat)", "",
                    "| Sai | Gửi thêm |", "|---|---|",

@@ -67,6 +67,7 @@ namespace PokiClash
         // người chơi mới: màn giới thiệu, rồi chọn tướng khởi đầu (bản lưu chưa có starter thì mở hộp chọn mỗi lần vào sảnh)
         IEnumerator IntroLater()
         {
+            while (App.Booting) yield return null; // màn mở game còn che sảnh
             yield return new WaitForSecondsRealtime(0.5f);
             void PickStarter()
             {

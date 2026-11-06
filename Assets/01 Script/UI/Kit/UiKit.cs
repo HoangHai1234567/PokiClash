@@ -40,6 +40,9 @@ namespace PokiClash.UI
         [Header("Rương")]
         public ChestIcon chest;
 
+        [Header("Hiệu ứng bộ UI Sa Bàn")]
+        public InkBurst burst; // nét bung khi nhả nút (Kit/NetBung)
+
         [Header("Canvas màn hình (Nen / An toan / Khung)")]
         public PokiCanvas canvas;
 

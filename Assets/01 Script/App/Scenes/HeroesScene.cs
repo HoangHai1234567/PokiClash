@@ -24,10 +24,14 @@ namespace PokiClash
             tilePrefab = tile;
         }
 
+        bool popIn; // vào màn: ô tướng nảy ra lần lượt (làm mới sau đó thì không)
+
         public override void Enter(object args)
         {
+            popIn = true;
             if (lineup) lineup.Bind(RenderGrid);
             RenderGrid();
+            popIn = false;
         }
 
         public override void Refresh()
@@ -54,6 +58,14 @@ namespace PokiClash
                     App.Audio.Play("click");
                     HeroDetail.Open(id, Refresh);
                 });
+                // bộ UI Sa Bàn: ô tướng nhún nhẹ tại chỗ; lúc vào màn thì nảy ra lần lượt từ dưới lên
+                var m = PokiClash.UI.UiMotion.Of(tile);
+                m.idleLift = 4;
+                m.idleTilt = 0.4f;
+                m.idlePeriod = 3.8f;
+                m.idle = true;
+                m.spawnFrom = PokiClash.UI.UiMotion.SpawnFrom.Up;
+                if (popIn) m.Spawn(0.12f + i * 0.04f);
             }
         }
     }

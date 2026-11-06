@@ -139,6 +139,40 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: aeca7880a5fc51c40a204ad9b11bae3f, type: 3}
   - name: battle_thuy_s70_3
     sprite: {fileID: 21300000, guid: 540c27259bfaa0d4f8716287dee9563f, type: 3}
+  - name: boot_ban_do
+    sprite: {fileID: 21300000, guid: bae39e0c712ace4498e6b4ead77dd0ef, type: 3}
+  - name: boot_ban_go
+    sprite: {fileID: 21300000, guid: 9680d750ab47699469fa8ed641fd68da, type: 3}
+  - name: boot_bang_keo
+    sprite: {fileID: 21300000, guid: 979813ce69899ef4c9352fe18ee7fde4, type: 3}
+  - name: boot_but_chi
+    sprite: {fileID: 21300000, guid: cc7e9a94426f56a46838ee328005fb95, type: 3}
+  - name: boot_co_hoa
+    sprite: {fileID: 21300000, guid: 2d46f90577dc4b14799bf51743e579dc, type: 3}
+  - name: boot_co_kim
+    sprite: {fileID: 21300000, guid: b3d7689a24d60614f862aae332ea198a, type: 3}
+  - name: boot_co_moc
+    sprite: {fileID: 21300000, guid: 83c91c17225d2904bab3766c77f76c87, type: 3}
+  - name: boot_co_tho
+    sprite: {fileID: 21300000, guid: 2742a103a942cb140bbf30ba29c6395b, type: 3}
+  - name: boot_co_thuy
+    sprite: {fileID: 21300000, guid: 2210d7810ad2c284ebac17599832d710, type: 3}
+  - name: boot_de_nen
+    sprite: {fileID: 21300000, guid: 9e91bd83bf7a1434e845e5bc5f6f7951, type: 3}
+  - name: boot_de_vien
+    sprite: {fileID: 21300000, guid: d81ff0fde6fcb144ba1f84b1347e99b0, type: 3}
+  - name: boot_gach_chan
+    sprite: {fileID: 21300000, guid: 28233006808b46744ad83a1f830f1ede, type: 3}
+  - name: boot_giay_ghi
+    sprite: {fileID: 21300000, guid: 9f4c3d6e5a8508248bb0bb3fe615b90d, type: 3}
+  - name: boot_logo
+    sprite: {fileID: 21300000, guid: 6d8e498c8c6770f4dab493c4f8f54395, type: 3}
+  - name: boot_thanh_tai
+    sprite: {fileID: 21300000, guid: cd7cd839e97a27c4c9aecb0679e1b782, type: 3}
+  - name: boot_thanh_tai_loi
+    sprite: {fileID: 21300000, guid: 6c994bf121bf6954d85a0119c60114e2, type: 3}
+  - name: boot_the_up
+    sprite: {fileID: 21300000, guid: 443d4572b179f8246bf530d19658e1f1, type: 3}
   - name: giot_nuoc
     sprite: {fileID: 21300000, guid: fd9d9b0d02d0fc14a857dba8d8b7e08b, type: 3}
   - name: lap_lanh
@@ -217,6 +251,10 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 79b3f8a0421071445b45c4354fc91a6b, type: 3}
   - name: zone_thuy
     sprite: {fileID: 21300000, guid: b32aeb010673ab940b8b4ab76cf39902, type: 3}
+  - name: ui_bang_keo_ten
+    sprite: {fileID: 21300000, guid: 6d330e052c1db584c92144e758aa1a05, type: 3}
+  - name: ui_chi_khau
+    sprite: {fileID: 21300000, guid: 299c8627a0a4530458145dba14ee81fe, type: 3}
   - name: fx_glow
     sprite: {fileID: 21300000, guid: 4a532342486a3e741b9d7f800cfebc59, type: 3}
   - name: fx_puff
@@ -229,12 +267,80 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: a1c2516020bcdd04ab3c0e9ced9cd38e, type: 3}
   - name: fx_streak
     sprite: {fileID: 21300000, guid: fa850874b85b07f40b08f2f4db964534, type: 3}
+  - name: pk_bang_nut
+    sprite: {fileID: 21300000, guid: 14db57766743e7e4789b8296313b1df6, type: 3}
   - name: pk_bi
     sprite: {fileID: 21300000, guid: 1ebf4b48bcea94944944ee1dc0c10b00, type: 3}
   - name: pk_bumper
     sprite: {fileID: 21300000, guid: 36328fa4c2bdc254ea508edc681a1220, type: 3}
+  - name: pk_bumper_sang
+    sprite: {fileID: 21300000, guid: 913264b669fa6f74489d808a1a1ee85d, type: 3}
+  - name: pk_coc_sang
+    sprite: {fileID: 21300000, guid: 106bdb1cb8191e345a33b65971695c79, type: 3}
+  - name: pk_cuoc
+    sprite: {fileID: 21300000, guid: 0ba7b76b1bbc7ee42aef5e3c7670c32d, type: 3}
+  - name: pk_cuoc_chon
+    sprite: {fileID: 21300000, guid: 95382e1b1ab836b4fa0cac05989fb28c, type: 3}
+  - name: pk_cuoc_khoa
+    sprite: {fileID: 21300000, guid: 324001d618aa6da4e849ec8302bdf434, type: 3}
+  - name: pk_cuoc_max
+    sprite: {fileID: 21300000, guid: 5bb920022d1a1cf4cb32cbac85c0af1d, type: 3}
+  - name: pk_den_sang
+    sprite: {fileID: 21300000, guid: e9050451d5e273c468faf2a945c0ecb8, type: 3}
+  - name: pk_den_sang_hong
+    sprite: {fileID: 21300000, guid: 11f7c1ac056ce054f868728b8fb58607, type: 3}
+  - name: pk_den_tat
+    sprite: {fileID: 21300000, guid: 5c8eb6465ddf1154a9ca8060b8794610, type: 3}
+  - name: pk_dinh_sang
+    sprite: {fileID: 21300000, guid: 424b14bbbed6ed347b511d685f489a6d, type: 3}
+  - name: pk_fx_cham
+    sprite: {fileID: 21300000, guid: b82272a5b1f75434d821c571274e7334, type: 3}
+  - name: pk_fx_day_giay
+    sprite: {fileID: 21300000, guid: 3aaa37e459ca8974ea3c9e14f1903f03, type: 3}
+  - name: pk_fx_lap_lanh_rong
+    sprite: {fileID: 21300000, guid: d0bbf21230f59094d9d3bfb87fb19f52, type: 3}
+  - name: pk_fx_loe
+    sprite: {fileID: 21300000, guid: ab97856b322792748aec0a714153bd35, type: 3}
+  - name: pk_fx_ngoac
+    sprite: {fileID: 21300000, guid: ff388859a75398b4e8b42ea9ab356609, type: 3}
+  - name: pk_fx_sao_rong
+    sprite: {fileID: 21300000, guid: d7f83fb21091c16439f0f4ff6c4bb741, type: 3}
+  - name: pk_fx_tam_giac
+    sprite: {fileID: 21300000, guid: 33be3dd68c4bb4f438fa2740948bfbed, type: 3}
+  - name: pk_fx_tia_toa
+    sprite: {fileID: 21300000, guid: a382f51ae4de0584da0fcc410cc24987, type: 3}
+  - name: pk_fx_vach_toc
+    sprite: {fileID: 21300000, guid: 9983b8b670615b64aa2e6dca2291d6ee, type: 3}
+  - name: pk_fx_vong_day
+    sprite: {fileID: 21300000, guid: fa67340cb1f86b74b8ad4621b5e5e550, type: 3}
+  - name: pk_fx_vong_dut
+    sprite: {fileID: 21300000, guid: 6143575f0163a7942a86281fe36178ba, type: 3}
+  - name: pk_fx_xoay
+    sprite: {fileID: 21300000, guid: e2d3a89d9fa32984fb44121aa430469a, type: 3}
+  - name: pk_ket_sang
+    sprite: {fileID: 21300000, guid: 7f15cfce4798fb24b912f871a24a99a0, type: 3}
   - name: pk_may_tha
     sprite: {fileID: 21300000, guid: 1f79d2c5c35de1e48afc2c7a39c3e7bf, type: 3}
+  - name: pk_may_tha_nhay
+    sprite: {fileID: 21300000, guid: 1243d25ea6bc39742bf4bedf5bae5202, type: 3}
+  - name: pk_may_tha_wow
+    sprite: {fileID: 21300000, guid: 43ad8314e5233a547bb492b9b0ecb997, type: 3}
+  - name: pk_nut_lien
+    sprite: {fileID: 21300000, guid: ef89c4d6ac5ecfe4fb7e7d7ef23d31a4, type: 3}
+  - name: pk_nut_lien_bat
+    sprite: {fileID: 21300000, guid: e3c0b6df714a6da4d92c531c0e80f436, type: 3}
+  - name: pk_nut_tha
+    sprite: {fileID: 21300000, guid: 9e1aed86baf4a064481b3aac242fe260, type: 3}
+  - name: pk_nut_tha_het
+    sprite: {fileID: 21300000, guid: 826283341751dd94da4cf67a755b4242, type: 3}
+  - name: pk_nut_tha_lon
+    sprite: {fileID: 21300000, guid: 635e41129e3b13f42ae417003c44c1e1, type: 3}
+  - name: pk_nut_tha_nhan
+    sprite: {fileID: 21300000, guid: 6d0e0eae6f8e5ef4e820aa2bee99508a, type: 3}
+  - name: pk_o_sang
+    sprite: {fileID: 21300000, guid: 570e1b8d547765c4eaf169a04078f5c3, type: 3}
+  - name: pk_o_sang_ruong
+    sprite: {fileID: 21300000, guid: 7fc99c629c2413d44ab4c1768e62e420, type: 3}
   - name: pk_ranh_exp
     sprite: {fileID: 21300000, guid: c18a1072323d41644b9bbf098fc4a453, type: 3}
   - name: pk_ruong_bac
@@ -249,8 +355,12 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 927e9d2a36b6da54a85200916f630e52, type: 3}
   - name: pk_ruong_vang_mo
     sprite: {fileID: 21300000, guid: 0ee746be3f44adb4aa048fe328a6ad42, type: 3}
+  - name: pk_tay_chi
+    sprite: {fileID: 21300000, guid: 0c7697368acfb0e4f915a2fa94f1bbb7, type: 3}
   - name: pk_than_may
     sprite: {fileID: 21300000, guid: 1e8a91e44ced8134eb77c90047aa46e0, type: 3}
+  - name: pk_u_loi_sang
+    sprite: {fileID: 21300000, guid: 8aac5f8153533a94a80b177fc5ee302d, type: 3}
   fallback:
   - name: battle_hoa
     sprite: {fileID: 21300000, guid: a962497db54480a4d9cfbfae643ecf66, type: 3}

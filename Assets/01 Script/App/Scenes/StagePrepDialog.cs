@@ -334,6 +334,7 @@ namespace PokiClash
             p.hint.gameObject.SetActive(false);
             p.go.SetText(locked ? "Chưa mở" : "Xuất trận!");
             p.go.Interactable = team.Count > 0 && !locked;
+            PokiClash.UI.UiMotion.Of(p.go).breath = p.go.Interactable; // bộ UI Sa Bàn: nút Xuất trận thở mời bấm
             ShowPower();
         }
 

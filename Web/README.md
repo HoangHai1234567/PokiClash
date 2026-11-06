@@ -32,6 +32,7 @@ Mỗi chức năng là một **scene** riêng (học theo Clash of Critters). V�
 
 | Scene | Nội dung |
 |---|---|
+| Bộ UI Sa Bàn | Trang riêng `uikit.html`: mọi thành phần và 3 màn mẫu (Sảnh, Tướng, Trận) với hiệu ứng thở, nảy, nhún tại chỗ. Xem `GD_Claude/17_BoUI.md`. |
 | Màn boot | Mở game là diễn cảnh mở (~4 giây, thanh tải kèm mẹo) rồi "Chạm để bắt đầu" vào sảnh. 3 ý tưởng để chọn, đổi bằng thanh "Ý tưởng" trên cùng: A sa bàn giấy, B ấn Ngũ Hành, C bìa sổ. Xem `GD_Claude/16_ManBoot.md`. |
 | Sảnh: đảo lớn | Đảo lớn chia 5 vùng hệ, làng máy bi ở giữa. **Không khoá vùng nào**: bảng tên ghi cấp đề nghị và độ khó so với cấp của bạn ("Vừa sức", "Khó", "Quá mạnh!"), mũi tên chỉ vùng nên đánh. Hàng nút dưới: Tướng, Sổ thẻ, Máy Bi, Đánh tiếp, Sổ tay. |
 | Đảo hệ | Ảnh đảo to, cuộn dọc; ải dọc đường mòn từ bãi biển lên hang boss, mở lần lượt. Khung dưới: ải tiếp theo, địch, thưởng, nút Đánh. **Đảo Thủy (hệ thống mới, 2026-11-02):** 70 ải, 10 ải tướng là mốc lớn, ải xen giữa là chấm nhỏ; chạm mốc mở bảng chặng; 7 rương mốc (mỗi 10 ải). Xem `GD_Claude/14_HeThongAi.md`. **Đảo khác:** 8 ải (ải 4 mini boss, ải 8 boss), 2 rương mốc (qua 4 và 8 ải). |

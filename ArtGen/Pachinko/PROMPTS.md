@@ -19,6 +19,12 @@ Thân máy giờ là tủ đỉnh vòm có bóng đèn, đầu máy có rãnh ch
 
 P2–P4 dưới đây đã thành file prompt trong cùng gói (2026-11-04), lấy thân máy đã duyệt làm ảnh mẫu nét: `luot_2_bo_phan.txt` (12 bộ phận mặt máy), `luot_3_hieu_ung.txt` (P4 rút còn 6 hình game đang dùng), `luot_4_ruong.txt` (6 rương đóng và mở). Các mục P2–P4 bên dưới giữ để biết lịch sử. Ba tờ đã vào game ngày 2026-11-04. Duyệt lại bằng `build.py --duyet bo_phan|hieu_ung|ruong`, rồi trong Unity chạy `PokiClash/Dựng lại danh mục ảnh` và `PokiClash/Prefab/Máy bi: ảnh bộ phận`.
 
+## Bộ mới: nút, trạng thái sáng, hạt hiệu ứng (2026-11-06)
+
+Gói `gui_gpt/bo_moi/` sinh bằng `build_bo_moi.py`, ba lượt độc lập (nút vòm, viên cược, bảng nút; bản sáng của đinh, nấm, cốc, két,
+bóng đèn, ô đáy, mặt mây; 12 hạt tô phẳng). Học bộ phận và hiệu ứng của máy tham khảo, bảng đối chiếu ở `THAM_KHAO_MAY_BI.md`.
+Hướng dẫn gửi GPT và soi: `gui_gpt/bo_moi/HUONG_DAN.md`.
+
 ## Ảnh đính kèm
 
 | Ảnh | Dùng cho |

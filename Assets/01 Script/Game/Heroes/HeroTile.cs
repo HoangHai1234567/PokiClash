@@ -44,7 +44,11 @@ namespace PokiClash
             bool inTeam = owned && order >= 0;
             p.card.color = inTeam ? Theme.Hex("#ffefb0") : owned ? Theme.CardFill : Theme.Hex("#efe6d2");
             p.card.rectTransform.localEulerAngles = new Vector3(0, 0, ((index * 37) % 5) - 2);
-            p.click.OnClick = onClick;
+            p.click.OnClick = () =>
+            {
+                PokiClash.UI.UiMotion.Of(this).Punch(0.8f); // bộ UI Sa Bàn: chạm ô tướng thì nảy
+                onClick?.Invoke();
+            };
             var ec = Theme.Of(hero.elem);
             p.band.color = new Color(ec.r, ec.g, ec.b, 0.35f);
             p.portrait.Bind(hero, 224, !owned);

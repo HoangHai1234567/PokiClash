@@ -10,7 +10,7 @@ Mọi file prompt tướng cũ (`PROMPTS.md`, `Thuy.md`, `thuy/*.md`) đã xoá;
 
 ## 1. Phong cách
 
-- **Tướng là sinh vật kiểu thú nuôi đánh nhau**, không phải người (ngoại lệ: dòng Tiểu Y, xem dưới).
+- **Tướng là sinh vật kiểu thú nuôi đánh nhau**, không phải người (ngoại lệ: dòng Tiểu Y và dòng Mi Nhi, xem dưới).
 - **Nét vẽ** lấy từ `ArtGen/Islands/refs/world_style.png` (người dùng nhắc lại 2026-11-04):
   - hình vẽ tay trên giấy bằng bút mực: viền nâu sẫm `#2B2118` dày đều, hơi rung như bút thật;
   - mỗi vùng tô bằng chì màu và sáp màu, nét tô gạch chéo lộ rõ;
@@ -40,6 +40,41 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
   - GPT không vẽ lại (người dùng chốt 2026-11-04). Khi ghép, Claude dùng script tô lại mọi khung con cho hợp nét tướng: viền mực nâu dày như các mảnh khác, tô phẳng hai tông xanh của lốc nước trong concept, bọt trắng viền mực mảnh, vân chì chéo nhẹ, bỏ viền trắng và vụn sáng của aola. Dáng từng khung giữ nguyên.
   - #1319 có 41 hình: lốc nước c23 19 hình, vòng nước c57 7 hình, c8 15 hình. Tóc của #1320 (mảnh 30, 35, 40) cũng tự chạy: khi ghép phải khớp hình mới vào từng khung con.
 
+**Dòng Mi Nhi (`mi_nhi_1`, `mi_nhi_2`, rig aola #983, #984), người dùng chốt 2026-11-06:**
+- **ngoại lệ thứ hai của luật "không phải người"**: giữ tiên cá chibi dạng người chơi đàn (người dùng chọn thay cho rái cá biển Claude đề xuất); thiết kế theo `DESIGN_CHIBI`, concept đính ảnh mốc style;
+- thiết kế (Claude đề xuất, chờ duyệt concept), khác hẳn bản gốc (tóc xanh ngọc, kẹp sao, mắt xanh lá, đàn vàng đỏ, đuôi xanh lam):
+  - tóc tím oải hương ngọn bọt trắng, mắt xanh sapphire, vây tai xanh nhạt gân tím, kẹp vỏ sò hồng giữ ngọc trai, đuôi xanh ngọc bích vây tím nhạt;
+  - dạng 1 ôm đàn lia san hô trắng hồng;
+  - dạng 2 tóc rất dài, quạt san hô sau đầu, khăn quấn hông trắng ngọc, đàn hạc khung xương trắng ngà uốn như sóng;
+- vòng sao (tự chạy) bỏ khỏi bóng xám, không có nhóm (khi ghép sẽ bỏ như vòng băng của Cánh Cụt);
+- đầu dạng 2 (#984) là một mảnh (mặt, mái, kẹp sao liền), nên GPT vẽ mặt trong nhóm đầu. Khung các nhóm mảnh nhỏ nới rộng cho viền không quá 24 px.
+- concept dạng 1 Claude duyệt 2026-11-06 (lần gen đầu):
+  - đủ phần, đúng chỗ; đế đàn là vỏ sò điệp, nên prompt N07 sửa theo;
+  - concept cao và hẹp hơn rig, đuôi dài hơn: N05, N08 giữ viền rig nên không sao.
+- concept dạng 2 duyệt cùng ngày (lần gen đầu): khớp rig rất sát; chỉ cuộn đỉnh đàn hạc nằm trên phải thay vì trên trái sau đầu (prompt N09 giữ đường khung cũ).
+- nhóm dạng 1 (GPT vẽ đủ 8 nhóm một lượt): đúng chỗ, mắt trùng chỗ cũ.
+  - Nét đều 12–15 px nên lệch số đã ghi: N03, N04 dày hơn (12 so với 9 px), N06, N07 mảnh hơn (12, 15 so với 21 px).
+  - Khi ghép: mài N03, N04; nới N06, N07.
+- ghép dạng 1 (`reskin/thuy_983`, cùng ngày):
+  - mài N03, N04 bớt 3 px; nới N06 thêm 5 px;
+  - N07 (đàn) giữ nguyên: nới viền sẽ lấp khe giữa các dây đàn;
+  - bỏ vòng sao (2, 27).
+- animation dạng 1 (`anim_moi.json`, cả 5 clip):
+  - đứng lơ lửng, tay gảy đàn bốn nhịp; trúng đòn bật lùi;
+  - **đánh thường đánh từ xa như bản gốc:** gốc dời rất ít nên trận coi là đòn bắn xa (AolaSticker.Lunge: độ lao ≤ 30 đơn vị sân), sóng âm FX02 bay tới, nổ ở chỗ đối thủ (`far` [560, 95]) đúng khung 21 = 60% clip, là lúc trận tính trúng;
+  - chiêu mana bắn tia từ đàn lia ở khung 12;
+  - chiêu cuối (`lunge`): nhảy vòng cung như cá heo, gảy đàn giữa không trung, đáp xuống quất đuôi kèm hợp âm nổ nước ở khung 21.
+- ghép dạng 2 (`reskin/thuy_984`, cùng ngày):
+  - nới viền N05, N06 6 px; N07, N08 3 px (tay chỉ 3 px cho ngón khỏi dính);
+  - bỏ vòng sao (2, 26);
+  - đàn hạc (5) và tóc dài (8) có khung con tự chạy ở clip đứng gốc: bộ ghép tự đưa về hình mới, clip viết lại không dùng nữa.
+- animation dạng 2:
+  - đứng, hai tay gảy dây so le;
+  - đánh thường đánh từ xa: quét dây, sóng âm lớn nổ ở chỗ đối thủ (`far` [760, 150]) khung 21;
+  - chiêu mana: tia cỡ 1,4 từ bàn tay trên dây;
+  - chiêu cuối (`lunge`): lao tới, đàn hạc quay một vòng sau lưng như bánh xe dây đàn, dựng đàn lại, hai tay quét dây ở khung 21 (sóng âm lớn, nổ nước, vòng sóng); trận tính trúng ở khung 23.
+- kiểm khung trúng: script mô phỏng AolaActor.MotionOf phải bỏ hình ở xa (hình không có trong dáng đứng, tâm cách bóng hơn 1,5 lần chiều cao) như trận, không thì đòn bắn xa bị tính nhầm thành đòn lao.
+
 **Dòng Cánh Cụt (`canh_cut_1`, `canh_cut_2`, rig aola #1691, #1692), Claude đề xuất 2026-11-06, người dùng chưa duyệt:**
 - cánh cụt mào kiểu rockhopper: đầu, lưng, mặt xanh thẫm, bụng trắng, mắt to lòng trắng, mày lông vàng xếch (cho vẻ chiến), mỏ cam đỏ, chân hồng nhạt, khăn bếp xanh trời; khác con gốc (xanh trời, mặt trắng, bụng nâu nhạt, khăn đỏ, má hồng);
 - dạng 1 tập sự bếp: chảo gang mép đóng sương thay con cá băng; dạng 2 bếp trưởng: mũ bếp cao đai xanh, cổ áo và tạp dề trắng, khay băng trong có ba con cá nướng thay đĩa sứ bánh cá, chim non lông tơ xám thay chim con tím;
@@ -48,6 +83,118 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
 - concept dạng 1 Claude duyệt 2026-11-06 (lần gen đầu): đủ phần, đúng hướng như rig; thân hình trứng cao và hẹp hơn khối tròn của rig, chảo cao ngang mỏ (rig: cá ngay dưới mỏ). N02 giữ viền rig và mắt đúng chỗ mắt cũ (xa nhau hơn concept), nên khi soi thử xem mặt có bị dãn không.
 - concept dạng 2 duyệt cùng ngày (lần gen đầu): đủ phần, đúng chỗ; vây trái giơ cao hơn rig (ngang khăn), khay có bốn con cá (rig ba mảnh món ăn) nên prompt N06 ép đúng ba con.
 - nhóm dạng 1 (GPT vẽ cả 6 nhóm một lượt, 2026-11-06): đúng chỗ, đúng đầu chi, mắt và mỏ trùng chỗ cũ. GPT vẽ nét mực đều khoảng 13–16 px ở mọi nhóm, nên N02, N03, N06 dày gấp khoảng 2 lần số đã ghi (8, 6, 8 px); N01, N04, N05 gần đúng. Mào N01 hẹp hơn chỏm cũ, đuôi N06 cao hơn đuôi cũ. Khi ghép: mài mỏng viền ngoài ba nhóm dày (bỏ phần mực phía ngoài, hình co chưa tới 1%) thay vì gen lại.
+- ghép dạng 1 (`reskin/thuy_1691`, 2026-11-06), dùng bản gen lại của người dùng: `N01_2`, `N03_2`, `N06_3`.
+  - Mài viền bằng `sua_manh.py mong` (lệnh mới): N02 bớt 8 px, N03_2 bớt 6 px, N06 bớt 5 px.
+  - Bàn chân N06_3 vẽ cao hơn chỗ cũ 34 px (sẽ khuất sau thân), đuôi thì khớp: dời cả ảnh xuống 34 px (`doi`) rồi mới mài.
+  - Vòng băng có sao băng: tô lại bằng `to_nuoc` thì nhoè (hình gốc độ phân giải thấp), nên bỏ hẳn (`drop` 2, 21).
+- animation dạng 1 viết lại cả 5 clip (`anim_moi.json`):
+  - đứng nhún thở; trúng đòn bật lùi;
+  - đánh thường: ngồi thụp kéo chảo sang trái ngực, vồ tới quật chảo ngang (khung 18);
+  - chiêu mana (1_5 dựng mới): đẩy chảo ra trước, bắn tia từ mặt chảo ở khung 12, cỡ tia 0,7;
+  - chiêu cuối (`lunge`): xoay như con quay lao tới, chảo chìa ngang, lốc nước FX01 quanh người; bật dậy đập chảo ở khung 26.
+  - Bài học:
+    - mặt chảo chỉ đọc rõ ở góc khoảng 30–40°, quá 70° thì nhìn nghiêng thành mảnh;
+    - chảo nằm dưới hai vây nên lúc vung phải `top`;
+    - lật ngang (sx qua 0) mỗi nửa vòng tối thiểu 3 khung, 2 khung thì khung giữa co về 0 và con biến mất;
+    - thân xoay 70° để trượt bụng thì mặt xoay ngang, bóng tụt lại sau: bỏ cách đó.
+- ghép dạng 2 (`reskin/thuy_1692`, cùng ngày):
+  - GPT vẽ nét đều 12–13 px, nên chỉnh viền: N02–N05, N07 mài bớt 3 px; N06 nới 3 px, N08 nới 5 px.
+  - Chim non gộp một mảnh (N08 chỉ mảnh 22, bỏ 23–32); đầu gộp mặt, mỏ (bỏ 11–16, 43).
+  - Bỏ vòng băng (2, 44) và hơi nóng (41, 42): hơi nóng không có khung con, viết lại clip thì đứng im.
+- animation dạng 2:
+  - đứng, chim non nhún theo nhịp riêng;
+  - trúng đòn: cá trên khay nảy;
+  - đánh thường: hạ khay lấy đà, vồ tới đẩy khay ngang mặt đối thủ (khung 18), ba con cá văng lên rồi rơi lại;
+  - chiêu mana: đẩy khay tới, bắn tia cỡ 1,4 từ tâm khay;
+  - chiêu cuối (`lunge`): xoay như con quay như dạng 1, nhảy lên giơ khay rồi đập xuống trước mặt (khung 26).
+  - Bài học: khay nằm ngang tầm mặt và vẽ sau đầu, nên nhấc khay lên là che mặt; lấy đà bằng cách hạ khay, lúc giơ cao thì dời khay sang phải đầu (dx +30).
+- **chiêu cuối viết lại cho độc đáo** (người dùng dặn cùng ngày; trước đó hai dạng cùng kiểu xoay con quay rồi đập). Khoá dựng bằng script `<aola>/reskin/thuy_1691/chieu_cuoi.py` và `thuy_1692/chieu_cuoi.py` (ghi clip 1_6 vào `anim_moi.json` cùng thư mục, rồi chạy `anim_moi.py`).
+  - Dạng 1, trượt băng, lộn nhào, lật chảo:
+    - ngồi thụp, sương băng tụ ở chảo;
+    - ngả 25° trượt băng lao tới, chảo chĩa trước như mũi tàu, sóng lưỡi liềm FX02 và giọt nước sau lưng;
+    - bật lên lộn nhào 360° quanh tâm thân trong lốc FX01, đập chảo ở khung 29;
+    - tung chảo xoay hai vòng lên bên phải đầu rồi bắt lại.
+  - Dạng 2, lướt sóng trên khay băng:
+    - tung ba con cá lên; khay thành ván dưới chân: vây phải −20°, khay +20° (ván nằm ngang), khay dời (−124,5; 71,5);
+    - sóng thần FX07 dâng sau lưng; lướt tới, chim non đứng mũi ván, cá xoay vòng trên đầu;
+    - sóng đổ ập ở khung 28, cá rơi xuống chỗ đối thủ; nhảy khỏi ván, bắt lại khay, cá nhảy về khay.
+  - Bài học:
+    - **khung trúng** của trận (AolaActor.MotionOf) là khung mà trung bình góc trên trái của mọi hình (trừ bóng) đi xa nhất, có trung bình trượt 5 khung. Xoay thân 180° làm góc trên trái các hình văng ra trước khoảng nửa cỡ hình, nên lộn nhào phải ở quãng gần hơn nhát đập. Hiệu ứng nổ phía trước làm khung trúng trễ nhát đánh khoảng 2 khung ở mọi đòn hiện có.
+    - **lộn quanh tâm thân:** gốc xoay quanh khớp ở chân, nên muốn lộn quanh tâm thân phải bù dx = X − v·sin θ, dy = Y − v + v·cos θ (v = tâm thân cao hơn khớp gốc). Lúc đó bóng chạy theo dx nên lệch khỏi thân khi đang lộn.
+    - **hiệu ứng không gắn mảnh** (không có `anchor` hay `pin`) đi theo cả dx lẫn dy của gốc: đặt toạ độ theo dáng nghỉ. Con được nhấc lên thì bù ey để chân sóng vẫn sát đất.
+
+**Dòng Ma Kết (`ma_ket_1..3`, rig aola #758, #759, #760), Claude đề xuất 2026-11-06, người dùng chưa duyệt:**
+- dê biển (thân dê, đuôi cá), tướng Hiếm ải 20, danh hiệu "Thánh giáp sừng bạc";
+- khác con gốc: gốc lông trắng xù, xoáy lông trên trán, tai thỏ hồng, mắt đỏ, sừng nâu nhạt; dạng 2 sừng tím hồng, mắt xanh ngọc; dạng 3 mũ giáp vàng ngọc xanh lá, vây xanh tím;
+- thiết kế mới: lông xanh mòng két, mõm và len trắng kem, sừng bạc có ngấn, tai là vây cam san hô gân xanh mòng két, mắt hổ phách, móng xanh thẫm, vây đuôi cam san hô;
+- giáp vỏ sò điệp hồng san hô viền bạc lớn dần: dạng 1 chưa có, dạng 2 vỏ sò đeo ngực, dạng 3 mũ thánh giáp có ngọc trai xanh thẫm và giáp vai;
+- rig #758 lơ lửng, 12 mảnh; #759 đứng hai chân trước, 17 mảnh; #760 nhìn nghiêng khom sắp vồ, 26 mảnh, clip đánh gốc có hình sừng to quét ngang (biến thể);
+- đã có `regions.json` cả ba dạng; `groups.json` #758: N01 hai sừng, N02 hai tai, N03 đầu, N04 thân, N05 hai chân trước, N06 vây đuôi. Nhóm #759, #760 dựng khi duyệt concept từng dạng.
+- concept dạng 1 Claude duyệt 2026-11-06 (lần gen đầu):
+  - đúng thiết kế, nét mực và vân chì sáp rõ, vẻ chiến;
+  - chồng lên rig thì sừng, tai, chân, vây đúng chỗ; đầu hẹp hơn vùng 5 một chút, thân nhỏ hơn vùng 6. N03, N04 giữ viền rig nên không sao;
+  - sừng còn sáng tối giữa các ngấn, tròng mắt hai tông: prompt N01 dặn sừng một màu bạc đều.
+- lượt 2 dạng 1: gen thử N03 (đầu, giữ viền) và N02 (vây tai, đổi dáng). Viền: N01–N03 10 px, N04 23 px, N05 22 px, N06 16 px.
+- concept dạng 2 Claude duyệt cùng ngày (lần gen đầu): mọi phần đúng chỗ như rig, có vỏ sò đeo ngực; sừng vẫn sáng tối giữa các ngấn (N01 dặn tô một màu).
+  - Nhóm #759: N01 hai sừng, N02 vây tai, N03 đầu gộp túm len má và chỏm len, N04 thân có vỏ sò, N05 hai chân trước, N06 đuôi cá và vây.
+  - Khung N02 gồm cả sừng to và túm len má, để vây tai to hơn tai cũ vẫn còn chỗ.
+  - Viền: N01 10 px, N02 11, N03 11, N04 21, N05 18, N06 13.
+- concept dạng 3 Claude duyệt cùng ngày (lần gen đầu): vây gai chữ L, vây giữa, vây dưới, ba vây nhỏ, đuôi, hai chân, đầu, mũ, hai sừng khớp rig rất sát.
+  - Lệch: vây tai nằm ngang ra sau (rig chĩa lên sau), bờm sẫm lùi về sau hơn rig, ngọc có chấm sáng. Prompt N04, N02 ép về chỗ cũ, bỏ chấm sáng.
+  - Nhóm #760 (10 nhóm): N01 hai sừng, N02 mũ vỏ sò, N03 đầu và bờm, N04 vây tai và bờm sẫm, N05 thân, N06 giáp vai và dây, N07 chân gần, N08 chân xa, N09 đuôi cá và ba vây nhỏ, N10 ba vây lớn.
+  - Hai chân để hai nhóm riêng vì chân gần che gần hết chân xa.
+  - Viền: N01 14 px, N02 14, N03 13, N04 14, N05 16, N06 16, N07 19, N08 21, N09 11, N10 8.
+- ghép cả ba dạng (`reskin/thuy_758`, `thuy_759`, `thuy_760`, 2026-11-06):
+  - GPT vẽ nét đều khoảng 10–12 px ở mọi nhóm, nên nới bằng `sua_manh.py vien`:
+    - dạng 1: N04 +3 px, N05 +7, N06 +3;
+    - dạng 2: N02 +2, N04 +8, N05 +6;
+    - dạng 3: N01 +4, N02 +4, N03 +3, N04 +4, N05 +6, N06 +5, N07 +8, N08 +9.
+  - Đo viền: thang đo tự động lẫn mực nâu với màu xanh mòng két đậm, nên cắt ảnh 1:1 có thước 10 px rồi xem bằng mắt.
+  - Lệch chỗ so với hình cũ (giữ nguyên, ghép vẫn liền):
+    - dạng 1: chân dài hơn chân cũ (móng lộ dưới bụng như concept), vây đuôi to hơn, phần gốc giấu sau thân;
+    - dạng 3: mũ vỏ sò thấp hơn mũ cũ (không có phần ôm má, đầu mới đã vẽ đủ nên không hở); móng hai chân lùi về sau một chút.
+  - Bỏ mắt, miệng cũ vì đầu mới đã vẽ mặt.
+- animation cả 5 clip, dựng bằng script `reskin/thuy_<id>/dung_anim.py` (ghi `anim_moi.json` rồi chạy `anim_moi.py`):
+  - dạng 1 (gốc xoay ở tâm hình, nên lộn vòng quanh tâm):
+    - đứng lơ lửng nhấp nhô; đánh thường húc sừng (khung 18);
+    - chiêu mana: tia 0,7 từ trán giữa hai sừng;
+    - chiêu cuối (viết lại cùng ngày, xem dưới): xoay một vòng trong lốc nước, tụ cầu nước giữa hai sừng, gật đầu bắn thẳng.
+  - dạng 2 (gốc ở giữa hai móng):
+    - đứng thở; đánh thường phi tới húc (khung 18);
+    - chiêu mana: tia 1,0 từ trán;
+    - chiêu cuối (viết lại): chồm ngửa, tụ cầu lớn giữa hai sừng, dậm xuống ném cầu bay vòng cung, cột sóng FX07 sau đối thủ.
+  - dạng 3:
+    - đứng khom thở, ba vây lớn đung đưa lệch nhịp; đánh thường vồ húc (khung 18);
+    - chiêu mana: tia 1,4 từ ngọc trai trên mũ;
+    - chiêu cuối (viết lại): bắn liên hoàn hai cầu nhỏ từ ngọc, rồi tụ cầu lớn trước mũ bắn ra, sóng thần FX07 sau đối thủ.
+  - **Chiêu cuối viết lại không lao** (người dùng dặn 2026-11-06: "không làm kiểu húc", đổi sang tụ cầu nước rồi bắn):
+    - cả ba dạng 50 khung, bỏ `lunge`, khai `far` (dạng 1 [670, 80], dạng 2 [800, 78], dạng 3 [1150, 130]: khoảng 4 lần chiều
+      cao về phía trước, ngang giữa thân đối thủ); cầu lớn nổ ở chỗ đối thủ khung 27 = 55% clip, là lúc trận tính trúng;
+    - thân phải dời ít (trung bình góc trên trái ≤ 60 sau trượt 5 khung: 30, 48, 17), không thì trận lấy đỉnh dời làm lúc trúng;
+    - cầu tụ là FX10 (gói `tieu_y_fx`) gắn mảnh đầu, có vòng xoáy FX01, giọt FX04 bay về, lấp lánh FX05; `fx_dir` thêm gói
+      Tiểu Y trước gói Giọt Sương;
+    - cầu bay gắn `pin` vào đúng điểm cầu tụ trên mảnh đầu ở khung bắn, toạ độ đích tính bằng hàm `where()` trong
+      `dung_anim.py` (lặp lại phép biến đổi của `anim_moi.py`: gốc dời, xoay, co giãn quanh pivot rồi tới khớp đầu), nên cầu rời
+      đúng chỗ rồi tới đúng tâm vụ nổ;
+    - dạng 1: khung 5–14 xoay một vòng tại chỗ, 14–22 cầu tụ giữa hai sừng (ngả ra sau nên cầu ở sau đầu), 23 gật đầu bắn,
+      bay thẳng 4 khung;
+    - dạng 2: khung 11–19 chồm ngửa (xoay −24° quanh hai móng), móng trước cào so le, cầu cỡ 54 tụ; 21 dậm xuống (nước bắn ở
+      móng, vòng sóng nhỏ), hất đầu ném, cầu bay vòng cung cao 150 trong 6 khung; nổ kèm cột sóng FX07;
+    - dạng 3: cầu nhỏ cỡ 36 rời ngọc ở khung 9 và 14, nổ nhỏ ở chỗ đối thủ khung 13, 18 (chỉ là hình, trận vẫn tính trúng một
+      lần ở khung 27); cầu lớn cỡ 92 tụ trước mũ (không che mắt, mõm), bắn ở khung 23; nổ kèm sóng thần FX07 cỡ 220;
+    - đánh thường (1_4) cả ba dạng vẫn húc sừng;
+    - thử: menu `PokiClash/Thử/Ma Kết ra trận: húc, bắn tia, cầu nước ở 3 dạng (đang Play)`, ảnh vào
+      `Temp/PokiShots/ma_ket_combat/`.
+  - Bài học:
+    - khung trúng của trận thường trễ nhát húc 1–2 khung, vì hình nổ nước phía trước (FX03, FX05, FX04) giữ trung bình góc trên trái ở xa vài khung;
+    - sửa bằng cách cho con lao tới gần đích sớm hơn và rút về nhanh hơn ngay sau nhát húc;
+    - kiểm bằng script mô phỏng `AolaActor.MotionOf` (trung bình tx, ty mọi hình trừ bóng, trượt 5 khung, dời > 60 thì trúng ở đỉnh);
+    - xoay hai vòng phải làm tại chỗ (dx nhỏ): lúc xoay 180° góc trên trái các hình văng xa, nên nếu xoay khi đang lao thì đỉnh rơi vào giữa vòng xoay;
+    - khoá gốc mỗi khung khi xoay liên tục: nội suy smoothstep giữa hai khoá thưa làm vòng xoay khựng ở từng khoá.
+- vào game cùng ngày:
+  - `heroes.json`: `ma_ket` đổi `aola` sang `thuy_758`, `thuy_759`, `thuy_760`;
+  - menu Nhập dữ liệu, rồi "Nhập dạng aola có nguồn mới hơn bản trong project" (nhập mới đúng 3 dạng, atlas 0,8 triệu điểm ảnh);
+  - Chụp thử prefab: `Library/PokiHeroShots/ma_ket.png` đủ ba dạng (chân dung, đứng, đỉnh đòn đánh, khung trúng chiêu cuối).
 
 **Concept đầu tiên được chốt** (2026-11-02): Giọt Sương dạng 1, `inbox/giot_suong_1/concept_duyet.png` (bản giáp ngực trơn, găng giáp bạc, kiếm chắn tay vàng). Chép thành **ảnh mốc style** `refs/style_anchor.png`: concept các tướng sau đính thêm ảnh này (lấy nét và độ chi tiết, không lấy thiết kế).
 
@@ -60,6 +207,12 @@ Lịch sử 2026-11-02 (để khỏi lặp lại):
   - **giữ viền** (thân, tay, chân): giữ viền hình gốc, lấy màu, chi tiết, nét từ concept.
 - **Vũ khí, đồ cầm tay**: vẽ riêng thành một mảnh thêm (không có ảnh gốc); bàn tay vẽ nắm chuôi. Claude gắn mảnh vào mảnh cẳng tay khi ghép, nên vũ khí đi theo tay ở mọi khung. Animation vẫn là của con gốc: con gốc không chém thì kiếm chỉ đi theo tay.
 - Ảnh rig của mỗi dạng ở `refs/<hệ>/<mã>/`: `Silhouette.png`, `RegionMap.png`, `Rig_Numbered.png`, `orig/Nxx.png` (hình gốc từng nhóm, vuông 1024, nền trắng, đúng chỗ trên rig). Dựng bằng công cụ AolaRipper (`part_map.py`, `region_map.py`, `orig_refs.py` theo `regions.json`, `groups.json` ở `<aola>/reskin/<hệ>_<id>/`).
+  - Các bước dạng mới (làm cho Ma Kết 2026-11-06):
+    1. clip đứng = `states.1_1.clip` trong `reskin/pet<id>_parts/timeline_front.json`;
+    2. `part_map.py reskin/pet<id>_parts/svg/DefineSprite_<clip>/1.svg reskin/pet<id>_parts/front_idle --scale 4`;
+    3. `part_context.py` để nhận từng mảnh;
+    4. `region_map.py` ra `reskin/<hệ>_<id>/refs/<id>_Front_*.png`.
+  - Chưa có script chép sang PokiWar: cắt `Silhouette`, `RegionMap`, `part_map.png` (thành `Rig_Numbered.png`) theo khung bao của bóng xám, chừa lề trắng 6% cạnh dài; `orig/` chép nguyên.
 - `<aola>`: máy này `E:\ProjectAtomik\aola` (có `reskin/pet<id>_parts` của 83 dạng và `reskin/thuy_7` đã ghép; `regions.json`, `groups.json` của #7, #8, #9 chỉ có ở máy kia, ảnh rig dựng từ đó đã có trong `refs/thuy/giot_suong_1..3`); máy kia `D:\Aola-20261029T161238Z-1-001\Aola\AolaRipper\AolaRipper`.
 
 ## 3. Viết prompt

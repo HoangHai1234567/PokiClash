@@ -706,7 +706,7 @@ MonoBehaviour:
   - id: canh_cut
     name: "C\xE1nh C\u1EE5t"
     title: "\u0110\u1EA7u b\u1EBFp x\u1EE9 b\u0103ng"
-    aola: goc_1691
+    aola: thuy_1691
     elem: 2
     rarity: 0
     stats: 550000002800000032000000370000003200000014000000
@@ -718,10 +718,10 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "C\xE1nh C\u1EE5t Con"
-      aola: goc_1691
+      aola: thuy_1691
       size: 0.92
     - name: "\u0110\u1EA7u B\u1EBFp C\xE1nh C\u1EE5t"
-      aola: goc_1692
+      aola: thuy_1692
       size: 1.1
     minion: 0
   - id: giot_suong
@@ -868,7 +868,7 @@ MonoBehaviour:
   - id: mi_nhi
     name: Mi Nhi
     title: "Ti\xEAn c\u1EA7m s\xF3ng bi\u1EBFc"
-    aola: goc_983
+    aola: thuy_983
     elem: 2
     rarity: 1
     stats: 320000005000000032000000280000002800000032000000
@@ -880,16 +880,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Ti\u1EC3u Mi"
-      aola: goc_983
+      aola: thuy_983
       size: 0.92
     - name: Mi Nhi
-      aola: goc_984
+      aola: thuy_984
       size: 1.1
     minion: 0
   - id: ma_ket
     name: "Ma K\u1EBFt"
     title: "Th\xE1nh gi\xE1p s\u1EEBng b\u1EA1c"
-    aola: goc_758
+    aola: thuy_758
     elem: 2
     rarity: 2
     stats: 320000005000000028000000280000003200000032000000
@@ -901,13 +901,13 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Ma K\u1EBFt Con"
-      aola: goc_758
+      aola: thuy_758
       size: 0.9
     - name: "Ma K\u1EBFt S\u1EEBng Nh\u1ECDn"
-      aola: goc_759
+      aola: thuy_759
       size: 1.02
     - name: "Ma K\u1EBFt Th\xE1nh Gi\xE1p"
-      aola: goc_760
+      aola: thuy_760
       size: 1.14
     minion: 0
   - id: vay_lam

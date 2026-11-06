@@ -314,7 +314,12 @@ namespace PokiClash
                 int idx = i;
                 UiCard card = null;
                 card = UiCard.Create(p.offer, d.Card(t.offer[i]), 1, false, Icon(d.Card(t.offer[i]).icon), null,
-                    auto ? (Action)null : () => OnPickCard?.Invoke(idx, (RectTransform)card.transform));
+                    auto ? (Action)null : () =>
+                    {
+                        // thôi nhún khi thẻ được chọn (thẻ bay vào hàng)
+                        if (card.TryGetComponent<UiMotion>(out var mm)) mm.idle = false;
+                        OnPickCard?.Invoke(idx, (RectTransform)card.transform);
+                    });
                 var rt = (RectTransform)card.transform;
                 rt.Place(new Vector2(0.5f, 1), new Vector2(x0 + i * (UiCard.NormalSize.x + 24), -12), UiCard.NormalSize, new Vector2(0.5f, 1));
                 OfferCards.Add(card);
@@ -330,25 +335,39 @@ namespace PokiClash
             dealing[rt] = StartCoroutine(Deal(rt, delay));
         }
 
-        // chia bài: bật từ dưới lên, nảy nhẹ
+        // chia bài (bộ UI Sa Bàn, như deal của Web/src/uikit/fx.ts): bay từ chồng bài dưới giữa lên chỗ, xoay, quá đà rồi đứng;
+        // xong thì thẻ nhún tại chỗ, mỗi lá một nhịp (UiMotion.idle)
         IEnumerator Deal(RectTransform rt, float delay)
         {
             var target = rt.anchoredPosition;
+            var from = new Vector2(-target.x * 0.6f, -520);
             rt.localScale = Vector3.zero;
             yield return new WaitForSecondsRealtime(delay);
-            for (float t = 0; t < 0.32f; t += Time.unscaledDeltaTime)
+            const float len = 0.5f;
+            for (float t = 0; t < len; t += Time.unscaledDeltaTime)
             {
                 if (!rt) yield break;
-                float k = t / 0.32f;
-                float e = 1 - Mathf.Pow(1 - k, 3) + Mathf.Sin(k * Mathf.PI) * 0.15f;
-                rt.localScale = new Vector3(e, e, 1);
-                rt.anchoredPosition = target + new Vector2(0, -80 * (1 - e));
+                float k = t / len;
+                // 0 → 70%: tới quá đà (cao hơn 28, xoay 3 độ, phóng 1,06); 70% → hết: về chỗ
+                float a = k < 0.7f ? 1 - Mathf.Pow(1 - k / 0.7f, 3) : 1;
+                float b = k < 0.7f ? 0 : 1 - Mathf.Pow(1 - (k - 0.7f) / 0.3f, 3);
+                var over = target + new Vector2(0, 28);
+                rt.anchoredPosition = Vector2.Lerp(Vector2.LerpUnclamped(target + from, over, a), target, b);
+                float sc = Mathf.Lerp(Mathf.Lerp(0.55f, 1.06f, a), 1, b);
+                rt.localScale = new Vector3(sc, sc, 1);
+                rt.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(Mathf.Lerp(-24, 3, a), 0, b));
                 yield return null;
             }
             if (!rt) yield break;
             rt.localScale = Vector3.one;
             rt.anchoredPosition = target;
+            rt.localEulerAngles = Vector3.zero;
             dealing.Remove(rt);
+            var m = PokiClash.UI.UiMotion.Of(rt);
+            m.idleLift = 8;
+            m.idleTilt = 1;
+            m.idlePeriod = 3.4f;
+            m.idle = true;
         }
 
         // lượt địch: lá úp chia một lần mỗi lượt; các lần sau chỉ trả lá vừa chọn về chỗ

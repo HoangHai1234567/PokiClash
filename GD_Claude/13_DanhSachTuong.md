@@ -141,7 +141,7 @@ Hệ Nước của aola có khoảng 100 dòng nhiều dạng. Dòng gốc dài 
 | Id game | Tướng | Danh hiệu | Vai | Độ hiếm | Số dạng | Trạng thái |
 |---|---|---|---|---|---|---|
 | `tieu_y` | Tiểu Y | Bé con sóng nước | Quái thường | Thường | 2 | giữ; `y_trach` thành dạng 2 |
-| `canh_cut` | Cánh Cụt | Đầu bếp xứ băng | Quái thường | Thường | 2 | mới; có gói prompt (2026-11-06, `ArtGen/Heroes/gui_gpt/canh_cut_1`, `canh_cut_2`), rig `reskin/thuy_1691`, `thuy_1692` |
+| `canh_cut` | Cánh Cụt | Đầu bếp xứ băng | Quái thường | Thường | 2 | mới; vẽ lại cả 2 dạng và viết lại animation (2026-11-06): cánh cụt mào tập sự bếp cầm chảo → bếp trưởng khay băng cá nướng có chim non phụ bếp; `reskin/thuy_1691`, `thuy_1692`, đã vào prefab |
 | `giot_suong` | Giọt Sương | Giọt nước hóa rồng | **Tướng khởi đầu** (thay `tieu_y`) | chưa chốt (đang là Khá) | 3 | mới; dạng 1 đã tách rig (`reskin/pet7_parts`, `reskin/thuy_7`), có prompt |
 | `tam_tay` | Tám Tay | Pháo thủ bong bóng | Quái thường | Khá | 2 | mới; thay 306 八爪鱼 (chỉ 1 dạng) |
 | `ca_ngua` | Cá Ngựa | Lính gác rạn san hô | Quái thường | Hiếm | 3 | mới |

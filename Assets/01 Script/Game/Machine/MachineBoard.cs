@@ -5,6 +5,10 @@
 // (TrailGraphic); nấm và hạt hiệu ứng (MachineFx) là bản sao Items/HatMayBi. Bản hết hạn tắt đi để dùng lại.
 // Hiệu ứng chép máy bi tham khảo (GD_Claude/07_MayBi.md): vệt bi 0,3 giây, đinh loé 0,067 giây, nấm phồng xẹp 0,23 giây,
 // ô sáng kèm quầng và sao, rương có bảng loé theo cấp, rương vàng có bộ jackpot; hạt chạy theo giờ của máy (chậm khi máy chậm).
+// Trạng thái sáng vẽ tay (2026-11-06, gói ArtGen/Pachinko/gui_gpt/bo_moi lượt 2; máy tham khảo đổi hình đinh sang hình sáng mỗi lần
+// bi chạm): đinh, u lồi chạm thì hiện hình sáng (pk_dinh_sang, pk_u_loi_sang) đè đúng chỗ; nấm đổi sang pk_bumper_sang lúc phồng;
+// cốc bạc, két vàng sáng (pk_coc_sang, pk_ket_sang) khi bi lọt; ô đáy sáng bằng lớp tia (pk_o_sang, ô rương pk_o_sang_ruong) tô màu
+// theo ô; máng mây nháy mắt khi thả (pk_may_tha_nhay), tròn mắt khi trúng két (pk_may_tha_wow). Chưa có ảnh thì giữ cách cũ.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -45,8 +49,17 @@ namespace PokiClash
 
         Image[] glow; // sáng ô theo thứ tự ô đáy của bàn đang gắn (dựng lại từ prefab lúc Bind)
         float[] glowT, glowMax;
+        Color[] glowTint; // màu lớp tia sáng theo loại ô (có ảnh pk_o_sang); trắng = cách tô cũ
+        bool rayGlow;
+        Image cloudImg; // ảnh máng mây "dam_may": đổi mặt khi thả, khi trúng két
+        Sprite cloudNormal;
+        float faceT;
+        Sprite bumperNormal, bumperLit;
+        // hình sáng đè lên phần tĩnh (cốc, két): ảnh, tuổi, đời
+        readonly List<(Image img, float age, float life)> lits = new List<(Image, float, float)>();
         Image[] flash;
         float[] flashT;
+        bool[] flashLit; // loé đinh là hình sáng vẽ tay (giữ màu) thay vì loé tròn tô vàng
         Image[] bumpers; // nấm động theo chỉ số đinh (null nếu không phải nấm)
         float[] bumpT;
         readonly List<Image> balls = new List<Image>();
@@ -115,9 +128,69 @@ namespace PokiClash
             LayoutSlots();
             flash = new Image[board.pegs.Count];
             flashT = new float[flash.Length];
+            flashLit = new bool[flash.Length];
             shakeBase = Root.anchoredPosition;
+            foreach (var (img, _, _) in lits)
+                if (img) img.gameObject.SetActive(false);
+            lits.Clear();
             fx = new MachineFx(p.particle, p.fxLayer);
             LayoutBumpers();
+            LayoutGlowRays();
+            cloudImg = null;
+            if (p.cloud)
+                foreach (var img in p.cloud.GetComponentsInChildren<Image>(true))
+                    if (img.name == "dam_may") cloudImg = img;
+            cloudNormal = cloudImg ? cloudImg.sprite : null;
+            faceT = 0;
+        }
+
+        // lớp tia sáng ô (ảnh vẽ tay): ô rương có sao; tô theo loại ô (EXP tím, bi hồng, rương theo màu rương)
+        void LayoutGlowRays()
+        {
+            var ray = fx.Sprite("pk_o_sang");
+            var rayChest = fx.Sprite("pk_o_sang_ruong");
+            rayGlow = ray;
+            glowTint = new Color[glow.Length];
+            for (int i = 0; i < glow.Length; i++)
+            {
+                glowTint[i] = Color.white;
+                if (!rayGlow || i >= Board.slots.Count) continue;
+                var kind = Board.slots[i].reward;
+                bool chest = Pachinko.IsChest(kind);
+                Theme.SetSprite(glow[i], chest && rayChest ? rayChest : ray);
+                glow[i].type = Image.Type.Simple;
+                glow[i].preserveAspect = false;
+                glowTint[i] = chest ? ChestColor(kind) : kind == SlotKind.Ball ? BallPink : XpColor;
+            }
+        }
+
+        // hình sáng đè đúng chỗ phần tĩnh (dưới lớp vệt, bi): nhún 1,12 → 1 rồi giữ, mờ dần ở 40 % đời cuối
+        void Lit(string sprite, Vector2 at, Vector2 size, float life)
+        {
+            var s = fx.Sprite(sprite);
+            if (!s || !p.particle) return;
+            var img = fx.Take(p.dyn);
+            img.name = "sang";
+            Theme.SetSprite(img, s);
+            img.color = Color.white;
+            img.enabled = true;
+            img.preserveAspect = true;
+            var rt = img.rectTransform;
+            rt.anchoredPosition = at;
+            rt.sizeDelta = size;
+            rt.localEulerAngles = Vector3.zero;
+            rt.localScale = Vector3.one * 1.12f;
+            rt.SetSiblingIndex(p.trailLayer.GetSiblingIndex());
+            lits.Add((img, 0, life));
+        }
+
+        // mặt máng mây trong t giây (thả bi: nháy mắt; trúng két: tròn mắt)
+        public void CloudFace(string sprite, float t)
+        {
+            var s = fx.Sprite(sprite);
+            if (!cloudImg || !s) return;
+            Theme.SetSprite(cloudImg, s);
+            faceT = t;
         }
 
         // nấm là ảnh động (ảnh tĩnh không vẽ nấm) nằm dưới lớp vệt, để phồng xẹp được khi bị chạm
@@ -128,6 +201,8 @@ namespace PokiClash
             bumpT = new float[pegs.Count];
             if (!p.particle) return;
             var sprite = fx.Sprite("pk_bumper");
+            bumperNormal = sprite;
+            bumperLit = fx.Sprite("pk_bumper_sang");
             for (int i = 0; i < pegs.Count; i++)
             {
                 if (pegs[i].kind != PegKind.Bumper) continue;
@@ -324,6 +399,7 @@ namespace PokiClash
             if (bumpers[peg])
             {
                 bumpT[peg] = 0;
+                if (bumperLit) bumpers[peg].sprite = bumperLit;
                 fx.Emit(MachineFx.BumperHit, Local(pg.x, pg.y), (float)pg.r * 2 * K / 1.1f);
                 return;
             }
@@ -333,7 +409,17 @@ namespace PokiClash
             {
                 var img = Ui.Spawn(p.pegFlash, p.dyn);
                 img.name = "loe" + peg;
-                img.rectTransform.Place(new Vector2(0, 1), Local(pg.x, pg.y), Vector2.one * (float)(pg.r + 2) * 2 * K, new Vector2(0.5f, 0.5f));
+                // hình sáng vẽ tay đè khít đinh vẽ trong ảnh tĩnh (đinh 2r + 2, u lồi tường 2r + 1); chưa có ảnh thì loé tròn tô vàng như cũ
+                var lit = fx.Sprite(pg.kind == PegKind.Post && pg.r >= 8 ? "pk_u_loi_sang" : "pk_dinh_sang");
+                float d = (float)(pg.r + 2) * 2;
+                if (lit)
+                {
+                    Theme.SetSprite(img, lit);
+                    img.preserveAspect = true;
+                    flashLit[peg] = true;
+                    d = (float)(pg.r * 2 + (pg.kind == PegKind.Post && pg.r >= 8 ? 1 : 2));
+                }
+                img.rectTransform.Place(new Vector2(0, 1), Local(pg.x, pg.y), Vector2.one * d * K, new Vector2(0.5f, 0.5f));
                 img.rectTransform.SetSiblingIndex(p.trailLayer.GetSiblingIndex());
                 flash[peg] = img;
             }
@@ -416,14 +502,36 @@ namespace PokiClash
 
         public void JackpotFx(double x, double y) => fx.Emit(MachineFx.Jackpot, Local(x, y), MachineFx.UnitBall);
 
-        // bi lọt cốc bạc hoặc két
-        public void CupFx(double x, double y) => fx.Emit(MachineFx.RingHit, Local(x, y), MachineFx.UnitBall);
+        // bi lọt cốc bạc hoặc két: bộ vòng, chấm, sao; cốc hoặc két (cái gần chỗ bi nhất) sáng lên, két sáng lâu hơn
+        public void CupFx(double x, double y)
+        {
+            fx.Emit(MachineFx.RingHit, Local(x, y), MachineFx.UnitBall);
+            int best = -1;
+            double bd = double.MaxValue;
+            for (int i = 0; i < Board.cups.Count; i++)
+            {
+                double dx = Board.cups[i].x - x, dy = Board.cups[i].y - y, d2 = dx * dx + dy * dy;
+                if (d2 < bd)
+                {
+                    bd = d2;
+                    best = i;
+                }
+            }
+            if (best < 0) return;
+            var c = Board.cups[best];
+            // cỡ như lúc ghép mặt máy tĩnh (ArtGen/Pachinko/build.py compose_board): cốc 30 × 20 ở y + 2; tấm két giữa mái và đáy
+            if (c.r > 0) Lit("pk_coc_sang", Local(c.x, c.y + 2), new Vector2(30, 20) * K, 0.45f);
+            else
+                Lit("pk_ket_sang", Local(Board.VaultX, (Board.ApexY + Board.FloorEdgeY) / 2 + 4),
+                    new Vector2((float)(2 * Board.RoofHalf - 18), (float)(Board.FloorEdgeY - Board.ApexY + 4)) * K, 1.1f);
+        }
 
-        // thả bi: máng mây co giãn, khói và chớp dưới mây
+        // thả bi: máng mây co giãn và nháy mắt, khói và chớp dưới mây
         public void Launch(double x)
         {
             launchT = 0;
             fx.Emit(MachineFx.Launch, Local(x, Board.DropY - 4), MachineFx.UnitBall);
+            if (faceT <= 0.3f) CloudFace("pk_may_tha_nhay", 0.28f);
         }
 
         // mỗi khung: đặt bi theo vật lý, máng mây, vệt, giảm dần loé / sáng / chữ nổi. dt là giờ thật, simDt là giờ của máy (nhỏ hơn
@@ -467,7 +575,31 @@ namespace PokiClash
                 bumpT[i] += simDt;
                 float end = BumpCurve[BumpCurve.Length - 2];
                 bumpers[i].rectTransform.localScale = Vector3.one * (bumpT[i] >= end ? 1 : MachineFx.Curve(BumpCurve, bumpT[i]));
-                if (bumpT[i] >= end) bumpT[i] = -1;
+                if (bumpT[i] >= end)
+                {
+                    bumpT[i] = -1;
+                    if (bumperNormal) bumpers[i].sprite = bumperNormal;
+                }
+            }
+            for (int i = lits.Count - 1; i >= 0; i--)
+            {
+                var (img, age, life) = lits[i];
+                age += simDt;
+                if (age >= life)
+                {
+                    fx.Give(img);
+                    lits.RemoveAt(i);
+                    continue;
+                }
+                float k = age / life;
+                img.rectTransform.localScale = Vector3.one * (age < 0.08f ? Mathf.Lerp(1.12f, 1, age / 0.08f) : 1);
+                img.color = new Color(1, 1, 1, k > 0.6f ? 1 - (k - 0.6f) / 0.4f : 1);
+                lits[i] = (img, age, life);
+            }
+            if (faceT > 0)
+            {
+                faceT -= dt;
+                if (faceT <= 0 && cloudImg && cloudNormal) Theme.SetSprite(cloudImg, cloudNormal);
             }
             if (multT >= 0)
             {
@@ -490,9 +622,17 @@ namespace PokiClash
                 {
                     float age = glowMax[i] - glowT[i];
                     float blink = age < 0.5f ? 0.55f + 0.45f * Mathf.Abs(Mathf.Cos(age * Mathf.PI * 6)) : 1;
-                    glow[i].color = new Color(1, 0.86f, 0.3f, Mathf.Min(0.95f, glowT[i]) * blink);
+                    var c = rayGlow ? glowTint[i] : new Color(1, 0.86f, 0.3f);
+                    c.a = Mathf.Min(0.95f, glowT[i]) * blink;
+                    glow[i].color = c;
                 }
-                else glow[i].color = new Color(1, 0.9f, 0.47f, Mathf.Min(0.75f, glowT[i]));
+                else
+                {
+                    // lớp tia vẽ tay: đậm hơn lớp tô phẳng cũ (tia có khe trong suốt), tắt dần trong 0,3 giây cuối
+                    var c = rayGlow ? glowTint[i] : new Color(1, 0.9f, 0.47f);
+                    c.a = rayGlow ? Mathf.Min(0.95f, glowT[i] / 0.3f) : Mathf.Min(0.75f, glowT[i]);
+                    glow[i].color = c;
+                }
             }
             for (int i = 0; i < flash.Length; i++)
             {
@@ -506,7 +646,8 @@ namespace PokiClash
                 float age = FlashTime - flashT[i];
                 flash[i].rectTransform.localScale = Vector3.one * (age < FlashPop ? Mathf.Lerp(1.15f, 1, age / FlashPop) : 1);
                 float a = age < FlashPop ? 1 : 1 - (age - FlashPop) / (FlashTime - FlashPop);
-                flash[i].color = new Color(1, 0.86f, 0.35f, a);
+                // hình sáng vẽ tay giữ màu thật; loé tròn cũ tô vàng
+                flash[i].color = flashLit[i] ? new Color(1, 1, 1, a) : new Color(1, 0.86f, 0.35f, a);
             }
             if (shakeT > 0)
             {

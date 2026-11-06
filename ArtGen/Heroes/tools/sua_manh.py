@@ -2,6 +2,7 @@
 
   py -3 -I tools/sua_manh.py doi  <ảnh.png> <dx> <dy>   dời cả ảnh (GPT vẽ lệch chỗ gốc khớp)  -> <tên>_doi_cho.png
   py -3 -I tools/sua_manh.py vien <ảnh.png> <px>        nới viền ngoài ra phía ngoài px điểm   -> <tên>_vien_day.png
+  py -3 -I tools/sua_manh.py mong <ảnh.png> <px>        mài mỏng viền ngoài: bỏ px điểm phía ngoài -> <tên>_vien_mong.png
 
 Nới viền: tô mực (màu lấy từ mép nét) lên nền sát hình. "Nền" tính cả quầng sáng quanh nét của GPT (điểm có min kênh > 110
 nối với mép ảnh) và tô sẫm mép ngoài 3 px của nét cũ, nếu không sẽ còn một vòng sáng mảnh giữa nét cũ và phần nới.
@@ -44,6 +45,21 @@ def vien(path, r):
     print(p, "mực", ink.round().astype(int).tolist())
 
 
+def mong(path, r):
+    """viền ngoài dày quá: bỏ r điểm phía ngoài của hình (nửa ngoài nét mực thành nền trắng), hình co r điểm mỗi phía"""
+    a = np.asarray(Image.open(path).convert("RGB")).astype(np.float32)
+    near = (a.min(2) > 110).astype(np.uint8)
+    _, lab = cv2.connectedComponents(near, connectivity=4)
+    border = set(np.unique(np.concatenate([lab[0], lab[-1], lab[:, 0], lab[:, -1]]))) - {0}
+    ext = np.isin(lab, sorted(border))
+    din = cv2.distanceTransform((~ext).astype(np.uint8), cv2.DIST_L2, 5)
+    t = np.clip(din - r + 0.5, 0, 1)[..., None]
+    out = a * t + 255 * (1 - t)
+    p = os.path.splitext(path)[0] + "_vien_mong.png"
+    Image.fromarray(out.round().astype(np.uint8)).save(p, optimize=True)
+    print(p)
+
+
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     cmd, path, *v = sys.argv[1:]
@@ -51,5 +67,7 @@ if __name__ == "__main__":
         doi(path, int(v[0]), int(v[1]))
     elif cmd == "vien":
         vien(path, float(v[0]))
+    elif cmd == "mong":
+        mong(path, float(v[0]))
     else:
         sys.exit(__doc__)

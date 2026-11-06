@@ -536,6 +536,7 @@ GameObject:
   - component: {fileID: 8901901710897336592}
   - component: {fileID: 5994195563165507383}
   - component: {fileID: 2075438356257980520}
+  - component: {fileID: 1358816274400069306}
   m_Layer: 5
   m_Name: cham_do
   m_TagString: Untagged
@@ -615,6 +616,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   amount: 0.12
   period: 1
+--- !u!114 &1358816274400069306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6508340662131421609}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88688c15e5c175240a4a8a3435dfd0e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  breath: 1
+  breathAmount: 0.16
+  breathPeriod: 1.6
+  idle: 0
+  idleLift: 8
+  idleTilt: 0.8
+  idlePeriod: 3.2
+  spawnOnEnable: 0
+  spawnFrom: 0
+  spawnDelay: 0
+  staggerStep: 0.05
 --- !u!1 &8036177399233335316
 GameObject:
   m_ObjectHideFlags: 0

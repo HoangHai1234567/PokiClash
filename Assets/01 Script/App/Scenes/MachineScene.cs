@@ -7,6 +7,8 @@
 // Prefab màn hình Assets/04 Prefabs/Screens/Machine (mặt máy, cột cược, khay rương 3 nút dựng sẵn, nút thả); hộp Dialogs/TiLeMayBi, Dialogs/HuyenThoai.
 // Ô quà dựng bằng menu "PokiClash/Prefab/Máy bi: mốc quà".
 // Trên đầu máy là thanh kinh nghiệm (MachineExpBar): EXP rơi vào ô bay lên thanh. Số trên ô đổi theo mức cược (MachineBoard.SetMult).
+// Nút vẽ tay (2026-11-06, học máy tham khảo, gói ArtGen/Pachinko/gui_gpt/bo_moi): nút thả là nút vòm to giữa dưới máy (4 trạng thái),
+// nút thả liền vòm nhỏ, viên cược tròn, đèn vòm chạy; dựng bằng menu "PokiClash/Prefab/Máy bi: nút tròn, viên cược, đèn vòm".
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +57,12 @@ namespace PokiClash
             public UnityEngine.UI.Image giftIcon;
             public TextMeshProUGUI giftCount;
             public UnityEngine.UI.Button giftButton; // chạm thanh hoặc ô quà: báo các mốc kế
+            // nút tròn vẽ tay (menu "PokiClash/Prefab/Máy bi: nút tròn, viên cược, đèn vòm"; học nút vòm của máy tham khảo): ảnh vòm
+            // của nút thả và nút thả liền (nền SketchButton để trong suốt), vòng đứt nhịp quanh nút thả khi giữ, ảnh viên cược theo
+            // thứ tự bets, bóng đèn rời đặt khít bóng vẽ trên vòm tủ (chạy vòng, nhanh hơn khi đang thả, cả dãy nháy khi trúng két)
+            public UnityEngine.UI.Image dropDome, autoDome, holdRing;
+            public UnityEngine.UI.Image[] betTokens;
+            public UnityEngine.UI.Image[] bulbs;
         }
 
         [SerializeField] Parts p;
@@ -78,6 +86,25 @@ namespace PokiClash
         float giftPopT = -1, giftPunchT = -1, counterPopT = -1;
         string giftShown; // quà đang hiện ở ô quà (đổi thì nhún vào)
         int maxX; // mức cược cao nhất đang mở, để báo khi có đủ bi mở thêm mức
+        float ringT, bulbStep, partyT; // vòng giữ nút; bước chạy đèn vòm; còn bao lâu cả dãy đèn nháy (trúng két)
+        bool domeDown; // ảnh nút thả đang ở trạng thái lún (chữ dời theo nắp)
+
+        // nút thả: cược từ mức này dùng nắp vàng có sao (cùng mốc với bi vàng, MachineBoard.BallColor)
+        const int BigBet = 5;
+        static readonly Color Clear = new Color(1, 1, 1, 0);
+        static readonly Dictionary<string, Sprite> art = new Dictionary<string, Sprite>();
+
+        static Sprite Art(string n)
+        {
+            if (!art.TryGetValue(n, out var s) || !s) art[n] = s = App.Art ? App.Art.Get(n) : null;
+            return s;
+        }
+
+        static void SetSprite(UnityEngine.UI.Image img, string n)
+        {
+            var s = Art(n);
+            if (img && s && img.sprite != s) img.sprite = s;
+        }
 
         // rương vàng: máy chạy chậm SlowScale lần trong SlowHold giây rồi nhanh dần lại trong SlowRamp giây, máng thả tạm ngừng;
         // mặt máy rung, vòng loé đôi, nhạc mừng ngắn. Chỉ rương vàng có những thứ này (tiếng và hình tỉ lệ với giá trị thật).
@@ -184,22 +211,88 @@ namespace PokiClash
             }
             view.SetMult(x, false);
             if (p.expBar) p.expBar.Sync();
-            foreach (var (b, lockText, bx) in xBtns)
+            int topX = D.Cfg.xSteps.Count > 0 ? D.Cfg.xSteps[D.Cfg.xSteps.Count - 1].x : 1;
+            for (int i = 0; i < xBtns.Count; i++)
             {
+                var (b, lockText, bx) = xBtns[i];
                 bool ok = allowed.Contains(bx);
+                var token = p.betTokens != null && i < p.betTokens.Length ? p.betTokens[i] : null;
                 b.Interactable = true;
-                b.SetColor(!ok ? Locked : bx == x ? Theme.Yellow : Theme.Paper);
                 b.Label.alpha = ok ? 1 : 0.6f;
                 b.Rect.localScale = Vector3.one * (bx == x ? 1.08f : 1f);
                 lockText.gameObject.SetActive(!ok);
+                if (token)
+                {
+                    // viên cược vẽ tay: thường, đang chọn (vàng), mức cao nhất đang chọn (tím), khoá (xám có ổ khoá)
+                    b.SetColor(Clear);
+                    SetSprite(token, !ok ? "pk_cuoc_khoa" : bx != x ? "pk_cuoc" : bx == topX ? "pk_cuoc_max" : "pk_cuoc_chon");
+                    b.Label.color = ok && bx == x && bx == topX ? Color.white : Theme.Ink;
+                    if (ok) b.Label.rectTransform.Stretch(10, 10, 10, 12);
+                    else b.Label.rectTransform.Stretch(14, 16, 14, 52);
+                    continue;
+                }
+                b.SetColor(!ok ? Locked : bx == x ? Theme.Yellow : Theme.Paper);
                 if (ok) b.Label.rectTransform.Stretch(8, 4, 14, 14);
                 else b.Label.rectTransform.Stretch(8, 0, 14, 40);
             }
             int max = D.Cfg.MaxPerDrop(s.level);
             p.counter.text = session > 0 ? $"Đợt này: {session}/{max}" : $"{s.balls} bi · tốn {x}/lần";
-            p.auto.SetText($"Thả liền {max}");
-            p.drop.SetColor(CanDrop() ? Theme.Red : Color.Lerp(Theme.Red, Theme.Paper3, 0.6f));
+            p.auto.SetText(p.autoDome ? $"Thả liền\n{max}" : $"Thả liền {max}"); // nắp vòm nhỏ: hai dòng
+            if (p.dropDome) p.drop.SetColor(Clear);
+            else p.drop.SetColor(CanDrop() ? Theme.Red : Color.Lerp(Theme.Red, Theme.Paper3, 0.6f));
+            if (p.autoDome) p.auto.SetColor(Clear);
+            UpdateDomes(0);
             RefreshMilestone();
+        }
+
+        // nút vòm: đang giữ thì nắp lún (chữ dời xuống theo nắp) và vòng đứt nhịp ra ngoài 0,4 giây một nhịp; hết bi hay hết lượt
+        // đợt thì nắp xám; cược lớn nắp vàng có sao. Nút thả liền: đang thả liền thì nắp lún xanh ngọc.
+        void UpdateDomes(float dt)
+        {
+            if (p.dropDome)
+            {
+                bool down = holding;
+                SetSprite(p.dropDome, down ? "pk_nut_tha_nhan" : !CanDrop() ? "pk_nut_tha_het" : x >= BigBet ? "pk_nut_tha_lon" : "pk_nut_tha");
+                if (down != domeDown && p.drop.Label)
+                {
+                    float shift = p.drop.Rect.rect.height * 0.08f; // nắp lún: tâm nắp xuống khoảng 8 % chiều cao nút
+                    p.drop.Label.rectTransform.anchoredPosition += new Vector2(0, down ? -shift : shift);
+                    domeDown = down;
+                }
+            }
+            if (p.holdRing)
+            {
+                bool on = holding;
+                if (p.holdRing.gameObject.activeSelf != on) p.holdRing.gameObject.SetActive(on);
+                if (on)
+                {
+                    ringT += dt;
+                    float k = ringT % 0.4f / 0.4f;
+                    p.holdRing.rectTransform.localScale = Vector3.one * (1 + 0.3f * k);
+                    p.holdRing.color = new Color(Theme.Yellow.r, Theme.Yellow.g, Theme.Yellow.b, 0.95f * (1 - k));
+                }
+                else ringT = 0;
+            }
+            if (p.autoDome) SetSprite(p.autoDome, autoLeft > 0 ? "pk_nut_lien_bat" : "pk_nut_lien");
+        }
+
+        // đèn vòm: cứ ba bóng sáng một (vàng, hồng xen nhau), chạy vòng 3,5 bước/giây, cược lớn 6, đang thả 9; trúng két thì cả dãy
+        // nháy 8 lần/giây
+        void UpdateBulbs(float dt)
+        {
+            if (p.bulbs == null || p.bulbs.Length == 0) return;
+            bulbStep += dt * (session > 0 ? 9 : x >= BigBet ? 6 : 3.5f);
+            if (partyT > 0) partyT -= dt;
+            int step = (int)bulbStep;
+            bool flashOn = (int)(partyT * 8) % 2 == 0;
+            for (int i = 0; i < p.bulbs.Length; i++)
+            {
+                var b = p.bulbs[i];
+                if (!b) continue;
+                if (!b.gameObject.activeSelf) b.gameObject.SetActive(true);
+                bool on = partyT > 0 ? flashOn : ((i - step) % 3 + 3) % 3 == 0;
+                SetSprite(b, !on ? "pk_den_tat" : i % 2 == 0 ? "pk_den_sang" : "pk_den_sang_hong");
+            }
         }
 
         // thanh mốc: mốc Huyền thoại cho tới khi nhận (vừa vượt trong đợt thì đứng đầy tới hộp "Huyền thoại!" cuối đợt),
@@ -450,6 +543,8 @@ namespace PokiClash
                 }
             }
             view.Sync(dt, dt * sim, LauncherX, CanDrop() ? x : 0);
+            UpdateDomes(dt);
+            UpdateBulbs(dt);
             AnimateMilestone(dt);
             if (session > 0 && board.balls.Count == 0 && !holding && autoLeft == 0 && !ending) StartCoroutine(SessionEnd());
             if (dirty && (saveTimer += dt) > 0.5f) SaveNow();
@@ -540,6 +635,8 @@ namespace PokiClash
             view.Shake(ShakeAmp, ShakeTime);
             view.Burst(bx, by, col, 1.8f);
             view.JackpotFx(bx, by);
+            view.CloudFace("pk_may_tha_wow", 1.2f);
+            partyT = 1.2f;
             Haptics.Play(Haptic.LandGold);
             StartCoroutine(Jingle());
         }
@@ -732,6 +829,8 @@ namespace PokiClash
             leaving = true;
             holding = false;
             autoLeft = 0;
+            partyT = 0;
+            if (board != null) UpdateDomes(0); // nắp nút thả bật lên, chữ về chỗ
             slowT = 0;
             giftBusy = 0;
             giftPopT = giftPunchT = counterPopT = -1;

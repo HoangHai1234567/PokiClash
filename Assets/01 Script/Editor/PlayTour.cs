@@ -1239,6 +1239,13 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Kim, 420)));
         }
 
+        [MenuItem("PokiClash/Thử/Đảo Thổ 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 126)]
+        static void TryIslandLongTho()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Tho, 460)));
+        }
+
         // Đảo 70 ải (Thủy, Mộc): màn đảo ở 0, 23, 69 ải đã qua; hộp chuẩn bị của chấm ải 24; hộp chuẩn bị các kiểu ải (bóng tướng
         // khởi đầu, bầy lính, nhóm 3 con, cửa ải, mini boss, boss); trận ải 3 (hai lính)
         static IEnumerator RunIslandLong(Elem zone, int first)

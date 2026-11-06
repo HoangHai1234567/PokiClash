@@ -44,7 +44,8 @@ namespace PokiClash.EditorTools
             ti.npotScale = TextureImporterNPOTScale.None;
             // thân máy bi (ArtGen/Pachinko/build.py --duyet) cao 1394 px: nhập ở 2048 để giữ nét
             bool big = assetPath.Contains("/Fallback/") && !assetPath.Contains("/Icons/") || assetPath.Contains("/Islands/") || assetPath.Contains("/BattleBG/")
-                || assetPath.Contains("/Pachinko/pk_than_may");
+                || assetPath.Contains("/Pachinko/pk_than_may")
+                || assetPath.Contains("/Boot/boot_ban_do"); // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
             // bản đồ đảo hệ: bản đồ dài đảo 70 ải cao 4288 (ArtGen/Islands/build_zone70.py), nhập ở 4096 (gần đủ nét, máy nào cũng

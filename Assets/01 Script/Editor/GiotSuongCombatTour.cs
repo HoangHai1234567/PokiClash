@@ -25,6 +25,11 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Tiểu Y ra trận: đâm đinh ba, bắn tia, ném cầu nước ở 2 dạng (đang Play)", priority = 113)]
         static void TryTieuY() => Start("tieu_y", "tieu_y_combat", 1, 5);
 
+        // Ma Kết (2026-11-06): chiêu cuối không lao, tụ cầu nước rồi bắn (dạng 1 bắn thẳng, dạng 2 ném vòng cung, dạng 3 bắn liên
+        // hoàn), cầu nổ ở thân đối thủ (far_center); ảnh vào ma_ket_combat/
+        [MenuItem("PokiClash/Thử/Ma Kết ra trận: húc, bắn tia, cầu nước ở 3 dạng (đang Play)", priority = 114)]
+        static void TryMaKet() => Start("ma_ket", "ma_ket_combat", 1, 3, 5);
+
         static void Start(string id, string folder, params int[] at)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

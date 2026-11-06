@@ -68,8 +68,9 @@ namespace PokiClash
             float p = s.level >= cfg.maxLevel ? 1 : (float)s.exp / Mathf.Max(1, Progress.ExpToNext(s.level, cfg));
             expArc.fillAmount = Mathf.Clamp01(p);
             lvText.text = s.level.ToString();
-            ballsText.text = Fmt(s.balls);
-            backBalls.text = Fmt(s.balls);
+            // số bi đổi thì đếm chạy rồi chip nảy (bộ UI Sa Bàn)
+            NumberTicker.Set(ballsText, s.balls, v => Fmt((int)v));
+            NumberTicker.Set(backBalls, s.balls, v => Fmt((int)v));
             backLv.text = $"Cấp {s.level}";
             // nút đồng hồ: chưa qua ải nào thì ghi "AFK"; có bi trên cây thì ghi số bi, không thì số giờ AFK đã dồn
             if (Progress.TotalCleared(s) == 0)
