@@ -1,5 +1,4 @@
-// Nét mực rung cho UI (thay 3 filter SVG boil0..2 của bản web): dời UV theo texture nhiễu toàn cục _PokiNoise,
-// 3 bộ dời thay nhau 6 lần mỗi giây; _PokiBoil = 0 thì đứng yên ở bộ đầu.
+// Nét mực cho UI. Tên shader còn chữ Boil cho khỏi đổi material, nhưng nét đã đứng yên (bỏ rung 2026-11-06).
 // _Encoded = 1: sprite vẽ bằng code (Sketch.cs) mã hoá kênh: R = độ sáng phần tô, G = mực, B = vùng gạch sáp, A = độ phủ.
 // Màu tô lấy từ màu của Image, mực lấy từ _PokiInk, nên đổi màu nút không làm đổi màu viền.
 Shader "PokiClash/UIInkBoil"
@@ -9,7 +8,6 @@ Shader "PokiClash/UIInkBoil"
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
         _Color ("Tint", Color) = (1,1,1,1)
         _Encoded ("Sprite mã hoá kênh (Sketch)", Float) = 1
-        _BoilAmp ("Biên độ rung (texel)", Float) = 1.6
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -85,10 +83,7 @@ Shader "PokiClash/UIInkBoil"
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float _Encoded;
-            float _BoilAmp;
 
-            sampler2D _PokiNoise;
-            float _PokiBoil;
             fixed4 _PokiInk;
 
             v2f vert(appdata_t v)
@@ -105,10 +100,7 @@ Shader "PokiClash/UIInkBoil"
 
             fixed4 frag(v2f IN) : SV_Target
             {
-                float set = _PokiBoil > 0.5 ? floor(fmod(_Time.y * 6.0, 3.0)) : 0.0;
-                float2 n = tex2D(_PokiNoise, IN.worldPosition.xy / 56.0 + set * float2(0.37, 0.61)).rg * 2.0 - 1.0;
-                float2 uv = IN.texcoord + n * _BoilAmp * _MainTex_TexelSize.xy;
-                half4 t = tex2D(_MainTex, uv) + _TextureSampleAdd;
+                half4 t = tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd;
 
                 half4 color;
                 if (_Encoded > 0.5)

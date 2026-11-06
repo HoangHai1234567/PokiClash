@@ -3854,6 +3854,486 @@ MonoBehaviour:
     flavor: 
     owner: lan_hoa
     effectsJson: '[{"k":"heal","pct":0.04},{"k":"rage","v":5}]'
+  - id: nguu_quyen_skill
+    name: "Song Quy\u1EC1n L\u1EEDa"
+    rarity: 1
+    kind: 1
+    icon: fist
+    costMana: 35
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: nguu_quyen
+    effectsJson: '[{"k":"dmg","mult":0.6,"hits":2},{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
+  - id: nguu_quyen_ult
+    name: "Ng\u01B0u Ma Li\xEAn Quy\u1EC1n"
+    rarity: 3
+    kind: 2
+    icon: fist2
+    costMana: 45
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: nguu_quyen
+    effectsJson: '[{"k":"dmg","mult":2.4},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
+  - id: nguu_quyen_pas
+    name: "M\xE1u \u0110\u1EA5u S\u0129"
+    rarity: 2
+    kind: 3
+    icon: rage
+    costMana: 0
+    costRage: 0
+    trigger: 3
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: nguu_quyen
+    effectsJson: '[{"k":"buff","stat":"atk","v":0.25,"turns":99}]'
+  - id: lung_vuong_skill
+    name: "Vu\u1ED1t V\xE0ng"
+    rarity: 0
+    kind: 1
+    icon: claw
+    costMana: 25
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: lung_vuong
+    effectsJson: '[{"k":"dmg","mult":0.9},{"k":"rage","v":10}]'
+  - id: lung_vuong_ult
+    name: "L\u1EEDng V\u01B0\u01A1ng C\xE0o X\xE9"
+    rarity: 1
+    kind: 2
+    icon: fang
+    costMana: 35
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: lung_vuong
+    effectsJson: '[{"k":"dmg","mult":0.65,"hits":3}]'
+  - id: lung_vuong_pas
+    name: "Da D\xE0y"
+    rarity: 0
+    kind: 3
+    icon: helmet
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: lung_vuong
+    effectsJson: '[{"k":"buff","stat":"def","v":0.12,"turns":99}]'
+  - id: cao_da_skill
+    name: "Vu\u1ED1t \u0110\xE1 L\u1EE5c"
+    rarity: 0
+    kind: 1
+    icon: claw
+    costMana: 30
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: cao_da
+    effectsJson: '[{"k":"dmg","mult":1},{"k":"buff","stat":"def","v":-0.15,"turns":2,"until":"end","on":"foe"}]'
+  - id: cao_da_ult
+    name: "L\u1EDF \u0110\xE1 Ng\u1ECDc"
+    rarity: 1
+    kind: 2
+    icon: crack
+    costMana: 40
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: cao_da
+    effectsJson: '[{"k":"dmg","mult":2.1},{"k":"status","id":"stun","turns":1,"chance":0.25,"on":"foe"}]'
+  - id: cao_da_pas
+    name: "M\u1EAFt Pha L\xEA"
+    rarity: 0
+    kind: 3
+    icon: eye
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: cao_da
+    effectsJson: '[{"k":"buff","stat":"crit","v":0.1,"turns":99}]'
+  - id: ho_khoan_skill
+    name: "S\u1EEBng Khoan"
+    rarity: 0
+    kind: 1
+    icon: crack
+    costMana: 30
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_khoan
+    effectsJson: '[{"k":"dmg","mult":1,"pierce":0.25}]'
+  - id: ho_khoan_ult
+    name: "Ph\xE1o Hoa Pha L\xEA"
+    rarity: 1
+    kind: 2
+    icon: bolt
+    costMana: 40
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_khoan
+    effectsJson: '[{"k":"dmg","mult":0.75,"hits":3}]'
+  - id: ho_khoan_pas
+    name: "Gai Pha L\xEA"
+    rarity: 0
+    kind: 3
+    icon: mirror
+    costMana: 0
+    costRage: 0
+    trigger: 5
+    hasChance: 1
+    chance: 0.2
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_khoan
+    effectsJson: '[{"k":"dmg","mult":0.35}]'
+  - id: phu_van_skill
+    name: "\u1EA4n Ph\xF9 V\u0103n"
+    rarity: 1
+    kind: 1
+    icon: rock
+    costMana: 35
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: phu_van
+    effectsJson: '[{"k":"dmg","mult":1},{"k":"shield","pct":0.12}]'
+  - id: phu_van_ult
+    name: "C\u1EF1 Th\u1EA7n Gi\xE1ng Th\u1EBF"
+    rarity: 3
+    kind: 2
+    icon: hammer
+    costMana: 45
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: phu_van
+    effectsJson: '[{"k":"dmg","mult":2.4},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
+  - id: phu_van_pas
+    name: "Th\xE2n \u0110\xE1 Kh\u1EAFc"
+    rarity: 2
+    kind: 3
+    icon: helmet
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: phu_van
+    effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.1,"turns":99}]'
+  - id: hat_de_skill
+    name: "N\xE9m H\u1EA1t D\u1EBB"
+    rarity: 1
+    kind: 1
+    icon: seed
+    costMana: 35
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: hat_de
+    effectsJson: '[{"k":"dmg","mult":0.6,"hits":2}]'
+  - id: hat_de_ult
+    name: "M\u01B0a H\u1EA1t D\u1EBB"
+    rarity: 3
+    kind: 2
+    icon: rock
+    costMana: 45
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: hat_de
+    effectsJson: '[{"k":"dmg","mult":0.8,"hits":3}]'
+  - id: hat_de_pas
+    name: "Khi\xEAn V\u1ECF C\u1EE9ng"
+    rarity: 2
+    kind: 3
+    icon: shield
+    costMana: 0
+    costRage: 0
+    trigger: 5
+    hasChance: 1
+    chance: 0.25
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: hat_de
+    effectsJson: '[{"k":"shield","pct":0.07}]'
+  - id: rua_nui_skill
+    name: "N\xFAi \u0110\xE8"
+    rarity: 2
+    kind: 1
+    icon: rock
+    costMana: 40
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: rua_nui
+    effectsJson: '[{"k":"dmg","mult":1.3},{"k":"shield","pct":0.12}]'
+  - id: rua_nui_ult
+    name: "S\u01A1n L\xE2m H\u1ED9 Th\u1EC3"
+    rarity: 3
+    kind: 2
+    icon: crack
+    costMana: 50
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: rua_nui
+    effectsJson: '[{"k":"dmg","mult":2.5},{"k":"shield","pct":0.2}]'
+  - id: rua_nui_pas
+    name: "R\u1EEBng Tr\xEAn Mai"
+    rarity: 2
+    kind: 3
+    icon: leaf
+    costMana: 0
+    costRage: 0
+    trigger: 2
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: rua_nui
+    effectsJson: '[{"k":"shield","pct":0.05}]'
+  - id: ho_kim_cuong_skill
+    name: "Vu\u1ED1t Kim C\u01B0\u01A1ng"
+    rarity: 2
+    kind: 1
+    icon: claw
+    costMana: 40
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_kim_cuong
+    effectsJson: '[{"k":"dmg","mult":1.4,"pierce":0.2}]'
+  - id: ho_kim_cuong_ult
+    name: "Kim C\u01B0\u01A1ng B\u1EA1o Ph\xE1"
+    rarity: 3
+    kind: 2
+    icon: crack
+    costMana: 50
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_kim_cuong
+    effectsJson: '[{"k":"dmg","mult":2.7},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
+  - id: ho_kim_cuong_pas
+    name: "Gi\xE1p Kim C\u01B0\u01A1ng"
+    rarity: 2
+    kind: 3
+    icon: helmet
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_kim_cuong
+    effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.12,"turns":99}]'
+  - id: cu_phu_skill
+    name: "R\xECu L\u1EEDa"
+    rarity: 2
+    kind: 1
+    icon: hammer
+    costMana: 40
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: cu_phu
+    effectsJson: '[{"k":"dmg","mult":1.4},{"k":"status","id":"burn","turns":2,"v":0.06,"on":"foe"}]'
+  - id: cu_phu_ult
+    name: "C\u1EF1 Ph\u1EE7 Khai Thi\xEAn"
+    rarity: 3
+    kind: 2
+    icon: crack
+    costMana: 50
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: cu_phu
+    effectsJson: '[{"k":"dmg","mult":2.8,"pierce":0.2}]'
+  - id: cu_phu_pas
+    name: "L\u1EEDa Chi\u1EBFn"
+    rarity: 2
+    kind: 3
+    icon: flame
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: cu_phu
+    effectsJson: '[{"k":"buff","stat":"crit","v":0.12,"turns":99}]'
+  - id: giap_nham_skill
+    name: "Nham Quy\u1EC1n"
+    rarity: 2
+    kind: 1
+    icon: fist
+    costMana: 40
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: giap_nham
+    effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
+  - id: giap_nham_ult
+    name: "Nham Gi\xE1p Thi\xEAn B\u0103ng"
+    rarity: 4
+    kind: 2
+    icon: crack
+    costMana: 50
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: giap_nham
+    effectsJson: '[{"k":"dmg","mult":3},{"k":"status","id":"stun","turns":1,"chance":0.5,"on":"foe"}]'
+  - id: giap_nham_pas
+    name: "B\u1EDDm \u0110\u1ECF Chi\u1EBFn \xDD"
+    rarity: 3
+    kind: 3
+    icon: rage
+    costMana: 0
+    costRage: 0
+    trigger: 2
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: giap_nham
+    effectsJson: '[{"k":"rage","v":6},{"k":"shield","pct":0.05}]'
   minions:
   - id: linh_cua_skill
     name: "K\u1EB9p K\xECm"
@@ -5007,6 +5487,294 @@ MonoBehaviour:
     flavor: 
     owner: linh_may2
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
+  - id: linh_khoan_skill
+    name: "Khoan \u0110\u1EA5t"
+    rarity: 0
+    kind: 1
+    icon: crack
+    costMana: 30
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_khoan
+    effectsJson: '[{"k":"dmg","mult":1}]'
+  - id: linh_khoan_ult
+    name: "Khoan Xo\xE1y"
+    rarity: 0
+    kind: 2
+    icon: wind
+    costMana: 30
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_khoan
+    effectsJson: '[{"k":"dmg","mult":1.6}]'
+  - id: linh_khoan_pas
+    name: "Gi\xE1p \u0110\u1EA5t"
+    rarity: 0
+    kind: 3
+    icon: shield
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_khoan
+    effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.15,"turns":99}]'
+  - id: linh_khoan2_skill
+    name: "M\u0169i Khoan Th\xE9p"
+    rarity: 0
+    kind: 1
+    icon: bolt
+    costMana: 30
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_khoan2
+    effectsJson: '[{"k":"dmg","mult":1.2}]'
+  - id: linh_khoan2_ult
+    name: "Khoan K\xE9p"
+    rarity: 0
+    kind: 2
+    icon: fist2
+    costMana: 35
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_khoan2
+    effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
+  - id: linh_khoan2_pas
+    name: "Gi\xE1p N\u1EB7ng"
+    rarity: 0
+    kind: 3
+    icon: shield
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_khoan2
+    effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.2,"turns":99}]'
+  - id: linh_da_skill
+    name: "Thu M\xECnh \u0110\xE1"
+    rarity: 0
+    kind: 1
+    icon: shield
+    costMana: 30
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_da
+    effectsJson: '[{"k":"shield","pct":0.15}]'
+  - id: linh_da_ult
+    name: "L\u0103n \u0110\xE1"
+    rarity: 0
+    kind: 2
+    icon: rock
+    costMana: 30
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_da
+    effectsJson: '[{"k":"dmg","mult":1.5}]'
+  - id: linh_da_pas
+    name: "Gai \u0110\u1EA5t"
+    rarity: 0
+    kind: 3
+    icon: fang
+    costMana: 0
+    costRage: 0
+    trigger: 5
+    hasChance: 1
+    chance: 0.3
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_da
+    effectsJson: '[{"k":"dmg","mult":0.25}]'
+  - id: linh_da2_skill
+    name: "X\xEDch \u0110\xE1 D\u1ED9i"
+    rarity: 0
+    kind: 1
+    icon: rock
+    costMana: 35
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_da2
+    effectsJson: '[{"k":"dmg","mult":1.1},{"k":"status","id":"stun","turns":1,"chance":0.15,"on":"foe"}]'
+  - id: linh_da2_ult
+    name: "B\xE3o S\u1ECFi"
+    rarity: 0
+    kind: 2
+    icon: crack
+    costMana: 35
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_da2
+    effectsJson: '[{"k":"dmg","mult":1.8}]'
+  - id: linh_da2_pas
+    name: "Gai \u0110\xE1"
+    rarity: 0
+    kind: 3
+    icon: fang
+    costMana: 0
+    costRage: 0
+    trigger: 5
+    hasChance: 1
+    chance: 0.35
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_da2
+    effectsJson: '[{"k":"dmg","mult":0.3}]'
+  - id: linh_ngua_skill
+    name: "Phi N\u01B0\u1EDBc Ki\u1EC7u"
+    rarity: 0
+    kind: 1
+    icon: wind
+    costMana: 25
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_ngua
+    effectsJson: '[{"k":"extra","mult":0.6}]'
+  - id: linh_ngua_ult
+    name: "V\xF3 Cu\u1ED1n"
+    rarity: 0
+    kind: 2
+    icon: wind
+    costMana: 30
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_ngua
+    effectsJson: '[{"k":"dmg","mult":0.7,"hits":2}]'
+  - id: linh_ngua_pas
+    name: "Ch\xE2n Nh\u1EB9"
+    rarity: 0
+    kind: 3
+    icon: feather
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_ngua
+    effectsJson: '[{"k":"buff","stat":"dodge","v":0.12,"turns":99}]'
+  - id: linh_ngua2_skill
+    name: "Phi N\u01B0\u1EDBc \u0110\u1EA1i"
+    rarity: 0
+    kind: 1
+    icon: wind
+    costMana: 30
+    costRage: 0
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_ngua2
+    effectsJson: '[{"k":"extra","mult":0.8}]'
+  - id: linh_ngua2_ult
+    name: "Gi\xF3 C\xE1t Cu\u1ED1n"
+    rarity: 0
+    kind: 2
+    icon: wind
+    costMana: 35
+    costRage: 100
+    trigger: 0
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_ngua2
+    effectsJson: '[{"k":"dmg","mult":0.85,"hits":2}]'
+  - id: linh_ngua2_pas
+    name: "V\u1EB1n C\xE1t"
+    rarity: 0
+    kind: 3
+    icon: feather
+    costMana: 0
+    costRage: 0
+    trigger: 1
+    hasChance: 0
+    chance: 0
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: linh_ngua2
+    effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
   traits:
   - id: kuba_boss
     name: "Mai Kim C\u01B0\u01A1ng"
@@ -5200,3 +5968,51 @@ MonoBehaviour:
     flavor: 
     owner: kim_nghe
     effectsJson: '[{"k":"cleanse"},{"k":"shield","pct":0.3},{"k":"buff","stat":"def","v":0.25,"turns":2}]'
+  - id: hat_de_boss
+    name: "V\u1ECF D\u1EBB H\u1ED9 Th\xE2n"
+    rarity: 2
+    kind: 3
+    icon: shield
+    costMana: 0
+    costRage: 0
+    trigger: 5
+    hasChance: 1
+    chance: 0.3
+    below: 0.3
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: hat_de
+    effectsJson: '[{"k":"shield","pct":0.06}]'
+  - id: ho_kim_cuong_boss
+    name: "Kim C\u01B0\u01A1ng B\u1EA5t Khu\u1EA5t"
+    rarity: 3
+    kind: 3
+    icon: crown
+    costMana: 0
+    costRage: 0
+    trigger: 3
+    hasChance: 0
+    chance: 0
+    below: 0.5
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: ho_kim_cuong
+    effectsJson: '[{"k":"cleanse"},{"k":"shield","pct":0.2},{"k":"buff","stat":"atk","v":0.25,"turns":2}]'
+  - id: giap_nham_boss
+    name: "Nham Gi\xE1p Ch\u1EA5n \u0110\u1ECBa"
+    rarity: 4
+    kind: 3
+    icon: helmet
+    costMana: 0
+    costRage: 0
+    trigger: 3
+    hasChance: 0
+    chance: 0
+    below: 0.5
+    unlock: 1
+    repeat: 0
+    flavor: 
+    owner: giap_nham
+    effectsJson: '[{"k":"cleanse"},{"k":"shield","pct":0.3},{"k":"status","id":"stun","turns":1,"on":"foe"}]'

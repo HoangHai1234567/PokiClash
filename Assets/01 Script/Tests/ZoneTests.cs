@@ -129,9 +129,9 @@ namespace PokiClash.Tests
             var moc = d.ZoneStages(Elem.Moc).ToList();
             Assert.AreEqual(Progress.StageBalls(d, boss, true), Progress.StageBalls(d, moc[69], true), "boss Mộc bằng boss Thủy");
             Assert.AreEqual(2 + 4, Progress.StageBalls(d, moc[19], true), "mini boss Mộc ải 20");
-            // đảo 8 ải (tạm, còn đảo Thổ): số ải quy về thang 70 ải, ải 8 như ải 70
+            // đảo Thổ 70 ải (2026-11-06; trước là đảo 8 ải tạm, ải 8 quy như ải 70)
             var thoBoss = d.ZoneStages(Elem.Tho).Last();
-            Assert.AreEqual(8, thoBoss.idx);
+            Assert.AreEqual(70, thoBoss.idx);
             Assert.AreEqual(5 + 8, Progress.StageBalls(d, thoBoss, true));
             Assert.AreEqual(5, Progress.StageBalls(d, thoBoss, false), "đánh lại boss Thổ");
             Assert.AreEqual(Progress.StageBalls(d, boss, true), Progress.StageBalls(d, d.ZoneStages(Elem.Kim).Last(), true), "boss Kim bằng boss Thủy");

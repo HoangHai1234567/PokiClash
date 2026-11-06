@@ -2,7 +2,7 @@
 // đọc island_anim.json (ArtGen/Islands/compose_islands.py ghi; toạ độ tỉ lệ theo ảnh, cỡ tỉ lệ theo bề ngang ảnh) và sprite
 // Islands/Anim/anim_<tên>. Mỗi món một kiểu chuyển động: khói bốc nở mờ dần, lửa lật hai hình, bánh răng xoay, chuông lắc rồi
 // nghỉ, xoáy nước xoay kèm đinh ba nhấp nhô, bọt phập phồng, lấp lánh, lá rơi, gió cuộn, gợn nước, sóng trôi ngoài biển; sông
-// dung nham và suối có đốm lửa / gợn nước chạy dọc. Tắt "nét vẽ rung" (hoặc chụp ảnh tĩnh) thì đứng yên.
+// dung nham và suối có đốm lửa / gợn nước chạy dọc. Chụp ảnh tĩnh (Theme.SetBoil(false)) thì đứng yên.
 // Sảnh tự gắn theo key (world); màn đảo gọi Bind("zone_<hệ>") mỗi lần vào đảo. Mỗi hình động sinh từ prefab mục Items/HinhDong.
 // Hạt dọc dòng chảy lấy cỡ theo bề rộng dòng (w trong json); gợn nước nằm dọc theo dòng.
 using System;
@@ -138,7 +138,7 @@ namespace PokiClash
         void Update()
         {
             if (fx.Count == 0) return;
-            // tắt nét rung (cài đặt hoặc chụp ảnh tĩnh): đứng yên
+            // chụp ảnh tĩnh: đứng yên
             if (Shader.GetGlobalFloat("_PokiBoil") > 0.5f) clock += Mathf.Min(Time.unscaledDeltaTime, 0.1f);
             foreach (var f in fx) f.Tick(clock);
         }

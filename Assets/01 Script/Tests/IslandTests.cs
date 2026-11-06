@@ -33,7 +33,7 @@ namespace PokiClash.Tests
             Assert.IsTrue(Islands.IsLong(Elem.Moc));
             Assert.IsTrue(Islands.IsLong(Elem.Hoa));
             Assert.IsTrue(Islands.IsLong(Elem.Kim));
-            Assert.IsFalse(Islands.IsLong(Elem.Tho));
+            Assert.IsTrue(Islands.IsLong(Elem.Tho)); // đảo Thổ 70 ải từ 2026-11-06
         }
 
         [Test]

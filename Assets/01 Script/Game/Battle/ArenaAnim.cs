@@ -6,7 +6,7 @@
 // vệt trăng, vòng phù văn, đốm hồn, lá rơi, xoáy nước, đinh ba, sét (nền loé theo), mây bão, vòi rồng. Nền dùng chung (đảo Mộc): khoá có
 // "use" mượn ảnh nền khác, "tint" phủ màu ảnh nền (StageView). "img" trong json đổi ảnh của
 // món (boss 70 dùng xoáy, đinh ba, sóng cỡ lớn san_*). Flare(): quầng sáng, phù văn, tia đèn bừng lên, xoáy quay nhanh
-// (khi tướng dùng chiêu, Tuyệt kỹ). Tắt "nét vẽ rung" (hoặc chụp ảnh tĩnh) thì đứng yên như IslandAnim.
+// (khi tướng dùng chiêu, Tuyệt kỹ). Chụp ảnh tĩnh thì đứng yên như IslandAnim.
 using System.Collections.Generic;
 using PokiClash.Core;
 using PokiClash.UI;

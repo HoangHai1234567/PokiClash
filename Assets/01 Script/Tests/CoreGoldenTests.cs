@@ -84,13 +84,13 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var err = d.Validate();
             Assert.IsEmpty(err, string.Join("\n", err));
-            Assert.AreEqual(68, d.Heroes.Count);
+            Assert.AreEqual(78, d.Heroes.Count);
             Assert.AreEqual(35, d.Pool.Count); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
-            Assert.AreEqual(205, d.Innate.Count); // 68 tướng × 3 + thẻ Tiến Hóa của boss
-            Assert.AreEqual(24, d.Minions.Count);
-            Assert.AreEqual(72, d.MinionCards.Count);
+            Assert.AreEqual(235, d.Innate.Count); // 78 tướng × 3 + thẻ Tiến Hóa của boss
+            Assert.AreEqual(30, d.Minions.Count);
+            Assert.AreEqual(90, d.MinionCards.Count);
             Assert.AreEqual(5, d.Zones.Count);
-            Assert.AreEqual(288, d.Stages.Count); // Đảo Thủy, Hỏa, Kim, Mộc 70 ải, đảo Thổ 8 ải
+            Assert.AreEqual(350, d.Stages.Count); // 5 đảo, mỗi đảo 70 ải
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
             Assert.AreEqual(5, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03)

@@ -2402,15 +2402,16 @@
    "kind": "mini",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 67,
      "boss": true,
+     "evo": true,
      "buff": 0.65
     }
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 1,
      "min": 3,
      "max": 5
@@ -2449,14 +2450,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 73,
      "buff": 0.82
     }
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -2529,7 +2530,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 81,
      "buff": 0.6
     },
@@ -2541,7 +2542,7 @@
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -2564,14 +2565,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 84,
      "buff": 0.95
     }
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -2610,7 +2611,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 90,
      "buff": 0.3
     },
@@ -2627,7 +2628,7 @@
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -2644,7 +2645,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 93,
      "buff": 0.8
     },
@@ -2656,7 +2657,7 @@
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.30000000000000004,
      "min": 1,
      "max": 2
@@ -2752,7 +2753,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 104,
      "buff": 0.65
     },
@@ -2764,7 +2765,7 @@
    ],
    "drops": [
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -2928,7 +2929,7 @@
      "buff": 0.8
     },
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 120,
      "buff": 0.8
     }
@@ -2941,7 +2942,7 @@
      "max": 2
     },
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.30000000000000004,
      "min": 1,
      "max": 2
@@ -3091,7 +3092,7 @@
      "buff": 0.6
     },
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "level": 135,
      "buff": 0.6
     }
@@ -3104,7 +3105,7 @@
      "max": 2
     },
     {
-     "hero": "ho_lua",
+     "hero": "nguu_quyen",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -7636,13 +7637,14 @@
    "id": 281,
    "zone": "tho",
    "idx": 1,
-   "name": "Bãi Cát Vàng",
+   "name": "Bãi Đá Cuội",
    "kind": "normal",
    "enemies": [
     {
      "hero": "thach_nhan",
      "level": 1,
-     "boss": false
+     "evo": true,
+     "buff": 0.15
     }
    ],
    "drops": [
@@ -7652,157 +7654,1894 @@
      "min": 2,
      "max": 4
     }
-   ]
+   ],
+   "tag": "hero",
+   "chapter": 0
   },
   {
    "id": 282,
    "zone": "tho",
    "idx": 2,
-   "name": "Đồi Đất Nung",
+   "name": "Bãi Đá Cuội 2",
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vo_su",
-     "level": 38,
-     "boss": false
+     "hero": "thach_nhan",
+     "level": 6,
+     "buff": 0.15
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 6,
+     "buff": 0.15
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "thach_nhan",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 0
   },
   {
    "id": 283,
    "zone": "tho",
    "idx": 3,
-   "name": "Cầu Treo",
+   "name": "Bãi Đá Cuội 3",
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vo_su",
-     "level": 63,
-     "boss": false
+     "hero": "linh_khoan",
+     "level": 11,
+     "buff": 0.1
     },
     {
-     "hero": "vo_su",
-     "level": 68,
-     "boss": false
+     "hero": "linh_khoan",
+     "level": 11,
+     "buff": 0.1
     }
    ],
-   "drops": []
+   "drops": [],
+   "tag": "minion",
+   "chapter": 0
   },
   {
    "id": 284,
    "zone": "tho",
    "idx": 4,
-   "name": "Võ Đường Đá",
-   "kind": "mini",
+   "name": "Bãi Đá Cuội 4",
+   "kind": "normal",
    "enemies": [
     {
-     "hero": "vo_su",
-     "level": 96,
-     "boss": true
+     "hero": "thach_nhan",
+     "level": 15,
+     "buff": 0.35
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 15,
+     "buff": 0.2
     }
    ],
    "drops": [
     {
-     "hero": "vo_su",
-     "chance": 1,
-     "min": 3,
-     "max": 5,
-     "gift": false
+     "hero": "thach_nhan",
+     "chance": 0.375,
+     "min": 1,
+     "max": 2
     }
-   ]
+   ],
+   "tag": "gate",
+   "chapter": 0
   },
   {
    "id": 285,
    "zone": "tho",
    "idx": 5,
-   "name": "Ruộng Bậc Thang",
+   "name": "Hang Lửng",
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vo_su",
-     "level": 122,
-     "boss": false
-    },
-    {
-     "hero": "ca_sa",
-     "level": 105,
-     "boss": false
+     "hero": "lung_vuong",
+     "level": 18,
+     "evo": true,
+     "buff": 0.15
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "lung_vuong",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ],
+   "tag": "hero",
+   "chapter": 1
   },
   {
    "id": 286,
    "zone": "tho",
    "idx": 6,
-   "name": "Chùa Đá",
+   "name": "Hang Lửng 2",
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ca_sa",
-     "level": 147,
-     "boss": false
+     "hero": "linh_khoan",
+     "level": 22,
+     "buff": 0.1
+    },
+    {
+     "hero": "linh_da",
+     "level": 22,
+     "buff": 0.1
     }
    ],
-   "drops": [
-    {
-     "hero": "ca_sa",
-     "chance": 0.2,
-     "min": 1,
-     "max": 2,
-     "gift": false
-    }
-   ]
+   "drops": [],
+   "tag": "minion",
+   "chapter": 1
   },
   {
    "id": 287,
    "zone": "tho",
    "idx": 7,
-   "name": "Sân Tượng Đá",
+   "name": "Hang Lửng 3",
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vo_su",
-     "level": 172,
-     "boss": false
-    },
-    {
-     "hero": "ca_sa",
-     "level": 161,
-     "boss": false
-    },
-    {
-     "hero": "vo_su",
-     "level": 172,
-     "boss": false
+     "hero": "lung_vuong",
+     "level": 25,
+     "buff": 0.12
     }
    ],
-   "drops": []
+   "drops": [
+    {
+     "hero": "lung_vuong",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 1
   },
   {
    "id": 288,
    "zone": "tho",
    "idx": 8,
-   "name": "Kim Tự Viện",
-   "kind": "boss",
+   "name": "Hang Lửng 4",
+   "kind": "normal",
    "enemies": [
     {
-     "hero": "ca_sa",
-     "level": 196,
-     "boss": true,
-     "evo": true
+     "hero": "thach_nhan",
+     "level": 29,
+     "buff": 0.15
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 29,
+     "buff": 0.15
     }
    ],
    "drops": [
     {
-     "hero": "ca_sa",
-     "chance": 1,
-     "min": 5,
-     "max": 8,
-     "gift": false
+     "hero": "thach_nhan",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
     }
-   ]
+   ],
+   "tag": "group",
+   "chapter": 1
+  },
+  {
+   "id": 289,
+   "zone": "tho",
+   "idx": 9,
+   "name": "Hang Lửng 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "lung_vuong",
+     "level": 32,
+     "buff": 0.35
+    },
+    {
+     "hero": "linh_da",
+     "level": 32,
+     "buff": 0.2
+    }
+   ],
+   "drops": [
+    {
+     "hero": "lung_vuong",
+     "chance": 0.44999999999999996,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 1
+  },
+  {
+   "id": 290,
+   "zone": "tho",
+   "idx": 10,
+   "name": "Đồi Ngọc Lục",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cao_da",
+     "level": 36,
+     "evo": true,
+     "buff": 0.15
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cao_da",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ],
+   "tag": "hero",
+   "chapter": 2
+  },
+  {
+   "id": 291,
+   "zone": "tho",
+   "idx": 11,
+   "name": "Đồi Ngọc Lục 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_ngua",
+     "level": 39,
+     "buff": 0.1
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 39,
+     "buff": 0.1
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 2
+  },
+  {
+   "id": 292,
+   "zone": "tho",
+   "idx": 12,
+   "name": "Đồi Ngọc Lục 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cao_da",
+     "level": 42,
+     "buff": 0.12
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cao_da",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 2
+  },
+  {
+   "id": 293,
+   "zone": "tho",
+   "idx": 13,
+   "name": "Đồi Ngọc Lục 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "lung_vuong",
+     "level": 45,
+     "buff": 0.15
+    },
+    {
+     "hero": "linh_da",
+     "level": 45,
+     "buff": 0.15
+    }
+   ],
+   "drops": [
+    {
+     "hero": "lung_vuong",
+     "chance": 0.3,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 2
+  },
+  {
+   "id": 294,
+   "zone": "tho",
+   "idx": 14,
+   "name": "Đồi Ngọc Lục 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cao_da",
+     "level": 48,
+     "buff": 0.35
+    },
+    {
+     "hero": "linh_ngua",
+     "level": 48,
+     "buff": 0.2
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cao_da",
+     "chance": 0.375,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 2
+  },
+  {
+   "id": 295,
+   "zone": "tho",
+   "idx": 15,
+   "name": "Mỏ Pha Lê",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_khoan",
+     "level": 51,
+     "evo": true,
+     "buff": 0.15
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_khoan",
+     "chance": 1,
+     "min": 2,
+     "max": 4
+    }
+   ],
+   "tag": "hero",
+   "chapter": 3
+  },
+  {
+   "id": 296,
+   "zone": "tho",
+   "idx": 16,
+   "name": "Mỏ Pha Lê 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da",
+     "level": 54,
+     "buff": 0.1
+    },
+    {
+     "hero": "linh_ngua",
+     "level": 54,
+     "buff": 0.1
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 3
+  },
+  {
+   "id": 297,
+   "zone": "tho",
+   "idx": 17,
+   "name": "Mỏ Pha Lê 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_khoan",
+     "level": 57,
+     "buff": 0.12
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_khoan",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 3
+  },
+  {
+   "id": 298,
+   "zone": "tho",
+   "idx": 18,
+   "name": "Mỏ Pha Lê 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cao_da",
+     "level": 60,
+     "buff": 0.57
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 60,
+     "buff": 0.57
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cao_da",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 3
+  },
+  {
+   "id": 299,
+   "zone": "tho",
+   "idx": 19,
+   "name": "Mỏ Pha Lê 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_khoan",
+     "level": 63,
+     "buff": 0.77
+    },
+    {
+     "hero": "linh_da",
+     "level": 63,
+     "buff": 0.62
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_khoan",
+     "chance": 0.375,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 3
+  },
+  {
+   "id": 300,
+   "zone": "tho",
+   "idx": 20,
+   "name": "Đền Phù Văn",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 66,
+     "boss": true,
+     "evo": true,
+     "buff": 0.55
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 1,
+     "min": 3,
+     "max": 5
+    }
+   ],
+   "tag": "hero",
+   "chapter": 4
+  },
+  {
+   "id": 301,
+   "zone": "tho",
+   "idx": 21,
+   "name": "Đền Phù Văn 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_khoan",
+     "level": 69,
+     "buff": 0.52
+    },
+    {
+     "hero": "linh_da",
+     "level": 69,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 4
+  },
+  {
+   "id": 302,
+   "zone": "tho",
+   "idx": 22,
+   "name": "Đền Phù Văn 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 72,
+     "buff": 0.92
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 4
+  },
+  {
+   "id": 303,
+   "zone": "tho",
+   "idx": 23,
+   "name": "Đền Phù Văn 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_khoan",
+     "level": 75,
+     "buff": 0.57
+    },
+    {
+     "hero": "linh_ngua",
+     "level": 75,
+     "buff": 0.57
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_khoan",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 4
+  },
+  {
+   "id": 304,
+   "zone": "tho",
+   "idx": 24,
+   "name": "Đền Phù Văn 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_khoan",
+     "level": 78,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_da",
+     "level": 78,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 78,
+     "buff": 0.2
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 4
+  },
+  {
+   "id": 305,
+   "zone": "tho",
+   "idx": 25,
+   "name": "Đền Phù Văn 6",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 80,
+     "buff": 0.52
+    },
+    {
+     "hero": "cao_da",
+     "level": 80,
+     "buff": 0.52
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "cao_da",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "pair",
+   "chapter": 4
+  },
+  {
+   "id": 306,
+   "zone": "tho",
+   "idx": 26,
+   "name": "Đền Phù Văn 7",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 83,
+     "buff": 1.05
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 4
+  },
+  {
+   "id": 307,
+   "zone": "tho",
+   "idx": 27,
+   "name": "Đền Phù Văn 8",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da",
+     "level": 86,
+     "buff": 0.92
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 86,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "elite",
+   "chapter": 4
+  },
+  {
+   "id": 308,
+   "zone": "tho",
+   "idx": 28,
+   "name": "Đền Phù Văn 9",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 89,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_da",
+     "level": 89,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_ngua",
+     "level": 89,
+     "buff": 0.25
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 4
+  },
+  {
+   "id": 309,
+   "zone": "tho",
+   "idx": 29,
+   "name": "Đền Phù Văn 10",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 92,
+     "buff": 0.72
+    },
+    {
+     "hero": "ho_khoan",
+     "level": 92,
+     "buff": 0.72
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 0.30000000000000004,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "ho_khoan",
+     "chance": 0.375,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 4
+  },
+  {
+   "id": 310,
+   "zone": "tho",
+   "idx": 30,
+   "name": "Rừng Sồi Già",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 94,
+     "boss": true,
+     "evo": true,
+     "buff": 0.55,
+     "trait": "hat_de_boss"
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 1,
+     "min": 3,
+     "max": 5
+    }
+   ],
+   "tag": "hero",
+   "chapter": 5
+  },
+  {
+   "id": 311,
+   "zone": "tho",
+   "idx": 31,
+   "name": "Rừng Sồi Già 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da",
+     "level": 97,
+     "buff": 0.52
+    },
+    {
+     "hero": "linh_ngua",
+     "level": 97,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 5
+  },
+  {
+   "id": 312,
+   "zone": "tho",
+   "idx": 32,
+   "name": "Rừng Sồi Già 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 100,
+     "buff": 0.92
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 5
+  },
+  {
+   "id": 313,
+   "zone": "tho",
+   "idx": 33,
+   "name": "Rừng Sồi Già 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "phu_van",
+     "level": 102,
+     "buff": 0.57
+    },
+    {
+     "hero": "linh_khoan",
+     "level": 102,
+     "buff": 0.57
+    }
+   ],
+   "drops": [
+    {
+     "hero": "phu_van",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 5
+  },
+  {
+   "id": 314,
+   "zone": "tho",
+   "idx": 34,
+   "name": "Rừng Sồi Già 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da",
+     "level": 105,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_ngua",
+     "level": 105,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_da",
+     "level": 105,
+     "buff": 0.2
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 5
+  },
+  {
+   "id": 315,
+   "zone": "tho",
+   "idx": 35,
+   "name": "Rừng Sồi Già 6",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 108,
+     "buff": 0.52
+    },
+    {
+     "hero": "ho_khoan",
+     "level": 108,
+     "buff": 0.52
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "ho_khoan",
+     "chance": 0.25,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "pair",
+   "chapter": 5
+  },
+  {
+   "id": 316,
+   "zone": "tho",
+   "idx": 36,
+   "name": "Rừng Sồi Già 7",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 111,
+     "buff": 1.05
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 5
+  },
+  {
+   "id": 317,
+   "zone": "tho",
+   "idx": 37,
+   "name": "Rừng Sồi Già 8",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_ngua2",
+     "level": 113,
+     "buff": 0.92
+    },
+    {
+     "hero": "linh_da2",
+     "level": 113,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "elite",
+   "chapter": 5
+  },
+  {
+   "id": 318,
+   "zone": "tho",
+   "idx": 38,
+   "name": "Rừng Sồi Già 9",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 116,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 116,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 116,
+     "buff": 0.25
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 5
+  },
+  {
+   "id": 319,
+   "zone": "tho",
+   "idx": 39,
+   "name": "Rừng Sồi Già 10",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 118,
+     "buff": 0.72
+    },
+    {
+     "hero": "phu_van",
+     "level": 118,
+     "buff": 0.72
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 0.30000000000000004,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "phu_van",
+     "chance": 0.30000000000000004,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 5
+  },
+  {
+   "id": 320,
+   "zone": "tho",
+   "idx": 40,
+   "name": "Ruộng Bậc Thang",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 121,
+     "boss": true,
+     "evo": true,
+     "buff": 0.9
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 1,
+     "min": 3,
+     "max": 5
+    }
+   ],
+   "tag": "hero",
+   "chapter": 6
+  },
+  {
+   "id": 321,
+   "zone": "tho",
+   "idx": 41,
+   "name": "Ruộng Bậc Thang 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_ngua2",
+     "level": 124,
+     "buff": 0.52
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 124,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 6
+  },
+  {
+   "id": 322,
+   "zone": "tho",
+   "idx": 42,
+   "name": "Ruộng Bậc Thang 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 126,
+     "buff": 0.92
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 6
+  },
+  {
+   "id": 323,
+   "zone": "tho",
+   "idx": 43,
+   "name": "Ruộng Bậc Thang 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "hat_de",
+     "level": 129,
+     "buff": 0.57
+    },
+    {
+     "hero": "linh_da2",
+     "level": 129,
+     "buff": 0.57
+    }
+   ],
+   "drops": [
+    {
+     "hero": "hat_de",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 6
+  },
+  {
+   "id": 324,
+   "zone": "tho",
+   "idx": 44,
+   "name": "Ruộng Bậc Thang 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_ngua2",
+     "level": 131,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 131,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 131,
+     "buff": 0.2
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 6
+  },
+  {
+   "id": 325,
+   "zone": "tho",
+   "idx": 45,
+   "name": "Ruộng Bậc Thang 6",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 134,
+     "buff": 0.52
+    },
+    {
+     "hero": "phu_van",
+     "level": 134,
+     "buff": 0.52
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "phu_van",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "pair",
+   "chapter": 6
+  },
+  {
+   "id": 326,
+   "zone": "tho",
+   "idx": 46,
+   "name": "Ruộng Bậc Thang 7",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 137,
+     "buff": 1.05
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 6
+  },
+  {
+   "id": 327,
+   "zone": "tho",
+   "idx": 47,
+   "name": "Ruộng Bậc Thang 8",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_khoan2",
+     "level": 139,
+     "buff": 0.92
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 139,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "elite",
+   "chapter": 6
+  },
+  {
+   "id": 328,
+   "zone": "tho",
+   "idx": 48,
+   "name": "Ruộng Bậc Thang 9",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 142,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 142,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_da2",
+     "level": 142,
+     "buff": 0.25
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 6
+  },
+  {
+   "id": 329,
+   "zone": "tho",
+   "idx": 49,
+   "name": "Ruộng Bậc Thang 10",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 144,
+     "buff": 0.72
+    },
+    {
+     "hero": "hat_de",
+     "level": 144,
+     "buff": 0.72
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 0.22499999999999998,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "hat_de",
+     "chance": 0.30000000000000004,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 6
+  },
+  {
+   "id": 330,
+   "zone": "tho",
+   "idx": 50,
+   "name": "Vách Kim Cương",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 147,
+     "boss": true,
+     "buff": 0.4,
+     "trait": "ho_kim_cuong_boss"
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 1,
+     "min": 3,
+     "max": 5
+    }
+   ],
+   "tag": "hero",
+   "chapter": 7
+  },
+  {
+   "id": 331,
+   "zone": "tho",
+   "idx": 51,
+   "name": "Vách Kim Cương 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_khoan2",
+     "level": 149,
+     "buff": 0.52
+    },
+    {
+     "hero": "linh_da2",
+     "level": 149,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 7
+  },
+  {
+   "id": 332,
+   "zone": "tho",
+   "idx": 52,
+   "name": "Vách Kim Cương 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 152,
+     "buff": 0.92
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 7
+  },
+  {
+   "id": 333,
+   "zone": "tho",
+   "idx": 53,
+   "name": "Vách Kim Cương 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "rua_nui",
+     "level": 154,
+     "buff": 0.57
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 154,
+     "buff": 0.57
+    }
+   ],
+   "drops": [
+    {
+     "hero": "rua_nui",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 7
+  },
+  {
+   "id": 334,
+   "zone": "tho",
+   "idx": 54,
+   "name": "Vách Kim Cương 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_khoan2",
+     "level": 157,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_da2",
+     "level": 157,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 157,
+     "buff": 0.2
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 7
+  },
+  {
+   "id": 335,
+   "zone": "tho",
+   "idx": 55,
+   "name": "Vách Kim Cương 6",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 159,
+     "buff": 0.52
+    },
+    {
+     "hero": "hat_de",
+     "level": 159,
+     "buff": 0.52
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "hat_de",
+     "chance": 0.2,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "pair",
+   "chapter": 7
+  },
+  {
+   "id": 336,
+   "zone": "tho",
+   "idx": 56,
+   "name": "Vách Kim Cương 7",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 162,
+     "buff": 1.05
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 7
+  },
+  {
+   "id": 337,
+   "zone": "tho",
+   "idx": 57,
+   "name": "Vách Kim Cương 8",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da2",
+     "level": 164,
+     "buff": 0.92
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 164,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "elite",
+   "chapter": 7
+  },
+  {
+   "id": 338,
+   "zone": "tho",
+   "idx": 58,
+   "name": "Vách Kim Cương 9",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 167,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_da2",
+     "level": 167,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 167,
+     "buff": 0.25
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 7
+  },
+  {
+   "id": 339,
+   "zone": "tho",
+   "idx": 59,
+   "name": "Vách Kim Cương 10",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 169,
+     "buff": 0.72
+    },
+    {
+     "hero": "rua_nui",
+     "level": 169,
+     "buff": 0.72
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.22499999999999998,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "rua_nui",
+     "chance": 0.22499999999999998,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 7
+  },
+  {
+   "id": 340,
+   "zone": "tho",
+   "idx": 60,
+   "name": "Lò Gốm Đất Nung",
+   "kind": "mini",
+   "enemies": [
+    {
+     "hero": "cu_phu",
+     "level": 172,
+     "boss": true,
+     "evo": true,
+     "buff": 1.1
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cu_phu",
+     "chance": 1,
+     "min": 3,
+     "max": 5
+    }
+   ],
+   "tag": "hero",
+   "chapter": 8
+  },
+  {
+   "id": 341,
+   "zone": "tho",
+   "idx": 61,
+   "name": "Lò Gốm Đất Nung 2",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da2",
+     "level": 174,
+     "buff": 0.52
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 174,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 8
+  },
+  {
+   "id": 342,
+   "zone": "tho",
+   "idx": 62,
+   "name": "Lò Gốm Đất Nung 3",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cu_phu",
+     "level": 177,
+     "buff": 0.92
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cu_phu",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 8
+  },
+  {
+   "id": 343,
+   "zone": "tho",
+   "idx": 63,
+   "name": "Lò Gốm Đất Nung 4",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "ho_kim_cuong",
+     "level": 179,
+     "buff": 0.57
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 179,
+     "buff": 0.57
+    }
+   ],
+   "drops": [
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 8
+  },
+  {
+   "id": 344,
+   "zone": "tho",
+   "idx": 64,
+   "name": "Lò Gốm Đất Nung 5",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_da2",
+     "level": 181,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 181,
+     "buff": 0.2
+    },
+    {
+     "hero": "linh_da2",
+     "level": 181,
+     "buff": 0.2
+    }
+   ],
+   "drops": [],
+   "tag": "minion",
+   "chapter": 8
+  },
+  {
+   "id": 345,
+   "zone": "tho",
+   "idx": 65,
+   "name": "Lò Gốm Đất Nung 6",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cu_phu",
+     "level": 184,
+     "buff": 0.52
+    },
+    {
+     "hero": "rua_nui",
+     "level": 184,
+     "buff": 0.52
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cu_phu",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "rua_nui",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "pair",
+   "chapter": 8
+  },
+  {
+   "id": 346,
+   "zone": "tho",
+   "idx": 66,
+   "name": "Lò Gốm Đất Nung 7",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cu_phu",
+     "level": 186,
+     "buff": 1.05
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cu_phu",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "buff",
+   "chapter": 8
+  },
+  {
+   "id": 347,
+   "zone": "tho",
+   "idx": 67,
+   "name": "Lò Gốm Đất Nung 8",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "linh_ngua2",
+     "level": 189,
+     "buff": 0.92
+    },
+    {
+     "hero": "linh_da2",
+     "level": 189,
+     "buff": 0.52
+    }
+   ],
+   "drops": [],
+   "tag": "elite",
+   "chapter": 8
+  },
+  {
+   "id": 348,
+   "zone": "tho",
+   "idx": 68,
+   "name": "Lò Gốm Đất Nung 9",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cu_phu",
+     "level": 191,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_ngua2",
+     "level": 191,
+     "buff": 0.25
+    },
+    {
+     "hero": "linh_khoan2",
+     "level": 191,
+     "buff": 0.25
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cu_phu",
+     "chance": 0.15,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "group",
+   "chapter": 8
+  },
+  {
+   "id": 349,
+   "zone": "tho",
+   "idx": 69,
+   "name": "Lò Gốm Đất Nung 10",
+   "kind": "normal",
+   "enemies": [
+    {
+     "hero": "cu_phu",
+     "level": 194,
+     "buff": 0.72
+    },
+    {
+     "hero": "ho_kim_cuong",
+     "level": 194,
+     "buff": 0.72
+    }
+   ],
+   "drops": [
+    {
+     "hero": "cu_phu",
+     "chance": 0.22499999999999998,
+     "min": 1,
+     "max": 2
+    },
+    {
+     "hero": "ho_kim_cuong",
+     "chance": 0.22499999999999998,
+     "min": 1,
+     "max": 2
+    }
+   ],
+   "tag": "gate",
+   "chapter": 8
+  },
+  {
+   "id": 350,
+   "zone": "tho",
+   "idx": 70,
+   "name": "Kim Tự Viện",
+   "kind": "boss",
+   "enemies": [
+    {
+     "hero": "giap_nham",
+     "level": 196,
+     "boss": true,
+     "evo": true,
+     "buff": 0.55,
+     "trait": "giap_nham_boss"
+    }
+   ],
+   "drops": [
+    {
+     "hero": "giap_nham",
+     "chance": 1,
+     "min": 4,
+     "max": 6
+    }
+   ],
+   "tag": "hero",
+   "chapter": 9
   }
  ]
 }

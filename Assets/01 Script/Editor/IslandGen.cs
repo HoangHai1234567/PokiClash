@@ -201,8 +201,8 @@ namespace PokiClash.EditorTools
         };
 
         // Đảo Hỏa (người dùng gửi 10 hình aola 2026-11-05, thứ tự trái sang phải là thứ tự ải tướng). Hình ải 1 là dạng 3 của Sư Tử Lửa
-        // (tướng khởi đầu hệ Hỏa) nên Sư Tử Lửa giữ ải 1. Ải 20 là 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa: người dùng để trống
-        // để tìm tướng khác, Hồ Lửa đứng tạm (2026-11-05).
+        // (tướng khởi đầu hệ Hỏa) nên Sư Tử Lửa giữ ải 1. Ải 20: hình gửi đầu tiên là 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa;
+        // người dùng thay bằng 火云牛斗士 (dòng 412 → 414, Ngưu Quyền) ngày 2026-11-06.
         public static Plan Hoa => new Plan
         {
             zone = Elem.Hoa,
@@ -214,7 +214,7 @@ namespace PokiClash.EditorTools
                 new Intro(5, "khong_lo", "Suối Dung Nham"),
                 new Intro(10, "kim_su", "Rừng Than Hồng"),
                 new Intro(15, "nham_than", "Sườn Núi Khói"),
-                new Intro(20, "ho_lua", "Lò Lửa Thiền"), // tạm, chờ người dùng chọn tướng
+                new Intro(20, "nguu_quyen", "Lò Lửa Thiền"),
                 new Intro(30, "hong_lien", "Chùa Liên Hoa", "hong_lien_boss", 0),
                 new Intro(40, "giap_long", "Lò Rèn Gai Thép", null, 0.1),
                 new Intro(50, "huyen_viem", "Rừng Lửa Ảo", "huyen_viem_boss", 0),
@@ -278,8 +278,47 @@ namespace PokiClash.EditorTools
             },
         };
 
+        // Đảo Thổ (người dùng gửi 10 hình aola 2026-11-06, thứ tự trái sang phải là thứ tự ải tướng). Hình ải 1 (震天石人) là dạng 3
+        // của Thạch Nhân (tướng khởi đầu hệ Thổ) nên Thạch Nhân giữ ải 1 như Sư Tử Lửa ở đảo Hỏa. Hình ải 50 (金刚虎王) là siêu tiến hóa
+        // của dòng Hổ Khoan (ải 15): tướng riêng 1 dạng như Thỏ Hoàng ở đảo Mộc. Tên, thẻ của 9 tướng mới là tạm.
+        public static Plan Tho => new Plan
+        {
+            zone = Elem.Tho,
+            intros = new[]
+            {
+                // 5 mốc cuối (2026-11-06): đội Mộc Khá khắc hệ, bằng cấp, 300 trận, dò tới mục tiêu cố định mini boss 66%, boss 60%: Hạt Dẻ
+                // 65%, Rùa Núi 64%, Hổ Kim Cương 66%, Cự Phủ 67%, Giáp Nham 59%. Rùa Núi, Cự Phủ tự thân yếu nên tăng nhiều
+                new Intro(1, "thach_nhan", "Bãi Đá Cuội"),
+                new Intro(5, "lung_vuong", "Hang Lửng"),
+                new Intro(10, "cao_da", "Đồi Ngọc Lục"),
+                new Intro(15, "ho_khoan", "Mỏ Pha Lê"),
+                new Intro(20, "phu_van", "Đền Phù Văn"),
+                new Intro(30, "hat_de", "Rừng Sồi Già", "hat_de_boss", 0),
+                new Intro(40, "rua_nui", "Ruộng Bậc Thang", null, 0.35),
+                new Intro(50, "ho_kim_cuong", "Vách Kim Cương", "ho_kim_cuong_boss", -0.15),
+                new Intro(60, "cu_phu", "Lò Gốm Đất Nung", null, 0.55),
+                new Intro(70, "giap_nham", "Kim Tự Viện", "giap_nham_boss", -0.15),
+            },
+            levelMax = 196,
+            minions = new[] { new[] { "linh_khoan", "linh_khoan2" }, new[] { "linh_da", "linh_da2" }, new[] { "linh_ngua", "linh_ngua2" } },
+            minionFrom = new[] { 0, 1, 2 },
+            // đội Mộc khắc Thổ (Nụ Hoa, Dê Hoa), 150 trận mỗi ải (2026-11-06): cường hóa 92%, 2 địch 74%, 3 địch 85%, mini boss 73%, boss 60%
+            extra = new[]
+            {
+                new[] { 0.0, 0, 0, 0, 0, 0 },
+                new[] { 0.2, 0.8, 0.42, 0.3, 0.55, 0.55 },
+                new[] { 0.2, 0.8, 0.42, 0.3, 0.55, 0.55 },
+            },
+            first = new[]
+            {
+                new Pattern(StageTag.Group, (Slot.H, 0.15), (Slot.M, 0.15)),
+                new Pattern(StageTag.Minion, (Slot.M, 0.1), (Slot.N, 0.1)),
+                new Pattern(StageTag.Gate, (Slot.H, 0.35), (Slot.M, 0.2)),
+            },
+        };
+
         // các đảo đã có kế hoạch 70 ải (menu "sinh lại ải" ghi lại tất cả)
-        public static Plan[] All => new[] { Thuy, Hoa, Kim, Moc };
+        public static Plan[] All => new[] { Thuy, Hoa, Kim, Moc, Tho };
 
         public static int Level(Plan p, int at) =>
             p.levelMin + (int)Math.Floor((p.levelMax - p.levelMin) * Math.Pow((at - 1) / (double)(p.size - 1), LevelPow) + 0.5);

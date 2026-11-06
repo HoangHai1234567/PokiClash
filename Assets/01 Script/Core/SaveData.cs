@@ -31,7 +31,7 @@ namespace PokiClash.Core
 
     public sealed class Settings
     {
-        public bool boil = true; // nét vẽ rung
+        public bool boil = true; // công tắc "Nét vẽ rung" đã bỏ 2026-11-06; giữ trường để đọc bản lưu cũ, không còn dùng
         public bool sound = true;
         public bool hints = true; // bong bóng gợi ý trong trận
         public bool haptics = true; // rung (máy bi, mở rương, lên cấp)

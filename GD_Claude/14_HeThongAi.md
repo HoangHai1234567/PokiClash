@@ -241,7 +241,7 @@ Còn mở:
 - Mọi đảo dùng một đường cấp: `1 + (đỉnh − 1) × ((ải − 1) / 69)^0,85` làm tròn (`IslandGen.LevelPow`). Mọi địch trong một ải cùng cấp.
 - Đỉnh (boss cuối): Thủy 195, Hỏa 198, Kim 200, Mộc 190, Thổ 196. `zones.json` ghi `level` là [1, đỉnh].
 - Cấp các mốc ở đảo Thủy: ải 5 cấp 18, ải 10 cấp 35, ải 15 cấp 51, ải 20 cấp 66, ải 30 cấp 94, ải 40 cấp 120, ải 50 cấp 146, ải 60 cấp 171, ải 70 cấp 195. Đảo Mộc thấp hơn 1–5 cấp ở cùng mốc.
-- Đảo 8 ải (tạm; từ 2026-11-05 còn Kim, Thổ): ải i ứng với ải `1 + (i − 1) × 69/7` của đường chung. Địch mạnh nhất của ải lấy cấp đó, địch khác giữ độ lệch cấp cũ trong ải. Chưa chỉnh độ khó.
+- Đảo 8 ải (tạm; từ 2026-11-05 còn Kim, Thổ; từ 2026-11-06 không còn đảo nào): ải i ứng với ải `1 + (i − 1) × 69/7` của đường chung. Địch mạnh nhất của ải lấy cấp đó, địch khác giữ độ lệch cấp cũ trong ải. Chưa chỉnh độ khó.
 
 ### Bù ô đội theo cấp
 
@@ -318,7 +318,7 @@ Người dùng dặn: mini boss, boss ở 5 mốc cuối (ải 30, 40, 50, 60, 7
 
 - Mini boss 5 mốc cuối nay khó hơn mục tiêu cũ (72%) vì con không bị động được +0,10 và con có bị động dò theo mức đó: thắng 52–65%.
 - Huyền Vũ và Thỏ Hoàng tự thân yếu hơn các mini boss khác, nên dù có bị động vẫn giữ cường hóa 0 (không giảm).
-- Kim, Thổ chưa có tướng các mốc nên chưa có bị động boss.
+- Kim có bị động boss từ 2026-11-05, Thổ từ 2026-11-06 (bảng dưới).
 
 | Mốc | Đảo Hỏa | Bị động (chữ ở thẻ cấp 5) | Cường hóa thêm | Thắng |
 |---|---|---|---|---|
@@ -330,6 +330,16 @@ Người dùng dặn: mini boss, boss ở 5 mốc cuối (ải 30, 40, 50, 60, 7
 
 - Đội Thủy Khá khắc hệ (Giọt Sương, Mi Nhi), bằng cấp, 300 trận. Hồng Liên và Huyễn Viêm tự thân yếu nên dù có bị động vẫn giữ cường hóa 0 (như Huyền Vũ, Thỏ Hoàng). Bản thử bỏ đi: Hồng Liên "mỗi lần bị đánh 48% cơ hội đốt địch" (bỏng quá yếu trong trận ngắn: không giảm vẫn thắng 82%).
 - Sửa kèm: chữ thẻ bị động "bị đánh" có tỉ lệ nay ghi tỉ lệ (trước đó thiếu, vd. Cá Nóc "Mỗi lần bị đánh: 30% cơ hội đốt địch…").
+
+| Mốc | Đảo Thổ | Bị động (chữ ở thẻ cấp 5) | Cường hóa thêm | Thắng |
+|---|---|---|---|---|
+| 30 | Hạt Dẻ | Vỏ Dẻ Hộ Thân: mỗi lần bị đánh 48% cơ hội khiên bằng 10% máu tối đa | 0 | 65% |
+| 40 | Rùa Núi | không | +0,35 | 64% |
+| 50 | Hổ Kim Cương | Kim Cương Bất Khuất: lần đầu máu dưới 50%, xoá hiệu ứng xấu, khiên 32% máu tối đa, Công +40% 2 lượt | −0,15 | 66% |
+| 60 | Cự Phủ | không | +0,55 | 67% |
+| 70 | Giáp Nham (boss) | Nham Giáp Chấn Địa: lần đầu máu dưới 50%, xoá hiệu ứng xấu, khiên 48% máu tối đa, làm địch choáng | −0,15 | 59% |
+
+- Đội Mộc Khá khắc hệ (Nụ Hoa, Dê Hoa), bằng cấp, 300 trận. Không dò theo con không bị động như các đảo trước: Rùa Núi, Cự Phủ ở +0,10 thắng 83%, 92% (tự thân yếu), nên mỗi mốc dò tới mục tiêu cố định, mini boss 66%, boss 60% (lệnh `marktune` thêm vào bản chép dự án console ở scratchpad phiên 18b36478). Vẫn đúng luật: con có bị động giảm chỉ số, con không có tăng.
 
 ### Code
 
@@ -439,7 +449,7 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 | 5 | Suối Dung Nham | Khổng Lồ Lửa | Thường | thường, tiến hóa |
 | 10 | Rừng Than Hồng | Kim Sư | Khá | thường, tiến hóa |
 | 15 | Sườn Núi Khói | Nham Thần | Khá | thường, tiến hóa |
-| 20 | Lò Lửa Thiền | Hồ Lửa (**tạm**) | Hiếm | mini boss (1 dạng) |
+| 20 | Lò Lửa Thiền | Ngưu Quyền (Nghé Lửa → Ngưu Lãng Tử → Ngưu Quyền) | Hiếm | mini boss |
 | 30 | Chùa Liên Hoa | Hồng Liên | Hiếm | mini boss, bị động |
 | 40 | Lò Rèn Gai Thép | Giáp Long | Sử thi | mini boss |
 | 50 | Rừng Lửa Ảo | Huyễn Viêm | Sử thi | mini boss, bị động |
@@ -447,7 +457,7 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 | 70 | Miệng Núi Lửa | Lân Hỏa (Lân Con → Lân Ngàn Năm → Thánh Lân) | Huyền thoại | boss tiến hóa, bị động |
 
 - **Ải 1 vẫn là Sư Tử Lửa:** hình ải 1 người dùng gửi (爆焰吉拉) là dạng 3 của dòng Sư Tử Lửa, nên không phải dời tướng khởi đầu như Nụ Hoa ở đảo Mộc. Ải 1 là Sư Tử Lửa thật (không phải bóng như đảo Thủy), lần đầu chắc chắn rơi 2–4 mảnh.
-- **Ải 20 để trống:** hình người dùng gửi là 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa. Người dùng sẽ tìm tướng khác; Hồ Lửa đứng tạm. Có tướng thì đổi một dòng trong `IslandGen.Hoa` rồi chạy menu sinh lại.
+- **Ải 20:** hình người dùng gửi đầu tiên là 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa. Hồ Lửa đứng tạm tới 2026-11-06, người dùng thay bằng 火云牛斗士 (Ngưu Quyền, dòng 412 → 414). Đội Thủy thắng mini boss ải 20 76% (200 trận), cửa ải 29 (Ngưu Quyền + Nham Thần) 49%.
 - Chặng đầu (ải 2–4): Sư Tử Lửa + lính; bầy lính; cửa ải Sư Tử Lửa + lính. Không có tướng tặng.
 - Lính: Lò Lửa → Lò Quái (trâu), Nấm Lửa → Quái Nham (phản đòn), Khỉ Lửa → Khỉ Hỏa Diệm (nhanh); thẻ chép lính đảo Thủy, Mộc cùng vai. Loại 2 mở từ chặng 1, loại 3 từ chặng 2; bậc 2 từ ải 35.
 - Cấp: đường chung, đỉnh 198 (ải 5 cấp 19, ải 20 cấp 67, ải 40 cấp 122, ải 70 cấp 198).
@@ -463,6 +473,31 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 
 - Toạ độ 10 ải tướng chia đều theo đường nối 8 vòng của ảnh đảo Hỏa cũ. Đảo Hỏa chưa có bản đồ dài, màn đảo dùng bản đồ ×3.
 - Hình 22 dạng tướng mới và 6 lính chưa xuất (máy sập giữa lượt xuất, xem `12_KeHoach_OpenSpec.md`), nên các tướng này chưa có hình trong game.
+
+## Đảo Thổ (làm lại 2026-11-06)
+
+Người dùng gửi 10 hình aola cho đảo Thổ, thứ tự trái sang phải là thứ tự ải tướng. Đảo Thổ thành 70 ải bằng `IslandGen.Tho` (menu `PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (5 đảo)`). Từ đây cả 5 đảo đều 70 ải, 350 ải. Danh sách tướng và nguồn aola: `13_DanhSachTuong.md`, mục Thổ.
+
+| Ải | Chặng | Tướng | Độ hiếm (tạm) | Loại ải |
+|---|---|---|---|---|
+| 1 | Bãi Đá Cuội | Thạch Nhân (tướng khởi đầu) | Khá | thường, tiến hóa |
+| 5 | Hang Lửng | Lửng Vương | Thường | thường, tiến hóa |
+| 10 | Đồi Ngọc Lục | Cáo Đá | Khá | thường, tiến hóa |
+| 15 | Mỏ Pha Lê | Hổ Khoan | Khá | thường, tiến hóa |
+| 20 | Đền Phù Văn | Phù Văn | Hiếm | mini boss |
+| 30 | Rừng Sồi Già | Hạt Dẻ | Hiếm | mini boss, bị động |
+| 40 | Ruộng Bậc Thang | Rùa Núi | Sử thi | mini boss |
+| 50 | Vách Kim Cương | Hổ Kim Cương (1 dạng, siêu tiến hóa của Hổ Khoan) | Sử thi | mini boss, bị động |
+| 60 | Lò Gốm Đất Nung | Cự Phủ | Sử thi | mini boss |
+| 70 | Kim Tự Viện | Giáp Nham (Đấu Sĩ Nham → Giáp Nham) | Huyền thoại | boss tiến hóa, bị động |
+
+- **Ải 1 vẫn là Thạch Nhân:** hình ải 1 (震天石人) là dạng 3 của Thạch Nhân, như Sư Tử Lửa ở đảo Hỏa. Ải 1 là Thạch Nhân thật, lần đầu chắc chắn rơi 2–4 mảnh.
+- **Ải 50:** 金刚虎王 là siêu tiến hóa của dòng Hổ Khoan (ải 15). Tạm làm tướng riêng 1 dạng như Thỏ Hoàng (câu hỏi 30 ở `12_KeHoach_OpenSpec.md`).
+- Chặng đầu (ải 2–4): Thạch Nhân + lính; bầy lính; cửa ải Thạch Nhân + lính (như đảo Hỏa). Không có tướng tặng.
+- Lính: Chuột Khoan → Khoan Giáp (trâu), Đá Con → Đá Xích (dội đòn: khiên, gai khi bị đánh), Ngựa Con → Ngựa Rằn (nhanh); thẻ chép lính đảo Kim cùng vai, gai đổi từ đốt sang phản sát thương. Dòng chuột hamster 1113 → 1114 xuất thử rồi bỏ (lạc đề), 2172 cũng bỏ (dáng tướng, không giống lính). Loại 2 mở từ chặng 1, loại 3 từ chặng 2; bậc 2 từ ải 35.
+- Cấp: đường chung, đỉnh 196 (ải 5 cấp 18, ải 20 cấp 66, ải 40 cấp 121, ải 70 cấp 196).
+- Bù 2 ô (`extra`, đội Nụ Hoa + Dê Hoa, 150 trận mỗi ải): cường hóa 0,8 → 92%, 2 địch 0,42 → 74%, 3 địch 0,3 → 85%, mini boss 0,55 → 73%, boss 0,55 → 60%. Tỉ lệ thắng theo kiểu ải (2 ô): cường hóa 92%, tướng và lính 79%, hai tướng 80%, cửa ải 61%, lính tinh nhuệ 74%, bầy lính 90%, mini boss 69%. 1 ô: ải tướng 83%, cửa ải 77%, bầy lính 90%.
+- Toạ độ 10 ải tướng chia đều theo đường nối 8 vòng của ảnh đảo Thổ cũ. Đảo Thổ chưa có bản đồ dài, màn đảo dùng bản đồ ×3.
 
 ## Unity (chép 2026-11-03)
 
@@ -489,7 +524,7 @@ Hình 6 lính đã nhập thành prefab (`Assets/04 Prefabs/Heroes/linh_*.prefab
 
 1. **Nhịp ngày:** đo lại 2026-11-05 với 5 đảo song song (đảo giả cho Hỏa, Kim, Thổ), xem mục "5 đảo song song". Đo lại khi ba đảo kia có 70 ải thật.
 2. **Ảnh đảo Thủy mới: xong (2026-11-03).** Bản đồ dài 1024 × 4288 ghép từ 3 đoạn GPT (`ArtGen/Islands/PROMPTS.md`, mục "Đảo Thủy 70 ải"), đã vào game: chấm ải cách nhau 92 px khung 1080 (trước khoảng 30 px), bệ tướng cỡ thật, 10 địa danh sát bãi ải tướng. Đảo khác muốn 70 ải thì làm bản đồ dài theo cùng cách.
-3. **Hai đảo còn lại (Kim, Thổ; Hỏa xong 2026-11-05 trừ ải 20):** chọn 10 tướng, 3 loại lính mỗi đảo. Thêm một `Plan` như `IslandGen.Moc` vào `IslandGen.All` (đỉnh cấp 196–200), dò `extra` theo đội khắc hệ, chọn bị động boss cho 5 mốc cuối rồi dò cường hóa từng con.
+3. **Đảo Kim, Thổ: xong** (Kim 2026-11-05, Thổ 2026-11-06). Còn bản đồ dài cho đảo Thổ (gói GPT như `ArtGen/Islands/build_zone70_kim.py`) và đo lại nhịp ngày với 5 đảo thật.
 4. **Bản lưu:** bản lưu cũ có `zones.thuy = 8` nay thành 8/70. Số ải toàn cục của đảo sau đổi (Hỏa từ 71), nhưng chỉ ảnh hưởng `clears`, chưa chỗ nào đọc.
 
 Câu hỏi còn mở ghi ở `12_KeHoach_OpenSpec.md`, mục "Câu hỏi còn mở" (15–20).

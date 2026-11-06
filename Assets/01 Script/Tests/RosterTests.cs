@@ -12,14 +12,14 @@ namespace PokiClash.Tests
         static Dictionary<string, object> Golden() => J.Obj(MiniJson.Parse(TestData.Read("Golden/roster.json")));
 
         [Test]
-        public void DanhSach68Tuong_Thuy13_Hoa16_Kim16_Moc15()
+        public void DanhSach78Tuong_Thuy13_Hoa17_Kim16_Moc15_Tho17()
         {
-            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy), Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 (2026-11-05, 10 tướng mỗi đảo)
+            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy), Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 (2026-11-05, 10 tướng mỗi đảo), Hỏa thêm Ngưu Quyền ở ải 20, Thổ thêm 9 (2026-11-06)
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
-            Assert.AreEqual(68, d.Heroes.Count);
+            Assert.AreEqual(78, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
-                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : (Elem)e == Elem.Hoa || (Elem)e == Elem.Kim ? 16 : (Elem)e == Elem.Moc ? 15 : 8, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
+                Assert.AreEqual((Elem)e == Elem.Thuy ? 13 : (Elem)e == Elem.Hoa ? 17 : (Elem)e == Elem.Kim ? 16 : (Elem)e == Elem.Moc ? 15 : 17, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
             // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md)
             Assert.AreEqual(new[] { "giot_suong", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })

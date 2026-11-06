@@ -1,6 +1,6 @@
 // Dựng nền móng của project bằng menu (chạy lại được, kết quả như nhau):
 //   PokiClash/Cài đặt/1. Nhập TMP Essentials   — shader và TMP Settings của TextMeshPro (một lần)
-//   PokiClash/Cài đặt/2. Dựng tất cả           — phông TMP, material nét rung, UiAssets, dữ liệu, danh mục ảnh,
+//   PokiClash/Cài đặt/2. Dựng tất cả           — phông TMP, material nét UI, UiAssets, dữ liệu, danh mục ảnh,
 //                                                 scene còn thiếu (Boot + scene chức năng), Build Settings, khung Game view.
 // Scene đã có thì giữ nguyên: nội dung là prefab (Assets/04 Prefabs), chỉnh trong Editor (change convert-to-prefabs).
 using System.Collections.Generic;
@@ -153,7 +153,6 @@ namespace PokiClash.EditorTools
             }
             m.shader = shader;
             m.SetFloat("_Encoded", encoded);
-            m.SetFloat("_BoilAmp", encoded > 0 ? 1.6f : 1.2f);
             EditorUtility.SetDirty(m);
             return m;
         }

@@ -16,7 +16,7 @@ Người dùng chốt thêm (2026-11-01):
   - quy trình ở `ArtGen/Heroes/QUY_TRINH.md`;
 - **tướng Thủy đầu tiên là dòng khởi đầu hệ Nước của aola** (7 滴滴 → 8 露滴 → 9 露西亚, tên trong game là Giọt Sương), thay Tiểu Y làm tướng khởi đầu.
 
-Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Thổ bên dưới vẫn là danh sách cũ, chờ chọn lại; Mộc, Hỏa, Kim chọn lại 2026-11-05.
+Đảo Thủy đã chọn lại theo luật này. **Hình tướng làm lại 2026-11-02** (`ArtGen/Heroes/QUY_TRINH.md`, gói gửi GPT sinh bằng `ArtGen/Heroes/build.py`): bỏ mọi file prompt tướng cũ (`Thuy.md`, `PROMPTS.md`, `thuy/*.md`); vẫn vẽ đè lên rig của dòng aola dưới đây. Mộc, Hỏa, Kim chọn lại 2026-11-05; Thổ chọn lại 2026-11-06.
 
 **File này ghi nguồn aola, chỉ để đối chiếu nội bộ. Không đính kèm cho GPT, không đưa lên mạng.**
 
@@ -195,7 +195,7 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 | 5 | `khong_lo` | Khổng Lồ Lửa | Sừng lửa thân than | Thường | 46 火丁 → 47 火霍仔 → 48 火巨人 | mới |
 | 10 | `kim_su` | Kim Sư | Bờm lửa giáp vàng | Khá | 581 火火狮 → 582 烈火狮 → 583 雷欧火狮 | mới |
 | 15 | `nham_than` | Nham Thần | Chúa tể dung nham | Khá | 599 格纳 → 600 拉格纳 → 601 拉格纳罗斯 | mới |
-| 20 | `ho_lua` | Hồ Lửa | Ba đuôi hỏa hồ | Hiếm | 307 利飞 | **tạm**: hình gửi là 501 魔焰吉拉, siêu tiến hóa của chính dòng Sư Tử Lửa; người dùng để trống, sẽ tìm tướng khác |
+| 20 | `nguu_quyen` | Ngưu Quyền | Quyền thủ mây lửa | Hiếm | 412 圈圈牛 → 413 火焰牛仔 → 414 火云牛斗士 | mới (2026-11-06): người dùng thay cho 501 魔焰吉拉 (siêu tiến hóa của chính dòng Sư Tử Lửa); tên dạng Nghé Lửa → Ngưu Lãng Tử → Ngưu Quyền |
 | 30 | `hong_lien` | Hồng Liên | Cánh lửa sen đỏ | Hiếm | 776 炎 → 777 绯炎 → 778 红莲 (hệ aola 19) | mới |
 | 40 | `giap_long` | Giáp Long | Gai thép lửa đỏ | Sử thi | 1231 鲁迪 → 1232 鲁曼 (hệ aola 16) | mới |
 | 50 | `huyen_viem` | Huyễn Viêm | Hồ lửa ảo ảnh | Sử thi | 1295 灵炎 → 1296 幻炎 → 2091 圣域·幻炎 (hình gửi là siêu tiến hóa; người dùng chọn lấy 3 dạng) | mới |
@@ -205,7 +205,7 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 - Tên dạng: Viên Than → Sừng Than → Khổng Lồ Lửa; Sư Con → Liệt Hỏa Sư → Kim Sư; Nham Con → Nham Hỏa → Nham Thần; Đốm Hồng → Phi Viêm → Hồng Liên; Giáp Long Con → Giáp Long; Linh Viêm → Huyễn Viêm → Thánh Huyễn Viêm; Tiểu Hỏa Tinh → Hỏa Tinh; Lân Con → Lân Ngàn Năm → Thánh Lân.
 - Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc.
 - Siêu tiến hóa chưa lấy: Hỏa Tinh 5329 烈焰奇迹-火星诺 (không có rig vector). Huyền thoại Hỏa theo Tứ Tượng trước là Chu Tước; nay boss đảo là Lân Hỏa theo hình người dùng gửi.
-- Tướng Hỏa cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `heo_lua`, `dom_lua`, `phao_tet`, `bo_de`, `phap_luan`, `chu_tuoc`. Hồ Lửa đứng tạm ở ải 20.
+- Tướng Hỏa cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `heo_lua`, `dom_lua`, `phao_tet`, `bo_de`, `ho_lua`, `phap_luan`, `chu_tuoc` (Hồ Lửa đứng tạm ở ải 20 tới 2026-11-06).
 - Hình: 22 dạng mới và 6 lính đã vào Unity thành prefab (2026-11-05, xem `12_KeHoach_OpenSpec.md`, mục "Prefab tướng").
 
 Lính đảo Hỏa (dạng aola hệ Lửa chưa có trong danh sách tướng; người dùng duyệt 2026-11-05):
@@ -229,7 +229,40 @@ Danh sách Hỏa cũ (2026-10-31), giữ để đối chiếu:
 | `phap_luan` | Thiền Sư Pháp Luân | Người xoay bánh xe pháp | Sử thi | `monk_2010` (reskin của 2010) | giữ | TG31 |
 | `chu_tuoc` | Chu Tước | Thần thú phương Nam | Huyền thoại | 506 烈焰凤凰 (và dòng 276 → 278) | mới | TG32 |
 
-### Thổ
+### Thổ (chọn lại 2026-11-06 theo 10 hình người dùng gửi)
+
+Người dùng gửi 10 hình aola cho đảo Thổ, thứ tự trái sang phải là thứ tự ải tướng (1, 5, 10, 15, 20, 30 … 70). Mỗi hình lấy cả dòng tiến hóa chứa nó. Tên, độ hiếm, thẻ là tạm; độ hiếm tăng theo ải như đảo Kim. Kế hoạch ải: `Editor/IslandGen.cs`, `IslandGen.Tho`.
+
+| Ải | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn (dạng 1 → 2 → 3) | Trạng thái |
+|---|---|---|---|---|---|---|
+| 1 | `thach_nhan` | Thạch Nhân | Núi đá biết đi | Khá | 34 小石怪 → 35 隆咚石 → 36 震天石人 (hình gửi là dạng 3) | giữ, tướng khởi đầu |
+| 5 | `lung_vuong` | Lửng Vương | Vua lửng vuốt vàng | Thường | 70 斯多鼠 → 71 斯多恩 → 72 斯多王 | mới |
+| 10 | `cao_da` | Cáo Đá | Vuốt đá lục bảo | Khá | 458 亚斯 → 459 亚斯克 → 460 亚帝斯克 | mới |
+| 15 | `ho_khoan` | Hổ Khoan | Sừng khoan pha lê | Khá | 485 吉祥虎 → 486 爆竹虎 → 487 尖钻虎王 | mới |
+| 20 | `phu_van` | Phù Văn | Khổng lồ đá khắc chữ | Hiếm | 718 小岩兵 → 719 符文岩兵 → 720 符文泰坦 | mới |
+| 30 | `hat_de` | Hạt Dẻ | Dũng sĩ khiên hạt dẻ | Hiếm | 927 小兵果果 → 928 勇士果果 | mới, bị động boss |
+| 40 | `rua_nui` | Rùa Núi | Mai núi rừng xanh | Sử thi | 1203 石苗龟 → 1204 石峰龟 | mới |
+| 50 | `ho_kim_cuong` | Hổ Kim Cương | Hổ vương giáp kim cương | Sử thi | 1380 金刚虎王 (1 dạng, siêu tiến hóa của 487) | mới, bị động boss |
+| 60 | `cu_phu` | Cự Phủ | Chiến binh rìu tím | Sử thi | 1209 卡索 → 1210 巨斧卡索 | mới |
+| 70 | `giap_nham` | Giáp Nham | Chiến thần giáp vàng | Huyền thoại | 1273 岩斗 → 1274 岩战 (aola gắn nhãn BOSS, hệ aola 1) | mới, boss tiến hóa |
+
+- Tên dạng: Lửng Con → Lửng Võ Sĩ → Lửng Vương; Cáo Con → Cáo Đá → Cáo Đá Lục Bảo; Hổ Cát Tường → Hổ Pháo Hoa → Hổ Khoan Vương; Lính Đá Con → Lính Đá Phù Văn → Cự Thần Phù Văn; Lính Hạt Dẻ → Dũng Sĩ Hạt Dẻ; Rùa Mầm Đá → Rùa Núi; Phủ Con → Cự Phủ; Đấu Sĩ Nham → Giáp Nham.
+- **Hình ải 1** (震天石人) là dạng 3 của Thạch Nhân, tướng khởi đầu hệ Thổ, nên Thạch Nhân giữ ải 1 như Sư Tử Lửa ở đảo Hỏa.
+- **Hình ải 50** (金刚虎王, aola gắn nhãn siêu tiến hóa) là siêu tiến hóa của dòng Hổ Khoan ở ải 15 (`pmDataMap` cột 27 của 487). Tạm làm tướng riêng 1 dạng như Thỏ Hoàng ở đảo Mộc, chỉ số là 6 chỉ số của chính dạng đó; câu hỏi 30 ở `12_KeHoach_OpenSpec.md`.
+- Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc, Hỏa, Kim.
+- Thạch Nhân giữ tên ba dạng như cũ (cả ba đều tên Thạch Nhân).
+- Tướng Thổ cũ không có suất trên đảo (giữ trong danh sách): `vo_su` (vẫn là quà ải 3 đảo Thủy), `gau_mo`, `soc_da`, `bo_hung`, `sa_than`, `ky_lan`, `ca_sa` (vẫn là tướng mốc huyền thoại `legendMilestoneHero`).
+- Đo bằng máy tự chơi (đội Mộc Khá khắc hệ: Nụ Hoa, Dê Hoa; bằng cấp; 150 trận mỗi ải, 5 mốc cuối 300): cường hóa 92%, 2 địch 74%, 3 địch 85%, mini boss 64–67% (Hạt Dẻ 65, Rùa Núi 64, Hổ Kim Cương 66, Cự Phủ 67), boss Giáp Nham 59%.
+
+Lính đảo Thổ (dạng aola hệ Đất chưa có trong danh sách tướng; Claude chọn, người dùng chưa duyệt):
+
+| Lính | Bậc 1 | Bậc 2 | Vai |
+|---|---|---|---|
+| Chuột Khoan / Khoan Giáp | 1041 豆丁钻钻鼠 | 1042 重装钻钻鼠 | trâu, như cua |
+| Đá Con / Đá Xích | 832 小石灵 | 833 岩锁灵 (dòng 3 dạng, lấy 2 dạng đầu) | dội đòn, như cá nóc |
+| Ngựa Con / Ngựa Rằn | 297 迷你马 | 298 迷彩马 | nhanh, như song ngư |
+
+Danh sách Thổ cũ (2026-10-31), giữ để đối chiếu:
 
 | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn | Trạng thái | Ảnh |
 |---|---|---|---|---|---|---|

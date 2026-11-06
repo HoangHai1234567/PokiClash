@@ -158,7 +158,7 @@ namespace PokiClash
         {
             var st = Save?.Data?.settings;
             if (st == null) return;
-            Theme.SetBoil(st.boil);
+            Theme.SetBoil(true); // hoạt cảnh đảo/trận luôn chạy (công tắc "Nét vẽ rung" đã bỏ 2026-11-06; chụp đứng hình tắt tạm rồi gọi lại đây)
             Audio.Enabled = st.sound;
             Haptics.Enabled = st.haptics;
         }

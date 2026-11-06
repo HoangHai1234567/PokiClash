@@ -2136,6 +2136,45 @@
    ]
   },
   {
+   "id": "nguu_quyen",
+   "name": "Ngưu Quyền",
+   "title": "Quyền thủ mây lửa",
+   "aola": "goc_412",
+   "elem": "hoa",
+   "rarity": "rare",
+   "stats": [
+    40,
+    60,
+    40,
+    30,
+    60,
+    60
+   ],
+   "skill": "nguu_quyen_skill",
+   "ult": "nguu_quyen_ult",
+   "passive": "nguu_quyen_pas",
+   "shards": 20,
+   "line": "Dòng Ngưu Quyền",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Nghé Lửa",
+     "aola": "goc_412",
+     "size": 0.9
+    },
+    {
+     "name": "Ngưu Lãng Tử",
+     "aola": "goc_413",
+     "size": 1.02
+    },
+    {
+     "name": "Ngưu Quyền",
+     "aola": "goc_414",
+     "size": 1.14
+    }
+   ]
+  },
+  {
    "id": "vo_su",
    "name": "Võ Sư",
    "title": "Quyền thủ áo vải",
@@ -2389,6 +2428,327 @@
      "name": "Đại Sư Cà Sa",
      "aola": "monk_2217",
      "size": 1.18
+    }
+   ]
+  },
+  {
+   "id": "lung_vuong",
+   "name": "Lửng Vương",
+   "title": "Vua lửng vuốt vàng",
+   "aola": "goc_70",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    50,
+    70,
+    100,
+    40,
+    40,
+    30
+   ],
+   "skill": "lung_vuong_skill",
+   "ult": "lung_vuong_ult",
+   "passive": "lung_vuong_pas",
+   "shards": 10,
+   "line": "Dòng Lửng Vương",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Lửng Con",
+     "aola": "goc_70",
+     "size": 0.9
+    },
+    {
+     "name": "Lửng Võ Sĩ",
+     "aola": "goc_71",
+     "size": 1.02
+    },
+    {
+     "name": "Lửng Vương",
+     "aola": "goc_72",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "cao_da",
+   "name": "Cáo Đá",
+   "title": "Vuốt đá lục bảo",
+   "aola": "goc_458",
+   "elem": "tho",
+   "rarity": "uncommon",
+   "stats": [
+    50,
+    30,
+    50,
+    70,
+    50,
+    50
+   ],
+   "skill": "cao_da_skill",
+   "ult": "cao_da_ult",
+   "passive": "cao_da_pas",
+   "shards": 15,
+   "line": "Dòng Cáo Đá",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Cáo Con",
+     "aola": "goc_458",
+     "size": 0.9
+    },
+    {
+     "name": "Cáo Đá",
+     "aola": "goc_459",
+     "size": 1.02
+    },
+    {
+     "name": "Cáo Đá Lục Bảo",
+     "aola": "goc_460",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "ho_khoan",
+   "name": "Hổ Khoan",
+   "title": "Sừng khoan pha lê",
+   "aola": "goc_485",
+   "elem": "tho",
+   "rarity": "uncommon",
+   "stats": [
+    70,
+    20,
+    20,
+    80,
+    70,
+    40
+   ],
+   "skill": "ho_khoan_skill",
+   "ult": "ho_khoan_ult",
+   "passive": "ho_khoan_pas",
+   "shards": 15,
+   "line": "Dòng Hổ Khoan",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Hổ Cát Tường",
+     "aola": "goc_485",
+     "size": 0.9
+    },
+    {
+     "name": "Hổ Pháo Hoa",
+     "aola": "goc_486",
+     "size": 1.02
+    },
+    {
+     "name": "Hổ Khoan Vương",
+     "aola": "goc_487",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "phu_van",
+   "name": "Phù Văn",
+   "title": "Khổng lồ đá khắc chữ",
+   "aola": "goc_718",
+   "elem": "tho",
+   "rarity": "rare",
+   "stats": [
+    50,
+    70,
+    70,
+    40,
+    50,
+    50
+   ],
+   "skill": "phu_van_skill",
+   "ult": "phu_van_ult",
+   "passive": "phu_van_pas",
+   "shards": 20,
+   "line": "Dòng Phù Văn",
+   "size": 0.9,
+   "forms": [
+    {
+     "name": "Lính Đá Con",
+     "aola": "goc_718",
+     "size": 0.9
+    },
+    {
+     "name": "Lính Đá Phù Văn",
+     "aola": "goc_719",
+     "size": 1.02
+    },
+    {
+     "name": "Cự Thần Phù Văn",
+     "aola": "goc_720",
+     "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "hat_de",
+   "name": "Hạt Dẻ",
+   "title": "Dũng sĩ khiên hạt dẻ",
+   "aola": "goc_927",
+   "elem": "tho",
+   "rarity": "rare",
+   "stats": [
+    60,
+    40,
+    40,
+    70,
+    40,
+    60
+   ],
+   "skill": "hat_de_skill",
+   "ult": "hat_de_ult",
+   "passive": "hat_de_pas",
+   "shards": 20,
+   "line": "Dòng Hạt Dẻ",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Lính Hạt Dẻ",
+     "aola": "goc_927",
+     "size": 0.92
+    },
+    {
+     "name": "Dũng Sĩ Hạt Dẻ",
+     "aola": "goc_928",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "rua_nui",
+   "name": "Rùa Núi",
+   "title": "Mai núi rừng xanh",
+   "aola": "goc_1203",
+   "elem": "tho",
+   "rarity": "epic",
+   "stats": [
+    40,
+    65,
+    80,
+    40,
+    40,
+    40
+   ],
+   "skill": "rua_nui_skill",
+   "ult": "rua_nui_ult",
+   "passive": "rua_nui_pas",
+   "shards": 30,
+   "line": "Dòng Rùa Núi",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Rùa Mầm Đá",
+     "aola": "goc_1203",
+     "size": 0.92
+    },
+    {
+     "name": "Rùa Núi",
+     "aola": "goc_1204",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "ho_kim_cuong",
+   "name": "Hổ Kim Cương",
+   "title": "Hổ vương giáp kim cương",
+   "aola": "goc_1380",
+   "elem": "tho",
+   "rarity": "epic",
+   "stats": [
+    118,
+    63,
+    63,
+    138,
+    128,
+    88
+   ],
+   "skill": "ho_kim_cuong_skill",
+   "ult": "ho_kim_cuong_ult",
+   "passive": "ho_kim_cuong_pas",
+   "shards": 30,
+   "line": "Dòng Hổ Khoan",
+   "size": 1,
+   "forms": [
+    {
+     "name": "Hổ Kim Cương",
+     "aola": "goc_1380",
+     "size": 1
+    }
+   ]
+  },
+  {
+   "id": "cu_phu",
+   "name": "Cự Phủ",
+   "title": "Chiến binh rìu tím",
+   "aola": "goc_1209",
+   "elem": "tho",
+   "rarity": "epic",
+   "stats": [
+    80,
+    40,
+    40,
+    80,
+    45,
+    40
+   ],
+   "skill": "cu_phu_skill",
+   "ult": "cu_phu_ult",
+   "passive": "cu_phu_pas",
+   "shards": 30,
+   "line": "Dòng Cự Phủ",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Phủ Con",
+     "aola": "goc_1209",
+     "size": 0.92
+    },
+    {
+     "name": "Cự Phủ",
+     "aola": "goc_1210",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "giap_nham",
+   "name": "Giáp Nham",
+   "title": "Chiến thần giáp vàng",
+   "aola": "goc_1273",
+   "elem": "tho",
+   "rarity": "legend",
+   "stats": [
+    50,
+    100,
+    60,
+    30,
+    60,
+    45
+   ],
+   "skill": "giap_nham_skill",
+   "ult": "giap_nham_ult",
+   "passive": "giap_nham_pas",
+   "shards": 50,
+   "line": "Dòng Giáp Nham",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Đấu Sĩ Nham",
+     "aola": "goc_1273",
+     "size": 0.92
+    },
+    {
+     "name": "Giáp Nham",
+     "aola": "goc_1274",
+     "size": 1.1
     }
    ]
   }
@@ -3161,6 +3521,198 @@
    "minion": true,
    "tier": 2,
    "kind": "may"
+  },
+  {
+   "id": "linh_khoan",
+   "name": "Chuột Khoan",
+   "title": "Đào hầm mũi khoan",
+   "aola": "goc_1041",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    50,
+    30,
+    90,
+    30,
+    90,
+    20
+   ],
+   "skill": "linh_khoan_skill",
+   "ult": "linh_khoan_ult",
+   "passive": "linh_khoan_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Chuột Khoan",
+     "aola": "goc_1041",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "khoan"
+  },
+  {
+   "id": "linh_khoan2",
+   "name": "Khoan Giáp",
+   "title": "Giáp nặng mũi khoan thép",
+   "aola": "goc_1042",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    100,
+    70,
+    150,
+    70,
+    130,
+    40
+   ],
+   "skill": "linh_khoan2_skill",
+   "ult": "linh_khoan2_ult",
+   "passive": "linh_khoan2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Khoan Giáp",
+     "aola": "goc_1042",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "khoan"
+  },
+  {
+   "id": "linh_da",
+   "name": "Đá Con",
+   "title": "Hòn đá pha lê xoay",
+   "aola": "goc_832",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    70,
+    40,
+    40,
+    60,
+    40,
+    40
+   ],
+   "skill": "linh_da_skill",
+   "ult": "linh_da_ult",
+   "passive": "linh_da_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Đá Con",
+     "aola": "goc_832",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "da"
+  },
+  {
+   "id": "linh_da2",
+   "name": "Đá Xích",
+   "title": "Xích đá dội đòn",
+   "aola": "goc_833",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    90,
+    60,
+    60,
+    80,
+    60,
+    60
+   ],
+   "skill": "linh_da2_skill",
+   "ult": "linh_da2_ult",
+   "passive": "linh_da2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Đá Xích",
+     "aola": "goc_833",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "da"
+  },
+  {
+   "id": "linh_ngua",
+   "name": "Ngựa Con",
+   "title": "Vó nhỏ chạy nhanh",
+   "aola": "goc_297",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    35,
+    30,
+    50,
+    70,
+    50,
+    81
+   ],
+   "skill": "linh_ngua_skill",
+   "ult": "linh_ngua_ult",
+   "passive": "linh_ngua_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.8,
+   "forms": [
+    {
+     "name": "Ngựa Con",
+     "aola": "goc_297",
+     "size": 0.8
+    }
+   ],
+   "minion": true,
+   "tier": 1,
+   "kind": "ngua"
+  },
+  {
+   "id": "linh_ngua2",
+   "name": "Ngựa Rằn",
+   "title": "Phi như gió cát",
+   "aola": "goc_298",
+   "elem": "tho",
+   "rarity": "common",
+   "stats": [
+    45,
+    40,
+    70,
+    90,
+    70,
+    111
+   ],
+   "skill": "linh_ngua2_skill",
+   "ult": "linh_ngua2_ult",
+   "passive": "linh_ngua2_pas",
+   "shards": 0,
+   "line": "Lính",
+   "size": 0.86,
+   "forms": [
+    {
+     "name": "Ngựa Rằn",
+     "aola": "goc_298",
+     "size": 0.86
+    }
+   ],
+   "minion": true,
+   "tier": 2,
+   "kind": "ngua"
   }
  ],
  "starters": [

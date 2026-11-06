@@ -63,11 +63,10 @@ namespace PokiClash.UI
             Assets = assets;
             BakedArt.Current = assets ? assets.baked : null;
             Shader.SetGlobalColor("_PokiInk", Ink);
-            // nhiễu mượt 2 kênh (RG) cho shader nét rung, nướng sẵn ở Assets/03 Art/Baked/PokiNoise.png
-            Shader.SetGlobalTexture("_PokiNoise", BakedArt.Current ? BakedArt.Current.noise : null);
             SetBoil(true);
         }
 
+        // Cờ chạy hoạt cảnh nền (IslandAnim, ArenaAnim); chụp đứng hình tắt tạm. Shader nét không còn đọc cờ này (bỏ rung 2026-11-06).
         public static void SetBoil(bool on) => Shader.SetGlobalFloat("_PokiBoil", on ? 1f : 0f);
 
         // Đổi ảnh của một Image kèm material hợp với ảnh: sprite giấy và mực mã hoá kênh (Kit), ảnh thường (Plain).

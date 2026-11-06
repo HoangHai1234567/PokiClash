@@ -212,13 +212,13 @@ namespace PokiClash.Core
             {
                 if (got != want) err.Add($"{what}: có {got}, cần {want}");
             }
-            Expect(Heroes.Count, 68, "Số tướng"); // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02), Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 (2026-11-05)
+            Expect(Heroes.Count, 78, "Số tướng"); // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02), Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 (2026-11-05), Hỏa thêm Ngưu Quyền, Thổ thêm 9 (2026-11-06)
             Expect(Pool.Count, 35, "Số thẻ chung"); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
-            Expect(Innate.Count, 205, "Số thẻ riêng"); // 68 tướng × 3 + thẻ Tiến Hóa của boss
-            Expect(Minions.Count, 24, "Số lính"); // 3 loại lính mỗi đảo 70 ải (Thủy, Hỏa, Kim, Mộc), mỗi loại 2 bậc
-            Expect(MinionCards.Count, 72, "Số thẻ của lính");
+            Expect(Innate.Count, 235, "Số thẻ riêng"); // 78 tướng × 3 + thẻ Tiến Hóa của boss
+            Expect(Minions.Count, 30, "Số lính"); // 3 loại lính mỗi đảo 70 ải (5 đảo), mỗi loại 2 bậc
+            Expect(MinionCards.Count, 90, "Số thẻ của lính");
             Expect(Zones.Count, 5, "Số đảo");
-            Expect(Stages.Count, 288, "Số ải"); // Đảo Thủy, Hỏa, Kim, Mộc 70 ải, đảo Thổ 8 ải
+            Expect(Stages.Count, 350, "Số ải"); // 5 đảo, mỗi đảo 70 ải
             if (Cfg == null) err.Add("Thiếu cấu hình cân bằng");
 
             bool In01(Pt p) => p.x >= 0 && p.x <= 1 && p.y >= 0 && p.y <= 1;

@@ -1454,7 +1454,7 @@
      false
     ],
     [
-     "heo_lua",
+     "nguu_quyen",
      177,
      false
     ]
@@ -2930,7 +2930,7 @@
    "enemies": [
     [
      "soc_da",
-     99,
+     69,
      true
     ]
    ]
@@ -2945,12 +2945,12 @@
    "enemies": [
     [
      "bo_hung",
-     102,
+     72,
      true
     ],
     [
      "thach_nhan",
-     102,
+     72,
      false
     ]
    ]
@@ -2965,7 +2965,7 @@
    "enemies": [
     [
      "thach_nhan",
-     105,
+     75,
      true
     ]
    ]
@@ -2980,12 +2980,12 @@
    "enemies": [
     [
      "sa_than",
-     108,
+     78,
      true
     ],
     [
      "ky_lan",
-     108,
+     78,
      false
     ]
    ]
@@ -3000,17 +3000,17 @@
    "enemies": [
     [
      "ca_sa",
-     111,
+     81,
      true
     ],
     [
      "ky_lan",
-     111,
+     81,
      false
     ],
     [
      "ca_sa",
-     111,
+     81,
      false
     ]
    ]
@@ -3025,7 +3025,7 @@
    "enemies": [
     [
      "bo_hung",
-     119,
+     89,
      true
     ]
    ]
@@ -3040,12 +3040,12 @@
    "enemies": [
     [
      "thach_nhan",
-     122,
+     92,
      true
     ],
     [
      "sa_than",
-     122,
+     92,
      false
     ]
    ]
@@ -3060,7 +3060,7 @@
    "enemies": [
     [
      "sa_than",
-     125,
+     95,
      true
     ]
    ]
@@ -3075,12 +3075,12 @@
    "enemies": [
     [
      "ky_lan",
-     128,
+     98,
      true
     ],
     [
      "ca_sa",
-     128,
+     98,
      false
     ]
    ]
@@ -3095,17 +3095,17 @@
    "enemies": [
     [
      "ca_sa",
-     131,
+     101,
      true
     ],
     [
      "ca_sa",
-     131,
+     101,
      false
     ],
     [
-     "vo_su",
-     131,
+     "lung_vuong",
+     101,
      false
     ]
    ]
@@ -3120,7 +3120,7 @@
    "enemies": [
     [
      "thach_nhan",
-     139,
+     109,
      true
     ]
    ]
@@ -3135,12 +3135,12 @@
    "enemies": [
     [
      "sa_than",
-     142,
+     112,
      true
     ],
     [
      "ky_lan",
-     142,
+     112,
      false
     ]
    ]
@@ -3155,7 +3155,7 @@
    "enemies": [
     [
      "ky_lan",
-     145,
+     115,
      true
     ]
    ]
@@ -3170,12 +3170,12 @@
    "enemies": [
     [
      "ca_sa",
-     148,
+     118,
      true
     ],
     [
-     "vo_su",
-     148,
+     "lung_vuong",
+     118,
      false
     ]
    ]
@@ -3189,8 +3189,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "vo_su",
-     151,
+     "lung_vuong",
+     121,
      true
     ]
    ]
@@ -3204,13 +3204,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "gau_mo",
-     154,
+     "cao_da",
+     124,
      true
     ],
     [
-     "soc_da",
-     154,
+     "ho_khoan",
+     124,
      false
     ]
    ]
@@ -3224,8 +3224,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "soc_da",
-     157,
+     "ho_khoan",
+     127,
      true
     ]
    ]
@@ -3239,13 +3239,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_hung",
-     160,
+     "phu_van",
+     130,
      true
     ],
     [
-     "thach_nhan",
-     160,
+     "hat_de",
+     130,
      false
     ]
    ]
@@ -3259,8 +3259,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "thach_nhan",
-     163,
+     "hat_de",
+     133,
      true
     ]
    ]
@@ -3275,17 +3275,17 @@
    "enemies": [
     [
      "ca_sa",
-     166,
+     136,
      true
     ],
     [
-     "sa_than",
-     166,
+     "rua_nui",
+     136,
      false
     ],
     [
-     "ky_lan",
-     166,
+     "ho_kim_cuong",
+     136,
      false
     ]
    ]
@@ -3300,7 +3300,7 @@
    "enemies": [
     [
      "sa_than",
-     159,
+     129,
      true
     ]
    ]
@@ -3315,12 +3315,12 @@
    "enemies": [
     [
      "ky_lan",
-     162,
+     132,
      true
     ],
     [
      "ca_sa",
-     162,
+     132,
      false
     ]
    ]
@@ -3335,7 +3335,7 @@
    "enemies": [
     [
      "ca_sa",
-     165,
+     135,
      true
     ]
    ]
@@ -3349,13 +3349,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "vo_su",
-     168,
+     "lung_vuong",
+     138,
      true
     ],
     [
-     "gau_mo",
-     168,
+     "cao_da",
+     138,
      false
     ]
    ]
@@ -3369,8 +3369,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "gau_mo",
-     171,
+     "cao_da",
+     141,
      true
     ]
    ]
@@ -3384,13 +3384,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "soc_da",
-     174,
+     "ho_khoan",
+     144,
      true
     ],
     [
-     "bo_hung",
-     174,
+     "phu_van",
+     144,
      false
     ]
    ]
@@ -3404,8 +3404,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_hung",
-     177,
+     "phu_van",
+     147,
      true
     ]
    ]
@@ -3419,13 +3419,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "thach_nhan",
-     180,
+     "hat_de",
+     150,
      true
     ],
     [
-     "sa_than",
-     180,
+     "rua_nui",
+     150,
      false
     ]
    ]
@@ -3439,8 +3439,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "sa_than",
-     183,
+     "rua_nui",
+     153,
      true
     ]
    ]
@@ -3455,17 +3455,17 @@
    "enemies": [
     [
      "ca_sa",
-     186,
+     156,
      true
     ],
     [
-     "ky_lan",
-     186,
+     "ho_kim_cuong",
+     156,
      false
     ],
     [
-     "ca_sa",
-     186,
+     "cu_phu",
+     156,
      false
     ]
    ]
@@ -3480,7 +3480,7 @@
    "enemies": [
     [
      "ky_lan",
-     179,
+     149,
      true
     ]
    ]
@@ -3495,12 +3495,12 @@
    "enemies": [
     [
      "ca_sa",
-     182,
+     152,
      true
     ],
     [
-     "vo_su",
-     182,
+     "lung_vuong",
+     152,
      false
     ]
    ]
@@ -3514,8 +3514,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "vo_su",
-     185,
+     "lung_vuong",
+     155,
      true
     ]
    ]
@@ -3529,13 +3529,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "gau_mo",
-     188,
+     "cao_da",
+     158,
      true
     ],
     [
-     "soc_da",
-     188,
+     "ho_khoan",
+     158,
      false
     ]
    ]
@@ -3549,8 +3549,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "soc_da",
-     191,
+     "ho_khoan",
+     161,
      true
     ]
    ]
@@ -3564,13 +3564,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_hung",
-     194,
+     "phu_van",
+     164,
      true
     ],
     [
-     "thach_nhan",
-     194,
+     "hat_de",
+     164,
      false
     ]
    ]
@@ -3584,8 +3584,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "thach_nhan",
-     197,
+     "hat_de",
+     167,
      true
     ]
    ]
@@ -3599,13 +3599,13 @@
    "kind": "mini",
    "enemies": [
     [
-     "sa_than",
-     200,
+     "rua_nui",
+     170,
      true
     ],
     [
-     "ky_lan",
-     200,
+     "ho_kim_cuong",
+     170,
      false
     ]
    ]
@@ -3619,8 +3619,8 @@
    "kind": "mini",
    "enemies": [
     [
-     "ky_lan",
-     203,
+     "ho_kim_cuong",
+     173,
      true
     ]
    ]
@@ -3635,17 +3635,17 @@
    "enemies": [
     [
      "ca_sa",
-     206,
+     176,
      true
     ],
     [
-     "ca_sa",
-     206,
+     "cu_phu",
+     176,
      false
     ],
     [
-     "vo_su",
-     206,
+     "giap_nham",
+     176,
      false
     ]
    ]
