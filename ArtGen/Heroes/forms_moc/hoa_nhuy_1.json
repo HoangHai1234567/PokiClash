@@ -1,0 +1,99 @@
+{
+ "code": "hoa_nhuy_1",
+ "elem": "moc",
+ "aola": 593,
+ "hero": "Hoa Nhụy",
+ "form": 1,
+ "forms": 3,
+ "form_name": "Thú Ba Lá",
+ "role_vi": "tướng hệ Mộc (ải 5 đảo Mộc, dạng 1/3), rig aola #593",
+ "design_vi": "củ cải con tròn: da đỏ thẫm, mảng kem phủ mặt và bụng, trên đầu ba lá xanh thẫm gân ô liu, bốn chân ngắn đỏ thẫm đệm kem, đuôi rễ đỏ thẫm chóp kem, mắt nâu sẫm",
+ "rig_vi": "con gốc #593 (xem Rig_Numbered.png)",
+ "regions_vi": "1 khối đầu thân củ cải có mặt, 2 ba lá trên đầu, 3 hai chân trước, 4 hai chân sau, 5 đuôi rễ củ cải",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a round RADISH PUP, the first stage of a three-stage Wood evolution line, in the same view and pose as image 1, sitting low on four short stubby legs, leaning forward, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round radish head-body with face; 2 three leaves on top; 3 two front legs; 4 two hind feet; 5 radish root tail;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round radish head-body with face: a round chubby radish: deep crimson-red skin on the top, back and sides, a big warm cream patch on the front holding the face and belly; two big dark-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a confident open grin with a small fang where the old mouth is.\n2 three leaves on top: three sturdy radish leaves of dark forest green with an olive midrib and slightly wavy edges, the same sizes and directions as the old leaves.\n3 two front legs: two short stubby front legs in deep crimson red with cream toe tips, the same shape and place.\n4 two hind feet: two short stubby feet in deep crimson red with cream toe pads.\n5 radish root tail: a thin tapering radish root tail in deep crimson red with a cream tip, curving out like the old tail; not a leaf.\n\nATTITUDE: a tough little radish ready to charge: brows angled down, a confident open grin with a small fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: deep crimson-red radish skin, a warm cream face-and-belly patch, dark forest-green leaves with olive midribs, big dark-brown eyes. Few colours.\n\nAVOID: pale washed-out green, a pale green or whitish body, pink flowers or petals, purple bells, a human face or human hair, glowing dots, sparkles, a light-green sprout body, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "khối đầu thân củ cải có mặt",
+   "round radish head-body with face",
+   "giu",
+   8,
+   "a big round pale-green body that is head and body in one, with two big brown eyes in the upper half and a wide open pink mouth in the middle",
+   "khối đầu thân củ cải có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khối đầu thân củ cải có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a big round pale-green body that is head and body in one, with two big brown eyes in the upper half and a wide open pink mouth in the middle. Redraw THESE pieces as the round radish head-body with face of image 2 (the approved concept): a round chubby radish: deep crimson-red skin on the top, back and sides, a big warm cream patch on the front holding the face and belly; two big dark-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a confident open grin with a small fang where the old mouth is. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "ba lá trên đầu",
+   "three leaves on top",
+   "doi",
+   12,
+   "three light-green leaves growing from the top of the body: a tall one in the middle, a small one on the viewer-right, a wide one leaning out to the viewer-left",
+   "ba lá trên đầu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: ba lá trên đầu;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three light-green leaves growing from the top of the body: a tall one in the middle, a small one on the viewer-right, a wide one leaning out to the viewer-left. Redraw THESE pieces as the three leaves on top of image 2 (the approved concept): three sturdy radish leaves of dark forest green with an olive midrib and slightly wavy edges, the same sizes and directions as the old leaves. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each leaf (on top of the body)"
+  ],
+  [
+   "N03",
+   "hai chân trước",
+   "two front legs",
+   "giu",
+   9,
+   "two short pale-green front legs curling up over the bottom of the belly, joined in the middle at the bottom of the body",
+   "hai chân trước cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai chân trước;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): two short pale-green front legs curling up over the bottom of the belly, joined in the middle at the bottom of the body. Redraw THESE pieces as the two front legs of image 2 (the approved concept): two short stubby front legs in deep crimson red with cream toe tips, the same shape and place. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "hai chân sau",
+   "two hind feet",
+   "giu",
+   13,
+   "two short round green feet under the body: one on the viewer-left in front, one on the viewer-right partly behind; the TOP end joins the body, the foot is at the BOTTOM end",
+   "hai chân sau cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai chân sau;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two short round green feet under the body: one on the viewer-left in front, one on the viewer-right partly behind; the TOP end joins the body, the foot is at the BOTTOM end. Redraw THESE pieces as the two hind feet of image 2 (the approved concept): two short stubby feet in deep crimson red with cream toe pads. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "đuôi rễ củ cải",
+   "radish root tail",
+   "doi",
+   31,
+   "a small pointed leaf-shaped tail sticking out of the back of the body on the viewer-left",
+   "đuôi rễ củ cải cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi rễ củ cải;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small pointed leaf-shaped tail sticking out of the back of the body on the viewer-left. Redraw THESE pieces as the radish root tail of image 2 (the approved concept): a thin tapering radish root tail in deep crimson red with a cream tip, curving out like the old tail; not a leaf. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of the tail (where it joins the body)"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 7,
+  "head": 7,
+  "swing": [],
+  "wob": [
+   4,
+   3,
+   5,
+   2
+  ],
+  "fly": [],
+  "cast": [
+   7,
+   0.6,
+   0.56
+  ]
+ }
+}

@@ -151,6 +151,7 @@ namespace PokiClash
             if (mapAnim) mapAnim.Bind(z.art);
 
             entered = true;
+            builtProg = -1;
             Render();
             if (prep > 0) StartCoroutine(PrepLater(prep));
         }
@@ -165,23 +166,34 @@ namespace PokiClash
 
         Vector2 NodePos(Pt pt) => new Vector2((float)pt.x * mapW, -(float)pt.y * mapH); // trong khung ảnh, gốc trên trái
 
+        // Bản đồ (đường, chấm ải, bệ ải) chỉ theo tiến độ đảo: dựng lại và cuộn tới ải đang đánh khi tiến độ đổi. Làm mới vì lưu
+        // (nhận rương, đổi ải AFK ở hộp chuẩn bị) chỉ vẽ lại khung thông tin, nhãn AFK, khung ải kế: dựng lại 70 ải mỗi lần lưu làm
+        // máy khựng và bản đồ nhảy về ải hiện tại (người dùng dặn phản hồi phải mượt, 2026-11-07).
+        int builtProg = -1;
+
         void Render()
         {
             if (!entered) return;
             var d = App.Data;
             var s = App.Save.Data;
             var z = d.Zone(zone);
-            var stages = d.ZoneStages(zone).ToList();
             int prog = s.zones[(int)zone];
-            Clear(p.pathLayer);
-            Clear(p.nodeLayer);
-            afkAt.Clear();
-            afkTag = null;
-            var focus = Islands.IsLong(zone) ? RenderTrail(z, d, s, stages, prog) : RenderNodes(z, d, s, stages, prog);
+            bool rebuild = prog != builtProg;
+            Vector2 focus = default;
+            if (rebuild)
+            {
+                var stages = d.ZoneStages(zone).ToList();
+                Clear(p.pathLayer);
+                Clear(p.nodeLayer);
+                afkAt.Clear();
+                afkTag = null;
+                focus = Islands.IsLong(zone) ? RenderTrail(z, d, s, stages, prog) : RenderNodes(z, d, s, stages, prog);
+                builtProg = prog;
+            }
             PlaceAfkTag();
             ShowInfo(z, s, prog);
             ShowBottom(z, s);
-            StartCoroutine(ScrollToCurrent(focus));
+            if (rebuild) StartCoroutine(ScrollToCurrent(focus));
         }
 
         // đảo 8 ải: mỗi ải một bệ tại điểm ải của ảnh đảo; trả chỗ ải đang đánh (để cuộn tới)

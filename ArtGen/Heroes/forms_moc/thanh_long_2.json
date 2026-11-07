@@ -1,0 +1,186 @@
+{
+ "code": "thanh_long_2",
+ "elem": "moc",
+ "aola": 215,
+ "hero": "Thanh Long",
+ "form": 2,
+ "forms": 3,
+ "form_name": "Thanh Long",
+ "role_vi": "tướng hệ Mộc (ải 70 đảo Mộc, dạng 2/3), rig aola #215",
+ "design_vi": "rồng xanh lam phương Đông uốn khúc vòng lớn trên mây lành, vuốt phải giơ dưới cằm ôm viên ngọc rồng trắng ngà: vảy xanh lam ngọc, bụng kem vàng, bờm trắng bay (chùm trên đầu và ba túm sau lưng), sừng vàng san hô, râu dài trắng, vương miện ngọc nhỏ, chóp đuôi túm lông trắng; mây trắng viền xanh ngọc",
+ "rig_vi": "con gốc #215 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu có mặt, 2 vương miện ngọc nhỏ và bờm trắng, 3 hai sừng và râu, 4 túm bờm trắng sau lưng, 5 thân rắn uốn khúc, 6 hai tay, 7 vuốt ôm ngọc rồng, 8 đuôi chóp túm lông trắng, 9 mây lành",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a coiling azure EASTERN DRAGON holding a round dragon pearl, the SECOND stage of a three-stage Wood evolution line whose first stage is image 6: the same little azure dragon grown into a long coiling dragon, in the same view and pose as image 1, coiled in a big loop above its clouds, one claw raised under its chin holding the pearl, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with face; 2 small jade crown and white mane; 3 two horns and a whisker; 4 white mane tufts on the back; 5 coiled serpent body; 6 two arms; 7 hand holding the dragon pearl; 8 tail with a white tuft; 9 auspicious clouds;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with face: an eastern-dragon head of azure-teal scales facing the viewer-right with cream-yellow lips and chin, the back-of-skull spikes as small azure fins, one big golden-amber eye (one catchlight dot) exactly where the old near eye is, brow angled down, the far eye a thin golden sliver where the old one is; the lower jaw stays an open jaw with a cream-yellow lip, a dark red mouth and two small white fangs, a confident grin; no dark band under the eye, no bronze, no fire.\n2 small jade crown and white mane: a small pale turquoise-jade crown with a thin coral-gold rim on top of the head where the bottom of the old crest is, and a tall flowing white mane plume streaming up and back behind it, about the size of the old crest; no helmet, no bronze, no spirals.\n3 two horns and a whisker: two coral-gold antler horns (deer-antler shape with rounded tines): a long one sweeping back to the viewer-left where the old band is, a short one curling up on the viewer-right where the old curled horn is; the snout curl becomes one long thin white whisker curling forward from the tip of the snout.\n4 white mane tufts on the back: three flowing white mane tufts sticking out from the back of the body loop in the same places and pointing the same way, like the white mane of image 6; no bronze, no blades.\n5 coiled serpent body: the same long serpent body in azure-teal scales (a few simple scale arcs) with a cream-yellow belly stripe where the cyan stripes are; the chest is plain azure-teal with a cream-yellow belly front; no armor plate, no bronze, no patterns.\n6 two arms: two slim azure-teal dragon arms with cream-yellow scales on the inner side; the TOP ends are the shoulders joining the body, the gold shoulder plates become round azure-teal shoulders; the viewer-left hand at the far end has three curved coral-gold claws; no armor, no bronze.\n7 hand holding the dragon pearl: a round flat ivory-white dragon pearl where the old fist is (about the same size, a thin pale cream rim line, no glow, no shine), held by the dragon's hand: three curved coral-gold claws gripping its front.\n8 tail with a white tuft: an azure-teal dragon tail with a cream-yellow underside rising the same way, its tip ending in a big flowing white hair tuft like the mane, where the old gold frame is; no gold frame, no crystal, no sparks, no loose diamond.\n9 auspicious clouds: white auspicious clouds in the same places and sizes: flat white puffs of rounded swirl curls (ruyi curls) with a turquoise-jade band along the edges, a few turquoise swirl lines and thin turquoise trailing streaks; no cyan-blue fill.\n\nATTITUDE: a proud young dragon king ready to strike: brow angled down, a confident open-mouthed grin showing small fangs; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: azure-teal blue scales (a clear blue leaning to teal, NOT green), a cream-yellow belly, a flowing white mane, coral-gold antler horns, long white whiskers, a small pale turquoise-jade crown with a coral-gold rim, big golden-amber eyes, a flat ivory-white dragon pearl, white auspicious clouds with turquoise-jade edges. Few colours.\n\nAVOID: a green body or green scales, sky-blue or cyan clouds, a bronze helmet or crest with carved spiral patterns, heavy bronze armor plates, a yellow flame or a gold crystal frame on the tail, fire or lightning breath, bronze shoulder plates, a bronze chest plate, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu có mặt",
+   "head with face",
+   "giu",
+   22,
+   "a green dragon head in side view facing the viewer-right with spiky fins on the back of the skull, a small yellow eye under a glowing yellow brow, a dark bronze-trimmed band under the eye, a thin far eye near the snout, and an open lower jaw (red mouth inside, two white fangs) hanging below",
+   "đầu có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a green dragon head in side view facing the viewer-right with spiky fins on the back of the skull, a small yellow eye under a glowing yellow brow, a dark bronze-trimmed band under the eye, a thin far eye near the snout, and an open lower jaw (red mouth inside, two white fangs) hanging below. Redraw THESE pieces as the head with face of image 2 (the approved concept): an eastern-dragon head of azure-teal scales facing the viewer-right with cream-yellow lips and chin, the back-of-skull spikes as small azure fins, one big golden-amber eye (one catchlight dot) exactly where the old near eye is, brow angled down, the far eye a thin golden sliver where the old one is; the lower jaw stays an open jaw with a cream-yellow lip, a dark red mouth and two small white fangs, a confident grin; no dark band under the eye, no bronze, no fire. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "vương miện ngọc nhỏ và bờm trắng",
+   "small jade crown and white mane",
+   "doi",
+   20,
+   "a tall dark-green-and-bronze blade-shaped helmet crest with spiral patterns rising from the top of the head",
+   "vương miện ngọc nhỏ và bờm trắng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vương miện ngọc nhỏ và bờm trắng;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a tall dark-green-and-bronze blade-shaped helmet crest with spiral patterns rising from the top of the head. Redraw THESE pieces as the small jade crown and white mane of image 2 (the approved concept): a small pale turquoise-jade crown with a thin coral-gold rim on top of the head where the bottom of the old crest is, and a tall flowing white mane plume streaming up and back behind it, about the size of the old crest; no helmet, no bronze, no spirals. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom end of the crest (on top of the head)"
+  ],
+  [
+   "N03",
+   "hai sừng và râu",
+   "two horns and a whisker",
+   "doi",
+   16,
+   "a long bronze-and-dark-green helmet band sweeping back from the head to the viewer-left over the top of the body loop, a short curled bronze horn on the viewer-right behind the crest, and a small dark-green-and-bronze curl at the tip of the snout",
+   "hai sừng và râu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai sừng và râu;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a long bronze-and-dark-green helmet band sweeping back from the head to the viewer-left over the top of the body loop, a short curled bronze horn on the viewer-right behind the crest, and a small dark-green-and-bronze curl at the tip of the snout. Redraw THESE pieces as the two horns and a whisker of image 2 (the approved concept): two coral-gold antler horns (deer-antler shape with rounded tines): a long one sweeping back to the viewer-left where the old band is, a short one curling up on the viewer-right where the old curled horn is; the snout curl becomes one long thin white whisker curling forward from the tip of the snout. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each horn (on the head) and root of the whisker (at the tip of the snout)"
+  ],
+  [
+   "N04",
+   "túm bờm trắng sau lưng",
+   "white mane tufts on the back",
+   "doi",
+   18,
+   "three small dark-green-and-bronze blade-shaped fins sticking out from the outer (viewer-left) edge of the big body loop: two near the top of the loop, one lower down",
+   "túm bờm trắng sau lưng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: túm bờm trắng sau lưng;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three small dark-green-and-bronze blade-shaped fins sticking out from the outer (viewer-left) edge of the big body loop: two near the top of the loop, one lower down. Redraw THESE pieces as the white mane tufts on the back of image 2 (the approved concept): three flowing white mane tufts sticking out from the back of the body loop in the same places and pointing the same way, like the white mane of image 6; no bronze, no blades. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each tuft (on the outer edge of the body loop)"
+  ],
+  [
+   "N05",
+   "thân rắn uốn khúc",
+   "coiled serpent body",
+   "giu",
+   10,
+   "the long green serpent body in segments: a dark armored chest in the middle (bronze patterned chest plate with a dark round top); from it the body rises in a big loop up the viewer-left (two segments), over the top (one segment) and into the back of the head; below the chest it curls to the viewer-right in a thick coil and down into two lower segments at the bottom; cyan stripes run along the belly side",
+   "thân rắn uốn khúc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân rắn uốn khúc;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): the long green serpent body in segments: a dark armored chest in the middle (bronze patterned chest plate with a dark round top); from it the body rises in a big loop up the viewer-left (two segments), over the top (one segment) and into the back of the head; below the chest it curls to the viewer-right in a thick coil and down into two lower segments at the bottom; cyan stripes run along the belly side. Redraw THESE pieces as the coiled serpent body of image 2 (the approved concept): the same long serpent body in azure-teal scales (a few simple scale arcs) with a cream-yellow belly stripe where the cyan stripes are; the chest is plain azure-teal with a cream-yellow belly front; no armor plate, no bronze, no patterns. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "hai tay",
+   "two arms",
+   "giu",
+   15,
+   "two thin dark arms with gold shoulder plates: the viewer-left arm goes down from a big gold shoulder plate, bends to the viewer-left and ends in a dark hand with three big blocky gold claws; the viewer-right arm goes from a smaller gold shoulder plate to the viewer-right and bends up toward the chin (its hand is not in this picture)",
+   "hai tay cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai tay;\n- không vẽ phần khác.",
+   "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): two thin dark arms with gold shoulder plates: the viewer-left arm goes down from a big gold shoulder plate, bends to the viewer-left and ends in a dark hand with three big blocky gold claws; the viewer-right arm goes from a smaller gold shoulder plate to the viewer-right and bends up toward the chin (its hand is not in this picture). Redraw THESE pieces as the two arms of image 2 (the approved concept): two slim azure-teal dragon arms with cream-yellow scales on the inner side; the TOP ends are the shoulders joining the body, the gold shoulder plates become round azure-teal shoulders; the viewer-left hand at the far end has three curved coral-gold claws; no armor, no bronze. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N07",
+   "vuốt ôm ngọc rồng",
+   "hand holding the dragon pearl",
+   "doi",
+   48,
+   "a dark round fist under the chin at the top end of the viewer-right arm, with three blocky gold claws curled over it",
+   "vuốt ôm ngọc rồng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vuốt ôm ngọc rồng;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a dark round fist under the chin at the top end of the viewer-right arm, with three blocky gold claws curled over it. Redraw THESE pieces as the hand holding the dragon pearl of image 2 (the approved concept): a round flat ivory-white dragon pearl where the old fist is (about the same size, a thin pale cream rim line, no glow, no shine), held by the dragon's hand: three curved coral-gold claws gripping its front. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "lower viewer-left end of the hand (where it meets the forearm)"
+  ],
+  [
+   "N08",
+   "đuôi chóp túm lông trắng",
+   "tail with a white tuft",
+   "doi",
+   13,
+   "a thin green tail rising from behind the lower body coil on the viewer-right, its tip holding a big hollow gold crystal frame with yellow sparks, and a small loose gold diamond beside it",
+   "đuôi chóp túm lông trắng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi chóp túm lông trắng;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a thin green tail rising from behind the lower body coil on the viewer-right, its tip holding a big hollow gold crystal frame with yellow sparks, and a small loose gold diamond beside it. Redraw THESE pieces as the tail with a white tuft of image 2 (the approved concept): an azure-teal dragon tail with a cream-yellow underside rising the same way, its tip ending in a big flowing white hair tuft like the mane, where the old gold frame is; no gold frame, no crystal, no sparks, no loose diamond. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "lower end of the tail (behind the lower body coil)"
+  ],
+  [
+   "N09",
+   "mây lành",
+   "auspicious clouds",
+   "doi",
+   8,
+   "six puffy cyan-blue clouds with long thin trailing streaks: two piled under the body in the middle, one under the viewer-right side, one long flat one at the bottom, and two small floating ones on the viewer-left behind the body loop",
+   "mây lành cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: mây lành;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): six puffy cyan-blue clouds with long thin trailing streaks: two piled under the body in the middle, one under the viewer-right side, one long flat one at the bottom, and two small floating ones on the viewer-left behind the body loop. Redraw THESE pieces as the auspicious clouds of image 2 (the approved concept): white auspicious clouds in the same places and sizes: flat white puffs of rounded swirl curls (ruyi curls) with a turquoise-jade band along the edges, a few turquoise swirl lines and thin turquoise trailing streaks; no cyan-blue fill. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the clouds stay where they are"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 22,
+  "head": 30,
+  "swing": [
+   43
+  ],
+  "wob": [
+   19,
+   8,
+   7,
+   29,
+   3
+  ],
+  "fly": [],
+  "cast": [
+   13,
+   0.5,
+   0.5
+  ],
+  "parent": {
+   "17": 22,
+   "16": 17,
+   "18": 16,
+   "30": 18,
+   "31": 30,
+   "33": 30,
+   "24": 30,
+   "29": 30,
+   "19": 16,
+   "8": 16,
+   "7": 17,
+   "39": 22,
+   "40": 39,
+   "41": 40,
+   "3": 41,
+   "43": 23,
+   "45": 43,
+   "44": 45,
+   "42": 44,
+   "46": 44,
+   "47": 44,
+   "10": 20,
+   "11": 10,
+   "13": 11,
+   "12": 13,
+   "14": 13,
+   "15": 13
+  }
+ },
+ "prev": [
+  [
+   "thanh_long_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

@@ -41,6 +41,26 @@ namespace PokiClash.Tests
             Assert.IsTrue(File.Exists(Path.Combine(dir, $"save_v{TestData.Load().Cfg.saveVersion}.json")));
         }
 
+        // ghi nền (máy thật): lưu dồn dập (mỗi lần chạm một lần) rồi Flush như lúc vào nền: file là bản cuối, đọc lại đúng
+        [Test]
+        public void GhiNen_LuuDonDap_FlushRaBanCuoi()
+        {
+            var d = TestData.Load();
+            var svc = new SaveService(d, dir) { WriteInBackground = true };
+            svc.Load();
+            svc.Data.ChooseStarter("giot_suong");
+            for (int i = 1; i <= 40; i++)
+            {
+                svc.Data.balls = i;
+                svc.Save();
+            }
+            svc.Flush();
+            var back = new SaveService(d, dir);
+            Assert.IsTrue(back.Load());
+            Assert.AreEqual(40, back.Data.balls);
+            Assert.IsFalse(File.Exists(back.FilePath + ".tmp"));
+        }
+
         [Test]
         public void GhiRoiDocLai_GiuNguyen()
         {

@@ -1,0 +1,130 @@
+{
+ "code": "bom_la_2",
+ "elem": "moc",
+ "aola": 912,
+ "hero": "Bờm Lá",
+ "form": 2,
+ "forms": 2,
+ "form_name": "Chiến Sư Bờm Lá",
+ "role_vi": "tướng hệ Mộc (ải 15 đảo Mộc, dạng 2/2), rig aola #912",
+ "design_vi": "sư tử con đứng thế vồ: lông vàng nâu mõm kem, bờm lá dương xỉ xanh thẫm quanh đầu và ngực, huy hiệu gỗ hình lá trên trán, đuôi dài chóp quả thông, hai roi thân dương xỉ đầu bọc mũ quả sồi thay dây gai pha lê, bốn chân bọc mũ quả sồi thay vuốt vàng, mắt xanh lục",
+ "rig_vi": "con gốc #912 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu có mặt, 2 bờm lá dương xỉ, 3 thân, 4 bốn chân, 5 đuôi chóp quả thông, 6 hai roi dương xỉ đầu mũ quả sồi",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a young LION warrior with a full mane of fern fronds, the SECOND stage of a two-stage Wood evolution line whose first stage is image 6 (the round lion cub), in the same view and pose as image 1, standing in a low pouncing crouch on four short legs, body turned slightly to the viewer-right, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with face; 2 fern mane; 3 body; 4 four legs; 5 tail with pine cone tip; 6 two fern whips with acorn-cap claws;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with face: a lion cub head: tawny golden-brown fur, a pale cream muzzle and chin, two big leaf-green eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, an open confident grin with one small fang where the old mouth is; the forehead gem piece becomes a small carved light-wood badge shaped like a leaf, the same size and place.\n2 fern mane: a lion mane of dark-green fern fronds: each old leaf becomes a fern frond (a long leaf with small rounded leaflets along both edges) in the same place and pointing the same way, and the three gold chest plates become three short fern fronds hanging over the chest under the chin; no stripes, no yellow, no gold.\n3 body: a small tawny golden-brown torso with a pale cream belly, same outline; no stripes.\n4 four legs: four short sturdy tawny lion legs with the same outline; at the BOTTOM end each paw is covered by a brown scaly acorn cap like a little boot, where the old gold claw cuff was; no stripes.\n5 tail with pine cone tip: a long thin tawny lion tail with the same curve, ending in a brown pine cone (overlapping scales, flat colour) where the old crystal was; no thorns, no crystal.\n6 two fern whips with acorn-cap claws: two curling dark-green fern-stem whips with the same curves (small fern leaflets instead of thorns), each ending in a big brown scaly acorn cap like a claw club where the old crystal was; no crystals, no thorns.\n\nATTITUDE: a fierce little lion about to pounce: brows angled down, an open confident grin with a small fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: tawny golden-brown fur with a pale cream muzzle, dark-green fern fronds, a carved light-wood leaf-shaped badge on the forehead, brown scaly acorn caps over the paws, big leaf-green eyes, a brown pine cone at the tail tip. Few colours.\n\nAVOID: a green body, yellow stripes or green-and-yellow stripes, crystals, gems or diamonds, cyan or turquoise, gold armour or gold frames, thorny vines, feathery wing-shaped ears, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu có mặt",
+   "head with face",
+   "giu",
+   18,
+   "a big rounded pale-green head turned slightly to the viewer-right, with a darker green patch at the top viewer-right; on it sit two big brown-and-amber eyes with angry brows, an open mouth with a fang, and a small cyan diamond gem on the forehead between the eyes (a separate piece)",
+   "đầu có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a big rounded pale-green head turned slightly to the viewer-right, with a darker green patch at the top viewer-right; on it sit two big brown-and-amber eyes with angry brows, an open mouth with a fang, and a small cyan diamond gem on the forehead between the eyes (a separate piece). Redraw THESE pieces as the head with face of image 2 (the approved concept): a lion cub head: tawny golden-brown fur, a pale cream muzzle and chin, two big leaf-green eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, an open confident grin with one small fang where the old mouth is; the forehead gem piece becomes a small carved light-wood badge shaped like a leaf, the same size and place. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "bờm lá dương xỉ",
+   "fern mane",
+   "doi",
+   11,
+   "spiky leaf-shaped mane pieces around the head: a big yellow-and-green striped double leaf over the top viewer-left of the head, pale-green leaves behind it at the top viewer-left and top viewer-right, a striped leaf at the top viewer-right and a green leaf by the viewer-right cheek; plus three small curved gold plates on the chest under the chin",
+   "bờm lá dương xỉ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: bờm lá dương xỉ;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): spiky leaf-shaped mane pieces around the head: a big yellow-and-green striped double leaf over the top viewer-left of the head, pale-green leaves behind it at the top viewer-left and top viewer-right, a striped leaf at the top viewer-right and a green leaf by the viewer-right cheek; plus three small curved gold plates on the chest under the chin. Redraw THESE pieces as the fern mane of image 2 (the approved concept): a lion mane of dark-green fern fronds: each old leaf becomes a fern frond (a long leaf with small rounded leaflets along both edges) in the same place and pointing the same way, and the three gold chest plates become three short fern fronds hanging over the chest under the chin; no stripes, no yellow, no gold. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "inner end of each frond, where it grows from the head or the neck"
+  ],
+  [
+   "N03",
+   "thân",
+   "body",
+   "giu",
+   22,
+   "a small oval torso under the head, dark green with orange and yellow stripes",
+   "thân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small oval torso under the head, dark green with orange and yellow stripes. Redraw THESE pieces as the body of image 2 (the approved concept): a small tawny golden-brown torso with a pale cream belly, same outline; no stripes. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "bốn chân",
+   "four legs",
+   "giu",
+   14,
+   "four short legs, pale green with dark-green and yellow stripes, each ending in a yellow-gold claw cuff: two on the viewer-left (the front one nearest us) and two on the viewer-right; TOP end = shoulder or hip under the body, BOTTOM end = paw on the ground",
+   "bốn chân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: bốn chân;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): four short legs, pale green with dark-green and yellow stripes, each ending in a yellow-gold claw cuff: two on the viewer-left (the front one nearest us) and two on the viewer-right; TOP end = shoulder or hip under the body, BOTTOM end = paw on the ground. Redraw THESE pieces as the four legs of image 2 (the approved concept): four short sturdy tawny lion legs with the same outline; at the BOTTOM end each paw is covered by a brown scaly acorn cap like a little boot, where the old gold claw cuff was; no stripes. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "đuôi chóp quả thông",
+   "tail with pine cone tip",
+   "doi",
+   9,
+   "a long thin green thorny vine rising from behind the body and curving up to the top viewer-left, ending in a big cyan crystal in a gold frame",
+   "đuôi chóp quả thông cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi chóp quả thông;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long thin green thorny vine rising from behind the body and curving up to the top viewer-left, ending in a big cyan crystal in a gold frame. Redraw THESE pieces as the tail with pine cone tip of image 2 (the approved concept): a long thin tawny lion tail with the same curve, ending in a brown pine cone (overlapping scales, flat colour) where the old crystal was; no thorns, no crystal. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom (viewer-right) end of the tail, hidden behind the body"
+  ],
+  [
+   "N06",
+   "hai roi dương xỉ đầu mũ quả sồi",
+   "two fern whips with acorn-cap claws",
+   "doi",
+   8,
+   "two thin green thorny vines growing from behind the head: one curls out to the viewer-left and down, the other runs out to the viewer-right and down; each ends in a cyan crystal claw in a gold frame",
+   "hai roi dương xỉ đầu mũ quả sồi cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai roi dương xỉ đầu mũ quả sồi;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two thin green thorny vines growing from behind the head: one curls out to the viewer-left and down, the other runs out to the viewer-right and down; each ends in a cyan crystal claw in a gold frame. Redraw THESE pieces as the two fern whips with acorn-cap claws of image 2 (the approved concept): two curling dark-green fern-stem whips with the same curves (small fern leaflets instead of thorns), each ending in a big brown scaly acorn cap like a claw club where the old crystal was; no crystals, no thorns. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "inner end of each whip, hidden behind the head (where it grows from the neck)"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 10,
+  "head": 13,
+  "swing": [
+   17,
+   2
+  ],
+  "wob": [
+   3,
+   6,
+   4
+  ],
+  "fly": [],
+  "cast": [
+   13,
+   0.64,
+   0.9
+  ],
+  "parent": {
+   "18": 13,
+   "4": 13,
+   "6": 13,
+   "14": 13,
+   "5": 13,
+   "19": 13,
+   "16": 13,
+   "9": 13
+  }
+ },
+ "prev": [
+  [
+   "bom_la_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

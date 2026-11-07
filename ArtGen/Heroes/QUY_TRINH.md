@@ -360,3 +360,34 @@ Boss đảo Thủy: Vây Lam (ải 30), Kuba (40), Thương Lam (50), Huyền V�
   - Hình biến thể "giữ hình gốc" trong cảnh báo của ghép chỉ ảnh hưởng clip không dựng lại; 5 clip trận dựng từ dáng đứng nên không lọt.
 - Codex hết hạn mức gói ChatGPT giữa chừng (lỗi "usage limit", tầm 70 ảnh mỗi đợt): `chay_lo2.py` chờ 10 phút rồi thử lại, nhóm còn thiếu thì không ghép.
 - Thử tia riêng trong trận: menu `PokiClash/Thử/Thương Lam | Huyền Vũ | Lam Quân ra trận` (đang Play, mở từ Boot), ảnh ở `Temp/PokiShots/<id>_combat/`. Lần soi đầu (2026-11-07): `anim_moi.py` chưa chép `cast.tia` nên cả ba vẫn bắn tia nước (đã sửa); Huyền Vũ 3 bắn từ đầu mái chèo sau lưng nên tia che kín đầu (đổi sang miệng); dạng cuối tia xoắn và vòng sóng âm quá to, che cả hai con (tia xoắn mảnh lại 0,85, vòng sóng âm theo `g`, vòng nổ lúc trúng nhỏ hơn thân).
+
+## 11. Đòn đánh, chiêu cuối viết lại và animation phụ đảo Thủy (`tools/anim_thuy.py`, 2026-11-07)
+
+Người dùng dặn 2026-11-07:
+- đòn của lô Thủy mới (Tám Tay, Cá Ngựa, Mập Răng Cưa, 5 dòng boss) đang một kiểu (lộn rồi đánh, lao vào đánh): thêm bắn tia nước, gọi sóng thần, gọi cầu nước trên đầu địch rồi xả nước xuống; 3 boss cuối (Thương Lam, Huyền Vũ, Lam Quân) thật đặc biệt và đẹp;
+- **các con chưa đủ animation như con gốc, nhất là nước bao quanh và animation phụ: phải bù, không để cục nước tĩnh.**
+
+Cách làm (máy ổ E không có thư mục ghép lô Thủy của máy ổ D):
+- **dựng thẳng trên dạng đã nhập** (`Resources/<dạng>`): dáng nghỉ = khung đầu clip đứng, số mảnh theo `idle_parts`, cây khớp trong anim.json `anim_moi` (root, parent, pivot). Gốc dựng lại luôn là commit `4d7557b`, chạy lại không cộng dồn. Ghi lại atlas (bỏ hình không dùng, áp luật brief 1), `.asset` (sizes, uvs, shadow, source, `brief: 1`), `_anim.bytes`; Unity tự nhập khi refresh.
+- bộ đòn từng dạng ở `tools/anim_thuy_choreo.py` (macro: tụ nước, đạn bay, nổ trúng, cầu nước xả cột nước, sóng thần, mạch nước phun, giáo băng, mưa mảnh băng, vòng sóng âm, chuông rơi, rắn thần nước). Ảnh mới: gói `gui_gpt/thuy_chieu_fx/` (FX16 cột nước xả, FX17 giáo băng, FX18 rắn thần nước, FX19 xoáy nước mặt đất), Codex vẽ qua `gen_codex.py` trong khoá `inbox/.codex.lock`.
+- 3 boss cuối: Lam Quân gọi chuông của mình (bản sao mảnh chuông) úp xuống đầu đối thủ, dạng 3 kèm xoáy tím và sóng thần tím; Thương Lam cầu băng trên đầu đối thủ rồi giáo băng khổng lồ cắm xuống; Huyền Vũ 3 rắn thần nước trồi khỏi xoáy nước sau lưng đối thủ rồi mổ xuống.
+
+Luật trận cho đòn xa (AolaActor, thêm 2026-11-07, anim.json):
+- `"hit": {clip: khung}` khung trúng khai sẵn, `"stay": [clip]` clip không kéo lao: thân bay, lộn, dậm thoải mái mà vẫn là đòn đứng tại chỗ, hình ở xa vẫn kéo về đối thủ;
+- `"far_ramp": {clip: x}`: hình xa hơn x (điểm clip) được kéo trọn về đối thủ (mặc định chỉ hình bên phải tâm vùng xa), nên hiệu ứng bao quanh đối thủ không méo; đạn bay vẫn kéo dần từ 1 tới 1,8 lần chiều cao.
+- toạ độ quanh đối thủ tính theo **đơn vị E = một chiều cao đối thủ chuẩn** (150 đơn vị sân), quy đổi bằng cỡ dạng trong `heroes.json`, không theo chiều cao con ra đòn (dạng 3 to làm chuông, cầu vượt khỏi màn).
+- **khoảng trống quanh đối thủ** (phe mình đánh lên trên trái): trên giữa thân đối thủ chỉ còn khoảng 1 E tới mép sân, sau lưng khoảng 1 E tới mép trái. Cầu nước, chuông đặt khoảng 0,8 E trên giữa thân, cỡ 0,5 E; sóng thần lùi 0,3 E, cỡ 1,15 E. Hình rơi từ trên xuống thì bắt đầu ngoài màn được.
+- khung 0 mọi clip phải đúng dáng nghỉ, không hình thêm (trận lấy khung 0 làm điểm khớp).
+- độ đậm hiệu ứng giữ nguyên qua các khoá không ghi `a`, chỉ tan ở đoạn cuối (nội suy cả quãng làm sóng nhợt).
+
+**Animation phụ như bản gốc** (`tools/kiem_anim_phu.py` kiểm kê, `tools/anim_thuy_dung.py` tờ so clip đứng gốc với mới):
+- bản ghép lô 2 (máy D) thay mảnh tự chạy của aola (khung con c<n>_<k>) bằng một ảnh GPT tĩnh, nên nước bao quanh đứng im, cánh, đuôi, xúc tu cứng đơ;
+- **nước, bọt, giọt, lửa nước** (bảng `SUB`): lấy khung con gốc (`goc_<id>/export/anim.json` clip đứng, mảnh = hàng khung đầu), tô lại bằng `to_nuoc.py` (viền tự tính bằng 0,85% chiều cao con; cụm nhỏ tô xanh đậm cho khỏi thành chấm mực; nước tím đổi bảng màu, giữ viền mực), chạy theo nhịp clip đứng gốc, đi theo chuyển động mảnh ở mọi clip. Đã bù: bọt Tám Tay 1–2, giọt Kuba 2–3, sóng và xoáy nước Lam Quân 2, nước tím Lam Quân 3. Vòng sóng trắng mảnh dưới Vây Lam 3 tô thành vòng mực sẫm như bóng nên không dùng;
+- **thân** (bảng `PHU`): xoay thêm quanh khớp, lệch pha (xúc tu), lan xuống mảnh con, clip đứng đủ biên độ, clip khác nửa: xúc tu, râu, pháo Tám Tay 2; đuôi, vây Kuba 2–3; cánh, vây đuôi Thương Lam 2–3; chuông Lam Quân 1–3, áo choàng Lam Quân 3; lưỡi sóng Vây Lam 3, mũi tên nước Vây Lam 2.
+- Dạng nào ghép lại hoặc vẽ thêm sau này: chạy `kiem_anim_phu.py` so với bản gốc trước khi báo xong.
+
+Lệnh:
+- `py -3 -I ArtGen/Heroes/tools/anim_thuy.py [dạng ...] [--sheet] [--dry]` (in khung trúng, kiểu đòn, cỡ atlas; `--sheet` tờ khung có đối thủ giả định vào `Temp/anim_thuy/`);
+- `py -3 ArtGen/Heroes/tools/anim_thuy_tong.py <ảnh> [dạng ...]` tờ tổng khung then chốt;
+- tour trận (đang Play từ Boot): `PokiClash/Thử/Thương Lam | Huyền Vũ | Lam Quân ra trận`, `PokiClash/Thử/Đảo Thủy: Vây Lam | Kuba | Tám Tay | Cá Ngựa | Mập Răng Cưa ra trận`, ảnh `Temp/PokiShots/<id>_combat/`.
+- Máy ổ D: menu nhập tướng aola thường sẽ nhập lại từ thư mục ghép bên đó và đè bản này; nhập xong phải chạy lại `anim_thuy.py`.

@@ -1,0 +1,197 @@
+{
+ "code": "gio_loc_3",
+ "elem": "moc",
+ "aola": 852,
+ "hero": "Gió Lốc",
+ "form": 3,
+ "forms": 3,
+ "form_name": "Gió Lốc",
+ "role_vi": "tướng hệ Mộc (ải 30 đảo Mộc, dạng 3/3), rig aola #852",
+ "design_vi": "như dạng 2, thân dựng chữ S trên đuôi cuộn, cánh chuồn chuồn rất to viền xanh thẫm, thêm hàng gai lưng trắng; râu lông vũ cao, vòng gió trắng, ngọc gió xoáy, chóp đuôi chuồn chuồn, vây gió ở cổ, dải vây ở hông",
+ "rig_vi": "con gốc #852 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu có mặt, 2 hai râu lông vũ, 3 vây tai và mào đầu, 4 vòng gió trắng, 5 thân gai lưng và vây cổ, 6 ngọc gió xoáy, 7 hai cánh chuồn chuồn rất to, 8 hai chân, 9 đuôi chóp chuồn chuồn, 10 hai dải vây hông",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a grown DRAGONFLY DRAGON with huge dark-rimmed wings and white back spikes, the THIRD stage of a three-stage Wood evolution line whose first stage is image 6: a slim teal dragonfly dragon with a cream belly, pale mint dragonfly wings, feathery antennae, a white wind ring above its head and a swirling wind gem on its chest, in the same view and pose as image 1, rearing up tall on its coiled tail with huge wings spread wide and both short legs reaching forward to strike, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with face; 2 two feathery antennae; 3 ear fins and head crest; 4 white wind ring; 5 body with back spikes and collar fins; 6 swirling wind gem; 7 two huge dragonfly wings; 8 two legs; 9 tail with dragonfly tip; 10 two hip streamers;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with face: a slim teal-jade dragon head with the same outline: a pointed teal crest-ear, a pale mint swirl mark on the forehead, cream lower jaw, a small teal cheek frill, a narrowed deep navy-blue eye exactly where the old eye is (one small catchlight dot), brows angled down hard, a confident grin with a small fang; no orange petal markings, no leaf-green.\n2 two feathery antennae: two feathery antennae like a moth's, rising from the same spots and leaning the same way as the antlers: a thin teal shaft with soft pale mint feather barbs on both sides, about as long as the old antlers; no brown, no antlers, no tines.\n3 ear fins and head crest: swept-back fins: the mane becomes a crest of three pointed teal fin spikes with pale mint webbing swept back to the viewer-left; the ear behind the head becomes a darker teal pointed fin ear; the small back piece a short dark teal fin; no leaf shapes, no spots.\n4 white wind ring: a ring of white wind floating at the same place and tilt: a thin white swirling band made of two curling wind streaks with small curled ends, ink outline and a few pale blue-grey swirl lines; flat white, no glow, no cyan.\n5 body with back spikes and collar fins: a slim teal-jade S-curved body with a warm cream belly marked by soft segment lines and a row of small white back spikes along its back edge (the viewer-left edge); the two collar pieces become two pale mint wind-streamer fins with dark teal swirls, same shapes and places; no leaf-green, no yellow.\n6 swirling wind gem: a round wind gem, same size and place: white and pale blue with a darker blue spiral swirl inside, flat colours; no flame, no orange, no glass shine, no glow.\n7 two huge dragonfly wings: the first stage's dragonfly wings grown huge: each wing-arm becomes a slim teal leading edge (the wing's front rib), and each panel becomes one long dragonfly wing blade, flat pale mint with a fine dark teal vein network and a bold dark teal rim around the blade, same place, size and direction as the panel; no yellow, no zig-zag bands, no feathers, no bat-wing membrane.\n8 two legs: two short teal-jade legs with cream soles and small cream claws, same pieces, bends and directions: thigh at the hip end, claws at the far right end; no leaf-green, no brown.\n9 tail with dragonfly tip: a slim teal-jade tail with a cream underside, same curl; the tip becomes the end of a dragonfly's abdomen: three short teal segments with dark teal rings ending in two small pointed pale mint claspers, same place and size as the old tip; no leaf shape, no diamond.\n10 two hip streamers: two long thin teal fin streamers with pale mint edges, same place, length and curve, like trailing wind ribbons; no leaf-green.\n\nATTITUDE: a proud, fierce dragon in full battle stance: brows angled down hard, narrowed eyes, a sharp confident grin with a fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: a teal-jade (blue-green) body, head, fins, legs and tail, a warm cream belly, jaw and soles, pale mint dragonfly wing blades with a fine dark teal vein network, pale mint feathery antennae on teal shafts, a white wind ring, a white-and-pale-blue wind gem with a blue spiral, deep navy-blue eyes, white back spikes, a dark teal rim on every wing blade. Few colours.\n\nAVOID: a banana-green or leaf-green body, brown antlers, a glowing cyan halo, an orange flame or fire ball, a glass bubble, yellow or olive wings, bat-wing membranes, a leaf-shaped or diamond tail tip, orange petal markings around the eye, red eyes, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu có mặt",
+   "head with face",
+   "giu",
+   32,
+   "a light-green dragon head facing the viewer-right with a long pointed snout, a tall pointed crest-ear at the back and a cyan swirl mark on the forehead, a cream lower jaw with a red mouth, a small green cheek frill, a narrow angry red eye ringed by orange-yellow petal markings",
+   "đầu có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a light-green dragon head facing the viewer-right with a long pointed snout, a tall pointed crest-ear at the back and a cyan swirl mark on the forehead, a cream lower jaw with a red mouth, a small green cheek frill, a narrow angry red eye ringed by orange-yellow petal markings. Redraw THESE pieces as the head with face of image 2 (the approved concept): a slim teal-jade dragon head with the same outline: a pointed teal crest-ear, a pale mint swirl mark on the forehead, cream lower jaw, a small teal cheek frill, a narrowed deep navy-blue eye exactly where the old eye is (one small catchlight dot), brows angled down hard, a confident grin with a small fang; no orange petal markings, no leaf-green. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "hai râu lông vũ",
+   "two feathery antennae",
+   "doi",
+   25,
+   "two tall brown deer antlers with sharp tines growing up from the top of the head, one on the viewer-left (crossed by the halo) and one on the viewer-right",
+   "hai râu lông vũ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai râu lông vũ;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two tall brown deer antlers with sharp tines growing up from the top of the head, one on the viewer-left (crossed by the halo) and one on the viewer-right. Redraw THESE pieces as the two feathery antennae of image 2 (the approved concept): two feathery antennae like a moth's, rising from the same spots and leaning the same way as the antlers: a thin teal shaft with soft pale mint feather barbs on both sides, about as long as the old antlers; no brown, no antlers, no tines. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each antenna, on top of the head"
+  ],
+  [
+   "N03",
+   "vây tai và mào đầu",
+   "ear fins and head crest",
+   "doi",
+   26,
+   "a dark green leafy mane with light spots on the viewer-left side of the head, a dark green ear behind the head on the viewer-right, and a small dark green piece at the back of the head",
+   "vây tai và mào đầu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vây tai và mào đầu;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a dark green leafy mane with light spots on the viewer-left side of the head, a dark green ear behind the head on the viewer-right, and a small dark green piece at the back of the head. Redraw THESE pieces as the ear fins and head crest of image 2 (the approved concept): swept-back fins: the mane becomes a crest of three pointed teal fin spikes with pale mint webbing swept back to the viewer-left; the ear behind the head becomes a darker teal pointed fin ear; the small back piece a short dark teal fin; no leaf shapes, no spots. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "where each fin meets the head"
+  ],
+  [
+   "N04",
+   "vòng gió trắng",
+   "white wind ring",
+   "doi",
+   28,
+   "a thin jagged glowing cyan halo streak crossing above the head, in two pieces (front and back)",
+   "vòng gió trắng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vòng gió trắng;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a thin jagged glowing cyan halo streak crossing above the head, in two pieces (front and back). Redraw THESE pieces as the white wind ring of image 2 (the approved concept): a ring of white wind floating at the same place and tilt: a thin white swirling band made of two curling wind streaks with small curled ends, ink outline and a few pale blue-grey swirl lines; flat white, no glow, no cyan. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the ring floats tilted above the head, where the old halo is"
+  ],
+  [
+   "N05",
+   "thân gai lưng và vây cổ",
+   "body with back spikes and collar fins",
+   "giu",
+   12,
+   "a long S-curved dark green body with a cream belly running down its front, and two yellow-green leaf-shaped collar pieces with swirls standing up at both sides of the neck",
+   "thân gai lưng và vây cổ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân gai lưng và vây cổ;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a long S-curved dark green body with a cream belly running down its front, and two yellow-green leaf-shaped collar pieces with swirls standing up at both sides of the neck. Redraw THESE pieces as the body with back spikes and collar fins of image 2 (the approved concept): a slim teal-jade S-curved body with a warm cream belly marked by soft segment lines and a row of small white back spikes along its back edge (the viewer-left edge); the two collar pieces become two pale mint wind-streamer fins with dark teal swirls, same shapes and places; no leaf-green, no yellow. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "ngọc gió xoáy",
+   "swirling wind gem",
+   "doi",
+   43,
+   "a round glass bubble in front of the belly with an orange-yellow flame and a green bud inside",
+   "ngọc gió xoáy cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: ngọc gió xoáy;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a round glass bubble in front of the belly with an orange-yellow flame and a green bud inside. Redraw THESE pieces as the swirling wind gem of image 2 (the approved concept): a round wind gem, same size and place: white and pale blue with a darker blue spiral swirl inside, flat colours; no flame, no orange, no glass shine, no glow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "top of the gem, on the chest"
+  ],
+  [
+   "N07",
+   "hai cánh chuồn chuồn rất to",
+   "two huge dragonfly wings",
+   "doi",
+   7,
+   "two huge bat-like wings: on the viewer-left, a dark green wing-arm (14) reaching up-left from the shoulder with four panels (39 and 40 huge yellow-green crescents with zig-zag bands, 15 and 16 smaller olive panels); on the viewer-right, a dark green wing-arm (8) going right behind the neck with four olive panels (12 long and thin at the outer edge, 9, 10, 11)",
+   "hai cánh chuồn chuồn rất to cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai cánh chuồn chuồn rất to;\n- không vẽ phần khác.",
+   "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): two huge bat-like wings: on the viewer-left, a dark green wing-arm (14) reaching up-left from the shoulder with four panels (39 and 40 huge yellow-green crescents with zig-zag bands, 15 and 16 smaller olive panels); on the viewer-right, a dark green wing-arm (8) going right behind the neck with four olive panels (12 long and thin at the outer edge, 9, 10, 11). Redraw THESE pieces as the two huge dragonfly wings of image 2 (the approved concept): the first stage's dragonfly wings grown huge: each wing-arm becomes a slim teal leading edge (the wing's front rib), and each panel becomes one long dragonfly wing blade, flat pale mint with a fine dark teal vein network and a bold dark teal rim around the blade, same place, size and direction as the panel; no yellow, no zig-zag bands, no feathers, no bat-wing membrane. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "root of each wing at the shoulder (the inner end of each dark wing-arm)"
+  ],
+  [
+   "N08",
+   "hai chân",
+   "two legs",
+   "giu",
+   14,
+   "two short legs reaching forward to the viewer-right: the near leg (33 a green thigh; 34 the lower leg with a cream sole going right; 37, 36, 35 three brown-and-yellow claws at its right end) and the far leg (3 a round dark thigh; 4 the lower leg going right; 6 and 5 two claws at its tip)",
+   "hai chân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai chân;\n- không vẽ phần khác.",
+   "Image 1 is 9 pieces of a 2D cut-out animation puppet (the old design): two short legs reaching forward to the viewer-right: the near leg (33 a green thigh; 34 the lower leg with a cream sole going right; 37, 36, 35 three brown-and-yellow claws at its right end) and the far leg (3 a round dark thigh; 4 the lower leg going right; 6 and 5 two claws at its tip). Redraw THESE pieces as the two legs of image 2 (the approved concept): two short teal-jade legs with cream soles and small cream claws, same pieces, bends and directions: thigh at the hip end, claws at the far right end; no leaf-green, no brown. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N09",
+   "đuôi chóp chuồn chuồn",
+   "tail with dragonfly tip",
+   "doi",
+   14,
+   "a long dark green tail with a cream underside curling down from the hips and around to the viewer-right, ending in a big green leaf-shaped tip with a cyan diamond (32)",
+   "đuôi chóp chuồn chuồn cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi chóp chuồn chuồn;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a long dark green tail with a cream underside curling down from the hips and around to the viewer-right, ending in a big green leaf-shaped tip with a cyan diamond (32). Redraw THESE pieces as the tail with dragonfly tip of image 2 (the approved concept): a slim teal-jade tail with a cream underside, same curl; the tip becomes the end of a dragonfly's abdomen: three short teal segments with dark teal rings ending in two small pointed pale mint claspers, same place and size as the old tip; no leaf shape, no diamond. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of the tail at the hips"
+  ],
+  [
+   "N10",
+   "hai dải vây hông",
+   "two hip streamers",
+   "doi",
+   17,
+   "two long thin green leaf-like streamers hanging down from the hips: one under the viewer-left wing (17), one under the belly (2)",
+   "hai dải vây hông cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai dải vây hông;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two long thin green leaf-like streamers hanging down from the hips: one under the viewer-left wing (17), one under the belly (2). Redraw THESE pieces as the two hip streamers of image 2 (the approved concept): two long thin teal fin streamers with pale mint edges, same place, length and curve, like trailing wind ribbons; no leaf-green. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "top end of each streamer, at the hips"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 18,
+  "head": 25,
+  "swing": [
+   7,
+   4
+  ],
+  "wob": [
+   39,
+   12,
+   20,
+   23,
+   32,
+   17,
+   2
+  ],
+  "fly": [],
+  "cast": [
+   41,
+   0.5,
+   0.5
+  ],
+  "parent": {
+   "20": 25,
+   "23": 25,
+   "26": 25,
+   "22": 25,
+   "21": 25,
+   "30": 25,
+   "19": 25,
+   "39": 14,
+   "40": 14,
+   "15": 14,
+   "16": 14,
+   "12": 8,
+   "9": 8,
+   "10": 8,
+   "11": 8,
+   "34": 33,
+   "37": 34,
+   "36": 34,
+   "35": 34,
+   "4": 3,
+   "6": 4,
+   "5": 4,
+   "32": 7
+  }
+ },
+ "prev": [
+  [
+   "gio_loc_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

@@ -1,0 +1,172 @@
+{
+ "code": "de_hoa_3",
+ "elem": "moc",
+ "aola": 868,
+ "hero": "Dê Hoa",
+ "form": 3,
+ "forms": 3,
+ "form_name": "Dê Sừng Chiến",
+ "role_vi": "tướng hệ Mộc (ải 10 đảo Mộc, dạng 3/3), rig aola #868",
+ "design_vi": "dê núi thon đứng nghiêng: lông kem, mặt nâu hạt dẻ mõm kem, bờm lá ô liu và vàng chanh dọc cổ và lưng, sừng cành gỗ nâu sẫm phân nhánh như gạc có chồi lá non, vòng cúc vàng trên đầu, giáp ngực vỏ cây chạm lá thay giáp vàng, móng nâu sẫm, mắt hổ phách",
+ "rig_vi": "con gốc #868 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu có mặt, 2 thân và cổ, 3 bờm lá cổ và lưng, 4 giáp ngực vỏ cây, 5 sừng cành phân nhánh, 6 vòng cúc, 7 đuôi, 8 bốn chân thon, 9 bốn móng",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a slim MOUNTAIN GOAT warrior with branching twig antlers, a leaf mane and a bark chest guard, the THIRD stage of a three-stage Wood evolution line whose first stage is image 6 (the round goat kid), in the same view and pose as image 1, standing tall on four slim legs, body turned to the viewer-right, head raised, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with face; 2 slim body and neck; 3 leaf mane on the neck and back; 4 bark chest guard; 5 branching twig antlers; 6 daisy ring; 7 tail; 8 four slim legs; 9 four hooves;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with face: a slim goat head: chestnut-brown face with a pale cream muzzle tip and chin, a small olive leaf forelock on top where the old green hair starts, one honey-amber eye (one catchlight dot) exactly where the old eye is, brow angled down, mouth in a confident half-smile.\n2 slim body and neck: a slim mountain-goat body with the same outline: warm cream fur; the green tops of the torso, neck and haunch become olive-green and lime-yellow leaves (part of the leaf mane); the front of the neck and the chest cream.\n3 leaf mane on the neck and back: a mane of olive-green and lime-yellow leaves (each leaf one flat colour) in the same places and pointing the same way; no peach, no gradients.\n4 bark chest guard: a chest guard of grey-brown tree bark with a leaf carved on it (the carved leaf olive green), hung by two bark straps in the same places, about the same size; no gold, no metal.\n5 branching twig antlers: branching wooden twig antlers like a deer's: each horn becomes a dark-brown branch sweeping back and up with forked tines and small fresh light-green leaf buds, and the two sprouts become two extra thin dark-brown twig tines with a leaf bud at the tip, rising from the top of the head; no curls, no gold ring.\n6 daisy ring: a ring of yellow daisies with orange-brown centres and a few olive leaves, sitting on top of the head between the antlers in the same place; no pink.\n7 tail: a short tufted goat tail of cream wool with an olive leaf at the tip, pointing back to the viewer-left the same way.\n8 four slim legs: four slim goat legs with the same outline, warm cream fur; no leaves.\n9 four hooves: four small dark-brown split goat hooves at the bottom of the legs, in the same places; no leaves.\n\nATTITUDE: a proud goat warrior ready to charge: brow angled down, a calm confident half-smile; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: warm cream fur, a chestnut-brown face with a pale cream muzzle, a mane of olive-green and lime-yellow leaves, dark-brown wooden twig antlers with small fresh light-green leaf buds, a ring of yellow daisies with orange-brown centres, a grey-brown tree-bark chest guard with a carved olive leaf, dark-brown hooves, honey-amber eyes. Few colours.\n\nAVOID: green or bush-like wool, round curled light-tan ram horns, roses, lilies, pink or pastel-pink flowers, curly yellow-green stamens or antennae, gold armour or gold rings, an all-white or all-cream face, peach-tinted leaves, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu có mặt",
+   "head with face",
+   "giu",
+   26,
+   "a slim goat head turned to the viewer-right: green hair over the top and forehead running down the nose bridge, a cream cheek and jaw, the muzzle pointing down-right, one pink-red eye",
+   "đầu có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a slim goat head turned to the viewer-right: green hair over the top and forehead running down the nose bridge, a cream cheek and jaw, the muzzle pointing down-right, one pink-red eye. Redraw THESE pieces as the head with face of image 2 (the approved concept): a slim goat head: chestnut-brown face with a pale cream muzzle tip and chin, a small olive leaf forelock on top where the old green hair starts, one honey-amber eye (one catchlight dot) exactly where the old eye is, brow angled down, mouth in a confident half-smile. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "thân và cổ",
+   "slim body and neck",
+   "giu",
+   12,
+   "the slim goat body: a cream torso with a green leafy top, a long neck rising to the head (green on its back edge, white at the front) and a round haunch at the back with a green top",
+   "thân và cổ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và cổ;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): the slim goat body: a cream torso with a green leafy top, a long neck rising to the head (green on its back edge, white at the front) and a round haunch at the back with a green top. Redraw THESE pieces as the slim body and neck of image 2 (the approved concept): a slim mountain-goat body with the same outline: warm cream fur; the green tops of the torso, neck and haunch become olive-green and lime-yellow leaves (part of the leaf mane); the front of the neck and the chest cream. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N03",
+   "bờm lá cổ và lưng",
+   "leaf mane on the neck and back",
+   "doi",
+   10,
+   "green leaf tufts tipped with peach and yellow: a big leaf crest along the top of the neck behind the head, one leaf hanging at the front of the neck on the viewer-right, and four leafy pieces lying on the back and the haunch",
+   "bờm lá cổ và lưng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: bờm lá cổ và lưng;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): green leaf tufts tipped with peach and yellow: a big leaf crest along the top of the neck behind the head, one leaf hanging at the front of the neck on the viewer-right, and four leafy pieces lying on the back and the haunch. Redraw THESE pieces as the leaf mane on the neck and back of image 2 (the approved concept): a mane of olive-green and lime-yellow leaves (each leaf one flat colour) in the same places and pointing the same way; no peach, no gradients. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "inner edge of each leaf tuft, where it lies on the neck or the back"
+  ],
+  [
+   "N04",
+   "giáp ngực vỏ cây",
+   "bark chest guard",
+   "doi",
+   20,
+   "a big gold chest armour plate with a swirl emblem hanging in front of the chest, and two thin gold straps: one behind the neck on the viewer-left, one at the viewer-right edge of the neck",
+   "giáp ngực vỏ cây cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: giáp ngực vỏ cây;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a big gold chest armour plate with a swirl emblem hanging in front of the chest, and two thin gold straps: one behind the neck on the viewer-left, one at the viewer-right edge of the neck. Redraw THESE pieces as the bark chest guard of image 2 (the approved concept): a chest guard of grey-brown tree bark with a leaf carved on it (the carved leaf olive green), hung by two bark straps in the same places, about the same size; no gold, no metal. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "top of the chest guard and of each strap, where they hang around the neck"
+  ],
+  [
+   "N05",
+   "sừng cành phân nhánh",
+   "branching twig antlers",
+   "doi",
+   13,
+   "two big curled ram horns: the near horn in three pieces (a back piece over the top of the head, a big coil with a gold ring on the viewer-left, a hooked tip under the coil) and the far horn coiled behind the head on the viewer-right; plus two thin curly light-green sprouts rising from the top of the head",
+   "sừng cành phân nhánh cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: sừng cành phân nhánh;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): two big curled ram horns: the near horn in three pieces (a back piece over the top of the head, a big coil with a gold ring on the viewer-left, a hooked tip under the coil) and the far horn coiled behind the head on the viewer-right; plus two thin curly light-green sprouts rising from the top of the head. Redraw THESE pieces as the branching twig antlers of image 2 (the approved concept): branching wooden twig antlers like a deer's: each horn becomes a dark-brown branch sweeping back and up with forked tines and small fresh light-green leaf buds, and the two sprouts become two extra thin dark-brown twig tines with a leaf bud at the tip, rising from the top of the head; no curls, no gold ring. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each horn and each twig, where it grows from the top of the head"
+  ],
+  [
+   "N06",
+   "vòng cúc",
+   "daisy ring",
+   "doi",
+   29,
+   "a pink lily flower with a yellow-green bud in the middle, on top of the head in front of the horns",
+   "vòng cúc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vòng cúc;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a pink lily flower with a yellow-green bud in the middle, on top of the head in front of the horns. Redraw THESE pieces as the daisy ring of image 2 (the approved concept): a ring of yellow daisies with orange-brown centres and a few olive leaves, sitting on top of the head between the antlers in the same place; no pink. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "centre of the ring, where it sits on the head"
+  ],
+  [
+   "N07",
+   "đuôi",
+   "tail",
+   "doi",
+   22,
+   "a long cream tail with a green leafy base, pointing back to the viewer-left, the tip sweeping up",
+   "đuôi cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long cream tail with a green leafy base, pointing back to the viewer-left, the tip sweeping up. Redraw THESE pieces as the tail of image 2 (the approved concept): a short tufted goat tail of cream wool with an olive leaf at the tip, pointing back to the viewer-left the same way. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "viewer-right end of the tail, where it joins the haunch"
+  ],
+  [
+   "N08",
+   "bốn chân thon",
+   "four slim legs",
+   "giu",
+   12,
+   "four slim cream legs, each in two pieces (upper and lower): two near legs in front of the body (the front leg at the centre, the back leg at the far viewer-left) and two far legs behind the body; TOP end = shoulder or hip under the body, BOTTOM end = ankle where the hoof starts",
+   "bốn chân thon cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: bốn chân thon;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): four slim cream legs, each in two pieces (upper and lower): two near legs in front of the body (the front leg at the centre, the back leg at the far viewer-left) and two far legs behind the body; TOP end = shoulder or hip under the body, BOTTOM end = ankle where the hoof starts. Redraw THESE pieces as the four slim legs of image 2 (the approved concept): four slim goat legs with the same outline, warm cream fur; no leaves. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N09",
+   "bốn móng",
+   "four hooves",
+   "doi",
+   12,
+   "four green leaf-shaped hoof covers at the bottom of the legs, each sticking out sideways like a leaf",
+   "bốn móng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: bốn móng;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): four green leaf-shaped hoof covers at the bottom of the legs, each sticking out sideways like a leaf. Redraw THESE pieces as the four hooves of image 2 (the approved concept): four small dark-brown split goat hooves at the bottom of the legs, in the same places; no leaves. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "top of each hoof, where it meets the bottom of the leg"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 10,
+  "head": 13,
+  "swing": [],
+  "wob": [
+   17,
+   16,
+   15
+  ],
+  "fly": [],
+  "cast": [
+   13,
+   0.9,
+   0.88
+  ],
+  "parent": {
+   "30": 11,
+   "3": 11,
+   "35": 13,
+   "34": 13,
+   "14": 13,
+   "12": 13,
+   "16": 13,
+   "15": 13,
+   "33": 13,
+   "21": 22,
+   "23": 21,
+   "19": 20,
+   "32": 19,
+   "7": 8,
+   "9": 7,
+   "5": 4,
+   "6": 5
+  }
+ },
+ "prev": [
+  [
+   "de_hoa_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

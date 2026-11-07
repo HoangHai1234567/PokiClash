@@ -1,0 +1,94 @@
+{
+ "code": "hoa_nhuy_2",
+ "elem": "moc",
+ "aola": 594,
+ "hero": "Hoa Nhụy",
+ "form": 2,
+ "forms": 3,
+ "form_name": "Thú Búp Hoa",
+ "role_vi": "tướng hệ Mộc (ải 5 đảo Mộc, dạng 2/3), rig aola #594",
+ "design_vi": "củ cải lớn khoác áo lá: đầu tròn da đỏ thẫm mặt kem, chóp rễ nhọn bên trái; vương miện lá xanh thẫm, giữa là nụ hoa trà trắng đài xanh thẫm; áo lá xanh thẫm có cổ lá ô liu; mắt nâu sẫm",
+ "rig_vi": "con gốc #594 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu củ cải có mặt, 2 vương miện lá và nụ hoa trà, 3 thân dưới, 4 áo lá",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a RADISH SPROUT in a leaf coat with a white camellia bud on its head, the SECOND stage of a three-stage Wood evolution line whose first stage is image 6: a round crimson radish pup, in the same view and pose as image 1, standing squat, the hem of its leaf coat touching the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 radish head with face; 2 leaf crown with a camellia bud; 3 lower body; 4 leaf coat;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 radish head with face: a round radish head: deep crimson-red skin on the top, the back and the pointed tip on the viewer-left (a short radish root tip), a warm cream face patch in front; two big dark-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a confident grin with a small fang where the old mouth is; no cheek marks.\n2 leaf crown with a camellia bud: a crown of dark forest-green leaves with olive midribs on top of the head, the front ones hanging over the forehead like the old ones, and in the middle a closed white camellia bud (rounded layered white petals with thin warm-grey lines, a dark-green calyx at its base); no pink.\n3 lower body: the rounded bottom of the radish body: warm cream belly in front, deep crimson red at the sides.\n4 leaf coat: a leaf coat: the three bottom leaves are its skirt, dark forest green with olive midribs; the four collar pieces are small rounded olive-green leaf tips with dark-green edges forming the collar; no yellow beads.\n\nATTITUDE: a stubborn little radish guarding its bud: brows angled down, a confident grin with a small fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: deep crimson-red radish skin, a warm cream face-and-belly patch, dark forest-green leaves with olive midribs, big dark-brown eyes, a white camellia bud with a dark-green calyx. Few colours.\n\nAVOID: pale washed-out green, a pale green or whitish body, pink flowers or petals, purple bells, a human face or human hair, glowing dots, sparkles, a pink lotus bud, a collar of yellow beads, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu củ cải có mặt",
+   "radish head with face",
+   "giu",
+   10,
+   "a big bulb-shaped head: a pale cream-green face in front, and behind it a darker olive layer of the same bulb whose pointed tip sticks out on the viewer-left; two big crimson eyes, two pink cheek marks and a small smile",
+   "đầu củ cải có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu củ cải có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a big bulb-shaped head: a pale cream-green face in front, and behind it a darker olive layer of the same bulb whose pointed tip sticks out on the viewer-left; two big crimson eyes, two pink cheek marks and a small smile. Redraw THESE pieces as the radish head with face of image 2 (the approved concept): a round radish head: deep crimson-red skin on the top, the back and the pointed tip on the viewer-left (a short radish root tip), a warm cream face patch in front; two big dark-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a confident grin with a small fang where the old mouth is; no cheek marks. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "vương miện lá và nụ hoa trà",
+   "leaf crown with a camellia bud",
+   "doi",
+   9,
+   "a big crown of light-green leaves on top of the head, some hanging over the forehead, with a closed pink lotus-like bud standing up in the middle",
+   "vương miện lá và nụ hoa trà cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vương miện lá và nụ hoa trà;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big crown of light-green leaves on top of the head, some hanging over the forehead, with a closed pink lotus-like bud standing up in the middle. Redraw THESE pieces as the leaf crown with a camellia bud of image 2 (the approved concept): a crown of dark forest-green leaves with olive midribs on top of the head, the front ones hanging over the forehead like the old ones, and in the middle a closed white camellia bud (rounded layered white petals with thin warm-grey lines, a dark-green calyx at its base); no pink. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom centre of the crown (where it sits on top of the head)"
+  ],
+  [
+   "N03",
+   "thân dưới",
+   "lower body",
+   "giu",
+   18,
+   "the rounded tan bottom of the body under the head, mostly hidden behind the leaf skirt",
+   "thân dưới cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân dưới;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): the rounded tan bottom of the body under the head, mostly hidden behind the leaf skirt. Redraw THESE pieces as the lower body of image 2 (the approved concept): the rounded bottom of the radish body: warm cream belly in front, deep crimson red at the sides. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "áo lá",
+   "leaf coat",
+   "giu",
+   11,
+   "a short coat of leaves: three big green leaves around the bottom of the body (one in front pointing down, one on each side), and a collar of four small yellow rounded pieces around the neck",
+   "áo lá cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: áo lá;\n- không vẽ phần khác.",
+   "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): a short coat of leaves: three big green leaves around the bottom of the body (one in front pointing down, one on each side), and a collar of four small yellow rounded pieces around the neck. Redraw THESE pieces as the leaf coat of image 2 (the approved concept): a leaf coat: the three bottom leaves are its skirt, dark forest green with olive midribs; the four collar pieces are small rounded olive-green leaf tips with dark-green edges forming the collar; no yellow beads. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 2,
+  "head": 4,
+  "swing": [],
+  "wob": [
+   15
+  ],
+  "fly": [],
+  "cast": [
+   4,
+   0.55,
+   0.79
+  ],
+  "parent": {
+   "15": 4
+  }
+ },
+ "prev": [
+  [
+   "hoa_nhuy_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

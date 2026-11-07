@@ -15,6 +15,7 @@ namespace PokiClash.Game
         public Rect[] uvs;        // chỗ mỗi hình trong atlas (UV)
         public int shadow = -1;   // hình bóng dưới chân (điểm khớp giữa các clip), -1 nếu không có
         public string source;     // dấu bản nguồn (thời điểm sửa anim.json, hình, chân dung): nhập lại khi đổi
+        public int brief;         // luật thu hình ít khung đã áp vào atlas (AolaImport.BriefRule); 0: chưa, xếp lại atlas sẽ thu
 
         public Texture2D LoadAtlas() => string.IsNullOrEmpty(res) ? null : Resources.Load<Texture2D>(res + "_atlas");
 

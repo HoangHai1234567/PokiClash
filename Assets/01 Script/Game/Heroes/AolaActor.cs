@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
+using System.Threading.Tasks;
 using PokiClash.Core;
 using PokiClash.UI;
 using UnityEngine;
@@ -28,6 +29,9 @@ namespace PokiClash.Game
             public bool farReady, hasFar;                   // FarOf đã tính; clip có hiệu ứng vẽ ở xa (chỗ đối thủ của bản gốc)
             public Vector2 farCenter;                       // tâm vùng hiệu ứng ở xa (điểm clip so với Anchor, y xuống)
             public Vector2? farAt;                          // anim.json "far_center": tâm vùng xa khai sẵn (điểm clip, y xuống)
+            public int? hitAt;                              // anim.json "hit": khung trúng khai sẵn (đòn xa thân bay nhảy nhiều, anim_thuy.py)
+            public bool stay;                               // anim.json "stay": clip đứng tại chỗ, không kéo lao tới đối thủ dù thân dời xa
+            public float? farRamp;                          // anim.json "far_ramp": x (điểm clip) hình ở xa được kéo trọn về đối thủ; mặc định tâm vùng xa
         }
 
         // Hiệu ứng ở xa (người dùng 2026-11-03: Tiểu Y thiếu animation so với bản gốc): đòn bắn từ xa của aola vẽ đạn bay và vụ nổ
@@ -54,6 +58,12 @@ namespace PokiClash.Game
         public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Cast = "1_5", Skill = "1_6";
 
         static readonly Dictionary<AolaAnim, Data> Cache = new();
+        // đọc trước (Prewarm): animation đang đọc ở luồng phụ và atlas đang nạp không chặn; chỉ luồng chính đụng các bảng này.
+        // Giữ tối đa WarmMax dạng chưa dùng tới (mở nhiều hộp chi tiết mà không tiến hóa thì dạng cũ nhất bị bỏ, khỏi phình bộ nhớ).
+        const int WarmMax = 6;
+        static readonly Dictionary<AolaAnim, Task<Data>> Pending = new();
+        static readonly Dictionary<AolaAnim, ResourceRequest> AtlasWarm = new();
+        static readonly List<AolaAnim> WarmOrder = new();
         static readonly Dictionary<string, Clip> NoClips = new();
         static readonly Vector2[] Quad = new Vector2[4];
         static Material material, additive;
@@ -87,6 +97,8 @@ namespace PokiClash.Game
             }
         }
         public bool HasAnim => clips.Count > 0;
+        // tăng mỗi lần hình trên màn đổi (khung khác, đổi chỗ hình xa, bật tắt bóng): sticker chỉ cho camera chụp lại khi số này đổi
+        public int Version { get; private set; }
         public float Duration(string clip) => clips.TryGetValue(clip, out var c) ? c.Frames.Count / fps : 0.3f;
 
         // Dùng khi nhập (Editor).
@@ -114,6 +126,7 @@ namespace PokiClash.Game
             flip = flipX;
             sortBase = sorting;
             var tex = a ? a.LoadAtlas() : null;
+            if (a && AtlasWarm.Remove(a)) WarmOrder.Remove(a); // atlas nạp trước đã vào tay diễn viên
             var d = tex ? Parse(a) : null;
             if (d == null) return false;
             anim = a;
@@ -134,10 +147,75 @@ namespace PokiClash.Game
         static Data Parse(AolaAnim a)
         {
             if (Cache.TryGetValue(a, out var d) && d.source == a.source) return d;
+            if (Pending.TryGetValue(a, out var task))
+            {
+                // đã đọc trước ở luồng phụ (Prewarm): xong thì lấy ngay, chưa xong thì chờ nốt phần còn lại
+                Pending.Remove(a);
+                if (!AtlasWarm.ContainsKey(a)) WarmOrder.Remove(a);
+                try { d = task.Result; }
+                catch (Exception) { d = null; }
+            }
+            else d = Read(a, a.anim ? a.anim.bytes : null, a.name);
+            if (d != null) Cache[a] = d;
+            return d;
+        }
+
+        static AolaAnim FormAsset(string form) =>
+            Find(form, out var p, out int i) && i >= 0 && i < p.forms.Length && p.forms[i] ? p.forms[i] : null;
+
+        static bool Parsed(AolaAnim a) => Cache.TryGetValue(a, out var d) && d.source == a.source;
+
+        // Đọc trước dạng sắp hiện: giải nén và đọc anim.json ở luồng phụ (vài trăm KB, trên luồng chính mất cỡ trăm ms ở điện
+        // thoại), nạp atlas không chặn. Hộp chi tiết gọi cho dạng của sao kế tiếp (bấm Tiến hóa không khựng), hộp chọn đội cho tướng
+        // vừa chọn. Đã đọc hoặc chưa nhập: bỏ qua.
+        public static void Prewarm(string form)
+        {
+            var a = FormAsset(form);
+            if (!a || !a.anim || Parsed(a) || Pending.ContainsKey(a)) return;
+            var bytes = a.anim.bytes;
+            string name = a.name;
+            Pending[a] = Task.Run(() => Read(a, bytes, name));
+            // giữ yêu cầu nạp để atlas không bị gỡ trước khi dùng; Resources.Load sau đó lấy ngay (chưa xong thì chờ nốt)
+            if (!string.IsNullOrEmpty(a.res) && !AtlasWarm.ContainsKey(a)) AtlasWarm[a] = Resources.LoadAsync<Texture2D>(a.res + "_atlas");
+            WarmOrder.Remove(a);
+            WarmOrder.Add(a);
+            while (WarmOrder.Count > WarmMax)
+            {
+                var old = WarmOrder[0];
+                WarmOrder.RemoveAt(0);
+                Pending.Remove(old);
+                AtlasWarm.Remove(old);
+            }
+        }
+
+        // Dạng đã sẵn để dựng sticker không phải đọc file trên luồng chính (animation đã đọc, atlas nạp xong); chưa thì bắt đầu đọc
+        // trước (Prewarm) và trả false: nơi gọi hiện chân dung tĩnh, hỏi lại mỗi khung. Dạng chưa nhập: true (TryCreate trả null ngay).
+        public static bool Ready(string form)
+        {
+            var a = FormAsset(form);
+            if (!a || !a.anim) return true;
+            if (!Parsed(a))
+            {
+                if (!Pending.TryGetValue(a, out var task))
+                {
+                    Prewarm(form);
+                    if (!Pending.TryGetValue(a, out task)) return true;
+                }
+                if (!task.IsCompleted) return false;
+            }
+            return !AtlasWarm.TryGetValue(a, out var req) || req.isDone;
+        }
+
+        // anim.json (gzip) → Data. Chạy được ở luồng phụ: chỉ đọc trường của AolaAnim, không gọi API Unity, không dùng mảng Quad chung.
+        static Data Read(AolaAnim a, byte[] bytes, string name)
+        {
+            if (bytes == null) return null;
+            var quad = new Vector2[4];
+            Data d;
             try
             {
                 string text;
-                using (var z = new GZipStream(new MemoryStream(a.anim.bytes), CompressionMode.Decompress))
+                using (var z = new GZipStream(new MemoryStream(bytes), CompressionMode.Decompress))
                 using (var sr = new StreamReader(z)) text = sr.ReadToEnd();
                 var root = (Dictionary<string, object>)MiniJson.Parse(text);
                 d = new Data { source = a.source, fps = Convert.ToSingle(root["fps"]) };
@@ -178,6 +256,17 @@ namespace PokiClash.Game
                             fc.farAt = new Vector2(Convert.ToSingle(fp[0]), Convert.ToSingle(fp[1]));
                 if (root.TryGetValue("lunge", out var lv) && lv is List<object> ls)
                     foreach (var n in ls) d.lunge.Add(Convert.ToString(n));
+                // đòn xa viết lại của đảo Thủy (tools/anim_thuy.py, 2026-11-07): thân bay lên, lộn, dậm mà vẫn là đòn đứng tại chỗ
+                if (root.TryGetValue("hit", out var hv) && hv is Dictionary<string, object> hits)
+                    foreach (var kv in hits)
+                        if (d.clips.TryGetValue(kv.Key, out var hc)) hc.hitAt = Convert.ToInt32(kv.Value);
+                if (root.TryGetValue("stay", out var sv) && sv is List<object> stays)
+                    foreach (var n in stays)
+                        if (d.clips.TryGetValue(Convert.ToString(n), out var sc)) sc.stay = true;
+                // hình bên trái tâm vùng xa (giữa con bắn và đối thủ) cũng được kéo trọn từ điểm này: hiệu ứng bao quanh đối thủ không méo
+                if (root.TryGetValue("far_ramp", out var rv) && rv is Dictionary<string, object> ramps)
+                    foreach (var kv in ramps)
+                        if (d.clips.TryGetValue(kv.Key, out var rc)) rc.farRamp = Convert.ToSingle(kv.Value);
                 if (root.TryGetValue("cast", out var cv) && cv is Dictionary<string, object> cast &&
                     cast.TryGetValue("muzzle", out var mv) && mv is List<object> mz && mz.Count >= 2)
                 {
@@ -188,20 +277,19 @@ namespace PokiClash.Game
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Aola] Không đọc được animation {a.name}: {e.Message}");
+                Debug.LogWarning($"[Aola] Không đọc được animation {name}: {e.Message}");
                 return null;
             }
             if (!d.clips.TryGetValue(Idle, out var idle) || idle.Frames.Count == 0) return null;
-            foreach (var clip in d.clips.Values) clip.Anchor = AnchorOf(a, clip);
+            foreach (var clip in d.clips.Values) clip.Anchor = AnchorOf(a, clip, quad);
             d.top = float.MaxValue;
             foreach (var p in idle.Frames[0])
-                if (Corners(a, p))
-                    foreach (var q in Quad) d.top = Mathf.Min(d.top, q.y);
-            Cache[a] = d;
+                if (Corners(a, p, quad))
+                    foreach (var q in quad) d.top = Mathf.Min(d.top, q.y);
             return d;
         }
 
-        static Vector2 AnchorOf(AolaAnim a, Clip clip)
+        static Vector2 AnchorOf(AolaAnim a, Clip clip, Vector2[] quad)
         {
             var frame = clip.Frames.Count > 0 ? clip.Frames[0] : new float[0][];
             if (a.shadow >= 0 && a.shadow < a.sizes.Length)
@@ -214,25 +302,28 @@ namespace PokiClash.Game
             // không có bóng: lấy giữa đáy của khung đầu
             float minX = float.MaxValue, maxX = float.MinValue, maxY = float.MinValue;
             foreach (var p in frame)
-                if (Corners(a, p))
-                    foreach (var q in Quad) { minX = Mathf.Min(minX, q.x); maxX = Mathf.Max(maxX, q.x); maxY = Mathf.Max(maxY, q.y); }
+                if (Corners(a, p, quad))
+                    foreach (var q in quad) { minX = Mathf.Min(minX, q.x); maxX = Mathf.Max(maxX, q.x); maxY = Mathf.Max(maxY, q.y); }
             return maxY > float.MinValue ? new Vector2((minX + maxX) / 2, maxY) : Vector2.zero;
         }
 
         // ma trận Flash: x' = a x + c y + tx, y' = b x + d y + ty (điểm ảnh, y hướng xuống)
         static Vector2 Map(float[] p, float x, float y) => new(p[1] * x + p[3] * y + p[5], p[2] * x + p[4] * y + p[6]);
 
-        // 4 góc hình (trên trái, trên phải, dưới phải, dưới trái) theo cỡ gốc, ghi vào Quad; hình rỗng: false
-        static bool Corners(AolaAnim a, float[] p)
+        // 4 góc hình (trên trái, trên phải, dưới phải, dưới trái) theo cỡ gốc, ghi vào Quad (luồng chính); hình rỗng: false
+        static bool Corners(AolaAnim a, float[] p) => Corners(a, p, Quad);
+
+        // như trên, ghi vào mảng q riêng (đọc ở luồng phụ không được đụng Quad chung)
+        static bool Corners(AolaAnim a, float[] p, Vector2[] q)
         {
             int s = (int)p[0];
             if (s < 0 || s >= a.sizes.Length) return false;
             var z = a.sizes[s];
             if (z.x <= 0 || z.y <= 0) return false;
-            Quad[0] = Map(p, 0, 0);
-            Quad[1] = Map(p, z.x, 0);
-            Quad[2] = Map(p, z.x, z.y);
-            Quad[3] = Map(p, 0, z.y);
+            q[0] = Map(p, 0, 0);
+            q[1] = Map(p, z.x, 0);
+            q[2] = Map(p, z.x, z.y);
+            q[3] = Map(p, 0, z.y);
             return true;
         }
 
@@ -362,13 +453,15 @@ namespace PokiClash.Game
                 }
             }
             m.peak = bi;
-            m.hit = best > 60 ? bi : Mathf.FloorToInt(n * (name == Skill ? 0.55f : 0.6f));
+            m.hit = c.hitAt.HasValue ? Mathf.Clamp(c.hitAt.Value, 0, n - 1)
+                : best > 60 ? bi : Mathf.FloorToInt(n * (name == Skill ? 0.55f : 0.6f));
             motion[name] = m;
             return m;
         }
 
         // clip có cú lao kéo tới đối thủ (AolaSticker.Lunge): đòn đánh luôn có; clip khác khi anim.json khai "lunge"
-        public bool Lunges(string clip) => clip == Attack || data != null && data.lunge.Contains(clip);
+        public bool Lunges(string clip) =>
+            !(clips.TryGetValue(clip, out var c) && c.stay) && (clip == Attack || data != null && data.lunge.Contains(clip));
 
         // chiêu mana phát clip CHIÊU riêng thay vì bắn tia (số ít boss làm riêng, anim.json "mana": "clip")
         public bool ManaUsesClip => data != null && data.manaClip;
@@ -479,6 +572,7 @@ namespace PokiClash.Game
             int f = Mathf.Min((int)(time * fps), clip.Frames.Count - 1);
             if (f == shown) return;
             shown = f;
+            Version++;
             var pics = clip.Frames[f];
             while (pool.Count < pics.Length) pool.Add(NewQuad());
             bool far = farTarget.HasValue && FarOf(clip).hasFar;
@@ -493,9 +587,10 @@ namespace PokiClash.Game
                 if (far && data.idleSprites != null && !data.idleSprites.Contains((int)p[0]))
                 {
                     float d = (Quad[0].x + Quad[1].x + Quad[2].x + Quad[3].x) * 0.25f - clip.Anchor.x;
-                    if (d > r0 && clip.farCenter.x > r0)
+                    float end = clip.farRamp.HasValue ? Mathf.Min(clip.farRamp.Value - clip.Anchor.x, clip.farCenter.x) : clip.farCenter.x;
+                    if (d > r0 && end > r0)
                     {
-                        float w = Mathf.Clamp01((d - r0) / (clip.farCenter.x - r0));
+                        float w = Mathf.Clamp01((d - r0) / (end - r0));
                         sh = w * (new Vector2(farTarget.Value.x * hp, -farTarget.Value.y * hp) - clip.farCenter);
                     }
                 }

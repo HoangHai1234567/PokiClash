@@ -1,0 +1,90 @@
+{
+ "code": "bom_la_1",
+ "elem": "moc",
+ "aola": 911,
+ "hero": "Bờm Lá",
+ "form": 1,
+ "forms": 2,
+ "form_name": "Bờm Lá Con",
+ "role_vi": "tướng hệ Mộc (ải 15 đảo Mộc, dạng 1/2), rig aola #911",
+ "design_vi": "sư tử con tròn: lông vàng nâu mõm kem, hai túm lá dương xỉ xanh thẫm thay tai cánh, chồi dương xỉ cuộn trên đầu thay búi lá, huy hiệu gỗ hình lá trên trán thay kim cương, ba bàn chân bọc mũ quả sồi, mắt xanh lục",
+ "rig_vi": "con gốc #911 (xem Rig_Numbered.png)",
+ "regions_vi": "1 khối đầu thân có mặt, 2 chồi dương xỉ cuộn trên đầu, 3 hai túm lá dương xỉ (tai), 4 ba bàn chân",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a round LION CUB with the beginnings of a fern mane, the first stage of a two-stage Wood evolution line, in the same view and pose as image 1, crouched low on its little paws, leaning forward, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round head-body with face; 2 curled fern sprout on the head; 3 two fern tufts (ears); 4 three small paws;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round head-body with face: a round chubby lion cub head-body: tawny golden-brown fur, a pale cream muzzle and chin, a small carved light-wood badge shaped like a leaf on the forehead where the old gem was, two big leaf-green eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a confident grin with a tiny fang; no stripes, no gem.\n2 curled fern sprout on the head: a young fern frond (fiddlehead) growing from the top of the head: a thick dark-green stalk rolling into a tight spiral, with small fern leaflets along it, about the same size and place as the old tuft.\n3 two fern tufts (ears): two tufts of dark-green fern fronds sticking out sideways like the old ears (each a bunch of three or four fern leaves with small leaflets along their edges), the same size and place; no stripes, no yellow.\n4 three small paws: three tiny stubby tawny paws, each covered over the toes by a brown scaly acorn cap like a little boot.\n\nATTITUDE: a brave little lion cub ready to pounce: brows angled down, a confident grin with a tiny fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: tawny golden-brown fur with a pale cream muzzle, dark-green fern fronds, a carved light-wood leaf-shaped badge on the forehead, brown scaly acorn caps over the paws, big leaf-green eyes. Few colours.\n\nAVOID: a green body, yellow stripes or green-and-yellow stripes, crystals, gems or diamonds, cyan or turquoise, gold armour or gold frames, thorny vines, feathery wing-shaped ears, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "khối đầu thân có mặt",
+   "round head-body with face",
+   "giu",
+   9,
+   "a big round green head-body with yellow and dark-green stripes on both sides, a cyan diamond gem in a small gold crown shape on the forehead, two big dark eyes and a tiny open mouth",
+   "khối đầu thân có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khối đầu thân có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a big round green head-body with yellow and dark-green stripes on both sides, a cyan diamond gem in a small gold crown shape on the forehead, two big dark eyes and a tiny open mouth. Redraw THESE pieces as the round head-body with face of image 2 (the approved concept): a round chubby lion cub head-body: tawny golden-brown fur, a pale cream muzzle and chin, a small carved light-wood badge shaped like a leaf on the forehead where the old gem was, two big leaf-green eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a confident grin with a tiny fang; no stripes, no gem. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "chồi dương xỉ cuộn trên đầu",
+   "curled fern sprout on the head",
+   "doi",
+   9,
+   "a big leaf-like tuft on top of the head: a large green leaf lying across the top, a darker green back part on the viewer-left and the leaf tip curling up on the viewer-right",
+   "chồi dương xỉ cuộn trên đầu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: chồi dương xỉ cuộn trên đầu;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a big leaf-like tuft on top of the head: a large green leaf lying across the top, a darker green back part on the viewer-left and the leaf tip curling up on the viewer-right. Redraw THESE pieces as the curled fern sprout on the head of image 2 (the approved concept): a young fern frond (fiddlehead) growing from the top of the head: a thick dark-green stalk rolling into a tight spiral, with small fern leaflets along it, about the same size and place as the old tuft. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom edge of the tuft, where it sits on top of the head"
+  ],
+  [
+   "N03",
+   "hai túm lá dương xỉ (tai)",
+   "two fern tufts (ears)",
+   "doi",
+   6,
+   "two wing-like ears sticking out on both sides of the head, yellow and green striped with orange-brown rims and jagged feathery edges; the viewer-left one is bigger",
+   "hai túm lá dương xỉ (tai) cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai túm lá dương xỉ (tai);\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two wing-like ears sticking out on both sides of the head, yellow and green striped with orange-brown rims and jagged feathery edges; the viewer-left one is bigger. Redraw THESE pieces as the two fern tufts (ears) of image 2 (the approved concept): two tufts of dark-green fern fronds sticking out sideways like the old ears (each a bunch of three or four fern leaves with small leaflets along their edges), the same size and place; no stripes, no yellow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "inner end of each tuft, where it joins the side of the head"
+  ],
+  [
+   "N04",
+   "ba bàn chân",
+   "three small paws",
+   "giu",
+   9,
+   "three tiny green stubby feet under the body: one at the far viewer-left, one at the bottom left of centre in front, one at the bottom viewer-right",
+   "ba bàn chân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: ba bàn chân;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three tiny green stubby feet under the body: one at the far viewer-left, one at the bottom left of centre in front, one at the bottom viewer-right. Redraw THESE pieces as the three small paws of image 2 (the approved concept): three tiny stubby tawny paws, each covered over the toes by a brown scaly acorn cap like a little boot. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 7,
+  "head": 7,
+  "swing": [],
+  "wob": [
+   9,
+   6,
+   3
+  ],
+  "fly": [],
+  "cast": [
+   7,
+   0.67,
+   0.83
+  ],
+  "parent": {
+   "2": 3,
+   "8": 3
+  }
+ }
+}

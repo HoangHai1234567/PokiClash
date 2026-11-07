@@ -1,0 +1,108 @@
+{
+ "code": "de_hoa_1",
+ "elem": "moc",
+ "aola": 866,
+ "hero": "Dê Hoa",
+ "form": 1,
+ "forms": 3,
+ "form_name": "Dê Hoa Con",
+ "role_vi": "tướng hệ Mộc (ải 10 đảo Mộc, dạng 1/3), rig aola #866",
+ "design_vi": "dê con tròn nằm bẹp: lông kem xù, mặt nâu hạt dẻ mõm kem, hai sừng cành gỗ nâu sẫm ngắn có chồi lá non, vương miện nhỏ ba bốn bông cúc vàng thay hoa hồng, ba bàn chân móng nâu sẫm, mắt hổ phách",
+ "rig_vi": "con gốc #866 (xem Rig_Numbered.png)",
+ "regions_vi": "1 mặt, 2 khối lông xù (thân), 3 hai sừng cành, 4 vương miện cúc, 5 ba bàn chân",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a round woolly GOAT KID with twig horns and a daisy crown, the first stage of a three-stage Wood evolution line, in the same view and pose as image 1, crouched low on its belly with its little hooves tucked under, head facing forward, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 face; 2 woolly fleece body; 3 two twig horns; 4 daisy crown; 5 three small feet;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 face: a wide rounded goat-kid face: chestnut brown with a small pale cream muzzle patch around the nose and mouth, two big honey-amber eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a small determined grin with a tiny fang.\n2 woolly fleece body: fluffy warm cream wool with soft scalloped curls and the same outline: the back fleece, the side tufts and the fringe on top of the face all cream wool; no green, no leaves.\n3 two twig horns: two short dark-brown wooden twig horns growing from the same places, one on each side: each a stubby crooked branch with one small fork and one or two tiny fresh light-green leaf buds, pointing outward like the old horns; no curls, no tan.\n4 daisy crown: a small crown of three or four yellow daisies with orange-brown centres and a couple of small olive leaves, sitting on top of the head in the same place, about the same size; no pink, no rose.\n5 three small feet: three small stubby feet: cream fur with dark-brown hoof tips (a small split-hoof line).\n\nATTITUDE: a stubborn little goat kid ready to head-butt: brows angled down, a small determined grin with a tiny fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: fluffy warm cream wool, a chestnut-brown face with a small pale cream muzzle, dark-brown wooden twig horns with small fresh light-green leaf buds, yellow daisies with orange-brown centres, dark-brown hooves, big honey-amber eyes. Few colours.\n\nAVOID: green or bush-like wool, round curled light-tan ram horns, roses, lilies, pink or pastel-pink flowers, curly yellow-green stamens or antennae, gold armour or gold rings, an all-white or all-cream face, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "mặt",
+   "face",
+   "giu",
+   9,
+   "a wide rounded cream face patch at the front of the woolly body, with two big pink-red eyes, a small tan nose and a tiny mouth",
+   "mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: mặt;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a wide rounded cream face patch at the front of the woolly body, with two big pink-red eyes, a small tan nose and a tiny mouth. Redraw THESE pieces as the face of image 2 (the approved concept): a wide rounded goat-kid face: chestnut brown with a small pale cream muzzle patch around the nose and mouth, two big honey-amber eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a small determined grin with a tiny fang. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "khối lông xù (thân)",
+   "woolly fleece body",
+   "giu",
+   6,
+   "the bush-like green wool that makes the whole body: a big rounded fleece over the back and top, a curly tuft behind on the viewer-left, two side tufts on the viewer-left and one on the viewer-right next to the face, and a curly wool fringe across the top of the face",
+   "khối lông xù (thân) cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khối lông xù (thân);\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): the bush-like green wool that makes the whole body: a big rounded fleece over the back and top, a curly tuft behind on the viewer-left, two side tufts on the viewer-left and one on the viewer-right next to the face, and a curly wool fringe across the top of the face. Redraw THESE pieces as the woolly fleece body of image 2 (the approved concept): fluffy warm cream wool with soft scalloped curls and the same outline: the back fleece, the side tufts and the fringe on top of the face all cream wool; no green, no leaves. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N03",
+   "hai sừng cành",
+   "two twig horns",
+   "doi",
+   6,
+   "two curled light-tan ram horns on both sides of the head: a big one on the viewer-left and a smaller one on the viewer-right, each with a dark-brown root piece hidden under the wool fringe",
+   "hai sừng cành cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai sừng cành;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): two curled light-tan ram horns on both sides of the head: a big one on the viewer-left and a smaller one on the viewer-right, each with a dark-brown root piece hidden under the wool fringe. Redraw THESE pieces as the two twig horns of image 2 (the approved concept): two short dark-brown wooden twig horns growing from the same places, one on each side: each a stubby crooked branch with one small fork and one or two tiny fresh light-green leaf buds, pointing outward like the old horns; no curls, no tan. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "root of each horn (the end hidden under the wool fringe, next to the head)"
+  ],
+  [
+   "N04",
+   "vương miện cúc",
+   "daisy crown",
+   "doi",
+   10,
+   "a big pink four-petal flower with a dark pink centre sitting on top of the head",
+   "vương miện cúc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vương miện cúc;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big pink four-petal flower with a dark pink centre sitting on top of the head. Redraw THESE pieces as the daisy crown of image 2 (the approved concept): a small crown of three or four yellow daisies with orange-brown centres and a couple of small olive leaves, sitting on top of the head in the same place, about the same size; no pink, no rose. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom centre of the crown, where it sits on the wool on top of the head"
+  ],
+  [
+   "N05",
+   "ba bàn chân",
+   "three small feet",
+   "giu",
+   6,
+   "three small cream oval feet peeking out under the wool: two on the viewer-left (front and back) and one on the viewer-right",
+   "ba bàn chân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: ba bàn chân;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three small cream oval feet peeking out under the wool: two on the viewer-left (front and back) and one on the viewer-right. Redraw THESE pieces as the three small feet of image 2 (the approved concept): three small stubby feet: cream fur with dark-brown hoof tips (a small split-hoof line). Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 3,
+  "head": 8,
+  "swing": [],
+  "wob": [
+   9,
+   11,
+   2
+  ],
+  "fly": [],
+  "cast": [
+   8,
+   0.62,
+   0.8
+  ],
+  "parent": {
+   "13": 8,
+   "9": 8,
+   "11": 8,
+   "15": 8,
+   "10": 8,
+   "14": 8,
+   "12": 8,
+   "16": 8
+  }
+ }
+}

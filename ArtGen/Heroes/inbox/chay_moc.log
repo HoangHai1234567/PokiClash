@@ -1,0 +1,268 @@
+11-07 12:33:26 moc_fx: gen FX09,FX01,FX03,FX04,FX05,FX07 -> có FX09,FX01,FX03,FX04,FX05,FX07
+11-07 12:35:18 moc_fx: gen FX08 -> có FX08
+11-07 12:35:18 moc_fx: đủ ảnh
+11-07 12:37:26 de_hoa_1: concept -> 96 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\de_hoa_1\tai_ve\concept.png
+11-07 12:39:17 bom_la_1: concept -> 110 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\bom_la_1\tai_ve\concept.png
+11-07 12:39:51 tien_la_2: concept -> 124 s, 1 ảnh mới: |   e:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tien_la_2\tai_ve\concept.png
+11-07 12:41:44 tien_la_3: concept -> 113 s, 1 ảnh mới: |   e:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tien_la_3\tai_ve\concept.png
+11-07 12:44:23 hoa_nhuy_1: concept -> 158 s, 1 ảnh mới: |   e:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\hoa_nhuy_1\tai_ve\concept.png
+11-07 12:46:28 thanh_long_1: concept -> 125 s, 1 ảnh mới: |   e:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\thanh_long_1\tai_ve\concept.png
+11-07 12:47:53 phong_linh_1: concept -> 85 s, 1 ảnh mới: |   e:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\phong_linh_1\tai_ve\concept.png
+11-07 12:49:25 gio_loc_1: concept -> 92 s, 1 ảnh mới: |   e:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\gio_loc_1\tai_ve\concept.png
+11-07 12:51:51 de_hoa_2: concept -> 145 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\de_hoa_2\tai_ve\concept.png
+11-07 12:53:49 de_hoa_3: concept -> 117 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\de_hoa_3\tai_ve\concept.png
+11-07 12:56:14 bom_la_2: concept -> 145 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\bom_la_2\tai_ve\concept.png
+11-07 13:00:58 de_hoa_1: gen N01,N02,N03,N04,N05 -> có N01,N02,N03,N04,N05 (283 s, 5 ảnh mới:)
+11-07 13:01:13 de_hoa_1: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.74, phóng 10.11, mảnh [8]
+    N02: khớp ảnh mẫu IoU 1.00, phóng 5.72, mảnh [3, 2, 5, 9, 11, 13]
+    N03: khớp ảnh mẫu IoU 0.99, phóng 6.75, mảnh [15, 10, 14, 12]
+    N04: khớp ảnh mẫu IoU 0.99, phóng 10.92, mảnh [16]
+    N05: khớp ảnh mẫu IoU 0.99, phóng 5.89, mảnh [7, 4, 6]
+11-07 13:01:14 de_hoa_1: animation rc=0
+    de_hoa_1 H 106 L 90 gốc N02_3 đầu N01_8 chiêu spin tia 0.7
+    1_1: 28 khung (gốc 30)
+    1_2: 18 khung (gốc 18)
+    1_4: 32 khung (gốc 35)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 45)
+    chiêu bắn: chỗ bắn (110, 101) ở khung 12, cỡ tia 0.7
+11-07 13:01:18 de_hoa_1: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\de_hoa_1.png
+11-07 13:03:31 thanh_long_2: concept -> 152 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\thanh_long_2\tai_ve\concept.png
+11-07 13:05:56 thanh_long_3: concept -> 145 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\thanh_long_3\tai_ve\concept.png
+11-07 13:10:41 thanh_long_1: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (285 s, 6 ảnh mới:)
+11-07 13:12:35 thanh_long_1: gen N07 -> có N07 (113 s, 1 ảnh mới:)
+11-07 13:12:38 thanh_long_1: ghép rc=1
+    N01: khớp ảnh mẫu IoU 0.94, phóng 14.69, mảnh [15]
+    Traceback (most recent call last):
+    ValueError: operands could not be broadcast together with shapes (1254,1254) (1024,1024) 
+    N01: ảnh N01.png
+N01: khớp ảnh mẫu IoU 0.94, phóng 14.69, mảnh [15]
+N02: ảnh N02.png
+Traceback (most recent call last):
+  File "E:\ProjectAtomik\aola\tools\ghep_nhom.py", line 519, in <module>
+    main(sys.argv[1])
+  File "E:\ProjectAtomik\aola\tools\ghep_nhom.py", line 223, in main
+    regions[k] = alpha & (dist[k] <= others + over)
+ValueError: operands could not be broadcast together with shapes (1254,1254) (1024,1024) 
+
+11-07 13:13:32 thanh_long_1: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.94, phóng 14.69, mảnh [15]
+    N02: khớp ảnh mẫu IoU 0.99, phóng 11.66, mảnh [20, 14]
+    N03: khớp ảnh mẫu IoU 0.98, phóng 12.28, mảnh [16, 18, 17]
+    N04: khớp ảnh mẫu IoU 0.99, phóng 12.66, mảnh [9, 8, 5]
+    N05: khớp ảnh mẫu IoU 0.98, phóng 16.85, mảnh [10, 11, 13, 3, 4]
+    N06: khớp ảnh mẫu IoU 0.98, phóng 20.04, mảnh [6, 7]
+    N07: khớp ảnh mẫu IoU 0.99, phóng 6.88, mảnh [12, 2]
+11-07 13:13:33 thanh_long_1: animation rc=0
+    thanh_long_1 H 139 L 90 gốc N04_5 đầu N01_15 chiêu spin tia 0.84
+    1_1: 28 khung (gốc 31)
+    1_2: 18 khung (gốc 20)
+    1_4: 32 khung (gốc 34)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 47)
+    chiêu bắn: chỗ bắn (85, 79) ở khung 12, cỡ tia 0.84
+11-07 13:13:37 thanh_long_1: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\thanh_long_1.png
+11-07 13:14:33 hoa_nhuy_2: concept -> 118 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\hoa_nhuy_2\tai_ve\concept.png
+11-07 13:21:00 thanh_long_2: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (387 s, 6 ảnh mới:)
+11-07 13:24:34 thanh_long_2: gen N07,N08,N09 -> có N07,N08,N09 (213 s, 3 ảnh mới:)
+11-07 13:25:09 thanh_long_2: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.97, phóng 8.33, mảnh [30, 25]
+    N02: khớp ảnh mẫu IoU 1.00, phóng 7.60, mảnh [31]
+    N03: khớp ảnh mẫu IoU 0.99, phóng 6.16, mảnh [33, 24, 29]
+    N04: khớp ảnh mẫu IoU 0.99, phóng 6.73, mảnh [19, 8, 7]
+    N05: khớp ảnh mẫu IoU 1.00, phóng 3.59, mảnh [22, 21, 17, 16, 18, 39, 40, 41]
+    N06: khớp ảnh mẫu IoU 0.98, phóng 5.79, mảnh [43, 45, 44, 42, 46, 47, 23, 10, 11, 20]
+    N07: khớp ảnh mẫu IoU 0.71, phóng 15.44, mảnh [13, 12, 14, 15]
+    N08: khớp ảnh mẫu IoU 0.99, phóng 4.93, mảnh [3]
+    N09: khớp ảnh mẫu IoU 0.96, phóng 2.87, mảnh [4, 48, 5, 6, 38, 49]
+11-07 13:25:12 thanh_long_2: animation rc=0
+    thanh_long_2 H 323 L 170 gốc N05_22 đầu N01_30 chiêu slam tia 1.2
+    1_1: 28 khung (gốc 36)
+    1_2: 18 khung (gốc 22)
+    1_4: 32 khung (gốc 45)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 36)
+    chiêu bắn: chỗ bắn (385, 202) ở khung 12, cỡ tia 1.2
+11-07 13:25:19 thanh_long_2: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\thanh_long_2.png
+11-07 13:27:15 phong_linh_2: concept -> 161 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\phong_linh_2\tai_ve\concept.png
+11-07 13:35:31 gio_loc_2: concept -> 495 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\gio_loc_2\tai_ve\concept.png
+11-07 13:37:25 gio_loc_3: concept -> 114 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\gio_loc_3\tai_ve\concept.png
+11-07 13:43:27 thanh_long_3: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (361 s, 6 ảnh mới:)
+11-07 13:46:12 thanh_long_3: gen N07,N08 -> có N07,N08 (165 s, 2 ảnh mới:)
+11-07 13:46:40 thanh_long_3: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.89, phóng 6.11, mảnh [32]
+    N02: khớp ảnh mẫu IoU 0.94, phóng 15.61, mảnh [20]
+    N03: khớp ảnh mẫu IoU 0.99, phóng 2.86, mảnh [19, 11, 13, 14]
+    N04: khớp ảnh mẫu IoU 0.99, phóng 4.78, mảnh [21, 26, 29, 17, 23, 25]
+    N05: khớp ảnh mẫu IoU 0.87, phóng 4.99, mảnh [33, 15, 12, 16, 22, 27]
+    N06: khớp ảnh mẫu IoU 0.92, phóng 4.38, mảnh [8]
+    N07: khớp ảnh mẫu IoU 0.95, phóng 2.38, mảnh [30, 6, 28, 18, 10, 9, 24, 31]
+    N08: khớp ảnh mẫu IoU 0.88, phóng 2.74, mảnh [35, 34]
+11-07 13:46:42 thanh_long_3: animation rc=0
+    thanh_long_3 H 279 L 168 gốc N03_19 đầu N01_32 chiêu slam tia 1.68
+    1_1: 28 khung (gốc 36)
+    1_2: 18 khung (gốc 16)
+    1_4: 32 khung (gốc 53)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 42)
+    chiêu bắn: chỗ bắn (269, 98) ở khung 12, cỡ tia 1.68
+11-07 13:46:51 thanh_long_3: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\thanh_long_3.png
+11-07 13:59:15 bom_la_1: gen N01,N02,N03,N04 -> có N01,N02,N03,N04 (783 s, 4 ảnh mới:)
+11-07 13:59:24 bom_la_1: ghép rc=0
+    N01: khớp ảnh mẫu IoU 1.00, phóng 9.21, mảnh [7]
+    N02: khớp ảnh mẫu IoU 1.00, phóng 9.24, mảnh [3, 2, 8]
+    N03: khớp ảnh mẫu IoU 0.99, phóng 5.97, mảnh [9, 6]
+    N04: khớp ảnh mẫu IoU 0.98, phóng 10.13, mảnh [10, 4, 5]
+11-07 13:59:25 bom_la_1: animation rc=0
+    bom_la_1 H 125 L 90 gốc N01_7 đầu N01_7 chiêu spin tia 0.85
+    1_1: 28 khung (gốc 29)
+    1_2: 18 khung (gốc 15)
+    1_4: 32 khung (gốc 30)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 38)
+    chiêu bắn: chỗ bắn (101, 96) ở khung 12, cỡ tia 0.85
+11-07 13:59:28 bom_la_1: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\bom_la_1.png
+11-07 14:04:18 phong_linh_1: gen N01,N02,N03,N04,N05 -> có N01,N02,N03,N04,N05 (303 s, 5 ảnh mới:)
+11-07 14:04:35 phong_linh_1: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.85, phóng 11.30, mảnh [17, 22, 15, 13]
+    N02: khớp ảnh mẫu IoU 1.00, phóng 8.14, mảnh [18, 19, 14]
+    N03: khớp ảnh mẫu IoU 0.99, phóng 13.14, mảnh [10, 3, 5, 6, 2, 4]
+    N04: khớp ảnh mẫu IoU 0.98, phóng 12.71, mảnh [11, 8, 12, 9]
+    N05: khớp ảnh mẫu IoU 0.99, phóng 7.00, mảnh [26, 7]
+11-07 14:04:37 phong_linh_1: animation rc=0
+    phong_linh_1 H 125 L 90 gốc N03_10 đầu N01_17 chiêu slam tia 0.85
+    1_1: 28 khung (gốc 37)
+    1_2: 18 khung (gốc 11)
+    1_4: 32 khung (gốc 36)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 55)
+    chiêu bắn: chỗ bắn (124, 112) ở khung 12, cỡ tia 0.85
+11-07 14:04:41 phong_linh_1: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\phong_linh_1.png
+11-07 14:10:19 tien_la_2: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (360 s, 6 ảnh mới:)
+11-07 14:10:33 tien_la_2: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.75, phóng 6.14, mảnh [11]
+    N02: khớp ảnh mẫu IoU 0.86, phóng 27.04, mảnh [12]
+    N03: khớp ảnh mẫu IoU 0.96, phóng 11.84, mảnh [8, 6]
+    N04: khớp ảnh mẫu IoU 0.76, phóng 24.62, mảnh [9]
+    N05: khớp ảnh mẫu IoU 0.98, phóng 27.35, mảnh [10, 7]
+    N06: khớp ảnh mẫu IoU 0.99, phóng 38.46, mảnh [4, 5]
+11-07 14:10:35 tien_la_2: animation rc=0
+    tien_la_2 H 176 L 106 gốc N04_9 đầu N01_11 chiêu spin tia 1.0
+    1_1: 28 khung (gốc 24)
+    1_2: 18 khung (gốc 11)
+    1_4: 32 khung (gốc 24)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 23)
+    chiêu bắn: chỗ bắn (107, 24) ở khung 12, cỡ tia 1.0
+11-07 14:10:38 tien_la_2: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\tien_la_2.png
+11-07 14:12:09 long_vuot_1: concept -> 110 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\long_vuot_1\tai_ve\concept.png
+11-07 14:14:10 tho_hoang_1: concept -> 120 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\tho_hoang_1\tai_ve\concept.png
+11-07 14:15:42 moc_tinh_1: concept -> 92 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_tinh_1\tai_ve\concept.png
+11-07 14:22:16 gio_loc_1: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (393 s, 6 ảnh mới:)
+11-07 14:26:00 gio_loc_1: gen N07,N08,N09 -> có N07,N08,N09 (225 s, 3 ảnh mới:)
+11-07 14:26:27 gio_loc_1: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.96, phóng 13.95, mảnh [21, 17, 23]
+    N02: khớp ảnh mẫu IoU 0.98, phóng 14.92, mảnh [19, 16]
+    N03: khớp ảnh mẫu IoU 0.98, phóng 12.10, mảnh [24, 22, 15, 20]
+    N04: khớp ảnh mẫu IoU 0.98, phóng 18.16, mảnh [25, 18]
+    N05: khớp ảnh mẫu IoU 0.99, phóng 16.91, mảnh [13, 31]
+    N06: khớp ảnh mẫu IoU 0.99, phóng 22.34, mảnh [30, 14]
+    N07: khớp ảnh mẫu IoU 0.99, phóng 6.36, mảnh [11, 10, 9, 8, 4, 3, 5, 2]
+    N08: khớp ảnh mẫu IoU 0.98, phóng 15.97, mảnh [29, 28, 7, 6]
+    N09: khớp ảnh mẫu IoU 0.98, phóng 14.18, mảnh [12, 32]
+11-07 14:26:30 gio_loc_1: animation rc=0
+    gio_loc_1 H 128 L 90 gốc N05_13 đầu N01_21 chiêu slam tia 0.7
+    1_1: 28 khung (gốc 29)
+    1_2: 18 khung (gốc 13)
+    1_4: 32 khung (gốc 41)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 53)
+    chiêu bắn: chỗ bắn (107, 84) ở khung 12, cỡ tia 0.7
+11-07 14:26:35 gio_loc_1: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\gio_loc_1.png
+11-07 14:28:23 hoa_nhuy_3: concept -> 141 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\hoa_nhuy_3\tai_ve\concept.png
+11-07 14:31:43 long_vuot_2: concept -> 200 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\long_vuot_2\tai_ve\concept.png
+11-07 14:35:30 moc_tinh_2: concept -> 227 s, 1 ảnh mới: |   E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_tinh_2\tai_ve\concept.png
+11-07 14:41:03 de_hoa_2: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (333 s, 6 ảnh mới:)
+11-07 14:43:06 de_hoa_2: gen N07 -> có N07 (123 s, 1 ảnh mới:)
+11-07 14:43:24 de_hoa_2: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.70, phóng 10.44, mảnh [11]
+    N02: khớp ảnh mẫu IoU 1.00, phóng 5.64, mảnh [7, 5, 10, 16, 14, 12]
+    N03: khớp ảnh mẫu IoU 1.00, phóng 8.99, mảnh [4]
+    N04: khớp ảnh mẫu IoU 0.81, phóng 6.89, mảnh [8, 9, 2, 3]
+    N05: khớp ảnh mẫu IoU 1.00, phóng 5.64, mảnh [15, 13]
+    N06: khớp ảnh mẫu IoU 0.95, phóng 8.24, mảnh [17]
+    N07: khớp ảnh mẫu IoU 0.73, phóng 12.96, mảnh [6]
+11-07 14:43:26 de_hoa_2: animation rc=0
+    de_hoa_2 H 185 L 111 gốc N03_4 đầu N01_11 chiêu spin tia 1.0
+    1_1: 28 khung (gốc 25)
+    1_2: 18 khung (gốc 20)
+    1_4: 32 khung (gốc 23)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 44)
+    chiêu bắn: chỗ bắn (96, 143) ở khung 12, cỡ tia 1.0
+11-07 14:43:30 de_hoa_2: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\de_hoa_2.png
+11-07 14:49:37 tien_la_3: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (390 s, 7 ảnh mới:)
+11-07 14:51:20 tien_la_3: gen N07 -> có N07 (103 s, 1 ảnh mới:)
+11-07 14:51:41 tien_la_3: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.81, phóng 5.24, mảnh [18]
+    N02: khớp ảnh mẫu IoU 1.00, phóng 4.76, mảnh [19, 17, 16]
+    N03: khớp ảnh mẫu IoU 0.93, phóng 13.36, mảnh [26, 25]
+    N04: khớp ảnh mẫu IoU 1.00, phóng 3.49, mảnh [5, 7, 4, 6]
+    N05: khớp ảnh mẫu IoU 0.79, phóng 12.65, mảnh [12, 15]
+    N06: khớp ảnh mẫu IoU 0.98, phóng 6.83, mảnh [14, 10]
+    N07: khớp ảnh mẫu IoU 0.99, phóng 11.88, mảnh [13, 8, 11, 9]
+11-07 14:51:44 tien_la_3: animation rc=0
+    tien_la_3 H 240 L 144 gốc N05_12 đầu N01_18 chiêu slam tia 1.4
+    1_1: 28 khung (gốc 32)
+    1_2: 18 khung (gốc 12)
+    1_4: 32 khung (gốc 33)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 32)
+    chiêu bắn: chỗ bắn (209, 133) ở khung 12, cỡ tia 1.4
+11-07 14:51:49 tien_la_3: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\tien_la_3.png
+11-07 14:56:14 hoa_nhuy_1: gen N01,N02,N03,N04,N05 -> có N01,N02,N03,N04,N05 (293 s, 5 ảnh mới:)
+11-07 14:56:54 hoa_nhuy_1: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.99, phóng 7.02, mảnh [7]
+    N02: khớp ảnh mẫu IoU 0.99, phóng 10.27, mảnh [4, 3, 5]
+    N03: khớp ảnh mẫu IoU 0.99, phóng 7.91, mảnh [11]
+    N04: khớp ảnh mẫu IoU 0.99, phóng 11.29, mảnh [12, 6]
+    N05: khớp ảnh mẫu IoU 0.99, phóng 26.88, mảnh [2]
+11-07 14:57:01 hoa_nhuy_1: animation rc=0
+    hoa_nhuy_1 H 142 L 90 gốc N01_7 đầu N01_7 chiêu spin tia 0.7
+    1_1: 28 khung (gốc 44)
+    1_2: 18 khung (gốc 16)
+    1_4: 32 khung (gốc 57)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 38)
+    chiêu bắn: chỗ bắn (98, 134) ở khung 12, cỡ tia 0.7
+11-07 14:57:12 hoa_nhuy_1: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\hoa_nhuy_1.png
+11-07 15:08:02 hoa_nhuy_3: gen N01,N02,N03,N04,N05,N06 -> có N01,N02,N03,N04,N05,N06 (418 s, 6 ảnh mới:)
+11-07 15:11:39 hoa_nhuy_3: gen N07,N08 -> có N07,N08 (217 s, 2 ảnh mới:)
+11-07 15:12:07 hoa_nhuy_3: ghép rc=0
+    N01: khớp ảnh mẫu IoU 0.84, phóng 7.24, mảnh [36]
+    N02: khớp ảnh mẫu IoU 0.99, phóng 6.91, mảnh [33, 31, 34, 35, 38, 40, 41, 28, 29, 30]
+    N03: khớp ảnh mẫu IoU 1.00, phóng 7.27, mảnh [27, 46, 47]
+    N04: khớp ảnh mẫu IoU 0.99, phóng 11.88, mảnh [18, 14]
+    N05: khớp ảnh mẫu IoU 1.00, phóng 7.09, mảnh [17, 15, 16]
+    N06: khớp ảnh mẫu IoU 0.99, phóng 10.02, mảnh [11, 12, 13]
+    N07: khớp ảnh mẫu IoU 0.99, phóng 10.97, mảnh [20, 21, 19, 23, 24, 25, 26, 22]
+    N08: khớp ảnh mẫu IoU 0.99, phóng 11.93, mảnh [2, 5, 4, 6, 7, 8, 9, 3]
+11-07 15:12:10 hoa_nhuy_3: animation rc=0
+    hoa_nhuy_3 H 236 L 142 gốc N04_18 đầu N01_36 chiêu slam tia 1.4
+    1_1: 28 khung (gốc 31)
+    1_2: 18 khung (gốc 16)
+    1_4: 32 khung (gốc 65)
+    1_5: 20 khung (gốc 0)
+    1_6: 44 khung (gốc 44)
+    chiêu bắn: chỗ bắn (158, 218) ở khung 12, cỡ tia 1.4
+11-07 15:12:17 hoa_nhuy_3: so sánh rc=0 E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\moc_so_sanh\hoa_nhuy_3.png
+11-07 15:12:55 hết hạn mức Codex, chờ 10 phút
+11-07 15:23:03 hết hạn mức Codex, chờ 10 phút
+11-07 15:33:10 hết hạn mức Codex, chờ 10 phút
+11-07 15:43:16 hết hạn mức Codex, chờ 10 phút
+11-07 15:53:26 hết hạn mức Codex, chờ 10 phút
+11-07 16:03:43 hết hạn mức Codex, chờ 10 phút
+11-07 16:13:51 hết hạn mức Codex, chờ 10 phút
+11-07 16:23:57 hết hạn mức Codex, chờ 10 phút
+11-07 16:34:07 hết hạn mức Codex, chờ 10 phút

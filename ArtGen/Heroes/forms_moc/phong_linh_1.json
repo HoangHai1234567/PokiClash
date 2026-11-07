@@ -1,0 +1,113 @@
+{
+ "code": "phong_linh_1",
+ "elem": "moc",
+ "aola": 943,
+ "hero": "Phong Linh",
+ "form": 1,
+ "forms": 2,
+ "form_name": "Tiểu Phong Linh",
+ "role_vi": "tướng hệ Mộc (ải 20 đảo Mộc, dạng 1/2), rig aola #943",
+ "design_vi": "cú mèo nhỏ lông xanh xô thơm pha kem: mặt nạ lông trắng kem có hai mắt hổ phách to, mỏ nâu ô liu, hai túm tai là lá; hai cánh như tay, đầu cánh xòe như ngón nắm, cạnh mỗi đầu cánh lơ lửng một chong chóng hạt phong (thay hoa cam); thân phủ lông như áo lá",
+ "rig_vi": "con gốc #943 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu cú có mặt, 2 hai túm tai lá, 3 thân lông áo lá, 4 hai cánh như tay, 5 hai chong chóng hạt phong",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a small chubby LEAF-WIND OWL (a horned owl chick), the first stage of a two-stage Wood evolution line, in the same view and pose as image 1, floating upright just above the ground, its two wings held out at its sides like small arms, a spinner hovering just beyond each wing tip, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round owl head with face; 2 two leaf ear tufts; 3 feathered body with leaf-feather coat; 4 two wings held like arms; 5 two maple-seed spinners;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round owl head with face: a round owl head about the size of the whole old head with its hat and hair: soft sage-green feathers on the crown and back of the head, a big heart-shaped warm cream facial mask filling the face area (the face and the place of the viewer-left hair lock), two big amber eyes in the mask (the viewer-right eye exactly where the old eye is, the viewer-left eye beside it to the left), each with one small catchlight dot, brows angled down, a small hooked olive-brown beak below and between the eyes, a confident little smirk; no hat, no gold, no gem, no hair, no blush.\n2 two leaf ear tufts: the owl's two leaf-shaped ear tufts: the viewer-left tuft is the big leaf with the smaller leaf growing from the same spot under it, the viewer-right tuft is the single leaf; each leaf sage green with a darker sage midrib and a few vein lines, tips pointing up and outward like owl ear tufts; no mint, no turquoise.\n3 feathered body with leaf-feather coat: the owl's body: a cream feathered chest with small scalloped feather marks where the torso is, and below it a coat of overlapping leaf-shaped feathers in sage green and darker sage, each with a thin midrib line, layered like a leaf cape; no shirt, no pink collar, no yellow spots.\n4 two wings held like arms: two sage-green owl wings held out like small arms, same shape and direction as the old sleeves: the inner end of each is the shoulder, the outer end is the wing tip, ending in three finger-like primary feathers with cream tips as if gripping; the two small pieces are a second row of short feathers in darker sage; no light blue, no sleeves, no hands.\n5 two maple-seed spinners: two maple-seed spinners, each a pair of winged maple seeds joined at a round olive-brown seed knot in the middle like a two-blade propeller: papery pale tan-green seed wings with fine darker vein lines, the knot where the old flower centre is, about the size of the old flower; no petals, no orange, no turquoise.\n\nATTITUDE: a fierce little owl ready to strike: brows angled down, big amber eyes narrowed with determination, a small confident smirk under its beak; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: sage-green feathers (soft grey-green) with darker sage leaf-shaped feathers, a warm cream face mask, chest and feather tips, big amber eyes, a small olive-brown beak, pale tan-green maple seed spinners with olive-brown knots. Few colours.\n\nAVOID: a human face or body, human hair, a big leaf hat or helmet with a gold rim, a pink gem, orange flowers, turquoise, mint or light-blue colours, light-blue skin, sleeves or hands, pink blush stickers, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu cú có mặt",
+   "round owl head with face",
+   "doi",
+   12,
+   "a fairy's head turned a little to the viewer-right: a pale blue face with one big brown eye and pink blush, covered on top by a big green helmet-like leaf hat with a gold rim (plus a small gold piece behind it on the viewer-right), a pink gem in a gold setting at the hat's viewer-left end, dark teal hair arching behind the head and two teal hair locks hanging down both sides of the face",
+   "đầu cú có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đầu cú có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): a fairy's head turned a little to the viewer-right: a pale blue face with one big brown eye and pink blush, covered on top by a big green helmet-like leaf hat with a gold rim (plus a small gold piece behind it on the viewer-right), a pink gem in a gold setting at the hat's viewer-left end, dark teal hair arching behind the head and two teal hair locks hanging down both sides of the face. Redraw THESE pieces as the round owl head with face of image 2 (the approved concept): a round owl head about the size of the whole old head with its hat and hair: soft sage-green feathers on the crown and back of the head, a big heart-shaped warm cream facial mask filling the face area (the face and the place of the viewer-left hair lock), two big amber eyes in the mask (the viewer-right eye exactly where the old eye is, the viewer-left eye beside it to the left), each with one small catchlight dot, brows angled down, a small hooked olive-brown beak below and between the eyes, a confident little smirk; no hat, no gold, no gem, no hair, no blush. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom of the head, where the chin sits on the body"
+  ],
+  [
+   "N02",
+   "hai túm tai lá",
+   "two leaf ear tufts",
+   "doi",
+   9,
+   "three big mint-green leaves with dark teal veins growing from the head: a very big one rising to the top-left, a smaller one under it pointing left, and one on the top-right half behind the hat",
+   "hai túm tai lá cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai túm tai lá;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three big mint-green leaves with dark teal veins growing from the head: a very big one rising to the top-left, a smaller one under it pointing left, and one on the top-right half behind the hat. Redraw THESE pieces as the two leaf ear tufts of image 2 (the approved concept): the owl's two leaf-shaped ear tufts: the viewer-left tuft is the big leaf with the smaller leaf growing from the same spot under it, the viewer-right tuft is the single leaf; each leaf sage green with a darker sage midrib and a few vein lines, tips pointing up and outward like owl ear tufts; no mint, no turquoise. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each leaf, where it grows from the top of the head"
+  ],
+  [
+   "N03",
+   "thân lông áo lá",
+   "feathered body with leaf-feather coat",
+   "giu",
+   14,
+   "a small green shirt-like torso with a pink collar, and below it a skirt of five overlapping green leaves with yellow spots (two on the viewer-left, two at the bottom, a thin one on the viewer-right)",
+   "thân lông áo lá cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân lông áo lá;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a small green shirt-like torso with a pink collar, and below it a skirt of five overlapping green leaves with yellow spots (two on the viewer-left, two at the bottom, a thin one on the viewer-right). Redraw THESE pieces as the feathered body with leaf-feather coat of image 2 (the approved concept): the owl's body: a cream feathered chest with small scalloped feather marks where the torso is, and below it a coat of overlapping leaf-shaped feathers in sage green and darker sage, each with a thin midrib line, layered like a leaf cape; no shirt, no pink collar, no yellow spots. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "hai cánh như tay",
+   "two wings held like arms",
+   "giu",
+   14,
+   "two light-blue sleeve-like arms: the viewer-left one points left from the shoulder (inner end at the body, tip at the far left) with a small narrow piece under its tip; the viewer-right one points down-right from the shoulder (inner end at the top-left, tip at the bottom-right) with a small narrow piece under it",
+   "hai cánh như tay cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai cánh như tay;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): two light-blue sleeve-like arms: the viewer-left one points left from the shoulder (inner end at the body, tip at the far left) with a small narrow piece under its tip; the viewer-right one points down-right from the shoulder (inner end at the top-left, tip at the bottom-right) with a small narrow piece under it. Redraw THESE pieces as the two wings held like arms of image 2 (the approved concept): two sage-green owl wings held out like small arms, same shape and direction as the old sleeves: the inner end of each is the shoulder, the outer end is the wing tip, ending in three finger-like primary feathers with cream tips as if gripping; the two small pieces are a second row of short feathers in darker sage; no light blue, no sleeves, no hands. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "hai chong chóng hạt phong",
+   "two maple-seed spinners",
+   "doi",
+   8,
+   "two orange flowers with four round petals (turquoise patches) and a brown centre, floating beside the two wing tips: a bigger one on the viewer-left, a smaller one on the viewer-right",
+   "hai chong chóng hạt phong cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai chong chóng hạt phong;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two orange flowers with four round petals (turquoise patches) and a brown centre, floating beside the two wing tips: a bigger one on the viewer-left, a smaller one on the viewer-right. Redraw THESE pieces as the two maple-seed spinners of image 2 (the approved concept): two maple-seed spinners, each a pair of winged maple seeds joined at a round olive-brown seed knot in the middle like a two-blade propeller: papery pale tan-green seed wings with fine darker vein lines, the knot where the old flower centre is, about the size of the old flower; no petals, no orange, no turquoise. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "centre of each spinner (where the old flower centre is)"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 10,
+  "head": 17,
+  "swing": [
+   11,
+   8
+  ],
+  "wob": [
+   18,
+   19,
+   14,
+   2,
+   3
+  ],
+  "fly": [
+   26,
+   7
+  ],
+  "cast": [
+   7,
+   0.5,
+   0.5
+  ],
+  "parent": {
+   "12": 11,
+   "9": 8,
+   "18": 17,
+   "19": 17,
+   "14": 17
+  }
+ }
+}

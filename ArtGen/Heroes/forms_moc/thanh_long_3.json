@@ -1,0 +1,160 @@
+{
+ "code": "thanh_long_3",
+ "elem": "moc",
+ "aola": 1749,
+ "hero": "Thanh Long",
+ "form": 3,
+ "forms": 3,
+ "form_name": "Lôi Thanh Long",
+ "role_vi": "tướng hệ Mộc (ải 70 đảo Mộc, dạng 3/3), rig aola #1749",
+ "design_vi": "rồng sấm phương Đông cuộn nhiều khúc giữa mây giông: vảy xanh lam ngọc thẫm, bụng kem vàng, gai lưng vàng, bờm trắng bay, sừng vàng san hô, râu dài trắng, vương miện ngọc nhỏ, chóp đuôi túm lông trắng kèm tia sét; tia sét vàng chanh dẹt; mây giông xám tím viền trắng",
+ "rig_vi": "con gốc #1749 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu có mặt, vương miện, bờm, sừng, 2 râu dài, 3 thân rắn nhiều khúc, 4 hai tay có vuốt, 5 gai lưng vàng, 6 đuôi chóp túm lông trắng, 7 mây giông, 8 tia sét",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a mighty azure THUNDER DRAGON coiled in many loops among storm clouds, the THIRD stage of a three-stage Wood evolution line whose first stage is image 6: the same azure dragon fully grown, with deeper scales, golden back spikes and flat lemon-yellow lightning, in the same view and pose as image 1, coiled in many loops in mid-air with the head raised high, claws out, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with face, crown, mane and horns; 2 long whiskers; 3 coiled serpent body; 4 two arms with claws; 5 golden back spikes; 6 tail with a white tuft; 7 storm clouds; 8 lightning bolts;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with face, crown, mane and horns: an eastern-dragon head of deep azure-teal scales facing the viewer-right with cream-yellow lips and chin, one big golden-amber eye (one catchlight dot) exactly where the old eye is, brow angled down, jaws a little open in a confident grin with small fangs; two coral-gold antler horns sweeping back to the viewer-left where the silver blades are, a flowing white mane streaming back to the upper viewer-left where the dark blade is, and a small pale turquoise-jade crown with a coral-gold rim on top of the head where the bottom of the old crescent crest is (much smaller than the old crest); no silver, no armor, no red gem.\n2 long whiskers: two long thin white whiskers growing from under the cheek and streaming forward and down past the snout to the viewer-right, gently wavy; no silver, no gold.\n3 coiled serpent body: the same serpent body in DEEP azure-teal scales (a few simple scale arcs) with a cream-yellow belly along the inner edge where the gold-and-cream belly is; the small silver blades along the back become short warm golden spikes; no red rune, no silver.\n4 two arms with claws: two short deep azure-teal dragon arms: round shoulders (the TOP ends, joining the body), hands with cream-yellow palms, and big curved coral-gold claws in the same places and shapes as the old gold claws.\n5 golden back spikes: golden dorsal spikes and fins of the dragon in the same places: the big winged plate becomes a fan of sharp golden spikes (a dorsal fin) pointing back the same way, the shoulder plate a smaller fan of golden spikes, the blade and the band two golden spike ridges on the top coil, the two small blades two short golden spikes; flat warm gold with a few darker gold lines; no silver, no red marks, no armor.\n6 tail with a white tuft: a deep azure-teal dragon tail with a cream-yellow underside rising the same way, its tip ending in a flowing white hair tuft with a small flat lemon-yellow zigzag lightning bolt, where the old ring is; no ring, no orb, no glow.\n7 storm clouds: storm clouds in the same places and sizes: flat grey-purple cloud puffs with rounded curls and a white band along their edges, thin white trailing streaks; the two wind swirls become long flat grey-purple storm clouds with white rims; no cyan, no mint, no yellow.\n8 lightning bolts: flat lemon-yellow zigzag lightning bolts in the same places: one bigger bolt on the viewer-right, two or three small bolts on the viewer-left; flat colour with the dark ink outline, no glow, no white core, no sparks.\n\nATTITUDE: a fierce but cute storm dragon: brow angled down, jaws a little open in a confident grin showing small fangs; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: DEEP azure-teal blue scales (darker than image 6, still blue-teal, NOT green), a cream-yellow belly, warm golden back spikes, a flowing white mane, coral-gold antler horns, long white whiskers, a small pale turquoise-jade crown with a coral-gold rim, big golden-amber eyes, flat lemon-yellow lightning bolts, grey-purple storm clouds with white rims. Few colours.\n\nAVOID: a green body or green scales, sky-blue or cyan clouds, a bronze helmet or crest with carved spiral patterns, heavy bronze armor plates, silver-and-gold armor blades, red rune marks, a glowing red chest orb, a gold ring ornament on the tail, cyan water splashes, a lavender wind swoosh, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu có mặt, vương miện, bờm, sừng",
+   "head with face, crown, mane and horns",
+   "doi",
+   14,
+   "a green dragon head in side view facing the viewer-right, with a jagged gold jaw plate under the eye, a small cyan eye, a tall silver-and-gold crescent crest with a red gem on top, a big dark-green-and-gold blade sweeping back to the upper viewer-left, and silver-and-gold horn blades sweeping back to the viewer-left",
+   "đầu có mặt, vương miện, bờm, sừng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đầu có mặt, vương miện, bờm, sừng;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a green dragon head in side view facing the viewer-right, with a jagged gold jaw plate under the eye, a small cyan eye, a tall silver-and-gold crescent crest with a red gem on top, a big dark-green-and-gold blade sweeping back to the upper viewer-left, and silver-and-gold horn blades sweeping back to the viewer-left. Redraw THESE pieces as the head with face, crown, mane and horns of image 2 (the approved concept): an eastern-dragon head of deep azure-teal scales facing the viewer-right with cream-yellow lips and chin, one big golden-amber eye (one catchlight dot) exactly where the old eye is, brow angled down, jaws a little open in a confident grin with small fangs; two coral-gold antler horns sweeping back to the viewer-left where the silver blades are, a flowing white mane streaming back to the upper viewer-left where the dark blade is, and a small pale turquoise-jade crown with a coral-gold rim on top of the head where the bottom of the old crescent crest is (much smaller than the old crest); no silver, no armor, no red gem. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "back of the head (where it joins the top of the neck)"
+  ],
+  [
+   "N02",
+   "râu dài",
+   "long whiskers",
+   "doi",
+   35,
+   "a long thin silver-and-gold V-shaped jaw guard hanging under the head: it starts under the cheek and its two prongs meet in a hooked point past the snout on the viewer-right",
+   "râu dài cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: râu dài;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long thin silver-and-gold V-shaped jaw guard hanging under the head: it starts under the cheek and its two prongs meet in a hooked point past the snout on the viewer-right. Redraw THESE pieces as the long whiskers of image 2 (the approved concept): two long thin white whiskers growing from under the cheek and streaming forward and down past the snout to the viewer-right, gently wavy; no silver, no gold. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "viewer-left end (under the cheek, where they hang from the head)"
+  ],
+  [
+   "N03",
+   "thân rắn nhiều khúc",
+   "coiled serpent body",
+   "giu",
+   6,
+   "the long dark-green serpent body in four big coils with a gold-and-cream belly and small silver fin blades along the back: an S-shaped neck in the middle rising to the head (cream belly with a red rune), a figure-eight loop on the viewer-left, a big arch across the top, and a C-shaped coil on the viewer-right",
+   "thân rắn nhiều khúc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân rắn nhiều khúc;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): the long dark-green serpent body in four big coils with a gold-and-cream belly and small silver fin blades along the back: an S-shaped neck in the middle rising to the head (cream belly with a red rune), a figure-eight loop on the viewer-left, a big arch across the top, and a C-shaped coil on the viewer-right. Redraw THESE pieces as the coiled serpent body of image 2 (the approved concept): the same serpent body in DEEP azure-teal scales (a few simple scale arcs) with a cream-yellow belly along the inner edge where the gold-and-cream belly is; the small silver blades along the back become short warm golden spikes; no red rune, no silver. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "hai tay có vuốt",
+   "two arms with claws",
+   "giu",
+   11,
+   "two short green arms in front of the body, each a round green shoulder, a green leaf-shaped hand and a crown of big gold claws pointing down: the viewer-left arm in front of the lower belly, the viewer-right arm in front of the C-shaped coil",
+   "hai tay có vuốt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai tay có vuốt;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): two short green arms in front of the body, each a round green shoulder, a green leaf-shaped hand and a crown of big gold claws pointing down: the viewer-left arm in front of the lower belly, the viewer-right arm in front of the C-shaped coil. Redraw THESE pieces as the two arms with claws of image 2 (the approved concept): two short deep azure-teal dragon arms: round shoulders (the TOP ends, joining the body), hands with cream-yellow palms, and big curved coral-gold claws in the same places and shapes as the old gold claws. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "gai lưng vàng",
+   "golden back spikes",
+   "doi",
+   11,
+   "silver-and-gold armor pieces with red rune marks: a big winged plate with backward spikes over the body on the viewer-left of the neck, a spiky plate on the viewer-right shoulder, a long thin blade and a curved band on the top coil, and two small blades on the viewer-left coil",
+   "gai lưng vàng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: gai lưng vàng;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): silver-and-gold armor pieces with red rune marks: a big winged plate with backward spikes over the body on the viewer-left of the neck, a spiky plate on the viewer-right shoulder, a long thin blade and a curved band on the top coil, and two small blades on the viewer-left coil. Redraw THESE pieces as the golden back spikes of image 2 (the approved concept): golden dorsal spikes and fins of the dragon in the same places: the big winged plate becomes a fan of sharp golden spikes (a dorsal fin) pointing back the same way, the shoulder plate a smaller fan of golden spikes, the blade and the band two golden spike ridges on the top coil, the two small blades two short golden spikes; flat warm gold with a few darker gold lines; no silver, no red marks, no armor. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each spike fan or ridge (where it touches the body)"
+  ],
+  [
+   "N06",
+   "đuôi chóp túm lông trắng",
+   "tail with a white tuft",
+   "doi",
+   10,
+   "a thin dark-green tail rising on the viewer-right from behind the coils, its tip holding a gold ring ornament around a glowing white orb",
+   "đuôi chóp túm lông trắng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi chóp túm lông trắng;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a thin dark-green tail rising on the viewer-right from behind the coils, its tip holding a gold ring ornament around a glowing white orb. Redraw THESE pieces as the tail with a white tuft of image 2 (the approved concept): a deep azure-teal dragon tail with a cream-yellow underside rising the same way, its tip ending in a flowing white hair tuft with a small flat lemon-yellow zigzag lightning bolt, where the old ring is; no ring, no orb, no glow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "lower end of the tail (behind the coils)"
+  ],
+  [
+   "N07",
+   "mây giông",
+   "storm clouds",
+   "doi",
+   6,
+   "puffy cyan-blue clouds with long thin trailing streaks around the dragon (a long one at the bottom, small ones at the upper viewer-left, viewer-left, viewer-right and upper viewer-right) and two big mint-green-and-yellow wind swirl clouds in front of the lower coils",
+   "mây giông cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: mây giông;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): puffy cyan-blue clouds with long thin trailing streaks around the dragon (a long one at the bottom, small ones at the upper viewer-left, viewer-left, viewer-right and upper viewer-right) and two big mint-green-and-yellow wind swirl clouds in front of the lower coils. Redraw THESE pieces as the storm clouds of image 2 (the approved concept): storm clouds in the same places and sizes: flat grey-purple cloud puffs with rounded curls and a white band along their edges, thin white trailing streaks; the two wind swirls become long flat grey-purple storm clouds with white rims; no cyan, no mint, no yellow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the clouds stay where they are"
+  ],
+  [
+   "N08",
+   "tia sét",
+   "lightning bolts",
+   "doi",
+   6,
+   "cyan water splashes: a bigger splash on the viewer-right of the body and a few small cyan splatter bits inside the big loop on the viewer-left",
+   "tia sét cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: tia sét;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): cyan water splashes: a bigger splash on the viewer-right of the body and a few small cyan splatter bits inside the big loop on the viewer-left. Redraw THESE pieces as the lightning bolts of image 2 (the approved concept): flat lemon-yellow zigzag lightning bolts in the same places: one bigger bolt on the viewer-right, two or three small bolts on the viewer-left; flat colour with the dark ink outline, no glow, no white core, no sparks. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the bolts stay where they are"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 19,
+  "head": 32,
+  "swing": [
+   21,
+   17
+  ],
+  "wob": [
+   8,
+   20
+  ],
+  "fly": [],
+  "cast": [
+   32,
+   0.8,
+   0.92
+  ],
+  "parent": {
+   "32": 19,
+   "20": 32,
+   "11": 19,
+   "13": 11,
+   "14": 13,
+   "8": 14,
+   "26": 21,
+   "29": 26,
+   "23": 17,
+   "25": 23,
+   "12": 13,
+   "16": 13,
+   "22": 11,
+   "27": 11,
+   "15": 17
+  }
+ },
+ "prev": [
+  [
+   "thanh_long_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

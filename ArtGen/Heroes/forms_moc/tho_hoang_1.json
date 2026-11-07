@@ -1,0 +1,178 @@
+{
+ "code": "tho_hoang_1",
+ "elem": "moc",
+ "aola": 2010,
+ "hero": "Thỏ Hoàng",
+ "form": 1,
+ "forms": 1,
+ "form_name": "Thỏ Hoàng",
+ "role_vi": "tướng hệ Mộc (ải 50 đảo Mộc, dạng 1/1), rig aola #2010",
+ "design_vi": "thỏ tướng tai dài lông trắng ngà, mắt xanh lục, mũ và giáp vảy ngọc bích viền đồng, áo choàng xanh rừng thẫm, hai chùm lông thỏ trắng ngà sau eo; thẻ tre xanh khắc lá bay quanh; đĩa ngọc bích chạm lá ở thắt lưng; vuốt gỗ mun gắn ngọc bay cạnh tay trái",
+ "rig_vi": "con gốc #2010 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu thỏ có mặt, mũ ngọc, 2 hai tai thỏ dài, 3 ngực, eo, giáp và đĩa ngọc, 4 tay trái giơ cao, 5 tay phải duỗi và bàn tay thỏ, 6 hai chùm lông thỏ, 7 vạt áo choàng xanh rừng, 8 hai chân thỏ, giáp ống ngọc, 9 thẻ tre bay, 10 vuốt gỗ mun gắn đĩa ngọc",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a long-eared RABBIT GENERAL in jade scale armour, a single-stage Wood creature, in the same view and pose as image 1, leaping in mid-air, one arm raised high and the other stretched out, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 rabbit head with face and jade helmet; 2 two long rabbit ears; 3 chest and waist armour with jade disc; 4 raised viewer-left arm; 5 outstretched viewer-right arm with paw; 6 two fluffy rabbit-fur plumes; 7 dark forest-green cloak panels; 8 two rabbit legs with jade greaves; 9 floating bamboo slips; 10 big ebony claw with jade disc;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 rabbit head with face and jade helmet: a cute rabbit face turned to the viewer-right with a short animal muzzle and a small dark nose at its right end, ivory-white fur, one big green eye (one catchlight dot) exactly where the old eye is, a brow angled down, a confident closed-mouth smirk, ivory cheek and throat fur below it; behind the head a jade-green scale helmet with a bronze rim whose back edge is layered like leaves, and a long dark forest-green leaf-shaped helmet crest sweeping from the upper-left down to above the eye; an animal face, not a human face; no orange, no flames.\n2 two long rabbit ears: ivory-white fur outside, a pale jade-green inner lining and a thin bronze ring near the base of each ear, the same lengths and directions; no red.\n3 chest and waist armour with jade disc: ivory fur chest covered by jade-green scale armour with bronze rims; the high collar becomes a jade scale collar with a bronze rim; the hips covered by jade scale armour; a bronze belt buckle holding a round flat jade-green disc carved with a leaf pattern instead of the yin-yang disc; a dark forest-green sash end; two small bronze-and-green cord tassels; no black, no gold, no yin-yang.\n4 raised viewer-left arm: the same raised arm in a dark forest-green cloak sleeve covered with jade scale plates, its pointed upper-left tip a jade-green leaf-shaped cuff (no hand drawn); a jade scale shoulder guard with a bronze rim; a bronze arm band carved with small leaves; no black, no gold.\n5 outstretched viewer-right arm with paw: a jade scale shoulder pad with a bronze rim at the LEFT end, a dark forest-green sleeve with a jade-green cuff, the flap a jade-green leaf-shaped armour fin, and an open ivory-white furry rabbit paw with small dark claws at the RIGHT end; no pink human hand, no black.\n6 two fluffy rabbit-fur plumes: fluffy ivory-white fur in the same two plumes streaming to the viewer-left, with pale jade-green tips, like a big rabbit tail.\n7 dark forest-green cloak panels: the skirt and the four tails become long cloak panels in the same places and directions, dark forest green with a bronze hem and a small carved leaf motif near the tips; no black, no grey, no gold swirls.\n8 two rabbit legs with jade greaves: ivory-white furry rabbit legs with jade-green scale greaves and bronze-rimmed jade knee guards, big ivory rabbit feet with small dark claws pointing down at the bottom; no black, no red, no silver.\n9 floating bamboo slips: the same four floating clusters, but each bar is a flat green bamboo slip carved with a small leaf, tied with a thin bronze cord; no gold, no glow.\n10 big ebony claw with jade disc: a big ebony-wood claw: a round flat jade-green disc carved with leaves in the same place as the old disc, a frame of dark ebony wood with leaf-shaped fins instead of the flames, small jade chips instead of the green bars, and three big curved ebony claws hanging from the bottom, each set with a small jade stone; no yin-yang, no flames, no red, no gold, no silver.\n\nATTITUDE: a proud rabbit general about to strike: brow angled down, a confident closed-mouth smirk; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: ivory-white fur, jade-green scale armour with bronze rims, a dark forest-green cloak, big green eyes, flat green bamboo slips, dark ebony wood, small jade stones. Few colours.\n\nAVOID: black robes or sleeves, red, orange or yellow-gold colours, a yin-yang symbol, gold plates or bars, a human face or human hands, silver claws, flame shapes, glowing green flame wisps, glowing specks, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu thỏ có mặt, mũ ngọc",
+   "rabbit head with face and jade helmet",
+   "doi",
+   33,
+   "a small white-and-grey rabbit face turned to the viewer-right with a black nose at its right end and one blue eye, grey cheek and throat fur under it, a big spiky orange-and-yellow flame-shaped mane behind the head, and a long green spike sweeping from the upper-left down to just above the eye",
+   "đầu thỏ có mặt, mũ ngọc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đầu thỏ có mặt, mũ ngọc;\n- không vẽ phần khác.",
+   "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a small white-and-grey rabbit face turned to the viewer-right with a black nose at its right end and one blue eye, grey cheek and throat fur under it, a big spiky orange-and-yellow flame-shaped mane behind the head, and a long green spike sweeping from the upper-left down to just above the eye. Redraw THESE pieces as the rabbit head with face and jade helmet of image 2 (the approved concept): a cute rabbit face turned to the viewer-right with a short animal muzzle and a small dark nose at its right end, ivory-white fur, one big green eye (one catchlight dot) exactly where the old eye is, a brow angled down, a confident closed-mouth smirk, ivory cheek and throat fur below it; behind the head a jade-green scale helmet with a bronze rim whose back edge is layered like leaves, and a long dark forest-green leaf-shaped helmet crest sweeping from the upper-left down to above the eye; an animal face, not a human face; no orange, no flames. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the bottom of the face and throat where the head sits on the collar"
+  ],
+  [
+   "N02",
+   "hai tai thỏ dài",
+   "two long rabbit ears",
+   "doi",
+   28,
+   "two long pointed rabbit ears: a tall one standing straight up behind the head and one leaning to the upper-right, each white at the tip with green and red stripes",
+   "hai tai thỏ dài cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai tai thỏ dài;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two long pointed rabbit ears: a tall one standing straight up behind the head and one leaning to the upper-right, each white at the tip with green and red stripes. Redraw THESE pieces as the two long rabbit ears of image 2 (the approved concept): ivory-white fur outside, a pale jade-green inner lining and a thin bronze ring near the base of each ear, the same lengths and directions; no red. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the bottom end of each ear where it grows from the head"
+  ],
+  [
+   "N03",
+   "ngực, eo, giáp và đĩa ngọc",
+   "chest and waist armour with jade disc",
+   "giu",
+   23,
+   "the chest and waist: a white chest with a black diamond mark, a high black-and-gold collar on the viewer-right side of the neck with a small gold ornament, black hips, a big gold belt buckle with a green gem across the waist holding a round black-and-white yin-yang disc, a green sash end on the viewer-right of the waist and two small gold tassels hanging from the belt",
+   "ngực, eo, giáp và đĩa ngọc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: ngực, eo, giáp và đĩa ngọc;\n- không vẽ phần khác.",
+   "Image 1 is 9 pieces of a 2D cut-out animation puppet (the old design): the chest and waist: a white chest with a black diamond mark, a high black-and-gold collar on the viewer-right side of the neck with a small gold ornament, black hips, a big gold belt buckle with a green gem across the waist holding a round black-and-white yin-yang disc, a green sash end on the viewer-right of the waist and two small gold tassels hanging from the belt. Redraw THESE pieces as the chest and waist armour with jade disc of image 2 (the approved concept): ivory fur chest covered by jade-green scale armour with bronze rims; the high collar becomes a jade scale collar with a bronze rim; the hips covered by jade scale armour; a bronze belt buckle holding a round flat jade-green disc carved with a leaf pattern instead of the yin-yang disc; a dark forest-green sash end; two small bronze-and-green cord tassels; no black, no gold, no yin-yang. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "tay trái giơ cao",
+   "raised viewer-left arm",
+   "giu",
+   21,
+   "the viewer-left arm raised to the upper-left inside a wide black sleeve whose pointed green tip at the upper-left is the sleeve end (NO hand), a black-and-gold pointed shoulder guard at its shoulder (lower-right) end, and a gold band with black swirls across the upper arm",
+   "tay trái giơ cao cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: tay trái giơ cao;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): the viewer-left arm raised to the upper-left inside a wide black sleeve whose pointed green tip at the upper-left is the sleeve end (NO hand), a black-and-gold pointed shoulder guard at its shoulder (lower-right) end, and a gold band with black swirls across the upper arm. Redraw THESE pieces as the raised viewer-left arm of image 2 (the approved concept): the same raised arm in a dark forest-green cloak sleeve covered with jade scale plates, its pointed upper-left tip a jade-green leaf-shaped cuff (no hand drawn); a jade scale shoulder guard with a bronze rim; a bronze arm band carved with small leaves; no black, no gold. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "tay phải duỗi và bàn tay thỏ",
+   "outstretched viewer-right arm with paw",
+   "giu",
+   25,
+   "the viewer-right arm stretched to the right: a black shoulder pad with a green spiral at its LEFT end, a black sleeve with a green cuff, a grey pointed sleeve flap rising above the elbow, and an open pink clawed hand at its RIGHT end",
+   "tay phải duỗi và bàn tay thỏ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: tay phải duỗi và bàn tay thỏ;\n- không vẽ phần khác.",
+   "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): the viewer-right arm stretched to the right: a black shoulder pad with a green spiral at its LEFT end, a black sleeve with a green cuff, a grey pointed sleeve flap rising above the elbow, and an open pink clawed hand at its RIGHT end. Redraw THESE pieces as the outstretched viewer-right arm with paw of image 2 (the approved concept): a jade scale shoulder pad with a bronze rim at the LEFT end, a dark forest-green sleeve with a jade-green cuff, the flap a jade-green leaf-shaped armour fin, and an open ivory-white furry rabbit paw with small dark claws at the RIGHT end; no pink human hand, no black. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "hai chùm lông thỏ",
+   "two fluffy rabbit-fur plumes",
+   "doi",
+   30,
+   "two white furry tails edged with green streaming out to the viewer-left from behind the waist, the lower one bigger",
+   "hai chùm lông thỏ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai chùm lông thỏ;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two white furry tails edged with green streaming out to the viewer-left from behind the waist, the lower one bigger. Redraw THESE pieces as the two fluffy rabbit-fur plumes of image 2 (the approved concept): fluffy ivory-white fur in the same two plumes streaming to the viewer-left, with pale jade-green tips, like a big rabbit tail. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the right end of each plume (behind the waist)"
+  ],
+  [
+   "N07",
+   "vạt áo choàng xanh rừng",
+   "dark forest-green cloak panels",
+   "doi",
+   9,
+   "a grey skirt fluttering out to the viewer-right behind the legs, and four long black robe tails with gold borders and gold swirl patterns: two streaming down to the lower-left and two streaming out to the lower-right",
+   "vạt áo choàng xanh rừng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vạt áo choàng xanh rừng;\n- không vẽ phần khác.",
+   "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a grey skirt fluttering out to the viewer-right behind the legs, and four long black robe tails with gold borders and gold swirl patterns: two streaming down to the lower-left and two streaming out to the lower-right. Redraw THESE pieces as the dark forest-green cloak panels of image 2 (the approved concept): the skirt and the four tails become long cloak panels in the same places and directions, dark forest green with a bronze hem and a small carved leaf motif near the tips; no black, no grey, no gold swirls. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the waist end of each panel"
+  ],
+  [
+   "N08",
+   "hai chân thỏ, giáp ống ngọc",
+   "two rabbit legs with jade greaves",
+   "giu",
+   14,
+   "two legs hanging down: on the viewer-left a black thigh, a black shin with a gold knee ornament and a green foot with silver claws pointing down at the BOTTOM; on the viewer-right a black thigh, a red-and-gold knee ornament and a green shin with silver claws pointing down at the BOTTOM",
+   "hai chân thỏ, giáp ống ngọc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai chân thỏ, giáp ống ngọc;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): two legs hanging down: on the viewer-left a black thigh, a black shin with a gold knee ornament and a green foot with silver claws pointing down at the BOTTOM; on the viewer-right a black thigh, a red-and-gold knee ornament and a green shin with silver claws pointing down at the BOTTOM. Redraw THESE pieces as the two rabbit legs with jade greaves of image 2 (the approved concept): ivory-white furry rabbit legs with jade-green scale greaves and bronze-rimmed jade knee guards, big ivory rabbit feet with small dark claws pointing down at the bottom; no black, no red, no silver. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N09",
+   "thẻ tre bay",
+   "floating bamboo slips",
+   "doi",
+   7,
+   "four floating clusters of gold-and-dark-green bars around the figure: a big one at the upper-left, a small one at the upper-right, one at the lower-left and one at the lower-right",
+   "thẻ tre bay cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: thẻ tre bay;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): four floating clusters of gold-and-dark-green bars around the figure: a big one at the upper-left, a small one at the upper-right, one at the lower-left and one at the lower-right. Redraw THESE pieces as the floating bamboo slips of image 2 (the approved concept): the same four floating clusters, but each bar is a flat green bamboo slip carved with a small leaf, tied with a thin bronze cord; no gold, no glow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "each cluster stays where it is (floating, not attached)"
+  ],
+  [
+   "N10",
+   "vuốt gỗ mun gắn đĩa ngọc",
+   "big ebony claw with jade disc",
+   "doi",
+   17,
+   "a big round weapon floating beside the viewer-left arm: a black-and-white yin-yang disc in a gold ring at its upper-left, red-and-orange flame-shaped fins around it, a few small green bars, and big silver claws hanging from its bottom",
+   "vuốt gỗ mun gắn đĩa ngọc cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vuốt gỗ mun gắn đĩa ngọc;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big round weapon floating beside the viewer-left arm: a black-and-white yin-yang disc in a gold ring at its upper-left, red-and-orange flame-shaped fins around it, a few small green bars, and big silver claws hanging from its bottom. Redraw THESE pieces as the big ebony claw with jade disc of image 2 (the approved concept): a big ebony-wood claw: a round flat jade-green disc carved with leaves in the same place as the old disc, a frame of dark ebony wood with leaf-shaped fins instead of the flames, small jade chips instead of the green bars, and three big curved ebony claws hanging from the bottom, each set with a small jade stone; no yin-yang, no flames, no red, no gold, no silver. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the disc centre stays where it is"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 18,
+  "head": 10,
+  "swing": [
+   23,
+   5
+  ],
+  "wob": [
+   13,
+   11,
+   19,
+   20
+  ],
+  "fly": [
+   2
+  ],
+  "cast": [
+   24,
+   0.4,
+   0.4
+  ],
+  "parent": {
+   "13": 10,
+   "11": 10,
+   "23": 22,
+   "25": 23,
+   "24": 23,
+   "5": 6,
+   "3": 5,
+   "4": 5,
+   "34": 33,
+   "35": 34,
+   "30": 29,
+   "31": 29
+  }
+ }
+}

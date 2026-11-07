@@ -3,7 +3,9 @@
 // lùi ra sau và đứng thấp xuống. Vuốt ngang xoay vòng (con bên trái / phải vào giữa); chạm con bên cạnh cũng xoay tới nó, chạm con
 // giữa mở hộp chi tiết. Dưới mỗi tướng: số thứ tự ra trận, tên, lực chiến. Dưới hàng: 4 chỉ số của con giữa (icon + số), chấm vị trí.
 // Đầu khung: lực chiến cả đội, nút Đổi đội (hộp chọn đội ChonDoi). Ô trống: dấu + mở hộp chọn đội; ô khoá: điều kiện mở.
-// Tướng có hình aola thì đứng động (AolaSticker, clip Đứng), không thì chân dung tĩnh.
+// Tướng có hình aola thì đứng động (AolaSticker, clip Đứng), không thì chân dung tĩnh. Bind lại (sau mỗi lần lưu) giữ sticker của tướng
+// cùng dạng, kể cả khi tướng dời sang ô khác; chỉ dựng sticker mới cho tướng mới hoặc dạng mới (dựng camera + RenderTexture tốn, người
+// dùng báo giật khi đổi đội, lên cấp 2026-11-07).
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,6 +51,9 @@ namespace PokiClash
         Action onChange;
         readonly string[] ids = new string[3];
         readonly AolaSticker[] anim = new AolaSticker[3];
+        readonly string[] animKey = new string[3]; // "<tướng>|<dạng>" của sticker trong ô
+        readonly string[] waitForm = new string[3]; // ô đang hiện chân dung chờ dựng sticker (LateUpdate)
+        int bindFrame; // khung Bind gần nhất (khung chạm): không dựng sticker trong khung này
         float pos, target, t; // pos: ô đang ở giữa (liên tục khi vuốt), target: ô sẽ dừng
         bool dragging;
 
@@ -71,11 +76,18 @@ namespace PokiClash
             int open = Progress.TeamSlots(s);
             var team = s.team.Where(h => s.Hero(h)?.owned == true).Take(open).ToList();
             int total = 0;
+            // sticker cũ: tướng nào còn trong đội với cùng dạng thì dùng lại
+            var old = new List<(string key, AolaSticker s)>();
+            for (int i = 0; i < anim.Length; i++)
+            {
+                if (anim[i] != null) old.Add((animKey[i], anim[i]));
+                anim[i] = null;
+                animKey[i] = null;
+                waitForm[i] = null;
+            }
             for (int i = 0; i < p.spots.Length; i++)
             {
                 var sp = p.spots[i];
-                anim[i]?.Destroy();
-                anim[i] = null;
                 ids[i] = i < team.Count ? team[i] : null;
                 bool locked = i >= open, filled = ids[i] != null;
                 sp.empty.SetActive(!filled);
@@ -95,13 +107,29 @@ namespace PokiClash
                 sp.order.text = (i + 1).ToString();
                 sp.name.text = h.name;
                 sp.power.text = TeamPower.Text(power);
-                anim[i] = AolaSticker.TryCreate(sp.body, h, HeroArt.FormOf(h).aola, HeroH, false);
+                string form = HeroArt.FormOf(h).aola, key = h.id + "|" + form;
+                int reuse = old.FindIndex(o => o.key == key);
+                if (reuse >= 0)
+                {
+                    anim[i] = old[reuse].s;
+                    old.RemoveAt(reuse);
+                    anim[i].Rect.SetParent(sp.body, false);
+                }
+                else if (Game.AolaActor.Find(form, out _, out _))
+                {
+                    // chân dung tĩnh trước; LateUpdate dựng sticker ở khung sau (mỗi khung một cái, khi animation đã đọc xong)
+                    waitForm[i] = form;
+                    Game.AolaActor.Ready(form);
+                }
+                animKey[i] = anim[i] != null ? key : null;
                 if (anim[i] == null)
                 {
                     sp.portrait.gameObject.SetActive(true);
                     sp.portrait.Bind(h, HeroH / 0.62f);
                 }
             }
+            foreach (var o in old) o.s.Destroy();
+            bindFrame = Time.frameCount;
             p.teamPower.text = TeamPower.Text(total);
             p.edit.SetOnClick(OpenPicker);
             pos = target = 0;
@@ -162,6 +190,31 @@ namespace PokiClash
                 Layout();
             }
             for (int i = 0; i < anim.Length; i++) anim[i]?.Show(HeroViewer.Idle, t + i * 0.37f, true, 1, false, 0);
+        }
+
+        // dựng sticker đang chờ: không trong khung Bind (khung chạm), mỗi khung một cái, ô giữa trước; LateUpdate để ô xem của hộp chi
+        // tiết (Update) giành lượt dựng trong khung trước
+        void LateUpdate()
+        {
+            if (Time.frameCount <= bindFrame || !AolaSticker.CanBuildNow) return;
+            for (int k = 0; k < waitForm.Length; k++)
+            {
+                int i = (Center + k) % waitForm.Length;
+                if (waitForm[i] == null) continue;
+                if (ids[i] == null)
+                {
+                    waitForm[i] = null;
+                    continue;
+                }
+                if (!Game.AolaActor.Ready(waitForm[i])) continue;
+                var h = App.Data.Hero(ids[i]);
+                var sp = p.spots[i];
+                anim[i] = AolaSticker.TryCreate(sp.body, h, waitForm[i], HeroH, false);
+                animKey[i] = anim[i] != null ? h.id + "|" + waitForm[i] : null;
+                if (anim[i] != null) sp.portrait.gameObject.SetActive(false);
+                waitForm[i] = null;
+                return;
+            }
         }
 
         public void OnBeginDrag(PointerEventData e) => dragging = true;

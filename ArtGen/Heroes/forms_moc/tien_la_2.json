@@ -1,0 +1,120 @@
+{
+ "code": "tien_la_2",
+ "elem": "moc",
+ "aola": 649,
+ "hero": "Tiên Lá",
+ "form": 2,
+ "forms": 3,
+ "form_name": "Linh Ánh Lục",
+ "role_vi": "tướng hệ Mộc (ải 1 đảo Mộc, dạng 2/3), rig aola #649",
+ "design_vi": "đom đóm lớn bay lơ lửng: mặt, bụng kem; mũ rêu dài thành mào lá nhọn mép ô liu, chóp mào cong thành râu mang đèn đom đóm hổ phách to hơn; lưng mai cánh cứng nâu hạt dẻ chấm vàng; đôi cánh mỏng xanh bạc hà gân ô liu; tay chân xanh rêu đệm kem; mắt nâu hạt dẻ",
+ "rig_vi": "con gốc #649 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu có mặt và mào lá rêu, 2 đèn đom đóm to, 3 đôi cánh mỏng, 4 thân có mai cánh cứng, 5 hai tay nhỏ, 6 hai chân nhỏ",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a FIREFLY SPRITE with a long leafy moss crest and a bigger amber lantern, the SECOND stage of a three-stage Wood evolution line whose first stage is image 6: a round firefly pup with a moss hood, in the same view and pose as image 1, hovering just above the ground on its thin wings, arms and legs hanging loose, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with face and leafy moss crest; 2 big firefly lantern; 3 two thin wings; 4 body with beetle shell; 5 two small arms; 6 two small legs;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with face and leafy moss crest: warm cream face in front; the hair crest becomes a long moss-green hood of pointed leaves with olive leaf-shaped tips, sweeping back to the viewer-left in the same spiky outline; its long top tip is a curling moss-green stalk with a dark-brown core line that ends where the lantern hangs (do NOT draw the lantern here); the lime leaf becomes one more olive leaf lying flat on the hood; two big dark chestnut-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a small confident grin with a tiny fang where the old mouth is; no forehead dots.\n2 big firefly lantern: a big round firefly lantern bulb of flat amber-yellow with three darker amber segment lines and a small dark-brown cap where it meets the stalk, a little bigger than the old ball; no glow, no light rays, no white centre.\n3 two thin wings: two thin firefly wings of flat mint green (a soft green, not cyan) with fine olive veins and a thin olive rim, the same two-lobed shapes and places as the old wings; opaque flat colour, no transparency, no glow.\n4 body with beetle shell: warm cream belly in front; the green-and-yellow band becomes a chestnut-brown beetle shell with small yellow dots and a thin olive rim covering the back on the viewer-left side.\n5 two small arms: two short moss-green arms, shoulder at the TOP end, a small cream paw at the BOTTOM end.\n6 two small legs: two short moss-green legs, hip at the TOP end, a cream toe pad at the BOTTOM end.\n\nATTITUDE: a brave young firefly ready to dart in: brows angled down, a small fang showing in a confident grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: warm cream fur on the face and belly, a moss-green hood with olive leaf-shaped tips, chestnut-brown beetle wing cases with small yellow dots, a flat amber-yellow firefly lantern, big dark chestnut-brown eyes, thin wings of flat mint green (a soft green, not cyan) with fine olive veins. Few colours.\n\nAVOID: a white face with a green-and-yellow hair streak, cyan or turquoise ears or wings, clover leaves, a glowing ball, light rays, a ring or swoosh around the body, a spiky green-and-yellow hair crest, a lime-green leaf on the forehead, see-through glassy wings, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu có mặt và mào lá rêu",
+   "head with face and leafy moss crest",
+   "giu",
+   9,
+   "a big head: a white face in front and a huge spiky green-and-yellow hair crest sweeping back to the viewer-left, whose long top tip curls up and over to the viewer-right like a stalk; a lime-green leaf lies on the top right of the head; two big green eyes, a small pink mouth and two small green dots on the forehead",
+   "đầu có mặt và mào lá rêu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt và mào lá rêu;\n- không vẽ phần khác.",
+   "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): a big head: a white face in front and a huge spiky green-and-yellow hair crest sweeping back to the viewer-left, whose long top tip curls up and over to the viewer-right like a stalk; a lime-green leaf lies on the top right of the head; two big green eyes, a small pink mouth and two small green dots on the forehead. Redraw THESE pieces as the head with face and leafy moss crest of image 2 (the approved concept): warm cream face in front; the hair crest becomes a long moss-green hood of pointed leaves with olive leaf-shaped tips, sweeping back to the viewer-left in the same spiky outline; its long top tip is a curling moss-green stalk with a dark-brown core line that ends where the lantern hangs (do NOT draw the lantern here); the lime leaf becomes one more olive leaf lying flat on the hood; two big dark chestnut-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a small confident grin with a tiny fang where the old mouth is; no forehead dots. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "đèn đom đóm to",
+   "big firefly lantern",
+   "doi",
+   40,
+   "a big glowing cyan ball with a white centre at the end of the curling top tip of the head crest",
+   "đèn đom đóm to cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đèn đom đóm to;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big glowing cyan ball with a white centre at the end of the curling top tip of the head crest. Redraw THESE pieces as the big firefly lantern of image 2 (the approved concept): a big round firefly lantern bulb of flat amber-yellow with three darker amber segment lines and a small dark-brown cap where it meets the stalk, a little bigger than the old ball; no glow, no light rays, no white centre. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the viewer-left side of the bulb, where the curling stalk ends"
+  ],
+  [
+   "N03",
+   "đôi cánh mỏng",
+   "two thin wings",
+   "doi",
+   18,
+   "two see-through cyan butterfly wings behind the body: a bigger one on the viewer-left reaching up-left, a smaller one on the viewer-right partly hidden behind the body",
+   "đôi cánh mỏng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đôi cánh mỏng;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two see-through cyan butterfly wings behind the body: a bigger one on the viewer-left reaching up-left, a smaller one on the viewer-right partly hidden behind the body. Redraw THESE pieces as the two thin wings of image 2 (the approved concept): two thin firefly wings of flat mint green (a soft green, not cyan) with fine olive veins and a thin olive rim, the same two-lobed shapes and places as the old wings; opaque flat colour, no transparency, no glow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "end of each wing that touches the back of the body"
+  ],
+  [
+   "N04",
+   "thân có mai cánh cứng",
+   "body with beetle shell",
+   "giu",
+   37,
+   "a small egg-shaped body under the head: white belly in front, a green-and-yellow band down its viewer-left side (the back)",
+   "thân có mai cánh cứng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân có mai cánh cứng;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small egg-shaped body under the head: white belly in front, a green-and-yellow band down its viewer-left side (the back). Redraw THESE pieces as the body with beetle shell of image 2 (the approved concept): warm cream belly in front; the green-and-yellow band becomes a chestnut-brown beetle shell with small yellow dots and a thin olive rim covering the back on the viewer-left side. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "hai tay nhỏ",
+   "two small arms",
+   "giu",
+   41,
+   "two thin arms hanging down: the viewer-left one in front of the belly, the viewer-right one at the side; the TOP end of each is the shoulder, the green BOTTOM end is the hand",
+   "hai tay nhỏ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai tay nhỏ;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two thin arms hanging down: the viewer-left one in front of the belly, the viewer-right one at the side; the TOP end of each is the shoulder, the green BOTTOM end is the hand. Redraw THESE pieces as the two small arms of image 2 (the approved concept): two short moss-green arms, shoulder at the TOP end, a small cream paw at the BOTTOM end. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "hai chân nhỏ",
+   "two small legs",
+   "giu",
+   57,
+   "two short oval legs hanging under the body, the hip at the TOP end and a green foot tip at the BOTTOM end",
+   "hai chân nhỏ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai chân nhỏ;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two short oval legs hanging under the body, the hip at the TOP end and a green foot tip at the BOTTOM end. Redraw THESE pieces as the two small legs of image 2 (the approved concept): two short moss-green legs, hip at the TOP end, a cream toe pad at the BOTTOM end. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 9,
+  "head": 11,
+  "swing": [],
+  "wob": [
+   8,
+   6,
+   12
+  ],
+  "fly": [],
+  "cast": [
+   12,
+   0.5,
+   0.5
+  ],
+  "parent": {
+   "12": 11
+  }
+ },
+ "prev": [
+  [
+   "tien_la_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

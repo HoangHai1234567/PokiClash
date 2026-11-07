@@ -41,6 +41,23 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Lam Quân ra trận: tia triều đinh ba ở 3 dạng (đang Play)", priority = 117)]
         static void TryLamQuan() => Start("lam_quan", "lam_quan_combat", 1, 3, 5);
 
+        // đòn đánh, chiêu cuối viết lại của các tướng đảo Thủy vẽ lại 2026-11-07 (ArtGen/Heroes/tools/anim_thuy.py): bắn tia, cầu nước
+        // trên đầu đối thủ xả nước, sóng thần, mạch nước phun, tên nước rơi...; ảnh vào <id>_combat/
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Vây Lam ra trận ở 3 dạng (đang Play)", priority = 118)]
+        static void TryVayLam() => Start("vay_lam", "vay_lam_combat", 1, 3, 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Kuba ra trận ở 3 dạng (đang Play)", priority = 119)]
+        static void TryKuba() => Start("kuba", "kuba_combat", 1, 3, 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Tám Tay ra trận ở 2 dạng (đang Play)", priority = 120)]
+        static void TryTamTay() => Start("tam_tay", "tam_tay_combat", 1, 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Cá Ngựa ra trận ở 3 dạng (đang Play)", priority = 121)]
+        static void TryCaNgua() => Start("ca_ngua", "ca_ngua_combat", 1, 3, 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Mập Răng Cưa ra trận ở 3 dạng (đang Play)", priority = 122)]
+        static void TryMapRang() => Start("map_rang", "map_rang_combat", 1, 3, 5);
+
         static void Start(string id, string folder, params int[] at)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

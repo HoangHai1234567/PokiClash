@@ -253,6 +253,8 @@ namespace PokiClash
                     Icon("team"));
                 return;
             }
+            // tướng vừa vào đội: đọc trước animation ở luồng phụ, bấm Xong thì đội hình dựng tướng không khựng
+            if (team.Contains(hero.id)) Game.AolaActor.Prewarm(HeroArt.FormOf(hero).aola);
             Draw();
         }
     }

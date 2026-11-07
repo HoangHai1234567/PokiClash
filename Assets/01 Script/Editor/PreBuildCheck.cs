@@ -110,6 +110,11 @@ namespace PokiClash.EditorTools
                     }
                 }
             }
+            // dạng tướng thừa trong Resources vẫn vào bản build (dung lượng, người dùng 2026-11-03: APK khoảng 60-70 MB)
+            var stale = AolaImport.StaleForms();
+            if (stale.Count > 0)
+                warnings.Add($"{stale.Count} dạng tướng trong {AolaImport.ResDir} không còn trong heroes.json mà vẫn vào bản build: " +
+                             $"{string.Join(", ", stale)}. Xoá bằng menu \"{AolaImport.StaleMenu}\".");
             return errors;
         }
     }

@@ -1,0 +1,169 @@
+{
+ "code": "hoa_nhuy_3",
+ "elem": "moc",
+ "aola": 595,
+ "hero": "Hoa Nhụy",
+ "form": 3,
+ "forms": 3,
+ "form_name": "Tiên Hoa Nhụy",
+ "role_vi": "tướng hệ Mộc (ải 5 đảo Mộc, dạng 3/3), rig aola #595",
+ "design_vi": "tiên củ cải đứng: đầu tròn mặt thú (không tóc, không mặt người), da đỏ thẫm mặt kem; đội hoa trà trắng nở to nhụy đỏ thẫm; cổ áo lá xanh thẫm; thân đỏ thẫm bụng kem; váy ba lá xanh thẫm; ba chóp rễ đỏ thẫm dưới váy; hai tay đỏ thẫm bàn kem, mỗi tay cầm một quả mọng đỏ; mắt nâu sẫm",
+ "rig_vi": "con gốc #595 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu tròn mặt thú, 2 hoa trà trắng trên đầu, 3 cổ áo lá, 4 thân, 5 váy lá, 6 chân rễ củ cải, 7 tay bên trái cầm quả mọng, 8 tay bên phải cầm quả mọng",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a RADISH FAIRY standing upright, with a ROUND ANIMAL HEAD (not a human girl), crowned with a white camellia in full bloom, the THIRD stage of a three-stage Wood evolution line whose first stage is image 6: a round crimson radish pup, in the same view and pose as image 1, standing upright with both arms held out to the sides, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round animal head with face; 2 white camellia on the head; 3 leaf collar; 4 body; 5 leaf skirt; 6 radish root feet; 7 viewer-left arm holding a berry; 8 viewer-right arm holding a berry;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round animal head with face: a ROUND animal head with NO hair, filling the face and hair area: deep crimson-red radish skin on the top, back and sides where the old hair was, a big warm cream face patch in front with a small animal muzzle; two big dark-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a confident grin with a small fang where the old mouth is; not a human face, no hair, no bangs, no nose.\n2 white camellia on the head: a big white camellia in full bloom sitting on top of the head: the petals become wide rounded white camellia petals in the same places (thin warm-grey lines between petals, no pink); the three stalks become short thick deep-crimson stamens with round crimson tips standing up from the centre.\n3 leaf collar: a collar of dark forest-green leaves with olive midribs: a wide leaf spreading behind the neck to both sides and two leaf tips curling up at the front of the shoulders, the same shapes and places; no gold.\n4 body: a deep crimson-red radish torso with a warm cream belly patch in front, its leafy lower edge dark forest green; the waist oval dark forest green.\n5 leaf skirt: a skirt of three big dark forest-green leaves with olive midribs and a thin olive rim.\n6 radish root feet: three deep crimson-red radish-root lobes peeking out under the skirt, each tapering to a thin cream root tip pointing down.\n7 viewer-left arm holding a berry: a deep crimson-red arm ending in a cream paw with three short fingers at the bottom-left end; the paw clutches one plump round deep-red berry with a tiny dark-green leaf cap, drawn inside the paw outline; the shoulder leaf is a dark forest-green leaf sleeve.\n8 viewer-right arm holding a berry: a deep crimson-red arm ending in a cream paw with three short fingers at the bottom-right end; the paw clutches one plump round deep-red berry with a tiny dark-green leaf cap, drawn inside the paw outline; the shoulder leaf is a dark forest-green leaf sleeve.\n\nATTITUDE: a proud flower fighter: brows angled down, a confident grin with a small fang; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: deep crimson-red radish skin, a warm cream face-and-belly patch, dark forest-green leaves with olive midribs, big dark-brown eyes, a big white camellia with deep-crimson stamens, plump deep-red berries. Few colours.\n\nAVOID: pale washed-out green, a pale green or whitish body, pink flowers or petals, purple bells, a human face or human hair, glowing dots, sparkles, a pink lily, yellow stamens on long stalks, a golden collar, a human girl's face, hair or bangs, pale green skin, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu tròn mặt thú",
+   "round animal head with face",
+   "doi",
+   13,
+   "a human-like head: a pale-green round face with a pointed side lock on the viewer-left, two big purple eyes and a tiny smile, and green hair: a big lock sweeping over the top and down the viewer-right side, a smaller lock on the viewer-left",
+   "đầu tròn mặt thú cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đầu tròn mặt thú;\n- không vẽ phần khác.",
+   "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a human-like head: a pale-green round face with a pointed side lock on the viewer-left, two big purple eyes and a tiny smile, and green hair: a big lock sweeping over the top and down the viewer-right side, a smaller lock on the viewer-left. Redraw THESE pieces as the round animal head with face of image 2 (the approved concept): a ROUND animal head with NO hair, filling the face and hair area: deep crimson-red radish skin on the top, back and sides where the old hair was, a big warm cream face patch in front with a small animal muzzle; two big dark-brown eyes (one small catchlight dot each) exactly where the old eyes are, brows angled down, a confident grin with a small fang where the old mouth is; not a human face, no hair, no bangs, no nose. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom of the head (the neck, at the collar)"
+  ],
+  [
+   "N02",
+   "hoa trà trắng trên đầu",
+   "white camellia on the head",
+   "doi",
+   14,
+   "a big pink lily sitting on top of the head: seven curling pink petals, and three thin yellow stamens with round tips standing up from its centre",
+   "hoa trà trắng trên đầu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hoa trà trắng trên đầu;\n- không vẽ phần khác.",
+   "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): a big pink lily sitting on top of the head: seven curling pink petals, and three thin yellow stamens with round tips standing up from its centre. Redraw THESE pieces as the white camellia on the head of image 2 (the approved concept): a big white camellia in full bloom sitting on top of the head: the petals become wide rounded white camellia petals in the same places (thin warm-grey lines between petals, no pink); the three stalks become short thick deep-crimson stamens with round crimson tips standing up from the centre. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of the flower (where it sits on top of the head)"
+  ],
+  [
+   "N03",
+   "cổ áo lá",
+   "leaf collar",
+   "doi",
+   14,
+   "a big golden curved collar behind the neck spreading out to both sides, and two golden curling tips at the front of the shoulders",
+   "cổ áo lá cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: cổ áo lá;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a big golden curved collar behind the neck spreading out to both sides, and two golden curling tips at the front of the shoulders. Redraw THESE pieces as the leaf collar of image 2 (the approved concept): a collar of dark forest-green leaves with olive midribs: a wide leaf spreading behind the neck to both sides and two leaf tips curling up at the front of the shoulders, the same shapes and places; no gold. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "middle of the collar (at the neck, under the chin)"
+  ],
+  [
+   "N04",
+   "thân",
+   "body",
+   "giu",
+   23,
+   "a small pale-green torso narrowing at the waist with a leafy lower edge, and a dark-green oval at the waist mostly hidden under the skirt",
+   "thân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a small pale-green torso narrowing at the waist with a leafy lower edge, and a dark-green oval at the waist mostly hidden under the skirt. Redraw THESE pieces as the body of image 2 (the approved concept): a deep crimson-red radish torso with a warm cream belly patch in front, its leafy lower edge dark forest green; the waist oval dark forest green. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "váy lá",
+   "leaf skirt",
+   "giu",
+   14,
+   "a skirt of three big round green leaves: one in front, one on the viewer-left, one on the viewer-right",
+   "váy lá cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: váy lá;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a skirt of three big round green leaves: one in front, one on the viewer-left, one on the viewer-right. Redraw THESE pieces as the leaf skirt of image 2 (the approved concept): a skirt of three big dark forest-green leaves with olive midribs and a thin olive rim. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "chân rễ củ cải",
+   "radish root feet",
+   "giu",
+   20,
+   "three yellow drop-shaped petals under the skirt, their points hanging down, standing in for feet",
+   "chân rễ củ cải cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân rễ củ cải;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three yellow drop-shaped petals under the skirt, their points hanging down, standing in for feet. Redraw THESE pieces as the radish root feet of image 2 (the approved concept): three deep crimson-red radish-root lobes peeking out under the skirt, each tapering to a thin cream root tip pointing down. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N07",
+   "tay bên trái cầm quả mọng",
+   "viewer-left arm holding a berry",
+   "giu",
+   22,
+   "the arm on the viewer-left: an upper arm going down from the shoulder (TOP end = shoulder), a round elbow, a forearm going down-left, an open leafy hand at the BOTTOM-LEFT end with three small finger tips, and a dark-green leaf over the shoulder like a sleeve",
+   "tay bên trái cầm quả mọng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: tay bên trái cầm quả mọng;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): the arm on the viewer-left: an upper arm going down from the shoulder (TOP end = shoulder), a round elbow, a forearm going down-left, an open leafy hand at the BOTTOM-LEFT end with three small finger tips, and a dark-green leaf over the shoulder like a sleeve. Redraw THESE pieces as the viewer-left arm holding a berry of image 2 (the approved concept): a deep crimson-red arm ending in a cream paw with three short fingers at the bottom-left end; the paw clutches one plump round deep-red berry with a tiny dark-green leaf cap, drawn inside the paw outline; the shoulder leaf is a dark forest-green leaf sleeve. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N08",
+   "tay bên phải cầm quả mọng",
+   "viewer-right arm holding a berry",
+   "giu",
+   23,
+   "the arm on the viewer-right: an upper arm going down from the shoulder (TOP end = shoulder), a round elbow, a forearm going down-right, an open leafy hand at the BOTTOM-RIGHT end with three small finger tips, and a dark-green leaf over the shoulder like a sleeve",
+   "tay bên phải cầm quả mọng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: tay bên phải cầm quả mọng;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): the arm on the viewer-right: an upper arm going down from the shoulder (TOP end = shoulder), a round elbow, a forearm going down-right, an open leafy hand at the BOTTOM-RIGHT end with three small finger tips, and a dark-green leaf over the shoulder like a sleeve. Redraw THESE pieces as the viewer-right arm holding a berry of image 2 (the approved concept): a deep crimson-red arm ending in a cream paw with three short fingers at the bottom-right end; the paw clutches one plump round deep-red berry with a tiny dark-green leaf cap, drawn inside the paw outline; the shoulder leaf is a dark forest-green leaf sleeve. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 18,
+  "head": 36,
+  "swing": [
+   2
+  ],
+  "wob": [
+   28,
+   29,
+   30
+  ],
+  "fly": [],
+  "cast": [
+   6,
+   0.45,
+   0.5
+  ],
+  "parent": {
+   "33": 36,
+   "31": 36,
+   "34": 36,
+   "35": 36,
+   "38": 36,
+   "40": 36,
+   "41": 36,
+   "28": 36,
+   "29": 36,
+   "30": 36,
+   "22": 20,
+   "21": 20,
+   "19": 20,
+   "23": 19,
+   "24": 23,
+   "25": 23,
+   "26": 23,
+   "3": 2,
+   "5": 2,
+   "4": 2,
+   "6": 4,
+   "7": 6,
+   "8": 6,
+   "9": 6
+  }
+ },
+ "prev": [
+  [
+   "hoa_nhuy_1",
+   "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+   "dạng 1 đã duyệt của dòng này"
+  ]
+ ]
+}

@@ -3,7 +3,8 @@
 // - Mỗi dạng → Assets/03 Art/Heroes/Resources/<dạng>/ (atlas và chân dung nạp khi cần bằng Resources.Load, xem AolaAnim):
 //   - <dạng>_atlas.png: mọi hình mảnh, thu nhỏ về độ nét thật sự dùng rồi xếp chung một atlas (nén ASTC 8x8 trên Android, iOS).
 //     Tướng được vẽ vào RenderTexture tối đa 1024 điểm cho khung 3,4 lần chiều cao dáng đứng (AolaSticker), nên dáng đứng cao
-//     tối đa ~301 điểm; hình mảnh chỉ cần đủ nét cho mức đó, hình không có trong dáng đứng thu thêm (OtherScale); không mipmap,
+//     tối đa ~301 điểm; hình mảnh chỉ cần đủ nét cho mức đó, hình không có trong dáng đứng thu thêm (OtherScale), hình chỉ hiện
+//     1-4 khung thu thêm nữa (BriefRule, AolaAnim.brief); không mipmap,
 //     xếp sát không làm tròn cỡ lên lũy thừa 2. Ma trận trong anim.json
 //     giữ nguyên: AolaAnim.sizes ghi cỡ gốc của từng hình.
 //   - <dạng>_portrait.png: chân dung (sprite, gốc ở chân), lưu PortraitSide x PortraitSide kéo giãn từ khung 4:5 (HeroPortrait
@@ -110,6 +111,12 @@ namespace PokiClash.EditorTools
         const float HaloScale = 0.3f, BlurredScale = 0.6f;
         static readonly Regex HaloPic = new Regex(@"[\\/]fx[\\/][^\\/]+_q[0-9a-f]{8}\.png$");
         static readonly Regex BlurredPic = new Regex(@"[\\/]fx[\\/][^\\/]+_b[0-9a-f]{8}\.png$");
+        // hình không có trong dáng đứng mà chỉ hiện ít khung (cộng mọi clip khác): chớp sáng, vụ nổ, dáng lao của đòn đánh, mỗi lần
+        // hiện 40-80 ms nên thu thêm (người dùng 2026-11-07 "tối ưu dung lượng game"; so khung goc_487, goc_2420, goc_59: chỉ mềm
+        // hơn chút ở mắt khi phóng 2 lần). Hình ≤2 khung chiếm ~17 MB trong ~40 MB nét ASTC của atlas tướng gốc.
+        // Đổi luật thì tăng BriefRule: menu "Thu nhỏ hình ít khung trong atlas đã nhập" áp lại cho dạng có brief nhỏ hơn.
+        public const int BriefRule = 1;
+        const float Brief2Scale = 0.65f, Brief4Scale = 0.85f;
         public const int PortraitSide = 512; // chân dung lưu vuông (lũy thừa 2, có mipmap mới nén được)
         const string Version = "2"; // đổi khi cách nhập đổi, để nhập lại mọi dạng
         const string StandMark = "tam-"; // đầu dấu nguồn của dạng vẽ lại đang tạm mang hình gốc goc_<id>
@@ -200,6 +207,11 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Tướng/Xếp lại atlas tướng đã nhập (không đọc nguồn)", priority = 54)]
         static void MenuRepack() => Repack();
 
+        // áp BriefRule cho dạng đã nhập trước khi có luật (AolaAnim.brief nhỏ hơn): cắt hình từ atlas trong project, thu hình ít khung,
+        // xếp lại. Không cần nguồn AolaRipper, không thu hai lần (đánh dấu brief).
+        [MenuItem("PokiClash/Tướng/Thu nhỏ hình ít khung trong atlas đã nhập (dung lượng)", priority = 54)]
+        static void MenuRepackBrief() => Repack(true);
+
         // Nhập lại mọi chân dung theo AolaImportPostprocessor.PortraitFormat, không đụng atlas (không tăng GetVersion: tăng thì nhập lại
         // mọi ảnh tướng). Ghi mức nén vào .meta của từng chân dung nên máy kia kéo git về cũng tự nhập lại chân dung.
         [MenuItem("PokiClash/Tướng/Nhập lại chân dung tướng (mức nén chân dung)", priority = 55)]
@@ -230,10 +242,10 @@ namespace PokiClash.EditorTools
 
         // Xếp lại atlas đã có trong project bằng Pack: cắt từng hình theo uvs từ PNG atlas trong project (bản chưa nén), xếp lại, ghi
         // PNG và uvs. Không đọc nguồn AolaRipper nên dùng được cho dạng nhập ở máy khác; không đổi dấu nguồn, anim, chân dung.
-        public static string Repack()
+        public static string Repack(bool brief = false)
         {
             long before = 0, after = 0;
-            int done = 0, same = 0;
+            int done = 0, same = 0, marked = 0, shrunkPics = 0;
             var guids = AssetDatabase.FindAssets("t:AolaAnim", new[] { ResDir });
             try
             {
@@ -244,6 +256,9 @@ namespace PokiClash.EditorTools
                     {
                         var a = AssetDatabase.LoadAssetAtPath<AolaAnim>(AssetDatabase.GUIDToAssetPath(guids[k]));
                         if (!a || a.uvs == null || a.uvs.Length == 0 || string.IsNullOrEmpty(a.res)) continue;
+                        if (brief && a.brief >= BriefRule) continue;
+                        var shrink = brief ? BriefFactors(a) : null;
+                        if (brief && shrink == null) continue;
                         if (EditorUtility.DisplayCancelableProgressBar("Xếp lại atlas tướng", $"{a.name} ({k + 1}/{guids.Length})", (float)k / guids.Length))
                             throw new OperationCanceledException();
                         var png = Path.Combine(Application.dataPath, "..", ResDir, a.res + "_atlas.png");
@@ -258,6 +273,7 @@ namespace PokiClash.EditorTools
                         var all = src.GetPixels32();
                         UnityEngine.Object.DestroyImmediate(src);
                         var parts = new Texture2D[a.uvs.Length];
+                        int shrunk = 0;
                         for (int i = 0; i < parts.Length; i++)
                         {
                             var u = a.uvs[i];
@@ -267,18 +283,34 @@ namespace PokiClash.EditorTools
                             for (int row = 0; row < h; row++) Array.Copy(all, (y + row) * W + x, px, row * w, w);
                             parts[i] = new Texture2D(w, h, TextureFormat.RGBA32, false);
                             parts[i].SetPixels32(px);
+                            if (shrink == null || i >= shrink.Length || shrink[i] >= 1) continue;
+                            int nw = Math.Max(1, (int)Math.Round(w * shrink[i])), nh = Math.Max(1, (int)Math.Round(h * shrink[i]));
+                            if (nw >= w && nh >= h) continue;
+                            var small = Shrink(parts[i], nw, nh);
+                            UnityEngine.Object.DestroyImmediate(parts[i]);
+                            parts[i] = small;
+                            shrunk++;
                         }
                         var uvs = new Rect[parts.Length];
                         var atlas = Pack(parts, uvs, out _);
                         foreach (var t in parts) UnityEngine.Object.DestroyImmediate(t);
                         before += (long)W * H;
-                        if (!atlas || (long)atlas.width * atlas.height >= (long)W * H)
+                        if (!atlas || shrunk == 0 && (long)atlas.width * atlas.height >= (long)W * H)
                         {
                             after += (long)W * H;
                             same++;
+                            // không có hình nào cần thu: vẫn đánh dấu đã áp luật (trước khi huỷ atlas: Object đã huỷ so sánh như null)
+                            if (atlas && brief)
+                            {
+                                a.brief = BriefRule;
+                                EditorUtility.SetDirty(a);
+                                marked++;
+                            }
                             if (atlas) UnityEngine.Object.DestroyImmediate(atlas);
                             continue;
                         }
+                        shrunkPics += shrunk;
+                        if (brief) a.brief = BriefRule;
                         after += (long)atlas.width * atlas.height;
                         Write(png, atlas.EncodeToPNG());
                         UnityEngine.Object.DestroyImmediate(atlas);
@@ -297,6 +329,7 @@ namespace PokiClash.EditorTools
                 AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
                 var summary = $"[Tướng aola] Xếp lại {done} atlas ({same} giữ nguyên): {before / 1e6:0.0} → {after / 1e6:0.0} triệu điểm ảnh " +
                               $"(ASTC 8x8 {before / 4 / 1048576f:0.0} → {after / 4 / 1048576f:0.0} MB).";
+                if (brief) summary += $" Thu hình ít khung (luật {BriefRule}): {shrunkPics} hình; {marked} dạng không có hình cần thu.";
                 Debug.Log(summary);
                 return summary;
             }
@@ -413,6 +446,7 @@ namespace PokiClash.EditorTools
                     if (fresh) a = ScriptableObject.CreateInstance<AolaAnim>();
                     a.Setup($"{form}/{form}", AssetDatabase.LoadAssetAtPath<TextAsset>($"{ResDir}/{form}/{form}_anim.bytes"),
                         p.sizes, p.uvs, p.shadow, p.stamp);
+                    a.brief = BriefRule;
                     if (fresh) AssetDatabase.CreateAsset(a, AnimPath(form));
                     else EditorUtility.SetDirty(a);
                     made.Add(form);
@@ -445,17 +479,16 @@ namespace PokiClash.EditorTools
                 }
                 AssetDatabase.SaveAssets();
 
-                var used = new HashSet<string>(forms);
-                var stale = Directory.Exists(ResDir)
-                    ? Directory.GetDirectories(ResDir).Select(Path.GetFileName).Where(f => !used.Contains(f)).ToList()
-                    : new List<string>();
+                var stale = StaleForms();
                 var summary = $"[Tướng aola] {prefabs.Count}/{heroes.Count} prefab tướng, {forms.Count - missing.Count}/{forms.Count} dạng có hình; " +
                               $"nhập mới {made.Count} dạng (hình mảnh {before / 1048576f:0.0} MB PNG gốc → atlas {after / 1048576f:0.0} MB PNG, " +
                               $"{pixels / 1e6:0.0} triệu điểm ảnh, ASTC 8x8 khoảng {pixels * 16 / 64 / 1048576f:0} MB).";
                 if (missing.Count > 0) summary += $"\nChưa xuất anim.json bên AolaRipper: {string.Join(", ", missing)}";
                 if (stands.Count > 0) summary += $"\nChưa có hình vẽ lại, tạm dùng hình gốc aola: {string.Join(", ", stands)}";
                 if (kept.Count > 0) summary += $"\nMáy này không có bản vẽ lại, giữ hình đã nhập từ máy khác: {string.Join(", ", kept)}";
-                if (stale.Count > 0) summary += $"\nDạng không còn tướng nào dùng (chưa xoá): {string.Join(", ", stale)}";
+                if (stale.Count > 0)
+                    summary += $"\nDạng không còn tướng nào dùng (chưa xoá, vẫn vào bản build vì nằm trong Resources; menu \"{StaleMenu}\"): " +
+                               string.Join(", ", stale);
                 foreach (var l in log) Debug.LogWarning("[Tướng aola] " + l);
                 Debug.Log(summary);
                 return summary;
@@ -472,6 +505,41 @@ namespace PokiClash.EditorTools
         }
 
         static string AnimPath(string form) => $"{ResDir}/{form}/{form}.asset";
+
+        // Dạng trong Resources mà heroes.json (tướng và lính) không còn trỏ tới: thường là goc_<id> đã có bản vẽ lại <hệ>_<id>. Mọi
+        // thứ trong Resources đều vào bản build nên dạng thừa làm nặng APK (2026-11-07: 34 dạng goc_ đảo Thủy, khoảng 8 MB).
+        public static List<string> StaleForms()
+        {
+            if (!Directory.Exists(ResDir) || !File.Exists(HeroesJson)) return new List<string>();
+            var used = new HashSet<string>(ReadHeroes().SelectMany(h => h.forms));
+            return Directory.GetDirectories(ResDir).Select(Path.GetFileName).Where(f => !used.Contains(f)).OrderBy(f => f).ToList();
+        }
+
+        public const string StaleMenu = "PokiClash/Tướng/Xoá dạng aola không còn tướng nào dùng";
+
+        [MenuItem(StaleMenu, priority = 56)]
+        static void MenuDeleteStale()
+        {
+            var stale = StaleForms();
+            if (stale.Count == 0)
+            {
+                Debug.Log("[Tướng aola] Không có dạng thừa trong Resources.");
+                return;
+            }
+            if (!Application.isBatchMode && !EditorUtility.DisplayDialog("Xoá dạng aola thừa",
+                    $"Xoá {stale.Count} dạng không còn trong heroes.json khỏi {ResDir} (nhập lại được từ AolaRipper):\n{string.Join(", ", stale)}",
+                    "Xoá", "Thôi"))
+                return;
+            DeleteStale(stale);
+        }
+
+        public static void DeleteStale(List<string> stale)
+        {
+            var failed = new List<string>();
+            AssetDatabase.DeleteAssets(stale.Select(f => $"{ResDir}/{f}").ToArray(), failed);
+            Debug.Log($"[Tướng aola] Đã xoá {stale.Count - failed.Count} dạng thừa: {string.Join(", ", stale)}" +
+                      (failed.Count > 0 ? $"; không xoá được: {string.Join(", ", failed)}" : ""));
+        }
 
         // bản nhập đầu (2026-11-02) ghi thẳng vào Heroes/<dạng>: dời vào Resources, giữ GUID
         static void MoveIntoResources()
@@ -556,6 +624,58 @@ namespace PokiClash.EditorTools
             public long bytesBefore, bytesAfter, pixels;
         }
 
+        // số khung mỗi hình hiện trong các clip ngoài dáng đứng (một khung có hình hai lần vẫn tính một)
+        static Dictionary<int, int> OtherFrames(Dictionary<string, object> clips)
+        {
+            var shown = new Dictionary<int, int>();
+            var seen = new HashSet<int>();
+            foreach (var kv in clips)
+            {
+                if (kv.Key == AolaActor.Idle) continue;
+                foreach (List<object> frame in (List<object>)((Dictionary<string, object>)kv.Value)["frames"])
+                {
+                    seen.Clear();
+                    foreach (List<object> row in frame)
+                    {
+                        int s = Convert.ToInt32(row[0]);
+                        if (seen.Add(s)) shown[s] = shown.TryGetValue(s, out int k) ? k + 1 : 1;
+                    }
+                }
+            }
+            return shown;
+        }
+
+        // hệ số thu thêm cho hình không thuộc dáng đứng theo số khung nó hiện (BriefRule)
+        static double BriefScale(int frames) => frames <= 0 ? 1 : frames <= 2 ? Brief2Scale : frames <= 4 ? Brief4Scale : 1;
+
+        // hệ số thu cho từng hình của dạng đã nhập (đọc anim trong project); null nếu không đọc được
+        static double[] BriefFactors(AolaAnim a)
+        {
+            if (!a.anim) return null;
+            try
+            {
+                string text;
+                using (var z = new GZipStream(new MemoryStream(a.anim.bytes), CompressionMode.Decompress))
+                using (var sr = new StreamReader(z)) text = sr.ReadToEnd();
+                var clips = (Dictionary<string, object>)((Dictionary<string, object>)MiniJson.Parse(text))["clips"];
+                var idle = new HashSet<int>();
+                if (clips.TryGetValue(AolaActor.Idle, out var io))
+                    foreach (List<object> frame in (List<object>)((Dictionary<string, object>)io)["frames"])
+                        foreach (List<object> row in frame)
+                            idle.Add(Convert.ToInt32(row[0]));
+                var shown = OtherFrames(clips);
+                var f = new double[a.uvs.Length];
+                for (int i = 0; i < f.Length; i++)
+                    f[i] = idle.Contains(i) ? 1 : BriefScale(shown.TryGetValue(i, out int n) ? n : 0);
+                return f;
+            }
+            catch (Exception e)
+            {
+                Debug.LogWarning($"[Tướng aola] {a.name}: không đọc được anim ({e.Message}), bỏ qua");
+                return null;
+            }
+        }
+
         // Ghi <dạng>_atlas.png, <dạng>_portrait.png, <dạng>_anim.bytes; note: ghi chú nếu atlas bị ép nhỏ.
         static Pending Write(string dir, string form, string stamp, out string note)
         {
@@ -613,10 +733,11 @@ namespace PokiClash.EditorTools
                 foreach (List<object> frame in idleFrames)
                     foreach (List<object> row in frame)
                         inIdle.Add(Convert.ToInt32(row[0]));
+            var shown = OtherFrames(clips);
             for (int i = 0; i < need.Length; i++)
             {
                 bool idle = inIdle.Contains(i);
-                if (!idle) need[i] *= OtherScale;
+                if (!idle) need[i] *= OtherScale * BriefScale(shown.TryGetValue(i, out int times) ? times : 0);
                 if (SubFrame.IsMatch(paths[i])) need[i] *= idle ? SubIdleScale : SubOtherScale;
                 if (HaloPic.IsMatch(paths[i])) need[i] *= HaloScale;
                 else if (BlurredPic.IsMatch(paths[i])) need[i] *= BlurredScale;

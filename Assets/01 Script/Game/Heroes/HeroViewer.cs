@@ -3,6 +3,9 @@
 // Prefab Assets/04 Prefabs/Items/OXemTuong: khung cắt, chân dung (kit ChanDung), lớp nháy (không dùng nữa, luôn tắt). Có aola
 // (bản dev, ngoại lệ đã chốt: AolaSticker tự sinh lúc chạy) thì ẩn chân dung; tướng chưa có (bóng sẫm) thì chân dung aola tĩnh
 // với hoạt cảnh giả (nhún, lao, phồng, giật lùi). Không có ảnh aola nào thì ô trống.
+// Không dựng sticker trong khung chạm (người dùng dặn phản hồi phải ngay, 2026-11-07): Bind chỉ ghi tướng cần hiện, Update dựng ở
+// khung sau khi animation đã đọc xong ở luồng phụ (AolaActor.Ready) và khung đó chưa ai dựng (AolaSticker.CanBuildNow). Trong lúc chờ:
+// đổi dạng (tiến hóa) thì giữ sticker cũ, mở hộp thì hiện chân dung tĩnh.
 using PokiClash.Core;
 using PokiClash.UI;
 using UnityEngine;
@@ -20,6 +23,10 @@ namespace PokiClash
 
         RectTransform body;
         AolaSticker aola;
+        HeroDef waitHero; // sticker cần dựng ở khung sau (đang chờ animation đọc xong ở luồng phụ)
+        string waitForm;
+        int bindFrame; // khung gọi Bind (khung chạm): không dựng trong khung này
+        string aolaKey; // "<tướng>|<dạng>" của sticker đang hiện: lên sao không đổi dạng thì giữ nguyên
         string clip = Idle;
         float t, size;
         bool silhouette;
@@ -35,12 +42,36 @@ namespace PokiClash
         // size: cạnh ô vuông; silhouette: bóng sẫm (tướng chưa có), không dùng aola
         public void Bind(HeroDef hero, float boxSize, bool isSilhouette)
         {
-            aola?.Destroy();
-            aola = null;
+            waitHero = null;
+            bindFrame = Time.frameCount;
             size = boxSize;
             silhouette = isSilhouette;
             box.sizeDelta = new Vector2(size, size);
-            if (!silhouette) aola = AolaSticker.TryCreate(box, hero, HeroArt.FormOf(hero).aola, size * 0.7f, false);
+            var form = HeroArt.FormOf(hero).aola;
+            if (!silhouette && aola != null && aolaKey == hero.id + "|" + form)
+            {
+                Play(Idle); // cùng tướng cùng dạng (lên sao chưa tới mốc đổi dạng): giữ sticker đang chạy
+                return;
+            }
+            if (!silhouette && Game.AolaActor.Find(form, out _, out _))
+            {
+                waitHero = hero;
+                waitForm = form;
+                Game.AolaActor.Ready(waitForm); // bắt đầu đọc trước nếu chưa
+            }
+            // có sticker cũ (đổi dạng) thì giữ tới khi cái mới dựng xong; không thì chân dung
+            if (waitHero == null || aola == null)
+            {
+                aola?.Destroy();
+                aola = null;
+                Attach(hero);
+            }
+            Play(Idle);
+        }
+
+        // thân đang hiện: sticker aola, hoặc chân dung (tĩnh, bóng sẫm, đang chờ animation)
+        void Attach(HeroDef hero)
+        {
             portrait.gameObject.SetActive(aola == null);
             if (aola != null) body = aola.Rect;
             else
@@ -51,7 +82,7 @@ namespace PokiClash
             // ảnh chớp từng là mặt nạ hình giữ chỗ (đã bỏ); tướng aola chớp bằng shader sticker
             flash.enabled = false;
             body.anchorMin = body.anchorMax = new Vector2(0.5f, 0);
-            Play(Idle);
+            body.localEulerAngles = Vector3.zero;
         }
 
         public void Play(string c)
@@ -66,6 +97,17 @@ namespace PokiClash
 
         void Update()
         {
+            // dựng sticker ở khung sau khung chạm, khi animation đã đọc xong; thay chân dung hoặc sticker cũ (giữ clip đang chạy)
+            if (waitHero != null && Time.frameCount > bindFrame && AolaSticker.CanBuildNow && Game.AolaActor.Ready(waitForm))
+            {
+                var h = waitHero;
+                waitHero = null;
+                var made = AolaSticker.TryCreate(box, h, waitForm, size * 0.7f, false);
+                aola?.Destroy();
+                aola = made;
+                aolaKey = made != null ? h.id + "|" + waitForm : null;
+                Attach(h);
+            }
             if (!body) return;
             t += Mathf.Min(0.05f, Time.unscaledDeltaTime);
             if (clip != Idle && t >= (aola != null ? aola.Duration(clip) : Len(clip)))

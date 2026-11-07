@@ -206,6 +206,8 @@ namespace PokiClash
 
             // tiến hóa
             bool canStar = hp.star < cfg.maxStar;
+            // dạng của sao kế tiếp (đổi dạng thì phải đọc animation mới): đọc trước ở luồng phụ để bấm Tiến hóa không khựng
+            if (canStar) Game.AolaActor.Prewarm(HeroArt.FormOf(hero, hp.star + 1).aola);
             p.evolveButton.gameObject.SetActive(canStar);
             p.evolveNeed.text = "Đã tiến hóa tối đa";
             if (canStar)

@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "spine-work",
+      "runtimeExecutable": "py",
+      "runtimeArgs": ["-3", "-I", "-m", "http.server", "8771", "--bind", "127.0.0.1", "--directory", "E:/ProjectAtomik/spine-animation-ai/work"],
+      "port": 8771
+    }
+  ]
+}

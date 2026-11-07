@@ -1,0 +1,86 @@
+{
+ "code": "tien_la_1",
+ "elem": "moc",
+ "aola": 648,
+ "hero": "Tiên Lá",
+ "form": 1,
+ "forms": 3,
+ "form_name": "Thú Ánh Lục",
+ "role_vi": "tướng hệ Mộc (ải 1 đảo Mộc, dạng 1/3), rig aola #648",
+ "design_vi": "đom đóm con tròn: lông kem, mũ trùm rêu xanh mép lá ô liu, râu mang đèn đom đóm hổ phách, hai cánh cứng nâu hạt dẻ chấm vàng thay tai, mắt nâu hạt dẻ",
+ "rig_vi": "con gốc #648 (xem Rig_Numbered.png)",
+ "regions_vi": "1 khối đầu thân có mặt, 2 đèn đom đóm trên râu, 3 hai cánh cứng, 4 ba bàn chân",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a round FIREFLY PUP of the forest-light line, the first stage of a three-stage Wood evolution line, in the same view and pose as image 1, sitting low on the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round head-body with face; 2 firefly lantern on its antenna; 3 two beetle wing cases; 4 three small feet;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round head-body with face: a round chubby firefly pup: warm cream face and belly in front, a moss-green hood covering the back and top with olive leaf-shaped tips along its spiky edge, two big dark chestnut-brown eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a small confident grin with a tiny fang; no forehead dots.\n2 firefly lantern on its antenna: a thin dark-brown antenna stalk ending in a round firefly lantern bulb of flat amber-yellow with three darker amber segment lines; no glow, no light rays.\n3 two beetle wing cases: two hard beetle wing cases (elytra) sticking out on both sides like the old flaps: chestnut brown with small yellow dots and a thin olive rim, about the same size and place as the old flaps.\n4 three small feet: three small stubby feet in moss green with cream toe pads.\n\nATTITUDE: a brave little firefly ready to charge: brows angled down, a small fang showing; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: warm cream fur on the face and belly, a moss-green hood with olive leaf-shaped tips, chestnut-brown beetle wing cases with small yellow dots, a flat amber-yellow firefly lantern, big dark chestnut-brown eyes. Few colours.\n\nAVOID: a white face with a green-and-yellow hair streak, cyan or turquoise ears or wings, clover leaves, a glowing ball, light rays, a ring or swoosh around the body, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "khối đầu thân có mặt",
+   "round head-body with face",
+   "giu",
+   7,
+   "a big round white creature whose whole back and top are a spiky green-and-yellow hair crest, two big green eyes in the lower front and two small green dots on the forehead",
+   "khối đầu thân có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khối đầu thân có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a big round white creature whose whole back and top are a spiky green-and-yellow hair crest, two big green eyes in the lower front and two small green dots on the forehead. Redraw THESE pieces as the round head-body with face of image 2 (the approved concept): a round chubby firefly pup: warm cream face and belly in front, a moss-green hood covering the back and top with olive leaf-shaped tips along its spiky edge, two big dark chestnut-brown eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a small confident grin with a tiny fang; no forehead dots. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "đèn đom đóm trên râu",
+   "firefly lantern on its antenna",
+   "doi",
+   14,
+   "a thin dark stalk growing up from the top of the head and ending in a big glowing cyan ball",
+   "đèn đom đóm trên râu cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đèn đom đóm trên râu;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a thin dark stalk growing up from the top of the head and ending in a big glowing cyan ball. Redraw THESE pieces as the firefly lantern on its antenna of image 2 (the approved concept): a thin dark-brown antenna stalk ending in a round firefly lantern bulb of flat amber-yellow with three darker amber segment lines; no glow, no light rays. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "bottom end of the stalk (where it grows from the head)"
+  ],
+  [
+   "N03",
+   "hai cánh cứng",
+   "two beetle wing cases",
+   "doi",
+   8,
+   "two big cyan ear-like flaps on both sides of the head: a big one on the viewer-left with a small grey piece under it, and a small one on the viewer-right mostly hidden behind the head",
+   "hai cánh cứng cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai cánh cứng;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): two big cyan ear-like flaps on both sides of the head: a big one on the viewer-left with a small grey piece under it, and a small one on the viewer-right mostly hidden behind the head. Redraw THESE pieces as the two beetle wing cases of image 2 (the approved concept): two hard beetle wing cases (elytra) sticking out on both sides like the old flaps: chestnut brown with small yellow dots and a thin olive rim, about the same size and place as the old flaps. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "end of each wing case that touches the head"
+  ],
+  [
+   "N04",
+   "ba bàn chân",
+   "three small feet",
+   "giu",
+   8,
+   "three small stubby feet peeking out under the round body",
+   "ba bàn chân cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: ba bàn chân;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three small stubby feet peeking out under the round body. Redraw THESE pieces as the three small feet of image 2 (the approved concept): three small stubby feet in moss green with cream toe pads. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 8,
+  "head": 8,
+  "swing": [],
+  "wob": [
+   15,
+   4,
+   11
+  ],
+  "fly": [],
+  "cast": [
+   11,
+   0.5,
+   0.45
+  ]
+ }
+}

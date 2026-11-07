@@ -1,6 +1,8 @@
 // Tướng aola trên sân đấu: prefab tướng (AolaActor, Assets/04 Prefabs/Heroes) đặt ở xa trong thế giới, một camera riêng render
 // ra RenderTexture, RawImage trên sân hiện ảnh đó qua shader viền sticker. Dạng chưa nhập vào project (menu PokiClash/Tướng/
 // Nhập hình tướng aola) thì TryCreate trả null và ô tướng trên sân để trống.
+// Camera chỉ chụp khi hình đổi (AolaActor.Version: animation 25 khung/giây trên màn 60 khung, khung camera dời), các khung khác tắt và
+// RawImage giữ ảnh cũ; cứ 30 khung chụp lại một lần phòng RenderTexture mất nội dung (Android đi nền rồi về).
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;
@@ -13,7 +15,12 @@ namespace PokiClash
     {
         const float Span = 3.4f; // khung camera = 3,4 lần chiều cao dáng đứng (đủ chỗ cho clip lao)
         const float FootV = 0.2f; // chân nằm ở 20% chiều cao ảnh
-        static int count;
+        static int count, builtFrame = -1;
+
+        // Dựng sticker tốn (prefab, hàng chục hình, RenderTexture có depth): giao diện (hộp chi tiết, đội hình) mỗi khung dựng tối đa
+        // một cái và không dựng trong khung chạm, chờ khung sau thì giữ hình cũ hoặc chân dung (người dùng dặn phản hồi phải ngay,
+        // 2026-11-07). Sân đấu dựng cả đội lúc vào trận thì không hỏi.
+        public static bool CanBuildNow => builtFrame != Time.frameCount;
 
         public RectTransform Rect { get; private set; }
         RawImage img;
@@ -24,6 +31,8 @@ namespace PokiClash
         RenderTexture rt;
         bool flip;
         float stageHeight; // chiều cao dáng đứng trên sân (đơn vị web)
+        int seenVersion = -1, lastShot = -1000; // AolaActor.Version lúc chụp gần nhất, khung (Time.frameCount) chụp gần nhất
+        bool camDirty = true; // khung camera vừa dời: chụp lại
 
         static string ClipName(string c) =>
             c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Cast ? AolaActor.Cast :
@@ -33,6 +42,7 @@ namespace PokiClash
         public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip)
         {
             if (!AolaActor.Find(aola, out var prefab, out int form)) return null;
+            builtFrame = Time.frameCount;
             var actor = Object.Instantiate(prefab, new Vector3(10000 + 50 * (count++ % 40), 0, 0), Quaternion.identity);
             var go = actor.gameObject;
             go.name = "aola_" + hero.id;
@@ -149,8 +159,28 @@ namespace PokiClash
         void Shift(Vector2 w)
         {
             if (!cam) return;
-            cam.transform.localPosition = new Vector3(w.x, Span * (0.5f - FootV) + w.y, -10);
+            var lp = new Vector3(w.x, Span * (0.5f - FootV) + w.y, -10);
+            if (cam.transform.localPosition != lp)
+            {
+                cam.transform.localPosition = lp;
+                camDirty = true;
+                cam.enabled = true;
+            }
             Rect.anchoredPosition = w * stageHeight * StageView.K;
+        }
+
+        // bật camera đúng khung hình đổi; trong cùng một khung đã bật thì giữ (Show gọi hai lần không tắt mất lần chụp)
+        void SyncCamera()
+        {
+            if (!cam) return;
+            int now = Time.frameCount;
+            if (lastShot == now) return;
+            bool shoot = camDirty || actor.Version != seenVersion || now - lastShot > 30 || !rt.IsCreated();
+            cam.enabled = shoot;
+            if (!shoot) return;
+            seenVersion = actor.Version;
+            camDirty = false;
+            lastShot = now;
         }
 
         public void Show(string clip, float t, bool loop, float alpha, bool gray, float flash)
@@ -160,6 +190,7 @@ namespace PokiClash
             int i = Mathf.FloorToInt(t * actor.Fps);
             int fi = loop ? ((i % n) + n) % n : Mathf.Clamp(i, 0, n - 1);
             actor.ShowFrame(name, fi);
+            SyncCamera();
             img.color = new Color(1, 1, 1, alpha);
             if (mat)
             {

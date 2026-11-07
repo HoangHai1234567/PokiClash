@@ -23,8 +23,7 @@ FLAT_FIX = ("Flat colour only: every area one even colour coloured with pencil a
 LINE = ("RENDERING: the hand-drawn look of image 1 (the game's map): drawn by hand on paper with a dark-brown ink pen (#2B2118), "
         "an outline about {n} px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; every "
         "area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner "
-        "than the outline). Colours of water from {cimg} (clear sky blue, light blue, deep blue, white foam); gold only where "
-        "the step says.\n"
+        "than the outline). {colours}\n"
         "FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, "
         "no shadows of any kind (no drop shadow, no cast shadow, nothing on the background), no white highlights or shine "
         "spots, no gloss, no glow or halo, no gradients, no 3D render. White appears only as a flat colour where the step says "
@@ -32,6 +31,9 @@ LINE = ("RENDERING: the hand-drawn look of image 1 (the game's map): drawn by ha
         "CANVAS: a square 1024 x 1024 image, plain pure white background (the game cuts the white away, so keep a clear white "
         "margin all round and do not let the effect touch the edges), the effect centred and filling about 75% of the canvas. "
         "Only this effect: no creature, no hand, no weapon, no ground, no text, no frame, no white sticker border.")
+
+WATER_COLOURS = ("Colours of water from {cimg} (clear sky blue, light blue, deep blue, white foam); gold only "
+                 "where the step says.")
 
 LINES = [
     {"code": "giot_suong_fx", "hero": "Giọt Sương", "elem": "thuy",
@@ -141,6 +143,108 @@ LINES = [
           "một vòng sóng âm tròn nhìn thẳng như tiếng chuông đồng hiện thành nước: vòng nước gợn xanh nhạt, viền trong vàng đồng, "
           "bọt nhỏ quanh vòng, giữa rỗng trắng"),
      ]},
+    # Đòn đánh và chiêu cuối viết lại của các tướng đảo Thủy (người dùng dặn 2026-11-07: đòn đang một kiểu lộn rồi đánh hoặc lao
+    # vào đánh; thêm bắn tia nước, gọi sóng thần, gọi cầu nước trên đầu địch rồi xả nước xuống; 3 boss cuối thật đặc biệt).
+    # Claude ghép bằng tools/anim_thuy.py (dựng clip thẳng trên dữ liệu đã nhập vào project).
+    {"code": "thuy_chieu_fx", "hero": "các tướng đảo Thủy (đòn đánh, chiêu cuối)", "elem": "thuy",
+     "forms": ["thuong_lam_3", "huyen_vu_3", "lam_quan_3"],
+     "what": "special-attack effect sprites for water heroes of a 2D creature game with a hand-drawn storybook look. Each step "
+             "is ONE separate effect sprite",
+     "intro_vi": "Hiệu ứng thêm cho đòn đánh và chiêu cuối viết lại của các tướng đảo Thủy (người dùng dặn 2026-11-07): cột nước "
+                 "xả xuống từ quả cầu trên đầu địch, giáo băng khổng lồ của Thương Lam, rắn nước của Huyền Vũ, xoáy nước mặt đất.",
+     "extra": [("inbox/giot_suong_fx/tai_ve/FX07.png",
+                "another effect of the same set (a curling tsunami wave): match its drawing style, line weight and water "
+                "colours, do not copy its shape",
+                "Sóng thần FX07 của gói Giọt Sương (1024 × 1024, nền trắng): hiệu ứng mới cùng nét, cùng màu nước với nó"),
+               ("inbox/tieu_y_fx/tai_ve/FX10.png",
+                "the water orb of the same set: match its drawing style; the torrent of step FX16 pours out of an orb like this",
+                "Quả cầu nước FX10 (1024 × 1024, nền trắng): cột nước FX16 xả ra từ quả cầu như thế này")],
+     "steps": [
+         ("FX16", "thac_nuoc", "cột nước xả", 16,
+          "A thick TORRENT of water rushing to the RIGHT, seen from the side (the game turns it to pour straight DOWN out of a "
+          "water orb onto the enemy): a broad column of rushing water about three times longer than wide, made of four or five "
+          "twisting bands of deep blue and light blue, white foam ribbons running along both edges; the LEFT end is a narrower "
+          "neck of water with small curls (where it leaves the orb), the RIGHT end crashes into a wide splashing head of white "
+          "foam with water spikes and flying droplets. Heavy and powerful, like a waterfall shot from the sky.",
+          "cột nước xả ngang sang phải (game xoay cho xả thẳng xuống từ quả cầu): khối nước rộng dài gấp ba bề ngang, 4-5 dải xanh "
+          "đậm xanh nhạt xoắn, dải bọt trắng dọc hai mép; đầu trái là cổ nước hẹp có lọn cuộn, đầu phải đập thành đầu bọt trắng rộng "
+          "có mũi nước và giọt văng"),
+         ("FX17", "giao_bang", "giáo băng khổng lồ", 16,
+          "One GIANT ICE SPEAR pointing to the RIGHT: a long, very sharp icicle crystal about four times longer than thick, pale "
+          "ice blue with flat white facet bands and two or three straight facet lines along its length, a thin deep-teal rim; "
+          "the RIGHT end is a needle-sharp tip, the LEFT end a jagged frosty base where small ice shards and two or three "
+          "snowflakes break off. Frost white, pale ice blue, a little deep teal; no gold.",
+          "giáo băng khổng lồ chĩa sang phải: tinh thể băng dài nhọn gấp bốn bề dày, xanh băng có dải mặt cắt trắng phẳng và vài "
+          "đường cạnh thẳng, viền xanh mòng két mảnh; đầu phải nhọn hoắt, đầu trái là chân băng lởm chởm có mảnh băng nhỏ và hoa "
+          "tuyết vỡ ra"),
+         ("FX18", "ran_nuoc", "rắn nước thần", 18,
+          "A great SEA SERPENT MADE ENTIRELY OF WATER striking to the RIGHT, seen from the side: its body is one thick S-shaped "
+          "coil of rushing deep-blue and jade-green water rising from a swirl of foam at the lower LEFT, and its head at the "
+          "upper RIGHT is a fierce dragon-snake head shaped from water (jaws wide open, two white fangs, a finned crest, one "
+          "round eye of white foam), white foam crests running along its back, droplets flying off. It is water magic, not a "
+          "real animal: no scales, no skin, no legs. Deep blue, light blue, jade green, white foam; a thin bronze-gold line "
+          "only along the crest.",
+          "rắn thần bằng nước vươn lên mổ sang phải, nhìn ngang: thân là một khúc nước cuộn hình chữ S xanh đậm và xanh ngọc bích "
+          "trồi lên từ xoáy bọt ở dưới trái, đầu rắn rồng bằng nước ở trên phải (há miệng, hai nanh trắng, mào vây, mắt tròn bọt "
+          "trắng), bọt trắng dọc sống lưng, giọt văng; không vảy, không phải con thật"),
+         ("FX19", "xoay_mat_nuoc", "xoáy nước mặt đất", 14,
+          "A WHIRLPOOL on the ground seen from a low side angle: a flat oval funnel about three times wider than tall, four "
+          "curling bands of deep blue and light blue water spiralling inward to a small deep-blue hole in the middle, white "
+          "foam curls along the outer rim and between the bands, a few droplets thrown up from the edge.",
+          "xoáy nước trên mặt đất nhìn chếch thấp: phễu bầu dục dẹt rộng gấp ba chiều cao, bốn dải nước xanh đậm xanh nhạt xoáy "
+          "vào một lỗ nhỏ xanh thẫm ở giữa, bọt trắng cuộn dọc mép ngoài và giữa các dải, vài giọt bắn lên"),
+     ]},
+    # Đảo Mộc (2026-11-07): hiệu ứng dùng chung cho animation 24 dạng tướng Mộc (tools/anim_moc.py, fx_dir = inbox/moc_fx/tai_ve),
+    # thay bộ nước của Giọt Sương. FX09 tia lá: ảnh tia riêng của hệ Mộc (tia_moc), thay chỗ nhuộm màu tạm của StageView.Beam.
+    {"code": "moc_fx", "hero": "các tướng hệ Mộc", "elem": "moc",
+     "forms": ["tien_la_1"],
+     "what": "special-attack effects for a 2D creature game with a hand-drawn storybook look. Each step is ONE separate effect "
+             "sprite (leaf and forest magic of the Wood heroes)",
+     "concept_en": "take only its drawing style and its leaf greens, do not draw the creature",
+     "colours": "Colours of the forest: moss green, fresh leaf green, olive, a little lime and pale yellow-green, warm "
+                "pollen yellow and bark brown only where the step says; no blue, no glow.",
+     "intro_vi": "Hiệu ứng vẽ tay dùng chung cho animation các tướng đảo Mộc (lốc lá, lá nổ, chùm lá, phấn hoa, dây gai, vòng cỏ) "
+                 "và tia lá của chiêu mana hệ Mộc.",
+     "steps": [
+         ("FX09", "tia_la", "tia lá bắn thẳng", 16,
+          "A straight WOOD-MAGIC beam shot to the RIGHT, seen from the side: a long horizontal stream of rushing green wind "
+          "about five times longer than tall, packed with spinning pointed leaves of moss green, leaf green and olive, a few "
+          "small pale-yellow pollen dots; at the RIGHT end a round bursting head of leaves flying apart, the body made of "
+          "curling wind ribbons with leaves riding them, tapering at the LEFT end to thin curls and two or three loose leaves.",
+          "tia gió lá bắn ngang sang phải, dài gấp năm lần chiều cao: dòng gió xanh cuộn đầy lá nhọn xanh rêu, xanh lá, ô liu "
+          "đang xoay, vài chấm phấn vàng nhạt; đầu bên phải là chùm lá bung ra, đuôi bên trái thon thành lọn gió và vài lá rời"),
+         ("FX01", "loc_la", "lốc lá xoáy", 14,
+          "A ring of whirling leaves seen from the front: three curling ribbons of green wind chasing each other around an "
+          "EMPTY centre (the centre stays plain white and open), each ribbon carrying four or five pointed leaves of moss green "
+          "and leaf green, thick at its head and thin at its tail. A small leaf whirlwind ring that will spin around the hero.",
+          "vòng lốc lá nhìn thẳng: ba dải gió xanh cuộn đuổi nhau quanh tâm rỗng (giữa để trắng), mỗi dải mang 4-5 lá nhọn"),
+         ("FX03", "no_la", "lá nổ tung", 16,
+          "A big round burst of leaves seen from the front: eight to ten pointed leaves of moss green, leaf green and olive "
+          "flying outward from the centre in a ring, a small star-shaped puff of pale yellow-green in the middle, tiny leaf "
+          "bits and pollen dots between them. The impact of a wood attack.",
+          "vụ nổ lá tròn nhìn thẳng: 8-10 lá nhọn xanh rêu, xanh lá, ô liu bay ra quanh tâm, giữa là chùm hình sao xanh vàng nhạt, "
+          "vụn lá và chấm phấn giữa các lá"),
+         ("FX04", "chum_la", "chùm lá bay", 12,
+          "A loose cluster of five separate pointed leaves of different sizes, moss green, leaf green and olive, each with a "
+          "thin centre vein, all fluttering down and to the lower left, with small gaps between them.",
+          "năm chiếc lá nhọn rời to nhỏ khác nhau (xanh rêu, xanh lá, ô liu, có gân giữa), cùng bay rơi chéo xuống trái"),
+         ("FX05", "phan_hoa", "phấn hoa lấp lánh", 12,
+          "One big four-pointed sparkle star of flat warm pollen yellow with a thin leaf-green rim and a tiny white centre, "
+          "plus two small four-pointed sparkles and three round pollen dots beside it.",
+          "một ngôi sao lấp lánh bốn cánh lớn màu vàng phấn hoa viền xanh lá mảnh, tâm trắng nhỏ, cạnh là hai sao nhỏ, ba chấm phấn"),
+         ("FX07", "day_gai", "dây gai quật lên", 18,
+          "A big thorny vine bursting up from the ground and whipping over to the RIGHT, seen from the side: a thick twisting "
+          "vine of olive green with sharp bark-brown thorns, rising from a flat base of torn earth and grass on the left, "
+          "arching high and curling at its tip on the right, three or four leaves and a few flying leaf bits. Grand and "
+          "powerful but cartoon-clean.",
+          "dây gai lớn nhìn ngang trồi lên từ mặt đất rồi quật sang phải: dây xoắn xanh ô liu, gai nhọn nâu vỏ cây, gốc là đất "
+          "cỏ bật lên bên trái, ngọn cong cuộn ở bên phải, vài lá và vụn lá bay"),
+         ("FX08", "vong_co", "vòng cỏ loang mặt đất", 14,
+          "A flat oval ring on the ground, seen from a low side angle: an ellipse about three times wider than tall made of "
+          "short grass blades and small leaves springing up along its rim, a few leaf bits flying, an EMPTY centre (plain "
+          "white).",
+          "vòng cỏ trên mặt đất nhìn chếch thấp: hình bầu dục rộng gấp ba chiều cao, viền là ngọn cỏ và lá nhỏ bật lên, giữa rỗng trắng"),
+     ]},
 ]
 
 
@@ -153,7 +257,7 @@ def build(f):
     refs = [(WORLD_STYLE, "the game's approved hand-drawn map: copy its RENDERING (ink outlines, coloured-pencil hatching), ignore its content",
              "Ảnh mốc nét vẽ đã duyệt (1024 × 1536, nền đặc): bản đồ sảnh vẽ tay, viền mực nâu hơi rung, tô chì màu gạch chéo. Lấy nét vẽ, không lấy nội dung")]
     for i, fc in enumerate(f["forms"], 1):
-        refs.append((ROOT + f"inbox/{fc}/concept_duyet.png", f"approved concept of stage {i} of this hero: take only its water COLOURS and drawing style, do not draw the creature",
+        refs.append((ROOT + f"inbox/{fc}/concept_duyet.png", f"approved concept of stage {i} of this hero: " + f.get("concept_en", "take only its water COLOURS and drawing style, do not draw the creature"),
                      f"Concept đã duyệt dạng {i} ({fc}, nền trắng): chỉ lấy màu nước và nét vẽ, không vẽ con"))
     nc = len(f["forms"])
     cimg = "image 2" if nc == 1 else f"images 2-{nc + 1}"
@@ -190,7 +294,7 @@ def build(f):
           "already exists, add _2, _3 … before .png. Do not change, move or delete any other file.", "",
           order_en, ""]
     for sc, name, _, n, prompt, _ in steps:
-        t += [f"=== STEP {sc} ({name.replace('_', ' ')}) ===", prompt, "", LINE.format(n=n, cimg=cimg),
+        t += [f"=== STEP {sc} ({name.replace('_', ' ')}) ===", prompt, "", LINE.format(n=n, colours=f.get("colours", WATER_COLOURS).format(cimg=cimg)),
               f"SAVE this step: save it as a PNG to {W(save + sc + '.png')} (create the folder if it is missing; if that file "
               f"already exists, save it as {sc}_2.png, {sc}_3.png … in the same folder instead). Do not change, move or delete "
               "any other file.", ""]

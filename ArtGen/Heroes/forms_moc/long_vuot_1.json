@@ -1,0 +1,166 @@
+{
+ "code": "long_vuot_1",
+ "elem": "moc",
+ "aola": 1219,
+ "hero": "Long Vuốt",
+ "form": 1,
+ "forms": 2,
+ "form_name": "Long Vuốt Con",
+ "role_vi": "tướng hệ Mộc (ải 40 đảo Mộc, dạng 1/2), rig aola #1219",
+ "design_vi": "rồng con gai sồi: da xanh ô liu, bụng kaki nhạt, sừng gai gỗ nâu, kính thành tấm nhựa cây hổ phách che mắt phải, cổ áo giáp vỏ cây, vai và đuôi có tấm vỏ cây, vuốt gai đỏ thẫm, cánh lá sồi non, vòng tay và vệt cam thành hạt nhựa hổ phách kéo vệt lá sồi, mắt nâu sẫm",
+ "rig_vi": "con gốc #1219 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu tròn có mặt, 2 ba sừng gai gỗ, 3 tấm nhựa hổ phách che mắt, 4 thân và cổ áo vỏ cây, 5 hai tay và vuốt gai, 6 hai bàn chân và vuốt gai, 7 hai cánh lá sồi non, 8 đuôi giáp vỏ cây, 9 hai hạt nhựa kéo vệt lá sồi",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: an OAK-THORN DRAGON CUB, the first stage of a two-stage Wood evolution line, in the same view and pose as image 1, crouched low in mid-hop with both arms out to the sides, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round head with face; 2 three wooden thorn horns; 3 amber resin visor; 4 body with bark collar; 5 two arms with thorn claws; 6 two feet with thorn claws; 7 two young oak-leaf wings; 8 armoured tail; 9 two amber beads with oak-leaf trails;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round head with face: a round olive-green dragon-cub head of the same shape, the pointed lobe at the back kept; a pale khaki muzzle at the lower right; one big dark brown eye (one catchlight dot) exactly where the old eye is, a brow angled down above it, a small confident grin with a tiny fang on the muzzle; a few bark-brown scale plates on top of the head instead of the dark markings.\n2 three wooden thorn horns: three thorns of bark-brown oak wood with a few darker grain lines, in the same places and directions: a big curved thorn horn across the top of the head pointing up-left, a smaller thorn horn standing up on the viewer-right, and a tiny thorn on the viewer-left cheek; no gold.\n3 amber resin visor: a flat honey-amber resin plate of the same pointed-oval shape with a thin dark-brown wooden rim, covering the viewer-right eye like a visor; flat colour, no shine, no blue, no eye drawn on it.\n4 body with bark collar: a small round olive-green body with a pale khaki belly; the collar becomes a V-shaped gorget of overlapping bark-brown armour plates; the pendant becomes a small flat amber resin bead in a wooden setting; no blue crystal, no gold.\n5 two arms with thorn claws: two short chubby olive-green arms in the same places, each with a small bark-brown armour plate at the shoulder end; the claws become short curved deep-crimson thorns, three at each hand; no gold.\n6 two feet with thorn claws: two short stubby olive-green feet in the same places, a pale khaki sole pad on the viewer-left foot; the claws become small curved deep-crimson thorns; no gold.\n7 two young oak-leaf wings: small wings shaped like young oak leaves: olive-green membrane with brown veins and a wavy lobed edge, a bark-brown wing bone along the top edge, the same sizes and directions.\n8 armoured tail: an olive-green tail of the same curve with a row of small bark-brown armour plates along its outer edge and a tip shaped like a wooden thorn.\n9 two amber beads with oak-leaf trails: each orange streak becomes a thin trail of small olive-green and brown oak leaves following the same curve, and each gold ring becomes a small flat amber resin bead; no orange streak, no gold, no blue gem.\n\nATTITUDE: a plucky little dragon ready to pounce: brow angled down, a small fang in a confident grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: olive-green skin, a pale khaki belly, bark-brown armour plates and wooden thorn horns, flat honey-amber resin, deep crimson thorn claws, olive oak-leaf wing membranes with brown veins, dark brown eyes. Few colours.\n\nAVOID: bright fresh green skin, gold or yellow-gold horns, metal or claws, blue crystal or glass, gold bracelets set with blue gems, orange swoosh trails, gem shine, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu tròn có mặt",
+   "round head with face",
+   "giu",
+   10,
+   "a big round bright-green dragon head turned slightly to the viewer-right, a pointed lobe sticking out at the back of the head on the viewer-left, darker green markings on top, one big blue eye on the viewer-left of the face (the other eye is hidden under a crystal lens on the viewer-right), the muzzle at the lower right",
+   "đầu tròn có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu tròn có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a big round bright-green dragon head turned slightly to the viewer-right, a pointed lobe sticking out at the back of the head on the viewer-left, darker green markings on top, one big blue eye on the viewer-left of the face (the other eye is hidden under a crystal lens on the viewer-right), the muzzle at the lower right. Redraw THESE pieces as the round head with face of image 2 (the approved concept): a round olive-green dragon-cub head of the same shape, the pointed lobe at the back kept; a pale khaki muzzle at the lower right; one big dark brown eye (one catchlight dot) exactly where the old eye is, a brow angled down above it, a small confident grin with a tiny fang on the muzzle; a few bark-brown scale plates on top of the head instead of the dark markings. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "ba sừng gai gỗ",
+   "three wooden thorn horns",
+   "doi",
+   12,
+   "three gold horn-like spikes on the head: a big long blade lying diagonally across the top of the head with its point at the upper-left, a smaller horn standing up on the viewer-right behind the lens, and a tiny spike on the viewer-left cheek next to the eye pointing up-left",
+   "ba sừng gai gỗ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: ba sừng gai gỗ;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three gold horn-like spikes on the head: a big long blade lying diagonally across the top of the head with its point at the upper-left, a smaller horn standing up on the viewer-right behind the lens, and a tiny spike on the viewer-left cheek next to the eye pointing up-left. Redraw THESE pieces as the three wooden thorn horns of image 2 (the approved concept): three thorns of bark-brown oak wood with a few darker grain lines, in the same places and directions: a big curved thorn horn across the top of the head pointing up-left, a smaller thorn horn standing up on the viewer-right, and a tiny thorn on the viewer-left cheek; no gold. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each thorn on the head (lower-right end of the big one and of the cheek thorn, bottom end of the viewer-right one)"
+  ],
+  [
+   "N03",
+   "tấm nhựa hổ phách che mắt",
+   "amber resin visor",
+   "doi",
+   20,
+   "a big blue crystal lens shaped like a pointed oval, with a thick blue rim and white shine, covering the viewer-right eye",
+   "tấm nhựa hổ phách che mắt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: tấm nhựa hổ phách che mắt;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big blue crystal lens shaped like a pointed oval, with a thick blue rim and white shine, covering the viewer-right eye. Redraw THESE pieces as the amber resin visor of image 2 (the approved concept): a flat honey-amber resin plate of the same pointed-oval shape with a thin dark-brown wooden rim, covering the viewer-right eye like a visor; flat colour, no shine, no blue, no eye drawn on it. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "its viewer-left edge where it touches the head"
+  ],
+  [
+   "N04",
+   "thân và cổ áo vỏ cây",
+   "body with bark collar",
+   "giu",
+   21,
+   "the small round green body under the head with a cream belly, a blue crystal V-shaped collar on the chest just under the chin, and a gold-and-orange gem pendant in the middle of the collar",
+   "thân và cổ áo vỏ cây cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và cổ áo vỏ cây;\n- không vẽ phần khác.",
+   "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): the small round green body under the head with a cream belly, a blue crystal V-shaped collar on the chest just under the chin, and a gold-and-orange gem pendant in the middle of the collar. Redraw THESE pieces as the body with bark collar of image 2 (the approved concept): a small round olive-green body with a pale khaki belly; the collar becomes a V-shaped gorget of overlapping bark-brown armour plates; the pendant becomes a small flat amber resin bead in a wooden setting; no blue crystal, no gold. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N05",
+   "hai tay và vuốt gai",
+   "two arms with thorn claws",
+   "giu",
+   8,
+   "two short chubby arms stretched out to both sides: the near arm on the viewer-left (bright green, shoulder at its RIGHT end next to the body, hand at its LEFT end) with three small gold claws at the hand, and the far arm on the viewer-right (dark green, behind the body, shoulder at its LEFT end, hand at its RIGHT end) with three small gold claws at the hand",
+   "hai tay và vuốt gai cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai tay và vuốt gai;\n- không vẽ phần khác.",
+   "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): two short chubby arms stretched out to both sides: the near arm on the viewer-left (bright green, shoulder at its RIGHT end next to the body, hand at its LEFT end) with three small gold claws at the hand, and the far arm on the viewer-right (dark green, behind the body, shoulder at its LEFT end, hand at its RIGHT end) with three small gold claws at the hand. Redraw THESE pieces as the two arms with thorn claws of image 2 (the approved concept): two short chubby olive-green arms in the same places, each with a small bark-brown armour plate at the shoulder end; the claws become short curved deep-crimson thorns, three at each hand; no gold. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "hai bàn chân và vuốt gai",
+   "two feet with thorn claws",
+   "giu",
+   14,
+   "two short stubby feet: the viewer-left foot faces the viewer showing a round cream sole pad, with three small gold claws along its TOP edge; the viewer-right foot is a small green paw stretched to the right with two small gold claws at its upper-right tip",
+   "hai bàn chân và vuốt gai cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai bàn chân và vuốt gai;\n- không vẽ phần khác.",
+   "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): two short stubby feet: the viewer-left foot faces the viewer showing a round cream sole pad, with three small gold claws along its TOP edge; the viewer-right foot is a small green paw stretched to the right with two small gold claws at its upper-right tip. Redraw THESE pieces as the two feet with thorn claws of image 2 (the approved concept): two short stubby olive-green feet in the same places, a pale khaki sole pad on the viewer-left foot; the claws become small curved deep-crimson thorns; no gold. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N07",
+   "hai cánh lá sồi non",
+   "two young oak-leaf wings",
+   "doi",
+   8,
+   "two dark-green bat-like wings: a big near wing spreading up-left from the back behind the viewer-left arm (root at its lower-right end), and a small far wing peeking out on the viewer-right behind the neck (root at its narrow bottom end)",
+   "hai cánh lá sồi non cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai cánh lá sồi non;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two dark-green bat-like wings: a big near wing spreading up-left from the back behind the viewer-left arm (root at its lower-right end), and a small far wing peeking out on the viewer-right behind the neck (root at its narrow bottom end). Redraw THESE pieces as the two young oak-leaf wings of image 2 (the approved concept): small wings shaped like young oak leaves: olive-green membrane with brown veins and a wavy lobed edge, a bark-brown wing bone along the top edge, the same sizes and directions. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the wing root at the back (lower-right end of the big wing, narrow bottom end of the small wing)"
+  ],
+  [
+   "N08",
+   "đuôi giáp vỏ cây",
+   "armoured tail",
+   "doi",
+   16,
+   "a dark-green curved tail behind the viewer-left arm, its wide base at the bottom behind the body and its pointed tip curling up to the upper-left",
+   "đuôi giáp vỏ cây cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi giáp vỏ cây;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a dark-green curved tail behind the viewer-left arm, its wide base at the bottom behind the body and its pointed tip curling up to the upper-left. Redraw THESE pieces as the armoured tail of image 2 (the approved concept): an olive-green tail of the same curve with a row of small bark-brown armour plates along its outer edge and a tip shaped like a wooden thorn. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the wide bottom end where the tail joins the body"
+  ],
+  [
+   "N09",
+   "hai hạt nhựa kéo vệt lá sồi",
+   "two amber beads with oak-leaf trails",
+   "doi",
+   6,
+   "two thin swoosh pieces circling the body: each is a long orange motion streak on one side and a small gold ring set with a blue gem on the other side (one streak on the viewer-left with its ring at the viewer-right hand, one streak on the viewer-right with its ring at the viewer-left hand)",
+   "hai hạt nhựa kéo vệt lá sồi cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai hạt nhựa kéo vệt lá sồi;\n- không vẽ phần khác.",
+   "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two thin swoosh pieces circling the body: each is a long orange motion streak on one side and a small gold ring set with a blue gem on the other side (one streak on the viewer-left with its ring at the viewer-right hand, one streak on the viewer-right with its ring at the viewer-left hand). Redraw THESE pieces as the two amber beads with oak-leaf trails of image 2 (the approved concept): each orange streak becomes a thin trail of small olive-green and brown oak leaves following the same curve, and each gold ring becomes a small flat amber resin bead; no orange streak, no gold, no blue gem. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "each bead and leaf trail stays where the old ring and streak are"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 6,
+  "head": 14,
+  "swing": [
+   16,
+   8
+  ],
+  "wob": [
+   5,
+   7,
+   4
+  ],
+  "fly": [],
+  "cast": [
+   14,
+   0.9,
+   0.78
+  ],
+  "parent": {
+   "29": 14,
+   "27": 14,
+   "15": 14,
+   "28": 14,
+   "17": 16,
+   "18": 16,
+   "19": 16,
+   "9": 8,
+   "10": 8,
+   "11": 8,
+   "21": 20,
+   "22": 20,
+   "23": 20,
+   "24": 3,
+   "25": 3
+  }
+ }
+}

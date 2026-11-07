@@ -133,7 +133,8 @@ namespace PokiClash
 
         void Start()
         {
-            Save = new SaveService(Data);
+            // máy thật: ghi file lưu ở luồng phụ (mỗi lần chạm đều lưu); Editor ghi ngay vì tour ghi đè file lưu rồi Load
+            Save = new SaveService(Data) { WriteInBackground = !Application.isEditor };
             Save.Changed += OnSaveChanged;
             bool ok = Save.Load();
             if (!ok)
@@ -163,6 +164,14 @@ namespace PokiClash
             PendingFirst = null;
             PendingArgs = null;
         }
+
+        // vào nền, thoát: chờ ghi nền xong (Android có thể giết app ngay sau khi vào nền)
+        void OnApplicationPause(bool paused)
+        {
+            if (paused) Save?.Flush();
+        }
+
+        void OnApplicationQuit() => Save?.Flush();
 
         void OnSaveChanged()
         {

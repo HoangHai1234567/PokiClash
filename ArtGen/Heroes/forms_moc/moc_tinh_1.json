@@ -1,0 +1,120 @@
+{
+ "code": "moc_tinh_1",
+ "elem": "moc",
+ "aola": 1480,
+ "hero": "Mộc Tinh",
+ "form": 1,
+ "forms": 2,
+ "form_name": "Tiểu Mộc Tinh",
+ "role_vi": "tướng hệ Mộc (ải 60 đảo Mộc, dạng 1/2), rig aola #1480",
+ "design_vi": "cáo con lông xám đá phiến, mặt nạ và bụng kem, tai to xám lòng kem, sau mỗi tai một cụm pha lê lục bảo, chỏm lông xoăn trên đầu, vòng rễ cây nâu sẫm đeo mặt pha lê ở cổ, đuôi xù mang lá pha lê lục, mắt vàng chanh",
+ "rig_vi": "con gốc #1480 (xem Rig_Numbered.png)",
+ "regions_vi": "1 đầu tròn có mặt, 2 tai cáo to và cụm pha lê, 3 thân nhỏ, 4 vòng rễ cây và mặt pha lê, 5 bốn chân ngắn, 6 đuôi xù mang lá pha lê",
+ "anchor": true,
+ "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: an EMERALD-CRYSTAL FOX CUB, the first stage of a two-stage Wood evolution line, in the same view and pose as image 1, standing on four short legs, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 round head with face; 2 big fox ears with emerald crystal clusters; 3 small body; 4 root collar with crystal pendant; 5 four short legs; 6 bushy tail with a crystal leaf;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 round head with face: a round fox-cub head: slate-grey fur on top and sides, a cream face mask around the eyes and muzzle, two big lemon-yellow eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a small dark nose, a confident grin with one tiny fang (smaller than the old open mouth); slate-grey cheek fluff with cream tips where the old green tufts are; no forehead symbol, no red.\n2 big fox ears with emerald crystal clusters: two big pointed fox ears, slate grey outside and cream inside, where the orange ears are; behind each ear a cluster of flat emerald-green crystal shards growing from the head, sweeping up-left on the viewer-left and standing up on the viewer-right, about the size of the old leaves, with a few darker emerald facet lines; a small curled slate-grey fur tuft on top of the head; no leaves, no orange.\n3 small body: a small slate-grey body with a cream belly and a few small flat emerald crystal shards along its back.\n4 root collar with crystal pendant: a thin twisted dark-brown root cord following the same path across the neck, with the same loop on the viewer-left and curl on the viewer-right; instead of the berry a flat emerald crystal pendant with three tiny emerald chips on top; no red berry, no leaves, no yellow band.\n5 four short legs: four short slate-grey legs with cream paws at the bottom and small dark toe lines; no green, no tan.\n6 bushy tail with a crystal leaf: a bushy slate-grey fox tail curving up from the rump to the upper-left, carrying a big flat emerald crystal leaf at its tip with a few darker emerald facet lines; no stem, no tendrils, no teal leaf.\n\nATTITUDE: a bold little fox ready to pounce: brows angled down, a small fang in a confident grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: slate-grey fur, a cream belly, face mask and ear insides, flat emerald-green crystals with a few darker emerald facet lines (no sparkle), a dark-brown root cord, lemon-yellow eyes. Few colours.\n\nAVOID: a green body, orange ears, red eyes, white fur, brown horns, leaves on a stem, a red berry, a glowing magic circle on the ground, a gold crown, glowing green flame wisps, sparkles, crystal shine, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+ "groups": [
+  [
+   "N01",
+   "đầu tròn có mặt",
+   "round head with face",
+   "giu",
+   11,
+   "a big round green head with a white face mask in front, a yellow leaf symbol on the forehead and small yellow marks, two big red eyes (a wide one on the viewer-left and a narrow one on the viewer-right), a tiny nose, a wide open laughing mouth with a pink tongue, and small green cheek tufts on both sides at the bottom (the viewer-left one longer)",
+   "đầu tròn có mặt cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu tròn có mặt;\n- không vẽ phần khác.",
+   "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): a big round green head with a white face mask in front, a yellow leaf symbol on the forehead and small yellow marks, two big red eyes (a wide one on the viewer-left and a narrow one on the viewer-right), a tiny nose, a wide open laughing mouth with a pink tongue, and small green cheek tufts on both sides at the bottom (the viewer-left one longer). Redraw THESE pieces as the round head with face of image 2 (the approved concept): a round fox-cub head: slate-grey fur on top and sides, a cream face mask around the eyes and muzzle, two big lemon-yellow eyes (one catchlight dot each) exactly where the old eyes are, brows angled down, a small dark nose, a confident grin with one tiny fang (smaller than the old open mouth); slate-grey cheek fluff with cream tips where the old green tufts are; no forehead symbol, no red. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N02",
+   "tai cáo to và cụm pha lê",
+   "big fox ears with emerald crystal clusters",
+   "doi",
+   7,
+   "on the viewer-left a big orange pointed ear in front of a huge green-and-orange leaf crest sweeping up-left; on the viewer-right a small orange ear in front of a tall green leaf standing up; a curled green leaf sprout on top of the head",
+   "tai cáo to và cụm pha lê cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: tai cáo to và cụm pha lê;\n- không vẽ phần khác.",
+   "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): on the viewer-left a big orange pointed ear in front of a huge green-and-orange leaf crest sweeping up-left; on the viewer-right a small orange ear in front of a tall green leaf standing up; a curled green leaf sprout on top of the head. Redraw THESE pieces as the big fox ears with emerald crystal clusters of image 2 (the approved concept): two big pointed fox ears, slate grey outside and cream inside, where the orange ears are; behind each ear a cluster of flat emerald-green crystal shards growing from the head, sweeping up-left on the viewer-left and standing up on the viewer-right, about the size of the old leaves, with a few darker emerald facet lines; a small curled slate-grey fur tuft on top of the head; no leaves, no orange. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "base of each ear, crystal cluster and the tuft (where it grows from the head)"
+  ],
+  [
+   "N03",
+   "thân nhỏ",
+   "small body",
+   "giu",
+   18,
+   "the small green body under the head with tan patches on the belly, mostly hidden behind the head and the scarf",
+   "thân nhỏ cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân nhỏ;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): the small green body under the head with tan patches on the belly, mostly hidden behind the head and the scarf. Redraw THESE pieces as the small body of image 2 (the approved concept): a small slate-grey body with a cream belly and a few small flat emerald crystal shards along its back. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N04",
+   "vòng rễ cây và mặt pha lê",
+   "root collar with crystal pendant",
+   "doi",
+   11,
+   "a dark-green vine wrapped across the neck like a scarf with a yellow-orange band in the middle, its viewer-left end looping up behind the cheek, its viewer-right end curling into a spiral, and a red berry hanging at the front with three small green leaves on top",
+   "vòng rễ cây và mặt pha lê cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vòng rễ cây và mặt pha lê;\n- không vẽ phần khác.",
+   "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a dark-green vine wrapped across the neck like a scarf with a yellow-orange band in the middle, its viewer-left end looping up behind the cheek, its viewer-right end curling into a spiral, and a red berry hanging at the front with three small green leaves on top. Redraw THESE pieces as the root collar with crystal pendant of image 2 (the approved concept): a thin twisted dark-brown root cord following the same path across the neck, with the same loop on the viewer-left and curl on the viewer-right; instead of the berry a flat emerald crystal pendant with three tiny emerald chips on top; no red berry, no leaves, no yellow band. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the cord stays on the neck along the same path"
+  ],
+  [
+   "N05",
+   "bốn chân ngắn",
+   "four short legs",
+   "giu",
+   15,
+   "four short stubby green legs under the body, each with a tan paw at its BOTTOM end: one on the viewer-left, two in the middle (one behind the other) and one on the viewer-right",
+   "bốn chân ngắn cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: bốn chân ngắn;\n- không vẽ phần khác.",
+   "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): four short stubby green legs under the body, each with a tan paw at its BOTTOM end: one on the viewer-left, two in the middle (one behind the other) and one on the viewer-right. Redraw THESE pieces as the four short legs of image 2 (the approved concept): four short slate-grey legs with cream paws at the bottom and small dark toe lines; no green, no tan. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   null
+  ],
+  [
+   "N06",
+   "đuôi xù mang lá pha lê",
+   "bushy tail with a crystal leaf",
+   "doi",
+   11,
+   "a long tail: a dark-brown stem growing from the rump at its lower-right end, curling into small teal tendrils, ending at the upper-left in a big teal leaf",
+   "đuôi xù mang lá pha lê cũ (1024 × 1024, nền trắng)",
+   "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đuôi xù mang lá pha lê;\n- không vẽ phần khác.",
+   "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long tail: a dark-brown stem growing from the rump at its lower-right end, curling into small teal tendrils, ending at the upper-left in a big teal leaf. Redraw THESE pieces as the bushy tail with a crystal leaf of image 2 (the approved concept): a bushy slate-grey fox tail curving up from the rump to the upper-left, carrying a big flat emerald crystal leaf at its tip with a few darker emerald facet lines; no stem, no tendrils, no teal leaf. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+   "the lower-right end where the tail joins the rump"
+  ]
+ ],
+ "extra": [],
+ "first": [
+  "N01",
+  "N02"
+ ],
+ "anim": {
+  "root": 9,
+  "head": 15,
+  "swing": [],
+  "wob": [
+   27,
+   18,
+   5
+  ],
+  "fly": [],
+  "cast": [
+   15,
+   0.65,
+   0.9
+  ],
+  "parent": {
+   "27": 15,
+   "17": 15,
+   "18": 15,
+   "4": 15,
+   "16": 15,
+   "11": 10,
+   "24": 19,
+   "8": 7
+  }
+ }
+}

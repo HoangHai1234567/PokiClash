@@ -1,9 +1,14 @@
 // Ghi và đọc bản lưu ở persistentDataPath/save_v{n}.json. Ghi qua file tạm rồi đổi tên, để tắt ngang không làm hỏng.
 // Bản cũ hơn: chạy bước di chuyển nếu có; không có (hoặc file hỏng) thì giữ file thành .bak và báo người chơi trước khi làm mới.
+// Ghi nền (WriteInBackground, App bật ở máy thật): Save mã hoá bản lưu ngay trên luồng chính (ảnh chụp đúng lúc bấm) rồi giao việc ghi
+// file cho luồng phụ, chỉ giữ bản mới nhất; mỗi lần chạm (lên cấp, đổi đội…) đều lưu nên ghi file trên luồng chính làm khựng (người
+// dùng dặn phản hồi phải ngay, 2026-11-07). App gọi Flush khi vào nền, thoát. Editor và test ghi ngay: tour ghi đè file lưu gốc
+// rồi Load, ghi nền còn dở có thể đè lên.
 using System;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using PokiClash.Core;
 using UnityEngine;
 
@@ -97,14 +102,76 @@ namespace PokiClash.Game
             Save();
         }
 
-        // Ghi ngay (gọi sau mỗi thay đổi tiến trình). Ghi file tạm, xoá bản chính, đổi tên file tạm.
+        public bool WriteInBackground;
+        readonly object gate = new object();
+        string queued;   // bản chờ ghi nền (mới nhất)
+        bool writing;    // luồng phụ đang ghi
+        Task writer;
+
+        // Lưu (gọi sau mỗi thay đổi tiến trình): mã hoá ngay, ghi file ngay hoặc giao luồng phụ (WriteInBackground).
         public void Save()
         {
             if (Data == null) return;
+            string json = SaveCodec.Write(Data);
+            if (WriteInBackground)
+            {
+                lock (gate)
+                {
+                    queued = json;
+                    if (!writing)
+                    {
+                        writing = true;
+                        writer = Task.Run(Drain);
+                    }
+                }
+            }
+            else Write(json);
+            Changed?.Invoke();
+        }
+
+        // luồng phụ: ghi lần lượt tới khi hết bản chờ
+        void Drain()
+        {
+            while (true)
+            {
+                string json;
+                lock (gate)
+                {
+                    json = queued;
+                    queued = null;
+                    if (json == null)
+                    {
+                        writing = false;
+                        return;
+                    }
+                }
+                Write(json);
+            }
+        }
+
+        // Chờ ghi nền xong (app vào nền, thoát: Android có thể giết app ngay sau đó).
+        public void Flush()
+        {
+            Task w;
+            lock (gate) w = writer;
+            try { w?.Wait(2000); }
+            catch (Exception e) { Debug.LogWarning("[Lưu] Ghi nền lỗi: " + e.Message); }
+            string left;
+            lock (gate)
+            {
+                left = writing ? null : queued;
+                if (left != null) queued = null;
+            }
+            if (left != null) Write(left);
+        }
+
+        // Ghi file tạm, xoá bản chính, đổi tên file tạm (luồng chính hoặc luồng phụ, không chạy song song).
+        void Write(string json)
+        {
             try
             {
                 Directory.CreateDirectory(Dir);
-                File.WriteAllText(TmpPath, SaveCodec.Write(Data), new UTF8Encoding(false));
+                File.WriteAllText(TmpPath, json, new UTF8Encoding(false));
                 if (File.Exists(FilePath)) File.Delete(FilePath);
                 File.Move(TmpPath, FilePath);
             }
@@ -112,7 +179,6 @@ namespace PokiClash.Game
             {
                 Debug.LogError("[Lưu] Không ghi được bản lưu: " + e.Message);
             }
-            Changed?.Invoke();
         }
 
         // Xoá dữ liệu: về người chơi mới (cấp 1, 10 bi, chưa có tướng nào: chọn lại tướng khởi đầu, mọi đảo 0).

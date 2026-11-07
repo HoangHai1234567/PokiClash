@@ -7,6 +7,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEditor;
+using UnityEditor.Build;
 using UnityEngine;
 
 namespace PokiClash.EditorTools
@@ -21,9 +22,76 @@ namespace PokiClash.EditorTools
         static void Build(BuildPlayerOptions o)
         {
             if (o.target == BuildTarget.Android) o.options |= BuildOptions.CompressWithLz4HC;
+            BuildCodeSize.Apply();
             // bản thử không cần logo Unity lúc mở (Unity 6 Personal cho tắt; ProjectSettings cũng đã tắt, phòng bản cũ ghi đè)
             if (PlayerSettings.SplashScreen.show) PlayerSettings.SplashScreen.show = false;
-            BuildPlayerWindow.DefaultBuildMethods.BuildPlayer(o);
+            try { BuildPlayerWindow.DefaultBuildMethods.BuildPlayer(o); }
+            finally { FontBuildRestore.Restore(); }
+        }
+    }
+
+    // Cỡ code Android (libil2cpp 17 MB nén trong APK 0.0.5, 2026-11-07): IL2CPP sinh code gọn (OptimizeSize: chậm hơn chút ở code
+    // generic, game này không đáng kể) và strip mức Low (bỏ code không dùng ở mọi assembly nhưng giữ thận trọng; SROptions có
+    // link.xml). Mặc định cũ là Minimal (chỉ strip thư viện .NET và UnityEngine). Đặt khi mở Editor và trước mỗi lần bấm Build.
+    [InitializeOnLoad]
+    static class BuildCodeSize
+    {
+        static BuildCodeSize() => EditorApplication.delayCall += Apply;
+
+        public static void Apply()
+        {
+            var t = NamedBuildTarget.Android;
+            if (PlayerSettings.GetIl2CppCodeGeneration(t) != Il2CppCodeGeneration.OptimizeSize)
+                PlayerSettings.SetIl2CppCodeGeneration(t, Il2CppCodeGeneration.OptimizeSize);
+            var strip = PlayerSettings.GetManagedStrippingLevel(t);
+            if (strip == ManagedStrippingLevel.Disabled || strip == ManagedStrippingLevel.Minimal)
+                PlayerSettings.SetManagedStrippingLevel(t, ManagedStrippingLevel.Low);
+        }
+    }
+
+    // TMP (TMP_PreBuildProcessor) xoá chữ đã xếp của phông động bật "Clear Dynamic Data On Build" ngay trước mỗi lần build và ghi
+    // đè file .asset: APK mang phông rỗng (nhẹ hơn ~2-3 MB, máy tự xếp chữ khi cần) nhưng chữ trong Editor hỏng (2026-11-07 sau
+    // build đo: thẻ đảo ở sảnh hiện "À ế"). Chép file phông ra Temp trước TMP, chép lại sau build; build dừng giữa chừng thì chép
+    // lại khi Editor nạp code.
+    sealed class FontBuildRestore : IPreprocessBuildWithReport, IPostprocessBuildWithReport
+    {
+        const string FontDir = "Assets/03 Art/Fonts";
+        public int callbackOrder => -100; // trước TMP_PreBuildProcessor (0)
+        static string Backup => Path.GetFullPath(Path.Combine(Application.dataPath, "../Temp/PokiFontBackup"));
+
+        public void OnPreprocessBuild(UnityEditor.Build.Reporting.BuildReport report)
+        {
+            Restore(); // bản chép của lần build trước còn sót
+            Directory.CreateDirectory(Backup);
+            foreach (var guid in AssetDatabase.FindAssets("t:TMP_FontAsset", new[] { FontDir }))
+            {
+                var path = AssetDatabase.GUIDToAssetPath(guid);
+                var font = AssetDatabase.LoadMainAssetAtPath(path);
+                if (font) AssetDatabase.SaveAssetIfDirty(font);
+                File.Copy(path, Path.Combine(Backup, Path.GetFileName(path)), true);
+            }
+        }
+
+        public void OnPostprocessBuild(UnityEditor.Build.Reporting.BuildReport report) => EditorApplication.delayCall += Restore;
+
+        [InitializeOnLoadMethod]
+        static void OnLoad() => EditorApplication.delayCall += Restore;
+
+        public static void Restore()
+        {
+            if (!Directory.Exists(Backup) || BuildPipeline.isBuildingPlayer) return;
+            var files = Directory.GetFiles(Backup, "*.asset");
+            var paths = new List<string>();
+            foreach (var f in files)
+            {
+                var dst = FontDir + "/" + Path.GetFileName(f);
+                if (!File.Exists(dst)) continue;
+                File.Copy(f, dst, true);
+                paths.Add(dst);
+            }
+            Directory.Delete(Backup, true);
+            foreach (var p in paths) AssetDatabase.ImportAsset(p, ImportAssetOptions.ForceUpdate);
+            if (paths.Count > 0) Debug.Log($"[Dung lượng] Chép lại {paths.Count} phông sau build (TMP đã xoá chữ của chúng trước build).");
         }
     }
 
@@ -67,6 +135,41 @@ namespace PokiClash.EditorTools
             Directory.CreateDirectory(dir);
             File.WriteAllText(Path.Combine(dir, "dung_luong.txt"), sb.ToString());
             Debug.Log("[Dung lượng] " + sb.ToString().Split('\n')[0] + " → " + Path.Combine(dir, "dung_luong.txt"));
+        }
+
+        // Build Android như nút Build (không Development, LZ4HC, cài đặt code BuildCodeSize) ra Temp/PokiApkSize/size.apk rồi ghi các
+        // phần nặng nhất của APK vào Temp/PokiShots/apk_size.txt. Chỉ chạy khi nền đang chọn là Android (đổi nền thì nhập lại mọi ảnh).
+        [MenuItem("PokiClash/Build/Đo dung lượng APK (build Android ra Temp)", priority = 42)]
+        public static void MeasureApk()
+        {
+            if (EditorUserBuildSettings.activeBuildTarget != BuildTarget.Android)
+            {
+                Debug.LogError("[Dung lượng] Nền đang chọn không phải Android; chuyển nền trước (đổi nền sẽ nhập lại mọi ảnh).");
+                return;
+            }
+            BuildCodeSize.Apply();
+            var apk = Path.GetFullPath(Path.Combine(Application.dataPath, "../Temp/PokiApkSize/size.apk"));
+            Directory.CreateDirectory(Path.GetDirectoryName(apk));
+            var report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
+            {
+                scenes = EditorBuildSettings.scenes.Where(s => s.enabled).Select(s => s.path).ToArray(),
+                target = BuildTarget.Android,
+                locationPathName = apk,
+                options = BuildOptions.CompressWithLz4HC,
+            });
+            FontBuildRestore.Restore();
+            var sb = new StringBuilder();
+            sb.AppendLine($"Build {report.summary.result}, {report.summary.totalTime.TotalSeconds:0} giây → {apk}");
+            if (report.summary.result == UnityEditor.Build.Reporting.BuildResult.Succeeded && File.Exists(apk))
+            {
+                sb.AppendLine($"APK {new FileInfo(apk).Length / 1e6:0.0} MB");
+                using var zip = System.IO.Compression.ZipFile.OpenRead(apk);
+                foreach (var e in zip.Entries.OrderByDescending(e => e.CompressedLength).Take(12))
+                    sb.AppendLine($"  {e.CompressedLength / 1e6,7:0.00} MB (giải nén {e.Length / 1e6,7:0.00})  {e.FullName}");
+            }
+            Directory.CreateDirectory(PlayTour.ShotDir);
+            File.WriteAllText(Path.Combine(PlayTour.ShotDir, "apk_size.txt"), sb.ToString());
+            Debug.Log("[Dung lượng] " + sb.ToString().Replace("\n", " | "));
         }
 
         // nhóm: chân dung, atlas tướng tách riêng; còn lại theo thư mục con của Assets/03 Art

@@ -2648,6 +2648,11 @@ _LO2 = ROOT + "forms_thuy_lo2.json"
 if os.path.exists(_LO2):
     import json
     FORMS += json.load(open(_LO2, encoding="utf-8"))
+# đảo Mộc (10 dòng, 24 dạng, 2026-11-07): mục sinh bằng tools/lo_moc.py từ tools/moc_spec/*.py
+_MOC = ROOT + "forms_moc/"
+if os.path.isdir(_MOC):
+    import json
+    FORMS += [json.load(open(_MOC + n, encoding="utf-8")) for n in sorted(os.listdir(_MOC)) if n.endswith(".json")]
 
 
 def rig_dir(f):
