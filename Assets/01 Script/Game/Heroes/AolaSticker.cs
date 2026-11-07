@@ -97,6 +97,9 @@ namespace PokiClash
             return true;
         }
 
+        // kiểu tia riêng (AolaActor.BeamStyle: tia_bang, tia_xoay, tia_trieu của 3 boss cuối đảo Thủy); null = tia nước thường
+        public string BeamStyle => actor ? actor.BeamStyle : null;
+
         // Độ lệch thêm (đơn vị sân) để đỉnh lao của clip đánh rơi vào 72% quãng tới đối thủ: A·m(t) − m(t) như bản web.
         // Clip khác (chiêu cuối) chỉ lao khi anim.json khai "lunge" (AolaActor.Lunges).
         public bool Lunge(string clip, float t, float tx, float ty, out Vector2 o)

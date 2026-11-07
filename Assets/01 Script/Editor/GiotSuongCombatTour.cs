@@ -30,6 +30,17 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Ma Kết ra trận: húc, bắn tia, cầu nước ở 3 dạng (đang Play)", priority = 114)]
         static void TryMaKet() => Start("ma_ket", "ma_ket_combat", 1, 3, 5);
 
+        // 3 boss cuối đảo Thủy (2026-11-07): tia mana riêng (anim.json "cast.tia" -> StageView.beamStyles): Thương Lam tia băng có mảnh
+        // băng văng, Huyền Vũ tia xoắn có xoáy nước, Lam Quân tia triều đinh ba có vòng sóng âm và rung; ảnh vào <id>_combat/
+        [MenuItem("PokiClash/Thử/Thương Lam ra trận: tia băng ở 3 dạng (đang Play)", priority = 115)]
+        static void TryThuongLam() => Start("thuong_lam", "thuong_lam_combat", 1, 3, 5);
+
+        [MenuItem("PokiClash/Thử/Huyền Vũ ra trận: tia xoắn ở 3 dạng (đang Play)", priority = 116)]
+        static void TryHuyenVu() => Start("huyen_vu", "huyen_vu_combat", 1, 3, 5);
+
+        [MenuItem("PokiClash/Thử/Lam Quân ra trận: tia triều đinh ba ở 3 dạng (đang Play)", priority = 117)]
+        static void TryLamQuan() => Start("lam_quan", "lam_quan_combat", 1, 3, 5);
+
         static void Start(string id, string folder, params int[] at)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

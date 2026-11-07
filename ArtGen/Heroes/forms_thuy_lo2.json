@@ -1,0 +1,1422 @@
+[
+ {
+  "code": "vay_lam_1",
+  "elem": "thuy",
+  "aola": 546,
+  "hero": "Vây Lam",
+  "form": 1,
+  "forms": 3,
+  "form_name": "Cá Đốm",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 30 đảo Thủy, dạng 1/3), rig aola #546",
+  "design_vi": "cá mập con tròn vo cuộn trong quả trứng bong bóng nước (chỉ viền), lưng xanh coban đốm trắng, bụng trắng, vây viền vàng nghệ, mắt hổ phách",
+  "rig_vi": "con gốc #546 (xem Rig_Numbered.png)",
+  "regions_vi": "1 quả trứng bong bóng, 2 cá mập con có mặt, 3 hai bong bóng nhỏ",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a round baby SHARK PUP of the wave-splitter line, curled up inside a water-bubble egg, the first stage of a three-stage Water evolution line, in the same view and pose as image 1, floating a little above the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 water bubble egg; 2 round shark pup with face; 3 two small bubbles;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 water bubble egg: a big round water bubble drawn with only a thin dark-brown ink outline and a very light, even aqua tint, see-through; no shine.\n2 round shark pup with face: a round chubby shark pup: cobalt-blue back with round white spots, snow-white belly, a small dorsal fin edged in saffron yellow on top, two big saffron-amber eyes (one catchlight dot each) where the old eyes are, brows angled down, a small fang.\n3 two small bubbles: two simple bubbles with a thin ink outline and a very light aqua tint, no shine.\n\nATTITUDE: a brave round shark pup ready to burst out and bite: brows angled down, a small fang showing; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: a cobalt-blue back, a snow-white belly with round white spots on the blue, fins edged in saffron yellow, big saffron-amber eyes; a very pale aqua tint in the bubble. Few colours.\n\nAVOID: a green or teal fish, a yellow belly band, a glass sphere with shine, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "quả trứng bong bóng",
+    "water bubble egg",
+    "giu",
+    8,
+    "a big round green bubble sphere with shine spots around the fish",
+    "quả trứng bong bóng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: quả trứng bong bóng;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a big round green bubble sphere with shine spots around the fish. Redraw THESE pieces as the water bubble egg of image 2 (the approved concept): a big round water bubble drawn with only a thin dark-brown ink outline and a very light, even aqua tint, see-through; no shine. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "cá mập con có mặt",
+    "round shark pup with face",
+    "giu",
+    9,
+    "a round blue and yellow fish with a fin on top, two big black eyes and a small mouth",
+    "cá mập con có mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: cá mập con có mặt;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a round blue and yellow fish with a fin on top, two big black eyes and a small mouth. Redraw THESE pieces as the round shark pup with face of image 2 (the approved concept): a round chubby shark pup: cobalt-blue back with round white spots, snow-white belly, a small dorsal fin edged in saffron yellow on top, two big saffron-amber eyes (one catchlight dot each) where the old eyes are, brows angled down, a small fang. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "hai bong bóng nhỏ",
+    "two small bubbles",
+    "giu",
+    7,
+    "two small green bubbles with shine",
+    "hai bong bóng nhỏ cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai bong bóng nhỏ;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two small green bubbles with shine. Redraw THESE pieces as the two small bubbles of image 2 (the approved concept): two simple bubbles with a thin ink outline and a very light aqua tint, no shine. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ]
+ },
+ {
+  "code": "vay_lam_2",
+  "elem": "thuy",
+  "aola": 547,
+  "hero": "Vây Lam",
+  "form": 2,
+  "forms": 3,
+  "form_name": "Cá Song Tiễn",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 30 đảo Thủy, dạng 2/3), rig aola #547",
+  "design_vi": "cá mập thon xanh coban bụng trắng đốm trắng, mũ giáp vỏ ốc vàng nghệ có sừng, hai mũi tên nước (song tiễn) bay hai bên, vây viền vàng",
+  "rig_vi": "con gốc #547 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu có mũ và mặt, 2 thân, 3 vây lưng, 4 hai vây bên, 5 đuôi, 6 hai mũi tên nước",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6: the round shark pup has grown into a sleek TWIN-ARROW SHARK guarded by two floating water arrowheads, in the same view and pose as image 1, leaping up from the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with helmet and face; 2 body; 3 dorsal fin; 4 two side fins; 5 tail; 6 two floating water arrowheads;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with helmet and face: the shark head: cobalt-blue top with white spots, snow-white jaw with a fanged grin, a saffron-amber eye (one catchlight dot) where the old eye is, brow angled down, wearing a saffron-yellow spiral-shell helmet with two short horns.\n2 body: a sleek cobalt-blue body with white spots and a snow-white belly; a saffron-yellow shell band at the neck.\n3 dorsal fin: a tall cobalt-blue dorsal fin edged in saffron yellow.\n4 two side fins: two cobalt-blue side fins edged in saffron yellow.\n5 tail: a cobalt-blue tail with white spots ending in a saffron-edged tail fin.\n6 two floating water arrowheads: two floating arrowheads made of clear blue water with white foam edges, pointing forward, each where an old shield is; the two tiny bubbles stay as small plain bubbles.\n\nATTITUDE: a fierce young shark leaping to strike: brows angled down, a confident fanged grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: a cobalt-blue back, a snow-white belly with round white spots on the blue, fins edged in saffron yellow, big saffron-amber eyes; a saffron-yellow shell helmet; two floating arrowheads of clear blue water with white foam edges. Few colours.\n\nAVOID: a green or teal body, a dark green helmet, leaf-shaped shields, a gold neck band, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu có mũ và mặt",
+    "head with helmet and face",
+    "giu",
+    13,
+    "a teal shark head with a dark green horned helmet, a blue face band and a red eye",
+    "đầu có mũ và mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mũ và mặt;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a teal shark head with a dark green horned helmet, a blue face band and a red eye. Redraw THESE pieces as the head with helmet and face of image 2 (the approved concept): the shark head: cobalt-blue top with white spots, snow-white jaw with a fanged grin, a saffron-amber eye (one catchlight dot) where the old eye is, brow angled down, wearing a saffron-yellow spiral-shell helmet with two short horns. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "thân",
+    "body",
+    "giu",
+    13,
+    "a teal body with a gold band at the neck",
+    "thân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a teal body with a gold band at the neck. Redraw THESE pieces as the body of image 2 (the approved concept): a sleek cobalt-blue body with white spots and a snow-white belly; a saffron-yellow shell band at the neck. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "vây lưng",
+    "dorsal fin",
+    "doi",
+    23,
+    "a tall teal dorsal fin",
+    "vây lưng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vây lưng;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a tall teal dorsal fin. Redraw THESE pieces as the dorsal fin of image 2 (the approved concept): a tall cobalt-blue dorsal fin edged in saffron yellow. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "base of the fin"
+   ],
+   [
+    "N04",
+    "hai vây bên",
+    "two side fins",
+    "giu",
+    9,
+    "two teal side fins",
+    "hai vây bên cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: hai vây bên;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two teal side fins. Redraw THESE pieces as the two side fins of image 2 (the approved concept): two cobalt-blue side fins edged in saffron yellow. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "đuôi",
+    "tail",
+    "giu",
+    25,
+    "a teal tail bending down with a small tip",
+    "đuôi cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đuôi;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a teal tail bending down with a small tip. Redraw THESE pieces as the tail of image 2 (the approved concept): a cobalt-blue tail with white spots ending in a saffron-edged tail fin. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N06",
+    "hai mũi tên nước",
+    "two floating water arrowheads",
+    "doi",
+    8,
+    "two floating teal leaf-shaped shields with gold centres and two tiny bubbles",
+    "hai mũi tên nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: hai mũi tên nước;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): two floating teal leaf-shaped shields with gold centres and two tiny bubbles. Redraw THESE pieces as the two floating water arrowheads of image 2 (the approved concept): two floating arrowheads made of clear blue water with white foam edges, pointing forward, each where an old shield is; the two tiny bubbles stay as small plain bubbles. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of each arrowhead"
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "vay_lam_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "vay_lam_3",
+  "elem": "thuy",
+  "aola": 548,
+  "hero": "Vây Lam",
+  "form": 3,
+  "forms": 3,
+  "form_name": "Cá Mập Vây Lam",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 30 đảo Thủy, dạng 3/3), rig aola #548",
+  "design_vi": "cá mập lớn rẽ sóng: lưng xanh coban đốm trắng, bụng trắng, mũ vỏ ốc vàng nghệ, quanh mình bay nhiều vây lưỡi sóng xanh bọt trắng",
+  "rig_vi": "con gốc #548 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu và thân, 2 vây lưỡi sóng trên, 3 vây lưỡi sóng bên, 4 vây lưỡi sóng dưới",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6: the WAVE-SPLITTER SHARK, a big proud shark surrounded by many floating blade-fins made of rushing water, in the same view and pose as image 1, surging forward above the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head and body; 2 upper blade-fins; 3 side blade-fins; 4 lower blade-fins;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head and body: a big shark: cobalt-blue back with white spots, snow-white belly and jaw with a fanged grin, a saffron-amber eye where the old eye is, a saffron-yellow spiral-shell helmet on the head.\n2 upper blade-fins: blade-fins made of rushing blue water with white foam edges, each where an old shard is, pointing the same way.\n3 side blade-fins: blade-fins of rushing blue water with white foam edges, each where an old shard is.\n4 lower blade-fins: blade-fins of rushing blue water with white foam edges, each where an old shard is.\n\nATTITUDE: a proud shark lord cutting through the waves: brows angled down, a fanged grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: a cobalt-blue back, a snow-white belly with round white spots on the blue, fins edged in saffron yellow, big saffron-amber eyes; blade-fins of clear blue water with white foam edges. Few colours.\n\nAVOID: an ice or crystal body, glassy shards, dark navy, metal, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu và thân",
+    "head and body",
+    "giu",
+    12,
+    "a big shark body made of pale blue crystal with a darker head, a green eye and white teeth",
+    "đầu và thân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu và thân;\n- không vẽ phần khác.",
+    "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): a big shark body made of pale blue crystal with a darker head, a green eye and white teeth. Redraw THESE pieces as the head and body of image 2 (the approved concept): a big shark: cobalt-blue back with white spots, snow-white belly and jaw with a fanged grin, a saffron-amber eye where the old eye is, a saffron-yellow spiral-shell helmet on the head. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "vây lưỡi sóng trên",
+    "upper blade-fins",
+    "doi",
+    9,
+    "pale blue crystal shards floating above the shark, with dark inner panels",
+    "vây lưỡi sóng trên cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vây lưỡi sóng trên;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): pale blue crystal shards floating above the shark, with dark inner panels. Redraw THESE pieces as the upper blade-fins of image 2 (the approved concept): blade-fins made of rushing blue water with white foam edges, each where an old shard is, pointing the same way. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of each blade"
+   ],
+   [
+    "N03",
+    "vây lưỡi sóng bên",
+    "side blade-fins",
+    "doi",
+    14,
+    "pale blue crystal shards floating at the left side",
+    "vây lưỡi sóng bên cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vây lưỡi sóng bên;\n- không vẽ phần khác.",
+    "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): pale blue crystal shards floating at the left side. Redraw THESE pieces as the side blade-fins of image 2 (the approved concept): blade-fins of rushing blue water with white foam edges, each where an old shard is. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of each blade"
+   ],
+   [
+    "N04",
+    "vây lưỡi sóng dưới",
+    "lower blade-fins",
+    "doi",
+    20,
+    "pale blue crystal shards under the shark",
+    "vây lưỡi sóng dưới cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vây lưỡi sóng dưới;\n- không vẽ phần khác.",
+    "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): pale blue crystal shards under the shark. Redraw THESE pieces as the lower blade-fins of image 2 (the approved concept): blade-fins of rushing blue water with white foam edges, each where an old shard is. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of each blade"
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "vay_lam_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "kuba_1",
+  "elem": "thuy",
+  "aola": 94,
+  "hero": "Kuba",
+  "form": 1,
+  "forms": 3,
+  "form_name": "Kuba",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 40 đảo Thủy, dạng 1/3), rig aola #94",
+  "design_vi": "ốc mượn hồn con: da cam san hô, tóc tảo tím, mang vỏ ốc xoắn vàng cát to sau lưng, khăn cổ bọt biển, mắt xanh ngọc",
+  "rig_vi": "con gốc #94 (xem Rig_Numbered.png)",
+  "regions_vi": "1 vỏ ốc to, 2 đầu có mặt, 3 tóc, 4 khăn cổ, 5 thân và tay, 6 bàn chân, 7 giọt nước",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a little HERMIT-CRAB SPRITE with a big spiral conch shell on its back, the first stage of a three-stage Water evolution line, in the same view and pose as image 1, standing on the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 big shell; 2 head with face; 3 hair; 4 scarf; 5 body and arms; 6 feet; 7 water drops;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 big shell: a big sand-gold spiral conch shell with cream bands and a pointed spiral tip, as big as the old shell and in the same place.\n2 head with face: a round coral-salmon head with two big teal eyes (one catchlight dot each) where the old eyes are, brows angled down, a small grin where the old mouth is.\n3 hair: short spiky violet seaweed hair, the same spikes and places.\n4 scarf: a puffy foam-white sea-sponge scarf with small holes, the same outline.\n5 body and arms: a small coral-salmon body with a cream belly and short coral-salmon arms with tiny pincer hands.\n6 feet: two small coral-salmon feet with cream toes.\n7 water drops: small water drops of light blue with a thin deeper-blue rim, flat, no shine.\n\nATTITUDE: a stubborn little hermit sprite ready to headbutt: brows angled down, cheeks puffed, a small grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: coral-salmon skin, violet seaweed hair, a sand-gold spiral conch shell with cream bands, big teal eyes, small white-and-aqua diamond crystals; a pale foam-white sea-sponge scarf. Few colours.\n\nAVOID: green hair, a blue striped shell, blue-grey skin, a fluffy bubble scarf, a human face, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "vỏ ốc to",
+    "big shell",
+    "doi",
+    9,
+    "a big round blue striped shell behind the creature",
+    "vỏ ốc to cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vỏ ốc to;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): a big round blue striped shell behind the creature. Redraw THESE pieces as the big shell of image 2 (the approved concept): a big sand-gold spiral conch shell with cream bands and a pointed spiral tip, as big as the old shell and in the same place. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "bottom of the shell (where it sits on the back)"
+   ],
+   [
+    "N02",
+    "đầu có mặt",
+    "head with face",
+    "giu",
+    12,
+    "a blue-grey head with two yellow eyes and a red open mouth",
+    "đầu có mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a blue-grey head with two yellow eyes and a red open mouth. Redraw THESE pieces as the head with face of image 2 (the approved concept): a round coral-salmon head with two big teal eyes (one catchlight dot each) where the old eyes are, brows angled down, a small grin where the old mouth is. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "tóc",
+    "hair",
+    "doi",
+    15,
+    "spiky green hair on top of the head",
+    "tóc cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: tóc;\n- không vẽ phần khác.",
+    "Image 1 is 9 pieces of a 2D cut-out animation puppet (the old design): spiky green hair on top of the head. Redraw THESE pieces as the hair of image 2 (the approved concept): short spiky violet seaweed hair, the same spikes and places. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "root of the hair (on the head)"
+   ],
+   [
+    "N04",
+    "khăn cổ",
+    "scarf",
+    "giu",
+    11,
+    "a fluffy pale blue bubble scarf around the neck",
+    "khăn cổ cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khăn cổ;\n- không vẽ phần khác.",
+    "Image 1 is 14 pieces of a 2D cut-out animation puppet (the old design): a fluffy pale blue bubble scarf around the neck. Redraw THESE pieces as the scarf of image 2 (the approved concept): a puffy foam-white sea-sponge scarf with small holes, the same outline. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "thân và tay",
+    "body and arms",
+    "giu",
+    12,
+    "a small dark body with a cream belly and short arms",
+    "thân và tay cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và tay;\n- không vẽ phần khác.",
+    "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): a small dark body with a cream belly and short arms. Redraw THESE pieces as the body and arms of image 2 (the approved concept): a small coral-salmon body with a cream belly and short coral-salmon arms with tiny pincer hands. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N06",
+    "bàn chân",
+    "feet",
+    "giu",
+    14,
+    "two small feet with blue bits",
+    "bàn chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: bàn chân;\n- không vẽ phần khác.",
+    "Image 1 is 12 pieces of a 2D cut-out animation puppet (the old design): two small feet with blue bits. Redraw THESE pieces as the feet of image 2 (the approved concept): two small coral-salmon feet with cream toes. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N07",
+    "giọt nước",
+    "water drops",
+    "giu",
+    7,
+    "small blue water drops around the creature",
+    "giọt nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: giọt nước;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): small blue water drops around the creature. Redraw THESE pieces as the water drops of image 2 (the approved concept): small water drops of light blue with a thin deeper-blue rim, flat, no shine. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ]
+ },
+ {
+  "code": "kuba_2",
+  "elem": "thuy",
+  "aola": 95,
+  "hero": "Kuba",
+  "form": 2,
+  "forms": 3,
+  "form_name": "Kuba Vỏ Cứng",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 40 đảo Thủy, dạng 2/3), rig aola #95",
+  "design_vi": "ốc mượn hồn chiến binh: vỏ ốc xoắn vàng cát gai cứng trên lưng, càng phải to cam đỏ, tóc tảo tím, đuôi gai",
+  "rig_vi": "con gốc #95 (xem Rig_Numbered.png)",
+  "regions_vi": "1 vỏ ốc gai, 2 đầu có mặt, 3 tóc, 4 khăn, 5 càng to, 6 thân và chân, 7 đuôi gai, 8 bụi nước",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6: the hermit sprite has grown into a HARD-SHELL BRAWLER with a spiked conch on its back and one big pincer, in the same view and pose as image 1, crouching in a fighting stance, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 spiked shell on the back; 2 head with face; 3 hair; 4 scarf; 5 big pincer arm; 6 body and legs; 7 spiked tail; 8 water splash;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 spiked shell on the back: a big sand-gold spiral conch with cream bands and short blunt spikes, in the same place.\n2 head with face: a coral-salmon head with two big teal eyes where the old eyes are, brows angled down, a fierce grin; the horn becomes a small violet seaweed lock.\n3 hair: big spiky violet seaweed hair.\n4 scarf: a foam-white sea-sponge scarf.\n5 big pincer arm: a coral-salmon arm ending in one big orange-red pincer with saw-toothed jaws, the pincer where the old hand is.\n6 body and legs: a coral-salmon body with a cream belly, two short legs with cream toes.\n7 spiked tail: a coral-salmon tail with small sand-gold shell plates and a spiral shell tip.\n8 water splash: small flat water drops of light blue with a thin deeper-blue rim.\n\nATTITUDE: a tough brawler ready to smash with its big pincer: brows angled down, a fierce grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: coral-salmon skin, violet seaweed hair, a sand-gold spiral conch shell with cream bands, big teal eyes, small white-and-aqua diamond crystals; a big orange-red pincer. Few colours.\n\nAVOID: green hair, a blue striped shell, blue-grey skin, a fluffy bubble scarf, a human face, a dark horn, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "vỏ ốc gai",
+    "spiked shell on the back",
+    "doi",
+    10,
+    "a big pale shell with an orange pattern on the back",
+    "vỏ ốc gai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vỏ ốc gai;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big pale shell with an orange pattern on the back. Redraw THESE pieces as the spiked shell on the back of image 2 (the approved concept): a big sand-gold spiral conch with cream bands and short blunt spikes, in the same place. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "bottom of the shell"
+   ],
+   [
+    "N02",
+    "đầu có mặt",
+    "head with face",
+    "giu",
+    12,
+    "a blue-grey head with two yellow eyes, a dark horn at the right",
+    "đầu có mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+    "Image 1 is 13 pieces of a 2D cut-out animation puppet (the old design): a blue-grey head with two yellow eyes, a dark horn at the right. Redraw THESE pieces as the head with face of image 2 (the approved concept): a coral-salmon head with two big teal eyes where the old eyes are, brows angled down, a fierce grin; the horn becomes a small violet seaweed lock. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "tóc",
+    "hair",
+    "doi",
+    9,
+    "big spiky green hair",
+    "tóc cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: tóc;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): big spiky green hair. Redraw THESE pieces as the hair of image 2 (the approved concept): big spiky violet seaweed hair. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "root of the hair"
+   ],
+   [
+    "N04",
+    "khăn",
+    "scarf",
+    "giu",
+    13,
+    "a blue scarf at the neck",
+    "khăn cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khăn;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a blue scarf at the neck. Redraw THESE pieces as the scarf of image 2 (the approved concept): a foam-white sea-sponge scarf. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "càng to",
+    "big pincer arm",
+    "doi",
+    15,
+    "a right arm with a pale claw-like hand",
+    "càng to cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: càng to;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a right arm with a pale claw-like hand. Redraw THESE pieces as the big pincer arm of image 2 (the approved concept): a coral-salmon arm ending in one big orange-red pincer with saw-toothed jaws, the pincer where the old hand is. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "shoulder end"
+   ],
+   [
+    "N06",
+    "thân và chân",
+    "body and legs",
+    "giu",
+    15,
+    "a small body and two short legs",
+    "thân và chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và chân;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a small body and two short legs. Redraw THESE pieces as the body and legs of image 2 (the approved concept): a coral-salmon body with a cream belly, two short legs with cream toes. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N07",
+    "đuôi gai",
+    "spiked tail",
+    "giu",
+    13,
+    "a long grey tail with a spike at its tip",
+    "đuôi gai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đuôi gai;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long grey tail with a spike at its tip. Redraw THESE pieces as the spiked tail of image 2 (the approved concept): a coral-salmon tail with small sand-gold shell plates and a spiral shell tip. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N08",
+    "bụi nước",
+    "water splash",
+    "giu",
+    8,
+    "a faint water splash effect",
+    "bụi nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: bụi nước;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a faint water splash effect. Redraw THESE pieces as the water splash of image 2 (the approved concept): small flat water drops of light blue with a thin deeper-blue rim. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "kuba_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "kuba_3",
+  "elem": "thuy",
+  "aola": 96,
+  "hero": "Kuba",
+  "form": 3,
+  "forms": 3,
+  "form_name": "Kuba Kim Cương",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 40 đảo Thủy, dạng 3/3), rig aola #96",
+  "design_vi": "ốc mượn hồn vua kim cương: vỏ ốc vàng cát mọc tinh thể kim cương trắng xanh, tóc tảo tím dài, khăn bọt biển, khăn sọc tảo, đuôi gai",
+  "rig_vi": "con gốc #96 (xem Rig_Numbered.png)",
+  "regions_vi": "1 vỏ ốc kim cương, 2 mặt, 3 tóc, 4 khăn, 5 thân, khăn sọc và chân, 6 đuôi gai, 7 giọt nước",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6: the DIAMOND-SHELL KING, a big hermit giant whose conch is crowned with white-and-aqua diamond crystals, in the same view and pose as image 1, standing tall, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 diamond-crowned shell; 2 face; 3 hair; 4 scarf; 5 body, sash and legs; 6 spiked tail; 7 water drops;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 diamond-crowned shell: a huge sand-gold spiral conch with cream bands, crowned with big flat white-and-aqua diamond crystals where the old orange crystals are.\n2 face: a coral-salmon face with two big teal eyes where the old eyes are, brows angled down, a confident grin.\n3 hair: long spiky violet seaweed hair.\n4 scarf: a puffy foam-white sea-sponge collar.\n5 body, sash and legs: a coral-salmon body with a cream belly, a long violet-and-seaweed-green striped sash, two thick coral-salmon legs with cream toes.\n6 spiked tail: a coral-salmon tail with sand-gold shell plates and a spiral shell tip.\n7 water drops: two small flat light-blue water drops.\n\nATTITUDE: a proud diamond-shell king: brows angled down, a confident grin, chest out; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: coral-salmon skin, violet seaweed hair, a sand-gold spiral conch shell with cream bands, big teal eyes, small white-and-aqua diamond crystals; big flat diamond crystals of white and aqua. Few colours.\n\nAVOID: green hair, a blue striped shell, blue-grey skin, a fluffy bubble scarf, a human face, orange crystals, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "vỏ ốc kim cương",
+    "diamond-crowned shell",
+    "doi",
+    9,
+    "a huge green shell with an orange-red pattern and orange crystal spikes on top and at the left",
+    "vỏ ốc kim cương cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vỏ ốc kim cương;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a huge green shell with an orange-red pattern and orange crystal spikes on top and at the left. Redraw THESE pieces as the diamond-crowned shell of image 2 (the approved concept): a huge sand-gold spiral conch with cream bands, crowned with big flat white-and-aqua diamond crystals where the old orange crystals are. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "bottom of the shell"
+   ],
+   [
+    "N02",
+    "mặt",
+    "face",
+    "giu",
+    19,
+    "a blue-grey face with two eyes and a cream mouth",
+    "mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: mặt;\n- không vẽ phần khác.",
+    "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): a blue-grey face with two eyes and a cream mouth. Redraw THESE pieces as the face of image 2 (the approved concept): a coral-salmon face with two big teal eyes where the old eyes are, brows angled down, a confident grin. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "tóc",
+    "hair",
+    "doi",
+    14,
+    "big spiky green hair with brown locks at the right",
+    "tóc cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: tóc;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): big spiky green hair with brown locks at the right. Redraw THESE pieces as the hair of image 2 (the approved concept): long spiky violet seaweed hair. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "root of the hair"
+   ],
+   [
+    "N04",
+    "khăn",
+    "scarf",
+    "giu",
+    12,
+    "a fluffy pale blue feather collar",
+    "khăn cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: khăn;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a fluffy pale blue feather collar. Redraw THESE pieces as the scarf of image 2 (the approved concept): a puffy foam-white sea-sponge collar. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "thân, khăn sọc và chân",
+    "body, sash and legs",
+    "giu",
+    12,
+    "a big grey-blue body with a long green striped sash and two thick legs",
+    "thân, khăn sọc và chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân, khăn sọc và chân;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a big grey-blue body with a long green striped sash and two thick legs. Redraw THESE pieces as the body, sash and legs of image 2 (the approved concept): a coral-salmon body with a cream belly, a long violet-and-seaweed-green striped sash, two thick coral-salmon legs with cream toes. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N06",
+    "đuôi gai",
+    "spiked tail",
+    "giu",
+    17,
+    "a grey tail with a spike",
+    "đuôi gai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đuôi gai;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a grey tail with a spike. Redraw THESE pieces as the spiked tail of image 2 (the approved concept): a coral-salmon tail with sand-gold shell plates and a spiral shell tip. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N07",
+    "giọt nước",
+    "water drops",
+    "giu",
+    15,
+    "two small water drops",
+    "giọt nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: giọt nước;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two small water drops. Redraw THESE pieces as the water drops of image 2 (the approved concept): two small flat light-blue water drops. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "kuba_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "thuong_lam_1",
+  "elem": "thuy",
+  "aola": 805,
+  "hero": "Thương Lam",
+  "form": 1,
+  "forms": 3,
+  "form_name": "Thương",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 50 đảo Thủy, dạng 1/3), rig aola #805",
+  "design_vi": "rồng biển băng con dáng hải cẩu: vảy trắng tuyết xanh băng, vân xanh mòng két, vây cánh băng trắng gân xanh, ngọc hoa tuyết trên ngực",
+  "rig_vi": "con gốc #805 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu có mào và mặt, 2 thân và ngọc, 3 vây cánh băng, 4 đuôi, 5 chân chèo",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a little ICE SEA-DRAGON PUP shaped like a baby seal with frost wing fins, the first stage of a three-stage Water evolution line, in the same view and pose as image 1, sitting up on the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with crest and face; 2 body with gem; 3 frost wing fin; 4 tail; 5 flippers;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with crest and face: a snow-white and pale ice-blue head with a frost-white fin crest with ice-blue veins at the left, a big icy-teal eye (one catchlight dot) where the old eye is, brow angled down, two small silver horn-ears.\n2 body with gem: a snow-white body with pale ice-blue back and deep teal markings, a pale cyan snowflake gem on the chest set in silver.\n3 frost wing fin: a big frost-white wing fin with ice-blue veins and pointed icicle tips.\n4 tail: a pale ice-blue tail with a frost-white tail fin.\n5 flippers: two pale ice-blue flippers with deep teal tips.\n\nATTITUDE: a proud little ice dragon puffing its chest: brows angled down, a small confident smile; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: snow-white and pale ice-blue scales, deep teal markings, frost-white wing fins with ice-blue veins, silver horns, a pale cyan snowflake gem. Few colours.\n\nAVOID: royal-blue scales, a red gem, gold armour, a human face, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu có mào và mặt",
+    "head with crest and face",
+    "giu",
+    13,
+    "a blue head with a big pale fin crest at the left, a yellow eye and two small ears",
+    "đầu có mào và mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mào và mặt;\n- không vẽ phần khác.",
+    "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a blue head with a big pale fin crest at the left, a yellow eye and two small ears. Redraw THESE pieces as the head with crest and face of image 2 (the approved concept): a snow-white and pale ice-blue head with a frost-white fin crest with ice-blue veins at the left, a big icy-teal eye (one catchlight dot) where the old eye is, brow angled down, two small silver horn-ears. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "thân và ngọc",
+    "body with gem",
+    "giu",
+    12,
+    "a blue seal-like body with a white chest, a red gem and a small gold piece",
+    "thân và ngọc cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và ngọc;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a blue seal-like body with a white chest, a red gem and a small gold piece. Redraw THESE pieces as the body with gem of image 2 (the approved concept): a snow-white body with pale ice-blue back and deep teal markings, a pale cyan snowflake gem on the chest set in silver. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "vây cánh băng",
+    "frost wing fin",
+    "doi",
+    13,
+    "a big pale wing fin",
+    "vây cánh băng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: vây cánh băng;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big pale wing fin. Redraw THESE pieces as the frost wing fin of image 2 (the approved concept): a big frost-white wing fin with ice-blue veins and pointed icicle tips. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "root of the wing"
+   ],
+   [
+    "N04",
+    "đuôi",
+    "tail",
+    "giu",
+    19,
+    "a blue tail with a pale tail fin",
+    "đuôi cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đuôi;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a blue tail with a pale tail fin. Redraw THESE pieces as the tail of image 2 (the approved concept): a pale ice-blue tail with a frost-white tail fin. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "chân chèo",
+    "flippers",
+    "giu",
+    13,
+    "two blue flippers",
+    "chân chèo cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân chèo;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two blue flippers. Redraw THESE pieces as the flippers of image 2 (the approved concept): two pale ice-blue flippers with deep teal tips. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ]
+ },
+ {
+  "code": "thuong_lam_2",
+  "elem": "thuy",
+  "aola": 806,
+  "hero": "Thương Lam",
+  "form": 2,
+  "forms": 3,
+  "form_name": "Thương Nhiễm",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 50 đảo Thủy, dạng 2/3), rig aola #806",
+  "design_vi": "rồng biển băng bay: vảy trắng tuyết, bờm vây băng, sừng bạc, cánh băng lớn, giáp ngực bạc ngọc hoa tuyết",
+  "rig_vi": "con gốc #806 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu có bờm và mặt, 2 thân và chân chèo, 3 cánh băng, 4 giáp ngực ngọc, 5 đuôi có vây",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6: the ice pup has grown into a FLYING ICE SEA-DRAGON with frost wings, in the same view and pose as image 1, flying low above the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with mane and face; 2 body and front flipper; 3 frost wing; 4 chest guard with gem; 5 tail with fins;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with mane and face: a snow-white dragon head with a swept-back mane of frost fins, short silver horns, an icy-teal eye where the old eye is, brow angled down, a fanged grin.\n2 body and front flipper: a snow-white body with pale ice-blue back and deep teal markings, a pale ice-blue front flipper.\n3 frost wing: a big frost-white wing with ice-blue veins and icicle tips.\n4 chest guard with gem: a silver chest guard with a pale cyan snowflake gem.\n5 tail with fins: a long pale ice-blue tail with deep teal markings ending in frost-white leaf fins.\n\nATTITUDE: a fierce young ice dragon gliding in to strike: brows angled down, a fanged grin; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: snow-white and pale ice-blue scales, deep teal markings, frost-white wing fins with ice-blue veins, silver horns, a pale cyan snowflake gem. Few colours.\n\nAVOID: royal-blue scales, a red gem, gold armour, a human face, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu có bờm và mặt",
+    "head with mane and face",
+    "giu",
+    9,
+    "a blue dragon head with swept-back fin mane, a yellow eye, a long snout",
+    "đầu có bờm và mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có bờm và mặt;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): a blue dragon head with swept-back fin mane, a yellow eye, a long snout. Redraw THESE pieces as the head with mane and face of image 2 (the approved concept): a snow-white dragon head with a swept-back mane of frost fins, short silver horns, an icy-teal eye where the old eye is, brow angled down, a fanged grin. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "thân và chân chèo",
+    "body and front flipper",
+    "giu",
+    10,
+    "a blue body with a pale belly and a front flipper",
+    "thân và chân chèo cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và chân chèo;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a blue body with a pale belly and a front flipper. Redraw THESE pieces as the body and front flipper of image 2 (the approved concept): a snow-white body with pale ice-blue back and deep teal markings, a pale ice-blue front flipper. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "cánh băng",
+    "frost wing",
+    "doi",
+    12,
+    "a big pale wing",
+    "cánh băng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: cánh băng;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big pale wing. Redraw THESE pieces as the frost wing of image 2 (the approved concept): a big frost-white wing with ice-blue veins and icicle tips. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "root of the wing"
+   ],
+   [
+    "N04",
+    "giáp ngực ngọc",
+    "chest guard with gem",
+    "doi",
+    14,
+    "a gold and red gem armour",
+    "giáp ngực ngọc cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: giáp ngực ngọc;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a gold and red gem armour. Redraw THESE pieces as the chest guard with gem of image 2 (the approved concept): a silver chest guard with a pale cyan snowflake gem. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of the guard"
+   ],
+   [
+    "N05",
+    "đuôi có vây",
+    "tail with fins",
+    "giu",
+    11,
+    "a long blue tail ending in leaf fins",
+    "đuôi có vây cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đuôi có vây;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long blue tail ending in leaf fins. Redraw THESE pieces as the tail with fins of image 2 (the approved concept): a long pale ice-blue tail with deep teal markings ending in frost-white leaf fins. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "thuong_lam_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "thuong_lam_3",
+  "elem": "thuy",
+  "aola": 807,
+  "hero": "Thương Lam",
+  "form": 3,
+  "forms": 3,
+  "form_name": "Thương Lam",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 50 đảo Thủy, dạng 3/3), rig aola #807",
+  "design_vi": "rồng băng lam trưởng thành: vảy trắng tuyết, đôi cánh băng pha lê lớn, sừng bạc dài, râu băng, đuôi gai băng có lưỡi hoa tuyết, giáp ngực bạc ngọc hoa tuyết",
+  "rig_vi": "con gốc #807 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu có sừng và râu, 2 đôi cánh băng, 3 cổ và thân, 4 đuôi, 5 lưỡi đuôi và vây, 6 giáp ngực ngọc, 7 chân",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6: the ICE-WINGED BLUE DRAGON, a majestic sea dragon with two great frost-crystal wings, in the same view and pose as image 1, rearing up above the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with horns and whiskers; 2 two frost-crystal wings; 3 neck and body; 4 tail; 5 tail blade and fins; 6 chest guard with gem; 7 legs;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with horns and whiskers: a snow-white dragon head with long silver horns, frost-white whisker fins, an icy-teal eye where the old eye is, brow angled down.\n2 two frost-crystal wings: two great frost-crystal wings, frost-white with ice-blue veins and pointed icicle edges.\n3 neck and body: a long snow-white neck and body with pale ice-blue back and deep teal markings.\n4 tail: a pale ice-blue segmented tail with deep teal bands.\n5 tail blade and fins: a snowflake-shaped ice blade at the tail end and frost-white leaf fins.\n6 chest guard with gem: a silver chest guard with a pale cyan snowflake gem.\n7 legs: two pale ice-blue legs with frost-white fin tips.\n\nATTITUDE: a majestic ice dragon about to unleash a frost torrent: brows angled down, jaws a little open; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: snow-white and pale ice-blue scales, deep teal markings, frost-white wing fins with ice-blue veins, silver horns, a pale cyan snowflake gem. Few colours.\n\nAVOID: royal-blue scales, a red gem, gold armour, a human face, gold star-shaped blades, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu có sừng và râu",
+    "head with horns and whiskers",
+    "giu",
+    11,
+    "a blue dragon head at the upper right with dark crests, long whiskers and a tall pale mane",
+    "đầu có sừng và râu cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có sừng và râu;\n- không vẽ phần khác.",
+    "Image 1 is 9 pieces of a 2D cut-out animation puppet (the old design): a blue dragon head at the upper right with dark crests, long whiskers and a tall pale mane. Redraw THESE pieces as the head with horns and whiskers of image 2 (the approved concept): a snow-white dragon head with long silver horns, frost-white whisker fins, an icy-teal eye where the old eye is, brow angled down. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "đôi cánh băng",
+    "two frost-crystal wings",
+    "doi",
+    12,
+    "two big wings, one blue and one pale green",
+    "đôi cánh băng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đôi cánh băng;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two big wings, one blue and one pale green. Redraw THESE pieces as the two frost-crystal wings of image 2 (the approved concept): two great frost-crystal wings, frost-white with ice-blue veins and pointed icicle edges. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "root of each wing"
+   ],
+   [
+    "N03",
+    "cổ và thân",
+    "neck and body",
+    "giu",
+    12,
+    "a long blue neck and body",
+    "cổ và thân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: cổ và thân;\n- không vẽ phần khác.",
+    "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a long blue neck and body. Redraw THESE pieces as the neck and body of image 2 (the approved concept): a long snow-white neck and body with pale ice-blue back and deep teal markings. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N04",
+    "đuôi",
+    "tail",
+    "giu",
+    19,
+    "a dark segmented tail running to the left",
+    "đuôi cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đuôi;\n- không vẽ phần khác.",
+    "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a dark segmented tail running to the left. Redraw THESE pieces as the tail of image 2 (the approved concept): a pale ice-blue segmented tail with deep teal bands. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "lưỡi đuôi và vây",
+    "tail blade and fins",
+    "doi",
+    12,
+    "a gold star-shaped blade at the tail end and pale leaf fins",
+    "lưỡi đuôi và vây cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: lưỡi đuôi và vây;\n- không vẽ phần khác.",
+    "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): a gold star-shaped blade at the tail end and pale leaf fins. Redraw THESE pieces as the tail blade and fins of image 2 (the approved concept): a snowflake-shaped ice blade at the tail end and frost-white leaf fins. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "base of the blade"
+   ],
+   [
+    "N06",
+    "giáp ngực ngọc",
+    "chest guard with gem",
+    "doi",
+    15,
+    "a gold armour with a red gem",
+    "giáp ngực ngọc cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: giáp ngực ngọc;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a gold armour with a red gem. Redraw THESE pieces as the chest guard with gem of image 2 (the approved concept): a silver chest guard with a pale cyan snowflake gem. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of the guard"
+   ],
+   [
+    "N07",
+    "chân",
+    "legs",
+    "giu",
+    14,
+    "two pale blue legs with fin tips",
+    "chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): two pale blue legs with fin tips. Redraw THESE pieces as the legs of image 2 (the approved concept): two pale ice-blue legs with frost-white fin tips. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "thuong_lam_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "huyen_vu_1",
+  "elem": "thuy",
+  "aola": 713,
+  "hero": "Huyền Vũ",
+  "form": 1,
+  "forms": 3,
+  "form_name": "Rùa Ngọc",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 60 đảo Thủy, dạng 1/3), rig aola #713",
+  "design_vi": "rùa con thần: da ngọc bích nhạt, mai đen than viền đồng vàng hoa văn lục giác, mào vây xanh rêu, ngọc trai đen bay trên đầu",
+  "rig_vi": "con gốc #713 (xem Rig_Numbered.png)",
+  "regions_vi": "1 mai, 2 đầu có mặt, 3 mào, 4 chân, 5 ngọc trai đen",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a little SPIRIT TURTLE of the north sea, the first stage of a three-stage Water evolution line, in the same view and pose as image 1, crawling forward on the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 shell; 2 head with face; 3 crest; 4 legs; 5 black pearl;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 shell: a charcoal-black shell with bronze-gold hexagon lines and a bronze rim; where the crystals are, small bronze-capped shell knobs.\n2 head with face: a pale jade-green turtle head with big deep teal eyes (one catchlight dot) where the old eyes are, dark brows angled down.\n3 crest: a small moss-green fin crest with three rounded points.\n4 legs: three pale jade-green legs with bronze claws.\n5 black pearl: a round black pearl with a thin bronze ring around it.\n\nATTITUDE: a brave little spirit turtle with a serious face: brows angled down, a determined small mouth; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: pale jade-green skin, a charcoal-black shell with bronze-gold hexagon lines, bronze trim, deep teal eyes, a black pearl; a small moss-green fin crest. Few colours.\n\nAVOID: a cream or tan turtle, a blue shell, green or orange crystals, a gold crown, a human face, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "mai",
+    "shell",
+    "giu",
+    10,
+    "a blue shell with green crystals on it",
+    "mai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: mai;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a blue shell with green crystals on it. Redraw THESE pieces as the shell of image 2 (the approved concept): a charcoal-black shell with bronze-gold hexagon lines and a bronze rim; where the crystals are, small bronze-capped shell knobs. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "đầu có mặt",
+    "head with face",
+    "giu",
+    15,
+    "a cream turtle head with big blue eyes and orange brows",
+    "đầu có mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+    "Image 1 is 10 pieces of a 2D cut-out animation puppet (the old design): a cream turtle head with big blue eyes and orange brows. Redraw THESE pieces as the head with face of image 2 (the approved concept): a pale jade-green turtle head with big deep teal eyes (one catchlight dot) where the old eyes are, dark brows angled down. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "mào",
+    "crest",
+    "doi",
+    17,
+    "a gold crown on the head",
+    "mào cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: mào;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a gold crown on the head. Redraw THESE pieces as the crest of image 2 (the approved concept): a small moss-green fin crest with three rounded points. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "base of the crest"
+   ],
+   [
+    "N04",
+    "chân",
+    "legs",
+    "giu",
+    7,
+    "three cream legs",
+    "chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): three cream legs. Redraw THESE pieces as the legs of image 2 (the approved concept): three pale jade-green legs with bronze claws. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "ngọc trai đen",
+    "black pearl",
+    "doi",
+    36,
+    "a green jade orb floating above",
+    "ngọc trai đen cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: ngọc trai đen;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a green jade orb floating above. Redraw THESE pieces as the black pearl of image 2 (the approved concept): a round black pearl with a thin bronze ring around it. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of the pearl"
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ]
+ },
+ {
+  "code": "huyen_vu_2",
+  "elem": "thuy",
+  "aola": 714,
+  "hero": "Huyền Vũ",
+  "form": 2,
+  "forms": 3,
+  "form_name": "Rùa Biển Ngọc",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 60 đảo Thủy, dạng 2/3), rig aola #714",
+  "design_vi": "rùa biển lớn: mai đen than hoa văn đồng vàng mọc gai đá đen viền đồng, da ngọc bích, chân chèo",
+  "rig_vi": "con gốc #714 (xem Rig_Numbered.png)",
+  "regions_vi": "1 mai, 2 gai mai, 3 đầu có mặt, 4 chân chèo và bụng",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6: the spirit turtle has grown into a great SEA TURTLE whose shell bristles with black stone spikes, in the same view and pose as image 1, swimming low above the ground, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 shell; 2 shell spikes; 3 head with face; 4 flippers and belly;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 shell: a big charcoal-black shell with bronze-gold hexagon lines and a bronze rim.\n2 shell spikes: black stone spikes with bronze tips, each where an old crystal is.\n3 head with face: a pale jade-green turtle head with deep teal eyes where the old eyes are, brows angled down, a moss-green fin.\n4 flippers and belly: pale jade-green flippers with darker jade spots and a pale jade belly.\n\nATTITUDE: a calm but dangerous sea turtle: brows angled down, a stern mouth; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: pale jade-green skin, a charcoal-black shell with bronze-gold hexagon lines, bronze trim, deep teal eyes, a black pearl. Few colours.\n\nAVOID: a cream or tan turtle, a blue shell, green or orange crystals, a gold crown, a human face, a pink starfish, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "mai",
+    "shell",
+    "giu",
+    6,
+    "a big green shell with a pink starfish on top",
+    "mai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: mai;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a big green shell with a pink starfish on top. Redraw THESE pieces as the shell of image 2 (the approved concept): a big charcoal-black shell with bronze-gold hexagon lines and a bronze rim. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N02",
+    "gai mai",
+    "shell spikes",
+    "doi",
+    6,
+    "orange and blue crystals on the shell",
+    "gai mai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: gai mai;\n- không vẽ phần khác.",
+    "Image 1 is 9 pieces of a 2D cut-out animation puppet (the old design): orange and blue crystals on the shell. Redraw THESE pieces as the shell spikes of image 2 (the approved concept): black stone spikes with bronze tips, each where an old crystal is. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "base of each spike"
+   ],
+   [
+    "N03",
+    "đầu có mặt",
+    "head with face",
+    "giu",
+    12,
+    "a pale green turtle head with orange eyes and a green fin",
+    "đầu có mặt cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có mặt;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a pale green turtle head with orange eyes and a green fin. Redraw THESE pieces as the head with face of image 2 (the approved concept): a pale jade-green turtle head with deep teal eyes where the old eyes are, brows angled down, a moss-green fin. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N04",
+    "chân chèo và bụng",
+    "flippers and belly",
+    "giu",
+    6,
+    "pale flippers and a pale belly",
+    "chân chèo và bụng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân chèo và bụng;\n- không vẽ phần khác.",
+    "Image 1 is 4 pieces of a 2D cut-out animation puppet (the old design): pale flippers and a pale belly. Redraw THESE pieces as the flippers and belly of image 2 (the approved concept): pale jade-green flippers with darker jade spots and a pale jade belly. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "huyen_vu_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "huyen_vu_3",
+  "elem": "thuy",
+  "aola": 715,
+  "hero": "Huyền Vũ",
+  "form": 3,
+  "forms": 3,
+  "form_name": "Huyền Vũ",
+  "role_vi": "tướng boss hệ Thủy (mini boss ải 60 đảo Thủy, dạng 3/3), rig aola #715",
+  "design_vi": "thần rùa Huyền Vũ đứng: mai đen than gai đá viền đồng, râu dài trắng, sừng đồng, đai thừng, cầm mái chèo gỗ lũa to",
+  "rig_vi": "con gốc #715 (xem Rig_Numbered.png)",
+  "regions_vi": "1 mái chèo gỗ lũa, 2 mai và giáp lưng, 3 đầu có râu và sừng, 4 bụng và đai thừng, 5 tay, 6 chân",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6: HUYEN VU, the ancient guardian turtle of the north sea, standing upright and holding a huge driftwood oar, in the same view and pose as image 1, standing upright, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 driftwood oar; 2 shell and back plates; 3 head with beard and horn; 4 belly and rope belt; 5 arms; 6 legs;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 driftwood oar: a huge driftwood oar, weathered brown wood with a bronze band, the blade at the top.\n2 shell and back plates: a charcoal-black shell with bronze-gold hexagon lines, black stone spikes with bronze tips.\n3 head with beard and horn: a pale jade-green turtle head with a long white beard, a bronze horn, deep teal eyes, brows angled down.\n4 belly and rope belt: a pale jade belly plate with a bronze-and-black rope belt.\n5 arms: two pale jade-green arms with charcoal shell plates trimmed in bronze.\n6 legs: two thick pale jade-green legs with charcoal shell plates and bronze claws.\n\nATTITUDE: an ancient guardian, calm and mighty: brows angled down, a stern mouth under a long beard; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: pale jade-green skin, a charcoal-black shell with bronze-gold hexagon lines, bronze trim, deep teal eyes, a black pearl; a long white beard; a driftwood-brown oar. Few colours.\n\nAVOID: a cream or tan turtle, a blue shell, green or orange crystals, a gold crown, a human face, a wooden club, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "mái chèo gỗ lũa",
+    "driftwood oar",
+    "doi",
+    14,
+    "a big brown wooden paddle held up at the left",
+    "mái chèo gỗ lũa cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: mái chèo gỗ lũa;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big brown wooden paddle held up at the left. Redraw THESE pieces as the driftwood oar of image 2 (the approved concept): a huge driftwood oar, weathered brown wood with a bronze band, the blade at the top. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "grip near the bottom"
+   ],
+   [
+    "N02",
+    "mai và giáp lưng",
+    "shell and back plates",
+    "giu",
+    7,
+    "a big blue shell with plates and spikes",
+    "mai và giáp lưng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: mai và giáp lưng;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a big blue shell with plates and spikes. Redraw THESE pieces as the shell and back plates of image 2 (the approved concept): a charcoal-black shell with bronze-gold hexagon lines, black stone spikes with bronze tips. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "đầu có râu và sừng",
+    "head with beard and horn",
+    "giu",
+    15,
+    "a blue turtle head with a white beard, a horn and swept hair",
+    "đầu có râu và sừng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu có râu và sừng;\n- không vẽ phần khác.",
+    "Image 1 is 9 pieces of a 2D cut-out animation puppet (the old design): a blue turtle head with a white beard, a horn and swept hair. Redraw THESE pieces as the head with beard and horn of image 2 (the approved concept): a pale jade-green turtle head with a long white beard, a bronze horn, deep teal eyes, brows angled down. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N04",
+    "bụng và đai thừng",
+    "belly and rope belt",
+    "giu",
+    11,
+    "a pale belly plate with a red and white rope belt",
+    "bụng và đai thừng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: bụng và đai thừng;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a pale belly plate with a red and white rope belt. Redraw THESE pieces as the belly and rope belt of image 2 (the approved concept): a pale jade belly plate with a bronze-and-black rope belt. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "tay",
+    "arms",
+    "giu",
+    9,
+    "two arms with blue plates",
+    "tay cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: tay;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): two arms with blue plates. Redraw THESE pieces as the arms of image 2 (the approved concept): two pale jade-green arms with charcoal shell plates trimmed in bronze. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N06",
+    "chân",
+    "legs",
+    "giu",
+    10,
+    "two thick legs with blue plates",
+    "chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): two thick legs with blue plates. Redraw THESE pieces as the legs of image 2 (the approved concept): two thick pale jade-green legs with charcoal shell plates and bronze claws. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "huyen_vu_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "lam_quan_1",
+  "elem": "thuy",
+  "aola": 1831,
+  "hero": "Lam Quân",
+  "form": 1,
+  "forms": 3,
+  "form_name": "Lam Quân",
+  "role_vi": "tướng boss hệ Thủy (boss ải 70 đảo Thủy, dạng 1/3), rig aola #1831",
+  "design_vi": "rái cá biển tiểu tướng: lông nâu ấm, mặt bụng kem, mũ hình chuông đồng có tua san hô, cầm đinh ba san hô, chuông đồng lớn bên cạnh",
+  "rig_vi": "con gốc #1831 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu có mũ chuông, 2 chuông đồng lớn, 3 đinh ba và tay, 4 thân có giáp, 5 chân",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: a little SEA-OTTER GENERAL who rings a great bronze bell to command the tides, the first stage of a three-stage Water evolution line, in the same view and pose as image 1, standing in a ready stance, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with bell helmet; 2 great bronze bell; 3 trident and hands; 4 body with armour; 5 legs;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with bell helmet: a round otter head (warm brown fur, cream face, big deep teal eyes, brows angled down, mouth open in a war cry) under a bronze helmet shaped like a small bell with a coral-red tassel on top.\n2 great bronze bell: a great bronze bell with a deep teal wave band and a coral-red rope, in the same place and size.\n3 trident and hands: a coral-red trident held across the body by small brown otter paws.\n4 body with armour: a small otter body with a cream belly, a bronze chest plate and a deep teal sash.\n5 legs: two short brown otter legs with bronze greaves.\n\nATTITUDE: a cocky little general shouting a war cry: brows angled down, mouth open in a shout; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.\n\nCOLOURS: warm brown otter fur, a cream face and belly, bronze-gold armour, a deep teal cape lining, coral-red accents; a coral-red trident. Few colours.\n\nAVOID: blue fox ears, a black crescent helmet, a human face, a human body, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu có mũ chuông",
+    "head with bell helmet",
+    "doi",
+    9,
+    "a big blue head with a black and gold crescent helmet with feathers, big eyes, an open mouth",
+    "đầu có mũ chuông cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đầu có mũ chuông;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big blue head with a black and gold crescent helmet with feathers, big eyes, an open mouth. Redraw THESE pieces as the head with bell helmet of image 2 (the approved concept): a round otter head (warm brown fur, cream face, big deep teal eyes, brows angled down, mouth open in a war cry) under a bronze helmet shaped like a small bell with a coral-red tassel on top. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "bottom of the head (the neck)"
+   ],
+   [
+    "N02",
+    "chuông đồng lớn",
+    "great bronze bell",
+    "doi",
+    16,
+    "a big gold and blue bell standing at the left",
+    "chuông đồng lớn cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: chuông đồng lớn;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big gold and blue bell standing at the left. Redraw THESE pieces as the great bronze bell of image 2 (the approved concept): a great bronze bell with a deep teal wave band and a coral-red rope, in the same place and size. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "centre of the bell"
+   ],
+   [
+    "N03",
+    "đinh ba và tay",
+    "trident and hands",
+    "giu",
+    13,
+    "a long silver trident held across the body with black-gloved hands",
+    "đinh ba và tay cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đinh ba và tay;\n- không vẽ phần khác.",
+    "Image 1 is 7 pieces of a 2D cut-out animation puppet (the old design): a long silver trident held across the body with black-gloved hands. Redraw THESE pieces as the trident and hands of image 2 (the approved concept): a coral-red trident held across the body by small brown otter paws. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N04",
+    "thân có giáp",
+    "body with armour",
+    "giu",
+    19,
+    "a small dark armoured body",
+    "thân có giáp cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân có giáp;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): a small dark armoured body. Redraw THESE pieces as the body with armour of image 2 (the approved concept): a small otter body with a cream belly, a bronze chest plate and a deep teal sash. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "chân",
+    "legs",
+    "giu",
+    21,
+    "two short dark legs",
+    "chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): two short dark legs. Redraw THESE pieces as the legs of image 2 (the approved concept): two short brown otter legs with bronze greaves. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ]
+ },
+ {
+  "code": "lam_quan_2",
+  "elem": "thuy",
+  "aola": 1832,
+  "hero": "Lam Quân",
+  "form": 2,
+  "forms": 3,
+  "form_name": "Vạn Quân",
+  "role_vi": "tướng boss hệ Thủy (boss ải 70 đảo Thủy, dạng 2/3), rig aola #1832",
+  "design_vi": "rái cá đại tướng: giáp đồng, mũ chuông có cánh tua, áo choàng xanh mòng két, đinh ba dài, chuông đồng khổng lồ, quả cầu nước",
+  "rig_vi": "con gốc #1832 (xem Rig_Numbered.png)",
+  "regions_vi": "1 đầu có mũ, 2 xoáy nước, 3 chuông khổng lồ, 4 đinh ba dài, 5 quả cầu nước, 6 thân và tay có giáp, 7 chân",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6: the otter has grown into a TIDE GENERAL in bronze armour with a giant bell and a long trident, in the same view and pose as image 1, in a wide battle stance, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 head with helmet; 2 water swirl; 3 giant bell; 4 long trident; 5 water orb; 6 body and arms in armour; 7 legs;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 head with helmet: an otter head (brown fur, cream face, deep teal eyes, brows angled down) in a bronze bell-shaped helmet with two swept bronze fins.\n2 water swirl: a big curling swirl of clear blue water with white foam.\n3 giant bell: a giant bronze bell with a deep teal wave band, in the same place and size.\n4 long trident: a long coral-red trident with bronze prongs along the same line.\n5 water orb: a ball of churning blue water with white foam curls.\n6 body and arms in armour: a brown otter body and arms in bronze-gold armour with a deep teal sash and cape lining.\n7 legs: two brown otter legs in bronze greaves.\n\nATTITUDE: a fierce general commanding the tide: brows angled down, a battle shout; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: warm brown otter fur, a cream face and belly, bronze-gold armour, a deep teal cape lining, coral-red accents; a long coral-red trident; swirls of clear blue water. Few colours.\n\nAVOID: blue fox ears, a black crescent helmet, a human face, a human body, black wings on the helmet, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "đầu có mũ",
+    "head with helmet",
+    "doi",
+    20,
+    "a blue head with a black winged helmet",
+    "đầu có mũ cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đầu có mũ;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a blue head with a black winged helmet. Redraw THESE pieces as the head with helmet of image 2 (the approved concept): an otter head (brown fur, cream face, deep teal eyes, brows angled down) in a bronze bell-shaped helmet with two swept bronze fins. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "bottom of the head"
+   ],
+   [
+    "N02",
+    "xoáy nước",
+    "water swirl",
+    "giu",
+    15,
+    "a big water swirl behind at the left",
+    "xoáy nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: xoáy nước;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big water swirl behind at the left. Redraw THESE pieces as the water swirl of image 2 (the approved concept): a big curling swirl of clear blue water with white foam. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "chuông khổng lồ",
+    "giant bell",
+    "doi",
+    10,
+    "a giant gold and blue bell at the right",
+    "chuông khổng lồ cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: chuông khổng lồ;\n- không vẽ phần khác.",
+    "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): a giant gold and blue bell at the right. Redraw THESE pieces as the giant bell of image 2 (the approved concept): a giant bronze bell with a deep teal wave band, in the same place and size. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "top of the bell"
+   ],
+   [
+    "N04",
+    "đinh ba dài",
+    "long trident",
+    "doi",
+    6,
+    "a long spear with gold blades",
+    "đinh ba dài cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: đinh ba dài;\n- không vẽ phần khác.",
+    "Image 1 is 3 pieces of a 2D cut-out animation puppet (the old design): a long spear with gold blades. Redraw THESE pieces as the long trident of image 2 (the approved concept): a long coral-red trident with bronze prongs along the same line. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "middle of the shaft"
+   ],
+   [
+    "N05",
+    "quả cầu nước",
+    "water orb",
+    "giu",
+    15,
+    "a blue water orb with splashes",
+    "quả cầu nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: quả cầu nước;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a blue water orb with splashes. Redraw THESE pieces as the water orb of image 2 (the approved concept): a ball of churning blue water with white foam curls. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N06",
+    "thân và tay có giáp",
+    "body and arms in armour",
+    "giu",
+    12,
+    "a dark armoured body and arms",
+    "thân và tay có giáp cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và tay có giáp;\n- không vẽ phần khác.",
+    "Image 1 is 18 pieces of a 2D cut-out animation puppet (the old design): a dark armoured body and arms. Redraw THESE pieces as the body and arms in armour of image 2 (the approved concept): a brown otter body and arms in bronze-gold armour with a deep teal sash and cape lining. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N07",
+    "chân",
+    "legs",
+    "giu",
+    12,
+    "two armoured legs",
+    "chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân;\n- không vẽ phần khác.",
+    "Image 1 is 6 pieces of a 2D cut-out animation puppet (the old design): two armoured legs. Redraw THESE pieces as the legs of image 2 (the approved concept): two brown otter legs in bronze greaves. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "lam_quan_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ },
+ {
+  "code": "lam_quan_3",
+  "elem": "thuy",
+  "aola": 2955,
+  "hero": "Lam Quân",
+  "form": 3,
+  "forms": 3,
+  "form_name": "Hắc Dực Vạn Quân",
+  "role_vi": "tướng boss hệ Thủy (boss ải 70 đảo Thủy, dạng 3/3), rig aola #2955",
+  "design_vi": "rái cá thống soái cánh đen: giáp đồng đen, đôi cánh cá đuối đen tím, áo choàng tím than, chuông đồng đen khổng lồ, quầng nước tím than",
+  "rig_vi": "con gốc #2955 (xem Rig_Numbered.png)",
+  "regions_vi": "1 chuông đen khổng lồ, 2 xoáy nước, 3 áo choàng, 4 đầu, cánh và vai, 5 thân và tay, 6 chân",
+  "anchor": true,
+  "concept": "Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6: the BLACK-WINGED TIDE MARSHAL, an otter warlord with manta-ray wings and a giant dark bronze bell, wrapped in swirling midnight water, in the same view and pose as image 1, floating in a commanding pose, on a plain white background. A cute, chunky creature, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.\n\nImage 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.\n\nKEEP FROM THE RIG (the animation moves these parts around these joints):\n- the same parts, no more, no fewer, each where its numbered region is: 1 giant dark bell; 2 water swirls; 3 cape; 4 head, wings and shoulders; 5 body and arms; 6 legs;\n- every joint where it is and every part pointing the same way as in image 1; eyes where the old eyes are;\n- each part about the size and shape of its region; the whole figure about the same size.\n\nCHANGE (the new look, region by region):\n1 giant dark bell: a giant dark-bronze bell with gold trim and a midnight wave band, in the same place and size.\n2 water swirls: swirls of midnight-violet water with white foam curls, flat colours, no glow.\n3 cape: a long midnight-navy cape with a violet lining.\n4 head, wings and shoulders: an otter head (brown fur, cream face, deep teal eyes, brows angled down) in a dark-bronze helmet, two midnight-navy manta-ray wings and dark-bronze shoulder plates.\n5 body and arms: an otter body and arms in dark-bronze armour with gold trim.\n6 legs: two brown otter legs in dark-bronze greaves.\n\nATTITUDE: a dark majestic warlord: brows angled down, a cold confident smile; cute, never scary, never a cheerful mascot.\n\n{RENDER}\n{DESIGN}\nThe style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, face and drawing style; this stage is the same creature grown up.\n\nCOLOURS: warm brown otter fur, a cream face, dark bronze armour with gold trim, midnight-navy and violet manta wings, midnight-violet water swirls. Few colours.\n\nAVOID: blue fox ears, a black crescent helmet, a human face, a human body, purple flames, glowing aura, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.",
+  "groups": [
+   [
+    "N01",
+    "chuông đen khổng lồ",
+    "giant dark bell",
+    "doi",
+    9,
+    "a giant bell with gold trim at the left, with a purple aura",
+    "chuông đen khổng lồ cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ;\n- như concept: chuông đen khổng lồ;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a giant bell with gold trim at the left, with a purple aura. Redraw THESE pieces as the giant dark bell of image 2 (the approved concept): a giant dark-bronze bell with gold trim and a midnight wave band, in the same place and size. Keep every piece where it is in image 1.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    "top of the bell"
+   ],
+   [
+    "N02",
+    "xoáy nước",
+    "water swirls",
+    "giu",
+    7,
+    "purple flame-like water swirls at the top right and on the ground",
+    "xoáy nước cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: xoáy nước;\n- không vẽ phần khác.",
+    "Image 1 is 2 pieces of a 2D cut-out animation puppet (the old design): purple flame-like water swirls at the top right and on the ground. Redraw THESE pieces as the water swirls of image 2 (the approved concept): swirls of midnight-violet water with white foam curls, flat colours, no glow. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N03",
+    "áo choàng",
+    "cape",
+    "giu",
+    13,
+    "a long purple cape",
+    "áo choàng cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: áo choàng;\n- không vẽ phần khác.",
+    "Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long purple cape. Redraw THESE pieces as the cape of image 2 (the approved concept): a long midnight-navy cape with a violet lining. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N04",
+    "đầu, cánh và vai",
+    "head, wings and shoulders",
+    "giu",
+    16,
+    "a dark armoured head with spiky crests and shoulder plates",
+    "đầu, cánh và vai cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: đầu, cánh và vai;\n- không vẽ phần khác.",
+    "Image 1 is 8 pieces of a 2D cut-out animation puppet (the old design): a dark armoured head with spiky crests and shoulder plates. Redraw THESE pieces as the head, wings and shoulders of image 2 (the approved concept): an otter head (brown fur, cream face, deep teal eyes, brows angled down) in a dark-bronze helmet, two midnight-navy manta-ray wings and dark-bronze shoulder plates. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N05",
+    "thân và tay",
+    "body and arms",
+    "giu",
+    17,
+    "a dark armoured body and arms",
+    "thân và tay cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: thân và tay;\n- không vẽ phần khác.",
+    "Image 1 is 12 pieces of a 2D cut-out animation puppet (the old design): a dark armoured body and arms. Redraw THESE pieces as the body and arms of image 2 (the approved concept): an otter body and arms in dark-bronze armour with gold trim. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ],
+   [
+    "N06",
+    "chân",
+    "legs",
+    "giu",
+    15,
+    "two armoured legs",
+    "chân cũ (1024 × 1024, nền trắng)",
+    "- đúng chỗ, cỡ như mảnh cũ, giữ viền;\n- như concept: chân;\n- không vẽ phần khác.",
+    "Image 1 is 5 pieces of a 2D cut-out animation puppet (the old design): two armoured legs. Redraw THESE pieces as the legs of image 2 (the approved concept): two brown otter legs in dark-bronze greaves. Keep every piece where it is in image 1, with the same outline.\nDo NOT draw: any other part of the creature, the old colours, extra pieces.",
+    null
+   ]
+  ],
+  "extra": [],
+  "first": [
+   "N01",
+   "N02"
+  ],
+  "prev": [
+   [
+    "lam_quan_1",
+    "the approved FIRST stage of this evolution line: keep its colours, face and drawing style; this stage is the same creature grown up",
+    "dạng 1 đã duyệt của dòng này"
+   ]
+  ]
+ }
+]

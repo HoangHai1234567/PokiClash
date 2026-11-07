@@ -45,6 +45,7 @@ namespace PokiClash.Game
             public readonly HashSet<string> lunge = new(); // clip ngoài đòn đánh cũng lao tới đối thủ (anim.json "lunge")
             public Vector2? muzzle; // chỗ bắn tia ở khung trúng của clip bắn (điểm clip, anim.json "cast")
             public float beam = 1; // cỡ tia của dạng này
+            public string beamStyle; // anim.json "cast.tia": ảnh tia riêng (tia_bang, tia_xoay, tia_trieu: 3 boss cuối đảo Thủy), rỗng = tia nước thường
             public bool manaClip; // anim.json "mana": "clip": chiêu mana phát clip CHIÊU riêng (boss làm riêng), không bắn tia
             public HashSet<int> idleSprites; // hình có trong dáng đứng (thân): không bao giờ là hiệu ứng ở xa
         }
@@ -182,6 +183,7 @@ namespace PokiClash.Game
                 {
                     d.muzzle = new Vector2(Convert.ToSingle(mz[0]), Convert.ToSingle(mz[1]));
                     if (cast.TryGetValue("beam", out var bv)) d.beam = Convert.ToSingle(bv);
+                    if (cast.TryGetValue("tia", out var tv)) d.beamStyle = Convert.ToString(tv);
                 }
             }
             catch (Exception e)
@@ -370,6 +372,9 @@ namespace PokiClash.Game
 
         // chiêu mana phát clip CHIÊU riêng thay vì bắn tia (số ít boss làm riêng, anim.json "mana": "clip")
         public bool ManaUsesClip => data != null && data.manaClip;
+
+        // kiểu tia riêng của dạng (anim.json "cast.tia", StageView chọn ảnh tia cùng tên); null = tia nước thường
+        public string BeamStyle => data?.beamStyle;
 
         // chiêu bắn tia: chỗ bắn so với tâm bóng dưới chân của clip đứng (điểm clip, y xuống) và cỡ tia của dạng; không khai: false
         public bool Beam(out Vector2 muzzle, out float scale)

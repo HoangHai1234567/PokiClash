@@ -1569,6 +1569,13 @@ MonoBehaviour:
   beamDrops: {fileID: 21300000, guid: fd9d9b0d02d0fc14a857dba8d8b7e08b, type: 3}
   beamRipple: {fileID: 21300000, guid: ce5123d0fe620c044bfe4b5b5a09ba58, type: 3}
   beamSparkle: {fileID: 21300000, guid: 275923d3e3053f349877364625793bbd, type: 3}
+  beamStyles:
+  - {fileID: 21300000, guid: 53e925fb317d33f47a01592c3701b9d8, type: 3}
+  - {fileID: 21300000, guid: a4e24814f7231f0499aec968d93df22c, type: 3}
+  - {fileID: 21300000, guid: 1b8287e02752efb4bb880ed3a0a89737, type: 3}
+  beamShard: {fileID: 21300000, guid: 9f66dcc2165565c47bda9a22406d9cc9, type: 3}
+  beamVortex: {fileID: 21300000, guid: 44a100fe91c10a141a7ca100c4124d36, type: 3}
+  beamSoundRing: {fileID: 21300000, guid: fda252cc3418b15408c4ec72ef641700, type: 3}
   arena: {fileID: 5132318963395191871}
 --- !u!1 &1987890852983694945
 GameObject:
@@ -10211,13 +10218,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1433132091191662587, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
       propertyPath: m_Color.b
-      value: 0.8862745
+      value: 0.9411765
       objectReference: {fileID: 0}
     - target: {fileID: 1433132091191662587, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
       propertyPath: m_Color.g
-      value: 0.95686275
+      value: 0.98039216
       objectReference: {fileID: 0}
     - target: {fileID: 1433132091191662587, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152154183939282672, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
+      propertyPath: m_Color.b
+      value: 0.8862745
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152154183939282672, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
+      propertyPath: m_Color.g
+      value: 0.95686275
+      objectReference: {fileID: 0}
+    - target: {fileID: 3152154183939282672, guid: 52c29eab742699c4a931d13b76e01aca, type: 3}
       propertyPath: m_Color.r
       value: 0.9843137
       objectReference: {fileID: 0}

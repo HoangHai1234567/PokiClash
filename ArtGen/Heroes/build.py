@@ -1593,7 +1593,1061 @@ Do NOT draw: the tail, the body, blue or violet fins.""", None),
         "extra": [],
         "first": ["N03", "N02"],  # gen thử trước: đầu và bờm (giữ viền), mũ vỏ sò (đổi dáng)
     },
+    # ---------- đảo Thủy, lô 1 (2026-11-07): Claude gọi Codex bằng tools/gen_codex.py; người dùng duyệt concept chữ trước ----------
+    {
+        "code": "tam_tay_1", "elem": "thuy", "aola": 1053,
+        "hero": "Tám Tay", "form": 1, "forms": 2, "form_name": "Tám Tay Bong Bóng",
+        "role_vi": "tướng Khá hệ Thủy (quái thường đảo Thủy), dạng 1/2, rig aola #1053",
+        "design_vi": ("bạch tuộc con màu vàng cát có vòng xanh coban (kiểu bạch tuộc đốm xanh), đầu tròn to trong bong bóng nước "
+                      "trong suốt chỉ có viền; mũ nồi pháo thủ đỏ thẫm huy hiệu mỏ neo vàng, hai que thổi bong bóng cong thay râu "
+                      "ăng-ten; mắt to tròng xanh thẫm, mày coban xếch, miệng chu sẵn sàng phụt bong bóng; năm xúc tu xoăn; ba bong "
+                      "bóng vẽ tay chỉ có viền"),
+        "rig_vi": ("con gốc #1053 là bạch tuộc con lơ lửng, nhìn thẳng: đầu tròn rất to màu hồng đỏ nằm trong vòm kính tròn trong "
+                   "suốt có vệt sáng, trên vòm đội mũ lưỡi trai xanh có huy hiệu, hai râu ăng-ten mảnh đầu tròn; năm xúc tu ngắn "
+                   "xoăn dưới đầu; ba bong bóng bay phía dưới. Bỏ khỏi bóng xám: bóng dưới chân"),
+        "regions_vi": "1 mũ có hai râu ăng-ten, 2 vòm bong bóng (lòng sau đầu và vành trước), 3 đầu có hai mắt và miệng, 4 năm xúc tu, 5 ba bong bóng",
+        "anchor": True,
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: a little BUBBLE-GUNNER OCTOPUS, a brave baby octopus who fights by puffing hard water bubbles, the first stage of a two-stage Water evolution line, in the same front view and pose as image 1, floating a little above the ground, on a plain white background. A chubby baby octopus, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one very big round head (most of the figure), a big round see-through bubble around the head like a helmet, a soft cap on top of the bubble with two thin stalks rising from it, five short curly tentacles under the head, and three round bubbles floating below; no arms, no legs, no other limbs;
+- every joint where it is: the cap sits on the top of the bubble and covers its upper part; the two thin stalks rise from the left and the right of the cap and end high above it; the head fills the lower part of the bubble; the five tentacles hang side by side from under the head, their tips curling outward; the three bubbles float under the tentacles: a big one at the lower left, one at the bottom centre and a tiny one at the lower right;
+- every part pointing the same way: the face looks straight at the viewer, the two eyes side by side in the middle of the head, the mouth a little below and right of them; the stalks lean outward, their ends at the TOP;
+- the head, the bubble, the cap and the tentacles about the size and shape of regions 3, 2, 1 and 4; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 cap: a crimson gunner's beret worn a little tilted, a small gold anchor badge on its front. The two stalks become two thin curved bubble-wand sticks in brass yellow, each ending in a small open ring (a bubble-blowing ring), not a ball.
+2 bubble: a big water bubble around the head drawn with only a thin dark-brown ink outline and a very light aqua crayon tint, fully see-through so the head and the face show clearly inside it; no white shine streaks, no reflections, no highlight dots on it.
+3 head: a round octopus head in warm sand yellow with several cobalt-blue ring spots (rings with sand-yellow centres, like a blue-ringed octopus). Two big round eyes with dark navy irises (one small catchlight dot each) under short cobalt brow marks angled down toward the middle: a determined look. A small puckered mouth, cheeks a little puffed, as if about to fire a bubble.
+4 tentacles: five short curly sand-yellow tentacles with a few small cobalt rings, the tips curling outward.
+5 bubbles: three simple round bubbles drawn with a thin ink outline and a very light aqua tint; no shine.
+
+ATTITUDE: a scrappy little bubble gunner: brows angled down, cheeks puffed, ready to fire; cute and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.
+
+COLOURS: warm sand-yellow skin with cobalt-blue rings; a crimson beret with a gold anchor; brass-yellow wands; dark navy eyes; a very pale aqua tint in the bubbles. Few colours.
+
+AVOID: pink or red skin, a glass dome with white shine streaks, a blue peaked cap with a badge, antennae ending in balls, arms, legs, a human face, more than five tentacles, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #1053, khung đứng đầu (16 mảnh): 1 bóng, 2 3 9 bong bóng, 4–8 xúc tu, 10 lòng vòm sau đầu, 11 đầu, 12 mắt phải,
+        # 13 mắt trái, 14 miệng, 15 vành vòm trước (đè lên mặt: chỉ vẽ viền), 16 mũ có hai râu.
+        # Nhóm (groups.json): N01 mũ (16), N02 bong bóng (10, 15; khi ghép bỏ 15, cả bong bóng nằm sau đầu như concept),
+        # N03 đầu có mặt (11–14), N04 năm xúc tu (4–8), N05 ba bong bóng (2, 3, 9).
+        # Viền px = 0,85% chiều cao con (173 đơn vị) × k: N01 9, N02 9, N03 12, N04 17, N05 20.
+        "groups": [
+            ("N01", "mũ nồi và hai que thổi bong bóng", "beret and two bubble wands", "doi", 9,
+             "a blue peaked cap with a yellow-and-red badge, two thin antennae with blue ball ends rising from its left and right",
+             "Mũ lưỡi trai xanh có huy hiệu vàng đỏ (1024 × 1024, nền trắng), hai râu ăng-ten mảnh đầu tròn xanh mọc từ hai bên mũ",
+             """- mũ nồi đỏ thẫm đội hơi lệch, huy hiệu mỏ neo vàng ở trước; mép dưới mũ đúng chỗ mép dưới mũ cũ;
+- hai que thổi bong bóng vàng đồng mọc từ hai bên mũ, cong ra ngoài, đầu là vòng tròn rỗng (không phải quả cầu);
+- không vẽ bong bóng, đầu; không lưỡi trai.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a blue peaked cap with a badge, worn on top of a round bubble (the bubble is not shown), with two thin antennae rising from its left and right sides, curving outward and ending in small balls at the TOP. Redraw THIS piece as the cap of image 2 (the approved concept): a crimson beret worn a little tilted, a small gold anchor badge on its front; the two antennae become two thin brass-yellow bubble-wand sticks rising from the same places, curving outward the same way, each ending in a small open ring at the top (a bubble-blowing ring, hollow in the middle).
+Do NOT draw: the bubble, the head, a peak or visor on the cap, balls at the ends of the sticks.""", "bottom edge of the cap (where it sits on the bubble)"),
+            ("N02", "bong bóng nước bọc đầu", "water bubble helmet", "giu", 9,
+             "a big round glass dome with white shine streaks: its pale cyan back and its outline rim (the head is not shown)",
+             "Vòm kính tròn to xanh nhạt có vệt sáng trắng (1024 × 1024, nền trắng): lòng vòm và vành ngoài; đầu không có trong ảnh",
+             """- giữ đúng viền, cỡ, chỗ của vòm cũ;
+- chỉ viền mực mảnh và tô xanh nước rất nhạt đều khắp lòng; không vệt sáng, không phản chiếu, không chấm sáng;
+- không vẽ đầu, mặt, mũ.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a big round glass dome with white shine streaks: its pale cyan back and its outline rim. The head sits inside it (the head is not shown). Redraw THESE pieces as the water bubble of image 2 (the approved concept): the same round shape and size, drawn with only a thin dark-brown ink outline and a very light, even aqua crayon tint filling the whole inside.
+Do NOT draw: the head, the face, the beret, white streaks, reflections, shine spots, a darker rim.""", None),
+            ("N03", "đầu có mặt", "head with face", "giu", 12,
+             "a big round pink-red octopus head with purple patches on top, two big blue eyes and a small round mouth, facing the viewer",
+             "Đầu bạch tuộc tròn to hồng đỏ có mảng tím trên đỉnh (1024 × 1024, nền trắng), hai mắt xanh to, miệng tròn nhỏ, nhìn thẳng",
+             """- giữ viền đầu như cũ; vẽ trọn cả đỉnh đầu (mũ đè lên sau);
+- vàng cát với các vòng xanh coban (giữa vòng vẫn vàng cát); hai mắt to tròng xanh thẫm, mỗi mắt một chấm sáng, đúng chỗ hai mắt cũ;
+- mày coban xếch xuống phía giữa, miệng chu, má hơi phồng như concept;
+- không vẽ bong bóng, mũ, xúc tu; không hồng, không mảng tím.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a big round pink-red octopus head with purple patches on top, two big blue eyes and a small round mouth, facing the viewer. Redraw THESE pieces as the head of image 2 (the approved concept): warm sand yellow with several cobalt-blue ring spots (rings with sand-yellow centres); two big round eyes with dark navy irises, each with one small catchlight dot, exactly where the old eyes are; short cobalt brow marks angled down toward the middle; a small puckered mouth where the old mouth is, the cheeks a little puffed. Draw the whole head, its top too: the beret is drawn over it later.
+Do NOT draw: the bubble, the beret, the tentacles, pink or red skin, purple patches.""", None),
+            ("N04", "năm xúc tu", "five tentacles", "giu", 17,
+             "five short curly dark-red tentacles with purple patches hanging side by side, tips curling outward",
+             "Năm xúc tu ngắn đỏ sẫm có mảng tím (1024 × 1024, nền trắng), buông cạnh nhau, đầu xúc tu cuộn ra ngoài",
+             """- đúng năm xúc tu, mỗi cái đúng chỗ, dáng, chiều cuộn như cũ; đầu trên là chỗ nối dưới đầu, đầu cuộn ở dưới;
+- vàng cát, vài vòng xanh coban nhỏ;
+- không vẽ đầu, bong bóng; không thêm xúc tu.""",
+             """Image 1 is five pieces of a 2D cut-out animation puppet (the old design): five short curly dark-red tentacles with purple patches hanging side by side. The TOP end of each tentacle joins the underside of the head (the head is not shown); the tips curl at the BOTTOM. Redraw THESE five pieces as the tentacles of image 2 (the approved concept): sand yellow with a few small cobalt-blue rings, each tentacle exactly where it is, with the same shape and the same curl.
+Do NOT draw: the head, the bubble, a sixth tentacle, red or purple colours, suckers.""", None),
+            ("N05", "ba bong bóng", "three bubbles", "giu", 20,
+             "three round cyan bubbles with white shine: a big one at the left, a middle one and a tiny one at the right",
+             "Ba bong bóng tròn xanh có chấm sáng (1024 × 1024, nền trắng): to bên trái, vừa ở giữa, nhỏ bên phải",
+             """- ba bong bóng đúng chỗ và cỡ như cũ;
+- viền mực mảnh, tô xanh nước rất nhạt; không chấm sáng, không vệt sáng;
+- không thêm bong bóng.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): three round cyan bubbles with white shine: a big one at the left, a middle one and a tiny one at the right. Redraw THESE three pieces as simple hand-drawn bubbles like those of image 2 (the approved concept): each a circle with a thin dark-brown ink outline and a very light aqua tint, exactly where and as big as it is now.
+Do NOT draw: shine spots, white streaks, more bubbles, the creature.""", None),
+        ],
+        "extra": [], "first": ["N03", "N01"],
+    },
+    {
+        "code": "ca_ngua_1", "elem": "thuy", "aola": 181,
+        "hero": "Cá Ngựa", "form": 1, "forms": 3, "form_name": "Cá Ngựa Tân Binh",
+        "role_vi": "tướng Hiếm hệ Thủy (quái thường đảo Thủy), dạng 1/3, rig aola #181",
+        "design_vi": ("cá ngựa tân binh lính gác rạn san hô: xanh lục biển, bụng vàng kem có ngấn ngang; mắt hổ phách to, mày xếch; "
+                      "mào ba nhánh san hô đỏ; cán cờ sau lưng có cờ đuôi nheo đỏ trắng, dây tảo bện từ mõm vòng ra sau; ôm quả cầu "
+                      "nhím biển tím có ngòi tảo và tia lửa hình sao"),
+        "rig_vi": ("con gốc #181 là cá ngựa con đứng trên hai bàn chân nhỏ, quay sang phải người xem: đầu xanh to, một mắt to giữa "
+                   "đầu và mắt kia nhỏ sát mép phải, mõm ống chĩa sang phải loe miệng như kèn, vây má xanh bên trái đầu, ba chỏm "
+                   "tóc nâu trên đỉnh đầu, ống thở trắng chĩa lên sau gáy về trên trái có chỏm nâu ở đầu, ống cao su đen từ dưới "
+                   "mõm vòng ra sau; thân tròn nhỏ; hai tay ôm quả bom sắt đen to trước bụng (dưới phải), ngòi và tia lửa đỏ ở "
+                   "trên phải quả bom. Bỏ khỏi bóng xám: bóng dưới chân, lớp viền đen cả con"),
+        "regions_vi": ("1 đầu có mắt, 2 mõm ống, 3 vây má, 4 ba chỏm trên đầu, 5 cán sau gáy và chỏm ở đầu cán, 6 ống từ mõm "
+                       "vòng ra sau, 7 thân, 8 bàn tay, 9 bàn chân, 10 quả bom có ngòi và tia lửa"),
+        "anchor": True,
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: a little SEAHORSE RECRUIT of the coral-reef guard, a brave young seahorse who fights by throwing spiky sea-urchin balls, the first stage of a three-stage Water evolution line, in the same view (turned to the viewer's right) and pose as image 1, standing on the ground, on a plain white background. A chubby young seahorse, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big head with a tube snout, one fin frill on the cheek, three small growths on top of the head, a thin pole sticking out of the back of the head with something at its tip, a cord running from under the snout around the neck to the back, one small round body, small hands holding one big round ball in front of the belly, and two tiny feet; no tail curl, no wings, no extra limbs;
+- every joint where it is: the snout grows from the right side of the head and points to the right, its open end at the far right; the cheek fin is on the left side of the head; the three growths stand on the top of the head; the pole starts at the back of the head and points up and back to the upper left, its tip at the top left of the figure; the cord starts under the snout and runs back around the neck; the body is under the head; the hands hold the ball at the lower right in front of the belly; the ball's fuse is at its upper right with a small spark; the feet are at the bottom left;
+- every part pointing the same way: the head is turned to the viewer's right, so the big near eye sits in the middle of the head and the far eye shows only as a small sliver at the right edge of the head, next to the snout;
+- the head, the snout, the body and the ball about the size and shape of regions 1, 2, 7 and 10; the pole about as long as region 5; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 head: a rounded seahorse head in sea green with a few small ridges along the back of the head; one big amber eye (a large dark pupil, one small catchlight dot) under a thick dark-green brow angled down: a fierce look; the far eye a small amber sliver at the right edge.
+2 snout: a short tube snout in sea green pointing to the right, its round open end edged in cream yellow.
+3 cheek fin: a small sea-green fin frill with pale-yellow ribs.
+4 growths: three small branches of red coral standing up like a crest.
+5 pole and tip: a slim wooden flagpole strapped to the back, with a small red-and-white swallow-tail pennant flag at its tip instead of a tuft.
+6 cord: a braided seaweed-green cord running from under the snout around the neck to the flagpole.
+7 body: a small round sea-green body with a cream-yellow belly crossed by thin horizontal ridge lines.
+8 hands: small sea-green hands gripping the ball.
+9 feet: two tiny sea-green feet.
+10 ball: a round purple sea-urchin ball with short blunt spikes, the size of region 10; at its upper right a short twisted seaweed fuse with a small flat orange-and-yellow star-shaped spark at its tip (drawn flat, no glow).
+
+ATTITUDE: an eager little reef-guard recruit about to throw: brow angled down, snout up, a determined look; cute and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.
+
+COLOURS: sea green; a cream-yellow belly and snout rim; red coral; an amber eye; a purple urchin ball; a red-and-white flag on a brown pole; a seaweed-green cord. Few colours.
+
+AVOID: blue skin, tan or brown tufts of hair, a white snorkel tube, a black iron bomb, a dark rubber hose, a trumpet-shaped mouth, a human face, a curled tail, extra limbs, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #181, khung đứng đầu (22 mảnh): 1 bóng, 2 lớp viền đen cả con (bỏ khi ghép), 3 tay xa, 4 5 bàn chân, 6 thân,
+        # 7 bom, 8 ngón tay phải trên bom, 9 đầu, 10 vây má, 11 mắt to, 12 mắt xa, 13 mõm ống, 14 ống thở đen, 15 chỏm đầu
+        # cán, 16 ống trắng sau gáy, 17–19 ba chỏm tóc, 20 tay đỡ bom, 21 ngòi, 22 tia lửa.
+        # Nhóm: N01 đầu có mắt (9, 11, 12), N02 mõm (13), N03 vây má (10), N04 mào (17–19, khung có cả đầu), N05 cán cờ (16, 15),
+        # N06 dây (14), N07 thân và tay xa (6, 3), N08 hai bàn chân (4, 5), N09 quả cầu và hai tay (7, 21, 22, 20, 8).
+        # Viền px = 0,85% chiều cao con (243 đơn vị) × k: N01 13, N02 23, N03 22, N04 11, N05 22, N06 24, N07 18, N08 33, N09 14.
+        "groups": [
+            ("N01", "đầu có mắt", "head with eyes", "giu", 13,
+             "a big round blue seahorse head turned to the viewer's right: one big grey-teal eye in the middle, a sliver of the far eye at the right edge",
+             "Đầu cá ngựa tròn to màu xanh (1024 × 1024, nền trắng) quay sang phải: một mắt to xanh xám ở giữa, mép phải có mẩu mắt xa",
+             """- giữ viền đầu như cũ; mắt to đúng chỗ mắt cũ, mẩu mắt xa ở mép phải;
+- xanh lục biển, vài gờ nhỏ phía sau đầu; mắt hổ phách con ngươi đen một chấm sáng, mày xanh sẫm dày xếch xuống;
+- không vẽ mõm, vây má, mào, dây, cán cờ.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a big round blue seahorse head turned to the viewer's right, one big grey-teal eye in the middle of the head and a small sliver of the far eye at its right edge. Redraw THESE pieces as the head of image 2 (the approved concept): sea green with a few small ridges along the back of the head; one big amber eye with a large dark pupil and one small catchlight dot, exactly where the old big eye is, under a thick dark-green brow angled down toward the snout; the far eye a small amber sliver at the right edge, where the old one is.
+Do NOT draw: the snout, the cheek fin, the coral crest, the cord, the flagpole, blue colours.""", None),
+            ("N02", "mõm ống", "tube snout", "doi", 23,
+             "an orange trumpet-shaped snout: its narrow end at the upper left joins the head, its wide open mouth at the lower right",
+             "Mõm hình kèn màu cam (1024 × 1024, nền trắng): đầu hẹp ở trên trái nối vào đầu, miệng loe mở ở dưới phải",
+             """- đầu hẹp ở trên trái đúng chỗ cũ (nối vào đầu), chĩa cùng hướng xuống phải;
+- mõm ống ngắn xanh lục biển, miệng tròn viền vàng kem, trong miệng sẫm; không loe như kèn;
+- không vẽ đầu, dây.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): an orange trumpet-shaped snout; its narrow end at the upper left joins the head (the head is not shown), its wide open mouth is at the lower right. Redraw THIS piece as the snout of image 2 (the approved concept): a short sea-green tube pointing the same way, its round open end edged in cream yellow with a dark inside; a plain tube, not a flared trumpet.
+Do NOT draw: the head, the cord, orange colours, a trumpet bell.""", "narrow upper-left end (where it joins the head)"),
+            ("N03", "vây má", "cheek fin", "doi", 22,
+             "a blue frilly fin with rounded lobes on its left edge; its straight right edge joins the side of the head",
+             "Vây má xanh có các thuỳ tròn ở mép trái (1024 × 1024, nền trắng); mép phải thẳng nối vào bên đầu",
+             """- mép phải đúng chỗ cũ (nối vào đầu), thuỳ vây xoè sang trái;
+- xanh lục biển, ba gân vàng nhạt như concept;
+- không vẽ đầu.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a blue frilly fin with rounded lobes on its left edge; its straight right edge joins the left side of the head (the head is not shown). Redraw THIS piece as the cheek fin of image 2 (the approved concept): a sea-green fin frill with three pale-yellow ribs, its lobes spreading to the left.
+Do NOT draw: the head, blue colours.""", "straight right edge (where it joins the head)"),
+            ("N04", "mào san hô", "coral crest", "doi", 11,
+             "three tan hair tufts curling up, standing on the top of the head (the head is not shown)",
+             "Ba chỏm tóc nâu nhạt cong lên (1024 × 1024, nền trắng), đứng trên đỉnh đầu; đầu không có trong ảnh",
+             """- ba nhánh san hô đỏ, gốc mỗi nhánh đúng chỗ gốc chỏm cũ, chĩa lên;
+- có thể cao hơn chỏm cũ một chút, phân nhánh tròn đầu như concept;
+- không vẽ đầu; không tóc nâu.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): three tan hair tufts curling up, standing on the top of the head (the head is not drawn; the empty space below them is where it is). Redraw THESE pieces as the coral crest of image 2 (the approved concept): three small branches of red coral with rounded tips, each branch standing where an old tuft stands and pointing up; they may be a little taller than the tufts.
+Do NOT draw: the head, tan or brown hair, more than three branches.""", "base of each branch (where it stands on the head)"),
+            ("N05", "cán cờ và cờ đuôi nheo", "flagpole and pennant", "doi", 22,
+             "a white tube with grey bands running up to the upper left, ending in a tan hair tuft at its upper-left tip",
+             "Ống trắng có ngấn xám chạy lên trên trái (1024 × 1024, nền trắng), đầu trên trái là chỏm tóc nâu",
+             """- chân cán ở dưới phải đúng chỗ cũ (sau gáy), cán chạy lên trên trái như ống cũ;
+- cán gỗ nâu, gần chân có quấn dây xanh tảo, đầu cán có núm tròn; cờ đuôi nheo đỏ trắng bay sang trái ở đầu trên;
+- không vẽ đầu; không ống trắng, không chỏm tóc.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a white tube with grey bands that starts at the lower right (behind the head, not shown) and runs up to the upper left, ending in a tan hair tuft at its upper-left tip. Redraw THESE pieces as the flagpole of image 2 (the approved concept): a slim brown wooden pole along the same line, a green seaweed cord wrapped around it near its lower end, a small round knob at its top, and a red-and-white swallow-tail pennant flag at the upper-left end flying to the left, in the place of the tuft.
+Do NOT draw: the head, a white tube, a hair tuft.""", "lower-right end of the pole (where it starts behind the head)"),
+            ("N06", "dây tảo bện", "seaweed cord", "giu", 24,
+             "a dark grey rubber hose curving from the right (under the snout) to the left and down (around the neck)",
+             "Ống cao su xám đen (1024 × 1024, nền trắng) cong từ phải (dưới mõm) sang trái và xuống (vòng quanh cổ)",
+             """- đúng đường đi, độ dày, hai đầu như ống cũ;
+- dây bện xanh tảo, thấy các vòng xoắn như concept;
+- không vẽ mõm, đầu, thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a dark grey rubber hose that curves from the right (under the snout) to the left and down (around the neck). Redraw THIS piece as the cord of image 2 (the approved concept): a braided seaweed-green rope with visible twists, along exactly the same path and as thick as the hose.
+Do NOT draw: the snout, the head, the body, a grey hose.""", None),
+            ("N07", "thân và tay xa", "body and far hand", "giu", 18,
+             "a small round blue body with a big tan belly patch facing right, and a small tan hand at its left edge",
+             "Thân tròn nhỏ màu xanh có mảng bụng nâu nhạt to quay sang phải (1024 × 1024, nền trắng), bàn tay nhỏ nâu nhạt ở mép trái",
+             """- giữ viền thân và chỗ bàn tay như cũ;
+- thân xanh lục biển, bụng vàng kem có các vạch ngang nâu mảnh; tay xanh lục biển;
+- vẽ trọn thân (quả cầu đè lên sau); không vẽ quả cầu, đầu, dây.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a small round blue body with a big tan belly patch facing the viewer's right, and a small tan hand at the body's left edge. Redraw THESE pieces as the body of image 2 (the approved concept): sea green with a cream-yellow belly crossed by thin brown horizontal ridge lines, and the small hand in sea green, where the old hand is. Draw the whole body: the ball and the other hands are drawn over it later.
+Do NOT draw: the urchin ball, the head, the cord, blue or tan colours.""", None),
+            ("N08", "hai bàn chân", "two feet", "giu", 33,
+             "two small tan pieces: a flat piece at the top right and a rounded foot at the bottom left",
+             "Hai mảnh nhỏ nâu nhạt (1024 × 1024, nền trắng): một mảnh dẹt ở trên phải, một bàn chân tròn ở dưới trái",
+             """- hai mảnh đúng chỗ, cỡ, dáng như cũ;
+- xanh lục biển;
+- không vẽ thân, quả cầu.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two small tan pieces of the feet: a flat piece at the top right and a rounded foot at the bottom left. Redraw THESE two pieces in sea green like the feet of image 2 (the approved concept), each exactly where and as big as it is now, with the same shape.
+Do NOT draw: the body, the ball, tan colours, toes or claws.""", None),
+            ("N09", "quả cầu nhím biển và hai tay", "urchin ball in two hands", "giu", 14,
+             "a big round black-grey iron bomb with a striped cap at its upper right, a short fuse with a red star spark at the far right, a small blue hand under it at the left and small tan fingers on its upper right",
+             "Quả bom sắt tròn đen xám có nắp sọc ở trên phải (1024 × 1024, nền trắng), ngòi ngắn và tia lửa đỏ ở mép phải, tay xanh nhỏ đỡ dưới bên trái, ngón tay nâu nhạt ở trên phải",
+             """- quả cầu đúng chỗ, cỡ như quả bom cũ; ngòi và tia lửa đúng chỗ cũ; hai tay đúng chỗ cũ;
+- quả cầu nhím biển tím gai ngắn tù; ngòi là cọng tảo xoắn, tia lửa hình sao cam vàng tô phẳng; tay xanh lục biển;
+- không bom sắt, không nắp sọc, không quầng sáng.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a big round black-grey iron bomb with a striped cap at its upper right, a short fuse with a red star-shaped spark at the far right, a small blue hand holding it from below at the left and small tan fingers on its upper right. Redraw THESE pieces as the ball of image 2 (the approved concept): a round purple sea-urchin ball with short blunt spikes, as big as the bomb and in the same place; a short twisted seaweed fuse where the old fuse is, with a small flat orange-and-yellow star spark at its tip where the old spark is; the two small hands in sea green where the old hand and fingers are, gripping the ball.
+Do NOT draw: a black iron bomb, a striped cap, a glow or burst around the spark, the body.""", None),
+        ],
+        "extra": [], "first": ["N01", "N02"],
+    },
+    {
+        "code": "map_rang_1", "elem": "thuy", "aola": 31,
+        "hero": "Mập Răng Cưa", "form": 1, "forms": 3, "form_name": "Cá Mập Con",
+        "role_vi": "tướng Hiếm hệ Thủy (quái thường đảo Thủy), dạng 1/3, rig aola #31",
+        "design_vi": ("cá mập con biển sâu tròn mập: lưng xám chì ánh tím, bụng và hàm dưới trắng kem; mang là ba vằn cam cháy mép "
+                      "răng cưa; mắt vàng chanh con ngươi đen, gờ mày sẫm xếch; miếng giáp trán xương ngà có ba khía thay huy hiệu "
+                      "số; cười nhếch lộ hàng răng cưa nhỏ; vây lưng và vây đuôi có vằn cam"),
+        "rig_vi": ("con gốc #31 là cá mập con tròn mập lơ lửng, nhìn nghiêng quay sang phải người xem: thân liền đầu, lưng xanh hải "
+                   "quân, bụng trắng; mắt đỏ to ở giữa mặt; huy hiệu số 01 trên trán; ba khe mang đỏ sau mắt; vây lưng trên trái, "
+                   "vây đuôi bên trái, vây ngực dưới bụng chĩa xuống trái, vây bụng nhỏ dưới thân; miệng ở dưới phải có răng nanh "
+                   "nhỏ. Bỏ khỏi bóng xám: bóng dưới chân, lớp viền cả con"),
+        "regions_vi": "1 thân liền đầu, 2 mắt, 3 miệng, 4 huy hiệu trên trán, 5 ba khe mang, 6 vây lưng, 7 vây đuôi, 8 vây ngực, 9 vây bụng nhỏ",
+        "anchor": True,
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: a little DEEP-SEA SHARK PUP with saw teeth, a tough baby shark who fights by biting, the first stage of a three-stage Water evolution line, in the same side view (facing the viewer's right) and pose as image 1, floating a little above the ground, on a plain white background. A chubby round baby shark, but an original design that must look clearly DIFFERENT from the figure the silhouette came from; not any existing character.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big round body that is also the head, one eye, one mouth, one small plate on the forehead, three gill marks, one dorsal fin, one tail fin, one pectoral fin and one small belly fin; no legs, no arms, no second dorsal fin;
+- every joint where it is: the dorsal fin stands on the back at the upper left; the tail fin is at the far left; the pectoral fin grows from under the front of the belly and points down and back to the lower left; the small belly fin hangs under the body, right of centre; the three gill marks sit in a row behind the eye; the forehead plate is above and behind the eye; the mouth is at the lower right of the head;
+- every part pointing the same way: the shark faces the viewer's right, its snout at the right edge, the eye big in the front half of the head;
+- the body, the eye and the fins about the size and shape of regions 1, 2, 6, 7, 8 and 9; the whole figure about the same size.
+
+CHANGE (the new look, region by region):
+1 body: a chubby round shark body in slate grey with a violet tint on the back, a cream-white belly and lower jaw.
+2 eye: a big lemon-yellow eye with a round dark pupil and one small catchlight dot, under a thick dark slate brow ridge angled down: a fierce look.
+3 mouth: a confident smirk at the lower right showing a short row of small saw-like teeth.
+4 forehead plate: a small ivory bone plate with three notches (no numbers, no letters).
+5 gill marks: three burnt-orange tiger stripes with saw-tooth edges instead of gill slits.
+6 dorsal fin: a slate-violet dorsal fin with a burnt-orange saw-tooth stripe along its back edge.
+7 tail fin: a slate-violet tail fin with two burnt-orange tiger stripes.
+8 pectoral fin: a slate-violet pectoral fin with a cream edge underneath.
+9 belly fin: a small slate-violet fin.
+
+ATTITUDE: a tough little shark pup ready to bite: brow angled down, a smirk showing the saw teeth; cute and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those.
+
+COLOURS: slate grey with a violet tint; a cream-white belly; burnt-orange stripes; a lemon-yellow eye; an ivory forehead plate. Few colours.
+
+AVOID: a navy-blue body, red gill slits or red stripes, red eyes, a badge with numbers, any numbers or letters, metal plates, a human face, legs or arms, text, labels, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #31, khung đứng đầu (13 mảnh): 1 bóng, 2 lớp viền cả con (bỏ khi ghép), 3 vây đuôi, 4 vây lưng, 5 vây bụng,
+        # 6 thân liền đầu, 7 vây ngực, 8 miệng có nanh, 9–11 ba khe mang, 12 huy hiệu, 13 mắt.
+        # Concept lần 1 thân tím hẳn; duyệt bản gen lại (concept_2, dặn xám chì) 2026-11-07: dáng dài hơn rig, thân giữ viền rig.
+        # Nhóm: N01 thân có mặt, mang, giáp trán (6, 8–13; mắt, miệng, mang, huy hiệu gộp vào thân), N02 vây lưng (4),
+        # N03 vây đuôi (3), N04 vây ngực (7), N05 vây bụng (5). Viền px = 0,85% × 134,5 đơn vị × k: 6, 16, 14, 18, 30.
+        "groups": [
+            ("N01", "thân có mặt, vằn mang, giáp trán", "body with face, gill stripes and forehead plate", "giu", 6,
+             "a chubby round navy-and-white shark body facing right: a big red eye, three red gill slits, a grey badge with '01' on the forehead, a small mouth with a fang",
+             "Thân cá mập tròn mập xanh hải quân bụng trắng quay sang phải (1024 × 1024, nền trắng): mắt đỏ to, ba khe mang đỏ, huy hiệu xám '01' trên trán, miệng nhỏ có răng nanh",
+             """- giữ viền thân như cũ (tròn mập), lưng xám chì ánh tím, bụng và hàm dưới trắng kem;
+- mắt vàng chanh to đúng chỗ mắt cũ, con ngươi đen một chấm sáng, gờ mày xám sẫm xếch xuống;
+- ba vằn cam cháy mép răng cưa đúng chỗ ba khe mang cũ; miếng giáp trán xương ngà nhỏ có ba khía đúng chỗ huy hiệu cũ (không chữ số);
+- cười nhếch lộ hàng răng cưa nhỏ ở chỗ miệng cũ;
+- không vẽ vây; không xanh hải quân, không đỏ.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a chubby round shark body that is also the head, facing the viewer's right: navy back, white belly, a big red eye, three red gill slits behind the eye, a grey badge with '01' on the forehead above and behind the eye, and a small mouth with a fang at the lower right. Redraw THESE pieces as the body of image 2 (the approved concept), keeping the old round outline: a slate-grey back with a slight violet tint, a cream-white belly and lower jaw; a big lemon-yellow eye with a round dark pupil and one small catchlight dot exactly where the old eye is, under a thick dark slate brow angled down; three burnt-orange stripes with saw-tooth edges where the three gill slits are; a SMALL ivory bone plate with three notches where the old badge is (no numbers, no letters); a confident smirk showing a short row of small saw teeth where the old mouth is.
+Do NOT draw: any fin, navy blue, red, numbers or letters, a big cap over the head.""", None),
+            ("N02", "vây lưng", "dorsal fin", "doi", 16,
+             "a navy dorsal fin with a pale front edge, its wide base at the bottom (on the back), its tip at the upper right",
+             "Vây lưng xanh hải quân mép trước nhạt (1024 × 1024, nền trắng), gốc rộng ở dưới (trên lưng), chóp ở trên phải",
+             """- gốc vây đúng chỗ gốc cũ, chóp chĩa cùng hướng;
+- tím ánh xám, dải cam cháy răng cưa dọc mép sau như concept;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a navy dorsal fin with a pale front edge; its wide base at the bottom sits on the back (the body is not shown), its tip points to the upper right. Redraw THIS piece as the dorsal fin of image 2 (the approved concept): slate violet with a burnt-orange saw-tooth stripe along its back edge, the same direction.
+Do NOT draw: the body, navy blue.""", "wide base (where it sits on the back)"),
+            ("N03", "vây đuôi", "tail fin", "doi", 14,
+             "a navy and red crescent tail fin, its narrow base at the right (joining the body), the two lobes at the left",
+             "Vây đuôi hình lưỡi liềm xanh hải quân và đỏ (1024 × 1024, nền trắng), gốc hẹp ở bên phải nối vào thân, hai thuỳ ở bên trái",
+             """- gốc hẹp ở bên phải đúng chỗ cũ, hai thuỳ xoè sang trái;
+- tím ánh xám, hai vằn cam cháy răng cưa như concept;
+- không vẽ thân; không đỏ.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a navy and red crescent tail fin; its narrow base at the right joins the body (the body is not shown), its two lobes spread to the left. Redraw THIS piece as the tail fin of image 2 (the approved concept): slate violet with two burnt-orange tiger stripes with saw-tooth edges, the same shape and direction.
+Do NOT draw: the body, red, navy blue.""", "narrow right end (where it joins the body)"),
+            ("N04", "vây ngực", "pectoral fin", "giu", 18,
+             "a navy pectoral fin with a pale lower edge, pointing down and back to the lower left; its upper right end joins the belly",
+             "Vây ngực xanh hải quân mép dưới nhạt (1024 × 1024, nền trắng), chĩa xuống trái; đầu trên phải nối vào bụng",
+             """- giữ viền như cũ; đầu trên phải là chỗ nối vào bụng;
+- tím ánh xám, mép dưới kem;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a navy pectoral fin with a pale lower edge, pointing down and back to the lower left; its upper right end joins the belly (the body is not shown). Redraw THIS piece as the pectoral fin of image 2 (the approved concept): slate violet with a cream lower edge, the same outline.
+Do NOT draw: the body, navy blue.""", None),
+            ("N05", "vây bụng", "belly fin", "giu", 30,
+             "a small navy fin hanging down, its top edge joining the belly",
+             "Vây bụng nhỏ xanh hải quân rủ xuống (1024 × 1024, nền trắng), mép trên nối vào bụng",
+             """- giữ viền như cũ; mép trên nối vào bụng;
+- tím ánh xám;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small navy fin hanging down; its top edge joins the belly (the body is not shown). Redraw THIS piece as the small belly fin of image 2 (the approved concept): slate violet, the same outline.
+Do NOT draw: the body, navy blue.""", None),
+        ],
+        "extra": [], "first": ["N01", "N02"],
+    },
+    {
+        "code": "tam_tay_2", "elem": "thuy", "aola": 1054,
+        "hero": "Tám Tay", "form": 2, "forms": 2, "form_name": "Tám Tay Pháo Thủ",
+        "role_vi": "tướng Khá hệ Thủy (quái thường đảo Thủy), dạng 2/2, rig aola #1054",
+        "design_vi": ("Tám Tay lớn lên thành pháo thủ: cùng da vàng cát vòng coban, mắt và mày như dạng 1; mũ giáp đồng thau có kính "
+                      "tiềm vọng nhỏ thay viên ngọc, hai que thổi bong bóng đồng to hơn; hai tai nghe là hai vỏ ốc xoắn; bong bóng nước "
+                      "chỉ viền; tám xúc tu ngồi thấp; xúc tu phải cầm pháo ống đồng miệng loe; hai pháo vỏ ốc anh vũ trắng kem sọc "
+                      "nâu cam bay hai bên"),
+        "rig_vi": ("con gốc #1054 là bạch tuộc ngồi trên các xúc tu, nhìn thẳng: đầu hồng đỏ trong vòm kính, trên vòm là mũ giáp xanh "
+                   "có ngọc mắt đỏ, hai râu cong đầu tròn vàng mọc từ hai bên mũ, hai cục tai xanh hai bên vòm; tám xúc tu ngắn; xúc "
+                   "tu phải cầm khẩu pháo chĩa sang phải; hai pháo nhỏ bay hai bên (trái thấp, phải cao); các chùm bong bóng quanh "
+                   "chân. Bỏ khỏi bóng xám: bóng dưới chân"),
+        "regions_vi": ("1 mũ giáp có ngọc, 2 hai râu, 3 hai tai bên vòm, 4 vòm bong bóng, 5 đầu có mắt và miệng, 6 xúc tu, "
+                       "7 pháo cầm ở xúc tu phải, 8 hai pháo bay, 9 các chùm bong bóng"),
+        "anchor": True,
+        "prev": [("tam_tay_1", "the approved FIRST stage of this evolution line: keep its colours, ring pattern, face, beret colours and "
+                               "drawing style; this stage is the same octopus grown up and armed",
+                  "dạng 1 đã duyệt: bạch tuộc vàng cát vòng coban trong bong bóng, mũ nồi đỏ mỏ neo, hai que thổi bong bóng")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND and final stage of a two-stage Water evolution line whose first stage is image 6. The little bubble-gunner octopus of image 6 has grown into a full BUBBLE CANNONEER: bigger, armoured, with cannons; still a cute chubby creature, not a human. Same front view and pose as image 1, sitting on its tentacles, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big round head inside a round see-through bubble, a helmet sitting on the top front of the bubble, two thin stalks curling up from the left and the right of the helmet, two round pods on the left and the right sides of the bubble, eight short tentacles under the head, one short cannon held by a tentacle at the right, two small flying cannons floating at the left and the right, and a few small bubble clusters near the bottom; no arms, no legs;
+- every joint where it is: the helmet covers the top of the bubble; the stalks rise from its upper left and upper right and curl inward at their tips; the pods sit on the sides of the bubble at the height of the eyes; the tentacles spread under the head, the creature sits low on them; the held cannon is at the lower right, pointing to the right; one flying cannon floats at the left, lower, the other at the right, higher, both pointing outward;
+- every part pointing the same way: the face looks at the viewer, the two eyes side by side in the middle of the head, the mouth below them;
+- the bubble, the helmet, the head and the cannons about the size and shape of regions 4, 1, 5, 7 and 8; the whole figure about the same size.
+
+CHANGE (the new look, region by region):
+1 helmet: a brass gunner's helmet with a short rim at the front; instead of a gem, a small round brass periscope lens in the middle of the front.
+2 stalks: two brass bubble-wand sticks, thicker than in image 6, each ending in an open ring.
+3 pods: two small spiral seashells (cream with brown-orange bands) as ear pieces.
+4 bubble: a water bubble drawn with only a thin dark-brown ink outline and a very light aqua tint, see-through so the head shows clearly; no shine streaks.
+5 head: the same sand-yellow octopus head as image 6 with cobalt-blue rings, the same big dark navy eyes (one catchlight dot each) and cobalt brows angled down, a determined small mouth.
+6 tentacles: eight short sand-yellow tentacles with small cobalt rings, tips curling.
+7 held cannon: a short brass tube cannon with a flared mouth pointing to the right, gripped by the tentacle.
+8 flying cannons: two little cannons made from nautilus shells (cream with brown-orange stripes), a brass ring at each open mouth, mouths pointing outward.
+9 bubble clusters: small simple bubbles drawn with a thin ink outline and a very light aqua tint; no shine.
+
+ATTITUDE: a confident little cannoneer ready to fire: brows down, a determined mouth; cute and chubby, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, ring pattern, face and drawing style.
+
+COLOURS: sand-yellow skin with cobalt-blue rings; brass helmet, wands and cannon; cream and brown-orange shells; dark navy eyes; a very pale aqua tint in the bubbles. Few colours.
+
+AVOID: pink or red skin, a blue helmet, a red gem eye, blue pods, a glass dome with white shine streaks, arms, legs, a human face, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #1054 (26 mảnh): 1 bóng, 2–4 chùm bong bóng, 5 pháo bay trái, 6 pháo bay phải, 7 8 10 11 14–17 xúc tu,
+        # 9 lòng vòm, 12 pháo cầm, 13 tai phải, 18 đầu, 19 vành vòm (đè lên mặt), 20 râu phải, 21 mũ có ngọc, 22 râu trái,
+        # 23 tai trái, 24 mắt phải, 25 mắt trái, 26 miệng.
+        # Nhóm: N01 mũ (21), N02 hai râu (20, 22), N03 hai tai (13, 23), N04 bong bóng (9, 19; ghép bỏ 19), N05 đầu có mặt
+        # (18, 24–26), N06 tám xúc tu, N07 pháo cầm (12), N08 hai pháo bay (5, 6), N09 chùm bong bóng (2–4).
+        # Viền px = 0,85% × 247 đơn vị × k: 11, 11, 9, 11, 15, 18, 21, 7, 11.
+        "groups": [
+            ("N01", "mũ giáp đồng thau", "brass helmet", "doi", 11,
+             "a blue and gold helmet cap with a red eye gem in the middle, wide and curved like a shell",
+             "Mũ giáp xanh viền vàng có ngọc mắt đỏ ở giữa (1024 × 1024, nền trắng), rộng và cong",
+             """- mép dưới mũ đúng chỗ mép dưới mũ cũ, rộng như cũ;
+- mũ đồng thau có gờ đinh tán, kính tiềm vọng nhỏ ở đỉnh như concept; không ngọc mắt đỏ;
+- không vẽ bong bóng, đầu, râu.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a wide blue and gold helmet cap with a red eye gem in the middle; it sits on the top of a round bubble (the bubble is not shown). Redraw THIS piece as the helmet of image 2 (the approved concept): a brass gunner's helmet with a riveted rim and a small brass periscope on its top, as wide as the old cap and sitting in the same place.
+Do NOT draw: the bubble, the head, the wands, a red gem, blue colours.""", "bottom rim of the helmet (where it sits on the bubble)"),
+            ("N02", "hai que thổi bong bóng", "two bubble wands", "doi", 11,
+             "two small blue antenna stalks curling up and inward, each with a small gold ball at its tip",
+             "Hai râu xanh nhỏ cong lên và vào trong (1024 × 1024, nền trắng), đầu mỗi râu có quả cầu vàng nhỏ",
+             """- gốc mỗi que đúng chỗ gốc râu cũ (ở dưới), que cong lên;
+- que đồng thau dày, đầu là vòng tròn rỗng to như concept; không quả cầu;
+- không vẽ mũ, đầu.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two small blue antenna stalks; the BOTTOM end of each is where it joins the helmet (the helmet is not shown), they curl up and inward and end in small gold balls. Redraw THESE two pieces as the two bubble wands of image 2 (the approved concept): thick brass sticks rising from the same bottom ends and curling up, each ending in a big open ring (hollow in the middle) instead of a ball.
+Do NOT draw: the helmet, the head, balls at the tips, blue colours.""", "bottom end of each stick (where it joins the helmet)"),
+            ("N03", "hai tai vỏ ốc", "two seashell ear pieces", "doi", 9,
+             "two small blue pods with a teal light, one at the left and one at the right",
+             "Hai cục tai nhỏ màu xanh có đèn xanh ngọc (1024 × 1024, nền trắng), một bên trái, một bên phải",
+             """- mỗi vỏ ốc đúng chỗ cục tai cũ, cỡ gần như cũ (to hơn chút được);
+- vỏ ốc xoắn trắng kem có dải nâu cam như concept;
+- không vẽ bong bóng, đầu; không đèn.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two small blue pods with a teal light, one at the left side and one at the right side of the bubble (the bubble is not shown). Redraw THESE two pieces as the two spiral seashell ear pieces of image 2 (the approved concept): cream shells with brown-orange bands, each where an old pod is, about the same size.
+Do NOT draw: the bubble, the head, lights, blue colours.""", "inner side of each shell (where it sits on the bubble)"),
+            ("N04", "bong bóng nước", "water bubble", "giu", 11,
+             "a big round pale blue glass dome with white shine streaks (the head is not shown)",
+             "Vòm kính tròn to xanh nhạt có vệt sáng trắng (1024 × 1024, nền trắng); đầu không có trong ảnh",
+             """- giữ đúng viền, cỡ, chỗ của vòm cũ;
+- viền mực mảnh, tô xanh nước rất nhạt đều; không vệt sáng, không chấm sáng;
+- không vẽ đầu, mũ.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a big round pale blue glass dome with white shine streaks; the head sits inside it (the head is not shown). Redraw THESE pieces as the water bubble of image 2 (the approved concept): the same round shape and size, a thin dark-brown ink outline and a very light, even aqua crayon tint filling the whole inside.
+Do NOT draw: the head, the face, the helmet, white streaks, reflections, shine spots.""", None),
+            ("N05", "đầu có mặt", "head with face", "giu", 15,
+             "a big round pink-red octopus head with purple patches on top, two blue eyes with angry brows and a small round mouth, facing the viewer",
+             "Đầu bạch tuộc tròn to hồng đỏ có mảng tím trên đỉnh (1024 × 1024, nền trắng), hai mắt xanh mày cau, miệng tròn nhỏ",
+             """- giữ viền đầu như cũ; vẽ trọn đỉnh đầu (mũ đè lên sau);
+- vàng cát vòng coban; hai mắt to tròng xanh thẫm đúng chỗ mắt cũ, mày coban xếch, miệng chu, má phồng như concept;
+- không vẽ bong bóng, mũ, xúc tu; không hồng, không mảng tím.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a big round pink-red octopus head with purple patches on top, two blue eyes under angry brows and a small round mouth, facing the viewer. Redraw THESE pieces as the head of image 2 (the approved concept): warm sand yellow with cobalt-blue ring spots; two big round eyes with dark navy irises (one small catchlight dot each) exactly where the old eyes are, cobalt brows angled down; a small puckered mouth where the old mouth is, cheeks a little puffed. Draw the whole head, its top too: the helmet is drawn over it later.
+Do NOT draw: the bubble, the helmet, the tentacles, pink or red skin, purple patches.""", None),
+            ("N06", "tám xúc tu", "eight tentacles", "giu", 18,
+             "a cluster of short curly dark-red and purple tentacles under the head, tips curling outward",
+             "Cụm xúc tu ngắn xoăn đỏ sẫm và tím dưới đầu (1024 × 1024, nền trắng), đầu xúc tu cuộn ra ngoài",
+             """- đúng số xúc tu, mỗi cái đúng chỗ, dáng, chiều cuộn như cũ;
+- vàng cát, vòng coban nhỏ;
+- không vẽ đầu, pháo.""",
+             """Image 1 is eight pieces of a 2D cut-out animation puppet (the old design): a cluster of short curly dark-red and purple tentacles; their TOP ends join the underside of the head (the head is not shown), the tips curl outward at the BOTTOM. Redraw THESE pieces as the tentacles of image 2 (the approved concept): sand yellow with small cobalt-blue rings, each tentacle exactly where it is, with the same shape and curl.
+Do NOT draw: the head, the cannons, red or purple colours, suckers.""", None),
+            ("N07", "pháo ống đồng", "held brass cannon", "doi", 21,
+             "a short cannon pointing to the right: a gold barrel at the left, a blue ring and a silver muzzle with a teal light at the right",
+             "Khẩu pháo ngắn chĩa sang phải (1024 × 1024, nền trắng): nòng vàng bên trái, vòng xanh và miệng bạc có đèn ở bên phải",
+             """- đuôi pháo ở bên trái đúng chỗ cũ (chỗ xúc tu cầm), miệng pháo chĩa sang phải;
+- ống đồng thau có vòng đinh tán, miệng loe như concept;
+- không vẽ xúc tu; không đèn, không xanh.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a short cannon pointing to the right, its back end at the left (held by a tentacle, not shown), a gold barrel, a blue ring and a silver muzzle with a teal light at the right end. Redraw THIS piece as the held cannon of image 2 (the approved concept): a short brass tube cannon with a riveted band and a flared mouth, pointing the same way.
+Do NOT draw: the tentacle, lights, blue or silver colours.""", "back (left) end of the cannon (where the tentacle holds it)"),
+            ("N08", "hai pháo vỏ ốc anh vũ", "two nautilus cannons", "doi", 7,
+             "two tiny flying cannons: one at the lower left pointing left, one at the upper right pointing right",
+             "Hai pháo bay nhỏ (1024 × 1024, nền trắng): một ở dưới trái chĩa sang trái, một ở trên phải chĩa sang phải",
+             """- hai pháo đúng chỗ cũ, miệng chĩa ra ngoài như cũ; to hơn chút được;
+- vỏ ốc anh vũ trắng kem sọc nâu cam, miệng pháo vòng đồng thau;
+- không vẽ con bạch tuộc.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two tiny flying cannons: one at the lower left with its mouth pointing to the left, one at the upper right with its mouth pointing to the right. Redraw THESE two pieces as the two nautilus-shell cannons of image 2 (the approved concept): cream shells with brown-orange stripes and a brass ring at each mouth, each where an old cannon is, mouths pointing outward the same way; they may be a little bigger.
+Do NOT draw: the octopus, blue colours, lights.""", "centre of each cannon"),
+            ("N09", "các chùm bong bóng", "bubble clusters", "giu", 11,
+             "many small cyan bubbles with shine scattered around the bottom",
+             "Nhiều bong bóng nhỏ xanh có chấm sáng rải quanh phía dưới (1024 × 1024, nền trắng)",
+             """- các bong bóng đúng chỗ, cỡ như cũ;
+- viền mực mảnh, tô xanh nước rất nhạt; không chấm sáng;
+- không thêm bong bóng.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): many small cyan bubbles with shine, scattered around the bottom. Redraw THESE pieces as simple hand-drawn bubbles like those of image 2 (the approved concept): each a circle with a thin dark-brown ink outline and a very light aqua tint, exactly where and as big as it is now.
+Do NOT draw: shine spots, white streaks, extra bubbles, the creature.""", None),
+        ],
+        "extra": [], "first": ["N05", "N01"],
+    },
+    {
+        "code": "ca_ngua_2", "elem": "thuy", "aola": 182,
+        "hero": "Cá Ngựa", "form": 2, "forms": 3, "form_name": "Cá Ngựa Song Đao",
+        "role_vi": "tướng Hiếm hệ Thủy (quái thường đảo Thủy), dạng 2/3, rig aola #182",
+        "design_vi": ("Cá Ngựa lớn lên thành lính gác song đao: xanh lục biển, bụng vàng kem có ngấn như dạng 1; bỏ mặt nạ, mặt thật "
+                      "có băng trán xanh thẫm buộc sau gáy; mào san hô đỏ to hơn; hai vây má; cán cờ cờ đuôi nheo to hơn; dây tảo bện; "
+                      "khăn cổ xanh thẫm; giáp ngực mai rùa xanh rêu; hai dao găm lưỡi răng cá mập trắng ngà chuôi quấn tảo; đuôi cuộn"),
+        "rig_vi": ("con gốc #182 là cá ngựa đứng trên đuôi cuộn, đầu quay sang phải: mặt nạ đỏ có hai lỗ mắt, mõm kèn cam chĩa sang "
+                   "phải, hai vây má xanh, chỏm tóc vàng nâu trên đỉnh, ống trắng sau gáy có chỏm ở đầu, chuỗi hạt ống thở từ mõm "
+                   "vòng ra sau, cổ áo đen, giáp ngực xám tròn, bụng ngấn nâu; hai tay găng trắng cầm hai dao phi tiêu có vòng ở "
+                   "chuôi (trái chĩa lên trái, phải chĩa lên phải); đuôi cuộn dưới. Bỏ khỏi bóng xám: bóng dưới chân, lớp viền "
+                   "đen cả con"),
+        "regions_vi": ("1 đầu có mặt nạ và mắt, 2 mõm, 3 hai vây má, 4 chỏm trên đầu, 5 cán sau gáy và chỏm, 6 chuỗi hạt ống thở, "
+                       "7 cổ áo, 8 giáp ngực, 9 bụng và hông, 10 tay trái, 11 bàn tay trái, 12 dao trái, 13 tay phải, "
+                       "14 bàn tay phải, 15 dao phải, 16 đuôi cuộn"),
+        "anchor": True,
+        "prev": [("ca_ngua_1", "the approved FIRST stage of this evolution line: keep its colours, coral crest, eyes, flag and "
+                               "drawing style; this stage is the same seahorse grown up",
+                  "dạng 1 đã duyệt: cá ngựa xanh lục biển bụng kem, mào san hô đỏ, cờ đuôi nheo, ôm quả cầu nhím tím")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6. The little seahorse recruit of image 6 has grown into a TWIN-DAGGER REEF GUARD: taller, braver, with a dagger in each hand; still a cute creature, not a human. Same view (turned to the viewer's right) and pose as image 1, standing on its curled tail, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big head with a tube snout, two cheek fins, growths on top of the head, a thin pole sticking out of the back of the head with something at its tip, a beaded cord from under the snout around the neck, a collar, a round chest plate, a ridged belly, two arms with hands each holding one dagger, and a curled tail at the bottom; no legs, no wings, no extra limbs;
+- every joint where it is: the snout grows from the right side of the head and points to the right; one cheek fin on the left side of the head and one on the right behind the snout; the growths on the top of the head; the pole starts at the back of the head and points up and back to the upper left; the cord runs from under the snout back around the neck; the collar sits at the neck under the head; the chest plate covers the front of the body; the arms hang from the shoulders at both sides, the hands at the lower left and the lower right; the viewer-left dagger points up and to the left, the viewer-right dagger points up and to the right, each blade above its fist and a ring at the bottom of each grip; the tail curls at the bottom;
+- every part pointing the same way: the head is turned to the viewer's right, both eyes visible in the face, the near eye bigger;
+- the head, the body, the arms, the daggers and the tail about the size and shape of regions 1, 8, 9, 10, 13, 12, 15 and 16; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 head: no mask: the same sea-green face as image 6 with big amber eyes (dark pupils, one catchlight dot each) and thick dark-green brows angled down, and a dark navy headband tied around the forehead, its knot at the back of the head.
+2 snout: the same short sea-green tube snout with a cream-yellow rim as image 6.
+3 cheek fins: sea-green fins with pale-yellow ribs.
+4 growths: a bigger red coral crest with more branches than in image 6.
+5 pole and tip: the wooden flagpole with a larger red-and-white swallow-tail pennant.
+6 cord: a braided seaweed-green cord instead of beads.
+7 collar: a small dark navy neckerchief knotted at the front.
+8 chest plate: a round moss-green turtle-shell chest plate with a simple hexagon pattern.
+9 belly: the cream-yellow ridged belly of image 6.
+10 to 14 arms and hands: sea-green arms with dark navy wrist wraps, small sea-green fists.
+12 and 15 daggers: two short daggers with ivory shark-tooth blades (slightly curved, tiny serrations), grips wrapped in seaweed-green cord, a small brass ring at the bottom of each grip.
+16 tail: a sea-green curled tail with cream ridges.
+
+ATTITUDE: a sharp young guard in a fighting stance, daggers ready: brows angled down, a confident smirk; cute, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, crest, eyes, flag and drawing style.
+
+COLOURS: sea green; cream-yellow belly, ridges and snout rim; red coral; amber eyes; dark navy headband, neckerchief and wrist wraps; a moss-green shell plate; ivory blades; a red-and-white flag on a brown pole. Few colours.
+
+AVOID: a red mask, blue skin, tan hair, a trumpet-shaped orange snout, white gloves, metal kunai, black beads, a grey chest dome, a human face, legs, extra limbs, text, labels, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #182 (40 mảnh): 1 bóng, 2 viền cả con, 3 đuôi cuộn, 4 bàn tay phải, 5 dao phải, 6 ngón cái phải, 7 cẳng tay phải,
+        # 8 dây cổ tay, 9 bụng hông, 10 11 mảnh nâu, 12 giáp ngực, 13 bàn tay trái, 14 dao trái, 15 ngón cái trái, 16 vòng cổ tay,
+        # 17 bắp tay trái, 18 cẳng tay trái, 19 cổ áo, 20 khuy, 21 chỏm đầu cán, 22 ống sau gáy, 23 vây má phải, 24 đầu,
+        # 25 vây má trái, 26 mặt nạ, 27 28 mắt, 29 30 chỏm tóc, 31 mõm, 32–39 hạt ống thở, 40 nối mõm.
+        # Viền px = 0,85% × 236 đơn vị × k: N01 15, N02 29, N03 12, N04 14, N05 25, N06 30, N07 44, N08 22, N09 26, N10 19,
+        # N11 20, N12 33.
+        "groups": [
+            ("N01", "đầu có mặt và băng trán", "head with face and headband", "giu", 15,
+             "a round blue seahorse head turned to the viewer's right, covered by a red mask with two round eye holes",
+             "Đầu cá ngựa tròn xanh quay sang phải (1024 × 1024, nền trắng), che bởi mặt nạ đỏ có hai lỗ mắt tròn",
+             """- giữ viền đầu như cũ; hai mắt đúng chỗ hai lỗ mắt cũ (mắt gần to, mắt xa nhỏ);
+- mặt xanh lục biển, mắt hổ phách mày xanh sẫm xếch; băng trán xanh thẫm buộc nút sau gáy như concept;
+- không mặt nạ đỏ; không vẽ mõm, vây má, mào, cán cờ.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a round blue seahorse head turned to the viewer's right, covered by a red mask with two round eye holes (the near eye bigger, the far eye smaller at the right). Redraw THESE pieces as the head of image 2 (the approved concept), keeping the old outline: a sea-green face with two big amber eyes (dark pupils, one catchlight dot each) exactly where the old eye holes are, thick dark-green brows angled down, a small confident smirk, and a dark navy headband around the forehead tied in a knot at the back of the head.
+Do NOT draw: a red mask, the snout, the cheek fins, the coral crest, the flagpole, blue colours.""", None),
+            ("N02", "mõm ống", "tube snout", "doi", 29,
+             "an orange trumpet-shaped snout: its narrow end at the left joins the head, its wide open mouth at the right",
+             "Mõm hình kèn màu cam (1024 × 1024, nền trắng): đầu hẹp bên trái nối vào đầu, miệng loe bên phải",
+             """- đầu hẹp bên trái đúng chỗ cũ, mõm chĩa sang phải;
+- mõm ống ngắn xanh lục biển, miệng tròn viền vàng kem như concept;
+- không vẽ đầu; không loe như kèn.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): an orange trumpet-shaped snout; its narrow end at the left joins the head (the head is not shown), its wide open mouth is at the right. Redraw THESE pieces as the snout of image 2 (the approved concept): a short sea-green tube pointing the same way, its round open end edged in cream yellow with a dark inside.
+Do NOT draw: the head, orange colours, a trumpet bell.""", "narrow left end (where it joins the head)"),
+            ("N03", "hai vây má", "two cheek fins", "doi", 12,
+             "two blue frilly fins: one at the left side of the head and one at the right behind the snout",
+             "Hai vây má xanh có thuỳ (1024 × 1024, nền trắng): một bên trái đầu, một bên phải sau mõm",
+             """- gốc mỗi vây đúng chỗ cũ, thuỳ xoè ra ngoài;
+- xanh lục biển gân vàng nhạt;
+- không vẽ đầu.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two blue frilly fins, one at the left side of the head and one at the right side behind the snout (the head is not shown). Redraw THESE pieces as the cheek fins of image 2 (the approved concept): sea-green fins with pale-yellow ribs, each where an old fin is, spreading outward.
+Do NOT draw: the head, blue colours.""", "inner edge of each fin (where it joins the head)"),
+            ("N04", "mào san hô", "coral crest", "doi", 14,
+             "a big tan hair tuft on top of the head with a smaller tuft at its right (the head is not shown)",
+             "Chỏm tóc nâu nhạt to trên đỉnh đầu và chỏm nhỏ bên phải (1024 × 1024, nền trắng); đầu không có trong ảnh",
+             """- gốc mào đúng chỗ gốc chỏm cũ, chĩa lên;
+- san hô đỏ nhiều nhánh tròn đầu, to hơn chỏm cũ được như concept;
+- không vẽ đầu; không tóc.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a big tan hair tuft on top of the head with a smaller tuft at its right (the head is not drawn; the empty space below is where it is). Redraw THESE pieces as the coral crest of image 2 (the approved concept): red coral with several rounded branches standing up from the same bases; it may be taller than the tufts.
+Do NOT draw: the head, tan hair.""", "base of the crest (where it stands on the head)"),
+            ("N05", "cán cờ và cờ đuôi nheo", "flagpole and pennant", "doi", 25,
+             "a white tube starting at the lower right and pointing to the upper left, ending in a spiky tan tuft",
+             "Ống trắng từ dưới phải chĩa lên trên trái (1024 × 1024, nền trắng), đầu là chỏm nâu nhạt nhiều gai",
+             """- chân cán ở dưới phải đúng chỗ cũ, cán chạy lên trên trái;
+- cán gỗ nâu núm tròn, quấn dây xanh tảo, cờ đuôi nheo đỏ trắng to ở đầu trên;
+- không vẽ đầu; không ống trắng, không chỏm.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a white tube that starts at the lower right (behind the head, not shown) and points to the upper left, ending in a spiky tan tuft. Redraw THESE pieces as the flagpole of image 2 (the approved concept): a brown wooden pole along the same line with a small round knob on top and a green cord wrap, and a large red-and-white swallow-tail pennant at the upper-left end in the place of the tuft.
+Do NOT draw: the head, a white tube, a tuft.""", "lower-right end of the pole (where it starts behind the head)"),
+            ("N06", "dây tảo bện", "seaweed cord", "giu", 30,
+             "a row of dark grey beads forming a curved hose from the right to the left",
+             "Chuỗi hạt xám đen thành ống cong từ phải sang trái (1024 × 1024, nền trắng)",
+             """- đúng đường đi và độ dày như chuỗi hạt cũ;
+- dây bện xanh tảo có vòng xoắn;
+- không vẽ đầu, cổ.""",
+             """Image 1 is eight pieces of a 2D cut-out animation puppet (the old design): a row of dark grey beads forming a curved hose from the right (under the snout) to the left (around the neck). Redraw THESE pieces as the cord of image 2 (the approved concept): one braided seaweed-green rope with visible twists along exactly the same path and as thick as the beads.
+Do NOT draw: beads, the head, the neck, grey colours.""", None),
+            ("N07", "khăn cổ", "neckerchief", "giu", 44,
+             "a black round collar piece",
+             "Cổ áo tròn màu đen (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- khăn cổ xanh thẫm có nút thắt ở trước như concept;
+- không vẽ đầu, thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a black round collar piece at the neck. Redraw THIS piece as the neckerchief of image 2 (the approved concept): a dark navy cloth with a small knot at the front, the same outline.
+Do NOT draw: the head, the body, black.""", None),
+            ("N08", "giáp ngực mai rùa", "turtle-shell chest plate", "giu", 22,
+             "a round grey chest dome with a purple padded top and a gold rim, and a small brown piece at the lower left",
+             "Giáp ngực tròn xám đỉnh tím có đệm, viền vàng (1024 × 1024, nền trắng), mẩu nâu nhỏ ở dưới trái",
+             """- giữ viền như cũ;
+- mai rùa xanh rêu có hoa văn lục giác như concept;
+- không vẽ tay, đầu.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a round grey chest dome with a purple padded top and a gold rim. Redraw THIS piece as the chest plate of image 2 (the approved concept): a moss-green turtle shell with a simple hexagon pattern, the same outline.
+Do NOT draw: the arms, the head, grey or purple colours.""", None),
+            ("N09", "bụng và hông", "belly and hips", "giu", 26,
+             "a tan ridged belly piece with blue at its left, and small tan and brown pieces above it",
+             "Mảng bụng nâu nhạt có ngấn, xanh bên trái (1024 × 1024, nền trắng), vài mẩu nâu nhỏ phía trên",
+             """- giữ viền các mảnh như cũ;
+- bụng vàng kem có ngấn ngang, phần thân xanh lục biển;
+- không vẽ giáp ngực, đuôi.""",
+             """Image 1 is four pieces of a 2D cut-out animation puppet (the old design): a tan ridged belly piece with blue at its left, and small tan and brown pieces above it. Redraw THESE pieces in the colours of image 2 (the approved concept): a cream-yellow belly with horizontal ridges, sea-green where the old blue is, each piece with its old outline.
+Do NOT draw: the chest plate, the tail, tan colours.""", None),
+            ("N10", "tay trái, nắm tay và dao", "viewer-left arm, fist and dagger", "giu", 19,
+             "a blue arm from the right curving to a white-gloved fist at the lower left that holds a kunai pointing up and left, with a ring at the bottom of the grip",
+             "Tay xanh từ phải cong xuống nắm tay găng trắng ở dưới trái (1024 × 1024, nền trắng), cầm dao phi tiêu chĩa lên trái, vòng ở chuôi",
+             """- vai ở bên phải, nắm tay ở dưới trái đúng chỗ cũ; dao chĩa lên trái như cũ, vòng ở đáy chuôi;
+- tay xanh lục biển, quấn cổ tay xanh thẫm, nắm tay xanh lục biển; dao lưỡi răng cá mập trắng ngà, chuôi quấn tảo, vòng đồng;
+- không găng trắng, không dao kim loại; không vẽ thân.""",
+             """Image 1 is six pieces of a 2D cut-out animation puppet (the old design): an arm whose shoulder is at the upper right; it curves down to a white-gloved fist at the lower left, which holds a kunai: its blade points up and to the left above the fist, a ring at the bottom of the grip. Redraw THESE pieces as the viewer-left arm of image 2 (the approved concept): a sea-green arm with a dark navy wrist wrap, a small sea-green fist exactly where the old fist is, gripping a dagger with an ivory shark-tooth blade (slightly curved, tiny serrations) pointing the same way, a seaweed-wrapped grip and a small brass ring at its bottom.
+Do NOT draw: white gloves, a metal kunai, the body.""", None),
+            ("N11", "tay phải, nắm tay và dao", "viewer-right arm, fist and dagger", "giu", 20,
+             "a blue arm from the left curving to a white-gloved fist at the lower right that holds a kunai pointing up and right, with a ring at the bottom of the grip",
+             "Tay xanh từ trái cong xuống nắm tay găng trắng ở dưới phải (1024 × 1024, nền trắng), cầm dao phi tiêu chĩa lên phải, vòng ở chuôi",
+             """- vai ở bên trái, nắm tay ở dưới phải đúng chỗ cũ; dao chĩa lên phải như cũ, vòng ở đáy chuôi;
+- tay xanh lục biển, quấn cổ tay xanh thẫm; dao lưỡi răng cá mập trắng ngà, chuôi quấn tảo, vòng đồng;
+- không găng trắng, không dao kim loại; không vẽ thân.""",
+             """Image 1 is five pieces of a 2D cut-out animation puppet (the old design): an arm whose shoulder is at the upper left; it curves down to a white-gloved fist at the lower right, which holds a kunai: its blade points up and to the right above the fist, a ring at the bottom of the grip. Redraw THESE pieces as the viewer-right arm of image 2 (the approved concept): a sea-green arm with a dark navy wrist wrap, a small sea-green fist exactly where the old fist is, gripping a dagger with an ivory shark-tooth blade (slightly curved, tiny serrations) pointing the same way, a seaweed-wrapped grip and a small brass ring at its bottom.
+Do NOT draw: white gloves, a metal kunai, the body.""", None),
+            ("N12", "đuôi cuộn", "curled tail", "giu", 33,
+             "a blue seahorse tail curling into a spiral at the right, with tan ridges",
+             "Đuôi cá ngựa xanh cuộn tròn ở bên phải, có gờ nâu nhạt (1024 × 1024, nền trắng)",
+             """- giữ viền và chiều cuộn như cũ;
+- xanh lục biển, gờ vàng kem;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a blue seahorse tail with tan ridges, its top joins the body (not shown) and it curls into a spiral at the right. Redraw THIS piece as the tail of image 2 (the approved concept): sea green with cream ridges, the same outline and curl.
+Do NOT draw: the body, blue or tan colours.""", None),
+        ],
+        "extra": [], "first": ["N01", "N10"],
+    },
+    {
+        "code": "ca_ngua_3", "elem": "thuy", "aola": 183,
+        "hero": "Cá Ngựa", "form": 3, "forms": 3, "form_name": "Cá Ngựa Tướng Quân",
+        "role_vi": "tướng Hiếm hệ Thủy (quái thường đảo Thủy), dạng 3/3, rig aola #183",
+        "design_vi": ("Cá Ngựa thành tướng quân rạn san hô: xanh lục biển, bụng kem như dạng 1; mũ giáp vỏ ốc trắng ngà viền xanh thẫm, "
+                      "mào san hô đỏ to như vương miện; cờ soái vuông đỏ hình sóng trắng; đao mỏ cá kiếm răng cưa đeo sau lưng; giáp "
+                      "ngực mai rùa xanh rêu viền ngà; đai vỏ sò khoá san hô; khiên tay trái và giáp tay phải bằng mảng san hô đỏ viền "
+                      "đồng; đuôi cuộn"),
+        "rig_vi": ("con gốc #183 là cá ngựa tướng lơ lửng, đầu quay sang phải: đầu xanh nhiều gai có dải đỏ, mặt nạ đỏ, bờm xanh ngọc, "
+                   "mõm kèn chĩa sang phải, ống trắng sau gáy có chỏm xanh ở đầu (trên trái), chuôi kiếm đỏ hoa văn trắng ló sau đầu "
+                   "và bao kiếm ở cổ, hai ống thở đen, cổ áo đen, giáp ngực xám có viền nâu, đai đỏ có khoá tròn và tua; tay trái "
+                   "có khiên sao đỏ vàng to ở cẳng tay và tấm giáp đỏ, tay phải có giáp cẳng tay xám và tấm đỏ; đuôi cuộn dưới. Bỏ "
+                   "khỏi bóng xám: bóng dưới chân, lớp viền đen cả con"),
+        "regions_vi": ("1 đầu có mặt nạ và mắt, 2 mõm, 3 bờm, 4 cán sau gáy và chỏm, 5 kiếm sau lưng, 6 hai ống thở, 7 cổ áo, "
+                       "8 giáp ngực, 9 đai và giáp bụng, 10 tay trái và bàn tay, 11 khiên cẳng tay trái, 12 tay phải và bàn tay, "
+                       "13 tấm giáp cẳng tay phải, 14 đuôi cuộn"),
+        "anchor": True,
+        "prev": [("ca_ngua_1", "the approved FIRST stage of this evolution line: keep its colours, coral crest, eyes, flag and "
+                               "drawing style; this stage is the same seahorse fully grown into a general",
+                  "dạng 1 đã duyệt: cá ngựa xanh lục biển bụng kem, mào san hô đỏ, cờ đuôi nheo, ôm quả cầu nhím tím")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6. The little seahorse recruit of image 6 has become a REEF GENERAL: bigger, proud, in shell-and-coral armour, a long sword on its back and a general's banner; still a cute creature, not a human. Same view (turned to the viewer's right) and pose as image 1, floating a little above the ground on its curled tail, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big head with a tube snout, a mane on top of the head, a thin pole sticking out of the back of the head with something at its tip, a sword worn on the back (its grip sticking out above the head at the upper left), two cords from under the snout, a collar, a chest plate, a belt with a buckle and a small tassel, two arms with fists, a big shield on the viewer-left forearm, a smaller plate on the viewer-right forearm, and a curled tail at the bottom; no legs, no wings, no extra limbs;
+- every joint where it is: the snout grows from the right side of the head and points to the right; the mane sits on the top of the head; the pole starts at the back of the head and points up to the upper left; the sword grip sticks out behind the head at the upper left and a short piece of its scabbard shows by the neck; the cords run from under the snout down and back; the collar is at the neck; the chest plate covers the front of the body; the belt is at the waist; the viewer-left arm hangs at the left with the big shield on its forearm and the fist at its lower end; the viewer-right arm hangs at the right with the small plate on its forearm and the fist at its lower end; the tail curls at the bottom;
+- every part pointing the same way: the head is turned to the viewer's right, both eyes visible, the near eye bigger;
+- the head, the chest plate, the arms, the shield and the tail about the size and shape of regions 1, 8, 10, 12, 11 and 14; the whole figure about the same height.
+
+CHANGE (the new look, region by region):
+1 head: the same sea-green face as image 6 with big amber eyes (dark pupils, one catchlight dot each) and thick dark-green brows angled down, under a helmet made from an ivory conch shell with a dark navy rim.
+2 snout: the same short sea-green tube snout with a cream-yellow rim as image 6.
+3 mane: a big red coral crest standing on the helmet like a crown, many rounded branches.
+4 pole and tip: a taller wooden pole with a square red general's banner showing a simple white wave shape (no letters), instead of a tuft.
+5 sword: a long sword made from a swordfish bill (an ivory blade with small saw teeth) worn on the back: its grip, wrapped in dark navy cord with a coral-red pommel, sticks out above the head at the upper left; a short moss-green scabbard piece shows by the neck.
+6 cords: two braided seaweed-green cords.
+7 collar: a dark navy neckerchief.
+8 chest plate: a moss-green turtle-shell chest plate with a simple hexagon pattern and an ivory rim, a navy strap over one shoulder.
+9 belt: a belt of small ivory shells with a round red-coral buckle and a short seaweed tassel.
+10 and 12 arms: sea-green arms with dark navy wrist wraps, small sea-green fists; an ivory shell guard on the viewer-right forearm.
+11 shield: a big shield on the viewer-left forearm made from a red coral plate with a brass rim and a round coral knuckle guard at the fist (instead of a star shape).
+13 plate: a smaller red coral plate with a brass rim on the viewer-right forearm.
+14 tail: a sea-green curled tail with cream ridges.
+
+ATTITUDE: a proud reef general: chin up, brows angled down, a confident smirk; cute, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, crest, eyes and drawing style.
+
+COLOURS: sea green; cream-yellow belly, ridges and snout rim; red coral; amber eyes; ivory shell helmet, blade and guard; dark navy rim, cord and wraps; moss-green shell plate; brass rims; a red banner with a white wave. Few colours.
+
+AVOID: a red mask, blue skin, a turquoise mane, star-shaped shields, a katana with a diamond-pattern grip, a trumpet-shaped orange snout, black rubber hoses, a grey chest dome, a human face, legs, extra limbs, text, letters, numbers, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #183 (31 mảnh): 1 bóng, 2 viền cả con, 3 bao kiếm ở cổ, 4 chuôi kiếm sau đầu, 5 bắp tay phải, 6 bàn tay phải,
+        # 7 giáp cẳng tay phải xám, 8 tấm đỏ cẳng tay phải, 9 đuôi, 10 giáp bụng đỏ, 11 tua, 12 giáp ngực, 13 dây vai,
+        # 14 cổ áo, 15 bắp tay trái, 16 cẳng tay trái, 17 khoá đai, 18 bàn tay trái, 19 giáp nắm tay trái, 20 tấm đỏ tay trái,
+        # 21 khiên sao, 22 ống thở dưới, 23 chỏm cán, 24 ống sau gáy, 25 đầu, 26 tóc trước, 27 mặt nạ, 28 mắt, 29 bờm,
+        # 30 mõm, 31 ống thở trái.
+        # Viền px = 0,85% × 254 đơn vị × k: N01 13, N02 32, N03 13, N04 25, N05 18, N06 29, N07 37, N08 26, N09 19, N10 20,
+        # N11 26, N12 25, N13 30, N14 20.
+        "groups": [
+            ("N01", "đầu có mặt và mũ vỏ ốc", "head with face and shell helmet", "doi", 13,
+             "a spiky blue seahorse head turned to the viewer's right with a red band, covered by a red mask with eye holes",
+             "Đầu cá ngựa xanh nhiều gai quay sang phải có dải đỏ (1024 × 1024, nền trắng), che bởi mặt nạ đỏ có lỗ mắt",
+             """- cổ (mép dưới đầu) đúng chỗ cũ; hai mắt đúng chỗ hai lỗ mắt cũ;
+- mặt xanh lục biển, mắt hổ phách mày xếch, cười nhếch; mũ vỏ ốc ngà viền xanh thẫm có vỏ sò vàng nhỏ ở trán như concept;
+- không gai xanh, không mặt nạ đỏ; không vẽ mõm, mào san hô, cờ, đao.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a spiky blue seahorse head turned to the viewer's right with a red band across it, covered by a red mask with two eye holes (the near eye bigger, the far eye small at the right). Redraw THESE pieces as the head of image 2 (the approved concept): a round sea-green face with two big amber eyes (dark pupils, one catchlight dot each) exactly where the old eye holes are, thick dark-green brows angled down, a confident smirk; on top, a helmet made from an ivory conch shell with a dark navy rim and a small yellow scallop shell at the front. The bottom of the head (the neck) stays where it is.
+Do NOT draw: blue spikes, a red mask, the snout, the coral crest, the banner, the sword.""", "bottom of the head (the neck)"),
+            ("N02", "mõm ống", "tube snout", "doi", 32,
+             "a brown-orange trumpet-shaped snout: its narrow end at the upper left joins the head, its wide open mouth at the lower right",
+             "Mõm hình kèn nâu cam (1024 × 1024, nền trắng): đầu hẹp ở trên trái nối vào đầu, miệng loe ở dưới phải",
+             """- đầu hẹp ở trên trái đúng chỗ cũ, chĩa cùng hướng;
+- mõm ống ngắn xanh lục biển, miệng tròn viền vàng kem;
+- không vẽ đầu; không loe như kèn.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a brown-orange trumpet-shaped snout; its narrow end at the upper left joins the head (not shown), its wide open mouth is at the lower right. Redraw THIS piece as the snout of image 2 (the approved concept): a short sea-green tube pointing the same way, its round open end edged in cream yellow with a dark inside.
+Do NOT draw: the head, brown or orange colours, a trumpet bell.""", "narrow upper-left end (where it joins the head)"),
+            ("N03", "vương miện san hô", "coral crown crest", "doi", 13,
+             "a small turquoise mane on top of the head and a turquoise fringe at its front (the head is not shown)",
+             "Bờm xanh ngọc nhỏ trên đỉnh đầu và mái xanh ngọc phía trước (1024 × 1024, nền trắng); đầu không có trong ảnh",
+             """- gốc đúng chỗ gốc bờm cũ (trên đỉnh mũ);
+- san hô đỏ to nhiều nhánh tròn như vương miện, cao hơn bờm cũ nhiều như concept;
+- không vẽ đầu, mũ; không xanh ngọc.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a small turquoise mane on top of the head and a turquoise fringe at its front (the head is not drawn; the empty space below is where it is). Redraw THESE pieces as the coral crown of image 2 (the approved concept): a big red coral crest with many rounded branches standing up from the same bases like a crown; much taller than the old mane.
+Do NOT draw: the head, the helmet, turquoise hair.""", "base of the crest (where it stands on the head)"),
+            ("N04", "cán cờ soái", "banner pole", "doi", 25,
+             "a white tube starting at the lower right and pointing to the upper left, ending in a big turquoise tuft",
+             "Ống trắng từ dưới phải chĩa lên trên trái (1024 × 1024, nền trắng), đầu là chỏm xanh ngọc to",
+             """- chân cán ở dưới phải đúng chỗ cũ, cán chạy lên trên trái;
+- cán gỗ có núm vàng đồng, cờ soái vuông đỏ viền vàng có hình sóng trắng, mép dưới cờ răng cưa như concept;
+- không chữ; không vẽ đầu.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a white tube that starts at the lower right (behind the head, not shown) and points to the upper left, ending in a big turquoise tuft. Redraw THESE pieces as the banner of image 2 (the approved concept): a wooden pole along the same line with a small brass knob on top, and a square red general's banner with a gold border, a simple cream-white wave shape and a notched lower edge, hanging from the upper part of the pole where the tuft is.
+Do NOT draw: the head, a white tube, a tuft, letters.""", "lower-right end of the pole (where it starts behind the head)"),
+            ("N05", "đao mỏ cá kiếm sau lưng", "swordfish sword on the back", "doi", 18,
+             "a katana seen diagonally: a red grip with white diamonds at the upper left and a dark scabbard with a tan end at the lower right",
+             "Thanh katana nằm chéo (1024 × 1024, nền trắng): chuôi đỏ hoa văn trắng ở trên trái, bao kiếm sẫm đầu nâu ở dưới phải",
+             """- nằm chéo đúng như cũ, chuôi ở trên trái, đoạn dưới ở dưới phải;
+- lưỡi mỏ cá kiếm trắng ngà răng cưa nhỏ, chuôi quấn dây xanh thẫm, đốc san hô đỏ, đoạn bao xanh rêu như concept;
+- không katana, không hoa văn kim cương; không vẽ đầu, thân.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a katana worn on the back, seen diagonally: a red grip with white diamonds at the upper left and a dark scabbard with a tan end at the lower right (the creature is not shown). Redraw THESE pieces as the sword of image 2 (the approved concept), along the same diagonal: at the upper left a grip wrapped in dark navy cord with a coral-red pommel and a brass guard, then an ivory swordfish-bill blade with small saw teeth; the lower-right piece a short moss-green scabbard part.
+Do NOT draw: a katana, a diamond-pattern grip, the head, the body.""", "middle of the sword (where it crosses behind the neck)"),
+            ("N06", "hai dây tảo", "two seaweed cords", "giu", 29,
+             "two dark grey ribbed hoses: one curving from the upper right down to the left, one lower curving to the right",
+             "Hai ống thở xám đen có ngấn (1024 × 1024, nền trắng): một cong từ trên phải xuống trái, một ở dưới cong sang phải",
+             """- đúng đường đi, độ dày như ống cũ;
+- dây bện xanh tảo;
+- không vẽ đầu, thân.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two dark grey ribbed hoses: one curving from the upper right down to the left, one lower curving to the right. Redraw THESE pieces as braided seaweed-green cords like those of image 2 (the approved concept), along exactly the same paths and as thick as the hoses.
+Do NOT draw: grey hoses, the head, the body.""", None),
+            ("N07", "khăn cổ", "neckerchief", "giu", 37,
+             "a black round collar piece",
+             "Cổ áo tròn màu đen (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- khăn cổ xanh thẫm có nút thắt;
+- không vẽ đầu, thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a black round collar piece at the neck. Redraw THIS piece as the neckerchief of image 2 (the approved concept): a dark navy cloth with a knot at the front, the same outline.
+Do NOT draw: the head, the body, black.""", None),
+            ("N08", "giáp ngực mai rùa", "turtle-shell chest plate", "giu", 26,
+             "a round grey chest dome with a brown rim and a small strap at its upper right",
+             "Giáp ngực tròn xám viền nâu (1024 × 1024, nền trắng), dây nhỏ ở trên phải",
+             """- giữ viền như cũ;
+- mai rùa xanh rêu hoa văn lục giác, viền ngà, dây vai xanh thẫm khoá vàng như concept;
+- không vẽ tay, đầu; không xám.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a round grey chest dome with a brown rim and a small strap at its upper right. Redraw THESE pieces as the chest plate of image 2 (the approved concept): a moss-green turtle shell with a simple hexagon pattern and an ivory rim, the strap dark navy with a small gold buckle, the same outlines.
+Do NOT draw: the arms, the head, grey colours.""", None),
+            ("N09", "đai vỏ sò", "shell belt", "giu", 19,
+             "three small red pieces: a round buckle with a gold centre at the top, a red belly plate below, a small tan tassel at the right",
+             "Ba mảnh đỏ nhỏ (1024 × 1024, nền trắng): khoá tròn tâm vàng ở trên, tấm giáp bụng đỏ ở dưới, tua nâu nhạt nhỏ bên phải",
+             """- ba mảnh đúng chỗ, cỡ như cũ;
+- khoá tròn san hô đỏ viền đồng; tấm bụng thành đoạn đai vỏ sò ngà; tua thành tua tảo xanh;
+- không vẽ thân.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): a round red buckle with a gold centre at the top, a red belly plate below it and a small tan tassel at the right. Redraw THESE three pieces in the look of image 2 (the approved concept), each where it is and about as big: the buckle a round red-coral stone in a brass ring; the belly plate a row of small ivory scallop shells on a navy band; the tassel a short seaweed-green tassel.
+Do NOT draw: the body, the tail.""", None),
+            ("N10", "tay trái và nắm tay", "viewer-left arm and fist", "giu", 20,
+             "a blue upper arm and a purple padded forearm sleeve curving down to a blue fist at the lower left with a round red knuckle guard",
+             "Bắp tay xanh và ống tay tím có đệm (1024 × 1024, nền trắng) cong xuống nắm tay xanh ở dưới trái có giáp nắm tay tròn đỏ",
+             """- vai ở trên phải, nắm tay ở dưới trái đúng chỗ cũ;
+- tay xanh lục biển, quấn cổ tay xanh thẫm, giáp nắm tay san hô đỏ;
+- không vẽ khiên, thân; không tím.""",
+             """Image 1 is four pieces of a 2D cut-out animation puppet (the old design): a blue upper arm whose shoulder is at the upper right and a purple padded forearm sleeve curving down to a blue fist at the lower left, with a round red knuckle guard on the fist. Redraw THESE pieces as the viewer-left arm of image 2 (the approved concept): a sea-green arm with a dark navy wrist wrap, a sea-green fist exactly where the old fist is, a round red-coral knuckle guard.
+Do NOT draw: the shield, the body, purple or blue colours.""", None),
+            ("N11", "khiên san hô tay trái", "viewer-left coral shield", "doi", 26,
+             "a big gold-and-red star-shaped shield with a red plate behind it",
+             "Khiên hình sao vàng đỏ to (1024 × 1024, nền trắng) với tấm đỏ phía sau",
+             """- tâm khiên đúng chỗ tâm khiên cũ, cỡ gần như cũ;
+- khiên tròn san hô đỏ hoa văn san hô, viền đồng có đinh tán như concept; không hình sao;
+- không vẽ tay, thân.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a big gold-and-red star-shaped shield worn on the forearm, with a red plate behind it (the arm is not shown). Redraw THESE pieces as the shield of image 2 (the approved concept): a round red-coral shield with a coral pattern and a riveted brass rim, its centre where the star's centre is, about as big; the plate behind it a red-coral plate with a brass edge.
+Do NOT draw: a star shape, the arm, the body.""", "centre of the shield (where it is strapped to the forearm)"),
+            ("N12", "tay phải, nắm tay và giáp tay", "viewer-right arm, fist and guard", "giu", 25,
+             "a long blue arm curving down from the upper left to a blue fist at the lower right, with a grey band on the forearm",
+             "Tay xanh dài cong từ trên trái xuống nắm tay xanh ở dưới phải (1024 × 1024, nền trắng), vòng xám ở cẳng tay",
+             """- vai ở trên trái, nắm tay ở dưới phải đúng chỗ cũ;
+- tay xanh lục biển, giáp cẳng tay vỏ sò ngà, quấn cổ tay xanh thẫm;
+- không vẽ tấm giáp đỏ, thân.""",
+             """Image 1 is three pieces of a 2D cut-out animation puppet (the old design): a long blue arm curving down from the shoulder at the upper left to a blue fist at the lower right, with a grey band on the forearm. Redraw THESE pieces as the viewer-right arm of image 2 (the approved concept): a sea-green arm with an ivory shell guard where the grey band is, a dark navy wrist wrap and a sea-green fist exactly where the old fist is.
+Do NOT draw: the red plate, the body, blue or grey colours.""", None),
+            ("N13", "tấm giáp san hô tay phải", "viewer-right coral plate", "doi", 30,
+             "a tall red and gold armour plate on the outside of the forearm",
+             "Tấm giáp cao đỏ vàng ở mặt ngoài cẳng tay (1024 × 1024, nền trắng)",
+             """- đúng chỗ, cỡ gần như cũ;
+- tấm san hô đỏ viền đồng có vỏ sò ngà nhỏ như concept;
+- không vẽ tay.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a tall red and gold armour plate on the outside of the forearm (the arm is not shown). Redraw THIS piece as the forearm plate of image 2 (the approved concept): a red-coral plate with a brass rim and a small ivory scallop shell, in the same place and about as big.
+Do NOT draw: the arm, the body.""", "middle of the plate (where it sits on the forearm)"),
+            ("N14", "đuôi cuộn", "curled tail", "giu", 20,
+             "a blue seahorse tail with brown ridges curling into a spiral",
+             "Đuôi cá ngựa xanh có gờ nâu cuộn tròn (1024 × 1024, nền trắng)",
+             """- giữ viền và chiều cuộn như cũ;
+- xanh lục biển, gờ vàng kem;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a blue seahorse tail with brown ridges; its top joins the body (not shown) and it curls into a spiral. Redraw THIS piece as the tail of image 2 (the approved concept): sea green with cream ridges, the same outline and curl.
+Do NOT draw: the body, blue or brown colours.""", None),
+        ],
+        "extra": [], "first": ["N01", "N11"],
+    },
+    {
+        "code": "map_rang_2", "elem": "thuy", "aola": 32,
+        "hero": "Mập Răng Cưa", "form": 2, "forms": 3, "form_name": "Mập Răng Cưa",
+        "role_vi": "tướng Hiếm hệ Thủy (quái thường đảo Thủy), dạng 2/3, rig aola #32",
+        "design_vi": ("Mập Răng Cưa lớn lên: thon và dữ hơn, lưng xám chì ánh tím, bụng kem như dạng 1; mép vây lưng và vây đuôi "
+                      "răng cưa, vằn cam cháy; tấm giáp xương ngà mép răng cưa trên đỉnh đầu; giáp trán xương ngà có khía; nhe trọn "
+                      "hàm răng cưa; mắt vàng chanh"),
+        "rig_vi": ("con gốc #32 là cá mập thon lơ lửng, nhìn nghiêng ba phần tư quay sang phải: đầu to có tấm giáp xanh trên đỉnh và "
+                   "chóp vây nhỏ trên phải, huy hiệu số 02 trên trán, mắt đỏ, mang đỏ phát sáng, miệng răng nhọn ở dưới phải; vây lưng "
+                   "cao, vây nhỏ gần đuôi, thân sau hai khúc, vây đuôi đỏ xanh bên trái, vây ngực dưới bụng, vây bụng nhỏ. Bỏ khỏi bóng "
+                   "xám: bóng dưới chân, lớp viền cả con"),
+        "regions_vi": ("1 đầu và thân trước, 2 mắt, 3 tấm giáp trên đầu, 4 huy hiệu, 5 mang, 6 vây lưng, 7 vây nhỏ gần đuôi, "
+                       "8 hai khúc thân sau, 9 vây đuôi, 10 vây ngực, 11 vây bụng"),
+        "anchor": True,
+        "prev": [("map_rang_1", "the approved FIRST stage of this evolution line: keep its colours, eye, saw teeth, stripes, forehead "
+                                "plate and drawing style; this stage is the same shark grown up",
+                  "dạng 1 đã duyệt: cá mập xám chì ánh tím bụng kem, vằn cam răng cưa, mắt vàng chanh, giáp trán xương ngà")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the SECOND stage of a three-stage Water evolution line whose first stage is image 6. The little deep-sea shark pup of image 6 has grown into a SAW-TOOTH SHARK: sleeker, fiercer, with saw-edged fins and bone armour; still a cute creature, not a monster. Same three-quarter view (facing the viewer's right) and pose as image 1, floating above the ground, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big head with the front of the body, one eye, a plate on top of the head with a small fin tip at its upper right, a small plate on the forehead, gill marks behind the eye, one tall dorsal fin, one small back fin near the tail, two tail segments, one tail fin, one pectoral fin and one small belly fin; no legs, no arms;
+- every joint where it is: the dorsal fin stands on the back above the gills; the small back fin sits on the first tail segment; the two tail segments run from the body to the left and end in the tail fin at the far left; the pectoral fin hangs under the belly pointing down and back; the belly fin hangs under the body; the head plate covers the top of the head; the forehead plate is above and behind the eye; the gills are behind the eye; the mouth with teeth is at the lower right of the head;
+- every part pointing the same way: the shark faces the viewer's right, its snout at the right edge;
+- the head, the fins and the tail about the size and shape of regions 1, 6, 8, 9 and 10; the whole figure about the same size.
+
+CHANGE (the new look, region by region):
+1 head and body: slate grey with a slight violet tint on the back, a cream-white belly and jaw; a wide grin showing a full row of saw teeth.
+2 eye: the lemon-yellow eye of image 6 with a round dark pupil and one catchlight dot, under a thick dark slate brow angled down.
+3 head plate: an ivory bone armour plate with a saw-tooth edge on top of the head, its small tip at the upper right.
+4 forehead plate: the small ivory bone plate with three notches of image 6 (no numbers, no letters).
+5 gills: three burnt-orange saw-tooth stripes.
+6 dorsal fin: tall, slate violet, its back edge cut into saw teeth, a burnt-orange saw-tooth stripe.
+7 small back fin: slate violet with an orange tip.
+8 tail segments: slate grey with a burnt-orange stripe on each.
+9 tail fin: slate violet with burnt-orange tiger stripes and a saw-tooth back edge.
+10 and 11 pectoral and belly fins: slate violet with cream edges.
+
+ATTITUDE: a fierce young shark ready to bite: brow angled down, a wide saw-tooth grin; cute, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, eye, teeth, stripes and drawing style.
+
+COLOURS: slate grey with a violet tint; a cream-white belly; burnt-orange stripes; a lemon-yellow eye; ivory bone plates. Few colours.
+
+AVOID: a navy-blue body, red gills or red stripes, glowing gills, red eyes, a badge with numbers, numbers or letters, metal armour, a human face, legs or arms, text, labels, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #32 (17 mảnh): 1 bóng, 2 viền cả con, 3 chóp vây trên đầu, 4 vây đuôi, 5 6 hai khúc thân sau, 7 vây nhỏ gần đuôi,
+        # 8 vây bụng, 9 lòng trắng mắt, 10 con ngươi, 11 đầu và thân trước, 12 vây lưng, 13 vây ngực, 14 tấm giáp trên đầu,
+        # 15 quầng đỏ mang, 16 khe mang, 17 huy hiệu.
+        # Viền px = 0,85% × 234 đơn vị × k: N01 8, N02 17, N03 16, N04 68, N05 25, N06 13, N07 19, N08 47.
+        "groups": [
+            ("N01", "đầu thân có mặt, vằn mang, giáp trán", "head and front body with face, gill stripes and forehead plate", "giu", 8,
+             "a navy shark head and front body seen in three-quarter view facing right: a red eye with a red brow line, red gill slits with a glow, a grey '02' badge, a white jaw with pointed teeth",
+             "Đầu và thân trước cá mập xanh hải quân nhìn ba phần tư quay sang phải (1024 × 1024, nền trắng): mắt đỏ, mang đỏ phát sáng, huy hiệu '02', hàm trắng răng nhọn",
+             """- giữ viền như cũ; mắt vàng chanh đúng chỗ mắt cũ, gờ mày xám sẫm xếch;
+- xám chì ánh tím, bụng và hàm kem, cười nhe trọn hàm răng cưa ở chỗ miệng cũ;
+- ba vằn cam răng cưa đúng chỗ mang cũ (không phát sáng); giáp trán xương ngà có khía ở chỗ huy hiệu (không chữ số);
+- không vẽ vây, tấm giáp đầu; không đỏ, không xanh hải quân.""",
+             """Image 1 is several pieces of a 2D cut-out animation puppet (the old design): a navy shark head with the front of the body in three-quarter view facing the viewer's right: a red eye with a red brow line, red gill slits with a red glow, a grey badge with '02' on the side of the head, a white jaw with pointed teeth. Redraw THESE pieces as the head and body of image 2 (the approved concept), keeping the old outline: slate grey with a slight violet tint, a cream-white belly and jaw with a wide grin of saw teeth where the old mouth is; a lemon-yellow eye (round dark pupil, one catchlight dot) exactly where the old eye is under a thick dark slate brow angled down; three burnt-orange saw-tooth stripes where the gills are (no glow); a small ivory bone plate with notches where the badge is (no numbers, no letters).
+Do NOT draw: any fin, the head plate, red, navy blue, a glow, numbers or letters.""", None),
+            ("N02", "tấm giáp xương trên đầu", "head bone plate", "doi", 17,
+             "a navy armour plate lying along the top of the head from the left to the right, and a small separate fin tip at the right",
+             "Tấm giáp xanh nằm dọc đỉnh đầu từ trái sang phải (1024 × 1024, nền trắng), và chóp vây nhỏ riêng ở bên phải",
+             """- tấm giáp nằm đúng chỗ cũ dọc đỉnh đầu, chóp nhỏ bên phải đúng chỗ cũ;
+- xương ngà, mép răng cưa như concept;
+- không vẽ đầu.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): a navy armour plate lying along the top of the head from the left to the right (the head is not shown), and a small separate fin tip at the right. Redraw THESE pieces as the head plate of image 2 (the approved concept): ivory bone with a saw-tooth edge, lying in the same place; the small tip ivory too.
+Do NOT draw: the head, navy blue, metal.""", "underside of the plate (where it lies on the head)"),
+            ("N03", "vây lưng", "dorsal fin", "doi", 16,
+             "a tall navy dorsal fin with a pale front, its base at the bottom right, its tip at the upper left",
+             "Vây lưng cao xanh hải quân mép trước nhạt (1024 × 1024, nền trắng), gốc ở dưới phải, chóp ở trên trái",
+             """- gốc vây đúng chỗ cũ, chóp chĩa cùng hướng;
+- tím ánh xám, mép sau răng cưa, dải cam răng cưa;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a tall navy dorsal fin with a pale front edge; its base is at the bottom (on the back, not shown), its tip at the upper left. Redraw THIS piece as the dorsal fin of image 2 (the approved concept): slate violet with its back edge cut into saw teeth and a burnt-orange saw-tooth stripe, the same direction.
+Do NOT draw: the body, navy blue.""", "base of the fin (where it stands on the back)"),
+            ("N04", "vây nhỏ gần đuôi", "small back fin", "doi", 68,
+             "a small dark navy fin, its base at the bottom",
+             "Vây nhỏ xanh thẫm (1024 × 1024, nền trắng), gốc ở dưới",
+             """- gốc đúng chỗ cũ;
+- tím ánh xám, chóp cam;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small dark navy fin; its base is at the bottom (on the tail, not shown). Redraw THIS piece as the small back fin of image 2 (the approved concept): slate violet with an orange tip, about the same size and direction.
+Do NOT draw: the tail, navy blue.""", "base of the fin"),
+            ("N05", "hai khúc thân sau", "two tail segments", "giu", 25,
+             "two dark navy tail segments joined in a row from the body (right) to the tail fin (left)",
+             "Hai khúc thân sau xanh thẫm nối liền từ thân (phải) tới vây đuôi (trái) (1024 × 1024, nền trắng)",
+             """- giữ viền hai khúc như cũ;
+- xám chì, mỗi khúc một dải cam;
+- không vẽ thân trước, vây đuôi.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two dark navy tail segments in a row; the right one joins the body, the left one joins the tail fin (neither shown). Redraw THESE pieces in the colours of image 2 (the approved concept): slate grey with a burnt-orange stripe on each segment, the same outlines.
+Do NOT draw: the body, the tail fin, navy blue.""", None),
+            ("N06", "vây đuôi", "tail fin", "doi", 13,
+             "a navy and red tail fin, its narrow base at the right, its two lobes at the left",
+             "Vây đuôi xanh hải quân và đỏ (1024 × 1024, nền trắng), gốc hẹp bên phải, hai thuỳ bên trái",
+             """- gốc hẹp bên phải đúng chỗ cũ;
+- tím ánh xám, vằn cam, mép răng cưa;
+- không vẽ thân; không đỏ.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a navy and red tail fin; its narrow base at the right joins the tail (not shown), its two lobes spread to the left. Redraw THIS piece as the tail fin of image 2 (the approved concept): slate violet with burnt-orange tiger stripes and a saw-tooth back edge, the same direction.
+Do NOT draw: the tail, red, navy blue.""", "narrow right end (where it joins the tail)"),
+            ("N07", "vây ngực", "pectoral fin", "giu", 19,
+             "a navy pectoral fin with a pale lower edge, pointing down and back to the lower left",
+             "Vây ngực xanh hải quân mép dưới nhạt (1024 × 1024, nền trắng), chĩa xuống trái",
+             """- giữ viền như cũ;
+- tím ánh xám, mép kem;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a navy pectoral fin with a pale lower edge pointing down and back to the lower left; its upper right end joins the belly (not shown). Redraw THIS piece as the pectoral fin of image 2 (the approved concept): slate violet with a cream edge, the same outline.
+Do NOT draw: the body, navy blue.""", None),
+            ("N08", "vây bụng", "belly fin", "giu", 47,
+             "a small navy and grey fin hanging down",
+             "Vây bụng nhỏ xanh hải quân và xám rủ xuống (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- tím ánh xám, mép kem;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small navy and grey fin hanging down; its top edge joins the belly (not shown). Redraw THIS piece as the small belly fin of image 2 (the approved concept): slate violet with a cream edge, the same outline.
+Do NOT draw: the body, navy blue.""", None),
+        ],
+        "extra": [], "first": ["N01", "N03"],
+    },
+    {
+        "code": "map_rang_3", "elem": "thuy", "aola": 33,
+        "hero": "Mập Răng Cưa", "form": 3, "forms": 3, "form_name": "Vua Cá Mập",
+        "role_vi": "tướng Hiếm hệ Thủy (quái thường đảo Thủy), dạng 3/3, rig aola #33",
+        "design_vi": ("Vua Cá Mập: to, oai, lưng xám chì ánh tím, bụng kem; mũ giáp xương ngà có vương miện răng cá mập; tấm chắn mõm "
+                      "xương ngà thay kính che mặt; giáp vai xương ngà; vằn cam cháy răng cưa dọc thân và vây; vây lưng lớn mép răng cưa; "
+                      "mắt vàng chanh, gờ mày sẫm; hàm răng cưa"),
+        "rig_vi": ("con gốc #33 là cá mập vua to lơ lửng, quay sang phải: kính che mặt xanh sẫm có nhiều chi tiết máy phủ mõm, tấm "
+                   "giáp xanh lớn trên đầu, tấm đỏ trên mắt, dải đỏ dọc đầu và tấm má, huy hiệu số 03, giáp lưng, mang đỏ, vây lưng "
+                   "lớn có hình chớp đỏ, vây nhỏ trước vây lưng, hai khúc thân sau, vây đuôi đỏ, vây ngực lớn chĩa xuống trái, vây "
+                   "bụng nhỏ, miệng răng cưa. Bỏ khỏi bóng xám: bóng dưới chân, lớp viền cả con"),
+        "regions_vi": ("1 đầu và thân trước, 2 mắt và tấm trên mắt, 3 kính che mõm, 4 tấm giáp trên đầu, 5 dải đầu và tấm má, "
+                       "6 chóp mũi, 7 miệng, 8 huy hiệu, 9 giáp lưng, 10 mang, 11 vây lưng, 12 vây nhỏ trước vây lưng, "
+                       "13 hai khúc thân sau, 14 vây đuôi, 15 vây ngực, 16 vây bụng"),
+        "anchor": True,
+        "prev": [("map_rang_1", "the approved FIRST stage of this evolution line: keep its colours, eye, saw teeth, stripes, forehead "
+                                "plate and drawing style; this stage is the same shark fully grown into a king",
+                  "dạng 1 đã duyệt: cá mập xám chì ánh tím bụng kem, vằn cam răng cưa, mắt vàng chanh, giáp trán xương ngà")],
+        "concept": """Character concept for a 2D cut-out animation game. Draw ONE original creature: the THIRD and final stage of a three-stage Water evolution line whose first stage is image 6. The little deep-sea shark pup of image 6 has become the SHARK KING: big, proud, in ivory bone armour with a crown of shark teeth; still a cute creature, not a monster. Same view (facing the viewer's right) and pose as image 1, floating above the ground, on a plain white background. Not any existing character, and clearly DIFFERENT from the figure the silhouette came from.
+
+Image 1 (grey silhouette) and image 2 (the same figure split into numbered regions) show the PUPPET RIG the new creature will be animated on. They tell you where each part and joint is, NOT what the creature looks like: do not trace their outline. Viewer-left and viewer-right mean as seen in the picture.
+
+KEEP FROM THE RIG (the animation moves these parts around these joints):
+- the same parts, no more, no fewer: one big head with the front of the body, one eye under a brow plate, a guard over the front of the snout, a big plate on top of the head, a stripe along the head and a cheek plate, a small nose tip, a mouth with teeth, a small forehead plate, a back plate, gill marks, one big dorsal fin with one small fin in front of it, two tail segments, one tail fin, one big pectoral fin and one small belly fin; no legs, no arms;
+- every joint where it is: the snout guard covers the front of the snout at the right; the head plate covers the top of the head; the dorsal fin stands on the back, the small fin just in front of it; the two tail segments run to the left and end in the tail fin at the far left; the big pectoral fin grows from under the front of the belly and points down and back to the lower left; the belly fin hangs under the body; the mouth is at the lower right;
+- every part pointing the same way: the shark faces the viewer's right;
+- the head, the fins and the tail about the size and shape of regions 1, 11, 13, 14 and 15; the whole figure about the same size.
+
+CHANGE (the new look, region by region):
+1 head and body: slate grey with a slight violet tint, a cream-white belly and jaw.
+2 eye: the lemon-yellow eye of image 6 (a round dark pupil, one catchlight dot) under a thick dark slate brow plate angled down.
+3 snout guard: an ivory bone guard over the front of the snout (no glass, no machinery).
+4 head plate: an ivory bone helmet plate with a crown of white shark teeth standing along its top edge.
+5 stripe and cheek plate: burnt-orange saw-tooth stripes along the head.
+6 nose tip: a small slate tip.
+7 mouth: a wide grin with a full row of saw teeth.
+8 forehead plate: the small ivory bone plate with notches of image 6 (no numbers, no letters).
+9 back plate: an ivory bone shoulder plate.
+10 gills: three burnt-orange saw-tooth stripes.
+11 and 12 dorsal fins: a big slate-violet dorsal fin with a saw-tooth back edge and a burnt-orange saw-tooth stripe; the small fin in front of it slate violet.
+13 tail segments: slate grey with burnt-orange stripes.
+14 tail fin: slate violet with burnt-orange tiger stripes and a saw-tooth edge.
+15 and 16 pectoral and belly fins: slate violet with cream edges and an orange stripe on the big pectoral fin.
+
+ATTITUDE: a proud shark king: chin up, brow angled down, a wide saw-tooth grin; cute, never scary, never a cheerful mascot.
+
+{RENDER}
+{DESIGN}
+The style sheet is image 3; the hand-drawn map is image 4. Image 5 is an approved character of this game: copy its ink line weight and its pencil and crayon texture, not its design; it has a few white shine spots and some darker shading: do NOT copy those. Image 6 is the approved first stage of this creature: keep its colours, eye, teeth, stripes and drawing style.
+
+COLOURS: slate grey with a violet tint; a cream-white belly; burnt-orange stripes; a lemon-yellow eye; ivory bone armour and white teeth. Few colours.
+
+AVOID: a navy-blue body, red stripes, a dark glass visor, machinery or glowing lights, red eyes, a badge with numbers, numbers or letters, metal armour, a human face, legs or arms, text, labels, the region colours, frames, background scenery, a second view, shading, shadows, white highlights, glossy shine, glow, gradients.""",
+        # rig #33 (35 mảnh): 1 bóng, 2 viền cả con, 3 vây đuôi, 4 5 hai khúc thân sau, 6 vây bụng, 7 đầu và thân trước, 8 tấm đỏ
+        # trên mắt, 9 lòng trắng mắt, 10 con ngươi, 11 12 chi tiết mắt, 13 kính che mõm, 14–24 chi tiết trong kính, 25 chóp mũi,
+        # 26 giáp lưng, 27 mang, 28 dải đỏ dọc đầu, 29 tấm má, 30 tấm giáp trên đầu, 31 huy hiệu, 32 vây lưng, 33 vây nhỏ,
+        # 34 miệng, 35 vây ngực.
+        # Viền px = 0,85% × 90 đơn vị × k: N01 11, N02 11, N03 40, N04 40, N05 36, N06 19, N07 30, N08 33, N09 17, N10 16, N11 31.
+        "groups": [
+            ("N01", "đầu thân có mặt và tấm chắn mõm", "head and front body with face and snout guard", "giu", 11,
+             "a big navy and white shark head and front body facing right, a dark teal glass visor with machinery over the snout, a red plate over the eye, a red stripe along the head, a zigzag mouth",
+             "Đầu và thân trước cá mập to xanh hải quân bụng trắng quay sang phải (1024 × 1024, nền trắng), kính che mõm xanh sẫm có chi tiết máy, tấm đỏ trên mắt, dải đỏ dọc đầu, miệng răng cưa",
+             """- giữ viền như cũ; mắt vàng chanh đúng chỗ mắt cũ, gờ mày xám sẫm xếch;
+- xám chì ánh tím, bụng hàm kem; chỗ kính che mõm thành tấm chắn mõm xương ngà (không kính, không máy);
+- dải đầu thành vằn cam răng cưa; cười trọn hàm răng cưa ở chỗ miệng cũ;
+- không vẽ vây, mũ giáp, huy hiệu; không đỏ, không xanh hải quân.""",
+             """Image 1 is many pieces of a 2D cut-out animation puppet (the old design): a big navy and white shark head with the front of the body, facing the viewer's right: a dark teal glass visor with little machine details over the front of the snout, a red plate over the eye, a red stripe along the head and a cheek plate, a zigzag mouth at the lower right. Redraw THESE pieces as the head and body of image 2 (the approved concept), keeping the old outline: slate grey with a slight violet tint, a cream-white belly and jaw; a lemon-yellow eye (round dark pupil, one catchlight dot) exactly where the old eye is under a thick dark slate brow angled down; where the visor is, an ivory bone guard over the front of the snout (no glass, no machinery); burnt-orange saw-tooth stripes where the red stripe and cheek plate are; a wide grin of saw teeth where the old mouth is.
+Do NOT draw: any fin, the helmet plate, the forehead plate, glass, machinery, lights, red, navy blue.""", None),
+            ("N02", "mũ giáp xương vương miện răng", "bone helmet with tooth crown", "doi", 11,
+             "a long blue armour plate over the top of the head, curving down at the front (right)",
+             "Tấm giáp xanh dài phủ đỉnh đầu, cong xuống ở phía trước (bên phải) (1024 × 1024, nền trắng)",
+             """- tấm giáp nằm đúng chỗ cũ trên đỉnh đầu;
+- xương ngà, dọc mép trên là hàng răng cá mập trắng dựng lên như concept;
+- không vẽ đầu; không xanh, không kim loại.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a long blue armour plate over the top of the head, curving down at the front (right); the head is not shown. Redraw THIS piece as the helmet of image 2 (the approved concept): ivory bone lying in the same place, with a crown of white shark teeth standing along its top edge.
+Do NOT draw: the head, blue colours, metal.""", "underside of the plate (where it lies on the head)"),
+            ("N03", "giáp trán xương ngà", "forehead bone plate", "doi", 40,
+             "a grey badge with '03' on it",
+             "Huy hiệu xám có số '03' (1024 × 1024, nền trắng)",
+             """- đúng chỗ huy hiệu cũ, cỡ gần như cũ;
+- miếng xương ngà có ba khía; không chữ số;
+- không vẽ đầu.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a grey badge with '03' on it, on the side of the head (the head is not shown). Redraw THIS piece as the small ivory bone forehead plate of image 2 (the approved concept): ivory with three notches along its edge, in the same place and about the same size; no numbers, no letters.
+Do NOT draw: the head, numbers, letters, grey metal.""", "centre of the plate"),
+            ("N04", "giáp lưng xương ngà", "back bone plate", "giu", 40,
+             "a dark navy shoulder plate",
+             "Tấm giáp lưng xanh thẫm (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- xương ngà;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a dark navy shoulder plate on the back (the body is not shown). Redraw THIS piece as the ivory bone back plate of image 2 (the approved concept), the same outline.
+Do NOT draw: the body, navy blue, metal.""", None),
+            ("N05", "vằn mang", "gill stripes", "giu", 36,
+             "three dark red gill plates in a row",
+             "Ba tấm mang đỏ sẫm xếp hàng (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- ba vằn cam cháy mép răng cưa trên nền xám chì như concept;
+- không vẽ thân; không đỏ.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): three dark red gill plates in a row (the body is not shown). Redraw THIS piece in the look of image 2 (the approved concept): three burnt-orange saw-tooth stripes on slate grey, the same outline.
+Do NOT draw: the body, dark red.""", None),
+            ("N06", "vây lưng lớn", "big dorsal fin", "doi", 19,
+             "a big navy dorsal fin with a red and white zigzag, its base at the bottom right, its tip at the upper left",
+             "Vây lưng lớn xanh hải quân có hình chớp đỏ trắng (1024 × 1024, nền trắng), gốc dưới phải, chóp trên trái",
+             """- gốc đúng chỗ cũ, chóp cùng hướng;
+- tím ánh xám, mép sau răng cưa, dải cam răng cưa;
+- không vẽ thân; không đỏ.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big navy dorsal fin with a red and white zigzag; its base at the bottom (on the back, not shown), its tip at the upper left. Redraw THIS piece as the big dorsal fin of image 2 (the approved concept): slate violet with a saw-tooth back edge and a burnt-orange saw-tooth stripe, the same direction.
+Do NOT draw: the body, red, navy blue.""", "base of the fin (where it stands on the back)"),
+            ("N07", "vây nhỏ trước vây lưng", "small front fin", "doi", 30,
+             "a small blue fin, its base at the bottom, its tip at the top",
+             "Vây nhỏ xanh (1024 × 1024, nền trắng), gốc ở dưới, chóp ở trên",
+             """- gốc đúng chỗ cũ;
+- tím ánh xám;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small blue fin; its base at the bottom (on the back, not shown), its tip at the top. Redraw THIS piece as the small fin of image 2 (the approved concept): slate violet, about the same size and direction.
+Do NOT draw: the body, blue.""", "base of the fin"),
+            ("N08", "hai khúc thân sau", "two tail segments", "giu", 33,
+             "two dark navy tail segments joined in a row",
+             "Hai khúc thân sau xanh thẫm nối liền (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- xám chì, mỗi khúc một dải cam;
+- không vẽ thân trước, vây đuôi.""",
+             """Image 1 is two pieces of a 2D cut-out animation puppet (the old design): two dark navy tail segments in a row; the right one joins the body, the left one joins the tail fin (neither shown). Redraw THESE pieces in the colours of image 2 (the approved concept): slate grey with a burnt-orange stripe on each, the same outlines.
+Do NOT draw: the body, the tail fin, navy blue.""", None),
+            ("N09", "vây đuôi", "tail fin", "doi", 17,
+             "a navy and red tail fin, its narrow base at the right, its two lobes at the left",
+             "Vây đuôi xanh hải quân và đỏ (1024 × 1024, nền trắng), gốc hẹp bên phải, hai thuỳ bên trái",
+             """- gốc hẹp bên phải đúng chỗ cũ;
+- tím ánh xám, vằn cam, mép răng cưa;
+- không vẽ thân; không đỏ.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a navy and red tail fin; its narrow base at the right joins the tail (not shown), its two lobes spread to the left. Redraw THIS piece as the tail fin of image 2 (the approved concept): slate violet with burnt-orange tiger stripes and a saw-tooth edge, the same direction.
+Do NOT draw: the tail, red, navy blue.""", "narrow right end (where it joins the tail)"),
+            ("N10", "vây ngực lớn", "big pectoral fin", "giu", 16,
+             "a big navy pectoral fin with a red and white stripe, pointing down and back to the lower left",
+             "Vây ngực lớn xanh hải quân có sọc đỏ trắng (1024 × 1024, nền trắng), chĩa xuống trái",
+             """- giữ viền như cũ;
+- tím ánh xám, mép kem, một dải cam;
+- không vẽ thân; không đỏ.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a big navy pectoral fin with a red and white stripe, pointing down and back to the lower left; its upper right end joins the belly (not shown). Redraw THIS piece as the big pectoral fin of image 2 (the approved concept): slate violet with a cream edge and one burnt-orange stripe, the same outline.
+Do NOT draw: the body, red, navy blue.""", None),
+            ("N11", "vây bụng", "belly fin", "giu", 31,
+             "a small navy fin with a red stripe hanging down",
+             "Vây bụng nhỏ xanh hải quân có sọc đỏ rủ xuống (1024 × 1024, nền trắng)",
+             """- giữ viền như cũ;
+- tím ánh xám, mép kem;
+- không vẽ thân.""",
+             """Image 1 is one piece of a 2D cut-out animation puppet (the old design): a small navy fin with a red stripe hanging down; its top joins the belly (not shown). Redraw THIS piece as the small belly fin of image 2 (the approved concept): slate violet with a cream edge, the same outline.
+Do NOT draw: the body, red, navy blue.""", None),
+        ],
+        "extra": [], "first": ["N01", "N06"],
+    },
 ]
+# đảo Thủy lô 2 (5 dòng boss): mục sinh bằng tools/lo_thuy2.py (đặc tả gọn từng dạng), nạp thêm ở đây
+_LO2 = ROOT + "forms_thuy_lo2.json"
+if os.path.exists(_LO2):
+    import json
+    FORMS += json.load(open(_LO2, encoding="utf-8"))
 
 
 def rig_dir(f):

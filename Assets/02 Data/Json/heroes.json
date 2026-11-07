@@ -1195,7 +1195,7 @@
    "id": "tam_tay",
    "name": "Tám Tay",
    "title": "Pháo thủ bong bóng",
-   "aola": "goc_1053",
+   "aola": "thuy_1053",
    "elem": "thuy",
    "rarity": "uncommon",
    "stats": [
@@ -1215,12 +1215,12 @@
    "forms": [
     {
      "name": "Tám Tay Bong Bóng",
-     "aola": "goc_1053",
+     "aola": "thuy_1053",
      "size": 0.92
     },
     {
      "name": "Tám Tay Pháo Thủ",
-     "aola": "goc_1054",
+     "aola": "thuy_1054",
      "size": 1.1
     }
    ]
@@ -1229,7 +1229,7 @@
    "id": "ca_ngua",
    "name": "Cá Ngựa",
    "title": "Lính gác rạn san hô",
-   "aola": "goc_181",
+   "aola": "thuy_181",
    "elem": "thuy",
    "rarity": "rare",
    "stats": [
@@ -1249,17 +1249,17 @@
    "forms": [
     {
      "name": "Cá Ngựa Tân Binh",
-     "aola": "goc_181",
+     "aola": "thuy_181",
      "size": 0.9
     },
     {
      "name": "Cá Ngựa Song Đao",
-     "aola": "goc_182",
+     "aola": "thuy_182",
      "size": 1.02
     },
     {
      "name": "Cá Ngựa Tướng Quân",
-     "aola": "goc_183",
+     "aola": "thuy_183",
      "size": 1.14
     }
    ]
@@ -1268,7 +1268,7 @@
    "id": "map_rang",
    "name": "Mập Răng Cưa",
    "title": "Răng cưa biển sâu",
-   "aola": "goc_31",
+   "aola": "thuy_31",
    "elem": "thuy",
    "rarity": "rare",
    "stats": [
@@ -1288,17 +1288,17 @@
    "forms": [
     {
      "name": "Cá Mập Con",
-     "aola": "goc_31",
+     "aola": "thuy_31",
      "size": 0.9
     },
     {
      "name": "Mập Răng Cưa",
-     "aola": "goc_32",
+     "aola": "thuy_32",
      "size": 1.02
     },
     {
      "name": "Vua Cá Mập",
-     "aola": "goc_33",
+     "aola": "thuy_33",
      "size": 1.14
     }
    ]
@@ -1307,7 +1307,7 @@
    "id": "lam_quan",
    "name": "Lam Quân",
    "title": "Tiểu tướng chuông đồng",
-   "aola": "goc_1831",
+   "aola": "thuy_1831",
    "elem": "thuy",
    "rarity": "epic",
    "stats": [
@@ -1327,17 +1327,17 @@
    "forms": [
     {
      "name": "Lam Quân",
-     "aola": "goc_1831",
+     "aola": "thuy_1831",
      "size": 0.95
     },
     {
      "name": "Vạn Quân",
-     "aola": "goc_1832",
+     "aola": "thuy_1832",
      "size": 1.12
     },
     {
      "name": "Hắc Dực Vạn Quân",
-     "aola": "goc_2955",
+     "aola": "thuy_2955",
      "size": 1.16
     }
    ]
@@ -1346,7 +1346,7 @@
    "id": "huyen_vu",
    "name": "Huyền Vũ",
    "title": "Thần thú phương Bắc",
-   "aola": "goc_713",
+   "aola": "thuy_713",
    "elem": "thuy",
    "rarity": "legend",
    "stats": [
@@ -1366,17 +1366,17 @@
    "forms": [
     {
      "name": "Rùa Ngọc",
-     "aola": "goc_713",
+     "aola": "thuy_713",
      "size": 0.9
     },
     {
      "name": "Rùa Biển Ngọc",
-     "aola": "goc_714",
+     "aola": "thuy_714",
      "size": 1.02
     },
     {
      "name": "Huyền Vũ",
-     "aola": "goc_715",
+     "aola": "thuy_715",
      "size": 1.14
     }
    ]
@@ -1458,7 +1458,7 @@
    "id": "vay_lam",
    "name": "Vây Lam",
    "title": "Cá mập rẽ sóng",
-   "aola": "goc_546",
+   "aola": "thuy_546",
    "elem": "thuy",
    "rarity": "rare",
    "stats": [
@@ -1478,17 +1478,17 @@
    "forms": [
     {
      "name": "Cá Đốm",
-     "aola": "goc_546",
+     "aola": "thuy_546",
      "size": 0.9
     },
     {
      "name": "Cá Song Tiễn",
-     "aola": "goc_547",
+     "aola": "thuy_547",
      "size": 1.02
     },
     {
      "name": "Cá Mập Vây Lam",
-     "aola": "goc_548",
+     "aola": "thuy_548",
      "size": 1.14
     }
    ]
@@ -1497,7 +1497,7 @@
    "id": "thuong_lam",
    "name": "Thương Lam",
    "title": "Rồng lam cánh băng",
-   "aola": "goc_805",
+   "aola": "thuy_805",
    "elem": "thuy",
    "rarity": "epic",
    "stats": [
@@ -1517,17 +1517,17 @@
    "forms": [
     {
      "name": "Thương",
-     "aola": "goc_805",
+     "aola": "thuy_805",
      "size": 0.9
     },
     {
      "name": "Thương Nhiễm",
-     "aola": "goc_806",
+     "aola": "thuy_806",
      "size": 1.02
     },
     {
      "name": "Thương Lam",
-     "aola": "goc_807",
+     "aola": "thuy_807",
      "size": 1.14
     }
    ]
@@ -1536,7 +1536,7 @@
    "id": "kuba",
    "name": "Kuba",
    "title": "Mai cứng kim cương",
-   "aola": "goc_94",
+   "aola": "thuy_94",
    "elem": "thuy",
    "rarity": "epic",
    "stats": [
@@ -1556,17 +1556,17 @@
    "forms": [
     {
      "name": "Kuba",
-     "aola": "goc_94",
+     "aola": "thuy_94",
      "size": 0.9
     },
     {
      "name": "Kuba Vỏ Cứng",
-     "aola": "goc_95",
+     "aola": "thuy_95",
      "size": 1.02
     },
     {
      "name": "Kuba Kim Cương",
-     "aola": "goc_96",
+     "aola": "thuy_96",
      "size": 1.14
     }
    ]

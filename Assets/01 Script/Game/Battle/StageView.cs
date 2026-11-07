@@ -39,6 +39,10 @@ namespace PokiClash
         [SerializeField] StageFx beamFx; // tia nước của chiêu bắn (Items/TiaNuoc, menu "PokiClash/Prefab/Sàn đấu: tia nước của chiêu bắn")
         [SerializeField] StageFx imageFx; // ảnh hiệu ứng rời, đổi ảnh lúc dùng (Items/AnhHieuUng, cùng menu)
         [SerializeField] Sprite beamSplash, beamDrops, beamRipple, beamSparkle; // nổ nước, giọt, vòng sóng, lấp lánh (Assets/03 Art/Fx)
+        // tia riêng của 3 boss cuối đảo Thủy (người dùng dặn 2026-11-07): ảnh thân tia theo tên (anim.json "cast.tia": tia_bang,
+        // tia_xoay, tia_trieu) và hiệu ứng phụ của từng kiểu (mảnh băng, vòng xoáy, vòng sóng âm); cùng menu gán
+        [SerializeField] Sprite[] beamStyles;
+        [SerializeField] Sprite beamShard, beamVortex, beamSoundRing;
         public RectTransform PlateLayer => plateLayer;
         float flashT = -1, flashLife = 0.35f;
         Color flashColor;
@@ -521,7 +525,23 @@ namespace PokiClash
             float h = 84 * Mathf.Pow(scale / 0.7f, 0.6f);
             // cỡ hiệu ứng phụ (nổ, giọt, lấp lánh): to dần còn chậm hơn, để không che thân tướng bắn
             float g = Mathf.Pow(scale / 0.7f, 0.4f);
-            const float grow = 0.2f, hold = 0.3f, shrink = 0.22f, life = grow + hold + shrink;
+            // tia riêng (3 boss cuối đảo Thủy): ảnh thân tia khác, giữ lâu hơn, thêm hiệu ứng phụ theo kiểu
+            string style = a.aola != null ? a.aola.BeamStyle : null;
+            Sprite styleArt = null;
+            if (!string.IsNullOrEmpty(style) && beamStyles != null)
+                foreach (var s in beamStyles)
+                    if (s && s.name == style)
+                    {
+                        styleArt = s;
+                        break;
+                    }
+            var bodyArt = styleArt ? styleArt : (beamFx.Image ? beamFx.Image.sprite : null);
+            if (styleArt) tint = Color.white;
+            const float grow = 0.2f, shrink = 0.22f;
+            float hold = styleArt ? 0.45f : 0.3f, life = grow + hold + shrink;
+            // tia xoắn vẽ vòng xoắn kín cả bề dày ảnh, tia triều đã có vòng sóng âm đi kèm: không làm dày thêm, để dạng cuối
+            // không che thân tướng bắn (soi tour 2026-11-07)
+            if (styleArt) h *= style == "tia_xoay" ? 0.85f : style == "tia_trieu" ? 1f : 1.15f;
             skillHold = Mathf.Max(skillHold, life);
 
             // thân tia và lõi sáng: vẽ đoạn [đuôi, đầu] của đường bắn, đầu vươn ra nhanh, đuôi rút về đối thủ lúc tan
@@ -529,7 +549,12 @@ namespace PokiClash
             {
                 bool core = layer == 1;
                 var item = Take(beamFx);
-                if (item.Image) item.Image.color = core ? Color.Lerp(tint, Color.white, 0.7f) : tint;
+                if (item.Image)
+                {
+                    // bản sao lấy từ hàng chờ có thể còn ảnh tia riêng của lần trước: luôn gán lại
+                    if (bodyArt && item.Image.sprite != bodyArt) Theme.SetSprite(item.Image, bodyArt);
+                    item.Image.color = core ? Color.Lerp(tint, Color.white, 0.7f) : tint;
+                }
                 item.Rect.pivot = new Vector2(0, 0.5f);
                 float thick = core ? 0.42f : 1f, phase = core ? 1.7f : 0f;
                 AddFx(item, beamFx, life, (f, k) =>
@@ -562,9 +587,101 @@ namespace PokiClash
                 float delay = grow * (1 - Mathf.Pow(1 - u, 1f / 3f));
                 Drift(beamDrops, at, fly, 30 * g, tint, delay, 0.45f, Random.value * 360);
             }
+            if (styleArt) StyleBeamFx(style, from, d, nrm, h, g, grow, hold);
             var victim = actors[other];
             StartCoroutine(BeamHit(other, to, victim != null ? victim.H : Height[other], g, tint, grow));
+            if (styleArt) StartCoroutine(StyleBeamHit(style, other, to, victim != null ? victim.H : Height[other], g, grow));
             return grow;
+        }
+
+        // hiệu ứng phụ dọc đường tia của kiểu tia riêng: tia băng văng mảnh băng, tia xoắn có vòng xoáy quay dọc thân,
+        // tia triều có vòng sóng âm chuông đồng nở lần lượt
+        void StyleBeamFx(string style, Vector2 from, Vector2 d, Vector2 nrm, float h, float g, float grow, float hold)
+        {
+            switch (style)
+            {
+                case "tia_bang":
+                    for (int i = 0; i < 8; i++)
+                    {
+                        float u = 0.25f + 0.09f * i;
+                        float s2 = i % 2 == 0 ? 1 : -1;
+                        var at = from + d * u + nrm * s2 * h * 0.4f;
+                        var fly = nrm * s2 * 70 * g * (0.6f + Random.value * 0.6f) + d.normalized * 30 * g;
+                        Drift(beamShard, at, fly, 40 * g, Color.white, grow * u, 0.55f, Random.value * 360);
+                    }
+                    break;
+                case "tia_xoay":
+                    // vòng đầu cách chỗ bắn một khúc, cỡ bằng bề dày tia: không trùm đầu tướng bắn ở dạng cuối
+                    for (int i = 0; i < 5; i++)
+                    {
+                        float u = 0.35f + 0.14f * i;
+                        Spin(beamVortex, from + d * u, h, Color.white, grow * u, hold + 0.1f, i % 2 == 0 ? 540 : -540);
+                    }
+                    break;
+                case "tia_trieu":
+                    // vòng theo g (to chậm hơn bề dày tia), bắt đầu từ quá nửa đường để không trùm tướng bắn
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float u = 0.42f + 0.18f * i;
+                        Pop(beamSoundRing, from + d * u, 110 * g, Color.white, grow * u + 0.06f * i, 0.42f, 0.3f, 1.3f, 0);
+                    }
+                    shake = Mathf.Max(shake, 5);
+                    break;
+            }
+        }
+
+        // lúc trúng của kiểu tia riêng: thêm một nhịp riêng cho đặc biệt (chùm mảnh băng, vòng xoáy lớn, vòng sóng âm kép)
+        System.Collections.IEnumerator StyleBeamHit(string style, int target, Vector2 at, float tH, float g, float after)
+        {
+            yield return Wait(after);
+            float e = tH * Mathf.Lerp(1, g, 0.5f);
+            switch (style)
+            {
+                case "tia_bang":
+                    for (int i = 0; i < 6; i++)
+                    {
+                        float ang = i / 6f * Mathf.PI * 2 + Random.value * 0.5f;
+                        Drift(beamShard, at, new Vector2(Mathf.Cos(ang), Mathf.Sin(ang) - 0.3f) * e * 0.9f, e * 0.28f, Color.white,
+                            0.02f * i, 0.5f, Random.value * 360);
+                    }
+                    break;
+                case "tia_xoay": // nhỏ hơn thân con bị trúng (Spin nở tới 1,1 lần cỡ)
+                    Spin(beamVortex, at, e * 0.8f, Color.white, 0, 0.55f, 720);
+                    break;
+                case "tia_trieu": // vòng kép, vòng lớn nở tới khoảng 1,1 lần thân rồi mờ, vòng trong nhỏ hơn thân
+                    Pop(beamSoundRing, at, e * 0.85f, Color.white, 0, 0.45f, 0.3f, 1.3f, 0);
+                    Pop(beamSoundRing, at, e * 0.55f, Color.white, 0.12f, 0.4f, 0.3f, 1.3f, 0);
+                    shake = Mathf.Max(shake, 10);
+                    break;
+            }
+        }
+
+        // ảnh hiệu ứng nở rồi quay đều (spin độ mỗi lần sống), mờ ở cuối, sau delay giây sân
+        void Spin(Sprite s, Vector2 at, float size, Color tint, float delay, float life, float spin)
+        {
+            if (!imageFx || !s) return;
+            var item = Take(imageFx);
+            Theme.SetSprite(item.Image, s);
+            item.Image.color = tint;
+            var rt = item.Rect;
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.anchoredPosition = P(at);
+            float aspect = s.rect.height / Mathf.Max(1, s.rect.width);
+            float rot0 = Random.value * 360;
+            AddFx(item, imageFx, delay + life, (f, k) =>
+            {
+                float t = k * (delay + life) - delay;
+                if (t < 0)
+                {
+                    f.cg.alpha = 0;
+                    return;
+                }
+                float u = t / life, e = 1 - (1 - u) * (1 - u);
+                float sc = 0.4f + 0.7f * e;
+                f.rt.sizeDelta = new Vector2(size * sc, size * sc * aspect) * K;
+                f.rt.localEulerAngles = new Vector3(0, 0, -(rot0 + spin * u));
+                f.cg.alpha = u < 0.6f ? 1 : (1 - u) / 0.4f;
+            });
         }
 
         // trúng: nổ nước, giọt văng, vòng sóng dưới chân, lấp lánh, rung sân nhẹ; cỡ theo thân con bị trúng (tH),

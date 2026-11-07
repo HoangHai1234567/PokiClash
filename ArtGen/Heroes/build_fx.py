@@ -95,6 +95,52 @@ LINES = [
      "fixes": [("Trông như bong bóng, thuỷ tinh, có vệt sáng",
                 "Make it a ball of solid churning water, not a bubble or glass: no see-through look, no shine spot; fill the "
                 "whole ball with spiralling bands of deep blue and light blue water and white foam curls.")]},
+    # Tia mana riêng của 3 boss cuối đảo Thủy (người dùng dặn 2026-11-07 đêm: "3 boss cuối chiêu dùng mana bắn tia nước phải
+    # gen 1 dạng tia nước khác hoặc animation khác"): Thương Lam tia băng, Huyền Vũ tia xoắn, Lam Quân tia triều đinh ba; kèm
+    # mảnh băng và vòng sóng âm làm hiệu ứng phụ (StageView.Beam theo anim.json "cast.tia").
+    {"code": "thuy_boss_fx", "hero": "boss cuối đảo Thủy", "elem": "thuy",
+     "forms": ["giot_suong_1"],
+     "what": "special mana-beam sprites for three water bosses of a 2D creature game with a hand-drawn storybook look; each "
+             "beam replaces the ordinary water jet of image 3 for one boss, so it must look clearly different from it",
+     "intro_vi": "Tia mana riêng của 3 boss cuối đảo Thủy (người dùng dặn 2026-11-07): Thương Lam tia băng, Huyền Vũ tia xoắn, "
+                 "Lam Quân tia triều đinh ba; kèm mảnh băng và vòng sóng âm.",
+     "extra": [("inbox/giot_suong_fx/tai_ve/FX09.png",
+                "the ordinary water-jet beam all other heroes use: match its drawing style, line weight and size on the canvas, "
+                "but make each new beam clearly DIFFERENT in shape",
+                "Tia nước thường FX09 (1024 × 1024, nền trắng): tia mới cùng nét, cùng cỡ, khác dáng")],
+     "steps": [
+         ("FX11", "tia_bang", "tia băng", 16,
+          "An ICE-WATER beam shot to the RIGHT, seen from the side: a long horizontal jet about five times longer than tall, "
+          "pale ice-blue and white water freezing as it flies, its body studded with sharp flat ice crystals sticking out at "
+          "angles along both edges, a jagged spray of ice shards and snowflake-shaped frost at the RIGHT end, thin frosty wisps "
+          "at the LEFT end. Frost-white, pale ice blue and a little deep teal; no gold.",
+          "tia băng bắn sang phải, dài gấp năm lần chiều cao: nước xanh băng và trắng đang đông lại, dọc hai mép lởm chởm tinh thể "
+          "băng dẹt, đầu tia bên phải là chùm mảnh băng và sương hoa tuyết, đuôi bên trái là sợi sương mảnh"),
+         ("FX12", "tia_xoay", "tia xoắn", 16,
+          "A WHIRLPOOL beam shot to the RIGHT, seen from the side: two thick streams of water, one deep blue and one light "
+          "blue, twisting around each other in a tight helix like a rope, about five times longer than tall, white foam where "
+          "they cross, ending at the RIGHT in a round spinning whirlpool head with curling foam, tapering to two thin curls at "
+          "the LEFT end. Deep blue, light blue, a touch of jade green and white foam.",
+          "tia xoắn bắn sang phải: hai dòng nước xanh đậm và xanh nhạt xoắn vào nhau như dây thừng, bọt trắng ở chỗ bắt chéo, đầu "
+          "bên phải là xoáy nước tròn bọt cuộn, đuôi bên trái là hai lọn mảnh"),
+         ("FX13", "tia_trieu", "tia triều đinh ba", 18,
+          "A TIDAL TRIDENT beam shot to the RIGHT, seen from the side: a wide surging tide of deep-blue water about four times "
+          "longer than tall, its head at the RIGHT shaped like the three prongs of a trident made of water with bronze-gold "
+          "rims, white foam crests rolling along the top edge, thin bronze-gold ripple lines along the body, breaking into foam "
+          "at the LEFT end. Deep blue, light blue, white foam, bronze gold only on the prong rims and ripple lines.",
+          "tia triều bắn sang phải: dòng nước xanh đậm rộng, dài gấp bốn lần chiều cao, đầu bên phải là ba mũi đinh ba bằng nước "
+          "viền vàng đồng, mép trên có ngọn bọt trắng cuộn, thân có vệt sóng vàng đồng mảnh, đuôi tan thành bọt"),
+         ("FX14", "manh_bang", "mảnh băng", 12,
+          "A loose cluster of five separate flat ice shards of different sizes, each a sharp crystal of pale ice blue with a "
+          "white facet line and a thin deep-teal rim, flying apart with small gaps between them.",
+          "năm mảnh băng dẹt rời to nhỏ khác nhau, xanh băng có một đường cạnh trắng, viền xanh mòng két mảnh, bay tách nhau"),
+         ("FX15", "vong_am", "vòng sóng âm", 14,
+          "One round sound-wave ring seen from the front, like the ringing of a great bronze bell made visible in water: a "
+          "hollow circle of rippling light-blue water with a bronze-gold inner rim and small foam ticks around it, an EMPTY "
+          "centre (plain white).",
+          "một vòng sóng âm tròn nhìn thẳng như tiếng chuông đồng hiện thành nước: vòng nước gợn xanh nhạt, viền trong vàng đồng, "
+          "bọt nhỏ quanh vòng, giữa rỗng trắng"),
+     ]},
 ]
 
 
@@ -181,10 +227,25 @@ STAGE_FX = [("FX09", "tia_nuoc", False, 512), ("FX03", "no_nuoc", False, 512), (
             ("FX05", "lap_lanh", False, 192), ("FX08", "vong_song", True, 512)]
 
 
+# tia riêng 3 boss cuối đảo Thủy và hiệu ứng phụ (StageView.beamStyles, beamShard, beamVortex, beamSoundRing); vòng xoáy lấy FX01
+# của gói Giọt Sương
+BOSS_FX = [("thuy_boss_fx", "FX11", "tia_bang", False, 512), ("thuy_boss_fx", "FX12", "tia_xoay", False, 512),
+           ("thuy_boss_fx", "FX13", "tia_trieu", False, 512), ("thuy_boss_fx", "FX14", "manh_bang", False, 192),
+           ("thuy_boss_fx", "FX15", "vong_am", True, 384), ("giot_suong_fx", "FX01", "xoay_nuoc", True, 384)]
+
+
 def export_stage(code="giot_suong_fx"):
     """--xuat: các ảnh dùng chung trên sân đấu vào Assets/03 Art/Fx/ (menu PokiClash/Prefab/Sàn đấu: tia nước của chiêu bắn)"""
     for step, name, hollow, side in STAGE_FX:
         export_beam(code, step, name, hollow, side)
+    for pack, step, name, hollow, side in BOSS_FX:
+        if glob_any(pack, step):
+            export_beam(pack, step, name, hollow, side)
+
+
+def glob_any(pack, step):
+    import glob
+    return bool(glob.glob(ROOT + f"inbox/{pack}/tai_ve/{step}*.png"))
 
 
 def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=False, side=512):
@@ -196,6 +257,34 @@ def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=F
     out = os.path.normpath(ROOT + f"../../Assets/03 Art/Fx/{out_name}.png")
     os.makedirs(os.path.dirname(out), exist_ok=True)
     src = sorted(glob.glob(ROOT + f"inbox/{code}/tai_ve/{step}*.png"), key=os.path.getmtime, reverse=True)
+    try:
+        import cv2  # noqa: F401
+    except ImportError:  # máy không có OpenCV (máy ổ D): cắt nền bằng Pillow, tô loang nền trắng từ mép (và lõi giữa nếu hollow)
+        cv2 = None
+    if src and cv2 is None:
+        rgb = np.asarray(Image.open(src[0]).convert("RGB"))
+        m = Image.fromarray(((rgb.min(2) > 215) * 255).astype(np.uint8), "L").copy()
+        px = m.load()
+        Wd, Hd = m.size
+        seeds = [(x, 0) for x in range(0, Wd, 3)] + [(x, Hd - 1) for x in range(0, Wd, 3)] + \
+                [(0, y) for y in range(0, Hd, 3)] + [(Wd - 1, y) for y in range(0, Hd, 3)]
+        if hollow:
+            seeds.append((Wd // 2, Hd // 2))
+        for xy in seeds:
+            if px[xy] == 255:
+                ImageDraw.floodfill(m, xy, 128)
+        alpha = Image.fromarray(np.where(np.asarray(m) == 128, 0, 255).astype(np.uint8), "L")
+        from PIL import ImageFilter
+        alpha = alpha.filter(ImageFilter.GaussianBlur(0.8))
+        im = Image.fromarray(rgb, "RGB").convert("RGBA")
+        im.putalpha(alpha)
+        im = im.crop(im.getbbox())
+        if max(im.size) > side:
+            k = side / max(im.size)
+            im = im.resize((int(im.width * k), int(im.height * k)), Image.LANCZOS)
+        im.save(out, optimize=True)
+        print(f"{W(out)}: {os.path.basename(src[0])} {im.size[0]}x{im.size[1]}, {os.path.getsize(out) // 1024} KB (Pillow)")
+        return
     if src:
         import cv2
         rgb = np.asarray(Image.open(src[0]).convert("RGB")).astype(np.float32)
@@ -235,7 +324,11 @@ def export_beam(code="giot_suong_fx", step="FX09", out_name="tia_nuoc", hollow=F
 
 
 if __name__ == "__main__":
-    if "--xuat" in sys.argv:
+    if "--xuat-boss" in sys.argv:  # chỉ ảnh tia riêng và hiệu ứng phụ của boss (không xuất lại ảnh sân đấu đang dùng)
+        for pack, step, name, hollow, side in BOSS_FX:
+            if glob_any(pack, step):
+                export_beam(pack, step, name, hollow, side)
+    elif "--xuat" in sys.argv:
         export_stage()
     else:  # py build_fx.py [mã gói ...]: chỉ dựng các gói đó; không có mã thì dựng lại mọi gói
         want = [a for a in sys.argv[1:] if not a.startswith("--")]

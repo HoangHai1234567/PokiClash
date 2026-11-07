@@ -45,6 +45,16 @@ namespace PokiClash.EditorTools
                 so.FindProperty("beamDrops").objectReferenceValue = Art("giot_nuoc");
                 so.FindProperty("beamRipple").objectReferenceValue = Art("vong_song");
                 so.FindProperty("beamSparkle").objectReferenceValue = Art("lap_lanh");
+                // tia riêng 3 boss cuối đảo Thủy (anim.json "cast.tia") và hiệu ứng phụ: thiếu ảnh nào thì bỏ qua ảnh đó
+                var styles = new System.Collections.Generic.List<Sprite>();
+                foreach (var n in new[] { "tia_bang", "tia_xoay", "tia_trieu" })
+                    if (Art(n) is Sprite s) styles.Add(s);
+                var arr = so.FindProperty("beamStyles");
+                arr.arraySize = styles.Count;
+                for (int i = 0; i < styles.Count; i++) arr.GetArrayElementAtIndex(i).objectReferenceValue = styles[i];
+                so.FindProperty("beamShard").objectReferenceValue = Art("manh_bang");
+                so.FindProperty("beamVortex").objectReferenceValue = Art("xoay_nuoc");
+                so.FindProperty("beamSoundRing").objectReferenceValue = Art("vong_am");
                 so.ApplyModifiedPropertiesWithoutUndo();
                 PrefabUtility.SaveAsPrefabAsset(battle, BattlePath);
             }

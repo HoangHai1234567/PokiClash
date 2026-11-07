@@ -24,7 +24,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(new[] { "giot_suong", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
-            Assert.AreEqual(new[] { "goc_1831", "goc_1832", "goc_2955" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
+            // Lam Quân dòng 1831 → 1832 → 2955; hình vẽ lại trên rig aola từ 2026-11-07 (thuy_, trước là goc_)
+            Assert.AreEqual(new[] { "thuy_1831", "thuy_1832", "thuy_2955" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
             // Thanh Long là dòng 青龙 (214 → 215 → 1749), dòng 格非 cũ thành Long Vuốt
             Assert.AreEqual(new[] { "goc_214", "goc_215", "goc_1749" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
             Assert.AreEqual(new[] { "goc_1219", "goc_1220" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
