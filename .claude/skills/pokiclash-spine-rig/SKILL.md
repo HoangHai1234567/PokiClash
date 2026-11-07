@@ -81,6 +81,11 @@ Spec trong `rig.py` (mẫu `SPEC["snorlax"]`):
 - Xuất mesh Spine 4.2 có trọng số: `vertices = [số xương, (chỉ số xương, x, y theo xương, w)...]` mỗi đỉnh, `uvs` theo ảnh,
   `hull`, một slot gắn root. Kết cấu = ảnh gốc nền trong suốt.
 - Soi `rig_mesh/luoi.png` (lưới + màu trọng số + khớp).
+- **Vũ khí, đồ cứng** (dao, kiếm, khiên): gộp vào vùng của xương bàn tay, `sigma` nhỏ (~5) để bám 100%, đi cứng không cong.
+- **Bộ phận sát nhau mà không nối** (lưỡi dao cách mép mũ vài px): bật `"geodesic": True`, trọng số tính theo đường đi trong
+  hình, không nhảy qua khe trắng (khoảng cách đường thẳng làm mép mũ dính theo dao).
+- **Thân dẹp giãn làm méo tay và vũ khí:** xương tay con của thân đặt `{"inherit": "noScale"}` (phần tử thứ 4 trong `bones`).
+  Spine 4.2 đọc khoá `inherit`; bộ dựng khung `rig.pose` cũng xử lý.
 - Giới hạn: lưới chỉ kéo giãn ảnh có sẵn. Vai giơ quá ~50° cộng khuỷu ~25° là tay gập đè lên đầu; chỗ bị che không tự có hình.
 
 ## 5. Animation
@@ -91,6 +96,8 @@ Spec trong `rig.py` (mẫu `SPEC["snorlax"]`):
   (lấy đà lao vào), `None` thẳng. `_convert_timeline` đổi sang bezier tuyệt đối của 4.2.
 - Xương setup không xoay (rotation 0). Góc dương = ngược kim (y lên). Tay trái người xem chĩa sang trái: góc âm là giơ lên;
   tay phải: góc dương là giơ lên.
+- Chém bằng dao cầm dựng: muốn kết thúc thấp trước bụng, bàn tay phải xoay quá 90° (~120°). Khoảng 60–90° thì lưỡi dao quét
+  ngang qua mặt.
 - Con của `root` đã đi theo `root` (nhảy): **đừng cộng thêm** độ cao cho chân, chỉ co nhẹ (lỗi đã gặp: chân bay trốn sau thân).
 - Bộ chuẩn: `idle` (lặp, thở; phần phụ như tai, mào, đuôi, cánh lắc trễ pha; chớp mắt bằng đổi attachment), `attack` (lấy đà →
   đánh → dư lực → về), `hit` (bật lùi, nhắm mắt), `skill` (ngồi → bật → bổ/đè → dẹp nảy), `walk`/`run` (lặp).
@@ -125,5 +132,18 @@ Spec trong `rig.py` (mẫu `SPEC["snorlax"]`):
   animation), `mesh.py` (một lưới có trọng số).
 - Đầu ra: `<base>/rig/` (mảnh cứng: `<mã>.json/.atlas/.png`, `placed/`, `so_ghep.png`, `xuong.png`, `khung.png`, GIF,
   `index.html`), `<base>/rig_mesh/` (lưới: `<mã>_mesh.*`, `luoi.png`, `khung.png`, GIF, `index.html`).
-- Ví dụ đã chạy: Giọt Sương dữ liệu giả (cắt từ concept, scratchpad), Snorlax ảnh người dùng gửi
-  (`spine-animation-ai/work/snorlax`, chỉ để thử).
+- Ví dụ đã chạy: Giọt Sương dữ liệu giả (cắt từ concept, scratchpad), Snorlax và quả mận trùm mũ hai dao, ảnh người dùng
+  gửi (`spine-animation-ai/work/snorlax`, `work/man_kiem`, chỉ để thử).
+
+## 9. Định dạng riêng .atomik (chạy trong Unity, không cần runtime Spine)
+
+- Xuất: `py -3 -I ArtGen/Spine/atomik.py <tên>.json <tên>.atlas <ra>.atomik --name <tên>` (đọc JSON Spine 4.2 của bộ rig).
+  File = "ATMK" + uint16 phiên bản + gzip(JSON + PNG atlas). JSON đúng khuôn `JsonUtility` (mảng, không từ điển). Mảnh cứng và
+  lưới không trọng số đổi về lưới một xương. Con mận ~213 KB.
+- Unity: `Assets/01 Script/Game/Atomik/` (`AtomikAsset`, `AtomikPlayer`: tính xương, da trên CPU, một Mesh, `Play(clip, loop)`,
+  trộn 0.12 s, `Sample(clip, t)`; `AtomikDemo`: nút đổi clip trong scene thử) và `Editor/AtomikImporter.cs` (ScriptedImporter đuôi
+  `.atomik`, atlas + material `Sprites/Default` nằm trong file). Runtime chỉ tạo Mesh: GameObject, MeshRenderer dựng sẵn (luật
+  PrefabOnlyTests).
+- Scene thử: menu `PokiClash/Thử/Atomik: dựng scene con mận…` dựng `Assets/05 Atomik Thu/AtomikMan.unity` ở chế độ additive
+  (lưu rồi đóng, không đổi scene đang mở) và chụp khung `Temp/AtomikShots/<tên>_khung.png` để so với khung Python.
+- Thêm script: typecheck bằng dotnet trước, editor không được đang Play, báo các session khác khi refresh.

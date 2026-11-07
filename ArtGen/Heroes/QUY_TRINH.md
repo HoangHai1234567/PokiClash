@@ -391,3 +391,57 @@ Lệnh:
 - `py -3 ArtGen/Heroes/tools/anim_thuy_tong.py <ảnh> [dạng ...]` tờ tổng khung then chốt;
 - tour trận (đang Play từ Boot): `PokiClash/Thử/Thương Lam | Huyền Vũ | Lam Quân ra trận`, `PokiClash/Thử/Đảo Thủy: Vây Lam | Kuba | Tám Tay | Cá Ngựa | Mập Răng Cưa ra trận`, ảnh `Temp/PokiShots/<id>_combat/`.
 - Máy ổ D: menu nhập tướng aola thường sẽ nhập lại từ thư mục ghép bên đó và đè bản này; nhập xong phải chạy lại `anim_thuy.py`.
+
+## 12. Đảo Mộc: 10 dòng, 24 dạng (2026-11-07, máy ổ E, dừng 16:40)
+
+Người dùng duyệt concept bằng chữ cả 10 dòng, dặn làm một mạch: gen, ghép, sửa animation không dừng chờ. Claude tự soi từng concept trước khi gen nhóm mảnh; tờ concept gửi người dùng chỉ để xem. Mây, vòng, đồ bay, tai, đuôi quanh tướng phải có chuyển động phụ (người dùng dặn cùng ngày).
+
+Thiết kế đã chốt (khác hẳn bản aola, tay chân giữ rig):
+- **Tiên Lá** (648, 649, 650): đom đóm rêu. Lông kem, mũ trùm rêu mép lá ô liu, đèn đom đóm hổ phách trên râu, cánh cứng nâu hạt dẻ chấm vàng. Dạng 3 là hiệp sĩ đom đóm có kiếm lá, bốn cánh bạc hà.
+- **Hoa Nhụy** (593, 594, 595): củ cải đỏ. Dạng 2 khoác áo lá, đội nụ trà trắng. Dạng 3 là tiên củ cải mặt thú (không mặt người), đội hoa trà trắng nhụy đỏ, tay nắm quả mọng.
+- **Dê Hoa** (866, 867, 868): cừu lông kem, mặt nâu hạt dẻ, sừng cành gỗ, vương miện cúc vàng. Dạng 3 là dê núi gạc cành, giáp ngực vỏ cây.
+- **Bờm Lá** (911, 912): sư tử con vàng nâu, bờm dương xỉ, huy hiệu gỗ hình lá, đuôi quả thông, móng mũ quả sồi.
+- **Phong Linh** (943, 944): cú lá xanh xô thơm cầm chong chóng hạt phong. Dạng 2 có vòng tre quấn dải gió.
+- **Gió Lốc** (850, 851, 852): rồng chuồn chuồn xanh ngọc lam, cánh bạc hà gân thẫm, râu lông vũ, vòng gió trắng, ngọc gió ở ngực.
+- **Long Vuốt** (1219, 1220): rồng ô liu, giáp vỏ cây, sừng gai gỗ, tấm nhựa hổ phách che mắt, vuốt gai đỏ thẫm, cánh lá sồi.
+- **Thỏ Hoàng** (2010): thỏ tướng giáp vảy ngọc bích, thẻ tre bay, vuốt gỗ mun gắn đĩa ngọc.
+- **Mộc Tinh** (1480, 1481): cáo, sói xám đá phiến, pha lê ngọc lục bảo, mắt vàng chanh.
+- **Thanh Long** (214, 215, 1749): rồng xanh lam ngọc, bờm trắng, sừng vàng san hô, mây lành trắng viền ngọc. Dạng 3 có gai lưng vàng, sét vàng chanh, mây giông xám tím.
+
+Công cụ (bộ aola của máy ổ E, khác bộ máy ổ D):
+- `tools/moc_spec/aNN_<dòng>.py`: đặc tả nhóm mảnh từng dạng (luật viết ở `moc_spec/BRIEF.md`).
+- `tools/lo_moc.py [mã]`: dựng `<aola>/reskin/moc_<id>/` (regions, groups, ghep.json), ảnh rig `refs/moc/<mã>/` và `forms_moc/<mã>.json`, mà `build.py` nạp thêm. Cần `part_map.py` đã chạy cho `pet<id>_parts/front_idle` (24 dạng đã có).
+- `tools/anim_moc.py <mã> --run`: viết `anim_moi.json` theo định dạng `anim_moi.py` máy E (cây khớp theo tên mảnh `Nxx_<số>`), rồi chạy nó.
+  - 5 clip: đứng; trúng đòn; đánh lao (trúng khung 18); bắn tia (khung 12, cỡ 0,7–1,4); chiêu cuối 44 khung (`lunge`, trúng khung 24, kiểu spin hoặc slam).
+  - Hiệu ứng dùng gói `moc_fx`.
+  - Chuyển động phụ: mảnh bay, mảnh đung đưa và nhóm đổi dáng chép chuyển động của chính nó trong clip đứng gốc (từ `anim_ghep.json`), lặp ở mọi clip. Bản gốc đứng yên thì mây, vòng, đồ bay trôi nhẹ, còn tai, đuôi, cánh, lá lắc quanh khớp; vương miện, sừng, giáp đứng yên.
+- `tools/chay_moc.py concept|nhom|ghep|fx|tron <mã ...>`: chạy theo pha, ghi `inbox/chay_moc.log`.
+  - Có khoá file nên nhiều lô chạy cùng lúc thì Codex vẫn chỉ chạy một lệnh mỗi lúc.
+  - Hết hạn mức thì chờ 10 phút rồi thử lại.
+  - Pha ghép chạy `ghep_nhom` → `anim_moc` → `portrait_png` → `so_sanh_reskin` (ảnh vào `inbox/moc_so_sanh/<mã>.png`).
+- `build_fx.py moc_fx`: 7 ảnh hiệu ứng lá, đã đủ ở `inbox/moc_fx/tai_ve/`. FX09 là tia lá, chưa nối vào `StageView.Beam` (tia Mộc vẫn nhuộm màu tạm). Gói có thể khai `colours` và `concept_en` riêng thay chữ nước.
+- Vá `<aola>/tools/ghep_nhom.py` máy E:
+  - hai mảnh chung một hình trong cùng nhóm (cặp mây, cặp chong chóng): mỗi mảnh giữ hình mới riêng, lần xuất hiện thứ k trong khung ứng với mảnh thứ k;
+  - ảnh Codex cỡ 1254 thì co về cỡ ảnh mẫu.
+  - Bản trước khi vá ở scratchpad phiên này, không lưu trong repo.
+
+Tiến độ lúc dừng (2026-11-07 16:40; Codex hết hạn mức gói ChatGPT từ 15:12, báo mở lại 17:18):
+- Concept duyệt đủ 24/24 (`inbox/<mã>/concept_duyet.png`; tờ ghép ở `inbox/moc_so_sanh/concept_da_duyet.jpg`, 16 concept đầu).
+- Ghép xong 13/24, đủ 5 clip có chuyển động phụ, chân dung, trang so sánh: Tiên Lá 1–3, Hoa Nhụy 1, 3, Dê Hoa 1, 2, Bờm Lá 1, Phong Linh 1, Gió Lốc 1, Thanh Long 1–3.
+- Còn 11 dạng chưa có nhóm mảnh (khoảng 84 ảnh): hoa_nhuy_2 (4 nhóm), de_hoa_3 (9), bom_la_2 (6), phong_linh_2 (8), gio_loc_2 (10, đã có N01), gio_loc_3 (10), long_vuot_1 (9), long_vuot_2 (7), tho_hoang_1 (10), moc_tinh_1 (6), moc_tinh_2 (6). Một đợt hạn mức Codex vẽ được khoảng 70 ảnh.
+
+Làm tiếp:
+1. Gen nhóm còn thiếu: `py -3 -I ArtGen/Heroes/tools/chay_moc.py nhom hoa_nhuy_2 de_hoa_3 bom_la_2 phong_linh_2 gio_loc_2 gio_loc_3 long_vuot_1 long_vuot_2 tho_hoang_1 moc_tinh_1 moc_tinh_2`.
+   - Chạy được ở máy nào có Codex và repo PokiWar đủ thư mục `forms_moc/`, `refs/moc/`, `inbox/<mã>/`.
+   - `build.py` tự tính đường dẫn theo máy.
+2. Ghép và animation: `chay_moc.py ghep <mã ...>` (hoặc `tron` cho cả gen lẫn ghép).
+   - **Phải chạy ở máy ổ E**: `reskin/moc_*` và bản `ghep_nhom.py`, `anim_moi.py` của máy E chỉ có ở đây (chưa commit trong repo aola).
+   - Bộ máy ổ D khác định dạng, `anim_moi` máy D tự dò cây khớp, khoá theo số mảnh.
+   - Muốn ghép ở máy D thì mang theo `<aola>/tools/ghep_nhom.py`, `anim_moi.py` máy E và thư mục `reskin/moc_*`, rồi chạy lại `lo_moc.py` để đổi đường dẫn `refs`, `inbox` trong `ghep.json`.
+3. Soi từng trang so sánh. Thỏ Hoàng: `ghep.json` đã bỏ hình nháy mắt `c146`.
+4. Unity (nhắn các phiên khác trước khi refresh):
+   - `Assets/02 Data/Json/heroes.json`: `aola` của 10 tướng Mộc (cả `forms[].aola`) đổi từ `goc_<id>` sang `moc_<id>`;
+   - menu `PokiClash/Nhập dữ liệu`;
+   - menu `PokiClash/Tướng/Nhập dạng aola có nguồn mới hơn bản trong project` (AolaImport tự thu hình ít khung);
+   - menu `PokiClash/Tướng/Xoá dạng aola không còn tướng nào dùng` (bỏ 24 `goc_*` Mộc khỏi build);
+   - chụp thử `PokiClash/Tướng/Chụp thử prefab tướng`, rồi tour trận.

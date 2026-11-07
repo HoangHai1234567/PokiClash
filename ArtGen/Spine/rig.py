@@ -477,7 +477,15 @@ def pose(skel, anim, t):
             sx, sy = sx * fx, sy * fy
         c, s = math.cos(math.radians(r)), math.sin(math.radians(r))
         M = np.array([[c * sx, -s * sy, x], [s * sx, c * sy, y], [0, 0, 1]])
-        world[b["name"]] = world[b["parent"]] @ M if "parent" in b else M
+        if "parent" not in b:
+            world[b["name"]] = M
+        else:
+            P = world[b["parent"]]
+            if b.get("inherit") == "noScale":  # nhận vị trí và góc của cha, bỏ tỉ lệ
+                P = P.copy()
+                P[:2, 0] /= max(1e-9, np.linalg.norm(P[:2, 0]))
+                P[:2, 1] /= max(1e-9, np.linalg.norm(P[:2, 1]))
+            world[b["name"]] = P @ M
     show = {}
     for sl in skel["slots"]:
         name = sl["attachment"]
@@ -510,11 +518,10 @@ def draw_pose(skel, anim, t, img, k, box):
     return canvas.astype(np.uint8)
 
 
-def render(code, skel, raw, img, out=None, draw=None):
+def render(code, skel, raw, img, out=None, draw=None, fh=300, gif_scale=1.2):
     out = out or paths(code)["rig"]
     draw = draw or draw_pose
-    sk = skel["skeleton"]
-    fh = 300  # cao mỗi khung
+    sk = skel["skeleton"]  # fh: cao mỗi khung
     up = max([f.get("y", 0) for a in raw.values() for f in a.get("bones", {}).get("root", {}).get("translate", [])] + [0])
     k = fh / (sk["height"] * 1.3 + up)
     Wb = int(sk["width"] * 1.7 * k)
@@ -532,8 +539,9 @@ def render(code, skel, raw, img, out=None, draw=None):
             d.text((i * Wb + Wb - 44, fh - 16), f"{dur * i / (n - 1):.2f}", fill=(120, 100, 80))
         rows.append(np.array(lab))
         # GIF 20 hình/giây
-        gk = k * 1.2
-        gbox = (int(Wb * 1.2), int(fh * 1.2), int(box[2] * 1.2), int(box[3] * 1.2))
+        gs = gif_scale
+        gk = k * gs
+        gbox = (int(Wb * gs), int(fh * gs), int(box[2] * gs), int(box[3] * gs))
         g = [Image.fromarray(draw(skel, anim, t, img, gk, gbox)) for t in np.arange(0, dur + 1e-6, 0.05)]
         g[0].save(os.path.join(out, f"anim_{name}.gif"), save_all=True, append_images=g[1:], duration=50, loop=0)
     Image.fromarray(np.concatenate(rows, 0)).save(os.path.join(out, "khung.png"))
