@@ -510,18 +510,20 @@ def draw_pose(skel, anim, t, img, k, box):
     return canvas.astype(np.uint8)
 
 
-def render(code, skel, raw, img):
-    out = paths(code)["rig"]
+def render(code, skel, raw, img, out=None, draw=None):
+    out = out or paths(code)["rig"]
+    draw = draw or draw_pose
     sk = skel["skeleton"]
     fh = 300  # cao mỗi khung
-    k = fh / (sk["height"] * 1.45)
+    up = max([f.get("y", 0) for a in raw.values() for f in a.get("bones", {}).get("root", {}).get("translate", [])] + [0])
+    k = fh / (sk["height"] * 1.3 + up)
     Wb = int(sk["width"] * 1.7 * k)
     box = (Wb, fh, int(-sk["x"] * k + 0.35 * sk["width"] * k), int(fh - 0.12 * fh))
     rows = []
     for name, anim in raw.items():
         dur = max(f["time"] for tl_ in anim.get("bones", {}).values() for fr in tl_.values() for f in fr)
         n = 9
-        frames = [draw_pose(skel, anim, dur * i / (n - 1), img, k, box) for i in range(n)]
+        frames = [draw(skel, anim, dur * i / (n - 1), img, k, box) for i in range(n)]
         row = np.concatenate(frames, 1)
         lab = Image.fromarray(row)
         d = ImageDraw.Draw(lab)
@@ -532,12 +534,12 @@ def render(code, skel, raw, img):
         # GIF 20 hình/giây
         gk = k * 1.2
         gbox = (int(Wb * 1.2), int(fh * 1.2), int(box[2] * 1.2), int(box[3] * 1.2))
-        g = [Image.fromarray(draw_pose(skel, anim, t, img, gk, gbox)) for t in np.arange(0, dur + 1e-6, 0.05)]
+        g = [Image.fromarray(draw(skel, anim, t, img, gk, gbox)) for t in np.arange(0, dur + 1e-6, 0.05)]
         g[0].save(os.path.join(out, f"anim_{name}.gif"), save_all=True, append_images=g[1:], duration=50, loop=0)
     Image.fromarray(np.concatenate(rows, 0)).save(os.path.join(out, "khung.png"))
 
 
-def page(code, anims):
+def page(code, anims, out=None):
     cards = "\n".join(
         f'<div class="card"><div id="p_{a}" class="pl"></div><div class="lb">{a}</div></div>' for a in anims)
     js = ",".join(f'"{a}"' for a in anims)
@@ -557,7 +559,7 @@ for(const a of A){{window.players[a]=new spine.SpinePlayer("p_"+a,{{skeleton:"{c
 window.big=new spine.SpinePlayer("big",{{skeleton:"{code}.json",atlas:"{code}.atlas",animation:A[0],showControls:true,
  backgroundColor:"#fffaf0ff",premultipliedAlpha:false}});
 </script></body></html>"""
-    open(os.path.join(paths(code)["rig"], "index.html"), "w", encoding="utf-8").write(html)
+    open(os.path.join(out or paths(code)["rig"], "index.html"), "w", encoding="utf-8").write(html)
 
 
 # ---------------------------------------------------------------- animation
@@ -710,7 +712,8 @@ def one(code):
     rgb = np.array(Image.open(P["ref"]).convert("RGB"))
     H, W = rgb.shape[:2]
     fg = fg_mask(rgb, *sp.get("fg", (222, 32)))
-    fg = cv2.erode(fg, np.ones((3, 3), np.uint8)) > 0  # gọt viền lẫn nền (ảnh không nét viền)
+    fg = cv2.erode(fg, np.ones((3, 3), np.uint8)).astype(np.float32)  # gọt viền lẫn nền (ảnh không nét viền)
+    fg = cv2.GaussianBlur(fg, (0, 0), 1.6) > 0.5  # làm mượt mép răng cưa
     dark = rgb.mean(2) < sp.get("dark_thr", 120)
     cls = {"dark": dark, "light": ~dark}
     region, masks, taken = {}, {}, np.zeros((H, W), bool)
@@ -736,6 +739,8 @@ def one(code):
             into, r = d["cap"]
             dist = cv2.distanceTransform((~core).astype(np.uint8), cv2.DIST_L2, 5)
             cap = (dist <= r) & region[into] & ~core
+            if "cap_keep" in d:
+                cap &= cls[d["cap_keep"]]
             alpha = np.maximum(alpha, np.where(cap, np.clip(1.15 - dist / r, 0, 1), 0))
         if "inpaint" in d:  # vẽ bù pixel lớp màu này trong mảnh (chỗ bị mảnh khác che)
             hole = cv2.dilate((core & cls[d["inpaint"]]).astype(np.uint8), np.ones((5, 5), np.uint8)) > 0
@@ -789,11 +794,12 @@ SPEC["snorlax"] = {  # ảnh mạng, chỉ để thử
                  "cap": ("body", 10),
                  "minus": [[(182, 12), (218, 12), (214, 42), (186, 50)], [(290, 12), (342, 12), (334, 56), (300, 40)]]},
         "arm_l": {"poly": [(40, 95), (205, 95), (205, 122), (172, 140), (152, 175), (122, 205), (40, 215)], "excl": True,
-                  "cap": ("body", 14)},
+                  "cap": ("body", 9), "cap_keep": "dark"},
         "arm_r": {"poly": [(478, 95), (312, 95), (312, 122), (345, 140), (365, 175), (395, 205), (478, 215)],
-                  "excl": True, "cap": ("body", 14)},
-        "body": {"poly": [(190, 108), (328, 108), (345, 140), (365, 175), (395, 205), (405, 260), (402, 336), (112, 336),
-                          (112, 260), (122, 205), (152, 175), (172, 140)], "excl": True, "inpaint": "light"},
+                  "excl": True, "cap": ("body", 9), "cap_keep": "dark"},
+        "body": {"poly": [(190, 108), (328, 108), (345, 140), (365, 175), (395, 205), (422, 260), (422, 330), (290, 336),
+                          (285, 352), (232, 352), (228, 336), (94, 330), (94, 260), (122, 205), (152, 175), (172, 140)],
+                 "excl": True, "inpaint": "light"},
         "belly": {"poly": [(140, 124), (372, 124), (372, 322), (140, 322)], "keep": "light"},
         "ear_l": {"poly": [(182, 15), (218, 15), (218, 62), (182, 72)]},
         "ear_r": {"poly": [(288, 15), (342, 15), (340, 70), (296, 55)]},
@@ -861,9 +867,9 @@ def sn_anims():
                                (1.4, 0.98, 1.02), (1.6, 1, 1)])},
         "arm_l": {"rotate": tl([(0, 0), (0.3, 20), (0.6, -70, EO), (0.8, -75), (0.98, 25, EI), (1.2, 10), (1.6, 0)])},
         "arm_r": {"rotate": tl([(0, 0), (0.3, -20), (0.6, 70, EO), (0.8, 75), (0.98, -25, EI), (1.2, -10), (1.6, 0)])},
-        "foot_l": {"translate": tl2([(0, 0, 0), (0.3, 0, 0), (0.6, -6, 104, EO), (0.75, -6, 112), (0.92, 0, 0, EI),
+        "foot_l": {"translate": tl2([(0, 0, 0), (0.3, 0, 0), (0.6, -6, 10, EO), (0.75, -6, 12), (0.92, 0, 0, EI),
                                      (1.6, 0, 0)]), "rotate": tl([(0, 0), (0.6, -15), (0.9, 0), (1.6, 0)])},
-        "foot_r": {"translate": tl2([(0, 0, 0), (0.3, 0, 0), (0.6, 6, 104, EO), (0.75, 6, 112), (0.92, 0, 0, EI),
+        "foot_r": {"translate": tl2([(0, 0, 0), (0.3, 0, 0), (0.6, 6, 10, EO), (0.75, 6, 12), (0.92, 0, 0, EI),
                                      (1.6, 0, 0)]), "rotate": tl([(0, 0), (0.6, 15), (0.9, 0), (1.6, 0)])},
         "head": {"translate": tl2([(0, 0, 0), (0.3, 0, -8), (0.5, 0, 6), (0.98, 0, -12, EI), (1.15, 0, 3), (1.6, 0, 0)])},
         "ear_l": {"rotate": tl([(0, 0), (0.5, -12), (0.8, 10), (1.0, 22, EO), (1.2, -8), (1.6, 0)])},
