@@ -100,7 +100,7 @@ MonoBehaviour:
   - id: bo_cap
     name: "B\u1ECD C\u1EA1p \u0110\u1ED3ng"
     title: "\u0110u\xF4i pha l\xEA c\xE1t \u0111\u1ECF"
-    aola: goc_676
+    aola: bo_cap_1
     elem: 0
     rarity: 0
     stats: 2800000046000000280000001e0000003c00000046000000
@@ -112,10 +112,10 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "B\u1ECD C\u1EA1p Pha L\xEA"
-      aola: goc_676
+      aola: bo_cap_1
       size: 0.9
     - name: "B\u1ECD C\u1EA1p \u0110\xE1 L\u1EE5c"
-      aola: goc_677
+      aola: bo_cap_2
       size: 1.02
     - name: "B\u1ECD C\u1EA1p \u0110\u1ED3ng"
       aola: goc_678
@@ -124,7 +124,7 @@ MonoBehaviour:
   - id: bo_ngua
     name: "B\u1ECD Ng\u1EF1a Li\u1EC1m Th\xE9p"
     title: "Song li\u1EC1m ki\u1EBFm kh\xE1ch"
-    aola: goc_683
+    aola: bo_ngua_1
     elem: 0
     rarity: 1
     stats: 3c000000280000003200000046000000280000003c000000
@@ -136,10 +136,10 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "B\u1ECD Ng\u1EF1a Con"
-      aola: goc_683
+      aola: bo_ngua_1
       size: 0.9
     - name: "B\u1ECD Ng\u1EF1a L\u01B0\u1EE1i B\xE9n"
-      aola: goc_684
+      aola: bo_ngua_2
       size: 1.02
     - name: "B\u1ECD Ng\u1EF1a Li\u1EC1m Th\xE9p"
       aola: goc_685
@@ -187,7 +187,7 @@ MonoBehaviour:
   - id: doc_giac
     name: "\u0110\u1ED9c Gi\xE1c Th\xE9p"
     title: "Ng\u1EF1a m\u1ED9t s\u1EEBng gi\xE1p b\u1EA1c"
-    aola: goc_656
+    aola: doc_giac_1
     elem: 0
     rarity: 0
     stats: 6400000064000000780000003c0000004600000073000000
@@ -199,13 +199,13 @@ MonoBehaviour:
     size: 1
     forms:
     - name: "\u0110\u1ED9c Gi\xE1c Th\xE9p"
-      aola: goc_656
+      aola: doc_giac_1
       size: 1
     minion: 0
   - id: phi_thuong
     name: "Phi Th\u01B0\u01A1ng"
     title: "K\u1EF5 s\u0129 m\xE1y song th\u01B0\u01A1ng"
-    aola: goc_835
+    aola: phi_thuong_1
     elem: 0
     rarity: 1
     stats: 3c0000003c0000003c0000001e0000003c0000001e000000
@@ -217,16 +217,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Phi Th\u01B0\u01A1ng Con"
-      aola: goc_835
+      aola: phi_thuong_1
       size: 0.92
     - name: "Phi Th\u01B0\u01A1ng"
-      aola: goc_836
+      aola: phi_thuong_2
       size: 1.1
     minion: 0
   - id: khien_bac
     name: "Khi\xEAn B\u1EA1c"
     title: "V\u1EC7 s\u0129 khi\xEAn b\u1EA1c"
-    aola: goc_784
+    aola: khien_bac_1
     elem: 0
     rarity: 2
     stats: 3200000028000000320000002d0000003200000028000000
@@ -238,16 +238,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Khi\xEAn S\u1EAFt T\xED Hon"
-      aola: goc_784
+      aola: khien_bac_1
       size: 0.92
     - name: "V\u1EC7 S\u0129 Khi\xEAn B\u1EA1c"
-      aola: goc_785
+      aola: khien_bac_2
       size: 1.1
     minion: 0
   - id: chien_than
     name: "Chi\u1EBFn Th\u1EA7n"
     title: "Ph\xE1o th\u1EE7 gi\xE1p v\xE0ng"
-    aola: goc_1083
+    aola: chien_than_1
     elem: 0
     rarity: 2
     stats: 3c0000005000000028000000280000002800000050000000
@@ -259,16 +259,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Chi\u1EBFn Linh Con"
-      aola: goc_1083
+      aola: chien_than_1
       size: 0.92
     - name: "Chi\u1EBFn Th\u1EA7n"
-      aola: goc_1084
+      aola: chien_than_2
       size: 1.1
     minion: 0
   - id: thiet_phu
     name: "Thi\u1EBFt Ph\u1EE7"
     title: "Ng\u01B0\u1EDDi thi\u1EBFc r\xECu b\xE9n"
-    aola: goc_1533
+    aola: thiet_phu_1
     elem: 0
     rarity: 3
     stats: 3c000000460000004b0000001e0000003200000014000000
@@ -279,17 +279,17 @@ MonoBehaviour:
     line: "D\xF2ng Thi\u1EBFt Ph\u1EE7"
     size: 0.92
     forms:
-    - name: "Ng\u01B0\u1EDDi Thi\u1EBFc"
-      aola: goc_1533
+    - name: "Heo Thi\u1EBFc"
+      aola: thiet_phu_1
       size: 0.92
     - name: "Thi\u1EBFt Ph\u1EE7"
-      aola: goc_1534
+      aola: thiet_phu_2
       size: 1.1
     minion: 0
   - id: tam_kiem
     name: "Tam Ki\u1EBFm"
     title: "Gi\xE1p v\u01B0\u01A1ng ba ki\u1EBFm"
-    aola: goc_1223
+    aola: tam_kiem_1
     elem: 0
     rarity: 3
     stats: 320000003c00000032000000320000003c0000003c000000
@@ -301,19 +301,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Ki\u1EBFm S\u0129 Nh\xED"
-      aola: goc_1223
+      aola: tam_kiem_1
       size: 0.9
     - name: "Song Ki\u1EBFm"
-      aola: goc_1224
+      aola: tam_kiem_2
       size: 1.02
     - name: "Tam Ki\u1EBFm V\u01B0\u01A1ng"
-      aola: goc_1225
+      aola: tam_kiem_3
       size: 1.14
     minion: 0
   - id: ung_thep
     name: "\u01AFng Th\xE9p"
     title: "Th\u1EE3 s\u0103n tr\u1EDDi c\xE1nh pha l\xEA"
-    aola: goc_1696
+    aola: ung_thep_1
     elem: 0
     rarity: 3
     stats: 3c000000190000002d000000520000002d0000004e000000
@@ -325,16 +325,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "\u01AFng Th\xE9p Con"
-      aola: goc_1696
+      aola: ung_thep_1
       size: 0.92
     - name: "\u01AFng Th\xE9p"
-      aola: goc_1697
+      aola: ung_thep_2
       size: 1.1
     minion: 0
   - id: kim_nghe
     name: "Kim Ngh\xEA"
     title: "Th\u1EA7n th\xFA gi\xE1p l\u1EEDa lam"
-    aola: goc_1840
+    aola: kim_nghe_1
     elem: 0
     rarity: 4
     stats: 2800000073000000280000001e000000280000003c000000
@@ -346,10 +346,10 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Ngh\xEA Con"
-      aola: goc_1840
+      aola: kim_nghe_1
       size: 0.92
     - name: "Kim Ngh\xEA"
-      aola: goc_1841
+      aola: kim_nghe_2
       size: 1.1
     minion: 0
   - id: mam_go

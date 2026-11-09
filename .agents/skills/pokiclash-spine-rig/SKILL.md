@@ -14,6 +14,32 @@ Làm 2026-11-07 để đo khả năng rig tự động. **Không thay quy trình
 Hình tướng). Mọi thứ ở đây là thử nghiệm cho tới khi người dùng chốt khác. Ngoại lệ người dùng yêu cầu 2026-11-08: Rồng Giọt
 (dạng 1 dòng Giọt Sương) vào game bằng .atomik, xem mục 10.
 
+## 0a. Tiêu chí bắt buộc cho tướng .atomik (người dùng chốt 2026-11-09, soát trước khi báo xong)
+
+Hình, dạng tiến hóa:
+- **Chibi chỉ ở dạng 1.** Dạng sau tỉ lệ trưởng thành, dữ dần: đầu nhỏ lại, mắt xếch, nanh, móng, thế sẵn sàng đánh.
+- **Dạng cuối khác hẳn dạng trước** chứ không chỉ thêm chi tiết: đổi màu chủ đạo (đậm hơn), thêm giáp/đồ/phụ kiện, đổi chi tiết đặc
+  trưng (râu, đuôi, sừng) và **đổi dáng** (bóng dáng nhìn đã biết là con khác). Vẫn giữ vài nét nhận ra cùng dòng.
+- Con dài dẹt thì co cho vừa sân (`max_w`); không để lòi khỏi mép màn.
+
+Animation:
+- **Không có gì đứng im:** mây, đồ bay, vòng quanh tướng phải chuyển động; phụ kiện bay quanh dùng clip lặp `aura` (liền qua mọi clip).
+- Thân dài (rồng, rắn, đuôi to) **nhiều xương, uốn sóng** (`spine`); **tóc, bờm, râu nhiều xương có lò xo** (`soft`), tách lớp riêng nếu
+  lắc làm nhoè phần khác (`sep`).
+- **Bắn từ miệng thì phải há miệng:** tách hàm dưới thành vùng `jaw` (xương `jaw` con của đầu, khớp ở góc hàm); đòn, chiêu nhả từ
+  miệng tự há theo nhịp (`beast.jaw_open`).
+
+Đòn và chiêu:
+- **Đòn đánh xa đứng một chỗ bắn**, không lao lên nhả chiêu; chỉ giật nhẹ ngược chiều khi bắn (cổ, thân vươn là đủ).
+- **Không một màu**: tránh để cả loạt tướng "lao lên húc rồi lộn". Phần lớn chiêu đứng tại chỗ (tia, xoáy, mưa đạn, cột trồi, sóng
+  âm, triệu hồi...); chỉ dòng có lore lao húc (dê, bò, tê giác) mới lao.
+- **Mỗi dạng một chiêu khác, mạnh dần**: dạng sau to hơn, nhiều nhát hơn, dữ dội hơn (khựng, rung, chớp màn tăng theo dạng),
+  thường đổi cả kiểu chiêu chứ không chỉ phóng to (`*_form`, `attack`/`skill`/`motion` theo dạng).
+- Chiêu lấy ý từ lore con vật và chiêu Pokémon cùng hệ (Thủy: Hydro Pump, Whirlpool, Surf, Icicle Crash; Mộc: Leaf Storm, Solar
+  Beam, Frenzy Plant, Petal Blizzard; Hỏa: Flamethrower, Fire Spin, Eruption, Heat Wave...), học nhịp Critters (skill
+  `pokiclash-hero-fx` mục 1b).
+- Hạt nhỏ (lá...) vẽ không viền sticker (`game.plain`).
+
 ## 0. Trước khi làm
 
 - **Giấy phép:** code repo `spine-animation-ai` là PolyForm Noncommercial (không dùng thương mại). Runtime `spine-unity` đòi
@@ -375,6 +401,107 @@ Cách mục 15 áp cho 10 dòng, 28 dạng chưa có concept nào (QUY_TRINH m�
 - **Gen dài**: `chay_hoa.py <prompt ...>` chạy tách (Start-Process), bỏ qua file đã có ảnh. Lệnh nền của phiên bị ngắt vẫn sống:
   kiểm tiến trình `gen.py` trước khi chạy lại kẻo gen trùng.
 - `AtomikForms.Attach` tự dựng prefab cho tướng chỉ có dạng .atomik (chưa từng có hình aola) và thêm vào HeroModels.
+
+## 17. Rồng rắn uốn lượn, mây bay vòng, dạng sau "chiến" (Thanh Long, 2026-11-09 tối)
+
+Người dùng dặn: mây quanh rồng phải bay xung quanh; thêm xương cho thân rồng mềm mại, uốn lượn; dạng 2, 3 chưa đủ chiến, chibi chỉ
+ở dạng 1. Học từ aola 1749 (mây nước nhiều cụm chảy vòng trước, sau thân liên tục) và Critters (skill `pokiclash-hero-fx` mục 1b).
+- **Concept dạng sau:** `build_thanh_long_chien.py` (ảnh mẫu: dạng 1 lấy nét, một tướng Hỏa dữ lấy thần thái, dạng hiện tại lấy màu,
+  bản đồ). Tỉ lệ trưởng thành: đầu chỉ ~1/4 chiều cao, mắt xếch đồng tử dọc, nanh, móng giương; thân rắn chữ S nằm ngang, chân
+  tách thân, **không vẽ mây**. Dạng khai `"src": "tai_ve/L1_chien.png"` (`beast.src`) để không đè `L1_duyet.png` cũ.
+- **Mây bay vòng = clip lặp `aura`** (không khoá trong clip trận: đổi clip là mây giật về chỗ cũ):
+  - ảnh mây cắt từ concept cũ bằng `cat_may.py` → `inbox/fx/thanh_long_may<k>_<i>.png`; mây vẽ sẵn trong ảnh dạng 1 bỏ khỏi lưới
+    bằng `"erase": [(x, y)...]` (bỏ cả mảng liền chứa điểm);
+  - `"orbit"` (theo dạng): `clouds` [(ảnh, cỡ theo H, đuôi mây "r"/"l")], `period` 8 s, `ph` (lệch pha đầu, tránh mây nằm đúng điểm
+    quay đầu lúc giây 0), `rx` (theo bề dài con), `ry`, `cy`, `depth`;
+  - mỗi cụm một xương `jo<i>` (con của move) hai slot `jo<i>b` (sau thân, nửa vòng xa) / `jo<i>f` (trước thân, nửa vòng gần), mặc định
+    trống; aura bật hình theo nửa vòng. Hai đầu vòng mây lật ngang qua bề rộng ~0 (như xoay trong không gian), đổi slot đúng lúc đó
+    nên không lộ chỗ nối; đuôi mây luôn kéo sau hướng bay;
+  - runtime `AtomikPose.Overlay(ci, t)` phủ clip `aura` lên clip chính (xương cộng, hình theo khoá, độ đậm nhân); `AolaActor` chạy
+    theo `Time.time` (liền qua mọi clip; Editor không Play thì đứng ở giây 0), `AtomikPlayer` theo đồng hồ riêng. Rig gộp tiến hóa:
+    mây dạng sau (`n_jo*`) ẩn bằng độ đậm 0 ở clip trận, hiện cùng dạng sau trong `evolve`; mây dạng cũ tan cùng dạng cũ;
+  - bản soi (`khung.png`, GIF, `baked.pkl` của `show`) đã ghép aura cùng giây như runtime (`beast.with_aura`).
+- **Thân rắn nhiều xương** (`beast.serpent_clip`): xương `body` ở giữa thân; chuỗi `body` (nửa trước, `fw1..3`) từ giữa lên cổ, chuỗi
+  `back` (nửa sau, `bk1..3`) từ giữa về hông, đuôi 4 đốt, bờm là chuỗi riêng `hair1..2` (tên `hair`, đừng đặt `mane*`: bị cả vòng tai
+  lẫn vòng đuôi lắc chồng). Chuỗi đo khoảng cách từ xương đầu chuỗi trong vùng của nó, nên gốc chuỗi phải ở **một đầu** vùng (đặt ở
+  giữa vùng thì phía bên kia bị tính như ngọn chuỗi). `"parent"`: đầu theo `fw3`, chân trước theo `fw2/fw3`, chân sau theo `bk2/bk3`.
+  - `"spine": {"bones": [đầu ... chóp đuôi], "amp": [...], "coil_neck/back/tail", "paddle"}`: sóng chạy từ đầu xuống đuôi (pha tăng
+    0,8 mỗi đốt, biên độ tăng ra đuôi); "nâng" dương = đầu xa thân nhấc lên (tự đổi dấu theo hướng xương); đầu xoay bù 80% góc cổ (mắt
+    vẫn nhìn đối thủ); chân bơi lệch pha. Clip không lặp chạy số vòng sóng nguyên, biên độ riêng hoà vào/ra hai đầu clip nên khớp
+    khung 0 idle. Dáng cuộn - bung theo nhịp đòn: attack/cast cuộn lấy đà rồi bung lúc nhả đạn; skill chồm cổ cao, bung khi sét giáng;
+    hit cuộn chữ C ngược; idle 4 s = 2 vòng sóng. Xương thuộc spine bị loại khỏi `tail_bones` (khỏi lắc chồng).
+- **Con dài dẹt:** game co tướng theo `game.height` nên rồng dài ~2 lần cao lòi khỏi mép sân. `"max_w": 1.42` (tỉ lệ rộng/cao tối đa)
+  → khai chiều cao lớn hơn cho con vẽ nhỏ lại; tiến hóa dùng chiều cao hiệu dụng nên không giật cỡ.
+- Soi: `dung_thu.py` (scratchpad, vá `thuy_long.RES`) dựng không đụng Assets; tour `PokiClash/Thử/Đảo Mộc: Thanh Long ra trận ở 3 dạng`
+  (đang Play, ảnh `Temp/PokiShots/thanh_long_combat`) thấy mây bay thật.
+- **Dạng cuối phải khác hẳn dạng trước** (người dùng: "dạng 2 và 3 chưa khác nhau lắm"): đổi cả màu (xanh lam đậm thay ngọc lam), thêm
+  giáp, đồ (ngọc sấm), đổi chi tiết (râu, chóp đuôi hình tia sét) và **đổi dáng** (chồm dựng chữ S thay vì nằm ngang): nhìn bóng dáng
+  đã biết là con khác. Gói `build_thanh_long_chien.py b3` → `tai_ve/L1_chien_b.png`. Dáng dựng hẹp (rộng/cao ~1,3) nên khỏi co.
+- **Bờm, râu nhiều xương có lò xo** (người dùng: "thêm xương vào tóc cho mềm mại hơn"): bờm 3–4 đốt, râu 2–3 đốt; khoá `"soft"`
+  (`beast.springs_of` → `longrig.Springs`: đuổi theo dáng động học, trễ, vượt nhẹ; `k` từng đốt 380 → 180, `damp` 0,6, `maxang` 10°;
+  mềm hơn nữa thì lúc đánh lộ phần vẽ bù). Bờm chung lưới với sừng thì lò xo kéo nhoè sừng: tách `"sep": {"hair": "back", "rau":
+  "front"}` (bờm lớp sau đầu, sừng đè lên; râu lớp trước), `"sep_grow": 24` (bờm vẽ bù dưới đầu), `"main_grow": 14–16` (lưới chính vẽ
+  bù dưới râu, râu lắc không lộ lỗ). Hạt giống bờm đừng chạm lông gáy (nhãn gần nhất kéo cả mảng lông sau đầu vào bờm).
+- **Hạt lá không viền sticker** (người dùng: "bỏ shader viền trắng ở các particle lá"): `beast.plain_slots` khai `game.plain` = slot
+  hiệu ứng vẽ trước thân có ảnh lá (`leaf`/`leaves`). Runtime: `AolaActor.SplitFx` (AolaSticker bật) dựng các slot đó thành lưới riêng
+  đặt cao `FxLift` 1000 trên actor; `AolaSticker.MakeFxLayer` thêm camera, RT, ảnh con cùng khung, shader `StickerOutline` với
+  `_Plain = 1` (không viền). Slot sau thân giữ chung ảnh có viền (tách ra thì bị vẽ đè lên thân). Đã dựng lại Tiên Lá, Thỏ Hoàng,
+  Mộc Tinh để có danh sách này. Chụp thử trong Editor (`AtomikForms.Shot`) không bật SplitFx nên vẫn một lưới như cũ.
+- **Chiêu mỗi dạng một khác, dạng sau dữ hơn** (người dùng: "chiêu của dạng 1, 2, 3 đang giống nhau... càng dạng sau chiêu sét
+  càng dữ dội, càng to"): `beast.form_cfg` cho khoá `"<tên>_form": {dạng: ...}` trong `juice` đè khoá chung (dict trộn, còn lại
+  thay): `lightning_form`, `impact_form`, `phys_form`, `phys_pre_form`; `"motion"` theo dạng (`{1: "claws", 2: "roar", 3: "rear"}`).
+  Tham số sét mới: `w_main`/`w_pre` (dày nét), `br_main`/`br_pre` (số nhánh), `wide_main` (bề ngang ảnh nhát chính), `main_scale`,
+  `main_hold` (khung giữ thêm của cột sét), `clouds` [(dx, cỡ)], `cloud_stay`, `caster_r`/`caster_size`, `ring_pre`/`ring_main`,
+  `dur`, `t_up`, `hit`, `seed`, `up` (tia bắn ngược lên trời từ ngọc: `bone`, `at` điểm trên ảnh concept, `height`, `win`; clip có
+  `post` bù góc thế giới để tia luôn dựng đứng). Thanh Long: dạng 1 một tia mảnh, một mây nhỏ (1,7 s); dạng 2 ba nhát, hai mây (2 s);
+  dạng 3 ngọc bắn tia lên trời, ba mây giông, năm nhát dồn dập rồi cột sét dày gần gấp đôi, 7 nhánh, giữ thêm 12 khung, khựng 0,2 s,
+  rung 1,0, chớp màn mạnh, 24 hạt lá đất (2,5 s). Tướng nhiều nhát sét làm .atomik nặng hơn (mỗi nhát 5–8 ảnh tia).
+
+## 18. Chiêu đa dạng theo dạng, đứng một chỗ bắn, há miệng (cả 3 đảo, 2026-11-09 tối)
+
+Người dùng chê chiêu "một màu, toàn lao lên húc rồi lộn", dặn sáng tạo hơn (lore, Pokémon), đòn bắn xa đứng một chỗ, bắn từ mồm
+thì há mồm. Đã áp cho 29 dòng Thủy, Mộc, Hỏa (Kim do phiên khác làm):
+- **Kiểu chiêu đứng tại chỗ mới** (`beast.py`, cùng `FAR_SKILL`): `beam` (đạn nối đuôi thành dòng từ miệng, chỗ trúng chớp liên
+  hồi), `vortex` (vòng xoáy dưới chân đối thủ quay nhanh dần, cột xoáy, hạt bay vòng, nổ cuối), `rain` (từng viên rơi chéo quanh
+  đối thủ; dạng cuối thêm khối lớn rơi), `nova` (vòng bùng quanh thân theo nhịp + sóng đất tới đối thủ), `orbit` (đạn hiện ra bay
+  vòng quanh thân rồi phóng lần lượt), `line_erupt` (cột trồi nối nhau dọc đất tới đối thủ, slot `fll*` trên xương `flyl*`: game
+  dời theo quãng như đạn `fly*`). Độ mạnh `power_of`: dạng 1 = 1, dạng cuối = 3 (số viên, cỡ, độ dài, nổ cuối tăng theo).
+- **Bảng đòn/chiêu từng dạng**: khối `_REDESIGN` trong `beasts_cfg.py` (giữa phần Hỏa và phần Kim), ghi ý lore/Pokémon từng dòng.
+  Còn 9/72 dạng chiêu lao (dê, bò, cuộn giáp, cánh cụt trượt bụng, liên hoàn vuốt ở dạng 1). Đòn "lộn" (spin, tailwhip) đã bỏ.
+- **Cảm giác trúng mặc định theo dạng** (`game_info`, tướng không khai `impact`): khựng, rung, bật lùi tăng theo dạng, dạng cuối chớp
+  màn.
+- **Đứng một chỗ bắn**: `attack_range` chỉ giật lùi; trận (`StageView`) không tự nhún tới đối thủ với clip `far`/`stay` của rig
+  .atomik (`AolaActor.Stays`, `AolaSticker.Stays`). Trước đó đòn đánh không khai lao vẫn bị đẩy tới 35% quãng.
+- **Há miệng**: vùng `jaw` + xương `jaw` ở góc miệng phía sau, `"jaw": {"open": độ}`; `beast.jaw_clip` há theo nhịp (đòn phun/hót/
+  gầm, chiêu mana, chiêu gầm, trúng đòn), tiến hóa thì dạng sau há khi gầm. Gắn nhanh bằng `_add_jaw(id, dạng, đa giác, khớp, độ)`
+  trong `beasts_cfg.py`. Bẫy: cằm không có nét mực ngăn với má thì hạt giống nhỏ không loang được (há thành khối vuông): đa giác
+  phải **phủ trọn hàm dưới, cằm**; răng trắng giáp hàm và đầu bị coi là khe giấy (lỗ khi há): `drop_gaps` giữ khe giáp vùng `jaw`.
+  Mỏ quặp khép kín (Phong Linh 2) bỏ qua. Điểm `mouth` cũ lệch (trên má, vây) thì sửa cho đạn ra đúng miệng.
+- **Bẫy đã sửa 2026-11-10 (phiên Kim phát hiện):** `P.rot/scale/move` gọi theo **tên slot** mà slot nằm trên xương tên khác (đạn `fl*` trên
+  `fly*`, vệt `jt*` trên `flyt*`, `fl_wave` trên `flyw`, `fll*` trên `flyl*`, và `ff_*` trước đây chung xương `far`) bị `Q.clean` bỏ
+  khi xuất: đạn không xoay, không co giãn, hiệu ứng ở chỗ đối thủ đứng yên một cỡ, vật "rơi từ trời" không rơi. Nay
+  `longrig.Pose.alias` (đặt trong `build_rig`) quy tên slot về xương riêng của nó, và mỗi `ff_*` có xương riêng con của `far` (vòng loang,
+  hình đứng đặt ở đất). Viết clip mới: gọi theo tên xương hay tên slot đều được, trừ slot chung xương (`fx_ring_b/f` → `fx_ring`).
+
+## 19. Đảo Kim: chibi chỉ dạng 1, thú mặc giáp (2026-11-09 tối, máy ổ D)
+
+Cách mục 16 áp cho 10 dòng, 22 dạng (QUY_TRINH mục 20); gói `build_kim.py`, cấu hình `beasts_cfg_kim.py` (nạp cuối `beasts_cfg.py`).
+- **Tỉ lệ theo dạng** (`STAGE` trong gói): dạng 1 chibi đầu khoảng 45%, dạng giữa 30%, dạng cuối 25%; ảnh mẫu dạng trước dặn "to,
+  khỏe, ngầu hơn, đừng chép tỉ lệ thân". Ảnh ra vẫn chibi thì `gen.py --note "Not chibi at all ... head about one quarter"`.
+- **Aola dạng robot, người lính** thì đổi thành thú mặc giáp giữ màu, chi tiết (nhím, tatu, cú, heo rừng, linh miêu).
+- **Mặt nạ đồ trắng:** lông, chùm lông trắng gần màu giấy hở viền thì `close_fill` (x0, y0, x1, y1, r); viền giáp trắng khép kín bị
+  thành lỗ thì `keep`; lòng bàn chân giữa các móng thì mỗi bàn một hộp r=14, đáy ngay trên mép bàn chân.
+- **Chọn chi đánh:** chân không đặt tên `leg_f*` thì `limb(paw → arm_f → claw_f)` dùng càng (Bọ Cạp); `hover` đọc theo dạng
+  (`style_of`), Chiến Thần chỉ dạng 2 bay.
+- **Tờ hiệu ứng bị công cụ vẽ ảnh của Codex chặn** khi tả lưỡi thép, gai, giáo: tả bằng tấm kim loại, dải bạc, vệt cong, mảnh pha
+  lê. Ảnh hiệu ứng chưa gen thì `_tam_thoi()` cuối `beasts_cfg_kim.py` tạm dùng ảnh tờ chung cùng vai trò (vào game được ngay).
+- **Codex hết hạn mức** (`chay_hoa.log`: "usage limit", chờ 10 phút, thử lại mãi): báo người dùng giờ mở lại; runner tách
+  (Start-Process) vẫn sống và tự gen khi có hạn mức.
+- **Soát theo mục 0a, 18:** khối `_REDESIGN_KIM` trong `beasts_cfg_kim.py` (mỗi dạng một chiêu; 17/20 đứng tại chỗ). Kiểm bằng
+  `<id>_game.json` của từng dạng (`far` / `lunge`). Trước 2026-11-10 lệnh xoay, co, dời theo tên slot (`fl*`, `ff_*`, `fll*`) bị bỏ
+  (đạn không xoay, vật rơi không rơi); phiên khác đã sửa gốc (`Pose.alias`, mỗi `ff_*` một xương con của `far`), dựng lại là
+  hưởng. Ảnh đạn dài phải chĩa sang phải (code xoay theo hướng bay). Tờ khung dạng chưa cuối có 6 hàng (thêm
+  `evolve`), mỗi hàng 300 px: cắt hàng chiêu theo số hàng thật.
 
 ## 14. Gen bộ phận SAU khi rig (đảo Mộc, 2026-11-08 tối; đã bỏ, xem mục 15)
 

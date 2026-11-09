@@ -1,0 +1,22 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_fx\tai_ve\FX03.png: an approved effect of the same game (a water splash burst), 1024x1024: match EXACTLY its hand-drawn line, crayon texture and flat colouring.
+image 2 = D:\PokiClash\ArtGen\Heroes\inbox\giot_suong_fx\tai_ve\FX07.png: another approved effect of the same game (a wave), 1024x1024: same style reference.
+image 3 = D:\PokiClash\ArtGen\Islands\refs\world_style.png: the game's hand-drawn map, 1024x1536; use ONLY its line and colouring style, nothing of its content.
+
+SAVE: save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\fx\phi_thuong\tai_ve\sheet.png
+If a file with that name already exists, save as sheet_2.png, sheet_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: draw a SHEET OF SIX SEPARATE GAME EFFECT SPRITES in the hand-drawn style of images 1 and 2.
+
+LAYOUT (very important, the sheet is cut automatically): landscape 1536x1024, pure-white background, divided into an invisible grid of 3 columns x 2 rows of 512x512 cells. Draw exactly ONE effect in each cell, centred, filling about 75% of the cell, every part (drops and sparks included) at least 40 px inside its cell: nothing crosses into a neighbouring cell. No grid lines, no numbers, no labels.
+1. top-left cell: a giant long faceted sapphire-blue crystal shard pointing straight DOWN with a gold band, falling from above.
+2. top-middle cell: a long straight speed streak to the right, steel-blue, ending in a star-shaped burst at its tip.
+3. top-right cell: one long steel-blue porcupine quill with a gold tip, flying to the right.
+4. bottom-left cell: a round crystal orb, its left half sapphire blue and its right half ruby red, in a gold ring.
+5. bottom-middle cell: a round burst of steel-blue quills radiating outward.
+6. bottom-right cell: a round crater seen in perspective on the ground (a wide ellipse) with crystal shards and quills sticking out of it.
+
+STYLE: drawn by hand on paper with a dark-brown ink pen (#2B2118) outline about 6 px thick, slightly wobbly; coloured with coloured pencils and wax crayons, visible diagonal hatching. Colours exactly as described for each effect (water blue and aqua with white foam; ice pale blue and white; leaves and vines green; flowers as stated; crystals as stated; lightning flat yellow with a dark outline, never glowing).
+METAL: steel, gold, bronze, crystal and gems are flat shapes with a closed dark-brown ink outline, each one flat crayon colour (plus a few darker facet or edge lines); no shine spots, no white highlights, no reflections, no metallic gradients; sparks are flat yellow four-pointed stars with a dark outline; flames (if any) are flat shapes in at most three colour bands. Nothing glows: no light, no halo, no bright edges.
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker side, no shadows of any kind (no cast shadow, no shadow under the figure, on the ground or on the background), no white highlights or shine spots, no gloss, no glow, no rim light, no gradients, no 3D look. The only white allowed is one small catchlight dot in each eye. A darker tone appears only where the design itself has a darker colour.
+Plain pure-white background (#FFFFFF), no creature, no character, no text.

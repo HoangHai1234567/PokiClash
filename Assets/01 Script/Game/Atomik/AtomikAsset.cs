@@ -92,6 +92,9 @@ namespace PokiClash.Game
         public float[] impactShake;     // trauma 0..1 cộng vào rung màn
         public float[] impactPush;      // quãng bật lùi con bị đánh, theo chiều cao nó
         public string[] impactFlash;    // màu chớp cả màn lúc trúng (hex, StageView.Flash), rỗng = không chớp
+        // slot vẽ KHÔNG viền sticker (hạt lá bay, lá văng: người dùng dặn bỏ viền trắng ở hạt lá, 2026-11-09): AolaSticker chụp các
+        // slot này riêng một ảnh, hiện không qua viền giấy. Rỗng = như cũ, mọi thứ chung một ảnh có viền.
+        public string[] plain;
     }
 
     public sealed class AtomikAsset : ScriptableObject

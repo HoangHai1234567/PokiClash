@@ -45,7 +45,9 @@ HEADK = 0.55   # một lưới: đầu xoay ít (cổ uốn mềm), nghiêng c�
 BLEND = 26     # px: bề rộng dải hoà trọng số giữa hai vùng
 NFLY, NFAR = 5, 8
 RANGED = {"song", "breath", "roar", "throw"}                       # đòn đánh từ xa: đạn bay tới đối thủ
-FAR_SKILL = {"erupt", "storm", "barrage", "summon_prop", "shockwave"}  # chiêu cuối đứng tại chỗ, hiệu ứng ở chỗ đối thủ
+FAR_SKILL = {"erupt", "storm", "barrage", "summon_prop", "shockwave",  # chiêu cuối đứng tại chỗ, hiệu ứng ở chỗ đối thủ
+             "beam", "vortex", "rain", "nova", "orbit", "line_erupt"}  # 2026-11-09: chiêu đứng bắn, xoáy, mưa, sóng...
+NLINE = 5  # số cột trồi của line_erupt
 LUNGE_SKILL = {"charge", "slide", "spin_dash", "combo"}               # chiêu cuối lao tới (trận kéo tới đối thủ)
 
 
@@ -53,6 +55,29 @@ LUNGE_SKILL = {"charge", "slide", "spin_dash", "combo"}               # chiêu c
 def cfg(hid):
     import beasts_cfg
     return beasts_cfg.HEROES[hid]
+
+
+def form_cfg(C, k):
+    """cấu hình tướng cho dạng k: khoá "<tên>_form" trong "juice" ({số dạng: giá trị}) đè lên khoá chung "<tên>" (dict thì trộn,
+    còn lại thay). Vd. Thanh Long mỗi dạng một chiêu sét riêng, dữ dần (người dùng dặn 2026-11-09): "lightning_form",
+    "impact_form", "phys_form". "idle_form" giữ cách cũ (juice_specs cộng thêm)."""
+    J = C.get("juice")
+    if not J:
+        return C
+    Jf = dict(J)
+    for key, v in J.items():
+        if not key.endswith("_form") or key == "idle_form" or not isinstance(v, dict) or k not in v:
+            continue
+        base_ = key[:-5]
+        if isinstance(v[k], dict) and isinstance(J.get(base_), dict):
+            m = dict(J[base_])
+            m.update(v[k])
+            Jf[base_] = m
+        else:
+            Jf[base_] = v[k]
+    C2 = dict(C)
+    C2["juice"] = Jf
+    return C2
 
 
 def code(hid, k):
@@ -64,7 +89,11 @@ def base(hid, k):
 
 
 def src(hid, k):
-    """L1_duyet.png (Claude chọn) nếu có, không thì ảnh L1_lien*.png mới nhất (gen lại thì Codex lưu L1_lien_2.png...)."""
+    """ảnh "src" khai trong dạng (đường dẫn trong inbox/<mã>/, vd. Thanh Long vẽ lại cho chiến: tai_ve/L1_chien.png), không thì
+    L1_duyet.png (Claude chọn) nếu có, không thì ảnh L1_lien*.png mới nhất (gen lại thì Codex lưu L1_lien_2.png...)."""
+    F = cfg(hid).get("forms", {}).get(k, {})
+    if F.get("src"):
+        return os.path.join(base(hid, k), F["src"])
     p = os.path.join(base(hid, k), "L1_duyet.png")
     if os.path.isfile(p):
         return p
@@ -124,6 +153,14 @@ def load(hid, k, F):
         cl = cv2.morphologyEx(sub, cv2.MORPH_CLOSE, disk(box[4] if len(box) > 4 else 6))
         filled = fill_holes(cl)
         fg[y0:y1, x0:x1] = np.maximum(fg[y0:y1, x0:x1], filled)
+    # "erase": điểm trong lòng những mảng rời phải bỏ khỏi hình (mây vẽ sẵn quanh Thanh Long dạng 1: mây nay là ảnh riêng bay vòng
+    # quanh, beasts_cfg "orbit"); bỏ cả mảng liền chứa điểm đó
+    if F.get("erase"):
+        n_, cl_, _, _ = cv2.connectedComponentsWithStats(fg.astype(np.uint8), connectivity=8)
+        for (x, y) in F["erase"]:
+            c_ = cl_[int(y), int(x)]
+            if c_ > 0:
+                fg[cl_ == c_] = 0
     return rgb, fg
 
 
@@ -177,7 +214,7 @@ def under_image(hid, k, lv, rgb, fg, lab, names, F):
     return al, m
 
 
-def drop_gaps(rgb, fg, lab):
+def drop_gaps(rgb, fg, lab, keep_ids=()):
     """khe giấy trắng nhỏ còn lẫn trong hình (Q.load chỉ bỏ khe > 3000 px) nằm GIỮA hai bộ phận (giữa gai bờm và cánh, giữa
     chân và bụng): bỏ khỏi hình, kẻo dính vào một lớp rồi thành vệt trắng khi lớp đó cử động. Lòng trắng mắt, răng, ngọc trai
     chỉ giáp một bộ phận nên giữ."""
@@ -196,7 +233,7 @@ def drop_gaps(rgb, fg, lab):
         ring = (cv2.dilate(m.astype(np.uint8), k) > 0) & ~m
         labs = np.unique(lab[y0:y1, x0:x1][ring])
         labs = labs[labs >= 0]
-        if len(labs) >= 2:
+        if len(labs) >= 2 and not (set(labs.tolist()) & set(keep_ids)):  # răng (giáp hàm "jaw") giữ: há miệng không lộ lỗ
             fg[y0:y1, x0:x1][m] = 0
             lab[y0:y1, x0:x1][m] = -1
             gaps[y0:y1, x0:x1][m] = 1
@@ -225,7 +262,10 @@ def one_layers(F):
     back = [p for p in allp if sep.get(p) == "back"]
     front = [p for p in allp if sep.get(p) == "front"]
     main = [p for p in allp if p not in sep]
-    return ([("sep_b", back, 14)] if back else []) + [("main", main, 0)] + ([("sep_f", front, 0)] if front else [])
+    # "main_grow": lưới chính mọc thêm (vẽ bù) dưới lớp trước bấy nhiêu px, để lớp trước cử động mạnh (râu Thanh Long đung đưa) không
+    # để lộ lỗ chỗ nó vốn che; "sep_grow": lớp sau mọc dưới lưới chính (bờm có lò xo lùa dưới sừng, đầu)
+    return ([("sep_b", back, F.get("sep_grow", 14))] if back else []) + [("main", main, F.get("main_grow", 0))] + \
+        ([("sep_f", front, 0)] if front else [])
 
 
 def membership(lab, dom, ids, px):
@@ -354,7 +394,7 @@ def disk(r):
 
 
 def build_rig(hid, k):
-    C = cfg(hid)
+    C = form_cfg(cfg(hid), k)
     F = C["forms"][k]
     setup_labels(hid, k, F)
     rgb, fg = load(hid, k, F)
@@ -362,7 +402,7 @@ def build_rig(hid, k):
     lab = Q.labels(k, rgb, fg)
     # khe giấy trắng giữa hai bộ phận: bỏ khỏi hình (trong suốt) và lưới không nối qua khe; giữ thì khe bị kéo giãn thành vệt
     # trắng khi đuôi, chân cử động
-    fg, lab, gaps = drop_gaps(rgb, fg, lab)
+    fg, lab, gaps = drop_gaps(rgb, fg, lab, [names.index("jaw")] if "jaw" in names else [])
     J = dict(F["bones"])
     rows = np.where(fg.any(1))[0]
     ground = float(F.get("ground", rows.max() - 6))
@@ -409,7 +449,7 @@ def build_rig(hid, k):
     ys, xs = np.nonzero(fg)
     front = (xs.max() - feet_x) * ks
     back = (xs.min() - feet_x) * ks
-    info = {"front": float(front), "back": float(back), "mouth": mouth, "len": float(front - back)}
+    info = {"front": float(front), "back": float(back), "mouth": mouth, "len": float(front - back), "S": S}
 
     # bàn chân đánh (vồ, đá): xương "paw" con của ground ở đỉnh chân; nửa dưới chân theo paw thay vì bám đất
     paw = paw_part(C, F, k, names)
@@ -608,8 +648,14 @@ def build_rig(hid, k):
         lay_dbg.append((name, rgba, own[y0:y1, x0:x1], (x0, y0)))
         for s_ in FX_MID.get(name, []):  # hiệu ứng chen giữa lớp (vòng nước trước thân, sau chân trước...)
             fx_slot(R, s_)
-    for s_ in FX_FRONT + JUICE_FRONT:
+    for s_ in FX_FRONT + [f"fll{i}" for i in range(NLINE)] + JUICE_FRONT:  # fll*: cột trồi nối (line_erupt)
         fx_slot(R, s_)
+    # tên slot -> xương riêng của nó (đạn fl* trên fly*, vệt đuôi jt* trên flyt*, sóng đất fl_wave trên flyw, cột trồi fll* trên
+    # flyl*): lệnh rot/scale/move theo tên slot ăn vào xương (longrig.Pose.alias). Xương dùng chung nhiều slot (fx_ring) thì thôi.
+    use = {}
+    for s_, spec in FXSPEC.items():
+        use.setdefault(spec[0], []).append(s_)
+    L.Pose.alias = {s_: spec[0] for s_, spec in FXSPEC.items() if spec[0] != s_ and len(use[spec[0]]) == 1 and spec[0] in R.bi}
     ctx = Ctx()
     ctx.hid, ctx.k, ctx.R, ctx.F, ctx.C, ctx.info = hid, k, R, F, C, info
     ctx.rgb, ctx.fg, ctx.lab, ctx.layers = rgb, fg, lab, lay_dbg
@@ -683,14 +729,28 @@ def fx_setup(R, C, info, k):
     for i in range(NFLY):
         R.bone(f"fly{i}", "root", mx, my)
     R.bone("flyw", "root", front + 0.05 * H, 0.0)
+    # chiêu "line_erupt": cột trồi nối nhau dọc mặt đất từ chân tới đối thủ (xương flyl*: game dời theo quãng như đạn fly*)
+    nline = NLINE if style_of(C, k, "skill") == "line_erupt" else 0
+    for i in range(nline):
+        R.bone(f"flyl{i}", "root", front + 0.05 * H, 0.0)
     FXGROUND.clear()
-    farmap = {"ff_ground": ("far", fx.get("fx_ground")), "ff_big": ("far", fx.get("fx_big")),
-              "ff_big2": ("far", fx.get("fx_big2")), "ff_hit": ("far", fx.get("fx_hit")), "fl_wave": ("flyw", fx.get("fx_wave"))}
+    # mỗi hiệu ứng ở chỗ đối thủ một xương riêng (con của far) để co giãn, dời, rơi từng cái (2026-11-10: trước đây chung xương far
+    # nên lệnh scale/move theo tên slot bị bỏ, hiệu ứng đứng yên một cỡ). Vòng loang và hình đứng (đáy ở đất) đặt xương ở đất: nở
+    # ra từ đất; nổ, chớp đặt ở tâm thân đối thủ.
+    big_up = (fx.get("fx_big") or (0, 0, 0))[2] in (90, "up")
+    for s_, y_ in (("ff_ground", 0.0), ("ff_big", 0.0 if big_up else fary), ("ff_big2", fary), ("ff_hit", fary)):
+        R.bone(s_, "far", farx, y_)
+    farmap = {"ff_ground": ("ff_ground", fx.get("fx_ground")), "ff_big": ("ff_big", fx.get("fx_big")),
+              "ff_big2": ("ff_big2", fx.get("fx_big2")), "ff_hit": ("ff_hit", fx.get("fx_hit")), "fl_wave": ("flyw", fx.get("fx_wave"))}
     for i in range(NFLY):
         farmap[f"fl{i}"] = (f"fly{i}", fx.get("fx_fly") or fx.get("fx_orb"))
     for i in range(NFAR):
         farmap[f"fp{i}"] = (f"fp{i}", fx.get("fx_p"))
-    FXGROUND.update({"ff_ground": fary, "ff_big": fary, "fl_wave": 0.0})
+    if nline and fx.get("fx_big"):
+        img_, size_, rot_ = fx["fx_big"]
+        for i in range(nline):
+            farmap[f"fll{i}"] = (f"flyl{i}", (img_, size_ * 0.62, rot_))
+    FXGROUND.update({"ff_ground": 0.0, "ff_big": 0.0, "fl_wave": 0.0})  # xương đã ở đất
     used = {}
     FXSPEC.clear()
     for slot, (bone, spec) in farmap.items():
@@ -718,6 +778,261 @@ def fx_setup(R, C, info, k):
                 used[img] = True
             FXSPEC[f"fx_p{i}"] = (f"fx_p{i}", img, size * H, rot)
     juice_setup(R, C, info, k, fx, used)
+    orbit_setup(R, C, info, k, used)
+
+
+# ---------------------------------------------------------------- mây bay vòng quanh (clip "aura")
+# Người dùng dặn 2026-11-09: mây quanh Thanh Long phải bay xung quanh. Mây bay liên tục qua mọi clip, nên không khoá trong clip
+# trận (đổi clip là mây giật về chỗ cũ): clip "aura" lặp riêng, runtime chạy theo đồng hồ liên tục rồi phủ lên clip chính
+# (AtomikPose.Overlay: xương cộng thêm, độ đậm slot nhân vào). Mỗi cụm mây là một xương jo<i> (con của move: theo cú lao) mang hai
+# slot cùng ảnh: jo<i>b vẽ sau thân (nửa vòng xa), jo<i>f vẽ trước thân (nửa vòng gần). Hai đầu vòng (mây đổi hướng bay) mây
+# lật ngang qua bề rộng 0 như xoay trong không gian, đúng lúc đó đổi slot sau/trước nên không lộ chỗ nối; đuôi mây luôn kéo
+# sau hướng bay.
+def orbit_cfg(C, k):
+    return style_of(C, k, "orbit")
+
+
+def orbit_setup(R, C, info, k, used):
+    O = orbit_cfg(C, k)
+    if not O:
+        return
+    cx = (info["front"] + info["back"]) / 2 + O.get("dx", 0.0) * H
+    for i, cl in enumerate(O["clouds"]):
+        img, size = cl[0], cl[1]
+        b = f"jo{i}"
+        R.bone(b, "move", cx, O.get("cy", 0.3) * H)
+        if img not in used:
+            R.images[img] = fx_img(img)
+            used[img] = True
+        FXSPEC[b + "b"] = (b, img, size * H, 0)
+        FXSPEC[b + "f"] = (b, img, size * H, 0)
+        JUICE_BACK.append(b + "b")
+        JUICE_FRONT.append(b + "f")
+
+
+def orbit_anim(P, ctx, t, pre=""):
+    """vị trí, cỡ, mặt lật của từng cụm mây ở giây t của vòng aura (dài O["period"], lặp liền)."""
+    O = orbit_cfg(ctx.C, ctx.k)
+    if not O:
+        return
+    D = O.get("period", 7.0)
+    n = len(O["clouds"])
+    half = O.get("rx", 0.5) * ctx.info["len"]
+    ry = O.get("ry", 0.12) * H
+    for i, cl in enumerate(O["clouds"]):
+        tail = cl[2] if len(cl) > 2 else "r"
+        b = pre + f"jo{i}"
+        # vòng theo chiều kim đồng hồ nhìn từ trên: nửa gần (sin < 0) bay sang trái, nửa xa bay sang phải
+        th = 2 * math.pi * (i / n + O.get("ph", 0.0)) - 2 * math.pi * t / D
+        s, c = math.sin(th), math.cos(th)
+        rr = 1.0 - O.get("rvar", 0.12) * (i % 2)
+        bob = O.get("bob", 0.025) * H * math.sin(4 * math.pi * t / D + 1.9 * i)
+        P.move(b, half * rr * c, ry * (1.0 + 0.25 * (i % 2)) * s + bob + O.get("dy", [0.0] * n)[i] * H)
+        left = s < 0
+        face = 1.0 if (tail == "r") == left else -1.0  # ảnh đuôi bên phải = đang bay sang trái
+        w = max(0.03, min(1.0, abs(s) / 0.32) ** 0.6)
+        sc = 1.0 - O.get("depth", 0.16) * s  # nửa xa nhỏ hơn
+        P.scale(b, face * w * sc, sc)
+        P.rot(b, O.get("tilt", 4.0) * math.sin(2 * math.pi * t / D * 2 + i))
+        # slot mây mặc định trống (rig xem ở dáng gốc, runtime cũ không có lớp phủ: không thấy mây chồng giữa thân); aura bật hình
+        # ở slot trước khi mây ở nửa gần, slot sau khi ở nửa xa
+        P.att[b + "f"] = (b + "f") if s < 0 else None
+        P.att[b + "b"] = None if s < 0 else (b + "b")
+        if O.get("back_alpha", 1.0) < 1.0:
+            P.alpha[b + "b"] = O["back_alpha"]
+
+
+def aura_clip(ctx, ctxB=None):
+    """clip lặp "aura" (mây bay vòng); rig gộp tiến hóa: mây của dạng sau (n_) cũng bay (chỉ hiện trong clip tiến hóa)."""
+    O = orbit_cfg(ctx.C, ctx.k)
+    OB = orbit_cfg(ctxB.C, ctxB.k) if ctxB else None
+    if not O and not OB:
+        return None
+    D = (O or OB).get("period", 7.0)
+
+    def f(t, P):
+        orbit_anim(P, ctx, t)
+        if ctxB is not None:
+            orbit_anim(P, ctxB, t, "n_")
+    return {"dur": D, "loop": True, "fn": f}
+
+
+def with_aura(baked, aura):
+    """bản soi (khung.png, GIF): clip chính + aura cùng giây như runtime (xương cộng, độ đậm nhân)."""
+    import copy
+    if not aura:
+        return baked
+    n = len(aura)
+    out = {}
+    for name, frames in baked.items():
+        fr = []
+        for i, P in enumerate(frames):
+            Q_ = copy.deepcopy(P)
+            A = aura[i % n]
+            for b_, v in A.t.items():
+                g = Q_._g(b_)
+                g[0] += v[0]
+                g[1] += v[1]
+                g[2] += v[2]
+                g[3] *= v[3]
+                g[4] *= v[4]
+            for s_, a_ in A.alpha.items():
+                Q_.alpha[s_] = Q_.alpha.get(s_, 1.0) * a_
+            for s_, a_ in A.att.items():
+                Q_.att[s_] = a_
+            fr.append(Q_)
+        out[name] = fr
+    return out
+
+
+# ---------------------------------------------------------------- há miệng (người dùng 2026-11-09: chiêu bắn từ mồm phải tách
+# miệng, rig xương để mở mồm bắn). Dạng có xương "jaw" (vùng hàm dưới, khớp ở góc hàm, cha là head): đòn bắn từ miệng (song, breath,
+# roar), chiêu mana, chiêu gầm há theo nhịp nhả; trúng đòn há nhẹ. "jaw": {"open": góc độ} ở dạng (mặc định 16; quay mặt sang phải
+# thì há là xoay theo chiều kim đồng hồ: góc âm).
+JAW_ATTACK = {"song", "breath", "roar"}
+
+
+def jaw_clip(ctx, name, clip):
+    if not has(ctx, "jaw"):
+        return clip
+    J = ctx.F.get("jaw") or {}
+    A = -abs(J.get("open", 16.0))
+    D = clip["dur"]
+    h = clip.get("hit", 0.45 * D)
+    atk = style_of(ctx.C, ctx.k, "attack", "bite")
+    sk = style_of(ctx.C, ctx.k, "skill", "erupt")
+    mo = motion_of(ctx, "roar")
+
+    def amt(t):
+        if name == "attack" and atk in JAW_ATTACK:
+            hh = 0.4  # attack_range nhả đạn ở 0,38 s
+            return curve(t, [(0, 0), (0.24, 0.25, "io"), (hh - 0.02, 1.0, "o"), (hh + 0.18, 0.9), (0.78, 0.0, "io"), (D, 0)])
+        if name == "attack":  # cắn, vồ: há lúc lấy đà, ngậm lúc trúng
+            return curve(t, [(0, 0), (max(0.05, h - 0.18), 0.8, "io"), (h, 0.1, "i"), (min(D, h + 0.3), 0.0), (D, 0)])
+        if name == "cast":
+            return curve(t, [(0, 0), (0.3, 0.3, "io"), (h - 0.03, 1.0, "o"), (h + 0.2, 0.85), (min(D, h + 0.4), 0.0, "io"), (D, 0)])
+        if name == "skill":
+            if mo in ("roar", "howl", "rear") or sk in ("storm", "erupt", "shockwave"):
+                LG = (ctx.C.get("juice") or {}).get("lightning") or {}
+                t_up = LG.get("t_up", 0.5)
+                end = min(D - 0.2, h + 0.35)
+                return curve(t, [(0, 0), (t_up * 0.8, 0.5, "io"), (max(t_up + 0.05, h - 0.3), 1.0, "o"), (end, 0.8), (D, 0.0, "io")])
+            return curve(t, [(0, 0), (max(0.1, h - 0.15), 0.9, "io"), (min(D - 0.1, h + 0.3), 0.6), (D, 0.0, "io")])
+        if name == "hit":
+            return curve(t, [(0, 0), (0.06, 0.45, "o"), (0.3, 0.1), (D, 0)])
+        return 0.0
+
+    f0 = clip["fn"]
+
+    def f(t, P):
+        f0(t, P)
+        P.rot("jaw", A * amt(t))
+    out = dict(clip)
+    out["fn"] = f
+    return out
+
+
+# ---------------------------------------------------------------- thân rắn uốn sóng (rồng phương Đông)
+# Người dùng dặn 2026-11-09: rig thêm xương cho thân rồng mềm mại, uốn lượn. Dạng khai "spine": {"bones": [đầu ... đuôi]} (các xương
+# chuỗi sống lưng từ cổ tới chóp đuôi). Sóng chạy từ đầu xuống đuôi (pha tăng dần), biên độ tăng dần ra đuôi; đầu xoay bù để mắt vẫn
+# nhìn đối thủ (như rắn, rồng: thân lượn, đầu đứng). Mỗi clip trận thêm dáng cuộn - bung theo nhịp đòn.
+# "nâng" (lift) dương = đầu xa thân của xương nhấc lên, đổi ra góc theo hướng xương (xương chĩa sang trái thì ngược dấu).
+def spine_bones(ctx):
+    return list((ctx.F.get("spine") or {}).get("bones", []))
+
+
+def _spine_dirs(ctx):
+    R = ctx.R
+    bones = spine_bones(ctx)
+    out = {}
+    for b in bones:
+        kids = [x["name"] for x in R.bones if x["parent"] == b and (x["name"] in bones or x["name"] == "head")]
+        bx, by = R.bw(b)
+        if kids:
+            cx_, _ = R.bw(kids[0])
+        else:  # chóp đuôi: theo hướng từ xương cha tới xương này
+            px_, _ = R.bw(R.bones[R.bi[b]]["parent"])
+            cx_ = bx + (bx - px_)
+        out[b] = 1.0 if cx_ >= bx else -1.0
+    return out
+
+
+def serpent_clip(ctx, name, clip):
+    """bọc hàm clip: thêm sóng thân + dáng cuộn - bung. Clip không lặp chạy số vòng sóng nguyên (đầu, cuối clip khớp khung 0 của
+    idle), biên độ riêng của clip hoà vào/ra ở hai đầu clip."""
+    S = ctx.F.get("spine")
+    if not S:
+        return clip
+    bones = spine_bones(ctx)
+    n = len(bones)
+    dirs = _spine_dirs(ctx)
+    neck = []  # xương sống là tổ tiên của đầu (cổ): đầu xoay bù
+    b_ = ctx.R.bones[ctx.R.bi["head"]]["parent"] if has(ctx, "head") else None
+    while b_ in bones:
+        neck.append(b_)
+        b_ = ctx.R.bones[ctx.R.bi[b_]]["parent"]
+    tails = [b for b in bones if b.startswith("tail")]
+    backs = [b for b in bones if b not in neck and b not in tails]
+    amp = S.get("amp") or [2.5 + 7.0 * (j / max(1, n - 1)) ** 1.4 for j in range(n)]
+    kph = S.get("k", 0.8)
+    period = S.get("period", 2.0)
+    D = clip["dur"]
+    cyc = max(1, round(D / period))
+    w = 2 * math.pi * cyc / D
+    gain = {"idle": 1.0, "hit": 0.7, "attack": 1.35, "cast": 1.15, "skill": 1.45, "evolve": 1.1}.get(name, 1.0)
+    h = clip.get("hit", 0.45 * D)
+    claws = [x["name"] for x in ctx.R.bones if x["name"].startswith(("claw", "arm"))]
+
+    # dáng cuộn (lấy đà) theo vùng: cổ ngửa, lưng gù lượn sâu, đuôi cuộn lên; giá trị âm = bung (vươn cổ, duỗi lưng, quất đuôi)
+    def coil_pose(c):
+        out = {}
+        for j, b in enumerate(neck):
+            out[b] = S.get("coil_neck", 9.0) * c
+        for j, b in enumerate(backs):
+            out[b] = S.get("coil_back", 6.0) * c * (-1 if j % 2 == 0 else 1)
+        for j, b in enumerate(tails):
+            out[b] = S.get("coil_tail", 7.0) * c * (0.6 + 0.25 * j)
+        return out
+
+    def coil_of(t):
+        if name == "attack" or name == "cast":
+            t_up = min(0.3, h - 0.1) if name == "attack" else 0.34
+            return curve(t, [(0, 0), (t_up, 1.0, "io"), (h - 0.03, 1.1), (h + 0.02, -0.9, "o"), (h + 0.14, -0.8),
+                             (min(D - 0.05, h + 0.45), 0.1, "io"), (D, 0)])
+        if name == "skill":  # chồm, cổ ngửa cao, giữ lúc gầm gọi sét, bung ra lúc sét giáng
+            t_up = 0.5
+            hh = max(t_up + 0.1, h - 0.25)
+            return curve(t, [(0, 0), (t_up, 1.4, "io"), (hh, 1.5), (hh + 0.06, -0.9, "o"), (hh + 0.3, -0.6),
+                             (D - 0.3, 0.05, "io"), (D, 0)])
+        if name == "hit":
+            return curve(t, [(0, 0), (0.07, 1.0, "o"), (0.3, 0.35), (D, 0, "io")])
+        if name == "evolve":
+            return curve(t, [(0, 0), (0.3, 0.9, "io"), (0.9, 1.1), (1.2, 0.0, "io"), (D, 0)])
+        return 0.0
+
+    f0 = clip["fn"]
+
+    def f(t, P):
+        f0(t, P)
+        env = math.sin(math.pi * min(1.0, max(0.0, t / D))) ** 2 if not clip.get("loop") else 0.0
+        g = 1.0 + (gain - 1.0) * env
+        cp = coil_pose(coil_of(t)) if not clip.get("loop") else {}
+        if name == "hit":  # trúng đòn: cuộn ngược ra sau (chữ C), cổ giật
+            cp = {b: v * (-0.8 if b in neck else 1.0) for b, v in cp.items()}
+        tot_neck = 0.0
+        for j, b in enumerate(bones):
+            lift = g * amp[j] * math.sin(w * t - kph * j) + cp.get(b, 0.0)
+            a = lift * dirs[b]
+            P.rot(b, a)
+            if b in neck:
+                tot_neck += a
+        if has(ctx, "head"):  # đầu đứng: bù phần lớn góc cổ
+            P.rot("head", -S.get("head_keep", 0.8) * tot_neck)
+        for q, cb in enumerate(claws):  # chân bơi trong không: lệch pha nhau, theo nhịp sóng
+            P.rot(cb, S.get("paddle", 7.0) * g * math.sin(w * t - kph * (2 + q * 1.3) + 0.6 * q))
+    out = dict(clip)
+    out["fn"] = f
+    return out
 
 
 def juice_specs(C, k):
@@ -798,7 +1113,7 @@ def juice_setup(R, C, info, k, fx, used):
         JUICE_FRONT.append("jr")
     LG = J.get("lightning")
     if LG:
-        lightning_setup(R, C, LG, farx, fary, info["mouth"])
+        lightning_setup(R, C, LG, farx, fary, info["mouth"], info)
     # hạt có vật lý ở chỗ đối thủ: "phys" một nhóm hoặc danh sách nhóm (lá, đất...), slot jp<nhóm>_<i>; "phys_pre": nhóm nhỏ cho
     # mỗi nhát sét phụ, slot jq<nhát>_<i>
     for g, ph in enumerate(phys_groups(J)):
@@ -842,7 +1157,7 @@ def phys_groups(J):
     return [] if not ph else (ph if isinstance(ph, list) else [ph])
 
 
-def lightning_setup(R, C, LG, farx, fary, mouth):
+def lightning_setup(R, C, LG, farx, fary, mouth, info=None):
     """sét giật thật (2026-11-09): mỗi nhát một slot jl<i> (con của far) mang nhiều dáng sét sinh bằng thuật toán (lightning.bolt) và
     2 ảnh tia dẫn; nhát cuối to, nhiều nhánh. Mây giông jcl0, jcl1 trên đầu đối thủ (đè lên đầu tia); tia điện lách tách jk*
     (con của far: trong mây lúc tụ, ở đất lúc đánh) và jz* (con của head: quanh đầu rồng lúc gầm)."""
@@ -861,17 +1176,26 @@ def lightning_setup(R, C, LG, farx, fary, mouth):
         R.bone(s, "far", farx, 0.0)
         FXSPEC[s] = (s, f"gen_puff{i % 3}", 0.26 * H, 0)
         JUICE_FRONT.append(s)
+    # cỡ tia theo dạng (Thanh Long 2026-11-09: dạng sau sét dữ, to hơn): "w_main"/"w_pre" nhân bề dày nét, "br_main"/"br_pre" số
+    # nhánh, "wide_main" nhân bề ngang ảnh (nhánh toả rộng), "seed" đổi dáng tia giữa các dạng
+    seed0 = 7 * C.get("seed_bolt", 0) + 31 * LG.get("seed", 0)
+
+    def bolt_kw(main, hp):
+        wm = LG.get("w_main" if main else "w_pre", 1.0)
+        return dict(h=hp, w=round(150 * LG.get("wide_main", 1.0)) if main else 96,
+                    width=(17.0 * wm, 11.5 * wm) if main else (9.5 * wm, 6.5 * wm),
+                    branches=LG.get("br_main", 4) if main else LG.get("br_pre", 1), ink=3.4 if main else 3.0)
+
     for i in range(n):
         main = i == n - 1
         s = f"jl{i}"
         R.bone(s, "far", farx, fary)
         hp = round((300 if main else 270) * LG.get("height", 1.75) / 1.75)  # cùng tỉ lệ pixel/H dù sét cao thấp: nét dày như nhau
-        wp = 150 if main else 96
-        kw = dict(h=hp, w=wp, width=(17.0, 11.5) if main else (9.5, 6.5), branches=4 if main else 1, ink=3.4 if main else 3.0)
+        kw = bolt_kw(main, hp)
         k = hgt / (hp - 20)  # pixel ảnh -> đơn vị rig (hai đầu tia cách nhau hp - 2·pad)
         items = []
-        shapes = [(f"v{v}", LT.bolt(seed=100 * i + v + 7 * C.get("seed_bolt", 0), **kw)) for v in range(6 if main else 3)]
-        shapes += [(f"l{j}", LT.bolt(seed=100 * i + 7 * C.get("seed_bolt", 0), leader_frac=f, **kw)) for j, f in enumerate((0.4, 0.75))]
+        shapes = [(f"v{v}", LT.bolt(seed=100 * i + v + seed0, **kw)) for v in range(6 if main else 3)]
+        shapes += [(f"l{j}", LT.bolt(seed=100 * i + seed0, leader_frac=f, **kw)) for j, f in enumerate((0.4, 0.75))]
         for nm, (im, anc) in shapes:
             im, anc = _crop(im, anc)
             img = f"gen_{s}_{nm}"
@@ -881,10 +1205,26 @@ def lightning_setup(R, C, LG, farx, fary, mouth):
                           (anc[1] - im.height / 2) * k - fary, 0.0))
         MULTI[s] = (s, items)
         JUICE_FRONT.append(s)
+    # tia sét bắn NGƯỢC lên trời từ ngọc / miệng lúc gọi sấm ("up": {"bone", "at": điểm trên ảnh concept, "height": theo H}): ảnh tia
+    # vốn vươn lên từ neo ở đầu dưới, nên đặt neo đúng ngọc là tia mọc lên trời
+    UP = LG.get("up")
+    if UP and info and info.get("S") and UP.get("bone") in R.bi:
+        ux, uy = info["S"](UP["at"])
+        R.bone("jup", UP["bone"], ux, uy)
+        ku = UP.get("height", 1.5) * H / 240
+        items = []
+        for v in range(4):
+            im, anc = _crop(*LT.bolt(seed=900 + v + seed0, h=260, w=110, width=(12.0, 8.0), branches=2, ink=3.2))
+            img = f"gen_jup_v{v}"
+            R.images[img] = im
+            items.append((f"jup_v{v}", img, im.width * ku, im.height * ku, (im.width / 2 - anc[0]) * ku,
+                          (anc[1] - im.height / 2) * ku, 0.0))
+        MULTI["jup"] = ("jup", items)
+        JUICE_FRONT.append("jup")
     cl = LG.get("cloud")
     if cl:
         R.images["gen_storm"] = LT.storm_cloud(Image.open(os.path.join(FXD, cl + ".png")))
-        for j, (dx, sz) in enumerate(((-0.1, 0.95), (0.2, 0.72))):
+        for j, (dx, sz) in enumerate(LG.get("clouds", ((-0.1, 0.95), (0.2, 0.72)))):
             s = f"jcl{j}"
             R.bone(s, "far", farx + dx * H, hgt + (0.04 - 0.05 * j) * H)  # đất ở y = 0 lúc nghỉ
             FXSPEC[s] = (s, "gen_storm", sz * H, 0)
@@ -917,11 +1257,17 @@ def lightning_anim(P, ctx, t, h, t_cloud):
     fary = ctx.info["far"][1]
     n = len(LG["strikes"])
     times = [h + dt_ for dt_, _ in LG["strikes"]]
+    # nhát chính giữ lâu ("main_hold" khung thêm, cột sét dạng cuối: giật đổi dáng thêm rồi nhạt dần)
+    main_seq = dict(BOLT_MAIN)
+    for q in range(LG.get("main_hold", 0)):
+        f0 = 11 + q
+        main_seq[f0] = (f"v{(q * 2 + 1) % 6}", max(0.25, 0.95 - 0.06 * q)) if q % 3 != 2 else None
+    main_seq = {f_: v for f_, v in main_seq.items() if v}
     for i, (dt_, ox) in enumerate(LG["strikes"]):
         s = f"jl{i}"
         ts = h + dt_
         fr = math.floor((t - ts) * L.FPS + 1e-6)
-        st = (BOLT_MAIN if i == n - 1 else BOLT_PRE).get(fr)
+        st = (main_seq if i == n - 1 else BOLT_PRE).get(fr)
         if st is None:
             P.att[s] = None
             continue
@@ -929,12 +1275,23 @@ def lightning_anim(P, ctx, t, h, t_cloud):
         P.alpha[s] = st[1]
         P.move(s, ox * H, 0)
         P.rot(s, 22 * ox)  # đầu tia ngả về giữa mây
+        if i == n - 1 and LG.get("main_scale"):  # cột sét to hơn: bề ngang nở theo, cao giữ (đầu dưới vẫn chạm đất)
+            P.scale(s, LG["main_scale"], 1.0)
     last = times[-1]
-    for j in range(2):  # mây giông: nở ra, cuộn nhẹ, nảy lên mỗi nhát sét, tan sau nhát chính
+    # tia bắn ngược lên trời từ ngọc lúc gọi sấm: chớp đổi dáng 2 khung một lần trong cửa sổ "up_win" (giây)
+    if "jup" in MULTI:
+        u0, u1 = LG.get("up", {}).get("win", (0.42, 0.78))
+        if u0 <= t < u1:
+            fr = math.floor((t - u0) * L.FPS / 2 + 1e-6)
+            P.att["jup"] = None if fr % 4 == 3 else f"jup_v{fr % 4}"
+            P.alpha["jup"] = 1.0 if t < u1 - 0.08 else (u1 - t) / 0.08
+        else:
+            P.att["jup"] = None
+    for j in range(len(LG.get("clouds", ((0, 0), (0, 0))))):  # mây giông: nở ra, cuộn nhẹ, nảy lên mỗi nhát, tan sau nhát chính
         s = f"jcl{j}"
         if s not in FXSPEC:
             continue
-        fx_on(P, s, t, t_cloud + 0.06 * j, last + 0.62, rise=0.2, fade=0.32)
+        fx_on(P, s, t, t_cloud + 0.06 * j, last + LG.get("cloud_stay", 0.62), rise=0.2, fade=0.32)
         grow = L.smooth01((t - t_cloud) / 0.4)
         bump = sum(0.1 * math.exp(-((t - tt - 0.02) / 0.05) ** 2) for tt in times)
         pul = 0.035 * math.sin(2 * math.pi * (t * 2.6 + 0.37 * j))
@@ -945,7 +1302,8 @@ def lightning_anim(P, ctx, t, h, t_cloud):
            (last, last + 0.5, 0.0, -fary + 0.08 * H, 0.32 * H, 1.3)]
     crackle_anim(P, t, [f"jk{i}" for i in range(LG.get("crackle", NCRACK))], win, seed=1)
     # quanh đầu rồng lúc gầm gọi sét
-    crackle_anim(P, t, [f"jz{i}" for i in range(LG.get("caster", 2))], [(0.18, times[0] - 0.02, 0.0, 0.0, 0.2 * H, 1.0)],
+    crackle_anim(P, t, [f"jz{i}" for i in range(LG.get("caster", 2))],
+                 [(0.18, LG.get("caster_until", times[0] - 0.02), 0.0, 0.0, LG.get("caster_r", 0.2) * H, LG.get("caster_size", 1.0))],
                  seed=2)
     # vết cháy hiện ngay lúc chạm, nằm lại rồi tan; bụi toả hai bên, nở, nhạt dần (cản mạnh)
     if "jsc" in FXSPEC:
@@ -1290,9 +1648,13 @@ def bones_like(R, *pre):
 
 
 def tail_bones(ctx):
+    """chuỗi phụ (đuôi, bờm, râu) lắc khoá tay; xương thuộc sống lưng uốn sóng ("spine" của dạng) để serpent() lo."""
+    sp = set(spine_bones(ctx))
     out = []
     for ch, (bones, _p, _t) in ctx.F.get("chains", {}).items():
-        out.append(bones)
+        bs = [b for b in bones if b not in sp]
+        if bs:
+            out.append(bs)
     return out
 
 
@@ -1320,7 +1682,7 @@ def idle(ctx):
         u = 2 * math.pi * t / D
         b = 0.5 - 0.5 * math.cos(u)
         squash(P, 1 - 0.03 * amp * b)
-        if ctx.C.get("hover"):  # con bay lơ lửng: nhấp nhô, bóng dưới đất co theo
+        if style_of(ctx.C, ctx.k, "hover"):  # con bay lơ lửng: nhấp nhô, bóng co theo (theo dạng được: Chiến Thần chỉ dạng 2 bay)
             P.move("move", 0, 0.035 * H * math.sin(u))  # 0 ở khung đầu: nối liền các clip khác
             P.scale("shadow", 0.9 + 0.1 * b)
         P.rot("body", 1.4 * amp * math.sin(u))
@@ -1640,7 +2002,8 @@ def attack_range(ctx, kind):
 
     def f(t, P):
         c = lambda ks: curve(t, ks)  # noqa: E731
-        go(P, c([(0, 0), (0.3, -0.04 * H), (h, 0.06 * H, "o"), (h + hold, 0.06 * H), (D, 0)]))
+        # đứng một chỗ bắn (người dùng 2026-11-09): không nhoài tới, chỉ giật lùi nhẹ lúc nhả đạn
+        go(P, c([(0, 0), (0.3, -0.015 * H), (h, -0.05 * H, "o"), (h + hold + 0.1, -0.035 * H), (D, 0)]))
         lean_to(P, lean(t))
         squash(P, c([(0, 1), (0.3, 1.06), (h, 0.93, "o"), (h + hold, 0.94), (0.74, 1.02), (D, 1)]))
         hrot(P, c([(0, 0), (0.3, 16), (h, -14, "o"), (h + hold, -14), (0.8, 3), (D, 0)]))
@@ -1754,7 +2117,9 @@ def skill(ctx):
     kind = style_of(ctx.C, ctx.k, "skill", "erupt")
     return {"erupt": skill_erupt, "storm": skill_storm, "barrage": skill_barrage, "summon_prop": skill_summon_prop,
             "shockwave": skill_shockwave, "charge": skill_rush, "spin_dash": skill_rush, "slide": skill_slide,
-            "combo": skill_combo, "leap": skill_leap, "dash": skill_leap, "summon": skill_summon}[kind](ctx, kind)
+            "combo": skill_combo, "leap": skill_leap, "dash": skill_leap, "summon": skill_summon,
+            "beam": skill_beam, "vortex": skill_vortex, "rain": skill_rain, "nova": skill_nova, "orbit": skill_orbit,
+            "line_erupt": skill_line_erupt}[kind](ctx, kind)
 
 
 def motion_of(ctx, default):
@@ -1781,8 +2146,9 @@ def skill_storm(ctx, kind):
     D, t_up, h = 1.7, 0.5, 0.92
     mo = motion_of(ctx, "roar")
     land = 0.0 if FXSPEC.get("ff_big", (0, 0, 0, 0))[3] in (90, "up") else fx_h(ctx, "ff_big") * 0.5 - 0.45 * H
-    if (ctx.C.get("juice") or {}).get("lightning"):
-        return skill_lightning(ctx, mo, t_up, h)
+    LG = (ctx.C.get("juice") or {}).get("lightning")
+    if LG:  # nhịp theo dạng ("t_up" tụ lực xong, "hit" nhát chính chạm đất): dạng nhiều nhát thì nhát chính muộn hơn
+        return skill_lightning(ctx, mo, LG.get("t_up", t_up), LG.get("hit", h))
 
     def f(t, P):
         c = lambda ks: curve(t, ks)  # noqa: E731
@@ -1820,8 +2186,8 @@ def skill_lightning(ctx, mo, t_up, h):
     """gọi sét giật thật (juice "lightning"): gầm gọi trời, tia điện lách tách quanh đầu, mây giông kéo tới trên đầu đối thủ, các
     nhát sét phụ rồi nhát chính (tia dẫn, chớp đổi dáng), vòng nổ, xoáy dưới đất, đất lá văng có vật lý. Dài hơn chiêu thường
     0,3 s cho đất lá rơi hết."""
-    D = 2.0
     J = ctx.C["juice"]
+    D = J["lightning"].get("dur", 2.0)
 
     def f(t, P):
         c = lambda ks: curve(t, ks)  # noqa: E731
@@ -1838,8 +2204,12 @@ def skill_lightning(ctx, mo, t_up, h):
             P.att[f"fp{i_}"] = None
         juice_gather(P, ctx, t, 0.12, h - 0.3, radius=0.8)
         lightning_anim(P, ctx, t, h, t_cloud=0.3)
-        juice_ring(P, ctx, t, [(h + dt_, 0.7) for dt_, _ in J["lightning"]["strikes"][:-1]] + [(h, 1.25)])
-    return {"dur": D, "fn": f, "hit": h + 0.03}
+        LG_ = J["lightning"]
+        juice_ring(P, ctx, t, [(h + dt_, LG_.get("ring_pre", 0.7)) for dt_, _ in LG_["strikes"][:-1]] + [(h, LG_.get("ring_main", 1.25))])
+    def post(t, P):  # tia bắn lên từ ngọc dựng thẳng đứng dù móng cầm ngọc xoay (bù góc thế giới của xương jup)
+        if "jup" in ctx.R.bi and P.att.get("jup"):
+            P._g("jup")[2] -= L.wangle(L.fk(ctx.R, P)["jup"])
+    return {"dur": D, "fn": f, "hit": h + 0.03, "post": post}
 
 
 def skill_barrage(ctx, kind):
@@ -1876,6 +2246,298 @@ def skill_barrage(ctx, kind):
         flash(P, "ff_hit", t, [(t0 + gap * i + fly - 0.01, t0 + gap * i + fly + 0.16, 0.8) for i in range(n - 1)])
         far_impact(P, ctx, t, last, ctx.C.get("skill_fx", {}).get("scale", 1.0), big=False, seed=13)
     return {"dur": D, "fn": f, "hit": last}
+
+
+# --- 2026-11-09: chiêu đứng tại chỗ đa dạng (người dùng chê "toàn lao lên húc rồi lộn"); mỗi kiểu mạnh dần theo dạng (power 1..3:
+# dạng 1 = 1, dạng cuối = 3; khai "power" ở tướng/dạng để đè). Lấy ý từ chiêu Pokémon cùng hệ: beam (Hydro Pump, Flamethrower,
+# Solar Beam), vortex (Whirlpool, Fire Spin, Leaf Tornado), rain (Icicle Crash, Leaf Storm, Meteor), nova (Hyper Voice, Heat Wave,
+# Surf), orbit (đạn xoay quanh người rồi phóng: Will-O-Wisp, Leaf Blade), line_erupt (Frenzy Plant, Earthquake: cột trồi nối dần).
+def power_of(ctx):
+    p = style_of(ctx.C, ctx.k, "power")
+    if p:
+        return float(p)
+    ks = sorted(ctx.C["forms"])
+    return 1.0 + 2.0 * ks.index(ctx.k) / max(1, len(ks) - 1)
+
+
+def _fly_to(P, ctx, b, s, X0, Y0, X1, Y1, u, arc=0.0, spin=0.0, sc=1.0, alpha=1.0):
+    """đạn xương b (fly*) ở phần quãng u (0..1) từ điểm (X0, Y0) tới (X1, Y1) (toạ độ rig), cong arc (theo H)."""
+    bx, by = ctx.R.bw(b)
+    e = u * u * (3 - 2 * u) * 0.35 + u * 0.65
+    P.move(b, X0 + (X1 - X0) * e - bx, Y0 + (Y1 - Y0) * e - by + arc * H * math.sin(math.pi * u))
+    P.att[s] = s
+    P.alpha[s] = alpha
+    P.scale(s, sc)
+    P.rot(s, spin * u)
+
+
+def skill_beam(ctx, kind):
+    """phun tia liên tục từ miệng (vòi nước, lửa, tia mặt trời): tụ ở miệng, đạn nối đuôi nhau thành dòng bay tới đối thủ trong
+    một khoảng, chỗ trúng chớp liên hồi, người giật lùi rung theo dòng; dạng sau dòng to, dài hơn, nổ cuối lớn."""
+    p = power_of(ctx)
+    t_up, h, fly = 0.42, 0.62, 0.16
+    L_ = 0.45 + 0.2 * (p - 1)
+    D = h + L_ + 0.75
+    mo = motion_of(ctx, "roar")
+    mx, my = ctx.info["mouth"]
+    fx_, fy_ = far_of(ctx)
+    period = 0.2
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, h, D)
+        secondary(P, ctx, t, lean, 1.0)
+        if h <= t < h + L_:  # giật rung theo dòng
+            go(P, -0.03 * H - 0.01 * H * math.sin(60 * t), 0)
+        fx_on(P, "fx_charge", t, 0.12, h + 0.05, rise=0.12, fade=0.08)
+        P.scale("fx_charge", c([(0, 0.4), (h - 0.1, 1.1, "o"), (h, 0.8)]))
+        fx_on(P, "fx_orb", t, 0.15, h + L_, rise=0.2, fade=0.1, amax=0.95)
+        P.scale("fx_orb", (0.6 + 0.25 * p) * c([(0, 0.3), (h, 1.0, "o"), (h + L_, 1.1)]) * (1 + 0.06 * math.sin(50 * t)))
+        juice_gather(P, ctx, t, 0.1, h - 0.03)
+        for i in range(NFLY):
+            s, b = f"fl{i}", f"fly{i}"
+            t0 = h + i * period / NFLY
+            if t < t0 or t >= h + L_ + fly:
+                P.att[s] = None
+                continue
+            u = ((t - t0) % period) / fly
+            launch = t - (t - t0) % period
+            if u >= 1.0 or launch >= h + L_:
+                P.att[s] = None
+                continue
+            _fly_to(P, ctx, b, s, mx, my, fx_, fy_, u, arc=0.02 * math.sin(i * 1.7), spin=-120,
+                    sc=(0.7 + 0.18 * p) * (0.8 + 0.3 * u))
+        hits = [h + fly + k_ * 0.11 for k_ in range(int(L_ / 0.11))]
+        flash(P, "ff_hit", t, [(ti, ti + 0.14, 0.6 + 0.15 * p) for ti in hits])
+        fx_on(P, "ff_ground", t, h + fly, h + L_ + fly + 0.3, rise=0.08, fade=0.25)
+        P.scale("ff_ground", (0.7 + 0.15 * p) * c([(0, 0.5), (h + fly, 0.5), (h + fly + 0.2, 1.0, "o"), (D, 1.1)]))
+        far_impact(P, ctx, t, h + L_ + fly, 0.75 + 0.2 * p, big=p >= 2, seed=17, ground=False)
+    return {"dur": D, "fn": f, "hit": h + fly}
+
+
+def skill_vortex(ctx, kind):
+    """xoáy nhốt đối thủ (xoáy nước, lốc lửa, lốc lá): vòng xoáy loang dưới chân đối thủ quay nhanh dần, cột xoáy cuộn, hạt bay vòng
+    quanh người nó, chớp trúng từng nhịp, cuối cùng nổ tung; dạng sau xoáy to, lâu, nhiều nhịp hơn."""
+    p = power_of(ctx)
+    t_up, h0 = 0.45, 0.62
+    hold = 0.5 + 0.18 * (p - 1)
+    h = h0 + hold
+    D = h + 0.7
+    mo = motion_of(ctx, "claws")
+    fx_, fy_ = far_of(ctx)
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, h0, D)
+        secondary(P, ctx, t, lean, 1.0)
+        skill_charge(P, t, c, h0)
+        sc = 0.85 + 0.2 * p
+        fx_on(P, "ff_ground", t, h0 - 0.1, h + 0.3, rise=0.15, fade=0.25)
+        P.scale("ff_ground", sc * 1.3 * c([(0, 0.3), (h0 - 0.1, 0.3), (h0 + 0.2, 1.0, "o"), (h, 1.1), (h + 0.3, 1.4)]),
+                sc * 0.55 * c([(0, 0.3), (h0 - 0.1, 0.3), (h0 + 0.2, 1.0, "o"), (h, 1.1), (h + 0.3, 1.4)]))
+        P.rot("ff_ground", -c([(0, 0), (h0, 0), (h + 0.3, 900 + 300 * p, "i")]))
+        fx_on(P, "ff_big2", t, h0, h + 0.05, rise=0.12, fade=0.12, amax=0.85)
+        P.scale("ff_big2", sc * c([(0, 0.4), (h0, 0.4), (h0 + 0.25, 1.0, "o"), (h, 1.15)]))
+        P.rot("ff_big2", c([(0, 0), (h0, 0), (h, 360 * (1 + p), "l")]))
+        n = min(NFAR, 4 + 2 * int(round(p - 1)))  # hạt bay vòng quanh đối thủ, bốc dần lên
+        for i in range(NFAR):
+            s = f"fp{i}"
+            if i >= n or not (h0 <= t < h):
+                P.att.setdefault(s, None)
+                continue
+            u = (t - h0) / hold
+            a = 2 * math.pi * (i / n + 1.6 * u * (1 + 0.3 * p))
+            r = (0.42 + 0.08 * p) * H * (1 - 0.35 * u)
+            P.att[s] = s
+            P.move(s, r * math.cos(a), -0.35 * H + 0.75 * H * u + 0.12 * H * math.sin(a))
+            P.scale(s, 0.9 + 0.3 * math.cos(a))
+            P.rot(s, math.degrees(a))
+            P.alpha[s] = min(1.0, (t - h0) / 0.1) * (1.0 if u < 0.85 else (1 - u) / 0.15)
+        ticks = [h0 + 0.15 + k_ * 0.2 for k_ in range(int(hold / 0.2))]
+        flash(P, "ff_hit", t, [(ti, ti + 0.12, 0.5 + 0.1 * p) for ti in ticks])
+        if t >= h:
+            far_impact(P, ctx, t, h, 0.8 + 0.2 * p, big=True, seed=23, ground=False)
+    return {"dur": D, "fn": f, "hit": h}
+
+
+def skill_rain(ctx, kind):
+    """mưa đạn từ trời (băng nhọn, lá, thiên thạch, lông lửa): gầm gọi, từng viên rơi chéo xuống quanh đối thủ, chạm đất chớp nổ, viên
+    cuối to nhất; dạng sau nhiều viên, to hơn, viên cuối là khối lớn rơi (ảnh fx_big)."""
+    p = power_of(ctx)
+    t_up, h0, gap = 0.45, 0.62, 0.11
+    n = 3 + 2 * int(round(p - 1))
+    fall = 0.3
+    last = h0 + gap * (n - 1) + fall
+    D = last + 0.75
+    mo = motion_of(ctx, "roar")
+    fx_, fy_ = far_of(ctx)
+    rng = np.random.RandomState(41)
+    offs = [rng.uniform(-0.45, 0.45) * H for _ in range(n - 1)] + [0.0]
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, h0, D)
+        secondary(P, ctx, t, lean, 1.0)
+        skill_charge(P, t, c, h0)
+        for i in range(NFLY):
+            P.att[f"fl{i}"] = None
+        lands = []
+        for j in range(n):
+            s, b = f"fl{j % NFLY}", f"fly{j % NFLY}"
+            t0 = h0 + gap * j
+            u = (t - t0) / fall
+            lands.append(t0 + fall)
+            if not (0.0 <= u < 1.0):
+                continue
+            X1, Y1 = fx_ + offs[j], fy_ - 0.25 * H
+            X0, Y0 = X1 - 0.45 * H, Y1 + 1.55 * H
+            big = j == n - 1
+            P.att[s] = s
+            bx, by = ctx.R.bw(b)
+            e = u * u  # rơi nhanh dần
+            P.move(b, X0 + (X1 - X0) * e - bx, Y0 + (Y1 - Y0) * e - by)
+            P.scale(s, (1.15 + 0.25 * p) * (1.5 if big else 1.0))
+            P.rot(s, -70 + 30 * math.sin(j))
+            P.alpha[s] = min(1.0, u / 0.15)
+        flash(P, "ff_hit", t, [(tl - 0.01, tl + 0.15, 0.55 + 0.12 * p) for tl in lands[:-1]])
+        if p >= 2.5 and "ff_big" in FXSPEC:  # dạng cuối: khối lớn rơi theo viên cuối
+            land = 0.0 if FXSPEC["ff_big"][3] in (90, "up") else fx_h(ctx, "ff_big") * 0.5 - 0.45 * H
+            fx_on(P, "ff_big", t, last - 0.3, last + 0.5, rise=0.06, fade=0.25)
+            P.move("ff_big", 0, c([(0, 1.8 * H), (last - 0.3, 1.8 * H), (last, land, "i"), (last + 0.06, land + 0.05 * H, "o"),
+                                   (last + 0.15, land, "i")]))
+            far_impact(P, ctx, t, last, 1.2, big=False, seed=29)
+        else:
+            far_impact(P, ctx, t, last, 0.8 + 0.15 * p, big=False, seed=29)
+    return {"dur": D, "fn": f, "hit": last}
+
+
+def skill_nova(ctx, kind):
+    """sóng vòng toả ra từ người (sóng âm, sóng nhiệt, sóng thần): gồng, bùng các vòng nở to quanh thân theo từng nhịp, sóng đất lan
+    tới đối thủ, nổ; dạng sau nhiều nhịp, vòng to hơn."""
+    p = power_of(ctx)
+    t_up, h0, run = 0.45, 0.66, 0.3
+    beats = 1 + int(round(p - 1))
+    h = h0 + run + 0.12 * (beats - 1)
+    D = h + 0.75
+    mo = motion_of(ctx, "roar")
+    x0w, _ = ctx.R.bw("flyw")
+    fx_, _ = far_of(ctx)
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, h0, D)
+        secondary(P, ctx, t, lean, 1.1)
+        if t < h0:
+            skill_charge(P, t, c, h0)
+        else:  # mỗi nhịp một vòng bùng to quanh thân (vòng sau + vòng trước), nhạt dần
+            on = None
+            for k_ in range(beats):
+                tb = h0 + 0.18 * k_
+                if tb <= t < tb + 0.32:
+                    on = (t - tb) / 0.32
+            for s_ in ("fx_ring_b", "fx_ring_f"):
+                if on is None:
+                    P.att[s_] = None
+                else:
+                    P.att[s_] = s_
+                    P.alpha[s_] = (1 - on) * (0.9 if s_ == "fx_ring_b" else 0.55)
+            if on is not None:
+                P.scale("fx_ring", (0.8 + 0.35 * p) * (0.6 + 1.6 * (1 - (1 - on) ** 2)), (0.35 + 0.12 * p) * (0.6 + 1.6 * on))
+                P.rot("fx_ring", 120 * on)
+        fx_on(P, "fx_wave", t, h0, h0 + 0.5, fade=0.25)
+        P.scale("fx_wave", (0.7 + 0.2 * p) * c([(0, 0.3), (h0, 0.3), (h0 + 0.25, 1.2, "o"), (D, 1.3)]))
+        fx_on(P, "fl_wave", t, h0, h + 0.12, rise=0.05, fade=0.1)
+        P.move("flyw", c([(0, 0), (h0, 0), (h, fx_ - x0w, "l"), (D, fx_ - x0w)]), 0)
+        P.scale("fl_wave", (0.7 + 0.2 * p) * c([(0, 0.6), (h0, 0.6), (h, 1.1, "o"), (D, 1.15)]),
+                c([(0, 0.45), (h0, 0.45), (h, 1.0 + 0.1 * p, "o"), (D, 1.0)]))
+        far_impact(P, ctx, t, h, 0.8 + 0.2 * p, seed=31)
+    return {"dur": D, "fn": f, "hit": h}
+
+
+def skill_orbit(ctx, kind):
+    """đạn xoay vòng quanh người rồi phóng lần lượt (lửa hồ ly, lá xoáy, bọt nước): tụ, các viên hiện ra bay vòng quanh thân nhanh
+    dần, rồi từng viên lao tới đối thủ; dạng sau nhiều viên, to hơn."""
+    p = power_of(ctx)
+    n = min(NFLY, 3 + int(round(p - 1)))
+    t_up, t_in, t_go, gap, fly = 0.35, 0.2, 0.85, 0.1, 0.22
+    last = t_go + gap * (n - 1) + fly
+    D = last + 0.7
+    mo = motion_of(ctx, "wings")
+    fx_, fy_ = far_of(ctx)
+    cx = (ctx.info["front"] + ctx.info["back"]) / 2
+    cy = 0.55 * H
+    r = 0.55 * H
+
+    def opos(i, t):
+        a = 2 * math.pi * (i / n) + (t - t_in) * (4.0 + 3.0 * L.smooth01((t - t_in) / 0.6))
+        return cx + r * math.cos(a), cy + 0.45 * r * math.sin(a)
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, t_go, D)
+        secondary(P, ctx, t, lean, 0.9)
+        skill_charge(P, t, c, t_go)
+        for i in range(NFLY):
+            s, b = f"fl{i}", f"fly{i}"
+            if i >= n or t < t_in:
+                P.att[s] = None
+                continue
+            tl = t_go + gap * i
+            sc = 0.75 + 0.18 * p
+            if t < tl:
+                X, Y = opos(i, t)
+                bx, by = ctx.R.bw(b)
+                P.move(b, X - bx, Y - by)
+                P.att[s] = s
+                P.alpha[s] = min(1.0, (t - t_in) / 0.15)
+                P.scale(s, sc * min(1.0, 0.4 + (t - t_in) / 0.25))
+                P.rot(s, 400 * t)
+            elif t < tl + fly + 0.02:
+                X0, Y0 = opos(i, tl)
+                _fly_to(P, ctx, b, s, X0, Y0, fx_, fy_, min(1.0, (t - tl) / fly), arc=0.08 * (1 if i % 2 else -1),
+                        spin=360, sc=sc * 1.15)
+            else:
+                P.att[s] = None
+        flash(P, "ff_hit", t, [(t_go + gap * i + fly - 0.01, t_go + gap * i + fly + 0.15, 0.6 + 0.12 * p) for i in range(n - 1)])
+        far_impact(P, ctx, t, last, 0.8 + 0.2 * p, big=p >= 2, seed=37)
+    return {"dur": D, "fn": f, "hit": last}
+
+
+def skill_line_erupt(ctx, kind):
+    """cột trồi nối nhau dọc mặt đất từ chân tới đối thủ (rễ khổng lồ, gai đá, cột nước, cột lửa): dậm / gầm, từng cột trồi lên gần
+    tới xa, cột cuối ở đúng chỗ đối thủ to nhất rồi nổ; dạng sau nhiều cột, cột to hơn."""
+    p = power_of(ctx)
+    n = min(NLINE, 3 + int(round(p - 1)))
+    t_up, h0, gap = 0.42, 0.66, 0.09
+    last = h0 + gap * (n - 1)
+    D = last + 0.8
+    mo = motion_of(ctx, "stomp")
+    x0, _ = ctx.R.bw("flyl0") if has(ctx, "flyl0") else (0.0, 0.0)
+    fx_, _ = far_of(ctx)
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, h0, D)
+        secondary(P, ctx, t, lean, 1.1)
+        skill_charge(P, t, c, h0)
+        for i in range(NLINE):
+            s, b = f"fll{i}", f"flyl{i}"
+            if s not in FXSPEC:
+                continue
+            if i >= n:
+                P.att[s] = None
+                continue
+            ti = h0 + gap * i
+            frac = (i + 1) / n
+            P.move(b, (fx_ - x0) * frac, 0)
+            fx_on(P, s, t, ti, ti + 0.45 + 0.05 * p, fade=0.2)
+            big = (1.25 if i == n - 1 else 0.85 + 0.15 * frac) * (0.8 + 0.15 * p)
+            P.scale(s, big * c([(0, 0.7), (ti, 0.7), (ti + 0.12, 1.08, "o"), (ti + 0.3, 1.0), (D, 1.0)]),
+                    big * c([(0, 0.1), (ti, 0.1), (ti + 0.12, 1.1, "o"), (ti + 0.3, 1.0), (D, 0.9)]))
+        fx_on(P, "fx_ground", t, h0 - 0.02, h0 + 0.4, fade=0.25)
+        P.scale("fx_ground", c([(0, 0.5), (h0, 0.5), (h0 + 0.3, 1.0, "o"), (D, 1.0)]))
+        far_impact(P, ctx, t, last, 0.8 + 0.2 * p, big=False, seed=43)
+    return {"dur": D, "fn": f, "hit": last + 0.04}
 
 
 def skill_summon_prop(ctx, kind):
@@ -2176,10 +2838,19 @@ def evolve(ctxA, ctxB, M, idleB0, scaleB):
         for s_ in slotsB:
             if s_.replace("n_", "", 1) not in ctxB.R.fx_slots:
                 P.alpha[s_] = aB
+        # mây bay vòng (slot jo*, là slot hiệu ứng): mây dạng cũ tan cùng dạng cũ, mây dạng sau hiện cùng dạng sau (aura nhân thêm)
+        for s_ in slotsA:
+            if s_.startswith("jo"):
+                P.alpha[s_] = aA
+        for s_ in slotsB:
+            if s_.startswith("n_jo"):
+                P.alpha[s_] = aB
         P.scale("evo", scaleB * c([(0, 0.86), (1.0, 0.86), (1.95, 1.0, "o"), (D, 1.0)]))
         P.move("evo", 0, c([(0, -10), (1.0, -10), (1.85, 0, "o"), (D, 0)]))
         fl = c([(0, 0), (1.55, 0), (2.0, 1, "o"), (2.4, 1), (2.75, 0, "io"), (D, 0)])
         P.rot("n_head", 18 * fl)
+        if "jaw" in ctxB.R.bi:  # dạng sau gầm: há miệng
+            P.rot("n_jaw", -abs((ctxB.F.get("jaw") or {}).get("open", 16.0)) * fl)
         squash(P, 1 + 0.08 * fl, "n_base")
         for b in bones_like(ctxB.R, "wing"):
             P.rot("n_" + b, 26 * fl)
@@ -2222,8 +2893,43 @@ def portrait(ctx, out, res):
     im.resize((512, 512), Image.LANCZOS).save(os.path.join(res, code(ctx.hid, ctx.k) + "_portrait.png"))
 
 
+def springs_of(ctx, pre=""):
+    """chuỗi mềm có lò xo (dạng khai "soft": {chuỗi: {"k": [độ cứng từng đốt], "damp", "maxang"}}): bờm, râu đuổi theo dáng động
+    học, trễ và vượt nhẹ khi đầu, thân đổi hướng (người dùng dặn 2026-11-09: thêm xương vào tóc cho mềm mại hơn)."""
+    out = {}
+    tf = ctx.tf
+    for ch, sp in (ctx.F.get("soft") or {}).items():
+        if ch not in ctx.F.get("chains", {}):
+            continue
+        bones, _par, tip = ctx.F["chains"][ch]
+        tx, ty = (tip[0] - tf["feet_x"]) * tf["ks"], (tf["ground"] - tip[1]) * tf["ks"]
+        bx, by = ctx.R.bw(bones[-1])
+        out[pre + ch] = {"bones": [pre + b for b in bones], "tip": (tx - bx, ty - by), "k": sp.get("k", [300, 240, 190, 150]),
+                         "damp": sp.get("damp", 0.55), "maxang": sp.get("maxang")}
+    return out
+
+
+def plain_slots(R):
+    """slot hạt lá vẽ không viền sticker (game.plain; người dùng dặn bỏ viền trắng ở hạt lá, 2026-11-09): slot hiệu ứng có ảnh lá,
+    vẽ trước thân (slot sau thân giữ chung ảnh có viền kẻo bị vẽ đè lên thân)."""
+    back = set(FX_BACK) | set(JUICE_BACK)
+    out = []
+    for s in R.slots:
+        name = s["name"]
+        base_ = name[2:] if name.startswith("n_") else name
+        if name not in R.fx_slots or base_ in back or base_.startswith("jo"):
+            continue
+        paths = [a.get("path", "") for a in R.atts.get(name, {}).values()]
+        if any(("leaf" in p_ or "leaves" in p_) for p_ in paths):
+            out.append(name)
+    return out
+
+
 def game_info(R, clips, baked, C, k):
     g = T.game_info(R, clips, baked)
+    pl = plain_slots(R)
+    if pl:
+        g["plain"] = pl
     g["beam"] = C.get("beam", {}).get(k, 1.0)
     atk, sk = style_of(C, k, "attack", "bite"), style_of(C, k, "skill", "erupt")
     g["lunge"] = ["skill"] if sk in LUNGE_SKILL or sk in ("leap", "dash", "summon") else []
@@ -2233,6 +2939,11 @@ def game_info(R, clips, baked, C, k):
         g["beamStyle"] = C["beamStyle"]
     # cảm giác trúng (StageView đọc qua AolaActor.Impact): khựng (giây thật), rung (trauma 0..1), bật lùi (theo chiều cao đối thủ)
     imp = (C.get("juice") or {}).get("impact") or {}
+    if not imp:  # tướng không khai: cảm giác trúng mặc định mạnh dần theo dạng (dạng cuối khựng, rung, chớp màn mạnh nhất)
+        ks_ = sorted(C["forms"])
+        p = 1.0 + 2.0 * ks_.index(k) / max(1, len(ks_) - 1)
+        imp = {"attack": (0.03 + 0.01 * p, 0.18 + 0.05 * p, 0.05 + 0.01 * p),
+               "skill": (0.06 + 0.045 * p, 0.3 + 0.17 * p, 0.07 + 0.035 * p) + (("#fff6c966",) if p >= 2.9 else ())}
     if imp:
         cl = [c for c in imp if c in clips]
         g["impactClips"] = cl
@@ -2245,7 +2956,7 @@ def game_info(R, clips, baked, C, k):
 
 
 def build_form(hid, k, nxt=None, gif=True):
-    C = cfg(hid)
+    C = form_cfg(cfg(hid), k)
     R, ctx = build_rig(hid, k)
     od = out_dir(hid, k)
     os.makedirs(od, exist_ok=True)
@@ -2253,22 +2964,34 @@ def build_form(hid, k, nxt=None, gif=True):
     Q.LAYERS[k] = ctx.F["layers"]
     Q.label_sheet(k, ctx.rgb, ctx.lab, os.path.join(od, "nhan.png"), extra=list(ctx.J.values()) + [ctx.F["mouth"]])
     clips = clips_of(ctx)
+    clips = {n_: serpent_clip(ctx, n_, c_) for n_, c_ in clips.items()}  # thân rắn uốn sóng (dạng có "spine")
+    clips = {n_: jaw_clip(ctx, n_, c_) for n_, c_ in clips.items()}  # há miệng theo nhịp nhả (dạng có xương "jaw")
     for n_, c_ in clips.items():  # hạt có vật lý biết cuối clip (tan trước khi clip hết)
         def fn_(t, P, f0=c_["fn"], d=c_["dur"]):
             ctx.clip_dur = d
             f0(t, P)
         c_["fn"] = fn_
-    baked = Q.clean({n: L.bake(R, c, {}) for n, c in clips.items()}, R)
+    soft = springs_of(ctx)
+    baked = Q.clean({n: L.bake(R, c, soft) for n, c in clips.items()}, R)
     hgt = L.idle_height(R, baked["idle"][0])
+    # game co tướng theo chiều cao dáng đứng (game.height): con dài dẹt (rồng rắn Thanh Long vẽ lại, dài ~2,1 lần cao) thành quá
+    # dài trên sân, lòi khỏi mép màn. "max_w": tỉ lệ rộng/cao tối đa; vượt thì khai chiều cao lớn hơn cho con vẽ nhỏ lại (trận,
+    # sticker, hộp xem tướng cùng co). Clip tiến hóa dùng chiều cao hiệu dụng này nên đổi dạng không giật cỡ.
+    mw = style_of(C, k, "max_w")
+    if mw and ctx.info["len"] / max(1.0, hgt) > mw:
+        print(f"  dài {ctx.info['len']:.0f} / cao {hgt:.0f} > {mw}: khai cao {ctx.info['len'] / mw:.0f}")
+        hgt = ctx.info["len"] / mw
     res_dir = os.path.join(T.RES, code(hid, k))
     Rx = R
+    aura = aura_clip(ctx)
+    ctx.aura = aura
     if nxt:
         ctxB, RB, idleB0, hB = nxt
         M = L.merge_next(R, RB)
         M.chain_tips, M.legs = {}, {}
         M.points = dict(R.points)
         M.weapon_ang = 0.0
-        ev = evolve(ctx, ctxB, M, idleB0, hgt / hB)
+        ev = serpent_clip(ctx, "evolve", evolve(ctx, ctxB, M, idleB0, hgt / hB))
         hide = {"n_" + s["name"] for s in RB.slots}
         clipsM = {}
         for n, c in clips.items():
@@ -2276,18 +2999,29 @@ def build_form(hid, k, nxt=None, gif=True):
                 f0(t, P)
                 for s_ in hide:
                     P.att[s_] = None
+                    if s_.startswith("n_jo"):  # mây dạng sau: lớp aura bật hình lại, độ đậm 0 mới giữ ẩn
+                        P.alpha[s_] = 0.0
             clipsM[n] = dict(c, fn=fn)
         clipsM["evolve"] = ev
-        bakedM = Q.clean({n: L.bake(M, c, {}) for n, c in clipsM.items()}, M)
+        softM = dict(soft)
+        softM.update(springs_of(ctxB, "n_"))
+        bakedM = Q.clean({n: L.bake(M, c, softM) for n, c in clipsM.items()}, M)
         Rx, clips, baked = M, clipsM, bakedM
+        aura = aura_clip(ctx, ctxB)
     game = game_info(Rx, clips, baked, C, k)
     game["height"] = round(hgt, 2)
+    preview = baked
+    if aura:  # clip lặp phủ (mây bay vòng): xuất cùng file, runtime chạy theo đồng hồ riêng; bản soi ghép sẵn cùng giây
+        auraB = Q.clean({"aura": L.bake(Rx, aura, {})}, Rx)["aura"]
+        preview = with_aura(baked, auraB)
+        baked = dict(baked, aura=auraB)
+        clips = dict(clips, aura=aura)
     print(f"  {code(hid, k)}: {len(Rx.bones)} xương, {len(Rx.slots)} slot, cao {hgt:.0f}, trận {json.dumps(game, ensure_ascii=False)}")
-    aw, ah = L.export(Rx, clips, baked, od, res_dir, game, H, gif=gif)
+    aw, ah = L.export(Rx, clips, baked, od, res_dir, game, H, gif=gif, preview=preview)
     print(f"  atlas {aw}x{ah}, ra {od}")
     portrait(ctx, od, res_dir)
     with open(os.path.join(od, "baked.pkl"), "wb") as fh:
-        pickle.dump((Rx, {n: c["dur"] for n, c in clips.items()}, baked), fh)
+        pickle.dump((Rx, {n: c["dur"] for n, c in clips.items()}, preview), fh)  # show: khung đã ghép aura như runtime
     return ctx, R, baked["idle"][0], hgt
 
 

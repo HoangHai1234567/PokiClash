@@ -10,6 +10,7 @@ Shader "PokiClash/StickerOutline"
         _Ink ("Viền mực (texel)", Float) = 2.5
         _Flash ("Nháy trắng", Range(0,1)) = 0
         _Gray ("Xám", Range(0,1)) = 0
+        _Plain ("Không viền (hạt lá...)", Float) = 0
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -53,7 +54,7 @@ Shader "PokiClash/StickerOutline"
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
             fixed4 _Color;
-            float _White, _Ink, _Flash, _Gray;
+            float _White, _Ink, _Flash, _Gray, _Plain;
             float4 _ClipRect;
             fixed4 _PokiInk;
 
@@ -85,13 +86,21 @@ Shader "PokiClash/StickerOutline"
             fixed4 frag(v2f i) : SV_Target
             {
                 fixed4 c = tex2D(_MainTex, i.uv);
-                float aw = Around(i.uv, _White);
-                float ai = Around(i.uv, _White + _Ink);
                 // màu đã nhân alpha khi render ra RT nền trong suốt: chia lại
                 float3 art = c.a > 0.001 ? c.rgb / c.a : c.rgb;
                 float g = dot(art, float3(0.299, 0.587, 0.114));
                 art = lerp(art, float3(g, g, g) * 0.85, _Gray);
                 art = lerp(art, float3(1, 1, 1), _Flash);
+                if (_Plain > 0.5) // ảnh hạt (AolaSticker.MakeFxLayer): giữ hình, không viền giấy
+                {
+                    fixed4 p = fixed4(art, c.a) * i.color;
+                    #ifdef UNITY_UI_CLIP_RECT
+                    p.a *= UnityGet2DClipping(i.wpos.xy, _ClipRect);
+                    #endif
+                    return p;
+                }
+                float aw = Around(i.uv, _White);
+                float ai = Around(i.uv, _White + _Ink);
                 float3 col = lerp(_PokiInk.rgb, float3(1, 1, 1), aw);
                 col = lerp(col, art, c.a);
                 float a = max(max(ai, aw), c.a);

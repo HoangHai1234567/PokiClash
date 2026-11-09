@@ -94,8 +94,19 @@ namespace PokiClash.Game
         int atkMove = -1, atkShadow = -1;
         int atkFar = -1;               // xương "far": hiệu ứng ở chỗ đối thủ (dáng gốc ở chỗ đối thủ mặc định trước mặt)
         int[] atkFly = new int[0];     // xương "fly*": đạn bay từ thân tới far
+        int atkAura = -1;              // clip lặp "aura" (mây bay vòng quanh Thanh Long...): phủ lên mọi clip theo đồng hồ liên tục
         MeshRenderer atkRenderer;
         Mesh atkMesh;
+        // hạt vẽ không viền sticker (game.plain: hạt lá bay, lá văng; người dùng dặn bỏ viền trắng ở hạt lá, 2026-11-09). Khi nơi hiện
+        // bật SplitFx (AolaSticker), các slot này dựng thành lưới riêng đặt cao FxLift trên actor; camera thứ hai của sticker chụp lưới
+        // đó ra ảnh riêng, hiện không qua shader viền. Không bật (chụp thử trong Editor...): vẽ chung một lưới như cũ.
+        public const float FxLift = 1000f;
+        public bool SplitFx;
+        public bool HasPlainFx => atk != null && atkPlain != null;
+        bool[] atkPlain;
+        AtomikPose.SkinPass passMain, passFx;
+        MeshRenderer atkFxRenderer;
+        Mesh atkFxMesh;
         Vector3[] av;
         Vector2[] au;
         Color32[] ac;
@@ -144,7 +155,9 @@ namespace PokiClash.Game
             sortBase = sorting;
             if (a && a.atomik) return LoadAtomik(a, height);
             atk = null;
+            atkPlain = null;
             if (atkRenderer) atkRenderer.enabled = false;
+            if (atkFxRenderer) atkFxRenderer.enabled = false;
             var tex = a ? a.LoadAtlas() : null;
             if (a && AtlasWarm.Remove(a)) WarmOrder.Remove(a); // atlas nạp trước đã vào tay diễn viên
             var d = tex ? Parse(a) : null;
@@ -184,6 +197,18 @@ namespace PokiClash.Game
             atkMove = rig.FindBone(g != null ? g.move : "move");
             atkShadow = rig.FindSlot(g != null ? g.shadow : "shadow");
             atkFar = rig.FindBone("far");
+            atkAura = rig.FindClip("aura");
+            atkPlain = null;
+            if (g != null && g.plain != null)
+                foreach (var sn in g.plain)
+                {
+                    int si = rig.FindSlot(sn);
+                    if (si < 0) continue;
+                    atkPlain ??= new bool[rig.slots.Length];
+                    atkPlain[si] = true;
+                }
+            passMain = apose.NewPass();
+            passFx = apose.NewPass();
             var fly = new List<int>();
             for (int i = 0; i < rig.bones.Length; i++)
                 if (rig.bones[i].name != null && rig.bones[i].name.StartsWith("fly")) fly.Add(i);
@@ -221,7 +246,7 @@ namespace PokiClash.Game
         int AtkClip(string clip) => atk != null ? atk.FindClip(AtkName(clip)) : -1;
 
         // rig xương vẽ theo thời gian liên tục (mượt ở mọi tốc độ khung màn hình), không theo bậc 25 khung như hình aola
-        float shownTime = -1;
+        float shownTime = -1, shownAura = -1;
 
         void RenderAtomik()
         {
@@ -238,34 +263,67 @@ namespace PokiClash.Game
             }
             int ci = AtkClip(current);
             float t = ci >= 0 ? Mathf.Min(time, atk.anims[ci].dur) : 0;
-            if (shown >= 0 && Mathf.Abs(t - shownTime) < 1e-4f) return;
+            // clip lặp "aura" chạy theo giờ game (không theo clip): mây bay liền qua các lần đổi clip, kể cả khi clip chính đứng khung
+            float ta = atkAura >= 0 ? Mathf.Repeat(Application.isPlaying ? Time.time : 0f, Mathf.Max(1e-3f, atk.anims[atkAura].dur)) : 0f;
+            if (shown >= 0 && Mathf.Abs(t - shownTime) < 1e-4f && Mathf.Abs(ta - shownAura) < 1e-4f) return;
             shown = 1;
             shownTime = t;
+            shownAura = ta;
             Version++;
             apose.Sample(ci, t);
+            if (atkAura >= 0 && atkAura != ci) apose.Overlay(atkAura, ta);
             if (farTarget.HasValue && HasFar(current)) FarAtomik();
             apose.World();
-            int nv = apose.Skin(av, au, ac, unit, flip, hideShadow ? atkShadow : -1, out bool trisChanged);
+            bool split = SplitFx && atkPlain != null;
+            int hs = hideShadow ? atkShadow : -1;
+            int nv = apose.Skin(passMain, split ? atkPlain : null, false, av, au, ac, unit, flip, hs, out bool trisChanged);
+            FillMesh(atkMesh, nv, trisChanged, passMain.Tris);
+            block.SetTexture("_MainTex", atlas);
+            block.SetColor("_Add", Color.clear);
+            ShowMesh(atkRenderer);
+            if (split)
+            {
+                if (!atkFxRenderer)
+                {
+                    var go = new GameObject("atomik_fx");
+                    go.transform.SetParent(transform, false);
+                    go.transform.localPosition = new Vector3(0, FxLift, 0);
+                    atkFxMesh = new Mesh { name = "atomik_fx_" + atk.rigName };
+                    atkFxMesh.MarkDynamic();
+                    go.AddComponent<MeshFilter>().sharedMesh = atkFxMesh;
+                    atkFxRenderer = go.AddComponent<MeshRenderer>();
+                }
+                int nf = apose.Skin(passFx, atkPlain, true, av, au, ac, unit, flip, -1, out bool fxChanged);
+                FillMesh(atkFxMesh, nf, fxChanged, passFx.Tris);
+                ShowMesh(atkFxRenderer);
+            }
+            else if (atkFxRenderer) atkFxRenderer.enabled = false;
+        }
+
+        void FillMesh(Mesh m, int nv, bool trisChanged, int[] tris)
+        {
             if (trisChanged)
             {
-                atkMesh.Clear();
-                atkMesh.SetVertices(av, 0, nv);
-                atkMesh.SetUVs(0, au, 0, nv);
-                atkMesh.SetColors(ac, 0, nv);
-                atkMesh.SetTriangles(apose.Tris, 0, true);
+                m.Clear();
+                m.SetVertices(av, 0, nv);
+                m.SetUVs(0, au, 0, nv);
+                m.SetColors(ac, 0, nv);
+                m.SetTriangles(tris, 0, true);
             }
             else
             {
-                atkMesh.SetVertices(av, 0, nv);
-                atkMesh.SetColors(ac, 0, nv);
-                atkMesh.RecalculateBounds();
+                m.SetVertices(av, 0, nv);
+                m.SetColors(ac, 0, nv);
+                m.RecalculateBounds();
             }
-            atkRenderer.sharedMaterial = Mat(false);
-            block.SetTexture("_MainTex", atlas);
-            block.SetColor("_Add", Color.clear);
-            atkRenderer.SetPropertyBlock(block);
-            atkRenderer.sortingOrder = sortBase;
-            atkRenderer.enabled = true;
+        }
+
+        void ShowMesh(MeshRenderer r)
+        {
+            r.sharedMaterial = Mat(false);
+            r.SetPropertyBlock(block);
+            r.sortingOrder = sortBase;
+            r.enabled = true;
         }
 
         // hiệu ứng ở xa của rig .atomik (chiêu đứng tại chỗ gọi gai đất, sét, đạn bay): xương "far" (con của root) dời từ dáng gốc
@@ -674,6 +732,18 @@ namespace PokiClash.Game
             return !(clips.TryGetValue(clip, out var c) && c.stay) && (clip == Attack || data != null && data.lunge.Contains(clip));
         }
 
+        // clip đứng một chỗ: sân KHÔNG tự nhún tới đối thủ (người dùng 2026-11-09: đòn bắn xa không cần lao lên, đứng một chỗ bắn).
+        // Rig .atomik: clip khai "stay", hoặc clip có hiệu ứng bay tới chỗ đối thủ ("far": đạn, sét, cột trồi) mà không khai lao.
+        public bool Stays(string clip)
+        {
+            if (atk == null) return clips.TryGetValue(clip, out var c) && c.stay;
+            var g = atk.game;
+            string an = AtkName(clip);
+            if (g?.stay != null && Array.IndexOf(g.stay, an) >= 0) return true;
+            bool lunge = g?.lunge != null && Array.IndexOf(g.lunge, an) >= 0;
+            return !lunge && g?.far != null && Array.IndexOf(g.far, an) >= 0;
+        }
+
         // chiêu mana phát clip CHIÊU riêng thay vì bắn tia (số ít boss làm riêng, anim.json "mana": "clip")
         public bool ManaUsesClip => data != null && data.manaClip;
 
@@ -906,6 +976,7 @@ namespace PokiClash.Game
             foreach (var q in pool)
                 if (q.m) Destroy(q.m);
             if (atkMesh) Destroy(atkMesh);
+            if (atkFxMesh) Destroy(atkFxMesh);
         }
     }
 }

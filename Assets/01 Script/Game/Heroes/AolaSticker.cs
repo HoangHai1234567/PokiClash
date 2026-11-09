@@ -29,6 +29,12 @@ namespace PokiClash
         GameObject world;
         Camera cam;
         RenderTexture rt;
+        // hạt không viền (AolaActor.SplitFx, rig khai game.plain: hạt lá...): camera thứ hai chụp lưới hạt ở cao FxLift ra RT riêng,
+        // ảnh thứ hai (con của ảnh tướng, cùng khung) hiện qua cùng shader nhưng _Plain = 1 (không viền giấy)
+        RawImage fxImg;
+        Material fxMat;
+        Camera fxCam;
+        RenderTexture fxRt;
         bool flip;
         float stageHeight; // chiều cao dáng đứng trên sân (đơn vị web)
         int seenVersion = -1, lastShot = -1000; // AolaActor.Version lúc chụp gần nhất, khung (Time.frameCount) chụp gần nhất
@@ -50,6 +56,7 @@ namespace PokiClash
             var go = actor.gameObject;
             go.name = "aola_" + hero.id;
             actor.Manual = true;
+            actor.SplitFx = true;
             if (!actor.LoadForm(form, 1f, flip, 0))
             {
                 Object.Destroy(go);
@@ -87,7 +94,33 @@ namespace PokiClash
                 s.mat.SetFloat("_Ink", 2.5f * px / 512f);
                 s.img.material = s.mat;
             }
+            if (actor.HasPlainFx) s.MakeFxLayer(px, baseMat);
             return s;
+        }
+
+        void MakeFxLayer(int px, Material baseMat)
+        {
+            fxRt = new RenderTexture(px, px, 16, RenderTextureFormat.ARGB32) { name = rt.name + "_fx" };
+            var camGo = new GameObject("cam_fx");
+            camGo.transform.SetParent(world.transform, false);
+            fxCam = camGo.AddComponent<Camera>();
+            fxCam.CopyFrom(cam); // CopyFrom chép cả vị trí: đặt lại sau
+            camGo.transform.localPosition = cam.transform.localPosition + new Vector3(0, AolaActor.FxLift, 0);
+            fxCam.targetTexture = fxRt;
+            fxImg = new GameObject("aola_fx", typeof(RectTransform)).AddComponent<RawImage>();
+            var r = fxImg.rectTransform;
+            r.SetParent(Rect, false);
+            r.anchorMin = Vector2.zero;
+            r.anchorMax = Vector2.one;
+            r.offsetMin = r.offsetMax = Vector2.zero;
+            fxImg.texture = fxRt;
+            fxImg.raycastTarget = false;
+            if (baseMat)
+            {
+                fxMat = new Material(baseMat);
+                fxMat.SetFloat("_Plain", 1f);
+                fxImg.material = fxMat;
+            }
         }
 
         // chiêu bắn của tướng không có clip bắn (1_5): đứng dáng đứng, sân tự nhún tới (StageView.Place), tia phóng ở giữa
@@ -120,6 +153,9 @@ namespace PokiClash
             flash = null;
             return actor && actor.Impact(ClipName(clip), out stop, out shake, out push, out flash);
         }
+
+        // clip đứng một chỗ bắn (AolaActor.Stays): sân không tự nhún tới đối thủ
+        public bool Stays(string clip) => actor && actor.Stays(ClipName(clip));
 
         // Độ lệch thêm (đơn vị sân) để đỉnh lao của clip đánh rơi vào 72% quãng tới đối thủ: A·m(t) − m(t) như bản web.
         // Clip khác (chiêu cuối) chỉ lao khi anim.json khai "lunge" (AolaActor.Lunges).
@@ -174,8 +210,10 @@ namespace PokiClash
             if (cam.transform.localPosition != lp)
             {
                 cam.transform.localPosition = lp;
+                if (fxCam) fxCam.transform.localPosition = lp + new Vector3(0, AolaActor.FxLift, 0);
                 camDirty = true;
                 cam.enabled = true;
+                if (fxCam) fxCam.enabled = true;
             }
             Rect.anchoredPosition = w * stageHeight * StageView.K;
         }
@@ -186,8 +224,10 @@ namespace PokiClash
             if (!cam) return;
             int now = Time.frameCount;
             if (lastShot == now) return;
-            bool shoot = camDirty || actor.Version != seenVersion || now - lastShot > 30 || !rt.IsCreated();
+            bool shoot = camDirty || actor.Version != seenVersion || now - lastShot > 30 || !rt.IsCreated() ||
+                         (fxRt && !fxRt.IsCreated());
             cam.enabled = shoot;
+            if (fxCam) fxCam.enabled = shoot;
             if (!shoot) return;
             seenVersion = actor.Version;
             camDirty = false;
@@ -205,6 +245,11 @@ namespace PokiClash
                 mat.SetFloat("_Gray", gray ? 1 : 0);
                 mat.SetFloat("_Flash", Mathf.Min(1, flash * 5) * 0.65f);
             }
+            if (fxImg)
+            {
+                fxImg.color = new Color(1, 1, 1, alpha);
+                if (fxMat) fxMat.SetFloat("_Gray", gray ? 1 : 0);
+            }
         }
 
         // bỏ bóng dưới chân (màn boot)
@@ -215,14 +260,21 @@ namespace PokiClash
         public void Destroy()
         {
             if (cam) cam.enabled = false;
-            if (img) Object.Destroy(img.gameObject);
+            if (fxCam) fxCam.enabled = false;
+            if (img) Object.Destroy(img.gameObject); // ảnh hạt là con, đi theo
             if (world) Object.Destroy(world);
             if (rt)
             {
                 rt.Release();
                 Object.Destroy(rt);
             }
+            if (fxRt)
+            {
+                fxRt.Release();
+                Object.Destroy(fxRt);
+            }
             if (mat) Object.Destroy(mat);
+            if (fxMat) Object.Destroy(fxMat);
         }
     }
 }

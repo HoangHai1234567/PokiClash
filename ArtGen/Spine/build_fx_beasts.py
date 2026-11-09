@@ -297,7 +297,113 @@ SHEETS = {
         ("meteor", "a big golden fireball falling with a long red flame trail streaming up behind it"),
         ("seal", "a round golden seal of flame with a cloud pattern, seen in perspective on the ground (a wide ellipse)"),
     ],
+    # đảo Kim (2026-11-09, build_kim.py): tờ kim loại chung thay bộ NƯỚC mặc định, mỗi dòng một tờ, Kim Nghê thêm tờ thứ hai
+    "kim_chung": [
+        # lần đầu (lưỡi thép, gai) bị công cụ vẽ ảnh của Codex chặn: tả bằng tấm kim loại, dải bạc, tia lửa
+        ("ring", "a flat ring of small silver metal plates and gold rivets seen in perspective on the ground (a wide ellipse, about "
+                 "three times wider than tall)"),
+        ("whirl", "a whirl seen from the front: a wide ring of curved silver ribbons and small gold stars swirling around an "
+                  "empty centre"),
+        ("wave", "a low rolling wave of silver metal plates and gold chips moving along the ground to the right, its crest "
+                 "curling forward"),
+        ("burst", "a round burst seen from the front: a ring of small silver diamond-shaped chips and four-pointed yellow stars "
+                  "radiating outward from an empty centre"),
+        ("pillar", "a tall upright column of silver ribbons and gold chips spiralling up from the ground, wide at the base"),
+        ("spark", "one small four-pointed yellow star"),
+    ],
+    "bo_cap": [
+        ("pinch", "a pincer-snap burst: two thick curved arcs of bronze closing on a star-shaped burst, turquoise crystal chips"),
+        ("sting", "a narrow star burst pointing down-right with turquoise crystal chips"),
+        ("crystals", "a cluster of big pointed turquoise crystal spikes in bronze rims erupting upward from a cracked ground"),
+        ("orb", "a round faceted turquoise crystal orb set in a bronze ring"),
+        ("burst", "a round burst of turquoise crystal shards and bronze chips flying outward"),
+        ("shard", "one small faceted turquoise crystal shard"),
+    ],
+    "doc_giac": [
+        ("horn", "a drill-like spiral cone of silver and gold pointing to the right, a star burst at its tip"),
+        ("charge", "a long horizontal charge trail streaming to the left: crimson ribbons like a flowing mane and silver streaks"),
+        ("burst", "a round burst of silver armour shards and crimson ribbon strands flying outward"),
+        ("orb", "a round golden orb with a turquoise gem in the middle and a spiral horn pattern around it"),
+        ("crest", "a big royal crest shield of silver and gold with a unicorn head, rimmed with crimson ribbons"),
+        ("star", "one small four-pointed gold star"),
+    ],
+    "bo_ngua": [
+        ("slash", "one big crescent-moon swoosh arc of steel blue and silver, curving down to the right"),
+        ("cross", "an X-shaped pair of crossing steel-blue crescent swoosh arcs with small green leaf shards"),
+        ("orb", "a round jade-green orb with a crescent moon shape inside and a ruby dot"),
+        ("burst", "a round burst of jade-green and steel shards flying outward"),
+        ("whirl", "a whirlwind of many silver crescent swooshes spinning around an empty centre, seen from the front"),
+        ("blade", "one small silver crescent moon shape"),
+    ],
+    "phi_thuong": [
+        ("lance", "a giant long faceted sapphire-blue crystal shard pointing straight DOWN with a gold band, falling from above"),
+        ("thrust", "a long straight speed streak to the right, steel-blue, ending in a star-shaped burst at its tip"),
+        ("quill", "one long steel-blue porcupine quill with a gold tip, flying to the right"),
+        ("orb", "a round crystal orb, its left half sapphire blue and its right half ruby red, in a gold ring"),
+        ("burst", "a round burst of steel-blue quills radiating outward"),
+        ("crater", "a round crater seen in perspective on the ground (a wide ellipse) with crystal shards and quills "
+                   "sticking out of it"),
+    ],
+    "khien_bac": [
+        ("bash", "a shield-bash impact: a big arrowhead-shaped shield outline of sky blue with radiating impact lines"),
+        ("wave", "a low wave of sky-blue and silver shield plates rolling along the ground to the right"),
+        ("wall", "a row of three big tall sky-blue kite shields with green gems erupting upward from the ground like a wall"),
+        ("orb", "a round sky-blue shield emblem orb with a green gem and a small gold cross"),
+        ("burst", "a round burst of silver-blue armour shards flying outward"),
+        ("gem", "one small faceted green gem"),
+    ],
+    "chien_than": [
+        ("shell", "a big golden cannon shell with sky-blue bands falling DOWN steeply, a short sky-blue trail streaming up behind"),
+        ("blast", "a cannon muzzle-blast: a star-shaped burst of gold and sky-blue petals opening to the right"),
+        ("rings", "three golden shock rings opening to the right, getting bigger outward"),
+        ("orb", "a round golden orb with an emerald gem in the middle like an owl eye, sky-blue rim"),
+        ("burst", "a round burst of golden feathers and sky-blue shards flying outward"),
+        ("feather", "one small golden feather"),
+    ],
+    "thiet_phu": [
+        ("axe", "one big crescent swoosh arc of grey steel with a red edge, curving down to the right"),
+        ("whirl", "a horizontal whirlwind of grey and red crescent arcs spinning around an empty centre"),
+        ("crack", "a ground smash: a round crater in perspective with rock chips, brass rivets and yellow sparks flying up"),
+        ("orb", "a round red iron orb with brass rivets and a white plume on top"),
+        ("burst", "a round burst of red iron chunks, brass rivets and yellow sparks"),
+        ("bolt", "one small brass rivet bolt"),
+    ],
+    "tam_kiem": [
+        ("slash_b", "one big crescent swoosh arc of sapphire blue, curving down to the right"),
+        ("slash_r", "one big crescent swoosh arc of ruby red, curving up to the right"),
+        ("cross", "three crossing crescent swoosh arcs, sapphire blue, ruby red and gold, meeting in a star burst"),
+        ("orb", "a round golden orb with a V-shaped crest on it and three tiny gold stars around"),
+        ("burst", "a round burst of white and gold diamond chips and small blue and red chips"),
+        ("seal", "a round golden seal with a three-pointed crown pattern, seen in perspective on the ground (a wide ellipse)"),
+    ],
+    "ung_thep": [
+        ("talon", "three parallel curved claw-mark streaks of mint crystal and silver, slanting down to the right"),
+        ("feather", "one long mint crystal feather flying to the right"),
+        ("gust", "a horizontal gust of curved wind arcs with small mint crystal feathers in it, blowing to the right"),
+        ("orb", "a round mint crystal orb inside an orange ring"),
+        ("burst", "a round burst of mint crystal shards and silver feathers"),
+        ("whirl", "a whirl of six long mint crystal feathers spinning around an empty centre, seen from the front"),
+    ],
+    "kim_nghe": [
+        ("bite", "a big chomp shape made of sapphire-blue flame: two curved rows of white teeth closing, gold chips"),
+        ("claw", "three parallel curved claw-slash streaks of sapphire-blue flame, slanting down to the right"),
+        ("spirit", "a nghe guardian spirit (a fox-lion beast) made of sapphire-blue flames with golden armour pieces, leaping "
+                   "down to the right"),
+        ("orb", "a round sapphire-blue flame orb inside a golden ring engraved with clouds"),
+        ("burst", "a round burst of sapphire-blue flame tongues and gold shards"),
+        ("flame", "one small sapphire-blue flame tuft"),
+    ],
+    "kim_nghe_b": [
+        ("pillar", "a tall pillar of sapphire-blue and pale-blue flame pouring down from the sky onto the ground"),
+        ("seal", "a round golden seal with a cloud pattern and blue gems, seen in perspective on the ground (a wide ellipse)"),
+        ("halo", "a ring of golden armour plates and sapphire gems, like a halo"),
+        ("roar", "a vertical fan of big sapphire-blue flame arcs expanding to the right with golden cloud curls"),
+        ("meteor", "a big golden meteor falling with a long sapphire-blue flame trail streaming up behind it"),
+        ("blades", "a swirling burst of golden crescents and sapphire-blue flame tongues"),
+    ],
 }
+KIM = {"kim_chung", "bo_cap", "doc_giac", "bo_ngua", "phi_thuong", "khien_bac", "chien_than", "thiet_phu", "tam_kiem",
+       "ung_thep", "kim_nghe", "kim_nghe_b"}
 HOA = {"hoa_chung", "su_tu_lua", "khong_lo", "kim_su", "nham_than", "nguu_quyen", "hong_lien", "giap_long", "huyen_viem",
        "hoa_tinh", "lan_hoa", "lan_hoa_b"}
 
@@ -320,7 +426,8 @@ def luot_1(hid):
     lst = "\n".join(f"{j + 1}. {cells[j]} cell: {d}." for j, (_n, d) in enumerate(items))
     boss = ""
     if hid.split("_b")[0] in ("kuba", "huyen_vu", "lam_quan", "thuong_lam", "gio_loc", "tho_hoang", "thanh_long", "hong_lien",
-                              "giap_long", "huyen_viem", "hoa_tinh", "lan_hoa") or hid.endswith("_b"):
+                              "giap_long", "huyen_viem", "hoa_tinh", "lan_hoa", "chien_than", "thiet_phu", "tam_kiem",
+                              "ung_thep", "kim_nghe") or hid.endswith("_b"):
         boss = ("\nThese effects belong to one of the island's last bosses: make them especially rich and beautiful (more "
                 "layered shapes, elegant curls and details), still flat-coloured and readable.")
     fire = ""
@@ -329,6 +436,11 @@ def luot_1(hid):
                 "most three clear bands (red outer, orange middle, yellow inner, or the colours stated for that effect), never "
                 "left as white paper; lava is flat orange and yellow. Nothing glows: no light, no halo, no bright edges, no "
                 "smoke or heat haze.")
+    if hid in KIM:
+        fire = ("\nMETAL: steel, gold, bronze, crystal and gems are flat shapes with a closed dark-brown ink outline, each one "
+                "flat crayon colour (plus a few darker facet or edge lines); no shine spots, no white highlights, no "
+                "reflections, no metallic gradients; sparks are flat yellow four-pointed stars with a dark outline; flames (if "
+                "any) are flat shapes in at most three colour bands. Nothing glows: no light, no halo, no bright edges.")
     t = f"""IMAGES (attached in this order; open each from its path):
 {img}
 
@@ -354,7 +466,9 @@ Plain pure-white background (#FFFFFF), no creature, no character, no text.
 
 # hình vòng (vòng lửa dưới đất, lốc, nổ hở giữa, vòng gai): lòng giấy trắng khép kín phải trong suốt, không thì lên sân thành
 # đĩa trắng đục (fg_mask chỉ bỏ nền trắng nối mép ô)
-HOLLOW = {"hoa_chung_ring", "hoa_chung_whirl", "hoa_chung_burst", "lan_hoa_ring", "lan_hoa_b_halo", "giap_long_spikes"}
+HOLLOW = {"hoa_chung_ring", "hoa_chung_whirl", "hoa_chung_burst", "lan_hoa_ring", "lan_hoa_b_halo", "giap_long_spikes",
+          "kim_chung_ring", "kim_chung_whirl", "kim_chung_burst", "bo_ngua_whirl", "thiet_phu_whirl", "ung_thep_whirl",
+          "kim_nghe_b_halo", "chien_than_rings"}
 
 
 def clear_holes(cell, m, min_area=400):

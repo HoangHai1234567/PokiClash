@@ -51,7 +51,8 @@ namespace PokiClash
         BadgeRef badge;
         CaveRef cave;
         // nhịp trận (người dùng 2026-11-03: đánh và animation nhanh như lúc chạy thử, ×3 cũ). 2026-11-04 bỏ nấc tốc độ ×2, ×3: lúc ra
-        // đòn sân tự chậm lại cho rõ animation (StageView), ngoài lúc đó chạy nhịp này
+        // đòn sân tự chậm lại cho rõ animation (StageView), ngoài lúc đó chạy nhịp này. 2026-11-09: animation tướng về tốc độ gốc, nhịp này
+        // chỉ còn tăng nhịp trận (chờ giữa các bước, chữ nổi, hiệu ứng, ra sân, rút lui, gục)
         const float Pace = 3f;
         float fast = 1; // công cụ thử chạy nhanh (FastForward)
         bool auto, busy, alive = true, waitingPick;

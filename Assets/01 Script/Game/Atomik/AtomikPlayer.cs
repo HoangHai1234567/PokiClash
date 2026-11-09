@@ -22,7 +22,8 @@ namespace PokiClash.Game
         AtomikAsset built;
         AtomikPose pose;
         int cur = -1;
-        float time, mixLeft;
+        int aura = -1;      // clip lặp "aura" (mây bay vòng...): phủ lên clip chính theo đồng hồ riêng, liền qua mọi lần đổi clip
+        float time, mixLeft, auraTime;
         Vector3[] verts;
         Vector2[] uvs;
         Color32[] cols;
@@ -78,6 +79,7 @@ namespace PokiClash.Game
             {
                 float dt = UnityEngine.Time.deltaTime * speed;
                 time += dt;
+                auraTime += dt;
                 if (mixLeft > 0) mixLeft = Mathf.Max(0, mixLeft - dt);
             }
             else if (cur < 0 || asset.anims[cur].name != clip) cur = asset.FindClip(clip);
@@ -102,6 +104,7 @@ namespace PokiClash.Game
             if (asset.material != null && r.sharedMaterial != asset.material) r.sharedMaterial = asset.material;
             built = asset;
             cur = -1;
+            aura = asset.FindClip("aura");
             return true;
         }
 
@@ -115,6 +118,7 @@ namespace PokiClash.Game
             }
             pose.Sample(cur, t);
             if (mixLeft > 0 && mixTime > 0) pose.Mix(1 - mixLeft / mixTime);
+            if (aura >= 0 && aura != cur) pose.Overlay(aura, Mathf.Repeat(auraTime, Mathf.Max(1e-3f, asset.anims[aura].dur)));
             pose.World();
             int nv = pose.Skin(verts, uvs, cols, 1f / Mathf.Max(1e-3f, asset.ppu), false, -1, out bool trisChanged);
             if (trisChanged)

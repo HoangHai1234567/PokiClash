@@ -30,7 +30,7 @@ namespace PokiClash
         static readonly string[] WordsHit = { "BỐP!", "CHÁT!", "BỤP!", "HỰ!", "BINH!" };
         static readonly string[] WordsBig = { "ẦM!!", "RẦM!!", "OÀNH!!" };
 
-        public float speed = 1; // nhịp sân ngoài lúc ra đòn: giây sân mỗi giây thật (BattleController đặt)
+        public float speed = 1; // nhịp sân ngoài lúc ra đòn: giây sân mỗi giây thật (BattleController đặt); animation tướng không theo
         public float fast = 1;  // công cụ thử chạy nhanh gấp fast, cả lúc ra đòn (BattleController.FastForward)
         [SerializeField] Image sky, bg, flashImg;
         [SerializeField] RectTransform root, actorLayer, fxLayer, plateLayer;
@@ -484,10 +484,11 @@ namespace PokiClash
         public string ClipOf(int side) => actors[side] == null || actors[side].loop ? Idle : actors[side].clip;
 
         // Lúc ra đòn cả sân chậm lại cho rõ animation (người dùng 2026-11-04, thay cách chỉ kéo chậm clip chiêu của 2026-11-03): tướng đang
-        // chạy clip đánh thì sân chạy ×1,3 tốc độ gốc aola; chiêu bắn (động tác bắn, tia bay, tan) và clip CHIÊU (tuyệt kỹ, chiêu mana của
-        // boss làm riêng) ×1. Cả hai tướng, chữ nổi, hiệu ứng, rung và chờ của BattlePlayer (Wait) cùng chậm. Vào nhịp chậm ngay lúc clip
-        // bắt đầu, ra lại nhịp sân mượt trong SlowEase giây thật.
-        const float AttackPace = 1.3f, SkillPace = 1f, SlowEase = 0.1f;
+        // chạy clip đánh, chiêu bắn (động tác bắn, tia bay, tan) hay clip CHIÊU (tuyệt kỹ, chiêu mana của boss làm riêng) thì chữ nổi, hiệu
+        // ứng, rung và chờ của BattlePlayer (Wait) chạy ×1 cho khớp tướng. Vào nhịp chậm ngay lúc clip bắt đầu, ra lại nhịp sân mượt trong
+        // SlowEase giây thật. Animation của tướng (đứng, đánh, trúng đòn, chiêu) luôn chạy tốc độ gốc, không theo nhịp sân (người dùng
+        // 2026-11-09: chỉ tăng nhịp trận, tốc độ animation về gốc; trước đó clip đánh ×1,3, lúc đứng và trúng đòn ×3).
+        const float AttackPace = 1f, SkillPace = 1f, SlowEase = 0.1f;
         float slow = 1;  // hệ số đang nhân vào nhịp sân (1: nhịp thường)
         float skillHold; // giây sân còn giữ nhịp chiêu sau clip bắn (tia còn bay, tan)
         public float Clock { get; private set; } // giây sân đã chạy
@@ -890,17 +891,19 @@ namespace PokiClash
             float goal = Mathf.Min(1, pace / Mathf.Max(0.1f, speed));
             slow = goal < slow ? goal : Mathf.MoveTowards(slow, goal, raw / SlowEase);
             float dt = raw * speed * slow * fast;
+            float adt = raw * fast; // giờ animation của tướng (clip, lúc đứng): tốc độ gốc, chỉ công cụ thử mới tua nhanh
             if (freeze > 0) // khựng lúc trúng: sân gần như đứng trong giây thật đã khai
             {
                 freeze -= raw;
                 dt *= FreezeSlow;
+                adt *= FreezeSlow;
             }
             Clock += dt;
             skillHold = Mathf.Max(0, skillHold - dt);
             foreach (var a in actors)
             {
                 if (a == null) continue;
-                a.t += dt;
+                a.t += adt;
                 a.flash = Mathf.Max(0, a.flash - dt);
                 if (a.enter < 9) a.enter += dt;
                 if (a.exit > 0) a.exit += dt;
@@ -1032,8 +1035,9 @@ namespace PokiClash
                     oy = o.y;
                     lunged = true;
                 }
-                else if (a.clip == Attack || a.aola == null)
+                else if ((a.clip == Attack || a.aola == null) && (a.aola == null || !a.aola.Stays(a.clip)))
                 {
+                    // đòn bắn xa (rig khai far/stay) đứng một chỗ: không nhún tới (người dùng 2026-11-09)
                     float len = a.aola != null ? a.aola.Duration(a.clip) : ClipLen(a.clip);
                     float hitT = a.aola != null ? a.aola.HitTime(a.clip) : len * HitAt(a.clip);
                     float u = Mathf.Min(1, a.t / Mathf.Max(0.01f, hitT));

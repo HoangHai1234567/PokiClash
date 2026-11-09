@@ -446,6 +446,63 @@ Làm tiếp:
    - menu `PokiClash/Tướng/Xoá dạng aola không còn tướng nào dùng` (bỏ 24 `goc_*` Mộc khỏi build);
    - chụp thử `PokiClash/Tướng/Chụp thử prefab tướng`, rồi tour trận.
 
+## 20. Đảo Kim: 10 dòng, 22 dạng .atomik (2026-11-09 tối, máy ổ D)
+
+Người dùng dặn: làm tiếp đảo Kim, học từ tướng gốc; **chibi chỉ ở dạng 1**, càng tiến hóa càng dữ, chiến, ngầu và đẹp hơn
+(luật này áp cho mọi đảo về sau). Claude trình thiết kế bằng chữ, người dùng duyệt ("làm đi, theo ý bạn").
+
+- Gói: `py -3 -I ArtGen/Spine/build_kim.py [id ...]`, khuôn như `build_hoa.py` (mục 19). Khác: mỗi dạng có mức `STAGE`:
+  dạng 1 chibi (đầu khoảng 45% chiều cao), dạng giữa không chibi (khoảng 30%), dạng cuối 25%, dòng một dạng 28%. Ảnh mẫu
+  dạng trước kèm câu "dạng mới to, khỏe, ngầu hơn" và "đừng chép tỉ lệ thân". Luật kim loại (`METAL`): giáp, gai là mảng
+  phẳng có viền, không ánh kim, không điểm sáng.
+- Thiết kế (aola dạng robot, người lính đổi thành thú mặc giáp, giữ màu và chi tiết nhận ra được):
+  - **Bọ Cạp** (ải 1): bọ cạp pha lê bạc lam → đá lục bảo gai lưng → bọ cạp chiến đồng đỏ viền vàng; ngọc lam giữ cả ba dạng.
+  - **Độc Giác Thép** (5, một dạng): ngựa một sừng trưởng thành (không chibi), giáp bạc viền vàng, bờm đỏ thẫm, áo choàng ngắn.
+  - **Bọ Ngựa** (10): bọ ngựa con mắt hổ phách → kiếm khách thân cao, liềm dài → bậc thầy hai liềm trăng khuyết, cánh thép.
+  - **Phi Thương** (15): nhím thép con gai lam chóp vàng → nhím kỵ sĩ đứng hai chân, hai thương pha lê lam, đỏ.
+  - **Khiên Bạc** (20): tatu con mai như mũ sắt → tatu vệ sĩ đứng hai chân, khiên mũi tên ngọc lục, giáo ba mũi.
+  - **Chiến Thần** (30): cú con lông vàng găng lam → cú sừng chiến giáp vàng bay, ống pháo lam ở cổ cánh.
+  - **Thiết Phủ** (40): heo con đội mũ sắt đỏ, chùy gỗ (đổi tên dạng 1 "Người Thiếc" thành "Heo Thiếc") → heo rừng chiến
+    binh giáp đỏ, rìu kích.
+  - **Tam Kiếm** (50): linh miêu trắng con kiếm gỗ → song kiếm lam, đỏ → vua ba kiếm (kiếm vàng lớn sau lưng).
+  - **Ưng Thép** (60): ưng con bạc mũ cam → ưng thép bay, sáu lông cánh pha lê bạc hà.
+  - **Kim Nghê** (70, boss): nghê con đuôi bông lửa lam → thần thú nghê giáp vàng chạm mây, lửa lam ở bờm, khuỷu, đuôi (dòng
+    duy nhất có lửa, `"flames": True`).
+- Ảnh: 20 dạng đạt ngay. Phi Thương 2 lần đầu còn chibi (đầu khoảng 37%), gen lại bằng `gen.py --note` → `L1_duyet.png`.
+- Rig: `ArtGen/Spine/beasts_cfg_kim.py` (nạp ở cuối `beasts_cfg.py`). Đòn, chiêu theo tiêu chí skill `pokiclash-spine-rig`
+  mục 0a, 18 (khối `_REDESIGN_KIM`): mỗi dạng một chiêu, mạnh dần, phần lớn đứng tại chỗ, bỏ đòn lộn (spin, tailwhip).
+  - Bọ Cạp: cào, cào, nện càng / pha lê trồi → gai pha lê nối dọc đất → mưa pha lê.
+  - Độc Giác: húc / lao húc bằng sừng (lore, một dạng).
+  - Bọ Ngựa: chém liềm / liên hoàn liềm (lao) → liềm bay vòng rồi phóng → lốc liềm nhốt.
+  - Phi Thương: cắn, đâm thương / lông nhím bay vòng rồi phóng → mưa lông nhím, thương pha lê rơi cuối.
+  - Khiên Bạc: húc mai, nện khiên / sóng khiên → tường khiên trồi nối.
+  - Chiến Thần (dạng 2 bay): hót / loạt lông vàng → vòng sóng âm.
+  - Thiết Phủ: vung chùy, rìu / nứt đất dưới đối thủ → vết nứt nối dọc đất.
+  - Tam Kiếm: chém / liên hoàn kiếm (lao) → loạt vệt kiếm bay → ấn vua nổ vòng.
+  - Ưng Thép (bay): cào / gió lông pha lê dọc đất → lốc pha lê nhốt.
+  - Kim Nghê: cắn, cào / vòng lửa lam → mưa lửa lam, thiên thạch vàng rơi cuối.
+  Không tách hàm: Chiến Thần mỏ quặp khép kín; không dòng nào khác bắn từ miệng. Đòn vũ khí (kiếm, rìu kích) đã soi khung.
+- Bẫy mặt nạ: lông, chùm lông trắng gần màu giấy thành nền (hở viền) thì thêm hộp `close_fill`; viền giáp trắng khép kín bị coi
+  là lỗ thì thêm điểm `keep`; lòng bàn chân giữa các móng hở thì mỗi bàn một hộp `close_fill` bán kính 14, đáy ngay trên mép
+  bàn chân.
+- Hiệu ứng: tờ chung `kim_chung` thay bộ NƯỚC. Lần đầu tả "lưỡi thép, gai" thì công cụ vẽ ảnh của Codex chặn cả ba lần, phải
+  tả bằng tấm kim loại, dải bạc, sao vàng. Đã làm mềm 25 mô tả tờ riêng: vệt cong thay lưỡi, mảnh pha lê thay giáo, lông nhím,
+  vệt cào.
+- **Codex hết hạn mức lúc 23:43, tới 14:25 ngày 11/11.** Còn thiếu: ảnh `bo_cap_3`, `bo_ngua_3` và 6 tờ hiệu ứng (`chien_than`,
+  `thiet_phu`, `tam_kiem`, `ung_thep`, `kim_nghe`, `kim_nghe_b`). Trong lúc chờ:
+  - ảnh hiệu ứng nào chưa có thì `beasts_cfg_kim._tam_thoi` tạm dùng ảnh `kim_chung` cùng vai trò; gen, cắt xong là tự dùng ảnh
+    riêng khi dựng lại;
+  - Bọ Cạp, Bọ Ngựa vào game với dạng 1–2 mới; dạng 3 giữ hình aola cũ (`hoa_json.py` bỏ qua dạng chưa có .atomik).
+- Gen nốt khi có hạn mức: `py -3 -I ArtGen/Spine/chay_hoa.py ArtGen/Spine/gui_gpt/bo_cap_3/luot_1_lien.txt
+  ArtGen/Spine/gui_gpt/bo_ngua_3/luot_1_lien.txt ArtGen/Spine/gui_gpt/fx_<id>/luot_1_lien.txt ...`, rồi cắt tờ
+  (`D:/spine-venv/Scripts/python -I ArtGen/Spine/build_fx_beasts.py --cat <id>`; py hệ thống không có cv2), viết cấu hình dạng
+  3 (grid → marks → nhan), dựng lại dòng. Hoặc gửi GPT đường dẫn các file prompt ấy như cách cũ.
+- Vào game (2026-11-10 0:05, đã làm): chép 20 thư mục `Resources/<id>_<k>/`, `hoa_json.py --kim` (30 mã), đổi tên dạng 1
+  Thiết Phủ thành "Heo Thiếc" trong `heroes.json`, `PokiClash/Nhập dữ liệu`, `PokiClash/Tướng/Gắn dạng .atomik vào prefab
+  tướng` (10 prefab Kim đã gắn dạng mới; Bọ Cạp, Bọ Ngựa giữ `goc_678`, `goc_685` ở dạng 3), `PokiClash/Tướng/Chụp thử dạng
+  .atomik (mọi clip)` chạy đủ 6 clip (`Library/PokiHeroShots/<id>_atomik_<k>.png`). Chưa xem trong trận. Dạng aola cũ `goc_*`
+  của Kim còn trong Resources, chờ người dùng.
+
 ## 19. Đảo Hỏa: 10 dòng, 28 dạng .atomik (2026-11-09, máy ổ E, đang dựng gói prompt)
 
 Người dùng dặn: lên prompt gen cho đảo Hỏa theo cách hai đảo Thủy, Mộc. Đảo Hỏa chưa có concept nào đã duyệt, nên làm như đảo

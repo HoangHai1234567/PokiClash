@@ -248,6 +248,10 @@ def add_rigid_piece(R, piece, slot, img, bone, att=None):
 
 # ---------------------------------------------------------------- tư thế
 class Pose:
+    # tên slot -> xương mang nó (beast: slot đạn fl0 trên xương fly0...): lệnh xoay, dời, co giãn gọi theo tên slot vẫn ăn vào xương.
+    # Trước 2026-11-10 các lệnh đó bị Q.clean bỏ (không có xương tên đó) nên đạn, hiệu ứng ở xa đứng yên một cỡ.
+    alias = {}
+
     def __init__(self):
         self.t = {}      # xương -> [dx, dy, rot, sx, sy]
         self.att = {}    # slot -> tên hình (None = trống)
@@ -256,6 +260,7 @@ class Pose:
         self.chain_base = {}  # xương chuỗi -> góc nền (lò xo đuổi theo)
 
     def _g(self, b):
+        b = Pose.alias.get(b, b)
         return self.t.setdefault(b, [0.0, 0.0, 0.0, 1.0, 1.0])
 
     def rot(self, b, a):
@@ -728,7 +733,8 @@ def merge_next(A, B, prefix="n_", parent="root", scale_bone="evo"):
     return M
 
 
-def export(R, clips, baked, out_dir, res_dir, game, H, gif=True):
+def export(R, clips, baked, out_dir, res_dir, game, H, gif=True, preview=None):
+    """preview: khung để soi (khung.png, GIF) nếu khác bản xuất (beast: clip chính đã ghép clip lặp "aura")."""
     os.makedirs(out_dir, exist_ok=True)
     anims = {name: to_timelines(R, frames, clips[name]["dur"]) for name, frames in baked.items()}
     for name in anims:  # khoá ở thời điểm cuối để độ dài clip đúng
@@ -741,6 +747,6 @@ def export(R, clips, baked, out_dir, res_dir, game, H, gif=True):
     os.makedirs(res_dir, exist_ok=True)
     atomik.convert(os.path.join(out_dir, R.name + ".json"), os.path.join(out_dir, R.name + ".atlas"),
                    os.path.join(res_dir, R.name + ".atomik"), R.name, game)
-    sheet(R, clips, baked, out_dir, H, gif=gif)
+    sheet(R, clips, preview if preview is not None else baked, out_dir, H, gif=gif)
     mesh_debug(R, out_dir)
     return aw, ah

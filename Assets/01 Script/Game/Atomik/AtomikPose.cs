@@ -13,11 +13,20 @@ namespace PokiClash.Game
         readonly float[] lx, ly, lr, lsx, lsy;     // tư thế cục bộ
         readonly float[] px, py, pr, psx, psy;     // tư thế giữ lại để trộn (Snapshot)
         readonly float[] wa, wb, wc, wd, wx, wy;   // ma trận thế giới 2x3
-        readonly int[] slotAtt, lastAtt;
+        readonly int[] slotAtt;
         readonly float[] slotAlpha;
-        int[] tris = new int[0];
 
-        public int[] Tris => tris;
+        // một lần dựng lưới (một Mesh): nhớ hình từng slot lần trước để biết có phải dựng lại tam giác không. Dựng nhiều Mesh từ cùng
+        // tư thế (AolaActor: thân có viền sticker, hạt lá không viền) thì mỗi Mesh một pass riêng.
+        public sealed class SkinPass
+        {
+            internal int[] lastAtt;
+            public int[] Tris = new int[0];
+        }
+
+        readonly SkinPass main;
+
+        public int[] Tris => main.Tris;
 
         public AtomikPose(AtomikAsset a)
         {
@@ -27,9 +36,8 @@ namespace PokiClash.Game
             px = new float[nb]; py = new float[nb]; pr = new float[nb]; psx = new float[nb]; psy = new float[nb];
             wa = new float[nb]; wb = new float[nb]; wc = new float[nb]; wd = new float[nb]; wx = new float[nb]; wy = new float[nb];
             slotAtt = new int[ns];
-            lastAtt = new int[ns];
             slotAlpha = new float[ns];
-            for (int i = 0; i < ns; i++) lastAtt[i] = int.MinValue;
+            main = NewPass();
             foreach (var att in a.atts) maxVerts += att.uvs.Length / 2;
             attsRef = a.atts;
         }
@@ -75,6 +83,35 @@ namespace PokiClash.Game
             if (c.sa != null)
                 foreach (var k in c.sa)
                     slotAlpha[k.slot] = Mathf.Clamp01(Sample1(k.keys, t));
+        }
+
+        // Phủ thêm clip lặp ci ở giây t lên tư thế vừa Sample (clip "aura": mây bay vòng quanh Thanh Long...). Clip này chạy theo
+        // đồng hồ riêng của nơi gọi, liền qua mọi lần đổi clip chính, nên các clip chính không khoá xương, slot của nó. Xương: xoay,
+        // dời cộng thêm, tỉ lệ nhân (như Sample); hình trong slot: đặt theo khoá; độ đậm slot: nhân vào (clip chính vẫn làm mờ được,
+        // vd. dạng cũ tan khi tiến hóa).
+        public void Overlay(int ci, float t)
+        {
+            if (ci < 0 || ci >= asset.anims.Length) return;
+            var c = asset.anims[ci];
+            if (c.tls != null)
+                foreach (var tl in c.tls)
+                {
+                    int i = tl.bone;
+                    if (tl.type == 0) lr[i] += Sample1(tl.keys, t);
+                    else
+                    {
+                        Sample2(tl.keys, t, out float vx, out float vy);
+                        if (tl.type == 1) { lx[i] += vx; ly[i] += vy; }
+                        else { lsx[i] *= vx; lsy[i] *= vy; }
+                    }
+                }
+            if (c.sk != null)
+                foreach (var k in c.sk)
+                    for (int j = 0; j < k.times.Length; j++)
+                        if (k.times[j] <= t + 1e-5f) slotAtt[k.slot] = k.atts[j];
+            if (c.sa != null)
+                foreach (var k in c.sa)
+                    slotAlpha[k.slot] *= Mathf.Clamp01(Sample1(k.keys, t));
         }
 
         // giữ tư thế cục bộ hiện tại làm điểm đầu trộn (đổi clip)
@@ -132,18 +169,32 @@ namespace PokiClash.Game
         // vị trí thế giới của xương (pixel rig, y lên), sau World()
         public Vector2 BonePos(int b) => b >= 0 && b < wx.Length ? new Vector2(wx[b], wy[b]) : Vector2.zero;
 
+        public SkinPass NewPass()
+        {
+            var p = new SkinPass { lastAtt = new int[asset.slots.Length] };
+            for (int i = 0; i < p.lastAtt.Length; i++) p.lastAtt[i] = int.MinValue;
+            return p;
+        }
+
         // Dựng đỉnh theo slot (sau World): toạ độ = pixel rig x scale, lật ngang nếu flipX; hideSlot: slot vẽ trong suốt (-1: không).
         // Trả số đỉnh; trisChanged: hình trong slot đổi nên Tris đã dựng lại (nơi gọi đặt lại tam giác của Mesh).
-        public int Skin(Vector3[] verts, Vector2[] uvs, Color32[] cols, float scale, bool flipX, int hideSlot, out bool trisChanged)
+        public int Skin(Vector3[] verts, Vector2[] uvs, Color32[] cols, float scale, bool flipX, int hideSlot, out bool trisChanged) =>
+            Skin(main, null, false, verts, uvs, cols, scale, flipX, hideSlot, out trisChanged);
+
+        // như trên nhưng chỉ các slot có mask[s] == want (mask null: mọi slot), theo pass riêng (Tris của pass đó)
+        public int Skin(SkinPass pass, bool[] mask, bool want, Vector3[] verts, Vector2[] uvs, Color32[] cols, float scale, bool flipX,
+                        int hideSlot, out bool trisChanged)
         {
             trisChanged = false;
             int nv = 0;
             float fx = flipX ? -scale : scale;
+            var lastAtt = pass.lastAtt;
             for (int s = 0; s < asset.slots.Length; s++)
             {
-                if (slotAtt[s] != lastAtt[s]) { trisChanged = true; lastAtt[s] = slotAtt[s]; }
-                if (slotAtt[s] < 0) continue;
-                var att = asset.atts[slotAtt[s]];
+                int att0 = mask == null || mask[s] == want ? slotAtt[s] : -1;
+                if (att0 != lastAtt[s]) { trisChanged = true; lastAtt[s] = att0; }
+                if (att0 < 0) continue;
+                var att = asset.atts[att0];
                 var w = att.wInfo;
                 byte alpha = s == hideSlot ? (byte)0 : (byte)Mathf.RoundToInt(slotAlpha[s] * 255);
                 var col = new Color32(255, 255, 255, alpha);
@@ -165,18 +216,18 @@ namespace PokiClash.Game
                     nv++;
                 }
             }
-            if (trisChanged || tris.Length == 0)
+            if (trisChanged || pass.Tris.Length == 0)
             {
                 trisChanged = true;
                 int nt = 0;
                 for (int s = 0; s < asset.slots.Length; s++)
-                    if (slotAtt[s] >= 0) nt += asset.atts[slotAtt[s]].tris.Length;
-                tris = new int[nt];
+                    if (lastAtt[s] >= 0) nt += asset.atts[lastAtt[s]].tris.Length;
+                var tris = pass.Tris = new int[nt];
                 int off = 0, ti = 0;
                 for (int s = 0; s < asset.slots.Length; s++)
                 {
-                    if (slotAtt[s] < 0) continue;
-                    var att = asset.atts[slotAtt[s]];
+                    if (lastAtt[s] < 0) continue;
+                    var att = asset.atts[lastAtt[s]];
                     foreach (var tv in att.tris) tris[ti++] = tv + off;
                     off += att.uvs.Length / 2;
                 }

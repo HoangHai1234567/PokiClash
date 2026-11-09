@@ -140,7 +140,7 @@
    "id": "bo_cap",
    "name": "Bọ Cạp Đồng",
    "title": "Đuôi pha lê cát đỏ",
-   "aola": "goc_676",
+   "aola": "bo_cap_1",
    "elem": "kim",
    "rarity": "common",
    "stats": [
@@ -160,12 +160,12 @@
    "forms": [
     {
      "name": "Bọ Cạp Pha Lê",
-     "aola": "goc_676",
+     "aola": "bo_cap_1",
      "size": 0.9
     },
     {
      "name": "Bọ Cạp Đá Lục",
-     "aola": "goc_677",
+     "aola": "bo_cap_2",
      "size": 1.02
     },
     {
@@ -179,7 +179,7 @@
    "id": "bo_ngua",
    "name": "Bọ Ngựa Liềm Thép",
    "title": "Song liềm kiếm khách",
-   "aola": "goc_683",
+   "aola": "bo_ngua_1",
    "elem": "kim",
    "rarity": "uncommon",
    "stats": [
@@ -199,12 +199,12 @@
    "forms": [
     {
      "name": "Bọ Ngựa Con",
-     "aola": "goc_683",
+     "aola": "bo_ngua_1",
      "size": 0.9
     },
     {
      "name": "Bọ Ngựa Lưỡi Bén",
-     "aola": "goc_684",
+     "aola": "bo_ngua_2",
      "size": 1.02
     },
     {
@@ -281,7 +281,7 @@
    "id": "doc_giac",
    "name": "Độc Giác Thép",
    "title": "Ngựa một sừng giáp bạc",
-   "aola": "goc_656",
+   "aola": "doc_giac_1",
    "elem": "kim",
    "rarity": "common",
    "stats": [
@@ -301,7 +301,7 @@
    "forms": [
     {
      "name": "Độc Giác Thép",
-     "aola": "goc_656",
+     "aola": "doc_giac_1",
      "size": 1
     }
    ]
@@ -310,7 +310,7 @@
    "id": "phi_thuong",
    "name": "Phi Thương",
    "title": "Kỵ sĩ máy song thương",
-   "aola": "goc_835",
+   "aola": "phi_thuong_1",
    "elem": "kim",
    "rarity": "uncommon",
    "stats": [
@@ -330,12 +330,12 @@
    "forms": [
     {
      "name": "Phi Thương Con",
-     "aola": "goc_835",
+     "aola": "phi_thuong_1",
      "size": 0.92
     },
     {
      "name": "Phi Thương",
-     "aola": "goc_836",
+     "aola": "phi_thuong_2",
      "size": 1.1
     }
    ]
@@ -344,7 +344,7 @@
    "id": "khien_bac",
    "name": "Khiên Bạc",
    "title": "Vệ sĩ khiên bạc",
-   "aola": "goc_784",
+   "aola": "khien_bac_1",
    "elem": "kim",
    "rarity": "rare",
    "stats": [
@@ -364,12 +364,12 @@
    "forms": [
     {
      "name": "Khiên Sắt Tí Hon",
-     "aola": "goc_784",
+     "aola": "khien_bac_1",
      "size": 0.92
     },
     {
      "name": "Vệ Sĩ Khiên Bạc",
-     "aola": "goc_785",
+     "aola": "khien_bac_2",
      "size": 1.1
     }
    ]
@@ -378,7 +378,7 @@
    "id": "chien_than",
    "name": "Chiến Thần",
    "title": "Pháo thủ giáp vàng",
-   "aola": "goc_1083",
+   "aola": "chien_than_1",
    "elem": "kim",
    "rarity": "rare",
    "stats": [
@@ -398,12 +398,12 @@
    "forms": [
     {
      "name": "Chiến Linh Con",
-     "aola": "goc_1083",
+     "aola": "chien_than_1",
      "size": 0.92
     },
     {
      "name": "Chiến Thần",
-     "aola": "goc_1084",
+     "aola": "chien_than_2",
      "size": 1.1
     }
    ]
@@ -412,7 +412,7 @@
    "id": "thiet_phu",
    "name": "Thiết Phủ",
    "title": "Người thiếc rìu bén",
-   "aola": "goc_1533",
+   "aola": "thiet_phu_1",
    "elem": "kim",
    "rarity": "epic",
    "stats": [
@@ -431,13 +431,13 @@
    "size": 0.92,
    "forms": [
     {
-     "name": "Người Thiếc",
-     "aola": "goc_1533",
+     "name": "Heo Thiếc",
+     "aola": "thiet_phu_1",
      "size": 0.92
     },
     {
      "name": "Thiết Phủ",
-     "aola": "goc_1534",
+     "aola": "thiet_phu_2",
      "size": 1.1
     }
    ]
@@ -446,7 +446,7 @@
    "id": "tam_kiem",
    "name": "Tam Kiếm",
    "title": "Giáp vương ba kiếm",
-   "aola": "goc_1223",
+   "aola": "tam_kiem_1",
    "elem": "kim",
    "rarity": "epic",
    "stats": [
@@ -466,17 +466,17 @@
    "forms": [
     {
      "name": "Kiếm Sĩ Nhí",
-     "aola": "goc_1223",
+     "aola": "tam_kiem_1",
      "size": 0.9
     },
     {
      "name": "Song Kiếm",
-     "aola": "goc_1224",
+     "aola": "tam_kiem_2",
      "size": 1.02
     },
     {
      "name": "Tam Kiếm Vương",
-     "aola": "goc_1225",
+     "aola": "tam_kiem_3",
      "size": 1.14
     }
    ]
@@ -485,7 +485,7 @@
    "id": "ung_thep",
    "name": "Ưng Thép",
    "title": "Thợ săn trời cánh pha lê",
-   "aola": "goc_1696",
+   "aola": "ung_thep_1",
    "elem": "kim",
    "rarity": "epic",
    "stats": [
@@ -505,12 +505,12 @@
    "forms": [
     {
      "name": "Ưng Thép Con",
-     "aola": "goc_1696",
+     "aola": "ung_thep_1",
      "size": 0.92
     },
     {
      "name": "Ưng Thép",
-     "aola": "goc_1697",
+     "aola": "ung_thep_2",
      "size": 1.1
     }
    ]
@@ -519,7 +519,7 @@
    "id": "kim_nghe",
    "name": "Kim Nghê",
    "title": "Thần thú giáp lửa lam",
-   "aola": "goc_1840",
+   "aola": "kim_nghe_1",
    "elem": "kim",
    "rarity": "legend",
    "stats": [
@@ -539,12 +539,12 @@
    "forms": [
     {
      "name": "Nghê Con",
-     "aola": "goc_1840",
+     "aola": "kim_nghe_1",
      "size": 0.92
     },
     {
      "name": "Kim Nghê",
-     "aola": "goc_1841",
+     "aola": "kim_nghe_2",
      "size": 1.1
     }
    ]

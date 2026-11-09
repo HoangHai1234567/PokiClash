@@ -1077,11 +1077,22 @@ HEROES = {
         # thử skill pokiclash-hero-fx (2026-11-09): lá ngọc rơi lượn, mây nhỏ trôi sau lưng, dạng 3 chớp sét trên mây; mây quanh
         # người trôi riêng; lá tụ vào miệng lúc lấy đà; cầu phun có vệt đuôi; vòng ngọc nổ lúc trúng; lá văng có vật lý; sét giáng
         # 3 nhịp; khựng, rung, bật lùi trong trận (impact: khựng giây thật, trauma, bật lùi theo chiều cao đối thủ)
+        # 2026-11-09 tối (người dùng): mây có animation bay xung quanh (clip lặp "aura", beast.orbit_*), thân rồng nhiều xương uốn
+        # lượn (beast.serpent_clip), dạng 2, 3 vẽ lại cho chiến (build_thanh_long_chien.py), chibi chỉ ở dạng 1. Idle 4 s = 2 vòng
+        # sóng thân. Mây: ảnh cắt từ concept cũ (cat_may.py); (ảnh, cỡ theo H, đuôi mây bên "r"/"l" = đang bay sang trái/phải)
+        "idle_dur": 4.0,
+        "max_w": 1.42,  # rồng rắn dạng 2, 3 dài gấp ~2 lần cao: co lại cho vừa sân (beast.build_form)
+        "orbit": {
+            1: {"clouds": [("thanh_long_may1_0", 0.38, "r"), ("thanh_long_may1_1", 0.42, "l"), ("thanh_long_may1_0", 0.3, "r")],
+                "period": 8.0, "ph": 0.1, "rx": 0.52, "ry": 0.1, "cy": 0.26, "depth": 0.16},
+            2: {"clouds": [("thanh_long_may2_0", 0.42, "r"), ("thanh_long_may2_1", 0.38, "l"), ("thanh_long_may2_2", 0.52, "r")],
+                "period": 8.0, "ph": 0.1, "rx": 0.46, "ry": 0.09, "cy": 0.24, "depth": 0.16},
+            3: {"clouds": [("thanh_long_may3_0", 0.44, "r"), ("thanh_long_may3_1", 0.54, "r"), ("thanh_long_may3_2", 0.38, "l")],
+                "period": 8.0, "ph": 0.1, "rx": 0.46, "ry": 0.09, "cy": 0.24, "depth": 0.16},
+        },
         "juice": {
-            "idle": [{"img": "tho_hoang_leaf", "n": 4, "kind": "leaf", "size": 0.1},
-                     {"img": "thanh_long_cloud", "n": 2, "kind": "drift", "size": 0.2, "back": True}],
+            "idle": [{"img": "tho_hoang_leaf", "n": 4, "kind": "leaf", "size": 0.1}],
             "idle_form": {3: [{"img": "@crackle", "n": 2, "kind": "crackle", "size": 0.22}]},
-            "cloud_drift": 0.03,
             "gather": ("tho_hoang_leaf", 0.075),
             "trail": 2,
             "ring": ("thanh_long_b_halo", 0.6),
@@ -1098,6 +1109,37 @@ HEROES = {
                           "crackle": 4, "caster": 2},
             # (khựng giây thật, trauma, bật lùi theo H, [màu chớp cả màn hex 8 số]): chiêu sét chớp kem nhạt lúc nhát chính chạm đất
             "impact": {"attack": (0.06, 0.3, 0.07), "skill": (0.16, 0.8, 0.14, "#fff6c98c")},
+            # 2026-11-09 (người dùng: "chiêu của dạng 1, 2, 3 đang giống nhau... càng dạng sau chiêu sét càng dữ dội, càng to"): mỗi
+            # dạng một kịch bản sét riêng, đè lên "lightning" chung (beast.form_cfg). Dạng 1: chồm vuốt, một mây nhỏ, một tia mảnh.
+            # Dạng 2: gầm, hai mây, ba nhát nối nhau. Dạng 3: chồm dựng, ngọc sấm bắn tia ngược lên trời, ba mây giông rộng, năm
+            # nhát dồn dập lệch hai bên rồi cột sét khổng lồ nhiều nhánh giữ lâu, đất đá văng nhiều, khựng, rung, chớp màn mạnh nhất.
+            "lightning_form": {
+                1: {"strikes": [(0.0, 0.0)], "w_main": 0.55, "br_main": 1, "wide_main": 0.7, "clouds": [(0.0, 0.62)],
+                    "scorch": 0.45, "puffs": 3, "crackle": 2, "caster": 1, "ring_main": 0.8, "dur": 1.7, "t_up": 0.4, "hit": 0.8,
+                    "seed": 1, "cloud_stay": 0.45},
+                2: {"strikes": [(-0.28, -0.25), (-0.14, 0.22), (0.0, 0.0)], "w_main": 1.0, "br_main": 3, "w_pre": 0.85,
+                    "clouds": [(-0.1, 0.95), (0.2, 0.72)], "scorch": 0.75, "puffs": 5, "crackle": 4, "caster": 2, "ring_main": 1.2,
+                    "dur": 2.0, "seed": 2},
+                3: {"strikes": [(-0.6, -0.42), (-0.46, 0.38), (-0.33, -0.14), (-0.21, 0.45), (-0.1, -0.3), (0.0, 0.0)],
+                    "w_main": 1.9, "br_main": 7, "wide_main": 1.7, "w_pre": 1.15, "br_pre": 2, "main_scale": 1.15, "main_hold": 12,
+                    "clouds": [(-0.42, 1.0), (0.05, 1.25), (0.45, 0.95)], "scorch": 1.15, "puffs": 9, "crackle": 6, "caster": 4,
+                    "caster_r": 0.32, "caster_size": 1.3, "ring_pre": 0.8, "ring_main": 1.6, "dur": 2.5, "t_up": 0.55, "hit": 1.25,
+                    "seed": 3, "cloud_stay": 0.9,
+                    "up": {"bone": "claw_f", "at": (1225, 455), "height": 1.3, "win": (0.4, 0.95)}},
+            },
+            "impact_form": {1: {"skill": (0.09, 0.45, 0.08, "#fff6c955")},
+                            2: {"skill": (0.15, 0.75, 0.13, "#fff6c98c")},
+                            3: {"skill": (0.2, 1.0, 0.2, "#fff6c9c0")}},
+            "phys_form": {
+                1: [{"img": "tho_hoang_leaf", "kind": "leaf", "size": 0.1, "n": 5, "speed": (2.0, 3.4), "life": (0.8, 0.95),
+                     "ang": (40, 140)},
+                    {"img": "@dirt", "kind": "debris", "size": 0.08, "n": 5, "speed": (2.0, 3.4), "life": (0.7, 0.9), "ang": (35, 145)}],
+                3: [{"img": "tho_hoang_leaf", "kind": "leaf", "size": 0.13, "n": 10, "speed": (2.8, 5.0), "life": (0.95, 1.1),
+                     "ang": (35, 145)},
+                    {"img": "@dirt", "kind": "debris", "size": 0.12, "n": 14, "speed": (3.0, 5.4), "life": (0.85, 1.05),
+                     "ang": (30, 150)}],
+            },
+            "phys_pre_form": {3: {"n": 3, "size": 0.09, "speed": (2.0, 3.6)}},
         },
         # boss cuối đảo Mộc: dạng sau đẹp dần (tờ thứ hai: mây bão vòng sét, cột gió sét, đầu rồng gió, vòng ngọc)
         "fx_form": {2: {"fx_ground": ("thanh_long_b_storm", 1.0, 0), "fx_hit2": ("thanh_long_b_roar", 0.55, 0)},
@@ -1105,77 +1147,146 @@ HEROES = {
                         "fx_hit": ("thanh_long_b_roar", 0.4, 0), "fx_big2": ("thanh_long_b_pillar", 0.95, "up"),
                         "fx_shield": ("thanh_long_b_halo", 0.9, 0), "fx_drops": ("thanh_long_b_leaves", 0.3, 0)}},
         "forms": {
-            1: {  # rồng con bay (ảnh gen lại L1_lien_2: mây tô màu, bờm kem); hai cụm mây là vật bay (con lắc)
+            1: {  # rồng con bay, chibi (ảnh gen lại L1_lien_2: bờm kem). Mây vẽ sẵn bỏ khỏi hình ("erase"), nay là ảnh riêng bay vòng
+                # (orbit). Thân thêm chuỗi sống lưng 3 đốt từ ngực về hông nối đuôi 3 đốt: uốn sóng nhẹ (thân ngắn)
                 "ground": 900,
-                "layers": [("cloud1", ["pend_c1"], 0), ("tail", ["tail"], 24), ("limbs", ["claw_b", "arm_b"], 18),
-                           ("body", ["body"], 32), ("head", ["head"], 0), ("arm_f", ["claw_f"], 0), ("cloud2", ["pend_c2"], 0)],
+                "erase": [(500, 360), (1010, 745)],
+                # Bờm (người dùng 2026-11-09: thêm xương vào tóc cho mềm mại): chùm đỉnh đầu 3 đốt dựng lên, lọn sau gáy 2 đốt, có lò
+                # xo ("soft") nên trễ và vượt nhẹ khi đầu đổi hướng; sừng, mào vẫn theo đầu
+                "layers": [("tail", ["tail"], 24), ("limbs", ["claw_b", "arm_b"], 18), ("body", ["body"], 32),
+                           ("mane", ["hair", "hairb"], 0), ("head", ["head", "jaw"], 0), ("arm_f", ["claw_f"], 0)],
                 "marks": {
-                    "pend_c1": [("poly", [(370, 290), (610, 280), (630, 410), (380, 430)])],
                     "tail": [("line", [(470, 570), (390, 640), (370, 710)], 22), ("line", [(380, 750), (460, 790)], 24)],
                     "claw_b": [("line", [(570, 640), (575, 700)], 20)], "arm_b": [("line", [(850, 650), (870, 720)], 18)],
                     "body": [("poly", [(470, 480), (930, 520), (940, 610), (500, 620)])],
-                    "head": [("poly", [(890, 340), (1100, 340), (1120, 450), (960, 480), (890, 420)]),
-                             ("line", [(860, 160), (900, 280)], 24), ("line", [(720, 320), (800, 380)], 14),
-                             ("line", [(1130, 370), (1180, 400)], 12), ("line", [(760, 300), (830, 330)], 16)],
+                    "hair": [("poly", [(860, 200), (950, 195), (985, 290), (935, 335), (860, 320)]), ("line", [(870, 170), (900, 260)], 14)],
+                    "hairb": [("poly", [(715, 362), (835, 356), (845, 382), (785, 398), (742, 446), (712, 430)])],
+                    "jaw": [("poly", [(998, 487), (1068, 486), (1084, 498), (1062, 510), (1004, 508), (992, 498)])],
+                    "head": [("poly", [(890, 380), (1100, 360), (1120, 450), (960, 480), (890, 430)]),
+                             ("line", [(775, 300), (860, 385)], 14), ("line", [(1075, 300), (1095, 385)], 12),
+                             ("line", [(1130, 370), (1180, 400)], 12), ("line", [(945, 375), (1010, 380)], 10),
+                             ("line", [(815, 408), (868, 442)], 10), ("line", [(1098, 470), (1150, 478)], 8)],
                     "claw_f": [("line", [(990, 560), (1070, 580)], 20)],
-                    "pend_c2": [("poly", [(870, 700), (1150, 690), (1160, 790), (890, 800)])],
                 },
-                "override": {"head": [[(695, 415), (815, 415), (815, 505), (695, 505)]]},  # râu trắng cong trái về đầu
+                # râu trắng cong trái về đầu (ôm sát râu, chừa lọn bờm sau ở trên)
+                "override": {"head": [[(700, 452), (790, 446), (905, 470), (905, 510), (700, 510)]]},
                 "bones": {"base": (720, 900), "body": (700, 560), "head": (890, 500), "claw_b": (560, 620), "arm_b": (840, 630),
-                          "claw_f": (970, 560), "pend_c1": (500, 360), "pend_c2": (1010, 740),
-                          "tail1": (480, 570), "tail2": (390, 650), "tail3": (380, 730)},
-                "chains": {"tail": (["tail1", "tail2", "tail3"], "body", (420, 820))},
+                          "claw_f": (970, 560), "bk1": (880, 545), "bk2": (730, 560), "bk3": (590, 585),
+                          "tail1": (480, 570), "tail2": (390, 650), "tail3": (380, 730),
+                          "hair1": (935, 360), "hair2": (922, 290), "hair3": (902, 220), "hairb1": (845, 420), "hairb2": (772, 398),
+                          "jaw": (994, 482)},
+                "jaw": {"open": 18},
+                "chains": {"body": (["bk1", "bk2", "bk3"], "body", (480, 575)),
+                           "tail": (["tail1", "tail2", "tail3"], "bk3", (420, 820)),
+                           "hair": (["hair1", "hair2", "hair3"], "head", (893, 150)),
+                           "hairb": (["hairb1", "hairb2"], "head", (705, 348))},
+                "soft": {"hair": {"k": [380, 300, 230], "damp": 0.6, "maxang": 10},
+                         "hairb": {"k": [360, 270], "damp": 0.6, "maxang": 10}},
+                # bờm lớp riêng sau đầu (sừng, mào đè lên; phần khuất vẽ bù 24 px): lò xo lùa bờm không kéo nhoè sừng
+                "sep": {"hair": "back", "hairb": "back"}, "sep_grow": 24,
+                "parent": {"claw_b": "bk3", "arm_b": "bk1", "claw_f": "bk1"},
+                "spine": {"bones": ["bk1", "bk2", "bk3", "tail1", "tail2", "tail3"], "amp": [1.2, 2.0, 3.0, 4.5, 6.5, 8.5],
+                          "coil_neck": 0.0, "coil_back": 3.5, "coil_tail": 6.0, "paddle": 6.0},
                 "mouth": (1090, 440),
             },
-            2: {  # rồng dài bay ngang, hai cụm mây (sau, trước) đung đưa, bốn chân cứng theo thân
-                "ground": 960,
-                "layers": [("cloud1", ["pend_c1"], 0), ("tail", ["tail"], 24), ("limbs", ["claw_b", "arm_b"], 18),
-                           ("body", ["body"], 32), ("head", ["head"], 0), ("arm_f", ["claw_f"], 0), ("cloud2", ["pend_c2"], 0),
-                           ("cloud3", ["pend_c3"], 0)],
+            2: {  # Thanh Long vẽ lại cho chiến (L1_chien): rồng phương Đông trưởng thành, thân rắn chữ S nằm ngang, không mây.
+                # Sống lưng: xương body ở giữa thân; chuỗi "body" (nửa trước) từ giữa lên cổ, chuỗi "back" (nửa sau) từ giữa về hông,
+                # đuôi 4 đốt; bờm là chuỗi riêng (hair) sau đầu; bốn chân cứng theo đốt sống gần nhất
+                "src": "tai_ve/L1_chien.png",
+                "ground": 930,
+                # bờm 4 đốt, râu (dải trắng từ khoé miệng chảy về sau, nhập lọn bờm dưới) 3 đốt, cả hai có lò xo
+                "layers": [("tail", ["tail"], 24), ("limbs", ["claw_bb", "claw_ff"], 18), ("body", ["back", "body"], 32),
+                           ("mane", ["hair"], 0), ("head", ["head", "jaw", "rau"], 0), ("front", ["claw_b", "claw_f"], 0)],
                 "marks": {
-                    "pend_c1": [("poly", [(260, 230), (500, 220), (520, 340), (270, 350)])],
-                    "tail": [("line", [(380, 600), (230, 640), (170, 720), (200, 800)], 22), ("line", [(180, 850), (300, 900)], 26)],
-                    "claw_b": [("line", [(430, 680), (420, 720)], 20)], "arm_b": [("line", [(840, 740), (860, 780)], 20)],
-                    "body": [("poly", [(400, 470), (980, 520), (1000, 620), (520, 660), (390, 580)])],
-                    "head": [("poly", [(1000, 330), (1260, 350), (1280, 470), (1080, 500), (990, 430)]),
-                             ("line", [(1000, 60), (1060, 200)], 24), ("line", [(780, 260), (880, 330)], 18),
-                             ("line", [(700, 330), (800, 430)], 20), ("line", [(1300, 430), (1350, 450)], 12),
-                             ("line", [(1180, 200), (1220, 260)], 14)],
-                    "claw_f": [("line", [(1100, 590), (1200, 600)], 20)],
-                    "pend_c2": [("poly", [(1180, 650), (1440, 640), (1450, 740), (1190, 750)])],
-                    "pend_c3": [("poly", [(520, 800), (850, 790), (860, 880), (530, 890)])],
+                    "rau": [("line", [(1300, 455), (1210, 452), (1130, 440), (1040, 428), (975, 445)], 6)],
+                    "jaw": [("poly", [(1334, 471), (1348, 470), (1394, 500), (1408, 501), (1406, 521), (1386, 530), (1352, 519), (1334, 490)])],
+                    "tail": [("line", [(330, 520), (200, 475), (95, 540), (95, 660)], 22),
+                             ("poly", [(80, 700), (210, 700), (200, 820), (115, 830)]), ("line", [(130, 440), (270, 420)], 10)],
+                    "claw_bb": [("line", [(565, 610), (615, 680)], 18)],
+                    "claw_ff": [("line", [(1230, 625), (1400, 600)], 20)],
+                    "back": [("poly", [(470, 450), (600, 400), (740, 425), (740, 530), (600, 495), (470, 560)]),
+                             ("line", [(480, 420), (720, 380)], 10)],
+                    "body": [("poly", [(800, 470), (900, 500), (1050, 525), (1140, 525), (1130, 640), (950, 650), (800, 560)]),
+                             ("line", [(830, 450), (930, 470)], 10)],
+                    "hair": [("poly", [(900, 330), (1000, 250), (1140, 150), (1180, 300), (1110, 370), (950, 395)]),
+                             ("line", [(880, 370), (1000, 400)], 12)],
+                    "head": [("poly", [(1215, 400), (1400, 395), (1445, 455), (1330, 461), (1215, 480)]),
+                             ("line", [(1150, 290), (1265, 360)], 14), ("line", [(1350, 235), (1415, 330)], 14)],
+                    "claw_b": [("line", [(400, 640), (400, 755)], 20)],
+                    "claw_f": [("line", [(990, 680), (990, 790)], 22)],
                 },
-                "bones": {"base": (760, 960), "body": (700, 590), "head": (990, 520), "claw_b": (440, 650), "arm_b": (840, 700),
-                          "claw_f": (1080, 580), "pend_c1": (390, 290), "pend_c2": (1310, 700), "pend_c3": (690, 840),
-                          "tail1": (380, 600), "tail2": (230, 650), "tail3": (180, 760)},
-                "chains": {"tail": (["tail1", "tail2", "tail3"], "body", (280, 950))},
-                "mouth": (1230, 450),
+                "bones": {"base": (760, 930), "body": (760, 480), "head": (1195, 480),
+                          "fw1": (760, 480), "fw2": (930, 580), "fw3": (1080, 575),
+                          "bk1": (760, 480), "bk2": (600, 445), "bk3": (440, 520),
+                          "tail1": (330, 515), "tail2": (200, 470), "tail3": (85, 540), "tail4": (90, 665),
+                          "hair1": (1190, 390), "hair2": (1100, 350), "hair3": (1010, 325), "hair4": (930, 330),
+                          "rau1": (1300, 455), "rau2": (1190, 450), "rau3": (1080, 437), "jaw": (1330, 468),
+                          "claw_f": (990, 660), "claw_ff": (1180, 610), "claw_b": (420, 610), "claw_bb": (560, 590)},
+                "chains": {"body": (["fw1", "fw2", "fw3"], "body", (1195, 480)),
+                           "back": (["bk1", "bk2", "bk3"], "body", (330, 515)),
+                           "tail": (["tail1", "tail2", "tail3", "tail4"], "bk3", (150, 860)),
+                           "hair": (["hair1", "hair2", "hair3", "hair4"], "head", (860, 345)),
+                           "rau": (["rau1", "rau2", "rau3"], "head", (965, 455))},
+                "soft": {"hair": {"k": [380, 300, 230, 180], "damp": 0.6, "maxang": 10},
+                         "rau": {"k": [300, 230, 180], "damp": 0.5, "maxang": 12}},
+                # bờm lớp riêng sau đầu (vẽ bù 24 px dưới đầu, sừng), râu lớp riêng trước (lưới chính vẽ bù 16 px dưới râu)
+                "sep": {"hair": "back", "rau": "front"}, "sep_grow": 24, "main_grow": 16,
+                "jaw": {"open": 16},
+                "parent": {"head": "fw3", "claw_f": "fw2", "claw_ff": "fw3", "claw_b": "bk3", "claw_bb": "bk2"},
+                "spine": {"bones": ["fw3", "fw2", "fw1", "bk1", "bk2", "bk3", "tail1", "tail2", "tail3", "tail4"],
+                          "amp": [2.2, 2.5, 2.8, 2.8, 3.8, 4.8, 6.0, 7.5, 9.0, 10.0],
+                          "coil_neck": 4.5, "coil_back": 5.0, "coil_tail": 6.0, "paddle": 7.0},
+                "mouth": (1455, 470),
             },
-            3: {  # Lôi Thanh Long (ảnh gen lại: bờm, đuôi kem): thân dài chữ S, râu dài cuộn lên bên phải (con lắc), ba cụm mây
-                "ground": 990,
-                "layers": [("cloud1", ["pend_c1"], 0), ("tail", ["tail"], 24), ("limbs", ["claw_b"], 18), ("body", ["body"], 32),
-                           ("head", ["head"], 0), ("whisk", ["pend_w"], 0), ("front", ["claw_f", "arm_b"], 0),
-                           ("cloud2", ["pend_c2"], 0), ("cloud3", ["pend_c3"], 0)],
+            3: {  # Lôi Thanh Long lượt 2 (L1_chien_b, người dùng: "dạng 2 và 3 chưa khác nhau lắm"): rồng sấm vương xanh lam đậm, giáp
+                # vàng, sừng lớn, râu và chóp đuôi hình tia sét, móng phải cầm ngọc sấm, DÁNG CHỒM DỰNG (thân chữ S dựng: ngực, cổ
+                # thẳng lên bên phải, nửa sau nằm dọc đáy sang trái, đuôi vểnh lên mang lưỡi sét). Sống lưng: xương body ở khúc
+                # thấp nhất giữa thân; chuỗi "body" từ đó lên ngực, cổ; chuỗi "back" về hông; đuôi 3 đốt (lưỡi sét theo đốt cuối).
+                # Bờm lớp sau đầu, râu sét phải lớp trước, có lò xo; râu trái nằm trên bờm theo đầu.
+                "src": "tai_ve/L1_chien_b.png",
+                "ground": 960,
+                "layers": [("tail", ["tail"], 24), ("limbs", ["claw_bb", "claw_ff"], 18), ("body", ["back", "body"], 32),
+                           ("mane", ["hair"], 0), ("head", ["head", "jaw", "rau"], 0), ("front", ["claw_b", "claw_f"], 0)],
                 "marks": {
-                    "pend_c1": [("poly", [(180, 230), (440, 220), (460, 320), (190, 330)])],
-                    "tail": [("line", [(170, 600), (150, 700), (190, 780)], 22), ("line", [(170, 830), (280, 900), (330, 940)], 28)],
-                    "claw_b": [("line", [(450, 640), (440, 700)], 20)],
-                    "body": [("poly", [(180, 470), (600, 450), (850, 560), (820, 640), (560, 580), (200, 560)]),
-                             ("line", [(500, 360), (560, 420)], 16), ("line", [(780, 640), (920, 660)], 22),
-                             ("line", [(960, 480), (1000, 580)], 22), ("line", [(320, 570), (330, 660)], 14)],
-                    "head": [("poly", [(1020, 290), (1250, 330), (1280, 420), (1130, 450), (1000, 380)]),
-                             ("line", [(800, 120), (950, 200)], 24), ("line", [(780, 330), (900, 380)], 20),
-                             ("line", [(1000, 60), (1060, 140)], 18), ("line", [(1220, 170), (1250, 230)], 14)],
-                    "pend_w": [("line", [(1330, 560), (1390, 420), (1420, 330)], 14), ("poly", [(1360, 250), (1450, 250), (1460, 340), (1370, 350)])],
-                    "claw_f": [("line", [(1130, 590), (1210, 610)], 22)], "arm_b": [("line", [(930, 700), (950, 760)], 20)],
-                    "pend_c2": [("poly", [(480, 790), (900, 790), (910, 880), (490, 890)])],
-                    "pend_c3": [("poly", [(1160, 700), (1410, 690), (1420, 780), (1170, 790)])],
+                    "tail": [("line", [(300, 650), (262, 580), (292, 525)], 20),
+                             ("poly", [(255, 462), (335, 362), (420, 335), (345, 470), (305, 520)])],
+                    "back": [("poly", [(385, 645), (560, 625), (700, 645), (700, 730), (540, 735), (385, 722)]),
+                             ("line", [(420, 592), (680, 562)], 10)],
+                    "body": [("poly", [(760, 665), (870, 685), (905, 600), (890, 505), (990, 505), (1000, 620), (930, 742), (760, 745)]),
+                             ("line", [(800, 452), (870, 472)], 10)],
+                    "hair": [("poly", [(640, 305), (760, 232), (880, 205), (928, 262), (900, 380), (760, 382), (650, 362)]),
+                             ("line", [(930, 132), (980, 188)], 12)],
+                    "head": [("poly", [(955, 292), (1080, 300), (1128, 350), (1062, 372), (1030, 400), (962, 408)]),
+                             ("line", [(800, 150), (980, 250)], 14), ("line", [(1052, 112), (1180, 240)], 14),
+                             ("line", [(832, 322), (950, 332)], 6)],
+                    "rau": [("line", [(1150, 340), (1200, 325), (1235, 335)], 6)],
+                    "jaw": [("poly", [(1042, 388), (1060, 383), (1084, 404), (1094, 421), (1088, 444), (1060, 450), (1041, 438), (1032, 410)])],
+                    "claw_ff": [("line", [(760, 522), (650, 442)], 18)],
+                    "claw_f": [("line", [(1080, 560), (1150, 500), (1230, 450)], 20)],
+                    "claw_b": [("line", [(630, 700), (560, 800), (530, 870)], 20)],
+                    "claw_bb": [("line", [(990, 732), (960, 800), (970, 860)], 18)],
                 },
-                "bones": {"base": (720, 990), "body": (600, 540), "head": (1000, 470), "claw_b": (450, 600), "claw_f": (1110, 580),
-                          "arm_b": (910, 660), "pend_w": (1300, 600), "pend_c1": (310, 270), "pend_c2": (690, 840),
-                          "pend_c3": (1290, 740), "tail1": (180, 590), "tail2": (160, 700), "tail3": (190, 800)},
-                "chains": {"tail": (["tail1", "tail2", "tail3"], "body", (330, 960))},
-                "mouth": (1260, 430),
+                "bones": {"base": (760, 960), "body": (700, 700), "head": (935, 410),
+                          "fw1": (700, 700), "fw2": (840, 715), "fw3": (915, 630), "fw4": (930, 520),
+                          "bk1": (700, 700), "bk2": (540, 690), "bk3": (390, 680),
+                          "tail1": (290, 650), "tail2": (255, 580), "tail3": (292, 522),
+                          "hair1": (925, 300), "hair2": (840, 282), "hair3": (740, 292), "hair4": (660, 322),
+                          "rau1": (1138, 342), "rau2": (1190, 328), "jaw": (1038, 378),
+                          "claw_ff": (790, 525), "claw_f": (1060, 545), "claw_b": (650, 695), "claw_bb": (975, 722)},
+                "chains": {"body": (["fw1", "fw2", "fw3", "fw4"], "body", (935, 410)),
+                           "back": (["bk1", "bk2", "bk3"], "body", (290, 650)),
+                           "tail": (["tail1", "tail2", "tail3"], "bk3", (365, 375)),
+                           "hair": (["hair1", "hair2", "hair3", "hair4"], "head", (610, 340)),
+                           "rau": (["rau1", "rau2"], "head", (1240, 332))},
+                "parent": {"head": "fw4", "claw_f": "fw4", "claw_ff": "fw4", "claw_b": "bk1", "claw_bb": "fw2"},
+                "spine": {"bones": ["fw4", "fw3", "fw2", "fw1", "bk1", "bk2", "bk3", "tail1", "tail2", "tail3"],
+                          "amp": [2.0, 2.2, 2.4, 2.4, 3.0, 4.0, 5.0, 6.5, 8.0, 9.0],
+                          "coil_neck": 4.0, "coil_back": 4.5, "coil_tail": 6.5, "paddle": 6.0},
+                "soft": {"hair": {"k": [380, 300, 230, 180], "damp": 0.6, "maxang": 10},
+                         "rau": {"k": [300, 220], "damp": 0.5, "maxang": 12}},
+                "sep": {"hair": "back", "rau": "front"}, "sep_grow": 24, "main_grow": 14,
+                "jaw": {"open": 18},
+                "mouth": (1092, 385),
             },
         },
     },
@@ -1230,7 +1341,8 @@ _STYLE = {
     "tho_hoang": {"attack": "kick", "skill": "summon_prop", "throw": ["pend_s", "pend_a", "pend_b", "pend_c"],
                   "big_prop": "pend_s", "big_scale": 2.1},
     "moc_tinh": {"attack": "bite", "skill": "erupt", "motion": "howl"},
-    "thanh_long": {"attack": "breath", "skill": "storm", "motion": "roar", "fx_fly": ("thanh_long_orb", 0.28, 0)},
+    "thanh_long": {"attack": "breath", "skill": "storm", "motion": {1: "claws", 2: "roar", 3: "rear"},
+                   "fx_fly": ("thanh_long_orb", 0.28, 0)},
 }
 for _hid, _s in _STYLE.items():
     _s = dict(_s)
@@ -1243,3 +1355,93 @@ for _hid, _s in _STYLE.items():
 # đảo Hỏa (2026-11-09): cấu hình ở file riêng
 from beasts_cfg_hoa import HOA as _HOA  # noqa: E402
 HEROES.update(_HOA)
+
+# 2026-11-09 tối: người dùng chê chiêu "một màu" (toàn lao lên húc rồi lộn), dặn: mỗi dạng một chiêu khác, mạnh dần theo dạng, phần
+# lớn đứng tại chỗ bắn; sáng tạo theo lore con vật và chiêu Pokémon cùng hệ. Kiểu chiêu mới ở beast.py: beam (tia liên tục), vortex
+# (xoáy nhốt), rain (mưa đạn), nova (sóng vòng), orbit (đạn xoay quanh rồi phóng), line_erupt (cột trồi nối dần tới đối thủ); độ mạnh
+# tự tăng theo dạng (beast.power_of). Chỉ dòng có lore lao húc (dê, bò, cuộn giáp, cánh cụt trượt bụng) mới giữ chiêu lao ở dạng 1.
+# Đòn đánh: bỏ "lộn" (spin, tailwhip) thay bằng đòn khác. Đè lên _STYLE và cấu hình đảo Hỏa.
+_REDESIGN = {
+    # đảo Thủy
+    "tieu_y": {"skill": {1: "orbit", 2: "vortex"}, "motion": {1: "stomp", 2: "howl"}},  # bọt nước xoay (Bubble) → xoáy nước (Whirlpool)
+    "canh_cut": {"skill": {1: "slide", 2: "rain"}, "motion": {2: "claws"}},  # trượt bụng → mưa băng nhọn (Icicle Crash)
+    "mi_nhi": {"skill": {1: "barrage", 2: "nova"}, "motion": "wings"},  # loạt nốt nhạc → sóng âm (Hyper Voice, Boomburst)
+    "ma_ket": {"skill": {1: "charge", 2: "erupt", 3: "vortex"}, "motion": {2: "stomp", 3: "rear"}},  # húc → mạch nước phun → xoáy triều
+    "vay_lam": {"skill": {1: "combo", 2: "line_erupt", 3: "vortex"}, "motion": {2: "stomp", 3: "roar"}},  # cắn → vây nước rạch đất → xoáy cá mập
+    "kuba": {"skill": {1: "erupt", 2: "orbit", 3: "rain"}, "motion": "claws"},  # gai pha lê → mảnh pha lê xoay rồi phóng → mưa pha lê
+    "thuong_lam": {"attack": {1: "claw", 2: "bite", 3: "swipe"}, "skill": {1: "beam", 2: "rain", 3: "storm"},
+                   "motion": "wings"},  # tia băng (Ice Beam) → mưa băng (Blizzard) → thiên thạch băng
+    "huyen_vu": {"skill": {1: "shockwave", 2: "line_erupt", 3: "vortex"}, "motion": "stomp"},  # sóng đất → cột nước nối (Surf) → xoáy lớn
+    "lam_quan": {"skill": {1: "storm", 2: "nova", 3: "rain"}, "motion": "rear"},  # chuông rơi → sóng chuông (Hyper Voice) → mưa chuông
+    # đảo Mộc
+    "tien_la": {"attack": {1: "swipe", 2: "punch", 3: "smash"}, "skill": {1: "barrage", 2: "orbit", 3: "rain"},
+                "motion": "wings"},  # Razor Leaf → lá xoay quanh rồi phóng → Leaf Storm
+    "hoa_nhuy": {"skill": {1: "erupt", 2: "beam", 3: "nova"}, "motion": "roar"},  # cánh hoa trồi → Solar Beam → Petal Blizzard
+    "de_hoa": {"skill": {1: "charge", 2: "erupt", 3: "line_erupt"}, "motion": {2: "stomp", 3: "rear"}},  # húc → dây leo trồi → Frenzy Plant
+    "bom_la": {"skill": {1: "shockwave", 2: "rain"}, "motion": "roar"},  # dây leo lan → mưa bom hạt (Seed Bomb)
+    "phong_linh": {"skill": {1: "erupt", 2: "nova"}, "motion": "wings"},  # lốc → bão gió (Hurricane)
+    "gio_loc": {"attack": "claw", "skill": {1: "barrage", 2: "vortex", 3: "beam"}, "motion": "wings"},  # Air Slash → lốc → Aeroblast
+    "long_vuot": {"skill": {1: "combo", 2: "line_erupt"}, "motion": {2: "claws"}},  # Dragon Claw → vuốt lá rạch dọc đất
+    "moc_tinh": {"skill": {1: "erupt", 2: "line_erupt"}, "motion": "howl"},  # rễ trồi → rễ khổng lồ nối (Frenzy Plant)
+    # đảo Hỏa
+    "su_tu_lua": {"skill": {1: "combo", 2: "beam", 3: "nova"}, "motion": "roar"},  # vồ liên hoàn → Flamethrower → Heat Wave
+    "khong_lo": {"attack": "punch", "skill": {1: "shockwave", 2: "erupt", 3: "rain"}, "motion": "stomp"},  # dậm → cột dung nham → mưa thiên thạch
+    "kim_su": {"skill": {1: "erupt", 2: "nova", 3: "beam"}, "motion": "roar"},  # cột lửa → Heat Wave → Overheat
+    "nham_than": {"skill": {1: "storm", 2: "line_erupt", 3: "rain"}, "motion": "claws"},  # đá rơi → gai dung nham nối → mưa đá núi lửa
+    "nguu_quyen": {"skill": {1: "charge", 2: "barrage", 3: "combo"}, "motion": {2: "claws"}},  # bò húc → loạt quyền lửa → liên hoàn quyền
+    "hong_lien": {"skill": {1: "barrage", 2: "vortex", 3: "rain"}, "motion": "wings"},  # lông lửa → Fire Spin → mưa lông lửa (Sacred Fire)
+    "giap_long": {"skill": {1: "spin_dash", 2: "line_erupt"}, "motion": {2: "stomp"}},  # cuộn giáp lăn (Rollout) → dung nham trồi nối
+    "huyen_viem": {"skill": {1: "barrage", 2: "orbit", 3: "vortex"}, "motion": "howl"},  # lửa hồ ly → lửa xoay quanh → Fire Spin
+    "hoa_tinh": {"skill": {1: "erupt", 2: "rain"}, "motion": "howl"},  # cột lửa → mưa cầu lửa
+    "lan_hoa": {"attack": {1: "ram", 2: "ram", 3: "ram"}, "skill": {1: "storm", 2: "beam", 3: "nova"}, "motion": "rear"},  # lửa rơi → tia lửa → sóng nhiệt
+}
+for _hid, _s in _REDESIGN.items():
+    if _hid in HEROES:
+        HEROES[_hid].update(_s)
+        HEROES[_hid].pop("lunge", None)
+
+# 2026-11-09 tối (người dùng): chiêu bắn từ mồm phải tách miệng, rig xương để mở mồm bắn. Hàm dưới (môi dưới, lưỡi, cằm) là vùng
+# "jaw", xương "jaw" ở góc miệng phía sau (đầu quay sang phải: góc trái), há theo nhịp đòn/chiêu (beast.jaw_clip). Hạt giống chỉ cần
+# nằm trong hàm dưới: vùng tự loang tới nét mực quanh miệng. Dạng mỏ quặp khép kín (Phong Linh 2) không tách được hàm, bỏ qua.
+def _add_jaw(hid, k, poly, hinge, deg=16):
+    F = HEROES[hid]["forms"][k]
+    F.setdefault("marks", {})["jaw"] = [("poly", poly)]
+    F["bones"]["jaw"] = hinge
+    F["jaw"] = {"open": deg}
+    for _n, ps, _g in F["layers"]:
+        if "head" in ps and "jaw" not in ps:
+            ps.insert(ps.index("head") + 1, "jaw")
+            break
+
+
+for _hid, _k, _poly, _hinge, _deg in [
+    ("mi_nhi", 1, [(962, 526), (1055, 522), (1055, 548), (1010, 565), (968, 552)], (962, 525), 14),
+    ("mi_nhi", 2, [(986, 442), (1022, 446), (1018, 466), (990, 463)], (976, 433), 14),
+    ("huyen_vu", 1, [(1025, 535), (1130, 535), (1130, 568), (1025, 570)], (1035, 518), 12),
+    ("huyen_vu", 2, [(1100, 493), (1182, 491), (1182, 509), (1100, 511)], (1090, 479), 12),
+    ("huyen_vu", 3, [(1078, 618), (1175, 615), (1185, 640), (1130, 652), (1080, 645)], (1075, 615), 12),
+    ("lam_quan", 1, [(1048, 540), (1108, 536), (1100, 572), (1052, 575)], (1035, 512), 16),
+    ("lam_quan", 2, [(1086, 513), (1138, 509), (1134, 531), (1090, 534)], (1078, 500), 16),
+    ("lam_quan", 3, [(1033, 530), (1071, 525), (1067, 545), (1038, 549)], (1028, 518), 16),
+    ("thuong_lam", 1, [(1165, 570), (1228, 566), (1222, 588), (1172, 592)], (1150, 540), 14),
+    ("hoa_nhuy", 2, [(907, 611), (958, 607), (950, 628), (916, 631)], (895, 592), 14),
+    ("gio_loc", 3, [(1062, 463), (1138, 459), (1134, 474), (1066, 477)], (1050, 445), 12),
+    ("su_tu_lua", 2, [(946, 479), (993, 478), (995, 500), (970, 508), (948, 500)], (950, 476), 14),
+    ("lan_hoa", 2, [(1014, 462), (1058, 459), (1058, 485), (1035, 492), (1016, 487)], (1015, 458), 16),
+    ("kim_su", 1, [(955, 532), (1035, 530), (1040, 560), (1000, 575), (958, 565)], (960, 528), 14),
+    ("kim_su", 2, [(990, 499), (1053, 498), (1055, 520), (1020, 530), (992, 522)], (995, 496), 14),
+    ("kim_su", 3, [(1020, 502), (1090, 500), (1090, 525), (1055, 535), (1022, 528)], (1025, 498), 14),
+    ("hong_lien", 1, [(952, 505), (1035, 502), (1040, 532), (990, 548), (955, 535)], (950, 503), 16),
+    ("hong_lien", 2, [(957, 398), (1020, 396), (1022, 418), (990, 428), (960, 420)], (955, 392), 16),
+    ("hong_lien", 3, [(881, 402), (930, 400), (932, 418), (905, 425), (884, 420)], (880, 400), 16),
+]:
+    if _hid in HEROES and _k in HEROES[_hid].get("forms", {}):
+        _add_jaw(_hid, _k, _poly, _hinge, _deg)
+# điểm miệng cũ đặt lệch (trên má, trên vây): đạn, tia phải ra đúng miệng đang há
+for (_hid, _k), _m in {("lam_quan", 1): (1078, 532), ("lam_quan", 3): (1058, 530), ("huyen_vu", 3): (1150, 618)}.items():
+    if _hid in HEROES and _k in HEROES[_hid].get("forms", {}):
+        HEROES[_hid]["forms"][_k]["mouth"] = _m
+
+# đảo Kim (2026-11-09, máy ổ D): cấu hình ở file riêng
+from beasts_cfg_kim import KIM as _KIM  # noqa: E402
+HEROES.update(_KIM)

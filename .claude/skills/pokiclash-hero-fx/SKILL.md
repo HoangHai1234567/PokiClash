@@ -39,6 +39,28 @@ phần cảm giác.
 | Bộ GameFeel của người dùng | `E:\ProjectAtomik\GameFeel\game-feel-guide.md` mục 4–5, `FeedbackKit/` | thời lượng, easing, squash, flash, hitstop "chậm 90% thay vì đứng hẳn", không cộng dồn |
 | Celeste (mã nguồn), Sakurai (hitstop), Eiserloh GDC 2016 (rung kiểu trauma), LoL VFX style guide | xem mục 12 | số cụ thể cho khựng, squash, rung |
 
+## 1b. Clash of Critters đục máy (2026-11-09, `D:/CrittersRipper`, chỉ xem trên máy, không lấy hình)
+
+Đọc thông số ParticleSystem trong prefab FX trận (`D:/CrittersRipper/tools/ps_dump.py <prefab>`: đời, tốc, cỡ, đợt bắn, module) và độ
+dài clip, mốc trúng của 33 thú (`gpuAnimData` trong prefab GPU Spine). Họ làm thế này:
+- **Hiệu ứng chính là ảnh vẽ tay chạy khung (flipbook)**, không dựng bằng hạt: một hạt duy nhất mang tờ 4x4 (16 khung) hoặc 2x4
+  (8 khung) chạy hết tờ trong đời hạt 0,4–0,7 s (≈ 25–30 khung/giây); cỡ 1,3–1,8 đơn vị (con cao ~1). Nổ lớn = 1 hạt tờ 4x4.
+- **Mỗi cú trúng 3–4 lớp:** (1) tờ khung chính; (2) quầng 0,2–0,3 s co về 0–0,3 (mình thay bằng vòng phẳng); (3) chấm/bụi nhỏ 0,03–0,1
+  cỡ, tốc 1–3, trọng lực 0,2–0,5, **bắn 2 đợt cách 0,1 s** (3–5 hạt mỗi đợt), nhỏ dần còn 0,3; (4) mảnh vỡ 2–3 cái xoay ±720°/s,
+  trọng lực 0,5. Lớp phụ (nước toé, mảnh) **trễ 0,15–0,2 s** sau lớp chính.
+- **Nhịp cỡ "bật":** cỡ 0,44 → 1 trong 14% đầu đời, giữ, cuối đời co còn 0,2; độ đậm giữ 1 tới 72% đời rồi tan. Đỉnh trong 0,15 s đầu.
+- **Tia điện lách tách:** đời 0,1–0,3 s, tờ 2x4, xoay ngẫu nhiên, 3 đợt cách 0,1 s (bùng một lần) hoặc 5–10 hạt/giây (trạng thái
+  tê liệt, lặp). Dây sét: LineRenderer tờ 8 khung @15–20 khung/giây, ảnh kéo dãn, rộng 0,6.
+- **Sương/mây trạng thái:** lặp, 8 hạt/giây, đời 0,6–1,2 s, độ đậm 0 → 1 ở 34% → 0, cỡ 0,72 → 1, trôi ±0,5.
+- **Tổng một hiệu ứng 1,3–1,8 s**; chỉ 2 shader (texture × màu × màu đỉnh, chạy khung) và `Mobile/Particles`.
+- **Clip thú:** đòn 0,9–1,3 s, **trúng ở 0,23–0,47 s** (25–45% clip, lấy đà rất nhanh), idle 1,6–4 s (thường 2–3 s), chết 0,7–1,2 s,
+  đi 0,4–1,7 s; con tiến hóa (P/H/U) giữ nhịp đòn y như dạng gốc. Thân thú nướng thành VAT (vị trí đỉnh mỗi khung), không còn xương.
+- **aola 1749 (Thanh Long cũ):** 24 khung/giây, idle 1,5 s; mây nước là nhiều cụm nhỏ chảy vòng trước và sau thân liên tục, thân
+  cuộn nhiều đoạn, chiêu thì các vòng thân chồm lên. → Thanh Long mới: mây bay vòng (clip lặp `aura`), thân nhiều xương uốn sóng
+  (skill `pokiclash-spine-rig` mục 17).
+- Áp cho game mình: giữ luật tô phẳng (thay quầng bằng vòng phẳng, ảnh kem 1–2 khung), lấy **nhịp** (2 đợt hạt cách 0,1 s, lớp phụ
+  trễ 0,15 s, cỡ bật 14% đời, tan sau 72%) và cách dùng **ảnh vẽ tay chạy khung** cho hiệu ứng chính thay vì nhiều hạt.
+
 ## 2. Đổi "ánh sáng" sang luật vẽ tay
 
 pixelfx dựng sức mạnh bằng ánh sáng (lõi trắng nóng, quầng, ánh lên sàn). Game mình làm bằng **hình và nhịp**:
