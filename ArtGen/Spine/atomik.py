@@ -14,6 +14,9 @@ JSON viết đúng khuôn JsonUtility của Unity đọc được (không có t�
      tls: {bone, type, keys[]}: type 0 xoay, sải 7 [t, v, kiểu, c1..c4]; 1 dời, 2 tỉ lệ, sải 12 [t, x, y, kiểu, 8 số]
           kiểu 0 thẳng, 1 bậc, 2 bezier (điểm điều khiển tuyệt đối như Spine 4.2: theo từng thuộc tính cx1 cy1 cx2 cy2)
      sk: {slot, times[], atts[]}  đổi hình trong slot (chớp mắt)
+     sa: {slot, keys[]}  độ đậm slot (bản 2, timeline "alpha" của Spine 4.2), sải 7 như xoay
+  game (bản 2, tuỳ chọn): thông tin trận khi rig là dạng tướng (AtomikGame trong Unity): fps, height, hitClips, hitTimes,
+     lunge, stay, muzzle, beam, beamStyle, move, shadow. --game <tệp.json>
 """
 import io
 import json
@@ -23,7 +26,7 @@ import struct
 import sys
 import gzip
 
-VERSION = 1
+VERSION = 2
 
 
 def read_atlas(path):
@@ -71,7 +74,7 @@ def bez_keys(frames, props, defaults):
     return out
 
 
-def convert(skel_path, atlas_path, out_path, name=None):
+def convert(skel_path, atlas_path, out_path, name=None, game=None):
     sk = json.load(open(skel_path, encoding="utf-8"))
     page, asize, regions = read_atlas(atlas_path)
     png_path = os.path.join(os.path.dirname(atlas_path), page)
@@ -148,16 +151,25 @@ def convert(skel_path, atlas_path, out_path, name=None):
                     print(f"  bỏ qua timeline {bname}/{kind}")
                     continue
                 dur = max(dur, max(f.get("time", 0.0) for f in frames))
-        skl = []
+        skl, sal = [], []
         for sname, smap in a.get("slots", {}).items():
             fr = smap.get("attachment", [])
             if fr:
                 skl.append({"slot": si[sname], "times": [f.get("time", 0.0) for f in fr],
                             "atts": [ai.get((sname, f["name"]), -1) if f.get("name") else -1 for f in fr]})
                 dur = max(dur, max(f.get("time", 0.0) for f in fr))
-        anims.append({"name": an, "dur": round(dur, 5), "tls": tls, "sk": skl})
+            af = smap.get("alpha", [])
+            if af:
+                sal.append({"slot": si[sname], "keys": bez_keys(af, ["value"], [1.0])})
+                dur = max(dur, max(f.get("time", 0.0) for f in af))
+            for kind in smap:
+                if kind not in ("attachment", "alpha"):
+                    print(f"  bỏ qua timeline slot {sname}/{kind}")
+        anims.append({"name": an, "dur": round(dur, 5), "tls": tls, "sk": skl, "sa": sal})
     data = {"rigName": name or os.path.splitext(os.path.basename(out_path))[0], "version": VERSION, "ppu": 100.0,
             "bones": bones, "slots": slots, "atts": atts, "anims": anims}
+    if game:
+        data["game"] = game
     js = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
     png = open(png_path, "rb").read()
     body = io.BytesIO()
@@ -176,9 +188,13 @@ def convert(skel_path, atlas_path, out_path, name=None):
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
     a = sys.argv[1:]
-    nm = None
+    nm, gm = None, None
     if "--name" in a:
         i = a.index("--name")
         nm = a[i + 1]
         del a[i:i + 2]
-    convert(a[0], a[1], a[2], nm)
+    if "--game" in a:
+        i = a.index("--game")
+        gm = json.load(open(a[i + 1], encoding="utf-8"))
+        del a[i:i + 2]
+    convert(a[0], a[1], a[2], nm, gm)

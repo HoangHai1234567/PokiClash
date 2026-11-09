@@ -728,7 +728,7 @@
    "id": "tien_la",
    "name": "Tiên Lá",
    "title": "Ánh lục giữa rừng",
-   "aola": "goc_648",
+   "aola": "tien_la_1",
    "elem": "moc",
    "rarity": "common",
    "stats": [
@@ -748,17 +748,17 @@
    "forms": [
     {
      "name": "Thú Ánh Lục",
-     "aola": "goc_648",
+     "aola": "tien_la_1",
      "size": 0.9
     },
     {
      "name": "Linh Ánh Lục",
-     "aola": "goc_649",
+     "aola": "tien_la_2",
      "size": 1.02
     },
     {
      "name": "Tiên Lá",
-     "aola": "goc_650",
+     "aola": "tien_la_3",
      "size": 1.14
     }
    ]
@@ -767,7 +767,7 @@
    "id": "hoa_nhuy",
    "name": "Hoa Nhụy",
    "title": "Tiên hoa nhụy đỏ",
-   "aola": "goc_593",
+   "aola": "hoa_nhuy_1",
    "elem": "moc",
    "rarity": "common",
    "stats": [
@@ -787,17 +787,17 @@
    "forms": [
     {
      "name": "Thú Ba Lá",
-     "aola": "goc_593",
+     "aola": "hoa_nhuy_1",
      "size": 0.9
     },
     {
      "name": "Thú Búp Hoa",
-     "aola": "goc_594",
+     "aola": "hoa_nhuy_2",
      "size": 1.02
     },
     {
      "name": "Tiên Hoa Nhụy",
-     "aola": "goc_595",
+     "aola": "hoa_nhuy_3",
      "size": 1.14
     }
    ]
@@ -806,7 +806,7 @@
    "id": "de_hoa",
    "name": "Dê Hoa",
    "title": "Sừng gỗ vương miện hoa",
-   "aola": "goc_866",
+   "aola": "de_hoa_1",
    "elem": "moc",
    "rarity": "uncommon",
    "stats": [
@@ -826,17 +826,17 @@
    "forms": [
     {
      "name": "Dê Hoa Con",
-     "aola": "goc_866",
+     "aola": "de_hoa_1",
      "size": 0.9
     },
     {
      "name": "Dê Gỗ",
-     "aola": "goc_867",
+     "aola": "de_hoa_2",
      "size": 1.02
     },
     {
      "name": "Dê Sừng Chiến",
-     "aola": "goc_868",
+     "aola": "de_hoa_3",
      "size": 1.14
     }
    ]
@@ -845,7 +845,7 @@
    "id": "bom_la",
    "name": "Bờm Lá",
    "title": "Chiến sư rừng xanh",
-   "aola": "goc_911",
+   "aola": "bom_la_1",
    "elem": "moc",
    "rarity": "uncommon",
    "stats": [
@@ -865,12 +865,12 @@
    "forms": [
     {
      "name": "Bờm Lá Con",
-     "aola": "goc_911",
+     "aola": "bom_la_1",
      "size": 0.92
     },
     {
      "name": "Chiến Sư Bờm Lá",
-     "aola": "goc_912",
+     "aola": "bom_la_2",
      "size": 1.1
     }
    ]
@@ -879,7 +879,7 @@
    "id": "phong_linh",
    "name": "Phong Linh",
    "title": "Linh tướng gió lá",
-   "aola": "goc_943",
+   "aola": "phong_linh_1",
    "elem": "moc",
    "rarity": "rare",
    "stats": [
@@ -899,12 +899,12 @@
    "forms": [
     {
      "name": "Tiểu Phong Linh",
-     "aola": "goc_943",
+     "aola": "phong_linh_1",
      "size": 0.92
     },
     {
      "name": "Phong Linh Tướng",
-     "aola": "goc_944",
+     "aola": "phong_linh_2",
      "size": 1.1
     }
    ]
@@ -913,7 +913,7 @@
    "id": "gio_loc",
    "name": "Gió Lốc",
    "title": "Rồng gió xé mây",
-   "aola": "goc_850",
+   "aola": "gio_loc_1",
    "elem": "moc",
    "rarity": "rare",
    "stats": [
@@ -933,17 +933,17 @@
    "forms": [
     {
      "name": "Gió Con",
-     "aola": "goc_850",
+     "aola": "gio_loc_1",
      "size": 0.9
     },
     {
      "name": "Gió Cuộn",
-     "aola": "goc_851",
+     "aola": "gio_loc_2",
      "size": 1.02
     },
     {
      "name": "Gió Lốc",
-     "aola": "goc_852",
+     "aola": "gio_loc_3",
      "size": 1.14
     }
    ]
@@ -952,7 +952,7 @@
    "id": "long_vuot",
    "name": "Long Vuốt",
    "title": "Rồng lá vuốt sắc",
-   "aola": "goc_1219",
+   "aola": "long_vuot_1",
    "elem": "moc",
    "rarity": "epic",
    "stats": [
@@ -972,12 +972,12 @@
    "forms": [
     {
      "name": "Long Vuốt Con",
-     "aola": "goc_1219",
+     "aola": "long_vuot_1",
      "size": 0.92
     },
     {
      "name": "Long Vuốt",
-     "aola": "goc_1220",
+     "aola": "long_vuot_2",
      "size": 1.1
     }
    ]
@@ -986,7 +986,7 @@
    "id": "tho_hoang",
    "name": "Thỏ Hoàng",
    "title": "Chiến giáp hoàng cực",
-   "aola": "goc_2010",
+   "aola": "tho_hoang_1",
    "elem": "moc",
    "rarity": "epic",
    "stats": [
@@ -1006,7 +1006,7 @@
    "forms": [
     {
      "name": "Thỏ Hoàng",
-     "aola": "goc_2010",
+     "aola": "tho_hoang_1",
      "size": 1
     }
    ]
@@ -1015,7 +1015,7 @@
    "id": "moc_tinh",
    "name": "Mộc Tinh",
    "title": "Thú giáp pha lê lục",
-   "aola": "goc_1480",
+   "aola": "moc_tinh_1",
    "elem": "moc",
    "rarity": "epic",
    "stats": [
@@ -1035,12 +1035,12 @@
    "forms": [
     {
      "name": "Tiểu Mộc Tinh",
-     "aola": "goc_1480",
+     "aola": "moc_tinh_1",
      "size": 0.92
     },
     {
      "name": "Mộc Tinh",
-     "aola": "goc_1481",
+     "aola": "moc_tinh_2",
      "size": 1.1
     }
    ]
@@ -1049,7 +1049,7 @@
    "id": "thanh_long",
    "name": "Thanh Long",
    "title": "Thần thú phương Đông",
-   "aola": "goc_214",
+   "aola": "thanh_long_1",
    "elem": "moc",
    "rarity": "legend",
    "stats": [
@@ -1069,17 +1069,17 @@
    "forms": [
     {
      "name": "Thanh Long Con",
-     "aola": "goc_214",
+     "aola": "thanh_long_1",
      "size": 0.95
     },
     {
      "name": "Thanh Long",
-     "aola": "goc_215",
+     "aola": "thanh_long_2",
      "size": 1.1
     },
     {
      "name": "Lôi Thanh Long",
-     "aola": "goc_1749",
+     "aola": "thanh_long_3",
      "size": 1.16
     }
    ]
@@ -1088,7 +1088,7 @@
    "id": "tieu_y",
    "name": "Tiểu Y",
    "title": "Bé con sóng nước",
-   "aola": "thuy_1319",
+   "aola": "tieu_y_1",
    "elem": "thuy",
    "rarity": "common",
    "stats": [
@@ -1108,12 +1108,12 @@
    "forms": [
     {
      "name": "Tiểu Y",
-     "aola": "thuy_1319",
+     "aola": "tieu_y_1",
      "size": 0.85
     },
     {
      "name": "Y Trạch",
-     "aola": "thuy_1320",
+     "aola": "tieu_y_2",
      "size": 1.12
     }
    ]
@@ -1122,7 +1122,7 @@
    "id": "canh_cut",
    "name": "Cánh Cụt",
    "title": "Đầu bếp xứ băng",
-   "aola": "thuy_1691",
+   "aola": "canh_cut_1",
    "elem": "thuy",
    "rarity": "common",
    "stats": [
@@ -1142,21 +1142,21 @@
    "forms": [
     {
      "name": "Cánh Cụt Con",
-     "aola": "thuy_1691",
+     "aola": "canh_cut_1",
      "size": 0.92
     },
     {
      "name": "Đầu Bếp Cánh Cụt",
-     "aola": "thuy_1692",
+     "aola": "canh_cut_2",
      "size": 1.1
     }
    ]
   },
   {
    "id": "giot_suong",
-   "name": "Giọt Sương",
-   "title": "Giọt nước hóa rồng",
-   "aola": "thuy_7",
+   "name": "Thủy Long",
+   "title": "Chiến binh rồng biển",
+   "aola": "thuy_long_1",
    "elem": "thuy",
    "rarity": "uncommon",
    "stats": [
@@ -1171,23 +1171,23 @@
    "ult": "giot_suong_ult",
    "passive": "giot_suong_pas",
    "shards": 15,
-   "line": "Dòng Giọt Sương",
-   "size": 0.9,
+   "line": "Dòng Thủy Long",
+   "size": 1.0,
    "forms": [
     {
-     "name": "Giọt Nước",
-     "aola": "thuy_7",
-     "size": 0.9
+     "name": "Long Binh",
+     "aola": "thuy_long_1",
+     "size": 1.0
     },
     {
-     "name": "Tiên Sương",
-     "aola": "thuy_8",
-     "size": 1.02
+     "name": "Long Kỵ Sĩ",
+     "aola": "thuy_long_2",
+     "size": 1.08
     },
     {
-     "name": "Sương Long",
-     "aola": "thuy_9",
-     "size": 1.14
+     "name": "Long Tướng",
+     "aola": "thuy_long_3",
+     "size": 1.16
     }
    ]
   },
@@ -1195,7 +1195,7 @@
    "id": "tam_tay",
    "name": "Tám Tay",
    "title": "Pháo thủ bong bóng",
-   "aola": "thuy_1053",
+   "aola": "tam_tay_1",
    "elem": "thuy",
    "rarity": "uncommon",
    "stats": [
@@ -1215,12 +1215,12 @@
    "forms": [
     {
      "name": "Tám Tay Bong Bóng",
-     "aola": "thuy_1053",
+     "aola": "tam_tay_1",
      "size": 0.92
     },
     {
      "name": "Tám Tay Pháo Thủ",
-     "aola": "thuy_1054",
+     "aola": "tam_tay_2",
      "size": 1.1
     }
    ]
@@ -1307,7 +1307,7 @@
    "id": "lam_quan",
    "name": "Lam Quân",
    "title": "Tiểu tướng chuông đồng",
-   "aola": "thuy_1831",
+   "aola": "lam_quan_1",
    "elem": "thuy",
    "rarity": "epic",
    "stats": [
@@ -1327,17 +1327,17 @@
    "forms": [
     {
      "name": "Lam Quân",
-     "aola": "thuy_1831",
+     "aola": "lam_quan_1",
      "size": 0.95
     },
     {
      "name": "Vạn Quân",
-     "aola": "thuy_1832",
+     "aola": "lam_quan_2",
      "size": 1.12
     },
     {
      "name": "Hắc Dực Vạn Quân",
-     "aola": "thuy_2955",
+     "aola": "lam_quan_3",
      "size": 1.16
     }
    ]
@@ -1346,7 +1346,7 @@
    "id": "huyen_vu",
    "name": "Huyền Vũ",
    "title": "Thần thú phương Bắc",
-   "aola": "thuy_713",
+   "aola": "huyen_vu_1",
    "elem": "thuy",
    "rarity": "legend",
    "stats": [
@@ -1366,17 +1366,17 @@
    "forms": [
     {
      "name": "Rùa Ngọc",
-     "aola": "thuy_713",
+     "aola": "huyen_vu_1",
      "size": 0.9
     },
     {
      "name": "Rùa Biển Ngọc",
-     "aola": "thuy_714",
+     "aola": "huyen_vu_2",
      "size": 1.02
     },
     {
      "name": "Huyền Vũ",
-     "aola": "thuy_715",
+     "aola": "huyen_vu_3",
      "size": 1.14
     }
    ]
@@ -1385,7 +1385,7 @@
    "id": "mi_nhi",
    "name": "Mi Nhi",
    "title": "Tiên cầm sóng biếc",
-   "aola": "thuy_983",
+   "aola": "mi_nhi_1",
    "elem": "thuy",
    "rarity": "uncommon",
    "stats": [
@@ -1405,12 +1405,12 @@
    "forms": [
     {
      "name": "Tiểu Mi",
-     "aola": "thuy_983",
+     "aola": "mi_nhi_1",
      "size": 0.92
     },
     {
      "name": "Mi Nhi",
-     "aola": "thuy_984",
+     "aola": "mi_nhi_2",
      "size": 1.1
     }
    ]
@@ -1419,7 +1419,7 @@
    "id": "ma_ket",
    "name": "Ma Kết",
    "title": "Thánh giáp sừng bạc",
-   "aola": "thuy_758",
+   "aola": "ma_ket_1",
    "elem": "thuy",
    "rarity": "rare",
    "stats": [
@@ -1439,17 +1439,17 @@
    "forms": [
     {
      "name": "Ma Kết Con",
-     "aola": "thuy_758",
+     "aola": "ma_ket_1",
      "size": 0.9
     },
     {
      "name": "Ma Kết Sừng Nhọn",
-     "aola": "thuy_759",
+     "aola": "ma_ket_2",
      "size": 1.02
     },
     {
      "name": "Ma Kết Thánh Giáp",
-     "aola": "thuy_760",
+     "aola": "ma_ket_3",
      "size": 1.14
     }
    ]
@@ -1458,7 +1458,7 @@
    "id": "vay_lam",
    "name": "Vây Lam",
    "title": "Cá mập rẽ sóng",
-   "aola": "thuy_546",
+   "aola": "vay_lam_1",
    "elem": "thuy",
    "rarity": "rare",
    "stats": [
@@ -1478,17 +1478,17 @@
    "forms": [
     {
      "name": "Cá Đốm",
-     "aola": "thuy_546",
+     "aola": "vay_lam_1",
      "size": 0.9
     },
     {
      "name": "Cá Song Tiễn",
-     "aola": "thuy_547",
+     "aola": "vay_lam_2",
      "size": 1.02
     },
     {
      "name": "Cá Mập Vây Lam",
-     "aola": "thuy_548",
+     "aola": "vay_lam_3",
      "size": 1.14
     }
    ]
@@ -1497,7 +1497,7 @@
    "id": "thuong_lam",
    "name": "Thương Lam",
    "title": "Rồng lam cánh băng",
-   "aola": "thuy_805",
+   "aola": "thuong_lam_1",
    "elem": "thuy",
    "rarity": "epic",
    "stats": [
@@ -1517,17 +1517,17 @@
    "forms": [
     {
      "name": "Thương",
-     "aola": "thuy_805",
+     "aola": "thuong_lam_1",
      "size": 0.9
     },
     {
      "name": "Thương Nhiễm",
-     "aola": "thuy_806",
+     "aola": "thuong_lam_2",
      "size": 1.02
     },
     {
      "name": "Thương Lam",
-     "aola": "thuy_807",
+     "aola": "thuong_lam_3",
      "size": 1.14
     }
    ]
@@ -1536,7 +1536,7 @@
    "id": "kuba",
    "name": "Kuba",
    "title": "Mai cứng kim cương",
-   "aola": "thuy_94",
+   "aola": "kuba_1",
    "elem": "thuy",
    "rarity": "epic",
    "stats": [
@@ -1556,17 +1556,17 @@
    "forms": [
     {
      "name": "Kuba",
-     "aola": "thuy_94",
+     "aola": "kuba_1",
      "size": 0.9
     },
     {
      "name": "Kuba Vỏ Cứng",
-     "aola": "thuy_95",
+     "aola": "kuba_2",
      "size": 1.02
     },
     {
      "name": "Kuba Kim Cương",
-     "aola": "thuy_96",
+     "aola": "kuba_3",
      "size": 1.14
     }
    ]

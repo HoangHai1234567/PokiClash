@@ -58,6 +58,77 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Thủy: Mập Răng Cưa ra trận ở 3 dạng (đang Play)", priority = 122)]
         static void TryMapRang() => Start("map_rang", "map_rang_combat", 1, 3, 5);
 
+        // thú huyền thoại .atomik đảo Thủy (2026-11-08, ArtGen/Spine/beast.py): hai tướng chưa có vòng chụp; ảnh vào <id>_combat/
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Cánh Cụt ra trận ở 2 dạng (đang Play)", priority = 122)]
+        static void TryCanhCut() => Start("canh_cut", "canh_cut_combat", 1, 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Mi Nhi ra trận ở 2 dạng (đang Play)", priority = 122)]
+        static void TryMiNhi() => Start("mi_nhi", "mi_nhi_combat", 1, 5);
+
+        // Rồng Giọt (2026-11-08, dạng 1 là rig .atomik có clip tiến hóa): mở hộp chi tiết Giọt Sương ở sao cuối của dạng 1, bấm nút
+        // hack tiến hóa, chụp liên tục clip tiến hóa (lốc nước, bong bóng, vỡ tung) tới khi dạng 2 hiện; ảnh vào gs_tien_hoa/.
+        [MenuItem("PokiClash/Thử/Giọt Sương tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]
+        static void TryEvolve()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            dir = "gs_tien_hoa";
+            App.I.StartCoroutine(Evolve("giot_suong"));
+        }
+
+        static IEnumerator Evolve(string id)
+        {
+            var path = App.Save.FilePath;
+            string backup = File.Exists(path) ? File.ReadAllText(path) : null;
+            if (Directory.Exists(Dir)) Directory.Delete(Dir, true);
+            Directory.CreateDirectory(Dir);
+            const System.Reflection.BindingFlags Any = System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.NonPublic |
+                                                      System.Reflection.BindingFlags.Instance;
+            try
+            {
+                // mọi mốc đổi dạng (sao cuối của mỗi dạng trừ dạng chót): mỗi mốc một lượt, ảnh <mốc>_<n>.jpg
+                var h = App.Data.Hero(id);
+                int round = 0;
+                for (int star = 1; star < App.Data.Cfg.maxStar; star++)
+                {
+                    var from = HeroArt.FormOf(h, star).aola;
+                    var to = HeroArt.FormOf(h, star + 1).aola;
+                    if (from == to) continue;
+                    round++;
+                    var hp = App.Save.Data.Hero(id);
+                    hp.owned = true;
+                    hp.star = star;
+                    App.Modals.CloseAll();
+                    yield return new WaitForSecondsRealtime(0.3f);
+                    HeroDetail.Open(id, null);
+                    yield return new WaitForSecondsRealtime(1.5f);
+                    yield return Shot($"{round}_00_truoc");
+                    var dlg = Object.FindAnyObjectByType<HeroDetailDialog>();
+                    var parts = dlg ? dlg.GetType().GetField("p", Any)?.GetValue(dlg) : null;
+                    var hack = parts?.GetType().GetField("hackStar", Any)?.GetValue(parts) as UI.SketchButton;
+                    if (!hack)
+                    {
+                        Debug.LogError("[Thử] Không thấy hộp chi tiết hoặc nút hack tiến hóa");
+                        yield break;
+                    }
+                    Debug.Log($"[Thử] {h.name} {star} sao ({from}) → {star + 1} sao ({to})");
+                    hack.SimulateClick();
+                    float t0 = Time.realtimeSinceStartup;
+                    int n = 0;
+                    while (Time.realtimeSinceStartup - t0 < 4.8f) yield return Shot($"{round}_{++n:00}");
+                }
+            }
+            finally
+            {
+                if (backup != null)
+                {
+                    File.WriteAllText(path, backup);
+                    App.Save.Load();
+                }
+            }
+            App.Modals.CloseAll();
+            Debug.Log("[Thử] Xong Giọt Sương tiến hóa: " + Dir);
+        }
+
         static void Start(string id, string folder, params int[] at)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

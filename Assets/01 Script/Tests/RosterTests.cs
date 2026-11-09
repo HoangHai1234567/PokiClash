@@ -24,11 +24,13 @@ namespace PokiClash.Tests
             Assert.AreEqual(new[] { "giot_suong", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
-            // Lam Quân dòng 1831 → 1832 → 2955; hình vẽ lại trên rig aola từ 2026-11-07 (thuy_, trước là goc_)
-            Assert.AreEqual(new[] { "thuy_1831", "thuy_1832", "thuy_2955" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
-            // Thanh Long là dòng 青龙 (214 → 215 → 1749), dòng 格非 cũ thành Long Vuốt
-            Assert.AreEqual(new[] { "goc_214", "goc_215", "goc_1749" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
-            Assert.AreEqual(new[] { "goc_1219", "goc_1220" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
+            // Lam Quân 3 dạng; từ 2026-11-08 là thú huyền thoại .atomik tự thiết kế (Bồ Lao, ArtGen/Spine/beast.py), mã hình <id>_<k>
+            // (trước: rig aola thuy_1831 → thuy_1832 → thuy_2955)
+            Assert.AreEqual(new[] { "lam_quan_1", "lam_quan_2", "lam_quan_3" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
+            // Thanh Long 3 dạng, Long Vuốt 2 dạng; từ 2026-11-08 là hình .atomik vẽ lại theo concept đã duyệt (ArtGen/Spine/build_moc.py,
+            // beast.py), mã hình <id>_<k> (trước: rig aola goc_214 → 215 → 1749, goc_1219 → 1220)
+            Assert.AreEqual(new[] { "thanh_long_1", "thanh_long_2", "thanh_long_3" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
+            Assert.AreEqual(new[] { "long_vuot_1", "long_vuot_2" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
             // đảo Kim (2026-11-05): boss Kim Nghê là dòng 克亚 → 克里亚斯 (2 dạng, aola không có siêu tiến hóa)
             Assert.AreEqual(new[] { "goc_1840", "goc_1841" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
         }

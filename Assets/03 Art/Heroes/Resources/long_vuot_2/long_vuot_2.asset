@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34ad3c4f85db4a64ab4bb3bc7516c9f6, type: 3}
+  m_Name: long_vuot_2
+  m_EditorClassIdentifier: 
+  res: long_vuot_2/long_vuot_2
+  anim: {fileID: 0}
+  sizes: []
+  uvs: []
+  shadow: -1
+  source: atomik:639297440992035729
+  brief: 0
+  atomik: {fileID: 5455468675421140697, guid: 9a4798d8488c2384da774a331557f803, type: 3}

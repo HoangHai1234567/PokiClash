@@ -16,6 +16,9 @@ namespace PokiClash.Game
         public int shadow = -1;   // hình bóng dưới chân (điểm khớp giữa các clip), -1 nếu không có
         public string source;     // dấu bản nguồn (thời điểm sửa anim.json, hình, chân dung): nhập lại khi đổi
         public int brief;         // luật thu hình ít khung đã áp vào atlas (AolaImport.BriefRule); 0: chưa, xếp lại atlas sẽ thu
+        // Dạng vẽ mới rig xương riêng (.atomik, ArtGen/Spine, 2026-11-08): AolaActor phát rig này thay cho anim/atlas aola; asset
+        // vẫn giữ res cho chân dung. Gắn bằng menu PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng (Editor/AtomikForms).
+        public AtomikAsset atomik;
 
         public Texture2D LoadAtlas() => string.IsNullOrEmpty(res) ? null : Resources.Load<Texture2D>(res + "_atlas");
 

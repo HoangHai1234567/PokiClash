@@ -55,7 +55,12 @@ namespace PokiClash.Game
         }
 
         // 1_5 (bắn): clip ngắn của chiêu bắn tia (aola tools/anim_moi.py dựng), chỉ dạng có khai "cast" mới có
-        public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Cast = "1_5", Skill = "1_6";
+        // evolve: clip tiến hóa (chỉ dạng .atomik có), HeroViewer phát trước khi đổi sang dạng kế tiếp
+        public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Cast = "1_5", Skill = "1_6", Evolve = "evolve";
+
+        // Dạng .atomik (AolaAnim.atomik, 2026-11-08): rig xương riêng vẽ bằng một Mesh; clip đặt tên chữ trong file
+        static string AtkName(string clip) =>
+            clip == Idle ? "idle" : clip == Hit ? "hit" : clip == Attack ? "attack" : clip == Cast ? "cast" : clip == Skill ? "skill" : clip;
 
         static readonly Dictionary<AolaAnim, Data> Cache = new();
         // đọc trước (Prewarm): animation đang đọc ở luồng phụ và atlas đang nạp không chặn; chỉ luồng chính đụng các bảng này.
@@ -83,6 +88,18 @@ namespace PokiClash.Game
         string current = Idle;
         Transform placeholder;
 
+        // dạng .atomik: rig, tư thế, một Mesh cho cả con (sinh lúc chạy như các quad aola)
+        AtomikAsset atk;
+        AtomikPose apose;
+        int atkMove = -1, atkShadow = -1;
+        int atkFar = -1;               // xương "far": hiệu ứng ở chỗ đối thủ (dáng gốc ở chỗ đối thủ mặc định trước mặt)
+        int[] atkFly = new int[0];     // xương "fly*": đạn bay từ thân tới far
+        MeshRenderer atkRenderer;
+        Mesh atkMesh;
+        Vector3[] av;
+        Vector2[] au;
+        Color32[] ac;
+
         public AolaAnim[] Forms => forms;
 
         // không vẽ bóng dưới chân (màn boot: luật UI không vẽ bóng); đổi thì vẽ lại khung
@@ -96,10 +113,10 @@ namespace PokiClash.Game
                 shown = -1;
             }
         }
-        public bool HasAnim => clips.Count > 0;
+        public bool HasAnim => clips.Count > 0 || atk != null;
         // tăng mỗi lần hình trên màn đổi (khung khác, đổi chỗ hình xa, bật tắt bóng): sticker chỉ cho camera chụp lại khi số này đổi
         public int Version { get; private set; }
-        public float Duration(string clip) => clips.TryGetValue(clip, out var c) ? c.Frames.Count / fps : 0.3f;
+        public float Duration(string clip) => HasClip(clip) ? FrameCount(clip) / fps : 0.3f;
 
         // Dùng khi nhập (Editor).
         public void Setup(AolaAnim[] heroForms) => forms = heroForms;
@@ -125,6 +142,9 @@ namespace PokiClash.Game
         {
             flip = flipX;
             sortBase = sorting;
+            if (a && a.atomik) return LoadAtomik(a, height);
+            atk = null;
+            if (atkRenderer) atkRenderer.enabled = false;
             var tex = a ? a.LoadAtlas() : null;
             if (a && AtlasWarm.Remove(a)) WarmOrder.Remove(a); // atlas nạp trước đã vào tay diễn viên
             var d = tex ? Parse(a) : null;
@@ -141,6 +161,173 @@ namespace PokiClash.Game
             block = new MaterialPropertyBlock();
             Play(Idle, true);
             return true;
+        }
+
+        // Dạng .atomik: một Mesh cho cả con, đỉnh tính từ xương mỗi khung (AtomikPose); gốc toạ độ rig ở chân như tâm bóng của aola.
+        // Trận vẫn chạy theo khung (fps của rig, mặc định 25), khung trúng và cú lao đọc từ AtomikAsset.game.
+        bool LoadAtomik(AolaAnim a, float height)
+        {
+            var rig = a.atomik;
+            if (rig.bones == null || rig.bones.Length == 0 || rig.FindClip("idle") < 0) return false;
+            anim = a;
+            atk = rig;
+            atlas = rig.atlas;
+            data = null;
+            clips = NoClips;
+            shadowSprite = -1;
+            apose = new AtomikPose(rig);
+            av = new Vector3[apose.maxVerts];
+            au = new Vector2[apose.maxVerts];
+            ac = new Color32[apose.maxVerts];
+            var g = rig.game;
+            fps = g != null && g.fps > 0 ? g.fps : 25;
+            atkMove = rig.FindBone(g != null ? g.move : "move");
+            atkShadow = rig.FindSlot(g != null ? g.shadow : "shadow");
+            atkFar = rig.FindBone("far");
+            var fly = new List<int>();
+            for (int i = 0; i < rig.bones.Length; i++)
+                if (rig.bones[i].name != null && rig.bones[i].name.StartsWith("fly")) fly.Add(i);
+            atkFly = fly.ToArray();
+            motion.Clear();
+            float h = g != null && g.height > 0 ? g.height : AtomikTop();
+            unit = height / Mathf.Max(1f, h);
+            loadedHeight = height;
+            block = new MaterialPropertyBlock();
+            foreach (var q in pool) q.r.enabled = false;
+            if (!atkRenderer)
+            {
+                var go = new GameObject("atomik");
+                go.transform.SetParent(transform, false);
+                atkMesh = new Mesh { name = "atomik_" + rig.rigName };
+                atkMesh.MarkDynamic();
+                go.AddComponent<MeshFilter>().sharedMesh = atkMesh;
+                atkRenderer = go.AddComponent<MeshRenderer>();
+            }
+            Play(Idle, true);
+            return true;
+        }
+
+        // đỉnh cao nhất của dáng đứng (pixel rig) khi rig chưa ghi game.height
+        float AtomikTop()
+        {
+            apose.Sample(atk.FindClip("idle"), 0);
+            apose.World();
+            int n = apose.Skin(av, au, ac, 1, false, -1, out _);
+            float top = 1;
+            for (int i = 0; i < n; i++) top = Mathf.Max(top, av[i].y);
+            return top;
+        }
+
+        int AtkClip(string clip) => atk != null ? atk.FindClip(AtkName(clip)) : -1;
+
+        // rig xương vẽ theo thời gian liên tục (mượt ở mọi tốc độ khung màn hình), không theo bậc 25 khung như hình aola
+        float shownTime = -1;
+
+        void RenderAtomik()
+        {
+            if (apose.Stale) // file .atomik vừa nhập lại khi Editor đang Play: dựng lại theo rig mới (clip, giờ do nơi gọi đặt lại)
+            {
+                string c = current;
+                float tm = time;
+                bool lp = loop;
+                if (!anim || !anim.atomik || !LoadAtomik(anim, loadedHeight)) return;
+                current = c;
+                time = tm;
+                loop = lp;
+                shownTime = -1;
+            }
+            int ci = AtkClip(current);
+            float t = ci >= 0 ? Mathf.Min(time, atk.anims[ci].dur) : 0;
+            if (shown >= 0 && Mathf.Abs(t - shownTime) < 1e-4f) return;
+            shown = 1;
+            shownTime = t;
+            Version++;
+            apose.Sample(ci, t);
+            if (farTarget.HasValue && HasFar(current)) FarAtomik();
+            apose.World();
+            int nv = apose.Skin(av, au, ac, unit, flip, hideShadow ? atkShadow : -1, out bool trisChanged);
+            if (trisChanged)
+            {
+                atkMesh.Clear();
+                atkMesh.SetVertices(av, 0, nv);
+                atkMesh.SetUVs(0, au, 0, nv);
+                atkMesh.SetColors(ac, 0, nv);
+                atkMesh.SetTriangles(apose.Tris, 0, true);
+            }
+            else
+            {
+                atkMesh.SetVertices(av, 0, nv);
+                atkMesh.SetColors(ac, 0, nv);
+                atkMesh.RecalculateBounds();
+            }
+            atkRenderer.sharedMaterial = Mat(false);
+            block.SetTexture("_MainTex", atlas);
+            block.SetColor("_Add", Color.clear);
+            atkRenderer.SetPropertyBlock(block);
+            atkRenderer.sortingOrder = sortBase;
+            atkRenderer.enabled = true;
+        }
+
+        // hiệu ứng ở xa của rig .atomik (chiêu đứng tại chỗ gọi gai đất, sét, đạn bay): xương "far" (con của root) dời từ dáng gốc
+        // tới chỗ đối thủ; xương "fly*" (con của root) dời theo phần quãng đã bay từ chỗ xuất phát tới far
+        void FarAtomik()
+        {
+            var fb = atk.bones[atkFar];
+            float h = atk.game != null && atk.game.height > 0 ? atk.game.height : 1;
+            float ox = farTarget.Value.x * h - fb.x, oy = farTarget.Value.y * h - fb.y;
+            apose.Nudge(atkFar, ox, oy);
+            foreach (int b in atkFly)
+            {
+                float x0 = atk.bones[b].x, span = fb.x - x0;
+                float w = span > 1 ? Mathf.Clamp01((apose.LocalX(b) - x0) / span) : 1;
+                apose.Nudge(b, ox * w, oy * w);
+            }
+        }
+
+        // độ dời thân của clip .atomik: xương move (pixel rig, y xuống như điểm clip aola), làm mượt 5 khung như MotionOf
+        Motion AtomikMotion(string name)
+        {
+            int ci = AtkClip(name);
+            if (ci < 0) return null;
+            int n = FrameCount(name);
+            var d = new Vector2[n];
+            Vector2 b0 = default;
+            for (int i = 0; i < n; i++)
+            {
+                apose.Sample(ci, i / fps);
+                apose.World();
+                var p = apose.BonePos(atkMove);
+                var v = new Vector2(p.x, -p.y);
+                if (i == 0) b0 = v;
+                d[i] = v - b0;
+            }
+            shown = -1; // tư thế trong apose đã bị đè: khung sau dựng lại
+            var m = new Motion { disp = new Vector2[n] };
+            float best = 0;
+            int bi = 0;
+            for (int i = 0; i < n; i++)
+            {
+                Vector2 sum = Vector2.zero;
+                int k = 0;
+                for (int j = Mathf.Max(0, i - 2); j <= Mathf.Min(n - 1, i + 2); j++)
+                {
+                    sum += d[j];
+                    k++;
+                }
+                m.disp[i] = sum / k;
+                if (m.disp[i].magnitude > best)
+                {
+                    best = m.disp[i].magnitude;
+                    bi = i;
+                }
+            }
+            m.peak = bi;
+            var g = atk.game;
+            int hi = g?.hitClips != null ? Array.IndexOf(g.hitClips, AtkName(name)) : -1;
+            m.hit = hi >= 0 && g.hitTimes != null && hi < g.hitTimes.Length
+                ? Mathf.Clamp(Mathf.RoundToInt(g.hitTimes[hi] * fps), 0, n - 1)
+                : Mathf.FloorToInt(n * (name == Skill ? 0.55f : 0.6f));
+            return m;
         }
 
         // anim.json (gzip) → các clip; mọi clip khớp nhau ở tâm bóng dưới chân (AolaAnim.shadow, tìm lúc nhập)
@@ -367,7 +554,7 @@ namespace PokiClash.Game
                 if (placeholder && clip != Idle) StartCoroutine(Punch());
                 return;
             }
-            if (!clips.ContainsKey(clip)) clip = Idle;
+            if (!HasClip(clip)) clip = Idle;
             current = clip;
             loop = loopIt;
             time = 0;
@@ -391,8 +578,17 @@ namespace PokiClash.Game
         public bool Manual; // true: không tự chạy clip trong Update, màn trận gọi ShowFrame
         public float Fps => fps;
         public float Unit => unit; // đơn vị thế giới trên mỗi điểm ảnh clip
-        public int FrameCount(string clip) => clips.TryGetValue(clip, out var c) ? c.Frames.Count : 0;
-        public bool HasClip(string clip) => clips.ContainsKey(clip);
+        public int FrameCount(string clip)
+        {
+            if (atk != null)
+            {
+                int ci = AtkClip(clip);
+                return ci < 0 ? 0 : Mathf.Max(1, Mathf.RoundToInt(atk.anims[ci].dur * fps));
+            }
+            return clips.TryGetValue(clip, out var c) ? c.Frames.Count : 0;
+        }
+
+        public bool HasClip(string clip) => atk != null ? AtkClip(clip) >= 0 : clips.ContainsKey(clip);
 
         sealed class Motion
         {
@@ -405,8 +601,14 @@ namespace PokiClash.Game
         // chép AolaAnim.prepare() của bản web: khung lao xa nhất là đỉnh lao; trúng đòn ở đỉnh lao, hoặc 60% clip (55% với chiêu)
         Motion MotionOf(string name)
         {
-            if (!clips.TryGetValue(name, out var c)) return null;
             if (motion.TryGetValue(name, out var m)) return m;
+            if (atk != null)
+            {
+                m = AtomikMotion(name);
+                if (m != null) motion[name] = m;
+                return m;
+            }
+            if (!clips.TryGetValue(name, out var c)) return null;
             int n = c.Frames.Count;
             var raw = new Vector2?[n];
             for (int i = 0; i < n; i++)
@@ -460,20 +662,37 @@ namespace PokiClash.Game
         }
 
         // clip có cú lao kéo tới đối thủ (AolaSticker.Lunge): đòn đánh luôn có; clip khác khi anim.json khai "lunge"
-        public bool Lunges(string clip) =>
-            !(clips.TryGetValue(clip, out var c) && c.stay) && (clip == Attack || data != null && data.lunge.Contains(clip));
+        public bool Lunges(string clip)
+        {
+            if (atk != null)
+            {
+                var g = atk.game;
+                string an = AtkName(clip);
+                if (g?.stay != null && Array.IndexOf(g.stay, an) >= 0) return false;
+                return clip == Attack || g?.lunge != null && Array.IndexOf(g.lunge, an) >= 0;
+            }
+            return !(clips.TryGetValue(clip, out var c) && c.stay) && (clip == Attack || data != null && data.lunge.Contains(clip));
+        }
 
         // chiêu mana phát clip CHIÊU riêng thay vì bắn tia (số ít boss làm riêng, anim.json "mana": "clip")
         public bool ManaUsesClip => data != null && data.manaClip;
 
         // kiểu tia riêng của dạng (anim.json "cast.tia", StageView chọn ảnh tia cùng tên); null = tia nước thường
-        public string BeamStyle => data?.beamStyle;
+        public string BeamStyle => atk != null ? (string.IsNullOrEmpty(atk.game?.beamStyle) ? null : atk.game.beamStyle) : data?.beamStyle;
 
         // chiêu bắn tia: chỗ bắn so với tâm bóng dưới chân của clip đứng (điểm clip, y xuống) và cỡ tia của dạng; không khai: false
         public bool Beam(out Vector2 muzzle, out float scale)
         {
             muzzle = default;
             scale = 1;
+            if (atk != null)
+            {
+                var g = atk.game;
+                if (g?.muzzle == null || g.muzzle.Length < 2 || !HasClip(Cast)) return false;
+                muzzle = new Vector2(g.muzzle[0], -g.muzzle[1]); // rig y lên, gốc ở chân → điểm clip y xuống
+                scale = g.beam > 0 ? g.beam : 1;
+                return true;
+            }
             if (data?.muzzle == null || !clips.ContainsKey(Cast)) return false;
             muzzle = data.muzzle.Value - clips[Idle].Anchor;
             scale = data.beam;
@@ -529,7 +748,9 @@ namespace PokiClash.Game
             return c;
         }
 
-        public bool HasFar(string clip) => HasAnim && clips.TryGetValue(clip, out var c) && FarOf(c).hasFar;
+        public bool HasFar(string clip) => atk != null
+            ? atkFar >= 0 && atk.game?.far != null && Array.IndexOf(atk.game.far, AtkName(clip)) >= 0
+            : HasAnim && clips.TryGetValue(clip, out var c) && FarOf(c).hasFar;
 
         // chỗ đối thủ so với chân (chiều cao dáng đứng; trước mặt là +x, lên là +y): hiệu ứng ở xa vẽ về đó; null: như bản gốc
         Vector2? farTarget;
@@ -542,14 +763,34 @@ namespace PokiClash.Game
         }
         float loadedHeight = 1;
 
-        public void ShowFrame(string clip, int fi)
+        // Hiện clip ở giây t (sân đấu, ô xem tướng): rig .atomik dựng đúng thời điểm đó; hình aola lấy khung floor(t·fps) như cũ.
+        public void ShowTime(string clip, float t, bool loopClip)
         {
             if (!HasAnim) return;
-            if (!clips.ContainsKey(clip)) clip = Idle;
+            if (!HasClip(clip)) clip = Idle;
+            int n = Mathf.Max(1, FrameCount(clip));
+            if (atk == null)
+            {
+                int i = Mathf.FloorToInt(t * fps);
+                ShowFrame(clip, loopClip ? ((i % n) + n) % n : Mathf.Clamp(i, 0, n - 1));
+                return;
+            }
             if (clip != current) shown = -1;
             current = clip;
             loop = false;
-            time = (Mathf.Clamp(fi, 0, clips[clip].Frames.Count - 1) + 0.5f) / fps;
+            float len = n / fps;
+            time = loopClip ? Mathf.Repeat(t, len) : Mathf.Clamp(t, 0, len);
+            Render();
+        }
+
+        public void ShowFrame(string clip, int fi)
+        {
+            if (!HasAnim) return;
+            if (!HasClip(clip)) clip = Idle;
+            if (clip != current) shown = -1;
+            current = clip;
+            loop = false;
+            time = (Mathf.Clamp(fi, 0, FrameCount(clip) - 1) + 0.5f) / fps;
             Render();
         }
 
@@ -557,10 +798,10 @@ namespace PokiClash.Game
         {
             if (!HasAnim || Manual) return;
             time += Time.deltaTime;
-            var clip = clips[current];
-            if (time * fps >= clip.Frames.Count)
+            int count = FrameCount(current);
+            if (time * fps >= count)
             {
-                if (loop) time %= clip.Frames.Count / fps;
+                if (loop) time %= count / fps;
                 else { Play(Idle, true); return; }
             }
             Render();
@@ -568,6 +809,11 @@ namespace PokiClash.Game
 
         void Render()
         {
+            if (atk != null)
+            {
+                RenderAtomik();
+                return;
+            }
             var clip = clips[current];
             int f = Mathf.Min((int)(time * fps), clip.Frames.Count - 1);
             if (f == shown) return;
@@ -642,6 +888,7 @@ namespace PokiClash.Game
         {
             foreach (var q in pool)
                 if (q.m) Destroy(q.m);
+            if (atkMesh) Destroy(atkMesh);
         }
     }
 }

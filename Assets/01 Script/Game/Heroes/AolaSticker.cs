@@ -36,7 +36,10 @@ namespace PokiClash
 
         static string ClipName(string c) =>
             c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Cast ? AolaActor.Cast :
-            c == StageView.Hit ? AolaActor.Hit : AolaActor.Idle;
+            c == StageView.Hit ? AolaActor.Hit : c == AolaActor.Evolve ? AolaActor.Evolve : AolaActor.Idle;
+
+        // dạng có clip này không (clip tiến hóa: chỉ dạng .atomik có, HeroViewer phát trước khi đổi dạng)
+        public bool HasClip(string clip) => actor.HasClip(ClipName(clip));
 
         // aola: tên dạng cần hiện (HeroDef.Form theo sao)
         public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip)
@@ -185,11 +188,8 @@ namespace PokiClash
 
         public void Show(string clip, float t, bool loop, float alpha, bool gray, float flash)
         {
-            var name = ClipName(clip);
-            int n = Mathf.Max(1, actor.FrameCount(name));
-            int i = Mathf.FloorToInt(t * actor.Fps);
-            int fi = loop ? ((i % n) + n) % n : Mathf.Clamp(i, 0, n - 1);
-            actor.ShowFrame(name, fi);
+            // hình aola theo khung (floor t·fps), rig .atomik theo thời gian liên tục (AolaActor.ShowTime)
+            actor.ShowTime(ClipName(clip), t, loop);
             SyncCamera();
             img.color = new Color(1, 1, 1, alpha);
             if (mat)

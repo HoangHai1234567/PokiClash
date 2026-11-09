@@ -463,7 +463,7 @@ MonoBehaviour:
   - id: tien_la
     name: "Ti\xEAn L\xE1"
     title: "\xC1nh l\u1EE5c gi\u1EEFa r\u1EEBng"
-    aola: goc_648
+    aola: tien_la_1
     elem: 1
     rarity: 0
     stats: 3c00000028000000320000003c0000003c00000032000000
@@ -475,19 +475,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Th\xFA \xC1nh L\u1EE5c"
-      aola: goc_648
+      aola: tien_la_1
       size: 0.9
     - name: "Linh \xC1nh L\u1EE5c"
-      aola: goc_649
+      aola: tien_la_2
       size: 1.02
     - name: "Ti\xEAn L\xE1"
-      aola: goc_650
+      aola: tien_la_3
       size: 1.14
     minion: 0
   - id: hoa_nhuy
     name: "Hoa Nh\u1EE5y"
     title: "Ti\xEAn hoa nh\u1EE5y \u0111\u1ECF"
-    aola: goc_593
+    aola: hoa_nhuy_1
     elem: 1
     rarity: 0
     stats: 3c000000280000003c0000003c0000003c00000032000000
@@ -499,19 +499,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Th\xFA Ba L\xE1"
-      aola: goc_593
+      aola: hoa_nhuy_1
       size: 0.9
     - name: "Th\xFA B\xFAp Hoa"
-      aola: goc_594
+      aola: hoa_nhuy_2
       size: 1.02
     - name: "Ti\xEAn Hoa Nh\u1EE5y"
-      aola: goc_595
+      aola: hoa_nhuy_3
       size: 1.14
     minion: 0
   - id: de_hoa
     name: "D\xEA Hoa"
     title: "S\u1EEBng g\u1ED7 v\u01B0\u01A1ng mi\u1EC7n hoa"
-    aola: goc_866
+    aola: de_hoa_1
     elem: 1
     rarity: 1
     stats: 640000003c0000001e000000280000001e00000046000000
@@ -523,19 +523,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "D\xEA Hoa Con"
-      aola: goc_866
+      aola: de_hoa_1
       size: 0.9
     - name: "D\xEA G\u1ED7"
-      aola: goc_867
+      aola: de_hoa_2
       size: 1.02
     - name: "D\xEA S\u1EEBng Chi\u1EBFn"
-      aola: goc_868
+      aola: de_hoa_3
       size: 1.14
     minion: 0
   - id: bom_la
     name: "B\u1EDDm L\xE1"
     title: "Chi\u1EBFn s\u01B0 r\u1EEBng xanh"
-    aola: goc_911
+    aola: bom_la_1
     elem: 1
     rarity: 1
     stats: 460000001e0000001e0000003c000000320000003c000000
@@ -547,16 +547,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "B\u1EDDm L\xE1 Con"
-      aola: goc_911
+      aola: bom_la_1
       size: 0.92
     - name: "Chi\u1EBFn S\u01B0 B\u1EDDm L\xE1"
-      aola: goc_912
+      aola: bom_la_2
       size: 1.1
     minion: 0
   - id: phong_linh
     name: Phong Linh
     title: "Linh t\u01B0\u1EDBng gi\xF3 l\xE1"
-    aola: goc_943
+    aola: phong_linh_1
     elem: 1
     rarity: 2
     stats: 820000003c0000001e0000001e0000001e0000001e000000
@@ -568,16 +568,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Ti\u1EC3u Phong Linh"
-      aola: goc_943
+      aola: phong_linh_1
       size: 0.92
     - name: "Phong Linh T\u01B0\u1EDBng"
-      aola: goc_944
+      aola: phong_linh_2
       size: 1.1
     minion: 0
   - id: gio_loc
     name: "Gi\xF3 L\u1ED1c"
     title: "R\u1ED3ng gi\xF3 x\xE9 m\xE2y"
-    aola: goc_850
+    aola: gio_loc_1
     elem: 1
     rarity: 2
     stats: 3c000000460000003200000028000000320000003c000000
@@ -589,19 +589,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Gi\xF3 Con"
-      aola: goc_850
+      aola: gio_loc_1
       size: 0.9
     - name: "Gi\xF3 Cu\u1ED9n"
-      aola: goc_851
+      aola: gio_loc_2
       size: 1.02
     - name: "Gi\xF3 L\u1ED1c"
-      aola: goc_852
+      aola: gio_loc_3
       size: 1.14
     minion: 0
   - id: long_vuot
     name: "Long Vu\u1ED1t"
     title: "R\u1ED3ng l\xE1 vu\u1ED1t s\u1EAFc"
-    aola: goc_1219
+    aola: long_vuot_1
     elem: 1
     rarity: 3
     stats: 32000000280000003200000050000000280000003c000000
@@ -613,16 +613,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Long Vu\u1ED1t Con"
-      aola: goc_1219
+      aola: long_vuot_1
       size: 0.92
     - name: "Long Vu\u1ED1t"
-      aola: goc_1220
+      aola: long_vuot_2
       size: 1.1
     minion: 0
   - id: tho_hoang
     name: "Th\u1ECF Ho\xE0ng"
     title: "Chi\u1EBFn gi\xE1p ho\xE0ng c\u1EF1c"
-    aola: goc_2010
+    aola: tho_hoang_1
     elem: 1
     rarity: 3
     stats: 6e000000460000005a0000008c0000005a00000082000000
@@ -634,13 +634,13 @@ MonoBehaviour:
     size: 1
     forms:
     - name: "Th\u1ECF Ho\xE0ng"
-      aola: goc_2010
+      aola: tho_hoang_1
       size: 1
     minion: 0
   - id: moc_tinh
     name: "M\u1ED9c Tinh"
     title: "Th\xFA gi\xE1p pha l\xEA l\u1EE5c"
-    aola: goc_1480
+    aola: moc_tinh_1
     elem: 1
     rarity: 3
     stats: 3c0000004600000046000000280000002800000028000000
@@ -652,16 +652,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Ti\u1EC3u M\u1ED9c Tinh"
-      aola: goc_1480
+      aola: moc_tinh_1
       size: 0.92
     - name: "M\u1ED9c Tinh"
-      aola: goc_1481
+      aola: moc_tinh_2
       size: 1.1
     minion: 0
   - id: thanh_long
     name: Thanh Long
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng \u0110\xF4ng"
-    aola: goc_214
+    aola: thanh_long_1
     elem: 1
     rarity: 4
     stats: 3c0000003c000000280000003c000000280000003c000000
@@ -673,19 +673,19 @@ MonoBehaviour:
     size: 0.95
     forms:
     - name: Thanh Long Con
-      aola: goc_214
+      aola: thanh_long_1
       size: 0.95
     - name: Thanh Long
-      aola: goc_215
+      aola: thanh_long_2
       size: 1.1
     - name: "L\xF4i Thanh Long"
-      aola: goc_1749
+      aola: thanh_long_3
       size: 1.16
     minion: 0
   - id: tieu_y
     name: "Ti\u1EC3u Y"
     title: "B\xE9 con s\xF3ng n\u01B0\u1EDBc"
-    aola: thuy_1319
+    aola: tieu_y_1
     elem: 2
     rarity: 0
     stats: 500000001e00000046000000500000002300000028000000
@@ -697,16 +697,16 @@ MonoBehaviour:
     size: 0.85
     forms:
     - name: "Ti\u1EC3u Y"
-      aola: thuy_1319
+      aola: tieu_y_1
       size: 0.85
     - name: "Y Tr\u1EA1ch"
-      aola: thuy_1320
+      aola: tieu_y_2
       size: 1.12
     minion: 0
   - id: canh_cut
     name: "C\xE1nh C\u1EE5t"
     title: "\u0110\u1EA7u b\u1EBFp x\u1EE9 b\u0103ng"
-    aola: thuy_1691
+    aola: canh_cut_1
     elem: 2
     rarity: 0
     stats: 550000002800000032000000370000003200000014000000
@@ -718,16 +718,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "C\xE1nh C\u1EE5t Con"
-      aola: thuy_1691
+      aola: canh_cut_1
       size: 0.92
     - name: "\u0110\u1EA7u B\u1EBFp C\xE1nh C\u1EE5t"
-      aola: thuy_1692
+      aola: canh_cut_2
       size: 1.1
     minion: 0
   - id: giot_suong
-    name: "Gi\u1ECDt S\u01B0\u01A1ng"
-    title: "Gi\u1ECDt n\u01B0\u1EDBc h\xF3a r\u1ED3ng"
-    aola: thuy_7
+    name: "Th\u1EE7y Long"
+    title: "Chi\u1EBFn binh r\u1ED3ng bi\u1EC3n"
+    aola: thuy_long_1
     elem: 2
     rarity: 1
     stats: 320000003200000032000000320000003200000032000000
@@ -735,23 +735,23 @@ MonoBehaviour:
     ult: giot_suong_ult
     passive: giot_suong_pas
     shards: 15
-    line: "D\xF2ng Gi\u1ECDt S\u01B0\u01A1ng"
-    size: 0.9
+    line: "D\xF2ng Th\u1EE7y Long"
+    size: 1
     forms:
-    - name: "Gi\u1ECDt N\u01B0\u1EDBc"
-      aola: thuy_7
-      size: 0.9
-    - name: "Ti\xEAn S\u01B0\u01A1ng"
-      aola: thuy_8
-      size: 1.02
-    - name: "S\u01B0\u01A1ng Long"
-      aola: thuy_9
-      size: 1.14
+    - name: Long Binh
+      aola: thuy_long_1
+      size: 1
+    - name: "Long K\u1EF5 S\u0129"
+      aola: thuy_long_2
+      size: 1.08
+    - name: "Long T\u01B0\u1EDBng"
+      aola: thuy_long_3
+      size: 1.16
     minion: 0
   - id: tam_tay
     name: "T\xE1m Tay"
     title: "Ph\xE1o th\u1EE7 bong b\xF3ng"
-    aola: thuy_1053
+    aola: tam_tay_1
     elem: 2
     rarity: 1
     stats: 500000003c0000003c0000001e0000001e0000001e000000
@@ -763,10 +763,10 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "T\xE1m Tay Bong B\xF3ng"
-      aola: thuy_1053
+      aola: tam_tay_1
       size: 0.92
     - name: "T\xE1m Tay Ph\xE1o Th\u1EE7"
-      aola: thuy_1054
+      aola: tam_tay_2
       size: 1.1
     minion: 0
   - id: ca_ngua
@@ -820,7 +820,7 @@ MonoBehaviour:
   - id: lam_quan
     name: "Lam Qu\xE2n"
     title: "Ti\u1EC3u t\u01B0\u1EDBng chu\xF4ng \u0111\u1ED3ng"
-    aola: thuy_1831
+    aola: lam_quan_1
     elem: 2
     rarity: 3
     stats: 480000001e000000390000004d0000003900000030000000
@@ -832,19 +832,19 @@ MonoBehaviour:
     size: 0.95
     forms:
     - name: "Lam Qu\xE2n"
-      aola: thuy_1831
+      aola: lam_quan_1
       size: 0.95
     - name: "V\u1EA1n Qu\xE2n"
-      aola: thuy_1832
+      aola: lam_quan_2
       size: 1.12
     - name: "H\u1EAFc D\u1EF1c V\u1EA1n Qu\xE2n"
-      aola: thuy_2955
+      aola: lam_quan_3
       size: 1.16
     minion: 0
   - id: huyen_vu
     name: "Huy\u1EC1n V\u0169"
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng B\u1EAFc"
-    aola: thuy_713
+    aola: huyen_vu_1
     elem: 2
     rarity: 4
     stats: 500000003c00000028000000280000003200000028000000
@@ -856,19 +856,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "R\xF9a Ng\u1ECDc"
-      aola: thuy_713
+      aola: huyen_vu_1
       size: 0.9
     - name: "R\xF9a Bi\u1EC3n Ng\u1ECDc"
-      aola: thuy_714
+      aola: huyen_vu_2
       size: 1.02
     - name: "Huy\u1EC1n V\u0169"
-      aola: thuy_715
+      aola: huyen_vu_3
       size: 1.14
     minion: 0
   - id: mi_nhi
     name: Mi Nhi
     title: "Ti\xEAn c\u1EA7m s\xF3ng bi\u1EBFc"
-    aola: thuy_983
+    aola: mi_nhi_1
     elem: 2
     rarity: 1
     stats: 320000005000000032000000280000002800000032000000
@@ -880,16 +880,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Ti\u1EC3u Mi"
-      aola: thuy_983
+      aola: mi_nhi_1
       size: 0.92
     - name: Mi Nhi
-      aola: thuy_984
+      aola: mi_nhi_2
       size: 1.1
     minion: 0
   - id: ma_ket
     name: "Ma K\u1EBFt"
     title: "Th\xE1nh gi\xE1p s\u1EEBng b\u1EA1c"
-    aola: thuy_758
+    aola: ma_ket_1
     elem: 2
     rarity: 2
     stats: 320000005000000028000000280000003200000032000000
@@ -901,19 +901,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Ma K\u1EBFt Con"
-      aola: thuy_758
+      aola: ma_ket_1
       size: 0.9
     - name: "Ma K\u1EBFt S\u1EEBng Nh\u1ECDn"
-      aola: thuy_759
+      aola: ma_ket_2
       size: 1.02
     - name: "Ma K\u1EBFt Th\xE1nh Gi\xE1p"
-      aola: thuy_760
+      aola: ma_ket_3
       size: 1.14
     minion: 0
   - id: vay_lam
     name: "V\xE2y Lam"
     title: "C\xE1 m\u1EADp r\u1EBD s\xF3ng"
-    aola: thuy_546
+    aola: vay_lam_1
     elem: 2
     rarity: 2
     stats: 280000003c00000046000000280000004600000028000000
@@ -925,19 +925,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "C\xE1 \u0110\u1ED1m"
-      aola: thuy_546
+      aola: vay_lam_1
       size: 0.9
     - name: "C\xE1 Song Ti\u1EC5n"
-      aola: thuy_547
+      aola: vay_lam_2
       size: 1.02
     - name: "C\xE1 M\u1EADp V\xE2y Lam"
-      aola: thuy_548
+      aola: vay_lam_3
       size: 1.14
     minion: 0
   - id: thuong_lam
     name: "Th\u01B0\u01A1ng Lam"
     title: "R\u1ED3ng lam c\xE1nh b\u0103ng"
-    aola: thuy_805
+    aola: thuong_lam_1
     elem: 2
     rarity: 3
     stats: 500000003c0000003c0000003c0000003c00000014000000
@@ -949,19 +949,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Th\u01B0\u01A1ng"
-      aola: thuy_805
+      aola: thuong_lam_1
       size: 0.9
     - name: "Th\u01B0\u01A1ng Nhi\u1EC5m"
-      aola: thuy_806
+      aola: thuong_lam_2
       size: 1.02
     - name: "Th\u01B0\u01A1ng Lam"
-      aola: thuy_807
+      aola: thuong_lam_3
       size: 1.14
     minion: 0
   - id: kuba
     name: Kuba
     title: "Mai c\u1EE9ng kim c\u01B0\u01A1ng"
-    aola: thuy_94
+    aola: kuba_1
     elem: 2
     rarity: 3
     stats: 320000004600000032000000280000003200000028000000
@@ -973,13 +973,13 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: Kuba
-      aola: thuy_94
+      aola: kuba_1
       size: 0.9
     - name: "Kuba V\u1ECF C\u1EE9ng"
-      aola: thuy_95
+      aola: kuba_2
       size: 1.02
     - name: "Kuba Kim C\u01B0\u01A1ng"
-      aola: thuy_96
+      aola: kuba_3
       size: 1.14
     minion: 0
   - id: heo_lua

@@ -21,8 +21,12 @@ from PIL import Image, ImageDraw
 HERE = os.path.dirname(os.path.abspath(__file__))
 SPINE_AI = os.environ.get("SPINE_AI") or os.path.normpath(os.path.join(HERE, "..", "..", "..", "spine-animation-ai"))
 sys.path.insert(0, os.path.join(SPINE_AI, "scripts"))
-from build_spine_json import _convert_timeline  # noqa: E402  (đổi keyframe sang dạng 4.2)
-from make_atlas import pack  # noqa: E402
+try:
+    from build_spine_json import _convert_timeline  # noqa: E402  (đổi keyframe sang dạng 4.2)
+    from make_atlas import pack  # noqa: E402
+except ImportError:  # máy không có repo spine-animation-ai: bản tự viết, cùng cách dùng (spine_compat.py)
+    sys.path.insert(0, HERE)
+    from spine_compat import _convert_timeline, pack  # noqa: E402
 
 PLAYER_VER = "4.2.119"
 

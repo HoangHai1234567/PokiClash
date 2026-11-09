@@ -1,0 +1,57 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Spine\inbox\rong_giot\L1_duyet.png: the hero in its puppet-ready pose, 1024x1536, white background. THIS is the drawing to cut up.
+image 2 = D:\PokiClash\ArtGen\Islands\refs\world_style.png: the game's hand-drawn map, 1024x1536; use ONLY its line and colouring style.
+image 3 = D:\PokiClash\ArtGen\Heroes\refs\style\parts_example.png: an example of a creature cut into separate puppet pieces laid out on white (glossy vector creatures from another source); learn ONLY the idea of "pieces laid out apart", never its designs or its glossy look.
+
+This turn makes TWO pictures, one after the other. Both cut the hero of image 1 into the separate pieces of a 2D cut-out (paper puppet) skeleton animation. Same character, same colours, same drawing style as image 1.
+
+PIECE RULES (for every piece):
+- Draw each piece COMPLETE, including the parts that were hidden behind other pieces in image 1.
+- Wherever a piece joins another piece (the JOINT end), continue it about 30 px past the joint with a rounded end, as if it slides under the neighbour piece. Draw the outline around that rounded end too. This hidden overlap keeps the puppet from showing gaps when the joint bends.
+- Keep the size, the angle and the direction each piece has in image 1 (same scale as image 1). Do not rotate, mirror or straighten pieces.
+- Leave at least 60 px of pure white between any two pieces; pieces never touch or overlap each other.
+- Each piece only once. No shadows under the pieces, no text, no numbers, no labels, no frame, no guide lines.
+
+LINE AND COLOUR: the game's hand-drawn look of the style image, NOT the glossy look of the design image: drawn by hand on paper with a dark-brown ink pen (#2B2118), an outline about 7 px thick on this canvas, the same weight on every edge, slightly wobbly like a real pen; every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner than the outline), kept inside the outline. Clean and appealing, neither a crude scribble nor overly detailed.
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker side, no shadows of any kind (no cast shadow, no shadow under the figure, on the ground or on the background), no white highlights or shine spots, no gloss, no glow, no rim light, no gradients, no 3D look. The only white allowed is one small catchlight dot in each eye. A darker tone appears only where the design itself has a darker colour.
+Plain pure-white background (#FFFFFF): no paper colour or paper grain outside the drawing, no white border or sticker outline around the figure or its pieces (the game adds that itself). No text, no labels, no frame.
+
+==================== STEP A: head pieces ====================
+SAVE (step A): save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\rong_giot\tai_ve\L2a_head_pieces.png
+(if the name exists, add _2, _3 ... ; do not edit, move or delete any other file)
+
+CANVAS: landscape 1536x1024, pure white.
+PIECES, laid out in two rows:
+Row 1 (top), left to right:
+ A1. HEAD: the face with its two horn nubs, exactly as in image 1, but WITHOUT the crest and WITHOUT the two ears. Where the ears and the crest were attached, draw the plain blue head surface with its stripe markings (closed outline). The bottom of the head (where the neck joins the body) is completed as a smooth rounded chin.
+ A2. HEAD, EYES CLOSED: an exact copy of A1, same size and shape; the only change is that both eyes are closed (a curved, determined closed-eye line under the same lowered brows). Used for blinking.
+ A3. HEAD, SHOUTING: an exact copy of A1, same size and outline; the only change is the face: eyes wide open and fierce under the lowered brows, mouth wide open in a battle cry showing the little fang (inside of the mouth dark red, small pink tongue). Used when it strikes.
+Row 2 (bottom), left to right:
+ A4. CREST: the water-curl crest from the top-back of the head; its bottom end (joint) extended as a rounded stub that would tuck into the head.
+ A5. EAR on the viewer's LEFT: the fin ear as in image 1; its root end (joint, toward the head) extended as a rounded stub.
+ A6. EAR on the viewer's RIGHT: the fin ear as in image 1; its root end (joint, toward the head) extended as a rounded stub.
+
+==================== STEP B: body pieces ====================
+SAVE (step B): save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\rong_giot\tai_ve\L2b_body_pieces.png
+(if the name exists, add _2, _3 ... ; do not edit, move or delete any other file)
+
+CANVAS: landscape 1536x1024, pure white.
+PIECES, laid out in three rows:
+Row 1 (top), left to right:
+ B1. WING on the viewer's LEFT: the whole fin wing; its root end (joint, toward the shoulder) extended as a rounded stub.
+ B2. TORSO: the blue body with its cream belly plate, from the neck to the hips. Complete it where the head, arms, legs, wings and tail covered it: the top (neck) is a rounded end that would tuck under the head; the shoulders are rounded; the bottom includes the hips and the crotch, rounded.
+ B3. WING on the viewer's RIGHT: same rules as B1.
+ B4. TAIL: the whole tail with its drop-shaped fin; its root end (joint, toward the hip) extended as a rounded stub.
+ B5. SWORD: the whole sword, including the part of the grip hidden by the fist in image 1; same angle as in image 1.
+Row 2 (middle), left to right:
+ B6. UPPER ARM on the viewer's LEFT: the short blue arm from the shoulder to the wrist; both ends rounded joints (shoulder end tucks into the torso, wrist end tucks into the fist).
+ B7. FIST on the viewer's LEFT: the round fist with its three cream claws; its wrist end (joint) a rounded edge.
+ B8. UPPER ARM on the viewer's RIGHT: same rules as B6.
+ B9. FIST on the viewer's RIGHT: the fist that holds the sword, drawn closed around an EMPTY grip (no sword in this piece; the sword is B5), so the fingers wrap a gap where the grip will go.
+Row 3 (bottom), left to right:
+ B10. THIGH on the viewer's LEFT: the short blue leg from the hip to the ankle; top end a rounded joint that tucks under the torso, bottom end a rounded joint that tucks into the foot.
+ B11. FOOT on the viewer's LEFT: the round foot with its three cream claws and flat sole; its top (ankle joint) a rounded edge.
+ B12. THIGH on the viewer's RIGHT: same rules as B10.
+ B13. FOOT on the viewer's RIGHT: same rules as B11.
+
+Check before saving each step: the right number of pieces (6 in step A, 13 in step B), none touching, every piece complete with a closed outline, flat colours, white background.

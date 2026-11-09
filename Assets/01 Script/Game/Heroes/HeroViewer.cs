@@ -1,11 +1,14 @@
 // Ô xem tướng trong hộp chi tiết: chạy 4 clip Đứng, Đánh, Chiêu, Trúng (chép openHero của Web/src/view/screens/heroes.ts).
 // Dáng đứng cỡ 70% ô, chân sát đáy; đánh và chiêu giữ cỡ 60%, neo ở 32% chiều ngang (vệt đòn bay xa thì bị cắt ở mép ô).
+// Ô (khung cắt) rộng bằng khung nền sân khấu, các tỉ lệ trên tính theo cạnh ô vuông size, tâm ở giữa đáy.
 // Prefab Assets/04 Prefabs/Items/OXemTuong: khung cắt, chân dung (kit ChanDung), lớp nháy (không dùng nữa, luôn tắt). Có aola
 // (bản dev, ngoại lệ đã chốt: AolaSticker tự sinh lúc chạy) thì ẩn chân dung; tướng chưa có (bóng sẫm) thì chân dung aola tĩnh
 // với hoạt cảnh giả (nhún, lao, phồng, giật lùi). Không có ảnh aola nào thì ô trống.
 // Không dựng sticker trong khung chạm (người dùng dặn phản hồi phải ngay, 2026-11-07): Bind chỉ ghi tướng cần hiện, Update dựng ở
 // khung sau khi animation đã đọc xong ở luồng phụ (AolaActor.Ready) và khung đó chưa ai dựng (AolaSticker.CanBuildNow). Trong lúc chờ:
 // đổi dạng (tiến hóa) thì giữ sticker cũ, mở hộp thì hiện chân dung tĩnh.
+// Dạng cũ có clip tiến hóa (dạng .atomik, 2026-11-08): đổi dạng thì phát clip đó trên sticker cũ, giữ khung cuối tới khi sticker
+// dạng mới dựng xong (khung cuối trùng dáng đứng dạng mới nên không giật), rồi về Đứng; clip gọi trong lúc đó bỏ qua.
 using PokiClash.Core;
 using PokiClash.UI;
 using UnityEngine;
@@ -16,6 +19,7 @@ namespace PokiClash
     public sealed class HeroViewer : MonoBehaviour
     {
         public const string Idle = StageView.Idle, Attack = StageView.Attack, Skill = StageView.Skill, Hit = StageView.Hit;
+        public const string Evolve = Game.AolaActor.Evolve;
 
         [SerializeField] RectTransform box;
         [SerializeField] HeroPortrait portrait;
@@ -30,6 +34,8 @@ namespace PokiClash
         string clip = Idle;
         float t, size;
         bool silhouette;
+        bool evolving; // đang phát clip tiến hóa của dạng cũ
+        string afterEvolve; // clip được gọi trong lúc tiến hóa, chạy khi dạng mới hiện
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(RectTransform boxRt, HeroPortrait portraitView, Image flashImg)
@@ -46,7 +52,12 @@ namespace PokiClash
             bindFrame = Time.frameCount;
             size = boxSize;
             silhouette = isSilhouette;
-            box.sizeDelta = new Vector2(size, size);
+            // ô kéo ngang bằng khung nền sân khấu, cao bằng cạnh ô: mặt nạ không cắt hai bên (người dùng dặn 2026-11-08).
+            // Thân neo giữa đáy ô nên chỗ đứng không đổi.
+            box.anchorMin = new Vector2(0, box.anchorMin.y);
+            box.anchorMax = new Vector2(1, box.anchorMax.y);
+            box.anchoredPosition = new Vector2(0, box.anchoredPosition.y);
+            box.sizeDelta = new Vector2(0, size);
             var form = HeroArt.FormOf(hero).aola;
             if (!silhouette && aola != null && aolaKey == hero.id + "|" + form)
             {
@@ -58,6 +69,15 @@ namespace PokiClash
                 waitHero = hero;
                 waitForm = form;
                 Game.AolaActor.Ready(waitForm); // bắt đầu đọc trước nếu chưa
+                // cùng tướng lên dạng mới, dạng cũ có clip tiến hóa: phát trên sticker cũ trước khi đổi
+                if (aola != null && aolaKey != null && aolaKey.StartsWith(hero.id + "|") && aola.HasClip(Evolve))
+                {
+                    evolving = true;
+                    afterEvolve = null;
+                    clip = Evolve;
+                    t = 0;
+                    return;
+                }
             }
             // có sticker cũ (đổi dạng) thì giữ tới khi cái mới dựng xong; không thì chân dung
             if (waitHero == null || aola == null)
@@ -87,6 +107,11 @@ namespace PokiClash
 
         public void Play(string c)
         {
+            if (evolving)
+            {
+                afterEvolve = c;
+                return;
+            }
             clip = c;
             t = 0;
         }
@@ -97,8 +122,10 @@ namespace PokiClash
 
         void Update()
         {
-            // dựng sticker ở khung sau khung chạm, khi animation đã đọc xong; thay chân dung hoặc sticker cũ (giữ clip đang chạy)
-            if (waitHero != null && Time.frameCount > bindFrame && AolaSticker.CanBuildNow && Game.AolaActor.Ready(waitForm))
+            // dựng sticker ở khung sau khung chạm, khi animation đã đọc xong; thay chân dung hoặc sticker cũ (giữ clip đang chạy).
+            // Đang tiến hóa: chờ clip tiến hóa của dạng cũ chạy hết.
+            bool evolveDone = !evolving || aola == null || t >= aola.Duration(Evolve);
+            if (waitHero != null && evolveDone && Time.frameCount > bindFrame && AolaSticker.CanBuildNow && Game.AolaActor.Ready(waitForm))
             {
                 var h = waitHero;
                 waitHero = null;
@@ -107,18 +134,29 @@ namespace PokiClash
                 aola = made;
                 aolaKey = made != null ? h.id + "|" + waitForm : null;
                 Attach(h);
+                if (evolving)
+                {
+                    // khung cuối clip tiến hóa là dáng đứng của dạng mới: về Đứng để liền mạch (clip Chiêu được gọi lúc bấm Tiến hóa
+                    // neo nhỏ, lệch trái nên hình nhảy chỗ; chính clip tiến hóa đã khoe dạng mới)
+                    evolving = false;
+                    clip = Idle;
+                    afterEvolve = null;
+                    t = 0;
+                }
             }
             if (!body) return;
             t += Mathf.Min(0.05f, Time.unscaledDeltaTime);
-            if (clip != Idle && t >= (aola != null ? aola.Duration(clip) : Len(clip)))
+            // clip tiến hóa giữ khung cuối tới khi dạng mới dựng xong
+            if (clip != Idle && !evolving && t >= (aola != null ? aola.Duration(clip) : Len(clip)))
             {
                 clip = Idle;
                 t = 0;
             }
             bool idle = clip == Idle;
-            // vị trí neo như bản web: đứng giữa, chân ở 94%; đánh và chiêu neo 32% chiều ngang, chân ở 80%
-            float ax = idle || clip == Hit ? 0.5f : 0.32f, ay = idle || clip == Hit ? 0.06f : 0.2f;
-            float sc = idle || clip == Hit ? 1f : 0.6f / 0.7f;
+            // vị trí neo như bản web: đứng giữa, chân ở 94%; đánh và chiêu neo 32% chiều ngang, chân ở 80%; tiến hóa đứng giữa
+            bool centre = idle || clip == Hit || clip == Evolve;
+            float ax = centre ? 0.5f : 0.32f, ay = centre ? 0.06f : 0.2f;
+            float sc = centre ? 1f : 0.6f / 0.7f;
             Vector2 pos = new Vector2((ax - 0.5f) * size, ay * size);
             if (aola != null)
             {

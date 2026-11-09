@@ -11,7 +11,8 @@ description: >
 # Rig xương từ ảnh và định dạng .atomik (thử nghiệm)
 
 Làm 2026-11-07 để đo khả năng rig tự động. **Không thay quy trình chính của game** (vẽ đè lên rig aola, xem CLAUDE.md mục
-Hình tướng). Mọi thứ ở đây là thử nghiệm cho tới khi người dùng chốt khác.
+Hình tướng). Mọi thứ ở đây là thử nghiệm cho tới khi người dùng chốt khác. Ngoại lệ người dùng yêu cầu 2026-11-08: Rồng Giọt
+(dạng 1 dòng Giọt Sương) vào game bằng .atomik, xem mục 10.
 
 ## 0. Trước khi làm
 
@@ -178,8 +179,8 @@ sinh (region, mesh có/không trọng số, rotate/translate/scale, attachment),
   `new GameObject`, `AddComponent`, `new Material`, `new Texture2D` trong mã runtime).
 - `AtomikDemo.cs`: scene thử, OnGUI nút đổi clip từng con (clip không lặp xong thì về idle), thanh tốc độ; tự xếp theo khung
   (màn dọc xếp cột, màn ngang xếp hàng, camera ôm vừa).
-- `Assets/01 Script/Editor/AtomikImporter.cs`: `[ScriptedImporter(2, "atomik")]` tạo asset chính kèm atlas (RGBA, chưa nén
-  ASTC), material `Sprites/Default` (nhân alpha trong shader, hợp atlas alpha thường) và **icon 128x128 vẽ con ở tư thế gốc**
+- `Assets/01 Script/Editor/AtomikImporter.cs`: `[ScriptedImporter(3, "atomik")]` tạo asset chính kèm atlas (nén theo nền tảng,
+  xem bản 2 dưới), material `Sprites/Default` (nhân alpha trong shader, hợp atlas alpha thường) và **icon 128x128 vẽ con ở tư thế gốc**
   (thumbnail của `AddObjectToAsset`, hiện trong cửa sổ Project). Đổi cách nhập thì tăng số phiên bản importer để nhập lại.
 - Menu `PokiClash/Thử/Atomik: dựng scene con mận (idle, nhảy, chém)`: dựng `Assets/05 Atomik Thu/AtomikMan.unity` bằng scene
   additive (lưu rồi đóng, không đổi scene đang mở), chụp 9 khung mỗi clip vào `Temp/AtomikShots/<tên>_khung.png` để so với
@@ -196,4 +197,187 @@ sinh (region, mesh có/không trọng số, rotate/translate/scale, attachment),
 5. Báo các session PokiWar khác (ListAgents + SendMessage) khi đã dừng Play, refresh, thêm script.
 6. Xem xong muốn chạy game thì mở lại `Assets/00 Scenes/Boot.unity` rồi Play.
 
-**Còn thiếu:** nén ASTC atlas theo nền tảng; sự kiện trong clip (đánh trúng); nạp vào đội hình, trận thật; vệt chém.
+**Bản 2 (2026-11-08):** `anims[].sa: {slot, keys[]}` độ đậm slot (timeline `alpha` của Spine 4.2, sải 7 như xoay) cho hiệu ứng hiện,
+tan; `game` (tuỳ chọn) thông tin trận khi rig là dạng tướng: `fps, height, hitClips, hitTimes, lunge, stay, muzzle, beam,
+beamStyle, move, shadow` (`atomik.py ... --game <tệp.json>`, hoặc `convert(..., game=dict)`). Phần tính tư thế và dựng lưới tách
+ra `Game/Atomik/AtomikPose.cs`, dùng chung cho `AtomikPlayer` và `AolaActor`. Importer bản 3 nén atlas theo nền tảng (ASTC 8x8
+Android/iOS như atlas tướng aola, DXT5 máy tính khi cạnh chia hết cho 4; `pack` của `spine_compat.py` làm tròn cạnh lên bội 8).
+
+**Còn thiếu:** vệt chém dạng lưới; bẻ đỉnh lưới (deform), màu tint, thứ tự vẽ đổi theo clip; nhiều trang atlas.
+
+## 10. Dạng tướng .atomik trong game (Rồng Giọt thay Giọt Nước, 2026-11-08, máy ổ D)
+
+Người dùng chọn: tướng mới "rồng con giọt nước" thay dạng 1 dòng Giọt Sương (`thuy_7`), gen bằng Codex, có clip tiến hóa nối vào
+nút Tiến hóa. Mẫu để làm dạng khác:
+- **Gói prompt** `ArtGen/Spine/build_rong_giot.py` (concept trọn con dáng dễ rig không cần ảnh thiết kế: đính ảnh mốc style,
+  bản đồ, tờ mẫu thiết kế aola, dạng lớn của dòng; lượt 2 hai tờ mảnh: đầu, đầu nhắm mắt, đầu hét, mào, 2 tai / 2 cánh, thân,
+  đuôi, kiếm, tay, nắm tay, đùi, bàn chân). Gọi `py -3 -I ArtGen/Spine/gen.py <file prompt> [--note ...]`. Mục SAVE phải viết
+  đúng `save it as a PNG to <đường dẫn>` (cả từng bước), không thì `gen_codex.py` báo "không có mục SAVE".
+- **Rig** `ArtGen/Spine/rong_giot.py cut | place [mảnh ...] | build` (venv có opencv, máy ổ D: `D:/spine-venv/Scripts/python -I`):
+  - mảnh xanh trơn giống nhau nên `rig.place` dò tự do lạc 8/17 mảnh: dò quanh tâm đọc trên ảnh kẻ lưới (`HINT`), giới hạn góc
+    (`ROT`), đặt tay mảnh khó (`FIXED`); `place <mảnh>` chỉ dò lại mảnh đó;
+  - nắm tay cầm kiếm GPT vẽ rỗng ở giữa, bộ cắt lấp thành trắng: `fix_parts` tô lòng nắm màu cán kiếm;
+  - tay xa và tay cầm kiếm nằm sau thân (vai không lộ cục tròn), nắm tay và kiếm trước thân.
+- **Dựng** `ArtGen/Spine/rong_giot_build.py`: xương `root → move (cú lao, cú nhảy) → core (tâm thân: lộn, xoay, thu nhỏ) → hip →
+  body → chest (chỉ mảnh thân: thở, dẹp giãn)`, đầu/tay/cánh/đuôi con của body, chân con của hip, `shadow` con của move (theo cú
+  lao, dời ngược độ cao khi nhảy). **Không dùng noScale** khi có clip thu nhỏ cả con: noScale giữ nguyên cỡ đầu, tay. Hiệu ứng là
+  slot riêng dùng lại 8 ảnh FX dòng Giọt Sương (`ArtGen/Heroes/inbox/giot_suong_fx/tai_ve`), lưu nhỏ trong atlas rồi phóng bằng
+  cỡ attachment; xương hiệu ứng là con của move (không theo core). Cỡ rig: dáng đứng 340 điểm (sticker vẽ tối đa ~301).
+  Ra `inbox/rong_giot/rig/` (`khung.png`, `anim_*.gif`, `xuong.png`, `<mã>_game.json`), `.atomik` và chân dung (khung 4:5, chân
+  cách đáy 6%, lưu vuông 512, không bóng) vào `Assets/03 Art/Heroes/Resources/rong_giot/`.
+- **Clip** tên chữ trong file, `AolaActor` đổi: idle (1_1), hit (1_2), attack (1_4), cast (1_5), skill (1_6), evolve. Khung 0 mọi
+  clip là dáng nghỉ. Khung trúng khai trong `game.hitTimes`; cú lao đo trên xương `move` (attack luôn lao, clip khác khai `lunge`);
+  đỉnh lao phải là lúc chém (độ dời x lúc chém lớn hơn độ cao lúc nhảy, vì trận xoay cả quỹ đạo cho đỉnh trỏ vào đối thủ); chỗ
+  bắn tia = mũi kiếm ở khung trúng của cast (`muzzle`).
+- **Unity**:
+  - `AolaAnim.atomik` trỏ rig; `AolaActor.Load` thấy atomik thì vẽ một Mesh bằng `AtomikPose`, trả `FrameCount`, `HitFrame`,
+    `Disp`, `Lunges`, `Beam` theo `game`, nên trận, sticker, hộp chi tiết, đội hình chạy như dạng aola;
+  - `heroes.json` đổi `aola` của dạng sang tên thư mục (`rong_giot`), menu `PokiClash/Nhập dữ liệu`, rồi
+    `PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng` (Editor/AtomikForms: dựng `<dạng>.asset`, cập nhật prefab tướng). **Không
+    chạy menu nhập aola thường** để gắn (nó nhập lại dạng aola từ AolaRipper máy này); menu đó bỏ qua dạng có atomik;
+  - `HeroViewer`: dạng cũ có clip `evolve` thì đổi dạng phát clip đó trên sticker cũ, giữ khung cuối tới khi sticker dạng mới xong,
+    clip gọi trong lúc đó chạy sau;
+  - soi: `PokiClash/Tướng/Chụp thử dạng .atomik (mọi clip)` (Library/PokiHeroShots/<id>_atomik_<dạng>.png, Editor.log in khung
+    trúng, đỉnh lao, chỗ bắn tia), tour `PokiClash/Thử/Giọt Sương ra trận...` và `PokiClash/Thử/Giọt Sương tiến hóa...` (đang Play
+    từ Boot, ảnh Temp/PokiShots/gs_combat, gs_tien_hoa).
+- Máy không có repo `spine-animation-ai`: `rig.py` tự dùng `spine_compat.py` (`_convert_timeline`, `pack` viết lại, cùng cách dùng).
+- Rồng Giọt (mảnh cứng, xoay cả người, khoá thưa) bị người dùng chê: thay bằng Thủy Long, mục 11.
+
+## 11. Thủy Long: rig lưới trọng số, animation mềm, tiến hóa nối liền (2026-11-08, cách làm chuẩn cho tướng .atomik)
+
+Người dùng dặn: animation mềm, hạn chế xoay cả người, để ý tiểu tiết, rig xương kỹ, tiến hóa phải hiện ra dạng sau (không giật);
+đổi sang Spine là để mượt, không làm kiểu cũ. Tướng: long chiến binh 3 dạng, chiến, không cute.
+- **Gói prompt** `ArtGen/Spine/build_thuy_long.py`: concept dạng k đính concept đã duyệt các dạng trước; 3 tờ mảnh (A: đầu liền cổ,
+  đầu nhắm mắt, đầu gầm, mào; B: **tay, chân vẽ liền cả chi** từ vai tới cổ tay, hông tới cổ chân + nắm tay, bàn chân; C: thân, đuôi,
+  áo choàng, vũ khí, giáp vai, vải trước).
+- **Khớp mảnh vào concept** (`thuy_long.py place k`): so khớp màu tự do lệch về mảnh nhỏ (chuẩn hoá theo diện tích, mảnh nhỏ lọt
+  vào vùng xanh trơn), nên: mảnh gọn có nét riêng dò ±12% quanh **tỉ lệ ước theo khung bao** (`HINT` x, y, ô, tỉ lệ); mảnh dài xanh trơn
+  (tay, chân, vũ khí) đặt theo **hai đầu khớp đọc trên concept** (`TWO`: hai đầu đường dài nhất trong mảnh, bỏ phần đầu tròn);
+  mảnh vẽ khác concept (mào, vải, áo choàng) đặt tay (`FIXED`). Soi `rig/so_ghep.png`.
+- Sau khi cắt: `fix_grip` (tô lòng nắm tay), `fix_stubs` (GPT tô đầu tròn khớp xanh nhạt, ghép lộ chấm nhạt ở mắt cá: tô khối
+  tròn nhạt gọn về màu da).
+- **Rig** (`longrig.py`, `thuy_long.build_rig`): lưng 3 đốt, cổ + đầu 2 đốt (mặt nhắm mắt, mặt gầm lấy trọng số theo bản đồ của
+  đầu chính), mào 3, tay 2 đoạn + nắm tay cứng, chân 2 đoạn + bàn chân cứng (IK), đuôi 4, vải 3, áo choàng 4, giáp vai cứng trên
+  cánh tay trên, vũ khí cứng trên bàn tay. Mảnh chuỗi: geodesic từ đầu khớp chia đều n đoạn, trọng số hoà quanh khớp, đoạn đầu
+  hoà nửa vào xương cha (vai, hông mềm). Soi `rig/luoi.png` (lưới, màu trọng số, xương).
+- **Animation** viết bằng hàm thời gian (`curve` khoá có đường cong), nướng 30 khung/giây: chân giải IK (bàn chân bám đất, bước
+  lao có nhấc cong); chuỗi mềm chạy lò xo đuổi theo dáng động học (độ cứng giảm ra ngọn; vải cứng hơn đuôi kẻo bay ngang như cờ);
+  khoá dày lược RDP. Mọi dao động idle bằng 0 ở t = 0. Không xoay cả người: cong lưng chia 3 đốt (`bend`), dời hông, bước chân.
+  **Vũ khí theo góc thế giới** (`aim`: tự tính góc cổ tay): giơ vũ khí lệch sang phải đầu, không dựng trước mặt (đại đao tay cầm
+  giữa ngực phải giơ cánh tay ít hơn, đao nghiêng phải). Hiệu ứng: `fx_on` (hiện, đậm dần, tan dần), cột nước = ảnh tia nước xoay
+  90°, lấp lánh và bong bóng gắn mũi vũ khí.
+- **Tiến hóa nối liền**: rig dạng k gộp rig dạng k+1 (`merge_next`, xương `n_` dưới xương `evo` co theo tỉ lệ chiều cao hai dạng,
+  slot vẽ sau). Clip `evolve`: dạng k nện vũ khí, nước dâng lốc, đổi dạng ngắn (0,3 s) lúc lốc phía trước đậm nhất, dạng sau lớn dần,
+  nước vỡ, gầm, rồi `post` hoà về đúng khung đầu clip idle dạng sau. Các clip trận trên rig gộp ẩn slot `n_`. HeroViewer giữ khung
+  cuối tới khi sticker dạng mới xong: hai hình trùng khít nên không giật.
+- **Game**: `AolaActor.ShowTime` vẽ .atomik theo thời gian liên tục (60 khung/giây màn hình), hình aola vẫn theo bậc 25 khung.
+- Lệnh: `D:/spine-venv/Scripts/python -I ArtGen/Spine/thuy_long.py cut k | place k [mảnh] | rig k | all | show k clip t1,t2 [follow]`
+  (`show` dựng khung lớn từ `rig/baked.pkl`, khỏi nướng lại). `all` dựng dạng 3 trước (dạng k cần dạng k+1 cho tiến hóa).
+
+## 12. Tướng .atomik từ MỘT ảnh liền (cách chuẩn từ 2026-11-08 sáng: Thủy Long sửa lỗi, Tám Tay)
+
+Người dùng chê bản ghép tờ mảnh (mục 11): lỗi nhiều (khe trắng giữa đầu, mào, cổ; nắm tay vẽ lệch; viền sticker thắt vòng), dặn
+"không cần tách nhiều bộ phận, gen liền cũng được". Từ đây **chỉ gen concept trọn con một ảnh**, rig thẳng từ ảnh đó.
+- **Ảnh**: dáng rig được (mục 1): tay chân tách thân, chân không chéo, **vũ khí không vắt qua người** (vũ khí dài dựng bên phải
+  người), không đường đất. Gói prompt mẫu: `build_tam_tay.py` (tướng mới, đính Thủy Long dạng 1 làm mốc nét), `build_thuy_long.py
+  luot_1_lien` (vẽ lại concept đã duyệt, chỉ đổi tư thế).
+- **Bộ dựng chung** `ArtGen/Spine/thuy_long_lien.py` (tướng khác cấu hình lại như `tam_tay.py`: `CFG`, `LAYERS`, `JD`, `MARKD`,
+  `OVERRIDE`, `CLAMP`, `CHAINS`, `PARENT`, `LINEAR_Y`, `FULL_SHEET`, `WARM_FIX`):
+  - nền: trắng nối mép ảnh; xoá nét đất mảnh (trên dưới đều trắng); khe trắng kín > 3000 px là nền;
+  - **vùng từng phần**: loang đều 1 px mỗi bước từ hạt giống trong vùng màu, **nét mực (độ sáng TB < 72) là tường**; watershed
+    loang dọc theo nét mực nên kéo viền chân theo vải (đã bỏ). Hạt giống: mảnh khớp cũ co 8 px (nếu có) hoặc đường xương / đa
+    giác kẻ tay đọc trên ảnh kẻ lưới (`JD` khớp, `MARKD` hạt giống). Pixel chưa có nhãn lấy **nhãn gần nhất**
+    (`fill_nearest`, đừng giãn ảnh lấy nhãn số lớn: xúc tu này nuốt xúc tu kia). Lọc đa số 7x7, bỏ mẩu < 500 px; `OVERRIDE` ép
+    vùng, `CLAMP` giới hạn phần trong đa giác (vải ăn sang dải chân thì khi vải bay kéo theo dải chân);
+  - **ít lớp** (sau → trước), ví dụ: đuôi, tay sau, chân sau, chân trước, mào/bờm (lớp riêng: chung lưới với đầu thì mào lắc xé gáy),
+    thân + đầu (Tám Tay: đầu lớp riêng vì râu xúc tu buông trước ngực), vải, tay trước + vũ khí + giáp vai. Áo choàng lộ rời rạc:
+    dựng **cả tấm** (bao lồi ∩ hình), phần khuất lát vân sáp thật của áo choàng;
+  - lớp dưới **mọc thêm** n px dưới các lớp trên, vẽ bù từ màu chính lớp (TELEA), mép mượt, kẻ nét mực dọc mép (lúc nghỉ khuất);
+  - trọng số: phần chuỗi theo khoảng cách đi trong hình từ khớp đầu, khớp giữa lấy đúng khớp kẻ (`chain_w`), hoà quanh khớp và vào
+    xương cha; phần cứng (nắm tay, bàn chân, vũ khí, giáp vai) 100% một xương hoặc chia (giáp vai to: 65% ngực);
+  - súng, pháo: góc vũ khí theo **trục nòng** (`JD[k]["axis"]`), không theo tay cầm → miệng nòng, kẻo tia nước bay chếch.
+- **Lò xo**: mào/bờm dài và áo choàng cứng hơn và giới hạn góc văng (`maxang` trong `longrig.Springs`), kẻo bờm văng ngang thành dải.
+- **Soi** (bắt buộc): `rig_lien/nhan.png` (bản đồ vùng trên ảnh), `lop.png` (từng lớp, dải vẽ bù), khung lớn `show` ở các pha
+  nhanh nhất (lao, bắn, trúng đòn): tìm sợi viền bị lớp khác kéo theo, mẩu vũ khí dính chân, mảng vẽ bù lộ ra.
+- Clip dùng chung tên xương nên tướng thiếu mào, vải, áo choàng vẫn chạy: `clean()` bỏ khoá của xương, slot, hình không có.
+- Lệnh: `D:/spine-venv/Scripts/python -I ArtGen/Spine/thuy_long_lien.py nhan k | rig k | all | show k clip t1,t2 [follow]`;
+  Tám Tay `ArtGen/Spine/tam_tay.py` cùng lệnh (`all` dựng dạng 2 trước).
+- Unity: `heroes.json` đổi `aola` của dạng, menu `PokiClash/Nhập dữ liệu`, `PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng`.
+  Nạp lại `.atomik` khi Editor đang Play: `AtomikPose.Stale` báo, `AolaActor` dựng lại (trước đó văng IndexOutOfRange mỗi khung).
+
+## 13. Thú huyền thoại rig đơn giản kiểu Clash of Critters (đảo Thủy, 2026-11-08 chiều)
+
+Người dùng dặn:
+- thú huyền thoại hơi chibi kiểu Pokémon, style cũ (bút mực, sáp màu, tô phẳng);
+- dạng sau dữ hơn nhưng không quá; hạn chế dạng người;
+- animation đơn giản, ít khớp, hiệu ứng bù vào; càng gần boss cuối càng đẹp.
+
+Các bước:
+- **Concept:** `ArtGen/Spine/build_beasts.py [id]`. Ảnh 1536x1024, ảnh mẫu nét là 2 concept chibi đã duyệt cùng bản đồ thế giới. Dạng k > 1 đính ảnh các dạng trước. Gen bằng `gen.py`; dạng chưa có ảnh dạng trước thì chưa dựng.
+- **Rig:** `beast.py <id> grid|nhan|rig|all|show <k>`, cấu hình từng dạng ở `beasts_cfg.py`.
+  - Xương: root, move (lao, nhảy), shadow, ground (bàn chân bám đất), base (ở đất: nghiêng, nén giãn), body (một khối), head (cứng), phụ kiện cứng (`ear*`, `wing*`, `claw*`, `arm*`, `bell*`, `tuft*`), đuôi một chuỗi 1-3 đốt.
+  - Chân (phần tên `leg*`): nửa trên theo body, bàn chân theo ground, chân tự giãn, co; không IK.
+  - Đầu liền thân (chim, cá mập) dùng kind `("soft", "body", "head", p0, p1)`.
+  - Đạo cụ cứng theo xương tay: `("rigid", "arm_f")`.
+- **Clip:** khoá tay, không lò xo. Chuyển động phụ (đuôi, tai, chuông) trễ, ngược chiều độ nghiêng thân.
+  - idle 2 s: nhún nén 3%, đuôi trễ từng đốt, tai ngược pha, một cú giật tai.
+  - Đòn đánh kiểu lao (pounce, ram, bite, claw, smack, slam): lao 0,55H, trận kéo tới 72% quãng.
+  - Đòn đánh kiểu xa (song, breath, roar): dời dưới 0,2H, trận tự nhún tới.
+  - Mọi đòn: lấy đà 0,3 s, ra đòn 0,12 s, khựng 0,1 s.
+  - cast: tụ cầu ở miệng (điểm `mouth` là chỗ bắn tia).
+  - skill leap, dash hoặc summon: cả ba đều lướt tới để hiệu ứng lớn rơi đúng chỗ đối thủ. Phải có `lunge: ["skill"]`.
+  - evolve: lốc nước, đổi dạng, khung cuối khớp idle dạng sau.
+- **Hiệu ứng:** `build_fx_beasts.py`, tờ 1536x1024 chia lưới 3x2 ô 512 px, mỗi ô một hình. `--cat` cắt theo ô ra `inbox/fx/<id>_<tên>.png`.
+  - Gắn qua `"fx"` của tướng: `fx_hit`, `fx_hit2` (đòn), `fx_orb`, `fx_charge` (cast), `fx_big` (`"up"` là đáy ở đất), `fx_big2`, `fx_wave`, `fx_ground`, `fx_p` (hạt văng `burst()` có biến thiên).
+  - `skill_fx.drop` cho vật rơi từ trên (chuông, tảng băng).
+  - Boss cuối thêm tờ thứ hai (`<id>_b`).
+- **pixelfx** (`D:/_ref/pixelfx`) là pixel art có lớp sáng cộng dồn. Chỉ học cách diễn: đà ngược chiều, khựng lúc chạm, hạt nhanh vào chậm ra rồi tan. Không lấy glow, luật game vẫn tô phẳng.
+- **Bẫy đã gặp:**
+  - mảng trắng khép kín lớn (tròng mắt, lông kem, ngọc trai) bị `Q.load` coi là khe nền. `beast.load` trả lỗ về hình nếu có vân hoặc ngả màu (giấy trắng thật là ~254, không vân). `keep`, `drop` ép tay.
+  - lưới `mesh_mask` chỉ lấy viền ngoài nên bỏ trống vùng có lỗ (dây đàn mất). Lưới phải dựng trên hình đã lấp lỗ, độ trong của ảnh vẫn giữ khe.
+  - tai, đuôi xoay cùng chiều thân làm văng quá đà. Chuyển động phụ phải ngược chiều, trễ.
+  - hạt giống chân đặt sát bụng làm chân ăn mất bụng: đặt thấp, gần bàn chân.
+
+## 15. Một lưới liền, chiêu đa dạng (2026-11-09, cách chuẩn từ nay, thay mục 14)
+
+Người dùng chê bản ghép lớp (mục 13, 14) lỗi nhiều: vệt khe, cắt cụt, đuôi nứt. Dặn gen một con nguyên chân tay đuôi, chỉ tách vũ khí, cánh khi thật cần; chiêu không được toàn "nhảy lên rồi ra chiêu".
+
+- **Rig:** `beast.py` có `ONE = True`.
+  - Cả con là MỘT lưới (lớp `main`). Trọng số mỗi đỉnh là tổng có trọng của các vùng theo độ thuộc vùng (`membership`: lan 3x3 chỉ trong hình, dải hoà `BLEND` px). Cấu hình vùng, khớp vẫn ở `beasts_cfg.py` như mục 13.
+  - Khe giấy trắng giữa hai bộ phận (`drop_gaps`) thành trong suốt, lưới vẫn phủ qua (cắt lưới theo khe làm gốc đuôi rách răng cưa).
+  - Đầu xoay nhân `HEADK` 0,55; đuôi idle nhân 0,6; gốc chuỗi hoà vào cha tới 30% chiều dài.
+  - Lưới chỉ lấp lỗ nhỏ (`fill_small_holes`, dưới 0,006·H² px rig); khoảng trống lớn (giữa đuôi và thân) để trống, kẻo đuôi lắc kéo tam giác thành vệt sọc. Đàn có dây mảnh giữa các lỗ khai `"mesh_fill": "all"` (Mi Nhi).
+  - `cut_gaps`: bỏ tam giác vắt qua chỗ trong suốt mà các đỉnh thuộc hai bộ phận khác hẳn nhau (độ giống trọng số < 0,5), như chóp đuôi sát móng vuốt.
+  - Phần trong `"sep"` của dạng thành lớp riêng sau/trước (mọc thêm, loang màu như cũ). Chỉ dùng khi vũ khí, cánh che thân mà phải cử động mạnh.
+- **Xương:**
+  - `spin` giữa thân (cha của `ground` và `base`): lăn, lật quất đuôi, trượt bụng.
+  - `paw`: chân trước (tự chọn `leg_fn`/`leg_f`, khai `"paw"` được) xoay cả chân quanh vai, vẽ trên cùng (đá, vồ quét qua trước vải, thân; lúc đứng không chồng nên không đổi hình).
+  - `flyp_<đồ>` (khai `"throw"`): đồ bay ném được, con của `move`.
+  - `far` (con của root, dáng gốc trước mặt 0,9H, cao 0,45H), `fp*` hạt, `fly0..4` đạn từ miệng, `flyw` sóng đất.
+- **Game:** `game.far` liệt kê clip có hiệu ứng ở xa. `AolaActor.FarAtomik` dời `far` tới tâm thân đối thủ và `fly*` theo quãng đã bay (x so với chỗ xuất phát). Clip đánh xa phải dời `move` dưới 0,15H để trận không coi là lao.
+- **Kiểu đòn** (`attack`, theo dạng được): `bite`, `ram`, `claw`, `smash`, `swipe`, `punch`, `kick`, `tailwhip`, `spin`, `song`, `breath`, `roar`, `throw`.
+- **Kiểu chiêu cuối** (`skill`): `erupt`, `storm`, `barrage`, `summon_prop`, `shockwave` (đứng tại chỗ, `far`); `charge`, `spin_dash`, `slide`, `combo` (lao, `lunge`). `motion` chọn dáng tụ lực: `stomp`, `roar`, `howl`, `claws`, `wings`, `rear`.
+- `game_info` tự tính `lunge`, `far` theo kiểu. Vòng tụ lực kiểu mới chỉ vòng sau, nhạt, không khiên (khiên, vòng trước che kín dáng).
+- **Soi:** nền xám (`render(..., bg=(150,150,150))`) để thấy vệt trắng, chỗ hở. Soi khung lúc xoay, lật, trượt và lúc đuôi lắc mạnh nhất.
+
+## 14. Gen bộ phận SAU khi rig (đảo Mộc, 2026-11-08 tối; đã bỏ, xem mục 15)
+
+Người dùng dặn: gen một con hoàn chỉnh, rig xương, sau đó mới gen thêm bộ phận phục vụ animation. Lý do: loang màu phần bị che làm "ghép lệch".
+
+Các bước:
+1. **Concept:** đảo Mộc lấy theo concept đã duyệt của từng dạng (`ArtGen/Heroes/inbox/<id>_<k>/concept_duyet.png`), vẽ lại ở dáng rig được bằng `ArtGen/Spine/build_moc.py`. Dạng sau đính dạng trước (`L1_duyet.png` nếu Claude đã chọn bản gen lại).
+2. **Rig:** cấu hình vùng, khớp ở `beasts_cfg.py`, soi `nhan.png`.
+3. **Gen bộ phận:** `build_parts.py <id> <k>` sinh `gui_gpt/<mã>/duoi1.txt`, `duoi2.txt` kèm ảnh hướng dẫn (phần cần xoá tô hồng).
+   - Lớp dưới 1: xoá mọi lớp trước thân, vẽ đủ thân.
+   - Lớp dưới 2: xoá cả thân, vẽ đủ phần sau thân (chân xa, đuôi, cánh xa).
+   - GPT vẽ trên đúng khung 1536x1024.
+4. **Dựng:** `beast.py <id> all` tự lấy ảnh lớp dưới:
+   - căn bằng ECC nhưng giữ "không dời" nếu căn không tốt hơn hẳn; dời quá 8 px thì bỏ phép căn; tương quan dưới 0,4 thì bỏ ảnh;
+   - lớp thân dùng lớp dưới 1, các lớp sau thân dùng lớp dưới 2;
+   - dải mọc thêm rộng gấp 3 lấy hình GPT; chỗ GPT bỏ trắng vẫn loang màu, nên không bao giờ hở.
+
+Bẫy:
+- Khe giấy trắng nhỏ (dưới 3000 px) giữa hai bộ phận thì `drop_gaps` bỏ khỏi hình. Lòng mắt, răng chỉ giáp một bộ phận nên giữ.
+- Mây, bờm, chùm đuôi trắng viền hở: không lấp được bằng code (lấp ra khối vuông). Dặn GPT tô kem `#F4EEDC` hoặc xanh xám nhạt `#DDE9EE` và khép viền, rồi gen lại.
+- Codex từ chối ảnh lớp dưới: gửi lại với `--note` ("harmless cartoon art edit of our own game character...").
+- Con bay: `"hover": True` ở tướng, `"ground"` đặt dưới thân. Idle nhấp nhô, bóng co theo.

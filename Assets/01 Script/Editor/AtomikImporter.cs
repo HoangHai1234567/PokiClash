@@ -15,7 +15,9 @@ using UnityEngine.SceneManagement;
 
 namespace PokiClash.EditorTools
 {
-    [ScriptedImporter(2, "atomik")]
+    // 3 (2026-11-08): nén atlas theo nền tảng đang build (ASTC 8x8 Android/iOS như atlas tướng aola, DXT5 máy tính khi cạnh chia
+    // hết cho 4); đọc bản 2 (độ đậm slot, thông tin trận) qua JsonUtility như các trường khác.
+    [ScriptedImporter(3, "atomik")]
     public sealed class AtomikImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
@@ -45,6 +47,12 @@ namespace PokiClash.EditorTools
             tex.filterMode = FilterMode.Bilinear;
             var icon = MakeIcon(asset, tex, 128);  // icon trong cửa sổ Project: hình con ở tư thế gốc
             icon.name = nm + "_icon";
+            // atlas RGBA32 không nén tốn ~15 lần ASTC (con mận 493 KB so với ~32 KB): nén theo nền tảng; truy cập selectedBuildTarget
+            // làm kết quả nhập phụ thuộc nền tảng, đổi nền tảng thì Unity tự nhập lại
+            var target = ctx.selectedBuildTarget;
+            bool mobile = target == BuildTarget.Android || target == BuildTarget.iOS;
+            if (mobile) EditorUtility.CompressTexture(tex, TextureFormat.ASTC_8x8, TextureCompressionQuality.Best);
+            else if (tex.width % 4 == 0 && tex.height % 4 == 0) EditorUtility.CompressTexture(tex, TextureFormat.DXT5, TextureCompressionQuality.Best);
             tex.Apply(false, true);
             // Sprites/Default nhân alpha trong shader: hợp atlas alpha thường (không nhân trước)
             var mat = new Material(Shader.Find("Sprites/Default")) { name = nm + "_mat", mainTexture = tex };

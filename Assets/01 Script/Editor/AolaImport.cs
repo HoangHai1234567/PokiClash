@@ -392,6 +392,12 @@ namespace PokiClash.EditorTools
                             throw new OperationCanceledException();
                         var dir = Path.Combine(reskin, form);
                         var old = AssetDatabase.LoadAssetAtPath<AolaAnim>(AnimPath(form));
+                        // dạng .atomik (rig xương riêng, gắn bằng menu của Editor/AtomikForms): không lấy từ AolaRipper, giữ nguyên
+                        if (old && old.atomik)
+                        {
+                            kept.Add(form);
+                            continue;
+                        }
                         var mark = "";
                         if (!File.Exists(Path.Combine(dir, "export", "anim.json")))
                         {

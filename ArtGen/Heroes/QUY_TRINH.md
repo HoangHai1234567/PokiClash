@@ -445,3 +445,134 @@ Làm tiếp:
    - menu `PokiClash/Tướng/Nhập dạng aola có nguồn mới hơn bản trong project` (AolaImport tự thu hình ít khung);
    - menu `PokiClash/Tướng/Xoá dạng aola không còn tướng nào dùng` (bỏ 24 `goc_*` Mộc khỏi build);
    - chụp thử `PokiClash/Tướng/Chụp thử prefab tướng`, rồi tour trận.
+
+## 18. Một lưới liền, chiêu đa dạng: làm lại hai đảo Thủy, Mộc (2026-11-09 đêm, thay mục 17 phần ghép)
+
+Người dùng xem bản ghép lớp: lỗi nhiều (vệt khe ở chân Thanh Long, tay áo Thỏ Hoàng cắt cụt, đuôi Tiểu Y nứt). Dặn:
+- gen một con nguyên chân tay đuôi, đừng gen tách; rig xương vào cho idle là được; chỉ tách bộ phận đặc biệt (vũ khí, cánh) khi cần;
+- chiêu đang toàn "nhảy lên xong ra chiêu": linh hoạt lên (đánh bằng đồ như bàn tay gỗ Thỏ Hoàng, đấm, đá...), không để giống nhau;
+- ủy quyền làm và sửa hết, không cần hỏi.
+
+Đã làm:
+- **Không gen lại ảnh:** concept đã duyệt của 48 dạng vốn là một con liền. Lỗi đến từ khâu cắt lớp rồi vá phần bị che.
+- **Một lưới** (`beast.py`, `ONE = True`): cả con một lưới, trọng số hoà mềm giữa vùng (`BLEND` 26 px, lan trong hình, không nhảy qua khe), đầu xoay ít (`HEADK`), đuôi lắc nhẹ, gốc chuỗi hoà vào thân dài hơn. Khe giấy trắng giữa hai bộ phận thành trong suốt (không bị kéo thành vệt). Không còn ảnh lớp dưới, không loang màu. Phần ghi `"sep"` của dạng mới là lớp riêng (chưa dạng nào cần).
+- **Xương mới:** `spin` (xoay, lật cả con, chân bám đất theo), `paw` (chân trước để vồ, đá: cả chân xoay quanh vai), `flyp_<đồ>` (đồ bay ném được: bùa, hạt cánh quạt, bàn tay gỗ), `far` + `fly*` + `flyw` (hiệu ứng ở chỗ đối thủ, đạn, sóng đất).
+- **Game** (`AolaActor.FarAtomik`, `AtomikGame.far`): clip khai trong `game.far` thì xương `far` dời tới tâm thân đối thủ, xương `fly*` dời theo quãng đã bay. Chiêu đứng tại chỗ vẫn trúng đúng chỗ đối thủ, không phải lao, nhảy.
+- **Kiểu đòn, chiêu** (`beasts_cfg._STYLE`): mỗi dòng một cặp riêng, không kiểu nào nhảy. Thủy: Tiểu Y vồ / dậm gọi lốc nước; Cánh Cụt đập chảo, dao / trượt bụng; Mi Nhi hát / loạt nốt; Ma Kết húc / lao húc hai cú; Vây Lam cắn / liên hoàn; Kuba đấm càng / nện càng gọi gai pha lê; Thương Lam quất đuôi / mưa băng rơi; Huyền Vũ phun / sóng đất; Lam Quân gầm / chồm gọi chuông rơi. Mộc: Tiên Lá lăn, đấm, chém / loạt lá; Hoa Nhụy húc, đấm / gầm gọi hoa nở; Dê Hoa húc / lao húc; Bờm Lá vồ / sóng dây leo; Phong Linh ném hạt / vỗ cánh gọi lốc; Gió Lốc quất đuôi / loạt lưỡi gió; Long Vuốt vồ, đấm / liên hoàn; Thỏ Hoàng đá / gọi bàn tay gỗ khổng lồ giáng xuống; Mộc Tinh cắn / tru gọi gai pha lê; Thanh Long phun / gọi sét.
+
+Lệnh: `D:/spine-venv/Scripts/python -I ArtGen/Spine/beast.py <id> all`. Chi tiết ở skill `pokiclash-spine-rig` mục 15.
+
+## 17. Đảo Mộc (.atomik, gen bộ phận sau khi rig), 2026-11-08 tối
+
+Người dùng dặn:
+- concept dựa trên tướng đã có;
+- gen một con hoàn chỉnh, rig xương, rồi mới gen thêm bộ phận phục vụ animation (bản đảo Thủy "ghép vài bộ phận vẫn lệch" do loang màu phần bị che).
+
+Các bước:
+- **Concept:** `ArtGen/Spine/build_moc.py` vẽ lại đúng concept đã duyệt của từng dạng ở dáng rig được.
+- **Rig:** `beast.py`, cấu hình ở `beasts_cfg.py`.
+- **Bộ phận:** `build_parts.py <id> <k>` sinh hai file prompt "lớp dưới" kèm ảnh tô hồng phần cần xoá. GPT vẽ đủ phần bị che trên đúng khung; `beast.py` tự căn và chỉ lấy vùng bị che.
+- **Hiệu ứng:** `build_fx_beasts.py`, mỗi tướng một tờ 3x2.
+- Chi tiết ở skill `pokiclash-spine-rig` mục 14.
+
+Không chạy menu nhập aola cho các dòng này. Dạng aola cũ `goc_*` của Mộc còn trong Resources.
+
+## 16. Thú huyền thoại đảo Thủy (.atomik, rig đơn giản kiểu Clash of Critters), 2026-11-08 chiều
+
+Người dùng dặn:
+- 9 dòng còn lại của đảo Thủy vẽ lại thành thú huyền thoại hơi chibi kiểu Pokémon, style cũ;
+- dạng sau dữ hơn nhưng không quá; hạn chế dạng người;
+- animation đơn giản, hiệu ứng bù vào; càng gần boss cuối càng đẹp.
+
+Các dòng:
+- Tiểu Y: cáo nước.
+- Cánh Cụt: cánh cụt băng làm bếp.
+- Mi Nhi: chim đàn lia.
+- Ma Kết: dê biển.
+- Vây Lam: cá mập bốn chân.
+- Kuba: cua pha lê.
+- Thương Lam: rồng băng.
+- Huyền Vũ: rùa đuôi rắn.
+- Lam Quân: Bồ Lao chuông đồng.
+
+Id, tên, chỉ số, thẻ giữ nguyên; mã hình `<id>_<k>` trong `heroes.json`.
+
+Cách làm:
+- Concept: `ArtGen/Spine/build_beasts.py`.
+- Rig: `beast.py`, cấu hình ở `beasts_cfg.py`.
+- Hiệu ứng: tờ 3x2, `build_fx_beasts.py`.
+- Chi tiết ở skill `pokiclash-spine-rig` mục 13.
+
+Không chạy menu nhập aola cho các dòng này (sẽ đè). Dạng aola cũ `thuy_1319`…`thuy_2955` vẫn còn trong Resources: `BanThuGame.cs` còn dùng `thuy_1319`, `thuy_1320`.
+
+## 15. Tướng .atomik dựng từ MỘT ảnh liền: Thủy Long sửa lỗi, Tám Tay vẽ lại (2026-11-08 sáng, máy ổ D)
+
+Người dùng xem Thủy Long bản ghép 17 mảnh (mục 14) trong game: **"lỗi rất nhiều, không cần thiết phải tách thành quá nhiều bộ phận,
+gen liền cũng được"**. Lỗi: khe trắng giữa đầu, mào, cổ, vai (mảnh GPT vẽ rời ghép không khít, viền sticker chạy vào trong), nắm tay
+cầm giáo vẽ lệch, viền sticker thắt vòng ở ngón chân, ống tay. Rồi người dùng dặn: animation đang ổn, sửa hết lỗi; xong làm tiếp con
+sau theo cùng tiêu chí (tự thiết kế, chiến, không cute, gen liền); tham khảo Clash of Critters (`D:/CrittersRipper`, chỉ xem).
+
+Cách làm mới (skill `pokiclash-spine-rig` mục 12), **thay cho tờ mảnh**:
+- Codex chỉ vẽ **concept trọn con một ảnh** ở dáng rig được: tay chân tách thân, vũ khí không vắt qua người (vũ khí dài dựng bên
+  phải người). Dạng 3 Thủy Long vẽ lại đúng thiết kế cũ, chỉ đổi tư thế cầm đao (`build_thuy_long.py`, `luot_1_lien`).
+- `ArtGen/Spine/thuy_long_lien.py` (bộ dựng chung) cắt ảnh thành ít lớp, ranh giới bám nét mực, lớp dưới vẽ bù phần bị che, mỗi lớp
+  một lưới trọng số; tên xương như bản cũ nên **giữ nguyên animation** (người dùng bảo animation ổn). Mặt nhắm mắt, mặt gầm của bản
+  mảnh bỏ (ảnh liền không có).
+- Thủy Long: dạng 1, 2 dùng lại concept đã duyệt `L1_duyet.png` (hạt giống vùng lấy từ mảnh khớp cũ); dạng 3 dùng
+  `inbox/thuy_long_3/tai_ve/L1_lien.png` (khớp, hạt giống kẻ tay). Ra `inbox/thuy_long_<k>/rig_lien/` (`lop.png` từng lớp, `nhan.png`
+  bản đồ vùng, `khung.png`, `anim_*.gif`, `xem_*.png`); `.atomik` và chân dung đè bản cũ trong `Resources/thuy_long_<k>/`.
+- **Tám Tay** (`tam_tay`, 2 dạng như dữ liệu): bạch tuộc chiến binh pháo thủ bong bóng, Claude tự thiết kế, tự duyệt
+  (`build_tam_tay.py`, `inbox/tam_tay_<k>/tai_ve/L1_lien.png`). Dạng 1 **Tám Tay Bong Bóng**: da vàng cát vòng xanh coban, sẹo trên
+  đầu, mũ nồi đỏ huy hiệu vỏ sò, đai chéo ba lựu đạn bong bóng thủy tinh, súng hoả mai vỏ ốc anh vũ. Dạng 2 **Tám Tay Pháo Thủ**: mũ
+  trụ đồng kiểu thợ lặn có ống thở, thắt lưng đạn bong bóng, pháo vỏ ốc anh vũ nòng đồng. Rig, clip: `ArtGen/Spine/tam_tay.py` (đứng
+  bắn, không lao: bắn có giật lùi, chiêu mana tụ bong bóng ở miệng nòng, chiêu cuối bắn ba phát; trúng đòn, tiến hóa dùng chung với
+  Thủy Long). `heroes.json`: dạng `tam_tay_1`, `tam_tay_2` (thay `thuy_1053`, `thuy_1054`; thư mục cũ vẫn còn).
+
+## 14. Thủy Long: dòng Giọt Sương vẽ lại cả 3 dạng, rig lưới trọng số .atomik (2026-11-08, máy ổ D, thay mục 13)
+
+Người dùng xem Rồng Giọt (mục 13) và dặn: animation mềm mại hơn, hạn chế xoay nhân vật, để ý tiểu tiết, sáng tạo hơn, rig xương
+kỹ hơn; tiến hóa phải nối tiếp, khi biến đổi phải hiện ra dạng sau chứ không giật cục; đổi sang Spine là để mượt chứ không làm
+kiểu cũ; làm lại 3 dạng, đổi tạo hình, không bám aola, một chiến binh nước khác có 3 dạng, chiến hơn, không cute. Người dùng chọn
+**long chiến binh**, cho đổi tên, rồi ủy quyền auto mode (đi ngủ).
+
+Thiết kế (concept Claude tự duyệt, `ArtGen/Spine/inbox/thuy_long_<k>/L1_duyet.png`): rồng nước đứng hai chân, đầu khoảng 1/5 chiều
+cao, vảy xanh biển sẫm vằn xanh than, mào và vây xanh mòng két, yếm xanh nhạt, mắt hổ phách đồng tử khe, răng nanh, sừng kem.
+- Dạng 1 **Long Binh**: gầy rắn, sừng ngắn, giáp da (đệm vai, bao cổ tay, đai, dây đeo chéo), dải vải thắt lưng, giáo tua xanh.
+- Dạng 2 **Long Kỵ Sĩ**: sừng dài, giáp ngực vảy thép viền đồng, giáp vai, găng, ống chân thép, vạt áo, kiếm lưỡi nước cong.
+- Dạng 3 **Long Tướng**: sừng lớn vòng đồng, bờm vây, sẹo ngang mắt, giáp thép sẫm khắc sóng, hai giáp vai, áo choàng hoa văn sóng
+  gấu rách, đại đao lưỡi sóng.
+
+Đòn: giáo đâm (tia nước phụt ở mũi), kiếm chém chéo, đao bổ dọc (đất nứt vòng sóng); chiêu mana dựng vũ khí bên phải đầu tụ bong
+bóng nước ở mũi rồi chĩa tới (trận bắn tia từ mũi); chiêu cuối giáo nhảy cắm giáo phụt cột nước, kiếm lướt chém xuống rồi hất lên
+hai vệt, đao nhảy bổ; cả ba có lốc nước tụ lực, vòng sóng, sóng thần. Tiến hóa 3 s nối liền sang dạng sau (skill `pokiclash-spine-rig`
+mục 11). Game: `heroes.json` id `giot_suong` đổi tên Thủy Long, dạng `thuy_long_1..3` (cỡ 1,0 / 1,08 / 1,16); tên chờ duyệt
+(GD_Claude/12 câu 33). Dạng cũ `rong_giot`, `thuy_7..9` không còn ai dùng (xoá file thì chờ người dùng).
+
+## 13. Rồng Giọt: dạng 1 dòng Giọt Sương vẽ mới, rig xương riêng .atomik (2026-11-08, máy ổ D, đã thay bằng mục 14)
+
+Người dùng dặn 2026-11-08: gen một tướng mới thay Giọt Nước (`thuy_7`), gen các bộ phận hợp với animation, làm animation như trong
+game cộng thêm animation tiến hóa, lưu thành `.atomik` rồi thay Giọt Nước; gen gọi thẳng Codex. Người dùng chọn thiết kế "rồng
+con giọt nước" và nối clip tiến hóa vào nút Tiến hóa. **Đây là ngoại lệ của luật vẽ đè rig aola** (mục 2), chỉ cho dạng này;
+dạng 2 Tiên Sương, dạng 3 Sương Long vẫn là hình aola.
+
+Thiết kế (concept Claude tự duyệt, `ArtGen/Spine/inbox/rong_giot/L1_duyet.png`): rồng con mập đứng hai chân, đầu hình giọt
+nước to, đỉnh giọt xoăn thành mào nước; sừng nhú xanh nhạt, tai vây xanh nhạt gân xanh đậm; da xanh trời vằn xanh đậm; yếm
+kem nhiều đốt; cánh lưng như vây; đuôi to, chót đuôi là vây hình giọt nước; kiếm ngắn lưỡi thép nhạt rãnh xanh, chắn tay vỏ sò
+vàng. Mặt quả quyết, mày xếch, răng nanh nhỏ.
+
+Làm (chi tiết ở skill `pokiclash-spine-rig` mục 10):
+- Codex: `ArtGen/Spine/build_rong_giot.py` (gói `ArtGen/Spine/gui_gpt/rong_giot/`), 3 ảnh: hình trọn con dáng dễ rig, tờ 6 mảnh đầu,
+  tờ 13 mảnh thân (đầu khớp tròn thừa ra). Concept lần đầu có điểm sáng ở vây đuôi và tay trái chạm thân; lượt mảnh dặn tô phẳng
+  nên mảnh sạch.
+- Rig `ArtGen/Spine/rong_giot.py`, dựng `rong_giot_build.py`: 34 xương, 30 slot (17 mảnh, 3 mặt đầu, bóng, 11 slot hiệu ứng dùng
+  lại 8 ảnh FX dòng Giọt Sương), atlas 568x624 (ASTC 8x8 khoảng 89 KB trong bản build).
+- 6 clip: đứng (thở, mào, tai, cánh, đuôi lắc lệch pha, chớp mắt); trúng đòn (bật lùi, nhắm mắt, giọt nước bắn); đánh thường
+  (giơ kiếm bên phải đầu, lao tới bổ, sóng lưỡi liềm, nổ nước; trúng 0,44 s); chiêu mana (giơ kiếm tụ bong bóng nước ở mũi,
+  đâm tới, trận bắn tia từ mũi kiếm ở 0,5 s); chiêu cuối (lốc nước, nhảy lộn tới, bổ kiếm kèm sóng lưỡi liềm lớn, sóng thần, vòng
+  sóng mặt đất; trúng 1,04 s, có lao); tiến hóa 2,4 s (vòng sóng dưới chân, lốc nước, xoay người bay lên, bọc bong bóng, thu
+  nhỏ, bong bóng vỡ tung lấp lánh, khung cuối trống).
+- Unity: `heroes.json` dạng 1 `aola` = `rong_giot`; `AolaAnim.atomik` + `AolaActor` phát rig; menu
+  `PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng`. Soi bằng `PokiClash/Tướng/Chụp thử dạng .atomik (mọi clip)`, tour
+  `PokiClash/Thử/Giọt Sương ra trận...` và `PokiClash/Thử/Giọt Sương tiến hóa...`.
+- **Máy ổ E** kéo về: chạy `PokiClash/Nhập dữ liệu` (HeroDb), prefab và asset đã có trong git; đừng chạy menu nhập aola thường
+  để "sửa" Giọt Sương (menu bỏ qua dạng có atomik, nhưng vẫn nhập lại dạng aola khác từ máy E).

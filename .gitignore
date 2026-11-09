@@ -30,3 +30,8 @@ crashlytics-build.properties
 
 # bộ rig Spine thử nghiệm
 ArtGen/Spine/__pycache__/
+
+# file trung gian bộ rig .atomik (sinh lại từ ảnh GPT trong tai_ve/)
+ArtGen/Spine/inbox/*/rig/
+ArtGen/Spine/inbox/*/rig_lien/
+ArtGen/Spine/inbox/*/parts/

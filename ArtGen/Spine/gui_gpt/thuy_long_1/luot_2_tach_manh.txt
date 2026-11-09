@@ -1,0 +1,55 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Spine\inbox\thuy_long_1\L1_duyet.png: the hero in its puppet-ready pose, 1024x1536, white background. THIS is the drawing to cut up.
+image 2 = D:\PokiClash\ArtGen\Islands\refs\world_style.png: the game's hand-drawn map, 1024x1536; use ONLY its line and colouring style.
+image 3 = D:\PokiClash\ArtGen\Heroes\refs\style\parts_example.png: an example of a creature cut into separate puppet pieces laid out on white (glossy vector creatures from another source); learn ONLY the idea of "pieces laid out apart", never its designs or its glossy look.
+
+This turn makes THREE pictures, one after the other (steps A, B, C). They cut the hero of image 1 into the separate pieces of a 2D skeleton animation with bending limbs. Same character, same colours, same drawing style as image 1.
+
+PIECE RULES (for every piece):
+- Draw each piece COMPLETE, including the parts that were hidden behind other pieces in image 1.
+- Wherever a piece joins another piece (the JOINT end), continue it about 30 px past the joint with a rounded end, as if it slides under the neighbour piece. Draw the outline around that rounded end too. This hidden overlap keeps the puppet from showing gaps when the joint bends.
+- Keep the size, the angle, the bend and the direction each piece has in image 1 (same scale as image 1). Do not rotate, mirror or straighten pieces.
+- Leave at least 60 px of pure white between any two pieces; pieces never touch or overlap each other.
+- Each piece only once. No shadows under the pieces, no text, no numbers, no labels, no frame, no guide lines.
+
+LINE AND COLOUR: the game's hand-drawn look of the style image, NOT the glossy look of the design image: drawn by hand on paper with a dark-brown ink pen (#2B2118), an outline about 7 px thick on this canvas, the same weight on every edge, slightly wobbly like a real pen; every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner than the outline), kept inside the outline. Clean and appealing, neither a crude scribble nor overly detailed.
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker side, no shadows of any kind (no cast shadow, no shadow under the figure, on the ground or on the background), no white highlights or shine spots, no gloss, no glow, no rim light, no gradients, no 3D look. The only white allowed is one small catchlight dot in each eye. A darker tone appears only where the design itself has a darker colour.
+Plain pure-white background (#FFFFFF): no paper colour or paper grain outside the drawing, no white border or sticker outline around the figure or its pieces (the game adds that itself). No text, no labels, no frame.
+
+==================== STEP A: head pieces ====================
+SAVE (step A): save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\thuy_long_1\tai_ve\L2a_head.png
+(if the name exists, add _2, _3 ... ; do not edit, move or delete any other file)
+CANVAS: landscape 1536x1024, pure white. Four pieces in one row, left to right:
+ A1. HEAD: the head with its horns, exactly as in image 1, but WITHOUT the teal fin crest from the top and back of the head. Where the crest was attached, draw the plain head surface (closed outline). The neck end at the bottom is a rounded stub that would tuck into the torso.
+ A2. HEAD, EYES CLOSED: an exact copy of A1, same size and outline; the only change is that both eyes are closed (fierce closed-eye lines under the same heavy brows). Used for blinking.
+ A3. HEAD, ROARING: an exact copy of A1, same size and outline of the skull and horns; the jaw is opened wide in a battle roar showing the fangs (inside of the mouth dark red, tongue darker pink), eyes wide and furious.
+ A4. CREST: the teal fin crest from the top and back of the head, alone; its root end (joint, toward the head) extended as a rounded stub.
+
+==================== STEP B: limb pieces ====================
+SAVE (step B): save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\thuy_long_1\tai_ve\L2b_limbs.png
+(if the name exists, add _2, _3 ... ; do not edit, move or delete any other file)
+CANVAS: landscape 1536x1024, pure white. Eight pieces in two rows:
+Row 1 (top), left to right:
+ B1. ARM, viewer's LEFT: the whole arm from the shoulder to the wrist in ONE piece (upper arm + forearm, with the same slight elbow bend and the same armour as in image 1); the shoulder end and the wrist end are rounded joints.
+ B2. FIST, viewer's LEFT: the clenched fist with its claws; its wrist end a rounded joint.
+ B3. ARM, viewer's RIGHT: the whole arm from the shoulder to the wrist in ONE piece, same rules as B1, without the shoulder armour (that is a separate piece).
+ B4. HAND, viewer's RIGHT: the hand that holds the weapon, drawn closed around an EMPTY grip (no weapon in this piece), so the fingers wrap a gap where the weapon's grip will go.
+Row 2 (bottom), left to right:
+ B5. LEG, viewer's LEFT: the whole leg from the hip to the ankle in ONE piece (thigh + shin, same slight knee bend and armour as image 1); hip end and ankle end rounded joints.
+ B6. FOOT, viewer's LEFT: the clawed foot with a flat sole; its ankle end a rounded joint.
+ B7. LEG, viewer's RIGHT: same rules as B5.
+ B8. FOOT, viewer's RIGHT: same rules as B6.
+
+==================== STEP C: body pieces ====================
+SAVE (step C): save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\thuy_long_1\tai_ve\L2c_body.png
+(if the name exists, add _2, _3 ... ; do not edit, move or delete any other file)
+CANVAS: landscape 1536x1024, pure white. 5 pieces in two rows:
+Row 1 (top), left to right: C1 TORSO, C2 TAIL.
+Row 2 (bottom), left to right: C3 WEAPON, C4 SHOULDER ARMOUR, C5 CLOTH.
+ C1. TORSO: the body with its armour and belt, from the neck to the hips, WITHOUT the head, the arms, the legs, the tail, the shoulder armour, the hanging cloth. Complete it where those covered it: the neck end is a rounded stub that tucks under the head, the shoulders are rounded, the bottom includes the hips, rounded.
+ C2. TAIL: the whole tail with its fin(s); its root end (joint, toward the hips) extended as a rounded stub.
+ C3. WEAPON: the whole spear, including the part of the grip hidden by the hand in image 1; same angle as in image 1.
+ C4. SHOULDER ARMOUR: the brown leather shoulder pad of the arm on the viewer's RIGHT, alone.
+ C5. CLOTH: the dark-teal cloth sash that hangs from the front of the belt, alone, as it hangs in image 1; its top edge (joint, at the belt) straight.
+
+Check before saving each step: the right number of pieces (4 in A, 8 in B, 5 in C), none touching, every piece complete with a closed outline, flat colours, white background.
