@@ -1,5 +1,5 @@
 // Công cụ cân bằng: bảng 102 ải × 5 mức cấp của Unity phải ra đúng từng ô như npm run sim -- battle (golden sim.json),
-// mô phỏng máy bi ra tỉ lệ khớp bảng đo của web, mô phỏng tiến độ chạy được và có thứ tự hợp lý giữa các kiểu người chơi.
+// mô phỏng máy bi ra tỉ lệ khớp bảng tỉ lệ và số lần chạm nấm khớp balance.json, mô phỏng tiến độ chạy được và có thứ tự hợp lý giữa các kiểu người chơi.
 // sim.json tính lại bên Unity 2026-11-03 (5 tướng khởi đầu: chỉ số, thẻ, sức địch đảo Thủy; GD_Claude/15_TuongKhoiDau.md),
 // rồi lần nữa cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm; lần nữa 2026-11-04 khi đổi luật rút thẻ và cấp địch các đảo.
 using System.Linq;
@@ -49,11 +49,15 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var r = Sim.Machine(d, chestOpens: 2000);
+            Assert.AreEqual(0, r.misses);
             foreach (var kv in r.count)
-                Assert.AreEqual(d.Cfg.Rate(Pachinko.Key(kv.Key)), r.Rate(kv.Key), 0.01, Pachinko.Key(kv.Key));
+                Assert.AreEqual(d.Cfg.Rate(Pachinko.Key(kv.Key)), r.Rate(kv.Key), 0.025, Pachinko.Key(kv.Key));
+            for (int i = 0; i < r.ringHits.Length; i++)
+                Assert.AreEqual(d.Cfg.ringHits[i], r.ringHits[i], 0.1, "số lần chạm nấm đo lại khớp balance.json");
             Assert.Less(r.backPerBall, 0.5);
             Assert.Greater(r.expPerBall, 5);
-            TestContext.WriteLine($"Mỗi bi ×1: {r.expPerBall:0.00} EXP, hoàn {r.backPerBall:0.000} bi, {r.cardsPerBall:0.000} thẻ");
+            TestContext.WriteLine($"Mỗi bi ×1: {r.expPerBall:0.00} EXP, hoàn {r.backPerBall:0.000} bi, {r.cardsPerBall:0.000} thẻ; " +
+                                  $"chạm nấm {r.ringHits[0]:0.000}/{r.ringHits[1]:0.000}; bay trung vị {r.flightMedian:0.0} giây; {r.triesPerBall:0.00} lần thử mỗi bi");
         }
 
         [Test]

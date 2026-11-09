@@ -36,7 +36,7 @@ Research kết luận máy bi kiểu Critters đặt sai chỗ ở ClashMaster, 
 
 - **Một thanh "hũ sắp đầy"**: mỗi bi đổ một nấc, bắt đầu đã có sẵn vài nấc. Đầy hũ thì chắc chắn được 10 mảnh của một tướng tự chọn trong số tướng đã gặp.
 - **Không mở tướng chưa gặp.** Tướng mới đến từ thu phục; máy chỉ giúp nuôi. Thu phục vẫn là lý do để vượt ải.
-- **Canh lúc thả:** một mái chèo đung đưa trên đỉnh. Thả đúng lúc thì bi dễ vào giữa hơn một chút. Ghi rõ tác dụng này trên máy.
+- **Canh lúc thả:** một mái chèo đung đưa trên đỉnh. Thả đúng lúc thì bi dễ vào giữa hơn một chút. Ghi rõ tác dụng này trên máy. (Bỏ từ 2026-11-09: bàn chép máy tham khảo phóng bi lên làn phải, kết quả chọn theo bảng tỉ lệ, xem mục "Bàn chép y máy tham khảo".)
 - **Tiếng và hiệu ứng tỉ lệ với giá trị thật:** ô vàng chỉ kêu nhỏ; ô hiếm mới có kèn. Research ghi đây là cách chữa đã được chứng minh cho việc "lỗ mà tưởng thắng".
 - **In tỉ lệ lên mặt máy.** Apple buộc công bố tỉ lệ cho mọi thứ ngẫu nhiên bán bằng tiền.
 - **Thả nhiều bi một lúc** (×5, ×10) chỉ để nhanh, không nhân thưởng, không cần giữ bi mới mở. (Đề xuất ban đầu. Đã đổi 2026-11-05: mức cược mở theo số bi đang có, như Critters, xem mục "Cược theo số bi" bên dưới.)
@@ -54,7 +54,65 @@ Research kết luận máy bi kiểu Critters đặt sai chỗ ở ClashMaster, 
 
 Research đề xuất cho ClashMaster là bán vẻ ngoài. Với game này, đề xuất giữ hướng đó, và kiếm tiền ở chỗ khác: thẻ tháng, gói tướng có sẵn, vé ải hằng ngày.
 
-## Vật lý chép
+## Bàn chép y máy tham khảo (2026-11-09)
+
+Chủ dự án gửi ảnh chụp máy bi Critters, dặn "copy lại y hệt, kể cả phần vật lý". Mặt máy cũ (11 ô, két vàng, máng mây đung đưa,
+85 đinh) đã thay hẳn bằng bàn `table_01` của bản đục. Hình vẽ vẫn là bộ phận vẽ tay của mình, không lấy hình của game đó.
+
+**Hình học** (`Core/Pachinko.cs`, `Board.Build`): toạ độ lấy thẳng từ collider của prefab, 1 u = 78 đơn vị máy, khung máy vẫn 460 × 680.
+- Khung vòm `EdgeCollider2D` 26 điểm, có hốc nhọn ở trên phải.
+- 22 đinh r 0,15; nấm đỉnh r 0,35 lún nửa vào vòm; hai nấm lớn r 0,55.
+- Mái hai cánh (4 thanh 0,19 × 0,53), cốc dưới mái 0,80 × 1,21, đáy V hai thanh và ba núm.
+- 4 vách ô (thân 0,228, đầu tròn), 5 ô cảm biến. Bi r 0,081.
+- Hộp chữ nhật đổi thành viên con nhộng cùng dài, cùng dày. Cảm biến: bi chạm là vào, như trigger.
+
+**Vật lý:**
+- Vật liệu như cũ: nảy 0,8, nấm đỉnh 0,9; khung, vách, nấm lớn có ma sát 0,22; trộn kiểu Box2D.
+- Config của máy đó ghi `gravity 2, linerDrag 0`. Chạy thử với 2 u/giây² thì bi lơ lửng (trung vị 7 giây, 18 lần chạm đinh), nên hiểu là hệ số trọng lực: 2 × 9,81 u/giây², cản 0.
+- Kẹp tốc 4–14 u/giây. Va chậm dưới 1 u/giây thì không nảy.
+- Bước con 1/360 giây. Có lưới tra nhanh vật cản, cho ra đúng từng số như duyệt hết vật cản.
+- Bi không va bi.
+
+**Phóng:**
+- Bấm thả thì bi chạy lên làn ngoài mép phải. Làn chỉ là đường hình, chạy đều 22 u/giây.
+- Bi ra bàn ở hốc trên phải, bay ngang sang trái (180°), tốc = lực 650–680 × 0,016 = 10,4–10,9 u/giây.
+- Vị trí và hướng phóng thật không có trong asset (nằm trong Lua mã hoá). Hốc nhọn trên phải mở ra phía phải, khớp với làn nối vào đó.
+- Bay trung vị 3,1 giây, khoảng 11 lần chạm đinh.
+
+**Kết quả chọn trước, đường bi vẫn là vật lý thật:**
+- Vật lý thuần của chính bàn này cho cốc thẻ 11–22 % ở mọi hướng phóng, trong khi game đó công bố 3,3 %. Bản đục có `PinballRecordSystem`/`PinballReplaySystem`, nên gần như chắc game đó chọn kết quả trước rồi phát đường bi khớp.
+- Ở đây làm y như vậy (`Board.odds`): mỗi lần phóng chọn ô theo bảng `pachinko.odds`, rồi thử các lực phóng trong 650–680 tới khi đường bi thật rơi đúng ô.
+- Lực đã thử mà rơi ô khác thì giữ trong kho cho lần sau. Lúc rảnh, máy thử sẵn 2 đường mỗi khung (`Board.Warm`).
+- Trung bình 2 lần thử mỗi bi, khoảng 0,07 ms mỗi lần trên PC. 6.000 bi trong test: không bi nào trượt kết quả.
+- Vì đường bi chỉ phụ thuộc lực phóng nên bi không va bi. Đường thử và đường thật chạy cùng một hàm trên cùng máy, nên không lo lệch số thực giữa các máy.
+- Rời màn khi bi còn bay thì tính theo ô đã chọn cho bi đó.
+
+**Tỉ lệ và thưởng** (`balance.json`, `pachinko.odds`, `pachinko.rings`):
+
+| Ô (trái sang phải) | Tỉ lệ | Thưởng |
+|---|---|---|
+| Ngoài trái | 25,3 % | EXP 5 |
+| Giữa trái | 22 % | EXP 10 |
+| Ô khuất giữa đáy, dưới đáy V | 1,7 % | Rương vàng |
+| Giữa phải | 22 % | EXP 10 |
+| Ngoài phải | 25,7 % | EXP 5 |
+| Cốc dưới mái | 3,3 % | Rương bạc |
+
+- Số công bố của game đó cộng lại 99,6 %; 0,4 % còn thiếu chia vào hai ô ngoài.
+- **Vòng nấm** (thay vòng trứng, vòng khiên của game đó): mỗi lần bi chạm nấm cộng nấc theo cược; nấm trái đủ 25 nấc ra Rương bạc, nấm phải đủ 25 nấc ra +5 bi. Vòng lưu ở `SaveData.rings`.
+- Đo được trung bình mỗi bi chạm nấm trái 1,6 lần, nấm phải 0,95 lần (`pachinko.measured.ringHits`, test so lại).
+- Kinh tế mỗi bi ×1, so với bàn cũ: EXP 9,14 → 8,78; bi hoàn 0,325 → 0,340; thẻ 0,088 → 0,089. Mô phỏng 10 ngày gần như không đổi (người chơi chăm cấp 61, 96 ải; người chơi ít cấp 20 → 19).
+
+**Hình** (`Game/Machine/MachineBoard.cs`):
+- Ảnh tĩnh `Baked/Machine/may_tinh.png` ghép bằng `ArtGen/Pachinko/ghep_ban.py` theo `refs/mat_may.json`. File này xuất từ code bằng menu `PokiClash/Prefab/Máy bi: xuất hình học mặt máy`; test `MatMay_AnhGhepKhopHinhHoc` báo khi file lệch code.
+- Đinh, cọc vách, thanh mái, núm, cốc lấy từ tờ bộ phận GPT cũ (`tai_ve/bo_phan.png`).
+- Phần ngoài vòm, viền vòm, làn và mũi tên do script vẽ theo cùng nét.
+- Hình động: nấm đỉnh (`pk_nam_dinh`, sáng `pk_u_loi_sang`), hai nấm lớn (`pk_bumper`) có vòng tiến độ (`pk_vong_nam`, phần đầy tô vàng), hình quà trên đĩa kem (`pk_dia_nam`). Bi chờ ở chân làn.
+- Hộp "Tỉ lệ của máy" ghi 4 dòng ô và 2 dòng vòng nấm.
+- Đổi bàn: sửa `Pachinko.cs`, chạy menu xuất hình học, chạy `py -3 -I ArtGen/Pachinko/ghep_ban.py`, rồi "Dựng lại danh mục ảnh" nếu có ảnh mới.
+- Mục "Vật lý chép" ngay dưới là của bàn cũ (trọng lực 1.100, kẹp 150–525). Giữ lại để biết lịch sử, không còn đúng.
+
+## Vật lý chép (bàn cũ, trước 2026-11-09)
 
 Chủ dự án bảo chép vật lý và hiệu ứng của máy Critters (2026-11-02). Vật liệu chép nguyên, đổi theo đường kính bi: bi ở đó 0,162 u, ở đây 18, nên 1 u = 111.
 
@@ -180,6 +238,6 @@ Thanh kinh nghiệm, số theo cược, thân máy, bộ phận, hiệu ứng, r
 
 **Lưu ý:**
 - File prompt ghi đường dẫn tuyệt đối của máy đang chạy. Sang máy khác thì chạy `py -3 -I ArtGen/Pachinko/build.py` trước để dựng lại đường dẫn, rồi mới gửi GPT.
-- Đổi bố cục mặt máy trong `Pachinko.cs` thì sửa cả `board_geometry` trong `ArtGen/Pachinko/build.py`, rồi chạy `--duyet bo_phan` lại.
+- Đổi bố cục mặt máy trong `Pachinko.cs` thì chạy menu `PokiClash/Prefab/Máy bi: xuất hình học mặt máy` rồi `py -3 -I ArtGen/Pachinko/ghep_ban.py` (từ 2026-11-09; `board_geometry` trong `build.py` là bàn cũ).
 - Không chạy `Web/scripts/draw_machine.py`: script đó ghi đè mặt máy vẽ tay bằng bản vẽ code.
 - Gen lại tờ nào thì làm theo `ArtGen/Pachinko/gui_gpt/than_may/HUONG_DAN.md`: `build.py --duyet <tờ>`, rồi chạy các menu Unity ghi ở đó.

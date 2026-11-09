@@ -65,6 +65,11 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Thủy: Mi Nhi ra trận ở 2 dạng (đang Play)", priority = 122)]
         static void TryMiNhi() => Start("mi_nhi", "mi_nhi_combat", 1, 5);
 
+        // Thanh Long (boss cuối đảo Mộc, 2026-11-09, skill pokiclash-hero-fx): idle có lá bay, mây trôi; đòn có vệt cầu, vòng bật, lá văng;
+        // chiêu ba sét; lúc trúng sân khựng, màn rung, đối thủ bật lùi (AtomikGame.impact*); ảnh vào thanh_long_combat/
+        [MenuItem("PokiClash/Thử/Đảo Mộc: Thanh Long ra trận ở 3 dạng (đang Play)", priority = 122)]
+        static void TryThanhLong() => Start("thanh_long", "thanh_long_combat", 1, 3, 5);
+
         // Rồng Giọt (2026-11-08, dạng 1 là rig .atomik có clip tiến hóa): mở hộp chi tiết Giọt Sương ở sao cuối của dạng 1, bấm nút
         // hack tiến hóa, chụp liên tục clip tiến hóa (lốc nước, bong bóng, vỡ tung) tới khi dạng 2 hiện; ảnh vào gs_tien_hoa/.
         [MenuItem("PokiClash/Thử/Giọt Sương tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]

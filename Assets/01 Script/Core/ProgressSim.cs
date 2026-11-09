@@ -135,8 +135,9 @@ namespace PokiClash.Core
                 }
             }
 
-            // 3. thả hết bi ở ×1: ô rơi theo tỉ lệ đo của máy
+            // 3. thả hết bi ở ×1: ô rơi theo bảng tỉ lệ của máy; mỗi bi chạm mỗi nấm trung bình ringHits lần (cộng dồn phần lẻ)
             var kinds = (SlotKind[])Enum.GetValues(typeof(SlotKind));
+            var hitAcc = new double[d.Cfg.ringHits.Length];
             int guard = 0;
             while (s.balls >= 1 && guard++ < 100000)
             {
@@ -146,6 +147,13 @@ namespace PokiClash.Core
                 rep.ballsDropped++;
                 var k = rng.Weighted(kinds, x => d.Cfg.Rate(Pachinko.Key(x)));
                 if (Pachinko.SlotReward(s, d.Cfg, k, 1).k == RewardKind.Chest) Pachinko.OpenChest(s, d, k, 1, rng);
+                for (int i = 0; i < hitAcc.Length; i++)
+                {
+                    hitAcc[i] += d.Cfg.ringHits[i];
+                    for (; hitAcc[i] >= 1; hitAcc[i]--)
+                        foreach (var g in Pachinko.RingHit(s, d.Cfg, i, 1))
+                            if (g.k == RewardKind.Chest) Pachinko.OpenChest(s, d, g.chest, 1, rng);
+                }
             }
 
             // 4. nâng thẻ, tiến hóa

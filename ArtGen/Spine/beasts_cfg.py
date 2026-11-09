@@ -1074,6 +1074,31 @@ HEROES = {
         "fx": {"fx_hit2": ("thanh_long_claw", 0.55, 0), "fx_hit": ("thanh_long_bolt", 0.3, 0), "fx_orb": ("thanh_long_orb", 0.26, 0),
                "fx_charge": ("thanh_long_bolt", 0.16, 0), "fx_big": ("thanh_long_strike", 1.05, "up"),
                "fx_big2": ("thanh_long_dragon", 1.0, "up"), "fx_drops": ("thanh_long_cloud", 0.2, 0), "fx_p": ("thanh_long_bolt", 0.06, 0)},
+        # thử skill pokiclash-hero-fx (2026-11-09): lá ngọc rơi lượn, mây nhỏ trôi sau lưng, dạng 3 chớp sét trên mây; mây quanh
+        # người trôi riêng; lá tụ vào miệng lúc lấy đà; cầu phun có vệt đuôi; vòng ngọc nổ lúc trúng; lá văng có vật lý; sét giáng
+        # 3 nhịp; khựng, rung, bật lùi trong trận (impact: khựng giây thật, trauma, bật lùi theo chiều cao đối thủ)
+        "juice": {
+            "idle": [{"img": "tho_hoang_leaf", "n": 4, "kind": "leaf", "size": 0.1},
+                     {"img": "thanh_long_cloud", "n": 2, "kind": "drift", "size": 0.2, "back": True}],
+            "idle_form": {3: [{"img": "@crackle", "n": 2, "kind": "crackle", "size": 0.22}]},
+            "cloud_drift": 0.03,
+            "gather": ("tho_hoang_leaf", 0.075),
+            "trail": 2,
+            "ring": ("thanh_long_b_halo", 0.6),
+            # nhóm đầu (lá) cũng văng ở đòn thường; đất, sỏi (sinh bằng thuật toán) chỉ văng khi sét đánh xuống đất
+            "phys": [{"img": "tho_hoang_leaf", "kind": "leaf", "size": 0.12, "n": 8, "speed": (2.4, 4.4), "life": (0.95, 1.05),
+                      "ang": (40, 140)},
+                     {"img": "@dirt", "kind": "debris", "size": 0.1, "n": 10, "speed": (2.6, 4.6), "life": (0.8, 1.0),
+                      "ang": (35, 145)}],
+            "phys_pre": {"img": "@dirt", "kind": "debris", "size": 0.08, "n": 3, "speed": (1.8, 3.2), "life": (0.6, 0.8)},
+            # sét giật thật (beast.lightning_*): nhát phụ trước nhát chính (giây so với nhát chính, lệch ngang theo H); tia dẫn mọc từ
+            # mây giông, mỗi khung một dáng, chớp tắt; tia điện lách tách trong mây, ở đất, quanh đầu
+            # height: mây ở 1,25 H trên đất dưới chân đối thủ (cao hơn thì lọt khỏi khung camera sticker khi đối thủ đứng xa phía trên)
+            "lightning": {"strikes": [(-0.26, -0.22), (-0.13, 0.2), (0.0, 0.0)], "height": 1.25, "cloud": "thanh_long_cloud",
+                          "crackle": 4, "caster": 2},
+            # (khựng giây thật, trauma, bật lùi theo H, [màu chớp cả màn hex 8 số]): chiêu sét chớp kem nhạt lúc nhát chính chạm đất
+            "impact": {"attack": (0.06, 0.3, 0.07), "skill": (0.16, 0.8, 0.14, "#fff6c98c")},
+        },
         # boss cuối đảo Mộc: dạng sau đẹp dần (tờ thứ hai: mây bão vòng sét, cột gió sét, đầu rồng gió, vòng ngọc)
         "fx_form": {2: {"fx_ground": ("thanh_long_b_storm", 1.0, 0), "fx_hit2": ("thanh_long_b_roar", 0.55, 0)},
                     3: {"fx_ground": ("thanh_long_b_storm", 1.15, 0), "fx_hit2": ("thanh_long_b_head", 0.65, 0),
@@ -1214,3 +1239,7 @@ for _hid, _s in _STYLE.items():
             HEROES[_hid].setdefault("fx", {})["fx_fly" if _k == "fx_fly" else "fx_wave"] = _s.pop(_k)
     HEROES[_hid].update(_s)
     HEROES[_hid].pop("lunge", None)  # beast.game_info tự tính lunge / far theo kiểu chiêu
+
+# đảo Hỏa (2026-11-09): cấu hình ở file riêng
+from beasts_cfg_hoa import HOA as _HOA  # noqa: E402
+HEROES.update(_HOA)

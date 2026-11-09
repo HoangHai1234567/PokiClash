@@ -721,7 +721,7 @@ def approve_chests(src):
     print("Trong Unity: menu \"PokiClash/Dựng lại danh mục ảnh\"; ChestIcon tự dùng ảnh rương khi có")
 
 
-# mặt máy: chép Board.Build (Assets/01 Script/Core/Pachinko.cs); đổi số ở đó thì đổi ở đây
+# mặt máy CŨ (trước 2026-11-09, 11 ô và két vàng): bàn mới ghép bằng ghep_ban.py theo refs/mat_may.json
 BW_, BH_, LEFT, RIGHT, SLOT_TOP, DROP_Y = 460, 680, 14, 446, 572, 46
 SLOT_LAYOUT = ["chest_wood", "exp15", "exp5", "ball", "exp10", "chest_gold", "exp10", "ball", "exp5", "exp15", "chest_wood"]
 SLOT_W = [25.25, 38, 46, 29.75, 59.25, 35.5, 59.25, 29.75, 46, 38, 25.25]
@@ -863,10 +863,13 @@ def compose_board(parts):
 
 
 def approve_parts(src):
+    # mặt máy tĩnh ghép bằng ghep_ban.py theo hình học bàn mới (refs/mat_may.json, bàn chép máy tham khảo 2026-11-09);
+    # compose_board / board_geometry ở trên là bàn cũ (11 ô, két vàng), giữ lại để tra, không dùng nữa
     parts = cut_cells(src, 4, 3, split=True)
-    board = compose_board(parts)
-    board.save(BOARD_PNG, optimize=True)
-    print(f"  mặt máy tĩnh {BOARD_PNG.name} {board.width} x {board.height}, {BOARD_PNG.stat().st_size // 1024} KB")
+    if src.resolve() != (INBOX / "bo_phan.png").resolve():
+        Image.open(src).save(INBOX / "bo_phan.png")
+    import subprocess
+    subprocess.run([sys.executable, "-I", str(HERE / "ghep_ban.py")], check=True)
     save_game(fit(square(parts[1], 0.03), 128), "pk_bumper")  # nấm: ảnh động phồng xẹp, thay hình tạm cùng tên
     save_game(fit(parts[7], 256), "pk_may_tha")  # máng mây
     save_game(fit(square(parts[8], 0.02), 64), "pk_bi")  # bi: game tô màu theo cược

@@ -47,6 +47,10 @@ namespace PokiClash
         float flashT = -1, flashLife = 0.35f;
         Color flashColor;
         float shake;
+        // cảm giác trúng (skill pokiclash-hero-fx): clip .atomik khai impact* thì lúc trúng sân khựng, màn rung kiểu trauma, con bị
+        // đánh bật lùi kèm nghiêng. Tướng không khai thì như cũ.
+        float freeze, trauma;
+        const float FreezeSlow = 0.06f, RecoilLen = 0.38f, TraumaDecay = 1.3f, TraumaX = 12, TraumaY = 8;
         readonly Actor[] actors = new Actor[2];
         readonly List<Fx> fx = new List<Fx>();
         readonly Dictionary<StageFx, List<StageFx>> idle = new Dictionary<StageFx, List<StageFx>>(); // prefab → bản sao đang tắt
@@ -62,6 +66,7 @@ namespace PokiClash
             public AolaSticker aola; // bản dev
             public string clip = Idle;
             public float t, flash, dead, enter = 9, exit, hop;
+            public float recoil = -1, push; // bật lùi do cú trúng có impact: giây sân đã qua (-1 = không), quãng theo chiều cao
             public bool loop = true;
             public ClipHandle handle;
             public Action onHit;
@@ -885,6 +890,11 @@ namespace PokiClash
             float goal = Mathf.Min(1, pace / Mathf.Max(0.1f, speed));
             slow = goal < slow ? goal : Mathf.MoveTowards(slow, goal, raw / SlowEase);
             float dt = raw * speed * slow * fast;
+            if (freeze > 0) // khựng lúc trúng: sân gần như đứng trong giây thật đã khai
+            {
+                freeze -= raw;
+                dt *= FreezeSlow;
+            }
             Clock += dt;
             skillHold = Mathf.Max(0, skillHold - dt);
             foreach (var a in actors)
@@ -896,6 +906,7 @@ namespace PokiClash
                 if (a.exit > 0) a.exit += dt;
                 if (a.hop > 0) a.hop = a.hop > 0.5f ? 0 : a.hop + dt;
                 if (a.dead > 0) a.dead += dt;
+                if (a.recoil >= 0) a.recoil = a.recoil + dt > RecoilLen ? -1 : a.recoil + dt;
                 if (!a.loop)
                 {
                     float len = a.aola != null ? a.aola.Duration(a.clip) : ClipLen(a.clip);
@@ -903,6 +914,7 @@ namespace PokiClash
                     if (!a.hitFired && a.t >= hitT)
                     {
                         a.hitFired = true;
+                        Impact(a);
                         a.onHit?.Invoke();
                         if (a.handle != null) a.handle.hit = true;
                     }
@@ -911,6 +923,7 @@ namespace PokiClash
                         if (!a.hitFired)
                         {
                             a.hitFired = true;
+                            Impact(a);
                             a.onHit?.Invoke();
                         }
                         a.clip = Idle;
@@ -927,7 +940,15 @@ namespace PokiClash
                 UpdateStatusIcons(a);
             }
             shake = Mathf.Max(0, shake - dt * 40);
-            root.anchoredPosition = new Vector2((Random.value - 0.5f) * shake, (Random.value - 0.5f) * shake) * K;
+            var jolt = new Vector2((Random.value - 0.5f) * shake, (Random.value - 0.5f) * shake);
+            if (trauma > 0) // rung trauma (Eiserloh): lệch = tối đa × trauma², sóng sin lệch tần số (mượt), giảm theo giờ thật
+            {
+                trauma = Mathf.Max(0, trauma - raw * TraumaDecay);
+                float q = trauma * trauma, n = Time.unscaledTime * 30;
+                jolt += new Vector2((Mathf.Sin(n * 1.7f) + Mathf.Sin(n * 2.3f + 1.3f)) * 0.5f * TraumaX * q,
+                    (Mathf.Sin(n * 1.1f + 0.7f) + Mathf.Sin(n * 2.9f)) * 0.5f * TraumaY * q);
+            }
+            root.anchoredPosition = jolt * K;
 
             for (int i = fx.Count - 1; i >= 0; i--)
             {
@@ -951,7 +972,22 @@ namespace PokiClash
                     flashT = -1;
                     flashImg.gameObject.SetActive(false);
                 }
-                else flashImg.color = new Color(flashColor.r, flashColor.g, flashColor.b, (1 - k) * 0.7f);
+                else flashImg.color = new Color(flashColor.r, flashColor.g, flashColor.b, (1 - k) * 0.7f * flashColor.a); // hex 8 số: chớp nhạt
+            }
+        }
+
+        // cú trúng của clip có khai impact (AolaSticker.Impact): khựng sân (tối đa 0,2 giây thật), cộng trauma rung, đẩy lùi đối thủ
+        void Impact(Actor a)
+        {
+            if (a.aola == null || !a.aola.Impact(a.clip, out var stop, out var tr, out var push, out var flash)) return;
+            freeze = Mathf.Max(freeze, Mathf.Min(0.2f, stop));
+            trauma = Mathf.Min(1, trauma + tr);
+            if (!string.IsNullOrEmpty(flash)) Flash(flash);
+            var d = actors[a.side == 0 ? 1 : 0];
+            if (d != null && d.dead <= 0 && push > 0)
+            {
+                d.recoil = 0;
+                d.push = push;
             }
         }
 
@@ -1014,6 +1050,16 @@ namespace PokiClash
                 float nudge = Mathf.Sin(k * Mathf.PI) * 0.06f;
                 ox = tx * nudge;
                 oy = ty * nudge;
+            }
+            if (a.recoil >= 0) // bật lùi (Impact): ra xa đối thủ trong 15% đầu, về chỗ êm; nghiêng ra sau; lúc khựng rung ngang tại chỗ
+            {
+                float u = a.recoil / RecoilLen, v = Mathf.Clamp01((u - 0.15f) / 0.85f);
+                float f = u < 0.15f ? Mathf.Sin(u / 0.15f * Mathf.PI * 0.5f) : 1 - v * v * (3 - 2 * v);
+                var away = new Vector2(p.x - other.x, p.y - other.y).normalized * (f * a.push * a.H);
+                ox += away.x;
+                oy += away.y;
+                rot += (a.side == 0 ? 1 : -1) * 0.09f * f;
+                if (freeze > 0) ox += Mathf.Sin(Time.unscaledTime * 95) * 0.015f * a.H;
             }
             a.rt.anchoredPosition = P(x + ox, y + oy);
             a.rt.localEulerAngles = new Vector3(0, 0, -rot * Mathf.Rad2Deg);

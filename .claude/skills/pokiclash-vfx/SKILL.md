@@ -12,6 +12,9 @@ description: >
 cho nở, bay, mờ, xoay, nhuộm màu. Project **không dùng** ParticleSystem, VFX Graph hay post-processing (bloom). Đừng đưa chúng vào
 khi người dùng chưa đồng ý: chúng không chạy theo nhịp sân (`StageView.Clock`), không khớp nét vẽ tay, và làm nặng build.
 
+Cảm giác đánh và idle của tướng (khựng lúc trúng, rung, bật lùi, hạt có vật lý, biên đạo đòn theo pha, idle theo hệ, cách dùng
+ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokiclash-hero-fx`.
+
 ## 1. Luật hình (người dùng chốt, bắt buộc)
 
 - **Nét vẽ tay như ảnh mốc** `ArtGen/Islands/refs/world_style.png`: viền mực nâu sẫm `#2B2118` hơi rung, tô chì màu và sáp màu.

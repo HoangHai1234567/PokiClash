@@ -446,6 +446,61 @@ Làm tiếp:
    - menu `PokiClash/Tướng/Xoá dạng aola không còn tướng nào dùng` (bỏ 24 `goc_*` Mộc khỏi build);
    - chụp thử `PokiClash/Tướng/Chụp thử prefab tướng`, rồi tour trận.
 
+## 19. Đảo Hỏa: 10 dòng, 28 dạng .atomik (2026-11-09, máy ổ E, đang dựng gói prompt)
+
+Người dùng dặn: lên prompt gen cho đảo Hỏa theo cách hai đảo Thủy, Mộc. Đảo Hỏa chưa có concept nào đã duyệt, nên làm như đảo
+Thủy (mục 16): Claude tự thiết kế, giữ chủ đề và loài của dòng aola người dùng chọn (GD_Claude/13, mục Hỏa), đổi màu, chi tiết
+thành con riêng; mỗi dòng một bảng màu để cả đảo không chỉ một màu đỏ. Gen trọn con một ảnh liền, rig một lưới (mục 18).
+
+- Gói: `py -3 -I ArtGen/Spine/build_hoa.py [id ...]` sinh `ArtGen/Spine/gui_gpt/<id>_<k>/luot_1_lien.txt`, lưu
+  `inbox/<id>_<k>/tai_ve/L1_lien.png`; mỗi dòng có `gui_gpt/<id>_1/HUONG_DAN.md`, cả đảo `gui_gpt/HUONG_DAN_hoa.md`. Dạng 2, 3
+  chỉ dựng khi đã có ảnh dạng trước (chọn bản gen lại thì chép thành `inbox/<id>_<k>/L1_duyet.png` rồi chạy lại).
+- Ảnh mẫu là ảnh liền Thủy, Mộc đã vào game, chọn theo kiểu dáng (`POSE_REF`): bốn chân Dê Hoa 1 + Mộc Tinh 2; đứng hai chân
+  Long Vuốt 2; tròn Cánh Cụt 1; bay Gió Lốc 2; bốn chân có cánh Thương Lam 2. Không dùng Lam Quân: Bồ Lao sừng vàng bờm xoăn gần
+  kỳ lân, sư tử của đảo này quá.
+- Luật riêng hệ Lửa (`FLAMES`): lửa là phần thân, viền mực khép kín, tô phẳng tối đa ba dải màu, không để giấy trắng (bài học
+  mây, bờm hở viền của Mộc); không lửa, tàn, khói bay rời; dung nham, vết nứt là mảng cam vàng phẳng; không phát sáng.
+- Thiết kế (chờ người dùng duyệt bằng chữ, GD_Claude/12 câu 39):
+  - **Sư Tử Lửa** (ải 1, khởi đầu): sư tử lửa lông cam, bờm túm lửa ba màu, băng vải nâu ở chân trước; dạng 3 đứng hai chân
+    thành sư tử võ sĩ (tay quấn vải có miếng đồng, đai đỏ).
+  - **Khổng Lồ Lửa** (5): viên than sống tròn có vết nứt cam, chồi lửa → than con lực sĩ sừng xương → khổng lồ than vai đá nứt,
+    lõi cam trong khung sắt, còng sắt gãy.
+  - **Kim Sư** (10): sư tử thần giữ đền lông vàng cát, bờm lửa xoắn đỏ thẫm chóp vàng, mắt ngọc lam; dạng 3 giáp vàng khắc xoắn
+    lửa. Khác Sư Tử Lửa: bốn chân, vàng và đỏ thẫm, vẻ đền miếu.
+  - **Nham Thần** (15): tinh linh dung nham bay, không chân, nửa dưới là đuôi dung nham; mũ mặt nạ, găng, giáp đá bazan lớn dần.
+  - **Ngưu Quyền** (20): nghé lửa khoen mũi đồng → bò lãng tử đứng hai chân (khăn cổ xanh mòng két, khoá thắt lưng đồng) → bò
+    quyền thủ găng đỏ, bờm lửa dáng mây lửa, đai vô địch. Làm bằng .atomik thì không cần xuất hình aola 412–414 nữa.
+  - **Hồng Liên** (30): rồng sen lửa đứng hai chân, vảy đỏ hồng đốm vàng, cánh hình cánh sen lớn dần, đuôi nụ sen → sen nở;
+    dạng 3 vương miện sừng vàng như gương sen.
+  - **Giáp Long** (40): rồng lửa đỏ thẫm bốn chân mặc giáp thép xám xanh; dạng 2 gai thép chóp đỏ lửa, mũ hai sừng thép.
+  - **Huyễn Viêm** (50): cáo lửa ảo lông đỏ hồng sẫm, lửa tím hồng, dấu trăng khuyết vàng; 1 → 2 → 3 đuôi lửa xoè từ một gốc.
+  - **Hỏa Tinh** (60): sói lửa đỏ san hô có hồng ngọc trên trán; dạng 2 giáp đá vỏ chai viền vàng, cụm hồng ngọc trên vai
+    (cặp với Mộc Tinh như dữ liệu aola).
+  - **Lân Hỏa** (70, boss cuối): kỳ lân lửa vảy đỏ thẫm, bờm xoắn lửa đỏ vàng, sừng vàng; dạng 3 Thánh Lân giáp vàng chạm mây,
+    sừng chóp ngọc bích, hai cánh lông lửa.
+- Người dùng duyệt chữ cùng ngày ("duyệt, làm đi"). Đã làm một mạch (máy ổ E, 14:40–16:30):
+  - **Ảnh:** 28/28 dạng gen lần đầu đều đạt, không gen lại (Giáp Long 2 giáp sẫm hơn dạng 1, có viền vàng: giữ). Ảnh ở
+    `ArtGen/Spine/inbox/<id>_<k>/tai_ve/L1_lien.png`.
+  - **Hiệu ứng:** 12 tờ 3x2 (`build_fx_beasts.py`): tờ lửa chung `hoa_chung` (vòng lửa dưới đất, lốc lửa, sóng lửa, nổ, cột
+    lửa, đốm than) thay bộ NƯỚC mặc định của beast.py, mỗi dòng một tờ, Lân Hỏa thêm `lan_hoa_b`. Ảnh vòng có lòng giấy trắng
+    khép kín (vòng lửa, lốc, nổ hở giữa, vòng gai, hào quang) phải xoá lòng (`HOLLOW` + `clear_holes` trong bộ cắt), không thì
+    lên sân thành đĩa trắng đục.
+  - **Rig:** cấu hình 28 dạng ở `ArtGen/Spine/beasts_cfg_hoa.py` (nạp vào `beasts_cfg.HEROES`), bộ hiệu ứng lửa mặc định ở hàm
+    `_fx`. Kiểu đòn / chiêu: Sư Tử Lửa vồ, vồ, đấm / liên hoàn; Khổng Lồ Lửa lăn, đấm, đấm / sóng đất (vết nứt phun lửa);
+    Kim Sư gầm / trồi cột lửa; Nham Thần (bay) đấm / thiên thạch dung nham rơi; Ngưu Quyền húc, đấm, đấm / lao húc; Hồng Liên
+    phun cánh sen / loạt cánh sen; Giáp Long húc / cuộn tròn lao; Huyễn Viêm cào / loạt hồ hỏa; Hỏa Tinh cắn / trồi hồng ngọc;
+    Lân Hỏa húc, húc, quất đuôi / kỳ lân lửa giáng xuống (dạng 3 thiên thạch vàng, tờ `lan_hoa_b`). Huyễn Viêm 2, 3 mỗi đuôi
+    một chuỗi; Hồng Liên 2, 3 hai cánh hai phần; Thánh Lân hai cánh một phần.
+  - **Dựng:** `beast.py <id> all` (venv `E:\ProjectAtomik\spine-animation-ai\.venv`). Lần này dựng ra scratchpad trước (vá
+    `thuy_long.RES`) vì phiên khác đang dùng Unity, rồi chép 28 thư mục `Resources/<id>_<k>/` một lần.
+  - **Bẫy:** lệnh gen chạy nền của phiên Claude bị ngắt vẫn sống (bash, py của Windows không chết theo); vòng lặp cũ gen lại
+    trọn bộ tờ hiệu ứng (`sheet_2.png`). Trước khi chạy lại hàng gen, liệt kê tiến trình `gen.py`/`gen_codex` và dừng vòng cũ;
+    hàng gen dài thì dùng `ArtGen/Spine/chay_hoa.py` (bỏ qua file đã có ảnh, ghi `inbox/chay_hoa.log`) chạy tách bằng
+    Start-Process.
+- Vào game: chép `Resources/<id>_<k>/`, `py -3 -I ArtGen/Spine/hoa_json.py` (đổi `aola` 10 tướng, giữ CRLF), Unity
+  `PokiClash/Nhập dữ liệu`, `PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng` (menu nay tự dựng prefab tướng chưa có: Ngưu
+  Quyền, và thêm vào HeroModels). Dạng aola cũ `goc_*` của Hỏa còn trong Resources tới khi chạy menu xoá (chờ người dùng).
+
 ## 18. Một lưới liền, chiêu đa dạng: làm lại hai đảo Thủy, Mộc (2026-11-09 đêm, thay mục 17 phần ghép)
 
 Người dùng xem bản ghép lớp: lỗi nhiều (vệt khe ở chân Thanh Long, tay áo Thỏ Hoàng cắt cụt, đuôi Tiểu Y nứt). Dặn:

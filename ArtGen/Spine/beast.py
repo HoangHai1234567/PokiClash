@@ -27,6 +27,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
+import lightning as LT  # noqa: E402
 import longrig as L  # noqa: E402
 import rig as riglib  # noqa: E402
 import thuy_long as T  # noqa: E402
@@ -435,7 +436,7 @@ def build_rig(hid, k):
     R.images["shadow"] = T.shadow_image(0.8 * (front - back))
     R.region("shadow", "shadow", "shadow", "shadow", (front + back) * 0.5, 0)
     fx_setup(R, C, info, k)
-    for s_ in FX_BACK:
+    for s_ in FX_BACK + JUICE_BACK:
         fx_slot(R, s_)
     lay_dbg, stats = [], []
     legtop = {}
@@ -607,7 +608,7 @@ def build_rig(hid, k):
         lay_dbg.append((name, rgba, own[y0:y1, x0:x1], (x0, y0)))
         for s_ in FX_MID.get(name, []):  # hiệu ứng chen giữa lớp (vòng nước trước thân, sau chân trước...)
             fx_slot(R, s_)
-    for s_ in FX_FRONT:
+    for s_ in FX_FRONT + JUICE_FRONT:
         fx_slot(R, s_)
     ctx = Ctx()
     ctx.hid, ctx.k, ctx.R, ctx.F, ctx.C, ctx.info = hid, k, R, F, C, info
@@ -628,6 +629,18 @@ FX_FRONT = ["fx_ring_f", "fx_shield", "fx_charge", "fx_orb", "fx_hit", "fx_hit2"
             "fx_spark"] + [f"fx_p{i}" for i in range(10)] + \
            ["ff_ground", "fl_wave", "ff_big", "ff_big2", "ff_hit"] + [f"fl{i}" for i in range(5)] + [f"fp{i}" for i in range(8)]
 NPART = 10
+# "juice" (skill pokiclash-hero-fx, 2026-11-09): slot thêm của tướng có khoá "juice" trong beasts_cfg (hạt idle lặp liền mạch, hạt
+# tụ lực, vệt đuôi đạn, vòng nổ lúc trúng, hạt có vật lý ở chỗ đối thủ, sét giáng nhiều nhịp). Tướng không khai thì không đổi gì.
+JUICE_BACK, JUICE_FRONT = [], []
+NGATHER, NTRAIL, NPHYS, NSTRIKE = 6, 2, 8, 2
+# slot nhiều ảnh (sét đổi dáng từng khung, tia điện): tên slot -> (xương, [(tên att, ảnh, rộng, cao, dx, dy, góc)]); dx, dy so với xương
+MULTI = {}
+NCRACK, NCRK_IMG = 4, 5
+# nhịp chớp của một cú sét theo khung 30/giây tính từ lúc chạm đất: khung -> (ảnh, độ đậm); thiếu = tắt. l0, l1: tia dẫn mọc từ
+# mây xuống; v*: các dáng sét (mỗi khung một dáng là "giật"); tắt xen giữa là chớp.
+BOLT_MAIN = {-2: ("l0", 0.9), -1: ("l1", 1.0), 0: ("v0", 1.0), 1: ("v0", 1.0), 2: ("v1", 1.0), 4: ("v2", 1.0), 5: ("v3", 0.85),
+             7: ("v4", 1.0), 8: ("v5", 0.8), 9: ("v4", 0.55), 10: ("v5", 0.3)}
+BOLT_PRE = {-2: ("l0", 0.85), -1: ("l1", 0.95), 0: ("v0", 1.0), 1: ("v1", 1.0), 3: ("v2", 0.85), 4: ("v0", 0.5)}
 
 
 def fx_img(name):
@@ -704,6 +717,497 @@ def fx_setup(R, C, info, k):
                 R.images[img] = fx_img(img)
                 used[img] = True
             FXSPEC[f"fx_p{i}"] = (f"fx_p{i}", img, size * H, rot)
+    juice_setup(R, C, info, k, fx, used)
+
+
+def juice_specs(C, k):
+    """danh sách hạt idle của dạng k: "idle" chung + "idle_form"[k]."""
+    J = C.get("juice") or {}
+    return list(J.get("idle", [])) + list(J.get("idle_form", {}).get(k, []))
+
+
+def juice_setup(R, C, info, k, fx, used):
+    """xương, slot, ảnh cho phần juice. Hạt idle, hạt tụ lực là con của root (không nhấp nhô theo thân); vòng nổ, hạt vật lý,
+    sét giáng là con của far (game dời tới đối thủ); vệt đuôi là xương flyt* (game dời như đạn fly*)."""
+    JUICE_BACK.clear()
+    JUICE_FRONT.clear()
+    MULTI.clear()
+    J = C.get("juice")
+    if not J:
+        return
+
+    def img_of(name):
+        """ảnh theo tên; "@dirt" = bộ cục đất, sỏi sinh bằng thuật toán (lightning.clod), trả danh sách tên."""
+        if name == "@dirt":
+            out = []
+            for v, kd in enumerate(("dirt", "dark", "dirt", "pebble")):
+                nm = f"gen_dirt{v}"
+                if nm not in used:
+                    R.images[nm] = _crop(*LT.clod(v, size=56, kind=kd))[0]
+                    used[nm] = True
+                out.append(nm)
+            return out
+        if name not in used:
+            R.images[name] = fx_img(name)
+            used[name] = True
+        return name
+
+    def imgs_of(name):
+        r = img_of(name)
+        return r if isinstance(r, list) else [r]
+
+    j = 0
+    for sp in juice_specs(C, k):
+        for _ in range(sp.get("n", 1)):
+            s = f"ji{j}"
+            R.bone(s, "root", 0.0, 0.0)
+            if sp.get("kind") == "crackle":  # tia điện đổi dáng từng khung (lightning.crackle), slot nhiều ảnh
+                kc = sp.get("size", 0.2) * H / 90
+                items = []
+                for v in range(NCRK_IMG):
+                    nm = f"gen_crk{v}"
+                    if nm not in R.images:
+                        R.images[nm] = _crop(*LT.crackle(v))[0]
+                    im = R.images[nm]
+                    items.append((f"{s}_c{v}", nm, im.width * kc, im.height * kc, 0.0, 0.0, 0.0))
+                MULTI[s] = (s, items)
+            else:
+                FXSPEC[s] = (s, img_of(sp["img"]), sp.get("size", 0.08) * H, 0)
+            (JUICE_BACK if sp.get("back") else JUICE_FRONT).append(s)
+            j += 1
+    if J.get("gather"):
+        img, size = J["gather"]
+        for i in range(NGATHER):
+            s = f"jg{i}"
+            R.bone(s, "root", 0.0, 0.0)
+            FXSPEC[s] = (s, img_of(img), size * H, 0)
+            JUICE_FRONT.append(s)
+    mx, my = info["mouth"]
+    if J.get("trail") and (fx.get("fx_fly") or fx.get("fx_orb")):
+        img, size, rot = fx.get("fx_fly") or fx.get("fx_orb")
+        for i in range(min(NTRAIL, J["trail"])):
+            b, s = f"flyt{i}", f"jt{i}"
+            R.bone(b, "root", mx, my)
+            FXSPEC[s] = (b, img_of(img), size * H * 0.9 * (0.85 - 0.15 * i), rot)
+            JUICE_FRONT.append(s)
+    farx, fary = info["far"]
+    if J.get("ring"):
+        img, size = J["ring"]
+        R.bone("jr", "far", farx, fary)
+        FXSPEC["jr"] = ("jr", img_of(img), size * H, 0)
+        JUICE_FRONT.append("jr")
+    LG = J.get("lightning")
+    if LG:
+        lightning_setup(R, C, LG, farx, fary, info["mouth"])
+    # hạt có vật lý ở chỗ đối thủ: "phys" một nhóm hoặc danh sách nhóm (lá, đất...), slot jp<nhóm>_<i>; "phys_pre": nhóm nhỏ cho
+    # mỗi nhát sét phụ, slot jq<nhát>_<i>
+    for g, ph in enumerate(phys_groups(J)):
+        ims = imgs_of(ph["img"])
+        for i in range(ph.get("n", NPHYS)):
+            s = f"jp{g}_{i}"
+            R.bone(s, "far", farx, fary)
+            FXSPEC[s] = (s, ims[i % len(ims)], ph.get("size", 0.07) * H, 0)
+            JUICE_FRONT.append(s)
+    if LG and J.get("phys_pre"):
+        ph = J["phys_pre"]
+        ims = imgs_of(ph["img"])
+        for k_ in range(len(LG["strikes"]) - 1):
+            for i in range(ph.get("n", 3)):
+                s = f"jq{k_}_{i}"
+                R.bone(s, "far", farx, fary)
+                FXSPEC[s] = (s, ims[(i + k_) % len(ims)], ph.get("size", 0.05) * H, 0)
+                JUICE_FRONT.append(s)
+    if J.get("strikes") and fx.get("fx_big") and not LG:
+        img, size, rot = fx["fx_big"]
+        for i in range(min(NSTRIKE, J["strikes"] - 1)):
+            s = f"js{i}"
+            R.bone(s, "far", farx, fary)
+            FXSPEC[s] = (s, img_of(img), size * H * (0.75 - 0.1 * i), rot)
+            FXGROUND[s] = fary
+            JUICE_BACK.append(s)
+
+
+def _crop(im, anchor, pad=2):
+    """cắt bỏ viền trong suốt (atlas đỡ tốn), dời điểm neo theo."""
+    bb = im.getchannel("A").getbbox()
+    if not bb:
+        return im, anchor
+    x0, y0 = max(0, bb[0] - pad), max(0, bb[1] - pad)
+    x1, y1 = min(im.width, bb[2] + pad), min(im.height, bb[3] + pad)
+    return im.crop((x0, y0, x1, y1)), (anchor[0] - x0, anchor[1] - y0)
+
+
+def phys_groups(J):
+    ph = J.get("phys")
+    return [] if not ph else (ph if isinstance(ph, list) else [ph])
+
+
+def lightning_setup(R, C, LG, farx, fary, mouth):
+    """sét giật thật (2026-11-09): mỗi nhát một slot jl<i> (con của far) mang nhiều dáng sét sinh bằng thuật toán (lightning.bolt) và
+    2 ảnh tia dẫn; nhát cuối to, nhiều nhánh. Mây giông jcl0, jcl1 trên đầu đối thủ (đè lên đầu tia); tia điện lách tách jk*
+    (con của far: trong mây lúc tụ, ở đất lúc đánh) và jz* (con của head: quanh đầu rồng lúc gầm)."""
+    hgt = LG.get("height", 1.75) * H
+    n = len(LG["strikes"])
+    # vết cháy nứt dưới đất (vẽ trước tia) và cụm bụi toả ra lúc nhát chính chạm đất
+    im, anc = _crop(*LT.scorch(0))
+    R.images["gen_scorch"] = im
+    R.bone("jsc", "far", farx, 0.0)
+    FXSPEC["jsc"] = ("jsc", "gen_scorch", LG.get("scorch", 0.75) * H, 0)
+    JUICE_FRONT.append("jsc")
+    for v in range(3):
+        R.images[f"gen_puff{v}"] = _crop(*LT.puff(v))[0]
+    for i in range(LG.get("puffs", 5)):
+        s = f"jd{i}"
+        R.bone(s, "far", farx, 0.0)
+        FXSPEC[s] = (s, f"gen_puff{i % 3}", 0.26 * H, 0)
+        JUICE_FRONT.append(s)
+    for i in range(n):
+        main = i == n - 1
+        s = f"jl{i}"
+        R.bone(s, "far", farx, fary)
+        hp = round((300 if main else 270) * LG.get("height", 1.75) / 1.75)  # cùng tỉ lệ pixel/H dù sét cao thấp: nét dày như nhau
+        wp = 150 if main else 96
+        kw = dict(h=hp, w=wp, width=(17.0, 11.5) if main else (9.5, 6.5), branches=4 if main else 1, ink=3.4 if main else 3.0)
+        k = hgt / (hp - 20)  # pixel ảnh -> đơn vị rig (hai đầu tia cách nhau hp - 2·pad)
+        items = []
+        shapes = [(f"v{v}", LT.bolt(seed=100 * i + v + 7 * C.get("seed_bolt", 0), **kw)) for v in range(6 if main else 3)]
+        shapes += [(f"l{j}", LT.bolt(seed=100 * i + 7 * C.get("seed_bolt", 0), leader_frac=f, **kw)) for j, f in enumerate((0.4, 0.75))]
+        for nm, (im, anc) in shapes:
+            im, anc = _crop(im, anc)
+            img = f"gen_{s}_{nm}"
+            R.images[img] = im
+            # đầu dưới tia (neo) chạm đất dưới chân đối thủ: đất ở dưới xương far fary
+            items.append((f"{s}_{nm}", img, im.width * k, im.height * k, (im.width / 2 - anc[0]) * k,
+                          (anc[1] - im.height / 2) * k - fary, 0.0))
+        MULTI[s] = (s, items)
+        JUICE_FRONT.append(s)
+    cl = LG.get("cloud")
+    if cl:
+        R.images["gen_storm"] = LT.storm_cloud(Image.open(os.path.join(FXD, cl + ".png")))
+        for j, (dx, sz) in enumerate(((-0.1, 0.95), (0.2, 0.72))):
+            s = f"jcl{j}"
+            R.bone(s, "far", farx + dx * H, hgt + (0.04 - 0.05 * j) * H)  # đất ở y = 0 lúc nghỉ
+            FXSPEC[s] = (s, "gen_storm", sz * H, 0)
+            JUICE_FRONT.append(s)
+    crk = [_crop(*LT.crackle(v)) for v in range(NCRK_IMG)]
+    for v, (im, _) in enumerate(crk):
+        R.images.setdefault(f"gen_crk{v}", im)
+    kc = 0.24 * H / 90  # ô tia điện 90 px = 0,24 H
+
+    def crackle_slot(s, bone, x, y, scale=1.0):
+        R.bone(s, bone, x, y)
+        MULTI[s] = (s, [(f"{s}_c{v}", f"gen_crk{v}", im.width * kc * scale, im.height * kc * scale, 0.0, 0.0, 0.0)
+                        for v, (im, _) in enumerate(crk)])
+        JUICE_FRONT.append(s)
+
+    for i in range(LG.get("crackle", NCRACK)):
+        crackle_slot(f"jk{i}", "far", farx, fary)
+    hx, hy = R.bw("head")
+    mx, my = mouth
+    for i in range(LG.get("caster", 2)):  # trên sừng, bờm (giữa gốc đầu và miệng, nhích lên)
+        crackle_slot(f"jz{i}", "head", (hx + mx) / 2, (hy + my) / 2 + 0.2 * H, 1.25)
+
+
+def lightning_anim(P, ctx, t, h, t_cloud):
+    """mây giông kéo tới (t_cloud), tia điện lách tách trong mây và quanh đầu rồng, các nhát sét theo BOLT_PRE / BOLT_MAIN (tia dẫn
+    2 khung, rồi đổi dáng mỗi khung, tắt xen giữa), tia điện ở đất sau nhát chính, đất lá văng mỗi nhát."""
+    J = ctx.C["juice"]
+    LG = J["lightning"]
+    hgt = LG.get("height", 1.75) * H
+    fary = ctx.info["far"][1]
+    n = len(LG["strikes"])
+    times = [h + dt_ for dt_, _ in LG["strikes"]]
+    for i, (dt_, ox) in enumerate(LG["strikes"]):
+        s = f"jl{i}"
+        ts = h + dt_
+        fr = math.floor((t - ts) * L.FPS + 1e-6)
+        st = (BOLT_MAIN if i == n - 1 else BOLT_PRE).get(fr)
+        if st is None:
+            P.att[s] = None
+            continue
+        P.att[s] = f"{s}_{st[0]}"
+        P.alpha[s] = st[1]
+        P.move(s, ox * H, 0)
+        P.rot(s, 22 * ox)  # đầu tia ngả về giữa mây
+    last = times[-1]
+    for j in range(2):  # mây giông: nở ra, cuộn nhẹ, nảy lên mỗi nhát sét, tan sau nhát chính
+        s = f"jcl{j}"
+        if s not in FXSPEC:
+            continue
+        fx_on(P, s, t, t_cloud + 0.06 * j, last + 0.62, rise=0.2, fade=0.32)
+        grow = L.smooth01((t - t_cloud) / 0.4)
+        bump = sum(0.1 * math.exp(-((t - tt - 0.02) / 0.05) ** 2) for tt in times)
+        pul = 0.035 * math.sin(2 * math.pi * (t * 2.6 + 0.37 * j))
+        P.scale(s, (0.55 + 0.45 * grow) * (1 + pul + bump), (0.55 + 0.45 * grow) * (1 - 0.5 * pul + 0.6 * bump))
+        P.move(s, 0.05 * H * math.sin(1.9 * t + 1.3 * j) * grow, 0)
+    # tia điện ở far: trong đáy mây từ lúc mây tụ tới nhát chính, rồi ở đất quanh chỗ sét đánh 0,5 s
+    win = [(t_cloud + 0.25, last, 0.0, hgt - fary - 0.1 * H, 0.34 * H, 1.35),
+           (last, last + 0.5, 0.0, -fary + 0.08 * H, 0.32 * H, 1.3)]
+    crackle_anim(P, t, [f"jk{i}" for i in range(LG.get("crackle", NCRACK))], win, seed=1)
+    # quanh đầu rồng lúc gầm gọi sét
+    crackle_anim(P, t, [f"jz{i}" for i in range(LG.get("caster", 2))], [(0.18, times[0] - 0.02, 0.0, 0.0, 0.2 * H, 1.0)],
+                 seed=2)
+    # vết cháy hiện ngay lúc chạm, nằm lại rồi tan; bụi toả hai bên, nở, nhạt dần (cản mạnh)
+    if "jsc" in FXSPEC:
+        fx_on(P, "jsc", t, last, getattr(ctx, "clip_dur", 2.0) - 0.02, fade=0.35, amax=0.95)
+        P.scale("jsc", 0.7 + 0.3 * L.smooth01((t - last) / 0.08))
+    rng = np.random.RandomState(23)
+    for i in range(LG.get("puffs", 5)):
+        s = f"jd{i}"
+        side = -1 if i % 2 else 1
+        v0 = rng.uniform(0.5, 1.0) * H * side
+        lf = rng.uniform(0.55, 0.8)
+        dl = rng.uniform(0.0, 0.05)
+        u = t - last - dl
+        if u < 0 or u >= lf:
+            P.att[s] = None
+            continue
+        dx = v0 * (1 - math.exp(-4 * u)) / 4  # cản 4/giây
+        P.att[s] = s
+        P.move(s, rng.uniform(-0.05, 0.05) * H + dx, 0.07 * H + 0.12 * H * u)
+        P.scale(s, (0.55 + 1.0 * (1 - math.exp(-5 * u))) * rng.uniform(0.8, 1.2))
+        P.rot(s, side * 25 * u)
+        P.alpha[s] = (1 - u / lf) ** 1.3
+    ground = -fary
+    for g, ph in enumerate(phys_groups(J)):  # đất, lá văng ở nhát chính
+        phys_burst(P, ctx, t, last, [f"jp{g}_{i}" for i in range(ph.get("n", NPHYS))], ph, seed=40 + 13 * g,
+                   start=(0.0, ground + 0.04 * H), ground=ground)
+    ph = J.get("phys_pre")
+    if ph:
+        for k_, (dt_, ox) in enumerate(LG["strikes"][:-1]):
+            phys_burst(P, ctx, t, h + dt_, [f"jq{k_}_{i}" for i in range(ph.get("n", 3))], ph, seed=70 + 5 * k_,
+                       start=(ox * H, ground + 0.03 * H), ground=ground)
+
+
+def crackle_anim(P, t, slots, wins, seed=0):
+    """tia điện lách tách: cứ 2 khung mỗi slot nhảy chỗ, đổi dáng, xoay; đôi khi tắt (chớp). wins: (t0, t1, x, y, bán kính, cỡ)
+    theo xương của slot."""
+    chunk = math.floor(t * L.FPS / 2 + 1e-6)
+    for i, s in enumerate(slots):
+        if s not in MULTI:
+            continue
+        w = next((w for w in wins if w[0] <= t < w[1]), None)
+        if w is None:
+            P.att[s] = None
+            continue
+        rng = np.random.RandomState((seed * 7919 + i * 104729 + chunk * 15485863) % (2 ** 31))
+        if rng.uniform() < 0.3:
+            P.att[s] = None
+            continue
+        _, _, x, y, rad, sc = w
+        P.att[s] = f"{s}_c{rng.randint(NCRK_IMG)}"
+        P.move(s, x + rng.uniform(-rad, rad), y + rng.uniform(-0.45, 0.45) * rad)
+        P.rot(s, rng.uniform(0, 360))
+        P.scale(s, sc * rng.uniform(0.7, 1.2))
+        P.alpha[s] = 1.0
+
+
+def phys_burst(P, ctx, t, t0, slots, ph, seed=5, start=(0.0, 0.0), ground=None, speed=None, life=None):
+    """một đợt hạt có vật lý (_traj: leaf, spark, debris) từ chỗ start (đơn vị rig so với xương slot lúc nghỉ), sàn ở ground.
+    Tung nhanh rồi cản, rơi, nảy, nằm lại rồi tan; đời hạt không quá cuối clip (ctx.clip_dur)."""
+    kind = ph.get("kind", "leaf")
+    rng = np.random.RandomState(seed)
+    sp_, lf_ = ph.get("speed", speed or (2.0, 4.0)), ph.get("life", life or (1.0, 1.4))
+    ang, spin = ph.get("ang", (30, 150)), ph.get("spin", 360 if kind == "leaf" else 520)
+    g0 = (ground if ground is not None else -ctx.info["far"][1]) - start[1]
+    end = getattr(ctx, "clip_dur", 99) - 0.02
+    for i, s in enumerate(slots):
+        sp = rng.uniform(*sp_) * H
+        a = math.radians(rng.uniform(*ang))
+        lf = min(rng.uniform(*lf_), end - t0)
+        dl = rng.uniform(0, 0.04)
+        rs = rng.uniform(-spin, spin)
+        sz = rng.uniform(0.7, 1.3)
+        jx = rng.uniform(-0.06, 0.06) * H
+        u = t - t0 - dl
+        if u < 0 or u >= lf - dl:
+            P.att.setdefault(s, None)
+            continue
+        tr = _traj(kind, math.cos(a) * sp, math.sin(a) * sp, g0, (kind, seed, i, round(g0, 3)))
+        x, y = tr[min(len(tr) - 1, int(u * 240))]
+        P.att[s] = s
+        P.move(s, start[0] + jx + x, start[1] + y)
+        P.rot(s, rs * min(u, 0.42 if kind == "debris" else 0.8))
+        P.scale(s, sz * (1 - 0.25 * u / lf))
+        P.alpha[s] = 1 - L.smooth01((u / (lf - dl) - 0.72) / 0.28)
+
+
+def juice_idle(P, ctx, t, D):
+    """hạt idle lặp liền mạch (kiểu cycle của pixelfx): hạt i có pha (m·t/D + i/n) mod 1, sinh ở pha 0, tan hết trước pha 1.
+    leaf: lá rơi lượn từ trên xuống; drift: mây nhỏ trôi ngang sau lưng; flicker: chớp sét hai nhịp ở một chỗ; ember: than bay lên."""
+    if not ctx.C.get("juice"):
+        return
+    info = ctx.info
+    front, back = info["front"], info["back"]
+    rng = np.random.RandomState(7 + ctx.k)
+    j = 0
+    for sp in juice_specs(ctx.C, ctx.k):
+        n, kind, m = sp.get("n", 1), sp.get("kind", "leaf"), sp.get("cycles", 1)
+        for i in range(n):
+            s = f"ji{j}"
+            j += 1
+            off = (i + rng.uniform(0.0, 0.6)) / n
+            ph = (m * t / D + off) % 1.0
+            x0 = rng.uniform(back - 0.05 * H, front + 0.05 * H)
+            sway = rng.uniform(0.06, 0.12) * H
+            fi = rng.uniform(0, 2 * math.pi)
+            P.att[s] = s
+            if kind == "leaf":
+                y = (1.08 - 1.0 * ph) * H
+                x = x0 + sway * math.sin(2 * math.pi * 2 * ph + fi) - 0.15 * H * ph
+                P.move(s, x, y)
+                P.rot(s, 70 * math.sin(2 * math.pi * 2 * ph + fi + 0.6) + 40 * ph * (1 if i % 2 else -1))
+                P.scale(s, 0.8 + 0.4 * rng.uniform())
+                P.alpha[s] = min(1.0, ph / 0.1) * min(1.0, (1 - ph) / 0.18)
+            elif kind == "drift":
+                y = rng.uniform(0.55, 0.95) * H
+                x = back - 0.15 * H + (front - back + 0.3 * H) * ph
+                P.move(s, x, y + 0.03 * H * math.sin(2 * math.pi * ph * 2 + fi))
+                P.rot(s, 0)
+                P.scale(s, 0.7 + 0.5 * rng.uniform())
+                P.alpha[s] = 0.85 * min(1.0, ph / 0.2) * min(1.0, (1 - ph) / 0.25)
+            elif kind == "ember":
+                y = (0.15 + 0.95 * ph) * H
+                P.move(s, x0 + sway * 0.6 * math.sin(2 * math.pi * 1.5 * ph + fi), y)
+                P.rot(s, 0)
+                P.scale(s, 1.0 - 0.6 * ph)
+                P.alpha[s] = min(1.0, ph / 0.1) * min(1.0, (1 - ph) / 0.3)
+            else:  # flicker / crackle: chớp vài nhịp ngắn rồi tắt; có cụm mây (pend_c*) thì chớp ngay trên mây
+                xf, yf = rng.uniform(back + 0.1 * H, front - 0.2 * H), rng.uniform(0.75, 1.0) * H
+                clouds = [ctx.R.bw(b) for b in bones_like(ctx.R, "pend_c")]
+                if clouds:
+                    cx_, cy_ = clouds[i % len(clouds)]
+                    xf, yf = cx_ + rng.uniform(-0.06, 0.06) * H, cy_ + 0.08 * H
+                if kind == "crackle":  # lách tách 0,2 s: mỗi 2 khung một dáng, chỗ lệch chút, có khung tắt
+                    on = ph < 0.1 * D / 2.0
+                    fr = math.floor(ph * D * L.FPS / 2 + 1e-6)  # theo pha: nối vòng liền
+                    r2 = np.random.RandomState((j * 7919 + fr * 104729) % (2 ** 31))
+                    if on and r2.uniform() > 0.25:
+                        P.att[s] = f"{s}_c{r2.randint(NCRK_IMG)}"
+                        P.move(s, xf + r2.uniform(-0.05, 0.05) * H, yf + r2.uniform(-0.03, 0.03) * H)
+                        P.rot(s, r2.uniform(0, 360))
+                        P.scale(s, r2.uniform(0.8, 1.15))
+                        P.alpha[s] = 1.0
+                    else:
+                        P.att[s] = None
+                    continue
+                on = (0.0 <= ph < 0.035) or (0.07 <= ph < 0.1)
+                if on:
+                    P.move(s, xf, yf)
+                    P.rot(s, rng.uniform(-20, 20))
+                    P.scale(s, 1.0)
+                    P.alpha[s] = 1.0
+                else:
+                    P.att[s] = None
+    if ctx.C["juice"].get("cloud_drift"):  # cụm mây là vật bay (pend_*): trôi riêng, 0 ở khung đầu cho khớp các clip khác
+        A = ctx.C["juice"]["cloud_drift"] * H
+        u = 2 * math.pi * t / D
+        for q, b in enumerate(bones_like(ctx.R, "pend_c")):
+            P.move(b, A * math.sin(u + q * 1.7) * (1 if q % 2 else -1), 0.45 * A * math.sin(2 * u + q))
+
+
+def juice_gather(P, ctx, t, t0, t1, radius=0.7):
+    """hạt tụ lực bay VÀO miệng từ t0 tới t1: tốc tăng dần (ease-in), co nhỏ, tan khi tới nơi."""
+    if not (ctx.C.get("juice") or {}).get("gather"):
+        return
+    mx, my = ctx.info["mouth"]
+    rng = np.random.RandomState(31)
+    span = max(0.05, t1 - t0)
+    for i in range(NGATHER):
+        s = f"jg{i}"
+        a = 2 * math.pi * i / NGATHER + rng.uniform(-0.3, 0.3)
+        r = rng.uniform(0.75, 1.0) * radius * H
+        st = t0 + rng.uniform(0.0, 0.4) * span
+        dur = max(0.08, t1 - st) * rng.uniform(0.75, 1.0)
+        u = (t - st) / dur
+        if not (0.0 <= u < 1.0):
+            P.att[s] = None
+            continue
+        e = u ** 2.2
+        P.att[s] = s
+        P.move(s, mx + math.cos(a) * r * (1 - e), my + math.sin(a) * r * (1 - e))
+        P.rot(s, math.degrees(a) + 90 + 180 * u)
+        P.scale(s, 1.0 - 0.6 * e)
+        P.alpha[s] = min(1.0, u / 0.15) * (1.0 if u < 0.85 else (1 - u) / 0.15)
+
+
+def juice_trail(P, ctx, t, t0, fly, arc=0.0, s0=0.6, s1=1.15):
+    """vệt đuôi của đạn fly0: bản sao nhỏ dần, nhạt dần, trễ 0,035 s mỗi cái, cùng đường bay."""
+    J = ctx.C.get("juice") or {}
+    for i in range(min(NTRAIL, J.get("trail", 0))):
+        s, b = f"jt{i}", f"flyt{i}"
+        d = 0.035 * (i + 1)
+        tt = t - d
+        if not (t0 <= tt < t0 + fly + 0.02):
+            P.att[s] = None
+            continue
+        u = min(1.0, (tt - t0) / fly)
+        bx, by = ctx.R.bw(b)
+        fx_, fy_ = far_of(ctx)
+        e = u * u * (3 - 2 * u) * 0.35 + u * 0.65
+        P.move(b, (fx_ - bx) * e, (fy_ - by) * e + arc * H * math.sin(math.pi * u))
+        P.att[s] = s
+        P.alpha[s] = (0.55 - 0.2 * i) * min(1.0, (tt - t0) / 0.04)
+        P.scale(s, (s0 + (s1 - s0) * u) * (0.85 - 0.15 * i))
+
+
+def juice_ring(P, ctx, t, wins):
+    """vòng nổ kem ở chỗ đối thủ, mỗi cửa sổ (t0, cỡ): nở rất nhanh (0,08 s) rồi tan trước 0,2 s (khung "hero" vẽ tay)."""
+    if "jr" not in FXSPEC:
+        return
+    for t0, sz in wins:
+        u = (t - t0) / 0.2
+        if 0.0 <= u < 1.0:
+            P.att["jr"] = "jr"
+            P.scale("jr", sz * (0.35 + 0.95 * (1 - (1 - min(1.0, u / 0.4)) ** 3)))
+            P.alpha["jr"] = 1.0 if u < 0.45 else (1 - u) / 0.55
+            P.rot("jr", 25 * u)
+            return
+    P.att["jr"] = None
+
+
+_TRAJ = {}
+
+
+def _traj(kind, vx, vy, ground, key):
+    """quỹ đạo có vật lý (bước 1/240 s, 2 s): leaf cản mạnh, rơi chậm, lượn; spark cản, trọng lực nhẹ, nảy 0,45; debris trọng lực
+    mạnh, nảy một lần 0,25 rồi nằm. Đơn vị rig (H), y lên; ground = y của sàn so với gốc."""
+    if key in _TRAJ:
+        return _TRAJ[key]
+    drag, g, bounce = {"leaf": (2.6, 4.5, 0.0), "spark": (2.2, 6.5, 0.45), "debris": (0.8, 14.0, 0.25)}.get(kind, (2.2, 6.5, 0.4))
+    x = y = 0.0
+    out = []
+    dt = 1 / 240
+    landed = 0
+    for n in range(480):
+        if landed < 2:
+            vx -= vx * drag * dt
+            vy -= vy * (drag if kind != "debris" else 0.0) * dt + g * H * dt
+            if kind == "leaf":
+                vx += math.sin(n * dt * 9 + key[-1]) * 1.2 * H * dt
+                vy = max(vy, -0.6 * H)  # lá rơi tới vận tốc cuối
+            x += vx * dt
+            y += vy * dt
+            if y < ground and vy < 0:
+                y = ground
+                if landed == 0 and bounce > 0 and -vy > 0.6 * H:
+                    vy, vx = -vy * bounce, vx * 0.7
+                    landed = 1
+                else:
+                    vx = vy = 0.0
+                    landed = 2
+        out.append((x, y))
+    _TRAJ[key] = out
+    return out
+
+
+def juice_phys(P, ctx, t, t0, seed=5, speed=(2.0, 4.0), life=(1.0, 1.5), groups=(0,)):
+    """hạt có vật lý ở chỗ đối thủ (slot jp<nhóm>_*, con của far) văng từ thân đối thủ (đòn thường: chỉ nhóm đầu)."""
+    for g, ph in enumerate(phys_groups(ctx.C.get("juice") or {})):
+        if g not in groups:
+            continue
+        sl = [f"jp{g}_{i}" for i in range(ph.get("n", NPHYS))]
+        phys_burst(P, ctx, t, t0, sl, dict(ph, speed=speed, life=life), seed=seed + 13 * g, start=(0.0, 0.05 * H))
 
 
 DEFAULT_FX = {"fx_ground": ("FX08", 0.95, 0), "fx_ring_b": ("FX01", 1.0, 0), "fx_ring_f": ("FX01", 1.0, 0),
@@ -714,6 +1218,13 @@ DEFAULT_FX = {"fx_ground": ("FX08", 0.95, 0), "fx_ring_b": ("FX01", 1.0, 0), "fx
 
 
 def fx_slot(R, slot):
+    if slot in MULTI:
+        bone, items = MULTI[slot]
+        bx, by = R.bw(bone)
+        R.slot(slot, bone, None, fx=True)
+        for att, img, w, h, dx, dy, rot in items:
+            R.region(slot, att, img, bone, bx + dx, by + dy, w, h, rot)
+        return
     if slot not in FXSPEC:
         return
     bone, img, size, rot = FXSPEC[slot]
@@ -834,6 +1345,7 @@ def idle(ctx):
         for bones in tail_bones(ctx)[:1]:
             P.rot(bones[-1], -12 * acc)
         idle_fx(P, ctx, t, D)
+        juice_idle(P, ctx, t, D)
     return {"dur": D, "loop": True, "fn": f}
 
 
@@ -1137,8 +1649,12 @@ def attack_range(ctx, kind):
         for bn in bones_like(ctx.R, "arm", "claw"):
             P.rot(bn, c([(0, 0), (0.3, 14), (h, -12, "o"), (0.8, 0), (D, 0)]))
         secondary(P, ctx, t, lean)
+        juice_gather(P, ctx, t, 0.06, h - 0.02, radius=0.55)
+        juice_ring(P, ctx, t, [(hit - 0.01, 1.0)])
+        juice_phys(P, ctx, t, hit, seed=3, speed=(1.6, 3.2))
         if kind == "breath":
             shoot(P, ctx, t, 0, h - 0.02, fly, arc=0.02, spin=-200, s0=0.6, s1=1.15)
+            juice_trail(P, ctx, t, h - 0.02, fly, arc=0.02, s0=0.6, s1=1.15)
         elif kind == "song":
             for i in range(3):
                 shoot(P, ctx, t, i, h - 0.02 + 0.04 * i, fly, arc=(0.08, -0.06, 0.12)[i], spin=(30, -40, 20)[i], s0=0.6, s1=0.95)
@@ -1229,6 +1745,7 @@ def cast(ctx):
         fx_on(P, "fx_ring_b", t, 0.1, h + 0.1, rise=0.15, fade=0.12, amax=0.5)
         P.rot("fx_ring", c([(0, 0), (D, -300, "l")]))
         P.scale("fx_ring", c([(0, 0.5), (h, 0.9, "o"), (D, 1.0)]), c([(0, 0.25), (h, 0.4, "o"), (D, 0.45)]))
+        juice_gather(P, ctx, t, 0.1, h - 0.03)
     return {"dur": D, "fn": f, "hit": h}
 
 
@@ -1264,6 +1781,8 @@ def skill_storm(ctx, kind):
     D, t_up, h = 1.7, 0.5, 0.92
     mo = motion_of(ctx, "roar")
     land = 0.0 if FXSPEC.get("ff_big", (0, 0, 0, 0))[3] in (90, "up") else fx_h(ctx, "ff_big") * 0.5 - 0.45 * H
+    if (ctx.C.get("juice") or {}).get("lightning"):
+        return skill_lightning(ctx, mo, t_up, h)
 
     def f(t, P):
         c = lambda ks: curve(t, ks)  # noqa: E731
@@ -1279,6 +1798,47 @@ def skill_storm(ctx, kind):
         P.scale("ff_big", s * c([(0, 1.0), (h, 1.0), (h + 0.05, 1.12, "o"), (h + 0.16, 1.0), (h + 1, 1.0)]),
                 s * c([(0, 1.0), (h, 1.0), (h + 0.05, 0.86, "o"), (h + 0.16, 1.0), (h + 1, 1.0)]))
         far_impact(P, ctx, t, h, s, big=False)
+        J = ctx.C.get("juice") or {}
+        if J:
+            juice_gather(P, ctx, t, 0.12, h - 0.3, radius=0.8)
+            # sét giáng nhiều nhịp: các nhát phụ rơi trước nhát chính, lệch hai bên đối thủ, mỗi nhát một vòng nổ
+            pre = [(h - 0.26, -0.2 * H), (h - 0.13, 0.16 * H)][:max(0, J.get("strikes", 1) - 1)]
+            for i, (ts, ox) in enumerate(pre):
+                sl = f"js{i}"
+                if sl not in FXSPEC:
+                    continue
+                fx_on(P, sl, t, ts - 0.08, ts + 0.32, rise=0.03, fade=0.2)
+                P.move(sl, ox, c([(0, 1.8 * H), (ts - 0.08, 1.8 * H), (ts, land, "i"), (ts + 0.05, land + 0.04 * H, "o"),
+                                  (ts + 0.12, land, "i")]))
+                P.scale(sl, c([(0, 1.0), (ts, 1.0), (ts + 0.05, 1.1, "o"), (ts + 0.14, 1.0), (ts + 1, 1.0)]))
+            juice_ring(P, ctx, t, [(ts, 0.7) for ts, _ in pre] + [(h, 1.25)])
+            juice_phys(P, ctx, t, h, seed=9, speed=(2.4, 4.6))
+    return {"dur": D, "fn": f, "hit": h + 0.03}
+
+
+def skill_lightning(ctx, mo, t_up, h):
+    """gọi sét giật thật (juice "lightning"): gầm gọi trời, tia điện lách tách quanh đầu, mây giông kéo tới trên đầu đối thủ, các
+    nhát sét phụ rồi nhát chính (tia dẫn, chớp đổi dáng), vòng nổ, xoáy dưới đất, đất lá văng có vật lý. Dài hơn chiêu thường
+    0,3 s cho đất lá rơi hết."""
+    D = 2.0
+    J = ctx.C["juice"]
+
+    def f(t, P):
+        c = lambda ks: curve(t, ks)  # noqa: E731
+        lean = windup(P, ctx, t, mo, t_up, h - 0.25, D)
+        secondary(P, ctx, t, lean, 1.1)
+        skill_charge(P, t, c, h - 0.2)
+        fx_on(P, "fx_charge", t, 0.2, h - 0.2, rise=0.12, fade=0.12)
+        P.scale("fx_charge", c([(0, 0.4), (0.5, 1.2, "o"), (h - 0.2, 0.8)]))
+        P.rot("fx_charge", c([(0, 0), (D, 160, "l")]))
+        # ảnh cũ ở chỗ đối thủ (cột sét, xoáy mây sét, mẩu sét văng) có vẽ sẵn tia sét tĩnh: tắt hết, sét thật thay vào
+        for s_ in ("ff_big", "ff_big2", "ff_ground", "ff_hit"):
+            P.att[s_] = None
+        for i_ in range(NFAR):
+            P.att[f"fp{i_}"] = None
+        juice_gather(P, ctx, t, 0.12, h - 0.3, radius=0.8)
+        lightning_anim(P, ctx, t, h, t_cloud=0.3)
+        juice_ring(P, ctx, t, [(h + dt_, 0.7) for dt_, _ in J["lightning"]["strikes"][:-1]] + [(h, 1.25)])
     return {"dur": D, "fn": f, "hit": h + 0.03}
 
 
@@ -1671,6 +2231,16 @@ def game_info(R, clips, baked, C, k):
     g["far"] = (["attack"] if atk in RANGED else []) + (["skill"] if sk in FAR_SKILL else [])
     if C.get("beamStyle"):
         g["beamStyle"] = C["beamStyle"]
+    # cảm giác trúng (StageView đọc qua AolaActor.Impact): khựng (giây thật), rung (trauma 0..1), bật lùi (theo chiều cao đối thủ)
+    imp = (C.get("juice") or {}).get("impact") or {}
+    if imp:
+        cl = [c for c in imp if c in clips]
+        g["impactClips"] = cl
+        g["impactStop"] = [float(imp[c][0]) for c in cl]
+        g["impactShake"] = [float(imp[c][1]) for c in cl]
+        g["impactPush"] = [float(imp[c][2]) for c in cl]
+        if any(len(imp[c]) > 3 for c in cl):  # chớp cả màn (màu hex) lúc trúng, "" = không
+            g["impactFlash"] = [str(imp[c][3]) if len(imp[c]) > 3 else "" for c in cl]
     return g
 
 
@@ -1683,6 +2253,11 @@ def build_form(hid, k, nxt=None, gif=True):
     Q.LAYERS[k] = ctx.F["layers"]
     Q.label_sheet(k, ctx.rgb, ctx.lab, os.path.join(od, "nhan.png"), extra=list(ctx.J.values()) + [ctx.F["mouth"]])
     clips = clips_of(ctx)
+    for n_, c_ in clips.items():  # hạt có vật lý biết cuối clip (tan trước khi clip hết)
+        def fn_(t, P, f0=c_["fn"], d=c_["dur"]):
+            ctx.clip_dur = d
+            f0(t, P)
+        c_["fn"] = fn_
     baked = Q.clean({n: L.bake(R, c, {}) for n, c in clips.items()}, R)
     hgt = L.idle_height(R, baked["idle"][0])
     res_dir = os.path.join(T.RES, code(hid, k))

@@ -178,22 +178,33 @@ MonoBehaviour:
     - n: 80
       k: chest_gold
       v: 0
+    odds:
+    - 25.3
+    - 22
+    - 1.7
+    - 22
+    - 25.7
+    - 3.3
+    rings:
+    - n: 25
+      k: chest_silver
+      v: 0
+    - n: 25
+      k: balls
+      v: 5
     ratesBalls: 6000
+    ringHits:
+    - 1.6
+    - 0.95
     rates:
-    - k: chest_silver
-      p: 0.056
-    - k: chest_wood
-      p: 0.0775
-    - k: exp10
-      p: 0.2212
-    - k: chest_gold
-      p: 0.0315
-    - k: exp15
-      p: 0.2207
     - k: exp5
-      p: 0.2988
-    - k: ball
-      p: 0.0943
+      p: 0.51
+    - k: exp10
+      p: 0.44
+    - k: chest_gold
+      p: 0.017
+    - k: chest_silver
+      p: 0.033
     afk:
       shardChance: 0.08
       chestEveryH: 3

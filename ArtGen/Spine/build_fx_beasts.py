@@ -199,7 +199,107 @@ SHEETS = {
         ("leaves", "a swirling burst of green and golden leaves"),
         ("halo", "a ring of small jade pearls and flat yellow sparkles, like a halo"),
     ],
+    # đảo Hỏa (2026-11-09): tờ lửa chung thay bộ NƯỚC mặc định của beast.py (vòng dưới chân, lốc tụ lực, tiến hóa, sóng cuối),
+    # rồi mỗi dòng một tờ riêng; Lân Hỏa (boss cuối) thêm tờ thứ hai
+    "hoa_chung": [
+        ("ring", "a flat ring of small flames seen in perspective on the ground (a wide ellipse, about three times wider than tall)"),
+        ("whirl", "a fire whirl seen from the front: a wide ring of curling flame tongues swirling around an empty centre"),
+        ("wave", "a low wave of flames rolling along the ground to the right, its crest curling forward"),
+        ("burst", "a round fire burst seen from the front: a ring of flame petals radiating outward from the centre"),
+        ("pillar", "a tall upright pillar of flames rising from the ground, wide at the base, flame tongues twisting up"),
+        ("ember", "one small flame-shaped ember"),
+    ],
+    "su_tu_lua": [
+        ("claw", "three parallel curved claw-slash streaks made of flame, slanting down to the right"),
+        ("fist", "a big star-shaped punch impact burst with flame tongues around it"),
+        ("orb", "a round fire orb with a curling lion-mane flame pattern around it"),
+        ("burst", "a round burst of orange and yellow flame tufts flying outward"),
+        ("lion", "a lion head made of flames, roaring and charging to the right, mane of flame flowing back"),
+        ("ember", "one small orange flame tuft"),
+    ],
+    "khong_lo": [
+        ("crack", "a long low crack in the ground running to the right, with flames bursting up out of the crack along its length"),
+        ("smash", "an impact burst of black coal chunks and orange flames radiating from the centre"),
+        ("orb", "a round glowing-coal orb: a black charcoal ball with flat orange cracks and a small flame on top"),
+        ("geyser", "a tall upright geyser of flames and coal chunks erupting from a cracked ground"),
+        ("chunk", "one small black coal chunk with an orange crack"),
+        ("boulder", "a big flaming charcoal boulder with orange cracks, a short flame trail behind it to the upper left"),
+    ],
+    "kim_su": [
+        ("roar", "three curved sound-wave arcs made of crimson-and-gold flame, opening to the right, getting bigger outward"),
+        ("orb", "a round golden fire orb with a crimson swirl inside, like the curl of a lion's mane"),
+        ("pillar", "a tall upright pillar of crimson and gold curling flame swirls erupting from the ground"),
+        ("burst", "a round burst of crimson and golden flame curls radiating outward"),
+        ("swirl", "one small crimson flame curl with a gold tip"),
+        ("medal", "a round golden medallion with a lion face, rimmed with small crimson flames"),
+    ],
+    "nham_than": [
+        ("meteor", "a big falling lava rock: dark basalt with flat orange cracks, a flame trail streaming up behind it"),
+        ("splash", "a round lava splash burst: blobs of flat orange and yellow lava and rock chips flying outward"),
+        ("orb", "a round molten lava orb inside a cracked basalt shell, small flame on top"),
+        ("fist", "a big rock-fist punch impact: basalt chunks and lava spatter bursting forward to the right"),
+        ("rock", "one small basalt rock with an orange crack"),
+        ("pool", "a flat pool of lava seen in perspective on the ground (a wide ellipse) with a basalt rim"),
+    ],
+    "nguu_quyen": [
+        ("horn", "a double shock-wave shaped like two curved bull horns hitting forward to the right, with flames"),
+        ("glove", "a big star-shaped punch impact burst with a red boxing-glove print in the middle and flames around"),
+        ("orb", "a round orb made of curling fire clouds"),
+        ("trail", "a long horizontal trail of fire clouds streaming to the left, like the dust behind a charging bull"),
+        ("burst", "a round burst of curling fire clouds"),
+        ("cloud", "one small curling fire cloud puff"),
+    ],
+    "hong_lien": [
+        ("breath", "a cone of flame petals blown to the right, widening outward"),
+        ("petal", "one big lotus-petal-shaped flame flying to the right, pink and red with a yellow base"),
+        ("lotus", "a big blooming lotus flower made of pink and red flames, opening upward from the ground"),
+        ("orb", "a round lotus-bud orb of flame, pink and red petals closed around a yellow core"),
+        ("burst", "a round burst of pink and red lotus petals of flame flying outward"),
+        ("spark", "one small pink petal-shaped ember"),
+    ],
+    "giap_long": [
+        ("ram", "a steel-horn impact: a star-shaped burst of white-hot sparks and steel shards hitting forward to the right"),
+        ("ball", "an armoured dragon curled into a spiky steel ball, red-hot spike tips, rolling to the right with a flame trail"),
+        ("burst", "a round burst of grey steel shards and orange flames radiating outward"),
+        ("orb", "a round red-hot steel orb with riveted bands and a flame crest"),
+        ("shard", "one small grey steel shard with a red-hot tip"),
+        ("spikes", "a ring of big grey steel spikes with red-hot tips erupting upward from the ground"),
+    ],
+    "huyen_viem": [
+        ("claw", "three parallel curved claw-slash streaks made of violet and pink flame, slanting down to the right"),
+        ("foxfire", "one foxfire wisp: a teardrop flame of violet and pink with a curling tail, flying to the right"),
+        ("pillar", "a tall upright pillar of violet and pink foxfire flames erupting from the ground, golden crescent moons in it"),
+        ("orb", "a round violet foxfire orb with a golden crescent moon inside"),
+        ("burst", "a round burst of violet and pink flame tongues radiating outward"),
+        ("moon", "one small golden crescent moon"),
+    ],
+    "hoa_tinh": [
+        ("bite", "a big biting jaw made of coral-red flame: two curved rows of white fangs closing, with flame tongues"),
+        ("crystal", "a cluster of big pointed ruby crystals erupting upward from the ground with coral flames between them"),
+        ("orb", "a round faceted ruby orb wrapped in a ring of coral flame"),
+        ("burst", "a round burst of ruby shards and coral flame tongues"),
+        ("gem", "one small faceted ruby gem"),
+        ("howl", "three curved sound-wave arcs of coral-pink flame opening to the right"),
+    ],
+    "lan_hoa": [
+        ("tail", "a big crescent arc of red and gold flame swept by a tail, curving down to the right"),
+        ("orb", "a round golden flame pearl with red cloud curls around it"),
+        ("qilin", "a fire qilin spirit made of red and golden flames leaping down to the right, antlers and flowing mane"),
+        ("burst", "a round burst of red and golden flames with small cloud curls"),
+        ("cloud", "one small curling cloud of red and gold flame"),
+        ("ring", "a flat ring of golden flames and red cloud curls seen in perspective on the ground (a wide ellipse)"),
+    ],
+    "lan_hoa_b": [
+        ("pillar", "a tall pillar of holy golden and white-gold flame pouring down from the sky onto the ground"),
+        ("feathers", "a swirling burst of long flame feathers in red, orange and gold"),
+        ("halo", "a ring of golden flames with small jade-green gems, like a halo"),
+        ("roar", "a vertical fan of big red-and-gold flame arcs expanding to the right with cloud curls"),
+        ("meteor", "a big golden fireball falling with a long red flame trail streaming up behind it"),
+        ("seal", "a round golden seal of flame with a cloud pattern, seen in perspective on the ground (a wide ellipse)"),
+    ],
 }
+HOA = {"hoa_chung", "su_tu_lua", "khong_lo", "kim_su", "nham_than", "nguu_quyen", "hong_lien", "giap_long", "huyen_viem",
+       "hoa_tinh", "lan_hoa", "lan_hoa_b"}
 
 
 def paths(hid):
@@ -219,9 +319,16 @@ def luot_1(hid):
     cells = ["top-left", "top-middle", "top-right", "bottom-left", "bottom-middle", "bottom-right"]
     lst = "\n".join(f"{j + 1}. {cells[j]} cell: {d}." for j, (_n, d) in enumerate(items))
     boss = ""
-    if hid.split("_b")[0] in ("kuba", "huyen_vu", "lam_quan", "thuong_lam", "gio_loc", "tho_hoang", "thanh_long") or hid.endswith("_b"):
+    if hid.split("_b")[0] in ("kuba", "huyen_vu", "lam_quan", "thuong_lam", "gio_loc", "tho_hoang", "thanh_long", "hong_lien",
+                              "giap_long", "huyen_viem", "hoa_tinh", "lan_hoa") or hid.endswith("_b"):
         boss = ("\nThese effects belong to one of the island's last bosses: make them especially rich and beautiful (more "
                 "layered shapes, elegant curls and details), still flat-coloured and readable.")
+    fire = ""
+    if hid in HOA:
+        fire = ("\nFIRE: every flame is a flat shape with a closed dark-brown ink outline, filled with flat crayon colours in at "
+                "most three clear bands (red outer, orange middle, yellow inner, or the colours stated for that effect), never "
+                "left as white paper; lava is flat orange and yellow. Nothing glows: no light, no halo, no bright edges, no "
+                "smoke or heat haze.")
     t = f"""IMAGES (attached in this order; open each from its path):
 {img}
 
@@ -233,7 +340,7 @@ TASK: draw a SHEET OF SIX SEPARATE GAME EFFECT SPRITES in the hand-drawn style o
 LAYOUT (very important, the sheet is cut automatically): landscape 1536x1024, pure-white background, divided into an invisible grid of 3 columns x 2 rows of 512x512 cells. Draw exactly ONE effect in each cell, centred, filling about 75% of the cell, every part (drops and sparks included) at least 40 px inside its cell: nothing crosses into a neighbouring cell. No grid lines, no numbers, no labels.
 {lst}{boss}
 
-STYLE: drawn by hand on paper with a dark-brown ink pen (#2B2118) outline about 6 px thick, slightly wobbly; coloured with coloured pencils and wax crayons, visible diagonal hatching. Colours exactly as described for each effect (water blue and aqua with white foam; ice pale blue and white; leaves and vines green; flowers as stated; crystals as stated; lightning flat yellow with a dark outline, never glowing).
+STYLE: drawn by hand on paper with a dark-brown ink pen (#2B2118) outline about 6 px thick, slightly wobbly; coloured with coloured pencils and wax crayons, visible diagonal hatching. Colours exactly as described for each effect (water blue and aqua with white foam; ice pale blue and white; leaves and vines green; flowers as stated; crystals as stated; lightning flat yellow with a dark outline, never glowing).{fire}
 {FLAT}
 Plain pure-white background (#FFFFFF), no creature, no character, no text.
 """
@@ -243,6 +350,24 @@ Plain pure-white background (#FFFFFF), no creature, no character, no text.
     with open(p, "w", encoding="utf-8") as fh:
         fh.write(t)
     return p
+
+
+# hình vòng (vòng lửa dưới đất, lốc, nổ hở giữa, vòng gai): lòng giấy trắng khép kín phải trong suốt, không thì lên sân thành
+# đĩa trắng đục (fg_mask chỉ bỏ nền trắng nối mép ô)
+HOLLOW = {"hoa_chung_ring", "hoa_chung_whirl", "hoa_chung_burst", "lan_hoa_ring", "lan_hoa_b_halo", "giap_long_spikes"}
+
+
+def clear_holes(cell, m, min_area=400):
+    """bỏ khỏi mặt nạ các mảng trắng (giấy, mọi kênh >= 238) khép kín rộng hơn min_area px."""
+    import cv2
+    import numpy as np
+    white = (cell.min(2) >= 238).astype(np.uint8) & m.astype(np.uint8)
+    n, cl, st, _ = cv2.connectedComponentsWithStats(white, connectivity=4)
+    out = m.copy()
+    for c in range(1, n):
+        if st[c, cv2.CC_STAT_AREA] >= min_area:
+            out[cl == c] = False
+    return out
 
 
 def cat(hid):
@@ -267,6 +392,8 @@ def cat(hid):
         if not m.any():
             print("  ô trống:", name)
             continue
+        if f"{hid}_{name}" in HOLLOW:
+            m = clear_holes(cell, m)
         rgba = riglib.to_rgba(cell, m)
         ys, xs = np.nonzero(m)
         out = Image.fromarray(rgba[ys.min():ys.max() + 1, xs.min():xs.max() + 1])

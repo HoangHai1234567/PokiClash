@@ -72,6 +72,7 @@ namespace PokiClash.Core
         public int ballsSpent;
         public bool legendDone;
         public int gift, giftTier; // mốc quà máy bi: bi đã tiêu vào mốc đang chạy, số mốc đã nhận
+        public int[] rings = new int[2]; // vòng nấm máy bi (trái, phải): số nấc đã có
         public Dictionary<string, HeroProg> heroes = new Dictionary<string, HeroProg>(); // theo thứ tự tướng trong dữ liệu
         public List<string> team = new List<string>();
         public int[] zones = new int[5]; // số ải đã qua trong từng đảo, chỉ số theo Elem
@@ -288,7 +289,7 @@ namespace PokiClash.Core
 
         static readonly HashSet<string> Known = new HashSet<string>
         {
-            "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "heroes", "team", "zones", "zoneChests", "clears",
+            "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "rings", "heroes", "team", "zones", "zoneChests", "clears",
             "afkSince", "afk", "badges", "potentialStones", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
         };
 
@@ -380,6 +381,8 @@ namespace PokiClash.Core
                     };
                 }
             foreach (var t in J.Arr(o, "team")) if (t is string id) s.team.Add(id);
+            var rings = J.Arr(o, "rings");
+            for (int i = 0; i < s.rings.Length && i < rings.Count; i++) s.rings[i] = (int)(double)rings[i];
             var zones = J.Obj(o, "zones");
             var chests = J.Obj(o, "zoneChests");
             for (int i = 0; i < 5; i++)
@@ -525,6 +528,7 @@ namespace PokiClash.Core
                 ["legendDone"] = s.legendDone,
                 ["gift"] = s.gift,
                 ["giftTier"] = s.giftTier,
+                ["rings"] = s.rings.Select(x => (object)x).ToList(),
                 ["heroes"] = heroes,
                 ["team"] = s.team.Cast<object>().ToList(),
                 ["zones"] = zones,

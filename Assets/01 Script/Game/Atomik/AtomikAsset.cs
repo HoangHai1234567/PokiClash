@@ -85,6 +85,13 @@ namespace PokiClash.Game
         public string beamStyle;        // ảnh tia riêng, rỗng = tia nước thường
         public string move = "move";    // xương mang cú lao, cú nhảy (đo độ dời thân)
         public string shadow = "shadow"; // slot bóng dưới chân (HideShadow)
+        // cảm giác trúng riêng của clip (skill pokiclash-hero-fx, 2026-11-09): lúc trúng StageView khựng cả sân, rung, đẩy lùi con
+        // bị đánh. Rig không khai thì như cũ.
+        public string[] impactClips;
+        public float[] impactStop;      // giây thật sân gần như đứng (StageView.FreezeSlow)
+        public float[] impactShake;     // trauma 0..1 cộng vào rung màn
+        public float[] impactPush;      // quãng bật lùi con bị đánh, theo chiều cao nó
+        public string[] impactFlash;    // màu chớp cả màn lúc trúng (hex, StageView.Flash), rỗng = không chớp
     }
 
     public sealed class AtomikAsset : ScriptableObject

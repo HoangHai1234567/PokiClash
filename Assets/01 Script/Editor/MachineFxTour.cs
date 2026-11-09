@@ -21,6 +21,33 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(Run());
         }
 
+        // hộp "Tỉ lệ của máy": vào máy bi, bấm nút "i" (nut_ti_le), chụp, đóng
+        [MenuItem("PokiClash/Thử/Máy bi: hộp tỉ lệ (đang Play)", priority = 114)]
+        static void TryRates()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(RunRates());
+        }
+
+        static IEnumerator RunRates()
+        {
+            shot = 290;
+            App.Router.Go(SceneIds.Machine);
+            float t0 = Time.realtimeSinceStartup;
+            while ((!Object.FindAnyObjectByType<MachineScene>() || App.Router.Busy) && Time.realtimeSinceStartup - t0 < 20) yield return null;
+            yield return new WaitForSecondsRealtime(0.8f);
+            var btn = GameObject.Find("nut_ti_le");
+            if (!btn || !btn.TryGetComponent<SketchButton>(out var b))
+            {
+                Debug.LogWarning("[Thử] Không thấy nút tỉ lệ nut_ti_le");
+                yield break;
+            }
+            b.SimulateClick();
+            yield return new WaitForSecondsRealtime(0.8f);
+            yield return Shot("ti_le");
+            App.Modals.Back();
+        }
+
         static IEnumerator Shot(string name)
         {
             yield return new WaitForEndOfFrame();
@@ -33,7 +60,8 @@ namespace PokiClash.EditorTools
         static bool Click(string label)
         {
             foreach (var b in Object.FindObjectsByType<SketchButton>(FindObjectsSortMode.None))
-                if (b.Label && b.Label.text == label.ToUpperInvariant() && b.isActiveAndEnabled)
+                // nút vòm nhỏ ghi hai dòng ("THẢ LIỀN" xuống dòng "20"): so sau khi đổi xuống dòng thành dấu cách
+                if (b.Label && b.Label.text.Replace('\n', ' ') == label.ToUpperInvariant() && b.isActiveAndEnabled)
                 {
                     b.SimulateClick();
                     return true;
@@ -45,7 +73,7 @@ namespace PokiClash.EditorTools
         // tua giờ hạt (máy đang dừng) thêm step giây rồi chụp
         static IEnumerator Advance(MachineBoard v, float step, string name)
         {
-            v.Sync(step, step, Board.BW / 2, 0);
+            v.Sync(step, step, 0);
             yield return Shot(name);
         }
 
@@ -103,20 +131,22 @@ namespace PokiClash.EditorTools
             yield return Shot("fx_bi_lan");
             Debug.Log($"[Thử] Hạt đang sống: {v.Fx.Live}, bi đang lăn: {b.balls.Count}");
 
-            // 2. đinh, nấm, ô, cốc, lúc thả cùng lúc, chụp ở 0,03 / 0,08 / 0,15 / 0,25 giây
-            int bumper = b.pegs.FindIndex(q => q.kind == PegKind.Bumper);
+            // 2. đinh, nấm, nấm đỉnh, ô, cốc, vòng nấm đầy, lúc phóng cùng lúc, chụp ở 0,03 / 0,08 / 0,15 / 0,25 giây
+            int bumper = b.ringPeg[0];
             int peg = b.pegs.FindIndex(q => q.kind == PegKind.Peg);
             v.Flash(bumper);
+            v.Flash(b.topPeg);
             for (int i = 0; i < 3; i++) v.Flash(peg + i * 3);
+            v.SlotFx(0);
             v.SlotFx(1);
-            v.SlotFx(4);
-            v.SlotFx(8);
-            v.Glow(1, 0); // lớp tia sáng ô: EXP, bi, rương gỗ
+            v.SlotFx(3);
+            v.Glow(0, 0); // lớp tia sáng ô EXP
             v.Glow(3, 0);
-            v.Glow(0, 1);
-            var cup = b.cups.Find(c => c.r > 0);
+            var cup = b.cups[0];
             v.CupFx(cup.x, cup.y);
-            v.Launch(Board.BW / 2);
+            v.RingFull(1);
+            v.SetRing(1, 0.2f);
+            v.Launch();
             float age = 0;
             foreach (var at in new[] { 0.03f, 0.08f, 0.15f, 0.25f })
             {
@@ -125,13 +155,12 @@ namespace PokiClash.EditorTools
             }
             yield return Advance(v, 0.6f, "fx_cham_het");
 
-            // 3. rương rơi vào: cấp 2 (gỗ ô trái) và cấp 3 (vàng ô khuất)
-            var left = b.slots[0];
-            var mid = b.slots[5];
-            v.Burst((left.x0 + left.x1) / 2, Board.Floor - 10, MachineBoard.ChestColor(SlotKind.ChestWood));
-            v.ChestFx((left.x0 + left.x1) / 2, Board.Floor - 10, 2);
-            v.Float((left.x0 + left.x1) / 2, Board.Floor - 30, "Rương Gỗ!", MachineBoard.ChestColor(SlotKind.ChestWood), 30);
-            v.ChestFx((mid.x0 + mid.x1) / 2, Board.Floor - 10, 3);
+            // 3. rương rơi vào: cấp 2 (bạc ở cốc dưới mái) và cấp 3 (vàng ô khuất)
+            var mid = b.slots[2];
+            v.Burst(cup.x, cup.y, MachineBoard.ChestColor(SlotKind.ChestSilver));
+            v.ChestFx(cup.x, cup.y, 2);
+            v.Float(cup.x, cup.y - 20, "Rương Bạc!", MachineBoard.ChestColor(SlotKind.ChestSilver), 30);
+            v.ChestFx((mid.x0 + mid.x1) / 2, mid.y0 + 10, 3);
             age = 0;
             foreach (var at in new[] { 0.05f, 0.12f, 0.25f, 0.45f })
             {
@@ -140,12 +169,11 @@ namespace PokiClash.EditorTools
             }
             yield return Advance(v, 0.8f, "fx_ruong_het");
 
-            // 4. rương vàng ở két
-            v.Burst(Board.VaultX, 505, MachineBoard.ChestColor(SlotKind.ChestGold), 1.8f);
-            v.JackpotFx(Board.VaultX, 505);
-            v.Glow(5, 2);
-            v.CupFx(Board.VaultX, 505); // két sáng
-            v.CloudFace("pk_may_tha_wow", 1.2f);
+            // 4. rương vàng ở ô khuất giữa đáy
+            double gx = (mid.x0 + mid.x1) / 2, gy = mid.y0 + 10;
+            v.Burst(gx, gy, MachineBoard.ChestColor(SlotKind.ChestGold), 1.8f);
+            v.JackpotFx(gx, gy);
+            v.Glow(2, 2);
             age = 0;
             foreach (var at in new[] { 0.03f, 0.1f, 0.2f, 0.35f, 0.5f })
             {

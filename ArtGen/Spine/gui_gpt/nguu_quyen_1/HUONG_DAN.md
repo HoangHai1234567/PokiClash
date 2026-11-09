@@ -1,0 +1,46 @@
+# nguu_quyen: tướng .atomik đảo Hỏa (rig từ một ảnh liền)
+
+Đảo Hỏa, ải 20. Làm theo cách hai đảo Thủy, Mộc: thú huyền thoại hơi chibi kiểu Pokémon, style cũ, dạng sau dữ hơn nhưng không quá, hạn chế dạng người. Claude gọi Codex bằng `ArtGen/Spine/gen.py <file prompt>`; người dùng muốn tự gửi thì chỉ cần đưa GPT đường dẫn file prompt (GPT tự mở ảnh mẫu và tự lưu).
+
+## Dạng 1: Nghé Lửa (bốn chân)
+- Thiết kế: nghé lửa: da đỏ gạch, mõm bụng kem, sừng ngà ngắn, khoen mũi đồng, túm lửa trên trán và chóp đuôi.
+- File prompt: `E:\ProjectAtomik\PokiWar\ArtGen\Spine\gui_gpt\nguu_quyen_1\luot_1_lien.txt`.
+- Ảnh mẫu theo thứ tự:
+  1. `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\de_hoa_1\tai_ve\L1_lien.png`: cừu hoa lông kem bốn chân (đảo Mộc); 1536x1024, nền trắng; lấy khung, dáng, nét.
+  2. `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\moc_tinh_2\tai_ve\L1_lien.png`: sói xám pha lê lục bảo bốn chân (đảo Mộc); 1536x1024, nền trắng; lấy nét, tô.
+  3. `E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png`: bản đồ thế giới vẽ tay, 1024x1536; chỉ lấy nét bút mực, chì sáp.
+- Lưu: `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\nguu_quyen_1\tai_ve\L1_lien.png` (trùng tên thì `L1_lien_2.png`, `_3`...).
+
+## Dạng 2: Ngưu Lãng Tử (đứng hai chân, tay tách thân)
+- Thiết kế: ngưu lãng tử đứng hai chân: khăn cổ xanh mòng két, thắt lưng da khoá đồng tròn, tay quấn vải kem như nắm đấm, sừng dài hơn.
+- File prompt: `E:\ProjectAtomik\PokiWar\ArtGen\Spine\gui_gpt\nguu_quyen_2\luot_1_lien.txt`.
+- Ảnh mẫu theo thứ tự:
+  1. `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\long_vuot_2\tai_ve\L1_lien.png`: rồng lá đứng hai chân, cánh xoè (đảo Mộc); 1536x1024, nền trắng; lấy khung, dáng, nét.
+  2. `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\de_hoa_1\tai_ve\L1_lien.png`: cừu hoa lông kem bốn chân (đảo Mộc); 1536x1024, nền trắng; lấy nét, tô.
+  3. ảnh dạng 1 đã duyệt của dòng này (`E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\nguu_quyen_1`, L1_duyet.png hoặc tai_ve/L1_lien.png); 1536x1024, nền trắng; giữ loài, màu, mặt.
+  4. `E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png`: bản đồ thế giới vẽ tay, 1024x1536; chỉ lấy nét bút mực, chì sáp.
+- Lưu: `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\nguu_quyen_2\tai_ve\L1_lien.png` (trùng tên thì `L1_lien_2.png`, `_3`...).
+
+## Dạng 3: Ngưu Quyền (đứng hai chân, tay tách thân)
+- Thiết kế: ngưu quyền thủ: cơ bắp, sừng lớn vòng đồng, bờm lửa dáng mây lửa trùm vai, găng đấm đỏ cổ đồng, đai vô địch xanh mòng két vân mây lửa.
+- File prompt: `E:\ProjectAtomik\PokiWar\ArtGen\Spine\gui_gpt\nguu_quyen_3\luot_1_lien.txt`.
+- Ảnh mẫu theo thứ tự:
+  1. `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\long_vuot_2\tai_ve\L1_lien.png`: rồng lá đứng hai chân, cánh xoè (đảo Mộc); 1536x1024, nền trắng; lấy khung, dáng, nét.
+  2. `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\de_hoa_1\tai_ve\L1_lien.png`: cừu hoa lông kem bốn chân (đảo Mộc); 1536x1024, nền trắng; lấy nét, tô.
+  3. ảnh dạng 1 đã duyệt của dòng này (`E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\nguu_quyen_1`, L1_duyet.png hoặc tai_ve/L1_lien.png); 1536x1024, nền trắng; giữ loài, màu, mặt.
+  4. ảnh dạng 2 đã duyệt của dòng này (`E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\nguu_quyen_2`, L1_duyet.png hoặc tai_ve/L1_lien.png); 1536x1024, nền trắng; giữ loài, màu, mặt.
+  5. `E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png`: bản đồ thế giới vẽ tay, 1024x1536; chỉ lấy nét bút mực, chì sáp.
+- Lưu: `E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\nguu_quyen_3\tai_ve\L1_lien.png` (trùng tên thì `L1_lien_2.png`, `_3`...).
+
+## Kiểm
+- Thú, không mặt người; mặt quả quyết, mắt nhìn sang phải; nhìn nghiêng 3/4 sang phải.
+- Tô phẳng: không bóng, không điểm sáng, không phát sáng; lửa là mảng màu có viền mực khép kín, tối đa ba dải màu, không để giấy trắng; không tàn lửa, khói bay quanh.
+- Chân tách nhau có khe trắng, tay tách thân, đuôi không vắt qua thân, cánh không đè đầu, sừng.
+- Khung 1536x1024, con cao khoảng 720 px, chừa lề trắng; không đường đất, không bóng dưới chân.
+- Dạng sau cùng loài, cùng màu, cùng dấu hiệu dạng trước.
+
+## Câu sửa nhanh (gửi kèm `--note`)
+- "Flat colour only: no shine spots, no shading, no glow; the flames do not light up the body."
+- "Close every flame with a dark-brown ink outline and fill it with flat crayon colour, never white paper; no floating sparks or embers."
+- "Keep white gaps between the legs and between each arm and the body; the tail must not cross the body."
+- "More determined face: lowered brows, firm mouth, not a happy grin."

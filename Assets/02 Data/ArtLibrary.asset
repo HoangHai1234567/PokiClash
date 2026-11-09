@@ -177,12 +177,24 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: fd9d9b0d02d0fc14a857dba8d8b7e08b, type: 3}
   - name: lap_lanh
     sprite: {fileID: 21300000, guid: 275923d3e3053f349877364625793bbd, type: 3}
+  - name: manh_bang
+    sprite: {fileID: 21300000, guid: 9f66dcc2165565c47bda9a22406d9cc9, type: 3}
   - name: no_nuoc
     sprite: {fileID: 21300000, guid: 9722abde670c0844faa4a000af3092b4, type: 3}
+  - name: tia_bang
+    sprite: {fileID: 21300000, guid: 53e925fb317d33f47a01592c3701b9d8, type: 3}
   - name: tia_nuoc
     sprite: {fileID: 21300000, guid: 5655c3ad0c3022b45ba7020481a75f83, type: 3}
+  - name: tia_trieu
+    sprite: {fileID: 21300000, guid: 1b8287e02752efb4bb880ed3a0a89737, type: 3}
+  - name: tia_xoay
+    sprite: {fileID: 21300000, guid: a4e24814f7231f0499aec968d93df22c, type: 3}
+  - name: vong_am
+    sprite: {fileID: 21300000, guid: fda252cc3418b15408c4ec72ef641700, type: 3}
   - name: vong_song
     sprite: {fileID: 21300000, guid: ce5123d0fe620c044bfe4b5b5a09ba58, type: 3}
+  - name: xoay_nuoc
+    sprite: {fileID: 21300000, guid: 44a100fe91c10a141a7ca100c4124d36, type: 3}
   - name: anim_bell
     sprite: {fileID: 21300000, guid: ff8adad226e7c884fba5ab95306656a6, type: 3}
   - name: anim_embers
@@ -291,6 +303,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 11f7c1ac056ce054f868728b8fb58607, type: 3}
   - name: pk_den_tat
     sprite: {fileID: 21300000, guid: 5c8eb6465ddf1154a9ca8060b8794610, type: 3}
+  - name: pk_dia_nam
+    sprite: {fileID: 21300000, guid: 73439762dfe0ada418b17a585d5a338b, type: 3}
   - name: pk_dinh_sang
     sprite: {fileID: 21300000, guid: 424b14bbbed6ed347b511d685f489a6d, type: 3}
   - name: pk_fx_cham
@@ -325,6 +339,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 1243d25ea6bc39742bf4bedf5bae5202, type: 3}
   - name: pk_may_tha_wow
     sprite: {fileID: 21300000, guid: 43ad8314e5233a547bb492b9b0ecb997, type: 3}
+  - name: pk_nam_dinh
+    sprite: {fileID: 21300000, guid: 1d9ebb61f2d185845af76b6a357d5ab6, type: 3}
   - name: pk_nut_lien
     sprite: {fileID: 21300000, guid: ef89c4d6ac5ecfe4fb7e7d7ef23d31a4, type: 3}
   - name: pk_nut_lien_bat
@@ -361,6 +377,8 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 1e8a91e44ced8134eb77c90047aa46e0, type: 3}
   - name: pk_u_loi_sang
     sprite: {fileID: 21300000, guid: 8aac5f8153533a94a80b177fc5ee302d, type: 3}
+  - name: pk_vong_nam
+    sprite: {fileID: 21300000, guid: a8458f988e61a8c42860d757fc9ce382, type: 3}
   fallback:
   - name: battle_hoa
     sprite: {fileID: 21300000, guid: a962497db54480a4d9cfbfae643ecf66, type: 3}

@@ -1,4 +1,7 @@
-// Máy bi: thả bi qua đinh, rơi vào ô EXP / hoàn bi / rương (chép Web/src/view/screens/machine.ts).
+// Máy bi: bấm thả thì bi phóng lên làn phải, ra bàn ở hốc trên phải, dội qua đinh và nấm rồi rơi vào ô EXP / rương (bàn chép máy
+// tham khảo, Core/Pachinko.cs). Ô rơi chọn theo bảng tỉ lệ cfg.odds rồi phát đường bi vật lý rơi đúng ô đó; lúc rảnh, máy thử sẵn
+// vài đường mỗi khung (Board.Warm) để lúc phóng lấy ngay. Hai nấm lớn có vòng tiến độ (cfg.rings): mỗi lần chạm cộng nấc theo
+// cược, đầy thì ra quà (rương vào khay, bi về dòng đếm).
 // Nút ×N là mức cược: tốn N bi mỗi lần thả, thưởng ×N. Mức cược mở theo số bi đang có (cfg.xSteps, như máy tham khảo: nhiều bi
 // thì được thả nhanh hơn); bi tụt dưới mốc thì hết đợt cược tự về mức cao nhất còn mở. Mỗi đợt tối đa MaxPerDrop(cấp) bi; đợt xong
 // (mọi bi đã rơi) thì mở lần lượt rương trong khay, rồi hộp "Huyền thoại!" (nếu vừa vượt mốc), rồi "Lên cấp!". Rương chờ nằm trong bản lưu.
@@ -25,7 +28,7 @@ namespace PokiClash
 
         public const float MachineTop = 100; // mép trên máy trong khối giữa
         public const float BlockH = 1530;
-        const double Tick = 1.0 / 120;
+        const double Tick = Board.Dt;
         static int lastX = 1; // mức cược nhớ trong lần chơi này
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] // Play không reload domain
@@ -123,9 +126,14 @@ namespace PokiClash
         public override void Enter(object args)
         {
             rng = new Rng(Rng.RandomSeed());
-            board = new Board(Rng.RandomSeed());
+            board = new Board(Rng.RandomSeed()) { odds = D.Cfg.odds.Length > 0 ? D.Cfg.odds : null };
             view = p.machine;
             view.Bind(board);
+            for (int i = 0; i < D.Cfg.rings.Count && i < S.rings.Length; i++)
+            {
+                view.RingReward(i, D.Cfg.rings[i]);
+                view.SetRing(i, RingFill(i), true);
+            }
             view.Hold.Down = StartHold;
             view.Hold.Up = () => holding = false;
 
@@ -436,7 +444,7 @@ namespace PokiClash
 
         bool CanDrop() => !ending && !opening && S.balls >= x && session < D.Cfg.MaxPerDrop(S.level);
 
-        double LauncherX => Board.BW / 2 + Mathf.Sin(time * 1.25f) * Board.Swing;
+        static float RingFill(int i) => i < D.Cfg.rings.Count && D.Cfg.rings[i].n > 0 ? (float)S.rings[i] / D.Cfg.rings[i].n : 0;
 
         bool DropOne()
         {
@@ -452,8 +460,8 @@ namespace PokiClash
                 if (g.k == RewardKind.Chest) S.chests.Add(new PendingChest { kind = Pachinko.Key(g.chest), x = 1 });
                 StartCoroutine(GiftClaim(g));
             }
-            board.Drop(LauncherX + (Random.value - 0.5) * 4, x);
-            view.Launch(LauncherX);
+            board.Launch(x);
+            view.Launch();
             session++;
             dirty = true;
             App.Audio.Play("click");
@@ -516,16 +524,20 @@ namespace PokiClash
             while (acc >= Tick)
             {
                 acc -= Tick;
-                foreach (var e in board.Step(Tick))
+                foreach (var e in board.Step())
                 {
                     if (!e.land)
                     {
                         view.Flash(e.peg);
                         if (App.Audio.Peg((float)e.speed)) Haptics.Play(Haptic.Peg);
+                        int ring = System.Array.IndexOf(board.ringPeg, e.peg);
+                        if (ring >= 0) RingHit(ring, e.ball.mult);
                     }
-                    else OnLand(e.reward, e.slot, e.ball.x, System.Math.Min(e.ball.y, Board.Floor), e.ball.mult);
+                    else OnLand(e.reward, e.slot, e.ball.x, e.ball.y, e.ball.mult);
                 }
             }
+            // rảnh tay (không chạy chậm): thử sẵn vài đường bi cho các ô còn thiếu trong kho
+            if (slowT <= 0) board.Warm(2);
             // máng thả tạm ngừng khi đang chạy chậm
             if ((holding || autoLeft > 0) && slowT <= 0)
             {
@@ -542,7 +554,7 @@ namespace PokiClash
                     else if (autoLeft > 0) autoLeft--;
                 }
             }
-            view.Sync(dt, dt * sim, LauncherX, CanDrop() ? x : 0);
+            view.Sync(dt, dt * sim, CanDrop() ? x : 0);
             UpdateDomes(dt);
             UpdateBulbs(dt);
             AnimateMilestone(dt);
@@ -584,6 +596,44 @@ namespace PokiClash
             dirty = false;
             saveTimer = 0;
             App.Save.Save();
+        }
+
+        // ---------- vòng nấm ----------
+
+        // bi chạm nấm lớn: vòng cộng nấc (×cược); đầy thì nấm phồng, loé, quà bay ra từ nấm (rương vào khay, bi về dòng đếm)
+        void RingHit(int ring, int mult)
+        {
+            var got = Pachinko.RingHit(S, D.Cfg, ring, mult);
+            var pg = board.pegs[board.ringPeg[ring]];
+            if (got.Count > 0) view.RingFull(ring);
+            view.SetRing(ring, RingFill(ring));
+            dirty = true;
+            foreach (var g in got)
+            {
+                var from = view.World(pg.x, pg.y);
+                switch (g.k)
+                {
+                    case RewardKind.Chest:
+                        S.chests.Add(new PendingChest { kind = Pachinko.Key(g.chest), x = 1 });
+                        view.Float(pg.x, pg.y - pg.r - 8, Pachinko.ChestName(g.chest) + "!", MachineBoard.ChestColor(g.chest), 28);
+                        App.Audio.Play("chest", 0.9f, 1.1f);
+                        Haptics.Play(Haptic.LandSilver);
+                        StartCoroutine(FlyChest(g.chest, from));
+                        SaveNow();
+                        break;
+                    case RewardKind.Balls:
+                        view.Float(pg.x, pg.y - pg.r - 8, $"+{g.n} bi", MachineBoard.BallPink, 28);
+                        App.Audio.Play("coin", 0.9f, 1.15f);
+                        Haptics.Play(Haptic.LandSmall);
+                        FlyBalls(from, g.n);
+                        break;
+                    case RewardKind.Exp:
+                        view.Float(pg.x, pg.y - pg.r - 8, $"+{g.n} XP", MachineBoard.XpColor, 28);
+                        if (p.expBar) p.expBar.Fly(from, g.n);
+                        App.Audio.Play("land");
+                        break;
+                }
+            }
         }
 
         // ---------- bi rơi ----------
@@ -635,7 +685,6 @@ namespace PokiClash
             view.Shake(ShakeAmp, ShakeTime);
             view.Burst(bx, by, col, 1.8f);
             view.JackpotFx(bx, by);
-            view.CloudFace("pk_may_tha_wow", 1.2f);
             partyT = 1.2f;
             Haptics.Play(Haptic.LandGold);
             StartCoroutine(Jingle());
@@ -837,8 +886,12 @@ namespace PokiClash
             if (p.expBar) p.expBar.Clear();
             if (board == null) return;
             var s = S;
-            // bi còn lăn: tính như rơi vào ô EXP 10 (EXP 10 × mức cược)
-            foreach (var b in board.balls) Pachinko.SlotReward(s, D.Cfg, SlotKind.Exp10, b.mult);
+            // bi còn bay: tính như đã rơi vào ô đã chọn cho nó (vật lý thuần thì EXP 10), rương vào hàng chờ
+            foreach (var b in board.balls)
+            {
+                var kind = b.target < 0 ? SlotKind.Exp10 : b.target < board.slots.Count ? board.slots[b.target].reward : board.cups[b.target - board.slots.Count].reward;
+                if (Pachinko.SlotReward(s, D.Cfg, kind, b.mult).k == RewardKind.Chest) s.chests.Add(new PendingChest { kind = Pachinko.Key(kind), x = b.mult });
+            }
             board.balls.Clear();
             session = 0;
             if (bigReward != null)

@@ -1,0 +1,23 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_fx\tai_ve\FX03.png: an approved effect of the same game (a water splash burst), 1024x1024: match EXACTLY its hand-drawn line, crayon texture and flat colouring.
+image 2 = E:\ProjectAtomik\PokiWar\ArtGen\Heroes\inbox\giot_suong_fx\tai_ve\FX07.png: another approved effect of the same game (a wave), 1024x1024: same style reference.
+image 3 = E:\ProjectAtomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's hand-drawn map, 1024x1536; use ONLY its line and colouring style, nothing of its content.
+
+SAVE: save it as a PNG to E:\ProjectAtomik\PokiWar\ArtGen\Spine\inbox\fx\lan_hoa\tai_ve\sheet.png
+If a file with that name already exists, save as sheet_2.png, sheet_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: draw a SHEET OF SIX SEPARATE GAME EFFECT SPRITES in the hand-drawn style of images 1 and 2.
+
+LAYOUT (very important, the sheet is cut automatically): landscape 1536x1024, pure-white background, divided into an invisible grid of 3 columns x 2 rows of 512x512 cells. Draw exactly ONE effect in each cell, centred, filling about 75% of the cell, every part (drops and sparks included) at least 40 px inside its cell: nothing crosses into a neighbouring cell. No grid lines, no numbers, no labels.
+1. top-left cell: a big crescent arc of red and gold flame swept by a tail, curving down to the right.
+2. top-middle cell: a round golden flame pearl with red cloud curls around it.
+3. top-right cell: a fire qilin spirit made of red and golden flames leaping down to the right, antlers and flowing mane.
+4. bottom-left cell: a round burst of red and golden flames with small cloud curls.
+5. bottom-middle cell: one small curling cloud of red and gold flame.
+6. bottom-right cell: a flat ring of golden flames and red cloud curls seen in perspective on the ground (a wide ellipse).
+These effects belong to one of the island's last bosses: make them especially rich and beautiful (more layered shapes, elegant curls and details), still flat-coloured and readable.
+
+STYLE: drawn by hand on paper with a dark-brown ink pen (#2B2118) outline about 6 px thick, slightly wobbly; coloured with coloured pencils and wax crayons, visible diagonal hatching. Colours exactly as described for each effect (water blue and aqua with white foam; ice pale blue and white; leaves and vines green; flowers as stated; crystals as stated; lightning flat yellow with a dark outline, never glowing).
+FIRE: every flame is a flat shape with a closed dark-brown ink outline, filled with flat crayon colours in at most three clear bands (red outer, orange middle, yellow inner, or the colours stated for that effect), never left as white paper; lava is flat orange and yellow. Nothing glows: no light, no halo, no bright edges, no smoke or heat haze.
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker side, no shadows of any kind (no cast shadow, no shadow under the figure, on the ground or on the background), no white highlights or shine spots, no gloss, no glow, no rim light, no gradients, no 3D look. The only white allowed is one small catchlight dot in each eye. A darker tone appears only where the design itself has a darker colour.
+Plain pure-white background (#FFFFFF), no creature, no character, no text.

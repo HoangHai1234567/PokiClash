@@ -239,8 +239,13 @@ namespace PokiClash.Core
         public int maxPerDrop = 20, maxPerDropHigh = 30, maxPerDropLevel = 15, legendCopies = 15;
         public List<ChestTable> chests = new List<ChestTable>();
         public List<GiftStep> gifts = new List<GiftStep>(); // mốc quà sau mốc Huyền thoại, hết thì vòng lại từ đầu
-        public int ratesBalls; // số bi của lần mô phỏng đo tỉ lệ
-        public List<SlotRate> rates = new List<SlotRate>();
+        // bảng tỉ lệ kết quả (%), theo thứ tự ô đáy trái sang phải (Board.SlotLayout) rồi cốc dưới mái: máy chọn kết quả theo bảng
+        // này rồi phát đường bi vật lý rơi đúng chỗ (Board.odds)
+        public double[] odds = new double[0];
+        public List<GiftStep> rings = new List<GiftStep>(); // vòng nấm trái, phải: đủ n lần chạm (×cược) ra quà
+        public int ratesBalls; // số bi của lần mô phỏng đo số lần chạm nấm
+        public double[] ringHits = new double[0]; // số lần chạm mỗi nấm trung bình mỗi bi (đo bằng mô phỏng)
+        public List<SlotRate> rates = new List<SlotRate>(); // tỉ lệ theo loại ô, tính từ odds lúc đọc
 
         public double Rate(string kind) => rates.Find(r => r.k == kind)?.p ?? 0;
 
@@ -273,7 +278,27 @@ namespace PokiClash.Core
             c.chests = new List<ChestTable>(chests);
             c.gifts = new List<GiftStep>(gifts);
             c.rates = new List<SlotRate>(rates);
+            c.odds = (double[])odds.Clone();
+            c.rings = new List<GiftStep>(rings);
+            c.ringHits = (double[])ringHits.Clone();
             return c;
+        }
+
+        // tỉ lệ theo loại ô từ bảng tỉ lệ kết quả (ô đáy theo Board.SlotLayout, rồi cốc)
+        public static List<SlotRate> OddsRates(double[] odds)
+        {
+            var list = new List<SlotRate>();
+            double sum = odds.Sum();
+            if (sum <= 0) return list;
+            for (int i = 0; i < odds.Length; i++)
+            {
+                var kind = i < Board.SlotLayout.Length ? Board.SlotLayout[i] : Board.GiftReward;
+                string k = Pachinko.Key(kind);
+                var r = list.Find(q => q.k == k);
+                if (r == null) list.Add(r = new SlotRate { k = k });
+                r.p = Math.Round(r.p + odds[i] / sum, 6);
+            }
+            return list;
         }
 
         public static BalanceConfig FromJson(Dictionary<string, object> root)
@@ -343,11 +368,16 @@ namespace PokiClash.Core
                     var go = J.Obj(g);
                     c.gifts.Add(new GiftStep { n = J.Int(go, "n"), k = J.Str(go, "k"), v = J.Int(go, "v") });
                 }
+                foreach (var g in J.Arr(pk, "rings"))
+                {
+                    var go = J.Obj(g);
+                    c.rings.Add(new GiftStep { n = J.Int(go, "n"), k = J.Str(go, "k"), v = J.Int(go, "v") });
+                }
+                c.odds = J.Arr(pk, "odds").Select(x => (double)x).ToArray();
+                c.rates = OddsRates(c.odds);
                 var m = J.Obj(pk, "measured");
                 c.ratesBalls = J.Int(m, "balls");
-                var rates = J.Obj(m, "rates");
-                if (rates != null)
-                    foreach (var kv in rates) c.rates.Add(new SlotRate { k = kv.Key, p = (double)kv.Value });
+                c.ringHits = J.Arr(m, "ringHits").Select(x => (double)x).ToArray();
             }
             var tr = J.Obj(root, "trees");
             if (tr != null)

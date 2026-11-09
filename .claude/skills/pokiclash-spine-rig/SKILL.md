@@ -360,6 +360,22 @@ Người dùng chê bản ghép lớp (mục 13, 14) lỗi nhiều: vệt khe, c
 - `game_info` tự tính `lunge`, `far` theo kiểu. Vòng tụ lực kiểu mới chỉ vòng sau, nhạt, không khiên (khiên, vòng trước che kín dáng).
 - **Soi:** nền xám (`render(..., bg=(150,150,150))`) để thấy vệt trắng, chỗ hở. Soi khung lúc xoay, lật, trượt và lúc đuôi lắc mạnh nhất.
 
+## 16. Đảo Hỏa: tướng mới từ chữ tới game trong một buổi (2026-11-09, máy ổ E)
+
+Cách mục 15 áp cho 10 dòng, 28 dạng chưa có concept nào (QUY_TRINH mục 19):
+- **Gói prompt** `build_hoa.py`: thiết kế chữ (giữ chủ đề dòng aola, mỗi dòng một bảng màu), ảnh mẫu là ảnh liền đã vào game theo kiểu
+  dáng (`POSE_REF`; tránh ảnh mẫu cùng loài kẻo Codex chép), luật lửa `FLAMES` (viền khép kín, tối đa 3 dải, không phát sáng,
+  không tàn bay). Dạng k chỉ dựng khi đã có ảnh dạng k-1.
+- **Cấu hình** riêng một file `beasts_cfg_hoa.py` (nạp cuối `beasts_cfg.py`); hàm `_fx` đặt bộ hiệu ứng lửa thay bộ nước mặc định
+  (vòng dưới chân, lốc tụ lực/tiến hóa chỉ vòng sau, sóng cuối chiêu, hạt). Mỗi dạng: soi `nhan.png`, sửa hạt giống chỗ lẹm (sừng mũ
+  bị tính vào mào, gốc tai bị tính vào đầu) rồi mới dựng.
+- **Hiệu ứng** tờ 3x2 như mục 13; ảnh hình vòng khai trong `HOLLOW` của `build_fx_beasts.py` để xoá lòng giấy trắng khép kín.
+- **Dựng thử không đụng Assets:** vá `thuy_long.RES` sang scratchpad (và `fx_img` thay ảnh thiếu bằng FX03) để soi `khung.png`,
+  tiến hóa (`show <k> evolve ...`) trước khi có đủ hiệu ứng, rồi chép `Resources/<dạng>/` vào Assets một lần khi Unity rảnh.
+- **Gen dài**: `chay_hoa.py <prompt ...>` chạy tách (Start-Process), bỏ qua file đã có ảnh. Lệnh nền của phiên bị ngắt vẫn sống:
+  kiểm tiến trình `gen.py` trước khi chạy lại kẻo gen trùng.
+- `AtomikForms.Attach` tự dựng prefab cho tướng chỉ có dạng .atomik (chưa từng có hình aola) và thêm vào HeroModels.
+
 ## 14. Gen bộ phận SAU khi rig (đảo Mộc, 2026-11-08 tối; đã bỏ, xem mục 15)
 
 Người dùng dặn: gen một con hoàn chỉnh, rig xương, sau đó mới gen thêm bộ phận phục vụ animation. Lý do: loang màu phần bị che làm "ghép lệch".

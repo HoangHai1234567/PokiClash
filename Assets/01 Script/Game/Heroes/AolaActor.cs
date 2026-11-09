@@ -680,6 +680,23 @@ namespace PokiClash.Game
         // kiểu tia riêng của dạng (anim.json "cast.tia", StageView chọn ảnh tia cùng tên); null = tia nước thường
         public string BeamStyle => atk != null ? (string.IsNullOrEmpty(atk.game?.beamStyle) ? null : atk.game.beamStyle) : data?.beamStyle;
 
+        // cảm giác trúng của clip (.atomik khai impact*, skill pokiclash-hero-fx): khựng (giây thật), rung (trauma 0..1), bật lùi
+        // (theo chiều cao đối thủ), chớp cả màn (màu hex, rỗng = không). Dạng aola, rig không khai: false.
+        public bool Impact(string clip, out float stop, out float shake, out float push, out string flash)
+        {
+            stop = shake = push = 0;
+            flash = null;
+            var g = atk != null ? atk.game : null;
+            if (g == null || g.impactClips == null) return false;
+            int i = Array.IndexOf(g.impactClips, AtkName(clip));
+            if (i < 0) return false;
+            if (g.impactStop != null && i < g.impactStop.Length) stop = g.impactStop[i];
+            if (g.impactShake != null && i < g.impactShake.Length) shake = g.impactShake[i];
+            if (g.impactPush != null && i < g.impactPush.Length) push = g.impactPush[i];
+            if (g.impactFlash != null && i < g.impactFlash.Length) flash = g.impactFlash[i];
+            return true;
+        }
+
         // chiêu bắn tia: chỗ bắn so với tâm bóng dưới chân của clip đứng (điểm clip, y xuống) và cỡ tia của dạng; không khai: false
         public bool Beam(out Vector2 muzzle, out float scale)
         {

@@ -1682,7 +1682,7 @@
    "id": "su_tu_lua",
    "name": "Sư Tử Lửa",
    "title": "Bờm lửa nhỏ",
-   "aola": "goc_4",
+   "aola": "su_tu_lua_1",
    "elem": "hoa",
    "rarity": "uncommon",
    "stats": [
@@ -1702,17 +1702,17 @@
    "forms": [
     {
      "name": "Sư Tử Lửa",
-     "aola": "goc_4",
+     "aola": "su_tu_lua_1",
      "size": 0.9
     },
     {
      "name": "Sư Tử Lửa",
-     "aola": "goc_5",
+     "aola": "su_tu_lua_2",
      "size": 1.02
     },
     {
      "name": "Sư Tử Lửa",
-     "aola": "goc_6",
+     "aola": "su_tu_lua_3",
      "size": 1.14
     }
    ]
@@ -1837,7 +1837,7 @@
    "id": "khong_lo",
    "name": "Khổng Lồ Lửa",
    "title": "Sừng lửa thân than",
-   "aola": "goc_46",
+   "aola": "khong_lo_1",
    "elem": "hoa",
    "rarity": "common",
    "stats": [
@@ -1857,17 +1857,17 @@
    "forms": [
     {
      "name": "Viên Than",
-     "aola": "goc_46",
+     "aola": "khong_lo_1",
      "size": 0.9
     },
     {
      "name": "Sừng Than",
-     "aola": "goc_47",
+     "aola": "khong_lo_2",
      "size": 1.02
     },
     {
      "name": "Khổng Lồ Lửa",
-     "aola": "goc_48",
+     "aola": "khong_lo_3",
      "size": 1.14
     }
    ]
@@ -1876,7 +1876,7 @@
    "id": "kim_su",
    "name": "Kim Sư",
    "title": "Bờm lửa giáp vàng",
-   "aola": "goc_581",
+   "aola": "kim_su_1",
    "elem": "hoa",
    "rarity": "uncommon",
    "stats": [
@@ -1896,17 +1896,17 @@
    "forms": [
     {
      "name": "Sư Con",
-     "aola": "goc_581",
+     "aola": "kim_su_1",
      "size": 0.9
     },
     {
      "name": "Liệt Hỏa Sư",
-     "aola": "goc_582",
+     "aola": "kim_su_2",
      "size": 1.02
     },
     {
      "name": "Kim Sư",
-     "aola": "goc_583",
+     "aola": "kim_su_3",
      "size": 1.14
     }
    ]
@@ -1915,7 +1915,7 @@
    "id": "nham_than",
    "name": "Nham Thần",
    "title": "Chúa tể dung nham",
-   "aola": "goc_599",
+   "aola": "nham_than_1",
    "elem": "hoa",
    "rarity": "uncommon",
    "stats": [
@@ -1935,17 +1935,17 @@
    "forms": [
     {
      "name": "Nham Con",
-     "aola": "goc_599",
+     "aola": "nham_than_1",
      "size": 0.9
     },
     {
      "name": "Nham Hỏa",
-     "aola": "goc_600",
+     "aola": "nham_than_2",
      "size": 1.02
     },
     {
      "name": "Nham Thần",
-     "aola": "goc_601",
+     "aola": "nham_than_3",
      "size": 1.14
     }
    ]
@@ -1954,7 +1954,7 @@
    "id": "hong_lien",
    "name": "Hồng Liên",
    "title": "Cánh lửa sen đỏ",
-   "aola": "goc_776",
+   "aola": "hong_lien_1",
    "elem": "hoa",
    "rarity": "rare",
    "stats": [
@@ -1974,17 +1974,17 @@
    "forms": [
     {
      "name": "Đốm Hồng",
-     "aola": "goc_776",
+     "aola": "hong_lien_1",
      "size": 0.9
     },
     {
      "name": "Phi Viêm",
-     "aola": "goc_777",
+     "aola": "hong_lien_2",
      "size": 1.02
     },
     {
      "name": "Hồng Liên",
-     "aola": "goc_778",
+     "aola": "hong_lien_3",
      "size": 1.14
     }
    ]
@@ -1993,7 +1993,7 @@
    "id": "giap_long",
    "name": "Giáp Long",
    "title": "Gai thép lửa đỏ",
-   "aola": "goc_1231",
+   "aola": "giap_long_1",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2013,12 +2013,12 @@
    "forms": [
     {
      "name": "Giáp Long Con",
-     "aola": "goc_1231",
+     "aola": "giap_long_1",
      "size": 0.92
     },
     {
      "name": "Giáp Long",
-     "aola": "goc_1232",
+     "aola": "giap_long_2",
      "size": 1.1
     }
    ]
@@ -2027,7 +2027,7 @@
    "id": "huyen_viem",
    "name": "Huyễn Viêm",
    "title": "Hồ lửa ảo ảnh",
-   "aola": "goc_1295",
+   "aola": "huyen_viem_1",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2047,17 +2047,17 @@
    "forms": [
     {
      "name": "Linh Viêm",
-     "aola": "goc_1295",
+     "aola": "huyen_viem_1",
      "size": 0.9
     },
     {
      "name": "Huyễn Viêm",
-     "aola": "goc_1296",
+     "aola": "huyen_viem_2",
      "size": 1.02
     },
     {
      "name": "Thánh Huyễn Viêm",
-     "aola": "goc_2091",
+     "aola": "huyen_viem_3",
      "size": 1.14
     }
    ]
@@ -2066,7 +2066,7 @@
    "id": "hoa_tinh",
    "name": "Hỏa Tinh",
    "title": "Thú giáp lửa hồng",
-   "aola": "goc_1466",
+   "aola": "hoa_tinh_1",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2086,12 +2086,12 @@
    "forms": [
     {
      "name": "Tiểu Hỏa Tinh",
-     "aola": "goc_1466",
+     "aola": "hoa_tinh_1",
      "size": 0.92
     },
     {
      "name": "Hỏa Tinh",
-     "aola": "goc_1467",
+     "aola": "hoa_tinh_2",
      "size": 1.1
     }
    ]
@@ -2100,7 +2100,7 @@
    "id": "lan_hoa",
    "name": "Lân Hỏa",
    "title": "Thần thú ngàn năm",
-   "aola": "goc_1449",
+   "aola": "lan_hoa_1",
    "elem": "hoa",
    "rarity": "legend",
    "stats": [
@@ -2120,17 +2120,17 @@
    "forms": [
     {
      "name": "Lân Con",
-     "aola": "goc_1449",
+     "aola": "lan_hoa_1",
      "size": 0.95
     },
     {
      "name": "Lân Ngàn Năm",
-     "aola": "goc_1450",
+     "aola": "lan_hoa_2",
      "size": 1.1
     },
     {
      "name": "Thánh Lân",
-     "aola": "goc_2828",
+     "aola": "lan_hoa_3",
      "size": 1.16
     }
    ]
@@ -2139,7 +2139,7 @@
    "id": "nguu_quyen",
    "name": "Ngưu Quyền",
    "title": "Quyền thủ mây lửa",
-   "aola": "goc_412",
+   "aola": "nguu_quyen_1",
    "elem": "hoa",
    "rarity": "rare",
    "stats": [
@@ -2159,17 +2159,17 @@
    "forms": [
     {
      "name": "Nghé Lửa",
-     "aola": "goc_412",
+     "aola": "nguu_quyen_1",
      "size": 0.9
     },
     {
      "name": "Ngưu Lãng Tử",
-     "aola": "goc_413",
+     "aola": "nguu_quyen_2",
      "size": 1.02
     },
     {
      "name": "Ngưu Quyền",
-     "aola": "goc_414",
+     "aola": "nguu_quyen_3",
      "size": 1.14
     }
    ]

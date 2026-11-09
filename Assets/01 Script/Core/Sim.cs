@@ -21,6 +21,9 @@ namespace PokiClash.Core
         public readonly Dictionary<string, int> byPlace = new Dictionary<string, int>(); // "ô3:ball", "cốc:chest_gold"
         public readonly Dictionary<SlotKind, (double exp, double balls, double cards)> chestEv = new Dictionary<SlotKind, (double, double, double)>();
         public double expPerBall, backPerBall, cardsPerBall;
+        public readonly double[] ringHits = new double[2]; // số lần chạm nấm trái, phải mỗi bi
+        public double flightMedian, triesPerBall; // thời gian bay trung vị (giây), số lần thử vật lý mỗi bi
+        public int misses; // số bi không tìm được đường rơi đúng kết quả đã chọn
 
         public double Rate(SlotKind k) => count.TryGetValue(k, out var c) ? (double)c / balls : 0;
     }
@@ -206,29 +209,42 @@ namespace PokiClash.Core
 
         // ---------- máy bi ----------
 
-        // thả total bi đều theo dãy tỉ lệ vàng (như bảng tỉ lệ của export_data.ts), mở thử mỗi loại rương chestOpens lần
-        public static PachinkoReport Machine(GameData d, double[] slotW = null, int total = 6000, int chestOpens = 20000, uint seed = 7)
+        // phóng total bi theo bảng tỉ lệ của cấu hình (mỗi bi cách nhau 10 khung, như giữ nút thả), đếm chỗ rơi, số lần chạm từng
+        // nấm, thời gian bay; mở thử mỗi loại rương chestOpens lần; cộng giá trị vòng nấm theo số lần chạm đo được
+        public static PachinkoReport Machine(GameData d, int total = 6000, int chestOpens = 20000, uint seed = 7)
         {
             var rep = new PachinkoReport { balls = total };
-            var board = new Board(seed, slotW);
+            var board = new Board(seed) { odds = d.Cfg.odds.Length > 0 ? d.Cfg.odds : null };
             int landed = 0, dropped = 0, frame = 0;
+            var times = new List<double>();
             while (landed < total && frame < 400000)
             {
-                if (dropped < total && frame % 6 == 0)
+                if (dropped < total && frame % 10 == 0)
                 {
-                    board.Drop(Board.BW / 2 + ((dropped * 0.6180339887498949 % 1) * 2 - 1) * Board.Swing, 1);
+                    board.Launch(1);
                     dropped++;
                 }
-                foreach (var e in board.Step(1.0 / 60))
+                foreach (var e in board.Step())
                 {
-                    if (!e.land) continue;
+                    if (!e.land)
+                    {
+                        int ring = Array.IndexOf(board.ringPeg, e.peg);
+                        if (ring >= 0) rep.ringHits[ring]++;
+                        continue;
+                    }
                     landed++;
+                    times.Add(e.ball.age);
                     rep.count[e.reward] = rep.count.TryGetValue(e.reward, out var c) ? c + 1 : 1;
                     var place = e.cup ? $"cốc:{Pachinko.Key(e.reward)}" : $"ô{e.slot}:{Pachinko.Key(e.reward)}";
                     rep.byPlace[place] = rep.byPlace.TryGetValue(place, out var c2) ? c2 + 1 : 1;
                 }
                 frame++;
             }
+            for (int i = 0; i < rep.ringHits.Length; i++) rep.ringHits[i] /= Math.Max(1, landed);
+            times.Sort();
+            rep.flightMedian = times.Count > 0 ? times[times.Count / 2] : 0;
+            rep.misses = board.misses;
+            rep.triesPerBall = (double)board.tries / Math.Max(1, total);
             rep.frames = frame;
             var rng = new Rng(3);
             foreach (var kind in new[] { SlotKind.ChestWood, SlotKind.ChestSilver, SlotKind.ChestGold })
@@ -242,6 +258,22 @@ namespace PokiClash.Core
                         else if (r.k == RewardKind.Card) cards++;
                     }
                 rep.chestEv[kind] = (exp / chestOpens, balls / chestOpens, cards / chestOpens);
+            }
+            // vòng nấm: mỗi bi chạm ringHits[i] lần, đủ n lần ra một quà
+            for (int i = 0; i < d.Cfg.rings.Count && i < rep.ringHits.Length; i++)
+            {
+                var g = d.Cfg.rings[i];
+                if (g.n <= 0) continue;
+                double fills = rep.ringHits[i] / g.n;
+                if (g.k == "balls") rep.backPerBall += fills * g.v;
+                else if (g.k == "exp") rep.expPerBall += fills * g.v;
+                else
+                {
+                    var ev = rep.chestEv[Pachinko.FromKey(g.k)];
+                    rep.expPerBall += fills * ev.exp;
+                    rep.backPerBall += fills * ev.balls;
+                    rep.cardsPerBall += fills * ev.cards;
+                }
             }
             foreach (var kv in rep.count)
             {

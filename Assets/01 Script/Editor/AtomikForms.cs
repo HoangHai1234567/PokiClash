@@ -43,7 +43,30 @@ namespace PokiClash.EditorTools
                 var path = $"{AolaImport.PrefabDir}/{id}.prefab";
                 if (!File.Exists(path))
                 {
-                    log.Add($"{id}: chưa có prefab tướng ({path}), chạy menu nhập aola một lần trước");
+                    // tướng chỉ có dạng .atomik (Ngưu Quyền đảo Hỏa, 2026-11-09: hình aola chưa từng xuất): dựng prefab mới như
+                    // AolaImport.SavePrefab (gốc chỉ có AolaActor) rồi thêm vào danh mục HeroModels
+                    if (System.Array.Exists(anims, x => !x))
+                    {
+                        log.Add($"{id}: chưa có prefab và thiếu dạng ({string.Join(", ", forms)}), bỏ qua");
+                        continue;
+                    }
+                    var go = new GameObject(id);
+                    try
+                    {
+                        go.AddComponent<AolaActor>().Setup(anims);
+                        PrefabUtility.SaveAsPrefabAsset(go, path);
+                    }
+                    finally
+                    {
+                        Object.DestroyImmediate(go);
+                    }
+                    var made = AssetDatabase.LoadAssetAtPath<AolaActor>(path);
+                    if (lib && made && System.Array.IndexOf(lib.heroes, made) < 0)
+                    {
+                        var list = new List<AolaActor>(lib.heroes) { made };
+                        lib.Setup(list.ToArray());
+                    }
+                    log.Add($"{id}: dựng prefab mới {path} ({anims.Length} dạng: {string.Join(", ", forms)})");
                     continue;
                 }
                 var root = PrefabUtility.LoadPrefabContents(path);

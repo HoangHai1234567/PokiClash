@@ -334,69 +334,64 @@ namespace PokiClash.EditorTools
 
         // ---------- Máy bi ----------
 
-        double[] widths;
         int balls = 6000, opens = 20000;
         PachinkoReport report;
-        bool reportDefault;
 
+        // phóng bi theo bảng tỉ lệ cfg.odds (bàn chép máy tham khảo, Core/Pachinko.cs): tỉ lệ ra, số lần chạm từng nấm, thời gian
+        // bay, giá trị mỗi bi; ghi số lần chạm nấm đo được vào asset BalanceConfig (balance.json giữ số gốc)
         void MachineTab()
         {
-            widths = widths ?? (double[])Board.SlotW.Clone();
-            EditorGUILayout.LabelField($"Độ rộng {Board.SlotLayout.Length} ô đáy (trái sang phải): " + string.Join(", ", Board.SlotLayout.Select(Pachinko.Key)), EditorStyles.miniLabel);
-            using (new EditorGUILayout.HorizontalScope())
-                for (int i = 0; i < widths.Length; i++) widths[i] = EditorGUILayout.DoubleField(widths[i], GUILayout.Width(48));
-            double sum = widths.Sum(), need = Board.Right - Board.Left;
-            if (Math.Abs(sum - need) > 1e-6) EditorGUILayout.HelpBox($"Tổng độ rộng {sum} khác bề ngang máy {need}: ô cuối sẽ hẹp/rộng lệch.", MessageType.Warning);
+            EditorGUILayout.LabelField("Bảng tỉ lệ (ô đáy trái sang phải, rồi cốc): " + string.Join(", ", d.Cfg.odds.Select(o => o.ToString("0.#"))) +
+                                       " — ô: " + string.Join(", ", Board.SlotLayout.Select(Pachinko.Key)) + ", cốc: " + Pachinko.Key(Board.GiftReward), EditorStyles.miniLabel);
             balls = EditorGUILayout.IntField("Số bi", Math.Max(100, balls));
             opens = EditorGUILayout.IntField("Lần mở thử mỗi loại rương", Math.Max(100, opens));
-            bool isDefault = widths.SequenceEqual(Board.SlotW);
-            using (new EditorGUILayout.HorizontalScope())
+            if (GUILayout.Button("Chạy mô phỏng", GUILayout.Height(28)))
             {
-                if (GUILayout.Button("Chạy mô phỏng", GUILayout.Height(28)))
+                EditorUtility.DisplayProgressBar("Cân bằng", "Phóng bi…", 0.3f);
+                try
                 {
-                    EditorUtility.DisplayProgressBar("Cân bằng", "Thả bi…", 0.3f);
-                    try
-                    {
-                        report = Sim.Machine(d, isDefault ? null : (double[])widths.Clone(), balls, opens);
-                        reportDefault = isDefault;
-                    }
-                    finally
-                    {
-                        EditorUtility.ClearProgressBar();
-                    }
+                    report = Sim.Machine(d, balls, opens);
                 }
-                if (GUILayout.Button("Về độ rộng gốc", GUILayout.Width(130), GUILayout.Height(28))) widths = (double[])Board.SlotW.Clone();
+                finally
+                {
+                    EditorUtility.ClearProgressBar();
+                }
             }
             if (report == null) return;
 
             EditorGUILayout.Space(6);
-            EditorGUILayout.LabelField($"{report.balls} bi, {report.frames / 60.0:0} giây máy", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"{report.balls} bi, {report.frames / 60.0:0} giây máy; bay trung vị {report.flightMedian:0.0} giây; " +
+                                       $"{report.triesPerBall:0.00} lần thử vật lý mỗi bi; {report.misses} bi trượt kết quả", EditorStyles.boldLabel);
             foreach (SlotKind k in Enum.GetValues(typeof(SlotKind)))
             {
-                string ingame = Pct(d.Cfg.Rate(Pachinko.Key(k)));
-                EditorGUILayout.LabelField($"  {Pachinko.Key(k),-14} {report.Rate(k) * 100:0.00}%   (bảng tỉ lệ trong game: {ingame})");
+                if (d.Cfg.Rate(Pachinko.Key(k)) <= 0 && report.Rate(k) <= 0) continue;
+                EditorGUILayout.LabelField($"  {Pachinko.Key(k),-14} {report.Rate(k) * 100:0.00}%   (bảng: {Pct(d.Cfg.Rate(Pachinko.Key(k)))})");
             }
             EditorGUILayout.LabelField("Theo chỗ rơi", EditorStyles.miniBoldLabel);
             foreach (var kv in report.byPlace.OrderBy(x => x.Key))
                 EditorGUILayout.LabelField($"  {kv.Key,-22} {kv.Value * 100.0 / report.balls:0.00}%");
+            for (int i = 0; i < report.ringHits.Length; i++)
+            {
+                string want = i < d.Cfg.ringHits.Length ? d.Cfg.ringHits[i].ToString("0.00") : "?";
+                string gift = i < d.Cfg.rings.Count ? $"đủ {d.Cfg.rings[i].n} ra {Pachinko.GiftName(d.Cfg.rings[i])}" : "";
+                EditorGUILayout.LabelField($"  Nấm {(i == 0 ? "trái" : "phải")}: {report.ringHits[i]:0.000} lần chạm mỗi bi (balance.json {want}); {gift}");
+            }
             EditorGUILayout.LabelField("Giá trị trung bình mỗi rương (×1)", EditorStyles.miniBoldLabel);
             foreach (var kv in report.chestEv)
                 EditorGUILayout.LabelField($"  {Pachinko.ChestName(kv.Key)}: {kv.Value.exp:0.0} EXP, {kv.Value.balls:0.00} bi, {kv.Value.cards:0.00} thẻ");
-            EditorGUILayout.LabelField($"Mỗi bi ở ×1: {report.expPerBall:0.00} EXP, hoàn {report.backPerBall:0.000} bi, {report.cardsPerBall:0.000} thẻ", EditorStyles.boldLabel);
+            EditorGUILayout.LabelField($"Mỗi bi ở ×1 (kể cả vòng nấm): {report.expPerBall:0.00} EXP, hoàn {report.backPerBall:0.000} bi, {report.cardsPerBall:0.000} thẻ", EditorStyles.boldLabel);
             EditorGUILayout.LabelField("Bi để lên cấp 2 / 5 / 10: " + string.Join(" / ", new[] { 1, 4, 9 }.Select(l => (Progress.ExpToNext(l, d.Cfg) / report.expPerBall).ToString("0.0"))));
             if (report.backPerBall > 0.5)
-                EditorGUILayout.HelpBox($"Bi hoàn mỗi bi {report.backPerBall:0.000} > 0,5: máy gần như tự nuôi, cần giảm ô +1 bi hoặc bi trong rương.", MessageType.Error);
+                EditorGUILayout.HelpBox($"Bi hoàn mỗi bi {report.backPerBall:0.000} > 0,5: máy gần như tự nuôi, cần giảm bi ở vòng nấm hoặc trong rương.", MessageType.Error);
 
             EditorGUILayout.Space(4);
-            GUI.enabled = reportDefault;
-            if (GUILayout.Button("Ghi tỉ lệ này vào bảng tỉ lệ trong game (asset BalanceConfig)"))
-                WriteRates();
-            GUI.enabled = true;
-            EditorGUILayout.HelpBox("Số gốc của bảng tỉ lệ do Web/scripts/export_data.ts đo và ghi vào balance.json; \"Nhập dữ liệu\" sẽ ghi đè. " +
-                                    "Muốn đổi mặt máy lâu dài thì sửa ở web rồi xuất lại. Chỉ ghi được khi chạy với độ rộng gốc (mặt máy trong game).", MessageType.None);
+            if (GUILayout.Button("Ghi số lần chạm nấm này vào asset BalanceConfig"))
+                WriteRingHits();
+            EditorGUILayout.HelpBox("Tỉ lệ ô là bảng pachinko.odds trong balance.json (máy chọn ô theo bảng rồi phát đường bi vật lý rơi đúng ô). " +
+                                    "Số gốc của số lần chạm nấm ở pachinko.measured.ringHits; \"Nhập dữ liệu\" sẽ ghi đè asset.", MessageType.None);
         }
 
-        void WriteRates()
+        void WriteRingHits()
         {
             var guid = AssetDatabase.FindAssets("t:BalanceConfigAsset").FirstOrDefault();
             if (guid == null)
@@ -406,10 +401,10 @@ namespace PokiClash.EditorTools
             }
             var asset = AssetDatabase.LoadAssetAtPath<BalanceConfigAsset>(AssetDatabase.GUIDToAssetPath(guid));
             asset.cfg.ratesBalls = report.balls;
-            asset.cfg.rates = report.count.Select(kv => new SlotRate { k = Pachinko.Key(kv.Key), p = Math.Round((double)kv.Value / report.balls, 4) }).ToList();
+            asset.cfg.ringHits = report.ringHits.Select(h => Math.Round(h, 3)).ToArray();
             EditorUtility.SetDirty(asset);
             AssetDatabase.SaveAssets();
-            Debug.Log("[Cân bằng] Đã ghi tỉ lệ máy bi vào " + AssetDatabase.GetAssetPath(asset));
+            Debug.Log("[Cân bằng] Đã ghi số lần chạm nấm vào " + AssetDatabase.GetAssetPath(asset));
         }
 
         // ---------- Huy hiệu ----------

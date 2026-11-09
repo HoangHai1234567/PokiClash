@@ -16,6 +16,16 @@ namespace PokiClash.EditorTools
         const string BallPath = "Assets/04 Prefabs/Items/BiLan.prefab";
         const string Dir = "Assets/03 Art/Pachinko/";
 
+        // hình học bàn (Core Board.GeometryJson) cho ArtGen/Pachinko/ghep_ban.py: đổi bàn trong Pachinko.cs thì chạy menu này rồi
+        // "py -3 -I ArtGen/Pachinko/ghep_ban.py" để ghép lại ảnh mặt máy tĩnh
+        [MenuItem("PokiClash/Prefab/Máy bi: xuất hình học mặt máy", priority = 64)]
+        public static void ExportGeometry()
+        {
+            var path = System.IO.Path.Combine(Application.dataPath, "..", "ArtGen", "Pachinko", "refs", "mat_may.json");
+            System.IO.File.WriteAllText(path, new PokiClash.Core.Board(1).GeometryJson());
+            Debug.Log("[Máy bi] Ghi hình học mặt máy vào " + System.IO.Path.GetFullPath(path) + "; chạy py -3 -I ArtGen/Pachinko/ghep_ban.py để ghép ảnh");
+        }
+
         [MenuItem("PokiClash/Prefab/Máy bi: ảnh bộ phận", priority = 65)]
         public static void Build()
         {
