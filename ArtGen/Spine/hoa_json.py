@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
-"""Đổi mã hình 10 dòng tướng đảo Hỏa (hoặc đảo Kim với --kim) trong heroes.json sang dạng .atomik <id>_<k> (2026-11-09), chỉ
+"""Đổi mã hình 10 dòng tướng đảo Hỏa (hoặc đảo Kim với --kim, đảo Thổ với --tho) trong heroes.json sang dạng .atomik <id>_<k> (2026-11-09), chỉ
 dạng đã có file Assets/03 Art/Heroes/Resources/<id>_<k>/<id>_<k>.atomik. Giữ nguyên định dạng file (indent 1, kiểu xuống dòng,
 dòng cuối).
 
-    py -3 -I ArtGen/Spine/hoa_json.py [--kim] [--dry]
+    py -3 -I ArtGen/Spine/hoa_json.py [--kim | --tho] [--dry]
 Sau đó trong Unity: PokiClash/Nhập dữ liệu, rồi PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng.
 """
 import json
@@ -18,8 +18,12 @@ IDS = ["su_tu_lua", "khong_lo", "kim_su", "nham_than", "nguu_quyen", "hong_lien"
        "lan_hoa"]
 KIM = ["bo_cap", "doc_giac", "bo_ngua", "phi_thuong", "khien_bac", "chien_than", "thiet_phu", "tam_kiem", "ung_thep",
        "kim_nghe"]
+THO = ["thach_nhan", "lung_vuong", "cao_da", "ho_khoan", "phu_van", "hat_de", "rua_nui", "ho_kim_cuong", "cu_phu",
+       "giap_nham"]
 if "--kim" in sys.argv:
     IDS = KIM
+if "--tho" in sys.argv:
+    IDS = THO
 
 
 def main(dry):

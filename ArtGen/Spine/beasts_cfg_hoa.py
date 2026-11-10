@@ -779,3 +779,9 @@ HOA = {
         },
     },
 }
+
+# Tuyệt kỹ của 9 dòng có hạt lửa trên sân (Assets/01 Script/Game/Battle/HatLua.cs, bảng StageView.FireFx; người dùng chọn
+# 2026-11-10 "tắt ảnh trong clip"): clip CHIÊU chỉ còn động tác, hiệu ứng (thiên thạch, dung nham phun, lốc xoáy, nổ lớn) do
+# lớp hạt lo, không chồng chéo. beast.py clips_of đọc khoá này.
+for _id in ("khong_lo", "kim_su", "nham_than", "nguu_quyen", "hong_lien", "giap_long", "huyen_viem", "hoa_tinh", "lan_hoa"):
+    HOA[_id]["skill_nofx"] = True

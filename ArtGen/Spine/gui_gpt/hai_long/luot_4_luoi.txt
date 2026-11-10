@@ -1,0 +1,27 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as the step says. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's approved hand-drawn map, 1024x1536: use ONLY its line and colouring style (brown ink pen outline + coloured pencil / wax crayon hatching), nothing of its content
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\thuong_lam_3\tai_ve\L1_lien.png: an approved dragon creature of the same game, 1536x1024, white background: match EXACTLY its pen line, crayon texture, flat colouring and level of detail. Do NOT copy its design, colours, wings or pose
+image 3 = C:\Atomik\PokiWar\Assets\03 Art\Fx\no_nuoc.png: the game's approved water splash: the look of the game's water (plump pointed water shapes, round foam bumps, flat blues, brown ink outline)
+image 4 = C:\Atomik\PokiWar\Assets\03 Art\Fx\xoay_nuoc.png: the game's approved swirling water: the look of its curled wave crests
+image 5 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\hai_long\tai_ve\L1_duyet.png: the APPROVED CONCEPT of this monster, 1536x1024: the parts you draw belong to THIS monster and its water: same colours, same line and crayon texture, same kind of water
+image 6 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\hai_long\tai_ve\M01.png: the APPROVED HEAD PARTS of this monster, 1536x1024: the two head designs whose eyes the eyelids must cover (same teal, same outline weight); the jets and the tongues must look right coming out of these mouths
+
+WHAT THIS IS: one more sheet of separate, complete parts for the 2D cut-out animation rig of the five-headed sea dragon of image 5: its tongues (the animation software bends the straight tongue with bones so it hangs limp out of the mouth).
+
+SAVE: the image goes into C:\Atomik\PokiWar\ArtGen\Spine\inbox\hai_long\tai_ve under the step's name. If that file already exists, add _2, _3 ... before .png. Do not change, move or delete any other file.
+
+THE WATER, in the style of images 3 and 4: stylised hand-drawn waves, plump curling crests like the waves of an old woodblock print but simple and chunky: three flat blues (deep #1E68BE, sky #3A96E2, pale #8CD0F6) in broad bands that follow the flow of each wave, and flat white foam (#F4FCFF) as round bumpy scallops on the crests, all with the same brown ink outline.
+
+=== STEP M06 (tongues) ===
+THIS IS A SHEET OF SEPARATE PARTS for a 2D cut-out animation rig, NOT a scene: every part is drawn COMPLETE and on its own, flat on the white page like stickers laid out on a table, with at least 60 px of pure white between any two parts and between a part and the image edge. No part touches or overlaps another. Do not draw a whole creature, do not draw extra parts, do not draw labels, numbers, arrows or guide lines.
+Canvas 1536 x 1024. Only TWO small parts, one above the other in the middle of the page, with at least 200 px of white between them and nothing else on the page:
+- upper part: the LEADER'S TONGUE: one long, soft, flat tongue hanging limp, drawn perfectly STRAIGHT and horizontal, the root on the LEFT and the tip on the RIGHT, about 320 px long; about 64 px thick at the rounded root, narrowing gently to about 36 px near the tip, the tip ending in two short rounded lobes (a small fork). Colour: flat rose pink (#E27C92), clearly lighter than the mouth interior of image 6, with ONE thin darker rose line (#B8405A) running along the middle from the root to just before the fork. Brown ink outline of the same weight as the heads of image 6. No teeth, no mouth, no drool, no shading.
+- lower part: a SMALLER TONGUE of the same design, about 260 px long and 52 px thick at the root.
+
+LINE AND COLOUR: the hand-drawn look of the style images: drawn by hand on paper with a dark-brown ink pen (#2B2118), an outline about 6 px thick on this canvas, the same weight on every edge, slightly wobbly like a real pen; every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching (strokes thinner than the outline), kept inside the outline. Clean and appealing, neither a crude scribble nor overly detailed.
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker side, no shadows of any kind (no cast shadow, nothing on the background), no white highlights or shine spots, no gloss, no glow, no rim light, no gradients, no 3D look. The only white allowed is one small catchlight dot in each eye, and the white foam of the water. A darker tone appears only where the design itself has a darker colour.
+Plain pure-white background (#FFFFFF): no paper colour or paper grain outside the drawing, no white border or sticker outline around the figure or its pieces. No text, no labels, no frame, no ground line.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hai_long\tai_ve\M06.png (create the folder if it is missing; if that file already exists, save it as M06_2.png, M06_3.png ... in the same folder instead). Do not change, move or delete any other file.
+

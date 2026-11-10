@@ -379,6 +379,48 @@ MonoBehaviour:
     sprite: {fileID: 21300000, guid: 8aac5f8153533a94a80b177fc5ee302d, type: 3}
   - name: pk_vong_nam
     sprite: {fileID: 21300000, guid: a8458f988e61a8c42860d757fc9ce382, type: 3}
+  - name: pk_bang_so
+    sprite: {fileID: 21300000, guid: 0cad3f03325f88a408b4369962f835c5, type: 3}
+  - name: pk_keo_exp
+    sprite: {fileID: 21300000, guid: 4b79bd59e70bb484f8c7536c559794d6, type: 3}
+  - name: pk_keo_exp_nam
+    sprite: {fileID: 21300000, guid: 05358828bc07859428551bbbca8a2b1e, type: 3}
+  - name: pk_the_up
+    sprite: {fileID: 21300000, guid: 9aa62a6042e402b4b8fda7dbd58816dd, type: 3}
+  - name: pk_may_do
+    sprite: {fileID: 21300000, guid: aea88413e6aa447478b0a50b25aed868, type: 3}
+  - name: pk_ruy_bang
+    sprite: {fileID: 21300000, guid: f50b501c030353b41a55f25730701ab3, type: 3}
+  - name: pk_nut_mo_het
+    sprite: {fileID: 21300000, guid: d7ee4234c4ab614429d5f039adfb2992, type: 3}
+  - name: pk_ruong_go_nap
+    sprite: {fileID: 21300000, guid: 8eee5e1d72d11f34fb1baf78752a9115, type: 3}
+  - name: pk_ruong_bac_nap
+    sprite: {fileID: 21300000, guid: 7877c5ba0487470489f8f3eb17bdfeab, type: 3}
+  - name: pk_ruong_vang_nap
+    sprite: {fileID: 21300000, guid: b73d44ed61886424f88de439b12174b0, type: 3}
+  - name: pk_ruong_go_than
+    sprite: {fileID: 21300000, guid: 626cbe5549ca1d5488f78edb6ccc278b, type: 3}
+  - name: pk_ruong_bac_than
+    sprite: {fileID: 21300000, guid: 52d62a2e405fae142b3d62cbedaabf83, type: 3}
+  - name: pk_ruong_vang_than
+    sprite: {fileID: 21300000, guid: adc5d4a52d29f0943965459958ee16b8, type: 3}
+  - name: pk_g_quang
+    sprite: {fileID: 21300000, guid: 509a778e93f513d41b83a6d2e0f8dd5b, type: 3}
+  - name: pk_g_vong
+    sprite: {fileID: 21300000, guid: c90dc8f4b50d9df4792fe1fcd5055601, type: 3}
+  - name: pk_g_tia
+    sprite: {fileID: 21300000, guid: 3a5f7a185c6bee04681ec7029cb4ea48, type: 3}
+  - name: pk_g_cot
+    sprite: {fileID: 21300000, guid: f7805eeaf7c58f64c89c5f7bc22a9c73, type: 3}
+  - name: pk_g_lia
+    sprite: {fileID: 21300000, guid: 6ddd919c718d2624fa0d84f0c6c026df, type: 3}
+  - name: pk_g_doc
+    sprite: {fileID: 21300000, guid: 8aa5a86c403fcb949affd9c0f5c172ba, type: 3}
+  - name: pk_g_led
+    sprite: {fileID: 21300000, guid: 4ebfc170fce09fa4da18ed02e1f30850, type: 3}
+  - name: pk_g_sao
+    sprite: {fileID: 21300000, guid: dd7c88f8d859649438bd44aa1b471cd3, type: 3}
   fallback:
   - name: battle_hoa
     sprite: {fileID: 21300000, guid: a962497db54480a4d9cfbfae643ecf66, type: 3}

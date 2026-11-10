@@ -1,0 +1,48 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image per reply and save each one as its step says. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's approved hand-drawn map: copy its RENDERING (pencil and crayon hatching, ink line where a step asks for one), ignore its content
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\chuan_fx\hat_bo_cuc.png: LAYOUT ONLY: four separate shapes in a 2 x 2 grid on white (these grey shapes are rough placeholders made by a program; draw much nicer hand-made shapes, the grey lines only show the four squares, do not draw them)
+image 3 = C:\Atomik\PokiWar\Assets\03 Art\Fx\no_nuoc.png: the game's approved water splash: copy its SHAPE language (plump pointed water spikes, round foam bumps), but draw this step's shapes as grey fill only, no outline, no blue
+image 4 = C:\Atomik\PokiWar\Assets\03 Art\Fx\xoay_nuoc.png: the game's approved swirling water: copy the SHAPE of its curled wave crests, but grey fill only, no outline
+
+WHAT THIS IS: particle sprites for water effects in a 2D creature game with a hand-drawn storybook look. The game spawns hundreds of these little shapes, moves, scales, rotates and tints them (deep blue, sky blue, light blue, white foam) to build water jets, water balls and splashes, so each image is a sheet of four separate shapes.
+
+SAVE: every step's image goes into C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_nuoc\tai_ve under the step's name (for example N01.png). If that file already exists, add _2, _3 … before .png. Do not change, move or delete any other file.
+
+ORDER: draw step N01 now, save it and stop. When I say "next", draw step N02, save it and stop: I will check both. When I say "continue", draw the remaining steps one per reply, each after I say "next", in this order: N03, N04.
+
+IMPORTANT: images 3 and 4 are coloured and outlined, but YOUR shapes are flat grey with NO outline and NO blue.
+
+=== STEP N01 (wave) ===
+Four separate tongues of water, all rising straight UP, like small breaking waves seen from the side: each has a round plump base at the bottom, a thick curved body, and a top that curls over to one side into a rounded hook like a breaking wave crest (two curl to the left, two curl to the right); one or two of them have a second smaller curl on the shoulder. Thick, plump, storybook wave shapes like the curled crests in images 3 and 4. Shapes only: no foam bumps, no droplets.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_nuoc\tai_ve\N01.png (create the folder if it is missing; if that file already exists, save it as N01_2.png, N01_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP N02 (drop) ===
+Four separate water droplets, one per square, each a teardrop with its pointed tail straight UP and its round belly down: one plump and short, one long and slim, one medium with a slightly bent tail, one small and round with a very short tail.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_nuoc\tai_ve\N02.png (create the folder if it is missing; if that file already exists, save it as N02_2.png, N02_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP N03 (crown) ===
+Top row: two splash crowns seen from the side, each a low wide base with five to seven pointed tongues of water of different heights rising and leaning outward like a crown. Bottom row: two round splash bursts seen from the front, each with seven to nine rounded pointed spikes of water radiating from the centre like image 3 (shape only, one solid silhouette, no separate droplets).
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_nuoc\tai_ve\N03.png (create the folder if it is missing; if that file already exists, save it as N03_2.png, N03_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP N04 (foam) ===
+Four different puffs of sea foam: each a cluster of five to eight round bubbles of different sizes stuck together (clearly circular bumps, like the white foam on the wave crests in images 3 and 4), a little irregular so the four look different: one round, one wide, one tall, one small.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_nuoc\tai_ve\N04.png (create the folder if it is missing; if that file already exists, save it as N04_2.png, N04_3.png … in the same folder instead). Do not change, move or delete any other file.
+

@@ -1,0 +1,224 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>mo xe</title></head>
+<body>
+<pre id="out">dang chay</pre>
+<script src="lib/spine-player.js"></script>
+<script>
+// Mổ xẻ một skeleton Spine 4.2 bằng runtime gốc: in cấu trúc ra JSON và (tuỳ chọn) dựng tờ khung từng animation.
+// Tham số: ?name=monster_3705&mode=info|sheet&anims=a,b&n=10&tw=420&th=380
+const Q = new URLSearchParams(location.search);
+const NAME = Q.get("name") || "monster_3705";
+const MODE = Q.get("mode") || "info";
+const DIR = Q.get("dir") || "d";
+const FMT = Q.get("fmt") || "skel";
+async function readData(atlas) {
+  const al = new spine.AtlasAttachmentLoader(atlas);
+  if (FMT === "json") return new spine.SkeletonJson(al).readSkeletonData(await (await fetch(`${DIR}/${NAME}.json`)).text());
+  return new spine.SkeletonBinary(al).readSkeletonData(new Uint8Array(await (await fetch(`${DIR}/${NAME}.skel`)).arrayBuffer()));
+}
+const out = document.getElementById("out");
+const r3 = v => Math.round(v * 1000) / 1000;
+
+async function main() {
+  const atlasText = await (await fetch(`${DIR}/${NAME}.atlas`)).text();
+  const atlas = new spine.TextureAtlas(atlasText);
+  const data = await readData(atlas);
+  if (MODE === "info") return info(data, atlas);
+  if (MODE === "sample") return sample(data);
+  if (MODE === "keys") return keys(data);
+  if (MODE === "mesh") return meshes(data);
+  return sheet(data, atlasText);
+}
+
+function info(data, atlas) {
+  const R = {version: data.version, hash: data.hash, x: data.x, y: data.y, width: data.width, height: data.height, fps: data.fps,
+             referenceScale: data.referenceScale};
+  R.bones = data.bones.map(b => ({i: b.index, name: b.name, parent: b.parent ? b.parent.index : -1, len: r3(b.length), x: r3(b.x), y: r3(b.y),
+    rot: r3(b.rotation), sx: r3(b.scaleX), sy: r3(b.scaleY), shx: r3(b.shearX), shy: r3(b.shearY), inherit: b.inherit, skin: b.skinRequired}));
+  R.slots = data.slots.map(s => ({i: s.index, name: s.name, bone: s.boneData.index, att: s.attachmentName, blend: s.blendMode,
+    a: r3(s.color.a), dark: !!s.darkColor}));
+  R.skins = data.skins.map(sk => {
+    const atts = [];
+    for (const e of sk.getAttachments()) {
+      const a = e.attachment, o = {slot: e.slotIndex, key: e.name, name: a.name, type: a.constructor.name};
+      if (a instanceof spine.RegionAttachment) Object.assign(o, {w: r3(a.width), h: r3(a.height), x: r3(a.x), y: r3(a.y), rot: r3(a.rotation),
+        sx: r3(a.scaleX), sy: r3(a.scaleY), seq: a.sequence ? a.sequence.regions.length : 0});
+      else if (a instanceof spine.MeshAttachment) {
+        const weighted = !!a.bones; let nb = 0, maxInf = 0, used = new Set();
+        if (weighted) { for (let i = 0; i < a.bones.length;) { const n = a.bones[i++]; maxInf = Math.max(maxInf, n); for (let k = 0; k < n; k++) used.add(a.bones[i++]); } nb = used.size; }
+        Object.assign(o, {verts: a.worldVerticesLength / 2, tris: a.triangles.length / 3, hull: a.hullLength / 2, weighted, nbones: nb, maxInf,
+          bones: [...used].sort((p, q) => p - q), w: r3(a.width), h: r3(a.height), seq: a.sequence ? a.sequence.regions.length : 0,
+          linked: !!a.getParentMesh()});
+        if (a.region) Object.assign(o, {rw: a.region.originalWidth, rh: a.region.originalHeight});
+      } else if (a instanceof spine.ClippingAttachment) Object.assign(o, {verts: a.worldVerticesLength / 2, end: a.endSlot ? a.endSlot.index : -1});
+      else if (a instanceof spine.PathAttachment) Object.assign(o, {verts: a.worldVerticesLength / 2, closed: a.closed, constantSpeed: a.constantSpeed});
+      else if (a instanceof spine.BoundingBoxAttachment) Object.assign(o, {verts: a.worldVerticesLength / 2});
+      else if (a instanceof spine.PointAttachment) Object.assign(o, {x: r3(a.x), y: r3(a.y)});
+      atts.push(o);
+    }
+    return {name: sk.name, atts};
+  });
+  R.ik = data.ikConstraints.map(c => ({name: c.name, order: c.order, bones: c.bones.map(b => b.index), target: c.target.index, mix: c.mix,
+    softness: c.softness, bend: c.bendDirection, stretch: c.stretch, compress: c.compress}));
+  R.transform = data.transformConstraints.map(c => ({name: c.name, order: c.order, bones: c.bones.map(b => b.index), target: c.target.index,
+    mixRotate: c.mixRotate, mixX: c.mixX, mixY: c.mixY, mixScaleX: c.mixScaleX, mixScaleY: c.mixScaleY, mixShearY: c.mixShearY,
+    offR: c.offsetRotation, offX: c.offsetX, offY: c.offsetY, relative: c.relative, local: c.local}));
+  R.path = data.pathConstraints.map(c => ({name: c.name, order: c.order, bones: c.bones.map(b => b.index), target: c.target.index,
+    positionMode: c.positionMode, spacingMode: c.spacingMode, rotateMode: c.rotateMode, position: c.position, spacing: c.spacing,
+    mixRotate: c.mixRotate, mixX: c.mixX, mixY: c.mixY}));
+  R.physics = (data.physicsConstraints || []).map(c => ({name: c.name, order: c.order, bone: c.bone.index, x: c.x, y: c.y, rotate: c.rotate,
+    scaleX: c.scaleX, shearX: c.shearX, limit: c.limit, step: r3(c.step), inertia: r3(c.inertia), strength: r3(c.strength), damping: r3(c.damping),
+    massInverse: r3(c.massInverse), wind: r3(c.wind), gravity: r3(c.gravity), mix: c.mix}));
+  R.events = data.events.map(e => ({name: e.name, int: e.intValue, float: e.floatValue, string: e.stringValue, audio: e.audioPath}));
+  R.anims = data.animations.map(a => {
+    const tls = a.timelines.map(t => {
+      const o = {type: t.constructor.name, frames: t.getFrameCount(), t0: r3(t.frames[0]), t1: r3(t.frames[t.frames.length - t.getFrameEntries()])};
+      for (const k of ["boneIndex", "slotIndex", "constraintIndex", "ikConstraintIndex", "transformConstraintIndex", "pathConstraintIndex"])
+        if (t[k] !== undefined) o[k] = t[k];
+      if (t.attachment) o.att = t.attachment.name;
+      if (t.attachmentNames) o.names = t.attachmentNames;
+      if (t.events) o.ev = t.events.map(e => [r3(e.time), e.data.name, e.stringValue, e.intValue]);
+      if (t.drawOrders) o.orders = t.drawOrders.length;
+      // biên độ: min/max của giá trị đầu tiên
+      if (/Rotate|TranslateX|TranslateY|ScaleX|ScaleY|ShearX|ShearY|Alpha/.test(o.type) && !/Constraint/.test(o.type)) {
+        const n = t.getFrameEntries(); let mn = 1e9, mx = -1e9;
+        for (let i = 0; i < t.frames.length; i += n) { mn = Math.min(mn, t.frames[i + 1]); mx = Math.max(mx, t.frames[i + 1]); }
+        o.min = r3(mn); o.max = r3(mx);
+      } else if (/^(Translate|Scale|Shear)Timeline$/.test(o.type)) {
+        const n = t.getFrameEntries(); let a1 = [1e9, -1e9, 1e9, -1e9];
+        for (let i = 0; i < t.frames.length; i += n) { a1[0] = Math.min(a1[0], t.frames[i + 1]); a1[1] = Math.max(a1[1], t.frames[i + 1]);
+          a1[2] = Math.min(a1[2], t.frames[i + 2]); a1[3] = Math.max(a1[3], t.frames[i + 2]); }
+        o.rng = a1.map(r3);
+      }
+      return o;
+    });
+    return {name: a.name, dur: r3(a.duration), tls};
+  });
+  R.atlas = atlas.regions.map(g => ({name: g.name, w: g.width, h: g.height, ow: g.originalWidth, oh: g.originalHeight, deg: g.degrees}));
+  out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
+}
+
+// lưới của các slot được hỏi (slots=a,b): từng đỉnh với uv, toạ độ dáng gốc (thế giới) và danh sách (xương, trọng số)
+function meshes(data) {
+  const want = (Q.get("slots") || "").split(",");
+  const sk = new spine.Skeleton(data); sk.setToSetupPose(); sk.updateWorldTransform(spine.Physics.update);
+  const R = {};
+  for (const slot of sk.slots) {
+    const a = slot.getAttachment();
+    if (!(a instanceof spine.MeshAttachment) || (want[0] && !want.includes(slot.data.name) && !want.includes(a.name))) continue;
+    const n = a.worldVerticesLength / 2, wv = new Array(n * 2);
+    a.computeWorldVertices(slot, 0, n * 2, wv, 0, 2);
+    const vs = [];
+    if (a.bones) {
+      let bi = 0, vi = 0;
+      for (let v = 0; v < n; v++) {
+        const k = a.bones[bi++], inf = [];
+        for (let j = 0; j < k; j++) { inf.push([a.bones[bi++], Math.round(a.vertices[vi + 2] * 1000) / 1000]); vi += 3; }
+        vs.push({x: Math.round(wv[v * 2] * 10) / 10, y: Math.round(wv[v * 2 + 1] * 10) / 10, u: a.regionUVs[v * 2], v: a.regionUVs[v * 2 + 1], w: inf});
+      }
+    } else for (let v = 0; v < n; v++) vs.push({x: wv[v * 2], y: wv[v * 2 + 1], u: a.regionUVs[v * 2], v: a.regionUVs[v * 2 + 1], w: [[slot.bone.data.index, 1]]});
+    R[slot.data.name] = {att: a.name, hull: a.hullLength / 2, tris: Array.from(a.triangles), verts: vs};
+  }
+  out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
+}
+
+// mọi khoá của từng timeline: giờ, giá trị, kiểu đường cong (0 thẳng, 1 bậc, 2 bezier)
+function keys(data) {
+  const names = (Q.get("anims") || "idle_01").split(",");
+  const R = {};
+  for (const nm of names) {
+    const anim = data.findAnimation(nm);
+    if (!anim) continue;
+    R[nm] = {dur: anim.duration, tls: anim.timelines.map(t => {
+      const n = t.getFrameEntries(), fc = t.getFrameCount();
+      const o = {type: t.constructor.name, n, f: Array.from(t.frames, v => Math.round(v * 1000) / 1000)};
+      for (const k of ["boneIndex", "slotIndex", "constraintIndex"]) if (t[k] !== undefined) o[k] = t[k];
+      if (t.curves) o.c = Array.from(t.curves.slice(0, fc), v => v < 2 ? v : 2);
+      if (t.attachmentNames) o.names = t.attachmentNames;
+      return o;
+    })};
+  }
+  out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
+}
+
+// lấy mẫu 30 khung/giây: toạ độ thế giới, góc thế giới, tỉ lệ của mọi xương; alpha và hình của mọi slot
+function sample(data) {
+  const fps = +(Q.get("fps") || 30);
+  const names = (Q.get("anims") || "idle_01").split(",");
+  const R = {};
+  for (const nm of names) {
+    const anim = data.findAnimation(nm);
+    if (!anim) continue;
+    const sk = new spine.Skeleton(data); sk.setToSetupPose();
+    const n = Math.round(anim.duration * fps) + 1, fr = [];
+    for (let f = 0; f < n; f++) {
+      const t = Math.min(anim.duration, f / fps);
+      sk.setToSetupPose();
+      anim.apply(sk, t, t, false, [], 1, spine.MixBlend.setup, spine.MixDirection.mixIn);
+      sk.updateWorldTransform(spine.Physics.update);
+      fr.push({b: sk.bones.map(b => [Math.round(b.worldX * 10) / 10, Math.round(b.worldY * 10) / 10, Math.round(b.getWorldRotationX() * 10) / 10,
+                                     Math.round(b.getWorldScaleX() * 100) / 100, Math.round(b.getWorldScaleY() * 100) / 100]),
+               a: sk.slots.map(s => Math.round(s.color.a * 100) / 100), s: sk.slots.map(s => s.attachment ? 1 : 0)});
+    }
+    R[nm] = {dur: anim.duration, fps, frames: fr};
+  }
+  out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
+}
+
+async function sheet(data, atlasText) {
+  const N = +(Q.get("n") || 10), TW = +(Q.get("tw") || 420), TH = +(Q.get("th") || 380), COLS = +(Q.get("cols") || 5);
+  const names = (Q.get("anims") || data.animations.map(a => a.name).join(",")).split(",");
+  const gl = document.createElement("canvas");
+  gl.width = TW; gl.height = TH;
+  const ctx = new spine.ManagedWebGLRenderingContext(gl, {alpha: false, preserveDrawingBuffer: true});
+  const am = new spine.AssetManager(ctx, DIR + "/");
+  am.loadTextureAtlas(`${NAME}.atlas`);
+  await new Promise(res => { const w = () => am.isLoadingComplete() ? res() : setTimeout(w, 50); w(); });
+  if (am.hasErrors()) { out.textContent = "LOI " + JSON.stringify(am.getErrors()); return; }
+  const atlas = am.require(`${NAME}.atlas`);
+  const sd = await readData(atlas);
+  const renderer = new spine.SceneRenderer(gl, ctx);
+  const bones = Q.get("bones") === "1";
+  // khung nhìn: theo tham số hoặc dáng gốc nới rộng
+  const sk0 = new spine.Skeleton(sd); sk0.setToSetupPose(); sk0.updateWorldTransform(spine.Physics.update);
+  const off = new spine.Vector2(), size = new spine.Vector2(); sk0.getBounds(off, size, []);
+  let vx = off.x + size.x / 2, vy = off.y + size.y / 2, vw = size.x * 1.5, vh = size.y * 1.45;
+  if (Q.get("view")) [vx, vy, vw, vh] = Q.get("view").split(",").map(Number);
+  const zoom = Math.max(vw / TW, vh / TH);
+  const sheets = {};
+  const sr = bones ? new spine.SkeletonDebugRenderer(ctx) : null;
+  for (const nm of names) {
+    const anim = sd.findAnimation(nm);
+    if (!anim) continue;
+    const rows = Math.ceil(N / COLS);
+    const cv = document.createElement("canvas"); cv.width = TW * COLS; cv.height = TH * rows;
+    const c2 = cv.getContext("2d");
+    const t0 = +(Q.get("t0") || 0), t1 = Q.get("t1") ? +Q.get("t1") : anim.duration;
+    for (let f = 0; f < N; f++) {
+      const t = t0 + (t1 - t0) * (N === 1 ? 0 : f / (N - 1)) * (Q.get("loop") === "1" ? (N - 1) / N : 1);
+      const sk = new spine.Skeleton(sd); sk.setToSetupPose();
+      const st = new spine.AnimationState(new spine.AnimationStateData(sd));
+      st.setAnimation(0, nm, false);
+      // chạy từng bước 1/60 tới t để vật lý (physics) có đà như lúc chơi
+      const dt = 1 / 60; let acc = 0;
+      sk.updateWorldTransform(spine.Physics.reset);
+      while (acc < t - 1e-6) { const d = Math.min(dt, t - acc); st.update(d); st.apply(sk); sk.update(d); sk.updateWorldTransform(spine.Physics.update); acc += d; }
+      st.apply(sk); sk.updateWorldTransform(spine.Physics.update);
+      ctx.gl.clearColor(0.42, 0.44, 0.48, 1); ctx.gl.clear(ctx.gl.COLOR_BUFFER_BIT);
+      renderer.camera.position.x = vx; renderer.camera.position.y = vy; renderer.camera.zoom = zoom;
+      ctx.gl.viewport(0, 0, TW, TH);
+      renderer.camera.setViewport(TW, TH); renderer.camera.update();
+      renderer.begin(); renderer.drawSkeleton(sk, false);
+      if (bones) renderer.drawSkeletonDebug(sk, false);
+      renderer.end();
+      const x = (f % COLS) * TW, y = Math.floor(f / COLS) * TH;
+      c2.drawImage(gl, x, y);
+      c2.fillStyle = "#fff"; c2.font = "15px Arial"; c2.fillText(`${nm}  t=${t.toFixed(2)}s`, x + 6, y + 18);
+    }
+    sheets[nm] = cv.toDataURL("image/jpeg", 0.88);
+  }
+  out.textContent = "JSON_BEGIN" + JSON.stringify({view: [vx, vy, vw, vh], sheets}) + "JSON_END";
+}
+main().catch(e => { out.textContent = "LOI " + e + "\n" + (e.stack || ""); });
+</script>
+</body></html>

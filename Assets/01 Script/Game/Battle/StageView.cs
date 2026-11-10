@@ -43,6 +43,159 @@ namespace PokiClash
         // tia_xoay, tia_trieu) và hiệu ứng phụ của từng kiểu (mảnh băng, vòng xoáy, vòng sóng âm); cùng menu gán
         [SerializeField] Sprite[] beamStyles;
         [SerializeField] Sprite beamShard, beamVortex, beamSoundRing;
+        // hạt chồng lớp phẳng (HatLua, bộ Hỏa 2026-11-10): prefab Items/HatLua, ba lớp chứa (đất, sau tướng, trước tướng) và ảnh hạt
+        // Assets/03 Art/Fx/Hat; gán bằng menu "PokiClash/Prefab/Sàn đấu: hạt lửa"
+        [SerializeField] Image hatPrefab;
+        [SerializeField] RectTransform hatFloor, hatBack, hatFront;
+        [SerializeField] Sprite[] hatSprites;
+        HatLua hat;
+
+        HatLua Hat
+        {
+            get
+            {
+                if (hat == null && hatPrefab && hatFloor && hatBack && hatFront)
+                    hat = new HatLua(hatPrefab, hatFloor, hatBack, hatFront, hatSprites)
+                    {
+                        Shake = v => trauma = Mathf.Min(1, trauma + v),
+                        FlashScreen = c => Flash(c),
+                    };
+                return hat != null && hat.Ready ? hat : null;
+            }
+        }
+
+        // chiêu mana và chiêu cuối theo dòng tướng hệ Hỏa (thử 2026-11-10; công thức ở skill pokiclash-fx-congthuc). Tướng Hỏa không
+        // có trong bảng: chiêu mana là cầu lửa, chiêu cuối giữ nguyên clip.
+        static readonly Dictionary<string, (string mana, string ult)> FireFx = new Dictionary<string, (string, string)>
+        {
+            { "khong_lo", ("nham", "phun_nham") }, { "nham_than", ("nham", "thien_thach") }, { "kim_su", ("phun", "no_lon") },
+            { "hong_lien", ("kim", "loc_xoay") }, { "giap_long", ("phun", "phun_nham") }, { "huyen_viem", ("kim", "loc_xoay") },
+            { "hoa_tinh", ("cau", "no_lon") }, { "lan_hoa", ("phun_xoan", "thien_thach") }, { "nguu_quyen", ("cau", "no_lon") },
+        };
+
+        // bộ Thủy (2026-11-10, HatNuoc.cs): chiêu mana theo dòng tướng, chiêu cuối theo từng DẠNG, chọn cho khớp động tác clip CHIÊU
+        // của dạng đó (beasts_cfg._REDESIGN): đạn xoay quanh người rồi phóng = thương nước, xoáy nhốt = vòi rồng, gọi mưa / vật rơi =
+        // mưa rào, sóng lan trên đất = sóng thần, trồi lên dưới chân = xoáy nước rồi mạch phun, phun dòng = tia nước, loạt đạn = bong
+        // bóng, lao tới (trượt, húc, liên hoàn) = cú va nước lúc chạm. Mã bắt đầu bằng "n_". Tướng Thủy không có trong bảng: tia cũ.
+        static readonly Dictionary<string, (string mana, string[] ult)> WaterFx = new Dictionary<string, (string, string[])>
+        {
+            { "tieu_y", ("n_cau", new[] { "n_thuong", "n_voi" }) },
+            { "canh_cut", ("n_tia", new[] { "n_va", "n_mua" }) },
+            { "mi_nhi", ("n_luoi", new[] { "n_bong", "n_song" }) },
+            { "ma_ket", ("n_cau", new[] { "n_va", "n_xoay", "n_voi" }) },
+            { "vay_lam", ("n_luoi", new[] { "n_va", "n_song", "n_voi" }) },
+            { "kuba", ("n_bong", new[] { "n_xoay", "n_thuong", "n_mua" }) },
+            { "thuong_lam", ("n_thuong", new[] { "n_tia", "n_mua", "n_mua" }) },
+            { "huyen_vu", ("n_tia", new[] { "n_song", "n_song", "n_voi" }) },
+            { "lam_quan", ("n_cau", new[] { "n_mua", "n_song", "n_mua" }) },
+        };
+
+        public static string FireMana(HeroDef h)
+        {
+            if (h == null) return null;
+            if (h.elem == Elem.Hoa) return FireFx.TryGetValue(h.id, out var f) ? f.mana : "cau";
+            return h.elem == Elem.Thuy && WaterFx.TryGetValue(h.id, out var w) ? w.mana : null;
+        }
+
+        // form: dạng đang ra trận (0 là dạng đầu); chỉ bộ Thủy chọn chiêu cuối theo dạng
+        public static string FireUlt(HeroDef h, int form = 0)
+        {
+            if (h == null) return null;
+            if (h.elem == Elem.Hoa) return FireFx.TryGetValue(h.id, out var f) ? f.ult : null;
+            if (h.elem == Elem.Thuy && WaterFx.TryGetValue(h.id, out var w) && w.ult.Length > 0)
+                return w.ult[Mathf.Clamp(form, 0, w.ult.Length - 1)];
+            return null;
+        }
+
+        // chỗ bắn của tướng so với chân (đơn vị sân) và cỡ tia: dạng có clip bắn thì theo anim.json; không thì từ trước ngực
+        Vector2 Muzzle(Actor a, int side, out float scale)
+        {
+            if (a.aola != null && a.aola.Beam(out var m, out scale)) return m;
+            int other = side == 0 ? 1 : 0;
+            var dir = Pos[other].x < Pos[side].x ? -1f : 1f;
+            scale = a.forms <= 1 ? 1f : 0.7f + 0.7f * a.form / (a.forms - 1f);
+            if (a.boss) scale *= 1.2f;
+            return new Vector2(dir * a.H * 0.3f, -a.H * 0.5f);
+        }
+
+        // chiêu nước: phát ngay lúc clip bắn / clip CHIÊU BẮT ĐẦU, pha tụ nước chạy trong lúc tướng lấy đà và nước nhả đúng khung
+        // trúng của clip; tướng giữ dáng nhả tới khi dòng nước, mưa, vòi rồng gần xong (người dùng 2026-11-10: animation khớp hiệu ứng)
+        void PreFx(Actor a, int side, string clip)
+        {
+            a.fxHitAt = -1;
+            if (clip != Cast && clip != Skill) return;
+            bool ult = clip == Skill;
+            string kind = ult ? FireUlt(a.hero, a.form) : FireMana(a.hero);
+            if (!HatLua.IsNuoc(kind) || HatLua.NuocAtHit(kind)) return;
+            var h = Hat;
+            if (h == null || !h.HasWater) return;
+            int other = side == 0 ? 1 : 0;
+            var victim = actors[other];
+            float tH = victim != null ? victim.H : Height[other];
+            float len = a.aola != null ? a.aola.Duration(clip) : ClipLen(clip);
+            float lead = a.aola != null ? a.aola.HitTime(clip) : len * HitAt(clip);
+            h.UseTheme(a.hero.id);
+            float t = h.PlayNuoc(kind, ult, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, lead);
+            a.fxHitAt = Clock + t;
+            a.holdAt = lead;
+            a.holdUntil = Clock + lead + HatLua.HoldNuoc(kind, ult);
+            skillHold = Mathf.Max(skillHold, t + 1.2f);
+        }
+
+        // chiêu cuối hệ Hỏa: gọi lúc trúng của clip CHIÊU; trả thời gian tới lúc hiệu ứng chạm đối thủ (giây sân), 0 nếu không có
+        public float UltFx(int side)
+        {
+            var a = actors[side];
+            string kind = a != null ? FireUlt(a.hero, a.form) : null;
+            var h = Hat;
+            if (kind == null || h == null) return 0;
+            int other = side == 0 ? 1 : 0;
+            var victim = actors[other];
+            float tH = victim != null ? victim.H : Height[other];
+            var feet = Pos[other];
+            h.UseTheme(a.hero.id);
+            if (HatLua.IsNuoc(kind))
+            {
+                if (HatLua.NuocAtHit(kind)) // chiêu lao tới: nước toé lúc chạm
+                {
+                    if (!h.HasWater) return 0;
+                    h.PlayNuoc(kind, true, Pos[side], a.H, Pos[side], feet, Body(other), tH, 0);
+                    skillHold = Mathf.Max(skillHold, 1.2f);
+                    return 0;
+                }
+                float left = a.fxHitAt < 0 ? 0 : Mathf.Max(0, a.fxHitAt - Clock); // đã phát từ đầu clip (PreFx)
+                a.fxHitAt = -1;
+                return left;
+            }
+            float t = h.PlayUlt(kind, feet, Body(other), tH, Mathf.Sign(Pos[side].x - feet.x));
+            skillHold = Mathf.Max(skillHold, t + 0.8f);
+            return t;
+        }
+
+        // chiêu mana hệ Hỏa thay tia nước; trả thời gian tới lúc trúng, âm nếu không làm
+        float FireBeam(Actor a, int side, Vector2 from, Vector2 to)
+        {
+            string kind = FireMana(a.hero);
+            if (HatLua.IsNuoc(kind)) // đã phát từ đầu clip (PreFx); chưa phát được (thiếu lớp hạt) thì bắn tia cũ
+            {
+                if (a.fxHitAt < 0) return -1;
+                float left = Mathf.Max(0, a.fxHitAt - Clock);
+                a.fxHitAt = -1;
+                return left;
+            }
+            var h = Hat;
+            if (kind == null || h == null) return -1;
+            int other = side == 0 ? 1 : 0;
+            var victim = actors[other];
+            float tH = victim != null ? victim.H : Height[other];
+            h.UseTheme(a.hero.id);
+            float t = h.PlayMana(kind, Pos[side], a.H, from, Pos[other], to, tH);
+            // người dùng dặn 2026-11-10: tướng đứng phun cho hết luồng lửa mới về đứng; kim, cầu cũng giữ dáng tới lúc phóng
+            a.holdAt = a.t;
+            a.holdUntil = Clock + HatLua.HoldOf(kind);
+            skillHold = Mathf.Max(skillHold, t + 0.6f);
+            return t;
+        }
         public RectTransform PlateLayer => plateLayer;
         float flashT = -1, flashLife = 0.35f;
         Color flashColor;
@@ -66,6 +219,10 @@ namespace PokiClash
             public AolaSticker aola; // bản dev
             public string clip = Idle;
             public float t, flash, dead, enter = 9, exit, hop;
+            public float holdAt, holdUntil; // chiêu phun: giữ dáng ở khung phun (giờ clip holdAt) tới giờ sân holdUntil rồi mới về đứng
+            public float fxHitAt = -1; // chiêu nước phát từ đầu clip: giờ sân lúc nước trúng đối thủ (âm: không có)
+            public float impactAt = -1; // cảm giác trúng dời tới giờ sân này (chiêu nước còn bay)
+            public string impactClip;
             public float recoil = -1, push; // bật lùi do cú trúng có impact: giây sân đã qua (-1 = không), quãng theo chiều cao
             public bool loop = true;
             public ClipHandle handle;
@@ -292,6 +449,7 @@ namespace PokiClash
             a.onHit = onHit;
             a.hitFired = onHit == null;
             a.handle = h;
+            PreFx(a, side, clip);
             if (onHit == null) h.hit = true;
             return h;
         }
@@ -511,17 +669,11 @@ namespace PokiClash
             var a = actors[side];
             if (!beamFx || a == null) return 0;
             int other = side == 0 ? 1 : 0;
-            Vector2 m;
-            float scale;
-            if (a.aola == null || !a.aola.Beam(out m, out scale))
-            {
-                var dir = Pos[other].x < Pos[side].x ? -1f : 1f;
-                m = new Vector2(dir * a.H * 0.3f, -a.H * 0.5f);
-                scale = a.forms <= 1 ? 1f : 0.7f + 0.7f * a.form / (a.forms - 1f);
-                if (a.boss) scale *= 1.2f;
-            }
+            var m = Muzzle(a, side, out float scale);
             var from = Pos[side] + m;
             var to = Body(other);
+            float fire = FireBeam(a, side, from, to);
+            if (fire >= 0) return fire;
             var d = to - from;
             float len = d.magnitude, ang = Mathf.Atan2(d.y, d.x);
             var nrm = len > 0 ? new Vector2(-d.y, d.x) / len : Vector2.up; // pháp tuyến (web)
@@ -904,6 +1056,12 @@ namespace PokiClash
             {
                 if (a == null) continue;
                 a.t += adt;
+                if (!a.loop && (a.clip == Cast || a.clip == Skill) && a.holdUntil > Clock && a.t > a.holdAt) a.t = a.holdAt; // giữ dáng phun, dáng nhả
+                if (a.impactAt >= 0 && Clock >= a.impactAt)
+                {
+                    a.impactAt = -1;
+                    Impact(a, a.impactClip);
+                }
                 a.flash = Mathf.Max(0, a.flash - dt);
                 if (a.enter < 9) a.enter += dt;
                 if (a.exit > 0) a.exit += dt;
@@ -917,7 +1075,13 @@ namespace PokiClash
                     if (!a.hitFired && a.t >= hitT)
                     {
                         a.hitFired = true;
-                        Impact(a);
+                        // chiêu nước nhả ở khung này nhưng còn bay tới đối thủ: khựng, rung, bật lùi dời tới lúc nước trúng
+                        if (a.fxHitAt > Clock + 0.03f)
+                        {
+                            a.impactAt = a.fxHitAt;
+                            a.impactClip = a.clip;
+                        }
+                        else Impact(a);
                         a.onHit?.Invoke();
                         if (a.handle != null) a.handle.hit = true;
                     }
@@ -953,6 +1117,7 @@ namespace PokiClash
             }
             root.anchoredPosition = jolt * K;
 
+            hat?.Update(dt);
             for (int i = fx.Count - 1; i >= 0; i--)
             {
                 var f = fx[i];
@@ -980,9 +1145,9 @@ namespace PokiClash
         }
 
         // cú trúng của clip có khai impact (AolaSticker.Impact): khựng sân (tối đa 0,2 giây thật), cộng trauma rung, đẩy lùi đối thủ
-        void Impact(Actor a)
+        void Impact(Actor a, string clip = null)
         {
-            if (a.aola == null || !a.aola.Impact(a.clip, out var stop, out var tr, out var push, out var flash)) return;
+            if (a.aola == null || !a.aola.Impact(clip ?? a.clip, out var stop, out var tr, out var push, out var flash)) return;
             freeze = Mathf.Max(freeze, Mathf.Min(0.2f, stop));
             trauma = Mathf.Min(1, trauma + tr);
             if (!string.IsNullOrEmpty(flash)) Flash(flash);

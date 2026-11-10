@@ -22,6 +22,7 @@ namespace PokiClash.Game
         public string name;
         public int bone;
         public int att = -1;      // hình mặc định (chỉ số trong atts), -1 = trống
+        public float fade;        // bản 3: độ mờ mặc định (0 hiện đủ, 1 ẩn). Slot hiệu ứng ẩn sẵn, clip bật bằng khoá sa. Rig cũ: 0
     }
 
     [Serializable]
@@ -58,6 +59,16 @@ namespace PokiClash.Game
         public float[] keys;
     }
 
+    // sự kiện của clip (bản 3): mốc cho VFX, âm thanh (đầu nào bắt đầu phun, khung cắn trúng...). AtomikPlayer.Fired bắn ra khi
+    // đầu phát đi qua giây t.
+    [Serializable]
+    public sealed class AtomikEvent
+    {
+        public float t;
+        public string name;
+        public string s;          // chuỗi kèm (vd. tên đầu), có thể rỗng
+    }
+
     [Serializable]
     public sealed class AtomikClip
     {
@@ -66,6 +77,18 @@ namespace PokiClash.Game
         public AtomikTimeline[] tls;
         public AtomikSlotKeys[] sk;
         public AtomikAlphaKeys[] sa;   // bản 2
+        public AtomikEvent[] ev;       // bản 3, xếp theo giờ
+    }
+
+    // Mặt nạ cắt (bản 3, từ attachment "clipping" của Spine): mọi hình trong các slot từ slot tới end (theo thứ tự vẽ) chỉ còn phần
+    // nằm TRONG đa giác. Đa giác lồi, bám một xương, luôn bật. Dùng cho thân trồi lên từ nước: phần dưới mép cắt biến mất, sóng
+    // trước (ngoài khoảng slot) phủ lên đường cắt. AtomikPose.Skin cắt tam giác trên CPU.
+    [Serializable]
+    public sealed class AtomikMask
+    {
+        public int slot, end;
+        public int bone;
+        public float[] verts;     // x, y từng đỉnh theo xương bone (pixel, y lên)
     }
 
     // Thông tin trận của rig dùng làm dạng tướng (bản 2, AolaActor đọc): khung trúng, clip lao, chỗ bắn tia. Toạ độ theo pixel
@@ -106,6 +129,7 @@ namespace PokiClash.Game
         public AtomikSlot[] slots;
         public AtomikAtt[] atts;
         public AtomikClip[] anims;
+        public AtomikMask[] masks;      // bản 3; rig cũ: null hoặc rỗng
         public AtomikGame game;
         public Texture2D atlas;
         public Material material;

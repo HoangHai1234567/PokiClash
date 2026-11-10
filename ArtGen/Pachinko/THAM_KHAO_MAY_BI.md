@@ -113,3 +113,19 @@ Số: đời (giây), số hạt, tốc (u/giây; bi máy đó 0,162 u), trọng
 
 Chưa làm: bảng nút `pk_bang_nut` (hốc không khớp bố cục nút giữa, ảnh nhỏ), bàn tay chỉ `pk_tay_chi` (chưa có bước hướng dẫn),
 hiệu ứng mở mức cược mới (hút vào nút rồi nổ), rương bay vào khay, mở rương theo bậc trong hộp mở rương, sao xoáy.
+
+## 5. Bảng số, kẹo bay, ánh sáng, mở rương nhóm (2026-11-10)
+
+Người dùng dặn chép 100 % hiệu ứng máy bi của máy tham khảo: bảng số dưới thanh cấp, icon EXP bay lên, ánh sáng và gradient, mở rương
+như mở capsule thú. Số đo màn mở capsule đọc từ bản đục 0.51.1 (`D:\Ripper\ClashOfCritters`): prefab `pbui_common_reward`, clip
+`*_in_new` (1,1 giây), bảng tổng kết `pbui_a_view_pet_common_openall`.
+
+- Hình: gói `gui_gpt/bang_so_mo_ruong/` (`build_mo_ruong.py`, gọi Codex bằng `ArtGen/Heroes/tools/gen_codex.py`): `pk_bang_so`,
+  `pk_keo_exp`, `pk_keo_exp_nam`, `pk_the_up`, `pk_may_do`, `pk_ruy_bang`, `pk_nut_mo_het`, `pk_ruong_*_nap`, `pk_ruong_*_than`.
+- Ánh sáng mềm: `sinh_anh_sang.py` → `pk_g_*` (quầng, vòng, tia, cột, vệt lia, gradient dọc, chấm LED, lấp lánh), vẽ cộng sáng.
+- Bảng số `MachineScoreBoard.cs`: chiếm chỗ thanh EXP ở đầu máy, thanh dời lên vòm tủ. Kẹo bay từ ô lên bảng, số đếm tăng; hết đợt
+  kẹo bay từ bảng lên đầu thanh (`MachineExpBar.Held`, `Deposit`).
+- Mở rương nhóm `MachineChestOpen.cs`: tối đa 5 rương, bố cục và nhịp mở theo bản đục (lắc 0,25 giây, nắp vọt, thân rơi, chớp, vòng
+  sóng, thưởng nảy), "Mở tất cả" cách 0,15 giây, bảng tổng kết ô bật 0,667 giây, thẻ úp lật.
+- Báo cáo số đo bản đục: `refs/ban_duc_bang_so.md`, `refs/ban_duc_mo_capsule.md`.
+- Bản đục không có (nằm trong Lua mã hoá): đường bay capsule vào chỗ, nhịp lơ lửng, độ lệch "mở tất cả": tự đặt.

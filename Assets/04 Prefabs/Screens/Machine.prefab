@@ -3219,6 +3219,12 @@ MonoBehaviour:
     particle: {fileID: 2014146167203447461, guid: ef1a873508866c14d9790e77ca7979d3, type: 3}
     trail: {fileID: 9072181252221005798, guid: bbd3b0600ed7df64c87523ad2367e683, type: 3}
     floatText: {fileID: 5652615399720051072, guid: 653908a5de9a35b42adc3ed341303bec, type: 3}
+  kit:
+    image: {fileID: 5431697665057014152, guid: cd0766be29252354a88c7fefa1eb15c1, type: 3}
+    mask: {fileID: 5023488497148900122, guid: beba447ec039f3745ad2789534d8773e, type: 3}
+    button: {fileID: 3276864063521923335, guid: d2eb1bd73a28bfc4cb937e133b7d6bb0, type: 3}
+    scoreBoard: {fileID: 4374989270068177680, guid: 626d02f9247a43441915958ba00514c3, type: 3}
+    chestOpen: {fileID: 4146374693908225925, guid: c1df1054c1d3d9947a09c98350be2d48, type: 3}
 --- !u!222 &3201398129559378081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8666,6 +8672,7 @@ MonoBehaviour:
   flyLayer: {fileID: 8551586776869901507}
   particle: {fileID: 2014146167203447461, guid: ef1a873508866c14d9790e77ca7979d3, type: 3}
   frame: {fileID: 1460052293977903897}
+  Held: 0
 --- !u!1 &9103598857935571854
 GameObject:
   m_ObjectHideFlags: 0

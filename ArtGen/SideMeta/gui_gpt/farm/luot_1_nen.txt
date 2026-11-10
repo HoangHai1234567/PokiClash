@@ -1,0 +1,30 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path; both are 1024 x 1536):
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's approved hand-drawn map: copy its RENDERING (wobbly dark-brown ink outlines, coloured-pencil hatching on cream paper, chunky cute doodles), ignore its content
+image 2 = C:\Atomik\PokiWar\ArtGen\SideMeta\gui_gpt\farm\bo_cuc_farm.png: the layout sketch of the image you draw now: follow it exactly
+
+SAVE: the finished image is 1024 x 1536; save it as a PNG to C:\Atomik\PokiWar\ArtGen\SideMeta\farm\tai_ve\farm_bg.png
+Create the folder if it is missing. If that file already exists, save it as farm_bg_2.png, farm_bg_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: the full-screen background of the FARM scene of a vertical mobile monster-pet game, seen from a high three-quarter top-down view, like the map in image 1. The player's pet creatures will walk around on it and work at the farm's work stations; the game draws the creatures, the signs and every marker itself. So draw NO creatures, NO animals, NO people, NO text, NO signs with writing, NO UI.
+
+STYLE: hand-drawn storybook cartoon for a vertical mobile game: bold dark-brown ink outlines (#2B2118), slightly wobbly like a real pen, coloured-pencil and crayon hatching that stays visible, flat warm colours with light watercolour washes, subtle cream paper grain. Cozy, cheerful, chunky cute shapes, drawn beautifully, not scribbly, no glossy digital rendering, no photorealism, no heavy gradients. Same rendering as image 1, outlines and hatching as bold as in image 1.
+
+LAYOUT: copy image 2 exactly: every area on the same place with the same size. The sketch is only a colour-coded plan; do not copy its flat colours, its numbers, its pink guide lines or its black outlines. Legend of the sketch:
+- light green = grass ground of the farm; pale sand band = a dirt footpath winding from the bottom edge up to the barn;
+- red block top-left = a big red wooden barn with a white-trimmed door and a hay loft; tan block top-right = a wooden windmill with four sails;
+- blue oval = the DUCK POND: clear blue water with a few reeds and lily pads at its back and sides, a flat pale sandy bank along its whole front (bottom) edge;
+- dark green block = the ORCHARD: a row of three round fruit trees with red apples, standing at the back; light green block below it = the orchard's open lawn;
+- big pale green oval in the centre = the PET MEADOW: a soft, short, even lawn with a low wooden rail fence along its back half only, open at the front, a few tiny flowers on its rim; keep its inside completely empty and flat (the pets roam there);
+- yellow block on the left = two round haystacks and a little straw bed (the pets nap there); keep the straw bed in front of the haystacks flat and empty;
+- grey block on the right = the TOOL WORKSHOP: a small open wooden shed with an anvil, a tool rack and a barrel at its back; beige block below it = its flat packed-earth yard;
+- orange-red block on the lower right = the BREAD OVEN: a round clay dome oven with a little chimney and a stack of firewood; beige block below it = its flat packed-earth yard;
+- brown block with stripes on the lower left = the VEGETABLE FIELD: neat tilled soil rows with young green sprouts, carrots and cabbages, a low fence around it;
+- the eight cream ovals with numbers = WORK SPOTS where the game stands a creature (about 125 x 60 px each): draw each as plain flat ground of the area it sits in (sandy bank, lawn, packed earth, a bare soil row), completely EMPTY: no tree, rock, plant, tool, prop or marker on it, nothing standing in front of it.
+
+DEPTH AND DETAIL: things further up are further away; trees, the barn and the windmill overlap the ground behind them naturally. Between the areas: grass tufts, little flower clusters, a few stones, short wooden fences, a wheelbarrow, a water trough, a mailbox by the path. Dense and lively, but every area and every work spot stays clear and readable.
+
+EDGES: the land runs off all four edges (no island outline, no sea). Keep the top 8 % (above the upper pink line) calm: sky-blue distance with soft hills and treetops only. Keep the bottom 12 % (below the lower pink line) calm: grass, the start of the path, a few flowers. The 80 px on the far left and far right (outside the pink vertical lines) may be cut off on some phones: put only trees and bushes there.
+
+LIGHT: soft daylight from the top-left; light pencil shading under trees and buildings is fine. Do not paint any creature shadow on the work spots or the meadow.

@@ -44,10 +44,14 @@ namespace PokiClash
         }
 
         [SerializeField] Parts p;
+        // bộ prefab ánh sáng, bảng số, màn mở rương nhóm (menu "PokiClash/Prefab/Máy bi: prefab ánh sáng, bảng số, mở rương")
+        [SerializeField] MachineGlow.Kit kit;
 
         public Board Board { get; private set; }
         public RectTransform Root => (RectTransform)transform;
         public HoldArea Hold => p.hold;
+        public TextMeshProUGUI FloatTextPrefab => p.floatText;
+        public Image ParticlePrefab => p.particle;
 
         Image[] glow; // sáng ô theo thứ tự ô đáy của bàn đang gắn (dựng lại từ prefab lúc Bind)
         float[] glowT, glowMax;
@@ -129,6 +133,11 @@ namespace PokiClash
         public void Bind(Board board)
         {
             Board = board;
+            MachineGlow.Prefabs = kit;
+            // đồ động của lần gắn trước (nấm, vòng, hình quà, kẹo ở ô): dọn trước khi dựng lại
+            foreach (var go in made)
+                if (go) Destroy(go);
+            made.Clear();
             LayoutSlots();
             flash = new Image[board.pegs.Count];
             flashT = new float[flash.Length];
@@ -138,9 +147,6 @@ namespace PokiClash
                 if (img) img.gameObject.SetActive(false);
             lits.Clear();
             fx = new MachineFx(p.particle, p.fxLayer);
-            foreach (var go in made)
-                if (go) Destroy(go);
-            made.Clear();
             LayoutBumpers();
             LayoutGlowRays();
             // chữ gợi ý "chạm hoặc giữ để thả bi" (nướng ở mép trên khung cũ): dời xuống trong vòm, ngay dưới nấm đỉnh
@@ -406,10 +412,13 @@ namespace PokiClash
                 else if (c.name == "phu_o" || Mathf.Abs(y - OldSubY) < 3) subs.Add(t);
             }
             if (nums.Count == 0 || subs.Count == 0) return;
-            int n = 0;
+            int n = 0, si = -1;
             slotNums.Clear();
+            slotIcons.Clear();
+            slotHitT.Clear();
             foreach (var sl in slots)
             {
+                si++;
                 int exp = Pachinko.Exp(sl.reward);
                 if (exp == 0 && sl.reward != SlotKind.Ball) continue;
                 while (nums.Count <= n) nums.Add(Instantiate(nums[0], labels));
@@ -424,6 +433,31 @@ namespace PokiClash
                 var sub = subs[n];
                 sub.name = "phu_o";
                 sub.text = exp > 0 ? "XP" : "bi";
+                // ô EXP: kẹo EXP (ô nhiều EXP: nắm kẹo) thay chữ "XP", như kẹo trên ô của máy tham khảo
+                var candy = exp > 0 ? MachineGlow.Sprite(exp >= 10 ? "pk_keo_exp_nam" : "pk_keo_exp") : null;
+                if (candy && p.particle)
+                {
+                    sub.text = "";
+                    var ic = Make("keo_o", labels);
+                    ic.sprite = candy;
+                    ic.preserveAspect = true;
+                    var irt = ic.rectTransform;
+                    irt.anchorMin = irt.anchorMax = new Vector2(0, 1);
+                    irt.pivot = new Vector2(0.5f, 0.5f);
+                    irt.anchoredPosition = new Vector2(cx, -(float)SubY(sl) * K + 2 * K);
+                    irt.sizeDelta = new Vector2(w * 0.55f, w * 0.32f) * K;
+                    var gl = MachineGlow.Make("quang_keo", labels, MachineGlow.Glow, MachineGlow.Hex("#ffd9a0", 0));
+                    if (gl)
+                    {
+                        made.Add(gl.gameObject);
+                        gl.rectTransform.anchorMin = gl.rectTransform.anchorMax = new Vector2(0, 1);
+                        gl.rectTransform.anchoredPosition = irt.anchoredPosition;
+                        gl.rectTransform.sizeDelta = Vector2.one * w * 0.6f * K;
+                        gl.rectTransform.SetSiblingIndex(ic.rectTransform.GetSiblingIndex());
+                    }
+                    slotIcons[si] = (ic, gl, num, irt.anchoredPosition);
+                }
+                else slotIcons[si] = (null, null, num, Vector2.zero);
                 sub.rectTransform.anchoredPosition = new Vector2(cx, -(float)SubY(sl) * K);
                 sub.rectTransform.sizeDelta = new Vector2(w * K, sub.rectTransform.sizeDelta.y);
                 num.gameObject.SetActive(true);
@@ -463,6 +497,21 @@ namespace PokiClash
         }
 
         float subFont = 14 * K;
+        // theo chỉ số ô đáy: kẹo, quầng sau kẹo, số trên ô (dựng ở LayoutSlots), giờ từ lúc bi rơi vào
+        readonly Dictionary<int, (Image candy, Image glow, TextMeshProUGUI num, Vector2 at)> slotIcons = new Dictionary<int, (Image, Image, TextMeshProUGUI, Vector2)>();
+        readonly Dictionary<int, float> slotHitT = new Dictionary<int, float>();
+        // clip ô kẹo của máy tham khảo (anfx_demo_pinball_addmoney): kẹo 0,714 → (0,905; 1,439) giãn dọc lúc 0,067 → (1,035; 0,899) bẹt
+        // lúc 0,133 → 1,03 lúc 0,267 (chia cho 1,03 để về 1), nảy lên 6 px; quầng 0,87 → 2,4 (0,067) → 0,96 (0,2); số 1,1 → 1,3 (0,033)
+        // → 0,7 (0,1) → 0,9 (0,183) (chia 0,9)
+        static readonly float[] HitT = { 0, 0.067f, 0.133f, 0.2f, 0.267f };
+        static readonly Vector2[] HitS = { new Vector2(0.693f, 0.693f), new Vector2(0.879f, 1.397f), new Vector2(1.005f, 0.873f), new Vector2(1.01f, 1.0f), Vector2.one };
+        static readonly float[] HitY = { 0, 0, 0.067f, 6, 0.133f, -0.2f, 0.167f, 6, 0.2f, 4.5f, 0.267f, 3, 0.4f, 0 };
+        static readonly float[] HitGlow = { 0, 0.87f, 0.067f, 2.4f, 0.2f, 0.96f, 0.4f, 0.9f };
+        static readonly float[] NumPunch = { 0, 1.22f, 0.033f, 1.44f, 0.1f, 0.78f, 0.183f, 1f };
+        // cụm "kẹo + số" bật ở ô (pbui_pinball_add_money): 0,3 → 1,5 (0,067) → 1 (0,167), bay lên 54 px trong 0,133–0,533 giây (đầu
+        // nhanh), co 1 → 0,3 trong 0,5–0,6 rồi tắt
+        static readonly float[] PopS = { 0, 0.3f, 0.067f, 1.5f, 0.167f, 1f, 0.5f, 1f, 0.6f, 0.3f };
+        readonly List<(RectTransform rt, float age, Vector2 at)> pops = new List<(RectTransform, float, Vector2)>();
         readonly List<(ChestIcon ic, bool inSlot, Slot sl)> chestSpots = new List<(ChestIcon, bool, Slot)>();
 
         // số trên máy theo mức cược x (gọi khi vào màn và khi đổi cược); pop: các số nhún lên một cái khi đổi
@@ -632,6 +681,50 @@ namespace PokiClash
             var sl = Board.slots[slot];
             float w = (float)(sl.x1 - sl.x0) * K;
             fx.Emit(MachineFx.SlotHit, Local((sl.x0 + sl.x1) / 2, sl.y0 + 6), w / MachineFx.SlotU);
+            slotHitT[slot] = 0;
+        }
+
+        // bi rơi vào ô EXP: kẹo phụt lên rồi rơi, cụm "kẹo + số" bật lên ở miệng ô (như ô kẹo của máy tham khảo)
+        public void ExpPop(int slot, double x, double y, int n)
+        {
+            var candy = MachineScoreBoard.Candy;
+            Vector2 at = Local(x, y);
+            if (slot >= 0 && slot < Board.slots.Count)
+            {
+                var sl = Board.slots[slot];
+                at = Local((sl.x0 + sl.x1) / 2, sl.y0 - 4);
+            }
+            if (MachineGlow.Sprite("pk_keo_exp")) fx.Emit(MachineFx.CandyBurst("pk_keo_exp"), at, MachineFx.UnitBall);
+            if (!p.particle || !p.floatText) return;
+            var box = Make("cong_exp", p.fxLayer);
+            box.sprite = null;
+            box.color = new Color(1, 1, 1, 0);
+            var rt = box.rectTransform;
+            rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = new Vector2(90, 38) * K;
+            rt.anchoredPosition = at;
+            rt.localScale = Vector3.one * 0.3f;
+            var ic = Make("keo", rt);
+            ic.sprite = candy;
+            ic.preserveAspect = true;
+            ic.rectTransform.anchorMin = ic.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            ic.rectTransform.sizeDelta = new Vector2(44, 36) * K;
+            ic.rectTransform.anchoredPosition = new Vector2(-24 * K, 0);
+            var t = Ui.Spawn(p.floatText, rt);
+            t.text = "+" + n;
+            t.fontSize = 32 * K;
+            t.color = Theme.Hex("#ffe27a");
+            t.outlineWidth = 0.22f;
+            t.outlineColor = Theme.Hex("#2B2118");
+            t.alignment = TextAlignmentOptions.MidlineLeft;
+            t.raycastTarget = false;
+            t.rectTransform.anchorMin = t.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+            t.rectTransform.pivot = new Vector2(0.5f, 0.5f);
+            t.rectTransform.sizeDelta = new Vector2(70, 30) * K;
+            t.rectTransform.anchoredPosition = new Vector2(26 * K, 0);
+            t.rectTransform.localScale = Vector3.one;
+            pops.Add((rt, 0, at));
         }
 
         // rương rơi vào: bảng loé cấp 2 (gỗ, bạc) hoặc 3 (vàng)
@@ -798,6 +891,49 @@ namespace PokiClash
                 float k = Mathf.Max(0, shakeT / shakeDur);
                 Root.anchoredPosition = shakeT > 0 ? shakeBase + UnityEngine.Random.insideUnitCircle * shakeAmp * k * k : shakeBase;
             }
+            // kẹo trong ô bóp giãn, quầng phồng, số nhún (giờ máy)
+            if (slotHitT.Count > 0)
+                foreach (var key in new List<int>(slotHitT.Keys))
+                {
+                    float a = slotHitT[key] + simDt;
+                    slotHitT[key] = a;
+                    if (!slotIcons.TryGetValue(key, out var si)) continue;
+                    bool end = a >= 0.4f;
+                    if (si.candy)
+                    {
+                        int k = 0;
+                        while (k < HitT.Length - 2 && a > HitT[k + 1]) k++;
+                        var sc = end ? Vector2.one : Vector2.Lerp(HitS[k], HitS[k + 1], Mathf.Clamp01((a - HitT[k]) / (HitT[k + 1] - HitT[k])));
+                        si.candy.rectTransform.localScale = new Vector3(sc.x, sc.y, 1);
+                        si.candy.rectTransform.anchoredPosition = si.at + new Vector2(0, end ? 0 : MachineFx.Curve(HitY, a) * K * 0.6f);
+                    }
+                    if (si.glow)
+                    {
+                        si.glow.rectTransform.localScale = Vector3.one * MachineFx.Curve(HitGlow, a);
+                        si.glow.color = MachineGlow.Hex("#ffd9a0", end ? 0 : 0.85f * (1 - a / 0.4f));
+                    }
+                    if (si.num) si.num.rectTransform.localScale = Vector3.one * (a >= 0.183f ? 1 : MachineFx.Curve(NumPunch, a));
+                    if (end) slotHitT.Remove(key);
+                }
+            for (int i = pops.Count - 1; i >= 0; i--)
+            {
+                var (rt, age, at) = pops[i];
+                age += simDt;
+                if (!rt || age >= 0.6f)
+                {
+                    if (rt)
+                    {
+                        made.Remove(rt.gameObject);
+                        Destroy(rt.gameObject);
+                    }
+                    pops.RemoveAt(i);
+                    continue;
+                }
+                float u = Mathf.Clamp01((age - 0.133f) / 0.4f);
+                rt.anchoredPosition = at + new Vector2(0, 54 * K * 0.6f * (1 - (1 - u) * (1 - u)));
+                rt.localScale = Vector3.one * MachineFx.Curve(PopS, age);
+                pops[i] = (rt, age, at);
+            }
             for (int i = floats.Count - 1; i >= 0; i--)
             {
                 var (t, age, at) = floats[i];
@@ -911,6 +1047,14 @@ namespace PokiClash
         {
             var bi = Ui.Spawn(p.ball, p.ballLayer);
             bi.name = "bi";
+            // quầng cộng sáng theo bi (lớp glow của bi máy tham khảo), nằm sau bi
+            var g = MachineGlow.Make("quang_bi", bi.rectTransform, MachineGlow.Glow, MachineGlow.A(Color.white, 0.55f));
+            if (g)
+            {
+                g.rectTransform.anchorMin = g.rectTransform.anchorMax = new Vector2(0.5f, 0.5f);
+                g.rectTransform.sizeDelta = bi.rectTransform.sizeDelta * 3.2f;
+                g.rectTransform.SetAsFirstSibling();
+            }
             return bi;
         }
     }

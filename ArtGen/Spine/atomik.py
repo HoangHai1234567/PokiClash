@@ -6,7 +6,8 @@
 File .atomik = "ATMK" + uint16 phiên bản + gzip( uint32 dài JSON + JSON utf-8 + uint32 dài PNG + PNG atlas ).
 JSON viết đúng khuôn JsonUtility của Unity đọc được (không có từ điển):
   bones[]: rigName? không; mỗi xương {name, parent, x, y, rot, sx, sy, noScale}
-  slots[] (thứ tự vẽ sau -> trước): {name, bone, att}  att = chỉ số trong atts, -1 = trống
+  slots[] (thứ tự vẽ sau -> trước): {name, bone, att, fade}  att = chỉ số trong atts, -1 = trống; fade (bản 3) = độ mờ mặc định
+     (0 hiện đủ, 1 ẩn): slot hiệu ứng ẩn sẵn, clip nào dùng thì bật bằng khoá sa
   atts[]: {slot, name, uvs[] (UV Unity, gốc dưới trái), tris[], wInfo[]}
      wInfo mỗi đỉnh: n, rồi n lần (xương, x, y, trọng số); x, y theo xương đó ở tư thế gốc, đơn vị pixel, y lên.
      Mảnh cứng (region) và lưới không trọng số đều đổi về dạng này (một xương, trọng số 1).
@@ -17,6 +18,10 @@ JSON viết đúng khuôn JsonUtility của Unity đọc được (không có t�
      sa: {slot, keys[]}  độ đậm slot (bản 2, timeline "alpha" của Spine 4.2), sải 7 như xoay
   game (bản 2, tuỳ chọn): thông tin trận khi rig là dạng tướng (AtomikGame trong Unity): fps, height, hitClips, hitTimes,
      lunge, stay, muzzle, beam, beamStyle, move, shadow. --game <tệp.json>
+  masks[] (bản 3): mặt nạ cắt, từ attachment kiểu "clipping" của Spine: {slot, end, bone, verts[]}. Mọi hình trong các slot từ
+     `slot` tới `end` (theo thứ tự vẽ) bị cắt, chỉ còn phần nằm TRONG đa giác; verts = x, y từng đỉnh theo xương `bone`. Đa giác phải
+     LỒI (runtime cắt tam giác theo từng cạnh), không trọng số, luôn bật.
+  anims[].ev[] (bản 3): sự kiện của clip {t, name, s}, xếp theo giờ (mốc cho VFX, âm thanh: AtomikPlayer.Fired).
 """
 import io
 import json
@@ -26,7 +31,7 @@ import struct
 import sys
 import gzip
 
-VERSION = 2
+VERSION = 3
 
 
 def read_atlas(path):
@@ -87,10 +92,13 @@ def convert(skel_path, atlas_path, out_path, name=None, game=None):
                       "x": b.get("x", 0.0), "y": b.get("y", 0.0), "rot": b.get("rotation", 0.0),
                       "sx": b.get("scaleX", 1.0), "sy": b.get("scaleY", 1.0),
                       "noScale": b.get("inherit", b.get("transform", "normal")) in ("noScale", "noScaleOrReflection")})
-    slots = [{"name": s["name"], "bone": bi[s["bone"]], "att": -1} for s in sk["slots"]]
+    # fade (bản 3): độ mờ mặc định của slot = 1 - alpha của màu slot trong Spine (slot hiệu ứng ẩn sẵn: fade 1); clip bật bằng khoá sa
+    slots = [{"name": s["name"], "bone": bi[s["bone"]], "att": -1,
+              "fade": round(1 - int(s["color"][6:8], 16) / 255.0, 3) if len(s.get("color", "")) == 8 else 0.0} for s in sk["slots"]]
     si = {s["name"]: i for i, s in enumerate(slots)}
     skin = next(s for s in sk["skins"] if s["name"] == "default")["attachments"]
     atts, ai = [], {}
+    masks = []
 
     def region_uv(rname, u, v):  # u, v trong vùng (0..1, v xuống) -> UV Unity của cả atlas (v lên)
         r = regions[rname]
@@ -128,13 +136,28 @@ def convert(skel_path, atlas_path, out_path, name=None, game=None):
                         w += [1, slots[slot]["bone"], vs[2 * i], vs[2 * i + 1], 1]
                 else:
                     w = list(vs)
+            elif typ == "clipping":
+                vs = a["vertices"]
+                n = a.get("vertexCount", len(vs) // 2)
+                if len(vs) != 2 * n:
+                    sys.exit(f"mặt nạ cắt {sname}/{aname}: có trọng số, chưa hỗ trợ")
+                pts = [(vs[2 * i], vs[2 * i + 1]) for i in range(n)]
+                cr = [(pts[(i + 1) % n][0] - pts[i][0]) * (pts[(i + 2) % n][1] - pts[(i + 1) % n][1]) -
+                      (pts[(i + 1) % n][1] - pts[i][1]) * (pts[(i + 2) % n][0] - pts[(i + 1) % n][0]) for i in range(n)]
+                if not (all(c >= -1e-6 for c in cr) or all(c <= 1e-6 for c in cr)):
+                    sys.exit(f"mặt nạ cắt {sname}/{aname}: đa giác lõm, runtime chỉ cắt được đa giác lồi")
+                if sk["slots"][slot].get("attachment") != aname:
+                    print(f"  mặt nạ cắt {sname}/{aname} không phải hình mặc định của slot: vẫn coi là luôn bật")
+                masks.append({"slot": slot, "end": si[a["end"]] if a.get("end") else len(slots) - 1, "bone": slots[slot]["bone"],
+                              "verts": [round(float(v), 3) for v in vs]})
+                continue
             else:
                 print(f"  bỏ qua attachment {sname}/{aname} kiểu {typ}")
                 continue
             ai[(sname, aname)] = len(atts)
             atts.append({"slot": slot, "name": aname, "uvs": uvs, "tris": tris, "wInfo": w})
     for s in sk["slots"]:
-        if s.get("attachment"):
+        if s.get("attachment") and (s["name"], s["attachment"]) in ai:
             slots[si[s["name"]]]["att"] = ai[(s["name"], s["attachment"])]
     anims = []
     for an, a in sk.get("animations", {}).items():
@@ -165,9 +188,14 @@ def convert(skel_path, atlas_path, out_path, name=None, game=None):
             for kind in smap:
                 if kind not in ("attachment", "alpha"):
                     print(f"  bỏ qua timeline slot {sname}/{kind}")
-        anims.append({"name": an, "dur": round(dur, 5), "tls": tls, "sk": skl, "sa": sal})
+        evs = [{"t": round(float(e.get("time", 0.0)), 5), "name": e["name"], "s": str(e.get("string", ""))} for e in a.get("events", [])]
+        evs.sort(key=lambda e: e["t"])
+        for kind in a:
+            if kind not in ("bones", "slots", "events"):
+                print(f"  bỏ qua nhóm timeline {an}/{kind}")
+        anims.append({"name": an, "dur": round(dur, 5), "tls": tls, "sk": skl, "sa": sal, "ev": evs})
     data = {"rigName": name or os.path.splitext(os.path.basename(out_path))[0], "version": VERSION, "ppu": 100.0,
-            "bones": bones, "slots": slots, "atts": atts, "anims": anims}
+            "bones": bones, "slots": slots, "atts": atts, "anims": anims, "masks": masks}
     if game:
         data["game"] = game
     js = json.dumps(data, ensure_ascii=False, separators=(",", ":")).encode("utf-8")
@@ -181,8 +209,9 @@ def convert(skel_path, atlas_path, out_path, name=None, game=None):
         f.write(b"ATMK" + struct.pack("<H", VERSION))
         f.write(gzip.compress(body.getvalue(), 9))
     nv = sum(len(a["uvs"]) // 2 for a in atts)
-    print(f"{out_path}: {len(bones)} xương, {len(slots)} slot, {len(atts)} hình, {nv} đỉnh, "
-          f"{len(anims)} animation, {os.path.getsize(out_path) // 1024} KB (JSON {len(js) // 1024} KB, PNG {len(png) // 1024} KB)")
+    print(f"{out_path}: {len(bones)} xương, {len(slots)} slot, {len(atts)} hình, {nv} đỉnh, {len(masks)} mặt nạ cắt, "
+          f"{len(anims)} animation, {sum(len(a['ev']) for a in anims)} sự kiện, {os.path.getsize(out_path) // 1024} KB "
+          f"(JSON {len(js) // 1024} KB, PNG {len(png) // 1024} KB)")
 
 
 if __name__ == "__main__":

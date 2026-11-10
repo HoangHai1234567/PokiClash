@@ -36,6 +36,8 @@ characters, no UI. ONE IMAGE PER REPLY in order S1 to S5, then wait for "next".
 
 ## S1 — Trang trại (`inbox/farm.png`)
 
+> **Thay bằng gói mới (2026-11-10):** `build_farm.py` sinh `gui_gpt/farm/` (sơ đồ bố cục, nền cảnh, tấm đồ nghề, `HUONG_DAN.md`); ảnh lưu `farm/tai_ve/`, đưa vào Unity bằng `import_farm.py`. Prompt S1 dưới đây là bản cũ, không dùng.
+
 ```
 A small cozy farm island in a turquoise sea. Eight clearly separated empty work spots arranged in a gentle zigzag
 from bottom to top, each a flat patch of ground with a small fence or rim and nothing standing on it: two vegetable

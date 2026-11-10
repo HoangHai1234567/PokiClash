@@ -72,6 +72,17 @@ namespace PokiClash
             yield return st.Wait(travel);
         }
 
+        // clip CHIÊU; tướng hệ Hỏa có hiệu ứng hạt (StageView.UltFx: thiên thạch, dung nham phun, lốc xoáy, nổ lớn) phát lúc trúng,
+        // chờ tới lúc hiệu ứng chạm đối thủ rồi mới hiện sát thương
+        IEnumerator PlayUlt(int side)
+        {
+            float travel = 0;
+            var h = st.Play(side, StageView.Skill, () => travel = st.UltFx(side));
+            pending = h;
+            while (!h.hit) yield return null;
+            if (travel > 0) yield return st.Wait(travel);
+        }
+
         public IEnumerator Play(BattleEvent e)
         {
             var sfx = App.Audio;
@@ -200,7 +211,7 @@ namespace PokiClash
                     st.Flash("#fff3c4");
                     if (UltCut != null) yield return UltCut(e.side, c);
                     else if (Banner != null) host.StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {b.ActiveOf(e.side).Name}", true));
-                    yield return PlayClip(e.side, StageView.Skill);
+                    yield return PlayUlt(e.side);
                     break;
                 }
                 case EvType.Dmg:

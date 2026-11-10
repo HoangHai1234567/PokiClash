@@ -8,12 +8,21 @@ description: >
 
 # Hiệu ứng (VFX) PokiClash
 
-Đọc hết trước khi đụng hiệu ứng. Game là Unity 6 URP, mọi thứ nằm trên **uGUI canvas**. Hiệu ứng là **ảnh vẽ tay rời**, được code
-cho nở, bay, mờ, xoay, nhuộm màu. Project **không dùng** ParticleSystem, VFX Graph hay post-processing (bloom). Đừng đưa chúng vào
+> Skill gốc: `skill-petclash` (nguyên tắc thiết kế, nhịp clip, khớp animation với hiệu ứng, hiệu năng, bảng kiểm; kèm bộ
+> `VFX_KNOWLEDGE_BASE.md` và ba file ghi chú nghiên cứu). Đọc nó trước, rồi quay lại đây làm chi tiết.
+
+Đọc hết trước khi đụng hiệu ứng. Game là Unity 6 URP, mọi thứ nằm trên **uGUI canvas**.
+
+**Chuẩn mốc (người dùng chốt 2026-11-10):** hiệu ứng là **hạt có vật lý vẽ chồng lớp phẳng**, như bản phun lửa
+`ArtGen/Spine/chuan_fx/phun_lua.gif` (cách dựng: skill `pokiclash-hero-fx` mục 0b). **Không làm kiểu sprite tĩnh nữa**: một ảnh
+vẽ tay cho trượt, nở, mờ là chưa đạt. Ảnh vẽ tay (GPT hoặc sinh bằng thuật toán như `ArtGen/Spine/fire.py`, `lightning.py`) chỉ
+là hình của hạt hoặc tờ khung, được nhuộm màu theo tuổi. Hiệu ứng cũ (`Pop`, `Drift`, tia ảnh tĩnh) sẽ được nâng dần theo chuẩn này.
+Project **không dùng** ParticleSystem, VFX Graph hay post-processing (bloom). Đừng đưa chúng vào
 khi người dùng chưa đồng ý: chúng không chạy theo nhịp sân (`StageView.Clock`), không khớp nét vẽ tay, và làm nặng build.
 
 Cảm giác đánh và idle của tướng (khựng lúc trúng, rung, bật lùi, hạt có vật lý, biên đạo đòn theo pha, idle theo hệ, cách dùng
-ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokiclash-hero-fx`.
+ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokiclash-hero-fx`. Thông số và công thức học từ Epic Toon FX
+(`Assets/Epic Toon FX`, đã `.gitignore`, chỉ đọc, không tham chiếu từ prefab hay code của game): `pokiclash-hero-fx/toonfx.md`.
 
 ## 1. Luật hình (người dùng chốt, bắt buộc)
 
@@ -25,6 +34,10 @@ ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokic
   để bù "cho rực". Muốn hoành tráng hơn thì thêm hình vẽ tay, cho to hơn, thêm nhịp (nổ, văng, rung).
 - Hiệu ứng không được che con bị trúng: vụ nổ trúng đòn luôn nhỏ hơn thân nó (`BeamHit` lấy cỡ theo `tH`).
 - Hình và chuyển động aola là của Baitian: không đăng công khai, kể cả artifact.
+- **Ngoại lệ máy bi** (người dùng dặn 2026-11-10: "copy tất cả hiệu ứng ánh sáng, gradient" của máy bi tham khảo): màn Máy bi
+  và màn mở rương nhóm được dùng lớp sáng mềm cộng sáng: ảnh `pk_g_*` sinh bằng `ArtGen/Pachinko/sinh_anh_sang.py`, material
+  `Resources/UIAdditive` (shader `PokiClash/UIAdditive`), code ở `Game/Machine/MachineGlow.cs`. Hình vẽ (GPT) vẫn tô phẳng; ánh
+  sáng chỉ do code chồng lên. Màn trận, tướng vẫn theo luật tô phẳng.
 
 ## 2. Luật trận (người dùng chốt 2026-11-03)
 

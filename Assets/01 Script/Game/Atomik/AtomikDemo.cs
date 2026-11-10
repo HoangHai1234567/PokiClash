@@ -8,6 +8,8 @@ namespace PokiClash.Game
     {
         public AtomikPlayer[] players;
         public Camera cam;
+        public string idleClip = "idle";   // clip đứng (lặp); clip khác chạy một lần rồi về clip này
+        public bool fixedCamera;           // true: giữ nguyên chỗ đặt camera và các con (rig lớn, scene dựng sẵn khung nhìn)
         float speed = 1f;
         GUIStyle label, button;
 
@@ -25,13 +27,15 @@ namespace PokiClash.Game
                 var p = players[i];
                 if (p == null || p.asset == null) continue;
                 var sp = cam ? cam.WorldToScreenPoint(p.transform.position) : Vector3.zero;
-                float x = sp.x, y = Screen.height - sp.y + 10 * k, w = 230 * k, h = 32 * k;
-                GUI.Label(new Rect(x - w / 2, y, w, h), p.clip + (p.loop ? "" : " (một lần)"), label);
                 var clips = p.asset.anims;
+                float x = sp.x, y = Screen.height - sp.y + 10 * k, w = Mathf.Max(230 * k, clips.Length * 100 * k), h = 32 * k;
+                if (fixedCamera) { x = Screen.width * 0.5f; y = Screen.height - 2.4f * h; }
+                string ev = string.IsNullOrEmpty(p.LastEvent) ? "" : "   sự kiện: " + p.LastEvent;
+                GUI.Label(new Rect(x - w / 2, y, w, h), p.clip + (p.loop ? "" : " (một lần)") + ev, label);
                 float bw = Mathf.Min(110 * k, w / clips.Length);
                 for (int j = 0; j < clips.Length; j++)
                     if (GUI.Button(new Rect(x - bw * clips.Length / 2 + j * bw, y + h, bw - 4 * k, h), clips[j].name, button))
-                        p.Play(clips[j].name, clips[j].name == "idle");
+                        p.Play(clips[j].name, clips[j].name == idleClip);
             }
             GUI.Label(new Rect(12 * k, 10 * k, 300 * k, h0(k)), $"Tốc độ x{speed:0.00}", label);
             float ns = GUI.HorizontalSlider(new Rect(12 * k, 40 * k, 260 * k, 24 * k), speed, 0.1f, 2f);
@@ -47,7 +51,7 @@ namespace PokiClash.Game
         void LateUpdate()
         {
             // xếp theo khung: màn dọc (điện thoại) xếp cột, màn ngang xếp hàng; camera ôm vừa cả ba con
-            if (!cam || players == null || players.Length == 0) return;
+            if (!cam || players == null || players.Length == 0 || fixedCamera) return;
             bool portrait = cam.aspect < 1f;
             const float gapX = 3.6f, gapY = 5.1f, h = 3.6f;
             int n = players.Length;
@@ -67,7 +71,7 @@ namespace PokiClash.Game
         {
             // clip chạy một lần xong thì về idle
             foreach (var p in players)
-                if (p && p.Done) p.Play("idle", true);
+                if (p && p.Done && p.asset && p.asset.FindClip(idleClip) >= 0) p.Play(idleClip, true);
         }
     }
 }

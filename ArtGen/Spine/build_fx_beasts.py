@@ -401,11 +401,117 @@ SHEETS = {
         ("meteor", "a big golden meteor falling with a long sapphire-blue flame trail streaming up behind it"),
         ("blades", "a swirling burst of golden crescents and sapphire-blue flame tongues"),
     ],
+    # đảo Thổ (2026-11-10, build_tho.py): tờ đất đá chung thay bộ NƯỚC mặc định, mỗi dòng một tờ, Giáp Nham thêm tờ thứ hai
+    "tho_chung": [
+        ("ring", "a flat ring of small brown and grey pebbles and dust puffs seen in perspective on the ground (a wide ellipse, "
+                 "about three times wider than tall)"),
+        ("whirl", "a whirl seen from the front: a wide ring of curved sand-coloured dust ribbons and small pebbles swirling "
+                  "around an empty centre"),
+        ("wave", "a low rolling wave of brown earth and grey rock chunks moving along the ground to the right, its crest "
+                 "curling forward"),
+        ("burst", "a round burst seen from the front: a ring of small grey rock chips and sand-coloured dust puffs radiating "
+                  "outward from an empty centre"),
+        ("pillar", "a tall upright column of brown earth and grey rock chunks erupting up from the ground, wide at the base"),
+        ("spark", "one small grey pebble"),
+    ],
+    "thach_nhan": [
+        ("fist", "a punch impact: a big star-shaped burst of olive-grey stone chips and moss-green bits"),
+        ("boulder", "one round mossy grey-olive boulder with a moss tuft on top, flying to the right"),
+        ("spikes", "a cluster of big square-topped olive-grey stone pillars with moss and a green spiral carving erupting upward "
+                   "from a cracked ground"),
+        ("orb", "a round olive-grey stone orb with a green spiral carved on it and a moss tuft"),
+        ("burst", "a round burst of olive-grey rock chunks and green moss bits flying outward"),
+        ("pebble", "one small mossy grey stone"),
+    ],
+    "lung_vuong": [
+        ("claw", "three parallel curved claw-mark streaks of gold, slanting down to the right"),
+        ("dig", "a mound of brown earth bursting up from the ground with flying dirt clods and a few blue crystal chips"),
+        ("whirl", "a whirlwind of brown dust ribbons and golden crescent claw arcs spinning around an empty centre, seen from "
+                  "the front"),
+        ("orb", "a round sapphire-blue crystal orb inside a golden ring"),
+        ("burst", "a round burst of brown dirt clods and blue crystal chips flying outward"),
+        ("crystal", "one small faceted blue crystal"),
+    ],
+    "cao_da": [
+        ("claw", "three parallel curved claw-mark streaks of emerald green, slanting down to the right"),
+        ("spikes", "a cluster of big pointed emerald-green stone spikes erupting upward from a cracked ground"),
+        ("shard", "one long pointed emerald-green stone shard flying to the right"),
+        ("orb", "a round emerald-green stone orb with a deep-blue gem in the middle"),
+        ("burst", "a round burst of emerald-green stone shards flying outward"),
+        ("ring", "a ring made of a twisted red-and-white rope, seen in perspective on the ground (a wide ellipse)"),
+    ],
+    "ho_khoan": [
+        ("drill", "a spiral ruby-red crystal drill cone pointing to the right, a star burst of rock chips at its tip"),
+        ("cracker", "a popping firecracker burst: small red paper scraps, gold curls and four-pointed yellow stars flying out"),
+        ("crystals", "a cluster of big jagged emerald-green crystals erupting upward from a cracked ground"),
+        ("orb", "a round red gem orb set in a golden lion-dance mount with curly cloud trims"),
+        ("burst", "a round burst of emerald crystal shards and small red paper scraps flying outward"),
+        ("shard", "one small jagged emerald crystal"),
+    ],
+    "phu_van": [
+        ("seal", "a round stone seal carved with teal square rune glyphs, seen in perspective on the ground (a wide ellipse)"),
+        ("crack", "a ground stomp: a round crater in perspective with blue-grey rock slabs tilting up and dust puffs"),
+        ("obelisk", "a tall blue-grey stone obelisk carved with teal rune glyphs rising up from a cracked ground"),
+        ("orb", "a round blue-grey stone orb carved with one teal square rune glyph"),
+        ("burst", "a round burst of blue-grey rock chunks with teal rune marks flying outward"),
+        ("glyph", "one small square blue-grey stone with a teal rune carved on it"),
+    ],
+    "hat_de": [
+        ("acorn", "one big brown acorn with a crosshatched cap flying to the right, short speed lines behind it"),
+        ("bash", "a shield-bash impact: a big round acorn-shell shield outline with radiating impact lines"),
+        ("fall", "a big brown acorn falling DOWN steeply, a short trail of brown leaves streaming up behind it"),
+        ("orb", "a round golden acorn orb with a sky-blue band"),
+        ("burst", "a round burst of acorn shell bits and small brown leaves flying outward"),
+        ("leaf", "one small brown oak leaf"),
+    ],
+    "rua_nui": [
+        ("quake", "a wide ground crack seen in perspective (a wide ellipse) with brown rock slabs tilting up around it"),
+        ("peak", "a small rocky brown mountain peak with green grassy ledges erupting up from the ground"),
+        ("boulder", "a big brown boulder falling DOWN steeply, a short trail of dust puffs streaming up behind it"),
+        ("orb", "a round mossy pebble orb with a little two-leaf sprout on top"),
+        ("burst", "a round burst of brown rocks and green leaves flying outward"),
+        ("crystal", "one small ice-blue crystal"),
+    ],
+    "ho_kim_cuong": [
+        ("diamond", "a giant long faceted pale-violet diamond crystal pointing straight DOWN, falling from above"),
+        ("drill", "a long spiral ruby-red crystal drill cone pointing to the right with gold bands"),
+        ("storm", "a whirl of many long pale-violet diamond crystal blades spinning around an empty centre, seen from the front"),
+        ("orb", "a round pale-violet faceted diamond orb in a golden ring with emerald dots"),
+        ("burst", "a round burst of pale-violet diamond shards and gold chips flying outward"),
+        ("shard", "one small faceted pale-violet diamond"),
+    ],
+    "cu_phu": [
+        ("axe", "one big crescent swoosh arc of violet steel with a golden edge, curving down to the right"),
+        ("crack", "a ground smash: a round crater in perspective with golden-sand crystal chunks flying up"),
+        ("whirl", "a horizontal whirlwind of violet and gold crescent arcs spinning around an empty centre"),
+        ("orb", "a round golden-sand crystal orb with a teal gem and a small red-orange crystal plume"),
+        ("burst", "a round burst of golden-sand crystal chunks and red-orange crystal chips"),
+        ("gem", "one small faceted teal gem"),
+    ],
+    "giap_nham": [
+        ("punch", "a punch impact: a big star burst of sharp angular golden rays with lime-green trims"),
+        ("scales", "a spray of angular golden scales flying to the right in a fan"),
+        ("pillar", "a tall column of angular golden crystal slabs rising up from a cracked ground"),
+        ("orb", "a round golden orb with a green gem in the middle and angular gold rays around it"),
+        ("burst", "a round burst of angular golden shards and small crimson ribbon strands"),
+        ("scale", "one small angular golden scale"),
+    ],
+    "giap_nham_b": [
+        ("meteor", "a big angular golden boulder falling with a long crimson ribbon trail streaming up behind it"),
+        ("seal", "a round golden seal with an angular scale pattern and a green gem, seen in perspective on the ground (a wide "
+                 "ellipse)"),
+        ("halo", "a ring of angular golden scale plates and green gems, like a halo"),
+        ("roar", "a vertical fan of big angular golden arcs expanding to the right with crimson ribbon curls"),
+        ("quake", "a wide ring of golden rock slabs tilting up out of the ground, seen in perspective (a wide ellipse)"),
+        ("blades", "a swirling burst of golden crescents and crimson ribbons"),
+    ],
 }
 KIM = {"kim_chung", "bo_cap", "doc_giac", "bo_ngua", "phi_thuong", "khien_bac", "chien_than", "thiet_phu", "tam_kiem",
        "ung_thep", "kim_nghe", "kim_nghe_b"}
 HOA = {"hoa_chung", "su_tu_lua", "khong_lo", "kim_su", "nham_than", "nguu_quyen", "hong_lien", "giap_long", "huyen_viem",
        "hoa_tinh", "lan_hoa", "lan_hoa_b"}
+THO = {"tho_chung", "thach_nhan", "lung_vuong", "cao_da", "ho_khoan", "phu_van", "hat_de", "rua_nui", "ho_kim_cuong",
+       "cu_phu", "giap_nham", "giap_nham_b"}
 
 
 def paths(hid):
@@ -427,7 +533,8 @@ def luot_1(hid):
     boss = ""
     if hid.split("_b")[0] in ("kuba", "huyen_vu", "lam_quan", "thuong_lam", "gio_loc", "tho_hoang", "thanh_long", "hong_lien",
                               "giap_long", "huyen_viem", "hoa_tinh", "lan_hoa", "chien_than", "thiet_phu", "tam_kiem",
-                              "ung_thep", "kim_nghe") or hid.endswith("_b"):
+                              "ung_thep", "kim_nghe", "hat_de", "rua_nui", "ho_kim_cuong", "cu_phu",
+                              "giap_nham") or hid.endswith("_b"):
         boss = ("\nThese effects belong to one of the island's last bosses: make them especially rich and beautiful (more "
                 "layered shapes, elegant curls and details), still flat-coloured and readable.")
     fire = ""
@@ -441,6 +548,11 @@ def luot_1(hid):
                 "flat crayon colour (plus a few darker facet or edge lines); no shine spots, no white highlights, no "
                 "reflections, no metallic gradients; sparks are flat yellow four-pointed stars with a dark outline; flames (if "
                 "any) are flat shapes in at most three colour bands. Nothing glows: no light, no halo, no bright edges.")
+    if hid in THO:
+        fire = ("\nEARTH: rocks, stones, earth, sand, crystals and gems are flat shapes with a closed dark-brown ink outline, "
+                "each one flat crayon colour (plus a few darker crack or facet lines); dust puffs are flat sand-coloured "
+                "cloud shapes with an outline; no shine spots, no white highlights, no reflections, no gradients; carved "
+                "runes are flat colour lines. Nothing glows: no light, no halo, no bright edges.")
     t = f"""IMAGES (attached in this order; open each from its path):
 {img}
 
@@ -468,7 +580,9 @@ Plain pure-white background (#FFFFFF), no creature, no character, no text.
 # đĩa trắng đục (fg_mask chỉ bỏ nền trắng nối mép ô)
 HOLLOW = {"hoa_chung_ring", "hoa_chung_whirl", "hoa_chung_burst", "lan_hoa_ring", "lan_hoa_b_halo", "giap_long_spikes",
           "kim_chung_ring", "kim_chung_whirl", "kim_chung_burst", "bo_ngua_whirl", "thiet_phu_whirl", "ung_thep_whirl",
-          "kim_nghe_b_halo", "chien_than_rings"}
+          "kim_nghe_b_halo", "chien_than_rings",
+          "tho_chung_ring", "tho_chung_whirl", "tho_chung_burst", "lung_vuong_whirl", "ho_kim_cuong_storm", "cu_phu_whirl",
+          "giap_nham_b_halo", "giap_nham_b_quake", "cao_da_ring"}
 
 
 def clear_holes(cell, m, min_area=400):

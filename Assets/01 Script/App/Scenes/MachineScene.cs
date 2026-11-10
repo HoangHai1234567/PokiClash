@@ -72,6 +72,7 @@ namespace PokiClash
 
         Board board;
         MachineBoard view;
+        MachineScoreBoard score; // bảng số dưới thanh kinh nghiệm (dựng lúc vào màn)
         Rng rng;
         readonly List<(SketchButton b, TextMeshProUGUI lockText, int x)> xBtns = new List<(SketchButton, TextMeshProUGUI, int)>();
 
@@ -151,9 +152,35 @@ namespace PokiClash
             maxX = Progress.XBest(S, D.Cfg, int.MaxValue);
             giftShown = null;
             if (p.expBar) p.expBar.Bind();
+            BuildScore();
             RefreshUi();
             view.SetMult(x, false);
             RebuildTray();
+        }
+
+        // bảng số (chép bảng LED của máy tham khảo): chiếm chỗ thanh kinh nghiệm ở đầu máy (vòng cấp + rãnh), cao tới mép trên mặt
+        // chơi; thanh dời lên vòm tủ, nằm trên bảng. Màn dùng lại thì giữ bảng cũ (thanh đã dời).
+        void BuildScore()
+        {
+            if (!p.expBar) return;
+            var bar = (RectTransform)p.expBar.transform;
+            var block = bar.parent as RectTransform;
+            var old = block ? block.Find("bang_so") : null;
+            if (old)
+            {
+                score = old.GetComponent<MachineScoreBoard>();
+                if (score) score.Clear();
+                return;
+            }
+            if (!block || !view.FloatTextPrefab) return;
+            var ap = bar.anchoredPosition;
+            var size = bar.rect.size;
+            float y = -ap.y - 2;
+            var r = new Rect(ap.x - 6, y, size.x + 12, MachineTop + 4 - y);
+            score = MachineScoreBoard.Build(block, r, view.FloatTextPrefab);
+            if (!score) return; // chưa có prefab bảng số: EXP bay thẳng lên thanh như cũ
+            score.Rect.SetSiblingIndex(bar.GetSiblingIndex()); // thanh vẽ đè lên bảng
+            bar.anchoredPosition = ap + new Vector2(0, size.y + 2);
         }
 
         // bản lưu đổi từ nơi khác (bảng thử, thanh trên): làm mới; khay chỉ dựng lại khi máy rảnh (trong đợt, rương bay vào rồi mới hiện)
@@ -629,7 +656,7 @@ namespace PokiClash
                         break;
                     case RewardKind.Exp:
                         view.Float(pg.x, pg.y - pg.r - 8, $"+{g.n} XP", MachineBoard.XpColor, 28);
-                        if (p.expBar) p.expBar.Fly(from, g.n);
+                        GainExp(from, g.n);
                         App.Audio.Play("land");
                         break;
                 }
@@ -651,8 +678,10 @@ namespace PokiClash
             switch (r.k)
             {
                 case RewardKind.Exp:
-                    view.Float(bx, by - 20, $"+{r.n} XP", MachineBoard.XpColor);
-                    if (p.expBar) p.expBar.Fly(view.World(bx, by), r.n);
+                    // ô EXP: kẹo phụt, cụm "kẹo + số" bật ở miệng ô; kẹo bay về bảng số khi cụm vừa bật xong (0,3 giây)
+                    if (slot >= 0) view.ExpPop(slot, bx, by, r.n);
+                    else view.Float(bx, by - 20, $"+{r.n} XP", MachineBoard.XpColor);
+                    GainExp(view.World(bx, by - 24), r.n, slot >= 0 ? 0.3f : 0);
                     App.Audio.Play("land");
                     Haptics.Play(Haptic.LandSmall);
                     dirty = true;
@@ -676,6 +705,14 @@ namespace PokiClash
                     StartCoroutine(FlyChest(kind, view.World(bx, by)));
                     break;
             }
+        }
+
+        // EXP rơi vào ô / từ nấm: kẹo bay lên bảng số (hết đợt bảng mới đổ lên thanh); không có bảng thì bay thẳng lên thanh
+        void GainExp(Vector3 from, int n, float delay = 0)
+        {
+            if (!p.expBar) return;
+            if (score) score.Receive(p.expBar, from, n, delay);
+            else p.expBar.Fly(from, n);
         }
 
         // rương vàng: chạy chậm, rung mặt máy, vòng loé thứ hai to hơn, ba tiếng xu lên cao dần
@@ -780,6 +817,8 @@ namespace PokiClash
             // chờ rương cuối bay vào khay, chữ nổi cuối kịp hiện, sao EXP cuối bay tới thanh
             yield return new WaitForSecondsRealtime(S.chests.Count > 0 ? 0.75f : 0.3f);
             for (float t = 0; p.expBar && p.expBar.Busy && !leaving && t < 2; t += Time.unscaledDeltaTime) yield return null;
+            // bảng số đổ EXP của đợt lên thanh (kẹo bay từ bảng tới đầu thanh, số đếm lùi)
+            if (score && p.expBar && !leaving) yield return score.Collect(p.expBar);
             if (S.chests.Count > 0 && !leaving) yield return OpenChests();
             if (bigReward != null && !leaving)
             {
@@ -833,18 +872,25 @@ namespace PokiClash
             RefreshUi();
             while (S.chests.Count > 0 && !leaving)
             {
-                // rương quý mở trước, cùng loại thì theo thứ tự rơi vào
-                var c = S.chests.OrderBy(q => Rank(q.kind)).First();
-                S.chests.Remove(c);
-                var kind = Pachinko.FromKey(c.kind);
-                int cx = Mathf.Max(1, c.x);
-                var rewards = Pachinko.OpenChest(S, D, kind, cx, rng);
+                // mở theo nhóm tối đa 5 rương như màn mở capsule của máy tham khảo; rương quý trước, cùng loại theo thứ tự rơi vào
+                var group = S.chests.OrderBy(q => Rank(q.kind)).Take(5).ToList();
+                var items = new List<MachineChestOpen.Item>();
+                foreach (var c in group)
+                {
+                    S.chests.Remove(c);
+                    var kind = Pachinko.FromKey(c.kind);
+                    int cx = Mathf.Max(1, c.x);
+                    items.Add(new MachineChestOpen.Item { kind = kind, x = cx, rewards = Pachinko.OpenChest(S, D, kind, cx, rng) });
+                }
                 SaveNow();
                 RebuildTray();
-
                 int left = S.chests.Count;
-                yield return ChestBox.Show(Pachinko.ChestName(kind) + (cx > 1 ? $" ×{cx}" : ""), kind, null,
-                    rewards, left > 0 ? $"Mở tiếp ({left})" : "Nhận");
+                if (Frame && view.FloatTextPrefab && view.ParticlePrefab && MachineChestOpen.Ready)
+                    yield return MachineChestOpen.Play(Frame, items, left, TrayPoint(), view.FloatTextPrefab, view.ParticlePrefab);
+                else
+                    foreach (var it in items)
+                        yield return ChestBox.Show(Pachinko.ChestName(it.kind) + (it.x > 1 ? $" ×{it.x}" : ""), it.kind, null, it.rewards, "Nhận");
+                RefreshUi();
             }
             opening = false;
             RebuildTray();
@@ -884,6 +930,7 @@ namespace PokiClash
             giftBusy = 0;
             giftPopT = giftPunchT = counterPopT = -1;
             if (p.expBar) p.expBar.Clear();
+            if (score) score.Clear();
             if (board == null) return;
             var s = S;
             // bi còn bay: tính như đã rơi vào ô đã chọn cho nó (vật lý thuần thì EXP 10), rương vào hàng chờ

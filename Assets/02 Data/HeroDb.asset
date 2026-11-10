@@ -1432,7 +1432,7 @@ MonoBehaviour:
   - id: thach_nhan
     name: "Th\u1EA1ch Nh\xE2n"
     title: "N\xFAi \u0111\xE1 bi\u1EBFt \u0111i"
-    aola: goc_34
+    aola: thach_nhan_1
     elem: 4
     rarity: 1
     stats: 460000005f00000028000000550000005f00000019000000
@@ -1444,13 +1444,13 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "Th\u1EA1ch Nh\xE2n"
-      aola: goc_34
+      aola: thach_nhan_1
       size: 0.9
     - name: "Th\u1EA1ch Nh\xE2n"
-      aola: goc_35
+      aola: thach_nhan_2
       size: 1.02
     - name: "Th\u1EA1ch Nh\xE2n"
-      aola: goc_36
+      aola: thach_nhan_3
       size: 1.14
     minion: 0
   - id: sa_than
@@ -1516,7 +1516,7 @@ MonoBehaviour:
   - id: lung_vuong
     name: "L\u1EEDng V\u01B0\u01A1ng"
     title: "Vua l\u1EEDng vu\u1ED1t v\xE0ng"
-    aola: goc_70
+    aola: lung_vuong_1
     elem: 4
     rarity: 0
     stats: 32000000460000006400000028000000280000001e000000
@@ -1528,19 +1528,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "L\u1EEDng Con"
-      aola: goc_70
+      aola: lung_vuong_1
       size: 0.9
     - name: "L\u1EEDng V\xF5 S\u0129"
-      aola: goc_71
+      aola: lung_vuong_2
       size: 1.02
     - name: "L\u1EEDng V\u01B0\u01A1ng"
-      aola: goc_72
+      aola: lung_vuong_3
       size: 1.14
     minion: 0
   - id: cao_da
     name: "C\xE1o \u0110\xE1"
     title: "Vu\u1ED1t \u0111\xE1 l\u1EE5c b\u1EA3o"
-    aola: goc_458
+    aola: cao_da_1
     elem: 4
     rarity: 1
     stats: 320000001e00000032000000460000003200000032000000
@@ -1552,19 +1552,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "C\xE1o Con"
-      aola: goc_458
+      aola: cao_da_1
       size: 0.9
     - name: "C\xE1o \u0110\xE1"
-      aola: goc_459
+      aola: cao_da_2
       size: 1.02
     - name: "C\xE1o \u0110\xE1 L\u1EE5c B\u1EA3o"
-      aola: goc_460
+      aola: cao_da_3
       size: 1.14
     minion: 0
   - id: ho_khoan
     name: "H\u1ED5 Khoan"
     title: "S\u1EEBng khoan pha l\xEA"
-    aola: goc_485
+    aola: ho_khoan_1
     elem: 4
     rarity: 1
     stats: 460000001400000014000000500000004600000028000000
@@ -1576,19 +1576,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "H\u1ED5 C\xE1t T\u01B0\u1EDDng"
-      aola: goc_485
+      aola: ho_khoan_1
       size: 0.9
     - name: "H\u1ED5 Ph\xE1o Hoa"
-      aola: goc_486
+      aola: ho_khoan_2
       size: 1.02
     - name: "H\u1ED5 Khoan V\u01B0\u01A1ng"
-      aola: goc_487
+      aola: ho_khoan_3
       size: 1.14
     minion: 0
   - id: phu_van
     name: "Ph\xF9 V\u0103n"
     title: "Kh\u1ED5ng l\u1ED3 \u0111\xE1 kh\u1EAFc ch\u1EEF"
-    aola: goc_718
+    aola: phu_van_1
     elem: 4
     rarity: 2
     stats: 320000004600000046000000280000003200000032000000
@@ -1600,19 +1600,19 @@ MonoBehaviour:
     size: 0.9
     forms:
     - name: "L\xEDnh \u0110\xE1 Con"
-      aola: goc_718
+      aola: phu_van_1
       size: 0.9
     - name: "L\xEDnh \u0110\xE1 Ph\xF9 V\u0103n"
-      aola: goc_719
+      aola: phu_van_2
       size: 1.02
     - name: "C\u1EF1 Th\u1EA7n Ph\xF9 V\u0103n"
-      aola: goc_720
+      aola: phu_van_3
       size: 1.14
     minion: 0
   - id: hat_de
     name: "H\u1EA1t D\u1EBB"
     title: "D\u0169ng s\u0129 khi\xEAn h\u1EA1t d\u1EBB"
-    aola: goc_927
+    aola: hat_de_1
     elem: 4
     rarity: 2
     stats: 3c000000280000002800000046000000280000003c000000
@@ -1624,16 +1624,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "L\xEDnh H\u1EA1t D\u1EBB"
-      aola: goc_927
+      aola: hat_de_1
       size: 0.92
     - name: "D\u0169ng S\u0129 H\u1EA1t D\u1EBB"
-      aola: goc_928
+      aola: hat_de_2
       size: 1.1
     minion: 0
   - id: rua_nui
     name: "R\xF9a N\xFAi"
     title: "Mai n\xFAi r\u1EEBng xanh"
-    aola: goc_1203
+    aola: rua_nui_1
     elem: 4
     rarity: 3
     stats: 280000004100000050000000280000002800000028000000
@@ -1645,16 +1645,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "R\xF9a M\u1EA7m \u0110\xE1"
-      aola: goc_1203
+      aola: rua_nui_1
       size: 0.92
     - name: "R\xF9a N\xFAi"
-      aola: goc_1204
+      aola: rua_nui_2
       size: 1.1
     minion: 0
   - id: ho_kim_cuong
     name: "H\u1ED5 Kim C\u01B0\u01A1ng"
     title: "H\u1ED5 v\u01B0\u01A1ng gi\xE1p kim c\u01B0\u01A1ng"
-    aola: goc_1380
+    aola: ho_kim_cuong_1
     elem: 4
     rarity: 3
     stats: 760000003f0000003f0000008a0000008000000058000000
@@ -1666,13 +1666,13 @@ MonoBehaviour:
     size: 1
     forms:
     - name: "H\u1ED5 Kim C\u01B0\u01A1ng"
-      aola: goc_1380
+      aola: ho_kim_cuong_1
       size: 1
     minion: 0
   - id: cu_phu
     name: "C\u1EF1 Ph\u1EE7"
     title: "Chi\u1EBFn binh r\xECu t\xEDm"
-    aola: goc_1209
+    aola: cu_phu_1
     elem: 4
     rarity: 3
     stats: 500000002800000028000000500000002d00000028000000
@@ -1684,16 +1684,16 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "Ph\u1EE7 Con"
-      aola: goc_1209
+      aola: cu_phu_1
       size: 0.92
     - name: "C\u1EF1 Ph\u1EE7"
-      aola: goc_1210
+      aola: cu_phu_2
       size: 1.1
     minion: 0
   - id: giap_nham
     name: "Gi\xE1p Nham"
     title: "Chi\u1EBFn th\u1EA7n gi\xE1p v\xE0ng"
-    aola: goc_1273
+    aola: giap_nham_1
     elem: 4
     rarity: 4
     stats: 32000000640000003c0000001e0000003c0000002d000000
@@ -1705,10 +1705,10 @@ MonoBehaviour:
     size: 0.92
     forms:
     - name: "\u0110\u1EA5u S\u0129 Nham"
-      aola: goc_1273
+      aola: giap_nham_1
       size: 0.92
     - name: "Gi\xE1p Nham"
-      aola: goc_1274
+      aola: giap_nham_2
       size: 1.1
     minion: 0
   minions:

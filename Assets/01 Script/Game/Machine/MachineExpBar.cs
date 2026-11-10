@@ -45,6 +45,9 @@ namespace PokiClash
         Vector3 badgeScale = Vector3.one;
 
         public bool Busy => flying > 0;
+        // EXP đang nằm trên bảng số (MachineScoreBoard): bản lưu đã cộng nhưng thanh chưa nhận, nên thanh không theo kịp bản lưu
+        public int Held;
+        public Vector3 TipWorld => bar.TipWorld();
 
         static SaveData S => App.Save.Data;
         static BalanceConfig Cfg => App.Data.Cfg;
@@ -77,17 +80,18 @@ namespace PokiClash
 
         // một icon bay từ from tới to (thế giới) theo đường cong trên lớp bay, trễ delay giây, tới nơi gọi arrive
         // (mốc quà của máy dùng cho bi quà bay về dòng đếm). Hạt lấy từ kho Items/HatMayBi như sao EXP.
-        public void FlyIcon(Sprite sprite, Vector3 from, Vector3 to, float delay, System.Action arrive)
+        public void FlyIcon(Sprite sprite, Vector3 from, Vector3 to, float delay, System.Action arrive, float size = 44, float dur = 0.5f)
         {
             if (!bound)
             {
                 arrive?.Invoke();
                 return;
             }
-            StartCoroutine(FlyIconRun(sprite, from, to, delay, arrive));
+            flying++;
+            StartCoroutine(FlyIconRun(sprite, from, to, delay, arrive, size, dur));
         }
 
-        IEnumerator FlyIconRun(Sprite sprite, Vector3 from, Vector3 to, float delay, System.Action arrive)
+        IEnumerator FlyIconRun(Sprite sprite, Vector3 from, Vector3 to, float delay, System.Action arrive, float size, float dur)
         {
             var img = fx.Take(flyLayer);
             stars.Add(img);
@@ -95,30 +99,70 @@ namespace PokiClash
             img.color = Color.white;
             img.enabled = false;
             var rt = img.rectTransform;
-            rt.sizeDelta = Vector2.one * 44;
+            rt.sizeDelta = Vector2.one * size;
             rt.localEulerAngles = Vector3.zero;
+            img.preserveAspect = true;
             for (float w = 0; w < delay; w += Time.unscaledDeltaTime) yield return null;
             img.enabled = true;
             var a = Anch(from);
             var b = Anch(to);
-            var c = (a + b) / 2 + new Vector2(Random.Range(-90f, 90f), 150 + Random.Range(0, 80));
-            const float dur = 0.5f;
+            // đường bậc ba tham số đều: vọt mạnh lên khỏi điểm đi (tiếp tuyến đầu 3 × (c1 - a)), lượn rồi lao vào đích từ phía dưới
+            // (tiếp tuyến cuối lớn, chạm đích dứt khoát) như icon bay của máy tham khảo
+            float side = Random.Range(-1f, 1f);
+            var c1 = a + new Vector2(side * 150, 240 + Random.Range(0, 100));
+            var c2 = b + new Vector2(-side * 70, -150);
+            float star = 0;
             for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
             {
-                float k = t / dur;
-                float e = k * k * (3 - 2 * k);
-                rt.anchoredPosition = (1 - e) * (1 - e) * a + 2 * (1 - e) * e * c + e * e * b;
-                rt.localScale = Vector3.one * Mathf.Lerp(1.2f, 0.7f, k);
+                float k = t / dur, m = 1 - k;
+                var pos = m * m * m * a + 3 * m * m * k * c1 + 3 * m * k * k * c2 + k * k * k * b;
+                rt.anchoredPosition = pos;
+                rt.localScale = Vector3.one * (t < 0.067f ? Mathf.Lerp(0.3f, 1.5f, t / 0.067f) : t < 0.167f ? Mathf.Lerp(1.5f, 1f, (t - 0.067f) / 0.1f) : Mathf.Lerp(1f, 0.78f, (t - 0.167f) / Mathf.Max(0.01f, dur - 0.167f)));
+                rt.localEulerAngles = new Vector3(0, 0, Mathf.Sin(k * Mathf.PI) * 25 * side);
+                // vệt sáng mỗi khung (dài 0,11 giây), sao rắc mỗi 0,035 giây; icon luôn nằm trên vệt
+                fx.Emit(MachineFx.FlyTrail, pos, size * 0.85f);
+                if ((star += Time.unscaledDeltaTime) > 0.035f)
+                {
+                    star = 0;
+                    fx.Emit(MachineFx.FlyStars, pos, size * 1.1f);
+                }
+                rt.SetAsLastSibling();
                 yield return null;
             }
             Return(img);
+            flying--;
+            fx.Emit(Hit, b, 30);
             arrive?.Invoke();
         }
 
         // vào màn: hiện đúng bản lưu, không chạy
+        Image tipGlow;
+        RectTransform sweep;
+        float sweepT, tipT;
+
+        // lớp sáng của thanh (chép thanh cấp của máy tham khảo): quầng ở đầu phần đầy bừng lên khi nhận EXP, vệt sáng lia qua thanh
+        void MakeLights()
+        {
+            if (tipGlow || !bar) return;
+            var brt = (RectTransform)bar.transform;
+            tipGlow = MachineGlow.Make("quang_dau", brt.parent, MachineGlow.Glow, MachineGlow.Hex("#e9d2ff", 0));
+            if (tipGlow) tipGlow.rectTransform.sizeDelta = Vector2.one * brt.rect.height * 3f;
+            var mrt = MachineGlow.NewMask("lia_thanh", brt);
+            if (!mrt) return;
+            mrt.Stretch();
+            var sw = MachineGlow.Make("lia", mrt, MachineGlow.Sweep, MachineGlow.A(Color.white, 0.5f));
+            if (sw)
+            {
+                sweep = sw.rectTransform;
+                sweep.sizeDelta = new Vector2(brt.rect.height * 1.2f, brt.rect.height * 2.4f);
+                sweep.localEulerAngles = new Vector3(0, 0, -25);
+            }
+        }
+
         public void Bind()
         {
             fx = new MachineFx(particle, flyLayer);
+            MakeLights();
             badgeScale = badge ? badge.localScale : Vector3.one;
             flying = 0;
             bound = true;
@@ -128,7 +172,7 @@ namespace PokiClash
         // bản lưu đổi ngoài sao bay (mở rương ra EXP, bảng thử): theo kịp khi không còn sao nào đang bay
         public void Sync()
         {
-            if (!bound || flying > 0) return;
+            if (!bound || flying > 0 || Held > 0) return;
             if (level != S.level || exp != S.exp) Show(S.level, S.exp, false);
         }
 
@@ -165,7 +209,8 @@ namespace PokiClash
         {
             var img = fx.Take(flyLayer);
             stars.Add(img);
-            img.sprite = App.Art.Icon("exp");
+            img.sprite = MachineScoreBoard.Candy;
+            img.preserveAspect = true;
             img.color = Color.white;
             img.enabled = false;
             var rt = img.rectTransform;
@@ -215,13 +260,14 @@ namespace PokiClash
             }
             if (lv >= Cfg.maxLevel) e = Mathf.Min(e, need);
             // sao cuối tới: lấy đúng bản lưu (phòng khi lệch do làm tròn hay EXP từ chỗ khác)
-            if (flying == 0)
+            if (flying == 0 && Held == 0)
             {
                 lv = S.level;
                 e = S.exp;
             }
             Show(lv, e, false);
             bumpT = 0;
+            tipT = 0.35f;
             fx.Emit(Hit, Anch(bar.TipWorld()), 40);
             float now = Time.unscaledTime;
             combo = now - lastSound < 0.4f ? Mathf.Min(combo + 1, 8) : 0;
@@ -230,6 +276,13 @@ namespace PokiClash
                 lastSound = now;
                 App.Audio.Play("pick", 0.45f, 1.05f + combo * 0.04f);
             }
+        }
+
+        // bảng số đổ n EXP lên thanh (kẹo đã bay tới đầu thanh)
+        public void Deposit(int n)
+        {
+            Held = Mathf.Max(0, Held - n);
+            Arrive(n);
         }
 
         void LevelPop()
@@ -253,6 +306,21 @@ namespace PokiClash
             if (!bound) return;
             float dt = Time.unscaledDeltaTime;
             fx.Update(dt);
+            if (tipGlow)
+            {
+                tipT -= dt;
+                tipGlow.rectTransform.position = bar.TipWorld();
+                tipGlow.color = MachineGlow.Hex("#e9d2ff", Mathf.Clamp01(tipT / 0.35f) * 0.9f);
+            }
+            if (sweep)
+            {
+                // lia qua mỗi 3 giây trong 0,6 giây
+                sweepT += dt;
+                float w = ((RectTransform)bar.transform).rect.width;
+                float k = Mathf.Clamp01((sweepT - 2.4f) / 0.6f);
+                sweep.anchoredPosition = new Vector2(Mathf.Lerp(-w * 0.55f, w * 0.55f, k), 0);
+                if (sweepT >= 3) sweepT = 0;
+            }
             // khung thanh (rãnh + thanh) nhún mỗi lần sao tới, chữ số nhún thêm
             if (bumpT >= 0)
             {
@@ -290,6 +358,7 @@ namespace PokiClash
         {
             StopAllCoroutines();
             flying = 0;
+            Held = 0;
             if (fx == null) return;
             for (int i = stars.Count - 1; i >= 0; i--) Return(stars[i]);
             fx.Clear();

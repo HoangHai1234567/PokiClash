@@ -100,3 +100,11 @@ Màn mẫu:
   - `SpawnPop`: hiện ra lúc bật;
   - `Deal`: chia thẻ.
 - Nét bung khi nhấn: một prefab nhỏ 5 gạch mực, tự huỷ sau 0,4 giây.
+
+## Hàng nút đáy sảnh làm lại (2026-11-10)
+
+Người dùng: "thiết kế lại bộ UI này, hơi xấu" (5 nút tròn trôi trên biển, nhãn chữ trắng). Nay:
+- kệ gỗ (boot_ban_go xoay ngang) chạy suốt đáy màn, viền mực trên;
+- Tướng, Sổ thẻ, Đánh tiếp, Sổ tay: thẻ giấy ghi chú (boot_giay_ghi, 9 mảnh) nghiêng so le, băng keo màu mép trên, icon to, nhãn chữ mực trên thẻ;
+- Máy Bi: nút tròn sticker phóng to, nhô lên khỏi mép bàn, vẫn thở, tên trên băng keo vàng; chấm số đỏ ở góc trên phải mỗi nút.
+Dựng bằng menu `PokiClash/Prefab/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)` (`Editor/HubDockMenu.cs`), chạy lại được.

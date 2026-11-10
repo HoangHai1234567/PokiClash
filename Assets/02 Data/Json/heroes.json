@@ -2299,7 +2299,7 @@
    "id": "thach_nhan",
    "name": "Thạch Nhân",
    "title": "Núi đá biết đi",
-   "aola": "goc_34",
+   "aola": "thach_nhan_1",
    "elem": "tho",
    "rarity": "uncommon",
    "stats": [
@@ -2319,17 +2319,17 @@
    "forms": [
     {
      "name": "Thạch Nhân",
-     "aola": "goc_34",
+     "aola": "thach_nhan_1",
      "size": 0.9
     },
     {
      "name": "Thạch Nhân",
-     "aola": "goc_35",
+     "aola": "thach_nhan_2",
      "size": 1.02
     },
     {
      "name": "Thạch Nhân",
-     "aola": "goc_36",
+     "aola": "thach_nhan_3",
      "size": 1.14
     }
    ]
@@ -2435,7 +2435,7 @@
    "id": "lung_vuong",
    "name": "Lửng Vương",
    "title": "Vua lửng vuốt vàng",
-   "aola": "goc_70",
+   "aola": "lung_vuong_1",
    "elem": "tho",
    "rarity": "common",
    "stats": [
@@ -2455,17 +2455,17 @@
    "forms": [
     {
      "name": "Lửng Con",
-     "aola": "goc_70",
+     "aola": "lung_vuong_1",
      "size": 0.9
     },
     {
      "name": "Lửng Võ Sĩ",
-     "aola": "goc_71",
+     "aola": "lung_vuong_2",
      "size": 1.02
     },
     {
      "name": "Lửng Vương",
-     "aola": "goc_72",
+     "aola": "lung_vuong_3",
      "size": 1.14
     }
    ]
@@ -2474,7 +2474,7 @@
    "id": "cao_da",
    "name": "Cáo Đá",
    "title": "Vuốt đá lục bảo",
-   "aola": "goc_458",
+   "aola": "cao_da_1",
    "elem": "tho",
    "rarity": "uncommon",
    "stats": [
@@ -2494,17 +2494,17 @@
    "forms": [
     {
      "name": "Cáo Con",
-     "aola": "goc_458",
+     "aola": "cao_da_1",
      "size": 0.9
     },
     {
      "name": "Cáo Đá",
-     "aola": "goc_459",
+     "aola": "cao_da_2",
      "size": 1.02
     },
     {
      "name": "Cáo Đá Lục Bảo",
-     "aola": "goc_460",
+     "aola": "cao_da_3",
      "size": 1.14
     }
    ]
@@ -2513,7 +2513,7 @@
    "id": "ho_khoan",
    "name": "Hổ Khoan",
    "title": "Sừng khoan pha lê",
-   "aola": "goc_485",
+   "aola": "ho_khoan_1",
    "elem": "tho",
    "rarity": "uncommon",
    "stats": [
@@ -2533,17 +2533,17 @@
    "forms": [
     {
      "name": "Hổ Cát Tường",
-     "aola": "goc_485",
+     "aola": "ho_khoan_1",
      "size": 0.9
     },
     {
      "name": "Hổ Pháo Hoa",
-     "aola": "goc_486",
+     "aola": "ho_khoan_2",
      "size": 1.02
     },
     {
      "name": "Hổ Khoan Vương",
-     "aola": "goc_487",
+     "aola": "ho_khoan_3",
      "size": 1.14
     }
    ]
@@ -2552,7 +2552,7 @@
    "id": "phu_van",
    "name": "Phù Văn",
    "title": "Khổng lồ đá khắc chữ",
-   "aola": "goc_718",
+   "aola": "phu_van_1",
    "elem": "tho",
    "rarity": "rare",
    "stats": [
@@ -2572,17 +2572,17 @@
    "forms": [
     {
      "name": "Lính Đá Con",
-     "aola": "goc_718",
+     "aola": "phu_van_1",
      "size": 0.9
     },
     {
      "name": "Lính Đá Phù Văn",
-     "aola": "goc_719",
+     "aola": "phu_van_2",
      "size": 1.02
     },
     {
      "name": "Cự Thần Phù Văn",
-     "aola": "goc_720",
+     "aola": "phu_van_3",
      "size": 1.14
     }
    ]
@@ -2591,7 +2591,7 @@
    "id": "hat_de",
    "name": "Hạt Dẻ",
    "title": "Dũng sĩ khiên hạt dẻ",
-   "aola": "goc_927",
+   "aola": "hat_de_1",
    "elem": "tho",
    "rarity": "rare",
    "stats": [
@@ -2611,12 +2611,12 @@
    "forms": [
     {
      "name": "Lính Hạt Dẻ",
-     "aola": "goc_927",
+     "aola": "hat_de_1",
      "size": 0.92
     },
     {
      "name": "Dũng Sĩ Hạt Dẻ",
-     "aola": "goc_928",
+     "aola": "hat_de_2",
      "size": 1.1
     }
    ]
@@ -2625,7 +2625,7 @@
    "id": "rua_nui",
    "name": "Rùa Núi",
    "title": "Mai núi rừng xanh",
-   "aola": "goc_1203",
+   "aola": "rua_nui_1",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -2645,12 +2645,12 @@
    "forms": [
     {
      "name": "Rùa Mầm Đá",
-     "aola": "goc_1203",
+     "aola": "rua_nui_1",
      "size": 0.92
     },
     {
      "name": "Rùa Núi",
-     "aola": "goc_1204",
+     "aola": "rua_nui_2",
      "size": 1.1
     }
    ]
@@ -2659,7 +2659,7 @@
    "id": "ho_kim_cuong",
    "name": "Hổ Kim Cương",
    "title": "Hổ vương giáp kim cương",
-   "aola": "goc_1380",
+   "aola": "ho_kim_cuong_1",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -2679,7 +2679,7 @@
    "forms": [
     {
      "name": "Hổ Kim Cương",
-     "aola": "goc_1380",
+     "aola": "ho_kim_cuong_1",
      "size": 1
     }
    ]
@@ -2688,7 +2688,7 @@
    "id": "cu_phu",
    "name": "Cự Phủ",
    "title": "Chiến binh rìu tím",
-   "aola": "goc_1209",
+   "aola": "cu_phu_1",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -2708,12 +2708,12 @@
    "forms": [
     {
      "name": "Phủ Con",
-     "aola": "goc_1209",
+     "aola": "cu_phu_1",
      "size": 0.92
     },
     {
      "name": "Cự Phủ",
-     "aola": "goc_1210",
+     "aola": "cu_phu_2",
      "size": 1.1
     }
    ]
@@ -2722,7 +2722,7 @@
    "id": "giap_nham",
    "name": "Giáp Nham",
    "title": "Chiến thần giáp vàng",
-   "aola": "goc_1273",
+   "aola": "giap_nham_1",
    "elem": "tho",
    "rarity": "legend",
    "stats": [
@@ -2742,12 +2742,12 @@
    "forms": [
     {
      "name": "Đấu Sĩ Nham",
-     "aola": "goc_1273",
+     "aola": "giap_nham_1",
      "size": 0.92
     },
     {
      "name": "Giáp Nham",
-     "aola": "goc_1274",
+     "aola": "giap_nham_2",
      "size": 1.1
     }
    ]

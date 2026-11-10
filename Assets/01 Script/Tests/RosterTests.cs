@@ -31,8 +31,11 @@ namespace PokiClash.Tests
             // beast.py), mã hình <id>_<k> (trước: rig aola goc_214 → 215 → 1749, goc_1219 → 1220)
             Assert.AreEqual(new[] { "thanh_long_1", "thanh_long_2", "thanh_long_3" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
             Assert.AreEqual(new[] { "long_vuot_1", "long_vuot_2" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
-            // đảo Kim (2026-11-05): boss Kim Nghê là dòng 克亚 → 克里亚斯 (2 dạng, aola không có siêu tiến hóa)
-            Assert.AreEqual(new[] { "goc_1840", "goc_1841" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
+            // đảo Kim (2026-11-05): boss Kim Nghê là dòng 克亚 → 克里亚斯 (2 dạng, aola không có siêu tiến hóa); từ 2026-11-09 là hình
+            // .atomik vẽ lại (ArtGen/Spine/build_kim.py), mã hình <id>_<k> (trước: rig aola goc_1840 → goc_1841)
+            Assert.AreEqual(new[] { "kim_nghe_1", "kim_nghe_2" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
+            // đảo Thổ (2026-11-10): boss Giáp Nham .atomik vẽ lại (ArtGen/Spine/build_tho.py; trước: goc_1273 → goc_1274)
+            Assert.AreEqual(new[] { "giap_nham_1", "giap_nham_2" }, System.Array.ConvertAll(d.Hero("giap_nham").forms, f => f.aola));
         }
 
         [Test]

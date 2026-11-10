@@ -2869,8 +2869,27 @@ def evolve(ctxA, ctxB, M, idleB0, scaleB):
     return {"dur": D, "fn": f, "post": post}
 
 
+def _strip_fx(clip):
+    """clip chỉ còn động tác: mọi slot ảnh hiệu ứng (fx_*, ff_*, fl*, fp*, juice, nhiều ảnh) tắt ở mọi khung. Dùng cho tuyệt kỹ của
+    tướng mà hiệu ứng do lớp hạt trên sân lo (HatLua, bộ Hỏa 2026-11-10: người dùng chọn tắt ảnh trong clip để không chồng chéo)."""
+    names = set(FX_BACK) | set(FX_FRONT) | set(FX_MID) | set(JUICE_BACK) | set(JUICE_FRONT) | set(MULTI)
+    f0 = clip["fn"]
+
+    def fn(t, P):
+        r = f0(t, P)
+        for s in names:
+            P.att[s] = None
+        return r
+    return dict(clip, fn=fn)
+
+
 def clips_of(ctx):
-    return {"idle": idle(ctx), "hit": hit(ctx), "attack": attack(ctx), "cast": cast(ctx), "skill": skill(ctx)}
+    cl = {"idle": idle(ctx), "hit": hit(ctx), "attack": attack(ctx), "cast": cast(ctx), "skill": skill(ctx)}
+    if ctx.C.get("skill_nofx"):  # beasts_cfg: tuyệt kỹ không vẽ ảnh hiệu ứng (hạt trên sân lo, StageView.FireFx)
+        cl["skill"] = _strip_fx(cl["skill"])
+    if ctx.C.get("cast_nofx"):  # chiêu mana cũng do hạt lo từ đầu clip (bộ Thủy, StageView.PreFx): bỏ cầu ở miệng, lấp lánh
+        cl["cast"] = _strip_fx(cl["cast"])
+    return cl
 
 
 # ---------------------------------------------------------------- xuất
@@ -2934,7 +2953,9 @@ def game_info(R, clips, baked, C, k):
     atk, sk = style_of(C, k, "attack", "bite"), style_of(C, k, "skill", "erupt")
     g["lunge"] = ["skill"] if sk in LUNGE_SKILL or sk in ("leap", "dash", "summon") else []
     # clip có hiệu ứng ở chỗ đối thủ (xương far, fly*): game dời tới đối thủ (AolaActor.FarAtomik)
-    g["far"] = (["attack"] if atk in RANGED else []) + (["skill"] if sk in FAR_SKILL else [])
+    # tuyệt kỹ đã bỏ ảnh hiệu ứng (skill_nofx: hạt trên sân lo) thì không còn gì ở chỗ đối thủ: không khai far, để khung camera
+    # sticker khỏi dịch về phía đối thủ (dạng nhỏ bị cắt mất chân trong lúc ra chiêu, soi tour 2026-11-10)
+    g["far"] = (["attack"] if atk in RANGED else []) + (["skill"] if sk in FAR_SKILL and not C.get("skill_nofx") else [])
     if C.get("beamStyle"):
         g["beamStyle"] = C["beamStyle"]
     # cảm giác trúng (StageView đọc qua AolaActor.Impact): khựng (giây thật), rung (trauma 0..1), bật lùi (theo chiều cao đối thủ)

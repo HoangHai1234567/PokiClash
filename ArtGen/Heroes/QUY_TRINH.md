@@ -446,6 +446,45 @@ Làm tiếp:
    - menu `PokiClash/Tướng/Xoá dạng aola không còn tướng nào dùng` (bỏ 24 `goc_*` Mộc khỏi build);
    - chụp thử `PokiClash/Tướng/Chụp thử prefab tướng`, rồi tour trận.
 
+## 21. Đảo Thổ: 10 dòng, 24 dạng .atomik (2026-11-10, máy ổ C)
+
+Người dùng giao "làm nốt cho tướng đảo Thổ" (đảo Thổ chưa có gì). Claude tự chốt thiết kế theo luật đảo Kim (mục 20: chibi chỉ
+dạng 1, càng tiến hóa càng dữ, đẹp; học từ dòng aola gốc ở `13_DanhSachTuong.md`), chưa trình người dùng duyệt.
+
+- Máy ổ C có Python 3.12 (`%LOCALAPPDATA%\Programs\Python\Python312\python.exe`, không có trong PATH, không có `py`); venv rig
+  `C:\Atomik\spine-venv` (system-site-packages + `opencv-python-headless`), thay `D:/spine-venv`. Codex gọi bằng bản PowerShell
+  của `chay_hoa.py` (scratchpad phiên, cùng câu lệnh, cùng khoá `.codex.lock`). MCP Unity máy này ở cổng **8080** (không phải 8090).
+- Gói: `python -I ArtGen/Spine/build_tho.py [id ...]` (khuôn `build_kim.py`, nhập `POSES`, `STAGE`, `REFS` của nó; luật `EARTH`
+  thay `METAL`; kiểu dáng mới `brawler` (đứng thế quyền, ảnh mẫu Ngưu Quyền 3), `turtle` (ảnh mẫu Giáp Long 2), `axe` lấy Thiết
+  Phủ 2, `guard` lấy Khiên Bạc 2).
+- Thiết kế (gốc golem, người đổi thành thú):
+  - **Thạch Nhân** (ải 1): vượn đá rêu con → vượn đá khối vuông, hoa văn xoắn lục → khổng lồ vượn đá, hai cột đá rêu sau vai, giáp viền vàng, đuôi.
+  - **Lửng Vương** (5): lửng con mày ria trắng, dây thừng đỏ trắng → lửng võ sĩ vuốt vàng, khăn trắng → vua lửng lông trắng vằn lam, mũ vàng ngọc lam.
+  - **Cáo Đá** (10): cáo con mũ mặt nạ trắng, găng đá lục → cáo trẻ sừng pha lê lam, găng gai bốn chân → cáo đá lục bảo (chờ ảnh).
+  - **Hổ Khoan** (15): hổ con mũ lân → hổ pháo hoa mũ trùm lân, tua pháo → hổ vương mũ đồng sừng khoan đỏ, pha lê lục trên lưng.
+  - **Phù Văn** (20): tê giác đá con khắc phù văn lam, sừng vàng → tê giác đá phù văn tím xám → tê giác khổng lồ đá ngọc.
+  - **Hạt Dẻ** (30): sóc con mũ hạt dẻ, khiên, chùy → sóc hiệp sĩ giáp vỏ hạt dẻ, giáo, khiên cao.
+  - **Rùa Núi** (40): rùa mầm xanh bạc hà → rùa núi, mai là ngọn núi có cây, đỉnh tuyết, vuốt pha lê lam (`max_w` 1,45).
+  - **Hổ Kim Cương** (50, một dạng): hổ giáp vàng, sừng khoan đỏ, hai quạt lưỡi kim cương tím sau vai (`wing_b`, `wing_f`).
+  - **Cự Phủ** (60): gấu con mũ đá pha lê vàng cát, chỏm pha lê đỏ → gấu chiến binh giáp pha lê, rìu hai lưỡi tím.
+  - **Giáp Nham** (70, boss): tê tê con vảy vàng, áo choàng đỏ → chiến thần tê tê giáp vảy vàng, mũ mào ngọc lục, áo choàng đỏ thẫm.
+- Rig: `ArtGen/Spine/beasts_cfg_tho.py` (nạp cuối `beasts_cfg.py`). Đòn, chiêu theo mục 0a, 18 của skill rig: mỗi dạng một chiêu, chỉ
+  dòng có lore lao (tê giác húc, hổ khoan) mới lao. Bảng ở đầu file (ý từ Rock Throw, Stone Edge, Rock Slide, Dig, Sandstorm,
+  Rock Blast, Stealth Rock, Drill Run, Seed Bomb, Bulldoze, Earthquake, Diamond Storm, Fissure, Scale Shot).
+- Hiệu ứng: tờ chung `tho_chung` (vòng sỏi bụi, lốc bụi, sóng đất, nổ đá, cột đất, sỏi) thay bộ NƯỚC; mỗi dòng một tờ, Giáp Nham
+  thêm `giap_nham_b`; luật `EARTH` trong `build_fx_beasts.py`. Ảnh chưa có thì `beasts_cfg_tho._tam_thoi` tạm dùng tờ chung.
+- Ảnh: 10 dạng 1 đạt ngay. Hổ 2 lần đầu đầu cả mũ lân bằng nửa thân (chibi), Phù Văn 2 đầu to chân ngắn, tràn khung: gen lại kèm
+  câu "không chibi, đầu một phần ba chiều cao, giữ lề" (`gen_lai_hk2.ps1`, `gen_lai_pv2.ps1` trong scratchpad).
+- Bẫy: viên sỏi trên đầu Rùa 1 nằm giữa vùng mầm và vùng đầu thì mầm lắc xé đôi viên sỏi (gom cả viên vào đầu); khe giấy trắng
+  khép kín giữa tay giáo, đuôi, thân Hạt Dẻ 2 là khe thật của bản vẽ (lộ nền, không phải lỗi).
+- Codex hết hạn mức 14:09, mở lại 15:26; gen nốt sau đó. Hổ 2, Phù Văn 2 bản gen lại đạt → `L1_duyet.png` (Phù Văn 2 đầu hơi
+  nhỏ, khoảng 1/5 chiều cao, chấp nhận). Con dài khai `max_w` 1,45: Rùa 2, Cáo 3, Hổ 3, Phù Văn 2, 3.
+- Dựng thử không đụng Assets: `dung_thu.py` (scratchpad, đổi `thuy_long.RES`) `<id> all`, soi `nhan.png`, `khung.png`,
+  `show <k> evolve ...`; xong chép `res_thu/<id>_<k>/` vào `Assets/03 Art/Heroes/Resources/`, `python -I ArtGen/Spine/hoa_json.py
+  --tho`, menu `PokiClash/Nhập dữ liệu`, `PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng`, `Chụp thử dạng .atomik (mọi clip)`.
+- **Xong 2026-11-10 chiều: đủ 24 dạng .atomik vào game.** Chưa xem trong trận thật; dạng aola cũ `goc_*` của Thổ còn trong
+  Resources, chờ người dùng.
+
 ## 20. Đảo Kim: 10 dòng, 22 dạng .atomik (2026-11-09 tối, máy ổ D)
 
 Người dùng dặn: làm tiếp đảo Kim, học từ tướng gốc; **chibi chỉ ở dạng 1**, càng tiến hóa càng dữ, chiến, ngầu và đẹp hơn
@@ -493,7 +532,19 @@ Người dùng dặn: làm tiếp đảo Kim, học từ tướng gốc; **chibi
   - ảnh hiệu ứng nào chưa có thì `beasts_cfg_kim._tam_thoi` tạm dùng ảnh `kim_chung` cùng vai trò; gen, cắt xong là tự dùng ảnh
     riêng khi dựng lại;
   - Bọ Cạp, Bọ Ngựa vào game với dạng 1–2 mới; dạng 3 giữ hình aola cũ (`hoa_json.py` bỏ qua dạng chưa có .atomik).
-- Gen nốt khi có hạn mức: `py -3 -I ArtGen/Spine/chay_hoa.py ArtGen/Spine/gui_gpt/bo_cap_3/luot_1_lien.txt
+- **Đã gen nốt 2026-11-10 sáng ở máy ổ C** (`C:\Atomik\PokiWar`, Codex còn hạn mức; máy này không có Python, nên 8 file prompt
+  được đổi đường dẫn `D:\PokiClash\` thành `C:\Atomik\PokiWar\` bằng tay và Codex được gọi bằng một bản PowerShell của
+  `chay_hoa.py` + `gen_codex.py`, cùng câu lệnh, cùng khoá `.codex.lock`). Claude soi từng ảnh:
+  - `bo_cap_3`, `bo_ngua_3`: đạt ngay (`inbox/<id>_3/tai_ve/L1_lien.png`);
+  - tờ `chien_than`, `thiet_phu`, `kim_nghe`: đạt ngay (`sheet.png`);
+  - `kim_nghe_b` lần đầu vẽ lửa lam thành thác nước, sóng, giọt: gen lại kèm câu "mọi chỗ xanh là LỬA, không nước" → `sheet_2.png` đạt;
+  - `ung_thep` lần đầu lông pha lê như lá cây: gen lại kèm câu "lông chim có sống lông thẳng, mặt pha lê góc cạnh, không lá" →
+    `sheet_2.png` đạt;
+  - `tam_kiem` lần đầu vệt kiếm thành sóng có bọt; lần hai đúng vệt nhưng mảnh quá; lần ba dặn "trăng khuyết dày khoảng 80 px
+    ở giữa, dài 380 px" → `sheet_3.png` đạt. Bộ cắt lấy ảnh mới nhất trong thư mục.
+  - Còn lại (cần Python có cv2 và venv rig, máy ổ C chưa có): cắt 6 tờ (`build_fx_beasts.py --cat <id>`), viết cấu hình dạng 3
+    Bọ Cạp, Bọ Ngựa (grid → marks → nhan), dựng lại dòng, chép `Resources/`, gắn prefab.
+- Lệnh gen cũ (khi cần gen lại): `py -3 -I ArtGen/Spine/chay_hoa.py ArtGen/Spine/gui_gpt/bo_cap_3/luot_1_lien.txt
   ArtGen/Spine/gui_gpt/bo_ngua_3/luot_1_lien.txt ArtGen/Spine/gui_gpt/fx_<id>/luot_1_lien.txt ...`, rồi cắt tờ
   (`D:/spine-venv/Scripts/python -I ArtGen/Spine/build_fx_beasts.py --cat <id>`; py hệ thống không có cv2), viết cấu hình dạng
   3 (grid → marks → nhan), dựng lại dòng. Hoặc gửi GPT đường dẫn các file prompt ấy như cách cũ.

@@ -32,6 +32,40 @@ namespace PokiClash
             tilePrefab = tile;
         }
 
+        public RewardTile TilePrefab => tilePrefab;
+
+        // ô thưởng của một danh sách thưởng (dùng chung với màn mở nhiều rương MachineChestOpen): XP, bi, đá trước, rồi thẻ (gộp
+        // bản sao "×n"), rồi mảnh tướng
+        public static List<RewardTile> BuildTiles(List<Reward> rewards, RewardTile prefab, Transform parent)
+        {
+            var d = App.Data;
+            var tiles = new List<RewardTile>();
+            RewardTile Tile() { var t = Ui.Spawn(prefab, parent); tiles.Add(t); return t; }
+            int exp = rewards.Where(q => q.k == RewardKind.Exp).Sum(q => q.n);
+            int balls = rewards.Where(q => q.k == RewardKind.Balls).Sum(q => q.n);
+            int stones = rewards.Where(q => q.k == RewardKind.Stones).Sum(q => q.n);
+            if (exp > 0) Tile().Item(App.Art.Icon("exp"), $"×{exp}", "XP");
+            if (balls > 0) Tile().Item(App.Art.Icon("ball"), $"×{balls}", "Bi");
+            if (stones > 0) Tile().Item(App.Art.Icon("rock"), $"×{stones}", "Đá tiềm năng", Rarity.Epic);
+            var cards = rewards.Where(q => q.k == RewardKind.Card)
+                .GroupBy(q => (q.drop.hero, q.drop.slot))
+                .Select(g => (drop: g.First().drop, n: g.Count()))
+                .ToList();
+            foreach (var (drop, n) in cards)
+            {
+                var cd = d.Card(drop.card);
+                Tile().Card(cd, App.Art.Icon(cd.icon), d.Hero(drop.hero), n, drop.rarity);
+            }
+            foreach (var r in rewards.Where(q => q.k == RewardKind.Shards))
+            {
+                var res = r.res;
+                var t = Tile().Hero(d.Hero(res.hero), $"×{res.n}");
+                if (res.unlocked) t.Tag("MỞ KHÓA!", Theme.Red);
+                else if (res.converted > 0) t.Tag($"→ {res.converted} thẻ", Theme.Paper2);
+            }
+            return tiles;
+        }
+
         public IEnumerator Play(string titleText, SlotKind kind, Color? fill, List<Reward> rewards, string buttonLabel, Func<bool> closed)
         {
             title.text = titleText;
@@ -66,31 +100,7 @@ namespace PokiClash
         // rồi mảnh tướng (MỞ KHÓA! khi đủ mảnh, "→ n thẻ" khi tướng đã có và mảnh đổi thành bản sao thẻ). Ô bật lần lượt.
         void Rewards(List<Reward> rewards)
         {
-            var d = App.Data;
-            var tiles = new List<RewardTile>();
-            RewardTile Tile() { var t = Ui.Spawn(tilePrefab, cardGrid.transform); tiles.Add(t); return t; }
-            foreach (var r in rewards.Where(q => q.k == RewardKind.Exp || q.k == RewardKind.Balls || q.k == RewardKind.Stones))
-            {
-                if (r.k == RewardKind.Exp) Tile().Item(App.Art.Icon("exp"), $"×{r.n}", "XP");
-                else if (r.k == RewardKind.Balls) Tile().Item(App.Art.Icon("ball"), $"×{r.n}", "Bi");
-                else Tile().Item(App.Art.Icon("rock"), $"×{r.n}", "Đá tiềm năng", Rarity.Epic);
-            }
-            var cards = rewards.Where(q => q.k == RewardKind.Card)
-                .GroupBy(q => (q.drop.hero, q.drop.slot))
-                .Select(g => (drop: g.First().drop, n: g.Count()))
-                .ToList();
-            foreach (var (drop, n) in cards)
-            {
-                var cd = d.Card(drop.card);
-                Tile().Card(cd, App.Art.Icon(cd.icon), d.Hero(drop.hero), n, drop.rarity);
-            }
-            foreach (var r in rewards.Where(q => q.k == RewardKind.Shards))
-            {
-                var res = r.res;
-                var t = Tile().Hero(d.Hero(res.hero), $"×{res.n}");
-                if (res.unlocked) t.Tag("MỞ KHÓA!", Theme.Red);
-                else if (res.converted > 0) t.Tag($"→ {res.converted} thẻ", Theme.Paper2);
-            }
+            var tiles = BuildTiles(rewards, tilePrefab, cardGrid.transform);
             if (tiles.Count == 0) return;
 
             // hộp rộng 940, lề trong ~840: tới 5 ô một hàng

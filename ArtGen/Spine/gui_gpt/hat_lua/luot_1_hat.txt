@@ -1,0 +1,69 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image per reply and save each one as its step says. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's approved hand-drawn map: copy its RENDERING (pencil and crayon hatching, ink line where a step asks for one), ignore its content
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\chuan_fx\hat_bo_cuc.png: LAYOUT ONLY: four separate shapes in a 2 x 2 grid on white (these grey shapes are rough placeholders made by a program; draw much nicer hand-made shapes, the grey lines only show the four squares, do not draw them)
+image 3 = C:\Atomik\PokiWar\ArtGen\Spine\chuan_fx\hat_dung_the_nao.png: how the game uses these shapes: it stacks many copies, tints them red, orange, yellow, cream or smoke grey and draws one ink outline around the whole mass (a flame breath between two creatures)
+
+WHAT THIS IS: particle sprites for fire effects in a 2D creature game with a hand-drawn storybook look. The game spawns hundreds of these little shapes, moves, scales, rotates and tints them to build flames, smoke and lava, so each image is a sheet of four separate shapes.
+
+SAVE: every step's image goes into C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve under the step's name (for example H01.png). If that file already exists, add _2, _3 … before .png. Do not change, move or delete any other file.
+
+ORDER: draw step H01 now, save it and stop. When I say "next", draw step H02, save it and stop: I will check both. When I say "continue", draw the remaining steps one per reply, each after I say "next", in this order: H03, H04, H05, H06, H07.
+
+=== STEP H01 (smoke) ===
+Four different cartoon smoke puffs (top-left, top-right, bottom-left, bottom-right): each a soft rounded cloud made of three to six overlapping round bumps of different sizes, a fluffy bumpy edge all round, a little irregular so the four look different (one round, one wide, one tall, one lumpy). Like the round smoke puffs of a storybook cartoon.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H01.png (create the folder if it is missing; if that file already exists, save it as H01_2.png, H01_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP H02 (flame puff) ===
+Four different round flame puffs: each a plump rounded blob of fire with a soft bumpy edge and one to three short rounded flame licks rising from its top, wider at the bottom; four different silhouettes.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H02.png (create the folder if it is missing; if that file already exists, save it as H02_2.png, H02_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP H03 (flame hook) ===
+Four separate single flame tongues, all pointing straight UP: each has a round plump base at the bottom, an S-curved body and a sharp pointed tip that curls over to one side like a hook (two tips curl left, two curl right). Elegant storybook flame shapes like a decorative fire pattern.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H03.png (create the folder if it is missing; if that file already exists, save it as H03_2.png, H03_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP H04 (flame swirl) ===
+Four separate decorative flame tongues pointing UP in an oriental ornamental style: each a flame shape whose tip ends in a tight spiral curl, with one or two smaller curls branching from its side; plump at the base. Like traditional swirling fire ornaments.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H04.png (create the folder if it is missing; if that file already exists, save it as H04_2.png, H04_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP H05 (lava) ===
+Top row: two thick liquid drops flying UP, each a plump round blob with a short tapering tail hanging below it and one tiny droplet beside it. Bottom row: two flat liquid splats on the ground seen from a low angle, each a wide oval puddle about three times wider than tall with three or four short splashing tongues and two small droplets around it.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H05.png (create the folder if it is missing; if that file already exists, save it as H05_2.png, H05_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP H06 (bits) ===
+Four small fire bits, each in its own square: top-left a spark streak flying to the RIGHT (a long thin tapering streak, pointed tail on the left, round head on the right, yellow with a cream core); top-right a glowing ember chunk (a small rounded irregular lump, orange with a yellow middle); bottom-left a four-pointed sparkle star (yellow with a cream centre); bottom-right three flat ash flakes (small irregular thin flakes, two charcoal black and one ash grey).
+
+RENDERING: the hand-drawn look of image 1: drawn by hand on paper with a dark-brown ink pen (#2B2118), an outline about 10 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H06.png (create the folder if it is missing; if that file already exists, save it as H06_2.png, H06_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP H07 (rocks) ===
+Four different chunks of volcanic rock flung by an eruption: angular faceted lumps of dark purple-grey stone (about #48394A) with a few thin glowing cracks drawn as flat orange lines with a yellow core (flat colours, not glowing); four different shapes, small to medium.
+
+RENDERING: the hand-drawn look of image 1: drawn by hand on paper with a dark-brown ink pen (#2B2118), an outline about 12 px thick on this 1024 canvas, the same weight on every edge, slightly wobbly like a real pen; every area coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_lua\tai_ve\H07.png (create the folder if it is missing; if that file already exists, save it as H07_2.png, H07_3.png … in the same folder instead). Do not change, move or delete any other file.
+

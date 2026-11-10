@@ -1443,5 +1443,16 @@ for (_hid, _k), _m in {("lam_quan", 1): (1078, 532), ("lam_quan", 3): (1058, 530
         HEROES[_hid]["forms"][_k]["mouth"] = _m
 
 # đảo Kim (2026-11-09, máy ổ D): cấu hình ở file riêng
+# Bộ Thủy bằng hạt trên sân (2026-11-10, Assets/01 Script/Game/Battle/HatNuoc.cs, bảng StageView.WaterFx): chiêu mana và chiêu cuối
+# của các dòng này do lớp hạt vẽ, phát từ đầu clip cho khớp lúc tướng lấy đà. Clip bắn và clip chiêu chỉ còn động tác (không cầu ở
+# miệng, không ảnh hiệu ứng) để không chồng chéo. beast.py clips_of đọc hai khoá này.
+for _hid in ("tieu_y", "canh_cut", "mi_nhi", "ma_ket", "vay_lam", "kuba", "thuong_lam", "huyen_vu", "lam_quan"):
+    HEROES[_hid]["skill_nofx"] = True
+    HEROES[_hid]["cast_nofx"] = True
+
 from beasts_cfg_kim import KIM as _KIM  # noqa: E402
 HEROES.update(_KIM)
+
+# đảo Thổ (2026-11-10, máy ổ C): cấu hình ở file riêng
+from beasts_cfg_tho import THO as _THO  # noqa: E402
+HEROES.update(_THO)

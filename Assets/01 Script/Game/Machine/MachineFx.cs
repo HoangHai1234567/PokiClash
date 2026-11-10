@@ -43,13 +43,16 @@ namespace PokiClash
             public float thin = 0.35f;
             public bool flip; // vệt kéo dài quay đầu sáng vào tâm
             public bool spin; // xoay ngẫu nhiên lúc phát
+            public float aspect = 1; // hạt không kéo dài: cao = cỡ × aspect (cột sáng đứng)
+            public float rotRange; // góc đầu ngẫu nhiên ±rotRange (độ)
+            public float rotSpeed; // tốc xoay đầu (độ/giây, dấu ngẫu nhiên), giảm dần về 0 theo đời
         }
 
         struct Hat
         {
             public Image img;
             public Burst b;
-            public float age, life, size, unit, rot;
+            public float age, life, size, unit, rot, spinV;
             public Vector2 pos, vel;
             public Color tint;
         }
@@ -90,6 +93,7 @@ namespace PokiClash
                 img = Ui.Spawn(prefab, parent);
                 img.name = "hat";
             }
+            img.material = null; // bản dùng lại có thể còn material cộng sáng của lần trước
             img.rectTransform.SetAsLastSibling();
             return img;
         }
@@ -111,6 +115,9 @@ namespace PokiClash
                 float sp = b.speedMax > 0 ? Random.Range(b.speed, b.speedMax) : b.speed;
                 var img = Take(layer);
                 img.sprite = Sprite(b.sprite);
+                // ảnh sáng mềm pk_g_* vẽ cộng sáng (lớp glow "add" của máy tham khảo); hạt dùng lại nên luôn đặt lại material
+                img.material = MachineGlow.IsGlow(b.sprite) ? MachineGlow.Add : null;
+                if (MachineGlow.IsGlow(b.sprite) && !img.sprite) { Give(img); continue; }
                 img.enabled = false;
                 live.Add(new Hat
                 {
@@ -120,7 +127,8 @@ namespace PokiClash
                     life = b.lifeMax > 0 ? Random.Range(b.life, b.lifeMax) : b.life,
                     size = b.sizeMax > 0 ? Random.Range(b.size, b.sizeMax) : b.size,
                     unit = unit,
-                    rot = b.spin ? Random.Range(0f, 360f) : 0,
+                    rot = b.spin ? Random.Range(0f, 360f) : b.rotRange > 0 ? Random.Range(-b.rotRange, b.rotRange) : 0,
+                    spinV = b.rotSpeed * (Random.value < 0.5f ? -1 : 1),
                     pos = at + d * (b.radius > 0 ? Random.Range(0, b.radius) * unit : 0),
                     // tốc bằng 0 vẫn giữ hướng (vệt kéo dài cần hướng)
                     vel = d * Mathf.Max(sp, 1e-4f) * unit,
@@ -189,7 +197,8 @@ namespace PokiClash
                 }
                 else
                 {
-                    rt.sizeDelta = new Vector2(s, s);
+                    rt.sizeDelta = new Vector2(s, s * b.aspect);
+                    h.rot += h.spinV * (1 - t) * (1 - t) * dt;
                     rt.localEulerAngles = new Vector3(0, 0, h.rot);
                 }
                 live[i] = h;
@@ -215,6 +224,7 @@ namespace PokiClash
         // phồng 1,15 → 1), kèm hai lấp lánh nhỏ văng ra. Cỡ theo đường kính đinh (unit = px của đường kính đinh)
         public static readonly Burst[] PegHit =
         {
+            new Burst { sprite = "pk_g_quang", life = 0.12f, size = 3.2f, curve = new[] { 0, 1.1f, 1, 0.6f }, from = C("#fff2b0", 0.85f), to = C("#ffb347", 0f) }, // quầng cộng sáng sau đinh
             new Burst { sprite = "pk_fx_loe", life = 0.067f, size = 1.3f, curve = new[] { 0, 1.10f, 1, 0.68f }, from = C("#fff3b0"), to = C("#ffd968"), fadeAt = 0.7f, spin = true },
         };
         public static readonly Burst[] PegSpark =
@@ -227,6 +237,8 @@ namespace PokiClash
         // Máy tham khảo dùng tím; ở đây theo màu nấm. unit = px của đường kính nấm / 1,1 (nấm máy đó đường kính 1,1 u)
         public static readonly Burst[] BumperHit =
         {
+            new Burst { sprite = "pk_g_quang", life = 0.15f, size = 3f, curve = new[] { 0, 1f, 1, 0.5f }, from = C("#ffd6c0", 0.9f), to = C("#ff7a50", 0f) },
+            new Burst { sprite = "pk_g_vong", life = 0.19f, size = 1.75f, curve = new[] { 0, 0.3f, 1, 1.1f }, from = C("#ffe6c8", 0.9f), to = C("#ff9a7a", 0f) },
             new Burst { sprite = "pk_fx_loe", life = 0.15f, size = 1.35f, curve = new[] { 0, 1f, 1, 0.16f }, from = C("#ffe0c8"), to = C("#ffb08a"), fadeAt = 0.5f, spin = true },
             new Burst { sprite = "pk_fx_vong_day", life = 0.19f, size = 1.25f, curve = new[] { 0, 0.16f, 1, 1 }, from = C("#ffd0b8"), to = C("#ff9a7a"), fadeIn = 0.2f, fadeAt = 0.55f },
             new Burst { sprite = "pk_fx_vong_dut", life = 0.15f, size = 1.45f, curve = new[] { 0, 0.32f, 1, 1 }, from = C("#ffe6c8"), to = C("#ffb08a"), fadeAt = 0.5f, spin = true },
@@ -236,6 +248,8 @@ namespace PokiClash
         // chớp 0,07–0,1 giây (MachineBoard.Glow còn bật lớp tia sáng ô pk_o_sang). unit = px của bề rộng ô / 0,9
         public static readonly Burst[] SlotHit =
         {
+            new Burst { sprite = "pk_g_quang", life = 0.3f, size = 1.6f, curve = new[] { 0, 0.6f, 0.3f, 1.1f, 1, 1 }, from = C("#fff3b0", 0.9f), to = C("#c18cf0", 0f) },
+            new Burst { sprite = "pk_g_cot", life = 0.27f, size = 0.8f, aspect = 2.6f, radius = 0, curve = new[] { 0, 0.4f, 0.25f, 1.15f, 1, 1.2f }, from = C("#fff6dc", 0.85f), to = C("#d9b8ff", 0f) }, // cột sáng đứng lên từ miệng ô
             new Burst { sprite = "pk_fx_loe", life = 0.15f, size = 1f, curve = new[] { 0, 0, 0.17f, 0.79f, 0.38f, 0.9f, 1, 1 }, from = C("#fff3b0"), to = C("#ffd068"), fadeAt = 0, spin = true },
             new Burst { sprite = "pk_fx_vong_day", life = 0.15f, size = 0.95f, curve = new[] { 0, 0.54f, 0.24f, 0.84f, 1, 1 }, from = C("#fff6dc"), to = C("#ffc870"), fadeAt = 0.5f },
             new Burst { sprite = "pk_fx_cham", life = 0.1f, size = 0.3f, curve = new[] { 0, 0.35f, 0.16f, 0.78f, 1, 1 }, from = C("#ffb04f"), to = C("#ffe08f"), fadeIn = 1 },
@@ -252,6 +266,8 @@ namespace PokiClash
             float ring = tier >= 3 ? 1.5f : 1;
             var list = new List<Burst>
             {
+                new Burst { sprite = "pk_g_quang", life = 0.35f, size = tier >= 3 ? 7f : 5f, curve = new[] { 0, 0.4f, 0.3f, 1.1f, 1, 1 }, from = C("#fff2a8", 0.95f), to = C("#ffb000", 0f) },
+                new Burst { sprite = "pk_g_tia", life = tier >= 3 ? 0.9f : 0.6f, size = tier >= 3 ? 8f : 6f, curve = new[] { 0, 0.3f, 0.3f, 1, 1, 1.1f }, from = C("#fff2a8", 0.8f), to = C("#ffd068", 0f), spin = true },
                 new Burst { sprite = "pk_fx_loe", life = 0.2f, size = 1.8f, from = C("#fff6c8"), to = C("#ffd068"), fadeAt = 0.5f, spin = true },
                 new Burst { sprite = "pk_fx_tia_toa", life = tier >= 2 ? 0.4f : 0.2f, size = tier >= 3 ? 3.4f : 2.6f, curve = new[] { 0, 0.18f, 0.88f, 0.53f, 1, 0.53f }, from = C("#fff2a8", 0.75f), to = C("#ffe052", 0.75f), fadeIn = 0.3f, fadeAt = 0.7f, spin = true },
                 new Burst { sprite = "pk_fx_vong_day", life = 0.2f, size = 2.4f * ring, curve = new[] { 0, 0.18f, 0.96f, 1, 1, 1 }, from = C("#fff2a8"), to = C("#ffe052"), fadeIn = 0.15f, fadeAt = 0.6f },
@@ -275,6 +291,9 @@ namespace PokiClash
         // nảy (trễ 0,1 giây), sao lõi, 4 dây giấy rơi. Toàn bộ khoảng 0,5 giây (dây giấy 1 giây). unit = UnitBall
         public static readonly Burst[] Jackpot =
         {
+            new Burst { sprite = "pk_g_quang", life = 0.5f, size = 6f, curve = new[] { 0, 0.3f, 0.3f, 1.2f, 1, 1 }, from = C("#fff2a8", 1f), to = C("#ff9a30", 0f) },
+            new Burst { sprite = "pk_g_tia", life = 1.1f, size = 7f, curve = new[] { 0, 0.4f, 0.3f, 1, 1, 1.15f }, from = C("#fff2a8", 0.85f), to = C("#ffb347", 0f), spin = true },
+            new Burst { sprite = "pk_g_vong", life = 0.35f, size = 3.5f, curve = new[] { 0, 0.2f, 1, 1.3f }, from = C("#ffffff", 0.9f), to = C("#ffd068", 0f) },
             new Burst { sprite = "pk_fx_vong_day", life = 0.24f, size = 1.9f, curve = new[] { 0, 0.18f, 1, 1 }, from = C("#ffe6a0"), to = C("#ffd068"), fadeAt = 0.5f },
             new Burst { sprite = "pk_fx_tia_toa", life = 0.35f, size = 2f, curve = new[] { 0, 0.18f, 0.41f, 1, 1, 1 }, from = C("#ffd068", 0.7f), to = C("#ffb347", 0.7f), fadeAt = 0.5f, spin = true },
             new Burst { sprite = "pk_fx_loe", life = 0.35f, size = 1.3f, curve = new[] { 0, 1f, 1, 0.34f }, from = C("#fff2a8"), to = C("#ffd84a"), fadeAt = 0.5f, spin = true },
@@ -289,9 +308,35 @@ namespace PokiClash
                 grav = 0.6f, spin = true, curve = new[] { 0, 0.6f, 0.15f, 1, 1, 0.9f }, from = C("#ff8fb3"), to = C("#4a90d9"), fadeAt = 0.7f },
         };
 
+        // kẹo EXP phụt lên khỏi ô (hạt pbvx_rob_earnings_particles của máy tham khảo): 3 đợt 0 / 0,1 / 0,2 giây (3, 2, 5 viên), phụt gần
+        // thẳng lên, tốc 6–9 u/giây, trọng lực 5 (vọt lên rồi rơi), đời 0,5 giây, cỡ 0,4–0,45 u lớn dần (×0,47 → 0,78 → 1), xoay đầu
+        // ±60° và quay chậm dần, giữ đậm tới 42 % đời rồi tắt hẳn ở 56 %. unit = UnitBall
+        public static Burst[] CandyBurst(string sprite)
+        {
+            Burst B(int n, float delay) => new Burst
+            {
+                sprite = sprite, count = n, delay = delay, life = 0.5f, size = 0.4f, sizeMax = 0.45f, speed = 6, speedMax = 9, dir = 90, arc = 22,
+                radius = 0.15f, grav = 5, rotRange = 60, rotSpeed = 280, curve = new[] { 0, 0.47f, 0.118f, 0.78f, 1, 1 }, fadeAt = 0.42f,
+            };
+            return new[] { B(3, 0), B(2, 0.1f), B(5, 0.2f) };
+        }
+
+        // vệt sau icon bay (pbui_fly_effects01/02 của máy tham khảo): chấm sáng cộng dài 0,11 giây vàng (1; 0,855; 0,373) → cam
+        // (1; 0,557; 0,137), alpha 0,65 → 0,3; sao nhỏ rắc quanh (đời 0,2–0,3, vàng nhạt → cam). Phát mỗi khung. unit = px cho 1 u
+        public static readonly Burst[] FlyTrail =
+        {
+            new Burst { sprite = "pk_g_quang", life = 0.11f, size = 1f, curve = new[] { 0, 1f, 1, 0.45f }, from = new Color(1, 0.855f, 0.373f, 0.65f), to = new Color(1, 0.557f, 0.137f, 0.3f), fadeAt = 0.3f },
+        };
+        public static readonly Burst[] FlyStars =
+        {
+            new Burst { sprite = "fx_sparkle", life = 0.2f, lifeMax = 0.3f, size = 0.25f, sizeMax = 0.4f, speed = 0.4f, speedMax = 1.2f, arc = 360, radius = 0.35f, spin = true,
+                curve = new[] { 0, 1f, 0.44f, 1, 1, 0.2f }, from = new Color(1, 0.99f, 0.84f), to = new Color(1, 0.68f, 0), fadeAt = 0.44f },
+        };
+
         // bi lọt cốc bạc hoặc két: loé 0,2 giây, vòng dày 0,1 giây, 10 chấm và 10 sao văng (sao rơi nhẹ). unit = UnitBall
         public static readonly Burst[] RingHit =
         {
+            new Burst { sprite = "pk_g_quang", life = 0.2f, size = 1.4f, curve = new[] { 0, 0.7f, 1, 1.1f }, from = C("#ffe7ae", 0.9f), to = C("#ff7c00", 0f) },
             new Burst { sprite = "pk_fx_loe", life = 0.2f, size = 0.45f, spin = true, curve = new[] { 0, 0.71f, 1, 1 }, from = C("#ffe7ae"), to = C("#ff7c00"), fadeAt = 0.5f },
             new Burst { sprite = "pk_fx_vong_day", life = 0.1f, size = 0.6f, curve = new[] { 0, 0.38f, 1, 1 }, from = Color.white, to = Color.white, fadeAt = 0 },
             new Burst { sprite = "pk_fx_cham", count = 10, life = 0.2f, lifeMax = 0.4f, size = 0.05f, sizeMax = 0.1f, speed = 0, speedMax = 2, arc = 360, radius = 0.3f,
@@ -303,6 +348,7 @@ namespace PokiClash
         // thả bi: khói lao xuống 0,15 giây (thu 1 → 0,26), loé nhỏ, một chấm lửa nhỏ. unit = UnitBall
         public static readonly Burst[] Launch =
         {
+            new Burst { sprite = "pk_g_quang", life = 0.15f, size = 0.9f, speed = 5, dir = -90, curve = new[] { 0, 1f, 1, 0.3f }, from = C("#fff78c", 0.9f), to = C("#ffb000", 0f) },
             new Burst { sprite = "fx_puff", life = 0.15f, size = 0.4f, sizeMax = 0.7f, speed = 5, dir = -90, curve = new[] { 0, 1f, 1, 0.26f }, from = Color.white, to = C("#fff7d0") },
             new Burst { sprite = "pk_fx_loe", life = 0.15f, size = 0.22f, sizeMax = 0.32f, speed = 5, dir = -90, spin = true, curve = new[] { 0, 1f, 1, 0.26f }, from = C("#fff78c", 0.7f), to = C("#ffe736", 0.7f) },
             new Burst { sprite = "pk_fx_cham", count = 2, life = 0.1f, lifeMax = 0.3f, size = 0.05f, sizeMax = 0.15f, speed = 1, speedMax = 5, dir = -90, arc = 19, radius = 0.13f,

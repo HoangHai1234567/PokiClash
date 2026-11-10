@@ -18,6 +18,22 @@ namespace PokiClash.Game
         public float Time01 => cur >= 0 && asset.anims[cur].dur > 0 ? Mathf.Repeat(time, asset.anims[cur].dur) / asset.anims[cur].dur : 0;
         public bool Done => cur >= 0 && !loop && time >= asset.anims[cur].dur;
 
+        // Sự kiện của clip (bản 3): bắn ra khi đầu phát đi qua mốc (tên, chuỗi kèm). VFX, âm thanh đăng ký ở đây; vị trí lấy bằng
+        // BoneWorld (vd. xương "mieng_k").
+        public event System.Action<string, string> Fired;
+        public string LastEvent { get; private set; } = "";
+        float evFrom;
+
+        // vị trí thế giới của một xương (theo tư thế khung vừa dựng); không có xương thì trả vị trí của chính đối tượng
+        public Vector3 BoneWorld(string bone)
+        {
+            if (!Ready()) return transform.position;
+            int b = asset.FindBone(bone);
+            if (b < 0) return transform.position;
+            var p = pose.BonePos(b) / Mathf.Max(1e-3f, asset.ppu);
+            return transform.TransformPoint(new Vector3(p.x, p.y, 0));
+        }
+
         Mesh mesh;
         AtomikAsset built;
         AtomikPose pose;
@@ -42,7 +58,9 @@ namespace PokiClash.Game
             clip = name;
             loop = loopClip;
             time = 0;
+            evFrom = -1e-4f;   // sự kiện đặt đúng giây 0 cũng được bắn
             Apply();
+            Emit();
         }
 
         // Dựng đúng một thời điểm (Editor chụp khung, kiểm so với khung Python).
@@ -81,9 +99,31 @@ namespace PokiClash.Game
                 time += dt;
                 auraTime += dt;
                 if (mixLeft > 0) mixLeft = Mathf.Max(0, mixLeft - dt);
+                Emit();
             }
             else if (cur < 0 || asset.anims[cur].name != clip) cur = asset.FindClip(clip);
             Apply();
+        }
+
+        // bắn các sự kiện nằm trong khoảng (evFrom, time] của clip đang phát; clip lặp thì tính theo từng vòng
+        void Emit()
+        {
+            float t0 = evFrom, t1 = time;
+            evFrom = t1;
+            if (cur < 0 || t1 <= t0) return;
+            var c = asset.anims[cur];
+            if (c.ev == null) return;
+            foreach (var e in c.ev)
+            {
+                int n = 0;
+                if (loop && c.dur > 0) n = Mathf.FloorToInt((t1 - e.t) / c.dur) - Mathf.FloorToInt((t0 - e.t) / c.dur);
+                else if (e.t > t0 && e.t <= t1) n = 1;
+                for (int k = 0; k < n && k < 4; k++)
+                {
+                    LastEvent = string.IsNullOrEmpty(e.s) ? e.name : e.name + " (" + e.s + ")";
+                    Fired?.Invoke(e.name, e.s);
+                }
+            }
         }
 
         bool Ready()

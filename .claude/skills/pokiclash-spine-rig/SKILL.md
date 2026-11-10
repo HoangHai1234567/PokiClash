@@ -10,6 +10,9 @@ description: >
 
 # Rig xương từ ảnh và định dạng .atomik (thử nghiệm)
 
+> Skill gốc: `skill-petclash` (nguyên tắc thiết kế, nhịp clip, khớp animation với hiệu ứng, hiệu năng, bảng kiểm; kèm bộ
+> `VFX_KNOWLEDGE_BASE.md` và ba file ghi chú nghiên cứu). Đọc nó trước, rồi quay lại đây làm chi tiết.
+
 Làm 2026-11-07 để đo khả năng rig tự động. **Không thay quy trình chính của game** (vẽ đè lên rig aola, xem CLAUDE.md mục
 Hình tướng). Mọi thứ ở đây là thử nghiệm cho tới khi người dùng chốt khác. Ngoại lệ người dùng yêu cầu 2026-11-08: Rồng Giọt
 (dạng 1 dòng Giọt Sương) vào game bằng .atomik, xem mục 10.
@@ -229,7 +232,24 @@ beamStyle, move, shadow` (`atomik.py ... --game <tệp.json>`, hoặc `convert(.
 ra `Game/Atomik/AtomikPose.cs`, dùng chung cho `AtomikPlayer` và `AolaActor`. Importer bản 3 nén atlas theo nền tảng (ASTC 8x8
 Android/iOS như atlas tướng aola, DXT5 máy tính khi cạnh chia hết cho 4; `pack` của `spine_compat.py` làm tròn cạnh lên bội 8).
 
-**Còn thiếu:** vệt chém dạng lưới; bẻ đỉnh lưới (deform), màu tint, thứ tự vẽ đổi theo clip; nhiều trang atlas.
+**Bản 3 (2026-11-10, làm cho quái Hải Long, mục 20):**
+- `masks[]`: mặt nạ cắt từ attachment `clipping` của Spine: `{slot, end, bone, verts[]}`. Mọi hình trong các slot `slot..end` chỉ còn
+  phần nằm trong đa giác (lồi, bám một xương, luôn bật). `AtomikPose.Skin` cắt tam giác trên CPU (`ClipTris`): tam giác nằm hẳn
+  trong giữ nguyên, hẳn ngoài một cạnh thì bỏ, bị xén thì cắt Sutherland–Hodgman và thêm đỉnh vào cuối mảng. Rig có mặt nạ thì
+  `maxVerts` chừa thêm chỗ, `Tris` có sức chứa cố định (phần thừa là tam giác rỗng) và `trisChanged` luôn true: nơi gọi không
+  phải đổi gì (AtomikPlayer, AolaActor nạp như cũ).
+- `slots[].fade`: độ mờ mặc định của slot (1 − alpha màu slot trong Spine). Slot hiệu ứng ẩn sẵn (vương miện nước, mí mắt, lưỡi)
+  phải có cái này, không thì clip nào không khoá nó là nó hiện. Dùng "độ mờ" thay vì "độ đậm" để rig cũ (không có trường này,
+  giá trị 0) vẫn hiện đủ mà không phải nhập lại.
+- `anims[].ev[]`: sự kiện `{t, name, s}`. `AtomikPlayer.Fired(tên, chuỗi)` bắn khi đầu phát đi qua mốc (clip lặp tính theo từng
+  vòng, mốc ở giây 0 bắn ngay lúc `Play`); `AtomikPlayer.BoneWorld("mieng_k")` trả vị trí thế giới của xương cho VFX bám.
+- Không tăng số phiên bản importer: file cũ nhập như cũ, không phải nhập lại 24 dạng tướng.
+- Kiểm: menu `PokiClash/Thử/Atomik: dựng scene Hải Long (7 clip) và chụp khung` (scene `Assets/05 Atomik Thu/AtomikHaiLong.unity`,
+  ảnh `Temp/AtomikShots/hai_long/<clip>.png`, cùng giờ và khung nhìn với `mo_xe/chay.py sheet n=10`); so hình bóng từng khung với
+  ảnh Spine ra 0,93–1,00 (lệch còn lại do khử răng cưa và nén ảnh).
+
+**Còn thiếu:** vệt chém dạng lưới; bẻ đỉnh lưới (deform), màu tint, thứ tự vẽ đổi theo clip; nhiều trang atlas; mặt nạ lõm hoặc
+bật tắt theo clip; `AolaActor` (tướng trong trận) chưa nghe sự kiện.
 
 ## 10. Dạng tướng .atomik trong game (Rồng Giọt thay Giọt Nước, 2026-11-08, máy ổ D)
 
@@ -524,3 +544,76 @@ Bẫy:
 - Mây, bờm, chùm đuôi trắng viền hở: không lấp được bằng code (lấp ra khối vuông). Dặn GPT tô kem `#F4EEDC` hoặc xanh xám nhạt `#DDE9EE` và khép viền, rồi gen lại.
 - Codex từ chối ảnh lớp dưới: gửi lại với `--note` ("harmless cartoon art edit of our own game character...").
 - Con bay: `"hover": True` ở tướng, `"ground"` đặt dưới thân. Idle nhấp nhô, bóng co theo.
+
+## 20. Rig Spine dựng bằng mã cho quái nhiều đầu, và bộ mổ xẻ rig Spine có sẵn (Hải Long, 2026-11-10)
+
+Dùng khi con không rig được từ một ảnh liền (nhiều cổ chồng nhau, thân trồi từ nước, có hiệu ứng nằm trong rig). Nguyên tắc và
+nhịp: `skill-petclash` mục 7.2, 15 và `mo_xe_quai_nhieu_dau.md`. Kết quả là JSON Spine 4.2 và `hai_long.atomik` (bản 3 của định dạng: có mặt nạ cắt, sự kiện, slot ẩn mặc định; mục 9).
+
+**Tệp** (`ArtGen/Spine/`): `build_hai_long.py` (gói GPT: concept, 4 tờ mảnh, tờ M05 mí mắt và mảnh tia nước để dành cho VFX, tờ M06 lưỡi, tờ M07 hình nước đợt hai), `hai_long.py`
+(`cat` cắt mảnh vào `inbox/hai_long/manh/`, `rig` dựng `inbox/hai_long/rig/`), `xem_spine_mau.html` (mẫu trang xem),
+`lib/spine-player.js` (runtime 4.2.120 chỉ để xem), `mo_xe/` (bộ mổ xẻ).
+
+**Bộ mổ xẻ `mo_xe/`** (rig bất kỳ: `.skel` hoặc `.json` + `.atlas` + ảnh; tự mở server tạm, cần Chrome hoặc Edge):
+- `chay.py info <thư mục> <tên> <ra.json>`: xương, slot, lưới (đỉnh, xương bám), ràng buộc, clip, atlas.
+- `chay.py keys <thư mục> <tên> <ra.json> <clip,...>`: mọi khoá (giờ, giá trị, kiểu đường cong).
+- `chay.py mesh <thư mục> <tên> <ra.json> [slot,...]`: từng đỉnh của lưới với uv và (xương, trọng số): đọc cách chia trọng số.
+- `chay.py sample ...`: toạ độ thế giới từng khung. `chay.py sheet <thư mục> <tên> <thư mục ra> "n=10&view=cx,cy,rộng,cao&t0=&t1=&loop=1&bones=1"`: tờ khung.
+- `nhip.py <info.json> <keys.json> <clip> --root <xương> --chain a,b,c --bone x`: nhịp (khung nào nhiều khoá), bảng khoá xoay
+  từng đốt của một chuỗi, tỉ lệ đường cong thẳng / bậc / bezier.
+- Mẹo Chrome ngầm: `--headless=new --enable-unsafe-swiftshader --ignore-gpu-blocklist --virtual-time-budget=120000 --dump-dom`;
+  kết quả in vào trang giữa hai mốc `JSON_BEGIN` / `JSON_END` (tìm mốc cuối SAU mốc đầu vì chuỗi này có cả trong mã trang);
+  canvas ngoài DOM thì không gọi `renderer.resize`, tự đặt `gl.viewport` và `camera.setViewport`.
+
+**Cắt mảnh từ tờ GPT:** loang nền trắng từ mép, tách cụm liền (`components`), gán tên theo ô lưới đã dặn trong prompt (`assign`);
+mẩu nhỏ cách mảnh lớn dưới 40 px nhập vào mảnh đó; lòng vòng sóng khép kín thì loang từ tâm ra đục trong suốt; mảnh vào atlas
+được loang màu ra vùng trong suốt (`bleed`) để lọc tuyến tính không kéo viền trắng. Thiếu ảnh thì `placeholder` vẽ hình giữ chỗ
+(dựng rig song song lúc chờ gen).
+
+**JSON Spine 4.2 viết tay** (lớp `Sk`):
+- lưới có trọng số: `vertices` = với mỗi đỉnh `[số xương, (chỉ số xương, x, y trong hệ xương đó, trọng số) ...]`, `uvs`, `triangles`, `hull`;
+- mặt nạ: attachment `{"type": "clipping", "end": <tên slot cuối>, "vertexCount", "vertices"}` đặt ở slot đứng trước mọi thứ cần cắt;
+- ẩn mặc định: màu slot `ffffff00`; bật tắt bằng timeline `alpha` của slot (bước = hai khoá cách nhau 4 ms);
+- khoá: `rotate {time, value}`, `translate / scale {time, x, y}`, đều là lệch so với dáng gốc (scale là nhân); bỏ `time` khi bằng 0;
+  chỉ dùng nội suy thẳng (đã nướng).
+
+**Dải lưới** (`strip_mesh` + `chain_weights`): mỗi đốt hai cột 3 đỉnh (mép trên, giữa, mép dưới bám mép hình); trọng số theo
+hàm cơ sở B-spline bậc hai của vị trí dọc dải (giữa đốt 0,75 / 0,125 / 0,125; khớp 0,5 / 0,5; dồn về đốt đầu, đốt cuối ở hai mút).
+Dùng cho cổ, râu, đuôi, lưỡi. **Không cho cột nào bám 100% một đốt**: đó là nguyên nhân thân gập ở khớp.
+
+**Miệng:** thịt trong miệng đi theo hàm dưới. Lòng miệng là lưới 5×3: hàng dưới bám xương hàm 100%; hàng trên bám đầu ở sát bản lề
+rồi chuyển dần sang hàm ra phía mõm (hệ số hàm 0 / 0,35 / 0,8 / 1 / 1) và hạ thấp dần cho mảng mỏng lại; lấy cả viền mực ba mép của
+ảnh. Khép miệng thì nấp sau đầu và hàm. Lưỡi là dải riêng, con của xương hàm, vẽ trước hàm và sau đầu. Xương hàm có tỉ lệ 0,86: toạ
+độ gắn chia cho tỉ lệ (phần tử thứ tư của bộ gắn xương trong `Sk.mesh`). Không để mảng thịt nào bám đầu mà thò ra khỏi hàm trên.
+
+**VFX không nằm trong rig:** mỗi đầu có xương `mieng_<đầu>` (chỗ và hướng nhả); clip ghi sự kiện (`Clip.events` →
+`animations[clip].events`, khai tên ở `events` gốc): `phun`, `het_phun`, `can`, `gam`, `het_gam`, `troi`, `roi_nuoc`. Trang xem hiện
+sự kiện vừa bắn ở góc dưới.
+
+**Giải cổ** (`neck_joints`): đường Bezier bậc ba từ chỗ trồi `E` (hướng `dirE`) tới gáy `H` (hướng tới = góc đầu + `arr`); nối
+thêm một đoạn thẳng dưới `E`; lần ngược từ gáy, mỗi bước tìm điểm cách đúng một đốt (chia đôi 18 lần) nên đốt không co giãn, phần
+thừa tự trượt xuống nước. Góc từng đốt `unwrap` theo thời gian rồi dịch bội 360° cho khớp dáng gốc. Sóng chạy dọc cổ cộng vào
+đường cong trước khi lần.
+
+**Dây mềm** (`rope`): Verlet "đốt sau đi theo đốt trước", 4 bước con mỗi khung; mỗi đốt có lò xo về dáng nghỉ so với đốt trước
+(tần số riêng ≈ √k × 120 rad/s), hệ số giữ vận tốc `1 − 2ζ√k`, chặn góc khớp bằng tanh; lực ngoài qua `wind` (gió hình sin cho râu, trọng lực cho lưỡi: độ võng mỗi đốt ≈ g·dt² / k); clip lặp chạy đà hai vòng, clip không
+lặp đứng yên 12 khung ở dáng đầu. Trả góc lệch từng đốt để khoá.
+
+**Sóng** (`SPINES`, `WAVES`, `wave_inst`, `animate_water`): mỗi hình sóng có một đường sống lưng ghi tay theo ảnh (chân → lưng →
+mào → đầu móc; soi ảnh có kẻ lưới 0..1 để đọc toạ độ); chuỗi `NC = 4` đốt chia đều trên đường đó; lưới 5×5, mỗi đỉnh chiếu lên
+sống lưng để lấy vị trí dọc chuỗi rồi chia trọng số B-spline, nhân với độ gần (`exp(−(d / 0,3 cỡ)²)`), phần còn lại bám xương gốc.
+Chiều cuộn tự tính từ tổng góc rẽ của sống lưng; lật hình bằng tỉ lệ x âm của xương gốc. Đời sóng theo pha `u`: dời, alpha 6
+khoá; xoay chuỗi và co giãn 4 khoá (`u` = 0; 0,5; 0,8; 0,999); khoá cuối ở 0,999 để không trùng giờ khoá đầu vòng sau; `_close`
+thêm khoá đúng `t = 0` và `t = D`. Thêm hình sóng mới: thêm vào `PIECES`, `assign`, `SPINES`, rồi đặt vào `WAVES`.
+
+**Dải nước** (`ribbon`): lưới 3 hàng × 17 cột bám `NRB = 8` xương xếp dọc dải; hàng mào bám hẳn chuỗi, hàng giữa 55%, hàng đáy bám
+gốc; khoá các xương nhấp nhô lệch pha.
+
+**Mí mắt** (`fit_lid`): vùng cần phủ = cả vùng màu ấm liền với con ngươi (cam đậm + vàng nhạt), bao lồi, nới 5 px; dò góc, tỉ lệ, độ lệch cho mí phủ kín, không lòi ngoài đầu, ít đè gờ mày; kết quả in ra phải "còn hở 0 px", rồi soi ảnh cận.
+
+**Xuất:** nướng 30 khung/giây, lọc RDP theo sai số từng loại; atlas xếp kệ, cạnh làm tròn bội 8, lưu bảng 256 màu
+(`quantize(256, FASTOCTREE, FLOYDSTEINBERG)`). `viewer()` nhúng JSON, atlas, ảnh (data URI qua `AssetManager.setRawDataURI`) vào
+một `xem.html` mở được bằng `file://`; khung nhìn riêng theo clip (`__VIEWS__`) nếu clip có hình vươn xa.
+
+**Lưu ý môi trường:** heredoc Bash dài hay bị cắt, vá mã bằng file script (Write) rồi chạy; in tiếng Việt cần
+`sys.stdout.reconfigure(encoding="utf-8")`; gen ảnh: `gen.py gui_gpt/hai_long/<file>.txt --steps M05` (khoảng 2 phút một tờ).

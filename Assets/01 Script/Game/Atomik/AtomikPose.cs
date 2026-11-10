@@ -21,8 +21,16 @@ namespace PokiClash.Game
         public sealed class SkinPass
         {
             internal int[] lastAtt;
+            internal int used;       // rig có mặt nạ cắt: số chỉ số tam giác đang dùng (phần sau là tam giác rỗng 0, 0, 0)
             public int[] Tris = new int[0];
         }
+
+        // mặt nạ cắt (bản 3): slot nào thuộc mặt nạ nào, chỗ dư cho đỉnh sinh ra khi cắt, bộ đệm cắt một tam giác
+        readonly AtomikMask[] masks;
+        readonly int[] slotMask, slotStart;
+        readonly int extraVerts;
+        readonly float[] mpx, mpy;
+        float[] clipA = new float[4 * 40], clipB = new float[4 * 40];
 
         readonly SkinPass main;
 
@@ -40,6 +48,28 @@ namespace PokiClash.Game
             main = NewPass();
             foreach (var att in a.atts) maxVerts += att.uvs.Length / 2;
             attsRef = a.atts;
+            masks = a.masks;
+            if (masks != null && masks.Length > 0)
+            {
+                slotMask = new int[ns];
+                slotStart = new int[ns];
+                for (int s = 0; s < ns; s++) slotMask[s] = -1;
+                int mv = 3;
+                for (int m = 0; m < masks.Length; m++)
+                {
+                    if (masks[m].verts == null || masks[m].verts.Length < 6) continue;
+                    mv = Mathf.Max(mv, masks[m].verts.Length / 2);
+                    for (int s = Mathf.Max(0, masks[m].slot); s <= masks[m].end && s < ns; s++) slotMask[s] = m;
+                }
+                mpx = new float[mv]; mpy = new float[mv];
+                if (4 * (mv + 8) > clipA.Length) { clipA = new float[4 * (mv + 8)]; clipB = new float[4 * (mv + 8)]; }
+                // tam giác bị mép cắt xén sinh thêm đỉnh: chừa chỗ theo số tam giác nằm trong vùng cắt (thường chỉ vài chục cái bị xén)
+                int clipTris = 0;
+                foreach (var att in a.atts)
+                    if (att.slot >= 0 && att.slot < ns && slotMask[att.slot] >= 0) clipTris += att.tris.Length / 3;
+                extraVerts = Mathf.Min(clipTris * 3, 12000);
+                maxVerts += extraVerts;
+            }
         }
 
         readonly AtomikAtt[] attsRef;
@@ -60,7 +90,7 @@ namespace PokiClash.Game
             for (int s = 0; s < asset.slots.Length; s++)
             {
                 slotAtt[s] = asset.slots[s].att;
-                slotAlpha[s] = 1;
+                slotAlpha[s] = 1 - Mathf.Clamp01(asset.slots[s].fade);
             }
             if (ci < 0 || ci >= asset.anims.Length) return;
             var c = asset.anims[ci];
@@ -193,6 +223,7 @@ namespace PokiClash.Game
             {
                 int att0 = mask == null || mask[s] == want ? slotAtt[s] : -1;
                 if (att0 != lastAtt[s]) { trisChanged = true; lastAtt[s] = att0; }
+                if (slotStart != null) slotStart[s] = nv;
                 if (att0 < 0) continue;
                 var att = asset.atts[att0];
                 var w = att.wInfo;
@@ -216,6 +247,11 @@ namespace PokiClash.Game
                     nv++;
                 }
             }
+            if (slotMask != null)
+            {
+                trisChanged = true;   // lưới đổi mỗi khung: nơi gọi đặt lại cả đỉnh lẫn tam giác
+                return ClipTris(pass, verts, uvs, cols, nv, fx, scale);
+            }
             if (trisChanged || pass.Tris.Length == 0)
             {
                 trisChanged = true;
@@ -233,6 +269,129 @@ namespace PokiClash.Game
                 }
             }
             return nv;
+        }
+
+        // Rig có mặt nạ cắt: dựng lại danh sách tam giác mỗi khung. Slot ngoài vùng cắt chép nguyên; slot trong vùng cắt: tam giác
+        // nằm hẳn trong đa giác giữ nguyên, nằm hẳn ngoài một cạnh thì bỏ, bị xén thì cắt (Sutherland–Hodgman) và thêm đỉnh mới vào
+        // cuối mảng đỉnh. Tris có sức chứa cố định, phần chưa dùng là tam giác rỗng (0, 0, 0) để nơi gọi không phải đổi cách nạp
+        // và không sinh rác mỗi khung. Trả số đỉnh sau khi thêm.
+        int ClipTris(SkinPass pass, Vector3[] verts, Vector2[] uvs, Color32[] cols, int nv, float fx, float scale)
+        {
+            var lastAtt = pass.lastAtt;
+            int cap = extraVerts * 3;
+            for (int s = 0; s < lastAtt.Length; s++)
+                if (lastAtt[s] >= 0) cap += asset.atts[lastAtt[s]].tris.Length;
+            if (pass.Tris.Length != cap) { pass.Tris = new int[cap]; pass.used = 0; }
+            var tris = pass.Tris;
+            int ti = 0, curMask = -1, np = 0;
+            float orient = 1;
+            for (int s = 0; s < lastAtt.Length; s++)
+            {
+                if (lastAtt[s] < 0) continue;
+                var at = asset.atts[lastAtt[s]].tris;
+                int off = slotStart[s], m = slotMask[s];
+                if (m < 0)
+                {
+                    for (int q = 0; q < at.Length; q++) tris[ti++] = at[q] + off;
+                    continue;
+                }
+                if (m != curMask)
+                {
+                    // đa giác cắt trong cùng hệ với đỉnh (đã nhân scale, đã lật); chiều quay quyết định bên nào là "trong"
+                    var mk = masks[m];
+                    int b = mk.bone;
+                    np = mk.verts.Length / 2;
+                    float area = 0;
+                    for (int i = 0; i < np; i++)
+                    {
+                        float bx = mk.verts[2 * i], by = mk.verts[2 * i + 1];
+                        mpx[i] = (wa[b] * bx + wb[b] * by + wx[b]) * fx;
+                        mpy[i] = (wc[b] * bx + wd[b] * by + wy[b]) * scale;
+                    }
+                    for (int i = 0; i < np; i++)
+                    {
+                        int j = (i + 1) % np;
+                        area += mpx[i] * mpy[j] - mpx[j] * mpy[i];
+                    }
+                    orient = area >= 0 ? 1 : -1;
+                    curMask = m;
+                }
+                for (int q = 0; q + 2 < at.Length; q += 3)
+                {
+                    int i0 = at[q] + off, i1 = at[q + 1] + off, i2 = at[q + 2] + off;
+                    Vector3 v0 = verts[i0], v1 = verts[i1], v2 = verts[i2];
+                    bool allIn = true, gone = false;
+                    for (int e = 0; e < np; e++)
+                    {
+                        int f = (e + 1) % np;
+                        float ex = mpx[e], ey = mpy[e], dx = (mpx[f] - ex) * orient, dy = (mpy[f] - ey) * orient;
+                        float d0 = dx * (v0.y - ey) - dy * (v0.x - ex);
+                        float d1 = dx * (v1.y - ey) - dy * (v1.x - ex);
+                        float d2 = dx * (v2.y - ey) - dy * (v2.x - ex);
+                        if (d0 < 0 && d1 < 0 && d2 < 0) { gone = true; break; }
+                        if (d0 < 0 || d1 < 0 || d2 < 0) allIn = false;
+                    }
+                    if (gone) continue;
+                    if (allIn)
+                    {
+                        tris[ti++] = i0; tris[ti++] = i1; tris[ti++] = i2;
+                        continue;
+                    }
+                    float[] src = clipA, dst = clipB;
+                    Put(src, 0, v0, uvs[i0]); Put(src, 1, v1, uvs[i1]); Put(src, 2, v2, uvs[i2]);
+                    int n = 3;
+                    for (int e = 0; e < np && n >= 3; e++)
+                    {
+                        int f = (e + 1) % np;
+                        n = ClipEdge(src, n, dst, mpx[e], mpy[e], (mpx[f] - mpx[e]) * orient, (mpy[f] - mpy[e]) * orient);
+                        var sw = src; src = dst; dst = sw;
+                    }
+                    if (n < 3 || nv + n > verts.Length || ti + (n - 2) * 3 > tris.Length) continue;
+                    int bs = nv;
+                    var col = cols[i0];
+                    for (int k = 0; k < n; k++)
+                    {
+                        verts[nv] = new Vector3(src[4 * k], src[4 * k + 1], 0);
+                        uvs[nv] = new Vector2(src[4 * k + 2], src[4 * k + 3]);
+                        cols[nv] = col;
+                        nv++;
+                    }
+                    for (int k = 1; k < n - 1; k++) { tris[ti++] = bs; tris[ti++] = bs + k; tris[ti++] = bs + k + 1; }
+                }
+            }
+            int end = ti;
+            for (; ti < pass.used; ti++) tris[ti] = 0;
+            pass.used = end;
+            return nv;
+        }
+
+        static void Put(float[] a, int i, Vector3 v, Vector2 uv)
+        {
+            a[4 * i] = v.x; a[4 * i + 1] = v.y; a[4 * i + 2] = uv.x; a[4 * i + 3] = uv.y;
+        }
+
+        // cắt đa giác src (n đỉnh, mỗi đỉnh x, y, u, v) theo một cạnh: giữ phần bên trái của vectơ (dx, dy) đặt tại (ex, ey)
+        static int ClipEdge(float[] src, int n, float[] dst, float ex, float ey, float dx, float dy)
+        {
+            int m = 0;
+            for (int i = 0; i < n; i++)
+            {
+                int a = 4 * i, b = 4 * ((i + 1) % n);
+                float da = dx * (src[a + 1] - ey) - dy * (src[a] - ex);
+                float db = dx * (src[b + 1] - ey) - dy * (src[b] - ex);
+                if (da >= 0)
+                {
+                    dst[4 * m] = src[a]; dst[4 * m + 1] = src[a + 1]; dst[4 * m + 2] = src[a + 2]; dst[4 * m + 3] = src[a + 3];
+                    m++;
+                }
+                if ((da >= 0) != (db >= 0))
+                {
+                    float t = da / (da - db);
+                    for (int c = 0; c < 4; c++) dst[4 * m + c] = src[a + c] + (src[b + c] - src[a + c]) * t;
+                    m++;
+                }
+            }
+            return m;
         }
 
         // ---- khoá

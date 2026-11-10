@@ -57,7 +57,8 @@ namespace PokiClash
             public SketchButton hackStar;
         }
 
-        static readonly string[] ClipIds = { HeroViewer.Idle, HeroViewer.Attack, HeroViewer.Skill, HeroViewer.Hit };
+        // nút thứ 5 "Mana" (menu "PokiClash/Prefab/Hộp chi tiết tướng: hạt lửa + nút Mana"): clip bắn + chiêu mana bằng hạt
+        static readonly string[] ClipIds = { HeroViewer.Idle, HeroViewer.Attack, HeroViewer.Skill, HeroViewer.Hit, HeroViewer.Cast };
         const float CardH = 292, SlotH = 84; // thẻ mini và chỗ nút/thanh dưới thẻ
 
         [SerializeField] Parts p;

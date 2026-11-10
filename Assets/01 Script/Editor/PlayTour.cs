@@ -1059,8 +1059,25 @@ namespace PokiClash.EditorTools
             yield return Shot("sanh_trang_trai");
             yield return Go(SceneIds.Farm);
             yield return Shot("trang_trai_trong");
+            // cảnh thật (2026-11-10): thú lang thang, chạm một con, kéo một con thả vào Ao vịt
+            yield return new WaitForSecondsRealtime(2f);
+            yield return Shot("trang_trai_tha");
+            var farm = App.Router.CurrentRoot as FarmScene;
+            var roam = UnityEngine.Object.FindObjectsByType<FarmPet>(FindObjectsSortMode.None).Where(x => x.State == FarmPet.Mode.Roam).ToList();
+            Debug.Log($"[Thử] Thú trên cảnh: {UnityEngine.Object.FindObjectsByType<FarmPet>(FindObjectsSortMode.None).Length}, đang chơi ở bãi cỏ: {roam.Count}");
+            if (farm && roam.Count > 0)
+            {
+                roam[0].OnPointerClick(new UnityEngine.EventSystems.PointerEventData(UnityEngine.EventSystems.EventSystem.current));
+                yield return new WaitForSecondsRealtime(0.25f);
+                yield return Shot("trang_trai_cham");
+                bool ok = farm.PetDropped(roam[0], farm.SlotPos(0));
+                Debug.Log($"[Thử] Kéo {roam[0].Hero} thả vào {d.Cfg.farm.spots[0].name}: {(ok ? "nhận việc" : "không nhận")}; chỗ 0 giờ là {s.farm.spots[0].hero ?? "-"}");
+                yield return new WaitForSecondsRealtime(1.2f);
+                yield return Shot("trang_trai_keo_tha");
+            }
             ClickByName("tu_xep");
             yield return new WaitForSecondsRealtime(0.5f);
+            yield return new WaitForSecondsRealtime(2.5f); // thú nhảy sang chỗ làm
             yield return Shot("trang_trai_tu_xep");
             Debug.Log("[Thử] Tự xếp: " + string.Join(", ", s.farm.spots.Select((sp, i) => $"{d.Cfg.farm.spots[i].name}: {sp.hero ?? "-"}")));
             Farm.Travel(s, 3 * H);

@@ -408,50 +408,50 @@ MonoBehaviour:
         kind: duck
         name: "Ao v\u1ECBt"
         elem: 2
-        x: 0.26
-        y: 0.3
+        x: 0.625
+        y: 0.456
       - id: veg1
         kind: veg
         name: "Ru\u1ED9ng rau"
         elem: 4
-        x: 0.72
-        y: 0.3
+        x: 0.195
+        y: 0.781
       - id: orchard1
         kind: orchard
         name: "V\u01B0\u1EDDn c\xE2y"
         elem: 1
-        x: 0.26
-        y: 0.48
+        x: 0.186
+        y: 0.456
       - id: bakery
         kind: bakery
         name: "L\xF2 b\xE1nh"
         elem: 3
-        x: 0.72
-        y: 0.48
+        x: 0.781
+        y: 0.814
       - id: smithy
         kind: smithy
         name: "X\u01B0\u1EDFng n\xF4ng c\u1EE5"
         elem: 0
-        x: 0.26
-        y: 0.66
+        x: 0.83
+        y: 0.625
       - id: duck2
         kind: duck
         name: "Ao v\u1ECBt"
         elem: 2
-        x: 0.72
-        y: 0.66
+        x: 0.801
+        y: 0.449
       - id: veg2
         kind: veg
         name: "Ru\u1ED9ng rau"
         elem: 4
-        x: 0.26
-        y: 0.84
+        x: 0.371
+        y: 0.781
       - id: orchard2
         kind: orchard
         name: "V\u01B0\u1EDDn c\xE2y"
         elem: 1
-        x: 0.72
-        y: 0.84
+        x: 0.352
+        y: 0.456
     ads:
       limits:
       - p: tree_double
