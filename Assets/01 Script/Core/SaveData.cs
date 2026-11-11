@@ -96,7 +96,7 @@ namespace PokiClash.Core
 
         public HeroProg Hero(string id) => heroes.TryGetValue(id, out var h) ? h : null;
 
-        // người chơi mới đã chọn tướng khởi đầu đầu danh sách (Giọt Sương): cho test và máy tự chơi
+        // người chơi mới đã chọn tướng khởi đầu đầu danh sách (Tí Tách từ 2026-11-11, trước là Giọt Sương): cho test và máy tự chơi
         public static SaveData New(GameData data, long now) => New(data, now, data.Starters.FirstOrDefault());
 
         // người chơi mới; starter null = chưa chọn (game mở hộp chọn tướng ở sảnh)
@@ -140,7 +140,27 @@ namespace PokiClash.Core
 
         // Bước di chuyển: từ phiên bản n lên n+1, sửa thẳng trên cây JSON. v1 -> v2 đổi hẳn cấu trúc đảo (không có bước).
         public static readonly Dictionary<int, Action<Dictionary<string, object>>> Migrations =
-            new Dictionary<int, Action<Dictionary<string, object>>> { [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4 };
+            new Dictionary<int, Action<Dictionary<string, object>>>
+            {
+                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5,
+            };
+
+        // v5 -> v6 (lô 10 tướng mới đảo Thủy, 2026-11-11, người dùng chọn "chuyển tướng cũ sang tướng mới"): tướng cũ cùng suất đảo
+        // gộp vào tướng mới (sở hữu, mảnh, sao, cấp thẻ, tiềm năng) rồi bỏ khỏi bản lưu; đội, trang trại, tướng khởi đầu đổi id theo.
+        // Tướng mới phần lớn chỉ 2 dạng: sao cao vẫn đọc được, dạng dừng ở dạng cuối (HeroDef.FormIndex).
+        public static readonly (string from, string to)[] ThuyV6 =
+        {
+            ("giot_suong", "ti_tach"), ("tieu_y", "thach_giai"), ("canh_cut", "nong_xoay"), ("mi_nhi", "ha_ba"),
+            ("ma_ket", "so_ngoc"), ("vay_lam", "giong_bao"), ("kuba", "lien_kinh"), ("thuong_lam", "uyen_xa"),
+            ("huyen_vu", "han_ngac"), ("lam_quan", "hai_long"),
+        };
+
+        public static void MigrateThuyV5(Dictionary<string, object> o)
+        {
+            GopTuong(o, ThuyV6);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(ThuyV6, st);
+        }
 
         // v4 -> v5 (chọn 1 trong 5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md): bản lưu cũ coi như đã chọn Giọt Sương (tướng khởi
         // đầu duy nhất trước đó); không có Giọt Sương thì tướng đầu tiên đã có; không có tướng nào thì để trống (sảnh mở hộp chọn)
@@ -166,9 +186,9 @@ namespace PokiClash.Core
             ("y_trach", "tieu_y"), ("van_quan", "lam_quan"), ("hac_duc", "lam_quan"), ("gia_bi", "nu_hoa"), ("su_gia", "de_hoa"),
         };
 
-        static string MapV4(string id)
+        static string Map((string from, string to)[] map, string id)
         {
-            foreach (var (from, to) in RosterV4)
+            foreach (var (from, to) in map)
                 if (from == id) return to;
             return id;
         }
@@ -183,14 +203,18 @@ namespace PokiClash.Core
         // Gộp tiến trình: có tướng nếu một trong hai có, cộng mảnh và bản sao, lấy sao và cấp thẻ cao hơn, giữ tiềm năng của bên đã
         // có dòng. Đội, chỗ trang trại, giờ nghỉ đổi id theo; tướng trùng trong đội hoặc trên hai chỗ trang trại thì giữ chỗ đầu.
         // Thứ tự khoá như JS (xoá rồi thêm thì khoá mới ở cuối): dựng lại danh sách tướng, không sửa Dictionary tại chỗ.
-        public static void MigrateRosterV3(Dictionary<string, object> o)
+        public static void MigrateRosterV3(Dictionary<string, object> o) => GopTuong(o, RosterV4);
+
+        // Gộp tướng theo bảng (from → to), dùng cho v3 -> v4 và v5 -> v6
+        static void GopTuong(Dictionary<string, object> o, (string from, string to)[] map)
         {
+            string MapV4(string id) => Map(map, id);
             var hs = J.Obj(o, "heroes");
             if (hs != null)
             {
                 var order = new List<KeyValuePair<string, object>>(hs);
                 int Find(string k) => order.FindIndex(kv => kv.Key == k);
-                foreach (var (from, to) in RosterV4)
+                foreach (var (from, to) in map)
                 {
                     int ia = Find(from);
                     if (ia < 0) continue;
@@ -208,10 +232,17 @@ namespace PokiClash.Core
                     b["star"] = (double)Math.Max(J.Int(b, "star"), J.Int(a, "star"));
                     var bc = J.Obj(b, "cards");
                     var ac = J.Obj(a, "cards");
+                    if (bc == null && ac != null) b["cards"] = ac;
+                    if (bc != null && ac != null)
                     foreach (var k in new[] { "skill", "ult", "passive" })
                     {
                         var x = J.Obj(bc, k);
                         var y = J.Obj(ac, k);
+                        if (x == null || y == null)
+                        {
+                            if (x == null && y != null) bc[k] = y;
+                            continue;
+                        }
                         x["lv"] = (double)Math.Max(J.Int(x, "lv"), J.Int(y, "lv"));
                         x["copies"] = (double)(J.Int(x, "copies") + J.Int(y, "copies"));
                     }

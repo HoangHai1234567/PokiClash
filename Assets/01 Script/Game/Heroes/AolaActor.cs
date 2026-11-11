@@ -57,6 +57,8 @@ namespace PokiClash.Game
         // 1_5 (bắn): clip ngắn của chiêu bắn tia (aola tools/anim_moi.py dựng), chỉ dạng có khai "cast" mới có
         // evolve: clip tiến hóa (chỉ dạng .atomik có), HeroViewer phát trước khi đổi sang dạng kế tiếp
         public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Cast = "1_5", Skill = "1_6", Evolve = "evolve";
+        // clip ra sân, chết: chỉ rig .atomik lô quái Thủy (2026-11-11) có; hộp chi tiết có nút xem (trận chưa gọi)
+        public const string Appear = "appear", Die = "die";
 
         // Dạng .atomik (AolaAnim.atomik, 2026-11-08): rig xương riêng vẽ bằng một Mesh; clip đặt tên chữ trong file
         static string AtkName(string clip) =>
@@ -244,6 +246,18 @@ namespace PokiClash.Game
         }
 
         int AtkClip(string clip) => atk != null ? atk.FindClip(AtkName(clip)) : -1;
+
+        // Rig .atomik tự diễn đoạn giữ chiêu (clip có sự kiện kết thúc giữ "het_*": lô quái Thủy 2026-11-11, rung hai dáng, giữ có trôi):
+        // sân và hộp chi tiết không ghìm giờ clip ở khung nhả nữa. Ghìm cứng làm cả con đứng im giữa chiêu (người dùng: "chiêu bị khựng").
+        public bool SelfHold(string clip)
+        {
+            int ci = AtkClip(clip);
+            var ev = ci >= 0 ? atk.anims[ci].ev : null;
+            if (ev == null) return false;
+            foreach (var e in ev)
+                if (e != null && e.name != null && e.name.StartsWith("het_")) return true; // het_phun, het_gam, het_bung...
+            return false;
+        }
 
         // rig xương vẽ theo thời gian liên tục (mượt ở mọi tốc độ khung màn hình), không theo bậc 25 khung như hình aola
         float shownTime = -1, shownAura = -1;

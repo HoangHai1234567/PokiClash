@@ -35,7 +35,7 @@ namespace PokiClash.Tests
             // chưa chọn tướng khởi đầu: chưa có tướng nào, sảnh mở hộp chọn (15_TuongKhoiDau.md)
             Assert.IsNull(s.starter);
             Assert.IsEmpty(s.team);
-            Assert.IsFalse(s.Hero("giot_suong").owned);
+            Assert.IsFalse(s.Hero("ti_tach").owned);
             Assert.IsFalse(s.Hero("ca_sa").owned);
             Assert.AreEqual(0, s.zones[(int)Elem.Thuy]);
             Assert.IsTrue(File.Exists(Path.Combine(dir, $"save_v{TestData.Load().Cfg.saveVersion}.json")));
@@ -48,7 +48,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var svc = new SaveService(d, dir) { WriteInBackground = true };
             svc.Load();
-            svc.Data.ChooseStarter("giot_suong");
+            svc.Data.ChooseStarter("ti_tach");
             for (int i = 1; i <= 40; i++)
             {
                 svc.Data.balls = i;
@@ -67,7 +67,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var svc = new SaveService(d, dir);
             svc.Load();
-            svc.Data.ChooseStarter("giot_suong");
+            svc.Data.ChooseStarter("ti_tach");
             svc.Data.level = 7;
             svc.Data.balls = 123;
             svc.Data.zones[(int)Elem.Hoa] = 3;
@@ -90,14 +90,14 @@ namespace PokiClash.Tests
             Assert.AreEqual(3, s.zones[(int)Elem.Hoa]);
             Assert.AreEqual(2, s.clears[12]);
             Assert.AreEqual(3, s.Hero("vo_su").skill.lv);
-            Assert.AreEqual(new[] { "giot_suong", "vo_su" }, s.team.ToArray());
+            Assert.AreEqual(new[] { "ti_tach", "vo_su" }, s.team.ToArray());
             Assert.IsFalse(s.settings.boil);
             Assert.IsTrue(s.extra.ContainsKey("homestead"), "khoá lạ được giữ nguyên");
             Assert.AreEqual(2, s.chests.Count, "rương máy bi chờ mở");
             Assert.AreEqual("chest_gold", s.chests[0].kind);
             Assert.AreEqual(3, s.chests[0].x);
             Assert.IsFalse(s.extra.ContainsKey("chests"));
-            Assert.AreEqual("giot_suong", s.starter, "tướng khởi đầu đã chọn");
+            Assert.AreEqual("ti_tach", s.starter, "tướng khởi đầu đã chọn");
         }
 
         [Test]

@@ -301,6 +301,24 @@
    "cost": ""
   },
   {
+   "id": "hai_long_skill",
+   "lv1": "Gây 100% Công sát thương. 30% cơ hội: Làm địch choáng.",
+   "lv5": "Gây 160% Công sát thương. 48% cơ hội: Làm địch choáng.",
+   "cost": "30 mana"
+  },
+  {
+   "id": "hai_long_ult",
+   "lv1": "Gây 230% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 368% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "cost": "100 nộ + 40 mana"
+  },
+  {
+   "id": "hai_long_pas",
+   "lv1": "Vào trận: khiên bằng 12% máu tối đa.",
+   "lv5": "Vào trận: khiên bằng 19% máu tối đa.",
+   "cost": ""
+  },
+  {
    "id": "ty_skill",
    "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
    "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
@@ -314,6 +332,24 @@
   },
   {
    "id": "ty_pas",
+   "lv1": "Đầu mỗi lượt: hồi 4% máu.",
+   "lv5": "Đầu mỗi lượt: hồi 6% máu.",
+   "cost": ""
+  },
+  {
+   "id": "thach_giai_skill",
+   "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
+   "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
+   "cost": "25 mana"
+  },
+  {
+   "id": "thach_giai_ult",
+   "lv1": "Gây 200% Công sát thương. Hồi 15% máu.",
+   "lv5": "Gây 320% Công sát thương. Hồi 24% máu.",
+   "cost": "100 nộ + 35 mana"
+  },
+  {
+   "id": "thach_giai_pas",
    "lv1": "Đầu mỗi lượt: hồi 4% máu.",
    "lv5": "Đầu mỗi lượt: hồi 6% máu.",
    "cost": ""
@@ -733,6 +769,24 @@
    "cost": ""
   },
   {
+   "id": "nong_xoay_skill",
+   "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
+   "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
+   "cost": "25 mana"
+  },
+  {
+   "id": "nong_xoay_ult",
+   "lv1": "Gây 200% Công sát thương. Hồi 15% máu.",
+   "lv5": "Gây 320% Công sát thương. Hồi 24% máu.",
+   "cost": "100 nộ + 35 mana"
+  },
+  {
+   "id": "nong_xoay_pas",
+   "lv1": "Đầu mỗi lượt: hồi 4% máu.",
+   "lv5": "Đầu mỗi lượt: hồi 6% máu.",
+   "cost": ""
+  },
+  {
    "id": "giot_suong_skill",
    "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
    "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
@@ -746,6 +800,24 @@
   },
   {
    "id": "giot_suong_pas",
+   "lv1": "Đầu mỗi lượt: hồi 5% máu.",
+   "lv5": "Đầu mỗi lượt: hồi 8% máu.",
+   "cost": ""
+  },
+  {
+   "id": "ti_tach_skill",
+   "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
+   "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
+   "cost": "25 mana"
+  },
+  {
+   "id": "ti_tach_ult",
+   "lv1": "Gây 200% Công sát thương. Hồi 15% máu.",
+   "lv5": "Gây 320% Công sát thương. Hồi 24% máu.",
+   "cost": "100 nộ + 35 mana"
+  },
+  {
+   "id": "ti_tach_pas",
    "lv1": "Đầu mỗi lượt: hồi 5% máu.",
    "lv5": "Đầu mỗi lượt: hồi 8% máu.",
    "cost": ""
@@ -823,6 +895,24 @@
    "cost": ""
   },
   {
+   "id": "han_ngac_skill",
+   "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "cost": "35 mana"
+  },
+  {
+   "id": "han_ngac_ult",
+   "lv1": "Gây 250% Công sát thương. Hồi 25% máu.",
+   "lv5": "Gây 400% Công sát thương. Hồi 40% máu.",
+   "cost": "100 nộ + 45 mana"
+  },
+  {
+   "id": "han_ngac_pas",
+   "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
+   "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
+   "cost": ""
+  },
+  {
    "id": "mi_nhi_skill",
    "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
    "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
@@ -836,6 +926,24 @@
   },
   {
    "id": "mi_nhi_pas",
+   "lv1": "Đầu mỗi lượt: hồi 4% máu.",
+   "lv5": "Đầu mỗi lượt: hồi 6% máu.",
+   "cost": ""
+  },
+  {
+   "id": "ha_ba_skill",
+   "lv1": "Gây 90% Công sát thương. Địch −15% Công 1 lượt.",
+   "lv5": "Gây 144% Công sát thương. Địch −24% Công 1 lượt.",
+   "cost": "25 mana"
+  },
+  {
+   "id": "ha_ba_ult",
+   "lv1": "Gây 200% Công sát thương. Hồi 15% máu.",
+   "lv5": "Gây 320% Công sát thương. Hồi 24% máu.",
+   "cost": "100 nộ + 35 mana"
+  },
+  {
+   "id": "ha_ba_pas",
    "lv1": "Đầu mỗi lượt: hồi 4% máu.",
    "lv5": "Đầu mỗi lượt: hồi 6% máu.",
    "cost": ""
@@ -859,6 +967,24 @@
    "cost": ""
   },
   {
+   "id": "so_ngoc_skill",
+   "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "cost": "35 mana"
+  },
+  {
+   "id": "so_ngoc_ult",
+   "lv1": "Gây 250% Công sát thương. Hồi 25% máu.",
+   "lv5": "Gây 400% Công sát thương. Hồi 40% máu.",
+   "cost": "100 nộ + 45 mana"
+  },
+  {
+   "id": "so_ngoc_pas",
+   "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
+   "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
+   "cost": ""
+  },
+  {
    "id": "vay_lam_skill",
    "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
    "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
@@ -872,6 +998,24 @@
   },
   {
    "id": "vay_lam_pas",
+   "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
+   "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
+   "cost": ""
+  },
+  {
+   "id": "giong_bao_skill",
+   "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "cost": "35 mana"
+  },
+  {
+   "id": "giong_bao_ult",
+   "lv1": "Gây 250% Công sát thương. Hồi 25% máu.",
+   "lv5": "Gây 400% Công sát thương. Hồi 40% máu.",
+   "cost": "100 nộ + 45 mana"
+  },
+  {
+   "id": "giong_bao_pas",
    "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
    "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
    "cost": ""
@@ -895,6 +1039,24 @@
    "cost": ""
   },
   {
+   "id": "uyen_xa_skill",
+   "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "cost": "35 mana"
+  },
+  {
+   "id": "uyen_xa_ult",
+   "lv1": "Gây 250% Công sát thương. Hồi 25% máu.",
+   "lv5": "Gây 400% Công sát thương. Hồi 40% máu.",
+   "cost": "100 nộ + 45 mana"
+  },
+  {
+   "id": "uyen_xa_pas",
+   "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
+   "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
+   "cost": ""
+  },
+  {
    "id": "kuba_skill",
    "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
    "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
@@ -908,6 +1070,24 @@
   },
   {
    "id": "kuba_pas",
+   "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
+   "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
+   "cost": ""
+  },
+  {
+   "id": "lien_kinh_skill",
+   "lv1": "Gây 140% Công sát thương. Địch −20% Thủ 2 lượt.",
+   "lv5": "Gây 224% Công sát thương. Địch −32% Thủ 2 lượt.",
+   "cost": "35 mana"
+  },
+  {
+   "id": "lien_kinh_ult",
+   "lv1": "Gây 250% Công sát thương. Hồi 25% máu.",
+   "lv5": "Gây 400% Công sát thương. Hồi 40% máu.",
+   "cost": "100 nộ + 45 mana"
+  },
+  {
+   "id": "lien_kinh_pas",
    "lv1": "Mỗi lần bị đánh: +8 mana. +4 nộ.",
    "lv5": "Mỗi lần bị đánh: +13 mana. +6 nộ.",
    "cost": ""
@@ -2161,19 +2341,19 @@
    "cost": ""
   },
   {
-   "id": "kuba_boss",
+   "id": "lien_kinh_boss",
    "lv1": "Mỗi lần bị đánh: 30% cơ hội khiên bằng 7% máu tối đa.",
    "lv5": "Mỗi lần bị đánh: 48% cơ hội khiên bằng 11% máu tối đa.",
    "cost": ""
   },
   {
-   "id": "huyen_vu_boss",
+   "id": "han_ngac_boss",
    "lv1": "Lần đầu máu dưới 50%: khiên bằng 25% máu tối đa. Hồi 10% máu.",
    "lv5": "Lần đầu máu dưới 50%: khiên bằng 40% máu tối đa. Hồi 16% máu.",
    "cost": ""
   },
   {
-   "id": "lam_quan_boss",
+   "id": "hai_long_boss",
    "lv1": "Mỗi lần bị đánh: 4% cơ hội làm địch choáng.",
    "lv5": "Mỗi lần bị đánh: 6% cơ hội làm địch choáng.",
    "cost": ""

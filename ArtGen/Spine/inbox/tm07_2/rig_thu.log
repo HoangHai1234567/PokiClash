@@ -1,0 +1,24 @@
+  mảnh giữ chỗ: dau, ham, mieng, nga, mi, vay_lung, than, cuong, vay_duoi, vay_cheo, canh_a, canh_b, canh_c, sen_sau, sen_truoc, dai, phun_lo
+  lưới than (dải 44 cột × 16 hàng, 6 đốt): 704 đỉnh, 1290 tam giác, góc nhỏ nhất 16.5° (TB góc nhỏ 36.4°, 15.3% dưới 25°), cạnh TB 14.6 px, hở 0 px
+  lưới cuong (dải 10 cột × 6 hàng, 3 đốt): 60 đỉnh, 90 tam giác, góc nhỏ nhất 21.4° (TB góc nhỏ 39.3°, 5.6% dưới 25°), cạnh TB 13.0 px, hở 0 px
+  lưới vay_cheo (dải 19 cột × 9 hàng, 3 đốt): 171 đỉnh, 288 tam giác, góc nhỏ nhất 18.4° (TB góc nhỏ 36.5°, 13.9% dưới 25°), cạnh TB 12.5 px, hở 0 px
+  lưới vay_lung: 88 đỉnh, 131 tam giác, góc nhỏ nhất 0.0° (TB góc nhỏ 48.9°, 2.3% dưới 25°), cạnh TB 14.8 px, hở 2 px
+  trọng số than: 704 đỉnh, tối đa 3 xương/đỉnh; bám cứng 100%: 32 đỉnh (bk3 16, fw1 16)
+  lưới dau: 224 đỉnh, 380 tam giác, góc nhỏ nhất 31.5° (TB góc nhỏ 54.5°, 0.0% dưới 25°), cạnh TB 14.9 px, hở 0 px
+  trọng số dau: 224 đỉnh, tối đa 2 xương/đỉnh; bám cứng 100%: 0 đỉnh
+  lưới ham: 76 đỉnh, 107 tam giác, góc nhỏ nhất 20.8° (TB góc nhỏ 47.2°, 2.8% dưới 25°), cạnh TB 11.8 px, hở 0 px
+  lưới sen_sau: 296 đỉnh, 513 tam giác, góc nhỏ nhất 30.2° (TB góc nhỏ 54.9°, 0.0% dưới 25°), cạnh TB 14.9 px, hở 0 px
+  lưới sen_truoc: 179 đỉnh, 294 tam giác, góc nhỏ nhất 26.0° (TB góc nhỏ 53.1°, 0.0% dưới 25°), cạnh TB 14.8 px, hở 1 px
+dạng 2: nướng 8 clip (2.9 s)
+D:\PokiClash\ArtGen\Spine\inbox\tm07_2\rig\tm07_2.atomik: 145 xương, 42 slot, 41 hình, 4932 đỉnh, 1 mặt nạ cắt, 8 animation, 6 sự kiện, 318 KB (JSON 761 KB, PNG 148 KB)
+  nạp lại tm07_2.atomik: bản 3, 145 xương, 42 slot, 41 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die', 'aura'], 6 sự kiện, atlas 1016x1008, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.061 px (attack/vx) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 4.00 px (idle@1.07s/vd) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 1.28 px (bước thường 9.53)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  tm07_2: 145 xương · 42 slot · 4932 đỉnh · 7915 tam giác · 8 clip · 7639 khoá · .atomik 0.31 MB
+  dung lượng: json 689 KB + png 149 KB (atlas 1016x1008); .atomik 318 KB -> dưới trần (đích 0.3 MB, trần 0.5 MB); 11.7 s

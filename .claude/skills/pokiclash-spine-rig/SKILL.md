@@ -217,7 +217,10 @@ sinh (region, mesh có/không trọng số, rotate/translate/scale, attachment),
 
 **Quy trình đưa code vào editor dùng chung** (đã chạy 2026-11-07):
 1. Viết trong scratchpad, typecheck bằng dotnet: chép `PokiClash.Core/Game/Editor.csproj`, đường dẫn tuyệt đối, file scratch
-   **thay** file cùng tên đã có trong csproj (không thì trùng định nghĩa), `dotnet build ... -v q`.
+   **thay** file cùng tên đã có trong csproj (không thì trùng định nghĩa), `dotnet build ... -v q`. **Xong thì chạy
+   `dotnet build-server shutdown`**: nút MSBuild tái dùng (`/nodeReuse:true`) giữ file, lần biên dịch kế của Unity hỏng
+   "Access is denied" (`Script Compilation Error ... Csc ... Access is denied`), Unity giữ DLL cũ nên code mới như không có
+   (lỗi đã gặp 2026-11-11: kiểm số tướng vẫn đòi 78 dù nguồn đã ghi 88).
 2. Đọc `mcpforunity://editor/state` qua MCP HTTP (`127.0.0.1:8090/mcp`). Đang Play thì hỏi người dùng rồi `manage_editor stop`:
    thêm `.cs` mới lúc Play làm hỏng biên dịch cho mọi session.
 3. Chép file vào Assets một lệnh, `refresh_unity mode=force`, chờ hết compile, `read_console` lỗi, kiểm `.rsp` có file mới.
@@ -617,3 +620,37 @@ một `xem.html` mở được bằng `file://`; khung nhìn riêng theo clip (`
 
 **Lưu ý môi trường:** heredoc Bash dài hay bị cắt, vá mã bằng file script (Write) rồi chạy; in tiếng Việt cần
 `sys.stdout.reconfigure(encoding="utf-8")`; gen ảnh: `gen.py gui_gpt/hai_long/<file>.txt --steps M05` (khoảng 2 phút một tờ).
+
+## 21. Lô 10 quái đảo Thủy: cách lai, lưới theo chiều cao, so concept bằng IoU (2026-11-11)
+
+Người dùng giao 10 dòng tướng mới đảo Thủy dựa trên quái game tham khảo (`D:\RefAnimation`), thiết kế lại khác hẳn, rig "như Hải
+Long", lưới dày mịn đều, đủ 8 clip (`appear, idle, attack, cast, skill, hit, die, evolve` + `aura` tuỳ), VFX ngoài rig. Đặc tả lô:
+`ArtGen/Spine/quai/DAC_TA_LO_THUY.md` (mục 5 "Bài học"); thư viện chung `ArtGen/Spine/quai/` (README, có mục 7 ghi chú các dòng);
+mỗi dòng `ArtGen/Spine/tmNN*.py`, ghi chú `inbox/tmNN_ghichu.md`; vào game bằng `quai/da_nhan.json` + `quai/vao_game.py`
+(`--kiem`), dữ liệu tướng `quai/tuong_moi_thuy.py`, golden `quai/golden_thuy.py`, các bước Unity ở `quai/VAO_GAME.md`.
+
+- **Cách lai là cách chuẩn cho thân hình cong tròn.** Dựng toàn bằng tờ mảnh GPT thì GPT vẽ thân thành ống thẳng, ghép lại lộ khúc
+  ống, khe trắng, đầu cụt, vòng viền khớp búp bê; IoU với concept kẹt 0,6–0,8 dù dò khớp tự động (dòng 1, 7, 8, 9, 10 đều bị trước
+  khi đổi). Cách lai: **lớp thân chính cắt thẳng từ concept** (vùng loang từ hạt giống, nét mực làm tường, ràng buộc màu theo vùng,
+  nhãn gần nhất; như `thuy_long_lien.py`), lớp tách riêng (hàm dưới, chân xa, phụ kiện chồng, vây lưng) cũng cắt từ concept khi
+  thấy rõ; **mảnh GPT chỉ cho phần bị che** (lòng miệng, mí, chân xa, đoạn cổ dưới nước) và làm nguồn vẽ bù. IoU lên 0,86–0,99.
+- **Lớp dưới mọc thêm ≥ 30–40 px dưới lớp trên và vẽ bù** (dán mảnh GPT đã khớp, hoặc màu trung vị của lớp + vân + nét mực mép;
+  `cv2.inpaint` lấy màu mực ở biên → dải nâu đen). Ranh hai lớp không có nét mực (đầu–cổ) kẻ theo **cung bo má**, không đường thẳng
+  (lỗi đã gặp: khe nêm má–cổ, mảng chữ nhật dưới họng khi đầu ngẩng).
+- **Mật độ lưới theo chiều cao con**: viền 1,5% H, trong 2% H (`luoi_vung/luoi_dai(..., buoc_theo_cao=H)`, `mu=True` cho chỏm ống).
+  Bước pixel cố định cho con nhỏ (H 380) chỉ ra ~1000 đỉnh, tam giác to — người dùng chê "chưa dày mịn".
+- **`so_concept.png` + IoU mặt nạ khung 0 idle với concept** là phép kiểm chính (đích ≥ 0,9 với cách lai; nước, phần cố ý đổi loại
+  ra và ghi rõ). Tờ khung đẹp chưa đủ: chỉ chồng concept mới thấy sừng bẹp, thân gầy, đuôi thành que.
+- **Đo nối clip trên đỉnh lưới đã da hoá của mọi slot** (gồm lò xo, dây mềm), cả khung 0 lẫn khung cuối mỗi clip; đo xương thì báo
+  0 px trong khi khung đầu lệch 12 px. Dao động nền trừ giá trị tại t = 0.
+- **Nhịp nện đúng chiều**: phần nện nhấc lên lúc lấy đà, chạm đúng `trung`, rồi về (lỗi đã gặp: chùy đuôi dựng lên sau cú cắn rồi giữ).
+- **Concept**: không đính ảnh game tham khảo vào prompt (tả bằng lời); prompt tờ mảnh đính concept + "same silhouette and
+  proportions". Duyệt chéo cả lô: dòng 6 từng trùng dòng 1 (kỳ giông chàm thế võ) → đổi sang bò bốn chân màu khác; dòng 3 tránh
+  hoa văn xoắn ốc khắp thân (gợi một dòng ếch nổi tiếng). Nhiều dòng dạng cuối cùng ngả chàm: giữ được nhờ màu nhấn, dáng khác.
+- **Tiến hoá gộp làm file dạng 1 nặng** (mang cả dạng 2): thu dạng sau 0,4–0,7 lần, lưới thưa 1,6–2,2 lần trong rig gộp; dòng boss
+  nhiều cổ chấp nhận ~1,1–1,3 MB.
+- **Soi runtime Spine thật**: lưới > ~4k tam giác + mặt nạ cắt làm tràn `PolygonBatcher` của spine-player (trang không trả JSON) →
+  soi bằng bộ vẽ Python, kiểm thật bằng menu `PokiClash/Tướng/Chụp thử dạng .atomik` (ảnh `Library/PokiHeroShots/<id>_atomik_<k>.png`).
+- **Agent song song**: một Codex mỗi lúc (khoá `gen.py`) nên 10 dòng gen concept + tờ mảnh mất vài giờ; Chrome ngầm và việc nặng
+  qua `quai/khoa.py chrome|nang` (máy từng sập khi Chrome vẽ). Claude điều phối tự soi mọi báo cáo (so_concept, tờ khung, ảnh
+  cận) — các agent hay báo "đạt" khi bóng dáng còn lệch.

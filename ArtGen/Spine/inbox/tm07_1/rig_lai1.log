@@ -1,0 +1,69 @@
+đợi khoá nang (0 s)...
+đợi khoá nang (15 s)...
+  bước lưới dạng 2: viền 8.0, trong 10.7 px (cao 536); cách lai (thân cắt từ concept)
+  lưới than: 2599 đỉnh, 4608 tam giác, góc nhỏ nhất 14.5° (TB góc nhỏ 55.8°, 0.7% dưới 25°), cạnh TB 10.6 px, hở 1 px
+  trọng số than: 2599 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 149 đỉnh (dau 142, bk3 6, fw1 1)
+  lưới ham: 150 đỉnh, 242 tam giác, góc nhỏ nhất 13.2° (TB góc nhỏ 52.2°, 1.2% dưới 25°), cạnh TB 8.5 px, hở 0 px
+  mí dạng 2: tâm (830, 136) góc -13° tỉ lệ 0.60; còn hở 0 px / 1562, lòi ngoài đầu 236 px
+  lưới vay_cheo: 362 đỉnh, 634 tam giác, góc nhỏ nhất 31.7° (TB góc nhỏ 55.4°, 0.0% dưới 25°), cạnh TB 10.6 px, hở 0 px
+  lưới vx: 84 đỉnh, 125 tam giác, góc nhỏ nhất 31.7° (TB góc nhỏ 50.3°, 0.0% dưới 25°), cạnh TB 10.4 px, hở 0 px
+  lưới sen_sau: 419 đỉnh, 654 tam giác, góc nhỏ nhất 14.7° (TB góc nhỏ 49.4°, 3.1% dưới 25°), cạnh TB 10.5 px, hở 0 px
+  lưới sen_truoc: 167 đỉnh, 246 tam giác, góc nhỏ nhất 13.0° (TB góc nhỏ 49.1°, 3.7% dưới 25°), cạnh TB 10.3 px, hở 0 px
+dạng 2: nướng 8 clip (5.3 s)
+D:\PokiClash\ArtGen\Spine\inbox\tm07_2\rig\tm07_2.atomik: 135 xương, 36 slot, 35 hình, 6148 đỉnh, 1 mặt nạ cắt, 8 animation, 6 sự kiện, 494 KB (JSON 823 KB, PNG 271 KB)
+  nạp lại tm07_2.atomik: bản 3, 135 xương, 36 slot, 35 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die', 'aura'], 6 sự kiện, atlas 1128x1136, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.072 px (idle/than) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 5.93 px (idle@1.07s/than) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.91 px (bước thường 6.74)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  tm07_2: 135 xương · 36 slot · 6148 đỉnh · 10059 tam giác · 8 clip · 5966 khoá · .atomik 0.48 MB
+  dung lượng: json 762 KB + png 271 KB (atlas 1128x1136); .atomik 494 KB -> dưới trần (đích 0.3 MB, trần 0.5 MB); 14.3 s
+  so_concept: IoU = 0.778 -> D:\PokiClash\ArtGen\Spine\inbox\tm07_2\rig\so_concept.png
+  đỉnh thân 3796 / cao 536 = 7.08; hở: {'than': 1}
+  bước lưới dạng 2: viền 7.0, trong 9.3 px (cao 372); cách lai (thân cắt từ concept)
+  lưới than: 1749 đỉnh, 3018 tam giác, góc nhỏ nhất 12.4° (TB góc nhỏ 54.9°, 1.0% dưới 25°), cạnh TB 9.2 px, hở 0 px
+  trọng số than: 1749 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 105 đỉnh (dau 100, bk3 3, fw1 2)
+  lưới ham: 104 đỉnh, 163 tam giác, góc nhỏ nhất 29.3° (TB góc nhỏ 51.8°, 0.0% dưới 25°), cạnh TB 7.3 px, hở 0 px
+  mí dạng 2: tâm (575, 95) góc -11° tỉ lệ 0.68; còn hở 0 px / 908, lòi ngoài đầu 116 px
+  lưới vay_cheo: 244 đỉnh, 415 tam giác, góc nhỏ nhất 31.6° (TB góc nhỏ 54.4°, 0.0% dưới 25°), cạnh TB 9.2 px, hở 0 px
+  lưới vx: 56 đỉnh, 78 tam giác, góc nhỏ nhất 26.6° (TB góc nhỏ 47.3°, 0.0% dưới 25°), cạnh TB 9.3 px, hở 2 px
+  lưới sen_sau: 289 đỉnh, 434 tam giác, góc nhỏ nhất 16.4° (TB góc nhỏ 48.2°, 3.0% dưới 25°), cạnh TB 9.1 px, hở 0 px
+  lưới sen_truoc: 118 đỉnh, 163 tam giác, góc nhỏ nhất 20.3° (TB góc nhỏ 47.1°, 3.1% dưới 25°), cạnh TB 9.0 px, hở 0 px
+  bước lưới dạng 1: viền 6.3, trong 8.4 px (cao 419); cách lai
+  lưới than: 2813 đỉnh, 5213 tam giác, góc nhỏ nhất 14.1° (TB góc nhỏ 57.2°, 0.5% dưới 25°), cạnh TB 8.3 px, hở 0 px
+  trọng số than: 2813 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 88 đỉnh (dau 75, than 13)
+  lưới ham: 51 đỉnh, 67 tam giác, góc nhỏ nhất 15.5° (TB góc nhỏ 45.1°, 4.5% dưới 25°), cạnh TB 6.6 px, hở 0 px
+  mí dạng 1: tâm (383, 212) góc -1° tỉ lệ 1.07; còn hở 0 px / 7532, lòi ngoài đầu 907 px
+  lưới vay_cheo: 164 đỉnh, 271 tam giác, góc nhỏ nhất 25.9° (TB góc nhỏ 53.1°, 0.0% dưới 25°), cạnh TB 8.3 px, hở 0 px
+Traceback (most recent call last):
+  File "D:\PokiClash\ArtGen\Spine\tm07.py", line 1263, in <module>
+    main(sys.argv[1:])
+    ~~~~^^^^^^^^^^^^^^
+  File "D:\PokiClash\ArtGen\Spine\tm07.py", line 1258, in main
+    rig1()
+    ~~~~^^
+  File "D:\PokiClash\ArtGen\Spine\tm07.py", line 1199, in rig1
+    fr1 = {c.ten: hoat.nuong(sk1, c) for c in cl1}
+                  ~~~~~~~~~~^^^^^^^^
+  File "D:\PokiClash\ArtGen\Spine\quai\hoat.py", line 175, in nuong
+    clip.fn(t, P)
+    ~~~~~~~^^^^^^
+  File "D:\PokiClash\ArtGen\Spine\tm07.py", line 983, in appear_fn
+    nen(P, lui(t, D), ease((t - 0.55) / 0.5))
+    ~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\PokiClash\ArtGen\Spine\tm07.py", line 971, in nen
+    chuoi_song(P, du, tt, 2.4, np.array([4, 6, 8]) * a, tre=0.1, ngon_dan=False)
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\PokiClash\ArtGen\Spine\quai\hoat.py", line 103, in chuoi_song
+    amp = np.broadcast_to(np.asarray(bien_do, float), (n,))
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python314\Lib\site-packages\numpy\lib\_stride_tricks_impl.py", line 517, in broadcast_to
+    return _broadcast_to(array, shape, subok=subok, readonly=True)
+  File "C:\Users\ADMIN\AppData\Local\Programs\Python\Python314\Lib\site-packages\numpy\lib\_stride_tricks_impl.py", line 456, in _broadcast_to
+    it = np.nditer(
+        (array,), flags=['multi_index', 'refs_ok', 'zerosize_ok'] + extras,
+        op_flags=['readonly'], itershape=shape, order='C')
+ValueError: operands could not be broadcast together with remapped shapes [original->remapped]: (3,)  and requested shape (2,)

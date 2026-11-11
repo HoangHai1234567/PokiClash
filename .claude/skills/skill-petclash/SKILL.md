@@ -338,6 +338,8 @@ Công thức đã làm thật (lửa, nước) và lỗi đã gặp: `pokiclash-
 - Nước, lửa, khói nền làm bằng ảnh trượt ngang: phải là hình tự biến dạng (dâng, cuộn, tan) tại chỗ.
 - Mảnh phủ (mí mắt, miếng che) đặt theo công thức mà không đo: hở một khe. Dò vị trí và in số điểm còn hở.
 - Chỉ soi tờ khung thu nhỏ rồi báo "mượt": chỗ gập ở khớp, chỗ hở trong miệng chỉ thấy khi soi cận hoặc xem chuyển động.
+- Dựng thân hình cong tròn toàn bằng tờ mảnh GPT: thân thành khúc ống thẳng, lộ khe, vòng viền khớp búp bê, lệch concept. Dùng
+  **cách lai** (thân cắt thẳng từ concept, mảnh GPT chỉ cho phần bị che) và kiểm bằng ảnh chồng concept + IoU (`pokiclash-spine-rig` mục 21).
 
 ## 15. Quái lớn nhiều phần: nhiều đầu, thân dài, trồi lên từ nước
 

@@ -9,7 +9,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giot_suong",
+     "canh_cut",
      69,
      true
     ]
@@ -24,12 +24,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_tay",
+     "nong_xoay",
      72,
      true
     ],
     [
-     "ca_ngua",
+     "giot_suong",
      72,
      false
     ]
@@ -44,7 +44,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_ngua",
+     "giot_suong",
      75,
      true
     ]
@@ -59,12 +59,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "ti_tach",
      78,
      true
     ],
     [
-     "lam_quan",
+     "tam_tay",
      78,
      false
     ]
@@ -84,12 +84,12 @@
      true
     ],
     [
-     "lam_quan",
+     "tam_tay",
      81,
      false
     ],
     [
-     "huyen_vu",
+     "ca_ngua",
      81,
      false
     ]
@@ -104,7 +104,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_tay",
+     "nong_xoay",
      89,
      true
     ]
@@ -119,12 +119,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_ngua",
+     "giot_suong",
      92,
      true
     ],
     [
-     "map_rang",
+     "ti_tach",
      92,
      false
     ]
@@ -139,7 +139,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "ti_tach",
      95,
      true
     ]
@@ -154,12 +154,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "tam_tay",
      98,
      true
     ],
     [
-     "huyen_vu",
+     "ca_ngua",
      98,
      false
     ]
@@ -179,12 +179,12 @@
      true
     ],
     [
-     "huyen_vu",
+     "ca_ngua",
      101,
      false
     ],
     [
-     "mi_nhi",
+     "map_rang",
      101,
      false
     ]
@@ -199,7 +199,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_ngua",
+     "giot_suong",
      109,
      true
     ]
@@ -214,12 +214,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "ti_tach",
      112,
      true
     ],
     [
-     "lam_quan",
+     "tam_tay",
      112,
      false
     ]
@@ -234,7 +234,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "tam_tay",
      115,
      true
     ]
@@ -249,12 +249,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_vu",
+     "ca_ngua",
      118,
      true
     ],
     [
-     "mi_nhi",
+     "map_rang",
      118,
      false
     ]
@@ -269,7 +269,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "mi_nhi",
+     "map_rang",
      121,
      true
     ]
@@ -284,12 +284,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ma_ket",
+     "lam_quan",
      124,
      true
     ],
     [
-     "vay_lam",
+     "hai_long",
      124,
      false
     ]
@@ -304,7 +304,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "vay_lam",
+     "hai_long",
      127,
      true
     ]
@@ -319,12 +319,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "thuong_lam",
+     "huyen_vu",
      130,
      true
     ],
     [
-     "kuba",
+     "han_ngac",
      130,
      false
     ]
@@ -339,7 +339,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "kuba",
+     "han_ngac",
      133,
      true
     ]
@@ -359,12 +359,12 @@
      true
     ],
     [
-     "tieu_y",
+     "mi_nhi",
      136,
      false
     ],
     [
-     "canh_cut",
+     "ha_ba",
      136,
      false
     ]
@@ -379,7 +379,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "ti_tach",
      129,
      true
     ]
@@ -394,12 +394,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "tam_tay",
      132,
      true
     ],
     [
-     "huyen_vu",
+     "ca_ngua",
      132,
      false
     ]
@@ -414,7 +414,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_vu",
+     "ca_ngua",
      135,
      true
     ]
@@ -429,12 +429,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "mi_nhi",
+     "map_rang",
      138,
      true
     ],
     [
-     "ma_ket",
+     "lam_quan",
      138,
      false
     ]
@@ -449,7 +449,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ma_ket",
+     "lam_quan",
      141,
      true
     ]
@@ -464,12 +464,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "vay_lam",
+     "hai_long",
      144,
      true
     ],
     [
-     "thuong_lam",
+     "huyen_vu",
      144,
      false
     ]
@@ -484,7 +484,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "thuong_lam",
+     "huyen_vu",
      147,
      true
     ]
@@ -499,12 +499,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "kuba",
+     "han_ngac",
      150,
      true
     ],
     [
-     "tieu_y",
+     "mi_nhi",
      150,
      false
     ]
@@ -519,7 +519,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tieu_y",
+     "mi_nhi",
      153,
      true
     ]
@@ -539,12 +539,12 @@
      true
     ],
     [
-     "canh_cut",
+     "ha_ba",
      156,
      false
     ],
     [
-     "giot_suong",
+     "ma_ket",
      156,
      false
     ]
@@ -559,7 +559,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "tam_tay",
      149,
      true
     ]
@@ -574,12 +574,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_vu",
+     "ca_ngua",
      152,
      true
     ],
     [
-     "mi_nhi",
+     "map_rang",
      152,
      false
     ]
@@ -594,7 +594,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "mi_nhi",
+     "map_rang",
      155,
      true
     ]
@@ -609,12 +609,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ma_ket",
+     "lam_quan",
      158,
      true
     ],
     [
-     "vay_lam",
+     "hai_long",
      158,
      false
     ]
@@ -629,7 +629,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "vay_lam",
+     "hai_long",
      161,
      true
     ]
@@ -644,12 +644,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "thuong_lam",
+     "huyen_vu",
      164,
      true
     ],
     [
-     "kuba",
+     "han_ngac",
      164,
      false
     ]
@@ -664,7 +664,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "kuba",
+     "han_ngac",
      167,
      true
     ]
@@ -679,12 +679,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tieu_y",
+     "mi_nhi",
      170,
      true
     ],
     [
-     "canh_cut",
+     "ha_ba",
      170,
      false
     ]
@@ -699,7 +699,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "canh_cut",
+     "ha_ba",
      173,
      true
     ]
@@ -719,12 +719,12 @@
      true
     ],
     [
-     "giot_suong",
+     "ma_ket",
      176,
      false
     ],
     [
-     "tam_tay",
+     "so_ngoc",
      176,
      false
     ]
@@ -3713,7 +3713,7 @@
    "i": 1,
    "foeLevel": 4,
    "winner": 0,
-   "round": 6
+   "round": 3
   },
   {
    "i": 2,
@@ -3725,13 +3725,13 @@
    "i": 3,
    "foeLevel": 10,
    "winner": 0,
-   "round": 5
+   "round": 6
   },
   {
    "i": 4,
    "foeLevel": 13,
    "winner": 1,
-   "round": 5
+   "round": 7
   },
   {
    "i": 5,

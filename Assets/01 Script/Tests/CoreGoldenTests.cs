@@ -15,6 +15,11 @@ namespace PokiClash.Tests
         public static string DataDir => Path.Combine(Application.dataPath, "02 Data");
         public static string Read(string rel) => File.ReadAllText(Path.Combine(DataDir, rel));
 
+        // tướng khởi đầu hệ Thủy trước lô tướng mới 2026-11-11 (Giọt Sương, tên Thủy Long; giờ là Tí Tách). Các golden xuất với bản lưu
+        // mặc định cũ (rương, trang trại, tiềm năng, tiến độ đền) không phụ thuộc tướng khởi đầu nào: test dựng bản lưu "người chơi
+        // đã chọn Giọt Sương" bằng SaveData.New(d, 0, OldStarter) để giữ nguyên golden đó
+        public const string OldStarter = "giot_suong";
+
         static GameData cached;
 
         public static GameData Load() => cached ??= GameData.FromJson(
@@ -84,16 +89,16 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var err = d.Validate();
             Assert.IsEmpty(err, string.Join("\n", err));
-            Assert.AreEqual(78, d.Heroes.Count);
+            Assert.AreEqual(88, d.Heroes.Count);
             Assert.AreEqual(35, d.Pool.Count); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
-            Assert.AreEqual(235, d.Innate.Count); // 78 tướng × 3 + thẻ Tiến Hóa của boss
+            Assert.AreEqual(265, d.Innate.Count); // 88 tướng × 3 + thẻ Tiến Hóa của boss
             Assert.AreEqual(30, d.Minions.Count);
             Assert.AreEqual(90, d.MinionCards.Count);
             Assert.AreEqual(5, d.Zones.Count);
             Assert.AreEqual(350, d.Stages.Count); // 5 đảo, mỗi đảo 70 ải
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
-            Assert.AreEqual(5, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03)
+            Assert.AreEqual(6, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03); v6: tướng cũ đảo Thủy chuyển sang 10 tướng mới (2026-11-11)
         }
 
         [Test]

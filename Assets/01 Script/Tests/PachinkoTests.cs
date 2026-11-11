@@ -83,7 +83,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var c = J.Obj(G, "chest");
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua" }) s.Hero(id).owned = true;
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             var r = new Rng(11);

@@ -152,10 +152,10 @@ namespace PokiClash.Tests
             var used = d.Stages.SelectMany(st => st.enemies).Select(e => e.hero).Where(h => d.Hero(h).minion).Distinct().ToList();
             CollectionAssert.AreEquivalent(d.Minions.Select(m => m.id), used, "mọi lính đều có ải");
             Assert.IsFalse(d.Stages.SelectMany(st => st.drops).Any(dr => d.Hero(dr.hero).minion), "lính không rơi mảnh");
-            // ải 1 Đảo Thủy: Giọt Sương (tướng khởi đầu hệ Thủy; người chọn nó thì đấu với bóng), yếu hơn 20%
+            // ải 1 Đảo Thủy: Tí Tách (tướng khởi đầu hệ Thủy từ 2026-11-11, trước là Giọt Sương; người chọn nó thì đấu với bóng), yếu hơn 20%
             var first = d.Stage(1);
             Assert.AreEqual(StageTag.Hero, first.tag);
-            Assert.AreEqual("giot_suong", first.enemies[0].hero);
+            Assert.AreEqual("ti_tach", first.enemies[0].hero);
             Assert.AreEqual(-0.2, first.enemies[0].buff, 1e-12);
         }
     }

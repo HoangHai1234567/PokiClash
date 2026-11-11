@@ -1,0 +1,25 @@
+đợi khoá nang (0 s)...
+  lưới duoi (dải 112 cột × 16 hàng, 24 đốt): 1792 đỉnh, 3330 tam giác, góc nhỏ nhất 9.9° (TB góc nhỏ 33.4°, 18.9% dưới 25°), cạnh TB 8.2 px, hở 0 px
+  trọng số duoi: 1792 đỉnh, tối đa 3 xương/đỉnh; bám cứng 100%: 32 đỉnh (duoi23 32)
+  lưới than: 1633 đỉnh, 2994 tam giác, góc nhỏ nhất 17.4° (TB góc nhỏ 56.8°, 0.3% dưới 25°), cạnh TB 8.6 px, hở 0 px
+  trọng số than: 1633 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 63 đỉnh (bung 49, dau 14)
+  lưới long_mieng: 239 đỉnh, 410 tam giác, góc nhỏ nhất 32.0° (TB góc nhỏ 54.6°, 0.0% dưới 25°), cạnh TB 17.5 px, hở 0 px
+  lưới luoi (dải 17 cột × 6 hàng, 3 đốt): 102 đỉnh, 160 tam giác, góc nhỏ nhất 31.9° (TB góc nhỏ 43.3°, 0.0% dưới 25°), cạnh TB 9.6 px, hở 0 px
+  lưới chan_sx: 173 đỉnh, 275 tam giác, góc nhỏ nhất 32.2° (TB góc nhỏ 51.4°, 0.0% dưới 25°), cạnh TB 9.3 px, hở 0 px
+  lưới chan_tx: 131 đỉnh, 200 tam giác, góc nhỏ nhất 15.3° (TB góc nhỏ 49.5°, 2.5% dưới 25°), cạnh TB 8.6 px, hở 0 px
+  lưới chan_sn: 199 đỉnh, 322 tam giác, góc nhỏ nhất 30.7° (TB góc nhỏ 52.3°, 0.0% dưới 25°), cạnh TB 8.6 px, hở 0 px
+  lưới chan_tn: 161 đỉnh, 254 tam giác, góc nhỏ nhất 19.7° (TB góc nhỏ 51.4°, 0.4% dưới 25°), cạnh TB 8.5 px, hở 0 px
+dạng 1: dựng + nướng 1.6 s
+  so_concept: IoU khung 0 idle / concept = 0.898, trừ dải chân (y > 715): 0.927 -> D:\PokiClash\ArtGen\Spine\inbox\tm03_1\rig\so_concept.png
+D:\PokiClash\ArtGen\Spine\inbox\tm03_1\rig\tm03_1.atomik: 46 xương, 10 slot, 10 hình, 4438 đỉnh, 0 mặt nạ cắt, 7 animation, 5 sự kiện, 297 KB (JSON 652 KB, PNG 126 KB)
+  nạp lại tm03_1.atomik: bản 3, 46 xương, 10 slot, 10 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die'], 5 sự kiện, atlas 968x640, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.071 px (cast/duoi) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 1.75 px (appear@0.80s/duoi) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.43 px (bước thường 3.03)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  tm03_1: 46 xương · 10 slot · 4438 đỉnh · 7949 tam giác · 7 clip · 6481 khoá · .atomik 0.29 MB
+  dung lượng: json 613 KB + png 126 KB (atlas 968x640); .atomik 297 KB -> ĐẠT (đích 0.3 MB, trần 0.5 MB); 8.6 s

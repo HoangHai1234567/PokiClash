@@ -14,7 +14,7 @@ namespace PokiClash.Tests
 
         static SaveData Setup(GameData d)
         {
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua", "bo_de" }) s.Hero(id).owned = true;
             s.level = 9;
             s.Hero("ca_ngua").star = 3;
@@ -92,7 +92,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
-            s.Hero("tieu_y").owned = true; // ví dụ tính tay theo Tiểu Y (Thường); tướng khởi đầu giờ là Giọt Sương
+            s.Hero("tieu_y").owned = true; // ví dụ tính tay theo Tiểu Y (Thường); tướng khởi đầu mặc định giờ là Tí Tách
             s.level = 5;
             Assert.AreEqual(2.5, Farm.Rate(s, d, "tieu_y", 0), 1e-9, "Tiểu Y 1 sao ở Ao vịt (hợp hệ): 2 × 1,25 = 2,5 bi/giờ, không tăng theo cấp");
             s.level = 20;

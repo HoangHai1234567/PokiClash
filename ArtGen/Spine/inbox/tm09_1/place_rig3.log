@@ -1,0 +1,23 @@
+  IoU ghép mảnh / concept = 0.661; đất y=847, x giữa chân=790 → D:\PokiClash\ArtGen\Spine\inbox\tm09_2\rig\so_ghep.png
+  IoU ghép mảnh / concept = 0.704; đất y=910, x giữa chân=682 → D:\PokiClash\ArtGen\Spine\inbox\tm09_1\rig\so_ghep.png
+  chùy: ngọn đuôi sau curl [-339.  278.] ↔ concept [-380.  300.] (đuôi xoay tổng -90°)
+  dạng 2: cao thật 464, rộng 887 → height khai 464
+  khung ĐẦU attack lệch khung 0 idle 0.96 px (chuy)
+  so concept dạng 2: IoU mặt nạ khung 0 idle / concept = 0.661
+  nối attack_dau: khung ĐẦU attack lệch khung 0 idle 0.96 px (chuy)
+  nối so_concept: IoU mặt nạ khung 0 idle so concept 0.661
+  tm09_2: 26 xương · 17 slot · 3537 đỉnh · 6047 tam giác · 7 clip · 3357 khoá · .atomik 0.23 MB
+  dung lượng: json 394 KB + png 122 KB (atlas 680x712); .atomik 240 KB -> ĐẠT (đích 0.3 MB, trần 0.5 MB); 8.2 s
+  mật độ: 3537 đỉnh / cao 451 = 7.84 đỉnh/px
+  chùy: ngọn đuôi sau curl [-250.  148.] ↔ concept [-267.  150.] (đuôi xoay tổng -30°)
+  dạng 1: cao thật 437, rộng 737 → height khai 437
+  khung ĐẦU attack lệch khung 0 idle 0.23 px (chuy)
+  so concept dạng 1: IoU mặt nạ khung 0 idle / concept = 0.674
+  evolve: khung cuối lệch khung 0 idle dạng sau 0.00 px; slot dạng cũ còn hiện: không | khung ĐẦU evolve lệch khung 0 idle 0.23 px (chuy)
+  nối attack_dau: khung ĐẦU attack lệch khung 0 idle 0.23 px (chuy)
+  nối so_concept: IoU mặt nạ khung 0 idle so concept 0.674
+  nối evolve: khung cuối lệch khung 0 idle dạng sau 0.00 px; slot dạng cũ còn hiện: không (dạng sau co 0.942 trong rig gộp)
+  tm09_1: 50 xương · 34 slot · 7861 đỉnh · 13685 tam giác · 8 clip · 3823 khoá · .atomik 0.46 MB
+  dung lượng: json 758 KB + png 232 KB (atlas 912x912); .atomik 467 KB -> dưới trần (đích 0.3 MB, trần 0.5 MB); 10.7 s
+  mật độ: 4324 đỉnh / cao 386 = 11.19 đỉnh/px
+exit=0

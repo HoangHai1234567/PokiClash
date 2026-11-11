@@ -703,6 +703,27 @@ MonoBehaviour:
       aola: tieu_y_2
       size: 1.12
     minion: 0
+  - id: thach_giai
+    name: "Th\u1EA1ch Gi\u1EA3i"
+    title: "Cua \u1EA9n s\u0129 nh\xE0 \u0111\xE1"
+    aola: thach_giai_1
+    elem: 2
+    rarity: 0
+    stats: 500000001e00000046000000500000002300000028000000
+    skill: thach_giai_skill
+    ult: thach_giai_ult
+    passive: thach_giai_pas
+    shards: 10
+    line: "D\xF2ng Th\u1EA1ch Gi\u1EA3i"
+    size: 0.92
+    forms:
+    - name: "Th\u1EA1ch Gi\u1EA3i"
+      aola: thach_giai_1
+      size: 0.92
+    - name: "Th\u1EA1ch Th\xE0nh Gi\u1EA3i"
+      aola: thach_giai_2
+      size: 1.1
+    minion: 0
   - id: canh_cut
     name: "C\xE1nh C\u1EE5t"
     title: "\u0110\u1EA7u b\u1EBFp x\u1EE9 b\u0103ng"
@@ -722,6 +743,27 @@ MonoBehaviour:
       size: 0.92
     - name: "\u0110\u1EA7u B\u1EBFp C\xE1nh C\u1EE5t"
       aola: canh_cut_2
+      size: 1.1
+    minion: 0
+  - id: nong_xoay
+    name: "N\xF2ng Xo\xE1y"
+    title: "N\xF2ng n\u1ECDc m\u1EAFt b\xE3o"
+    aola: nong_xoay_1
+    elem: 2
+    rarity: 0
+    stats: 550000002800000032000000370000003200000014000000
+    skill: nong_xoay_skill
+    ult: nong_xoay_ult
+    passive: nong_xoay_pas
+    shards: 10
+    line: "D\xF2ng N\xF2ng Xo\xE1y"
+    size: 0.92
+    forms:
+    - name: "N\xF2ng Xo\xE1y"
+      aola: nong_xoay_1
+      size: 0.92
+    - name: "\u1EBEch L\u1ED1c"
+      aola: nong_xoay_2
       size: 1.1
     minion: 0
   - id: giot_suong
@@ -747,6 +789,27 @@ MonoBehaviour:
     - name: "Long T\u01B0\u1EDBng"
       aola: thuy_long_3
       size: 1.16
+    minion: 0
+  - id: ti_tach
+    name: "T\xED T\xE1ch"
+    title: "V\xF5 s\u0129 gi\u1ECDt m\u01B0a"
+    aola: ti_tach_1
+    elem: 2
+    rarity: 1
+    stats: 320000003200000032000000320000003200000032000000
+    skill: ti_tach_skill
+    ult: ti_tach_ult
+    passive: ti_tach_pas
+    shards: 15
+    line: "D\xF2ng T\xED T\xE1ch"
+    size: 0.92
+    forms:
+    - name: "T\xED T\xE1ch"
+      aola: ti_tach_1
+      size: 0.92
+    - name: "S\xF3ng Th\u1EA7n"
+      aola: ti_tach_2
+      size: 1.1
     minion: 0
   - id: tam_tay
     name: "T\xE1m Tay"
@@ -841,6 +904,30 @@ MonoBehaviour:
       aola: lam_quan_3
       size: 1.16
     minion: 0
+  - id: hai_long
+    name: "H\u1EA3i Long"
+    title: "R\u1ED3ng bi\u1EC3n nhi\u1EC1u \u0111\u1EA7u"
+    aola: hai_long_1
+    elem: 2
+    rarity: 3
+    stats: 480000001e000000390000004d0000003900000030000000
+    skill: hai_long_skill
+    ult: hai_long_ult
+    passive: hai_long_pas
+    shards: 30
+    line: "D\xF2ng H\u1EA3i Long"
+    size: 0.95
+    forms:
+    - name: "H\u1EA3i Long Nhi"
+      aola: hai_long_1
+      size: 0.95
+    - name: "H\u1EA3i Long Tam Th\u1EE7"
+      aola: hai_long_2
+      size: 1.1
+    - name: "H\u1EA3i Long Ng\u0169 \u0110\u1EA7u"
+      aola: hai_long_3
+      size: 1.16
+    minion: 0
   - id: huyen_vu
     name: "Huy\u1EC1n V\u0169"
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng B\u1EAFc"
@@ -865,6 +952,27 @@ MonoBehaviour:
       aola: huyen_vu_3
       size: 1.14
     minion: 0
+  - id: han_ngac
+    name: "H\xE0n Ng\u1EA1c"
+    title: "C\xE1 s\u1EA5u b\u0103ng v\u1EF1c s\xE2u"
+    aola: han_ngac_1
+    elem: 2
+    rarity: 4
+    stats: 500000003c00000028000000280000003200000028000000
+    skill: han_ngac_skill
+    ult: han_ngac_ult
+    passive: han_ngac_pas
+    shards: 50
+    line: "D\xF2ng H\xE0n Ng\u1EA1c"
+    size: 0.92
+    forms:
+    - name: "Ng\u1EA1c Nhi"
+      aola: han_ngac_1
+      size: 0.92
+    - name: "H\xE0n Ng\u1EA1c V\u01B0\u01A1ng"
+      aola: han_ngac_2
+      size: 1.1
+    minion: 0
   - id: mi_nhi
     name: Mi Nhi
     title: "Ti\xEAn c\u1EA7m s\xF3ng bi\u1EBFc"
@@ -884,6 +992,27 @@ MonoBehaviour:
       size: 0.92
     - name: Mi Nhi
       aola: mi_nhi_2
+      size: 1.1
+    minion: 0
+  - id: ha_ba
+    name: "H\xE0 B\xE1"
+    title: "H\xE0 m\xE3 nu\u1ED1t s\xF3ng"
+    aola: ha_ba_1
+    elem: 2
+    rarity: 1
+    stats: 320000005000000032000000280000002800000032000000
+    skill: ha_ba_skill
+    ult: ha_ba_ult
+    passive: ha_ba_pas
+    shards: 15
+    line: "D\xF2ng H\xE0 B\xE1"
+    size: 0.92
+    forms:
+    - name: "H\xE0 M\xE3 Con"
+      aola: ha_ba_1
+      size: 0.92
+    - name: "H\xE0 B\xE1"
+      aola: ha_ba_2
       size: 1.1
     minion: 0
   - id: ma_ket
@@ -910,6 +1039,27 @@ MonoBehaviour:
       aola: ma_ket_3
       size: 1.14
     minion: 0
+  - id: so_ngoc
+    name: "S\xF2 Ng\u1ECDc"
+    title: "Ph\xE1o \u0111\xE0i ng\u1ECDc trai"
+    aola: so_ngoc_1
+    elem: 2
+    rarity: 2
+    stats: 320000005000000028000000280000003200000032000000
+    skill: so_ngoc_skill
+    ult: so_ngoc_ult
+    passive: so_ngoc_pas
+    shards: 20
+    line: "D\xF2ng S\xF2 Ng\u1ECDc"
+    size: 0.92
+    forms:
+    - name: "S\xF2 Gai"
+      aola: so_ngoc_1
+      size: 0.92
+    - name: "B\u1EA1ng V\u01B0\u01A1ng"
+      aola: so_ngoc_2
+      size: 1.1
+    minion: 0
   - id: vay_lam
     name: "V\xE2y Lam"
     title: "C\xE1 m\u1EADp r\u1EBD s\xF3ng"
@@ -933,6 +1083,27 @@ MonoBehaviour:
     - name: "C\xE1 M\u1EADp V\xE2y Lam"
       aola: vay_lam_3
       size: 1.14
+    minion: 0
+  - id: giong_bao
+    name: "Gi\xF4ng B\xE3o"
+    title: "K\u1EF3 gi\xF4ng g\u1ECDi m\u01B0a"
+    aola: giong_bao_1
+    elem: 2
+    rarity: 2
+    stats: 280000003c00000046000000280000004600000028000000
+    skill: giong_bao_skill
+    ult: giong_bao_ult
+    passive: giong_bao_pas
+    shards: 20
+    line: "D\xF2ng Gi\xF4ng B\xE3o"
+    size: 0.92
+    forms:
+    - name: "Gi\xF4ng M\u01B0a"
+      aola: giong_bao_1
+      size: 0.92
+    - name: "Gi\xF4ng B\xE3o"
+      aola: giong_bao_2
+      size: 1.1
     minion: 0
   - id: thuong_lam
     name: "Th\u01B0\u01A1ng Lam"
@@ -958,6 +1129,27 @@ MonoBehaviour:
       aola: thuong_lam_3
       size: 1.14
     minion: 0
+  - id: uyen_xa
+    name: "Uy\xEAn X\xE0"
+    title: "R\u1EAFn \u0111\xE8n v\u1EF1c s\xE2u"
+    aola: uyen_xa_1
+    elem: 2
+    rarity: 3
+    stats: 500000003c0000003c0000003c0000003c00000014000000
+    skill: uyen_xa_skill
+    ult: uyen_xa_ult
+    passive: uyen_xa_pas
+    shards: 30
+    line: "D\xF2ng Uy\xEAn X\xE0"
+    size: 0.92
+    forms:
+    - name: "Uy\xEAn Nhi"
+      aola: uyen_xa_1
+      size: 0.92
+    - name: "Uy\xEAn X\xE0"
+      aola: uyen_xa_2
+      size: 1.1
+    minion: 0
   - id: kuba
     name: Kuba
     title: "Mai c\u1EE9ng kim c\u01B0\u01A1ng"
@@ -981,6 +1173,27 @@ MonoBehaviour:
     - name: "Kuba Kim C\u01B0\u01A1ng"
       aola: kuba_3
       size: 1.14
+    minion: 0
+  - id: lien_kinh
+    name: "Li\xEAn K\xECnh"
+    title: "K\xECnh ng\u01B0 c\xF5ng sen thi\xEAng"
+    aola: lien_kinh_1
+    elem: 2
+    rarity: 3
+    stats: 320000004600000032000000280000003200000028000000
+    skill: lien_kinh_skill
+    ult: lien_kinh_ult
+    passive: lien_kinh_pas
+    shards: 30
+    line: "D\xF2ng Li\xEAn K\xECnh"
+    size: 0.92
+    forms:
+    - name: "K\xECnh N\u1EE5"
+      aola: lien_kinh_1
+      size: 0.92
+    - name: "Li\xEAn K\xECnh"
+      aola: lien_kinh_2
+      size: 1.1
     minion: 0
   - id: heo_lua
     name: "Heo L\u1EEDa"
@@ -2253,7 +2466,7 @@ MonoBehaviour:
       size: 0.86
     minion: 1
   starters:
-  - giot_suong
+  - ti_tach
   - su_tu_lua
   - bu_long
   - nu_hoa

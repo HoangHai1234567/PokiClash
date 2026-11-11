@@ -57,8 +57,24 @@ namespace PokiClash
             public SketchButton hackStar;
         }
 
-        // nút thứ 5 "Mana" (menu "PokiClash/Prefab/Hộp chi tiết tướng: hạt lửa + nút Mana"): clip bắn + chiêu mana bằng hạt
-        static readonly string[] ClipIds = { HeroViewer.Idle, HeroViewer.Attack, HeroViewer.Skill, HeroViewer.Hit, HeroViewer.Cast };
+        // nút thứ 5 "Mana" (menu "PokiClash/Prefab/Hộp chi tiết tướng: hạt lửa + nút Mana"): clip bắn + chiêu mana bằng hạt;
+        // nút 6, 7 "Ra sân", "Chết" (menu "PokiClash/Prefab/Hộp chi tiết tướng: nút Ra sân + Chết"): chỉ hiện khi dạng có clip đó
+        static readonly string[] ClipIds =
+        {
+            HeroViewer.Idle, HeroViewer.Attack, HeroViewer.Skill, HeroViewer.Hit, HeroViewer.Cast, HeroViewer.Appear, HeroViewer.Die,
+        };
+        const int FirstOptional = 5; // từ nút này trở đi: ẩn nếu dạng không có clip
+
+        void Update()
+        {
+            if (p.clips == null || !p.viewer) return;
+            for (int i = FirstOptional; i < p.clips.Length && i < ClipIds.Length; i++)
+            {
+                var b = p.clips[i];
+                bool has = p.viewer.Has(ClipIds[i]);
+                if (b && b.gameObject.activeSelf != has) b.gameObject.SetActive(has);
+            }
+        }
         const float CardH = 292, SlotH = 84; // thẻ mini và chỗ nút/thanh dưới thẻ
 
         [SerializeField] Parts p;

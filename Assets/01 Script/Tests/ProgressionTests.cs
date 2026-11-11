@@ -53,7 +53,7 @@ namespace PokiClash.Tests
         public void TheRoiTuRuong_KhopBanWeb()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             foreach (var id in new[] { "vo_su", "ca_ngua", "phap_luan", "ca_sa" }) s.Hero(id).owned = true;
             var r = new Rng(77);
             var want = J.Arr(G, "drops");
@@ -78,11 +78,11 @@ namespace PokiClash.Tests
         public void TheRoi_LuiDoHiem_KhongCoThiNull()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0); // chỉ có Giọt Sương: bộ thẻ tạm chép của Tiểu Y là thường/khá/hiếm...
+            var s = SaveData.New(d, 0); // chỉ có Tí Tách (tướng khởi đầu mặc định từ 2026-11-11): thẻ thường/khá...
             var drop = Progress.RollCardDrop(s, d, Rarity.Legend, new Rng(1));
             Assert.IsNotNull(drop);
-            Assert.AreEqual("giot_suong", drop.hero);
-            s.Hero("giot_suong").owned = false;
+            Assert.AreEqual("ti_tach", drop.hero);
+            s.Hero("ti_tach").owned = false;
             Assert.IsNull(Progress.RollCardDrop(s, d, Rarity.Epic, new Rng(1)), "không có tướng nào: null (đổi thành EXP)");
         }
 
@@ -143,21 +143,21 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var cfg = d.Cfg;
             var s = SaveData.New(d, 0);
-            var p = s.Hero("giot_suong");
+            var p = s.Hero("ti_tach"); // tướng khởi đầu mặc định
             // sao 2: tổng cấp thẻ 5, cấp người chơi 7
             p.skill.lv = 3;
             s.level = 6;
-            Assert.IsFalse(Progress.CanEvolve(s, cfg, "giot_suong"), "thiếu cấp người chơi");
+            Assert.IsFalse(Progress.CanEvolve(s, cfg, "ti_tach"), "thiếu cấp người chơi");
             s.level = 7;
-            Assert.IsTrue(Progress.Evolve(s, cfg, "giot_suong"));
+            Assert.IsTrue(Progress.Evolve(s, cfg, "ti_tach"));
             Assert.AreEqual(2, p.star);
             // sao 3: tổng 8, cấp 23 — đủ thẻ mà thiếu cấp
             p.ult.lv = 4;
             s.level = 22;
             var need = Progress.StarNeed(cfg, 3);
             Assert.AreEqual((8, 23), need);
-            Assert.AreEqual(8, Progress.CardSum(s, "giot_suong"));
-            Assert.IsFalse(Progress.CanEvolve(s, cfg, "giot_suong"));
+            Assert.AreEqual(8, Progress.CardSum(s, "ti_tach"));
+            Assert.IsFalse(Progress.CanEvolve(s, cfg, "ti_tach"));
             Assert.AreEqual(0, Progress.HeroAlerts(s, d));
             s.level = 23;
             Assert.AreEqual(1, Progress.HeroAlerts(s, d), "một việc chờ: tiến hóa");

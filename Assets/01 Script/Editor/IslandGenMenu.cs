@@ -45,7 +45,8 @@ namespace PokiClash.EditorTools
         }
 
         // Golden phụ thuộc danh sách tướng (thêm, bớt tướng hay đổi độ hiếm, chỉ số): progression.json "stats", "shards", "shardEnd"
-        // (như ProgressionTests), badges.json "stages" (đội địch đền huy hiệu, BadgeTests), potential.json "caveStages" (PotentialTests).
+        // (như ProgressionTests), badges.json "stages" (đội địch đền huy hiệu, BadgeTests) và "fights" (5 trận thật, từ 2026-11-11),
+        // potential.json "caveStages" (PotentialTests).
         // Giữ danh sách ô cần so của golden cũ, chỉ tính lại số; các mục khác giữ nguyên.
         [MenuItem("PokiClash/Thử/Tính lại golden theo danh sách tướng (progression, badges, potential)", priority = 302)]
         static void HeroGoldens()
@@ -99,6 +100,32 @@ namespace PokiClash.EditorTools
                 o["seed"] = (double)Badges.Seed(d, z, tier, i);
                 o["kind"] = st.kind == StageKind.Boss ? "boss" : "mini";
                 o["enemies"] = st.enemies.Select(e => (object)new List<object> { e.hero, (double)e.level, e.boss }).ToList();
+            }
+            // 5 trận đánh thật bậc Đồng hệ Thủy, đúng như BadgeTests.ChiSoCoHuyHieu_VaTranThat_KhopBanWeb (bản lưu StatSave, cấp 9, đội có
+            // tướng khởi đầu, địch ở cấp foeLevel như TestData.AtLevel): bên thắng, số hiệp. Đối thủ đền chọn theo danh sách tướng cùng hệ
+            // nên thêm tướng Thủy là đổi (lô 10 tướng mới 2026-11-11)
+            var fs = SaveData.New(d, 0);
+            foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua", "phap_luan" }) fs.Hero(id).owned = true;
+            fs.badges[(int)Elem.Thuy].tier = 2;
+            fs.badges[(int)Elem.Hoa].tier = 5;
+            fs.level = 9;
+            fs.team = new List<string> { "ti_tach", "ca_ngua", "phap_luan" };
+            foreach (var x in J.Arr(bg, "fights"))
+            {
+                var o = J.Obj(x);
+                int i = J.Int(o, "i"), foeLv = J.Int(o, "foeLevel");
+                var src = Badges.Stage(d, Elem.Thuy, 1, i);
+                var stage = new StageDef
+                {
+                    id = src.id, zone = src.zone, idx = src.idx, name = src.name, kind = src.kind, tag = src.tag, chapter = src.chapter, drops = src.drops,
+                };
+                foreach (var e in src.enemies) stage.enemies.Add(new StageEnemy { hero = e.hero, level = foeLv, boss = e.boss, evo = e.evo, buff = e.buff });
+                var team = Teams.Player(fs, null, d);
+                team.ai = true;
+                var b = Battle.Create(d, team, Teams.Enemy(stage, d), Badges.Seed(d, Elem.Thuy, 1, i), 9, System.Math.Max(9, stage.enemies[0].level));
+                BattleSim.Run(b);
+                o["winner"] = (double)b.winner;
+                o["round"] = (double)b.round;
             }
             File.WriteAllText(Data("Golden/badges.json"), IslandGen.Write(bg) + "\n");
 

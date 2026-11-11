@@ -42,7 +42,8 @@ namespace PokiClash
 
         static string ClipName(string c) =>
             c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Cast ? AolaActor.Cast :
-            c == StageView.Hit ? AolaActor.Hit : c == AolaActor.Evolve ? AolaActor.Evolve : AolaActor.Idle;
+            c == StageView.Hit ? AolaActor.Hit : c == AolaActor.Evolve ? AolaActor.Evolve :
+            c == AolaActor.Appear || c == AolaActor.Die ? c : AolaActor.Idle;
 
         // dạng có clip này không (clip tiến hóa: chỉ dạng .atomik có, HeroViewer phát trước khi đổi dạng)
         public bool HasClip(string clip) => actor.HasClip(ClipName(clip));
@@ -132,6 +133,9 @@ namespace PokiClash
 
         public float HitTime(string clip) =>
             clip == StageView.Cast && !HasCast ? CastLen * 0.5f : actor.HitFrame(ClipName(clip)) / actor.Fps;
+
+        // clip tự diễn đoạn giữ chiêu: không ghìm giờ clip ở khung nhả (AolaActor.SelfHold)
+        public bool SelfHold(string clip) => actor.SelfHold(ClipName(clip));
 
         // Chiêu bắn tia (AolaActor.Beam): chỗ bắn so với chân (đơn vị sân, y xuống, đã lật theo phía) và cỡ tia; không khai: false
         public bool Beam(out Vector2 muzzle, out float scale)

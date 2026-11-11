@@ -31,7 +31,7 @@ namespace PokiClash.Tests
             }
             Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(SaveCodec.Write(s), d, out var none));
             Assert.IsNull(none.starter, "chưa chọn thì đọc lại vẫn chưa chọn");
-            Assert.AreEqual("giot_suong", SaveData.New(d, 0).starter, "mặc định cho test và máy tự chơi: tướng đầu danh sách");
+            Assert.AreEqual("ti_tach", SaveData.New(d, 0).starter, "mặc định cho test và máy tự chơi: tướng đầu danh sách (Tí Tách từ 2026-11-11)");
         }
 
         [Test]
@@ -45,7 +45,8 @@ namespace PokiClash.Tests
             {
                 var h = d.Hero(id);
                 Assert.AreEqual(Rarity.Uncommon, h.rarity, id + " cùng độ hiếm Khá");
-                Assert.AreEqual(3, h.forms.Length, id + " dòng 3 dạng");
+                // dòng 3 dạng; Tí Tách (tướng khởi đầu hệ Thủy từ 2026-11-11) dòng 2 dạng
+                Assert.AreEqual(id == "ti_tach" ? 2 : 3, h.forms.Length, id + " số dạng");
                 var at = d.StarterStage(id);
                 Assert.IsNotNull(at, id);
                 // đảo Mộc nhường ải 1 cho Tiên Lá, đảo Kim cho Bọ Cạp Đồng (10 tướng người dùng chọn 2026-11-05): Nụ Hoa, Bu Lông
@@ -78,8 +79,10 @@ namespace PokiClash.Tests
             old.Hero("giot_suong").owned = old.Hero("vo_su").owned = true;
             old.team = new List<string> { "vo_su", "giot_suong" };
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(V4(old), d, out var a));
-            Assert.AreEqual("giot_suong", a.starter);
-            CollectionAssert.AreEqual(new[] { "vo_su", "giot_suong" }, a.team, "đội giữ nguyên");
+            // v4 -> v5 chọn Giọt Sương, rồi v5 -> v6 chuyển Giọt Sương sang Tí Tách (tướng mới cùng suất ải 1)
+            Assert.AreEqual("ti_tach", a.starter);
+            CollectionAssert.AreEqual(new[] { "vo_su", "ti_tach" }, a.team, "đội giữ thứ tự, Giọt Sương đổi thành Tí Tách");
+            Assert.IsTrue(a.Hero("ti_tach").owned);
 
             var noGs = SaveData.New(d, 0, null);
             noGs.Hero("vo_su").owned = true;

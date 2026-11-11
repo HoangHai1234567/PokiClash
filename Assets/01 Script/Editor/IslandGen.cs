@@ -128,25 +128,29 @@ namespace PokiClash.EditorTools
         // mảnh rơi ở ải xen giữa theo độ hiếm (cửa ải ×1,5)
         static readonly double[] ShardChance = { 0.3, 0.25, 0.2, 0.15, 0.1 };
 
-        // Đảo Thủy (đảo 70 ải đầu tiên, 2026-11-02/03; tướng các mốc ở GD_Claude/14). Ải 1 là bóng tướng khởi đầu của người chơi (Giọt
-        // Sương, thu phục được); ải 3 tặng Võ Sư (chọn Thạch Nhân làm tướng khởi đầu thì tặng Mèo Quyền Sắt), ải 25 tặng Mầm Gỗ.
+        // Đảo Thủy (đảo 70 ải đầu tiên, 2026-11-02/03; tướng các mốc ở GD_Claude/14). Ải 1 là bóng tướng khởi đầu của người chơi (Tí
+        // Tách, thu phục được); ải 3 tặng Võ Sư (chọn Thạch Nhân làm tướng khởi đầu thì tặng Mèo Quyền Sắt), ải 25 tặng Mầm Gỗ.
+        // Lô 10 tướng mới (2026-11-11, ArtGen/Spine/quai/DAC_TA_LO_THUY.md): 10 suất đổi sang tướng mới, chỉ số, thẻ, bị động boss chép
+        // từ tướng cũ cùng suất (ArtGen/Spine/quai/tuong_moi_thuy.py); tên ải, lính, cường hóa giữ nguyên. Tướng cũ: Giọt Sương (Thủy
+        // Long), Tiểu Y, Cánh Cụt, Mi Nhi, Ma Kết, Vây Lam, Kuba, Thương Lam, Huyền Vũ, Lam Quân (vẫn trong danh sách tướng).
         public static Plan Thuy => new Plan
         {
             zone = Elem.Thuy,
             intros = new[]
             {
-                // 5 mốc cuối (2026-11-05): con có bị động boss giữ hoặc giảm chỉ số, con không có +10%; đội Thổ Khá khắc hệ, bằng cấp,
-                // 300 trận: Vây Lam 52%, Kuba 57%, Thương Lam 63%, Huyền Vũ 62%, Lam Quân 61%
-                new Intro(1, "giot_suong", "Bãi Vỏ Sò"),
-                new Intro(5, "tieu_y", "Vũng San Hô"),
-                new Intro(10, "canh_cut", "Cầu Gỗ Rêu"),
-                new Intro(15, "mi_nhi", "Làng Vỏ Ốc"),
-                new Intro(20, "ma_ket", "Ngọn Hải Đăng"),
-                new Intro(30, "vay_lam", "Thác Bạc", null, 0.1),
-                new Intro(40, "kuba", "Rạn Ngọc Trai", "kuba_boss", -0.05),
-                new Intro(50, "thuong_lam", "Hồ Gương", null, 0.1),
-                new Intro(60, "huyen_vu", "Đền Rùa Cổ", "huyen_vu_boss", 0),
-                new Intro(70, "lam_quan", "Xoáy Nước Đinh Ba", "lam_quan_boss", -0.15),
+                // 5 mốc cuối (2026-11-05, đo với tướng cũ cùng chỉ số): con có bị động boss giữ hoặc giảm chỉ số, con không có +10%; đội
+                // Thổ Khá khắc hệ, bằng cấp, 300 trận: Vây Lam 52%, Kuba 57%, Thương Lam 63%, Huyền Vũ 62%, Lam Quân 61%. Tướng mới ở ải
+                // 20–60 chỉ có 2 dạng (tướng cũ 3 dạng): boss tiến hóa một lần thay vì hai, tỉ lệ thắng cần đo lại
+                new Intro(1, "ti_tach", "Bãi Vỏ Sò"),
+                new Intro(5, "thach_giai", "Vũng San Hô"),
+                new Intro(10, "nong_xoay", "Cầu Gỗ Rêu"),
+                new Intro(15, "ha_ba", "Làng Vỏ Ốc"),
+                new Intro(20, "so_ngoc", "Ngọn Hải Đăng"),
+                new Intro(30, "giong_bao", "Thác Bạc", null, 0.1),
+                new Intro(40, "lien_kinh", "Rạn Ngọc Trai", "lien_kinh_boss", -0.05),
+                new Intro(50, "uyen_xa", "Hồ Gương", null, 0.1),
+                new Intro(60, "han_ngac", "Đền Rùa Cổ", "han_ngac_boss", 0),
+                new Intro(70, "hai_long", "Xoáy Nước Đinh Ba", "hai_long_boss", -0.15),
             },
             levelMax = 195,
             minions = new[] { new[] { "linh_cua", "linh_cua2" }, new[] { "linh_noc", "linh_noc2" }, new[] { "linh_ngu", "linh_ngu2" } },

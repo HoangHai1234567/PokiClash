@@ -29,7 +29,7 @@ namespace PokiClash.Tests
         public void KhaiPha60Lan_KhoaO_GiuMoiGiuCu_KhopBanWeb()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             s.Hero("giot_suong").star = 4;
             s.Hero("vo_su").owned = true;
             s.Hero("vo_su").star = 2;
@@ -97,7 +97,7 @@ namespace PokiClash.Tests
 
         static SaveData FightSave(GameData d)
         {
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             s.level = 6;
             s.Hero("vo_su").owned = true;
             s.team = new List<string> { "giot_suong", "vo_su" };
@@ -178,7 +178,7 @@ namespace PokiClash.Tests
         public void TiLeDoHiem_100000LanQuay_GiaCoKhoa_LuuDocLai()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             s.Hero("giot_suong").star = 4;
             s.potentialStones = 1_000_000;
             var rng = new Rng(7);

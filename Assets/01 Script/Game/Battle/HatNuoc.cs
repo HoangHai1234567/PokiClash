@@ -43,6 +43,27 @@ namespace PokiClash
             // lân chuông: sao vàng
             { "lam_quan", new WTheme { w = WPal(C(34, 96, 196), C(70, 146, 232), C(150, 204, 248)), fx = new Theme { extra = "sao", extraCol = C(255, 224, 110) } } },
             { "giot_suong", new WTheme { w = WPal(C(20, 120, 150), C(50, 176, 200), C(150, 226, 234)) } },
+            // lô 10 tướng mới đảo Thủy (2026-11-11), màu theo bảng màu từng dòng (ArtGen/Spine/inbox/tm0*_ghichu.md); mực và bọt chung
+            // giọt mưa võ sĩ: lam đại dương #1F5DB5, lam ngọc sáng #35BFE6, bọt nhạt
+            { "ti_tach", new WTheme { w = WPal(C(31, 93, 181), C(53, 191, 230), C(158, 223, 243)) } },
+            // cua ẩn sĩ nhà đá: giáp chàm #3D5486, vỏ lam xám #6A8BBB, lam bọt #BFE6E2; mảnh đá bazan văng
+            { "thach_giai", new WTheme { w = WPal(C(61, 84, 134), C(106, 139, 187), C(191, 230, 226)), fx = new Theme { extra = "giap", extraCol = C(75, 81, 96) } } },
+            // nòng nọc / ếch xoáy: cô-ban #2457C5, cerulean #3FA9E0, vây nhạt #9FE1F0
+            { "nong_xoay", new WTheme { w = WPal(C(36, 87, 197), C(63, 169, 224), C(159, 225, 240)) } },
+            // hà mã: hồn nước ba lam #2B7FD6, #4FB6EE, #A6DEF8
+            { "ha_ba", new WTheme { w = WPal(C(43, 127, 214), C(79, 182, 238), C(166, 222, 248)) } },
+            // sò ngọc: mòng két #1F9AA8, ngọc lam #36C2B4, ngọc lam nhạt #7ED8CB; gai san hô cam văng
+            { "so_ngoc", new WTheme { w = WPal(C(31, 154, 168), C(54, 194, 180), C(126, 216, 203)), fx = new Theme { extra = "tinh_the", extraCol = C(240, 127, 85) } } },
+            // kỳ giông mưa bão: chàm bão #34477E, xanh đá mưa #6E88BC, lam nhạt #9CC0E8; mây giông xám bay lên
+            { "giong_bao", new WTheme { w = WPal(C(52, 71, 126), C(110, 136, 188), C(156, 192, 232)), fx = new Theme { extra = "may", extraCol = C(214, 222, 238) } } },
+            // cá voi sen: nước đệm sóng #1E68BE, #3A96E2, #8CD0F6; cánh sen đỏ thắm
+            { "lien_kinh", new WTheme { w = WPal(C(30, 104, 190), C(58, 150, 226), C(140, 208, 246)), fx = new Theme { extra = "canh_sen", extraCol = C(217, 68, 58) } } },
+            // rắn vực sâu: chàm vực #2E2F6E, chàm xám #5058A8, bạc hà #8FE3D0; chấm đèn bạc hà
+            { "uyen_xa", new WTheme { w = WPal(C(46, 47, 110), C(80, 88, 168), C(143, 227, 208)), fx = new Theme { extra = "sao", extraCol = C(201, 247, 234) } } },
+            // cá sấu băng: petrol sẫm #1F5566, petrol #3C8396, cạnh băng #9DBAC6; mảnh băng đục
+            { "han_ngac", new WTheme { w = WPal(C(31, 85, 102), C(60, 131, 150), C(157, 186, 198)), fx = new Theme { extra = "tinh_the", extraCol = C(230, 241, 244) } } },
+            // rồng biển nhiều đầu: ngọc bích sẫm, ngọc bích #2FA79B, bạc hà #A6E6D8; sao vàng như gạc
+            { "hai_long", new WTheme { w = WPal(C(31, 127, 120), C(47, 167, 155), C(166, 230, 216)), fx = new Theme { extra = "sao", extraCol = C(233, 184, 74) } } },
         };
 
         WTheme wth = WDefault;

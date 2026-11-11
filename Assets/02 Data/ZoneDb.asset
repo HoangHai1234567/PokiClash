@@ -1958,14 +1958,14 @@ MonoBehaviour:
     tag: 1
     chapter: 0
     enemies:
-    - hero: giot_suong
+    - hero: ti_tach
       level: 1
       boss: 0
       evo: 0
       buff: -0.2
       trait: 
     drops:
-    - hero: giot_suong
+    - hero: ti_tach
       chance: 1
       min: 2
       max: 4
@@ -2038,14 +2038,14 @@ MonoBehaviour:
     tag: 1
     chapter: 1
     enemies:
-    - hero: tieu_y
+    - hero: thach_giai
       level: 18
       boss: 0
       evo: 1
       buff: 0.15
       trait: 
     drops:
-    - hero: tieu_y
+    - hero: thach_giai
       chance: 1
       min: 2
       max: 4
@@ -2081,14 +2081,14 @@ MonoBehaviour:
     tag: 3
     chapter: 1
     enemies:
-    - hero: tieu_y
+    - hero: thach_giai
       level: 25
       boss: 0
       evo: 0
       buff: 0.12
       trait: 
     drops:
-    - hero: tieu_y
+    - hero: thach_giai
       chance: 0.3
       min: 1
       max: 2
@@ -2103,7 +2103,7 @@ MonoBehaviour:
     tag: 4
     chapter: 1
     enemies:
-    - hero: tieu_y
+    - hero: thach_giai
       level: 29
       boss: 0
       evo: 0
@@ -2116,7 +2116,7 @@ MonoBehaviour:
       buff: 0.15
       trait: 
     drops:
-    - hero: tieu_y
+    - hero: thach_giai
       chance: 0.3
       min: 1
       max: 2
@@ -2131,7 +2131,7 @@ MonoBehaviour:
     tag: 7
     chapter: 1
     enemies:
-    - hero: tieu_y
+    - hero: thach_giai
       level: 32
       boss: 0
       evo: 0
@@ -2144,7 +2144,7 @@ MonoBehaviour:
       buff: 0.2
       trait: 
     drops:
-    - hero: tieu_y
+    - hero: thach_giai
       chance: 0.44999999999999996
       min: 1
       max: 2
@@ -2159,14 +2159,14 @@ MonoBehaviour:
     tag: 1
     chapter: 2
     enemies:
-    - hero: canh_cut
+    - hero: nong_xoay
       level: 35
       boss: 0
       evo: 1
       buff: 0.15
       trait: 
     drops:
-    - hero: canh_cut
+    - hero: nong_xoay
       chance: 1
       min: 2
       max: 4
@@ -2202,14 +2202,14 @@ MonoBehaviour:
     tag: 3
     chapter: 2
     enemies:
-    - hero: canh_cut
+    - hero: nong_xoay
       level: 42
       boss: 0
       evo: 0
       buff: 0.12
       trait: 
     drops:
-    - hero: canh_cut
+    - hero: nong_xoay
       chance: 0.3
       min: 1
       max: 2
@@ -2224,7 +2224,7 @@ MonoBehaviour:
     tag: 4
     chapter: 2
     enemies:
-    - hero: tieu_y
+    - hero: thach_giai
       level: 45
       boss: 0
       evo: 0
@@ -2237,7 +2237,7 @@ MonoBehaviour:
       buff: 0.15
       trait: 
     drops:
-    - hero: tieu_y
+    - hero: thach_giai
       chance: 0.3
       min: 1
       max: 2
@@ -2252,7 +2252,7 @@ MonoBehaviour:
     tag: 7
     chapter: 2
     enemies:
-    - hero: canh_cut
+    - hero: nong_xoay
       level: 48
       boss: 0
       evo: 0
@@ -2265,7 +2265,7 @@ MonoBehaviour:
       buff: 0.2
       trait: 
     drops:
-    - hero: canh_cut
+    - hero: nong_xoay
       chance: 0.44999999999999996
       min: 1
       max: 2
@@ -2280,14 +2280,14 @@ MonoBehaviour:
     tag: 1
     chapter: 3
     enemies:
-    - hero: mi_nhi
+    - hero: ha_ba
       level: 51
       boss: 0
       evo: 1
       buff: 0.15
       trait: 
     drops:
-    - hero: mi_nhi
+    - hero: ha_ba
       chance: 1
       min: 2
       max: 4
@@ -2323,14 +2323,14 @@ MonoBehaviour:
     tag: 3
     chapter: 3
     enemies:
-    - hero: mi_nhi
+    - hero: ha_ba
       level: 57
       boss: 0
       evo: 0
       buff: 0.12
       trait: 
     drops:
-    - hero: mi_nhi
+    - hero: ha_ba
       chance: 0.25
       min: 1
       max: 2
@@ -2345,7 +2345,7 @@ MonoBehaviour:
     tag: 4
     chapter: 3
     enemies:
-    - hero: canh_cut
+    - hero: nong_xoay
       level: 60
       boss: 0
       evo: 0
@@ -2358,7 +2358,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: canh_cut
+    - hero: nong_xoay
       chance: 0.3
       min: 1
       max: 2
@@ -2373,7 +2373,7 @@ MonoBehaviour:
     tag: 7
     chapter: 3
     enemies:
-    - hero: mi_nhi
+    - hero: ha_ba
       level: 63
       boss: 0
       evo: 0
@@ -2386,7 +2386,7 @@ MonoBehaviour:
       buff: 0.65
       trait: 
     drops:
-    - hero: mi_nhi
+    - hero: ha_ba
       chance: 0.375
       min: 1
       max: 2
@@ -2401,14 +2401,14 @@ MonoBehaviour:
     tag: 1
     chapter: 4
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 66
       boss: 1
       evo: 1
       buff: 0.4
       trait: 
     drops:
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 1
       min: 3
       max: 5
@@ -2444,14 +2444,14 @@ MonoBehaviour:
     tag: 3
     chapter: 4
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 72
       boss: 0
       evo: 0
       buff: 0.72
       trait: 
     drops:
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.2
       min: 1
       max: 2
@@ -2466,7 +2466,7 @@ MonoBehaviour:
     tag: 4
     chapter: 4
     enemies:
-    - hero: mi_nhi
+    - hero: ha_ba
       level: 74
       boss: 0
       evo: 0
@@ -2479,7 +2479,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: mi_nhi
+    - hero: ha_ba
       chance: 0.25
       min: 1
       max: 2
@@ -2521,13 +2521,13 @@ MonoBehaviour:
     tag: 5
     chapter: 4
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 80
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
-    - hero: canh_cut
+    - hero: nong_xoay
       level: 80
       boss: 0
       evo: 0
@@ -2541,14 +2541,14 @@ MonoBehaviour:
       gift: 1
       altFor: 
       altHero: 
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.2
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: canh_cut
+    - hero: nong_xoay
       chance: 0.3
       min: 1
       max: 2
@@ -2563,14 +2563,14 @@ MonoBehaviour:
     tag: 3
     chapter: 4
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 83
       boss: 0
       evo: 0
       buff: 0.85
       trait: 
     drops:
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.2
       min: 1
       max: 2
@@ -2606,7 +2606,7 @@ MonoBehaviour:
     tag: 4
     chapter: 4
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 88
       boss: 0
       evo: 0
@@ -2625,7 +2625,7 @@ MonoBehaviour:
       buff: 0.25
       trait: 
     drops:
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.2
       min: 1
       max: 2
@@ -2640,27 +2640,27 @@ MonoBehaviour:
     tag: 7
     chapter: 4
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 91
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
-    - hero: mi_nhi
+    - hero: ha_ba
       level: 91
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
     drops:
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.30000000000000004
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: mi_nhi
+    - hero: ha_ba
       chance: 0.375
       min: 1
       max: 2
@@ -2675,14 +2675,14 @@ MonoBehaviour:
     tag: 1
     chapter: 5
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 94
       boss: 1
       evo: 1
       buff: 0.5
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 1
       min: 3
       max: 5
@@ -2718,14 +2718,14 @@ MonoBehaviour:
     tag: 3
     chapter: 5
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 99
       boss: 0
       evo: 0
       buff: 0.72
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.2
       min: 1
       max: 2
@@ -2740,7 +2740,7 @@ MonoBehaviour:
     tag: 4
     chapter: 5
     enemies:
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 102
       boss: 0
       evo: 0
@@ -2753,7 +2753,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.2
       min: 1
       max: 2
@@ -2795,27 +2795,27 @@ MonoBehaviour:
     tag: 5
     chapter: 5
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 107
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
-    - hero: mi_nhi
+    - hero: ha_ba
       level: 107
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.2
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: mi_nhi
+    - hero: ha_ba
       chance: 0.25
       min: 1
       max: 2
@@ -2830,14 +2830,14 @@ MonoBehaviour:
     tag: 3
     chapter: 5
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 110
       boss: 0
       evo: 0
       buff: 0.85
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.2
       min: 1
       max: 2
@@ -2873,7 +2873,7 @@ MonoBehaviour:
     tag: 4
     chapter: 5
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 115
       boss: 0
       evo: 0
@@ -2892,7 +2892,7 @@ MonoBehaviour:
       buff: 0.25
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.2
       min: 1
       max: 2
@@ -2907,27 +2907,27 @@ MonoBehaviour:
     tag: 7
     chapter: 5
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 118
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 118
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.30000000000000004
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.30000000000000004
       min: 1
       max: 2
@@ -2942,14 +2942,14 @@ MonoBehaviour:
     tag: 1
     chapter: 6
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 120
       boss: 1
       evo: 1
       buff: 0.35
-      trait: kuba_boss
+      trait: lien_kinh_boss
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 1
       min: 3
       max: 5
@@ -2985,14 +2985,14 @@ MonoBehaviour:
     tag: 3
     chapter: 6
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 126
       boss: 0
       evo: 0
       buff: 0.72
       trait: 
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.15
       min: 1
       max: 2
@@ -3007,7 +3007,7 @@ MonoBehaviour:
     tag: 4
     chapter: 6
     enemies:
-    - hero: vay_lam
+    - hero: giong_bao
       level: 128
       boss: 0
       evo: 0
@@ -3020,7 +3020,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.2
       min: 1
       max: 2
@@ -3062,27 +3062,27 @@ MonoBehaviour:
     tag: 5
     chapter: 6
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 133
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
-    - hero: ma_ket
+    - hero: so_ngoc
       level: 133
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.15
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: ma_ket
+    - hero: so_ngoc
       chance: 0.2
       min: 1
       max: 2
@@ -3097,14 +3097,14 @@ MonoBehaviour:
     tag: 3
     chapter: 6
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 136
       boss: 0
       evo: 0
       buff: 0.85
       trait: 
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.15
       min: 1
       max: 2
@@ -3140,7 +3140,7 @@ MonoBehaviour:
     tag: 4
     chapter: 6
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 141
       boss: 0
       evo: 0
@@ -3159,7 +3159,7 @@ MonoBehaviour:
       buff: 0.25
       trait: 
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.15
       min: 1
       max: 2
@@ -3174,27 +3174,27 @@ MonoBehaviour:
     tag: 7
     chapter: 6
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 144
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
-    - hero: vay_lam
+    - hero: giong_bao
       level: 144
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.22499999999999998
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.30000000000000004
       min: 1
       max: 2
@@ -3209,14 +3209,14 @@ MonoBehaviour:
     tag: 1
     chapter: 7
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 146
       boss: 1
       evo: 1
       buff: 0.5
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 1
       min: 3
       max: 5
@@ -3252,14 +3252,14 @@ MonoBehaviour:
     tag: 3
     chapter: 7
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 151
       boss: 0
       evo: 0
       buff: 0.72
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.15
       min: 1
       max: 2
@@ -3274,7 +3274,7 @@ MonoBehaviour:
     tag: 4
     chapter: 7
     enemies:
-    - hero: kuba
+    - hero: lien_kinh
       level: 154
       boss: 0
       evo: 0
@@ -3287,7 +3287,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.15
       min: 1
       max: 2
@@ -3329,27 +3329,27 @@ MonoBehaviour:
     tag: 5
     chapter: 7
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 159
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
-    - hero: vay_lam
+    - hero: giong_bao
       level: 159
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.15
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: vay_lam
+    - hero: giong_bao
       chance: 0.2
       min: 1
       max: 2
@@ -3364,14 +3364,14 @@ MonoBehaviour:
     tag: 3
     chapter: 7
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 161
       boss: 0
       evo: 0
       buff: 0.85
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.15
       min: 1
       max: 2
@@ -3407,7 +3407,7 @@ MonoBehaviour:
     tag: 4
     chapter: 7
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 166
       boss: 0
       evo: 0
@@ -3426,7 +3426,7 @@ MonoBehaviour:
       buff: 0.25
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.15
       min: 1
       max: 2
@@ -3441,27 +3441,27 @@ MonoBehaviour:
     tag: 7
     chapter: 7
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 168
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
-    - hero: kuba
+    - hero: lien_kinh
       level: 168
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.22499999999999998
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.22499999999999998
       min: 1
       max: 2
@@ -3476,14 +3476,14 @@ MonoBehaviour:
     tag: 1
     chapter: 8
     enemies:
-    - hero: huyen_vu
+    - hero: han_ngac
       level: 171
       boss: 1
       evo: 1
       buff: 0.4
-      trait: huyen_vu_boss
+      trait: han_ngac_boss
     drops:
-    - hero: huyen_vu
+    - hero: han_ngac
       chance: 1
       min: 3
       max: 5
@@ -3519,14 +3519,14 @@ MonoBehaviour:
     tag: 3
     chapter: 8
     enemies:
-    - hero: huyen_vu
+    - hero: han_ngac
       level: 176
       boss: 0
       evo: 0
       buff: 0.72
       trait: 
     drops:
-    - hero: huyen_vu
+    - hero: han_ngac
       chance: 0.1
       min: 1
       max: 2
@@ -3541,7 +3541,7 @@ MonoBehaviour:
     tag: 4
     chapter: 8
     enemies:
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 178
       boss: 0
       evo: 0
@@ -3554,7 +3554,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.15
       min: 1
       max: 2
@@ -3596,27 +3596,27 @@ MonoBehaviour:
     tag: 5
     chapter: 8
     enemies:
-    - hero: huyen_vu
+    - hero: han_ngac
       level: 183
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
-    - hero: kuba
+    - hero: lien_kinh
       level: 183
       boss: 0
       evo: 0
       buff: 0.55
       trait: 
     drops:
-    - hero: huyen_vu
+    - hero: han_ngac
       chance: 0.1
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: kuba
+    - hero: lien_kinh
       chance: 0.15
       min: 1
       max: 2
@@ -3631,14 +3631,14 @@ MonoBehaviour:
     tag: 3
     chapter: 8
     enemies:
-    - hero: huyen_vu
+    - hero: han_ngac
       level: 185
       boss: 0
       evo: 0
       buff: 0.85
       trait: 
     drops:
-    - hero: huyen_vu
+    - hero: han_ngac
       chance: 0.1
       min: 1
       max: 2
@@ -3674,7 +3674,7 @@ MonoBehaviour:
     tag: 4
     chapter: 8
     enemies:
-    - hero: huyen_vu
+    - hero: han_ngac
       level: 190
       boss: 0
       evo: 0
@@ -3693,7 +3693,7 @@ MonoBehaviour:
       buff: 0.25
       trait: 
     drops:
-    - hero: huyen_vu
+    - hero: han_ngac
       chance: 0.1
       min: 1
       max: 2
@@ -3708,27 +3708,27 @@ MonoBehaviour:
     tag: 7
     chapter: 8
     enemies:
-    - hero: huyen_vu
+    - hero: han_ngac
       level: 193
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
-    - hero: thuong_lam
+    - hero: uyen_xa
       level: 193
       boss: 0
       evo: 0
       buff: 0.75
       trait: 
     drops:
-    - hero: huyen_vu
+    - hero: han_ngac
       chance: 0.15000000000000002
       min: 1
       max: 2
       gift: 0
       altFor: 
       altHero: 
-    - hero: thuong_lam
+    - hero: uyen_xa
       chance: 0.22499999999999998
       min: 1
       max: 2
@@ -3743,14 +3743,14 @@ MonoBehaviour:
     tag: 1
     chapter: 9
     enemies:
-    - hero: lam_quan
+    - hero: hai_long
       level: 195
       boss: 1
       evo: 1
       buff: 0.85
-      trait: lam_quan_boss
+      trait: hai_long_boss
     drops:
-    - hero: lam_quan
+    - hero: hai_long
       chance: 1
       min: 4
       max: 6

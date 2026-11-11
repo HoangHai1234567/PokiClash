@@ -88,6 +88,18 @@ namespace PokiClash
             { "thuong_lam", ("n_thuong", new[] { "n_tia", "n_mua", "n_mua" }) },
             { "huyen_vu", ("n_tia", new[] { "n_song", "n_song", "n_voi" }) },
             { "lam_quan", ("n_cau", new[] { "n_mua", "n_song", "n_mua" }) },
+            // lô 10 tướng mới đảo Thủy (2026-11-11): theo chiêu cast / skill từng dạng trong ArtGen/Spine/inbox/tm0*_ghichu.md (chiêu mana
+            // một mã cho cả dòng: hai dạng khác kiểu thì lấy kiểu dạng 1). Bảng nháp cho bước VFX riêng, chưa xem trong trận
+            { "ti_tach", ("n_tia", new[] { "n_mua", "n_song" }) },             // Súng Nước / Vòi Rồng Nước; Mưa Rào, Sóng Thần
+            { "thach_giai", ("n_bong", new[] { "n_song", "n_xoay" }) },        // Bọt Nước / Pháo Áp Suất; Đá Ngầm Trồi, Xoáy Thạch Thành
+            { "nong_xoay", ("n_bong", new[] { "n_xoay", "n_voi" }) },          // Đuôi Xoáy / Ộp Âm Ba; Xoáy Bong Bóng, Đại Hải Lốc
+            { "ha_ba", ("n_tia", new[] { "n_song", "n_xoay" }) },              // Súng Nước / Vòi Rồng Nước; Ngáp Sóng, Hà Bá Nuốt Sông
+            { "so_ngoc", ("n_bong", new[] { "n_mua", "n_song" }) },            // Phun Bọt Ngọc / Pháo Ngọc Trai; Mưa Gai, Vỏ Phá Triều Cường
+            { "giong_bao", ("n_tia", new[] { "n_mua", "n_voi" }) },            // Bầu Phun / Pháo Bình Đồng; Cầu Mưa, Giông Bão
+            { "lien_kinh", ("n_bong", new[] { "n_mua", "n_song" }) },          // Bong Bóng Sen / Thủy Pháo; Nụ Bung, Liên Hoa Hải Triều
+            { "uyen_xa", ("n_tia", new[] { "n_mua", "n_voi" }) },              // Thủy Thương / Thủy Pháo; Mưa Bọt, Thâm Uyên Xoáy
+            { "han_ngac", ("n_tia", new[] { "n_song", "n_mua" }) },            // Hàn Phong / Hàn Lưu; Cọc Băng, Băng Hà Sụp
+            { "hai_long", ("n_tia", new[] { "n_song", "n_xoay", "n_voi" }) },  // phun nước từ các đầu; chiêu gầm ba dạng mạnh dần
         };
 
         public static string FireMana(HeroDef h)
@@ -1056,7 +1068,8 @@ namespace PokiClash
             {
                 if (a == null) continue;
                 a.t += adt;
-                if (!a.loop && (a.clip == Cast || a.clip == Skill) && a.holdUntil > Clock && a.t > a.holdAt) a.t = a.holdAt; // giữ dáng phun, dáng nhả
+                if (!a.loop && (a.clip == Cast || a.clip == Skill) && a.holdUntil > Clock && a.t > a.holdAt &&
+                    !(a.aola != null && a.aola.SelfHold(a.clip))) a.t = a.holdAt; // giữ dáng phun, dáng nhả (rig tự giữ chiêu thì để clip chạy)
                 if (a.impactAt >= 0 && Clock >= a.impactAt)
                 {
                     a.impactAt = -1;

@@ -1,0 +1,56 @@
+đợi khoá nang (0 s)...
+  bước lưới dạng 2: viền 8.0, trong 10.7 px (cao 536); cách lai (thân cắt từ concept)
+  lưới than: 2647 đỉnh, 4689 tam giác, góc nhỏ nhất 13.9° (TB góc nhỏ 55.6°, 1.1% dưới 25°), cạnh TB 10.6 px, hở 0 px
+  trọng số than: 2647 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 153 đỉnh (dau 145, bk3 7, fw1 1)
+  lưới ham: 150 đỉnh, 242 tam giác, góc nhỏ nhất 13.2° (TB góc nhỏ 52.2°, 1.2% dưới 25°), cạnh TB 8.5 px, hở 0 px
+  mí dạng 2: tâm (830, 136) góc -13° tỉ lệ 0.60; còn hở 0 px / 1562, lòi ngoài đầu 236 px
+  lưới vay_cheo: 368 đỉnh, 643 tam giác, góc nhỏ nhất 25.7° (TB góc nhỏ 55.0°, 0.0% dưới 25°), cạnh TB 10.6 px, hở 0 px
+  lưới vx: 86 đỉnh, 129 tam giác, góc nhỏ nhất 23.0° (TB góc nhỏ 50.2°, 0.8% dưới 25°), cạnh TB 10.5 px, hở 0 px
+  lưới sen_sau: 419 đỉnh, 654 tam giác, góc nhỏ nhất 14.7° (TB góc nhỏ 49.4°, 3.1% dưới 25°), cạnh TB 10.5 px, hở 0 px
+  lưới sen_truoc: 167 đỉnh, 246 tam giác, góc nhỏ nhất 13.0° (TB góc nhỏ 49.1°, 3.7% dưới 25°), cạnh TB 10.3 px, hở 0 px
+dạng 2: nướng 8 clip (5.0 s)
+D:\PokiClash\ArtGen\Spine\inbox\tm07_2\rig\tm07_2.atomik: 135 xương, 36 slot, 35 hình, 6204 đỉnh, 1 mặt nạ cắt, 8 animation, 6 sự kiện, 495 KB (JSON 829 KB, PNG 271 KB)
+  nạp lại tm07_2.atomik: bản 3, 135 xương, 36 slot, 35 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die', 'aura'], 6 sự kiện, atlas 1128x1136, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.106 px (cast/than) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 6.00 px (idle@1.07s/than) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.97 px (bước thường 7.18)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  tm07_2: 135 xương · 36 slot · 6204 đỉnh · 10153 tam giác · 8 clip · 5948 khoá · .atomik 0.48 MB
+  dung lượng: json 767 KB + png 271 KB (atlas 1128x1136); .atomik 496 KB -> dưới trần (đích 0.3 MB, trần 0.5 MB); 13.3 s
+  so_concept: IoU = 0.863 -> D:\PokiClash\ArtGen\Spine\inbox\tm07_2\rig\so_concept.png
+  đỉnh thân 3852 / cao 536 = 7.18; hở: 0
+  bước lưới dạng 2: viền 7.0, trong 9.3 px (cao 372); cách lai (thân cắt từ concept)
+  lưới than: 1808 đỉnh, 3117 tam giác, góc nhỏ nhất 15.1° (TB góc nhỏ 54.8°, 1.4% dưới 25°), cạnh TB 9.1 px, hở 0 px
+  trọng số than: 1808 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 111 đỉnh (dau 106, bk3 3, fw1 2)
+  lưới ham: 104 đỉnh, 163 tam giác, góc nhỏ nhất 29.3° (TB góc nhỏ 51.8°, 0.0% dưới 25°), cạnh TB 7.3 px, hở 0 px
+  mí dạng 2: tâm (575, 95) góc -11° tỉ lệ 0.68; còn hở 0 px / 908, lòi ngoài đầu 116 px
+  lưới vay_cheo: 246 đỉnh, 419 tam giác, góc nhỏ nhất 26.0° (TB góc nhỏ 54.2°, 0.0% dưới 25°), cạnh TB 9.3 px, hở 0 px
+  lưới vx: 62 đỉnh, 87 tam giác, góc nhỏ nhất 23.2° (TB góc nhỏ 47.8°, 2.3% dưới 25°), cạnh TB 8.9 px, hở 0 px
+  lưới sen_sau: 289 đỉnh, 434 tam giác, góc nhỏ nhất 16.4° (TB góc nhỏ 48.2°, 3.0% dưới 25°), cạnh TB 9.1 px, hở 0 px
+  lưới sen_truoc: 118 đỉnh, 163 tam giác, góc nhỏ nhất 20.3° (TB góc nhỏ 47.1°, 3.1% dưới 25°), cạnh TB 9.0 px, hở 0 px
+  bước lưới dạng 1: viền 6.3, trong 8.4 px (cao 419); cách lai
+  lưới than: 2843 đỉnh, 5275 tam giác, góc nhỏ nhất 15.8° (TB góc nhỏ 57.2°, 0.6% dưới 25°), cạnh TB 8.3 px, hở 0 px
+  trọng số than: 2843 đỉnh, tối đa 4 xương/đỉnh; bám cứng 100%: 22 đỉnh (dau 22)
+  lưới ham: 51 đỉnh, 67 tam giác, góc nhỏ nhất 15.5° (TB góc nhỏ 45.1°, 4.5% dưới 25°), cạnh TB 6.6 px, hở 0 px
+  mí dạng 1: tâm (383, 212) góc -1° tỉ lệ 1.07; còn hở 0 px / 7532, lòi ngoài đầu 907 px
+  lưới vay_cheo: 164 đỉnh, 271 tam giác, góc nhỏ nhất 25.9° (TB góc nhỏ 53.1°, 0.0% dưới 25°), cạnh TB 8.3 px, hở 0 px
+D:\PokiClash\ArtGen\Spine\inbox\tm07_1\rig\tm07_1.atomik: 224 xương, 64 slot, 62 hình, 8923 đỉnh, 2 mặt nạ cắt, 9 animation, 8 sự kiện, 580 KB (JSON 1152 KB, PNG 267 KB)
+  nạp lại tm07_1.atomik: bản 3, 224 xương, 64 slot, 62 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die', 'evolve', 'aura'], 8 sự kiện, atlas 1096x1256, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.082 px (aura/n_w0b) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 2.01 px (evolve@1.87s/n_than) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.17 px (bước thường 1.20)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  nối evolve: khung cuối lệch khung 0 idle dạng sau 0.00 px; slot dạng cũ còn hiện: không (dạng sau co 1.383 trong rig gộp)
+  tm07_1: 224 xương · 64 slot · 8923 đỉnh · 14656 tam giác · 9 clip · 6279 khoá · .atomik 0.57 MB
+  dung lượng: json 1073 KB + png 267 KB (atlas 1096x1256); .atomik 581 KB -> VƯỢT TRẦN (đích 0.3 MB, trần 0.5 MB); 13.9 s
+  so_concept: IoU = 0.892 -> D:\PokiClash\ArtGen\Spine\inbox\tm07_1\rig\so_concept.png
+  đỉnh thân 3073 / cao 419 = 7.33; hở: 0
+dạng 1 xong 25.8 s

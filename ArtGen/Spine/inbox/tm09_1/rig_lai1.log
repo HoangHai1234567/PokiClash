@@ -1,0 +1,90 @@
+  dạng 2 (lai): chiều cao con 451 px rig → bước viền 6.8, bước trong 9.0
+  lưới luoi (dải 13 cột × 5 hàng, 3 đốt): 65 đỉnh, 96 tam giác, góc nhỏ nhất 41.0° (TB góc nhỏ 45.0°, 0.0% dưới 25°), cạnh TB 7.5 px, hở 0 px
+  lưới than: 1081 đỉnh, 1961 tam giác, góc nhỏ nhất 18.0° (TB góc nhỏ 56.3°, 0.5% dưới 25°), cạnh TB 9.0 px, hở 0 px
+  trọng số than: 1081 đỉnh, tối đa 3 xương/đỉnh; bám cứng 100%: 29 đỉnh (hong 29)
+  lưới dau: 679 đỉnh, 1112 tam giác, góc nhỏ nhất 17.3° (TB góc nhỏ 52.2°, 1.4% dưới 25°), cạnh TB 8.9 px, hở 0 px
+  trọng số dau: 679 đỉnh, tối đa 2 xương/đỉnh; bám cứng 100%: 0 đỉnh
+  lưới ham: 134 đỉnh, 199 tam giác, góc nhỏ nhất 13.5° (TB góc nhỏ 48.7°, 2.0% dưới 25°), cạnh TB 7.5 px, hở 0 px
+  mí dạng 2 (lai): tâm (192, 162) góc -3° tỉ lệ 0.79; còn hở 0 px / 809, lòi ngoài đầu 0 px
+  lưới duoi: 542 đỉnh, 917 tam giác, góc nhỏ nhất 15.8° (TB góc nhỏ 53.3°, 1.0% dưới 25°), cạnh TB 8.9 px, hở 0 px
+  trọng số duoi: 542 đỉnh, tối đa 3 xương/đỉnh; bám cứng 100%: 122 đỉnh (duoi4 122)
+  lưới chan_tx: 163 đỉnh, 251 tam giác, góc nhỏ nhất 15.7° (TB góc nhỏ 50.1°, 2.0% dưới 25°), cạnh TB 8.8 px, hở 1 px
+  lưới chan_sx: 105 đỉnh, 152 tam giác, góc nhỏ nhất 20.7° (TB góc nhỏ 48.8°, 0.7% dưới 25°), cạnh TB 8.8 px, hở 0 px
+  lưới chan_tn: 160 đỉnh, 250 tam giác, góc nhỏ nhất 22.3° (TB góc nhỏ 51.1°, 0.8% dưới 25°), cạnh TB 8.9 px, hở 1 px
+  lưới chan_sn: 190 đỉnh, 290 tam giác, góc nhỏ nhất 12.7° (TB góc nhỏ 49.2°, 3.1% dưới 25°), cạnh TB 8.6 px, hở 0 px
+  dạng 2 (lai): thân 427×265, chân cao 144; {'xuong': 25, 'slot': 11, 'dinh': 3138, 'tam_giac': 5246}
+  dạng 2: nướng 7 clip (1.9 s)
+  dạng 2: cao thật 452, rộng 827 → height khai 452
+  khung ĐẦU attack lệch khung 0 idle 0.49 px (duoi)
+  khung ĐẦU cast lệch khung 0 idle 0.49 px (duoi)
+  khung ĐẦU skill lệch khung 0 idle 0.49 px (duoi)
+  khung ĐẦU hit lệch khung 0 idle 0.49 px (duoi)
+  khung ĐẦU die lệch khung 0 idle 0.49 px (duoi)
+  so concept dạng 2: IoU mặt nạ khung 0 idle / concept = 0.828
+D:\PokiClash\ArtGen\Spine\inbox\tm09_2\rig\tm09_2.atomik: 25 xương, 11 slot, 11 hình, 3138 đỉnh, 0 mặt nạ cắt, 7 animation, 6 sự kiện, 202 KB (JSON 363 KB, PNG 97 KB)
+  nạp lại tm09_2.atomik: bản 3, 25 xương, 11 slot, 11 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die'], 6 sự kiện, atlas 672x696, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.050 px (idle/duoi) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 1.49 px (appear@0.40s/duoi) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.11 px (bước thường 0.55)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  nối attack_dau: khung ĐẦU attack lệch khung 0 idle 0.49 px (duoi)
+  nối cast_dau: khung ĐẦU cast lệch khung 0 idle 0.49 px (duoi)
+  nối skill_dau: khung ĐẦU skill lệch khung 0 idle 0.49 px (duoi)
+  nối hit_dau: khung ĐẦU hit lệch khung 0 idle 0.49 px (duoi)
+  nối die_dau: khung ĐẦU die lệch khung 0 idle 0.49 px (duoi)
+  nối so_concept: IoU mặt nạ khung 0 idle so concept 0.828
+  tm09_2: 25 xương · 11 slot · 3138 đỉnh · 5246 tam giác · 7 clip · 3166 khoá · .atomik 0.20 MB
+  dung lượng: json 341 KB + png 98 KB (atlas 672x696); .atomik 202 KB -> ĐẠT (đích 0.3 MB, trần 0.5 MB); 7.5 s
+  mật độ: 3138 đỉnh / cao 451 = 6.95 đỉnh/px
+  dạng 2 xong 10.1 s; .atomik 202 KB
+  dạng 1 (lai): chiều cao con 386 px rig → bước viền 5.8, bước trong 7.7
+  lưới luoi (dải 13 cột × 5 hàng, 3 đốt): 65 đỉnh, 96 tam giác, góc nhỏ nhất 42.3° (TB góc nhỏ 43.0°, 0.0% dưới 25°), cạnh TB 6.9 px, hở 0 px
+  lưới than: 1168 đỉnh, 2124 tam giác, góc nhỏ nhất 15.2° (TB góc nhỏ 56.4°, 0.3% dưới 25°), cạnh TB 7.7 px, hở 0 px
+  trọng số than: 1168 đỉnh, tối đa 3 xương/đỉnh; bám cứng 100%: 38 đỉnh (hong 38)
+  lưới dau: 867 đỉnh, 1539 tam giác, góc nhỏ nhất 14.6° (TB góc nhỏ 55.4°, 0.4% dưới 25°), cạnh TB 7.7 px, hở 0 px
+  trọng số dau: 867 đỉnh, tối đa 2 xương/đỉnh; bám cứng 100%: 0 đỉnh
+  lưới ham: 241 đỉnh, 395 tam giác, góc nhỏ nhất 26.0° (TB góc nhỏ 52.6°, 0.0% dưới 25°), cạnh TB 6.6 px, hở 0 px
+  mí dạng 1 (lai): tâm (179, 137) góc -26° tỉ lệ 1.06; còn hở 0 px / 3306, lòi ngoài đầu 3 px
+  lưới duoi: 274 đỉnh, 460 tam giác, góc nhỏ nhất 20.1° (TB góc nhỏ 53.7°, 0.4% dưới 25°), cạnh TB 7.6 px, hở 0 px
+  trọng số duoi: 274 đỉnh, tối đa 3 xương/đỉnh; bám cứng 100%: 77 đỉnh (duoi2 77)
+  lưới chan_tx: 197 đỉnh, 321 tam giác, góc nhỏ nhất 19.6° (TB góc nhỏ 52.8°, 1.2% dưới 25°), cạnh TB 7.5 px, hở 0 px
+  lưới chan_sx: 83 đỉnh, 123 tam giác, góc nhỏ nhất 23.6° (TB góc nhỏ 50.0°, 1.6% dưới 25°), cạnh TB 7.5 px, hở 0 px
+  lưới chan_tn: 277 đỉnh, 462 tam giác, góc nhỏ nhất 17.7° (TB góc nhỏ 53.1°, 0.4% dưới 25°), cạnh TB 7.7 px, hở 0 px
+  lưới chan_sn: 170 đỉnh, 275 tam giác, góc nhỏ nhất 30.1° (TB góc nhỏ 52.2°, 0.0% dưới 25°), cạnh TB 7.6 px, hở 0 px
+  dạng 1 (lai): thân 340×244, chân cao 120; {'xuong': 23, 'slot': 11, 'dinh': 3361, 'tam_giac': 5813}
+  dạng 1: nướng 7 clip (2.5 s)
+  dạng 1: cao thật 387, rộng 695 → height khai 387
+  khung ĐẦU attack lệch khung 0 idle 0.07 px (duoi)
+  khung ĐẦU cast lệch khung 0 idle 0.07 px (duoi)
+  khung ĐẦU skill lệch khung 0 idle 0.07 px (duoi)
+  khung ĐẦU hit lệch khung 0 idle 0.07 px (duoi)
+  khung ĐẦU die lệch khung 0 idle 0.07 px (duoi)
+  so concept dạng 1: IoU mặt nạ khung 0 idle / concept = 0.839
+  evolve: khung cuối lệch khung 0 idle dạng sau 0.00 px; slot dạng cũ còn hiện: không | khung ĐẦU evolve lệch khung 0 idle 0.07 px (duoi)
+D:\PokiClash\ArtGen\Spine\inbox\tm09_1\rig\tm09_1.atomik: 48 xương, 22 slot, 22 hình, 6499 đỉnh, 0 mặt nạ cắt, 8 animation, 9 sự kiện, 384 KB (JSON 650 KB, PNG 185 KB)
+  nạp lại tm09_1.atomik: bản 3, 48 xương, 22 slot, 22 hình, clip ['appear', 'idle', 'attack', 'cast', 'skill', 'hit', 'die', 'evolve'], 9 sự kiện, atlas 864x952, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.033 px (idle/than) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 1.10 px (attack@0.60s/mieng) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.04 px (bước thường 0.17)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  nối attack_dau: khung ĐẦU attack lệch khung 0 idle 0.07 px (duoi)
+  nối cast_dau: khung ĐẦU cast lệch khung 0 idle 0.07 px (duoi)
+  nối skill_dau: khung ĐẦU skill lệch khung 0 idle 0.07 px (duoi)
+  nối hit_dau: khung ĐẦU hit lệch khung 0 idle 0.07 px (duoi)
+  nối die_dau: khung ĐẦU die lệch khung 0 idle 0.07 px (duoi)
+  nối so_concept: IoU mặt nạ khung 0 idle so concept 0.839
+  nối evolve: khung cuối lệch khung 0 idle dạng sau 0.00 px; slot dạng cũ còn hiện: không (dạng sau co 0.857 trong rig gộp)
+  nối evolve_dau: khung ĐẦU evolve lệch khung 0 idle 0.07 px (duoi)
+  tm09_1: 48 xương · 22 slot · 6499 đỉnh · 11059 tam giác · 8 clip · 3580 khoá · .atomik 0.38 MB
+  dung lượng: json 620 KB + png 185 KB (atlas 864x952); .atomik 384 KB -> dưới trần (đích 0.3 MB, trần 0.5 MB); 10.2 s
+  mật độ: 3361 đỉnh / cao 386 = 8.70 đỉnh/px
+  dạng 1 xong 13.6 s; .atomik 384 KB
+exit=0

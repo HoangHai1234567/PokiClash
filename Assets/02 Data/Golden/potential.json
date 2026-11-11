@@ -2660,7 +2660,7 @@
      true
     ],
     [
-     "canh_cut",
+     "thach_giai",
      27,
      false
     ]
@@ -2672,12 +2672,12 @@
    "id": 2001,
    "enemies": [
     [
-     "canh_cut",
+     "thach_giai",
      80,
      true
     ],
     [
-     "giot_suong",
+     "canh_cut",
      78,
      false
     ]
@@ -2689,12 +2689,12 @@
    "id": 2002,
    "enemies": [
     [
-     "giot_suong",
+     "canh_cut",
      128,
      true
     ],
     [
-     "tam_tay",
+     "nong_xoay",
      126,
      false
     ]
@@ -2706,12 +2706,12 @@
    "id": 2003,
    "enemies": [
     [
-     "tam_tay",
+     "nong_xoay",
      173,
      true
     ],
     [
-     "ca_ngua",
+     "giot_suong",
      171,
      false
     ]

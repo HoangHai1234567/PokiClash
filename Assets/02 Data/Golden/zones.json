@@ -7,7 +7,7 @@
    "first": true,
    "shards": [
     [
-     "giot_suong",
+     "ti_tach",
      4,
      false,
      4
@@ -49,7 +49,7 @@
    "first": true,
    "shards": [
     [
-     "tieu_y",
+     "thach_giai",
      4,
      false,
      0
@@ -70,7 +70,7 @@
    "first": true,
    "shards": [
     [
-     "tieu_y",
+     "thach_giai",
      2,
      false,
      0
@@ -98,7 +98,7 @@
    "first": true,
    "shards": [
     [
-     "canh_cut",
+     "nong_xoay",
      4,
      false,
      0
@@ -119,7 +119,7 @@
    "first": true,
    "shards": [
     [
-     "canh_cut",
+     "nong_xoay",
      2,
      false,
      0
@@ -134,9 +134,9 @@
     "big": false,
     "cards": [
      [
-      "giot_suong",
+      "ti_tach",
       "ult",
-      "giot_suong_ult",
+      "ti_tach_ult",
       "uncommon"
      ]
     ]
@@ -168,7 +168,7 @@
    "first": true,
    "shards": [
     [
-     "mi_nhi",
+     "ha_ba",
      3,
      false,
      0
@@ -196,7 +196,7 @@
    "first": true,
    "shards": [
     [
-     "canh_cut",
+     "nong_xoay",
      2,
      false,
      0
@@ -210,7 +210,7 @@
    "first": true,
    "shards": [
     [
-     "mi_nhi",
+     "ha_ba",
      1,
      false,
      0
@@ -224,7 +224,7 @@
    "first": true,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      3,
      false,
      0
@@ -239,9 +239,9 @@
     "big": false,
     "cards": [
      [
-      "giot_suong",
+      "ti_tach",
       "ult",
-      "giot_suong_ult",
+      "ti_tach_ult",
       "uncommon"
      ]
     ]
@@ -254,7 +254,7 @@
    "first": false,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      5,
      false,
      0
@@ -275,7 +275,7 @@
    "first": false,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      3,
      false,
      0
@@ -289,7 +289,7 @@
    "first": false,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      3,
      false,
      0
@@ -310,7 +310,7 @@
    "first": false,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      4,
      false,
      0
@@ -448,7 +448,7 @@
    "first": true,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      2,
      true,
      0
@@ -462,7 +462,7 @@
    "first": true,
    "shards": [
     [
-     "vay_lam",
+     "giong_bao",
      4,
      false,
      0
@@ -504,7 +504,7 @@
    "first": true,
    "shards": [
     [
-     "mi_nhi",
+     "ha_ba",
      2,
      false,
      0
@@ -518,7 +518,7 @@
    "first": true,
    "shards": [
     [
-     "vay_lam",
+     "giong_bao",
      2,
      false,
      0
@@ -553,7 +553,7 @@
    "first": true,
    "shards": [
     [
-     "kuba",
+     "lien_kinh",
      5,
      false,
      0
@@ -595,7 +595,7 @@
    "first": true,
    "shards": [
     [
-     "ma_ket",
+     "so_ngoc",
      2,
      false,
      2
@@ -637,7 +637,7 @@
    "first": true,
    "shards": [
     [
-     "thuong_lam",
+     "uyen_xa",
      3,
      false,
      0
@@ -707,7 +707,7 @@
    "first": true,
    "shards": [
     [
-     "thuong_lam",
+     "uyen_xa",
      2,
      false,
      0
@@ -721,7 +721,7 @@
    "first": true,
    "shards": [
     [
-     "huyen_vu",
+     "han_ngac",
      5,
      false,
      0
@@ -749,7 +749,7 @@
    "first": true,
    "shards": [
     [
-     "thuong_lam",
+     "uyen_xa",
      1,
      false,
      0
@@ -805,7 +805,7 @@
    "first": true,
    "shards": [
     [
-     "lam_quan",
+     "hai_long",
      5,
      false,
      0
@@ -858,9 +858,9 @@
     "big": false,
     "cards": [
      [
-      "ma_ket",
+      "so_ngoc",
       "passive",
-      "ma_ket_pas",
+      "so_ngoc_pas",
       "rare"
      ],
      [
@@ -880,9 +880,9 @@
     "big": false,
     "cards": [
      [
-      "ma_ket",
+      "so_ngoc",
       "passive",
-      "ma_ket_pas",
+      "so_ngoc_pas",
       "rare"
      ],
      [
@@ -902,9 +902,9 @@
     "big": true,
     "cards": [
      [
-      "ma_ket",
+      "so_ngoc",
       "ult",
-      "ma_ket_ult",
+      "so_ngoc_ult",
       "epic"
      ],
      [
@@ -920,9 +920,9 @@
       "rare"
      ],
      [
-      "giot_suong",
+      "ti_tach",
       "skill",
-      "giot_suong_skill",
+      "ti_tach_skill",
       "common"
      ]
     ]
@@ -1028,8 +1028,8 @@
   "balls": 379,
   "owned": [
    "mam_go",
-   "giot_suong",
-   "ma_ket",
+   "ti_tach",
+   "so_ngoc",
    "vo_su"
   ]
  }

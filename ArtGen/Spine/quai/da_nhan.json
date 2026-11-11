@@ -1,0 +1,180 @@
+{
+  "_ghi_chu": "Danh sách dòng Claude điều phối đã NHẬN (rig đạt), để script vào game chép. Mỗi dòng: id game, các dạng theo thứ tự với thư mục rig nguồn và tên thư mục Resources đích.",
+  "_vi_du": {
+    "id": "hai_long",
+    "dang": [
+      {
+        "nguon": "ArtGen/Spine/inbox/tm10_1/rig",
+        "atomik": "tm10_1.atomik",
+        "dich": "hai_long_1"
+      },
+      {
+        "nguon": "ArtGen/Spine/inbox/tm10_2/rig",
+        "atomik": "tm10_2.atomik",
+        "dich": "hai_long_2"
+      },
+      {
+        "nguon": "ArtGen/Spine/inbox/hai_long/rig",
+        "atomik": "hai_long.atomik",
+        "dich": "hai_long_3"
+      }
+    ]
+  },
+  "nhan": [
+    {
+      "id": "ti_tach",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm01_1/rig",
+          "atomik": "tm01_1.atomik",
+          "dich": "ti_tach_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm01_2/rig",
+          "atomik": "tm01_2.atomik",
+          "dich": "ti_tach_2"
+        }
+      ]
+    },
+    {
+      "id": "so_ngoc",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm05_1/rig",
+          "atomik": "tm05_1.atomik",
+          "dich": "so_ngoc_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm05_2/rig",
+          "atomik": "tm05_2.atomik",
+          "dich": "so_ngoc_2"
+        }
+      ]
+    },
+    {
+      "id": "lien_kinh",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm07_1/rig",
+          "atomik": "tm07_1.atomik",
+          "dich": "lien_kinh_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm07_2/rig",
+          "atomik": "tm07_2.atomik",
+          "dich": "lien_kinh_2"
+        }
+      ]
+    },
+    {
+      "id": "uyen_xa",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm08_1/rig",
+          "atomik": "tm08_1.atomik",
+          "dich": "uyen_xa_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm08_2/rig",
+          "atomik": "tm08_2.atomik",
+          "dich": "uyen_xa_2"
+        }
+      ]
+    },
+    {
+      "id": "han_ngac",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm09_1/rig",
+          "atomik": "tm09_1.atomik",
+          "dich": "han_ngac_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm09_2/rig",
+          "atomik": "tm09_2.atomik",
+          "dich": "han_ngac_2"
+        }
+      ]
+    },
+    {
+      "id": "ha_ba",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm04_1/rig",
+          "atomik": "tm04_1.atomik",
+          "dich": "ha_ba_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm04_2/rig",
+          "atomik": "tm04_2.atomik",
+          "dich": "ha_ba_2"
+        }
+      ]
+    },
+    {
+      "id": "nong_xoay",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm03_1/rig",
+          "atomik": "tm03_1.atomik",
+          "dich": "nong_xoay_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm03_2/rig",
+          "atomik": "tm03_2.atomik",
+          "dich": "nong_xoay_2"
+        }
+      ]
+    },
+    {
+      "id": "giong_bao",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm06_1/rig",
+          "atomik": "tm06_1.atomik",
+          "dich": "giong_bao_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm06_2/rig",
+          "atomik": "tm06_2.atomik",
+          "dich": "giong_bao_2"
+        }
+      ]
+    },
+    {
+      "id": "thach_giai",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm02_1/rig",
+          "atomik": "tm02_1.atomik",
+          "dich": "thach_giai_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm02_2/rig",
+          "atomik": "tm02_2.atomik",
+          "dich": "thach_giai_2"
+        }
+      ]
+    },
+    {
+      "id": "hai_long",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tm10_1/rig",
+          "atomik": "tm10_1.atomik",
+          "dich": "hai_long_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tm10_2/rig",
+          "atomik": "tm10_2.atomik",
+          "dich": "hai_long_2"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/hai_long/rig",
+          "atomik": "hai_long.atomik",
+          "dich": "hai_long_3"
+        }
+      ]
+    }
+  ]
+}

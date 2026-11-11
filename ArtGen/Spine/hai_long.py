@@ -1,6 +1,10 @@
-"""Hải Long Ngũ Đầu: cắt mảnh từ bảy tờ GPT, dựng rig Spine 4.2 (JSON + atlas + PNG) và 7 clip
-(xuat_hien, dung, tan_cong, chieu, chieu_phun, trung_don, chet). Gói prompt: build_hai_long.py. Cách dựng, trọng số lưới và các luật
-nhịp học từ bài mổ xẻ .claude/skills/skill-petclash/mo_xe_quai_nhieu_dau.md (mục 3b, 6b, 9); cách làm: skill pokiclash-spine-rig mục 20.
+"""Hải Long Ngũ Đầu (dạng 3 của dòng Hải Long, boss cuối đảo Thủy): cắt mảnh từ bảy tờ GPT, dựng rig Spine 4.2 (JSON + atlas + PNG),
+7 clip tên game (appear, idle, attack, cast = phun nước, skill = gầm, hit, die) và clip `aura` (nước dưới chân, lặp riêng, phát chồng
+lên mọi clip: AtomikPose.Overlay). Gói prompt: build_hai_long.py. Cách dựng, trọng số lưới và các luật nhịp học từ bài mổ xẻ
+.claude/skills/skill-petclash/mo_xe_quai_nhieu_dau.md (mục 3b, 6b, 9); cách làm: skill pokiclash-spine-rig mục 20.
+Bản 4 (2026-11-11, lô 10 tướng mới đảo Thủy, đặc tả ArtGen/Spine/quai/DAC_TA_LO_THUY.md): lưới dày, mịn, gần đều cạnh (cổ 3 cột mỗi
+đốt × 7 hàng, đầu 14×10, sóng 8×8, dải nước 4 hàng, vòng thân 13×8), hàm dưới là lưới hai xương như con gốc (họng theo đầu, cằm theo
+hàm), nước tách thành clip `aura`. KHÔNG tự chép .atomik sang Assets (Claude điều phối làm bước vào game).
   - mỗi khung chỉ cho vị trí, góc, độ há của từng ĐẦU; cổ 14 đốt giải theo đường cong từ chỗ trồi tới gáy, phần thừa trượt thẳng
     xuống dưới nước (mặt nạ cắt che); thêm sóng uốn chạy dọc cổ (đầu không xê dịch);
   - mọi dải lưới (cổ, râu, đuôi, lưỡi) chia trọng số kiểu B-spline bậc hai: không đỉnh nào bám cứng một đốt nên thân cong trơn;
@@ -13,10 +17,11 @@ nhịp học từ bài mổ xẻ .claude/skills/skill-petclash/mo_xe_quai_nhieu_
   - tia, đạn, vụ nổ của chiêu KHÔNG nằm trong rig (việc của VFX): rig để lại xương mieng_<đầu> và sự kiện phun / het_phun / can /
     gam / het_gam / troi / roi_nuoc.
 
-    py -3 hai_long.py cat            cắt inbox/hai_long/tai_ve/M01..M07.png thành inbox/hai_long/manh/<tên>.png
-    py -3 hai_long.py rig            dựng inbox/hai_long/rig/hai_long.json|.atlas|.png, xem.html (trang xem một file) và
-                                     hai_long.atomik (định dạng của game; chép sang Assets/05 Atomik Thu/ để thử trong Unity)
-Mảnh chưa có thì dùng hình giữ chỗ (để thử bộ dựng trước khi có ảnh).
+    py -3 -I hai_long.py cat         cắt inbox/hai_long/tai_ve/M01..M07.png thành inbox/hai_long/manh/<tên>.png
+    py -3 -I ArtGen/Spine/quai/khoa.py nang -- py -3 -I hai_long.py rig
+                                     dựng inbox/hai_long/rig/hai_long.json|.atlas|.png, xem.html (trang xem một file, aura chạy
+                                     track 1), hai_long.atomik + hai_long_game.json (định dạng của game; KHÔNG chép vào Assets)
+Soi (tờ khung có aura, lưới, so sánh, chân dung): hai_long_soi.py. Mảnh chưa có thì dùng hình giữ chỗ.
 """
 import json
 import math
@@ -367,9 +372,14 @@ class Sk:
                                                  "color": "ce3a3aff"}
 
 
-def strip_mesh(im, n_bones, per=2, margin=3):
-    """lưới dải dọc theo chiều ngang của mảnh (cổ, râu): mỗi cột 3 đỉnh (trên, giữa, dưới), bám mép hình.
-    Trả pts, tris, trục y (đường thẳng giữa dải), và x của từng cột."""
+STRIP_PER = 3   # số cột lưới mỗi đốt của dải (bản 3: 2)
+STRIP_ROWS = 7  # số hàng tối đa của dải (tự giảm cho dải mỏng để tam giác gần đều cạnh)
+
+
+def strip_mesh(im, n_bones, per=STRIP_PER, margin=3, rows=None):
+    """lưới dải dọc theo chiều ngang của mảnh (cổ, râu, đuôi, lưỡi): mỗi cột `rows` đỉnh từ mép trên tới mép dưới của hình, cột
+    cách đều theo x (per cột mỗi đốt). rows tự chọn cho ô lưới gần vuông (tam giác gần đều cạnh), tối đa STRIP_ROWS, tối thiểu 3;
+    đường chéo so le từng ô (dải uốn hai chiều đều mượt). Trả pts, tris, trục y (đường thẳng giữa dải), và x của từng cột."""
     al = np.asarray(im)[..., 3] > 16
     w, h = im.width, im.height
     ncol = n_bones * per + 1
@@ -377,24 +387,31 @@ def strip_mesh(im, n_bones, per=2, margin=3):
     tops, bots = [], []
     for x in xs:
         x0, x1 = int(max(0, x - w / ncol * 0.6)), int(min(w, x + w / ncol * 0.6 + 1))
-        rows = np.flatnonzero(al[:, x0:x1].any(axis=1))
-        tops.append(rows[0] if len(rows) else np.nan)
-        bots.append(rows[-1] if len(rows) else np.nan)
+        rr = np.flatnonzero(al[:, x0:x1].any(axis=1))
+        tops.append(rr[0] if len(rr) else np.nan)
+        bots.append(rr[-1] if len(rr) else np.nan)
     tops, bots = np.array(tops, float), np.array(bots, float)
     ok = ~np.isnan(tops)
     tops[~ok] = np.interp(np.flatnonzero(~ok), np.flatnonzero(ok), tops[ok])
     bots[~ok] = np.interp(np.flatnonzero(~ok), np.flatnonzero(ok), bots[ok])
     tops, bots = np.clip(tops - margin, 0, h), np.clip(bots + margin, 0, h)
-    mid = (np.asarray(im)[..., 3] > 16)
-    ys = np.flatnonzero(mid.any(axis=1))
     axis = float(np.median((tops + bots) / 2))
+    if rows is None:
+        thick = float(np.median(bots - tops))
+        rows = int(min(STRIP_ROWS, max(3, round(thick / (w / (ncol - 1))) + 1)))
     pts, tris = [], []
     for i, x in enumerate(xs):
-        pts += [(x, tops[i]), (x, (tops[i] + bots[i]) / 2), (x, bots[i])]
+        for r in range(rows):
+            f = r / (rows - 1)
+            pts.append((x, tops[i] + (bots[i] - tops[i]) * f))
         if i:
-            a = (i - 1) * 3
-            for r in (0, 1):
-                tris += [(a + r, a + 3 + r, a + 4 + r), (a + r, a + 4 + r, a + 1 + r)]
+            a = (i - 1) * rows
+            for r in range(rows - 1):
+                p0, p1, q0, q1 = a + r, a + r + 1, a + rows + r, a + rows + r + 1   # cột trước (p), cột này (q); trên (0), dưới (1)
+                if (i + r) % 2 == 0:
+                    tris += [(p0, q0, q1), (p0, q1, p1)]
+                else:
+                    tris += [(p0, q0, p1), (q0, q1, p1)]
     return pts, tris, axis, xs
 
 
@@ -467,17 +484,27 @@ def rdp(ts, vs, tol):
     return np.flatnonzero(keep)
 
 
-def neck_joints(E, dirE, H, psi, seg, n, ka=0.52, kb=0.42, C2=None, wave=None):
+def neck_joints(E, dirE, H, psi, seg, n, ka=0.52, kb=0.42, C2=None, wave=None, rest=None):
     """khớp J0..Jn của cổ n đốt dài seg: đường cong Bezier từ chỗ trồi E (hướng dirE) tới gáy H (psi = hướng cổ đi tới gáy), phần thừa của cổ
-    trượt thẳng xuống dưới E. Lần ngược từ đầu, mỗi bước đúng một đốt. C2: điểm điều khiển gần đầu (cho đà trễ)."""
+    trượt thẳng xuống dưới E. Lần ngược từ đầu, mỗi bước đúng một đốt. C2: điểm điều khiển gần đầu (cho đà trễ).
+    rest: đường tâm cổ lúc nghỉ (danh sách điểm E → gáy, trích từ mặt nạ concept, vòng 2 lô Thủy): thay Bezier bằng đường này, kéo
+    mềm theo đầu (điểm càng gần gáy dời theo đầu càng nhiều: hệ số t^1,5), sóng uốn vẫn cộng thêm."""
     E, H = np.array(E, float), np.array(H, float)
     uE = np.array([math.cos(math.radians(dirE)), math.sin(math.radians(dirE))])
     uH = np.array([math.cos(math.radians(psi)), math.sin(math.radians(psi))])
     d = float(np.hypot(*(H - E)))
-    P1 = E + uE * d * ka
-    P2 = np.array(C2, float) if C2 is not None else H - uH * d * kb
     t = np.linspace(0, 1, 160)[:, None]
-    curve = (1 - t) ** 3 * E + 3 * (1 - t) ** 2 * t * P1 + 3 * (1 - t) * t ** 2 * P2 + t ** 3 * H
+    if rest is not None:
+        R = np.asarray(rest, float)
+        dl = np.hypot(*np.diff(R, axis=0).T)
+        cum = np.concatenate([[0.0], np.cumsum(dl)])
+        u = t[:, 0] * cum[-1]
+        base = np.stack([np.interp(u, cum, R[:, 0]), np.interp(u, cum, R[:, 1])], axis=1)
+        curve = base + (H - R[-1]) * (t ** 1.5) + (E - R[0]) * ((1 - t) ** 1.5)
+    else:
+        P1 = E + uE * d * ka
+        P2 = np.array(C2, float) if C2 is not None else H - uH * d * kb
+        curve = (1 - t) ** 3 * E + 3 * (1 - t) ** 2 * t * P1 + 3 * (1 - t) * t ** 2 * P2 + t ** 3 * H
     if wave:  # (biên độ, pha): sóng ngang chạy dọc đoạn cổ nổi, tắt ở hai đầu (chỗ trồi và gáy) nên đầu không bị xê dịch
         amp, phs = wave
         dC = np.gradient(curve, axis=0)
@@ -622,7 +649,13 @@ TGT = (1150.0, 400.0)                 # chỗ năm tia nước chụm lại (ch�
 ANCHOR = {"head_k": (0.45, 0.74), "head_n": (0.44, 0.72), "jaw_k": (0.10, 0.22), "jaw_n": (0.11, 0.24)}
 # trong khung đầu (gốc ở gáy, trục x theo mõm): bản lề hàm, tâm lòng miệng, gốc râu trên / dưới; theo bề rộng mảnh đầu
 HEAD_GEO = {"jaw": (0.07, 0.042), "mouth": (0.28, -0.075), "wh_f": (0.485, -0.004), "wh_b": (0.43, -0.014)}
+HEAD_GEO_K = {}    # theo loại đầu ("k"/"n") nếu dạng khác cần (tm10: bản lề hàm dò theo concept); thiếu thì HEAD_GEO
 JAW_SC = 0.86      # hàm dưới vẽ dài hơn mõm trên một chút: thu lại cho răng dưới nằm trong môi trên
+JAW_SC_K = {}      # theo loại đầu (tm10: tỉ lệ hàm dò theo concept)
+WHISK_ROT = {"b": -128.0, "f": -104.0}   # góc gốc râu sau / trước (dạng 3: râu rủ xuống sau mõm; dạng 1, 2: chĩa ra trước)
+WHISK_SC = {"b": 0.62, "f": 0.74}        # cỡ sợi râu sau / trước (dạng 1, 2: râu cụt ngắn)
+JAW_CLOSE = {}                           # theo loại đầu: góc khép thêm cho hàm lúc nghỉ (độ; dạng 1, 2 mảnh hàm vẽ há sẵn)
+BREATHE = (5.0, 3.0)                     # miệng hé lúc idle: trung bình, biên độ (độ); dạng 1, 2 hé ít hơn
 MANE = {"k": (0.38, 0.66, 0.34), "n": (0.40, 0.62, 0.20)}  # gốc bờm (x, y theo ảnh đầu), mép trên của vùng bờm (trên đó là sừng)
 NECK_THICK = {"k": 1.0, "n": 1.18}  # cổ nhỏ vẽ hơi mảnh so với đầu: nới bề dày lúc gắn lưới
 
@@ -672,6 +705,25 @@ WAVES = [
 ]
 NRB = 8  # số xương dọc mỗi dải nước (dải mặt nước, dải gợn sóng): xương nhấp nhô lệch pha -> dải uốn sóng mềm
 N_CROWN, N_DROP, N_RING = 6, 20, 3
+WAVE_G = 8    # lưới mỗi cuộn sóng: WAVE_G × WAVE_G ô (bản 3: 5)
+HEAD_G = (14, 10)   # lưới đầu (cột, hàng; bản 3: 9 × 6)
+COIL_G = (13, 8)    # lưới vòng thân (bản 3: 8 × 5)
+MOUTH_G = (7, 4)    # lưới lòng miệng (bản 3: 5 × 3)
+JAW_G = (9, 4)      # lưới hàm dưới (bản 3: mảnh cứng). Hai xương như con gốc (xiae): họng sát bản lề theo đầu, cằm và mõm theo hàm
+RIB_ROWS, RIB_PER = 4, 3   # dải nước: hàng và cột mỗi xương (bản 3: 3 hàng, 2 cột)
+
+
+def grid_tris(nx, ny):
+    """tam giác của lưới (nx + 1) × (ny + 1) đỉnh xếp theo hàng, đường chéo so le."""
+    tris = []
+    for r in range(ny):
+        for c in range(nx):
+            a = r * (nx + 1) + c
+            if (r + c) % 2 == 0:
+                tris += [(a, a + 1, a + nx + 2), (a, a + nx + 2, a + nx + 1)]
+            else:
+                tris += [(a, a + 1, a + nx + 1), (a + 1, a + nx + 2, a + nx + 1)]
+    return tris
 
 
 _LID = {}
@@ -733,7 +785,8 @@ def fit_lid(kind, hp, lp):
 def build_rig(pc):
     sk = Sk()
     sk.bone("root")
-    sk.bone("nuoc", "root")      # nhóm nước
+    sk.bone("nuoc", "root")      # nhóm nước: clip chính co giãn (nở ra lúc xuất hiện, tan lúc chết)
+    sk.bone("song", "nuoc")      # cha của mọi cuộn sóng: clip chính ép dẹt lúc nước lặng (calm); mọi chuyển động sóng nằm ở clip aura
     sk.bone("than", "root")      # nhóm thân
     info = {"heads": {}, "waves": [], "ribbons": [], "pieces": pc}
 
@@ -755,15 +808,16 @@ def build_rig(pc):
         ang = [math.degrees(math.atan2(J[k + 1][1] - J[k][1], J[k + 1][0] - J[k][0])) for k in range(NC)]
         turn = sum(((ang[k + 1] - ang[k] + 180) % 360) - 180 for k in range(NC - 1))
         sense = 1.0 if turn >= 0 else -1.0
-        sk.bone(nm, "nuoc", cfg["x"], cfg["y"], 0, 0, (-1 if cfg["flip"] else 1) * cfg["s"], cfg["s"])
+        sk.bone(nm, "song", cfg["x"], cfg["y"], 0, 0, (-1 if cfg["flip"] else 1) * cfg["s"], cfg["s"])
         cn = [f"{nm}{k}" for k in range(NC)]
         for k in range(NC):
             if k == 0:
                 sk.bone(cn[0], nm, J[0][0], J[0][1], ang[0], cum[-1] / NC)
             else:
                 sk.bone(cn[k], cn[k - 1], cum[-1] / NC, 0, ang[k] - ang[k - 1], cum[-1] / NC)
-        sk.slot(nm, nm, cfg["p"], alpha=0.0)
-        g = 5
+        # slot sóng hiện sẵn (alpha 1): đời sóng (mờ vào, mờ ra) khoá trong clip aura; runtime Overlay NHÂN độ đậm nên mặc định phải là 1
+        sk.slot(nm, nm, cfg["p"])
+        g = WAVE_G
         size = max(im.width, im.height)
         pts, wts, P = [], [], []
         for r in range(g + 1):
@@ -779,11 +833,7 @@ def build_rig(pc):
                 pts.append((px, py))
                 P.append((X, Y))
                 wts.append(ws)
-        tris = []
-        for r in range(g):
-            for c in range(g):
-                a = r * (g + 1) + c
-                tris += [(a, a + 1, a + g + 2), (a, a + g + 2, a + g + 1)]
+        tris = grid_tris(g, g)
         bind = {cn[k]: (J[k][0], J[k][1], ang[k]) for k in range(NC)}
         bind[nm] = (0, 0, 0)
         sk.mesh(nm, cfg["p"], im, pts, tris, wts, (P, bind))
@@ -798,21 +848,17 @@ def build_rig(pc):
         rn = [f"{bone}_{i}" for i in range(NRB)]
         for i in range(NRB):
             sk.bone(rn[i], bone, -W_ / 2 + (i + 0.5) * seg, 0)
-        cols = 2 * NRB + 1
+        cols = RIB_PER * NRB + 1
         pts, P, wts = [], [], []
-        for r in range(3):
+        for r in range(RIB_ROWS):
             for c in range(cols):
-                px, py = im.width * c / (cols - 1), im.height * r / 2
+                px, py = im.width * c / (cols - 1), im.height * r / (RIB_ROWS - 1)
                 X, Y = (px - im.width / 2) * sx, (im.height - py) * sy + y0
-                k = (1.0, 0.55, 0.0)[r]
+                k = (1.0 - r / (RIB_ROWS - 1)) ** 1.6     # hàng mào bám hẳn chuỗi, hàng đáy bám gốc (đáy đứng yên)
                 pts.append((px, py))
                 P.append((X, Y))
                 wts.append([(rn[b], w * k) for b, w in chain_weights(X + W_ / 2, seg, NRB)] + [(bone, 1 - k)])
-        tris = []
-        for r in range(2):
-            for c in range(cols - 1):
-                a = r * cols + c
-                tris += [(a, a + 1, a + cols + 1), (a, a + cols + 1, a + cols)]
+        tris = grid_tris(cols - 1, RIB_ROWS - 1)
         bind = {rn[i]: (-W_ / 2 + (i + 0.5) * seg, 0, 0) for i in range(NRB)}
         bind[bone] = (0, 0, 0)
         sk.mesh(slot, piece, im, pts, tris, wts, (P, bind))
@@ -838,7 +884,7 @@ def build_rig(pc):
         sk.bone(f"coil{i}", "coil", ux * cw * 0.36, -34 + uy * chh * 0.72)
         info["coil"].append((f"coil{i}", ux, uy, ux * cw * 0.36, -34 + uy * chh * 0.72))
     sk.slot("coil", "coil", "coil")
-    gx_, gy_ = 8, 5
+    gx_, gy_ = COIL_G
     cpts, cP, cwts = [], [], []
     for r in range(gy_ + 1):
         for cc in range(gx_ + 1):
@@ -848,11 +894,7 @@ def build_rig(pc):
             cpts.append((px, py))
             cP.append((X, Y))
             cwts.append(ws + [("coil", 0.18)])
-    ctris = []
-    for r in range(gy_):
-        for cc in range(gx_):
-            a = r * (gx_ + 1) + cc
-            ctris += [(a, a + 1, a + gx_ + 2), (a, a + gx_ + 2, a + gx_ + 1)]
+    ctris = grid_tris(gx_, gy_)
     cbind = {nm: (bx, by, 0) for nm, _, _, bx, by in info["coil"]}
     cbind["coil"] = (0, 0, 0)
     sk.mesh("coil", "coil", cim, cpts, ctris, cwts, (cP, cbind))
@@ -865,7 +907,7 @@ def build_rig(pc):
     for i in range(1, TB):
         sk.bone(tnames[i], tnames[i - 1], tseg, 0, 0, tseg)
     sk.slot("tail", "tail", "tail")
-    tpts, ttris, taxis, _ = strip_mesh(tim, TB, per=2)
+    tpts, ttris, taxis, _ = strip_mesh(tim, TB)
     tP = [(px * tsc, (taxis - py) * tsc) for px, py in tpts]
     twts = [[(tnames[b], w) for b, w in chain_weights(px * tsc, tseg, TB)] for px, _ in tpts]
     sk.mesh("tail", "tail", tim, tpts, ttris, twts, (tP, {tnames[i]: (i * tseg, 0, 0) for i in range(TB)}))
@@ -876,7 +918,7 @@ def build_rig(pc):
         sz = h["size"]
         seg = neck.width / NB
         E = (h["ex"], CLIPY - 14)
-        J = neck_joints(E, h["dirE"], h["H"], h["psi"] + h["arr"], seg * sz, NB)
+        J = neck_joints(E, h["dirE"], h["H"], h["psi"] + h["arr"], seg * sz, NB, ka=h.get("ka", 0.52), kb=h.get("kb", 0.42), rest=h.get("rest"))
         th = [math.degrees(math.atan2(*(J[i + 1] - J[i])[::-1])) for i in range(NB)]
         names = []
         for i in range(NB):
@@ -889,7 +931,9 @@ def build_rig(pc):
         hb = sk.bone("h" + hid, names[-1], seg, 0, h["psi"] - th[-1], hp.width * 0.8)
         ax, ay = ANCHOR["head_" + kind]
         hw = hp.width
-        gx, gy = HEAD_GEO["jaw"]
+        GEO = HEAD_GEO_K.get(kind, HEAD_GEO)
+        JAW_SC = JAW_SC_K.get(kind, globals()["JAW_SC"])
+        gx, gy = GEO["jaw"]
         jb = sk.bone("j" + hid, hb, gx * hw, gy * hw, 0, jp.width * 0.8, JAW_SC, JAW_SC)
         # bờm: hai đốt chĩa ra sau gáy
         mxf, myf, ytop = MANE[kind]
@@ -901,7 +945,7 @@ def build_rig(pc):
         wp = pc["whisker"]
         wseg = wp.width / WB
         whinfo = {}
-        for tag, (wx, wy), rot0, wsz in (("b", HEAD_GEO["wh_b"], -128, 0.62), ("f", HEAD_GEO["wh_f"], -104, 0.74)):
+        for tag, (wx, wy), rot0, wsz in (("b", GEO["wh_b"], WHISK_ROT["b"], WHISK_SC["b"]), ("f", GEO["wh_f"], WHISK_ROT["f"], WHISK_SC["f"])):
             prev = hb
             wsc = wsz * (0.9 if kind == "n" else 1.0)
             whinfo[tag] = (wx * hw, wy * hw, rot0, wsc)
@@ -915,50 +959,63 @@ def build_rig(pc):
         # slot sau -> trước: râu sau, cổ, lòng miệng, hàm, đầu, râu trước
         def whisker_slot(tag):
             sl = sk.slot(f"r{hid}{tag}", f"r{hid}{tag}0", "whisker")
-            pts, tris, axis, xs = strip_mesh(wp, WB, per=2)
+            pts, tris, axis, xs = strip_mesh(wp, WB)
             P = [(px, axis - py) for px, py in pts]
             wts = [[(f"r{hid}{tag}{b}", w) for b, w in chain_weights(px, wseg, WB)] for px, _ in pts]
             sk.mesh(sl, "whisker", wp, pts, tris, wts, (P, {f"r{hid}{tag}{i}": (i * wseg, 0, 0) for i in range(WB)}))
 
         whisker_slot("b")
         sl = sk.slot("c" + hid, names[0], "neck_" + kind)
-        pts, tris, axis, xs = strip_mesh(neck, NB, per=2)
-        P = [(px, (axis - py) * NECK_THICK[kind]) for px, py in pts]
+        pts, tris, axis, xs = strip_mesh(neck, NB)
+        P = [(px, (axis - py) * NECK_THICK[kind] * h.get("thick", 1.0)) for px, py in pts]
         wts = [[(names[b], w) for b, w in chain_weights(px, seg, NB)] for px, _ in pts]
         sk.mesh(sl, "neck_" + kind, neck, pts, tris, wts, (P, {names[i]: (i * seg, 0, 0) for i in range(NB)}))
         mp = pc["mouth"]
-        mx, my = HEAD_GEO["mouth"]
+        mx, my = GEO["mouth"]
         sk.slot("m" + hid, hb, "mouth")
-        mc, mr = 5, 3
+        mc, mr = MOUTH_G
         mx0, mx1 = gx * hw - 0.03 * hw, 0.40 * hw
         mpts, mP, mW = [], [], []
         # thịt trong miệng ĐI THEO HÀM DƯỚI (người dùng dặn 2026-11-10): hàng dưới bám hàm 100%; hàng trên chỉ bám đầu ở sát bản lề
         # (màng khoé miệng), ra phía mõm thì theo hàm luôn và mỏng dần. Phần nào ở lại với đầu mà thò ra khỏi hàm trên sẽ trông như
-        # cái lưỡi thứ hai.
+        # cái lưỡi thứ hai. Hai bảng dưới là hàm theo vị trí dọc miệng (0 = bản lề, 1 = mõm), nội suy cho lưới dày hơn.
         m_ytop = (-0.015, -0.022, -0.036, -0.050, -0.064)
         m_qtop = (0.0, 0.35, 0.80, 1.0, 1.0)
+        fu5 = np.linspace(0, 1, 5)
         for r in range(mr):
             for cc in range(mc):
                 fu = cc / (mc - 1)
                 X = mx0 + (mx1 - mx0) * fu
-                yt, yb = m_ytop[cc] * hw, -0.112 * hw
+                yt, yb = float(np.interp(fu, fu5, m_ytop)) * hw, -0.112 * hw
                 k = r / (mr - 1)
                 mpts.append(((0.10 + 0.87 * fu) * mp.width, (0.03 + 0.94 * k) * mp.height))   # lấy cả viền mực mép trên, mép dưới, mép trước
                 mP.append((X, yt + (yb - yt) * k))
-                wj = m_qtop[cc] + (1.0 - m_qtop[cc]) * k
+                q = float(np.interp(fu, fu5, m_qtop))
+                wj = q + (1.0 - q) * k
                 mW.append([(hb, 1.0 - wj), (jb, wj)])
-        mtris = []
-        for r in range(mr - 1):
-            for cc in range(mc - 1):
-                a = r * mc + cc
-                mtris += [(a, a + 1, a + mc + 1), (a, a + mc + 1, a + mc)]
+        mtris = grid_tris(mc - 1, mr - 1)
         sk.mesh("m" + hid, "mouth", mp, mpts, mtris, mW, (mP, {hb: (0, 0, 0), jb: (gx * hw, gy * hw, 0, JAW_SC)}))
         # xương miệng: chỗ và hướng nhả của đầu này (VFX của game bám vào đây; tia, đạn không vẽ trong rig)
         jx0, jy0 = MUZZLE[0] * hw, MUZZLE[1] * hw
         sk.bone("mieng_" + hid, hb, jx0, jy0, JROT, 60)
         jx, jy = ANCHOR["jaw_" + kind]
         sk.slot("j" + hid, jb, "jaw_" + kind)
-        sk.region("j" + hid, "jaw_" + kind, jp, jp.width * (0.5 - jx), -jp.height * (0.5 - jy))
+        # hàm dưới: lưới hai xương như con gốc (mục 3b): vùng họng sát bản lề (góc sau trên của mảnh) bám xương đầu, cằm và mõm bám
+        # xương hàm, giữa chia dần. Há miệng thì da họng giãn ra, bản lề không hở; mảnh cứng (bản 3) thì khe bản lề lộ góc nhọn.
+        jgx, jgy = JAW_G
+        jpts, jP, jW = [], [], []
+        for r in range(jgy + 1):
+            for cc in range(jgx + 1):
+                u, v = cc / jgx, r / jgy                         # u: 0 = đuôi hàm (bản lề), 1 = mõm; v: 0 = mép trên (nướu), 1 = cằm
+                px, py = jp.width * u, jp.height * v
+                X, Y = (px - jx * jp.width) / JAW_SC, (jy * jp.height - py) / JAW_SC   # hệ xương hàm (tỉ lệ 0,86: chia cho tỉ lệ)
+                wh = ease((0.34 - u) / 0.26, "io") * (1.0 - 0.45 * v)   # họng (sau, trên) theo đầu; càng xuống cằm, càng ra mõm càng theo hàm
+                wh = min(0.88, wh)
+                jpts.append((px, py))
+                jP.append((X, Y))
+                jW.append([(hb, wh), (jb, 1.0 - wh)])
+        jtris = grid_tris(jgx, jgy)
+        sk.mesh("j" + hid, "jaw_" + kind, jp, jpts, jtris, jW, (jP, {jb: (0, 0, 0), hb: (-gx * hw / JAW_SC, -gy * hw / JAW_SC, 0, 1.0 / JAW_SC)}))
         lim_ = pc["tongue_" + kind]
         lseg = lim_.width / LB
         lx0, ly0 = TONGUE_AT[0] * jp.width, TONGUE_AT[1] * jp.height
@@ -967,12 +1024,12 @@ def build_rig(pc):
         for i in range(1, LB):
             sk.bone(ln[i], ln[i - 1], lseg, 0, 0, lseg)
         sk.slot("l" + hid, ln[0], "tongue_" + kind, alpha=0.0)
-        lpts, ltris, laxis, _ = strip_mesh(lim_, LB, per=2)
+        lpts, ltris, laxis, _ = strip_mesh(lim_, LB)
         lP = [(px, laxis - py) for px, py in lpts]
         lwts = [[(ln[b], w) for b, w in chain_weights(px, lseg, LB)] for px, _ in lpts]
         sk.mesh("l" + hid, "tongue_" + kind, lim_, lpts, ltris, lwts, (lP, {ln[i]: (i * lseg, 0, 0) for i in range(LB)}))
         sk.slot("h" + hid, hb, "head_" + kind)
-        gx_, gy_ = 9, 6
+        gx_, gy_ = HEAD_G
         hpts, hP, hw_ = [], [], []
         for r in range(gy_ + 1):
             for cc in range(gx_ + 1):
@@ -983,11 +1040,7 @@ def build_rig(pc):
                 hpts.append((px, py))
                 hP.append((px - ax * hp.width, ay * hp.height - py))
                 hw_.append([(hb, 1 - m), (f"b{hid}0", m * (1 - tip)), (f"b{hid}1", m * tip)])
-        htris = []
-        for r in range(gy_):
-            for cc in range(gx_):
-                a = r * (gx_ + 1) + cc
-                htris += [(a, a + 1, a + gx_ + 2), (a, a + gx_ + 2, a + gx_ + 1)]
+        htris = grid_tris(gx_, gy_)
         sk.mesh("h" + hid, "head_" + kind, hp, hpts, htris, hw_,
                 (hP, {hb: (0, 0, 0), f"b{hid}0": (bx0, by0, 180), f"b{hid}1": (bx0 - ML, by0, 180)}))
         # mí mắt: dò chỗ đặt phủ kín con mắt (fit_lid); mặc định ẩn (chớp, nhắm bằng alpha slot)
@@ -1062,7 +1115,9 @@ def idle_sway(h, t, amp=1.0):
     ax, ay, aa = h["sway"]
     w = 2 * math.pi / (2 * TW)
     p = 2 * math.pi * h["ph"]
-    return np.array([ax * math.sin(w * t + p) * amp, ay * math.sin(2 * w * t + p * 1.7) * amp, aa * math.sin(w * t + p + 1.1) * amp, 0.0])
+    # trừ giá trị tại t = 0: giây 0 idle đúng dáng gốc (bóng dáng khung 0 = concept, IoU đo được; 2026-11-11), vòng lặp vẫn kín vì hằng
+    return np.array([ax * (math.sin(w * t + p) - math.sin(p)) * amp, ay * (math.sin(2 * w * t + p * 1.7) - math.sin(p * 1.7)) * amp,
+                     aa * (math.sin(w * t + p + 1.1) - math.sin(p + 1.1)) * amp, 0.0])
 
 
 def animate_heads(clip, tracks, sway=None, base=None, tongue=None):
@@ -1092,11 +1147,13 @@ def animate_heads(clip, tracks, sway=None, base=None, tongue=None):
         d = np.hypot(*(Hp - np.array(E)).T)
         pa = psi + h["arr"]
         uH = np.stack([np.cos(np.radians(pa)), np.sin(np.radians(pa))], axis=1)
-        C2 = follow(Hp - uH * (d * 0.42)[:, None], 0.085, dt, clip.n if clip.loop else 0)
+        C2 = follow(Hp - uH * (d * h.get("kb", 0.42))[:, None], 0.085, dt, clip.n if clip.loop else 0)
         th_all, J0 = [], []
         for i in range(clip.n):
-            wv = (WAVE_A * h["size"] * (0.4 + 0.6 * sws[i]), 2 * math.pi * tp[i] / (2 * TW) + h["ph"] * 6.28 + 0.8)
-            J = neck_joints(E, h["dirE"], Hp[i], pa[i], seg, NB, C2=C2[i], wave=wv)
+            # sóng dọc cổ nhân bao sin²(πt/D): giây 0 và cuối mỗi clip cổ đúng đường tâm concept (khung 0 idle = dáng gốc, 2026-11-11)
+            wv = (WAVE_A * h["size"] * (0.4 + 0.6 * sws[i]) * math.sin(math.pi * clip.ts[i] / clip.dur) ** 2,
+                  2 * math.pi * tp[i] / (2 * TW) + h["ph"] * 6.28 + 0.8)
+            J = neck_joints(E, h["dirE"], Hp[i], pa[i], seg, NB, C2=C2[i], wave=wv, ka=h.get("ka", 0.52), rest=h.get("rest"))
             th_all.append([math.atan2(*(J[k + 1] - J[k])[::-1]) for k in range(NB)])
             J0.append(J[0])
         th_all = np.degrees(np.unwrap(np.array(th_all), axis=0))
@@ -1112,16 +1169,16 @@ def animate_heads(clip, tracks, sway=None, base=None, tongue=None):
             clip.key(names[k], "rotate", clip.ts, rel, 0.25)
         hrel = (psi - th_all[:, -1]) - (h["psi"] - th0[-1])
         clip.key("h" + hid, "rotate", clip.ts, hrel, 0.25)
-        breathe = 5 + 3 * np.sin(2 * math.pi * tp / (2 * TW) + h["ph"] * 6.28)  # miệng hé, thở
-        clip.key("j" + hid, "rotate", clip.ts, -(vals[:, 3] + breathe), 0.4)
+        breathe = BREATHE[0] + BREATHE[1] * np.sin(2 * math.pi * tp / (2 * TW) + h["ph"] * 6.28)  # miệng hé, thở
+        clip.key("j" + hid, "rotate", clip.ts, -(vals[:, 3] + breathe) + JAW_CLOSE.get(h["kind"], 0.0), 0.4)
         if tongue and hid in tongue:  # tongue[hid] = giờ thè lưỡi: lưỡi tuồn ra rồi rũ theo trọng lực, lắc theo đầu
             T = H["tongue"]
             jr = psi - (vals[:, 3] + breathe)
             c0, s0 = np.cos(np.radians(psi)), np.sin(np.radians(psi))
             jo = Hp + np.stack([c0 * T["jx"] - s0 * T["jy"], s0 * T["jx"] + c0 * T["jy"]], axis=1) * h["size"]
             c1, s1 = np.cos(np.radians(jr)), np.sin(np.radians(jr))
-            anc = jo + np.stack([c1 * T["x"] - s1 * T["y"], s1 * T["x"] + c1 * T["y"]], axis=1) * h["size"] * JAW_SC
-            offs = rope(anc, jr, [TONGUE_ROT] + [0.0] * (LB - 1), T["seg"] * h["size"] * JAW_SC, clip.loop, k0=0.10, k1=0.03, zeta=0.55,
+            anc = jo + np.stack([c1 * T["x"] - s1 * T["y"], s1 * T["x"] + c1 * T["y"]], axis=1) * h["size"] * JAW_SC_K.get(h["kind"], JAW_SC)
+            offs = rope(anc, jr, [TONGUE_ROT] + [0.0] * (LB - 1), T["seg"] * h["size"] * JAW_SC_K.get(h["kind"], JAW_SC), clip.loop, k0=0.10, k1=0.03, zeta=0.55,
                         wind=lambda tsec, i: np.array([0.0, -TONGUE_G]), lim=(38.0, 55.0))
             for k in range(LB):
                 clip.key(f"l{hid}{k}", "rotate", clip.ts, offs[:, k], 0.4)
@@ -1140,6 +1197,18 @@ def animate_heads(clip, tracks, sway=None, base=None, tongue=None):
             ph0 = h["ph"] * 6.28 + (1.3 if tag == "b" else 0.0)
             wind = lambda tsec, i, ph0=ph0: np.array([WIND * (i / WB) ** 1.5 * math.sin(2 * math.pi * (tsec - off) / TW + ph0 - i * 0.6), 0.0])
             offs = rope(anc, psi, [rot0] + [WREST] * (WB - 1), H["wseg"] * wsc * h["size"], clip.loop, wind=wind)
+            # nối clip không giật ở ngọn râu: clip lặp (idle, nướng trước) ghi dáng râu khung 0; clip không lặp hoà 0,3 s cuối về đó
+            # (đo trên đỉnh lưới: trước đó lệch 18–34 px ở ngọn râu; bài học DAC_TA mục 5)
+            key0 = (hid, tag)
+            if clip.loop:
+                info.setdefault("rope0", {})[key0] = offs[0].copy()
+            elif key0 in info.get("rope0", {}):
+                nb = min(clip.n - 1, int(round(0.3 * FPS)))
+                tgt = info["rope0"][key0]
+                for i in range(nb):
+                    w_ = ease((i + 1) / nb, "io")
+                    f = clip.n - nb + i
+                    offs[f] = offs[f] * (1 - w_) + tgt * w_
             for k in range(WB):
                 clip.key(f"r{hid}{tag}{k}", "rotate", clip.ts, offs[:, k], 0.4)
         for k in range(2):
@@ -1151,9 +1220,12 @@ def animate_heads(clip, tracks, sway=None, base=None, tongue=None):
     return out
 
 
-def animate_water(clip, grow=None, calm=None, sink=None):
-    """băng chuyền sóng theo giờ tuyệt đối (mọi clip cùng pha). grow(t): tỉ lệ cả vùng nước; calm(t): 1 = sóng bình thường,
-    0 = sóng tắt."""
+def animate_aura(clip):
+    """clip lặp `aura` (dài 2·TW): mọi chuyển động tuần hoàn của nước và của phần thân nằm trong nước: băng chuyền sóng (mỗi cuộn
+    dâng tại chỗ, mào tự cuộn, trôi nhẹ, mờ vào mờ ra; hai bản sao lệch nửa chu kỳ), mảng nền phập phồng, ba dải nước uốn sóng chạy,
+    vòng thân phồng chạy dọc vòm, đuôi quẫy. Runtime phủ clip này lên mọi clip chính theo đồng hồ chung (AtomikPose.Overlay: xoay,
+    dời cộng; tỉ lệ, độ đậm nhân), nên nước liền qua mọi lần đổi clip và khoá nước chỉ lưu một lần (con gốc chép vào cả 18 clip:
+    hơn nửa số khoá). Clip chính chỉ khoá phần phụ thuộc clip (animate_water): nước nở / tan, lặng, thân chìm."""
     info = clip.info
     D = clip.dur
     US = (0.0, 0.16, 0.5, 0.8, 0.96, 0.999)
@@ -1163,21 +1235,20 @@ def animate_water(clip, grow=None, calm=None, sink=None):
         b, ph, s_ = wv["bone"], wv["ph"], wv["s"]
         kc, rise, dx = wv.get("kc", 1.0), wv.get("rise", 1.0), wv.get("dx", 46.0)
         hh = wv["h"]
-        tr, scl, al, sway = [], [], [], []
+        tr, scl, al = [], [], []
         rots = [[] for _ in range(NC)]
         k0 = int(math.floor(-ph)) - 1
         for cyc in range(k0, int(math.ceil(D / TW)) + 2):
             for u, cu in zip(US, CURL):
                 t = (cyc + ph + u) * TW  # giữ cả khoá ngoài [0, D]: _close cần chúng để nội suy đúng hai mép clip
-                c = calm(t) if calm else 1.0
                 g = 0.6 + 0.4 * ease(u / 0.45, "out")
                 tr.append((t, ((-1 if wv["flip"] else 1) * dx * (u - 0.3), -0.24 * hh * s_ * rise * (1 - ease(u / 0.5, "out")) + 0.03 * hh * s_ * u)))
                 if u in (0.0, 0.5, 0.8, 0.999):
-                    scl.append((t, (g, g * (0.55 + 0.45 * c))))
-                al.append((t, ease(u / 0.16, "io") * (1 - ease((u - 0.8) / 0.16, "io")) * c * wv.get("a", 1.0)))
+                    scl.append((t, (g, g)))
+                al.append((t, ease(u / 0.16, "io") * (1 - ease((u - 0.8) / 0.16, "io")) * wv.get("a", 1.0)))
                 if u in (0.0, 0.5, 0.8, 0.999):
                     for k in range(NC):
-                        rots[k].append((t, wv["sense"] * AJ[k] * cu * kc * (0.5 + 0.5 * c)))
+                        rots[k].append((t, wv["sense"] * AJ[k] * cu * kc))
         clip.raw(b, "translate", _close(tr, D, ph, None))
         clip.raw(b, "scale", _close(scl, D, ph, None))
         if kc:
@@ -1186,7 +1257,7 @@ def animate_water(clip, grow=None, calm=None, sink=None):
         clip.alpha(b, _close([(t, np.array([v])) for t, v in al], D, ph, None, scalar=True))
     # mảng nước nền và dải mặt nước: phập phồng, trôi ngang chậm
     ts = clip.ts
-    tp = ts - (0.0 if clip.loop else D)
+    tp = ts
     w = 2 * math.pi / TW
     clip.key("mound", "scale", ts, np.stack([1 + 0.025 * np.sin(w * tp), 1 + 0.05 * np.sin(w * tp + 1.2)], axis=1), 0.004)
     clip.key("band", "translate", ts, np.stack([16 * np.sin(w * tp * 0.5), 5 * np.sin(w * tp + 0.6)], axis=1), 0.5)
@@ -1195,20 +1266,39 @@ def animate_water(clip, grow=None, calm=None, sink=None):
     for bone, amp, kph, dirn in (("band", 10.0, 0.0, 1), ("band2", 8.0, 1.7, -1), ("ripple", 7.0, 0.9, 1)):
         for i in range(NRB):  # xương dọc dải nhấp nhô lệch pha 0,8 rad: sóng chạy dọc mào dải
             clip.key(f"{bone}_{i}", "translate", ts, np.stack([3 * np.cos(w * tp - dirn * i * 0.8 + kph), amp * np.sin(w * tp - dirn * i * 0.8 + kph)], axis=1), 0.3)
-    dn = np.array([sink(t) for t in ts]) if sink else 0 * ts  # vòng thân, đuôi chìm xuống dưới mặt nước (đơn vị rig)
-    clip.key("coil", "translate", ts, np.stack([4 * np.sin(w * tp * 0.5), 9 * np.sin(w * tp * 0.5 + 0.5) - dn * 0.8], axis=1), 0.5)
-    clip.key("coil", "rotate", ts, 2.2 * np.sin(w * tp * 0.5 + 1.0), 0.2)
+    # vòng thân, đuôi: nhân bao sin²(πt/D) để giây 0 (và D) đúng dáng gốc (bóng dáng khung 0 = concept, 2026-11-11); vòng lặp vẫn kín
+    env = np.sin(np.pi * ts / D) ** 2
+    clip.key("coil", "translate", ts, np.stack([4 * np.sin(w * tp * 0.5), 9 * np.sin(w * tp * 0.5 + 0.5)], axis=1) * env[:, None], 0.5)
+    clip.key("coil", "rotate", ts, 2.2 * np.sin(w * tp * 0.5 + 1.0) * env, 0.2)
     for i, (nm, ux, uy, _, _) in enumerate(info["coil"]):  # chỗ phồng chạy từ chân trái vòm sang chân phải, mỗi điểm trễ 0,9 rad
-        rad = 11 * np.sin(w * tp * 0.5 - i * 0.9)
-        tan = 6 * np.cos(w * tp * 0.5 - i * 0.9)
+        rad = 11 * np.sin(w * tp * 0.5 - i * 0.9) * env
+        tan = 6 * np.cos(w * tp * 0.5 - i * 0.9) * env
         clip.key(nm, "translate", ts, np.stack([ux * rad - uy * tan, uy * rad + ux * tan], axis=1), 0.3)
-    clip.key("tail", "rotate", ts, 6 * np.sin(w * tp * 0.5 + 2.0), 0.3)
+    clip.key("tail", "rotate", ts, 6 * np.sin(w * tp * 0.5 + 2.0) * env, 0.3)
     for i in range(1, TB):  # sóng quẫy chạy ra chóp, biên độ lớn dần
-        clip.key(f"tail{i}", "rotate", ts, (1.5 + 1.7 * i) * np.sin(w * tp - i * 0.75 + 2.0), 0.25)
-    clip.key("tail", "translate", ts, np.stack([-dn * 0.5, 8 * np.sin(w * tp * 0.5 + 2.6) - dn * 1.3], axis=1), 0.5)
+        clip.key(f"tail{i}", "rotate", ts, (1.5 + 1.7 * i) * np.sin(w * tp - i * 0.75 + 2.0) * env, 0.25)
+    clip.key("tail", "translate", ts, np.stack([0 * tp, 8 * np.sin(w * tp * 0.5 + 2.6) * env], axis=1), 0.5)
+
+
+def animate_water(clip, grow=None, calm=None, sink=None):
+    """phần nước phụ thuộc clip chính (cộng / nhân lên clip aura): grow(t): tỉ lệ cả vùng nước (xương `nuoc`); calm(t): 1 = sóng bình
+    thường, 0 = sóng lặng (ép dẹt xương `song` và làm mờ mọi slot sóng; runtime nhân với độ đậm của aura); sink(t): vòng thân, đuôi
+    chìm xuống dưới mặt nước (đơn vị rig; dời cộng thêm vào dao động của aura)."""
+    ts = clip.ts
     if grow:
         g = np.array([grow(t) for t in ts])
         clip.key("nuoc", "scale", ts, np.stack([g, np.maximum(0.02, g)], axis=1), 0.004)
+    if calm:
+        c = np.clip(np.array([calm(t) for t in ts]), 0.0, 1.0)
+        clip.key("song", "scale", ts, np.stack([1 + 0 * c, 0.55 + 0.45 * c], axis=1), 0.004)
+        idx = rdp(ts, c, 0.01)
+        if any(c[i] < 0.995 for i in idx):
+            for wv in clip.info["waves"]:
+                clip.alpha(wv["bone"], [(float(ts[i]), float(c[i])) for i in idx])
+    if sink:
+        dn = np.array([sink(t) for t in ts])
+        clip.key("coil", "translate", ts, np.stack([0 * dn, -dn * 0.8], axis=1), 0.5)
+        clip.key("tail", "translate", ts, np.stack([-dn * 0.5, -dn * 1.3], axis=1), 0.5)
 
 
 def _close(keys, D, ph, _, scalar=False):
@@ -1316,8 +1406,14 @@ def lids(clip, sched):
         clip.alpha("e" + hid, ks)
 
 
-def clip_dung(info):
-    c = Clip("dung", 2 * TW, info, loop=True)
+def clip_aura(info):
+    c = Clip("aura", 2 * TW, info, loop=True)
+    animate_aura(c)
+    return c
+
+
+def clip_idle(info):
+    c = Clip("idle", 2 * TW, info, loop=True)
     # điểm phá nhịp: mỗi vòng mỗi đầu táp miệng một cái (0,45 s) ở giờ riêng, kèm gật nhẹ; con gốc dùng cú thè lưỡi 0,4 s cho việc này
     z = (0, 0, 0, 0)
     acc = {}
@@ -1340,7 +1436,7 @@ def clip_xuat_hien(info):
     """mặt nước phẳng lặng, một vòng sóng loang, vũng nước nở ra; bốn đầu vọt lên lần lượt từ hai bên vào giữa, mỗi đầu toé một
     vương miện nước; đầu thủ lĩnh trồi lên sau cùng, chậm và cao; cả năm đầu gầm rồi về dáng đứng."""
     D = 3 * TW
-    c = Clip("xuat_hien", D, info)
+    c = Clip("appear", D, info)
     rise = {"d": 1.05, "b": 1.25, "c": 1.50, "a": 1.72, "k": 2.35}
     tr = {}
     for h in HEADS:
@@ -1371,7 +1467,7 @@ def clip_tan_cong(info):
     """hai đầu bên phải cắn liên tiếp một-hai: đầu thấp (d) rụt về rồi phóng ra cắn ở 0,45 s, đầu giữa (c) bổ chéo xuống ở 0,68 s;
     thủ lĩnh chồm theo gầm; hai đầu trái ngả ra sau lấy thăng bằng."""
     D = TW
-    c = Clip("tan_cong", D, info)
+    c = Clip("attack", D, info)
     z = (0, 0, 0, 0)
     tr = {
         "d": K((0, z, "lin"), (0.30, (-150, 40, 16, 4), "io"), (0.38, (-160, 44, 18, 30), "lin"), (0.45, (330, -30, -4, 44), "in"), (0.50, (345, -34, -6, 0), "lin"),
@@ -1397,7 +1493,7 @@ def clip_chieu(info):
     """ngũ long phún thủy: năm đầu ngửa ra sau hít hơi (nước dồn lại, sóng thấp xuống), rồi đồng loạt vươn về phía trước xoè như
     nan quạt, há hết miệng, giữ và rung trong lúc phun (tia nước do lớp hạt của game vẽ); nước dưới chân dâng trào; thu về."""
     D = 2 * TW
-    c = Clip("chieu", D, info)
+    c = Clip("skill", D, info)
     z = (0, 0, 0, 0)
     fan = {"a": (250, 60, 18, 0.00), "b": (300, -30, 2, 0.05), "k": (230, -90, -8, 0.10), "c": (240, -70, -6, 0.04), "d": (250, -10, 6, 0.08)}
     back = {"a": (-90, 60, 26), "b": (-80, 40, 24), "k": (-120, 70, 22), "c": (-150, 80, 26), "d": (-170, 70, 30)}
@@ -1429,7 +1525,7 @@ def clip_chieu_phun(info):
     theo cách nhau 0,06 s, mọi đầu chĩa đúng vào điểm TGT; giữ 1,1 s: đầu bị sức phun đẩy giật lùi rồi gồng rung (hai dáng đổi nhau
     mỗi 2 khung); hết phun thì thở ra rũ xuống rồi về dáng đứng."""
     D = 2 * TW
-    c = Clip("chieu_phun", D, info)
+    c = Clip("cast", D, info)
     z = (0, 0, 0, 0)
     delay = {"k": 0.0, "c": 0.06, "d": 0.12, "a": 0.18, "b": 0.24}
     gather = {"k": (-150, -70, -16), "c": (-170, -40, -14), "d": (-190, 10, -10), "a": (-110, -60, -14), "b": (-120, -10, -10)}
@@ -1451,6 +1547,9 @@ def clip_chieu_phun(info):
             psi_f = math.degrees(math.atan2(TGT[1] - m[1], TGT[0] - m[0])) - JROT
         da = psi_f - h["psi"]
         ux, uy = math.cos(math.radians(psi_f)), math.sin(math.radians(psi_f))
+        if hid == "k":  # chỗ bắn tia của thủ lĩnh lúc phun (game.muzzle, hệ rig): xương mieng_k ở khung F
+            info["muzzle"] = (float(m[0]), float(m[1]))
+            info["cast_fire"] = F
         keys = [(0, z, "lin"), (0.45, (gx * 0.7, gy * 0.7, ga * 0.7, -3), "io"), (0.80, (gx, gy, ga, -6), "io"), (F - 0.07, (gx - 12, gy - 6, ga - 2, -6), "lin"),
                 (F, (fx_ + 26 * ux, fy_ + 26 * uy, da, 52), "in"), (F + 0.10, (fx_ - 34 * ux, fy_ - 34 * uy, da + 3, 50), "out"), (F + 0.30, (fx_, fy_, da, 50), "io")]
         for i, t in enumerate(np.arange(F + 0.30 + 2.0 / FPS, E - 0.02, 2.0 / FPS)):
@@ -1474,7 +1573,7 @@ def clip_chieu_phun(info):
 def clip_trung_don(info):
     """bị đánh từ bên phải: cả năm đầu giật bật về trái trong hai khung, miệng há, rồi hồi về lệch nhau có nẩy quá đà; nước toé."""
     D = 0.8
-    c = Clip("trung_don", D, info)
+    c = Clip("hit", D, info)
     z = (0, 0, 0, 0)
     amt = {"a": (-70, 26, 16, 0.00), "b": (-60, 20, 14, 0.03), "k": (-110, 30, 18, 0.0), "c": (-150, 46, 24, 0.02), "d": (-170, 50, 28, 0.04)}
     tr = {}
@@ -1494,7 +1593,7 @@ def clip_chet(info):
     mõm chổng lên trời, hàm trễ xuống, lưỡi thè ra rũ lủng lẳng, lắc lư yếu ớt nửa giây; cổ hết lực, đầu đổ ngửa ra sau đập xuống
     nước (toé nước đúng chỗ rơi), nổi lộn ngược một nhịp (cằm chổng lên, lưỡi vắt ra) rồi chìm; sóng lặng dần, vũng nước tan."""
     D = 2.5 * TW
-    c = Clip("chet", D, info)
+    c = Clip("die", D, info)
     z = (0, 0, 0, 0)
     t1 = {"d": 0.30, "c": 0.42, "b": 0.54, "a": 0.66, "k": 0.85}   # lúc lả đi, ngửa ra, lè lưỡi
     land = {"a": -500, "b": -600, "k": -310, "c": -120, "d": 60}    # chỗ đầu đổ xuống (x)
@@ -1531,7 +1630,7 @@ def clip_chet(info):
     return c
 
 
-CLIPS = [clip_xuat_hien, clip_dung, clip_tan_cong, clip_chieu, clip_chieu_phun, clip_trung_don, clip_chet]
+CLIPS = [clip_idle, clip_xuat_hien, clip_tan_cong, clip_chieu_phun, clip_chieu, clip_trung_don, clip_chet, clip_aura]  # idle nướng trước: dáng râu khung 0
 
 
 # ---------------------------------------------------------------- 6. xuất
@@ -1558,6 +1657,16 @@ def pack(pc, padding=3):
     for name, (x, yy) in place.items():
         sheet.paste(pc[name], (x, yy))
     return sheet, place
+
+
+def _root_group(sk, name):
+    """xương gốc nhóm (con trực tiếp của root) chứa xương này: 'than', 'nuoc' hoặc chính nó."""
+    while True:
+        b = sk.bones[sk.bi[name]]
+        p = b.get("parent")
+        if p is None or p == "root":
+            return name
+        name = p
 
 
 def export(sk, clips, pc):
@@ -1609,21 +1718,32 @@ def export(sk, clips, pc):
             "bones": sk.bones, "slots": sk.slots, "events": {n: {} for n in EVENTS}, "skins": [{"name": "default", "attachments": sk.atts}], "animations": anims}
     p = os.path.join(RIG, NAME + ".json")
     open(p, "w", encoding="utf-8").write(json.dumps(data, separators=(",", ":")))
-    nk = sum(len(ks) for a in anims.values() for k_, part in a.items() if k_ != "events" for tl in part.values() for ks in tl.values())
+    per_clip = {}
+    for cn, a in anims.items():
+        per_clip[cn] = sum(len(ks) for k_, part in a.items() if k_ != "events" for tl in part.values() for ks in (tl.values() if isinstance(tl, dict) else [tl]))
+    nk = sum(per_clip.values())
     nv = sum(len(a.get("uvs", [])) // 2 for s in sk.atts.values() for a in s.values())
+    nt = sum(len(a.get("triangles", [])) // 3 for s in sk.atts.values() for a in s.values())
+    nmesh = sum(1 for s in sk.atts.values() for a in s.values() if a.get("type") == "mesh")
     js, pg = os.path.getsize(p), os.path.getsize(os.path.join(RIG, NAME + ".png"))
-    print(f"{len(sk.bones)} xương, {len(sk.slots)} slot, {nv} đỉnh, {len(anims)} clip, {nk} khoá; atlas {sheet.width}x{sheet.height}")
+    print(f"{len(sk.bones)} xương, {len(sk.slots)} slot, {nmesh} lưới, {nv} đỉnh, {nt} tam giác, {len(anims)} clip, {nk} khoá; atlas {sheet.width}x{sheet.height}")
     print(f"dung lượng: json {js / 1e6:.2f} MB + png {pg / 1e6:.2f} MB = {(js + pg) / 1e6:.2f} MB")
     for c in clips:
-        print(f"   {c.name}: {c.dur:.2f} s")
-    return (f"{len(sk.bones)} xương · {len(sk.slots)} slot · {nv} đỉnh lưới · {len(anims)} clip · {nk} khoá · "
+        print(f"   {c.name}: {c.dur:.2f} s, {per_clip[c.name]} khoá")
+    stat = {"bones": len(sk.bones), "slots": len(sk.slots), "meshes": nmesh, "verts": nv, "tris": nt, "clips": len(anims), "keys": nk,
+            "keys_per_clip": per_clip, "json": js, "png": pg, "atlas": [sheet.width, sheet.height],
+            "durs": {c.name: c.dur for c in clips},
+            "bones_body": sum(1 for b in sk.bones if _root_group(sk, b["name"]) == "than"),
+            "bones_water": sum(1 for b in sk.bones if _root_group(sk, b["name"]) == "nuoc")}
+    json.dump(stat, open(os.path.join(RIG, "stat.json"), "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+    return (f"{len(sk.bones)} xương · {len(sk.slots)} slot · {nv} đỉnh / {nt} tam giác · {len(anims)} clip · {nk} khoá · "
             f"json {js / 1e6:.2f} MB + atlas {pg / 1e6:.2f} MB = {(js + pg) / 1e6:.2f} MB")
 
 
 EVENTS = {"troi": "đầu trồi khỏi mặt nước", "can": "khung cắn trúng", "gam": "bắt đầu gầm", "het_gam": "hết gầm", "phun": "đầu này bắt đầu phun (VFX tia nước bám xương mieng_<đầu>)",
           "het_phun": "hết phun", "roi_nuoc": "đầu đập xuống nước"}
-LABELS = {"xuat_hien": "1 Xuất hiện", "dung": "2 Đứng", "tan_cong": "3 Tấn công", "chieu": "4 Chiêu gầm", "chieu_phun": "5 Chiêu phun nước",
-          "trung_don": "6 Trúng đòn", "chet": "7 Chết"}
+LABELS = {"appear": "1 Xuất hiện", "idle": "2 Đứng", "attack": "3 Tấn công", "cast": "4 Chiêu phun nước", "skill": "5 Chiêu gầm",
+          "hit": "6 Trúng đòn", "die": "7 Chết", "aura": "nước (aura, track 1)"}
 
 
 def viewer(clips, stat):
@@ -1634,30 +1754,63 @@ def viewer(clips, stat):
     tpl = open(os.path.join(HERE, "xem_spine_mau.html"), encoding="utf-8").read()
     b64 = lambda ext: base64.b64encode(open(os.path.join(RIG, NAME + ext), "rb").read()).decode()
     js = open(os.path.join(RIG, NAME + ".json"), encoding="utf-8").read().replace("</", "<\\/")
-    names = [c.name for c in clips]
-    rp = {"__TITLE__": "Hải Long Ngũ Đầu", "__NAME__": NAME, "__IDLE__": "dung", "__DIE__": "chet", "__INFO__": stat,
+    names = [c.name for c in clips if c.name != "aura"]
+    rp = {"__TITLE__": "Hải Long Ngũ Đầu", "__NAME__": NAME, "__IDLE__": "idle", "__DIE__": "die", "__INFO__": stat,
           "__CLIPS__": json.dumps([[n, LABELS.get(n, n)] for n in names], ensure_ascii=False),
-          "__SEQ__": json.dumps(["xuat_hien", "dung", "tan_cong", "dung", "chieu_phun", "dung", "chieu", "dung", "trung_don", "dung", "chet"]),
+          "__SEQ__": json.dumps(["appear", "idle", "attack", "idle", "cast", "idle", "skill", "idle", "hit", "idle", "die"]),
           "__VIEWS__": json.dumps({}),
           "__VIEW__": json.dumps([-20, 470, 1900, 1500]), "__ATLAS__": b64(".atlas"), "__PNG__": b64(".png"), "__JSON__": js}
     for k, v in rp.items():
         tpl = tpl.replace(k, v)
+    # nước là clip `aura` phát chồng trên track 1, trộn kiểu cộng (như AtomikPose.Overlay: xoay, dời cộng; tỉ lệ, độ đậm theo lệch so với
+    # dáng gốc). Trang mẫu dùng chung không biết aura nên chèn sau khi dựng AnimationState.
+    hook = "state = new spine.AnimationState(asd);"
+    assert hook in tpl, "trang mẫu đổi: không thấy chỗ chèn aura"
+    tpl = tpl.replace(hook, hook + "\n  if (sd.findAnimation(\"aura\")) { const ae = state.setAnimation(1, \"aura\", true); "
+                                   "ae.mixBlend = (spine.MixBlend && spine.MixBlend.add !== undefined) ? spine.MixBlend.add : 3; }", 1)
+    # trộn cộng của Spine cộng dồn vào dáng hiện tại mỗi khung: phải về dáng gốc trước mỗi apply (như AtomikPose.Sample), không thì
+    # sóng phình to dần (lỗi đã gặp 2026-11-11)
+    hook2 = "  state.apply(skeleton);"
+    assert hook2 in tpl, "trang mẫu đổi: không thấy state.apply"
+    tpl = tpl.replace(hook2, "  skeleton.setToSetupPose();\n" + hook2, 1)
     os.makedirs(os.path.join(RIG, "lib"), exist_ok=True)
     shutil.copyfile(os.path.join(HERE, "lib", "spine-player.js"), os.path.join(RIG, "lib", "spine-player.js"))
     open(os.path.join(RIG, "xem.html"), "w", encoding="utf-8").write(tpl)
     print("trang xem:", os.path.join(RIG, "xem.html"))
 
 
-def to_atomik():
-    """xuất thêm rig/hai_long.atomik (định dạng của game, bản 3: có mặt nạ cắt và sự kiện) và chép sang thư mục thử của Unity nếu có."""
-    import shutil
+def game_info(info, clips):
+    """khối `game` của .atomik (AtomikGame trong Unity): boss đứng tại chỗ (không lao), chỗ bắn tia = xương mieng_k lúc phun. Chiều cao
+    dáng đứng đo từ khung đầu idle: đỉnh gạc thủ lĩnh tới đáy nước (xấp xỉ theo dáng gốc: H của thủ lĩnh + nửa ảnh đầu)."""
+    hk = info["heads"]["k"]
+    hp = info["pieces"]["head_k"]
+    top = hk["H"][1] + hp.height * 0.75          # gạc vươn trên gáy
+    bottom = -60.0                               # đáy dải gợn sóng (ripple ở y = -44, cao ~ 100 ở tỉ lệ 1,22 → mép dưới ≈ -60 + ...)
+    height = top - bottom
+    durs = {c.name: c.dur for c in clips}
+    mz = info.get("muzzle", (0.0, 0.0))
+    return {"fps": FPS, "height": round(height, 2),
+            "hitClips": ["attack", "cast", "skill"], "hitTimes": [0.45, round(info.get("cast_fire", 1.0), 3), 1.32],
+            "lunge": [], "stay": ["attack", "cast", "skill"], "far": [],
+            "muzzle": [round(mz[0], 2), round(mz[1], 2)], "beam": 1.6, "beamStyle": "",
+            "move": "root", "shadow": "",
+            "impactClips": ["attack", "skill"], "impactStop": [0.08, 0.2], "impactShake": [0.45, 0.95], "impactPush": [0.1, 0.22],
+            "impactFlash": ["", "#d8f4ff66"],
+            "_durs": {k: round(v, 3) for k, v in durs.items()}}
+
+
+def to_atomik(game):
+    """xuất rig/hai_long.atomik (định dạng của game, bản 3: mặt nạ cắt, sự kiện, slot ẩn mặc định; clip aura) và hai_long_game.json.
+    KHÔNG chép vào Assets (đặc tả lô Thủy mục 5: Claude điều phối làm bước vào game)."""
+    if HERE not in sys.path:   # chạy bằng -I thì thư mục script không nằm trong sys.path
+        sys.path.insert(0, HERE)
     import atomik
+    gp = os.path.join(RIG, NAME + "_game.json")
+    gm = {k: v for k, v in game.items() if not k.startswith("_")}
+    json.dump(game, open(gp, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     out = os.path.join(RIG, NAME + ".atomik")
-    atomik.convert(os.path.join(RIG, NAME + ".json"), os.path.join(RIG, NAME + ".atlas"), out, NAME)
-    thu = os.path.normpath(os.path.join(HERE, "..", "..", "Assets", "05 Atomik Thu"))
-    if os.path.isdir(thu):
-        shutil.copyfile(out, os.path.join(thu, NAME + ".atomik"))
-        print("đã chép sang", os.path.join(thu, NAME + ".atomik"))
+    atomik.convert(os.path.join(RIG, NAME + ".json"), os.path.join(RIG, NAME + ".atlas"), out, NAME, game=gm)
+    print(f"{out}: {os.path.getsize(out) / 1e6:.2f} MB (không chép vào Assets)")
 
 
 def rig():
@@ -1666,12 +1819,40 @@ def rig():
     clips = [f(info) for f in CLIPS]
     stat = export(sk, clips, pc)
     viewer(clips, stat)
-    to_atomik()
+    to_atomik(game_info(info, clips))
+
+
+def viewer_only():
+    """dựng lại rig/xem.html từ JSON và stat.json đã có (không nướng lại)."""
+    st = json.load(open(os.path.join(RIG, "stat.json"), encoding="utf-8"))
+    J = json.load(open(os.path.join(RIG, NAME + ".json"), encoding="utf-8"))
+
+    class _C:
+        def __init__(self, n):
+            self.name = n
+    stat = (f"{st['bones']} xương · {st['slots']} slot · {st['verts']} đỉnh / {st['tris']} tam giác · {st['clips']} clip · {st['keys']} khoá · "
+            f"json {st['json'] / 1e6:.2f} MB + atlas {st['png'] / 1e6:.2f} MB = {(st['json'] + st['png']) / 1e6:.2f} MB")
+    viewer([_C(n) for n in J["animations"]], stat)
+
+
+def atomik_only():
+    """chỉ xuất lại .atomik + _game.json từ rig/hai_long.json đã có (nướng mỗi clip cast để lấy chỗ bắn tia)."""
+    pc = load_pieces()
+    sk, info = build_rig(pc)
+    clips = [clip_chieu_phun(info)]
+    durs = json.load(open(os.path.join(RIG, "stat.json"), encoding="utf-8"))["durs"]
+    g = game_info(info, clips)
+    g["_durs"] = {k: round(v, 3) for k, v in durs.items()}
+    to_atomik(g)
 
 
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "rig"
     if cmd == "cat":
         cat()
+    elif cmd == "atomik":
+        atomik_only()
+    elif cmd == "xem":
+        viewer_only()
     else:
         rig()

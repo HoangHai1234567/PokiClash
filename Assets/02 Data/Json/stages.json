@@ -8,14 +8,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "giot_suong",
+     "hero": "ti_tach",
      "level": 1,
      "buff": -0.2
     }
    ],
    "drops": [
     {
-     "hero": "giot_suong",
+     "hero": "ti_tach",
      "chance": 1,
      "min": 2,
      "max": 4
@@ -97,7 +97,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "level": 18,
      "evo": true,
      "buff": 0.15
@@ -105,7 +105,7 @@
    ],
    "drops": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "chance": 1,
      "min": 2,
      "max": 4
@@ -144,14 +144,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "level": 25,
      "buff": 0.12
     }
    ],
    "drops": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -168,7 +168,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "level": 29,
      "buff": 0.15
     },
@@ -180,7 +180,7 @@
    ],
    "drops": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -197,7 +197,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "level": 32,
      "buff": 0.35
     },
@@ -209,7 +209,7 @@
    ],
    "drops": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "chance": 0.44999999999999996,
      "min": 1,
      "max": 2
@@ -226,7 +226,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "level": 35,
      "evo": true,
      "buff": 0.15
@@ -234,7 +234,7 @@
    ],
    "drops": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "chance": 1,
      "min": 2,
      "max": 4
@@ -273,14 +273,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "level": 42,
      "buff": 0.12
     }
    ],
    "drops": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -297,7 +297,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "level": 45,
      "buff": 0.15
     },
@@ -309,7 +309,7 @@
    ],
    "drops": [
     {
-     "hero": "tieu_y",
+     "hero": "thach_giai",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -326,7 +326,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "level": 48,
      "buff": 0.35
     },
@@ -338,7 +338,7 @@
    ],
    "drops": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "chance": 0.44999999999999996,
      "min": 1,
      "max": 2
@@ -355,7 +355,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "level": 51,
      "evo": true,
      "buff": 0.15
@@ -363,7 +363,7 @@
    ],
    "drops": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "chance": 1,
      "min": 2,
      "max": 4
@@ -402,14 +402,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "level": 57,
      "buff": 0.12
     }
    ],
    "drops": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "chance": 0.25,
      "min": 1,
      "max": 2
@@ -426,7 +426,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "level": 60,
      "buff": 0.6
     },
@@ -438,7 +438,7 @@
    ],
    "drops": [
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -455,7 +455,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "level": 63,
      "buff": 0.8
     },
@@ -467,7 +467,7 @@
    ],
    "drops": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "chance": 0.375,
      "min": 1,
      "max": 2
@@ -484,7 +484,7 @@
    "kind": "mini",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 66,
      "boss": true,
      "evo": true,
@@ -493,7 +493,7 @@
    ],
    "drops": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 1,
      "min": 3,
      "max": 5
@@ -532,14 +532,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 72,
      "buff": 0.72
     }
    ],
    "drops": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -556,7 +556,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "level": 74,
      "buff": 0.6
     },
@@ -568,7 +568,7 @@
    ],
    "drops": [
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "chance": 0.25,
      "min": 1,
      "max": 2
@@ -612,12 +612,12 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 80,
      "buff": 0.55
     },
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "level": 80,
      "buff": 0.55
     }
@@ -631,13 +631,13 @@
      "gift": true
     },
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.2,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "canh_cut",
+     "hero": "nong_xoay",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -654,14 +654,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 83,
      "buff": 0.85
     }
    ],
    "drops": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -700,7 +700,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 88,
      "buff": 0.25
     },
@@ -717,7 +717,7 @@
    ],
    "drops": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -734,25 +734,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 91,
      "buff": 0.75
     },
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "level": 91,
      "buff": 0.75
     }
    ],
    "drops": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.30000000000000004,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "chance": 0.375,
      "min": 1,
      "max": 2
@@ -769,7 +769,7 @@
    "kind": "mini",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 94,
      "boss": true,
      "evo": true,
@@ -778,7 +778,7 @@
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 1,
      "min": 3,
      "max": 5
@@ -817,14 +817,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 99,
      "buff": 0.72
     }
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -841,7 +841,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 102,
      "buff": 0.6
     },
@@ -853,7 +853,7 @@
    ],
    "drops": [
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -897,25 +897,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 107,
      "buff": 0.55
     },
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "level": 107,
      "buff": 0.55
     }
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.2,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "mi_nhi",
+     "hero": "ha_ba",
      "chance": 0.25,
      "min": 1,
      "max": 2
@@ -932,14 +932,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 110,
      "buff": 0.85
     }
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -978,7 +978,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 115,
      "buff": 0.25
     },
@@ -995,7 +995,7 @@
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -1012,25 +1012,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 118,
      "buff": 0.75
     },
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 118,
      "buff": 0.75
     }
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.30000000000000004,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.30000000000000004,
      "min": 1,
      "max": 2
@@ -1047,17 +1047,17 @@
    "kind": "mini",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 120,
      "boss": true,
      "evo": true,
      "buff": 0.35,
-     "trait": "kuba_boss"
+     "trait": "lien_kinh_boss"
     }
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 1,
      "min": 3,
      "max": 5
@@ -1096,14 +1096,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 126,
      "buff": 0.72
     }
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1120,7 +1120,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 128,
      "buff": 0.6
     },
@@ -1132,7 +1132,7 @@
    ],
    "drops": [
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -1176,25 +1176,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 133,
      "buff": 0.55
     },
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "level": 133,
      "buff": 0.55
     }
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.15,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "ma_ket",
+     "hero": "so_ngoc",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -1211,14 +1211,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 136,
      "buff": 0.85
     }
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1257,7 +1257,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 141,
      "buff": 0.25
     },
@@ -1274,7 +1274,7 @@
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1291,25 +1291,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 144,
      "buff": 0.75
     },
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 144,
      "buff": 0.75
     }
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.22499999999999998,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.30000000000000004,
      "min": 1,
      "max": 2
@@ -1326,7 +1326,7 @@
    "kind": "mini",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 146,
      "boss": true,
      "evo": true,
@@ -1335,7 +1335,7 @@
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 1,
      "min": 3,
      "max": 5
@@ -1374,14 +1374,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 151,
      "buff": 0.72
     }
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1398,7 +1398,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 154,
      "buff": 0.6
     },
@@ -1410,7 +1410,7 @@
    ],
    "drops": [
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1454,25 +1454,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 159,
      "buff": 0.55
     },
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "level": 159,
      "buff": 0.55
     }
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.15,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "vay_lam",
+     "hero": "giong_bao",
      "chance": 0.2,
      "min": 1,
      "max": 2
@@ -1489,14 +1489,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 161,
      "buff": 0.85
     }
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1535,7 +1535,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 166,
      "buff": 0.25
     },
@@ -1552,7 +1552,7 @@
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1569,25 +1569,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 168,
      "buff": 0.75
     },
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 168,
      "buff": 0.75
     }
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.22499999999999998,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.22499999999999998,
      "min": 1,
      "max": 2
@@ -1604,17 +1604,17 @@
    "kind": "mini",
    "enemies": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "level": 171,
      "boss": true,
      "evo": true,
      "buff": 0.4,
-     "trait": "huyen_vu_boss"
+     "trait": "han_ngac_boss"
     }
    ],
    "drops": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "chance": 1,
      "min": 3,
      "max": 5
@@ -1653,14 +1653,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "level": 176,
      "buff": 0.72
     }
    ],
    "drops": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "chance": 0.1,
      "min": 1,
      "max": 2
@@ -1677,7 +1677,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 178,
      "buff": 0.6
     },
@@ -1689,7 +1689,7 @@
    ],
    "drops": [
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1733,25 +1733,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "level": 183,
      "buff": 0.55
     },
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "level": 183,
      "buff": 0.55
     }
    ],
    "drops": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "chance": 0.1,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "kuba",
+     "hero": "lien_kinh",
      "chance": 0.15,
      "min": 1,
      "max": 2
@@ -1768,14 +1768,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "level": 185,
      "buff": 0.85
     }
    ],
    "drops": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "chance": 0.1,
      "min": 1,
      "max": 2
@@ -1814,7 +1814,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "level": 190,
      "buff": 0.25
     },
@@ -1831,7 +1831,7 @@
    ],
    "drops": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "chance": 0.1,
      "min": 1,
      "max": 2
@@ -1848,25 +1848,25 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "level": 193,
      "buff": 0.75
     },
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "level": 193,
      "buff": 0.75
     }
    ],
    "drops": [
     {
-     "hero": "huyen_vu",
+     "hero": "han_ngac",
      "chance": 0.15000000000000002,
      "min": 1,
      "max": 2
     },
     {
-     "hero": "thuong_lam",
+     "hero": "uyen_xa",
      "chance": 0.22499999999999998,
      "min": 1,
      "max": 2
@@ -1883,17 +1883,17 @@
    "kind": "boss",
    "enemies": [
     {
-     "hero": "lam_quan",
+     "hero": "hai_long",
      "level": 195,
      "boss": true,
      "evo": true,
      "buff": 0.85,
-     "trait": "lam_quan_boss"
+     "trait": "hai_long_boss"
     }
    ],
    "drops": [
     {
-     "hero": "lam_quan",
+     "hero": "hai_long",
      "chance": 1,
      "min": 4,
      "max": 6

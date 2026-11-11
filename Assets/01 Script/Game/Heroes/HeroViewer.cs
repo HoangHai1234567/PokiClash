@@ -21,6 +21,10 @@ namespace PokiClash
         public const string Idle = StageView.Idle, Attack = StageView.Attack, Skill = StageView.Skill, Hit = StageView.Hit;
         public const string Cast = StageView.Cast; // nút Mana: clip bắn + chiêu mana bằng hạt (tướng Hỏa)
         public const string Evolve = Game.AolaActor.Evolve;
+        public const string Appear = Game.AolaActor.Appear, Die = Game.AolaActor.Die; // nút Ra sân, Chết (chỉ rig có clip này)
+
+        // dạng đang hiện có clip này không (nút Ra sân, Chết ẩn khi không có)
+        public bool Has(string c) => aola != null && aola.HasClip(c);
 
         [SerializeField] RectTransform box;
         [SerializeField] HeroPortrait portrait;
@@ -249,7 +253,7 @@ namespace PokiClash
             if (holdLeft > 0)
             {
                 holdLeft -= dt;
-                if ((clip == Cast || clip == Skill) && t > holdAt) t = holdAt;
+                if ((clip == Cast || clip == Skill) && t > holdAt && !(aola != null && aola.SelfHold(clip))) t = holdAt;
             }
             hat?.Update(dt);
             if (!fxFired && (clip == Skill || clip == Cast) && t >= (aola != null ? aola.HitTime(clip) : Len(clip) * 0.55f))
@@ -265,7 +269,7 @@ namespace PokiClash
             }
             bool idle = clip == Idle;
             // vị trí neo như bản web: đứng giữa, chân ở 94%; đánh và chiêu neo 32% chiều ngang, chân ở 80%; tiến hóa đứng giữa
-            bool centre = idle || clip == Hit || clip == Evolve;
+            bool centre = idle || clip == Hit || clip == Evolve || clip == Appear || clip == Die;
             float ax = centre ? 0.5f : 0.32f, ay = centre ? 0.06f : 0.2f;
             float sc = centre ? 1f : 0.6f / 0.7f;
             Vector2 pos = new Vector2((ax - 0.5f) * size, ay * size);

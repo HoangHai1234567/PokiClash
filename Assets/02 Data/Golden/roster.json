@@ -353,7 +353,29 @@
    ]
   },
   {
+   "id": "thach_giai",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
    "id": "canh_cut",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "nong_xoay",
    "n": 2,
    "idx": [
     0,
@@ -372,6 +394,17 @@
     1,
     1,
     2
+   ]
+  },
+  {
+   "id": "ti_tach",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
    ]
   },
   {
@@ -419,6 +452,17 @@
    ]
   },
   {
+   "id": "hai_long",
+   "n": 3,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  {
    "id": "huyen_vu",
    "n": 3,
    "idx": [
@@ -430,7 +474,29 @@
    ]
   },
   {
+   "id": "han_ngac",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
    "id": "mi_nhi",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "ha_ba",
    "n": 2,
    "idx": [
     0,
@@ -452,6 +518,17 @@
    ]
   },
   {
+   "id": "so_ngoc",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
    "id": "vay_lam",
    "n": 3,
    "idx": [
@@ -460,6 +537,17 @@
     1,
     1,
     2
+   ]
+  },
+  {
+   "id": "giong_bao",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
    ]
   },
   {
@@ -474,6 +562,17 @@
    ]
   },
   {
+   "id": "uyen_xa",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
    "id": "kuba",
    "n": 3,
    "idx": [
@@ -482,6 +581,17 @@
     1,
     1,
     2
+   ]
+  },
+  {
+   "id": "lien_kinh",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
    ]
   },
   {
@@ -1282,7 +1392,7 @@
  "leads": [
   {
    "id": 1,
-   "hero": "giot_suong",
+   "hero": "ti_tach",
    "star": 1
   },
   {
@@ -1302,7 +1412,7 @@
   },
   {
    "id": 5,
-   "hero": "tieu_y",
+   "hero": "thach_giai",
    "star": 1
   },
   {
@@ -1312,22 +1422,22 @@
   },
   {
    "id": 7,
-   "hero": "tieu_y",
+   "hero": "thach_giai",
    "star": 3
   },
   {
    "id": 8,
-   "hero": "tieu_y",
+   "hero": "thach_giai",
    "star": 3
   },
   {
    "id": 9,
-   "hero": "tieu_y",
+   "hero": "thach_giai",
    "star": 3
   },
   {
    "id": 10,
-   "hero": "canh_cut",
+   "hero": "nong_xoay",
    "star": 1
   },
   {
@@ -1337,22 +1447,22 @@
   },
   {
    "id": 12,
-   "hero": "canh_cut",
+   "hero": "nong_xoay",
    "star": 3
   },
   {
    "id": 13,
-   "hero": "tieu_y",
+   "hero": "thach_giai",
    "star": 3
   },
   {
    "id": 14,
-   "hero": "canh_cut",
+   "hero": "nong_xoay",
    "star": 3
   },
   {
    "id": 15,
-   "hero": "mi_nhi",
+   "hero": "ha_ba",
    "star": 1
   },
   {
@@ -1362,22 +1472,22 @@
   },
   {
    "id": 17,
-   "hero": "mi_nhi",
+   "hero": "ha_ba",
    "star": 4
   },
   {
    "id": 18,
-   "hero": "canh_cut",
+   "hero": "nong_xoay",
    "star": 4
   },
   {
    "id": 19,
-   "hero": "mi_nhi",
+   "hero": "ha_ba",
    "star": 4
   },
   {
    "id": 20,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 1
   },
   {
@@ -1387,12 +1497,12 @@
   },
   {
    "id": 22,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 4
   },
   {
    "id": 23,
-   "hero": "mi_nhi",
+   "hero": "ha_ba",
    "star": 4
   },
   {
@@ -1402,12 +1512,12 @@
   },
   {
    "id": 25,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 4
   },
   {
    "id": 26,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 4
   },
   {
@@ -1417,17 +1527,17 @@
   },
   {
    "id": 28,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 4
   },
   {
    "id": 29,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 4
   },
   {
    "id": 30,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 1
   },
   {
@@ -1437,12 +1547,12 @@
   },
   {
    "id": 32,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 5
   },
   {
    "id": 33,
-   "hero": "ma_ket",
+   "hero": "so_ngoc",
    "star": 5
   },
   {
@@ -1452,12 +1562,12 @@
   },
   {
    "id": 35,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 5
   },
   {
    "id": 36,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 5
   },
   {
@@ -1467,17 +1577,17 @@
   },
   {
    "id": 38,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 5
   },
   {
    "id": 39,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 5
   },
   {
    "id": 40,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 1
   },
   {
@@ -1487,12 +1597,12 @@
   },
   {
    "id": 42,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 5
   },
   {
    "id": 43,
-   "hero": "vay_lam",
+   "hero": "giong_bao",
    "star": 5
   },
   {
@@ -1502,12 +1612,12 @@
   },
   {
    "id": 45,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 5
   },
   {
    "id": 46,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 5
   },
   {
@@ -1517,17 +1627,17 @@
   },
   {
    "id": 48,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 5
   },
   {
    "id": 49,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 5
   },
   {
    "id": 50,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 1
   },
   {
@@ -1537,12 +1647,12 @@
   },
   {
    "id": 52,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 5
   },
   {
    "id": 53,
-   "hero": "kuba",
+   "hero": "lien_kinh",
    "star": 5
   },
   {
@@ -1552,12 +1662,12 @@
   },
   {
    "id": 55,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 5
   },
   {
    "id": 56,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 5
   },
   {
@@ -1567,17 +1677,17 @@
   },
   {
    "id": 58,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 5
   },
   {
    "id": 59,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 5
   },
   {
    "id": 60,
-   "hero": "huyen_vu",
+   "hero": "han_ngac",
    "star": 1
   },
   {
@@ -1587,12 +1697,12 @@
   },
   {
    "id": 62,
-   "hero": "huyen_vu",
+   "hero": "han_ngac",
    "star": 5
   },
   {
    "id": 63,
-   "hero": "thuong_lam",
+   "hero": "uyen_xa",
    "star": 5
   },
   {
@@ -1602,12 +1712,12 @@
   },
   {
    "id": 65,
-   "hero": "huyen_vu",
+   "hero": "han_ngac",
    "star": 5
   },
   {
    "id": 66,
-   "hero": "huyen_vu",
+   "hero": "han_ngac",
    "star": 5
   },
   {
@@ -1617,17 +1727,17 @@
   },
   {
    "id": 68,
-   "hero": "huyen_vu",
+   "hero": "han_ngac",
    "star": 5
   },
   {
    "id": 69,
-   "hero": "huyen_vu",
+   "hero": "han_ngac",
    "star": 5
   },
   {
    "id": 70,
-   "hero": "lam_quan",
+   "hero": "hai_long",
    "star": 1
   },
   {

@@ -203,7 +203,7 @@ namespace PokiClash.Tests
             Assert.IsNull(Afk.Stage(s, d), "chưa qua ải nào");
             s.zones[(int)Elem.Thuy] = 31; // ải 31 không rơi mảnh
             Assert.AreEqual(30, Afk.Stage(s, d).idx);
-            s.zones[(int)Elem.Thuy] = 2; // ải 2 không rơi mảnh, ải 1 rơi Giọt Sương
+            s.zones[(int)Elem.Thuy] = 2; // ải 2 không rơi mảnh, ải 1 rơi Tí Tách
             Assert.AreEqual(1, Afk.Stage(s, d).idx);
             Assert.IsFalse(Afk.Picked(s, Thuy(d, 1)), "ải tự chọn không tính là đã chọn");
         }
@@ -214,7 +214,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             s.zones[(int)Elem.Thuy] = 30;
-            var gate = Thuy(d, 29); // Cửa ải: Ma Kết, Mi Nhi
+            var gate = Thuy(d, 29); // Cửa ải: Sò Ngọc, Hà Bá (suất của Ma Kết, Mi Nhi tới 2026-11-11, cùng độ hiếm)
             Assert.IsNull(Afk.SetStage(s, d, Thuy(d, 31).id, 0, new Rng(1)), "ải chưa qua");
             Assert.IsNotNull(Afk.SetStage(s, d, gate.id, 0, new Rng(1)));
             Assert.AreEqual(gate.id, Afk.Stage(s, d).id);
@@ -224,7 +224,7 @@ namespace PokiClash.Tests
             var rng = new Rng(7);
             for (int i = 1; i <= 40; i++)
                 foreach (var x in Afk.Claim(s, d, i * 12 * H, 1, rng).shards) heroes.Add(x.hero);
-            CollectionAssert.IsSubsetOf(heroes, new[] { "ma_ket", "mi_nhi" });
+            CollectionAssert.IsSubsetOf(heroes, new[] { "so_ngoc", "ha_ba" });
             Assert.AreEqual(2, heroes.Count, "40 lần × 12 giờ: ra mảnh cả hai tướng của ải");
 
             // đổi ải sau 5,5 giờ: 5 giờ tròn tính theo ải cũ và nhận luôn, giữ 0,5 giờ

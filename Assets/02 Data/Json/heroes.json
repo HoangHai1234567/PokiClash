@@ -1119,6 +1119,40 @@
    ]
   },
   {
+   "id": "thach_giai",
+   "name": "Thạch Giải",
+   "title": "Cua ẩn sĩ nhà đá",
+   "aola": "thach_giai_1",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    80,
+    30,
+    70,
+    80,
+    35,
+    40
+   ],
+   "skill": "thach_giai_skill",
+   "ult": "thach_giai_ult",
+   "passive": "thach_giai_pas",
+   "shards": 10,
+   "line": "Dòng Thạch Giải",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Thạch Giải",
+     "aola": "thach_giai_1",
+     "size": 0.92
+    },
+    {
+     "name": "Thạch Thành Giải",
+     "aola": "thach_giai_2",
+     "size": 1.1
+    }
+   ]
+  },
+  {
    "id": "canh_cut",
    "name": "Cánh Cụt",
    "title": "Đầu bếp xứ băng",
@@ -1148,6 +1182,40 @@
     {
      "name": "Đầu Bếp Cánh Cụt",
      "aola": "canh_cut_2",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "nong_xoay",
+   "name": "Nòng Xoáy",
+   "title": "Nòng nọc mắt bão",
+   "aola": "nong_xoay_1",
+   "elem": "thuy",
+   "rarity": "common",
+   "stats": [
+    85,
+    40,
+    50,
+    55,
+    50,
+    20
+   ],
+   "skill": "nong_xoay_skill",
+   "ult": "nong_xoay_ult",
+   "passive": "nong_xoay_pas",
+   "shards": 10,
+   "line": "Dòng Nòng Xoáy",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Nòng Xoáy",
+     "aola": "nong_xoay_1",
+     "size": 0.92
+    },
+    {
+     "name": "Ếch Lốc",
+     "aola": "nong_xoay_2",
      "size": 1.1
     }
    ]
@@ -1188,6 +1256,40 @@
      "name": "Long Tướng",
      "aola": "thuy_long_3",
      "size": 1.16
+    }
+   ]
+  },
+  {
+   "id": "ti_tach",
+   "name": "Tí Tách",
+   "title": "Võ sĩ giọt mưa",
+   "aola": "ti_tach_1",
+   "elem": "thuy",
+   "rarity": "uncommon",
+   "stats": [
+    50,
+    50,
+    50,
+    50,
+    50,
+    50
+   ],
+   "skill": "ti_tach_skill",
+   "ult": "ti_tach_ult",
+   "passive": "ti_tach_pas",
+   "shards": 15,
+   "line": "Dòng Tí Tách",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Tí Tách",
+     "aola": "ti_tach_1",
+     "size": 0.92
+    },
+    {
+     "name": "Sóng Thần",
+     "aola": "ti_tach_2",
+     "size": 1.1
     }
    ]
   },
@@ -1343,6 +1445,45 @@
    ]
   },
   {
+   "id": "hai_long",
+   "name": "Hải Long",
+   "title": "Rồng biển nhiều đầu",
+   "aola": "hai_long_1",
+   "elem": "thuy",
+   "rarity": "epic",
+   "stats": [
+    72,
+    30,
+    57,
+    77,
+    57,
+    48
+   ],
+   "skill": "hai_long_skill",
+   "ult": "hai_long_ult",
+   "passive": "hai_long_pas",
+   "shards": 30,
+   "line": "Dòng Hải Long",
+   "size": 0.95,
+   "forms": [
+    {
+     "name": "Hải Long Nhi",
+     "aola": "hai_long_1",
+     "size": 0.95
+    },
+    {
+     "name": "Hải Long Tam Thủ",
+     "aola": "hai_long_2",
+     "size": 1.1
+    },
+    {
+     "name": "Hải Long Ngũ Đầu",
+     "aola": "hai_long_3",
+     "size": 1.16
+    }
+   ]
+  },
+  {
    "id": "huyen_vu",
    "name": "Huyền Vũ",
    "title": "Thần thú phương Bắc",
@@ -1382,6 +1523,40 @@
    ]
   },
   {
+   "id": "han_ngac",
+   "name": "Hàn Ngạc",
+   "title": "Cá sấu băng vực sâu",
+   "aola": "han_ngac_1",
+   "elem": "thuy",
+   "rarity": "legend",
+   "stats": [
+    80,
+    60,
+    40,
+    40,
+    50,
+    40
+   ],
+   "skill": "han_ngac_skill",
+   "ult": "han_ngac_ult",
+   "passive": "han_ngac_pas",
+   "shards": 50,
+   "line": "Dòng Hàn Ngạc",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Ngạc Nhi",
+     "aola": "han_ngac_1",
+     "size": 0.92
+    },
+    {
+     "name": "Hàn Ngạc Vương",
+     "aola": "han_ngac_2",
+     "size": 1.1
+    }
+   ]
+  },
+  {
    "id": "mi_nhi",
    "name": "Mi Nhi",
    "title": "Tiên cầm sóng biếc",
@@ -1411,6 +1586,40 @@
     {
      "name": "Mi Nhi",
      "aola": "mi_nhi_2",
+     "size": 1.1
+    }
+   ]
+  },
+  {
+   "id": "ha_ba",
+   "name": "Hà Bá",
+   "title": "Hà mã nuốt sóng",
+   "aola": "ha_ba_1",
+   "elem": "thuy",
+   "rarity": "uncommon",
+   "stats": [
+    50,
+    80,
+    50,
+    40,
+    40,
+    50
+   ],
+   "skill": "ha_ba_skill",
+   "ult": "ha_ba_ult",
+   "passive": "ha_ba_pas",
+   "shards": 15,
+   "line": "Dòng Hà Bá",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Hà Mã Con",
+     "aola": "ha_ba_1",
+     "size": 0.92
+    },
+    {
+     "name": "Hà Bá",
+     "aola": "ha_ba_2",
      "size": 1.1
     }
    ]
@@ -1455,6 +1664,40 @@
    ]
   },
   {
+   "id": "so_ngoc",
+   "name": "Sò Ngọc",
+   "title": "Pháo đài ngọc trai",
+   "aola": "so_ngoc_1",
+   "elem": "thuy",
+   "rarity": "rare",
+   "stats": [
+    50,
+    80,
+    40,
+    40,
+    50,
+    50
+   ],
+   "skill": "so_ngoc_skill",
+   "ult": "so_ngoc_ult",
+   "passive": "so_ngoc_pas",
+   "shards": 20,
+   "line": "Dòng Sò Ngọc",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Sò Gai",
+     "aola": "so_ngoc_1",
+     "size": 0.92
+    },
+    {
+     "name": "Bạng Vương",
+     "aola": "so_ngoc_2",
+     "size": 1.1
+    }
+   ]
+  },
+  {
    "id": "vay_lam",
    "name": "Vây Lam",
    "title": "Cá mập rẽ sóng",
@@ -1490,6 +1733,40 @@
      "name": "Cá Mập Vây Lam",
      "aola": "vay_lam_3",
      "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "giong_bao",
+   "name": "Giông Bão",
+   "title": "Kỳ giông gọi mưa",
+   "aola": "giong_bao_1",
+   "elem": "thuy",
+   "rarity": "rare",
+   "stats": [
+    40,
+    60,
+    70,
+    40,
+    70,
+    40
+   ],
+   "skill": "giong_bao_skill",
+   "ult": "giong_bao_ult",
+   "passive": "giong_bao_pas",
+   "shards": 20,
+   "line": "Dòng Giông Bão",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Giông Mưa",
+     "aola": "giong_bao_1",
+     "size": 0.92
+    },
+    {
+     "name": "Giông Bão",
+     "aola": "giong_bao_2",
+     "size": 1.1
     }
    ]
   },
@@ -1533,6 +1810,40 @@
    ]
   },
   {
+   "id": "uyen_xa",
+   "name": "Uyên Xà",
+   "title": "Rắn đèn vực sâu",
+   "aola": "uyen_xa_1",
+   "elem": "thuy",
+   "rarity": "epic",
+   "stats": [
+    80,
+    60,
+    60,
+    60,
+    60,
+    20
+   ],
+   "skill": "uyen_xa_skill",
+   "ult": "uyen_xa_ult",
+   "passive": "uyen_xa_pas",
+   "shards": 30,
+   "line": "Dòng Uyên Xà",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Uyên Nhi",
+     "aola": "uyen_xa_1",
+     "size": 0.92
+    },
+    {
+     "name": "Uyên Xà",
+     "aola": "uyen_xa_2",
+     "size": 1.1
+    }
+   ]
+  },
+  {
    "id": "kuba",
    "name": "Kuba",
    "title": "Mai cứng kim cương",
@@ -1568,6 +1879,40 @@
      "name": "Kuba Kim Cương",
      "aola": "kuba_3",
      "size": 1.14
+    }
+   ]
+  },
+  {
+   "id": "lien_kinh",
+   "name": "Liên Kình",
+   "title": "Kình ngư cõng sen thiêng",
+   "aola": "lien_kinh_1",
+   "elem": "thuy",
+   "rarity": "epic",
+   "stats": [
+    50,
+    70,
+    50,
+    40,
+    50,
+    40
+   ],
+   "skill": "lien_kinh_skill",
+   "ult": "lien_kinh_ult",
+   "passive": "lien_kinh_pas",
+   "shards": 30,
+   "line": "Dòng Liên Kình",
+   "size": 0.92,
+   "forms": [
+    {
+     "name": "Kình Nụ",
+     "aola": "lien_kinh_1",
+     "size": 0.92
+    },
+    {
+     "name": "Liên Kình",
+     "aola": "lien_kinh_2",
+     "size": 1.1
     }
    ]
   },
@@ -3716,7 +4061,7 @@
   }
  ],
  "starters": [
-  "giot_suong",
+  "ti_tach",
   "su_tu_lua",
   "bu_long",
   "nu_hoa",

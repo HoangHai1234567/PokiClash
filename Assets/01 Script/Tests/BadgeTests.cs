@@ -42,6 +42,9 @@ namespace PokiClash.Tests
             Assert.AreEqual(200, n);
         }
 
+        // đội 5 trận đánh thật bậc Đồng hệ Thủy (IslandGenMenu.HeroGoldens tính lại "fights" bằng đúng đội và bản lưu này)
+        static readonly string[] FightTeam = { "ti_tach", "ca_ngua", "phap_luan" };
+
         static SaveData StatSave(GameData d)
         {
             var s = SaveData.New(d, 0);
@@ -70,7 +73,9 @@ namespace PokiClash.Tests
                 Assert.AreEqual(J.Num(w, "spd"), st.spd, h.id);
             }
             s.level = 9;
-            s.team = new System.Collections.Generic.List<string> { "giot_suong", "ca_ngua", "phap_luan" };
+            // đội có tướng khởi đầu (tướng đồng hành): Tí Tách từ 2026-11-11. Số hiệp, bên thắng tính lại bằng menu "PokiClash/Thử/Tính lại
+            // golden theo danh sách tướng" (đối thủ đền hệ Thủy chọn theo danh sách tướng Thủy, thêm 10 tướng là đổi)
+            s.team = new System.Collections.Generic.List<string>(FightTeam);
             foreach (var x in J.Arr(G, "fights"))
             {
                 var o = J.Obj(x);
@@ -89,7 +94,7 @@ namespace PokiClash.Tests
         public void TienDo_MoDen_LenBac_Ruong_KhopBanWeb()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0);
+            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Kim] = Islands.MiniAt(Elem.Kim); // qua mini boss đầu đảo Kim (ải 4 khi còn 8 ải, ải 20 từ 2026-11-05)
             var rng = new Rng(31);
