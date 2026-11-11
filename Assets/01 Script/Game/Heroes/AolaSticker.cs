@@ -129,13 +129,55 @@ namespace PokiClash
         public bool HasCast => actor.HasClip(AolaActor.Cast);
         public bool ManaUsesClip => actor.ManaUsesClip;
 
-        public float Duration(string clip) => clip == StageView.Cast && !HasCast ? CastLen : actor.Duration(ClipName(clip));
+        public float Duration(string clip) =>
+            clip == StageView.Cast && !HasCast ? CastLen :
+            clip == StageView.Skill && Jumps ? SkillLen + actor.Duration(AolaActor.SkillLand) : actor.Duration(ClipName(clip));
 
         public float HitTime(string clip) =>
-            clip == StageView.Cast && !HasCast ? CastLen * 0.5f : actor.HitFrame(ClipName(clip)) / actor.Fps;
+            clip == StageView.Cast && !HasCast ? CastLen * 0.5f :
+            clip == StageView.Skill && Jumps ? SkillLen + LandHit : actor.HitFrame(ClipName(clip)) / actor.Fps;
+
+        // Chiêu cuối nhảy đè, hai clip (người dùng 2026-11-11, Tí Tách): "skill" (phình, nhún, bật; hết clip là dáng đang bay) rồi
+        // "skill_land" (rơi, bẹp nặng, nảy). Nơi gọi coi như MỘT clip Skill dài bằng tổng hai clip (Duration, Show); khung trúng là
+        // lúc chạm của clip sau (HitTime); cung nhảy tới chỗ đối thủ và cú bật về do Jump tính.
+        public bool Jumps => actor.HasClip(AolaActor.Skill) && actor.HasClip(AolaActor.SkillLand);
+        float SkillLen => actor.Duration(AolaActor.Skill);
+        float JumpOff => actor.HitFrame(AolaActor.Skill) / actor.Fps;     // sự kiện "bat": rời đất
+        float LandHit => actor.HitFrame(AolaActor.SkillLand) / actor.Fps; // sự kiện "cham_dat"
+        const float JumpStay = 0.16f, JumpBack = 0.42f;                   // đè trên chỗ đáp, rồi bật về chỗ cũ (giây)
+
+        // Độ dời của cú nhảy ở giây t của clip Skill. to: chỗ đáp so với chân (x theo màn, y LÊN là dương), h: chiều cao tướng,
+        // cùng đơn vị; o trả cùng đơn vị, y lên là dương. false: clip này không phải chiêu nhảy.
+        public bool Jump(string clip, float t, Vector2 to, float h, out Vector2 o)
+        {
+            o = Vector2.zero;
+            if (clip != StageView.Skill || !Jumps) return false;
+            float t0 = JumpOff, t1 = SkillLen + LandHit;
+            if (t <= t0) return true;
+            if (t < t1)
+            {
+                // bay theo parabol: ngang đều, đỉnh cao hơn chỗ đáp để rơi từ trên xuống
+                float u = (t - t0) / Mathf.Max(0.01f, t1 - t0);
+                float up = Mathf.Max(0, to.y) * 0.35f + h * 0.85f;
+                o = new Vector2(to.x * u, to.y * u + up * 4 * u * (1 - u));
+                return true;
+            }
+            float v = (t - t1 - JumpStay) / JumpBack;
+            if (v <= 0)
+            {
+                o = to;
+                return true;
+            }
+            if (v >= 1) return true;
+            float s = v * v * (3 - 2 * v);
+            o = new Vector2(to.x * (1 - s), to.y * (1 - s) + h * 0.4f * 4 * v * (1 - v));
+            return true;
+        }
 
         // clip tự diễn đoạn giữ chiêu: không ghìm giờ clip ở khung nhả (AolaActor.SelfHold)
         public bool SelfHold(string clip) => actor.SelfHold(ClipName(clip));
+        // giờ của một sự kiện trong clip rig (-1: không có): sân dùng "cham_dat" của clip ra sân để rung màn lúc tướng nện đất
+        public float EventTime(string clip, string name) => actor.EventTime(ClipName(clip), name);
 
         // Chiêu bắn tia (AolaActor.Beam): chỗ bắn so với chân (đơn vị sân, y xuống, đã lật theo phía) và cỡ tia; không khai: false
         public bool Beam(out Vector2 muzzle, out float scale)
@@ -181,6 +223,16 @@ namespace PokiClash
             float ang = Mathf.Atan2(ty, tx) - Mathf.Atan2(My, Mx);
             float cs = Mathf.Cos(ang) * k, sn = Mathf.Sin(ang) * k;
             o = new Vector2(mx * cs - my * sn - mx, mx * sn + my * cs - my);
+            return true;
+        }
+
+        // Chỗ bắn tính theo chiều cao dáng đứng (1 = cao bằng tướng; x theo phía đang quay, y xuống): nơi vẽ tướng ở cỡ khác
+        // (khung xem tướng) tự nhân với chiều cao của nó
+        public bool BeamUnit(out Vector2 muzzle)
+        {
+            muzzle = Vector2.zero;
+            if (!Beam(out var m, out _)) return false;
+            muzzle = m / Mathf.Max(1e-4f, stageHeight);
             return true;
         }
 
@@ -241,7 +293,9 @@ namespace PokiClash
         public void Show(string clip, float t, bool loop, float alpha, bool gray, float flash)
         {
             // hình aola theo khung (floor t·fps), rig .atomik theo thời gian liên tục (AolaActor.ShowTime)
-            actor.ShowTime(ClipName(clip), t, loop);
+            // chiêu cuối hai clip: hết "skill" thì chạy tiếp "skill_land" (khung cuối clip trước trùng khung đầu clip sau)
+            if (clip == StageView.Skill && !loop && Jumps && t >= SkillLen) actor.ShowTime(AolaActor.SkillLand, t - SkillLen, false);
+            else actor.ShowTime(ClipName(clip), t, loop);
             SyncCamera();
             img.color = new Color(1, 1, 1, alpha);
             if (mat)

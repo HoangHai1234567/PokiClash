@@ -22,7 +22,7 @@ ROOT = os.path.normpath(os.path.join(HERE, "..", "..", ".."))
 
 # tướng cũ -> tướng mới cùng suất đảo Thủy (trừ Giọt Sương -> Tí Tách: xem đầu file)
 HEROES = {
-    "tieu_y": "thach_giai", "canh_cut": "nong_xoay", "mi_nhi": "ha_ba", "ma_ket": "so_ngoc", "vay_lam": "giong_bao",
+    "tieu_y": "thach_giai", "canh_cut": "ca_den", "mi_nhi": "ha_ba", "ma_ket": "so_ngoc", "vay_lam": "giong_bao",
     "kuba": "lien_kinh", "thuong_lam": "uyen_xa", "huyen_vu": "han_ngac", "lam_quan": "hai_long",
 }
 ID_FILES = ["afk.json", "pachinko.json"]

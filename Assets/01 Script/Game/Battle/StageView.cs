@@ -90,17 +90,26 @@ namespace PokiClash
             { "lam_quan", ("n_cau", new[] { "n_mua", "n_song", "n_mua" }) },
             // lô 10 tướng mới đảo Thủy (2026-11-11): theo chiêu cast / skill từng dạng trong ArtGen/Spine/inbox/tm0*_ghichu.md (chiêu mana
             // một mã cho cả dòng: hai dạng khác kiểu thì lấy kiểu dạng 1). Bảng nháp cho bước VFX riêng, chưa xem trong trận
-            { "ti_tach", ("n_tia", new[] { "n_mua", "n_song" }) },             // Súng Nước / Vòi Rồng Nước; Mưa Rào, Sóng Thần
-            { "thach_giai", ("n_bong", new[] { "n_song", "n_xoay" }) },        // Bọt Nước / Pháo Áp Suất; Đá Ngầm Trồi, Xoáy Thạch Thành
-            { "nong_xoay", ("n_bong", new[] { "n_xoay", "n_voi" }) },          // Đuôi Xoáy / Ộp Âm Ba; Xoáy Bong Bóng, Đại Hải Lốc
-            { "ha_ba", ("n_tia", new[] { "n_song", "n_xoay" }) },              // Súng Nước / Vòi Rồng Nước; Ngáp Sóng, Hà Bá Nuốt Sông
+            { "ti_tach", ("n_tia", new[] { "n_va", "n_va" }) },                // há miệng bắn tia nước; chiêu cuối nhảy đè: nước toé lúc chạm
+            { "thach_giai", ("n_tia", new[] { "n_cau", "n_cau" }) },           // suất này nay là dòng ếch xanh (2026-11-11): há miệng bắn tia nước; chiêu cuối ợ ra cầu nước
+            { "ca_den", ("n_tia", new[] { "n_tia", "n_tia" }) },              // Vòi Nước (há miệng bắn tia); Thủy Pháo (dậm chân gầm, tia to hơn) ở cả hai dạng
+            { "ha_ba", ("n_ngoc", new[] { "n_va", "n_va" }) },                 // suất này nay là dòng sò đột biến (2026-11-11): phồng lên phụt viên ngọc trai; chiêu cuối lè lưỡi lao tới quật: nước toé lúc chạm
             { "so_ngoc", ("n_bong", new[] { "n_mua", "n_song" }) },            // Phun Bọt Ngọc / Pháo Ngọc Trai; Mưa Gai, Vỏ Phá Triều Cường
-            { "giong_bao", ("n_tia", new[] { "n_mua", "n_voi" }) },            // Bầu Phun / Pháo Bình Đồng; Cầu Mưa, Giông Bão
-            { "lien_kinh", ("n_bong", new[] { "n_mua", "n_song" }) },          // Bong Bóng Sen / Thủy Pháo; Nụ Bung, Liên Hoa Hải Triều
-            { "uyen_xa", ("n_tia", new[] { "n_mua", "n_voi" }) },              // Thủy Thương / Thủy Pháo; Mưa Bọt, Thâm Uyên Xoáy
+            { "giong_bao", ("n_tia", new[] { "n_thuong", "n_thuong" }) },      // suất này nay là dòng pháp sư nước (2026-11-11): chĩa gậy bắn tia; chiêu cuối giơ gậy gọi kim nước, dậm gậy thì kim phóng đi
+            { "lien_kinh", ("n_va", new[] { "n_tia", "n_tia" }) },             // suất này nay là dòng cá voi biến dị (2026-11-11): chiêu mana xoay người quật đuôi (nước toé lúc chạm); chiêu cuối há to phun luồng nước
+            { "uyen_xa", ("n_tia", new[] { "n_va", "n_va" }) },                // suất này nay là dòng rắn nước có sừng (2026-11-11): há nhẹ miệng bắn tia nước; chiêu cuối lao tới, đuôi sừng quất chém liên tiếp: nước toé lúc chạm (vệt chém riêng chưa làm)
             { "han_ngac", ("n_tia", new[] { "n_song", "n_mua" }) },            // Hàn Phong / Hàn Lưu; Cọc Băng, Băng Hà Sụp
             { "hai_long", ("n_tia", new[] { "n_song", "n_xoay", "n_voi" }) },  // phun nước từ các đầu; chiêu gầm ba dạng mạnh dần
         };
+
+        // đòn đánh thường của tướng Thủy đứng yên bắn (rig khai "stay" cho clip attack): mã hạt nước của viên đạn. Tướng không có
+        // trong bảng: không vẽ đạn (chỉ có hiệu ứng trúng ở đối thủ).
+        static readonly Dictionary<string, string> WaterAtk = new Dictionary<string, string>
+        {
+            { "giong_bao", "n_dan" }, // pháp sư nước: chĩa gậy bắn một viên nước từ cầu nước đầu gậy
+        };
+
+        public static string FireAtk(HeroDef h) => h != null && h.elem == Elem.Thuy && WaterAtk.TryGetValue(h.id, out var k) ? k : null;
 
         public static string FireMana(HeroDef h)
         {
@@ -135,6 +144,11 @@ namespace PokiClash
         void PreFx(Actor a, int side, string clip)
         {
             a.fxHitAt = -1;
+            if (clip == Attack)
+            {
+                AtkFx(a, side);
+                return;
+            }
             if (clip != Cast && clip != Skill) return;
             bool ult = clip == Skill;
             string kind = ult ? FireUlt(a.hero, a.form) : FireMana(a.hero);
@@ -152,6 +166,21 @@ namespace PokiClash
             a.holdAt = lead;
             a.holdUntil = Clock + lead + HatLua.HoldNuoc(kind, ult);
             skillHold = Mathf.Max(skillHold, t + 1.2f);
+        }
+
+        // đòn đánh thường bắn đạn nước (tướng đứng yên bắn): phát lúc clip bắt đầu; đạn rời chỗ nhả HatLua.DanTravel giây trước khung
+        // trúng của clip nên chạm đối thủ đúng khung trúng (cảm giác trúng và số sát thương giữ nguyên chỗ)
+        void AtkFx(Actor a, int side)
+        {
+            string kind = FireAtk(a.hero);
+            if (kind == null || a.aola == null || !a.aola.Stays(Attack)) return;
+            var h = Hat;
+            if (h == null || !h.HasWater) return;
+            int other = side == 0 ? 1 : 0;
+            var victim = actors[other];
+            float tH = victim != null ? victim.H : Height[other];
+            h.UseTheme(a.hero.id);
+            h.PlayNuoc(kind, false, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, a.aola.HitTime(Attack));
         }
 
         // chiêu cuối hệ Hỏa: gọi lúc trúng của clip CHIÊU; trả thời gian tới lúc hiệu ứng chạm đối thủ (giây sân), 0 nếu không có
@@ -1076,7 +1105,18 @@ namespace PokiClash
                     Impact(a, a.impactClip);
                 }
                 a.flash = Mathf.Max(0, a.flash - dt);
-                if (a.enter < 9) a.enter += dt;
+                if (a.enter < 9)
+                {
+                    float e0 = a.enter;
+                    a.enter += dt;
+                    // clip ra sân của rig khai sự kiện "cham_dat" (rơi từ trên trời xuống nện đất, cá voi biến dị 2026-11-11): rung màn nhẹ
+                    // đúng lúc chạm đất
+                    if (a.aola != null && a.aola.HasClip(Game.AolaActor.Appear))
+                    {
+                        float tl = a.aola.EventTime(Game.AolaActor.Appear, "cham_dat");
+                        if (tl >= 0 && e0 < tl && a.enter >= tl) trauma = Mathf.Min(1, trauma + 0.35f);
+                    }
+                }
                 if (a.exit > 0) a.exit += dt;
                 if (a.hop > 0) a.hop = a.hop > 0.5f ? 0 : a.hop + dt;
                 if (a.dead > 0) a.dead += dt;
@@ -1176,8 +1216,11 @@ namespace PokiClash
         {
             var p = Pos[a.side];
             float x = p.x, y = p.y;
+            // rig có clip ra sân / chết (lô quái Thủy 2026-11-11) thì clip tự diễn, sân không rơi, không xoay, không mờ thay
+            bool rigEnter = a.aola != null && a.aola.HasClip(Game.AolaActor.Appear) && a.enter < a.aola.Duration(Game.AolaActor.Appear);
+            bool rigDie = a.dead > 0 && a.aola != null && a.aola.HasClip(Game.AolaActor.Die);
             // ra sân: rơi từ trên xuống, nảy nhẹ
-            if (a.enter < 0.45f)
+            if (a.enter < 0.45f && !rigEnter)
             {
                 float k = a.enter / 0.45f;
                 y -= (1 - k) * (1 - k) * 260;
@@ -1190,14 +1233,14 @@ namespace PokiClash
             }
             if (a.hop > 0) y -= Mathf.Sin(a.hop / 0.5f * Mathf.PI) * 40;
             float rot = 0;
-            if (a.dead > 0)
+            if (a.dead > 0 && !rigDie)
             {
                 float k = Mathf.Min(1, a.dead / 0.7f);
                 alpha = 1 - k * 0.85f;
                 rot = (a.side == 0 ? 1 : -1) * k * 1.25f;
                 y += k * 12;
             }
-            a.rt.gameObject.SetActive(a.dead <= 1.4f);
+            a.rt.gameObject.SetActive(a.dead <= (rigDie ? Mathf.Max(1.4f, a.aola.Duration(Game.AolaActor.Die)) : 1.4f));
 
             // quãng lao: nắn chuyển động của clip đánh tới đối thủ (aola), hình giữ chỗ thì tự nhún tới 35%
             float ox = 0, oy = 0;
@@ -1207,7 +1250,16 @@ namespace PokiClash
             // chiêu cuối của tướng aola chỉ lao khi clip có khai (AolaSticker.Lunge); không khai thì đứng tại chỗ như trước
             if (!a.loop && (a.clip == Attack || a.clip == Skill))
             {
-                if (a.aola != null && a.aola.Lunge(a.clip, a.t, tx, ty, out var o))
+                // chiêu cuối nhảy đè (rig có "skill_land"): bay theo cung lên đầu đối thủ, đè, rồi bật về (AolaSticker.Jump; y lên)
+                var foe = actors[a.side == 0 ? 1 : 0];
+                float foeH = foe != null ? foe.H : Height[a.side == 0 ? 1 : 0];
+                if (a.aola != null && a.aola.Jump(a.clip, a.t, new Vector2(other.x - p.x, p.y - other.y + foeH * 0.62f), a.H, out var jo))
+                {
+                    ox = jo.x;
+                    oy = -jo.y;
+                    lunged = true;
+                }
+                else if (a.aola != null && a.aola.Lunge(a.clip, a.t, tx, ty, out var o))
                 {
                     ox = o.x;
                     oy = o.y;
@@ -1251,7 +1303,9 @@ namespace PokiClash
                 // đòn bắn từ xa (không lao) của aola: đạn bay và vụ nổ vẽ về thân đối thủ (AolaSticker.Far)
                 bool far = !a.loop && !lunged && (a.clip == Attack || a.clip == Skill);
                 a.aola.Far(a.loop ? Idle : a.clip, far ? Body(a.side == 0 ? 1 : 0) - new Vector2(x + ox, y + oy) : (Vector2?)null);
-                a.aola.Show(a.loop ? Idle : a.clip, a.t, a.loop, alpha, a.dead > 0, a.flash);
+                if (rigDie) a.aola.Show(Game.AolaActor.Die, a.dead, false, alpha, false, 0);
+                else if (rigEnter && a.loop) a.aola.Show(Game.AolaActor.Appear, a.enter, false, alpha, false, a.flash);
+                else a.aola.Show(a.loop ? Idle : a.clip, a.t, a.loop, alpha, a.dead > 0, a.flash);
             }
             else
             {

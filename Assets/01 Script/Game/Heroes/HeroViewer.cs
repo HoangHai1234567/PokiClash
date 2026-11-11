@@ -77,11 +77,24 @@ namespace PokiClash
             foe = new Vector2(Mathf.Min(feet.x + 210, half - 90), feet.y - 12); // đủ chỗ cho lốc, thiên thạch trong khung cắt
             foeBody = foe + new Vector2(0, -0.45f * FxH);
             mouth = feet + new Vector2(0.3f * FxH, -0.62f * FxH);
+            // rig khai chỗ bắn (xương miệng ở khung nhả của clip bắn) thì nước phải ra từ đúng đó, như trên sân (StageView.Muzzle);
+            // tướng thấp như Tí Tách có miệng ở 19% chiều cao, đặt cứng 62% là tia phun ra từ trên đầu (người dùng 2026-11-11)
+            if (aola != null && aola.BeamUnit(out var mu)) mouth = feet + mu * FxH;
         }
 
         // chiêu nước (bộ Thủy): phát ngay lúc clip bắt đầu, nước nhả đúng khung trúng (như StageView.PreFx)
         void PreFx(string c)
         {
+            if (c == Attack) // đòn đánh thường bắn đạn nước (tướng đứng yên bắn), như StageView.AtkFx
+            {
+                var ha = Hat;
+                string ka = StageView.FireAtk(shown);
+                if (ha == null || ka == null || !ha.HasWater || aola == null || !aola.Stays(c)) return;
+                FxGeo(out var feetA, out var mouthA, out var foeA, out var foeBodyA);
+                ha.UseTheme(shown.id);
+                ha.PlayNuoc(ka, false, feetA, FxH, mouthA, foeA, foeBodyA, FxH, aola.HitTime(c));
+                return;
+            }
             if (c != Skill && c != Cast) return;
             var h = Hat;
             if (h == null || shown == null) return;
@@ -275,6 +288,8 @@ namespace PokiClash
             Vector2 pos = new Vector2((ax - 0.5f) * size, ay * size);
             if (aola != null)
             {
+                // chiêu cuối nhảy đè (AolaSticker.Jump): nhảy tới trước mặt trong khung rồi bật về
+                if (aola.Jump(clip, t, new Vector2(size * 0.34f, 0), size * 0.42f, out var jump)) pos += jump;
                 body.anchoredPosition = pos;
                 body.localScale = new Vector3(sc, sc, 1);
                 // hiệu ứng ở xa của đòn bắn (đạn, vụ nổ ở chỗ đối thủ của trận gốc): hiện trước mặt trong khung

@@ -319,6 +319,8 @@ Công thức đã làm thật (lửa, nước) và lỗi đã gặp: `pokiclash-
 
 ## 14. Lỗi hay lặp lại
 
+- Có file Spine gốc của con mẫu mà không dịch ngược xem họ tách bộ phận thế nào, tự chia mảnh theo ý mình (gộp các khúc thân thành
+  một lưới, cả đầu một ảnh): người dùng trả lại. Luật và công cụ: `pokiclash-spine-rig` mục 00 (`mo_xe/chay.py att`, `to_manh.py`).
 - Làm hiệu ứng bằng một ảnh tĩnh trượt đi. Sét, lửa, nước là **chuyển động**.
 - Khói vụt tắt hoặc giật: phải co nhỏ dần và bay lên tới hết.
 - Dựng khối lớn bằng hạt rời; hoặc dựng thành một khối nhẵn cứng.
@@ -335,6 +337,8 @@ Công thức đã làm thật (lửa, nước) và lỗi đã gặp: `pokiclash-
 - Dải lưới bám 100% một xương ở giữa đốt: thân gập ở từng khớp (xem 7.2).
 - Lòng miệng không đi theo hàm dưới: mảng lơ lửng, khối lấp kín khe miệng, hoặc dải thịt ở lại với hàm trên như cái lưỡi thứ hai (xem 7.2).
 - Vẽ tia, đạn của chiêu vào rig: việc của lớp VFX.
+- Cố há miệng to bằng uốn lưới: ra khe hình nêm, lòng miệng đỏ chạy ra tới viền, chắp vá. Dáng đổi hẳn hình khối (há to, quay
+  mặt) thì xin GPT một ảnh "giống hệt concept, chỉ đổi chỗ đó" rồi **đổi ảnh trong một khung**, như rig thương mại (`pokiclash-spine-rig` mục 22).
 - Nước, lửa, khói nền làm bằng ảnh trượt ngang: phải là hình tự biến dạng (dâng, cuộn, tan) tại chỗ.
 - Mảnh phủ (mí mắt, miếng che) đặt theo công thức mà không đo: hở một khe. Dò vị trí và in số điểm còn hở.
 - Chỉ soi tờ khung thu nhỏ rồi báo "mượt": chỗ gập ở khớp, chỗ hở trong miệng chỉ thấy khi soi cận hoặc xem chuyển động.

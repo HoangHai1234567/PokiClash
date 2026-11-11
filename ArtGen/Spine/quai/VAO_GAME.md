@@ -44,12 +44,12 @@ Phần dữ liệu, code, test, golden không cần Unity đã làm xong; phần
 |---|---|---|---|---|---|---|---|
 | ải 1 (khởi đầu) | giot_suong | `ti_tach` | Tí Tách | Võ sĩ giọt mưa | Tí Tách 0,92; Sóng Thần 1,1 | Súng Nước / Mưa Rào / Mưa Đầu Mùa | |
 | ải 5 | tieu_y | `thach_giai` | Thạch Giải | Cua ẩn sĩ nhà đá | Thạch Giải; Thạch Thành Giải | Bọt Nước / Đá Ngầm Trồi / Vũng Triều | |
-| ải 10 | canh_cut | `nong_xoay` | Nòng Xoáy | Nòng nọc mắt bão | Nòng Xoáy; Ếch Lốc | Đuôi Xoáy / Xoáy Bong Bóng / Vụng San Hô | |
-| ải 15 | mi_nhi | `ha_ba` | Hà Bá | Hà mã nuốt sóng | Hà Mã Con; Hà Bá | Súng Nước / Ngáp Sóng / Hồn Nước | |
+| ải 10 | canh_cut | `ca_den` (trước 2026-11-11 chiều: `nong_xoay`, Nòng Xoáy; đổi bằng `quai/doi_ca_den.py`) | Hải Đăng | Cá đèn lồng vực sâu | Lồng Đèn; Hải Đăng | Vòi Nước / Thủy Pháo / Vụng San Hô | |
+| ải 15 | mi_nhi | `ha_ba` (id giữ; trước 2026-11-11 tối là Hà Bá, hà mã) | Sò Ngoạm | Sò đột biến lưỡi dài | Sò Háu; Sò Ngoạm | Phụt Ngọc / Lưỡi Quật / Hồn Nước | 2026-11-11 tối: HÌNH và chiêu của suất này nay là dòng **sò đột biến** (mã làm việc `so_gai`, người dùng lên ý tưởng và chốt; rig `ArtGen/Spine/inbox/so_gai_<k>/rig`, ghi chú `inbox/so_gai_ghichu.md`). Tên tướng, dạng, thẻ đã đổi (Claude đặt tạm, người dùng có thể đổi); id nội bộ giữ `ha_ba`. Chiêu mana = `n_ngoc` (phụt viên ngọc trai), chiêu cuối lè lưỡi lao tới quật = `n_va`. |
 | ải 20 | ma_ket | `so_ngoc` | Sò Ngọc | Pháo đài ngọc trai | Sò Gai; Bạng Vương | Phun Bọt Ngọc / Mưa Gai / Tim Ngọc Trai | |
 | ải 30 | vay_lam | `giong_bao` | Giông Bão | Kỳ giông gọi mưa | Giông Mưa; Giông Bão | Bầu Phun / Cầu Mưa / Bầu Hứng Mưa | |
 | ải 40 | kuba | `lien_kinh` | Liên Kình | Kình ngư cõng sen thiêng | Kình Nụ; Liên Kình | Bong Bóng Sen / Nụ Bung / Sen Thiêng | `lien_kinh_boss` Sen Hộ Thể (= kuba_boss) |
-| ải 50 | thuong_lam | `uyen_xa` | Uyên Xà | Rắn đèn vực sâu | Uyên Nhi; Uyên Xà | Thủy Thương / Mưa Bọt / Đèn Vực Sâu | |
+| ải 50 | thuong_lam | `uyen_xa` | Uyên Xà | Rắn đèn vực sâu | Uyên Nhi; Uyên Xà | Thủy Thương / Mưa Bọt / Đèn Vực Sâu | 2026-11-11 khuya: HÌNH và chiêu của suất này nay là dòng **rắn nước có sừng** (mã làm việc `ran_sung`, người dùng lên ý tưởng, duyệt từng bước và bảo thay tướng cũ; reskin rig `monster_3247`, rig `ArtGen/Spine/inbox/ran_sung_<k>/rig`, ghi chú `inbox/ran_sung_ghichu.md`). Id, tên tướng, danh hiệu, tên dạng, thẻ CHƯA đổi (chờ người dùng đặt; "rắn đèn", "Mưa Bọt", "Đèn Vực Sâu" không còn khớp hình). Chiêu mana = `n_tia` (há nhẹ miệng bắn nước), chiêu cuối lao tới đuôi sừng quất chém = `n_va` (vệt chém riêng chưa làm). Màu nước trong `HatNuoc.WThemes` đổi sang lam cô-ban, bỏ họa tiết sao. |
 | ải 60 | huyen_vu | `han_ngac` | Hàn Ngạc | Cá sấu băng vực sâu | Ngạc Nhi; Hàn Ngạc Vương | Hàn Phong / Cọc Băng / Hàm Băng | `han_ngac_boss` Giáp Băng Hộ Thể (= huyen_vu_boss) |
 | ải 70 (boss) | lam_quan | `hai_long` | Hải Long | Rồng biển nhiều đầu | Hải Long Nhi 0,95; Hải Long Tam Thủ 1,1; Hải Long Ngũ Đầu 1,16 | Hải Long Phun / Hải Long Gầm / Vảy Ngọc | `hai_long_boss` Long Uy Chấn (= lam_quan_boss) |
 

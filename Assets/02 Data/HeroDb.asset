@@ -745,25 +745,25 @@ MonoBehaviour:
       aola: canh_cut_2
       size: 1.1
     minion: 0
-  - id: nong_xoay
-    name: "N\xF2ng Xo\xE1y"
-    title: "N\xF2ng n\u1ECDc m\u1EAFt b\xE3o"
-    aola: nong_xoay_1
+  - id: ca_den
+    name: "H\u1EA3i \u0110\u0103ng"
+    title: "C\xE1 \u0111\xE8n l\u1ED3ng v\u1EF1c s\xE2u"
+    aola: ca_den_1
     elem: 2
     rarity: 0
     stats: 550000002800000032000000370000003200000014000000
-    skill: nong_xoay_skill
-    ult: nong_xoay_ult
-    passive: nong_xoay_pas
+    skill: ca_den_skill
+    ult: ca_den_ult
+    passive: ca_den_pas
     shards: 10
-    line: "D\xF2ng N\xF2ng Xo\xE1y"
+    line: "D\xF2ng H\u1EA3i \u0110\u0103ng"
     size: 0.92
     forms:
-    - name: "N\xF2ng Xo\xE1y"
-      aola: nong_xoay_1
+    - name: "L\u1ED3ng \u0110\xE8n"
+      aola: ca_den_1
       size: 0.92
-    - name: "\u1EBEch L\u1ED1c"
-      aola: nong_xoay_2
+    - name: "H\u1EA3i \u0110\u0103ng"
+      aola: ca_den_2
       size: 1.1
     minion: 0
   - id: giot_suong
@@ -995,8 +995,8 @@ MonoBehaviour:
       size: 1.1
     minion: 0
   - id: ha_ba
-    name: "H\xE0 B\xE1"
-    title: "H\xE0 m\xE3 nu\u1ED1t s\xF3ng"
+    name: "S\xF2 Ngo\u1EA1m"
+    title: "S\xF2 \u0111\u1ED9t bi\u1EBFn l\u01B0\u1EE1i d\xE0i"
     aola: ha_ba_1
     elem: 2
     rarity: 1
@@ -1005,13 +1005,13 @@ MonoBehaviour:
     ult: ha_ba_ult
     passive: ha_ba_pas
     shards: 15
-    line: "D\xF2ng H\xE0 B\xE1"
+    line: "D\xF2ng S\xF2 Ngo\u1EA1m"
     size: 0.92
     forms:
-    - name: "H\xE0 M\xE3 Con"
+    - name: "S\xF2 H\xE1u"
       aola: ha_ba_1
       size: 0.92
-    - name: "H\xE0 B\xE1"
+    - name: "S\xF2 Ngo\u1EA1m"
       aola: ha_ba_2
       size: 1.1
     minion: 0
@@ -1175,8 +1175,8 @@ MonoBehaviour:
       size: 1.14
     minion: 0
   - id: lien_kinh
-    name: "Li\xEAn K\xECnh"
-    title: "K\xECnh ng\u01B0 c\xF5ng sen thi\xEAng"
+    name: "Th\xF4n K\xECnh"
+    title: "C\xE1 voi v\xF4 di\u1EC7n \u0111u\xF4i \u0111\xE1"
     aola: lien_kinh_1
     elem: 2
     rarity: 3
@@ -1185,13 +1185,13 @@ MonoBehaviour:
     ult: lien_kinh_ult
     passive: lien_kinh_pas
     shards: 30
-    line: "D\xF2ng Li\xEAn K\xECnh"
+    line: "D\xF2ng Th\xF4n K\xECnh"
     size: 0.92
     forms:
-    - name: "K\xECnh N\u1EE5"
+    - name: "K\xECnh Nhi"
       aola: lien_kinh_1
       size: 0.92
-    - name: "Li\xEAn K\xECnh"
+    - name: "Th\xF4n K\xECnh"
       aola: lien_kinh_2
       size: 1.1
     minion: 0

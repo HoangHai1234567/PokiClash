@@ -47,19 +47,20 @@ namespace PokiClash
             // giọt mưa võ sĩ: lam đại dương #1F5DB5, lam ngọc sáng #35BFE6, bọt nhạt
             { "ti_tach", new WTheme { w = WPal(C(31, 93, 181), C(53, 191, 230), C(158, 223, 243)) } },
             // cua ẩn sĩ nhà đá: giáp chàm #3D5486, vỏ lam xám #6A8BBB, lam bọt #BFE6E2; mảnh đá bazan văng
-            { "thach_giai", new WTheme { w = WPal(C(61, 84, 134), C(106, 139, 187), C(191, 230, 226)), fx = new Theme { extra = "giap", extraCol = C(75, 81, 96) } } },
+            // suất này nay là dòng ếch xanh (2026-11-11): bỏ họa tiết mảnh đá của cua; màu nước tạm giữ, chờ người dùng chọn
+            { "thach_giai", new WTheme { w = WPal(C(61, 84, 134), C(106, 139, 187), C(191, 230, 226)) } },
             // nòng nọc / ếch xoáy: cô-ban #2457C5, cerulean #3FA9E0, vây nhạt #9FE1F0
-            { "nong_xoay", new WTheme { w = WPal(C(36, 87, 197), C(63, 169, 224), C(159, 225, 240)) } },
+            { "ca_den", new WTheme { w = WPal(C(52, 66, 143), C(76, 95, 196), C(155, 168, 242)) } },   // chàm của cá đèn lồng
             // hà mã: hồn nước ba lam #2B7FD6, #4FB6EE, #A6DEF8
             { "ha_ba", new WTheme { w = WPal(C(43, 127, 214), C(79, 182, 238), C(166, 222, 248)) } },
             // sò ngọc: mòng két #1F9AA8, ngọc lam #36C2B4, ngọc lam nhạt #7ED8CB; gai san hô cam văng
             { "so_ngoc", new WTheme { w = WPal(C(31, 154, 168), C(54, 194, 180), C(126, 216, 203)), fx = new Theme { extra = "tinh_the", extraCol = C(240, 127, 85) } } },
             // kỳ giông mưa bão: chàm bão #34477E, xanh đá mưa #6E88BC, lam nhạt #9CC0E8; mây giông xám bay lên
-            { "giong_bao", new WTheme { w = WPal(C(52, 71, 126), C(110, 136, 188), C(156, 192, 232)), fx = new Theme { extra = "may", extraCol = C(214, 222, 238) } } },
-            // cá voi sen: nước đệm sóng #1E68BE, #3A96E2, #8CD0F6; cánh sen đỏ thắm
-            { "lien_kinh", new WTheme { w = WPal(C(30, 104, 190), C(58, 150, 226), C(140, 208, 246)), fx = new Theme { extra = "canh_sen", extraCol = C(217, 68, 58) } } },
+            { "giong_bao", new WTheme { w = WPal(C(42, 53, 128), C(47, 159, 179), C(190, 232, 244)) } },   // pháp sư nước: chàm của mũ, lam ngọc của áo, lam băng
+            // cá voi biến dị (2026-11-11, thay cá voi sen): lam đá sẫm #2F4A6E, lam biển #4F86B0, trắng băng #BFE3EE; mảnh đá đen văng
+            { "lien_kinh", new WTheme { w = WPal(C(47, 74, 110), C(79, 134, 176), C(191, 227, 238)), fx = new Theme { extra = "tinh_the", extraCol = C(58, 56, 66) } } },
             // rắn vực sâu: chàm vực #2E2F6E, chàm xám #5058A8, bạc hà #8FE3D0; chấm đèn bạc hà
-            { "uyen_xa", new WTheme { w = WPal(C(46, 47, 110), C(80, 88, 168), C(143, 227, 208)), fx = new Theme { extra = "sao", extraCol = C(201, 247, 234) } } },
+            { "uyen_xa", new WTheme { w = WPal(C(34, 78, 190), C(64, 140, 232), C(134, 214, 240)) } },   // rắn nước có sừng (2026-11-11): lam cô-ban của thân, nhạt dần về màu đốm bong bóng; bỏ họa tiết sao của rắn đèn cũ
             // cá sấu băng: petrol sẫm #1F5566, petrol #3C8396, cạnh băng #9DBAC6; mảnh băng đục
             { "han_ngac", new WTheme { w = WPal(C(31, 85, 102), C(60, 131, 150), C(157, 186, 198)), fx = new Theme { extra = "tinh_the", extraCol = C(230, 241, 244) } } },
             // rồng biển nhiều đầu: ngọc bích sẫm, ngọc bích #2FA79B, bạc hà #A6E6D8; sao vàng như gạc
@@ -789,6 +790,117 @@ namespace PokiClash
             return T0 + dist / 1500;
         }
 
+        // đạn nước bay từ chỗ nhả tới đối thủ trong chừng này giây (đòn đánh thường của tướng đứng yên bắn)
+        public const float DanTravel = 0.13f;
+
+        // đạn nước của đòn đánh thường (pháp sư nước 2026-11-11: chĩa gậy bắn): một viên nước thon rời chỗ nhả DanTravel giây TRƯỚC
+        // khung trúng của clip nên chạm đối thủ đúng khung trúng (số sát thương, khựng, rung của sân không phải dời). Không có pha tụ
+        // ở chỗ nhả: lúc lấy đà đầu gậy còn ở sau vai. Nhỏ hơn chiêu mana: chớp toé 0,12 s, 6 giọt, 2 bọt.
+        public float NDan(Vector2 mouth, Vector2 target, Vector2 foeFeet, float tH, float lead)
+        {
+            float T0 = Mathf.Max(DanTravel + 0.02f, lead);
+            At(T0 - DanTravel, () =>
+            {
+                var aim = target + new Vector2(U(-0.1f, 0.1f), U(-0.08f, 0.1f)) * tH;
+                var dd = aim - mouth;
+                float dist = Mathf.Max(1, dd.magnitude);
+                var u = dd / dist;
+                for (int i = 0; i < 3; i++) Foam(mouth + U2(-6, 6), -u * U(20, 70) + U2(-30, 30), 0.24f, 3, 9);
+                for (int i = 0; i < 4; i++) Drop(mouth + U2(-5, 5), -u * U(40, 120) + new Vector2(U(-70, 70), -U(30, 110)), 0.32f, 2.6f);
+                var q = new P { pos = mouth, life = DanTravel + 0.25f, aim = aim, group = Front, stops = W, vel = u * (dist / DanTravel), fly = true };
+                q.upd = (z, dt, s) =>
+                {
+                    var dv = Unit(z.vel);
+                    if (s.U(0, 1) < 0.7f) s.Drop(z.pos - dv * 20, -dv * 70 + s.U2(-45, 45), 0.22f, 2.8f, 240);
+                    if (s.U(0, 1) < 0.3f) s.Foam(z.pos - dv * 22, Vector2.zero, 0.26f, 3, 7);
+                    if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
+                    {
+                        z.dead = true;
+                        s.Shake?.Invoke(0.12f);
+                        s.BurstFlash(z.aim, 0.44f * tH, Front, 0.12f);
+                        for (int j = 0; j < 6; j++)
+                        {
+                            float a = s.U(0, 6.28f);
+                            s.Drop(z.aim, new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.4f) * s.U(150, 320), 0.4f, 3.2f);
+                        }
+                        for (int j = 0; j < 2; j++) s.Foam(z.aim + s.U2(-9, 9), null, 0, 4, 10);
+                        s.WExtra(z.aim, 1, 240);
+                    }
+                };
+                q.draw = (z, k, buf) =>
+                {
+                    float sc = z.age < 0.05f ? 0.6f + 0.4f * z.age / 0.05f : 1;
+                    var d = Unit(z.vel);
+                    float ang = TipAngle(d);
+                    for (int li = 0; li < 5; li++)
+                    {
+                        float f = SpearF[li];
+                        float L = 50 * sc * f + (li == 0 ? 5 : 0);
+                        Put(buf, Front, 20 + li, S(li == 0 ? "drops_1" : "drop_1"), z.stops[li], z.pos - d * (50 * sc * (1 - f) * 0.2f), L, 0.8f, ang);
+                    }
+                };
+                Add(q);
+            });
+            return T0;
+        }
+
+        // viên ngọc trai của dòng sò đột biến (suất ha_ba, 2026-11-11): con sò ngậm miệng phồng lên rồi phụt viên ngọc ở khung nhả của
+        // clip cast. Viên ngọc rời miệng đúng khung nhả, bay NgocTravel giây, kéo theo giọt dãi; chạm đối thủ thì toé nước. Ngọc vẽ bằng
+        // lớp chồng như bong bóng: viền mực, thân xà cừ, vệt tím nhạt ở mép dưới (tô phẳng, không điểm sáng).
+        static readonly Color NgocA = C(241, 228, 236), NgocB = C(201, 182, 218);
+        public const float NgocTravel = 0.2f;
+
+        public float NNgoc(Vector2 mouth, Vector2 target, Vector2 foeFeet, float tH, float lead)
+        {
+            float T0 = Mathf.Max(0.05f, lead);
+            At(T0, () =>
+            {
+                var aim = target + new Vector2(U(-0.06f, 0.06f), U(-0.06f, 0.08f)) * tH;
+                var dd = aim - mouth;
+                float dist = Mathf.Max(1, dd.magnitude);
+                var u = dd / dist;
+                Shake?.Invoke(0.2f);
+                BurstFlash(mouth, 0.3f * tH, Front, 0.1f);
+                for (int i = 0; i < 4; i++) Foam(mouth + U2(-8, 8), -u * U(20, 80) + U2(-30, 30), 0.26f, 3, 10);
+                for (int i = 0; i < 7; i++) Drop(mouth + U2(-6, 6), u * U(60, 260) + new Vector2(U(-120, 120), -U(40, 200)), 0.36f, U(2.4f, 3.6f));
+                var q = new P
+                {
+                    pos = mouth, life = NgocTravel + 0.3f, aim = aim, group = Front, stops = W, vel = u * (dist / NgocTravel), fly = true,
+                    seed = rng.Next(4), sz = 0.085f * tH,
+                };
+                q.upd = (z, dt, s) =>
+                {
+                    var dv = Unit(z.vel);
+                    if (s.U(0, 1) < 0.8f) s.Drop(z.pos - dv * z.sz, -dv * 60 + s.U2(-55, 55), 0.24f, 2.8f, 300);
+                    if (s.U(0, 1) < 0.25f) s.Foam(z.pos - dv * z.sz, Vector2.zero, 0.24f, 3, 7);
+                    if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
+                    {
+                        z.dead = true;
+                        s.Shake?.Invoke(0.45f);
+                        s.BurstFlash(z.aim, 0.6f * tH, Front, 0.13f);
+                        s.Splash(z.aim, 0.85f, foeFeet.y, tH);
+                        for (int j = 0; j < 9; j++)
+                        {
+                            float a = s.U(0, 6.28f);
+                            s.Drop(z.aim, new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f) * s.U(160, 380), 0.42f, 3.4f);
+                        }
+                        for (int j = 0; j < 3; j++) s.Foam(z.aim + s.U2(-10, 10), null, 0, 4, 11);
+                        s.Puddle(foeFeet + new Vector2(0, 3));
+                    }
+                };
+                q.draw = (z, k, buf) =>
+                {
+                    float rr = z.sz * (z.age < 0.04f ? 0.55f + 0.45f * z.age / 0.04f : 1);
+                    float ang = TipAngle(Unit(z.vel));
+                    Put(buf, Front, 26, S("solid_" + z.seed), Ink, z.pos, 2 * rr + 4, 1.18f, ang);
+                    Put(buf, Front, 27, S("blob_" + z.seed), NgocA, z.pos, 2 * rr, 1.18f, ang);
+                    Put(buf, Front, 28, S("blob_" + ((z.seed + 1) & 3)), NgocB, z.pos + new Vector2(-rr * 0.2f, rr * 0.28f), 0.9f * rr);
+                };
+                Add(q);
+            });
+            return T0 + NgocTravel;
+        }
+
         // con sóng: lưng, đỉnh, mũi mào, bụng mào, mặt lõm, chân (trục: tới trước, lên cao; theo bề rộng và chiều cao sóng)
         static readonly Vector2[] Song =
         {
@@ -1207,6 +1319,8 @@ namespace PokiClash
                 case "n_bong": return NBong(mouth, foeBody, foeFeet, tH, lead);
                 case "n_luoi": return NLuoi(mouth, foeBody, foeFeet, tH, lead);
                 case "n_thuong": return NThuong(casterFeet, casterH, foeBody, foeFeet, tH, lead, ult ? 8 : 6);
+                case "n_dan": return NDan(mouth, foeBody, foeFeet, tH, lead);
+                case "n_ngoc": return NNgoc(mouth, foeBody, foeFeet, tH, lead);
                 case "n_song": return NSong(casterFeet, casterH, foeFeet, tH, lead);
                 case "n_mua": return NMua(foeFeet, tH, lead, ult ? 1.3f : 1.15f);
                 case "n_xoay": return NXoay(foeFeet, tH, lead);
@@ -1222,6 +1336,7 @@ namespace PokiClash
             {
                 "n_tia" => (ult ? 1.25f : 0.88f) + 0.05f,
                 "n_cau" => 0.12f,
+                "n_ngoc" => 0.1f,
                 "n_bong" => 0.85f,
                 "n_luoi" => 0.32f,
                 "n_thuong" => (ult ? 8 : 6) * 0.1f,

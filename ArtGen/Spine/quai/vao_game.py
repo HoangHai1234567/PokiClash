@@ -34,7 +34,7 @@ ROOT = os.path.normpath(os.path.join(HERE, "..", "..", ".."))
 RES = os.path.join(ROOT, "Assets", "03 Art", "Heroes", "Resources")
 HEROES = os.path.join(ROOT, "Assets", "02 Data", "Json", "heroes.json")
 DA_NHAN = os.path.join(HERE, "da_nhan.json")
-LO = ["ti_tach", "thach_giai", "nong_xoay", "ha_ba", "so_ngoc", "giong_bao", "lien_kinh", "uyen_xa", "han_ngac", "hai_long"]
+LO = ["ti_tach", "thach_giai", "ca_den", "ha_ba", "so_ngoc", "giong_bao", "lien_kinh", "uyen_xa", "han_ngac", "hai_long"]
 NEED_CLIPS = ["idle", "attack", "cast", "skill", "hit", "appear", "die"]
 PORTRAIT = 512
 

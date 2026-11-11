@@ -23,10 +23,12 @@ async function main() {
   const atlasText = await (await fetch(`${DIR}/${NAME}.atlas`)).text();
   const atlas = new spine.TextureAtlas(atlasText);
   const data = await readData(atlas);
+  if (Q.get("extra")) addExtra(data, await (await fetch(`${DIR}/${Q.get("extra")}`)).json());
   if (MODE === "info") return info(data, atlas);
   if (MODE === "sample") return sample(data);
   if (MODE === "keys") return keys(data);
   if (MODE === "mesh") return meshes(data);
+  if (MODE === "att") return allatt(data);
   return sheet(data, atlasText);
 }
 
@@ -122,6 +124,44 @@ function meshes(data) {
   out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
 }
 
+// MỌI hình của mọi slot (kể cả hình không bật mặc định: bộ mảnh dùng cho dáng khác), toạ độ thế giới từng đỉnh, uv, trọng số, xương
+// của slot, thứ tự vẽ. Không có anim: dáng gốc, rút mọi hình trong skin. Có anim=<clip>&t=<giây>: dáng của clip ở giây đó, mỗi slot
+// chỉ rút hình ĐANG bật (xem ở dáng đó họ dùng mảnh nào, đặt ở đâu).
+function allatt(data) {
+  const sk = new spine.Skeleton(data); sk.setToSetupPose();
+  const an = Q.get("anim"), tt = +(Q.get("t") || 0);
+  if (an) data.findAnimation(an).apply(sk, 0, tt, false, [], 1, spine.MixBlend.setup, spine.MixDirection.mixIn);
+  sk.updateWorldTransform(spine.Physics.update);
+  const r1 = v => Math.round(v * 10) / 10;
+  const R = {anim: an || "", t: tt, atts: [], bones: sk.bones.map(b => ({name: b.data.name, parent: b.parent ? b.parent.data.index : -1,
+    x: r1(b.worldX), y: r1(b.worldY), a: b.a, b: b.b, c: b.c, d: b.d, len: b.data.length}))};
+  const dump = (slot, a, cur) => {
+    const o = {slot: slot.data.name, order: sk.drawOrder.indexOf(slot), bone: slot.bone.data.name, att: a.name, cur, type: a.constructor.name,
+               alpha: slot.color.a};
+    if (a instanceof spine.MeshAttachment) {
+      const n = a.worldVerticesLength / 2, wv = new Array(n * 2);
+      a.computeWorldVertices(slot, 0, n * 2, wv, 0, 2);
+      Object.assign(o, {region: a.region ? a.region.name : a.path, hull: a.hullLength / 2, tris: Array.from(a.triangles), xy: wv.map(r1),
+        uv: Array.from(a.regionUVs).map(v => Math.round(v * 1e4) / 1e4)});
+      if (a.bones) {
+        const w = []; let bi = 0, vi = 0;
+        for (let v = 0; v < n; v++) { const k = a.bones[bi++], inf = []; for (let j = 0; j < k; j++) { inf.push([a.bones[bi++], Math.round(a.vertices[vi + 2] * 1000) / 1000]); vi += 3; } w.push(inf); }
+        o.w = w;
+      }
+    } else if (a instanceof spine.RegionAttachment) {
+      const wv = new Array(8); a.computeWorldVertices(slot, wv, 0, 2);
+      Object.assign(o, {region: a.region ? a.region.name : a.path, xy: wv.map(r1), rot: r1(a.rotation), sx: a.scaleX, sy: a.scaleY, w0: a.width, h0: a.height});
+    } else return;
+    R.atts.push(o);
+  };
+  if (an) { for (const slot of sk.slots) { const a = slot.getAttachment(); if (a) dump(slot, a, true); } }
+  else for (const skin of data.skins) for (const e of skin.getAttachments()) {
+    const slot = sk.slots[e.slotIndex], cur = slot.getAttachment(), keep = slot.attachment;
+    slot.attachment = e.attachment; dump(slot, e.attachment, cur === e.attachment); slot.attachment = keep;
+  }
+  out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
+}
+
 // mọi khoá của từng timeline: giờ, giá trị, kiểu đường cong (0 thẳng, 1 bậc, 2 bezier)
 function keys(data) {
   const names = (Q.get("anims") || "idle_01").split(",");
@@ -141,6 +181,28 @@ function keys(data) {
   out.textContent = "JSON_BEGIN" + JSON.stringify(R) + "JSON_END";
 }
 
+// animation tự viết thêm vào bộ xương gốc. extra.json: [{name, dur, bones: {tên: {rotate: [[t, độ]], translate: [[t, x, y]],
+// scale: [[t, sx, sy]]}}, slots: {tên: {attachment: [[t, tên hình | null]]}}}]. Giá trị là lệch so với dáng gốc như khoá Spine
+// (xoay cộng, dời cộng, tỉ lệ nhân), nội suy thẳng (viết dày, mỗi khung một khoá). Ràng buộc IK, path của rig gốc vẫn chạy.
+function addExtra(data, list) {
+  for (const A of list) {
+    const tls = [];
+    for (const [bn, o] of Object.entries(A.bones || {})) {
+      const bi = data.bones.findIndex(b => b.name === bn);
+      if (bi < 0) throw new Error("extra: không có xương " + bn);
+      if (o.rotate) { const t = new spine.RotateTimeline(o.rotate.length, 0, bi); o.rotate.forEach((k, i) => t.setFrame(i, k[0], k[1])); tls.push(t); }
+      if (o.translate) { const t = new spine.TranslateTimeline(o.translate.length, 0, bi); o.translate.forEach((k, i) => t.setFrame(i, k[0], k[1], k[2])); tls.push(t); }
+      if (o.scale) { const t = new spine.ScaleTimeline(o.scale.length, 0, bi); o.scale.forEach((k, i) => t.setFrame(i, k[0], k[1], k[2])); tls.push(t); }
+    }
+    for (const [sn, o] of Object.entries(A.slots || {})) {
+      const si = data.slots.findIndex(x => x.name === sn);
+      if (si < 0) throw new Error("extra: không có slot " + sn);
+      if (o.attachment) { const t = new spine.AttachmentTimeline(o.attachment.length, si); o.attachment.forEach((k, i) => t.setFrame(i, k[0], k[1])); tls.push(t); }
+    }
+    data.animations.push(new spine.Animation(A.name, tls, A.dur));
+  }
+}
+
 // lấy mẫu 30 khung/giây: toạ độ thế giới, góc thế giới, tỉ lệ của mọi xương; alpha và hình của mọi slot
 function sample(data) {
   const fps = +(Q.get("fps") || 30);
@@ -158,6 +220,11 @@ function sample(data) {
       sk.updateWorldTransform(spine.Physics.update);
       fr.push({b: sk.bones.map(b => [Math.round(b.worldX * 10) / 10, Math.round(b.worldY * 10) / 10, Math.round(b.getWorldRotationX() * 10) / 10,
                                      Math.round(b.getWorldScaleX() * 100) / 100, Math.round(b.getWorldScaleY() * 100) / 100]),
+               m: sk.bones.map(b => [Math.round(b.a * 1e4) / 1e4, Math.round(b.b * 1e4) / 1e4, Math.round(b.c * 1e4) / 1e4, Math.round(b.d * 1e4) / 1e4]),
+               // l: biến đổi RIÊNG đã áp (x, y, xoay, tỉ lệ x, y, xiên x, y trong hệ xương cha), không làm tròn thô: dùng để chép
+               // chuyển động một nhóm xương sang rig khác (tính ngược từ ma trận thế giới đã làm tròn thì khớp nhỏ bị rung)
+               l: sk.bones.map(b => [b.ax, b.ay, b.arotation, b.ascaleX, b.ascaleY, b.ashearX, b.ashearY].map(v => Math.round(v * 1e5) / 1e5)),
+               n: sk.slots.map(s => s.attachment ? s.attachment.name : null), o: sk.drawOrder.map(s => s.data.index),
                a: sk.slots.map(s => Math.round(s.color.a * 100) / 100), s: sk.slots.map(s => s.attachment ? 1 : 0)});
     }
     R[nm] = {dur: anim.duration, fps, frames: fr};

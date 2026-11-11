@@ -1187,10 +1187,10 @@
    ]
   },
   {
-   "id": "nong_xoay",
-   "name": "Nòng Xoáy",
-   "title": "Nòng nọc mắt bão",
-   "aola": "nong_xoay_1",
+   "id": "ca_den",
+   "name": "Hải Đăng",
+   "title": "Cá đèn lồng vực sâu",
+   "aola": "ca_den_1",
    "elem": "thuy",
    "rarity": "common",
    "stats": [
@@ -1201,21 +1201,21 @@
     50,
     20
    ],
-   "skill": "nong_xoay_skill",
-   "ult": "nong_xoay_ult",
-   "passive": "nong_xoay_pas",
+   "skill": "ca_den_skill",
+   "ult": "ca_den_ult",
+   "passive": "ca_den_pas",
    "shards": 10,
-   "line": "Dòng Nòng Xoáy",
+   "line": "Dòng Hải Đăng",
    "size": 0.92,
    "forms": [
     {
-     "name": "Nòng Xoáy",
-     "aola": "nong_xoay_1",
+     "name": "Lồng Đèn",
+     "aola": "ca_den_1",
      "size": 0.92
     },
     {
-     "name": "Ếch Lốc",
-     "aola": "nong_xoay_2",
+     "name": "Hải Đăng",
+     "aola": "ca_den_2",
      "size": 1.1
     }
    ]
@@ -1592,8 +1592,8 @@
   },
   {
    "id": "ha_ba",
-   "name": "Hà Bá",
-   "title": "Hà mã nuốt sóng",
+   "name": "Sò Ngoạm",
+   "title": "Sò đột biến lưỡi dài",
    "aola": "ha_ba_1",
    "elem": "thuy",
    "rarity": "uncommon",
@@ -1609,16 +1609,16 @@
    "ult": "ha_ba_ult",
    "passive": "ha_ba_pas",
    "shards": 15,
-   "line": "Dòng Hà Bá",
+   "line": "Dòng Sò Ngoạm",
    "size": 0.92,
    "forms": [
     {
-     "name": "Hà Mã Con",
+     "name": "Sò Háu",
      "aola": "ha_ba_1",
      "size": 0.92
     },
     {
-     "name": "Hà Bá",
+     "name": "Sò Ngoạm",
      "aola": "ha_ba_2",
      "size": 1.1
     }
@@ -1884,8 +1884,8 @@
   },
   {
    "id": "lien_kinh",
-   "name": "Liên Kình",
-   "title": "Kình ngư cõng sen thiêng",
+   "name": "Thôn Kình",
+   "title": "Cá voi vô diện đuôi đá",
    "aola": "lien_kinh_1",
    "elem": "thuy",
    "rarity": "epic",
@@ -1901,16 +1901,16 @@
    "ult": "lien_kinh_ult",
    "passive": "lien_kinh_pas",
    "shards": 30,
-   "line": "Dòng Liên Kình",
+   "line": "Dòng Thôn Kình",
    "size": 0.92,
    "forms": [
     {
-     "name": "Kình Nụ",
+     "name": "Kình Nhi",
      "aola": "lien_kinh_1",
      "size": 0.92
     },
     {
-     "name": "Liên Kình",
+     "name": "Thôn Kình",
      "aola": "lien_kinh_2",
      "size": 1.1
     }

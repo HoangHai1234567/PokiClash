@@ -1,0 +1,24 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\rong_vay_1\tai_ve\L1_duyet.png: the APPROVED picture of the whole creature (a winged sea-serpent dragon), 1536x1024, white background. Use it to understand what each part is and how its hidden areas should look.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\rong_vay_1\mau\nhom_D.png: CUT-OUT GUIDE, 1536x1024, white background: it is image 1 with everything erased except the 4 parts wanted in this picture, each exactly where it is in image 1. The flat HOT-PINK areas (#FF69B4) are NOT part of the drawing: they are markers showing where a part continues, hidden in image 1 behind parts that were erased. Some cut edges of the parts are ragged because a computer cut them.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\rong_vay_1\tai_ve\N_D.png
+If a file with that name already exists, save as N_D_2.png, N_D_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 as a finished cut-out sheet of these 4 separate parts for 2D skeleton animation.
+
+RULES:
+- KEEP every drawn (non-pink) area of image 2 EXACTLY as it is and exactly where it is: the same position on the canvas, the same size, the same outline, the same details, the same colours. Do not move, scale, rotate, tidy up or restyle the parts. If the result were laid over image 2, every drawn area would line up.
+- REPLACE every pink area by the missing continuation of the part it touches: continue that part's colours and pattern over the pink area (cream belly plates continue as cross-wise bands with thin ink lines, the indigo back stays indigo, fin webs and their dark-navy rays continue to the fin base, a wing membrane continues to the shoulder) and round off its end. A part that is shown ONLY as a pink shape (completely hidden in image 1) is drawn new, filling that pink shape.
+- Smooth the ragged computer-cut edges into a clean hand-drawn outline.
+- Each part ends up as ONE CLOSED SHAPE with the dark-brown ink outline running all the way around it, also along the edges that were hidden. No pink anywhere in the result.
+- Exactly these 4 parts, not touching each other, white background between them. Do not add any other part of the creature. Ignore tiny stray specks of image 2.
+
+THE 4 PARTS (the place is the centre of the part on the 1536x1024 canvas):
+1. at about x = 1095, y = 721: FAR WING MEMBRANE: the grey-teal membrane of the far wing with its rays and cream spots, WITHOUT its spar, complete: the upper part hidden behind the body continues up to the shoulder over the pink area of image 2.
+2. at about x = 396, y = 462: FIN: the pointed fin at this place (grey-teal web with its dark-navy ray or rays), exactly as in image 1 where it is visible. Draw it complete, filling the pink area of image 2: its base, hidden behind the body in image 1, runs a little into the body and ends in a smooth rounded edge.
+3. at about x = 703, y = 428: BACK: the high stretch of body on top, left of the neck, carrying the THREE scallop shells (the shells belong to this part: keep them exactly as in image 1). Indigo. Both ends rounded; where sail fins or the next stretch of body cover it, continue the indigo body. No sail fins on it.
+4. at about x = 1017, y = 234: CHEEK FIN: the small gill-fin on the cheek under and behind the eye, complete, with a rounded root.
+
+Same hand-drawn look as image 1: wobbly dark-brown ink outline (#2B2118) of the same thickness as in image 1, the same flat colours (indigo #34408F, cream #F3E6C4, dusty grey-teal #6A9BA8, dark navy #242C68, charcoal black #26252C, pale cream #FAF0D6 with ochre ribs, amber eye), the same loose crayon hatching. FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, no shading, no highlights, no gloss, no glow, no gradients.
+CANVAS: 1536x1024, pure-white background (#FFFFFF) everywhere outside the parts: no paper grain, no ground line, no shadow, no text, no labels, no numbers, no frame, no white sticker border. Nothing else on the page.

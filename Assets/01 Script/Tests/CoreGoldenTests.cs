@@ -98,7 +98,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(350, d.Stages.Count); // 5 đảo, mỗi đảo 70 ải
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
-            Assert.AreEqual(6, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03); v6: tướng cũ đảo Thủy chuyển sang 10 tướng mới (2026-11-11)
+            Assert.AreEqual(7, d.Cfg.saveVersion); // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03); v6: tướng cũ đảo Thủy chuyển sang 10 tướng mới (2026-11-11)
         }
 
         [Test]

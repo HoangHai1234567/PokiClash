@@ -35,12 +35,12 @@ NEW = [
     dict(id="thach_giai", old="tieu_y", at=5, name="Thạch Giải", title="Cua ẩn sĩ nhà đá", line="Dòng Thạch Giải",
          forms=[("Thạch Giải", 0.92), ("Thạch Thành Giải", 1.1)],
          skill=("Bọt Nước", "bubble"), ult=("Đá Ngầm Trồi", "rock"), pas=("Vũng Triều", "drop")),
-    dict(id="nong_xoay", old="canh_cut", at=10, name="Nòng Xoáy", title="Nòng nọc mắt bão", line="Dòng Nòng Xoáy",
-         forms=[("Nòng Xoáy", 0.92), ("Ếch Lốc", 1.1)],
-         skill=("Đuôi Xoáy", "wave"), ult=("Xoáy Bong Bóng", "bubble"), pas=("Vụng San Hô", "drop")),
-    dict(id="ha_ba", old="mi_nhi", at=15, name="Hà Bá", title="Hà mã nuốt sóng", line="Dòng Hà Bá",
-         forms=[("Hà Mã Con", 0.92), ("Hà Bá", 1.1)],
-         skill=("Súng Nước", "drop"), ult=("Ngáp Sóng", "wave"), pas=("Hồn Nước", "drop")),
+    dict(id="ca_den", old="canh_cut", at=10, name="Hải Đăng", title="Cá đèn lồng vực sâu", line="Dòng Hải Đăng",   # 2026-11-11: thay Nòng Xoáy
+         forms=[("Lồng Đèn", 0.92), ("Hải Đăng", 1.1)],
+         skill=("Vòi Nước", "wave"), ult=("Thủy Pháo", "bubble"), pas=("Vụng San Hô", "drop")),
+    dict(id="ha_ba", old="mi_nhi", at=15, name="Sò Ngoạm", title="Sò đột biến lưỡi dài", line="Dòng Sò Ngoạm",   # 2026-11-11: thay Hà Bá (hà mã); id giữ
+         forms=[("Sò Háu", 0.92), ("Sò Ngoạm", 1.1)],
+         skill=("Phụt Ngọc", "drop"), ult=("Lưỡi Quật", "wave"), pas=("Hồn Nước", "drop")),
     dict(id="so_ngoc", old="ma_ket", at=20, name="Sò Ngọc", title="Pháo đài ngọc trai", line="Dòng Sò Ngọc",
          forms=[("Sò Gai", 0.92), ("Bạng Vương", 1.1)],
          skill=("Phun Bọt Ngọc", "bubble"), ult=("Mưa Gai", "fang"), pas=("Tim Ngọc Trai", "moon")),

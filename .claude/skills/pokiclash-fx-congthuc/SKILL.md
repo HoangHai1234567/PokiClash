@@ -298,6 +298,12 @@ chiêu lao tới. Khiên nước, suối hồi phục, tụ nước mới có �
   (`p.stops`) để hai tướng nước đánh nhau không lẫn màu.
 - **Bẫy:** biến tĩnh ở `HatNuoc.cs` không dùng biến tĩnh của `HatLua.cs` lúc khởi tạo (thứ tự giữa hai file `partial` không chắc);
   heredoc dài trong Bash bị cắt, viết script vá bằng công cụ Write rồi chạy.
+- **Đạn nước cho đòn đánh thường `n_dan` (2026-11-11, pháp sư nước, suất `giong_bao`):** tướng đứng yên bắn (rig khai `stay` cho
+  attack). `HatNuoc.NDan`: một viên nước thon (5 lớp ảnh giọt kéo dài như mũi thương, dài 50, dẹt 0,8) rời chỗ nhả `DanTravel` = 0,13 s
+  TRƯỚC khung trúng của clip, đuôi rơi giọt và bọt, chạm thì chớp toé 0,44 tH trong 0,12 s + 6 giọt + 2 bọt (nhỏ hơn chiêu mana).
+  Không có pha tụ ở chỗ nhả (lúc lấy đà vũ khí còn ở sau vai). Bảng `StageView.WaterAtk` (mã dòng → mã đạn), `AtkFx` gọi từ `PreFx`
+  khi clip là attack; ô xem tướng gọi ở `HeroViewer.PreFx`. Giờ trúng của clip attack trong rig = khung nhả + 0,13 s để đạn chạm
+  đúng `game.hitTimes` (sân không phải dời số sát thương, khựng, rung). Chưa xem trong Unity lúc viết.
 - **Còn mở:** chưa thử trên Android; `tam_tay`, `giot_suong` (rig dựng bằng script riêng) và 2 tướng chưa có rig vẫn bắn tia cũ.
 
 ## 6. Mẫu dựng chiêu mới

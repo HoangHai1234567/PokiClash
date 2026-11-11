@@ -1,0 +1,26 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\rong_vay_1\tai_ve\L1_duyet.png: the APPROVED picture of the whole creature (a winged sea-serpent dragon), 1536x1024, white background. Use it to understand what each part is and how its hidden areas should look.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\rong_vay_1\mau\nhom_A.png: CUT-OUT GUIDE, 1536x1024, white background: it is image 1 with everything erased except the 6 parts wanted in this picture, each exactly where it is in image 1. The flat HOT-PINK areas (#FF69B4) are NOT part of the drawing: they are markers showing where a part continues, hidden in image 1 behind parts that were erased. Some cut edges of the parts are ragged because a computer cut them.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\rong_vay_1\tai_ve\N_A.png
+If a file with that name already exists, save as N_A_2.png, N_A_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 as a finished cut-out sheet of these 6 separate parts for 2D skeleton animation.
+
+RULES:
+- KEEP every drawn (non-pink) area of image 2 EXACTLY as it is and exactly where it is: the same position on the canvas, the same size, the same outline, the same details, the same colours. Do not move, scale, rotate, tidy up or restyle the parts. If the result were laid over image 2, every drawn area would line up.
+- REPLACE every pink area by the missing continuation of the part it touches: continue that part's colours and pattern over the pink area (cream belly plates continue as cross-wise bands with thin ink lines, the indigo back stays indigo, fin webs and their dark-navy rays continue to the fin base, a wing membrane continues to the shoulder) and round off its end. A part that is shown ONLY as a pink shape (completely hidden in image 1) is drawn new, filling that pink shape.
+- Smooth the ragged computer-cut edges into a clean hand-drawn outline.
+- Each part ends up as ONE CLOSED SHAPE with the dark-brown ink outline running all the way around it, also along the edges that were hidden. No pink anywhere in the result.
+- Exactly these 6 parts, not touching each other, white background between them. Do not add any other part of the creature. Ignore tiny stray specks of image 2.
+
+THE 6 PARTS (the place is the centre of the part on the 1536x1024 canvas):
+1. at about x = 1136, y = 375: TAIL FIN: the forked fish tail fin at the right of the neck together with the short thin indigo tail stem it grows from, as in image 1; where the neck hides the stem, continue it to a rounded end.
+2. at about x = 1172, y = 751: FAR WING SPAR: only the thin dark-navy spar of the far wing, complete from the shoulder (hidden behind the body in image 1) down to the wing tip, over the pink area of image 2.
+3. at about x = 616, y = 473: FIN: the pointed fin at this place (grey-teal web with its dark-navy ray or rays), exactly as in image 1 where it is visible. Draw it complete, filling the pink area of image 2: its base, hidden behind the body in image 1, runs a little into the body and ends in a smooth rounded edge.
+4. at about x = 608, y = 268: BIG SAIL FINS: the cluster of tall pointed sail fins on the back, joined at their bases into ONE part, as in image 1. Its lower edge, hidden behind the body and the shells, continues about 30 px down and ends in one smooth curved base line.
+5. at about x = 872, y = 230: BIG EAR-FIN: the large fin behind the cheek, grey-teal web on dark-navy rays, complete with a narrow rounded root where it joins the head.
+6. at about x = 636, y = 753: NEAR WING MEMBRANE: the whole grey-teal membrane of the near wing with its dark-navy rays, its scalloped trailing edge and its three cream spots, WITHOUT the thick dark-navy spar. Where the spar covered it, continue the membrane and the rays up to the shoulder; the edge that ran along the spar becomes a smooth line. One closed shape.
+
+Same hand-drawn look as image 1: wobbly dark-brown ink outline (#2B2118) of the same thickness as in image 1, the same flat colours (indigo #34408F, cream #F3E6C4, dusty grey-teal #6A9BA8, dark navy #242C68, charcoal black #26252C, pale cream #FAF0D6 with ochre ribs, amber eye), the same loose crayon hatching. FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, no shading, no highlights, no gloss, no glow, no gradients.
+CANVAS: 1536x1024, pure-white background (#FFFFFF) everywhere outside the parts: no paper grain, no ground line, no shadow, no text, no labels, no numbers, no frame, no white sticker border. Nothing else on the page.

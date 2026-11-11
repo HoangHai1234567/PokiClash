@@ -142,7 +142,7 @@ namespace PokiClash.Core
         public static readonly Dictionary<int, Action<Dictionary<string, object>>> Migrations =
             new Dictionary<int, Action<Dictionary<string, object>>>
             {
-                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5,
+                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6,
             };
 
         // v5 -> v6 (lô 10 tướng mới đảo Thủy, 2026-11-11, người dùng chọn "chuyển tướng cũ sang tướng mới"): tướng cũ cùng suất đảo
@@ -150,10 +150,21 @@ namespace PokiClash.Core
         // Tướng mới phần lớn chỉ 2 dạng: sao cao vẫn đọc được, dạng dừng ở dạng cuối (HeroDef.FormIndex).
         public static readonly (string from, string to)[] ThuyV6 =
         {
-            ("giot_suong", "ti_tach"), ("tieu_y", "thach_giai"), ("canh_cut", "nong_xoay"), ("mi_nhi", "ha_ba"),
+            ("giot_suong", "ti_tach"), ("tieu_y", "thach_giai"), ("canh_cut", "ca_den"), ("mi_nhi", "ha_ba"),
             ("ma_ket", "so_ngoc"), ("vay_lam", "giong_bao"), ("kuba", "lien_kinh"), ("thuong_lam", "uyen_xa"),
             ("huyen_vu", "han_ngac"), ("lam_quan", "hai_long"),
         };
+
+        // v6 -> v7 (2026-11-11): suất ải 10 đảo Thủy đổi dòng Nòng Xoáy (nong_xoay) thành dòng Hải Đăng (ca_den, cá đèn lồng);
+        // bản lưu v6 đã có nong_xoay thì gộp sang ca_den như bước trên (sở hữu, mảnh, sao, cấp thẻ, tiềm năng, đội, tướng khởi đầu)
+        public static readonly (string from, string to)[] CaDenV7 = { ("nong_xoay", "ca_den") };
+
+        public static void MigrateCaDenV6(Dictionary<string, object> o)
+        {
+            GopTuong(o, CaDenV7);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(CaDenV7, st);
+        }
 
         public static void MigrateThuyV5(Dictionary<string, object> o)
         {

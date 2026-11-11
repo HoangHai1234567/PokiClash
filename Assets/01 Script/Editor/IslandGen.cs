@@ -143,7 +143,7 @@ namespace PokiClash.EditorTools
                 // 20–60 chỉ có 2 dạng (tướng cũ 3 dạng): boss tiến hóa một lần thay vì hai, tỉ lệ thắng cần đo lại
                 new Intro(1, "ti_tach", "Bãi Vỏ Sò"),
                 new Intro(5, "thach_giai", "Vũng San Hô"),
-                new Intro(10, "nong_xoay", "Cầu Gỗ Rêu"),
+                new Intro(10, "ca_den", "Cầu Gỗ Rêu"),
                 new Intro(15, "ha_ba", "Làng Vỏ Ốc"),
                 new Intro(20, "so_ngoc", "Ngọn Hải Đăng"),
                 new Intro(30, "giong_bao", "Thác Bạc", null, 0.1),

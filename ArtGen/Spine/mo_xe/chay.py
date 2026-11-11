@@ -3,12 +3,16 @@ cần chạy server riêng. Rig là bộ <tên>.skel hoặc <tên>.json + <tên>
 
     chay.py info   <thư mục rig> <tên> <ra.json>
         cấu trúc: xương, slot, hình (mesh, số đỉnh, xương bám), ràng buộc, clip (từng timeline, số khoá, biên độ), vùng atlas
-    chay.py sample <thư mục rig> <tên> <ra.json> <clip[,clip...]> [fps]
-        lấy mẫu từng khung: toạ độ, góc, tỉ lệ thế giới của mọi xương; độ đậm và hình của mọi slot
+    chay.py sample <thư mục rig> <tên> <ra.json> <clip[,clip...]> [fps] [extra.json]
+        lấy mẫu từng khung: toạ độ, góc, tỉ lệ, ma trận thế giới của mọi xương; độ đậm, tên hình, thứ tự vẽ của mọi slot (đủ để
+        NƯỚNG rig có IK / path constraint thành khoá FK). extra.json (trong thư mục rig): animation tự viết thêm trên bộ xương gốc
     chay.py keys   <thư mục rig> <tên> <ra.json> <clip[,clip...]>
         mọi khoá của từng timeline (giờ, giá trị, kiểu đường cong): để đọc nhịp người làm animation đặt dáng
     chay.py mesh   <thư mục rig> <tên> <ra.json> [slot,slot...]
         lưới của từng slot: mỗi đỉnh có uv, toạ độ dáng gốc và danh sách (xương, trọng số): để đọc cách chia trọng số
+    chay.py att    <thư mục rig> <tên> <ra.json> ["anim=<clip>&t=<giây>"]
+        MỌI hình của mọi slot (cả hình không bật mặc định), đỉnh thế giới, uv, trọng số, thứ tự vẽ: xem họ tách mảnh thế nào.
+        Thêm anim và t: chỉ các hình đang bật ở dáng đó (dáng duỗi, dáng lao dùng mảnh nào, đặt đâu)
     chay.py sheet  <thư mục rig> <tên> <thư mục ra> ["tham số thêm"]
         tờ khung từng clip (jpg). Tham số thêm dạng query: anims=a,b  n=10  tw=520  th=420  cols=5  view=cx,cy,rộng,cao
         t0=0.2  t1=0.9  loop=1 (khung cuối không trùng khung đầu)  bones=1 (vẽ xương)
@@ -98,9 +102,14 @@ if __name__ == "__main__":
         json.dump(d, open(out, "w", encoding="utf-8"))
         for k, v in d.items():
             print(f"{k}: {v['att']}, {len(v['verts'])} đỉnh, {len(v['tris']) // 3} tam giác")
+    elif mode == "att":
+        d = run(data_dir, name, "mode=att&" + (sys.argv[5] if len(sys.argv) > 5 else ""))
+        json.dump(d, open(out, "w", encoding="utf-8"))
+        print(f"{len(d['atts'])} hình ({'dáng gốc, mọi hình' if not d['anim'] else d['anim'] + ' @ ' + str(d['t']) + ' s, hình đang bật'}) -> {out}")
     elif mode == "sample":
         fps = sys.argv[6] if len(sys.argv) > 6 else "30"
-        d = run(data_dir, name, f"mode=sample&anims={sys.argv[5]}&fps={fps}")
+        extra = f"&extra={sys.argv[7]}" if len(sys.argv) > 7 else ""            # file json animation tự viết, nằm trong thư mục rig
+        d = run(data_dir, name, f"mode=sample&anims={sys.argv[5]}&fps={fps}{extra}")
         json.dump(d, open(out, "w", encoding="utf-8"))
         for k, v in d.items():
             print(f"{k}: {v['dur']:.2f} s, {len(v['frames'])} khung -> {out}")

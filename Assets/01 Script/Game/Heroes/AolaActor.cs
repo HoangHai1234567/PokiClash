@@ -59,6 +59,9 @@ namespace PokiClash.Game
         public const string Idle = "1_1", Hit = "1_2", Attack = "1_4", Cast = "1_5", Skill = "1_6", Evolve = "evolve";
         // clip ra sân, chết: chỉ rig .atomik lô quái Thủy (2026-11-11) có; hộp chi tiết có nút xem (trận chưa gọi)
         public const string Appear = "appear", Die = "die";
+        // nửa sau của chiêu cuối hai clip (Tí Tách 2026-11-11): "skill" hết ở dáng đang bay, "skill_land" rơi xuống, bẹp, nảy;
+        // cung nhảy giữa hai clip do code tính (AolaSticker.Jump)
+        public const string SkillLand = "skill_land";
 
         // Dạng .atomik (AolaAnim.atomik, 2026-11-08): rig xương riêng vẽ bằng một Mesh; clip đặt tên chữ trong file
         static string AtkName(string clip) =>
@@ -257,6 +260,17 @@ namespace PokiClash.Game
             foreach (var e in ev)
                 if (e != null && e.name != null && e.name.StartsWith("het_")) return true; // het_phun, het_gam, het_bung...
             return false;
+        }
+
+        // giờ (giây) của sự kiện `name` trong clip .atomik (vd. "cham_dat" của clip ra sân: sân rung màn lúc tướng nện đất); -1: không có
+        public float EventTime(string clip, string name)
+        {
+            int ci = AtkClip(clip);
+            var ev = ci >= 0 ? atk.anims[ci].ev : null;
+            if (ev == null) return -1;
+            foreach (var e in ev)
+                if (e != null && e.name == name) return e.t;
+            return -1;
         }
 
         // rig xương vẽ theo thời gian liên tục (mượt ở mọi tốc độ khung màn hình), không theo bậc 25 khung như hình aola

@@ -2159,14 +2159,14 @@ MonoBehaviour:
     tag: 1
     chapter: 2
     enemies:
-    - hero: nong_xoay
+    - hero: ca_den
       level: 35
       boss: 0
       evo: 1
       buff: 0.15
       trait: 
     drops:
-    - hero: nong_xoay
+    - hero: ca_den
       chance: 1
       min: 2
       max: 4
@@ -2202,14 +2202,14 @@ MonoBehaviour:
     tag: 3
     chapter: 2
     enemies:
-    - hero: nong_xoay
+    - hero: ca_den
       level: 42
       boss: 0
       evo: 0
       buff: 0.12
       trait: 
     drops:
-    - hero: nong_xoay
+    - hero: ca_den
       chance: 0.3
       min: 1
       max: 2
@@ -2252,7 +2252,7 @@ MonoBehaviour:
     tag: 7
     chapter: 2
     enemies:
-    - hero: nong_xoay
+    - hero: ca_den
       level: 48
       boss: 0
       evo: 0
@@ -2265,7 +2265,7 @@ MonoBehaviour:
       buff: 0.2
       trait: 
     drops:
-    - hero: nong_xoay
+    - hero: ca_den
       chance: 0.44999999999999996
       min: 1
       max: 2
@@ -2345,7 +2345,7 @@ MonoBehaviour:
     tag: 4
     chapter: 3
     enemies:
-    - hero: nong_xoay
+    - hero: ca_den
       level: 60
       boss: 0
       evo: 0
@@ -2358,7 +2358,7 @@ MonoBehaviour:
       buff: 0.6
       trait: 
     drops:
-    - hero: nong_xoay
+    - hero: ca_den
       chance: 0.3
       min: 1
       max: 2
@@ -2527,7 +2527,7 @@ MonoBehaviour:
       evo: 0
       buff: 0.55
       trait: 
-    - hero: nong_xoay
+    - hero: ca_den
       level: 80
       boss: 0
       evo: 0
@@ -2548,7 +2548,7 @@ MonoBehaviour:
       gift: 0
       altFor: 
       altHero: 
-    - hero: nong_xoay
+    - hero: ca_den
       chance: 0.3
       min: 1
       max: 2

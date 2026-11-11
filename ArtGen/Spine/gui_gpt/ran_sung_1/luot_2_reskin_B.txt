@@ -1,0 +1,27 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\ran_sung_1\tai_ve\L1_duyet.png: OUR snake (form 1, approved), 1536x1024, white background: the colours, the wobbly dark-brown ink line, the crayon hatching, the bubble spots, the amber slit eyes and the black horns that the repainted parts must have. Do not redraw the whole snake.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\ran_sung_1\mau\goc_B.png: the ORIGINAL PARTS SHEET, 1536x1024, white background: separate parts of a cartoon snake (teal back, pinkish-cream belly) laid apart on a white page. Keep every part's silhouette, place and size; repaint it.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\ran_sung_1\tai_ve\R02.png
+If a file with that name already exists, save as R02_2.png, R02_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK (RESKIN): image 2 is a sheet of separate PARTS of a cartoon snake, used for 2D skeletal animation: each part is attached to an animation skeleton by its exact outline. Repaint EVERY part as the matching part of OUR snake (image 1), changing only its colours, its surface details and its drawing style. Each part must keep exactly its SILHOUETTE, its PLACE and its SIZE on the sheet: laid over image 2, the outline of each new part coincides with the old one within a few pixels (unless a part below says otherwise). Do not add, remove, move, rotate, mirror, resize or merge parts; do not draw the whole snake.
+
+COLOUR CHANGE, for all parts:
+- every TEAL / grey-green area (the snake's back) becomes cobalt blue (#2E6FD8). Remove the darker blotches and the angular key-shaped pattern lines of the old parts; instead put two to four round light-aqua BUBBLE SPOTS (#86D6F0, flat discs without outline, different sizes) on each larger blue area;
+- every PINKISH CREAM area (the snake's belly) becomes pale ice blue (#DDF0F7, never left as bare white paper); keep the border between back and belly exactly where it is;
+- black outlines become a wobbly hand-drawn dark-brown ink line (#2B2118), about 6 px thick on this sheet, following exactly the old outline. Where an old part has a SOFT pale edge instead of a black outline (the lower ends of some body pieces), keep it soft: draw that edge as a light-blue line (#A9CFE2), not in ink;
+- style of image 1: flat colours with visible coloured-pencil / wax-crayon hatching, no shading, no highlights, no gradients, no glow.
+
+THE PARTS OF THIS SHEET (image 2):
+Top row, from left to right:
+1. FACE MASK (the front of the head, with two EYE HOLES): cobalt blue where it is teal, with no pattern and no blotches; pale ice blue where it is cream (the cheek at the lower left, the lip band along the bottom). Keep the two EYE HOLES exactly where they are, with their ink rings, and leave them EMPTY: pure white paper inside (they are cut-outs). Keep the outline of the mouth notch at the bottom. Add two tiny ink nostril slits just above the notch.
+2. EYE BACKING (the pale plate with two white eyeballs, no outline): it lies behind the face mask. Paint the plate cobalt blue and the two eyeballs flat amber orange (#FFA92E), plain: no pupil, no shading, no grey crescent (the pupils are separate parts below). Still no outline around the plate, same shape.
+3. INSIDE OF THE MOUTH (the pink ball with a cream strip at the bottom): dark raspberry (#8E2F4F) with a rounded lighter-pink tongue (#EC8098) in its lower half; the strip at the bottom (the lower jaw) becomes pale ice blue; ink outline all around.
+4 and 5. TWO EAR TUFTS (cream flame-shaped tufts with a swirl): REPLACE each by a BLACK HEAD HORN of image 1 (part 4 = the bigger horn on the left of the head in image 1, part 5 = the smaller horn on the right): a smooth, solid, curved crescent horn of charcoal black (#26252C) with a sharp tip and two short thin dark-grey ridge lines (#5B5B68) near its base, ink outline all around, base end simply rounded off. Its BASE sits exactly where the swirl at the bottom of the old tuft is, its TIP where the tip of the old tuft is (at the top); it is as tall as the old tuft and stays inside the bounding box of the old tuft. No swirl, no fluff, no blue fur, no shine.
+Second row, from left to right:
+6 and 7. TWO UPPER EYELIDS (teal half-moon shapes): cobalt blue, same shape, ink outline.
+8 and 9. TWO PUPIL DISCS (pink ovals): they slide over the amber eyeballs. Each becomes a flat amber orange (#FFA92E) oval of the same size and place, WITHOUT any outline (drop the black ring), with a tall, thin black vertical slit pupil in its middle and ONE small white catchlight dot at the upper left of the slit.
+10 and 11. TWO SQUINT MARKS (the black > and < strokes): keep them as they are, in dark-brown ink.
+
+LAYOUT: canvas 1536 x 1024, pure-white background (#FFFFFF), every part where image 2 has it, white space between the parts as in image 2. No labels, no numbers, no arrows, no frames, no shadows, no extra marks.

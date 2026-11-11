@@ -2062,8 +2062,8 @@ MonoBehaviour:
     flavor: 
     owner: canh_cut
     effectsJson: '[{"k":"heal","pct":0.04}]'
-  - id: nong_xoay_skill
-    name: "\u0110u\xF4i Xo\xE1y"
+  - id: ca_den_skill
+    name: "V\xF2i N\u01B0\u1EDBc"
     rarity: 0
     kind: 1
     icon: wave
@@ -2076,10 +2076,10 @@ MonoBehaviour:
     unlock: 1
     repeat: 0
     flavor: 
-    owner: nong_xoay
+    owner: ca_den
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
-  - id: nong_xoay_ult
-    name: "Xo\xE1y Bong B\xF3ng"
+  - id: ca_den_ult
+    name: "Th\u1EE7y Ph\xE1o"
     rarity: 1
     kind: 2
     icon: bubble
@@ -2092,9 +2092,9 @@ MonoBehaviour:
     unlock: 1
     repeat: 0
     flavor: 
-    owner: nong_xoay
+    owner: ca_den
     effectsJson: '[{"k":"dmg","mult":2},{"k":"heal","pct":0.15}]'
-  - id: nong_xoay_pas
+  - id: ca_den_pas
     name: "V\u1EE5ng San H\xF4"
     rarity: 0
     kind: 3
@@ -2108,7 +2108,7 @@ MonoBehaviour:
     unlock: 1
     repeat: 0
     flavor: 
-    owner: nong_xoay
+    owner: ca_den
     effectsJson: '[{"k":"heal","pct":0.04}]'
   - id: giot_suong_skill
     name: "B\u1ECDt N\u01B0\u1EDBc"
@@ -2495,7 +2495,7 @@ MonoBehaviour:
     owner: mi_nhi
     effectsJson: '[{"k":"heal","pct":0.04}]'
   - id: ha_ba_skill
-    name: "S\xFAng N\u01B0\u1EDBc"
+    name: "Ph\u1EE5t Ng\u1ECDc"
     rarity: 0
     kind: 1
     icon: drop
@@ -2511,7 +2511,7 @@ MonoBehaviour:
     owner: ha_ba
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"buff","stat":"atk","v":-0.15,"turns":1,"until":"end","on":"foe"}]'
   - id: ha_ba_ult
-    name: "Ng\xE1p S\xF3ng"
+    name: "L\u01B0\u1EE1i Qu\u1EADt"
     rarity: 1
     kind: 2
     icon: wave
@@ -2879,10 +2879,10 @@ MonoBehaviour:
     owner: kuba
     effectsJson: '[{"k":"mana","v":8},{"k":"rage","v":4}]'
   - id: lien_kinh_skill
-    name: "Bong B\xF3ng Sen"
+    name: "Qu\u1EADt \u0110u\xF4i \u0110\xE1"
     rarity: 1
     kind: 1
-    icon: bubble
+    icon: rock
     costMana: 35
     costRage: 0
     trigger: 0
@@ -2895,10 +2895,10 @@ MonoBehaviour:
     owner: lien_kinh
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
   - id: lien_kinh_ult
-    name: "N\u1EE5 Bung"
+    name: "Th\xF4n H\u1EA3i Ph\xE1o"
     rarity: 3
     kind: 2
-    icon: lotus
+    icon: wave
     costMana: 45
     costRage: 100
     trigger: 0
@@ -2911,10 +2911,10 @@ MonoBehaviour:
     owner: lien_kinh
     effectsJson: '[{"k":"dmg","mult":2.5},{"k":"heal","pct":0.25}]'
   - id: lien_kinh_pas
-    name: "Sen Thi\xEAng"
+    name: "Nu\u1ED1t \u0110\xF2n"
     rarity: 2
     kind: 3
-    icon: lotus
+    icon: fang
     costMana: 0
     costRage: 0
     trigger: 5
@@ -6257,10 +6257,10 @@ MonoBehaviour:
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
   traits:
   - id: lien_kinh_boss
-    name: "Sen H\u1ED9 Th\u1EC3"
+    name: "Da \u0110\xE1 H\u1ED9 Th\u1EC3"
     rarity: 3
     kind: 3
-    icon: lotus
+    icon: rock
     costMana: 0
     costRage: 0
     trigger: 5

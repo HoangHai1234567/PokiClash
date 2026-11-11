@@ -2523,9 +2523,9 @@
    ]
   },
   {
-   "id": "nong_xoay_skill",
-   "owner": "nong_xoay",
-   "name": "Đuôi Xoáy",
+   "id": "ca_den_skill",
+   "owner": "ca_den",
+   "name": "Vòi Nước",
    "rarity": "common",
    "kind": "skill",
    "icon": "wave",
@@ -2548,9 +2548,9 @@
    ]
   },
   {
-   "id": "nong_xoay_ult",
-   "owner": "nong_xoay",
-   "name": "Xoáy Bong Bóng",
+   "id": "ca_den_ult",
+   "owner": "ca_den",
+   "name": "Thủy Pháo",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "bubble",
@@ -2570,8 +2570,8 @@
    ]
   },
   {
-   "id": "nong_xoay_pas",
-   "owner": "nong_xoay",
+   "id": "ca_den_pas",
+   "owner": "ca_den",
    "name": "Vụng San Hô",
    "rarity": "common",
    "kind": "passive",
@@ -3099,7 +3099,7 @@
   {
    "id": "ha_ba_skill",
    "owner": "ha_ba",
-   "name": "Súng Nước",
+   "name": "Phụt Ngọc",
    "rarity": "common",
    "kind": "skill",
    "icon": "drop",
@@ -3124,7 +3124,7 @@
   {
    "id": "ha_ba_ult",
    "owner": "ha_ba",
-   "name": "Ngáp Sóng",
+   "name": "Lưỡi Quật",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "wave",
@@ -3623,10 +3623,10 @@
   {
    "id": "lien_kinh_skill",
    "owner": "lien_kinh",
-   "name": "Bong Bóng Sen",
+   "name": "Quật Đuôi Đá",
    "rarity": "uncommon",
    "kind": "skill",
-   "icon": "bubble",
+   "icon": "rock",
    "cost": {
     "mana": 35
    },
@@ -3648,10 +3648,10 @@
   {
    "id": "lien_kinh_ult",
    "owner": "lien_kinh",
-   "name": "Nụ Bung",
+   "name": "Thôn Hải Pháo",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "lotus",
+   "icon": "wave",
    "cost": {
     "rage": 100,
     "mana": 45
@@ -3670,10 +3670,10 @@
   {
    "id": "lien_kinh_pas",
    "owner": "lien_kinh",
-   "name": "Sen Thiêng",
+   "name": "Nuốt Đòn",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "lotus",
+   "icon": "fang",
    "trigger": "onHit",
    "effects": [
     {
@@ -7746,10 +7746,10 @@
   {
    "id": "lien_kinh_boss",
    "owner": "lien_kinh",
-   "name": "Sen Hộ Thể",
+   "name": "Da Đá Hộ Thể",
    "rarity": "epic",
    "kind": "passive",
-   "icon": "lotus",
+   "icon": "rock",
    "trigger": "onHit",
    "chance": 0.3,
    "effects": [

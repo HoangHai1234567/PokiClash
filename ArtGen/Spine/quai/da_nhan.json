@@ -25,13 +25,13 @@
       "id": "ti_tach",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm01_1/rig",
-          "atomik": "tm01_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/ti_tach_1/rig",
+          "atomik": "ti_tach_1.atomik",
           "dich": "ti_tach_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm01_2/rig",
-          "atomik": "tm01_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/ti_tach_2/rig",
+          "atomik": "ti_tach_2.atomik",
           "dich": "ti_tach_2"
         }
       ]
@@ -55,31 +55,33 @@
       "id": "lien_kinh",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm07_1/rig",
-          "atomik": "tm07_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/ca_voi_1/rig",
+          "atomik": "ca_voi_1.atomik",
           "dich": "lien_kinh_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm07_2/rig",
-          "atomik": "tm07_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/ca_voi_2/rig",
+          "atomik": "ca_voi_2.atomik",
           "dich": "lien_kinh_2"
         }
-      ]
+      ],
+      "ghi_chu": "2026-11-11: suất 7 đảo Thủy (ải 40) nay là dòng cá voi biến dị (ca_voi, người dùng lên ý tưởng và chốt, ArtGen/Spine/ca_voi.py); rig cũ tm07 (cá voi cõng sen) đã thay. Id game tạm giữ lien_kinh: tên, danh hiệu, tên thẻ chờ người dùng đặt."
     },
     {
       "id": "uyen_xa",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm08_1/rig",
-          "atomik": "tm08_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/ran_sung_1/rig",
+          "atomik": "ran_sung_1.atomik",
           "dich": "uyen_xa_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm08_2/rig",
-          "atomik": "tm08_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/ran_sung_2/rig",
+          "atomik": "ran_sung_2.atomik",
           "dich": "uyen_xa_2"
         }
-      ]
+      ],
+      "_ghi_chu": "2026-11-11 khuya: suất này nay là dòng rắn nước có sừng (mã làm việc ran_sung, reskin rig monster_3247; người dùng duyệt và bảo thay tướng cũ). Rig cũ tm08 không có ở máy này; bản .atomik cũ nằm trong lịch sử git của Resources/uyen_xa_<k>."
     },
     {
       "id": "han_ngac",
@@ -100,29 +102,30 @@
       "id": "ha_ba",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm04_1/rig",
-          "atomik": "tm04_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/so_gai_1/rig",
+          "atomik": "so_gai_1.atomik",
           "dich": "ha_ba_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm04_2/rig",
-          "atomik": "tm04_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/so_gai_2/rig",
+          "atomik": "so_gai_2.atomik",
           "dich": "ha_ba_2"
         }
-      ]
+      ],
+      "ghi_chu": "2026-11-11: suất này nay là dòng sò đột biến (so_gai, người dùng lên ý tưởng và chốt); rig cũ tm04 (hà mã) đã thay"
     },
     {
-      "id": "nong_xoay",
+      "id": "ca_den",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm03_1/rig",
-          "atomik": "tm03_1.atomik",
-          "dich": "nong_xoay_1"
+          "nguon": "ArtGen/Spine/inbox/ca_den_1/rig",
+          "atomik": "ca_den_1.atomik",
+          "dich": "ca_den_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm03_2/rig",
-          "atomik": "tm03_2.atomik",
-          "dich": "nong_xoay_2"
+          "nguon": "ArtGen/Spine/inbox/ca_den_2/rig",
+          "atomik": "ca_den_2.atomik",
+          "dich": "ca_den_2"
         }
       ]
     },
@@ -130,13 +133,13 @@
       "id": "giong_bao",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm06_1/rig",
-          "atomik": "tm06_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/phap_su_1/rig",
+          "atomik": "phap_su_1.atomik",
           "dich": "giong_bao_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm06_2/rig",
-          "atomik": "tm06_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/phap_su_2/rig",
+          "atomik": "phap_su_2.atomik",
           "dich": "giong_bao_2"
         }
       ]
@@ -145,16 +148,17 @@
       "id": "thach_giai",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm02_1/rig",
-          "atomik": "tm02_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/ech_xanh_1/rig",
+          "atomik": "ech_xanh_1.atomik",
           "dich": "thach_giai_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm02_2/rig",
-          "atomik": "tm02_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/ech_xanh_2/rig",
+          "atomik": "ech_xanh_2.atomik",
           "dich": "thach_giai_2"
         }
-      ]
+      ],
+      "_ghi_chu": "2026-11-11: suất 2 đảo Thủy (ải 5) đổi sang dòng ếch xanh người dùng tự lên ý (ArtGen/Spine/ech_xanh.py), thay rig cua tm02 của lô cũ. Id game tạm giữ thach_giai: tên, danh hiệu, tên thẻ chờ người dùng đặt."
     },
     {
       "id": "hai_long",

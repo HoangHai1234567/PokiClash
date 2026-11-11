@@ -1,0 +1,27 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\ran_sung_1\tai_ve\L1_duyet.png: OUR snake (form 1, approved), 1536x1024, white background: the colours, the wobbly dark-brown ink line, the crayon hatching, the bubble spots, the amber slit eyes and the black horns that the repainted parts must have. Do not redraw the whole snake.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\ran_sung_1\mau\goc_A.png: the ORIGINAL PARTS SHEET, 1536x1024, white background: separate parts of a cartoon snake (teal back, pinkish-cream belly) laid apart on a white page. Keep every part's silhouette, place and size; repaint it.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\ran_sung_1\tai_ve\R01.png
+If a file with that name already exists, save as R01_2.png, R01_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK (RESKIN): image 2 is a sheet of separate PARTS of a cartoon snake, used for 2D skeletal animation: each part is attached to an animation skeleton by its exact outline. Repaint EVERY part as the matching part of OUR snake (image 1), changing only its colours, its surface details and its drawing style. Each part must keep exactly its SILHOUETTE, its PLACE and its SIZE on the sheet: laid over image 2, the outline of each new part coincides with the old one within a few pixels (unless a part below says otherwise). Do not add, remove, move, rotate, mirror, resize or merge parts; do not draw the whole snake.
+
+COLOUR CHANGE, for all parts:
+- every TEAL / grey-green area (the snake's back) becomes cobalt blue (#2E6FD8). Remove the darker blotches and the angular key-shaped pattern lines of the old parts; instead put two to four round light-aqua BUBBLE SPOTS (#86D6F0, flat discs without outline, different sizes) on each larger blue area;
+- every PINKISH CREAM area (the snake's belly) becomes pale ice blue (#DDF0F7, never left as bare white paper); keep the border between back and belly exactly where it is;
+- black outlines become a wobbly hand-drawn dark-brown ink line (#2B2118), about 6 px thick on this sheet, following exactly the old outline. Where an old part has a SOFT pale edge instead of a black outline (the lower ends of some body pieces), keep it soft: draw that edge as a light-blue line (#A9CFE2), not in ink;
+- style of image 1: flat colours with visible coloured-pencil / wax-crayon hatching, no shading, no highlights, no gradients, no glow.
+
+THE PARTS OF THIS SHEET (image 2):
+Top row, from left to right:
+1. UPPER NECK (a tall bean): blue back band along its left side, pale belly on the rest; add two thin curved belly lines (#A9CFE2) across the belly; its lower end keeps its soft light-blue edge.
+2. CHEST (a kidney bean): blue back on its left, pale belly; add two thin curved belly lines; its lower-left end keeps its soft edge.
+3. COIL SEGMENT (a bean bent like a saddle): blue with bubble spots where it is teal, pale where it is cream.
+4. BACK OF THE HEAD (a round ball): cobalt blue; pale where it is cream; no pattern.
+Bottom row, from left to right:
+5. LONG BACK BODY (a long S-shaped tube): blue with bubble spots; the cream strip along its lower edge becomes pale ice blue.
+6. TAIL TIP (a tapering leaf-shaped piece): blue; its thin cream edge becomes pale ice blue.
+7. TAIL TUFT (the cream flame-shaped tuft with a swirl): REPLACE it by the BLACK TAIL HORN of image 1: a hard horn of charcoal black (#26252C), a slender, slightly curved leaf / spearhead shape with a needle-sharp tip and one thin dark-grey line (#5B5B68) along its centre, one small back-pointing barb on each side near its base. Its BASE (the end that joins the tail) sits exactly where the swirl at the lower left of the old tuft is; its TIP points to where the tip of the old tuft is (top, upper right). Its base end is simply rounded off, with an ink outline all around the horn. It is as tall as the old tuft and stays inside the bounding box of the old tuft (it may be narrower). No swirl, no fluff, no blue fur, no shine.
+
+LAYOUT: canvas 1536 x 1024, pure-white background (#FFFFFF), every part where image 2 has it, white space between the parts as in image 2. No labels, no numbers, no arrows, no frames, no shadows, no extra marks.
