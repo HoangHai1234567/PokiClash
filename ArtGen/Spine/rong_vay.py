@@ -842,6 +842,43 @@ def noi_part(r=5, vanh=9):
 
 
 
+def so_part(*tos):
+    """tờ so từng part đã cắt (manh/part) với hình bóng trên tờ hướng dẫn: ĐỎ = hình bóng mà mảnh không phủ (lắp vào lưới sẽ khuyết),
+    XANH LÁ = mảnh vẽ thừa ra ngoài hình bóng. Xem tờ này trước khi lắp rig → mau/so_part.png."""
+    tos = tos or sorted({os.path.basename(f)[5:-5] for f in os.listdir(MAU) if f.startswith("part_") and f.endswith(".json")})
+    cells = []
+    for to in tos:
+        K = json.load(open(os.path.join(MAU, f"part_{to}.json"), encoding="utf-8"))
+        gd = np.asarray(Image.open(os.path.join(MAU, f"part_{to}.png")).convert("RGB"))
+        for slot, v in K.items():
+            x, y, w, h = v if isinstance(v, list) else (v["x"], v["y"], v["w"], v["h"])
+            pm = os.path.join(MANH, "part", slot + ".png")
+            if not os.path.exists(pm):
+                continue
+            g = gd[y:y + h, x:x + w].min(axis=2) < 236
+            c = np.asarray(Image.open(pm).convert("RGBA").resize((w, h)))
+            a = c[..., 3] > 127
+            im = np.full((h, w, 3), 255, np.uint8)
+            im[a] = c[..., :3][a]
+            im[g & ~a] = (255, 0, 0)
+            im[a & ~g] = (im[a & ~g] * 0.5 + np.array([0, 255, 0]) * 0.5).astype(np.uint8)
+            cv2.putText(im, f"{to} {slot}", (4, 16), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 0), 1)
+            cells.append(im)
+    Wd, x, y, hh, pos = 1800, 0, 0, 0, []
+    for im in cells:
+        h, w = im.shape[:2]
+        if x + w > Wd:
+            x, y, hh = 0, y + hh + 10, 0
+        pos.append((x, y))
+        x += w + 10
+        hh = max(hh, h)
+    S = np.full((y + hh, Wd, 3), 230, np.uint8)
+    for im, (x, y) in zip(cells, pos):
+        S[y:y + im.shape[0], x:x + min(im.shape[1], Wd - x)] = im[:, :Wd - x]
+    Image.fromarray(S).save(os.path.join(MAU, "so_part.png"))
+    print(os.path.join(MAU, "so_part.png"), len(cells), "part")
+
+
 def cat(chi=None):
     """cắt ảnh nhóm N_<X>.png (bản mới nhất) thành mảnh: tách nền trắng, gán cụm cho mảnh theo mặt nạ hướng dẫn, lưu cả khung."""
     from quai import anh
@@ -1247,6 +1284,8 @@ def main(a):
         cat_part(*a[1:])
     elif a[0] == "noi_part":
         noi_part()
+    elif a[0] == "so_part":
+        so_part(*a[1:])
     elif a[0] == "nhom_duoi":
         nhom_duoi()
     elif a[0] == "cat_duoi":

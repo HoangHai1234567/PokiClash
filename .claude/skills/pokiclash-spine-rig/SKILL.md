@@ -74,7 +74,8 @@ clip "theo nhịp con gốc" cho ra hết lỗi này tới lỗi khác (khớp h
    - thân: bỏ mảng nâu xám GPT bịa ở mép (chỗ tờ hướng dẫn nhoè), mảng trắng giấy lấy màu tô gần nhất;
    - **kẻ nét mực dọc phía trong mép lưới** (hull uv của part): lưới của họ ôm sát hình bóng, nét viền của mình dày hơn nên chỗ lưới
      xén vào thì mất viền, lộ mép thẳng trơ màu;
-   - thu nhỏ ảnh RGBA ở dạng nhân sẵn alpha (`RGBa`), kẻo màu giấy trắng của điểm trong suốt loang vào mép.
+   - thu nhỏ ảnh RGBA ở dạng nhân sẵn alpha (`RGBa`): điểm trong suốt còn mang màu giấy trắng, thu nhỏ RGBA thường có thể loang
+     trắng vào mép (phòng ngừa; ở rồng vây chưa thấy khác biệt đo được).
 4b. **Xoá vạch mực ở chỗ nối** (`noi_part`): mảnh có viền kín nên đầu khúc thân nằm trên in một vạch cắt ngang thân. Ở dáng gốc,
    nét mực trên vành mép (9 px) của một khúc mà rơi sâu (hơn 5 đơn vị) trong khúc KỀ nó thì thay bằng màu tô gần nhất; mẩu mực
    vụn còn sót cạnh đó xoá nốt. Chỉ xét cặp khúc kề nhau (thân vắt chéo qua chính nó thì viền phải giữ). Ảnh dùng lại cho hai slot
@@ -88,7 +89,33 @@ clip "theo nhịp con gốc" cho ra hết lỗi này tới lỗi khác (khớp h
 7. Mảnh của mình chưa vẽ theo khung part thì tạm gắn bằng `gan_goc` (lưới dày, mỗi đỉnh biến dạng như điểm tương ứng trên lưới của họ).
 Hình vẫn phải là THIẾT KẾ CỦA MÌNH đã duyệt (khác hẳn con gốc; không tô lại y nguyên lông, bờm, hoa văn của họ). Xương, lưới, chuyển
 động là của nhà phát hành game gốc, như phần aola: ghi rõ trong ghi chú tướng, dùng nội bộ, không đăng công khai.
-Mẫu: `ArtGen/Spine/rong_vay.py`, `rong_vay_rig.py`, `build_rong_vay.py` (`build_part`, `build_part2`).
+Mẫu: `ArtGen/Spine/rong_vay.py`, `rong_vay_rig.py`, `build_rong_vay.py` (`build_part` tờ P1, `build_part3` tờ Q; `build_part2`
+là kiểu tô hồng đã bỏ). Ghi chú: `ArtGen/Spine/inbox/rong_vay_ghichu.md` mục 10.
+
+Bài học khi làm theo khung part (rồng vây, 2026-11-11; mỗi dòng là một lần tôi làm sai hoặc tốn công):
+- **Trình tự một lượt**: `nhom_part_het` → `build_rong_vay.py` → `gen.py` từng tờ chạy nền nối nhau (mỗi tờ ~75 giây) → tờ nào về
+  thì `cat_part <tờ>` ngay → `so_part` → `noi_part` → `rong_vay_rig.py soi <clip> <giây>` (xem nhanh, không xuất) → xuất qua
+  `khoa.py nang` → `chay.py sheet` qua `khoa.py chrome` (tờ tổng + tờ cận) → `mo_xe/thu_xem.py <xem.html>` → mở cho người dùng.
+- **Đo IoU từng part rồi mới lắp**: `rong_vay.py so_part` vẽ tờ so (đỏ = hình bóng mà mảnh không phủ, xanh lá = vẽ thừa). Part dưới
+  0,9 là sẽ khuyết hoặc hở khi lắp vào lưới: gen lại tờ đó, đừng lắp thử rồi mới biết. Mọi lỗi "thân mất mảnh", "cánh hở", "màng
+  không bám sống cánh" của lượt P đều là part IoU thấp, không phải lỗi rig.
+- **Màu tô sẵn trên tờ hướng dẫn phải là màu tô thuần** (lấy từ điểm cách mực và cách mép vài px). Để lẫn điểm khử răng cưa nâu xám
+  thì GPT hiểu thành búi lông, gai nâu và vẽ ra thật; lúc đó phải gọt bằng mã rồi kẻ lại viền ở đoạn mép vừa gọt.
+- **Thấy hình lạ thì dựng con gốc cùng khung nhìn, cùng giây trước khi sửa**: `chay.py sheet <thư mục con gốc> ... "view=..."` với
+  `view` = khung của mình chia cho tỉ lệ đơn vị (rồng vây: chia 0,44). Vây đuôi có khấc chữ L tôi tưởng lỗi lưới, hoá ra hình bóng
+  của họ ở dáng đó cũng vậy; cái thiếu chỉ là nét viền (lưới xén mất) → sửa bằng nét mực dọc mép lưới.
+- **Lần vết bẩn theo thứ tự rẻ trước**: (1) phóng to ảnh part (`part/`, `part_noi/`), (2) đếm cụm màu lạ trong atlas đã xuất,
+  (3) mới nghĩ tới bộ lọc ảnh hay rig. Một "vạch trắng" ở khớp cổ làm tôi xuất lại hai lần vì đoán (viền trắng giấy, loang màu khi
+  thu nhỏ); đếm thì atlas không có điểm trắng nào: đó là vành bụng kem của hai khúc lệch nhau vài px.
+- **Vành bụng lệch ở chỗ nối là giới hạn của cách này**: mỗi khúc là một ô GPT vẽ lại nên vạch lệch vài px dù tờ hướng dẫn nướng từ
+  một ảnh thân liền. Chỉ thấy khi phóng ~4 lần. Muốn khít hẳn thì nướng thẳng ảnh thân liền vào khung part mà không cho GPT vẽ lại
+  khúc thân (chưa làm; phải tự lo viền mép dài).
+- **Vành xoá mực của `noi_part` đừng rộng quá**: 14 px thì xoá luôn đoạn đầu của nét ranh chàm – kem, để lại ô kem vuông ở ngã ba;
+  9 px (bề dày viền + dải mực mép lưới) là vừa.
+- **Bộ phận người dùng bảo bỏ** (vây thân lồng nhau) bỏ ở rig bằng danh sách `BO_VAY`, không xoá ảnh part: muốn trả lại chỉ sửa một dòng.
+- **Tô màu đúng concept chưa**: đo trung vị từng lớp màu (chàm, kem, vây, tia) trên concept và trên tờ gen trước khi kết luận lệch
+  màu. Mã màu ghi trong prompt (#34408F) tối hơn màu thật trên concept đã duyệt (53, 68, 173); tờ gen bám concept, không cần chỉnh.
+- Trang xem đòi clip `die`; chạy `mo_xe/thu_xem.py` (Chrome ngầm: in dòng trạng thái, nút clip, lỗi JS) trước khi đưa người dùng.
 
 **Các khúc NỐI NHAU thì gen LIỀN một ảnh rồi cắt, không gen riêng từng khúc** (người dùng dặn 2026-11-11, rồng vây: "những khớp
 nối thì gen cả con ra rồi cắt chứ không gen riêng không thì sẽ lệch"). Thân rắn / rồng, cổ – ngực – lưng – đuôi, tay hay chân nhiều
@@ -688,6 +715,10 @@ nhịp: `skill-petclash` mục 7.2, 15 và `mo_xe_quai_nhieu_dau.md`. Kết qu�
 - `chay.py keys <thư mục> <tên> <ra.json> <clip,...>`: mọi khoá (giờ, giá trị, kiểu đường cong).
 - `chay.py mesh <thư mục> <tên> <ra.json> [slot,...]`: từng đỉnh của lưới với uv và (xương, trọng số): đọc cách chia trọng số.
 - `chay.py sample ...`: toạ độ thế giới từng khung. `chay.py sheet <thư mục> <tên> <thư mục ra> "n=10&view=cx,cy,rộng,cao&t0=&t1=&loop=1&bones=1"`: tờ khung.
+- `chay.py sample` còn xuất trường `l`: biến đổi RIÊNG đã áp ràng buộc (x, y, góc, tỉ lệ, xô) của mọi xương từng khung: dùng cái
+  này để nướng clip có path / transform constraint lên bộ xương cùng tên; `chay.py att` cho ma trận dáng gốc đã áp ràng buộc.
+- `thu_xem.py <đường dẫn xem.html>`: mở trang xem bằng Chrome ngầm, in dòng trạng thái, danh sách nút clip và lỗi JS. Chạy
+  trước khi đưa trang cho người dùng (trang đã từng báo "not found" vì thiếu clip `die`).
 - `nhip.py <info.json> <keys.json> <clip> --root <xương> --chain a,b,c --bone x`: nhịp (khung nào nhiều khoá), bảng khoá xoay
   từng đốt của một chuỗi, tỉ lệ đường cong thẳng / bậc / bezier.
 - Mẹo Chrome ngầm: `--headless=new --enable-unsafe-swiftshader --ignore-gpu-blocklist --virtual-time-budget=120000 --dump-dom`;
