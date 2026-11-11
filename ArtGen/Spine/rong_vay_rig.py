@@ -54,6 +54,9 @@ TAN = 0.45                   # die: giữ dáng cuối rồi mờ dần chừng 
 # người dùng 2026-11-11: "bỏ bớt vây ở thân đi để đỡ bị hiệu ứng vây lồng nhau": bỏ sáu vây nhỏ / khuất (lòng vòng cuộn, dưới thân,
 # sau thân giữa), giữ năm vây buồm trên lưng và mép ngoài vòng cuộn (vay_07, 09, 10, 14, 15)
 BO_VAY = ("vay_06", "vay_08", "vay_11", "vay_12", "vay_13", "vay_16")
+# người dùng 2026-11-12: "phần sừng không rig xương, để cứng": sừng của con gốc là chùm lông mềm bám chuỗi 3 xương (bone36–38,
+# bone39–41) nên uốn; của mình là sừng: mọi đỉnh bám 100% một xương (đầu), đi theo đầu, không uốn
+CUNG = {"sung_s": "tou", "sung_t": "tou"}
 
 
 def nap_goc():
@@ -157,6 +160,38 @@ def gan_nguyen(sk, slot, anh_ten, att, ten, Wc):
     return L
 
 
+def gan_va(sk, slot, anh_ten, att, ten, Wc):
+    """slot có bản vá (manh/part_va: mép lẹm chỗ con gốc khoét cắm vây đã làm trơn, 2026-11-12): ảnh vẫn đúng khung part nhưng hình
+    bóng thò ra ngoài lưới của họ (lưới họ khoét theo vết lẹm, dùng nguyên thì phần vá bị xén). Dựng lưới của mình phủ đủ ảnh; mỗi
+    đỉnh đặt vào thế giới qua lưới của họ trong hệ uv (toạ độ trọng tâm; ngoài lưới thì kéo dài mặt phẳng tam giác gần nhất, phần vá
+    chỉ thò vài px), rồi bám xương bằng gan_goc như các mảnh tự vẽ."""
+    im = sk.images[anh_ten]
+    k_ = RES / TI
+    L = luoi.luoi_vung(im, buoc_vien=7 * k_, buoc_trong=10 * k_, ten=slot, in_tk=False)
+    U = np.array(att["uv"], float).reshape(-1, 2) * np.array([im.width, im.height])
+    Q = np.array(att["xy"], float).reshape(-1, 2) * KG
+    tr = np.array(att["tris"]).reshape(-1, 3)
+    A, B_, C = U[tr[:, 0]], U[tr[:, 1]], U[tr[:, 2]]
+    v0, v1 = B_ - A, C - A
+    den = v0[:, 0] * v1[:, 1] - v0[:, 1] * v1[:, 0]
+    den = np.where(np.abs(den) < 1e-9, 1e-9, den)
+    tam = (A + B_ + C) / 3
+    V = []
+    for p in L.pts:
+        v2 = p - A
+        b1 = (v2[:, 0] * v1[:, 1] - v2[:, 1] * v1[:, 0]) / den
+        b2 = (v0[:, 0] * v2[:, 1] - v0[:, 1] * v2[:, 0]) / den
+        b0 = 1 - b1 - b2
+        ok = np.flatnonzero((b0 >= -1e-4) & (b1 >= -1e-4) & (b2 >= -1e-4))
+        i = int(ok[0]) if len(ok) else int(np.argmin(np.hypot(*(tam - p).T)))
+        V.append(b0[i] * Q[tr[i, 0]] + b1[i] * Q[tr[i, 1]] + b2[i] * Q[tr[i, 2]])
+    V = np.array(V)
+    sk.slot(slot, "move", anh_ten)
+    sk.luoi_gan(slot, anh_ten, L, trongso.cung(L.n, "move"), the_gioi=V)
+    ng, xa = gan_goc(sk, slot, anh_ten, V, att, ten, Wc)
+    return L, ng, xa
+
+
 def dung():
     import cv2
     import to_manh
@@ -181,6 +216,11 @@ def dung():
 
     by_slot = {a["slot"]: a for a in D["atts"]}
     Wc = {b["name"]: np.array([[b["a"], b["b"], b["x"] * KG], [b["c"], b["d"], b["y"] * KG], [0.0, 0.0, 1.0]]) for b in D["bones"]}
+    # xương miệng (2026-11-12, đưa vào game suất han_ngac): con gốc không có, mỏ là lưới bám nhiều xương. Đặt ở khe giữa hai mỏ, ngay
+    # sau chóp (concept: chóp mỏ trên 1215,229, mỏ dưới 1214,225), theo hệ xương đầu ở DÁNG CÓ RÀNG BUỘC (Wc), như mọi điểm gắn
+    # → game.muzzle (chỗ phun nước của chiêu mana) do xuat.thong_tin_tran lấy từ xương "mieng" ở khung trúng của clip cast
+    lp = np.linalg.solve(Wc["tou"], np.array([*c2r((1200.0, 233.0)), 1.0]))
+    sk.xuong("mieng", "tou", float(lp[0]), float(lp[1]))
     thu_tu = [t for _, t in RV.thu_tu() if t not in BO_VAY]
     thu_tu.insert(thu_tu.index("dau") + 1, "mat_nham")
     thu_tu.insert(thu_tu.index("canh_g_song"), "canh_g_canh")      # dải cạnh cánh: dưới lớp sẫm, trên màng (như slot của con gốc)
@@ -225,11 +265,22 @@ def dung():
             pn = lambda sl: os.path.join(RV.MANH, "part_noi", sl + ".png")          # noqa: E731  bản đã xoá vạch mực chỗ nối (noi_part)
             nap = lambda f: (lambda g: anh.loang_mau(g.resize((max(2, round(g.width / RV.PART_Z * 2 * SC * RES)),   # noqa: E731
                                                                  max(2, round(g.height / RV.PART_Z * 2 * SC * RES))), Image.LANCZOS).convert("RGBA")))(Image.open(f).convert("RGBA").convert("RGBa"))
-            sk.anh(t, nap(pn(BAM[t]) if os.path.exists(pn(BAM[t])) else pg))
-            L = gan_nguyen(sk, t, t, a, ten, Wc)
+            pv = os.path.join(RV.MANH, "part_va", BAM[t] + ".png")              # bản vá mép lẹm (gan_va)
+            if os.path.exists(pv):
+                sk.anh(t, nap(pv))
+                L, ng, xa = gan_va(sk, t, t, a, ten, Wc)
+                ghi = f"  {t:12s} ← {BAM[t]:16s} bản vá mép lẹm, lưới của mình {L.n} đỉnh ({ng} đỉnh ngoài lưới họ, xa nhất {xa:.1f})"
+            else:
+                sk.anh(t, nap(pn(BAM[t]) if os.path.exists(pn(BAM[t])) else pg))
+                L = gan_nguyen(sk, t, t, a, ten, Wc)
+                ghi = f"  {t:12s} ← {BAM[t]:16s} mảnh vẽ đúng khung part, nguyên lưới của họ {L.n} đỉnh"
+                if t in CUNG:                                # mảnh cứng: bám trọn một xương (điểm gắn = vị trí dáng gốc trong hệ xương đó)
+                    inv_ = np.linalg.inv(Wc[CUNG[t]])
+                    sk.atts[t][t]["verts"] = [[(CUNG[t], *[float(v) for v in (inv_ @ np.array([p[0], p[1], 1.0]))[:2]], 1.0)]
+                                              for p in np.array(a["xy"], float).reshape(-1, 2) * KG]
+                    ghi += f", CỨNG theo xương {CUNG[t]}"
             tong[0] += L.n
             tong[1] += len(L.tris)
-            ghi = f"  {t:12s} ← {BAM[t]:16s} mảnh vẽ đúng khung part, nguyên lưới của họ {L.n} đỉnh"
             if t == "than_6":                                # con gốc dùng lại ảnh khúc đuôi cho slot P_shenti07
                 a7 = t
                 if os.path.exists(pn("P_shenti07")):         # cùng ảnh nhưng chỗ nối khác → bản xoá vạch nối riêng
@@ -274,6 +325,9 @@ def dung():
         sk.slot(t, "move", t, an=(t == "mat_nham"))
         sk.luoi_gan(t, t, L, trongso.cung(L.n, "move"), dat=dat)                # giữ chỗ; gan_goc ghi đè
         ng, xa = gan_goc(sk, t, t, V, a, ten, Wc)
+        if t in CUNG:                                        # mảnh cứng: bám trọn một xương, điểm gắn = vị trí dáng gốc trong hệ xương đó
+            inv_ = np.linalg.inv(Wc[CUNG[t]])
+            sk.atts[t][t]["verts"] = [[(CUNG[t], *[float(v) for v in (inv_ @ np.array([p[0], p[1], 1.0]))[:2]], 1.0)] for p in V]
         tong[0] += L.n
         tong[1] += len(L.tris)
         print(f"  {t:12s} ← {BAM[t]:16s} {L.n:4d} đỉnh, {ng:3d} đỉnh ngoài lưới của họ (xa nhất {xa:5.1f})" + (f", lưới hở {L.ho} px" if L.ho else ""))

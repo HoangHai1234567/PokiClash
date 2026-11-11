@@ -85,15 +85,16 @@
     },
     {
       "id": "han_ngac",
+      "_ghi_chu": "2026-11-12: suất 9 đảo Thủy thay bằng dòng rồng vây (rong_vay, cá sấu băng tm09 bỏ). Rồng vây mới có 1 dạng: cả hai dạng tạm dùng chung rig rong_vay_1 (giữ số dạng, không đổi golden); có dạng 2 thì trỏ han_ngac_2 sang rig đó.",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm09_1/rig",
-          "atomik": "tm09_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/rong_vay_1/rig",
+          "atomik": "rong_vay_1.atomik",
           "dich": "han_ngac_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm09_2/rig",
-          "atomik": "tm09_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/rong_vay_1/rig",
+          "atomik": "rong_vay_1.atomik",
           "dich": "han_ngac_2"
         }
       ]

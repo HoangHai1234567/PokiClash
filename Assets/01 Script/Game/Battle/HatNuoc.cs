@@ -62,7 +62,8 @@ namespace PokiClash
             // rắn vực sâu: chàm vực #2E2F6E, chàm xám #5058A8, bạc hà #8FE3D0; chấm đèn bạc hà
             { "uyen_xa", new WTheme { w = WPal(C(34, 78, 190), C(64, 140, 232), C(134, 214, 240)) } },   // rắn nước có sừng (2026-11-11): lam cô-ban của thân, nhạt dần về màu đốm bong bóng; bỏ họa tiết sao của rắn đèn cũ
             // cá sấu băng: petrol sẫm #1F5566, petrol #3C8396, cạnh băng #9DBAC6; mảnh băng đục
-            { "han_ngac", new WTheme { w = WPal(C(31, 85, 102), C(60, 131, 150), C(157, 186, 198)), fx = new Theme { extra = "tinh_the", extraCol = C(230, 241, 244) } } },
+            // suất này nay là dòng rồng vây (2026-11-12, mã rong_vay): chàm của thân #34408F, lam ngọc của vây #49BFC4, lam nhạt; bỏ mảnh băng
+            { "han_ngac", new WTheme { w = WPal(C(52, 64, 143), C(73, 191, 196), C(178, 226, 230)) } },
             // rồng biển nhiều đầu: ngọc bích sẫm, ngọc bích #2FA79B, bạc hà #A6E6D8; sao vàng như gạc
             { "hai_long", new WTheme { w = WPal(C(31, 127, 120), C(47, 167, 155), C(166, 230, 216)), fx = new Theme { extra = "sao", extraCol = C(233, 184, 74) } } },
         };

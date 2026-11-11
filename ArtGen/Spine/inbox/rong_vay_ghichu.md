@@ -268,9 +268,44 @@ pose là được", "gen theo y hệt đúng tỉ lệ luôn, đúng hướng"; 
 - **Bản quyền**: xương, lưới, chuyển động (và hình bóng từng part) là của game gốc; hình vẽ là của mình. Dùng nội bộ, không đăng
   công khai, kể cả artifact (như aola).
 
+## 10b. Vá mép lẹm thân dưới (2026-11-12, người dùng: "phần thân ở dưới bị khuyết mất mấy mảnh")
+
+- **Nguyên nhân**: part `P_shenti04` (mép trong vòng cuộn) và `P_shenti05` (mép trên) của con gốc bị KHOÉT chỗ cắm vây; vây
+  `vay_11/12/13` từng che chỗ đó, bỏ vây (`BO_VAY`) thì lộ vết lẹm răng cưa. Lưới của họ cũng khoét theo, nên chỉ tô ảnh là bị xén.
+- **Ảnh**: `rong_vay_va.py <vào> <ra> <sigma> <hộp...>` làm trơn viền ngoài (Gauss theo chiều dài) chỉ trong hộp chọn, lấp chỗ lõm,
+  gọt bướu, tô màu thân (inpaint CHỈ từ thịt thân, điểm trong suốt không làm màu nguồn, không thì loang đen ở mép khung), kẻ lại viền.
+  Đã chạy: `P_shenti04` sigma 14 hộp `200,280,332,470`; `P_shenti05` sigma 26 hộp `0,0,520,185` (từ `manh/part_noi`) → `manh/part_va/`.
+  Rồi `rong_vay_va_noi.py P_shenti04 P_shenti05 1.5`: xoá nét mực mép của khúc 04 (vẽ trên) nằm trong hình bóng khúc 05 (vạch cắm
+  vào thân dưới lỗ vòng cuộn; trước đây vây che).
+- **Rig**: slot có ảnh trong `manh/part_va/` đi nhánh `gan_va` (`rong_vay_rig.py`): lưới của mình phủ đủ ảnh, đỉnh đặt vào thế giới
+  qua lưới part của họ (toạ độ trọng tâm hệ uv), bám xương bằng `gan_goc`. `.atomik` 413 KB, 1324 đỉnh. Soi đủ 6 clip: hết lẹm.
+- Lần 2 (người dùng: "vẫn thấy bị móp mất 1 ít, có vết mờ mờ ghép lỗi"): đầu khúc 04 cắt thẳng theo khung part chờm lên 05 → đường
+  chéo đứt vân và nêm sáng ở vành bụng. `rong_vay_va_noi.py` thêm bước mờ alpha từ mép cắt nằm trong khúc dưới vào 26 px (`MO`).
+- **Sừng cứng** (người dùng: "phần sừng không rig xương, để cứng"): `CUNG = {"sung_s": "tou", "sung_t": "tou"}` trong
+  `rong_vay_rig.py`: mọi đỉnh sừng bám 100% xương đầu (chuỗi bone36–41 của con gốc là chùm lông mềm).
+- Lần 3 (người dùng: "cạnh trên bị móp vào 1 chút"): đáy lỗ vòng cuộn gãy khúc (mép 04 dốc xuống gặp bậc vai của 05; lúc chuyển
+  động hai khúc lệch nhau mở khe chữ V). `rong_vay_va_goc.py`: đặt hình bóng 04 vào hệ ảnh 05, `TRON` làm trơn viền HỢP hai khúc
+  trong hộp (thêm/gọt vào 05), `LOT` lót thân + viền của 05 ngay dưới mép 04 quanh chỗ nối (lúc lệch thì lộ thân liền thay vì khe).
+  Mép mềm cũ lọt vào trong thân thành vạch xám: vùng sửa phải đặc hẳn.
+- Lần 4 (người dùng: "phần dưới bị mất outline 1 đoạn ngắn"): viền dưới vành bụng ở chỗ 04 chồng 05. Bước 3 đã xoá cả viền ngoài
+  của 05 (nằm dưới 04) → giới hạn `VUNG`; viền 04 ở đó vốn bị `noi_part` cũ xoá dở (sọc) và một dải 04 thò ra ngoài 05 vài px mang
+  riềm sáng → `PHU` (04 trong suốt hẳn ở chỗ chồng sát mép ngoài, nhường viền cho 05), `CAT` (gọt dải thò ra, CHỈ sát mép ngoài hình
+  ghép, không thì nứt ngang vành bụng khi chuyển động), `SANG` (riềm sáng ngoài viền 05 thành mực); điểm trắng giấy tự tô lại.
+- **Thứ tự chạy lại cả chuỗi** (từ `manh/part_noi`, SXS như trên; M = `ArtGen/Spine/inbox/rong_vay_1/manh`):
+  1. `rong_vay_va.py M/part_noi/P_shenti05.png M/part_va/P_shenti05.png 26 0,0,520,185`
+  2. `rong_vay_va.py M/part_noi/P_shenti04.png M/part_va/P_shenti04.png 24 200,280,332,520`
+  3. `MO=0 VUNG="0,0,260,200" SANG="0,170,170,360" rong_vay_va_noi.py P_shenti05 P_shenti04 1.0`
+  4. `TRON="34,100,60,430,200" rong_vay_va_goc.py P_shenti05 P_shenti04 41`
+  5. `PHU=4 CAT="150,470,332,610,4" rong_vay_va_noi.py P_shenti04 P_shenti05 0.5` (xoá mực + mờ mép chờm của 04)
+  6. `LOT="70,60,175,175" rong_vay_va_goc.py P_shenti05 P_shenti04 41` (lót SAU CÙNG, kẻo bước 3/5 xoá mất viền lót)
+  rồi `rong_vay_rig.py` (xuất) và đăng lại trang xem.
+- Còn thấy: vệt rất nhỏ ở chỗ nối khi phóng to; ở skill lúc cuộn chặt (lỗ khép thành khe) cuối nét mực chỗ nối còn một mẩu lởm
+  chởm nhỏ (bản chưa vá có sẵn và nặng hơn: khấc + vạch nối ngang vành bụng).
+- Trang xem riêng tư (dùng nội bộ, không Share): https://claude.ai/artifact/N245AYhu5GhJrvBZ7Fi1zX (đăng lại sau mỗi lần sửa).
+- Máy D (nhà): không có `D:\Ripper`; dữ liệu quét sinh lại vào `D:\RefAnimation\SwordxStaff\scan\monster_3458` (info, att_goc,
+  sample_clips 6 clip), chạy với `SXS=D:/RefAnimation/SwordxStaff`.
+
 ## 11. Còn lại
-
-
 
 - Lòng miệng (khi mỏ há) chưa có: con gốc cũng không có mảnh này; quyết khi làm clip há mỏ.
 - Chỉnh clip theo góp ý người dùng; thêm `die`, `appear`, `cast`; vào game: chưa làm.
