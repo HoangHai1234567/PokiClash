@@ -253,6 +253,13 @@ pose là được", "gen theo y hệt đúng tỉ lệ luôn, đúng hướng"; 
 - **Vạch mực ở chỗ nối** (`rong_vay.py noi_part`): mảnh có viền kín nên đầu khúc nằm trên in vạch cắt ngang thân. Ở dáng gốc, nét
   mực trên vành mép một khúc mà rơi sâu trong khúc kề (hơn 5 đơn vị) được thay bằng màu tô gần nhất → `manh/part_noi/<slot>.png`
   (rig ưu tiên dùng; `P_shenti07` dùng lại ảnh `P_shenti06` nhưng có bản xoá vạch riêng).
+- **Dọn mảnh bằng mã trong `cat_part`** (chỉ dọn, không vẽ): cắt sát hình bóng (nới 3 px); khúc thân bỏ búi nâu xám GPT bịa ở mép
+  cổ và mảng trắng giấy; kẻ nét mực dọc phía trong mép lưới của part (lưới ôm sát hình bóng, viền của mình dày hơn nên chỗ lưới xén
+  vào thì mất viền: lộ rõ ở vây đuôi); thu nhỏ ở dạng nhân sẵn alpha.
+- **Kết quả tờ Q**: IoU 0,90–0,98 cho cả 25 part (tờ P cùng part: 0,48–0,92). Rig: 112 xương, 29 slot, 702 đỉnh, 772 tam giác,
+  6 clip, 29.955 khoá, atlas 1176 × 1232, `.atomik` 387 KB. Soi runtime Spine thật: `rig/spine_that/` (tờ tổng từng clip,
+  `can_phai/`, `can_trai/`, `can_co/` phóng cận). Còn thấy khi phóng 4 lần: vành bụng hai khúc cổ lệch nhau vài px ở chỗ nối, vân
+  chì hai khúc không liền nhau.
 - **Bỏ vây thân** (`BO_VAY` trong `rong_vay_rig.py`): `vay_06, 08, 11, 12, 13, 16` (người dùng: "bỏ bớt vây ở thân đi để đỡ bị hiệu
   ứng vây lồng nhau").
 - **Cánh**: màng, sống, dải cạnh đều dùng nguyên lưới và xương của họ (màng bám 3 chuỗi + xương gốc cánh; sống bám

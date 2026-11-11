@@ -220,9 +220,11 @@ def dung():
         a = by_slot[BAM[t]]
         pg = os.path.join(RV.MANH, "part", BAM[t] + ".png")  # mảnh vẽ ĐÚNG KHUNG ảnh vùng của part (rong_vay.py cat_part): nguyên lưới của họ
         if os.path.exists(pg):
+            # thu nhỏ ở dạng nhân sẵn alpha (RGBa): điểm trong suốt còn mang màu giấy trắng, thu nhỏ RGBA thường sẽ loang trắng
+            # vào mép → vạch trắng ở chỗ nối đã xoá mực
             pn = lambda sl: os.path.join(RV.MANH, "part_noi", sl + ".png")          # noqa: E731  bản đã xoá vạch mực chỗ nối (noi_part)
             nap = lambda f: (lambda g: anh.loang_mau(g.resize((max(2, round(g.width / RV.PART_Z * 2 * SC * RES)),   # noqa: E731
-                                                                 max(2, round(g.height / RV.PART_Z * 2 * SC * RES))), Image.LANCZOS)))(Image.open(f).convert("RGBA"))
+                                                                 max(2, round(g.height / RV.PART_Z * 2 * SC * RES))), Image.LANCZOS).convert("RGBA")))(Image.open(f).convert("RGBA").convert("RGBa"))
             sk.anh(t, nap(pn(BAM[t]) if os.path.exists(pn(BAM[t])) else pg))
             L = gan_nguyen(sk, t, t, a, ten, Wc)
             tong[0] += L.n

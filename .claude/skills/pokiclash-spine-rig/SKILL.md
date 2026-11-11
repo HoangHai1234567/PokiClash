@@ -59,12 +59,26 @@ clip "theo nhịp con gốc" cho ra hết lỗi này tới lỗi khác (khớp h
 1. **Xuất từng part của con gốc ra file riêng**, cắt đúng theo tam giác lưới của nó (atlas xếp theo đa giác nên ảnh vùng chữ nhật dính
    mảnh bên cạnh): `scan/monster_<số>/parts/<thứ tự>_<slot>.png` + tờ tổng. Đây là khung chuẩn: cỡ, hướng, hình bóng từng mảnh.
 2. **Tờ hướng dẫn theo khung part** (`rong_vay.py nhom_part`, `nhom_part_het`): mỗi part một ô đúng cỡ ảnh vùng (phóng 2 lần; part
-   nhỏ phóng 4), trong ô là HÌNH BÓNG của part (làm trơn nhẹ; không mang nét vẽ, hoa văn, màu của game gốc). Đã có mảnh của mình
-   nằm đúng chỗ dáng gốc thì NƯỚNG nó vào khung (qua lưới của part: chỗ đứng ở dáng gốc → chỗ trong ảnh vùng), phần hình bóng còn
-   thiếu tô hồng. Chưa có gì thì tô phẳng màu của mình.
-3. **Prompt**: "giữ nguyên hình bóng từng part: cùng viền, cùng cỡ, cùng hướng, cùng chỗ trên tờ; giữ phần đã vẽ; thay phần hồng bằng
-   phần nối tiếp". Codex giữ hình bóng rất sát (IoU 0,90–0,96). Khúc thân: dặn KHÔNG kẻ viền ở hai đầu cắt.
-4. **Cắt**: mỗi part lấy đúng Ô của nó trên tờ (ô đó chính là khung ảnh vùng), tách nền trắng → `manh/part/<slot>.png`. Không dò chỗ.
+   nhỏ phóng 4), trong ô là HÌNH BÓNG KÍN của part (làm trơn nhẹ; không mang nét vẽ, hoa văn, màu của game gốc), viền sẫm kẻ đúng
+   mép. Đã có mảnh của mình nằm đúng chỗ dáng gốc thì NƯỚNG nó vào khung (qua lưới của part: chỗ đứng ở dáng gốc → chỗ trong ảnh
+   vùng); phần hình bóng còn thiếu **tô sẵn bằng màu chỗ gần nhất** và xoá nét mực cũ sát chỗ thiếu. Chưa có gì thì tô phẳng màu
+   của mình. Sừng, mỏ (màu đen, lẫn với mực) tô phẳng một màu.
+   **Đừng để phần thiếu màu hồng "cho GPT vẽ bù"**: đã thử (tờ P2–P6 của rồng vây), GPT bỏ luôn phần hồng, mảnh lệch hình bóng
+   (IoU 0,48–0,92), lắp vào lưới thì thân khuyết, màng cánh rời sống cánh. Tờ hình bóng kín (Q2–Q6) ra IoU 0,90–0,98.
+3. **Prompt**: "ảnh 2 là hình bóng đúng của từng part, máy tô thô; vẽ lại sạch, giữ nguyên hình bóng: cùng viền, cùng cỡ, cùng hướng,
+   cùng chỗ trên tờ; viền mực kín đúng mép; giữ màu và hoa văn ở chỗ tờ hướng dẫn đang có".
+4. **Cắt** (`cat_part`): mỗi part lấy đúng Ô của nó trên tờ (ô đó chính là khung ảnh vùng), tách nền trắng → `manh/part/<slot>.png`.
+   Không dò chỗ. Đo IoU với hình bóng, ghi vào `_iou.json`, chỉ ghi đè khi bản mới khít hơn. Rồi dọn bằng mã (chỉ dọn, không vẽ):
+   - cắt sát hình bóng (nới 3 px): phần GPT vẽ thừa ra ngoài sẽ bị lưới vẽ ra;
+   - chỗ GPT vẽ hụt trong hình bóng lấy màu của tờ hướng dẫn (khỏi khuyết);
+   - thân: bỏ mảng nâu xám GPT bịa ở mép (chỗ tờ hướng dẫn nhoè), mảng trắng giấy lấy màu tô gần nhất;
+   - **kẻ nét mực dọc phía trong mép lưới** (hull uv của part): lưới của họ ôm sát hình bóng, nét viền của mình dày hơn nên chỗ lưới
+     xén vào thì mất viền, lộ mép thẳng trơ màu;
+   - thu nhỏ ảnh RGBA ở dạng nhân sẵn alpha (`RGBa`), kẻo màu giấy trắng của điểm trong suốt loang vào mép.
+4b. **Xoá vạch mực ở chỗ nối** (`noi_part`): mảnh có viền kín nên đầu khúc thân nằm trên in một vạch cắt ngang thân. Ở dáng gốc,
+   nét mực trên vành mép (9 px) của một khúc mà rơi sâu (hơn 5 đơn vị) trong khúc KỀ nó thì thay bằng màu tô gần nhất; mẩu mực
+   vụn còn sót cạnh đó xoá nốt. Chỉ xét cặp khúc kề nhau (thân vắt chéo qua chính nó thì viền phải giữ). Ảnh dùng lại cho hai slot
+   (khúc đuôi) thì mỗi slot một bản. Ra `manh/part_noi/`, rig ưu tiên dùng.
 5. **Rig = của họ**: đủ mọi xương của họ đúng cha – con và biến đổi riêng; mỗi slot dùng NGUYÊN lưới của họ (đỉnh, tam giác, uv,
    trọng số) với ảnh của mình (`gan_nguyen`). Điểm gắn tính bằng ma trận dáng gốc ĐÃ ÁP RÀNG BUỘC của họ (`att_goc.json`), vì xương
    chạy trên đường cong ở dáng gốc lệch biến đổi riêng tới ~9 đơn vị.

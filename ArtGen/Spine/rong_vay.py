@@ -760,7 +760,7 @@ def cat_part(to="P1", ep=False):
         SO[slot] = [round(float(iou), 3), to]
         out = Image.fromarray(cell, "RGBA")
         if z != PART_Z:
-            out = out.resize((w * PART_Z // z, h * PART_Z // z), Image.LANCZOS)
+            out = out.convert("RGBa").resize((w * PART_Z // z, h * PART_Z // z), Image.LANCZOS).convert("RGBA")
         out.save(os.path.join(ra, slot + ".png"))
         print(f"  {slot}: {w} x {h} (x{z}), trùng hình bóng hướng dẫn IoU {iou:.2f}" + (f", bù {int(ho.sum())} px" if to.startswith("Q") else ""))
     json.dump(SO, open(pso, "w", encoding="utf-8"), indent=1)
@@ -830,7 +830,7 @@ def noi_part(r=5, vanh=9):
                 bo |= lab_ == i
         bo = cv2.dilate(bo.astype(np.uint8), e(1)).astype(bool) & al
         # viền trắng giấy ở mép cắt không có mực (đầu khúc): lấy màu tô gần nhất
-        bo |= al & (rgb.min(axis=2) > 222) & ~cv2.erode(al.astype(np.uint8), e(4)).astype(bool)
+        bo |= al & (rgb.min(axis=2) > 218) & ~cv2.erode(al.astype(np.uint8), e(12)).astype(bool)
         if bo.any() and tot.any():
             _, lb = cv2.distanceTransformWithLabels((~tot).astype(np.uint8), cv2.DIST_L2, 5, labelType=cv2.DIST_LABEL_PIXEL)
             tra = np.zeros((int(lb.max()) + 1, 3), np.uint8)
