@@ -84,6 +84,15 @@ namespace PokiClash.EditorTools
                         yield return new WaitForSecondsRealtime(0.6f);
                         float start;
                         int n;
+                        // đòn đánh thường có hiệu ứng riêng (StageView.FireAtk): chụp trước chiêu
+                        if (StageView.FireAtk(def) != null)
+                        {
+                            st.Play(0, StageView.Attack);
+                            start = Time.realtimeSinceStartup;
+                            n = 0;
+                            while (Time.realtimeSinceStartup - start < 2.0f) yield return Shot($"{hero}_{form + 1}_atk_{n++:00}");
+                            yield return new WaitForSecondsRealtime(0.4f);
+                        }
                         if (form == forms - 1)
                         {
                             st.Play(0, StageView.Cast, () => st.Beam(0));

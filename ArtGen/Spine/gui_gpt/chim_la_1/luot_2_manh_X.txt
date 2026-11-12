@@ -1,0 +1,25 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\chim_la_1\tai_ve\L1_duyet.png: the APPROVED creature, 1536x1024, white background: a white forest guardian bird (an eagle-like spirit bird): cream-white plumage, a sage-green feather hood, an orange hooked beak and orange scaly legs with dark claws; its WINGS are made of plants (a brown branch as the wing arm with small pink blossoms, a dark-green canopy of small leaves, rows of long and short green leaves as flight feathers); a fan of five big leaves as a crest with a wooden circlet; a collar of light-green leaves with a grey stone amulet; six long tail plumes (cream and sage) and four chains of grey stones ending in mossy boulders with tiny sprouts. It gives the design, the colours, the wobbly dark-brown ink line, the crayon hatching and the look of every material.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\chim_la_1\mau\part_X.png: PART GUIDE, 1536x1024, white background, drawn by computer: 8 separate flat shapes with dark outlines, each one a single part of this creature laid out apart from the others for a 2D animation rig. It gives the exact silhouette, size, orientation and place of every part and its flat colours.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\chim_la_1\tai_ve\N_X.png
+If a file with that name already exists, save as N_X_2.png, N_X_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 cleanly in the hand-drawn style of image 1, landscape 1536x1024, pure-white background. Keep EXACTLY every silhouette of image 2: the same outline, the same size, the same orientation, the same place on the sheet (if your picture were laid over image 2, every shape must coincide). A program will cut each shape out of its place and wrap it onto the animation mesh of that part, so do not add, remove, move, rotate, mirror, merge or resize any shape, and draw nothing outside the shapes. There are exactly 8 shapes.
+
+WHAT THE SHAPES ARE: CREST AND SMALL EXTRAS. The five tall shapes are the five LEAVES OF THE CREST, each drawn upright: the flat cut end at the bottom is the root (it will be hidden behind the head), the pointed end at the top is the tip; a broad lance-shaped leaf, #4C9A52 or #93C663 as in image 2, with ONE centre vein (#2A6A3A) and four to six pairs of faint side veins.
+
+SHAPE BY SHAPE (positions are the centres of the shapes on the sheet):
+- at about x = 134, y = 360 (216 x 668 px): CREST LEAF 3 (the biggest).
+- at about x = 364, y = 314 (192 x 576 px): CREST LEAF 2.
+- at about x = 578, y = 292 (184 x 532 px): CREST LEAF 4.
+- at about x = 782, y = 266 (172 x 480 px): CREST LEAF 1.
+- at about x = 958, y = 178 (128 x 304 px): CREST LEAF 5 (the smallest).
+- at about x = 1153, y = 121 (210 x 190 px): a tiny SPROUT: a short green stem (#6FAE4B) with two rounded young leaves (#93C663), each with a centre vein.
+- at about x = 1369, y = 111 (170 x 170 px): a small five-petal BLOSSOM seen from the front: soft pink (#F2A6BC) rounded petals, an orange (#EE8A3E) centre.
+- at about x = 216, y = 766 (380 x 92 px): the wooden CIRCLET of the crest: a slightly curved band of brown wood (#7A5638) with rounded ends and two or three thin grain lines along it.
+
+OUTLINE: every shape has its own CLOSED dark-brown ink outline (#2B2118) all the way around, lying just INSIDE the edge of the silhouette of image 2, about 11 px thick on this sheet for the big shapes and about 8 px for the small ones, slightly wobbly like a real pen. The inner detail lines (veins, feather lines, grain, facets, scales) are thin darker pencil lines, much thinner than the outline, not ink.
+COLOUR: keep the flat colours of image 2 for every area; colour with coloured pencil and wax crayon, the strokes visible as loose diagonal hatching inside the outline, as on image 1.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour, the crayon strokes are texture only. No shading, no darker side, no highlights, no shine spots, no gradients, no cast shadows, no glow. Pure white (#FFFFFF) background between the shapes; no text, no labels, no numbers, no frames, no guide lines.

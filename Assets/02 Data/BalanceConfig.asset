@@ -37,7 +37,7 @@ MonoBehaviour:
     bossEvoAtk: 0.1
     cardLvStep: 0.15
     maxRounds: 60
-    saveVersion: 7
+    saveVersion: 9
     maxLevel: 200
     expBase: 45
     expPow: 1
@@ -274,7 +274,7 @@ MonoBehaviour:
       card: 3
     - zone: 4
       team:
-      - de_hoa
+      - gac_da
       - nu_hoa
       - soi_linh
       star: 3

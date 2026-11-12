@@ -41,9 +41,9 @@ NEW = [
     dict(id="ha_ba", old="mi_nhi", at=15, name="Sò Ngoạm", title="Sò đột biến lưỡi dài", line="Dòng Sò Ngoạm",   # 2026-11-11: thay Hà Bá (hà mã); id giữ
          forms=[("Sò Háu", 0.92), ("Sò Ngoạm", 1.1)],
          skill=("Phụt Ngọc", "drop"), ult=("Lưỡi Quật", "wave"), pas=("Hồn Nước", "drop")),
-    dict(id="so_ngoc", old="ma_ket", at=20, name="Sò Ngọc", title="Pháo đài ngọc trai", line="Dòng Sò Ngọc",
-         forms=[("Sò Gai", 0.92), ("Bạng Vương", 1.1)],
-         skill=("Phun Bọt Ngọc", "bubble"), ult=("Mưa Gai", "fang"), pas=("Tim Ngọc Trai", "moon")),
+    dict(id="so_ngoc", old="ma_ket", at=20, name="Bát Trảo", title="Bạch tuộc quái vật gọi bầy", line="Dòng Bát Trảo",   # 2026-11-12: thay Sò Ngọc (bạch tuộc quái vật); id giữ
+         forms=[("Trảo Nhi", 0.92), ("Bát Trảo", 1.1)],
+         skill=("Bóng Mực", "bubble"), ult=("Gọi Bầy", "fang"), pas=("Túi Mực", "moon")),
     dict(id="giong_bao", old="vay_lam", at=30, name="Giông Bão", title="Kỳ giông gọi mưa", line="Dòng Giông Bão",
          forms=[("Giông Mưa", 0.92), ("Giông Bão", 1.1)],
          skill=("Bầu Phun", "drop"), ult=("Cầu Mưa", "wave"), pas=("Bầu Hứng Mưa", "drop")),

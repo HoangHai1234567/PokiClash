@@ -1,0 +1,39 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image per reply and save each one as its step says. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: the game's approved hand-drawn map: copy its RENDERING (pencil and crayon hatching, ink line where a step asks for one), ignore its content
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\chuan_fx\hat_bo_cuc.png: LAYOUT ONLY: four separate shapes in a 2 x 2 grid on white (these grey shapes are rough placeholders made by a program; draw much nicer hand-made shapes, the grey lines only show the four squares, do not draw them)
+image 3 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\xuong_rong_2\tai_ve\L1_duyet.png: the approved creature that uses these particles (a round cactus monster): copy the SHAPE language of its cream thorns (fat cones with a rounded base and one sharp point) and its crayon hatching, but draw this step's shapes as grey fill only, no outline, no cream, no green
+
+WHAT THIS IS: particle sprites for a cactus-thorn attack in a 2D creature game with a hand-drawn storybook look. The game spawns many of these little shapes, moves, scales, rotates and tints them (warm cream, dark green) to build a volley of flying thorns, thorns bursting out of the ground and flying splinters, so each image is a sheet of four separate shapes.
+
+SAVE: every step's image goes into C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_gai\tai_ve under the step's name (for example G01.png). If that file already exists, add _2, _3 … before .png. Do not change, move or delete any other file.
+
+ORDER: draw step G01 now, save it and stop. When I say "next", draw step G02, save it and stop: I will check both. When I say "continue", draw the remaining steps one per reply, each after I say "next", in this order: G03.
+
+IMPORTANT: image 3 is coloured and outlined, but YOUR shapes are flat grey with NO outline and NO colour.
+
+=== STEP G01 (thorn) ===
+Four separate cactus thorns, one per square, each pointing straight UP with its base at the bottom: one fat short cone with a rounded bulging base; one long slim needle, very sharp; one medium thorn with a slightly curved tip like a claw; one stubby thick thorn. Each is one simple solid shape with a round base and ONE sharp point, like the cream thorns on the creature in image 3. Shapes only: no plant, no skin, no base plate.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_gai\tai_ve\G01.png (create the folder if it is missing; if that file already exists, save it as G01_2.png, G01_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP G02 (tuft) ===
+Four separate CLUSTERS of cactus thorns seen from the side, each bursting UP out of the ground: a low wide base at the bottom and four to six sharp thorns of different lengths fanning upward and outward from it like a crown of spikes (the middle thorns tallest, the outer ones leaning left and right). Make the four different: one tall and narrow, one wide and low, one leaning a little to the left, one leaning a little to the right. Each cluster is ONE solid silhouette (the thorns joined at the base), same thorn shape as on the creature in image 3.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_gai\tai_ve\G02.png (create the folder if it is missing; if that file already exists, save it as G02_2.png, G02_3.png … in the same folder instead). Do not change, move or delete any other file.
+
+=== STEP G03 (shard) ===
+Four separate small broken thorn SPLINTERS, one per square, each a short jagged shard of a snapped thorn: one a broken thorn tip (a short sharp point with a rough snapped end), one a thin sliver with two pointed ends, one a chunky three-cornered chip, one a short curved shard. Angular, sharp, clearly different from each other.
+
+FILL ONLY, NO OUTLINE: each shape is a flat medium-light neutral grey (about #BDBDBD) coloured with coloured pencils and wax crayons, the strokes visible as loose diagonal hatching a little lighter and darker than the grey (about #A8A8A8 to #D8D8D8). Absolutely NO outline, no ink line, no dark edge around or inside the shapes: the game colours this grey itself and draws one outline around the whole mass. No other colour at all.
+FLAT, NO LIGHT, NO SHADOW: every area one even colour, the strokes are texture only. No shading, no darker side, no shadows of any kind (nothing on the background), no white highlights or shine spots, no gloss, no glow or halo, no gradients, no 3D render.
+LAYOUT (see image 2): a square 1024 x 1024 image, plain pure white background, split in your head into a 2 x 2 grid of four equal squares. Draw ONE separate shape centred in each square, each filling about 70% of its square, with a clear white gap between shapes and around the edge (no shape touches another or the image edge). No creature, no ground, no text, no grid lines, no frame.
+SAVE this step: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\hat_gai\tai_ve\G03.png (create the folder if it is missing; if that file already exists, save it as G03_2.png, G03_3.png … in the same folder instead). Do not change, move or delete any other file.
+

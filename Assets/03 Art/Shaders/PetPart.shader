@@ -9,6 +9,8 @@ Shader "PokiClash/PetPart"
         [PerRendererData] _Add ("Màu cộng", Color) = (0,0,0,0)
         [HideInInspector] _SrcBlend ("Src", Float) = 5
         [HideInInspector] _DstBlend ("Dst", Float) = 10
+        [HideInInspector] _SrcBlendA ("Src alpha", Float) = 1
+        [HideInInspector] _DstBlendA ("Dst alpha", Float) = 10
     }
 
     SubShader
@@ -17,7 +19,12 @@ Shader "PokiClash/PetPart"
         Cull Off
         Lighting Off
         ZWrite Off
-        Blend [_SrcBlend] [_DstBlend]
+        // Kênh ALPHA trộn riêng (One, OneMinusSrcAlpha): tướng vẽ ra RenderTexture nền trong suốt rồi shader viền sticker đọc lại. Trộn
+        // alpha bằng (SrcAlpha, OneMinusSrcAlpha) như màu thì chỗ một mảnh có điểm nửa trong (mép mờ, khử răng cưa) đè lên mảnh đặc,
+        // alpha của RT tụt xuống a*a + (1 - a) < 1: RT "thủng", sticker lấp giấy trắng vào → vệt sáng ở MỌI khớp nối của mọi tướng
+        // (người dùng 2026-11-12). Với (One, OneMinusSrcAlpha) alpha = a + dst*(1 - a): đúng độ phủ, màu trong RT là màu đã nhân alpha
+        // như StickerOutline giả định. Mảnh blend cộng giữ cách cũ (AolaActor đặt _SrcBlendA/_DstBlendA).
+        Blend [_SrcBlend] [_DstBlend], [_SrcBlendA] [_DstBlendA]
 
         Pass
         {

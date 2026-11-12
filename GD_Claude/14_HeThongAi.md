@@ -391,7 +391,7 @@ Người dùng gửi 10 hình aola cho đảo Mộc và dặn xếp theo thứ t
 | Ải | Chặng | Tướng | Độ hiếm (tạm) | Loại ải |
 |---|---|---|---|---|
 | 1 | Bờ Rêu | Tiên Lá | Thường | thường, tiến hóa |
-| 5 | Đồng Hoa Sáng | Hoa Nhụy | Thường | thường, tiến hóa |
+| 5 | Đồng Hoa Sáng | Mầm Ú | Thường | thường, tiến hóa |
 | 10 | Đồi Nấm | Dê Hoa | Khá | thường, tiến hóa |
 | 15 | Rừng Dây Leo | Bờm Lá | Khá | thường, tiến hóa |
 | 20 | Hang Nanh Gió | Phong Linh | Hiếm | mini boss |

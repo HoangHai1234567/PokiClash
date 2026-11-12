@@ -70,6 +70,10 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Mộc: Thanh Long ra trận ở 3 dạng (đang Play)", priority = 122)]
         static void TryThanhLong() => Start("thanh_long", "thanh_long_combat", 1, 3, 5);
 
+        // Cầu Gai (suất tien_la, ải 1 đảo Mộc, 2026-11-12): cắn, gồng bung gai, chiêu cuối lăn tông thẳng (AolaSticker.Rams)
+        [MenuItem("PokiClash/Thử/Đảo Mộc: Cầu Gai ra trận ở 2 dạng (đang Play)", priority = 122)]
+        static void TryCauGai() => Start("tien_la", "cau_gai_combat", 1, 5);
+
         // Rồng Giọt (2026-11-08, dạng 1 là rig .atomik có clip tiến hóa): mở hộp chi tiết Giọt Sương ở sao cuối của dạng 1, bấm nút
         // hack tiến hóa, chụp liên tục clip tiến hóa (lốc nước, bong bóng, vỡ tung) tới khi dạng 2 hiện; ảnh vào gs_tien_hoa/.
         [MenuItem("PokiClash/Thử/Giọt Sương tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]

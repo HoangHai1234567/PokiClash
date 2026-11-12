@@ -171,6 +171,13 @@ namespace PokiClash.Game
         }
 
         public float LocalX(int b) => b >= 0 && b < lx.Length ? lx[b] : 0;
+        public float LocalY(int b) => b >= 0 && b < ly.Length ? ly[b] : 0;
+
+        // xoay thêm xương b (độ) trong tư thế vừa lấy mẫu (trước World)
+        public void Turn(int b, float deg)
+        {
+            if (b >= 0 && b < lr.Length) lr[b] += deg;
+        }
 
         // ma trận thế giới (cha luôn đứng trước con)
         public void World()

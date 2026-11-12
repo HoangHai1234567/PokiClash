@@ -198,6 +198,28 @@ function addExtra(data, list) {
       const si = data.slots.findIndex(x => x.name === sn);
       if (si < 0) throw new Error("extra: không có slot " + sn);
       if (o.attachment) { const t = new spine.AttachmentTimeline(o.attachment.length, si); o.attachment.forEach((k, i) => t.setFrame(i, k[0], k[1])); tls.push(t); }
+      // alpha: [[t, độ đậm 0..1]] (mảnh hiện dần / tan dần trong clip)
+      if (o.alpha) { const t = new spine.AlphaTimeline(o.alpha.length, 0, si); o.alpha.forEach((k, i) => t.setFrame(i, k[0], k[1])); tls.push(t); }
+    }
+    // draworder: [[t, [tên slot theo thứ tự vẽ sau → trước] | null]] (null = thứ tự gốc): đưa một mảnh ra trước / sau trong clip
+    if (A.draworder) {
+      const t = new spine.DrawOrderTimeline(A.draworder.length);
+      A.draworder.forEach((k, i) => t.setFrame(i, k[0], k[1] ? k[1].map(n => { const si = data.slots.findIndex(x => x.name === n); if (si < 0) throw new Error("extra: không có slot " + n); return si; }) : null));
+      tls.push(t);
+    }
+    // paths: {tên ràng buộc đường cong: {position: [[t, giá trị tuyệt đối]]}} (thân chạy dọc đường cong như clip của họ)
+    for (const [pn, o] of Object.entries(A.paths || {})) {
+      const pi = data.pathConstraints.findIndex(x => x.name === pn);
+      if (pi < 0) throw new Error("extra: không có path constraint " + pn);
+      if (o.position) { const t = new spine.PathConstraintPositionTimeline(o.position.length, 0, pi); o.position.forEach((k, i) => t.setFrame(i, k[0], k[1])); tls.push(t); }
+    }
+    // iks: {tên ràng buộc IK: [[t, độ trộn, chiều gập]]} (giá trị tuyệt đối)
+    for (const [kn, o] of Object.entries(A.iks || {})) {
+      const ki = data.ikConstraints.findIndex(x => x.name === kn);
+      if (ki < 0) throw new Error("extra: không có IK " + kn);
+      const t = new spine.IkConstraintTimeline(o.length, 0, ki);
+      o.forEach((k, i) => t.setFrame(i, k[0], k[1], 0, k[2], false, false));
+      tls.push(t);
     }
     data.animations.push(new spine.Animation(A.name, tls, A.dur));
   }
@@ -217,8 +239,14 @@ function sample(data) {
       const t = Math.min(anim.duration, f / fps);
       sk.setToSetupPose();
       anim.apply(sk, t, t, false, [], 1, spine.MixBlend.setup, spine.MixDirection.mixIn);
+      // u: biến đổi riêng CHƯA áp ràng buộc (giá trị điều khiển người làm animation đặt: điểm điều khiển đường cong, góc FK);
+      // p: vị trí từng ràng buộc đường cong. Dùng để GHÉP / SỬA clip ở tầng điều khiển rồi đưa lại qua extra cho runtime nướng
+      const u = sk.bones.map(b => [b.x, b.y, b.rotation, b.scaleX, b.scaleY].map(v => Math.round(v * 1e4) / 1e4));
+      const pc = sk.pathConstraints.map(c => Math.round(c.position * 1e5) / 1e5);
+      // k: độ trộn và chiều gập của từng ràng buộc IK (clip của họ bật tắt IK: chân bám đất ↔ vung tự do)
+      const ik = sk.ikConstraints.map(c => [Math.round(c.mix * 1e4) / 1e4, c.bendDirection]);
       sk.updateWorldTransform(spine.Physics.update);
-      fr.push({b: sk.bones.map(b => [Math.round(b.worldX * 10) / 10, Math.round(b.worldY * 10) / 10, Math.round(b.getWorldRotationX() * 10) / 10,
+      fr.push({u, p: pc, k: ik, b: sk.bones.map(b => [Math.round(b.worldX * 10) / 10, Math.round(b.worldY * 10) / 10, Math.round(b.getWorldRotationX() * 10) / 10,
                                      Math.round(b.getWorldScaleX() * 100) / 100, Math.round(b.getWorldScaleY() * 100) / 100]),
                m: sk.bones.map(b => [Math.round(b.a * 1e4) / 1e4, Math.round(b.b * 1e4) / 1e4, Math.round(b.c * 1e4) / 1e4, Math.round(b.d * 1e4) / 1e4]),
                // l: biến đổi RIÊNG đã áp (x, y, xoay, tỉ lệ x, y, xiên x, y trong hệ xương cha), không làm tròn thô: dùng để chép
@@ -244,6 +272,7 @@ async function sheet(data, atlasText) {
   if (am.hasErrors()) { out.textContent = "LOI " + JSON.stringify(am.getErrors()); return; }
   const atlas = am.require(`${NAME}.atlas`);
   const sd = await readData(atlas);
+  if (Q.get("extra")) addExtra(sd, await (await fetch(`${DIR}/${Q.get("extra")}`)).json());      // tờ khung của clip tự viết
   const renderer = new spine.SceneRenderer(gl, ctx);
   const bones = Q.get("bones") === "1";
   // khung nhìn: theo tham số hoặc dáng gốc nới rộng

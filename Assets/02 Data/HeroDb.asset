@@ -461,8 +461,8 @@ MonoBehaviour:
       size: 1.1
     minion: 0
   - id: tien_la
-    name: "Ti\xEAn L\xE1"
-    title: "\xC1nh l\u1EE5c gi\u1EEFa r\u1EEBng"
+    name: "C\u1EA7u Gai"
+    title: "X\u01B0\u01A1ng r\u1ED3ng tr\xF2n h\xE1u \u0111\u1EDBp"
     aola: tien_la_1
     elem: 1
     rarity: 0
@@ -471,70 +471,64 @@ MonoBehaviour:
     ult: tien_la_ult
     passive: tien_la_pas
     shards: 10
-    line: "D\xF2ng Ti\xEAn L\xE1"
-    size: 0.9
+    line: "D\xF2ng C\u1EA7u Gai"
+    size: 0.8
     forms:
-    - name: "Th\xFA \xC1nh L\u1EE5c"
+    - name: "C\u1EA7u Gai Nh\xED"
       aola: tien_la_1
-      size: 0.9
-    - name: "Linh \xC1nh L\u1EE5c"
+      size: 0.8
+    - name: "C\u1EA7u Gai"
       aola: tien_la_2
-      size: 1.02
-    - name: "Ti\xEAn L\xE1"
-      aola: tien_la_3
-      size: 1.14
+      size: 0.96
     minion: 0
-  - id: hoa_nhuy
-    name: "Hoa Nh\u1EE5y"
-    title: "Ti\xEAn hoa nh\u1EE5y \u0111\u1ECF"
-    aola: hoa_nhuy_1
+  - id: mam_u
+    name: "M\u1EA7m \xDA"
+    title: "Tinh linh h\u1EA1t m\u1EA7m b\u1EE5ng b\u1EF1"
+    aola: mam_u_1
     elem: 1
     rarity: 0
     stats: 3c000000280000003c0000003c0000003c00000032000000
-    skill: hoa_nhuy_skill
-    ult: hoa_nhuy_ult
-    passive: hoa_nhuy_pas
+    skill: mam_u_skill
+    ult: mam_u_ult
+    passive: mam_u_pas
     shards: 10
-    line: "D\xF2ng Hoa Nh\u1EE5y"
+    line: "D\xF2ng M\u1EA7m \xDA"
     size: 0.9
     forms:
-    - name: "Th\xFA Ba L\xE1"
-      aola: hoa_nhuy_1
+    - name: "H\u1EA1t \xDA"
+      aola: mam_u_1
       size: 0.9
-    - name: "Th\xFA B\xFAp Hoa"
-      aola: hoa_nhuy_2
+    - name: "M\u1EA7m \xDA"
+      aola: mam_u_2
       size: 1.02
-    - name: "Ti\xEAn Hoa Nh\u1EE5y"
-      aola: hoa_nhuy_3
+    - name: "Hoa \xDA"
+      aola: mam_u_3
       size: 1.14
     minion: 0
-  - id: de_hoa
-    name: "D\xEA Hoa"
-    title: "S\u1EEBng g\u1ED7 v\u01B0\u01A1ng mi\u1EC7n hoa"
-    aola: de_hoa_1
+  - id: gac_da
+    name: "G\u1EA1c \u0110\xE1"
+    title: "T\u01B0\u1EE3ng c\u1ED5 gi\u1EEF r\u1EEBng"
+    aola: gac_da_1
     elem: 1
     rarity: 1
     stats: 640000003c0000001e000000280000001e00000046000000
-    skill: de_hoa_skill
-    ult: de_hoa_ult
-    passive: de_hoa_pas
+    skill: gac_da_skill
+    ult: gac_da_ult
+    passive: gac_da_pas
     shards: 15
-    line: "D\xF2ng D\xEA Hoa"
-    size: 0.9
+    line: "D\xF2ng G\u1EA1c \u0110\xE1"
+    size: 0.92
     forms:
-    - name: "D\xEA Hoa Con"
-      aola: de_hoa_1
-      size: 0.9
-    - name: "D\xEA G\u1ED7"
-      aola: de_hoa_2
-      size: 1.02
-    - name: "D\xEA S\u1EEBng Chi\u1EBFn"
-      aola: de_hoa_3
-      size: 1.14
+    - name: "M\u1EA7m \u0110\xE1"
+      aola: gac_da_1
+      size: 0.92
+    - name: "G\u1EA1c \u0110\xE1"
+      aola: gac_da_2
+      size: 1.1
     minion: 0
   - id: bom_la
-    name: "B\u1EDDm L\xE1"
-    title: "Chi\u1EBFn s\u01B0 r\u1EEBng xanh"
+    name: "L\u1ED9c Phong"
+    title: "H\u01B0\u01A1u g\u1ED7 r\u1EEBng phong"
     aola: bom_la_1
     elem: 1
     rarity: 1
@@ -543,19 +537,19 @@ MonoBehaviour:
     ult: bom_la_ult
     passive: bom_la_pas
     shards: 15
-    line: "D\xF2ng B\u1EDDm L\xE1"
-    size: 0.92
+    line: "D\xF2ng L\u1ED9c Phong"
+    size: 0.8
     forms:
-    - name: "B\u1EDDm L\xE1 Con"
+    - name: "G\u1ED1c Ng\u01A1"
       aola: bom_la_1
-      size: 0.92
-    - name: "Chi\u1EBFn S\u01B0 B\u1EDDm L\xE1"
+      size: 0.8
+    - name: "L\u1ED9c Phong"
       aola: bom_la_2
       size: 1.1
     minion: 0
   - id: phong_linh
-    name: Phong Linh
-    title: "Linh t\u01B0\u1EDBng gi\xF3 l\xE1"
+    name: "L\xE2m T\u01B0\u1EE3ng"
+    title: "Ma m\xFAt c\xF5ng r\u1EEBng"
     aola: phong_linh_1
     elem: 1
     rarity: 2
@@ -564,19 +558,19 @@ MonoBehaviour:
     ult: phong_linh_ult
     passive: phong_linh_pas
     shards: 20
-    line: "D\xF2ng Phong Linh"
+    line: "D\xF2ng L\xE2m T\u01B0\u1EE3ng"
     size: 0.92
     forms:
-    - name: "Ti\u1EC3u Phong Linh"
+    - name: "T\u01B0\u1EE3ng M\u1EA7m"
       aola: phong_linh_1
       size: 0.92
-    - name: "Phong Linh T\u01B0\u1EDBng"
+    - name: "L\xE2m T\u01B0\u1EE3ng"
       aola: phong_linh_2
       size: 1.1
     minion: 0
   - id: gio_loc
-    name: "Gi\xF3 L\u1ED1c"
-    title: "R\u1ED3ng gi\xF3 x\xE9 m\xE2y"
+    name: "Linh \u0110i\u1EC3u"
+    title: "Chim th\u1EA7n gi\u1EEF r\u1EEBng"
     aola: gio_loc_1
     elem: 1
     rarity: 2
@@ -585,18 +579,15 @@ MonoBehaviour:
     ult: gio_loc_ult
     passive: gio_loc_pas
     shards: 20
-    line: "D\xF2ng Gi\xF3 L\u1ED1c"
-    size: 0.9
+    line: "D\xF2ng Linh \u0110i\u1EC3u"
+    size: 0.92
     forms:
-    - name: "Gi\xF3 Con"
+    - name: "\u0110i\u1EC3u Nhi"
       aola: gio_loc_1
-      size: 0.9
-    - name: "Gi\xF3 Cu\u1ED9n"
+      size: 0.92
+    - name: "Linh \u0110i\u1EC3u"
       aola: gio_loc_2
-      size: 1.02
-    - name: "Gi\xF3 L\u1ED1c"
-      aola: gio_loc_3
-      size: 1.14
+      size: 1.1
     minion: 0
   - id: long_vuot
     name: "Long Vu\u1ED1t"
@@ -620,8 +611,8 @@ MonoBehaviour:
       size: 1.1
     minion: 0
   - id: tho_hoang
-    name: "Th\u1ECF Ho\xE0ng"
-    title: "Chi\u1EBFn gi\xE1p ho\xE0ng c\u1EF1c"
+    name: "Vo\u1ECDc T\u01B0\u1EDBng"
+    title: "Ki\u1EBFm kh\xE1ch gi\xE1p l\xE1"
     aola: tho_hoang_1
     elem: 1
     rarity: 3
@@ -630,10 +621,10 @@ MonoBehaviour:
     ult: tho_hoang_ult
     passive: tho_hoang_pas
     shards: 30
-    line: "D\xF2ng Th\u1ECF Ho\xE0ng"
+    line: "D\xF2ng Vo\u1ECDc T\u01B0\u1EDBng"
     size: 1
     forms:
-    - name: "Th\u1ECF Ho\xE0ng"
+    - name: "Vo\u1ECDc T\u01B0\u1EDBng"
       aola: tho_hoang_1
       size: 1
     minion: 0
@@ -1040,8 +1031,8 @@ MonoBehaviour:
       size: 1.14
     minion: 0
   - id: so_ngoc
-    name: "S\xF2 Ng\u1ECDc"
-    title: "Ph\xE1o \u0111\xE0i ng\u1ECDc trai"
+    name: "B\xE1t Tr\u1EA3o"
+    title: "B\u1EA1ch tu\u1ED9c qu\xE1i v\u1EADt g\u1ECDi b\u1EA7y"
     aola: so_ngoc_1
     elem: 2
     rarity: 2
@@ -1050,13 +1041,13 @@ MonoBehaviour:
     ult: so_ngoc_ult
     passive: so_ngoc_pas
     shards: 20
-    line: "D\xF2ng S\xF2 Ng\u1ECDc"
+    line: "D\xF2ng B\xE1t Tr\u1EA3o"
     size: 0.92
     forms:
-    - name: "S\xF2 Gai"
+    - name: "Tr\u1EA3o Nhi"
       aola: so_ngoc_1
       size: 0.92
-    - name: "B\u1EA1ng V\u01B0\u01A1ng"
+    - name: "B\xE1t Tr\u1EA3o"
       aola: so_ngoc_2
       size: 1.1
     minion: 0

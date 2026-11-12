@@ -306,6 +306,42 @@ chiêu lao tới. Khiên nước, suối hồi phục, tụ nước mới có �
   đúng `game.hitTimes` (sân không phải dời số sát thương, khựng, rung). Chưa xem trong Unity lúc viết.
 - **Còn mở:** chưa thử trên Android; `tam_tay`, `giot_suong` (rig dựng bằng script riêng) và 2 tướng chưa có rig vẫn bắn tia cũ.
 
+### 5d. Bộ Mộc trong game (2026-11-12, mới có chiêu lá của tinh linh rừng Mầm Ú, id `mam_u`)
+
+- Làm thẳng trong game, chưa có bản Python `bo_moc.py`. File `Assets/01 Script/Game/Battle/HatMoc.cs` (phần `partial` của `HatLua`).
+- **Đi chung đường bộ Thủy**: mã chiêu vẫn bắt đầu bằng `n_` (`n_la` phun lá, `n_la_va` cú húc lá vỡ), thêm `case` trong
+  `HatNuoc.PlayNuoc`, `HoldNuoc`, `NuocAtHit`; màu khai ở `WThemes[<id>]` (mực, lục đậm, lục non, lục nhạt, phấn); bảng chiêu theo tướng
+  `StageView.MocFx` (`FireMana` / `FireUlt` có nhánh `Elem.Moc`). Nhờ vậy phát từ đầu clip kèm `lead`, giữ dáng nhả, hộp chi tiết tướng
+  đều chạy sẵn, không phải thêm đường riêng.
+- **Hạt lá**: `ArtGen/Spine/la.py` ghi thẳng `hat_leaf_<i>` (xám vân chì có gân sẫm) và `hat_leafs_<i>` (trắng đặc) vào
+  `Assets/03 Art/Fx/Hat` (không chạy `xuat_hat.py`: máy thiếu `hat_gpt/` thì nó ghi đè ảnh GPT bằng hình thuật toán), rồi chạy lại hai
+  menu gán ảnh hạt. `DrawLeaf`: một lớp mực + một lớp màu (60% lục đậm, 40% lục non), xoay theo `p.ang` (độ), bề ngang co giãn
+  `0,4 + 0,6·|cos|` cho lá lật nghiêng.
+- **Phun lá `NLa`**: hút lá nhỏ vào mồm tới khung nhả; 72 lá/giây (đầu luồng ×1,5), tốc 780, nón ±0,16 rad, lá cỡ 7,5–12,5, tự lái về
+  một điểm trong thân (±0,24 / ±0,3 tH), lượn sin; chạm: 45% bật mẩu lá, 14% phấn; rung nhẹ 7 lần/giây; cuối luồng `LaNo` (chớp toé
+  nhỏ, 12 lá rải đều góc, phấn, vòng dưới chân). 40 lá/giây cỡ 5,5–9,5 thì thưa, người dùng dặn "nhiều lá".
+- Tour: `PokiClash/Thử/Đảo Mộc: hạt lá tinh linh rừng… (đang Play)` (`Editor/MocFxTour.cs` gọi `ThuyFxTour.TryOnly(id)`, dùng được cho
+  mọi tướng). Unity MCP ở cổng 8080.
+- **Gai (Cầu Gai, suất `tien_la`)**: mã `n_gai` (chiêu mana "Gồng Gai") và `n_gai_va` (cú tông của chiêu cuối), cùng file `HatMoc.cs`.
+  - Hạt: `ArtGen/Spine/gai.py` ghi `hat_thorn_<i>` (một gai), `hat_tuft_<i>` (cụm gai trồi), `hat_shard_<i>` (dăm gai) + bản đặc
+    `…s_<i>`. Quy ước đặt hình: chiếm tối đa 92% khung vuông, **đáy hình ở 96% khung** → game cắm đáy xuống đất mà không phải đo
+    (`GaiLap`, `GaiDay`). Ảnh GPT (gói `hat_gai` của `build_hat.py`, nhập về `hat_gpt/`) có thì `gai.py` tự dùng thay hình thuật toán.
+  - `Tuft` (cụm gai) và `Spike` (một gai dài theo hướng) cùng nhịp `GaiGrow`: bật quá cỡ 1,22 trong 0,07 s, về cỡ, đứng, rút ở 28%
+    cuối đời. `Shard`: dăm gai xoay, rơi có trọng lực.
+  - `NGai`: gồng hút dăm gai vào thân → khung nhả dăm gai văng quanh thân (gai thân dài ra là việc của rig) → 4 cụm gai chạy trên đất
+    từ 36% quãng tới chân đối thủ, cách nhau 0,06 s, cụm sau to hơn → cụm lớn sau lưng đối thủ + 5 gai dài đâm chéo (ba cao ở `BACK`,
+    hai thấp hai bên ở `FRONT`), chớp toé, dăm gai, bụi.
+  - Lỗi đã gặp: kem nhạt nhân ảnh xám vân chì ra xám be, viền mực 5 px → lẫn vào nền cát; dùng kem vàng ấm (255, 238, 164) và viền
+    9 px (bằng viền gai của tướng). Hạt trồi từ đất đặt ở `FRONT` phải nằm ngoài thân con ra chiêu và không che mặt con bị trúng.
+
+- **Lâm Tượng (ma mút rừng, suất `phong_linh`)**: `HatVoi.cs`, mã `n_voi_phun` (vòi phụt luồng hạt cây + lá, hai nhịp phụt) và
+  `n_dam_rung` / `n_dam_rung1` (dậm chân: bụi, đất vụn, sóng đất gồm các cột lá phụt lên chạy tới, rễ trồi + cột lá phun dưới chân
+  đối thủ; tham số `manh` cho dạng đầu nhẹ hơn). Không cần ảnh hạt mới: hạt cây = `hat_drop_*` nhuộm hai lớp màu mật (`Seed`), bụi
+  đất = ảnh bọt nhuộm be (`Bui`), rễ = `Spike` nhuộm nâu. Clip `cast` tự giữ dáng nhả thì ĐỪNG khai `HoldNuoc` (giữ hai lần).
+  - **Đòn đánh thường của tướng LAO tới** (`n_hat_nga`, bảng `StageView.MocAtk`): khai mã trong `HatLua.AtkLao` thì `AtkFx` phát cả khi
+    rig không khai `stay`. Chỗ đáp = 72 % quãng tới đối thủ (`AolaSticker.Lunge`), đừng đoán 50 %. Lúc trúng con đánh đè lên đối
+    thủ: chỗ chạm chỉ đặt chớp toé + mảnh văng ra, không đặt bụi (dính lên mặt con đánh). Tour chụp `<tướng>_<dạng>_atk_NN`.
+
 ## 6. Mẫu dựng chiêu mới
 
 ```python

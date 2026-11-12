@@ -145,6 +145,10 @@ namespace PokiClash
         float JumpOff => actor.HitFrame(AolaActor.Skill) / actor.Fps;     // sự kiện "bat": rời đất
         float LandHit => actor.HitFrame(AolaActor.SkillLand) / actor.Fps; // sự kiện "cham_dat"
         const float JumpStay = 0.16f, JumpBack = 0.42f;                   // đè trên chỗ đáp, rồi bật về chỗ cũ (giây)
+        // Chiêu cuối TÔNG THẲNG (người dùng 2026-11-12, Cầu Gai: "xoay liên tục rồi tông thẳng vào đối thủ, tông xong bị bật ngược
+        // về chỗ cũ"): rig khai sự kiện "tong" trong clip skill_land. Bay gần như ngang, nhanh dần, tới THÂN đối thủ (không rơi từ
+        // trên xuống đầu); nơi gọi đặt chỗ đáp ngang thân (StageView.Place).
+        public bool Rams => Jumps && actor.EventTime(AolaActor.SkillLand, "tong") >= 0;
 
         // Độ dời của cú nhảy ở giây t của clip Skill. to: chỗ đáp so với chân (x theo màn, y LÊN là dương), h: chiều cao tướng,
         // cùng đơn vị; o trả cùng đơn vị, y lên là dương. false: clip này không phải chiêu nhảy.
@@ -158,6 +162,13 @@ namespace PokiClash
             {
                 // bay theo parabol: ngang đều, đỉnh cao hơn chỗ đáp để rơi từ trên xuống
                 float u = (t - t0) / Mathf.Max(0.01f, t1 - t0);
+                if (Rams)
+                {
+                    // tông thẳng: nhanh dần tới lúc chạm, chỉ nhấc nhẹ khỏi đất
+                    float v2 = u * u * (0.4f + 0.6f * u);
+                    o = new Vector2(to.x * v2, to.y * v2 + h * 0.10f * 4 * u * (1 - u));
+                    return true;
+                }
                 float up = Mathf.Max(0, to.y) * 0.35f + h * 0.85f;
                 o = new Vector2(to.x * u, to.y * u + up * 4 * u * (1 - u));
                 return true;
@@ -170,7 +181,8 @@ namespace PokiClash
             }
             if (v >= 1) return true;
             float s = v * v * (3 - 2 * v);
-            o = new Vector2(to.x * (1 - s), to.y * (1 - s) + h * 0.4f * 4 * v * (1 - v));
+            // tông thẳng: bị bật ngược về theo VÒNG CUNG cao (người dùng 2026-11-12); nhảy đè: nảy thấp về chỗ
+            o = new Vector2(to.x * (1 - s), to.y * (1 - s) + h * (Rams ? 0.85f : 0.4f) * 4 * v * (1 - v));
             return true;
         }
 
@@ -251,7 +263,10 @@ namespace PokiClash
             float h = Mathf.Max(1, stageHeight);
             var d = to.Value;
             actor.SetFarTarget(new Vector2((flip ? -d.x : d.x) / h, -d.y / h));
-            if (shift) Shift(new Vector2(Mathf.Clamp(d.x / h * 0.5f, -1.1f, 1.1f), Mathf.Clamp(-d.y / h * 0.5f, -0.8f, 0.8f)));
+            // Khung camera dời theo đích để mảnh bay còn trong ảnh. Đích ở TRÊN (khung sẵn có 2,7 chiều cao phía trên chân): chỉ dời lên khi
+            // đích cao quá 1,9 chiều cao, vì dời lên là mất phần dưới chân (đuôi Linh Điểu thõng dưới chân bị cắt ngang lúc ra chiêu mana).
+            float up = -d.y / h;
+            if (shift) Shift(new Vector2(Mathf.Clamp(d.x / h * 0.5f, -1.1f, 1.1f), up > 0 ? Mathf.Clamp(up - 1.9f, 0, 0.8f) : Mathf.Max(up * 0.5f, -0.8f)));
         }
 
         // khung xem tướng (không có đối thủ): hiệu ứng ở xa hiện trước mặt, cách chân heights lần chiều cao, trong khung camera

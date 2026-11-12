@@ -100,7 +100,7 @@ Người dùng gửi 10 hình aola cho đảo Mộc, thứ tự trái sang phả
 | Ải | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn (dạng 1 → 2 → 3) | Trạng thái |
 |---|---|---|---|---|---|---|
 | 1 | `tien_la` | Tiên Lá | Ánh lục giữa rừng | Thường | 648 绿光兽 → 649 绿光小灵 → 650 绿光精灵 | mới |
-| 5 | `hoa_nhuy` | Hoa Nhụy | Tiên hoa nhụy đỏ | Thường | 593 三叶兽 → 594 花苞兽 → 595 花蕊精灵 | mới |
+| 5 | `mam_u` | Mầm Ú | Tinh linh hạt mầm bụng bự | Thường | hình riêng trên rig Spine (2026-11-12, thay dòng Hoa Nhụy `hoa_nhuy` 593 → 594 → 595): Hạt Ú → Mầm Ú → Hoa Ú | mới, đổi id |
 | 10 | `de_hoa` | Dê Hoa | Sừng gỗ vương miện hoa | Khá (từ Hiếm) | 866 花羊羊 → 867 木尔羊 → 868 阿瑞斯角羊 | giữ, thẻ mới |
 | 15 | `bom_la` | Bờm Lá | Chiến sư rừng xanh | Khá | 911 木叶小兽 → 912 木叶战狮 | mới |
 | 20 | `phong_linh` | Phong Linh | Linh tướng gió lá | Hiếm (từ Sử thi) | 943 小风灵 → 944 风之灵将 | giữ |

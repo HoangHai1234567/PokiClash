@@ -2404,10 +2404,10 @@
   {
    "id": "phong_linh_skill",
    "owner": "phong_linh",
-   "name": "Nanh Gió",
+   "name": "Vòi Phun",
    "rarity": "uncommon",
    "kind": "skill",
-   "icon": "fang",
+   "icon": "leaf",
    "cost": {
     "mana": 35
    },
@@ -2422,10 +2422,10 @@
   {
    "id": "phong_linh_ult",
    "owner": "phong_linh",
-   "name": "Phong Mộc Sứ",
+   "name": "Dậm Rừng",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "wind",
+   "icon": "crack",
    "cost": {
     "rage": 100,
     "mana": 45
@@ -2446,10 +2446,10 @@
   {
    "id": "phong_linh_pas",
    "owner": "phong_linh",
-   "name": "Nhanh Nhẹn",
+   "name": "Áo Lá Dày",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "feather",
+   "icon": "shield",
    "trigger": "start",
    "effects": [
     {
@@ -3227,7 +3227,7 @@
   {
    "id": "so_ngoc_skill",
    "owner": "so_ngoc",
-   "name": "Phun Bọt Ngọc",
+   "name": "Bóng Mực",
    "rarity": "uncommon",
    "kind": "skill",
    "icon": "bubble",
@@ -3252,7 +3252,7 @@
   {
    "id": "so_ngoc_ult",
    "owner": "so_ngoc",
-   "name": "Mưa Gai",
+   "name": "Gọi Bầy",
    "rarity": "epic",
    "kind": "ult",
    "icon": "fang",
@@ -3274,7 +3274,7 @@
   {
    "id": "so_ngoc_pas",
    "owner": "so_ngoc",
-   "name": "Tim Ngọc Trai",
+   "name": "Túi Mực",
    "rarity": "rare",
    "kind": "passive",
    "icon": "moon",
@@ -4455,7 +4455,7 @@
   {
    "id": "tien_la_skill",
    "owner": "tien_la",
-   "name": "Ánh Lục",
+   "name": "Gồng Gai",
    "rarity": "common",
    "kind": "skill",
    "icon": "sun",
@@ -4476,7 +4476,7 @@
   {
    "id": "tien_la_ult",
    "owner": "tien_la",
-   "name": "Mưa Ánh Sáng",
+   "name": "Lăn Gai",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "leaf",
@@ -4501,7 +4501,7 @@
   {
    "id": "tien_la_pas",
    "owner": "tien_la",
-   "name": "Lá Non",
+   "name": "Mọng Nước",
    "rarity": "common",
    "kind": "passive",
    "icon": "seed",
@@ -4514,12 +4514,12 @@
    ]
   },
   {
-   "id": "hoa_nhuy_skill",
-   "owner": "hoa_nhuy",
-   "name": "Phấn Hoa",
+   "id": "mam_u_skill",
+   "owner": "mam_u",
+   "name": "Phun Lá",
    "rarity": "common",
    "kind": "skill",
-   "icon": "lotus",
+   "icon": "leaf",
    "cost": {
     "mana": 25
    },
@@ -4539,12 +4539,12 @@
    ]
   },
   {
-   "id": "hoa_nhuy_ult",
-   "owner": "hoa_nhuy",
-   "name": "Hương Ru Ngủ",
+   "id": "mam_u_ult",
+   "owner": "mam_u",
+   "name": "Húc Bụng",
    "rarity": "uncommon",
    "kind": "ult",
-   "icon": "moon",
+   "icon": "fist",
    "cost": {
     "rage": 100,
     "mana": 35
@@ -4564,12 +4564,12 @@
    ]
   },
   {
-   "id": "hoa_nhuy_pas",
-   "owner": "hoa_nhuy",
-   "name": "Nhụy Hút Mật",
+   "id": "mam_u_pas",
+   "owner": "mam_u",
+   "name": "Bụng Nảy",
    "rarity": "common",
    "kind": "passive",
-   "icon": "lotus",
+   "icon": "seed",
    "trigger": "onHit",
    "effects": [
     {
@@ -4583,9 +4583,9 @@
    ]
   },
   {
-   "id": "de_hoa_skill",
-   "owner": "de_hoa",
-   "name": "Húc Sừng",
+   "id": "gac_da_skill",
+   "owner": "gac_da",
+   "name": "Quyền Đá Bay",
    "rarity": "common",
    "kind": "skill",
    "icon": "crack",
@@ -4604,9 +4604,9 @@
    ]
   },
   {
-   "id": "de_hoa_ult",
-   "owner": "de_hoa",
-   "name": "Xung Phong Sừng Chiến",
+   "id": "gac_da_ult",
+   "owner": "gac_da",
+   "name": "Cầu Tim Rừng",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "hammer",
@@ -4630,9 +4630,9 @@
    ]
   },
   {
-   "id": "de_hoa_pas",
-   "owner": "de_hoa",
-   "name": "Lông Dày",
+   "id": "gac_da_pas",
+   "owner": "gac_da",
+   "name": "Da Đá Rêu",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -4649,7 +4649,7 @@
   {
    "id": "bom_la_skill",
    "owner": "bom_la",
-   "name": "Vuốt Lá",
+   "name": "Tia Gạc Phong",
    "rarity": "common",
    "kind": "skill",
    "icon": "claw",
@@ -4667,7 +4667,7 @@
   {
    "id": "bom_la_ult",
    "owner": "bom_la",
-   "name": "Gầm Rừng Xanh",
+   "name": "Cầu Rừng Thu",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "rage",
@@ -4710,10 +4710,10 @@
   {
    "id": "gio_loc_skill",
    "owner": "gio_loc",
-   "name": "Lưỡi Gió",
+   "name": "Lông Lá Găm",
    "rarity": "uncommon",
    "kind": "skill",
-   "icon": "wind",
+   "icon": "leaf",
    "cost": {
     "mana": 35
    },
@@ -4728,10 +4728,10 @@
   {
    "id": "gio_loc_ult",
    "owner": "gio_loc",
-   "name": "Bão Xé Mây",
+   "name": "Thiên Thạch Giáng",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "wind",
+   "icon": "rock",
    "cost": {
     "rage": 100,
     "mana": 45
@@ -4747,10 +4747,10 @@
   {
    "id": "gio_loc_pas",
    "owner": "gio_loc",
-   "name": "Thân Gió",
+   "name": "Cánh Lá Nhẹ",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "feather",
+   "icon": "wing",
    "trigger": "start",
    "effects": [
     {
@@ -4825,10 +4825,10 @@
   {
    "id": "tho_hoang_skill",
    "owner": "tho_hoang",
-   "name": "Hoàng Quyền",
+   "name": "Bạt Kiếm Trảm",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "fist",
+   "icon": "sword",
    "cost": {
     "mana": 40
    },
@@ -4843,10 +4843,10 @@
   {
    "id": "tho_hoang_ult",
    "owner": "tho_hoang",
-   "name": "Hoàng Cực Thiên Chưởng",
+   "name": "Ảo Ảnh Loạn Trảm",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "crown",
+   "icon": "wind",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -4867,10 +4867,10 @@
   {
    "id": "tho_hoang_pas",
    "owner": "tho_hoang",
-   "name": "Khí Hoàng Gia",
+   "name": "Tĩnh Tâm Kiếm",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "crown",
+   "icon": "helmet",
    "trigger": "turnStart",
    "effects": [
     {
@@ -7816,10 +7816,10 @@
   {
    "id": "tho_hoang_boss",
    "owner": "tho_hoang",
-   "name": "Hoàng Giáp Hộ Thân",
+   "name": "Giáp Lá Hộ Thân",
    "rarity": "epic",
    "kind": "passive",
-   "icon": "crown",
+   "icon": "shield",
    "trigger": "lowHp",
    "below": 0.5,
    "effects": [

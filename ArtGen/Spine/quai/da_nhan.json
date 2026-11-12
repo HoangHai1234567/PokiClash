@@ -40,16 +40,17 @@
       "id": "so_ngoc",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/tm05_1/rig",
-          "atomik": "tm05_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/bach_tuoc_1/rig",
+          "atomik": "bach_tuoc_1.atomik",
           "dich": "so_ngoc_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/tm05_2/rig",
-          "atomik": "tm05_2.atomik",
+          "nguon": "ArtGen/Spine/inbox/bach_tuoc_2/rig",
+          "atomik": "bach_tuoc_2.atomik",
           "dich": "so_ngoc_2"
         }
-      ]
+      ],
+      "ghi_chu": "2026-11-12: suất 5 đảo Thủy (ải 20) nay là dòng bạch tuộc quái vật (bach_tuoc, người dùng lên ý tưởng, duyệt concept và bảo thay vào game; hình mình trên rig monster_3616, ArtGen/Spine/bach_tuoc_rig.py); rig cũ tm05 (sò ngọc) đã thay. Id game tạm giữ so_ngoc: tên, danh hiệu, tên dạng, tên thẻ chờ người dùng đặt."
     },
     {
       "id": "lien_kinh",
@@ -85,11 +86,11 @@
     },
     {
       "id": "han_ngac",
-      "_ghi_chu": "2026-11-12: suất 9 đảo Thủy thay bằng dòng rồng vây (rong_vay, cá sấu băng tm09 bỏ). Rồng vây mới có 1 dạng: cả hai dạng tạm dùng chung rig rong_vay_1 (giữ số dạng, không đổi golden); có dạng 2 thì trỏ han_ngac_2 sang rig đó.",
+      "_ghi_chu": "2026-11-12: suất 9 đảo Thủy là dòng rồng vây (cá sấu băng tm09 bỏ). Dạng 1 = rồng non (rig rong_vay_non: cùng rig, cùng clip, thân ngắn, đầu to, cánh vây nhỏ, da lam nhạt); dạng 2 = rồng trưởng thành (rig rong_vay_1). Dạng 1 có clip evolve (gộp bản nhẹ dạng 2).",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/rong_vay_1/rig",
-          "atomik": "rong_vay_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/rong_vay_non/rig",
+          "atomik": "rong_vay_non.atomik",
           "dich": "han_ngac_1"
         },
         {
@@ -180,6 +181,115 @@
           "dich": "hai_long_3"
         }
       ]
+    },
+    {
+      "id": "mam_u",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tinh_linh_1/rig",
+          "atomik": "tinh_linh_1.atomik",
+          "dich": "mam_u_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tinh_linh_2/rig",
+          "atomik": "tinh_linh_2.atomik",
+          "dich": "mam_u_2"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tinh_linh_3/rig",
+          "atomik": "tinh_linh_3.atomik",
+          "dich": "mam_u_3"
+        }
+      ],
+      "ghi_chu": "2026-11-12: suất 2 đảo Mộc (ải 5) nay là dòng tinh linh rừng mập (tinh_linh, người dùng lên ý tưởng và duyệt; hình mình trên rig monster_3407; ArtGen/Spine/tinh_linh*.py, ghi chú inbox/tinh_linh_ghichu.md). Đủ 3 dạng: hạt mầm, mầm hai lá, nở hoa (dạng 1 và 3 là đề xuất của Claude); dạng 1, 2 có clip evolve (dạng cũ nhảy vọt lên, dạng sau rơi xuống). Cùng ngày đổi id hoa_nhuy -> mam_u, tên Mầm Ú (Hạt Ú, Mầm Ú, Hoa Ú), thẻ Phun Lá, Húc Bụng, Bụng Nảy (quai/doi_mam_u.py)."
+    },
+    {
+      "id": "tien_la",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/xuong_rong_1/rig",
+          "atomik": "xuong_rong_1.atomik",
+          "dich": "tien_la_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/xuong_rong_2/rig",
+          "atomik": "xuong_rong_2.atomik",
+          "dich": "tien_la_2"
+        }
+      ]
+    },
+    {
+      "id": "gac_da",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/tuong_da_1/rig",
+          "atomik": "tuong_da_1.atomik",
+          "dich": "gac_da_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/tuong_da_2/rig",
+          "atomik": "tuong_da_2.atomik",
+          "dich": "gac_da_2"
+        }
+      ]
+    },
+    {
+      "id": "bom_la",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/huou_go_1/rig",
+          "atomik": "huou_go_1.atomik",
+          "dich": "bom_la_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/huou_go_2/rig",
+          "atomik": "huou_go_2.atomik",
+          "dich": "bom_la_2"
+        }
+      ]
+    },
+    {
+      "id": "phong_linh",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/voi_rung_1/rig",
+          "atomik": "voi_rung_1.atomik",
+          "dich": "phong_linh_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/voi_rung_2/rig",
+          "atomik": "voi_rung_2.atomik",
+          "dich": "phong_linh_2"
+        }
+      ],
+      "ghi_chu": "2026-11-12: suất 5 đảo Mộc (ải 20) nay là dòng ma mút rừng (voi_rung, người dùng duyệt concept và rig, bảo vào game và dùng tên Claude đề xuất: Lâm Tượng / Tượng Mầm; ArtGen/Spine/voi_rung.py, ghi chú inbox/voi_rung_ghichu.md). Không có rig gốc: xương, lưới tự dựng. Dạng 1 có clip evolve (gộp bản nhẹ dạng 2). Id game giữ phong_linh."
+    },
+    {
+      "id": "gio_loc",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/chim_la_non/rig",
+          "atomik": "chim_la_non.atomik",
+          "dich": "gio_loc_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/chim_la_1/rig",
+          "atomik": "chim_la_1.atomik",
+          "dich": "gio_loc_2"
+        }
+      ],
+      "ghi_chu": "2026-11-12: suất 6 đảo Mộc (ải 30) nay là dòng chim bảo hộ rừng (mã làm việc chim_la, người dùng lên ý tưởng, duyệt concept hai dạng và bảo \"ghép vào game\"; hình mình trên rig monster_3630, ArtGen/Spine/chim_la_rig.py). Id game giữ gio_loc; tên Linh Điểu / Điểu Nhi và tên thẻ do Claude đặt (quai/doi_linh_dieu.py), người dùng có thể đổi. Ba dạng cũ còn hai: Resources/gio_loc_3 xoá."
+    },
+    {
+      "id": "tho_hoang",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/kiem_si_1/rig",
+          "atomik": "kiem_si_1.atomik",
+          "dich": "tho_hoang_1"
+        }
+      ],
+      "ghi_chu": "2026-11-12: suất 8 đảo Mộc (ải 50) nay là voọc kiếm sĩ giáp lá (mã làm việc kiem_si, người dùng lên ý tưởng, chọn concept B, duyệt rig và bảo \"cho vào game\"; hình mình trên rig monster_3620, ArtGen/Spine/kiem_si_rig.py, ghi chú inbox/kiem_si_ghichu.md). Một dạng. Id game giữ tho_hoang; tên Voọc Tướng và tên thẻ do Claude đặt (quai/doi_kiem_si.py), người dùng có thể đổi."
     }
   ]
 }

@@ -182,8 +182,8 @@ namespace PokiClash.EditorTools
                 // 5 mốc cuối (2026-11-05): đội Kim Khá khắc hệ, bằng cấp, 300 trận: Gió Lốc 58%, Long Vuốt 65%, Thỏ Hoàng 60%,
                 // Mộc Tinh 56%, Thanh Long 56%
                 new Intro(1, "tien_la", "Bờ Rêu"),
-                new Intro(5, "hoa_nhuy", "Đồng Hoa Sáng"),
-                new Intro(10, "de_hoa", "Đồi Nấm"),
+                new Intro(5, "mam_u", "Đồng Hoa Sáng"),
+                new Intro(10, "gac_da", "Đồi Nấm"),
                 new Intro(15, "bom_la", "Rừng Dây Leo"),
                 new Intro(20, "phong_linh", "Hang Nanh Gió"),
                 new Intro(30, "gio_loc", "Thung Lũng Lá", "gio_loc_boss", -0.15),

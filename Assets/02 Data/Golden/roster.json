@@ -233,6 +233,17 @@
   },
   {
    "id": "tien_la",
+   "n": 2,
+   "idx": [
+    0,
+    0,
+    1,
+    1,
+    1
+   ]
+  },
+  {
+   "id": "mam_u",
    "n": 3,
    "idx": [
     0,
@@ -243,25 +254,14 @@
    ]
   },
   {
-   "id": "hoa_nhuy",
-   "n": 3,
+   "id": "gac_da",
+   "n": 2,
    "idx": [
     0,
     0,
     1,
     1,
-    2
-   ]
-  },
-  {
-   "id": "de_hoa",
-   "n": 3,
-   "idx": [
-    0,
-    0,
-    1,
-    1,
-    2
+    1
    ]
   },
   {
@@ -288,13 +288,13 @@
   },
   {
    "id": "gio_loc",
-   "n": 3,
+   "n": 2,
    "idx": [
     0,
     0,
     1,
     1,
-    2
+    1
    ]
   },
   {
@@ -2462,7 +2462,7 @@
   },
   {
    "id": 215,
-   "hero": "hoa_nhuy",
+   "hero": "mam_u",
    "star": 1
   },
   {
@@ -2472,7 +2472,7 @@
   },
   {
    "id": 217,
-   "hero": "hoa_nhuy",
+   "hero": "mam_u",
    "star": 3
   },
   {
@@ -2482,12 +2482,12 @@
   },
   {
    "id": 219,
-   "hero": "hoa_nhuy",
+   "hero": "mam_u",
    "star": 3
   },
   {
    "id": 220,
-   "hero": "de_hoa",
+   "hero": "gac_da",
    "star": 1
   },
   {
@@ -2497,17 +2497,17 @@
   },
   {
    "id": 222,
-   "hero": "de_hoa",
+   "hero": "gac_da",
    "star": 3
   },
   {
    "id": 223,
-   "hero": "hoa_nhuy",
+   "hero": "mam_u",
    "star": 3
   },
   {
    "id": 224,
-   "hero": "de_hoa",
+   "hero": "gac_da",
    "star": 3
   },
   {
@@ -2527,7 +2527,7 @@
   },
   {
    "id": 228,
-   "hero": "de_hoa",
+   "hero": "gac_da",
    "star": 4
   },
   {

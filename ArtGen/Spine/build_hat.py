@@ -127,8 +127,39 @@ STEPS_NUOC = [
      "bốn cụm bọt biển: mỗi cụm 5–8 bong bóng tròn to nhỏ dính nhau (bướu tròn rõ, như bọt trắng trên mào sóng), một cụm "
      "tròn, một cụm bè, một cụm cao, một cụm nhỏ", "foam"),
 ]
+# Gói hat_gai (2026-11-12, Cầu Gai = suất tien_la đảo Mộc; người dùng: "chiêu đợi gpt xong thì gen ảnh"): hạt cho chiêu mana "Gồng
+# Gai" (gai phóng tới đối thủ, gai trồi dưới chân nó, dăm gai văng lúc trúng). Xám vân chì, không viền, game nhuộm kem / lục.
+STEPS_GAI = [
+    ("G01", "thorn", "gai", None,
+     "Four separate cactus thorns, one per square, each pointing straight UP with its base at the bottom: one fat short cone "
+     "with a rounded bulging base; one long slim needle, very sharp; one medium thorn with a slightly curved tip like a claw; "
+     "one stubby thick thorn. Each is one simple solid shape with a round base and ONE sharp point, like the cream thorns on "
+     "the creature in image 3. Shapes only: no plant, no skin, no base plate.",
+     "bốn cái gai xương rồng rời, mũi chĩa thẳng lên, gốc ở dưới: một nón mập ngắn gốc phình tròn, một kim dài mảnh rất nhọn, "
+     "một gai vừa mũi hơi cong như vuốt, một gai lùn mập; mỗi cái một khối đặc gốc tròn một mũi nhọn", "thorn"),
+    ("G02", "tuft", "cụm gai trồi", None,
+     "Four separate CLUSTERS of cactus thorns seen from the side, each bursting UP out of the ground: a low wide base at the "
+     "bottom and four to six sharp thorns of different lengths fanning upward and outward from it like a crown of spikes "
+     "(the middle thorns tallest, the outer ones leaning left and right). Make the four different: one tall and narrow, one "
+     "wide and low, one leaning a little to the left, one leaning a little to the right. Each cluster is ONE solid "
+     "silhouette (the thorns joined at the base), same thorn shape as on the creature in image 3.",
+     "bốn CỤM gai trồi lên từ đất nhìn ngang: đế thấp rộng, 4–6 gai nhọn dài ngắn khác nhau xoè lên và ra hai bên như vương "
+     "miện gai (gai giữa cao nhất); một cụm cao hẹp, một cụm bè thấp, một cụm ngả trái, một cụm ngả phải; mỗi cụm một khối liền",
+     "tuft"),
+    ("G03", "shard", "dăm gai", None,
+     "Four separate small broken thorn SPLINTERS, one per square, each a short jagged shard of a snapped thorn: one a broken "
+     "thorn tip (a short sharp point with a rough snapped end), one a thin sliver with two pointed ends, one a chunky "
+     "three-cornered chip, one a short curved shard. Angular, sharp, clearly different from each other.",
+     "bốn mảnh dăm gai gãy rời: một đầu gai gãy (mũi nhọn ngắn, đầu kia nham nhở), một dăm mảnh hai đầu nhọn, một mẩu ba góc "
+     "dày, một mảnh cong ngắn; góc cạnh, sắc, khác nhau rõ", "shard"),
+]
 STEPS_LUA = STEPS
 PACKS = {
+    "hat_gai": {"steps": STEPS_GAI, "ten": "hình hạt gai xương rồng (gai, cụm gai trồi, dăm gai)",
+                "what": "particle sprites for a cactus-thorn attack in a 2D creature game with a hand-drawn storybook look. The "
+                        "game spawns many of these little shapes, moves, scales, rotates and tints them (warm cream, dark "
+                        "green) to build a volley of flying thorns, thorns bursting out of the ground and flying splinters, so "
+                        "each image is a sheet of four separate shapes."},
     "hat_lua": {"steps": STEPS_LUA, "ten": "hình hạt lửa, khói, dung nham",
                 "what": "particle sprites for fire effects in a 2D creature game with a hand-drawn storybook look. The game "
                         "spawns hundreds of these little shapes, moves, scales, rotates and tints them to build flames, smoke "
@@ -151,6 +182,8 @@ def use(code):
 
 def layout_ref(path):
     """ảnh 2: bố cục lưới 2 x 2 bằng hình xám thuật toán hiện có (chỉ để GPT hiểu bố cục và dáng, không chép nét)."""
+    if HERE not in sys.path:
+        sys.path.insert(0, HERE)  # chay bang py -3 -I thi thu muc script khong nam trong sys.path
     import fire
     S = 1024
     im = Image.new("RGB", (S, S), (255, 255, 255))
@@ -194,6 +227,14 @@ def build():
             (os.path.join(FX_ART, "xoay_nuoc.png"),
              "the game's approved swirling water: copy the SHAPE of its curled wave crests, but grey fill only, no outline",
              "Vòng nước xoáy đã duyệt của game (384 × 362, nền trong): ba dòng nước mào sóng cuộn; chỉ lấy dáng mào sóng")]
+    if CODE == "hat_gai":
+        refs = refs[:2] + [
+            (os.path.join(HERE, "inbox", "xuong_rong_2", "tai_ve", "L1_duyet.png"),
+             "the approved creature that uses these particles (a round cactus monster): copy the SHAPE language of its cream "
+             "thorns (fat cones with a rounded base and one sharp point) and its crayon hatching, but draw this step's shapes "
+             "as grey fill only, no outline, no cream, no green",
+             "Concept Cầu Gai dạng 2 đã duyệt (1536 × 1024, nền trắng): xương rồng cầu lục sẫm, gai kem nón mập mũi nhọn; chỉ lấy "
+             "dáng gai và vân sáp")]
     missing = [W(p) for p, _, _ in refs if not os.path.exists(p)]
     if missing:
         raise SystemExit("thiếu ảnh mẫu: " + ", ".join(missing))
@@ -211,6 +252,8 @@ def build():
           f"this order: {', '.join(order[2:])}.", ""]
     if CODE == "hat_nuoc":  # hình xám của gói nước: ảnh mẫu 3, 4 có màu và viền, nhắc lại cho chắc
         t += ["IMPORTANT: images 3 and 4 are coloured and outlined, but YOUR shapes are flat grey with NO outline and NO blue.", ""]
+    if CODE == "hat_gai":
+        t += ["IMPORTANT: image 3 is coloured and outlined, but YOUR shapes are flat grey with NO outline and NO colour.", ""]
     for sc, name, _, n, en, _, _ in STEPS:
         t += [f"=== STEP {sc} ({name.replace('_', ' ')}) ===", en, ""]
         t += [GREY if n is None else INKED.format(n=n), FLAT, GRID]

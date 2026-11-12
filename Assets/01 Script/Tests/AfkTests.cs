@@ -214,7 +214,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
             s.zones[(int)Elem.Thuy] = 30;
-            var gate = Thuy(d, 29); // Cửa ải: Sò Ngọc, Hà Bá (suất của Ma Kết, Mi Nhi tới 2026-11-11, cùng độ hiếm)
+            var gate = Thuy(d, 29); // Cửa ải: Bát Trảo (id so_ngoc), Sò Ngoạm (id ha_ba) (suất của Ma Kết, Mi Nhi tới 2026-11-11, cùng độ hiếm)
             Assert.IsNull(Afk.SetStage(s, d, Thuy(d, 31).id, 0, new Rng(1)), "ải chưa qua");
             Assert.IsNotNull(Afk.SetStage(s, d, gate.id, 0, new Rng(1)));
             Assert.AreEqual(gate.id, Afk.Stage(s, d).id);

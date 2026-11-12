@@ -98,6 +98,8 @@ namespace PokiClash.Game
         AtomikPose apose;
         int atkMove = -1, atkShadow = -1;
         int atkFar = -1;               // xương "far": hiệu ứng ở chỗ đối thủ (dáng gốc ở chỗ đối thủ mặc định trước mặt)
+        int[][] atkFlyKids = new int[0][]; // xương con của từng xương fly (chỉ khi rig khai game.farAim)
+        Vector2?[] flyFrom = new Vector2?[0]; // chỗ xuất phát suy ra của từng mảnh bay (đơn vị rig)
         int[] atkFly = new int[0];     // xương "fly*": đạn bay từ thân tới far
         int atkAura = -1;              // clip lặp "aura" (mây bay vòng quanh Thanh Long...): phủ lên mọi clip theo đồng hồ liên tục
         MeshRenderer atkRenderer;
@@ -218,6 +220,18 @@ namespace PokiClash.Game
             for (int i = 0; i < rig.bones.Length; i++)
                 if (rig.bones[i].name != null && rig.bones[i].name.StartsWith("fly")) fly.Add(i);
             atkFly = fly.ToArray();
+            // xương con của từng xương fly (mảnh bay cần chĩa theo hướng bay: game.farAim)
+            atkFlyKids = new int[atkFly.Length][];
+            flyFrom = new Vector2?[rig.bones.Length];
+            bool aim = g != null && g.farAim != null && g.farAim.Length > 0;
+            for (int k = 0; k < atkFly.Length; k++)
+            {
+                var kids = new List<int>();
+                if (aim)
+                    for (int i = 0; i < rig.bones.Length; i++)
+                        if (rig.bones[i].parent == atkFly[k]) kids.Add(i);
+                atkFlyKids[k] = kids.ToArray();
+            }
             motion.Clear();
             float h = g != null && g.height > 0 ? g.height : AtomikTop();
             unit = height / Mathf.Max(1f, h);
@@ -362,11 +376,27 @@ namespace PokiClash.Game
             float h = atk.game != null && atk.game.height > 0 ? atk.game.height : 1;
             float ox = farTarget.Value.x * h - fb.x, oy = farTarget.Value.y * h - fb.y;
             apose.Nudge(atkFar, ox, oy);
-            foreach (int b in atkFly)
+            bool aim = atk.game?.farAim != null && Array.IndexOf(atk.game.farAim, AtkName(current)) >= 0;
+            for (int k = 0; k < atkFly.Length; k++)
             {
+                int b = atkFly[k];
                 float x0 = atk.bones[b].x, span = fb.x - x0;
                 float w = span > 1 ? Mathf.Clamp01((apose.LocalX(b) - x0) / span) : 1;
                 apose.Nudge(b, ox * w, oy * w);
+                if (!aim) continue;
+                // Mảnh bay chĩa theo hướng bay THẬT. Trong rig mảnh đi thẳng từ chỗ xuất phát A tới đích của rig và chĩa theo hướng đó;
+                // xương fly chỉ mang phần quãng w × far nên độ lệch của xương con ≈ A × (1 − w): suy ra A lúc mảnh còn gần chỗ xuất
+                // phát (w nhỏ, chính xác nhất) rồi nhớ lại cho đoạn sau. Góc xoay thêm = hướng (đích thật − A) trừ hướng (đích rig − A),
+                // vào dần trong 22 % quãng đầu như rig (sát cánh thì lá còn nằm theo cánh).
+                float f = Mathf.SmoothStep(0, 1, w / 0.22f);
+                foreach (int c in atkFlyKids[k])
+                {
+                    if (w < 0.3f || !flyFrom[c].HasValue)
+                        flyFrom[c] = new Vector2(apose.LocalX(c), apose.LocalY(c)) / (1 - Mathf.Min(w, 0.6f));
+                    var A = flyFrom[c].Value;
+                    float a0 = Mathf.Atan2(fb.y - A.y, fb.x - A.x), a1 = Mathf.Atan2(fb.y + oy - A.y, fb.x + ox - A.x);
+                    apose.Turn(c, Mathf.DeltaAngle(a0 * Mathf.Rad2Deg, a1 * Mathf.Rad2Deg) * f);
+                }
             }
         }
 
@@ -612,6 +642,9 @@ namespace PokiClash.Game
                 m = new Material(sh);
                 m.SetFloat("_SrcBlend", (float)BlendMode.SrcAlpha);
                 m.SetFloat("_DstBlend", (float)(add ? BlendMode.One : BlendMode.OneMinusSrcAlpha));
+                // alpha trộn riêng: mảnh thường cộng dồn độ phủ đúng (xem PetPart.shader); mảnh cộng giữ như cũ
+                m.SetFloat("_SrcBlendA", (float)(add ? BlendMode.SrcAlpha : BlendMode.One));
+                m.SetFloat("_DstBlendA", (float)(add ? BlendMode.One : BlendMode.OneMinusSrcAlpha));
             }
             else m = new Material(Shader.Find("Sprites/Default") ?? Shader.Find("Universal Render Pipeline/2D/Sprite-Unlit-Default"));
             if (add) additive = m;

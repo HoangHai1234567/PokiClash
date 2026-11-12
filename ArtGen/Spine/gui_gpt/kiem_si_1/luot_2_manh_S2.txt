@@ -1,0 +1,22 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\kiem_si_1\tai_ve\L1_duyet.png: the APPROVED picture of the creature, 1536x1024, white background: a LANGUR WARLORD in samurai armour, hunched in a quick-draw stance facing right: charcoal fur, a white whisker ruff around a tan face with one amber eye, a dark-green helmet with a bamboo brow band, a tiered neck guard and two big leaf crests, a huge moss-green shoulder guard with amber cross lacing, a round leaf emblem and three amber tassels, a narrow far shoulder guard, a green cuirass, a braided amber rope belt, bamboo arm guards and shin guards, a brown cloth skirt, a cape of dark leaves, a long curled tail with a white tuft, and two sheathed swords. It gives the design, the colours, the ink line and the exact look of the amber tassels, the two green crest leaves of the helmet and the shaggy charcoal fur.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\kiem_si_1\tai_ve\M_S2.png
+If a file with that name already exists, save as M_S2_2.png, M_S2_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: draw a PARTS SHEET of loose parts of the creature of image 1, for a 2D animation rig: landscape 1536x1024, pure-white background, each part drawn exactly in the style of image 1 (same ink line thickness as in image 1, about 6 px; same colours; same crayon hatching; flat colour). Every part is ONE COMPLETE CLOSED SHAPE with its own ink outline all the way round; the parts do NOT touch or overlap: at least 40 px of clear white between them. No creature, no body, no hands, nothing else on the sheet. EIGHT parts in two rows.
+
+ROW 1 (tops at about y = 50, bottoms at about y = 480), from left to right, FOUR parts:
+1. A TASSEL, exactly like the amber tassels hanging from the shoulder guard in image 1 (centre at about x = 110; about 80 px wide and 135 px tall, its top at y = 60): a round amber knot on top, a short neck ring, and a flaring skirt of amber threads with four or five thin dark lines; hanging straight down.
+2. A SECOND TASSEL of the same kind, very slightly different (centre at about x = 260; same size, top at y = 60).
+3. THE BIG CREST LEAF (centre at about x = 560): the big fresh-green leaf of the helmet crest of image 1, drawn UPRIGHT: its base (a short blunt stalk) at the BOTTOM at about (560, 480), its pointed tip at the TOP at about (560, 55); about 190 px wide at its widest; gently curved like a blade; slightly wavy edge; ONE dark-green centre vein and six or seven side veins, as in image 1.
+4. THE SMALL CREST LEAF (centre at about x = 900): the smaller leaf of the crest, UPRIGHT, base at the bottom at about (900, 480), tip at the top at about (900, 170); about 125 px wide; one centre vein and four or five side veins.
+
+ROW 2 (tops at about y = 560, bottoms at about y = 990), from left to right, FOUR parts, all of shaggy charcoal fur exactly like the fur of the creature's arms in image 1 (flat charcoal, a jagged outline of short fur tufts, a few short fur ticks inside; no hand, no armour):
+5. THE NEAR UPPER ARM (centre at about x = 170): a very thick, slightly bent, furry arm segment standing UPRIGHT: about 150 px thick and 380 px long (from y = 580 to y = 960), both ends rounded.
+6. THE FAR UPPER ARM (centre at about x = 470): the same kind, about 125 px thick and 270 px long (from y = 580 to y = 850), both ends rounded.
+7. A THIGH (centre at about x = 760): a short, fat furry leg segment, UPRIGHT, about 120 px thick and 170 px long (from y = 580 to y = 750), both ends rounded.
+8. A SECOND THIGH of the same kind (centre at about x = 1000; about 115 px thick and 160 px long, from y = 580 to y = 740).
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker side, no lighter patches, no shadows of any kind, no white highlights or shine spots (except the one tiny light dot in the eye), no gloss, no glow, no gradients, no 3D look.
+Plain pure-white background (#FFFFFF): no paper colour or paper grain outside the drawing, no white border or sticker outline around the shapes. No text, no labels, no numbers, no frame, no guide lines.

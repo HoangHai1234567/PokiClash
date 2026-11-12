@@ -142,7 +142,7 @@ namespace PokiClash.Core
         public static readonly Dictionary<int, Action<Dictionary<string, object>>> Migrations =
             new Dictionary<int, Action<Dictionary<string, object>>>
             {
-                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6,
+                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6, [7] = MigrateMamU, [8] = MigrateGacDa,
             };
 
         // v5 -> v6 (lô 10 tướng mới đảo Thủy, 2026-11-11, người dùng chọn "chuyển tướng cũ sang tướng mới"): tướng cũ cùng suất đảo
@@ -164,6 +164,28 @@ namespace PokiClash.Core
             GopTuong(o, CaDenV7);
             var st = J.Str(o, "starter");
             if (st != null) o["starter"] = Map(CaDenV7, st);
+        }
+
+        // v7 -> v8 (2026-11-12): suất ải 5 đảo Mộc đổi id dòng Hoa Nhụy (hoa_nhuy) thành dòng Mầm Ú (mam_u, tinh linh hạt mầm
+        // bụng bự); bản lưu v7 đã có hoa_nhuy thì gộp sang mam_u như các bước trên
+        public static readonly (string from, string to)[] MamU = { ("hoa_nhuy", "mam_u") };
+
+        public static void MigrateMamU(Dictionary<string, object> o)
+        {
+            GopTuong(o, MamU);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(MamU, st);
+        }
+
+        // v8 -> v9 (2026-11-12): suất ải 10 đảo Mộc đổi dòng Dê Hoa (de_hoa) thành dòng Gạc Đá (gac_da, tượng đá cổ giữ rừng, hai
+        // dạng); bản lưu v8 đã có de_hoa thì gộp sang gac_da (sở hữu, mảnh, sao, cấp thẻ, tiềm năng, đội, tướng khởi đầu)
+        public static readonly (string from, string to)[] GacDaMap = { ("de_hoa", "gac_da") };
+
+        public static void MigrateGacDa(Dictionary<string, object> o)
+        {
+            GopTuong(o, GacDaMap);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(GacDaMap, st);
         }
 
         public static void MigrateThuyV5(Dictionary<string, object> o)

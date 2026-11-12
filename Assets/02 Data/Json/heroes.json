@@ -726,8 +726,8 @@
   },
   {
    "id": "tien_la",
-   "name": "Tiên Lá",
-   "title": "Ánh lục giữa rừng",
+   "name": "Cầu Gai",
+   "title": "Xương rồng tròn háu đớp",
    "aola": "tien_la_1",
    "elem": "moc",
    "rarity": "common",
@@ -743,31 +743,26 @@
    "ult": "tien_la_ult",
    "passive": "tien_la_pas",
    "shards": 10,
-   "line": "Dòng Tiên Lá",
-   "size": 0.9,
+   "line": "Dòng Cầu Gai",
+   "size": 0.8,
    "forms": [
     {
-     "name": "Thú Ánh Lục",
+     "name": "Cầu Gai Nhí",
      "aola": "tien_la_1",
-     "size": 0.9
+     "size": 0.8
     },
     {
-     "name": "Linh Ánh Lục",
+     "name": "Cầu Gai",
      "aola": "tien_la_2",
-     "size": 1.02
-    },
-    {
-     "name": "Tiên Lá",
-     "aola": "tien_la_3",
-     "size": 1.14
+     "size": 0.96
     }
    ]
   },
   {
-   "id": "hoa_nhuy",
-   "name": "Hoa Nhụy",
-   "title": "Tiên hoa nhụy đỏ",
-   "aola": "hoa_nhuy_1",
+   "id": "mam_u",
+   "name": "Mầm Ú",
+   "title": "Tinh linh hạt mầm bụng bự",
+   "aola": "mam_u_1",
    "elem": "moc",
    "rarity": "common",
    "stats": [
@@ -778,35 +773,35 @@
     60,
     50
    ],
-   "skill": "hoa_nhuy_skill",
-   "ult": "hoa_nhuy_ult",
-   "passive": "hoa_nhuy_pas",
+   "skill": "mam_u_skill",
+   "ult": "mam_u_ult",
+   "passive": "mam_u_pas",
    "shards": 10,
-   "line": "Dòng Hoa Nhụy",
+   "line": "Dòng Mầm Ú",
    "size": 0.9,
    "forms": [
     {
-     "name": "Thú Ba Lá",
-     "aola": "hoa_nhuy_1",
+     "name": "Hạt Ú",
+     "aola": "mam_u_1",
      "size": 0.9
     },
     {
-     "name": "Thú Búp Hoa",
-     "aola": "hoa_nhuy_2",
+     "name": "Mầm Ú",
+     "aola": "mam_u_2",
      "size": 1.02
     },
     {
-     "name": "Tiên Hoa Nhụy",
-     "aola": "hoa_nhuy_3",
+     "name": "Hoa Ú",
+     "aola": "mam_u_3",
      "size": 1.14
     }
    ]
   },
   {
-   "id": "de_hoa",
-   "name": "Dê Hoa",
-   "title": "Sừng gỗ vương miện hoa",
-   "aola": "de_hoa_1",
+   "id": "gac_da",
+   "name": "Gạc Đá",
+   "title": "Tượng cổ giữ rừng",
+   "aola": "gac_da_1",
    "elem": "moc",
    "rarity": "uncommon",
    "stats": [
@@ -817,34 +812,29 @@
     30,
     70
    ],
-   "skill": "de_hoa_skill",
-   "ult": "de_hoa_ult",
-   "passive": "de_hoa_pas",
+   "skill": "gac_da_skill",
+   "ult": "gac_da_ult",
+   "passive": "gac_da_pas",
    "shards": 15,
-   "line": "Dòng Dê Hoa",
-   "size": 0.9,
+   "line": "Dòng Gạc Đá",
+   "size": 0.92,
    "forms": [
     {
-     "name": "Dê Hoa Con",
-     "aola": "de_hoa_1",
-     "size": 0.9
+     "name": "Mầm Đá",
+     "aola": "gac_da_1",
+     "size": 0.92
     },
     {
-     "name": "Dê Gỗ",
-     "aola": "de_hoa_2",
-     "size": 1.02
-    },
-    {
-     "name": "Dê Sừng Chiến",
-     "aola": "de_hoa_3",
-     "size": 1.14
+     "name": "Gạc Đá",
+     "aola": "gac_da_2",
+     "size": 1.1
     }
    ]
   },
   {
    "id": "bom_la",
-   "name": "Bờm Lá",
-   "title": "Chiến sư rừng xanh",
+   "name": "Lộc Phong",
+   "title": "Hươu gỗ rừng phong",
    "aola": "bom_la_1",
    "elem": "moc",
    "rarity": "uncommon",
@@ -860,16 +850,16 @@
    "ult": "bom_la_ult",
    "passive": "bom_la_pas",
    "shards": 15,
-   "line": "Dòng Bờm Lá",
-   "size": 0.92,
+   "line": "Dòng Lộc Phong",
+   "size": 0.8,
    "forms": [
     {
-     "name": "Bờm Lá Con",
+     "name": "Gốc Ngơ",
      "aola": "bom_la_1",
-     "size": 0.92
+     "size": 0.8
     },
     {
-     "name": "Chiến Sư Bờm Lá",
+     "name": "Lộc Phong",
      "aola": "bom_la_2",
      "size": 1.1
     }
@@ -877,8 +867,8 @@
   },
   {
    "id": "phong_linh",
-   "name": "Phong Linh",
-   "title": "Linh tướng gió lá",
+   "name": "Lâm Tượng",
+   "title": "Ma mút cõng rừng",
    "aola": "phong_linh_1",
    "elem": "moc",
    "rarity": "rare",
@@ -894,16 +884,16 @@
    "ult": "phong_linh_ult",
    "passive": "phong_linh_pas",
    "shards": 20,
-   "line": "Dòng Phong Linh",
+   "line": "Dòng Lâm Tượng",
    "size": 0.92,
    "forms": [
     {
-     "name": "Tiểu Phong Linh",
+     "name": "Tượng Mầm",
      "aola": "phong_linh_1",
      "size": 0.92
     },
     {
-     "name": "Phong Linh Tướng",
+     "name": "Lâm Tượng",
      "aola": "phong_linh_2",
      "size": 1.1
     }
@@ -911,8 +901,8 @@
   },
   {
    "id": "gio_loc",
-   "name": "Gió Lốc",
-   "title": "Rồng gió xé mây",
+   "name": "Linh Điểu",
+   "title": "Chim thần giữ rừng",
    "aola": "gio_loc_1",
    "elem": "moc",
    "rarity": "rare",
@@ -928,23 +918,18 @@
    "ult": "gio_loc_ult",
    "passive": "gio_loc_pas",
    "shards": 20,
-   "line": "Dòng Gió Lốc",
-   "size": 0.9,
+   "line": "Dòng Linh Điểu",
+   "size": 0.92,
    "forms": [
     {
-     "name": "Gió Con",
+     "name": "Điểu Nhi",
      "aola": "gio_loc_1",
-     "size": 0.9
+     "size": 0.92
     },
     {
-     "name": "Gió Cuộn",
+     "name": "Linh Điểu",
      "aola": "gio_loc_2",
-     "size": 1.02
-    },
-    {
-     "name": "Gió Lốc",
-     "aola": "gio_loc_3",
-     "size": 1.14
+     "size": 1.1
     }
    ]
   },
@@ -984,8 +969,8 @@
   },
   {
    "id": "tho_hoang",
-   "name": "Thỏ Hoàng",
-   "title": "Chiến giáp hoàng cực",
+   "name": "Voọc Tướng",
+   "title": "Kiếm khách giáp lá",
    "aola": "tho_hoang_1",
    "elem": "moc",
    "rarity": "epic",
@@ -1001,11 +986,11 @@
    "ult": "tho_hoang_ult",
    "passive": "tho_hoang_pas",
    "shards": 30,
-   "line": "Dòng Thỏ Hoàng",
+   "line": "Dòng Voọc Tướng",
    "size": 1,
    "forms": [
     {
-     "name": "Thỏ Hoàng",
+     "name": "Voọc Tướng",
      "aola": "tho_hoang_1",
      "size": 1
     }
@@ -1665,8 +1650,8 @@
   },
   {
    "id": "so_ngoc",
-   "name": "Sò Ngọc",
-   "title": "Pháo đài ngọc trai",
+   "name": "Bát Trảo",
+   "title": "Bạch tuộc quái vật gọi bầy",
    "aola": "so_ngoc_1",
    "elem": "thuy",
    "rarity": "rare",
@@ -1682,16 +1667,16 @@
    "ult": "so_ngoc_ult",
    "passive": "so_ngoc_pas",
    "shards": 20,
-   "line": "Dòng Sò Ngọc",
+   "line": "Dòng Bát Trảo",
    "size": 0.92,
    "forms": [
     {
-     "name": "Sò Gai",
+     "name": "Trảo Nhi",
      "aola": "so_ngoc_1",
      "size": 0.92
     },
     {
-     "name": "Bạng Vương",
+     "name": "Bát Trảo",
      "aola": "so_ngoc_2",
      "size": 1.1
     }

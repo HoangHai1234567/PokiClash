@@ -103,6 +103,9 @@ namespace PokiClash.Game
         public string[] lunge;          // clip ngoài attack cũng lao tới đối thủ
         public string[] stay;           // clip đứng tại chỗ dù xương move dời xa
         public string[] far;            // clip có hiệu ứng ở xa: xương "far" dời tới chỗ đối thủ, xương "fly*" (đạn) dời theo quãng đã bay
+        // clip (trong far) mà mảnh bay phải CHĨA theo hướng bay thật (lá cánh Linh Điểu, người dùng 2026-11-12: "hướng lá có cùng vectơ
+        // hướng bắn"): xương con của mỗi xương "fly*" xoay thêm góc lệch giữa hướng tới đích thật và hướng tới đích trong rig
+        public string[] farAim;
         public float[] muzzle;          // [x, y] chỗ bắn tia ở khung trúng của clip cast; rỗng = không có chiêu bắn tia
         public float beam = 1;          // cỡ tia
         public string beamStyle;        // ảnh tia riêng, rỗng = tia nước thường

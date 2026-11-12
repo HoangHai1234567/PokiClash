@@ -305,6 +305,123 @@ pose là được", "gen theo y hệt đúng tỉ lệ luôn, đúng hướng"; 
 - Máy D (nhà): không có `D:\Ripper`; dữ liệu quét sinh lại vào `D:\RefAnimation\SwordxStaff\scan\monster_3458` (info, att_goc,
   sample_clips 6 clip), chạy với `SXS=D:/RefAnimation/SwordxStaff`.
 
+## 10c. Clip riêng theo ý người dùng (2026-11-12): dựng ở tầng điều khiển của rig gốc
+
+Người dùng: "appear tướng uốn lượn bay vào rồi gầm; tấn công thường quật đuôi mạnh; chiêu mana hơi ngả người lại lấy đà cánh rồi
+quạt 1 phát mạnh tạo 1 lốc xoáy nước (fx làm riêng); chiêu cuối tôi chưa nghĩ ra có thể biến tấu từ chiêu cuối hiện tại".
+
+- **13 clip của họ là gì** (tờ khung `scan/monster_3458/khung/`): `run_01` bay tới (vòng 0,8 s); `skill_01` giơ cánh chém;
+  `skill_02` thu người, đuôi vung LÊN (0,37 s) rồi BỔ XUỐNG (0,57 s), cánh giơ rồi đập (0,56 → 0,76 s), há mỏ; `skill_03` dựng thẳng
+  người xoè cánh giữ 1 s (mỏ ngậm); `skill_04_1/2/3` bay vọt lên, lộn, bổ nhào (ngang / dọc / chéo); `stun`, `block`, `hit_02`.
+- **Cách điều khiển của họ**: thân sau = 8 đốt `H_shenti*` chạy trên một đường cong (path constraint) có 5 điểm điều khiển
+  `quxian*` (dời + xoay) và khoá vị trí dọc đường cong; đuôi = chuỗi FK `weiba..weiba5` (+ tia vây `bone30–34`), gốc đuôi bám đốt
+  cuối bằng transform constraint; thân trước FK `Q_shenti..5 → tou`; mỏ `bone10` (trên), `bone11` (dưới, há tới −36°).
+- **Công cụ** (`mo_xe/mo_xe.html`): `sample` xuất thêm `u` (biến đổi riêng CHƯA áp ràng buộc = giá trị điều khiển) và `p` (vị trí
+  trên đường cong); `extra` nhận thêm `paths: {tên: {position: [[t, v]]}}`; chế độ `sheet` cũng nạp `extra`. Mẫu điều khiển của
+  cả 13 clip: `scan/monster_3458/sample_dk.json`; bản chép rig gốc để chạy clip tự viết: `scan/monster_3458/lam_clip/`.
+- **`rong_vay_clip.py`**: ghép ở tầng điều khiển (lấy dáng `dk(clip, giây)`, co giãn thời gian `cong`, pha `tron` có mặt nạ nhóm
+  xương CANH / DUOI / MO, cộng góc `xoay`, dời `doi`) → `lam_clip/rv_extra.json` → runtime Spine thật áp ràng buộc → lấy mẫu
+  `scan/monster_3458/sample_moi.json` → `rong_vay_rig.py` dùng như clip của họ. Lệnh: `dung`, `xem [clip] [n]` (tờ khung trên rig
+  gốc), `mau` (lấy mẫu). Chạy qua `quai/khoa.py chrome`.
+  - `appear` 2,45 s: dáng bay `run_01`, cả con dời từ sau – trên (−900, +300 đơn vị gốc ≈ 0,83 chiều cao) vào chỗ theo đường lượn
+    sóng 1,25 Hz, thân nghiêng theo dốc, hiện dần 0,2 s đầu; 1,05 s thu về dáng nghỉ; gầm 1,38 → 1,92 s: thân vươn theo dáng 0,40 s
+    của `skill_01` (78%), cánh lấy trọn dáng xoè 0,42 s của `skill_03`, há mỏ, đầu rung 12 Hz.
+  - `attack` 1,05 s (quật đuôi): thân + đuôi của `skill_02` co giãn lại (lấy đà 0 → 0,32, quật 0,32 → 0,44, `trung` 0,44), cánh
+    chỉ 30%, thân chúi tới lúc quật, ngọn đuôi vút thêm trễ pha và vươn dài 10–24% ở khung quật.
+  - `cast` 1,60 s (quạt cánh), bản 2: dựng trên `skill_01` ("giơ cánh chém"): nhún nhẹ, ngả lưng +8° và cánh GIƠ CAO XOÈ HẲN MẶT
+    (0,14 → 0,46, giữ tới 0,62), quạt xuống – ra trước 0,62 → 0,76 đúng tốc độ clip nguồn (`phun` 0,72, `het_phun` 1,24), chúi −7°,
+    há mỏ lúc quạt, đuôi 60%, cánh êm về (bỏ nhịp thu cánh lật mỏng của clip nguồn). Lốc xoáy nước là VFX làm riêng, chưa làm.
+    Bản 1 dựng trên `skill_02` bị trả ("chiêu bắn chưa thấy quạt cánh"): ở đó cánh "giơ" là LẬT NGHIÊNG mỏng như vạch rồi đập về
+    gần dáng nghỉ, mắt không thấy cung quạt. **Muốn thấy cú quạt thì dáng lấy đà phải là dáng cánh xoè lộ mặt màng, giữ ≥ 0,15 s.**
+  - `skill` 2,33 s: `skill_03` + há mỏ gầm và rung đầu suốt lúc giữ + cánh vỗ hai nhịp (0,74 → 1,12 → 1,50, pha 55% nhịp đập
+    của `skill_02`). Sự kiện `gam` 0,70, `het_gam` 1,50 như cũ. Người dùng chưa chốt ý chiêu cuối.
+- **Bài học**: pha cánh NỬA CHỪNG giữa hai mặt (mức 0,6–0,8) thì màng bị ép mỏng thành vạch; pha cả con 62% sang dáng cuộn đuôi
+  thì đuôi tự đè lộ vệt trắng. Cánh phải lấy trọn một dáng sạch của họ; thân mới pha một phần.
+- Rig: 7 clip, 39.870 khoá, `.atomik` 467 KB. Đã chép `rong_vay_1.atomik` + chân dung vào `han_ngac_1`, `han_ngac_2` (chép tay hai
+  suất này; KHÔNG chạy `vao_game.py` trên máy ổ C vì thư mục `rig/` của các tướng khác không có ở đây hoặc đã cũ).
+
+## 10d. Vào game bản clip mới, bắt đầu dạng 1 (2026-11-12, người dùng: "ok cho vào game và làm dạng 1 đi")
+
+- **Vào game**: `rig/rong_vay_1.atomik` (7 clip, có `appear`) + chân dung đã chép vào `han_ngac_1`, `han_ngac_2`; Unity nhập lại 4
+  file không lỗi (xem `Editor.log`). Cầu nối MCP của Unity (cổng 8090) không mở trên máy ổ C nên CHƯA chạy menu chụp thử và chưa
+  vào trận kiểm; `<dạng>.asset` trỏ thẳng file `.atomik` nên không phải dựng lại.
+- **Hình đang có là DẠNG 2** (rồng trưởng thành, bám con gốc, như cá voi). **Dạng 1 = rồng non** (mã làm việc `rong_vay_non`) trên
+  CÙNG rig, cùng lưới, cùng clip: `rong_vay_rig.py` nhận `RV_DANG=non` → bảng `TI_LE` đổi tỉ lệ dáng gốc ở gốc từng chuỗi xương
+  (`tou` 1,26; ba chuỗi màng + gốc sống của mỗi cánh 0,60): đầu to, cánh co về thân mà gốc cánh vẫn dính. Đã soi idle và cast:
+  clip chạy đúng. Lỗi đã gặp: dải cạnh cánh gắn bằng dáng gốc của `sk` (đã đổi tỉ lệ) nên không co theo → gắn bằng ma trận `Wc`.
+- **Concept dạng 1** (đề xuất của Claude, CHỜ DUYỆT): `inbox/rong_vay_non/tai_ve/L1_concept.png`: thân lam nhạt `#6C86DC`, bụng
+  kem, đầu tròn mắt to hổ phách, hai nụ sừng đen, cánh và vây lam ngọc nhạt, lưng trơn không vỏ sò. Ảnh mẫu 2 là hình bố cục do rig
+  dựng (`rong_vay_rig.py bo_cuc`, `inbox/rong_vay_non/mau/bo_cuc.png`). Gói: `build_rong_vay_non.py` → `gui_gpt/rong_vay_non/`.
+- Người dùng xem bản nháp: "mặt nhìn non hơn rồi nhưng thân bạn cũng phải làm ngắn hơn". **Thân ngắn làm ngay trên rig** (`K_THAN`
+  = 0,72, `rong_vay_rig.py`): co thân DỌC CHIỀU DÀI, giữ bề dày, không đổi tỉ lệ xương: (1) toạ độ x riêng của mọi xương con của
+  xương thân (`Q_shenti*`, `H_shenti*`, `weiba*`) × K; (2) vị trí các đốt thân sau và gốc đuôi co về đốt `H_shenti` × K (vòng cuộn
+  nhỏ lại); (3) x của điểm gắn lưới trong hệ xương thân × K; áp cho dáng gốc và khoá dời của mọi clip. Soi idle, skill: thân liền,
+  cuộn chặt hơn, không rách. Concept lượt 2 trên bố cục thân ngắn, giữ thiết kế đầu của bản nháp (ảnh mẫu 3):
+  `inbox/rong_vay_non/tai_ve/L1_concept_2.png`, CHỜ DUYỆT. (Một lượt Codex hết 420 s không trả ảnh; chạy lại thì 85 s.)
+- Sau `L1_concept_2`: "làm vây của nó ngắn hơn chút nữa" → `TI_LE` thêm tỉ lệ ở xương GỐC từng vây (vây lưng `bone71, 73, 75, 76, 78,
+  79, 80, 83, 86, 89, 91, 92` 0,74; vây tai và vây má `bone42, 44, 12, 15` 0,80; hai thuỳ vây đuôi `bone30, 33` 0,82), bố cục dựng
+  lại, concept lượt 3: `inbox/rong_vay_non/tai_ve/L1_concept_3.png`, CHỜ DUYỆT. Cánh vẫn 0,60 (người dùng nói "vây", chưa nói cánh).
+- Sau `L1_concept_3`: "tôi thấy phần đuôi vẫn dài, thu ngắn các part thân/đuôi lại chút" → hệ số co tách ba đoạn: thân trước
+  `K_THAN` 0,70, thân sau (vòng cuộn) `K_SAU` 0,62, đuôi `K_DUOI` 0,54 (biến môi trường `RV_K_*` để thử số khác). Soi skill (cuộn
+  chặt nhất), attack: thân liền. Concept lượt 4: `inbox/rong_vay_non/tai_ve/L1_concept_4.png`, CHỜ DUYỆT.
+- **Concept dạng 1 chốt** ("ổn rồi"): `inbox/rong_vay_non/tai_ve/L1_duyet.png` (= `L1_concept_4.png`).
+- **Da dạng 1 = chuyển da từ dạng 2** (`rong_vay_non.py`): tờ hướng dẫn G1–G6 = ảnh part ĐÃ XONG của dạng 2 (bản vá > bản xoá vạch
+  nối > bản cắt) xếp đúng ô cũ; Codex vẽ lại với màu rồng non, giữ hình bóng (21 part; sừng, mỏ chép nguyên; 6 vây đã bỏ không
+  vẽ). `cat`: lấy lại ĐỘ ĐẬM và CHỖ KHÔNG CÓ MỰC của ảnh dạng 2 (mọi bước dọn chỗ nối, vá mép được thừa hưởng), kéo trung vị từng
+  lớp màu về màu chuẩn (GPT tô mỗi tờ một sắc → lộ mảng khi ghép). Phủ 95–100% hình của dạng 2 (khúc lưng 95%: phần vỏ sò bỏ).
+- **Rig dạng 1** (`RV_DANG=non`, ra `inbox/rong_vay_non/rig/`): tỉ lệ đã duyệt + sừng co về gốc còn 0,42 (nụ sừng nhọn nhỏ, concept
+  vẽ nụ tròn) + `noi_lai` (xoá vạch nối theo dáng thân ngắn, làm cứng mép mờ của bản vá) + mí mắt nhắm dựng từ ảnh đầu, bám lưới
+  của `P_tou` (mảnh mí của dạng 2 chỉ che một phần mắt mới). 7 clip như dạng 2, `.atomik` 464 KB. Soi runtime thật: idle, attack,
+  cast, skill, appear; soi hit (mắt nhắm).
+- **Sửa khớp nối dạng 1** (người dùng gửi 3 ảnh: "các khớp này nối không match, chỗ bị hở, chỗ mất nét": đáy vòng cuộn, cổ, đỉnh
+  vòng cuộn): lỗi ở cách co da theo từng xương (lệch ~ (1 − K) × nửa bề dày × góc gập ở chỗ thân uốn). Thay bằng `co_da`: dời
+  mỗi điểm da theo điểm gần nhất trên trục thân rồi tính lại điểm gắn theo dáng gắn mới. `noi_lai` thêm: tô lại 2 px mép của khúc
+  nằm trên ở chỗ chồng (hết vạch sáng mảnh). Soi cận runtime thật (`rig/spine_that/can_day`, `can_co`, `can_tren`): hết hở, vành
+  bụng và nét viền liền; còn đường tóc rất mảnh ở chỗ hai ảnh giáp nhau khi phóng ~3 lần.
+- **Sửa khớp nối lần 2** (người dùng: "vẫn lỗi các chỗ đấy, xem kĩ lại"; tôi đã báo "khớp" khi ảnh cận của chính mình còn lỗi):
+  ba nguyên nhân còn lại, đều sửa trong `rong_vay_rig.py` cho dạng non:
+  1. Da dạng non thừa hưởng "chỗ không có mực" của dạng 2, nhưng thân ngắn chồng khác đi nên đoạn đã xoá nay nằm trên mép ngoài
+     (viền cổ đứt). `noi_lai` nay KẺ LẠI mực kín dọc mép mọi khúc rồi mới xoá phần rơi sâu trong khúc kề theo dáng này.
+  2. Vạch sáng mảnh ở chỗ hai ảnh giáp nhau: mép của khúc nằm trên, ở chỗ nằm sâu trong khúc kề, cho mờ dần 6 px.
+  3. Lỗ vòng cuộn bị bóp thành khe lởm chởm (trông như hở): thân sau thon lại (`DAY_SAU` 0,86; đốt đầu 0,95, 0,90) trong `co_da`
+     → lỗ mở thành lỗ nhỏ viền kín như concept.
+  Soi cận lại 3 chỗ × 4 khung idle + tờ tổng skill, attack: vành bụng liền, viền liền, lỗ gọn. Còn: vệt xám rất nhỏ ở mép phải
+  chỗ nối cổ, mẩu kem nhỏ ở đầu vành bụng trên vòng cuộn.
+- **Sửa khớp nối lần 3** (người dùng: "vẫn lỗi nhẹ, xem kĩ lại nữa đi"): phóng cận gấp đôi (≈ 5,8 px / đơn vị rig, `spine_that/sat_a,
+  sat_b, sat_c`) mới thấy: `noi_lai` xoá cả vành 10 px nên các nét chạy NGANG qua mép (ranh vành bụng, vạch vảy bụng) bị cụt ~10 px
+  và nhoè ở chỗ nối. Nay chỉ xoá nét viền ĐẦU KHÚC: nét ngang (điểm mực có mực "bên trong" nằm gần thẳng phía trong nó, cách ≤
+  vành − độ sâu + 1) giữ tới cách mép 3 px và không bị mờ; điểm xám khử răng cưa quanh nét vừa xoá tô lại. Còn thấy ở mức phóng
+  đó: đường viền rất nhạt của vạt khúc cổ trên nền kem (hai mảng kem khác vân).
+- **Sửa khớp nối lần 4** (người dùng gửi ảnh cổ: "phần gần đầu vẫn bị mất 1 ít nét"): vạt kem của khúc cổ (nằm trên) chờm sâu xuống
+  khúc ngực, che mất nửa phải một vạch vảy bụng của khúc dưới. Thử 1: cắt ngắn vạt chờm (9 px) → nét hiện đủ nhưng lộ bậc lệch của
+  ranh vành bụng ở cổ và mẩu kem thò ở đỉnh vòng cuộn (vạt chờm chính là thứ che bậc đó): BỎ. Thử 2: in lại mọi nét của khúc dưới
+  lên vạt → sinh nét thừa (nét khúc trên cố ý che). Chốt: `noi_lai` chỉ in tiếp nét của khúc dưới đang HIỆN DỞ DANG (lần theo nét
+  từ phần còn lộ vào dưới vạt ≤ 40 px), trên nền kem, cách mực của khúc trên > 8 px, và mẩu in phải nối tới gần mực sẵn có của
+  khúc trên; chỉ bật cho cặp cổ – ngực (`IN_LAI`). Soi cận idle và cast: vạch vảy liền tới viền phải, đỉnh vòng cuộn không có nét
+  thừa. Đoạn in lại hơi răng cưa khi phóng ~6 lần.
+- **Vào game**: `da_nhan.json` trỏ `han_ngac_1` → `rong_vay_non`, `han_ngac_2` → `rong_vay_1` (xuất lại với dạng 2/2); chép tay 4
+  file, Unity nhập lại không lỗi. CHƯA có clip `evolve`; chưa kiểm trong trận (MCP Unity không mở).
+
+## 10e. Làm nốt (2026-11-12, người dùng: "tạm ổn, cho vào game đi", "làm nốt những cái bạn chưa làm đi")
+
+- **Lốc xoáy nước của chiêu mana** (`n_loc`): `HatNuoc.NVoi` thêm tham số `tu` (chỗ phễu dựng lên): phễu vòi rồng dựng ở trước mặt
+  tướng (cách chân 0,85 chiều cao về phía địch) đúng khung quạt cánh, lướt tới chân địch trong 0,5 s (`T_DI`), quay tới khi sụp;
+  `PlayNuoc` thêm `case "n_loc"`, `HoldNuoc` 0,3 s; `StageView.WaterFx["han_ngac"]` mana đổi `n_tia` → `n_loc` (chiêu cuối giữ
+  `n_song` / `n_mua`, chưa chốt). Unity biên dịch lại không lỗi (Editor.log). CHƯA xem trong trận.
+- **Clip `evolve` của dạng 1** (`rong_vay_rig.py`, `tien_hoa`): một lần chạy dựng cả hai dạng (`cau_hinh(dang, res)` đổi cấu hình giữa
+  chừng); dạng 2 gộp vào bản nhẹ (ảnh 0,44) bằng `quai/tienhoa.py`. Dạng non ngửa người gồng, rung, há mỏ; đổi dạng ~1,2 s; dạng 2
+  vươn người há mỏ gầm rồi hoà về khung 0 idle của nó. File dạng 1: 226 xương, 58 slot, 8 clip, 609 KB. Soi tờ khung runtime thật.
+- Đã chép vào `han_ngac_1`. Còn: tên tướng / dạng / thẻ (chờ người dùng chọn: đổi tên kéo theo Nhập dữ liệu và tính lại golden trong
+  Unity, máy này không mở được MCP); sừng nụ tròn và mỏ ngắn của dạng 1 (đang là sừng, mỏ dạng 2 thu nhỏ / giữ nguyên).
+
+## 10f. Vệt sáng ở khớp nối trong game: lỗi shader chung (2026-11-12)
+
+Người dùng gửi ảnh trong game (dạng 2, đáy vòng cuộn có vệt sáng cong và nêm sáng ở vành bụng): "shader làm chỗ này bị lộ lỗi, các khớp
+nối đều bị", "các con khác có nhiều con cũng bị vậy, tìm giải pháp chung". Nguyên nhân: `PokiClash/PetPart` trộn kênh alpha như màu khi
+vẽ tướng ra RenderTexture → alpha RT tụt ở chỗ mép mờ của mảnh trên đè mảnh dưới → `StickerOutline` lót giấy trắng vào. Sửa:
+`PetPart.shader` trộn alpha riêng (One, OneMinusSrcAlpha), `AolaActor.Mat` đặt `_SrcBlendA/_DstBlendA` (mảnh cộng giữ cách cũ). Unity
+nhập shader và biên dịch không lỗi. CHƯA nhìn lại trong game (MCP không mở): chờ người dùng xác nhận. Áp cho mọi tướng (aola và .atomik).
+
 ## 11. Còn lại
 
 - Lòng miệng (khi mỏ há) chưa có: con gốc cũng không có mảnh này; quyết khi làm clip há mỏ.

@@ -5,7 +5,8 @@ description: >
   mảnh cứng, một lưới hay nhiều lớp lưới có trọng số (uốn mềm, không hở khớp), viết animation (đứng, đánh, trúng đòn, chiêu,
   nhảy, đi/chạy), dựng khung soi, GIF, trang Spine Web Player; xuất JSON Spine 4.2 và định dạng riêng .atomik chạy trong Unity
   của PokiClash (importer + runtime AtomikPlayer). Dùng khi người dùng muốn rig xương / làm animation từ một hình, sửa hở
-  khớp, uốn tóc, áo, đuôi, hoặc đưa animation vào Unity bằng .atomik.
+  khớp, uốn tóc, áo, đuôi, làm động tác cầm / nắm / đỡ một vật sao cho tay thật sự cầm (mục 26), sửa clip bị giật, hoặc đưa
+  animation vào Unity bằng .atomik.
 ---
 
 # Rig xương từ ảnh và định dạng .atomik (thử nghiệm)
@@ -117,6 +118,57 @@ Bài học khi làm theo khung part (rồng vây, 2026-11-11; mỗi dòng là m�
   màu. Mã màu ghi trong prompt (#34408F) tối hơn màu thật trên concept đã duyệt (53, 68, 173); tờ gen bám concept, không cần chỉnh.
 - Trang xem đòi clip `die`; chạy `mo_xe/thu_xem.py` (Chrome ngầm: in dòng trạng thái, nút clip, lỗi JS) trước khi đưa người dùng.
 
+**CLIP MỚI trên rig gốc: dựng ở TẦNG ĐIỀU KHIỂN của họ rồi để runtime Spine nướng** (rồng vây, 2026-11-12; người dùng đặt bốn clip
+riêng: appear bay vào rồi gầm, đòn quật đuôi, chiêu quạt cánh, chiêu cuối biến tấu). Rig có ràng buộc (thân chạy trên đường cong,
+IK) thì KHÔNG viết khoá lên các xương đã nướng (thân gãy khúc) và cũng không tự viết lại bộ giải ràng buộc. Làm thế này:
+1. Dựng tờ khung MỌI clip của họ (`chay.py sheet`) và ghi mỗi clip là động tác gì, ở giây nào: phần lớn động tác người dùng tả đã
+   nằm sẵn trong đó (đòn "quật đuôi" và "quạt cánh" của rồng vây là hai nửa của cùng một `skill_02`).
+2. `chay.py sample` cho `u` (biến đổi riêng CHƯA áp ràng buộc: điểm điều khiển đường cong, góc FK) và `p` (vị trí trên đường
+   cong). In khoảng biến thiên của các xương điều khiển để biết họ lái bằng gì (rồng vây: `quxian*`, `weiba*`, `zhixin`, `bone11`).
+3. Ghép bằng mã ở tầng đó (`ArtGen/Spine/rong_vay_clip.py`): lấy dáng của clip nguồn ở một giây, co giãn thời gian từng đoạn (lấy
+   đà chậm, giữ đỉnh, đánh nhanh), pha hai dáng có MẶT NẠ nhóm xương (cánh / đuôi / mỏ / còn lại), cộng thêm góc và độ dời (ngả
+   lưng, chúi tới, rung đầu, há mỏ đúng mức họ dùng), vươn dài xương ở khung đánh. Ghi thành `extra.json` (khoá dày 30/giây).
+4. Xem nhanh trên CHÍNH rig gốc: `rong_vay_clip.py xem` (`chay.py sheet ... extra=`), sửa, xem lại (mỗi vòng ~20 giây).
+5. `rong_vay_clip.py mau` → runtime áp ràng buộc, lấy mẫu `l` → rig của mình dùng như clip của họ (`rong_vay_rig.py`, `CLIPS`).
+6. Soi trên hình của mình (`soi`, rồi tờ khung runtime thật), vì lỗi lộ ra ở hình mình chứ không ở hình họ.
+Luật pha: **cánh (và mọi mảng lật hai mặt) phải lấy TRỌN một dáng sạch**, pha nửa chừng thì màng ép mỏng thành vạch; phần thân
+cuộn pha quá nửa sang dáng cuộn khác thì tự đè. Tách hai động tác của một clip nguồn thành hai clip bằng cách giảm nhóm xương kia
+còn 30–40%. **Chọn clip nguồn theo dáng LẤY ĐÀ nhìn thấy được, không theo tên động tác**: chiêu "quạt cánh" bản đầu lấy clip có cánh
+đập mạnh nhưng lúc giơ cánh lại lật nghiêng mỏng như vạch → người dùng "chưa thấy quạt cánh"; đổi sang clip mà cánh giơ cao xoè lộ
+mặt màng, giữ dáng đó ≥ 0,15 s rồi mới đập thì đọc ra ngay. Soi cú đánh bằng tờ khung dày quanh khung đánh (`t0`, `t1`), đừng soi
+tờ thưa cả clip. `appear` bay từ ngoài vào: dời tối đa ~0,8 chiều cao, hiện dần 0,2 s đầu (khung đầu phải trống). VFX của chiêu vẫn
+là lớp riêng: rig chỉ đặt sự kiện đúng khung.
+
+**DẠNG KHÁC trên CÙNG rig gốc (dạng non / dạng lớn): đổi tỉ lệ ở rig rồi CHUYỂN DA, không dựng rig mới** (rồng vây non, 2026-11-12).
+Con bám rig gốc là dạng cuối; dạng trước làm trên cùng xương, lưới, clip:
+1. **Tỉ lệ trước, concept sau**: đổi tỉ lệ ngay trên rig (`rong_vay_rig.py`, `RV_DANG=non`), dựng hình bố cục bằng da cũ
+   (`bo_cuc`), đưa hình đó làm ảnh mẫu cho concept → người dùng duyệt đúng cái rig dựng ra được. Người dùng chỉnh "thân ngắn hơn",
+   "vây ngắn hơn", "đuôi vẫn dài" thì sửa số ở rig, dựng lại bố cục, gen lại concept kèm bản nháp trước làm ảnh mẫu thiết kế.
+2. **Đầu to, cánh / vây nhỏ**: nhân tỉ lệ ở xương GỐC của chuỗi (xương con thừa hưởng; vây, cánh co về phía thân, gốc vẫn dính).
+   Mảnh nào gắn bằng dáng gốc của `sk` (không bằng ma trận của họ) sẽ không co theo: gắn lại bằng `Wc`.
+3. **Thân ngắn mà giữ bề dày**: KHÔNG đổi tỉ lệ lệch trục trên chuỗi xương có khớp gập (xương con bị xiên). Xương: x riêng của mọi
+   xương con của xương thân × K; vị trí các đốt đã nướng co về đốt đầu × K (dáng gốc và khoá dời của mọi clip); hệ số tách theo
+   đoạn (cổ 0,70; vòng cuộn 0,62; đuôi 0,54). **Da: ĐỪNG nhân x của điểm gắn trong hệ từng xương** (bản đầu làm vậy: ở chỗ thân uốn
+   hai khúc kề bám hai xương lệch góc bị kéo lệch ~ (1 − K) × nửa bề dày × góc gập → hở phía ngoài khúc cua, vành bụng lệch bậc,
+   nét viền đứt; người dùng trả "các khớp nối không match, chỗ bị hở, chỗ mất nét"). Đúng: đổi DÁNG GẮN bằng phép dời chỉ phụ
+   thuộc vị trí: mỗi điểm da dời bằng độ dời của điểm gần nó nhất trên trục thân (đoạn gốc → mút của các xương thân mà đỉnh đó
+   bám), rồi tính lại điểm gắn theo ma trận dáng gắn mới của xương (`co_da` trong `rong_vay_rig.py`). Soi cận chỗ nối bằng
+   runtime thật ở vài khung idle trước khi báo.
+4. **Chuyển da** (`rong_vay_non.py`): tờ hướng dẫn = ảnh part ĐÃ XONG của dạng kia xếp đúng ô; GPT chỉ đổi màu và chi tiết, giữ
+   hình bóng; mã lấy lại độ đậm và chỗ không có mực của ảnh gốc (thừa hưởng mọi bước dọn), kéo trung vị từng lớp màu về màu chuẩn.
+5. Thân co thì các khúc chồng khác đi: KHÔNG thừa hưởng "chỗ đã xoá mực" của dạng kia ở khúc thân (đoạn đã xoá sẽ rơi ra mép
+   ngoài → viền đứt). `noi_lai` (ngay trên ảnh của rig, theo khung 0 idle của dạng này): kẻ lại mực kín dọc mép mọi khúc → xoá phần
+   mực rơi sâu trong khúc kề → mép của khúc trên ở chỗ nằm sâu trong khúc kề cho mờ dần 6 px (hết vạch sáng mảnh). Lỗ vòng cuộn bị
+   bóp thành khe thì cho thân sau thon lại chút (`DAY_SAU`) để nó là một lỗ nhỏ viền kín, đừng để khe.
+   Khi xoá viền đầu khúc: CHỈ xoá nét chạy dọc mép; nét chạy ngang qua mép (ranh vành bụng, vạch vảy) phải giữ tới sát mép,
+   không thì chỗ nối có vết đứt nét và đốm nhoè. Phóng cận ít nhất ~6 px / đơn vị rig (khung nhìn rộng ~120 đơn vị) mới thấy.
+   Vạt chờm của khúc trên che cụt một nét của khúc dưới ("mất 1 ít nét"): ĐỪNG cắt ngắn vạt (lộ bậc lệch mà vạt đang che) và
+   đừng in lại mọi nét của khúc dưới (ra nét thừa); chỉ in tiếp nét đang hiện dở dang, nối tới mực sẵn có của khúc trên.
+   **Báo "đã khớp" chỉ sau khi tự phóng cận đúng chỗ người dùng chụp và soi TỪNG ảnh**: lượt đầu tôi báo khớp trong khi ảnh cận
+   của mình vẫn còn viền đứt và khe (tôi đọc khe là "lỗ vòng cuộn tự nhiên").
+6. Mắt to hơn thì mảnh mắt nhắm cũ không che hết: dựng mí từ vùng mắt trên ảnh đầu mới, cho slot mí dùng lưới của đầu.
+7. Soi clip gắt nhất (cuộn chặt) bằng da cũ TRƯỚC khi gen da mới; lỗi tỉ lệ lộ ra ngay, không tốn lượt gen.
+
 **Các khúc NỐI NHAU thì gen LIỀN một ảnh rồi cắt, không gen riêng từng khúc** (người dùng dặn 2026-11-11, rồng vây: "những khớp
 nối thì gen cả con ra rồi cắt chứ không gen riêng không thì sẽ lệch"). Thân rắn / rồng, cổ – ngực – lưng – đuôi, tay hay chân nhiều
 đoạn: nếu mỗi khúc là một lượt gen (hay một ô trên tờ mảnh) thì GPT vẽ bù phần khuất mỗi khúc một kiểu: vạch bụng lệch nhịp, bề dày
@@ -134,6 +186,25 @@ dưới) vẫn bị trả. Cách đúng:
    chỗ khuất.
 Gen riêng chỉ dành cho bộ phận KHÔNG nối liền màu với cái khác (vây, sừng, mỏ, cánh, vũ khí). Mẫu: `ArtGen/Spine/rong_vay.py`
 (`nhom_than`, `cat_than`), `build_rong_vay.py` (`build_body`).
+
+**Luật "gen liền rồi cắt" áp dụng CẢ KHI làm theo khung part** (hươu gỗ / `monster_3304` + `monster_3504`, 2026-11-12; người dùng: "dạng 2
+chân nối với cơ thể chân trước chưa match, trong skill tôi đã note là gen cả rồi cắt ra để lúc nối cho match cơ mà, đọc kĩ lại skill rồi
+bổ sung"). Tôi đã xếp cổ, thân và từng khúc chân mỗi thứ một ô trên tờ khung part cho GPT vẽ riêng, rồi vá chỗ nối bằng mã (xoá nét mực
+ở vành mép theo từng cặp mảnh, cho mép mờ dần, gọt phần khuất): bị trả năm lần liên tiếp ("vẫn có outline", "vẫn bị lỗi nhỏ ở gần chân",
+"phần chân bị lem nhem khá nhiều", "chân vẫn lem nhem", "chưa match"): đốm hai mảnh lệch nhau, nét đứt, quầng sáng, đốm bị che cụt.
+Tờ khung part chỉ dành cho mảnh KHÔNG nối liền màu với mảnh khác (bờm, tai, gạc, lá, đuôi, pha lê, mắt, mồm). Còn mọi mảnh cùng một bề
+mặt nối nhau (thân, cổ, mông, các khúc chân) làm thế này:
+1. **Một tờ "thân liền" dựng từ rig**: hợp hình bóng các mảnh đó ở dáng gốc của rig thành MỘT hình (thân + cổ + các chân phía gần), tô
+   phẳng theo thiết kế (đốm đặt tránh chỗ hai mảnh chồng nhau), chỉ kẻ viền NGOÀI. Chân phía xa (nằm sau thân, phải có viền riêng) mỗi
+   chân là một hình liền riêng dời ra hai bên tờ. Ghi tỉ lệ và gốc toạ độ từng nhóm (`huou_go.py to_lien` → `mau/lien.png`, `.json`).
+2. **Prompt**: "vẽ lại sạch tờ này, giữ nguyên hình bóng; MỘT bề mặt liền: nét mực CHỈ ở viền ngoài, trong hình không có nét nào ở chỗ
+   chân nối thân, cổ nối thân, giữa các khúc chân" (`prompt_lien`).
+3. **Nướng vào khung từng part bằng mã** (`cat_lien`): mỗi pixel của khung ảnh vùng → toạ độ thế giới dáng gốc qua lưới của part → toạ
+   độ trên tờ → lấy mẫu song tuyến (ảnh nhân sẵn alpha). Hai mảnh chồng nhau lấy CÙNG điểm ảnh nên đốm, vân, màu khớp tuyệt đối và chỗ
+   nối không có nét; không phải xoá, vá gì. Pixel nằm ngoài lưới vài px thì kéo dài theo tam giác gần nhất (nét viền nằm sát mép lưới).
+4. Rig lắp như thường (`gan_nguyen`), KHÔNG có bước xoá mực. Đừng viết lại các hàm kiểu `xoa_muc_noi` / mờ dần / gọt mảnh: đó là dấu
+   hiệu đã gen sai cách.
+Cũng đừng thêm mảnh để hiện bộ phận mà con gốc để khuất (mắt bên kia) chỉ vì concept GPT vẽ lộ ra: xem memory `tuong-bam-con-goc`.
 
 **CÁNH: làm đúng như cánh của con gốc, đừng tự chế cơ chế** (rồng vây / `monster_3458`, 2026-11-11; người dùng: "cánh họ đập lên
 xuống tôi thấy cả 2 lớp trên dưới", "cánh gốc cả mảng này dính vào thân, phần khớp xương khi quạt lên xuống mà không flip thì nhìn
@@ -169,6 +240,14 @@ Cách dựng cho tướng của mình (mẫu `ArtGen/Spine/rong_vay_rig.py`):
    của họ, co giãn thời gian theo độ dài clip của mình.
 5. Kiểm: tờ khung bằng runtime Spine thật ở đúng các giây đã mổ, đặt cạnh tờ nhuộm màu của con gốc.
 Chuyển động lấy mẫu là của nhà phát hành game gốc (như hình và chuyển động aola): ghi rõ trong ghi chú tướng, không đăng công khai.
+
+**Vệt sáng ở khớp nối CHỈ thấy trong game (không thấy ở trang xem Spine)** (2026-11-12, người dùng: "trong game hình như shader làm
+chỗ này bị lộ lỗi, các khớp nối đều bị", "các con khác có nhiều con cũng bị vậy, tìm giải pháp chung"): tướng vẽ ra RenderTexture nền
+trong suốt (`AolaSticker`), rồi `StickerOutline` đọc lại, chia màu cho alpha và lót giấy trắng dưới chỗ alpha < 1. Shader mảnh
+`PokiClash/PetPart` từng trộn cả kênh alpha bằng (SrcAlpha, OneMinusSrcAlpha): chỗ điểm nửa trong (mép mờ, khử răng cưa) của mảnh
+trên đè lên mảnh đặc, alpha của RT tụt còn a² + (1 − a) → RT "thủng" → vệt giấy trắng dọc mọi mép chồng. Đã sửa ở gốc: `Blend
+[_SrcBlend] [_DstBlend], [_SrcBlendA] [_DstBlendA]` với alpha (One, OneMinusSrcAlpha) cho mảnh thường (`AolaActor.Mat`). Gặp vệt
+sáng kiểu này thì kiểm đường vẽ ra RT trước, đừng sửa ảnh từng tướng.
 
 ## 0a. Tiêu chí bắt buộc cho tướng .atomik (người dùng chốt 2026-11-09, soát trước khi báo xong)
 
@@ -932,3 +1011,148 @@ Tướng thứ 7 đảo Thủy (mã `ca_voi`, con gốc `monster_3281`). Tệp: 
 - **Xoay người (quay lưng lại)**: lật ngang cả con bằng tỉ lệ x của xương `move` đi qua 0 trong ~5 khung (kẹp |sx| ≥ 0,14).
 - **Soi**: báo "đã sửa" chỉ sau khi dựng bằng runtime Spine thật và phóng to đúng chỗ người dùng chụp; bộ vẽ Python ở cỡ nhỏ đã để
   lọt lỗi vây bẹp hai lần.
+
+## 24. Reskin theo khung part trọn một con, trồi lên từ hố, bạch tuộc con trên xương fly* (bạch tuộc quái vật, 2026-11-12)
+
+Con gốc `monster_3616`. Tệp: `ArtGen/Spine/bach_tuoc.py` (thiết kế phẳng theo khung part, sơ đồ bố cục, tờ mảnh, cắt, cân màu, hố),
+`build_bach_tuoc.py` (gói GPT), `bach_tuoc_clip.py` (clip riêng ở tầng điều khiển), `bach_tuoc_rig.py`; ghi chú `inbox/bach_tuoc_ghichu.md`.
+Cả con (17 mảnh) vẽ đúng khung part ngay lượt đầu, IoU 0,95–0,99; `.atomik` 229 KB.
+
+- **Hướng mặt: nhìn CON MẮT, đừng suy từ clip, đừng lật ngang.** Tôi đoán con này nhìn trái (clip quật xúc tu to về bên trái) rồi lật cả
+  con: bị trả ba bản concept ("mắt hướng cùng với bên xúc tu ngắn, của bạn gen bị ngược"). Các con Sword x Staff đã làm đều nhìn phải
+  trong hệ rig. Mặt cũng giữ đúng con gốc: số mắt lộ ra, góc nhìn, có mồm hay không; được phép bỏ phụ kiện không có nghĩa là dựng lại mặt.
+- **Một nguồn cho sơ đồ concept và tờ mảnh**: hàm `thiet_ke(part)` vẽ thiết kế của mình ngay trong khung ảnh vùng của part (hình bóng
+  làm trơn + màu phẳng + chi tiết đặt bằng toạ độ thế giới đổi vào ô qua affine của lưới). Sơ đồ bố cục = dán các ô đó qua lưới ở
+  dáng gốc; tờ mảnh = xếp chính các ô đó. Sau khi concept được duyệt, đọc chỗ đặt đốm, sẹo trên concept rồi ghi lại vào `thiet_ke`.
+  Chi tiết hữu cơ trên sơ đồ phải vẽ cong, thuôn: vẽ gờ mày bằng đoạn thẳng dày thì GPT chép thành thanh chữ nhật.
+- **Sửa concept từng bước**: đính bản nháp trước làm ảnh 1 với khối KEEP IDENTICAL / CHANGE (chỉ liệt kê thứ đổi), sơ đồ làm ảnh 2 chỉ
+  để chỉ chỗ đổi. Cần đổi chiều thì lật bản nháp bằng mã rồi dặn sửa riêng con mắt.
+- **Hình bóng bị khung ảnh vùng cắt thẳng** (phần họ giấu dưới mảnh khác): làm trơn trên ảnh đã ĐỆM viền trống thì góc cắt bo tròn, hết
+  mấu nhọn ở chỗ nối. Bỏ phụ kiện của con gốc thì soát xem nó từng che mép cắt nào (ở đây mũ + xích che mép vòm đầu, và che chỗ lưới
+  ngọn xúc tu tự gập trong idle → giảm biên độ xoay các xương đó bằng bảng `GIAM`).
+- **Cân màu giữa các tờ gen** (`can_mau`): mỗi tờ Codex tô một sắc hơi khác; lấy trung vị màu da của mảnh lớn nhất làm chuẩn rồi cộng
+  độ lệch vào điểm da của từng mảnh. Đo trên concept để chắc chuẩn đó khớp bản đã duyệt.
+- **Mảnh thêm con gốc không có** (gai trên đầu): ô cứng 4 đỉnh, mọi đỉnh bám theo TRỌNG SỐ CỦA DA ngay chỗ gốc mảnh (toạ độ trọng tâm
+  trên lưới da, `trong_so_da`), vẽ sau da cho gốc nấp vào. Bỏ part thì bỏ luôn xương chỉ phục vụ part đó (đỡ khoá).
+- **Vươn dài chi ở tầng điều khiển**: tỉ lệ xương cộng dồn xuống con cháu → chỉ đặt ở MỘT xương gốc, và chỉ khi chuỗi đã duỗi thẳng
+  theo trục xương đó (đốt con gập vuông thì bị xô dẹt thành sợi); bắt đầu kéo dài sau khi chi đã chĩa đúng hướng.
+- **Clip có IK**: `chay.py sample` xuất `k` (độ trộn từng IK), `extra.json` nhận `iks`. Pha hai dáng thì pha cả độ trộn.
+- **Trồi lên từ hố** (`appear`): gen MỘT ảnh cả hố (lòng hố một màu đen phẳng), mã tách lớp sau (lòng + vành sau) và lớp trước (vành
+  dưới đường ngang qua tâm lòng hố); thân nằm dưới đất bị MẶT NẠ CẮT giấu đi. Mặt nạ của `.atomik` luôn bật và phải lồi: đáy là đoạn
+  giữa nửa dưới elip miệng hố, hai bên đi theo tiếp tuyến ra xa (không dựng vách ngay mép hố, kẻo ngọn vòi úp ra ngoài hố bị cắt);
+  ở dáng gốc xương của mặt nạ nằm sâu và phóng 12 lần (không cắt gì), clip thu về đúng cỡ trong lúc trồi rồi nhả ở khung thân vọt cao nhất.
+- **Chi phải vươn dài / chống đẩy thì làm CHI RIÊNG, đừng kéo dài mảnh của rig gốc**: lưới part của họ chỉ 20–30 đỉnh và vẽ ở dáng cuộn;
+  kéo dài 2,5 lần rồi bẻ cong là gãy góc, rách chỗ nối, ngọn bẹt như giấy (bị trả: "bị gãy mesh nhiều"). Gen MỘT ảnh chi duỗi thẳng nằm
+  ngang, dựng dải lưới 10 đốt (`luoi.luoi_dai` + `trongso.chuoi`), mỗi khung đặt các đốt dọc một đường cong bậc ba từ gốc chi (theo thân)
+  tới chỗ bám (điểm cố định trên đất), giãn / co bằng dời xương con dọc trục cha; chi ngắn lại thì cho vồng cao. Chi phải CHẠM, BÁM điểm
+  tựa trước rồi thân mới được đẩy lên. Mẫu: `bach_tuoc_rig.tay_chong`.
+- **Vật triệu hồi chạy tới đối thủ**: slot trên xương `fly_*` (con của root) đi từ chỗ xuất phát tới xương `far`; game tự co quãng
+  (`AolaActor.FarAtomik`); nhún, xoay, nảy đặt trên xương con của `fly_*`. Khai `far=("skill",)` khi xuất.
+
+## 25. Con gốc toàn MẢNH CỨNG lơ lửng (golem đá): đổi dáng tự do, gen mảnh "đúng chỗ" theo nhóm không chồng nhau, die / appear bằng bộ xương rời (tượng đá giữ rừng, 2026-11-12)
+
+Con gốc `monster_3423`. Tệp: `ArtGen/Spine/tuong_da.py` (sơ đồ bố cục), `build_tuong_da.py` (gói GPT), `tuong_da_clip.py` (clip ở tầng
+điều khiển), `tuong_da_manh.py` (cắt mảnh), `tuong_da_rig.py`; ghi chú `inbox/tuong_da_ghichu.md`. Rig ra ngay lượt đầu, người dùng:
+"con này ổn đấy, rất tốt". `.atomik` 157 KB.
+
+- **Đọc `chay.py att` trước khi chọn cách làm**: mọi hình của con này bám MỘT xương (lưới cứng) và rig là FK thuần (IK mặc định tắt).
+  Khi đó không cần khung part, không cần lưới của họ: mỗi mảnh của mình là ô cứng một xương, hình bóng tự do, chỉ cần đúng chỗ, cỡ,
+  thứ tự chồng. Mảnh làm nên bóng dáng (đầu) đổi hẳn dáng ngay từ concept (bị trả "phần đầu giống con gốc quá" khi chỉ thêm rêu, gạc).
+  **CHỈ áp dụng cho con gồm các mảnh LƠ LỬNG.** Con có thân liền mà hình vẫn toàn một xương (voọc samurai / `monster_3620`,
+  2026-11-12) làm kiểu này bị trả ngay: "trúng đòn bị hở ở giữa, giáp tay lệch hẳn khỏi tay, tay chưa ôm vào bao kiếm, mổ xẻ kĩ con
+  gốc và xem mọi part của nó, phần body nên gen đầy đủ". Thân của họ là nhiều khối lớn chồng nhau lấp kín hình bóng (hai nửa cánh,
+  khối ngực, gáy, bụng), bắp tay to nối tấm vai với bao tay, bàn tay hai lớp kẹp vũ khí. Với con như vậy: dựng tờ mổ TỪNG part (cả
+  con mờ + một part tô đậm, ghi slot / xương / cỡ: `kiem_si_mo.py`), rồi mỗi part cấu trúc của họ một mảnh của mình ĐÚNG KHUNG part
+  đó (`kiem_si_part.py`: hình bóng kín tô phẳng → Codex vẽ lại giữ hình bóng, IoU 0,95–0,98; rig đặt bằng affine ảnh vùng → thế giới
+  của chính part, bám đúng xương của nó). Chỉ mảnh nhận diện (mũ, đầu, tấm vai, kiếm, phụ kiện) mới đặt tự do theo concept. Nắm tay
+  cầm vũ khí: ĐỪNG tự chế bàn tay; dùng ĐÚNG các part bàn tay của con gốc (người dùng: "họ tách móng / ngón tay ra, bạn có thể học hỏi
+  cách này"): mỗi tay một khối lòng bàn tay + từng ngón rời, mỗi ngón một xương, ngón thì vẽ trước vũ khí, ngón thì sau (tờ mổ cận:
+  `<scan>/mo/tay_idle0_*.jpg`). Vẽ lại từng part đúng khung (tờ Q của `kiem_si_part.py`, phóng 4,6 lần vì part nhỏ; làm đậm nét mực 6 px
+  trước khi thu), lắp bằng `gan_khung` trên đúng xương ngón: tay ôm vũ khí y như con gốc ở mọi dáng. Bốn cách tự chế bị trả liên tiếp:
+  nắm tay một cục đặt cạnh vũ khí ("chưa ôm vào bao kiếm"); cắt đôi nắm tay, nửa ngón phủ nửa vũ khí ("nằm dưới kiếm"); cả nắm tay phủ
+  lên vũ khí ("bàn tay không ôm vào kiếm, xem con gốc nó làm thế nào"); lòng bàn tay + hàng bốn ngón tự vẽ ("lỗi nặng"). Phụ kiện treo (váy) phải bản lề ở chỗ nó buộc (đai), không
+  để mép trên lơ lửng sau thứ đang che nó ở dáng nghỉ. Phần dài (đuôi) có gốc nấp sau mảnh nào thì bám xương của CHÍNH mảnh đó. Soi dáng
+  xa dáng nghỉ nhất (trúng đòn, vung tay, lúc cánh / áo lật) bằng ảnh CẬN của runtime thật trước khi báo đã sửa; tờ khung nhỏ nhìn sót.
+- **Concept**: sơ đồ = khối từng mảnh làm trơn mạnh tô theo nhóm màu của mình; gen hai hướng cho người dùng chọn, rồi sửa bằng lượt
+  "KEEP IDENTICAL / CHANGE" trên bản nháp (đổi đầu: gen hai kiểu để chọn).
+- **Mảnh "đúng chỗ, đúng cỡ" theo NHÓM**: mỗi lượt gen giữ vài mảnh KHÔNG chồng nhau trên concept (đầu + vai xa + chóp đá; vòng ngực +
+  hai lòng bàn tay; đai; lõi; mọi mảnh lộ đủ còn lại), vẽ đủ phần khuất, bỏ hết thứ khác. 5 lượt × ~70 giây cho 32 mảnh, trùng chỗ
+  concept, không phải dò khớp. Cắt = cụm liền trên nền trắng, gán tên theo tâm ước chừng; lỗ trắng kín lớn (lòng vòng) đục trong.
+  - Mảnh Codex vẽ đủ có thể to hơn chỗ nó nấp (lòng bàn tay thò dưới ngón, vòng tròn thò dưới đai): co / ép CẢ mảnh về khung đo trên
+    concept, rồi mới soi tờ ghép cạnh concept.
+  - Viên tròn nhỏ bị viên bên cạnh che (ngón tay đá): đừng dựng bao lồi rồi tự kẻ viền (viền mảnh, méo); mượn một viên tròn kín Codex
+    đã vẽ làm CON DẤU (xoá nét trong), mỗi viên một cỡ / góc xoay, tâm dò trên concept.
+  - Tách vùng theo màu: nâu rễ so R − G, vì đá kem cũng có R − B lớn.
+- **Đặt mảnh**: khớp khung concept với hệ rig gốc bằng bình phương tối thiểu trên tâm vài cặp mảnh (tỉ lệ + dời); mọi mảnh đặt theo
+  chỗ trên concept (giữ bố cục đã duyệt), không ép từng mảnh về chỗ mảnh của họ.
+- **Clip ở tầng điều khiển khi rig là FK thuần**: tự tính động học thuận trong Python (`fk`) và đặt xương theo toạ độ THẾ GIỚI
+  (`Dang.dat`): tảng tay đi theo cung vẽ sẵn (đấm vòng, giơ lên trời, đổ tới), bắp tay vô hình quay một phần theo, tấm vai quay ít hơn.
+  Runtime Spine vẫn là nơi nướng (`extra.json` → `sample`).
+- **Rã ra / ráp lại (die, appear) bằng bộ xương rời của họ**: con gốc có bộ slot thứ hai (cùng ảnh) trên các xương rời là con của
+  `bone`. Mỗi cụm cho một phép dời + quay quanh tâm so với chỗ ở khung 0 idle; script tính ngược ra biến đổi riêng
+  (`W2' = M · T(−độ lệch hai bộ) · W2 dáng gốc`), `extra.json` bật tắt hai bộ slot (đã thêm timeline `alpha` của slot vào
+  `mo_xe.html` cho mảnh hiện dần). Rig của mình: mỗi mảnh thêm một slot `~2` trên xương rời tương ứng, bật tắt theo `n` / `a` của mẫu.
+  Rơi: xệ dần → rơi tự do (g ≈ 5200 đơn vị / s²) → nảy nhẹ, lắc tắt dần; chỗ nằm = đất + nửa chiều cao cụm sau khi quay.
+- **Đổi hình theo kênh riêng**: lõi sáng / tắt là hai slot cùng chỗ, bật theo kênh `loi` của clip (die chập chờn rồi tắt).
+- **Bộ phận bắn đi rồi quay về** (chiêu mana bắn cả tảng cẳng tay): bản sao các mảnh trên xương `nam_*` (con của `fly_*`, con của
+  root), dáng gốc của `nam_*` = ma trận thế giới của xương thật ở khung rời (lấy từ mẫu khung); mảnh thật ẩn trong lúc bay; `fly_*`
+  dời theo quãng 0..1 tới `far` (game co quãng), về thì xoay đúng 360° cho khớp lúc lắp. Khai `far=("cast",)`. Người dùng nói "bắn bàn
+  tay" nhưng ý là cả tảng tay: lúc xem thử trên rig gốc nên hỏi rõ phần nào rời đi.
+- **VFX vẫn ngoài rig**: quả cầu năng lượng chỉ có xương `cau` (chỗ + cỡ) và sự kiện `tu`, `day`, `nem`, `trung`; trang xem thử trên
+  rig gốc vẽ một vòng tròn đè lên canvas để người dùng thấy nhịp.
+
+## 26. Cầm, nắm, đỡ một vật: phải thấy tay THẬT SỰ cầm (người cây, 2026-11-12; người dùng dặn ghi lại)
+
+Chiêu cuối của người cây (`nguoi_cay`, tướng thứ 7 đảo Mộc): hai tay giơ lên đỡ một quả cầu dây leo lớn dần, nhún, nhảy, rồi nện xuống.
+Bản đầu đặt hai tay bằng GÓC CỐ ĐỊNH (bắp 96°, cẳng 80°...) còn quả cầu đặt theo trung điểm hai nắm tay: đứng thẳng thì đẹp, nhưng lúc thân
+nhún và chúi tới, vai xa dịch đi, một nắm tay tụt hẳn xuống cạnh đầu, quả cầu trông như lơ lửng trên một tay. Tờ khung thưa không lộ; phải
+soi đúng khung thân chúi mạnh nhất. Người dùng: "sửa chỗ chưa đẹp", rồi "note lại vào skill cách làm animation cầm nắm mà cần phải thể hiện
+việc cầm nắm thật". Mẫu: `ArtGen/Spine/nguoi_cay_rig.py` (`giai_tay`, clip `skill`), ghi chú `inbox/nguoi_cay_ghichu.md` mục 6c.
+
+**Luật: tay và vật phải bị RÀNG vào nhau bằng một điểm nắm, không đặt hai thứ độc lập rồi mong chúng trùng nhau.** Trước khi viết khoá,
+quyết "ai dẫn ai":
+
+1. **Vật theo tay** (vật nhỏ, cầm một tay: vũ khí, viên đá, bó lá): slot của vật bám xương BÀN TAY (hoặc mỗi khung đặt xương của vật bằng
+   ma trận thế giới của xương bàn tay nhân điểm nắm trong lòng bàn tay). Tay diễn, vật tự đi theo, xoay theo cổ tay. Vũ khí dài cần chĩa
+   đúng hướng thì đặt góc THẾ GIỚI cho vũ khí rồi tính ngược góc cổ tay (mục 11, `aim`).
+2. **Tay theo vật** (vật to phải đỡ hai tay, vật có quỹ đạo riêng, vật lớn dần): đặt hai ĐIỂM NẮM trên vật, mỗi khung GIẢI HAI KHÚC TAY cho
+   cổ tay tới đúng điểm nắm. Giải tích, không cần IK của runtime: vai `S`, độ dài bắp `L1`, cẳng `L2`, đích `T`; `d = |T − S|` kẹp trong
+   `[|L1 − L2|, L1 + L2]`; góc bắp `= atan2(T − S) ± acos((L1² + d² − L2²) / (2·L1·d))`, dấu chọn cho KHUỶU CHÌA RA NGOÀI (tay bên trái hình
+   cộng, bên phải trừ); góc cẳng `= atan2(T − E)` với `E` là khuỷu vừa tính. Hàm mẫu `giai_tay(W, ben, dich, gan)`.
+
+Các điểm phải làm đủ:
+- **Điểm nắm gắn vào một xương ổn định của thân** (đầu, ngực: "trên đầu 0,34 chiều cao, lệch ± 0,15 chiều cao"), không phải toạ độ thế giới
+  cố định. Thân nhún, chúi, nhảy thì điểm nắm đi theo, tay và vật đi cùng nhau.
+- **Tâm vật tính từ hai cổ tay** (trung điểm + nâng lên theo bán kính vật), nên dù tay hụt tầm vật vẫn nằm trên tay. Vật lớn dần thì hai
+  điểm nắm DANG RA theo bán kính và vật được nâng cao dần: vật to nằm TRÊN hai nắm tay, không xuyên qua tay.
+- **Quá tầm với**: kẹp `d ≤ L1 + L2` thì tay duỗi thẳng mà vẫn hụt. Đo độ hụt từng khung; hụt nhiều thì hạ điểm nắm hoặc kéo vật về gần thân
+  ở đúng dáng đó, đừng để một tay đơ một tay cong. Người cây: hai cổ tay lệch nhau 0–28 đơn vị (9 % chiều cao) ở khung nhún sâu nhất, nhìn
+  vẫn là hai nắm tay chụm dưới quả cầu; bản góc cố định thì một tay tụt hẳn xuống.
+- **Góc phải liên tục**: `atan2` trả góc trong một vòng; quy góc vừa giải về cùng vòng với dáng mong muốn (cộng bội 360°) trước khi đặt, và
+  khi đặt xương theo góc thế giới thì chọn bội 360° theo tổng góc đã đặt lên xương và mọi xương tổ tiên (xem bài học góc nhảy ở cuối mục).
+- **Lúc nhả / ném / nện**: trước khung sự kiện vật bám tay 100 %; đúng khung đó mới rời (đổi sang quỹ đạo riêng, hoặc bẹp rồi tan). Chuyển
+  từ dáng "đỡ" sang dáng "đập" bằng một trọng số (góc giải được → góc dáng đập); vật vẫn theo trung điểm hai cổ tay nên không tuột khỏi tay
+  giữa chừng.
+- **Thứ tự lớp theo kiểu cầm**: đỡ từ dưới thì vật vẽ sau tay một chút cũng được, nhưng ÔM hay NẮM thì ngón / nắm tay phải vẽ TRƯỚC vật ở chỗ
+  chạm; vật che hết bàn tay là mất cảm giác cầm.
+- **Thân phải gánh sức nặng**: vật càng to thân càng ngả ra sau, lún xuống, rung mạnh dần; nắm tay siết (phóng 1,05–1,1); đệm vai / giáp vai
+  nghiêng theo độ giơ của bắp tay. Tay giơ mà thân đứng im là vật không có trọng lượng.
+- **Bám điểm tựa cũng là cầm nắm**: tay chống đất, chi kéo thân lên: điểm bám đứng YÊN trong thế giới, giải chi tới điểm đó, thân mới được
+  dịch (mục 24 `tay_chong`, memory `dong-tac-co-diem-tua`).
+
+**Kiểm trước khi báo** (đo, không chỉ nhìn tờ khung):
+- khoảng cách cổ tay ↔ điểm nắm và độ lệch cao thấp giữa hai cổ tay ở MỌI khung của đoạn cầm;
+- soi cận đúng các khung thân lệch nhiều nhất (nhún sâu, bật nhảy, chúi tới), không soi dáng đứng thẳng;
+- góc nhảy giữa hai khung của mọi xương (`ArtGen/Spine/nguoi_cay_kiem.py`) và lấy mẫu rig đã xuất bằng runtime thật ở 60 khung/giây
+  (`mo_xe/chay.py sample <rig> <tên> <ra> <clip> 60`): bước xoay ~360° giữa hai khung là runtime quay ngược một vòng, người dùng thấy "giật".
+
+Bài học đi kèm ở cùng con này (tay tự viết đặt lên clip nền của con gốc):
+- Tay tự viết thì BỎ HẲN chuỗi tay của clip nền, kể cả xương đòn (tay họ vung cả vòng lúc thu về; lẫn vào là góc nhảy 360° và đệm vai văng theo).
+- Clip nền bật tức thì trong một khung (cả thân vọt ~200 đơn vị lúc rời đất, bàn chân quay 122°): hình họ nhỏ không lộ, hình mình to thì
+  lộ; lọc Gauss vài khung trong đúng cửa sổ đó (`lam_tron`), ngoài cửa sổ giữ nguyên cho chân vẫn bám đất.
+- Pha sang một dáng của clip nền thì pha vào DÁNG ĐỨNG YÊN của nó (dáng nhún), không pha vào giữa đoạn đang chạy.
+- Phụ kiện treo (rêu, dây, tua) giữ hướng THẾ GIỚI rồi mới cho lò xo trễ; quay cứng theo tay thì lúc tay vung nhanh lò xo lật ± giới hạn
+  từng khung.
+- Mảnh chi đặt theo hai khớp đọc trên concept: chỉ đoạn GIỮA hai khớp co giãn theo độ dài xương, hai đầu tròn và bề ngang giữ nguyên
+  (`chi()`); co giãn cả mảnh thì đầu tròn dài ra, thòi khỏi khớp, người dùng thấy "khớp không liên kết".
+- Đệm vai luôn vẽ SAU (đè lên) cả cánh tay của bên đó, kể cả cẳng tay và nắm tay; tay giơ lên mà cẳng tay đè lên vai là "tay mọc trước vai".
