@@ -176,7 +176,7 @@ Q1 Q2 Q3 Q4` → `cat_con` → `can_mau` → `so_part` → `quai/khoa.py nang --
 - **Mắt** phóng 1,35 lần quanh tâm (`MAT_TI`) cho gần kín vành hốc mắt như concept; ba hình mắt là ba slot bật bằng độ đậm.
 - **Idle**: biên độ xoay của `bone14..17` (ngọn xúc tu to phía sau) giảm còn 50% (`GIAM`): ở 45–86 độ lưới thưa của ngọn tự gập thành
   mép răng cưa; con gốc cũng vậy nhưng mép mũ tàu che mất. Kiểm bằng runtime Spine thật phóng vào chỗ đó (`rig/spine_that/can2/idle.jpg`).
-- **Bạch tuộc con**: `tai_ve/C01.png` → `manh/con.png`; năm slot `con0..4` trên xương `fly_c0..4` (+ xương con `c<i>` nhún, xoay), `far` ở
+- **Bạch tuộc con**: `tai_ve/C01.png` → `manh/bt_con.png`; năm slot `con0..4` trên xương `fly_c0..4` (+ xương con `c<i>` nhún, xoay), `far` ở
   (640, 150). `game.far = ["skill"]`.
 - **Hố**: lớp sau chờm 8 px xuống dưới đường tách (hai lớp chỉ giáp mép thì hở một vạch nền mảnh ở hai đầu hố).
 - **Số đo sau khi thêm hai tay chống**: 73 xương, 27 slot, 899 đỉnh, 1.307 tam giác, 11.684 khoá, atlas 984 × 1056, `.atomik` **251 KB**.

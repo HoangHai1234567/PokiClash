@@ -96,8 +96,8 @@ BO, NHAY, TRUNG0 = 0.52, 0.24, 0.0      # thời gian bò, nhảy; (TRUNG0 tính
 
 
 def anh_con():
-    """ảnh bạch tuộc con: bản Codex vẽ (manh/con.png) nếu có, không thì hình tạm vẽ bằng mã."""
-    p = os.path.join(BT.MANH, "con.png")
+    """ảnh bạch tuộc con: bản Codex vẽ (manh/bt_con.png) nếu có, không thì hình tạm vẽ bằng mã."""
+    p = os.path.join(BT.MANH, "bt_con.png")
     if os.path.exists(p):
         return Image.open(p).convert("RGBA"), False
     S = 4

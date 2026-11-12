@@ -605,7 +605,7 @@ def cat_part(to):
 
 
 def cat_con():
-    """bạch tuộc con (tai_ve/C01*.png): tách nền trắng, cắt sát → manh/con.png (cao 360 px; rig tự thu nhỏ)."""
+    """bạch tuộc con (tai_ve/C01*.png): tách nền trắng, cắt sát → manh/bt_con.png (cao 360 px; rig tự thu nhỏ)."""
     from quai import anh
     path = anh.to_moi_nhat(TAI_CHUNG, "C01")
     if not path:
@@ -629,8 +629,8 @@ def cat_con():
     g = g.convert("RGBa")
     k = 360.0 / g.height
     g = g.resize((round(g.width * k), 360), Image.LANCZOS).convert("RGBA")
-    g.save(os.path.join(MANH, "con.png"))
-    print(os.path.join(MANH, "con.png"), g.size, "từ", os.path.basename(path))
+    g.save(os.path.join(MANH, "bt_con.png"))
+    print(os.path.join(MANH, "bt_con.png"), g.size, "từ", os.path.basename(path))
 
 
 def cat_voi():

@@ -360,7 +360,7 @@ def build_parts():
 
 def build_mini():
     """bạch tuộc con của chiêu cuối (người dùng: "triệu hồi ra các con bạch tuộc mini"): một ảnh, một con, cùng màu, cùng nét với concept
-    đã duyệt → tai_ve/C01.png (bach_tuoc.py cat_con cắt nền → manh/con.png)."""
+    đã duyệt → tai_ve/C01.png (bach_tuoc.py cat_con cắt nền → manh/bt_con.png)."""
     if not os.path.exists(chosen()):
         return None
     luu = os.path.join(save_dir(), "C01.png")
