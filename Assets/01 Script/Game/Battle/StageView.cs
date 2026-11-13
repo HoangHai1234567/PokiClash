@@ -113,6 +113,8 @@ namespace PokiClash
         static readonly Dictionary<string, string> MocAtk = new Dictionary<string, string>
         {
             { "phong_linh", "n_hat_nga" }, // Lâm Tượng (HatVoi.cs): bụi lúc chân sau đạp, lá tuột lại lúc bay, nện + hất ngà
+            { "thanh_long", "n_rong_dam" }, // suất này nay là rồng trúc bốn cánh, boss cuối đảo Mộc (2026-11-13, HatRong.cs): dậm hai chân trước, địa chấn chạy tới, sét giáng vào đầu đối thủ
+            { "moc_tinh", "n_giac_dam" }, // suất này nay là Giác Mộc, thú cổ thụ một sừng (2026-11-13, HatGiac.cs): co chân trước dậm xuống, đất nứt chạy tới đối thủ
             { "gio_loc", "n_mo_dam" }, // Linh Điểu (HatChim.cs): lao tới đâm mỏ: bụi bật, gió và lá tuột lại, chớp toé chỗ mỏ chạm
         };
 
@@ -127,6 +129,8 @@ namespace PokiClash
             { "bom_la", ("n_cau_tia", new[] { "n_cau_mom1", "n_cau_mom" }) }, // Lộc Phong (HatLoc.cs): tụ cầu nhỏ giữa hai gạc rồi bắn tia; chiêu cuối dựng người há mồm tụ cầu to rồi gật đầu nện
             { "gio_loc", ("n_la_gam", new[] { "n_thach_roi1", "n_thach_roi" }) }, // Linh Điểu (HatChim.cs): quạt cánh, lá cánh bay găm vào đối thủ rồi về cánh (lá là mảnh của rig, xương fly_*); chiêu cuối gọi tảng đá rơi từ trời xuống đầu đối thủ
             { "long_vuot", ("n_gai_va", new[] { "n_la_va", "n_la_va" }) }, // suất này nay là dòng người cây đầm lầy (2026-11-12): giơ tay gọi dây gai quật rồi trói (dây gai là mảnh của rig, xương far): gai gãy văng lúc quật trúng; chiêu cuối tụ quả cầu dây leo (mảnh của rig) rồi nhảy tới nện: lá vỡ tung lúc chạm
+            { "thanh_long", ("n_rong_gam", new[] { "n_rong_van", "n_rong_van", "n_rong_van" }) }, // rồng trúc bốn cánh (HatRong.cs): gầm, các đợt sóng âm lao tới, rung màn; chiêu cuối Vạn Diệp: kén cánh bung, bão lá chém, rừng măng trúc đâm lên, sét kết liễu
+            { "moc_tinh", ("n_giac_tia", new[] { "n_giac_tim", "n_giac_tim" }) }, // Giác Mộc (HatGiac.cs): ngẩng lên tụ cầu ở đỉnh sừng rồi cúi xuống bắn tia; chiêu cuối mở vỏ ngực, quả tim rực sáng bắn tia lớn
             { "tho_hoang", ("n_kiem_rut", new[] { "n_kiem_ao" }) }, // suất này nay là Voọc Tướng, voọc kiếm sĩ giáp lá (2026-11-12, HatKiem.cs): cúi giữ thế lướt tới rồi rút kiếm chém (rig khai lunge cho cast); chiêu cuối biến mất, bốn ảo ảnh (mảnh của rig, xương far) chém để lại sẹo, tra kiếm thì các vết nổ lại
         };
 

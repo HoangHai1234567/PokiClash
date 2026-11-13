@@ -83,7 +83,11 @@ namespace PokiClash
             // đảo Mộc, Voọc Tướng (2026-11-12, voọc kiếm sĩ giáp lá, suất tho_hoang; chiêu ở HatKiem.cs): lục sẫm của mũ giáp, lục lá, lục non của lá cài mũ; sao vàng của đinh giáp và tua văng lúc trúng
             { "tho_hoang", new WTheme { w = WPal(C(34, 96, 52), C(84, 160, 70), C(176, 222, 120)), fx = new Theme { extra = "sao", extraCol = C(246, 196, 72) } } },
             // đảo Mộc, người cây đầm lầy (2026-11-12, suất long_vuot; dây gai và quả cầu dây leo là mảnh của rig): lục sẫm của dây gai, lục rêu thân, lục rêu vai; kem của gai văng lúc trúng
+            // đảo Mộc, rồng trúc bốn cánh (2026-11-13, boss cuối, suất thanh_long; chiêu ở HatRong.cs): lục bảo sẫm, lục bảo, lục non của cánh; sao vàng ngà của giáp
+            { "thanh_long", new WTheme { w = WPal(C(30, 84, 62), C(52, 140, 92), C(150, 212, 140)), fx = new Theme { extra = "sao", extraCol = C(236, 196, 80) } } },
             { "long_vuot", new WTheme { w = WPal(C(47, 82, 51), C(78, 122, 62), C(124, 164, 74)), fx = new Theme { extra = "sao", extraCol = C(239, 224, 168) } } },
+            // đảo Mộc, Giác Mộc (2026-11-13, thú cổ thụ một sừng, suất moc_tinh; chiêu ở HatGiac.cs): hổ phách sẫm, hổ phách tươi, vàng nhạt của tinh thể sừng và quả tim; sao kem
+            { "moc_tinh", new WTheme { w = WPal(C(214, 134, 32), C(250, 190, 60), C(255, 232, 150)), fx = new Theme { extra = "sao", extraCol = C(255, 246, 200) } } },
         };
 
         WTheme wth = WDefault;
@@ -1373,6 +1377,12 @@ namespace PokiClash
                 case "n_la_gam": return NLaGam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu: quạt cánh, lá cánh (mảnh của rig) găm vào đối thủ rồi rút về
                 case "n_thach_roi": return NThachRoi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu: gọi tảng đá phủ rêu rơi từ trời xuống đầu đối thủ
                 case "n_thach_roi1": return NThachRoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.78f); // dạng 1 (Điểu Nhi): tảng nhỏ hơn
+                case "n_giac_dam": return NGiacDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Giác Mộc (HatGiac.cs), đòn đánh thường: dậm chân, đất nứt chạy tới đối thủ
+                case "n_giac_tia": return NGiacTia(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // Giác Mộc: tụ cầu ở đỉnh sừng rồi cúi đầu bắn tia
+                case "n_giac_tim": return NGiacTim(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Giác Mộc: mở ngực, tim rực sáng bắn tia lớn
+                case "n_rong_dam": return NRongDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // rồng trúc (HatRong.cs), đòn đánh thường: dậm chân, địa chấn, sét giáng
+                case "n_rong_gam": return NRongGam(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // rồng trúc: gầm, sóng âm
+                case "n_rong_van": return NRongVan(casterFeet, casterH, foeFeet, foeBody, tH, lead); // rồng trúc: chiêu cuối Vạn Diệp
                 case "n_kiem_rut": return NKiemRut(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Voọc Tướng (HatKiem.cs): cúi giữ thế lướt tới, rút kiếm chém, bổ nhát hai
                 case "n_kiem_ao": return NKiemAo(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Voọc Tướng: ảo ảnh chém để lại sẹo, tra kiếm thì các vết nổ lại
                 default: return NVa(foeBody, foeFeet, tH);
@@ -1398,6 +1408,9 @@ namespace PokiClash
                 "n_loc" => 0.3f,
                 "n_la" => LaDur + 0.04f,
                 "n_cau_tia" => 0.88f + 0.05f,
+                "n_giac_tia" => 0.88f + 0.05f,
+                "n_giac_tim" => 1.0f + 0.05f,
+                "n_rong_gam" => RongGamDur + 0.04f,
                 _ => 0,
             };
     }

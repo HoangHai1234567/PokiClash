@@ -1,0 +1,21 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Spine\inbox\giac_moc_1\tai_ve\L1_duyet.png: the APPROVED creature, 1024x1536, white background: an ANCIENT TREE BEAST: a huge four-legged forest guardian of walnut-brown bark, facing right, with one great wooden horn with an amber crystal tip growing out of its skull, a leaf crest behind the head, a wild mane of fern fronds and vines, a row of pale wooden thorn plates and amber crystals along its back, moss on its shoulders, a barrel-like chest pod of dark bark plates with amber light in the seams bound by a green vine, and thick legs with dark root feet and amber claws. It gives the design, the colours, the wobbly dark-brown ink line, the crayon hatching and the look of every material.
+image 2 = D:\PokiClash\ArtGen\Spine\inbox\giac_moc_1\mau\part_E.png: PARTS GUIDE, 1536x1024, white background, drawn by computer: 22 separate flat shapes, each one a PART of the creature's 2D animation rig, enlarged, lying at the angle the rig needs. Each shape is the EXACT silhouette of its part, filled with the flat colour of its material and outlined in dark brown.
+
+SAVE: save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\giac_moc_1\tai_ve\N_E.png
+If a file with that name already exists, save as N_E_2.png, N_E_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 cleanly in the hand-drawn style of image 1, landscape 1536x1024, pure-white background. Keep EXACTLY every silhouette of image 2: the same outline, the same size, the same angle, the same position on the sheet (if your picture were laid over image 2, every shape must coincide with its shape there). Do not move, rotate, straighten, merge or rearrange the shapes; do not add or drop any; keep clear white between them. A program will cut this sheet by position.
+
+WHAT THE SHAPES ARE (centre of each shape in pixels on the sheet, x from the left, y from the top):
+- a segment of thick green VINE (#3E7846) with one lighter vein line along it: 9 shapes, centred at about (107, 180), (329, 164), (641, 158), (1309, 153), (81, 470), (663, 465), (1102, 463), (503, 685), (1165, 674).
+- a pale WOODEN plate (#DAC496) with two or three thin wood-grain lines: 3 shapes, centred at about (1021, 158), (435, 468), (1340, 459).
+- one small pointed LEAF, light leaf green (#82B050), with a midrib line: 8 shapes, centred at about (1456, 142), (226, 468), (268, 698), (384, 689), (641, 685), (792, 685), (925, 678), (1424, 652).
+- a piece of the head's WOOD (#966A46) with one bark crack: 1 shape, centred at about (878, 465).
+- a tuft of MOSS (#6E963E): scalloped, lumpy edge exactly as the guide, with a few small curved tuft marks inside: 1 shape, centred at about (107, 700).
+
+OUTLINE: every shape gets ONE closed dark-brown ink outline (#2B2118), about 15 px thick on this sheet, wobbly like a real pen, lying just INSIDE the edge of the silhouette (never outside it). Inner detail lines are thinner (about 7 px).
+COLOUR: keep the colour each shape has in image 2 (and keep every second colour exactly where image 2 shows it). Fill with visible loose diagonal crayon / coloured-pencil hatching as in image 1, kept inside the outline.
+Each shape is a complete, closed object on its own: do not draw neighbouring parts, do not draw the creature.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour, the crayon strokes are texture only. No shading, no darker side, no highlights or shine spots (not on the crystals, not on the claws), no glow, no gradients, no cast shadows, no 3D look. Pure white (#FFFFFF) background; no text, no labels, no numbers, no frames, no guide lines.

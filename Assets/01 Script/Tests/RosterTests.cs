@@ -31,7 +31,9 @@ namespace PokiClash.Tests
             Assert.AreEqual(new[] { "lam_quan_1", "lam_quan_2", "lam_quan_3" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
             // Thanh Long 3 dạng, Long Vuốt 2 dạng; từ 2026-11-08 là hình .atomik vẽ lại theo concept đã duyệt (ArtGen/Spine/build_moc.py,
             // beast.py), mã hình <id>_<k> (trước: rig aola goc_214 → 215 → 1749, goc_1219 → 1220)
-            Assert.AreEqual(new[] { "thanh_long_1", "thanh_long_2", "thanh_long_3" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
+            // 2026-11-13: hình của suất này nay là rồng trúc bốn cánh (boss cuối đảo Mộc, rig ArtGen/Spine/moc_vuong_rig.py); rig mới mới có
+            // một dạng nên cả ba dạng tạm trỏ chung moc_vuong_1 (thư mục thanh_long_* cũ còn nguyên; quai/doi_moc_vuong.py --ve_cu trả lại)
+            Assert.AreEqual(new[] { "moc_vuong_1", "moc_vuong_1", "moc_vuong_1" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
             Assert.AreEqual(new[] { "long_vuot_1", "long_vuot_2" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
             // đảo Kim (2026-11-05): boss Kim Nghê là dòng 克亚 → 克里亚斯 (2 dạng, aola không có siêu tiến hóa); từ 2026-11-09 là hình
             // .atomik vẽ lại (ArtGen/Spine/build_kim.py), mã hình <id>_<k> (trước: rig aola goc_1840 → goc_1841)

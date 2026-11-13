@@ -221,6 +221,22 @@ function addExtra(data, list) {
       o.forEach((k, i) => t.setFrame(i, k[0], k[1], 0, k[2], false, false));
       tls.push(t);
     }
+    // transforms: {tên transform constraint: [[t, mixRotate, mixX, mixY, mixScaleX, mixScaleY, mixShearY]]} (giá trị tuyệt đối)
+    for (const [tn, o] of Object.entries(A.transforms || {})) {
+      const ti = data.transformConstraints.findIndex(x => x.name === tn);
+      if (ti < 0) throw new Error("extra: không có transform constraint " + tn);
+      const t = new spine.TransformConstraintTimeline(o.length, 0, ti);
+      o.forEach((k, i) => t.setFrame(i, k[0], k[1], k[2], k[3], k[4], k[5], k[6]));
+      tls.push(t);
+    }
+    // inherit: {tên xương: [[t, kiểu thừa hưởng 0..4]]} (clip bay của họ đổi kiểu thừa hưởng của vài xương)
+    for (const [bn, o] of Object.entries(A.inherit || {})) {
+      const bi = data.bones.findIndex(b => b.name === bn);
+      if (bi < 0) throw new Error("extra: không có xương " + bn);
+      const t = new spine.InheritTimeline(o.length, bi);
+      o.forEach((k, i) => t.setFrame(i, k[0], k[1]));
+      tls.push(t);
+    }
     data.animations.push(new spine.Animation(A.name, tls, A.dur));
   }
 }
@@ -245,8 +261,11 @@ function sample(data) {
       const pc = sk.pathConstraints.map(c => Math.round(c.position * 1e5) / 1e5);
       // k: độ trộn và chiều gập của từng ràng buộc IK (clip của họ bật tắt IK: chân bám đất ↔ vung tự do)
       const ik = sk.ikConstraints.map(c => [Math.round(c.mix * 1e4) / 1e4, c.bendDirection]);
+      // tc: độ trộn từng transform constraint; ih: kiểu thừa hưởng từng xương (clip của họ đổi giữa chừng)
+      const tc = sk.transformConstraints.map(c => [c.mixRotate, c.mixX, c.mixY, c.mixScaleX, c.mixScaleY, c.mixShearY].map(v => Math.round(v * 1e4) / 1e4));
+      const ih = sk.bones.map(b => b.inherit);
       sk.updateWorldTransform(spine.Physics.update);
-      fr.push({u, p: pc, k: ik, b: sk.bones.map(b => [Math.round(b.worldX * 10) / 10, Math.round(b.worldY * 10) / 10, Math.round(b.getWorldRotationX() * 10) / 10,
+      fr.push({u, p: pc, k: ik, tc, ih, b: sk.bones.map(b => [Math.round(b.worldX * 10) / 10, Math.round(b.worldY * 10) / 10, Math.round(b.getWorldRotationX() * 10) / 10,
                                      Math.round(b.getWorldScaleX() * 100) / 100, Math.round(b.getWorldScaleY() * 100) / 100]),
                m: sk.bones.map(b => [Math.round(b.a * 1e4) / 1e4, Math.round(b.b * 1e4) / 1e4, Math.round(b.c * 1e4) / 1e4, Math.round(b.d * 1e4) / 1e4]),
                // l: biến đổi RIÊNG đã áp (x, y, xoay, tỉ lệ x, y, xiên x, y trong hệ xương cha), không làm tròn thô: dùng để chép

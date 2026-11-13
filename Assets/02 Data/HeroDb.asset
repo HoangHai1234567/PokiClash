@@ -629,9 +629,9 @@ MonoBehaviour:
       size: 1
     minion: 0
   - id: moc_tinh
-    name: "M\u1ED9c Tinh"
-    title: "Th\xFA gi\xE1p pha l\xEA l\u1EE5c"
-    aola: moc_tinh_1
+    name: "Gi\xE1c M\u1ED9c"
+    title: "Th\xFA c\u1ED5 th\u1EE5 m\u1ED9t s\u1EEBng"
+    aola: giac_moc_1
     elem: 1
     rarity: 3
     stats: 3c0000004600000046000000280000002800000028000000
@@ -639,20 +639,20 @@ MonoBehaviour:
     ult: moc_tinh_ult
     passive: moc_tinh_pas
     shards: 30
-    line: "D\xF2ng M\u1ED9c Tinh"
-    size: 0.92
+    line: "D\xF2ng Gi\xE1c M\u1ED9c"
+    size: 0.9
     forms:
-    - name: "Ti\u1EC3u M\u1ED9c Tinh"
-      aola: moc_tinh_1
-      size: 0.92
-    - name: "M\u1ED9c Tinh"
-      aola: moc_tinh_2
-      size: 1.1
+    - name: "Gi\xE1c M\u1ED9c Non"
+      aola: giac_moc_1
+      size: 0.9
+    - name: "Gi\xE1c M\u1ED9c"
+      aola: giac_moc_2
+      size: 1.05
     minion: 0
   - id: thanh_long
     name: Thanh Long
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng \u0110\xF4ng"
-    aola: thanh_long_1
+    aola: moc_vuong_1
     elem: 1
     rarity: 4
     stats: 3c0000003c000000280000003c000000280000003c000000
@@ -664,13 +664,13 @@ MonoBehaviour:
     size: 0.95
     forms:
     - name: Thanh Long Con
-      aola: thanh_long_1
+      aola: moc_vuong_1
       size: 0.95
     - name: Thanh Long
-      aola: thanh_long_2
+      aola: moc_vuong_1
       size: 1.1
     - name: "L\xF4i Thanh Long"
-      aola: thanh_long_3
+      aola: moc_vuong_1
       size: 1.16
     minion: 0
   - id: tieu_y

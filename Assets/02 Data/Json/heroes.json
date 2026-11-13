@@ -998,9 +998,9 @@
   },
   {
    "id": "moc_tinh",
-   "name": "Mộc Tinh",
-   "title": "Thú giáp pha lê lục",
-   "aola": "moc_tinh_1",
+   "name": "Giác Mộc",
+   "title": "Thú cổ thụ một sừng",
+   "aola": "giac_moc_1",
    "elem": "moc",
    "rarity": "epic",
    "stats": [
@@ -1015,18 +1015,18 @@
    "ult": "moc_tinh_ult",
    "passive": "moc_tinh_pas",
    "shards": 30,
-   "line": "Dòng Mộc Tinh",
-   "size": 0.92,
+   "line": "Dòng Giác Mộc",
+   "size": 0.9,
    "forms": [
     {
-     "name": "Tiểu Mộc Tinh",
-     "aola": "moc_tinh_1",
-     "size": 0.92
+     "name": "Giác Mộc Non",
+     "aola": "giac_moc_1",
+     "size": 0.9
     },
     {
-     "name": "Mộc Tinh",
-     "aola": "moc_tinh_2",
-     "size": 1.1
+     "name": "Giác Mộc",
+     "aola": "giac_moc_2",
+     "size": 1.05
     }
    ]
   },
@@ -1034,7 +1034,7 @@
    "id": "thanh_long",
    "name": "Thanh Long",
    "title": "Thần thú phương Đông",
-   "aola": "thanh_long_1",
+   "aola": "moc_vuong_1",
    "elem": "moc",
    "rarity": "legend",
    "stats": [
@@ -1054,17 +1054,17 @@
    "forms": [
     {
      "name": "Thanh Long Con",
-     "aola": "thanh_long_1",
+     "aola": "moc_vuong_1",
      "size": 0.95
     },
     {
      "name": "Thanh Long",
-     "aola": "thanh_long_2",
+     "aola": "moc_vuong_1",
      "size": 1.1
     },
     {
      "name": "Lôi Thanh Long",
-     "aola": "thanh_long_3",
+     "aola": "moc_vuong_1",
      "size": 1.16
     }
    ]

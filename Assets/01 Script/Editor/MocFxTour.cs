@@ -29,5 +29,8 @@ namespace PokiClash.EditorTools
 
         [MenuItem("PokiClash/Thử/Đảo Mộc: bạt kiếm và ảo ảnh loạn trảm Voọc Tướng, chiêu mana và chiêu cuối (đang Play)", priority = 135)]
         static void TryKiem() => ThuyFxTour.TryOnly("tho_hoang");
+
+        [MenuItem("PokiClash/Thử/Đảo Mộc: tia sừng và tim cổ thụ Giác Mộc, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 136)]
+        static void TryGiac() => ThuyFxTour.TryOnly("moc_tinh");
     }
 }

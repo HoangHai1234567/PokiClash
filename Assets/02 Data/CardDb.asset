@@ -3855,7 +3855,7 @@ MonoBehaviour:
     owner: tho_hoang
     effectsJson: '[{"k":"rage","v":10}]'
   - id: moc_tinh_skill
-    name: "Gai Pha L\xEA"
+    name: "Tia S\u1EEBng H\u1ED5 Ph\xE1ch"
     rarity: 2
     kind: 1
     icon: rock
@@ -3871,7 +3871,7 @@ MonoBehaviour:
     owner: moc_tinh
     effectsJson: '[{"k":"dmg","mult":1.1},{"k":"shield","pct":0.12}]'
   - id: moc_tinh_ult
-    name: "R\u1EEBng Pha L\xEA"
+    name: "Tim C\u1ED5 Th\u1EE5 Khai Quang"
     rarity: 3
     kind: 2
     icon: crack
@@ -3887,7 +3887,7 @@ MonoBehaviour:
     owner: moc_tinh
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"shield","pct":0.2}]'
   - id: moc_tinh_pas
-    name: "Gi\xE1p Pha L\xEA"
+    name: "V\u1ECF C\xE2y Ng\xE0n N\u0103m"
     rarity: 2
     kind: 3
     icon: shield
