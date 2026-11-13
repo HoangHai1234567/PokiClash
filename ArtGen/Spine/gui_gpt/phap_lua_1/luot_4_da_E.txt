@@ -1,0 +1,23 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\phap_lua_1\mau\goc_E.png: LAYOUT SHEET, 1536x1024, white background, a rough flat computer-made sketch: WHERE each of the nine pieces goes on the sheet and HOW BIG it is: a big round ball (upper left), a smaller star-like yellow blob under it, four upright flame tongues of decreasing size (top row), three round lumpy puffs from dark to light grey (bottom row). Take only the placement, the size and the kind of colour of each piece; the sketch shapes are crude (the flames look like claws): design the real shapes yourself as described.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\phap_lua_1\tai_ve\L2_ao_lua.png: a picture of OUR character (a fire-mage spirit), 1536x1024, white background: use it ONLY for the drawing style: the wobbly dark-brown ink outline, the crayon hatching, and the way FIRE is drawn (three nested flat colour zones with wavy borders, no glow). The ball of fire in its staff and the flames above it are what these pieces will rebuild.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\phap_lua_1\tai_ve\D_E.png
+If a file with that name already exists, save as D_E_2.png, D_E_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: draw a sheet of NINE SEPARATE PIECES on a pure-white 1536x1024 canvas. They are the loose parts of an animated ball of fire (the burning orb in the head of a mage's staff): a 2D skeleton will stack them (smoke behind, then the flame tongues, then the ball, then its bright heart) and wave them. Each piece is drawn ALONE, complete, not touching any other piece, at the place and size of the layout sheet (image 1), with at least 40 px of white between pieces.
+
+THE PIECES (coordinates are pixels on the 1536x1024 sheet, x from the left, y from the top):
+1. THE BALL (about x = 60 to x = 480, y = 90 to y = 510): a perfectly round ball of fire: a ring of red-orange (#E0441F) along the rim and a big orange (#F7902A) inside, the border between the two colours wavy like small flame tongues. A closed ink outline all the way round the circle. No face, no highlight, nothing else on it.
+2. THE HEART (about x = 80 to x = 380, y = 580 to y = 880): the bright core that sits on the ball: ONE soft blob of yellow (#FFD45A) with five or six rounded wavy lobes (like a small flower or a splash), a slightly paler yellow (#FFE89A) spot in its middle. NO dark ink outline: its edge is only a thin orange (#F7902A) line.
+3. FLAME TONGUE 1, the tallest (about x = 540 to x = 790, y = 60 to y = 620): ONE single upright flame, drawn like a real hand-drawn flame, NOT a horn or a claw: a thick rounded base at the BOTTOM, a body that sways in a soft S-curve, and one sharp tip at the TOP curling a little to the left; one small side lick halfway up is allowed. Three nested flat colour zones following its shape: red-orange (#E0441F) outside, orange (#F7902A), and a yellow (#FFD45A) zone inside that starts at the base and ends in a point below the tip. A closed ink outline all the way round, also round the base.
+4. FLAME TONGUE 2 (about x = 830 to x = 1040, y = 150 to y = 620): the same kind of single flame, a little smaller, its S-curve different from tongue 1.
+5. FLAME TONGUE 3 (about x = 1080 to x = 1260, y = 230 to y = 620): the same, smaller, its tip curling a little to the RIGHT.
+6. FLAME TONGUE 4, the smallest (about x = 1300 to x = 1470, y = 300 to y = 620): the same, short and plump.
+7. SMOKE PUFF 1, the darkest (about x = 470 to x = 770, y = 690 to y = 970): a round, lumpy puff of thick smoke like a small cloud: six or seven rounded lobes around its edge, two or three short curl lines inside. Flat charcoal black (#3A343A). A closed ink outline.
+8. SMOKE PUFF 2 (about x = 820 to x = 1080, y = 700 to y = 950): the same kind of puff, a different lumpy shape, flat dark grey (#68626A).
+9. SMOKE PUFF 3, the lightest (about x = 1130 to x = 1350, y = 720 to y = 930): the same kind, smaller and wispier, flat mid grey (#96919A).
+
+STYLE: hand-drawn like image 2: wobbly dark-brown ink outline (#2B2118, about 6 px), every area ONE flat colour with visible coloured-pencil / wax-crayon hatching; bold, simple, readable shapes. FLAT COLOUR ONLY: the fire looks hot only because its colours are bright: NO glow, NO halo, NO gradients, NO blur, NO highlights, NO shadows, no sparks, no embers, no extra bits.
+
+Plain pure-white background (#FFFFFF), no paper grain outside the pieces, no labels, no numbers, no frame, nothing added.

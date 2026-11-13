@@ -215,7 +215,7 @@ namespace PokiClash.EditorTools
                 // 5 mốc cuối (2026-11-05): đội Thủy Khá khắc hệ, bằng cấp, 300 trận: Hồng Liên 70%, Giáp Long 71%, Huyễn Viêm 69%,
                 // Hỏa Tinh 55%, Lân Hỏa 57%. Hồng Liên, Huyễn Viêm tự thân yếu nên dù có bị động vẫn giữ cường hóa 0
                 new Intro(1, "su_tu_lua", "Bến Đá Đen"),
-                new Intro(5, "khong_lo", "Suối Dung Nham"),
+                new Intro(5, "hoa_nhan", "Suối Dung Nham"),
                 new Intro(10, "kim_su", "Rừng Than Hồng"),
                 new Intro(15, "nham_than", "Sườn Núi Khói"),
                 new Intro(20, "nguu_quyen", "Lò Lửa Thiền"),

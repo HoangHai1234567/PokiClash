@@ -1,0 +1,628 @@
+{
+ "chan_xa_dui": {
+  "goc": [
+   715,
+   789
+  ],
+  "co": [
+   138,
+   132
+  ],
+  "slot": "P_tuiiL1"
+ },
+ "chan_xa_ban": {
+  "goc": [
+   748,
+   879
+  ],
+  "co": [
+   107,
+   104
+  ],
+  "slot": "P_tuiiL3"
+ },
+ "chan_xa_goi": {
+  "goc": [
+   760,
+   845
+  ],
+  "co": [
+   99,
+   86
+  ],
+  "slot": "P_tuiiL2"
+ },
+ "chan_xa_goi_nguoi": {
+  "goc": [
+   771,
+   856
+  ],
+  "co": [
+   78,
+   65
+  ],
+  "slot": null
+ },
+ "hong": {
+  "goc": [
+   497,
+   701
+  ],
+  "co": [
+   355,
+   221
+  ],
+  "slot": "P_kua1"
+ },
+ "hong_nguoi": {
+  "goc": [
+   651,
+   728
+  ],
+  "co": [
+   81,
+   35
+  ],
+  "slot": null
+ },
+ "chan_gan_dui": {
+  "goc": [
+   510,
+   750
+  ],
+  "co": [
+   163,
+   156
+  ],
+  "slot": "P_tuiiR1"
+ },
+ "chan_gan_ban": {
+  "goc": [
+   508,
+   897
+  ],
+  "co": [
+   115,
+   93
+  ],
+  "slot": "P_tuiiR3"
+ },
+ "chan_gan_goi": {
+  "goc": [
+   521,
+   854
+  ],
+  "co": [
+   104,
+   93
+  ],
+  "slot": "P_tuiiR2"
+ },
+ "chan_gan_goi_nguoi": {
+  "goc": [
+   531,
+   864
+  ],
+  "co": [
+   84,
+   73
+  ],
+  "slot": null
+ },
+ "co_tay_xa": {
+  "goc": [
+   908,
+   531
+  ],
+  "co": [
+   199,
+   255
+  ],
+  "slot": "P_shouL3"
+ },
+ "tay_xa": {
+  "goc": [
+   999,
+   686
+  ],
+  "co": [
+   257,
+   257
+  ],
+  "slot": null
+ },
+ "vuot_xa2": {
+  "goc": [
+   1031,
+   886
+  ],
+  "co": [
+   50,
+   64
+  ],
+  "slot": null
+ },
+ "vuot_xa3": {
+  "goc": [
+   1107,
+   905
+  ],
+  "co": [
+   52,
+   68
+  ],
+  "slot": null
+ },
+ "vuot_xa1": {
+  "goc": [
+   1174,
+   854
+  ],
+  "co": [
+   61,
+   80
+  ],
+  "slot": null
+ },
+ "loi_tat": {
+  "goc": [
+   749,
+   465
+  ],
+  "co": [
+   243,
+   245
+  ],
+  "slot": null
+ },
+ "loi": {
+  "goc": [
+   749,
+   465
+  ],
+  "co": [
+   243,
+   245
+  ],
+  "slot": "P_xiongqiang3"
+ },
+ "vo_nguc": {
+  "goc": [
+   498,
+   413
+  ],
+  "co": [
+   506,
+   378
+  ],
+  "slot": "P_xiongqiang4"
+ },
+ "nguc_trai": {
+  "goc": [
+   492,
+   494
+  ],
+  "co": [
+   293,
+   296
+  ],
+  "slot": "P_xiongjia5"
+ },
+ "hong_lua": {
+  "goc": [
+   897,
+   476
+  ],
+  "co": [
+   186,
+   184
+  ],
+  "slot": "P_kouqiang3"
+ },
+ "ham": {
+  "goc": [
+   893,
+   518
+  ],
+  "co": [
+   215,
+   147
+  ],
+  "slot": "P_zuiiba3"
+ },
+ "lung": {
+  "goc": [
+   451,
+   176
+  ],
+  "co": [
+   509,
+   382
+  ],
+  "slot": "P_toujia10"
+ },
+ "lung_nguoi": {
+  "goc": [
+   634,
+   234
+  ],
+  "co": [
+   127,
+   70
+  ],
+  "slot": null
+ },
+ "vong_dinh_sau": {
+  "goc": [
+   619,
+   196
+  ],
+  "co": [
+   161,
+   115
+  ],
+  "slot": null
+ },
+ "lua_dinh": {
+  "goc": [
+   662,
+   156
+  ],
+  "co": [
+   76,
+   126
+  ],
+  "slot": null,
+  "goc_lua": [
+   695,
+   272
+  ]
+ },
+ "vong_dinh_truoc": {
+  "goc": [
+   619,
+   196
+  ],
+  "co": [
+   161,
+   115
+  ],
+  "slot": null
+ },
+ "dinh": {
+  "goc": [
+   808,
+   176
+  ],
+  "co": [
+   177,
+   240
+  ],
+  "slot": "P_toujia9"
+ },
+ "dinh_nguoi": {
+  "goc": [
+   861,
+   187
+  ],
+  "co": [
+   54,
+   27
+  ],
+  "slot": null
+ },
+ "dinh_vanh": {
+  "goc": [
+   808,
+   176
+  ],
+  "co": [
+   177,
+   240
+  ],
+  "slot": null
+ },
+ "ma": {
+  "goc": [
+   683,
+   316
+  ],
+  "co": [
+   327,
+   203
+  ],
+  "slot": "P_jiapian2"
+ },
+ "dau": {
+  "goc": [
+   832,
+   197
+  ],
+  "co": [
+   297,
+   390
+  ],
+  "slot": "P_tou3"
+ },
+ "dau_nguoi": {
+  "goc": [
+   1005,
+   298
+  ],
+  "co": [
+   44,
+   30
+  ],
+  "slot": null
+ },
+ "mat_tat": {
+  "goc": [
+   1005,
+   464
+  ],
+  "co": [
+   76,
+   74
+  ],
+  "slot": null
+ },
+ "mat": {
+  "goc": [
+   1005,
+   464
+  ],
+  "co": [
+   76,
+   74
+  ],
+  "slot": null
+ },
+ "dau_vanh": {
+  "goc": [
+   832,
+   197
+  ],
+  "co": [
+   297,
+   390
+  ],
+  "slot": null
+ },
+ "vong_tran_sau": {
+  "goc": [
+   1006,
+   428
+  ],
+  "co": [
+   85,
+   79
+  ],
+  "slot": null
+ },
+ "vong_tran_nguoi": {
+  "goc": [
+   1014,
+   474
+  ],
+  "co": [
+   51,
+   41
+  ],
+  "slot": null
+ },
+ "lua_tran": {
+  "goc": [
+   1044,
+   392
+  ],
+  "co": [
+   99,
+   87
+  ],
+  "slot": null,
+  "goc_lua": [
+   1055,
+   464
+  ]
+ },
+ "vong_tran_truoc": {
+  "goc": [
+   1006,
+   428
+  ],
+  "co": [
+   85,
+   79
+  ],
+  "slot": null
+ },
+ "vai": {
+  "goc": [
+   373,
+   245
+  ],
+  "co": [
+   302,
+   326
+  ],
+  "slot": "P_toujia6"
+ },
+ "vai_nguoi": {
+  "goc": [
+   432,
+   325
+  ],
+  "co": [
+   139,
+   115
+  ],
+  "slot": null
+ },
+ "vong_vai_sau": {
+  "goc": [
+   394,
+   270
+  ],
+  "co": [
+   224,
+   202
+  ],
+  "slot": null
+ },
+ "lua_vai": {
+  "goc": [
+   447,
+   297
+  ],
+  "co": [
+   101,
+   122
+  ],
+  "slot": null,
+  "goc_lua": [
+   522,
+   405
+  ]
+ },
+ "vong_vai_truoc": {
+  "goc": [
+   394,
+   270
+  ],
+  "co": [
+   224,
+   202
+  ],
+  "slot": null
+ },
+ "co_tay_gan": {
+  "goc": [
+   259,
+   556
+  ],
+  "co": [
+   250,
+   207
+  ],
+  "slot": "P_shouR1"
+ },
+ "co_tay_gan_nguoi": {
+  "goc": [
+   347,
+   571
+  ],
+  "co": [
+   86,
+   41
+  ],
+  "slot": null
+ },
+ "co_tay_gan_vanh": {
+  "goc": [
+   259,
+   556
+  ],
+  "co": [
+   250,
+   207
+  ],
+  "slot": null
+ },
+ "tay_gan": {
+  "goc": [
+   269,
+   678
+  ],
+  "co": [
+   286,
+   283
+  ],
+  "slot": null
+ },
+ "vuot_gan1": {
+  "goc": [
+   305,
+   907
+  ],
+  "co": [
+   54,
+   69
+  ],
+  "slot": null
+ },
+ "vuot_gan2": {
+  "goc": [
+   387,
+   898
+  ],
+  "co": [
+   61,
+   79
+  ],
+  "slot": null
+ },
+ "vuot_gan3": {
+  "goc": [
+   466,
+   879
+  ],
+  "co": [
+   64,
+   82
+  ],
+  "slot": null
+ },
+ "_thu_tu": [
+  "chan_xa_dui",
+  "chan_xa_ban",
+  "chan_xa_goi",
+  "chan_xa_goi_nguoi",
+  "hong",
+  "hong_nguoi",
+  "chan_gan_dui",
+  "chan_gan_ban",
+  "chan_gan_goi",
+  "chan_gan_goi_nguoi",
+  "co_tay_xa",
+  "tay_xa",
+  "vuot_xa2",
+  "vuot_xa3",
+  "vuot_xa1",
+  "loi_tat",
+  "loi",
+  "vo_nguc",
+  "nguc_trai",
+  "hong_lua",
+  "ham",
+  "lung",
+  "lung_nguoi",
+  "vong_dinh_sau",
+  "lua_dinh",
+  "vong_dinh_truoc",
+  "dinh",
+  "dinh_nguoi",
+  "dinh_vanh",
+  "ma",
+  "dau",
+  "dau_nguoi",
+  "mat_tat",
+  "mat",
+  "dau_vanh",
+  "vong_tran_sau",
+  "vong_tran_nguoi",
+  "lua_tran",
+  "vong_tran_truoc",
+  "vai",
+  "vai_nguoi",
+  "vong_vai_sau",
+  "lua_vai",
+  "vong_vai_truoc",
+  "co_tay_gan",
+  "co_tay_gan_nguoi",
+  "co_tay_gan_vanh",
+  "tay_gan",
+  "vuot_gan1",
+  "vuot_gan2",
+  "vuot_gan3"
+ ]
+}

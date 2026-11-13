@@ -3424,7 +3424,7 @@
    ],
    "members": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 19,
      "star": 2,
      "cards": [
@@ -3503,7 +3503,7 @@
    ],
    "members": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 26,
      "star": 3,
      "cards": [
@@ -3582,7 +3582,7 @@
    ],
    "members": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 33,
      "star": 3,
      "cards": [
@@ -3740,7 +3740,7 @@
    ],
    "members": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 46,
      "star": 3,
      "cards": [
@@ -11833,10 +11833,10 @@
       5
      ],
      "boss": true,
-     "evo": false,
+     "evo": true,
      "trait": "tho_hoang_boss",
      "mods": {
-      "hpPct": 0.22941176470588243,
+      "hpPct": -0.094117647058823528,
       "atkPct": 0.22941176470588243,
       "defPct": 0.21323529411764719,
       "spd": 0

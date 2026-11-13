@@ -342,6 +342,27 @@ chiêu lao tới. Khiên nước, suối hồi phục, tụ nước mới có �
     rig không khai `stay`. Chỗ đáp = 72 % quãng tới đối thủ (`AolaSticker.Lunge`), đừng đoán 50 %. Lúc trúng con đánh đè lên đối
     thủ: chỗ chạm chỉ đặt chớp toé + mảnh văng ra, không đặt bụi (dính lên mặt con đánh). Tour chụp `<tướng>_<dạng>_atk_NN`.
 
+### 5e. Tướng Hỏa cần hiệu ứng TRƯỚC lúc chạm: Nham Thần, golem lõi lửa (2026-11-13, `HatNham.cs`)
+
+Đường bộ Hỏa (`StageView.FireFx` → `PlayMana` / `PlayUlt`) chỉ phát ở khung trúng. Chiêu có phần chạy trước lúc chạm (vệt lửa theo quả cầu
+đang lăn tới, bụi lúc bật nhảy) thì đặt mã bắt đầu bằng `n_` ngay trong `FireFx` (hoặc bảng đòn thường `StageView.HoaAtk`): mã `n_` đi
+`PreFx` / `AtkFx` → `PlayNuoc`, phát từ đầu clip và nhận `lead` = giây tới lúc chạm; màu vẫn theo `Themes[<id>]`. Đòn thường mà tướng lao
+tới thì thêm mã vào `HatLua.AtkLao`.
+
+- `n_cau_lan` (chiêu cuối hai clip `skill` + `skill_land`, cơ chế tông thẳng `AolaSticker.Rams`): bụi đá lúc bật nhảy (lead − 1,2) và lúc
+  cầu rơi lại đất (lead − 0,58); **vệt lửa** suốt quãng lăn (lead − 0,533 → lead): lưỡi lửa sinh ngay trong nửa sau quả cầu, bay ngược
+  hướng lăn, dày dần theo tốc độ (34 → 94 hạt/giây), kèm tia văng và khói mỏng; chạm: `Explode` 1,2 + quạt 9 lưỡi lửa theo hướng tông +
+  8 dăm đá tro rải đều góc + vòng lửa dưới chân, nổ phụ sau 0,13 s, khói sau 0,34 s; bật về: than hồng, lửa nhỏ, khói mỏng; đáp đất
+  (lead + 1,07): vòng bụi, bụi đá hai bên, bụi trượt.
+- Vị trí quả cầu theo giờ phải **chép đúng công thức `AolaSticker.Jump`** (chỗ đáp 86 % quãng, nhấc 6 % chiều cao đối thủ, `u²(0,4 + 0,6u)`,
+  cung bật về `0,85h·4v(1−v)`); đổi công thức bên đó thì sửa `NCauLan` theo. Bản đầu sinh lửa lùi sau tâm 0,1–0,8 bán kính: vệt hở một
+  quãng sau cầu; sinh trong khoảng −0,35 … 0,55 bán kính thì vệt dính liền.
+- `n_nham_va` (đòn thường): bụi bật khỏi chỗ (lead − 0,3); bàn tay nện đầu đối thủ: `Explode` 0,4 (KHÔNG dùng `BurstFlash`: đó là chớp
+  nước, lấy bảng màu nước), tia văng và dăm đá sang hai bên, bụi dưới chân đối thủ bị ép ra. Nhỏ hơn chiêu mana.
+- Bụi và dăm đá theo màu thân: `BuiTro` (cụm bụi `Bui` nhuộm xám tro), `DaTro` (dăm `Shard` nhuộm màu đá của rig).
+- Lỗi rig lộ ra khi soi trong trận: clip bung người sau cú tông vươn tay, lưng ra SAU hơn nửa chiều cao; tướng đứng sát mép màn nên bị
+  màn hình cắt. Sửa ở rig (dời `move` tới trước cùng nhịp cú bật về của code rồi tan dần), không sửa bằng hiệu ứng.
+
 ## 6. Mẫu dựng chiêu mới
 
 ```python
@@ -408,6 +429,14 @@ mọi chiêu đã bỏ cụm tròn "bong bóng"; `HatLua.cs` là bản chuẩn, 
 - **Khói "cháy"** (`FireStops`): màu lửa → pha với khói của chủ đề, không qua nâu (tông tím, hồng bị bẩn).
 - **Giữ dáng ra chiêu** (`HatLua.HoldOf`): phun 1,22 s, kim 1,35 s (tới khi kim cuối phóng), cầu 0,32 s (tới khi cầu rời miệng).
 - Bẫy C#: giá trị mặc định của `Theme` không được trỏ tới biến tĩnh khai báo sau bảng `Themes` (khởi tạo theo thứ tự, ra null).
+- **Tia lửa liền** (`tia_mat`, Hỏa Nhãn, `HatNhan.cs`, 2026-11-13): khi cần TIA (laser) chứ không phải luồng phun hình nón. Lõi là mảng
+  liền `MRibbon` 4 lớp (mực nới 2,6; cam; vàng cam 0,64; lõi kem 0,3), nửa bề ngang **0,11 × chiều cao đối thủ** (0,07 thì nhìn như
+  sợi thừng), đầu tia chạy 1700/s, cuối tia rút về sau `dur`; lưỡi lửa `luoi` sống 0,3–0,42 s bám mép tia (sống 0,2 s thì lúc hiện đã
+  sang màu tàn, ra nâu), con ngươi phụt lửa liên tục, chỗ trúng chớp rồi toé liên tục. Bảng `nham` ra nâu cho tia; dùng `lua`.
+- **Chuỗi nổ theo nhịp đấm** (`quyen_xoay`): chiêu cuối lao tới đập nhiều nhát chỉ có một khung trúng trong `.atomik`, nên lớp hạt tự
+  đặt lịch N chớp nổ cách đều (khớp nhịp đấm của clip) ở thân đối thủ, so le vị trí, nhát cuối to nhất; lửa bay vòng elip quanh đối thủ.
+- **Clip lao tới mà thân bị CẮT DỌC trong trận**: quãng dời `move` trong clip quá lớn (> ~1 lần chiều cao), thân ra khỏi khung sticker
+  (rộng 3,4 lần chiều cao). Game tự nắn quãng lao (`AolaSticker.Lunge`), nên trong clip chỉ cần dời ~0,5–0,7 lần chiều cao.
 
 **Chủ đề theo tướng** (người dùng dặn 2026-11-10: hiệu ứng phải hợp hình từng tướng):
 - `HatLua.Themes`: mã dòng → `Theme`.
@@ -438,3 +467,20 @@ mọi chiêu đã bỏ cụm tròn "bong bóng"; `HatLua.cs` là bản chuẩn, 
 **Còn mở:**
 - Chưa thử trên Android, chưa đo số Image và độ nặng.
 - "Nổ lớn" (Hỏa Tinh, Kim Sư, Ngưu Quyền) còn đơn giản so với ba chiêu cuối kia.
+
+### 5f. Cầu tụ trên một điểm của RIG rồi phóng đi: Hỏa Quy, rùa golem lửa (2026-11-13, `HatRua.cs`)
+
+Chiêu cuối `n_cau_sung`: lửa trên lưng tướng bị hút vào một cầu lửa lớn dần trên mũi sừng, hất sừng thì cầu bay tới đối thủ. Chiêu mana
+`n_cau_rua`: cầu tụ ở mõm rồi bắn. Cả hai đi đường "n_" (mục 5e) để tụ trước khung nhả.
+
+- **Điểm trên thân tướng không có sẵn trong lớp hạt** (chỉ có chân tướng, chiều cao, chỗ nhả `mouth` ở khung trúng). Cách làm: đo trên rig đã
+  xuất vị trí xương cần bám theo GIÂY của clip (mũi sừng: 8 mốc) và các điểm nguồn (giữa từng ngọn lửa), ghi thành bảng số "phần của chiều
+  cao game, x về phía trước, y lên" trong file hạt; đổi sang sân bằng `chân + (dir · x, −y) · casterH`, giây clip = `T − lúc gọi − (lead − giờ
+  trúng của clip)`. Đổi clip hay hình thì đo lại (đoạn mã ở `ArtGen/Spine/inbox/rua_lua_ghichu.md` mục 7).
+- **Cầu bám điểm chạy**: `LoiCau(tam, r)` = hạt `tron` đời 0,12–0,18 s, mỗi khung đặt lại vị trí theo `tam(giờ)` + lệch nhỏ (như lõi `Fireball`);
+  85 hạt / giây lúc tụ, 150–170 lúc bay. Bán kính lớn dần theo căn của tiến độ. Tâm đặt ngay TRÊN mũi sừng (lệch 0,8 bán kính) cho cầu ngồi
+  trên sừng, không nuốt mũi sừng.
+- **Dải bị hút**: hạt lưỡi lửa nhỏ co dần (r 7,5–10,5 → 4,5–6), vận tốc đầu bốc lên, `upd` nội suy vận tốc về phía tâm cầu với tốc độ và độ
+  bám tăng theo tuổi (260 + 1500·k²; hệ số 4 + 24·k), tới gần 9 đơn vị thì chết. Thứ tự và giờ từng nguồn chép đúng clip của rig.
+- **Vòng nháy quanh cầu** (`Ring` không dẹt, nhóm `Front`): giữ nhỏ (0,8 → 1,55 R, 0,18 s). Rộng 2,3 R thì ra cái vòng nâu to như hồng tâm.
+- Chiêu mana kiểu "tụ rồi bắn" đừng dùng mã "cau" (`Fireball` phát ở khung trúng, 0,3 s sau mới bay): cầu tụ lệch sau động tác há mồm.

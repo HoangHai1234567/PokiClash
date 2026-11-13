@@ -3893,7 +3893,7 @@
   {
    "id": "su_tu_lua_skill",
    "owner": "su_tu_lua",
-   "name": "Liên Hoa Hỏa",
+   "name": "Giáo Phun Lửa",
    "rarity": "common",
    "kind": "skill",
    "icon": "torch",
@@ -3917,10 +3917,10 @@
   {
    "id": "su_tu_lua_ult",
    "owner": "su_tu_lua",
-   "name": "Hỏa Dực Phần Thiên",
+   "name": "Giáo Nham Giáng Thế",
    "rarity": "uncommon",
    "kind": "ult",
-   "icon": "phoenix",
+   "icon": "sword",
    "cost": {
     "rage": 100,
     "mana": 35
@@ -3942,10 +3942,10 @@
   {
    "id": "su_tu_lua_pas",
    "owner": "su_tu_lua",
-   "name": "Lửa Thiền",
+   "name": "Khiên Than Hồng",
    "rarity": "common",
    "kind": "passive",
-   "icon": "flame",
+   "icon": "shield",
    "trigger": "onAttack",
    "chance": 0.35,
    "effects": [
@@ -5001,9 +5001,9 @@
    ]
   },
   {
-   "id": "khong_lo_skill",
-   "owner": "khong_lo",
-   "name": "Đấm Than",
+   "id": "hoa_nhan_skill",
+   "owner": "hoa_nhan",
+   "name": "Hỏa Nhãn Xạ",
    "rarity": "common",
    "kind": "skill",
    "icon": "fist",
@@ -5025,9 +5025,9 @@
    ]
   },
   {
-   "id": "khong_lo_ult",
-   "owner": "khong_lo",
-   "name": "Núi Lửa Giáng",
+   "id": "hoa_nhan_ult",
+   "owner": "hoa_nhan",
+   "name": "Quyền Chong Chóng",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "hammer",
@@ -5051,9 +5051,9 @@
    ]
   },
   {
-   "id": "khong_lo_pas",
-   "owner": "khong_lo",
-   "name": "Da Than",
+   "id": "hoa_nhan_pas",
+   "owner": "hoa_nhan",
+   "name": "Giáp Nham",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5070,7 +5070,7 @@
   {
    "id": "kim_su_skill",
    "owner": "kim_su",
-   "name": "Vuốt Lửa",
+   "name": "Tam Tiễn",
    "rarity": "common",
    "kind": "skill",
    "icon": "claw",
@@ -5088,7 +5088,7 @@
   {
    "id": "kim_su_ult",
    "owner": "kim_su",
-   "name": "Sư Hống",
+   "name": "Hỏa Tiễn Phá Không",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "rage",
@@ -5113,7 +5113,7 @@
   {
    "id": "kim_su_pas",
    "owner": "kim_su",
-   "name": "Bờm Vàng",
+   "name": "Mắt Lửa",
    "rarity": "common",
    "kind": "passive",
    "icon": "crown",
@@ -5154,7 +5154,7 @@
   {
    "id": "nham_than_ult",
    "owner": "nham_than",
-   "name": "Biển Dung Nham",
+   "name": "Cầu Lửa Lăn",
    "rarity": "uncommon",
    "kind": "ult",
    "icon": "crack",
@@ -5258,10 +5258,10 @@
   {
    "id": "giap_long_skill",
    "owner": "giap_long",
-   "name": "Gai Thép",
+   "name": "Địa Hỏa Trảm",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "sword",
+   "icon": "flame",
    "cost": {
     "mana": 40
    },
@@ -5283,10 +5283,10 @@
   {
    "id": "giap_long_ult",
    "owner": "giap_long",
-   "name": "Thiết Long Xung",
+   "name": "Liên Hoàn Đao",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "hammer",
+   "icon": "sword",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -5302,7 +5302,7 @@
   {
    "id": "giap_long_pas",
    "owner": "giap_long",
-   "name": "Giáp Gai",
+   "name": "Giáp Vai Sắt",
    "rarity": "rare",
    "kind": "passive",
    "icon": "helmet",
@@ -5510,10 +5510,10 @@
   {
    "id": "nguu_quyen_skill",
    "owner": "nguu_quyen",
-   "name": "Song Quyền Lửa",
+   "name": "Hỏa Cầu",
    "rarity": "uncommon",
    "kind": "skill",
-   "icon": "fist",
+   "icon": "flame",
    "cost": {
     "mana": 35
    },
@@ -5535,10 +5535,10 @@
   {
    "id": "nguu_quyen_ult",
    "owner": "nguu_quyen",
-   "name": "Ngưu Ma Liên Quyền",
+   "name": "Sừng Tụ Hỏa Cầu",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "fist2",
+   "icon": "sun",
    "cost": {
     "rage": 100,
     "mana": 45
@@ -5560,7 +5560,7 @@
   {
    "id": "nguu_quyen_pas",
    "owner": "nguu_quyen",
-   "name": "Máu Đấu Sĩ",
+   "name": "Mai Nung Đỏ",
    "rarity": "rare",
    "kind": "passive",
    "icon": "rage",

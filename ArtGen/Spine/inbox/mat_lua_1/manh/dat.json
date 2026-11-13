@@ -1,0 +1,232 @@
+{
+ "cau": {
+  "goc": [
+   538,
+   267
+  ],
+  "co": [
+   538,
+   551
+  ],
+  "slot": "shenti_01"
+ },
+ "cau_tat": {
+  "goc": [
+   538,
+   267
+  ],
+  "co": [
+   538,
+   551
+  ],
+  "slot": "shenti_01"
+ },
+ "nam_gan": {
+  "goc": [
+   204,
+   611
+  ],
+  "co": [
+   355,
+   380
+  ],
+  "slot": "shou_01"
+ },
+ "mu": {
+  "goc": [
+   539,
+   204
+  ],
+  "co": [
+   545,
+   407
+  ],
+  "slot": "tou_01"
+ },
+ "duoi_trai": {
+  "goc": [
+   448,
+   644
+  ],
+  "co": [
+   329,
+   134
+  ],
+  "slot": "shitou_01"
+ },
+ "nam_xa": {
+  "goc": [
+   980,
+   604
+  ],
+  "co": [
+   354,
+   361
+  ],
+  "slot": "shou_02"
+ },
+ "vai_gan": {
+  "goc": [
+   313,
+   285
+  ],
+  "co": [
+   350,
+   416
+  ],
+  "slot": "jian_03"
+ },
+ "vai_xa": {
+  "goc": [
+   919,
+   209
+  ],
+  "co": [
+   256,
+   395
+  ],
+  "slot": "jian_02"
+ },
+ "duoi_phai": {
+  "goc": [
+   808,
+   677
+  ],
+  "co": [
+   339,
+   251
+  ],
+  "slot": "shitou_03"
+ },
+ "nho_mat": {
+  "goc": [
+   672,
+   476
+  ],
+  "co": [
+   167,
+   156
+  ],
+  "slot": "tou_02"
+ },
+ "mat": {
+  "goc": [
+   776,
+   500
+  ],
+  "co": [
+   299,
+   305
+  ],
+  "slot": "yanjing_01"
+ },
+ "mat_tat": {
+  "goc": [
+   776,
+   500
+  ],
+  "co": [
+   299,
+   305
+  ],
+  "slot": "yanjing_01"
+ },
+ "tay_gan": {
+  "goc": [
+   319,
+   561
+  ],
+  "co": [
+   207,
+   191
+  ],
+  "slot": "shoubi_01"
+ },
+ "tay_xa": {
+  "goc": [
+   1087,
+   569
+  ],
+  "co": [
+   146,
+   146
+  ],
+  "slot": "shoubi_02"
+ },
+ "lua": {
+  "goc": [
+   246,
+   26
+  ],
+  "co": [
+   720,
+   592
+  ],
+  "slot": null
+ },
+ "giot1": {
+  "goc": [
+   405,
+   18
+  ],
+  "co": [
+   95,
+   72
+  ],
+  "slot": null
+ },
+ "giot2": {
+  "goc": [
+   271,
+   211
+  ],
+  "co": [
+   97,
+   82
+  ],
+  "slot": null
+ },
+ "duoi_giua": {
+  "goc": [
+   476,
+   683
+  ],
+  "co": [
+   593,
+   248
+  ],
+  "slot": "shitou_04"
+ },
+ "nho_phai": {
+  "goc": [
+   1005,
+   468
+  ],
+  "co": [
+   128,
+   174
+  ],
+  "slot": "tou_03"
+ },
+ "_thu_tu": [
+  "giot2",
+  "giot1",
+  "lua",
+  "tay_xa",
+  "nam_xa",
+  "vai_xa",
+  "cau_tat",
+  "cau",
+  "mat_tat",
+  "mat",
+  "nho_phai",
+  "mu",
+  "nho_mat",
+  "duoi_phai",
+  "duoi_trai",
+  "duoi_giua",
+  "tay_gan",
+  "vai_gan",
+  "nam_gan"
+ ]
+}

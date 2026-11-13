@@ -290,6 +290,37 @@
         }
       ],
       "ghi_chu": "2026-11-12: suất 8 đảo Mộc (ải 50) nay là voọc kiếm sĩ giáp lá (mã làm việc kiem_si, người dùng lên ý tưởng, chọn concept B, duyệt rig và bảo \"cho vào game\"; hình mình trên rig monster_3620, ArtGen/Spine/kiem_si_rig.py, ghi chú inbox/kiem_si_ghichu.md). Một dạng. Id game giữ tho_hoang; tên Voọc Tướng và tên thẻ do Claude đặt (quai/doi_kiem_si.py), người dùng có thể đổi."
+    },
+    {
+      "id": "hoa_nhan",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/mat_lua_1/rig",
+          "atomik": "mat_lua_1.atomik",
+          "dich": "hoa_nhan_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/mat_lua_2/rig",
+          "atomik": "mat_lua_2.atomik",
+          "dich": "hoa_nhan_2"
+        }
+      ]
+    },
+    {
+      "id": "kim_su",
+      "dang": [
+        {
+          "nguon": "ArtGen/Spine/inbox/cung_lua_1/non/rig",
+          "atomik": "cung_lua_1.atomik",
+          "dich": "kim_su_1"
+        },
+        {
+          "nguon": "ArtGen/Spine/inbox/cung_lua_1/rig",
+          "atomik": "cung_lua_2.atomik",
+          "dich": "kim_su_2"
+        }
+      ],
+      "ghi_chu": "2026-11-13: suất 3 đảo Hỏa (ải 10) nay là dòng quỷ lửa bắn cung (mã làm việc cung_lua, người dùng lên ý tưởng, duyệt rig dạng 2, concept và rig dạng 1, bảo \"ổn rồi cho vào game\"; reskin trên rig monster_3357, ArtGen/Spine/cung_lua_rig.py, ghi chú inbox/cung_lua_ghichu.md). Giữ id kim_su, chỉ số, thẻ; dạng kim_su_1 = rig cung_lua_1 (non), kim_su_2 = rig cung_lua_2; kim_su_3 cũ đã xoá (dòng còn hai dạng). Tên Hỏa Cung Nhi / Hỏa Cung và tên ba thẻ do Claude tạm đặt."
     }
   ]
 }

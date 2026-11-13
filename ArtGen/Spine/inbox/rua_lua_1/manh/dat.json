@@ -1,0 +1,402 @@
+{
+ "ham": {
+  "goc": [
+   930,
+   753
+  ],
+  "co": [
+   177,
+   139
+  ],
+  "slot": "p_xiaba",
+  "kieu": "c"
+ },
+ "dui_sau_xa": {
+  "goc": [
+   60,
+   101
+  ],
+  "co": [
+   221,
+   239
+  ],
+  "slot": "p_datui05",
+  "kieu": "r"
+ },
+ "dui_truoc_xa": {
+  "goc": [
+   1242,
+   83
+  ],
+  "co": [
+   216,
+   273
+  ],
+  "slot": "p_datui02",
+  "kieu": "r"
+ },
+ "hong": {
+  "goc": [
+   938,
+   739
+  ],
+  "co": [
+   168,
+   111
+  ],
+  "slot": null,
+  "kieu": "k"
+ },
+ "cot_gan": {
+  "goc": [
+   442,
+   342
+  ],
+  "co": [
+   328,
+   281
+  ],
+  "slot": "p_kuangshi01",
+  "kieu": "c"
+ },
+ "cot_xa": {
+  "goc": [
+   940,
+   320
+  ],
+  "co": [
+   99,
+   203
+  ],
+  "slot": "p_kuangshi05",
+  "kieu": "c"
+ },
+ "sung_xa": {
+  "goc": [
+   1007,
+   463
+  ],
+  "co": [
+   218,
+   295
+  ],
+  "slot": "p_jiao01_2",
+  "kieu": "k"
+ },
+ "ong_truoc_gan": {
+  "goc": [
+   498,
+   641
+  ],
+  "co": [
+   253,
+   323
+  ],
+  "slot": "p_xiaotui01",
+  "kieu": "c"
+ },
+ "duoi": {
+  "goc": [
+   235,
+   631
+  ],
+  "co": [
+   234,
+   275
+  ],
+  "slot": "p_weiba",
+  "kieu": "c"
+ },
+ "sung_gan": {
+  "goc": [
+   798,
+   305
+  ],
+  "co": [
+   340,
+   453
+  ],
+  "slot": "p_jiao01",
+  "kieu": "c"
+ },
+ "ong_sau_gan": {
+  "goc": [
+   298,
+   722
+  ],
+  "co": [
+   202,
+   229
+  ],
+  "slot": "p_xiaotui04",
+  "kieu": "c"
+ },
+ "ong_truoc_xa": {
+  "goc": [
+   1010,
+   694
+  ],
+  "co": [
+   241,
+   267
+  ],
+  "slot": "p_xiaotui02",
+  "kieu": "c"
+ },
+ "mat_so": {
+  "goc": [
+   838,
+   606
+  ],
+  "co": [
+   308,
+   224
+  ],
+  "slot": "p_lian",
+  "kieu": "c"
+ },
+ "dui_truoc_gan": {
+  "goc": [
+   507,
+   645
+  ],
+  "co": [
+   223,
+   214
+  ],
+  "slot": "p_datui01",
+  "kieu": "r"
+ },
+ "dui_sau_gan": {
+  "goc": [
+   139,
+   213
+  ],
+  "co": [
+   222,
+   272
+  ],
+  "slot": "p_datui04",
+  "kieu": "r"
+ },
+ "bung": {
+  "goc": [
+   432,
+   653
+  ],
+  "co": [
+   676,
+   227
+  ],
+  "slot": "p_xiongqiang",
+  "kieu": "k"
+ },
+ "lua_trai": {
+  "goc": [
+   441,
+   254
+  ],
+  "co": [
+   214,
+   320
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   567,
+   551
+  ]
+ },
+ "lua_cao": {
+  "goc": [
+   671,
+   77
+  ],
+  "co": [
+   239,
+   420
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   786,
+   468
+  ]
+ },
+ "lua_nho": {
+  "goc": [
+   887,
+   370
+  ],
+  "co": [
+   140,
+   190
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   959,
+   544
+  ]
+ },
+ "lua_duoi": {
+  "goc": [
+   377,
+   382
+  ],
+  "co": [
+   145,
+   218
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   473,
+   582
+  ]
+ },
+ "lua_giua_trai": {
+  "goc": [
+   602,
+   261
+  ],
+  "co": [
+   122,
+   202
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   671,
+   445
+  ]
+ },
+ "lua_phai": {
+  "goc": [
+   835,
+   245
+  ],
+  "co": [
+   128,
+   257
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   890,
+   482
+  ]
+ },
+ "lua_sung": {
+  "goc": [
+   970,
+   353
+  ],
+  "co": [
+   106,
+   222
+  ],
+  "slot": null,
+  "kieu": "k",
+  "goc_lua": [
+   1016,
+   556
+  ]
+ },
+ "ong_sau_xa": {
+  "goc": [
+   683,
+   760
+  ],
+  "co": [
+   207,
+   190
+  ],
+  "slot": "p_xiaotui03",
+  "kieu": "c"
+ },
+ "mai": {
+  "goc": [
+   362,
+   362
+  ],
+  "co": [
+   741,
+   432
+  ],
+  "slot": "p_ke",
+  "kieu": "c"
+ },
+ "mat_tat": {
+  "goc": [
+   996,
+   719
+  ],
+  "co": [
+   57,
+   46
+  ],
+  "slot": null,
+  "kieu": "k",
+  "tam_mat": [
+   1024,
+   742
+  ]
+ },
+ "ong_truoc_gan_nguoi": {
+  "goc": [
+   505,
+   649
+  ],
+  "co": [
+   154,
+   175
+  ],
+  "slot": null,
+  "kieu": "k",
+  "tren": "ong_truoc_gan"
+ },
+ "ong_truoc_xa_nguoi": {
+  "goc": [
+   1162,
+   704
+  ],
+  "co": [
+   77,
+   113
+  ],
+  "slot": null,
+  "kieu": "k",
+  "tren": "ong_truoc_xa"
+ },
+ "_thu_tu": [
+  "lua_sung",
+  "lua_duoi",
+  "dui_sau_xa",
+  "ong_sau_xa",
+  "duoi",
+  "cot_xa",
+  "dui_truoc_xa",
+  "ong_truoc_xa",
+  "ong_truoc_xa_nguoi",
+  "bung",
+  "dui_sau_gan",
+  "ong_sau_gan",
+  "dui_truoc_gan",
+  "mai",
+  "sung_xa",
+  "lua_trai",
+  "lua_giua_trai",
+  "lua_cao",
+  "lua_phai",
+  "lua_nho",
+  "cot_gan",
+  "hong",
+  "ham",
+  "mat_so",
+  "mat_tat",
+  "sung_gan",
+  "ong_truoc_gan",
+  "ong_truoc_gan_nguoi"
+ ]
+}

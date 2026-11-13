@@ -208,7 +208,8 @@ def khop_cuoi(frames, dich, giay=0.25, fps=FPS):
         P = frames[n - 1 - m + j]
         w = ease(j / m)
         for b in set(P.t) | set(dich.t):
-            pa, pb = P._g(b), dich.t.get(b, list(ZERO))
+            pa, pb = P._g(b), list(dich.t.get(b, ZERO))
+            pb[2] += 360.0 * round((pa[2] - pb[2]) / 360.0)     # góc: cùng vòng với khung đang có (xương đã quay nhiều vòng không quay ngược về)
             for q in range(5):
                 pa[q] = pa[q] * (1 - w) + pb[q] * w
         for s in set(dich.alpha):
@@ -450,7 +451,7 @@ def thanh_khoa(sk, clip, frames, fps=FPS, tol=None):
     for b in [q["name"] for q in sk.bones if q["name"] in used]:
         arr = np.array([P.t.get(b, ZERO) for P in frames], float)
         o = {}
-        rot = arr[:, 2]
+        rot = np.degrees(np.unwrap(np.radians(arr[:, 2])))     # mở vòng: góc đi qua ±180° thì khoá kề không bị nội suy đường dài qua 0°
         if np.abs(rot).max() > 0.02:
             idx = rdp(ts, rot, tol["rotate"])
             o["rotate"] = [{"time": round(float(ts[i]), 4), "value": r2(rot[i])} for i in idx]
@@ -477,6 +478,15 @@ def thanh_khoa(sk, clip, frames, fps=FPS, tol=None):
         if np.abs(vals - a0).max() > 0.002:
             idx = rdp(ts, vals, tol["alpha"])
             so["alpha"] = [{"time": round(float(ts[i]), 4), "value": round(float(vals[i]), 3)} for i in idx]
+            # BẬT / TẮT trọn (0 ↔ 1) trong MỘT khung mẫu là đổi hình tức thì, không phải mờ dần: runtime nội suy thẳng giữa hai khoá nên ở
+            # 60 khung/giây lọt một khung 50 % (mảnh "ma" mờ, viền trắng xuyên qua: cung của cung_lua lúc đổi lớp trước / sau, 2026-11-13).
+            # Chèn khoá giữ giá trị cũ sát trước khoá mới → thành bậc.
+            ka, buoc = [], (float(ts[1] - ts[0]) if len(ts) > 1 else 0.0)
+            for k in so["alpha"]:
+                if ka and abs(k["value"] - ka[-1]["value"]) >= 0.98 and 0.004 < k["time"] - ka[-1]["time"] <= 1.5 * buoc:
+                    ka.append({"time": round(k["time"] - 0.002, 4), "value": ka[-1]["value"]})
+                ka.append(k)
+            so["alpha"] = ka
         atts = [P.att.get(sn, _MISS) for P in frames]
         if any(x is not _MISS for x in atts):
             seq = [s["att"] if x is _MISS else x for x in atts]

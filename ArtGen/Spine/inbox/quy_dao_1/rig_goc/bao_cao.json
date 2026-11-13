@@ -1,0 +1,87 @@
+{
+ "xuong": 69,
+ "slot": 77,
+ "dinh": 622,
+ "tam_giac": 487,
+ "khoa": 21792,
+ "clip": {
+  "aura": 4.0,
+  "idle": 4.0,
+  "walk": 1.333,
+  "hit": 0.5,
+  "attack": 1.9,
+  "cast": 2.15,
+  "skill": 2.67,
+  "appear": 2.32,
+  "die": 1.817
+ },
+ "json_kb": 719.1,
+ "png_kb": 84.0,
+ "atomik_kb": 204.5,
+ "atlas": [
+  856,
+  1128
+ ],
+ "game": {
+  "fps": 25,
+  "height": 760.0,
+  "hitClips": [
+   "attack",
+   "cast",
+   "skill"
+  ],
+  "hitTimes": [
+   0.92,
+   1.14,
+   1.87
+  ],
+  "lunge": [
+   "attack",
+   "skill"
+  ],
+  "stay": [
+   "cast"
+  ],
+  "far": [],
+  "muzzle": [
+   -117.51,
+   -211.52
+  ],
+  "beam": 1.0,
+  "beamStyle": "",
+  "move": "move",
+  "shadow": "shadow",
+  "impactClips": [
+   "attack",
+   "skill"
+  ],
+  "impactStop": [
+   0.1,
+   0.22
+  ],
+  "impactShake": [
+   0.55,
+   1.0
+  ],
+  "impactPush": [
+   0.14,
+   0.2
+  ],
+  "impactFlash": [
+   "",
+   "#ffb04066"
+  ]
+ },
+ "noi": {
+  "idle": "bước khép vòng 0.71 px (bước thường 4.70)",
+  "walk": "bước khép vòng 4.51 px (bước thường 30.74)",
+  "hit": "khung cuối lệch khung 0 idle 0.00 px",
+  "attack": "khung cuối lệch khung 0 idle 0.00 px",
+  "cast": "khung cuối lệch khung 0 idle 0.00 px",
+  "skill": "khung cuối lệch khung 0 idle 0.00 px (jiajia_l)",
+  "appear": "khung cuối lệch khung 0 idle 0.00 px (jiajia_l); khung đầu trống",
+  "die": "khung cuối trống"
+ },
+ "lech_atomik": 0.7921474636595948,
+ "lech_atomik0": 0.1818930019305236
+}

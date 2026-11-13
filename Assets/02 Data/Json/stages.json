@@ -2015,7 +2015,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 19,
      "evo": true,
      "buff": 0.15
@@ -2023,7 +2023,7 @@
    ],
    "drops": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "chance": 1,
      "min": 2,
      "max": 4
@@ -2062,14 +2062,14 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 26,
      "buff": 0.12
     }
    ],
    "drops": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -2115,7 +2115,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 33,
      "buff": 0.35
     },
@@ -2127,7 +2127,7 @@
    ],
    "drops": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "chance": 0.44999999999999996,
      "min": 1,
      "max": 2
@@ -2215,7 +2215,7 @@
    "kind": "normal",
    "enemies": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "level": 46,
      "buff": 0.15
     },
@@ -2227,7 +2227,7 @@
    ],
    "drops": [
     {
-     "hero": "khong_lo",
+     "hero": "hoa_nhan",
      "chance": 0.3,
      "min": 1,
      "max": 2
@@ -7061,6 +7061,7 @@
      "hero": "tho_hoang",
      "level": 142,
      "boss": true,
+     "evo": true,
      "buff": 1,
      "trait": "tho_hoang_boss"
     }

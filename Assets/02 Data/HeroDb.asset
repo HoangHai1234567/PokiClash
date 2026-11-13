@@ -622,11 +622,14 @@ MonoBehaviour:
     passive: tho_hoang_pas
     shards: 30
     line: "D\xF2ng Vo\u1ECDc T\u01B0\u1EDBng"
-    size: 1
+    size: 0.92
     forms:
-    - name: "Vo\u1ECDc T\u01B0\u1EDBng"
+    - name: "Vo\u1ECDc Non"
       aola: tho_hoang_1
-      size: 1
+      size: 0.92
+    - name: "Vo\u1ECDc T\u01B0\u1EDBng"
+      aola: tho_hoang_2
+      size: 1.1
     minion: 0
   - id: moc_tinh
     name: "Gi\xE1c M\u1ED9c"
@@ -652,7 +655,7 @@ MonoBehaviour:
   - id: thanh_long
     name: Thanh Long
     title: "Th\u1EA7n th\xFA ph\u01B0\u01A1ng \u0110\xF4ng"
-    aola: moc_vuong_1
+    aola: moc_vuong_d1
     elem: 1
     rarity: 4
     stats: 3c0000003c000000280000003c000000280000003c000000
@@ -664,10 +667,10 @@ MonoBehaviour:
     size: 0.95
     forms:
     - name: Thanh Long Con
-      aola: moc_vuong_1
+      aola: moc_vuong_d1
       size: 0.95
     - name: Thanh Long
-      aola: moc_vuong_1
+      aola: moc_vuong_d2
       size: 1.1
     - name: "L\xF4i Thanh Long"
       aola: moc_vuong_1
@@ -1253,9 +1256,9 @@ MonoBehaviour:
       size: 1.1
     minion: 0
   - id: su_tu_lua
-    name: "S\u01B0 T\u1EED L\u1EEDa"
-    title: "B\u1EDDm l\u1EEDa nh\u1ECF"
-    aola: su_tu_lua_1
+    name: "Ti\u1EC3u Qu\u1EF7 Lava"
+    title: "Qu\u1EF7 l\u1EEDa c\u1EA7m khi\xEAn"
+    aola: quy_lava_1
     elem: 3
     rarity: 1
     stats: 37000000320000002d000000320000003200000037000000
@@ -1263,17 +1266,17 @@ MonoBehaviour:
     ult: su_tu_lua_ult
     passive: su_tu_lua_pas
     shards: 15
-    line: "D\xF2ng S\u01B0 T\u1EED L\u1EEDa"
+    line: "D\xF2ng Qu\u1EF7 Lava"
     size: 0.9
     forms:
-    - name: "S\u01B0 T\u1EED L\u1EEDa"
-      aola: su_tu_lua_1
+    - name: "Ti\u1EC3u Qu\u1EF7 Lava"
+      aola: quy_lava_1
       size: 0.9
-    - name: "S\u01B0 T\u1EED L\u1EEDa"
-      aola: su_tu_lua_2
+    - name: "Hi\u1EC7p S\u0129 Dung Nham"
+      aola: quy_lava_2
       size: 1.02
-    - name: "S\u01B0 T\u1EED L\u1EEDa"
-      aola: su_tu_lua_3
+    - name: "Hi\u1EC7p S\u0129 Dung Nham"
+      aola: quy_lava_2
       size: 1.14
     minion: 0
   - id: bo_de
@@ -1348,33 +1351,30 @@ MonoBehaviour:
       aola: goc_506
       size: 1
     minion: 0
-  - id: khong_lo
-    name: "Kh\u1ED5ng L\u1ED3 L\u1EEDa"
-    title: "S\u1EEBng l\u1EEDa th\xE2n than"
-    aola: khong_lo_1
+  - id: hoa_nhan
+    name: "H\u1ECFa Nh\xE3n"
+    title: "M\u1EAFt l\u1EEDa gi\xE1p nham"
+    aola: hoa_nhan_1
     elem: 3
     rarity: 0
     stats: 2d000000280000003200000028000000320000003c000000
-    skill: khong_lo_skill
-    ult: khong_lo_ult
-    passive: khong_lo_pas
+    skill: hoa_nhan_skill
+    ult: hoa_nhan_ult
+    passive: hoa_nhan_pas
     shards: 10
-    line: "D\xF2ng Kh\u1ED5ng L\u1ED3 L\u1EEDa"
-    size: 0.9
+    line: "D\xF2ng H\u1ECFa Nh\xE3n"
+    size: 0.92
     forms:
-    - name: "Vi\xEAn Than"
-      aola: khong_lo_1
-      size: 0.9
-    - name: "S\u1EEBng Than"
-      aola: khong_lo_2
-      size: 1.02
-    - name: "Kh\u1ED5ng L\u1ED3 L\u1EEDa"
-      aola: khong_lo_3
-      size: 1.14
+    - name: "Nh\xE3n Than"
+      aola: hoa_nhan_1
+      size: 0.92
+    - name: "H\u1ECFa Nh\xE3n"
+      aola: hoa_nhan_2
+      size: 1.1
     minion: 0
   - id: kim_su
-    name: "Kim S\u01B0"
-    title: "B\u1EDDm l\u1EEDa gi\xE1p v\xE0ng"
+    name: "H\u1ECFa Cung"
+    title: "Qu\u1EF7 l\u1EEDa b\u1EAFn cung"
     aola: kim_su_1
     elem: 3
     rarity: 1
@@ -1383,18 +1383,15 @@ MonoBehaviour:
     ult: kim_su_ult
     passive: kim_su_pas
     shards: 15
-    line: "D\xF2ng Kim S\u01B0"
-    size: 0.9
+    line: "D\xF2ng H\u1ECFa Cung"
+    size: 0.92
     forms:
-    - name: "S\u01B0 Con"
+    - name: "H\u1ECFa Cung Nhi"
       aola: kim_su_1
-      size: 0.9
-    - name: "Li\u1EC7t H\u1ECFa S\u01B0"
+      size: 0.92
+    - name: "H\u1ECFa Cung"
       aola: kim_su_2
-      size: 1.02
-    - name: "Kim S\u01B0"
-      aola: kim_su_3
-      size: 1.14
+      size: 1.1
     minion: 0
   - id: nham_than
     name: "Nham Th\u1EA7n"
@@ -1408,17 +1405,14 @@ MonoBehaviour:
     passive: nham_than_pas
     shards: 15
     line: "D\xF2ng Nham Th\u1EA7n"
-    size: 0.9
+    size: 0.92
     forms:
     - name: Nham Con
       aola: nham_than_1
-      size: 0.9
-    - name: "Nham H\u1ECFa"
-      aola: nham_than_2
-      size: 1.02
+      size: 0.92
     - name: "Nham Th\u1EA7n"
-      aola: nham_than_3
-      size: 1.14
+      aola: nham_than_2
+      size: 1.1
     minion: 0
   - id: hong_lien
     name: "H\u1ED3ng Li\xEAn"
@@ -1445,9 +1439,9 @@ MonoBehaviour:
       size: 1.14
     minion: 0
   - id: giap_long
-    name: "Gi\xE1p Long"
-    title: "Gai th\xE9p l\u1EEDa \u0111\u1ECF"
-    aola: giap_long_1
+    name: "Vi\xEAm \u0110ao"
+    title: "Qu\u1EF7 l\u1EEDa v\xE1c \u0111\u1EA1i \u0111ao"
+    aola: quy_dao_1
     elem: 3
     rarity: 3
     stats: 3c000000280000002d00000041000000280000003c000000
@@ -1455,14 +1449,14 @@ MonoBehaviour:
     ult: giap_long_ult
     passive: giap_long_pas
     shards: 30
-    line: "D\xF2ng Gi\xE1p Long"
+    line: "D\xF2ng Vi\xEAm \u0110ao"
     size: 0.92
     forms:
-    - name: "Gi\xE1p Long Con"
-      aola: giap_long_1
+    - name: "Vi\xEAm \u0110ao"
+      aola: quy_dao_1
       size: 0.92
-    - name: "Gi\xE1p Long"
-      aola: giap_long_2
+    - name: "Vi\xEAm \u0110ao"
+      aola: quy_dao_1
       size: 1.1
     minion: 0
   - id: huyen_viem
@@ -1535,9 +1529,9 @@ MonoBehaviour:
       size: 1.16
     minion: 0
   - id: nguu_quyen
-    name: "Ng\u01B0u Quy\u1EC1n"
-    title: "Quy\u1EC1n th\u1EE7 m\xE2y l\u1EEDa"
-    aola: nguu_quyen_1
+    name: "H\u1ECFa Quy"
+    title: "R\xF9a \u0111\xE1 c\xF5ng l\u1EEDa"
+    aola: rua_lua_1
     elem: 3
     rarity: 2
     stats: 280000003c000000280000001e0000003c0000003c000000
@@ -1545,17 +1539,17 @@ MonoBehaviour:
     ult: nguu_quyen_ult
     passive: nguu_quyen_pas
     shards: 20
-    line: "D\xF2ng Ng\u01B0u Quy\u1EC1n"
+    line: "D\xF2ng H\u1ECFa Quy"
     size: 0.9
     forms:
-    - name: "Ngh\xE9 L\u1EEDa"
-      aola: nguu_quyen_1
+    - name: "H\u1ECFa Quy"
+      aola: rua_lua_1
       size: 0.9
-    - name: "Ng\u01B0u L\xE3ng T\u1EED"
-      aola: nguu_quyen_2
+    - name: "H\u1ECFa Quy"
+      aola: rua_lua_1
       size: 1.02
-    - name: "Ng\u01B0u Quy\u1EC1n"
-      aola: nguu_quyen_3
+    - name: "H\u1ECFa Quy"
+      aola: rua_lua_1
       size: 1.14
     minion: 0
   - id: vo_su

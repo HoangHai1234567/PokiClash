@@ -74,6 +74,18 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Mộc: Cầu Gai ra trận ở 2 dạng (đang Play)", priority = 122)]
         static void TryCauGai() => Start("tien_la", "cau_gai_combat", 1, 5);
 
+        // Hỏa Cung (suất kim_su, ải 10 đảo Hỏa, 2026-11-13): quỷ lửa bắn cung, tên là mảnh của rig do game lái tới đối thủ (far / fly_*)
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: Hỏa Cung ra trận ở 2 dạng (đang Play)", priority = 122)]
+        static void TryHoaCung() => Start("kim_su", "hoa_cung_combat", 1, 5);
+
+        [MenuItem("PokiClash/Thử/Hỏa Cung tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]
+        static void TryEvolveHoaCung()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            dir = "hoa_cung_tien_hoa";
+            App.I.StartCoroutine(Evolve("kim_su"));
+        }
+
         // Rồng Giọt (2026-11-08, dạng 1 là rig .atomik có clip tiến hóa): mở hộp chi tiết Giọt Sương ở sao cuối của dạng 1, bấm nút
         // hack tiến hóa, chụp liên tục clip tiến hóa (lốc nước, bong bóng, vỡ tung) tới khi dạng 2 hiện; ảnh vào gs_tien_hoa/.
         [MenuItem("PokiClash/Thử/Giọt Sương tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]

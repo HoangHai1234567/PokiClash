@@ -68,9 +68,11 @@ namespace PokiClash
         // có trong bảng: chiêu mana là cầu lửa, chiêu cuối giữ nguyên clip.
         static readonly Dictionary<string, (string mana, string ult)> FireFx = new Dictionary<string, (string, string)>
         {
-            { "khong_lo", ("nham", "phun_nham") }, { "nham_than", ("nham", "thien_thach") }, { "kim_su", ("phun", "no_lon") },
-            { "hong_lien", ("kim", "loc_xoay") }, { "giap_long", ("phun", "phun_nham") }, { "huyen_viem", ("kim", "loc_xoay") },
-            { "hoa_tinh", ("cau", "no_lon") }, { "lan_hoa", ("phun_xoan", "thien_thach") }, { "nguu_quyen", ("cau", "no_lon") },
+            { "hoa_nhan", ("tia_mat", "quyen_xoay") }, { "nham_than", ("phun", "n_cau_lan") }, { "kim_su", ("ten", "no_lon") },
+            { "hong_lien", ("kim", "loc_xoay") }, { "giap_long", ("dat_trao", "no_lon") }, // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): chiêu mana bổ đao cắm đất, dung nham trào dưới chân địch; chiêu cuối lao tới liên hoàn chém, nổ lớn ở nhát bổ kết (trước: "phun", "phun_nham")
+ { "huyen_viem", ("kim", "loc_xoay") },
+            { "hoa_tinh", ("cau", "no_lon") }, { "lan_hoa", ("phun_xoan", "thien_thach") },
+            { "nguu_quyen", ("n_cau_rua", "n_cau_sung") }, // suất này nay là rùa golem lửa (Hỏa Quy, 2026-11-13; HatRua.cs, đi đường "n_" để cầu tụ TRƯỚC khung nhả): tụ cầu lửa ở mõm rồi bắn; chiêu cuối lửa trên lưng bị hút vào cầu lửa trên mũi sừng, hất sừng phóng cầu
         };
 
         // bộ Thủy (2026-11-10, HatNuoc.cs): chiêu mana theo dòng tướng, chiêu cuối theo từng DẠNG, chọn cho khớp động tác clip CHIÊU
@@ -134,8 +136,15 @@ namespace PokiClash
             { "tho_hoang", ("n_kiem_rut", new[] { "n_kiem_ao" }) }, // suất này nay là Voọc Tướng, voọc kiếm sĩ giáp lá (2026-11-12, HatKiem.cs): cúi giữ thế lướt tới rồi rút kiếm chém (rig khai lunge cho cast); chiêu cuối biến mất, bốn ảo ảnh (mảnh của rig, xương far) chém để lại sẹo, tra kiếm thì các vết nổ lại
         };
 
+        // đòn đánh thường của tướng Hỏa có hiệu ứng riêng (mã "n_" đi đường PlayNuoc, phát từ đầu clip; HatLua.AtkLao nhận thì phát cả khi lao tới)
+        static readonly Dictionary<string, string> HoaAtk = new Dictionary<string, string>
+        {
+            { "nham_than", "n_nham_va" }, // golem lõi lửa (HatNham.cs): lao tới vả từ trên xuống đầu: chớp toé, tia lửa, dăm đá tro, bụi bị ép ra
+        };
+
         public static string FireAtk(HeroDef h) =>
-            h == null ? null : h.elem == Elem.Thuy && WaterAtk.TryGetValue(h.id, out var k) ? k : h.elem == Elem.Moc && MocAtk.TryGetValue(h.id, out var m) ? m : null;
+            h == null ? null : h.elem == Elem.Thuy && WaterAtk.TryGetValue(h.id, out var k) ? k : h.elem == Elem.Moc && MocAtk.TryGetValue(h.id, out var m) ? m :
+            h.elem == Elem.Hoa && HoaAtk.TryGetValue(h.id, out var f) ? f : null;
 
         public static string FireMana(HeroDef h)
         {

@@ -1,0 +1,15 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\quy_lava_2\tai_ve\L2_cam_giao.png: the creature holding its spear upright with both hands (1536x1024, white background).
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\quy_lava_2\tai_ve\M_cam.png
+If a file with that name already exists, save as M_cam_2.png, M_cam_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 1, but keep ONLY the parts listed under KEEP, in exactly the SAME POSITION and at exactly the SAME SIZE as in image 1 (laid over image 1 they must coincide). REMOVE everything else (the fire, the horns, the head-body, the face, the boots) and leave pure white (#FFFFFF) there. Same wobbly ink line, same colours, same crayon hatching, same completely flat colouring as image 1. No shadows, no glow, no labels.
+
+KEEP, as ONE single closed group (these parts touch and overlap each other, that is fine):
+1. THE SPEAR, whole and upright (back blade at the top, collar, magma head at the bottom), drawn complete where the hands cover it (the shaft continues behind the fists).
+2. THE NEAR ARM: the spiked pauldron, the basalt-red upper arm and the stone gauntlet forearm with its fist closed around the shaft (fist IN FRONT of the shaft). Where the body covered the upper arm, draw it complete with a rounded shoulder end hidden under the pauldron.
+3. THE FAR ARM: the basalt-red arm with its bracer and its fist closed around the shaft above the near fist (fist IN FRONT of the shaft). Its shoulder end, hidden behind the body in image 1, is drawn complete and rounded at about x = 1000, y = 560.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker underside, no lighter patches except the designed areas, no shadows of any kind (no cast shadow of one piece on another, no shadow under the figure or on the background), no white highlights or shine spots (not on the horns, not on the stone, not on the crystal), no gloss, no reflections, NO GLOW around the fire or the lava cracks, no halo, no rim light, no gradients, no 3D look. The fire and the lava look hot only because their flat colours are bright.
+Plain pure-white background (#FFFFFF): no paper colour or paper grain outside the drawing, no white border or sticker outline around the figure (the game adds that itself). No text, no labels, no numbers, no frame, no effects around the character.

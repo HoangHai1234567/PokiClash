@@ -987,12 +987,17 @@
    "passive": "tho_hoang_pas",
    "shards": 30,
    "line": "Dòng Voọc Tướng",
-   "size": 1,
+   "size": 0.92,
    "forms": [
     {
-     "name": "Voọc Tướng",
+     "name": "Voọc Non",
      "aola": "tho_hoang_1",
-     "size": 1
+     "size": 0.92
+    },
+    {
+     "name": "Voọc Tướng",
+     "aola": "tho_hoang_2",
+     "size": 1.1
     }
    ]
   },
@@ -1034,7 +1039,7 @@
    "id": "thanh_long",
    "name": "Thanh Long",
    "title": "Thần thú phương Đông",
-   "aola": "moc_vuong_1",
+   "aola": "moc_vuong_d1",
    "elem": "moc",
    "rarity": "legend",
    "stats": [
@@ -1054,12 +1059,12 @@
    "forms": [
     {
      "name": "Thanh Long Con",
-     "aola": "moc_vuong_1",
+     "aola": "moc_vuong_d1",
      "size": 0.95
     },
     {
      "name": "Thanh Long",
-     "aola": "moc_vuong_1",
+     "aola": "moc_vuong_d2",
      "size": 1.1
     },
     {
@@ -2010,9 +2015,9 @@
   },
   {
    "id": "su_tu_lua",
-   "name": "Sư Tử Lửa",
-   "title": "Bờm lửa nhỏ",
-   "aola": "su_tu_lua_1",
+   "name": "Tiểu Quỷ Lava",
+   "title": "Quỷ lửa cầm khiên",
+   "aola": "quy_lava_1",
    "elem": "hoa",
    "rarity": "uncommon",
    "stats": [
@@ -2027,22 +2032,22 @@
    "ult": "su_tu_lua_ult",
    "passive": "su_tu_lua_pas",
    "shards": 15,
-   "line": "Dòng Sư Tử Lửa",
+   "line": "Dòng Quỷ Lava",
    "size": 0.9,
    "forms": [
     {
-     "name": "Sư Tử Lửa",
-     "aola": "su_tu_lua_1",
+     "name": "Tiểu Quỷ Lava",
+     "aola": "quy_lava_1",
      "size": 0.9
     },
     {
-     "name": "Sư Tử Lửa",
-     "aola": "su_tu_lua_2",
+     "name": "Hiệp Sĩ Dung Nham",
+     "aola": "quy_lava_2",
      "size": 1.02
     },
     {
-     "name": "Sư Tử Lửa",
-     "aola": "su_tu_lua_3",
+     "name": "Hiệp Sĩ Dung Nham",
+     "aola": "quy_lava_2",
      "size": 1.14
     }
    ]
@@ -2164,10 +2169,10 @@
    ]
   },
   {
-   "id": "khong_lo",
-   "name": "Khổng Lồ Lửa",
-   "title": "Sừng lửa thân than",
-   "aola": "khong_lo_1",
+   "id": "hoa_nhan",
+   "name": "Hỏa Nhãn",
+   "title": "Mắt lửa giáp nham",
+   "aola": "hoa_nhan_1",
    "elem": "hoa",
    "rarity": "common",
    "stats": [
@@ -2178,34 +2183,29 @@
     50,
     60
    ],
-   "skill": "khong_lo_skill",
-   "ult": "khong_lo_ult",
-   "passive": "khong_lo_pas",
+   "skill": "hoa_nhan_skill",
+   "ult": "hoa_nhan_ult",
+   "passive": "hoa_nhan_pas",
    "shards": 10,
-   "line": "Dòng Khổng Lồ Lửa",
-   "size": 0.9,
+   "line": "Dòng Hỏa Nhãn",
+   "size": 0.92,
    "forms": [
     {
-     "name": "Viên Than",
-     "aola": "khong_lo_1",
-     "size": 0.9
+     "name": "Nhãn Than",
+     "aola": "hoa_nhan_1",
+     "size": 0.92
     },
     {
-     "name": "Sừng Than",
-     "aola": "khong_lo_2",
-     "size": 1.02
-    },
-    {
-     "name": "Khổng Lồ Lửa",
-     "aola": "khong_lo_3",
-     "size": 1.14
+     "name": "Hỏa Nhãn",
+     "aola": "hoa_nhan_2",
+     "size": 1.1
     }
    ]
   },
   {
    "id": "kim_su",
-   "name": "Kim Sư",
-   "title": "Bờm lửa giáp vàng",
+   "name": "Hỏa Cung",
+   "title": "Quỷ lửa bắn cung",
    "aola": "kim_su_1",
    "elem": "hoa",
    "rarity": "uncommon",
@@ -2221,23 +2221,18 @@
    "ult": "kim_su_ult",
    "passive": "kim_su_pas",
    "shards": 15,
-   "line": "Dòng Kim Sư",
-   "size": 0.9,
+   "line": "Dòng Hỏa Cung",
+   "size": 0.92,
    "forms": [
     {
-     "name": "Sư Con",
+     "name": "Hỏa Cung Nhi",
      "aola": "kim_su_1",
-     "size": 0.9
+     "size": 0.92
     },
     {
-     "name": "Liệt Hỏa Sư",
+     "name": "Hỏa Cung",
      "aola": "kim_su_2",
-     "size": 1.02
-    },
-    {
-     "name": "Kim Sư",
-     "aola": "kim_su_3",
-     "size": 1.14
+     "size": 1.1
     }
    ]
   },
@@ -2261,22 +2256,17 @@
    "passive": "nham_than_pas",
    "shards": 15,
    "line": "Dòng Nham Thần",
-   "size": 0.9,
+   "size": 0.92,
    "forms": [
     {
      "name": "Nham Con",
      "aola": "nham_than_1",
-     "size": 0.9
-    },
-    {
-     "name": "Nham Hỏa",
-     "aola": "nham_than_2",
-     "size": 1.02
+     "size": 0.92
     },
     {
      "name": "Nham Thần",
-     "aola": "nham_than_3",
-     "size": 1.14
+     "aola": "nham_than_2",
+     "size": 1.1
     }
    ]
   },
@@ -2321,9 +2311,9 @@
   },
   {
    "id": "giap_long",
-   "name": "Giáp Long",
-   "title": "Gai thép lửa đỏ",
-   "aola": "giap_long_1",
+   "name": "Viêm Đao",
+   "title": "Quỷ lửa vác đại đao",
+   "aola": "quy_dao_1",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2338,17 +2328,17 @@
    "ult": "giap_long_ult",
    "passive": "giap_long_pas",
    "shards": 30,
-   "line": "Dòng Giáp Long",
+   "line": "Dòng Viêm Đao",
    "size": 0.92,
    "forms": [
     {
-     "name": "Giáp Long Con",
-     "aola": "giap_long_1",
+     "name": "Viêm Đao",
+     "aola": "quy_dao_1",
      "size": 0.92
     },
     {
-     "name": "Giáp Long",
-     "aola": "giap_long_2",
+     "name": "Viêm Đao",
+     "aola": "quy_dao_1",
      "size": 1.1
     }
    ]
@@ -2467,9 +2457,9 @@
   },
   {
    "id": "nguu_quyen",
-   "name": "Ngưu Quyền",
-   "title": "Quyền thủ mây lửa",
-   "aola": "nguu_quyen_1",
+   "name": "Hỏa Quy",
+   "title": "Rùa đá cõng lửa",
+   "aola": "rua_lua_1",
    "elem": "hoa",
    "rarity": "rare",
    "stats": [
@@ -2484,22 +2474,22 @@
    "ult": "nguu_quyen_ult",
    "passive": "nguu_quyen_pas",
    "shards": 20,
-   "line": "Dòng Ngưu Quyền",
+   "line": "Dòng Hỏa Quy",
    "size": 0.9,
    "forms": [
     {
-     "name": "Nghé Lửa",
-     "aola": "nguu_quyen_1",
+     "name": "Hỏa Quy",
+     "aola": "rua_lua_1",
      "size": 0.9
     },
     {
-     "name": "Ngưu Lãng Tử",
-     "aola": "nguu_quyen_2",
+     "name": "Hỏa Quy",
+     "aola": "rua_lua_1",
      "size": 1.02
     },
     {
-     "name": "Ngưu Quyền",
-     "aola": "nguu_quyen_3",
+     "name": "Hỏa Quy",
+     "aola": "rua_lua_1",
      "size": 1.14
     }
    ]

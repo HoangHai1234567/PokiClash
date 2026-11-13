@@ -13,8 +13,9 @@ namespace PokiClash.EditorTools
     public static class HoaFxTour
     {
         static string Dir => Path.Combine(PlayTour.ShotDir, "hoa_fx");
-        static readonly string[] Heroes = { "hoa_tinh", "huyen_viem", "lan_hoa", "khong_lo", "nham_than", "kim_su", "hong_lien", "giap_long", "nguu_quyen" };
+        static readonly string[] Heroes = { "hoa_tinh", "huyen_viem", "lan_hoa", "hoa_nhan", "nham_than", "kim_su", "hong_lien", "giap_long", "nguu_quyen" };
         static string[] only;
+        static int sao; // > 0: số sao của tướng trong tour trận (mặc định sao cuối); dùng xong tự về 0
 
         [MenuItem("PokiClash/Thử/Đảo Hỏa: hạt lửa chiêu mana, chiêu cuối 9 tướng (đang Play)", priority = 124)]
         static void Try()
@@ -23,6 +24,110 @@ namespace PokiClash.EditorTools
             only = null;
             App.I.StartCoroutine(Run());
         }
+
+        // riêng Nham Thần (golem lõi lửa, 2026-11-13): phun lửa từ họng, chiêu cuối cuộn thành cầu lửa lăn tông (AolaSticker.Rams)
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryNhamThan() => TryOnly("nham_than");
+
+        // TRẬN THẬT ải 15 đảo Hỏa (ải 85 "Sườn Núi Khói": địch là Nham Thần có tiến hóa): đội mình một Nham Thần sao cuối, tự đánh ở nhịp
+        // thường; chụp liên tục từ lúc ra sân tới hết trận vào hoa_fx/tran_<n>.jpg (golem phía địch, ra sân, tiến hóa, chết)
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: trận thật ải 15, Nham Thần hai phía (đang Play)", priority = 124)]
+        static void TryNhamThanTran()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            App.I.StartCoroutine(RunTran());
+        }
+
+        static IEnumerator RunTran()
+        {
+            var path = App.Save.FilePath;
+            string backup = File.Exists(path) ? File.ReadAllText(path) : null;
+            if (Directory.Exists(Dir)) Directory.Delete(Dir, true);
+            Directory.CreateDirectory(Dir);
+            try
+            {
+                var s = App.Save.Data;
+                var hp = s.Hero("nham_than");
+                hp.owned = true;
+                hp.star = App.Data.Cfg.maxStar;
+                s.team = new List<string> { "nham_than" };
+                if (s.level < 55) s.level = 55;
+                App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = 85 });
+                float t0 = Time.realtimeSinceStartup;
+                while ((App.Router.Busy || App.Router.Current != SceneIds.Battle) && Time.realtimeSinceStartup - t0 < 30) yield return null;
+                var ctl = Object.FindAnyObjectByType<BattleController>();
+                var st = Object.FindAnyObjectByType<StageView>();
+                if (!ctl || !st)
+                {
+                    Debug.LogError("[Thử] Không thấy BattleController hoặc StageView");
+                    yield break;
+                }
+                st.speed = 1;
+                int n = 0;
+                t0 = Time.realtimeSinceStartup;
+                while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 25)
+                {
+                    yield return Shot($"tran_{n++:000}");
+                    yield return new WaitForSecondsRealtime(0.1f);
+                }
+                ctl.TestPick(0);
+                t0 = Time.realtimeSinceStartup;
+                while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 5) yield return null;
+                ctl.TestPick(1);
+                t0 = Time.realtimeSinceStartup;
+                while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 5) yield return null;
+                ctl.SetAuto(true);
+                t0 = Time.realtimeSinceStartup;
+                // Battle.phase là trạng thái của LUẬT (tính xong trước khi sân diễn): chờ hộp kết quả hiện mới là hết trận trên màn hình
+                while (App.Modals.Count == 0 && Time.realtimeSinceStartup - t0 < 160)
+                {
+                    yield return Shot($"tran_{n++:000}");
+                    yield return new WaitForSecondsRealtime(0.2f);
+                }
+                Debug.Log($"[Thử] Trận ải 85: {ctl.Battle.round} hiệp, {(ctl.Battle.winner == 0 ? "thắng" : "thua")}, {n} ảnh");
+            }
+            finally
+            {
+                if (backup != null)
+                {
+                    File.WriteAllText(path, backup);
+                    App.Save.Load();
+                }
+            }
+            App.Modals.CloseAll();
+            App.Router.Go(SceneIds.Hub);
+            Debug.Log("[Thử] Xong trận thật Nham Thần: " + Dir);
+        }
+
+        // dạng 1 (Nham Con): cùng tour nhưng tướng ở 1 sao
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Nham Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryNhamCon()
+        {
+            sao = 1;
+            TryOnly("nham_than");
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Nham Thần trong hộp chi tiết tướng (đang Play)", priority = 125)]
+        static void TryNhamThanViewer()
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            only = new[] { "nham_than" };
+            App.I.StartCoroutine(RunViewer());
+        }
+
+        // riêng Hỏa Cung (quỷ lửa bắn cung, suất kim_su, 2026-11-13): thêm đòn thường (một mũi tên của rig bay tới đối thủ) trước chiêu mana
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Cung, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryHoaCung() => TryOnly("kim_su");
+
+        // riêng Hỏa Quy (rùa golem lửa, suất nguu_quyen, 2026-11-13): đòn thường bò tới húc sừng, chiêu mana há mồm bắn cầu lửa, chiêu cuối hút
+        // lửa trên lưng về sừng rồi hất sừng phóng cầu
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Quy, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryHoaQuy() => TryOnly("nguu_quyen");
+
+        // riêng Viêm Đao (quỷ lửa cầm đao, suất giap_long, 2026-11-13): đòn thường bổ đao cối xay, chiêu mana bổ đao cắm đất (dung nham trào dưới
+        // chân địch), chiêu cuối lao tới liên hoàn chém rồi nhảy bổ
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đao, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemDao() => TryOnly("giap_long");
 
         // hộp chi tiết tướng: mở từng tướng Hỏa (sao cuối), bấm Chiêu rồi Mana trên ô xem, chụp vào hoa_fx/xem_<tướng>_<clip>_<n>.jpg
         [MenuItem("PokiClash/Thử/Đảo Hỏa: hạt lửa trong hộp chi tiết tướng (đang Play)", priority = 125)]
@@ -98,7 +203,7 @@ namespace PokiClash.EditorTools
                     var s = App.Save.Data;
                     var hp = s.Hero(hero);
                     hp.owned = true;
-                    hp.star = App.Data.Cfg.maxStar;
+                    hp.star = sao > 0 ? sao : App.Data.Cfg.maxStar;
                     s.team = new List<string> { hero };
                     if (s.level < 7) s.level = 7;
                     App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = 3 });
@@ -116,9 +221,18 @@ namespace PokiClash.EditorTools
                     t0 = Time.realtimeSinceStartup;
                     while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 20) yield return null;
                     yield return new WaitForSecondsRealtime(0.6f);
-                    st.Play(0, StageView.Cast, () => st.Beam(0));
-                    float start = Time.realtimeSinceStartup;
+                    float start;
                     int n = 0;
+                    if (hero == "kim_su" || hero == "nham_than" || hero == "nguu_quyen" || hero == "giap_long")
+                    {
+                        st.Play(0, StageView.Attack);
+                        start = Time.realtimeSinceStartup;
+                        while (Time.realtimeSinceStartup - start < (hero == "giap_long" ? 2.1f : 1.5f)) yield return Shot($"{hero}_danh_{n++:00}");
+                        yield return new WaitForSecondsRealtime(0.4f);
+                        n = 0;
+                    }
+                    st.Play(0, StageView.Cast, () => st.Beam(0));
+                    start = Time.realtimeSinceStartup;
                     while (Time.realtimeSinceStartup - start < 2.6f) yield return Shot($"{hero}_mana_{n++:00}");
                     yield return new WaitForSecondsRealtime(0.6f);
                     st.Play(0, StageView.Skill, () => st.UltFx(0));
@@ -137,6 +251,7 @@ namespace PokiClash.EditorTools
                     App.Save.Load();
                 }
             }
+            sao = 0;
             App.Router.Go(SceneIds.Hub);
             Debug.Log("[Thử] Xong đảo Hỏa hạt lửa: " + Dir);
         }

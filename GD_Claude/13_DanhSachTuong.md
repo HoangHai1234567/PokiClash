@@ -195,8 +195,8 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 | 1 | `su_tu_lua` | Sư Tử Lửa | Bờm lửa nhỏ | Khá | 4 吉拉 → 5 吉拉狮 → 6 爆焰吉拉 (hình gửi là dạng 3) | giữ, tướng khởi đầu |
 | 5 | `khong_lo` | Khổng Lồ Lửa | Sừng lửa thân than | Thường | 46 火丁 → 47 火霍仔 → 48 火巨人 | mới |
 | 10 | `kim_su` | Kim Sư | Bờm lửa giáp vàng | Khá | 581 火火狮 → 582 烈火狮 → 583 雷欧火狮 | mới |
-| 15 | `nham_than` | Nham Thần | Chúa tể dung nham | Khá | 599 格纳 → 600 拉格纳 → 601 拉格纳罗斯 | mới |
-| 20 | `nguu_quyen` | Ngưu Quyền | Quyền thủ mây lửa | Hiếm | 412 圈圈牛 → 413 火焰牛仔 → 414 火云牛斗士 | mới (2026-11-06): người dùng thay cho 501 魔焰吉拉 (siêu tiến hóa của chính dòng Sư Tử Lửa); tên dạng Nghé Lửa → Ngưu Lãng Tử → Ngưu Quyền |
+| 15 | `nham_than` | Nham Thần | Chúa tể dung nham | Khá | hình riêng trên rig Spine (2026-11-13, golem lõi lửa `golem_lua`, thay dòng 599 格纳 → 600 → 601): Nham Con (`golem_lua_non`: ba ngọn lửa nhỏ, bốn lỗ tắt, vuốt cụt; có clip tiến hóa) → Nham Thần (`golem_lua_1`); ghi chú `ArtGen/Spine/inbox/golem_lua_ghichu.md` | giữ id, đổi hình |
+| 20 | `nguu_quyen` | Ngưu Quyền | Quyền thủ mây lửa | Hiếm | 412 圈圈牛 → 413 火焰牛仔 → 414 火云牛斗士 | mới (2026-11-06): người dùng thay cho 501 魔焰吉拉 (siêu tiến hóa của chính dòng Sư Tử Lửa); tên dạng Nghé Lửa → Ngưu Lãng Tử → Ngưu Quyền | **2026-11-13: HÌNH của suất này nay là rùa golem lửa** (mã làm việc `rua_lua`, hình mình trên rig `monster_3425`; tên Hỏa Quy, danh hiệu Rùa đá cõng lửa, ba dạng tạm dùng chung rig `rua_lua_1`; thẻ Hỏa Cầu / Sừng Tụ Hỏa Cầu / Mai Nung Đỏ; id giữ `nguu_quyen`; ghi chú `ArtGen/Spine/inbox/rua_lua_ghichu.md`) |
 | 30 | `hong_lien` | Hồng Liên | Cánh lửa sen đỏ | Hiếm | 776 炎 → 777 绯炎 → 778 红莲 (hệ aola 19) | mới |
 | 40 | `giap_long` | Giáp Long | Gai thép lửa đỏ | Sử thi | 1231 鲁迪 → 1232 鲁曼 (hệ aola 16) | mới |
 | 50 | `huyen_viem` | Huyễn Viêm | Hồ lửa ảo ảnh | Sử thi | 1295 灵炎 → 1296 幻炎 → 2091 圣域·幻炎 (hình gửi là siêu tiến hóa; người dùng chọn lấy 3 dạng) | mới |

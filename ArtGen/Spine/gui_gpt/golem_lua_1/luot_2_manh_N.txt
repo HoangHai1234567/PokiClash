@@ -1,0 +1,17 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\golem_lua_1\tai_ve\L1_duyet.png: the APPROVED picture of the creature, 1536x1024, white background: a fire-core stone golem facing right: warm pale ash-grey stone blocks (big back slab, round near shoulder, top plate, brow plate over a small skull-like face with one yellow eye, a blade-shaped cheek plate, chest stones around a round fire core, hip blocks), dark charcoal rings, collars, wrist blocks and jaw, flames bursting out of holes (big ones from the near shoulder, the top of the back and the forehead; small ones on the top plate, the back of the head, the near wrist and the hips), two huge stone hands with three dark claws each, two short legs with glowing orange knees.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\golem_lua_1\tai_ve\M_N.png
+If a file with that name already exists, save as M_N_2.png, M_N_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: on a pure-white 1536x1024 canvas draw ONLY the four small flames listed below, each at the given place, in exactly the same hand-drawn style, colours and flame shape as the flames of image 1 (dark-brown wobbly ink outline about 5 px, three nested flat colour zones: red-orange #E0441F outside, orange #F7902A, yellow #FFD45A inside near the base, crayon hatching, tips curling up and back to the viewer's left). Each flame comes OUT OF A SMALL ROUND HOLE: its ROOT at the bottom must be NARROW, exactly as wide as the hole, with a rounded bottom end, and the flame WIDENS gradually above the hole into its tongue shape. Each flame is ONE closed shape with its ink outline all the way around (also around the root). Nothing else: no stone, no hole, no ring, no body, no sparks, no glow, no separate floating flame bits. The four flames must not touch.
+
+1. THE SMALL FLAME ON THE TOP PLATE: root bottom centred at x = 887, y = 205, root 46 px wide at the hole (from x = 864 to x = 910); the flame rises straight up from there and widens to at most 95 px, its highest tip at about y = 82.
+2. THE SMALL FLAME ON THE BACK OF THE HEAD: root bottom centred at x = 1026, y = 318, root 40 px wide at the hole (from x = 1006 to x = 1046); the flame rises straight up from there and widens to at most 110 px, its highest tip at about y = 170.
+3. THE FLAME WITH TWO TONGUES ON THE NEAR WRIST BLOCK: root bottom centred at x = 389, y = 596, root 40 px wide at the hole (from x = 369 to x = 409); the flame rises straight up from there and widens to at most 115 px, its highest tip at about y = 455.
+4. THE SMALL FLAME BETWEEN THE LEGS: root bottom centred at x = 690, y = 752, root 66 px wide at the hole (from x = 657 to x = 723); the flame rises straight up from there and widens to at most 95 px, its highest tip at about y = 630.
+
+Exactly 4 separate flames on the canvas, nothing else.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area one even colour, crayon strokes only as texture; no shading, no cast shadow, no highlight, no glow around the flames, no gradient.
+Plain pure-white background (#FFFFFF), no paper colour, no border, no text.

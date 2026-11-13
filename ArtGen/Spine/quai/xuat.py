@@ -378,12 +378,13 @@ def slot_aura(sk, aura):
 
 def xuat_het(sk, clips, ra_dir, ten, tieu_de="", frames=None, dang=1, so_dang=2, dung_yen=("cast", "skill"), lao=(), far=(),
              mieng="mieng", beam=1.0, beamStyle="", impact=None, plain=None, cao=None, can=(), ma_goc=None, khung=True, luoi=True,
-             xem=True, chan_dung=True, tol=None, dich_mb=0.3, tran_mb=0.5, khop_idle=0.25, noi_them=None, far_aim=()):
+             xem=True, chan_dung=True, tol=None, dich_mb=0.3, tran_mb=0.5, khop_idle=0.25, noi_them=None, far_aim=(), khong_khop=()):
     """chạy hết: nướng (nếu frames chưa có), khoá, JSON + atlas + PNG, game.json, .atomik + nạp lại kiểm, đo lệch nối clip, tờ khung
     từng clip (aura ghép cùng giây), luoi.png, ảnh cận (can = [(tên ảnh, clip, giây, tâm (x, y) hoặc tên xương, bán kính)]),
     chân dung 512, xem.html, so_sanh.md (ma_goc: số monster gốc), báo cáo dung lượng. khop_idle: hoà chừng ấy giây cuối mỗi clip
     không lặp (trừ die, evolve) về khung 0 idle (xoá phần lò xo còn dư; 0 = tắt). noi_them: {tên: chuỗi} số đo nối thêm vào báo
-    cáo (vd. tienhoa.lech_cuoi cho evolve). Trả dict số liệu."""
+    cáo (vd. tienhoa.lech_cuoi cho evolve). khong_khop: tên clip không lặp mà KHÔNG hoà về idle (clip kết thúc ở dáng khác để nối
+    sang clip sau, vd. chiêu cuối nhảy cuộn → xoay). Trả dict số liệu."""
     t0 = time.time()
     os.makedirs(ra_dir, exist_ok=True)
     cd = {c.ten: c for c in clips}
@@ -393,7 +394,7 @@ def xuat_het(sk, clips, ra_dir, ten, tieu_de="", frames=None, dang=1, so_dang=2,
             frames[c.ten] = hoat.nuong(sk, c)
     if khop_idle:
         for c in clips:
-            if not c.loop and c.ten not in ("die", "evolve"):
+            if not c.loop and c.ten not in ("die", "evolve") and c.ten not in khong_khop:
                 frames[c.ten] = [P.copy() for P in frames[c.ten]]
                 hoat.khop_cuoi(frames[c.ten], frames["idle"][0], khop_idle)
     anims, nk = {}, 0

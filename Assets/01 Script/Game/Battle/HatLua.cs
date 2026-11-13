@@ -81,13 +81,17 @@ namespace PokiClash
             // rồng sen hồng: lửa hồng sen, cánh sen bay
             { "hong_lien", new Theme { pal = "sen", spark = C(255, 190, 200), ember = C(240, 120, 150), ring = C(236, 110, 150), ring2 = C(252, 222, 228),
                 smoke = new[] { C(84, 52, 62), C(130, 104, 112), C(176, 160, 166), C(212, 204, 206) }, extra = "canh_sen", extraCol = C(244, 120, 160) } },
-            // rồng đỏ giáp xám: lửa đỏ, mảnh giáp sắt văng
-            { "giap_long", new Theme { extra = "giap", extraCol = C(110, 112, 122) } },
+            // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): lửa đỏ cam lõi vàng như bờm lửa trên rig, mảnh giáp sắt đen văng ra (trước là
+            // Giáp Long: rồng đỏ giáp xám, mảnh giáp xám)
+            { "giap_long", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(58, 56, 64) } },
             // bò võ sĩ, mây vàng
-            { "nguu_quyen", new Theme { pal = "nguu", smoke = new[] { C(92, 66, 50), C(142, 122, 106), C(188, 176, 164), C(216, 210, 202) }, ring = C(250, 170, 60), extra = "may", extraCol = C(250, 196, 70) } },
+            // suất này nay là rùa golem lửa (Hỏa Quy, 2026-11-13): lửa cam thường, mảnh đá bazan xám lam văng ra lúc trúng (trước là Ngưu Quyền: pal "nguu", mây xoắn vàng)
+            { "nguu_quyen", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(95, 108, 125) } },
             // người đá than / nham: lửa dung nham, đá
-            { "khong_lo", new Theme { pal = "nham", spark = C(255, 190, 90), ember = C(240, 120, 40), ring = C(236, 104, 34), extra = "giap", extraCol = C(80, 66, 72) } },
-            { "nham_than", new Theme { pal = "nham", spark = C(255, 190, 90), ember = C(240, 120, 40), ring = C(236, 104, 34), extra = "giap", extraCol = C(120, 84, 62) } },
+            // mắt lửa bọc giáp (Hỏa Nhãn): lửa đỏ cam lõi vàng như lửa trên rig, mảnh giáp đá vỏ chai đen tím văng ra
+            { "hoa_nhan", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(58, 50, 66) } },
+            // golem lõi lửa (Nham Thần, 2026-11-13): lửa đỏ cam lõi vàng như lưỡi lửa trên rig (bảng "nham" ra nâu sẫm, lệch màu thân), mảnh đá tro văng ra
+            { "nham_than", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(178, 167, 154) } },
         };
 
         public Theme Th = Default;
@@ -887,6 +891,17 @@ namespace PokiClash
             Extra(c, (int)(6 * sc + 2), 320 * sc, group);
         }
 
+        // Hỏa Cung (cung_lua, suất kim_su): chiêu mana bắn ba mũi tên CỦA RIG (xương far / fly_*), gọi đúng khung tên tới nên chỉ làm ba
+        // chớp nổ nhỏ so le ở thân đối thủ (giữa, trên, dưới: đúng chỗ ba mũi tên găm); trả 0 vì đã trúng.
+        public float TenNo(Vector2 body, float tH)
+        {
+            Shake?.Invoke(0.18f);
+            Explode(body, 0.5f, tH);
+            At(0.05f, () => Explode(body + new Vector2(0, -0.09f * tH), 0.38f, tH));
+            At(0.1f, () => Explode(body + new Vector2(0, 0.09f * tH), 0.38f, tH));
+            return 0;
+        }
+
         // ================= CHIÊU MANA (thay tia nước) =================
         // trả thời gian tới lúc trúng (giây sân)
 
@@ -1398,6 +1413,9 @@ namespace PokiClash
                 "phun_xoan" => Breath(mouth, foeBody, tH, true),
                 "kim" => Needles(casterFeet, casterH, casterH * 1.1f, foeBody, tH),
                 "nham" => LavaBall(mouth, foeFeet, tH, casterFeet.y),
+                "tia_mat" => TiaMat(mouth, foeBody, tH), // Hỏa Nhãn (HatNhan.cs): tia lửa từ con ngươi
+                "ten" => TenNo(foeBody, tH), // Hỏa Cung: ba mũi tên là mảnh của rig (game lái tới đối thủ), ở đây chỉ nổ lúc tên tới
+                "dat_trao" => Eruption(foeFeet, tH), // Viêm Đao: bổ đao cắm xuống đất, dung nham trào lên dưới chân đối thủ
                 _ => Fireball(mouth, foeBody, tH),
             };
 
@@ -1408,6 +1426,7 @@ namespace PokiClash
                 "thien_thach" => Meteor(foeFeet, tH, fromSide == 0 ? 1 : fromSide),
                 "phun_nham" => Eruption(foeFeet, tH),
                 "loc_xoay" => Tornado(foeFeet, tH),
+                "quyen_xoay" => QuyenXoay(foeFeet, foeBody, tH), // Hỏa Nhãn: lửa xoáy + chuỗi chớp nổ theo nhịp đấm
                 _ => BigBurst(foeFeet, foeBody, tH),
             };
 
@@ -1446,6 +1465,6 @@ namespace PokiClash
         // thời gian tướng giữ dáng ra chiêu (khung bắn của clip) sau lúc gọi PlayMana: phun tới khi luồng tắt, kim tới khi kim cuối
         // phóng đi, cầu tới khi cầu tụ xong rời miệng
         public static float HoldOf(string kind) =>
-            kind != null && kind.StartsWith("phun") ? BreathHold : kind == "kim" ? 1.35f : 0.32f;
+            kind != null && kind.StartsWith("phun") ? BreathHold : kind == "kim" ? 1.35f : kind == "tia_mat" ? TiaMatHold : 0.32f;
     }
 }

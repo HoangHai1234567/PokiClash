@@ -142,7 +142,7 @@ namespace PokiClash.Core
         public static readonly Dictionary<int, Action<Dictionary<string, object>>> Migrations =
             new Dictionary<int, Action<Dictionary<string, object>>>
             {
-                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6, [7] = MigrateMamU, [8] = MigrateGacDa,
+                [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6, [7] = MigrateMamU, [8] = MigrateGacDa, [9] = MigrateHoaNhan,
             };
 
         // v5 -> v6 (lô 10 tướng mới đảo Thủy, 2026-11-11, người dùng chọn "chuyển tướng cũ sang tướng mới"): tướng cũ cùng suất đảo
@@ -186,6 +186,17 @@ namespace PokiClash.Core
             GopTuong(o, GacDaMap);
             var st = J.Str(o, "starter");
             if (st != null) o["starter"] = Map(GacDaMap, st);
+        }
+
+        // v9 -> v10 (2026-11-13): suất ải 5 đảo Hỏa đổi dòng Khổng Lồ Lửa (khong_lo) thành dòng Hỏa Nhãn (hoa_nhan, mắt lửa
+        // bọc giáp, hai dạng); bản lưu v9 đã có khong_lo thì gộp sang hoa_nhan (sở hữu, mảnh, sao, cấp thẻ, tiềm năng, đội, tướng khởi đầu)
+        public static readonly (string from, string to)[] HoaNhanMap = { ("khong_lo", "hoa_nhan") };
+
+        public static void MigrateHoaNhan(Dictionary<string, object> o)
+        {
+            GopTuong(o, HoaNhanMap);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(HoaNhanMap, st);
         }
 
         public static void MigrateThuyV5(Dictionary<string, object> o)

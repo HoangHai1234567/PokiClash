@@ -3864,14 +3864,14 @@ MonoBehaviour:
     tag: 1
     chapter: 1
     enemies:
-    - hero: khong_lo
+    - hero: hoa_nhan
       level: 19
       boss: 0
       evo: 1
       buff: 0.15
       trait: 
     drops:
-    - hero: khong_lo
+    - hero: hoa_nhan
       chance: 1
       min: 2
       max: 4
@@ -3907,14 +3907,14 @@ MonoBehaviour:
     tag: 3
     chapter: 1
     enemies:
-    - hero: khong_lo
+    - hero: hoa_nhan
       level: 26
       boss: 0
       evo: 0
       buff: 0.12
       trait: 
     drops:
-    - hero: khong_lo
+    - hero: hoa_nhan
       chance: 0.3
       min: 1
       max: 2
@@ -3957,7 +3957,7 @@ MonoBehaviour:
     tag: 7
     chapter: 1
     enemies:
-    - hero: khong_lo
+    - hero: hoa_nhan
       level: 33
       boss: 0
       evo: 0
@@ -3970,7 +3970,7 @@ MonoBehaviour:
       buff: 0.2
       trait: 
     drops:
-    - hero: khong_lo
+    - hero: hoa_nhan
       chance: 0.44999999999999996
       min: 1
       max: 2
@@ -4050,7 +4050,7 @@ MonoBehaviour:
     tag: 4
     chapter: 2
     enemies:
-    - hero: khong_lo
+    - hero: hoa_nhan
       level: 46
       boss: 0
       evo: 0
@@ -4063,7 +4063,7 @@ MonoBehaviour:
       buff: 0.15
       trait: 
     drops:
-    - hero: khong_lo
+    - hero: hoa_nhan
       chance: 0.3
       min: 1
       max: 2
@@ -8669,7 +8669,7 @@ MonoBehaviour:
     - hero: tho_hoang
       level: 142
       boss: 1
-      evo: 0
+      evo: 1
       buff: 1
       trait: tho_hoang_boss
     drops:

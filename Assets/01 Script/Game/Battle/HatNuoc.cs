@@ -1385,6 +1385,10 @@ namespace PokiClash
                 case "n_rong_van": return NRongVan(casterFeet, casterH, foeFeet, foeBody, tH, lead); // rồng trúc: chiêu cuối Vạn Diệp
                 case "n_kiem_rut": return NKiemRut(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Voọc Tướng (HatKiem.cs): cúi giữ thế lướt tới, rút kiếm chém, bổ nhát hai
                 case "n_kiem_ao": return NKiemAo(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Voọc Tướng: ảo ảnh chém để lại sẹo, tra kiếm thì các vết nổ lại
+                case "n_cau_lan": return NCauLan(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Nham Thần (HatNham.cs): chiêu cuối cuộn thành cầu lửa lăn tông, bật về
+                case "n_nham_va": return NNhamVa(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Nham Thần, đòn đánh thường: lao tới vả từ trên xuống đầu
+                case "n_cau_sung": return NCauSung(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Hỏa Quy (HatRua.cs): chiêu cuối, lửa trên lưng bị hút vào cầu lửa trên mũi sừng, hất sừng phóng cầu
+                case "n_cau_rua": return NCauMieng(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead); // Hỏa Quy, chiêu mana: tụ cầu lửa ở mõm rồi bắn
                 default: return NVa(foeBody, foeFeet, tH);
             }
         }

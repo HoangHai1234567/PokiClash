@@ -1,0 +1,32 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\cung_lua_1\mau\goc_B.png: the PARTS SHEET, 1536x1024, white background: the separate body parts of the puppet, each drawn alone, at the exact size and place to keep. Seventeen parts: top row six armour pieces (chest plate, waist skirt, big cracked gauntlet, forearm guard, two shoulder pads); middle row seven small pieces (two upper arms, hip, two thighs, two boots); bottom row the four pieces of the two hands, drawn very big.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\cung_lua_1\mau\concept_A.png: the APPROVED picture of OUR character, 1536x1024, white background: a chibi burning knight archer in charred brown-black armour with a big helmet with glowing yellow visor slits, two dark horns, a flame as helmet plume and cracks of fire on the chest and the gauntlet. Take from it ONLY the colours, the materials and the hand-drawn look (wobbly brown ink line, crayon hatching, flat colour). Do NOT copy its shapes or its pose: the shapes come from image 1.
+image 3 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\kiem_si_1\tai_ve\L1_duyet.png: an approved hero of the same game, 1536x1024: the hand-drawn ink and crayon style to match. Do NOT copy its design.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\cung_lua_1\tai_ve\D_B.png
+If a file with that name already exists, save as D_B_2.png, D_B_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: RESKIN. Image 1 is a sheet of the separate body PARTS of a 2D animation puppet (an armoured knight archer), each part drawn alone on white. Redraw the SAME sheet with every part REPAINTED as described below, so that the parts can be put back on the same puppet. For EVERY part keep exactly: its silhouette (the same outline), its size, its orientation and its place on the sheet (if the new picture were laid over image 1, every part must coincide with the old one), and its main structural lines (plate edges, bands, folds, the visor openings). Do NOT merge parts, do NOT add parts, do NOT move parts. Pure white (#FFFFFF) between the parts.
+
+NEW LOOK (the same for all parts; see image 2, the approved picture of OUR character, for the exact colours and drawing style): a BURNING KNIGHT in CHARRED armour. Hand-drawn on paper: a wobbly dark-brown ink outline (#2B2118, about 6 (about 9 on the four big hand pieces of the bottom row) px) running all the way round every part exactly on its silhouette, thinner ink lines for the inner structural lines, and every area filled with ONE flat colour with visible coloured-pencil / wax-crayon hatching. Colours: armour plates charred brown-black (#644A44); the darker parts (under-suit, joints, bands, the dome) darker charred black (#342A2C); fire red-orange (#DE4022) / orange (#F88C28) / yellow (#FFD254); gold (#E8B24A) only where listed. The parts of image 1 are painted in a smooth digital cel style with blue-grey armour, gold trims, a red letter emblem and light / dark shading bands: do NOT copy that painting style, those colours, the gold trims or the emblem; no shading, no highlights, no gradients, no glow, no shadows: flat colour only.
+
+THE PARTS (coordinates are pixels on the 1536x1024 sheet, x from the left, y from the top):
+1. (about x = 46 to x = 280, y = 113 to y = 308) CHEST PLATE: charred brown-black; the two bands (gold in image 1) become darker charred bands (#342A2C); the red letter emblem is REMOVED and replaced by ONE natural crack of fire in the same place (a single slightly curved line, thicker in the middle, tapering at both ends, orange #F88C28 with a yellow #FFD254 centre).
+2. (about x = 326 to x = 605, y = 138 to y = 282) WAIST SKIRT (pointed armour flaps): charred brown-black flaps; the trims (gold in image 1) become darker charred lines.
+3. (about x = 651 to x = 849, y = 113 to y = 308) BIG NEAR GAUNTLET (the egg-shaped plate with cracks): charred brown-black; its branching cracks stay where they are and become cracks of fire (orange #F88C28 with a yellow #FFD254 centre).
+4. (about x = 895 to x = 1039, y = 119 to y = 302) FAR FOREARM GUARD: charred brown-black, keep its plate edge line.
+5. (about x = 1085 to x = 1280, y = 125 to y = 296) NEAR SHOULDER PAD (pointed plate): charred brown-black; its lower trim becomes a darker charred band.
+6. (about x = 1326 to x = 1488, y = 144 to y = 276) FAR SHOULDER PAD: the same.
+7. (about x = 82 to x = 232, y = 424 to y = 583) NEAR UPPER ARM: darker charred black (#342A2C), plain.
+8. (about x = 314 to x = 476, y = 431 to y = 575) FAR UPPER ARM: darker charred black, plain.
+9. (about x = 558 to x = 669, y = 442 to y = 565) HIP PIECE: darker charred black, plain.
+10. (about x = 751 to x = 877, y = 428 to y = 578) NEAR THIGH: darker charred black, plain.
+11. (about x = 959 to x = 1064, y = 421 to y = 586) FAR THIGH: darker charred black, plain.
+12. (about x = 1146 to x = 1257, y = 433 to y = 574) NEAR BOOT: charred brown-black armour boot, keep its plate lines.
+13. (about x = 1339 to x = 1450, y = 434 to y = 572) FAR BOOT: the same.
+14. (about x = 172 to x = 407, y = 699 to y = 909) NEAR HAND, main piece (bottom row, drawn very big): a darker charred black gauntlet fist (#342A2C); keep the lines between its fingers.
+15. (about x = 579 to x = 704, y = 751 to y = 856) NEAR HAND, small front piece: the same darker charred black.
+16. (about x = 876 to x = 1091, y = 711 to y = 896) FAR HAND, main piece: the same gauntlet fist; keep the finger lines.
+17. (about x = 1263 to x = 1363, y = 736 to y = 871) FAR HAND, small piece: the same.
+
+Plain pure-white background (#FFFFFF), no paper grain outside the parts, no labels, no numbers, no frame, nothing added.

@@ -115,3 +115,16 @@ kiếm, biến mất, bốn ảo ảnh khỉ con lục, hiện lại, tra kiếm
 
 **Chưa làm**: vào game (`tho_hoang` 1 dạng → 2 dạng: heroes.json forms, `Resources/tho_hoang_1` = dạng 1 này, `tho_hoang_2` = dạng lớn, chân dung,
 ải có `evo`, golden) — chờ người dùng; tên dạng 1 chưa đặt. VFX vệt chém (như dạng lớn) chưa có.
+
+## 8. Vào game (2026-11-13, máy ổ C; người dùng: "ok xuất ra rồi cho vào game")
+
+- Rig dạng 1 dựng lại trên máy C bằng `kiem_si_non.py rig` (thư mục `rig/` không theo git; dữ liệu quét `D:\Ripper\SwordxStaff\scan\monster_3620`
+  có sẵn trên máy C). `.atomik` 466 KB, khớp số ở mục 7.
+- `quai/doi_kiem_si_non.py` (chạy lại không đổi thêm, `--kiem`): suất `tho_hoang` từ 1 thành 2 dạng: **Voọc Non** (`tho_hoang_1`, 0,92, rig
+  `kiem_si_non/rig`, có `evolve`) và **Voọc Tướng** (`tho_hoang_2`, 1,1, `kiem_si_non/rig_lon/kiem_si_1.atomik` = dạng lớn xuất là dạng 2/2:
+  xương, lưới, clip y hệt bản cũ, chỉ số trúng đòn mạnh hơn). Tên "Voọc Non" Claude đặt tạm. `stages.json` ải 260 thêm `"evo": true`.
+- Unity (MCP cổng 8080): Nhập dữ liệu; "Gắn dạng .atomik vào prefab tướng" → `tho_hoang: prefab giữ 2 dạng`; tính lại golden: `roster.json`
+  (n = 2), `islands.json` (ải 260 evo, hpPct), `sim.json` (1 ô ải 260, ghép bằng `golden_thuy.py ghep_sim`).
+- **Chưa xong:** Unity trên máy C không thêm `HatGiac.cs`, `HatRong.cs` (pull về lúc Editor đang mở) vào danh sách biên dịch → lỗi CS0103 ở
+  `HatNuoc.cs`; cần khởi động lại Editor rồi chạy lại EditMode test (lần chạy trên bản biên dịch cũ: 101/103, hai test hỏng không do đổi này).
+  Chưa xem trong trận, chưa có VFX vệt chém cho dạng 1.

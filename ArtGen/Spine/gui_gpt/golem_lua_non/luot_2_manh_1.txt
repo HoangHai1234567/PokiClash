@@ -1,0 +1,21 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\golem_lua_non\tai_ve\L1_duyet.png: the APPROVED picture of the creature, 1536x1024, white background: a hunched ash-grey stone golem facing right, with three small flames coming out of dark rings (near shoulder, top of the back, forehead), a round fire core in its chest, two big stone hands each with three short blunt dark claws.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\golem_lua_non\tai_ve\M_1.png
+If a file with that name already exists, save as M_1_2.png, M_1_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: on a pure-white 1536x1024 canvas draw ONLY the ten separate pieces listed below, taken from image 1, each COMPLETE (also the part that is hidden in image 1), in exactly the same hand-drawn style, colours and size as in image 1: dark-brown wobbly ink outline (#2B2118) about 5 px thick all the way around every piece, flat colours with visible crayon hatching. The pieces must NOT touch each other. Nothing else on the canvas: no stone plates, no rings, no hands, no body.
+
+A. THREE SMALL FLAMES (the three flames of image 1, same size and shape as there: red-orange #E0441F outside, orange #F7902A, yellow #FFD45A inside near the base; one pointed tip curling a little up and back, at most one small side lick). Each flame comes OUT OF A ROUND HOLE: its ROOT must be NARROW (the width given), with a rounded bottom end closed by the ink outline, and the flame WIDENS gradually above the root. Each flame is ONE closed shape; no separate floating flame bits.
+  1. the SHOULDER flame: it leans up and to the LEFT: root bottom centred at x = 522, y = 410, root 64 px wide; its tip at about x = 432, y = 268; at most 120 px wide.
+  2. the BACK-TOP flame: it rises straight up: root bottom centred at x = 695, y = 276, root 50 px wide; its tip at about x = 700, y = 140; at most 88 px wide.
+  3. the FOREHEAD flame: it shoots to the RIGHT and a little up: root bottom centred at x = 1055, y = 468, root 30 px wide; its tip at about x = 1160, y = 372; at most 70 px wide.
+
+B. SIX CLAWS in one row along the bottom (the six short blunt charcoal-black claws #2E2A30 of image 1, same size and the same slant as in image 1). Each claw is drawn COMPLETE as one closed shape: its blunt tip at the bottom AND its rounded upper end (the part hidden inside the hand in image 1, about one third of its length more). From left to right: the three claws of the NEAR hand (left, middle, right claw), then the three claws of the FAR hand (left, middle, right claw). Centre them at x = 150, 300, 450, 600, 750, 900, all at about y = 860 (each claw stays within 60 px of its centre).
+
+C. THE FIRE CORE: the round ball of fire from the chest of image 1, drawn as ONE WHOLE circle (in image 1 most of it is hidden behind the stone shell and the jaw): centre at x = 1310, y = 800, diameter 250 px. A calm young fire: a red-orange (#E0441F) outer zone, a wide orange (#F7902A) zone, and only a SMALL yellow (#FFD45A) heart in the middle (about one quarter of the diameter); the borders between the zones wavy like flame tongues; ink outline around the circle. No eye, no face, no glow.
+
+Exactly 10 separate pieces on the canvas (3 flames, 6 claws, 1 ball), nothing else.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour; the pencil and crayon strokes are texture only, they do not model light. No shading, no darker underside, no shadows of any kind (no cast shadow of a plate on another, no shadow under the figure or on the background), no white highlights or shine spots (only the tiny dot in the eye), no gloss, no reflections, NO GLOW around the fire, the core or the eye, no halo, no rim light, no gradients, no 3D look. The fire looks hot only because its flat colours are bright.
+Plain pure-white background (#FFFFFF): no paper colour or paper grain outside the drawing, no white border or sticker outline around the figure (the game adds that itself). No text, no labels, no numbers, no frame, no effects around the character.

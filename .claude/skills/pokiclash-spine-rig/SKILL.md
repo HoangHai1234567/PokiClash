@@ -1048,6 +1048,14 @@ Cả con (17 mảnh) vẽ đúng khung part ngay lượt đầu, IoU 0,95–0,99
   tựa trước rồi thân mới được đẩy lên. Mẫu: `bach_tuoc_rig.tay_chong`.
 - **Vật triệu hồi chạy tới đối thủ**: slot trên xương `fly_*` (con của root) đi từ chỗ xuất phát tới xương `far`; game tự co quãng
   (`AolaActor.FarAtomik`); nhún, xoay, nảy đặt trên xương con của `fly_*`. Khai `far=("skill",)` khi xuất.
+- **Mảnh bay phải TẮT HẲN trước khung trúng** (cung lửa / `cung_lua_rig.py`, 2026-11-13, lộ ra khi chụp trận thật): game GIỮ dáng
+  của người đánh ở khung trúng (`HatLua.HoldOf` ~0,3 s, cộng khựng `impactStop`). Runtime nội suy thẳng alpha giữa hai khoá, nên
+  khung trúng rơi vào giữa khoá "hiện" và khoá "tắt" thì mũi tên hiện mờ lơ lửng trước mặt suốt lúc giữ (và xương `fly_*` đã
+  chạy ngược về chỗ bắn). Làm: giờ buông và quãng bay là bội của 1 / FPS (khung tới đích trùng một khung mẫu; so `q < 1 − 1e-6`
+  vì phép chia ra 0,99999), sự kiện `trung` đặt sau khung đó ~0,012 s, xương bay Ở LẠI đích (đã ẩn) thêm ~0,4 s. `hoat.py` nay
+  xuất mọi lần bật / tắt trọn (0 ↔ 1) trong một khung mẫu thành BẬC (chèn khoá giữ sát trước): hết khung 50 % của các slot bản
+  sao đổi thứ tự vẽ (cung trước / sau thân). Web player không lộ lỗi này; phải chạy tour trong Unity (`Editor/HoaFxTour.cs`,
+  `TryOnly("<id>")`) rồi soi tờ ảnh `Temp/PokiShots/hoa_fx`.
 
 ## 25. Con gốc toàn MẢNH CỨNG lơ lửng (golem đá): đổi dáng tự do, gen mảnh "đúng chỗ" theo nhóm không chồng nhau, die / appear bằng bộ xương rời (tượng đá giữ rừng, 2026-11-12)
 
@@ -1146,6 +1154,11 @@ Các điểm phải làm đủ:
 - góc nhảy giữa hai khung của mọi xương (`ArtGen/Spine/nguoi_cay_kiem.py`) và lấy mẫu rig đã xuất bằng runtime thật ở 60 khung/giây
   (`mo_xe/chay.py sample <rig> <tên> <ra> <clip> 60`): bước xoay ~360° giữa hai khung là runtime quay ngược một vòng, người dùng thấy "giật".
 
+- **Xương quay nhiều vòng** (chong chóng: mắt lửa bọc giáp `mat_lua`, 2026-11-13): khi đặt xương theo ma trận thế giới, chọn góc riêng cùng
+  vòng với "góc đang có + góc đã quay thêm" (`mat_lua_rig.dat_tg(..., them=g)`), đừng quy về một vòng: runtime nội suy giữa hai khoá
+  lệch > 180° là quay ngược. Clip kết thúc ở góc lệch bội 360° vẫn nối được (runtime game trộn bằng `LerpAngle`); `hoat.khop_cuoi` đã
+  sửa để chọn cùng vòng trước khi hoà. Quay quanh một khối thì lấy tâm HÌNH của khối (đo trên lưới), không lấy gốc xương.
+
 Bài học đi kèm ở cùng con này (tay tự viết đặt lên clip nền của con gốc):
 - Tay tự viết thì BỎ HẲN chuỗi tay của clip nền, kể cả xương đòn (tay họ vung cả vòng lúc thu về; lẫn vào là góc nhảy 360° và đệm vai văng theo).
 - Clip nền bật tức thì trong một khung (cả thân vọt ~200 đơn vị lúc rời đất, bàn chân quay 122°): hình họ nhỏ không lộ, hình mình to thì
@@ -1156,3 +1169,68 @@ Bài học đi kèm ở cùng con này (tay tự viết đặt lên clip nền c
 - Mảnh chi đặt theo hai khớp đọc trên concept: chỉ đoạn GIỮA hai khớp co giãn theo độ dài xương, hai đầu tròn và bề ngang giữ nguyên
   (`chi()`); co giãn cả mảnh thì đầu tròn dài ra, thòi khỏi khớp, người dùng thấy "khớp không liên kết".
 - Đệm vai luôn vẽ SAU (đè lên) cả cánh tay của bên đó, kể cả cẳng tay và nắm tay; tay giơ lên mà cẳng tay đè lên vai là "tay mọc trước vai".
+
+## 27. Con gốc có LƯỚI TRỌNG SỐ nhưng mảnh của mình đặt theo concept (rùa golem lửa / `monster_3425`, 2026-11-13)
+
+Con gốc là các khối đá rời có viền riêng (như golem mục 25) nhưng mai, bụng, đuôi, ống chân là lưới 2–3 xương. Làm lai: mảnh gen "đúng chỗ,
+đúng cỡ" từ concept (ra đúng dáng đã duyệt), rig bám theo lưới của họ. Tệp: `ArtGen/Spine/rua_lua*.py`, ghi chú `inbox/rua_lua_ghichu.md`.
+
+- **Khớp khung concept ↔ rig bằng mốc tay**, không bằng tâm khung mảnh: chọn 5–6 mốc đọc trên concept (mũi sừng, mũi đuôi, mép ngoài và đáy
+  các chân), bình phương tối thiểu ra (tỉ lệ, ox, oy), rồi vẽ viền từng part của rig chồng lên concept mờ (`mau/_rig_tren_concept.png`) để xem
+  có khít không. Mảnh của mình vẽ thêm phần khuất nên tâm khung lệch part gốc 40–70 px, khớp tự động ra sai tỉ lệ.
+- **Mảnh có lưới ở con gốc**: dựng lưới dày trên ảnh của mình (`luoi_vung`), mỗi đỉnh bám như điểm tương ứng trên lưới thưa của họ ở dáng idle
+  giây 0 (`rua_lua_rig.gan_theo_goc`; đỉnh ngoài lưới gốc bám như điểm gần nhất + nguyên khoảng lệch). Mảnh một xương thì `gan_cung`.
+- **Mảnh khuất hẳn trên concept** (đùi sau mai, lòng miệng): bảo Codex vẽ ở GÓC TRỐNG của tờ, rig đặt theo khung part gốc (tâm + chiều cao).
+  Đừng bắt Codex đoán chỗ: nó đặt lệch.
+- **Đừng dò lại vị trí mảnh bằng so màu**: mảnh một màu nằm cạnh mảnh cùng màu (mặt ngà cạnh sừng ngà) bị kéo lệch và phóng to. Codex đặt
+  đúng sẵn phần lớn mảnh (lệch 0–2 px); mảnh lệch thì vẽ viền thô của nó lên concept (`mau/_tho_tren_concept.png`) rồi chỉnh tay (`CHINH`).
+- **Pha hai clip nền của họ**: góc xương chân nướng IK có thể gần ±180° so với dáng gốc; quy mỗi clip về gần 0 (như `golem_lua_rig._cd`) thì
+  hai clip lệch nhau một vòng và `pha` cho xương quay ~350° trong một khung. Quy KHUNG ĐẦU của mọi clip về cùng vòng với khung đầu idle. Đừng
+  quy từng khung về gần nhau: góc gần 180° sẽ nhảy qua lại.
+- **Làm trơn chỗ clip nền bật tức thì** (`mau_tr`: trung bình tam giác ± 1–2 khung nguồn) và giãn giờ đoạn đó ra ≥ 4–5 khung; đo bằng
+  `rua_lua_kiem.py` (bước xoay và bước dời lớn nhất mỗi khung, kèm giây) trước và sau.
+- **Co một nhóm về gốc** (chân, đầu, đuôi rụt vào mai ở appear): co xương gốc của nhóm, nhưng kiểm xương đó không giữ trọng số của lưới
+  khác (co cổ `bone6` làm rách mép bụng; co đầu `bone7` thì không).
+- **Lửa co được cả ngọn**: thêm xương gốc `<lửa>_g` ở chân ngọn lửa (con của xương đá), phần gốc lưới bám `_g` thay vì bám xương đá; chuỗi
+  3 đốt là con của `_g`. Co `_g` là cả ngọn tắt (chiêu hút lửa, die, appear), đung đưa vẫn chạy trên ba đốt.
+
+## 28. Reskin rig có RÀNG BUỘC, vũ khí bám tay, ĐỔI THỨ TỰ VẼ trong clip; ghép clip mới từ nhiều clip nguồn (quỷ lửa cầm đao / `monster_3655`, 2026-11-13)
+
+Tệp: `ArtGen/Spine/quy_dao.py` (mổ), `quy_dao_bo_cuc.py` (sơ đồ), `build_quy_dao.py` (concept), `quy_dao_da.py` (ba loại mảnh), `quy_dao_rig.py`;
+ghi chú `inbox/quy_dao_ghichu.md`. Rig thử trên DA GỐC (`QD_GOC=1`) dựng ngay sau khi mổ, clip làm xong trước khi concept về.
+
+- **Thứ tự vẽ đổi trong clip (10 thứ tự ở một chiêu): nhân bản slot theo CHỖ CHÈN.** Gom mọi thứ tự vẽ của các clip dùng tới; bỏ dần slot gây
+  nghịch thế nhiều nhất cho tới khi phần còn lại giữ nguyên thứ tự ở mọi khung (slot "đứng yên"); mỗi slot "di động" có chỗ chèn = số slot
+  đứng yên vẽ trước nó; tạo một bản `<slot>@<chỗ>` cho mỗi chỗ chèn từng gặp, mỗi khung bật đúng một bản (`_thu_tu`, `neo`, `hien_theo_ho`).
+- **Vũ khí là con của xương gốc, bám tay bằng transform constraint** (đã nướng thành khoá): hễ sửa thân, pha hai dáng, hay lấy hông của clip
+  này + thân của clip kia là đao RỜI TAY. Sau mỗi lần đặt dáng tính lại biến đổi riêng của xương vũ khí = `inv(W[cha]) · W[bàn tay] · OFF`
+  (OFF lấy ở dáng gốc; `dao_theo_tay`). Chỉ đúng khi độ trộn ràng buộc = 1 ở đoạn đó (in `tc` của mẫu khung ra xem).
+- **Pha hai dáng của clip họ**: góc đã nướng cộng dồn nhiều vòng → quy góc đích về cùng vòng với góc nguồn rồi mới pha (`pha_gan`). Từng xương
+  đi đường ngắn nhất vẫn có thể CỘNG lại thành gần trọn vòng ở đầu chuỗi (đao vụt 288° trong 0,2 s): tổng góc chuỗi tay > 180° thì cho một
+  xương quay chiều kia (`pha_tay`). Sau cùng chạy hậu kỳ dời mọi bước > 180° / khung về cùng vòng, kể cả xương vắng mặt ở khung sau (`GoVong`).
+- **Cú đánh của họ có thể là khoá BẬC** (đao đứng yên rồi nhảy sang dáng đã chém, VFX che): mẫu 30 khung/giây không lộ. Trước khi co giãn giờ
+  một cú đánh, lấy mẫu 120 khung/giây quanh nó và dựng thử vài dáng nội suy giữa hai khung đó (kể cả biến thể ± 360° từng xương tay) xem vũ
+  khí đi đường nào.
+- **Chọn clip nguồn cho đòn đánh theo chỗ vũ khí HIỆN RA**: clip "xốc kiếm lên vai rồi bổ" giữ bản kiếm khuất sau thân suốt cú bổ, dựng xong
+  không thấy vung. Soi tờ khung dày: vũ khí có đi trước thân, có quét một cung thấy được không, rồi mới chọn.
+- **Đo runtime thật 60 khung/giây** (`chay.py sample … 60`, bước dời lớn nhất của tay / vũ khí / đầu): clip họ có đoạn rơi 0,1 s và khung đầu
+  die bật 300 đơn vị trong một khung; hình mình to nên phải giãn ra.
+- **Mảnh đổi dáng cắt từ lượt "đúng chỗ, đúng cỡ"**: concept GPT vẽ to hơn sơ đồ bố cục ~15 % và lệch tỉ lệ từng mảnh, nên KHÔNG đặt mảnh theo
+  toạ độ concept. Đặt bằng phép đồng dạng riêng từng mảnh (`quy_dao_da.cat_moi`, `dat_moi.json` trường `M`): vũ khí = hai điểm mốc (đầu chuôi,
+  mũi) ↔ hai điểm đó trên xương vũ khí của rig; mặt nạ neo theo hai mắt; sừng gần neo theo gốc sừng; giáp vai theo đáy; tỉ lệ = min(ngang, dọc)
+  so với khung của mảnh trên sơ đồ. Giấy trắng khép kín trong mảnh (lỗ khâu tròn) phải tự đục: bước tách nền chỉ bỏ trắng nối mép ảnh.
+- **Mảnh lưới có hình bóng của mình rộng hơn lưới của họ** (bờm lửa thêm lưỡi nhọn): đỉnh nằm ngoài lưới gốc lấy trọng số của điểm gần nhất rồi
+  LÀM TRƠN theo cạnh lưới mình (40 vòng), điểm gắn một điểm chung; không thì hai đỉnh kề nhau rơi vào hai tam giác khác nhau của họ và lưỡi
+  lửa bị xé thành mẩu.
+- **Tờ hướng dẫn lửa do máy vẽ** (hình bóng + lưỡi răng cưa): GPT chép y răng cưa. Lượt lửa phải dặn rõ "tờ này chỉ là sơ đồ thô: giữ chỗ, cỡ,
+  hướng, gốc tròn; vẽ lại viền thành lửa tự nhiên như bờm của concept".
+- **Mảnh lớn bị mảnh khác đè lúc nghỉ phải là hình KÍN, không khuyết** (người dùng trả: "tính 1 phần chân là mai rùa nên nó khuyết mất 1 mảnh",
+  "cục đá dựng bên kia lơ lửng"): đừng tả cho Codex "mép mai uốn vòm trên chân" rồi nhận về một cái mai bị khoét; viết rõ "mép dưới một đường
+  liền, cấm khoét vòm / khấc cho chân, mai chạy tiếp SAU chân". Clip nào bày mảnh ra một mình (appear rụt chân, die rã) thì dựng đúng khung đó
+  mà soi từng mảnh: mảnh nằm sau (cột đá bên xa) có chân nấp sau mảnh trước không, hay lơ lửng cạnh nó.
+- **Vệt chém bám lưỡi vũ khí làm ngay trong rig** (người dùng: "thêm trail dọc lưỡi đao, cam mờ mờ, kiểu nhát chém splash"): dải lưới cột × hàng,
+  hàng = các điểm dọc lưỡi sắc, cột k bám xương `vet_k` (con của root) đặt bằng biến đổi thế giới của xương vũ khí ở k · δ giây TRƯỚC (hậu kỳ
+  gọi lại hàm của clip ở các giây lẻ; δ = 1 / 120, 10 cột). Vũ khí đứng yên thì dải không có diện tích; độ đậm theo tốc độ mũi lớn nhất trong
+  cửa sổ vệt + cửa sổ giờ của nhát chém; slot trên cùng, khai `plain` để game vẽ không viền sticker. Cú chém là khoá bậc thì giãn ĐÚNG hai khung
+  nhảy bậc ra vài khung (ánh xạ giờ đặt mốc vào đúng hai khung đó), không thì cả cung chém dồn vào một phần ba thời lượng và vệt gãy góc. Mẫu:
+  `quy_dao_rig.VetDao`.

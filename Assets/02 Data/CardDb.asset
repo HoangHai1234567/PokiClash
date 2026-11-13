@@ -3071,7 +3071,7 @@ MonoBehaviour:
     owner: phao_tet
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
   - id: su_tu_lua_skill
-    name: "Li\xEAn Hoa H\u1ECFa"
+    name: "Gi\xE1o Phun L\u1EEDa"
     rarity: 0
     kind: 1
     icon: torch
@@ -3087,10 +3087,10 @@ MonoBehaviour:
     owner: su_tu_lua
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
   - id: su_tu_lua_ult
-    name: "H\u1ECFa D\u1EF1c Ph\u1EA7n Thi\xEAn"
+    name: "Gi\xE1o Nham Gi\xE1ng Th\u1EBF"
     rarity: 1
     kind: 2
-    icon: phoenix
+    icon: sword
     costMana: 35
     costRage: 100
     trigger: 0
@@ -3103,10 +3103,10 @@ MonoBehaviour:
     owner: su_tu_lua
     effectsJson: '[{"k":"dmg","mult":2.2},{"k":"status","id":"burn","turns":3,"v":0.07,"on":"foe"}]'
   - id: su_tu_lua_pas
-    name: "L\u1EEDa Thi\u1EC1n"
+    name: "Khi\xEAn Than H\u1ED3ng"
     rarity: 0
     kind: 3
-    icon: flame
+    icon: shield
     costMana: 0
     costRage: 0
     trigger: 4
@@ -3950,8 +3950,8 @@ MonoBehaviour:
     flavor: 
     owner: thanh_long
     effectsJson: '[{"k":"heal","pct":0.05}]'
-  - id: khong_lo_skill
-    name: "\u0110\u1EA5m Than"
+  - id: hoa_nhan_skill
+    name: "H\u1ECFa Nh\xE3n X\u1EA1"
     rarity: 0
     kind: 1
     icon: fist
@@ -3964,10 +3964,10 @@ MonoBehaviour:
     unlock: 1
     repeat: 0
     flavor: 
-    owner: khong_lo
+    owner: hoa_nhan
     effectsJson: '[{"k":"dmg","mult":1},{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
-  - id: khong_lo_ult
-    name: "N\xFAi L\u1EEDa Gi\xE1ng"
+  - id: hoa_nhan_ult
+    name: "Quy\u1EC1n Chong Ch\xF3ng"
     rarity: 1
     kind: 2
     icon: hammer
@@ -3980,10 +3980,10 @@ MonoBehaviour:
     unlock: 1
     repeat: 0
     flavor: 
-    owner: khong_lo
+    owner: hoa_nhan
     effectsJson: '[{"k":"dmg","mult":2},{"k":"buff","stat":"def","v":-0.15,"turns":2,"until":"end","on":"foe"}]'
-  - id: khong_lo_pas
-    name: Da Than
+  - id: hoa_nhan_pas
+    name: "Gi\xE1p Nham"
     rarity: 0
     kind: 3
     icon: shield
@@ -3996,10 +3996,10 @@ MonoBehaviour:
     unlock: 1
     repeat: 0
     flavor: 
-    owner: khong_lo
+    owner: hoa_nhan
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.1,"turns":99}]'
   - id: kim_su_skill
-    name: "Vu\u1ED1t L\u1EEDa"
+    name: "Tam Ti\u1EC5n"
     rarity: 0
     kind: 1
     icon: claw
@@ -4015,7 +4015,7 @@ MonoBehaviour:
     owner: kim_su
     effectsJson: '[{"k":"dmg","mult":0.6,"hits":2}]'
   - id: kim_su_ult
-    name: "S\u01B0 H\u1ED1ng"
+    name: "H\u1ECFa Ti\u1EC5n Ph\xE1 Kh\xF4ng"
     rarity: 1
     kind: 2
     icon: rage
@@ -4031,7 +4031,7 @@ MonoBehaviour:
     owner: kim_su
     effectsJson: '[{"k":"dmg","mult":2.2},{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
   - id: kim_su_pas
-    name: "B\u1EDDm V\xE0ng"
+    name: "M\u1EAFt L\u1EEDa"
     rarity: 0
     kind: 3
     icon: crown
@@ -4063,7 +4063,7 @@ MonoBehaviour:
     owner: nham_than
     effectsJson: '[{"k":"dmg","mult":0.9},{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
   - id: nham_than_ult
-    name: "Bi\u1EC3n Dung Nham"
+    name: "C\u1EA7u L\u1EEDa L\u0103n"
     rarity: 1
     kind: 2
     icon: crack
@@ -4143,10 +4143,10 @@ MonoBehaviour:
     owner: hong_lien
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.12,"turns":99}]'
   - id: giap_long_skill
-    name: "Gai Th\xE9p"
+    name: "\u0110\u1ECBa H\u1ECFa Tr\u1EA3m"
     rarity: 2
     kind: 1
-    icon: sword
+    icon: flame
     costMana: 40
     costRage: 0
     trigger: 0
@@ -4159,10 +4159,10 @@ MonoBehaviour:
     owner: giap_long
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
   - id: giap_long_ult
-    name: "Thi\u1EBFt Long Xung"
+    name: "Li\xEAn Ho\xE0n \u0110ao"
     rarity: 3
     kind: 2
-    icon: hammer
+    icon: sword
     costMana: 50
     costRage: 100
     trigger: 0
@@ -4175,7 +4175,7 @@ MonoBehaviour:
     owner: giap_long
     effectsJson: '[{"k":"dmg","mult":2.8,"pierce":0.3}]'
   - id: giap_long_pas
-    name: "Gi\xE1p Gai"
+    name: "Gi\xE1p Vai S\u1EAFt"
     rarity: 2
     kind: 3
     icon: helmet
@@ -4335,10 +4335,10 @@ MonoBehaviour:
     owner: lan_hoa
     effectsJson: '[{"k":"heal","pct":0.04},{"k":"rage","v":5}]'
   - id: nguu_quyen_skill
-    name: "Song Quy\u1EC1n L\u1EEDa"
+    name: "H\u1ECFa C\u1EA7u"
     rarity: 1
     kind: 1
-    icon: fist
+    icon: flame
     costMana: 35
     costRage: 0
     trigger: 0
@@ -4351,10 +4351,10 @@ MonoBehaviour:
     owner: nguu_quyen
     effectsJson: '[{"k":"dmg","mult":0.6,"hits":2},{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
   - id: nguu_quyen_ult
-    name: "Ng\u01B0u Ma Li\xEAn Quy\u1EC1n"
+    name: "S\u1EEBng T\u1EE5 H\u1ECFa C\u1EA7u"
     rarity: 3
     kind: 2
-    icon: fist2
+    icon: sun
     costMana: 45
     costRage: 100
     trigger: 0
@@ -4367,7 +4367,7 @@ MonoBehaviour:
     owner: nguu_quyen
     effectsJson: '[{"k":"dmg","mult":2.4},{"k":"status","id":"stun","turns":1,"chance":0.3,"on":"foe"}]'
   - id: nguu_quyen_pas
-    name: "M\xE1u \u0110\u1EA5u S\u0129"
+    name: "Mai Nung \u0110\u1ECF"
     rarity: 2
     kind: 3
     icon: rage
