@@ -2459,7 +2459,7 @@
    "id": "nguu_quyen",
    "name": "Hỏa Quy",
    "title": "Rùa đá cõng lửa",
-   "aola": "rua_lua_1",
+   "aola": "rua_lua_non",
    "elem": "hoa",
    "rarity": "rare",
    "stats": [
@@ -2475,22 +2475,17 @@
    "passive": "nguu_quyen_pas",
    "shards": 20,
    "line": "Dòng Hỏa Quy",
-   "size": 0.9,
+   "size": 0.78,
    "forms": [
     {
-     "name": "Hỏa Quy",
-     "aola": "rua_lua_1",
-     "size": 0.9
+     "name": "Hỏa Quy Con",
+     "aola": "rua_lua_non",
+     "size": 0.78
     },
     {
      "name": "Hỏa Quy",
      "aola": "rua_lua_1",
-     "size": 1.02
-    },
-    {
-     "name": "Hỏa Quy",
-     "aola": "rua_lua_1",
-     "size": 1.14
+     "size": 1.1
     }
    ]
   },

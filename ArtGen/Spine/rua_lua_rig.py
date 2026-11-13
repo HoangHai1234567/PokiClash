@@ -662,6 +662,10 @@ def lam_clip(sk, info):
     T_DAY = H0 + H_CACH * (len(HUT) - 1) + H_DAI          # hút xong ngọn cuối
     T_NEM = T_DAY + 0.26
     MOC0, MOC_CACH = T_NEM + 0.42, 0.07
+    # dạng có ít ngọn lửa hơn (rùa non): các ngọn CÓ MẶT chia đều quãng hút; chỉ một ngọn thì nó co chậm suốt quãng (cầu vẫn đầy đúng T_DAY)
+    HUT_CO = [x for x in HUT if x in lua]
+    HC_DAI = H_DAI if len(HUT_CO) > 1 else T_DAY - H0 - 0.08
+    HC_CACH = (T_DAY - H_DAI - H0) / (len(HUT_CO) - 1) if len(HUT_CO) > 1 else 0.0
     NGAM = mau("skill_04", 0.16)                         # dáng thụp
     CHIA = mau("skill_02", 0.40)                         # dáng cúi đầu chĩa sừng tới trước
 
@@ -681,10 +685,8 @@ def lam_clip(sk, info):
         P.scale("cau", 0.12 + 0.88 * nap if t < T_NEM else 1.0)
         co = {}
         Wc = None
-        for i, ten in enumerate(HUT):
-            if ten not in lua:
-                continue
-            u = (t - (H0 + H_CACH * i)) / H_DAI
+        for i, ten in enumerate(HUT_CO):
+            u = (t - (H0 + HC_CACH * i)) / HC_DAI
             moc = bat(t, MOC0 + MOC_CACH * i, 0.26, 1.25)
             if t >= MOC0 + MOC_CACH * i:
                 co[ten] = max(0.02, moc)
@@ -703,7 +705,7 @@ def lam_clip(sk, info):
                 P.rot(ten + "_g", max(-38.0, min(38.0, lech)) * em(uu / 0.35) * 0.8)
         lua_lay(P, t, lua, 0.5, 0.9 + 0.6 * gong)
         lua_co(P, lua, co, t, 0.5)
-    ev = [(0.26, "tu", "")] + [(round(H0 + H_CACH * i, 3), "hut", ten) for i, ten in enumerate(HUT) if ten in lua]
+    ev = [(0.26, "tu", "")] + [(round(H0 + HC_CACH * i, 3), "hut", ten) for i, ten in enumerate(HUT_CO)]
     ev += [(round(T_DAY, 3), "day", ""), (round(T_NEM, 3), "nem", ""), (round(MOC0, 3), "lua", "")]
     out.append(Clip("skill", S_DUR, skill, ev=ev, trung=T_NEM, mem=lo_xo(lua)))
 

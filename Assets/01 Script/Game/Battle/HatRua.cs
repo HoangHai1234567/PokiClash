@@ -35,12 +35,21 @@ namespace PokiClash
             new Vector2(0.32f, 0.35f), new Vector2(0.31f, 0.24f), new Vector2(0.38f, 0.19f),
         };
 
-        static Vector2 SungMui(float tc)
+        // DẠNG 1 (rùa non, hướng "chibi_1" của rua_lua_non.py): sừng là mầm ngắn nên mũi sừng thấp và lùi hơn
+        static readonly Vector2[] SungPNon =
         {
-            if (tc <= SungT[0]) return SungP[0];
+            new Vector2(0.309f, 0.581f), new Vector2(0.392f, 0.493f), new Vector2(0.352f, 0.477f), new Vector2(0.296f, 0.481f),
+            new Vector2(0.267f, 0.508f), new Vector2(0.350f, 0.521f), new Vector2(0.369f, 0.462f), new Vector2(0.393f, 0.461f),
+        };
+        // hướng "chibi_1" (người dùng chọn E, 2026-11-13): chỉ MỘT ngọn lửa giữa lưng, co chậm suốt quãng tụ (rig: HC_DAI = RuaDay − RuaHut0 − 0,08)
+        static readonly Vector2[] LuaNon = { new Vector2(0.22f, 0.44f) };
+
+        static Vector2 SungMui(Vector2[] P, float tc)
+        {
+            if (tc <= SungT[0]) return P[0];
             for (int i = 1; i < SungT.Length; i++)
-                if (tc <= SungT[i]) return Vector2.Lerp(SungP[i - 1], SungP[i], (tc - SungT[i - 1]) / (SungT[i] - SungT[i - 1]));
-            return SungP[SungP.Length - 1];
+                if (tc <= SungT[i]) return Vector2.Lerp(P[i - 1], P[i], (tc - SungT[i - 1]) / (SungT[i] - SungT[i - 1]));
+            return P[P.Length - 1];
         }
 
         // lõi cầu lửa bám theo một điểm chạy (như lõi của Fireball): tam(giờ sân) trả tâm, r bán kính lúc sinh
@@ -80,30 +89,34 @@ namespace PokiClash
         }
 
         // CẦU LỬA TRÊN SỪNG (chiêu cuối). lead: giây từ đầu clip skill tới khung hất sừng. Trả giây tới lúc cầu chạm đối thủ.
-        public float NCauSung(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
+        // non: dạng 1 (rùa non): cầu nhỏ hơn, một dải lửa dài, mũi sừng ngắn; vụ nổ nhẹ hơn
+        public float NCauSung(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead, bool non = false)
         {
+            var sung = non ? SungPNon : SungP;
+            var nguon = non ? LuaNon : LuaLung;
             float L = Mathf.Max(0.6f, lead);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             float t00 = L - RuaNem, goc = T;                     // t00: giờ (tính từ lúc gọi) của giây 0 clip
-            float R = Mathf.Clamp(0.2f * casterH, 16, 36);        // bán kính cầu lúc đầy
+            float R = Mathf.Clamp((non ? 0.155f : 0.2f) * casterH, 13, 36); // bán kính cầu lúc đầy
             Vector2 Rig(Vector2 p) => casterFeet + new Vector2(dir * p.x, -p.y) * casterH;
             float Nap(float tc) => Mathf.Clamp01((tc - RuaHut0 - 0.14f) / (RuaDay - RuaHut0 - 0.14f));
             float Rt(float tc) => R * (0.2f + 0.8f * Mathf.Sqrt(Nap(tc)));
             // tâm cầu: ngay trên mũi sừng, hơi chếch ra trước (cầu ngồi trên mũi sừng chứ không nuốt mũi sừng)
-            Vector2 Tam(float tc) => Rig(SungMui(tc)) + new Vector2(dir * 0.2f, -0.8f) * Rt(tc);
+            Vector2 Tam(float tc) => Rig(SungMui(sung, tc)) + new Vector2(dir * 0.2f, -0.8f) * Rt(tc);
             float tA = Mathf.Max(0.02f, t00 + RuaHut0 + 0.12f);
             float tDay = Mathf.Max(tA + 0.05f, t00 + RuaDay);
 
             // từng ngọn lửa trên lưng: nháy tia ở gốc rồi nhả một dải lưỡi lửa nhỏ, bốc lên theo đà rồi bị hút nhanh dần vào cầu
-            for (int i = 0; i < LuaLung.Length; i++)
+            for (int i = 0; i < nguon.Length; i++)
             {
-                var src = Rig(LuaLung[i]);
-                float ts = Mathf.Max(0.02f, t00 + RuaHut0 + RuaHutCach * i);
+                var src = Rig(nguon[i]);
+                float ts = Mathf.Max(0.02f, t00 + RuaHut0 + (non ? 0 : RuaHutCach * i));
+                float dai = non ? RuaDay - RuaHut0 - 0.08f : RuaHutDai; // một ngọn: nhả dải lửa thưa hơn nhưng suốt quãng tụ
                 At(ts, () =>
                 {
                     for (int j = 0; j < 3; j++) Spark(src + U2(-6, 6), new Vector2(dir * U(0.1f, 0.9f), -U(0.5f, 1f)), U(160, 280));
                 });
-                Every(ts, ts + RuaHutDai, 46, x =>
+                Every(ts, ts + dai, non ? 30 : 46, x =>
                 {
                     var p0 = src + new Vector2(U(-0.05f, 0.05f), -U(0, 0.07f)) * casterH;
                     var q = Flame(p0, new Vector2(dir * U(-50, 50), -U(130, 250)), U(0.36f, 0.48f), U(7.5f, 10.5f), U(4.5f, 6), "tron", Th.pal, Front,
@@ -183,11 +196,11 @@ namespace PokiClash
 
             // chạm: nổ lớn, nổ phụ, khói và tro
             float tNo = L + CauSungBay;
-            At(tNo, () => CauNo(tgt, foeFeet, foeBody, tH, dir, 1.4f));
+            At(tNo, () => CauNo(tgt, foeFeet, foeBody, tH, dir, non ? 1.1f : 1.4f));
             At(tNo + 0.13f, () =>
             {
-                Shake?.Invoke(0.3f);
-                Explode(tgt + new Vector2(dir * U(4, 20), U(-26, 6)), 0.7f, tH);
+                Shake?.Invoke(non ? 0.2f : 0.3f);
+                Explode(tgt + new Vector2(dir * U(4, 20), U(-26, 6)), non ? 0.5f : 0.7f, tH);
             });
             At(tNo + 0.34f, () =>
             {

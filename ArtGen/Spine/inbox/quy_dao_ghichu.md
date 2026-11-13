@@ -14,6 +14,7 @@ Bắt đầu 2026-11-13 (máy ổ C). Con gốc của rig: `monster_3655` (quỷ
 - "**chết, appear** bạn có thể **tự làm**".
 - Sau lượt concept 1: "tôi thích **dạng C** nhưng **đổi sừng sang đen đậm**".
 - Sau khi xem rig: "**thêm trail dọc lưỡi đao**, trail **cam mờ mờ** thôi, kiểu thể hiện **nhát chém splash**".
+- "**đưa tướng này vào game**" (2026-11-13; cho dừng Play để làm).
 
 ## 2. Mổ rig gốc (`<SXS>/scan/monster_3655/`: `info.json`, `att_goc.json`, `att_idle0.json`, `sample.json` 30 khung/giây, `mo/`, `parts/`, `khung/`, `khung_rong/`)
 
@@ -157,8 +158,32 @@ cửa sổ vệt (4500 → 9500 đơn vị / giây), chỉ bật trong đoạn c
 `game.plain = ["vet"]` (vẽ không viền sticker). Cú bổ của attack giãn đúng khung nhảy bậc của họ (u 25/30 → 26/30) ra 0,08 s nên vệt ra một cung
 tròn qua đầu. Soi runtime thật: `rig/that_vet/`, `rig/that/skill.jpg`.
 
-## 6. Việc tiếp
+## 6. Vào game (2026-11-13, người dùng: "đưa tướng này vào game")
+
+Suất 7 đảo Hỏa = ải 40 của đảo ("Lò Rèn Gai Thép", `IslandGen.Plan Hoa`), id **`giap_long`** (trước là Giáp Long). GIỮ id tướng, id thẻ, chỉ số, hiệu
+ứng thẻ, số dạng (2) → golden không đổi, không đổi saveVersion.
+- `quai/doi_quy_dao.py` (`--kiem`, `--ve_cu`, `chep`): `heroes.json` khối `giap_long` (tên **Viêm Đao** cả hai dạng, danh hiệu "Quỷ lửa vác đại đao",
+  dòng "Dòng Viêm Đao", `aola` tướng + hai dạng → `quy_dao_1`; cỡ 0,92 / 1,1 giữ); `cards.json`: Gai Thép → **Địa Hỏa Trảm** (flame), Thiết Long Xung
+  → **Liên Hoàn Đao** (sword), Giáp Gai → **Giáp Vai Sắt**. Tên do Claude đặt, người dùng có thể đổi. `chep`: `rig/quy_dao_1.atomik` +
+  `chan_dung.png` → `Assets/03 Art/Heroes/Resources/quy_dao_1/` (thư mục mới; `giap_long_1`, `giap_long_2` cũ giữ nguyên).
+- Mã: `HatLua.Themes["giap_long"]` = lửa cam thường + mảnh giáp sắt đen; `HatLua.PlayMana` thêm mã **`dat_trao`** = `Eruption(foeFeet)` (bổ đao cắm
+  đất, dung nham trào dưới chân địch); `StageView.FireFx["giap_long"] = ("dat_trao", "no_lon")` (chiêu cuối: nổ lớn ở địch đúng khung bổ kết);
+  `HoaFxTour`: menu "Đảo Hỏa: riêng Viêm Đao, đòn thường, chiêu mana, chiêu cuối (đang Play)" + `giap_long` trong điều kiện đòn thường.
+  `GD_Claude/13_DanhSachTuong.md` dòng ải 40 ghi thêm.
+- Unity (cầu MCP cổng 8080; đã báo bốn phiên khác, người dùng cho dừng Play): refresh (biên dịch sạch), "Nhập dữ liệu" (88 tướng), "Gắn dạng .atomik
+  vào prefab tướng" (`giap_long.prefab` → `quy_dao_1.asset`), EditMode **102 / 103** (chỉ hỏng `PrefabOnlyTests` cũ ở `UI/Kit`, không liên quan).
+- **Trong trận** (tour Viêm Đao, ải 3, sao cuối = dạng 2; ảnh `Temp/PokiShots/hoa_fx/giap_long_*`, tờ `rig/_game_danh.jpg`, `_game_mana.jpg`,
+  `_game_ult.jpg`): viền sticker và lật trái phải đúng; đòn thường giơ đao, lao tới bổ đúng chỗ địch; chiêu mana bổ đao cắm đất, dung nham trào dưới
+  chân địch; chiêu cuối lao tới liên hoàn chém (vệt cam theo từng nhát), nhảy bổ, chớp màn + nổ lớn ở địch, lùi về. Console không lỗi.
+- **Hai lỗi chỉ lộ trong trận, đã sửa rồi chạy lại tour:** (1) game GIỮ dáng ở khung trúng (~0,3 s + khựng) đúng lúc vệt chém to nhất → vệt đứng
+  hình thành mảng cam phủ lên người → `VetDao` cho vệt tắt hẳn từ 0,05 s trước khung trúng tới 0,22 s sau; (2) đòn thường tôi xoá độ trôi `bone2`
+  của họ nên cả thân lùi ~190 đơn vị khỏi bệ lúc giơ đao (ở dáng đó thân vốn ngả về sau đúng chừng ấy so với chân) → giữ nguyên `bone2`.
+
+CHƯA làm: VFX riêng (bụi + vòng lửa ở chỗ đao cắm, vệt chém bằng hạt); `appear` / `die` của rig chưa được trận phát (`StageView` vẫn dùng rơi xuống /
+nghiêng mờ chung); dạng 1 riêng (hai dạng đang chung một rig, chỉ khác cỡ); chưa thử trên Android; cú nhảy của chiêu cuối chạm mép trên màn hình.
+
+## 7. Việc tiếp
 
 - Bờm lửa bản 2 (xem mục 5) rồi dựng lại rig.
 - VFX ngoài rig: vệt chém theo `mui_dao` / `than_dao`, lửa trào theo đất (cast), bụi + vòng lửa lúc `nen`.
-- Vào game (tên, id, suất 7 đảo Hỏa, số liệu), dạng 2: chờ người dùng.
+- Dạng 1 riêng, tên chính thức: chờ người dùng.

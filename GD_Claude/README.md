@@ -31,6 +31,7 @@ Game đánh nhau, vượt ải để thu phục tướng, ghép puzzle xếp kh�
 | [15_TuongKhoiDau.md](15_TuongKhoiDau.md) | **Kế hoạch chọn 1 trong 5 tướng khởi đầu** (mỗi hệ một con): chỗ lệch do khắc hệ, thứ tự đảo, 1 ô đội; 4 luật cho đảo đầu; bảng đo và tiêu chí đạt; các bước làm; câu cần chốt |
 | [16_ManBoot.md](16_ManBoot.md) | **Màn boot (màn mở game): 3 ý tưởng** (A sa bàn giấy pop-up, B ấn Ngũ Hành, C bìa sổ chiến thuật), đều vẽ vòng khắc; bản web thử ở `Web/src/view/boot/`, việc chuyển sang Unity |
 | [17_BoUI.md](17_BoUI.md) | **Bộ UI "Sa Bàn"** (bản web thử `Web/uikit.html`): thành phần và 3 màn mẫu, hiệu ứng thở, nảy khi nhấn, nhún tại chỗ, chia bài; không bóng; việc chuyển sang Unity |
+| [18_DaoVungDat_Habitat.md](18_DaoVungDat_Habitat.md) | **Kế hoạch đổi bản đồ đảo**: bỏ cuộn dọc, mỗi đảo là một vùng đất kéo hai chiều; mỗi ải tướng một habitat 3x3/4x4 đặt cố định, có animation; tách nền và habitat, chừa ô dự trữ để thêm boss; dữ liệu, code, gói ảnh, các mốc (M0–M1 làm bằng hình tạm) |
 
 ## Đã chốt (2026-10-31): đổi lõi sang thẻ bài
 

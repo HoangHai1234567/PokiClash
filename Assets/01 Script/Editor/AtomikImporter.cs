@@ -17,7 +17,10 @@ namespace PokiClash.EditorTools
 {
     // 3 (2026-11-08): nén atlas theo nền tảng đang build (ASTC 8x8 Android/iOS như atlas tướng aola, DXT5 máy tính khi cạnh chia
     // hết cho 4); đọc bản 2 (độ đậm slot, thông tin trận) qua JsonUtility như các trường khác.
-    [ScriptedImporter(3, "atomik")]
+    // 4 (2026-11-13, dung lượng build): khoá đổi sang khoá gọn (AtomikPose.PackAll, bỏ ô điểm điều khiển toàn 0) và icon không còn
+    // là asset con (chỉ làm hình trong cửa sổ Project; trước đó mỗi dạng mang thêm 64 KB RGBA32 vào bản build).
+    // 5 (2026-11-13): atlas thu về trần độ nét AtlasCap.
+    [ScriptedImporter(5, "atomik")]
     public sealed class AtomikImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
@@ -39,10 +42,13 @@ namespace PokiClash.EditorTools
             }
             var asset = ScriptableObject.CreateInstance<AtomikAsset>();
             JsonUtility.FromJsonOverwrite(json, asset);
+            AtomikPose.PackAll(asset);
             string nm = string.IsNullOrEmpty(asset.rigName) ? Path.GetFileNameWithoutExtension(ctx.assetPath) : asset.rigName;
             asset.name = nm;
             var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false) { name = nm + "_atlas" };
             tex.LoadImage(png);
+            float shrink = AtlasScale(asset, tex.width, tex.height);
+            if (shrink < 0.97f) tex = Downscale(tex, shrink);
             tex.wrapMode = TextureWrapMode.Clamp;
             tex.filterMode = FilterMode.Bilinear;
             var icon = MakeIcon(asset, tex, 128);  // icon trong cửa sổ Project: hình con ở tư thế gốc
@@ -60,9 +66,123 @@ namespace PokiClash.EditorTools
             asset.material = mat;
             ctx.AddObjectToAsset("atlas", tex);
             ctx.AddObjectToAsset("material", mat);
-            ctx.AddObjectToAsset("icon", icon);
             ctx.AddObjectToAsset("rig", asset, icon);
             ctx.SetMainObject(asset);
+        }
+
+        // Trần độ nét atlas (dung lượng build, người dùng 2026-11-13): dáng đứng cao tối đa AtlasCap điểm atlas. Tướng hiện to nhất
+        // khoảng 700 điểm UI (màn xem tướng, HeroViewer), mà có rig vẽ tới ~1250 điểm atlas cho dáng đứng. UV chuẩn hoá theo cỡ
+        // atlas nên chỉ thu ảnh, lưới giữ nguyên. File .atomik không đổi.
+        public const float AtlasCap = 800;
+
+        // hệ số thu atlas (1 = giữ): độ nét = trung vị (cạnh tam giác trên atlas, điểm) / (cạnh đó ở tư thế gốc, điểm rig)
+        public static float AtlasScale(AtomikAsset a, int w, int h)
+        {
+            float stand = a.game != null ? a.game.height : 0;
+            if (stand <= 0 || a.bones == null || a.atts == null) return 1;
+            int nb = a.bones.Length;
+            var m = new float[nb * 6];
+            for (int i = 0; i < nb; i++)
+            {
+                var b = a.bones[i];
+                float r = b.rot * Mathf.Deg2Rad, cs = Mathf.Cos(r), sn = Mathf.Sin(r);
+                float la = cs * b.sx, lb = -sn * b.sy, lc = sn * b.sx, ld = cs * b.sy;
+                int o = i * 6;
+                if (b.parent < 0) { m[o] = la; m[o + 1] = lb; m[o + 2] = lc; m[o + 3] = ld; m[o + 4] = b.x; m[o + 5] = b.y; continue; }
+                int p = b.parent * 6;
+                float pa = m[p], pb = m[p + 1], pc = m[p + 2], pd = m[p + 3];
+                if (b.noScale)
+                {
+                    float n0 = Mathf.Sqrt(pa * pa + pc * pc), n1 = Mathf.Sqrt(pb * pb + pd * pd);
+                    if (n0 > 1e-6f) { pa /= n0; pc /= n0; }
+                    if (n1 > 1e-6f) { pb /= n1; pd /= n1; }
+                }
+                m[o] = pa * la + pb * lc; m[o + 1] = pa * lb + pb * ld;
+                m[o + 2] = pc * la + pd * lc; m[o + 3] = pc * lb + pd * ld;
+                m[o + 4] = m[p] * b.x + m[p + 1] * b.y + m[p + 4];
+                m[o + 5] = m[p + 2] * b.x + m[p + 3] * b.y + m[p + 5];
+            }
+            var ratios = new System.Collections.Generic.List<float>();
+            var pos = new System.Collections.Generic.List<Vector2>();
+            foreach (var att in a.atts)
+            {
+                if (att.uvs == null || att.wInfo == null || att.tris == null) continue;
+                int n = att.uvs.Length / 2, k = 0;
+                pos.Clear();
+                for (int v = 0; v < n && k < att.wInfo.Length; v++)
+                {
+                    int cnt = (int)att.wInfo[k++];
+                    float x = 0, y = 0;
+                    for (int j = 0; j < cnt; j++, k += 4)
+                    {
+                        int o = (int)att.wInfo[k] * 6;
+                        float bx = att.wInfo[k + 1], by = att.wInfo[k + 2], ww = att.wInfo[k + 3];
+                        x += (m[o] * bx + m[o + 1] * by + m[o + 4]) * ww;
+                        y += (m[o + 2] * bx + m[o + 3] * by + m[o + 5]) * ww;
+                    }
+                    pos.Add(new Vector2(x, y));
+                }
+                if (pos.Count < n) continue;
+                for (int t = 0; t + 2 < att.tris.Length; t += 3)
+                    for (int e = 0; e < 3; e++)
+                    {
+                        int i0 = att.tris[t + e], i1 = att.tris[t + (e + 1) % 3];
+                        float dr = Vector2.Distance(pos[i0], pos[i1]);
+                        if (dr < 4) continue;
+                        float du = (att.uvs[2 * i0] - att.uvs[2 * i1]) * w, dv = (att.uvs[2 * i0 + 1] - att.uvs[2 * i1 + 1]) * h;
+                        ratios.Add(Mathf.Sqrt(du * du + dv * dv) / dr);
+                    }
+            }
+            if (ratios.Count == 0) return 1;
+            ratios.Sort();
+            float density = ratios[ratios.Count / 2];
+            return Mathf.Min(1, AtlasCap / Mathf.Max(1e-3f, stand * density));
+        }
+
+        // thu atlas theo hệ số s (cạnh làm tròn bội 8 cho khối ASTC, DXT): lấy trung bình vùng, trộn màu theo alpha để mép hình
+        // không ám màu của điểm trong suốt
+        static Texture2D Downscale(Texture2D src, float s)
+        {
+            int sw = src.width, sh = src.height;
+            int dw = Mathf.Max(8, Mathf.RoundToInt(sw * s / 8f) * 8), dh = Mathf.Max(8, Mathf.RoundToInt(sh * s / 8f) * 8);
+            var px = src.GetPixels32();
+            var outPx = new Color32[dw * dh];
+            float fx = (float)sw / dw, fy = (float)sh / dh;
+            for (int y = 0; y < dh; y++)
+            {
+                float y0 = y * fy, y1 = y0 + fy;
+                for (int x = 0; x < dw; x++)
+                {
+                    float x0 = x * fx, x1 = x0 + fx;
+                    float r = 0, g = 0, b = 0, al = 0, area = 0;
+                    for (int yy = (int)y0; yy < Mathf.Min(sh, Mathf.CeilToInt(y1)); yy++)
+                    {
+                        float wy = Mathf.Min(y1, yy + 1) - Mathf.Max(y0, yy);
+                        int row = yy * sw;
+                        for (int xx = (int)x0; xx < Mathf.Min(sw, Mathf.CeilToInt(x1)); xx++)
+                        {
+                            float wgt = wy * (Mathf.Min(x1, xx + 1) - Mathf.Max(x0, xx));
+                            var c = px[row + xx];
+                            float aw = wgt * c.a;
+                            r += c.r * aw; g += c.g * aw; b += c.b * aw; al += aw; area += wgt;
+                        }
+                    }
+                    var o = new Color32(0, 0, 0, 0);
+                    if (al > 0)
+                    {
+                        o.r = (byte)Mathf.Clamp(Mathf.RoundToInt(r / al), 0, 255);
+                        o.g = (byte)Mathf.Clamp(Mathf.RoundToInt(g / al), 0, 255);
+                        o.b = (byte)Mathf.Clamp(Mathf.RoundToInt(b / al), 0, 255);
+                        o.a = (byte)Mathf.Clamp(Mathf.RoundToInt(al / Mathf.Max(1e-6f, area)), 0, 255);
+                    }
+                    outPx[y * dw + x] = o;
+                }
+            }
+            var dst = new Texture2D(dw, dh, TextureFormat.RGBA32, false) { name = src.name };
+            dst.SetPixels32(outPx);
+            dst.Apply(false, false);
+            Object.DestroyImmediate(src);
+            return dst;
         }
 
         // Vẽ tư thế gốc (không animation) lên ảnh vuông size x size: dựng đỉnh như AtomikPlayer, tô từng tam giác theo thứ tự slot,

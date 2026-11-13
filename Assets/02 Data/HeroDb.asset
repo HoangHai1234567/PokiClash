@@ -1531,7 +1531,7 @@ MonoBehaviour:
   - id: nguu_quyen
     name: "H\u1ECFa Quy"
     title: "R\xF9a \u0111\xE1 c\xF5ng l\u1EEDa"
-    aola: rua_lua_1
+    aola: rua_lua_non
     elem: 3
     rarity: 2
     stats: 280000003c000000280000001e0000003c0000003c000000
@@ -1540,17 +1540,14 @@ MonoBehaviour:
     passive: nguu_quyen_pas
     shards: 20
     line: "D\xF2ng H\u1ECFa Quy"
-    size: 0.9
+    size: 0.78
     forms:
+    - name: "H\u1ECFa Quy Con"
+      aola: rua_lua_non
+      size: 0.78
     - name: "H\u1ECFa Quy"
       aola: rua_lua_1
-      size: 0.9
-    - name: "H\u1ECFa Quy"
-      aola: rua_lua_1
-      size: 1.02
-    - name: "H\u1ECFa Quy"
-      aola: rua_lua_1
-      size: 1.14
+      size: 1.1
     minion: 0
   - id: vo_su
     name: "V\xF5 S\u01B0"

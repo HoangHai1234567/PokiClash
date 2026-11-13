@@ -36,12 +36,16 @@ namespace PokiClash.EditorTools
     public sealed class AolaImportPostprocessor : AssetPostprocessor
     {
         // đổi số khi cách nhập ảnh đổi: Unity nhập lại mọi ảnh tướng, nặng (2: atlas ASTC 8x8, chân dung vuông có mipmap ASTC 6x6;
-        // 3: chân dung ASTC 8x8). Chỉ đổi mức nén chân dung thì dùng menu "Nhập lại chân dung tướng (mức nén chân dung)", đừng tăng số.
+        // 3: chân dung ASTC 8x8). Chỉ đổi mức nén hay cạnh (PortraitMax) của chân dung thì dùng menu "Nhập lại chân dung tướng (mức nén chân dung)", đừng tăng số.
         public override uint GetVersion() => 3;
 
         // mức nén chân dung trên Android, iOS (người dùng 2026-11-04: 8x8 làm chân dung mờ, vỡ khối, nhất là bóng sẫm tướng trên bệ ải
         // chưa mở; so trong game bằng menu "Chân dung: thay thử mức nén", 5x5 sạch, 4x4 gần như ảnh gốc)
         public const TextureImporterFormat PortraitFormat = TextureImporterFormat.ASTC_5x5;
+
+        // cạnh chân dung trong bản build (dung lượng, người dùng 2026-11-13: APK 145 MB, chân dung 222 ảnh 512 chiếm 49 MB): file PNG
+        // vẫn lưu PortraitSide (512), Unity thu khi nhập. Đa số chỗ hiện chân dung cao 80-165 điểm UI (hộp mốc Huyền thoại 400)
+        public const int PortraitMax = 256;
 
         void OnPreprocessTexture()
         {
@@ -55,7 +59,7 @@ namespace PokiClash.EditorTools
             ti.wrapMode = TextureWrapMode.Clamp;
             ti.filterMode = FilterMode.Bilinear;
             ti.npotScale = TextureImporterNPOTScale.None;
-            ti.maxTextureSize = portrait ? 512 : AolaImport.MaxAtlas;
+            ti.maxTextureSize = portrait ? PortraitMax : AolaImport.MaxAtlas;
             ti.textureCompression = TextureImporterCompression.Compressed;
             if (portrait)
             {
@@ -226,8 +230,15 @@ namespace PokiClash.EditorTools
                 foreach (var path in paths)
                 {
                     var ti = (TextureImporter)AssetImporter.GetAtPath(path);
-                    if (ti.GetPlatformTextureSettings("Android").format == AolaImportPostprocessor.PortraitFormat
-                        && ti.GetPlatformTextureSettings("iPhone").format == AolaImportPostprocessor.PortraitFormat) continue;
+                    // mức nén hoặc cạnh tối đa (PortraitMax) đổi thì nhập lại
+                    bool same = ti.maxTextureSize == AolaImportPostprocessor.PortraitMax;
+                    foreach (var pf in new[] { "Android", "iPhone" })
+                    {
+                        var ps = ti.GetPlatformTextureSettings(pf);
+                        same &= ps.format == AolaImportPostprocessor.PortraitFormat && ps.maxTextureSize == AolaImportPostprocessor.PortraitMax;
+                    }
+                    if (same) continue;
+                    ti.maxTextureSize = AolaImportPostprocessor.PortraitMax;
                     AolaImportPostprocessor.SetPlatforms(ti, AolaImportPostprocessor.PortraitFormat);
                     ti.SaveAndReimport();
                     changed++;

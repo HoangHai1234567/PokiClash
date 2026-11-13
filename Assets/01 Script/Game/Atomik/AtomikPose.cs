@@ -98,10 +98,10 @@ namespace PokiClash.Game
                 foreach (var tl in c.tls)
                 {
                     int i = tl.bone;
-                    if (tl.type == 0) lr[i] += Sample1(tl.keys, t);
+                    if (tl.type == 0) lr[i] += Sample1(tl.keys, tl.c, t);
                     else
                     {
-                        Sample2(tl.keys, t, out float vx, out float vy);
+                        Sample2(tl.keys, tl.c, t, out float vx, out float vy);
                         if (tl.type == 1) { lx[i] += vx; ly[i] += vy; }
                         else { lsx[i] *= vx; lsy[i] *= vy; }
                     }
@@ -112,7 +112,7 @@ namespace PokiClash.Game
                         if (k.times[j] <= t + 1e-5f) slotAtt[k.slot] = k.atts[j];
             if (c.sa != null)
                 foreach (var k in c.sa)
-                    slotAlpha[k.slot] = Mathf.Clamp01(Sample1(k.keys, t));
+                    slotAlpha[k.slot] = Mathf.Clamp01(Sample1(k.keys, k.c, t));
         }
 
         // Phủ thêm clip lặp ci ở giây t lên tư thế vừa Sample (clip "aura": mây bay vòng quanh Thanh Long...). Clip này chạy theo
@@ -127,10 +127,10 @@ namespace PokiClash.Game
                 foreach (var tl in c.tls)
                 {
                     int i = tl.bone;
-                    if (tl.type == 0) lr[i] += Sample1(tl.keys, t);
+                    if (tl.type == 0) lr[i] += Sample1(tl.keys, tl.c, t);
                     else
                     {
-                        Sample2(tl.keys, t, out float vx, out float vy);
+                        Sample2(tl.keys, tl.c, t, out float vx, out float vy);
                         if (tl.type == 1) { lx[i] += vx; ly[i] += vy; }
                         else { lsx[i] *= vx; lsy[i] *= vy; }
                     }
@@ -141,7 +141,7 @@ namespace PokiClash.Game
                         if (k.times[j] <= t + 1e-5f) slotAtt[k.slot] = k.atts[j];
             if (c.sa != null)
                 foreach (var k in c.sa)
-                    slotAlpha[k.slot] *= Mathf.Clamp01(Sample1(k.keys, t));
+                    slotAlpha[k.slot] *= Mathf.Clamp01(Sample1(k.keys, k.c, t));
         }
 
         // giữ tư thế cục bộ hiện tại làm điểm đầu trộn (đổi clip)
@@ -402,6 +402,128 @@ namespace PokiClash.Game
         }
 
         // ---- khoá
+        // khoá cũ (keys, sải 7 hay 12) nếu còn, không thì khoá gọn
+        public static float Sample1(float[] k, AtomikCurve c, float t) =>
+            k != null && k.Length > 0 ? Sample1(k, t) : SampleC1(c, t);
+
+        public static void Sample2(float[] k, AtomikCurve c, float t, out float x, out float y)
+        {
+            if (k != null && k.Length > 0) Sample2(k, t, out x, out y);
+            else SampleC2(c, t, out x, out y);
+        }
+
+        // khoá gọn: tìm đoạn [i, i + 1] chứa t như Sample1 (khoá cuối cùng giờ với khoá trước: lấy khoá sau), rồi xem khoá i có
+        // nằm trong ck không (bậc, bezier); kết quả trùng khoá cũ từng bit
+        static int Seg(float[] T, float t)
+        {
+            int lo = 0, hi = T.Length - 2;   // i lớn nhất trong [0, n - 2] có T[i] <= t
+            while (lo < hi)
+            {
+                int mid = (lo + hi + 1) >> 1;
+                if (T[mid] <= t) lo = mid; else hi = mid - 1;
+            }
+            return lo;
+        }
+
+        static int CurveAt(AtomikCurve c, int i, out int off, int stride)
+        {
+            off = 0;
+            if (c.ck == null || c.ck.Length == 0) return 0;
+            int j = Array.BinarySearch(c.ck, i);
+            if (j < 0) return 0;
+            off = j * stride;
+            return (int)c.cp[off];
+        }
+
+        public static float SampleC1(AtomikCurve c, float t)
+        {
+            var T = c?.t;
+            int n = T == null ? 0 : T.Length;
+            if (n == 0) return 0;
+            var V = c.v;
+            if (t <= T[0]) return V[0];
+            if (t >= T[n - 1]) return V[n - 1];
+            int i = Seg(T, t);
+            float t0 = T[i], v0 = V[i], t1 = T[i + 1], v1 = V[i + 1];
+            switch (CurveAt(c, i, out int o, 5))
+            {
+                case 1: return v0;
+                case 2: return Bezier(t0, v0, c.cp[o + 1], c.cp[o + 2], c.cp[o + 3], c.cp[o + 4], t1, v1, t);
+                default: return v0 + (v1 - v0) * (t - t0) / Mathf.Max(1e-6f, t1 - t0);
+            }
+        }
+
+        public static void SampleC2(AtomikCurve c, float t, out float x, out float y)
+        {
+            var T = c?.t;
+            int n = T == null ? 0 : T.Length;
+            if (n == 0) { x = y = 0; return; }
+            var V = c.v;
+            if (t <= T[0]) { x = V[0]; y = V[1]; return; }
+            if (t >= T[n - 1]) { x = V[2 * n - 2]; y = V[2 * n - 1]; return; }
+            int i = Seg(T, t), a = 2 * i, b = a + 2;
+            float t0 = T[i], t1 = T[i + 1];
+            switch (CurveAt(c, i, out int o, 9))
+            {
+                case 1: x = V[a]; y = V[a + 1]; return;
+                case 2:
+                    var p = c.cp;
+                    x = Bezier(t0, V[a], p[o + 1], p[o + 2], p[o + 3], p[o + 4], t1, V[b], t);
+                    y = Bezier(t0, V[a + 1], p[o + 5], p[o + 6], p[o + 7], p[o + 8], t1, V[b + 1], t);
+                    return;
+                default:
+                    float u = (t - t0) / Mathf.Max(1e-6f, t1 - t0);
+                    x = V[a] + (V[b] - V[a]) * u;
+                    y = V[a + 1] + (V[b + 1] - V[a + 1]) * u;
+                    return;
+            }
+        }
+
+        // keys (dim 1: sải 7 [t, v, kiểu, 4 điểm]; dim 2: sải 12 [t, x, y, kiểu, 8 điểm]) thành khoá gọn
+        public static AtomikCurve Pack(float[] k, int dim)
+        {
+            int S = 2 + 5 * dim, n = k == null ? 0 : k.Length / S;
+            var c = new AtomikCurve { t = new float[n], v = new float[n * dim] };
+            var ck = new System.Collections.Generic.List<int>();
+            var cp = new System.Collections.Generic.List<float>();
+            for (int i = 0; i < n; i++)
+            {
+                int o = i * S;
+                c.t[i] = k[o];
+                for (int d = 0; d < dim; d++) c.v[i * dim + d] = k[o + 1 + d];
+                int kind = (int)k[o + 1 + dim];
+                if (kind == 0) continue;
+                ck.Add(i);
+                for (int q = 0; q < 1 + 4 * dim; q++) cp.Add(k[o + 1 + dim + q]);
+            }
+            c.ck = ck.ToArray();
+            c.cp = cp.ToArray();
+            return c;
+        }
+
+        // đổi mọi khoá của rig sang khoá gọn (AtomikImporter, sau khi đọc JSON)
+        public static void PackAll(AtomikAsset a)
+        {
+            if (a.anims == null) return;
+            foreach (var clip in a.anims)
+            {
+                if (clip.tls != null)
+                    foreach (var tl in clip.tls)
+                    {
+                        if (tl.keys == null || tl.keys.Length == 0) continue;
+                        tl.c = Pack(tl.keys, tl.type == 0 ? 1 : 2);
+                        tl.keys = new float[0];
+                    }
+                if (clip.sa != null)
+                    foreach (var k in clip.sa)
+                    {
+                        if (k.keys == null || k.keys.Length == 0) continue;
+                        k.c = Pack(k.keys, 1);
+                        k.keys = new float[0];
+                    }
+            }
+        }
+
         public static float Sample1(float[] k, float t)
         {
             const int S = 7;

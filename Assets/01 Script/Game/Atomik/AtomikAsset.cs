@@ -40,7 +40,20 @@ namespace PokiClash.Game
     {
         public int bone;
         public int type;          // 0 xoay (sải 7), 1 dời, 2 tỉ lệ (sải 12)
-        public float[] keys;      // [t, giá trị..., kiểu (0 thẳng, 1 bậc, 2 bezier), điểm điều khiển...]
+        public float[] keys;      // [t, giá trị..., kiểu (0 thẳng, 1 bậc, 2 bezier), điểm điều khiển...]; rỗng khi đã gọn
+        public AtomikCurve c;     // khoá gọn (AtomikImporter đổi từ keys, 2026-11-13)
+    }
+
+    // Khoá gọn: giờ, giá trị (dim số mỗi khoá), chỉ khoá không nối thẳng mới ghi kiểu và điểm điều khiển. Khoá trong file .atomik
+    // luôn chừa ô điểm điều khiển (sải 7 hay 12) dù gần như mọi khoá đều nối thẳng (0 trong 1,48 triệu khoá ngày 2026-11-13 là bezier),
+    // nên bản build mang toàn số 0: 44 MB khoá thành ~12 MB.
+    [Serializable]
+    public sealed class AtomikCurve
+    {
+        public float[] t;         // giờ từng khoá, tăng dần
+        public float[] v;         // giá trị: dim số mỗi khoá
+        public int[] ck;          // chỉ số khoá không nối thẳng, tăng dần (thường rỗng)
+        public float[] cp;        // mỗi khoá trong ck: [kiểu (1 bậc, 2 bezier), 4 x dim điểm điều khiển như trong keys]
     }
 
     [Serializable]
@@ -57,6 +70,7 @@ namespace PokiClash.Game
     {
         public int slot;
         public float[] keys;
+        public AtomikCurve c;     // khoá gọn như AtomikTimeline.c
     }
 
     // sự kiện của clip (bản 3): mốc cho VFX, âm thanh (đầu nào bắt đầu phun, khung cắn trúng...). AtomikPlayer.Fired bắn ra khi

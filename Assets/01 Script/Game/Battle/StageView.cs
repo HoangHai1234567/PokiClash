@@ -75,6 +75,12 @@ namespace PokiClash
             { "nguu_quyen", ("n_cau_rua", "n_cau_sung") }, // suất này nay là rùa golem lửa (Hỏa Quy, 2026-11-13; HatRua.cs, đi đường "n_" để cầu tụ TRƯỚC khung nhả): tụ cầu lửa ở mõm rồi bắn; chiêu cuối lửa trên lưng bị hút vào cầu lửa trên mũi sừng, hất sừng phóng cầu
         };
 
+        // chiêu cuối hệ Hỏa theo từng DẠNG (đè lên FireFx): Hỏa Quy dạng 1 (rùa non) chỉ có ba ngọn lửa và sừng mầm ngắn nên dùng bản nhẹ
+        static readonly Dictionary<string, string[]> HoaUltDang = new Dictionary<string, string[]>
+        {
+            { "nguu_quyen", new[] { "n_cau_sung1", "n_cau_sung" } },
+        };
+
         // bộ Thủy (2026-11-10, HatNuoc.cs): chiêu mana theo dòng tướng, chiêu cuối theo từng DẠNG, chọn cho khớp động tác clip CHIÊU
         // của dạng đó (beasts_cfg._REDESIGN): đạn xoay quanh người rồi phóng = thương nước, xoáy nhốt = vòi rồng, gọi mưa / vật rơi =
         // mưa rào, sóng lan trên đất = sóng thần, trồi lên dưới chân = xoáy nước rồi mạch phun, phun dòng = tia nước, loạt đạn = bong
@@ -158,7 +164,8 @@ namespace PokiClash
         public static string FireUlt(HeroDef h, int form = 0)
         {
             if (h == null) return null;
-            if (h.elem == Elem.Hoa) return FireFx.TryGetValue(h.id, out var f) ? f.ult : null;
+            if (h.elem == Elem.Hoa)
+                return HoaUltDang.TryGetValue(h.id, out var hd) ? hd[Mathf.Clamp(form, 0, hd.Length - 1)] : FireFx.TryGetValue(h.id, out var f) ? f.ult : null;
             if (h.elem == Elem.Thuy && WaterFx.TryGetValue(h.id, out var w) && w.ult.Length > 0)
                 return w.ult[Mathf.Clamp(form, 0, w.ult.Length - 1)];
             if (h.elem == Elem.Moc && MocFx.TryGetValue(h.id, out var m) && m.ult.Length > 0)

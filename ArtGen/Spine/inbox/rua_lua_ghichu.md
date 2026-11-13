@@ -203,3 +203,47 @@ biết `lead` = khung trúng của clip) vì cầu phải tụ TRƯỚC khung nh
 - Đã chạy tour "riêng Hỏa Quy" trong Play (tờ `rig/_game_ult2.jpg`, `_game_mana2.jpg`): dải lửa chảy từ lưng về mũi sừng, cầu lớn dần đúng trên
   mũi sừng, rời sừng đúng khung hất, nổ ở địch; chiêu mana cầu tụ ở mõm lúc há mồm. Console không lỗi. Vòng nháy lúc đầy bản đầu rộng 2,3 R
   trông như hồng tâm nâu → thu còn 1,55 R, 0,18 s (bản thu nhỏ chỉ biên dịch và chạy test, chưa chụp lại).
+
+## 8. Hai dạng + dạng 1 rùa non chibi (2026-11-13 chiều)
+
+Người dùng: "con này **2 dạng thôi**, **làm dạng 1 nữa** nhưng hình như gpt hết token rồi" (Codex báo hết hạn mức, mở lại 18:30), xem ba hướng đầu
+(A mầm lửa, B đủ lửa nhỏ, C đầu to) rồi dặn "tôi muốn **chi bi hơn, nhỏ hơn nữa**".
+- **Dạng 1 không cần gen** (`rua_lua_non.py`): xếp lại MẢNH dạng 2 ở tỉ lệ non: đầu phóng quanh một điểm, hai sừng co về gốc sừng, cụm cột đá co
+  về chân cột, lửa co quanh gốc lửa, bỏ bớt lửa / cột đá xa; ghi `_sung_mui`, `_mieng` mới vào `dat.json`. Rig = `RL_NON=<hướng> rua_lua_rig.py`
+  (cùng xương, cùng clip) → `inbox/rua_lua_non/rig_<hướng>/rua_lua_non.atomik`. Hướng đang dùng: **`chibi`** (D): đầu × 1,38 quanh (950, 800) (điểm
+  thấp gần mõm: đầu nở lên trên, hàm không chạm đất), sừng × 0,40, cột đá × 0,60, ba ngọn lửa × 0,44–0,50, cỡ trong game **0,78** (dạng 2: 1,1).
+  `chibi_1` (E) = như D, một ngọn lửa. Tờ so `inbox/rua_lua_non/so_dang.jpg`, trang `inbox/rua_lua_non_xem.html`. Người dùng CHƯA chọn giữa D / E.
+- **Tiến hóa** (`rua_lua_non_th.py`, chép từ `golem_lua_non_th.py`; `RL_NON`, `RL_CO`): gộp dạng 2 × 1,41 vào rig dạng 1, clip `evolve`, 552 KB;
+  `chep` → `Resources/rua_lua_non/` (+ chân dung).
+- **Dữ liệu** (`quai/doi_rua_lua.py hai_dang`): khối `nguu_quyen` forms 3 → 2: "Hỏa Quy Con" (`rua_lua_non`, 0,78), "Hỏa Quy" (`rua_lua_1`, 1,1); aola /
+  size chung = dạng 1. Tên do Claude đặt.
+- **VFX theo dạng**: `HatRua.NCauSung(..., non: true)` (bảng `SungPNon`, `LuaNon`, lượt hút 1 / 3 / 4, cầu 0,155 chiều cao, nổ 1,1), mã `n_cau_sung1`;
+  `StageView.HoaUltDang["nguu_quyen"] = { "n_cau_sung1", "n_cau_sung" }` (chiêu cuối hệ Hỏa theo dạng, đè lên `FireFx`).
+- **Unity** (đã báo các phiên khác; sao lưu golden, heroes.json, stages.json, HeroDb, prefab ở scratchpad phiên này `sao_luu/`): refresh sạch →
+  Nhập dữ liệu → Gắn dạng (`nguu_quyen.prefab` 2 dạng) → Đảo 70 ải sinh lại (`stages.json` không đổi) → ba menu golden + `golden_ghep.py`:
+  **chỉ `roster.json` đổi 2 ô** (forms của nguu_quyen: n 3 → 2, dạng ở sao cuối 2 → 1); sim, battles, islands, progression… không đổi. EditMode
+  102 / 103 (chỉ `PrefabOnlyTests` cũ).
+- **Trong trận** (menu "Đảo Hỏa: riêng Hỏa Quy Con (dạng 1) …", tờ `inbox/rua_lua_non/_game_dang1.jpg`): rùa non húc, bắn cầu lửa từ mõm, chiêu cuối
+  ba dải lửa hút vào cầu trên mầm sừng rồi phóng; console không lỗi.
+
+CHƯA: người dùng chọn D hay E (hoặc đẩy chibi thêm); dạng 1 vẽ riêng (thân tròn mập) nếu muốn thì chờ Codex sau 18:30; chưa xem clip `evolve`
+trong hộp chi tiết tướng; appear / die của rig chưa được trận phát; chưa thử Android; chưa commit.
+
+## 9. Dạng 1 tạm = bản E; gen riêng bản chibi khi Codex mở lại (2026-11-13, 17:30)
+
+Người dùng xem D, E: "**E cũng được** nhưng sẽ **phải gen lại bằng gpt cho chi bi hơn**".
+- **Trong game hiện tại dạng 1 = E** (`rua_lua_non.py` hướng `chibi_1`: đầu × 1,38, sừng mầm, MỘT ngọn lửa giữa lưng, cỡ 0,78): rig
+  `inbox/rua_lua_non/rig_chibi_1/`, gộp tiến hóa (`RL_NON=chibi_1 RL_CO=0.78 rua_lua_non_th.py chep`) → `Resources/rua_lua_non/`.
+- `rua_lua_rig.py`: dạng ít lửa thì các ngọn CÓ MẶT chia đều quãng hút (`HUT_CO`, `HC_CACH`); chỉ một ngọn thì nó co chậm suốt quãng tụ
+  (`HC_DAI = T_DAY − H0 − 0,08`); dạng 2 (7 ngọn) giữ nhịp cũ. `HatRua.NCauSung(non)`: một nguồn (0,22; 0,44), dải lửa 30 hạt / giây suốt quãng tụ.
+- Unity: refresh sạch, Gắn dạng, tour "riêng Hỏa Quy Con" chạy không lỗi (tờ `inbox/rua_lua_non/_game_dang1.jpg`). Dữ liệu và golden không đổi
+  thêm ở bước này.
+- **Gói gen bản chibi vẽ riêng** (`build_rua_lua_non.py` → `gui_gpt/rua_lua_non/luot_1_concept_theo_e.txt`, `..._tron_hon.txt`, `HUONG_DAN.md`): ảnh
+  mẫu 1 = hình bố cục bản E dựng từ rig (`inbox/rua_lua_non/mau/bo_cuc_e.png`), ảnh mẫu 2 = concept dạng 2 đã duyệt. Hai hướng (đề xuất của
+  Claude): `theo_e` (giữ chỗ đặt của bản E, vẽ lại nét chibi), `tron_hon` (mai tròn ngắn như hòn cuội, chân lùn hẳn, đầu gần nửa chiều cao).
+- **Hẹn giờ**: tiến trình tách `inbox/rua_lua_non/cho_gen.py` (bắt đầu 17:31) chờ tới 18:32 rồi chạy `chay_hoa.py` hai file; nhật ký
+  `inbox/rua_lua_non/cho_gen.log`; ảnh về `inbox/rua_lua_non/tai_ve/L1_theo_e.png`, `L1_tron_hon.png`.
+
+VIỆC TIẾP khi có ảnh: soi hai concept (chibi thật chưa, chân dính thân, hai mầm sừng lành lặn, một lửa), mở cho người dùng chọn; duyệt xong thì
+gen mảnh "đúng chỗ, đúng cỡ" như dạng 2, khớp khung bằng mốc tay, đổi tỉ lệ xương nếu thân ngắn / chân lùn hơn rig, xuất lại, gộp tiến hóa, chép
+đè `Resources/rua_lua_non/`, đo lại `SungPNon` / `LuaNon` cho `HatRua.cs`.

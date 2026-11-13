@@ -14,6 +14,10 @@ Sửa `Assets/02 Data/Json/heroes.json`, `cards.json` (nguồn). HeroDb.asset, C
 
     py -3 -I ArtGen/Spine/quai/doi_rua_lua.py [--kiem] [--ve_cu]
     py -3 -I ArtGen/Spine/quai/doi_rua_lua.py chep      chép rig/rua_lua_1.atomik + chân dung vào Resources/rua_lua_1/ (thư mục mới)
+    py -3 -I ArtGen/Spine/quai/doi_rua_lua.py hai_dang [--kiem]
+        người dùng 2026-11-13: "con này 2 dạng thôi": forms 3 → 2: dạng 1 "Hỏa Quy Con" (`rua_lua_non`, rùa non: rig dạng 2 xếp lại tỉ lệ
+        non + clip evolve, ArtGen/Spine/rua_lua_non.py hướng chibi; cỡ 0,78: người dùng "chi bi hơn, nhỏ hơn nữa"), dạng 2 "Hỏa Quy" (`rua_lua_1`, cỡ 1,1); aola / size chung = dạng 1.
+        SỐ DẠNG ĐỔI nên phải tính lại golden roster + sim trong Unity (xem inbox/rua_lua_ghichu.md mục 8). Chạy lại không đổi gì thêm.
 """
 import os
 import re
@@ -120,8 +124,43 @@ def chep():
             print(f"  {os.path.relpath(q, ROOT)}: {'giữ' if giong else 'chép'} ({os.path.getsize(q) // 1024} KB)")
 
 
+def hai_dang():
+    path = os.path.join(DATA, "Json", "heroes.json")
+    t = open(path, "rb").read().decode("utf-8")
+    nl = "\r\n" if "\r\n" in t else "\n"
+    k0 = t.index(f'"id": "{ID}"')
+    a = t.rindex("{", 0, k0)
+    d, i = 0, a
+    while True:
+        if t[i] == "{":
+            d += 1
+        elif t[i] == "}":
+            d -= 1
+            if d == 0:
+                break
+        i += 1
+    blk = t[a:i + 1]
+    f0 = blk.index('"forms": [')
+    f1 = blk.index("]", f0) + 1
+    ind = "    "
+    moi = ('"forms": [' + nl +
+           f'{ind}{{{nl}{ind} "name": "Hỏa Quy Con",{nl}{ind} "aola": "rua_lua_non",{nl}{ind} "size": 0.78{nl}{ind}}},{nl}'
+           f'{ind}{{{nl}{ind} "name": "Hỏa Quy",{nl}{ind} "aola": "rua_lua_1",{nl}{ind} "size": 1.1{nl}{ind}}}{nl}   ]')
+    blk2 = blk[:f0] + moi + blk[f1:]
+    dau = blk2[:blk2.index('"forms": [')]
+    dau2 = re.sub(r'"aola": "[^"]*"', '"aola": "rua_lua_non"', dau, count=1)
+    dau2 = re.sub(r'"size": [0-9.]+', '"size": 0.78', dau2, count=1)
+    blk2 = dau2 + blk2[len(dau):]
+    doi = blk2 != blk
+    print(f"  {os.path.relpath(path, ROOT)}: khối {ID} " + ("đổi sang 2 dạng" if doi else "đã là 2 dạng") + (" (chỉ kiểm)" if KIEM and doi else ""))
+    if doi and not KIEM:
+        open(path, "wb").write((t[:a] + blk2 + t[i + 1:]).encode("utf-8"))
+
+
 if __name__ == "__main__":
-    if "chep" in sys.argv:
+    if "hai_dang" in sys.argv:
+        hai_dang()
+    elif "chep" in sys.argv:
         chep()
     else:
         sua(os.path.join(DATA, "Json", "heroes.json"), heroes_json)

@@ -1,0 +1,46 @@
+{
+ "fps": 25,
+ "height": 612.49,
+ "hitClips": [
+  "attack",
+  "cast",
+  "skill"
+ ],
+ "hitTimes": [
+  0.86,
+  0.9,
+  1.63
+ ],
+ "lunge": [
+  "attack"
+ ],
+ "stay": [
+  "cast",
+  "skill"
+ ],
+ "far": [],
+ "muzzle": [
+  288.52,
+  168.04
+ ],
+ "beam": 1.0,
+ "beamStyle": "",
+ "move": "move",
+ "shadow": "shadow",
+ "impactClips": [
+  "attack",
+  "skill"
+ ],
+ "impactStop": [
+  0.04,
+  0.105
+ ],
+ "impactShake": [
+  0.23,
+  0.47
+ ],
+ "impactPush": [
+  0.06,
+  0.105
+ ]
+}

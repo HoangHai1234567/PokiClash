@@ -561,6 +561,7 @@ class VetDao:
 
     def __init__(self, clip, info, khoang=None):
         self.clip, self.v, self.khoang = clip, info["vet"], khoang      # khoang (t0, t1): chỉ hiện vệt trong đoạn này (nhát chém), ngoài ra tắt
+        self.trung = clip.gio_trung()                                   # game GIỮ dáng ở khung trúng (~0,3 s + khựng): vệt phải tắt hẳn ở đúng khung đó
 
     def chay(self, sk, frames, ts, loop, fps):
         from quai.khung import Pose as _P
@@ -587,6 +588,8 @@ class VetDao:
             a_ = VET_A * em((vmax - VET_V0) / (VET_V1 - VET_V0))
             if self.khoang:
                 a_ *= bump(t, self.khoang[0] - 0.05, self.khoang[0], self.khoang[1], self.khoang[1] + 0.08)
+            if self.trung is not None:
+                a_ *= 1.0 - bump(t, self.trung - 0.05, self.trung - 0.001, self.trung + 0.22, self.trung + 0.30)
             am.append(a_)
         n = len(frames)
         for i, (t, P) in enumerate(zip(ts, frames)):
@@ -726,8 +729,8 @@ def lam_clip(sk, info):
             clip, w = "skill_02_1", 1.0
             u = tq(t, [(TA5, UV0), (D_AT, CD["skill_02_1"][0])])
             d = mau("skill_02_1", u)
-        if "bone2" in d:                                          # họ trôi tới 194–237 đơn vị trong đoạn này: bỏ (xương move lo phần lao)
-            d["bone2"] = np.array([d["bone2"][0], 0.0, d["bone2"][2], d["bone2"][3], d["bone2"][4]])
+        # GIỮ độ trôi bone2 của họ (194–237 đơn vị): ở dáng này thân ngả về sau đúng chừng đó so với chân, xoá đi thì cả thân lùi khỏi bệ (lộ ra
+        # khi chạy trong trận)
         dat(P, d)
         hien_theo_ho(sk, P, clip if w > 0.5 else "idle_01", u if w > 0.5 else 0.0)
         dao_theo_tay(sk, info, P)

@@ -124,6 +124,14 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Quy, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaQuy() => TryOnly("nguu_quyen");
 
+        // dạng 1 (Hỏa Quy Con, rùa non chibi): cùng tour nhưng tướng ở 1 sao
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Quy Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryHoaQuyCon()
+        {
+            sao = 1;
+            TryOnly("nguu_quyen");
+        }
+
         // riêng Viêm Đao (quỷ lửa cầm đao, suất giap_long, 2026-11-13): đòn thường bổ đao cối xay, chiêu mana bổ đao cắm đất (dung nham trào dưới
         // chân địch), chiêu cuối lao tới liên hoàn chém rồi nhảy bổ
         [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đao, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
