@@ -1,0 +1,17 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\tai_ve\L1_duyet.png: the APPROVED creature, 1536x1024, white background: a huge four-legged volcano dinosaur of charcoal-black basalt with two great ivory ram horns; its back carries a main crater mountain and a crowd of tiered crater towers. It gives the design, the colours, the wobbly dark-brown ink line, the crayon hatching and the look of every material (rock, lava, ivory bone).
+image 2 = D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\mau\part_O1.png: PARTS GUIDE, 1536x1024, white background, drawn by computer: 5 separate flat shapes, each one a PART of the creature's 2D animation rig, enlarged, lying at the angle the rig needs. Each shape is the EXACT silhouette of its part, filled with the flat colours of its materials and outlined in dark brown.
+
+SAVE: save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\tai_ve\N_O1.png
+If a file with that name already exists, save as N_O1_2.png, N_O1_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 cleanly in the hand-drawn style of image 1, landscape 1536x1024, pure-white background. Keep EXACTLY every silhouette of image 2: the same outline, the same size, the same angle, the same position on the sheet (if your picture were laid over image 2, every shape must coincide with its shape there). Do not move, rotate, straighten, merge or rearrange the shapes; do not add or drop any; keep clear white between them. A program will cut this sheet by position.
+
+WHAT THE SHAPES ARE (centre of each shape in pixels on the sheet, x from the left, y from the top):
+- a VOLCANO CHIMNEY from the creature's back: a TIERED TOWER of thick stacked rock rings of charcoal basalt (#56505C). The orange (#F07828) lines across it are the lava seams between two rings; the orange cap at one end is the CRATER LIP with its pointed lava drips running down; the yellow (#FACC50) ellipse inside the cap is the lava pool of the crater mouth. Keep all of these exactly where they are. On each rock ring add two or three short facet lines and a chip, as on the towers of image 1: 5 shapes, centred at about (214, 297), (570, 286), (894, 237), (1216, 216), (186, 782).
+
+OUTLINE: every shape gets ONE closed dark-brown ink outline (#2B2118), about 6 px thick on this sheet, wobbly like a real pen, lying just INSIDE the edge of the silhouette (never outside it). Inner lines (facet lines, chips, cracks, the lines between two colours) are thinner (about 3 px).
+COLOUR: keep the colour each shape has in image 2, and keep every second colour exactly where image 2 shows it. Fill every area with visible loose diagonal crayon / coloured-pencil hatching as in image 1, kept inside the outline.
+Each shape is a complete, closed object on its own: do not draw neighbouring parts, do not draw the creature, do not add smoke, flames or sparks.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour, the crayon strokes are texture only. No shading, no darker side, no lighter top faces, no highlights or shine spots (not on the horns, not on the claws, not on the lava), NO GLOW around the lava, NO GRADIENTS (two colours always meet at a clean inked edge), no cast shadows, no 3D look. Pure white (#FFFFFF) background; no text, no labels, no numbers, no frames, no guide lines.

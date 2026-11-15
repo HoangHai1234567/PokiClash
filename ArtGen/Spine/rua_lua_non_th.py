@@ -7,6 +7,7 @@ alpha của các slot đó về 0.
 
     py -3 -I ArtGen/Spine/rua_lua_non_th.py          → inbox/rua_lua_non/rig_mam_lua/rua_lua_non_th.atomik + khung_evolve.png
     py -3 -I ArtGen/Spine/rua_lua_non_th.py chep     → thêm: chép vào Assets/03 Art/Heroes/Resources/rua_lua_non (+ chân dung)
+Hướng lấy từ RL_NON (mặc định chibi), cỡ dạng 1 từ RL_CO. Bản vẽ riêng 2026-11-14: RL_NON=ve RL_CO=0.78 (rua_lua_non_ve.py).
 """
 import os
 import shutil

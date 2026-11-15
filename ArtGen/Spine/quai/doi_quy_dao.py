@@ -13,6 +13,8 @@ Sửa `Assets/02 Data/Json/heroes.json`, `cards.json` (nguồn). HeroDb.asset, C
 
     py -3 -I ArtGen/Spine/quai/doi_quy_dao.py [--kiem] [--ve_cu]
     py -3 -I ArtGen/Spine/quai/doi_quy_dao.py chep      chép rig/quy_dao_1.atomik + chân dung vào Resources/quy_dao_1/ (thư mục mới)
+    py -3 -I ArtGen/Spine/quai/doi_quy_dao.py chep_non  chép inbox/quy_dao_non/rig/quy_dao_non_th.atomik + chân dung vào Resources/quy_dao_non/
+    py -3 -I ArtGen/Spine/quai/doi_quy_dao.py dang_1 [--kiem]   dạng 1 -> quy_dao_non "Viêm Đao Nhi" cỡ 0,8
 """
 import os
 import re
@@ -119,8 +121,43 @@ def chep():
             print(f"  {os.path.relpath(q, ROOT)}: {'giữ' if giong else 'chép'} ({os.path.getsize(q) // 1024} KB)")
 
 
+def dang_1():
+    """2026-11-14 (người dùng: "làm dạng 1 cho tướng thứ 7 đảo hỏa"): dạng 1 = quỷ lửa con chibi (ArtGen/Spine/quy_dao_non.py, rig
+    inbox/quy_dao_non/rig/quy_dao_non_th.atomik đã gộp clip evolve) -> Resources/quy_dao_non, tên "Viêm Đao Nhi" (Claude đặt), cỡ 0,8; dạng 2
+    giữ quy_dao_1 cỡ 1,1. Số dạng không đổi nên golden không đổi."""
+    sys.path.insert(0, HERE)
+    import doi_phap_lua as P
+    path = os.path.join(DATA, "Json", "heroes.json")
+    t = open(path, "rb").read().decode("utf-8")
+    nl = "\r\n" if "\r\n" in t else "\n"
+    P.ID = ID
+    a, b = P.khoi_tuong(t)
+    blk = t[a:b]
+    blk2 = P.dat_dang(blk, nl, [("Viêm Đao Nhi", "quy_dao_non", 0.8), ("Viêm Đao", "quy_dao_1", 1.1)], "quy_dao_non", 0.8)
+    doi = blk2 != blk
+    print(f"  {os.path.relpath(path, ROOT)}: khối {ID} " + ("đổi dạng 1" if doi else "đã đúng") + (" (chỉ kiểm)" if KIEM and doi else ""))
+    if doi and not KIEM:
+        open(path, "wb").write((t[:a] + blk2 + t[b:]).encode("utf-8"))
+
+
+def chep_non():
+    rig = os.path.join(INBOX, "quy_dao_non", "rig")
+    d = os.path.join(RES, "quy_dao_non")
+    os.makedirs(d, exist_ok=True)
+    for nguon, dich in (("quy_dao_non_th.atomik", "quy_dao_non.atomik"), ("chan_dung.png", "quy_dao_non_portrait.png")):
+        p, q = os.path.join(rig, nguon), os.path.join(d, dich)
+        giong = os.path.exists(q) and open(p, "rb").read() == open(q, "rb").read()
+        if not giong:
+            shutil.copyfile(p, q)
+        print(f"  {os.path.relpath(q, ROOT)}: {'giữ' if giong else 'chép'} ({os.path.getsize(q) // 1024} KB)")
+
+
 if __name__ == "__main__":
-    if "chep" in sys.argv:
+    if "chep_non" in sys.argv:
+        chep_non()
+    elif "dang_1" in sys.argv:
+        dang_1()
+    elif "chep" in sys.argv:
         chep()
     else:
         sua(os.path.join(DATA, "Json", "heroes.json"), heroes_json)

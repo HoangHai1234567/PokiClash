@@ -19,7 +19,7 @@ namespace PokiClash
         static readonly Color KiemC = C(250, 255, 246); // lõi vệt chém: trắng thép ngả lục
 
         // chiêu mana mà tướng LƯỚT TỚI đối thủ trong clip cast (rig khai lunge cho cast): sân nắn quãng lướt tới đối thủ (StageView.Place)
-        public static bool CastLao(string kind) => kind == "n_kiem_rut";
+        public static bool CastLao(string kind) => kind == "n_kiem_rut" || kind == "n_dat_dam";
 
         // hình lá liễu nhọn hai đầu: hai giọt kim (hat_needle_0, mũi lên) chĩa ngược nhau, bầu chồng lên nhau ở giữa
         void LaLieu(List<Item> buf, int g, float layer, bool muc, Color col, Vector2 tam, Vector2 d, float dai, float day, float alpha)

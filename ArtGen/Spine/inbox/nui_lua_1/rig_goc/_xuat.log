@@ -1,0 +1,15 @@
+109 xương, 68 slot, 466 đỉnh, 378 tam giác (lưới của họ); atlas của họ 0.500 px / đơn vị; mặt đất y = -21.4; 15 ống: 01@bone38 02@bone39 03@bone30 04@bone31 06@bone33 07@bone34 08@bone11 09@bone40 10@bone41 11@bone9 12@bone7 13@bone44 14@bone43 15@bone42 16@bone7
+chiều cao (không tính khói) 1015; cast nhả 1.05; skill dài 3.46 s, bẻ 1.52, bắn 1.62 → 2.84
+D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\rig_goc\nui_lua_1.atomik: 109 xương, 68 slot, 68 hình, 534 đỉnh, 0 mặt nạ cắt, 9 animation, 24 sự kiện, 157 KB (JSON 473 KB, PNG 89 KB)
+  nạp lại nui_lua_1.atomik: bản 3, 109 xương, 68 slot, 68 hình, clip ['appear', 'idle', 'walk', 'attack', 'cast', 'skill', 'hit', 'die', 'aura'], 24 sự kiện, atlas 976x1008, game có
+    đỉnh tính từ .atomik so với bộ vẽ Python: khung 0 mọi clip lệch 0.118 px (die/P_xiae_1) [toạ độ gắn, khoá đầu]; giữa clip lệch tối đa 1.55 px (cast@1.27s/P_beijia_03) [do lược khoá RDP]
+  nối appear: khung cuối lệch khung 0 idle 0.00 px; khung đầu trống
+  nối idle: bước khép vòng 0.55 px (bước thường 3.65)
+  nối walk: bước khép vòng 3.84 px (bước thường 33.55)
+  nối attack: khung cuối lệch khung 0 idle 0.00 px
+  nối cast: khung cuối lệch khung 0 idle 0.00 px
+  nối skill: khung cuối lệch khung 0 idle 0.00 px
+  nối hit: khung cuối lệch khung 0 idle 0.00 px
+  nối die: khung cuối trống
+  nui_lua_1: 109 xương · 68 slot · 534 đỉnh · 412 tam giác · 9 clip · 11516 khoá · .atomik 0.15 MB
+  dung lượng: json 385 KB + png 89 KB (atlas 976x1008); .atomik 157 KB -> ĐẠT (đích 0.6 MB, trần 1.0 MB); 4.9 s

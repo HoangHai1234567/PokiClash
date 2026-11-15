@@ -135,6 +135,9 @@ namespace PokiClash.Game
         // slot vẽ KHÔNG viền sticker (hạt lá bay, lá văng: người dùng dặn bỏ viền trắng ở hạt lá, 2026-11-09): AolaSticker chụp các
         // slot này riêng một ảnh, hiện không qua viền giấy. Rỗng = như cũ, mọi thứ chung một ảnh có viền.
         public string[] plain;
+        // khung vẽ của tướng trên sân tính bằng số lần chiều cao khai (AolaSticker); 0 = mặc định 3,4. Rig có đòn vươn xa hơn ±1,7 chiều cao
+        // quanh chân (Viêm Đao bổ đao, liên hoàn chém) khai lớn hơn để hình không bị mép khung cắt dọc (2026-11-14)
+        public float span;
     }
 
     public sealed class AtomikAsset : ScriptableObject

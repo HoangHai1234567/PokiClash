@@ -5198,10 +5198,10 @@
   {
    "id": "hong_lien_skill",
    "owner": "hong_lien",
-   "name": "Cánh Sen Lửa",
+   "name": "Hỏa Châm",
    "rarity": "uncommon",
    "kind": "skill",
-   "icon": "lotus",
+   "icon": "flame",
    "cost": {
     "mana": 35
    },
@@ -5216,10 +5216,10 @@
   {
    "id": "hong_lien_ult",
    "owner": "hong_lien",
-   "name": "Hồng Liên Nghiệp Hỏa",
+   "name": "Đại Hỏa Cầu",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "phoenix",
+   "icon": "sun",
    "cost": {
     "rage": 100,
     "mana": 45
@@ -5241,10 +5241,10 @@
   {
    "id": "hong_lien_pas",
    "owner": "hong_lien",
-   "name": "Lông Vũ Lửa",
+   "name": "Thân Khói",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "feather",
+   "icon": "ghost",
    "trigger": "start",
    "effects": [
     {
@@ -5319,10 +5319,10 @@
   {
    "id": "huyen_viem_skill",
    "owner": "huyen_viem",
-   "name": "Ảo Hỏa",
+   "name": "Xuyên Tâm Liên Trảm",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "flame",
+   "icon": "crack",
    "cost": {
     "mana": 40
    },
@@ -5337,10 +5337,10 @@
   {
    "id": "huyen_viem_ult",
    "owner": "huyen_viem",
-   "name": "Huyễn Viêm Thiên Hỏa",
+   "name": "Ngũ Kiếm Tề Phi",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "phoenix",
+   "icon": "sword",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -5362,10 +5362,10 @@
   {
    "id": "huyen_viem_pas",
    "owner": "huyen_viem",
-   "name": "Hồ Ảnh",
+   "name": "Lõi Nham Bùng Cháy",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "mirror",
+   "icon": "flame",
    "trigger": "lowHp",
    "effects": [
     {
@@ -5379,10 +5379,10 @@
   {
    "id": "hoa_tinh_skill",
    "owner": "hoa_tinh",
-   "name": "Gai Hồng Ngọc",
+   "name": "Hổ Gầm Chấn Viêm",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "rock",
+   "icon": "fang",
    "cost": {
     "mana": 40
    },
@@ -5403,10 +5403,10 @@
   {
    "id": "hoa_tinh_ult",
    "owner": "hoa_tinh",
-   "name": "Sao Hỏa Rơi",
+   "name": "Ảnh Trảo Liên Hoàn",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "sun",
+   "icon": "claw",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -5425,7 +5425,7 @@
   {
    "id": "hoa_tinh_pas",
    "owner": "hoa_tinh",
-   "name": "Giáp Hồng Ngọc",
+   "name": "Mây Lửa Hộ Thân",
    "rarity": "rare",
    "kind": "passive",
    "icon": "shield",
@@ -5442,10 +5442,10 @@
   {
    "id": "lan_hoa_skill",
    "owner": "lan_hoa",
-   "name": "Lân Hống",
+   "name": "Hỏa Cầu Phún Viêm",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "bell",
+   "icon": "flame",
    "cost": {
     "mana": 40
    },
@@ -5466,10 +5466,10 @@
   {
    "id": "lan_hoa_ult",
    "owner": "lan_hoa",
-   "name": "Thánh Lân Giáng Phúc",
+   "name": "Vạn Viêm Truy Kích",
    "rarity": "legend",
    "kind": "ult",
-   "icon": "crown",
+   "icon": "sun",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -5491,10 +5491,10 @@
   {
    "id": "lan_hoa_pas",
    "owner": "lan_hoa",
-   "name": "Phúc Khí Ngàn Năm",
+   "name": "Lõi Dung Nham",
    "rarity": "epic",
    "kind": "passive",
-   "icon": "incense",
+   "icon": "torch",
    "trigger": "turnStart",
    "effects": [
     {
@@ -7857,10 +7857,10 @@
   {
    "id": "hong_lien_boss",
    "owner": "hong_lien",
-   "name": "Niết Bàn Hỏa",
+   "name": "Nhen Lại Lửa Tàn",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "phoenix",
+   "icon": "torch",
    "trigger": "lowHp",
    "below": 0.5,
    "effects": [
@@ -7879,10 +7879,10 @@
   {
    "id": "huyen_viem_boss",
    "owner": "huyen_viem",
-   "name": "Ảo Ảnh Hồ Ly",
+   "name": "Giáp Nung Tự Liền",
    "rarity": "epic",
    "kind": "passive",
-   "icon": "mirror",
+   "icon": "shield",
    "trigger": "onHit",
    "chance": 0.25,
    "effects": [
@@ -7895,10 +7895,10 @@
   {
    "id": "lan_hoa_boss",
    "owner": "lan_hoa",
-   "name": "Thánh Lân Hộ Thể",
+   "name": "Giáp Bazan",
    "rarity": "legend",
    "kind": "passive",
-   "icon": "incense",
+   "icon": "shield",
    "trigger": "lowHp",
    "below": 0.5,
    "effects": [

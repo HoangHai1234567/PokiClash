@@ -247,3 +247,68 @@ Người dùng xem D, E: "**E cũng được** nhưng sẽ **phải gen lại b�
 VIỆC TIẾP khi có ảnh: soi hai concept (chibi thật chưa, chân dính thân, hai mầm sừng lành lặn, một lửa), mở cho người dùng chọn; duyệt xong thì
 gen mảnh "đúng chỗ, đúng cỡ" như dạng 2, khớp khung bằng mốc tay, đổi tỉ lệ xương nếu thân ngắn / chân lùn hơn rig, xuất lại, gộp tiến hóa, chép
 đè `Resources/rua_lua_non/`, đo lại `SungPNon` / `LuaNon` cho `HatRua.cs`.
+
+## 10. Gen bản chibi vẽ riêng ở máy ổ D (2026-11-14; người dùng: "làm dạng 1 cho tướng thứ 5 đảo hỏa")
+
+- Lượt hẹn 18:32 ngày 13 ở máy kia không chạy (commit lúc 18:23, `tai_ve/` rỗng). Ở máy D: dựng lại hai file prompt của
+  `gui_gpt/rua_lua_non/` với đường dẫn máy này (hình bố cục `mau/bo_cuc_e.png` dùng lại bản đã có), gen bằng `chay_hoa.py` →
+  `tai_ve/L1_theo_e.png` (77 s), `L1_tron_hon.png`. Trang so (chung với Viêm Đao dạng 1): `inbox/dang_non_hoa_xem_concept.html`. CHỜ người dùng chọn.
+- Đã quét con gốc về máy D (`D:\RefAnimation\SwordxStaff\scan\monster_3425`: `info`, `att_goc`, `att_idle0`, `sample` 13 clip 30 khung/giây, qua
+  `quai/khoa.py chrome`, chạy êm). `SXS=D:/RefAnimation/SwordxStaff py -3 -I rua_lua_rig.py` dựng lại dạng 2 trùng bản trong game (80 xương, 4439
+  đỉnh, 447 KB, atlas lệch trung bình 0,014 mức màu) → bước rig dạng 1 làm được ở máy này.
+- Việc tiếp khi concept được chọn: như cuối mục 9.
+
+## 11. Dạng 1 VẼ RIÊNG, hướng `ve` (2026-11-14, máy ổ D; người dùng xem hai concept: "làm đi" = theo đề xuất B của Claude)
+
+Concept chốt: `inbox/rua_lua_non/tai_ve/L1_tron_hon.png` → chép thành `L1_duyet.png`. Script: `rua_lua_non_ve.py` (`luoi`, `chong`, `build`, `lam`, `tho`).
+CHƯA chép vào `Assets/` (phiên chính lo): bản trong game vẫn là E (`chibi_1`).
+
+- **Khung concept ↔ rig** (`KHOP_VE` = 1,075 px / đơn vị con gốc, ox 722, oy 903; mốc tay: mép ngoài + đáy bốn chân, đỉnh và mép trái mai; viền part
+  gốc chồng lên concept ở `mau/_rig_tren_concept.png`). Thân con non gần đúng tỉ lệ rig (0,94 khung dạng 2), chỉ đầu to hẳn → KHÔNG đổi tỉ lệ
+  xương; đầu, hai sừng mầm, hàm là mảnh cứng trên xương đầu. Chân trước gần lệch trái ~45 px, chân trước xa lệch phải ~30 px so với part gốc:
+  lưới chân bám điểm gần nhất + nguyên độ lệch, không thấy rách.
+- **13 mảnh, 4 tờ "đúng chỗ, đúng cỡ"** (`rua_lua_non_ve.py build` → `gui_gpt/rua_lua_non/luot_2_manh_A..D.txt`; 65–118 s / tờ, đạt cả 4 ngay lượt
+  đầu): A = mai (vòm kín) + ống chân trước xa + lòng miệng (góc tờ); B = bụng, cụm cột, lửa, sừng gần, sừng xa; C = mặt (có mắt), ống chân trước
+  gần, đuôi; D = hàm, hai ống chân sau. Cắt bằng `rua_lua_non_ve.py lam` (gọi lại `rua_lua_manh.cat_to` / `lam` với bảng mảnh của dạng non) →
+  `inbox/rua_lua_non/manh_ve/` (+ `mat_tat`, hai `_nguoi` sinh bằng mã; bốn đùi khuất chép từ `rua_lua_1/manh`, kiểu `r`). Ghép so concept lệch màu
+  3,2 % điểm; khung 0 idle của rig so concept IoU hình bóng **0,969** (`rig_ve/so_concept.jpg`).
+- **Khoá thêm trong `dat.json`** (rua_lua_rig.py đọc, dạng 2 và các hướng cũ không có nên chạy y như trước; đã dựng lại dạng 2: JSON và atlas
+  trùng từng bit bản trước khi sửa):
+  - `_khop`: khung khớp riêng của concept non.
+  - `_dau_giam` = {"*": 0,45; "skill_02": 0,8} (`giam_dau`): đầu rất to nên cú quật đầu của clip họ (hit_01, die_01, skill_03 / 04: đầu xoay thực
+    tới ±70°) làm cả cái đầu lộn ngang, chúi dưới mặt đất. Giữ nguyên chuỗi cổ, bone7 bù lại (1 − k) × tổng độ lệch góc chuỗi gốc → đầu; idle_01,
+    run_01 không đụng; dáng chĩa sừng (skill_02) giữ 0,8 để cú hất sừng của chiêu cuối còn rõ.
+  - `_lich` = {chan_truoc_xa: 1,06}: appear, mai con non ngắn nên chân trước xa mọc ra ngoài mép mai, đứng lơ lửng trước khi đầu thò ra → cho mọc
+    sát lúc đầu ra (1,12).
+  - `duoi.deu` = {bone24: 0,5; bone25: 0,5}: đuôi lùn bám lưới 3 xương của đuôi gốc thì mép giữa hai gai gập thành vệt mực lúc quẫy (cast 0,6 s) →
+    mọi đỉnh cùng bộ trọng số.
+  - `CHINH["bung"]` = (0, −12, 0,86, 0,90): Codex vẽ tấm bụng rộng hơn mai; lúc appear chỉ còn mai + bụng thì thò ra hai bên như cái đĩa.
+- **Rig** `RL_NON=ve py -3 -I rua_lua_rig.py` → `inbox/rua_lua_non/rig_ve/`: 56 xương, 21 slot, 2850 đỉnh, atlas 1008 × 1128, **314 KB**, chiều cao game
+  **608** (bề ngang 705 / 1,16; bản E: 612), 8 clip cùng tên sự kiện với dạng 2 (`hut` một lần với chuỗi `lua_cao`), giờ trúng 0,86 / 0,90 / 1,63.
+  Mọi clip về khung 0 idle 0,00 px; appear khung đầu trống, die khung cuối trống. Bước xoay lớn nhất mỗi khung (30 khung/giây): attack 70° (chân sau
+  gần lúc lùi về, như dạng 2), hit 58° (khung đầu: cú giật của họ), các clip khác ≤ 51°.
+- **Tiến hóa** `RL_NON=ve RL_CO=0.78 py -3 -I rua_lua_non_th.py` (không `chep`) → `rig_ve/rua_lua_non_th.atomik` **533 KB** (136 xương, 49 slot, 9 clip;
+  dạng 2 trong rig gộp × 1,400; `evolve` 3 s, khung 0 trùng khung 0 idle dạng 1). Cỡ trong game giữ **0,78** (cao game và bề ngang gần bằng bản E).
+- **Số đo cho `HatRua.cs`** (`inbox/rua_lua_non/_do_hat.py`; chạy với `RL_NON=chibi_1` ra đúng bảng `SungPNon` đang có trong code → cách đo khớp).
+  CHƯA sửa C#. Hướng `ve`:
+  - `SungPNon` (cùng mốc `SungT`): (0,310; 0,633), (0,398; 0,544), (0,352; 0,528), (0,286; 0,531), (0,254; 0,557), (0,337; 0,576), (0,359; 0,526),
+    (0,384; 0,525).
+  - `LuaNon`: (0,24; 0,54) (gốc lửa (0,178; 0,424), đốt cuối (0,298; 0,648) lúc bắt đầu bị hút 0,32 s).
+  - Mõm lúc phun (cast 0,90 s) = `game.muzzle` (343; 159) = (0,565; 0,262) chiều cao: game đọc từ rig, không phải sửa.
+- **Đã soi** (tờ khung cả 8 clip + evolve, `rig_ve/_xem/`; khung lớn cast, walk, attack, skill): idle khớp concept; cast há hàm lộ lòng miệng cam;
+  appear chỉ còn mai trên tấm bụng rồi chân, đuôi, đầu, lửa; chiêu cuối ngọn lửa ngả về sừng rồi tắt, ngửa đầu, hất sừng; die lửa tắt, mắt tắt,
+  pha lê nguội, sập.
+- **Còn xấu / chưa làm:** (1) khung đầu của hit: đầu bật ngửa tức thì (clip họ, dạng 2 cũng vậy), đã bớt nhưng còn; (2) hit 0,09–0,18 s và cú
+  hất sừng 1,72 s mép dưới đầu chúi dưới vạch chân một chút; (3) die 0,8 s ống chân trước gần văng rời thân (động tác xoạc của họ, như dạng 2);
+  (4) sừng gần Codex vẽ trơn hình giọt nước, không có đế ba thuỳ như concept; (5) chưa chép vào game, chưa sửa `HatRua.cs`, chưa xem trong trận,
+  chưa chạy Chrome (trang `rig_ve/xem.html` có sẵn nhưng chưa soi bằng runtime thật: chỉ soi bằng bộ vẽ Python, lệch đỉnh ≤ 0,18 px so với `.atomik`).
+- Vào game (phiên chính): `RL_NON=ve RL_CO=0.78 py -3 -I rua_lua_non_th.py chep` → đè `Resources/rua_lua_non/` (file + chân dung); đổi hai bảng
+  `SungPNon`, `LuaNon` trong `HatRua.cs`; dữ liệu `heroes.json` không phải đổi (vẫn `rua_lua_non`, cỡ 0,78).
+
+## 12. Bản chibi vẽ riêng vào game (2026-11-14, phiên chính máy D)
+
+- `RL_NON=ve RL_CO=0.78 rua_lua_non_th.py chep` → đè `Resources/rua_lua_non/` (bản E ghép cũ còn ở `rig_chibi_1/`). `HatRua.cs`: thay `SungPNon`,
+  `LuaNon` bằng số đo mục 11. Dữ liệu, golden không đổi (cùng thư mục `rua_lua_non`, cỡ 0,78).
+- Unity: refresh + biên dịch sạch, "Gắn dạng .atomik" (`nguu_quyen: prefab giữ 2 dạng (rua_lua_non, rua_lua_1)`), tour "riêng Hỏa Quy Con (dạng 1)"
+  chạy không lỗi: húc, bắn cầu lửa từ mõm, chiêu cuối cầu tụ đúng trên mầm sừng rồi phóng, nổ ở địch (tờ `inbox/rua_lua_non/_game_dang1_ve.jpg`).
+- CHƯA: xem clip `evolve` trong hộp chi tiết tướng và trong trận boss; các chỗ còn xấu ghi ở mục 11; Android.

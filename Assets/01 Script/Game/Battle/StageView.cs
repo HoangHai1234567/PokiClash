@@ -59,6 +59,7 @@ namespace PokiClash
                     {
                         Shake = v => trauma = Mathf.Min(1, trauma + v),
                         FlashScreen = c => Flash(c),
+                        NegScreen = d => Neg(d),
                     };
                 return hat != null && hat.Ready ? hat : null;
             }
@@ -69,9 +70,11 @@ namespace PokiClash
         static readonly Dictionary<string, (string mana, string ult)> FireFx = new Dictionary<string, (string, string)>
         {
             { "hoa_nhan", ("tia_mat", "quyen_xoay") }, { "nham_than", ("phun", "n_cau_lan") }, { "kim_su", ("ten", "no_lon") },
-            { "hong_lien", ("kim", "loc_xoay") }, { "giap_long", ("dat_trao", "no_lon") }, // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): chiêu mana bổ đao cắm đất, dung nham trào dưới chân địch; chiêu cuối lao tới liên hoàn chém, nổ lớn ở nhát bổ kết (trước: "phun", "phun_nham")
- { "huyen_viem", ("kim", "loc_xoay") },
-            { "hoa_tinh", ("cau", "no_lon") }, { "lan_hoa", ("phun_xoan", "thien_thach") },
+            { "hong_lien", ("n_kim_phap", "n_cau_phap") }, // suất này nay là pháp sư lửa (Viêm Sư, 2026-11-14; HatPhap.cs, đi đường "n_"): kim lửa quanh đầu trượng rồi phóng; chiêu cuối cầu lửa của rig phình to, mốc ban_cau cầu hạt lao tới đối thủ (trước: "kim", "loc_xoay")
+            { "giap_long", ("dat_trao", "no_lon") }, // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): chiêu mana bổ đao cắm đất, dung nham trào dưới chân địch; chiêu cuối lao tới liên hoàn chém, nổ lớn ở nhát bổ kết (trước: "phun", "phun_nham")
+            { "huyen_viem", ("n_dat_dam", "no_lon") }, // suất này nay là Viêm Dũng, chiến binh đất nung lõi dung nham (2026-11-14; HatDat.cs, đi đường "n_"): lao tới đâm rồi chém liên hoàn, dung nham trào ở nhát bổ kết; chiêu cuối năm kiếm của rig bay tới, nổ lớn (trước: "kim", "loc_xoay")
+            { "hoa_tinh", ("n_ho_gam", "n_ho_anh") }, // suất này nay là Bạch Viêm Hổ (2026-11-14; HatHo.cs, đi đường "n_"): gầm tạo sóng xung kích + sóng nhiệt; chiêu cuối tan biến, màn âm bản, lướt chém để lại sẹo lửa rồi nổ (trước: "cau", "no_lon")
+            { "lan_hoa", ("n_nui_cau", "n_nui_ten") }, // suất này nay là Hỏa Sơn Long, khủng long núi lửa (2026-11-15; HatNuiLua.cs, đi đường "n_"): há mồm tụ cầu lửa rồi bắn; chiêu cuối bẻ các ống núi lửa, bắn đạn tầm nhiệt
             { "nguu_quyen", ("n_cau_rua", "n_cau_sung") }, // suất này nay là rùa golem lửa (Hỏa Quy, 2026-11-13; HatRua.cs, đi đường "n_" để cầu tụ TRƯỚC khung nhả): tụ cầu lửa ở mõm rồi bắn; chiêu cuối lửa trên lưng bị hút vào cầu lửa trên mũi sừng, hất sừng phóng cầu
         };
 
@@ -79,6 +82,9 @@ namespace PokiClash
         static readonly Dictionary<string, string[]> HoaUltDang = new Dictionary<string, string[]>
         {
             { "nguu_quyen", new[] { "n_cau_sung1", "n_cau_sung" } },
+            { "hong_lien", new[] { "n_cau_phap1", "n_cau_phap" } }, // Viêm Đồng (dạng 1): trượng ngắn, cầu lửa nhỏ và ở chỗ khác dạng 2
+            { "hoa_tinh", new[] { "n_ho_anh1", "n_ho_anh" } }, // Viêm Hổ Nhi (dạng 1): 6 lượt lướt thay vì 12
+            { "lan_hoa", new[] { "n_nui_ten1", "n_nui_ten2", "n_nui_ten" } }, // Hỏa Sơn Nhi (dạng 1): 8 phát; Hỏa Sơn Thú (dạng 2): 12 phát; Hỏa Sơn Long: 16 phát
         };
 
         // bộ Thủy (2026-11-10, HatNuoc.cs): chiêu mana theo dòng tướng, chiêu cuối theo từng DẠNG, chọn cho khớp động tác clip CHIÊU
@@ -146,6 +152,8 @@ namespace PokiClash
         static readonly Dictionary<string, string> HoaAtk = new Dictionary<string, string>
         {
             { "nham_than", "n_nham_va" }, // golem lõi lửa (HatNham.cs): lao tới vả từ trên xuống đầu: chớp toé, tia lửa, dăm đá tro, bụi bị ép ra
+            { "hoa_tinh", "n_ho_va" }, // Bạch Viêm Hổ (HatHo.cs): lao tới vả, ba vệt vuốt lửa
+            { "lan_hoa", "n_nui_huc" }, // Hỏa Sơn Long (HatNuiLua.cs): lao tới húc, dăm đá bazan và giọt dung nham văng
         };
 
         public static string FireAtk(HeroDef h) =>
@@ -297,6 +305,8 @@ namespace PokiClash
         }
         public RectTransform PlateLayer => plateLayer;
         float flashT = -1, flashLife = 0.35f;
+        float negT = -1, negLife;
+        Material negMat;
         Color flashColor;
         float shake;
         // cảm giác trúng (skill pokiclash-hero-fx): clip .atomik khai impact* thì lúc trúng sân khựng, màn rung kiểu trauma, con bị
@@ -1065,8 +1075,23 @@ namespace PokiClash
             }
         }
 
+        // màn chơi ÂM BẢN trong dur giây (chiêu cuối Bạch Viêm Hổ): lớp chớp phủ sân tạm đổi sang vật liệu đảo màu (Resources/UIInvert, shader
+        // PokiClash/UIInvert); trong lúc đó các cú chớp màu bị bỏ qua
+        public void Neg(float dur)
+        {
+            if (!negMat) negMat = Resources.Load<Material>("UIInvert");
+            if (!negMat) return;
+            negLife = Mathf.Max(0.1f, dur);
+            negT = 0;
+            flashT = -1;
+            flashImg.material = negMat;
+            flashImg.color = new Color(1, 1, 1, 0);
+            flashImg.gameObject.SetActive(true);
+        }
+
         public void Flash(Color color)
         {
+            if (negT >= 0) return;
             flashColor = color;
             flashT = 0;
             flashImg.gameObject.SetActive(true);
@@ -1242,7 +1267,18 @@ namespace PokiClash
                 f.update(f, f.t / f.life);
             }
 
-            if (flashT >= 0)
+            if (negT >= 0)
+            {
+                negT += dt;
+                if (negT >= negLife)
+                {
+                    negT = -1;
+                    flashImg.material = null;
+                    if (flashT < 0) flashImg.gameObject.SetActive(false);
+                }
+                else flashImg.color = new Color(1, 1, 1, Mathf.Min(1, negT / 0.03f) * Mathf.Min(1, (negLife - negT) / 0.04f)); // vào, ra gọn: pha nửa chừng là một màn xám
+            }
+            else if (flashT >= 0)
             {
                 flashT += dt;
                 float k = flashT / flashLife;

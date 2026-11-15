@@ -101,6 +101,25 @@ def _cd():
 
 CD = _cd()
 MOT = np.array([0, 0, 0, 1, 1.0])
+CHUOI_DAU = ["bone2", "bone", "bone3", "bone4", "bone5", "bone6", "bone7"]      # gốc → đầu
+_DA_GIAM = []
+LICH_RIENG = {}              # dạng non vẽ riêng: giờ mọc riêng của vài nhóm ở appear (dat.json `_lich`)
+
+
+def giam_dau(k):
+    """dạng non đầu RẤT TO (mảnh cứng trên bone7): cú quật đầu của clip họ (hit_01, die_01, skill_0x: đầu xoay tới ±70° so với dáng đứng)
+    làm cả cái đầu lộn ngang, chúi xuống dưới mặt đất. Giữ nguyên chuỗi cổ (chỗ đặt đầu), chỉ bớt độ XOAY THỰC của đầu so với khung 0
+    idle còn k lần: bone7 bù lại (1 − k) × tổng độ lệch góc của cả chuỗi gốc → đầu. idle_01, run_01 giữ nguyên ("giống họ")."""
+    if _DA_GIAM:
+        return
+    _DA_GIAM.append(k)
+    ref = {b: CD["idle_01"][1][b][0, 0] for b in CHUOI_DAU}
+    for clip, (_, res) in CD.items():
+        if clip in ("idle_01", "run_01"):
+            continue
+        kc = k.get(clip, k.get("*", 1.0)) if isinstance(k, dict) else k      # k riêng từng clip nguồn: {"*": 0.45, "skill_02": 0.8}
+        tong = sum(res[b][:, 0] - ref[b] for b in CHUOI_DAU)
+        res["bone7"][:, 0] -= (1 - kc) * tong
 
 
 def mau(clip, t, lap=False):
@@ -420,8 +439,13 @@ def dung():
     thu_tu = dat_.pop("_thu_tu")
     mieng_px = dat_.pop("_mieng", MIENG)                  # dạng non: đầu phóng to nên mõm, mũi sừng dời chỗ (rua_lua_non.py ghi vào dat.json)
     sung_px = dat_.pop("_sung_mui", SUNG_MUI)
+    khop = dat_.pop("_khop", None)                    # dạng non VẼ RIÊNG (rua_lua_non_ve.py): concept khác nên khung khớp riêng
+    if dat_.get("_dau_giam"):
+        giam_dau(dat_["_dau_giam"])
+    dat_.pop("_dau_giam", None)
+    LICH_RIENG.update(dat_.pop("_lich", {}))
     khop_khung(dat_)                                  # chỉ in độ lệch để tham khảo
-    s, ox, oy = KHOP
+    s, ox, oy = khop or KHOP
     tg = lambda px, py: np.array([(px - ox) / s * KG, (oy - py) / s * KG])      # noqa: E731
     k = PXU / s
 
@@ -488,6 +512,10 @@ def dung():
             sk.slot(t, "move", t, an=an)
             L = luoi_vung(im, buoc_vien=10.0, buoc_trong=14.0, ten=t, in_tk=False)
             V = np.array([goc_ + ex * p[0] + ey * p[1] for p in L.pts])
+            if d.get("deu"):                              # dạng non vẽ riêng: mảnh nhỏ khác dáng part gốc (đuôi lùn) bám lưới của họ thì gập
+                gan_luoi(sk, t, t, L, V, [dict(d["deu"])] * len(V), Wi)      # → mọi đỉnh cùng một bộ trọng số (biến đổi đều cả mảnh, không gập)
+                print(f"  {t}: lưới {L.n} đỉnh, trọng số đều {d['deu']}")
+                continue
             ng, xa = gan_theo_goc(sk, t, t, L, V, att, Wi)
             print(f"  {t}: lưới {L.n} đỉnh theo {slot_goc} ({len(nx)} xương); {ng} đỉnh ngoài lưới gốc, xa nhất {xa:.0f}")
     # chỗ tụ cầu lửa: trước mõm (con của mặt), mũi sừng gần (con của sừng)
@@ -714,6 +742,7 @@ def lam_clip(sk, info):
     P_DUR = 2.70
     HA_THAN = 78.0 * KG / 0.8
     LICH = {"chan_sau_xa": 0.62, "chan_sau_gan": 0.56, "chan_truoc_xa": 0.80, "chan_truoc_gan": 0.74, "duoi": 0.98, "dau": 1.12}
+    LICH.update(LICH_RIENG)
     T_LUA, T_GAM = 1.42, 1.72
 
     def appear(t, P):

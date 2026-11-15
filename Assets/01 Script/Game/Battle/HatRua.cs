@@ -35,14 +35,15 @@ namespace PokiClash
             new Vector2(0.32f, 0.35f), new Vector2(0.31f, 0.24f), new Vector2(0.38f, 0.19f),
         };
 
-        // DẠNG 1 (rùa non, hướng "chibi_1" của rua_lua_non.py): sừng là mầm ngắn nên mũi sừng thấp và lùi hơn
+        // DẠNG 1 (rùa non chibi vẽ riêng, hướng "ve" của rua_lua_non_ve.py, 2026-11-14; trước là bản ghép "chibi_1"): sừng là mầm ngắn nên mũi
+        // sừng thấp và lùi hơn. Đo bằng ArtGen/Spine/inbox/rua_lua_non/_do_hat.py
         static readonly Vector2[] SungPNon =
         {
-            new Vector2(0.309f, 0.581f), new Vector2(0.392f, 0.493f), new Vector2(0.352f, 0.477f), new Vector2(0.296f, 0.481f),
-            new Vector2(0.267f, 0.508f), new Vector2(0.350f, 0.521f), new Vector2(0.369f, 0.462f), new Vector2(0.393f, 0.461f),
+            new Vector2(0.310f, 0.633f), new Vector2(0.398f, 0.544f), new Vector2(0.352f, 0.528f), new Vector2(0.286f, 0.531f),
+            new Vector2(0.254f, 0.557f), new Vector2(0.337f, 0.576f), new Vector2(0.359f, 0.526f), new Vector2(0.384f, 0.525f),
         };
-        // hướng "chibi_1" (người dùng chọn E, 2026-11-13): chỉ MỘT ngọn lửa giữa lưng, co chậm suốt quãng tụ (rig: HC_DAI = RuaDay − RuaHut0 − 0,08)
-        static readonly Vector2[] LuaNon = { new Vector2(0.22f, 0.44f) };
+        // chỉ MỘT ngọn lửa giữa lưng, co chậm suốt quãng tụ (rig: HC_DAI = RuaDay − RuaHut0 − 0,08)
+        static readonly Vector2[] LuaNon = { new Vector2(0.24f, 0.54f) };
 
         static Vector2 SungMui(Vector2[] P, float tc)
         {

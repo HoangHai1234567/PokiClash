@@ -180,3 +180,130 @@ Việc tiếp: 18:32 gen C, D, `toc` → `cat C D`, `cat_concept` → dựng l�
 còn `attack`). Code hiệu ứng lúc vào game: nghe `ban_cau`, sinh cầu lửa ở xương `mieng` (tâm cầu, con của `cau_goc`; bán kính lúc đó ≈ 82 × 2,4 đơn
 vị rig) và lái tới đối thủ, nổ; `hut` (1,05 s) là lúc hút lửa về cầu; `trung` (2,45 s) là giờ trúng danh nghĩa cho game; `nhen` (2,87 s) cầu mới nhen
 lại trong đầu trượng (rig tự làm).
+
+## 7. Kiểm ở máy ổ D (2026-11-14, người dùng: "tướng thứ 6 đảo hỏa làm rồi mà, pháp sư lửa, kiểm tra kĩ lại")
+
+- Nhánh `main` ở máy D trùng remote (`b227b581`, commit 18:23 ngày 13). Trong bản đó pháp sư lửa **đã làm xong phần hình + rig** (concept G chốt,
+  mảnh, `phap_lua_rig.py`, animation người dùng nhận "khá ổn") nhưng **chưa vào game**: `heroes.json` suất 6 vẫn là `hong_lien` (Đốm Hồng → Phi
+  Viêm → Hồng Liên), `Resources/hong_lien_1..3` là `.atomik` cũ ngày 11-11, không có `quai/doi_phap_lua.py`, không có VFX cầu lửa (`ban_cau`).
+  Nếu máy kia đã làm tiếp sau 18:23 thì phần đó chưa được commit / push.
+- Ba tờ hẹn gen 18:32 (`luot_5_da_C`, `luot_5_da_D`, `luot_6_manh_toc`) không có trong `tai_ve/`: ngón, vuốt, trượng vẫn là bản tô tạm bằng mã
+  (`manh/_tam.json`), tóc là bản tờ B.
+- Quét lại con gốc về máy D (`D:\RefAnimation\SwordxStaff\scan\monster_3481`: `info`, `att_goc`, `att_idle0`, `sample` 11 clip 30 khung/giây, qua
+  `quai/khoa.py chrome`, chạy êm) rồi `SXS=D:/RefAnimation/SwordxStaff py -3 -I phap_lua_rig.py`: dựng lại được, trùng số mục 6 (135 xương, 76
+  slot, 2584 đỉnh, 449 KB, mọi clip về idle 0 px) → `phap_lua_1/rig/` (thư mục `rig/` không theo git).
+- Việc còn lại để vào game: gen C, D, `toc` (prompt đang ghi đường dẫn máy C, phải dựng lại bằng `phap_lua_da.py`) → `cat` → dựng lại rig; script
+  đổi dữ liệu suất 6 (giữ id `hong_lien` hay đổi id, tên tướng, tên thẻ, số dạng: chờ người dùng); VFX cầu lửa chiêu cuối theo mục 6b.
+
+## 8. Bản rig thật đủ mảnh và vào game (2026-11-14, máy ổ D; người dùng: "làm đi, suất 6 cho vào game rồi làm thêm dạng 1")
+
+- **Ba tờ còn thiếu** gen ở máy D (đổi đường dẫn trong `luot_5_da_C.txt`, `luot_5_da_D.txt`, `luot_6_manh_toc.txt` sang `D:\PokiClash`): `D_C.png`
+  (14 đốt ngón / vuốt, IoU 0,90–0,96), `D_D.png` (khung trượng, IoU 0,93), `M_toc.png` → `phap_lua_da.py cat C`, `cat D`, `cat_concept`
+  (`manh/_tam.json` nay rỗng). Dựng lại: 135 xương, 76 slot, **2883 đỉnh** (tóc lưới của mình 382 đỉnh bám `maofa_01`), `.atomik` **472 KB**, mọi
+  clip về idle 0 px. Đã soi `rig/khung_idle.png`, `khung_skill.png`.
+- **Dữ liệu** (`quai/doi_phap_lua.py`, chạy lại không đổi thêm): giữ id `hong_lien`, id thẻ, chỉ số, hiệu ứng thẻ; tên **Viêm Sư**, danh hiệu "Pháp
+  sư gọi cầu lửa", dòng "Dòng Viêm Sư"; forms 3 → 2, tạm cả hai trỏ `phap_lua_1` (0,92 / 1,1) cho tới khi có dạng 1 (`dang_1` đổi dạng 1 sang
+  `phap_lua_non` "Viêm Đồng"); thẻ: Cánh Sen Lửa → **Hỏa Châm** (flame), Hồng Liên Nghiệp Hỏa → **Đại Hỏa Cầu** (sun), Lông Vũ Lửa → **Thân Khói**
+  (ghost), thẻ boss Niết Bàn Hỏa → **Nhen Lại Lửa Tàn** (torch). Tên do Claude đặt. `chep` → `Resources/phap_lua_1/` (thư mục mới;
+  `hong_lien_1..3` cũ giữ nguyên). Số dạng đổi nên golden roster phải tính lại trong Unity.
+- **VFX** `Assets/01 Script/Game/Battle/HatPhap.cs` (partial `HatLua`, đi đường "n_"): `StageView.FireFx["hong_lien"] = ("n_kim_phap", "n_cau_phap")`,
+  `HatLua.Themes["hong_lien"]` = bảng "lua" (trước: "sen", cánh sen), hai `case` mới trong `HatNuoc.PlayNuoc`, `HatLua.KimLua` (tách từ `Needles`,
+  `Needles` giữ nguyên hành vi), `HoaFxTour` menu "Đảo Hỏa: riêng Viêm Sư …".
+  - `n_kim_phap`: 7 kim lửa hiện dần thành vòng cung quanh đầu trượng đang giơ (`goi_kim` 0,16 s), `ban_kim` (1,05 s) thì phóng cách nhau 0,035 s,
+    mũi đầu chạm đúng khung trúng (1,19 s).
+  - `n_cau_phap`: từ `hut` (1,05 s) lưỡi lửa + than hồng bị hút vào quả cầu của rig đang phình; đầy (2,05 s) nháy vòng; `ban_cau` (2,25 s) cầu hạt
+    cùng chỗ cùng cỡ lao tới đối thủ, chạm đúng `trung` (2,45 s), `CauNo` 1,6 + hai vụ nổ phụ.
+  - Số đo trên rig (phần của chiều cao game 577; x về phía trước, y lên): đầu trượng lúc giơ ở cast (−0,39; 1,65); tâm cầu ở skill theo giây
+    0,66 (0,097; 1,079) → 1,05 (0,111; 1,732) → 2,05 (0,110; 1,722) → 2,20 (0,009; 1,792) → 2,25 (−0,009; 1,798), tỉ lệ cầu 1 → 1 → 2,28 → 2,5 →
+    2,41, bán kính gốc 0,142. Đo lại: `J, img, _ = atomik_dang.load(rig/phap_lua_1.atomik); P = atomik_dang.Pose(J).at(<chỉ số clip>, t);`
+    `P.bone_pt(<chỉ số xương "mieng">) / J["game"]["height"]`, tỉ lệ = `hypot(P.w[i][0], P.w[i][2])`.
+  - Kiểm biên dịch ngoài Unity (csproj tạm ở scratchpad, `UseSharedCompilation=false`): 0 lỗi.
+- **Unity** (người dùng cho dừng Play): refresh + biên dịch sạch → "Nhập dữ liệu" (88 tướng) → "Gắn dạng .atomik" (`hong_lien: prefab giữ 2 dạng
+  (phap_lua_1, phap_lua_1)`) → "Đảo 70 ải: sinh lại" (`stages.json` không đổi) → ba menu golden + `golden_ghep.py`: chỉ `roster.json` 2 ô (n 3 →
+  2, dạng ở sao cuối 2 → 1) và `sim.json` 1 ải (hoa 100: boss tiến hóa một lần). EditMode **106 / 107** (chỉ `PrefabOnlyTests` cũ ở `UI/Kit`).
+- **Trong trận** (tour "riêng Viêm Sư", sao cuối = dạng 2; ảnh `Temp/PokiShots/hoa_fx/hong_lien_*`, tờ `phap_lua_1/trong_game/tour_mana_ult.jpg`):
+  kim lửa hiện ở đầu trượng rồi cả loạt bay tới địch; cầu lửa của rig bay lên, phình, mốc `ban_cau` cầu hạt lao tới, nổ lớn + chớp màn; bàn tay
+  thứ hai hiện ra cào địch ở đòn thường. Console không lỗi.
+- **Cỡ**: lượt tour đầu (chiều cao game 577 = đỉnh mũ) thân tràn mép phải màn hình ở sao cuối → `phap_lua_rig.py` khai chiều cao cho game =
+  max(đỉnh mũ, bề ngang idle / 1,16) = **662**; các số đo của `HatPhap.cs` đã nhân 577 / 662 (đầu trượng (−0,34; 1,44), bán kính gốc 0,124,
+  tâm cầu (0,085; 0,940) → (0,097; 1,510) → (0,096; 1,501) → (0,008; 1,562) → (−0,008; 1,567)). Tour lần hai: con nằm gọn, chỉ đầu trượng lúc
+  vụt xuống còn chạm mép phải.
+- CHƯA: lưỡi lửa bị hút vào cầu còn thưa (khó thấy trên nền trời); `appear` / `die` của rig chưa được trận phát; hộp chi tiết tướng chưa chụp;
+  chưa thử Android; dạng 1.
+
+## 9. Dạng 1 (2026-11-14): gói concept
+
+`build_phap_lua_non.py` (hình bố cục dựng thẳng từ `.atomik` dạng 2 bằng `mo_xe/atomik_dang.py`: đầu `bone6` 1,45; tóc `bone61` 1,2; trượng
+`bone56` 0,72 + `cau_goc` co 0,72 dời (36, −62); đuôi áo `bone25` 0,85; tay tự do `bone11` 0,82; tay trượng `bone42` 0,9 →
+`inbox/phap_lua_non/mau/bo_cuc.png`, `ti_le.json`) → `gui_gpt/phap_lua_non/luot_1_concept_theo_bo_cuc.txt`, `..._tron_hon.txt`. Thiết kế (đề xuất
+của Claude): pháp sư lửa con, mũ trùm to gần nửa người, mắt lửa to, tóc ít, áo choàng vai ngắn, áo đỏ bé + váy lửa ngắn, trượng ngắn có cầu lửa
+nhỏ, hai bàn tay vuốt nhỏ lơ lửng.
+
+Concept dạng 1 về 2026-11-14: `inbox/phap_lua_non/tai_ve/L1_theo_bo_cuc.png` (A), `L1_tron_hon.png` (B). Claude chọn **A** (có quả cầu lửa tròn
+nằm trong móc trượng, trượng đủ dài để diễn chiêu cuối; B trượng ngắn như đũa, chỉ có ngọn lửa không có cầu). Người dùng chưa xem hai ảnh này
+(đã dặn "làm đi ... làm thêm dạng 1"); muốn đổi sang B thì làm lại mảnh.
+
+## 10. Dạng 1 "Viêm Đồng" (`phap_lua_non`, 2026-11-14, máy ổ D): mảnh, rig, tiến hóa
+
+Concept chốt (phiên chính chọn hướng A: cầu lửa tròn nằm trong móc trượng): `inbox/phap_lua_non/tai_ve/L1_theo_bo_cuc.png` = `L1_duyet.png`.
+
+**Cách làm** (`phap_lua_non.py` + chế độ `PL_NON=1` của `phap_lua_rig.py`; dạng 2 dựng lại sau mọi lần sửa: `.atomik`, JSON, atlas trùng từng byte):
+- **Khung concept → rig bằng mốc tay**: X = (x − 812) · 0,8 + 51; Y = (640 − y) · 0,8 + 266 (cổ ↔ gốc xương đầu `bone6`; 0,8 đơn vị / px, gần
+  tỉ lệ concept dạng 2). Cả thân **hạ 170** (dáng gốc của `bone2`) cho váy lửa sát đất: con non thấp, đỉnh mũ 642.
+- **4 tờ "đúng chỗ, đúng cỡ"** từ concept non (`gui_gpt/phap_lua_non/luot_2_manh_*.txt`, 75–120 s / tờ, đạt cả 4 ngay lượt đầu): `M_dau_lua` (mũ
+  trùm + váy lửa), `M_than` (cổ áo choàng + áo đỏ + dây vàng, MỘT mảnh), `M_toc_duoi` (hai búi tóc + đuôi áo choàng), `M_truong` (trượng
+  ngắn, không cầu). `phap_lua_non.py cat` cắt theo cụm liền → `inbox/phap_lua_non/manh/` + `dat_moi.json`.
+- **Mảnh trong rig** (khoá riêng của dạng non trong `dat_moi.json`, đều bắt đầu bằng `_`):
+  - `dau`: ảnh cứng trên `bone6` (như dạng 2). `lua_ao`, `ao`: lưới của mình, trọng số theo 14 đốt xương đuôi áo (`gan_xuong`).
+  - `vai_duoi` (đuôi áo choàng): `gan_goc` trên lưới `pifeng_02`, vẽ SAU thân (`_lop`: thứ tự `lua_ao`, `vai_duoi`, `ao` thế chỗ `pifeng_03`).
+  - `toc_tren`, `toc_phai`: **mảnh cứng trên hai xương MỚI** `toc_tren_x`, `toc_phai_x` (con của `bone6`, gốc xoay ở chỗ búi chui vào sau mũ),
+    đung đưa ±3,5° / ±4,5° trong `aura`. Bản đầu bám lưới tóc `maofa_01` của họ: búi nằm xa ngoài lưới (tới 222 đơn vị) nên lúc chết / vụt
+    trượng xương tóc quật mạnh, búi văng rời khỏi mũ → bỏ.
+  - `_truong`: trượng là ảnh cứng của mình (lưới 4 đỉnh) đặt đúng chỗ concept trên `bone56`; bản thả rời trên `bone102` lấy cùng chỗ đó đưa qua
+    T102 = A(bone102) · A(bone56)⁻¹ (A = px ảnh trượng của họ → thế giới dáng gốc của mình) nên quan hệ trượng ↔ xương y như của họ. Tâm cầu
+    (440; 466) px concept, bán kính 76 px = **60,8** đơn vị (dạng 2: 81,8); cầu, tim, bốn lưỡi lửa, khói dùng lại ảnh dạng 2, co theo bán kính.
+  - Hai bàn tay + bàn tay thứ hai trên `far`: dùng lại mảnh dạng 2, cỡ 1,0 (đo trên concept: gần bằng). `_xuong` dời gốc tay trượng `bone42`
+    (−29; +114) và gốc tay vuốt `bone7` (+16; −20) cho bàn tay rơi đúng chỗ concept.
+  - `_an`: bỏ `shenti` (dây bện), `zhuangshi_01/02` (gai sao), `pifeng_01`, `pifeng_02`.
+- **Sửa riêng cho dáng thấp, đầu to** (cùng clip, cùng sự kiện với dạng 2):
+  - `bone102` (trượng thả rời) lấy dáng gốc dời như bàn tay trượng (−29; −56) để lúc buông / chụp trượng không nhảy; `_tr_lech`: chiêu cuối
+    trượng lơ lửng dời thêm (−460; −20) vào ra êm 0,3 s (không thì đứng chắn giữa mặt: mũ to, thân thấp), lúc chết dời (29; +273).
+  - `_die_nang` 275: dáng nằm của họ làm mũ trùm chìm ~300 dưới đất → nâng `bone2` dần 0,35–0,75 s; đo lại: nằm ở y ≈ −22.
+  - `_top` (40; 930): chỗ cầu lửa bay lên ở chiêu cuối (dạng 2: (64; 1000)).
+- **Tiến hóa** (`phap_lua_non.py th`): gộp dạng 2 bản nhẹ (atlas × 0,40; hình của 65 / 98 slot không hiện ở idle thay bằng tam giác rỗng; khói
+  dạng 2 ẩn vì chỉ chạy trong aura của nó; khoá idle dạng 1 sau 1,5 s bỏ) + clip `evolve` 3 s; dạng 2 trong rig gộp × 1,334 (cỡ 0,8 / 1,1).
+  Chân dung dựng riêng (`chan_dung`: khung 0 idle, có cầu lửa + tóc; bản của `xuat_het` bỏ mọi slot mà aura đụng tới nên mất cầu lửa, tóc).
+
+**Kết quả**: `inbox/phap_lua_non/rig/phap_lua_non.atomik` **502 KB** (137 + 135 xương, 73 + 76 slot, 10 clip kể `evolve`) + `rig/chan_dung.png`;
+bản chưa gộp `rig_d1/phap_lua_non.atomik` 349 KB (137 xương, 73 slot, 1666 đỉnh, atlas 1056 × 1128). Chiều cao khai **642** (đỉnh mũ 642; bề
+ngang idle 727 / 1,16 = 627). hit, attack, cast, skill, appear về khung 0 idle lệch 0,00 px; appear khung đầu trống, die khung cuối trống; đỉnh
+tính từ `.atomik` lệch bộ vẽ Python ≤ 0,62 px. Khung 0 idle so concept: IoU hình bóng **0,913** (`rig_d1/so_concept.png`). Đã soi tờ khung cả 8
+clip + `evolve` (bộ vẽ Python), khung cận idle / cast. Chưa soi runtime Chrome, chưa vào game.
+
+**Số đo cho `HatPhap.cs` dạng non** (theo chiều cao khai 642; x về phía trước, y lên; `phap_lua_non.py do`; KHÔNG sửa C#):
+- đầu trượng lúc giơ ở cast: 0,16 s (−0,393; 1,256) → 0,30 (−0,373; 1,277) → 0,50 (−0,378; 1,290) → 0,80 (−0,353; 1,311); lấy (−0,37; 1,28);
+- tâm cầu ở skill: 0,66 s (−0,629; 0,755) → 1,05 (0,060; 1,447) → 2,05 (0,061; 1,438) → 2,20 (−0,030; 1,501) → 2,25 (−0,046; 1,507); tỉ lệ cầu 1 →
+  1 → 2,28 → 2,5 → 2,41 (như dạng 2); bán kính gốc 0,095. Mốc 0,66 s lệch hẳn về sau vì trượng thả rời đã dời sang trái mũ.
+- hitTimes 0,48 / 1,19 / 2,45, sự kiện y như dạng 2.
+
+**Vào game** (phiên chính): `py -3 -I ArtGen/Spine/quai/doi_phap_lua.py chep_non ArtGen/Spine/inbox/phap_lua_non/rig` rồi `dang_1`; cỡ đề xuất
+0,8 (`CO_NON`; `phap_lua_non.SIZE_A` phải trùng số này, đổi thì chạy lại `th`). `HatPhap.cs` cần bảng theo dạng như `HatRua` (`StageView.HoaUltDang`).
+
+**Còn xấu / chưa làm**: cổ tay khói của tay vuốt là mảnh dạng 2 (dải khói dài rủ xuống tới y 850 px trên khung concept, concept vẽ búi tròn
+ngắn); lưỡi lửa trên cầu là bộ 4 lưỡi của dạng 2 (cao hơn lửa trên concept); hit: mũ to nghiêng mạnh (clip gốc); chân dung DẠNG 2 trong game
+thiếu cầu lửa và lửa dưới áo (cùng lý do aura; chưa sửa, ngoài việc này); `manh/wuqi.png` là file tạm lúc chưa có tờ trượng (không dùng).
+
+## 11. Dạng 1 vào game (2026-11-14, phiên chính máy D)
+
+- `quai/doi_phap_lua.py chep_non inbox/phap_lua_non/rig` → `Resources/phap_lua_non/` (502 KB, đã gộp `evolve`); `dang_1` → `heroes.json` khối
+  `hong_lien`: dạng 1 **Viêm Đồng** (`phap_lua_non`, cỡ 0,8), dạng 2 Viêm Sư (`phap_lua_1`, 1,1). Số dạng không đổi → golden không đổi thêm.
+- `HatPhap.cs`: `NCauPhap(..., non)` với bảng `PhapPNon`, `PhapR0Non` (số đo mục 10), nổ nhẹ hơn; mã `n_cau_phap1`;
+  `StageView.HoaUltDang["hong_lien"] = { "n_cau_phap1", "n_cau_phap" }`. Chiêu mana dùng chung `n_kim_phap` (đầu trượng dạng non thấp hơn dạng 2
+  chừng 0,16 chiều cao: chưa tách bảng theo dạng vì `FireMana` chưa nhận dạng).
+- **Chân dung dạng 2** thiếu cầu lửa và lửa dưới áo (bộ xuất bỏ slot chạy trong `aura`): `phap_lua_rig.py` vẽ lại ở khung 0 idle (chỉ bỏ khói),
+  `.atomik` dạng 2 không đổi; `doi_phap_lua.py chep` chép chân dung mới.
+- Unity: refresh + biên dịch sạch, "Nhập dữ liệu", "Gắn dạng .atomik" (`hong_lien: prefab giữ 2 dạng (phap_lua_non, phap_lua_1)`), EditMode 106 / 107
+  (chỉ `PrefabOnlyTests` cũ). `HoaFxTour`: menu "Đảo Hỏa: riêng Viêm Đồng (dạng 1) …".
+- **Trong trận** (tour "riêng Viêm Đồng", tờ `inbox/phap_lua_non/trong_game/tour_dang1.jpg`): bàn tay thứ hai hiện ra cào địch, kim lửa bay từ đầu trượng,
+  cầu lửa nhỏ bay lên phình rồi lao vào địch, nổ + chớp màn; console không lỗi. Kim lửa hiện hơi cao hơn đầu trượng của con non (xem trên).
+- CHƯA: xem `evolve` trong hộp chi tiết tướng; các chỗ còn xấu ở mục 10; Android.

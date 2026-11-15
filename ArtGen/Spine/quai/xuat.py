@@ -140,12 +140,13 @@ def ghi_spine(sk, anims, ra_dir, ten, bang_mau=True, khung_bao=None):
 
 # ---------------------------------------------------------------- thông tin trận
 def thong_tin_tran(sk, ve, clips, frames, dang=1, so_dang=2, dung_yen=("cast", "skill"), lao=(), far=(), mieng="mieng", beam=1.0,
-                   beamStyle="", impact=None, plain=None, cao=None, fps_tran=25, fps=30, bo_cao=(), far_aim=()):
+                   beamStyle="", impact=None, plain=None, cao=None, fps_tran=25, fps=30, bo_cao=(), far_aim=(), span=None):
     """<mã>_game.json (AtomikGame của Unity, AolaActor đọc): fps, height (đỉnh dáng đứng khung 0 idle, pixel rig), hitClips/hitTimes
     (giờ trúng/nhả của từng clip: Clip.trung hoặc sự kiện trung/can/phun/gam), stay (clip đứng yên: sân không nhún tới), lunge
     (clip ngoài attack cũng lao), far (clip có xương far/fly*: thường rỗng vì VFX ở lớp riêng), muzzle (vị trí xương `mieng` ở
     khung nhả của cast, y lên, gốc ở chân), beam, beamStyle, move, shadow, impact* (khựng, rung, bật lùi, chớp màn; mặc định mạnh
-    dần theo dạng), plain (slot vẽ không viền sticker)."""
+    dần theo dạng), plain (slot vẽ không viền sticker), span (khung vẽ của tướng trên sân tính bằng số lần chiều cao khai; không khai thì
+    game dùng 3,4 = ±1,7 chiều cao quanh chân: rig có đòn vươn xa hơn thế, như Viêm Đao, thì khai để hình không bị cắt dọc)."""
     hc = [n for n in clips if n not in ("idle", "aura", "evolve", "appear", "die", "hit") and clips[n].gio_trung() is not None]
     g = {"fps": fps_tran, "height": 0.0, "hitClips": hc, "hitTimes": [round(clips[n].gio_trung(), 4) for n in hc],
          "lunge": [c for c in lao if c in clips], "stay": [c for c in dung_yen if c in clips], "far": [c for c in far if c in clips],
@@ -173,6 +174,8 @@ def thong_tin_tran(sk, ve, clips, frames, dang=1, so_dang=2, dung_yen=("cast", "
             g["impactFlash"] = [str(impact[c][3]) if len(impact[c]) > 3 else "" for c in cl]
     if plain:
         g["plain"] = list(plain)
+    if span:
+        g["span"] = round(float(span), 2)
     return g
 
 
@@ -378,7 +381,8 @@ def slot_aura(sk, aura):
 
 def xuat_het(sk, clips, ra_dir, ten, tieu_de="", frames=None, dang=1, so_dang=2, dung_yen=("cast", "skill"), lao=(), far=(),
              mieng="mieng", beam=1.0, beamStyle="", impact=None, plain=None, cao=None, can=(), ma_goc=None, khung=True, luoi=True,
-             xem=True, chan_dung=True, tol=None, dich_mb=0.3, tran_mb=0.5, khop_idle=0.25, noi_them=None, far_aim=(), khong_khop=()):
+             xem=True, chan_dung=True, tol=None, dich_mb=0.3, tran_mb=0.5, khop_idle=0.25, noi_them=None, far_aim=(), khong_khop=(),
+             span=None):
     """chạy hết: nướng (nếu frames chưa có), khoá, JSON + atlas + PNG, game.json, .atomik + nạp lại kiểm, đo lệch nối clip, tờ khung
     từng clip (aura ghép cùng giây), luoi.png, ảnh cận (can = [(tên ảnh, clip, giây, tâm (x, y) hoặc tên xương, bán kính)]),
     chân dung 512, xem.html, so_sanh.md (ma_goc: số monster gốc), báo cáo dung lượng. khop_idle: hoà chừng ấy giây cuối mỗi clip
@@ -408,7 +412,7 @@ def xuat_het(sk, clips, ra_dir, ten, tieu_de="", frames=None, dang=1, so_dang=2,
     ve = soi.Ve(sk, atlas, place)
     bo = slot_aura(sk, frames.get("aura"))
     game = thong_tin_tran(sk, ve, cd, frames, dang, so_dang, dung_yen, lao, far, mieng, beam, beamStyle, impact, plain, cao, bo_cao=bo,
-                          far_aim=far_aim)
+                          far_aim=far_aim, span=span)
     with open(os.path.join(ra_dir, ten + "_game.json"), "w", encoding="utf-8") as f:
         json.dump(game, f, ensure_ascii=False, indent=1)
     out = ra_atomik(ra_dir, ten, game)

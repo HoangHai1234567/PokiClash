@@ -70,17 +70,17 @@ namespace PokiClash
         static readonly Dictionary<string, Theme> Themes = new Dictionary<string, Theme>
         {
             // sói đỏ, tinh thể đỏ trên giáp: lửa đỏ thẫm, mảnh tinh thể đỏ văng
-            { "hoa_tinh", new Theme { pal = "tinh", spark = C(255, 150, 120), ember = C(236, 70, 60), ring = C(232, 70, 60), extra = "tinh_the", extraCol = C(206, 30, 56) } },
-            // cáo đuôi tím hồng, trăng khuyết: hồ hỏa tím hồng, khói tím xám, sao lấp lánh
-            { "huyen_viem", new Theme { pal = "tim", spark = C(240, 160, 255), ember = C(220, 110, 230), ring = C(214, 110, 220), ring2 = C(250, 214, 250),
-                smoke = new[] { C(72, 52, 84), C(122, 104, 134), C(170, 160, 182), C(210, 204, 216) }, extra = "sao", extraCol = C(250, 200, 250) } },
+            // suất này nay là Bạch Viêm Hổ (bạch hổ mây lửa, 2026-11-14; HatHo.cs): lửa đỏ cam thường, không mảnh tinh thể (trước: bảng "tinh" + "tinh_the")
+            { "hoa_tinh", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40) } },
+            // Viêm Dũng (2026-11-14): chiến binh đất nung lõi dung nham, lửa cam, mảnh đá than (trước: cáo đuôi tím hồng, bảng "tim", sao lấp lánh)
+            { "huyen_viem", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(74, 62, 60) } },
             // lân đỏ vàng kim, mây xoắn
-            { "lan_hoa", new Theme { pal = "vang", smoke = new[] { C(92, 66, 50), C(142, 122, 106), C(188, 176, 164), C(216, 210, 202) }, spark = C(255, 222, 110), ember = C(250, 190, 60), ring = C(250, 196, 60), extra = "may", extraCol = C(250, 200, 70) } },
+            { "lan_hoa", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 120, 40) } }, // Hỏa Sơn Long (2026-11-15): dung nham cam lõi vàng (trước là Lân Hỏa, bảng vàng + mây)
             // sư tử vàng bờm đỏ: lửa vàng kim, sao vàng
             { "kim_su", new Theme { pal = "vang", smoke = new[] { C(92, 66, 50), C(142, 122, 106), C(188, 176, 164), C(216, 210, 202) }, spark = C(255, 230, 120), ember = C(250, 200, 70), ring = C(252, 206, 70), extra = "sao", extraCol = C(255, 224, 100) } },
-            // rồng sen hồng: lửa hồng sen, cánh sen bay
-            { "hong_lien", new Theme { pal = "sen", spark = C(255, 190, 200), ember = C(240, 120, 150), ring = C(236, 110, 150), ring2 = C(252, 222, 228),
-                smoke = new[] { C(84, 52, 62), C(130, 104, 112), C(176, 160, 166), C(212, 204, 206) }, extra = "canh_sen", extraCol = C(244, 120, 160) } },
+            // suất này nay là pháp sư lửa (Viêm Sư, 2026-11-14): lửa đỏ cam lõi vàng như cầu lửa trên trượng, không mảnh văng (trước là Hồng Liên:
+            // rồng sen hồng, pal "sen", cánh sen bay)
+            { "hong_lien", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40) } },
             // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): lửa đỏ cam lõi vàng như bờm lửa trên rig, mảnh giáp sắt đen văng ra (trước là
             // Giáp Long: rồng đỏ giáp xám, mảnh giáp xám)
             { "giap_long", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(58, 56, 64) } },
@@ -1035,6 +1035,57 @@ namespace PokiClash
             return T0 + TT;
         }
 
+        // một mũi kim lửa: hiện ở `home`, lơ lửng chĩa về `aim`, tới giờ sân `launch` thì phóng đi với tốc độ `speed` (điểm sân / giây), chạm `aim` thì nổ kim
+        // (dùng chung: Needles = kim quanh đầu tướng; NKimPhap ở HatPhap.cs = kim quanh đầu trượng của pháp sư lửa, phóng theo giờ của clip)
+        void KimLua(Vector2 home, Vector2 aim, int span, float launch, float speed, Color[] cols, float[] fr, float[] ext, float LEN)
+        {
+            var q = new P { pos = home, life = 3, seed = 0, home = home, aim = aim, span = span, launch = launch };
+            for (int k = 0; k < 3; k++)
+                Flame(home + U2(-6, 6), new Vector2(U(-30, 30), U(-70, -30)), 0.22f, 5, 11, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0);
+            Ember(home, null, 0, 7);
+            q.upd = (z, dt, s) =>
+            {
+                if (!z.fly)
+                {
+                    z.pos = z.home + new Vector2(0, 3.5f * Mathf.Sin(z.age * 7 + z.span));
+                    z.vel = (z.aim - z.pos) * 0.001f;
+                    if (s.U(0, 1) < 0.12f)
+                        s.Flame(z.pos + s.U2(-8, 8), new Vector2(s.U(-15, 15), s.U(-80, -40)), 0.25f, 4, 9, "nhon", Th.pal, Front, 1.8f, -320, 1.7f, 0, 0.1f);
+                    if (s.T >= z.launch)
+                    {
+                        z.fly = true;
+                        z.vel = Unit(z.aim - z.pos) * speed;
+                        s.Shake?.Invoke(0.05f);
+                    }
+                }
+                else
+                {
+                    if (s.U(0, 1) < 0.35f)
+                        s.Spark(z.pos - Unit(z.vel) * 22, -Unit(z.vel) + s.U2(-0.15f, 0.15f), s.U(250, 380), 0.14f, 11, 0, Front, 6);
+                    if (s.U(0, 1) < 0.12f)
+                        s.Flame(z.pos - Unit(z.vel) * 24, -Unit(z.vel) * 40, 0.12f, 6, 9, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0, 0);
+                    if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
+                    {
+                        z.dead = true;
+                        s.NeedleHit(z.aim, Unit(z.vel));
+                    }
+                }
+            };
+            q.draw = (z, k, buf) =>
+            {
+                float age = z.age;
+                float sc = age < 0.08f ? 1.25f * EaseOut(age / 0.08f) : 1.25f - 0.25f * Mathf.Min(1, (age - 0.08f) / 0.06f);
+                var d = z.fly ? Unit(z.vel) : Unit(z.aim - z.pos);
+                float ang = TipAngle(d), st = z.fly ? 1.3f : 1;
+                for (int li = 0; li < 5; li++)
+                {
+                    float L = LEN * sc * fr[li] * (li < 2 ? st : 1) + ext[li];
+                    Put(buf, Front, 20 + li, S(li == 0 ? "needles_0" : "needle_0"), cols[li], z.pos - d * (LEN * sc * (1 - fr[li]) * 0.25f), L, 1, ang);
+                }
+            };
+            Add(q);
+        }
+
         public float Needles(Vector2 casterFeet, float casterH, float casterW, Vector2 tgt, float tH)
         {
             var A = casterFeet + new Vector2(0, -1.08f * casterH);
@@ -1052,51 +1103,7 @@ namespace PokiClash
                     float th = Mathf.PI + Mathf.PI * (ii + 0.5f) / N;
                     var home = A + new Vector2(RA * Mathf.Cos(th), 0.5f * RA * Mathf.Sin(th));
                     var aim = tgt + new Vector2(U(-0.18f, 0.18f) * tH, U(-0.15f, 0.2f) * tH);
-                    var q = new P { pos = home, life = 3, seed = 0, home = home, aim = aim, span = ii, launch = T + 0.72f - ii * 0.07f + ii * 0.09f };
-                    for (int k = 0; k < 3; k++)
-                        Flame(home + U2(-6, 6), new Vector2(U(-30, 30), U(-70, -30)), 0.22f, 5, 11, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0);
-                    Ember(home, null, 0, 7);
-                    q.upd = (z, dt, s) =>
-                    {
-                        if (!z.fly)
-                        {
-                            z.pos = z.home + new Vector2(0, 3.5f * Mathf.Sin(z.age * 7 + z.span));
-                            z.vel = (z.aim - z.pos) * 0.001f;
-                            if (s.U(0, 1) < 0.12f)
-                                s.Flame(z.pos + s.U2(-8, 8), new Vector2(s.U(-15, 15), s.U(-80, -40)), 0.25f, 4, 9, "nhon", Th.pal, Front, 1.8f, -320, 1.7f, 0, 0.1f);
-                            if (s.T >= z.launch)
-                            {
-                                z.fly = true;
-                                z.vel = Unit(z.aim - z.pos) * 1500;
-                                s.Shake?.Invoke(0.05f);
-                            }
-                        }
-                        else
-                        {
-                            if (s.U(0, 1) < 0.35f)
-                                s.Spark(z.pos - Unit(z.vel) * 22, -Unit(z.vel) + s.U2(-0.15f, 0.15f), s.U(250, 380), 0.14f, 11, 0, Front, 6);
-                            if (s.U(0, 1) < 0.12f)
-                                s.Flame(z.pos - Unit(z.vel) * 24, -Unit(z.vel) * 40, 0.12f, 6, 9, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0, 0);
-                            if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
-                            {
-                                z.dead = true;
-                                s.NeedleHit(z.aim, Unit(z.vel));
-                            }
-                        }
-                    };
-                    q.draw = (z, k, buf) =>
-                    {
-                        float age = z.age;
-                        float sc = age < 0.08f ? 1.25f * EaseOut(age / 0.08f) : 1.25f - 0.25f * Mathf.Min(1, (age - 0.08f) / 0.06f);
-                        var d = z.fly ? Unit(z.vel) : Unit(z.aim - z.pos);
-                        float ang = TipAngle(d), st = z.fly ? 1.3f : 1;
-                        for (int li = 0; li < 5; li++)
-                        {
-                            float L = LEN * sc * fr[li] * (li < 2 ? st : 1) + ext[li];
-                            Put(buf, Front, 20 + li, S(li == 0 ? "needles_0" : "needle_0"), cols[li], z.pos - d * (LEN * sc * (1 - fr[li]) * 0.25f), L, 1, ang);
-                        }
-                    };
-                    Add(q);
+                    KimLua(home, aim, ii, T + 0.72f - ii * 0.07f + ii * 0.09f, 1500, cols, fr, ext, LEN);
                 });
             }
             float first = 0.06f + 0.72f + 0.1f;

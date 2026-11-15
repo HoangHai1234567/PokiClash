@@ -2272,9 +2272,9 @@
   },
   {
    "id": "hong_lien",
-   "name": "Hồng Liên",
-   "title": "Cánh lửa sen đỏ",
-   "aola": "hong_lien_1",
+   "name": "Viêm Sư",
+   "title": "Pháp sư gọi cầu lửa",
+   "aola": "phap_lua_non",
    "elem": "hoa",
    "rarity": "rare",
    "stats": [
@@ -2289,23 +2289,18 @@
    "ult": "hong_lien_ult",
    "passive": "hong_lien_pas",
    "shards": 20,
-   "line": "Dòng Hồng Liên",
-   "size": 0.9,
+   "line": "Dòng Viêm Sư",
+   "size": 0.8,
    "forms": [
     {
-     "name": "Đốm Hồng",
-     "aola": "hong_lien_1",
-     "size": 0.9
+     "name": "Viêm Đồng",
+     "aola": "phap_lua_non",
+     "size": 0.8
     },
     {
-     "name": "Phi Viêm",
-     "aola": "hong_lien_2",
-     "size": 1.02
-    },
-    {
-     "name": "Hồng Liên",
-     "aola": "hong_lien_3",
-     "size": 1.14
+     "name": "Viêm Sư",
+     "aola": "phap_lua_1",
+     "size": 1.1
     }
    ]
   },
@@ -2313,7 +2308,7 @@
    "id": "giap_long",
    "name": "Viêm Đao",
    "title": "Quỷ lửa vác đại đao",
-   "aola": "quy_dao_1",
+   "aola": "quy_dao_non",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2329,12 +2324,12 @@
    "passive": "giap_long_pas",
    "shards": 30,
    "line": "Dòng Viêm Đao",
-   "size": 0.92,
+   "size": 0.8,
    "forms": [
     {
-     "name": "Viêm Đao",
-     "aola": "quy_dao_1",
-     "size": 0.92
+     "name": "Viêm Đao Nhi",
+     "aola": "quy_dao_non",
+     "size": 0.8
     },
     {
      "name": "Viêm Đao",
@@ -2345,9 +2340,9 @@
   },
   {
    "id": "huyen_viem",
-   "name": "Huyễn Viêm",
-   "title": "Hồ lửa ảo ảnh",
-   "aola": "huyen_viem_1",
+   "name": "Viêm Dũng",
+   "title": "Tượng binh đất nung lõi dung nham",
+   "aola": "dat_nung_non",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2362,31 +2357,26 @@
    "ult": "huyen_viem_ult",
    "passive": "huyen_viem_pas",
    "shards": 30,
-   "line": "Dòng Huyễn Viêm",
-   "size": 0.9,
+   "line": "Dòng Viêm Dũng",
+   "size": 0.85,
    "forms": [
     {
-     "name": "Linh Viêm",
-     "aola": "huyen_viem_1",
-     "size": 0.9
+     "name": "Viêm Dũng Nhi",
+     "aola": "dat_nung_non",
+     "size": 0.85
     },
     {
-     "name": "Huyễn Viêm",
-     "aola": "huyen_viem_2",
-     "size": 1.02
-    },
-    {
-     "name": "Thánh Huyễn Viêm",
-     "aola": "huyen_viem_3",
-     "size": 1.14
+     "name": "Viêm Dũng",
+     "aola": "dat_nung_1",
+     "size": 0.95
     }
    ]
   },
   {
    "id": "hoa_tinh",
-   "name": "Hỏa Tinh",
-   "title": "Thú giáp lửa hồng",
-   "aola": "hoa_tinh_1",
+   "name": "Bạch Viêm Hổ",
+   "title": "Bạch hổ cưỡi mây lửa",
+   "aola": "hoa_ho_non",
    "elem": "hoa",
    "rarity": "epic",
    "stats": [
@@ -2401,26 +2391,26 @@
    "ult": "hoa_tinh_ult",
    "passive": "hoa_tinh_pas",
    "shards": 30,
-   "line": "Dòng Hỏa Tinh",
-   "size": 0.92,
+   "line": "Dòng Bạch Viêm Hổ",
+   "size": 0.9,
    "forms": [
     {
-     "name": "Tiểu Hỏa Tinh",
-     "aola": "hoa_tinh_1",
-     "size": 0.92
+     "name": "Viêm Hổ Nhi",
+     "aola": "hoa_ho_non",
+     "size": 0.9
     },
     {
-     "name": "Hỏa Tinh",
-     "aola": "hoa_tinh_2",
-     "size": 1.1
+     "name": "Bạch Viêm Hổ",
+     "aola": "hoa_ho_1",
+     "size": 0.95
     }
    ]
   },
   {
    "id": "lan_hoa",
-   "name": "Lân Hỏa",
-   "title": "Thần thú ngàn năm",
-   "aola": "lan_hoa_1",
+   "name": "Hỏa Sơn Long",
+   "title": "Khủng long núi lửa hai sừng",
+   "aola": "nui_lua_non",
    "elem": "hoa",
    "rarity": "legend",
    "stats": [
@@ -2435,23 +2425,23 @@
    "ult": "lan_hoa_ult",
    "passive": "lan_hoa_pas",
    "shards": 50,
-   "line": "Dòng Lân Hỏa",
-   "size": 0.95,
+   "line": "Dòng Hỏa Sơn Long",
+   "size": 0.85,
    "forms": [
     {
-     "name": "Lân Con",
-     "aola": "lan_hoa_1",
-     "size": 0.95
+     "name": "Hỏa Sơn Nhi",
+     "aola": "nui_lua_non",
+     "size": 0.85
     },
     {
-     "name": "Lân Ngàn Năm",
-     "aola": "lan_hoa_2",
-     "size": 1.1
+     "name": "Hỏa Sơn Thú",
+     "aola": "nui_lua_2",
+     "size": 0.86
     },
     {
-     "name": "Thánh Lân",
-     "aola": "lan_hoa_3",
-     "size": 1.16
+     "name": "Hỏa Sơn Long",
+     "aola": "nui_lua_1",
+     "size": 0.92
     }
    ]
   },

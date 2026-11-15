@@ -1389,7 +1389,22 @@ namespace PokiClash
                 case "n_nham_va": return NNhamVa(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Nham Thần, đòn đánh thường: lao tới vả từ trên xuống đầu
                 case "n_cau_sung": return NCauSung(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Hỏa Quy (HatRua.cs): chiêu cuối, lửa trên lưng bị hút vào cầu lửa trên mũi sừng, hất sừng phóng cầu
                 case "n_cau_sung1": return NCauSung(casterFeet, casterH, foeFeet, foeBody, tH, lead, true); // Hỏa Quy dạng 1 (rùa non): cầu nhỏ, ba dải lửa, mũi sừng ngắn
+                case "n_dat_dam": return NDatDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Viêm Dũng (HatDat.cs), chiêu mana: lao tới đâm, chém liên hoàn, dung nham trào ở nhát bổ kết
+                case "n_nui_huc": return NNuiHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Hỏa Sơn Long (HatNuiLua.cs), đòn đánh thường: lao tới húc
+                case "n_nui_cau": return NNuiCau(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead); // Hỏa Sơn Long: há mồm tụ cầu lửa rồi bắn
+                case "n_nui_cau1": return NNuiCau(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead, 1); // dạng 1 (Hỏa Sơn Nhi)
+                case "n_nui_ten": return NNuiTen(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Hỏa Sơn Long: chiêu cuối, 16 đạn tầm nhiệt từ các ống núi lửa
+                case "n_nui_ten1": return NNuiTen(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // dạng 1 (Hỏa Sơn Nhi): 8 phát, nổ nhẹ hơn
+                case "n_nui_ten2": return NNuiTen(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // dạng 2 (Hỏa Sơn Thú): 12 phát từ năm tháp ống và núi lửa chính
+                case "n_nui_cau2": return NNuiCau(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead, 2); // dạng 2 (Hỏa Sơn Thú)
+                case "n_ho_va": return NHoVa(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bạch Viêm Hổ (HatHo.cs), đòn đánh thường: vả, ba vệt vuốt lửa
+                case "n_ho_gam": return NHoGam(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // Bạch Viêm Hổ: gầm, sóng xung kích + sóng nhiệt
+                case "n_ho_anh": return NHoAnh(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bạch Viêm Hổ: chiêu cuối, màn âm bản, 12 lượt lướt chém để lại sẹo lửa rồi nổ
+                case "n_ho_anh1": return NHoAnh(casterFeet, casterH, foeFeet, foeBody, tH, lead, 6, 0.8f); // dạng 1 (Viêm Hổ Nhi): 6 lượt, nổ nhẹ hơn
                 case "n_cau_rua": return NCauMieng(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead); // Hỏa Quy, chiêu mana: tụ cầu lửa ở mõm rồi bắn
+                case "n_kim_phap": return NKimPhap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Viêm Sư (HatPhap.cs), pháp sư lửa: kim lửa hiện quanh đầu trượng đang giơ, vụt trượng thì phóng
+                case "n_cau_phap1": return NCauPhap(casterFeet, casterH, foeFeet, foeBody, tH, lead, true); // Viêm Đồng (dạng 1): trượng ngắn, cầu nhỏ, nổ nhẹ hơn
+                case "n_cau_phap": return NCauPhap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Viêm Sư: chiêu cuối, lửa bị hút vào quả cầu của rig đang phình, mốc ban_cau cầu lao tới đối thủ, nổ lớn
                 default: return NVa(foeBody, foeFeet, tH);
             }
         }

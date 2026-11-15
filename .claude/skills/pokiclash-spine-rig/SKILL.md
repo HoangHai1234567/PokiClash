@@ -1234,3 +1234,22 @@ ghi chú `inbox/quy_dao_ghichu.md`. Rig thử trên DA GỐC (`QD_GOC=1`) dựng
   cửa sổ vệt + cửa sổ giờ của nhát chém; slot trên cùng, khai `plain` để game vẽ không viền sticker. Cú chém là khoá bậc thì giãn ĐÚNG hai khung
   nhảy bậc ra vài khung (ánh xạ giờ đặt mốc vào đúng hai khung đó), không thì cả cung chém dồn vào một phần ba thời lượng và vệt gãy góc. Mẫu:
   `quy_dao_rig.VetDao`.
+
+## 29. Bộ phận mập một khúc (chân chibi): NHÚN thì cho khớp NGẮN LẠI, không gập đè khớp (hổ con chibi, 2026-11-14; người dùng dặn ghi lại)
+
+Người dùng xem hổ con chibi (`hoa_ho_chibi.py`, rig `monster_3645`): "khi nhún chân xuống 2 chân trước lỗi"; "khi nhún các bộ phận có thể cho
+khớp ngắn lại chứ không đè khớp gây méo". Trước đó cùng một cái chân đã bị trả bốn lần (bám chuỗi xương chân dài của họ: gối gập 120° làm lưới
+nhàu; ống co dãn bám xương bàn của họ: sải dài thành nêm; IK hai khúc độ dài cố định: thân nhún thì gối gập, hai nửa chân đè lên nhau).
+
+- **Luật:** bộ phận ngắn, mập, vẽ MỘT khúc (chân chibi, tay mập, cổ ngắn) khi hai đầu của nó lại gần nhau (thân nhún xuống, bàn chân nhấc lên)
+  thì **ép ngắn dọc trục** (tỉ lệ của một xương gốc chĩa từ đầu này tới đầu kia), giữ nguyên hình lúc nghỉ; KHÔNG gập thêm khớp ở giữa. Chỉ
+  khi hai đầu ra XA hơn lúc nghỉ mới duỗi khớp (IK), hết tầm thì duỗi thẳng, không kéo dãn.
+- **Cách dựng** (`hoa_ho_chibi.lap`, `ik`): mỗi chân bốn xương của mình: gốc chân `_r` ở háng (con của xương thân trội ở đó, chĩa về cổ
+  chân), đùi `_a`, ống `_b` (con của `_r`), bàn `_c`. Mỗi khung, sau hàm clip: đích gần hơn lúc nghỉ → `_r` xoay về đích và nhận tỉ lệ
+  (khoảng cách / khoảng cách lúc nghỉ, 1) dọc trục; đích xa hơn → IK hai khúc.
+- **Đầu mút (bàn chân, bàn tay) không nằm dưới xương bị ép:** để nó là con của xương THÂN và dời tới đầu ống chân từng khung. Cho nó làm con
+  của ống rồi nhân tỉ lệ ngược lại là sai: trục bàn chân lệch trục ép nên bàn chân bị kéo méo thành vệt.
+- **Đỉnh bộ phận** (chỗ cắm vào thân) bám như thân ở đúng chỗ đó và chỉ xoá viền ở phần đỉnh ấy; phần dưới giữ đủ viền vì sẽ lòi ra khi cử động.
+- **Bước đi** của dạng chibi viết riêng (đích bàn chân chạy một vòng: chống thì nằm trên mặt đất, đưa tới thì nhấc lên; hai cặp chân chéo lệch
+  nửa nhịp), thân nhún quanh DÁNG ĐỨNG idle; đừng chép sải chân của con lớn.
+- Soi đúng khung thân thấp nhất của từng clip (nhún lấy đà, gục) ở cỡ lớn trước khi báo: lỗi chỉ lộ ở đó.

@@ -187,3 +187,113 @@ nghiêng mờ chung); dạng 1 riêng (hai dạng đang chung một rig, chỉ k
 - Bờm lửa bản 2 (xem mục 5) rồi dựng lại rig.
 - VFX ngoài rig: vệt chém theo `mui_dao` / `than_dao`, lửa trào theo đất (cast), bụi + vòng lửa lúc `nen`.
 - Dạng 1 riêng, tên chính thức: chờ người dùng.
+
+## 8. Dạng 1 (2026-11-14, máy ổ D; người dùng: "làm dạng 1 cho tướng thứ 7 đảo hỏa")
+
+- Máy D không có dữ liệu quét nên **hình bố cục dựng thẳng từ `.atomik` trong game** (`Resources/quy_dao_1`, `mo_xe/atomik_dang.py`, không Chrome):
+  `build_quy_dao_non.py` đổi tỉ lệ xương (`TI_LE`: đầu `lian_01` 1,45; sừng `dajiao_r/l` 0,5; bờm trên đầu `toufa_07/03/014` 0,62; bờm trên thân
+  `toufa_02/01` 0,5; đao `wuqi_03` 0,72; tay gần `dabi_r` 0,86, tay xa `dabi_l` 0,9; hông `bone2` 0,9), ẩn râu lửa `huzi`, vẽ khung 0 idle →
+  `inbox/quy_dao_non/mau/bo_cuc.png` + `ti_le.json`.
+- **Thiết kế (đề xuất của Claude, theo luật "chibi chỉ ở dạng 1")**: quỷ lửa con vác cây đao quá khổ: đầu to, hai sừng mầm đen, bờm lửa nhỏ,
+  CHƯA có râu lửa, giáp vai vòm tròn không gai, đao cùng kiểu dạng 2 nhưng ngắn và bè; màu, chất liệu giữ của dạng 2.
+- Gói `gui_gpt/quy_dao_non/` (ảnh mẫu 1 = bố cục, 2 = concept dạng 2 đã duyệt), hai hướng: `theo_bo_cuc` (đầu ~45 %), `tron_hon` (đầu ~50 %, thân
+  tròn lùn, đao như dao phay). Ảnh về `inbox/quy_dao_non/tai_ve/L1_<hướng>.png`. Trang so (chung với Hỏa Quy Con):
+  `inbox/dang_non_hoa_xem_concept.html`. CHỜ người dùng chọn.
+- Đã quét con gốc về máy D (`D:\RefAnimation\SwordxStaff\scan\monster_3655`: `info`, `att_goc`, `att_idle0`, `sample` 17 clip 30 khung/giây) để
+  bước rig dùng `quy_dao_rig.py` (đặt `SXS=D:/RefAnimation/SwordxStaff`).
+- Việc tiếp khi concept được chọn: mảnh "đúng chỗ, đúng cỡ" từ concept non (đầu + mặt nạ, sừng mầm, bờm, giáp vai, đao ngắn; thân, tay, chân
+  giữ dáng thì đổi da trên tờ mảnh gốc đã co), rig cùng xương cùng clip với tỉ lệ `ti_le.json`; **vệt chém `vet_k` phải tính lại theo đao ngắn**
+  (`VetDao` lấy điểm dọc lưỡi theo chiều dài đao); gộp clip `evolve` sang dạng 2; `heroes.json` khối `giap_long` dạng 1 → thư mục mới; tên dạng 1.
+- Bờm lửa bản 2 của DẠNG 2 (mục 5, `luot_2b_lua_L.txt` → `D_L2.png`) chưa từng gen ở máy kia (commit trước giờ hẹn 18:32): bản trong game vẫn là
+  bờm răng cưa tạm. Đã đổi đường dẫn prompt sang máy D và xếp gen cùng lượt này; có ảnh thì `quy_dao_da.py cat_lua` → `quy_dao_rig.py` → soi,
+  người dùng xem rồi mới chép vào game.
+- **Bờm lửa bản 2 đã vào game (2026-11-14)**: `D_L2.png` (85 s) → `quy_dao_da.py cat_lua` (IoU 0,58–0,79 so với ô răng cưa cũ: hình bóng lửa tự
+  nhiên rộng hơn, đúng ý) → `quy_dao_rig.py`: 79 xương, 74 slot, 2199 đỉnh, `.atomik` 372 KB, mọi clip về idle 0 px → `quai/doi_quy_dao.py chep`
+  → `Resources/quy_dao_1/`. Unity: "Gắn dạng .atomik", tour "riêng Viêm Đao" chạy không lỗi (bờm ra lửa thật, không còn răng cưa; ảnh
+  `Temp/PokiShots/hoa_fx/giap_long_*`). Ở góc trên trái búi lửa lớn nhất GPT để một vệt sáng trắng nhỏ (chưa sửa).
+
+## 9. Rig dạng 1 (2026-11-14, máy ổ D; người dùng xem bốn concept rồi "làm đi" = theo đề xuất B)
+
+Concept chốt: `inbox/quy_dao_non/tai_ve/L1_duyet.png` (= `L1_tron_hon.png`: đầu quả cầu mặt nạ to gần nửa chiều cao, hai sừng mầm, ba búi lửa, giáp vai
+vòm không gai; GPT vẫn vẽ đao dài cỡ dạng 2, đã báo người dùng). Script: `quy_dao_non.py` (prompt, cắt, so, gộp tiến hóa) + chế độ `QD_NON=1` của
+`quy_dao_rig.py` (dạng 2 không đặt biến thì ra đúng từng byte như script cũ: đã so `.atomik` hai bản).
+
+**Cách làm: cùng xương, cùng 9 clip; chỉ đổi mảnh + dáng gốc vài xương.**
+- **Concept trùng rig**: GPT bám hình bố cục nên MỘT phép đồng dạng cho cả con là đủ: `x_rig = 1,01 (x − 578)`, `y_rig = 1,01 (983 − y)` (hai bàn chân,
+  giáp vai, bụng khớp trong ~15 đơn vị; soi bằng `quy_dao_non.py so` → `so_concept.png`).
+- **Thân, tay, chân, khố dùng lại da dạng 2** (trên concept phần này gần như khuất sau đầu + giáp vai; cùng loài, cùng màu). `quy_dao_rig` ở chế độ non
+  tìm mảnh trong `inbox/quy_dao_non/manh` trước, thiếu thì lấy `inbox/quy_dao_1/manh`.
+- **Mảnh đổi dáng** (`quy_dao_non.py prompt` → `gui_gpt/quy_dao_non/luot_2_manh_<DAU|DAO|LUA>.txt`; `cat` → `manh/*.png`, `manh/dat_moi.json`,
+  `mau/dang.json`):
+  - `N_DAU` (đầu trọn, không sừng, "đúng chỗ, đúng cỡ"; về đúng chỗ ngay lượt đầu) → `lian_01`, bám CỨNG xương `lian_01`.
+  - `N_DAO` (đao trọn, không bàn tay) → `wuqi_02`, cứng trên `wuqi_03`. Đặt bằng HAI MỐC riêng: tâm cán chỗ bàn tay xa nắm (gần (750, 232) trên
+    concept) ↔ gốc xương vũ khí của rig (chỗ bàn tay), mũi đao ↔ mũi đao của rig: tỉ lệ 1,064, xoay 0°. (Đao concept bè, cán lệch khỏi đường khâu →
+    mũi ~57 px: đặt theo hai đầu mút như dạng 2 thì nắm tay nằm cạnh cán.)
+  - `N_LUA` (ba búi lửa vẽ RỜI, mỗi búi đủ gốc bo tròn) → `toufa_07` (búi trên), `toufa_03` (giữa), `toufa_06` (dưới). Tờ vẽ búi nằm ngang và mập hơn
+    concept → mỗi búi neo MŨI (điểm trái nhất) vào mũi trên concept, xoay 22° / 10° / 8°, tỉ lệ 0,90 / 0,85 / 0,90 (`LUA_TI`, `LUA_XOAY`, `LUA_DOI`, chỉnh tay
+    sau khi soi chồng). Trọng số KHÔNG theo lưới của họ: dải mềm theo chuỗi xương (`"chuoi"` trong `dat_moi.json`, `quy_dao_rig._gan_rieng`).
+  - Giáp vai, hai sừng mầm: nằm trên cùng, không bị che → CẮT THẲNG từ concept (`mo_xe/cat_concept.cat`; sừng đen trung tính tối hơn cả mực nên
+    truyền `them=`; giáp vai mở hình học r 5 để bỏ mẩu nét của mảnh bên cạnh; gốc sừng xa kéo dài 16 px cho nấp sau đầu). Bám cứng `dabi_r`, `dajiao_r/l`.
+- **`mau/dang.json`** (do `cat` ghi, `quy_dao_rig` đọc): slot ẩn `huzi` (râu lửa), `toufa_01`, `toufa_02` (hai búi bờm trên thân), `jiajia_l` (giáp bắp
+  tay xa); `cao` 700; dáng gốc xương: `dabi_r` × 0,86 (tay gần ngắn hơn), `dajiao_r/l` dời tới chỗ sừng mọc (`"tg"`), gốc ba chuỗi xương lửa
+  `toufa_07 / 03 / 014` dời tới gốc búi, xoay + co cho dây cung gốc → đốt cuối nằm dọc búi, dài 62 % búi (`"lua": [gốc, mũi]`); `vet_hang`; `dao_phong`;
+  `walk_nga`.
+- **Tay xa** (vòng lên sau đầu nắm cán): ở dạng 2 nó nấp sau bờm lớn, dạng non bờm nhỏ nên lòi nguyên cẳng tay to → `quy_dao_non.thon`: ảnh
+  `xiaobi_l`, `dabi_l` của dạng 2 bóp còn 62 % bề ngang quanh trục xương (cùng khung, cùng lưới), bỏ giáp bắp tay.
+- **Vệt chém**: điểm dọc lưỡi sắc đo lại trên đao mới (`vet_hang`: v −0,17 … −0,23, đao bè gấp rưỡi dạng 2), vẫn tắt quanh khung trúng như mục 6.
+- **Clip, chỉ ở chế độ non:**
+  - Đao của họ PHÓNG tới × 1,5 trong các nhát chém (nhoè phối cảnh): con nhỏ thì đao thành gấp ba thân → chỉ giữ 35 % phần phóng (`DAO_PHONG`).
+  - `walk`: run_01 gập ngực chúi tới 30°, đầu chúi 27°: đầu quả cầu tụt sát đất, tay gần + giáp vai vắt ngang che hết mặt nửa vòng bước → giữ 25 % độ
+    gập ngực (các xương con của ngực bù lại để giữ hướng thế giới: tay xa vẫn vác đao như cũ), đầu giữ 30 % độ chúi, tay gần hạ 14°.
+  - `cast`: lúc giơ đao gồng (0,44–1,03 s) họ ngửa đầu + đưa tay gần lên đỡ đao: che hết mặt → đầu giữ 35 % độ ngửa, tay gần buông nắm bên dưới
+    (giơ đao một tay), tới cú bổ thì theo họ.
+  - Còn lại như dạng 2 (idle xốc đao, attack cối xay, skill liên hoàn chém, appear rơi bổ + gầm, die, hit, aura).
+- **Chân dung**: `xuat_het` bỏ mọi slot có xương chạy trong `aura` → chân dung mất cả ba búi lửa; chế độ non vẽ lại đủ cả con. (Chân dung dạng 2 đang
+  ở trong game `Resources/quy_dao_1/quy_dao_1_portrait.png` cũng mất bờm lửa vì lý do đó: chưa sửa, ngoài việc của lượt này.)
+- **Tiến hóa** (`quy_dao_non.py th`, `atomik_dang.gop_tien_hoa`): gộp bản nhẹ của `inbox/quy_dao_1/rig/quy_dao_1.atomik` (bản bờm lửa mới dựng 01:40;
+  không có thì lấy bản trong game) × 1,266 (cỡ 0,8 → 1,1; cao 700 → 760); 70 slot ẩn sẵn giữ ẩn; khung cuối `evolve` trùng khung 0 idle dạng 2 (lệch 0,000).
+  Dựng lại rig dạng 2 thì chạy lại `th`.
+
+**Số** (`inbox/quy_dao_non/rig/`): `quy_dao_non.atomik` 79 xương, 68 slot, 74 hình, 1679 đỉnh, 9 clip, 26 sự kiện, 258 KB (atlas 912 × 1136);
+`quy_dao_non_th.atomik` (có `evolve`, file đưa vào game) 414 KB; `chan_dung.png` 512. Game: cao 700, hitTimes 0,92 / 1,14 / 1,87, muzzle (430, 40),
+impact attack (0,08; 0,42; 0,11), skill (0,18; 0,8; 0,16; `#ffb04055`), `plain = ["vet"]`. Nối: hit, attack, cast, skill, appear về idle 0,00 px; idle
+khép vòng 1,25 px, walk 4,51 px; appear khung đầu trống, die khung cuối trống. `.atomik` so bộ vẽ Python: khung 0 lệch 0,28 px, giữa clip ≤ 1,2 px
+(vệt). Cỡ đề xuất trong `heroes.json`: **0,8** (dạng 2: 1,1).
+
+**Đã soi** (tờ `rig/khung_<clip>.png`, `rig/soi_<clip>.png`, `rig/khung_evolve.png`, `so_concept.png`): tay xa nắm cán ở mọi clip, đao theo tay (attack,
+skill, cast, appear, die cắm đất); thứ tự vẽ đổi trong skill đúng bản; vệt bám lưỡi; mặt lộ ở idle, walk, cast gồng, hit. Chưa chạy runtime Spine thật
+trong Chrome (tránh Chrome ngầm ở máy này), chưa xem trong game.
+
+**Còn xấu / chưa làm:** (1) cẳng tay xa (đã thon) vẫn ló một dải da tro sau búi lửa trên; concept giấu hẳn cánh tay này. (2) `appear` 0,2 s: dáng rơi
+của họ duỗi dài cả thân + chân (1–2 khung), đầu to nên trông lêu nghêu. (3) Chân là chân dạng 2 (giáp gối nhiều khối), concept vẽ ủng trơn. (4) Lúc xốc
+đao ở idle (2,3–2,6 s) bàn tay gần chạm mép mắt phải. (5) Chưa vào game: chép `quy_dao_non_th.atomik` + `chan_dung.png` vào thư mục Resources mới,
+`heroes.json` khối `giap_long` dạng 1 (`aola`, cỡ 0,8), tên dạng 1; VFX riêng chưa có (dùng chung của suất).
+
+## 10. Dạng 1 vào game (2026-11-14, phiên chính máy D)
+
+- `quai/doi_quy_dao.py chep_non` → `Resources/quy_dao_non/` (`quy_dao_non_th.atomik` 414 KB đã gộp `evolve` + chân dung); `dang_1` → `heroes.json`
+  khối `giap_long`: dạng 1 **Viêm Đao Nhi** (tên Claude đặt), `quy_dao_non`, cỡ 0,8; dạng 2 Viêm Đao, `quy_dao_1`, 1,1; aola / size chung = dạng 1.
+  Số dạng không đổi → golden không đổi (đã chạy lại menu roster + sim: không đổi thêm).
+- **Chân dung dạng 2** trước giờ mất bờm và râu lửa (`xuat_het` bỏ slot chạy trong `aura`): `quy_dao_rig.py` nay vẽ lại chân dung ở khung 0 idle
+  có phủ aura cho cả dạng 2; `.atomik` dạng 2 không đổi (trùng từng byte), `doi_quy_dao.py chep` chép chân dung mới.
+- Unity: refresh + biên dịch sạch, "Nhập dữ liệu", "Gắn dạng .atomik" (`giap_long: prefab giữ 2 dạng (quy_dao_non, quy_dao_1)`), EditMode 106 / 107
+  (chỉ `PrefabOnlyTests` cũ). `HoaFxTour`: menu "Đảo Hỏa: riêng Viêm Đao Nhi (dạng 1) …".
+- **Trong trận** (tour "riêng Viêm Đao Nhi", tờ `inbox/quy_dao_non/_game_dang1.jpg`): đứng, bổ đao, chiêu mana, liên hoàn chém, nhảy bổ đều chạy, console
+  không lỗi; cỡ con non lúc lao bằng lúc đứng (đã so hai khung nguyên cỡ).
+- **LỖI CÒN LẠI, cả hai dạng: bản đao bị CẮT DỌC lúc lao.** Khung vẽ của tướng (`AolaSticker.Span`) rộng 3,4 lần chiều cao khai, tức ±1,7 chiều cao
+  quanh gốc rig; đo trên `.atomik` (không tính vệt chém): attack x từ −2,07 tới 2,29 (non), −2,23 tới 2,28 (dạng 2); skill tới 2,86 / 2,89; appear
+  cao tới 3,07 / 2,81 (khung cao 2,72 trên chân). Ở dạng 2 phần bị cắt thường nằm ngoài mép màn hình nên ít thấy; ở con non thấy rõ ở nhát bổ.
+  Hướng sửa (chưa làm, chờ người dùng chọn): (a) cho rig khai khung riêng (`game.span`) và `AolaSticker` đọc theo từng tướng; (b) khai chiều cao
+  game lớn hơn rồi bù bằng `size` (hiệu ứng tính theo chiều cao sẽ to theo); (c) bớt quãng lao và độ phóng đao trong clip (đổi dáng đòn).
+
+## 11. Sửa bản đao bị cắt: khung vẽ riêng theo rig (2026-11-14; người dùng: "sửa theo cách bạn muốn, tên bạn tự đặt")
+
+- **Rig khai `game.span`** (số lần chiều cao khai; `quai/xuat.py` `thong_tin_tran(..., span)` / `xuat_het(..., span)`); `quy_dao_rig.py` `SPAN = 6.0`
+  cho cả hai dạng (đòn vươn ngang tới 2,9, dưới chân 1,1, cao 3,1 lần chiều cao). Dựng lại dạng 2, dạng non, gộp lại `evolve`, chép vào game.
+- **Game:** `AtomikGame.span` (0 = mặc định), `AolaActor.Span`, `AolaSticker`: `Span` thành trường của từng sticker = max(3,4; rig khai). Khung
+  rộng hơn mặc định thì ảnh chụp không ép luỹ thừa 2, trần 1536 điểm ảnh (giữ độ nét trên sân, không lên 2048 vì tốn bộ nhớ); bề dày viền giấy
+  (`_White`, `_Ink`, tính theo điểm ảnh của ảnh chụp) nhân 3,4 / span để viền trên sân dày như các tướng khác. Tướng không khai span: y như cũ.
+- Unity: biên dịch sạch, "Gắn dạng .atomik", EditMode 106 / 107 (chỉ `PrefabOnlyTests` cũ). Tour "riêng Viêm Đao Nhi": bản đao hiện trọn ở nhát bổ,
+  liên hoàn chém, nhảy bổ; viền giấy đều (tờ `inbox/quy_dao_non/_game_dang1.jpg`).
+- Tên chốt (người dùng giao Claude tự đặt): Viêm Đao Nhi → Viêm Đao; Viêm Đồng → Viêm Sư; thẻ suất 6 Hỏa Châm / Đại Hỏa Cầu / Thân Khói, thẻ
+  boss Nhen Lại Lửa Tàn.

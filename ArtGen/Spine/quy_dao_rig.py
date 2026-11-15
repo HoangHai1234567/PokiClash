@@ -38,15 +38,21 @@ sys.stdout.reconfigure(encoding="utf-8")
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 from quai import anh, hoat, xuat, soi  # noqa: E402
-from quai.khung import Sk, goc_mat  # noqa: E402
+from quai.khung import Sk, goc_mat, mat  # noqa: E402
 from quai.hoat import Clip  # noqa: E402
 from quai.luoi import Luoi, luoi_vung  # noqa: E402
 import quy_dao as G  # noqa: E402
 
 GOC = os.environ.get("QD_GOC") == "1"
-TEN = os.environ.get("QD_TEN") or "quy_dao_1"
-MANH = os.environ.get("QD_MANH") or os.path.join(G.BASE, "manh")
-RA = os.environ.get("QD_RA") or os.path.join(G.BASE, "rig_goc" if GOC else "rig")
+# QD_NON=1: DẠNG 1 (quỷ con chibi, quy_dao_non.py): cùng xương, cùng clip; đầu quả cầu to, sừng mầm, ba búi lửa, không râu, đao bè hơn. Dáng gốc
+# của vài xương + slot ẩn + số riêng đọc từ inbox/quy_dao_non/mau/dang.json; mảnh thiếu trong inbox/quy_dao_non/manh thì lấy da dạng 2.
+NON = os.environ.get("QD_NON") == "1" and not GOC
+BASE_NON = os.path.join(HERE, "inbox", "quy_dao_non")
+DANG = json.load(open(os.path.join(BASE_NON, "mau", "dang.json"), encoding="utf-8")) if NON else {}
+TEN = os.environ.get("QD_TEN") or ("quy_dao_non" if NON else "quy_dao_1")
+MANH = os.environ.get("QD_MANH") or (os.path.join(BASE_NON, "manh") if NON else os.path.join(G.BASE, "manh"))
+MANH2 = os.path.join(G.BASE, "manh")                 # da dạng 2 (dạng non dùng lại thân, tay, chân, khố)
+RA = os.environ.get("QD_RA") or (os.path.join(BASE_NON, "rig") if NON else os.path.join(G.BASE, "rig_goc" if GOC else "rig"))
 SCAN = G.scan()
 I = json.load(open(os.path.join(SCAN, "info.json"), encoding="utf-8"))
 AG = json.load(open(os.path.join(SCAN, "att_goc.json"), encoding="utf-8"))
@@ -59,15 +65,18 @@ L0 = S["idle_01"]["frames"][0]["l"]
 ZERO5 = np.array([0, 0, 0, 1, 1.0])
 USE = ["idle_01", "run_01", "skill_01_1", "skill_02_1", "skill_03", "skill_04_1", "hit_01", "die_01"]
 BO_SLOT = {"shadow", "root"} | (set() if GOC else {"jiao_01", "jiao_02", "jiao_03", "jiao_04"})   # mào liền vào mặt nạ của mình
+BO_SLOT |= set(DANG.get("an", []))                   # dạng non: râu lửa, hai búi bờm trên thân
 BOM = [["toufa_07", "toufa_08", "toufa_09"], ["toufa_03", "toufa_04", "toufa_05", "toufa_06"], ["toufa_02", "toufa_010", "toufa_011"],
        ["toufa_01", "toufa_012", "toufa_013", "toufa_017"], ["toufa_014", "toufa_015", "toufa_016"], ["huzi", "huzi2"]]
 BOM_X = [b for ch in BOM for b in ch]
-CAO = 760.0
+CAO = float(DANG.get("cao", 760.0))
 # VỆT CHÉM dọc lưỡi đao (người dùng 2026-11-13: "thêm trail dọc lưỡi đao, trail cam mờ mờ thôi, kiểu thể hiện nhát chém splash")
 VET_K, VET_DT = 10, 1.0 / 120.0          # số cột quá khứ, khoảng cách thời gian giữa hai cột (vệt dài ~0,08 s)
 VET_V0, VET_V1 = 4500.0, 9500.0          # tốc độ mũi đao (đơn vị / giây) bắt đầu hiện / hiện đủ (idle, walk không tới ngưỡng)
 VET_A = 0.42                             # độ đậm lớn nhất (cam mờ)
 VET_HANG = ((0.40, -0.058), (0.60, -0.110), (0.80, -0.148), (0.93, -0.130), (1.0, -0.062))   # điểm dọc LƯỠI SẮC (u từ chuôi, v ngang; theo chiều dài đao)
+if DANG.get("vet_hang"):
+    VET_HANG = tuple(tuple(x) for x in DANG["vet_hang"])            # đao dạng non bè hơn: lưỡi sắc nằm xa trục hơn
 
 
 # ---------------------------------------------------------------- thứ tự vẽ của họ: slot đứng yên + slot di động
@@ -216,8 +225,15 @@ def cong(a, b, w=1.0, chi=None):
     return out
 
 
+WALK_NGA = float(DANG.get("walk_nga", 1.0))          # dạng non: phần độ gập ngực của run_01 giữ lại trong walk
+DAO_PHONG = float(DANG.get("dao_phong", 1.0))        # dạng non: giữ lại chừng này độ PHÓNG phối cảnh của đao trong các nhát chém của họ (× 1,5)
+
+
 def dat(P, d):
     for b, v in d.items():
+        if DAO_PHONG != 1.0 and b == "wuqi_03":      # con nhỏ mà đao phóng 1,5 lần thì đao to gấp ba thân
+            v = np.array([v[0], v[1], v[2], 1.0 + (v[3] - 1.0) * DAO_PHONG if v[3] > 1.0 else v[3],       # chỉ bớt độ PHÓNG; đoạn họ co đao
+                          1.0 + (v[4] - 1.0) * DAO_PHONG if v[4] > 1.0 else v[4]])                      # (đao chĩa vào trong) giữ nguyên
         if abs(v[0]) > 1e-5:
             P.rot(b, float(v[0]))
         if abs(v[1]) > 1e-5 or abs(v[2]) > 1e-5:
@@ -275,6 +291,50 @@ def hien_theo_ho(sk, P, clip, t, lap=False):
 
 
 # ---------------------------------------------------------------- dựng
+def _gan_rieng(sk, Wi, V, d):
+    """trọng số cho mảnh đổi dáng KHÔNG theo lưới của họ (dạng non: mảnh của mình khác hẳn chỗ, cỡ mảnh gốc).
+    "cung": "<xương>"  cả mảnh bám cứng một xương.
+    "chuoi": [x0, x1, ...]  dải mềm theo chuỗi xương (búi lửa): chiếu đỉnh lên đường gấp khúc nối gốc các đốt (đốt cuối kéo dài theo trục x
+    của nó tới điểm xa nhất của mảnh); trước gốc x0 và nửa đầu đốt 0 bám x0; quanh mỗi khớp pha trơn hai đốt kề (vùng pha = 45 % mỗi bên)."""
+    if "cung" in d:
+        b = d["cung"]
+        Wb = np.linalg.inv(Wi[b])
+        out = []
+        for p in V:
+            q = Wb @ np.array([p[0], p[1], 1.0])
+            out.append([(b, float(q[0]), float(q[1]), 1.0)])
+        return out
+    ch = d["chuoi"]
+    O = [Wi[b][:2, 2] for b in ch]
+    ax = Wi[ch[-1]][:2, 0] / max(1e-9, np.linalg.norm(Wi[ch[-1]][:2, 0]))
+    O.append(O[-1] + ax * max(30.0, float(max((p - O[-1]) @ ax for p in V))))
+    O = np.array(O)
+    seg = np.linalg.norm(np.diff(O, axis=0), axis=1)
+    cum = np.concatenate([[0.0], np.cumsum(seg)])
+    inv = {b: np.linalg.inv(Wi[b]) for b in ch}
+    rows = []
+    for p in V:
+        best = None
+        for i in range(len(ch)):
+            dd = O[i + 1] - O[i]
+            t = float(np.clip((p - O[i]) @ dd / max(1e-9, dd @ dd), 0, 1))
+            dist = float(np.linalg.norm(p - (O[i] + t * dd)))
+            if best is None or dist < best[0]:
+                best = (dist, cum[i] + t * seg[i])
+        s_ = best[1]
+        w = np.zeros(len(ch))
+        for i in range(len(ch)):
+            a_, b_ = cum[i], cum[i + 1]
+            vao = 1.0 if i == 0 else em((s_ - (a_ - 0.45 * seg[i - 1])) / max(1e-6, 0.45 * (seg[i - 1] + seg[i])))
+            ra = 1.0 if i == len(ch) - 1 else 1.0 - em((s_ - (b_ - 0.45 * seg[i])) / max(1e-6, 0.45 * (seg[i] + seg[i + 1])))
+            w[i] = max(0.0, min(vao, ra))
+        w[w < 0.02] = 0.0
+        w /= w.sum()
+        ph = np.array([p[0], p[1], 1.0])
+        rows.append([(ch[i], float((inv[ch[i]] @ ph)[0]), float((inv[ch[i]] @ ph)[1]), float(w[i])) for i in range(len(ch)) if w[i] > 0])
+    return rows
+
+
 def dung():
     sk = Sk(TEN)
     sk.xuong("root")
@@ -285,7 +345,33 @@ def dung():
             continue
         cha = NB[b["parent"]]
         z = L0[i]
-        sk.xuong(b["name"], "move" if cha == "root" else cha, z[0], z[1], goc=z[2], dai=b["len"], sx=z[3], sy=z[4])
+        cha = "move" if cha == "root" else cha
+        dx = DANG.get("xuong", {}).get(b["name"])
+        if dx:                                      # dạng non: {"s": nhân tỉ lệ, "tg": [x, y] gốc xương ở thế giới, "huong": góc thế giới của trục x}
+            s_ = float(dx.get("s", 1.0))
+            if "lua" in dx:                          # gốc chuỗi xương của một búi lửa: {"lua": [gốc búi, mũi búi]} (thế giới). Dời gốc chuỗi tới gốc
+                ch = next(c for c in BOM if c[0] == b["name"])        # búi, xoay + co cả chuỗi cho dây cung gốc → đốt cuối nằm dọc búi, dài 62 % búi
+                Mc = np.eye(3)
+                for bn in ch[1:]:
+                    zc = L0[NB.index(bn)]
+                    Mc = Mc @ mat(zc[0], zc[1], zc[2], zc[3], zc[4])
+                W_cu = sk.W0[cha] @ mat(z[0], z[1], z[2], z[3], z[4])
+                day_cu = W_cu[:2, :2] @ Mc[:2, 2]
+                B_, T_ = np.array(dx["lua"][0], float), np.array(dx["lua"][1], float)
+                day = 0.62 * (T_ - B_)
+                xoay = math.degrees(math.atan2(day[1], day[0]) - math.atan2(day_cu[1], day_cu[0]))
+                s_ = float(np.linalg.norm(day) / max(1e-6, np.linalg.norm(day_cu)))
+                sk.xuong(b["name"], cha, float(B_[0]), float(B_[1]), goc=goc_mat(W_cu) + xoay, dai=b["len"], sx=z[3] * s_, sy=z[4] * s_,
+                         the_gioi=True)
+            elif "tg" in dx:
+                W_cu = sk.W0[cha] @ np.array([[math.cos(math.radians(z[2])), -math.sin(math.radians(z[2])), z[0]],
+                                              [math.sin(math.radians(z[2])), math.cos(math.radians(z[2])), z[1]], [0, 0, 1.0]])
+                sk.xuong(b["name"], cha, dx["tg"][0], dx["tg"][1], goc=float(dx.get("huong", goc_mat(W_cu))), dai=b["len"],
+                         sx=z[3] * s_, sy=z[4] * s_, the_gioi=True)
+            else:
+                sk.xuong(b["name"], cha, z[0], z[1], goc=z[2] + float(dx.get("xoay", 0.0)), dai=b["len"], sx=z[3] * s_, sy=z[4] * s_)
+            continue
+        sk.xuong(b["name"], cha, z[0], z[1], goc=z[2], dai=b["len"], sx=z[3], sy=z[4])
     Wi = sk.the_gioi()
     G._C.pop("att", None)
     _, imgs_ho, _ = G.nap("att_goc.json")
@@ -296,6 +382,8 @@ def dung():
         r = a["region"]
         if r not in IM:
             p = os.path.join(MANH, r + ".png")
+            if NON and not os.path.exists(p):
+                p = os.path.join(MANH2, r + ".png")
             if os.path.exists(p) and not GOC:
                 g = Image.open(p).convert("RGBA")
                 k = float(os.environ.get("QD_PX") or 0.72) / 2.0             # ảnh mảnh = ảnh vùng × 2 (1 px / đơn vị) → 0,72 px / đơn vị
@@ -341,6 +429,8 @@ def dung():
 
     pm = os.path.join(MANH, "dat_moi.json")
     MOI = json.load(open(pm, encoding="utf-8")) if (os.path.exists(pm) and not GOC) else {}
+    if NON:                                          # mảnh đổi dáng chưa có bản non: tạm theo dạng 2 (để thử); slot ẩn thì khỏi cần
+        MOI = {**json.load(open(os.path.join(MANH2, "dat_moi.json"), encoding="utf-8")), **MOI}
     DAY = {}
 
     def gan_goc(slot_ten, a):
@@ -351,7 +441,8 @@ def dung():
         d = MOI[a["slot"]]
         key = d.get("anh", a["slot"])
         if key not in DAY:
-            g = Image.open(os.path.join(MANH, key + ".png")).convert("RGBA")
+            pk = os.path.join(MANH, key + ".png")
+            g = Image.open(pk if os.path.exists(pk) or not NON else os.path.join(MANH2, key + ".png")).convert("RGBA")
             k_px = float(d.get("px", 0.55))
             if "M" in d:                                          # phép đồng dạng ảnh nguồn (px, y xuống) → thế giới rig
                 Mm = np.array(d["M"], float)
@@ -366,6 +457,12 @@ def dung():
             L = luoi_vung(im, buoc_vien=b_ * k_px, buoc_trong=b_ * 1.5 * k_px, ten=key, in_tk=False)
             kx, ky = g.width / im.width, g.height / im.height
             V = np.array([Mm @ np.array([q[0] * kx, q[1] * ky, 1.0]) for q in np.asarray(L.pts, float)])
+            if "cung" in d or "chuoi" in d:
+                rows = _gan_rieng(sk, Wi, V, d)
+                V0 = np.array([sum(w * (Wi[bn] @ np.array([x, y, 1.0]))[:2] for bn, x, y, w in row) for row in rows])
+                DAY[key] = (im, L, rows, V0)
+                print(f"  {key}: lưới của mình {L.n} đỉnh, " + (f"cứng trên {d['cung']}" if "cung" in d else "chuỗi " + " → ".join(d["chuoi"])))
+        if key not in DAY:
             rows_ho, Q = hang(a, np.array(a["xy"], float).reshape(-1, 2))
             _, tr = G.luoi(a)
             tr = np.asarray(tr, int).reshape(-1, 3)
@@ -686,6 +783,15 @@ def lam_clip(sk, info):
     def walk(t, P):
         dat(P, mau("run_01", t, True))
         hien_theo_ho(sk, P, "run_01", t, True)
+        if NON:                                     # run_01 gập ngực chúi tới 30°: đầu quả cầu to của con non tụt sát đất, tay gần + giáp vai vắt ngang che
+            v = P._g("shenti")                      # hết mặt nửa vòng bước → chỉ giữ một phần độ gập của ngực, các xương con của ngực giữ nguyên
+            bu = v[2] * (1.0 - WALK_NGA)            # hướng thế giới (tay xa vẫn vác đao như cũ)
+            v[2] -= bu
+            for b_ in ("lian_01", "dabi_r", "dabi_l", "toufa_02", "toufa_01", "s"):
+                P.rot(b_, bu)
+            cui = sum(P.t.get(b_, [0, 0, 0, 1, 1])[2] for b_ in ("yao", "yao2", "shenti", "lian_01"))
+            P.rot("lian_01", -0.7 * cui)            # đầu của họ chúi theo bước tới 27°: mặt quả cầu úp xuống nấp sau tay → giữ 30 %
+            P.rot("dabi_r", -14.0)                  # tay gần buông thấp hơn, đi dưới cằm
         ph = 2 * math.pi * t / D_W
         nay = sum(math.exp(-((t - b0) % D_W) / 0.10) for b0 in BUOC)          # nảy sau mỗi bước giậm
         P.rot("dabi_l", 27.0 + 4.0 * math.sin(2 * ph + 0.4) - 3.5 * nay)       # xốc đao lên vai, nảy theo bước
@@ -750,6 +856,14 @@ def lam_clip(sk, info):
     def cast(t, P):
         u = tq(t, TCa)
         ho(P, "skill_01_1", u)
+        if NON:                                     # lúc giơ đao gồng họ ngửa cả người + đầu ra sau: mặt quả cầu to của con non ngửa lên nấp sau
+            cui = sum(P.t.get(b_, [0, 0, 0, 1, 1])[2] for b_ in ("yao", "yao2", "shenti", "lian_01"))      # cánh tay gần → đầu giữ 35 % độ ngửa
+            P.rot("lian_01", -0.65 * cui)
+            ha = bump(t, 0.22, 0.44, 1.03, 1.12)      # và tay gần KHÔNG đưa lên đỡ đao lúc gồng (vắt ngang che hết mặt): giơ đao một tay, tay gần
+            for b_ in ("dabi_r", "xiaobi_r", "shou_r"):   # nắm lại bên dưới; tới cú bổ thì theo họ (bàn tay đè lên sống đao)
+                v = P._g(b_)
+                v[2] *= 1.0 - 0.85 * ha
+            P.rot("dabi_r", -18.0 * ha)
         tu = bump(t, C_TU, 0.76, 1.00, 1.08)
         nen = math.exp(-max(0.0, t - C_TR) / 0.08) if t >= C_TR else 0.0
         P.move("move", 2.6 * tu * math.sin(2 * math.pi * 14 * t) + tat_dan(t, C_TR, 10.0, 14.0, 0.12), tat_dan(t, C_TR, -9.0, 12.0, 0.10))
@@ -833,6 +947,11 @@ def lam_clip(sk, info):
     return out
 
 
+# Khung vẽ khai cho game (2026-11-14): nhát bổ và liên hoàn chém vươn tới 2,3-2,9 lần chiều cao khai quanh chân, đao quật xuống dưới chân
+# 1,1 lần, cú rơi của appear cao 3,1 lần; khung mặc định của game (3,4 = ±1,7 ngang, 0,68 dưới chân) cắt dọc bản đao lúc lao.
+SPAN = 6.0
+
+
 def main(a):
     sk, info = dung()
     clips = lam_clip(sk, info)
@@ -869,11 +988,24 @@ def main(a):
         o.save(pth)
         print(pth, o.size)
         return
+    if NON:                                          # dạng 1: con nhỏ, impact nhẹ hơn dạng 2
+        xuat.xuat_het(sk, clips, RA, TEN, "Quỷ lửa con vác đao, dạng 1 (quy_dao_non)", dang=1, so_dang=2,
+                      dung_yen=("cast",), lao=("attack", "skill"), far=(), cao=info["cao"], ma_goc=None,
+                      tol={"rotate": 0.05, "translate": 0.12, "scale": 0.001}, khop_idle=0.2,
+                      impact={"attack": (0.08, 0.42, 0.11), "skill": (0.18, 0.8, 0.16, "#ffb04055")},
+                      plain=["vet"] if "vet" in sk.si else None, span=SPAN)
+        # chân dung: xuat_het bỏ mọi slot có xương chạy trong `aura` (đồ bay) → mất cả ba búi lửa. Vẽ lại đủ cả con ở khung 0 idle.
+        fr0 = hoat.phu_aura(hoat.nuong(sk, [c for c in clips if c.ten == "idle"][0]), hoat.nuong(sk, [c for c in clips if c.ten == "aura"][0]), sk)[0]
+        soi.chan_dung(soi.Ve(sk), fr0, os.path.join(RA, "chan_dung.png"))
+        return
     xuat.xuat_het(sk, clips, RA, TEN, "Quỷ lửa cầm đao (quy_dao_1)" + (" · DA GỐC (thử rig)" if GOC else ""), dang=1, so_dang=1,
                   dung_yen=("cast",), lao=("attack", "skill"), far=(), cao=info["cao"], ma_goc=None,
                   tol={"rotate": 0.05, "translate": 0.12, "scale": 0.001}, khop_idle=0.2,
                   impact={"attack": (0.10, 0.55, 0.14), "skill": (0.22, 1.0, 0.20, "#ffb04066")},
-                  plain=["vet"] if "vet" in sk.si else None)
+                  plain=["vet"] if "vet" in sk.si else None, span=SPAN)
+    # chân dung dạng 2 cũng mất bờm và râu lửa vì cùng lý do (2026-11-14): vẽ lại đủ cả con ở khung 0 idle có phủ aura
+    fr0 = hoat.phu_aura(hoat.nuong(sk, [c for c in clips if c.ten == "idle"][0]), hoat.nuong(sk, [c for c in clips if c.ten == "aura"][0]), sk)[0]
+    soi.chan_dung(soi.Ve(sk), fr0, os.path.join(RA, "chan_dung.png"))
 
 
 if __name__ == "__main__":

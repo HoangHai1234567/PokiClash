@@ -137,6 +137,65 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đao, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemDao() => TryOnly("giap_long");
 
+        // riêng Viêm Sư (pháp sư lửa, suất hong_lien, 2026-11-14): đòn thường bàn tay tan rồi hiện ra cào đối thủ, chiêu mana giơ trượng gọi kim lửa rồi
+        // vụt trượng phóng kim, chiêu cuối cầu lửa rời trượng bay lên phình to rồi lao vào đối thủ
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Sư, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemSu() => TryOnly("hong_lien");
+
+        // dạng 1 (2026-11-14): Viêm Đao Nhi (quỷ lửa con vác đao) và Viêm Đồng (pháp sư lửa con): cùng tour nhưng tướng ở 1 sao
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đao Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemDaoNhi()
+        {
+            sao = 1;
+            TryOnly("giap_long");
+        }
+
+        // Hỏa Sơn Long (2026-11-15): khủng long núi lửa, suất lan_hoa; dạng 1 Hỏa Sơn Nhi ở 1 sao
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Long, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryHoaSonLong() => TryOnly("lan_hoa");
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Thú (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryHoaSonThu()
+        {
+            sao = 3; // BalanceConfig.formStars = 3, 5: từ 3 sao là dạng 2
+            TryOnly("lan_hoa");
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryHoaSonNhi()
+        {
+            sao = 1;
+            TryOnly("lan_hoa");
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Bạch Viêm Hổ, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryBachViemHo() => TryOnly("hoa_tinh");
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Hổ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemHoNhi()
+        {
+            sao = 1;
+            TryOnly("hoa_tinh");
+        }
+
+        // Viêm Dũng (2026-11-14): chiến binh đất nung lõi dung nham, suất huyen_viem; dạng 1 Viêm Dũng Nhi ở 1 sao
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Dũng, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemDung() => TryOnly("huyen_viem");
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Dũng Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemDungNhi()
+        {
+            sao = 1;
+            TryOnly("huyen_viem");
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đồng (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryViemDong()
+        {
+            sao = 1;
+            TryOnly("hong_lien");
+        }
+
         // hộp chi tiết tướng: mở từng tướng Hỏa (sao cuối), bấm Chiêu rồi Mana trên ô xem, chụp vào hoa_fx/xem_<tướng>_<clip>_<n>.jpg
         [MenuItem("PokiClash/Thử/Đảo Hỏa: hạt lửa trong hộp chi tiết tướng (đang Play)", priority = 125)]
         static void TryViewer()
@@ -231,7 +290,7 @@ namespace PokiClash.EditorTools
                     yield return new WaitForSecondsRealtime(0.6f);
                     float start;
                     int n = 0;
-                    if (hero == "kim_su" || hero == "nham_than" || hero == "nguu_quyen" || hero == "giap_long")
+                    if (hero == "kim_su" || hero == "nham_than" || hero == "nguu_quyen" || hero == "giap_long" || hero == "hong_lien" || hero == "hoa_tinh" || hero == "huyen_viem" || hero == "lan_hoa")
                     {
                         st.Play(0, StageView.Attack);
                         start = Time.realtimeSinceStartup;
@@ -241,7 +300,7 @@ namespace PokiClash.EditorTools
                     }
                     st.Play(0, StageView.Cast, () => st.Beam(0));
                     start = Time.realtimeSinceStartup;
-                    while (Time.realtimeSinceStartup - start < 2.6f) yield return Shot($"{hero}_mana_{n++:00}");
+                    while (Time.realtimeSinceStartup - start < (hero == "huyen_viem" ? 3.0f : 2.6f)) yield return Shot($"{hero}_mana_{n++:00}");
                     yield return new WaitForSecondsRealtime(0.6f);
                     st.Play(0, StageView.Skill, () => st.UltFx(0));
                     start = Time.realtimeSinceStartup;

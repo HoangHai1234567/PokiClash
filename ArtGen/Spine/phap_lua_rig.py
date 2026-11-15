@@ -37,9 +37,14 @@ from quai.luoi import Luoi, luoi_vung  # noqa: E402
 import phap_lua as G  # noqa: E402
 import phap_lua_da as DA  # noqa: E402
 
-TEN = os.environ.get("PL_TEN") or "phap_lua_1"
-MANH = os.environ.get("PL_MANH") or os.path.join(G.BASE, "manh")
-RA = os.environ.get("PL_RA") or os.path.join(G.BASE, "rig")
+# PL_NON=1: DẠNG 1 (pháp sư lửa con "Viêm Đồng", phap_lua_non.py, 2026-11-14): cùng xương, cùng clip; mảnh và các khoá riêng đọc từ
+# inbox/phap_lua_non/manh/dat_moi.json (khoá bắt đầu bằng "_": _xuong chỉnh dáng gốc từng xương, _an slot bỏ, _truong trượng ngắn là ảnh
+# cứng của mình + tâm / bán kính cầu, _top chỗ cầu lửa bay lên ở chiêu cuối). Không đặt PL_NON thì mọi thứ như cũ.
+NON = os.environ.get("PL_NON") == "1"
+BASE_NON = os.path.join(HERE, "inbox", "phap_lua_non")
+TEN = os.environ.get("PL_TEN") or ("phap_lua_non" if NON else "phap_lua_1")
+MANH = os.environ.get("PL_MANH") or (os.path.join(BASE_NON, "manh") if NON else os.path.join(G.BASE, "manh"))
+RA = os.environ.get("PL_RA") or (os.path.join(BASE_NON, "rig_d1") if NON else os.path.join(G.BASE, "rig"))
 SCAN = G.scan()
 I = json.load(open(os.path.join(SCAN, "info.json"), encoding="utf-8"))
 AG = json.load(open(os.path.join(SCAN, "att_goc.json"), encoding="utf-8"))
@@ -236,6 +241,23 @@ def trong_so_lua(Vpx, J, goc, chuoi):
     return out
 
 
+def chinh_xuong(sk, CH):
+    """dạng khác trên cùng rig: chỉnh DÁNG GỐC từng xương. CH = {xương: {"s": tỉ lệ nhân, "dx", "dy": dời theo THẾ GIỚI, "goc": xoay thêm}},
+    ghi theo thứ tự cha trước con. Khoá của clip là độ lệch so với dáng gốc nên mọi clip chạy như cũ quanh dáng mới."""
+    for nm, c in CH.items():
+        b = sk.bones[sk.bi[nm]]
+        d = np.array([float(c.get("dx", 0.0)), float(c.get("dy", 0.0))])
+        if np.abs(d).max() > 0:
+            lp = np.linalg.solve(sk.W0[b["parent"]][:2, :2], d)
+            b["x"] += float(lp[0])
+            b["y"] += float(lp[1])
+        b["sx"] *= float(c.get("s", 1.0))
+        b["sy"] *= float(c.get("s", 1.0))
+        b["rot"] += float(c.get("goc", 0.0))
+        for q in sk.bones:
+            sk.W0[q["name"]] = sk._world(q, mat(q["x"], q["y"], q["rot"], q["sx"], q["sy"]), sk.W0[q["parent"]] if q["parent"] else None)
+
+
 def dung():
     sk = Sk(TEN)
     sk.xuong("root")
@@ -257,7 +279,9 @@ def dung():
             sk.xuong("bone103", "far", w0[0], w0[1], goc=w0[2], dai=b["len"])
             continue
         sk.xuong(b["name"], "move" if cha == "root" else cha, z[0], z[1], goc=z[2], dai=b["len"], sx=z[3], sy=z[4])
-    Wi = sk.the_gioi()                        # dáng gốc của mình = khung 0 idle của họ
+    if MOI.get("_xuong"):
+        chinh_xuong(sk, MOI["_xuong"])
+    Wi = sk.the_gioi()                        # dáng gốc của mình = khung 0 idle của họ (+ chỉnh của dạng khác)
     G._C.pop("att", None)
     _, imgs_ho, _ = G.nap("att_goc.json")
     hien0 = {SL[k]: v > 0.5 for k, v in enumerate(CD["idle_01"][3][0])}
@@ -418,13 +442,22 @@ def dung():
     cx, cy, Rpx, _ = DA.cau_trong_truong(DA.vung()["wuqi"][1])
     G._C.pop("att", None)
     G.nap("att_goc.json")
-    c_loc = {}
+    c_loc, A_tr = {}, {}
     for sl, bn in (("wuqi", "bone56"), ("wuqi2", "bone102")):
         a = by[sl]
         uv_px, _ = G.luoi(a)
         M, *_ = np.linalg.lstsq(np.c_[uv_px, np.ones(len(uv_px))], np.array(a["xy"], float).reshape(-1, 2), rcond=None)
         c_loc[bn] = np.linalg.solve(WG[bn], np.array([*(np.array([cx, cy, 1.0]) @ M), 1.0]))
         Rw = float(Rpx * math.sqrt(abs(np.linalg.det(M[:2]))))
+        # px ảnh trượng của họ → thế giới dáng gốc của mình, khi trượng bám xương bn
+        A_tr[bn] = Wi[bn] @ np.linalg.inv(WG[bn]) @ np.array([[M[0, 0], M[1, 0], M[2, 0]], [M[0, 1], M[1, 1], M[2, 1]], [0, 0, 1.0]])
+    TR = MOI.get("_truong")                   # dạng khác: trượng là ẢNH CỨNG của mình đặt đúng chỗ concept (bám bone56); bản thả rời bám bone102
+    if TR:                                    # giữ đúng quan hệ trượng ↔ xương của họ: T102 = A_tr[bone102] · A_tr[bone56]⁻¹ (thế giới → thế giới)
+        T102 = A_tr["bone102"] @ np.linalg.inv(A_tr["bone56"])
+        tam_tg = np.array([TR["goc"][0] + TR["tam"][0] * TR["ti"], TR["goc"][1] - TR["tam"][1] * TR["ti"], 1.0])
+        c_loc["bone56"] = np.linalg.solve(Wi["bone56"], tam_tg)
+        c_loc["bone102"] = np.linalg.solve(Wi["bone102"], T102 @ tam_tg)
+        Rw = float(TR["R"])
     C0 = (Wi["bone56"] @ c_loc["bone56"])[:2]
 
     # ---- xương nhóm cầu lửa
@@ -484,13 +517,58 @@ def dung():
             if hau:
                 sk._slot(sl)["alpha"] = 0.0
 
+    def truong_cua_minh(slot_ten, bn, an):
+        """trượng của mình (ảnh cứng). bone56: đặt đúng chỗ concept; bone102 (trượng thả rời): cùng chỗ đó đưa qua T102."""
+        from quai.luoi import luoi_o
+        g = Image.open(os.path.join(MANH, TR.get("anh", "truong") + ".png")).convert("RGBA")
+        if "truong" not in sk.images:
+            kp = 1.2
+            sk.anh("truong", anh.loang_mau(g.convert("RGBa").resize((max(2, round(g.width * TR["ti"] * kp)), max(2, round(g.height * TR["ti"] * kp))),
+                                                                     Image.LANCZOS).convert("RGBA")))
+        im = sk.images["truong"]
+        L = luoi_o(im.width, im.height, 2, 2)
+        k_ = TR["ti"] * g.width / im.width           # đơn vị / px ảnh atlas
+        V = np.array([[TR["goc"][0] + q[0] * k_, TR["goc"][1] - q[1] * k_] for q in np.asarray(L.pts, float)])
+        if bn == "bone102":
+            V = np.array([(T102 @ np.array([v[0], v[1], 1.0]))[:2] for v in V])
+        sk.slot(slot_ten, bn, "truong", an=an)
+        sk.luoi_gan(slot_ten, "truong", L, [{bn: 1.0}] * L.n, the_gioi=V, ten="truong")
+
+    LOPN = MOI.get("_lop")
+    DUNG_DUA = []
+    AN = set(MOI.get("_an") or [])            # slot của họ mà dạng này không dùng (dây bện, gai sao: đã vẽ liền vào áo / không có)
     # ---- slot theo thứ tự vẽ của họ (sau → trước)
     for a in sorted(AG["atts"], key=lambda q: q["order"]):
         s_ = a["slot"]
         if s_ == "wuqi2":
             continue
+        if LOPN is not None and s_ in LOPN:      # dạng khác: các mảnh của mình thế chỗ slot này (theo thứ tự ghi, sau → trước)
+            for khoa in LOPN[s_]:
+                d = MOI[khoa]
+                if d.get("kieu") == "cung":      # mảnh cứng trên một xương MỚI (con của d["cha"], gốc ở d["truc"] thế giới) + đung đưa nhẹ trong aura
+                    g = Image.open(os.path.join(MANH, d.get("anh", khoa) + ".png")).convert("RGBA")
+                    kp = 1.1
+                    sk.anh(khoa, anh.loang_mau(g.convert("RGBa").resize((max(2, round(g.width * d["ti"] * kp)), max(2, round(g.height * d["ti"] * kp))),
+                                                                        Image.LANCZOS).convert("RGBA")))
+                    sk.xuong(d["xuong"], d.get("cha", "bone6"), float(d["truc"][0]), float(d["truc"][1]), 0.0, the_gioi=True)
+                    sk.slot(khoa, d["xuong"], khoa, an=not hien0[s_])
+                    sk.manh(khoa, khoa, Dat(d["goc"][0], d["goc"][1], ti=1.0 / kp, neo=(0.0, 0.0)), ten=khoa)
+                    DUNG_DUA.append((d["xuong"], float(d.get("lac", 4.0)), float(d.get("chu_ky", 2.0)), float(d.get("pha", 0.0))))
+                elif d.get("kieu") == "xuong":
+                    gan_xuong(khoa, d, XUONG_AO, float(d.get("sigma", 58.0)), not hien0[s_])
+                else:
+                    gan_goc(khoa, by[d["theo"]], not hien0[s_], d)
+                KEM[khoa] = s_
+            BO.add(s_)
+            continue
+        if s_ in AN:
+            BO.add(s_)
+            continue
         if s_ == "wuqi":
             nhom_cau()
+            if TR:
+                truong_cua_minh("wuqi", "bone56", not hien0[s_])
+                continue
         if s_ in LOP and all(k in MOI for _, k in LOP[s_]):
             for sl_moi, khoa in LOP[s_]:
                 if s_ == "pifeng_03":
@@ -514,8 +592,12 @@ def dung():
             gan(s_, a, an=not hien0[s_])
     # ---- trên cùng: nhóm cầu lửa bản _t, trượng bản _t, trượng thả rời, bốn ngón tay trượng bản _t
     nhom_cau("_t")
-    gan("wuqi_t", by["wuqi"], an=True)
-    gan("wuqi2", by["wuqi2"], an=True)
+    if TR:
+        truong_cua_minh("wuqi_t", "bone56", True)
+        truong_cua_minh("wuqi2", "bone102", True)
+    else:
+        gan("wuqi_t", by["wuqi"], an=True)
+        gan("wuqi2", by["wuqi2"], an=True)
     for s_ in TAY_R:
         gan(s_ + "_t", by[s_], an=True)
 
@@ -526,7 +608,8 @@ def dung():
         sk.su_kien(e, m)
     tk = sk.tom_tat()
     print(f"{tk['xuong']} xương, {tk['slot']} slot, {tk['dinh']} đỉnh; chiều cao game {cao:.0f}; cầu lửa tâm {C0.round(1)} bán kính {Rw:.1f}")
-    return sk, dict(cao=cao, C0=C0, Rw=Rw, c_loc=c_loc, lua={k: v["names"] for k, v in lua_x.items()})
+    return sk, dict(cao=cao, C0=C0, Rw=Rw, c_loc=c_loc, lua={k: v["names"] for k, v in lua_x.items()}, top=MOI.get("_top"),
+                    tr_lech=MOI.get("_tr_lech"), dung_dua=DUNG_DUA, die_nang=MOI.get("_die_nang"))
 
 
 # ---------------------------------------------------------------- tiện ích dáng
@@ -636,6 +719,24 @@ def lam_clip(sk, info):
     def cau_o_truong(P, xg, tr, co=1.0, hien=1.0):
         dat_cau(info, P, cho_cau(sk, info, P, xg), tren=tr, co=co, hien=hien)
 
+    # ---- dạng khác (thân thấp, đầu to): trượng THẢ RỜI (bone102) dời thêm một quãng thế giới trong lúc rời tay, vào ra êm 0,3 s quanh lúc
+    # buông / chụp lại (dáng gốc của bone102 đã khớp chỗ bàn tay nên lúc đổi xương trượng không nhảy). _tr_lech = {"skill": [dx, dy], "die": [..]}
+    TRL = info.get("tr_lech") or {}
+    _KR = {}
+
+    def lech_truong(P, ten, clip_ho, t, u_fn, D, xg):
+        if ten not in TRL or xg != "bone102":
+            return
+        if ten not in _KR:
+            ts = [i / 60.0 for i in range(int(D * 60) + 1)]
+            roi = [CD[clip_ho][4][khung_ho(clip_ho, u_fn(x))] == "bone102" for x in ts]
+            i0, i1 = roi.index(True), len(roi) - 1 - roi[::-1].index(True)
+            _KR[ten] = (ts[i0], ts[i1] if i1 < len(roi) - 1 else None)
+        a, b = _KR[ten]
+        w = em((t - a) / 0.3) * (1.0 if b is None else 1.0 - em((t - (b - 0.3)) / 0.3))
+        if w > 0:
+            dich_tg(sk, P, "bone102", np.array(TRL[ten], float) * w)
+
     # ---- AURA: lửa uốn lượn + tim lửa đập + khói bốc sau cầu lửa (lặp, phủ lên mọi clip)
     D_AU, DOI_KHOI = 4.0, 2.0
 
@@ -651,6 +752,8 @@ def lam_clip(sk, info):
         if "lua_ao" in sk.si:                      # khối lửa dưới áo: sóng chạy xuống các đốt cuối của ba chuỗi đuôi áo (xương chỉ áo dùng)
             for nm, ph, bd in (("bone34", 0.0, 3.2), ("bone35", 0.9, 5.5), ("bone39", 2.1, 3.2), ("bone40", 3.0, 5.5)):
                 P.rot(nm, bd * math.sin(om * t * 0.75 + ph) + 0.35 * bd * math.sin(2 * om * t * 0.75 + 1.7 * ph))
+        for b_, bd, ck, ph in info.get("dung_dua") or []:      # dạng khác: mảnh cứng trên xương mới (búi tóc trên mũ) đung đưa nhẹ
+            P.rot(b_, bd * math.sin(2 * math.pi * t / ck + ph))
         P.scale("tim", 1.0 + 0.07 * math.sin(2 * om * t), 1.0 + 0.07 * math.sin(2 * om * t + 1.3))
         P.rot("tim", 9.0 * math.sin(om * t * 0.5))
         P.scale("cau", 1.0 + 0.015 * math.sin(2 * om * t + 0.6))
@@ -736,7 +839,7 @@ def lam_clip(sk, info):
     # hút lửa, lớn dần → hai tay vung tới, cầu lửa bắn sang đối thủ → chụp lại trượng, cầu lửa mới nhen trong đầu trượng
     T_TACH, T_LEN, T_HUT, T_DAY, T_NEM, BAY, T_VE, D_SK = 0.66, 1.05, 1.05, 2.05, 2.25, 0.2, 2.75, 3.4
     U_GIU0, U_GIU1, U_VE = 0.62, 1.36, 1.36
-    TOP = np.array([64.0, 1000.0])                  # khung sticker của game: 2,72 chiều cao trên chân (≈ 1570): cầu to + lửa phải nằm dưới đó
+    TOP = np.array(info.get("top") or [64.0, 1000.0])    # khung sticker của game: 2,72 chiều cao trên chân (≈ 1570): cầu to + lửa phải nằm dưới đó
     CO_TO = 2.2
 
     def u_sk(t):
@@ -772,6 +875,7 @@ def lam_clip(sk, info):
     def skill(t, P):
         u = u_sk(t)
         xg, tr = ho(P, "skill_03", u)
+        lech_truong(P, "skill", "skill_03", t, u_sk, D_SK, xg)
         hut = bump(t, T_HUT, T_HUT + 0.3, T_DAY, T_NEM)
         nem = bump(t, T_NEM - 0.04, T_NEM + 0.08, T_NEM + 0.35, T_VE)
         lay_da = bump(t, T_DAY, T_NEM - 0.02, T_NEM, T_NEM + 0.06)
@@ -831,6 +935,9 @@ def lam_clip(sk, info):
     def die(t, P):
         u = min(t, CD["die_01"][0])
         xg, tr = ho(P, "die_01", u)
+        lech_truong(P, "die", "die_01", t, lambda x: min(x, CD["die_01"][0]), D_DIE, xg)
+        if info.get("die_nang"):                           # dạng khác (thân đã hạ thấp, đầu to): dáng nằm của họ chìm dưới đất → nâng dần lúc rơi
+            dich_tg(sk, P, "bone2", (0.0, float(info["die_nang"]) * em((t - 0.35) / 0.4)))
         cau_o_truong(P, xg, tr)
         lui = em((t - 0.25) / 0.6)
         lua_co(P, k_dai=max(0.03, 1.0 - lui), k_rong=max(0.03, 1.0 - 0.8 * lui))
@@ -917,9 +1024,24 @@ def main(a):
         out.save(pth)
         print(pth, out.size)
         return
-    xuat.xuat_het(sk, clips, RA, TEN, "Pháp sư lửa (phap_lua_1)", dang=1, so_dang=1, dung_yen=("attack", "cast", "skill"), lao=(),
-                  far=("attack",), cao=info["cao"], ma_goc=None, tol={"rotate": 0.05, "translate": 0.12, "scale": 0.001},
+    # chiều cao KHAI cho game: con bè ngang (trượng bên trái, tay vuốt bên phải: khung 0 idle rộng ~1,33 lần chiều cao tới đỉnh mũ) nên trong trận
+    # (2026-11-14, tour Viêm Sư ở sao cuối) thân tràn mép phải màn hình. Khai chiều cao ≥ bề ngang / 1,16 như rùa golem lửa: game co tướng theo
+    # chiều cao khai. Các clip vẫn tính theo info["cao"] (đỉnh mũ trùm).
+    bx = soi.Ve(sk).bao(hoat.nuong(sk, [x for x in clips if x.ten == "idle"][0])[0])
+    cao_khai = max(info["cao"], (bx[2] - bx[0]) / 1.16)
+    print(f"chiều cao khai cho game {cao_khai:.0f} (đỉnh mũ {info['cao']:.0f}, bề ngang idle {bx[2] - bx[0]:.0f})")
+    xuat.xuat_het(sk, clips, RA, TEN, "Pháp sư lửa dạng 1, Viêm Đồng (phap_lua_non)" if NON else "Pháp sư lửa (phap_lua_1)", dang=1,
+                  so_dang=2 if NON else 1, dung_yen=("attack", "cast", "skill"), lao=(),
+                  far=("attack",), cao=cao_khai, ma_goc=None, tol={"rotate": 0.05, "translate": 0.12, "scale": 0.001},
                   khop_idle=0.2, impact={"attack": (0.05, 0.25, 0.07), "skill": (0.22, 1.0, 0.18, "#ffb04066")})
+    if not NON:
+        # chân dung dạng 2 (2026-11-14): bản của xuat_het bỏ mọi slot mà clip aura đụng tới nên mất cầu lửa, lưỡi lửa, lửa dưới áo. Vẽ lại ở
+        # khung 0 idle, chỉ bỏ khói (dạng 1 có phap_lua_non.py chan_dung)
+        P0 = hoat.nuong(sk, [c for c in clips if c.ten == "idle"][0])[0]
+        for k_ in list(P0.alpha):
+            if k_.startswith("khoi_"):
+                P0.alpha[k_] = 0.0
+        soi.chan_dung(soi.Ve(sk), P0, os.path.join(RA, "chan_dung.png"))
 
 
 if __name__ == "__main__":

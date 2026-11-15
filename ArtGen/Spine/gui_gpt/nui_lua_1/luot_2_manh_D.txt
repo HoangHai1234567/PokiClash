@@ -1,0 +1,22 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\tai_ve\L1_duyet.png: the APPROVED creature, 1536x1024, white background: a huge four-legged volcano dinosaur of charcoal-black basalt with two great ivory ram horns; its back carries a main crater mountain and a crowd of tiered crater towers. It gives the design, the colours, the wobbly dark-brown ink line, the crayon hatching and the look of every material (rock, lava, ivory bone).
+image 2 = D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\mau\part_D.png: PARTS GUIDE, 1536x1024, white background, drawn by computer: 8 separate flat shapes, each one a PART of the creature's 2D animation rig, enlarged, lying at the angle the rig needs. Each shape is the EXACT silhouette of its part, filled with the flat colours of its materials and outlined in dark brown.
+
+SAVE: save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\nui_lua_1\tai_ve\N_D.png
+If a file with that name already exists, save as N_D_2.png, N_D_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 cleanly in the hand-drawn style of image 1, landscape 1536x1024, pure-white background. Keep EXACTLY every silhouette of image 2: the same outline, the same size, the same angle, the same position on the sheet (if your picture were laid over image 2, every shape must coincide with its shape there). Do not move, rotate, straighten, merge or rearrange the shapes; do not add or drop any; keep clear white between them. A program will cut this sheet by position.
+
+WHAT THE SHAPES ARE (centre of each shape in pixels on the sheet, x from the left, y from the top):
+- the UPPER SKULL (the head without the lower jaw), of charcoal basalt (#56505C). Its jagged lower edge is a row of big ROCK TEETH. The yellow slanted EYE with the thin dark slit pupil and the tiny light dot: keep it EXACTLY as drawn (same place, size, tilt) and add a heavy angry BROW ridge line just above it. The near-black block beside the eye is the dark inside of the mouth behind the teeth: keep it flat near-black (#36323C). The two rounded lobes at the top are the rocky bumps of the forehead where the horns grow: plain rock, NO craters, NO circles, NO lava on them. Elsewhere a few big facet lines and chips: 1 shape, centred at about (274, 279).
+- the LOWER JAW: warm ivory bone (#E4CEA4), heavy, with a row of big SAW TEETH cut from the same piece; three or four chips and one or two cracks, as the jaw of image 1: 1 shape, centred at about (801, 248).
+- the FAR ROW OF SAW TEETH of the lower jaw: warm ivory bone (#E4CEA4), a few chips and one crack: 1 shape, centred at about (1267, 205).
+- a great RAM HORN: warm ivory bone (#E4CEA4), curved, sharp at the tip, thick and rounded at the base; the ink lines across it near the base are ring grooves: keep them, slightly curved; add one small chip. No lava: 2 shapes, centred at about (199, 734), (562, 713).
+- the FIRE IN THE THROAT: a flat lava-orange (#F07828) blob with a flat yellow (#FACC50) centre, an ink line between them. No glow: 1 shape, centred at about (854, 665).
+- a FOOT TIP WITH CLAWS: warm ivory bone (#E4CEA4): each bump of the silhouette is one big blunt claw; separate the claws with ink lines running in from the notches; one short crack: 2 shapes, centred at about (1133, 655), (1399, 635).
+
+OUTLINE: every shape gets ONE closed dark-brown ink outline (#2B2118), about 9 px thick on this sheet, wobbly like a real pen, lying just INSIDE the edge of the silhouette (never outside it). Inner lines (facet lines, chips, cracks, the lines between two colours) are thinner (about 4 px).
+COLOUR: keep the colour each shape has in image 2, and keep every second colour exactly where image 2 shows it. Fill every area with visible loose diagonal crayon / coloured-pencil hatching as in image 1, kept inside the outline.
+Each shape is a complete, closed object on its own: do not draw neighbouring parts, do not draw the creature, do not add smoke, flames or sparks.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour, the crayon strokes are texture only. No shading, no darker side, no lighter top faces, no highlights or shine spots (not on the horns, not on the claws, not on the lava), NO GLOW around the lava, NO GRADIENTS (two colours always meet at a clean inked edge), no cast shadows, no 3D look. Pure white (#FFFFFF) background; no text, no labels, no numbers, no frames, no guide lines.

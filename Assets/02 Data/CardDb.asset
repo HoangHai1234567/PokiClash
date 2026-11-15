@@ -4095,10 +4095,10 @@ MonoBehaviour:
     owner: nham_than
     effectsJson: '[{"k":"status","id":"burn","turns":2,"v":0.05,"on":"foe"}]'
   - id: hong_lien_skill
-    name: "C\xE1nh Sen L\u1EEDa"
+    name: "H\u1ECFa Ch\xE2m"
     rarity: 1
     kind: 1
-    icon: lotus
+    icon: flame
     costMana: 35
     costRage: 0
     trigger: 0
@@ -4111,10 +4111,10 @@ MonoBehaviour:
     owner: hong_lien
     effectsJson: '[{"k":"dmg","mult":0.5,"hits":3}]'
   - id: hong_lien_ult
-    name: "H\u1ED3ng Li\xEAn Nghi\u1EC7p H\u1ECFa"
+    name: "\u0110\u1EA1i H\u1ECFa C\u1EA7u"
     rarity: 3
     kind: 2
-    icon: phoenix
+    icon: sun
     costMana: 45
     costRage: 100
     trigger: 0
@@ -4127,10 +4127,10 @@ MonoBehaviour:
     owner: hong_lien
     effectsJson: '[{"k":"dmg","mult":2.4},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
   - id: hong_lien_pas
-    name: "L\xF4ng V\u0169 L\u1EEDa"
+    name: "Th\xE2n Kh\xF3i"
     rarity: 2
     kind: 3
-    icon: feather
+    icon: ghost
     costMana: 0
     costRage: 0
     trigger: 1
@@ -4191,10 +4191,10 @@ MonoBehaviour:
     owner: giap_long
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.12,"turns":99}]'
   - id: huyen_viem_skill
-    name: "\u1EA2o H\u1ECFa"
+    name: "Xuy\xEAn T\xE2m Li\xEAn Tr\u1EA3m"
     rarity: 2
     kind: 1
-    icon: flame
+    icon: crack
     costMana: 40
     costRage: 0
     trigger: 0
@@ -4207,10 +4207,10 @@ MonoBehaviour:
     owner: huyen_viem
     effectsJson: '[{"k":"dmg","mult":1.3,"lifesteal":0.2}]'
   - id: huyen_viem_ult
-    name: "Huy\u1EC5n Vi\xEAm Thi\xEAn H\u1ECFa"
+    name: "Ng\u0169 Ki\u1EBFm T\u1EC1 Phi"
     rarity: 3
     kind: 2
-    icon: phoenix
+    icon: sword
     costMana: 50
     costRage: 100
     trigger: 0
@@ -4223,10 +4223,10 @@ MonoBehaviour:
     owner: huyen_viem
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"status","id":"burn","turns":3,"v":0.08,"on":"foe"}]'
   - id: huyen_viem_pas
-    name: "H\u1ED3 \u1EA2nh"
+    name: "L\xF5i Nham B\xF9ng Ch\xE1y"
     rarity: 2
     kind: 3
-    icon: mirror
+    icon: flame
     costMana: 0
     costRage: 0
     trigger: 3
@@ -4239,10 +4239,10 @@ MonoBehaviour:
     owner: huyen_viem
     effectsJson: '[{"k":"buff","stat":"atk","v":0.2,"turns":99}]'
   - id: hoa_tinh_skill
-    name: "Gai H\u1ED3ng Ng\u1ECDc"
+    name: "H\u1ED5 G\u1EA7m Ch\u1EA5n Vi\xEAm"
     rarity: 2
     kind: 1
-    icon: rock
+    icon: fang
     costMana: 40
     costRage: 0
     trigger: 0
@@ -4255,10 +4255,10 @@ MonoBehaviour:
     owner: hoa_tinh
     effectsJson: '[{"k":"dmg","mult":1.2},{"k":"status","id":"burn","turns":2,"v":0.06,"on":"foe"}]'
   - id: hoa_tinh_ult
-    name: "Sao H\u1ECFa R\u01A1i"
+    name: "\u1EA2nh Tr\u1EA3o Li\xEAn Ho\xE0n"
     rarity: 3
     kind: 2
-    icon: sun
+    icon: claw
     costMana: 50
     costRage: 100
     trigger: 0
@@ -4271,7 +4271,7 @@ MonoBehaviour:
     owner: hoa_tinh
     effectsJson: '[{"k":"dmg","mult":2.6},{"k":"shield","pct":0.2}]'
   - id: hoa_tinh_pas
-    name: "Gi\xE1p H\u1ED3ng Ng\u1ECDc"
+    name: "M\xE2y L\u1EEDa H\u1ED9 Th\xE2n"
     rarity: 2
     kind: 3
     icon: shield
@@ -4287,10 +4287,10 @@ MonoBehaviour:
     owner: hoa_tinh
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.12,"turns":99}]'
   - id: lan_hoa_skill
-    name: "L\xE2n H\u1ED1ng"
+    name: "H\u1ECFa C\u1EA7u Ph\xFAn Vi\xEAm"
     rarity: 2
     kind: 1
-    icon: bell
+    icon: flame
     costMana: 40
     costRage: 0
     trigger: 0
@@ -4303,10 +4303,10 @@ MonoBehaviour:
     owner: lan_hoa
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"status","id":"burn","turns":3,"v":0.06,"on":"foe"}]'
   - id: lan_hoa_ult
-    name: "Th\xE1nh L\xE2n Gi\xE1ng Ph\xFAc"
+    name: "V\u1EA1n Vi\xEAm Truy K\xEDch"
     rarity: 4
     kind: 2
-    icon: crown
+    icon: sun
     costMana: 50
     costRage: 100
     trigger: 0
@@ -4319,10 +4319,10 @@ MonoBehaviour:
     owner: lan_hoa
     effectsJson: '[{"k":"dmg","mult":3},{"k":"status","id":"burn","turns":3,"v":0.1,"on":"foe"}]'
   - id: lan_hoa_pas
-    name: "Ph\xFAc Kh\xED Ng\xE0n N\u0103m"
+    name: "L\xF5i Dung Nham"
     rarity: 3
     kind: 3
-    icon: incense
+    icon: torch
     costMana: 0
     costRage: 0
     trigger: 2
@@ -6353,10 +6353,10 @@ MonoBehaviour:
     owner: thanh_long
     effectsJson: '[{"k":"dmg","mult":0.5}]'
   - id: hong_lien_boss
-    name: "Ni\u1EBFt B\xE0n H\u1ECFa"
+    name: "Nhen L\u1EA1i L\u1EEDa T\xE0n"
     rarity: 2
     kind: 3
-    icon: phoenix
+    icon: torch
     costMana: 0
     costRage: 0
     trigger: 3
@@ -6369,10 +6369,10 @@ MonoBehaviour:
     owner: hong_lien
     effectsJson: '[{"k":"heal","pct":0.15},{"k":"buff","stat":"atk","v":0.25,"turns":2}]'
   - id: huyen_viem_boss
-    name: "\u1EA2o \u1EA2nh H\u1ED3 Ly"
+    name: "Gi\xE1p Nung T\u1EF1 Li\u1EC1n"
     rarity: 3
     kind: 3
-    icon: mirror
+    icon: shield
     costMana: 0
     costRage: 0
     trigger: 5
@@ -6385,10 +6385,10 @@ MonoBehaviour:
     owner: huyen_viem
     effectsJson: '[{"k":"heal","pct":0.05}]'
   - id: lan_hoa_boss
-    name: "Th\xE1nh L\xE2n H\u1ED9 Th\u1EC3"
+    name: "Gi\xE1p Bazan"
     rarity: 4
     kind: 3
-    icon: incense
+    icon: shield
     costMana: 0
     costRage: 0
     trigger: 3

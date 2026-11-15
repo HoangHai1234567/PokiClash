@@ -110,6 +110,9 @@ namespace PokiClash.Game
         public const float FxLift = 1000f;
         public bool SplitFx;
         public bool HasPlainFx => atk != null && atkPlain != null;
+
+        // khung vẽ rig khai riêng (game.span, số lần chiều cao khai); 0 = không khai, AolaSticker dùng khung mặc định
+        public float Span => atk != null && atk.game != null ? atk.game.span : 0;
         bool[] atkPlain;
         AtomikPose.SkinPass passMain, passFx;
         MeshRenderer atkFxRenderer;

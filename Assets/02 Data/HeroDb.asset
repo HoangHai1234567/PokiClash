@@ -1415,9 +1415,9 @@ MonoBehaviour:
       size: 1.1
     minion: 0
   - id: hong_lien
-    name: "H\u1ED3ng Li\xEAn"
-    title: "C\xE1nh l\u1EEDa sen \u0111\u1ECF"
-    aola: hong_lien_1
+    name: "Vi\xEAm S\u01B0"
+    title: "Ph\xE1p s\u01B0 g\u1ECDi c\u1EA7u l\u1EEDa"
+    aola: phap_lua_non
     elem: 3
     rarity: 2
     stats: 320000001e0000002800000041000000280000005a000000
@@ -1425,23 +1425,20 @@ MonoBehaviour:
     ult: hong_lien_ult
     passive: hong_lien_pas
     shards: 20
-    line: "D\xF2ng H\u1ED3ng Li\xEAn"
-    size: 0.9
+    line: "D\xF2ng Vi\xEAm S\u01B0"
+    size: 0.8
     forms:
-    - name: "\u0110\u1ED1m H\u1ED3ng"
-      aola: hong_lien_1
-      size: 0.9
-    - name: "Phi Vi\xEAm"
-      aola: hong_lien_2
-      size: 1.02
-    - name: "H\u1ED3ng Li\xEAn"
-      aola: hong_lien_3
-      size: 1.14
+    - name: "Vi\xEAm \u0110\u1ED3ng"
+      aola: phap_lua_non
+      size: 0.8
+    - name: "Vi\xEAm S\u01B0"
+      aola: phap_lua_1
+      size: 1.1
     minion: 0
   - id: giap_long
     name: "Vi\xEAm \u0110ao"
     title: "Qu\u1EF7 l\u1EEDa v\xE1c \u0111\u1EA1i \u0111ao"
-    aola: quy_dao_1
+    aola: quy_dao_non
     elem: 3
     rarity: 3
     stats: 3c000000280000002d00000041000000280000003c000000
@@ -1450,19 +1447,19 @@ MonoBehaviour:
     passive: giap_long_pas
     shards: 30
     line: "D\xF2ng Vi\xEAm \u0110ao"
-    size: 0.92
+    size: 0.8
     forms:
-    - name: "Vi\xEAm \u0110ao"
-      aola: quy_dao_1
-      size: 0.92
+    - name: "Vi\xEAm \u0110ao Nhi"
+      aola: quy_dao_non
+      size: 0.8
     - name: "Vi\xEAm \u0110ao"
       aola: quy_dao_1
       size: 1.1
     minion: 0
   - id: huyen_viem
-    name: "Huy\u1EC5n Vi\xEAm"
-    title: "H\u1ED3 l\u1EEDa \u1EA3o \u1EA3nh"
-    aola: huyen_viem_1
+    name: "Vi\xEAm D\u0169ng"
+    title: "T\u01B0\u1EE3ng binh \u0111\u1EA5t nung l\xF5i dung nham"
+    aola: dat_nung_non
     elem: 3
     rarity: 3
     stats: 32000000500000002800000028000000320000003c000000
@@ -1470,23 +1467,20 @@ MonoBehaviour:
     ult: huyen_viem_ult
     passive: huyen_viem_pas
     shards: 30
-    line: "D\xF2ng Huy\u1EC5n Vi\xEAm"
-    size: 0.9
+    line: "D\xF2ng Vi\xEAm D\u0169ng"
+    size: 0.85
     forms:
-    - name: "Linh Vi\xEAm"
-      aola: huyen_viem_1
-      size: 0.9
-    - name: "Huy\u1EC5n Vi\xEAm"
-      aola: huyen_viem_2
-      size: 1.02
-    - name: "Th\xE1nh Huy\u1EC5n Vi\xEAm"
-      aola: huyen_viem_3
-      size: 1.14
+    - name: "Vi\xEAm D\u0169ng Nhi"
+      aola: dat_nung_non
+      size: 0.85
+    - name: "Vi\xEAm D\u0169ng"
+      aola: dat_nung_1
+      size: 0.95
     minion: 0
   - id: hoa_tinh
-    name: "H\u1ECFa Tinh"
-    title: "Th\xFA gi\xE1p l\u1EEDa h\u1ED3ng"
-    aola: hoa_tinh_1
+    name: "B\u1EA1ch Vi\xEAm H\u1ED5"
+    title: "B\u1EA1ch h\u1ED5 c\u01B0\u1EE1i m\xE2y l\u1EEDa"
+    aola: hoa_ho_non
     elem: 3
     rarity: 3
     stats: 3c000000280000002d0000005a0000002d00000028000000
@@ -1494,20 +1488,20 @@ MonoBehaviour:
     ult: hoa_tinh_ult
     passive: hoa_tinh_pas
     shards: 30
-    line: "D\xF2ng H\u1ECFa Tinh"
-    size: 0.92
+    line: "D\xF2ng B\u1EA1ch Vi\xEAm H\u1ED5"
+    size: 0.9
     forms:
-    - name: "Ti\u1EC3u H\u1ECFa Tinh"
-      aola: hoa_tinh_1
-      size: 0.92
-    - name: "H\u1ECFa Tinh"
-      aola: hoa_tinh_2
-      size: 1.1
+    - name: "Vi\xEAm H\u1ED5 Nhi"
+      aola: hoa_ho_non
+      size: 0.9
+    - name: "B\u1EA1ch Vi\xEAm H\u1ED5"
+      aola: hoa_ho_1
+      size: 0.95
     minion: 0
   - id: lan_hoa
-    name: "L\xE2n H\u1ECFa"
-    title: "Th\u1EA7n th\xFA ng\xE0n n\u0103m"
-    aola: lan_hoa_1
+    name: "H\u1ECFa S\u01A1n Long"
+    title: "Kh\u1EE7ng long n\xFAi l\u1EEDa hai s\u1EEBng"
+    aola: nui_lua_non
     elem: 3
     rarity: 4
     stats: 500000001e000000230000005a0000002300000050000000
@@ -1515,18 +1509,18 @@ MonoBehaviour:
     ult: lan_hoa_ult
     passive: lan_hoa_pas
     shards: 50
-    line: "D\xF2ng L\xE2n H\u1ECFa"
-    size: 0.95
+    line: "D\xF2ng H\u1ECFa S\u01A1n Long"
+    size: 0.85
     forms:
-    - name: "L\xE2n Con"
-      aola: lan_hoa_1
-      size: 0.95
-    - name: "L\xE2n Ng\xE0n N\u0103m"
-      aola: lan_hoa_2
-      size: 1.1
-    - name: "Th\xE1nh L\xE2n"
-      aola: lan_hoa_3
-      size: 1.16
+    - name: "H\u1ECFa S\u01A1n Nhi"
+      aola: nui_lua_non
+      size: 0.85
+    - name: "H\u1ECFa S\u01A1n Th\xFA"
+      aola: nui_lua_1
+      size: 0.86
+    - name: "H\u1ECFa S\u01A1n Long"
+      aola: nui_lua_1
+      size: 0.92
     minion: 0
   - id: nguu_quyen
     name: "H\u1ECFa Quy"

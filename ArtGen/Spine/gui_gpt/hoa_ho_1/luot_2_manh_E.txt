@@ -1,0 +1,18 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = D:\PokiClash\ArtGen\Spine\inbox\hoa_ho_1\tai_ve\L1_duyet.png: the APPROVED creature, 1536x1024, white background: a FIRE TIGER: a huge cream-white tiger facing right, with bold charcoal zigzag stripes shaped like small flame tongues, a mane of drifting FIRE CLOUDS (flat vermilion flame-red cloud scrolls with orange bands and golden-yellow spiral curls), small flame tufts on its brow, a vermilion spiral mark on its cheek, two long sabre fangs, big cream paws with hooked charcoal claws and an open antique-gold bangle around each ankle. It gives the design, the colours, the wobbly dark-brown ink line, the crayon hatching and the look of every material.
+image 2 = D:\PokiClash\ArtGen\Spine\inbox\hoa_ho_1\mau\part_E.png: PARTS GUIDE, 1536x1024, white background, drawn by computer: 14 separate flat shapes, each one a PART of the creature's 2D animation rig, enlarged, lying at the angle the rig needs. Each shape is the EXACT silhouette of its part, filled with the flat colours of its material and outlined in dark brown.
+
+SAVE: save it as a PNG to D:\PokiClash\ArtGen\Spine\inbox\hoa_ho_1\tai_ve\N_E.png
+If a file with that name already exists, save as N_E_2.png, N_E_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: redraw image 2 cleanly in the hand-drawn style of image 1, landscape 1536x1024, pure-white background. Keep EXACTLY every silhouette of image 2: the same outline, the same size, the same angle, the same position on the sheet (if your picture were laid over image 2, every shape must coincide with its shape there). Do not move, rotate, straighten, merge or rearrange the shapes; do not add or drop any; keep clear white between them. A program will cut this sheet by position.
+
+WHAT THE SHAPES ARE (centre of each shape in pixels on the sheet, x from the left, y from the top):
+- ONE TOE of a paw: warm cream fur (#E2D6C4) ending in one big hooked charcoal CLAW (#3A3438) exactly where the guide shows the dark area, with an ink line between fur and claw: 8 shapes, centred at about (145, 199), (402, 177), (660, 170), (118, 522), (1395, 488), (96, 762), (681, 751), (845, 746).
+- an open ANKLE BANGLE (a piece of a hoop seen at an angle): antique gold (#E2AA3E) with ONE thin darker-gold (#B47E2A) line engraved along its middle and three or four short notches across it; ends cut square: 6 shapes, centred at about (1138, 161), (506, 513), (1049, 508), (390, 753), (1152, 742), (163, 932).
+
+OUTLINE: every shape gets ONE closed dark-brown ink outline (#2B2118), about 13 px thick on this sheet, wobbly like a real pen, lying just INSIDE the edge of the silhouette (never outside it). Inner detail lines are thinner (about 6 px).
+COLOUR: keep the colour each shape has in image 2 (and keep every second colour exactly where image 2 shows it). Fill with visible loose diagonal crayon / coloured-pencil hatching as in image 1, kept inside the outline.
+Each shape is a complete, closed object on its own: do not draw neighbouring parts, do not draw the creature.
+
+FLAT COLOUR, NO LIGHT, NO SHADOW: every area is one even colour, the crayon strokes are texture only. No shading, no darker side, no highlights or shine spots (not on the fangs, not on the claws, not on the gold), no glow, NO GRADIENTS (two colours always meet at a clean edge), no cast shadows, no 3D look. Pure white (#FFFFFF) background; no text, no labels, no numbers, no frames, no guide lines.

@@ -13,7 +13,10 @@ namespace PokiClash
 {
     public sealed class AolaSticker
     {
-        const float Span = 3.4f; // khung camera = 3,4 lần chiều cao dáng đứng (đủ chỗ cho clip lao)
+        const float DefSpan = 3.4f; // khung camera mặc định = 3,4 lần chiều cao dáng đứng (đủ chỗ cho clip lao thường)
+        // khung của tướng này: rig khai game.span lớn hơn (Viêm Đao: nhát bổ, liên hoàn chém vươn tới 2,9 lần chiều cao quanh chân) thì theo
+        // rig để hình không bị mép khung cắt dọc (2026-11-14)
+        float Span = DefSpan;
         const float FootV = 0.2f; // chân nằm ở 20% chiều cao ảnh
         static int count, builtFrame = -1;
 
@@ -63,16 +66,20 @@ namespace PokiClash
                 Object.Destroy(go);
                 return null;
             }
-            var s = new AolaSticker { actor = actor, world = go, flip = flip, stageHeight = uiHeight / StageView.K };
-            int px = Mathf.Clamp(Mathf.NextPowerOfTwo((int)(uiHeight * Span)), 256, 1024);
+            float span = Mathf.Max(DefSpan, actor.Span);
+            var s = new AolaSticker { actor = actor, world = go, flip = flip, stageHeight = uiHeight / StageView.K, Span = span };
+            // khung rộng hơn mặc định: ảnh không cần luỹ thừa 2, trần 1536 (2048 thì mỗi tướng 24 MB kể depth) để giữ độ nét trên sân
+            int px = span > DefSpan
+                ? Mathf.Clamp(Mathf.CeilToInt(uiHeight * span / 64f) * 64, 256, 1536)
+                : Mathf.Clamp(Mathf.NextPowerOfTwo((int)(uiHeight * span)), 256, 1024);
             // URP render graph báo lỗi mỗi khung nếu RenderTexture đích của camera không có depth buffer
             s.rt = new RenderTexture(px, px, 16, RenderTextureFormat.ARGB32) { name = "aola_" + hero.id };
             var camGo = new GameObject("cam");
             camGo.transform.SetParent(go.transform, false);
-            camGo.transform.localPosition = new Vector3(0, Span * (0.5f - FootV), -10);
+            camGo.transform.localPosition = new Vector3(0, span * (0.5f - FootV), -10);
             var cam = s.cam = camGo.AddComponent<Camera>();
             cam.orthographic = true;
-            cam.orthographicSize = Span / 2;
+            cam.orthographicSize = span / 2;
             cam.clearFlags = CameraClearFlags.SolidColor;
             cam.backgroundColor = new Color(0, 0, 0, 0);
             cam.targetTexture = s.rt;
@@ -84,15 +91,16 @@ namespace PokiClash
             s.Rect.SetParent(parent, false);
             s.Rect.anchorMin = s.Rect.anchorMax = new Vector2(0.5f, 0);
             s.Rect.pivot = new Vector2(0.5f, FootV);
-            s.Rect.sizeDelta = new Vector2(uiHeight * Span, uiHeight * Span);
+            s.Rect.sizeDelta = new Vector2(uiHeight * span, uiHeight * span);
             s.img.texture = s.rt;
             s.img.raycastTarget = false;
             var baseMat = Theme.Assets ? Theme.Assets.sticker : null;
             if (baseMat)
             {
                 s.mat = new Material(baseMat);
-                s.mat.SetFloat("_White", 3f * px / 512f);
-                s.mat.SetFloat("_Ink", 2.5f * px / 512f);
+                // bề dày viền tính bằng điểm ảnh của ảnh chụp: khung rộng hơn thì cùng số điểm ảnh ra viền dày hơn trên sân, nên chia lại
+                s.mat.SetFloat("_White", 3f * px / 512f * DefSpan / span);
+                s.mat.SetFloat("_Ink", 2.5f * px / 512f * DefSpan / span);
                 s.img.material = s.mat;
             }
             if (actor.HasPlainFx) s.MakeFxLayer(px, baseMat);
