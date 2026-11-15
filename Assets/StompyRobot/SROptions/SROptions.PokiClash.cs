@@ -29,6 +29,32 @@ public partial class SROptions
     [Category(PokiCategory), DisplayName("+1000 bi"), Sort(3)]
     public void PokiAddBalls1000() => PokiCheat("+1000 bi", (s, d) => s.balls += 1000);
 
+    // cấp người chơi (cũng là cấp tướng mình trong trận, mở ô đội, trang trại, cây bi, hang): đổi là lưu ngay, EXP về 0.
+    // Hạ cấp không cần sửa đội: chỗ nào dùng đội cũng chỉ lấy đủ số ô đã mở (Progress.TeamSlots).
+    // Khung ô số 1..200 theo maxLevel của balance.json; số thật vẫn kẹp theo App.Data.Cfg.maxLevel.
+    [Category(PokiCategory), DisplayName("Cấp"), NumberRange(1, 200), Increment(1), Sort(4)]
+    public int PokiLevel
+    {
+        get => App.Save?.Data?.level ?? 1;
+        set => PokiSetLevel(value);
+    }
+
+    [Category(PokiCategory), DisplayName("Cấp tối đa"), Sort(5)]
+    public void PokiMaxLevel() => PokiSetLevel(App.Data != null ? App.Data.Cfg.maxLevel : 200);
+
+    void PokiSetLevel(int lv)
+    {
+        if (App.Data != null) lv = Math.Min(lv, App.Data.Cfg.maxLevel);
+        lv = Math.Max(1, lv);
+        if (App.Save?.Data != null && App.Save.Data.level == lv) return;
+        PokiCheat("Đặt cấp " + lv, (s, d) =>
+        {
+            s.level = lv;
+            s.exp = 0;
+        });
+        OnPropertyChanged(nameof(PokiLevel));
+    }
+
     // sửa bản lưu rồi lưu: SaveService.Changed làm mới thanh trên và scene đang mở (App.OnSaveChanged)
     static void PokiCheat(string name, Action<SaveData, GameData> fn)
     {
