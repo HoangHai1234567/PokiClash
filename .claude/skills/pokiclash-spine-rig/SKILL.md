@@ -1253,3 +1253,39 @@ nhàu; ống co dãn bám xương bàn của họ: sải dài thành nêm; IK ha
 - **Bước đi** của dạng chibi viết riêng (đích bàn chân chạy một vòng: chống thì nằm trên mặt đất, đưa tới thì nhấc lên; hai cặp chân chéo lệch
   nửa nhịp), thân nhún quanh DÁNG ĐỨNG idle; đừng chép sải chân của con lớn.
 - Soi đúng khung thân thấp nhất của từng clip (nhún lấy đà, gục) ở cỡ lớn trước khi báo: lỗi chỉ lộ ở đó.
+
+## 30. Con gốc có HAI bản vũ khí; đo độ khớp mảnh trên hình LẤP KÍN (chiến binh sắt / `monster_3348`, 2026-11-16)
+
+- **Hai bản vũ khí**: con gốc có giáo dựng đất (`wuqi_01`, xương gốc + IK) chỉ bật ở idle / block / stun, và giáo GẮN TAY (`wuqi_02` trên xương
+  con của nắm tay) bật ở mọi clip đòn. Trước khi làm clip mới, in bảng slot vũ khí nào bật ở từng clip (`n`, `a` của mẫu khung): đặt góc / ẩn /
+  mọc lại phải làm trên đúng bản đang bật (bản đầu tôi đặt giáo dựng đất theo tay trong khi nó đang tắt → hai cây giáo cùng hiện). Xoay vũ khí
+  gắn tay về một góc THẾ GIỚI thì cộng độ lệch vào xương vũ khí (gốc ở nắm tay), giáo không tuột khỏi tay (`chien_sat_rig.xoay_giao`).
+- `hoat.khop_cuoi` (hoà 0,2 s cuối về khung 0 idle) TRỘN độ đậm: hai bản vũ khí chồng mờ suốt 0,2 s. Kiểm hai bản trùng nhau ở khung 0 idle
+  rồi cho chúng ĐỔI BẬC ở khung cuối: tự nướng + hoà trong rig, truyền `frames=` và `khop_idle=0` cho `xuat_het` (`chien_sat_rig.main`).
+- **Đo độ khớp hình bóng** mảnh đổi da với mảnh gốc trên hình gốc đã LẤP KÍN (nền = trắng nối mép tờ), không đo bằng ngưỡng "không trắng":
+  bông tuyết, khung trắng của con gốc trùng màu nền làm IoU tụt còn 0,63–0,75 dù mảnh khít 0,95. Vá chỗ GPT vẽ hụt chỉ trong dải sát mép
+  (≤ 5 px), không vá cả vùng: mảnh cố ý đổi dáng (búp lông → tua hẹp) sẽ bị tô màu thừa.
+
+## 31. Xích / dây bay tới đối thủ; mảnh đổi dáng phải soát với nét mặt của rig; nướng góc liền mạch (quỷ xích / `monster_3408`, 2026-11-16)
+
+- **Xích bay co quãng theo đối thủ thật** (móc ném ra, xích căng từ tay tới đối thủ, trói): N mắt xích, mắt k trên xương con `xich_k` của
+  `fly_k` (con của root): `fly_k` = w·far, `xich_k` = (1 − w)·A, góc = hướng A → far; w = (k+1)/N · q, q = phần quãng móc đã bay, A = điểm
+  xích nối vào tay (tính theo tư thế từng khung). Móc bay: `moc_t` con của `fly_m`, `fly_m` = q·far, `moc_t` = (1 − q)·A. Khai `far` +
+  `farAim` cho clip đó: `AolaActor.FarAtomik` dời mỗi `fly*` theo đúng phần quãng w của nó và suy A = toạ độ xương con / (1 − w) để xoay
+  mắt xích theo hướng thật → mọi mắt xích nằm trên đoạn tay → đối thủ ở bất kỳ khoảng cách nào. Đặt `far` mặc định ~1,6 chiều cao (gần chỗ đối
+  thủ thật) cho trang xem không có game trông đúng. Mẫu `ArtGen/Spine/quy_xich_rig.py` (`them_xich_bay`, `xich_bay`), ảnh động giả lập game
+  `inbox/quy_xich_1/_xem_dong.py`.
+- **Mảnh đổi dáng đặt theo concept phải soát với nét mặt CỦA RIG**: mặt reskin theo hình bóng mặt gốc nên mắt nằm chỗ mắt của họ, có thể lệch
+  mắt concept vài chục px; vành mũ đặt đúng chỗ concept đã che mất mắt. Ghép khung 0 idle, đo chỗ mắt (điểm màu mắt trên hình con gốc → khung
+  concept) rồi dời cả cụm mũ (đỉnh, má, sừng) một lượt (`quy_xich_manh.CHINH`). Mảnh chạm viền nhau trên tờ GPT tách theo LÒNG TÔ (mực nâu
+  lum < 50; sắt sẫm lum ~70 vẫn là lòng tô), mỗi điểm viền về lòng tô gần nhất (`tach_manh`). Mảnh GPT dời chỗ (vây sau lưng vốn khuất) đặt
+  theo part gốc (đáy + cao như part họ).
+- **Nướng góc liền mạch**: mỗi khung chọn bội 360° gần khung trước; `pha` hai dáng quy góc cùng vòng; clip lặp lấy mẫu `t % dur` thì KHÔNG
+  hoà các khung cuối về khung 0 (`hoat.dong_vong`): xương quay đều nhiều vòng (đuôi run_01 +75° / khung) bị khựng rồi nhảy 245°.
+- **Cú đánh của họ nằm gọn giữa hai khung nguồn** (skill_02: thân rơi 460 đơn vị, móc vung 180° trong một khung): giãn đoạn đó ra 0,1–0,15 s
+  bằng bảng thời gian (`U_ATK`), đo đường lưỡi vũ khí theo khung rồi đặt khung trúng đúng lúc nó tới chỗ cần đánh (đỉnh đầu đối thủ).
+- **Vào game, hiệu ứng bám điểm của rig** (`HatXich.cs`): lớp hạt không đọc được xương lúc chạy; đo điểm cần bám trên rig theo khung (phần của
+  chiều cao khai, x tới trước, y lên), SINH file C# bằng script (`ArtGen/Spine/quy_xich_hat_cs.py` = khung + bảng `quy_xich_do_hat.py` mỗi dạng)
+  để đổi rig thì chạy lại. Ảnh mảnh rig mà lớp hạt vẽ lại (Resources/<dạng>/...png) phải có `_tt_` trong tên thì `AolaImport` mới nhập thành
+  Sprite (`Resources.Load<Sprite>` trả null với Texture thường). Lấy ảnh mảnh từ `manh/` của mình, đừng cắt từ atlas (vùng xoay 90°, dính
+  mảnh bên cạnh).

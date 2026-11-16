@@ -3,7 +3,7 @@
  "open": 3,
  "formula": [
   {
-   "hero": "giot_suong",
+   "hero": "ti_tach",
    "hours": 8,
    "rest": 60,
    "rates": [
@@ -33,7 +33,7 @@
    ]
   },
   {
-   "hero": "nu_hoa",
+   "hero": "tien_la",
    "hours": 8,
    "rest": 60,
    "rates": [
@@ -48,7 +48,7 @@
    ]
   },
   {
-   "hero": "ca_ngua",
+   "hero": "so_ngoc",
    "hours": 10,
    "rest": 60,
    "rates": [
@@ -63,7 +63,7 @@
    ]
   },
   {
-   "hero": "bo_de",
+   "hero": "nguu_quyen",
    "hours": 8,
    "rest": 60,
    "rates": [
@@ -138,14 +138,14 @@
    "op": "place",
    "t": 0,
    "a": 0,
-   "b": "giot_suong",
+   "b": "ti_tach",
    "r": true,
    "farm": {
     "lastTick": 1800000000000,
     "boostUntil": 0,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 8,
       "stock": 0
      },
@@ -193,14 +193,14 @@
    "op": "place",
    "t": 0,
    "a": 1,
-   "b": "giot_suong",
+   "b": "ti_tach",
    "r": false,
    "farm": {
     "lastTick": 1800000000000,
     "boostUntil": 0,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 8,
       "stock": 0
      },
@@ -255,7 +255,7 @@
     "boostUntil": 0,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 8,
       "stock": 0
      },
@@ -303,14 +303,14 @@
    "op": "place",
    "t": 0,
    "a": 3,
-   "b": "bo_de",
+   "b": "nguu_quyen",
    "r": false,
    "farm": {
     "lastTick": 1800000000000,
     "boostUntil": 0,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 8,
       "stock": 0
      },
@@ -365,7 +365,7 @@
     "boostUntil": 0,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 6.5,
       "stock": 4.125
      },
@@ -420,7 +420,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 6.5,
       "stock": 4.125
      },
@@ -475,7 +475,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 6,
       "stock": 6.875
      },
@@ -530,7 +530,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 5,
       "stock": 11
      },
@@ -585,7 +585,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 5,
       "stock": 0
      },
@@ -681,7 +681,7 @@
      }
     ],
     "rest": {
-     "giot_suong": 1800014400000
+     "ti_tach": 1800014400000
     }
    },
    "balls": 32
@@ -690,7 +690,7 @@
    "op": "place",
    "t": 3.2,
    "a": 0,
-   "b": "giot_suong",
+   "b": "ti_tach",
    "r": false,
    "farm": {
     "lastTick": 1800011520000,
@@ -738,7 +738,7 @@
      }
     ],
     "rest": {
-     "giot_suong": 1800014400000
+     "ti_tach": 1800014400000
     }
    },
    "balls": 32
@@ -751,11 +751,11 @@
    "r": [
     [
      0,
-     "ca_ngua"
+     "so_ngoc"
     ],
     [
      2,
-     "nu_hoa"
+     "tien_la"
     ]
    ],
    "farm": {
@@ -763,7 +763,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 10,
       "stock": 0
      },
@@ -773,7 +773,7 @@
       "stock": 0.55
      },
      {
-      "hero": "nu_hoa",
+      "hero": "tien_la",
       "energy": 8,
       "stock": 0
      },
@@ -804,7 +804,7 @@
      }
     ],
     "rest": {
-     "giot_suong": 1800014400000
+     "ti_tach": 1800014400000
     }
    },
    "balls": 32
@@ -820,7 +820,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 10,
       "stock": 0
      },
@@ -830,7 +830,7 @@
       "stock": 0.55
      },
      {
-      "hero": "nu_hoa",
+      "hero": "tien_la",
       "energy": 8,
       "stock": 0
      },
@@ -861,7 +861,7 @@
      }
     ],
     "rest": {
-     "giot_suong": 1800014400000
+     "ti_tach": 1800014400000
     }
    },
    "balls": 32
@@ -877,7 +877,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 3,
       "stock": 27.450000000000003
      },
@@ -887,7 +887,7 @@
       "stock": 15.125
      },
      {
-      "hero": "nu_hoa",
+      "hero": "tien_la",
       "energy": 1,
       "stock": 20.625
      },
@@ -932,7 +932,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 3,
       "stock": 0.45000000000000284
      },
@@ -942,7 +942,7 @@
       "stock": 0.125
      },
      {
-      "hero": "nu_hoa",
+      "hero": "tien_la",
       "energy": 1,
       "stock": 0.625
      },
@@ -987,7 +987,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 3,
       "stock": 0.45000000000000284
      },
@@ -997,7 +997,7 @@
       "stock": 0.125
      },
      {
-      "hero": "nu_hoa",
+      "hero": "tien_la",
       "energy": 1,
       "stock": 0.625
      },
@@ -1044,7 +1044,7 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 3,
       "stock": 0.45000000000000284
      },
@@ -1086,7 +1086,7 @@
     ],
     "rest": {
      "vo_su": 1800036000000,
-     "nu_hoa": 1800036000000
+     "tien_la": 1800036000000
     }
    },
    "balls": 94
@@ -1099,11 +1099,11 @@
    "r": [
     [
      1,
-     "bo_de"
+     "nguu_quyen"
     ],
     [
      2,
-     "giot_suong"
+     "ti_tach"
     ]
    ],
    "farm": {
@@ -1111,17 +1111,17 @@
     "boostUntil": 1800009000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 2.9,
       "stock": 0.816000000000003
      },
      {
-      "hero": "bo_de",
+      "hero": "nguu_quyen",
       "energy": 8,
       "stock": 0.125
      },
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 8,
       "stock": 0.625
      },
@@ -1153,7 +1153,7 @@
     ],
     "rest": {
      "vo_su": 1800036000000,
-     "nu_hoa": 1800036000000
+     "tien_la": 1800036000000
     }
    },
    "balls": 94
@@ -1169,17 +1169,17 @@
     "boostUntil": 1799901000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 2.9,
       "stock": 0.816000000000003
      },
      {
-      "hero": "bo_de",
+      "hero": "nguu_quyen",
       "energy": 8,
       "stock": 0.125
      },
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 8,
       "stock": 0.625
      },
@@ -1211,7 +1211,7 @@
     ],
     "rest": {
      "vo_su": 1799928000000,
-     "nu_hoa": 1799928000000
+     "tien_la": 1799928000000
     }
    },
    "balls": 94
@@ -1227,17 +1227,17 @@
     "boostUntil": 1799901000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 0,
       "stock": 0.43000000000000327
      },
      {
-      "hero": "bo_de",
+      "hero": "nguu_quyen",
       "energy": 0,
-      "stock": 0.6449999999999996
+      "stock": 0.64499999999999957
      },
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 0,
       "stock": 0.22500000000000142
      },
@@ -1282,17 +1282,17 @@
     "boostUntil": 1799901000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 0,
       "stock": 0.43000000000000327
      },
      {
-      "hero": "bo_de",
+      "hero": "nguu_quyen",
       "energy": 0,
-      "stock": 0.6449999999999996
+      "stock": 0.64499999999999957
      },
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 0,
       "stock": 0.22500000000000142
      },
@@ -1337,17 +1337,17 @@
     "boostUntil": 1799901000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 0,
       "stock": 0.43000000000000327
      },
      {
-      "hero": "bo_de",
+      "hero": "nguu_quyen",
       "energy": 0,
-      "stock": 0.6449999999999996
+      "stock": 0.64499999999999957
      },
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 0,
       "stock": 0.22500000000000142
      },
@@ -1392,17 +1392,17 @@
     "boostUntil": 1799901000000,
     "spots": [
      {
-      "hero": "ca_ngua",
+      "hero": "so_ngoc",
       "energy": 0,
       "stock": 0.43000000000000327
      },
      {
-      "hero": "bo_de",
+      "hero": "nguu_quyen",
       "energy": 0,
-      "stock": 0.6449999999999996
+      "stock": 0.64499999999999957
      },
      {
-      "hero": "giot_suong",
+      "hero": "ti_tach",
       "energy": 0,
       "stock": 0.22500000000000142
      },

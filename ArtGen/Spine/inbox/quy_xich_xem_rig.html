@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Quỷ xích rig</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2a2b31; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.ghi { margin: 0 0 14px; color: #bbb; max-width: 1100px; }
+  .luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .rong { grid-column: 1 / -1; }
+  figure { margin: 0; background: #96969a; border-radius: 8px; overflow: hidden; }
+  figure img { width: 100%; display: block; }
+  figcaption { background: #1d1e22; padding: 8px 10px; color: #ddd; }
+  b { color: #ffcf6a; }
+  a { color: #8fd3ff; }
+</style>
+</head>
+<body>
+<h1>Quỷ xích (tướng 5 đảo Kim) — rig và animation</h1>
+<p class="ghi">Ảnh động vẽ bằng bộ vẽ của mình ở 30 khung/giây. Khối xám là chỗ đối thủ (đứng xa 1,9 lần chiều cao) để thấy phần code game làm: cú lao
+của đòn đánh được sân nắn tới đối thủ; móc và xích bay được co quãng tới đối thủ thật. <b>Chưa có VFX</b>: lửa bốc trên xích, vệt lửa + khói khi quay,
+vòng xích trói, cột lửa thiêu, bụi đáp đất là lớp hiệu ứng làm ở bước vào game (rig đã đặt sẵn sự kiện và xương bám).
+Trang Spine Web Player của rig: <a href="quy_xich_1/rig/xem.html">quy_xich_1/rig/xem.html</a>.</p>
+<div class="luoi">
+  <figure class="rong"><img src="quy_xich_1/rig/dong/skill.webp"><figcaption><b>Chiêu cuối</b> (3,2 s): giơ móc (sự kiện <i>lua_xich</i>: xích bốc lửa), quay xích qua đầu ba vòng nhanh dần (VFX vệt lửa + khói theo móc), ném; móc + xích bay tới đối thủ, quấn trói (<i>troi</i>: VFX vòng xích), giữ xích căng giật giật; <i>cot_lua</i>: CỘT LỬA to thiêu đối thủ, bốn nhịp đốt; thả, giật xích về, móc lắp lại trong tay</figcaption></figure>
+  <figure class="rong"><img src="quy_xich_1/rig/dong/cast.webp"><figcaption><b>Chiêu mana</b> (giống skill_01 của con gốc): giơ móc, quay xích qua đầu, ném; móc + xích bay thẳng tới đối thủ, găm, giữ, giật xích về, móc lắp lại trong tay</figcaption></figure>
+  <figure class="rong"><img src="quy_xich_1/rig/dong/attack.webp"><figcaption><b>Đánh thường</b>: thu người, bay vọt tới đối thủ, giơ móc qua đầu, bổ xuống đầu đối thủ (khung trúng lúc lưỡi móc tới đỉnh đầu), đáp, nhảy lùi về chỗ</figcaption></figure>
+  <figure><img src="quy_xich_1/rig/dong/appear.webp"><figcaption><b>Ra sân</b>: bay từ ngoài trên trái vào (cánh vỗ), khựng lại, giơ móc rồi rơi thẳng xuống, móc đập đất lúc đáp, đứng dậy vào thế</figcaption></figure>
+  <figure><img src="quy_xich_1/rig/dong/idle.webp"><figcaption><b>Đứng</b> (4 s): như con gốc (thở, cánh vỗ nhẹ, móc lắc)</figcaption></figure>
+  <figure><img src="quy_xich_1/rig/dong/walk.webp"><figcaption><b>Đi</b>: như con gốc (nhún chạy, cánh vỗ, xích kéo lê đất)</figcaption></figure>
+  <figure><img src="quy_xich_1/rig/dong/hit.webp"><figcaption><b>Trúng đòn</b>: như con gốc (đỉnh mũ nảy lên)</figcaption></figure>
+  <figure><img src="quy_xich_1/rig/dong/die.webp"><figcaption><b>Chết</b>: như con gốc (bị hất lộn, nằm ngửa, xích văng) rồi mờ dần</figcaption></figure>
+  <figure><img src="quy_xich_1/tai_ve/L1_duyet.png" style="background:#fff"><figcaption>Concept A đã duyệt (để so)</figcaption></figure>
+  <figure><img src="quy_xich_1/rig/soi_idle.png"><figcaption>Rig ghép xong, khung 0 idle (mũ nâng 30 px cho lộ đủ hai mắt của mặt rig)</figcaption></figure>
+</div>
+</body>
+</html>

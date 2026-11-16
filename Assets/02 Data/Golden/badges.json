@@ -9,7 +9,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "canh_cut",
+     "ti_tach",
      69,
      true
     ]
@@ -24,12 +24,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_den",
+     "hai_long",
      72,
      true
     ],
     [
-     "giot_suong",
+     "han_ngac",
      72,
      false
     ]
@@ -44,7 +44,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giot_suong",
+     "han_ngac",
      75,
      true
     ]
@@ -59,12 +59,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ti_tach",
+     "ha_ba",
      78,
      true
     ],
     [
-     "tam_tay",
+     "so_ngoc",
      78,
      false
     ]
@@ -79,17 +79,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "huyen_vu",
+     "han_ngac",
      81,
      true
     ],
     [
-     "tam_tay",
+     "so_ngoc",
      81,
      false
     ],
     [
-     "ca_ngua",
+     "giong_bao",
      81,
      false
     ]
@@ -104,7 +104,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_den",
+     "hai_long",
      89,
      true
     ]
@@ -119,12 +119,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "giot_suong",
+     "han_ngac",
      92,
      true
     ],
     [
-     "ti_tach",
+     "ha_ba",
      92,
      false
     ]
@@ -139,7 +139,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ti_tach",
+     "ha_ba",
      95,
      true
     ]
@@ -154,12 +154,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_tay",
+     "so_ngoc",
      98,
      true
     ],
     [
-     "ca_ngua",
+     "giong_bao",
      98,
      false
     ]
@@ -174,17 +174,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "huyen_vu",
+     "han_ngac",
      101,
      true
     ],
     [
-     "ca_ngua",
+     "giong_bao",
      101,
      false
     ],
     [
-     "map_rang",
+     "uyen_xa",
      101,
      false
     ]
@@ -199,7 +199,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giot_suong",
+     "han_ngac",
      109,
      true
     ]
@@ -214,12 +214,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ti_tach",
+     "ha_ba",
      112,
      true
     ],
     [
-     "tam_tay",
+     "so_ngoc",
      112,
      false
     ]
@@ -234,7 +234,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_tay",
+     "so_ngoc",
      115,
      true
     ]
@@ -249,12 +249,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_ngua",
+     "giong_bao",
      118,
      true
     ],
     [
-     "map_rang",
+     "uyen_xa",
      118,
      false
     ]
@@ -269,7 +269,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "uyen_xa",
      121,
      true
     ]
@@ -284,12 +284,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "lien_kinh",
      124,
      true
     ],
     [
-     "hai_long",
+     "thach_giai",
      124,
      false
     ]
@@ -304,7 +304,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "hai_long",
+     "thach_giai",
      127,
      true
     ]
@@ -319,12 +319,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_vu",
+     "ca_den",
      130,
      true
     ],
     [
-     "han_ngac",
+     "ti_tach",
      130,
      false
     ]
@@ -339,7 +339,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "han_ngac",
+     "ti_tach",
      133,
      true
     ]
@@ -354,17 +354,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "huyen_vu",
+     "han_ngac",
      136,
      true
     ],
     [
-     "mi_nhi",
+     "hai_long",
      136,
      false
     ],
     [
-     "ha_ba",
+     "han_ngac",
      136,
      false
     ]
@@ -379,7 +379,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ti_tach",
+     "ha_ba",
      129,
      true
     ]
@@ -394,12 +394,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_tay",
+     "so_ngoc",
      132,
      true
     ],
     [
-     "ca_ngua",
+     "giong_bao",
      132,
      false
     ]
@@ -414,7 +414,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_ngua",
+     "giong_bao",
      135,
      true
     ]
@@ -429,12 +429,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "uyen_xa",
      138,
      true
     ],
     [
-     "lam_quan",
+     "lien_kinh",
      138,
      false
     ]
@@ -449,7 +449,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "lien_kinh",
      141,
      true
     ]
@@ -464,12 +464,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "hai_long",
+     "thach_giai",
      144,
      true
     ],
     [
-     "huyen_vu",
+     "ca_den",
      144,
      false
     ]
@@ -484,7 +484,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_vu",
+     "ca_den",
      147,
      true
     ]
@@ -499,12 +499,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "han_ngac",
+     "ti_tach",
      150,
      true
     ],
     [
-     "mi_nhi",
+     "hai_long",
      150,
      false
     ]
@@ -519,7 +519,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "mi_nhi",
+     "hai_long",
      153,
      true
     ]
@@ -534,17 +534,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "huyen_vu",
+     "han_ngac",
      156,
      true
     ],
     [
-     "ha_ba",
+     "han_ngac",
      156,
      false
     ],
     [
-     "ma_ket",
+     "ha_ba",
      156,
      false
     ]
@@ -559,7 +559,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_tay",
+     "so_ngoc",
      149,
      true
     ]
@@ -574,12 +574,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ca_ngua",
+     "giong_bao",
      152,
      true
     ],
     [
-     "map_rang",
+     "uyen_xa",
      152,
      false
     ]
@@ -594,7 +594,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "map_rang",
+     "uyen_xa",
      155,
      true
     ]
@@ -609,12 +609,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "lam_quan",
+     "lien_kinh",
      158,
      true
     ],
     [
-     "hai_long",
+     "thach_giai",
      158,
      false
     ]
@@ -629,7 +629,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "hai_long",
+     "thach_giai",
      161,
      true
     ]
@@ -644,12 +644,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_vu",
+     "ca_den",
      164,
      true
     ],
     [
-     "han_ngac",
+     "ti_tach",
      164,
      false
     ]
@@ -664,7 +664,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "han_ngac",
+     "ti_tach",
      167,
      true
     ]
@@ -679,12 +679,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "mi_nhi",
+     "hai_long",
      170,
      true
     ],
     [
-     "ha_ba",
+     "han_ngac",
      170,
      false
     ]
@@ -699,7 +699,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ha_ba",
+     "han_ngac",
      173,
      true
     ]
@@ -714,12 +714,12 @@
    "kind": "boss",
    "enemies": [
     [
-     "huyen_vu",
+     "han_ngac",
      176,
      true
     ],
     [
-     "ma_ket",
+     "ha_ba",
      176,
      false
     ],
@@ -739,7 +739,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "phao_tet",
+     "kim_su",
      70,
      true
     ]
@@ -754,12 +754,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "su_tu_lua",
+     "nham_than",
      73,
      true
     ],
     [
-     "bo_de",
+     "hong_lien",
      73,
      false
     ]
@@ -774,7 +774,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_de",
+     "hong_lien",
      76,
      true
     ]
@@ -789,12 +789,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ho_lua",
+     "giap_long",
      79,
      true
     ],
     [
-     "phap_luan",
+     "huyen_viem",
      79,
      false
     ]
@@ -809,17 +809,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "chu_tuoc",
+     "lan_hoa",
      82,
      true
     ],
     [
-     "phap_luan",
+     "huyen_viem",
      82,
      false
     ],
     [
-     "chu_tuoc",
+     "hoa_tinh",
      82,
      false
     ]
@@ -834,7 +834,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "su_tu_lua",
+     "nham_than",
      90,
      true
     ]
@@ -849,12 +849,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_de",
+     "hong_lien",
      93,
      true
     ],
     [
-     "ho_lua",
+     "giap_long",
      93,
      false
     ]
@@ -869,7 +869,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ho_lua",
+     "giap_long",
      96,
      true
     ]
@@ -884,12 +884,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "phap_luan",
+     "huyen_viem",
      99,
      true
     ],
     [
-     "chu_tuoc",
+     "hoa_tinh",
      99,
      false
     ]
@@ -904,17 +904,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "chu_tuoc",
+     "lan_hoa",
      102,
      true
     ],
     [
-     "chu_tuoc",
+     "hoa_tinh",
      102,
      false
     ],
     [
-     "hoa_nhan",
+     "lan_hoa",
      102,
      false
     ]
@@ -929,7 +929,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_de",
+     "hong_lien",
      110,
      true
     ]
@@ -944,12 +944,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "ho_lua",
+     "giap_long",
      113,
      true
     ],
     [
-     "phap_luan",
+     "huyen_viem",
      113,
      false
     ]
@@ -964,7 +964,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "phap_luan",
+     "huyen_viem",
      116,
      true
     ]
@@ -979,12 +979,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "chu_tuoc",
+     "hoa_tinh",
      119,
      true
     ],
     [
-     "hoa_nhan",
+     "lan_hoa",
      119,
      false
     ]
@@ -999,7 +999,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "hoa_nhan",
+     "lan_hoa",
      122,
      true
     ]
@@ -1014,12 +1014,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "kim_su",
+     "nguu_quyen",
      125,
      true
     ],
     [
-     "nham_than",
+     "su_tu_lua",
      125,
      false
     ]
@@ -1034,7 +1034,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "nham_than",
+     "su_tu_lua",
      128,
      true
     ]
@@ -1049,12 +1049,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "hong_lien",
+     "hoa_nhan",
      131,
      true
     ],
     [
-     "giap_long",
+     "kim_su",
      131,
      false
     ]
@@ -1069,7 +1069,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giap_long",
+     "kim_su",
      134,
      true
     ]
@@ -1084,17 +1084,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "chu_tuoc",
+     "lan_hoa",
      137,
      true
     ],
     [
-     "huyen_viem",
+     "nham_than",
      137,
      false
     ],
     [
-     "hoa_tinh",
+     "hong_lien",
      137,
      false
     ]
@@ -1109,7 +1109,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ho_lua",
+     "giap_long",
      130,
      true
     ]
@@ -1124,12 +1124,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "phap_luan",
+     "huyen_viem",
      133,
      true
     ],
     [
-     "chu_tuoc",
+     "hoa_tinh",
      133,
      false
     ]
@@ -1144,7 +1144,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "chu_tuoc",
+     "hoa_tinh",
      136,
      true
     ]
@@ -1159,12 +1159,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "hoa_nhan",
+     "lan_hoa",
      139,
      true
     ],
     [
-     "kim_su",
+     "nguu_quyen",
      139,
      false
     ]
@@ -1179,7 +1179,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "kim_su",
+     "nguu_quyen",
      142,
      true
     ]
@@ -1194,12 +1194,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "nham_than",
+     "su_tu_lua",
      145,
      true
     ],
     [
-     "hong_lien",
+     "hoa_nhan",
      145,
      false
     ]
@@ -1214,7 +1214,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "hong_lien",
+     "hoa_nhan",
      148,
      true
     ]
@@ -1229,12 +1229,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "giap_long",
+     "kim_su",
      151,
      true
     ],
     [
-     "huyen_viem",
+     "nham_than",
      151,
      false
     ]
@@ -1249,7 +1249,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_viem",
+     "nham_than",
      154,
      true
     ]
@@ -1264,17 +1264,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "chu_tuoc",
+     "lan_hoa",
      157,
      true
     ],
     [
-     "hoa_tinh",
+     "hong_lien",
      157,
      false
     ],
     [
-     "lan_hoa",
+     "giap_long",
      157,
      false
     ]
@@ -1289,7 +1289,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "phap_luan",
+     "huyen_viem",
      150,
      true
     ]
@@ -1304,12 +1304,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "chu_tuoc",
+     "hoa_tinh",
      153,
      true
     ],
     [
-     "hoa_nhan",
+     "lan_hoa",
      153,
      false
     ]
@@ -1324,7 +1324,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "hoa_nhan",
+     "lan_hoa",
      156,
      true
     ]
@@ -1339,12 +1339,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "kim_su",
+     "nguu_quyen",
      159,
      true
     ],
     [
-     "nham_than",
+     "su_tu_lua",
      159,
      false
     ]
@@ -1359,7 +1359,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "nham_than",
+     "su_tu_lua",
      162,
      true
     ]
@@ -1374,12 +1374,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "hong_lien",
+     "hoa_nhan",
      165,
      true
     ],
     [
-     "giap_long",
+     "kim_su",
      165,
      false
     ]
@@ -1394,7 +1394,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giap_long",
+     "kim_su",
      168,
      true
     ]
@@ -1409,12 +1409,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "huyen_viem",
+     "nham_than",
      171,
      true
     ],
     [
-     "hoa_tinh",
+     "hong_lien",
      171,
      false
     ]
@@ -1429,7 +1429,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "hoa_tinh",
+     "hong_lien",
      174,
      true
     ]
@@ -1444,17 +1444,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "chu_tuoc",
+     "lan_hoa",
      177,
      true
     ],
     [
-     "lan_hoa",
+     "giap_long",
      177,
      false
     ],
     [
-     "nguu_quyen",
+     "huyen_viem",
      177,
      false
     ]
@@ -1469,7 +1469,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "kiem_linh",
+     "doc_giac",
      68,
      true
     ]
@@ -1484,12 +1484,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "meo_quyen",
+     "phi_thuong",
      71,
      true
     ],
     [
-     "bo_cap",
+     "khien_bac",
      71,
      false
     ]
@@ -1504,7 +1504,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_cap",
+     "khien_bac",
      74,
      true
     ]
@@ -1519,12 +1519,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_ngua",
+     "chien_than",
      77,
      true
     ],
     [
-     "soi_linh",
+     "thiet_phu",
      77,
      false
     ]
@@ -1539,17 +1539,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "bach_ho",
+     "kim_nghe",
      80,
      true
     ],
     [
-     "soi_linh",
+     "thiet_phu",
      80,
      false
     ],
     [
-     "bach_ho",
+     "tam_kiem",
      80,
      false
     ]
@@ -1564,7 +1564,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "meo_quyen",
+     "phi_thuong",
      88,
      true
     ]
@@ -1579,12 +1579,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_cap",
+     "khien_bac",
      91,
      true
     ],
     [
-     "bo_ngua",
+     "chien_than",
      91,
      false
     ]
@@ -1599,7 +1599,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_ngua",
+     "chien_than",
      94,
      true
     ]
@@ -1614,12 +1614,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "soi_linh",
+     "thiet_phu",
      97,
      true
     ],
     [
-     "bach_ho",
+     "tam_kiem",
      97,
      false
     ]
@@ -1634,17 +1634,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "bach_ho",
+     "kim_nghe",
      100,
      true
     ],
     [
-     "bach_ho",
+     "tam_kiem",
      100,
      false
     ],
     [
-     "doc_giac",
+     "ung_thep",
      100,
      false
     ]
@@ -1659,7 +1659,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_cap",
+     "khien_bac",
      108,
      true
     ]
@@ -1674,12 +1674,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_ngua",
+     "chien_than",
      111,
      true
     ],
     [
-     "soi_linh",
+     "thiet_phu",
      111,
      false
     ]
@@ -1694,7 +1694,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "soi_linh",
+     "thiet_phu",
      114,
      true
     ]
@@ -1709,12 +1709,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bach_ho",
+     "tam_kiem",
      117,
      true
     ],
     [
-     "doc_giac",
+     "ung_thep",
      117,
      false
     ]
@@ -1729,7 +1729,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "doc_giac",
+     "ung_thep",
      120,
      true
     ]
@@ -1744,12 +1744,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "phi_thuong",
+     "kim_nghe",
      123,
      true
     ],
     [
-     "khien_bac",
+     "bo_cap",
      123,
      false
     ]
@@ -1764,7 +1764,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "khien_bac",
+     "bo_cap",
      126,
      true
     ]
@@ -1779,12 +1779,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "chien_than",
+     "bo_ngua",
      129,
      true
     ],
     [
-     "thiet_phu",
+     "doc_giac",
      129,
      false
     ]
@@ -1799,7 +1799,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "thiet_phu",
+     "doc_giac",
      132,
      true
     ]
@@ -1814,17 +1814,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "bach_ho",
+     "kim_nghe",
      135,
      true
     ],
     [
-     "tam_kiem",
+     "phi_thuong",
      135,
      false
     ],
     [
-     "ung_thep",
+     "khien_bac",
      135,
      false
     ]
@@ -1839,7 +1839,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bo_ngua",
+     "chien_than",
      128,
      true
     ]
@@ -1854,12 +1854,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "soi_linh",
+     "thiet_phu",
      131,
      true
     ],
     [
-     "bach_ho",
+     "tam_kiem",
      131,
      false
     ]
@@ -1874,7 +1874,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bach_ho",
+     "tam_kiem",
      134,
      true
     ]
@@ -1889,12 +1889,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "doc_giac",
+     "ung_thep",
      137,
      true
     ],
     [
-     "phi_thuong",
+     "kim_nghe",
      137,
      false
     ]
@@ -1909,7 +1909,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "phi_thuong",
+     "kim_nghe",
      140,
      true
     ]
@@ -1924,12 +1924,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "khien_bac",
+     "bo_cap",
      143,
      true
     ],
     [
-     "chien_than",
+     "bo_ngua",
      143,
      false
     ]
@@ -1944,7 +1944,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "chien_than",
+     "bo_ngua",
      146,
      true
     ]
@@ -1959,12 +1959,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "thiet_phu",
+     "doc_giac",
      149,
      true
     ],
     [
-     "tam_kiem",
+     "phi_thuong",
      149,
      false
     ]
@@ -1979,7 +1979,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_kiem",
+     "phi_thuong",
      152,
      true
     ]
@@ -1994,17 +1994,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "bach_ho",
+     "kim_nghe",
      155,
      true
     ],
     [
-     "ung_thep",
+     "khien_bac",
      155,
      false
     ],
     [
-     "kim_nghe",
+     "chien_than",
      155,
      false
     ]
@@ -2019,7 +2019,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "soi_linh",
+     "thiet_phu",
      148,
      true
     ]
@@ -2034,12 +2034,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bach_ho",
+     "tam_kiem",
      151,
      true
     ],
     [
-     "doc_giac",
+     "ung_thep",
      151,
      false
     ]
@@ -2054,7 +2054,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "doc_giac",
+     "ung_thep",
      154,
      true
     ]
@@ -2069,12 +2069,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "phi_thuong",
+     "kim_nghe",
      157,
      true
     ],
     [
-     "khien_bac",
+     "bo_cap",
      157,
      false
     ]
@@ -2089,7 +2089,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "khien_bac",
+     "bo_cap",
      160,
      true
     ]
@@ -2104,12 +2104,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "chien_than",
+     "bo_ngua",
      163,
      true
     ],
     [
-     "thiet_phu",
+     "doc_giac",
      163,
      false
     ]
@@ -2124,7 +2124,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "thiet_phu",
+     "doc_giac",
      166,
      true
     ]
@@ -2139,12 +2139,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tam_kiem",
+     "phi_thuong",
      169,
      true
     ],
     [
-     "ung_thep",
+     "khien_bac",
      169,
      false
     ]
@@ -2159,7 +2159,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "ung_thep",
+     "khien_bac",
      172,
      true
     ]
@@ -2174,17 +2174,17 @@
    "kind": "boss",
    "enemies": [
     [
-     "bach_ho",
+     "kim_nghe",
      175,
      true
     ],
     [
-     "kim_nghe",
+     "chien_than",
      175,
      false
     ],
     [
-     "bu_long",
+     "thiet_phu",
      175,
      false
     ]
@@ -2199,7 +2199,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "kien_binh",
+     "gac_da",
      67,
      true
     ]
@@ -2214,12 +2214,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "banh_tet",
+     "bom_la",
      70,
      true
     ],
     [
-     "giac_long",
+     "phong_linh",
      70,
      false
     ]
@@ -2234,7 +2234,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giac_long",
+     "phong_linh",
      73,
      true
     ]
@@ -2249,12 +2249,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tien_la",
+     "gio_loc",
      76,
      true
     ],
     [
-     "mam_u",
+     "long_vuot",
      76,
      false
     ]
@@ -2274,12 +2274,12 @@
      true
     ],
     [
-     "mam_u",
+     "long_vuot",
      79,
      false
     ],
     [
-     "gac_da",
+     "tho_hoang",
      79,
      false
     ]
@@ -2294,7 +2294,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "banh_tet",
+     "bom_la",
      87,
      true
     ]
@@ -2309,12 +2309,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "giac_long",
+     "phong_linh",
      90,
      true
     ],
     [
-     "tien_la",
+     "gio_loc",
      90,
      false
     ]
@@ -2329,7 +2329,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tien_la",
+     "gio_loc",
      93,
      true
     ]
@@ -2344,12 +2344,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "mam_u",
+     "long_vuot",
      96,
      true
     ],
     [
-     "gac_da",
+     "tho_hoang",
      96,
      false
     ]
@@ -2369,12 +2369,12 @@
      true
     ],
     [
-     "gac_da",
+     "tho_hoang",
      99,
      false
     ],
     [
-     "bom_la",
+     "moc_tinh",
      99,
      false
     ]
@@ -2389,7 +2389,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "giac_long",
+     "phong_linh",
      107,
      true
     ]
@@ -2404,12 +2404,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tien_la",
+     "gio_loc",
      110,
      true
     ],
     [
-     "mam_u",
+     "long_vuot",
      110,
      false
     ]
@@ -2424,7 +2424,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "mam_u",
+     "long_vuot",
      113,
      true
     ]
@@ -2439,12 +2439,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "gac_da",
+     "tho_hoang",
      116,
      true
     ],
     [
-     "bom_la",
+     "moc_tinh",
      116,
      false
     ]
@@ -2459,7 +2459,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bom_la",
+     "moc_tinh",
      119,
      true
     ]
@@ -2474,12 +2474,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "phong_linh",
+     "thanh_long",
      122,
      true
     ],
     [
-     "gio_loc",
+     "tien_la",
      122,
      false
     ]
@@ -2494,7 +2494,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "gio_loc",
+     "tien_la",
      125,
      true
     ]
@@ -2509,12 +2509,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "long_vuot",
+     "mam_u",
      128,
      true
     ],
     [
-     "tho_hoang",
+     "gac_da",
      128,
      false
     ]
@@ -2529,7 +2529,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tho_hoang",
+     "gac_da",
      131,
      true
     ]
@@ -2549,12 +2549,12 @@
      true
     ],
     [
-     "moc_tinh",
+     "bom_la",
      134,
      false
     ],
     [
-     "thanh_long",
+     "phong_linh",
      134,
      false
     ]
@@ -2569,7 +2569,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tien_la",
+     "gio_loc",
      127,
      true
     ]
@@ -2584,12 +2584,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "mam_u",
+     "long_vuot",
      130,
      true
     ],
     [
-     "gac_da",
+     "tho_hoang",
      130,
      false
     ]
@@ -2604,7 +2604,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "gac_da",
+     "tho_hoang",
      133,
      true
     ]
@@ -2619,12 +2619,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "bom_la",
+     "moc_tinh",
      136,
      true
     ],
     [
-     "phong_linh",
+     "thanh_long",
      136,
      false
     ]
@@ -2639,7 +2639,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "phong_linh",
+     "thanh_long",
      139,
      true
     ]
@@ -2654,12 +2654,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "gio_loc",
+     "tien_la",
      142,
      true
     ],
     [
-     "long_vuot",
+     "mam_u",
      142,
      false
     ]
@@ -2674,7 +2674,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "long_vuot",
+     "mam_u",
      145,
      true
     ]
@@ -2689,12 +2689,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "tho_hoang",
+     "gac_da",
      148,
      true
     ],
     [
-     "moc_tinh",
+     "bom_la",
      148,
      false
     ]
@@ -2709,7 +2709,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "moc_tinh",
+     "bom_la",
      151,
      true
     ]
@@ -2729,12 +2729,12 @@
      true
     ],
     [
-     "thanh_long",
+     "phong_linh",
      154,
      false
     ],
     [
-     "mam_go",
+     "gio_loc",
      154,
      false
     ]
@@ -2749,7 +2749,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "mam_u",
+     "long_vuot",
      147,
      true
     ]
@@ -2764,12 +2764,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "gac_da",
+     "tho_hoang",
      150,
      true
     ],
     [
-     "bom_la",
+     "moc_tinh",
      150,
      false
     ]
@@ -2784,7 +2784,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "bom_la",
+     "moc_tinh",
      153,
      true
     ]
@@ -2799,12 +2799,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "phong_linh",
+     "thanh_long",
      156,
      true
     ],
     [
-     "gio_loc",
+     "tien_la",
      156,
      false
     ]
@@ -2819,7 +2819,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "gio_loc",
+     "tien_la",
      159,
      true
     ]
@@ -2834,12 +2834,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "long_vuot",
+     "mam_u",
      162,
      true
     ],
     [
-     "tho_hoang",
+     "gac_da",
      162,
      false
     ]
@@ -2854,7 +2854,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "tho_hoang",
+     "gac_da",
      165,
      true
     ]
@@ -2869,12 +2869,12 @@
    "kind": "mini",
    "enemies": [
     [
-     "moc_tinh",
+     "bom_la",
      168,
      true
     ],
     [
-     "thanh_long",
+     "phong_linh",
      168,
      false
     ]
@@ -2889,7 +2889,7 @@
    "kind": "mini",
    "enemies": [
     [
-     "thanh_long",
+     "phong_linh",
      171,
      true
     ]
@@ -2909,12 +2909,12 @@
      true
     ],
     [
-     "mam_go",
+     "gio_loc",
      174,
      false
     ],
     [
-     "nu_hoa",
+     "long_vuot",
      174,
      false
     ]
@@ -3653,7 +3653,7 @@
  ],
  "stats": [
   {
-   "hero": "giot_suong",
+   "hero": "ti_tach",
    "mods": {
     "hpPct": 0.08,
     "atkPct": 0.08,
@@ -3668,7 +3668,7 @@
    }
   },
   {
-   "hero": "ca_ngua",
+   "hero": "so_ngoc",
    "mods": {
     "hpPct": 0.08,
     "atkPct": 0.08,
@@ -3676,14 +3676,14 @@
     "spd": 0
    },
    "stats": {
-    "hp": 909,
-    "atk": 386,
-    "def": 93,
-    "spd": 49
+    "hp": 1047,
+    "atk": 314,
+    "def": 105,
+    "spd": 59
    }
   },
   {
-   "hero": "phap_luan",
+   "hero": "giap_long",
    "mods": {
     "hpPct": 0.2,
     "atkPct": 0.2,
@@ -3691,10 +3691,10 @@
     "spd": 0
    },
    "stats": {
-    "hp": 1260,
-    "atk": 418,
+    "hp": 1188,
+    "atk": 437,
     "def": 125,
-    "spd": 139
+    "spd": 69
    }
   },
   {
@@ -3713,19 +3713,19 @@
    "i": 1,
    "foeLevel": 4,
    "winner": 0,
-   "round": 3
+   "round": 6
   },
   {
    "i": 2,
    "foeLevel": 7,
-   "winner": 0,
-   "round": 6
+   "winner": 1,
+   "round": 5
   },
   {
    "i": 3,
    "foeLevel": 10,
-   "winner": 0,
-   "round": 6
+   "winner": 1,
+   "round": 3
   },
   {
    "i": 4,
@@ -3938,13 +3938,13 @@
    "rewards": [
     [
      "card",
-     "giot_suong",
-     "giot_suong_ult"
+     "ti_tach",
+     "ti_tach_ult"
     ],
     [
      "card",
-     "giot_suong",
-     "giot_suong_skill"
+     "ti_tach",
+     "ti_tach_skill"
     ]
    ],
    "cur": {

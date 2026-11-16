@@ -1,0 +1,56 @@
+IMAGES (attached in this order; open each from its path):
+image 1 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\cua_xich_1\mau\goc_ca_con.png: the REFERENCE creature, 1536x1024, white background: a small creature facing right with a big pale round head under a dark hood, one big amber eye, a pointed horn at the upper left, three purple crystals on the back of its head, a small round body with two stick legs, and a tail carrying a dark plate and a toothed disc on the left. It is painted in a smooth digital style with gradients. Keep its POSE, its PIECES, their PLACES and SIZES and its single EYE; change its LOOK as described.
+image 2 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\chien_sat_1\tai_ve\L1_duyet.png: an approved hero of our game from the same metal island (a little armoured spear knight), 1536x1024, white background: match EXACTLY its wobbly dark-brown pen line, its visible crayon hatching and how flat steel parts are drawn and coloured. Do NOT copy its design, face or colours.
+image 3 = C:\Atomik\PokiWar\ArtGen\Spine\inbox\tinh_sat_1\tai_ve\L1_duyet.png: another approved hero of our game from the same island (a little iron-crystal spirit), 1536x1024, white background: see how flat metal facets and darker side facets are drawn. Do NOT copy its design, face or colours.
+
+SAVE: save it as a PNG to C:\Atomik\PokiWar\ArtGen\Spine\inbox\cua_xich_1\tai_ve\L1_A.png
+If a file with that name already exists, save as L1_A_2.png, L1_A_3.png ... in the same folder. Do not edit, move or delete any other file.
+
+TASK: REDESIGN. Redraw the creature of image 1 as ONE picture of a little CHAINSAW-TAIL SPIRIT (a living little machine creature of steel whose tail is a spinning circular saw): the SAME creature in the SAME pose, with EVERY piece in the same place, at the same size, with the same overlaps (if the new picture were laid over image 1, every piece must coincide), except the shape changes described below; new colours and our hand-drawn drawing style. Do not remove, merge or move pieces; add only the one new piece listed. Keep the FACE as in image 1: facing right, ONE eye only, its top half cut by the edge of the head-piece above it, no mouth.
+
+PIECE BY PIECE (as in image 1): a small sturdy creature in three-quarter view, FACING THE VIEWER'S RIGHT: a big round HEAD on a small round BODY, two short stick legs, and a TAIL that carries a round SAW DISC behind it on the left.
+- HEAD: a big pale round ball (the face), turned to the right. Over the top and the right side of it sits a big dark HOOD (like a helmet or a cowl); the hood's lower front edge comes down across the UPPER HALF OF THE EYE, so the eye looks narrowed and determined; the hood ends in a point at the lower right of the face. From the upper left of the hood a long POINTED HORN sweeps out to the upper left (its underside a lighter colour). On the back of the head, behind the hood, stand THREE tall pieces leaning up and to the right (a tall one in the middle, a shorter one on its left, a slanted one at the lower right), plus a dark curved SPIKE just behind them on the far right.
+- FACE: ONLY ONE EYE shows (the other one is hidden by the turn of the head): a big round eye on the right part of the face, pale yellow with a big round orange iris filling most of it. No mouth, no nose, no brows. On the left part of the face, three short dark vertical STRIPES.
+- BODY: a small pale round body under the head, mostly hidden. Two tiny dark mitten HANDS on the front of the belly: the left hand near the middle of the belly, the right hand at the right.
+- LEGS: the near leg (left) has a dark ribbed dome-shaped THIGH (like a scallop shell) and a dark stick shin slanting down to the lower left; the far leg (right) is a dark stick slanting down to the lower right. Both legs grow out from under the body.
+- TAIL: from the back of the body on the left, a short dark tail base leads to the SAW: a dark rounded oblong plate (the HOUSING) standing slanted, with a round HUB near its upper end; behind it a large round DISC centred on the hub, with teeth all round its edge.
+
+POSITIONS on the 1536x1024 canvas (bounding boxes of each piece in image 1; keep them):
+- HEAD (round face ball): x = 659 to 1115, y = 307 to 765
+- HOOD over the head: x = 659 to 1115, y = 307 to 729
+- UPPER-LEFT HORN: x = 600 to 865, y = 286 to 555
+- THREE BACK PIECES: x = 768 to 1193, y = 137 to 671
+- DARK BACK SPIKE (right): x = 943 to 1119, y = 290 to 565
+- EYE: x = 772 to 924, y = 533 to 708
+- BODY: x = 617 to 924, y = 531 to 829
+- LEFT HAND: x = 734 to 855, y = 655 to 789
+- RIGHT HAND: x = 846 to 951, y = 633 to 781
+- LEFT THIGH (ribbed dome): x = 612 to 758, y = 665 to 819
+- LEFT SHIN: x = 603 to 718, y = 716 to 887
+- RIGHT LEG: x = 809 to 930, y = 705 to 880
+- TAIL BASE: x = 570 to 688, y = 580 to 717
+- SAW HOUSING (oblong plate with hub): x = 418 to 622, y = 420 to 676
+- HOUSING BACK PLATE: x = 456 to 655, y = 395 to 654
+- SAW DISC: x = 350 to 646, y = 344 to 636
+
+CHANGE:
+- HOOD: changes SHAPE into a smooth rounded HARD-HAT dome, bright safety ORANGE #E8762C, covering the same area of the head, with a short straight stiff BRIM jutting forward to the right over the eye (the brim's lower edge cuts across the top half of the eye) and one thin ridge line over the top of the dome.
+- HORN (upper left): becomes a short black EXHAUST PIPE #34363B: a slightly bent tube pointing up-left out of the back of the helmet, with an open round end (a dark oval opening); about two thirds of the old horn's length.
+- THE THREE BACK PIECES and THE DARK SPIKE become FOUR steel SAW-TOOTH FINS standing on the back of the head in the same places and leans: each a flat blade shaped like one big tooth of a saw (straight front edge, curved back edge, sharp tip hooked backward). Steel grey #A9B1BC, each with one darker side face #7D8590.
+- HEAD (face) and BODY: pale steel grey #CFD3D8; the belly between the legs dark #3A3C42.
+- EYE: the SAME single round eye, same place and size, still cut across its top half by the edge of the head-piece above it; pale yellow #F6E6A6 with a big round orange #E8902F iris and one tiny white dot. Still only one eye.
+- STRIPES: the three dark stripes on the left of the face become three short dark VENT SLITS #4A4E55 (same places).
+- HANDS, SHINS, RIGHT LEG, TAIL BASE: dark charcoal #3A3C42. LEFT THIGH dome: orange #E8762C with dark rib lines.
+- SAW HOUSING: orange #E8762C, the hub black #2E3035 with one small steel bolt in its middle; the housing back plate charcoal.
+- SAW DISC: becomes a real CIRCULAR SAW BLADE: a flat round steel disc in the SAME place and at the SAME size as the disc in image 1, centred on the hub, with 14 sharp hooked triangular saw TEETH evenly all round its edge, all leaning the same way (clockwise); one thin ring line around the hub. Flat steel grey #BCC3CC, the side of each tooth a little darker #98A0AA.
+- ADD ONE NEW small piece, a PULL-START HANDLE (like the starter cord of a lawnmower or a chainsaw): a small black T-shaped grip (about 90 px wide) lying across the front of the belly just under the LEFT HAND (the hand touches it), joined by a short orange cord to a small round hole in the belly. The creature pulls this cord to start the saw on its tail.
+
+Every leg, hand and the tail base stay JOINED to the body (no white gap between a limb and the body); every piece whole and unbroken.
+
+VERY SIMPLE DESIGN, FEW DETAILS (like image 1): no extra spikes, bolts, rivets, cables, gauges, scratches, cracks, runes, badges or glowing parts; no mouth, no teeth on the face, no brows, no arms; nothing that is not listed.
+
+DRAWING STYLE (very important): hand-drawn on paper like the approved heroes of our game (images 2 and 3): a wobbly dark-brown INK outline (#2B2118, about 7 px) running all the way round every piece exactly on its silhouette, thinner ink lines (about 4 px) for the few inner lines (facet edges, the saw teeth, the vent slits, the rib lines), and every area filled with ONE flat colour with visible coloured-pencil / wax-crayon hatching. Image 1 is painted in a smooth digital style with soft gradients (purple-pink crystals, soft light on the grey parts): do NOT copy that painting style or its colours: no shading, no highlights, no white shine streaks, no gradients, no glow, no shadows, no gloss, no sparkles: flat colour only. A different tone appears only where a different face or material is listed. The only exception: one tiny white dot in the eye. Drawn carefully and cleanly, not scribbled.
+
+Mood: a tough, determined little machine spirit ready to fight (a game hero), not a cute mascot, not scary.
+
+CANVAS: landscape 1536x1024, pure-white background (#FFFFFF), no ground line, no cast shadow; the creature at the same place and size as in image 1. No sparks, no smoke, no motion lines, no glow, no labels, no frame.

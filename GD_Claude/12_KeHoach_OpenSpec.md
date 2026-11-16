@@ -442,6 +442,11 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
   - máy dài hơn 9:16 chỉ thêm trời phía trên; máy tính bảng 3:4 như 9:16, hai bên để nền bàn.
   - Thử bằng menu `Thử/Trận ở 4 cỡ máy: phần dưới cố định, trời co giãn`, ảnh `cb_tran_*.png`.
 
+**Bỏ tướng cũ không còn suất đảo (Unity, 2026-11-16).** Người dùng: tướng đã bị thay mà còn trong game thì bỏ; đảo Thổ chưa làm con nào nên để nguyên; hai tướng cuối đảo Hỏa chưa làm. Chi tiết và bảng gộp ở `13_DanhSachTuong.md`, mục "Bỏ tướng cũ không còn suất đảo".
+- 88 → 57 tướng: bỏ 31 tướng Kim, Mộc, Thủy, Hỏa không đứng ải tướng nào, cùng 93 thẻ riêng, 68 thư mục hình, 31 prefab. Bản lưu v11 gộp chúng vào tướng thay (`SaveCodec.BoTuongCu`).
+- Tướng khởi đầu Kim, Mộc: Thiết Tinh, Cầu Gai (tướng ải 1, nâng lên Khá) thay Bu Lông, Nụ Hoa. Quà đảo Thủy: Thiết Cưa (người chọn Thạch Nhân, ải 3), Mầm Ú (ải 25).
+- Golden tính lại bên Unity; menu mới `PokiClash/Thử/Tính lại golden theo tướng mẫu của test` (`Editor/GoldenFixtureMenu.cs`) cho rương, AFK, trang trại, tiềm năng, đền. 107/108 EditMode test đạt; test hỏng còn lại là `PrefabOnlyTests.MaRuntime_KhongSinhDoVat` (UI/Kit `NumberTicker`, `UiMotion`), đã hỏng từ trước.
+
 ## Câu hỏi còn mở (gom từ các design.md; đánh số lại sau lượt trả lời 2026-10-31)
 
 1. **Nhịp tiến độ** (mục tiêu: người chơi "vừa" xong 5 đảo khoảng ngày 21). Sau khi có cây bi vẫn là ngày 6. Quét bằng menu `Quét nhịp`:

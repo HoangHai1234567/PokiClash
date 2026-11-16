@@ -10,6 +10,16 @@ Viết 2026-11-03. Người dùng muốn: khi vào game, người chơi chọn 1
 - Phần còn lại làm theo đề xuất của kế hoạch.
 - **Chốt thêm cùng ngày: ô đội mở theo cấp người chơi**: ô 2 ở cấp 10, ô 3 ở cấp 30 (thay luật B "ô 2 ở ải 3" bên dưới, và thay luật cũ "theo số đảo đã xong"). Xem mục 6.
 
+**Đổi sau đó (bộ đang chạy):**
+- 2026-11-11: tướng khởi đầu hệ Thủy là Tí Tách (`ti_tach`, ải 1 đảo Thủy), thay Giọt Sương (lô 10 tướng mới đảo Thủy).
+- 2026-11-16 (người dùng chốt khi bỏ các tướng cũ không còn suất đảo, `13_DanhSachTuong.md`):
+  - tướng khởi đầu Kim là Thiết Tinh (`bo_cap`), Mộc là Cầu Gai (`tien_la`): tướng ải 1 đảo cùng hệ, như 3 đảo kia;
+  - hai con nâng từ Thường lên Khá (15 mảnh) cho đúng luật 5 tướng cùng Khá; ải 2 đảo Kim, Mộc thành tướng ải 1 cùng một lính;
+  - Bu Lông, Nụ Hoa bị bỏ, bản lưu gộp vào Thiết Tinh, Cầu Gai (bản lưu v11);
+  - quà ải 3 đảo Thủy cho người chọn Thạch Nhân: Thiết Cưa (`phi_thuong`, Kim Khá) thay Mèo Quyền Sắt;
+  - quà ải 25 đảo Thủy: Mầm Ú (`mam_u`, Mộc Thường) thay Mầm Gỗ.
+- Năm tướng hiện tại: Tí Tách, Sư Tử Lửa (id `su_tu_lua`, hình Tiểu Quỷ Lava), Thiết Tinh, Cầu Gai, Thạch Nhân. Số đo ở mục 6 là của bộ tướng cũ, chưa đo lại.
+
 Hệ quả:
 - **Ải 1 mỗi đảo:** nếu tướng đứng đó là tướng người chơi đã chọn thì đấu với bóng của nó; nếu không thì đấu tướng thật và thu phục được.
   - Ải 1 rơi mảnh của tướng đứng đó (ải tướng: chắc chắn 2–4 mảnh lần đầu), kể cả khi là bóng: khi đó là mảnh của chính tướng mình.

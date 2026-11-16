@@ -94,8 +94,10 @@ def main(argv):
     cmd += ["-o", last, "--", "\n".join(msg)]
     before = snapshot(saves)
     t0 = time.time()
-    proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, encoding="utf-8",
-                            errors="replace")
+    # stdin=DEVNULL: codex exec đọc thêm stdin khi stdin là ống chưa đóng (chạy nền từ phiên khác) và treo mãi, không log
+    # gì (2026-11-16: M1, M2 của quang_sat_2 hết 1200 s không ra ảnh).
+    proc = subprocess.Popen(cmd, stdin=subprocess.DEVNULL, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True,
+                            encoding="utf-8", errors="replace")
     try:
         out, _ = proc.communicate(timeout=float(opts["timeout"]))
         code = proc.returncode

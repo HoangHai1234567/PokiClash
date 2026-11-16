@@ -2,6 +2,8 @@
 // đầu trận của đội, 6 trận thật có hiệu ứng đầu trận, Hang (đội địch, thứ trong tuần, lượt, đá). Thêm: tỉ lệ độ hiếm trên 100.000 lần quay,
 // giá có khoá, lưu rồi đọc lại. Số hiệp 6 trận thật tính lại bên Unity 2026-11-03 khi Chiêu đổi sang ra đòn ngay lúc bấm,
 // và 2026-11-04 khi đổi luật rút thẻ.
+// 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
+// menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -29,8 +31,8 @@ namespace PokiClash.Tests
         public void KhaiPha60Lan_KhoaO_GiuMoiGiuCu_KhopBanWeb()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
-            s.Hero("giot_suong").star = 4;
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
+            s.Hero("ti_tach").star = 4;
             s.Hero("vo_su").owned = true;
             s.Hero("vo_su").star = 2;
             s.potentialStones = 300;
@@ -97,11 +99,11 @@ namespace PokiClash.Tests
 
         static SaveData FightSave(GameData d)
         {
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
             s.level = 6;
             s.Hero("vo_su").owned = true;
-            s.team = new List<string> { "giot_suong", "vo_su" };
-            s.Hero("giot_suong").potential = new[] { new PotLine { k = PotKind.Rage, r = 3 }, new PotLine { k = PotKind.Crit, r = 4 }, new PotLine { k = PotKind.Atk, r = 2 }, null };
+            s.team = new List<string> { "ti_tach", "vo_su" };
+            s.Hero("ti_tach").potential = new[] { new PotLine { k = PotKind.Rage, r = 3 }, new PotLine { k = PotKind.Crit, r = 4 }, new PotLine { k = PotKind.Atk, r = 2 }, null };
             s.Hero("vo_su").potential = new[] { new PotLine { k = PotKind.Mana, r = 2 }, new PotLine { k = PotKind.Lifesteal, r = 3 }, null, null };
             return s;
         }
@@ -178,8 +180,8 @@ namespace PokiClash.Tests
         public void TiLeDoHiem_100000LanQuay_GiaCoKhoa_LuuDocLai()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
-            s.Hero("giot_suong").star = 4;
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
+            s.Hero("ti_tach").star = 4;
             s.potentialStones = 1_000_000;
             var rng = new Rng(7);
             var count = new int[5];
@@ -187,40 +189,40 @@ namespace PokiClash.Tests
             var none = new bool[4];
             for (int i = 0; i < 25000; i++)
             {
-                var res = Potential.Spin(s, d.Cfg, "giot_suong", none, rng);
+                var res = Potential.Spin(s, d.Cfg, "ti_tach", none, rng);
                 foreach (var x in res)
                 {
                     count[x.r]++;
                     kinds[(int)x.k]++;
                 }
-                Potential.Keep(s, "giot_suong", true);
+                Potential.Keep(s, "ti_tach", true);
             }
             double[] want = { 55, 28, 12, 4.5, 0.5 };
             for (int r = 0; r < 5; r++) Assert.AreEqual(want[r], count[r] / 1000.0, r == 4 ? 0.15 : 0.5, "độ hiếm " + r);
             foreach (var k in kinds) Assert.AreEqual(12.5, k / 1000.0, 0.5, "8 loại đều nhau");
 
             // 3 ô mở, khoá 1 ô có dòng: 2 + 2 = 4 đá; khoá 3 ô: không quay được
-            s.Hero("giot_suong").star = 3;
+            s.Hero("ti_tach").star = 3;
             var locks = new List<bool> { true, false, false };
-            Assert.AreEqual(4, Potential.SpinCost(s, d.Cfg, "giot_suong", locks));
-            var before = s.Hero("giot_suong").potential[0];
-            var res2 = Potential.Spin(s, d.Cfg, "giot_suong", locks, rng);
+            Assert.AreEqual(4, Potential.SpinCost(s, d.Cfg, "ti_tach", locks));
+            var before = s.Hero("ti_tach").potential[0];
+            var res2 = Potential.Spin(s, d.Cfg, "ti_tach", locks, rng);
             Assert.AreEqual(before.k, res2[0].k);
             Assert.AreEqual(before.r, res2[0].r);
-            Assert.IsNull(Potential.Spin(s, d.Cfg, "giot_suong", new List<bool> { true, true, true }, rng), "khoá tối đa 2 ô");
+            Assert.IsNull(Potential.Spin(s, d.Cfg, "ti_tach", new List<bool> { true, true, true }, rng), "khoá tối đa 2 ô");
             s.potentialStones = 1;
-            Assert.IsNull(Potential.Spin(s, d.Cfg, "giot_suong", none, rng), "thiếu đá");
+            Assert.IsNull(Potential.Spin(s, d.Cfg, "ti_tach", none, rng), "thiếu đá");
 
             s.cave = new CaveDay { day = 9, wins = 2, pick = Elem.Moc };
             Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(SaveCodec.Write(s), d, out var back));
             for (int i = 0; i < 4; i++)
             {
-                var a = s.Hero("giot_suong").potential[i];
-                var b = back.Hero("giot_suong").potential[i];
+                var a = s.Hero("ti_tach").potential[i];
+                var b = back.Hero("ti_tach").potential[i];
                 Assert.AreEqual(a == null, b == null);
                 if (a != null) Assert.AreEqual((a.k, a.r), (b.k, b.r));
             }
-            Assert.IsNotNull(back.Hero("giot_suong").potentialNew, "kết quả chờ chọn được giữ khi tắt game");
+            Assert.IsNotNull(back.Hero("ti_tach").potentialNew, "kết quả chờ chọn được giữ khi tắt game");
             Assert.AreEqual(1, back.potentialStones);
             Assert.AreEqual(Elem.Moc, back.cave.pick);
             Assert.AreEqual(2, back.cave.wins);

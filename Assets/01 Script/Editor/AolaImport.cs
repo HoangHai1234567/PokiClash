@@ -52,7 +52,10 @@ namespace PokiClash.EditorTools
             if (!assetPath.StartsWith(AolaImport.ArtDir + "/")) return;
             var ti = (TextureImporter)assetImporter;
             bool portrait = assetPath.EndsWith("_portrait.png");
-            ti.textureType = portrait ? TextureImporterType.Sprite : TextureImporterType.Default;
+            // ảnh mảnh rig mà lớp hạt vẽ lại trên sân (<dạng>_tt_<vùng>.png: tinh thể bay của Thiết Tinh, HatSat.cs): sprite gốc ở giữa, nạp
+            // bằng Resources.Load<Sprite> (mã chạy không được Sprite.Create: PrefabOnlyTests)
+            bool manh = !portrait && System.IO.Path.GetFileName(assetPath).Contains("_tt_");
+            ti.textureType = portrait || manh ? TextureImporterType.Sprite : TextureImporterType.Default;
             // atlas vẽ vào RenderTexture 1024 gần đúng cỡ đã thu nhỏ: không cần mipmap (bớt 1/3); chân dung hiện từ ô nhỏ trong UI
             ti.mipmapEnabled = portrait;
             ti.alphaIsTransparency = true;
@@ -68,6 +71,16 @@ namespace PokiClash.EditorTools
                 s.spriteMode = (int)SpriteImportMode.Single;
                 s.spriteAlignment = (int)SpriteAlignment.Custom;
                 s.spritePivot = new Vector2(0.5f, HeroArt.FootY);
+                s.spritePixelsPerUnit = 100;
+                s.spriteMeshType = SpriteMeshType.FullRect;
+                ti.SetTextureSettings(s);
+            }
+            else if (manh)
+            {
+                var s = new TextureImporterSettings();
+                ti.ReadTextureSettings(s);
+                s.spriteMode = (int)SpriteImportMode.Single;
+                s.spriteAlignment = (int)SpriteAlignment.Center;
                 s.spritePixelsPerUnit = 100;
                 s.spriteMeshType = SpriteMeshType.FullRect;
                 ti.SetTextureSettings(s);

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Quỷ xích non rig</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2a2b31; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.ghi { margin: 0 0 14px; color: #bbb; max-width: 1100px; }
+  .luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .rong { grid-column: 1 / -1; }
+  figure { margin: 0; background: #96969a; border-radius: 8px; overflow: hidden; }
+  figure img { width: 100%; display: block; }
+  figcaption { background: #1d1e22; padding: 8px 10px; color: #ddd; }
+  b { color: #ffcf6a; }
+  a { color: #8fd3ff; }
+</style>
+</head>
+<body>
+<h1>Quỷ xích DẠNG 1 NON (tướng 5 đảo Kim) — rig và animation</h1>
+<p class="ghi">Cùng xương, lưới, clip với dạng 2 (quỷ giáp kín); đổi tỉ lệ ở rig (đầu × 1,25, cánh × 0,72, móc × 0,8) và da theo concept A (quỷ con đội nồi
+sắt). Khối xám là chỗ đối thủ (đứng xa 1,9 lần chiều cao) để thấy phần code game làm. <b>Chưa có VFX</b> (lửa xích, vệt lửa + khói, vòng trói, cột lửa,
+bụi): làm ở bước vào game. Dạng 2: <a href="quy_xich_xem_rig.html">quy_xich_xem_rig.html</a>. Spine Web Player: <a href="quy_xich_non/rig/xem.html">quy_xich_non/rig/xem.html</a>.</p>
+<div class="luoi">
+  <figure><img src="quy_xich_non/tai_ve/L1_duyet.png" style="background:#fff"><figcaption>Concept A dạng non đã duyệt</figcaption></figure>
+  <figure><img src="quy_xich_non/rig/soi_idle.png"><figcaption>Rig ghép xong, khung 0 idle (bỏ lòng nồi dưới vành cho lộ mắt; hai sừng nhô lên từ sau nồi)</figcaption></figure>
+  <figure class="rong"><img src="quy_xich_non/rig/dong/skill.webp"><figcaption><b>Chiêu cuối</b>: giơ móc, quay xích ba vòng nhanh dần, ném, trói, giữ xích căng, cột lửa (VFX), thả, giật về</figcaption></figure>
+  <figure class="rong"><img src="quy_xich_non/rig/dong/cast.webp"><figcaption><b>Chiêu mana</b>: quay xích qua đầu, ném; móc + xích bay tới đối thủ, găm, giật về</figcaption></figure>
+  <figure class="rong"><img src="quy_xich_non/rig/dong/attack.webp"><figcaption><b>Đánh thường</b>: bay vọt tới, giơ móc, bổ xuống đầu đối thủ, nhảy lùi về</figcaption></figure>
+  <figure><img src="quy_xich_non/rig/dong/appear.webp"><figcaption><b>Ra sân</b>: bay vào, khựng, rơi thẳng xuống, móc đập đất</figcaption></figure>
+  <figure><img src="quy_xich_non/rig/dong/idle.webp"><figcaption><b>Đứng</b></figcaption></figure>
+  <figure><img src="quy_xich_non/rig/dong/walk.webp"><figcaption><b>Đi</b></figcaption></figure>
+  <figure><img src="quy_xich_non/rig/dong/hit.webp"><figcaption><b>Trúng đòn</b>: nồi nảy khỏi đầu</figcaption></figure>
+  <figure><img src="quy_xich_non/rig/dong/die.webp"><figcaption><b>Chết</b>: hất lộn, nồi văng, nằm ngửa, mờ dần</figcaption></figure>
+</div>
+</body>
+</html>

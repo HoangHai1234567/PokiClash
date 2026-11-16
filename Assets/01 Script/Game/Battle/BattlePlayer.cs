@@ -40,6 +40,14 @@ namespace PokiClash
 
         object W(float ms) => st.Wait(ms / 1000f);
 
+        // thang ngũ cung trưởng (bán cung) cho chuỗi leo cao độ; quá 1 quãng tám thì giữ ở đỉnh
+        static readonly int[] PentSteps = { 0, 2, 4, 7, 9, 12 };
+        public static int Pent(int i) => PentSteps[Mathf.Clamp(i, 0, PentSteps.Length - 1)];
+        public static float Semitone(int n) => Mathf.Pow(2, n / 12f);
+
+        // rung tay mạnh dần theo độ mạnh cú (0..1 → ×0,75..×1,35)
+        static float HapticGain(float pw) => 0.75f + 0.6f * pw;
+
         public IEnumerator WaitPending()
         {
             while (pending != null && !pending.done) yield return null;
@@ -106,8 +114,10 @@ namespace PokiClash
                 {
                     if (e.rep == 0) ExecIdx++;
                     view.RenderQueue(ExecIdx, false);
+                    view.PopNow();
                     var c = b.Data.Card(e.card);
-                    sfx.Play("card");
+                    // chuỗi thẻ trong lượt leo cao độ theo thang ngũ cung (GameFeel mục 6.8, 8.5): dồn lên cú đánh cuối lượt
+                    sfx.Play("card", 1, Semitone(Pent(Mathf.Max(0, ExecIdx))));
                     host.StartCoroutine(FlyTile(e.side));
                     st.Text(e.side, c.name, "#fff6c8", 22);
                     yield return W(420);
@@ -234,20 +244,36 @@ namespace PokiClash
                     if (e.dmgKind == DmgKind.Burn)
                     {
                         st.Number(e.to, e.amount, Theme.Hex("#ffb070"));
-                        st.Hurt(e.to);
+                        st.Hurt(e.to, false, true);
                         sfx.Hit(false);
                         yield return W(360);
                         break;
                     }
                     bool big = e.crit || e.dmgKind == DmgKind.Ult;
+                    float pw = st.Power(1 - e.to);
                     st.Hurt(e.to, big);
                     st.Burst(e.to, big);
                     st.Number(e.to, e.amount, e.crit ? Theme.Hex("#ffe14a") : Theme.Hex("#ff6a5a"), big);
-                    if (e.crit) st.Text(e.to, "CHÍ MẠNG!", "#ffe14a", 28);
+                    if (e.crit)
+                    {
+                        st.Text(e.to, "CHÍ MẠNG!", "#ffe14a", 28 * (1 + 0.15f * pw));
+                        st.Flash(new Color(1, 0.96f, 0.78f, Mathf.Lerp(0.12f, 0.22f, pw))); // chớp kem nhạt (≤ 0,15 alpha sau nhân)
+                    }
                     if (e.elem > 1) st.Text(e.to, "Khắc hệ ×1,5", "#9be36a", 18);
                     if (e.elem < 1) st.Text(e.to, "Bị khắc ×0,75", "#c9c0b0", 18);
                     if (e.blocked > 0) st.Text(e.to, $"Khiên đỡ {e.blocked}", "#8ec5ff", 18);
-                    sfx.Hit(big);
+                    sfx.Hit(big, pw);
+                    // cú hạ gục: thêm nhịp khựng, rung; con cuối của phe đó (hết trận) mạnh nhất
+                    var tf = e.snap != null && e.snap.f[e.to].Count > e.snap.active[e.to] ? e.snap.f[e.to][e.snap.active[e.to]] : null;
+                    bool ko = tf != null && (tf.dead || tf.hp <= 0);
+                    if (ko)
+                    {
+                        bool last = e.snap.f[e.to].TrueForAll(x => x.dead || x.hp <= 0);
+                        st.KoHit(e.to, last);
+                        Haptics.Play(Haptic.Ko, HapticGain(pw));
+                    }
+                    else
+                        Haptics.Play(e.dmgKind == DmgKind.Ult ? Haptic.UltHit : big ? Haptic.HitBig : Haptic.Hit, HapticGain(pw));
                     yield return W(big ? 330 : 240);
                     break;
                 }
@@ -281,7 +307,9 @@ namespace PokiClash
                     yield return WaitPending();
                     st.Die(e.side);
                     st.Text(e.side, "Gục!", "#c9c0b0", 34);
-                    sfx.Play("lose");
+                    // địch gục là tin vui: tiếng nện "stamp" chắc tay; tướng mình gục mới dùng thang đi xuống
+                    if (e.side == 1) sfx.Play("stamp", 1, 0.85f);
+                    else sfx.Play("lose");
                     yield return W(900);
                     break;
                 case EvType.Swap:

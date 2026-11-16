@@ -133,8 +133,8 @@ namespace PokiClash.EditorTools
         {
             shot = 180;
             var sv = App.Save.Data;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
-            sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) sv.Hero(id).owned = true;
+            sv.team = new System.Collections.Generic.List<string> { "ti_tach", "vo_su", "tien_la" };
             sv.level = 10;
             sv.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
             App.Save.Save();
@@ -249,8 +249,8 @@ namespace PokiClash.EditorTools
             var st = App.Data.Stages.FirstOrDefault(s => s.zone == Elem.Thuy && s.idx == Islands.Size(Elem.Thuy));
             if (st == null) yield break;
             var sv = App.Save.Data;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
-            sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) sv.Hero(id).owned = true;
+            sv.team = new System.Collections.Generic.List<string> { "ti_tach", "vo_su", "tien_la" };
             sv.level = 10;
             yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
             var ctl = Object.FindAnyObjectByType<BattleController>();
@@ -297,8 +297,8 @@ namespace PokiClash.EditorTools
                 yield break;
             }
             var sv = App.Save.Data;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
-            sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) sv.Hero(id).owned = true;
+            sv.team = new System.Collections.Generic.List<string> { "ti_tach", "vo_su", "tien_la" };
             sv.level = 4;
             yield return Go(SceneIds.Battle, new BattleArgs { stageId = st.id });
             var ctl = Object.FindAnyObjectByType<BattleController>();
@@ -397,13 +397,13 @@ namespace PokiClash.EditorTools
             App.Modals.CloseAll();
             ClickButton("+5 bản sao");
             Progress.UnlockHero(s, "vo_su");
-            Progress.UnlockHero(s, "giot_suong"); // bản lưu trước v4 có Tiểu Y khởi đầu, chưa có Giọt Sương
+            Progress.UnlockHero(s, "ti_tach"); // bản lưu trước v4 chưa có tướng khởi đầu hiện tại
             App.Save.Save();
             yield return Go(SceneIds.Hub);
             yield return Shot("sanh_viec_cho");
             yield return Go(SceneIds.Heroes);
             yield return Shot("tuong_luoi");
-            HeroDetail.Open("giot_suong");
+            HeroDetail.Open("ti_tach");
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("tuong_chi_tiet");
             ClickButton("Lên cấp 2");
@@ -416,10 +416,10 @@ namespace PokiClash.EditorTools
             ClickButton("Tiến hóa");
             yield return new WaitForSecondsRealtime(0.35f);
             yield return Shot("tuong_tien_hoa");
-            var p = s.Hero("giot_suong");
-            Debug.Log($"[Thử] Giọt Sương: thẻ {p.skill.lv}/{p.ult.lv}/{p.passive.lv}, sao {p.star}, cấp người chơi {s.level}");
+            var p = s.Hero("ti_tach");
+            Debug.Log($"[Thử] Tí Tách: thẻ {p.skill.lv}/{p.ult.lv}/{p.passive.lv}, sao {p.star}, cấp người chơi {s.level}");
             // chỉ số trong trận phải khớp màn Tướng
-            var st = HeroStats.Compute(d.Cfg, d.Hero("giot_suong"), s.level, p.star);
+            var st = HeroStats.Compute(d.Cfg, d.Hero("ti_tach"), s.level, p.star);
             var b = Battle.Create(d, Teams.Player(s), Teams.Enemy(d.Stage(1), d), 1);
             var f = b.ActiveOf(0);
             bool same = f.maxHp == st.hp && f.atk == st.atk && f.def == st.def && f.spd == st.spd;
@@ -427,7 +427,7 @@ namespace PokiClash.EditorTools
             else Debug.LogError($"[Thử] Lệch chỉ số: màn Tướng {st.hp}/{st.atk}/{st.def}, trận {f.maxHp}/{f.atk}/{f.def}");
             App.Modals.CloseAll();
             yield return new WaitForSecondsRealtime(0.3f);
-            HeroDetail.Open("huyen_vu");
+            HeroDetail.Open("han_ngac");
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("tuong_chua_co");
             App.Modals.CloseAll();
@@ -459,7 +459,7 @@ namespace PokiClash.EditorTools
             var s = App.Save.Data;
             var d = App.Data;
             var cfg = d.Cfg;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) s.Hero(id).owned = true;
             s.level = 8;
             s.exp = 0;
             s.legendDone = true;
@@ -579,7 +579,7 @@ namespace PokiClash.EditorTools
             shot = 80;
             var s = App.Save.Data;
             var d = App.Data;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) s.Hero(id).owned = true;
             s.level = 5;
             s.exp = Progress.ExpToNext(5, App.Data.Cfg) - 40;
             s.balls = 400;
@@ -860,12 +860,12 @@ namespace PokiClash.EditorTools
                 bp.tier = 0;
                 bp.won = 0;
             }
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa", "ca_ngua" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
             s.level = 9;
-            s.team = new System.Collections.Generic.List<string> { "vo_su", "nu_hoa", "ca_ngua" };
+            s.team = new System.Collections.Generic.List<string> { "vo_su", "tien_la", "so_ngoc" };
             App.Save.Save();
-            var ty = d.Hero("giot_suong");
-            var before = HeroStats.Compute(d.Cfg, ty, s.level, s.Hero("giot_suong").star, false, Badges.Mods(s, d.Cfg, ty.elem));
+            var ty = d.Hero("ti_tach");
+            var before = HeroStats.Compute(d.Cfg, ty, s.level, s.Hero("ti_tach").star, false, Badges.Mods(s, d.Cfg, ty.elem));
 
             yield return Go(SceneIds.Hub);
             yield return Shot("sanh_den_mo");
@@ -906,13 +906,13 @@ namespace PokiClash.EditorTools
             ClickButton("Nhận");
             yield return new WaitForSecondsRealtime(0.5f);
             App.Modals.CloseAll();
-            var after = HeroStats.Compute(d.Cfg, ty, s.level, s.Hero("giot_suong").star, false, Badges.Mods(s, d.Cfg, ty.elem));
-            Debug.Log($"[Thử] Giọt Sương: máu {before.hp}→{after.hp} ({after.hp / before.hp - 1:P1}), công {before.atk}→{after.atk}, thủ {before.def}→{after.def}");
+            var after = HeroStats.Compute(d.Cfg, ty, s.level, s.Hero("ti_tach").star, false, Badges.Mods(s, d.Cfg, ty.elem));
+            Debug.Log($"[Thử] Tí Tách: máu {before.hp}→{after.hp} ({after.hp / before.hp - 1:P1}), công {before.atk}→{after.atk}, thủ {before.def}→{after.def}");
             yield return Go(SceneIds.Badges);
             yield return Shot("den_sau_dong");
             yield return Go(SceneIds.Heroes);
             yield return Shot("tuong_co_huy_hieu");
-            HeroDetail.Open("giot_suong");
+            HeroDetail.Open("ti_tach");
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("tieu_y_huy_hieu");
             App.Modals.CloseAll();
@@ -936,11 +936,11 @@ namespace PokiClash.EditorTools
             s.zones = new int[5];
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Hoa] = 4;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa", "ca_ngua" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
             s.level = 9;
-            s.Hero("giot_suong").star = 3;
-            s.Hero("giot_suong").potential = new PotLine[4];
-            s.team = new System.Collections.Generic.List<string> { "vo_su", "nu_hoa", "ca_ngua" };
+            s.Hero("ti_tach").star = 3;
+            s.Hero("ti_tach").potential = new PotLine[4];
+            s.team = new System.Collections.Generic.List<string> { "vo_su", "tien_la", "so_ngoc" };
             s.potentialStones = 0;
             s.cave = null;
             s.chests.Clear();
@@ -973,9 +973,9 @@ namespace PokiClash.EditorTools
             if (s.potentialStones < 20) s.potentialStones += 20;
             App.Save.Save();
 
-            // khai phá Giọt Sương (3 sao: 3 ô mở)
+            // khai phá Tí Tách (3 sao: 3 ô mở)
             yield return Go(SceneIds.Heroes);
-            HeroDetail.Open("giot_suong");
+            HeroDetail.Open("ti_tach");
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("chi_tiet_dai_tiem_nang");
             ClickByName("mo_tiem_nang");
@@ -987,23 +987,23 @@ namespace PokiClash.EditorTools
             yield return Shot("tiem_nang_so_sanh");
             ClickByName("giu_moi");
             yield return new WaitForSecondsRealtime(0.4f);
-            Debug.Log($"[Thử] Khai phá lần 1: tốn {st0 - s.potentialStones} đá (đợi 3); giữ mới: {PotentialPanel.TotalsText(d.Cfg, s.Hero("giot_suong").potential)}");
+            Debug.Log($"[Thử] Khai phá lần 1: tốn {st0 - s.potentialStones} đá (đợi 3); giữ mới: {PotentialPanel.TotalsText(d.Cfg, s.Hero("ti_tach").potential)}");
             ClickByName("khoa_0");
             yield return new WaitForSecondsRealtime(0.3f);
             yield return Shot("tiem_nang_khoa");
-            var keep = s.Hero("giot_suong").potential.Select(x => x == null ? "-" : $"{x.k}{x.r}").ToArray();
+            var keep = s.Hero("ti_tach").potential.Select(x => x == null ? "-" : $"{x.k}{x.r}").ToArray();
             st0 = s.potentialStones;
             ClickByName("khai_pha");
             yield return new WaitForSecondsRealtime(0.6f);
             ClickByName("giu_cu");
             yield return new WaitForSecondsRealtime(0.4f);
-            var after = s.Hero("giot_suong").potential.Select(x => x == null ? "-" : $"{x.k}{x.r}").ToArray();
+            var after = s.Hero("ti_tach").potential.Select(x => x == null ? "-" : $"{x.k}{x.r}").ToArray();
             Debug.Log($"[Thử] Khai phá lần 2 có khoá ô 1: tốn {st0 - s.potentialStones} đá (đợi 2 + 2 = 4); giữ cũ: {(keep.SequenceEqual(after) ? "dòng không đổi" : "LỖI: dòng đổi")}");
-            var m = Teams.MemberOf(s, "giot_suong", d);
-            Debug.Log($"[Thử] Giọt Sương vào trận: mods {(m.mods == null ? "không" : $"máu {m.mods.hpPct:P0} công {m.mods.atkPct:P0} thủ {m.mods.defPct:P0} tốc {m.mods.spd}")}, đầu trận {(m.start == null ? "không" : $"mana {m.start.mana} nộ {m.start.rage} chí mạng {m.start.crit:P0} hút máu {m.start.lifesteal:P0}")}");
+            var m = Teams.MemberOf(s, "ti_tach", d);
+            Debug.Log($"[Thử] Tí Tách vào trận: mods {(m.mods == null ? "không" : $"máu {m.mods.hpPct:P0} công {m.mods.atkPct:P0} thủ {m.mods.defPct:P0} tốc {m.mods.spd}")}, đầu trận {(m.start == null ? "không" : $"mana {m.start.mana} nộ {m.start.rage} chí mạng {m.start.crit:P0} hút máu {m.start.lifesteal:P0}")}");
             App.Modals.CloseAll();
             yield return new WaitForSecondsRealtime(0.3f);
-            HeroDetail.Open("giot_suong");
+            HeroDetail.Open("ti_tach");
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("chi_tiet_co_tiem_nang");
             App.Modals.CloseAll();
@@ -1050,8 +1050,8 @@ namespace PokiClash.EditorTools
             var d = App.Data;
             s.intro = true;
             foreach (var h in d.Heroes) s.Hero(h.id).owned = false;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa", "ca_ngua", "bo_de" }) s.Hero(id).owned = true;
-            s.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la", "so_ngoc", "nguu_quyen" }) s.Hero(id).owned = true;
+            s.team = new System.Collections.Generic.List<string> { "ti_tach", "vo_su", "tien_la" };
             s.level = 9;
             s.farm = null;
             App.Save.Save();
@@ -1273,7 +1273,7 @@ namespace PokiClash.EditorTools
             var s = App.Save.Data;
             s.intro = true;
             s.level = 4;
-            foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) s.Hero(id).owned = true;
             foreach (int prog in new[] { 0, 23, 69 })
             {
                 s.zones[(int)zone] = prog;
@@ -1316,7 +1316,7 @@ namespace PokiClash.EditorTools
             s.zones[(int)Elem.Hoa] = 5;
             s.zoneChests[(int)Elem.Thuy] = Islands.Chests(Elem.Thuy).Length;
             Progress.UnlockHero(s, "vo_su");
-            Progress.UnlockHero(s, "nu_hoa");
+            Progress.UnlockHero(s, "tien_la");
             App.Save.Save();
             yield return Go(SceneIds.Hub);
             yield return Shot("sanh_tien_do");
@@ -1358,11 +1358,11 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot("gioi_thieu");
             ClickButton("Bắt đầu!");
-            // hộp chọn tướng khởi đầu (15_TuongKhoiDau.md): chụp rồi chọn Giọt Sương
+            // hộp chọn tướng khởi đầu (15_TuongKhoiDau.md): chụp rồi chọn Tí Tách
             yield return Until(() => Object.FindAnyObjectByType<StarterDialog>() != null, 3);
             yield return new WaitForSecondsRealtime(0.6f);
             yield return Shot("chon_tuong_khoi_dau");
-            App.Save.Data.ChooseStarter("giot_suong");
+            App.Save.Data.ChooseStarter("ti_tach");
             App.Save.Save();
             App.Modals.CloseAll();
             yield return new WaitForSecondsRealtime(0.5f);
@@ -1371,7 +1371,7 @@ namespace PokiClash.EditorTools
             yield return Shot("dao_thuy_dau");
             int wins = 0, losses = 0, guard = 0;
             var log = new System.Text.StringBuilder();
-            // đảo 70 ải: đánh 12 ải đầu (bóng tướng khởi đầu, tặng Võ Sư ở ải 3, Tiểu Y ải 5, Cánh Cụt ải 10, rương ải 10)
+            // đảo 70 ải: đánh 12 ải đầu (bóng tướng khởi đầu, tặng Võ Sư ở ải 3, Thạch Giải ải 5, Hải Đăng ải 10, rương ải 10)
             const int Upto = 12;
             while (App.Save.Data.zones[(int)Elem.Thuy] < Upto && guard++ < 40)
             {
@@ -1384,7 +1384,7 @@ namespace PokiClash.EditorTools
                 {
                     ClickNamed("o_doi_0");
                     yield return new WaitForSecondsRealtime(0.4f);
-                    foreach (var id in new[] { "vo_su", "nu_hoa" })
+                    foreach (var id in new[] { "vo_su", "tien_la" })
                         if (s.Hero(id).owned && !s.team.Contains(id))
                         {
                             ClickNamed("kho_" + id);
@@ -1436,7 +1436,7 @@ namespace PokiClash.EditorTools
             var sv = App.Save.Data;
             Debug.Log($"[Thử] Đảo Thủy {Upto} ải đầu: {wins} thắng, {losses} thua; cấp {sv.level}; đã thả {sv.ballsSpent} bi, còn {sv.balls}; tướng có: " +
                       string.Join(", ", d.Heroes.Where(h => sv.Hero(h.id).owned).Select(h => $"{h.name} ({sv.Hero(h.id).shards} mảnh)")) +
-                      $"; mảnh Mập Răng Cưa {sv.Hero("map_rang").shards}; rương {sv.zoneChests[(int)Elem.Thuy]}/{Islands.Chests(Elem.Thuy).Length}; đảo gợi ý {Progress.RecommendedZone(sv, d).name}\n{log}");
+                      $"; mảnh Giông Bão {sv.Hero("giong_bao").shards}; rương {sv.zoneChests[(int)Elem.Thuy]}/{Islands.Chests(Elem.Thuy).Length}; đảo gợi ý {Progress.RecommendedZone(sv, d).name}\n{log}");
         }
 
         static IEnumerator Until(System.Func<bool> cond, float timeout)
@@ -1451,8 +1451,8 @@ namespace PokiClash.EditorTools
             if (bigTeam)
             {
                 var sv = App.Save.Data;
-                foreach (var id in new[] { "giot_suong", "vo_su", "nu_hoa" }) sv.Hero(id).owned = true;
-                sv.team = new System.Collections.Generic.List<string> { "giot_suong", "vo_su", "nu_hoa" };
+                foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) sv.Hero(id).owned = true;
+                sv.team = new System.Collections.Generic.List<string> { "ti_tach", "vo_su", "tien_la" };
                 sv.level = 7;
             }
             yield return Go(SceneIds.Battle, new BattleArgs { stageId = stageId });
@@ -1565,7 +1565,7 @@ namespace PokiClash.EditorTools
 
             yield return Go(SceneIds.Notebook);
             yield return Shot("notebook");
-            App.Modals.Confirm("Xoá dữ liệu?", "Mọi tiến trình mất hết: về cấp 1, 10 bi, chỉ có Giọt Sương.", "Xoá", () => { });
+            App.Modals.Confirm("Xoá dữ liệu?", "Mọi tiến trình mất hết: về cấp 1, 10 bi, chỉ có tướng khởi đầu.", "Xoá", () => { });
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot("notebook_confirm");
             App.Modals.CloseAll();

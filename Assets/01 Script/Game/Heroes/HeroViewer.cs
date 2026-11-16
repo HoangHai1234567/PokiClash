@@ -88,7 +88,7 @@ namespace PokiClash
             if (c == Attack) // đòn đánh thường bắn đạn nước (tướng đứng yên bắn), như StageView.AtkFx
             {
                 var ha = Hat;
-                string ka = StageView.FireAtk(shown);
+                string ka = StageView.FireAtk(shown, FormIdx);
                 if (ha == null || ka == null || !ha.HasWater || aola == null || !aola.Stays(c)) return;
                 FxGeo(out var feetA, out var mouthA, out var foeA, out var foeBodyA);
                 ha.UseTheme(shown.id);
@@ -99,7 +99,7 @@ namespace PokiClash
             var h = Hat;
             if (h == null || shown == null) return;
             bool ult = c == Skill;
-            string kind = ult ? StageView.FireUlt(shown, FormIdx) : StageView.FireMana(shown);
+            string kind = ult ? StageView.FireUlt(shown, FormIdx) : StageView.FireMana(shown, FormIdx);
             if (!HatLua.IsNuoc(kind) || HatLua.NuocAtHit(kind) || !h.HasWater) return;
             FxGeo(out var feet, out var mouth, out var foe, out var foeBody);
             float lead = aola != null ? aola.HitTime(c) : Len(c) * 0.55f;
@@ -114,7 +114,7 @@ namespace PokiClash
         {
             var h = Hat;
             if (h == null || shown == null) return;
-            string kind = c == Skill ? StageView.FireUlt(shown, FormIdx) : StageView.FireMana(shown);
+            string kind = c == Skill ? StageView.FireUlt(shown, FormIdx) : StageView.FireMana(shown, FormIdx);
             if (kind == null) return;
             FxGeo(out var feet, out var mouth, out var foe, out var foeBody);
             h.UseTheme(shown.id);

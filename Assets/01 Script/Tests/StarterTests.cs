@@ -1,5 +1,6 @@
 // Chọn 1 trong 5 tướng khởi đầu (GD_Claude/15_TuongKhoiDau.md): người chơi mới chưa có tướng, chọn xong có đúng 1; mỗi hệ một tướng
-// thu phục được ở chặng đầu đảo cùng hệ (ải 1, riêng Nụ Hoa ở ải 2 đảo Mộc và Bu Lông ở ải 2 đảo Kim từ 2026-11-05); bản lưu v4 -> v5; ô đội 2 mở ở ải 3 đảo Thủy cùng quà theo lựa chọn; tướng đồng hành không bị khắc hệ.
+// thu phục được ở ải 1 đảo cùng hệ (từ 2026-11-16 tướng khởi đầu Kim, Mộc là Thiết Tinh, Cầu Gai thay Bu Lông, Nụ Hoa); bản lưu v4 -> v5;
+// ô đội 2 mở ở ải 3 đảo Thủy cùng quà theo lựa chọn; tướng đồng hành không bị khắc hệ.
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -45,22 +46,13 @@ namespace PokiClash.Tests
             {
                 var h = d.Hero(id);
                 Assert.AreEqual(Rarity.Uncommon, h.rarity, id + " cùng độ hiếm Khá");
-                // dòng 3 dạng; Tí Tách (tướng khởi đầu hệ Thủy từ 2026-11-11) dòng 2 dạng
-                Assert.AreEqual(id == "ti_tach" ? 2 : 3, h.forms.Length, id + " số dạng");
+                // dòng có tiến hóa: Tí Tách, Thiết Tinh, Cầu Gai 2 dạng, Sư Tử Lửa, Thạch Nhân 3 dạng
+                Assert.GreaterOrEqual(h.forms.Length, 2, id + " số dạng");
                 var at = d.StarterStage(id);
                 Assert.IsNotNull(at, id);
-                // đảo Mộc nhường ải 1 cho Tiên Lá, đảo Kim cho Bọ Cạp Đồng (10 tướng người dùng chọn 2026-11-05): Nụ Hoa, Bu Lông
-                // đứng cùng một lính ở ải 2
-                if (h.elem == Elem.Moc || h.elem == Elem.Kim)
-                {
-                    Assert.AreEqual(2, at.idx, id);
-                    Assert.AreEqual(h.elem == Elem.Moc ? "tien_la" : "bo_cap", d.ZoneStages(h.elem).First(st => st.idx == 1).enemies[0].hero);
-                }
-                else
-                {
-                    Assert.AreEqual(1, at.idx, id);
-                    Assert.AreEqual(1, at.enemies.Count, id);
-                }
+                // tướng khởi đầu là tướng ải 1 đảo cùng hệ, một mình (Kim, Mộc từ 2026-11-16; trước là Bu Lông, Nụ Hoa ở ải 2)
+                Assert.AreEqual(1, at.idx, id);
+                Assert.AreEqual(1, at.enemies.Count, id);
                 var dr = at.drops.Single(x => x.hero == id);
                 Assert.AreEqual(1, dr.chance, id + " lần đầu chắc chắn rơi mảnh");
                 Assert.AreEqual(2, dr.min, id);
@@ -75,10 +67,14 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             string V4(SaveData s) => SaveCodec.Write(s).Replace($"\"v\":{d.Cfg.saveVersion}", "\"v\":4");
 
+            // Giọt Sương không còn trong dữ liệu (2026-11-16): thêm thẳng vào cây bản lưu
             var old = SaveData.New(d, 0, null);
-            old.Hero("giot_suong").owned = old.Hero("vo_su").owned = true;
-            old.team = new List<string> { "vo_su", "giot_suong" };
-            Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(V4(old), d, out var a));
+            old.Hero("vo_su").owned = true;
+            var tree = J.Obj(MiniJson.Parse(V4(old)));
+            var gs = J.Obj(MiniJson.Parse(MiniJson.Write(J.Obj(J.Obj(tree, "heroes"), "vo_su"))));
+            J.Obj(tree, "heroes")["giot_suong"] = gs;
+            tree["team"] = new List<object> { "vo_su", "giot_suong" };
+            Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var a));
             // v4 -> v5 chọn Giọt Sương, rồi v5 -> v6 chuyển Giọt Sương sang Tí Tách (tướng mới cùng suất ải 1)
             Assert.AreEqual("ti_tach", a.starter);
             CollectionAssert.AreEqual(new[] { "vo_su", "ti_tach" }, a.team, "đội giữ thứ tự, Giọt Sương đổi thành Tí Tách");
@@ -103,7 +99,7 @@ namespace PokiClash.Tests
                 var s = SaveData.New(d, 0, id);
                 for (int i = 1; i <= 3; i++) Progress.WinStage(s, d, d.ZoneStages(Elem.Thuy).First(st => st.idx == i).id, rng);
                 Assert.AreEqual(1, Progress.TeamSlots(s), id + ": cấp 1 vẫn 1 ô");
-                string gift = id == "thach_nhan" ? "meo_quyen" : "vo_su";
+                string gift = id == "thach_nhan" ? "phi_thuong" : "vo_su"; // Thiết Cưa thay Mèo Quyền Sắt từ 2026-11-16
                 Assert.IsTrue(s.Hero(gift).owned, $"{id}: quà ải 3 là {gift}");
                 CollectionAssert.AreEqual(new[] { id }, s.team, id + ": hết ô thì quà không vào đội");
                 // có ô trống (cấp 10) thì tướng tặng vào đội ngay

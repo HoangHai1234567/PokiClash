@@ -1,6 +1,7 @@
 // Nút Chiêu / Tuyệt kỹ ở hàng dưới của trận (dựng sẵn hai nút trong prefab Screens/Battle): icon thẻ, tên, giá hoặc "Đã xếp",
-// vạch nộ (Tuyệt kỹ), mờ khi chưa dùng được, viền vàng khi sẵn sàng.
+// vạch nộ (Tuyệt kỹ), mờ khi chưa dùng được, viền vàng khi sẵn sàng; vừa sẵn sàng thì icon bật lên một nhịp (PopReady).
 using System;
+using System.Collections;
 using PokiClash.Core;
 using TMPro;
 using UnityEngine;
@@ -41,6 +42,34 @@ namespace PokiClash
             if (meterFill) meterFill.anchorMax = new Vector2(Mathf.Min(1, (float)rage / 100f), 1);
             group.alpha = used ? 0.45f : why != "" ? 0.6f : 1;
             glow.gameObject.SetActive(ready);
+        }
+
+        Coroutine pop;
+
+        // vừa đủ mana/nộ (GameFeel 6.10 "tạo power-up"): icon bật 0,6 → 1,35 → 1 trong 0,34 giây, xoay lắc nhẹ. Chỉ đụng icon vì
+        // BattleView đang phồng xẹp cả nút khi sẵn sàng.
+        public void PopReady()
+        {
+            if (!icon || !isActiveAndEnabled) return;
+            if (pop != null) StopCoroutine(pop);
+            pop = StartCoroutine(PopIcon(icon.rectTransform));
+        }
+
+        static IEnumerator PopIcon(RectTransform rt)
+        {
+            const float len = 0.34f;
+            for (float t = 0; t < len; t += Time.unscaledDeltaTime)
+            {
+                if (!rt) yield break;
+                float k = t / len;
+                float s = k < 0.6f ? Mathf.Lerp(0.6f, 1.35f, 1 - Mathf.Pow(1 - k / 0.6f, 3)) : Mathf.Lerp(1.35f, 1, Mathf.SmoothStep(0, 1, (k - 0.6f) / 0.4f));
+                rt.localScale = new Vector3(s, s, 1);
+                rt.localEulerAngles = new Vector3(0, 0, Mathf.Sin(k * Mathf.PI * 3) * 10 * (1 - k));
+                yield return null;
+            }
+            if (!rt) yield break;
+            rt.localScale = Vector3.one;
+            rt.localEulerAngles = Vector3.zero;
         }
     }
 }

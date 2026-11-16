@@ -3,6 +3,8 @@
 // Thêm: thua không mất tiến độ, phần cộng theo bậc cao nhất không cộng dồn, không có huy hiệu thì không có mods.
 // badges.json (chỉ số Võ Sư): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md);
 // số hiệp 5 trận thật tính lại cùng ngày khi Chiêu đổi sang ra đòn ngay lúc bấm, và 2026-11-04 khi đổi luật rút thẻ.
+// 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
+// menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;
@@ -43,12 +45,12 @@ namespace PokiClash.Tests
         }
 
         // đội 5 trận đánh thật bậc Đồng hệ Thủy (IslandGenMenu.HeroGoldens tính lại "fights" bằng đúng đội và bản lưu này)
-        static readonly string[] FightTeam = { "ti_tach", "ca_ngua", "phap_luan" };
+        static readonly string[] FightTeam = { "ti_tach", "so_ngoc", "giap_long" };
 
         static SaveData StatSave(GameData d)
         {
             var s = SaveData.New(d, 0);
-            foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua", "phap_luan" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "giap_long" }) s.Hero(id).owned = true;
             s.badges[(int)Elem.Thuy].tier = 2;
             s.badges[(int)Elem.Hoa].tier = 5;
             return s;
@@ -94,7 +96,7 @@ namespace PokiClash.Tests
         public void TienDo_MoDen_LenBac_Ruong_KhopBanWeb()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.zones[(int)Elem.Kim] = Islands.MiniAt(Elem.Kim); // qua mini boss đầu đảo Kim (ải 4 khi còn 8 ải, ải 20 từ 2026-11-05)
             var rng = new Rng(31);
@@ -142,7 +144,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
-            Assert.IsNull(Teams.MemberOf(s, "giot_suong", d).mods, "chưa có huy hiệu thì không có phần cộng");
+            Assert.IsNull(Teams.MemberOf(s, "ti_tach", d).mods, "chưa có huy hiệu thì không có phần cộng");
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.badges[(int)Elem.Thuy].won = 3;
             // thua: không gọi Win, trận đang đánh vẫn là 4
@@ -150,9 +152,9 @@ namespace PokiClash.Tests
             s.badges[(int)Elem.Thuy].tier = 3;
             var m = Badges.Mods(s, d.Cfg, Elem.Thuy);
             Assert.AreEqual(0.12, m.hpPct, 1e-12, "bậc Vàng +12%, không cộng 5 + 8 + 12");
-            var h = d.Hero("giot_suong");
+            var h = d.Hero("ti_tach");
             var plain = HeroStats.Compute(d.Cfg, h, 5, 1);
-            var boosted = HeroStats.Compute(d.Cfg, h, 5, 1, false, Teams.MemberOf(s, "giot_suong", d).mods);
+            var boosted = HeroStats.Compute(d.Cfg, h, 5, 1, false, Teams.MemberOf(s, "ti_tach", d).mods);
             Assert.AreEqual(plain.hp * 1.12, boosted.hp, 1.0);
             Assert.IsNull(Teams.MemberOf(s, "vo_su", d).mods, "hệ khác không được cộng");
             var json = SaveCodec.Write(s);

@@ -1,0 +1,58 @@
+{
+ "than": {
+  "slots": [
+   "P_duzi",
+   "P_xionqiang",
+   "P_bozi"
+  ],
+  "off": [
+   0,
+   0
+  ],
+  "phu": 0.343
+ },
+ "tay_gan": {
+  "slots": [
+   "P_shouR1",
+   "P_shouR2"
+  ],
+  "off": [
+   -383,
+   0
+  ],
+  "phu": 0.502
+ },
+ "tay_xa": {
+  "slots": [
+   "P_shouL1",
+   "P_shouL2"
+  ],
+  "off": [
+   413,
+   0
+  ],
+  "phu": 0.206
+ },
+ "chan_gan": {
+  "slots": [
+   "P_tuiL1",
+   "P_tuiL2"
+  ],
+  "off": [
+   -506,
+   14
+  ],
+  "phu": 0.322
+ },
+ "chan_xa": {
+  "slots": [
+   "P_tuiR1",
+   "P_tuiR2"
+  ],
+  "off": [
+   576,
+   28
+  ],
+  "phu": 0.0
+ }
+}

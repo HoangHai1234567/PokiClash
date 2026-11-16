@@ -1,6 +1,8 @@
 // Máy bi: bàn chép máy tham khảo (hình học, vật liệu), 6.000 bi phóng theo bảng tỉ lệ (mỗi bi rơi đúng kết quả đã chọn, tỉ lệ
 // lệch bảng dưới 4 độ lệch chuẩn, không bi nào kẹt, cùng hạt giống ra cùng kết quả), vòng nấm; so với bản web (golden): 600 lần mở rương
 // ở ×1/×3/×5 khớp từng thưởng, mốc Huyền thoại cả hai nhánh; ×N nhân thưởng ô, giới hạn mỗi đợt theo cấp.
+// 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
+// menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -83,8 +85,8 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var c = J.Obj(G, "chest");
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
-            foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua" }) s.Hero(id).owned = true;
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
+            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             var r = new Rng(11);
             int i = 0;

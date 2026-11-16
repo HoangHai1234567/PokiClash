@@ -44,7 +44,13 @@ namespace PokiClash
             s.PlayOneShot(clip);
         }
 
-        public void Hit(bool crit) => Play(crit ? "hitCrit" : "hit");
+        // tiếng trúng: cao độ ±4% ngẫu nhiên cho đỡ nhàm (GameFeel mục 8.4); power 0..1 (độ mạnh cú, StageView.Power) hạ cao độ cho
+        // nặng hơn, cú lớn ở trận khó lót thêm tiếng "stamp" trầm
+        public void Hit(bool crit, float power = 0)
+        {
+            Play(crit ? "hitCrit" : "hit", 1, (1 - 0.12f * power) * Random.Range(0.96f, 1.04f));
+            if (crit && power >= 0.4f) Play("stamp", 0.35f + 0.4f * power, 0.9f);
+        }
 
         // speed: tốc độ bi lúc chạm (đơn vị máy/giây), to dần theo tốc độ tới PegMaxVolume; tối đa 10 tiếng mỗi giây.
         // Trả về false nếu bị hãm (để rung chạm đinh đi cùng nhịp với tiếng).

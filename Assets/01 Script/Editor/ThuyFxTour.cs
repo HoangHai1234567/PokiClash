@@ -13,7 +13,8 @@ namespace PokiClash.EditorTools
     public static class ThuyFxTour
     {
         static string Dir => Path.Combine(PlayTour.ShotDir, "thuy_fx");
-        static readonly string[] Heroes = { "tieu_y", "canh_cut", "mi_nhi", "ma_ket", "vay_lam", "kuba", "thuong_lam", "huyen_vu", "lam_quan" };
+        // 10 tướng đảo Thủy có trong StageView.WaterFx (2026-11-16: các tướng Thủy cũ bỏ khỏi danh sách tướng)
+        static readonly string[] Heroes = { "ti_tach", "thach_giai", "ca_den", "ha_ba", "so_ngoc", "giong_bao", "lien_kinh", "uyen_xa", "han_ngac", "hai_long" };
         static string[] only;
 
         [MenuItem("PokiClash/Thử/Đảo Thủy: hạt nước chiêu mana, chiêu cuối từng dạng (đang Play)", priority = 126)]

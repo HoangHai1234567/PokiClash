@@ -26,7 +26,7 @@
   "maxRounds": 60
  },
  "progression": {
-  "saveVersion": 10,
+  "saveVersion": 11,
   "maxLevel": 200,
   "expBase": 45,
   "expPow": 1.0,
@@ -292,17 +292,17 @@
  "simTeams": {
   "thuy": {
    "team": [
-    "giot_suong",
+    "ti_tach",
     "vo_su",
-    "nu_hoa"
+    "tien_la"
    ],
    "star": 1,
    "card": 1
   },
   "hoa": {
    "team": [
-    "ca_ngua",
-    "giot_suong",
+    "so_ngoc",
+    "ti_tach",
     "vo_su"
    ],
    "star": 2,
@@ -310,18 +310,18 @@
   },
   "kim": {
    "team": [
-    "phap_luan",
-    "bo_de",
-    "ca_ngua"
+    "giap_long",
+    "nguu_quyen",
+    "so_ngoc"
    ],
    "star": 2,
    "card": 2
   },
   "moc": {
    "team": [
-    "soi_linh",
+    "thiet_phu",
     "bo_cap",
-    "bu_long"
+    "phi_thuong"
    ],
    "star": 3,
    "card": 3
@@ -329,8 +329,8 @@
   "tho": {
    "team": [
     "gac_da",
-    "nu_hoa",
-    "soi_linh"
+    "tien_la",
+    "thiet_phu"
    ],
    "star": 3,
    "card": 3

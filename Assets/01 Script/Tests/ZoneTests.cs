@@ -182,7 +182,7 @@ namespace PokiClash.Tests
             Assert.IsFalse(Progress.BadgesOpen(s));
             Assert.IsFalse(Progress.CaveOpen(s));
             Progress.UnlockHero(s, "vo_su");
-            Progress.UnlockHero(s, "nu_hoa");
+            Progress.UnlockHero(s, "tien_la");
             Assert.IsTrue(Progress.FarmOpen(s), "3 tướng mở Trang trại");
             // Đền Huy Hiệu: thắng mini boss đầu của một đảo bất kỳ (đảo song song)
             s.zones[(int)Elem.Moc] = Islands.MiniAt(Elem.Moc) - 1;

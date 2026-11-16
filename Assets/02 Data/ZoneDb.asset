@@ -2014,7 +2014,7 @@ MonoBehaviour:
       max: 15
       gift: 1
       altFor: thach_nhan
-      altHero: meo_quyen
+      altHero: phi_thuong
   - id: 4
     zone: 2
     idx: 4
@@ -2534,7 +2534,7 @@ MonoBehaviour:
       buff: 0.55
       trait: 
     drops:
-    - hero: mam_go
+    - hero: mam_u
       chance: 1
       min: 10
       max: 10
@@ -5606,7 +5606,7 @@ MonoBehaviour:
     tag: 4
     chapter: 0
     enemies:
-    - hero: bu_long
+    - hero: bo_cap
       level: 6
       boss: 0
       evo: 0
@@ -5619,10 +5619,10 @@ MonoBehaviour:
       buff: 0.15
       trait: 
     drops:
-    - hero: bu_long
-      chance: 1
-      min: 2
-      max: 4
+    - hero: bo_cap
+      chance: 0.25
+      min: 1
+      max: 2
       gift: 0
       altFor: 
       altHero: 
@@ -5669,7 +5669,7 @@ MonoBehaviour:
       trait: 
     drops:
     - hero: bo_cap
-      chance: 0.44999999999999996
+      chance: 0.375
       min: 1
       max: 2
       gift: 0
@@ -5686,7 +5686,7 @@ MonoBehaviour:
     - hero: doc_giac
       level: 18
       boss: 0
-      evo: 0
+      evo: 1
       buff: 0.15
       trait: 
     drops:
@@ -5762,7 +5762,7 @@ MonoBehaviour:
       trait: 
     drops:
     - hero: bo_cap
-      chance: 0.3
+      chance: 0.25
       min: 1
       max: 2
       gift: 0
@@ -7425,7 +7425,7 @@ MonoBehaviour:
     tag: 4
     chapter: 0
     enemies:
-    - hero: nu_hoa
+    - hero: tien_la
       level: 6
       boss: 0
       evo: 0
@@ -7438,10 +7438,10 @@ MonoBehaviour:
       buff: 0.15
       trait: 
     drops:
-    - hero: nu_hoa
-      chance: 1
-      min: 2
-      max: 4
+    - hero: tien_la
+      chance: 0.25
+      min: 1
+      max: 2
       gift: 0
       altFor: 
       altHero: 
@@ -7488,7 +7488,7 @@ MonoBehaviour:
       trait: 
     drops:
     - hero: tien_la
-      chance: 0.44999999999999996
+      chance: 0.375
       min: 1
       max: 2
       gift: 0
@@ -7581,7 +7581,7 @@ MonoBehaviour:
       trait: 
     drops:
     - hero: tien_la
-      chance: 0.3
+      chance: 0.25
       min: 1
       max: 2
       gift: 0

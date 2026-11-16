@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Robot cổ rig</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2a2b31; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.ghi { margin: 0 0 14px; color: #bbb; max-width: 1100px; }
+  .luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .rong { grid-column: 1 / -1; }
+  figure { margin: 0; background: #96969a; border-radius: 8px; overflow: hidden; }
+  figure img { width: 100%; display: block; }
+  figcaption { background: #1d1e22; padding: 8px 10px; color: #ddd; }
+  b { color: #ffcf6a; }
+  a { color: #8fd3ff; }
+</style>
+</head>
+<body>
+<h1>Robot hủy diệt cổ đại (tướng 7 đảo Kim) — rig và animation</h1>
+<p class="ghi">Ảnh động vẽ bằng bộ vẽ của mình ở 30 khung/giây; khối xám là chỗ đối thủ. Đòn thường, chiêu mana, chiêu cuối đều đứng tại chỗ.
+<b>Chưa có VFX</b>: cầu năng lượng ở ổ nắm đấm, cầu to trên đầu, tên lửa bay bezier homing, nổ, bụi là lớp hiệu ứng + code làm ở bước vào game
+(rig đã đặt sẵn sự kiện và xương bám: <i>cau_tay</i>, <i>mieng</i>, <i>ong_0..6</i>).
+Trang Spine Web Player của rig: <a href="robot_co_1/rig/xem.html">robot_co_1/rig/xem.html</a>.</p>
+<div class="luoi">
+  <figure class="rong"><img src="robot_co_1/rig/dong/skill.webp"><figcaption><b>Chiêu cuối</b> (giống skill_04): đứng lên, hai tấm giáp ngực mở ra lộ lõi tên lửa lục giác 7 đầu hổ phách; phóng 7 quả cách nhau 0,12 s (sự kiện <i>phong</i> kèm số ống), mỗi quả thân giật lùi nhẹ và đầu đạn đó tắt thành ống rỗng; khép ngực, ngồi về. Đường bay homing bezier + nổ lớn: VFX + code</figcaption></figure>
+  <figure class="rong"><img src="robot_co_1/rig/dong/cast.webp"><figcaption><b>Chiêu mana</b> (giống skill_03): đưa hai tay lên trời, lòng bàn tay xoay liên tục 4 vòng trong lúc gồng tụ (cầu to tụ ở xương <i>mieng</i> giữa hai tay), rồi vung hai tay đập xuống = ném (<i>nem</i>); cầu rơi xuống đầu đối thủ do code, impact nặng</figcaption></figure>
+  <figure class="rong"><img src="robot_co_1/rig/dong/attack.webp"><figcaption><b>Đánh thường</b>: giơ tay phải ra trước, ổ nắm đấm xoay hai vòng trong lúc tụ cầu năng lượng (<i>tu</i>), bắn (<i>ban</i>), cẳng tay thụt lùi như pít-tông và thân giật lại như skill_01, về thế</figcaption></figure>
+  <figure><img src="robot_co_1/rig/dong/appear.webp"><figcaption><b>Ra sân</b>: chân, thân, lõi, vải, cẳng tay, ống xả, giáp vai, giáp ngực bay vào theo đường cong bezier lệch nhịp rồi lắp vào chỗ (sự kiện <i>lap</i>), mặt nạ vào cuối, mắt bật sáng, nhún nặng</figcaption></figure>
+  <figure><img src="robot_co_1/rig/dong/idle.webp"><figcaption><b>Đứng</b>: như con gốc</figcaption></figure>
+  <figure><img src="robot_co_1/rig/dong/walk.webp"><figcaption><b>Đi</b>: như con gốc</figcaption></figure>
+  <figure><img src="robot_co_1/rig/dong/hit.webp"><figcaption><b>Trúng đòn</b>: như con gốc (mắt chớp tắt)</figcaption></figure>
+  <figure><img src="robot_co_1/rig/dong/die.webp"><figcaption><b>Chết</b>: như con gốc (gục xuống, mặt nạ rơi, mắt tắt, lõi rỗng) rồi mờ dần</figcaption></figure>
+  <figure><img src="robot_co_1/tai_ve/L1_duyet.png" style="background:#fff"><figcaption>Concept C đã duyệt (để so)</figcaption></figure>
+  <figure><img src="robot_co_1/rig/soi_idle.png"><figcaption>Rig ghép xong, khung 0 idle</figcaption></figure>
+</div>
+</body>
+</html>

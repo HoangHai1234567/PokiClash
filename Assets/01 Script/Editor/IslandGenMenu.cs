@@ -105,11 +105,11 @@ namespace PokiClash.EditorTools
             // tướng khởi đầu, địch ở cấp foeLevel như TestData.AtLevel): bên thắng, số hiệp. Đối thủ đền chọn theo danh sách tướng cùng hệ
             // nên thêm tướng Thủy là đổi (lô 10 tướng mới 2026-11-11)
             var fs = SaveData.New(d, 0);
-            foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua", "phap_luan" }) fs.Hero(id).owned = true;
+            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "giap_long" }) fs.Hero(id).owned = true;
             fs.badges[(int)Elem.Thuy].tier = 2;
             fs.badges[(int)Elem.Hoa].tier = 5;
             fs.level = 9;
-            fs.team = new List<string> { "ti_tach", "ca_ngua", "phap_luan" };
+            fs.team = new List<string> { "ti_tach", "so_ngoc", "giap_long" };
             foreach (var x in J.Arr(bg, "fights"))
             {
                 var o = J.Obj(x);

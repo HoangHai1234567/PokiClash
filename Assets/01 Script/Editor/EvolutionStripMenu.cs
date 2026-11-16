@@ -189,8 +189,8 @@ namespace PokiClash.EditorTools
                 // (tướng, có chưa, sao): dòng 3 dạng ở sao 1, 3, 5; dòng 2 dạng ở sao 2, 4 và chưa có; dòng 1 dạng; tướng chưa có
                 var cases = new (string id, bool owned, int star)[]
                 {
-                    ("giot_suong", true, 1), ("giot_suong", true, 3), ("giot_suong", true, 5),
-                    ("tieu_y", true, 2), ("tieu_y", true, 4), ("meo_quyen", false, 1), ("kiem_linh", true, 2), ("huyen_vu", false, 1),
+                    ("mam_u", true, 1), ("mam_u", true, 3), ("mam_u", true, 5),
+                    ("thach_giai", true, 2), ("thach_giai", true, 4), ("phi_thuong", false, 1), ("ho_kim_cuong", true, 2), ("han_ngac", false, 1),
                 };
                 foreach (var (id, owned, star) in cases)
                 {
@@ -212,13 +212,13 @@ namespace PokiClash.EditorTools
             }
         }
 
-        // Menu thử nút hack (đang Play): mở hộp chi tiết Giọt Sương, chụp, bấm nút hack, lặp 6 lần (đủ một vòng sao) vào
+        // Menu thử nút hack (đang Play): mở hộp chi tiết Mầm Ú (dòng 3 dạng), chụp, bấm nút hack, lặp 6 lần (đủ một vòng sao) vào
         // Temp/PokiShots/hack_*.png. Nút hack ghi bản lưu: chép bản lưu ra trước khi thử nếu cần giữ.
         [MenuItem("PokiClash/Thử/Nút hack tiến hóa: bấm thử và chụp (đang Play)", priority = 110)]
         static void TryHack()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
-            App.I.StartCoroutine(RunHack("giot_suong"));
+            App.I.StartCoroutine(RunHack("mam_u"));
         }
 
         static IEnumerator RunHack(string id)
@@ -247,13 +247,13 @@ namespace PokiClash.EditorTools
             Debug.Log("[Tiến hóa] Đã thử nút hack: " + PlayTour.ShotDir);
         }
 
-        // Menu thử clip đánh (đang Play): mở hộp chi tiết Giọt Sương ở sao 1, 3, 5 (đặt tạm trong bộ nhớ, không ghi bản lưu), cho ô
+        // Menu thử clip đánh (đang Play): mở hộp chi tiết Mầm Ú ở sao 1, 3, 5 (đặt tạm trong bộ nhớ, không ghi bản lưu), cho ô
         // xem chạy clip đánh, chụp 6 thời điểm vào Temp/PokiShots/danh_sao<n>_<i>.png, rồi nạp lại bản lưu từ đĩa.
-        [MenuItem("PokiClash/Thử/Clip đánh Giọt Sương: chụp các dạng (đang Play)", priority = 111)]
+        [MenuItem("PokiClash/Thử/Clip đánh Mầm Ú: chụp các dạng (đang Play)", priority = 111)]
         static void TryAttack()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
-            App.I.StartCoroutine(RunAttack("giot_suong"));
+            App.I.StartCoroutine(RunAttack("mam_u"));
         }
 
         static IEnumerator RunAttack(string id)

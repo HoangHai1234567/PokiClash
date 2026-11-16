@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Kỵ sĩ nguyền rig</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2a2b31; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.ghi { margin: 0 0 14px; color: #bbb; max-width: 1100px; }
+  .luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .rong { grid-column: 1 / -1; }
+  figure { margin: 0; background: #96969a; border-radius: 8px; overflow: hidden; }
+  figure img { width: 100%; display: block; }
+  figcaption { background: #1d1e22; padding: 8px 10px; color: #ddd; }
+  b { color: #ffcf6a; }
+  a { color: #8fd3ff; }
+</style>
+</head>
+<body>
+<h1>Kỵ sĩ cổ đại bị nguyền (tướng 8 đảo Kim) — rig và animation</h1>
+<p class="ghi">Ảnh động vẽ bằng bộ vẽ của mình ở 30 khung/giây. Khối xám là chỗ đối thủ (đứng xa 1,9 lần chiều cao); cú lao của đòn đánh được sân nắn
+tới đối thủ như trong game. <b>Chưa có VFX</b>: aura lửa hồn tỏa ra, hồn đồng đội bay tới đánh (chiêu mana), khí hồn xanh hút vào kiếm, vệt chém,
+nổ lúc bổ (chiêu cuối), khói hồn thoát ra lúc chết, chớp mắt lúc ra sân là lớp hiệu ứng làm ở bước vào game (rig đã đặt sẵn sự kiện và xương bám:
+mũi kiếm <i>mieng</i>, gốc / mũi lưỡi hồn <i>luoi_hon</i>, <i>mui_hon</i>).
+Trang Spine Web Player của rig: <a href="ky_nguyen_1/rig/xem.html">ky_nguyen_1/rig/xem.html</a>.</p>
+<div class="luoi">
+  <figure class="rong"><img src="ky_nguyen_1/rig/dong/skill.webp"><figcaption><b>Chiêu cuối</b> (3,75 s): dựng kiếm trước mặt (đầu skill_03_1), tay kia vuốt lên dọc lưỡi: từ chỗ gãy, phần lưỡi VÁ bằng vật chất linh hồn xanh (khít từng răng vết gãy) hiện dần ngay trên lòng bàn tay (<i>hut</i>; mặt nạ cắt bám xương <i>hon_dau</i>), tay hất lên, đoạn còn lại phóng tới mũi (<i>hat</i>), kiếm lành (<i>hoi_phuc</i>); giơ qua đầu (<i>gong</i>), vung ra sau rồi BỔ chéo xuống đối thủ, khựng, rung; phần vá tan, thu đòn</figcaption></figure>
+  <figure class="rong"><img src="ky_nguyen_1/rig/dong/cast.webp"><figcaption><b>Chiêu mana</b>: giơ kiếm thẳng lên trời (skill_03_2), giữ, tay rung (sự kiện <i>goi</i>: code thả hồn đồng đội xanh bay tới đánh đối thủ), hạ kiếm</figcaption></figure>
+  <figure class="rong"><img src="ky_nguyen_1/rig/dong/attack.webp"><figcaption><b>Đánh thường</b>: lao tới, vung kiếm qua đầu ra sau, bổ qua phía trước (khung trúng lúc kiếm chĩa tới đối thủ), lao người theo đà, lùi về</figcaption></figure>
+  <figure><img src="ky_nguyen_1/rig/dong/appear.webp"><figcaption><b>Ra sân</b>: bộ giáp rỗng nằm thành đống dưới đất, mắt bật sáng xanh (<i>mat_sang</i>), các mảnh nhấc lên lơ lửng ráp lại thành hình (die_01 chạy ngược), nảy nhẹ vào thế</figcaption></figure>
+  <figure><img src="ky_nguyen_1/rig/dong/idle.webp"><figcaption><b>Đứng</b> (2 s): như con gốc (lơ lửng, áo choàng, lửa trên mũ bay)</figcaption></figure>
+  <figure><img src="ky_nguyen_1/rig/dong/walk.webp"><figcaption><b>Đi</b>: như con gốc (lướt tới)</figcaption></figure>
+  <figure><img src="ky_nguyen_1/rig/dong/hit.webp"><figcaption><b>Trúng đòn</b>: như con gốc</figcaption></figure>
+  <figure><img src="ky_nguyen_1/rig/dong/die.webp"><figcaption><b>Chết</b>: mắt tắt, giáp đổ sụp thành đống (như con gốc) rồi mờ dần</figcaption></figure>
+  <figure><img src="ky_nguyen_1/tai_ve/L1_duyet.png" style="background:#fff"><figcaption>Concept C đã duyệt (để so)</figcaption></figure>
+  <figure><img src="ky_nguyen_1/rig/soi_idle.png"><figcaption>Rig ghép xong, ba khung idle</figcaption></figure>
+</div>
+</body>
+</html>

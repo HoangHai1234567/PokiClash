@@ -87,6 +87,7 @@ namespace PokiClash
             b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
             view.Init(b, zone, badge == null && cave == null ? stage : null);
             view.Stage.speed = Pace;
+            view.Stage.Epic = EpicOf();
             FastForward(1);
             view.AutoBtn.SetOnClick(ToggleAuto);
             view.PauseBtn.SetOnClick(Menu);
@@ -107,11 +108,30 @@ namespace PokiClash
         // cho công cụ thử (menu PokiClash/Thử): bấm thẻ thứ i, bật tự chơi, chạy nhanh
         public void TestPick(int i)
         {
-            if (busy || i >= view.OfferCards.Count) return;
+            if (busy || i >= view.OfferCards.Count || !view.OfferCards[i]) return;
             StartCoroutine(OnPick(i, (RectTransform)view.OfferCards[i].transform));
         }
 
-        public bool WaitingPlayer => waitingPick && !busy;
+        // Độ "epic" của cảm giác đánh 0..1 (người dùng 2026-11-16: tướng sau, độ khó cao hơn thì combat càng epic; StageView.Power):
+        // ải thường = 50% tiến độ cả game (đảo theo order, ải trong đảo) + 35% tiến độ trong đảo (mỗi đảo dồn lên boss cuối) + 15% nếu
+        // có boss. Thủy ải 1 ≈ 0, Thủy ải 70 ≈ 0,6, Hỏa ải 70 ≈ 0,7, Thổ ải 70 = 1. Thử thách huy hiệu theo bậc, hang theo tầng.
+        float EpicOf()
+        {
+            var d = App.Data;
+            if (cave != null)
+                return Mathf.Clamp01(0.25f + 0.75f * cave.tier / Mathf.Max(1f, d.Cfg.cave.tiers.Count - 1));
+            if (badge != null)
+                return Mathf.Clamp01(0.2f + 0.8f * (badge.tier - 1) / Mathf.Max(1f, d.Cfg.badges.tiers.Count - 1));
+            int n = Mathf.Max(1, d.ZoneStages(stage.zone).Count());
+            int islands = Mathf.Max(1, d.Zones.Count);
+            float inIsland = n > 1 ? (stage.idx - 1f) / (n - 1) : 0;
+            float game = Mathf.Clamp01((zone.order * n + stage.idx - 1f) / Mathf.Max(1f, islands * n - 1f));
+            float e = 0.5f * game + 0.35f * inIsland;
+            if (stage.enemies.Any(x => x.boss)) e += 0.15f;
+            return Mathf.Clamp01(e);
+        }
+
+        public bool WaitingPlayer => waitingPick && !busy && view.Flying == 0;
         // thời gian phát phần ra đòn mỗi lượt người chơi, quy về nhịp thường khi công cụ thử chạy nhanh (để đo nhịp trận)
         public readonly List<float> PlayerTurnSeconds = new List<float>();
         public bool Auto => auto;
@@ -252,8 +272,8 @@ namespace PokiClash
             Hint("pick", null);
             while (alive && waitingPick)
             {
-                // bật tự chơi giữa lúc chiêu đang chiếu thì chờ chiếu xong
-                if (auto && !busy)
+                // bật tự chơi giữa lúc chiêu đang chiếu (hoặc thẻ còn đang bay vào hàng) thì chờ xong
+                if (auto && !busy && view.Flying == 0)
                 {
                     waitingPick = false;
                     yield return AiPicking();
@@ -263,46 +283,31 @@ namespace PokiClash
             }
         }
 
+        // Chọn thẻ (GameFeel 1.14, 2.4, 6.5; 2026-11-16): logic chạy ngay lúc chạm (Battle.Pick, chia lượt thẻ mới liền), hình đuổi theo
+        // (BattleView.FlyToSlot). Không khoá chọn trong lúc thẻ bay, nên chạm nhanh liên tiếp không bị nuốt; chọn đủ thì chờ mọi thẻ chạm
+        // hàng rồi mới ra đòn. Tiếng chọn leo cao độ theo lần chọn (ngũ cung), tiếng "land" khi thẻ cắm vào ô.
         IEnumerator OnPick(int i, RectTransform cardRt)
         {
             if (busy || b.phase != Phase.Picking || b.turn.side != 0 || auto) yield break;
-            busy = true;
-            App.Audio.Play("pick");
+            var t = b.turn;
+            if (i < 0 || i >= t.offer.Count) yield break;
+            int pickNo = t.picksTotal - t.picksLeft, qIdx = t.queue.Count;
+            App.Audio.Play("pick", 1, BattlePlayer.Semitone(BattlePlayer.Pent(pickNo)));
             var slot = view.EmptyTiles.Count > 0 ? view.EmptyTiles[0] : null;
-            if (cardRt && slot) yield return FlyCard(cardRt, slot);
+            var fallback = slot ? slot.position : cardRt ? cardRt.position : Vector3.zero;
+            var clone = view.PickOffer(cardRt ? cardRt.GetComponent<UiCard>() : null);
             b.Pick(i);
+            if (clone) view.HoldTile(qIdx);
             view.RenderQueue(-1, b.phase == Phase.Picking);
             view.RenderOffer(auto);
             view.RenderBottom(auto);
-            busy = false;
-            if (b.phase == Phase.Ready)
+            if (clone) yield return view.FlyToSlot(clone, qIdx, fallback, pickNo);
+            if (b.phase == Phase.Ready && waitingPick)
             {
-                yield return W(350);
+                while (alive && view.Flying > 0) yield return null;
+                yield return W(200);
                 waitingPick = false;
             }
-        }
-
-        IEnumerator FlyCard(RectTransform from, RectTransform to)
-        {
-            // thẻ bay: thẻ kit dùng lại trong lớp phủ, gán cùng thẻ với thẻ vừa chọn
-            var clone = view.TakeFlyCard(from.GetComponent<UiCard>());
-            clone.anchorMin = clone.anchorMax = new Vector2(0.5f, 0.5f);
-            clone.sizeDelta = from.rect.size;
-            clone.position = from.position;
-            from.gameObject.SetActive(false);
-            var a = clone.position;
-            var z = to.position;
-            for (float t = 0; t < 0.27f; t += Time.unscaledDeltaTime)
-            {
-                float k = t / 0.27f;
-                float e = k * k * (3 - 2 * k);
-                clone.position = Vector3.Lerp(a, z, e);
-                float s = Mathf.Lerp(1, 0.32f, e);
-                clone.localScale = new Vector3(s, s, 1);
-                clone.localEulerAngles = new Vector3(0, 0, 12 * e);
-                yield return null;
-            }
-            view.ReleaseFlyCard();
         }
 
         // Chiêu: ra đòn ngay (chiếu xong mới chọn thẻ tiếp); Tuyệt kỹ: chỉ bật, thay cú đánh thường cuối lượt
@@ -400,20 +405,30 @@ namespace PokiClash
                 int i = BattleAi.PickIndex(b, side == 1 ? BattleAi.EnemyNoise(stage.id) : 0.12);
                 if (side == 0)
                 {
+                    int pickNo = b.turn.picksTotal - b.turn.picksLeft, qIdx = b.turn.queue.Count;
                     var card = i < view.OfferCards.Count ? view.OfferCards[i] : null;
+                    RectTransform clone = null;
+                    var fallback = Vector3.zero;
                     if (card)
                     {
                         var rt = (RectTransform)card.transform;
                         rt.anchoredPosition += new Vector2(0, 28);
                         rt.localScale = new Vector3(1.05f, 1.05f, 1);
                         yield return W(260);
-                        App.Audio.Play("pick");
-                        var slot = view.EmptyTiles.Count > 0 ? view.EmptyTiles[0] : null;
-                        if (slot) yield return FlyCard(rt, slot);
+                        App.Audio.Play("pick", 1, BattlePlayer.Semitone(BattlePlayer.Pent(pickNo)));
+                        if (card) // tắt tự chơi lúc chờ thì thẻ đã bị chia lại
+                        {
+                            var slot = view.EmptyTiles.Count > 0 ? view.EmptyTiles[0] : null;
+                            fallback = slot ? slot.position : rt.position;
+                            clone = view.PickOffer(card);
+                        }
                     }
+                    if (!alive || b.phase != Phase.Picking) break;
                     b.Pick(i);
+                    if (clone) view.HoldTile(qIdx);
                     view.RenderQueue(-1, b.phase == Phase.Picking);
                     view.RenderOffer(true);
+                    if (clone) yield return view.FlyToSlot(clone, qIdx, fallback, pickNo);
                 }
                 else
                 {
@@ -528,6 +543,7 @@ namespace PokiClash
             else s.stats.battles++;
             App.Save.Save();
             App.Audio.Play(win ? "win" : "lose");
+            if (win) Haptics.Play(Haptic.Win);
 
             var next = d.ZoneStages(stage.zone).FirstOrDefault(x => x.idx == stage.idx + 1);
             var m = App.Modals.Open(resultPrefab, mandatory: true);

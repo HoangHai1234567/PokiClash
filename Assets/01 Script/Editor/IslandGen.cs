@@ -129,10 +129,11 @@ namespace PokiClash.EditorTools
         static readonly double[] ShardChance = { 0.3, 0.25, 0.2, 0.15, 0.1 };
 
         // Đảo Thủy (đảo 70 ải đầu tiên, 2026-11-02/03; tướng các mốc ở GD_Claude/14). Ải 1 là bóng tướng khởi đầu của người chơi (Tí
-        // Tách, thu phục được); ải 3 tặng Võ Sư (chọn Thạch Nhân làm tướng khởi đầu thì tặng Mèo Quyền Sắt), ải 25 tặng Mầm Gỗ.
+        // Tách, thu phục được); ải 3 tặng Võ Sư (chọn Thạch Nhân làm tướng khởi đầu thì tặng Thiết Cưa), ải 25 tặng Mầm Ú (2026-11-16:
+        // Mèo Quyền Sắt, Mầm Gỗ bị bỏ khỏi danh sách tướng cùng các tướng cũ khác, người dùng chọn tướng thay cùng hệ, cùng độ hiếm).
         // Lô 10 tướng mới (2026-11-11, ArtGen/Spine/quai/DAC_TA_LO_THUY.md): 10 suất đổi sang tướng mới, chỉ số, thẻ, bị động boss chép
-        // từ tướng cũ cùng suất (ArtGen/Spine/quai/tuong_moi_thuy.py); tên ải, lính, cường hóa giữ nguyên. Tướng cũ: Giọt Sương (Thủy
-        // Long), Tiểu Y, Cánh Cụt, Mi Nhi, Ma Kết, Vây Lam, Kuba, Thương Lam, Huyền Vũ, Lam Quân (vẫn trong danh sách tướng).
+        // từ tướng cũ cùng suất (ArtGen/Spine/quai/tuong_moi_thuy.py); tên ải, lính, cường hóa giữ nguyên. Tướng cũ (Giọt Sương, Tiểu Y,
+        // Cánh Cụt, Mi Nhi, Ma Kết, Vây Lam, Kuba, Thương Lam, Huyền Vũ, Lam Quân) bỏ khỏi danh sách tướng 2026-11-16.
         public static Plan Thuy => new Plan
         {
             zone = Elem.Thuy,
@@ -156,7 +157,7 @@ namespace PokiClash.EditorTools
             minions = new[] { new[] { "linh_cua", "linh_cua2" }, new[] { "linh_noc", "linh_noc2" }, new[] { "linh_ngu", "linh_ngu2" } },
             minionFrom = new[] { 0, 2, 4 },
             firstIsPlayer = true,
-            gifts = new[] { new Gift(3, "vo_su", "thach_nhan", "meo_quyen"), new Gift(25, "mam_go") },
+            gifts = new[] { new Gift(3, "vo_su", "thach_nhan", "phi_thuong"), new Gift(25, "mam_u") },
             // đội Thổ khắc Thủy (Võ Sư, Sóc Đá): cường hóa 93%, 2 địch 76%, 3 địch 86%, mini boss 72%, boss 59–68%
             extra = new[]
             {
@@ -172,8 +173,8 @@ namespace PokiClash.EditorTools
             },
         };
 
-        // Đảo Mộc (người dùng gửi 10 hình aola 2026-11-05, thứ tự trái sang phải là thứ tự ải tướng). Nụ Hoa (tướng khởi đầu hệ Mộc)
-        // mất ải 1 nên đứng ở ải 2 cùng một lính, vẫn thu phục được như cũ.
+        // Đảo Mộc (người dùng gửi 10 hình aola 2026-11-05, thứ tự trái sang phải là thứ tự ải tướng). Từ 2026-11-16 tướng ải 1 (Cầu Gai,
+        // id tien_la) là tướng khởi đầu hệ Mộc thay Nụ Hoa (bỏ khỏi danh sách tướng), nên ải 2 là tướng ải 1 cùng một lính như đảo Hỏa.
         public static Plan Moc => new Plan
         {
             zone = Elem.Moc,
@@ -195,10 +196,9 @@ namespace PokiClash.EditorTools
             levelMax = 190,
             minions = new[] { new[] { "linh_bo", "linh_bo2" }, new[] { "linh_ran", "linh_ran2" }, new[] { "linh_chim", "linh_chim2" } },
             minionFrom = new[] { 0, 1, 2 },
-            starter = "nu_hoa",
             first = new[]
             {
-                new Pattern(StageTag.Group, (Slot.S, 0.15), (Slot.M, 0.15)),
+                new Pattern(StageTag.Group, (Slot.H, 0.15), (Slot.M, 0.15)),
                 new Pattern(StageTag.Minion, (Slot.M, 0.1), (Slot.N, 0.1)),
                 new Pattern(StageTag.Gate, (Slot.H, 0.35), (Slot.M, 0.2)),
             },
@@ -243,8 +243,9 @@ namespace PokiClash.EditorTools
             },
         };
 
-        // Đảo Kim (người dùng gửi 10 hình aola 2026-11-05, thứ tự trái sang phải là thứ tự ải tướng). Bu Lông (tướng khởi đầu hệ Kim)
-        // nhường ải 1 cho Bọ Cạp Đồng, đứng ở ải 2 cùng một lính như Nụ Hoa ở đảo Mộc. Tên, thẻ của 8 tướng mới là tạm.
+        // Đảo Kim (người dùng gửi 10 hình aola 2026-11-05, thứ tự trái sang phải là thứ tự ải tướng). Từ 2026-11-16 tướng ải 1 (Thiết
+        // Tinh, id bo_cap) là tướng khởi đầu hệ Kim thay Bu Lông (bỏ khỏi danh sách tướng), nên ải 2 là tướng ải 1 cùng một lính như đảo
+        // Hỏa. Tên, thẻ của 8 tướng mới là tạm.
         public static Plan Kim => new Plan
         {
             zone = Elem.Kim,
@@ -266,7 +267,6 @@ namespace PokiClash.EditorTools
             levelMax = 193,
             minions = new[] { new[] { "linh_giap", "linh_giap2" }, new[] { "linh_khien", "linh_khien2" }, new[] { "linh_may", "linh_may2" } },
             minionFrom = new[] { 0, 1, 2 },
-            starter = "bu_long",
             // đội Hỏa khắc Kim (Sư Tử Lửa, Kim Sư), 150 trận mỗi ải: cường hóa 93%, 2 địch 76%, 3 địch 84%, mini boss 68%, boss 63%
             extra = new[]
             {
@@ -276,7 +276,7 @@ namespace PokiClash.EditorTools
             },
             first = new[]
             {
-                new Pattern(StageTag.Group, (Slot.S, 0.15), (Slot.M, 0.15)),
+                new Pattern(StageTag.Group, (Slot.H, 0.15), (Slot.M, 0.15)),
                 new Pattern(StageTag.Minion, (Slot.M, 0.1), (Slot.N, 0.1)),
                 new Pattern(StageTag.Gate, (Slot.H, 0.35), (Slot.M, 0.2)),
             },

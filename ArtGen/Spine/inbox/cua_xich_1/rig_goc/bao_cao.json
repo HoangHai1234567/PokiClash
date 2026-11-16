@@ -1,0 +1,86 @@
+{
+ "xuong": 31,
+ "slot": 20,
+ "dinh": 259,
+ "tam_giac": 227,
+ "khoa": 10182,
+ "clip": {
+  "idle": 7.0,
+  "walk": 0.533,
+  "appear": 2.1,
+  "attack": 1.267,
+  "cast": 1.4,
+  "skill": 3.9,
+  "hit": 0.5,
+  "die": 1.45
+ },
+ "json_kb": 331.7,
+ "png_kb": 68.5,
+ "atomik_kb": 130.1,
+ "atlas": [
+  912,
+  1040
+ ],
+ "game": {
+  "fps": 25,
+  "height": 374.28,
+  "hitClips": [
+   "attack",
+   "cast",
+   "skill"
+  ],
+  "hitTimes": [
+   0.5,
+   0.47,
+   1.78
+  ],
+  "lunge": [
+   "cast",
+   "skill"
+  ],
+  "stay": [],
+  "far": [],
+  "muzzle": [],
+  "beam": 1.0,
+  "beamStyle": "",
+  "move": "move",
+  "shadow": "shadow",
+  "impactClips": [
+   "attack",
+   "cast",
+   "skill"
+  ],
+  "impactStop": [
+   0.06,
+   0.06,
+   0.1
+  ],
+  "impactShake": [
+   0.3,
+   0.3,
+   0.8
+  ],
+  "impactPush": [
+   0.08,
+   0.08,
+   0.1
+  ],
+  "impactFlash": [
+   "",
+   "",
+   "#ffd08a55"
+  ]
+ },
+ "noi": {
+  "idle": "bước khép vòng 28.46 px (bước thường 26.99)",
+  "walk": "bước khép vòng 84.24 px (bước thường 79.87)",
+  "appear": "khung cuối lệch khung 0 idle 0.00 px (juzi_04); khung đầu trống",
+  "attack": "khung cuối lệch khung 0 idle 0.00 px (juzi_04)",
+  "cast": "khung cuối lệch khung 0 idle 0.00 px (juzi_04)",
+  "skill": "khung cuối lệch khung 0 idle 0.00 px (juzi_04)",
+  "hit": "khung cuối lệch khung 0 idle 0.00 px (juzi_04)",
+  "die": "khung cuối trống"
+ },
+ "lech_atomik": 0.25700189645296045,
+ "lech_atomik0": 0.04265856451101667
+}

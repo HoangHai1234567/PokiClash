@@ -52,24 +52,24 @@ Người dùng gửi 10 hình aola cho đảo Kim, thứ tự trái sang phải 
 
 | Ải | Id game | Tên | Danh hiệu | Độ hiếm | Nguồn (dạng 1 → 2 → 3) | Trạng thái |
 |---|---|---|---|---|---|---|
-| 1 | `bo_cap` | Bọ Cạp Đồng | Đuôi pha lê cát đỏ | Thường (từ Hiếm) | 676 水晶小蝎 → 677 绿岩石蝎 → 678 赤砂巨蝎 | giữ, thẻ mới |
+| 1 | `bo_cap` | Thiết Tinh | Tinh linh tinh thể sắt | Thường (từ Hiếm) | 2026-11-16: hình mình trên rig game tham khảo `monster_3346` → `monster_3347` (2 dạng `tinh_sat_1`, `tinh_sat_2`; ghi chú `ArtGen/Spine/inbox/tinh_sat_ghichu.md`); trước là dòng aola 676 → 677 → 678 | đổi hình, tên tạm (Claude đặt), id và thẻ giữ |
 | 5 | `doc_giac` | Độc Giác Thép | Ngựa một sừng giáp bạc | Thường | 656 铠甲独角兽 (1 dạng) | mới |
 | 10 | `bo_ngua` | Bọ Ngựa Liềm Thép | Song liềm kiếm khách | Khá (từ Hiếm) | 683 螳螂小宝 → 684 利刃螳螂 → 685 巨镰螳螂 | giữ, thẻ mới |
 | 15 | `phi_thuong` | Phi Thương | Kỵ sĩ máy song thương | Khá | 835 兰亚 → 836 兰亚斯特 | mới |
 | 20 | `khien_bac` | Khiên Bạc | Vệ sĩ khiên bạc | Hiếm | 784 铁盾豆丁 → 785 银盾卫士 | mới |
-| 30 | `chien_than` | Chiến Thần | Pháo thủ giáp vàng | Hiếm | 1083 小战灵 → 1084 战武巨神 | mới, bị động boss |
+| 30 | `chien_than` | Sói Giáp (tên tạm, trước là Chiến Thần) | Sói chiến binh khiên búa | Hiếm | rig Sword x Staff monster_3428: `soi_giap_1` → `soi_giap_2` (2026-11-16, trước: aola 1083 小战灵 → 1084 战武巨神) | mới, bị động boss |
 | 40 | `thiet_phu` | Thiết Phủ | Người thiếc rìu bén | Sử thi | 1533 铁皮人 → 1534 利斧铁皮人 | mới |
 | 50 | `tam_kiem` | Tam Kiếm | Giáp vương ba kiếm | Sử thi | 1223 小备 → 1224 阿备 → 1225 刘备 | mới, bị động boss |
 | 60 | `ung_thep` | Ưng Thép | Thợ săn trời cánh pha lê | Sử thi | 1696 猎小空 → 1697 猎空 (aola gắn nhãn BOSS, hệ aola 2) | mới |
 | 70 | `kim_nghe` | Kim Nghê | Thần thú giáp lửa lam | Huyền thoại | 1840 克亚 → 1841 克里亚斯 (2 dạng, aola không có siêu tiến hóa) | mới, boss tiến hóa |
 
-- Tên dạng: Bọ Cạp Pha Lê → Bọ Cạp Đá Lục → Bọ Cạp Đồng; Bọ Ngựa Con → Bọ Ngựa Lưỡi Bén → Bọ Ngựa Liềm Thép; Phi Thương Con → Phi Thương; Khiên Sắt Tí Hon → Vệ Sĩ Khiên Bạc; Chiến Linh Con → Chiến Thần; Heo Thiếc (trước là Người Thiếc, đổi 2026-11-09 theo hình mới) → Thiết Phủ; Kiếm Sĩ Nhí → Song Kiếm → Tam Kiếm Vương; Ưng Thép Con → Ưng Thép; Nghê Con → Kim Nghê.
+- Tên dạng: Thiết Tinh Nhi → Thiết Tinh (2026-11-16; trước là Bọ Cạp Pha Lê → Bọ Cạp Đá Lục → Bọ Cạp Đồng); Bọ Ngựa Con → Bọ Ngựa Lưỡi Bén → Bọ Ngựa Liềm Thép; Phi Thương Con → Phi Thương; Khiên Sắt Tí Hon → Vệ Sĩ Khiên Bạc; Chiến Linh Con → Chiến Thần; Heo Thiếc (trước là Người Thiếc, đổi 2026-11-09 theo hình mới) → Thiết Phủ; Kiếm Sĩ Nhí → Song Kiếm → Tam Kiếm Vương; Ưng Thép Con → Ưng Thép; Nghê Con → Kim Nghê.
 - **Hình vẽ lại thành tướng .atomik tự thiết kế** (2026-11-09 tối, `ArtGen/Heroes/QUY_TRINH.md` mục 20): giữ màu, chi tiết của dòng aola; dạng robot, người lính đổi thành thú mặc giáp. Bọ Cạp pha lê → đá lục → đồng đỏ; Độc Giác ngựa một sừng giáp bạc (trưởng thành); Bọ Ngựa kiếm khách; Phi Thương **nhím thép** kỵ sĩ; Khiên Bạc **tatu** vệ sĩ; Chiến Thần **cú** chiến giáp vàng; Thiết Phủ **heo rừng** chiến binh; Tam Kiếm **linh miêu trắng** ba kiếm; Ưng Thép ưng giáp bạc cam; Kim Nghê thần thú nghê lửa lam. Danh hiệu "Kỵ sĩ máy song thương", "Người thiếc rìu bén" chưa đổi theo (câu 40, `12_KeHoach_OpenSpec.md`).
 - Dòng 刘备 (1223–1225) trước bị loại vì là nhân vật lịch sử; người dùng gửi hình nên lấy, tên trong game là Tam Kiếm, không dùng tên gốc.
 - Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc, Hỏa.
-- Bu Lông (tướng khởi đầu hệ Kim) nhường ải 1 cho Bọ Cạp Đồng, đứng cùng một lính ở ải 2 (như Nụ Hoa ở đảo Mộc), vẫn thu phục được.
+- Bu Lông (tướng khởi đầu hệ Kim cũ) nhường ải 1 cho Bọ Cạp Đồng, đứng ở ải 2 tới 2026-11-16; nay Thiết Tinh (`bo_cap`, ải 1, lên Khá) là tướng khởi đầu hệ Kim, Bu Lông bị bỏ (mục "Bỏ tướng cũ không còn suất đảo").
 - Siêu tiến hóa chưa lấy: Khiên Bạc 2146 金盾卫士, Ưng Thép 2532 超猎空, Tam Kiếm 2336 昭烈刘备 trở đi, Chiến Thần 6087 (không có rig vector). Huyền thoại Kim theo Tứ Tượng trước là Bạch Hổ; nay boss đảo là Kim Nghê theo hình người dùng gửi.
-- Tướng Kim cũ không có suất trên đảo (giữ trong danh sách): `phao_hop`, `kiem_linh`, `meo_quyen` (vẫn là quà ải 3 đảo Thủy khi chọn Thạch Nhân), `soi_linh`, `bach_ho`.
+- Tướng Kim cũ không có suất trên đảo (`phao_hop`, `kiem_linh`, `meo_quyen`, `soi_linh`, `bach_ho`) giữ trong danh sách tới 2026-11-16 rồi bị bỏ.
 - Đo bằng máy tự chơi (đội Hỏa Khá khắc hệ: Sư Tử Lửa, Kim Sư; bằng cấp; 150 trận mỗi ải, ải tướng 300): cường hóa 93%, 2 địch 76%, 3 địch 84%, mini boss 63–73% (Khiên Bạc 63, Chiến Thần 73, Thiết Phủ 69, Tam Kiếm 69, Ưng Thép 67), boss Kim Nghê 63%.
 
 Lính đảo Kim (dạng aola hệ Cơ khí chưa có trong danh sách tướng; Claude chọn, người dùng chưa duyệt):
@@ -112,7 +112,7 @@ Người dùng gửi 10 hình aola cho đảo Mộc, thứ tự trái sang phả
 
 - Thỏ Hoàng dùng rig `goc_2010`, cùng rig với Thiền Sư Pháp Luân (`monk_2010`, Hỏa, đã vẽ lại). Siêu tiến hóa sau của 2010 là 3295 传奇终结兔 → 3534; chưa lấy.
 - Siêu tiến hóa chưa lấy: Phong Linh 2120 圣域·风灵将, Mộc Tinh 2408 超木星诺.
-- Tướng Mộc cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `mam_go` (quà ải 25 đảo Thủy), `nu_hoa` (tướng khởi đầu, thu phục ở ải 2 đảo Mộc), `kien_binh`, `banh_tet`, `giac_long`.
+- Tướng Mộc cũ không có suất trên đảo (`mam_go`, `nu_hoa`, `kien_binh`, `banh_tet`, `giac_long`) giữ trong danh sách tới 2026-11-16 rồi bị bỏ; tướng khởi đầu hệ Mộc nay là Cầu Gai (`tien_la`, ải 1, lên Khá), quà ải 25 đảo Thủy là Mầm Ú.
 
 Lính đảo Mộc (dạng aola hệ Cỏ chưa có trong danh sách tướng):
 
@@ -136,6 +136,8 @@ Danh sách Mộc cũ (2026-10-31), giữ để đối chiếu:
 | `thanh_long` | Thanh Long | Thần thú phương Đông | Huyền thoại | 1219 格非 → 1220 利爪格非 | mới | TG16 |
 
 ### Thủy (chọn lại 2026-11-01 theo dòng tiến hóa)
+
+Bảng dưới là bộ tướng Thủy cũ. Suất đảo Thủy đổi sang lô 10 tướng mới ngày 2026-11-11 (Tí Tách, Thạch Giải, Hải Đăng, Sò Ngoạm, Bát Trảo, Giông Bão, Thôn Kình, Uyên Xà, Hàn Ngạc, Hải Long); 13 tướng Thủy cũ bị bỏ ngày 2026-11-16.
 
 Hệ Nước của aola có khoảng 100 dòng nhiều dạng. Dòng gốc dài nhất chỉ 3 dạng; 4 dạng trở lên chỉ có khi tính dạng siêu tiến hóa. Tiêu chí chọn như các hệ khác, thêm điều kiện số dạng.
 
@@ -206,7 +208,7 @@ Người dùng gửi 10 hình aola cho đảo Hỏa, thứ tự trái sang phả
 - Tên dạng: Viên Than → Sừng Than → Khổng Lồ Lửa; Sư Con → Liệt Hỏa Sư → Kim Sư; Nham Con → Nham Hỏa → Nham Thần; Đốm Hồng → Phi Viêm → Hồng Liên; Giáp Long Con → Giáp Long; Linh Viêm → Huyễn Viêm → Thánh Huyễn Viêm; Tiểu Hỏa Tinh → Hỏa Tinh; Lân Con → Lân Ngàn Năm → Thánh Lân.
 - Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc.
 - Siêu tiến hóa chưa lấy: Hỏa Tinh 5329 烈焰奇迹-火星诺 (không có rig vector). Huyền thoại Hỏa theo Tứ Tượng trước là Chu Tước; nay boss đảo là Lân Hỏa theo hình người dùng gửi.
-- Tướng Hỏa cũ không có suất trên đảo (giữ trong danh sách, như Tám Tay của đảo Thủy): `heo_lua`, `dom_lua`, `phao_tet`, `bo_de`, `ho_lua`, `phap_luan`, `chu_tuoc` (Hồ Lửa đứng tạm ở ải 20 tới 2026-11-06).
+- Tướng Hỏa cũ không có suất trên đảo (`heo_lua`, `dom_lua`, `phao_tet`, `bo_de`, `ho_lua`, `phap_luan`, `chu_tuoc`) giữ trong danh sách tới 2026-11-16 rồi bị bỏ. Hai suất cuối (ải 60 `hoa_tinh`, ải 70 `lan_hoa`) người dùng chưa làm xong nên giữ nguyên; hình cũ `hoa_tinh_*`, `lan_hoa_*` còn trong Resources.
 - Hình: 22 dạng mới và 6 lính đã vào Unity thành prefab (2026-11-05, xem `12_KeHoach_OpenSpec.md`, mục "Prefab tướng").
 
 Lính đảo Hỏa (dạng aola hệ Lửa chưa có trong danh sách tướng; người dùng duyệt 2026-11-05):
@@ -252,7 +254,7 @@ Người dùng gửi 10 hình aola cho đảo Thổ, thứ tự trái sang phả
 - **Hình ải 50** (金刚虎王, aola gắn nhãn siêu tiến hóa) là siêu tiến hóa của dòng Hổ Khoan ở ải 15 (`pmDataMap` cột 27 của 487). Tạm làm tướng riêng 1 dạng như Thỏ Hoàng ở đảo Mộc, chỉ số là 6 chỉ số của chính dạng đó; câu hỏi 30 ở `12_KeHoach_OpenSpec.md`.
 - Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc, Hỏa, Kim.
 - Thạch Nhân giữ tên ba dạng như cũ (cả ba đều tên Thạch Nhân).
-- Tướng Thổ cũ không có suất trên đảo (giữ trong danh sách): `vo_su` (vẫn là quà ải 3 đảo Thủy), `gau_mo`, `soc_da`, `bo_hung`, `sa_than`, `ky_lan`, `ca_sa` (vẫn là tướng mốc huyền thoại `legendMilestoneHero`).
+- Tướng Thổ cũ không có suất trên đảo (giữ trong danh sách): `vo_su` (vẫn là quà ải 3 đảo Thủy), `gau_mo`, `soc_da`, `bo_hung`, `sa_than`, `ky_lan`, `ca_sa` (vẫn là tướng mốc huyền thoại `legendMilestoneHero`). Ngày 2026-11-16 vẫn giữ cả 7 con vì đảo Thổ chưa làm lại (người dùng dặn để nguyên).
 - Đo bằng máy tự chơi (đội Mộc Khá khắc hệ: Nụ Hoa, Dê Hoa; bằng cấp; 150 trận mỗi ải, 5 mốc cuối 300): cường hóa 92%, 2 địch 74%, 3 địch 85%, mini boss 64–67% (Hạt Dẻ 65, Rùa Núi 64, Hổ Kim Cương 66, Cự Phủ 67), boss Giáp Nham 59%.
 
 Lính đảo Thổ (dạng aola hệ Đất chưa có trong danh sách tướng; Claude chọn, người dùng chưa duyệt):
@@ -278,6 +280,8 @@ Danh sách Thổ cũ (2026-10-31), giữ để đối chiếu:
 
 **Tướng khởi đầu (2026-11-03, `15_TuongKhoiDau.md`):** Giọt Sương, Sư Tử Lửa, Bu Lông, Nụ Hoa, Thạch Nhân, mỗi con đứng ở ải 1 đảo cùng hệ. Cả 5 cùng Võ Sư đổi sang Khá (Bu Lông, Nụ Hoa, Võ Sư từ Thường; Thạch Nhân từ Hiếm), nên số tướng mỗi độ hiếm của Kim, Mộc, Thổ trong bảng trên không còn đúng 2-2-2-1-1.
 
+Đổi sau đó: Tí Tách thay Giọt Sương (2026-11-11); Thiết Tinh, Cầu Gai (tướng ải 1 đảo Kim, Mộc, nâng lên Khá) thay Bu Lông, Nụ Hoa (2026-11-16). Bộ hiện tại: Tí Tách, Sư Tử Lửa, Thiết Tinh, Cầu Gai, Thạch Nhân (`15_TuongKhoiDau.md`).
+
 ### Bỏ khỏi danh sách
 
 | Id game | Tên | Lý do |
@@ -286,6 +290,24 @@ Danh sách Thổ cũ (2026-10-31), giữ để đối chiếu:
 | `su_gia` | Sứ Giả Gia Bỉ | Gốc là Nước, cùng dòng tên với Gia Bỉ; Thủy đã đủ 8 |
 | `y_trach` | Y Trạch | Không còn là tướng riêng: thành dạng 2 của `tieu_y` |
 | `van_quan`, `hac_duc` | Vạn Quân, Hắc Dực Vạn Quân | Không còn là tướng riêng: thành dạng 2, 3 của `lam_quan` |
+
+### Bỏ tướng cũ không còn suất đảo (2026-11-16)
+
+Người dùng dặn: tướng đã bị thay mà còn trong game thì bỏ; đảo Thổ chưa làm con nào nên để nguyên; hai tướng cuối đảo Hỏa chưa làm.
+
+- Bỏ 31 tướng không đứng ải tướng nào (93 thẻ riêng, 68 thư mục hình trong `Assets/03 Art/Heroes/Resources`, 31 prefab trong `Assets/04 Prefabs/Heroes`). Còn 57 tướng: 10 tướng đứng ải mỗi đảo Thủy, Mộc, Hỏa, Kim, và 17 tướng Thổ.
+- Bản lưu v10 -> v11 (`SaveCodec.BoTuongCu`): tướng cũ gộp vào tướng thay (sở hữu, mảnh, sao, cấp thẻ, tiềm năng, đội, trang trại, tướng khởi đầu). Bảng gộp (cùng hệ, gần độ hiếm, đang đứng ải):
+
+| Hệ | Tướng cũ → tướng thay |
+|---|---|
+| Kim | Bu Lông → Thiết Tinh (`bo_cap`); Pháo Hộp → Thiết Vệ (`doc_giac`); Kiếm Linh → Thiết Khoáng (`bo_ngua`); Mèo Quyền Sắt → Thiết Cưa (`phi_thuong`); Sói Linh Thép → Thần Cơ (`thiet_phu`); Bạch Hổ → Kim Nghê |
+| Mộc | Nụ Hoa → Cầu Gai (`tien_la`); Mầm Gỗ → Mầm Ú; Kiến Binh → Gạc Đá; Hiệp Sĩ Bánh Tét → Lộc Phong (`bom_la`); Giác Long Gỗ → Lâm Tượng (`phong_linh`) |
+| Thủy | 10 con theo bảng gộp 2026-11-11 (Giọt Sương → Tí Tách, Tiểu Y → Thạch Giải, Cánh Cụt → Hải Đăng, Mi Nhi → Sò Ngoạm, Ma Kết → Bát Trảo, Vây Lam → Giông Bão, Kuba → Thôn Kình, Thương Lam → Uyên Xà, Huyền Vũ → Hàn Ngạc, Lam Quân → Hải Long); Tám Tay → Sò Ngoạm; Cá Ngựa → Bát Trảo; Mập Răng Cưa → Giông Bão |
+| Hỏa | Heo Lửa → Hỏa Nhãn; Đốm Lửa → Nham Thần; Pháo Tết → Hỏa Cung (`kim_su`); Võ Tăng Bồ Đề → Hỏa Quy (`nguu_quyen`); Hồ Lửa → Viêm Sư (`hong_lien`); Thiền Sư Pháp Luân → Viêm Đao (`giap_long`); Chu Tước → Hỏa Sơn Long (`lan_hoa`) |
+
+- Tướng khởi đầu Kim, Mộc, quà đảo Thủy đổi theo (`15_TuongKhoiDau.md`).
+- Golden và test tính lại bên Unity: menu "Tính lại golden islands, roster, cardtext, zones", "Tính lại golden theo danh sách tướng", "Tính lại golden theo tướng mẫu của test" (mới, `Editor/GoldenFixtureMenu.cs`), "Tính lại golden sim, tướng trên nút ải". Đầu vào 200 trận mẫu `battles.json` đổi tướng cũ theo bảng trên.
+- Chưa xoá: hình thừa trong Resources của các dạng đã bị thay từ trước (Bọ Cạp, Bọ Ngựa, Độc Giác, Phi Thương, Khiên Bạc, Chiến Thần, Thiết Phủ, Tam Kiếm, Hồng Liên, Huyễn Viêm cũ, `goc_4/5/6`, `goc_678`, `goc_685`) và hình cũ của Hỏa Tinh, Lân Hỏa. Menu "Xoá dạng aola không còn tướng nào dùng" xoá hết các thư mục này (kể cả hình cũ Hỏa Tinh, Lân Hỏa).
 
 ## Việc còn lại (chưa làm)
 

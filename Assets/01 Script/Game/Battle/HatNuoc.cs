@@ -24,25 +24,6 @@ namespace PokiClash
         static readonly WTheme WDefault = new WTheme { w = WPal(C(30, 104, 190), C(58, 150, 226), C(140, 208, 246)) };
         static readonly Dictionary<string, WTheme> WThemes = new Dictionary<string, WTheme>
         {
-            // cáo nước xanh ngọc, đuôi sóng
-            { "tieu_y", new WTheme { w = WPal(C(28, 118, 190), C(64, 170, 226), C(156, 222, 244)) } },
-            // chim cánh cụt băng: nước xanh băng, mảnh băng văng
-            { "canh_cut", new WTheme { w = WPal(C(36, 122, 150), C(104, 194, 222), C(190, 232, 244)), fx = new Theme { extra = "tinh_the", extraCol = C(196, 234, 248) } } },
-            // chim đàn tím: nước tím lam, sao lấp lánh
-            { "mi_nhi", new WTheme { w = WPal(C(92, 84, 198), C(134, 148, 236), C(192, 212, 250)), fx = new Theme { extra = "sao", extraCol = C(232, 214, 255) } } },
-            // dê biển vảy xanh ngọc
-            { "ma_ket", new WTheme { w = WPal(C(16, 138, 160), C(44, 200, 212), C(160, 238, 236)) } },
-            // cá mập xanh thẫm
-            { "vay_lam", new WTheme { w = WPal(C(26, 62, 162), C(50, 112, 216), C(132, 190, 244)) } },
-            // cua pha lê: nước xanh pha lê nhạt, mảnh pha lê
-            { "kuba", new WTheme { w = WPal(C(52, 146, 200), C(116, 204, 236), C(202, 238, 250)), fx = new Theme { extra = "tinh_the", extraCol = C(222, 244, 252) } } },
-            // rồng băng: mảnh băng
-            { "thuong_lam", new WTheme { w = WPal(C(30, 104, 190), C(58, 150, 226), C(140, 208, 246)), fx = new Theme { extra = "tinh_the", extraCol = C(190, 232, 250) } } },
-            // rùa xanh lục
-            { "huyen_vu", new WTheme { w = WPal(C(20, 128, 132), C(52, 188, 178), C(168, 234, 216)) } },
-            // lân chuông: sao vàng
-            { "lam_quan", new WTheme { w = WPal(C(34, 96, 196), C(70, 146, 232), C(150, 204, 248)), fx = new Theme { extra = "sao", extraCol = C(255, 224, 110) } } },
-            { "giot_suong", new WTheme { w = WPal(C(20, 120, 150), C(50, 176, 200), C(150, 226, 234)) } },
             // lô 10 tướng mới đảo Thủy (2026-11-11), màu theo bảng màu từng dòng (ArtGen/Spine/inbox/tm0*_ghichu.md); mực và bọt chung
             // giọt mưa võ sĩ: lam đại dương #1F5DB5, lam ngọc sáng #35BFE6, bọt nhạt
             { "ti_tach", new WTheme { w = WPal(C(31, 93, 181), C(53, 191, 230), C(158, 223, 243)) } },
@@ -76,6 +57,8 @@ namespace PokiClash
             // đảo Mộc, Lâm Tượng (2026-11-12, ma mút rừng, suất phong_linh; chiêu ở HatVoi.cs): lục sẫm và lục tươi của áo lá, sao màu mật của ngà
             { "phong_linh", new WTheme { w = WPal(C(40, 124, 66), C(100, 176, 74), C(170, 212, 84)), fx = new Theme { extra = "sao", extraCol = C(238, 212, 150) } } },
             { "gac_da", new WTheme { w = WPal(C(30, 150, 104), C(64, 206, 140), C(170, 236, 196)), fx = new Theme { extra = "giap", extraCol = C(128, 120, 104) } } },
+            // Thiết Khoáng (bo_ngua, đảo Kim): chiêu mana n_da_va (hai tay quặng găm): bụi đất nâu, mảnh quặng sắt đen
+            { "bo_ngua", new WTheme { w = WPal(C(110, 82, 56), C(150, 118, 84), C(206, 186, 160)), fx = new Theme { extra = "giap", extraCol = C(70, 72, 82) } } },
             // đảo Mộc, Lộc Phong (2026-11-12, suất bom_la; chiêu ở HatLoc.cs): lục bảo của pha lê và vân nhựa trên gạc (đậm, tươi, nhạt); sao vàng lá phong văng lúc trúng
             { "bom_la", new WTheme { w = WPal(C(30, 150, 110), C(64, 206, 150), C(184, 240, 212)), fx = new Theme { extra = "sao", extraCol = C(240, 172, 62) } } },
             // đảo Mộc, Linh Điểu (2026-11-12, chim bảo hộ rừng, suất gio_loc; chiêu ở HatChim.cs): lục sẫm của gân lá, lục lá cánh, lục non; cánh hoa hồng của cành cánh văng lúc trúng
@@ -1338,7 +1321,7 @@ namespace PokiClash
         public static bool IsNuoc(string kind) => kind != null && kind.StartsWith("n_");
 
         // chiêu chỉ phát ở khung trúng (không có pha tụ): cú va của chiêu lao tới
-        public static bool NuocAtHit(string kind) => kind == "n_va" || kind == "n_la_va" || kind == "n_gai_va";
+        public static bool NuocAtHit(string kind) => kind == "n_va" || kind == "n_la_va" || kind == "n_gai_va" || kind == "n_sat_dap" || kind == "n_sat_dap1";
 
         // ult: chiêu cuối (tia dài hơn, mưa lâu hơn)
         public float PlayNuoc(string kind, bool ult, Vector2 casterFeet, float casterH, Vector2 mouth, Vector2 foeFeet, Vector2 foeBody, float tH,
@@ -1405,6 +1388,45 @@ namespace PokiClash
                 case "n_kim_phap": return NKimPhap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Viêm Sư (HatPhap.cs), pháp sư lửa: kim lửa hiện quanh đầu trượng đang giơ, vụt trượng thì phóng
                 case "n_cau_phap1": return NCauPhap(casterFeet, casterH, foeFeet, foeBody, tH, lead, true); // Viêm Đồng (dạng 1): trượng ngắn, cầu nhỏ, nổ nhẹ hơn
                 case "n_cau_phap": return NCauPhap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Viêm Sư: chiêu cuối, lửa bị hút vào quả cầu của rig đang phình, mốc ban_cau cầu lao tới đối thủ, nổ lớn
+                case "n_sat_tong": return NSatTong(casterFeet, foeFeet, foeBody, tH, lead); // Thiết Tinh (HatSat.cs), đòn đánh thường: lao tới tông, chớp + dăm tinh thể
+                case "n_sat_ban1": return NSatBan(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Thiết Tinh Nhi (dạng 1): 8 tinh thể của rig bay găm vào đối thủ
+                case "n_sat_ban2": return NSatBan(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thiết Tinh (dạng 2): 10 tinh thể (5 gốc + 5 tách đôi)
+                case "n_sat_dap1": return NSatDap(foeFeet, foeBody, tH, 0.8f); // Thiết Tinh Nhi: chiêu cuối dập xuống, vòng cột tinh thể (bản nhẹ)
+                case "n_sat_dap": return NSatDap(foeFeet, foeBody, tH, 1f); // Thiết Tinh: chiêu cuối dập xuống, vòng cột tinh thể trồi rồi vỡ
+                case "n_giao_dam": return NGiaoDam(casterFeet, foeFeet, foeBody, tH, lead); // Thiết Vệ (HatGiao.cs), đòn đánh thường: lao tới đâm giáo
+                case "n_giao_nem1": return NGiaoNem(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead, 0.85f); // Thiết Vệ Nhi: ném giáo (giáo bay là mảnh của rig), giáo găm nổ, giáo mọc lại trong tay
+                case "n_giao_nem": return NGiaoNem(casterFeet, casterH, mouth, foeFeet, foeBody, tH, lead, 1f); // Thiết Vệ: ném giáo
+                case "n_kim_sat1": return NKimSat(casterFeet, casterH, foeFeet, foeBody, tH, lead, 7, 0.85f); // Thiết Vệ Nhi: chiêu cuối, 7 kim sắt hiện trên đầu, dậm giáo, kim lao găm
+                case "n_kim_sat": return NKimSat(casterFeet, casterH, foeFeet, foeBody, tH, lead, 11, 1f); // Thiết Vệ: chiêu cuối, 11 kim sắt
+                case "n_xich_go": return NXichGo(casterFeet, foeFeet, foeBody, tH, lead); // Quỷ Xích (HatXich.cs), đòn đánh thường: bay tới gõ móc lên đầu đối thủ
+                case "n_xich_nem1": return NXichNem(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1, 0.85f); // Quỷ Xích Nhi: quay xích, ném móc găm rồi giật về
+                case "n_xich_nem": return NXichNem(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2, 1f); // Quỷ Xích: quay xích, ném móc
+                case "n_xich_lua1": return NXichLua(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1, 0.8f); // Quỷ Xích Nhi: chiêu cuối xích lửa, trói, cột lửa (bản nhẹ)
+                case "n_xich_lua": return NXichLua(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2, 1f); // Quỷ Xích: chiêu cuối xích lửa quay, ném trói, cột lửa rất to
+                case "n_soi_go": return NSoiGo(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sói Giáp (HatSoi.cs), đòn đánh thường: lao tới, búa bổ nện
+                case "n_soi_nem1": return NSoiNem(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.85f); // Sói Giáp Con: ném búa xoáy, trúng, búa bay về tay
+                case "n_soi_nem": return NSoiNem(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1f); // Sói Giáp: ném búa xoáy
+                case "n_soi_huc1": return NSoiHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0); // Sói Giáp Con: chiêu cuối (bản nhẹ)
+                case "n_soi_huc": return NSoiHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Sói Giáp: chiêu cuối che khiên, tụ gió, lao xé gió, húc
+                case "n_khoang_huc": return NKhoangHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thiết Khoáng (HatKhoang.cs), đòn đánh thường: húc (dạng 2 húc rồi lộn giáng)
+                case "n_khoang_ban1": return NKhoangBan(casterFeet, foeFeet, foeBody, tH, lead, 1); // Thiết Khoáng Nhi: hai tay quặng găm
+                case "n_khoang_ban2": return NKhoangBan(casterFeet, foeFeet, foeBody, tH, lead, 2); // Thiết Khoáng: hai tay + năm gai găm
+                case "n_khoang_dao1": return NKhoangDao(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Thiết Khoáng Nhi: chui đất, gò chạy ngầm, trồi lên húc
+                case "n_khoang_dao": return NKhoangDao(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thiết Khoáng: trồi lên húc hai lần
+                case "n_cua_huc": return NCuaHuc(casterFeet, foeFeet, foeBody, tH, lead); // Thiết Cưa (HatCua.cs), đòn đánh thường: lao tới húc
+                case "n_cua_quat": return NCuaQuat(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thiết Cưa: lao tới, quay người quật đuôi cưa, tia lửa cưa
+                case "n_cua_lien": return NCuaLien(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thiết Cưa: chiêu cuối giật dây, hút khí, ghì cưa 11 nhát
+                case "n_hon_chem": return NHonChem(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Vong Kỵ (HatHon.cs), đòn đánh thường: lao tới, vung kiếm qua đầu bổ, vệt chém lửa hồn
+                case "n_hon_goi1": return NHonGoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 3, 0.85f); // Vong Kỵ Nhi: giơ kiếm gọi 3 hồn đồng đội lao tới
+                case "n_hon_goi": return NHonGoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 5, 1f); // Vong Kỵ: giơ kiếm gọi 5 hồn đồng đội lao tới
+                case "n_hon_kiem1": return NHonKiem(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.8f); // Vong Kỵ Nhi: chiêu cuối vá kiếm bằng hồn, bổ (bản nhẹ)
+                case "n_hon_kiem": return NHonKiem(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1f); // Vong Kỵ: chiêu cuối hút hồn vá kiếm, bổ một nhát cực mạnh
+                case "n_robot_ban1": return NRobotBan(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Thần Cơ Nhi (HatRobot.cs), đòn đánh thường: tụ cầu năng lượng ở ổ nắm đấm rồi bắn
+                case "n_robot_ban": return NRobotBan(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thần Cơ, đòn đánh thường
+                case "n_robot_cau1": return NRobotCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Thần Cơ Nhi: tụ cầu năng lượng to giữa hai tay giơ cao, ném xuống đầu đối thủ
+                case "n_robot_cau": return NRobotCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thần Cơ: cầu to, nổ rất lớn
+                case "n_robot_ten1": return NRobotTen(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Thần Cơ Nhi: chiêu cuối mở giáp ngực, 7 tên lửa tầm nhiệt (bản nhẹ)
+                case "n_robot_ten": return NRobotTen(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thần Cơ: chiêu cuối 7 tên lửa tầm nhiệt bay cong ngẫu nhiên, nổ lớn
                 default: return NVa(foeBody, foeFeet, tH);
             }
         }
@@ -1431,6 +1453,8 @@ namespace PokiClash
                 "n_giac_tia" => 0.88f + 0.05f,
                 "n_giac_tim" => 1.0f + 0.05f,
                 "n_rong_gam" => RongGamDur + 0.04f,
+                "n_kim_sat" => 0.3f,
+                "n_kim_sat1" => 0.25f,
                 _ => 0,
             };
     }

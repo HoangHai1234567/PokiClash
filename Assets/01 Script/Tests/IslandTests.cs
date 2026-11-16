@@ -115,7 +115,7 @@ namespace PokiClash.Tests
             var boss = d.ZoneStages(Elem.Moc).Last();
             var tr = boss.enemies[0].trait;
             var p = new TeamSetup { name = "Bạn", ai = true };
-            foreach (var id in new[] { "bu_long", "meo_quyen" })
+            foreach (var id in new[] { "bo_cap", "phi_thuong" })
                 p.members.Add(new Member { heroId = id, level = boss.enemies[0].level, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
             int fired = 0;
             for (uint seed = 1; seed <= 10; seed++)

@@ -1,4 +1,4 @@
-// Menu thử (đang Play): Chiêu ra đòn ngay lúc bấm (2026-11-03). Giọt Sương một mình vào ải 3, chọn 1 thẻ, nạp đầy mana, bấm nút Chiêu
+// Menu thử (đang Play): Chiêu ra đòn ngay lúc bấm (2026-11-03). Tí Tách một mình vào ải 3, chọn 1 thẻ, nạp đầy mana, bấm nút Chiêu
 // (qua đúng nút trên màn), chụp nhỏ liên tục lúc chiêu chạy vào Temp/PokiShots/chieu_ngay/; kiểm: máu địch giảm ngay, hàng thẻ và số lần
 // chọn giữ nguyên, vẫn đang chọn; rồi chọn nốt và chụp lúc ra đòn. Xong trả lại bản lưu như trước.
 using System.Collections;
@@ -40,8 +40,8 @@ namespace PokiClash.EditorTools
             try
             {
                 var s = App.Save.Data;
-                s.Hero("giot_suong").owned = true;
-                s.team = new List<string> { "giot_suong" };
+                s.Hero("ti_tach").owned = true;
+                s.team = new List<string> { "ti_tach" };
                 if (s.level < 7) s.level = 7;
                 App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = 3 });
                 yield return Until(() => !App.Router.Busy && App.Router.Current == SceneIds.Battle, 30);

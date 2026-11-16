@@ -1,9 +1,8 @@
-// Menu thử (đang Play): Giọt Sương một mình vào ải 3 (đối thủ là quái thường hình aola gốc, không có clip bắn) ở sao 1, 3, 5; tới lượt chọn thẻ (trận đứng yên) thì tự cho sân chạy lần lượt:
-// bắn tia (chiêu mana), chiêu cuối, đánh thường, rồi đối thủ đánh; chụp nhỏ liên tục vào Temp/PokiShots/gs_combat/s<sao>_<đòn>_<n>.jpg;
-// xong trả lại bản lưu như trước.
-// Để soi: con ra đòn nằm trên con kia, chiêu cuối lao tới đối thủ, chiêu mana bắn tia nước to nhỏ theo dạng.
-// Menu Tiểu Y (sao 1, 5: hai dạng): dạng 1 (thuy_1319, 2026-11-04) đâm đinh ba, bắn tia từ mũi đinh ba, chiêu cuối ném quả cầu nước
-// bay tới nổ ở thân đối thủ (AolaActor hiệu ứng ở xa, anim.json "far_center"); dạng 2 còn hình gốc aola; ảnh vào tieu_y_combat/.
+// Menu thử (đang Play): một tướng một mình vào ải 3 ở các mốc sao của từng dạng; tới lượt chọn thẻ (trận đứng yên) thì tự cho sân
+// chạy lần lượt: bắn tia (chiêu mana), chiêu cuối, đánh thường, rồi đối thủ đánh; chụp nhỏ liên tục vào
+// Temp/PokiShots/<id>_combat/s<sao>_<đòn>_<n>.jpg; xong trả lại bản lưu như trước.
+// Để soi: con ra đòn nằm trên con kia, chiêu cuối lao tới đối thủ, chiêu mana bắn tia to nhỏ theo dạng.
+// Tên lớp còn theo Giọt Sương (tướng đầu tiên có menu này); menu của Giọt Sương và các tướng Thủy cũ bỏ cùng tướng 2026-11-16.
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -16,54 +15,12 @@ namespace PokiClash.EditorTools
     public static class GiotSuongCombatTour
     {
         static string Dir => Path.Combine(PlayTour.ShotDir, dir);
-        static string hero = "giot_suong", dir = "gs_combat";
-        static int[] stars = { 1, 3, 5 };
+        static string hero = "ti_tach", dir = "ti_tach_combat";
+        static int[] stars = { 1, 5 };
 
-        [MenuItem("PokiClash/Thử/Giọt Sương ra trận: đánh, bắn tia, chiêu cuối ở 3 dạng (đang Play)", priority = 112)]
-        static void Try() => Start("giot_suong", "gs_combat", 1, 3, 5);
-
-        [MenuItem("PokiClash/Thử/Tiểu Y ra trận: đâm đinh ba, bắn tia, ném cầu nước ở 2 dạng (đang Play)", priority = 113)]
-        static void TryTieuY() => Start("tieu_y", "tieu_y_combat", 1, 5);
-
-        // Ma Kết (2026-11-06): chiêu cuối không lao, tụ cầu nước rồi bắn (dạng 1 bắn thẳng, dạng 2 ném vòng cung, dạng 3 bắn liên
-        // hoàn), cầu nổ ở thân đối thủ (far_center); ảnh vào ma_ket_combat/
-        [MenuItem("PokiClash/Thử/Ma Kết ra trận: húc, bắn tia, cầu nước ở 3 dạng (đang Play)", priority = 114)]
-        static void TryMaKet() => Start("ma_ket", "ma_ket_combat", 1, 3, 5);
-
-        // 3 boss cuối đảo Thủy (2026-11-07): tia mana riêng (anim.json "cast.tia" -> StageView.beamStyles): Thương Lam tia băng có mảnh
-        // băng văng, Huyền Vũ tia xoắn có xoáy nước, Lam Quân tia triều đinh ba có vòng sóng âm và rung; ảnh vào <id>_combat/
-        [MenuItem("PokiClash/Thử/Thương Lam ra trận: tia băng ở 3 dạng (đang Play)", priority = 115)]
-        static void TryThuongLam() => Start("thuong_lam", "thuong_lam_combat", 1, 3, 5);
-
-        [MenuItem("PokiClash/Thử/Huyền Vũ ra trận: tia xoắn ở 3 dạng (đang Play)", priority = 116)]
-        static void TryHuyenVu() => Start("huyen_vu", "huyen_vu_combat", 1, 3, 5);
-
-        [MenuItem("PokiClash/Thử/Lam Quân ra trận: tia triều đinh ba ở 3 dạng (đang Play)", priority = 117)]
-        static void TryLamQuan() => Start("lam_quan", "lam_quan_combat", 1, 3, 5);
-
-        // đòn đánh, chiêu cuối viết lại của các tướng đảo Thủy vẽ lại 2026-11-07 (ArtGen/Heroes/tools/anim_thuy.py): bắn tia, cầu nước
-        // trên đầu đối thủ xả nước, sóng thần, mạch nước phun, tên nước rơi...; ảnh vào <id>_combat/
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Vây Lam ra trận ở 3 dạng (đang Play)", priority = 118)]
-        static void TryVayLam() => Start("vay_lam", "vay_lam_combat", 1, 3, 5);
-
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Kuba ra trận ở 3 dạng (đang Play)", priority = 119)]
-        static void TryKuba() => Start("kuba", "kuba_combat", 1, 3, 5);
-
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Tám Tay ra trận ở 2 dạng (đang Play)", priority = 120)]
-        static void TryTamTay() => Start("tam_tay", "tam_tay_combat", 1, 5);
-
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Cá Ngựa ra trận ở 3 dạng (đang Play)", priority = 121)]
-        static void TryCaNgua() => Start("ca_ngua", "ca_ngua_combat", 1, 3, 5);
-
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Mập Răng Cưa ra trận ở 3 dạng (đang Play)", priority = 122)]
-        static void TryMapRang() => Start("map_rang", "map_rang_combat", 1, 3, 5);
-
-        // thú huyền thoại .atomik đảo Thủy (2026-11-08, ArtGen/Spine/beast.py): hai tướng chưa có vòng chụp; ảnh vào <id>_combat/
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Cánh Cụt ra trận ở 2 dạng (đang Play)", priority = 122)]
-        static void TryCanhCut() => Start("canh_cut", "canh_cut_combat", 1, 5);
-
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Mi Nhi ra trận ở 2 dạng (đang Play)", priority = 122)]
-        static void TryMiNhi() => Start("mi_nhi", "mi_nhi_combat", 1, 5);
+        // Tí Tách (tướng khởi đầu hệ Thủy, ải 1 đảo Thủy, 2 dạng); ảnh vào ti_tach_combat/
+        [MenuItem("PokiClash/Thử/Đảo Thủy: Tí Tách ra trận ở 2 dạng (đang Play)", priority = 112)]
+        static void Try() => Start("ti_tach", "ti_tach_combat", 1, 5);
 
         // Thanh Long (boss cuối đảo Mộc, 2026-11-09, skill pokiclash-hero-fx): idle có lá bay, mây trôi; đòn có vệt cầu, vòng bật, lá văng;
         // chiêu ba sét; lúc trúng sân khựng, màn rung, đối thủ bật lùi (AtomikGame.impact*); ảnh vào thanh_long_combat/
@@ -86,16 +43,8 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(Evolve("kim_su"));
         }
 
-        // Rồng Giọt (2026-11-08, dạng 1 là rig .atomik có clip tiến hóa): mở hộp chi tiết Giọt Sương ở sao cuối của dạng 1, bấm nút
-        // hack tiến hóa, chụp liên tục clip tiến hóa (lốc nước, bong bóng, vỡ tung) tới khi dạng 2 hiện; ảnh vào gs_tien_hoa/.
-        [MenuItem("PokiClash/Thử/Giọt Sương tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]
-        static void TryEvolve()
-        {
-            if (!EditorApplication.isPlaying || App.I == null) return;
-            dir = "gs_tien_hoa";
-            App.I.StartCoroutine(Evolve("giot_suong"));
-        }
-
+        // mở hộp chi tiết ở sao cuối của từng dạng (trừ dạng chót), bấm nút hack tiến hóa, chụp liên tục clip tiến hóa tới khi dạng
+        // sau hiện; ảnh vào <dir>/<mốc>_<n>.jpg (menu đầu tiên là Giọt Sương 2026-11-08, bỏ cùng tướng 2026-11-16)
         static IEnumerator Evolve(string id)
         {
             var path = App.Save.FilePath;
@@ -147,7 +96,7 @@ namespace PokiClash.EditorTools
                 }
             }
             App.Modals.CloseAll();
-            Debug.Log("[Thử] Xong Giọt Sương tiến hóa: " + Dir);
+            Debug.Log($"[Thử] Xong {id} tiến hóa: " + Dir);
         }
 
         static void Start(string id, string folder, params int[] at)
@@ -187,7 +136,7 @@ namespace PokiClash.EditorTools
                         yield break;
                     }
                     st.speed = 1; // sân chạy chậm (×1 thật đã nhanh gấp 3) để chụp đủ khung mà soi
-                    // chờ lượt chọn thẻ (trận đứng yên) rồi tự cho sân chạy từng đòn của Giọt Sương (phía 0), cuối cùng đối thủ đánh
+                    // chờ lượt chọn thẻ (trận đứng yên) rồi tự cho sân chạy từng đòn của tướng thử (phía 0), cuối cùng đối thủ đánh
                     t0 = Time.realtimeSinceStartup;
                     while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 20) yield return null;
                     yield return new WaitForSecondsRealtime(0.6f);

@@ -177,7 +177,7 @@ namespace PokiClash.Tests
             // đội mạnh hơn hẳn để chắc đánh tới dạng cuối
             var p = new TeamSetup { name = "Bạn", ai = true };
             int lv = st.enemies[0].level; // ngang cấp boss (thang 200)
-            foreach (var id in new[] { "huyen_vu", "ca_sa", "phap_luan" }) p.members.Add(new Member { heroId = id, level = lv, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
+            foreach (var id in new[] { "han_ngac", "ca_sa", "giap_long" }) p.members.Add(new Member { heroId = id, level = lv, star = 5, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
             var log = new List<BattleEvent>();
             var b = Battle.Create(d, p, Teams.Enemy(st, d), 11);
             Assert.AreEqual(0, b.ActiveOf(1).form);
@@ -215,10 +215,10 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var p = new TeamSetup { name = "Bạn", ai = false };
-            p.members.Add(new Member { heroId = "tieu_y", level = 5, star = 1 });
+            p.members.Add(new Member { heroId = "thach_giai", level = 5, star = 1 });
             p.members.Add(new Member { heroId = "vo_su", level = 5, star = 1 });
             var e = new TeamSetup { name = "Địch", ai = true };
-            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
+            e.members.Add(new Member { heroId = "nguu_quyen", level = 3, star = 1 });
             var b = Battle.Create(d, p, e, 7);
             b.StartBattle();
             Assert.AreEqual(Phase.Picking, b.phase);
@@ -261,7 +261,7 @@ namespace PokiClash.Tests
             var p = new TeamSetup { name = "Bạn", ai = false };
             p.members.Add(new Member { heroId = "vo_su", level = 5, star = 1 });
             var e = new TeamSetup { name = "Địch", ai = true };
-            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
+            e.members.Add(new Member { heroId = "nguu_quyen", level = 3, star = 1 });
             int repeatSeen = 0, onceNextTurn = 0;
             for (uint seed = 1; seed <= 200; seed++)
             {
@@ -307,10 +307,10 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var p = new TeamSetup { name = "Bạn", ai = false };
-            p.members.Add(new Member { heroId = "giot_suong", level = 5, star = 1 });
+            p.members.Add(new Member { heroId = "ti_tach", level = 5, star = 1 });
             var e = new TeamSetup { name = "Địch", ai = true };
-            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
-            e.members.Add(new Member { heroId = "bo_de", level = 3, star = 1 });
+            e.members.Add(new Member { heroId = "nguu_quyen", level = 3, star = 1 });
+            e.members.Add(new Member { heroId = "nguu_quyen", level = 3, star = 1 });
 
             var b = Battle.Create(d, p, e, 7);
             b.StartBattle();

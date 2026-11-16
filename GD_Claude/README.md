@@ -32,6 +32,7 @@ Game đánh nhau, vượt ải để thu phục tướng, ghép puzzle xếp kh�
 | [16_ManBoot.md](16_ManBoot.md) | **Màn boot (màn mở game): 3 ý tưởng** (A sa bàn giấy pop-up, B ấn Ngũ Hành, C bìa sổ chiến thuật), đều vẽ vòng khắc; bản web thử ở `Web/src/view/boot/`, việc chuyển sang Unity |
 | [17_BoUI.md](17_BoUI.md) | **Bộ UI "Sa Bàn"** (bản web thử `Web/uikit.html`): thành phần và 3 màn mẫu, hiệu ứng thở, nảy khi nhấn, nhún tại chỗ, chia bài; không bóng; việc chuyển sang Unity |
 | [18_DaoVungDat_Habitat.md](18_DaoVungDat_Habitat.md) | **Kế hoạch đổi bản đồ đảo**: bỏ cuộn dọc, mỗi đảo là một vùng đất kéo hai chiều; mỗi ải tướng một habitat 3x3/4x4 đặt cố định, có animation; tách nền và habitat, chừa ô dự trữ để thêm boss; dữ liệu, code, gói ảnh, các mốc (M0–M1 làm bằng hình tạm) |
+| [19_ClashOfCritters_VatLy_Logic.md](19_ClashOfCritters_VatLy_Logic.md) | **Vật lý và logic Clash of Critters đã đục được**: config bi, vật liệu và cách trộn, hình học bàn `table_01`, phóng bi, kết quả chọn trước rồi phát lại, flow của từng vật cản, nấm tiến độ, cược theo số bi, cây bi, phản hồi chia bậc; thang chương; đã chép vào máy mình ra sao |
 
 ## Đã chốt (2026-10-31): đổi lõi sang thẻ bài
 

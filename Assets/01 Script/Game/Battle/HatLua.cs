@@ -47,6 +47,7 @@ namespace PokiClash
             public Color color;
             public Vector2 pos;
             public int fill; // 0 thường; 1 nửa trên (Vertical, gốc trên); 2 nửa dưới
+            public bool flip; // lật ngang ảnh (HatSat.cs: tinh thể của rig khi tướng quay trái)
         }
 
         sealed class Stream
@@ -92,6 +93,22 @@ namespace PokiClash
             { "hoa_nhan", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(58, 50, 66) } },
             // golem lõi lửa (Nham Thần, 2026-11-13): lửa đỏ cam lõi vàng như lưỡi lửa trên rig (bảng "nham" ra nâu sẫm, lệch màu thân), mảnh đá tro văng ra
             { "nham_than", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(178, 167, 154) } },
+            // tinh linh tinh thể sắt (Thiết Tinh, suất bo_cap đảo Kim, 2026-11-16; HatSat.cs): tia bạc lam, dăm tinh thể tím oải hương
+            { "bo_cap", new Theme { pal = "lua", spark = C(226, 232, 248), ember = C(196, 188, 236), ring = C(142, 163, 203), ring2 = C(214, 220, 236), extra = "tinh_the", extraCol = C(167, 159, 211) } },
+            // chiến binh sắt khiên giáo (Thiết Vệ, suất doc_giac đảo Kim, 2026-11-16; HatGiao.cs): tia bạc trắng, mảnh giáp thép xám văng ra
+            { "doc_giac", new Theme { pal = "lua", spark = C(232, 234, 240), ember = C(200, 204, 214), ring = C(170, 174, 184), ring2 = C(225, 228, 235), extra = "giap", extraCol = C(110, 114, 124) } },
+            // tinh linh quặng sắt chui đất (Thiết Khoáng, suất bo_ngua đảo Kim, 2026-11-16; rig ArtGen/Spine/quang_sat_rig.py): tia bạc, than gỉ cam, mảnh quặng sắt đen văng ra
+            { "bo_ngua", new Theme { pal = "lua", spark = C(228, 230, 236), ember = C(224, 122, 46), ring = C(150, 140, 132), ring2 = C(214, 208, 200), extra = "giap", extraCol = C(70, 72, 82) } },
+            // quỷ béo móc xích lửa (Quỷ Xích, suất khien_bac đảo Kim, 2026-11-16; HatXich.cs): lửa đỏ cam lõi vàng thường (xích lửa, cột lửa), tia lửa vàng, mảnh gang sẫm văng ra
+            { "khien_bac", new Theme { pal = "lua", spark = C(255, 214, 120), ember = C(248, 140, 44), ring = C(240, 110, 40), ring2 = C(252, 236, 180), extra = "giap", extraCol = C(86, 90, 100) } },
+            // sói chiến binh khiên búa (Sói Giáp, suất chien_than đảo Kim, 2026-11-16; HatSoi.cs): tia trắng ngà, vòng thép, mảnh sắt đen văng ra
+            { "chien_than", new Theme { pal = "lua", spark = C(250, 238, 196), ember = C(214, 170, 90), ring = C(170, 174, 184), ring2 = C(225, 228, 235), extra = "giap", extraCol = C(74, 72, 80) } },
+            // tinh linh đuôi máy cưa (Thiết Cưa, suất phi_thuong đảo Kim, 2026-11-16; HatCua.cs): tia lửa cưa vàng cam nóng, vòng thép, mảnh đá xám đá phiến văng ra
+            { "phi_thuong", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(170, 174, 184), ring2 = C(225, 228, 235), extra = "giap", extraCol = C(105, 104, 104) } },
+            // kỵ sĩ cổ đại bị nguyền (Vong Kỵ, suất tam_kiem đảo Kim, 2026-11-16; HatHon.cs): lửa linh hồn xanh, khói hồn đen ngả xanh xám, tia xanh nhạt, mảnh giáp sắt rỉ văng ra
+            { "tam_kiem", new Theme { pal = "hon", smoke = new[] { C(38, 46, 40), C(84, 102, 86), C(140, 158, 140), C(196, 210, 196) }, spark = C(214, 255, 160), ember = C(150, 230, 90), ring = C(132, 205, 57), ring2 = C(214, 250, 180), extra = "giap", extraCol = C(112, 96, 88) } },
+            // robot hủy diệt cổ đại (Thần Cơ, suất thiet_phu đảo Kim, 2026-11-16; HatRobot.cs): năng lượng vàng lõi trắng (cầu, nổ cầu), tia vàng nhạt, mảnh thép sẫm văng ra; nổ tên lửa đổi sang lửa đỏ cam (RbLuaTh)
+            { "thiet_phu", new Theme { pal = "nang", spark = C(255, 236, 160), ember = C(255, 196, 80), ring = C(250, 186, 60), ring2 = C(255, 244, 205), extra = "giap", extraCol = C(92, 92, 100) } },
         };
 
         public Theme Th = Default;
@@ -374,6 +391,7 @@ namespace PokiClash
                 rt.anchoredPosition = StageView.P(it.pos);
                 rt.sizeDelta = new Vector2(it.w * K, it.h * K);
                 rt.localEulerAngles = new Vector3(0, 0, it.ang);
+                rt.localScale = it.flip ? new Vector3(-1, 1, 1) : Vector3.one;
             }
             for (int g = 0; g < 3; g++) HideFrom(g, n[g]);
             FlushMang();
@@ -473,6 +491,8 @@ namespace PokiClash
             { "vang", new[] { C(214, 52, 34), C(244, 150, 36), C(255, 212, 70), C(255, 246, 205) } },
             { "sen", new[] { C(194, 40, 82), C(236, 102, 142), C(250, 182, 172), C(255, 238, 232) } },
             { "nguu", new[] { C(220, 70, 30), C(246, 140, 40), C(255, 200, 70), C(255, 240, 200) } },
+            { "hon", new[] { C(70, 150, 50), C(120, 202, 58), C(178, 234, 100), C(236, 255, 200) } }, // lửa linh hồn xanh (Vong Kỵ, HatHon.cs)
+            { "nang", new[] { C(236, 138, 34), C(252, 192, 60), C(255, 232, 140), C(255, 252, 232) } }, // năng lượng vàng lõi trắng (Thần Cơ, HatRobot.cs: RbNang)
         };
         static readonly Color[] SmokeDark = { C(50, 42, 40), C(98, 92, 90), C(152, 148, 146), C(198, 194, 190) };
         static readonly Color[] SmokeFire = { C(240, 140, 50), C(168, 86, 50), C(112, 98, 94), C(160, 156, 152), C(204, 200, 196) };
@@ -487,8 +507,9 @@ namespace PokiClash
         }
 
         void Put(List<Item> buf, int g, float layer, Sprite s, Color c, Vector2 pos, float size, float stretch = 1, float ang = 0,
-            float alpha = 1, int fill = 0) =>
-            buf.Add(new Item { group = g, layer = layer, sprite = s, color = c, pos = pos, w = size * stretch, h = size, ang = ang, alpha = alpha, fill = fill });
+            float alpha = 1, int fill = 0, bool flip = false) =>
+            buf.Add(new Item { group = g, layer = layer, sprite = s, color = c, pos = pos, w = size * stretch, h = size, ang = ang, alpha = alpha, fill = fill,
+                flip = flip });
 
         // ---------- vật liệu ----------
         static void Radii(float k, float r, float heat, float[] o)

@@ -2,6 +2,7 @@
 // Web/scripts/export_golden.ts).
 // roster.json (tướng trên nút ải 71, 95): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using PokiClash.Core;
 
@@ -12,23 +13,26 @@ namespace PokiClash.Tests
         static Dictionary<string, object> Golden() => J.Obj(MiniJson.Parse(TestData.Read("Golden/roster.json")));
 
         [Test]
-        public void DanhSach88Tuong_Thuy23_Hoa17_Kim16_Moc15_Tho17()
+        public void DanhSach57Tuong_Thuy10_Hoa10_Kim10_Moc10_Tho17()
         {
-            // 40 tướng 8 mỗi hệ, Thủy thêm 5 (2026-11-02, kịch bản đảo Thủy), Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 (2026-11-05, 10 tướng mỗi đảo), Hỏa thêm Ngưu Quyền ở ải 20, Thổ thêm 9 (2026-11-06),
-            // Thủy thêm 10 tướng mới thay 10 suất đảo Thủy (2026-11-11, ArtGen/Spine/quai/DAC_TA_LO_THUY.md; tướng cũ vẫn giữ)
+            // 40 tướng 8 mỗi hệ, rồi 10 tướng mỗi đảo (2026-11-05/06, Thủy lô mới 2026-11-11). 2026-11-16 (người dùng): tướng cũ không còn
+            // suất đảo bị bỏ (SaveCodec.BoTuongCu), chỉ giữ 10 tướng đứng ải của mỗi đảo; đảo Thổ chưa làm lại nên giữ cả 7 tướng Thổ cũ
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
-            Assert.AreEqual(88, d.Heroes.Count);
+            Assert.AreEqual(57, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
-                Assert.AreEqual((Elem)e == Elem.Thuy ? 23 : (Elem)e == Elem.Hoa ? 17 : (Elem)e == Elem.Kim ? 16 : (Elem)e == Elem.Moc ? 15 : 17, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
-            // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md); hệ Thủy: Tí Tách thay Giọt Sương từ 2026-11-11
-            Assert.AreEqual(new[] { "ti_tach", "su_tu_lua", "bu_long", "nu_hoa", "thach_nhan" }, d.Starters.ToArray());
-            Assert.IsNotNull(d.Hero("giot_suong"), "tướng cũ mất suất đảo vẫn trong danh sách");
+                Assert.AreEqual((Elem)e == Elem.Tho ? 17 : 10, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
+            // mỗi tướng hệ Thủy, Mộc, Hỏa, Kim đều đứng ở một ải tướng của đảo cùng hệ
+            foreach (var h in d.Heroes)
+                if (h.elem != Elem.Tho)
+                    Assert.IsTrue(d.ZoneStages(h.elem).Any(st => st.tag == StageTag.Hero && st.enemies[0].hero == h.id), h.id + " có suất đảo");
+            // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md); hệ Thủy: Tí Tách thay Giọt Sương từ 2026-11-11; hệ Kim,
+            // Mộc: Thiết Tinh, Cầu Gai (tướng ải 1) thay Bu Lông, Nụ Hoa từ 2026-11-16
+            Assert.AreEqual(new[] { "ti_tach", "su_tu_lua", "bo_cap", "tien_la", "thach_nhan" }, d.Starters.ToArray());
+            foreach (var (old, _) in SaveCodec.BoTuongCu)
+                Assert.IsNull(d.Hero(old), old + " bị bỏ (tướng cũ không còn suất đảo)");
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
-            // Lam Quân 3 dạng; từ 2026-11-08 là thú huyền thoại .atomik tự thiết kế (Bồ Lao, ArtGen/Spine/beast.py), mã hình <id>_<k>
-            // (trước: rig aola thuy_1831 → thuy_1832 → thuy_2955)
-            Assert.AreEqual(new[] { "lam_quan_1", "lam_quan_2", "lam_quan_3" }, System.Array.ConvertAll(d.Hero("lam_quan").forms, f => f.aola));
             // Thanh Long 3 dạng, Long Vuốt 2 dạng; từ 2026-11-08 là hình .atomik vẽ lại theo concept đã duyệt (ArtGen/Spine/build_moc.py,
             // beast.py), mã hình <id>_<k> (trước: rig aola goc_214 → 215 → 1749, goc_1219 → 1220)
             // 2026-11-13: hình của suất này nay là rồng trúc bốn cánh (boss cuối đảo Mộc, rig ArtGen/Spine/moc_vuong_rig.py); dạng 1 rồng con,
@@ -58,10 +62,10 @@ namespace PokiClash.Tests
                 for (int star = 1; star <= 5; star++)
                     Assert.AreEqual((int)(double)idx[star - 1], h.FormIndex(d.Cfg.formStars, star), $"{h.id} sao {star}");
             }
-            // dòng 3 dạng: sao 1–2 dạng 1, sao 3–4 dạng 2, sao 5 dạng 3
-            Assert.AreEqual("Vạn Quân", d.Cfg.FormOf(d.Hero("lam_quan"), 3).name);
-            Assert.AreEqual("Hắc Dực Vạn Quân", d.Cfg.FormOf(d.Hero("lam_quan"), 5).name);
-            Assert.AreEqual("Y Trạch", d.Cfg.FormOf(d.Hero("tieu_y"), 5).name);
+            // dòng 3 dạng: sao 1–2 dạng 1, sao 3–4 dạng 2, sao 5 dạng 3; dòng 2 dạng: sao 3 trở đi dạng 2
+            Assert.AreEqual("Hải Long Tam Thủ", d.Cfg.FormOf(d.Hero("hai_long"), 3).name);
+            Assert.AreEqual("Hải Long Ngũ Đầu", d.Cfg.FormOf(d.Hero("hai_long"), 5).name);
+            Assert.AreEqual("Thạch Thành Giải", d.Cfg.FormOf(d.Hero("thach_giai"), 5).name);
         }
 
         // nhận tướng (tướng khởi đầu, tặng, thu phục đủ mảnh) thì ở sao 1, tức dạng thấp nhất của dòng tiến hóa
@@ -138,7 +142,7 @@ namespace PokiClash.Tests
             var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
             tree["v"] = 3.0;
             var hs = J.Obj(tree, "heroes");
-            var yt = J.Obj(MiniJson.Parse(MiniJson.Write(J.Obj(hs, "tieu_y"))));
+            var yt = OldHero(hs);
             yt["owned"] = true;
             yt["star"] = 3.0;
             hs["y_trach"] = yt;
@@ -148,7 +152,7 @@ namespace PokiClash.Tests
             // v4 gộp Y Trạch vào Tiểu Y, rồi v6 chuyển Tiểu Y sang Thạch Giải, Giọt Sương sang Tí Tách
             Assert.IsTrue(r.Hero("thach_giai").owned);
             Assert.AreEqual(3, r.Hero("thach_giai").star);
-            Assert.IsFalse(r.Hero("tieu_y").owned, "tướng cũ bỏ khỏi bản lưu, đọc lại thành chưa có");
+            Assert.IsNull(r.Hero("tieu_y"), "tướng cũ bỏ khỏi bản lưu và khỏi danh sách tướng");
             Assert.IsNull(r.Hero("y_trach"));
             Assert.AreEqual(new[] { "thach_giai", "ti_tach" }, r.team.ToArray());
             Assert.AreEqual(d.Heroes.Count, r.heroes.Count);
@@ -157,19 +161,30 @@ namespace PokiClash.Tests
         [Test]
         public void DiChuyenBanLuuV5_TuongCuThuy_SangTuongMoi()
         {
-            // bản lưu v5 có tướng cũ đảo Thủy: đọc ra v6, tiến trình chuyển sang tướng mới cùng suất, tướng cũ thành chưa có
+            // bản lưu v5 có tướng cũ đảo Thủy: đọc ra v6, tiến trình chuyển sang tướng mới cùng suất, tướng cũ bỏ khỏi bản lưu
+            // (tướng cũ không còn trong dữ liệu từ 2026-11-16 nên dựng thẳng trên cây JSON)
             var d = TestData.Load();
-            var s = SaveData.New(d, 0, "giot_suong");
-            s.Hero("giot_suong").star = 4;
-            s.Hero("giot_suong").shards = 7;
-            s.Hero("giot_suong").skill.lv = 3;
-            s.Hero("lam_quan").owned = true;
-            s.Hero("lam_quan").shards = 5;
+            var s = SaveData.New(d, 0, null);
+            s.Hero("vo_su").owned = true;
             s.Hero("hai_long").shards = 2; // tướng mới đã có mảnh: cộng dồn
-            s.Hero("kuba").shards = 9; // chưa sở hữu, chỉ có mảnh
-            s.team = new List<string> { "giot_suong", "lam_quan", "vo_su" };
             var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
             tree["v"] = 5.0;
+            var hs = J.Obj(tree, "heroes");
+            var gs = OldHero(hs);
+            gs["owned"] = true;
+            gs["star"] = 4.0;
+            gs["shards"] = 7.0;
+            J.Obj(J.Obj(gs, "cards"), "skill")["lv"] = 3.0;
+            hs["giot_suong"] = gs;
+            var lq = OldHero(hs);
+            lq["owned"] = true;
+            lq["shards"] = 5.0;
+            hs["lam_quan"] = lq;
+            var kb = OldHero(hs);
+            kb["shards"] = 9.0; // chưa sở hữu, chỉ có mảnh
+            hs["kuba"] = kb;
+            tree["starter"] = "giot_suong";
+            tree["team"] = new List<object> { "giot_suong", "lam_quan", "vo_su" };
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var r));
             Assert.AreEqual(d.Cfg.saveVersion, r.v);
             Assert.AreEqual("ti_tach", r.starter);
@@ -182,12 +197,61 @@ namespace PokiClash.Tests
             Assert.IsFalse(r.Hero("lien_kinh").owned);
             Assert.AreEqual(9, r.Hero("lien_kinh").shards);
             foreach (var old in new[] { "giot_suong", "lam_quan", "kuba" })
-            {
-                Assert.IsFalse(r.Hero(old).owned, old);
-                Assert.AreEqual(0, r.Hero(old).shards, old);
-            }
+                Assert.IsNull(r.Hero(old), old);
             Assert.AreEqual(new[] { "ti_tach", "hai_long", "vo_su" }, r.team.ToArray());
             Assert.AreEqual(d.Heroes.Count, r.heroes.Count);
         }
+
+        [Test]
+        public void DiChuyenBanLuuV10_BoTuongCu_GopVaoTuongThay()
+        {
+            // bản lưu v10 còn tướng cũ không có suất đảo (bỏ 2026-11-16): đọc ra v11, tiến trình gộp vào tướng thay cùng hệ (bảng
+            // SaveCodec.BoTuongCu), tướng khởi đầu, đội, trang trại đổi id theo; tướng cũ không còn trong bản lưu
+            var d = TestData.Load();
+            var s = SaveData.New(d, 0, null);
+            s.Hero("vo_su").owned = true;
+            s.Hero("bo_cap").shards = 3;
+            var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
+            tree["v"] = 10.0;
+            var hs = J.Obj(tree, "heroes");
+            var bl = OldHero(hs);
+            bl["owned"] = true;
+            bl["star"] = 3.0;
+            bl["shards"] = 4.0;
+            hs["bu_long"] = bl;
+            var nh = OldHero(hs);
+            nh["shards"] = 6.0;
+            hs["nu_hoa"] = nh;
+            var pl = OldHero(hs);
+            pl["owned"] = true;
+            J.Obj(J.Obj(pl, "cards"), "ult")["lv"] = 2.0;
+            hs["phap_luan"] = pl;
+            var cn = OldHero(hs);
+            cn["owned"] = true;
+            hs["ca_ngua"] = cn;
+            var mk = OldHero(hs);
+            mk["shards"] = 2.0;
+            hs["ma_ket"] = mk; // ca_ngua và ma_ket cùng gộp vào so_ngoc
+            tree["starter"] = "bu_long";
+            tree["team"] = new List<object> { "bu_long", "phap_luan", "vo_su" };
+            Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var r));
+            Assert.AreEqual(d.Cfg.saveVersion, r.v);
+            Assert.AreEqual("bo_cap", r.starter);
+            Assert.IsTrue(r.Hero("bo_cap").owned);
+            Assert.AreEqual(3, r.Hero("bo_cap").star);
+            Assert.AreEqual(7, r.Hero("bo_cap").shards, "cộng mảnh của tướng thay đã có");
+            Assert.IsFalse(r.Hero("tien_la").owned);
+            Assert.AreEqual(6, r.Hero("tien_la").shards);
+            Assert.IsTrue(r.Hero("giap_long").owned);
+            Assert.AreEqual(2, r.Hero("giap_long").ult.lv);
+            Assert.IsTrue(r.Hero("so_ngoc").owned);
+            Assert.AreEqual(2, r.Hero("so_ngoc").shards);
+            Assert.AreEqual(new[] { "bo_cap", "giap_long", "vo_su" }, r.team.ToArray());
+            foreach (var (old, _) in SaveCodec.BoTuongCu) Assert.IsNull(r.Hero(old), old);
+            Assert.AreEqual(d.Heroes.Count, r.heroes.Count);
+        }
+
+        // một mục tướng trống trong cây bản lưu (chép dạng mục của tướng còn trong dữ liệu) để dựng tướng cũ đã bỏ khỏi danh sách
+        static Dictionary<string, object> OldHero(Dictionary<string, object> hs) => J.Obj(MiniJson.Parse(MiniJson.Write(J.Obj(hs, "thach_giai"))));
     }
 }

@@ -143,7 +143,32 @@ namespace PokiClash.Core
             new Dictionary<int, Action<Dictionary<string, object>>>
             {
                 [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6, [7] = MigrateMamU, [8] = MigrateGacDa, [9] = MigrateHoaNhan,
+                [10] = MigrateBoTuongCu,
             };
+
+        // v10 -> v11 (2026-11-16, người dùng: "tướng đã bị thay thế mà còn trong game thì bỏ đi"; đảo Thổ, hai tướng cuối đảo Hỏa giữ):
+        // 31 tướng cũ không còn suất đảo bị bỏ khỏi danh sách tướng. Bản lưu gộp tướng cũ vào một tướng đang đứng ải cùng hệ, gần độ hiếm
+        // (sở hữu, mảnh, sao, cấp thẻ, tiềm năng, đội, trang trại, tướng khởi đầu) như các bước trên. Mười tướng Thủy cũ gộp lại theo
+        // bảng ThuyV6: bước v5 -> v6 đã gộp một lần nhưng tướng cũ còn trong dữ liệu nên được thêm lại (FillMissingHeroes), có thể đã
+        // có mảnh từ máy bi. Bu Lông, Nụ Hoa (tướng khởi đầu Kim, Mộc) gộp vào Thiết Tinh, Cầu Gai, tướng khởi đầu mới của hai hệ.
+        public static readonly (string from, string to)[] BoTuongCu =
+        {
+            ("bu_long", "bo_cap"), ("phao_hop", "doc_giac"), ("kiem_linh", "bo_ngua"), ("meo_quyen", "phi_thuong"), ("soi_linh", "thiet_phu"),
+            ("bach_ho", "kim_nghe"),
+            ("nu_hoa", "tien_la"), ("mam_go", "mam_u"), ("kien_binh", "gac_da"), ("banh_tet", "bom_la"), ("giac_long", "phong_linh"),
+            ("giot_suong", "ti_tach"), ("tieu_y", "thach_giai"), ("canh_cut", "ca_den"), ("mi_nhi", "ha_ba"), ("ma_ket", "so_ngoc"),
+            ("vay_lam", "giong_bao"), ("kuba", "lien_kinh"), ("thuong_lam", "uyen_xa"), ("huyen_vu", "han_ngac"), ("lam_quan", "hai_long"),
+            ("tam_tay", "ha_ba"), ("ca_ngua", "so_ngoc"), ("map_rang", "giong_bao"),
+            ("heo_lua", "hoa_nhan"), ("dom_lua", "nham_than"), ("phao_tet", "kim_su"), ("bo_de", "nguu_quyen"), ("ho_lua", "hong_lien"),
+            ("phap_luan", "giap_long"), ("chu_tuoc", "lan_hoa"),
+        };
+
+        public static void MigrateBoTuongCu(Dictionary<string, object> o)
+        {
+            GopTuong(o, BoTuongCu);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(BoTuongCu, st);
+        }
 
         // v5 -> v6 (lô 10 tướng mới đảo Thủy, 2026-11-11, người dùng chọn "chuyển tướng cũ sang tướng mới"): tướng cũ cùng suất đảo
         // gộp vào tướng mới (sở hữu, mảnh, sao, cấp thẻ, tiềm năng) rồi bỏ khỏi bản lưu; đội, trang trại, tướng khởi đầu đổi id theo.

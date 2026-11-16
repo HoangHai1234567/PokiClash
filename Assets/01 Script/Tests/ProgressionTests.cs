@@ -1,6 +1,8 @@
 // Tiến trình so với bản web (golden): chỉ số 11 tướng × cấp 1/10/20/30 × sao 1/3/5 × boss, chuỗi thẻ rơi từ rương,
 // chuỗi mảnh tướng; và luật nâng thẻ, tiến hóa, đội hình.
 // progression.json (chỉ số 5 tướng khởi đầu, Võ Sư): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
+// 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
+// menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Collections.Generic;
 using NUnit.Framework;
 using PokiClash.Core;
@@ -37,14 +39,14 @@ namespace PokiClash.Tests
         public void ModsCongThemPhanTram()
         {
             var d = TestData.Load();
-            var h = d.Hero("lam_quan");
+            var h = d.Hero("hai_long");
             var a = HeroStats.Compute(d.Cfg, h, 10, 1);
             var b = HeroStats.Compute(d.Cfg, h, 10, 1, false, new StatMods { atkPct = 0.1, spd = 3 });
             Assert.AreEqual(a.hp, b.hp);
             Assert.AreEqual(Js.Round(a.atk * 1.1), b.atk, 1);
             Assert.AreEqual(a.spd + 3, b.spd);
-            // Khiên Bạc (Hiếm) mạnh hơn Bu Lông (Khá) cùng cấp, cùng sao (Bọ Cạp Đồng thành Thường khi làm đảo Kim 2026-11-05)
-            var c = HeroStats.Compute(d.Cfg, d.Hero("bu_long"), 10, 1);
+            // Khiên Bạc (Hiếm) mạnh hơn Thiết Tinh (Khá, tướng khởi đầu hệ Kim từ 2026-11-16) cùng cấp, cùng sao
+            var c = HeroStats.Compute(d.Cfg, d.Hero("bo_cap"), 10, 1);
             var v = HeroStats.Compute(d.Cfg, d.Hero("khien_bac"), 10, 1);
             Assert.Greater(v.hp + v.atk + v.def, c.hp + c.atk + c.def);
         }
@@ -53,8 +55,8 @@ namespace PokiClash.Tests
         public void TheRoiTuRuong_KhopBanWeb()
         {
             var d = TestData.Load();
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
-            foreach (var id in new[] { "vo_su", "ca_ngua", "phap_luan", "ca_sa" }) s.Hero(id).owned = true;
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
+            foreach (var id in new[] { "vo_su", "so_ngoc", "giap_long", "ca_sa" }) s.Hero(id).owned = true;
             var r = new Rng(77);
             var want = J.Arr(G, "drops");
             for (int i = 0; i < want.Count; i++)

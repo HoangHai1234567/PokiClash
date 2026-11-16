@@ -261,7 +261,8 @@ namespace PokiClash
         }
 
         // đòn đánh thường có hiệu ứng dù tướng LAO tới (không đứng bắn): StageView.AtkFx phát lúc clip attack bắt đầu
-        public static bool AtkLao(string kind) => kind == "n_hat_nga" || kind == "n_mo_dam" || kind == "n_nham_va" || kind == "n_ho_va" || kind == "n_nui_huc";
+        public static bool AtkLao(string kind) => kind == "n_hat_nga" || kind == "n_mo_dam" || kind == "n_nham_va" || kind == "n_ho_va" || kind == "n_nui_huc" ||
+            kind == "n_sat_tong" || kind == "n_giao_dam" || kind == "n_xich_go" || kind == "n_khoang_huc" || kind == "n_cua_huc" || kind == "n_hon_chem" || kind == "n_soi_go";
 
         // HẤT NGÀ (đòn đánh thường, clip attack của voi_rung.py: cào đất lead − 0,40; chân sau đạp bật lead − 0,14; nện + hất ngà = lead):
         // bụi cào đất dưới chân trước, bụi và đất vụn bắn ra sau lúc chân sau đạp, lá trên lưng tuột lại phía sau lúc bay, tới nơi

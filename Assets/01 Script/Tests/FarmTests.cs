@@ -1,6 +1,8 @@
 // Trang trại so với bản web (golden farm.json): công thức năng suất / thời lượng / nghỉ, rồi chạy lại từng bước (đặt, rút, nghỉ, tự xếp,
 // tăng tốc, thu hoạch, lùi giờ, tua) và so cả trạng thái sau mỗi bước. Thêm: ví dụ trong design, kho 12 giờ, lưu rồi đọc lại.
 // farm.json (Võ Sư lên Khá): tính lại bên Unity 2026-11-03 (5 tướng khởi đầu, GD_Claude/15_TuongKhoiDau.md).
+// 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
+// menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -14,10 +16,10 @@ namespace PokiClash.Tests
 
         static SaveData Setup(GameData d)
         {
-            var s = SaveData.New(d, 0, TestData.OldStarter); // golden xuất khi tướng khởi đầu mặc định là Giọt Sương
-            foreach (var id in new[] { "vo_su", "nu_hoa", "ca_ngua", "bo_de" }) s.Hero(id).owned = true;
+            var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
+            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "nguu_quyen" }) s.Hero(id).owned = true;
             s.level = 9;
-            s.Hero("ca_ngua").star = 3;
+            s.Hero("so_ngoc").star = 3;
             return s;
         }
 
@@ -92,34 +94,34 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
-            s.Hero("tieu_y").owned = true; // ví dụ tính tay theo Tiểu Y (Thường); tướng khởi đầu mặc định giờ là Tí Tách
+            s.Hero("thach_giai").owned = true; // ví dụ tính tay theo một tướng Thủy Thường (Thạch Giải; trước là Tiểu Y, bỏ 2026-11-16)
             s.level = 5;
-            Assert.AreEqual(2.5, Farm.Rate(s, d, "tieu_y", 0), 1e-9, "Tiểu Y 1 sao ở Ao vịt (hợp hệ): 2 × 1,25 = 2,5 bi/giờ, không tăng theo cấp");
+            Assert.AreEqual(2.5, Farm.Rate(s, d, "thach_giai", 0), 1e-9, "Thạch Giải 1 sao ở Ao vịt (hợp hệ): 2 × 1,25 = 2,5 bi/giờ, không tăng theo cấp");
             s.level = 20;
-            Assert.AreEqual(2.5, Farm.Rate(s, d, "tieu_y", 0), 1e-9, "cấp 20 vẫn 2,5");
+            Assert.AreEqual(2.5, Farm.Rate(s, d, "thach_giai", 0), 1e-9, "cấp 20 vẫn 2,5");
             s.level = 5;
-            Assert.AreEqual(8, Farm.Hours(s, d, "tieu_y"), "ca 8 giờ ở 1 sao");
-            s.Hero("tieu_y").star = 3;
-            Assert.AreEqual(10, Farm.Hours(s, d, "tieu_y"), "+1 giờ mỗi sao");
-            s.Hero("tieu_y").star = 1;
-            Assert.AreEqual(60, Farm.RestMin(s, d, "tieu_y"), "8 giờ × 15 phút, chặn ở 60");
+            Assert.AreEqual(8, Farm.Hours(s, d, "thach_giai"), "ca 8 giờ ở 1 sao");
+            s.Hero("thach_giai").star = 3;
+            Assert.AreEqual(10, Farm.Hours(s, d, "thach_giai"), "+1 giờ mỗi sao");
+            s.Hero("thach_giai").star = 1;
+            Assert.AreEqual(60, Farm.RestMin(s, d, "thach_giai"), "8 giờ × 15 phút, chặn ở 60");
             Assert.IsFalse(Farm.Open(s, d.Cfg), "1 tướng chưa mở");
-            foreach (var id in new[] { "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "vo_su", "tien_la" }) s.Hero(id).owned = true;
             Assert.IsTrue(Farm.Open(s, d.Cfg));
             s.level = 40;
             Assert.AreEqual(4, Farm.SpotsOpen(d.Cfg, 40), "cấp 40: 4 chỗ");
             Assert.AreEqual(70, Farm.SpotLevel(d.Cfg, 4), "chỗ thứ 5 mở ở cấp 70");
-            Assert.IsTrue(Farm.Place(s, d, 0, 0, "tieu_y"));
+            Assert.IsTrue(Farm.Place(s, d, 0, 0, "thach_giai"));
             // tướng hết sức sau 8 giờ: vắng 12 giờ vẫn chỉ có năng suất × 8
             Farm.Tick(s, d, 12 * H);
-            Assert.AreEqual(Farm.Rate(s, d, "tieu_y", 0) * 8, s.farm.spots[0].stock, 1e-9);
-            Assert.IsFalse(Farm.Place(s, d, 12 * H, 1, "tieu_y"), "đang làm ở chỗ khác");
+            Assert.AreEqual(Farm.Rate(s, d, "thach_giai", 0) * 8, s.farm.spots[0].stock, 1e-9);
+            Assert.IsFalse(Farm.Place(s, d, 12 * H, 1, "thach_giai"), "đang làm ở chỗ khác");
             Assert.IsTrue(Farm.Remove(s, d, 12 * H, 0));
-            Assert.IsFalse(Farm.Place(s, d, 12 * H + 30 * 60000, 1, "tieu_y"), "đang nghỉ");
-            Assert.IsTrue(Farm.Place(s, d, 12 * H + 61 * 60000, 1, "tieu_y"), "nghỉ đủ 60 phút");
+            Assert.IsFalse(Farm.Place(s, d, 12 * H + 30 * 60000, 1, "thach_giai"), "đang nghỉ");
+            Assert.IsTrue(Farm.Place(s, d, 12 * H + 61 * 60000, 1, "thach_giai"), "nghỉ đủ 60 phút");
             var json = SaveCodec.Write(s);
             Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(json, d, out var back));
-            Assert.AreEqual("tieu_y", back.farm.spots[1].hero);
+            Assert.AreEqual("thach_giai", back.farm.spots[1].hero);
             Assert.AreEqual(s.farm.spots[0].stock, back.farm.spots[0].stock);
             Assert.AreEqual(s.farm.lastTick, back.farm.lastTick);
         }

@@ -413,7 +413,7 @@
    "first": true,
    "shards": [
     [
-     "mam_go",
+     "mam_u",
      10,
      true,
      0
@@ -820,9 +820,9 @@
     "big": false,
     "cards": [
      [
-      "mam_go",
+      "mam_u",
       "passive",
-      "mam_go_pas",
+      "mam_u_pas",
       "common"
      ]
     ]
@@ -836,15 +836,15 @@
     "big": false,
     "cards": [
      [
-      "mam_go",
+      "mam_u",
       "passive",
-      "mam_go_pas",
+      "mam_u_pas",
       "common"
      ],
      [
-      "mam_go",
+      "mam_u",
       "passive",
-      "mam_go_pas",
+      "mam_u_pas",
       "common"
      ]
     ]
@@ -908,9 +908,9 @@
       "epic"
      ],
      [
-      "mam_go",
+      "mam_u",
       "ult",
-      "mam_go_ult",
+      "mam_u_ult",
       "uncommon"
      ],
      [
@@ -1027,7 +1027,7 @@
   },
   "balls": 379,
   "owned": [
-   "mam_go",
+   "mam_u",
    "ti_tach",
    "so_ngoc",
    "vo_su"

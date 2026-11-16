@@ -2,6 +2,8 @@
 // và so kết quả cùng toàn bộ trạng thái AFK sau mỗi bước. Golden chụp từ web rồi tính lại bên Unity khi đổi sang AFK theo ải
 // (2026-11-03: mảnh rơi theo ải AFK, có thêm bước "stage"). Thêm các tình huống của spec: đầy 12 giờ, tăng tốc rồi tắt game; và của
 // AFK theo ải: ải tự chọn, mảnh đúng tướng của ải, đổi ải giữ phần giờ lẻ.
+// 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
+// menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
@@ -21,7 +23,7 @@ namespace PokiClash.Tests
             var g = J.Obj(MiniJson.Parse(TestData.Read("Golden/afk.json")));
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, (long)t0);
-            foreach (var id in new[] { "vo_su", "nu_hoa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "vo_su", "tien_la" }) s.Hero(id).owned = true;
             var rng = new Rng(21);
             int i = 0;
             foreach (var x in J.Arr(g, "steps"))

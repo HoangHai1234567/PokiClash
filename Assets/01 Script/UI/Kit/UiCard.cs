@@ -1,6 +1,7 @@
 // Thẻ bài vẽ tay (chép cardEl của bản web): dải màu độ hiếm trên đầu, băng keo theo loại thẻ, tên viền mực, ô hình tròn,
 // mô tả theo cấp thẻ, dòng độ hiếm, nhãn giá (mana xanh, nộ cam), khoá, vệt sáng chạy cho thẻ Huyền thoại.
 // Prefab Assets/04 Prefabs/Kit/The (320 × 464) và TheMini (200 × 292), web 160 × 232 và 100 × 146. Bind gán thẻ.
+// Thẻ bấm được: đè ngón thì lún ngay (phản hồi lúc chạm xuống, GameFeel 3.1), kéo ra ngoài hay nhả thì bật về; chọn lúc nhả.
 using System;
 using PokiClash.Core;
 using TMPro;
@@ -10,7 +11,7 @@ using UnityEngine.UI;
 
 namespace PokiClash.UI
 {
-    public sealed class UiCard : MonoBehaviour, IPointerClickHandler
+    public sealed class UiCard : MonoBehaviour, IPointerClickHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
     {
         public static readonly Vector2 NormalSize = new Vector2(320, 464);
         public static readonly Vector2 MiniSize = new Vector2(200, 292);
@@ -28,8 +29,11 @@ namespace PokiClash.UI
 
         public CardDef Card { get; private set; }
         public bool Mini => mini;
+        [NonSerialized] public string ClickSound = "pick"; // null: chỗ dùng tự phát tiếng (trận leo cao độ theo lần chọn)
+        [NonSerialized] public bool PressHaptic; // đè ngón thì rung một tích (thẻ chọn trong trận)
         Action onClick;
         float shineT;
+        bool pressed;
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(bool isMini, Parts parts)
@@ -101,10 +105,39 @@ namespace PokiClash.UI
             p.shine.rectTransform.anchoredPosition = new Vector2(Mathf.Lerp(-w * 0.4f, w * 1.4f, shineT), 0);
         }
 
+        // tắt bấm (thẻ không được chọn đang chìm xuống)
+        public void SetInteractable(bool on)
+        {
+            if (!on)
+            {
+                onClick = null;
+                Release();
+            }
+            p.frame.raycastTarget = on && onClick != null;
+        }
+
+        public void OnPointerDown(PointerEventData e)
+        {
+            if (onClick == null) return;
+            pressed = true;
+            UiMotion.Of(this).Press(true);
+            if (PressHaptic) Haptics.Play(Haptic.CardTap);
+        }
+
+        public void OnPointerUp(PointerEventData e) => Release();
+        public void OnPointerExit(PointerEventData e) => Release();
+
+        void Release()
+        {
+            if (!pressed) return;
+            pressed = false;
+            if (TryGetComponent<UiMotion>(out var m)) m.Press(false);
+        }
+
         public void OnPointerClick(PointerEventData e)
         {
             if (onClick == null) return;
-            SketchButton.Sound?.Invoke("pick");
+            if (!string.IsNullOrEmpty(ClickSound)) SketchButton.Sound?.Invoke(ClickSound);
             UiMotion.Of(this).Punch(0.8f); // bộ UI Sa Bàn: chạm thẻ thì nảy, nét mực bung
             if (e != null) InkBurst.At(this, e);
             onClick();

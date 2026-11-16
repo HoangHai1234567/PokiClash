@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Quặng sắt rig</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2a2b31; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.ghi { margin: 0 0 14px; color: #bbb; max-width: 1100px; }
+  .luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .rong { grid-column: 1 / -1; }
+  figure { margin: 0; background: #96969a; border-radius: 8px; overflow: hidden; }
+  figure img { width: 100%; display: block; }
+  figcaption { background: #1d1e22; padding: 8px 10px; color: #ddd; }
+  b { color: #ffcf6a; }
+  a { color: #8fd3ff; }
+</style>
+</head>
+<body>
+<h1>Tinh linh quặng sắt (tướng 3 đảo Kim) — rig và animation</h1>
+<p class="ghi">Ảnh động vẽ bằng bộ vẽ của mình ở 30 khung/giây. Khối xám là chỗ đối thủ (đặt xa hơn chỗ mặc định trong rig) để thấy phần code game làm:
+cú lao / đường đào được sân nắn tới đối thủ, hai tay bay được co quãng và chĩa theo hướng bay thật. Bụi đất, vệt đất, tia va chạm là việc của lớp VFX
+(rig chỉ đặt sự kiện). Trang Spine Web Player của rig: <a href="quang_sat_1/rig/xem.html">quang_sat_1/rig/xem.html</a>.</p>
+<div class="luoi">
+  <figure class="rong"><img src="quang_sat_1/rig/dong/skill.webp"><figcaption><b>Chiêu cuối</b>: lấy đà, bật lên lộn ngược, cắm mũi tinh thể xuống hố; gò đất mang mũi tinh thể ló lên như vây cá chạy ngầm tới đối thủ; mũi tinh thể phá đất trước rồi cả con vọt lên húc từ dưới (đoạn bật của skill_01_2); rơi xuống, nhảy lùi về chỗ cũ</figcaption></figure>
+  <figure class="rong"><img src="quang_sat_1/rig/dong/cast.webp"><figcaption><b>Chiêu mana</b>: nheo mắt, ngả ra sau kéo hai tay về sau; hai tay quặng lần lượt phóng tới găm vào đối thủ (code co quãng, chĩa mũi theo hướng bay); rút về xoay một vòng, tay trái vòng qua đầu, lắp đúng chỗ tay thật</figcaption></figure>
+  <figure class="rong"><img src="quang_sat_1/rig/dong/attack.webp"><figcaption><b>Đánh thường</b>: nheo mắt ngả ra sau lấy đà, lao tới húc chéo lên, bẹp theo chiều húc đúng khung chạm, về chỗ</figcaption></figure>
+  <figure><img src="quang_sat_1/rig/dong/appear.webp"><figcaption><b>Ra sân</b>: nằm bẹp ngủ (mắt ngủ cong, thở), mở mắt lờ đờ, chớp hai lần, mở to giật mình, bật bay lên rồi hạ về dáng đứng</figcaption></figure>
+  <figure><img src="quang_sat_1/rig/dong/idle.webp"><figcaption><b>Đứng</b> (6,7 s): như con gốc (nhún, chớp mắt, nheo mắt phải), thêm trò hai tay quặng xoay một vòng như nam châm, nheo mắt lúc xoay</figcaption></figure>
+  <figure><img src="quang_sat_1/rig/dong/walk.webp"><figcaption><b>Đi</b>: như con gốc</figcaption></figure>
+  <figure><img src="quang_sat_1/rig/dong/hit.webp"><figcaption><b>Trúng đòn</b>: như con gốc, mắt nhắm &gt; &lt;</figcaption></figure>
+  <figure><img src="quang_sat_1/rig/dong/die.webp"><figcaption><b>Chết</b>: như con gốc (văng, đổ, hai tay rơi rời), mờ dần</figcaption></figure>
+</div>
+</body>
+</html>
