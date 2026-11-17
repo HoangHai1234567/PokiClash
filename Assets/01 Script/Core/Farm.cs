@@ -44,7 +44,7 @@ namespace PokiClash.Core
         {
             var c = d.Cfg.farm;
             var h = d.Hero(hero);
-            double r = c.@base * c.rarityPower[(int)h.rarity] * (1 + c.lvStep * (s.level - 1)) * (1 + c.starStep * (s.Hero(hero).star - 1));
+            double r = c.@base * c.rarityPower[(int)h.rarity] * (1 + c.lvStep * (s.level - 1)) * (1 + c.starStep * (StarTier.Legacy(s.Hero(hero).star) - 1)); // sao quy về thang cũ (bậc sao 2026-11-17)
             if (h.elem == c.spots[i].elem) r *= c.match;
             return r;
         }
@@ -52,7 +52,7 @@ namespace PokiClash.Core
         public static double Hours(SaveData s, GameData d, string hero)
         {
             var c = d.Cfg.farm;
-            return c.durBase + c.durStar * (s.Hero(hero).star - 1) + c.durRarity * (int)d.Hero(hero).rarity;
+            return c.durBase + c.durStar * (StarTier.Legacy(s.Hero(hero).star) - 1) + c.durRarity * (int)d.Hero(hero).rarity;
         }
 
         public static double RestMin(SaveData s, GameData d, string hero)

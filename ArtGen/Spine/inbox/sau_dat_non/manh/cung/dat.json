@@ -1,0 +1,167 @@
+{
+ "mat": {
+  "slot": "P_jiao_05",
+  "hop": [
+   892,
+   477,
+   957,
+   527
+  ],
+  "nguon": "L1_duyet.png (c\u1eaft th\u1eb3ng)",
+  "phu": 1.0
+ },
+ "dau": {
+  "slot": "P_shange",
+  "hop": [
+   746,
+   361,
+   1044,
+   592
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "maoA": {
+  "slot": "P_jiao_03",
+  "hop": [
+   730,
+   266,
+   856,
+   338
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "ham": {
+  "slot": "P_xiae_01",
+  "hop": [
+   827,
+   544,
+   1036,
+   636
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "maoB": {
+  "slot": "P_jiao_02",
+  "hop": [
+   622,
+   292,
+   772,
+   403
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "may": {
+  "slot": "P_jiao_08",
+  "hop": [
+   853,
+   450,
+   976,
+   527
+  ],
+  "nguon": "K2.png",
+  "phu": 0.89
+ },
+ "mieng": {
+  "slot": "P_xiae_02",
+  "hop": [
+   910,
+   482,
+   1056,
+   630
+  ],
+  "nguon": "K3.png",
+  "phu": 1.0
+ },
+ "maoC": {
+  "slot": "P_jiao_01",
+  "hop": [
+   604,
+   385,
+   716,
+   485
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "nanh1": {
+  "slot": "P_jiao_07",
+  "hop": [
+   919,
+   573,
+   954,
+   607
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "nanh2": {
+  "slot": "P_jiao_09",
+  "hop": [
+   995,
+   583,
+   1024,
+   612
+  ],
+  "nguon": "sau_dat_non/tai_ve/L1_duyet.png (concept B, c\u1eaft th\u1eb3ng, n\u1eafn v\u1ec1 khung concept d\u1ea1ng 2)",
+  "phu": 1.0
+ },
+ "vong": {
+  "slot": "P_jiao_04",
+  "hop": [
+   746,
+   353,
+   922,
+   619
+  ],
+  "nguon": "K4.png",
+  "phu": 0.51
+ },
+ "dau_k": {
+  "slot": "P_shange",
+  "hop": [
+   817,
+   425,
+   1056,
+   601
+  ],
+  "nguon": "K1.png",
+  "phu": 0.98
+ },
+ "ham_k": {
+  "slot": "P_xiae_01",
+  "hop": [
+   827,
+   555,
+   1055,
+   667
+  ],
+  "nguon": "K2.png",
+  "phu": 0.92
+ },
+ "nanh1_k": {
+  "slot": "P_jiao_07",
+  "hop": [
+   823,
+   556,
+   910,
+   644
+  ],
+  "nguon": "K4.png",
+  "phu": 0.35
+ },
+ "nanh2_k": {
+  "slot": "P_jiao_09",
+  "hop": [
+   942,
+   565,
+   1017,
+   654
+  ],
+  "nguon": "K4.png",
+  "phu": 0.76
+ }
+}

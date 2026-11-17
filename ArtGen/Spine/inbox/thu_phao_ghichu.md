@@ -188,4 +188,10 @@ nhẹ) khi vào game; khối mai của rig giữ đường tấm của họ (con
   cung, nổ lửa), `n_phao_mua1|n_phao_mua` (5 quả lên trời, tách 2 / 3 tên lửa nhỏ homing), `n_phao_cau1|n_phao_cau` (gồng tụ cầu năng lượng vàng, sét
   lách tách, bắn, nổ rất lớn, giật điện ~0,9 s). Đăng ký: StageView `KimFx["ung_thep"]`, `AtkDang["ung_thep"]`, HatNuoc 6 case, HatLua
   `Themes["ung_thep"]` (pal "nang"), KimFxTour hai menu Pháo Giáp / Pháo Giáp Nhi. Kiểm biên dịch ngoài Unity bằng dotnet (Game + Editor): qua.
-- **Unity**: CHỜ cầu MCP (instance 0: người dùng bấm Window > MCP for Unity > Start Session); assets-af đã nhường lượt.
+- **Unity** (2026-11-17, máy C, cầu MCP cổng 8080; người dùng: "thay tướng thứ 9 vào game"): "Nhập dữ liệu" (57 tướng, 172 thẻ riêng),
+  "Gắn dạng .atomik vào prefab tướng" → `ung_thep: prefab giữ 2 dạng (thu_phao_1, thu_phao_2)` (thu_phao_1 246 xương 9 clip có evolve, thu_phao_2
+  123 xương 8 clip). Golden không chứa tên cũ, số dạng giữ 2 → không tính lại. EditMode 107/108 qua; hỏng `PrefabOnlyTests.MaRuntime_KhongSinhDoVat`
+  (NumberTicker.cs, UiMotion.cs AddComponent: lỗi cũ từ commit 5f403ea9, không dính tướng này). Soi trong trận bằng KimFxTour (Pháo Giáp 5 sao,
+  Pháo Giáp Nhi 1 sao, `Temp/PokiShots/kim_fx/ung_thep_*`): đạn sắt bay cung nổ ở đối thủ; 5 quả lên trời tách tên lửa lao xuống; cầu năng lượng
+  tụ ở họng, bắn, nổ vòng sóng + sét; console không lỗi. Xoá `Resources/ung_thep_1`, `ung_thep_2` (hình Ưng Thép cũ, không còn gì trỏ tới; xoá qua
+  AssetDatabase).

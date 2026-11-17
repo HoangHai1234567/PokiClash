@@ -134,7 +134,7 @@
     {
      "hero": "linh_cua",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -164,7 +164,7 @@
     {
      "hero": "linh_cua",
      "level": 11,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -183,7 +183,7 @@
     {
      "hero": "linh_cua",
      "level": 11,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -213,7 +213,7 @@
     {
      "hero": "linh_cua",
      "level": 14,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -243,7 +243,7 @@
     {
      "hero": "thach_giai",
      "level": 18,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -273,7 +273,7 @@
     {
      "hero": "linh_cua",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -292,7 +292,7 @@
     {
      "hero": "linh_cua",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -322,7 +322,7 @@
     {
      "hero": "thach_giai",
      "level": 25,
-     "star": 3,
+     "star": 5,
      "cards": [
       3,
       3,
@@ -352,7 +352,7 @@
     {
      "hero": "thach_giai",
      "level": 29,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -371,7 +371,7 @@
     {
      "hero": "linh_cua",
      "level": 29,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -401,7 +401,7 @@
     {
      "hero": "thach_giai",
      "level": 32,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -420,7 +420,7 @@
     {
      "hero": "linh_cua",
      "level": 32,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -450,7 +450,7 @@
     {
      "hero": "ca_den",
      "level": 35,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -460,9 +460,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": 0.012000000000000011,
-      "atkPct": 0.012000000000000011,
-      "defPct": 0.18250000000000011,
+      "hpPct": -0.080000000000000071,
+      "atkPct": -0.080000000000000071,
+      "defPct": 0.074999999999999956,
       "spd": 0
      }
     }
@@ -480,7 +480,7 @@
     {
      "hero": "linh_noc",
      "level": 39,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -499,7 +499,7 @@
     {
      "hero": "linh_cua",
      "level": 39,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -529,7 +529,7 @@
     {
      "hero": "ca_den",
      "level": 42,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -539,9 +539,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.014399999999999746,
-      "atkPct": -0.014399999999999746,
-      "defPct": 0.16600000000000015,
+      "hpPct": -0.10399999999999987,
+      "atkPct": -0.10399999999999987,
+      "defPct": 0.060000000000000053,
       "spd": 0
      }
     }
@@ -559,7 +559,7 @@
     {
      "hero": "thach_giai",
      "level": 45,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -578,7 +578,7 @@
     {
      "hero": "linh_noc",
      "level": 45,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -608,7 +608,7 @@
     {
      "hero": "ca_den",
      "level": 48,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -618,16 +618,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.18800000000000017,
-      "atkPct": 0.18800000000000017,
-      "defPct": 0.2925000000000002,
+      "hpPct": 0.080000000000000071,
+      "atkPct": 0.080000000000000071,
+      "defPct": 0.17500000000000004,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
      "level": 48,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -657,7 +657,7 @@
     {
      "hero": "ha_ba",
      "level": 51,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -687,7 +687,7 @@
     {
      "hero": "linh_cua",
      "level": 54,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -706,7 +706,7 @@
     {
      "hero": "linh_noc",
      "level": 54,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -736,7 +736,7 @@
     {
      "hero": "ha_ba",
      "level": 57,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -766,7 +766,7 @@
     {
      "hero": "ca_den",
      "level": 60,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -776,16 +776,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.40800000000000036,
-      "atkPct": 0.40800000000000036,
-      "defPct": 0.43000000000000016,
+      "hpPct": 0.28000000000000025,
+      "atkPct": 0.28000000000000025,
+      "defPct": 0.30000000000000004,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
      "level": 60,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -815,7 +815,7 @@
     {
      "hero": "ha_ba",
      "level": 63,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -834,7 +834,7 @@
     {
      "hero": "linh_noc",
      "level": 63,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -864,7 +864,7 @@
     {
      "hero": "so_ngoc",
      "level": 66,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -874,9 +874,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.29311475409836063,
-      "atkPct": -0.040655737704917927,
-      "defPct": 0.081967213114754189,
+      "hpPct": -0.29886178861788615,
+      "atkPct": -0.048455284552845534,
+      "defPct": 0.073170731707317138,
       "spd": 0
      }
     }
@@ -894,7 +894,7 @@
     {
      "hero": "linh_cua",
      "level": 69,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -913,7 +913,7 @@
     {
      "hero": "linh_noc",
      "level": 69,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -943,7 +943,7 @@
     {
      "hero": "so_ngoc",
      "level": 72,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -953,9 +953,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24065573770491833,
-      "atkPct": 0.24065573770491833,
-      "defPct": 0.22622950819672139,
+      "hpPct": 0.23056910569105704,
+      "atkPct": 0.23056910569105704,
+      "defPct": 0.21626016260162606,
       "spd": 0
      }
     }
@@ -973,7 +973,7 @@
     {
      "hero": "ha_ba",
      "level": 74,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -992,7 +992,7 @@
     {
      "hero": "linh_ngu",
      "level": 74,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1022,7 +1022,7 @@
     {
      "hero": "linh_cua",
      "level": 77,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1041,7 +1041,7 @@
     {
      "hero": "linh_noc",
      "level": 77,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1060,7 +1060,7 @@
     {
      "hero": "linh_cua",
      "level": 77,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1090,7 +1090,7 @@
     {
      "hero": "so_ngoc",
      "level": 80,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1100,16 +1100,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11803278688524621,
-      "atkPct": 0.11803278688524621,
-      "defPct": 0.14959016393442637,
+      "hpPct": 0.10894308943089448,
+      "atkPct": 0.10894308943089448,
+      "defPct": 0.14024390243902451,
       "spd": 0
      }
     },
     {
      "hero": "ca_den",
      "level": 80,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1119,9 +1119,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.36400000000000032,
-      "atkPct": 0.36400000000000032,
-      "defPct": 0.40250000000000008,
+      "hpPct": 0.24000000000000021,
+      "atkPct": 0.24000000000000021,
+      "defPct": 0.27499999999999991,
       "spd": 0
      }
     }
@@ -1139,7 +1139,7 @@
     {
      "hero": "so_ngoc",
      "level": 83,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -1149,9 +1149,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.334426229508197,
-      "atkPct": 0.334426229508197,
-      "defPct": 0.28483606557377072,
+      "hpPct": 0.32357723577235808,
+      "atkPct": 0.32357723577235808,
+      "defPct": 0.27439024390243927,
       "spd": 0
      }
     }
@@ -1169,7 +1169,7 @@
     {
      "hero": "linh_noc",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1188,7 +1188,7 @@
     {
      "hero": "linh_cua",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1218,7 +1218,7 @@
     {
      "hero": "so_ngoc",
      "level": 88,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1228,16 +1228,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.0983606557377048,
-      "atkPct": -0.0983606557377048,
-      "defPct": 0.014344262295082011,
+      "hpPct": -0.1056910569105689,
+      "atkPct": -0.1056910569105689,
+      "defPct": 0.0060975609756097615,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc",
      "level": 88,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1256,7 +1256,7 @@
     {
      "hero": "linh_ngu",
      "level": 88,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1286,7 +1286,7 @@
     {
      "hero": "so_ngoc",
      "level": 91,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1296,16 +1296,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     },
     {
      "hero": "ha_ba",
      "level": 91,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1335,7 +1335,7 @@
     {
      "hero": "giong_bao",
      "level": 94,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1345,9 +1345,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.242622950819672,
-      "atkPct": 0.027868852459016491,
-      "defPct": 0.12704918032786905,
+      "hpPct": -0.24878048780487805,
+      "atkPct": 0.019512195121951237,
+      "defPct": 0.11788617886178865,
       "spd": 0
      }
     }
@@ -1365,7 +1365,7 @@
     {
      "hero": "linh_noc",
      "level": 97,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1384,7 +1384,7 @@
     {
      "hero": "linh_ngu",
      "level": 97,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1414,7 +1414,7 @@
     {
      "hero": "giong_bao",
      "level": 99,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1424,9 +1424,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24065573770491833,
-      "atkPct": 0.24065573770491833,
-      "defPct": 0.22622950819672139,
+      "hpPct": 0.23056910569105704,
+      "atkPct": 0.23056910569105704,
+      "defPct": 0.21626016260162606,
       "spd": 0
      }
     }
@@ -1444,7 +1444,7 @@
     {
      "hero": "so_ngoc",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1454,16 +1454,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.154098360655738,
-      "atkPct": 0.154098360655738,
-      "defPct": 0.17213114754098369,
+      "hpPct": 0.14471544715447182,
+      "atkPct": 0.14471544715447182,
+      "defPct": 0.16260162601626038,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1493,7 +1493,7 @@
     {
      "hero": "linh_noc",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1512,7 +1512,7 @@
     {
      "hero": "linh_ngu",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1531,7 +1531,7 @@
     {
      "hero": "linh_noc",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1561,7 +1561,7 @@
     {
      "hero": "giong_bao",
      "level": 107,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1571,16 +1571,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11803278688524621,
-      "atkPct": 0.11803278688524621,
-      "defPct": 0.14959016393442637,
+      "hpPct": 0.10894308943089448,
+      "atkPct": 0.10894308943089448,
+      "defPct": 0.14024390243902451,
       "spd": 0
      }
     },
     {
      "hero": "ha_ba",
      "level": 107,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -1610,7 +1610,7 @@
     {
      "hero": "giong_bao",
      "level": 110,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1620,9 +1620,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.334426229508197,
-      "atkPct": 0.334426229508197,
-      "defPct": 0.28483606557377072,
+      "hpPct": 0.32357723577235808,
+      "atkPct": 0.32357723577235808,
+      "defPct": 0.27439024390243927,
       "spd": 0
      }
     }
@@ -1640,7 +1640,7 @@
     {
      "hero": "linh_ngu2",
      "level": 113,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1659,7 +1659,7 @@
     {
      "hero": "linh_noc2",
      "level": 113,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1689,7 +1689,7 @@
     {
      "hero": "giong_bao",
      "level": 115,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1699,16 +1699,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.0983606557377048,
-      "atkPct": -0.0983606557377048,
-      "defPct": 0.014344262295082011,
+      "hpPct": -0.1056910569105689,
+      "atkPct": -0.1056910569105689,
+      "defPct": 0.0060975609756097615,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
      "level": 115,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1727,7 +1727,7 @@
     {
      "hero": "linh_cua2",
      "level": 115,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1757,7 +1757,7 @@
     {
      "hero": "giong_bao",
      "level": 118,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1767,16 +1767,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     },
     {
      "hero": "so_ngoc",
      "level": 118,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1786,9 +1786,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     }
@@ -1806,7 +1806,7 @@
     {
      "hero": "lien_kinh",
      "level": 120,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1816,9 +1816,9 @@
      "evo": true,
      "trait": "lien_kinh_boss",
      "mods": {
-      "hpPct": -0.38852941176470579,
-      "atkPct": -0.17014705882352932,
-      "defPct": -0.049632352941176405,
+      "hpPct": -0.397391304347826,
+      "atkPct": -0.18217391304347808,
+      "defPct": -0.063405797101449113,
       "spd": 0
      }
     }
@@ -1836,7 +1836,7 @@
     {
      "hero": "linh_ngu2",
      "level": 123,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1855,7 +1855,7 @@
     {
      "hero": "linh_cua2",
      "level": 123,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -1885,7 +1885,7 @@
     {
      "hero": "lien_kinh",
      "level": 126,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -1895,9 +1895,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     }
@@ -1915,7 +1915,7 @@
     {
      "hero": "giong_bao",
      "level": 128,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -1925,16 +1925,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.154098360655738,
-      "atkPct": 0.154098360655738,
-      "defPct": 0.17213114754098369,
+      "hpPct": 0.14471544715447182,
+      "atkPct": 0.14471544715447182,
+      "defPct": 0.16260162601626038,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
      "level": 128,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -1964,7 +1964,7 @@
     {
      "hero": "linh_ngu2",
      "level": 131,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -1983,7 +1983,7 @@
     {
      "hero": "linh_cua2",
      "level": 131,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2002,7 +2002,7 @@
     {
      "hero": "linh_ngu2",
      "level": 131,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2032,7 +2032,7 @@
     {
      "hero": "lien_kinh",
      "level": 133,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2042,16 +2042,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0029411764705882248,
-      "atkPct": 0.0029411764705882248,
-      "defPct": 0.03125,
+      "hpPct": -0.011594202898550399,
+      "atkPct": -0.011594202898550399,
+      "defPct": 0.016304347826086918,
       "spd": 0
      }
     },
     {
      "hero": "so_ngoc",
      "level": 133,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2061,9 +2061,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11803278688524621,
-      "atkPct": 0.11803278688524621,
-      "defPct": 0.14959016393442637,
+      "hpPct": 0.10894308943089448,
+      "atkPct": 0.10894308943089448,
+      "defPct": 0.14024390243902451,
       "spd": 0
      }
     }
@@ -2081,7 +2081,7 @@
     {
      "hero": "lien_kinh",
      "level": 136,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2091,9 +2091,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.19705882352941195,
-      "atkPct": 0.19705882352941195,
-      "defPct": 0.15257352941176472,
+      "hpPct": 0.17971014492753667,
+      "atkPct": 0.17971014492753667,
+      "defPct": 0.13586956521739157,
       "spd": 0
      }
     }
@@ -2111,7 +2111,7 @@
     {
      "hero": "linh_cua2",
      "level": 138,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2130,7 +2130,7 @@
     {
      "hero": "linh_ngu2",
      "level": 138,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -2160,7 +2160,7 @@
     {
      "hero": "lien_kinh",
      "level": 141,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2170,16 +2170,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.090073529411764719,
+      "hpPct": -0.20289855072463747,
+      "atkPct": -0.20289855072463747,
+      "defPct": -0.10326086956521729,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
      "level": 141,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2198,7 +2198,7 @@
     {
      "hero": "linh_noc2",
      "level": 141,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2228,7 +2228,7 @@
     {
      "hero": "lien_kinh",
      "level": 144,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2238,16 +2238,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     },
     {
      "hero": "giong_bao",
      "level": 144,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2257,9 +2257,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     }
@@ -2277,7 +2277,7 @@
     {
      "hero": "uyen_xa",
      "level": 146,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2287,9 +2287,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.32058823529411762,
-      "atkPct": -0.07794117647058818,
-      "defPct": 0.011029411764705843,
+      "hpPct": -0.33043478260869552,
+      "atkPct": -0.091304347826086873,
+      "defPct": -0.0036231884057970065,
       "spd": 0
      }
     }
@@ -2307,7 +2307,7 @@
     {
      "hero": "linh_cua2",
      "level": 149,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2326,7 +2326,7 @@
     {
      "hero": "linh_noc2",
      "level": 149,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2356,7 +2356,7 @@
     {
      "hero": "uyen_xa",
      "level": 151,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2366,9 +2366,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     }
@@ -2386,7 +2386,7 @@
     {
      "hero": "lien_kinh",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2396,16 +2396,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.03529411764705892,
-      "atkPct": 0.03529411764705892,
-      "defPct": 0.051470588235294157,
+      "hpPct": 0.020289855072464169,
+      "atkPct": 0.020289855072464169,
+      "defPct": 0.036231884057971175,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -2435,7 +2435,7 @@
     {
      "hero": "linh_cua2",
      "level": 156,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2454,7 +2454,7 @@
     {
      "hero": "linh_noc2",
      "level": 156,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2473,7 +2473,7 @@
     {
      "hero": "linh_cua2",
      "level": 156,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2503,7 +2503,7 @@
     {
      "hero": "uyen_xa",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2513,16 +2513,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0029411764705882248,
-      "atkPct": 0.0029411764705882248,
-      "defPct": 0.03125,
+      "hpPct": -0.011594202898550399,
+      "atkPct": -0.011594202898550399,
+      "defPct": 0.016304347826086918,
       "spd": 0
      }
     },
     {
      "hero": "giong_bao",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2532,9 +2532,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11803278688524621,
-      "atkPct": 0.11803278688524621,
-      "defPct": 0.14959016393442637,
+      "hpPct": 0.10894308943089448,
+      "atkPct": 0.10894308943089448,
+      "defPct": 0.14024390243902451,
       "spd": 0
      }
     }
@@ -2552,7 +2552,7 @@
     {
      "hero": "uyen_xa",
      "level": 161,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2562,9 +2562,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.19705882352941195,
-      "atkPct": 0.19705882352941195,
-      "defPct": 0.15257352941176472,
+      "hpPct": 0.17971014492753667,
+      "atkPct": 0.17971014492753667,
+      "defPct": 0.13586956521739157,
       "spd": 0
      }
     }
@@ -2582,7 +2582,7 @@
     {
      "hero": "linh_noc2",
      "level": 163,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2601,7 +2601,7 @@
     {
      "hero": "linh_cua2",
      "level": 163,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2631,7 +2631,7 @@
     {
      "hero": "uyen_xa",
      "level": 166,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2641,16 +2641,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.090073529411764719,
+      "hpPct": -0.20289855072463747,
+      "atkPct": -0.20289855072463747,
+      "defPct": -0.10326086956521729,
       "spd": 0
      }
     },
     {
      "hero": "linh_noc2",
      "level": 166,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2669,7 +2669,7 @@
     {
      "hero": "linh_ngu2",
      "level": 166,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2699,7 +2699,7 @@
     {
      "hero": "uyen_xa",
      "level": 168,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2709,16 +2709,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     },
     {
      "hero": "lien_kinh",
      "level": 168,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -2728,9 +2728,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     }
@@ -2748,7 +2748,7 @@
     {
      "hero": "han_ngac",
      "level": 171,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2758,9 +2758,9 @@
      "evo": true,
      "trait": "han_ngac_boss",
      "mods": {
-      "hpPct": -0.4250666666666667,
-      "atkPct": -0.21973333333333334,
-      "defPct": -0.12,
+      "hpPct": -0.37507246376811587,
+      "atkPct": -0.15188405797101445,
+      "defPct": -0.043478260869565188,
       "spd": 0
      }
     }
@@ -2778,7 +2778,7 @@
     {
      "hero": "linh_noc2",
      "level": 173,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2797,7 +2797,7 @@
     {
      "hero": "linh_ngu2",
      "level": 173,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2827,7 +2827,7 @@
     {
      "hero": "han_ngac",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2837,9 +2837,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0090666666666667783,
-      "atkPct": 0.0090666666666667783,
-      "defPct": -0.002666666666666706,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     }
@@ -2857,7 +2857,7 @@
     {
      "hero": "uyen_xa",
      "level": 178,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2867,16 +2867,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.03529411764705892,
-      "atkPct": 0.03529411764705892,
-      "defPct": 0.051470588235294157,
+      "hpPct": 0.020289855072464169,
+      "atkPct": 0.020289855072464169,
+      "defPct": 0.036231884057971175,
       "spd": 0
      }
     },
     {
      "hero": "linh_cua2",
      "level": 178,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2906,7 +2906,7 @@
     {
      "hero": "linh_noc2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2925,7 +2925,7 @@
     {
      "hero": "linh_ngu2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2944,7 +2944,7 @@
     {
      "hero": "linh_noc2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2974,7 +2974,7 @@
     {
      "hero": "han_ngac",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -2984,16 +2984,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.090666666666666451,
-      "atkPct": -0.090666666666666451,
-      "defPct": -0.064999999999999947,
+      "hpPct": -0.011594202898550399,
+      "atkPct": -0.011594202898550399,
+      "defPct": 0.016304347826086918,
       "spd": 0
      }
     },
     {
      "hero": "lien_kinh",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -3003,9 +3003,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0029411764705882248,
-      "atkPct": 0.0029411764705882248,
-      "defPct": 0.03125,
+      "hpPct": -0.011594202898550399,
+      "atkPct": -0.011594202898550399,
+      "defPct": 0.016304347826086918,
       "spd": 0
      }
     }
@@ -3023,7 +3023,7 @@
     {
      "hero": "han_ngac",
      "level": 185,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3033,9 +3033,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0853333333333337,
-      "atkPct": 0.0853333333333337,
-      "defPct": 0.045000000000000151,
+      "hpPct": 0.17971014492753667,
+      "atkPct": 0.17971014492753667,
+      "defPct": 0.13586956521739157,
       "spd": 0
      }
     }
@@ -3053,7 +3053,7 @@
     {
      "hero": "linh_ngu2",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3072,7 +3072,7 @@
     {
      "hero": "linh_noc2",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3102,7 +3102,7 @@
     {
      "hero": "han_ngac",
      "level": 190,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3112,16 +3112,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.2666666666666665,
-      "atkPct": -0.2666666666666665,
-      "defPct": -0.17499999999999993,
+      "hpPct": -0.20289855072463747,
+      "atkPct": -0.20289855072463747,
+      "defPct": -0.10326086956521729,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngu2",
      "level": 190,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3140,7 +3140,7 @@
     {
      "hero": "linh_cua2",
      "level": 190,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3170,7 +3170,7 @@
     {
      "hero": "han_ngac",
      "level": 193,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3180,16 +3180,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.026666666666666838,
-      "atkPct": 0.026666666666666838,
-      "defPct": 0.0083333333333333037,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     },
     {
      "hero": "uyen_xa",
      "level": 193,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3199,9 +3199,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     }
@@ -3219,7 +3219,7 @@
     {
      "hero": "hai_long",
      "level": 195,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -3229,9 +3229,9 @@
      "evo": true,
      "trait": "hai_long_boss",
      "mods": {
-      "hpPct": -0.1620588235294117,
-      "atkPct": 0.1372058823529414,
-      "defPct": 0.15257352941176472,
+      "hpPct": -0.35249999999999992,
+      "atkPct": -0.12124999999999986,
+      "defPct": -0.109375,
       "spd": 0
      }
     }
@@ -3279,7 +3279,7 @@
     {
      "hero": "su_tu_lua",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -3298,7 +3298,7 @@
     {
      "hero": "linh_lo",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -3328,7 +3328,7 @@
     {
      "hero": "linh_lo",
      "level": 11,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -3347,7 +3347,7 @@
     {
      "hero": "linh_lo",
      "level": 11,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -3377,7 +3377,7 @@
     {
      "hero": "su_tu_lua",
      "level": 15,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -3396,7 +3396,7 @@
     {
      "hero": "linh_lo",
      "level": 15,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -3426,7 +3426,7 @@
     {
      "hero": "hoa_nhan",
      "level": 19,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -3456,7 +3456,7 @@
     {
      "hero": "linh_lo",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -3475,7 +3475,7 @@
     {
      "hero": "linh_nam",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -3505,7 +3505,7 @@
     {
      "hero": "hoa_nhan",
      "level": 26,
-     "star": 3,
+     "star": 5,
      "cards": [
       3,
       3,
@@ -3535,7 +3535,7 @@
     {
      "hero": "su_tu_lua",
      "level": 29,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -3554,7 +3554,7 @@
     {
      "hero": "linh_lo",
      "level": 29,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -3584,7 +3584,7 @@
     {
      "hero": "hoa_nhan",
      "level": 33,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -3603,7 +3603,7 @@
     {
      "hero": "linh_nam",
      "level": 33,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -3633,7 +3633,7 @@
     {
      "hero": "kim_su",
      "level": 36,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -3663,7 +3663,7 @@
     {
      "hero": "linh_khi",
      "level": 39,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -3682,7 +3682,7 @@
     {
      "hero": "linh_lo",
      "level": 39,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -3712,7 +3712,7 @@
     {
      "hero": "kim_su",
      "level": 42,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -3742,7 +3742,7 @@
     {
      "hero": "hoa_nhan",
      "level": 46,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3761,7 +3761,7 @@
     {
      "hero": "linh_nam",
      "level": 46,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3791,7 +3791,7 @@
     {
      "hero": "kim_su",
      "level": 49,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3810,7 +3810,7 @@
     {
      "hero": "linh_khi",
      "level": 49,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3840,7 +3840,7 @@
     {
      "hero": "nham_than",
      "level": 52,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3870,7 +3870,7 @@
     {
      "hero": "linh_nam",
      "level": 55,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3889,7 +3889,7 @@
     {
      "hero": "linh_khi",
      "level": 55,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3919,7 +3919,7 @@
     {
      "hero": "nham_than",
      "level": 58,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -3949,7 +3949,7 @@
     {
      "hero": "kim_su",
      "level": 61,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -3968,7 +3968,7 @@
     {
      "hero": "linh_lo",
      "level": 61,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -3998,7 +3998,7 @@
     {
      "hero": "nham_than",
      "level": 64,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4017,7 +4017,7 @@
     {
      "hero": "linh_nam",
      "level": 64,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4047,7 +4047,7 @@
     {
      "hero": "nguu_quyen",
      "level": 67,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4057,9 +4057,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.16688524590163933,
-      "atkPct": 0.13065573770491823,
-      "defPct": 0.194672131147541,
+      "hpPct": -0.17365853658536579,
+      "atkPct": 0.12146341463414623,
+      "defPct": 0.18495934959349603,
       "spd": 0
      }
     }
@@ -4077,7 +4077,7 @@
     {
      "hero": "linh_lo",
      "level": 70,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4096,7 +4096,7 @@
     {
      "hero": "linh_nam",
      "level": 70,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4126,7 +4126,7 @@
     {
      "hero": "nguu_quyen",
      "level": 73,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4136,9 +4136,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.3127868852459017,
-      "atkPct": 0.3127868852459017,
-      "defPct": 0.27131147540983624,
+      "hpPct": 0.3021138211382115,
+      "atkPct": 0.3021138211382115,
+      "defPct": 0.26097560975609757,
       "spd": 0
      }
     }
@@ -4156,7 +4156,7 @@
     {
      "hero": "nham_than",
      "level": 76,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4175,7 +4175,7 @@
     {
      "hero": "linh_khi",
      "level": 76,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4205,7 +4205,7 @@
     {
      "hero": "linh_lo",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4224,7 +4224,7 @@
     {
      "hero": "linh_nam",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4243,7 +4243,7 @@
     {
      "hero": "linh_lo",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4273,7 +4273,7 @@
     {
      "hero": "nguu_quyen",
      "level": 81,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4283,16 +4283,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.154098360655738,
-      "atkPct": 0.154098360655738,
-      "defPct": 0.17213114754098369,
+      "hpPct": 0.14471544715447182,
+      "atkPct": 0.14471544715447182,
+      "defPct": 0.16260162601626038,
       "spd": 0
      }
     },
     {
      "hero": "kim_su",
      "level": 81,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4322,7 +4322,7 @@
     {
      "hero": "nguu_quyen",
      "level": 84,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -4332,9 +4332,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4065573770491806,
-      "atkPct": 0.4065573770491806,
-      "defPct": 0.32991803278688558,
+      "hpPct": 0.39512195121951232,
+      "atkPct": 0.39512195121951232,
+      "defPct": 0.31910569105691078,
       "spd": 0
      }
     }
@@ -4352,7 +4352,7 @@
     {
      "hero": "linh_nam",
      "level": 87,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4371,7 +4371,7 @@
     {
      "hero": "linh_lo",
      "level": 87,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4401,7 +4401,7 @@
     {
      "hero": "nguu_quyen",
      "level": 90,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4411,16 +4411,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.062295081967212895,
-      "atkPct": -0.062295081967212895,
-      "defPct": 0.03688524590163933,
+      "hpPct": -0.069918699186991673,
+      "atkPct": -0.069918699186991673,
+      "defPct": 0.028455284552845628,
       "spd": 0
      }
     },
     {
      "hero": "linh_nam",
      "level": 90,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4439,7 +4439,7 @@
     {
      "hero": "linh_khi",
      "level": 90,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4469,7 +4469,7 @@
     {
      "hero": "nguu_quyen",
      "level": 93,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4479,16 +4479,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2983606557377052,
-      "atkPct": 0.2983606557377052,
-      "defPct": 0.26229508196721318,
+      "hpPct": 0.28780487804878074,
+      "atkPct": 0.28780487804878074,
+      "defPct": 0.2520325203252034,
       "spd": 0
      }
     },
     {
      "hero": "nham_than",
      "level": 93,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4518,7 +4518,7 @@
     {
      "hero": "hong_lien",
      "level": 95,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4528,9 +4528,9 @@
      "evo": true,
      "trait": "hong_lien_boss",
      "mods": {
-      "hpPct": -0.16688524590163933,
-      "atkPct": 0.13065573770491823,
-      "defPct": 0.194672131147541,
+      "hpPct": -0.17365853658536579,
+      "atkPct": 0.12146341463414623,
+      "defPct": 0.18495934959349603,
       "spd": 0
      }
     }
@@ -4548,7 +4548,7 @@
     {
      "hero": "linh_nam",
      "level": 98,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4567,7 +4567,7 @@
     {
      "hero": "linh_khi",
      "level": 98,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4597,7 +4597,7 @@
     {
      "hero": "hong_lien",
      "level": 101,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4607,9 +4607,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.3127868852459017,
-      "atkPct": 0.3127868852459017,
-      "defPct": 0.27131147540983624,
+      "hpPct": 0.3021138211382115,
+      "atkPct": 0.3021138211382115,
+      "defPct": 0.26097560975609757,
       "spd": 0
      }
     }
@@ -4627,7 +4627,7 @@
     {
      "hero": "nguu_quyen",
      "level": 104,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4637,16 +4637,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.19016393442622959,
-      "atkPct": 0.19016393442622959,
-      "defPct": 0.194672131147541,
+      "hpPct": 0.18048780487804894,
+      "atkPct": 0.18048780487804894,
+      "defPct": 0.18495934959349603,
       "spd": 0
      }
     },
     {
      "hero": "linh_lo",
      "level": 104,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4676,7 +4676,7 @@
     {
      "hero": "linh_nam",
      "level": 106,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4695,7 +4695,7 @@
     {
      "hero": "linh_khi",
      "level": 106,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4714,7 +4714,7 @@
     {
      "hero": "linh_nam",
      "level": 106,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -4744,7 +4744,7 @@
     {
      "hero": "hong_lien",
      "level": 109,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4754,16 +4754,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.154098360655738,
-      "atkPct": 0.154098360655738,
-      "defPct": 0.17213114754098369,
+      "hpPct": 0.14471544715447182,
+      "atkPct": 0.14471544715447182,
+      "defPct": 0.16260162601626038,
       "spd": 0
      }
     },
     {
      "hero": "nham_than",
      "level": 109,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4793,7 +4793,7 @@
     {
      "hero": "hong_lien",
      "level": 112,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4803,9 +4803,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4065573770491806,
-      "atkPct": 0.4065573770491806,
-      "defPct": 0.32991803278688558,
+      "hpPct": 0.39512195121951232,
+      "atkPct": 0.39512195121951232,
+      "defPct": 0.31910569105691078,
       "spd": 0
      }
     }
@@ -4823,7 +4823,7 @@
     {
      "hero": "linh_khi2",
      "level": 114,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4842,7 +4842,7 @@
     {
      "hero": "linh_nam2",
      "level": 114,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4872,7 +4872,7 @@
     {
      "hero": "hong_lien",
      "level": 117,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4882,16 +4882,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.062295081967212895,
-      "atkPct": -0.062295081967212895,
-      "defPct": 0.03688524590163933,
+      "hpPct": -0.069918699186991673,
+      "atkPct": -0.069918699186991673,
+      "defPct": 0.028455284552845628,
       "spd": 0
      }
     },
     {
      "hero": "linh_khi2",
      "level": 117,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4910,7 +4910,7 @@
     {
      "hero": "linh_lo2",
      "level": 117,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4940,7 +4940,7 @@
     {
      "hero": "hong_lien",
      "level": 120,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4950,16 +4950,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2983606557377052,
-      "atkPct": 0.2983606557377052,
-      "defPct": 0.26229508196721318,
+      "hpPct": 0.28780487804878074,
+      "atkPct": 0.28780487804878074,
+      "defPct": 0.2520325203252034,
       "spd": 0
      }
     },
     {
      "hero": "nguu_quyen",
      "level": 120,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4969,9 +4969,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2983606557377052,
-      "atkPct": 0.2983606557377052,
-      "defPct": 0.26229508196721318,
+      "hpPct": 0.28780487804878074,
+      "atkPct": 0.28780487804878074,
+      "defPct": 0.2520325203252034,
       "spd": 0
      }
     }
@@ -4989,7 +4989,7 @@
     {
      "hero": "giap_long",
      "level": 122,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -4999,9 +4999,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.20735294117647063,
-      "atkPct": 0.075735294117647012,
-      "defPct": 0.11213235294117641,
+      "hpPct": -0.21884057971014481,
+      "atkPct": 0.060144927536232018,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     }
@@ -5019,7 +5019,7 @@
     {
      "hero": "linh_khi2",
      "level": 125,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5038,7 +5038,7 @@
     {
      "hero": "linh_lo2",
      "level": 125,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5068,7 +5068,7 @@
     {
      "hero": "giap_long",
      "level": 128,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5078,9 +5078,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.17764705882352927,
-      "atkPct": 0.17764705882352927,
-      "defPct": 0.14044117647058818,
+      "hpPct": 0.16057971014492778,
+      "atkPct": 0.16057971014492778,
+      "defPct": 0.12391304347826093,
       "spd": 0
      }
     }
@@ -5098,7 +5098,7 @@
     {
      "hero": "hong_lien",
      "level": 130,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5108,16 +5108,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.19016393442622959,
-      "atkPct": 0.19016393442622959,
-      "defPct": 0.194672131147541,
+      "hpPct": 0.18048780487804894,
+      "atkPct": 0.18048780487804894,
+      "defPct": 0.18495934959349603,
       "spd": 0
      }
     },
     {
      "hero": "linh_nam2",
      "level": 130,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5147,7 +5147,7 @@
     {
      "hero": "linh_khi2",
      "level": 133,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5166,7 +5166,7 @@
     {
      "hero": "linh_lo2",
      "level": 133,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5185,7 +5185,7 @@
     {
      "hero": "linh_khi2",
      "level": 133,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5215,7 +5215,7 @@
     {
      "hero": "giap_long",
      "level": 135,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5225,16 +5225,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.03529411764705892,
-      "atkPct": 0.03529411764705892,
-      "defPct": 0.051470588235294157,
+      "hpPct": 0.020289855072464169,
+      "atkPct": 0.020289855072464169,
+      "defPct": 0.036231884057971175,
       "spd": 0
      }
     },
     {
      "hero": "nguu_quyen",
      "level": 135,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5244,9 +5244,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.154098360655738,
-      "atkPct": 0.154098360655738,
-      "defPct": 0.17213114754098369,
+      "hpPct": 0.14471544715447182,
+      "atkPct": 0.14471544715447182,
+      "defPct": 0.16260162601626038,
       "spd": 0
      }
     }
@@ -5264,7 +5264,7 @@
     {
      "hero": "giap_long",
      "level": 138,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -5274,9 +5274,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     }
@@ -5294,7 +5294,7 @@
     {
      "hero": "linh_lo2",
      "level": 141,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5313,7 +5313,7 @@
     {
      "hero": "linh_khi2",
      "level": 141,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5343,7 +5343,7 @@
     {
      "hero": "giap_long",
      "level": 143,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5353,16 +5353,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.069852941176470673,
+      "hpPct": -0.1710144927536229,
+      "atkPct": -0.1710144927536229,
+      "defPct": -0.083333333333333259,
       "spd": 0
      }
     },
     {
      "hero": "linh_lo2",
      "level": 143,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5381,7 +5381,7 @@
     {
      "hero": "linh_nam2",
      "level": 143,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5411,7 +5411,7 @@
     {
      "hero": "giap_long",
      "level": 146,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5421,16 +5421,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     },
     {
      "hero": "hong_lien",
      "level": 146,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5440,9 +5440,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2983606557377052,
-      "atkPct": 0.2983606557377052,
-      "defPct": 0.26229508196721318,
+      "hpPct": 0.28780487804878074,
+      "atkPct": 0.28780487804878074,
+      "defPct": 0.2520325203252034,
       "spd": 0
      }
     }
@@ -5460,7 +5460,7 @@
     {
      "hero": "huyen_viem",
      "level": 148,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5470,9 +5470,9 @@
      "evo": true,
      "trait": "huyen_viem_boss",
      "mods": {
-      "hpPct": -0.25264705882352945,
-      "atkPct": 0.014264705882352846,
-      "defPct": 0.071691176470588314,
+      "hpPct": -0.26347826086956516,
+      "atkPct": -0.00043478260869556085,
+      "defPct": 0.056159420289855211,
       "spd": 0
      }
     }
@@ -5490,7 +5490,7 @@
     {
      "hero": "linh_lo2",
      "level": 151,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5509,7 +5509,7 @@
     {
      "hero": "linh_nam2",
      "level": 151,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5539,7 +5539,7 @@
     {
      "hero": "huyen_viem",
      "level": 153,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -5549,9 +5549,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.17764705882352927,
-      "atkPct": 0.17764705882352927,
-      "defPct": 0.14044117647058818,
+      "hpPct": 0.16057971014492778,
+      "atkPct": 0.16057971014492778,
+      "defPct": 0.12391304347826093,
       "spd": 0
      }
     }
@@ -5569,7 +5569,7 @@
     {
      "hero": "giap_long",
      "level": 156,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5579,16 +5579,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0676470588235294,
-      "atkPct": 0.0676470588235294,
-      "defPct": 0.071691176470588314,
+      "hpPct": 0.052173913043478404,
+      "atkPct": 0.052173913043478404,
+      "defPct": 0.056159420289855211,
       "spd": 0
      }
     },
     {
      "hero": "linh_khi2",
      "level": 156,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5618,7 +5618,7 @@
     {
      "hero": "linh_lo2",
      "level": 158,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5637,7 +5637,7 @@
     {
      "hero": "linh_nam2",
      "level": 158,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5656,7 +5656,7 @@
     {
      "hero": "linh_lo2",
      "level": 158,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5686,7 +5686,7 @@
     {
      "hero": "huyen_viem",
      "level": 161,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5696,16 +5696,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.03529411764705892,
-      "atkPct": 0.03529411764705892,
-      "defPct": 0.051470588235294157,
+      "hpPct": 0.020289855072464169,
+      "atkPct": 0.020289855072464169,
+      "defPct": 0.036231884057971175,
       "spd": 0
      }
     },
     {
      "hero": "hong_lien",
      "level": 161,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5715,9 +5715,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.154098360655738,
-      "atkPct": 0.154098360655738,
-      "defPct": 0.17213114754098369,
+      "hpPct": 0.14471544715447182,
+      "atkPct": 0.14471544715447182,
+      "defPct": 0.16260162601626038,
       "spd": 0
      }
     }
@@ -5735,7 +5735,7 @@
     {
      "hero": "huyen_viem",
      "level": 163,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5745,9 +5745,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     }
@@ -5765,7 +5765,7 @@
     {
      "hero": "linh_nam2",
      "level": 166,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5784,7 +5784,7 @@
     {
      "hero": "linh_lo2",
      "level": 166,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5814,7 +5814,7 @@
     {
      "hero": "huyen_viem",
      "level": 168,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5824,16 +5824,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.069852941176470673,
+      "hpPct": -0.1710144927536229,
+      "atkPct": -0.1710144927536229,
+      "defPct": -0.083333333333333259,
       "spd": 0
      }
     },
     {
      "hero": "linh_nam2",
      "level": 168,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5852,7 +5852,7 @@
     {
      "hero": "linh_khi2",
      "level": 168,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -5882,7 +5882,7 @@
     {
      "hero": "huyen_viem",
      "level": 171,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -5892,16 +5892,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     },
     {
      "hero": "giap_long",
      "level": 171,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -5911,9 +5911,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     }
@@ -5931,7 +5931,7 @@
     {
      "hero": "hoa_tinh",
      "level": 173,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -5941,9 +5941,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.20735294117647063,
-      "atkPct": 0.075735294117647012,
-      "defPct": 0.11213235294117641,
+      "hpPct": -0.21884057971014481,
+      "atkPct": 0.060144927536232018,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     }
@@ -5961,7 +5961,7 @@
     {
      "hero": "linh_nam2",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -5980,7 +5980,7 @@
     {
      "hero": "linh_khi2",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6010,7 +6010,7 @@
     {
      "hero": "hoa_tinh",
      "level": 178,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6020,9 +6020,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.17764705882352927,
-      "atkPct": 0.17764705882352927,
-      "defPct": 0.14044117647058818,
+      "hpPct": 0.16057971014492778,
+      "atkPct": 0.16057971014492778,
+      "defPct": 0.12391304347826093,
       "spd": 0
      }
     }
@@ -6040,7 +6040,7 @@
     {
      "hero": "huyen_viem",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6050,16 +6050,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0676470588235294,
-      "atkPct": 0.0676470588235294,
-      "defPct": 0.071691176470588314,
+      "hpPct": 0.052173913043478404,
+      "atkPct": 0.052173913043478404,
+      "defPct": 0.056159420289855211,
       "spd": 0
      }
     },
     {
      "hero": "linh_lo2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6089,7 +6089,7 @@
     {
      "hero": "linh_nam2",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6108,7 +6108,7 @@
     {
      "hero": "linh_khi2",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6127,7 +6127,7 @@
     {
      "hero": "linh_nam2",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -6157,7 +6157,7 @@
     {
      "hero": "hoa_tinh",
      "level": 186,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6167,16 +6167,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.03529411764705892,
-      "atkPct": 0.03529411764705892,
-      "defPct": 0.051470588235294157,
+      "hpPct": 0.020289855072464169,
+      "atkPct": 0.020289855072464169,
+      "defPct": 0.036231884057971175,
       "spd": 0
      }
     },
     {
      "hero": "giap_long",
      "level": 186,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6186,9 +6186,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.03529411764705892,
-      "atkPct": 0.03529411764705892,
-      "defPct": 0.051470588235294157,
+      "hpPct": 0.020289855072464169,
+      "atkPct": 0.020289855072464169,
+      "defPct": 0.036231884057971175,
       "spd": 0
      }
     }
@@ -6206,7 +6206,7 @@
     {
      "hero": "hoa_tinh",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6216,9 +6216,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     }
@@ -6236,7 +6236,7 @@
     {
      "hero": "linh_khi2",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6255,7 +6255,7 @@
     {
      "hero": "linh_nam2",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6285,7 +6285,7 @@
     {
      "hero": "hoa_tinh",
      "level": 193,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6295,16 +6295,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.15882352941176459,
-      "atkPct": -0.15882352941176459,
-      "defPct": -0.069852941176470673,
+      "hpPct": -0.1710144927536229,
+      "atkPct": -0.1710144927536229,
+      "defPct": -0.083333333333333259,
       "spd": 0
      }
     },
     {
      "hero": "linh_khi2",
      "level": 193,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6323,7 +6323,7 @@
     {
      "hero": "linh_lo2",
      "level": 193,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6353,7 +6353,7 @@
     {
      "hero": "hoa_tinh",
      "level": 196,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6363,16 +6363,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     },
     {
      "hero": "huyen_viem",
      "level": 196,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -6382,9 +6382,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     }
@@ -6402,7 +6402,7 @@
     {
      "hero": "lan_hoa",
      "level": 198,
-     "star": 5,
+     "star": 15,
      "cards": [
       5,
       5,
@@ -6412,9 +6412,9 @@
      "evo": true,
      "trait": "lan_hoa_boss",
      "mods": {
-      "hpPct": -0.19920000000000004,
-      "atkPct": 0.086799999999999988,
-      "defPct": 0.081666666666666776,
+      "hpPct": -0.3175,
+      "atkPct": -0.073749999999999982,
+      "defPct": -0.078125,
       "spd": 0
      }
     }
@@ -6462,7 +6462,7 @@
     {
      "hero": "bo_cap",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -6481,7 +6481,7 @@
     {
      "hero": "linh_giap",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -6511,7 +6511,7 @@
     {
      "hero": "linh_giap",
      "level": 10,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -6530,7 +6530,7 @@
     {
      "hero": "linh_giap",
      "level": 10,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -6560,7 +6560,7 @@
     {
      "hero": "bo_cap",
      "level": 14,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -6579,7 +6579,7 @@
     {
      "hero": "linh_giap",
      "level": 14,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -6609,7 +6609,7 @@
     {
      "hero": "doc_giac",
      "level": 18,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -6639,7 +6639,7 @@
     {
      "hero": "linh_giap",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -6658,7 +6658,7 @@
     {
      "hero": "linh_khien",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -6688,7 +6688,7 @@
     {
      "hero": "doc_giac",
      "level": 25,
-     "star": 3,
+     "star": 5,
      "cards": [
       3,
       3,
@@ -6718,7 +6718,7 @@
     {
      "hero": "bo_cap",
      "level": 28,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -6737,7 +6737,7 @@
     {
      "hero": "linh_giap",
      "level": 28,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -6767,7 +6767,7 @@
     {
      "hero": "doc_giac",
      "level": 32,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -6786,7 +6786,7 @@
     {
      "hero": "linh_khien",
      "level": 32,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -6816,7 +6816,7 @@
     {
      "hero": "bo_ngua",
      "level": 35,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -6846,7 +6846,7 @@
     {
      "hero": "linh_may",
      "level": 38,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -6865,7 +6865,7 @@
     {
      "hero": "linh_giap",
      "level": 38,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -6895,7 +6895,7 @@
     {
      "hero": "bo_ngua",
      "level": 41,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -6925,7 +6925,7 @@
     {
      "hero": "doc_giac",
      "level": 44,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -6944,7 +6944,7 @@
     {
      "hero": "linh_khien",
      "level": 44,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -6974,7 +6974,7 @@
     {
      "hero": "bo_ngua",
      "level": 47,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -6993,7 +6993,7 @@
     {
      "hero": "linh_may",
      "level": 47,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7023,7 +7023,7 @@
     {
      "hero": "phi_thuong",
      "level": 50,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7053,7 +7053,7 @@
     {
      "hero": "linh_khien",
      "level": 53,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7072,7 +7072,7 @@
     {
      "hero": "linh_may",
      "level": 53,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7102,7 +7102,7 @@
     {
      "hero": "phi_thuong",
      "level": 56,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7132,7 +7132,7 @@
     {
      "hero": "bo_ngua",
      "level": 59,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7151,7 +7151,7 @@
     {
      "hero": "linh_giap",
      "level": 59,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -7181,7 +7181,7 @@
     {
      "hero": "phi_thuong",
      "level": 62,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7200,7 +7200,7 @@
     {
      "hero": "linh_khien",
      "level": 62,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7230,7 +7230,7 @@
     {
      "hero": "khien_bac",
      "level": 65,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7240,9 +7240,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.15678688524590156,
-      "atkPct": 0.14436065573770507,
-      "defPct": 0.20368852459016407,
+      "hpPct": -0.16364227642276419,
+      "atkPct": 0.13505691056910574,
+      "defPct": 0.19390243902439042,
       "spd": 0
      }
     }
@@ -7260,7 +7260,7 @@
     {
      "hero": "linh_giap",
      "level": 68,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7279,7 +7279,7 @@
     {
      "hero": "linh_khien",
      "level": 68,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7309,7 +7309,7 @@
     {
      "hero": "khien_bac",
      "level": 71,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7319,9 +7319,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4426229508196724,
-      "atkPct": 0.4426229508196724,
-      "defPct": 0.35245901639344268,
+      "hpPct": 0.43089430894308967,
+      "atkPct": 0.43089430894308967,
+      "defPct": 0.34146341463414642,
       "spd": 0
      }
     }
@@ -7339,7 +7339,7 @@
     {
      "hero": "phi_thuong",
      "level": 74,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7358,7 +7358,7 @@
     {
      "hero": "linh_may",
      "level": 74,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7388,7 +7388,7 @@
     {
      "hero": "linh_giap",
      "level": 76,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7407,7 +7407,7 @@
     {
      "hero": "linh_khien",
      "level": 76,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7426,7 +7426,7 @@
     {
      "hero": "linh_giap",
      "level": 76,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7456,7 +7456,7 @@
     {
      "hero": "khien_bac",
      "level": 79,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7466,16 +7466,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13245901639344271,
-      "atkPct": 0.13245901639344271,
-      "defPct": 0.15860655737704921,
+      "hpPct": 0.12325203252032524,
+      "atkPct": 0.12325203252032524,
+      "defPct": 0.14918699186991868,
       "spd": 0
      }
     },
     {
      "hero": "bo_ngua",
      "level": 79,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7505,7 +7505,7 @@
     {
      "hero": "khien_bac",
      "level": 82,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -7515,9 +7515,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.53639344262295108,
-      "atkPct": 0.53639344262295108,
-      "defPct": 0.411065573770492,
+      "hpPct": 0.52390243902439049,
+      "atkPct": 0.52390243902439049,
+      "defPct": 0.39959349593495941,
       "spd": 0
      }
     }
@@ -7535,7 +7535,7 @@
     {
      "hero": "linh_khien",
      "level": 85,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7554,7 +7554,7 @@
     {
      "hero": "linh_giap",
      "level": 85,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7584,7 +7584,7 @@
     {
      "hero": "khien_bac",
      "level": 87,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7594,16 +7594,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.069508196721311255,
-      "atkPct": -0.069508196721311255,
-      "defPct": 0.03237704918032791,
+      "hpPct": -0.077073170731707163,
+      "atkPct": -0.077073170731707163,
+      "defPct": 0.023983739837398543,
       "spd": 0
      }
     },
     {
      "hero": "linh_khien",
      "level": 87,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7622,7 +7622,7 @@
     {
      "hero": "linh_may",
      "level": 87,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7652,7 +7652,7 @@
     {
      "hero": "khien_bac",
      "level": 90,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7662,16 +7662,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.27672131147541013,
-      "atkPct": 0.27672131147541013,
-      "defPct": 0.24877049180327893,
+      "hpPct": 0.26634146341463438,
+      "atkPct": 0.26634146341463438,
+      "defPct": 0.23861788617886193,
       "spd": 0
      }
     },
     {
      "hero": "phi_thuong",
      "level": 90,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7701,7 +7701,7 @@
     {
      "hero": "chien_than",
      "level": 93,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7711,9 +7711,9 @@
      "evo": true,
      "trait": "chien_than_boss",
      "mods": {
-      "hpPct": -0.15678688524590156,
-      "atkPct": 0.14436065573770507,
-      "defPct": 0.20368852459016407,
+      "hpPct": -0.16364227642276419,
+      "atkPct": 0.13505691056910574,
+      "defPct": 0.19390243902439042,
       "spd": 0
      }
     }
@@ -7731,7 +7731,7 @@
     {
      "hero": "linh_khien",
      "level": 96,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7750,7 +7750,7 @@
     {
      "hero": "linh_may",
      "level": 96,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7780,7 +7780,7 @@
     {
      "hero": "chien_than",
      "level": 98,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7790,9 +7790,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4426229508196724,
-      "atkPct": 0.4426229508196724,
-      "defPct": 0.35245901639344268,
+      "hpPct": 0.43089430894308967,
+      "atkPct": 0.43089430894308967,
+      "defPct": 0.34146341463414642,
       "spd": 0
      }
     }
@@ -7810,7 +7810,7 @@
     {
      "hero": "khien_bac",
      "level": 101,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7820,16 +7820,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16852459016393473,
-      "atkPct": 0.16852459016393473,
-      "defPct": 0.18114754098360675,
+      "hpPct": 0.1590243902439028,
+      "atkPct": 0.1590243902439028,
+      "defPct": 0.17154471544715455,
       "spd": 0
      }
     },
     {
      "hero": "linh_giap",
      "level": 101,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7859,7 +7859,7 @@
     {
      "hero": "linh_khien",
      "level": 104,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7878,7 +7878,7 @@
     {
      "hero": "linh_may",
      "level": 104,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7897,7 +7897,7 @@
     {
      "hero": "linh_khien",
      "level": 104,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7927,7 +7927,7 @@
     {
      "hero": "chien_than",
      "level": 106,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7937,16 +7937,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13245901639344271,
-      "atkPct": 0.13245901639344271,
-      "defPct": 0.15860655737704921,
+      "hpPct": 0.12325203252032524,
+      "atkPct": 0.12325203252032524,
+      "defPct": 0.14918699186991868,
       "spd": 0
      }
     },
     {
      "hero": "phi_thuong",
      "level": 106,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -7976,7 +7976,7 @@
     {
      "hero": "chien_than",
      "level": 109,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -7986,9 +7986,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.53639344262295108,
-      "atkPct": 0.53639344262295108,
-      "defPct": 0.411065573770492,
+      "hpPct": 0.52390243902439049,
+      "atkPct": 0.52390243902439049,
+      "defPct": 0.39959349593495941,
       "spd": 0
      }
     }
@@ -8006,7 +8006,7 @@
     {
      "hero": "linh_may2",
      "level": 111,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8025,7 +8025,7 @@
     {
      "hero": "linh_khien2",
      "level": 111,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8055,7 +8055,7 @@
     {
      "hero": "chien_than",
      "level": 114,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8065,16 +8065,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.069508196721311255,
-      "atkPct": -0.069508196721311255,
-      "defPct": 0.03237704918032791,
+      "hpPct": -0.077073170731707163,
+      "atkPct": -0.077073170731707163,
+      "defPct": 0.023983739837398543,
       "spd": 0
      }
     },
     {
      "hero": "linh_may2",
      "level": 114,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8093,7 +8093,7 @@
     {
      "hero": "linh_giap2",
      "level": 114,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8123,7 +8123,7 @@
     {
      "hero": "chien_than",
      "level": 117,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8133,16 +8133,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.27672131147541013,
-      "atkPct": 0.27672131147541013,
-      "defPct": 0.24877049180327893,
+      "hpPct": 0.26634146341463438,
+      "atkPct": 0.26634146341463438,
+      "defPct": 0.23861788617886193,
       "spd": 0
      }
     },
     {
      "hero": "khien_bac",
      "level": 117,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8152,9 +8152,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.27672131147541013,
-      "atkPct": 0.27672131147541013,
-      "defPct": 0.24877049180327893,
+      "hpPct": 0.26634146341463438,
+      "atkPct": 0.26634146341463438,
+      "defPct": 0.23861788617886193,
       "spd": 0
      }
     }
@@ -8172,7 +8172,7 @@
     {
      "hero": "thiet_phu",
      "level": 119,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8182,9 +8182,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.15299999999999991,
-      "atkPct": 0.14950000000000019,
-      "defPct": 0.16066176470588234,
+      "hpPct": -0.16527536231884044,
+      "atkPct": 0.13284057971014507,
+      "defPct": 0.14384057971014519,
       "spd": 0
      }
     }
@@ -8202,7 +8202,7 @@
     {
      "hero": "linh_may2",
      "level": 122,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8221,7 +8221,7 @@
     {
      "hero": "linh_giap2",
      "level": 122,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8251,7 +8251,7 @@
     {
      "hero": "thiet_phu",
      "level": 124,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -8261,9 +8261,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.29411764705882359,
-      "atkPct": 0.29411764705882359,
-      "defPct": 0.21323529411764719,
+      "hpPct": 0.27536231884058004,
+      "atkPct": 0.27536231884058004,
+      "defPct": 0.19565217391304368,
       "spd": 0
      }
     }
@@ -8281,7 +8281,7 @@
     {
      "hero": "chien_than",
      "level": 127,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8291,16 +8291,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16852459016393473,
-      "atkPct": 0.16852459016393473,
-      "defPct": 0.18114754098360675,
+      "hpPct": 0.1590243902439028,
+      "atkPct": 0.1590243902439028,
+      "defPct": 0.17154471544715455,
       "spd": 0
      }
     },
     {
      "hero": "linh_khien2",
      "level": 127,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8330,7 +8330,7 @@
     {
      "hero": "linh_may2",
      "level": 129,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8349,7 +8349,7 @@
     {
      "hero": "linh_giap2",
      "level": 129,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8368,7 +8368,7 @@
     {
      "hero": "linh_may2",
      "level": 129,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8398,7 +8398,7 @@
     {
      "hero": "thiet_phu",
      "level": 132,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8408,16 +8408,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.015882352941176459,
-      "atkPct": 0.015882352941176459,
-      "defPct": 0.039338235294117618,
+      "hpPct": 0.001159420289855273,
+      "atkPct": 0.001159420289855273,
+      "defPct": 0.024275362318840532,
       "spd": 0
      }
     },
     {
      "hero": "khien_bac",
      "level": 132,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8427,9 +8427,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13245901639344271,
-      "atkPct": 0.13245901639344271,
-      "defPct": 0.15860655737704921,
+      "hpPct": 0.12325203252032524,
+      "atkPct": 0.12325203252032524,
+      "defPct": 0.14918699186991868,
       "spd": 0
      }
     }
@@ -8447,7 +8447,7 @@
     {
      "hero": "thiet_phu",
      "level": 135,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8457,9 +8457,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.378235294117647,
-      "atkPct": 0.378235294117647,
-      "defPct": 0.26580882352941182,
+      "hpPct": 0.35826086956521763,
+      "atkPct": 0.35826086956521763,
+      "defPct": 0.24746376811594217,
       "spd": 0
      }
     }
@@ -8477,7 +8477,7 @@
     {
      "hero": "linh_giap2",
      "level": 137,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8496,7 +8496,7 @@
     {
      "hero": "linh_may2",
      "level": 137,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -8526,7 +8526,7 @@
     {
      "hero": "thiet_phu",
      "level": 140,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8536,16 +8536,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.16529411764705881,
-      "atkPct": -0.16529411764705881,
-      "defPct": -0.073897058823529371,
+      "hpPct": -0.1773913043478258,
+      "atkPct": -0.1773913043478258,
+      "defPct": -0.087318840579710066,
       "spd": 0
      }
     },
     {
      "hero": "linh_giap2",
      "level": 140,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8564,7 +8564,7 @@
     {
      "hero": "linh_khien2",
      "level": 140,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8594,7 +8594,7 @@
     {
      "hero": "thiet_phu",
      "level": 142,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8604,16 +8604,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.1452941176470588,
-      "atkPct": 0.1452941176470588,
-      "defPct": 0.12022058823529425,
+      "hpPct": 0.12869565217391332,
+      "atkPct": 0.12869565217391332,
+      "defPct": 0.1039855072463769,
       "spd": 0
      }
     },
     {
      "hero": "chien_than",
      "level": 142,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8623,9 +8623,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.27672131147541013,
-      "atkPct": 0.27672131147541013,
-      "defPct": 0.24877049180327893,
+      "hpPct": 0.26634146341463438,
+      "atkPct": 0.26634146341463438,
+      "defPct": 0.23861788617886193,
       "spd": 0
      }
     }
@@ -8643,7 +8643,7 @@
     {
      "hero": "tam_kiem",
      "level": 145,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8653,9 +8653,9 @@
      "evo": true,
      "trait": "tam_kiem_boss",
      "mods": {
-      "hpPct": -0.24358823529411766,
-      "atkPct": 0.026558823529411857,
-      "defPct": 0.079779411764705932,
+      "hpPct": -0.25455072463768114,
+      "atkPct": 0.01168115942028991,
+      "defPct": 0.064130434782608825,
       "spd": 0
      }
     }
@@ -8673,7 +8673,7 @@
     {
      "hero": "linh_giap2",
      "level": 147,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8692,7 +8692,7 @@
     {
      "hero": "linh_khien2",
      "level": 147,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8722,7 +8722,7 @@
     {
      "hero": "tam_kiem",
      "level": 149,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8732,9 +8732,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.29411764705882359,
-      "atkPct": 0.29411764705882359,
-      "defPct": 0.21323529411764719,
+      "hpPct": 0.27536231884058004,
+      "atkPct": 0.27536231884058004,
+      "defPct": 0.19565217391304368,
       "spd": 0
      }
     }
@@ -8752,7 +8752,7 @@
     {
      "hero": "thiet_phu",
      "level": 152,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8762,16 +8762,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.048235294117647154,
-      "atkPct": 0.048235294117647154,
-      "defPct": 0.059558823529411775,
+      "hpPct": 0.033043478260869952,
+      "atkPct": 0.033043478260869952,
+      "defPct": 0.04420289855072479,
       "spd": 0
      }
     },
     {
      "hero": "linh_may2",
      "level": 152,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8801,7 +8801,7 @@
     {
      "hero": "linh_giap2",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8820,7 +8820,7 @@
     {
      "hero": "linh_khien2",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8839,7 +8839,7 @@
     {
      "hero": "linh_giap2",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -8869,7 +8869,7 @@
     {
      "hero": "tam_kiem",
      "level": 157,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -8879,16 +8879,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.015882352941176459,
-      "atkPct": 0.015882352941176459,
-      "defPct": 0.039338235294117618,
+      "hpPct": 0.001159420289855273,
+      "atkPct": 0.001159420289855273,
+      "defPct": 0.024275362318840532,
       "spd": 0
      }
     },
     {
      "hero": "chien_than",
      "level": 157,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -8898,9 +8898,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13245901639344271,
-      "atkPct": 0.13245901639344271,
-      "defPct": 0.15860655737704921,
+      "hpPct": 0.12325203252032524,
+      "atkPct": 0.12325203252032524,
+      "defPct": 0.14918699186991868,
       "spd": 0
      }
     }
@@ -8918,7 +8918,7 @@
     {
      "hero": "tam_kiem",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -8928,9 +8928,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.378235294117647,
-      "atkPct": 0.378235294117647,
-      "defPct": 0.26580882352941182,
+      "hpPct": 0.35826086956521763,
+      "atkPct": 0.35826086956521763,
+      "defPct": 0.24746376811594217,
       "spd": 0
      }
     }
@@ -8948,7 +8948,7 @@
     {
      "hero": "linh_khien2",
      "level": 162,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -8967,7 +8967,7 @@
     {
      "hero": "linh_giap2",
      "level": 162,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -8997,7 +8997,7 @@
     {
      "hero": "tam_kiem",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -9007,16 +9007,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.16529411764705881,
-      "atkPct": -0.16529411764705881,
-      "defPct": -0.073897058823529371,
+      "hpPct": -0.1773913043478258,
+      "atkPct": -0.1773913043478258,
+      "defPct": -0.087318840579710066,
       "spd": 0
      }
     },
     {
      "hero": "linh_khien2",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -9035,7 +9035,7 @@
     {
      "hero": "linh_may2",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -9065,7 +9065,7 @@
     {
      "hero": "tam_kiem",
      "level": 167,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -9075,16 +9075,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.1452941176470588,
-      "atkPct": 0.1452941176470588,
-      "defPct": 0.12022058823529425,
+      "hpPct": 0.12869565217391332,
+      "atkPct": 0.12869565217391332,
+      "defPct": 0.1039855072463769,
       "spd": 0
      }
     },
     {
      "hero": "thiet_phu",
      "level": 167,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -9094,9 +9094,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.1452941176470588,
-      "atkPct": 0.1452941176470588,
-      "defPct": 0.12022058823529425,
+      "hpPct": 0.12869565217391332,
+      "atkPct": 0.12869565217391332,
+      "defPct": 0.1039855072463769,
       "spd": 0
      }
     }
@@ -9114,7 +9114,7 @@
     {
      "hero": "ung_thep",
      "level": 169,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -9124,9 +9124,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.10770588235294121,
-      "atkPct": 0.21097058823529413,
-      "defPct": 0.20110294117647043,
+      "hpPct": -0.1206376811594202,
+      "atkPct": 0.19342028985507254,
+      "defPct": 0.18369565217391304,
       "spd": 0
      }
     }
@@ -9144,7 +9144,7 @@
     {
      "hero": "linh_khien2",
      "level": 171,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9163,7 +9163,7 @@
     {
      "hero": "linh_may2",
      "level": 171,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9193,7 +9193,7 @@
     {
      "hero": "ung_thep",
      "level": 174,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9203,9 +9203,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.29411764705882359,
-      "atkPct": 0.29411764705882359,
-      "defPct": 0.21323529411764719,
+      "hpPct": 0.27536231884058004,
+      "atkPct": 0.27536231884058004,
+      "defPct": 0.19565217391304368,
       "spd": 0
      }
     }
@@ -9223,7 +9223,7 @@
     {
      "hero": "tam_kiem",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9233,16 +9233,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.048235294117647154,
-      "atkPct": 0.048235294117647154,
-      "defPct": 0.059558823529411775,
+      "hpPct": 0.033043478260869952,
+      "atkPct": 0.033043478260869952,
+      "defPct": 0.04420289855072479,
       "spd": 0
      }
     },
     {
      "hero": "linh_giap2",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9272,7 +9272,7 @@
     {
      "hero": "linh_khien2",
      "level": 179,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9291,7 +9291,7 @@
     {
      "hero": "linh_may2",
      "level": 179,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9310,7 +9310,7 @@
     {
      "hero": "linh_khien2",
      "level": 179,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9340,7 +9340,7 @@
     {
      "hero": "ung_thep",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9350,16 +9350,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.015882352941176459,
-      "atkPct": 0.015882352941176459,
-      "defPct": 0.039338235294117618,
+      "hpPct": 0.001159420289855273,
+      "atkPct": 0.001159420289855273,
+      "defPct": 0.024275362318840532,
       "spd": 0
      }
     },
     {
      "hero": "thiet_phu",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9369,9 +9369,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.015882352941176459,
-      "atkPct": 0.015882352941176459,
-      "defPct": 0.039338235294117618,
+      "hpPct": 0.001159420289855273,
+      "atkPct": 0.001159420289855273,
+      "defPct": 0.024275362318840532,
       "spd": 0
      }
     }
@@ -9389,7 +9389,7 @@
     {
      "hero": "ung_thep",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -9399,9 +9399,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.378235294117647,
-      "atkPct": 0.378235294117647,
-      "defPct": 0.26580882352941182,
+      "hpPct": 0.35826086956521763,
+      "atkPct": 0.35826086956521763,
+      "defPct": 0.24746376811594217,
       "spd": 0
      }
     }
@@ -9419,7 +9419,7 @@
     {
      "hero": "linh_may2",
      "level": 186,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9438,7 +9438,7 @@
     {
      "hero": "linh_khien2",
      "level": 186,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9468,7 +9468,7 @@
     {
      "hero": "ung_thep",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9478,16 +9478,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.16529411764705881,
-      "atkPct": -0.16529411764705881,
-      "defPct": -0.073897058823529371,
+      "hpPct": -0.1773913043478258,
+      "atkPct": -0.1773913043478258,
+      "defPct": -0.087318840579710066,
       "spd": 0
      }
     },
     {
      "hero": "linh_may2",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9506,7 +9506,7 @@
     {
      "hero": "linh_giap2",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9536,7 +9536,7 @@
     {
      "hero": "ung_thep",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9546,16 +9546,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.1452941176470588,
-      "atkPct": 0.1452941176470588,
-      "defPct": 0.12022058823529425,
+      "hpPct": 0.12869565217391332,
+      "atkPct": 0.12869565217391332,
+      "defPct": 0.1039855072463769,
       "spd": 0
      }
     },
     {
      "hero": "tam_kiem",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9565,9 +9565,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.1452941176470588,
-      "atkPct": 0.1452941176470588,
-      "defPct": 0.12022058823529425,
+      "hpPct": 0.12869565217391332,
+      "atkPct": 0.12869565217391332,
+      "defPct": 0.1039855072463769,
       "spd": 0
      }
     }
@@ -9585,7 +9585,7 @@
     {
      "hero": "kim_nghe",
      "level": 193,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -9595,9 +9595,9 @@
      "evo": true,
      "trait": "kim_nghe_boss",
      "mods": {
-      "hpPct": -0.26079999999999992,
-      "atkPct": 0.0032000000000000917,
-      "defPct": 0.026666666666666616,
+      "hpPct": -0.36999999999999988,
+      "atkPct": -0.14499999999999991,
+      "defPct": -0.125,
       "spd": 0
      }
     }
@@ -9645,7 +9645,7 @@
     {
      "hero": "tien_la",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -9664,7 +9664,7 @@
     {
      "hero": "linh_bo",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -9694,7 +9694,7 @@
     {
      "hero": "linh_bo",
      "level": 10,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -9713,7 +9713,7 @@
     {
      "hero": "linh_bo",
      "level": 10,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -9743,7 +9743,7 @@
     {
      "hero": "tien_la",
      "level": 14,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -9762,7 +9762,7 @@
     {
      "hero": "linh_bo",
      "level": 14,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -9792,7 +9792,7 @@
     {
      "hero": "mam_u",
      "level": 18,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -9822,7 +9822,7 @@
     {
      "hero": "linh_bo",
      "level": 21,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -9841,7 +9841,7 @@
     {
      "hero": "linh_ran",
      "level": 21,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -9871,7 +9871,7 @@
     {
      "hero": "mam_u",
      "level": 25,
-     "star": 3,
+     "star": 5,
      "cards": [
       3,
       3,
@@ -9901,7 +9901,7 @@
     {
      "hero": "tien_la",
      "level": 28,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -9920,7 +9920,7 @@
     {
      "hero": "linh_bo",
      "level": 28,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -9950,7 +9950,7 @@
     {
      "hero": "mam_u",
      "level": 31,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -9969,7 +9969,7 @@
     {
      "hero": "linh_ran",
      "level": 31,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -9999,7 +9999,7 @@
     {
      "hero": "gac_da",
      "level": 34,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -10029,7 +10029,7 @@
     {
      "hero": "linh_chim",
      "level": 38,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -10048,7 +10048,7 @@
     {
      "hero": "linh_bo",
      "level": 38,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -10078,7 +10078,7 @@
     {
      "hero": "gac_da",
      "level": 41,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -10108,7 +10108,7 @@
     {
      "hero": "mam_u",
      "level": 44,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -10127,7 +10127,7 @@
     {
      "hero": "linh_ran",
      "level": 44,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -10157,7 +10157,7 @@
     {
      "hero": "gac_da",
      "level": 47,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10176,7 +10176,7 @@
     {
      "hero": "linh_chim",
      "level": 47,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10206,7 +10206,7 @@
     {
      "hero": "bom_la",
      "level": 50,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10236,7 +10236,7 @@
     {
      "hero": "linh_ran",
      "level": 53,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10255,7 +10255,7 @@
     {
      "hero": "linh_chim",
      "level": 53,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10285,7 +10285,7 @@
     {
      "hero": "bom_la",
      "level": 56,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10315,7 +10315,7 @@
     {
      "hero": "gac_da",
      "level": 58,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10334,7 +10334,7 @@
     {
      "hero": "linh_bo",
      "level": 58,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -10364,7 +10364,7 @@
     {
      "hero": "bom_la",
      "level": 61,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10383,7 +10383,7 @@
     {
      "hero": "linh_ran",
      "level": 61,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10413,7 +10413,7 @@
     {
      "hero": "phong_linh",
      "level": 64,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10423,9 +10423,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": 0.0098360655737705915,
-      "atkPct": 0.3704918032786888,
-      "defPct": 0.35245901639344268,
+      "hpPct": 0.0016260162601626771,
+      "atkPct": 0.359349593495935,
+      "defPct": 0.34146341463414642,
       "spd": 0
      }
     }
@@ -10443,7 +10443,7 @@
     {
      "hero": "linh_bo",
      "level": 67,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10462,7 +10462,7 @@
     {
      "hero": "linh_ran",
      "level": 67,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10492,7 +10492,7 @@
     {
      "hero": "phong_linh",
      "level": 70,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10502,9 +10502,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.56524590163934452,
-      "atkPct": 0.56524590163934452,
-      "defPct": 0.42909836065573792,
+      "hpPct": 0.55252032520325223,
+      "atkPct": 0.55252032520325223,
+      "defPct": 0.41747967479674819,
       "spd": 0
      }
     }
@@ -10522,7 +10522,7 @@
     {
      "hero": "bom_la",
      "level": 73,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10541,7 +10541,7 @@
     {
      "hero": "linh_chim",
      "level": 73,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10571,7 +10571,7 @@
     {
      "hero": "linh_bo",
      "level": 75,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10590,7 +10590,7 @@
     {
      "hero": "linh_ran",
      "level": 75,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10609,7 +10609,7 @@
     {
      "hero": "linh_bo",
      "level": 75,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10639,7 +10639,7 @@
     {
      "hero": "phong_linh",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10649,16 +10649,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     },
     {
      "hero": "gac_da",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10688,7 +10688,7 @@
     {
      "hero": "phong_linh",
      "level": 81,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10698,9 +10698,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.65901639344262319,
-      "atkPct": 0.65901639344262319,
-      "defPct": 0.48770491803278704,
+      "hpPct": 0.645528455284553,
+      "atkPct": 0.645528455284553,
+      "defPct": 0.47560975609756095,
       "spd": 0
      }
     }
@@ -10718,7 +10718,7 @@
     {
      "hero": "linh_ran",
      "level": 83,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10737,7 +10737,7 @@
     {
      "hero": "linh_bo",
      "level": 83,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -10767,7 +10767,7 @@
     {
      "hero": "phong_linh",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10777,16 +10777,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0098360655737705915,
-      "atkPct": 0.0098360655737705915,
-      "defPct": 0.081967213114754189,
+      "hpPct": 0.0016260162601626771,
+      "atkPct": 0.0016260162601626771,
+      "defPct": 0.073170731707317138,
       "spd": 0
      }
     },
     {
      "hero": "linh_ran",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10805,7 +10805,7 @@
     {
      "hero": "linh_chim",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10835,7 +10835,7 @@
     {
      "hero": "phong_linh",
      "level": 89,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10845,16 +10845,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4065573770491806,
-      "atkPct": 0.4065573770491806,
-      "defPct": 0.32991803278688558,
+      "hpPct": 0.39512195121951232,
+      "atkPct": 0.39512195121951232,
+      "defPct": 0.31910569105691078,
       "spd": 0
      }
     },
     {
      "hero": "bom_la",
      "level": 89,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10884,7 +10884,7 @@
     {
      "hero": "gio_loc",
      "level": 91,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10894,9 +10894,9 @@
      "evo": true,
      "trait": "gio_loc_boss",
      "mods": {
-      "hpPct": -0.065901639344262186,
-      "atkPct": 0.26770491803278729,
-      "defPct": 0.28483606557377072,
+      "hpPct": -0.073495934959349474,
+      "atkPct": 0.25739837398374,
+      "defPct": 0.27439024390243927,
       "spd": 0
      }
     }
@@ -10914,7 +10914,7 @@
     {
      "hero": "linh_ran",
      "level": 94,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10933,7 +10933,7 @@
     {
      "hero": "linh_chim",
      "level": 94,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10963,7 +10963,7 @@
     {
      "hero": "gio_loc",
      "level": 97,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -10973,9 +10973,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.56524590163934452,
-      "atkPct": 0.56524590163934452,
-      "defPct": 0.42909836065573792,
+      "hpPct": 0.55252032520325223,
+      "atkPct": 0.55252032520325223,
+      "defPct": 0.41747967479674819,
       "spd": 0
      }
     }
@@ -10993,7 +10993,7 @@
     {
      "hero": "phong_linh",
      "level": 99,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11003,16 +11003,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2983606557377052,
-      "atkPct": 0.2983606557377052,
-      "defPct": 0.26229508196721318,
+      "hpPct": 0.28780487804878074,
+      "atkPct": 0.28780487804878074,
+      "defPct": 0.2520325203252034,
       "spd": 0
      }
     },
     {
      "hero": "linh_bo",
      "level": 99,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11042,7 +11042,7 @@
     {
      "hero": "linh_ran",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11061,7 +11061,7 @@
     {
      "hero": "linh_chim",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11080,7 +11080,7 @@
     {
      "hero": "linh_ran",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11110,7 +11110,7 @@
     {
      "hero": "gio_loc",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11120,16 +11120,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     },
     {
      "hero": "bom_la",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11159,7 +11159,7 @@
     {
      "hero": "gio_loc",
      "level": 107,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -11169,9 +11169,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.65901639344262319,
-      "atkPct": 0.65901639344262319,
-      "defPct": 0.48770491803278704,
+      "hpPct": 0.645528455284553,
+      "atkPct": 0.645528455284553,
+      "defPct": 0.47560975609756095,
       "spd": 0
      }
     }
@@ -11189,7 +11189,7 @@
     {
      "hero": "linh_chim2",
      "level": 110,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11208,7 +11208,7 @@
     {
      "hero": "linh_ran2",
      "level": 110,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11238,7 +11238,7 @@
     {
      "hero": "gio_loc",
      "level": 112,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11248,16 +11248,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.0098360655737705915,
-      "atkPct": 0.0098360655737705915,
-      "defPct": 0.081967213114754189,
+      "hpPct": 0.0016260162601626771,
+      "atkPct": 0.0016260162601626771,
+      "defPct": 0.073170731707317138,
       "spd": 0
      }
     },
     {
      "hero": "linh_chim2",
      "level": 112,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11276,7 +11276,7 @@
     {
      "hero": "linh_bo2",
      "level": 112,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11306,7 +11306,7 @@
     {
      "hero": "gio_loc",
      "level": 115,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11316,16 +11316,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4065573770491806,
-      "atkPct": 0.4065573770491806,
-      "defPct": 0.32991803278688558,
+      "hpPct": 0.39512195121951232,
+      "atkPct": 0.39512195121951232,
+      "defPct": 0.31910569105691078,
       "spd": 0
      }
     },
     {
      "hero": "phong_linh",
      "level": 115,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11335,9 +11335,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4065573770491806,
-      "atkPct": 0.4065573770491806,
-      "defPct": 0.32991803278688558,
+      "hpPct": 0.39512195121951232,
+      "atkPct": 0.39512195121951232,
+      "defPct": 0.31910569105691078,
       "spd": 0
      }
     }
@@ -11355,7 +11355,7 @@
     {
      "hero": "long_vuot",
      "level": 117,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11365,9 +11365,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.04882352941176471,
-      "atkPct": 0.29088235294117659,
-      "defPct": 0.25367647058823528,
+      "hpPct": -0.062608695652173751,
+      "atkPct": 0.2721739130434786,
+      "defPct": 0.23550724637681175,
       "spd": 0
      }
     }
@@ -11385,7 +11385,7 @@
     {
      "hero": "linh_chim2",
      "level": 120,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11404,7 +11404,7 @@
     {
      "hero": "linh_bo2",
      "level": 120,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11434,7 +11434,7 @@
     {
      "hero": "long_vuot",
      "level": 122,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -11444,9 +11444,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.40411764705882347,
-      "atkPct": 0.40411764705882347,
-      "defPct": 0.28198529411764706,
+      "hpPct": 0.3837681159420292,
+      "atkPct": 0.3837681159420292,
+      "defPct": 0.2634057971014494,
       "spd": 0
      }
     }
@@ -11464,7 +11464,7 @@
     {
      "hero": "gio_loc",
      "level": 125,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11474,16 +11474,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2983606557377052,
-      "atkPct": 0.2983606557377052,
-      "defPct": 0.26229508196721318,
+      "hpPct": 0.28780487804878074,
+      "atkPct": 0.28780487804878074,
+      "defPct": 0.2520325203252034,
       "spd": 0
      }
     },
     {
      "hero": "linh_ran2",
      "level": 125,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11513,7 +11513,7 @@
     {
      "hero": "linh_chim2",
      "level": 127,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11532,7 +11532,7 @@
     {
      "hero": "linh_bo2",
      "level": 127,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11551,7 +11551,7 @@
     {
      "hero": "linh_chim2",
      "level": 127,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11581,7 +11581,7 @@
     {
      "hero": "long_vuot",
      "level": 130,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11591,16 +11591,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     },
     {
      "hero": "phong_linh",
      "level": 130,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11610,9 +11610,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     }
@@ -11630,7 +11630,7 @@
     {
      "hero": "long_vuot",
      "level": 132,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11640,9 +11640,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4882352941176471,
-      "atkPct": 0.4882352941176471,
-      "defPct": 0.33455882352941169,
+      "hpPct": 0.466666666666667,
+      "atkPct": 0.466666666666667,
+      "defPct": 0.31521739130434789,
       "spd": 0
      }
     }
@@ -11660,7 +11660,7 @@
     {
      "hero": "linh_bo2",
      "level": 135,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11679,7 +11679,7 @@
     {
      "hero": "linh_chim2",
      "level": 135,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11709,7 +11709,7 @@
     {
      "hero": "long_vuot",
      "level": 137,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11719,16 +11719,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.094117647058823528,
-      "atkPct": -0.094117647058823528,
-      "defPct": -0.029411764705882359,
+      "hpPct": -0.10724637681159399,
+      "atkPct": -0.10724637681159399,
+      "defPct": -0.043478260869565188,
       "spd": 0
      }
     },
     {
      "hero": "linh_bo2",
      "level": 137,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11747,7 +11747,7 @@
     {
      "hero": "linh_ran2",
      "level": 137,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -11777,7 +11777,7 @@
     {
      "hero": "long_vuot",
      "level": 140,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11787,16 +11787,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     },
     {
      "hero": "gio_loc",
      "level": 140,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11806,9 +11806,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4065573770491806,
-      "atkPct": 0.4065573770491806,
-      "defPct": 0.32991803278688558,
+      "hpPct": 0.39512195121951232,
+      "atkPct": 0.39512195121951232,
+      "defPct": 0.31910569105691078,
       "spd": 0
      }
     }
@@ -11826,7 +11826,7 @@
     {
      "hero": "tho_hoang",
      "level": 142,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11836,9 +11836,9 @@
      "evo": true,
      "trait": "tho_hoang_boss",
      "mods": {
-      "hpPct": -0.094117647058823528,
-      "atkPct": 0.22941176470588243,
-      "defPct": 0.21323529411764719,
+      "hpPct": -0.1072463768115941,
+      "atkPct": 0.21159420289855091,
+      "defPct": 0.19565217391304368,
       "spd": 0
      }
     }
@@ -11856,7 +11856,7 @@
     {
      "hero": "linh_bo2",
      "level": 145,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11875,7 +11875,7 @@
     {
      "hero": "linh_ran2",
      "level": 145,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11905,7 +11905,7 @@
     {
      "hero": "tho_hoang",
      "level": 147,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11915,9 +11915,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.40411764705882347,
-      "atkPct": 0.40411764705882347,
-      "defPct": 0.28198529411764706,
+      "hpPct": 0.3837681159420292,
+      "atkPct": 0.3837681159420292,
+      "defPct": 0.2634057971014494,
       "spd": 0
      }
     }
@@ -11935,7 +11935,7 @@
     {
      "hero": "long_vuot",
      "level": 150,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11945,16 +11945,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     },
     {
      "hero": "linh_chim2",
      "level": 150,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -11984,7 +11984,7 @@
     {
      "hero": "linh_bo2",
      "level": 152,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -12003,7 +12003,7 @@
     {
      "hero": "linh_ran2",
      "level": 152,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -12022,7 +12022,7 @@
     {
      "hero": "linh_bo2",
      "level": 152,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -12052,7 +12052,7 @@
     {
      "hero": "tho_hoang",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -12062,16 +12062,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     },
     {
      "hero": "gio_loc",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -12081,9 +12081,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.26229508196721341,
-      "atkPct": 0.26229508196721341,
-      "defPct": 0.23975409836065587,
+      "hpPct": 0.2520325203252034,
+      "atkPct": 0.2520325203252034,
+      "defPct": 0.22967479674796754,
       "spd": 0
      }
     }
@@ -12101,7 +12101,7 @@
     {
      "hero": "tho_hoang",
      "level": 157,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12111,9 +12111,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4882352941176471,
-      "atkPct": 0.4882352941176471,
-      "defPct": 0.33455882352941169,
+      "hpPct": 0.466666666666667,
+      "atkPct": 0.466666666666667,
+      "defPct": 0.31521739130434789,
       "spd": 0
      }
     }
@@ -12131,7 +12131,7 @@
     {
      "hero": "linh_ran2",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12150,7 +12150,7 @@
     {
      "hero": "linh_bo2",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12180,7 +12180,7 @@
     {
      "hero": "tho_hoang",
      "level": 162,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12190,16 +12190,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.094117647058823528,
-      "atkPct": -0.094117647058823528,
-      "defPct": -0.029411764705882359,
+      "hpPct": -0.10724637681159399,
+      "atkPct": -0.10724637681159399,
+      "defPct": -0.043478260869565188,
       "spd": 0
      }
     },
     {
      "hero": "linh_ran2",
      "level": 162,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12218,7 +12218,7 @@
     {
      "hero": "linh_chim2",
      "level": 162,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12248,7 +12248,7 @@
     {
      "hero": "tho_hoang",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12258,16 +12258,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     },
     {
      "hero": "long_vuot",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12277,9 +12277,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     }
@@ -12297,7 +12297,7 @@
     {
      "hero": "moc_tinh",
      "level": 166,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12307,9 +12307,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.04882352941176471,
-      "atkPct": 0.29088235294117659,
-      "defPct": 0.25367647058823528,
+      "hpPct": -0.062608695652173751,
+      "atkPct": 0.2721739130434786,
+      "defPct": 0.23550724637681175,
       "spd": 0
      }
     }
@@ -12327,7 +12327,7 @@
     {
      "hero": "linh_ran2",
      "level": 169,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12346,7 +12346,7 @@
     {
      "hero": "linh_chim2",
      "level": 169,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -12376,7 +12376,7 @@
     {
      "hero": "moc_tinh",
      "level": 171,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12386,9 +12386,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.40411764705882347,
-      "atkPct": 0.40411764705882347,
-      "defPct": 0.28198529411764706,
+      "hpPct": 0.3837681159420292,
+      "atkPct": 0.3837681159420292,
+      "defPct": 0.2634057971014494,
       "spd": 0
      }
     }
@@ -12406,7 +12406,7 @@
     {
      "hero": "tho_hoang",
      "level": 174,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12416,16 +12416,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.16470588235294126,
-      "atkPct": 0.16470588235294126,
-      "defPct": 0.13235294117647056,
+      "hpPct": 0.147826086956522,
+      "atkPct": 0.147826086956522,
+      "defPct": 0.11594202898550732,
       "spd": 0
      }
     },
     {
      "hero": "linh_bo2",
      "level": 174,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12455,7 +12455,7 @@
     {
      "hero": "linh_ran2",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12474,7 +12474,7 @@
     {
      "hero": "linh_chim2",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12493,7 +12493,7 @@
     {
      "hero": "linh_ran2",
      "level": 176,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12523,7 +12523,7 @@
     {
      "hero": "moc_tinh",
      "level": 178,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12533,16 +12533,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     },
     {
      "hero": "long_vuot",
      "level": 178,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12552,9 +12552,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13235294117647056,
-      "atkPct": 0.13235294117647056,
-      "defPct": 0.11213235294117641,
+      "hpPct": 0.11594202898550754,
+      "atkPct": 0.11594202898550754,
+      "defPct": 0.096014492753623282,
       "spd": 0
      }
     }
@@ -12572,7 +12572,7 @@
     {
      "hero": "moc_tinh",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12582,9 +12582,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.4882352941176471,
-      "atkPct": 0.4882352941176471,
-      "defPct": 0.33455882352941169,
+      "hpPct": 0.466666666666667,
+      "atkPct": 0.466666666666667,
+      "defPct": 0.31521739130434789,
       "spd": 0
      }
     }
@@ -12602,7 +12602,7 @@
     {
      "hero": "linh_chim2",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12621,7 +12621,7 @@
     {
      "hero": "linh_ran2",
      "level": 183,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -12651,7 +12651,7 @@
     {
      "hero": "moc_tinh",
      "level": 185,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -12661,16 +12661,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.094117647058823528,
-      "atkPct": -0.094117647058823528,
-      "defPct": -0.029411764705882359,
+      "hpPct": -0.10724637681159399,
+      "atkPct": -0.10724637681159399,
+      "defPct": -0.043478260869565188,
       "spd": 0
      }
     },
     {
      "hero": "linh_chim2",
      "level": 185,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -12689,7 +12689,7 @@
     {
      "hero": "linh_bo2",
      "level": 185,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -12719,7 +12719,7 @@
     {
      "hero": "moc_tinh",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -12729,16 +12729,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     },
     {
      "hero": "tho_hoang",
      "level": 188,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -12748,9 +12748,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.2617647058823529,
-      "atkPct": 0.2617647058823529,
-      "defPct": 0.19301470588235303,
+      "hpPct": 0.24347826086956559,
+      "atkPct": 0.24347826086956559,
+      "defPct": 0.17572463768115965,
       "spd": 0
      }
     }
@@ -12768,7 +12768,7 @@
     {
      "hero": "thanh_long",
      "level": 190,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -12778,9 +12778,9 @@
      "evo": true,
      "trait": "thanh_long_boss",
      "mods": {
-      "hpPct": -0.19920000000000004,
-      "atkPct": 0.086799999999999988,
-      "defPct": 0.081666666666666776,
+      "hpPct": -0.3175,
+      "atkPct": -0.073749999999999982,
+      "defPct": -0.078125,
       "spd": 0
      }
     }
@@ -12828,7 +12828,7 @@
     {
      "hero": "thach_nhan",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -12847,7 +12847,7 @@
     {
      "hero": "linh_khoan",
      "level": 6,
-     "star": 1,
+     "star": 2,
      "cards": [
       1,
       1,
@@ -12877,7 +12877,7 @@
     {
      "hero": "linh_khoan",
      "level": 11,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -12896,7 +12896,7 @@
     {
      "hero": "linh_khoan",
      "level": 11,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -12926,7 +12926,7 @@
     {
      "hero": "thach_nhan",
      "level": 15,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -12945,7 +12945,7 @@
     {
      "hero": "linh_khoan",
      "level": 15,
-     "star": 2,
+     "star": 3,
      "cards": [
       2,
       2,
@@ -12975,7 +12975,7 @@
     {
      "hero": "lung_vuong",
      "level": 18,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -13005,7 +13005,7 @@
     {
      "hero": "linh_khoan",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -13024,7 +13024,7 @@
     {
      "hero": "linh_da",
      "level": 22,
-     "star": 2,
+     "star": 4,
      "cards": [
       3,
       3,
@@ -13054,7 +13054,7 @@
     {
      "hero": "lung_vuong",
      "level": 25,
-     "star": 3,
+     "star": 5,
      "cards": [
       3,
       3,
@@ -13084,7 +13084,7 @@
     {
      "hero": "thach_nhan",
      "level": 29,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -13103,7 +13103,7 @@
     {
      "hero": "linh_khoan",
      "level": 29,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -13133,7 +13133,7 @@
     {
      "hero": "lung_vuong",
      "level": 32,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -13152,7 +13152,7 @@
     {
      "hero": "linh_da",
      "level": 32,
-     "star": 3,
+     "star": 5,
      "cards": [
       4,
       4,
@@ -13182,7 +13182,7 @@
     {
      "hero": "cao_da",
      "level": 36,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -13212,7 +13212,7 @@
     {
      "hero": "linh_ngua",
      "level": 39,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -13231,7 +13231,7 @@
     {
      "hero": "linh_khoan",
      "level": 39,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -13261,7 +13261,7 @@
     {
      "hero": "cao_da",
      "level": 42,
-     "star": 3,
+     "star": 6,
      "cards": [
       4,
       4,
@@ -13291,7 +13291,7 @@
     {
      "hero": "lung_vuong",
      "level": 45,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13310,7 +13310,7 @@
     {
      "hero": "linh_da",
      "level": 45,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13340,7 +13340,7 @@
     {
      "hero": "cao_da",
      "level": 48,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13359,7 +13359,7 @@
     {
      "hero": "linh_ngua",
      "level": 48,
-     "star": 3,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13389,7 +13389,7 @@
     {
      "hero": "ho_khoan",
      "level": 51,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13419,7 +13419,7 @@
     {
      "hero": "linh_da",
      "level": 54,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13438,7 +13438,7 @@
     {
      "hero": "linh_ngua",
      "level": 54,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13468,7 +13468,7 @@
     {
      "hero": "ho_khoan",
      "level": 57,
-     "star": 4,
+     "star": 6,
      "cards": [
       5,
       5,
@@ -13498,7 +13498,7 @@
     {
      "hero": "cao_da",
      "level": 60,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13517,7 +13517,7 @@
     {
      "hero": "linh_khoan",
      "level": 60,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13547,7 +13547,7 @@
     {
      "hero": "ho_khoan",
      "level": 63,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13566,7 +13566,7 @@
     {
      "hero": "linh_da",
      "level": 63,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13596,7 +13596,7 @@
     {
      "hero": "phu_van",
      "level": 66,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13606,9 +13606,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.21737704918032774,
-      "atkPct": 0.062131147540983811,
-      "defPct": 0.14959016393442637,
+      "hpPct": -0.22373983739837389,
+      "atkPct": 0.053495934959349567,
+      "defPct": 0.14024390243902451,
       "spd": 0
      }
     }
@@ -13626,7 +13626,7 @@
     {
      "hero": "linh_khoan",
      "level": 69,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13645,7 +13645,7 @@
     {
      "hero": "linh_da",
      "level": 69,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13675,7 +13675,7 @@
     {
      "hero": "phu_van",
      "level": 72,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13685,9 +13685,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.38491803278688552,
-      "atkPct": 0.38491803278688552,
-      "defPct": 0.31639344262295088,
+      "hpPct": 0.37365853658536596,
+      "atkPct": 0.37365853658536596,
+      "defPct": 0.3056910569105693,
       "spd": 0
      }
     }
@@ -13705,7 +13705,7 @@
     {
      "hero": "ho_khoan",
      "level": 75,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13724,7 +13724,7 @@
     {
      "hero": "linh_ngua",
      "level": 75,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13754,7 +13754,7 @@
     {
      "hero": "linh_khoan",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13773,7 +13773,7 @@
     {
      "hero": "linh_da",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13792,7 +13792,7 @@
     {
      "hero": "linh_khoan",
      "level": 78,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13822,7 +13822,7 @@
     {
      "hero": "phu_van",
      "level": 80,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13832,16 +13832,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.096393442622951131,
-      "atkPct": 0.096393442622951131,
-      "defPct": 0.13606557377049189,
+      "hpPct": 0.087479674796748119,
+      "atkPct": 0.087479674796748119,
+      "defPct": 0.12682926829268304,
       "spd": 0
      }
     },
     {
      "hero": "cao_da",
      "level": 80,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13871,7 +13871,7 @@
     {
      "hero": "phu_van",
      "level": 83,
-     "star": 4,
+     "star": 7,
      "cards": [
       5,
       5,
@@ -13881,9 +13881,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.478688524590164,
-      "atkPct": 0.478688524590164,
-      "defPct": 0.375,
+      "hpPct": 0.46666666666666679,
+      "atkPct": 0.46666666666666679,
+      "defPct": 0.36382113821138207,
       "spd": 0
      }
     }
@@ -13901,7 +13901,7 @@
     {
      "hero": "linh_da",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -13920,7 +13920,7 @@
     {
      "hero": "linh_khoan",
      "level": 86,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -13950,7 +13950,7 @@
     {
      "hero": "phu_van",
      "level": 89,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -13960,16 +13960,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.0983606557377048,
-      "atkPct": -0.0983606557377048,
-      "defPct": 0.014344262295082011,
+      "hpPct": -0.1056910569105689,
+      "atkPct": -0.1056910569105689,
+      "defPct": 0.0060975609756097615,
       "spd": 0
      }
     },
     {
      "hero": "linh_da",
      "level": 89,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -13988,7 +13988,7 @@
     {
      "hero": "linh_ngua",
      "level": 89,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14018,7 +14018,7 @@
     {
      "hero": "phu_van",
      "level": 92,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14028,16 +14028,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24065573770491833,
-      "atkPct": 0.24065573770491833,
-      "defPct": 0.22622950819672139,
+      "hpPct": 0.23056910569105704,
+      "atkPct": 0.23056910569105704,
+      "defPct": 0.21626016260162606,
       "spd": 0
      }
     },
     {
      "hero": "ho_khoan",
      "level": 92,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14067,7 +14067,7 @@
     {
      "hero": "hat_de",
      "level": 94,
-     "star": 4,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14077,9 +14077,9 @@
      "evo": true,
      "trait": "hat_de_boss",
      "mods": {
-      "hpPct": -0.21737704918032774,
-      "atkPct": 0.062131147540983811,
-      "defPct": 0.14959016393442637,
+      "hpPct": -0.22373983739837389,
+      "atkPct": 0.053495934959349567,
+      "defPct": 0.14024390243902451,
       "spd": 0
      }
     }
@@ -14097,7 +14097,7 @@
     {
      "hero": "linh_da",
      "level": 97,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14116,7 +14116,7 @@
     {
      "hero": "linh_ngua",
      "level": 97,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14146,7 +14146,7 @@
     {
      "hero": "hat_de",
      "level": 100,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14156,9 +14156,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.38491803278688552,
-      "atkPct": 0.38491803278688552,
-      "defPct": 0.31639344262295088,
+      "hpPct": 0.37365853658536596,
+      "atkPct": 0.37365853658536596,
+      "defPct": 0.3056910569105693,
       "spd": 0
      }
     }
@@ -14176,7 +14176,7 @@
     {
      "hero": "phu_van",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14186,16 +14186,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13245901639344271,
-      "atkPct": 0.13245901639344271,
-      "defPct": 0.15860655737704921,
+      "hpPct": 0.12325203252032524,
+      "atkPct": 0.12325203252032524,
+      "defPct": 0.14918699186991868,
       "spd": 0
      }
     },
     {
      "hero": "linh_khoan",
      "level": 102,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14225,7 +14225,7 @@
     {
      "hero": "linh_da",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14244,7 +14244,7 @@
     {
      "hero": "linh_ngua",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14263,7 +14263,7 @@
     {
      "hero": "linh_da",
      "level": 105,
-     "star": 5,
+     "star": 8,
      "cards": [
       5,
       5,
@@ -14293,7 +14293,7 @@
     {
      "hero": "hat_de",
      "level": 108,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14303,16 +14303,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.096393442622951131,
-      "atkPct": 0.096393442622951131,
-      "defPct": 0.13606557377049189,
+      "hpPct": 0.087479674796748119,
+      "atkPct": 0.087479674796748119,
+      "defPct": 0.12682926829268304,
       "spd": 0
      }
     },
     {
      "hero": "ho_khoan",
      "level": 108,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14342,7 +14342,7 @@
     {
      "hero": "hat_de",
      "level": 111,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14352,9 +14352,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.478688524590164,
-      "atkPct": 0.478688524590164,
-      "defPct": 0.375,
+      "hpPct": 0.46666666666666679,
+      "atkPct": 0.46666666666666679,
+      "defPct": 0.36382113821138207,
       "spd": 0
      }
     }
@@ -14372,7 +14372,7 @@
     {
      "hero": "linh_ngua2",
      "level": 113,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14391,7 +14391,7 @@
     {
      "hero": "linh_da2",
      "level": 113,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14421,7 +14421,7 @@
     {
      "hero": "hat_de",
      "level": 116,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14431,16 +14431,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.0983606557377048,
-      "atkPct": -0.0983606557377048,
-      "defPct": 0.014344262295082011,
+      "hpPct": -0.1056910569105689,
+      "atkPct": -0.1056910569105689,
+      "defPct": 0.0060975609756097615,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngua2",
      "level": 116,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14459,7 +14459,7 @@
     {
      "hero": "linh_khoan2",
      "level": 116,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14489,7 +14489,7 @@
     {
      "hero": "hat_de",
      "level": 118,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14499,16 +14499,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24065573770491833,
-      "atkPct": 0.24065573770491833,
-      "defPct": 0.22622950819672139,
+      "hpPct": 0.23056910569105704,
+      "atkPct": 0.23056910569105704,
+      "defPct": 0.21626016260162606,
       "spd": 0
      }
     },
     {
      "hero": "phu_van",
      "level": 118,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14518,9 +14518,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24065573770491833,
-      "atkPct": 0.24065573770491833,
-      "defPct": 0.22622950819672139,
+      "hpPct": 0.23056910569105704,
+      "atkPct": 0.23056910569105704,
+      "defPct": 0.21626016260162606,
       "spd": 0
      }
     }
@@ -14538,7 +14538,7 @@
     {
      "hero": "rua_nui",
      "level": 121,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14548,9 +14548,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.13941176470588235,
-      "atkPct": 0.16794117647058826,
-      "defPct": 0.17279411764705888,
+      "hpPct": -0.15188405797101445,
+      "atkPct": 0.15101449275362322,
+      "defPct": 0.15579710144927539,
       "spd": 0
      }
     }
@@ -14568,7 +14568,7 @@
     {
      "hero": "linh_ngua2",
      "level": 124,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14587,7 +14587,7 @@
     {
      "hero": "linh_khoan2",
      "level": 124,
-     "star": 5,
+     "star": 9,
      "cards": [
       5,
       5,
@@ -14617,7 +14617,7 @@
     {
      "hero": "rua_nui",
      "level": 126,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14627,9 +14627,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24235294117647066,
-      "atkPct": 0.24235294117647066,
-      "defPct": 0.18088235294117649,
+      "hpPct": 0.22434782608695669,
+      "atkPct": 0.22434782608695669,
+      "defPct": 0.163768115942029,
       "spd": 0
      }
     }
@@ -14647,7 +14647,7 @@
     {
      "hero": "hat_de",
      "level": 129,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14657,16 +14657,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.13245901639344271,
-      "atkPct": 0.13245901639344271,
-      "defPct": 0.15860655737704921,
+      "hpPct": 0.12325203252032524,
+      "atkPct": 0.12325203252032524,
+      "defPct": 0.14918699186991868,
       "spd": 0
      }
     },
     {
      "hero": "linh_da2",
      "level": 129,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14696,7 +14696,7 @@
     {
      "hero": "linh_ngua2",
      "level": 131,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14715,7 +14715,7 @@
     {
      "hero": "linh_khoan2",
      "level": 131,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14734,7 +14734,7 @@
     {
      "hero": "linh_ngua2",
      "level": 131,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14764,7 +14764,7 @@
     {
      "hero": "rua_nui",
      "level": 134,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14774,16 +14774,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.016470588235294015,
-      "atkPct": -0.016470588235294015,
-      "defPct": 0.019117647058823461,
+      "hpPct": -0.030724637681159184,
+      "atkPct": -0.030724637681159184,
+      "defPct": 0.0043478260869567187,
       "spd": 0
      }
     },
     {
      "hero": "phu_van",
      "level": 134,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14793,9 +14793,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.096393442622951131,
-      "atkPct": 0.096393442622951131,
-      "defPct": 0.13606557377049189,
+      "hpPct": 0.087479674796748119,
+      "atkPct": 0.087479674796748119,
+      "defPct": 0.12682926829268304,
       "spd": 0
      }
     }
@@ -14813,7 +14813,7 @@
     {
      "hero": "rua_nui",
      "level": 137,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14823,9 +14823,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.32647058823529407,
-      "atkPct": 0.32647058823529407,
-      "defPct": 0.23345588235294112,
+      "hpPct": 0.3072463768115945,
+      "atkPct": 0.3072463768115945,
+      "defPct": 0.21557971014492772,
       "spd": 0
      }
     }
@@ -14843,7 +14843,7 @@
     {
      "hero": "linh_khoan2",
      "level": 139,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14862,7 +14862,7 @@
     {
      "hero": "linh_ngua2",
      "level": 139,
-     "star": 5,
+     "star": 10,
      "cards": [
       5,
       5,
@@ -14892,7 +14892,7 @@
     {
      "hero": "rua_nui",
      "level": 142,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -14902,16 +14902,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.090073529411764719,
+      "hpPct": -0.20289855072463747,
+      "atkPct": -0.20289855072463747,
+      "defPct": -0.10326086956521729,
       "spd": 0
      }
     },
     {
      "hero": "linh_khoan2",
      "level": 142,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -14930,7 +14930,7 @@
     {
      "hero": "linh_da2",
      "level": 142,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -14960,7 +14960,7 @@
     {
      "hero": "rua_nui",
      "level": 144,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -14970,16 +14970,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     },
     {
      "hero": "hat_de",
      "level": 144,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -14989,9 +14989,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24065573770491833,
-      "atkPct": 0.24065573770491833,
-      "defPct": 0.22622950819672139,
+      "hpPct": 0.23056910569105704,
+      "atkPct": 0.23056910569105704,
+      "defPct": 0.21626016260162606,
       "spd": 0
      }
     }
@@ -15009,7 +15009,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 147,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -15019,9 +15019,9 @@
      "evo": false,
      "trait": "ho_kim_cuong_boss",
      "mods": {
-      "hpPct": -0.13941176470588235,
-      "atkPct": -0.13941176470588235,
-      "defPct": -0.029411764705882359,
+      "hpPct": -0.15188405797101445,
+      "atkPct": -0.15188405797101445,
+      "defPct": -0.043478260869565188,
       "spd": 0
      }
     }
@@ -15039,7 +15039,7 @@
     {
      "hero": "linh_khoan2",
      "level": 149,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -15058,7 +15058,7 @@
     {
      "hero": "linh_da2",
      "level": 149,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -15088,7 +15088,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 152,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -15098,9 +15098,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24235294117647066,
-      "atkPct": 0.24235294117647066,
-      "defPct": 0.18088235294117649,
+      "hpPct": 0.22434782608695669,
+      "atkPct": 0.22434782608695669,
+      "defPct": 0.163768115942029,
       "spd": 0
      }
     }
@@ -15118,7 +15118,7 @@
     {
      "hero": "rua_nui",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -15128,16 +15128,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.015882352941176459,
-      "atkPct": 0.015882352941176459,
-      "defPct": 0.039338235294117618,
+      "hpPct": 0.001159420289855273,
+      "atkPct": 0.001159420289855273,
+      "defPct": 0.024275362318840532,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngua2",
      "level": 154,
-     "star": 5,
+     "star": 11,
      "cards": [
       5,
       5,
@@ -15167,7 +15167,7 @@
     {
      "hero": "linh_khoan2",
      "level": 157,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15186,7 +15186,7 @@
     {
      "hero": "linh_da2",
      "level": 157,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15205,7 +15205,7 @@
     {
      "hero": "linh_khoan2",
      "level": 157,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15235,7 +15235,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15245,16 +15245,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.016470588235294015,
-      "atkPct": -0.016470588235294015,
-      "defPct": 0.019117647058823461,
+      "hpPct": -0.030724637681159184,
+      "atkPct": -0.030724637681159184,
+      "defPct": 0.0043478260869567187,
       "spd": 0
      }
     },
     {
      "hero": "hat_de",
      "level": 159,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15264,9 +15264,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.096393442622951131,
-      "atkPct": 0.096393442622951131,
-      "defPct": 0.13606557377049189,
+      "hpPct": 0.087479674796748119,
+      "atkPct": 0.087479674796748119,
+      "defPct": 0.12682926829268304,
       "spd": 0
      }
     }
@@ -15284,7 +15284,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 162,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15294,9 +15294,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.32647058823529407,
-      "atkPct": 0.32647058823529407,
-      "defPct": 0.23345588235294112,
+      "hpPct": 0.3072463768115945,
+      "atkPct": 0.3072463768115945,
+      "defPct": 0.21557971014492772,
       "spd": 0
      }
     }
@@ -15314,7 +15314,7 @@
     {
      "hero": "linh_da2",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15333,7 +15333,7 @@
     {
      "hero": "linh_khoan2",
      "level": 164,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15363,7 +15363,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 167,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15373,16 +15373,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.090073529411764719,
+      "hpPct": -0.20289855072463747,
+      "atkPct": -0.20289855072463747,
+      "defPct": -0.10326086956521729,
       "spd": 0
      }
     },
     {
      "hero": "linh_da2",
      "level": 167,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15401,7 +15401,7 @@
     {
      "hero": "linh_ngua2",
      "level": 167,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15431,7 +15431,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 169,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15441,16 +15441,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     },
     {
      "hero": "rua_nui",
      "level": 169,
-     "star": 5,
+     "star": 12,
      "cards": [
       5,
       5,
@@ -15460,9 +15460,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     }
@@ -15480,7 +15480,7 @@
     {
      "hero": "cu_phu",
      "level": 172,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15490,9 +15490,9 @@
      "evo": true,
      "trait": null,
      "mods": {
-      "hpPct": -0.04882352941176471,
-      "atkPct": 0.29088235294117659,
-      "defPct": 0.25367647058823528,
+      "hpPct": -0.062608695652173751,
+      "atkPct": 0.2721739130434786,
+      "defPct": 0.23550724637681175,
       "spd": 0
      }
     }
@@ -15510,7 +15510,7 @@
     {
      "hero": "linh_da2",
      "level": 174,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15529,7 +15529,7 @@
     {
      "hero": "linh_ngua2",
      "level": 174,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15559,7 +15559,7 @@
     {
      "hero": "cu_phu",
      "level": 177,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15569,9 +15569,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.24235294117647066,
-      "atkPct": 0.24235294117647066,
-      "defPct": 0.18088235294117649,
+      "hpPct": 0.22434782608695669,
+      "atkPct": 0.22434782608695669,
+      "defPct": 0.163768115942029,
       "spd": 0
      }
     }
@@ -15589,7 +15589,7 @@
     {
      "hero": "ho_kim_cuong",
      "level": 179,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15599,16 +15599,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.015882352941176459,
-      "atkPct": 0.015882352941176459,
-      "defPct": 0.039338235294117618,
+      "hpPct": 0.001159420289855273,
+      "atkPct": 0.001159420289855273,
+      "defPct": 0.024275362318840532,
       "spd": 0
      }
     },
     {
      "hero": "linh_khoan2",
      "level": 179,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15638,7 +15638,7 @@
     {
      "hero": "linh_da2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15657,7 +15657,7 @@
     {
      "hero": "linh_ngua2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15676,7 +15676,7 @@
     {
      "hero": "linh_da2",
      "level": 181,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15706,7 +15706,7 @@
     {
      "hero": "cu_phu",
      "level": 184,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15716,16 +15716,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.016470588235294015,
-      "atkPct": -0.016470588235294015,
-      "defPct": 0.019117647058823461,
+      "hpPct": -0.030724637681159184,
+      "atkPct": -0.030724637681159184,
+      "defPct": 0.0043478260869567187,
       "spd": 0
      }
     },
     {
      "hero": "rua_nui",
      "level": 184,
-     "star": 5,
+     "star": 13,
      "cards": [
       5,
       5,
@@ -15735,9 +15735,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.016470588235294015,
-      "atkPct": -0.016470588235294015,
-      "defPct": 0.019117647058823461,
+      "hpPct": -0.030724637681159184,
+      "atkPct": -0.030724637681159184,
+      "defPct": 0.0043478260869567187,
       "spd": 0
      }
     }
@@ -15755,7 +15755,7 @@
     {
      "hero": "cu_phu",
      "level": 186,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15765,9 +15765,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.32647058823529407,
-      "atkPct": 0.32647058823529407,
-      "defPct": 0.23345588235294112,
+      "hpPct": 0.3072463768115945,
+      "atkPct": 0.3072463768115945,
+      "defPct": 0.21557971014492772,
       "spd": 0
      }
     }
@@ -15785,7 +15785,7 @@
     {
      "hero": "linh_ngua2",
      "level": 189,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15804,7 +15804,7 @@
     {
      "hero": "linh_da2",
      "level": 189,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15834,7 +15834,7 @@
     {
      "hero": "cu_phu",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15844,16 +15844,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": -0.19117647058823528,
-      "atkPct": -0.19117647058823528,
-      "defPct": -0.090073529411764719,
+      "hpPct": -0.20289855072463747,
+      "atkPct": -0.20289855072463747,
+      "defPct": -0.10326086956521729,
       "spd": 0
      }
     },
     {
      "hero": "linh_ngua2",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15872,7 +15872,7 @@
     {
      "hero": "linh_khoan2",
      "level": 191,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15902,7 +15902,7 @@
     {
      "hero": "cu_phu",
      "level": 194,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15912,16 +15912,16 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     },
     {
      "hero": "ho_kim_cuong",
      "level": 194,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15931,9 +15931,9 @@
      "evo": false,
      "trait": null,
      "mods": {
-      "hpPct": 0.11294117647058832,
-      "atkPct": 0.11294117647058832,
-      "defPct": 0.099999999999999867,
+      "hpPct": 0.096811594202898865,
+      "atkPct": 0.096811594202898865,
+      "defPct": 0.08405797101449286,
       "spd": 0
      }
     }
@@ -15951,7 +15951,7 @@
     {
      "hero": "giap_nham",
      "level": 196,
-     "star": 5,
+     "star": 14,
      "cards": [
       5,
       5,
@@ -15961,9 +15961,9 @@
      "evo": true,
      "trait": "giap_nham_boss",
      "mods": {
-      "hpPct": -0.3634666666666666,
-      "atkPct": -0.13613333333333333,
-      "defPct": -0.064999999999999947,
+      "hpPct": -0.45749999999999991,
+      "atkPct": -0.26374999999999993,
+      "defPct": -0.203125,
       "spd": 0
      }
     }

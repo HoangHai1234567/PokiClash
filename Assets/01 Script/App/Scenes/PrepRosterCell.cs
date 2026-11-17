@@ -2,6 +2,8 @@
 // - Items/OKho (hộp chọn tướng khởi đầu): ô gọn, số thứ tự ra trận ghi trước tên.
 // - Items/OChonDoi (hộp chọn đội, menu "PokiClash/Prefab/Hộp chọn đội: ô tướng, khung cuộn"): thêm dải màu hệ sau chân dung, hàng sao,
 //   lực chiến, số thứ tự ra trận trong tròn xanh ở góc trên trái; mũi tên nằm trong góc trên phải.
+//   Sao theo bậc (UiStars.SetTiered), lực chiến số gọn (57.6k). Độ hiếm (2026-11-17, menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc và
+//   xếp"): khung ngoài tô màu độ hiếm, giấy lót "giay" lùi vào mang màu trạng thái (vàng khi trong đội); Huyền thoại có vương miện.
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -27,6 +29,10 @@ namespace PokiClash
         [SerializeField] GameObject orderBadge;
         [SerializeField] TextMeshProUGUI orderText;
 
+        // độ hiếm (ô chọn đội): giấy lót trong khung, vương miện Huyền thoại; trống thì khung tô màu trạng thái như cũ
+        [SerializeField] Image paper;
+        [SerializeField] GameObject crown;
+
         // Dùng khi nướng prefab (Editor).
         public void Setup(Image bgImg, HeroPortrait por, TextMeshProUGUI nameText, Image arrowImg, ClickCatcher catcher)
         {
@@ -48,11 +54,29 @@ namespace PokiClash
             orderText = badgeText;
         }
 
+        // Ô chọn đội (Editor): giấy lót, vương miện.
+        public void SetupRarity(Image paperImg, GameObject crownGo)
+        {
+            paper = paperImg;
+            crown = crownGo;
+        }
+
         // showArrow: khắc hoặc bị khắc tướng chính của địch (arrowIcon: mũi tên lên / xuống); order: thứ tự ra trận (0 = chưa chọn)
         public void Bind(HeroDef h, bool inTeam, bool showArrow, Sprite arrowIcon, Action onClick, int order = 0)
         {
             name = "kho_" + h.id;
-            bg.color = inTeam ? Theme.Hex("#ffe9a0") : orderBadge ? Theme.CardFill : Color.white;
+            var fill = inTeam ? Theme.Hex("#ffe9a0") : orderBadge ? Theme.CardFill : Color.white;
+            if (paper)
+            {
+                bg.color = Theme.Of(h.rarity);
+                paper.color = fill;
+                float w = Theme.RarityInset(h.rarity, 0.6f, 3);
+                var pr = paper.rectTransform;
+                pr.offsetMin = new Vector2(w, w);
+                pr.offsetMax = new Vector2(-w, -w);
+            }
+            else bg.color = fill;
+            if (crown) crown.SetActive(h.rarity == Rarity.Legend);
             portrait.Bind(h, portraitH);
             heroName.text = order > 0 && !orderBadge ? $"{order}. {h.name}" : h.name;
             if (orderBadge)
@@ -70,11 +94,11 @@ namespace PokiClash
             click.OnClick = onClick;
         }
 
-        // sao và lực chiến (ô chọn đội)
-        public void SetStats(int star, int maxStar, int heroPower)
+        // sao tổng (1..20, tô màu bậc) và lực chiến (ô chọn đội)
+        public void SetStats(int star, int heroPower)
         {
-            if (stars) stars.Set(star, maxStar);
-            if (power) power.text = TeamPower.Text(heroPower);
+            if (stars) stars.SetTiered(star);
+            if (power) power.text = NumFmt.Short(heroPower);
         }
     }
 }

@@ -56,7 +56,7 @@ namespace PokiClash.EditorTools
             var stats = new List<object>();
             foreach (var h in d.Heroes)
                 foreach (int lv in new[] { 1, 10, 20, 30 })
-                    foreach (int star in new[] { 1, 3, 5 })
+                    foreach (int star in new[] { 1, 6, 20 }) // sao tổng (bậc sao 2026-11-17): Đồng 1★, Bạc 1★, Kim Cương 5★
                         foreach (bool boss in new[] { false, true })
                         {
                             var s = HeroStats.Compute(d.Cfg, h, lv, star, boss);
@@ -90,17 +90,21 @@ namespace PokiClash.EditorTools
             File.WriteAllText(Data("Golden/progression.json"), IslandGen.Write(pg) + "\n");
 
             var bg = J.Obj(MiniJson.Parse(R("Golden/badges.json")));
-            foreach (var x in J.Arr(bg, "stages"))
-            {
-                var o = J.Obj(x);
-                var z = Keys.ToElem(J.Str(o, "zone"));
-                int tier = J.Int(o, "tier"), i = J.Int(o, "i");
-                var st = Badges.Stage(d, z, tier, i);
-                o["id"] = (double)st.id;
-                o["seed"] = (double)Badges.Seed(d, z, tier, i);
-                o["kind"] = st.kind == StageKind.Boss ? "boss" : "mini";
-                o["enemies"] = st.enemies.Select(e => (object)new List<object> { e.hero, (double)e.level, e.boss }).ToList();
-            }
+            // đội địch đền: dựng lại đủ mọi trận của 5 dãy (2026-11-17: 10 bậc, số trận mỗi bậc đổi), kèm cường hóa của địch
+            var bstages = new List<object>();
+            foreach (var zd in d.Zones.OrderBy(zz => zz.order))
+                for (int tier = 1; tier <= Badges.MaxTier(d.Cfg); tier++)
+                    for (int i = 1; i <= Badges.Count(d.Cfg, tier); i++)
+                    {
+                        var st = Badges.Stage(d, zd.id, tier, i);
+                        bstages.Add(new Dictionary<string, object>
+                        {
+                            ["zone"] = Keys.Of(zd.id), ["tier"] = (double)tier, ["i"] = (double)i, ["id"] = (double)st.id,
+                            ["seed"] = (double)Badges.Seed(d, zd.id, tier, i), ["kind"] = st.kind == StageKind.Boss ? "boss" : "mini",
+                            ["enemies"] = st.enemies.Select(e => (object)new List<object> { e.hero, (double)e.level, e.boss, e.buff }).ToList(),
+                        });
+                    }
+            bg["stages"] = bstages;
             // 5 trận đánh thật bậc Đồng hệ Thủy, đúng như BadgeTests.ChiSoCoHuyHieu_VaTranThat_KhopBanWeb (bản lưu StatSave, cấp 9, đội có
             // tướng khởi đầu, địch ở cấp foeLevel như TestData.AtLevel): bên thắng, số hiệp. Đối thủ đền chọn theo danh sách tướng cùng hệ
             // nên thêm tướng Thủy là đổi (lô 10 tướng mới 2026-11-11)
@@ -130,13 +134,19 @@ namespace PokiClash.EditorTools
             File.WriteAllText(Data("Golden/badges.json"), IslandGen.Write(bg) + "\n");
 
             var pt = J.Obj(MiniJson.Parse(R("Golden/potential.json")));
-            foreach (var x in J.Arr(pt, "caveStages"))
-            {
-                var o = J.Obj(x);
-                var st = Potential.CaveStage(d, Keys.ToElem(J.Str(o, "zone")), J.Int(o, "tier"));
-                o["id"] = (double)st.id;
-                o["enemies"] = st.enemies.Select(e => (object)new List<object> { e.hero, (double)e.level, e.boss }).ToList();
-            }
+            // đội địch Hang: dựng lại đủ mọi tầng của 5 hệ (2026-11-17: 10 tầng), kèm cường hóa của địch
+            var cstages = new List<object>();
+            foreach (var zd in d.Zones.OrderBy(zz => zz.order))
+                for (int tier = 0; tier < d.Cfg.cave.tiers.Count; tier++)
+                {
+                    var st = Potential.CaveStage(d, zd.id, tier);
+                    cstages.Add(new Dictionary<string, object>
+                    {
+                        ["zone"] = Keys.Of(zd.id), ["tier"] = (double)tier, ["id"] = (double)st.id,
+                        ["enemies"] = st.enemies.Select(e => (object)new List<object> { e.hero, (double)e.level, e.boss, e.buff }).ToList(),
+                    });
+                }
+            pt["caveStages"] = cstages;
             File.WriteAllText(Data("Golden/potential.json"), IslandGen.Write(pt) + "\n");
             AssetDatabase.Refresh();
             Debug.Log($"[Golden] Đã tính lại progression ({stats.Count} chỉ số, {shards.Count} lần rơi mảnh), badges, potential");

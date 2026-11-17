@@ -3,6 +3,10 @@
 // chiêu chờ tới khung trúng đòn rồi mới chạy tiếp,
 // phần còn lại của clip chạy song song; trước sự kiện card/turn/ult/attack/round/swap và chiêu (innate "skill") thì chờ clip trước xong.
 // Thanh số chỉ vẽ theo ảnh chụp của sự kiện (không đọc trạng thái trận, vì trạng thái đã đi trước hoạt cảnh).
+// Trình diễn (2026-11-17): cú hạ gục cho tướng ngã ngay (clip chết, StageView.KnockDown); Death chờ clip chết chạy trọn; Swap chờ tướng cũ
+// nằm hẳn / lùi khỏi sân rồi tướng mới diễn clip ra sân; tướng chỉ ra đòn khi clip ra sân của nó xong (WaitEntered); Evolve là chuỗi
+// chết → biến hình → ra sân (StageView.Evolve), thanh máu dâng có nhịp (BattleView.FillHp); Revive: nằm xuống rồi được nâng dậy.
+// Ảnh chụp của bị động Tiến Hóa boss và bị động hồi sinh đã là trạng thái sau (máu đầy): giữ lại tới sự kiện Evolve / Revive.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -35,8 +39,23 @@ namespace PokiClash
             st = view.Stage;
         }
 
-        static string StatName(Stat s) =>
-            s == Stat.Atk ? "Công" : s == Stat.Def ? "Thủ" : s == Stat.Crit ? "Chí mạng" : s == Stat.Lifesteal ? "Hút máu" : s == Stat.Dodge ? "Né" : "Sát thương nhận";
+        // màu chữ, số theo loại (độc: xanh độc; phản đòn: tím gai)
+        const string PoisonHex = "#8fd14f", ThornsHex = "#d79cff";
+
+        // màu chữ nổi khi dính trạng thái
+        static string StatusHex(StatusId id) =>
+            id == StatusId.Burn ? "#ffb070" : id == StatusId.Stun ? "#ffe14a" : id == StatusId.Poison ? PoisonHex : "#bfe8a0";
+
+        // số lớp của trạng thái id trên tướng đang ra sân bên side (độc; 0 nếu không có)
+        static int Stacks(Snap s, int side, StatusId id)
+        {
+            if (s == null) return 0;
+            var f = s.f[side][s.active[side]];
+            for (int i = 0; i < f.st.Count; i++)
+                if (f.st[i].id == id)
+                    return i < f.stk.Count ? f.stk[i] : 0;
+            return 0;
+        }
 
         object W(float ms) => st.Wait(ms / 1000f);
 
@@ -65,6 +84,7 @@ namespace PokiClash
 
         IEnumerator PlayClip(int side, string clip)
         {
+            yield return st.WaitEntered(side); // còn đang diễn clip ra sân: ra đòn sau
             var h = st.Play(side, clip, () => { });
             pending = h;
             while (!h.hit) yield return null;
@@ -74,6 +94,7 @@ namespace PokiClash
         IEnumerator PlayBeam(int side)
         {
             float travel = 0;
+            yield return st.WaitEntered(side);
             var h = st.Play(side, StageView.Cast, () => travel = st.Beam(side));
             pending = h;
             while (!h.hit) yield return null;
@@ -85,6 +106,7 @@ namespace PokiClash
         IEnumerator PlayUlt(int side)
         {
             float travel = 0;
+            yield return st.WaitEntered(side);
             var h = st.Play(side, StageView.Skill, () => travel = st.UltFx(side));
             pending = h;
             while (!h.hit) yield return null;
@@ -94,6 +116,7 @@ namespace PokiClash
         public IEnumerator Play(BattleEvent e)
         {
             var sfx = App.Audio;
+            bool keep = false; // giữ ảnh chụp cũ (bị động Tiến Hóa, hồi sinh: ảnh chụp đã là máu sau khi lên dạng / sống lại)
             if (e.t == EvType.Card || e.t == EvType.Turn || e.t == EvType.Ult || e.t == EvType.Attack || e.t == EvType.Round || e.t == EvType.Swap)
                 yield return WaitPending();
             switch (e.t)
@@ -101,6 +124,9 @@ namespace PokiClash
                 case EvType.Start:
                     break;
                 case EvType.Round:
+                    // băng rôn hiệp mới chạy ngang giữa sân: chờ tướng vừa ra thay diễn xong clip ra sân (tối đa 1,6 giây), không che nhau
+                    yield return st.WaitEntered(0, 1.6f);
+                    yield return st.WaitEntered(1, 1.6f);
                     view.SetRound(e.round);
                     if (OnRound != null) yield return OnRound(e.round);
                     break;
@@ -138,13 +164,17 @@ namespace PokiClash
                 }
                 case EvType.Buff:
                 {
-                    bool up = e.stat == Stat.DmgTaken ? e.v < 0 : e.v > 0;
-                    string v = e.stat == Stat.DmgTaken
-                        ? $"{StatName(e.stat)} {(e.v > 0 ? "+" : "−")}{CardText.Pct(Math.Abs(e.v))}"
-                        : $"{(e.v > 0 ? "+" : "−")}{CardText.Pct(Math.Abs(e.v))} {StatName(e.stat)}";
-                    st.Text(e.side, $"{(up ? "▲" : "▼")} {v}", up ? "#9be36a" : "#ff8a7a", 21);
+                    bool up = CardText.StatUp(e.stat, e.v);
+                    string pct = $"{(e.v > 0 ? "+" : "−")}{CardText.Pct(Math.Abs(e.v))}";
+                    // chặn hồi máu: nhãn riêng cho rõ ("Chặn hồi máu" khi mất hết, không thì "Hồi máu nhận −50%"); sát thương nhận, hồi máu
+                    // nhận, phản đòn ghi tên trước số; còn lại số trước tên
+                    string v = e.stat == Stat.HealTaken && e.v <= -1 ? "Chặn hồi máu"
+                        : e.stat == Stat.DmgTaken || e.stat == Stat.HealTaken || e.stat == Stat.Thorns ? $"{CardText.StatLabel(e.stat)} {pct}"
+                        : $"{pct} {CardText.StatLabel(e.stat)}";
+                    string hex = e.stat == Stat.Thorns && up ? ThornsHex : e.stat == Stat.HealTaken && !up ? "#c79bff" : up ? "#9be36a" : "#ff8a7a";
+                    st.Text(e.side, $"{(up ? "▲" : "▼")} {v}", hex, e.stat == Stat.HealTaken && !up ? 23 : 21);
                     sfx.Play(up ? "buff" : "debuff");
-                    yield return W(230);
+                    yield return W(e.stat == Stat.HealTaken && !up ? 320 : 230);
                     break;
                 }
                 case EvType.Heal:
@@ -154,13 +184,13 @@ namespace PokiClash
                     yield return W(260);
                     break;
                 case EvType.MaxHp:
-                    st.Text(e.side, $"+{e.amount} máu tối đa", "#7be36a", 21);
+                    st.Text(e.side, $"+{NumFmt.Short(e.amount)} máu tối đa", "#7be36a", 21);
                     st.Ring(e.side, "#f7c948");
                     sfx.Play("heal");
                     yield return W(260);
                     break;
                 case EvType.Shield:
-                    st.Text(e.side, $"+{e.amount} khiên", "#8ec5ff", 22);
+                    st.Text(e.side, $"+{NumFmt.Short(e.amount)} khiên", "#8ec5ff", 22);
                     st.Ring(e.side, "#4a90d9");
                     sfx.Play("shield");
                     yield return W(260);
@@ -175,9 +205,13 @@ namespace PokiClash
                     break;
                 case EvType.Status:
                 {
-                    string name = e.status == StatusId.Burn ? "Bỏng!" : e.status == StatusId.Stun ? "Choáng!" : e.status == StatusId.Regen ? "Hồi phục" : "Sẵn sàng né";
-                    st.Text(e.side, name, e.status == StatusId.Burn ? "#ffb070" : e.status == StatusId.Stun ? "#ffe14a" : "#bfe8a0", 26);
-                    sfx.Play(e.status == StatusId.Stun || e.status == StatusId.Burn ? "debuff" : "buff");
+                    // độc lan sang tướng vừa ra thay (Status ngay sau Swap): chờ clip ra sân xong rồi mới báo, không đè chuỗi ra sân
+                    if (st.IsEntering(e.side)) yield return st.WaitEntered(e.side, 2.4f);
+                    string name = CardText.StatusFloat(e.status);
+                    int stk = e.status == StatusId.Poison ? Stacks(e.snap, e.side, StatusId.Poison) : 0;
+                    if (stk > 1) name += $" ×{stk}";
+                    st.Text(e.side, name, StatusHex(e.status), 26);
+                    sfx.Play(CardText.StatusBad(e.status) ? "debuff" : "buff");
                     yield return W(300);
                     break;
                 }
@@ -201,8 +235,19 @@ namespace PokiClash
                     break;
                 case EvType.Passive:
                 {
+                    // Tiến Hóa của boss: chuỗi Evolve tự báo (không chữ), thanh máu dâng ở đó. Luật mới (C, 2026-11-17): sự kiện này phát TRƯỚC
+                    // khi đổi dạng, ảnh chụp còn dạng cũ máu 0 nên vẽ bình thường; luật cũ phát sau (ảnh chụp đã đầy máu) thì giữ tới Evolve.
+                    if (e.card == Battle.BossEvoCard)
+                    {
+                        var nf = e.snap != null && e.idx < e.snap.f[e.side].Count ? e.snap.f[e.side][e.idx] : null;
+                        var of = LastSnap != null && e.idx < LastSnap.f[e.side].Count ? LastSnap.f[e.side][e.idx] : null;
+                        keep = nf != null && of != null && nf.hp > of.hp;
+                        break;
+                    }
                     if (LastSnap != null && LastSnap.active[e.side] != e.idx) break;
-                    st.Text(e.side, $"◆ {b.Data.Card(e.card).name}", "#e3c4ff", 20);
+                    var pc = b.Data.Card(e.card);
+                    if (pc.trigger == PassiveTrigger.Death) keep = true; // hồi sinh: máu dâng lúc Revive
+                    st.Text(e.side, $"◆ {pc.name}", "#e3c4ff", 20);
                     yield return W(260);
                     break;
                 }
@@ -226,10 +271,17 @@ namespace PokiClash
                 }
                 case EvType.Dmg:
                 {
+                    // cú hạ gục (máu về 0 trong ảnh chụp): tướng ngã ngay ở cú này (clip chết); Death / Evolve / Revive sau đó diễn tiếp
+                    var tf = e.snap != null && e.snap.f[e.to].Count > e.snap.active[e.to] ? e.snap.f[e.to][e.snap.active[e.to]] : null;
+                    bool ko = tf != null && (tf.dead || tf.hp <= 0);
+                    bool last = ko && e.snap.f[e.to].TrueForAll(x => x.dead || x.hp <= 0);
+                    // boss còn dạng sau: cú này không phải cú cuối trận (không đứng hình 0,2 giây kiểu hết trận), chuỗi tiến hóa theo sau
+                    if (last && EvolvesNext(e.to, e.snap)) last = false;
                     if (e.dmgKind == DmgKind.Self)
                     {
                         st.Number(e.to, e.amount, Theme.Hex("#ff8a7a"));
                         sfx.Play("debuff");
+                        if (ko) st.KnockDown(e.to);
                         yield return W(240);
                         break;
                     }
@@ -241,11 +293,51 @@ namespace PokiClash
                         yield return W(260);
                         break;
                     }
+                    if (e.dmgKind == DmgKind.Poison) // độc mỗi lượt / kích nổ: như bỏng, số xanh độc, kèm số lớp
+                    {
+                        st.Number(e.to, e.amount, Theme.Hex(PoisonHex));
+                        int stk = Stacks(e.snap, e.to, StatusId.Poison);
+                        st.Text(e.to, stk > 0 ? $"Độc ×{stk}" : "Độc", PoisonHex, 18);
+                        st.Hurt(e.to, false, true);
+                        sfx.Hit(false);
+                        if (ko)
+                        {
+                            st.KoHit(e.to, last);
+                            st.KnockDown(e.to);
+                            Haptics.Play(Haptic.Ko);
+                        }
+                        yield return W(360);
+                        break;
+                    }
+                    if (e.dmgKind == DmgKind.Thorns) // phản đòn: số hiện trên KẺ ĐÁNH (e.to), tím gai, chữ "Phản đòn", tia gai văng
+                    {
+                        st.Number(e.to, e.amount, Theme.Hex(ThornsHex));
+                        st.Text(e.to, "Phản đòn!", ThornsHex, 20);
+                        st.Spark(e.to, Theme.Hex(ThornsHex), 7, 0.9f);
+                        if (e.blocked > 0) st.Text(e.to, $"Khiên đỡ {NumFmt.Short(e.blocked)}", "#8ec5ff", 18);
+                        st.Hurt(e.to, false);
+                        sfx.Hit(false);
+                        if (ko)
+                        {
+                            st.KoHit(e.to, last);
+                            st.KnockDown(e.to);
+                            Haptics.Play(Haptic.Ko);
+                        }
+                        else Haptics.Play(Haptic.Hit);
+                        yield return W(300);
+                        break;
+                    }
                     if (e.dmgKind == DmgKind.Burn)
                     {
                         st.Number(e.to, e.amount, Theme.Hex("#ffb070"));
                         st.Hurt(e.to, false, true);
                         sfx.Hit(false);
+                        if (ko)
+                        {
+                            st.KoHit(e.to, last);
+                            st.KnockDown(e.to);
+                            Haptics.Play(Haptic.Ko);
+                        }
                         yield return W(360);
                         break;
                     }
@@ -263,13 +355,11 @@ namespace PokiClash
                     if (e.elem < 1) st.Text(e.to, "Bị khắc ×0,75", "#c9c0b0", 18);
                     if (e.blocked > 0) st.Text(e.to, $"Khiên đỡ {e.blocked}", "#8ec5ff", 18);
                     sfx.Hit(big, pw);
-                    // cú hạ gục: thêm nhịp khựng, rung; con cuối của phe đó (hết trận) mạnh nhất
-                    var tf = e.snap != null && e.snap.f[e.to].Count > e.snap.active[e.to] ? e.snap.f[e.to][e.snap.active[e.to]] : null;
-                    bool ko = tf != null && (tf.dead || tf.hp <= 0);
+                    // cú hạ gục: thêm nhịp khựng, rung; con cuối của phe đó (hết trận) mạnh nhất; tướng ngã ngay (clip chết)
                     if (ko)
                     {
-                        bool last = e.snap.f[e.to].TrueForAll(x => x.dead || x.hp <= 0);
                         st.KoHit(e.to, last);
+                        st.KnockDown(e.to);
                         Haptics.Play(Haptic.Ko, HapticGain(pw));
                     }
                     else
@@ -278,56 +368,81 @@ namespace PokiClash
                     break;
                 }
                 case EvType.Revive:
-                    yield return WaitPending();
-                    st.Text(e.side, "Hồi sinh!", "#ffe08a", 30);
-                    st.Ring(e.side, "#f7c948");
-                    st.Flash("#fff6c9");
-                    sfx.Play("level");
-                    yield return W(700);
+                    // tướng đang nằm (clip chết từ cú hạ gục) được ánh sáng vàng nâng dậy, diễn clip ra sân; máu dâng lúc chớp. Không chờ clip
+                    // của kẻ đánh xong (chiêu cuối dài thì clip chết đã hết): hai bên diễn song song
+                    yield return st.Revive(e.side, () =>
+                    {
+                        st.Text(e.side, "Hồi sinh!", "#ffe08a", 30);
+                        sfx.Play("level");
+                        Haptics.Play(Haptic.HitBig);
+                        view.FillHp(e.side, e.snap, 0.6f);
+                    });
                     break;
                 case EvType.Evolve:
                 {
-                    // boss lên dạng sau: hiệu ứng như hồi sinh, đổi hình và tên dạng (thanh máu đổi theo ảnh chụp)
-                    yield return WaitPending();
+                    // boss lên dạng sau: chết → biến hình → ra sân (StageView.Evolve). Boss tiến hóa lúc máu về 0 thì cú hạ gục đã cho nó
+                    // ngã, chuỗi chạy tiếp từ giữa clip chết; tiến hóa dưới ngưỡng máu thì nó ngã từ đây. Không chờ clip của kẻ đánh xong
+                    // (chiêu cuối dài thì clip chết đã hết trước khi kịp sáng lên): kẻ đánh về chỗ trong lúc boss biến hình.
                     var f = b.sides[e.side].fighters[e.idx];
                     string formName = f.hero.forms[e.form].name;
-                    st.Text(e.side, "Tiến hóa!", "#ffe08a", 34);
-                    st.Ring(e.side, "#f7c948");
-                    st.Flash("#fff6c9");
-                    sfx.Play("level");
-                    if (e.side == 1) st.SetPhase(e.form + 1); // sàn đấu boss đổi theo dạng (trong lúc chớp trắng)
-                    if (e.side == 1) view.SetFoeForm(e.idx, e.form); // mặt boss ở góc trên trái đổi theo dạng
-                    st.SetActor(e.side, f.hero, f.boss, false, Teams.FormStar(b.Data.Cfg, e.form));
-                    view.SetPlateName(e.side, formName);
-                    st.Text(e.side, formName, "#fff6c8", 22);
-                    yield return W(900);
+                    if (!st.IsDown(e.side)) sfx.Play("stamp", 0.9f, 0.8f);
+                    float pw = st.Power(e.side);
+                    yield return st.Evolve(e.side, f.hero, f.boss, Teams.FormStar(b.Data.Cfg, e.form), formName,
+                        () => sfx.Play("ult", 0.85f, 0.85f),
+                        () =>
+                        {
+                            sfx.Play("level");
+                            Haptics.Play(Haptic.UltHit, HapticGain(pw));
+                            if (e.side == 1) st.SetPhase(e.form + 1); // sàn đấu boss đổi theo dạng (trong lúc chớp kem)
+                            if (e.side == 1) view.SetFoeForm(e.idx, e.form); // mặt boss ở góc trên trái đổi theo dạng
+                            view.SetPlateName(e.side, formName);
+                            view.FillHp(e.side, e.snap, 0.9f); // thanh máu dâng đầy theo nhịp
+                        });
                     break;
                 }
                 case EvType.Death:
                     yield return WaitPending();
-                    st.Die(e.side);
+                    st.KnockDown(e.side); // thường đã ngã từ cú hạ gục; gục vì nguyên nhân khác thì ngã từ đây
+                    st.HoldPace(2); // chữ, hạt theo nhịp ×1 cùng clip chết
                     st.Text(e.side, "Gục!", "#c9c0b0", 34);
                     // địch gục là tin vui: tiếng nện "stamp" chắc tay; tướng mình gục mới dùng thang đi xuống
                     if (e.side == 1) sfx.Play("stamp", 1, 0.85f);
                     else sfx.Play("lose");
-                    yield return W(900);
+                    // clip chết chạy trọn rồi mới tới tướng kế / hộp chọn tướng thay / kết trận (trước 2026-11-17: chờ cứng 0,3 giây, clip
+                    // chết bị tướng kế ra sân cắt ngang)
+                    yield return st.WaitDown(e.side);
+                    st.ReleasePace();
+                    yield return W(120);
                     break;
                 case EvType.Swap:
                 {
+                    // tướng cũ: đang gục thì nằm hết clip chết, còn đứng thì lùi khỏi sân; tướng mới diễn clip ra sân (đòn đầu của nó chờ
+                    // clip xong, PlayClip); thanh máu dâng từ 0 (BattleView.ApplySnap thấy đổi tướng)
+                    yield return st.WaitDown(e.side);
+                    yield return st.WaitEntered(e.side);
                     sfx.Play("swap");
-                    yield return W(st.Retreat(e.side) * 1000);
+                    if (st.Retreat(e.side) > 0) yield return st.WaitRetreat(e.side);
                     var f = b.sides[e.side].fighters[e.to];
                     st.SetActor(e.side, f.hero, f.boss, true, Teams.LookStar(b.Data.Cfg, f));
                     view.FillPlate(e.side);
                     st.Text(e.side, e.side == 0 ? $"{f.hero.name}, ra sân!" : $"{f.hero.name} ra sân", "#fff6c8", 22);
-                    yield return W(480);
+                    yield return W(300);
                     break;
                 }
                 case EvType.End:
                     break;
             }
+            if (keep) yield break;
             LastSnap = e.snap;
             view.ApplySnap(e.snap);
+        }
+
+        // cú hạ gục tướng đang ra sân bên side sẽ thành tiến hóa (boss evo, sân còn đang hiện dạng chưa cuối)
+        bool EvolvesNext(int side, Snap s)
+        {
+            if (s == null) return false;
+            var f = b.sides[side].fighters[s.active[side]];
+            return f.evo && st.FormShown(side) < f.hero.forms.Length - 1;
         }
 
         // ô thẻ đang chạy bay từ hàng thẻ lên đầu tướng rồi tan

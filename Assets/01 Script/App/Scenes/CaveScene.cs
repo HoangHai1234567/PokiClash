@@ -1,5 +1,6 @@
 // Hang Tiềm Năng: hệ boss hôm nay (theo thứ trong tuần; Thứ Bảy, Chủ nhật người chơi chọn), lượt thắng còn trong ngày và "+1 lượt"
-// (quảng cáo), 4 tầng (cấp đề nghị, đá thưởng, boss và tướng phụ, nút Vào). Thua không mất lượt; không quét, không AFK.
+// (quảng cáo), các tầng (cấp đề nghị, đá thưởng, thưởng lần đầu, boss và tướng phụ, nút Vào). Thua không mất lượt; không quét, không AFK.
+// 2026-11-17: 10 tầng mở lần lượt (qua tầng trước), thưởng lần đầu không cần lượt; dòng tin ghi số tầng đã qua và đá tinh.
 // Prefab màn hình Assets/04 Prefabs/Screens/Cave (nền, khung cuộn, khung "hom_nay" có sẵn hàng chọn hệ và nút +1 lượt);
 // mỗi tầng là một bản sao prefab Items/TangHang (CaveTierRow), sinh một lần rồi gán lại khi làm mới.
 using System.Collections.Generic;
@@ -98,6 +99,8 @@ namespace PokiClash
             left.color = leftWins > 0 ? Theme.Ink : Theme.RedD;
             left.rectTransform.anchoredPosition = new Vector2(left.rectTransform.anchoredPosition.x, y);
             info.rectTransform.anchoredPosition = new Vector2(info.rectTransform.anchoredPosition.x, y - 60);
+            info.text = $"Đã qua {S.caveFloor}/{cfg.cave.tiers.Count} tầng · có {S.potentialCrystals} đá tinh. Tầng sau mở khi qua tầng trước; " +
+                        "lần đầu qua một tầng có thưởng thêm và không cần lượt.";
             bool showAd = leftWins <= 0 && Ads.Ready && Ads.Left(Ads.CaveExtra) > 0;
             ad.gameObject.SetActive(showAd);
             if (showAd)
@@ -121,7 +124,7 @@ namespace PokiClash
                 tiers[tier].gameObject.SetActive(shown);
                 if (!shown) continue;
                 int t = tier;
-                tiers[tier].Bind(D, S, tier, elem, elem != null && leftWins > 0, () =>
+                tiers[tier].Bind(D, S, tier, elem, elem != null && Potential.CaveCanEnter(S, cfg, day, tier), () =>
                 {
                     if (elem is Elem ze) StagePrep.OpenCave(ze, t, day);
                 });

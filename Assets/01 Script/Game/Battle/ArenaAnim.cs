@@ -64,6 +64,7 @@ namespace PokiClash
         {
             foreach (Transform c in transform) Destroy(c.gameObject);
             fx.Clear();
+            shown.Clear();
             if (!itemPrefab) return;
             clock = flare = 0;
             int seed = 0;
@@ -83,6 +84,18 @@ namespace PokiClash
         }
 
         public void Flare() => flare = 1;
+
+        // tối nền lúc boss tiến hóa (StageView.Dim): nhân màu c vào mọi hình của lớp ở CanvasRenderer, không đụng màu, alpha các món tự đặt
+        readonly List<Graphic> shown = new List<Graphic>();
+        Color dim = Color.white;
+
+        public void Dim(Color c)
+        {
+            dim = c;
+            foreach (var g in shown)
+                if (g)
+                    g.canvasRenderer.SetColor(c);
+        }
 
         Fx Make(string k, Dictionary<string, object> it)
         {
@@ -122,6 +135,8 @@ namespace PokiClash
         {
             var img = Ui.Spawn(itemPrefab, parent);
             img.name = sprite ?? "vet";
+            shown.Add(img);
+            img.canvasRenderer.SetColor(dim); // đổi nền giữa lúc tối (boss tiến hóa) vẫn tối
             img.preserveAspect = false; // cỡ tính ở Place (tia đèn ép dẹt, vệt mưa không có ảnh)
             var rt = img.rectTransform;
             rt.anchorMin = rt.anchorMax = new Vector2(0, 1);

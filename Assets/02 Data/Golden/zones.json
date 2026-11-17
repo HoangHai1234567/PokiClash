@@ -10,7 +10,7 @@
      "ti_tach",
      4,
      false,
-     4
+     0
     ]
    ]
   },
@@ -68,14 +68,7 @@
    "id": 7,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "thach_giai",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -89,7 +82,14 @@
    "id": 9,
    "balls": 1,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "thach_giai",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -99,7 +99,7 @@
    "shards": [
     [
      "ca_den",
-     4,
+     3,
      false,
      0
     ]
@@ -117,14 +117,7 @@
    "id": 12,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "ca_den",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "chest",
@@ -159,7 +152,14 @@
    "id": 14,
    "balls": 1,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "ca_den",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -194,28 +194,14 @@
    "id": 18,
    "balls": 2,
    "first": true,
-   "shards": [
-    [
-     "ca_den",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
    "id": 19,
    "balls": 2,
    "first": true,
-   "shards": [
-    [
-     "ha_ba",
-     1,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -225,7 +211,7 @@
    "shards": [
     [
      "so_ngoc",
-     3,
+     5,
      false,
      0
     ]
@@ -239,13 +225,41 @@
     "big": false,
     "cards": [
      [
-      "ti_tach",
-      "ult",
-      "ti_tach_ult",
-      "uncommon"
+      "vo_su",
+      "skill",
+      "vs_skill",
+      "common"
      ]
     ]
    }
+  },
+  {
+   "t": "win",
+   "id": 20,
+   "balls": 2,
+   "first": false,
+   "shards": [
+    [
+     "so_ngoc",
+     3,
+     false,
+     0
+    ]
+   ]
+  },
+  {
+   "t": "win",
+   "id": 20,
+   "balls": 2,
+   "first": false,
+   "shards": [
+    [
+     "so_ngoc",
+     4,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -266,42 +280,14 @@
    "id": 20,
    "balls": 2,
    "first": false,
-   "shards": []
-  },
-  {
-   "t": "win",
-   "id": 20,
-   "balls": 2,
-   "first": false,
    "shards": [
     [
      "so_ngoc",
      3,
-     false,
+     true,
      0
     ]
    ]
-  },
-  {
-   "t": "win",
-   "id": 20,
-   "balls": 2,
-   "first": false,
-   "shards": [
-    [
-     "so_ngoc",
-     3,
-     false,
-     0
-    ]
-   ]
-  },
-  {
-   "t": "win",
-   "id": 20,
-   "balls": 2,
-   "first": false,
-   "shards": []
   },
   {
    "t": "win",
@@ -319,6 +305,13 @@
   },
   {
    "t": "win",
+   "id": 20,
+   "balls": 2,
+   "first": false,
+   "shards": []
+  },
+  {
+   "t": "win",
    "id": 3,
    "balls": 1,
    "first": false,
@@ -332,7 +325,7 @@
    "shards": [
     [
      "su_tu_lua",
-     3,
+     2,
      false,
      0
     ]
@@ -343,14 +336,7 @@
    "id": 72,
    "balls": 1,
    "first": true,
-   "shards": [
-    [
-     "su_tu_lua",
-     2,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -450,7 +436,7 @@
     [
      "so_ngoc",
      2,
-     true,
+     false,
      0
     ]
    ]
@@ -598,7 +584,7 @@
      "so_ngoc",
      2,
      false,
-     2
+     0
     ]
    ]
   },
@@ -638,7 +624,7 @@
    "shards": [
     [
      "uyen_xa",
-     3,
+     5,
      false,
      0
     ]
@@ -663,7 +649,14 @@
    "id": 53,
    "balls": 4,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "lien_kinh",
+     2,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -707,7 +700,7 @@
    "first": true,
    "shards": [
     [
-     "uyen_xa",
+     "lien_kinh",
      2,
      false,
      0
@@ -722,7 +715,7 @@
    "shards": [
     [
      "han_ngac",
-     5,
+     4,
      false,
      0
     ]
@@ -747,14 +740,7 @@
    "id": 63,
    "balls": 5,
    "first": true,
-   "shards": [
-    [
-     "uyen_xa",
-     1,
-     false,
-     0
-    ]
-   ]
+   "shards": []
   },
   {
    "t": "win",
@@ -768,7 +754,14 @@
    "id": 65,
    "balls": 5,
    "first": true,
-   "shards": []
+   "shards": [
+    [
+     "han_ngac",
+     1,
+     false,
+     0
+    ]
+   ]
   },
   {
    "t": "win",
@@ -806,7 +799,7 @@
    "shards": [
     [
      "hai_long",
-     5,
+     4,
      false,
      0
     ]
@@ -821,9 +814,9 @@
     "cards": [
      [
       "mam_u",
-      "passive",
-      "mam_u_pas",
-      "common"
+      "ult",
+      "mam_u_ult",
+      "uncommon"
      ]
     ]
    }
@@ -837,8 +830,8 @@
     "cards": [
      [
       "mam_u",
-      "passive",
-      "mam_u_pas",
+      "skill",
+      "mam_u_skill",
       "common"
      ],
      [
@@ -858,16 +851,16 @@
     "big": false,
     "cards": [
      [
-      "so_ngoc",
-      "passive",
-      "so_ngoc_pas",
-      "rare"
+      "vo_su",
+      "skill",
+      "vs_skill",
+      "common"
      ],
      [
       "vo_su",
-      "ult",
-      "vs_ult",
-      "rare"
+      "passive",
+      "vs_pas",
+      "common"
      ]
     ]
    }
@@ -881,15 +874,15 @@
     "cards": [
      [
       "so_ngoc",
-      "passive",
-      "so_ngoc_pas",
-      "rare"
+      "skill",
+      "so_ngoc_skill",
+      "uncommon"
      ],
      [
-      "vo_su",
-      "ult",
-      "vs_ult",
-      "rare"
+      "so_ngoc",
+      "skill",
+      "so_ngoc_skill",
+      "uncommon"
      ]
     ]
    }
@@ -903,27 +896,27 @@
     "cards": [
      [
       "so_ngoc",
-      "ult",
-      "so_ngoc_ult",
-      "epic"
-     ],
-     [
-      "mam_u",
-      "ult",
-      "mam_u_ult",
+      "skill",
+      "so_ngoc_skill",
       "uncommon"
      ],
      [
-      "vo_su",
-      "ult",
-      "vs_ult",
+      "so_ngoc",
+      "passive",
+      "so_ngoc_pas",
       "rare"
      ],
      [
-      "ti_tach",
-      "skill",
-      "ti_tach_skill",
+      "vo_su",
+      "passive",
+      "vs_pas",
       "common"
+     ],
+     [
+      "so_ngoc",
+      "passive",
+      "so_ngoc_pas",
+      "rare"
      ]
     ]
    }

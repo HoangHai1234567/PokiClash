@@ -938,7 +938,7 @@ namespace PokiClash.EditorTools
             s.zones[(int)Elem.Hoa] = 4;
             foreach (var id in new[] { "ti_tach", "vo_su", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
             s.level = 9;
-            s.Hero("ti_tach").star = 3;
+            s.Hero("ti_tach").star = 6; // Bạc 1★ (dạng 2), như 3 sao cũ
             s.Hero("ti_tach").potential = new PotLine[4];
             s.team = new System.Collections.Generic.List<string> { "vo_su", "tien_la", "so_ngoc" };
             s.potentialStones = 0;

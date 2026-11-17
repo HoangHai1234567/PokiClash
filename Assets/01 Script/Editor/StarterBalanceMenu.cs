@@ -121,7 +121,7 @@ namespace PokiClash.EditorTools
                         double Avg(bool partner) => d.ZoneStages(z.id).Average(st =>
                         {
                             int lv = st.enemies.Max(e => e.level), star = Sim.StarAt(d.Cfg, lv);
-                            return Sim.Stage(d, Sim.Setup(d, new[] { stId }, lv, star, star, partner ? stId : null), st, n / 2).WinRate;
+                            return Sim.Stage(d, Sim.Setup(d, new[] { stId }, lv, star, Teams.EnemyCard(lv), partner ? stId : null), st, n / 2).WinRate;
                         });
                         double m = Elements.Mult(d.Hero(stId).elem, z.id), bad = Elements.Mult(z.id, d.Hero(stId).elem);
                         string tag = m > 1 ? " khắc" : bad > 1 ? " **bị khắc**" : "";

@@ -34,6 +34,17 @@ namespace PokiClash.UI
             return rt;
         }
 
+        // Hàng ô chỉ số đặt cố định (Máu, Công, Thủ, Tốc): ẩn ô cuối và giãn đều các ô còn lại trên đúng khoảng của hàng cũ.
+        // Bỏ ô Tốc (người dùng duyệt 2026-11-17: trận không dùng tốc). Ô đầu và ô cuối không dời nên gọi lại nhiều lần vẫn ra như nhau.
+        public static void DropLastCell(System.Collections.Generic.IList<RectTransform> cells)
+        {
+            int n = cells.Count;
+            if (n < 3) return;
+            Vector2 first = cells[0].anchoredPosition, last = cells[n - 1].anchoredPosition;
+            cells[n - 1].gameObject.SetActive(false);
+            for (int i = 1; i < n - 1; i++) cells[i].anchoredPosition = Vector2.Lerp(first, last, i / (float)(n - 2));
+        }
+
         // đặt theo điểm neo (0..1), toạ độ lệch và cỡ
         public static RectTransform Place(this RectTransform rt, Vector2 anchor, Vector2 pos, Vector2 size, Vector2? pivot = null)
         {

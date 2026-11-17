@@ -17,23 +17,24 @@
   "atkBase": 180,
   "defBase": 55,
   "lvStep": 0.03,
-  "starStep": 0.08,
+  "starStep": 0.025,
   "bossHp": 1.8,
   "bossAtk": 1.1,
   "bossEvoHp": 1.5,
   "bossEvoAtk": 0.1,
+  "bossEvoEarly": 0.75,
   "cardLvStep": 0.15,
   "maxRounds": 60
  },
  "progression": {
-  "saveVersion": 11,
+  "saveVersion": 12,
   "maxLevel": 200,
   "expBase": 45,
   "expPow": 1.0,
   "afkCapH": 12,
   "legendMilestone": 300,
   "cardMax": 5,
-  "maxStar": 5,
+  "maxStar": 20,
   "xSteps": [
    {
     "x": 1,
@@ -63,26 +64,16 @@
    8,
    15
   ],
-  "starCards": [
-   0,
-   0,
-   5,
-   8,
-   11,
-   15
-  ],
-  "starLevel": [
-   0,
-   1,
-   7,
-   23,
-   50,
-   96
-  ],
-  "formStars": [
-   3,
-   5
-  ]
+  "formStars": [6, 11],
+  "tierPower": [1, 1.25, 1.55, 1.9],
+  "shardCost": [4, 6, 8, 12, 14, 18, 22, 26, 28, 34, 40, 48, 40, 50, 60, 70],
+  "shardRarity": [0.8, 1, 1.15, 1.3, 1.5],
+  "evoStones": [20, 55, 120],
+  "evoLevel": [30, 95, 150],
+  "evoFirst": [1, 3, 8],
+  "evoReplayMini": 0.1,
+  "evoReplayBoss": 0.25,
+  "evoChest": [2, 2, 3, 3, 4, 4, 10]
  },
  "poolWeight": {
   "common": 50,
@@ -181,6 +172,12 @@
      "k": "stones",
      "min": 1,
      "max": 2
+    },
+    {
+     "w": 0.8,
+     "k": "evo",
+     "min": 1,
+     "max": 1
     }
    ],
    "chest_gold": [
@@ -219,6 +216,12 @@
      "k": "stones",
      "min": 2,
      "max": 4
+    },
+    {
+     "w": 2,
+     "k": "evo",
+     "min": 1,
+     "max": 2
     }
    ]
   },
@@ -250,7 +253,7 @@
   }
  },
  "afk": {
-  "shardChance": 0.08,
+  "shardChance": 0.4,
   "chestEveryH": 3,
   "chestSlots": 4,
   "chestOpenH": 2,
@@ -286,6 +289,12 @@
     "k": "stones",
     "min": 1,
     "max": 1
+   },
+   {
+    "w": 3,
+    "k": "evo",
+    "min": 1,
+    "max": 1
    }
   ]
  },
@@ -305,7 +314,7 @@
     "ti_tach",
     "vo_su"
    ],
-   "star": 2,
+   "star": 3,
    "card": 2
   },
   "kim": {
@@ -314,7 +323,7 @@
     "nguu_quyen",
     "so_ngoc"
    ],
-   "star": 2,
+   "star": 3,
    "card": 2
   },
   "moc": {
@@ -323,7 +332,7 @@
     "bo_cap",
     "phi_thuong"
    ],
-   "star": 3,
+   "star": 6,
    "card": 3
   },
   "tho": {
@@ -332,7 +341,7 @@
     "tien_la",
     "thiet_phu"
    ],
-   "star": 3,
+   "star": 6,
    "card": 3
   }
  },
@@ -342,33 +351,181 @@
    "Bạc",
    "Vàng",
    "Ngọc",
-   "Kim Cương"
+   "Kim Cương",
+   "Hồng Ngọc",
+   "Lục Bảo",
+   "Tử Tinh",
+   "Nhật Nguyệt",
+   "Thần Thoại"
   ],
   "counts": [
    5,
    5,
+   6,
+   6,
+   8,
+   8,
+   8,
    10,
    10,
-   10
+   12
   ],
   "bonus": [
    0.05,
+   0.06,
+   0.07,
    0.08,
+   0.1,
+   0.11,
    0.12,
-   0.16,
-   0.2
+   0.13,
+   0.14,
+   0.16
   ],
-  "levelPerTier": 20,
-  "levelPerFight": 3,
+  "teamBonus": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0.005,
+   0.005,
+   0.01,
+   0.01,
+   0.02
+  ],
+  "levelPerTier": 14,
+  "levelPerFight": 1,
   "ballsBase": 5,
-  "ballsPerTier": 2,
+  "ballsPerTier": 1,
   "chest": [
    "chest_silver",
    "chest_silver",
    "chest_gold",
    "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
    "chest_gold"
-  ]
+  ],
+  "evo": [
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   3
+  ],
+  "crystal": [
+   0,
+   0,
+   0,
+   0,
+   1,
+   0,
+   1,
+   0,
+   1,
+   2
+  ],
+  "foeBuff": 0.03,
+  "foeTierBuff": 0.03,
+  "foeLastBuff": 0.05,
+  "starRounds": 2,
+  "giftEvery": 30,
+  "gifts": [
+   {
+    "chest": "chest_silver",
+    "stones": 5
+   },
+   {
+    "chest": "chest_silver",
+    "evo": 1
+   },
+   {
+    "chest": "chest_gold",
+    "stones": 10
+   },
+   {
+    "chest": "chest_silver",
+    "crystal": 1,
+    "stones": 5
+   },
+   {
+    "chest": "chest_gold",
+    "evo": 1,
+    "stones": 10
+   },
+   {
+    "chest": "chest_gold",
+    "evo": 1,
+    "crystal": 1
+   }
+  ],
+  "traits": {
+   "tiers": [
+    4,
+    6,
+    8,
+    10
+   ],
+   "kim": {
+    "name": "Lưỡi Kim",
+    "kind": "crit",
+    "v": [
+     0.04,
+     0.06,
+     0.08,
+     0.1
+    ]
+   },
+   "moc": {
+    "name": "Nhựa Sống",
+    "kind": "lifesteal",
+    "v": [
+     0.03,
+     0.05,
+     0.07,
+     0.09
+    ]
+   },
+   "thuy": {
+    "name": "Màng Nước",
+    "kind": "shield",
+    "v": [
+     0.06,
+     0.09,
+     0.12,
+     0.15
+    ]
+   },
+   "hoa": {
+    "name": "Hỏa Nộ",
+    "kind": "rage",
+    "v": [
+     10,
+     15,
+     20,
+     30
+    ]
+   },
+   "tho": {
+    "name": "Giáp Đất",
+    "kind": "guard",
+    "v": [
+     0.04,
+     0.06,
+     0.08,
+     0.1
+    ]
+   }
+  }
  },
  "potential": {
   "kinds": [
@@ -379,7 +536,10 @@
    "crit",
    "lifesteal",
    "mana",
-   "rage"
+   "rage",
+   "shield",
+   "guard",
+   "dodge"
   ],
   "values": {
    "atk": [
@@ -437,7 +597,31 @@
     15,
     20,
     30
+   ],
+   "shield": [
+    0.04,
+    0.06,
+    0.09,
+    0.13,
+    0.18
+   ],
+   "guard": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ],
+   "dodge": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
    ]
+  },
+  "kindWeight": {
+   "spd": 0
   },
   "rarityWeight": [
    55,
@@ -446,50 +630,231 @@
    4.5,
    0.5
   ],
+  "crystalWeight": [
+   0,
+   0,
+   80,
+   18,
+   2
+  ],
   "caps": {
-   "atk": 0.4,
-   "def": 0.4,
-   "hp": 0.4,
+   "atk": 0.3,
+   "def": 0.3,
+   "hp": 0.3,
    "spd": 30,
-   "crit": 0.4,
-   "lifesteal": 0.4,
+   "crit": 0.25,
+   "lifesteal": 0.2,
    "mana": 50,
-   "rage": 50
+   "rage": 50,
+   "shield": 0.3,
+   "guard": 0.2,
+   "dodge": 0.2
   },
   "slotStar": [
    1,
-   2,
    3,
-   4
+   6,
+   8,
+   11,
+   16
   ],
   "lockCost": 2,
-  "maxLocks": 2
+  "maxLocks": 3,
+  "sets": [
+   {
+    "key": "cong",
+    "name": "Cuồng Chiến",
+    "kinds": [
+     "atk",
+     "crit",
+     "rage"
+    ],
+    "need": [
+     3,
+     5
+    ],
+    "bonus": [
+     {
+      "k": "atk",
+      "v": [
+       0.04,
+       0.08
+      ]
+     },
+     {
+      "k": "crit",
+      "v": [
+       0,
+       0.04
+      ]
+     }
+    ]
+   },
+   {
+    "key": "thu",
+    "name": "Kiên Thành",
+    "kinds": [
+     "def",
+     "hp",
+     "shield",
+     "guard"
+    ],
+    "need": [
+     3,
+     5
+    ],
+    "bonus": [
+     {
+      "k": "hp",
+      "v": [
+       0.04,
+       0.08
+      ]
+     },
+     {
+      "k": "def",
+      "v": [
+       0,
+       0.08
+      ]
+     }
+    ]
+   },
+   {
+    "key": "linh",
+    "name": "Phong Ảnh",
+    "kinds": [
+     "lifesteal",
+     "mana",
+     "dodge"
+    ],
+    "need": [
+     3,
+     5
+    ],
+    "bonus": [
+     {
+      "k": "mana",
+      "v": [
+       10,
+       20
+      ]
+     },
+     {
+      "k": "dodge",
+      "v": [
+       0.03,
+       0.05
+      ]
+     },
+     {
+      "k": "lifesteal",
+      "v": [
+       0,
+       0.04
+      ]
+     }
+    ]
+   }
+  ]
  },
  "cave": {
   "tiers": [
    {
-    "name": "Dễ",
+    "name": "Cửa Hang",
     "level": 29,
-    "stones": 2
+    "stones": 2,
+    "firstStones": 5,
+    "firstCrystals": 1,
+    "firstEvo": 0,
+    "buff": -0.3
    },
    {
-    "name": "Thường",
+    "name": "Hành Lang Rêu",
+    "level": 45,
+    "stones": 3,
+    "firstStones": 8,
+    "firstCrystals": 0,
+    "firstEvo": 0,
+    "buff": -0.25
+   },
+   {
+    "name": "Suối Ngầm",
+    "level": 62,
+    "stones": 4,
+    "firstStones": 10,
+    "firstCrystals": 1,
+    "firstEvo": 1,
+    "buff": 0.0
+   },
+   {
+    "name": "Vách Thạch Anh",
     "level": 80,
-    "stones": 3
+    "stones": 5,
+    "firstStones": 12,
+    "firstCrystals": 1,
+    "firstEvo": 0,
+    "buff": 0.05
    },
    {
-    "name": "Khó",
-    "level": 128,
-    "stones": 5
+    "name": "Hồ Phát Sáng",
+    "level": 98,
+    "stones": 6,
+    "firstStones": 15,
+    "firstCrystals": 1,
+    "firstEvo": 1,
+    "buff": 0.1
    },
    {
-    "name": "Ác mộng",
-    "level": 173,
-    "stones": 8
+    "name": "Rừng Nhũ Đá",
+    "level": 116,
+    "stones": 7,
+    "firstStones": 18,
+    "firstCrystals": 2,
+    "firstEvo": 0,
+    "buff": 0.12
+   },
+   {
+    "name": "Mạch Dung Nham",
+    "level": 134,
+    "stones": 8,
+    "firstStones": 20,
+    "firstCrystals": 2,
+    "firstEvo": 2,
+    "buff": 0.14
+   },
+   {
+    "name": "Điện Pha Lê",
+    "level": 152,
+    "stones": 9,
+    "firstStones": 25,
+    "firstCrystals": 2,
+    "firstEvo": 0,
+    "buff": 0.16
+   },
+   {
+    "name": "Vực Tinh Thạch",
+    "level": 172,
+    "stones": 10,
+    "firstStones": 30,
+    "firstCrystals": 3,
+    "firstEvo": 2,
+    "buff": 0.18
+   },
+   {
+    "name": "Lõi Tiềm Năng",
+    "level": 195,
+    "stones": 12,
+    "firstStones": 40,
+    "firstCrystals": 4,
+    "firstEvo": 3,
+    "buff": 0.2
    }
   ],
   "winsPerDay": 3,
   "adExtra": 1,
+  "crystalFloor": 8,
+  "crystalDaily": 1,
   "weekday": [
    null,
    "kim",

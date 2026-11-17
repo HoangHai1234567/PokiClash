@@ -66,7 +66,8 @@ namespace PokiClash.EditorTools
         static List<object> CardDrop(PokiClash.Core.Progress.CardDrop c) =>
             new List<object> { c.hero, SlotKey[(int)c.slot], c.card, Keys.Of(c.rarity) };
 
-        // thưởng rương như golden web: ["card", tướng, ô, thẻ, độ hiếm], ["shards", tướng, n, mở, đổi], ["exp", n, lên cấp], ["stones"], ["balls", n]
+        // thưởng rương như golden web: ["card", tướng, ô, thẻ, độ hiếm], ["shards", tướng, n, mở, đổi], ["exp", n, lên cấp], ["stones"], ["balls", n],
+        // ["evo", n] (đá tiến hóa, 2026-11-17)
         static object RewardTree(Reward g)
         {
             switch (g.k)
@@ -81,6 +82,8 @@ namespace PokiClash.EditorTools
                     return new List<object> { "stones" };
                 case RewardKind.Balls:
                     return new List<object> { "balls", (double)g.n };
+                case RewardKind.EvoStones:
+                    return new List<object> { "evo", (double)g.n };
                 default:
                     throw new InvalidOperationException("Loại thưởng chưa có trong golden: " + g.k);
             }
@@ -203,7 +206,7 @@ namespace PokiClash.EditorTools
             var s = SaveData.New(d, 0, Starter);
             foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "nguu_quyen" }) s.Hero(id).owned = true;
             s.level = 9;
-            s.Hero("so_ngoc").star = 3;
+            s.Hero("so_ngoc").star = 6; // Bạc 1★ = 3 sao cũ (trang trại tính theo sao cũ, StarTier.Legacy)
             double t0 = J.Num(g, "t0");
             g["open"] = (double)Farm.SpotsOpen(d.Cfg, s.level);
             foreach (var x in J.Arr(g, "formula"))
@@ -276,9 +279,9 @@ namespace PokiClash.EditorTools
             var g = Load("Golden/potential.json");
             var cfg = d.Cfg;
             var s = SaveData.New(d, 0, Starter);
-            s.Hero(Starter).star = 4;
+            s.Hero(Starter).star = 8; // sao tổng (2026-11-17): 4 ô như PotentialTests
             s.Hero("vo_su").owned = true;
-            s.Hero("vo_su").star = 2;
+            s.Hero("vo_su").star = 3; // 2 ô
             s.potentialStones = 300;
             var rng = new Rng(41);
             foreach (var x in J.Arr(g, "spins"))

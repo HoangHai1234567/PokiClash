@@ -290,6 +290,32 @@ namespace PokiClash.Game
             return -1;
         }
 
+        // giờ lần thứ nth (0 = lần đầu) của sự kiện `name` (clip khai một sự kiện nhiều lần: cục đất nảy hai lần ở clip ra sân của Bùn Ngoạm)
+        public float EventTime(string clip, string name, int nth)
+        {
+            int ci = AtkClip(clip);
+            var ev = ci >= 0 ? atk.anims[ci].ev : null;
+            if (ev == null) return -1;
+            foreach (var e in ev)
+                if (e != null && e.name == name && nth-- == 0) return e.t;
+            return -1;
+        }
+
+        // Chỗ xương `bone` (đơn vị rig, y lên, gốc ở chân) ở giây t của clip, chưa tính xương far / fly do sân lái. Dựng tư thế riêng rồi bỏ:
+        // khung sau dựng lại tư thế đang hiện. Sân dùng để biết chỗ miệng lúc nhổ đối thủ (Bùn Ngoạm, StageViewNuot.cs). false: không có
+        public bool BoneAt(string clip, string bone, float t, out Vector2 p)
+        {
+            p = Vector2.zero;
+            int ci = AtkClip(clip);
+            int b = atk != null ? atk.FindBone(bone) : -1;
+            if (ci < 0 || b < 0) return false;
+            apose.Sample(ci, Mathf.Clamp(t, 0, atk.anims[ci].dur));
+            apose.World();
+            p = apose.BonePos(b);
+            shown = -1;
+            return true;
+        }
+
         // rig xương vẽ theo thời gian liên tục (mượt ở mọi tốc độ khung màn hình), không theo bậc 25 khung như hình aola
         float shownTime = -1, shownAura = -1;
 

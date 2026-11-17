@@ -194,10 +194,43 @@ namespace PokiClash
             return true;
         }
 
+        // Tâm hình đang hiện so với chân, đơn vị sân (y xuống), đo theo khung bao các lưới của tướng (bỏ lớp hạt không viền đặt cao FxLift).
+        // Sân dùng để đặt hiệu ứng đúng chỗ thân đang nằm trong clip chết (clip chết hay dời thân khỏi chỗ đứng; 2026-11-17, StageViewShow).
+        public bool Center(out Vector2 c)
+        {
+            c = Vector2.zero;
+            if (!actor || !world) return false;
+            var o = actor.transform.position;
+            var b = new Bounds();
+            bool any = false;
+            foreach (var r in world.GetComponentsInChildren<Renderer>())
+            {
+                if (!r.enabled || r.bounds.size.sqrMagnitude <= 1e-8f || Mathf.Abs(r.bounds.center.y - o.y) > 50) continue;
+                if (!any) b = r.bounds;
+                else b.Encapsulate(r.bounds);
+                any = true;
+            }
+            if (!any) return false;
+            c = new Vector2((b.center.x - o.x) * stageHeight, -(b.center.y - o.y) * stageHeight);
+            return true;
+        }
+
         // clip tự diễn đoạn giữ chiêu: không ghìm giờ clip ở khung nhả (AolaActor.SelfHold)
         public bool SelfHold(string clip) => actor.SelfHold(ClipName(clip));
         // giờ của một sự kiện trong clip rig (-1: không có): sân dùng "cham_dat" của clip ra sân để rung màn lúc tướng nện đất
         public float EventTime(string clip, string name) => actor.EventTime(ClipName(clip), name);
+        // lần thứ nth (0 = đầu) của sự kiện khai nhiều lần
+        public float EventTime(string clip, string name, int nth) => actor.EventTime(ClipName(clip), name, nth);
+
+        // Chỗ xương `bone` ở giây t của clip so với chân (đơn vị sân, y xuống, đã lật theo phía), chưa tính cú lao của sân; false: rig không có
+        public bool BoneAt(string clip, string bone, float t, out Vector2 p)
+        {
+            p = Vector2.zero;
+            if (!actor || !actor.BoneAt(ClipName(clip), bone, t, out var b)) return false;
+            float k = stageHeight / Mathf.Max(1, actor.IdleHeightPx);
+            p = new Vector2((flip ? -b.x : b.x) * k, -b.y * k);
+            return true;
+        }
 
         // Chiêu bắn tia (AolaActor.Beam): chỗ bắn so với chân (đơn vị sân, y xuống, đã lật theo phía) và cỡ tia; không khai: false
         public bool Beam(out Vector2 muzzle, out float scale)

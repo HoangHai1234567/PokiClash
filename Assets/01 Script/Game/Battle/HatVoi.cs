@@ -261,8 +261,12 @@ namespace PokiClash
         }
 
         // đòn đánh thường có hiệu ứng dù tướng LAO tới (không đứng bắn): StageView.AtkFx phát lúc clip attack bắt đầu
-        public static bool AtkLao(string kind) => kind == "n_hat_nga" || kind == "n_mo_dam" || kind == "n_nham_va" || kind == "n_ho_va" || kind == "n_nui_huc" ||
-            kind == "n_sat_tong" || kind == "n_giao_dam" || kind == "n_xich_go" || kind == "n_khoang_huc" || kind == "n_cua_huc" || kind == "n_hon_chem" || kind == "n_soi_go";
+        public static bool AtkLao(string kind) => kind == "n_hat_nga" || kind == "n_tru_dap" || kind == "n_vuong_huc" || kind == "n_nham_va" || kind == "n_ho_va" || kind == "n_nui_huc" ||
+            kind == "n_sat_tong" || kind == "n_giao_dam" || kind == "n_xich_go" || kind == "n_khoang_huc" || kind == "n_cua_huc" || kind == "n_hon_chem" || kind == "n_soi_go" ||
+            kind == "n_giap_huc" || kind == "n_tich_dop" || kind == "n_thiem_giang" || kind == "n_long_vuot" || kind == "n_vien_dam" ||
+            kind == "n_giap_huc2" || kind == "n_tich_dop2" || kind == "n_thiem_dam2" || kind == "n_long_vuot1" || // bộ Thổ (HatTho.cs; dạng 2, dạng 1 Sa Long)
+            kind == "n_trung_dop" || // Sa Trùng (rig sau_dat_1)
+            kind == "n_thach_vo"; // Thiên Thạch Thú (HatThach.cs, suất cu_phu)
 
         // HẤT NGÀ (đòn đánh thường, clip attack của voi_rung.py: cào đất lead − 0,40; chân sau đạp bật lead − 0,14; nện + hất ngà = lead):
         // bụi cào đất dưới chân trước, bụi và đất vụn bắn ra sau lúc chân sau đạp, lá trên lưng tuột lại phía sau lúc bay, tới nơi

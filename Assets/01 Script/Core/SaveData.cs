@@ -23,7 +23,7 @@ namespace PokiClash.Core
         public CardProg ult = new CardProg();
         public CardProg passive = new CardProg();
 
-        public PotLine[] potential = new PotLine[4]; // 4 ô tiềm năng (null = trống)
+        public PotLine[] potential = new PotLine[Potential.Slots]; // ô tiềm năng (null = trống); 6 ô từ 2026-11-17, bản lưu cũ 4 ô
         public PotLine[] potentialNew; // kết quả khai phá đang chờ chọn giữ mới / giữ cũ
 
         public CardProg Card(CardSlot s) => s == CardSlot.Skill ? skill : s == CardSlot.Ult ? ult : passive;
@@ -56,11 +56,12 @@ namespace PokiClash.Core
         public int stage; // ải người chơi chọn cho đội AFK (id ải), 0: chưa chọn (Afk.Stage tự lấy ải xa nhất có rơi mảnh)
     }
 
-    // Đền Huy Hiệu: bậc cao nhất đã có (0..5) và số trận đã thắng trong bậc đang đánh
+    // Đền Huy Hiệu: bậc cao nhất đã có (0..10) và số trận đã thắng trong bậc đang đánh
     public sealed class BadgeProg
     {
         public int tier;
         public int won;
+        public string stars = ""; // sao cao nhất từng trận (một chữ số mỗi trận, theo Badges.FightIndex; thiếu = chưa chấm)
     }
 
     public sealed class SaveData
@@ -81,6 +82,10 @@ namespace PokiClash.Core
         public long afkSince; // lần nhận AFK gần nhất, mili giây kể từ 1970 (giống Date.now())
         public AfkState afk = new AfkState();
         public int potentialStones; // đá tiềm năng
+        public int evoStones; // đá tiến hóa (2026-11-17): tiến hóa sang bậc sao sau (Đồng → Bạc → Vàng → Kim Cương), xem StarTier
+        public int potentialCrystals; // đá tinh (2026-11-17): khai phá tiềm năng ra mọi ô từ Hiếm trở lên
+        public int caveFloor; // số tầng Hang Tiềm Năng đã qua lần đầu (tầng sau mở khi qua tầng trước)
+        public int badgeGifts; // số mốc sao Đền Huy Hiệu đã nhận
         public CaveDay cave; // Hang Tiềm Năng: lượt trong ngày
         public FarmState farm; // trang trại (null = chưa dùng)
         public AdState ads; // lượt quảng cáo đã dùng trong ngày theo chỗ đặt
@@ -143,8 +148,21 @@ namespace PokiClash.Core
             new Dictionary<int, Action<Dictionary<string, object>>>
             {
                 [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6, [7] = MigrateMamU, [8] = MigrateGacDa, [9] = MigrateHoaNhan,
-                [10] = MigrateBoTuongCu,
+                [10] = MigrateBoTuongCu, [11] = MigrateSaoV12,
             };
+
+        // v11 -> v12 (2026-11-17, bậc sao kiểu Clash of Critters, StarTier): sao cũ 1..5 đổi sang sao tổng 1, 3, 6, 8, 11 (Đồng 1★,
+        // Đồng 3★, Bạc 1★, Bạc 3★, Vàng 1★), giữ dạng đang có (mốc đổi dạng cũ 3, 5 thành 6, 11). Mảnh, đá giữ nguyên.
+        public static void MigrateSaoV12(Dictionary<string, object> o)
+        {
+            var hs = J.Obj(o, "heroes");
+            if (hs == null) return;
+            foreach (var kv in hs)
+            {
+                var h = J.Obj(kv.Value);
+                if (h != null && J.Has(h, "star")) h["star"] = (double)StarTier.Migrate(J.Int(h, "star", 1));
+            }
+        }
 
         // v10 -> v11 (2026-11-16, người dùng: "tướng đã bị thay thế mà còn trong game thì bỏ đi"; đảo Thổ, hai tướng cuối đảo Hỏa giữ):
         // 31 tướng cũ không còn suất đảo bị bỏ khỏi danh sách tướng. Bản lưu gộp tướng cũ vào một tướng đang đứng ải cùng hệ, gần độ hiếm
@@ -390,7 +408,7 @@ namespace PokiClash.Core
         static readonly HashSet<string> Known = new HashSet<string>
         {
             "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "rings", "heroes", "team", "zones", "zoneChests", "clears",
-            "afkSince", "afk", "badges", "potentialStones", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
+            "afkSince", "afk", "badges", "potentialStones", "evoStones", "potentialCrystals", "caveFloor", "badgeGifts", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
         };
 
         public static int VersionOf(string json)
@@ -476,7 +494,7 @@ namespace PokiClash.Core
                         skill = Card(J.Obj(cards, "skill")),
                         ult = Card(J.Obj(cards, "ult")),
                         passive = Card(J.Obj(cards, "passive")),
-                        potential = ReadLines(J.Get(h, "potential")) ?? new PotLine[4],
+                        potential = ReadLines(J.Get(h, "potential")) ?? new PotLine[Potential.Slots],
                         potentialNew = ReadLines(J.Get(h, "potentialNew")),
                     };
                 }
@@ -507,6 +525,10 @@ namespace PokiClash.Core
             s.stats.wins = J.Int(stats, "wins");
             s.stats.dropped = J.Int(stats, "dropped");
             s.potentialStones = J.Int(o, "potentialStones");
+            s.evoStones = J.Int(o, "evoStones");
+            s.potentialCrystals = J.Int(o, "potentialCrystals");
+            s.caveFloor = J.Int(o, "caveFloor");
+            s.badgeGifts = J.Int(o, "badgeGifts");
             var cv = J.Obj(o, "cave");
             if (cv != null)
                 s.cave = new CaveDay
@@ -552,6 +574,7 @@ namespace PokiClash.Core
                 var b = J.Obj(bd, ElemKeys[i]);
                 s.badges[i].tier = J.Int(b, "tier");
                 s.badges[i].won = J.Int(b, "won");
+                s.badges[i].stars = J.Str(b, "stars", "");
             }
             var af = J.Obj(o, "afk");
             if (af == null) s.afk.lastTick = s.afkSince; // bản lưu trước mốc AFK: tính tiếp từ lần nhận trước
@@ -577,9 +600,14 @@ namespace PokiClash.Core
         static PotLine[] ReadLines(object v)
         {
             if (!(v is List<object> arr)) return null;
-            var lines = new PotLine[4];
-            for (int i = 0; i < 4 && i < arr.Count; i++)
-                if (J.Obj(arr[i]) is Dictionary<string, object> x) lines[i] = new PotLine { k = Potential.FromKey(J.Str(x, "k")), r = J.Int(x, "r") };
+            var lines = new PotLine[Potential.Slots]; // bản lưu cũ 4 ô: ô 5, 6 trống
+            for (int i = 0; i < lines.Length && i < arr.Count; i++)
+                if (J.Obj(arr[i]) is Dictionary<string, object> x)
+                {
+                    var k = Potential.FromKey(J.Str(x, "k"));
+                    if (k == PotKind.Spd) k = PotKind.Atk; // Tốc bỏ khỏi tiềm năng (2026-11-17, trận không dùng tốc): dòng cũ thành Công cùng độ hiếm
+                    lines[i] = new PotLine { k = k, r = J.Int(x, "r") };
+                }
             return lines;
         }
 
@@ -636,9 +664,13 @@ namespace PokiClash.Core
                 ["clears"] = clears,
                 ["afkSince"] = s.afkSince,
                 ["potentialStones"] = s.potentialStones,
+                ["evoStones"] = s.evoStones,
+                ["potentialCrystals"] = s.potentialCrystals,
+                ["caveFloor"] = s.caveFloor,
+                ["badgeGifts"] = s.badgeGifts,
                 ["badges"] = Enumerable.Range(0, 5).ToDictionary(i => ElemKeys[i], i => (object)new Dictionary<string, object>
                 {
-                    ["tier"] = s.badges[i].tier, ["won"] = s.badges[i].won,
+                    ["tier"] = s.badges[i].tier, ["won"] = s.badges[i].won, ["stars"] = s.badges[i].stars ?? "",
                 }),
                 ["afk"] = new Dictionary<string, object>
                 {

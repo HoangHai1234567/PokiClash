@@ -29,15 +29,22 @@ MAU = [(255, 80, 80), (255, 200, 60), (90, 220, 90), (80, 200, 255), (200, 120, 
 
 
 def doc_atlas(p):
+    """vùng ảnh theo tên; mỗi vùng ghi thêm "page" (tên tệp trang). Atlas nhiều trang (vd monster_3806: .png + _2.png, 2026-11-17):
+    dòng tên trang (đuôi .png) mở trang mới, không phải tên vùng."""
     R, cur = {}, None
-    for ln in open(p, encoding="utf-8").read().splitlines()[1:]:
+    lines = open(p, encoding="utf-8").read().splitlines()
+    page = lines[0].strip() if lines else ""
+    for ln in lines[1:]:
         if not ln.strip():
             continue
         if not ln.startswith(("\t", " ")):
             if ":" in ln:
                 continue
+            if ln.strip().lower().endswith((".png", ".webp", ".jpg")):
+                page, cur = ln.strip(), None
+                continue
             cur = ln.strip()
-            R[cur] = {"rotate": 0}
+            R[cur] = {"rotate": 0, "page": page}
         elif cur:
             k, v = [s.strip() for s in ln.split(":", 1)]
             if k in ("bounds", "offsets"):
@@ -66,8 +73,16 @@ def vung(page, r):
 
 def nap(rig, ten):
     atlas = doc_atlas(os.path.join(rig, ten + ".atlas"))
-    page = Image.open(os.path.join(rig, ten + ".png")).convert("RGBA")
-    return atlas, {n: vung(page, r) for n, r in atlas.items()}
+    pages = {}
+
+    def trang(r):
+        f = r.get("page") or ten + ".png"
+        if not os.path.exists(os.path.join(rig, f)):
+            f = ten + ".png"
+        if f not in pages:
+            pages[f] = Image.open(os.path.join(rig, f)).convert("RGBA")
+        return pages[f]
+    return atlas, {n: vung(trang(r), r) for n, r in atlas.items()}
 
 
 def to_anh(rig, ten, ra, z=3):

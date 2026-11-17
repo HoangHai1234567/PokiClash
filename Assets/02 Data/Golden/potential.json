@@ -6,41 +6,45 @@
    "cost": 4,
    "res": [
     {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "lifesteal",
-     "r": 0
-    },
-    {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
      "k": "rage",
      "r": 0
-    }
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 296,
    "pot": [
     {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "lifesteal",
-     "r": 0
-    },
-    {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
      "k": "rage",
      "r": 0
-    }
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
    ]
   },
   {
@@ -51,7 +55,7 @@
    "cost": 5,
    "res": [
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
@@ -59,19 +63,50 @@
      "r": 1
     },
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
-     "k": "hp",
+     "k": "crit",
      "r": 3
-    }
+    },
+    null,
+    null
    ],
    "keepNew": false,
    "stones": 291,
    "pot": [
     {
-     "k": "mana",
+     "k": "guard",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "guard",
      "r": 0
     },
     {
@@ -79,60 +114,37 @@
      "r": 0
     },
     {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true,
-    false,
-    true
-   ],
-   "cost": 6,
-   "res": [
-    {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
      "k": "hp",
      "r": 1
-    }
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 285,
    "pot": [
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 0
     },
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
      "k": "hp",
      "r": 1
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -146,11 +158,11 @@
    "cost": 6,
    "res": [
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 0
     },
     {
@@ -160,17 +172,19 @@
     {
      "k": "hp",
      "r": 1
-    }
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 279,
    "pot": [
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 0
     },
     {
@@ -180,7 +194,9 @@
     {
      "k": "hp",
      "r": 1
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -193,13 +209,15 @@
    "cost": 2,
    "res": [
     {
-     "k": "def",
+     "k": "hp",
      "r": 0
     },
     {
      "k": "def",
      "r": 0
     },
+    null,
+    null,
     null,
     null
    ],
@@ -209,6 +227,8 @@
     null,
     null,
     null,
+    null,
+    null,
     null
    ]
   },
@@ -218,11 +238,11 @@
    "cost": 4,
    "res": [
     {
-     "k": "hp",
+     "k": "crit",
      "r": 0
     },
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
@@ -230,19 +250,21 @@
      "r": 1
     },
     {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 0
-    }
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 273,
    "pot": [
     {
-     "k": "hp",
+     "k": "crit",
      "r": 0
     },
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
@@ -250,9 +272,11 @@
      "r": 1
     },
     {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 0
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -265,11 +289,11 @@
    "cost": 5,
    "res": [
     {
-     "k": "mana",
+     "k": "shield",
      "r": 0
     },
     {
-     "k": "lifesteal",
+     "k": "shield",
      "r": 0
     },
     {
@@ -277,19 +301,21 @@
      "r": 1
     },
     {
-     "k": "crit",
+     "k": "mana",
      "r": 0
-    }
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 268,
    "pot": [
     {
-     "k": "mana",
+     "k": "shield",
      "r": 0
     },
     {
-     "k": "lifesteal",
+     "k": "shield",
      "r": 0
     },
     {
@@ -297,9 +323,11 @@
      "r": 1
     },
     {
-     "k": "crit",
+     "k": "mana",
      "r": 0
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -312,27 +340,29 @@
      "r": 1
     },
     {
-     "k": "crit",
+     "k": "mana",
      "r": 0
     },
     {
-     "k": "rage",
+     "k": "guard",
      "r": 1
     },
     {
-     "k": "def",
+     "k": "hp",
      "r": 0
-    }
+    },
+    null,
+    null
    ],
    "keepNew": false,
    "stones": 264,
    "pot": [
     {
-     "k": "mana",
+     "k": "shield",
      "r": 0
     },
     {
-     "k": "lifesteal",
+     "k": "shield",
      "r": 0
     },
     {
@@ -340,9 +370,11 @@
      "r": 1
     },
     {
-     "k": "crit",
+     "k": "mana",
      "r": 0
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -353,41 +385,45 @@
    "cost": 5,
    "res": [
     {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
      "k": "mana",
      "r": 0
     },
-    {
-     "k": "def",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "crit",
-     "r": 0
-    }
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 259,
    "pot": [
     {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
      "k": "mana",
      "r": 0
     },
-    {
-     "k": "def",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "crit",
-     "r": 0
-    }
+    null,
+    null
    ]
   },
   {
@@ -400,13 +436,15 @@
    "cost": 2,
    "res": [
     {
-     "k": "spd",
+     "k": "crit",
      "r": 2
     },
     {
-     "k": "mana",
+     "k": "shield",
      "r": 0
     },
+    null,
+    null,
     null,
     null
    ],
@@ -414,13 +452,15 @@
    "stones": 257,
    "pot": [
     {
-     "k": "spd",
+     "k": "crit",
      "r": 2
     },
     {
-     "k": "mana",
+     "k": "shield",
      "r": 0
     },
+    null,
+    null,
     null,
     null
    ]
@@ -436,41 +476,45 @@
    "cost": 6,
    "res": [
     {
-     "k": "mana",
+     "k": "guard",
      "r": 0
     },
     {
-     "k": "def",
+     "k": "hp",
      "r": 0
     },
     {
-     "k": "def",
+     "k": "hp",
      "r": 1
     },
     {
-     "k": "crit",
+     "k": "mana",
      "r": 0
-    }
+    },
+    null,
+    null
    ],
    "keepNew": false,
    "stones": 251,
    "pot": [
     {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
      "k": "mana",
      "r": 0
     },
-    {
-     "k": "def",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "crit",
-     "r": 0
-    }
+    null,
+    null
    ]
   },
   {
@@ -481,26 +525,47 @@
     true
    ],
    "cost": 7,
-   "res": null,
+   "res": [
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 2
+    },
+    null,
+    null
+   ],
    "keepNew": true,
-   "stones": 251,
+   "stones": 244,
    "pot": [
     {
-     "k": "mana",
+     "k": "shield",
      "r": 0
     },
     {
-     "k": "def",
+     "k": "hp",
      "r": 0
     },
     {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 0
     },
     {
-     "k": "crit",
-     "r": 0
-    }
+     "k": "dodge",
+     "r": 2
+    },
+    null,
+    null
    ]
   },
   {
@@ -509,11 +574,7 @@
    "cost": 4,
    "res": [
     {
-     "k": "rage",
-     "r": 2
-    },
-    {
-     "k": "crit",
+     "k": "mana",
      "r": 3
     },
     {
@@ -523,87 +584,9 @@
     {
      "k": "hp",
      "r": 1
-    }
-   ],
-   "keepNew": true,
-   "stones": 247,
-   "pot": [
-    {
-     "k": "rage",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 3
     },
     {
      "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "hp",
-     "r": 1
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    false,
-    false,
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "hp",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "hp",
-     "r": 0
-    }
-   ],
-   "keepNew": false,
-   "stones": 242,
-   "pot": [
-    {
-     "k": "rage",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 3
-    },
-    {
-     "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "hp",
-     "r": 1
-    }
-   ]
-  },
-  {
-   "hero": "vo_su",
-   "locks": [],
-   "cost": 2,
-   "res": [
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "lifesteal",
      "r": 0
     },
     null,
@@ -613,13 +596,107 @@
    "stones": 240,
    "pot": [
     {
-     "k": "rage",
+     "k": "mana",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "dodge",
+     "r": 1
+    },
+    {
+     "k": "hp",
      "r": 0
     },
     {
-     "k": "lifesteal",
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "dodge",
      "r": 0
     },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 235,
+   "pot": [
+    {
+     "k": "mana",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    null,
+    null,
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 233,
+   "pot": [
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    null,
+    null,
     null,
     null
    ]
@@ -632,41 +709,45 @@
    "cost": 5,
    "res": [
     {
-     "k": "rage",
-     "r": 2
-    },
-    {
-     "k": "spd",
-     "r": 1
+     "k": "mana",
+     "r": 3
     },
     {
      "k": "hp",
      "r": 1
     },
     {
-     "k": "lifesteal",
+     "k": "rage",
      "r": 1
-    }
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 235,
+   "stones": 228,
    "pot": [
     {
-     "k": "rage",
-     "r": 2
-    },
-    {
-     "k": "spd",
-     "r": 1
+     "k": "mana",
+     "r": 3
     },
     {
      "k": "hp",
      "r": 1
     },
     {
-     "k": "lifesteal",
+     "k": "rage",
      "r": 1
-    }
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    null,
+    null
    ]
   },
   {
@@ -679,41 +760,45 @@
    "cost": 6,
    "res": [
     {
-     "k": "rage",
-     "r": 2
+     "k": "mana",
+     "r": 3
     },
     {
-     "k": "rage",
+     "k": "dodge",
      "r": 0
     },
     {
-     "k": "hp",
+     "k": "rage",
      "r": 1
     },
     {
-     "k": "rage",
+     "k": "mana",
      "r": 0
-    }
+    },
+    null,
+    null
    ],
    "keepNew": false,
-   "stones": 229,
+   "stones": 222,
    "pot": [
     {
-     "k": "rage",
-     "r": 2
-    },
-    {
-     "k": "spd",
-     "r": 1
+     "k": "mana",
+     "r": 3
     },
     {
      "k": "hp",
      "r": 1
     },
     {
-     "k": "lifesteal",
+     "k": "rage",
      "r": 1
-    }
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    null,
+    null
    ]
   },
   {
@@ -727,41 +812,45 @@
    "cost": 6,
    "res": [
     {
-     "k": "crit",
+     "k": "dodge",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "guard",
      "r": 0
     },
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    }
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 223,
+   "stones": 216,
    "pot": [
     {
-     "k": "crit",
+     "k": "dodge",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "guard",
      "r": 0
     },
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    }
+    null,
+    null
    ]
   },
   {
@@ -772,26 +861,47 @@
     true
    ],
    "cost": 7,
-   "res": null,
+   "res": [
+    {
+     "k": "dodge",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    null,
+    null
+   ],
    "keepNew": true,
-   "stones": 223,
+   "stones": 209,
    "pot": [
     {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "spd",
+     "k": "dodge",
      "r": 1
     },
     {
-     "k": "rage",
+     "k": "hp",
      "r": 1
     },
     {
-     "k": "lifesteal",
+     "k": "hp",
      "r": 1
-    }
+    },
+    {
+     "k": "hp",
+     "r": 1
+    },
+    null,
+    null
    ]
   },
   {
@@ -800,27 +910,31 @@
    "cost": 2,
    "res": [
     {
-     "k": "hp",
-     "r": 1
+     "k": "mana",
+     "r": 0
     },
     {
      "k": "hp",
-     "r": 1
+     "r": 2
     },
+    null,
+    null,
     null,
     null
    ],
    "keepNew": false,
-   "stones": 221,
+   "stones": 207,
    "pot": [
     {
-     "k": "rage",
+     "k": "shield",
      "r": 0
     },
     {
-     "k": "lifesteal",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
+    null,
+    null,
     null,
     null
    ]
@@ -839,37 +953,41 @@
      "r": 0
     },
     {
-     "k": "hp",
-     "r": 2
+     "k": "dodge",
+     "r": 0
     },
     {
-     "k": "rage",
+     "k": "hp",
      "r": 1
     },
     {
-     "k": "hp",
-     "r": 0
-    }
+     "k": "guard",
+     "r": 1
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 216,
+   "stones": 202,
    "pot": [
     {
      "k": "crit",
      "r": 0
     },
     {
-     "k": "hp",
-     "r": 2
+     "k": "dodge",
+     "r": 0
     },
     {
-     "k": "rage",
+     "k": "hp",
      "r": 1
     },
     {
-     "k": "hp",
-     "r": 0
-    }
+     "k": "guard",
+     "r": 1
+    },
+    null,
+    null
    ]
   },
   {
@@ -878,52 +996,11 @@
    "cost": 4,
    "res": [
     {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 1
     },
     {
      "k": "def",
-     "r": 0
-    }
-   ],
-   "keepNew": true,
-   "stones": 212,
-   "pot": [
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "def",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "rage",
      "r": 0
     },
     {
@@ -931,33 +1008,82 @@
      "r": 3
     },
     {
-     "k": "rage",
+     "k": "dodge",
      "r": 0
     },
-    {
-     "k": "atk",
-     "r": 0
-    }
+    null,
+    null
    ],
-   "keepNew": false,
-   "stones": 207,
+   "keepNew": true,
+   "stones": 198,
    "pot": [
     {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 1
     },
     {
      "k": "def",
      "r": 0
-    }
+    },
+    {
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 193,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
    ]
   },
   {
@@ -970,41 +1096,45 @@
    "cost": 6,
    "res": [
     {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 1
     },
     {
-     "k": "spd",
-     "r": 1
+     "k": "guard",
+     "r": 0
     },
     {
-     "k": "def",
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "hp",
      "r": 0
-    }
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 201,
+   "stones": 187,
    "pot": [
     {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 1
     },
     {
-     "k": "spd",
-     "r": 1
+     "k": "guard",
+     "r": 0
     },
     {
-     "k": "def",
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "hp",
      "r": 0
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -1018,27 +1148,31 @@
    "cost": 3,
    "res": [
     {
-     "k": "mana",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
     {
-     "k": "lifesteal",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
+    null,
+    null,
     null,
     null
    ],
    "keepNew": true,
-   "stones": 198,
+   "stones": 184,
    "pot": [
     {
-     "k": "mana",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
     {
-     "k": "lifesteal",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
+    null,
+    null,
     null,
     null
    ]
@@ -1051,26 +1185,47 @@
     true
    ],
    "cost": 7,
-   "res": null,
+   "res": [
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    {
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
+   ],
    "keepNew": false,
-   "stones": 198,
+   "stones": 177,
    "pot": [
     {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "spd",
+     "k": "lifesteal",
      "r": 1
     },
     {
-     "k": "spd",
-     "r": 1
+     "k": "guard",
+     "r": 0
     },
     {
-     "k": "def",
+     "k": "hp",
+     "r": 3
+    },
+    {
+     "k": "hp",
      "r": 0
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -1079,41 +1234,45 @@
    "cost": 4,
    "res": [
     {
-     "k": "def",
-     "r": 0
+     "k": "guard",
+     "r": 1
     },
     {
-     "k": "hp",
-     "r": 1
+     "k": "rage",
+     "r": 2
     },
     {
      "k": "rage",
      "r": 0
     },
     {
-     "k": "mana",
-     "r": 1
-    }
+     "k": "def",
+     "r": 2
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 194,
+   "stones": 173,
    "pot": [
     {
-     "k": "def",
-     "r": 0
+     "k": "guard",
+     "r": 1
     },
     {
-     "k": "hp",
-     "r": 1
+     "k": "rage",
+     "r": 2
     },
     {
      "k": "rage",
      "r": 0
     },
     {
-     "k": "mana",
-     "r": 1
-    }
+     "k": "def",
+     "r": 2
+    },
+    null,
+    null
    ]
   },
   {
@@ -1126,11 +1285,11 @@
    "cost": 5,
    "res": [
     {
-     "k": "lifesteal",
+     "k": "guard",
      "r": 2
     },
     {
-     "k": "crit",
+     "k": "dodge",
      "r": 0
     },
     {
@@ -1138,19 +1297,21 @@
      "r": 0
     },
     {
-     "k": "atk",
-     "r": 2
-    }
+     "k": "shield",
+     "r": 0
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 189,
+   "stones": 168,
    "pot": [
     {
-     "k": "lifesteal",
+     "k": "guard",
      "r": 2
     },
     {
-     "k": "crit",
+     "k": "dodge",
      "r": 0
     },
     {
@@ -1158,9 +1319,11 @@
      "r": 0
     },
     {
-     "k": "atk",
-     "r": 2
-    }
+     "k": "shield",
+     "r": 0
+    },
+    null,
+    null
    ]
   },
   {
@@ -1169,87 +1332,11 @@
    "cost": 4,
    "res": [
     {
-     "k": "mana",
-     "r": 2
-    },
-    {
      "k": "rage",
      "r": 0
     },
     {
-     "k": "lifesteal",
-     "r": 0
-    },
-    {
-     "k": "lifesteal",
-     "r": 0
-    }
-   ],
-   "keepNew": false,
-   "stones": 185,
-   "pot": [
-    {
-     "k": "lifesteal",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 2
-    }
-   ]
-  },
-  {
-   "hero": "vo_su",
-   "locks": [
-    true
-   ],
-   "cost": 3,
-   "res": [
-    {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 2
-    },
-    null,
-    null
-   ],
-   "keepNew": true,
-   "stones": 182,
-   "pot": [
-    {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 2
-    },
-    null,
-    null
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true,
-    false,
-    true
-   ],
-   "cost": 6,
-   "res": [
-    {
-     "k": "lifesteal",
+     "k": "dodge",
      "r": 2
     },
     {
@@ -1257,171 +1344,7 @@
      "r": 0
     },
     {
-     "k": "rage",
-     "r": 0
-    },
-    {
      "k": "atk",
-     "r": 0
-    }
-   ],
-   "keepNew": true,
-   "stones": 176,
-   "pot": [
-    {
-     "k": "lifesteal",
-     "r": 2
-    },
-    {
-     "k": "atk",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    false,
-    true,
-    false,
-    true
-   ],
-   "cost": 6,
-   "res": [
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 0
-    },
-    {
-     "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "atk",
-     "r": 0
-    }
-   ],
-   "keepNew": false,
-   "stones": 170,
-   "pot": [
-    {
-     "k": "lifesteal",
-     "r": 2
-    },
-    {
-     "k": "atk",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true,
-    true,
-    true
-   ],
-   "cost": 7,
-   "res": null,
-   "keepNew": true,
-   "stones": 170,
-   "pot": [
-    {
-     "k": "lifesteal",
-     "r": 2
-    },
-    {
-     "k": "atk",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [],
-   "cost": 4,
-   "res": [
-    {
-     "k": "crit",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 1
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    },
-    {
-     "k": "atk",
-     "r": 1
-    }
-   ],
-   "keepNew": true,
-   "stones": 166,
-   "pot": [
-    {
-     "k": "crit",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 1
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    },
-    {
-     "k": "atk",
-     "r": 1
-    }
-   ]
-  },
-  {
-   "hero": "vo_su",
-   "locks": [
-    false,
-    false,
-    true
-   ],
-   "cost": 2,
-   "res": [
-    {
-     "k": "atk",
-     "r": 1
-    },
-    {
-     "k": "hp",
      "r": 0
     },
     null,
@@ -1431,108 +1354,117 @@
    "stones": 164,
    "pot": [
     {
-     "k": "mana",
+     "k": "guard",
+     "r": 2
+    },
+    {
+     "k": "dodge",
      "r": 0
     },
     {
      "k": "rage",
-     "r": 2
+     "r": 0
+    },
+    {
+     "k": "shield",
+     "r": 0
     },
     null,
     null
    ]
   },
   {
-   "hero": "ti_tach",
-   "locks": [],
-   "cost": 4,
+   "hero": "vo_su",
+   "locks": [
+    true
+   ],
+   "cost": 3,
    "res": [
     {
-     "k": "spd",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
     {
-     "k": "def",
+     "k": "rage",
      "r": 0
     },
-    {
-     "k": "def",
-     "r": 0
-    },
-    {
-     "k": "mana",
-     "r": 2
-    }
+    null,
+    null,
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 160,
+   "stones": 161,
    "pot": [
     {
-     "k": "spd",
-     "r": 0
+     "k": "crit",
+     "r": 1
     },
     {
-     "k": "def",
+     "k": "rage",
      "r": 0
     },
-    {
-     "k": "def",
-     "r": 0
-    },
-    {
-     "k": "mana",
-     "r": 2
-    }
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
    "hero": "ti_tach",
    "locks": [
+    true,
+    false,
     true
    ],
-   "cost": 5,
+   "cost": 6,
    "res": [
     {
-     "k": "spd",
-     "r": 0
+     "k": "guard",
+     "r": 2
     },
     {
-     "k": "hp",
+     "k": "crit",
      "r": 1
     },
     {
-     "k": "atk",
+     "k": "rage",
      "r": 0
     },
     {
      "k": "mana",
-     "r": 1
-    }
+     "r": 2
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 155,
    "pot": [
     {
-     "k": "spd",
-     "r": 0
+     "k": "guard",
+     "r": 2
     },
     {
-     "k": "hp",
+     "k": "crit",
      "r": 1
     },
     {
-     "k": "atk",
+     "k": "rage",
      "r": 0
     },
     {
      "k": "mana",
-     "r": 1
-    }
+     "r": 2
+    },
+    null,
+    null
    ]
   },
   {
    "hero": "ti_tach",
    "locks": [
+    false,
     true,
     false,
     true
@@ -1540,29 +1472,189 @@
    "cost": 6,
    "res": [
     {
-     "k": "spd",
-     "r": 0
+     "k": "mana",
+     "r": 1
     },
     {
-     "k": "atk",
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 1
+    },
+    {
+     "k": "mana",
      "r": 2
     },
-    {
-     "k": "atk",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 1
-    }
+    null,
+    null
    ],
    "keepNew": false,
    "stones": 149,
    "pot": [
     {
-     "k": "spd",
+     "k": "guard",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
      "r": 0
     },
+    {
+     "k": "mana",
+     "r": 2
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": [
+    {
+     "k": "guard",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 142,
+   "pot": [
+    {
+     "k": "guard",
+     "r": 2
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 138,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 2,
+   "res": [
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "guard",
+     "r": 2
+    },
+    null,
+    null,
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 136,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [],
+   "cost": 4,
+   "res": [
     {
      "k": "hp",
      "r": 1
@@ -1572,9 +1664,137 @@
      "r": 0
     },
     {
-     "k": "mana",
+     "k": "shield",
      "r": 1
-    }
+    },
+    {
+     "k": "def",
+     "r": 2
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 132,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "shield",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 2
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 127,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 121,
+   "pot": [
+    {
+     "k": "hp",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    null,
+    null
    ]
   },
   {
@@ -1589,10 +1809,6 @@
    "res": [
     {
      "k": "lifesteal",
-     "r": 0
-    },
-    {
-     "k": "hp",
      "r": 1
     },
     {
@@ -1600,19 +1816,21 @@
      "r": 1
     },
     {
-     "k": "mana",
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
      "r": 1
-    }
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 143,
+   "stones": 115,
    "pot": [
     {
      "k": "lifesteal",
-     "r": 0
-    },
-    {
-     "k": "hp",
      "r": 1
     },
     {
@@ -1620,9 +1838,15 @@
      "r": 1
     },
     {
-     "k": "mana",
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "rage",
      "r": 1
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -1635,15 +1859,115 @@
    "cost": 4,
    "res": null,
    "keepNew": true,
-   "stones": 143,
+   "stones": 115,
    "pot": [
     {
-     "k": "mana",
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "guard",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    {
+     "k": "guard",
+     "r": 2
+    },
+    {
+     "k": "lifesteal",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 111,
+   "pot": [
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    {
+     "k": "rage",
      "r": 0
     },
     {
      "k": "rage",
-     "r": 2
+     "r": 1
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "guard",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 106,
+   "pot": [
+    {
+     "k": "guard",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
     },
     null,
     null
@@ -1655,176 +1979,94 @@
    "cost": 4,
    "res": [
     {
-     "k": "lifesteal",
-     "r": 1
-    },
-    {
-     "k": "spd",
+     "k": "def",
      "r": 0
     },
     {
-     "k": "spd",
-     "r": 1
+     "k": "def",
+     "r": 0
     },
     {
-     "k": "lifesteal",
+     "k": "dodge",
      "r": 0
-    }
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
    ],
-   "keepNew": false,
-   "stones": 139,
+   "keepNew": true,
+   "stones": 102,
    "pot": [
     {
-     "k": "lifesteal",
+     "k": "def",
      "r": 0
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
     },
     {
      "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    },
-    {
-     "k": "mana",
-     "r": 1
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    false,
-    false,
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    },
-    {
-     "k": "mana",
      "r": 2
-    }
-   ],
-   "keepNew": true,
-   "stones": 134,
-   "pot": [
-    {
-     "k": "rage",
-     "r": 0
     },
-    {
-     "k": "rage",
-     "r": 0
-    },
-    {
-     "k": "lifesteal",
-     "r": 1
-    },
-    {
-     "k": "mana",
-     "r": 2
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [],
-   "cost": 4,
-   "res": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "def",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
-   ],
-   "keepNew": true,
-   "stones": 130,
-   "pot": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "def",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 0
-    },
-    {
-     "k": "def",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
+    null,
+    null
    ],
    "keepNew": false,
-   "stones": 125,
+   "stones": 97,
    "pot": [
     {
-     "k": "spd",
+     "k": "def",
      "r": 0
     },
     {
-     "k": "rage",
-     "r": 1
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "dodge",
+     "r": 0
     },
     {
      "k": "def",
      "r": 1
     },
-    {
-     "k": "rage",
-     "r": 0
-    }
+    null,
+    null
    ]
   },
   {
@@ -1837,320 +2079,33 @@
    "cost": 3,
    "res": [
     {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "def",
-     "r": 1
-    },
-    null,
-    null
-   ],
-   "keepNew": true,
-   "stones": 122,
-   "pot": [
-    {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "def",
-     "r": 1
-    },
-    null,
-    null
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    false,
-    true,
-    false,
-    true
-   ],
-   "cost": 6,
-   "res": [
-    {
      "k": "crit",
      "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
-   ],
-   "keepNew": true,
-   "stones": 116,
-   "pot": [
-    {
-     "k": "crit",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true,
-    true,
-    true
-   ],
-   "cost": 7,
-   "res": null,
-   "keepNew": false,
-   "stones": 116,
-   "pot": [
-    {
-     "k": "crit",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "rage",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [],
-   "cost": 4,
-   "res": [
-    {
-     "k": "def",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 2
-    },
-    {
-     "k": "hp",
-     "r": 0
-    }
-   ],
-   "keepNew": true,
-   "stones": 112,
-   "pot": [
-    {
-     "k": "def",
-     "r": 2
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 2
-    },
-    {
-     "k": "hp",
-     "r": 0
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    false,
-    false,
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 2
-    },
-    {
-     "k": "spd",
-     "r": 2
-    }
-   ],
-   "keepNew": true,
-   "stones": 107,
-   "pot": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 2
-    },
-    {
-     "k": "spd",
-     "r": 2
-    }
-   ]
-  },
-  {
-   "hero": "vo_su",
-   "locks": [],
-   "cost": 2,
-   "res": [
-    {
-     "k": "crit",
-     "r": 0
     },
     {
      "k": "mana",
      "r": 0
     },
     null,
-    null
-   ],
-   "keepNew": false,
-   "stones": 105,
-   "pot": [
-    {
-     "k": "mana",
-     "r": 0
-    },
-    {
-     "k": "def",
-     "r": 1
-    },
+    null,
     null,
     null
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 3
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "crit",
-     "r": 3
-    }
-   ],
-   "keepNew": true,
-   "stones": 100,
-   "pot": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 3
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "crit",
-     "r": 3
-    }
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    true,
-    false,
-    true
-   ],
-   "cost": 6,
-   "res": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "def",
-     "r": 1
-    }
    ],
    "keepNew": true,
    "stones": 94,
    "pot": [
     {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
      "k": "crit",
-     "r": 0
+     "r": 1
     },
     {
-     "k": "def",
-     "r": 1
-    }
+     "k": "mana",
+     "r": 0
+    },
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2168,28 +2123,8 @@
      "r": 2
     },
     {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "atk",
-     "r": 1
-    },
-    {
      "k": "def",
-     "r": 1
-    }
-   ],
-   "keepNew": false,
-   "stones": 88,
-   "pot": [
-    {
-     "k": "spd",
      "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
     },
     {
      "k": "crit",
@@ -2198,7 +2133,31 @@
     {
      "k": "def",
      "r": 1
-    }
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 88,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 2
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    {
+     "k": "crit",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
    ]
   },
   {
@@ -2209,95 +2168,36 @@
     true
    ],
    "cost": 7,
-   "res": null,
-   "keepNew": true,
-   "stones": 88,
-   "pot": [
-    {
-     "k": "spd",
-     "r": 0
-    },
-    {
-     "k": "rage",
-     "r": 1
-    },
-    {
-     "k": "crit",
-     "r": 0
-    },
-    {
-     "k": "def",
-     "r": 1
-    }
-   ]
-  },
-  {
-   "hero": "vo_su",
-   "locks": [],
-   "cost": 2,
    "res": [
     {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "def",
-     "r": 0
-    },
-    null,
-    null
-   ],
-   "keepNew": true,
-   "stones": 86,
-   "pot": [
-    {
-     "k": "spd",
-     "r": 1
-    },
-    {
-     "k": "def",
-     "r": 0
-    },
-    null,
-    null
-   ]
-  },
-  {
-   "hero": "ti_tach",
-   "locks": [
-    false,
-    false,
-    true
-   ],
-   "cost": 5,
-   "res": [
-    {
-     "k": "lifesteal",
-     "r": 0
-    },
-    {
-     "k": "rage",
+     "k": "atk",
      "r": 2
     },
     {
+     "k": "def",
+     "r": 0
+    },
+    {
      "k": "crit",
      "r": 0
     },
     {
      "k": "lifesteal",
-     "r": 1
-    }
+     "r": 0
+    },
+    null,
+    null
    ],
    "keepNew": false,
    "stones": 81,
    "pot": [
     {
-     "k": "spd",
-     "r": 0
+     "k": "atk",
+     "r": 2
     },
     {
-     "k": "rage",
-     "r": 1
+     "k": "def",
+     "r": 0
     },
     {
      "k": "crit",
@@ -2306,7 +2206,9 @@
     {
      "k": "def",
      "r": 1
-    }
+    },
+    null,
+    null
    ]
   },
   {
@@ -2315,41 +2217,131 @@
    "cost": 4,
    "res": [
     {
-     "k": "hp",
+     "k": "lifesteal",
      "r": 0
     },
     {
-     "k": "hp",
-     "r": 0
-    },
-    {
-     "k": "atk",
-     "r": 0
+     "k": "lifesteal",
+     "r": 2
     },
     {
      "k": "rage",
-     "r": 1
-    }
+     "r": 0
+    },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    null,
+    null
    ],
    "keepNew": true,
    "stones": 77,
    "pot": [
     {
-     "k": "hp",
+     "k": "lifesteal",
      "r": 0
     },
     {
-     "k": "hp",
+     "k": "lifesteal",
+     "r": 2
+    },
+    {
+     "k": "rage",
      "r": 0
     },
+    {
+     "k": "guard",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
     {
      "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "mana",
      "r": 0
     },
     {
      "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 3
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 72,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "mana",
+     "r": 3
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
+     "k": "dodge",
      "r": 1
-    }
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null,
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 70,
+   "pot": [
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "mana",
+     "r": 0
+    },
+    null,
+    null,
+    null,
+    null
    ]
   },
   {
@@ -2360,41 +2352,45 @@
    "cost": 5,
    "res": [
     {
-     "k": "hp",
-     "r": 0
-    },
-    {
-     "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "hp",
-     "r": 0
+     "k": "atk",
+     "r": 3
     },
     {
      "k": "atk",
-     "r": 0
-    }
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    null,
+    null
    ],
    "keepNew": true,
-   "stones": 72,
+   "stones": 65,
    "pot": [
     {
-     "k": "hp",
-     "r": 0
-    },
-    {
-     "k": "hp",
-     "r": 1
-    },
-    {
-     "k": "hp",
-     "r": 0
+     "k": "atk",
+     "r": 3
     },
     {
      "k": "atk",
-     "r": 0
-    }
+     "r": 2
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "lifesteal",
+     "r": 1
+    },
+    null,
+    null
    ]
   },
   {
@@ -2407,6 +2403,156 @@
    "cost": 6,
    "res": [
     {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 59,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    false,
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "dodge",
+     "r": 2
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 53,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "shield",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true,
+    true,
+    true
+   ],
+   "cost": 7,
+   "res": [
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 46,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 3
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "vo_su",
+   "locks": [],
+   "cost": 2,
+   "res": [
+    {
      "k": "hp",
      "r": 0
     },
@@ -2414,25 +2560,62 @@
      "k": "atk",
      "r": 0
     },
-    {
-     "k": "hp",
-     "r": 0
-    },
-    {
-     "k": "mana",
-     "r": 1
-    }
+    null,
+    null,
+    null,
+    null
    ],
-   "keepNew": false,
-   "stones": 66,
+   "keepNew": true,
+   "stones": 44,
    "pot": [
     {
      "k": "hp",
      "r": 0
     },
     {
-     "k": "hp",
+     "k": "atk",
+     "r": 0
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    false,
+    false,
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "dodge",
      "r": 1
+    },
+    {
+     "k": "crit",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 39,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 3
     },
     {
      "k": "hp",
@@ -2440,8 +2623,161 @@
     },
     {
      "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "hp",
      "r": 0
-    }
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [],
+   "cost": 4,
+   "res": [
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "guard",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 35,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "guard",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true
+   ],
+   "cost": 5,
+   "res": [
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    null,
+    null
+   ],
+   "keepNew": true,
+   "stones": 30,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    null,
+    null
+   ]
+  },
+  {
+   "hero": "ti_tach",
+   "locks": [
+    true,
+    false,
+    true
+   ],
+   "cost": 6,
+   "res": [
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "def",
+     "r": 3
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "def",
+     "r": 1
+    },
+    null,
+    null
+   ],
+   "keepNew": false,
+   "stones": 24,
+   "pot": [
+    {
+     "k": "atk",
+     "r": 0
+    },
+    {
+     "k": "rage",
+     "r": 0
+    },
+    {
+     "k": "atk",
+     "r": 1
+    },
+    {
+     "k": "atk",
+     "r": 0
+    },
+    null,
+    null
    ]
   },
   {
@@ -2455,27 +2791,31 @@
    "cost": 3,
    "res": [
     {
-     "k": "def",
-     "r": 0
+     "k": "dodge",
+     "r": 2
     },
     {
-     "k": "def",
+     "k": "atk",
      "r": 0
     },
+    null,
+    null,
     null,
     null
    ],
    "keepNew": true,
-   "stones": 63,
+   "stones": 21,
    "pot": [
     {
-     "k": "def",
-     "r": 0
+     "k": "dodge",
+     "r": 2
     },
     {
-     "k": "def",
+     "k": "atk",
      "r": 0
     },
+    null,
+    null,
     null,
     null
    ]
@@ -2516,7 +2856,7 @@
    "hero": "ti_tach",
    "mods": {
     "hpPct": 0,
-    "atkPct": 0.08,
+    "atkPct": 0.12,
     "defPct": 0,
     "spd": 0
    },
@@ -2544,7 +2884,7 @@
    "foeLevel": 3,
    "seed": 11,
    "winner": 0,
-   "round": 3,
+   "round": 2,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2562,7 +2902,7 @@
    "foeLevel": 3,
    "seed": 12,
    "winner": 0,
-   "round": 3,
+   "round": 2,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2598,7 +2938,7 @@
    "foeLevel": 4,
    "seed": 11,
    "winner": 0,
-   "round": 3,
+   "round": 2,
    "start": {
     "mana": 0,
     "rage": 20,
@@ -2657,12 +2997,14 @@
     [
      "thach_giai",
      29,
-     true
+     true,
+     -0.23
     ],
     [
      "ca_den",
      27,
-     false
+     false,
+     -0.3
     ]
    ]
   },
@@ -2673,13 +3015,15 @@
    "enemies": [
     [
      "ca_den",
-     80,
-     true
+     45,
+     true,
+     -0.25
     ],
     [
      "ti_tach",
-     78,
-     false
+     43,
+     false,
+     -0.25
     ]
    ]
   },
@@ -2690,13 +3034,15 @@
    "enemies": [
     [
      "ti_tach",
-     128,
-     true
+     62,
+     true,
+     0
     ],
     [
      "hai_long",
-     126,
-     false
+     60,
+     false,
+     -0.38
     ]
    ]
   },
@@ -2707,13 +3053,129 @@
    "enemies": [
     [
      "hai_long",
-     173,
-     true
+     80,
+     true,
+     -0.34
     ],
     [
      "han_ngac",
-     171,
-     false
+     78,
+     false,
+     -0.16
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 4,
+   "id": 2004,
+   "enemies": [
+    [
+     "han_ngac",
+     98,
+     true,
+     -0.12
+    ],
+    [
+     "ha_ba",
+     96,
+     false,
+     0.1
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 5,
+   "id": 2005,
+   "enemies": [
+    [
+     "ha_ba",
+     116,
+     true,
+     0.12
+    ],
+    [
+     "so_ngoc",
+     114,
+     false,
+     0
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "id": 2006,
+   "enemies": [
+    [
+     "so_ngoc",
+     134,
+     true,
+     0.02
+    ],
+    [
+     "giong_bao",
+     132,
+     false,
+     0.02
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "id": 2007,
+   "enemies": [
+    [
+     "giong_bao",
+     152,
+     true,
+     0.04
+    ],
+    [
+     "uyen_xa",
+     150,
+     false,
+     -0.08
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "id": 2008,
+   "enemies": [
+    [
+     "uyen_xa",
+     172,
+     true,
+     -0.06
+    ],
+    [
+     "lien_kinh",
+     170,
+     false,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "id": 2009,
+   "enemies": [
+    [
+     "lien_kinh",
+     195,
+     true,
+     -0.04
+    ],
+    [
+     "thach_giai",
+     193,
+     false,
+     0.32
     ]
    ]
   },
@@ -2725,12 +3187,14 @@
     [
      "su_tu_lua",
      29,
-     true
+     true,
+     -0.3
     ],
     [
      "hoa_nhan",
      27,
-     false
+     false,
+     -0.23
     ]
    ]
   },
@@ -2741,13 +3205,15 @@
    "enemies": [
     [
      "hoa_nhan",
-     80,
-     true
+     45,
+     true,
+     -0.17
     ],
     [
      "kim_su",
-     78,
-     false
+     43,
+     false,
+     -0.25
     ]
    ]
   },
@@ -2758,13 +3224,15 @@
    "enemies": [
     [
      "kim_su",
-     128,
-     true
+     62,
+     true,
+     0
     ],
     [
      "nham_than",
-     126,
-     false
+     60,
+     false,
+     0
     ]
    ]
   },
@@ -2775,13 +3243,129 @@
    "enemies": [
     [
      "nham_than",
-     173,
-     true
+     80,
+     true,
+     0.05
     ],
     [
      "hong_lien",
-     171,
-     false
+     78,
+     false,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 4,
+   "id": 2014,
+   "enemies": [
+    [
+     "hong_lien",
+     98,
+     true,
+     -0.02
+    ],
+    [
+     "giap_long",
+     96,
+     false,
+     -0.12
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 5,
+   "id": 2015,
+   "enemies": [
+    [
+     "giap_long",
+     116,
+     true,
+     -0.11
+    ],
+    [
+     "huyen_viem",
+     114,
+     false,
+     -0.11
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "id": 2016,
+   "enemies": [
+    [
+     "huyen_viem",
+     134,
+     true,
+     -0.09
+    ],
+    [
+     "hoa_tinh",
+     132,
+     false,
+     -0.09
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "id": 2017,
+   "enemies": [
+    [
+     "hoa_tinh",
+     152,
+     true,
+     -0.08
+    ],
+    [
+     "lan_hoa",
+     150,
+     false,
+     -0.28
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "id": 2018,
+   "enemies": [
+    [
+     "lan_hoa",
+     172,
+     true,
+     -0.26
+    ],
+    [
+     "nguu_quyen",
+     170,
+     false,
+     0.06
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "id": 2019,
+   "enemies": [
+    [
+     "nguu_quyen",
+     195,
+     true,
+     0.07
+    ],
+    [
+     "su_tu_lua",
+     193,
+     false,
+     0.2
     ]
    ]
   },
@@ -2793,12 +3377,14 @@
     [
      "bo_cap",
      29,
-     true
+     true,
+     -0.3
     ],
     [
      "bo_ngua",
      27,
-     false
+     false,
+     -0.3
     ]
    ]
   },
@@ -2809,13 +3395,15 @@
    "enemies": [
     [
      "bo_ngua",
-     80,
-     true
+     45,
+     true,
+     -0.25
     ],
     [
      "doc_giac",
-     78,
-     false
+     43,
+     false,
+     -0.17
     ]
    ]
   },
@@ -2826,13 +3414,15 @@
    "enemies": [
     [
      "doc_giac",
-     128,
-     true
+     62,
+     true,
+     0.1
     ],
     [
      "phi_thuong",
-     126,
-     false
+     60,
+     false,
+     0
     ]
    ]
   },
@@ -2843,13 +3433,129 @@
    "enemies": [
     [
      "phi_thuong",
-     173,
-     true
+     80,
+     true,
+     0.05
     ],
     [
      "khien_bac",
-     171,
-     false
+     78,
+     false,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 4,
+   "id": 2024,
+   "enemies": [
+    [
+     "khien_bac",
+     98,
+     true,
+     -0.02
+    ],
+    [
+     "chien_than",
+     96,
+     false,
+     -0.02
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 5,
+   "id": 2025,
+   "enemies": [
+    [
+     "chien_than",
+     116,
+     true,
+     0
+    ],
+    [
+     "thiet_phu",
+     114,
+     false,
+     -0.11
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "id": 2026,
+   "enemies": [
+    [
+     "thiet_phu",
+     134,
+     true,
+     -0.09
+    ],
+    [
+     "tam_kiem",
+     132,
+     false,
+     -0.09
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "id": 2027,
+   "enemies": [
+    [
+     "tam_kiem",
+     152,
+     true,
+     -0.08
+    ],
+    [
+     "ung_thep",
+     150,
+     false,
+     -0.08
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "id": 2028,
+   "enemies": [
+    [
+     "ung_thep",
+     172,
+     true,
+     -0.06
+    ],
+    [
+     "kim_nghe",
+     170,
+     false,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "id": 2029,
+   "enemies": [
+    [
+     "kim_nghe",
+     195,
+     true,
+     -0.25
+    ],
+    [
+     "bo_cap",
+     193,
+     false,
+     0.2
     ]
    ]
   },
@@ -2861,12 +3567,14 @@
     [
      "tien_la",
      29,
-     true
+     true,
+     -0.3
     ],
     [
      "mam_u",
      27,
-     false
+     false,
+     -0.23
     ]
    ]
   },
@@ -2877,13 +3585,15 @@
    "enemies": [
     [
      "mam_u",
-     80,
-     true
+     45,
+     true,
+     -0.17
     ],
     [
      "gac_da",
-     78,
-     false
+     43,
+     false,
+     -0.25
     ]
    ]
   },
@@ -2894,13 +3604,15 @@
    "enemies": [
     [
      "gac_da",
-     128,
-     true
+     62,
+     true,
+     0
     ],
     [
      "bom_la",
-     126,
-     false
+     60,
+     false,
+     0
     ]
    ]
   },
@@ -2911,13 +3623,129 @@
    "enemies": [
     [
      "bom_la",
-     173,
-     true
+     80,
+     true,
+     0.05
     ],
     [
      "phong_linh",
-     171,
-     false
+     78,
+     false,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 4,
+   "id": 2034,
+   "enemies": [
+    [
+     "phong_linh",
+     98,
+     true,
+     -0.02
+    ],
+    [
+     "gio_loc",
+     96,
+     false,
+     -0.02
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 5,
+   "id": 2035,
+   "enemies": [
+    [
+     "gio_loc",
+     116,
+     true,
+     0
+    ],
+    [
+     "long_vuot",
+     114,
+     false,
+     -0.11
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "id": 2036,
+   "enemies": [
+    [
+     "long_vuot",
+     134,
+     true,
+     -0.09
+    ],
+    [
+     "tho_hoang",
+     132,
+     false,
+     -0.09
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "id": 2037,
+   "enemies": [
+    [
+     "tho_hoang",
+     152,
+     true,
+     -0.08
+    ],
+    [
+     "moc_tinh",
+     150,
+     false,
+     -0.08
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "id": 2038,
+   "enemies": [
+    [
+     "moc_tinh",
+     172,
+     true,
+     -0.06
+    ],
+    [
+     "thanh_long",
+     170,
+     false,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "id": 2039,
+   "enemies": [
+    [
+     "thanh_long",
+     195,
+     true,
+     -0.25
+    ],
+    [
+     "tien_la",
+     193,
+     false,
+     0.2
     ]
    ]
   },
@@ -2929,12 +3757,14 @@
     [
      "vo_su",
      29,
-     true
+     true,
+     -0.3
     ],
     [
      "gau_mo",
      27,
-     false
+     false,
+     -0.23
     ]
    ]
   },
@@ -2945,13 +3775,15 @@
    "enemies": [
     [
      "gau_mo",
-     80,
-     true
+     45,
+     true,
+     -0.17
     ],
     [
      "soc_da",
-     78,
-     false
+     43,
+     false,
+     -0.25
     ]
    ]
   },
@@ -2962,13 +3794,15 @@
    "enemies": [
     [
      "soc_da",
-     128,
-     true
+     62,
+     true,
+     0
     ],
     [
      "bo_hung",
-     126,
-     false
+     60,
+     false,
+     0
     ]
    ]
   },
@@ -2979,13 +3813,129 @@
    "enemies": [
     [
      "bo_hung",
-     173,
-     true
+     80,
+     true,
+     0.05
     ],
     [
      "thach_nhan",
-     171,
-     false
+     78,
+     false,
+     0.05
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 4,
+   "id": 2044,
+   "enemies": [
+    [
+     "thach_nhan",
+     98,
+     true,
+     0.1
+    ],
+    [
+     "sa_than",
+     96,
+     false,
+     -0.02
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 5,
+   "id": 2045,
+   "enemies": [
+    [
+     "sa_than",
+     116,
+     true,
+     0
+    ],
+    [
+     "ky_lan",
+     114,
+     false,
+     -0.11
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "id": 2046,
+   "enemies": [
+    [
+     "ky_lan",
+     134,
+     true,
+     -0.09
+    ],
+    [
+     "ca_sa",
+     132,
+     false,
+     -0.29
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "id": 2047,
+   "enemies": [
+    [
+     "ca_sa",
+     152,
+     true,
+     -0.28
+    ],
+    [
+     "lung_vuong",
+     150,
+     false,
+     0.28
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "id": 2048,
+   "enemies": [
+    [
+     "lung_vuong",
+     172,
+     true,
+     0.3
+    ],
+    [
+     "cao_da",
+     170,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "id": 2049,
+   "enemies": [
+    [
+     "cao_da",
+     195,
+     true,
+     0.2
+    ],
+    [
+     "ho_khoan",
+     193,
+     false,
+     0.2
     ]
    ]
   }

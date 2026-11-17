@@ -37,10 +37,16 @@ import vua_may as G  # noqa: E402
 import vua_may_da as DA  # noqa: E402
 
 GOC = os.environ.get("VM_GOC") == "1"
+# DẠNG 1 (VM_DANG=non; người dùng 2026-11-17 "làm dạng 1 cho tướng thứ 10 đảo kim", concept A hoàng tử robot): dựng bằng DA DẠNG 1
+# (inbox/vua_may_non/manh, mảnh đổi dáng đã ghi toạ độ ở khung dạng 2) ở TỈ LỆ DẠNG 2 → inbox/vua_may_non/rig/lon/, rồi vua_may_non.py
+# đổi tỉ lệ xương (mau/ti_le.json). Xương chân, cánh, hào quang tính từ mảnh DẠNG 2 (MANH_KHUNG) để mọi xương trùng rig dạng 2.
+NON = os.environ.get("VM_DANG") == "non" and not GOC
 BASE = G.BASE
-TEN = "vua_may"
-RA = os.environ.get("VM_RA") or os.path.join(BASE, "rig_goc" if GOC else "rig")
-MANH = os.environ.get("VM_MANH") or os.path.join(BASE, "manh_goc" if GOC else "manh")
+BASE_NON = os.path.join(os.path.dirname(G.BASE), "vua_may_non")
+TEN = "vua_may_non" if NON else "vua_may"
+RA = os.environ.get("VM_RA") or (os.path.join(BASE_NON, "rig", "lon") if NON else os.path.join(BASE, "rig_goc" if GOC else "rig"))
+MANH = os.environ.get("VM_MANH") or (os.path.join(BASE_NON, "manh") if NON else os.path.join(BASE, "manh_goc" if GOC else "manh"))
+MANH_KHUNG = os.path.join(BASE, "manh")
 RES = 2
 SCAN = G.scan()
 I = json.load(open(os.path.join(SCAN, "info.json"), encoding="utf-8"))
@@ -330,20 +336,25 @@ def canh_cau_truc(k):
 
 # ---------------------------------------------------------------- mảnh thật (manh/moi.json do vua_may_manh.py cắt từ concept B3)
 MOI = {} if GOC else (json.load(open(os.path.join(MANH, "moi.json"))) if os.path.exists(os.path.join(MANH, "moi.json")) else {})
+MOI_KHUNG = json.load(open(os.path.join(MANH_KHUNG, "moi.json"))) if NON else MOI
 # mảnh đổi dáng gộp nhiều part của họ: các slot bị gộp thì bỏ (vương miện gộp vành sau; râu gộp hai đầu ria + mảnh má; trượng gộp đầu tháp)
 if not GOC:
     BO_SLOT |= {"touguan_1", "toufa_02", "toufa_03", "toufa_04", "fazhang_02", "yanjing"}
+if NON:
+    BO_SLOT |= {"toufa_01"}                               # dạng 1 không râu
+    if os.environ.get("VM_BANH_RANG") != "1":             # concept A không có ba bánh răng phối cảnh ở khuỷu / eo (+ răng của chúng)
+        BO_SLOT |= {s["name"] for s in I["slots"] if s["name"].startswith("fatiao")}
 # chỉnh tay mảnh đổi dáng (đơn vị rig): vương miện GPT vẽ vành sau thấp hơn concept → che mắt (mắt y 842–885, đáy vương miện ~855): nâng 38
-CHINH = {"vuong_mien": (0.0, 38.0)}
+CHINH = {} if NON else {"vuong_mien": (0.0, 38.0)}
 BAN_LEN = 25.0                                            # bàn chân nâng lên cho đỉnh ngón lọt dưới đáy khối giáp (hở 8–13 đơn vị)
 TANG = (("ngoai", 1.0), ("giua", 0.6), ("phu", 0.25))     # ba tầng lông cánh, vẽ sau → trước; số = độ trễ / xoè
 CO_CHAN = ("goi", "ban")                                  # chân ống lồng: khối giáp ống chân (goi) + bàn chân; pít-tông vẽ bằng mã
 
 
-def _manh_tg(ten):
-    """mảnh mới: mặt nạ alpha + hàm px ảnh → thế giới (từ 4 góc thế giới của moi.json)."""
-    Vw = np.array(MOI[ten]["the_gioi"], float)
-    A = np.asarray(Image.open(os.path.join(MANH, ten + ".png")).convert("RGBA"))[..., 3] > 100
+def _manh_tg(ten, khung=False):
+    """mảnh mới: mặt nạ alpha + hàm px ảnh → thế giới (từ 4 góc thế giới của moi.json). khung: lấy mảnh DẠNG 2 (dựng xương dạng 1)."""
+    Vw = np.array((MOI_KHUNG if khung else MOI)[ten]["the_gioi"], float)
+    A = np.asarray(Image.open(os.path.join(MANH_KHUNG if khung else MANH, ten + ".png")).convert("RGBA"))[..., 3] > 100
     h, w = A.shape
 
     def f(px, py):
@@ -355,7 +366,7 @@ def chan_that_khop(s):
     """CHÂN ỐNG LỒNG (concept B3: chân là một khối giáp ngắn trên bàn chân; ba tờ đùi / ống / gối đều ra cùng khối đó): khớp háng = giữa mép
     trên khối giáp (pít-tông thép sẫm gắn hông trượt ra vào trong khối), cổ chân = giữa mép dưới khối, mặt đất = đáy bàn chân; bề ngang
     khối (để vẽ pít-tông)."""
-    A, f = _manh_tg(f"chan_{s}_goi")
+    A, f = _manh_tg(f"chan_{s}_goi", khung=NON)
     ys, xs = np.nonzero(A)
     hm = ys.max() - ys.min()
     top = ys < ys.min() + 0.15 * hm
@@ -363,7 +374,7 @@ def chan_that_khop(s):
     hong = f(xs[top].mean(), ys.min() + 0.12 * hm)
     co = f(xs[bot].mean(), ys.max() - 0.10 * hm)
     rong = float(np.linalg.norm(f(xs.max(), ys.mean()) - f(xs.min(), ys.mean())))
-    A, f = _manh_tg(f"chan_{s}_ban")
+    A, f = _manh_tg(f"chan_{s}_ban", khung=NON)
     ys, xs = np.nonzero(A)
     day = f(xs.mean(), ys.max())[1]
     return hong, co, rong, day
@@ -371,7 +382,7 @@ def chan_that_khop(s):
 
 def canh_that(k):
     """cánh k từ mảnh thật: trục tay cánh (PCA điểm alpha của mảnh tay cánh), gốc = đầu gần thân, chiều quạt theo hướng cánh."""
-    A, f = _manh_tg(f"canh_{k}_tay")
+    A, f = _manh_tg(f"canh_{k}_tay", khung=NON)
     ys, xs = np.nonzero(A)
     P = np.array([f(x, y) for x, y in zip(xs[::7], ys[::7])])
     c = P.mean(0)
@@ -525,7 +536,7 @@ def dung():
         info_canh[k] = ct
     THAT_VONG = (not GOC) and "hao_quang" in MOI
     if THAT_VONG:                                         # vòng hào quang: xương ở tâm vòng, con của ngực (xoay chậm trong clip aura)
-        tv = np.array(MOI["hao_quang"]["the_gioi"], float).mean(0)
+        tv = np.array(MOI_KHUNG["hao_quang"]["the_gioi"], float).mean(0)
         sk.xuong("hao_quang", "xiabanshen_03", *tv, goc=0.0, the_gioi=True)
     Wi = sk.the_gioi()
 
@@ -616,13 +627,13 @@ def dung():
         ct = info_canh[k]
         if THAT_CANH:
             from quai.luoi import luoi_vung
-            Vq = canh_lien(k)
             ten_a = f"canh_{k}_lien"
+            # dạng 1: cánh liền gen sẵn (tờ N1), 4 góc ở khung dạng 2 trong moi.json; dạng 2: ghép từ tay cánh + ba tầng lông
+            Vq = np.array(MOI[ten_a]["the_gioi"], float) if (NON and ten_a in MOI) else canh_lien(k)
             im = anh_cua(ten_a)
             L_ = luoi_vung(im, buoc_vien=9.0, buoc_trong=14.0, vien=2, ten=ten_a, in_tk=False)
-            kx = (Vq[1, 0] - Vq[0, 0]) / im.width
-            ky = (Vq[0, 1] - Vq[3, 1]) / im.height
-            Vw = np.stack([Vq[0, 0] + L_.pts[:, 0] * kx, Vq[0, 1] - L_.pts[:, 1] * ky], 1)
+            ux, uy = (Vq[1] - Vq[0]) / im.width, (Vq[3] - Vq[0]) / im.height
+            Vw = Vq[0] + L_.pts[:, :1] * ux + L_.pts[:, 1:2] * uy
             sk.slot(f"canh_{k}", f"cw_{k}_tay", ten_a)
             sk.luoi_gan(f"canh_{k}", ten_a, L_, ts_canh(Vw, ct, k), the_gioi=Vw)
             return

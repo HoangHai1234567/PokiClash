@@ -10,15 +10,28 @@ namespace PokiClash.Core
     public enum Rarity { Common, Uncommon, Rare, Epic, Legend }
 
     // Atk, Def: cộng phần trăm vào chỉ số; Crit: cộng tỉ lệ chí mạng; Lifesteal: phần sát thương hút thành máu;
-    // Dodge: tỉ lệ né đòn đánh thường; DmgTaken: phần sát thương nhận thêm (âm là giảm)
-    public enum Stat { Atk, Def, Crit, Lifesteal, Dodge, DmgTaken }
-    public enum StatusId { Burn, Stun, Regen, Evade }
+    // Dodge: tỉ lệ né đòn đánh thường; DmgTaken: phần sát thương nhận thêm (âm là giảm).
+    // 2026-11-17 (thêm cuối): Thorns: phần sát thương của đòn trúng mình phản lại kẻ đánh; HealTaken: phần máu được hồi thêm (âm là giảm,
+    // −1 là không hồi được)
+    public enum Stat { Atk, Def, Crit, Lifesteal, Dodge, DmgTaken, Thorns, HealTaken }
+    // Poison (2026-11-17): độc cộng dồn lớp (StatusInst.stacks, tối đa Battle.PoisonMax), mỗi lớp mỗi lượt mất một phần Công của kẻ tẩm
+    public enum StatusId { Burn, Stun, Regen, Evade, Poison }
     public enum Target { Self, Foe }
 
     // End: hết khi kết thúc lượt của chủ (buff đánh); Start: hết khi bắt đầu lượt sau của chủ (buff thủ)
     public enum Until { End, Start }
 
-    public enum EffectKind { Buff, Heal, MaxHp, SelfDmg, Mana, Rage, Dmg, Shield, Status, Cleanse, Double, Extra, TrueStrike, IfLow, Revive, Evolve }
+    // 2026-11-17 thêm cuối: Execute kết liễu, Combo thưởng theo số thẻ cùng nhóm trong lượt, Resonance cộng hưởng tướng cùng hệ,
+    // IfBeat khắc hệ, Empower cường hóa thẻ kế tiếp, Detonate kích nổ độc, Bash tiêu khiên gây sát thương
+    public enum EffectKind
+    {
+        Buff, Heal, MaxHp, SelfDmg, Mana, Rage, Dmg, Shield, Status, Cleanse, Double, Extra, TrueStrike, IfLow, Revive, Evolve,
+        Execute, Combo, Resonance, IfBeat, Empower, Detonate, Bash,
+    }
+
+    // nhóm thẻ cho hiệu ứng combo (CardText.InGroup suy từ hiệu ứng): Atk thẻ gây sát thương; Def thẻ khiên, tăng Thủ, giảm sát thương
+    // nhận, né, phản đòn; Heal thẻ hồi máu, hồi mỗi lượt, máu tối đa, xoá hiệu ứng xấu
+    public enum CardGroup { Atk, Def, Heal }
     public enum CardKind { Pool, Skill, Ult, Passive }
     public enum PassiveTrigger { None, Start, TurnStart, LowHp, OnAttack, OnHit, Death }
     public enum StageKind { Normal, Mini, Boss }
@@ -37,14 +50,17 @@ namespace PokiClash.Core
         public Target? On;
         public double Pct; // heal, maxhp, shield, revive, evolve
         public double PctCur; // selfdmg
-        public double Mult; // dmg, extra, trueStrike
+        public double Mult; // dmg, extra, trueStrike, execute, detonate, bash
         public int? Hits;
         public double? Pierce;
         public double? Lifesteal;
+        public double? Missing; // dmg: mạnh thêm tới Missing lần khi mình còn 0 máu (tuyến tính theo phần máu đã mất)
         public StatusId Status;
         public double? Chance;
-        public double Below; // ifLow
-        public List<Effect> Then;
+        public int? Stacks; // status độc: số lớp thêm mỗi lần (vắng = 1)
+        public double Below; // ifLow, execute
+        public CardGroup Group; // combo
+        public List<Effect> Then; // ifLow, ifBeat, combo, resonance
         public List<Effect> Else;
 
         public Effect Clone() => (Effect)MemberwiseClone();
@@ -191,10 +207,13 @@ namespace PokiClash.Core
         public Pt world; // vị trí vùng trên ảnh đảo lớn
     }
 
-    // hiệu ứng đầu trận của tiềm năng: mana, nộ cộng lúc dựng tướng; chí mạng, hút máu thành buff cả trận
+    // hiệu ứng đầu trận của tiềm năng (và đặc tính hệ của huy hiệu, bộ tiềm năng): mana, nộ cộng lúc dựng tướng; chí mạng, hút máu
+    // thành buff cả trận. 2026-11-17 thêm: shield khiên đầu trận (phần máu tối đa, chặn ở shieldCap), guard giảm sát thương nhận
+    // (buff DmgTaken âm cả trận), dodge né đòn đánh thường (buff Dodge cả trận)
     public sealed class BattleStart
     {
         public double mana, rage, crit, lifesteal;
+        public double shield, guard, dodge;
     }
 
     public class Member

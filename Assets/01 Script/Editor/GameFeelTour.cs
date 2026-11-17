@@ -43,7 +43,7 @@ namespace PokiClash.EditorTools
                     var s = App.Save.Data;
                     var hp = s.Hero(Hero);
                     hp.owned = true;
-                    hp.star = 5;
+                    hp.star = 11; // Vàng 1★: dạng cuối (bậc sao 2026-11-17; trước là 5 sao)
                     s.team = new List<string> { Hero };
                     if (s.level < 7) s.level = 7;
                     App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stageId });

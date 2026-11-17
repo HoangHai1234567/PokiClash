@@ -146,6 +146,38 @@ namespace PokiClash.Tests
             Assert.IsTrue(File.Exists(Path.Combine(dir, "save_v2.bak")));
         }
 
+        // v11 -> v12 (bậc sao 2026-11-17): sao cũ 1..5 thành sao tổng 1, 3, 6, 8, 11, giữ dạng đang có; mảnh, đá giữ nguyên
+        [Test]
+        public void BanLuuV11_DoiSaoCuSangBacSao()
+        {
+            var d = TestData.Load();
+            var s = SaveData.New(d, 0);
+            string[] ids = { "ti_tach", "hai_long", "thach_giai", "so_ngoc", "mam_u" };
+            for (int i = 0; i < ids.Length; i++)
+            {
+                s.Hero(ids[i]).owned = true;
+                s.Hero(ids[i]).star = i + 1;
+            }
+            s.Hero("so_ngoc").shards = 7;
+            var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
+            tree["v"] = 11.0;
+            tree.Remove("evoStones");
+            int[] oldForm = new int[ids.Length];
+            var oldStars = new[] { 3, 5 }; // mốc đổi dạng trước 2026-11-17
+            for (int i = 0; i < ids.Length; i++) oldForm[i] = d.Hero(ids[i]).FormIndex(oldStars, i + 1);
+            Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var r));
+            Assert.AreEqual(d.Cfg.saveVersion, r.v);
+            int[] want = { 1, 3, 6, 8, 11 };
+            for (int i = 0; i < ids.Length; i++)
+            {
+                Assert.AreEqual(want[i], r.Hero(ids[i]).star, ids[i]);
+                Assert.AreEqual(oldForm[i], d.Hero(ids[i]).FormIndex(d.Cfg.formStars, r.Hero(ids[i]).star), ids[i] + " giữ dạng");
+            }
+            Assert.AreEqual(7, r.Hero("so_ngoc").shards);
+            Assert.AreEqual(0, r.evoStones);
+            Assert.AreEqual(1, r.Hero("vo_su").star, "tướng chưa có vẫn 1 sao");
+        }
+
         [Test]
         public void FileHong_GiuBak_VaBao()
         {

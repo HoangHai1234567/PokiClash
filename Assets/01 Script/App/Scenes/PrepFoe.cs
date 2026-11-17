@@ -4,6 +4,7 @@
 // - Items/DoiThuGon: hàng gọn cho ải 2–3 địch: ghi chú chung hàng với nhãn hệ, Máu, Công, Thủ xếp ngang.
 // Chip cấp ("Cấp 20", cùng kiểu chip cấp người chơi trên thanh trên) ở góc trên trái chân dung, chữ đỏ khi địch hơn người chơi quá
 // 2 cấp (như dòng cảnh báo của hộp). Dòng ghi chú: "Boss", "Cường hóa +12%", "Yếu hơn 20%", "Lính, không thu phục".
+// Máu, Công, Thủ và lực chiến từ 1000 trở lên ghi gọn (NumFmt.Short: 3.3k, 57.6k; người dùng dặn 2026-11-17).
 // Chỉ số không so với tướng người chơi (người dùng dặn 2026-11-04, dễ hiểu lầm). Tướng tiến hóa trong trận (ải tướng, boss) chỉ hiện
 // dạng đầu với chỉ số của dạng đó; đầu mục của hộp ghi luật tiến hóa. Hàng neo mép trên khung đối thủ, StagePrepDialog xếp dọc.
 using System;
@@ -51,7 +52,7 @@ namespace PokiClash
             Power(powerValue);
             if (stats != null)
                 for (int i = 0; i < stats.Length && i < 3; i++)
-                    if (stats[i]) stats[i].text = TeamPower.Text((int)Math.Round(i == 0 ? s.hp : i == 1 ? s.atk : s.def));
+                    if (stats[i]) stats[i].text = NumFmt.Short(i == 0 ? s.hp : i == 1 ? s.atk : s.def);
             int star = Teams.EnemyFormStar(en);
             FitPortrait(h, star);
             heroName.text = h.Form(App.Data.Cfg.formStars, star).name;
@@ -98,7 +99,7 @@ namespace PokiClash
         {
             if (!power) return;
             power.transform.parent.gameObject.SetActive(v > 0);
-            power.text = TeamPower.Text(v);
+            power.text = NumFmt.Short(v);
         }
 
         void BossText(string t, Color color)

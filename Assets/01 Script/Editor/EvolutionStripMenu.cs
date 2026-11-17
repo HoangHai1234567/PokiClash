@@ -1,5 +1,8 @@
 // Dựng thanh mốc tiến hóa (EvolutionStrip) vào prefab Dialogs/ChiTietTuong: một hàng mới ngay dưới hàng ô xem tướng, gồm thanh
-// kit (Thanh, loại Exp) và 3 mốc (kit ChanDung, kit Sao, chữ chép từ nhãn dòng tiến hóa của hộp). Chạy lại thì dựng lại hàng đó.
+// kit (Thanh, loại Exp) và 4 mốc bậc sao Đồng, Bạc, Vàng, Kim Cương (kit ChanDung, kit Sao, chữ chép từ nhãn dòng tiến hóa của hộp;
+// bậc sao 2026-11-17, trước là 3 mốc theo dạng). Chạy lại thì dựng lại hàng đó.
+// Menu "Hộp chi tiết tướng: nhãn bậc sao + thanh mảnh, đá" (2026-11-17): nhãn "Bạc 3 sao" cạnh hàng sao và một hàng thanh (icon mảnh / đá
+// tiến hóa + thanh kit) ngay trên dòng điều kiện tiến hóa. Chạy lại thì dựng lại hai phần đó.
 // Sau khi dựng, chỉnh vị trí và cỡ trong Editor như mọi prefab khác.
 // Menu thử (đang Play): đặt tạm sao của vài tướng trong bộ nhớ (không ghi bản lưu), mở hộp chi tiết, chụp vào Temp/PokiShots/evo_*.png,
 // rồi nạp lại bản lưu từ đĩa.
@@ -16,8 +19,8 @@ namespace PokiClash.EditorTools
     public static class EvolutionStripMenu
     {
         const string DialogPath = "Assets/04 Prefabs/Dialogs/ChiTietTuong.prefab";
-        const int Nodes = 3; // dòng dài nhất 3 dạng
-        const float Pad = 110, BarH = 32, PortraitH = 140, Top = 8;
+        const int Nodes = 4; // 4 bậc sao (Core.StarTier.Count)
+        const float Pad = 100, BarH = 32, PortraitH = 128, Top = 8;
         const float TrackY = Top + PortraitH * (1 - HeroArt.FootY) + 4 + BarH / 2; // tâm thanh, tính từ mép trên
         const float StarsY = TrackY + BarH / 2 + 6 + 13, NameY = StarsY + 13 + 4 + 17, Height = NameY + 17 + 10;
 
@@ -79,7 +82,7 @@ namespace PokiClash.EditorTools
                     float x = i / (Nodes - 1f);
                     node.anchorMin = node.anchorMax = new Vector2(x, 0.5f);
                     node.pivot = new Vector2(0.5f, 0.5f);
-                    node.sizeDelta = new Vector2(2 * Pad, BarH);
+                    node.sizeDelta = new Vector2(1.6f * Pad, BarH); // mốc gần nhau (sao 1, 6, 11, 16 trên thanh 1..20)
                     node.anchoredPosition = Vector2.zero;
 
                     var portrait = ((GameObject)PrefabUtility.InstantiatePrefab(kit.portrait.gameObject, node)).GetComponent<HeroPortrait>();
@@ -89,15 +92,15 @@ namespace PokiClash.EditorTools
                     prt.anchoredPosition = new Vector2(0, BarH / 2 + 4); // chân (pivot của ChanDung) đứng trên thanh
 
                     var stars = ((GameObject)PrefabUtility.InstantiatePrefab(kit.stars.gameObject, node)).GetComponent<UiStars>();
-                    stars.SetSize(26);
-                    stars.Set(i == 0 ? 1 : 2 * i + 1, i == 0 ? 1 : 2 * i + 1);
+                    stars.SetSize(22);
+                    stars.SetTier(i, Core.StarTier.PerTier);
                     var srt = stars.Rect;
                     srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
                     srt.pivot = new Vector2(0.5f, 0.5f);
                     srt.anchoredPosition = new Vector2(0, TrackY - StarsY);
 
                     var name = Label(lineLabel, node, "ten");
-                    name.rectTransform.sizeDelta = new Vector2(2 * Pad + 20, 34);
+                    name.rectTransform.sizeDelta = new Vector2(1.6f * Pad + 20, 34);
                     name.rectTransform.anchoredPosition = new Vector2(0, TrackY - NameY);
                     nodes[i] = new EvolutionStrip.Node { root = node, portrait = portrait, stars = stars, name = name };
                 }
@@ -168,6 +171,96 @@ namespace PokiClash.EditorTools
             }
         }
 
+        // Nhãn bậc sao + thanh mảnh / đá (HeroDetailDialog.Parts.tierLabel, evolveBar, evolveIcon): nhãn chép từ nhãn độ hiếm, đặt ngay
+        // sau hàng sao (cùng hàng ngang); một hàng mới (LayoutElement cao 46) ngay trên khối chứa dòng điều kiện tiến hóa trong cột dọc của
+        // hộp: icon 40×40 bên trái, thanh kit (loại Exp) giãn ngang. Chạy lại thì dựng lại.
+        [MenuItem("PokiClash/Prefab/Hộp chi tiết tướng: nhãn bậc sao + thanh mảnh, đá", priority = 62)]
+        static void BuildStarStep()
+        {
+            var kitGuids = AssetDatabase.FindAssets("t:UiKit");
+            if (kitGuids.Length == 0)
+            {
+                Debug.LogError("[Tiến hóa] Không thấy asset UiKit.");
+                return;
+            }
+            var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(kitGuids[0]));
+            var contents = PrefabUtility.LoadPrefabContents(DialogPath);
+            try
+            {
+                var dlg = contents.GetComponentInChildren<HeroDetailDialog>(true);
+                var so = new SerializedObject(dlg);
+                var stars = (UiStars)so.FindProperty("p.stars").objectReferenceValue;
+                var rarity = (TextMeshProUGUI)so.FindProperty("p.rarity").objectReferenceValue;
+                var need = (TextMeshProUGUI)so.FindProperty("p.evolveNeed").objectReferenceValue;
+                var tierProp = so.FindProperty("p.tierLabel");
+                var barProp = so.FindProperty("p.evolveBar");
+                var iconProp = so.FindProperty("p.evolveIcon");
+                if (!stars || !rarity || !need)
+                {
+                    Debug.LogError("[Tiến hóa] ChiTietTuong thiếu hàng sao, nhãn độ hiếm hoặc dòng điều kiện tiến hóa.");
+                    return;
+                }
+                if (tierProp.objectReferenceValue) Object.DestroyImmediate(((Component)tierProp.objectReferenceValue).gameObject);
+                if (barProp.objectReferenceValue) Object.DestroyImmediate(((Component)barProp.objectReferenceValue).transform.parent.gameObject);
+
+                // nhãn bậc: cùng cha với hàng sao, ngay sau nó
+                var tier = Object.Instantiate(rarity.gameObject, stars.transform.parent, false).GetComponent<TextMeshProUGUI>();
+                tier.name = "bac_sao";
+                tier.transform.SetSiblingIndex(stars.transform.GetSiblingIndex() + 1);
+                tier.text = "Bạc 3 sao";
+                tier.textWrappingMode = TextWrappingModes.NoWrap;
+                if (!tier.GetComponent<ContentSizeFitter>())
+                    tier.gameObject.AddComponent<ContentSizeFitter>().horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+                tierProp.objectReferenceValue = tier;
+
+                // hàng thanh: tổ tiên đầu tiên của dòng điều kiện có cha là cột dọc; hàng mới đứng ngay trước nó
+                var row = need.transform;
+                while (row.parent && !row.parent.GetComponent<VerticalLayoutGroup>()) row = row.parent;
+                if (!row.parent)
+                {
+                    Debug.LogError("[Tiến hóa] Không thấy cột dọc chứa dòng điều kiện tiến hóa.");
+                    return;
+                }
+                const float RowH = 46, IconS = 40, Side = 120;
+                var host = new GameObject("thanh_buoc_sao", typeof(RectTransform), typeof(LayoutElement));
+                host.transform.SetParent(row.parent, false);
+                host.transform.SetSiblingIndex(row.GetSiblingIndex());
+                host.GetComponent<LayoutElement>().preferredHeight = RowH;
+                var hrt = (RectTransform)host.transform;
+                hrt.sizeDelta = new Vector2(hrt.sizeDelta.x, RowH);
+
+                var icon = new GameObject("icon", typeof(RectTransform), typeof(Image)).GetComponent<Image>();
+                icon.transform.SetParent(host.transform, false);
+                icon.preserveAspect = true;
+                icon.raycastTarget = false;
+                var irt = icon.rectTransform;
+                irt.anchorMin = irt.anchorMax = new Vector2(0, 0.5f);
+                irt.pivot = new Vector2(0, 0.5f);
+                irt.sizeDelta = new Vector2(IconS, IconS);
+                irt.anchoredPosition = new Vector2(Side - IconS - 10, 0);
+
+                var bar = ((GameObject)PrefabUtility.InstantiatePrefab(kit.bar.gameObject, host.transform)).GetComponent<UiBar>();
+                bar.name = "thanh";
+                bar.SetKind(UiBar.Kind.Shard);
+                var brt = (RectTransform)bar.transform;
+                brt.anchorMin = new Vector2(0, 0.5f);
+                brt.anchorMax = new Vector2(1, 0.5f);
+                brt.pivot = new Vector2(0.5f, 0.5f);
+                brt.offsetMin = new Vector2(Side, -BarH / 2);
+                brt.offsetMax = new Vector2(-Side, BarH / 2);
+
+                barProp.objectReferenceValue = bar;
+                iconProp.objectReferenceValue = icon;
+                so.ApplyModifiedPropertiesWithoutUndo();
+                PrefabUtility.SaveAsPrefabAsset(contents, DialogPath);
+                Debug.Log($"[Tiến hóa] Đã thêm nhãn bậc sao (cạnh \"{stars.name}\") và thanh mảnh / đá (trên \"{row.name}\") vào {DialogPath}.");
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(contents);
+            }
+        }
+
         [MenuItem("PokiClash/Thử/Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)", priority = 109)]
         static void TryStrip()
         {
@@ -186,11 +279,12 @@ namespace PokiClash.EditorTools
                 while ((App.Router.Busy || App.Router.Current != SceneIds.Heroes) && Time.realtimeSinceStartup - t0 < 30) yield return null;
                 yield return new WaitForSecondsRealtime(0.5f);
                 yield return Shot("luoi");
-                // (tướng, có chưa, sao): dòng 3 dạng ở sao 1, 3, 5; dòng 2 dạng ở sao 2, 4 và chưa có; dòng 1 dạng; tướng chưa có
+                // (tướng, có chưa, sao tổng): dòng 3 dạng ở Đồng 1★, Bạc 1★, Vàng 1★, Kim Cương 5★; dòng 2 dạng ở Đồng 5★ (chờ tiến hóa),
+                // Vàng 3★ và chưa có; dòng 1 dạng; tướng chưa có
                 var cases = new (string id, bool owned, int star)[]
                 {
-                    ("mam_u", true, 1), ("mam_u", true, 3), ("mam_u", true, 5),
-                    ("thach_giai", true, 2), ("thach_giai", true, 4), ("phi_thuong", false, 1), ("ho_kim_cuong", true, 2), ("han_ngac", false, 1),
+                    ("mam_u", true, 1), ("mam_u", true, 6), ("mam_u", true, 11), ("mam_u", true, 20),
+                    ("thach_giai", true, 5), ("thach_giai", true, 13), ("phi_thuong", false, 1), ("ho_kim_cuong", true, 8), ("han_ngac", false, 1),
                 };
                 foreach (var (id, owned, star) in cases)
                 {
@@ -212,7 +306,7 @@ namespace PokiClash.EditorTools
             }
         }
 
-        // Menu thử nút hack (đang Play): mở hộp chi tiết Mầm Ú (dòng 3 dạng), chụp, bấm nút hack, lặp 6 lần (đủ một vòng sao) vào
+        // Menu thử nút hack (đang Play): mở hộp chi tiết Mầm Ú (dòng 3 dạng), chụp, bấm nút hack, lặp 20 lần (đủ một vòng sao) vào
         // Temp/PokiShots/hack_*.png. Nút hack ghi bản lưu: chép bản lưu ra trước khi thử nếu cần giữ.
         [MenuItem("PokiClash/Thử/Nút hack tiến hóa: bấm thử và chụp (đang Play)", priority = 110)]
         static void TryHack()
@@ -229,11 +323,11 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(0.5f);
             HeroDetail.Open(id);
             yield return new WaitForSecondsRealtime(0.8f);
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i <= Core.StarTier.MaxStar; i++)
             {
                 var hp = App.Save.Data.Hero(id);
                 yield return Shot($"hack_{i}_{(hp.owned ? hp.star + "sao" : "chua_co")}");
-                if (i == 6) break;
+                if (i == Core.StarTier.MaxStar) break;
                 var go = GameObject.Find("nut_hack_tien_hoa");
                 if (!go)
                 {
@@ -247,7 +341,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Tiến hóa] Đã thử nút hack: " + PlayTour.ShotDir);
         }
 
-        // Menu thử clip đánh (đang Play): mở hộp chi tiết Mầm Ú ở sao 1, 3, 5 (đặt tạm trong bộ nhớ, không ghi bản lưu), cho ô
+        // Menu thử clip đánh (đang Play): mở hộp chi tiết Mầm Ú ở sao 1, 6, 11 (3 dạng; đặt tạm trong bộ nhớ, không ghi bản lưu), cho ô
         // xem chạy clip đánh, chụp 6 thời điểm vào Temp/PokiShots/danh_sao<n>_<i>.png, rồi nạp lại bản lưu từ đĩa.
         [MenuItem("PokiClash/Thử/Clip đánh Mầm Ú: chụp các dạng (đang Play)", priority = 111)]
         static void TryAttack()
@@ -264,7 +358,7 @@ namespace PokiClash.EditorTools
                 float t0 = Time.realtimeSinceStartup;
                 while ((App.Router.Busy || App.Router.Current != SceneIds.Heroes) && Time.realtimeSinceStartup - t0 < 30) yield return null;
                 yield return new WaitForSecondsRealtime(0.5f);
-                foreach (int star in new[] { 1, 3, 5 })
+                foreach (int star in new[] { 1, 6, 11 })
                 {
                     var hp = App.Save.Data.Hero(id);
                     hp.owned = true;

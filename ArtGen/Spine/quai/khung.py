@@ -215,7 +215,9 @@ class Sk:
         A = W[:2, :2]
         n0, n1 = math.hypot(A[0, 0], A[1, 0]), math.hypot(A[0, 1], A[1, 1])
         shear = abs(A[0, 0] * A[0, 1] + A[1, 0] * A[1, 1]) / max(1e-9, n0 * n1)
-        if abs(n0 - n1) < 1e-6 * max(1, n0) and shear < 1e-6 and np.linalg.det(A) > 0:
+        # hình cứng (region) của Spine luôn bám xương của SLOT: gắn vào xương khác thì phải là lưới có trọng số (lỗi đã gặp ở cột bay
+        # của tuong_cot_non 2026-11-17: runtime vẽ cột ngay trước mặt tướng trong khi bộ vẽ Python đặt đúng chỗ đối thủ)
+        if abs(n0 - n1) < 1e-6 * max(1, n0) and shear < 1e-6 and np.linalg.det(A) > 0 and b == self._slot(slot)["bone"]:
             lp = np.linalg.solve(W, np.array([C[4, 0], C[4, 1], 1.0]))
             ex = C[1] - C[0]
             rot = math.degrees(math.atan2(ex[1], ex[0])) - goc_mat(W)

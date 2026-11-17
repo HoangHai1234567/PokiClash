@@ -33,6 +33,11 @@ namespace PokiClash
 
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
+        // đá tiến hóa (2026-11-17): icon đá tiềm năng ("rock") tô màu tím lam, khung Huyền thoại; chưa có ảnh riêng
+        public static readonly Color EvoTint = new Color32(0x9b, 0x7c, 0xff, 0xff);
+
+        public RewardTile EvoStones(int n) => Item(Icon("rock"), $"×{n}", "Đá tiến hóa", Rarity.Legend, EvoTint);
+
         // bi, XP, đá, rương, huy hiệu: icon, số lượng, tên; rarity null thì khung giấy trơn
         public RewardTile Item(Sprite icon, string count, string caption, Rarity? rarity = null, Color? tint = null)
         {

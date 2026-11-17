@@ -111,6 +111,8 @@ namespace PokiClash
             { "thiet_phu", new Theme { pal = "nang", spark = C(255, 236, 160), ember = C(255, 196, 80), ring = C(250, 186, 60), ring2 = C(255, 244, 205), extra = "giap", extraCol = C(92, 92, 100) } },
             // thú giáp pháo (Pháo Giáp, suất ung_thep đảo Kim, 2026-11-17; HatPhao.cs): năng lượng vàng (cầu chiêu cuối, nổ cầu), tia vàng, mảnh thép bạc văng ra; đạn sắt và tên lửa nổ lửa đỏ cam (RbLuaTh)
             { "ung_thep", new Theme { pal = "nang", spark = C(255, 236, 160), ember = C(255, 196, 80), ring = C(250, 186, 60), ring2 = C(255, 244, 205), extra = "giap", extraCol = C(170, 176, 188) } },
+            // vua robot quyền trượng Mặt Trời (Nhật Vương, suất kim_nghe đảo Kim, 2026-11-17; HatVua.cs): năng lượng Mặt Trời vàng lõi trắng, tia vàng, mảnh giáp vàng văng ra; thiên thạch nổ lửa đỏ cam (VmLuaTh)
+            { "kim_nghe", new Theme { pal = "nang", spark = C(255, 238, 170), ember = C(255, 200, 90), ring = C(250, 186, 60), ring2 = C(255, 246, 214), extra = "giap", extraCol = C(232, 178, 58) } },
         };
 
         public Theme Th = Default;

@@ -160,11 +160,25 @@ namespace PokiClash
 
         IEnumerator Run()
         {
-            view.Stage.SetActor(0, b.ActiveOf(0).hero, false, true, Teams.LookStar(b.Data.Cfg, b.ActiveOf(0)));
-            view.Stage.SetActor(1, b.ActiveOf(1).hero, b.ActiveOf(1).boss, true, Teams.LookStar(b.Data.Cfg, b.ActiveOf(1)));
+            // Hai tướng ra sân lúc hai khung màn VS tách ra (trước 2026-11-17: dựng trước màn VS nên clip ra sân chạy hết sau màn che, người
+            // chơi không thấy): địch trước, phe mình sau 0,2 giây; chờ clip ra sân (tối đa 2,4 giây) rồi mới băng rôn hiệp 1.
             view.FillPlate(0);
             view.FillPlate(1);
+            bool entered = false;
+            void Enter()
+            {
+                if (entered || !alive) return;
+                entered = true;
+                StartCoroutine(EnterBoth());
+            }
+            if (view.Intro && view.Intro.Ready) view.Intro.OnSplit = Enter;
             yield return Intro();
+            if (!alive) yield break;
+            Enter();
+            yield return null;
+            yield return new WaitForSecondsRealtime(0.25f / fast);
+            float te = Time.realtimeSinceStartup;
+            while (alive && (view.Stage.IsEntering(0) || view.Stage.IsEntering(1)) && Time.realtimeSinceStartup - te < 2.4f / fast) yield return null;
             if (!alive) yield break;
             startedAt = Time.realtimeSinceStartup;
             yield return player.PlayAll(b.StartBattle());
@@ -204,6 +218,14 @@ namespace PokiClash
                 yield return player.PlayAll(b.Advance());
             }
             if (alive) yield return Finish();
+        }
+
+        IEnumerator EnterBoth()
+        {
+            view.Stage.SetActor(1, b.ActiveOf(1).hero, b.ActiveOf(1).boss, true, Teams.LookStar(b.Data.Cfg, b.ActiveOf(1)));
+            yield return new WaitForSecondsRealtime(0.2f / fast);
+            if (!alive) yield break;
+            view.Stage.SetActor(0, b.ActiveOf(0).hero, false, true, Teams.LookStar(b.Data.Cfg, b.ActiveOf(0)));
         }
 
         // màn VS kiểu trang truyện tranh (BattleIntro): đội địch khung trên, đội bạn khung dưới, lực chiến cả đội như hộp Chuẩn bị trận
@@ -524,7 +546,10 @@ namespace PokiClash
         {
             bool win = b.winner == 0;
             LogBattle(win ? "thang" : "thua");
-            yield return new WaitForSecondsRealtime(0.5f);
+            // con cuối nằm hẳn (clip chết chạy trọn), bên thắng nhún mừng một cái, rồi mới hiện bảng kết quả
+            yield return view.Stage.WaitSettled(4.5f);
+            if (b.winner >= 0 && b.winner < 2 && !view.Stage.IsDown(b.winner)) view.Stage.Dodge(b.winner);
+            yield return new WaitForSecondsRealtime(0.55f);
             if (badge != null)
             {
                 yield return BadgeFinish(win);
@@ -554,12 +579,13 @@ namespace PokiClash
                 foreach (var sh in rw.shards)
                 {
                     var hero = d.Hero(sh.hero);
-                    var prog = s.Hero(sh.hero);
-                    // nhãn: mở khoá, mảnh đổi thành bản sao thẻ (tướng đã có), hoặc tiến độ mảnh
-                    m.Reward().Hero(hero, $"×{sh.n}").Tag(sh.unlocked ? "MỞ KHÓA!" : sh.converted > 0 ? $"→ {sh.converted} thẻ" : $"{prog.shards}/{hero.shards}",
-                        sh.unlocked ? Theme.Red : Theme.Paper2);
+                    // nhãn: mở khoá, mảnh đổi thành bản sao thẻ (tướng 20 sao), hoặc tiến độ mảnh (chưa có: tới mở khoá; đã có: tới sao kế)
+                    var goal = Progress.ShardGoal(s, d, sh.hero);
+                    m.Reward().Hero(hero, $"×{sh.n}").Tag(sh.unlocked ? "MỞ KHÓA!" : sh.converted > 0 ? $"→ {sh.converted} thẻ"
+                        : goal.need > 0 ? $"{goal.have}/{goal.need}" : $"{goal.have}", sh.unlocked ? Theme.Red : Theme.Paper2);
                     if (sh.unlocked) App.Audio.Play("chest");
                 }
+                if (rw.evoStones > 0) m.Reward().EvoStones(rw.evoStones);
             }
             else
             {
@@ -580,90 +606,10 @@ namespace PokiClash
             if (s.level > before) Dialogs.LevelUp(before, s.level);
         }
 
-        // kết trận Hang: thắng thì đá và trừ một lượt; thua không mất lượt
-        IEnumerator CaveFinish(bool win)
-        {
-            var s = App.Save.Data;
-            var cfg = App.Data.Cfg;
-            s.stats.battles++;
-            int stones = 0;
-            if (win)
-            {
-                s.stats.wins++;
-                stones = Potential.WinCave(s, cfg, cave.day, cave.tier);
-            }
-            App.Save.Save();
-            App.Audio.Play(win ? "win" : "lose");
-            var m = App.Modals.Open(resultPrefab, mandatory: true);
-            m.Show(win, $"Hang Tiềm Năng · Tầng {cfg.cave.tiers[cave.tier].name} · boss hệ {Elements.Name(cave.zone)}", 38,
-                $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
-            int left = Potential.CaveLeft(s, cfg, cave.day);
-            if (win)
-            {
-                if (stones > 0) m.Reward().Item(App.Art.Icon("rock"), $"×{stones}", "Đá tiềm năng", Rarity.Epic);
-                m.Tips((stones > 0 ? "" : "Hết lượt hôm nay: không có đá. ") + $"Còn {Mathf.Max(0, left)} lượt hôm nay · có {s.potentialStones} đá");
-            }
-            else
-                m.Tips($"Thua không mất lượt (còn {left} lượt). Chọn tướng khắc hệ {Elements.Name(cave.zone)}, khai phá tiềm năng hoặc thử tầng dễ hơn.");
-            if (left > 0)
-                m.Button(win ? "Đánh tiếp" : "Đánh lại", BtnColor.Green, 230,
-                    () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team, cave = cave }));
-            m.Button("Về Hang", BtnColor.Paper, 220, () => App.Router.Go(SceneIds.Cave));
-            yield return new WaitForSecondsRealtime(0.12f);
-            App.Audio.Play("stamp");
-        }
+        // kết trận Hang, kết trận thử thách Đền Huy Hiệu: side meta tự lo (agent B, 2026-11-17: Game/Potential/CaveResult.cs,
+        // Game/Badges/BadgeResult.cs; sao từng trận, thưởng lần đầu, đá tinh, mốc sao)
+        IEnumerator CaveFinish(bool win) => CaveResult.Run(b, cave, stage, team, resultPrefab);
 
-        // kết trận thử thách: thắng thì bi và tiến độ; trận cuối của bậc thì hộp huy hiệu rồi mở rương; thua thì giữ tiến độ
-        IEnumerator BadgeFinish(bool win)
-        {
-            var s = App.Save.Data;
-            var d = App.Data;
-            var cfg = d.Cfg;
-            int before = s.level;
-            var rng = new Rng(Rng.RandomSeed());
-            BadgeWin rw = null;
-            s.stats.battles++;
-            if (win)
-            {
-                s.stats.wins++;
-                rw = Badges.Win(s, d, badge.zone, rng);
-            }
-            App.Save.Save();
-            App.Audio.Play(win ? "win" : "lose");
-
-            int n = Badges.Count(cfg, badge.tier);
-            var m = App.Modals.Open(resultPrefab, mandatory: true);
-            m.Show(win, $"Đền Huy Hiệu · {Elements.Name(badge.zone)} · {Badges.TierName(cfg, badge.tier)} · Trận {badge.i}/{n}", 38,
-                $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
-            if (rw != null)
-                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", "Bi").Tag(rw.tierDone > 0 ? "Xong bậc!" : $"{badge.i}/{n}", Theme.Yellow);
-            else
-                m.Tips("Thua thì đánh lại trận này, tiến độ vẫn giữ. Chọn tướng khắc hệ " + Elements.Name(badge.zone) + ", nâng thẻ và tiến hóa để mạnh hơn.");
-            var cur = Badges.Current(s, cfg, badge.zone);
-            var nextRef = win && cur != null && rw.tierDone == 0 ? new BadgeRef { zone = badge.zone, tier = cur.Value.tier, i = cur.Value.i } : null;
-            if (nextRef != null)
-                m.Button("Trận tiếp »", BtnColor.Green, 240,
-                    () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = Badges.StageId(d, nextRef.zone, nextRef.tier, nextRef.i), team = team, badge = nextRef }));
-            if (!win)
-                m.Button("Đánh lại", BtnColor.Green, 220, () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team, badge = badge }));
-            m.Button("Về Đền", BtnColor.Paper, 220, () => App.Router.Go(SceneIds.Badges, badge.zone));
-            yield return new WaitForSecondsRealtime(0.12f);
-            App.Audio.Play("stamp");
-
-            if (rw != null && rw.tierDone > 0)
-            {
-                // hộp huy hiệu rồi mở rương (trên hộp kết quả), sau cùng mới báo lên cấp
-                yield return new WaitForSecondsRealtime(0.5f);
-                bool closed = false;
-                App.Audio.Play("level");
-                var bm = App.Modals.Open(badgePrefab, () => closed = true);
-                bm.Show(badge.zone, rw.tierDone, $"Huy hiệu {Elements.Name(badge.zone)} · {Badges.TierName(cfg, rw.tierDone)}",
-                    $"Tướng hệ {Elements.Name(badge.zone)} +{Badges.Bonus(cfg, rw.tierDone) * 100:0}% Máu, Công, Thủ (bậc cao nhất, không cộng dồn).",
-                    $"Mở {Pachinko.ChestName(rw.chest)}");
-                while (!closed) yield return null;
-                yield return ChestBox.Show(Pachinko.ChestName(rw.chest), rw.chest, null, rw.rewards, "Nhận");
-            }
-            if (s.level > before) Dialogs.LevelUp(before, s.level);
-        }
+        IEnumerator BadgeFinish(bool win) => BadgeResult.Run(b, badge, stage, team, resultPrefab, badgePrefab);
     }
 }

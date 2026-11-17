@@ -446,6 +446,7 @@ namespace PokiClash
             {
                 case RewardKind.Shards: return 100 + (int)App.Data.Hero(r.res.hero).rarity * 10 + (r.res.unlocked ? 5 : 0);
                 case RewardKind.Card: return 50 + (int)r.drop.rarity * 10;
+                case RewardKind.EvoStones: return 45;
                 case RewardKind.Stones: return 40;
                 case RewardKind.Balls: return 20;
                 default: return 10;
@@ -455,7 +456,7 @@ namespace PokiClash
         static Reward Best(List<Reward> rewards) => rewards == null || rewards.Count == 0 ? null : rewards.OrderByDescending(Rank).First();
 
         static Rarity? RarityOf(Reward r) =>
-            r.k == RewardKind.Shards ? App.Data.Hero(r.res.hero).rarity : r.k == RewardKind.Card ? r.drop.rarity : r.k == RewardKind.Stones ? Rarity.Epic : (Rarity?)null;
+            r.k == RewardKind.Shards ? App.Data.Hero(r.res.hero).rarity : r.k == RewardKind.Card ? r.drop.rarity : r.k == RewardKind.Stones ? Rarity.Epic : r.k == RewardKind.EvoStones ? Rarity.Legend : (Rarity?)null;
 
         // bảng tổng kết: rương mờ đi, mọi thưởng của nhóm gộp thành lưới ô bật lần lượt
         IEnumerator Summary(int left)
@@ -469,12 +470,13 @@ namespace PokiClash
             float cw = RewardTile.W + 40, ch = RewardTile.H + 40;
             float fit = Mathf.Min(1.25f, (root.rect.height * 0.62f) / Mathf.Max(1, rows * ch));
             grid.localScale = Vector3.one * fit;
-            // ô theo thứ tự thưởng (thẻ, mảnh lật từ thẻ úp); thứ tự BuildTiles: XP, bi, đá, thẻ, mảnh
+            // ô theo thứ tự thưởng (thẻ, mảnh lật từ thẻ úp); thứ tự BuildTiles: XP, bi, đá tiềm năng, đá tiến hóa, thẻ, mảnh
             var order = new List<Rarity?>();
             int exp = all.Count(q => q.k == RewardKind.Exp) > 0 ? 1 : 0, balls = all.Any(q => q.k == RewardKind.Balls) ? 1 : 0;
             int stones = all.Any(q => q.k == RewardKind.Stones) ? 1 : 0;
             for (int i = 0; i < exp + balls; i++) order.Add(null);
             if (stones > 0) order.Add(Rarity.Epic);
+            if (all.Any(q => q.k == RewardKind.EvoStones)) order.Add(Rarity.Legend);
             foreach (var g in all.Where(q => q.k == RewardKind.Card).GroupBy(q => (q.drop.hero, q.drop.slot))) order.Add(g.First().drop.rarity);
             foreach (var r in all.Where(q => q.k == RewardKind.Shards)) order.Add(App.Data.Hero(r.res.hero).rarity);
             for (int i = 0; i < tiles.Count; i++)

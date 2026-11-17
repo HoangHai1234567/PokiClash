@@ -157,7 +157,7 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Thú (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaSonThu()
         {
-            sao = 3; // BalanceConfig.formStars = 3, 5: từ 3 sao là dạng 2
+            sao = App.Data.Cfg.formStars[0]; // sao bắt đầu dạng 2 (formStars, Bạc 1★ từ 2026-11-17)
             TryOnly("lan_hoa");
         }
 

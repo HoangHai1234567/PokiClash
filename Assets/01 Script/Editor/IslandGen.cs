@@ -536,7 +536,7 @@ namespace PokiClash.EditorTools
             root["forms"] = d.Heroes.Select(h => (object)new Dictionary<string, object>
             {
                 ["id"] = h.id, ["n"] = (double)h.forms.Length,
-                ["idx"] = Enumerable.Range(1, 5).Select(star => (object)(double)h.FormIndex(d.Cfg.formStars, star)).ToList(),
+                ["idx"] = Enumerable.Range(1, StarTier.MaxStar).Select(star => (object)(double)h.FormIndex(d.Cfg.formStars, star)).ToList(), // sao tổng 1..20
             }).ToList();
             root["leads"] = d.Stages.Select(st =>
             {

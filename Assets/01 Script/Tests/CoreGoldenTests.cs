@@ -90,7 +90,7 @@ namespace PokiClash.Tests
             var err = d.Validate();
             Assert.IsEmpty(err, string.Join("\n", err));
             Assert.AreEqual(57, d.Heroes.Count); // 88 tới 2026-11-16, rồi bỏ 31 tướng cũ không còn suất đảo
-            Assert.AreEqual(35, d.Pool.Count); // 23 của bản web, thêm 12 ở Unity (2026-11-04)
+            Assert.AreEqual(75, d.Pool.Count); // 23 của bản web, thêm 12 ở Unity (2026-11-04), thêm 40 (2026-11-17)
             Assert.AreEqual(172, d.Innate.Count); // 57 tướng × 3 + thẻ Tiến Hóa của boss
             Assert.AreEqual(30, d.Minions.Count);
             Assert.AreEqual(90, d.MinionCards.Count);
@@ -99,8 +99,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(Elem.Thuy, d.Zones[0].id, "đảo đầu tiên là Thủy");
             Assert.AreEqual(5, d.Cfg.picks);
             // v5: chọn 1 trong 5 tướng khởi đầu (2026-11-03); v6: tướng cũ đảo Thủy chuyển sang 10 tướng mới (2026-11-11); v11: bỏ 31 tướng cũ
-            // không còn suất đảo, gộp vào tướng thay (2026-11-16)
-            Assert.AreEqual(11, d.Cfg.saveVersion);
+            // không còn suất đảo, gộp vào tướng thay (2026-11-16); v12: sao cũ 1..5 đổi sang sao tổng 1, 3, 6, 8, 11 (bậc sao 2026-11-17)
+            Assert.AreEqual(12, d.Cfg.saveVersion);
         }
 
         [Test]

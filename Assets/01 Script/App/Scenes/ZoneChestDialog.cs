@@ -41,6 +41,7 @@ namespace PokiClash
             balls.gameObject.SetActive(false);
             for (int i = cards.childCount - 1; i >= 0; i--) Destroy(cards.GetChild(i).gameObject);
             Ui.Spawn(tilePrefab, cards).Item(Icon("ball"), $"×{r.balls}", "Bi");
+            if (r.evoStones > 0) Ui.Spawn(tilePrefab, cards).EvoStones(r.evoStones); // đá tiến hóa (2026-11-17)
             foreach (var c in r.cards)
             {
                 var cd = d.Card(c.card);

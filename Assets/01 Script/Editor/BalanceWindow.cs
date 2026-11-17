@@ -270,7 +270,8 @@ namespace PokiClash.EditorTools
                 hpPct = hpB / 100.0 + bb + pt[(int)PotKind.Hp], atkPct = atkB / 100.0 + bb + pt[(int)PotKind.Atk],
                 defPct = defB / 100.0 + bb + pt[(int)PotKind.Def], spd = pt[(int)PotKind.Spd],
             };
-            var start = potPreset > 0 ? new BattleStart { mana = pt[(int)PotKind.Mana], rage = pt[(int)PotKind.Rage], crit = pt[(int)PotKind.Crit], lifesteal = pt[(int)PotKind.Lifesteal] } : null;
+            var start = potPreset > 0 ? new BattleStart { mana = pt[(int)PotKind.Mana], rage = pt[(int)PotKind.Rage], crit = pt[(int)PotKind.Crit], lifesteal = pt[(int)PotKind.Lifesteal],
+                            shield = pt[(int)PotKind.Shield], guard = pt[(int)PotKind.Guard], dodge = pt[(int)PotKind.Dodge] } : null;
             rows = new List<BattleRow>();
             var t0 = DateTime.Now;
             int total = targets.Count, done = 0, battles = 0;
@@ -504,7 +505,8 @@ namespace PokiClash.EditorTools
                         if (EditorUtility.DisplayCancelableProgressBar("Cân bằng", $"{z.name}: tiềm năng {kind}", kind / 3f)) throw new OperationCanceledException();
                         var (pt, name) = Sim.PotentialPreset(d.Cfg, kind);
                         var bonus = new StatMods { hpPct = pt[(int)PotKind.Hp], atkPct = pt[(int)PotKind.Atk], defPct = pt[(int)PotKind.Def], spd = pt[(int)PotKind.Spd] };
-                        var start = kind > 0 ? new BattleStart { mana = pt[(int)PotKind.Mana], rage = pt[(int)PotKind.Rage], crit = pt[(int)PotKind.Crit], lifesteal = pt[(int)PotKind.Lifesteal] } : null;
+                        var start = kind > 0 ? new BattleStart { mana = pt[(int)PotKind.Mana], rage = pt[(int)PotKind.Rage], crit = pt[(int)PotKind.Crit], lifesteal = pt[(int)PotKind.Lifesteal],
+                            shield = pt[(int)PotKind.Shield], guard = pt[(int)PotKind.Guard], dodge = pt[(int)PotKind.Dodge] } : null;
                         var cells = levels.Select(lv =>
                         {
                             int win = 0, total = 0;

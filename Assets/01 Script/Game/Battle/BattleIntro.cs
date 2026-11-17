@@ -64,6 +64,9 @@ namespace PokiClash
         readonly List<(RectTransform rt, float scale, float delay)> pops = new List<(RectTransform, float, float)>();
         bool skip;
 
+        // gọi một lần lúc hai khung bắt đầu tách ra (BattleController cho hai tướng ra sân đúng lúc này, sân lộ dần sau màn VS); tự xoá sau khi gọi
+        public Action OnSplit;
+
         public RectTransform Rect => (RectTransform)transform;
         // prefab đã dựng màn VS kiểu truyện tranh (menu); chưa thì trận bỏ qua màn VS
         public bool Ready => facePrefab && page && foe.root && mine.root;
@@ -103,6 +106,9 @@ namespace PokiClash
             Paint();
             yield return Animate();
             gameObject.SetActive(false);
+            var late = OnSplit; // bị tắt giữa chừng: vẫn cho tướng ra sân
+            OnSplit = null;
+            late?.Invoke();
         }
 
         // ---------- dựng theo cỡ màn ----------
@@ -150,7 +156,7 @@ namespace PokiClash
         void Fill(Side s, IList<Member> team, bool mirror, int power, Color tint, float delay)
         {
             for (int i = s.row.childCount - 1; i >= 0; i--) Destroy(s.row.GetChild(i).gameObject);
-            s.powerText.text = TeamPower.Text(power);
+            s.powerText.text = NumFmt.Short(power);
             int n = team.Count;
             if (n == 0) return;
             float weights = 0;
@@ -217,7 +223,13 @@ namespace PokiClash
             App.Audio.Play("whoosh");
             while (true)
             {
-                if (tOut < 0 && (t >= Hold || skip && t > 0.25f)) tOut = t;
+                if (tOut < 0 && (t >= Hold || skip && t > 0.25f))
+                {
+                    tOut = t;
+                    var split = OnSplit;
+                    OnSplit = null;
+                    split?.Invoke();
+                }
                 float o = tOut < 0 ? 0 : Mathf.Clamp01((t - tOut) / Out);
                 float k = BackOut(Mathf.Clamp01(t / In));
                 var shake = Vector2.zero;

@@ -19,7 +19,7 @@ namespace PokiClash.Tests
             var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
             foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "nguu_quyen" }) s.Hero(id).owned = true;
             s.level = 9;
-            s.Hero("so_ngoc").star = 3;
+            s.Hero("so_ngoc").star = 6; // Bạc 1★ = 3 sao cũ (trang trại tính theo sao cũ, StarTier.Legacy; golden giữ nguyên)
             return s;
         }
 
@@ -101,8 +101,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(2.5, Farm.Rate(s, d, "thach_giai", 0), 1e-9, "cấp 20 vẫn 2,5");
             s.level = 5;
             Assert.AreEqual(8, Farm.Hours(s, d, "thach_giai"), "ca 8 giờ ở 1 sao");
-            s.Hero("thach_giai").star = 3;
-            Assert.AreEqual(10, Farm.Hours(s, d, "thach_giai"), "+1 giờ mỗi sao");
+            s.Hero("thach_giai").star = 6; // Bạc 1★ = 3 sao cũ (StarTier.Legacy)
+            Assert.AreEqual(10, Farm.Hours(s, d, "thach_giai"), "+1 giờ mỗi sao cũ");
             s.Hero("thach_giai").star = 1;
             Assert.AreEqual(60, Farm.RestMin(s, d, "thach_giai"), "8 giờ × 15 phút, chặn ở 60");
             Assert.IsFalse(Farm.Open(s, d.Cfg), "1 tướng chưa mở");

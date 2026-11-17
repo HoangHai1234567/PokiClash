@@ -207,6 +207,79 @@ khựng, chớp màn) như HatXich / HatHo.
 - "các fx tia sáng và vụ nổ cần cải thiện thêm trong unity bằng skill tạo vfx": hỏi đưa vào game (suất kim_nghe) → người dùng chọn **"Chưa vào
   game"**: VFX Unity (lớp hạt chồng lớp phẳng theo skill pokiclash-vfx / pokiclash-hero-fx, file Hat*.cs + bảng trong StageView) để sau.
 
+## 10. Máy C: quét lại + DẠNG 1 non (2026-11-17; người dùng: "làm dạng 1 cho tướng thứ 10 đảo kim")
+
+- **Quét lại** `monster_3637` vào `D:\Ripper\SwordxStaff\scan\monster_3637\` (máy C chưa có): `info.json` (93 xương, 115 slot, 13 clip, 7230 khoá:
+  trùng máy D), `att_goc.json` (118 hình), `att_idle0.json` (112), `sample_goc.json` (13 clip, 30 khung/giây), mỗi lệnh qua `quai/khoa.py chrome --
+  mo_xe/chay.py`. Dựng lại rig da mình (`vua_may_rig.py` → `vua_may_1/rig/`): 177 xương, 233 slot, 9 clip, `.atomik` 729 KB, mọi clip không lặp nối
+  về khung 0 idle 0 px: như máy D.
+- **Bản dạng hiện có là DẠNG 2** (dạng cuối). Dạng 1 = hoàng tử robot trên CÙNG rig (`vua_may_non.py`, thư mục `inbox/vua_may_non/`). Tỉ lệ đổi THẲNG
+  trên `.atomik` dạng 2 (`mau/ti_le.json`, `mo_xe/atomik_dang.scale_bones`, như dạng non Giác Mộc / Thanh Long; KHÔNG sửa trong `vua_may_rig.py`
+  vì chân giải IK và cánh, mảnh cứng dựng theo toạ độ thế giới): đầu `xiabanshen_04` × 1,4; bốn gốc cánh `cw_*` × 0,55; `hao_quang` × 0,55; ba
+  hành tinh `fazhang_03/04/05` × 0,75. Thân, tay, quyền trượng, khối hông, chân giữ (đổi khối hông là hở chân). Soi da dạng 2 ở tỉ lệ mới qua
+  idle / walk / appear / attack / cast / skill / hit / die (`mau/_soi_ti_le.png`): không rách.
+- Bố cục `mau/bo_cuc.png` (runtime Spine thật, `mo_xe/atomik_bocuc.py`, khung nhìn cố định −1250, −80, 1250, 1680) → `mau/bo_cuc_khung.png` 1536 × 1024.
+- Concept lượt 1 (`vua_may_non.py concept` → `gui_gpt/vua_may_non/luot_1_concept_<A|B|C>.txt`; ảnh mẫu 1 = bố cục, 2 = concept dạng 2). Cả ba là
+  HOÀNG TỬ robot (bỏ râu, vương miện thấp, giáp ít chi tiết), giữ đủ quyền trượng Mặt Trời + ba hành tinh, bốn cánh nhỏ, vòng hào quang mảnh vì clip
+  đòn / chiêu dùng các mảnh đó: A cùng màu dạng 2 (Claude đề xuất), B đồng thau + thép (cánh máy non, hào quang bánh răng), C bạc men lam (áo choàng
+  lam, hào quang sao). Trang so `inbox/vua_may_non_xem_concept.html`.
+- Codex đạt lượt đầu cả ba (99 / 90 / 118 s): `tai_ve/L1_A.png` (mặt bạc tròn mắt vàng to, vương miện ba chóp ngọc đỏ, hào quang vòng năm hạt ngọc,
+  cánh nhỏ lông trắng ngọn vàng; áo choàng vắt thấp hơn bố cục), `L1_B.png` (đồng thau, ria bạc nhỏ, mắt lam, vương miện đồng núm tròn, hào quang
+  bánh răng, cánh máy lông xám ngọn đồng; áo choàng giữ dáng bố cục), `L1_C.png` (bạc + men lam, vòng bạc ngọc lam hai chóp, hào quang năm sao, cánh
+  trắng ngọn lam). Khớp hình bóng với bố cục (nền trắng, 768 × 512): cả hình A 0,821 / B 0,899 / C 0,817; vùng thân (bỏ cánh, hào quang) 0,872 /
+  0,922 / 0,888. A, C vẽ cánh gọn hơn bố cục.
+- **Người dùng chọn A** → `vua_may_non/tai_ve/L1_duyet.png`.
+
+### 10b. Mảnh dạng 1 (`vua_may_non_manh.py`; gói `gui_gpt/vua_may_non/luot_2_*`, Codex đạt lượt đầu cả 4 tờ, 66–103 s)
+
+- Phép đổi: px bố cục ↔ thế giới dạng 1 (`bc_map`, `atomik_dang.canvas_map` của khung nhìn bố cục; bộ vẽ Python so hình bố cục IoU 0,979). Căn concept
+  A ↔ bố cục theo vùng ngực / vai / tay (`can`; căn cả hình thì chân concept rộng, thấp kéo lệch): a 0,910, dời (−8, 27), IoU vùng 0,918.
+  Thế giới dạng 1 → KHUNG DẠNG 2 theo xương bám: w2 = S2 · M1⁻¹ · w1 (M1 = thế giới xương trong rig đã đổi tỉ lệ ở khung 0 idle, S2 = dáng gốc rig
+  dạng 2), để mảnh ghi trong moi.json ở khung dạng 2 về đúng chỗ concept sau khi đổi tỉ lệ (đầu ÷ 1,4, cánh / hào quang ÷ 0,55: đo đúng).
+- `chep`: 83 mảnh dạng 2 dùng lại nguyên (cùng màu concept A): giáp vai, dải lam, tay, bàn tay, ngón, chân ống lồng, quyền trượng, Mặt Trời, ba hành
+  tinh. moi.json bỏ `rau`, `vuong_mien`, `mat`, `hao_quang` cũ.
+- Tờ K1 CHUYỂN DA (tờ = mảnh dạng 2 của mình × 0,85): áo choàng sau / trước bỏ huy hiệu bánh răng, ngực bỏ lưới thông gió, khối hông bạc viền vàng
+  (dạng 2 thép sẫm), lưng, bụng; IoU 0,981–0,992.
+- Tờ N (đúng chỗ, đúng cỡ trên concept A): N1 đầu không vương miện (mặt tròn xám, mắt vàng to, tai tròn) + bốn cánh LIỀN (tay cánh + lông một mảnh);
+  N2 vương miện hoàng tử; N3 vòng hào quang đủ vòng (lòng trong suốt). Tách tờ để vương miện, đầu, vòng không dính nhau.
+- Bỏ râu (`toufa_01`) và ba bánh răng phối cảnh + răng (`fatiao*`, 95 slot; concept A không có; `VM_BANH_RANG=1` để giữ): soi khuỷu ở các dáng tay duỗi
+  xa nhất (đánh thường, chiêu mana, chiêu cuối, trúng đòn, ngã): không hở.
+
+### 10c. Rig dạng 1
+
+- `VM_DANG=non vua_may_rig.py` → `vua_may_non/rig/lon/` (da dạng 1, tỉ lệ dạng 2; xương chân, cánh, hào quang tính từ mảnh DẠNG 2 nên trùng rig dạng 2;
+  cánh dạng 1 là một ảnh liền, lưới `luoi_vung` trên ảnh đó, bám ba xương dọc tay cánh như dạng 2; 4 góc cánh có thể nghiêng vài độ: dựng theo
+  affine chung). `vua_may_non.py rig` đổi tỉ lệ xương → `vua_may_non/rig/vua_may_non.atomik`: 177 xương, 138 slot, 9 clip (idle, walk = bay, hit, die,
+  appear, attack, cast, skill, aura), 621 KB (dạng 2: 729 KB; trên trần 0,5 MB), `game.height` 1179 → 1316 (đầu to). Trang `rig/vua_may_non.html`
+  (runtime Spine thật, 8 nút clip, không lỗi JS); trang so `inbox/vua_may_non_xem_rig.html`.
+- Soi (`vua_may_non.py soi_rig`, `rig/_so_concept.png`, `_so_dau.png`, `_zoom_*.png`): khung 0 idle trùng concept A (đầu, vương miện, hào quang, bốn
+  cánh đúng chỗ, cỡ). Runtime Spine thật (`atomik_bocuc.py`, attack 0,5 / skill 2,45 / walk 0,67) khớp bộ vẽ Python. `kiem_dang.py`: clip không lặp nối
+  về khung 0 idle 0 px; bước dời / xoay bằng hoặc nhỏ hơn dạng 2 (bước lớn là mảnh hiệu ứng bay và hành tinh tròn quay, như dạng 2).
+## 11. Vào game (2026-11-17; người dùng: "cho vào game đi")
+
+- **Dữ liệu** `quai/doi_vua_may.py` (dùng hàm `doi_phap_lua.py`): suất `kim_nghe` (ải 70, boss cuối đảo Kim) giữ id, thẻ, chỉ số, hiệu ứng thẻ, bị
+  động boss, SỐ DẠNG 2 → bản lưu, golden không đổi. Tên tạm do Claude đặt: **Nhật Vương** ("Vua robot quyền trượng Mặt Trời", "Dòng Nhật Vương");
+  dạng **Nhật Hoàng Tử** (`vua_may_1`, cỡ 0,92) / **Nhật Vương** (`vua_may_2`, 1,1); thẻ Nghê Hống → **Tam Tinh Quang Pháo** (sun), Kim Nghê Lam
+  Hỏa → **Nhật Thực Thiên Giáng** (moon), Thần Thú Hộ Giáp → **Hào Quang Hộ Thể** (crown); bị động boss Kim Thân Bất Hoại giữ.
+- `th`: tắt bốn slot nổ ảnh trong rig (`fx_no`, `fx_no0..2`: ảnh Mặt Trời phóng to; lớp hạt làm nổ) ở cả hai dạng; dạng 2 → `vua_may_1/rig/
+  vua_may_tran.atomik` 723 KB; gộp dạng 2 (atlas × 0,5, × 1,349) + clip `evolve` vào dạng 1 → `vua_may_non/rig/vua_may_non_th.atomik` 876 KB
+  (khung cuối evolve khớp idle dạng 2 lệch 0; tờ `rig/khung_evolve.png`). Chân dung dạng 1 do `vua_may_non.py rig` vẽ. `chep` → `Resources/
+  vua_may_1|2`. `Resources/kim_nghe_1|2` (Kim Nghê cũ) đã xoá qua AssetDatabase (không còn gì trỏ tới).
+- **VFX** `Assets/01 Script/Game/Battle/HatVua.cs` (hạt dùng chung của HatRobot / HatRua / HatRong), bảng `HatVuaBang.cs` SINH bằng
+  `ArtGen/Spine/vua_may_do_hat.py` (tâm Mặt Trời `mieng` từng khung 30 / giây ở attack / cast / skill, mốc sự kiện, đường rơi ba thiên thạch so với
+  `far`, VmFar = 1130 / height cho cột hành tinh của chiêu mana; đo thẳng trên hai .atomik). `n_vua_an1|n_vua_an` (Nhật Ấn: tụ ở Mặt Trời, lưỡi
+  lửa theo cú vụt, nện đất, đường lửa dọc đất tới đối thủ, ấn, cột năng lượng), `n_vua_tia1|n_vua_tia` (chớp + vòng từng hành tinh trên cột, Mặt
+  Trời lên đỉnh tụ, tia giáng: lõi lửa năng lượng dày dần sau mỗi hành tinh, chớp màn, nổ mặt trời lớn), `n_vua_nhat1|n_vua_nhat` (gió bụi lúc bay
+  lên, ba vệt quỹ đạo lấp lánh, màn tối nhật thực bằng chớp màn màu sẫm lặp 16 / giây tới `sang`, vành nhật hoa, đuôi lửa hạt bám ba thiên thạch,
+  nổ lửa đỏ cam từng cú, cú cuối rất lớn + chớp màn + nứt đất + cột lửa). Dạng 1 nhẹ hơn (× 0,8). Đăng ký: StageView `KimFx["kim_nghe"]`,
+  `AtkDang["kim_nghe"]`, HatNuoc 6 case, HatLua `Themes["kim_nghe"]` (pal "nang"), KimFxTour hai menu Nhật Vương / Nhật Hoàng Tử. Lý do bắt buộc:
+  tướng Kim không có trong `KimFx` thì chiêu mana bắn "tia cũ" (tia nước nhuộm màu) chồng lên hình của rig.
+- **Unity** (máy C, MCP 8080): biên dịch sạch; "Nhập dữ liệu"; "Gắn dạng .atomik" → `kim_nghe: prefab giữ 2 dạng (vua_may_1, vua_may_2)`;
+  `RosterTests` đổi sang `vua_may_1/2`; EditMode 107/108 (hỏng `PrefabOnlyTests` có sẵn từ trước). Soi trận KimFxTour (5 sao / 1 sao,
+  `Temp/PokiShots/kim_fx/kim_nghe_*`): đủ ba đòn hai dạng, không lỗi console.
+- Còn: dạng 2 cỡ 1,1 cánh rất rộng, đầu cánh chờm sang sân đối thủ (có thể hạ `size`); HUD trong trận hiện tên tướng (Nhật Vương) ở cả dạng 1 như
+  các tướng khác; dung lượng hai file trên trần 0,5 MB.
+
 ## 7. Việc tiếp
 
 1. Người dùng chọn concept (A / B / C) → `tai_ve/L1_duyet.png`; chốt cách ghép skill 1–4 vào attack / cast / skill; xác nhận thay suất

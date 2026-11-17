@@ -1,6 +1,7 @@
 // Sổ thẻ (chép cardsScreen của Web/src/view/screens/cards.ts): khung "Cách xếp thẻ", chú giải độ hiếm kèm trọng số rút,
-// lưới 35 thẻ chung (thẻ chưa mở xám, "Mở ở cấp n"). Chạm thẻ xem chi tiết và mô tả ở cấp 5.
+// lưới thẻ chung (75 thẻ từ 2026-11-17, xếp theo độ hiếm rồi cấp mở, cuộn dọc; thẻ chưa mở xám, "Mở ở cấp n"). Chạm thẻ xem chi tiết.
 // Prefab màn hình Assets/04 Prefabs/Screens/Cards; thẻ sinh từ prefab kit theo dữ liệu, hộp chi tiết là Dialogs/ChiTietThe.
+using System.Linq;
 using PokiClash.Core;
 using PokiClash.UI;
 using TMPro;
@@ -37,7 +38,8 @@ namespace PokiClash
             int rows = (d.Pool.Count + 2) / 3;
             gridLayout.preferredHeight = rows * (UiCard.NormalSize.y + 40);
             for (int i = grid.childCount - 1; i >= 0; i--) Destroy(grid.GetChild(i).gameObject);
-            foreach (var c in d.Pool)
+            // độ hiếm rồi cấp mở (OrderBy giữ thứ tự dữ liệu khi bằng nhau)
+            foreach (var c in d.Pool.OrderBy(x => x.rarity).ThenBy(x => x.unlock))
             {
                 var card = c;
                 string locked = c.unlock > save.level ? $"Mở ở cấp {c.unlock}" : null;

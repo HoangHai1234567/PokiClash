@@ -62,19 +62,38 @@ namespace PokiClash.Core
     [Serializable]
     public class PotentialConfig
     {
-        public double[] values = new double[8 * 5]; // values[loại * 5 + độ hiếm]
+        public double[] values = new double[Potential.KindCount * 5]; // values[loại * 5 + độ hiếm]
         public double Val(int kind, int rarity) => values[kind * 5 + rarity];
         public double[] rarityWeight = { 55, 28, 12, 4.5, 0.5 };
-        public double[] caps = new double[8];
-        public int[] slotStar = { 1, 2, 3, 4 };
-        public int lockCost = 2, maxLocks = 2;
+        public double[] crystalWeight = { 0, 0, 80, 18, 2 }; // khai phá bằng đá tinh: mọi ô từ Hiếm trở lên (2026-11-17)
+        public double[] kindWeight = { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 }; // trọng số quay theo loại (0 = không ra nữa, dòng cũ vẫn tính)
+        public double[] caps = new double[Potential.KindCount];
+        public int[] slotStar = { 1, 3, 6, 8, 11, 16 }; // sao tổng (StarTier) mở từng ô
+        public int lockCost = 2, maxLocks = 3;
+        public List<PotSet> sets = new List<PotSet>(); // bộ: đủ need[lv] dòng cùng nhóm thì có phần thưởng bộ cấp lv
     }
 
+    // Một bộ tiềm năng (2026-11-17): nhóm loại dòng; có need[0] dòng thuộc nhóm thì nhận phần thưởng cấp 1, need[1] dòng thì cấp 2.
+    // Phần thưởng: bonusKind[j] (khoá loại dòng) cộng bonus[lv * bonusKind.Length + j] (không tính vào trần của loại). Mảng phẳng để
+    // ScriptableObject giữ được.
+    [Serializable]
+    public class PotSet
+    {
+        public string key, name;
+        public string[] kinds = new string[0];
+        public int[] need = new int[0];
+        public string[] bonusKind = new string[0];
+        public double[] bonus = new double[0];
+    }
+
+    // Một tầng Hang Tiềm Năng: cấp, đá mỗi lượt thắng; thưởng lần đầu qua (đá tiềm năng, đá tinh, đá tiến hóa); buff: độ khó thêm
     [Serializable]
     public class CaveTier
     {
         public string name;
         public int level, stones;
+        public int firstStones, firstCrystals, firstEvo;
+        public double buff;
     }
 
     [Serializable]
@@ -84,6 +103,8 @@ namespace PokiClash.Core
         public int winsPerDay = 3, adExtra = 1;
         public int[] weekday = { -1, -1, -1, -1, -1, -1, -1 }; // hệ boss theo thứ (0 = Chủ nhật), số của Elem; −1 = người chơi chọn
         public Elem? Weekday(int wd) => weekday[wd] < 0 ? (Elem?)null : (Elem)weekday[wd];
+        public int crystalFloor = 8; // lượt thắng đầu tiên mỗi ngày ở tầng này trở lên (đếm từ 1) cho thêm crystalDaily đá tinh
+        public int crystalDaily = 1;
     }
 
     // Quảng cáo thưởng và gói (Web/src/core/data/ads.ts): giới hạn lượt mỗi ngày theo chỗ đặt (0 = không giới hạn)
@@ -150,16 +171,38 @@ namespace PokiClash.Core
         public List<FarmSpotDef> spots = new List<FarmSpotDef>();
     }
 
-    // Đền Huy Hiệu (Web/src/core/data/badges.ts)
+    // mốc sao của Đền Huy Hiệu (2026-11-17): rương (chest_silver, chest_gold), đá tiến hóa, đá tinh, đá tiềm năng
+    [Serializable]
+    public class BadgeGift
+    {
+        public string chest;
+        public int evo, crystal, stones;
+    }
+
+    // Đền Huy Hiệu (Web/src/core/data/badges.ts; 2026-11-17 thêm bậc 6–10, sao từng trận, mốc sao, đặc tính hệ, phần cộng cả đội)
     [Serializable]
     public class BadgeConfig
     {
         public List<string> tiers = new List<string> { "Đồng", "Bạc", "Vàng", "Ngọc", "Kim Cương" };
         public int[] counts = { 5, 5, 10, 10, 10 }; // số trận mỗi bậc
         public double[] bonus = { 0.05, 0.08, 0.12, 0.16, 0.2 }; // phần cộng Máu, Công, Thủ theo bậc cao nhất
+        public double[] teamBonus = new double[0]; // phần cộng Máu, Công, Thủ cho mọi tướng theo bậc của từng dãy (cộng 5 dãy)
         public int levelPerTier = 3, ballsBase = 5, ballsPerTier = 2;
         public double levelPerFight = 0.5; // cấp địch thêm mỗi trận trong bậc
         public List<string> chest = new List<string> { "chest_silver", "chest_silver", "chest_gold", "chest_gold", "chest_gold" };
+        public int[] evo = new int[0]; // đá tiến hóa khi xong bậc
+        public int[] crystal = new int[0]; // đá tinh khi xong bậc
+        // độ khó: địch quy về sức tướng Khá (như đảo 70 ải), nhân 1 + foeBuff + foeTierBuff·(bậc − 1), trận cuối bậc thêm foeLastBuff
+        public double foeBuff, foeTierBuff, foeLastBuff;
+        public int starRounds = 2; // sao 3: thắng trong starRounds hiệp mỗi địch (sao 1: thắng; sao 2: không tướng nào gục)
+        public int giftEvery = 30; // mỗi giftEvery sao (tổng cả đền) một mốc; quà theo vòng gifts
+        public List<BadgeGift> gifts = new List<BadgeGift>();
+        // đặc tính hệ: mở và nâng ở các bậc traitTiers; loại theo hệ (khoá loại dòng tiềm năng, theo thứ tự Elem), số theo
+        // traitValue[hệ * traitTiers.Length + nấc]
+        public int[] traitTiers = new int[0];
+        public string[] traitKind = new string[0];
+        public string[] traitName = new string[0];
+        public double[] traitValue = new double[0];
     }
 
     // đội mẫu của bảng đo theo đảo (Web/src/core/sim.ts SIM_TEAMS)
@@ -213,6 +256,9 @@ namespace PokiClash.Core
         // Công dạng cuối đủ, mỗi dạng trước kém bossEvoAtk
         public double bossEvoHp;
         public double bossEvoAtk;
+        // 2026-11-17: dạng chưa cuối tiến hóa khi gục (trước: dưới 25% máu), máu các dạng chưa cuối nhân thêm số này (0,75) để tổng
+        // máu phải đánh như cũ (Battle.EvoMult)
+        public double bossEvoEarly = 1;
         public double cardLvStep; // mỗi cấp thẻ tăng số của thẻ thêm 15 %
         public int maxRounds; // giới hạn an toàn số hiệp của một trận
 
@@ -226,9 +272,17 @@ namespace PokiClash.Core
         public int maxStar;
         public List<XStep> xSteps = new List<XStep>();
         public int[] cardReq = new int[0]; // bản sao để lên cấp lv -> lv+1
-        public int[] starCards = new int[0]; // tổng cấp 3 thẻ để lên sao n
-        public int[] starLevel = new int[0]; // cấp người chơi để lên sao n
-        public int[] formStars = new int[0]; // sao đổi sang dạng 2, dạng 3 của dòng tiến hóa
+        public int[] formStars = new int[0]; // sao (tổng) đổi sang dạng 2, dạng 3 của dòng tiến hóa: 6, 11 (Bạc 1★, Vàng 1★)
+        // bậc sao (2026-11-17, StarTier, GD_Claude/20_TangDayNoiDung.md; thay starCards / starLevel: tổng cấp thẻ và cấp người chơi):
+        public double[] tierPower = new double[0]; // hệ số chỉ số của bậc Đồng, Bạc, Vàng, Kim Cương (HeroStats.StarMult)
+        public int[] shardCost = new int[0]; // mảnh lên sao trong bậc của tướng Khá: 4 số mỗi bậc (lên 2★, 3★, 4★, 5★), Đồng → Kim Cương
+        public double[] shardRarity = new double[0]; // nhân giá mảnh theo độ hiếm (Thường..Huyền thoại)
+        public int[] evoStones = new int[0]; // đá tiến hóa lên Bạc, Vàng, Kim Cương
+        public double[] evoRarity = new double[0]; // nhân giá đá theo độ hiếm (trống = như nhau)
+        public int[] evoLevel = new int[0]; // cấp người chơi tối thiểu để tiến hóa lên Bạc, Vàng, Kim Cương
+        public int[] evoFirst = new int[0]; // đá lần đầu qua ải tướng, mini boss, boss cuối đảo
+        public double evoReplayMini, evoReplayBoss; // tỉ lệ ra 1 đá khi qua lại mini boss, boss cuối đảo
+        public int[] evoChest = new int[0]; // đá trong rương mốc đảo 70 ải, theo thứ tự rương (rương cuối là rương chinh phục)
 
         public HeroForm FormOf(HeroDef h, int star) => h.Form(formStars, star);
 
@@ -271,9 +325,15 @@ namespace PokiClash.Core
             var c = (BalanceConfig)MemberwiseClone();
             c.xSteps = new List<XStep>(xSteps);
             c.cardReq = (int[])cardReq.Clone();
-            c.starCards = (int[])starCards.Clone();
-            c.starLevel = (int[])starLevel.Clone();
             c.formStars = (int[])formStars.Clone();
+            c.tierPower = (double[])tierPower.Clone();
+            c.shardCost = (int[])shardCost.Clone();
+            c.shardRarity = (double[])shardRarity.Clone();
+            c.evoStones = (int[])evoStones.Clone();
+            c.evoRarity = (double[])evoRarity.Clone();
+            c.evoLevel = (int[])evoLevel.Clone();
+            c.evoFirst = (int[])evoFirst.Clone();
+            c.evoChest = (int[])evoChest.Clone();
             c.poolWeight = (double[])poolWeight.Clone();
             c.chests = new List<ChestTable>(chests);
             c.gifts = new List<GiftStep>(gifts);
@@ -329,6 +389,7 @@ namespace PokiClash.Core
                 bossAtk = J.Num(o, "bossAtk"),
                 bossEvoHp = J.Num(o, "bossEvoHp"),
                 bossEvoAtk = J.Num(o, "bossEvoAtk"),
+                bossEvoEarly = J.Num(o, "bossEvoEarly", 1),
                 cardLvStep = J.Num(o, "cardLvStep"),
                 maxRounds = J.Int(o, "maxRounds", 60),
                 saveVersion = J.Int(p, "saveVersion"),
@@ -338,9 +399,17 @@ namespace PokiClash.Core
                 cardMax = J.Int(p, "cardMax"),
                 maxStar = J.Int(p, "maxStar"),
                 cardReq = Ints(J.Arr(p, "cardReq")),
-                starCards = Ints(J.Arr(p, "starCards")),
-                starLevel = Ints(J.Arr(p, "starLevel")),
                 formStars = Ints(J.Arr(p, "formStars")),
+                tierPower = Nums(J.Arr(p, "tierPower")),
+                shardCost = Ints(J.Arr(p, "shardCost")),
+                shardRarity = Nums(J.Arr(p, "shardRarity")),
+                evoStones = Ints(J.Arr(p, "evoStones")),
+                evoRarity = Nums(J.Arr(p, "evoRarity")),
+                evoLevel = Ints(J.Arr(p, "evoLevel")),
+                evoFirst = Ints(J.Arr(p, "evoFirst")),
+                evoReplayMini = J.Num(p, "evoReplayMini"),
+                evoReplayBoss = J.Num(p, "evoReplayBoss"),
+                evoChest = Ints(J.Arr(p, "evoChest")),
             };
             foreach (var x in J.Arr(p, "xSteps"))
             {
@@ -426,42 +495,102 @@ namespace PokiClash.Core
             {
                 var vals = J.Obj(pt, "values");
                 var caps = J.Obj(pt, "caps");
+                var kw = J.Obj(pt, "kindWeight");
                 c.potential = new PotentialConfig
                 {
                     rarityWeight = J.Arr(pt, "rarityWeight").Select(x => (double)x).ToArray(),
                     slotStar = Ints(J.Arr(pt, "slotStar")),
                     lockCost = J.Int(pt, "lockCost"), maxLocks = J.Int(pt, "maxLocks"),
                 };
+                var cw = J.Arr(pt, "crystalWeight");
+                if (cw.Count > 0) c.potential.crystalWeight = cw.Select(x => (double)x).ToArray();
                 for (int i = 0; i < Potential.KindKeys.Length; i++)
                 {
                     var row = J.Arr(vals, Potential.KindKeys[i]);
                     for (int r = 0; r < 5 && r < row.Count; r++) c.potential.values[i * 5 + r] = (double)row[r];
                     c.potential.caps[i] = J.Num(caps, Potential.KindKeys[i]);
+                    // loại chưa có trong bảng dòng thì không quay ra
+                    c.potential.kindWeight[i] = row.Count == 0 ? 0 : J.Num(kw, Potential.KindKeys[i], 1);
+                }
+                foreach (var x in J.Arr(pt, "sets"))
+                {
+                    var so = J.Obj(x);
+                    var set = new PotSet
+                    {
+                        key = J.Str(so, "key"), name = J.Str(so, "name"),
+                        kinds = J.Arr(so, "kinds").OfType<string>().ToArray(), need = Ints(J.Arr(so, "need")),
+                    };
+                    var bonus = J.Arr(so, "bonus"); // [{k, v: [cấp 1, cấp 2]}]
+                    set.bonusKind = bonus.Select(b => J.Str(J.Obj(b), "k")).ToArray();
+                    set.bonus = new double[set.need.Length * set.bonusKind.Length];
+                    for (int j = 0; j < bonus.Count; j++)
+                    {
+                        var v = J.Arr(J.Obj(bonus[j]), "v");
+                        for (int lv = 0; lv < set.need.Length && lv < v.Count; lv++) set.bonus[lv * set.bonusKind.Length + j] = (double)v[lv];
+                    }
+                    c.potential.sets.Add(set);
                 }
             }
             var cvc = J.Obj(root, "cave");
             if (cvc != null)
             {
-                c.cave = new CaveConfig { winsPerDay = J.Int(cvc, "winsPerDay"), adExtra = J.Int(cvc, "adExtra") };
+                c.cave = new CaveConfig
+                {
+                    winsPerDay = J.Int(cvc, "winsPerDay"), adExtra = J.Int(cvc, "adExtra"),
+                    crystalFloor = J.Int(cvc, "crystalFloor", 99), crystalDaily = J.Int(cvc, "crystalDaily"),
+                };
                 foreach (var x in J.Arr(cvc, "tiers"))
                 {
                     var t = J.Obj(x);
-                    c.cave.tiers.Add(new CaveTier { name = J.Str(t, "name"), level = J.Int(t, "level"), stones = J.Int(t, "stones") });
+                    c.cave.tiers.Add(new CaveTier
+                    {
+                        name = J.Str(t, "name"), level = J.Int(t, "level"), stones = J.Int(t, "stones"),
+                        firstStones = J.Int(t, "firstStones"), firstCrystals = J.Int(t, "firstCrystals"), firstEvo = J.Int(t, "firstEvo"),
+                        buff = J.Num(t, "buff"),
+                    });
                 }
                 var wd = J.Arr(cvc, "weekday");
                 for (int i = 0; i < 7 && i < wd.Count; i++) c.cave.weekday[i] = wd[i] is string e ? (int)Keys.ToElem(e) : -1;
             }
             var bg = J.Obj(root, "badges");
             if (bg != null)
+            {
                 c.badges = new BadgeConfig
                 {
                     tiers = J.Arr(bg, "tiers").OfType<string>().ToList(),
                     counts = Ints(J.Arr(bg, "counts")),
                     bonus = J.Arr(bg, "bonus").Select(x => (double)x).ToArray(),
+                    teamBonus = J.Arr(bg, "teamBonus").Select(x => (double)x).ToArray(),
                     levelPerTier = J.Int(bg, "levelPerTier"), ballsBase = J.Int(bg, "ballsBase"), ballsPerTier = J.Int(bg, "ballsPerTier"),
                     levelPerFight = J.Num(bg, "levelPerFight", 0.5),
                     chest = J.Arr(bg, "chest").OfType<string>().ToList(),
+                    evo = Ints(J.Arr(bg, "evo")), crystal = Ints(J.Arr(bg, "crystal")),
+                    foeBuff = J.Num(bg, "foeBuff"), foeTierBuff = J.Num(bg, "foeTierBuff"), foeLastBuff = J.Num(bg, "foeLastBuff"),
+                    starRounds = J.Int(bg, "starRounds", 2), giftEvery = J.Int(bg, "giftEvery", 30),
                 };
+                foreach (var x in J.Arr(bg, "gifts"))
+                {
+                    var go = J.Obj(x);
+                    c.badges.gifts.Add(new BadgeGift { chest = J.Str(go, "chest"), evo = J.Int(go, "evo"), crystal = J.Int(go, "crystal"), stones = J.Int(go, "stones") });
+                }
+                var trt = J.Obj(bg, "traits"); // {tiers: [...], kim: {name, kind, v: [...]}, ...}
+                if (trt != null)
+                {
+                    c.badges.traitTiers = Ints(J.Arr(trt, "tiers"));
+                    int n = c.badges.traitTiers.Length;
+                    c.badges.traitKind = new string[5];
+                    c.badges.traitName = new string[5];
+                    c.badges.traitValue = new double[5 * n];
+                    foreach (Elem e in Enum.GetValues(typeof(Elem)))
+                    {
+                        var eo = J.Obj(trt, Keys.Of(e));
+                        c.badges.traitKind[(int)e] = J.Str(eo, "kind", "");
+                        c.badges.traitName[(int)e] = J.Str(eo, "name", "");
+                        var v = J.Arr(eo, "v");
+                        for (int k = 0; k < n && k < v.Count; k++) c.badges.traitValue[(int)e * n + k] = (double)v[k];
+                    }
+                }
+            }
             var stm = J.Obj(root, "simTeams");
             if (stm != null)
                 foreach (var kv in stm)
@@ -497,6 +626,8 @@ namespace PokiClash.Core
             }
             return list;
         }
+
+        static double[] Nums(List<object> l) => l.Select(x => x is double d ? d : 0).ToArray();
 
         static int[] Ints(List<object> l)
         {

@@ -48,6 +48,46 @@ namespace PokiClash.UI
         public static Color Of(Elem e) => Hex(Elements.Color(e));
         public static Color Of(Rarity r) => Hex(Elements.RarityColor(r));
 
+        // ---------- độ hiếm (người dùng dặn 2026-11-17: nhìn là biết độ hiếm của tướng) ----------
+        // Một thang màu cho 5 độ hiếm, chung với thẻ bài, ô thưởng (Elements.RarityColor): Thường xám be, Khá xanh lá, Hiếm xanh dương,
+        // Sử thi tím, Huyền thoại cam. Thẻ tướng, bảng tên đội hình, ô chọn đội: khung ngoài tô màu độ hiếm (Of), giấy lót bên trong lùi vào
+        // RarityInset px nên khung thành viền màu kẹp giữa hai nét mực (không bóng); nhãn là viên màu độ hiếm chữ trắng viền mực.
+        // Sử thi, Huyền thoại khung gạch sáp; Huyền thoại khung dày nhất và đội vương miện.
+
+        // chữ độ hiếm trên nền giấy (màu gốc Thường, Khá nhạt quá trên giấy kem)
+        public static Color RarityInk(Rarity r) => Color.Lerp(Of(r), Ink, 0.38f);
+
+        // màu nhạt để lót (k: 0 = màu gốc, 1 = trắng)
+        public static Color RarityTint(Rarity r, float k = 0.7f) => Color.Lerp(Of(r), Color.white, k);
+
+        // khung của tướng chưa có (bóng sẫm, thanh mảnh): vẫn đúng màu nhưng dịu hơn tướng đã có
+        public static Color RarityMuted(Rarity r) => Color.Lerp(Of(r), Paper2, 0.4f);
+
+        // bề dày viền màu thấy được (px ở khung 1080 × 1920) trên thẻ cỡ thẻ tướng: Thường, Khá 8, Hiếm 10, Sử thi 12, Huyền thoại 15
+        public static float RarityBand(Rarity r)
+        {
+            switch (r)
+            {
+                case Rarity.Legend: return 15;
+                case Rarity.Epic: return 12;
+                case Rarity.Rare: return 10;
+                default: return 8;
+            }
+        }
+
+        // độ lùi của giấy lót trong khung: band × scale (ô nhỏ hơn thẻ tướng thì viền mỏng theo) + edge (lề trong suốt và nét mực của sprite
+        // khung trừ lề trong suốt của sprite giấy: thẻ tướng sk_Panel 7, bảng tên / ô đội sk_PanelThin 5, ô chọn đội 3)
+        public static float RarityInset(Rarity r, float scale, float edge) => Mathf.Round(RarityBand(r) * scale + edge);
+
+        // khung gạch sáp (sprite CardFrame) thay cho khung trơn
+        public static bool RarityHatch(Rarity r) => r >= Rarity.Epic;
+
+        // nhãn viên: "SỬ THI"
+        public static string RarityLabel(Rarity r) => Elements.RarityName(r).ToUpperInvariant();
+
+        // "Sử thi" tô màu sẫm của độ hiếm (rich text TMP)
+        public static string RarityRich(Rarity r) => $"<color=#{ColorUtility.ToHtmlStringRGB(RarityInk(r))}>{Elements.RarityName(r)}</color>";
+
         // ---------- phông ----------
 
         public static UiAssets Assets { get; private set; }

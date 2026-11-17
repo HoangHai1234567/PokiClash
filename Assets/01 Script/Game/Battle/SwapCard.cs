@@ -30,7 +30,7 @@ namespace PokiClash
             click.OnClick = onClick;
             portrait.Bind(f.hero, 150, false, f.star);
             nameText.text = f.hero.name;
-            hp.text = $"{f.hp}/{f.maxHp}";
+            hp.text = $"{NumFmt.Short(f.hp)}/{NumFmt.Short(f.maxHp)}";
             double em = Battle.ElemMult(f, foe), bad = Battle.ElemMult(foe, f);
             tip.gameObject.SetActive(em > 1 || bad > 1);
             tip.text = em > 1 ? "Khắc địch" : "Bị khắc";

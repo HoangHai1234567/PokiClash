@@ -1,6 +1,8 @@
 // Trận theo lượt, luân phiên, gốc là Web/src/core/battle.ts (cùng hạt giống, cùng lựa chọn thì cùng chuỗi sự kiện).
 // Khác bản web từ 2026-11-03: chiêu ra ngay lúc bấm, không vào hàng thẻ. Từ 2026-11-04: 35 thẻ chung (web 23), thẻ đã chọn
-// không ra lại trong lượt trừ thẻ có cờ repeat.
+// không ra lại trong lượt trừ thẻ có cờ repeat. Từ 2026-11-17: 75 thẻ chung; cơ chế độc cộng dồn (lan khi gục, kích nổ), phản đòn,
+// kết liễu, combo theo nhóm thẻ, cộng hưởng hệ, khắc hệ, cường hóa thẻ kế tiếp, chặn hồi máu, liều theo máu đã mất, đập khiên;
+// boss tiến hóa khi gục (Evolve) thay vì dưới 25% máu.
 // Mỗi hiệp: người chơi (bên 0) đi trước. Mỗi lượt:
 //   1. đầu lượt (trước lần chọn đầu) được đổi tướng;
 //   2. chọn 5 lần, mỗi lần 1 trong 3 thẻ chung; chiêu và tuyệt kỹ dùng xen vào lúc chọn, không tốn lần chọn.
@@ -47,8 +49,10 @@ namespace PokiClash.Core
 
         // boss có thẻ Tiến Hóa: hệ số máu, Công của dạng i trong dòng n dạng (Cfg.bossEvoHp, bossEvoAtk). Dòng 1 dạng không tiến hóa
         // nhưng vẫn gánh đủ máu của cả dòng.
+        // 2026-11-17: dạng chưa cuối tiến hóa khi gục (trước: khi máu dưới 25%, bỏ phí 25% máu mỗi dạng chưa cuối), nên máu các dạng
+        // chưa cuối nhân thêm bossEvoEarly (0,75) cho tổng máu phải đánh như cũ. Dòng 3 dạng: ×0,1875 / 0,375 / 0,75; dòng 2: ×0,375 / 1.
         public static (double hp, double atk) EvoMult(BalanceConfig cfg, int n, int i) =>
-            (cfg.bossEvoHp * (i + 1) * 2 / (n * (n + 1)), 1 - cfg.bossEvoAtk * (n - 1 - i));
+            (cfg.bossEvoHp * (i + 1) * 2 / (n * (n + 1)) * (i < n - 1 ? cfg.bossEvoEarly : 1), 1 - cfg.bossEvoAtk * (n - 1 - i));
 
         Fighter MakeFighter(Member m, int side, int idx)
         {
@@ -69,6 +73,10 @@ namespace PokiClash.Core
             // tiềm năng chí mạng, hút máu: buff cả trận (left ≥ 99 không giảm)
             if (st != null && st.crit != 0) f.buffs.Add(new Buff { stat = Stat.Crit, v = st.crit, left = 99, until = Until.End });
             if (st != null && st.lifesteal != 0) f.buffs.Add(new Buff { stat = Stat.Lifesteal, v = st.lifesteal, left = 99, until = Until.End });
+            // tiềm năng / đặc tính hệ (agent B, 2026-11-17): khiên đầu trận, giảm sát thương nhận, né đòn đánh thường (buff cả trận)
+            if (st != null && st.shield != 0) f.shield = Math.Min(Js.Round(hp * Cfg.shieldCap), Js.Round(hp * st.shield));
+            if (st != null && st.guard != 0) f.buffs.Add(new Buff { stat = Stat.DmgTaken, v = -st.guard, left = 99, until = Until.End });
+            if (st != null && st.dodge != 0) f.buffs.Add(new Buff { stat = Stat.Dodge, v = st.dodge, left = 99, until = Until.End });
             return f;
         }
 
@@ -94,7 +102,11 @@ namespace PokiClash.Core
                         hp = f.hp, maxHp = f.maxHp, shield = f.shield, mana = f.mana, rage = f.rage, dead = f.dead,
                         atkB = BuffSum(f, Stat.Atk), defB = BuffSum(f, Stat.Def),
                     };
-                    foreach (var x in f.statuses) fs.st.Add((x.id, x.left));
+                    foreach (var x in f.statuses)
+                    {
+                        fs.st.Add((x.id, x.left));
+                        fs.stk.Add(x.id == StatusId.Poison ? x.stacks : 0);
+                    }
                     sn.f[s].Add(fs);
                 }
             return sn;
@@ -193,22 +205,24 @@ namespace PokiClash.Core
             // buff thủ (hết khi tới lượt chủ), né chưa dùng thì mất
             TickBuffs(s, Until.Start);
             f.statuses = f.statuses.Where(x => x.id != StatusId.Evade).ToList();
-            // bỏng, hồi phục
+            // bỏng, độc, hồi phục (về 0 máu thì thôi: không hồi máu cho tướng đã gục; boss còn dạng sau tiến hóa ở Kill ngay dưới)
             foreach (var st in f.statuses.ToList())
             {
-                if (st.id == StatusId.Burn)
+                if (f.hp <= 0) break;
+                if (st.id == StatusId.Burn || st.id == StatusId.Poison)
                 {
-                    double d = Math.Max(1, Js.Round(f.maxHp * st.v));
+                    // bỏng: phần máu tối đa; độc: số máu định sẵn lúc tẩm (theo Công kẻ tẩm)
+                    double d = Math.Max(1, Js.Round(st.id == StatusId.Burn ? f.maxHp * st.v : st.v));
                     double toHp = Math.Min(f.hp, d);
-                    if (CanEvolve(f) && toHp >= f.hp) toHp = f.hp - 1; // còn dạng sau: chừa 1 máu, tiến hóa ở CheckLow đầu lượt
                     f.hp -= toHp;
                     Emit(new BattleEvent
                     {
-                        t = EvType.Dmg, from = Other(s), to = s, amount = d, toHp = toHp, blocked = 0, crit = false, elem = 1, dmgKind = DmgKind.Burn,
+                        t = EvType.Dmg, from = Other(s), to = s, amount = d, toHp = toHp, blocked = 0, crit = false, elem = 1,
+                        dmgKind = st.id == StatusId.Burn ? DmgKind.Burn : DmgKind.Poison,
                     });
                 }
                 else if (st.id == StatusId.Regen) Heal(f, st.v);
-                if (st.id == StatusId.Burn || st.id == StatusId.Regen) st.left--;
+                if (st.id == StatusId.Burn || st.id == StatusId.Regen || st.id == StatusId.Poison) st.left--;
             }
             f.statuses = f.statuses.Where(x => x.left > 0).ToList();
             if (f.hp <= 0) Kill(f);
@@ -306,6 +320,21 @@ namespace PokiClash.Core
             side.active = idx;
             side.needSwap = false;
             Emit(new BattleEvent { t = EvType.Swap, side = s, from = from, to = idx, forced = forced });
+            // độc lan từ tướng vừa gục: gộp vào độc đang có (chặn ở PoisonMax lớp), lấy số lượt dài hơn
+            if (side.spread != null && forced)
+            {
+                var src = side.spread;
+                side.spread = null;
+                var f = side.fighters[idx];
+                var old = f.statuses.Find(x => x.id == StatusId.Poison);
+                if (old == null) f.statuses.Add(old = new StatusInst { id = StatusId.Poison });
+                int add = Math.Max(0, Math.Min(src.stacks, PoisonMax - old.stacks));
+                double per = src.stacks > 0 ? src.v / src.stacks : 0;
+                old.stacks += add;
+                old.v = Math.Round(old.v + add * per, 6);
+                old.left = Math.Max(old.left, src.left);
+                Emit(new BattleEvent { t = EvType.Status, side = s, status = StatusId.Poison, turns = old.left });
+            }
         }
 
         public List<BattleEvent> Pick(int i)
@@ -379,16 +408,28 @@ namespace PokiClash.Core
             if (phase != Phase.Ready) return new List<BattleEvent>();
             var t = turn;
             int s = t.side;
-            foreach (var item in t.queue)
+            for (int qi = 0; qi < t.queue.Count; qi++)
             {
-                int reps = t.doubleNext && item.card != "guong_doi" ? 2 : 1;
+                var item = t.queue[qi];
+                var card = Data.Card(item.card);
+                // thẻ "chạy 2 lần" (Gương Đôi), "mạnh thêm" (cường hóa) áp cho thẻ kế tiếp không cùng loại
+                int reps = t.doubleNext && !Has(card, EffectKind.Double) ? 2 : 1;
                 if (reps == 2) t.doubleNext = false;
+                double emp = 0;
+                if (t.empower > 0 && !Has(card, EffectKind.Empower) && !Has(card, EffectKind.Double))
+                {
+                    emp = t.empower;
+                    t.empower = 0;
+                }
+                execIdx = qi;
                 for (int r = 0; r < reps; r++)
                 {
                     if (winner >= 0 || ActiveOf(s).dead) break;
                     Emit(new BattleEvent { t = EvType.Card, side = s, card = item.card, kind = "pool", lv = item.lv, rep = r });
-                    ApplyEffects(s, Scaled(Data.Card(item.card), item.lv), DmgKind.Card);
+                    var effs = Scaled(card, item.lv);
+                    ApplyEffects(s, emp > 0 ? CardText.ScaleBy(effs, 1 + emp) : effs, DmgKind.Card);
                 }
+                execIdx = -1;
             }
             var me = ActiveOf(s);
             var foe = ActiveOf(Other(s));
@@ -403,7 +444,7 @@ namespace PokiClash.Core
                 {
                     NormalAttack(s, 1, false);
                     foreach (var m in t.extra)
-                        if (!ActiveOf(Other(s)).dead && winner < 0) NormalAttack(s, m, true);
+                        if (!ActiveOf(Other(s)).dead && !ActiveOf(s).dead && winner < 0) NormalAttack(s, m, true);
                 }
             }
             if (winner < 0) EndTurn(s);
@@ -424,7 +465,7 @@ namespace PokiClash.Core
             var me = ActiveOf(s);
             Emit(new BattleEvent { t = EvType.Attack, side = s, extra = extra });
             double d = DealDamage(s, mult, extra ? DmgKind.Extra : DmgKind.Attack, 0, 0);
-            if (d > 0) AddRage(me, Cfg.rageOnAttack, false);
+            if (d > 0 && !me.dead) AddRage(me, Cfg.rageOnAttack, false); // gục vì phản đòn thì thôi
             if (d > 0) RunPassive(me, PassiveTrigger.OnAttack);
         }
 
@@ -466,9 +507,8 @@ namespace PokiClash.Core
             double blocked = Math.Min(D.shield, dmg);
             D.shield -= blocked;
             double toHp = Math.Min(D.hp, dmg - blocked);
-            // đòn đủ hạ gục tướng còn dạng sau (kể cả từ trên ngưỡng tiến hóa): chừa 1 máu, ngay sau đòn tiến hóa (CheckLow), không gục
-            // (người dùng dặn 2026-11-04)
-            if (CanEvolve(D) && toHp >= D.hp) toHp = D.hp - 1;
+            // boss còn dạng sau: đòn hạ gục đưa máu về 0 (sát thương thừa bỏ), Kill cho tiến hóa (2026-11-17; trước chừa 1 máu rồi
+            // tiến hóa ở CheckLow)
             D.hp -= toHp;
             D.rage = Math.Min(Cfg.maxRage, D.rage + Js.Round((toHp / D.maxHp) * Cfg.rageOnHit));
             dmgDealt[s] += toHp;
@@ -478,12 +518,16 @@ namespace PokiClash.Core
             });
             double ls = BuffSum(A, Stat.Lifesteal) + lifesteal;
             if (ls > 0 && toHp > 0) HealFlat(A, Js.Round(toHp * ls));
+            // phản đòn: phần sát thương trúng (cả phần khiên đỡ) dội lại kẻ đánh, sau khi xét gục; tướng phản đã gục thì thôi
+            double th = BuffSum(D, Stat.Thorns);
+            double refl = th > 0 && toHp + blocked > 0 ? Js.Round((toHp + blocked) * th) : 0;
             if (D.hp <= 0) Kill(D);
             else
             {
                 RunPassive(D, PassiveTrigger.OnHit);
                 CheckLow(D);
             }
+            if (refl > 0 && !D.dead && winner < 0) Reflect(D, A, refl);
             return dmg;
         }
 
@@ -505,7 +549,7 @@ namespace PokiClash.Core
                 {
                     f.revived = true;
                     f.hp = Math.Max(1, Js.Round(f.maxHp * rv.Pct));
-                    f.statuses = f.statuses.Where(x => x.id != StatusId.Burn && x.id != StatusId.Stun).ToList();
+                    f.statuses = f.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
                     Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = pc.id });
                     Emit(new BattleEvent { t = EvType.Revive, side = f.side, idx = f.idx, hp = f.hp });
                     return;
@@ -514,8 +558,15 @@ namespace PokiClash.Core
             f.dead = true;
             f.hp = 0;
             f.shield = 0;
-            Emit(new BattleEvent { t = EvType.Death, side = f.side, idx = f.idx });
+            // độc lan (2026-11-17): độc trên tướng gục chuyển sang tướng ra thay (DoSwap bắt buộc), để độc không phí khi địch đông
             var side = sides[f.side];
+            var pz = f.statuses.Find(x => x.id == StatusId.Poison);
+            if (pz != null)
+            {
+                f.statuses.Remove(pz);
+                side.spread = pz;
+            }
+            Emit(new BattleEvent { t = EvType.Death, side = f.side, idx = f.idx });
             if (side.fighters.Exists(x => !x.dead)) side.needSwap = true;
             else
             {
@@ -543,6 +594,9 @@ namespace PokiClash.Core
 
         void HealFlat(Fighter f, double amount)
         {
+            // chỉ số "máu được hồi" (âm là bị chặn hồi, −1 là không hồi được)
+            double ht = BuffSum(f, Stat.HealTaken);
+            if (ht != 0) amount = Js.Round(amount * Math.Max(0, 1 + ht));
             double a = Math.Min(amount, f.maxHp - f.hp);
             if (a <= 0 || f.dead) return;
             f.hp += a;
@@ -577,11 +631,16 @@ namespace PokiClash.Core
 
         static bool CanEvolve(Fighter f) => f.evo && !f.dead && f.form < f.hero.forms.Length - 1;
 
-        // thẻ Tiến Hóa: lên dạng sau, máu tối đa và Công đổi theo hệ số của dạng (giữ phần cộng từ thẻ như Bánh Bao), hồi máu,
-        // xoá bỏng và choáng; bị động "máu thấp" của tướng dùng lại được ở dạng mới
+        // thẻ Tiến Hóa (luật 2026-11-17): dạng chưa cuối về 0 máu thì tiến hóa thay vì gục (Kill gọi). Chuỗi sự kiện cho màn trận:
+        //   1. sự kiện làm máu về 0 (Dmg; ảnh chụp: máu 0, chưa dead);
+        //   2. Passive thẻ boss_evo (ảnh chụp vẫn dạng cũ, máu 0): dạng cũ gục, chơi clip chết;
+        //   3. Evolve (form = dạng mới, hp = máu dạng mới; ảnh chụp dạng mới): biến hình, dạng mới ra sân.
+        // Dạng mới: máu tối đa và Công đổi theo hệ số của dạng (giữ phần cộng từ thẻ như Bánh Bao), vào trận đầy máu, xoá bỏng, choáng,
+        // độc; bị động "máu thấp" của tướng dùng lại được ở dạng mới
         void Evolve(Fighter f)
         {
             var c = Data.Card(BossEvoCard);
+            Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
             int n = f.hero.forms.Length;
             var ko = EvoMult(Cfg, n, f.form);
             var kn = EvoMult(Cfg, n, f.form + 1);
@@ -590,19 +649,13 @@ namespace PokiClash.Core
             f.maxHp = Js.Round(f.maxHp * (kn.hp / ko.hp));
             f.atk = Js.Round(f.atk * (kn.atk / ko.atk));
             f.hp = Math.Max(f.hp, Math.Max(1, Js.Round(f.maxHp * heal)));
-            f.statuses = f.statuses.Where(x => x.id != StatusId.Burn && x.id != StatusId.Stun).ToList();
+            f.statuses = f.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
             f.lowHpUsed = false;
-            Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
             Emit(new BattleEvent { t = EvType.Evolve, side = f.side, idx = f.idx, form = f.form, hp = f.hp });
         }
 
         void CheckLow(Fighter f)
         {
-            if (CanEvolve(f) && f.hp / f.maxHp < Data.Card(BossEvoCard).below)
-            {
-                Evolve(f);
-                return;
-            }
             var c = Data.Card(f.hero.passive);
             if (c.trigger == PassiveTrigger.LowHp && !f.lowHpUsed && !f.dead && f.hp / f.maxHp < c.below)
             {
@@ -644,7 +697,7 @@ namespace PokiClash.Core
             bool isActive = ActiveOf(s) == self;
             foreach (var e in effects)
             {
-                if (winner >= 0) return;
+                if (winner >= 0 || self.dead) return; // self gục giữa thẻ (phản đòn) thì phần sau thôi chạy
                 var foe = ActiveOf(Other(s));
                 switch (e.K)
                 {
@@ -700,13 +753,17 @@ namespace PokiClash.Core
                         else AddRage(self, e.V);
                         break;
                     case EffectKind.Dmg:
+                    {
                         if (!isActive) break;
+                        // liều: mạnh thêm theo phần máu đã mất của mình (tính một lần trước các cú)
+                        double mult = e.Missing.HasValue ? e.Mult * (1 + e.Missing.Value * (1 - self.hp / self.maxHp)) : e.Mult;
                         for (int i = 0; i < (e.Hits ?? 1); i++)
                         {
-                            if (ActiveOf(Other(s)).dead || winner >= 0) break;
-                            DealDamage(s, e.Mult, kind, e.Pierce ?? 0, e.Lifesteal ?? 0);
+                            if (ActiveOf(Other(s)).dead || self.dead || winner >= 0) break;
+                            DealDamage(s, mult, kind, e.Pierce ?? 0, e.Lifesteal ?? 0);
                         }
                         break;
+                    }
                     case EffectKind.Shield:
                     {
                         double cap = Js.Round(self.maxHp * Cfg.shieldCap);
@@ -725,7 +782,18 @@ namespace PokiClash.Core
                             break;
                         }
                         var old = tgt.statuses.Find(x => x.id == e.Status);
-                        if (old != null)
+                        if (e.Status == StatusId.Poison)
+                        {
+                            // độc cộng dồn lớp (tối đa PoisonMax); mỗi lớp mỗi lượt mất e.V Công của kẻ tẩm (tính Thủ, khắc hệ lúc tẩm,
+                            // không chí mạng); tẩm thêm thì tính lại số lượt
+                            int have = old?.stacks ?? 0;
+                            int add = Math.Max(0, Math.Min(e.Stacks ?? 1, CardText.PoisonMax - have));
+                            if (old == null) tgt.statuses.Add(old = new StatusInst { id = StatusId.Poison });
+                            old.stacks = have + add;
+                            old.v += add * PoisonPerStack(self, tgt, e.V);
+                            old.left = Math.Max(old.left, e.Turns);
+                        }
+                        else if (old != null)
                         {
                             old.left = Math.Max(old.left, e.Turns);
                             old.v = Math.Max(old.v, e.V);
@@ -736,7 +804,7 @@ namespace PokiClash.Core
                     }
                     case EffectKind.Cleanse:
                         self.buffs = self.buffs.Where(x => x.stat == Stat.DmgTaken ? x.v <= 0 : x.v >= 0).ToList();
-                        self.statuses = self.statuses.Where(x => x.id != StatusId.Burn && x.id != StatusId.Stun).ToList();
+                        self.statuses = self.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
                         Emit(new BattleEvent { t = EvType.Cleanse, side = s });
                         break;
                     case EffectKind.Double:
@@ -752,8 +820,141 @@ namespace PokiClash.Core
                     case EffectKind.IfLow:
                         ApplyEffectsTo(self, self.hp / self.maxHp < e.Below ? e.Then : e.Else ?? new List<Effect>(), kind);
                         break;
+                    // ----- cơ chế 2026-11-17 -----
+                    case EffectKind.Execute:
+                    {
+                        // kết liễu: địch dưới ngưỡng máu thì hạ gục luôn (boss: sát thương ×2), không thì đòn thường e.Mult
+                        if (!isActive || foe.dead) break;
+                        bool low = foe.hp / foe.maxHp < e.Below;
+                        if (low && !foe.boss) FlatHit(s, foe.hp + foe.shield, kind);
+                        else DealDamage(s, e.Mult * (low ? 2 : 1), kind, 0, 0);
+                        break;
+                    }
+                    case EffectKind.Combo:
+                    {
+                        int n = ComboCount(s, e.Group);
+                        if (n > 0) ApplyEffectsTo(self, CardText.ScaleBy(e.Then, n), kind);
+                        break;
+                    }
+                    case EffectKind.Resonance:
+                    {
+                        int n = ResonanceCount(sides[s], self);
+                        if (n > 0) ApplyEffectsTo(self, CardText.ScaleBy(e.Then, n), kind);
+                        break;
+                    }
+                    case EffectKind.IfBeat:
+                        ApplyEffectsTo(self, Elements.Beats(self.hero.elem) == foe.hero.elem ? e.Then : e.Else ?? new List<Effect>(), kind);
+                        break;
+                    case EffectKind.Empower:
+                        turn.empower += e.V;
+                        break;
+                    case EffectKind.Detonate:
+                    {
+                        // kích nổ độc: số máu độc còn lại (mỗi lượt × số lượt còn) × e.Mult, gây ngay, xoá độc
+                        if (!isActive || foe.dead) break;
+                        var p = foe.statuses.Find(x => x.id == StatusId.Poison);
+                        if (p == null) break;
+                        double amt = Math.Max(1, Js.Round(p.v * p.left * e.Mult));
+                        foe.statuses.Remove(p);
+                        DotHit(foe, amt);
+                        break;
+                    }
+                    case EffectKind.Bash:
+                    {
+                        // đập khiên: tiêu hết khiên của mình, gây sát thương bằng e.Mult lần số khiên (bỏ qua Thủ, không chí mạng)
+                        if (!isActive || foe.dead || self.shield <= 0) break;
+                        double amt = Js.Round(self.shield * e.Mult);
+                        self.shield = 0;
+                        FlatHit(s, amt, kind);
+                        break;
+                    }
                 }
             }
+        }
+
+        public const int PoisonMax = CardText.PoisonMax;
+
+        // máu mỗi lượt của một lớp độc: v Công của a (cả buff Công) qua Thủ của d và khắc hệ, như đòn thường không chí mạng, không dao động
+        public double PoisonPerStack(Fighter a, Fighter d, double v)
+        {
+            double atk = a.atk * Math.Max(0.1, 1 + BuffSum(a, Stat.Atk));
+            double def = d.def * Math.Max(0, 1 + BuffSum(d, Stat.Def));
+            double k = Cfg.defK * HeroStats.LevelMult(Cfg, a.level);
+            return Math.Max(1, Js.Round(atk * v * (k / (k + def)) * ElemMult(a, d)));
+        }
+
+        // cộng hưởng: mình + đồng đội còn sống cùng hệ, không tính lính (bầy lính cùng hệ của đảo không cộng hưởng)
+        public static int ResonanceCount(Side side, Fighter self) =>
+            1 + side.fighters.Count(x => x != self && !x.dead && !x.hero.minion && x.hero.elem == self.hero.elem);
+
+        static bool Has(CardDef c, EffectKind k) => c != null && c.Effects.Exists(e => e.K == k);
+
+        // thẻ đang chạy trong hàng (để combo không đếm chính nó); -1 khi không chạy hàng thẻ
+        int execIdx = -1;
+
+        // combo: số thẻ khác cùng nhóm trong hàng thẻ lượt này của bên s
+        int ComboCount(int s, CardGroup g)
+        {
+            if (turn == null || turn.side != s) return 0;
+            int n = 0;
+            for (int i = 0; i < turn.queue.Count; i++)
+                if (i != execIdx && CardText.InGroup(Data.Card(turn.queue[i].card), g)) n++;
+            return n;
+        }
+
+        // sát thương định sẵn lên tướng đang ra sân của bên kia (kết liễu, đập khiên): khiên đỡ trước, không chí mạng, không né,
+        // không phản đòn; tính vào sát thương gây ra
+        void FlatHit(int s, double amount, DmgKind kind)
+        {
+            var D = ActiveOf(Other(s));
+            if (D.dead || amount <= 0) return;
+            double blocked = Math.Min(D.shield, amount);
+            D.shield -= blocked;
+            double toHp = Math.Min(D.hp, amount - blocked);
+            D.hp -= toHp;
+            D.rage = Math.Min(Cfg.maxRage, D.rage + Js.Round((toHp / D.maxHp) * Cfg.rageOnHit));
+            dmgDealt[s] += toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = s, to = Other(s), amount = amount, toHp = toHp, blocked = blocked, crit = false, elem = 1, dmgKind = kind,
+            });
+            if (D.hp <= 0) Kill(D);
+            else
+            {
+                RunPassive(D, PassiveTrigger.OnHit);
+                CheckLow(D);
+            }
+        }
+
+        // sát thương độc ngay lúc kích nổ: như độc mỗi lượt (bỏ qua khiên, không tính vào sát thương gây ra)
+        void DotHit(Fighter f, double amount)
+        {
+            double toHp = Math.Min(f.hp, amount);
+            f.hp -= toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = Other(f.side), to = f.side, amount = amount, toHp = toHp, blocked = 0, crit = false, elem = 1, dmgKind = DmgKind.Poison,
+            });
+            if (f.hp <= 0) Kill(f);
+            else CheckLow(f);
+        }
+
+        // phản đòn: def dội amount lại att (khiên đỡ trước), hạ gục được (boss còn dạng sau thì tiến hóa); không phản tiếp.
+        // Không gọi CheckLow ở đây (đang giữa đòn của att): bị động máu thấp của att xét ở lần CheckLow kế (đầu lượt hay khi trúng đòn).
+        // att gục giữa lượt của mình: hàng thẻ, đánh thêm dừng (Execute, ApplyEffectsTo xét self.dead), đổi tướng ở AdvanceInner
+        void Reflect(Fighter def, Fighter att, double amount)
+        {
+            if (amount <= 0 || att.dead) return;
+            double blocked = Math.Min(att.shield, amount);
+            att.shield -= blocked;
+            double toHp = Math.Min(att.hp, amount - blocked);
+            att.hp -= toHp;
+            dmgDealt[def.side] += toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = def.side, to = att.side, amount = amount, toHp = toHp, blocked = blocked, crit = false, elem = 1, dmgKind = DmgKind.Thorns,
+            });
+            if (att.hp <= 0) Kill(att);
         }
 
         // ---------- máy chọn tướng thay khi tướng đang ra sân gục ----------

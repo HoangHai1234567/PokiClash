@@ -1,4 +1,6 @@
-// AFK: đội tự đánh một ải đã qua khi người chơi vắng, ra mảnh tướng của ải đó (tỉ lệ thấp) và rương AFK. Chép Web/src/core/afk.ts.
+// AFK: đội tự đánh một ải đã qua khi người chơi vắng, ra mảnh tướng của ải đó và rương AFK. Chép Web/src/core/afk.ts.
+// Bậc sao 2026-11-17: mảnh của tướng đã có dồn để lên sao, nên shardChance tăng 0,08 → 0,4 mỗi giờ (khoảng 10 mảnh mỗi ngày nhận đủ
+// giờ): "AFK ải này" ở ải tướng chủ lực là nguồn mảnh lên sao chính; rương AFK có ít đá tiến hóa (dòng "evo").
 // AFK theo ải (người dùng chọn 2026-11-03, Unity khác web): người chơi chọn ải đã thắng ("AFK ải này" ở hộp chuẩn bị trận); chưa
 // chọn thì đội AFK ở ải xa nhất đã qua có rơi mảnh. Mỗi giờ tròn shardChance ra 1 mảnh, tướng bốc theo tỉ lệ rơi của ải
 // (bỏ tướng tặng). Đổi ải thì mảnh của các giờ tròn đã dồn tính theo ải cũ và nhận luôn, phần lẻ giữ lại.

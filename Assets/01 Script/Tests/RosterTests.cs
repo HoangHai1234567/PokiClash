@@ -40,8 +40,9 @@ namespace PokiClash.Tests
             Assert.AreEqual(new[] { "moc_vuong_d1", "moc_vuong_d2", "moc_vuong_1" }, System.Array.ConvertAll(d.Hero("thanh_long").forms, f => f.aola));
             Assert.AreEqual(new[] { "long_vuot_1", "long_vuot_2" }, System.Array.ConvertAll(d.Hero("long_vuot").forms, f => f.aola));
             // đảo Kim (2026-11-05): boss Kim Nghê là dòng 克亚 → 克里亚斯 (2 dạng, aola không có siêu tiến hóa); từ 2026-11-09 là hình
-            // .atomik vẽ lại (ArtGen/Spine/build_kim.py), mã hình <id>_<k> (trước: rig aola goc_1840 → goc_1841)
-            Assert.AreEqual(new[] { "kim_nghe_1", "kim_nghe_2" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
+            // .atomik vẽ lại (ArtGen/Spine/build_kim.py, kim_nghe_<k>); từ 2026-11-17 suất này là Nhật Vương, vua robot (rig vua_may_<k>,
+            // ArtGen/Spine/quai/doi_vua_may.py; trước: rig aola goc_1840 → goc_1841, rồi kim_nghe_1 → kim_nghe_2)
+            Assert.AreEqual(new[] { "vua_may_1", "vua_may_2" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
             // đảo Thổ (2026-11-10): boss Giáp Nham .atomik vẽ lại (ArtGen/Spine/build_tho.py; trước: goc_1273 → goc_1274)
             Assert.AreEqual(new[] { "giap_nham_1", "giap_nham_2" }, System.Array.ConvertAll(d.Hero("giap_nham").forms, f => f.aola));
             // lô 10 tướng mới đảo Thủy (2026-11-11): .atomik dựng từ quái tham khảo, mã hình <id>_<k>; dòng 1–9 hai dạng, Hải Long ba dạng
@@ -58,14 +59,16 @@ namespace PokiClash.Tests
                 var o = J.Obj(x);
                 var h = d.Hero(J.Str(o, "id"));
                 Assert.AreEqual(J.Int(o, "n"), h.forms.Length, h.id);
-                var idx = J.Arr(o, "idx");
-                for (int star = 1; star <= 5; star++)
+                var idx = J.Arr(o, "idx"); // dạng ở sao tổng 1..20 (IslandGen.RosterGolden; trước 2026-11-17 là sao 1..5)
+                for (int star = 1; star <= idx.Count; star++)
                     Assert.AreEqual((int)(double)idx[star - 1], h.FormIndex(d.Cfg.formStars, star), $"{h.id} sao {star}");
             }
-            // dòng 3 dạng: sao 1–2 dạng 1, sao 3–4 dạng 2, sao 5 dạng 3; dòng 2 dạng: sao 3 trở đi dạng 2
-            Assert.AreEqual("Hải Long Tam Thủ", d.Cfg.FormOf(d.Hero("hai_long"), 3).name);
-            Assert.AreEqual("Hải Long Ngũ Đầu", d.Cfg.FormOf(d.Hero("hai_long"), 5).name);
-            Assert.AreEqual("Thạch Thành Giải", d.Cfg.FormOf(d.Hero("thach_giai"), 5).name);
+            // bậc sao (2026-11-17): dòng 3 dạng: Đồng dạng 1, Bạc dạng 2, Vàng và Kim Cương dạng 3; dòng 2 dạng: từ Bạc 1 sao là dạng 2
+            Assert.AreEqual("Hải Long Tam Thủ", d.Cfg.FormOf(d.Hero("hai_long"), 6).name);
+            Assert.AreEqual("Hải Long Ngũ Đầu", d.Cfg.FormOf(d.Hero("hai_long"), 11).name);
+            Assert.AreEqual("Hải Long Ngũ Đầu", d.Cfg.FormOf(d.Hero("hai_long"), StarTier.MaxStar).name);
+            Assert.AreSame(d.Hero("hai_long").forms[0], d.Cfg.FormOf(d.Hero("hai_long"), 5), "Đồng 5 sao vẫn dạng 1");
+            Assert.AreEqual("Thạch Thành Giải", d.Cfg.FormOf(d.Hero("thach_giai"), 6).name);
         }
 
         // nhận tướng (tướng khởi đầu, tặng, thu phục đủ mảnh) thì ở sao 1, tức dạng thấp nhất của dòng tiến hóa
@@ -90,18 +93,15 @@ namespace PokiClash.Tests
             }
         }
 
-        // thanh mốc tiến hóa: mốc chia đều (mốc cuối ở cuối thanh), thanh đầy khi tới dạng cuối
+        // thanh mốc tiến hóa theo bậc sao (2026-11-17): thanh là sao 1..20, mốc bậc ở sao 1, 6, 11, 16, thanh đầy ở Kim Cương 5 sao
         [Test]
-        public void ThanhTienHoa_MocCuoiOCuoiThanh()
+        public void ThanhTienHoa_MocTheoBac_DayOKimCuong5Sao()
         {
-            var fs = TestData.Load().Cfg.formStars; // sao 3, sao 5
-            float[] three = { 0, 0.25f, 0.5f, 0.75f, 1 }, two = { 0, 0.5f, 1, 1, 1 };
-            for (int star = 1; star <= 5; star++)
-            {
-                Assert.AreEqual(three[star - 1], EvolutionStrip.Fill(fs, 3, star), 1e-5, $"3 dạng, sao {star}");
-                Assert.AreEqual(two[star - 1], EvolutionStrip.Fill(fs, 2, star), 1e-5, $"2 dạng, sao {star}");
-                Assert.AreEqual(1, EvolutionStrip.Fill(fs, 1, star), 1e-5, $"1 dạng, sao {star}");
-            }
+            Assert.AreEqual(new[] { 1, 6, 11, 16 }, Enumerable.Range(0, StarTier.Count).Select(EvolutionStrip.StartStar).ToArray());
+            Assert.AreEqual(0, EvolutionStrip.Fill(1), 1e-5);
+            Assert.AreEqual(5f / 19, EvolutionStrip.Pos(6), 1e-5, "mốc Bạc");
+            Assert.AreEqual(1, EvolutionStrip.Fill(StarTier.MaxStar), 1e-5);
+            for (int star = 2; star <= StarTier.MaxStar; star++) Assert.Greater(EvolutionStrip.Fill(star), EvolutionStrip.Fill(star - 1));
         }
 
         // tướng đứng trên nút ải ở màn đảo: boss, không thì địch cấp cao nhất, bằng cấp thì độ hiếm; boss tiến hóa hiện dạng 1
@@ -149,9 +149,9 @@ namespace PokiClash.Tests
             tree["team"] = new List<object> { "y_trach", "giot_suong" };
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var r));
             Assert.AreEqual(d.Cfg.saveVersion, r.v);
-            // v4 gộp Y Trạch vào Tiểu Y, rồi v6 chuyển Tiểu Y sang Thạch Giải, Giọt Sương sang Tí Tách
+            // v4 gộp Y Trạch vào Tiểu Y, rồi v6 chuyển Tiểu Y sang Thạch Giải, Giọt Sương sang Tí Tách; v12 đổi sao cũ 3 thành Bạc 1 sao
             Assert.IsTrue(r.Hero("thach_giai").owned);
-            Assert.AreEqual(3, r.Hero("thach_giai").star);
+            Assert.AreEqual(6, r.Hero("thach_giai").star);
             Assert.IsNull(r.Hero("tieu_y"), "tướng cũ bỏ khỏi bản lưu và khỏi danh sách tướng");
             Assert.IsNull(r.Hero("y_trach"));
             Assert.AreEqual(new[] { "thach_giai", "ti_tach" }, r.team.ToArray());
@@ -189,7 +189,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(d.Cfg.saveVersion, r.v);
             Assert.AreEqual("ti_tach", r.starter);
             Assert.IsTrue(r.Hero("ti_tach").owned);
-            Assert.AreEqual(4, r.Hero("ti_tach").star);
+            Assert.AreEqual(8, r.Hero("ti_tach").star, "sao cũ 4 thành Bạc 3 sao (v12)");
             Assert.AreEqual(7, r.Hero("ti_tach").shards);
             Assert.AreEqual(3, r.Hero("ti_tach").skill.lv);
             Assert.IsTrue(r.Hero("hai_long").owned);
@@ -238,7 +238,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(d.Cfg.saveVersion, r.v);
             Assert.AreEqual("bo_cap", r.starter);
             Assert.IsTrue(r.Hero("bo_cap").owned);
-            Assert.AreEqual(3, r.Hero("bo_cap").star);
+            Assert.AreEqual(6, r.Hero("bo_cap").star, "sao cũ 3 thành Bạc 1 sao (v12)");
             Assert.AreEqual(7, r.Hero("bo_cap").shards, "cộng mảnh của tướng thay đã có");
             Assert.IsFalse(r.Hero("tien_la").owned);
             Assert.AreEqual(6, r.Hero("tien_la").shards);

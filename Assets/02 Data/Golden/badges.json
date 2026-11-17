@@ -4,14 +4,15 @@
    "zone": "thuy",
    "tier": 1,
    "i": 1,
-   "id": 1021,
+   "id": 10021,
    "seed": 50101,
    "kind": "mini",
    "enemies": [
     [
      "ti_tach",
-     69,
-     true
+     67,
+     true,
+     0.03
     ]
    ]
   },
@@ -19,19 +20,21 @@
    "zone": "thuy",
    "tier": 1,
    "i": 2,
-   "id": 1022,
+   "id": 10022,
    "seed": 50102,
    "kind": "mini",
    "enemies": [
     [
      "hai_long",
-     72,
-     true
+     68,
+     true,
+     -0.36
     ],
     [
      "han_ngac",
-     72,
-     false
+     68,
+     false,
+     -0.18
     ]
    ]
   },
@@ -39,14 +42,15 @@
    "zone": "thuy",
    "tier": 1,
    "i": 3,
-   "id": 1023,
+   "id": 10023,
    "seed": 50103,
    "kind": "mini",
    "enemies": [
     [
      "han_ngac",
-     75,
-     true
+     69,
+     true,
+     -0.18
     ]
    ]
   },
@@ -54,19 +58,21 @@
    "zone": "thuy",
    "tier": 1,
    "i": 4,
-   "id": 1024,
+   "id": 10024,
    "seed": 50104,
    "kind": "mini",
    "enemies": [
     [
      "ha_ba",
-     78,
-     true
+     70,
+     true,
+     0.03
     ],
     [
      "so_ngoc",
-     78,
-     false
+     70,
+     false,
+     -0.08
     ]
    ]
   },
@@ -74,24 +80,27 @@
    "zone": "thuy",
    "tier": 1,
    "i": 5,
-   "id": 1025,
+   "id": 10025,
    "seed": 50105,
    "kind": "boss",
    "enemies": [
     [
-     "han_ngac",
-     81,
-     true
+     "hai_long",
+     71,
+     true,
+     -0.32
     ],
     [
      "so_ngoc",
-     81,
-     false
+     71,
+     false,
+     -0.03
     ],
     [
      "giong_bao",
-     81,
-     false
+     71,
+     false,
+     -0.03
     ]
    ]
   },
@@ -99,14 +108,15 @@
    "zone": "thuy",
    "tier": 2,
    "i": 1,
-   "id": 1041,
+   "id": 10041,
    "seed": 50201,
    "kind": "mini",
    "enemies": [
     [
      "hai_long",
-     89,
-     true
+     81,
+     true,
+     -0.34
     ]
    ]
   },
@@ -114,19 +124,21 @@
    "zone": "thuy",
    "tier": 2,
    "i": 2,
-   "id": 1042,
+   "id": 10042,
    "seed": 50202,
    "kind": "mini",
    "enemies": [
     [
      "han_ngac",
-     92,
-     true
+     82,
+     true,
+     -0.16
     ],
     [
      "ha_ba",
-     92,
-     false
+     82,
+     false,
+     0.06
     ]
    ]
   },
@@ -134,14 +146,15 @@
    "zone": "thuy",
    "tier": 2,
    "i": 3,
-   "id": 1043,
+   "id": 10043,
    "seed": 50203,
    "kind": "mini",
    "enemies": [
     [
      "ha_ba",
-     95,
-     true
+     83,
+     true,
+     0.06
     ]
    ]
   },
@@ -149,19 +162,21 @@
    "zone": "thuy",
    "tier": 2,
    "i": 4,
-   "id": 1044,
+   "id": 10044,
    "seed": 50204,
    "kind": "mini",
    "enemies": [
     [
      "so_ngoc",
-     98,
-     true
+     84,
+     true,
+     -0.05
     ],
     [
      "giong_bao",
-     98,
-     false
+     84,
+     false,
+     -0.05
     ]
    ]
   },
@@ -169,24 +184,27 @@
    "zone": "thuy",
    "tier": 2,
    "i": 5,
-   "id": 1045,
+   "id": 10045,
    "seed": 50205,
    "kind": "boss",
    "enemies": [
     [
-     "han_ngac",
-     101,
-     true
+     "hai_long",
+     85,
+     true,
+     -0.31
     ],
     [
      "giong_bao",
-     101,
-     false
+     85,
+     false,
+     -0.01
     ],
     [
      "uyen_xa",
-     101,
-     false
+     85,
+     false,
+     -0.12
     ]
    ]
   },
@@ -194,14 +212,15 @@
    "zone": "thuy",
    "tier": 3,
    "i": 1,
-   "id": 1061,
+   "id": 10061,
    "seed": 50301,
    "kind": "mini",
    "enemies": [
     [
      "han_ngac",
-     109,
-     true
+     95,
+     true,
+     -0.13
     ]
    ]
   },
@@ -209,19 +228,21 @@
    "zone": "thuy",
    "tier": 3,
    "i": 2,
-   "id": 1062,
+   "id": 10062,
    "seed": 50302,
    "kind": "mini",
    "enemies": [
     [
      "ha_ba",
-     112,
-     true
+     96,
+     true,
+     0.09
     ],
     [
      "so_ngoc",
-     112,
-     false
+     96,
+     false,
+     -0.03
     ]
    ]
   },
@@ -229,14 +250,15 @@
    "zone": "thuy",
    "tier": 3,
    "i": 3,
-   "id": 1063,
+   "id": 10063,
    "seed": 50303,
    "kind": "mini",
    "enemies": [
     [
      "so_ngoc",
-     115,
-     true
+     97,
+     true,
+     -0.03
     ]
    ]
   },
@@ -244,19 +266,21 @@
    "zone": "thuy",
    "tier": 3,
    "i": 4,
-   "id": 1064,
+   "id": 10064,
    "seed": 50304,
    "kind": "mini",
    "enemies": [
     [
      "giong_bao",
-     118,
-     true
+     98,
+     true,
+     -0.03
     ],
     [
      "uyen_xa",
-     118,
-     false
+     98,
+     false,
+     -0.13
     ]
    ]
   },
@@ -264,14 +288,15 @@
    "zone": "thuy",
    "tier": 3,
    "i": 5,
-   "id": 1065,
+   "id": 10065,
    "seed": 50305,
    "kind": "mini",
    "enemies": [
     [
      "uyen_xa",
-     121,
-     true
+     99,
+     true,
+     -0.13
     ]
    ]
   },
@@ -279,94 +304,27 @@
    "zone": "thuy",
    "tier": 3,
    "i": 6,
-   "id": 1066,
+   "id": 10066,
    "seed": 50306,
-   "kind": "mini",
-   "enemies": [
-    [
-     "lien_kinh",
-     124,
-     true
-    ],
-    [
-     "thach_giai",
-     124,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 3,
-   "i": 7,
-   "id": 1067,
-   "seed": 50307,
-   "kind": "mini",
-   "enemies": [
-    [
-     "thach_giai",
-     127,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 3,
-   "i": 8,
-   "id": 1068,
-   "seed": 50308,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ca_den",
-     130,
-     true
-    ],
-    [
-     "ti_tach",
-     130,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 3,
-   "i": 9,
-   "id": 1069,
-   "seed": 50309,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ti_tach",
-     133,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 3,
-   "i": 10,
-   "id": 1070,
-   "seed": 50310,
    "kind": "boss",
    "enemies": [
     [
-     "han_ngac",
-     136,
-     true
-    ],
-    [
      "hai_long",
-     136,
-     false
+     100,
+     true,
+     -0.29
     ],
     [
-     "han_ngac",
-     136,
-     false
+     "lien_kinh",
+     100,
+     false,
+     -0.09
+    ],
+    [
+     "thach_giai",
+     100,
+     false,
+     0.25
     ]
    ]
   },
@@ -374,14 +332,15 @@
    "zone": "thuy",
    "tier": 4,
    "i": 1,
-   "id": 1081,
+   "id": 10081,
    "seed": 50401,
    "kind": "mini",
    "enemies": [
     [
      "ha_ba",
-     129,
-     true
+     109,
+     true,
+     0.12
     ]
    ]
   },
@@ -389,19 +348,21 @@
    "zone": "thuy",
    "tier": 4,
    "i": 2,
-   "id": 1082,
+   "id": 10082,
    "seed": 50402,
    "kind": "mini",
    "enemies": [
     [
      "so_ngoc",
-     132,
-     true
+     110,
+     true,
+     0
     ],
     [
      "giong_bao",
-     132,
-     false
+     110,
+     false,
+     0
     ]
    ]
   },
@@ -409,14 +370,15 @@
    "zone": "thuy",
    "tier": 4,
    "i": 3,
-   "id": 1083,
+   "id": 10083,
    "seed": 50403,
    "kind": "mini",
    "enemies": [
     [
      "giong_bao",
-     135,
-     true
+     111,
+     true,
+     0
     ]
    ]
   },
@@ -424,19 +386,21 @@
    "zone": "thuy",
    "tier": 4,
    "i": 4,
-   "id": 1084,
+   "id": 10084,
    "seed": 50404,
    "kind": "mini",
    "enemies": [
     [
      "uyen_xa",
-     138,
-     true
+     112,
+     true,
+     -0.11
     ],
     [
      "lien_kinh",
-     138,
-     false
+     112,
+     false,
+     -0.11
     ]
    ]
   },
@@ -444,14 +408,15 @@
    "zone": "thuy",
    "tier": 4,
    "i": 5,
-   "id": 1085,
+   "id": 10085,
    "seed": 50405,
    "kind": "mini",
    "enemies": [
     [
      "lien_kinh",
-     141,
-     true
+     113,
+     true,
+     -0.11
     ]
    ]
   },
@@ -459,94 +424,27 @@
    "zone": "thuy",
    "tier": 4,
    "i": 6,
-   "id": 1086,
+   "id": 10086,
    "seed": 50406,
-   "kind": "mini",
-   "enemies": [
-    [
-     "thach_giai",
-     144,
-     true
-    ],
-    [
-     "ca_den",
-     144,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 4,
-   "i": 7,
-   "id": 1087,
-   "seed": 50407,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ca_den",
-     147,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 4,
-   "i": 8,
-   "id": 1088,
-   "seed": 50408,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ti_tach",
-     150,
-     true
-    ],
-    [
-     "hai_long",
-     150,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 4,
-   "i": 9,
-   "id": 1089,
-   "seed": 50409,
-   "kind": "mini",
-   "enemies": [
-    [
-     "hai_long",
-     153,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "thuy",
-   "tier": 4,
-   "i": 10,
-   "id": 1090,
-   "seed": 50410,
    "kind": "boss",
    "enemies": [
     [
-     "han_ngac",
-     156,
-     true
+     "hai_long",
+     114,
+     true,
+     -0.27
     ],
     [
-     "han_ngac",
-     156,
-     false
+     "thach_giai",
+     114,
+     false,
+     0.29
     ],
     [
-     "ha_ba",
-     156,
-     false
+     "ca_den",
+     114,
+     false,
+     0.17
     ]
    ]
   },
@@ -554,14 +452,15 @@
    "zone": "thuy",
    "tier": 5,
    "i": 1,
-   "id": 1101,
+   "id": 10101,
    "seed": 50501,
    "kind": "mini",
    "enemies": [
     [
      "so_ngoc",
-     149,
-     true
+     123,
+     true,
+     0.03
     ]
    ]
   },
@@ -569,19 +468,21 @@
    "zone": "thuy",
    "tier": 5,
    "i": 2,
-   "id": 1102,
+   "id": 10102,
    "seed": 50502,
    "kind": "mini",
    "enemies": [
     [
      "giong_bao",
-     152,
-     true
+     124,
+     true,
+     0.03
     ],
     [
      "uyen_xa",
-     152,
-     false
+     124,
+     false,
+     -0.08
     ]
    ]
   },
@@ -589,14 +490,15 @@
    "zone": "thuy",
    "tier": 5,
    "i": 3,
-   "id": 1103,
+   "id": 10103,
    "seed": 50503,
    "kind": "mini",
    "enemies": [
     [
      "uyen_xa",
-     155,
-     true
+     125,
+     true,
+     -0.08
     ]
    ]
   },
@@ -604,19 +506,21 @@
    "zone": "thuy",
    "tier": 5,
    "i": 4,
-   "id": 1104,
+   "id": 10104,
    "seed": 50504,
    "kind": "mini",
    "enemies": [
     [
      "lien_kinh",
-     158,
-     true
+     126,
+     true,
+     -0.08
     ],
     [
      "thach_giai",
-     158,
-     false
+     126,
+     false,
+     0.26
     ]
    ]
   },
@@ -624,14 +528,15 @@
    "zone": "thuy",
    "tier": 5,
    "i": 5,
-   "id": 1105,
+   "id": 10105,
    "seed": 50505,
    "kind": "mini",
    "enemies": [
     [
      "thach_giai",
-     161,
-     true
+     127,
+     true,
+     0.26
     ]
    ]
   },
@@ -639,19 +544,21 @@
    "zone": "thuy",
    "tier": 5,
    "i": 6,
-   "id": 1106,
+   "id": 10106,
    "seed": 50506,
    "kind": "mini",
    "enemies": [
     [
      "ca_den",
-     164,
-     true
+     128,
+     true,
+     0.15
     ],
     [
      "ti_tach",
-     164,
-     false
+     128,
+     false,
+     0.15
     ]
    ]
   },
@@ -659,14 +566,15 @@
    "zone": "thuy",
    "tier": 5,
    "i": 7,
-   "id": 1107,
+   "id": 10107,
    "seed": 50507,
    "kind": "mini",
    "enemies": [
     [
      "ti_tach",
-     167,
-     true
+     129,
+     true,
+     0.15
     ]
    ]
   },
@@ -674,59 +582,969 @@
    "zone": "thuy",
    "tier": 5,
    "i": 8,
-   "id": 1108,
+   "id": 10108,
    "seed": 50508,
+   "kind": "boss",
+   "enemies": [
+    [
+     "hai_long",
+     130,
+     true,
+     -0.25
+    ],
+    [
+     "hai_long",
+     130,
+     false,
+     -0.25
+    ],
+    [
+     "han_ngac",
+     130,
+     false,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 1,
+   "id": 10121,
+   "seed": 50601,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giong_bao",
+     137,
+     true,
+     0.06
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 2,
+   "id": 10122,
+   "seed": 50602,
+   "kind": "mini",
+   "enemies": [
+    [
+     "uyen_xa",
+     138,
+     true,
+     -0.06
+    ],
+    [
+     "lien_kinh",
+     138,
+     false,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 3,
+   "id": 10123,
+   "seed": 50603,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lien_kinh",
+     139,
+     true,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 4,
+   "id": 10124,
+   "seed": 50604,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thach_giai",
+     140,
+     true,
+     0.3
+    ],
+    [
+     "ca_den",
+     140,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 5,
+   "id": 10125,
+   "seed": 50605,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_den",
+     141,
+     true,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 6,
+   "id": 10126,
+   "seed": 50606,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ti_tach",
+     142,
+     true,
+     0.18
+    ],
+    [
+     "hai_long",
+     142,
+     false,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 6,
+   "i": 7,
+   "id": 10127,
+   "seed": 50607,
    "kind": "mini",
    "enemies": [
     [
      "hai_long",
-     170,
-     true
-    ],
-    [
-     "han_ngac",
-     170,
-     false
+     143,
+     true,
+     -0.26
     ]
    ]
   },
   {
    "zone": "thuy",
-   "tier": 5,
-   "i": 9,
-   "id": 1109,
-   "seed": 50509,
+   "tier": 6,
+   "i": 8,
+   "id": 10128,
+   "seed": 50608,
+   "kind": "boss",
+   "enemies": [
+    [
+     "hai_long",
+     144,
+     true,
+     -0.23
+    ],
+    [
+     "han_ngac",
+     144,
+     false,
+     -0.02
+    ],
+    [
+     "ha_ba",
+     144,
+     false,
+     0.23
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 1,
+   "id": 10141,
+   "seed": 50701,
+   "kind": "mini",
+   "enemies": [
+    [
+     "uyen_xa",
+     151,
+     true,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 2,
+   "id": 10142,
+   "seed": 50702,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lien_kinh",
+     152,
+     true,
+     -0.04
+    ],
+    [
+     "thach_giai",
+     152,
+     false,
+     0.33
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 3,
+   "id": 10143,
+   "seed": 50703,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thach_giai",
+     153,
+     true,
+     0.33
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 4,
+   "id": 10144,
+   "seed": 50704,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_den",
+     154,
+     true,
+     0.21
+    ],
+    [
+     "ti_tach",
+     154,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 5,
+   "id": 10145,
+   "seed": 50705,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ti_tach",
+     155,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 6,
+   "id": 10146,
+   "seed": 50706,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hai_long",
+     156,
+     true,
+     -0.24
+    ],
+    [
+     "han_ngac",
+     156,
+     false,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 7,
+   "i": 7,
+   "id": 10147,
+   "seed": 50707,
    "kind": "mini",
    "enemies": [
     [
      "han_ngac",
-     173,
-     true
+     157,
+     true,
+     -0.04
     ]
    ]
   },
   {
    "zone": "thuy",
-   "tier": 5,
-   "i": 10,
-   "id": 1110,
-   "seed": 50510,
+   "tier": 7,
+   "i": 8,
+   "id": 10148,
+   "seed": 50708,
    "kind": "boss",
    "enemies": [
     [
-     "han_ngac",
-     176,
-     true
+     "hai_long",
+     158,
+     true,
+     -0.21
     ],
     [
      "ha_ba",
-     176,
-     false
+     158,
+     false,
+     0.26
     ],
     [
      "so_ngoc",
-     176,
-     false
+     158,
+     false,
+     0.13
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 1,
+   "id": 10161,
+   "seed": 50801,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lien_kinh",
+     165,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 2,
+   "id": 10162,
+   "seed": 50802,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thach_giai",
+     166,
+     true,
+     0.36
+    ],
+    [
+     "ca_den",
+     166,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 3,
+   "id": 10163,
+   "seed": 50803,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_den",
+     167,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 4,
+   "id": 10164,
+   "seed": 50804,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ti_tach",
+     168,
+     true,
+     0.24
+    ],
+    [
+     "hai_long",
+     168,
+     false,
+     -0.22
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 5,
+   "id": 10165,
+   "seed": 50805,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hai_long",
+     169,
+     true,
+     -0.22
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 6,
+   "id": 10166,
+   "seed": 50806,
+   "kind": "mini",
+   "enemies": [
+    [
+     "han_ngac",
+     170,
+     true,
+     -0.01
+    ],
+    [
+     "ha_ba",
+     170,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 7,
+   "id": 10167,
+   "seed": 50807,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ha_ba",
+     171,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 8,
+   "id": 10168,
+   "seed": 50808,
+   "kind": "mini",
+   "enemies": [
+    [
+     "so_ngoc",
+     172,
+     true,
+     0.11
+    ],
+    [
+     "giong_bao",
+     172,
+     false,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 9,
+   "id": 10169,
+   "seed": 50809,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giong_bao",
+     173,
+     true,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 8,
+   "i": 10,
+   "id": 10170,
+   "seed": 50810,
+   "kind": "boss",
+   "enemies": [
+    [
+     "hai_long",
+     174,
+     true,
+     -0.19
+    ],
+    [
+     "uyen_xa",
+     174,
+     false,
+     0.03
+    ],
+    [
+     "lien_kinh",
+     174,
+     false,
+     0.03
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 1,
+   "id": 10181,
+   "seed": 50901,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thach_giai",
+     179,
+     true,
+     0.4
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 2,
+   "id": 10182,
+   "seed": 50902,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_den",
+     180,
+     true,
+     0.27
+    ],
+    [
+     "ti_tach",
+     180,
+     false,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 3,
+   "id": 10183,
+   "seed": 50903,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ti_tach",
+     181,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 4,
+   "id": 10184,
+   "seed": 50904,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hai_long",
+     182,
+     true,
+     -0.21
+    ],
+    [
+     "han_ngac",
+     182,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 5,
+   "id": 10185,
+   "seed": 50905,
+   "kind": "mini",
+   "enemies": [
+    [
+     "han_ngac",
+     183,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 6,
+   "id": 10186,
+   "seed": 50906,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ha_ba",
+     184,
+     true,
+     0.27
+    ],
+    [
+     "so_ngoc",
+     184,
+     false,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 7,
+   "id": 10187,
+   "seed": 50907,
+   "kind": "mini",
+   "enemies": [
+    [
+     "so_ngoc",
+     185,
+     true,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 8,
+   "id": 10188,
+   "seed": 50908,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giong_bao",
+     186,
+     true,
+     0.14
+    ],
+    [
+     "uyen_xa",
+     186,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 9,
+   "id": 10189,
+   "seed": 50909,
+   "kind": "mini",
+   "enemies": [
+    [
+     "uyen_xa",
+     187,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 9,
+   "i": 10,
+   "id": 10190,
+   "seed": 50910,
+   "kind": "boss",
+   "enemies": [
+    [
+     "hai_long",
+     188,
+     true,
+     -0.17
+    ],
+    [
+     "lien_kinh",
+     188,
+     false,
+     0.05
+    ],
+    [
+     "thach_giai",
+     188,
+     false,
+     0.45
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 1,
+   "id": 10201,
+   "seed": 51001,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_den",
+     193,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 2,
+   "id": 10202,
+   "seed": 51002,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ti_tach",
+     194,
+     true,
+     0.3
+    ],
+    [
+     "hai_long",
+     194,
+     false,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 3,
+   "id": 10203,
+   "seed": 51003,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hai_long",
+     195,
+     true,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 4,
+   "id": 10204,
+   "seed": 51004,
+   "kind": "mini",
+   "enemies": [
+    [
+     "han_ngac",
+     196,
+     true,
+     0.04
+    ],
+    [
+     "ha_ba",
+     196,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 5,
+   "id": 10205,
+   "seed": 51005,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ha_ba",
+     197,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 6,
+   "id": 10206,
+   "seed": 51006,
+   "kind": "mini",
+   "enemies": [
+    [
+     "so_ngoc",
+     198,
+     true,
+     0.16
+    ],
+    [
+     "giong_bao",
+     198,
+     false,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 7,
+   "id": 10207,
+   "seed": 51007,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giong_bao",
+     199,
+     true,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 8,
+   "id": 10208,
+   "seed": 51008,
+   "kind": "mini",
+   "enemies": [
+    [
+     "uyen_xa",
+     200,
+     true,
+     0.04
+    ],
+    [
+     "lien_kinh",
+     200,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 9,
+   "id": 10209,
+   "seed": 51009,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lien_kinh",
+     201,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 10,
+   "id": 10210,
+   "seed": 51010,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thach_giai",
+     202,
+     true,
+     0.43
+    ],
+    [
+     "ca_den",
+     202,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 11,
+   "id": 10211,
+   "seed": 51011,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_den",
+     203,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "thuy",
+   "tier": 10,
+   "i": 12,
+   "id": 10212,
+   "seed": 51012,
+   "kind": "boss",
+   "enemies": [
+    [
+     "hai_long",
+     204,
+     true,
+     -0.16
+    ],
+    [
+     "ti_tach",
+     204,
+     false,
+     0.35
+    ],
+    [
+     "hai_long",
+     204,
+     false,
+     -0.16
     ]
    ]
   },
@@ -734,14 +1552,15 @@
    "zone": "hoa",
    "tier": 1,
    "i": 1,
-   "id": 1121,
+   "id": 11021,
    "seed": 51101,
    "kind": "mini",
    "enemies": [
     [
      "kim_su",
-     70,
-     true
+     68,
+     true,
+     0.03
     ]
    ]
   },
@@ -749,19 +1568,21 @@
    "zone": "hoa",
    "tier": 1,
    "i": 2,
-   "id": 1122,
+   "id": 11022,
    "seed": 51102,
    "kind": "mini",
    "enemies": [
     [
      "nham_than",
-     73,
-     true
+     69,
+     true,
+     0.03
     ],
     [
      "hong_lien",
-     73,
-     false
+     69,
+     false,
+     -0.08
     ]
    ]
   },
@@ -769,14 +1590,15 @@
    "zone": "hoa",
    "tier": 1,
    "i": 3,
-   "id": 1123,
+   "id": 11023,
    "seed": 51103,
    "kind": "mini",
    "enemies": [
     [
      "hong_lien",
-     76,
-     true
+     70,
+     true,
+     -0.08
     ]
    ]
   },
@@ -784,19 +1606,21 @@
    "zone": "hoa",
    "tier": 1,
    "i": 4,
-   "id": 1124,
+   "id": 11024,
    "seed": 51104,
    "kind": "mini",
    "enemies": [
     [
      "giap_long",
-     79,
-     true
+     71,
+     true,
+     -0.18
     ],
     [
      "huyen_viem",
-     79,
-     false
+     71,
+     false,
+     -0.18
     ]
    ]
   },
@@ -804,24 +1628,27 @@
    "zone": "hoa",
    "tier": 1,
    "i": 5,
-   "id": 1125,
+   "id": 11025,
    "seed": 51105,
    "kind": "boss",
    "enemies": [
     [
      "lan_hoa",
-     82,
-     true
+     72,
+     true,
+     -0.32
     ],
     [
      "huyen_viem",
-     82,
-     false
+     72,
+     false,
+     -0.14
     ],
     [
      "hoa_tinh",
-     82,
-     false
+     72,
+     false,
+     -0.14
     ]
    ]
   },
@@ -829,14 +1656,15 @@
    "zone": "hoa",
    "tier": 2,
    "i": 1,
-   "id": 1141,
+   "id": 11041,
    "seed": 51201,
    "kind": "mini",
    "enemies": [
     [
      "nham_than",
-     90,
-     true
+     82,
+     true,
+     0.06
     ]
    ]
   },
@@ -844,19 +1672,21 @@
    "zone": "hoa",
    "tier": 2,
    "i": 2,
-   "id": 1142,
+   "id": 11042,
    "seed": 51202,
    "kind": "mini",
    "enemies": [
     [
      "hong_lien",
-     93,
-     true
+     83,
+     true,
+     -0.05
     ],
     [
      "giap_long",
-     93,
-     false
+     83,
+     false,
+     -0.16
     ]
    ]
   },
@@ -864,14 +1694,15 @@
    "zone": "hoa",
    "tier": 2,
    "i": 3,
-   "id": 1143,
+   "id": 11043,
    "seed": 51203,
    "kind": "mini",
    "enemies": [
     [
      "giap_long",
-     96,
-     true
+     84,
+     true,
+     -0.16
     ]
    ]
   },
@@ -879,19 +1710,21 @@
    "zone": "hoa",
    "tier": 2,
    "i": 4,
-   "id": 1144,
+   "id": 11044,
    "seed": 51204,
    "kind": "mini",
    "enemies": [
     [
      "huyen_viem",
-     99,
-     true
+     85,
+     true,
+     -0.16
     ],
     [
      "hoa_tinh",
-     99,
-     false
+     85,
+     false,
+     -0.16
     ]
    ]
   },
@@ -899,24 +1732,27 @@
    "zone": "hoa",
    "tier": 2,
    "i": 5,
-   "id": 1145,
+   "id": 11045,
    "seed": 51205,
    "kind": "boss",
    "enemies": [
     [
      "lan_hoa",
-     102,
-     true
+     86,
+     true,
+     -0.31
     ],
     [
      "hoa_tinh",
-     102,
-     false
+     86,
+     false,
+     -0.12
     ],
     [
      "lan_hoa",
-     102,
-     false
+     86,
+     false,
+     -0.31
     ]
    ]
   },
@@ -924,14 +1760,15 @@
    "zone": "hoa",
    "tier": 3,
    "i": 1,
-   "id": 1161,
+   "id": 11061,
    "seed": 51301,
    "kind": "mini",
    "enemies": [
     [
      "hong_lien",
-     110,
-     true
+     96,
+     true,
+     -0.03
     ]
    ]
   },
@@ -939,19 +1776,21 @@
    "zone": "hoa",
    "tier": 3,
    "i": 2,
-   "id": 1162,
+   "id": 11062,
    "seed": 51302,
    "kind": "mini",
    "enemies": [
     [
      "giap_long",
-     113,
-     true
+     97,
+     true,
+     -0.13
     ],
     [
      "huyen_viem",
-     113,
-     false
+     97,
+     false,
+     -0.13
     ]
    ]
   },
@@ -959,14 +1798,15 @@
    "zone": "hoa",
    "tier": 3,
    "i": 3,
-   "id": 1163,
+   "id": 11063,
    "seed": 51303,
    "kind": "mini",
    "enemies": [
     [
      "huyen_viem",
-     116,
-     true
+     98,
+     true,
+     -0.13
     ]
    ]
   },
@@ -974,19 +1814,21 @@
    "zone": "hoa",
    "tier": 3,
    "i": 4,
-   "id": 1164,
+   "id": 11064,
    "seed": 51304,
    "kind": "mini",
    "enemies": [
     [
      "hoa_tinh",
-     119,
-     true
+     99,
+     true,
+     -0.13
     ],
     [
      "lan_hoa",
-     119,
-     false
+     99,
+     false,
+     -0.32
     ]
    ]
   },
@@ -994,14 +1836,15 @@
    "zone": "hoa",
    "tier": 3,
    "i": 5,
-   "id": 1165,
+   "id": 11065,
    "seed": 51305,
    "kind": "mini",
    "enemies": [
     [
      "lan_hoa",
-     122,
-     true
+     100,
+     true,
+     -0.32
     ]
    ]
   },
@@ -1009,94 +1852,27 @@
    "zone": "hoa",
    "tier": 3,
    "i": 6,
-   "id": 1166,
+   "id": 11066,
    "seed": 51306,
-   "kind": "mini",
-   "enemies": [
-    [
-     "nguu_quyen",
-     125,
-     true
-    ],
-    [
-     "su_tu_lua",
-     125,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 3,
-   "i": 7,
-   "id": 1167,
-   "seed": 51307,
-   "kind": "mini",
-   "enemies": [
-    [
-     "su_tu_lua",
-     128,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 3,
-   "i": 8,
-   "id": 1168,
-   "seed": 51308,
-   "kind": "mini",
-   "enemies": [
-    [
-     "hoa_nhan",
-     131,
-     true
-    ],
-    [
-     "kim_su",
-     131,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 3,
-   "i": 9,
-   "id": 1169,
-   "seed": 51309,
-   "kind": "mini",
-   "enemies": [
-    [
-     "kim_su",
-     134,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 3,
-   "i": 10,
-   "id": 1170,
-   "seed": 51310,
    "kind": "boss",
    "enemies": [
     [
      "lan_hoa",
-     137,
-     true
+     101,
+     true,
+     -0.29
     ],
     [
-     "nham_than",
-     137,
-     false
+     "nguu_quyen",
+     101,
+     false,
+     0.02
     ],
     [
-     "hong_lien",
-     137,
-     false
+     "su_tu_lua",
+     101,
+     false,
+     0.14
     ]
    ]
   },
@@ -1104,14 +1880,15 @@
    "zone": "hoa",
    "tier": 4,
    "i": 1,
-   "id": 1181,
+   "id": 11081,
    "seed": 51401,
    "kind": "mini",
    "enemies": [
     [
      "giap_long",
-     130,
-     true
+     110,
+     true,
+     -0.11
     ]
    ]
   },
@@ -1119,19 +1896,21 @@
    "zone": "hoa",
    "tier": 4,
    "i": 2,
-   "id": 1182,
+   "id": 11082,
    "seed": 51402,
    "kind": "mini",
    "enemies": [
     [
      "huyen_viem",
-     133,
-     true
+     111,
+     true,
+     -0.11
     ],
     [
      "hoa_tinh",
-     133,
-     false
+     111,
+     false,
+     -0.11
     ]
    ]
   },
@@ -1139,14 +1918,15 @@
    "zone": "hoa",
    "tier": 4,
    "i": 3,
-   "id": 1183,
+   "id": 11083,
    "seed": 51403,
    "kind": "mini",
    "enemies": [
     [
      "hoa_tinh",
-     136,
-     true
+     112,
+     true,
+     -0.11
     ]
    ]
   },
@@ -1154,19 +1934,21 @@
    "zone": "hoa",
    "tier": 4,
    "i": 4,
-   "id": 1184,
+   "id": 11084,
    "seed": 51404,
    "kind": "mini",
    "enemies": [
     [
      "lan_hoa",
-     139,
-     true
+     113,
+     true,
+     -0.3
     ],
     [
      "nguu_quyen",
-     139,
-     false
+     113,
+     false,
+     0
     ]
    ]
   },
@@ -1174,14 +1956,15 @@
    "zone": "hoa",
    "tier": 4,
    "i": 5,
-   "id": 1185,
+   "id": 11085,
    "seed": 51405,
    "kind": "mini",
    "enemies": [
     [
      "nguu_quyen",
-     142,
-     true
+     114,
+     true,
+     0
     ]
    ]
   },
@@ -1189,94 +1972,27 @@
    "zone": "hoa",
    "tier": 4,
    "i": 6,
-   "id": 1186,
+   "id": 11086,
    "seed": 51406,
-   "kind": "mini",
-   "enemies": [
-    [
-     "su_tu_lua",
-     145,
-     true
-    ],
-    [
-     "hoa_nhan",
-     145,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 4,
-   "i": 7,
-   "id": 1187,
-   "seed": 51407,
-   "kind": "mini",
-   "enemies": [
-    [
-     "hoa_nhan",
-     148,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 4,
-   "i": 8,
-   "id": 1188,
-   "seed": 51408,
-   "kind": "mini",
-   "enemies": [
-    [
-     "kim_su",
-     151,
-     true
-    ],
-    [
-     "nham_than",
-     151,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 4,
-   "i": 9,
-   "id": 1189,
-   "seed": 51409,
-   "kind": "mini",
-   "enemies": [
-    [
-     "nham_than",
-     154,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 4,
-   "i": 10,
-   "id": 1190,
-   "seed": 51410,
    "kind": "boss",
    "enemies": [
     [
      "lan_hoa",
-     157,
-     true
+     115,
+     true,
+     -0.27
     ],
     [
-     "hong_lien",
-     157,
-     false
+     "su_tu_lua",
+     115,
+     false,
+     0.17
     ],
     [
-     "giap_long",
-     157,
-     false
+     "hoa_nhan",
+     115,
+     false,
+     0.29
     ]
    ]
   },
@@ -1284,14 +2000,15 @@
    "zone": "hoa",
    "tier": 5,
    "i": 1,
-   "id": 1201,
+   "id": 11101,
    "seed": 51501,
    "kind": "mini",
    "enemies": [
     [
      "huyen_viem",
-     150,
-     true
+     124,
+     true,
+     -0.08
     ]
    ]
   },
@@ -1299,19 +2016,21 @@
    "zone": "hoa",
    "tier": 5,
    "i": 2,
-   "id": 1202,
+   "id": 11102,
    "seed": 51502,
    "kind": "mini",
    "enemies": [
     [
      "hoa_tinh",
-     153,
-     true
+     125,
+     true,
+     -0.08
     ],
     [
      "lan_hoa",
-     153,
-     false
+     125,
+     false,
+     -0.28
     ]
    ]
   },
@@ -1319,14 +2038,15 @@
    "zone": "hoa",
    "tier": 5,
    "i": 3,
-   "id": 1203,
+   "id": 11103,
    "seed": 51503,
    "kind": "mini",
    "enemies": [
     [
      "lan_hoa",
-     156,
-     true
+     126,
+     true,
+     -0.28
     ]
    ]
   },
@@ -1334,19 +2054,21 @@
    "zone": "hoa",
    "tier": 5,
    "i": 4,
-   "id": 1204,
+   "id": 11104,
    "seed": 51504,
    "kind": "mini",
    "enemies": [
     [
      "nguu_quyen",
-     159,
-     true
+     127,
+     true,
+     0.03
     ],
     [
      "su_tu_lua",
-     159,
-     false
+     127,
+     false,
+     0.15
     ]
    ]
   },
@@ -1354,14 +2076,15 @@
    "zone": "hoa",
    "tier": 5,
    "i": 5,
-   "id": 1205,
+   "id": 11105,
    "seed": 51505,
    "kind": "mini",
    "enemies": [
     [
      "su_tu_lua",
-     162,
-     true
+     128,
+     true,
+     0.15
     ]
    ]
   },
@@ -1369,19 +2092,21 @@
    "zone": "hoa",
    "tier": 5,
    "i": 6,
-   "id": 1206,
+   "id": 11106,
    "seed": 51506,
    "kind": "mini",
    "enemies": [
     [
      "hoa_nhan",
-     165,
-     true
+     129,
+     true,
+     0.26
     ],
     [
      "kim_su",
-     165,
-     false
+     129,
+     false,
+     0.15
     ]
    ]
   },
@@ -1389,14 +2114,15 @@
    "zone": "hoa",
    "tier": 5,
    "i": 7,
-   "id": 1207,
+   "id": 11107,
    "seed": 51507,
    "kind": "mini",
    "enemies": [
     [
      "kim_su",
-     168,
-     true
+     130,
+     true,
+     0.15
     ]
    ]
   },
@@ -1404,59 +2130,969 @@
    "zone": "hoa",
    "tier": 5,
    "i": 8,
-   "id": 1208,
+   "id": 11108,
    "seed": 51508,
-   "kind": "mini",
-   "enemies": [
-    [
-     "nham_than",
-     171,
-     true
-    ],
-    [
-     "hong_lien",
-     171,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 5,
-   "i": 9,
-   "id": 1209,
-   "seed": 51509,
-   "kind": "mini",
-   "enemies": [
-    [
-     "hong_lien",
-     174,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "hoa",
-   "tier": 5,
-   "i": 10,
-   "id": 1210,
-   "seed": 51510,
    "kind": "boss",
    "enemies": [
     [
      "lan_hoa",
-     177,
-     true
+     131,
+     true,
+     -0.25
+    ],
+    [
+     "nham_than",
+     131,
+     false,
+     0.2
+    ],
+    [
+     "hong_lien",
+     131,
+     false,
+     0.07
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 1,
+   "id": 11121,
+   "seed": 51601,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_tinh",
+     138,
+     true,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 2,
+   "id": 11122,
+   "seed": 51602,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lan_hoa",
+     139,
+     true,
+     -0.26
+    ],
+    [
+     "nguu_quyen",
+     139,
+     false,
+     0.06
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 3,
+   "id": 11123,
+   "seed": 51603,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nguu_quyen",
+     140,
+     true,
+     0.06
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 4,
+   "id": 11124,
+   "seed": 51604,
+   "kind": "mini",
+   "enemies": [
+    [
+     "su_tu_lua",
+     141,
+     true,
+     0.18
+    ],
+    [
+     "hoa_nhan",
+     141,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 5,
+   "id": 11125,
+   "seed": 51605,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_nhan",
+     142,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 6,
+   "id": 11126,
+   "seed": 51606,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_su",
+     143,
+     true,
+     0.18
+    ],
+    [
+     "nham_than",
+     143,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 7,
+   "id": 11127,
+   "seed": 51607,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nham_than",
+     144,
+     true,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 6,
+   "i": 8,
+   "id": 11128,
+   "seed": 51608,
+   "kind": "boss",
+   "enemies": [
+    [
+     "lan_hoa",
+     145,
+     true,
+     -0.23
+    ],
+    [
+     "hong_lien",
+     145,
+     false,
+     0.1
     ],
     [
      "giap_long",
-     177,
-     false
+     145,
+     false,
+     -0.02
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 1,
+   "id": 11141,
+   "seed": 51701,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lan_hoa",
+     152,
+     true,
+     -0.24
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 2,
+   "id": 11142,
+   "seed": 51702,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nguu_quyen",
+     153,
+     true,
+     0.08
+    ],
+    [
+     "su_tu_lua",
+     153,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 3,
+   "id": 11143,
+   "seed": 51703,
+   "kind": "mini",
+   "enemies": [
+    [
+     "su_tu_lua",
+     154,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 4,
+   "id": 11144,
+   "seed": 51704,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_nhan",
+     155,
+     true,
+     0.33
+    ],
+    [
+     "kim_su",
+     155,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 5,
+   "id": 11145,
+   "seed": 51705,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_su",
+     156,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 6,
+   "id": 11146,
+   "seed": 51706,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nham_than",
+     157,
+     true,
+     0.21
+    ],
+    [
+     "hong_lien",
+     157,
+     false,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 7,
+   "id": 11147,
+   "seed": 51707,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hong_lien",
+     158,
+     true,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 7,
+   "i": 8,
+   "id": 11148,
+   "seed": 51708,
+   "kind": "boss",
+   "enemies": [
+    [
+     "lan_hoa",
+     159,
+     true,
+     -0.21
+    ],
+    [
+     "giap_long",
+     159,
+     false,
+     0
     ],
     [
      "huyen_viem",
-     177,
-     false
+     159,
+     false,
+     0
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 1,
+   "id": 11161,
+   "seed": 51801,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nguu_quyen",
+     166,
+     true,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 2,
+   "id": 11162,
+   "seed": 51802,
+   "kind": "mini",
+   "enemies": [
+    [
+     "su_tu_lua",
+     167,
+     true,
+     0.24
+    ],
+    [
+     "hoa_nhan",
+     167,
+     false,
+     0.36
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 3,
+   "id": 11163,
+   "seed": 51803,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_nhan",
+     168,
+     true,
+     0.36
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 4,
+   "id": 11164,
+   "seed": 51804,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_su",
+     169,
+     true,
+     0.24
+    ],
+    [
+     "nham_than",
+     169,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 5,
+   "id": 11165,
+   "seed": 51805,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nham_than",
+     170,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 6,
+   "id": 11166,
+   "seed": 51806,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hong_lien",
+     171,
+     true,
+     0.11
+    ],
+    [
+     "giap_long",
+     171,
+     false,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 7,
+   "id": 11167,
+   "seed": 51807,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giap_long",
+     172,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 8,
+   "id": 11168,
+   "seed": 51808,
+   "kind": "mini",
+   "enemies": [
+    [
+     "huyen_viem",
+     173,
+     true,
+     -0.01
+    ],
+    [
+     "hoa_tinh",
+     173,
+     false,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 9,
+   "id": 11169,
+   "seed": 51809,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_tinh",
+     174,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 8,
+   "i": 10,
+   "id": 11170,
+   "seed": 51810,
+   "kind": "boss",
+   "enemies": [
+    [
+     "lan_hoa",
+     175,
+     true,
+     -0.19
+    ],
+    [
+     "lan_hoa",
+     175,
+     false,
+     -0.19
+    ],
+    [
+     "nguu_quyen",
+     175,
+     false,
+     0.15
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 1,
+   "id": 11181,
+   "seed": 51901,
+   "kind": "mini",
+   "enemies": [
+    [
+     "su_tu_lua",
+     180,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 2,
+   "id": 11182,
+   "seed": 51902,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_nhan",
+     181,
+     true,
+     0.4
+    ],
+    [
+     "kim_su",
+     181,
+     false,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 3,
+   "id": 11183,
+   "seed": 51903,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_su",
+     182,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 4,
+   "id": 11184,
+   "seed": 51904,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nham_than",
+     183,
+     true,
+     0.27
+    ],
+    [
+     "hong_lien",
+     183,
+     false,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 5,
+   "id": 11185,
+   "seed": 51905,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hong_lien",
+     184,
+     true,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 6,
+   "id": 11186,
+   "seed": 51906,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giap_long",
+     185,
+     true,
+     0.01
+    ],
+    [
+     "huyen_viem",
+     185,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 7,
+   "id": 11187,
+   "seed": 51907,
+   "kind": "mini",
+   "enemies": [
+    [
+     "huyen_viem",
+     186,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 8,
+   "id": 11188,
+   "seed": 51908,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_tinh",
+     187,
+     true,
+     0.01
+    ],
+    [
+     "lan_hoa",
+     187,
+     false,
+     -0.21
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 9,
+   "id": 11189,
+   "seed": 51909,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lan_hoa",
+     188,
+     true,
+     -0.21
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 9,
+   "i": 10,
+   "id": 11190,
+   "seed": 51910,
+   "kind": "boss",
+   "enemies": [
+    [
+     "lan_hoa",
+     189,
+     true,
+     -0.17
+    ],
+    [
+     "nguu_quyen",
+     189,
+     false,
+     0.18
+    ],
+    [
+     "su_tu_lua",
+     189,
+     false,
+     0.32
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 1,
+   "id": 11201,
+   "seed": 52001,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_nhan",
+     194,
+     true,
+     0.43
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 2,
+   "id": 11202,
+   "seed": 52002,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_su",
+     195,
+     true,
+     0.3
+    ],
+    [
+     "nham_than",
+     195,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 3,
+   "id": 11203,
+   "seed": 52003,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nham_than",
+     196,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 4,
+   "id": 11204,
+   "seed": 52004,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hong_lien",
+     197,
+     true,
+     0.16
+    ],
+    [
+     "giap_long",
+     197,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 5,
+   "id": 11205,
+   "seed": 52005,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giap_long",
+     198,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 6,
+   "id": 11206,
+   "seed": 52006,
+   "kind": "mini",
+   "enemies": [
+    [
+     "huyen_viem",
+     199,
+     true,
+     0.04
+    ],
+    [
+     "hoa_tinh",
+     199,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 7,
+   "id": 11207,
+   "seed": 52007,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_tinh",
+     200,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 8,
+   "id": 11208,
+   "seed": 52008,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lan_hoa",
+     201,
+     true,
+     -0.19
+    ],
+    [
+     "nguu_quyen",
+     201,
+     false,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 9,
+   "id": 11209,
+   "seed": 52009,
+   "kind": "mini",
+   "enemies": [
+    [
+     "nguu_quyen",
+     202,
+     true,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 10,
+   "id": 11210,
+   "seed": 52010,
+   "kind": "mini",
+   "enemies": [
+    [
+     "su_tu_lua",
+     203,
+     true,
+     0.3
+    ],
+    [
+     "hoa_nhan",
+     203,
+     false,
+     0.43
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 11,
+   "id": 11211,
+   "seed": 52011,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hoa_nhan",
+     204,
+     true,
+     0.43
+    ]
+   ]
+  },
+  {
+   "zone": "hoa",
+   "tier": 10,
+   "i": 12,
+   "id": 11212,
+   "seed": 52012,
+   "kind": "boss",
+   "enemies": [
+    [
+     "lan_hoa",
+     205,
+     true,
+     -0.16
+    ],
+    [
+     "kim_su",
+     205,
+     false,
+     0.35
+    ],
+    [
+     "nham_than",
+     205,
+     false,
+     0.35
     ]
    ]
   },
@@ -1464,14 +3100,15 @@
    "zone": "kim",
    "tier": 1,
    "i": 1,
-   "id": 1221,
+   "id": 12021,
    "seed": 52101,
    "kind": "mini",
    "enemies": [
     [
      "doc_giac",
-     68,
-     true
+     66,
+     true,
+     0.13
     ]
    ]
   },
@@ -1479,19 +3116,21 @@
    "zone": "kim",
    "tier": 1,
    "i": 2,
-   "id": 1222,
+   "id": 12022,
    "seed": 52102,
    "kind": "mini",
    "enemies": [
     [
      "phi_thuong",
-     71,
-     true
+     67,
+     true,
+     0.03
     ],
     [
      "khien_bac",
-     71,
-     false
+     67,
+     false,
+     -0.08
     ]
    ]
   },
@@ -1499,14 +3138,15 @@
    "zone": "kim",
    "tier": 1,
    "i": 3,
-   "id": 1223,
+   "id": 12023,
    "seed": 52103,
    "kind": "mini",
    "enemies": [
     [
      "khien_bac",
-     74,
-     true
+     68,
+     true,
+     -0.08
     ]
    ]
   },
@@ -1514,19 +3154,21 @@
    "zone": "kim",
    "tier": 1,
    "i": 4,
-   "id": 1224,
+   "id": 12024,
    "seed": 52104,
    "kind": "mini",
    "enemies": [
     [
      "chien_than",
-     77,
-     true
+     69,
+     true,
+     -0.08
     ],
     [
      "thiet_phu",
-     77,
-     false
+     69,
+     false,
+     -0.18
     ]
    ]
   },
@@ -1534,24 +3176,27 @@
    "zone": "kim",
    "tier": 1,
    "i": 5,
-   "id": 1225,
+   "id": 12025,
    "seed": 52105,
    "kind": "boss",
    "enemies": [
     [
      "kim_nghe",
-     80,
-     true
+     70,
+     true,
+     -0.32
     ],
     [
      "thiet_phu",
-     80,
-     false
+     70,
+     false,
+     -0.14
     ],
     [
      "tam_kiem",
-     80,
-     false
+     70,
+     false,
+     -0.14
     ]
    ]
   },
@@ -1559,14 +3204,15 @@
    "zone": "kim",
    "tier": 2,
    "i": 1,
-   "id": 1241,
+   "id": 12041,
    "seed": 52201,
    "kind": "mini",
    "enemies": [
     [
      "phi_thuong",
-     88,
-     true
+     80,
+     true,
+     0.06
     ]
    ]
   },
@@ -1574,19 +3220,21 @@
    "zone": "kim",
    "tier": 2,
    "i": 2,
-   "id": 1242,
+   "id": 12042,
    "seed": 52202,
    "kind": "mini",
    "enemies": [
     [
      "khien_bac",
-     91,
-     true
+     81,
+     true,
+     -0.05
     ],
     [
      "chien_than",
-     91,
-     false
+     81,
+     false,
+     -0.05
     ]
    ]
   },
@@ -1594,14 +3242,15 @@
    "zone": "kim",
    "tier": 2,
    "i": 3,
-   "id": 1243,
+   "id": 12043,
    "seed": 52203,
    "kind": "mini",
    "enemies": [
     [
      "chien_than",
-     94,
-     true
+     82,
+     true,
+     -0.05
     ]
    ]
   },
@@ -1609,19 +3258,21 @@
    "zone": "kim",
    "tier": 2,
    "i": 4,
-   "id": 1244,
+   "id": 12044,
    "seed": 52204,
    "kind": "mini",
    "enemies": [
     [
      "thiet_phu",
-     97,
-     true
+     83,
+     true,
+     -0.16
     ],
     [
      "tam_kiem",
-     97,
-     false
+     83,
+     false,
+     -0.16
     ]
    ]
   },
@@ -1629,24 +3280,27 @@
    "zone": "kim",
    "tier": 2,
    "i": 5,
-   "id": 1245,
+   "id": 12045,
    "seed": 52205,
    "kind": "boss",
    "enemies": [
     [
      "kim_nghe",
-     100,
-     true
+     84,
+     true,
+     -0.31
     ],
     [
      "tam_kiem",
-     100,
-     false
+     84,
+     false,
+     -0.12
     ],
     [
      "ung_thep",
-     100,
-     false
+     84,
+     false,
+     -0.12
     ]
    ]
   },
@@ -1654,14 +3308,15 @@
    "zone": "kim",
    "tier": 3,
    "i": 1,
-   "id": 1261,
+   "id": 12061,
    "seed": 52301,
    "kind": "mini",
    "enemies": [
     [
      "khien_bac",
-     108,
-     true
+     94,
+     true,
+     -0.03
     ]
    ]
   },
@@ -1669,19 +3324,21 @@
    "zone": "kim",
    "tier": 3,
    "i": 2,
-   "id": 1262,
+   "id": 12062,
    "seed": 52302,
    "kind": "mini",
    "enemies": [
     [
      "chien_than",
-     111,
-     true
+     95,
+     true,
+     -0.03
     ],
     [
      "thiet_phu",
-     111,
-     false
+     95,
+     false,
+     -0.13
     ]
    ]
   },
@@ -1689,14 +3346,15 @@
    "zone": "kim",
    "tier": 3,
    "i": 3,
-   "id": 1263,
+   "id": 12063,
    "seed": 52303,
    "kind": "mini",
    "enemies": [
     [
      "thiet_phu",
-     114,
-     true
+     96,
+     true,
+     -0.13
     ]
    ]
   },
@@ -1704,19 +3362,21 @@
    "zone": "kim",
    "tier": 3,
    "i": 4,
-   "id": 1264,
+   "id": 12064,
    "seed": 52304,
    "kind": "mini",
    "enemies": [
     [
      "tam_kiem",
-     117,
-     true
+     97,
+     true,
+     -0.13
     ],
     [
      "ung_thep",
-     117,
-     false
+     97,
+     false,
+     -0.13
     ]
    ]
   },
@@ -1724,14 +3384,15 @@
    "zone": "kim",
    "tier": 3,
    "i": 5,
-   "id": 1265,
+   "id": 12065,
    "seed": 52305,
    "kind": "mini",
    "enemies": [
     [
      "ung_thep",
-     120,
-     true
+     98,
+     true,
+     -0.13
     ]
    ]
   },
@@ -1739,94 +3400,27 @@
    "zone": "kim",
    "tier": 3,
    "i": 6,
-   "id": 1266,
+   "id": 12066,
    "seed": 52306,
-   "kind": "mini",
-   "enemies": [
-    [
-     "kim_nghe",
-     123,
-     true
-    ],
-    [
-     "bo_cap",
-     123,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 3,
-   "i": 7,
-   "id": 1267,
-   "seed": 52307,
-   "kind": "mini",
-   "enemies": [
-    [
-     "bo_cap",
-     126,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 3,
-   "i": 8,
-   "id": 1268,
-   "seed": 52308,
-   "kind": "mini",
-   "enemies": [
-    [
-     "bo_ngua",
-     129,
-     true
-    ],
-    [
-     "doc_giac",
-     129,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 3,
-   "i": 9,
-   "id": 1269,
-   "seed": 52309,
-   "kind": "mini",
-   "enemies": [
-    [
-     "doc_giac",
-     132,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 3,
-   "i": 10,
-   "id": 1270,
-   "seed": 52310,
    "kind": "boss",
    "enemies": [
     [
      "kim_nghe",
-     135,
-     true
+     99,
+     true,
+     -0.29
     ],
     [
-     "phi_thuong",
-     135,
-     false
+     "kim_nghe",
+     99,
+     false,
+     -0.29
     ],
     [
-     "khien_bac",
-     135,
-     false
+     "bo_cap",
+     99,
+     false,
+     0.14
     ]
    ]
   },
@@ -1834,14 +3428,15 @@
    "zone": "kim",
    "tier": 4,
    "i": 1,
-   "id": 1281,
+   "id": 12081,
    "seed": 52401,
    "kind": "mini",
    "enemies": [
     [
      "chien_than",
-     128,
-     true
+     108,
+     true,
+     0
     ]
    ]
   },
@@ -1849,19 +3444,21 @@
    "zone": "kim",
    "tier": 4,
    "i": 2,
-   "id": 1282,
+   "id": 12082,
    "seed": 52402,
    "kind": "mini",
    "enemies": [
     [
      "thiet_phu",
-     131,
-     true
+     109,
+     true,
+     -0.11
     ],
     [
      "tam_kiem",
-     131,
-     false
+     109,
+     false,
+     -0.11
     ]
    ]
   },
@@ -1869,14 +3466,15 @@
    "zone": "kim",
    "tier": 4,
    "i": 3,
-   "id": 1283,
+   "id": 12083,
    "seed": 52403,
    "kind": "mini",
    "enemies": [
     [
      "tam_kiem",
-     134,
-     true
+     110,
+     true,
+     -0.11
     ]
    ]
   },
@@ -1884,19 +3482,21 @@
    "zone": "kim",
    "tier": 4,
    "i": 4,
-   "id": 1284,
+   "id": 12084,
    "seed": 52404,
    "kind": "mini",
    "enemies": [
     [
      "ung_thep",
-     137,
-     true
+     111,
+     true,
+     -0.11
     ],
     [
      "kim_nghe",
-     137,
-     false
+     111,
+     false,
+     -0.3
     ]
    ]
   },
@@ -1904,14 +3504,15 @@
    "zone": "kim",
    "tier": 4,
    "i": 5,
-   "id": 1285,
+   "id": 12085,
    "seed": 52405,
    "kind": "mini",
    "enemies": [
     [
      "kim_nghe",
-     140,
-     true
+     112,
+     true,
+     -0.3
     ]
    ]
   },
@@ -1919,94 +3520,27 @@
    "zone": "kim",
    "tier": 4,
    "i": 6,
-   "id": 1286,
+   "id": 12086,
    "seed": 52406,
-   "kind": "mini",
-   "enemies": [
-    [
-     "bo_cap",
-     143,
-     true
-    ],
-    [
-     "bo_ngua",
-     143,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 4,
-   "i": 7,
-   "id": 1287,
-   "seed": 52407,
-   "kind": "mini",
-   "enemies": [
-    [
-     "bo_ngua",
-     146,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 4,
-   "i": 8,
-   "id": 1288,
-   "seed": 52408,
-   "kind": "mini",
-   "enemies": [
-    [
-     "doc_giac",
-     149,
-     true
-    ],
-    [
-     "phi_thuong",
-     149,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 4,
-   "i": 9,
-   "id": 1289,
-   "seed": 52409,
-   "kind": "mini",
-   "enemies": [
-    [
-     "phi_thuong",
-     152,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 4,
-   "i": 10,
-   "id": 1290,
-   "seed": 52410,
    "kind": "boss",
    "enemies": [
     [
      "kim_nghe",
-     155,
-     true
+     113,
+     true,
+     -0.27
     ],
     [
-     "khien_bac",
-     155,
-     false
+     "bo_cap",
+     113,
+     false,
+     0.17
     ],
     [
-     "chien_than",
-     155,
-     false
+     "bo_ngua",
+     113,
+     false,
+     0.17
     ]
    ]
   },
@@ -2014,14 +3548,15 @@
    "zone": "kim",
    "tier": 5,
    "i": 1,
-   "id": 1301,
+   "id": 12101,
    "seed": 52501,
    "kind": "mini",
    "enemies": [
     [
      "thiet_phu",
-     148,
-     true
+     122,
+     true,
+     -0.08
     ]
    ]
   },
@@ -2029,19 +3564,21 @@
    "zone": "kim",
    "tier": 5,
    "i": 2,
-   "id": 1302,
+   "id": 12102,
    "seed": 52502,
    "kind": "mini",
    "enemies": [
     [
      "tam_kiem",
-     151,
-     true
+     123,
+     true,
+     -0.08
     ],
     [
      "ung_thep",
-     151,
-     false
+     123,
+     false,
+     -0.08
     ]
    ]
   },
@@ -2049,14 +3586,15 @@
    "zone": "kim",
    "tier": 5,
    "i": 3,
-   "id": 1303,
+   "id": 12103,
    "seed": 52503,
    "kind": "mini",
    "enemies": [
     [
      "ung_thep",
-     154,
-     true
+     124,
+     true,
+     -0.08
     ]
    ]
   },
@@ -2064,19 +3602,21 @@
    "zone": "kim",
    "tier": 5,
    "i": 4,
-   "id": 1304,
+   "id": 12104,
    "seed": 52504,
    "kind": "mini",
    "enemies": [
     [
      "kim_nghe",
-     157,
-     true
+     125,
+     true,
+     -0.28
     ],
     [
      "bo_cap",
-     157,
-     false
+     125,
+     false,
+     0.15
     ]
    ]
   },
@@ -2084,14 +3624,15 @@
    "zone": "kim",
    "tier": 5,
    "i": 5,
-   "id": 1305,
+   "id": 12105,
    "seed": 52505,
    "kind": "mini",
    "enemies": [
     [
      "bo_cap",
-     160,
-     true
+     126,
+     true,
+     0.15
     ]
    ]
   },
@@ -2099,19 +3640,21 @@
    "zone": "kim",
    "tier": 5,
    "i": 6,
-   "id": 1306,
+   "id": 12106,
    "seed": 52506,
    "kind": "mini",
    "enemies": [
     [
      "bo_ngua",
-     163,
-     true
+     127,
+     true,
+     0.15
     ],
     [
      "doc_giac",
-     163,
-     false
+     127,
+     false,
+     0.26
     ]
    ]
   },
@@ -2119,14 +3662,15 @@
    "zone": "kim",
    "tier": 5,
    "i": 7,
-   "id": 1307,
+   "id": 12107,
    "seed": 52507,
    "kind": "mini",
    "enemies": [
     [
      "doc_giac",
-     166,
-     true
+     128,
+     true,
+     0.26
     ]
    ]
   },
@@ -2134,59 +3678,969 @@
    "zone": "kim",
    "tier": 5,
    "i": 8,
-   "id": 1308,
+   "id": 12108,
    "seed": 52508,
-   "kind": "mini",
-   "enemies": [
-    [
-     "phi_thuong",
-     169,
-     true
-    ],
-    [
-     "khien_bac",
-     169,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 5,
-   "i": 9,
-   "id": 1309,
-   "seed": 52509,
-   "kind": "mini",
-   "enemies": [
-    [
-     "khien_bac",
-     172,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "kim",
-   "tier": 5,
-   "i": 10,
-   "id": 1310,
-   "seed": 52510,
    "kind": "boss",
    "enemies": [
     [
      "kim_nghe",
-     175,
-     true
+     129,
+     true,
+     -0.25
+    ],
+    [
+     "phi_thuong",
+     129,
+     false,
+     0.2
+    ],
+    [
+     "khien_bac",
+     129,
+     false,
+     0.07
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 1,
+   "id": 12121,
+   "seed": 52601,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tam_kiem",
+     136,
+     true,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 2,
+   "id": 12122,
+   "seed": 52602,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ung_thep",
+     137,
+     true,
+     -0.06
+    ],
+    [
+     "kim_nghe",
+     137,
+     false,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 3,
+   "id": 12123,
+   "seed": 52603,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_nghe",
+     138,
+     true,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 4,
+   "id": 12124,
+   "seed": 52604,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_cap",
+     139,
+     true,
+     0.18
+    ],
+    [
+     "bo_ngua",
+     139,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 5,
+   "id": 12125,
+   "seed": 52605,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_ngua",
+     140,
+     true,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 6,
+   "id": 12126,
+   "seed": 52606,
+   "kind": "mini",
+   "enemies": [
+    [
+     "doc_giac",
+     141,
+     true,
+     0.3
+    ],
+    [
+     "phi_thuong",
+     141,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 7,
+   "id": 12127,
+   "seed": 52607,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phi_thuong",
+     142,
+     true,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 6,
+   "i": 8,
+   "id": 12128,
+   "seed": 52608,
+   "kind": "boss",
+   "enemies": [
+    [
+     "kim_nghe",
+     143,
+     true,
+     -0.23
+    ],
+    [
+     "khien_bac",
+     143,
+     false,
+     0.1
     ],
     [
      "chien_than",
-     175,
-     false
+     143,
+     false,
+     0.1
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 1,
+   "id": 12141,
+   "seed": 52701,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ung_thep",
+     150,
+     true,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 2,
+   "id": 12142,
+   "seed": 52702,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_nghe",
+     151,
+     true,
+     -0.24
+    ],
+    [
+     "bo_cap",
+     151,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 3,
+   "id": 12143,
+   "seed": 52703,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_cap",
+     152,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 4,
+   "id": 12144,
+   "seed": 52704,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_ngua",
+     153,
+     true,
+     0.21
+    ],
+    [
+     "doc_giac",
+     153,
+     false,
+     0.33
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 5,
+   "id": 12145,
+   "seed": 52705,
+   "kind": "mini",
+   "enemies": [
+    [
+     "doc_giac",
+     154,
+     true,
+     0.33
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 6,
+   "id": 12146,
+   "seed": 52706,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phi_thuong",
+     155,
+     true,
+     0.21
+    ],
+    [
+     "khien_bac",
+     155,
+     false,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 7,
+   "id": 12147,
+   "seed": 52707,
+   "kind": "mini",
+   "enemies": [
+    [
+     "khien_bac",
+     156,
+     true,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 7,
+   "i": 8,
+   "id": 12148,
+   "seed": 52708,
+   "kind": "boss",
+   "enemies": [
+    [
+     "kim_nghe",
+     157,
+     true,
+     -0.21
+    ],
+    [
+     "chien_than",
+     157,
+     false,
+     0.13
     ],
     [
      "thiet_phu",
-     175,
-     false
+     157,
+     false,
+     0
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 1,
+   "id": 12161,
+   "seed": 52801,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_nghe",
+     164,
+     true,
+     -0.22
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 2,
+   "id": 12162,
+   "seed": 52802,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_cap",
+     165,
+     true,
+     0.24
+    ],
+    [
+     "bo_ngua",
+     165,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 3,
+   "id": 12163,
+   "seed": 52803,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_ngua",
+     166,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 4,
+   "id": 12164,
+   "seed": 52804,
+   "kind": "mini",
+   "enemies": [
+    [
+     "doc_giac",
+     167,
+     true,
+     0.36
+    ],
+    [
+     "phi_thuong",
+     167,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 5,
+   "id": 12165,
+   "seed": 52805,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phi_thuong",
+     168,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 6,
+   "id": 12166,
+   "seed": 52806,
+   "kind": "mini",
+   "enemies": [
+    [
+     "khien_bac",
+     169,
+     true,
+     0.11
+    ],
+    [
+     "chien_than",
+     169,
+     false,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 7,
+   "id": 12167,
+   "seed": 52807,
+   "kind": "mini",
+   "enemies": [
+    [
+     "chien_than",
+     170,
+     true,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 8,
+   "id": 12168,
+   "seed": 52808,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thiet_phu",
+     171,
+     true,
+     -0.01
+    ],
+    [
+     "tam_kiem",
+     171,
+     false,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 9,
+   "id": 12169,
+   "seed": 52809,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tam_kiem",
+     172,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 8,
+   "i": 10,
+   "id": 12170,
+   "seed": 52810,
+   "kind": "boss",
+   "enemies": [
+    [
+     "kim_nghe",
+     173,
+     true,
+     -0.19
+    ],
+    [
+     "ung_thep",
+     173,
+     false,
+     0.03
+    ],
+    [
+     "kim_nghe",
+     173,
+     false,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 1,
+   "id": 12181,
+   "seed": 52901,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_cap",
+     178,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 2,
+   "id": 12182,
+   "seed": 52902,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_ngua",
+     179,
+     true,
+     0.27
+    ],
+    [
+     "doc_giac",
+     179,
+     false,
+     0.4
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 3,
+   "id": 12183,
+   "seed": 52903,
+   "kind": "mini",
+   "enemies": [
+    [
+     "doc_giac",
+     180,
+     true,
+     0.4
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 4,
+   "id": 12184,
+   "seed": 52904,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phi_thuong",
+     181,
+     true,
+     0.27
+    ],
+    [
+     "khien_bac",
+     181,
+     false,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 5,
+   "id": 12185,
+   "seed": 52905,
+   "kind": "mini",
+   "enemies": [
+    [
+     "khien_bac",
+     182,
+     true,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 6,
+   "id": 12186,
+   "seed": 52906,
+   "kind": "mini",
+   "enemies": [
+    [
+     "chien_than",
+     183,
+     true,
+     0.14
+    ],
+    [
+     "thiet_phu",
+     183,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 7,
+   "id": 12187,
+   "seed": 52907,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thiet_phu",
+     184,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 8,
+   "id": 12188,
+   "seed": 52908,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tam_kiem",
+     185,
+     true,
+     0.01
+    ],
+    [
+     "ung_thep",
+     185,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 9,
+   "id": 12189,
+   "seed": 52909,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ung_thep",
+     186,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 9,
+   "i": 10,
+   "id": 12190,
+   "seed": 52910,
+   "kind": "boss",
+   "enemies": [
+    [
+     "kim_nghe",
+     187,
+     true,
+     -0.17
+    ],
+    [
+     "kim_nghe",
+     187,
+     false,
+     -0.17
+    ],
+    [
+     "bo_cap",
+     187,
+     false,
+     0.32
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 1,
+   "id": 12201,
+   "seed": 53001,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_ngua",
+     192,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 2,
+   "id": 12202,
+   "seed": 53002,
+   "kind": "mini",
+   "enemies": [
+    [
+     "doc_giac",
+     193,
+     true,
+     0.43
+    ],
+    [
+     "phi_thuong",
+     193,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 3,
+   "id": 12203,
+   "seed": 53003,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phi_thuong",
+     194,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 4,
+   "id": 12204,
+   "seed": 53004,
+   "kind": "mini",
+   "enemies": [
+    [
+     "khien_bac",
+     195,
+     true,
+     0.16
+    ],
+    [
+     "chien_than",
+     195,
+     false,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 5,
+   "id": 12205,
+   "seed": 53005,
+   "kind": "mini",
+   "enemies": [
+    [
+     "chien_than",
+     196,
+     true,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 6,
+   "id": 12206,
+   "seed": 53006,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thiet_phu",
+     197,
+     true,
+     0.04
+    ],
+    [
+     "tam_kiem",
+     197,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 7,
+   "id": 12207,
+   "seed": 53007,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tam_kiem",
+     198,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 8,
+   "id": 12208,
+   "seed": 53008,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ung_thep",
+     199,
+     true,
+     0.04
+    ],
+    [
+     "kim_nghe",
+     199,
+     false,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 9,
+   "id": 12209,
+   "seed": 53009,
+   "kind": "mini",
+   "enemies": [
+    [
+     "kim_nghe",
+     200,
+     true,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 10,
+   "id": 12210,
+   "seed": 53010,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_cap",
+     201,
+     true,
+     0.3
+    ],
+    [
+     "bo_ngua",
+     201,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 11,
+   "id": 12211,
+   "seed": 53011,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_ngua",
+     202,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "kim",
+   "tier": 10,
+   "i": 12,
+   "id": 12212,
+   "seed": 53012,
+   "kind": "boss",
+   "enemies": [
+    [
+     "kim_nghe",
+     203,
+     true,
+     -0.16
+    ],
+    [
+     "doc_giac",
+     203,
+     false,
+     0.49
+    ],
+    [
+     "phi_thuong",
+     203,
+     false,
+     0.35
     ]
    ]
   },
@@ -2194,14 +4648,15 @@
    "zone": "moc",
    "tier": 1,
    "i": 1,
-   "id": 1321,
+   "id": 13021,
    "seed": 53101,
    "kind": "mini",
    "enemies": [
     [
      "gac_da",
-     67,
-     true
+     65,
+     true,
+     0.03
     ]
    ]
   },
@@ -2209,19 +4664,21 @@
    "zone": "moc",
    "tier": 1,
    "i": 2,
-   "id": 1322,
+   "id": 13022,
    "seed": 53102,
    "kind": "mini",
    "enemies": [
     [
      "bom_la",
-     70,
-     true
+     66,
+     true,
+     0.03
     ],
     [
      "phong_linh",
-     70,
-     false
+     66,
+     false,
+     -0.08
     ]
    ]
   },
@@ -2229,14 +4686,15 @@
    "zone": "moc",
    "tier": 1,
    "i": 3,
-   "id": 1323,
+   "id": 13023,
    "seed": 53103,
    "kind": "mini",
    "enemies": [
     [
      "phong_linh",
-     73,
-     true
+     67,
+     true,
+     -0.08
     ]
    ]
   },
@@ -2244,19 +4702,21 @@
    "zone": "moc",
    "tier": 1,
    "i": 4,
-   "id": 1324,
+   "id": 13024,
    "seed": 53104,
    "kind": "mini",
    "enemies": [
     [
      "gio_loc",
-     76,
-     true
+     68,
+     true,
+     -0.08
     ],
     [
      "long_vuot",
-     76,
-     false
+     68,
+     false,
+     -0.18
     ]
    ]
   },
@@ -2264,24 +4724,27 @@
    "zone": "moc",
    "tier": 1,
    "i": 5,
-   "id": 1325,
+   "id": 13025,
    "seed": 53105,
    "kind": "boss",
    "enemies": [
     [
      "thanh_long",
-     79,
-     true
+     69,
+     true,
+     -0.32
     ],
     [
      "long_vuot",
-     79,
-     false
+     69,
+     false,
+     -0.14
     ],
     [
      "tho_hoang",
-     79,
-     false
+     69,
+     false,
+     -0.14
     ]
    ]
   },
@@ -2289,14 +4752,15 @@
    "zone": "moc",
    "tier": 2,
    "i": 1,
-   "id": 1341,
+   "id": 13041,
    "seed": 53201,
    "kind": "mini",
    "enemies": [
     [
      "bom_la",
-     87,
-     true
+     79,
+     true,
+     0.06
     ]
    ]
   },
@@ -2304,19 +4768,21 @@
    "zone": "moc",
    "tier": 2,
    "i": 2,
-   "id": 1342,
+   "id": 13042,
    "seed": 53202,
    "kind": "mini",
    "enemies": [
     [
      "phong_linh",
-     90,
-     true
+     80,
+     true,
+     -0.05
     ],
     [
      "gio_loc",
-     90,
-     false
+     80,
+     false,
+     -0.05
     ]
    ]
   },
@@ -2324,14 +4790,15 @@
    "zone": "moc",
    "tier": 2,
    "i": 3,
-   "id": 1343,
+   "id": 13043,
    "seed": 53203,
    "kind": "mini",
    "enemies": [
     [
      "gio_loc",
-     93,
-     true
+     81,
+     true,
+     -0.05
     ]
    ]
   },
@@ -2339,19 +4806,21 @@
    "zone": "moc",
    "tier": 2,
    "i": 4,
-   "id": 1344,
+   "id": 13044,
    "seed": 53204,
    "kind": "mini",
    "enemies": [
     [
      "long_vuot",
-     96,
-     true
+     82,
+     true,
+     -0.16
     ],
     [
      "tho_hoang",
-     96,
-     false
+     82,
+     false,
+     -0.16
     ]
    ]
   },
@@ -2359,24 +4828,27 @@
    "zone": "moc",
    "tier": 2,
    "i": 5,
-   "id": 1345,
+   "id": 13045,
    "seed": 53205,
    "kind": "boss",
    "enemies": [
     [
      "thanh_long",
-     99,
-     true
+     83,
+     true,
+     -0.31
     ],
     [
      "tho_hoang",
-     99,
-     false
+     83,
+     false,
+     -0.12
     ],
     [
      "moc_tinh",
-     99,
-     false
+     83,
+     false,
+     -0.12
     ]
    ]
   },
@@ -2384,14 +4856,15 @@
    "zone": "moc",
    "tier": 3,
    "i": 1,
-   "id": 1361,
+   "id": 13061,
    "seed": 53301,
    "kind": "mini",
    "enemies": [
     [
      "phong_linh",
-     107,
-     true
+     93,
+     true,
+     -0.03
     ]
    ]
   },
@@ -2399,19 +4872,21 @@
    "zone": "moc",
    "tier": 3,
    "i": 2,
-   "id": 1362,
+   "id": 13062,
    "seed": 53302,
    "kind": "mini",
    "enemies": [
     [
      "gio_loc",
-     110,
-     true
+     94,
+     true,
+     -0.03
     ],
     [
      "long_vuot",
-     110,
-     false
+     94,
+     false,
+     -0.13
     ]
    ]
   },
@@ -2419,14 +4894,15 @@
    "zone": "moc",
    "tier": 3,
    "i": 3,
-   "id": 1363,
+   "id": 13063,
    "seed": 53303,
    "kind": "mini",
    "enemies": [
     [
      "long_vuot",
-     113,
-     true
+     95,
+     true,
+     -0.13
     ]
    ]
   },
@@ -2434,19 +4910,21 @@
    "zone": "moc",
    "tier": 3,
    "i": 4,
-   "id": 1364,
+   "id": 13064,
    "seed": 53304,
    "kind": "mini",
    "enemies": [
     [
      "tho_hoang",
-     116,
-     true
+     96,
+     true,
+     -0.13
     ],
     [
      "moc_tinh",
-     116,
-     false
+     96,
+     false,
+     -0.13
     ]
    ]
   },
@@ -2454,14 +4932,15 @@
    "zone": "moc",
    "tier": 3,
    "i": 5,
-   "id": 1365,
+   "id": 13065,
    "seed": 53305,
    "kind": "mini",
    "enemies": [
     [
      "moc_tinh",
-     119,
-     true
+     97,
+     true,
+     -0.13
     ]
    ]
   },
@@ -2469,94 +4948,27 @@
    "zone": "moc",
    "tier": 3,
    "i": 6,
-   "id": 1366,
+   "id": 13066,
    "seed": 53306,
-   "kind": "mini",
-   "enemies": [
-    [
-     "thanh_long",
-     122,
-     true
-    ],
-    [
-     "tien_la",
-     122,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 3,
-   "i": 7,
-   "id": 1367,
-   "seed": 53307,
-   "kind": "mini",
-   "enemies": [
-    [
-     "tien_la",
-     125,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 3,
-   "i": 8,
-   "id": 1368,
-   "seed": 53308,
-   "kind": "mini",
-   "enemies": [
-    [
-     "mam_u",
-     128,
-     true
-    ],
-    [
-     "gac_da",
-     128,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 3,
-   "i": 9,
-   "id": 1369,
-   "seed": 53309,
-   "kind": "mini",
-   "enemies": [
-    [
-     "gac_da",
-     131,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 3,
-   "i": 10,
-   "id": 1370,
-   "seed": 53310,
    "kind": "boss",
    "enemies": [
     [
      "thanh_long",
-     134,
-     true
+     98,
+     true,
+     -0.29
     ],
     [
-     "bom_la",
-     134,
-     false
+     "thanh_long",
+     98,
+     false,
+     -0.29
     ],
     [
-     "phong_linh",
-     134,
-     false
+     "tien_la",
+     98,
+     false,
+     0.14
     ]
    ]
   },
@@ -2564,14 +4976,15 @@
    "zone": "moc",
    "tier": 4,
    "i": 1,
-   "id": 1381,
+   "id": 13081,
    "seed": 53401,
    "kind": "mini",
    "enemies": [
     [
      "gio_loc",
-     127,
-     true
+     107,
+     true,
+     0
     ]
    ]
   },
@@ -2579,19 +4992,21 @@
    "zone": "moc",
    "tier": 4,
    "i": 2,
-   "id": 1382,
+   "id": 13082,
    "seed": 53402,
    "kind": "mini",
    "enemies": [
     [
      "long_vuot",
-     130,
-     true
+     108,
+     true,
+     -0.11
     ],
     [
      "tho_hoang",
-     130,
-     false
+     108,
+     false,
+     -0.11
     ]
    ]
   },
@@ -2599,14 +5014,15 @@
    "zone": "moc",
    "tier": 4,
    "i": 3,
-   "id": 1383,
+   "id": 13083,
    "seed": 53403,
    "kind": "mini",
    "enemies": [
     [
      "tho_hoang",
-     133,
-     true
+     109,
+     true,
+     -0.11
     ]
    ]
   },
@@ -2614,19 +5030,21 @@
    "zone": "moc",
    "tier": 4,
    "i": 4,
-   "id": 1384,
+   "id": 13084,
    "seed": 53404,
    "kind": "mini",
    "enemies": [
     [
      "moc_tinh",
-     136,
-     true
+     110,
+     true,
+     -0.11
     ],
     [
      "thanh_long",
-     136,
-     false
+     110,
+     false,
+     -0.3
     ]
    ]
   },
@@ -2634,14 +5052,15 @@
    "zone": "moc",
    "tier": 4,
    "i": 5,
-   "id": 1385,
+   "id": 13085,
    "seed": 53405,
    "kind": "mini",
    "enemies": [
     [
      "thanh_long",
-     139,
-     true
+     111,
+     true,
+     -0.3
     ]
    ]
   },
@@ -2649,94 +5068,27 @@
    "zone": "moc",
    "tier": 4,
    "i": 6,
-   "id": 1386,
+   "id": 13086,
    "seed": 53406,
-   "kind": "mini",
-   "enemies": [
-    [
-     "tien_la",
-     142,
-     true
-    ],
-    [
-     "mam_u",
-     142,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 4,
-   "i": 7,
-   "id": 1387,
-   "seed": 53407,
-   "kind": "mini",
-   "enemies": [
-    [
-     "mam_u",
-     145,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 4,
-   "i": 8,
-   "id": 1388,
-   "seed": 53408,
-   "kind": "mini",
-   "enemies": [
-    [
-     "gac_da",
-     148,
-     true
-    ],
-    [
-     "bom_la",
-     148,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 4,
-   "i": 9,
-   "id": 1389,
-   "seed": 53409,
-   "kind": "mini",
-   "enemies": [
-    [
-     "bom_la",
-     151,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 4,
-   "i": 10,
-   "id": 1390,
-   "seed": 53410,
    "kind": "boss",
    "enemies": [
     [
      "thanh_long",
-     154,
-     true
+     112,
+     true,
+     -0.27
     ],
     [
-     "phong_linh",
-     154,
-     false
+     "tien_la",
+     112,
+     false,
+     0.17
     ],
     [
-     "gio_loc",
-     154,
-     false
+     "mam_u",
+     112,
+     false,
+     0.29
     ]
    ]
   },
@@ -2744,14 +5096,15 @@
    "zone": "moc",
    "tier": 5,
    "i": 1,
-   "id": 1401,
+   "id": 13101,
    "seed": 53501,
    "kind": "mini",
    "enemies": [
     [
      "long_vuot",
-     147,
-     true
+     121,
+     true,
+     -0.08
     ]
    ]
   },
@@ -2759,19 +5112,21 @@
    "zone": "moc",
    "tier": 5,
    "i": 2,
-   "id": 1402,
+   "id": 13102,
    "seed": 53502,
    "kind": "mini",
    "enemies": [
     [
      "tho_hoang",
-     150,
-     true
+     122,
+     true,
+     -0.08
     ],
     [
      "moc_tinh",
-     150,
-     false
+     122,
+     false,
+     -0.08
     ]
    ]
   },
@@ -2779,14 +5134,15 @@
    "zone": "moc",
    "tier": 5,
    "i": 3,
-   "id": 1403,
+   "id": 13103,
    "seed": 53503,
    "kind": "mini",
    "enemies": [
     [
      "moc_tinh",
-     153,
-     true
+     123,
+     true,
+     -0.08
     ]
    ]
   },
@@ -2794,19 +5150,21 @@
    "zone": "moc",
    "tier": 5,
    "i": 4,
-   "id": 1404,
+   "id": 13104,
    "seed": 53504,
    "kind": "mini",
    "enemies": [
     [
      "thanh_long",
-     156,
-     true
+     124,
+     true,
+     -0.28
     ],
     [
      "tien_la",
-     156,
-     false
+     124,
+     false,
+     0.15
     ]
    ]
   },
@@ -2814,14 +5172,15 @@
    "zone": "moc",
    "tier": 5,
    "i": 5,
-   "id": 1405,
+   "id": 13105,
    "seed": 53505,
    "kind": "mini",
    "enemies": [
     [
      "tien_la",
-     159,
-     true
+     125,
+     true,
+     0.15
     ]
    ]
   },
@@ -2829,19 +5188,21 @@
    "zone": "moc",
    "tier": 5,
    "i": 6,
-   "id": 1406,
+   "id": 13106,
    "seed": 53506,
    "kind": "mini",
    "enemies": [
     [
      "mam_u",
-     162,
-     true
+     126,
+     true,
+     0.26
     ],
     [
      "gac_da",
-     162,
-     false
+     126,
+     false,
+     0.15
     ]
    ]
   },
@@ -2849,14 +5210,15 @@
    "zone": "moc",
    "tier": 5,
    "i": 7,
-   "id": 1407,
+   "id": 13107,
    "seed": 53507,
    "kind": "mini",
    "enemies": [
     [
      "gac_da",
-     165,
-     true
+     127,
+     true,
+     0.15
     ]
    ]
   },
@@ -2864,59 +5226,969 @@
    "zone": "moc",
    "tier": 5,
    "i": 8,
-   "id": 1408,
+   "id": 13108,
    "seed": 53508,
-   "kind": "mini",
-   "enemies": [
-    [
-     "bom_la",
-     168,
-     true
-    ],
-    [
-     "phong_linh",
-     168,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 5,
-   "i": 9,
-   "id": 1409,
-   "seed": 53509,
-   "kind": "mini",
-   "enemies": [
-    [
-     "phong_linh",
-     171,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "moc",
-   "tier": 5,
-   "i": 10,
-   "id": 1410,
-   "seed": 53510,
    "kind": "boss",
    "enemies": [
     [
      "thanh_long",
-     174,
-     true
+     128,
+     true,
+     -0.25
+    ],
+    [
+     "bom_la",
+     128,
+     false,
+     0.2
+    ],
+    [
+     "phong_linh",
+     128,
+     false,
+     0.07
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 1,
+   "id": 13121,
+   "seed": 53601,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tho_hoang",
+     135,
+     true,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 2,
+   "id": 13122,
+   "seed": 53602,
+   "kind": "mini",
+   "enemies": [
+    [
+     "moc_tinh",
+     136,
+     true,
+     -0.06
+    ],
+    [
+     "thanh_long",
+     136,
+     false,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 3,
+   "id": 13123,
+   "seed": 53603,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thanh_long",
+     137,
+     true,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 4,
+   "id": 13124,
+   "seed": 53604,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tien_la",
+     138,
+     true,
+     0.18
+    ],
+    [
+     "mam_u",
+     138,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 5,
+   "id": 13125,
+   "seed": 53605,
+   "kind": "mini",
+   "enemies": [
+    [
+     "mam_u",
+     139,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 6,
+   "id": 13126,
+   "seed": 53606,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gac_da",
+     140,
+     true,
+     0.18
+    ],
+    [
+     "bom_la",
+     140,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 7,
+   "id": 13127,
+   "seed": 53607,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bom_la",
+     141,
+     true,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 6,
+   "i": 8,
+   "id": 13128,
+   "seed": 53608,
+   "kind": "boss",
+   "enemies": [
+    [
+     "thanh_long",
+     142,
+     true,
+     -0.23
+    ],
+    [
+     "phong_linh",
+     142,
+     false,
+     0.1
     ],
     [
      "gio_loc",
-     174,
-     false
+     142,
+     false,
+     0.1
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 1,
+   "id": 13141,
+   "seed": 53701,
+   "kind": "mini",
+   "enemies": [
+    [
+     "moc_tinh",
+     149,
+     true,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 2,
+   "id": 13142,
+   "seed": 53702,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thanh_long",
+     150,
+     true,
+     -0.24
+    ],
+    [
+     "tien_la",
+     150,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 3,
+   "id": 13143,
+   "seed": 53703,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tien_la",
+     151,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 4,
+   "id": 13144,
+   "seed": 53704,
+   "kind": "mini",
+   "enemies": [
+    [
+     "mam_u",
+     152,
+     true,
+     0.33
+    ],
+    [
+     "gac_da",
+     152,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 5,
+   "id": 13145,
+   "seed": 53705,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gac_da",
+     153,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 6,
+   "id": 13146,
+   "seed": 53706,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bom_la",
+     154,
+     true,
+     0.21
+    ],
+    [
+     "phong_linh",
+     154,
+     false,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 7,
+   "id": 13147,
+   "seed": 53707,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phong_linh",
+     155,
+     true,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 7,
+   "i": 8,
+   "id": 13148,
+   "seed": 53708,
+   "kind": "boss",
+   "enemies": [
+    [
+     "thanh_long",
+     156,
+     true,
+     -0.21
+    ],
+    [
+     "gio_loc",
+     156,
+     false,
+     0.13
     ],
     [
      "long_vuot",
-     174,
-     false
+     156,
+     false,
+     0
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 1,
+   "id": 13161,
+   "seed": 53801,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thanh_long",
+     163,
+     true,
+     -0.22
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 2,
+   "id": 13162,
+   "seed": 53802,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tien_la",
+     164,
+     true,
+     0.24
+    ],
+    [
+     "mam_u",
+     164,
+     false,
+     0.36
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 3,
+   "id": 13163,
+   "seed": 53803,
+   "kind": "mini",
+   "enemies": [
+    [
+     "mam_u",
+     165,
+     true,
+     0.36
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 4,
+   "id": 13164,
+   "seed": 53804,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gac_da",
+     166,
+     true,
+     0.24
+    ],
+    [
+     "bom_la",
+     166,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 5,
+   "id": 13165,
+   "seed": 53805,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bom_la",
+     167,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 6,
+   "id": 13166,
+   "seed": 53806,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phong_linh",
+     168,
+     true,
+     0.11
+    ],
+    [
+     "gio_loc",
+     168,
+     false,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 7,
+   "id": 13167,
+   "seed": 53807,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gio_loc",
+     169,
+     true,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 8,
+   "id": 13168,
+   "seed": 53808,
+   "kind": "mini",
+   "enemies": [
+    [
+     "long_vuot",
+     170,
+     true,
+     -0.01
+    ],
+    [
+     "tho_hoang",
+     170,
+     false,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 9,
+   "id": 13169,
+   "seed": 53809,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tho_hoang",
+     171,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 8,
+   "i": 10,
+   "id": 13170,
+   "seed": 53810,
+   "kind": "boss",
+   "enemies": [
+    [
+     "thanh_long",
+     172,
+     true,
+     -0.19
+    ],
+    [
+     "moc_tinh",
+     172,
+     false,
+     0.03
+    ],
+    [
+     "thanh_long",
+     172,
+     false,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 1,
+   "id": 13181,
+   "seed": 53901,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tien_la",
+     177,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 2,
+   "id": 13182,
+   "seed": 53902,
+   "kind": "mini",
+   "enemies": [
+    [
+     "mam_u",
+     178,
+     true,
+     0.4
+    ],
+    [
+     "gac_da",
+     178,
+     false,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 3,
+   "id": 13183,
+   "seed": 53903,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gac_da",
+     179,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 4,
+   "id": 13184,
+   "seed": 53904,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bom_la",
+     180,
+     true,
+     0.27
+    ],
+    [
+     "phong_linh",
+     180,
+     false,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 5,
+   "id": 13185,
+   "seed": 53905,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phong_linh",
+     181,
+     true,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 6,
+   "id": 13186,
+   "seed": 53906,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gio_loc",
+     182,
+     true,
+     0.14
+    ],
+    [
+     "long_vuot",
+     182,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 7,
+   "id": 13187,
+   "seed": 53907,
+   "kind": "mini",
+   "enemies": [
+    [
+     "long_vuot",
+     183,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 8,
+   "id": 13188,
+   "seed": 53908,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tho_hoang",
+     184,
+     true,
+     0.01
+    ],
+    [
+     "moc_tinh",
+     184,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 9,
+   "id": 13189,
+   "seed": 53909,
+   "kind": "mini",
+   "enemies": [
+    [
+     "moc_tinh",
+     185,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 9,
+   "i": 10,
+   "id": 13190,
+   "seed": 53910,
+   "kind": "boss",
+   "enemies": [
+    [
+     "thanh_long",
+     186,
+     true,
+     -0.17
+    ],
+    [
+     "thanh_long",
+     186,
+     false,
+     -0.17
+    ],
+    [
+     "tien_la",
+     186,
+     false,
+     0.32
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 1,
+   "id": 13201,
+   "seed": 54001,
+   "kind": "mini",
+   "enemies": [
+    [
+     "mam_u",
+     191,
+     true,
+     0.43
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 2,
+   "id": 13202,
+   "seed": 54002,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gac_da",
+     192,
+     true,
+     0.3
+    ],
+    [
+     "bom_la",
+     192,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 3,
+   "id": 13203,
+   "seed": 54003,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bom_la",
+     193,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 4,
+   "id": 13204,
+   "seed": 54004,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phong_linh",
+     194,
+     true,
+     0.16
+    ],
+    [
+     "gio_loc",
+     194,
+     false,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 5,
+   "id": 13205,
+   "seed": 54005,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gio_loc",
+     195,
+     true,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 6,
+   "id": 13206,
+   "seed": 54006,
+   "kind": "mini",
+   "enemies": [
+    [
+     "long_vuot",
+     196,
+     true,
+     0.04
+    ],
+    [
+     "tho_hoang",
+     196,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 7,
+   "id": 13207,
+   "seed": 54007,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tho_hoang",
+     197,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 8,
+   "id": 13208,
+   "seed": 54008,
+   "kind": "mini",
+   "enemies": [
+    [
+     "moc_tinh",
+     198,
+     true,
+     0.04
+    ],
+    [
+     "thanh_long",
+     198,
+     false,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 9,
+   "id": 13209,
+   "seed": 54009,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thanh_long",
+     199,
+     true,
+     -0.19
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 10,
+   "id": 13210,
+   "seed": 54010,
+   "kind": "mini",
+   "enemies": [
+    [
+     "tien_la",
+     200,
+     true,
+     0.3
+    ],
+    [
+     "mam_u",
+     200,
+     false,
+     0.43
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 11,
+   "id": 13211,
+   "seed": 54011,
+   "kind": "mini",
+   "enemies": [
+    [
+     "mam_u",
+     201,
+     true,
+     0.43
+    ]
+   ]
+  },
+  {
+   "zone": "moc",
+   "tier": 10,
+   "i": 12,
+   "id": 13212,
+   "seed": 54012,
+   "kind": "boss",
+   "enemies": [
+    [
+     "thanh_long",
+     202,
+     true,
+     -0.16
+    ],
+    [
+     "gac_da",
+     202,
+     false,
+     0.35
+    ],
+    [
+     "bom_la",
+     202,
+     false,
+     0.35
     ]
    ]
   },
@@ -2924,14 +6196,15 @@
    "zone": "tho",
    "tier": 1,
    "i": 1,
-   "id": 1421,
+   "id": 14021,
    "seed": 54101,
    "kind": "mini",
    "enemies": [
     [
      "soc_da",
-     69,
-     true
+     67,
+     true,
+     0.03
     ]
    ]
   },
@@ -2939,19 +6212,21 @@
    "zone": "tho",
    "tier": 1,
    "i": 2,
-   "id": 1422,
+   "id": 14022,
    "seed": 54102,
    "kind": "mini",
    "enemies": [
     [
      "bo_hung",
-     72,
-     true
+     68,
+     true,
+     0.03
     ],
     [
      "thach_nhan",
-     72,
-     false
+     68,
+     false,
+     0.03
     ]
    ]
   },
@@ -2959,14 +6234,15 @@
    "zone": "tho",
    "tier": 1,
    "i": 3,
-   "id": 1423,
+   "id": 14023,
    "seed": 54103,
    "kind": "mini",
    "enemies": [
     [
      "thach_nhan",
-     75,
-     true
+     69,
+     true,
+     0.03
     ]
    ]
   },
@@ -2974,19 +6250,21 @@
    "zone": "tho",
    "tier": 1,
    "i": 4,
-   "id": 1424,
+   "id": 14024,
    "seed": 54104,
    "kind": "mini",
    "enemies": [
     [
      "sa_than",
-     78,
-     true
+     70,
+     true,
+     -0.08
     ],
     [
      "ky_lan",
-     78,
-     false
+     70,
+     false,
+     -0.18
     ]
    ]
   },
@@ -2994,24 +6272,27 @@
    "zone": "tho",
    "tier": 1,
    "i": 5,
-   "id": 1425,
+   "id": 14025,
    "seed": 54105,
    "kind": "boss",
    "enemies": [
     [
      "ca_sa",
-     81,
-     true
+     71,
+     true,
+     -0.32
     ],
     [
      "ky_lan",
-     81,
-     false
+     71,
+     false,
+     -0.14
     ],
     [
      "ca_sa",
-     81,
-     false
+     71,
+     false,
+     -0.32
     ]
    ]
   },
@@ -3019,14 +6300,15 @@
    "zone": "tho",
    "tier": 2,
    "i": 1,
-   "id": 1441,
+   "id": 14041,
    "seed": 54201,
    "kind": "mini",
    "enemies": [
     [
      "bo_hung",
-     89,
-     true
+     81,
+     true,
+     0.06
     ]
    ]
   },
@@ -3034,19 +6316,21 @@
    "zone": "tho",
    "tier": 2,
    "i": 2,
-   "id": 1442,
+   "id": 14042,
    "seed": 54202,
    "kind": "mini",
    "enemies": [
     [
      "thach_nhan",
-     92,
-     true
+     82,
+     true,
+     0.06
     ],
     [
      "sa_than",
-     92,
-     false
+     82,
+     false,
+     -0.05
     ]
    ]
   },
@@ -3054,14 +6338,15 @@
    "zone": "tho",
    "tier": 2,
    "i": 3,
-   "id": 1443,
+   "id": 14043,
    "seed": 54203,
    "kind": "mini",
    "enemies": [
     [
      "sa_than",
-     95,
-     true
+     83,
+     true,
+     -0.05
     ]
    ]
   },
@@ -3069,19 +6354,21 @@
    "zone": "tho",
    "tier": 2,
    "i": 4,
-   "id": 1444,
+   "id": 14044,
    "seed": 54204,
    "kind": "mini",
    "enemies": [
     [
      "ky_lan",
-     98,
-     true
+     84,
+     true,
+     -0.16
     ],
     [
      "ca_sa",
-     98,
-     false
+     84,
+     false,
+     -0.34
     ]
    ]
   },
@@ -3089,24 +6376,27 @@
    "zone": "tho",
    "tier": 2,
    "i": 5,
-   "id": 1445,
+   "id": 14045,
    "seed": 54205,
    "kind": "boss",
    "enemies": [
     [
      "ca_sa",
-     101,
-     true
+     85,
+     true,
+     -0.31
     ],
     [
      "ca_sa",
-     101,
-     false
+     85,
+     false,
+     -0.31
     ],
     [
      "lung_vuong",
-     101,
-     false
+     85,
+     false,
+     0.22
     ]
    ]
   },
@@ -3114,14 +6404,15 @@
    "zone": "tho",
    "tier": 3,
    "i": 1,
-   "id": 1461,
+   "id": 14061,
    "seed": 54301,
    "kind": "mini",
    "enemies": [
     [
      "thach_nhan",
-     109,
-     true
+     95,
+     true,
+     0.09
     ]
    ]
   },
@@ -3129,19 +6420,21 @@
    "zone": "tho",
    "tier": 3,
    "i": 2,
-   "id": 1462,
+   "id": 14062,
    "seed": 54302,
    "kind": "mini",
    "enemies": [
     [
      "sa_than",
-     112,
-     true
+     96,
+     true,
+     -0.03
     ],
     [
      "ky_lan",
-     112,
-     false
+     96,
+     false,
+     -0.13
     ]
    ]
   },
@@ -3149,14 +6442,15 @@
    "zone": "tho",
    "tier": 3,
    "i": 3,
-   "id": 1463,
+   "id": 14063,
    "seed": 54303,
    "kind": "mini",
    "enemies": [
     [
      "ky_lan",
-     115,
-     true
+     97,
+     true,
+     -0.13
     ]
    ]
   },
@@ -3164,19 +6458,21 @@
    "zone": "tho",
    "tier": 3,
    "i": 4,
-   "id": 1464,
+   "id": 14064,
    "seed": 54304,
    "kind": "mini",
    "enemies": [
     [
      "ca_sa",
-     118,
-     true
+     98,
+     true,
+     -0.32
     ],
     [
      "lung_vuong",
-     118,
-     false
+     98,
+     false,
+     0.2
     ]
    ]
   },
@@ -3184,14 +6480,15 @@
    "zone": "tho",
    "tier": 3,
    "i": 5,
-   "id": 1465,
+   "id": 14065,
    "seed": 54305,
    "kind": "mini",
    "enemies": [
     [
      "lung_vuong",
-     121,
-     true
+     99,
+     true,
+     0.2
     ]
    ]
   },
@@ -3199,94 +6496,27 @@
    "zone": "tho",
    "tier": 3,
    "i": 6,
-   "id": 1466,
+   "id": 14066,
    "seed": 54306,
-   "kind": "mini",
-   "enemies": [
-    [
-     "cao_da",
-     124,
-     true
-    ],
-    [
-     "ho_khoan",
-     124,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 3,
-   "i": 7,
-   "id": 1467,
-   "seed": 54307,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ho_khoan",
-     127,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 3,
-   "i": 8,
-   "id": 1468,
-   "seed": 54308,
-   "kind": "mini",
-   "enemies": [
-    [
-     "phu_van",
-     130,
-     true
-    ],
-    [
-     "hat_de",
-     130,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 3,
-   "i": 9,
-   "id": 1469,
-   "seed": 54309,
-   "kind": "mini",
-   "enemies": [
-    [
-     "hat_de",
-     133,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 3,
-   "i": 10,
-   "id": 1470,
-   "seed": 54310,
    "kind": "boss",
    "enemies": [
     [
      "ca_sa",
-     136,
-     true
+     100,
+     true,
+     -0.29
     ],
     [
-     "rua_nui",
-     136,
-     false
+     "cao_da",
+     100,
+     false,
+     0.14
     ],
     [
-     "ho_kim_cuong",
-     136,
-     false
+     "ho_khoan",
+     100,
+     false,
+     0.14
     ]
    ]
   },
@@ -3294,14 +6524,15 @@
    "zone": "tho",
    "tier": 4,
    "i": 1,
-   "id": 1481,
+   "id": 14081,
    "seed": 54401,
    "kind": "mini",
    "enemies": [
     [
      "sa_than",
-     129,
-     true
+     109,
+     true,
+     0
     ]
    ]
   },
@@ -3309,19 +6540,21 @@
    "zone": "tho",
    "tier": 4,
    "i": 2,
-   "id": 1482,
+   "id": 14082,
    "seed": 54402,
    "kind": "mini",
    "enemies": [
     [
      "ky_lan",
-     132,
-     true
+     110,
+     true,
+     -0.11
     ],
     [
      "ca_sa",
-     132,
-     false
+     110,
+     false,
+     -0.3
     ]
    ]
   },
@@ -3329,14 +6562,15 @@
    "zone": "tho",
    "tier": 4,
    "i": 3,
-   "id": 1483,
+   "id": 14083,
    "seed": 54403,
    "kind": "mini",
    "enemies": [
     [
      "ca_sa",
-     135,
-     true
+     111,
+     true,
+     -0.3
     ]
    ]
   },
@@ -3344,19 +6578,21 @@
    "zone": "tho",
    "tier": 4,
    "i": 4,
-   "id": 1484,
+   "id": 14084,
    "seed": 54404,
    "kind": "mini",
    "enemies": [
     [
      "lung_vuong",
-     138,
-     true
+     112,
+     true,
+     0.23
     ],
     [
      "cao_da",
-     138,
-     false
+     112,
+     false,
+     0.12
     ]
    ]
   },
@@ -3364,14 +6600,15 @@
    "zone": "tho",
    "tier": 4,
    "i": 5,
-   "id": 1485,
+   "id": 14085,
    "seed": 54405,
    "kind": "mini",
    "enemies": [
     [
      "cao_da",
-     141,
-     true
+     113,
+     true,
+     0.12
     ]
    ]
   },
@@ -3379,94 +6616,27 @@
    "zone": "tho",
    "tier": 4,
    "i": 6,
-   "id": 1486,
+   "id": 14086,
    "seed": 54406,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ho_khoan",
-     144,
-     true
-    ],
-    [
-     "phu_van",
-     144,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 4,
-   "i": 7,
-   "id": 1487,
-   "seed": 54407,
-   "kind": "mini",
-   "enemies": [
-    [
-     "phu_van",
-     147,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 4,
-   "i": 8,
-   "id": 1488,
-   "seed": 54408,
-   "kind": "mini",
-   "enemies": [
-    [
-     "hat_de",
-     150,
-     true
-    ],
-    [
-     "rua_nui",
-     150,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 4,
-   "i": 9,
-   "id": 1489,
-   "seed": 54409,
-   "kind": "mini",
-   "enemies": [
-    [
-     "rua_nui",
-     153,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 4,
-   "i": 10,
-   "id": 1490,
-   "seed": 54410,
    "kind": "boss",
    "enemies": [
     [
      "ca_sa",
-     156,
-     true
+     114,
+     true,
+     -0.27
     ],
     [
-     "ho_kim_cuong",
-     156,
-     false
+     "ho_khoan",
+     114,
+     false,
+     0.17
     ],
     [
-     "cu_phu",
-     156,
-     false
+     "phu_van",
+     114,
+     false,
+     0.05
     ]
    ]
   },
@@ -3474,14 +6644,15 @@
    "zone": "tho",
    "tier": 5,
    "i": 1,
-   "id": 1501,
+   "id": 14101,
    "seed": 54501,
    "kind": "mini",
    "enemies": [
     [
      "ky_lan",
-     149,
-     true
+     123,
+     true,
+     -0.08
     ]
    ]
   },
@@ -3489,19 +6660,21 @@
    "zone": "tho",
    "tier": 5,
    "i": 2,
-   "id": 1502,
+   "id": 14102,
    "seed": 54502,
    "kind": "mini",
    "enemies": [
     [
      "ca_sa",
-     152,
-     true
+     124,
+     true,
+     -0.28
     ],
     [
      "lung_vuong",
-     152,
-     false
+     124,
+     false,
+     0.26
     ]
    ]
   },
@@ -3509,14 +6682,15 @@
    "zone": "tho",
    "tier": 5,
    "i": 3,
-   "id": 1503,
+   "id": 14103,
    "seed": 54503,
    "kind": "mini",
    "enemies": [
     [
      "lung_vuong",
-     155,
-     true
+     125,
+     true,
+     0.26
     ]
    ]
   },
@@ -3524,19 +6698,21 @@
    "zone": "tho",
    "tier": 5,
    "i": 4,
-   "id": 1504,
+   "id": 14104,
    "seed": 54504,
    "kind": "mini",
    "enemies": [
     [
      "cao_da",
-     158,
-     true
+     126,
+     true,
+     0.15
     ],
     [
      "ho_khoan",
-     158,
-     false
+     126,
+     false,
+     0.15
     ]
    ]
   },
@@ -3544,14 +6720,15 @@
    "zone": "tho",
    "tier": 5,
    "i": 5,
-   "id": 1505,
+   "id": 14105,
    "seed": 54505,
    "kind": "mini",
    "enemies": [
     [
      "ho_khoan",
-     161,
-     true
+     127,
+     true,
+     0.15
     ]
    ]
   },
@@ -3559,19 +6736,21 @@
    "zone": "tho",
    "tier": 5,
    "i": 6,
-   "id": 1506,
+   "id": 14106,
    "seed": 54506,
    "kind": "mini",
    "enemies": [
     [
      "phu_van",
-     164,
-     true
+     128,
+     true,
+     0.03
     ],
     [
      "hat_de",
-     164,
-     false
+     128,
+     false,
+     0.03
     ]
    ]
   },
@@ -3579,14 +6758,15 @@
    "zone": "tho",
    "tier": 5,
    "i": 7,
-   "id": 1507,
+   "id": 14107,
    "seed": 54507,
    "kind": "mini",
    "enemies": [
     [
      "hat_de",
-     167,
-     true
+     129,
+     true,
+     0.03
     ]
    ]
   },
@@ -3594,59 +6774,969 @@
    "zone": "tho",
    "tier": 5,
    "i": 8,
-   "id": 1508,
+   "id": 14108,
    "seed": 54508,
-   "kind": "mini",
-   "enemies": [
-    [
-     "rua_nui",
-     170,
-     true
-    ],
-    [
-     "ho_kim_cuong",
-     170,
-     false
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 5,
-   "i": 9,
-   "id": 1509,
-   "seed": 54509,
-   "kind": "mini",
-   "enemies": [
-    [
-     "ho_kim_cuong",
-     173,
-     true
-    ]
-   ]
-  },
-  {
-   "zone": "tho",
-   "tier": 5,
-   "i": 10,
-   "id": 1510,
-   "seed": 54510,
    "kind": "boss",
    "enemies": [
     [
      "ca_sa",
-     176,
-     true
+     130,
+     true,
+     -0.25
+    ],
+    [
+     "rua_nui",
+     130,
+     false,
+     -0.04
+    ],
+    [
+     "ho_kim_cuong",
+     130,
+     false,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 1,
+   "id": 14121,
+   "seed": 54601,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ca_sa",
+     137,
+     true,
+     -0.26
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 2,
+   "id": 14122,
+   "seed": 54602,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lung_vuong",
+     138,
+     true,
+     0.3
+    ],
+    [
+     "cao_da",
+     138,
+     false,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 3,
+   "id": 14123,
+   "seed": 54603,
+   "kind": "mini",
+   "enemies": [
+    [
+     "cao_da",
+     139,
+     true,
+     0.18
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 4,
+   "id": 14124,
+   "seed": 54604,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_khoan",
+     140,
+     true,
+     0.18
+    ],
+    [
+     "phu_van",
+     140,
+     false,
+     0.06
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 5,
+   "id": 14125,
+   "seed": 54605,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phu_van",
+     141,
+     true,
+     0.06
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 6,
+   "id": 14126,
+   "seed": 54606,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hat_de",
+     142,
+     true,
+     0.06
+    ],
+    [
+     "rua_nui",
+     142,
+     false,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 7,
+   "id": 14127,
+   "seed": 54607,
+   "kind": "mini",
+   "enemies": [
+    [
+     "rua_nui",
+     143,
+     true,
+     -0.06
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 6,
+   "i": 8,
+   "id": 14128,
+   "seed": 54608,
+   "kind": "boss",
+   "enemies": [
+    [
+     "ca_sa",
+     144,
+     true,
+     -0.23
+    ],
+    [
+     "ho_kim_cuong",
+     144,
+     false,
+     -0.02
     ],
     [
      "cu_phu",
-     176,
-     false
+     144,
+     false,
+     -0.02
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 1,
+   "id": 14141,
+   "seed": 54701,
+   "kind": "mini",
+   "enemies": [
+    [
+     "lung_vuong",
+     151,
+     true,
+     0.33
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 2,
+   "id": 14142,
+   "seed": 54702,
+   "kind": "mini",
+   "enemies": [
+    [
+     "cao_da",
+     152,
+     true,
+     0.21
+    ],
+    [
+     "ho_khoan",
+     152,
+     false,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 3,
+   "id": 14143,
+   "seed": 54703,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_khoan",
+     153,
+     true,
+     0.21
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 4,
+   "id": 14144,
+   "seed": 54704,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phu_van",
+     154,
+     true,
+     0.08
+    ],
+    [
+     "hat_de",
+     154,
+     false,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 5,
+   "id": 14145,
+   "seed": 54705,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hat_de",
+     155,
+     true,
+     0.08
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 6,
+   "id": 14146,
+   "seed": 54706,
+   "kind": "mini",
+   "enemies": [
+    [
+     "rua_nui",
+     156,
+     true,
+     -0.04
+    ],
+    [
+     "ho_kim_cuong",
+     156,
+     false,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 7,
+   "id": 14147,
+   "seed": 54707,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_kim_cuong",
+     157,
+     true,
+     -0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 7,
+   "i": 8,
+   "id": 14148,
+   "seed": 54708,
+   "kind": "boss",
+   "enemies": [
+    [
+     "ca_sa",
+     158,
+     true,
+     -0.21
+    ],
+    [
+     "cu_phu",
+     158,
+     false,
+     0
     ],
     [
      "giap_nham",
-     176,
-     false
+     158,
+     false,
+     -0.21
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 1,
+   "id": 14161,
+   "seed": 54801,
+   "kind": "mini",
+   "enemies": [
+    [
+     "cao_da",
+     165,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 2,
+   "id": 14162,
+   "seed": 54802,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_khoan",
+     166,
+     true,
+     0.24
+    ],
+    [
+     "phu_van",
+     166,
+     false,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 3,
+   "id": 14163,
+   "seed": 54803,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phu_van",
+     167,
+     true,
+     0.11
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 4,
+   "id": 14164,
+   "seed": 54804,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hat_de",
+     168,
+     true,
+     0.11
+    ],
+    [
+     "rua_nui",
+     168,
+     false,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 5,
+   "id": 14165,
+   "seed": 54805,
+   "kind": "mini",
+   "enemies": [
+    [
+     "rua_nui",
+     169,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 6,
+   "id": 14166,
+   "seed": 54806,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_kim_cuong",
+     170,
+     true,
+     -0.01
+    ],
+    [
+     "cu_phu",
+     170,
+     false,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 7,
+   "id": 14167,
+   "seed": 54807,
+   "kind": "mini",
+   "enemies": [
+    [
+     "cu_phu",
+     171,
+     true,
+     -0.01
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 8,
+   "id": 14168,
+   "seed": 54808,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giap_nham",
+     172,
+     true,
+     -0.22
+    ],
+    [
+     "vo_su",
+     172,
+     false,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 9,
+   "id": 14169,
+   "seed": 54809,
+   "kind": "mini",
+   "enemies": [
+    [
+     "vo_su",
+     173,
+     true,
+     0.24
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 8,
+   "i": 10,
+   "id": 14170,
+   "seed": 54810,
+   "kind": "boss",
+   "enemies": [
+    [
+     "ca_sa",
+     174,
+     true,
+     -0.19
+    ],
+    [
+     "gau_mo",
+     174,
+     false,
+     0.42
+    ],
+    [
+     "soc_da",
+     174,
+     false,
+     0.29
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 1,
+   "id": 14181,
+   "seed": 54901,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_khoan",
+     179,
+     true,
+     0.27
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 2,
+   "id": 14182,
+   "seed": 54902,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phu_van",
+     180,
+     true,
+     0.14
+    ],
+    [
+     "hat_de",
+     180,
+     false,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 3,
+   "id": 14183,
+   "seed": 54903,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hat_de",
+     181,
+     true,
+     0.14
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 4,
+   "id": 14184,
+   "seed": 54904,
+   "kind": "mini",
+   "enemies": [
+    [
+     "rua_nui",
+     182,
+     true,
+     0.01
+    ],
+    [
+     "ho_kim_cuong",
+     182,
+     false,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 5,
+   "id": 14185,
+   "seed": 54905,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_kim_cuong",
+     183,
+     true,
+     0.01
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 6,
+   "id": 14186,
+   "seed": 54906,
+   "kind": "mini",
+   "enemies": [
+    [
+     "cu_phu",
+     184,
+     true,
+     0.01
+    ],
+    [
+     "giap_nham",
+     184,
+     false,
+     -0.21
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 7,
+   "id": 14187,
+   "seed": 54907,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giap_nham",
+     185,
+     true,
+     -0.21
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 8,
+   "id": 14188,
+   "seed": 54908,
+   "kind": "mini",
+   "enemies": [
+    [
+     "vo_su",
+     186,
+     true,
+     0.27
+    ],
+    [
+     "gau_mo",
+     186,
+     false,
+     0.4
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 9,
+   "id": 14189,
+   "seed": 54909,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gau_mo",
+     187,
+     true,
+     0.4
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 9,
+   "i": 10,
+   "id": 14190,
+   "seed": 54910,
+   "kind": "boss",
+   "enemies": [
+    [
+     "ca_sa",
+     188,
+     true,
+     -0.17
+    ],
+    [
+     "soc_da",
+     188,
+     false,
+     0.32
+    ],
+    [
+     "bo_hung",
+     188,
+     false,
+     0.32
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 1,
+   "id": 14201,
+   "seed": 55001,
+   "kind": "mini",
+   "enemies": [
+    [
+     "phu_van",
+     193,
+     true,
+     0.16
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 2,
+   "id": 14202,
+   "seed": 55002,
+   "kind": "mini",
+   "enemies": [
+    [
+     "hat_de",
+     194,
+     true,
+     0.16
+    ],
+    [
+     "rua_nui",
+     194,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 3,
+   "id": 14203,
+   "seed": 55003,
+   "kind": "mini",
+   "enemies": [
+    [
+     "rua_nui",
+     195,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 4,
+   "id": 14204,
+   "seed": 55004,
+   "kind": "mini",
+   "enemies": [
+    [
+     "ho_kim_cuong",
+     196,
+     true,
+     0.04
+    ],
+    [
+     "cu_phu",
+     196,
+     false,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 5,
+   "id": 14205,
+   "seed": 55005,
+   "kind": "mini",
+   "enemies": [
+    [
+     "cu_phu",
+     197,
+     true,
+     0.04
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 6,
+   "id": 14206,
+   "seed": 55006,
+   "kind": "mini",
+   "enemies": [
+    [
+     "giap_nham",
+     198,
+     true,
+     -0.19
+    ],
+    [
+     "vo_su",
+     198,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 7,
+   "id": 14207,
+   "seed": 55007,
+   "kind": "mini",
+   "enemies": [
+    [
+     "vo_su",
+     199,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 8,
+   "id": 14208,
+   "seed": 55008,
+   "kind": "mini",
+   "enemies": [
+    [
+     "gau_mo",
+     200,
+     true,
+     0.43
+    ],
+    [
+     "soc_da",
+     200,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 9,
+   "id": 14209,
+   "seed": 55009,
+   "kind": "mini",
+   "enemies": [
+    [
+     "soc_da",
+     201,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 10,
+   "id": 14210,
+   "seed": 55010,
+   "kind": "mini",
+   "enemies": [
+    [
+     "bo_hung",
+     202,
+     true,
+     0.3
+    ],
+    [
+     "thach_nhan",
+     202,
+     false,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 11,
+   "id": 14211,
+   "seed": 55011,
+   "kind": "mini",
+   "enemies": [
+    [
+     "thach_nhan",
+     203,
+     true,
+     0.3
+    ]
+   ]
+  },
+  {
+   "zone": "tho",
+   "tier": 10,
+   "i": 12,
+   "id": 14212,
+   "seed": 55012,
+   "kind": "boss",
+   "enemies": [
+    [
+     "ca_sa",
+     204,
+     true,
+     -0.16
+    ],
+    [
+     "sa_than",
+     204,
+     false,
+     0.21
+    ],
+    [
+     "ky_lan",
+     204,
+     false,
+     0.08
     ]
    ]
   }
@@ -3655,45 +7745,45 @@
   {
    "hero": "ti_tach",
    "mods": {
-    "hpPct": 0.08,
-    "atkPct": 0.08,
-    "defPct": 0.08,
+    "hpPct": 0.06,
+    "atkPct": 0.06,
+    "defPct": 0.06,
     "spd": 0
    },
    "stats": {
-    "hp": 975,
-    "atk": 293,
-    "def": 89,
+    "hp": 908,
+    "atk": 273,
+    "def": 83,
     "spd": 59
    }
   },
   {
    "hero": "so_ngoc",
    "mods": {
-    "hpPct": 0.08,
-    "atkPct": 0.08,
-    "defPct": 0.08,
+    "hpPct": 0.06,
+    "atkPct": 0.06,
+    "defPct": 0.06,
     "spd": 0
    },
    "stats": {
-    "hp": 1047,
-    "atk": 314,
-    "def": 105,
+    "hp": 983,
+    "atk": 295,
+    "def": 99,
     "spd": 59
    }
   },
   {
    "hero": "giap_long",
    "mods": {
-    "hpPct": 0.2,
-    "atkPct": 0.2,
-    "defPct": 0.2,
+    "hpPct": 0.1,
+    "atkPct": 0.1,
+    "defPct": 0.1,
     "spd": 0
    },
    "stats": {
-    "hp": 1188,
-    "atk": 437,
-    "def": 125,
+    "hp": 1049,
+    "atk": 385,
+    "def": 110,
     "spd": 69
    }
   },
@@ -3701,9 +7791,9 @@
    "hero": "vo_su",
    "mods": null,
    "stats": {
-    "hp": 943,
-    "atk": 283,
-    "def": 75,
+    "hp": 895,
+    "atk": 269,
+    "def": 71,
     "spd": 54
    }
   }
@@ -3718,26 +7808,26 @@
   {
    "i": 2,
    "foeLevel": 7,
-   "winner": 1,
-   "round": 5
+   "winner": 0,
+   "round": 7
   },
   {
    "i": 3,
    "foeLevel": 10,
-   "winner": 1,
+   "winner": 0,
    "round": 3
   },
   {
    "i": 4,
    "foeLevel": 13,
    "winner": 1,
-   "round": 7
+   "round": 6
   },
   {
    "i": 5,
    "foeLevel": 16,
    "winner": 1,
-   "round": 3
+   "round": 6
   }
  ],
  "steps": [
@@ -3784,7 +7874,7 @@
   {
    "op": "win",
    "zone": "thuy",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -3792,7 +7882,7 @@
     "tier": 1,
     "i": 2
    },
-   "balls": 17,
+   "balls": 16,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -3821,7 +7911,7 @@
   {
    "op": "win",
    "zone": "thuy",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -3829,7 +7919,7 @@
     "tier": 1,
     "i": 3
    },
-   "balls": 24,
+   "balls": 22,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -3858,7 +7948,7 @@
   {
    "op": "win",
    "zone": "thuy",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -3866,7 +7956,7 @@
     "tier": 1,
     "i": 4
    },
-   "balls": 31,
+   "balls": 28,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -3895,7 +7985,7 @@
   {
    "op": "win",
    "zone": "thuy",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -3903,7 +7993,7 @@
     "tier": 1,
     "i": 5
    },
-   "balls": 38,
+   "balls": 34,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -3932,7 +8022,7 @@
   {
    "op": "win",
    "zone": "thuy",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 1,
    "chest": "chest_silver",
    "rewards": [
@@ -3951,7 +8041,7 @@
     "tier": 2,
     "i": 1
    },
-   "balls": 45,
+   "balls": 40,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -3980,7 +8070,7 @@
   {
    "op": "win",
    "zone": "thuy",
-   "gain": 9,
+   "gain": 7,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -3988,7 +8078,7 @@
     "tier": 2,
     "i": 2
    },
-   "balls": 54,
+   "balls": 47,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -4017,7 +8107,7 @@
   {
    "op": "win",
    "zone": "kim",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -4025,7 +8115,7 @@
     "tier": 1,
     "i": 2
    },
-   "balls": 61,
+   "balls": 53,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -4054,7 +8144,7 @@
   {
    "op": "win",
    "zone": "kim",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -4062,7 +8152,7 @@
     "tier": 1,
     "i": 3
    },
-   "balls": 68,
+   "balls": 59,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -4091,7 +8181,7 @@
   {
    "op": "win",
    "zone": "kim",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -4099,7 +8189,7 @@
     "tier": 1,
     "i": 4
    },
-   "balls": 75,
+   "balls": 65,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -4128,7 +8218,7 @@
   {
    "op": "win",
    "zone": "kim",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -4136,7 +8226,7 @@
     "tier": 1,
     "i": 5
    },
-   "balls": 82,
+   "balls": 71,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -4165,7 +8255,7 @@
   {
    "op": "win",
    "zone": "kim",
-   "gain": 7,
+   "gain": 6,
    "tierDone": 1,
    "chest": "chest_silver",
    "rewards": [
@@ -4178,7 +8268,7 @@
     "tier": 2,
     "i": 1
    },
-   "balls": 95,
+   "balls": 83,
    "exp": 0,
    "level": 1,
    "badges": {
@@ -4207,7 +8297,7 @@
   {
    "op": "win",
    "zone": "kim",
-   "gain": 9,
+   "gain": 7,
    "tierDone": 0,
    "chest": null,
    "rewards": [],
@@ -4215,7 +8305,7 @@
     "tier": 2,
     "i": 2
    },
-   "balls": 104,
+   "balls": 90,
    "exp": 0,
    "level": 1,
    "badges": {

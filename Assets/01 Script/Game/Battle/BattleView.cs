@@ -89,6 +89,15 @@ namespace PokiClash
             b = battle;
             d = battle.Data;
             p.stage.Init(zone, stage);
+            // thanh máu dâng (FillHp): trận mới thì quên tướng ra sân, việc dâng dở của trận trước
+            for (int i = 0; i < 2; i++)
+            {
+                lastActive[i] = -1;
+                fillCo[i] = nudgeCo[i] = null;
+            }
+            if (plateScale == null) plateScale = new[] { p.plates[0].Rect.localScale, p.plates[1].Rect.localScale };
+            else
+                for (int i = 0; i < 2; i++) p.plates[i].Rect.localScale = plateScale[i];
             // mặt địch ở góc trên trái thay chấm đội dự bị của bảng địch
             p.plates[1].ShowBench = !p.foeRow || !p.foePrefab;
             var en = b.sides[1].fighters;
@@ -127,20 +136,141 @@ namespace PokiClash
             for (int side = 0; side < 2; side++)
             {
                 var f = s.f[side][s.active[side]];
-                p.plates[side].Apply(s, side, d.Cfg);
+                bool changed = lastActive[side] != s.active[side]; // đầu trận, đổi tướng: thanh máu dâng từ 0 thay vì tụt (vệt vàng như mất máu)
+                lastActive[side] = s.active[side];
+                if (fillCo[side] != null)
+                {
+                    // đang dâng: ảnh chụp mới thành đích, thanh máu giữ nhịp dâng (ghi đè ngay trong khung này, chữ không nháy)
+                    fillTo[side] = s;
+                    p.plates[side].Apply(s, side, d.Cfg);
+                    HoldFill(side);
+                }
+                else if (changed && !f.dead && f.hp > 0) FillHp(side, s, 0.5f);
+                else p.plates[side].Apply(s, side, d.Cfg);
                 Stage.SetStatuses(side, f.st);
             }
             RenderFoes(s);
         }
 
+        // ---------- thanh máu dâng có nhịp (2026-11-17) ----------
+        // Boss tiến hóa, hồi sinh, đầu trận, tướng mới vào sân: thanh máu dâng từ `from` (phần máu tối đa) tới máu trong ảnh chụp trong
+        // dur giây, nhanh rồi chậm, số chạy theo; xong thì bảng nảy nhẹ. Giá trị đầu đặt tức thì để vệt vàng lùi chậm của UiBar không hiện
+        // như mất máu. Bảng (BattlePlate) vẫn vẽ mana, nộ, chip như thường; chỉ thanh máu do đây lái.
+
+        readonly UiBar[] hpBars = new UiBar[2];
+        readonly Coroutine[] fillCo = new Coroutine[2];
+        readonly Snap[] fillTo = new Snap[2];
+        readonly float[] fillShown = new float[2];
+        readonly int[] lastActive = { -1, -1 };
+
+        UiBar HpBar(int side)
+        {
+            if (!hpBars[side] && p.plates != null && side < p.plates.Length && p.plates[side])
+                foreach (var bar in p.plates[side].GetComponentsInChildren<UiBar>(true))
+                    if (bar.Type == UiBar.Kind.Hp)
+                    {
+                        hpBars[side] = bar;
+                        break;
+                    }
+            return hpBars[side];
+        }
+
+        static string HpText(double v, FSnap f) => $"{NumFmt.Short(v)}/{NumFmt.Short(f.maxHp)}{(f.shield > 0 ? $" +{NumFmt.Short(f.shield)} khiên" : "")}";
+
+        public void FillHp(int side, Snap to, float dur, float from = 0)
+        {
+            if (to == null || !isActiveAndEnabled) return;
+            if (fillCo[side] != null) StopCoroutine(fillCo[side]);
+            fillTo[side] = to;
+            fillCo[side] = StartCoroutine(Fill(side, dur, from));
+        }
+
+        // giữ thanh máu ở giá trị đang dâng (sau khi bảng vẽ ảnh chụp mới)
+        void HoldFill(int side)
+        {
+            var bar = HpBar(side);
+            var s = fillTo[side];
+            if (!bar || s == null) return;
+            var f = s.f[side][s.active[side]];
+            bar.Set(fillShown[side], (float)f.maxHp, (float)f.shield, HpText(fillShown[side], f));
+        }
+
+        IEnumerator Fill(int side, float dur, float from)
+        {
+            var s0 = fillTo[side];
+            var f0 = s0.f[side][s0.active[side]];
+            p.plates[side].Apply(s0, side, d.Cfg);
+            var bar = HpBar(side);
+            if (!bar)
+            {
+                fillCo[side] = null;
+                yield break;
+            }
+            fillShown[side] = from * (float)f0.maxHp;
+            bar.Set(fillShown[side], (float)f0.maxHp, (float)f0.shield, HpText(fillShown[side], f0), true);
+            for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
+            {
+                var s = fillTo[side];
+                var f = s.f[side][s.active[side]];
+                float k = t / dur, e = 1 - (1 - k) * (1 - k) * (1 - k);
+                fillShown[side] = Mathf.Lerp(from * (float)f.maxHp, (float)f.hp, e);
+                HoldFill(side);
+                yield return null;
+            }
+            fillCo[side] = null;
+            p.plates[side].Apply(fillTo[side], side, d.Cfg);
+            if (nudgeCo[side] != null) StopCoroutine(nudgeCo[side]);
+            nudgeCo[side] = StartCoroutine(Nudge(p.plates[side].Rect, plateScale[side], 1.05f, 0.22f));
+        }
+
+        readonly Coroutine[] nudgeCo = new Coroutine[2];
+        Vector3[] plateScale; // cỡ gốc của hai bảng (lấy lúc vào trận)
+
+        // nảy cỡ quanh cỡ gốc s0 (không đụng góc xoay của bảng)
+        static IEnumerator Nudge(RectTransform rt, Vector3 s0, float peak, float len)
+        {
+            if (!rt) yield break;
+            for (float t = 0; t < len; t += Time.unscaledDeltaTime)
+            {
+                if (!rt) yield break;
+                float k = t / len, s = k < 0.4f ? Mathf.Lerp(1, peak, k / 0.4f) : Mathf.Lerp(peak, 1, Mathf.SmoothStep(0, 1, (k - 0.4f) / 0.6f));
+                rt.localScale = s0 * s;
+                yield return null;
+            }
+            if (rt) rt.localScale = s0;
+        }
+
         // ---------- thanh trên ----------
 
-        public void SetRound(int r) => p.roundLbl.text = $"Hiệp {r}";
+        public void SetRound(int r)
+        {
+            p.roundLbl.text = $"Hiệp {r}";
+            Bump(p.roundLbl.rectTransform, 2);
+        }
 
         public void SetTurn(int side)
         {
             p.turnLbl.text = side == 0 ? "Lượt bạn" : "Lượt địch";
             p.turnChip.color = side == 0 ? Theme.Green : Theme.Red;
+            Bump(p.turnChip.rectTransform, 3); // đổi lượt: nhãn nảy một cái (trước chỉ đổi chữ, dễ lỡ)
+        }
+
+        // nảy cỡ một mục của thanh trên (lấy cỡ gốc lần đầu, không cộng dồn khi nảy liền nhau)
+        readonly Coroutine[] bumpCo = new Coroutine[4];
+        readonly Vector3[] bumpBase = new Vector3[4];
+
+        void Bump(RectTransform rt, int slot)
+        {
+            if (!rt || !isActiveAndEnabled) return;
+            if (bumpCo[slot] != null) StopCoroutine(bumpCo[slot]);
+            else bumpBase[slot] = rt.localScale;
+            bumpCo[slot] = StartCoroutine(BumpRun(rt, slot));
+        }
+
+        IEnumerator BumpRun(RectTransform rt, int slot)
+        {
+            yield return Nudge(rt, bumpBase[slot], 1.14f, 0.24f);
+            bumpCo[slot] = null;
         }
 
         public void SetAuto(bool on)
@@ -200,7 +330,7 @@ namespace PokiClash
             var ult = t.ult != null ? d.Card(t.ult.card) : null;
             var fin = p.finTile;
             fin.gameObject.SetActive(true);
-            fin.Bind(Icon(ult != null ? ult.icon : t.stunned ? "bolt" : "fist"), ult != null ? ult.name : t.stunned ? "Choáng" : "Đánh thường",
+            fin.Bind(Icon(ult != null ? ult.icon : t.stunned ? "bolt" : "fist"), ult != null ? ult.name : t.stunned ? CardText.StatusLabel(StatusId.Stun) : "Đánh thường",
                 Theme.Paper3, ult != null ? Theme.Hex("#ffd3e6") : Theme.Hex("#ffe3d8"), false, 128);
             fin.transform.SetAsLastSibling();
             if (execIdx >= t.queue.Count) Now(fin);

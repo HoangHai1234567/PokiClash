@@ -114,10 +114,15 @@ namespace PokiClash.Core
         static readonly Dictionary<string, Stat> StatOf = new Dictionary<string, Stat>
         {
             ["atk"] = Stat.Atk, ["def"] = Stat.Def, ["crit"] = Stat.Crit, ["lifesteal"] = Stat.Lifesteal, ["dodge"] = Stat.Dodge, ["dmgTaken"] = Stat.DmgTaken,
+            ["thorns"] = Stat.Thorns, ["healTaken"] = Stat.HealTaken,
         };
         static readonly Dictionary<string, StatusId> StatusOf = new Dictionary<string, StatusId>
         {
-            ["burn"] = StatusId.Burn, ["stun"] = StatusId.Stun, ["regen"] = StatusId.Regen, ["evade"] = StatusId.Evade,
+            ["burn"] = StatusId.Burn, ["stun"] = StatusId.Stun, ["regen"] = StatusId.Regen, ["evade"] = StatusId.Evade, ["poison"] = StatusId.Poison,
+        };
+        static readonly Dictionary<string, CardGroup> GroupOf = new Dictionary<string, CardGroup>
+        {
+            ["atk"] = CardGroup.Atk, ["def"] = CardGroup.Def, ["heal"] = CardGroup.Heal,
         };
         static readonly Dictionary<string, EffectKind> EffectOf = new Dictionary<string, EffectKind>
         {
@@ -125,7 +130,8 @@ namespace PokiClash.Core
             ["mana"] = EffectKind.Mana, ["rage"] = EffectKind.Rage, ["dmg"] = EffectKind.Dmg, ["shield"] = EffectKind.Shield,
             ["status"] = EffectKind.Status, ["cleanse"] = EffectKind.Cleanse, ["double"] = EffectKind.Double, ["extra"] = EffectKind.Extra,
             ["trueStrike"] = EffectKind.TrueStrike, ["ifLow"] = EffectKind.IfLow, ["revive"] = EffectKind.Revive,
-            ["evolve"] = EffectKind.Evolve,
+            ["evolve"] = EffectKind.Evolve, ["execute"] = EffectKind.Execute, ["combo"] = EffectKind.Combo, ["resonance"] = EffectKind.Resonance,
+            ["ifBeat"] = EffectKind.IfBeat, ["empower"] = EffectKind.Empower, ["detonate"] = EffectKind.Detonate, ["bash"] = EffectKind.Bash,
         };
         static readonly Dictionary<string, CardKind> KindOf = new Dictionary<string, CardKind>
         {
@@ -163,6 +169,7 @@ namespace PokiClash.Core
         public static Stat ToStat(string s) => Of(StatOf, s, "chỉ số");
         public static StatusId ToStatus(string s) => Of(StatusOf, s, "trạng thái");
         public static EffectKind ToEffect(string s) => Of(EffectOf, s, "hiệu ứng");
+        public static CardGroup ToGroup(string s) => Of(GroupOf, s, "nhóm thẻ");
         public static CardKind ToKind(string s) => Of(KindOf, s, "loại thẻ");
         public static PassiveTrigger ToTrigger(string s) => s == null ? PassiveTrigger.None : Of(TriggerOf, s, "kích hoạt");
         public static StageKind ToStageKind(string s) => Of(StageKindOf, s, "loại ải");

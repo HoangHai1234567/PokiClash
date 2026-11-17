@@ -1,6 +1,8 @@
-// Hộp tiềm năng của một tướng (prefab Assets/04 Prefabs/Dialogs/TiemNang): tiêu đề, chip đá, 4 dòng (số ô, dòng tiềm năng,
-// độ hiếm, nút khoá "khoa_i" hoặc ổ khoá khi ô chưa mở), tổng, nút "khai_pha", ghi chú giá. Khai phá xong mở hộp so sánh
-// (Dialogs/TiemNangSoSanh). Mọi phần có sẵn trong prefab, Render bật tắt và gán chữ, màu.
+// Hộp tiềm năng của một tướng (prefab Assets/04 Prefabs/Dialogs/TiemNang): tiêu đề, chip đá, chip đá tinh, các dòng ô (số ô, dòng tiềm
+// năng, độ hiếm, nút khoá "khoa_i" hoặc ổ khoá khi ô chưa mở), tổng, dòng bộ, nút "khai_pha" và "khai_pha_tinh" (đá tinh: mọi ô từ Hiếm),
+// ghi chú giá. Khai phá xong mở hộp so sánh (Dialogs/TiemNangSoSanh). Mọi phần có sẵn trong prefab, Render bật tắt và gán chữ, màu.
+// 2026-11-17: 6 ô, đá tinh, bộ. Ô 5, 6, chip đá tinh, nút đá tinh, dòng bộ do menu "PokiClash/Prefab/Tiềm năng: 6 ô, bộ, đá tinh"
+// (Editor/SideMetaUiMenu.cs) dựng; prefab chưa dựng lại thì hộp chạy với số ô có sẵn và ẩn phần mới.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,9 +32,12 @@ namespace PokiClash
         [SerializeField] TextMeshProUGUI totals, note;
         [SerializeField] SketchButton spin;
         [SerializeField] PotentialCompareDialog comparePrefab;
+        // 2026-11-17 (menu SideMetaUiMenu dựng; có thể trống)
+        [SerializeField] TextMeshProUGUI crystals, sets;
+        [SerializeField] SketchButton spinCrystal;
 
         string id;
-        readonly List<bool> locks = new List<bool> { false, false, false, false };
+        readonly List<bool> locks = Enumerable.Repeat(false, Potential.Slots).ToList();
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(TextMeshProUGUI titleText, TextMeshProUGUI stonesText, Row[] slotRows, TextMeshProUGUI totalsText, TextMeshProUGUI noteText,
@@ -56,7 +61,8 @@ namespace PokiClash
                 int k = i;
                 rows[i].lockButton.SetOnClick(() => ToggleLock(k));
             }
-            spin.SetOnClick(Spin);
+            spin.SetOnClick(() => Spin(false));
+            if (spinCrystal) spinCrystal.SetOnClick(() => Spin(true));
             Render();
             if (App.Save.Data.Hero(id).potentialNew != null) Compare();
         }
@@ -72,13 +78,16 @@ namespace PokiClash
 
             title.text = $"Tiềm năng · {hero.name}";
             stones.text = s.potentialStones.ToString();
+            if (crystals) crystals.text = s.potentialCrystals.ToString();
             for (int i = 0; i < rows.Length; i++)
             {
                 var r = rows[i];
-                var x = p.potential[i];
+                var x = Potential.LineAt(p.potential, i);
                 bool on = i < open;
                 r.bg.color = on && x != null ? Color.Lerp(PotentialPanel.RarityColor(x.r), Color.white, 0.7f) : on ? Color.white : Theme.Paper2;
-                r.text.text = !on ? $"Mở ở {cfg.potential.slotStar[i]} sao" : x == null ? "Trống: khai phá để có dòng" : PotentialPanel.LineText(cfg, x);
+                string set = x != null ? PotentialPanel.SetOf(cfg, x.k) : "";
+                r.text.text = !on ? Potential.SlotNeed(cfg, i) : x == null ? "Trống: khai phá để có dòng"
+                    : PotentialPanel.LineText(cfg, x) + (set.Length > 0 ? $" <size=70%><color=#7a6f62>· {set}</color></size>" : "");
                 r.text.color = on ? Theme.Ink : Theme.Ink3;
                 bool line = on && x != null;
                 r.rarity.gameObject.SetActive(line);
@@ -92,12 +101,23 @@ namespace PokiClash
             }
 
             totals.text = "Tổng: " + PotentialPanel.TotalsText(cfg, p.potential);
+            if (sets) sets.text = PotentialPanel.SetsText(cfg, p.potential);
             int cost = Potential.SpinCost(s, cfg, id, locks);
             int lk = Potential.LockCount(s, cfg, id, locks);
             bool canSpin = open - lk > 0 && s.potentialStones >= cost;
             spin.SetText(canSpin ? $"Khai phá ({cost} đá)" : open - lk <= 0 ? "Không còn ô để quay" : $"Cần {cost} đá");
             spin.Interactable = canSpin;
-            note.text = $"Mỗi ô quay {1} đá, mỗi ô khoá thêm {cfg.potential.lockCost} đá, khoá tối đa {cfg.potential.maxLocks} ô. Đá có từ rương bạc, rương vàng của máy bi, rương AFK và Hang Tiềm Năng.";
+            if (spinCrystal)
+            {
+                int cc = Potential.SpinCost(s, cfg, id, locks, true);
+                bool canC = open - lk > 0 && s.potentialCrystals >= Potential.CrystalCost && s.potentialStones >= cc;
+                spinCrystal.gameObject.SetActive(s.potentialCrystals > 0 || canC);
+                spinCrystal.SetText(cc > 0 ? $"Đá tinh (1 + {cc} đá)" : "Đá tinh (1)");
+                spinCrystal.Interactable = canC;
+            }
+            note.text = $"Mỗi ô quay 1 đá, mỗi ô khoá thêm {cfg.potential.lockCost} đá, khoá tối đa {cfg.potential.maxLocks} ô. " +
+                        "Đá tinh: 1 đá tinh thay đá của các ô quay, mọi ô ra từ Hiếm trở lên. " +
+                        "Đá có từ rương máy bi, rương AFK, Hang Tiềm Năng; đá tinh từ Hang, Đền Huy Hiệu.";
         }
 
         void ToggleLock(int k)
@@ -105,7 +125,7 @@ namespace PokiClash
             var cfg = App.Data.Cfg;
             var p = App.Save.Data.Hero(id);
             int open = Potential.OpenSlots(cfg, p.star);
-            if (!locks[k] && locks.Where((l, j) => l && p.potential[j] != null && j < open).Count() >= cfg.potential.maxLocks)
+            if (!locks[k] && locks.Where((l, j) => l && Potential.LineAt(p.potential, j) != null && j < open).Count() >= cfg.potential.maxLocks)
             {
                 App.Toasts.Show($"Khoá tối đa {cfg.potential.maxLocks} ô", PotentialPanel.Icon("lock"));
                 return;
@@ -114,10 +134,10 @@ namespace PokiClash
             Render();
         }
 
-        void Spin()
+        void Spin(bool crystal)
         {
             var s = App.Save.Data;
-            var res = Potential.Spin(s, App.Data.Cfg, id, locks, new Rng(Rng.RandomSeed()));
+            var res = Potential.Spin(s, App.Data.Cfg, id, locks, new Rng(Rng.RandomSeed()), crystal);
             if (res == null) return;
             App.Save.Save();
             App.Audio.Play("chest");

@@ -452,6 +452,36 @@
       1,
       false,
       0
+     ],
+     [
+      "hai_long",
+      1,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      1,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      1,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      1,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      1,
+      false,
+      0
      ]
     ]
    },
@@ -551,9 +581,18 @@
    "early": true,
    "r": [
     [
-     "exp",
-     33,
-     0
+     "card",
+     "tien_la",
+     "passive",
+     "tien_la_pas",
+     "common"
+    ],
+    [
+     "card",
+     "tien_la",
+     "passive",
+     "tien_la_pas",
+     "common"
     ]
    ],
    "afk": {
@@ -567,7 +606,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -590,7 +629,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -613,7 +652,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -636,7 +675,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -659,7 +698,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -682,7 +721,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -705,7 +744,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -728,7 +767,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -751,7 +790,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -774,7 +813,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -797,7 +836,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700072000000
   },
@@ -816,7 +855,7 @@
    },
    "times": [],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700043200000
   },
@@ -850,7 +889,7 @@
     }
    ],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700043200000
   },
@@ -861,7 +900,32 @@
    "r": {
     "hours": 11.5,
     "stage": 70,
-    "shards": []
+    "shards": [
+     [
+      "hai_long",
+      2,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      2,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      2,
+      false,
+      0
+     ],
+     [
+      "hai_long",
+      2,
+      false,
+      0
+     ]
+    ]
    },
    "afk": {
     "hours": 0,
@@ -886,7 +950,7 @@
     }
    ],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700066600000
   },
@@ -918,7 +982,7 @@
     }
    ],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700066600000
   },
@@ -954,7 +1018,7 @@
     }
    ],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700066600000
   },
@@ -998,7 +1062,7 @@
     }
    ],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700066600000
   },
@@ -1042,7 +1106,7 @@
     }
    ],
    "balls": 15,
-   "exp": 88,
+   "exp": 55,
    "level": 2,
    "afkSince": 1700066600000
   },
@@ -1052,9 +1116,11 @@
    "early": false,
    "r": [
     [
-     "exp",
-     58,
-     1
+     "card",
+     "tien_la",
+     "ult",
+     "tien_la_ult",
+     "uncommon"
     ]
    ],
    "afk": {
@@ -1090,8 +1156,8 @@
     }
    ],
    "balls": 15,
-   "exp": 56,
-   "level": 3,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700066600000
   },
   {
@@ -1100,9 +1166,8 @@
    "early": false,
    "r": [
     [
-     "exp",
-     53,
-     0
+     "balls",
+     7
     ]
    ],
    "afk": {
@@ -1132,9 +1197,9 @@
      "ready": 1700151200000
     }
    ],
-   "balls": 15,
-   "exp": 109,
-   "level": 3,
+   "balls": 22,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700066600000
   },
   {
@@ -1143,8 +1208,11 @@
    "early": false,
    "r": [
     [
-     "balls",
-     8
+     "card",
+     "tien_la",
+     "skill",
+     "tien_la_skill",
+     "common"
     ]
    ],
    "afk": {
@@ -1169,9 +1237,9 @@
      "ready": 1700151200000
     }
    ],
-   "balls": 23,
-   "exp": 109,
-   "level": 3,
+   "balls": 22,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700066600000
   },
   {
@@ -1180,18 +1248,8 @@
    "early": false,
    "r": [
     [
-     "card",
-     "tien_la",
-     "ult",
-     "tien_la_ult",
-     "uncommon"
-    ],
-    [
-     "card",
-     "tien_la",
-     "skill",
-     "tien_la_skill",
-     "common"
+     "balls",
+     7
     ]
    ],
    "afk": {
@@ -1211,9 +1269,9 @@
      "ready": 1700151200000
     }
    ],
-   "balls": 23,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700066600000
   },
   {
@@ -1222,8 +1280,11 @@
    "early": false,
    "r": [
     [
-     "balls",
-     7
+     "card",
+     "vo_su",
+     "ult",
+     "vs_ult",
+     "rare"
     ]
    ],
    "afk": {
@@ -1236,9 +1297,9 @@
     "stage": 0
    },
    "times": [],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700066600000
   },
   {
@@ -1249,6 +1310,24 @@
     "hours": 12,
     "stage": 140,
     "shards": [
+     [
+      "lan_hoa",
+      1,
+      false,
+      0
+     ],
+     [
+      "lan_hoa",
+      1,
+      false,
+      0
+     ],
+     [
+      "lan_hoa",
+      1,
+      false,
+      0
+     ],
      [
       "lan_hoa",
       1,
@@ -1267,9 +1346,9 @@
     "stage": 0
    },
    "times": [],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700162000000
   },
   {
@@ -1279,7 +1358,26 @@
    "r": {
     "hours": 5,
     "stage": 140,
-    "shards": []
+    "shards": [
+     [
+      "lan_hoa",
+      1,
+      false,
+      0
+     ],
+     [
+      "lan_hoa",
+      1,
+      false,
+      0
+     ],
+     [
+      "lan_hoa",
+      1,
+      false,
+      0
+     ]
+    ]
    },
    "afk": {
     "hours": 0.5,
@@ -1298,9 +1396,9 @@
      "ready": 1700180000000
     }
    ],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700162000000
   },
   {
@@ -1342,9 +1440,9 @@
      "ready": 1700212400000
     }
    ],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700162000000
   },
   {
@@ -1355,6 +1453,30 @@
     "hours": 12,
     "stage": 15,
     "shards": [
+     [
+      "ha_ba",
+      1,
+      false,
+      0
+     ],
+     [
+      "ha_ba",
+      1,
+      false,
+      0
+     ],
+     [
+      "ha_ba",
+      1,
+      false,
+      0
+     ],
+     [
+      "ha_ba",
+      1,
+      false,
+      0
+     ],
      [
       "ha_ba",
       1,
@@ -1395,9 +1517,9 @@
      "ready": 1700212400000
     }
    ],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700223200000
   },
   {
@@ -1437,9 +1559,9 @@
      "ready": 1700212400000
     }
    ],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700223200000
   },
   {
@@ -1450,6 +1572,12 @@
     "hours": 8,
     "stage": 15,
     "shards": [
+     [
+      "ha_ba",
+      1,
+      false,
+      0
+     ],
      [
       "ha_ba",
       1,
@@ -1490,9 +1618,9 @@
      "ready": 1700212400000
     }
    ],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700223200000
   },
   {
@@ -1503,18 +1631,6 @@
     "hours": 10,
     "stage": 72,
     "shards": [
-     [
-      "su_tu_lua",
-      1,
-      false,
-      0
-     ],
-     [
-      "su_tu_lua",
-      1,
-      false,
-      0
-     ],
      [
       "su_tu_lua",
       1,
@@ -1555,9 +1671,9 @@
      "ready": 1700212400000
     }
    ],
-   "balls": 30,
-   "exp": 109,
-   "level": 3,
+   "balls": 29,
+   "exp": 55,
+   "level": 2,
    "afkSince": 1700288000000
   }
  ]

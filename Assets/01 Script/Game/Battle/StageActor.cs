@@ -14,6 +14,9 @@ namespace PokiClash
         [SerializeField] Image bodyImg, emblem, flash;
         [SerializeField] RectTransform status;
         [SerializeField] RectTransform stun, burn, regen, evade; // nhóm dấu của từng trạng thái, tắt khi không có
+        // độc (2026-11-17): bọt độc xanh, dựng bằng menu "PokiClash/Prefab/Sàn đấu: dấu trạng thái độc" (StatusPoisonMenu); chưa dựng thì
+        // null: sân bỏ qua dấu này (bảng vẫn có chip "Độc")
+        [SerializeField] RectTransform poison;
 
         public RectTransform Rect => (RectTransform)transform;
         public Image Shadow => shadow;
@@ -39,8 +42,13 @@ namespace PokiClash
             evade = evadeRt;
         }
 
+        // Dùng khi dựng dấu độc (Editor).
+        public void SetPoison(RectTransform rt) => poison = rt;
+
+        // nhóm dấu của trạng thái (null: prefab chưa có nhóm này)
         public RectTransform Group(StatusId id) =>
-            id == StatusId.Stun ? stun : id == StatusId.Burn ? burn : id == StatusId.Regen ? regen : evade;
+            id == StatusId.Stun ? stun : id == StatusId.Burn ? burn : id == StatusId.Regen ? regen : id == StatusId.Poison ? poison :
+            id == StatusId.Evade ? evade : null;
 
         public void HideStatuses()
         {
@@ -48,6 +56,7 @@ namespace PokiClash
             burn.gameObject.SetActive(false);
             regen.gameObject.SetActive(false);
             evade.gameObject.SetActive(false);
+            if (poison) poison.gameObject.SetActive(false);
         }
     }
 }

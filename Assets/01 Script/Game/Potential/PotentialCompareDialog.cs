@@ -1,5 +1,6 @@
-// Hộp kết quả khai phá, bắt buộc chọn (prefab Assets/04 Prefabs/Dialogs/TiemNangSoSanh): cột Cũ / Mới, 4 dòng ô (dòng của ô
-// chưa mở ẩn), mũi tên "»" khi đổi hoặc "=" khi giữ nguyên, tổng hai bên, nút "giu_cu" / "giu_moi".
+// Hộp kết quả khai phá, bắt buộc chọn (prefab Assets/04 Prefabs/Dialogs/TiemNangSoSanh): cột Cũ / Mới, các dòng ô (dòng của ô
+// chưa mở ẩn), mũi tên "»" khi đổi hoặc "=" khi giữ nguyên, tổng hai bên (gồm bộ), nút "giu_cu" / "giu_moi".
+// 2026-11-17: 6 ô (dòng 5, 6 do menu "PokiClash/Prefab/Tiềm năng: 6 ô, bộ, đá tinh" dựng; prefab cũ 4 dòng vẫn chạy).
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -45,8 +46,8 @@ namespace PokiClash
                 bool shown = i < open;
                 rows[i].root.SetActive(shown);
                 if (!shown) continue;
-                var o = p.potential[i];
-                var n = p.potentialNew[i];
+                var o = Potential.LineAt(p.potential, i);
+                var n = Potential.LineAt(p.potentialNew, i);
                 bool same = o != null && n != null && o.k == n.k && o.r == n.r;
                 Cell(rows[i].oldBg, rows[i].oldText, o, cfg, false);
                 Cell(rows[i].newBg, rows[i].newText, n, cfg, !same);

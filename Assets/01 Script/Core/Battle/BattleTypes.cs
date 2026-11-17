@@ -5,7 +5,8 @@ using System.Collections.Generic;
 namespace PokiClash.Core
 {
     public enum Phase { Idle, Picking, Ready, ForceSwap, Over }
-    public enum DmgKind { Attack, Extra, Skill, Ult, Card, Burn, Self }
+    // Poison: độc mỗi lượt và kích nổ độc; Thorns: phản đòn (2026-11-17, thêm cuối)
+    public enum DmgKind { Attack, Extra, Skill, Ult, Card, Burn, Self, Poison, Thorns }
     public enum InnateKind { Skill, Ult }
 
     public enum EvType
@@ -26,7 +27,8 @@ namespace PokiClash.Core
     {
         public StatusId id;
         public int left;
-        public double v;
+        public double v; // bỏng, hồi: phần máu tối đa mỗi lượt; độc: tổng số máu mất mỗi lượt của mọi lớp (định lúc tẩm)
+        public int stacks; // độc: số lớp (1..CardText.PoisonMax)
     }
 
     public sealed class Fighter
@@ -66,6 +68,7 @@ namespace PokiClash.Core
         public List<Fighter> fighters = new List<Fighter>();
         public int active;
         public bool needSwap;
+        public StatusInst spread; // độc của tướng vừa gục, chờ lan sang tướng ra thay (null = không có)
     }
 
     public sealed class QueueItem
@@ -95,6 +98,7 @@ namespace PokiClash.Core
         public List<double> extra = new List<double>();
         public double trueStrike;
         public bool stunned;
+        public double empower; // cường hóa thẻ kế tiếp trong hàng (cộng dồn, dùng một lần)
     }
 
     // ảnh chụp số liệu một tướng sau mỗi sự kiện (màn trận chỉ vẽ theo ảnh chụp)
@@ -103,6 +107,7 @@ namespace PokiClash.Core
         public double hp, maxHp, shield, mana, rage;
         public bool dead;
         public List<(StatusId id, int left)> st = new List<(StatusId, int)>();
+        public List<int> stk = new List<int>(); // số lớp từng trạng thái, cùng thứ tự st (độc; trạng thái khác 0)
         public double atkB, defB;
     }
 
@@ -145,7 +150,7 @@ namespace PokiClash.Core
             "rage", "buff", "status", "resist", "cleanse", "double", "stunned", "swap", "death", "revive", "end", "evolve",
         };
 
-        public static readonly string[] DmgKindKeys = { "attack", "extra", "skill", "ult", "card", "burn", "self" };
+        public static readonly string[] DmgKindKeys = { "attack", "extra", "skill", "ult", "card", "burn", "self", "poison", "thorns" };
 
         public string TypeKey => TypeKeys[(int)t];
 
@@ -205,7 +210,13 @@ namespace PokiClash.Core
                 foreach (var f in list)
                 {
                     var st = new List<object>();
-                    foreach (var x in f.st) st.Add(new List<object> { Keys.Of(x.id), (double)x.left });
+                    for (int i = 0; i < f.st.Count; i++)
+                    {
+                        var x = f.st[i];
+                        int k = i < f.stk.Count ? f.stk[i] : 0;
+                        // độc ghi thêm số lớp: ["poison", lượt, lớp]
+                        st.Add(k > 0 ? new List<object> { Keys.Of(x.id), (double)x.left, (double)k } : new List<object> { Keys.Of(x.id), (double)x.left });
+                    }
                     fs.Add(new Dictionary<string, object>
                     {
                         ["hp"] = f.hp, ["maxHp"] = f.maxHp, ["shield"] = f.shield, ["mana"] = f.mana, ["rage"] = f.rage, ["dead"] = f.dead,

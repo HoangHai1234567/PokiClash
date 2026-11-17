@@ -1,6 +1,8 @@
 // Chỉ số tướng, một nguồn cho trận và màn Tướng (chép heroStats của Web/src/core/battle.ts).
-//   m    = sức theo độ hiếm × (1 + lvStep)^(cấp − 1) × (1 + starStep·(sao − 1))
+//   m    = sức theo độ hiếm × (1 + lvStep)^(cấp − 1) × hệ số sao
 //          (thang cấp 1–200 từ 2026-11-04: mỗi cấp mạnh thêm lvStep, nhân dồn, để chênh 1 cấp ở cấp 150 nặng như ở cấp 5)
+//   hệ số sao (bậc sao 2026-11-17, StarTier) = tierPower[bậc] × (1 + starStep·(sao trong bậc − 1)): mỗi sao trong bậc cộng ít,
+//          tiến hóa sang bậc sau là cú nhảy rõ
 //   Máu  = hpBase  × √(máu gốc / tb) × m (× bossHp)
 //   Công = atkBase × √(max(công, công phép) / tb) × m (× bossAtk)
 //   Thủ  = defBase × √(tb(thủ, thủ phép) / tb) × m
@@ -24,9 +26,22 @@ namespace PokiClash.Core
 
     public static class HeroStats
     {
-        static readonly double[] RarityPower = { 1, 1.1, 1.22, 1.36, 1.5 };
+        // sức theo độ hiếm (Thường, Khá, Hiếm, Sử thi, Huyền thoại). 2026-11-17 (người dùng: boss cuối đảo phải cách xa tướng thứ 9):
+        // giãn từ 1; 1,1; 1,22; 1,36; 1,5 để Huyền thoại hơn Sử thi cùng cấp, cùng sao khoảng 30% lực chiến, các bậc dưới cách đều
+        // khoảng 12%. Địch đảo 70 ải quy về Khá (Islands.EnemyMods) nên chỉ tướng của người chơi đổi sức.
+        static readonly double[] RarityPower = { 1, 1.1, 1.23, 1.38, 1.76 };
 
         public static double PowerOf(Rarity r) => RarityPower[(int)r];
+
+        // hệ số sao: bậc (Đồng, Bạc, Vàng, Kim Cương) nhân tierPower, mỗi sao trong bậc thêm starStep. Asset cũ chưa có tierPower
+        // (chưa chạy lại "Nhập dữ liệu") thì theo công thức cũ 1 + starStep·(sao − 1).
+        public static double StarMult(BalanceConfig cfg, int star)
+        {
+            var tp = cfg.tierPower;
+            if (tp == null || tp.Length < StarTier.Count) return 1 + cfg.starStep * (star - 1);
+            star = Math.Max(1, Math.Min(StarTier.MaxStar, star));
+            return tp[StarTier.Tier(star)] * (1 + cfg.starStep * (StarTier.InTier(star) - 1));
+        }
 
         // hệ số của cấp: (1 + lvStep)^(cấp − 1). Thủ của trận cũng so với defK × hệ số cấp của người đánh (Battle.Hit),
         // nên hai bên cùng cấp thì thủ giảm sát thương như nhau ở mọi cấp
@@ -36,7 +51,7 @@ namespace PokiClash.Core
         {
             double atkP = h.stats[0], defP = h.stats[1], matk = h.stats[2], mdef = h.stats[3], hpS = h.stats[4], spd = h.stats[5];
             double a = Math.Max(atkP, matk), d = (defP + mdef) / 2, mean = (a + d + hpS) / 3;
-            double m = RarityPower[(int)h.rarity] * LevelMult(cfg, level) * (1 + cfg.starStep * (star - 1));
+            double m = RarityPower[(int)h.rarity] * LevelMult(cfg, level) * StarMult(cfg, star);
             double hp = cfg.hpBase * Math.Sqrt(hpS / mean) * m * (boss ? cfg.bossHp : 1);
             double atk = cfg.atkBase * Math.Sqrt(a / mean) * m * (boss ? cfg.bossAtk : 1);
             double def = cfg.defBase * Math.Sqrt(d / mean) * m;

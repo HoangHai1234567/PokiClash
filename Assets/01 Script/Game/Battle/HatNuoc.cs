@@ -61,8 +61,8 @@ namespace PokiClash
             { "bo_ngua", new WTheme { w = WPal(C(110, 82, 56), C(150, 118, 84), C(206, 186, 160)), fx = new Theme { extra = "giap", extraCol = C(70, 72, 82) } } },
             // đảo Mộc, Lộc Phong (2026-11-12, suất bom_la; chiêu ở HatLoc.cs): lục bảo của pha lê và vân nhựa trên gạc (đậm, tươi, nhạt); sao vàng lá phong văng lúc trúng
             { "bom_la", new WTheme { w = WPal(C(30, 150, 110), C(64, 206, 150), C(184, 240, 212)), fx = new Theme { extra = "sao", extraCol = C(240, 172, 62) } } },
-            // đảo Mộc, Linh Điểu (2026-11-12, chim bảo hộ rừng, suất gio_loc; chiêu ở HatChim.cs): lục sẫm của gân lá, lục lá cánh, lục non; cánh hoa hồng của cành cánh văng lúc trúng
-            { "gio_loc", new WTheme { w = WPal(C(42, 106, 58), C(76, 154, 82), C(147, 198, 99)), fx = new Theme { extra = "canh_sen", extraCol = C(242, 166, 188) } } },
+            // đảo Mộc, Cổ Vương (2026-11-17, tượng vua cổ rễ quấn cầm cột, suất gio_loc thay Linh Điểu; chiêu ở HatCoVuong.cs): lục sẫm, lục lá, lục non của lá trên rễ; dăm đá xám lục văng lúc trúng
+            { "gio_loc", new WTheme { w = WPal(C(58, 104, 52), C(109, 190, 69), C(160, 216, 104)), fx = new Theme { extra = "giap", extraCol = C(120, 128, 110) } } },
             // đảo Mộc, Voọc Tướng (2026-11-12, voọc kiếm sĩ giáp lá, suất tho_hoang; chiêu ở HatKiem.cs): lục sẫm của mũ giáp, lục lá, lục non của lá cài mũ; sao vàng của đinh giáp và tua văng lúc trúng
             { "tho_hoang", new WTheme { w = WPal(C(34, 96, 52), C(84, 160, 70), C(176, 222, 120)), fx = new Theme { extra = "sao", extraCol = C(246, 196, 72) } } },
             // đảo Mộc, người cây đầm lầy (2026-11-12, suất long_vuot; dây gai và quả cầu dây leo là mảnh của rig): lục sẫm của dây gai, lục rêu thân, lục rêu vai; kem của gai văng lúc trúng
@@ -1356,10 +1356,11 @@ namespace PokiClash
                 case "n_dam_rung1": return NDamRung(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.7f); // dạng 1 (Tượng Mầm): bản nhẹ, không có rễ trồi
                 case "n_cau_mom": return NCauMom(casterFeet, casterH, foeFeet, foeBody, tH, lead);
                 case "n_cau_mom1": return NCauMom(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.10f, 1.02f); // Lộc Phong: tụ cầu to trước mõm, gật đầu nện vào đối thủ
-                case "n_mo_dam": return NMoDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu (HatChim.cs), đòn đánh thường: lao tới đâm mỏ
-                case "n_la_gam": return NLaGam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu: quạt cánh, lá cánh (mảnh của rig) găm vào đối thủ rồi rút về
-                case "n_thach_roi": return NThachRoi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu: gọi tảng đá phủ rêu rơi từ trời xuống đầu đối thủ
-                case "n_thach_roi1": return NThachRoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.78f); // dạng 1 (Điểu Nhi): tảng nhỏ hơn
+                case "n_tru_dap": return NTruDap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương (HatCoVuong.cs), đòn đánh thường dạng 2: lao tới đập cột xuống đầu đối thủ
+                case "n_vuong_huc": return NVuongHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương Nhi, đòn đánh thường dạng 1: lao húc chóp vương miện
+                case "n_re_troi": return HasGai ? NReTroi(casterFeet, casterH, foeFeet, foeBody, tH, lead) : NLa(mouth, foeBody, foeFeet, tH, lead); // Cổ Vương: cắm cột / nện tay, rễ trồi dọc đất tới đối thủ rồi quấn
+                case "n_tru_giang": return NTruGiang(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương: lá hút vào lõi, cột khổng lồ (mảnh của rig) giáng xuống đối thủ, rễ trồi
+                case "n_tru_giang1": return NTruGiang(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.6f); // Cổ Vương Nhi: cột nhỏ giáng xuống
                 case "n_giac_dam": return NGiacDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Giác Mộc (HatGiac.cs), đòn đánh thường: dậm chân, đất nứt chạy tới đối thủ
                 case "n_giac_tia": return NGiacTia(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // Giác Mộc: tụ cầu ở đỉnh sừng rồi cúi đầu bắn tia
                 case "n_giac_tim": return NGiacTim(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Giác Mộc: mở ngực, tim rực sáng bắn tia lớn
@@ -1433,6 +1434,48 @@ namespace PokiClash
                 case "n_phao_mua": return NPhaoMua(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Pháo Giáp: 5 quả lên trời, mỗi quả tách 3 tên lửa nhỏ homing lao xuống, nổ lớn
                 case "n_phao_cau1": return NPhaoCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Pháo Giáp Nhi: chiêu cuối gồng tụ cầu năng lượng ở họng pháo, bắn, giật điện (bản nhẹ)
                 case "n_phao_cau": return NPhaoCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Pháo Giáp: chiêu cuối gồng tụ cầu năng lượng rất lớn, bắn, nổ rất lớn, giật điện
+                case "n_vua_an1": return NVuaAn(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Nhật Hoàng Tử (HatVua.cs), đòn thường "Nhật Ấn": nện trượng, đường lửa dọc đất, ấn + cột năng lượng (bản nhẹ)
+                case "n_vua_an": return NVuaAn(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Nhật Vương, đòn thường "Nhật Ấn"
+                case "n_vua_tia1": return NVuaTia(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Nhật Hoàng Tử: chiêu mana, ba hành tinh xếp cột trên đầu đối thủ, tia Mặt Trời giáng xuống (bản nhẹ)
+                case "n_vua_tia": return NVuaTia(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Nhật Vương: chiêu mana "Tam Tinh Quang Pháo", nổ mặt trời lớn
+                case "n_vua_nhat1": return NVuaNhat(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Nhật Hoàng Tử: chiêu cuối nhật thực, ba thiên thạch (bản nhẹ)
+                case "n_vua_nhat": return NVuaNhat(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Nhật Vương: chiêu cuối "Nhật Thực Thiên Giáng": màn tối, ba thiên thạch nện, cú cuối rất lớn
+                case "n_giap_huc": return NGiapHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thạch Giáp (HatTho.cs), đòn thường: lao húc đầu, dăm đá
+                case "n_giap_soi": return NGiapSoi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thạch Giáp: lắc mai, ba viên sỏi (mảnh của rig) găm
+                case "n_giap_mua": return NGiapMua(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thạch Giáp: chiêu cuối pha lê vọt lên trời, mưa pha lê hổ phách
+                case "n_tich_dop": return NTichDop(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Tích (HatTho.cs), đòn thường: chồm đớp, vết cắn
+                case "n_tich_phien": return NTichPhien(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Tích: ba phiến áo choàng đất nung (mảnh của rig) găm
+                case "n_tich_loc": return NTichLoc(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Tích: chiêu cuối dậm đất, lốc cát trùm đối thủ
+                case "n_thiem_giang": return NThiemGiang(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tê Thiềm (HatTho.cs), đòn thường: chồm giáng sừng
+                case "n_thiem_phun": return NThiemPhun(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tê Thiềm: há hàm hút đá, phun tảng đá
+                case "n_thiem_lan": return NThiemLan(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tê Thiềm: chiêu cuối cuộn tròn lăn nện (rig khai lunge)
+                case "n_long_vuot": return NLongVuot(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Long (HatTho.cs), đòn thường: lao chém vuốt
+                case "n_long_luoi": return NLongLuoi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Long: ba lưỡi cát trăng khuyết
+                case "n_long_cot": return NLongCot(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Long: chiêu cuối nện đất, cột sa thạch trồi ba nhịp
+                case "n_vien_dam": return NVienDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sơn Viên (HatTho.cs), đòn thường: liên hoàn ba đấm
+                case "n_vien_chan": return NVienChan(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sơn Viên: nện đất, sóng chấn gai đá
+                case "n_vien_tang": return NVienTang(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sơn Viên: chiêu cuối tụ tảng đá khổng lồ, bốn tay ném
+                case "n_giap_huc2": return NGiapHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thạch Giáp dạng 2 (HatTho.cs): lao húc nặng
+                case "n_giap_soi2": return NGiapSoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thạch Giáp dạng 2: ba cụm pha lê của rig găm
+                case "n_giap_mua2": return NGiapMua(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thạch Giáp dạng 2: mưa pha lê dày, mảnh to
+                case "n_tich_dop2": return NTichDop(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Sa Tích dạng 2: chồm đớp nặng
+                case "n_tich_phien2": return NTichPhien(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Sa Tích dạng 2: năm phiến mũ trùm găm
+                case "n_tich_loc2": return NTichLoc(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Sa Tích dạng 2: đập đất hai lần, lốc cát lớn
+                case "n_thiem_dam2": return NThiemDam2(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tê Thiềm dạng 2: lao đâm mũi khối pha lê
+                case "n_thiem_phun2": return NThiemPhun(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Tê Thiềm dạng 2: ngả gầm, phun tảng đá lớn
+                case "n_thiem_bo2": return NThiemBo2(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tê Thiềm dạng 2: nhảy tới bổ khối pha lê, cột pha lê
+                case "n_long_vuot1": return NLongVuot(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.75f); // Sa Long dạng 1 (rồng non): vồ chém nhẹ
+                case "n_long_luoi1": return NLongLuoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Sa Long dạng 1: hai lưỡi cát nhỏ
+                case "n_long_cot1": return NLongCot1(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Long dạng 1: nện đất, hai cột sa thạch
+                case "n_trung_dop": return NTrungDop(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Trùng (HatTho.cs, rig sau_dat_1), đòn thường: đớp nghiền
+                case "n_trung_gai": return NTrungGai(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Trùng: giáng đầu xuống đất, ba gai đá đầu ngạnh trồi
+                case "n_trung_mieng": return NTrungMieng(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Sa Trùng: chiêu cuối lặn, chạy ngầm, trồi ngoạm
+                case "n_thach_vo": return NThachVo(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thiên Thạch Thú (HatThach.cs, suất cu_phu; phiên assets-3c)
+                case "n_thach_xoay": return NThachXoay(casterFeet, casterH, foeFeet, foeBody, tH, lead);
+                case "n_thach_cau": return NThachCau(casterFeet, casterH, foeFeet, foeBody, tH, lead);
+                case "n_bun_danh": return NBunDanh(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bùn Ngoạm (HatBun.cs, rig quai_bun_1), đòn thường: tay bùn co giãn đấm
+                case "n_bun_troi": return NBunTroi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bùn Ngoạm: cắm tay xuống bùn, nắm đấm bùn khổng lồ trồi
+                case "n_bun_ngoam": return NBunNgoam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bùn Ngoạm: chiêu cuối lao ngoạm, nuốt, gai đâm, nhổ
                 default: return NVa(foeBody, foeFeet, tH);
             }
         }

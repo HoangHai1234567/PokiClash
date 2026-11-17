@@ -268,17 +268,17 @@
       "id": "gio_loc",
       "dang": [
         {
-          "nguon": "ArtGen/Spine/inbox/chim_la_non/rig",
-          "atomik": "chim_la_non.atomik",
+          "nguon": "ArtGen/Spine/inbox/tuong_cot_non_1/rig",
+          "atomik": "tuong_cot_non_th.atomik",
           "dich": "gio_loc_1"
         },
         {
-          "nguon": "ArtGen/Spine/inbox/chim_la_1/rig",
-          "atomik": "chim_la_1.atomik",
+          "nguon": "ArtGen/Spine/inbox/tuong_cot_1/rig",
+          "atomik": "tuong_cot_1.atomik",
           "dich": "gio_loc_2"
         }
       ],
-      "ghi_chu": "2026-11-12: suất 6 đảo Mộc (ải 30) nay là dòng chim bảo hộ rừng (mã làm việc chim_la, người dùng lên ý tưởng, duyệt concept hai dạng và bảo \"ghép vào game\"; hình mình trên rig monster_3630, ArtGen/Spine/chim_la_rig.py). Id game giữ gio_loc; tên Linh Điểu / Điểu Nhi và tên thẻ do Claude đặt (quai/doi_linh_dieu.py), người dùng có thể đổi. Ba dạng cũ còn hai: Resources/gio_loc_3 xoá."
+      "ghi_chu": "2026-11-17: suất 6 đảo Mộc (ải 30) nay là dòng Cổ Vương, tượng vua cổ rễ quấn cầm cột đá (mã làm việc tuong_cot; người dùng lên ý tưởng, chọn concept, bảo Claude tự làm animation và đặt tên, rồi \"cho vào game\"), thay hẳn Linh Điểu (chim_la). Dạng 1 Cổ Vương Nhi trên rig monster_3273 (có clip evolve gộp bản nhẹ dạng 2), dạng 2 Cổ Vương trên rig monster_3608 (ArtGen/Spine/tuong_cot_rig.py, tuong_cot_non_rig.py). Id game giữ gio_loc; tên và tên thẻ do Claude đặt (quai/doi_co_vuong.py)."
     },
     {
       "id": "tho_hoang",

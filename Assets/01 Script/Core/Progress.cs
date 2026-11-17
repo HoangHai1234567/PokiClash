@@ -11,13 +11,14 @@ namespace PokiClash.Core
         public string hero;
         public int n;
         public bool unlocked;
-        public int converted; // mảnh của tướng đã có đổi thành bản sao thẻ
+        public int converted; // mảnh của tướng đã tối đa sao đổi thành bản sao thẻ (tướng chưa tối đa: mảnh dồn để lên sao, 0)
     }
 
     public sealed class StageReward
     {
         public int balls;
         public bool first;
+        public int evoStones; // đá tiến hóa của ải (đã cộng vào bản lưu)
         public List<ShardResult> shards = new List<ShardResult>();
     }
 
@@ -85,26 +86,92 @@ namespace PokiClash.Core
             return p.skill.lv + p.ult.lv + p.passive.lv;
         }
 
-        // điều kiện lên sao n: tổng cấp 3 thẻ và cấp người chơi
-        public static (int cards, int level) StarNeed(BalanceConfig cfg, int star) =>
-            (star < cfg.starCards.Length ? cfg.starCards[star] : int.MaxValue, star < cfg.starLevel.Length ? cfg.starLevel[star] : int.MaxValue);
+        // ---------- bậc sao (2026-11-17, kiểu Clash of Critters; StarTier, GD_Claude/20_TangDayNoiDung.md) ----------
+        // Sao tổng 1..20: Đồng, Bạc, Vàng, Kim Cương, mỗi bậc 5 sao. Lên sao trong bậc tốn mảnh của chính tướng (HeroProg.shards);
+        // đủ 5 sao của bậc thì tiến hóa sang 1 sao bậc sau, tốn đá tiến hóa (SaveData.evoStones) và cần cấp người chơi. Thẻ riêng lên
+        // cấp bằng bản sao, độc lập với sao.
+        // Nguồn đá: rương máy bi (dòng "evo": bạc ít, vàng nhiều), rương AFK (ít), rương mốc đảo (cfg.evoChest), lần đầu qua ải tướng /
+        // mini boss / boss và qua lại mini boss, boss tỉ lệ nhỏ (StageEvo), rương bậc Đền Huy Hiệu (Badges). Chừa chỗ: mỏ đá trong trang
+        // trại (chưa làm, GD_Claude/20_TangDayNoiDung.md) thì cộng thẳng vào SaveData.evoStones như các nguồn trên.
 
-        public static bool CanEvolve(SaveData s, BalanceConfig cfg, string hero)
+        public enum StarStep { Max, StarUp, Evolve }
+
+        // bước kế của tướng theo sao (không xét đã có tướng chưa): tối đa, lên sao (mảnh) hay tiến hóa (đá)
+        public static StarStep NextStep(SaveData s, GameData d, string hero)
         {
-            var p = s.Hero(hero);
-            if (!p.owned || p.star >= cfg.maxStar) return false;
-            var need = StarNeed(cfg, p.star + 1);
-            return CardSum(s, hero) >= need.cards && s.level >= need.level;
+            int star = s.Hero(hero).star;
+            if (star >= StarTier.MaxStar) return StarStep.Max;
+            return StarTier.AtEvolveGate(star) ? StarStep.Evolve : StarStep.StarUp;
         }
 
-        public static bool Evolve(SaveData s, BalanceConfig cfg, string hero)
+        // mảnh để lên sao toStar trong bậc (2..5★ của bậc): giá tướng Khá (cfg.shardCost, 4 số mỗi bậc) nhân hệ số độ hiếm.
+        // Sao 1 của bậc lên bằng tiến hóa (đá), không tốn mảnh: trả 0.
+        public static int ShardCost(BalanceConfig cfg, HeroDef h, int toStar)
         {
-            if (!CanEvolve(s, cfg, hero)) return false;
+            int k = StarTier.InTier(toStar);
+            if (toStar < 2 || toStar > StarTier.MaxStar || k < 2) return 0;
+            int i = StarTier.Tier(toStar) * (StarTier.PerTier - 1) + k - 2;
+            if (i >= cfg.shardCost.Length) return int.MaxValue;
+            double r = (int)h.rarity < cfg.shardRarity.Length ? cfg.shardRarity[(int)h.rarity] : 1;
+            return Math.Max(1, Js.RoundInt(cfg.shardCost[i] * r));
+        }
+
+        public static bool CanStarUp(SaveData s, GameData d, string hero)
+        {
+            var p = s.Hero(hero);
+            if (p == null || !p.owned || NextStep(s, d, hero) != StarStep.StarUp) return false;
+            return p.shards >= ShardCost(d.Cfg, d.Hero(hero), p.star + 1);
+        }
+
+        public static bool StarUp(SaveData s, GameData d, string hero)
+        {
+            if (!CanStarUp(s, d, hero)) return false;
+            var p = s.Hero(hero);
+            p.shards -= ShardCost(d.Cfg, d.Hero(hero), p.star + 1);
+            p.star++;
+            return true;
+        }
+
+        // giá tiến hóa lên bậc toTier (1 Bạc, 2 Vàng, 3 Kim Cương): đá (nhân hệ số độ hiếm nếu có) và cấp người chơi tối thiểu
+        public static (int stones, int level) EvolveCost(BalanceConfig cfg, HeroDef h, int toTier)
+        {
+            int i = toTier - 1;
+            if (i < 0 || i >= StarTier.Count - 1 || i >= cfg.evoStones.Length) return (int.MaxValue, int.MaxValue);
+            double r = (int)h.rarity < cfg.evoRarity.Length ? cfg.evoRarity[(int)h.rarity] : 1;
+            return (Math.Max(1, Js.RoundInt(cfg.evoStones[i] * r)), i < cfg.evoLevel.Length ? cfg.evoLevel[i] : int.MaxValue);
+        }
+
+        // giá của lần tiến hóa kế (tướng đang ở 5★ của bậc)
+        public static (int stones, int level) EvolveCost(SaveData s, GameData d, string hero) =>
+            EvolveCost(d.Cfg, d.Hero(hero), StarTier.Tier(s.Hero(hero).star) + 1);
+
+        public static bool CanEvolve(SaveData s, GameData d, string hero)
+        {
+            var p = s.Hero(hero);
+            if (p == null || !p.owned || NextStep(s, d, hero) != StarStep.Evolve) return false;
+            var c = EvolveCost(s, d, hero);
+            return s.evoStones >= c.stones && s.level >= c.level;
+        }
+
+        public static bool Evolve(SaveData s, GameData d, string hero)
+        {
+            if (!CanEvolve(s, d, hero)) return false;
+            s.evoStones -= EvolveCost(s, d, hero).stones;
             s.Hero(hero).star++;
             return true;
         }
 
-        // số việc đang chờ ở mục Tướng (nâng thẻ, tiến hóa): chấm đỏ và số trên nút Tướng
+        // mảnh đang gom để hiện "có/cần": chưa có tướng thì cần đủ mảnh mở khoá; có rồi thì mảnh lên sao kế; đang ở mốc tiến hóa hoặc
+        // tối đa thì need = 0 (mảnh để dành cho bậc sau)
+        public static (int have, int need) ShardGoal(SaveData s, GameData d, string hero)
+        {
+            var p = s.Hero(hero);
+            var h = d.Hero(hero);
+            if (!p.owned) return (p.shards, h.shards);
+            return (p.shards, NextStep(s, d, hero) == StarStep.StarUp ? ShardCost(d.Cfg, h, p.star + 1) : 0);
+        }
+
+        // số việc đang chờ ở mục Tướng (nâng thẻ; lên sao hoặc tiến hóa được): chấm đỏ và số trên nút Tướng
         public static int HeroAlerts(SaveData s, GameData d, string onlyHero = null)
         {
             int n = 0;
@@ -112,7 +179,7 @@ namespace PokiClash.Core
             {
                 if (onlyHero != null && h.id != onlyHero) continue;
                 if (!s.Hero(h.id).owned) continue;
-                if (CanEvolve(s, d.Cfg, h.id)) n++;
+                if (CanStarUp(s, d, h.id) || CanEvolve(s, d, h.id)) n++;
                 foreach (var k in Slots)
                     if (CanUpCard(s, d.Cfg, h.id, k)) n++;
             }
@@ -153,27 +220,35 @@ namespace PokiClash.Core
 
         public static void GiveCard(SaveData s, CardDrop drop) => s.Hero(drop.hero).Card(drop.slot).copies++;
 
+        // nhận tướng không qua mảnh (mốc Huyền thoại máy bi): mảnh đang gom giữ lại làm mảnh lên sao (2026-11-17; trước đây về 0)
         public static void UnlockHero(SaveData s, string hero)
         {
             var p = s.Hero(hero);
             p.owned = true;
-            p.shards = 0;
         }
 
         // ---------- mảnh tướng ----------
 
+        // Mảnh của tướng chưa có: gom đủ HeroDef.shards thì mở khoá, phần dư giữ làm mảnh lên sao. Tướng đã có: dồn vào HeroProg.shards
+        // để lên sao (2026-11-17; trước đây đổi thành bản sao thẻ); riêng tướng đã tối đa sao thì mỗi mảnh vẫn đổi thành một bản sao thẻ.
         public static ShardResult AddShards(SaveData s, GameData d, string hero, int n, Rng rng)
         {
             var p = s.Hero(hero);
             if (p.owned)
             {
+                if (p.star < StarTier.MaxStar)
+                {
+                    p.shards += n;
+                    return new ShardResult { hero = hero, n = n };
+                }
                 for (int i = 0; i < n; i++) p.Card(rng.Pick(Slots)).copies++;
                 return new ShardResult { hero = hero, n = n, unlocked = false, converted = n };
             }
             p.shards += n;
-            if (p.shards >= d.Hero(hero).shards)
+            int need = d.Hero(hero).shards;
+            if (p.shards >= need)
             {
-                p.shards = 0;
+                p.shards -= need;
                 p.owned = true;
                 return new ShardResult { hero = hero, n = n, unlocked = true };
             }
@@ -262,6 +337,7 @@ namespace PokiClash.Core
             public int n; // chỉ số rương trong Islands.Chests(zone)
             public int balls;
             public List<CardDrop> cards = new List<CardDrop>();
+            public int evoStones; // đá tiến hóa trong rương (đã cộng vào bản lưu)
             public bool big;
         }
 
@@ -293,6 +369,10 @@ namespace PokiClash.Core
             };
             int nCards = N == 2 ? (n == 0 ? 2 : 4) : big ? 4 : n < 3 ? 1 : 2;
             s.balls += r.balls;
+            // đá tiến hóa theo thứ tự rương (cfg.evoChest; đảo 8 ải: rương 1 như rương giữa, rương 2 như rương chinh phục)
+            var ec = d.Cfg.evoChest;
+            if (ec.Length > 0) r.evoStones = ec[Math.Min(ec.Length - 1, N == 2 ? (n == 0 ? ec.Length / 2 : ec.Length - 1) : big ? ec.Length - 1 : n)];
+            s.evoStones += r.evoStones;
             for (int i = 0; i < nCards; i++)
             {
                 var rar = rng.Weighted(ChestRarities, x => ChestWeights[(int)x]);
@@ -327,6 +407,17 @@ namespace PokiClash.Core
         public static bool BadgesOpen(SaveData s) => Elements.All.Any(z => s.zones[(int)z] >= Islands.MiniAt(z));
         public static bool CaveOpen(SaveData s) => s.level >= CaveLevel;
 
+        // đá tiến hóa khi thắng ải: lần đầu qua ải tướng / mini boss / boss cuối đảo (cfg.evoFirst); qua lại mini boss, boss có tỉ lệ
+        // ra 1 viên (chỉ quay khi tỉ lệ > 0, để ải thường không đổi chuỗi ngẫu nhiên)
+        public static int StageEvo(BalanceConfig cfg, StageDef st, bool first, Rng rng)
+        {
+            int k = st.kind == StageKind.Boss ? 2 : st.kind == StageKind.Mini ? 1 : st.tag == StageTag.Hero ? 0 : -1;
+            if (k < 0) return 0;
+            if (first) return k < cfg.evoFirst.Length ? cfg.evoFirst[k] : 0;
+            double p = k == 2 ? cfg.evoReplayBoss : k == 1 ? cfg.evoReplayMini : 0;
+            return p > 0 && rng.Chance(p) ? 1 : 0;
+        }
+
         public static StageReward WinStage(SaveData s, GameData d, int id, Rng rng)
         {
             var st = d.Stage(id);
@@ -351,6 +442,8 @@ namespace PokiClash.Core
                 double chance = first ? dr.chance : dr.chance * (dr.chance >= 1 ? 0.5 : 0.8);
                 if (rng.Chance(chance)) r.shards.Add(AddShards(s, d, dr.hero, rng.Int(dr.min, dr.max), rng));
             }
+            r.evoStones = StageEvo(d.Cfg, st, first, rng);
+            s.evoStones += r.evoStones;
             s.stats.battles++;
             s.stats.wins++;
             return r;

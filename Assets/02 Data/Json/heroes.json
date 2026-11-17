@@ -308,9 +308,9 @@
   },
   {
    "id": "kim_nghe",
-   "name": "Kim Nghê",
-   "title": "Thần thú giáp lửa lam",
-   "aola": "kim_nghe_1",
+   "name": "Nhật Vương",
+   "title": "Vua robot quyền trượng Mặt Trời",
+   "aola": "vua_may_1",
    "elem": "kim",
    "rarity": "legend",
    "stats": [
@@ -325,17 +325,17 @@
    "ult": "kim_nghe_ult",
    "passive": "kim_nghe_pas",
    "shards": 50,
-   "line": "Dòng Kim Nghê",
+   "line": "Dòng Nhật Vương",
    "size": 0.92,
    "forms": [
     {
-     "name": "Nghê Con",
-     "aola": "kim_nghe_1",
+     "name": "Nhật Hoàng Tử",
+     "aola": "vua_may_1",
      "size": 0.92
     },
     {
-     "name": "Kim Nghê",
-     "aola": "kim_nghe_2",
+     "name": "Nhật Vương",
+     "aola": "vua_may_2",
      "size": 1.1
     }
    ]
@@ -517,8 +517,8 @@
   },
   {
    "id": "gio_loc",
-   "name": "Linh Điểu",
-   "title": "Chim thần giữ rừng",
+   "name": "Cổ Vương",
+   "title": "Tượng vua cổ cầm trụ",
    "aola": "gio_loc_1",
    "elem": "moc",
    "rarity": "rare",
@@ -534,16 +534,16 @@
    "ult": "gio_loc_ult",
    "passive": "gio_loc_pas",
    "shards": 20,
-   "line": "Dòng Linh Điểu",
-   "size": 0.92,
+   "line": "Dòng Cổ Vương",
+   "size": 0.88,
    "forms": [
     {
-     "name": "Điểu Nhi",
+     "name": "Cổ Vương Nhi",
      "aola": "gio_loc_1",
-     "size": 0.92
+     "size": 0.88
     },
     {
-     "name": "Linh Điểu",
+     "name": "Cổ Vương",
      "aola": "gio_loc_2",
      "size": 1.1
     }
@@ -730,7 +730,7 @@
    "title": "Cá đèn lồng vực sâu",
    "aola": "ca_den_1",
    "elem": "thuy",
-   "rarity": "common",
+   "rarity": "uncommon",
    "stats": [
     85,
     40,
@@ -742,7 +742,7 @@
    "skill": "ca_den_skill",
    "ult": "ca_den_ult",
    "passive": "ca_den_pas",
-   "shards": 10,
+   "shards": 15,
    "line": "Dòng Hải Đăng",
    "size": 0.92,
    "forms": [
@@ -798,7 +798,7 @@
    "title": "Rồng biển nhiều đầu",
    "aola": "hai_long_1",
    "elem": "thuy",
-   "rarity": "epic",
+   "rarity": "legend",
    "stats": [
     72,
     30,
@@ -810,7 +810,7 @@
    "skill": "hai_long_skill",
    "ult": "hai_long_ult",
    "passive": "hai_long_pas",
-   "shards": 30,
+   "shards": 50,
    "line": "Dòng Hải Long",
    "size": 0.95,
    "forms": [
@@ -837,7 +837,7 @@
    "title": "Cá sấu băng vực sâu",
    "aola": "han_ngac_1",
    "elem": "thuy",
-   "rarity": "legend",
+   "rarity": "epic",
    "stats": [
     80,
     60,
@@ -849,7 +849,7 @@
    "skill": "han_ngac_skill",
    "ult": "han_ngac_ult",
    "passive": "han_ngac_pas",
-   "shards": 50,
+   "shards": 30,
    "line": "Dòng Hàn Ngạc",
    "size": 0.92,
    "forms": [
@@ -1508,9 +1508,9 @@
   },
   {
    "id": "thach_nhan",
-   "name": "Thạch Nhân",
-   "title": "Núi đá biết đi",
-   "aola": "thach_nhan_1",
+   "name": "Thạch Giáp",
+   "title": "Tatu mai đá hổ phách",
+   "aola": "cong_da_1",
    "elem": "tho",
    "rarity": "uncommon",
    "stats": [
@@ -1525,23 +1525,18 @@
    "ult": "thach_nhan_ult",
    "passive": "thach_nhan_pas",
    "shards": 15,
-   "line": "Dòng Thạch Nhân",
-   "size": 0.9,
+   "line": "Dòng Thạch Giáp",
+   "size": 0.88,
    "forms": [
     {
-     "name": "Thạch Nhân",
-     "aola": "thach_nhan_1",
-     "size": 0.9
+     "name": "Thạch Giáp Nhi",
+     "aola": "cong_da_1",
+     "size": 0.88
     },
     {
-     "name": "Thạch Nhân",
-     "aola": "thach_nhan_2",
-     "size": 1.02
-    },
-    {
-     "name": "Thạch Nhân",
-     "aola": "thach_nhan_3",
-     "size": 1.14
+     "name": "Thạch Giáp",
+     "aola": "cong_da_2",
+     "size": 1.0
     }
    ]
   },
@@ -1644,9 +1639,9 @@
   },
   {
    "id": "lung_vuong",
-   "name": "Lửng Vương",
-   "title": "Vua lửng vuốt vàng",
-   "aola": "lung_vuong_1",
+   "name": "Sa Tích",
+   "title": "Thằn lằn áo choàng đất nung",
+   "aola": "than_lan_cat_1",
    "elem": "tho",
    "rarity": "common",
    "stats": [
@@ -1661,31 +1656,26 @@
    "ult": "lung_vuong_ult",
    "passive": "lung_vuong_pas",
    "shards": 10,
-   "line": "Dòng Lửng Vương",
+   "line": "Dòng Sa Tích",
    "size": 0.9,
    "forms": [
     {
-     "name": "Lửng Con",
-     "aola": "lung_vuong_1",
+     "name": "Sa Tích Nhi",
+     "aola": "than_lan_cat_1",
      "size": 0.9
     },
     {
-     "name": "Lửng Võ Sĩ",
-     "aola": "lung_vuong_2",
-     "size": 1.02
-    },
-    {
-     "name": "Lửng Vương",
-     "aola": "lung_vuong_3",
-     "size": 1.14
+     "name": "Sa Tích",
+     "aola": "than_lan_cat_2",
+     "size": 1.04
     }
    ]
   },
   {
    "id": "cao_da",
-   "name": "Cáo Đá",
-   "title": "Vuốt đá lục bảo",
-   "aola": "cao_da_1",
+   "name": "Tê Thiềm",
+   "title": "Cóc tê giác đất nung",
+   "aola": "thu_da_1",
    "elem": "tho",
    "rarity": "uncommon",
    "stats": [
@@ -1700,31 +1690,26 @@
    "ult": "cao_da_ult",
    "passive": "cao_da_pas",
    "shards": 15,
-   "line": "Dòng Cáo Đá",
-   "size": 0.9,
+   "line": "Dòng Tê Thiềm",
+   "size": 0.92,
    "forms": [
     {
-     "name": "Cáo Con",
-     "aola": "cao_da_1",
-     "size": 0.9
+     "name": "Tê Thiềm Nhi",
+     "aola": "thu_da_1",
+     "size": 0.92
     },
     {
-     "name": "Cáo Đá",
-     "aola": "cao_da_2",
-     "size": 1.02
-    },
-    {
-     "name": "Cáo Đá Lục Bảo",
-     "aola": "cao_da_3",
-     "size": 1.14
+     "name": "Tê Thiềm",
+     "aola": "thu_da_2",
+     "size": 1.08
     }
    ]
   },
   {
    "id": "ho_khoan",
-   "name": "Hổ Khoan",
-   "title": "Sừng khoan pha lê",
-   "aola": "ho_khoan_1",
+   "name": "Sa Long",
+   "title": "Rồng giáp sa thạch",
+   "aola": "rong_cat_non",
    "elem": "tho",
    "rarity": "uncommon",
    "stats": [
@@ -1739,31 +1724,26 @@
    "ult": "ho_khoan_ult",
    "passive": "ho_khoan_pas",
    "shards": 15,
-   "line": "Dòng Hổ Khoan",
-   "size": 0.9,
+   "line": "Dòng Sa Long",
+   "size": 0.85,
    "forms": [
     {
-     "name": "Hổ Cát Tường",
-     "aola": "ho_khoan_1",
-     "size": 0.9
+     "name": "Sa Long Nhi",
+     "aola": "rong_cat_non",
+     "size": 0.85
     },
     {
-     "name": "Hổ Pháo Hoa",
-     "aola": "ho_khoan_2",
-     "size": 1.02
-    },
-    {
-     "name": "Hổ Khoan Vương",
-     "aola": "ho_khoan_3",
-     "size": 1.14
+     "name": "Sa Long",
+     "aola": "rong_cat_1",
+     "size": 1.1
     }
    ]
   },
   {
    "id": "phu_van",
-   "name": "Phù Văn",
-   "title": "Khổng lồ đá khắc chữ",
-   "aola": "phu_van_1",
+   "name": "Sơn Viên",
+   "title": "Vượn núi đá bốn tay",
+   "aola": "quy_nui_1",
    "elem": "tho",
    "rarity": "rare",
    "stats": [
@@ -1778,22 +1758,17 @@
    "ult": "phu_van_ult",
    "passive": "phu_van_pas",
    "shards": 20,
-   "line": "Dòng Phù Văn",
-   "size": 0.9,
+   "line": "Dòng Sơn Viên",
+   "size": 0.96,
    "forms": [
     {
-     "name": "Lính Đá Con",
-     "aola": "phu_van_1",
-     "size": 0.9
+     "name": "Sơn Viên",
+     "aola": "quy_nui_1",
+     "size": 0.96
     },
     {
-     "name": "Lính Đá Phù Văn",
-     "aola": "phu_van_2",
-     "size": 1.02
-    },
-    {
-     "name": "Cự Thần Phù Văn",
-     "aola": "phu_van_3",
+     "name": "Sơn Viên",
+     "aola": "quy_nui_1",
      "size": 1.14
     }
    ]
@@ -1834,9 +1809,9 @@
   },
   {
    "id": "rua_nui",
-   "name": "Rùa Núi",
-   "title": "Mai núi rừng xanh",
-   "aola": "rua_nui_1",
+   "name": "Sa Trùng",
+   "title": "Sâu cát khổng lồ",
+   "aola": "sau_dat_non",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -1851,26 +1826,26 @@
    "ult": "rua_nui_ult",
    "passive": "rua_nui_pas",
    "shards": 30,
-   "line": "Dòng Rùa Núi",
-   "size": 0.92,
+   "line": "Dòng Sa Trùng",
+   "size": 0.85,
    "forms": [
     {
-     "name": "Rùa Mầm Đá",
-     "aola": "rua_nui_1",
-     "size": 0.92
+     "name": "Sa Trùng Nhi",
+     "aola": "sau_dat_non",
+     "size": 0.85
     },
     {
-     "name": "Rùa Núi",
-     "aola": "rua_nui_2",
+     "name": "Sa Trùng",
+     "aola": "sau_dat_1",
      "size": 1.1
     }
    ]
   },
   {
    "id": "ho_kim_cuong",
-   "name": "Hổ Kim Cương",
-   "title": "Hổ vương giáp kim cương",
-   "aola": "ho_kim_cuong_1",
+   "name": "Bùn Ngoạm",
+   "title": "Quái bùn nuốt chửng",
+   "aola": "quai_bun_1",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -1885,21 +1860,21 @@
    "ult": "ho_kim_cuong_ult",
    "passive": "ho_kim_cuong_pas",
    "shards": 30,
-   "line": "Dòng Hổ Khoan",
-   "size": 1,
+   "line": "Dòng Bùn Ngoạm",
+   "size": 1.16,
    "forms": [
     {
-     "name": "Hổ Kim Cương",
-     "aola": "ho_kim_cuong_1",
-     "size": 1
+     "name": "Bùn Ngoạm",
+     "aola": "quai_bun_1",
+     "size": 1.16
     }
    ]
   },
   {
    "id": "cu_phu",
-   "name": "Cự Phủ",
-   "title": "Chiến binh rìu tím",
-   "aola": "cu_phu_1",
+   "name": "Thiên Thạch Thú",
+   "title": "Quái thú lưng rừng tinh thể",
+   "aola": "tinh_hach_1",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -1914,17 +1889,17 @@
    "ult": "cu_phu_ult",
    "passive": "cu_phu_pas",
    "shards": 30,
-   "line": "Dòng Cự Phủ",
+   "line": "Dòng Thiên Thạch Thú",
    "size": 0.92,
    "forms": [
     {
-     "name": "Phủ Con",
-     "aola": "cu_phu_1",
+     "name": "Thiên Thạch Thú",
+     "aola": "tinh_hach_1",
      "size": 0.92
     },
     {
-     "name": "Cự Phủ",
-     "aola": "cu_phu_2",
+     "name": "Thiên Thạch Thú",
+     "aola": "tinh_hach_1",
      "size": 1.1
     }
    ]

@@ -1,6 +1,7 @@
 // Máy bi: bàn chép máy tham khảo (hình học, vật liệu), 6.000 bi phóng theo bảng tỉ lệ (mỗi bi rơi đúng kết quả đã chọn, tỉ lệ
 // lệch bảng dưới 4 độ lệch chuẩn, không bi nào kẹt, cùng hạt giống ra cùng kết quả), vòng nấm; so với bản web (golden): 600 lần mở rương
-// ở ×1/×3/×5 khớp từng thưởng, mốc Huyền thoại cả hai nhánh; ×N nhân thưởng ô, giới hạn mỗi đợt theo cấp.
+// ở ×1/×3/×5 khớp từng thưởng (cả đá tiến hóa "evo" từ 2026-11-17), mốc Huyền thoại cả hai nhánh; ×N nhân thưởng ô, giới hạn mỗi đợt
+// theo cấp.
 // 2026-11-16: bỏ 31 tướng cũ không còn suất đảo, tướng mẫu đổi sang tướng thay cùng hệ (SaveCodec.BoTuongCu); golden tính lại bằng
 // menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test" (GoldenFixtureMenu).
 using System.Collections.Generic;
@@ -130,6 +131,13 @@ namespace PokiClash.Tests
                             Assert.AreEqual(RewardKind.Balls, g.k, at);
                             Assert.AreEqual((double)w[1], g.n, at);
                             break;
+                        case "evo": // đá tiến hóa (2026-11-17)
+                            Assert.AreEqual(RewardKind.EvoStones, g.k, at);
+                            Assert.AreEqual((double)w[1], g.n, at);
+                            break;
+                        default:
+                            Assert.Fail(at + ": loại thưởng lạ " + w[0]);
+                            break;
                     }
                 }
             }
@@ -137,6 +145,34 @@ namespace PokiClash.Tests
             Assert.AreEqual(J.Int(save, "level"), s.level);
             Assert.AreEqual(J.Int(save, "exp"), s.exp);
             Assert.AreEqual(J.Int(save, "balls"), s.balls);
+        }
+
+        // đá tiến hóa (2026-11-17): rương bạc ít, rương vàng nhiều hơn, rương gỗ không có; đá cộng vào bản lưu; mảnh của tướng đã có
+        // dồn để lên sao (không còn đổi thành bản sao thẻ)
+        [Test]
+        public void RuongBacVang_CoDaTienHoa_RuongGoKhong()
+        {
+            var d = TestData.Load();
+            var r = new Rng(5);
+            double Avg(SlotKind kind)
+            {
+                var s = SaveData.New(d, 0);
+                s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
+                int got = 0;
+                for (int i = 0; i < 4000; i++)
+                    foreach (var w in Pachinko.OpenChest(s, d, kind, 1, r))
+                    {
+                        if (w.k == RewardKind.EvoStones) got += w.n;
+                        if (w.k == RewardKind.Shards && !w.res.unlocked && s.Hero(w.res.hero).star < StarTier.MaxStar) Assert.AreEqual(0, w.res.converted);
+                    }
+                Assert.AreEqual(got, s.evoStones, Pachinko.Key(kind));
+                return got / 4000.0;
+            }
+            Assert.AreEqual(0, Avg(SlotKind.ChestWood));
+            double silver = Avg(SlotKind.ChestSilver), gold = Avg(SlotKind.ChestGold);
+            Assert.Greater(silver, 0);
+            Assert.Greater(gold, silver * 2, "rương vàng nhiều đá hơn hẳn");
+            Assert.IsTrue(d.Cfg.afk.chest.rolls.Exists(x => x.k == "evo"), "rương AFK có đá tiến hóa (ít)");
         }
 
         [Test]

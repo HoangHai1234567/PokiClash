@@ -30,21 +30,22 @@ MonoBehaviour:
     atkBase: 180
     defBase: 55
     lvStep: 0.03
-    starStep: 0.08
+    starStep: 0.025
     bossHp: 1.8
     bossAtk: 1.1
     bossEvoHp: 1.5
     bossEvoAtk: 0.1
+    bossEvoEarly: 0.75
     cardLvStep: 0.15
     maxRounds: 60
-    saveVersion: 11
+    saveVersion: 12
     maxLevel: 200
     expBase: 45
     expPow: 1
     afkCapH: 12
     legendMilestone: 300
     cardMax: 5
-    maxStar: 5
+    maxStar: 20
     xSteps:
     - x: 1
       balls: 0
@@ -57,9 +58,26 @@ MonoBehaviour:
     - x: 10
       balls: 700
     cardReq: 000000000200000004000000080000000f000000
-    starCards: 000000000000000005000000080000000b0000000f000000
-    starLevel: 000000000100000007000000170000003200000060000000
-    formStars: 0300000005000000
+    formStars: 060000000b000000
+    tierPower:
+    - 1
+    - 1.25
+    - 1.55
+    - 1.9
+    shardCost: 0400000006000000080000000c0000000e00000012000000160000001a0000001c00000022000000280000003000000028000000320000003c00000046000000
+    shardRarity:
+    - 0.8
+    - 1
+    - 1.15
+    - 1.3
+    - 1.5
+    evoStones: 140000003700000078000000
+    evoRarity: []
+    evoLevel: 1e0000005f00000096000000
+    evoFirst: 010000000300000008000000
+    evoReplayMini: 0.1
+    evoReplayBoss: 0.25
+    evoChest: 0200000002000000030000000300000004000000040000000a000000
     poolWeight:
     - 50
     - 30
@@ -127,6 +145,11 @@ MonoBehaviour:
         min: 1
         max: 2
         rar: []
+      - w: 0.8
+        k: evo
+        min: 1
+        max: 1
+        rar: []
     - kind: chest_gold
       rolls:
       - w: 17.6
@@ -161,6 +184,11 @@ MonoBehaviour:
         k: stones
         min: 2
         max: 4
+        rar: []
+      - w: 2
+        k: evo
+        min: 1
+        max: 2
         rar: []
     gifts:
     - n: 30
@@ -206,7 +234,7 @@ MonoBehaviour:
     - k: chest_silver
       p: 0.033
     afk:
-      shardChance: 0.08
+      shardChance: 0.4
       chestEveryH: 3
       chestOpenH: 2
       boostH: 2
@@ -243,6 +271,11 @@ MonoBehaviour:
           min: 1
           max: 1
           rar: []
+        - w: 3
+          k: evo
+          min: 1
+          max: 1
+          rar: []
     simTeams:
     - zone: 2
       team:
@@ -256,28 +289,28 @@ MonoBehaviour:
       - so_ngoc
       - ti_tach
       - vo_su
-      star: 2
+      star: 3
       card: 2
     - zone: 0
       team:
       - giap_long
       - nguu_quyen
       - so_ngoc
-      star: 2
+      star: 3
       card: 2
     - zone: 1
       team:
       - thiet_phu
       - bo_cap
       - phi_thuong
-      star: 3
+      star: 6
       card: 3
     - zone: 4
       team:
       - gac_da
       - tien_la
       - thiet_phu
-      star: 3
+      star: 6
       card: 3
     badges:
       tiers:
@@ -286,23 +319,115 @@ MonoBehaviour:
       - "V\xE0ng"
       - "Ng\u1ECDc"
       - "Kim C\u01B0\u01A1ng"
-      counts: 05000000050000000a0000000a0000000a000000
+      - "H\u1ED3ng Ng\u1ECDc"
+      - "L\u1EE5c B\u1EA3o"
+      - "T\u1EED Tinh"
+      - "Nh\u1EADt Nguy\u1EC7t"
+      - "Th\u1EA7n Tho\u1EA1i"
+      counts: 050000000500000006000000060000000800000008000000080000000a0000000a0000000c000000
       bonus:
       - 0.05
+      - 0.06
+      - 0.07
       - 0.08
+      - 0.1
+      - 0.11
       - 0.12
+      - 0.13
+      - 0.14
       - 0.16
-      - 0.2
-      levelPerTier: 20
+      teamBonus:
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0
+      - 0.005
+      - 0.005
+      - 0.01
+      - 0.01
+      - 0.02
+      levelPerTier: 14
       ballsBase: 5
-      ballsPerTier: 2
-      levelPerFight: 3
+      ballsPerTier: 1
+      levelPerFight: 1
       chest:
       - chest_silver
       - chest_silver
       - chest_gold
       - chest_gold
       - chest_gold
+      - chest_gold
+      - chest_gold
+      - chest_gold
+      - chest_gold
+      - chest_gold
+      evo: 00000000000000000100000001000000010000000100000002000000020000000200000003000000
+      crystal: 00000000000000000000000000000000010000000000000001000000000000000100000002000000
+      foeBuff: 0.03
+      foeTierBuff: 0.03
+      foeLastBuff: 0.05
+      starRounds: 2
+      giftEvery: 30
+      gifts:
+      - chest: chest_silver
+        evo: 0
+        crystal: 0
+        stones: 5
+      - chest: chest_silver
+        evo: 1
+        crystal: 0
+        stones: 0
+      - chest: chest_gold
+        evo: 0
+        crystal: 0
+        stones: 10
+      - chest: chest_silver
+        evo: 0
+        crystal: 1
+        stones: 5
+      - chest: chest_gold
+        evo: 1
+        crystal: 0
+        stones: 10
+      - chest: chest_gold
+        evo: 1
+        crystal: 1
+        stones: 0
+      traitTiers: 0400000006000000080000000a000000
+      traitKind:
+      - crit
+      - lifesteal
+      - shield
+      - rage
+      - guard
+      traitName:
+      - "L\u01B0\u1EE1i Kim"
+      - "Nh\u1EF1a S\u1ED1ng"
+      - "M\xE0ng N\u01B0\u1EDBc"
+      - "H\u1ECFa N\u1ED9"
+      - "Gi\xE1p \u0110\u1EA5t"
+      traitValue:
+      - 0.04
+      - 0.06
+      - 0.08
+      - 0.1
+      - 0.03
+      - 0.05
+      - 0.07
+      - 0.09
+      - 0.06
+      - 0.09
+      - 0.12
+      - 0.15
+      - 10
+      - 15
+      - 20
+      - 30
+      - 0.04
+      - 0.06
+      - 0.08
+      - 0.1
     potential:
       values:
       - 0.03
@@ -345,41 +470,187 @@ MonoBehaviour:
       - 15
       - 20
       - 30
+      - 0.04
+      - 0.06
+      - 0.09
+      - 0.13
+      - 0.18
+      - 0.02
+      - 0.03
+      - 0.05
+      - 0.07
+      - 0.1
+      - 0.02
+      - 0.03
+      - 0.05
+      - 0.07
+      - 0.1
       rarityWeight:
       - 55
       - 28
       - 12
       - 4.5
       - 0.5
+      crystalWeight:
+      - 0
+      - 0
+      - 80
+      - 18
+      - 2
+      kindWeight:
+      - 1
+      - 1
+      - 1
+      - 0
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
+      - 1
       caps:
-      - 0.4
-      - 0.4
-      - 0.4
+      - 0.3
+      - 0.3
+      - 0.3
       - 30
-      - 0.4
-      - 0.4
+      - 0.25
+      - 0.2
       - 50
       - 50
-      slotStar: 01000000020000000300000004000000
+      - 0.3
+      - 0.2
+      - 0.2
+      slotStar: 010000000300000006000000080000000b00000010000000
       lockCost: 2
-      maxLocks: 2
+      maxLocks: 3
+      sets:
+      - key: cong
+        name: "Cu\u1ED3ng Chi\u1EBFn"
+        kinds:
+        - atk
+        - crit
+        - rage
+        need: 0300000005000000
+        bonusKind:
+        - atk
+        - crit
+        bonus:
+        - 0.04
+        - 0
+        - 0.08
+        - 0.04
+      - key: thu
+        name: "Ki\xEAn Th\xE0nh"
+        kinds:
+        - def
+        - hp
+        - shield
+        - guard
+        need: 0300000005000000
+        bonusKind:
+        - hp
+        - def
+        bonus:
+        - 0.04
+        - 0
+        - 0.08
+        - 0.08
+      - key: linh
+        name: "Phong \u1EA2nh"
+        kinds:
+        - lifesteal
+        - mana
+        - dodge
+        need: 0300000005000000
+        bonusKind:
+        - mana
+        - dodge
+        - lifesteal
+        bonus:
+        - 10
+        - 0.03
+        - 0
+        - 20
+        - 0.05
+        - 0.04
     cave:
       tiers:
-      - name: "D\u1EC5"
+      - name: "C\u1EEDa Hang"
         level: 29
         stones: 2
-      - name: "Th\u01B0\u1EDDng"
-        level: 80
+        firstStones: 5
+        firstCrystals: 1
+        firstEvo: 0
+        buff: -0.3
+      - name: "H\xE0nh Lang R\xEAu"
+        level: 45
         stones: 3
-      - name: "Kh\xF3"
-        level: 128
+        firstStones: 8
+        firstCrystals: 0
+        firstEvo: 0
+        buff: -0.25
+      - name: "Su\u1ED1i Ng\u1EA7m"
+        level: 62
+        stones: 4
+        firstStones: 10
+        firstCrystals: 1
+        firstEvo: 1
+        buff: 0
+      - name: "V\xE1ch Th\u1EA1ch Anh"
+        level: 80
         stones: 5
-      - name: "\xC1c m\u1ED9ng"
-        level: 173
+        firstStones: 12
+        firstCrystals: 1
+        firstEvo: 0
+        buff: 0.05
+      - name: "H\u1ED3 Ph\xE1t S\xE1ng"
+        level: 98
+        stones: 6
+        firstStones: 15
+        firstCrystals: 1
+        firstEvo: 1
+        buff: 0.1
+      - name: "R\u1EEBng Nh\u0169 \u0110\xE1"
+        level: 116
+        stones: 7
+        firstStones: 18
+        firstCrystals: 2
+        firstEvo: 0
+        buff: 0.12
+      - name: "M\u1EA1ch Dung Nham"
+        level: 134
         stones: 8
+        firstStones: 20
+        firstCrystals: 2
+        firstEvo: 2
+        buff: 0.14
+      - name: "\u0110i\u1EC7n Pha L\xEA"
+        level: 152
+        stones: 9
+        firstStones: 25
+        firstCrystals: 2
+        firstEvo: 0
+        buff: 0.16
+      - name: "V\u1EF1c Tinh Th\u1EA1ch"
+        level: 172
+        stones: 10
+        firstStones: 30
+        firstCrystals: 3
+        firstEvo: 2
+        buff: 0.18
+      - name: "L\xF5i Ti\u1EC1m N\u0103ng"
+        level: 195
+        stones: 12
+        firstStones: 40
+        firstCrystals: 4
+        firstEvo: 3
+        buff: 0.2
       winsPerDay: 3
       adExtra: 1
       weekday: ffffffff0000000001000000020000000300000004000000ffffffff
+      crystalFloor: 8
+      crystalDaily: 1
     farm:
       minHeroes: 3
       base: 2

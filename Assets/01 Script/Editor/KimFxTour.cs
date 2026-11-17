@@ -73,6 +73,13 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Kim: riêng Pháo Giáp Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryPhaoGiapNhi() => Try("ung_thep", 1);
 
+        // Nhật Vương (2026-11-17): vua robot quyền trượng Mặt Trời, suất kim_nghe boss ải 70 (rig vua_may_<k>, HatVua.cs); dạng 1 Nhật Hoàng Tử ở 1 sao, dạng 2 Nhật Vương ở 5 sao
+        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Nhật Vương (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryNhatVuong() => Try("kim_nghe", 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Nhật Hoàng Tử (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryNhatHoangTu() => Try("kim_nghe", 1);
+
         public static void Try(string hero, int star)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

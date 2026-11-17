@@ -1,4 +1,4 @@
-// 35 thẻ chung, 136 thẻ riêng và 18 thẻ của lính, dựng từ Assets/02 Data/Json/cards.json. Cây hiệu ứng giữ dạng JSON trong effectsJson.
+// Thẻ chung (75 từ 2026-11-17), thẻ riêng của tướng và thẻ của lính, dựng từ Assets/02 Data/Json/cards.json. Cây hiệu ứng giữ dạng JSON trong effectsJson.
 using System.Collections.Generic;
 using PokiClash.Core;
 using UnityEngine;

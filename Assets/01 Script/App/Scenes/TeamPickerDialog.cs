@@ -6,8 +6,9 @@
 // xếp lại (ô không chạy dưới ngón tay). Chạm để chọn hoặc bỏ, tròn xanh góc ô là thứ tự ra trận; mới mở một ô đội thì chạm tướng khác là
 // đổi luôn. Mũi tên khắc hệ theo tướng chính của địch; dòng cuối báo ô đội nào còn khoá. "Xong" trả đội về.
 // Hàng lọc trên lưới (menu "PokiClash/Prefab/Hộp chọn đội: lọc theo hệ, xếp"; người dùng nhờ 2026-11-06): nút tròn Tất cả, 5 hệ,
-// Khắc (chỉ tướng khắc tướng chính của địch, ẩn khi không có địch) và nút xếp đổi vòng Lực chiến → Sao → Hệ. Tướng đang trong đội
-// luôn đứng đầu và luôn hiện. Chọn lọc/xếp thì ô xếp lại và nảy ra; lựa chọn giữ cho lần mở sau trong phiên chơi.
+// Khắc (chỉ tướng khắc tướng chính của địch, ẩn khi không có địch) và nút xếp đổi vòng Lực chiến → Độ hiếm → Sao → Hệ. Tướng đang trong
+// đội luôn đứng đầu và luôn hiện. Chọn lọc/xếp thì ô xếp lại và nảy ra; lựa chọn giữ cho lần mở sau trong phiên chơi.
+// Ô tướng: khung màu độ hiếm, sao theo bậc, lực chiến số gọn (2026-11-17, PrepRosterCell).
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,8 +37,8 @@ namespace PokiClash
         [SerializeField] Image[] filterIcons = new Image[0]; // icon trên nút hệ (mờ khi không chọn)
 
         public static readonly Elem[] FilterOrder = { Elem.Thuy, Elem.Hoa, Elem.Kim, Elem.Moc, Elem.Tho };
-        enum SortBy { Power, Star, Elem }
-        static readonly string[] SortNames = { "Xếp: lực chiến", "Xếp: sao", "Xếp: hệ" };
+        enum SortBy { Power, Rarity, Star, Elem }
+        static readonly string[] SortNames = { "Xếp: lực chiến", "Xếp: độ hiếm", "Xếp: sao", "Xếp: hệ" };
         // giữ giữa các lần mở trong phiên chơi
         static int filter = -1; // -1: mọi hệ, còn lại: chỉ số trong FilterOrder
         static bool counterOnly;
@@ -144,6 +145,7 @@ namespace PokiClash
             var ordered = cells
                 .OrderBy(c => team.Contains(c.hero.id) ? team.IndexOf(c.hero.id) : int.MaxValue)
                 .ThenBy(c => sort == SortBy.Elem ? Array.IndexOf(FilterOrder, c.hero.elem) : 0)
+                .ThenByDescending(c => sort == SortBy.Rarity ? (int)c.hero.rarity : 0)
                 .ThenByDescending(c => sort == SortBy.Star ? s.Hero(c.hero.id).star : 0)
                 .ThenByDescending(c => power.TryGetValue(c.hero.id, out var pw) ? pw : 0)
                 .ToList();
@@ -194,7 +196,7 @@ namespace PokiClash
             foreach (var h in owned)
             {
                 var cell = Ui.Spawn(cellPrefab, grid);
-                cell.SetStats(s.Hero(h.id).star, d.Cfg.maxStar, power[h.id]);
+                cell.SetStats(s.Hero(h.id).star, power[h.id]);
                 cells.Add((cell, h));
             }
             if (filterRow) Arrange(false);

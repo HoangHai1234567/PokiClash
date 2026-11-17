@@ -1,5 +1,6 @@
 // Hộp mở rương (prefab Assets/04 Prefabs/Dialogs/MoRuong): tiêu đề, rương lắc rồi bật, thưởng hiện sau khi bật thành lưới ô hình
-// (Items/OThuong, menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá, thẻ gộp bản sao "×n", mảnh tướng.
+// (Items/OThuong, menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá tiềm năng / đá tiến hóa, thẻ gộp
+// bản sao "×n", mảnh tướng.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -34,8 +35,8 @@ namespace PokiClash
 
         public RewardTile TilePrefab => tilePrefab;
 
-        // ô thưởng của một danh sách thưởng (dùng chung với màn mở nhiều rương MachineChestOpen): XP, bi, đá trước, rồi thẻ (gộp
-        // bản sao "×n"), rồi mảnh tướng
+        // ô thưởng của một danh sách thưởng (dùng chung với màn mở nhiều rương MachineChestOpen): XP, bi, đá tiềm năng, đá tiến hóa
+        // trước, rồi thẻ (gộp bản sao "×n"), rồi mảnh tướng
         public static List<RewardTile> BuildTiles(List<Reward> rewards, RewardTile prefab, Transform parent)
         {
             var d = App.Data;
@@ -44,9 +45,11 @@ namespace PokiClash
             int exp = rewards.Where(q => q.k == RewardKind.Exp).Sum(q => q.n);
             int balls = rewards.Where(q => q.k == RewardKind.Balls).Sum(q => q.n);
             int stones = rewards.Where(q => q.k == RewardKind.Stones).Sum(q => q.n);
+            int evo = rewards.Where(q => q.k == RewardKind.EvoStones).Sum(q => q.n);
             if (exp > 0) Tile().Item(App.Art.Icon("exp"), $"×{exp}", "XP");
             if (balls > 0) Tile().Item(App.Art.Icon("ball"), $"×{balls}", "Bi");
             if (stones > 0) Tile().Item(App.Art.Icon("rock"), $"×{stones}", "Đá tiềm năng", Rarity.Epic);
+            if (evo > 0) Tile().EvoStones(evo);
             var cards = rewards.Where(q => q.k == RewardKind.Card)
                 .GroupBy(q => (q.drop.hero, q.drop.slot))
                 .Select(g => (drop: g.First().drop, n: g.Count()))
@@ -62,6 +65,12 @@ namespace PokiClash
                 var t = Tile().Hero(d.Hero(res.hero), $"×{res.n}");
                 if (res.unlocked) t.Tag("MỞ KHÓA!", Theme.Red);
                 else if (res.converted > 0) t.Tag($"→ {res.converted} thẻ", Theme.Paper2);
+                else
+                {
+                    // tiến độ mảnh: mở khoá (chưa có) hoặc lên sao kế (đã có; 2026-11-17 mảnh dồn để lên sao)
+                    var g = Progress.ShardGoal(App.Save.Data, d, res.hero);
+                    if (g.need > 0) t.Tag($"{g.have}/{g.need}", g.have >= g.need ? Theme.Yellow : Theme.Paper2);
+                }
             }
             return tiles;
         }
@@ -97,7 +106,8 @@ namespace PokiClash
         }
 
         // thưởng của một rương: mọi thứ là ô hình (Items/OThuong) trong một lưới: XP, bi, đá trước, rồi thẻ (gộp bản sao "×n"),
-        // rồi mảnh tướng (MỞ KHÓA! khi đủ mảnh, "→ n thẻ" khi tướng đã có và mảnh đổi thành bản sao thẻ). Ô bật lần lượt.
+        // rồi mảnh tướng (MỞ KHÓA! khi đủ mảnh, tiến độ "có/cần" mảnh mở khoá hoặc lên sao, "→ n thẻ" khi tướng đã tối đa sao và mảnh
+        // đổi thành bản sao thẻ). Ô bật lần lượt.
         void Rewards(List<Reward> rewards)
         {
             var tiles = BuildTiles(rewards, tilePrefab, cardGrid.transform);

@@ -580,7 +580,7 @@ namespace PokiClash.Core
 
     // ---------- thưởng ----------
 
-    public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones }
+    public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones } // Stones: đá tiềm năng; EvoStones: đá tiến hóa (khoá "evo" trong bảng rương)
 
     public sealed class Reward
     {
@@ -641,6 +641,9 @@ namespace PokiClash.Core
                 case "stones":
                     s.potentialStones += n;
                     return new List<Reward> { new Reward { k = RewardKind.Stones, n = n } };
+                case "evo":
+                    s.evoStones += n;
+                    return new List<Reward> { new Reward { k = RewardKind.EvoStones, n = n } };
                 case "cards":
                 {
                     var outL = new List<Reward>();

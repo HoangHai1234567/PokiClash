@@ -60,23 +60,30 @@ namespace PokiClash.Core
                     m.mods = new StatMods { hpPct = bonus.hpPct, atkPct = bonus.atkPct, defPct = bonus.defPct, spd = bonus.spd };
             if (start != null)
                 foreach (var m in t.members)
-                    m.start = new BattleStart { mana = start.mana, rage = start.rage, crit = start.crit, lifesteal = start.lifesteal };
+                    m.start = new BattleStart
+                    {
+                        mana = start.mana, rage = start.rage, crit = start.crit, lifesteal = start.lifesteal,
+                        shield = start.shield, guard = start.guard, dodge = start.dodge,
+                    };
             return t;
         }
 
-        // tiềm năng mẫu cho công cụ: 0 không có; 1 trung bình (kỳ vọng của 4 dòng ngẫu nhiên); 2 trần (Công Huyền thoại ×3 chặn 40% + Máu Huyền thoại)
+        // tiềm năng mẫu cho công cụ: 0 không có; 1 trung bình (kỳ vọng của Potential.Slots dòng ngẫu nhiên, loại theo trọng số quay
+        // kindWeight, độ hiếm theo rarityWeight); 2 trần (Công Huyền thoại ×3 chặn 40% + Máu Huyền thoại). Mảng theo PotKind (KindCount loại)
         public static (double[] totals, string name) PotentialPreset(BalanceConfig cfg, int kind)
         {
             var pc = cfg.potential;
             if (kind == 1)
             {
-                double wsum = pc.rarityWeight.Sum();
-                var t = new double[8];
-                for (int k = 0; k < 8; k++)
+                double wsum = pc.rarityWeight.Sum(), ksum = 0;
+                for (int k = 0; k < Potential.KindCount; k++) ksum += Potential.KindWeight(cfg, (PotKind)k);
+                var t = new double[Potential.KindCount];
+                for (int k = 0; k < Potential.KindCount && ksum > 0; k++)
                 {
                     double e = 0;
                     for (int r = 0; r < pc.rarityWeight.Length; r++) e += pc.rarityWeight[r] / wsum * pc.Val(k, r);
-                    t[k] = Math.Min(pc.caps[k], 4 * e / 8);
+                    double v = Potential.Slots * Potential.KindWeight(cfg, (PotKind)k) / ksum * e;
+                    t[k] = k < pc.caps.Length ? Math.Min(pc.caps[k], v) : v;
                 }
                 return (t, "trung bình");
             }
@@ -88,7 +95,7 @@ namespace PokiClash.Core
                 };
                 return (Potential.Totals(cfg, lines), "trần");
             }
-            return (new double[8], "không");
+            return (new double[Potential.KindCount], "không");
         }
 
         // n trận một ải với bản lưu s (đội của s hoặc team), hạt giống seed + i × 7919, thẻ chung mở theo cấp s.level
@@ -131,13 +138,9 @@ namespace PokiClash.Core
 
         // ---------- tướng khởi đầu (GD_Claude/15_TuongKhoiDau.md) ----------
 
-        // sao người chơi có ở cấp level nếu theo kịp (sao n khi đủ cấp cfg.starLevel[n], như npm run sim -- island)
-        public static int StarAt(BalanceConfig cfg, int level)
-        {
-            int star = 1;
-            while (star < cfg.maxStar && star + 1 < cfg.starLevel.Length && cfg.starLevel[star + 1] <= level) star++;
-            return star;
-        }
+        // sao người chơi có ở cấp level nếu theo kịp: bằng sao của địch cùng cấp (Teams.EnemyStar, sao tướng chủ lực của người chơi
+        // "vừa" đo bằng ProgressSim; trước 2026-11-17 là mốc cấp lên sao cfg.starLevel)
+        public static int StarAt(BalanceConfig cfg, int level) => System.Math.Min(StarTier.MaxStar, Teams.EnemyStar(level));
 
         // đội khi tới ải st, chọn tướng khởi đầu starter: tướng khởi đầu và tướng tặng ở các ải trước của đảo (quà theo tướng khởi đầu),
         // tối đa số ô đã mở ở cấp bằng cấp địch của ải (ô 2 từ cấp 10), tướng khắc tướng chính của ải ra sân trước.
@@ -172,7 +175,7 @@ namespace PokiClash.Core
             public SimCell cell;
         }
 
-        // n trận mỗi ải của đảo z: cấp bằng cấp địch cao nhất của ải, sao theo cấp, cấp thẻ bằng sao, đội theo StarterTeam
+        // n trận mỗi ải của đảo z: cấp bằng cấp địch cao nhất của ải, sao và cấp thẻ theo cấp (như địch), đội theo StarterTeam
         public static List<StarterRow> StarterIsland(GameData d, string starter, Elem z, int n, bool oldRules = false)
         {
             var rows = new List<StarterRow>();
@@ -180,7 +183,7 @@ namespace PokiClash.Core
             {
                 int lv = st.enemies.Max(e => e.level), star = StarAt(d.Cfg, lv);
                 var team = StarterTeam(d, starter, st, oldRules);
-                var s = Setup(d, team, lv, star, star, oldRules ? null : starter);
+                var s = Setup(d, team, lv, star, Teams.EnemyCard(lv), oldRules ? null : starter);
                 rows.Add(new StarterRow { st = st, level = lv, star = star, team = team, cell = Stage(d, s, st, n) });
             }
             return rows;
@@ -190,11 +193,11 @@ namespace PokiClash.Core
         public static string StageKey(StageDef st) =>
             st.kind == StageKind.Mini ? "mini" : st.kind == StageKind.Boss ? "boss" : Keys.Of(st.tag) ?? "normal";
 
-        // tay đôi a với b cùng cấp, sao theo cấp, cấp thẻ bằng sao, không có tướng đồng hành; nửa số trận đổi bên. Trả tỉ lệ thắng của a.
+        // tay đôi a với b cùng cấp, sao và cấp thẻ theo cấp, không có tướng đồng hành; nửa số trận đổi bên. Trả tỉ lệ thắng của a.
         public static double Duel(GameData d, string a, string b, int level, int n, uint seed = 1000)
         {
             int star = StarAt(d.Cfg, level), win = 0;
-            var s = Setup(d, new[] { a, b }, level, star, star);
+            var s = Setup(d, new[] { a, b }, level, star, Teams.EnemyCard(level));
             for (int i = 0; i < n; i++)
             {
                 bool flip = i % 2 == 1;

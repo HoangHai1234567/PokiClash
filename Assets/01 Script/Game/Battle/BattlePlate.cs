@@ -60,17 +60,21 @@ namespace PokiClash
         public void Apply(Snap s, int side, BalanceConfig cfg)
         {
             var f = s.f[side][s.active[side]];
-            hp.Set((float)f.hp, (float)f.maxHp, (float)f.shield, $"{f.hp}/{f.maxHp}{(f.shield > 0 ? $" +{f.shield} khiên" : "")}");
+            hp.Set((float)f.hp, (float)f.maxHp, (float)f.shield, $"{NumFmt.Short(f.hp)}/{NumFmt.Short(f.maxHp)}{(f.shield > 0 ? $" +{NumFmt.Short(f.shield)} khiên" : "")}");
             mana.Set((float)f.mana, cfg.maxMana);
             rage.Set((float)f.rage, cfg.maxRage);
             int n = 0;
-            if (f.atkB != 0) Chip(n++, $"Công {(f.atkB > 0 ? "+" : "−")}{Pct(Math.Abs(f.atkB))}", f.atkB > 0);
-            if (f.defB != 0) Chip(n++, $"Thủ {(f.defB > 0 ? "+" : "−")}{Pct(Math.Abs(f.defB))}", f.defB > 0);
-            foreach (var (id, left) in f.st)
+            if (f.atkB != 0) Chip(n++, $"{CardText.StatLabel(Stat.Atk)} {(f.atkB > 0 ? "+" : "−")}{Pct(Math.Abs(f.atkB))}", CardText.StatUp(Stat.Atk, f.atkB));
+            if (f.defB != 0) Chip(n++, $"{CardText.StatLabel(Stat.Def)} {(f.defB > 0 ? "+" : "−")}{Pct(Math.Abs(f.defB))}", CardText.StatUp(Stat.Def, f.defB));
+            for (int k = 0; k < f.st.Count; k++)
             {
-                string nm = id == StatusId.Burn ? "Bỏng" : id == StatusId.Stun ? "Choáng" : id == StatusId.Regen ? "Hồi" : "Né";
-                bool bad = id == StatusId.Burn || id == StatusId.Stun;
-                Chip(n++, id == StatusId.Burn || id == StatusId.Regen ? $"{nm} {left}" : nm, !bad);
+                var (id, left) = f.st[k];
+                string nm = CardText.StatusLabel(id);
+                int stk = k < f.stk.Count ? f.stk[k] : 0;
+                // độc: số lớp và số lượt còn ("Độc ×3 · 2"); bỏng, hồi: số lượt còn; choáng, né: chỉ tên
+                string text = id == StatusId.Poison ? $"{nm} ×{Mathf.Max(1, stk)} · {left}" :
+                    id == StatusId.Burn || id == StatusId.Regen ? $"{nm} {left}" : nm;
+                Chip(n++, text, !CardText.StatusBad(id), id == StatusId.Poison);
             }
             for (int i = n; i < chipPool.Count; i++) chipPool[i].gameObject.SetActive(false);
 
@@ -86,7 +90,7 @@ namespace PokiClash
             for (int i = m; i < dotPool.Count; i++) dotPool[i].gameObject.SetActive(false);
         }
 
-        void Chip(int i, string text, bool up)
+        void Chip(int i, string text, bool up, bool poison = false)
         {
             if (i >= chipPool.Count)
             {
@@ -97,7 +101,7 @@ namespace PokiClash
             }
             var bg = chipPool[i];
             bg.gameObject.SetActive(true);
-            bg.color = up ? Theme.Hex("#d6f5c8") : Theme.Hex("#ffd2c8");
+            bg.color = poison ? Theme.Hex("#c4e65c") : up ? Theme.Hex("#d6f5c8") : Theme.Hex("#ffd2c8"); // độc: xanh độc, khác chip có lợi
             chipTexts[i].text = text;
         }
 

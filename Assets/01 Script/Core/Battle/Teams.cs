@@ -34,10 +34,13 @@ namespace PokiClash.Core
         }
 
         // sao, cấp thẻ của địch theo cấp (thang cấp 1–200 từ 2026-11-04): bằng người chơi bình thường ở cùng cấp, để "Lv" của địch
-        // là cấp người chơi cần có. Sao theo mốc cấp lên sao của người chơi (balance.json progression.starLevel); cấp thẻ theo số đo
-        // ProgressSim (thẻ đến từ rương máy bi: trung bình 2 ở cấp 8, 3 ở cấp 18, 4 ở cấp 28, 5 từ cấp 45).
+        // là cấp người chơi cần có. Cấp thẻ theo số đo ProgressSim (thẻ đến từ rương máy bi).
+        // Sao (tổng 1..20, bậc sao 2026-11-17): sao trung bình của đội người chơi "vừa" ở cấp đó (ProgressSim: tướng chủ lực đi trước,
+        // tướng ô 2, ô 3 chậm hơn nhiều sao), nên địch lên Bạc ở cấp 35, Vàng ở cấp 140, cao nhất Vàng 5 sao ở cấp 200; bậc Kim Cương là
+        // phần hơn của người nuôi kỹ (mốc cấp tiến hóa balance.json progression.evoLevel 30 / 95 / 150). Trước 2026-11-17: sao 2/3/4/5 ở
+        // cấp 7/23/50/96.
         // Sao cũng chọn dạng của địch trong dòng tiến hóa.
-        public static readonly int[] EnemyStarAt = { 7, 23, 50, 96 }; // sao 2, 3, 4, 5
+        public static readonly int[] EnemyStarAt = { 5, 10, 16, 24, 35, 60, 85, 108, 125, 140, 155, 170, 185, 198, 200, 999, 999, 999, 999 }; // sao 2..20 (16..20: không tới)
         public static readonly int[] EnemyCardAt = { 8, 18, 28, 45 }; // cấp 2, 3, 4, 5 của cả 3 thẻ
 
         static int Step(int[] at, int level) => 1 + at.Count(x => level >= x);

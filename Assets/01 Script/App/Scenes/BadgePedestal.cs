@@ -1,6 +1,7 @@
 // Một bệ của Đền Huy Hiệu (prefab Assets/04 Prefabs/Items/BenHuyHieu): dải màu hệ, huy hiệu bậc cao nhất (lắc nhẹ khi đã có, bóng mờ khi chưa),
-// tên hệ và bậc; dãy chưa mở: ổ khoá và điều kiện mở; đã mở: phần cộng, rồi "Đã đạt bậc cao nhất!" hoặc bậc đang đánh n/5, thanh tiến độ,
-// nút "Thử thách" (thu_thach_<hệ>). Mọi phần có sẵn trong prefab, Bind bật tắt theo dữ liệu.
+// tên hệ và bậc; dãy chưa mở: ổ khoá và điều kiện mở; đã mở: phần cộng và đặc tính hệ (hoặc bậc mở đặc tính), rồi "Đã đạt bậc cao nhất!"
+// hoặc bậc đang đánh n/m, sao của dãy, thanh tiến độ, nút "Thử thách" / "Lấy sao" (thu_thach_<hệ>). Mọi phần có sẵn trong prefab, Bind bật
+// tắt theo dữ liệu. 2026-11-17: 10 bậc, sao, đặc tính hệ, phần cộng cả đội.
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -60,23 +61,32 @@ namespace PokiClash
             }
 
             var bonus = Badges.Bonus(cfg, tier);
-            p.bonus.text = bonus > 0 ? $"Tướng hệ {Elements.Name(z)}: +{bonus * 100:0}% Máu, Công, Thủ" : $"Chưa có huy hiệu. Bậc Đồng: +{Badges.Bonus(cfg, 1) * 100:0}% cho tướng hệ {Elements.Name(z)}";
+            int lv = Badges.TraitLevel(cfg, tier), nextTrait = Badges.NextTraitTier(cfg, tier);
+            string trait = lv > 0 ? Badges.TraitText(cfg, z, lv)
+                : nextTrait > 0 ? $"Bậc {Badges.TierName(cfg, nextTrait)} mở đặc tính {Badges.TraitName(cfg, z)}" : "";
+            double team = Badges.TeamBonusOf(cfg, tier);
+            p.bonus.text = (bonus > 0 ? $"Hệ {Elements.Name(z)} +{bonus * 100:0}% Máu, Công, Thủ" : $"Bậc Đồng: hệ {Elements.Name(z)} +{Badges.Bonus(cfg, 1) * 100:0}% Máu, Công, Thủ")
+                + (team > 0 ? $" · mọi tướng +{team * 100:0.#}%" : "") + (trait.Length > 0 ? "\n" + trait : "");
 
+            int stars = Badges.LineStars(s, cfg, z), maxStars = 3 * Badges.FightsTotal(cfg);
             var cur = Badges.Current(s, cfg, z);
+            p.go.gameObject.SetActive(true);
+            p.go.name = "thu_thach_" + Keys.Of(z);
+            p.go.SetOnClick(onChallenge);
             if (cur == null)
             {
                 p.done.gameObject.SetActive(true);
+                p.done.text = $"Bậc cao nhất · {stars}/{maxStars} sao";
+                p.go.SetText("Lấy sao");
                 return;
             }
             var (ct, ci) = cur.Value;
             int n = Badges.Count(cfg, ct);
             p.progress.gameObject.SetActive(true);
-            p.progress.text = $"Đang đánh: {Badges.TierName(cfg, ct)} · {ci - 1}/{n}";
+            p.progress.text = $"{Badges.TierName(cfg, ct)} {ci - 1}/{n} · {stars}/{maxStars} sao";
             p.bar.gameObject.SetActive(true);
             p.bar.Set(ci - 1, n, 0, null, true);
-            p.go.gameObject.SetActive(true);
-            p.go.name = "thu_thach_" + Keys.Of(z);
-            p.go.SetOnClick(onChallenge);
+            p.go.SetText("Thử thách");
         }
     }
 }

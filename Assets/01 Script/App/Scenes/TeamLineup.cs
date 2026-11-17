@@ -2,6 +2,7 @@
 // "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)"): 3 ô đội đứng thành hàng, con giữa to và đứng cao hơn, hai con hai bên
 // lùi ra sau và đứng thấp xuống. Vuốt ngang xoay vòng (con bên trái / phải vào giữa); chạm con bên cạnh cũng xoay tới nó, chạm con
 // giữa mở hộp chi tiết. Dưới mỗi tướng: số thứ tự ra trận, tên, lực chiến. Dưới hàng: 4 chỉ số của con giữa (icon + số), chấm vị trí.
+// Số từ 1000 trở lên ghi gọn (NumFmt.Short: 3.3k, 57.6k). Bảng tên tô khung màu độ hiếm (2026-11-17); dòng tên con giữa ghi độ hiếm, bậc sao.
 // Đầu khung: lực chiến cả đội, nút Đổi đội (hộp chọn đội ChonDoi). Ô trống: dấu + mở hộp chọn đội; ô khoá: điều kiện mở.
 // Tướng có hình aola thì đứng động (AolaSticker, clip Đứng), không thì chân dung tĩnh. Bind lại (sau mỗi lần lưu) giữ sticker của tướng
 // cùng dạng, kể cả khi tướng dời sang ô khác; chỉ dựng sticker mới cho tướng mới hoặc dạng mới (dựng camera + RenderTexture tốn, người
@@ -33,6 +34,10 @@ namespace PokiClash
             public TextMeshProUGUI order, name, power;
             public GameObject empty;
             public TextMeshProUGUI emptyText;
+            // độ hiếm (menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc và xếp"): bảng tên thành khung màu độ hiếm, giấy lót bên trong;
+            // Huyền thoại đội vương miện góc trên phải bảng tên
+            public Image paper;
+            public GameObject crown;
         }
 
         [Serializable]
@@ -94,6 +99,7 @@ namespace PokiClash
                 sp.portrait.gameObject.SetActive(false);
                 sp.plate.gameObject.SetActive(filled);
                 sp.shadow.gameObject.SetActive(filled);
+                if (sp.crown) sp.crown.SetActive(false);
                 int k = i;
                 sp.click.OnClick = () => Tap(k);
                 if (!filled)
@@ -106,7 +112,8 @@ namespace PokiClash
                 total += power;
                 sp.order.text = (i + 1).ToString();
                 sp.name.text = h.name;
-                sp.power.text = TeamPower.Text(power);
+                sp.power.text = NumFmt.Short(power);
+                PaintRarity(sp, h.rarity);
                 string form = HeroArt.FormOf(h).aola, key = h.id + "|" + form;
                 int reuse = old.FindIndex(o => o.key == key);
                 if (reuse >= 0)
@@ -130,11 +137,23 @@ namespace PokiClash
             }
             foreach (var o in old) o.s.Destroy();
             bindFrame = Time.frameCount;
-            p.teamPower.text = TeamPower.Text(total);
+            p.teamPower.text = NumFmt.Short(total);
             p.edit.SetOnClick(OpenPicker);
             pos = target = 0;
             Layout();
             Focus();
+        }
+
+        // bảng tên: khung màu độ hiếm, giấy lót lùi vào (bảng nhỏ hơn thẻ tướng nên viền mỏng hơn), vương miện cho Huyền thoại
+        static void PaintRarity(Spot sp, Rarity r)
+        {
+            if (!sp.paper) return;
+            sp.plate.color = Theme.Of(r);
+            float w = Theme.RarityInset(r, 0.7f, 5);
+            var pr = sp.paper.rectTransform;
+            pr.offsetMin = new Vector2(w, w);
+            pr.offsetMax = new Vector2(-w, -w);
+            if (sp.crown) sp.crown.SetActive(r == Rarity.Legend);
         }
 
         void OnDestroy()
@@ -290,9 +309,13 @@ namespace PokiClash
             var h = d.Hero(id);
             var hp = s.Hero(id);
             var stats = HeroStats.Compute(d.Cfg, h, s.level, hp.star, false, Potential.Mods(s, d, h)); // như hộp chi tiết
-            p.focusName.text = $"{h.name} <color=#{ColorUtility.ToHtmlStringRGB(Theme.Of(h.rarity))}>· {Elements.RarityName(h.rarity)}</color>";
-            double[] v = { stats.hp, stats.atk, stats.def, stats.spd };
-            for (int i = 0; i < p.stats.Length && i < v.Length; i++) p.stats[i].text = TeamPower.Text((int)v[i]);
+            // tên · độ hiếm (màu sẫm của độ hiếm) · bậc sao (màu sẫm của bậc: Đồng, Bạc, Vàng, Kim Cương)
+            int tier = StarTier.Tier(hp.star);
+            string tierHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(UiStars.TierColor(tier), Theme.Ink, 0.4f));
+            p.focusName.text = $"{h.name} · {Theme.RarityRich(h.rarity)} · <color=#{tierHex}>{StarTier.Name(tier)} {StarTier.InTier(hp.star)} sao</color>";
+            double[] v = { stats.hp, stats.atk, stats.def };
+            if (p.stats.Length == 4) Ui.DropLastCell(System.Array.ConvertAll(p.stats, x => (RectTransform)x.transform.parent)); // bỏ ô Tốc
+            for (int i = 0; i < p.stats.Length && i < v.Length; i++) p.stats[i].text = NumFmt.Short(v[i]);
         }
 
         void OpenPicker()

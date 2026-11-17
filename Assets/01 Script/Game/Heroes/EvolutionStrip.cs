@@ -1,8 +1,9 @@
 // Thanh mốc tiến hóa dưới ô xem tướng trong hộp chi tiết (prefab Dialogs/ChiTietTuong, dựng bằng menu
-// "PokiClash/Prefab/Thêm thanh tiến hóa vào ChiTietTuong"): mỗi dạng của dòng tiến hóa là một mốc, chia đều trên thanh (mốc đầu ở
-// đầu thanh, mốc cuối ở cuối thanh, người dùng chốt 2026-11-02); dưới mốc ghi sao bắt đầu dạng đó (sao 1, BalanceConfig.formStars).
-// Thanh là tiến độ tới dạng cuối: giữa hai mốc thì đầy dần theo sao, đủ sao của dạng cuối là đầy. Mốc có chân dung dạng đó, số sao
-// và tên dạng; dạng chưa tới (hoặc tướng chưa có) là bóng sẫm. Dòng 1 dạng: một mốc, thanh đầy khi đã có tướng, và dòng ghi chú.
+// "PokiClash/Prefab/Thêm thanh tiến hóa vào ChiTietTuong"). Bậc sao 2026-11-17 (StarTier): thanh là sao tổng 1..20, mỗi bậc (Đồng,
+// Bạc, Vàng, Kim Cương) là một mốc đặt ở sao 1 của bậc (sao 1, 6, 11, 16), thanh đầy ở Kim Cương 5★. Mốc có chân dung dạng ở bậc đó
+// (dạng 2 ở Bạc, dạng 3 ở Vàng theo BalanceConfig.formStars; Kim Cương giữ dạng cuối), 5 sao tô màu bậc (bậc đã qua đủ 5, bậc đang ở
+// theo sao trong bậc, bậc chưa tới trống) và tên bậc; bậc chưa tới (hoặc tướng chưa có) là bóng sẫm.
+// Prefab cũ 3 mốc vẫn chạy (3 bậc đầu); chạy lại menu để có 4 mốc.
 // Mọi phần có sẵn trong prefab, Bind chỉ bật tắt và gán.
 using System;
 using PokiClash.Core;
@@ -38,44 +39,38 @@ namespace PokiClash
             note = noteText;
         }
 
-        // Sao bắt đầu của dạng i (0 là dạng 1).
-        public static int StartStar(int[] formStars, int i) => i == 0 ? 1 : formStars[i - 1];
+        // sao bắt đầu của bậc tier (0 là Đồng)
+        public static int StartStar(int tier) => StarTier.Star(tier, 1);
 
-        // Tiến độ tới dạng cuối (0..1) ở sao này: mốc i nằm ở i / (count - 1), giữa hai mốc thì chia theo sao.
-        public static float Fill(int[] formStars, int count, int star)
-        {
-            if (count <= 1) return 1;
-            for (int i = 0; i < count - 1; i++)
-            {
-                int a = StartStar(formStars, i), b = StartStar(formStars, i + 1);
-                if (star < b) return (i + Mathf.Clamp01((star - a) / (float)Mathf.Max(1, b - a))) / (count - 1);
-            }
-            return 1;
-        }
+        // vị trí sao trên thanh (0..1): sao 1 ở đầu, Kim Cương 5★ ở cuối
+        public static float Pos(int star) => Mathf.Clamp01((star - 1) / (float)(StarTier.MaxStar - 1));
+
+        // phần thanh đã đầy ở sao này
+        public static float Fill(int star) => Pos(star);
 
         public void Bind(HeroDef hero, int star, bool owned, BalanceConfig cfg)
         {
-            int count = Mathf.Max(1, Mathf.Min(hero.forms.Length, Mathf.Min(cfg.formStars.Length + 1, nodes.Length)));
-            int cur = owned ? hero.FormIndex(cfg.formStars, star) : -1;
-            bar.Set(owned ? Fill(cfg.formStars, count, star) * 100 : 0, 100, 0, "", true);
+            int count = Mathf.Min(StarTier.Count, nodes.Length);
+            int cur = owned ? StarTier.Tier(star) : -1;
+            bar.Set(owned ? Fill(star) * 100 : 0, 100, 0, "", true);
             for (int i = 0; i < nodes.Length; i++)
             {
                 var n = nodes[i];
                 n.root.gameObject.SetActive(i < count);
                 if (i >= count) continue;
-                int from = StartStar(cfg.formStars, i);
-                float x = count == 1 ? 0 : i / (count - 1f);
+                int from = StartStar(i);
+                float x = Pos(from);
                 n.root.anchorMin = new Vector2(x, n.root.anchorMin.y);
                 n.root.anchorMax = new Vector2(x, n.root.anchorMax.y);
                 bool reached = owned && star >= from;
                 n.portrait.Bind(hero, portraitHeight, !reached, from);
-                n.stars.Set(reached ? from : 0, from);
-                n.name.text = hero.forms.Length > 0 ? hero.forms[i].name : hero.name;
+                int lit = !owned || i > cur ? 0 : i < cur ? StarTier.PerTier : StarTier.InTier(star);
+                n.stars.SetTier(i, lit);
+                n.name.text = StarTier.Name(i);
                 n.name.fontStyle = i == cur ? FontStyles.Bold : FontStyles.Normal;
-                n.name.color = i == cur ? Theme.Ink : Theme.Ink3;
+                n.name.color = i == cur ? Color.Lerp(UiStars.TierColor(i), Theme.Ink, 0.45f) : Theme.Ink3;
             }
-            note.gameObject.SetActive(count == 1);
-            if (count == 1) note.text = "Dòng 1 dạng: lên sao không đổi hình";
+            note.gameObject.SetActive(false); // dòng "1 dạng" cũ: 4 mốc bậc luôn hiện, hình đổi theo dạng của dòng
         }
     }
 }

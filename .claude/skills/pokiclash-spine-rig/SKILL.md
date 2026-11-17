@@ -168,6 +168,14 @@ Con bám rig gốc là dạng cuối; dạng trước làm trên cùng xương, 
    của mình vẫn còn viền đứt và khe (tôi đọc khe là "lỗ vòng cuộn tự nhiên").
 6. Mắt to hơn thì mảnh mắt nhắm cũ không che hết: dựng mí từ vùng mắt trên ảnh đầu mới, cho slot mí dùng lưới của đầu.
 7. Soi clip gắt nhất (cuộn chặt) bằng da cũ TRƯỚC khi gen da mới; lỗi tỉ lệ lộ ra ngay, không tốn lượt gen.
+8. **Concept vẽ trên bố cục rig thì da lấy THẲNG từ concept, khỏi gen tờ mảnh** (Sa Trùng Nhi, 2026-11-17, 0 credit; mẫu
+   `ArtGen/Spine/sau_dat_non_da.py`). Concept đã duyệt trùng hình bóng bố cục ≥ 0,92 thì mỗi mảnh cứng của dạng kia ứng với một
+   chỗ trên concept qua chính lưới của nó: dựng rig dạng này mặc da cũ, lấy cặp đỉnh (px ảnh mảnh cũ ↔ px bố cục) ở khung 0 idle
+   (affine sai ≤ 0,3 px). Cắt mảnh mới theo vùng kín giữa nét mực của concept như mảnh cứng dạng kia, rồi NẮN NGƯỢC về khung ảnh mảnh
+   cũ qua các cặp đỉnh → rig gắn y như cũ (không đổi hộp, ràng buộc, vành mềm). Mảnh nấp sau mảnh khác: cho giữ TRỌN nét mực ở mép
+   chung (kín viền); đừng độn màu phẳng ra sau (lúc đung đưa lộ mảng không viền). Lỗ kín không phải lòng miệng thì lấp hết (con ngươi
+   to). Đĩa lòng miệng cũ phải xén trong hình bóng đầu mới. Mảnh chỉ đổi màu (thân 2–3 màu phẳng, roi râu) thì đổi màu bằng mã theo lớp
+   màu gần nhất (dời độ lệch lớp, giữ vân sáp và mọi bước dọn chỗ nối) thay vì cho GPT vẽ lại.
 
 **Các khúc NỐI NHAU thì gen LIỀN một ảnh rồi cắt, không gen riêng từng khúc** (người dùng dặn 2026-11-11, rồng vây: "những khớp
 nối thì gen cả con ra rồi cắt chứ không gen riêng không thì sẽ lệch"). Thân rắn / rồng, cổ – ngực – lưng – đuôi, tay hay chân nhiều
@@ -1289,3 +1297,71 @@ nhàu; ống co dãn bám xương bàn của họ: sải dài thành nêm; IK ha
   để đổi rig thì chạy lại. Ảnh mảnh rig mà lớp hạt vẽ lại (Resources/<dạng>/...png) phải có `_tt_` trong tên thì `AolaImport` mới nhập thành
   Sprite (`Resources.Load<Sprite>` trả null với Texture thường). Lấy ảnh mảnh từ `manh/` của mình, đừng cắt từ atlas (vùng xoay 90°, dính
   mảnh bên cạnh).
+
+## 32. Chi CO GIÃN tới đúng đối thủ; mảnh concept bám lưới gốc mà con gốc TÁCH LỚP (quái bùn / `monster_3668`, 2026-11-17)
+
+Tệp: `ArtGen/Spine/quai_bun_manh.py` (tờ T "đúng chỗ" + tờ D "theo khung part" + `can_mau` + `tach_than`), `quai_bun_rig.py`; ghi chú
+`inbox/quai_bun_ghichu.md` mục 5–6.
+- **Chi co giãn trên path của họ** (tám xương chạy trên path, tay vươn ~1400 đơn vị): treo mỗi xương path dưới một xương `fly_tay_k` (con của
+  root, gốc toạ độ); mỗi khung biến đổi riêng = ma trận THẾ GIỚI mẫu khung (trường `b`: x, y, góc, sx, sy) trừ chỗ fly (đúng cả xương con
+  inherit NoScale: treo luôn dưới fly cuối). Ở clip đánh xa đặt `fly_tay_k` ở w_k · far, w_k = phần quãng của xương k chiếu trên đoạn vai →
+  far; `AolaActor.FarAtomik` dời mỗi fly w_k × (đối thủ − far) → cả chi giãn đều, đầu chi tới đúng đối thủ. Clip khác để fly ở 0 (w = 0).
+- **Mảnh concept phủ chỗ con gốc có hai lớp chồng nhau** (thân P_shenti2 phình đè cột thân P_shenti1, vũng bùn P_shenti1_1..3 vẽ trước):
+  bám HỢP lưới theo tam giác gần nhất thì chỗ đỉnh đổi từ bám part này sang part kia (một ranh trái – phải) GẬP RĂNG CƯA khi part này đè
+  part kia (skill_04). Đã thử tách mảnh thành ba lớp như họ (cột lót / thân / vũng bùn, cắt cùng một ảnh): lần nào cũng còn chỗ hở ở góc
+  lõm, mép mờ, tấm đứng hay "đuôi" văng ở một dáng khác, người dùng vẫn chụp được rách. CÁCH ĐẠT: MỘT mảnh liền, trọng số HOÀ THEO CHIỀU
+  CAO: trên bám part thân, dưới bám các part vũng bùn + cột, dải hoà rộng (y 700 → 890 px concept, ~1/5 chiều cao) làm mịn cùng số vòng
+  (`HOA_Y`, `quai_bun_rig.gan_concept`). Không có ranh trái – phải thì không gập; part trên tụt xuống chỉ ép dải hoà. Soát bằng tờ toàn thân
+  + tờ cận đáy ở MỌI clip, dáng xa nhất mỗi clip (`scratchpad toan_than.py`, `goc_trai.py` kiểu) trước khi báo.
+- **Đổi hình khối hẳn trong chiêu** (thân → quả bóng mặt căng, appear: cục đất → tướng): xin GPT một tờ có các hình mới cùng tỉ lệ nét
+  (quả bóng, cục đất, gai), gắn trên xương riêng; đổi BẬC trong một khung lúc thân bẹp / bóng vọt (hoà mờ 0,06 s lộ hai hình chồng), VFX
+  phụt bùn che ở sự kiện. Quả bóng là lưới bám tâm + sáu xương phồng quanh tâm (quẫy: đẩy từng xương phồng ra); gai là mảnh cứng trên xương
+  từ tâm, vẽ SAU bóng, gốc trong bóng, co giãn trục x 0 → 1,15 → 1 lệch nhịp.
+- **Bật / tắt bằng độ đậm**: mẫu khung `chay.py sample` không có độ đậm slot; clip nào có RGBATimeline thì đọc khoá bằng `chay.py keys`.
+- **Mặt nạ đất một lần cho mọi slot**: đo đáy thấp nhất từng clip gốc so với đáy khung 0 idle (idle gốc có thể thò xuống 75 đơn vị) rồi đặt
+  mép mặt nạ thấp hơn; clip trồi từ đất nâng mặt nạ bằng một xương riêng cho slot mặt nạ.
+  **Xương mặt nạ là con của `move`** thì clip nào nhảy lên (dời `move` theo y) mặt nạ bay theo, đo "đáy so với đường cắt" theo toạ độ thế
+  giới là sai: trừ lại y của `move` trên xương mặt nạ (`P.move("dat_cat", 0, -y)`) để nó đứng yên ở mặt đất.
+- **Đổi hình (thân ↔ bóng) trong .atomik: phần bị ẩn phải GIỮ NGUYÊN dáng lúc đổi**. Runtime nội suy xương giữa hai khoá 30 khung/giây,
+  còn hình chỉ tắt ở khoá sau: nếu xương phần sắp ẩn nhảy sang dáng khác (vd. về idle) thì ở 60 khung/giây lộ một khung méo (bước 70°)
+  ngay trước lúc ẩn. Gai rút xong cũng phải giữ cỡ 0,001, đừng trả về 1. Kiểm bằng `chay.py sample ... 60`, chỉ xét bước xoay của xương
+  mà slot ĐANG HIỆN ở cả hai khung dùng tới.
+- **Hàm khổng lồ há LỐ** (người dùng: "há thật to cho lố"): phóng cả hàm quanh xương gốc hàm (1,7 lần) + banh hàm trên / dưới thêm 36° / 28°.
+  Hàm phóng to thụt xuống đất lúc đáp → cho tướng còn lơ lửng lúc ngoạm rồi rơi bịch đúng lúc đổi thành bóng. Sập hàm quá tầm vẽ làm
+  dải họng cam sẫm của mảnh lòng miệng gập thành mẩu lòi: dò lưới góc (hàm trên / hàm dưới / mõm dưới) trên khung đã khép, chọn tổ hợp che
+  được dải đó (ở đây mõm dưới hếch +22°). Sập trải ra ≥ 3 khung, giữ hàm khép 2 khung, bóng hiện ra còn bẹp ngang bằng khối hàm rồi nảy tròn.
+
+## 33. Rig gốc có xương kế thừa đặc biệt, dáng gốc lệch idle, atlas nhiều trang (thiên thạch thú / `monster_3806`, 2026-11-17)
+
+Tệp: `ArtGen/Spine/tinh_hach_manh.py`, `tinh_hach_rig.py`; ghi chú `inbox/tho9_ghichu.md` mục 3d–3e.
+- **Kế thừa `noRotationOrReflection`** (info `inherit` = 2; ở con này 20 xương gồm đầu, vai, sườn): bộ dựng `.atomik` chỉ có kế thừa thường
+  (+ noScale). Lấy biến đổi riêng từ mẫu khung thì góc riêng của các xương đó = góc thế giới của nó − góc thế giới của cha (trường `m` =
+  ma trận thế giới [a, b, c, d], góc = atan2(c, a)); vị trí riêng vẫn lấy `l` (vị trí luôn theo đủ ma trận cha). `tinh_hach_rig.rieng`.
+- **Dáng gốc (setup) lệch khung 0 idle** (ở đây tới ~140 đv ở ngón) mà mảnh của mình đặt theo hình khung 0 idle: dựng xương bằng biến đổi
+  riêng ở khung 0 idle (`rieng(idle_01 khung 0)`), chuyển động = lệch so với đó. Kiểm: ma trận dáng gốc của mình trùng `att_idle0` (in độ lệch).
+- **Atlas nhiều trang** (`.png` + `_2.png`): `mo_xe/to_manh.doc_atlas` nay ghi trang của từng vùng, `nap` mở đúng trang.
+- **Hình region / lưới không trọng số** của họ phải đổi sang dạng lưới (xy, tris, w một xương) trước khi gộp (`att_luoi`).
+- **Gen mảnh theo nhóm: cụm nhiều vật chồng nhau (rừng tinh thể) gen MỘT ảnh**: bảo mỗi tờ "chỉ cụm sau / giữa / trước, đáy phẳng" thì tờ
+  nào GPT cũng vẽ lại gần trọn cả rừng → ba bản chồng nhau. Vật nằm TRƯỚC thân trên concept (tinh thể vắt vai) tách riêng một mảnh. Mảnh
+  tay mà GPT vẽ lấn cả ngực: gen lại kèm toạ độ vai / khuỷu / bàn và câu "phần có X không phải tay".
+- **Tay của mình to hơn tay của họ**: dáng giơ tay quá đầu của họ kéo lưới tay mình thành cọng dài như xúc tu; tay vẽ SAU đầu giơ cao thì
+  chỉ lòi móng trên đầu như sừng. Đòn đánh / chiêu như vậy tự viết trên dáng idle (xoay thân, đầu, hàm, tay chỉ vừa phải); soi các clip gốc
+  trên hình của mình trước (`TH_GOC=1`: thêm clip `g_<tên>` = clip gốc nguyên vẹn) rồi mới chọn clip nền.
+- Slot ẩn sẵn (bản sao vật bay) không được nằm trong vòng "chỉnh độ mờ cả con" của appear / die.
+- **Vật bay quanh người kiểu NGUYÊN TỬ mà clip vẫn tăng tốc / gom về một điểm được** (lượt 3, người dùng: "bay xung quanh kiểu atom",
+  "quay cực nhanh để lại trail"): mỗi vật một elip nghiêng riêng dựng bằng chuỗi xương quay ngược chiều `quy` (con thân, ở tâm, góc
+  α + ψ) → `quy2` ở (a, 0), góc −2ψ → `dao` ở (b, 0) mang hình; bán trục a + b, a − b. Aura cộng +Δ / −2Δ / +Δ (vật luôn thẳng đứng); clip
+  trận cộng THÊM vòng quay y như vậy nên tăng tốc đúng ở mọi pha aura (pha aura theo Time.time, clip không biết). Gom về một điểm: dời
+  `quy2`, `dao` về 0 (+ dời `quy` tới đích, đổi về hệ của cha) → chỗ biết trước, bản sao bay tới far phóng từ đó. Vòng thêm phải khép bội
+  360° (Mix đổi clip dùng LerpAngle; Sample1 nội suy giá trị thô nên nhiều vòng không bị cắt). Vệt bay: thêm 1–2 chuỗi bóng mờ cùng góc
+  trễ 0,025 / 0,05 s (chỉ tách ra khi quay nhanh). Quỹ đạo dốc thì co bán trục lớn cho khỏi chui xuống đất. Mẫu: `tinh_hach_rig.py`.
+- **Cuộn thành quả cầu / đổi cả thân sang một hình**: ẩn mọi slot thân, hiện slot quả cầu (ảnh riêng, gen "đúng cỡ") đúng lúc thân co nhỏ
+  nhất, kèm sự kiện cho VFX che chỗ đổi. Kéo / bẹp đặt trên xương cha KHÔNG xoay, quả cầu lăn trên xương con: bẹp trên xương đang xoay thì
+  méo xiên theo góc lăn.
+- **Tay xa vẽ sau thân không xoa tay trước ngực bằng IK được** (khuất sau thân, tay gần với không tới chỗ lộ): tìm trong clip của họ đoạn
+  hai tay đã gặp nhau (thiên thạch thú: skill_04, tay gần cuộn qua ngực, chu kỳ ~0,6 s), đo khoảng cách hai bàn tay theo thời gian, lấy
+  đoạn đầu / cuối gần dáng idle, chạy nhanh hơn rồi cộng miết ngược chiều. Đừng nén đoạn mở đầu dài của họ vào vài khung (góc nhảy 50°).
+- **Chiêu bay lên cao rồi lao xuống đối thủ: độ cao KHÔNG đặt trên `move`** (thiên thạch thú, lúc đưa vào game): game xoay, giãn cả quỹ
+  đạo `move` của clip lao cho điểm xa nhất (trung bình 5 khung) trỏ vào 72 % quãng tới đối thủ (`AolaSticker.Lunge`, mục 10). Đỉnh bay
+  cao hơn quãng lao thì vào trận cả cú nhảy bị xoay nằm ngang. Đặt cú lao ngang trên `move` (xa nhất đúng lúc nện), độ cao trên xương con
+  (`all`); lớp hạt tính chỗ quả cầu = chân + (72 % quãng) × (phần lao / đỉnh lao đã làm trơn) + tâm so với `move` (bảng đo theo giờ).
