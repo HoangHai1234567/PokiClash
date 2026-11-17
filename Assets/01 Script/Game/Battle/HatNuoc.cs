@@ -1427,6 +1427,12 @@ namespace PokiClash
                 case "n_robot_cau": return NRobotCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thần Cơ: cầu to, nổ rất lớn
                 case "n_robot_ten1": return NRobotTen(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Thần Cơ Nhi: chiêu cuối mở giáp ngực, 7 tên lửa tầm nhiệt (bản nhẹ)
                 case "n_robot_ten": return NRobotTen(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Thần Cơ: chiêu cuối 7 tên lửa tầm nhiệt bay cong ngẫu nhiên, nổ lớn
+                case "n_phao_ban1": return NPhaoBan(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Pháo Giáp Nhi (HatPhao.cs), đòn thường: nâng nòng bắn một quả đạn sắt vòng cung, nổ lửa
+                case "n_phao_ban": return NPhaoBan(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Pháo Giáp, đòn thường
+                case "n_phao_mua1": return NPhaoMua(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Pháo Giáp Nhi: 5 quả lên trời, mỗi quả tách 2 tên lửa nhỏ homing lao xuống
+                case "n_phao_mua": return NPhaoMua(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Pháo Giáp: 5 quả lên trời, mỗi quả tách 3 tên lửa nhỏ homing lao xuống, nổ lớn
+                case "n_phao_cau1": return NPhaoCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 1); // Pháo Giáp Nhi: chiêu cuối gồng tụ cầu năng lượng ở họng pháo, bắn, giật điện (bản nhẹ)
+                case "n_phao_cau": return NPhaoCau(casterFeet, casterH, foeFeet, foeBody, tH, lead, 2); // Pháo Giáp: chiêu cuối gồng tụ cầu năng lượng rất lớn, bắn, nổ rất lớn, giật điện
                 default: return NVa(foeBody, foeFeet, tH);
             }
         }

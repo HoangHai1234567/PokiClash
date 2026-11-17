@@ -55,13 +55,19 @@ def _f(k, v):
 
 TI_LE = {} if not NON else {
     "bone5": _f("KN_DAU", 1.4),                                             # đầu (mũ, mắt, lửa trên mũ)
-    **{b: _f("KN_LUA", 0.58) for b in ("bone26", "bone27", "bone28", "bone29", "bone30")},   # gốc năm chuỗi lửa trên mũ
+    **{b: _f("KN_LUA", 0.58) for b in ("bone26", "bone27", "bone28", "bone29", "bone30")},   # gốc năm chuỗi lửa trên mũ (thử 0,46 khi
+    # ba chuỗi còn chĩa ra sau; từ khi dời cả năm lên mép mũ, chĩa lên (LUA_NON) thì 0,46 nấp gần hết sau mũ → về 0,58)
     "bone7": _f("KN_TAY", 0.85), "bone43": _f("KN_TAY", 0.85),              # cánh tay trên hai bên (cả cẳng, bàn, kiếm, giáp vai theo)
     "bone9": _f("KN_BAN", 1.1), "bone45": _f("KN_BAN", 1.1),                # bàn tay
     "bone31": _f("KN_VAI", 0.8),                                             # giáp vai (con của cánh tay trên)
     "bone23": _f("KN_KIEM", 0.8),                                            # kiếm (con của bàn tay)
     "bone40": _f("KN_AO", 0.85), "bone67": _f("KN_AO", 0.85),               # vạt trước, áo choàng sau
 }
+# dạng 1: ba chuỗi lửa 27, 29, 30 của họ mọc ở MẶT SAU mũ, chĩa ra sau (chùm lông vũ vuốt ra sau) → trên mũ thùng của concept C thành mấy lọn
+# thò ra bên trái (người dùng 2026-11-17: "phần lửa trên đầu hơi lệch"). Dời gốc lên mép trên mũ (xen giữa 28, 26 đang đúng chỗ), chĩa lên.
+# (x, y, góc) thế giới khung 0 idle của rig non, đo trên soi_lua: mép trên mũ từ (10, 1070) tới (300, 1090); gốc ngay trên mép (thấp hơn ~6 thì
+# lửa nấp gần hết sau mũ)
+LUA_NON = {"bone30": (45.0, 1074.0, 106.0), "bone29": (100.0, 1078.0, 95.0), "bone27": (262.0, 1090.0, 55.0)}
 RES = 2
 SCAN = G.scan()
 I = json.load(open(os.path.join(SCAN, "info.json"), encoding="utf-8"))
@@ -78,6 +84,11 @@ L0 = S["idle_01"]["frames"][0]["l"]
 ZERO5 = np.array([0, 0, 0, 1, 1.0])
 USE = ["idle_01", "run_01", "skill_01", "skill_03_1", "skill_03_2", "skill_03_3", "die_01", "hit_01"]
 BO_SLOT = {"shadow", "wangge", "effect_yanwu", "P_yanwu", "P_yanwu2", "P_yanwu3"}     # khói đen của họ: VFX của mình làm khói hồn
+# dạng 1 da riêng (concept C, 2026-11-17): chỉ giữ MỘT mũi tên ở cẳng tay gần (ảnh kt_ci04 đặt vào slot P_ci03: vẽ TRƯỚC cẳng tay, đầu cắm
+# vào lỗ vòng xanh); ẩn giáo, mũi giáo xuyên ngực, mũi tên, dằm khác
+AN_NON = {f"P_ci{i:02d}" for i in range(13) if i != 3}
+if DA_NON:
+    BO_SLOT |= AN_NON
 CANH_TAY = ("bone2", "bone3", "bone6", "bone7", "bone8", "bone9", "bone23")         # chuỗi thân → tay gần → kiếm
 
 
@@ -274,6 +285,10 @@ def dung():
         cha = NB[b["parent"]]
         z = L0[i]
         k_ = TI_LE.get(b["name"], 1.0)
+        if NON and b["name"] in LUA_NON:              # gốc chuỗi lửa dời lên mép trên mũ thùng (toạ độ + góc thế giới khung 0 idle)
+            xw, yw, gw = LUA_NON[b["name"]]
+            sk.xuong(b["name"], cha, xw, yw, goc=gw, dai=b["len"], sx=z[3] * k_, sy=z[4] * k_, the_gioi=True)
+            continue
         sk.xuong(b["name"], "move" if cha == "root" else cha, z[0], z[1], goc=z[2], dai=b["len"], sx=z[3] * k_, sy=z[4] * k_)
     Wi = sk.the_gioi()
     # thế giới dáng gốc KHÔNG đổi tỉ lệ (= dạng 2): mảnh cứng có toạ độ thế giới dạng 2 (da dạng 2, hoặc mảnh dạng 1 ghi "he": "lon") gắn
@@ -677,7 +692,38 @@ def lam_clip(sk, info):
         hien_theo_ho(sk, P, clip, u, hon=hon, cat=bool(VA) and T_A0 - 0.10 <= t < T_D0 + 0.05)
     out.append(Clip("skill", D_SK, skill, ev=[(T_A0, "hut", ""), (T_Q, "hat", ""), (T_A1, "hoi_phuc", ""), (T_B1, "gong", ""), (T_C0 + 0.05, "chem", ""),
                                              (T_C1, "trung", ""), (T_TAT, "tat", "")], trung=T_C1))
+
+    # ---- AURA (lặp 2 s, game phủ lên mọi clip theo đồng hồ riêng): LỬA CHÁY PHẬP PHÙNG ở năm chuỗi lửa trên mũ + bảy lửa nhỏ sau gáy (người
+    # dùng 2026-11-17: "phần lửa cả 2 dạng đang hơi tĩnh"). Mỗi lưỡi: sóng xoay chạy gốc → ngọn (đốt sau trễ pha, biên độ tăng dần), giật
+    # nhanh ở ngọn; dài ngắn phập phùng không đều (ba tần số lệch pha) + thỉnh thoảng bùng vọt; dài ra thì gầy lại. Mọi tần số là bội của 0,5 Hz
+    # để vòng 2 s khép kín.
+    D_AU = 2.0
+    LUA_MU = [[f"bone{n}", f"bone{n}b", f"bone{n}c"] for n in (26, 27, 28, 29, 30)]
+    LUA_GAY = [["bone33"], ["bone34", "bone34b"], ["bone35", "bone35b"], ["bone36"], ["bone37", "bone37b"], ["bone38"], ["bone39", "bone39b"]]
+    TAU = 2 * math.pi
+
+    def aura(t, P):
+        for i, ch in enumerate(LUA_MU + LUA_GAY):
+            ph = i * 1.91
+            k = 1.0 if i < len(LUA_MU) else 0.7
+            for j, b in enumerate(ch):
+                a = (3.0 + 3.0 * j) * math.sin(TAU * 1.5 * t + ph - 0.9 * j) + (1.5 + 1.6 * j) * math.sin(TAU * 3.5 * t + 1.7 * ph - 0.8 * j) \
+                    + 1.2 * j * math.sin(TAU * 6.5 * t + 2.3 * ph)
+                P.rot(b, k * a)
+            bung = max(0.0, math.sin(TAU * 1.0 * t + 0.8 * ph)) ** 6
+            s = 1.0 + k * (0.09 * math.sin(TAU * 2.5 * t + 0.6 * ph) + 0.05 * math.sin(TAU * 5.0 * t + 1.3 * ph)
+                           + 0.03 * math.sin(TAU * 7.5 * t + ph) + 0.13 * bung)
+            P.scale(ch[0], s, 1.0 - 0.45 * (s - 1.0))
+    out.append(Clip("aura", D_AU, aura, loop=True))
     return out
+
+
+def phu_aura(sk, clips, fr, ten):
+    """khung clip ten có phủ aura (như runtime) để soi / vẽ chân dung."""
+    if ten == "aura":
+        return fr
+    au = [c for c in clips if c.ten == "aura"]
+    return hoat.phu_aura(fr, nuong(sk, au[0]), sk) if au else fr
 
 
 # ---------------------------------------------------------------- nướng (góc liền mạch) + chạy
@@ -725,7 +771,7 @@ def main(a):
         return
     if a and a[0] == "soi":
         c = [x for x in clips if x.ten == a[1]][0]
-        fr = nuong(sk, c)
+        fr = phu_aura(sk, clips, nuong(sk, c), c.ten)
         ts = [float(x) for x in a[2].split(",")]
         ve = soi.Ve(sk)
         Ps = [fr[min(len(fr) - 1, int(round(t * 30)))] for t in ts]
@@ -748,6 +794,8 @@ def main(a):
                   frames=frames, dang=1, so_dang=1, dung_yen=("cast", "skill"), lao=(), far=(), cao=info["cao"], ma_goc=None,
                   tol={"rotate": 0.08, "translate": 0.2, "scale": 0.002}, khop_idle=0.2, span=SPAN,
                   impact={"attack": (0.05, 0.28, 0.07), "skill": (0.26, 1.2, 0.22, "#b6ff7a30")})
+    # chân dung: xuat_het bỏ mọi slot có xương chạy trong `aura` → mất lửa trên mũ + lửa sau gáy. Vẽ lại đủ cả con ở khung 0 idle có phủ aura
+    soi.chan_dung(soi.Ve(sk), phu_aura(sk, clips, frames["idle"], "idle")[0], os.path.join(RA, "chan_dung.png"))
 
 
 if __name__ == "__main__":

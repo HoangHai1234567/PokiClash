@@ -66,6 +66,13 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thần Cơ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThanCoNhi() => Try("thiet_phu", 1);
 
+        // Pháo Giáp (2026-11-17): thú giáp pháo, suất ung_thep (rig thu_phao_<k>, HatPhao.cs); dạng 1 Pháo Giáp Nhi ở 1 sao, dạng 2 Pháo Giáp ở 5 sao
+        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Pháo Giáp (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryPhaoGiap() => Try("ung_thep", 5);
+
+        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Pháo Giáp Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        static void TryPhaoGiapNhi() => Try("ung_thep", 1);
+
         public static void Try(string hero, int star)
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

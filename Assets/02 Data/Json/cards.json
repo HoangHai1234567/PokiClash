@@ -1331,10 +1331,10 @@
   {
    "id": "ung_thep_skill",
    "owner": "ung_thep",
-   "name": "Lông Pha Lê",
+   "name": "Pháo Tán Hỏa Tiễn",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "feather",
+   "icon": "crack",
    "cost": {
     "mana": 40
    },
@@ -1349,10 +1349,10 @@
   {
    "id": "ung_thep_ult",
    "owner": "ung_thep",
-   "name": "Săn Trời",
+   "name": "Lôi Pháo Đại Cầu",
    "rarity": "epic",
    "kind": "ult",
-   "icon": "wing",
+   "icon": "bolt",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -1373,10 +1373,10 @@
   {
    "id": "ung_thep_pas",
    "owner": "ung_thep",
-   "name": "Cánh Gió",
+   "name": "Giáp Hiệp Sĩ",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "wing",
+   "icon": "helmet",
    "trigger": "start",
    "effects": [
     {

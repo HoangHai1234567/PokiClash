@@ -79,10 +79,10 @@ def main(chi):
     ra = os.path.join(R.RA, "dong")
     os.makedirs(ra, exist_ok=True)
     for c in clips:
-        if chi and c.ten not in chi:
+        if (chi and c.ten not in chi) or c.ten == "aura":
             continue
         t0 = time.time()
-        fr = R.nuong(sk, c)
+        fr = R.phu_aura(sk, clips, R.nuong(sk, c), c.ten)       # lửa cháy phập phùng (clip aura) phủ lên như runtime
         vong, buoc = CACH.get(c.ten, (1, 1))
         if c.loop and len(fr) == int(round(c.dur * 30)) + 1:
             fr = fr[:-1]

@@ -242,7 +242,7 @@
    "id": "tam_kiem",
    "name": "Vong Kỵ",
    "title": "Kỵ sĩ cổ đại bị nguyền",
-   "aola": "ky_nguyen_2",
+   "aola": "ky_nguyen_1",
    "elem": "kim",
    "rarity": "epic",
    "stats": [
@@ -262,7 +262,7 @@
    "forms": [
     {
      "name": "Vong Kỵ Nhi",
-     "aola": "ky_nguyen_2",
+     "aola": "ky_nguyen_1",
      "size": 0.92
     },
     {
@@ -274,9 +274,9 @@
   },
   {
    "id": "ung_thep",
-   "name": "Ưng Thép",
-   "title": "Thợ săn trời cánh pha lê",
-   "aola": "ung_thep_1",
+   "name": "Pháo Giáp",
+   "title": "Thú giáp pháo công thành",
+   "aola": "thu_phao_1",
    "elem": "kim",
    "rarity": "epic",
    "stats": [
@@ -291,17 +291,17 @@
    "ult": "ung_thep_ult",
    "passive": "ung_thep_pas",
    "shards": 30,
-   "line": "Dòng Ưng Thép",
+   "line": "Dòng Pháo Giáp",
    "size": 0.92,
    "forms": [
     {
-     "name": "Ưng Thép Con",
-     "aola": "ung_thep_1",
+     "name": "Pháo Giáp Nhi",
+     "aola": "thu_phao_1",
      "size": 0.92
     },
     {
-     "name": "Ưng Thép",
-     "aola": "ung_thep_2",
+     "name": "Pháo Giáp",
+     "aola": "thu_phao_2",
      "size": 1.1
     }
    ]

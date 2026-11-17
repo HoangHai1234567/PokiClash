@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<title>Vong Kỵ Nhi rig</title>
+<style>
+  body { margin: 0; padding: 16px; background: #2a2b31; color: #eee; font: 15px/1.5 system-ui, sans-serif; }
+  h1 { font-size: 18px; margin: 0 0 6px; }
+  p.ghi { margin: 0 0 14px; color: #bbb; max-width: 1100px; }
+  .luoi { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 14px; }
+  .rong { grid-column: 1 / -1; }
+  figure { margin: 0; background: #96969a; border-radius: 8px; overflow: hidden; }
+  figure img { width: 100%; display: block; }
+  figcaption { background: #1d1e22; padding: 8px 10px; color: #ddd; }
+  b { color: #ffcf6a; }
+  a { color: #8fd3ff; }
+</style>
+</head>
+<body>
+<h1>Vong Kỵ Nhi (dạng 1 của Vong Kỵ, tướng 8 đảo Kim): rig và animation</h1>
+<p class="ghi">Cùng rig, cùng clip với dạng 2 (vua chiến trận cổ); tỉ lệ đổi ở xương: đầu × 1,4, lửa trên mũ nhỏ, tay × 0,85, bàn tay × 1,1, giáp vai,
+kiếm × 0,8, áo choàng × 0,85. Da theo concept C: mũ thùng sứt (gen riêng), giáp vai hai tấm răng cưa, ngực có khía, cẳng tay có lỗ vòng xanh + một
+mũi tên, áo choàng đỏ rượu không viền vàng, đá đen nứt xanh; khoảng rỗng, lửa, găng, kiếm gãy và phần vá hồn dùng lại của dạng 2. Ảnh động vẽ bằng bộ
+vẽ của mình ở 30 khung/giây; khối xám là chỗ đối thủ. <b>Chưa có VFX</b> (hồn đồng đội, khí hồn, vệt chém, nổ: dùng chung bộ HatHon của dạng 2 khi
+vào game). Trang Spine Web Player: <a href="ky_nguyen_non/rig/xem.html">ky_nguyen_non/rig/xem.html</a>.</p>
+<div class="luoi">
+  <figure class="rong"><img src="ky_nguyen_non/rig/dong/skill.webp"><figcaption><b>Chiêu cuối</b>: dựng kiếm trước mặt, tay kia vuốt lên, phần vá hồn xanh hiện dần theo tay từ chỗ gãy (khít vết gãy, như dạng 2 nhưng nhỏ hơn), kiếm lành, giơ qua đầu, bổ xuống đối thủ, khựng, rung</figcaption></figure>
+  <figure class="rong"><img src="ky_nguyen_non/rig/dong/cast.webp"><figcaption><b>Chiêu mana</b>: giơ kiếm lên (sự kiện <i>goi</i> thả hồn đồng đội). Tay ngắn + đầu to nên kiếm dựng ngay trước mặt (như kiếm chào) thay vì vượt qua đầu như dạng 2</figcaption></figure>
+  <figure class="rong"><img src="ky_nguyen_non/rig/dong/attack.webp"><figcaption><b>Đánh thường</b>: lao tới, vung kiếm qua đầu, bổ tới đối thủ, lùi về</figcaption></figure>
+  <figure><img src="ky_nguyen_non/rig/dong/appear.webp"><figcaption><b>Ra sân</b>: đống giáp dưới đất, mắt bật xanh, các mảnh nhấc lên ráp lại</figcaption></figure>
+  <figure><img src="ky_nguyen_non/rig/dong/idle.webp"><figcaption><b>Đứng</b>: lơ lửng, áo choàng bay; <b>lửa cháy phập phùng</b> (sửa 2026-11-17): năm lưỡi lửa giờ mọc trên mép mũ (ba lưỡi trước thò ra sau mũ), clip <i>aura</i> lặp 2 s phủ lên MỌI clip: lưỡi lửa uốn, giật ở ngọn, dài ngắn không đều, thỉnh thoảng bùng; cả bảy lửa nhỏ sau gáy</figcaption></figure>
+  <figure><img src="ky_nguyen_non/rig/dong/walk.webp"><figcaption><b>Đi</b></figcaption></figure>
+  <figure><img src="ky_nguyen_non/rig/dong/hit.webp"><figcaption><b>Trúng đòn</b></figcaption></figure>
+  <figure><img src="ky_nguyen_non/rig/dong/die.webp"><figcaption><b>Chết</b>: mắt tắt, giáp đổ sụp rồi mờ</figcaption></figure>
+  <figure><img src="ky_nguyen_non/tai_ve/L1_duyet.png" style="background:#fff"><figcaption>Concept C đã duyệt (để so)</figcaption></figure>
+  <figure><img src="ky_nguyen_non/rig/chan_dung.png"><figcaption>Chân dung từ rig</figcaption></figure>
+</div>
+</body>
+</html>

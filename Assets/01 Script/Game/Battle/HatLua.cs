@@ -109,6 +109,8 @@ namespace PokiClash
             { "tam_kiem", new Theme { pal = "hon", smoke = new[] { C(38, 46, 40), C(84, 102, 86), C(140, 158, 140), C(196, 210, 196) }, spark = C(214, 255, 160), ember = C(150, 230, 90), ring = C(132, 205, 57), ring2 = C(214, 250, 180), extra = "giap", extraCol = C(112, 96, 88) } },
             // robot hủy diệt cổ đại (Thần Cơ, suất thiet_phu đảo Kim, 2026-11-16; HatRobot.cs): năng lượng vàng lõi trắng (cầu, nổ cầu), tia vàng nhạt, mảnh thép sẫm văng ra; nổ tên lửa đổi sang lửa đỏ cam (RbLuaTh)
             { "thiet_phu", new Theme { pal = "nang", spark = C(255, 236, 160), ember = C(255, 196, 80), ring = C(250, 186, 60), ring2 = C(255, 244, 205), extra = "giap", extraCol = C(92, 92, 100) } },
+            // thú giáp pháo (Pháo Giáp, suất ung_thep đảo Kim, 2026-11-17; HatPhao.cs): năng lượng vàng (cầu chiêu cuối, nổ cầu), tia vàng, mảnh thép bạc văng ra; đạn sắt và tên lửa nổ lửa đỏ cam (RbLuaTh)
+            { "ung_thep", new Theme { pal = "nang", spark = C(255, 236, 160), ember = C(255, 196, 80), ring = C(250, 186, 60), ring2 = C(255, 244, 205), extra = "giap", extraCol = C(170, 176, 188) } },
         };
 
         public Theme Th = Default;

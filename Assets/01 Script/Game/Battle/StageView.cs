@@ -159,6 +159,7 @@ namespace PokiClash
             { "khien_bac", (new[] { "n_xich_nem1", "n_xich_nem" }, new[] { "n_xich_lua1", "n_xich_lua" }) }, // suất này nay là Quỷ Xích, quỷ béo móc xích (2026-11-16, HatXich.cs): quay xích qua đầu, ném móc (móc + xích là mảnh của rig, xương fly_*, game lái) găm rồi giật về; chiêu cuối xích bốc lửa quay để lại vệt lửa + khói, ném trói đối thủ (vòng xích), cột lửa rất to thiêu
             { "chien_than", (new[] { "n_soi_nem1", "n_soi_nem" }, new[] { "n_soi_huc1", "n_soi_huc" }) }, // suất này nay là Sói Giáp, sói chiến binh khiên búa (2026-11-16, rig soi_giap_<k>, HatSoi.cs): ném búa xoáy (búa là mảnh của rig, xương fly_0, game lái) trúng rồi bay về tay; chiêu cuối che khiên tụ gió, lao xé gió (rig khai lunge), húc
             { "thiet_phu", (new[] { "n_robot_cau1", "n_robot_cau" }, new[] { "n_robot_ten1", "n_robot_ten" }) }, // suất này nay là Thần Cơ, robot hủy diệt cổ đại (2026-11-16, rig robot_co_<k>, HatRobot.cs): hai tay giơ cao xoay lòng bàn tay tụ cầu năng lượng to rồi ném xuống đầu đối thủ, nổ rất lớn; chiêu cuối mở giáp ngực, 7 tên lửa tầm nhiệt bay đường cong ngẫu nhiên lao vào đối thủ, nổ lớn
+            { "ung_thep", (new[] { "n_phao_mua1", "n_phao_mua" }, new[] { "n_phao_cau1", "n_phao_cau" }) }, // suất này nay là Pháo Giáp, thú giáp pháo (2026-11-17, rig thu_phao_<k>, HatPhao.cs): nòng chĩa trời bắn liền 5 quả lên khỏi màn, trên đầu đối thủ mỗi quả tách thành 2 / 3 tên lửa nhỏ homing lao xuống; chiêu cuối gồng tụ cầu năng lượng rất lớn ở họng pháo, bắn, nổ lớn, giật điện
         };
 
         // đòn đánh thường của tướng Kim có hiệu ứng riêng (HatLua.AtkLao nhận thì phát cả khi lao tới)
@@ -177,6 +178,7 @@ namespace PokiClash
         static readonly Dictionary<string, string[]> AtkDang = new Dictionary<string, string[]>
         {
             { "thiet_phu", new[] { "n_robot_ban1", "n_robot_ban" } }, // Thần Cơ (HatRobot.cs): đứng giơ tay phải tụ cầu năng lượng ở ổ nắm đấm rồi bắn, tay giật lùi
+            { "ung_thep", new[] { "n_phao_ban1", "n_phao_ban" } }, // Pháo Giáp (HatPhao.cs): đứng nâng nòng bắn một quả đạn sắt vòng cung, nổ lửa
         };
 
         // form: dạng đang ra trận (0 là dạng đầu); chỉ tướng có trong AtkDang chọn theo dạng

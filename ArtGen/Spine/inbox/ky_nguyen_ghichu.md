@@ -184,3 +184,42 @@ cùn, như kiểu **sửa lại kiếm đó bằng một vật liệu khác**". 
   túm lửa nhỏ, giáp vai một tấm tròn, không mũi tên), B hiệp sĩ giáp vá (mũ chóp nhọn có thanh che mũi, giáp vá đinh tán dây da, một mũi tên gãy ở
   vai, mảnh khiên gỗ bay), C mũ thùng sứt (mũ thùng quá cỡ móp một góc, khe chữ thập, khe hở lộ hồn nhiều hơn, một mũi tên ở cẳng tay). Codex hết
   lượt đến 19:01 → hẹn tự chạy 19:03.
+- **Máy D, 2026-11-16 tối** (người dùng: "quét update mới và làm dạng 2 của tướng này"; hỏi lại thì chọn "giữ hình hiện tại là dạng 2, làm bản
+  non"): quét lại `monster_3642` vào `D:\RefAnimation\SwordxStaff\scan\monster_3642\` (info, att_goc, att_idle0, sample 12 clip 30 khung/giây,
+  sample_120 skill_01): 125 xương, 70 slot, 12 clip, 12 370 khoá, 61 hình bật ở idle 0, trùng máy C. Sinh lại ba file prompt bằng đường dẫn máy
+  D, Codex gen đạt lượt đầu cả ba (149 / 108 / 171 s) → `inbox/ky_nguyen_non/tai_ve/L1_<A|B|C>.png`. Khớp hình bóng bố cục (`mau/_so_bo_cuc.png`)
+  A 0,778, B 0,776, C 0,697 (C vẽ to hơn ~8 %, kiếm lệch xuống phải). Cả ba: kiếm đúng vết gãy, không vương miện, tô phẳng; phần dưới áo choàng
+  ngắn hơn bố cục. Trang so `inbox/ky_nguyen_non_xem_concept.html`. Claude nghiêng về A.
+- **Người dùng chọn C** (2026-11-17) → `inbox/ky_nguyen_non/tai_ve/L1_duyet.png`.
+
+### 9b. Mảnh + rig dạng 1 (2026-11-17, máy D)
+
+- **Mảnh** (`ky_nguyen_non_manh.py`, dùng lại hàm `ky_nguyen_manh.py`, mẫu `quy_xich_non_manh.py`): phép căn concept C ↔ thế giới non theo bố cục rig
+  non, tinh chỉnh bằng hình bóng ĐÃ MỞ (bỏ mũi tên / giáo mảnh của da dạng 2 trên bố cục): a 1,04, dời −20, +2 px, IoU 0,768 (`mau/_so_can.png`).
+  Codex đạt lượt đầu cả ba tờ: K1 áo choàng + vạt trước (đỏ rượu, tua ngắn, không viền vàng; IoU 0,98 / 0,94), K2 giáp vai hai tấm răng cưa
+  (0,94; vá hụt ~2000 px ở vây sau), giáp ngực trơn có khía, cẳng tay gần có LỖ VÒNG XANH (toạ độ trên tờ tính từ đầu cắm mũi tên P_ci04 chiếu vào
+  lưới cẳng tay), năm viên đá → đá đen nứt xanh (mảnh LƯỚI giữ hình bóng, không phải mảnh cứng như dạng 2); R1 mũ thùng sứt + vòng cổ vàng (khe chữ
+  thập vẽ hốc mắt đen). Mắt cắt từ concept C (`MAT_HOP`). Dùng lại dạng 2: khoảng rỗng, lửa trên mũ, lửa sau gáy, hai găng + ngón, giáp tay xa,
+  mảnh giáp nhỏ; mảnh cứng kiếm, phần vá hồn, mũi tên ghi `"he": "lon"`.
+- **Mũi tên**: ở slot P_ci04 (vẽ SAU cẳng tay) nó chui ra ở mép, rời lỗ → `sua_ten`: ảnh `kt_ci04` đặt vào slot **P_ci03** (thứ tự 64, TRƯỚC cẳng
+  tay 62, xương bone20 cũng con bone8), dời (+20, −17) đơn vị cho đầu cắm trùng tâm lỗ. Rig `AN_NON` = 12 slot P_ci còn lại (ẩn khi `DA_NON`).
+- **Lửa trên mũ** `KN_LUA` 0,58 → 0,46 (lửa dạng 2 dùng lại rậm hơn mấy lưỡi lửa nhỏ của C).
+- **Rig** `KN_DANG=non ky_nguyen_rig.py` → `inbox/ky_nguyen_non/rig/`: 130 xương, 88 slot, 754 đỉnh, 8 clip, 17 sự kiện, `.atomik` 357 KB, mọi
+  clip nối về khung 0 idle 0 px; chiêu cuối vá kiếm chạy đúng ở tỉ lệ non. Ảnh động `KN_DANG=non ... inbox/ky_nguyen_1/_xem_dong.py` →
+  `rig/dong/`; trang `inbox/ky_nguyen_non_xem_rig.html`. Còn để ý: chiêu mana tay ngắn + đầu to nên kiếm dựng ngay trước mặt (như kiếm chào)
+  thay vì vượt qua đầu. **CHỜ người dùng xem.** Chưa soi runtime Spine thật (Chrome), chưa vào game (Resources/ky_nguyen_1, heroes.json dạng 1 trỏ
+  `ky_nguyen_1`, tiến hóa gộp `evolve`, tour KimFxTour).
+
+### 9c. Lửa (2026-11-17; người dùng xem rig dạng 1: "phần lửa trên đầu hơi lệch", "phần lửa cả 2 dạng đang hơi tĩnh, nên làm cho có animation
+lửa phập phùng kiểu đang cháy")
+
+- **Lệch (dạng 1)**: ba chuỗi lửa `bone27/29/30` của họ mọc ở MẶT SAU mũ, chĩa ra sau (chùm lông vũ vuốt ra sau) → trên mũ thùng thành mấy lọn
+  thò ra bên trái. `LUA_NON` (rig): dời gốc lên mép trên mũ, xen giữa 28, 26, chĩa lên (dựng xương `the_gioi=True` ở dáng gốc; clip là độ lệch so
+  với dáng gốc nên mọi clip theo). Thử gốc thấp hơn mép 6 đơn vị + `KN_LUA` 0,46 thì lửa nấp gần hết sau mũ → gốc ngay trên mép, `KN_LUA` 0,58.
+- **Lửa cháy (cả hai dạng)**: clip `aura` lặp 2 s (game phủ lên mọi clip theo đồng hồ riêng: `AtomikPlayer` / `AolaActor`): năm chuỗi lửa trên
+  mũ + bảy lửa nhỏ sau gáy (`bone33..39`): sóng xoay gốc → ngọn (1,5 / 3,5 / 6,5 Hz, đốt sau trễ pha, biên độ tăng dần), dài ngắn ở xương gốc
+  (2,5 / 5 / 7,5 Hz) + bùng vọt (1 Hz mũ 6), dài ra thì gầy lại; mọi tần số bội 0,5 Hz cho vòng khép kín. Lửa sau gáy biên độ 0,7. Lửa nướng
+  trong khoảng rỗng (`LIEN`) vẫn tĩnh (vẽ liền vào mảnh lưới thân).
+- Chân dung vẽ lại có phủ aura (xuat_het bỏ slot do aura điều khiển); `soi` và `_xem_dong.py` phủ aura như runtime (`phu_aura`).
+- Dựng lại: dạng 1 `.atomik` 368 KB, dạng 2 374 KB (máy D dựng lại `inbox/ky_nguyen_1/rig/` từ đầu; bản trong game 363 KB + aura), 9 clip, mọi
+  clip nối idle 0 px. Ảnh động hai dạng xuất lại. **CHƯA chép vào game** (Resources/ky_nguyen_2 vẫn bản cũ không aura): chờ người dùng xem.

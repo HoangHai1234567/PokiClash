@@ -5,7 +5,7 @@
     skill: mũi kiếm gãy, chỗ gãy (hon_goc), mép đang hiện của phần vá (hon_dau), mũi phần vá (mui_hon), độ đậm phần vá
 Mốc (giây clip) đọc từ sự kiện của clip trong rig. Đổi clip / tỉ lệ rig thì chạy lại script này (đừng sửa tay HatHon.cs).
 
-    py -3 -I ArtGen/Spine/ky_nguyen_hat_cs.py [dạng ...]     (mặc định: 2; dạng 1 thêm khi có rig dạng 1)
+    py -3 -I ArtGen/Spine/ky_nguyen_hat_cs.py [dạng ...]     (mặc định: 1 2; bản nhẹ n_hon_goi1 / n_hon_kiem1 dùng bảng dạng 1)
 """
 import os
 import sys
@@ -24,6 +24,8 @@ def do(dang):
     import importlib
     if dang == 1:
         os.environ["KN_DANG"] = "non"
+    else:
+        os.environ.pop("KN_DANG", None)         # đo dạng 2 sau dạng 1: gỡ biến của dạng 1 trước khi nạp lại rig
     import ky_nguyen_rig as R
     importlib.reload(R)
     sk, info = R.dung()
@@ -262,7 +264,8 @@ namespace PokiClash
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             float k = Mathf.Max(0.3f, lead) / KnCLead;
             float tGoi = KnCGoi * k, tTrung = Mathf.Max(0.3f, lead);
-            var tip = KnO(casterFeet, casterH, dir, KnMau(Kn@DANG2@CastTipX, Kn@DANG2@CastTipY, KnCGoi));
+            bool non = manh < 0.95f;                                                      // bản nhẹ = dạng 1 (rig riêng: tay ngắn, kiếm nhỏ)
+            var tip = KnO(casterFeet, casterH, dir, KnMau(non ? Kn@DANG1@CastTipX : Kn@DANG2@CastTipX, non ? Kn@DANG1@CastTipY : Kn@DANG2@CastTipY, KnCGoi));
             At(tGoi, () =>
             {
                 HonChop(tip, 0.32f * casterH * manh, Front, 0.2f);
@@ -296,15 +299,20 @@ namespace PokiClash
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             float k = Mathf.Max(0.3f, lead) / KnSLead;
             float tTrung = Mathf.Max(0.3f, lead);
-            Vector2 Dau(float tc) => KnO(casterFeet, casterH, dir, KnMau(Kn@DANG2@SkillDauX, Kn@DANG2@SkillDauY, tc));
-            Vector2 Goc(float tc) => KnO(casterFeet, casterH, dir, KnMau(Kn@DANG2@SkillGocX, Kn@DANG2@SkillGocY, tc));
-            Vector2 Mui(float tc) => KnO(casterFeet, casterH, dir, KnMau(Kn@DANG2@SkillMuiX, Kn@DANG2@SkillMuiY, tc));
+            bool non = manh < 0.95f;                                                      // bản nhẹ = dạng 1 (rig riêng: tay ngắn, kiếm nhỏ)
+            float[] dX = non ? Kn@DANG1@SkillDauX : Kn@DANG2@SkillDauX, dY = non ? Kn@DANG1@SkillDauY : Kn@DANG2@SkillDauY;
+            float[] gX = non ? Kn@DANG1@SkillGocX : Kn@DANG2@SkillGocX, gY = non ? Kn@DANG1@SkillGocY : Kn@DANG2@SkillGocY;
+            float[] mX = non ? Kn@DANG1@SkillMuiX : Kn@DANG2@SkillMuiX, mY = non ? Kn@DANG1@SkillMuiY : Kn@DANG2@SkillMuiY;
+            float[] honA = non ? Kn@DANG1@SkillHon : Kn@DANG2@SkillHon;
+            Vector2 Dau(float tc) => KnO(casterFeet, casterH, dir, KnMau(dX, dY, tc));
+            Vector2 Goc(float tc) => KnO(casterFeet, casterH, dir, KnMau(gX, gY, tc));
+            Vector2 Mui(float tc) => KnO(casterFeet, casterH, dir, KnMau(mX, mY, tc));
             float r = 0.012f * casterH;                                                   // cỡ hạt nhỏ theo thân
             // khí hồn bị hút vào mép đang hiện của phần vá + tia lấp lánh ở mép
             Every(KnSHut * k, KnSHoi * k, 40, x =>
             {
                 float tc = Mathf.Lerp(KnSHut, KnSHoi, x);
-                if (KnMau1(Kn@DANG2@SkillHon, tc) < 0.5f && tc > KnSHut + 0.12f) return;
+                if (KnMau1(honA, tc) < 0.5f && tc > KnSHut + 0.12f) return;
                 var dau = Dau(tc);
                 float a = U(0, 6.28f), d = U(0.5f, 0.95f) * casterH;
                 var from = dau + new Vector2(Mathf.Cos(a) * d, Mathf.Sin(a) * d * 0.7f + 0.15f * casterH);
@@ -315,7 +323,7 @@ namespace PokiClash
             Every(KnSHut * k + 0.1f, KnSHoi * k, 30, x =>
             {
                 float tc = Mathf.Lerp(KnSHut + 0.1f / k, KnSHoi, x);
-                if (KnMau1(Kn@DANG2@SkillHon, tc) < 0.5f) return;
+                if (KnMau1(honA, tc) < 0.5f) return;
                 Spark(Dau(tc), new Vector2(U(-1f, 1f), U(-1f, 0.2f)), U(80, 200), U(0.12f, 0.22f), U(5, 8) * manh, 60);
             });
             // tay hất: lửa hồn chạy dọc lưỡi tới mũi
@@ -402,5 +410,5 @@ namespace PokiClash
 '''
 
 if __name__ == "__main__":
-    ds = [int(x) for x in sys.argv[1:]] or [2]
+    ds = sorted(int(x) for x in sys.argv[1:]) or [1, 2]          # từ 2026-11-17 có rig dạng 1 riêng: mặc định sinh cả hai
     sinh(ds)
