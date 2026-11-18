@@ -647,6 +647,8 @@ namespace PokiClash.EditorTools
                         onTap.Invoke(home, new object[] { cellTop.Invoke(home, new object[] { 36.5f, 38.5f }) });
                         yield return new WaitForSecondsRealtime(0.6f);
                         Shot("9_doi");
+                        yield return null; // ảnh chụp ở cuối khung: chờ chụp xong rồi mới làm bước sau
+                        yield return null;
                         yield return new WaitForSecondsRealtime(0.5f);
                         place.Invoke(home, null);
                         yield return new WaitForSecondsRealtime(0.6f);
@@ -754,10 +756,14 @@ namespace PokiClash.EditorTools
                         }
                         yield return new WaitForSecondsRealtime(0.3f);
                         Shot("10_keo");
+                        yield return null; // ảnh chụp ở cuối khung: chờ chụp xong rồi mới làm bước sau
+                        yield return null;
                         UnityEngine.EventSystems.ExecuteEvents.Execute(tapC.gameObject, pe, UnityEngine.EventSystems.ExecuteEvents.pointerUpHandler);
                         UnityEngine.EventSystems.ExecuteEvents.Execute(tapC.gameObject, pe, UnityEngine.EventSystems.ExecuteEvents.endDragHandler);
                         yield return new WaitForSecondsRealtime(0.4f);
                         Shot("10_tha");
+                        yield return null; // ảnh chụp ở cuối khung: chờ chụp xong rồi mới làm bước sau
+                        yield return null;
                         place.Invoke(home, null);
                         yield return new WaitForSecondsRealtime(0.4f);
                         Debug.Log($"[Nhà] Giữ kéo: nhấc {(lifted ? "được" : "KHÔNG được")}, kho {ox},{oy} → {hb.gx},{hb.gy}");
