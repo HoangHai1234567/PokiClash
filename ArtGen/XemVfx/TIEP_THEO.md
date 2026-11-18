@@ -45,7 +45,7 @@ Người dùng bảo tạm dừng ngày 2026-11-18 để về nhà làm tiếp. 
    - Bản TRƯỚC đã chụp (trước khi agent sửa) ở `Temp/PokiShots/vfx_all/truoc/`, **chỉ có trên máy ổ C** (Temp không vào git, khoảng 1,1 GB).
 6. **Trang so sánh** `ArtGen/XemVfx/` (`index.html`, `xay_trang.py`, `MO_WEB.bat`, cổng 8768): đã dựng với bản TRƯỚC. Ảnh `anh/` và `data.json` đã `.gitignore`.
 7. Unity biên dịch sạch với toàn bộ thay đổi. Test EditMode 134/135 qua.
-   - Ca hỏng: `PrefabOnlyTests.MaRuntime_KhongSinhDoVat`, do `UI/Kit/NumberTicker.cs:21` và `UI/Kit/UiMotion.cs:38` gọi `AddComponent`. Không phải file của đợt này.
+   - Ca hỏng: `PrefabOnlyTests.MaRuntime_KhongSinhDoVat`, do `UI/Kit/NumberTicker.cs:21` và `UI/Kit/UiMotion.cs:38` gọi `AddComponent`. Không phải file của đợt này; hai file đó sửa lần cuối 2026-11-06, nên lỗi có từ trước.
 
 ## Việc tiếp theo (theo thứ tự)
 1. **Báo các phiên khác trước khi dùng Unity**, rồi Play, chạy menu "Hiệu ứng mọi tướng: chụp bản SAU". Xong: `py -3 -I ArtGen/XemVfx/xay_trang.py`, chạy `MO_WEB.bat`, mở cho người dùng.

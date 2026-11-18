@@ -344,6 +344,12 @@ Mình làm:
 - Dời không tốn gì; tướng đang giao, đồ tích, giờ xây, giờ lên cấp giữ nguyên (`Home.Move`, kiểm `CanPlace` bỏ qua chính nó).
 - Khay công trình ẩn khi đang có bóng ma; bóng ma bị bảng chọn che thì máy tự kéo cho nó ra giữa (`HomeScene.StartMove`, `KeepVisible`).
 - Tour chụp `9_doi`, `9_doi_xong`.
+- **Chạm, nhấn giữ, kéo** (người dùng dặn 2026-11-18, học Critters và Clash of Clans; Critters dùng EasyTouch, nhấn giữ 1 giây, bộ giao diện `buildmode` có nút xác nhận, đóng):
+  - chạm công trình: bảng chọn có thêm nút **Dời** (nút thứ tư);
+  - nhấn giữ 0,45 giây lên công trình (cả ở chế độ thường) thì nhấc lên, có rung nhẹ, cùng ngón kéo đi theo ô lưới; bóng nhấc cao 18 px khi đang cầm, qua mỗi ô rung nhẹ;
+  - thả tay thì còn Đặt / Thôi, chỗ đỏ ghi lý do; đang dời thì nhấn lên bóng là kéo tiếp;
+  - `HomeTap` bắt nhấn, giữ, kéo trên mặt đất; không cầm công trình thì chuyển nguyên sự kiện kéo cho `LandView` (kéo, chụm bản đồ như cũ); đang cầm thì ngón khác không kéo bản đồ.
+  - Tour dùng sự kiện chạm giả (`10_bang_doi`, `10_keo`, `10_tha`): giữ là nhấc được, kéo 4 ô kho dời đúng, kéo đất trống bản đồ trôi.
 
 ## Ô lát: đất, cát, đường đá, nước (học Clash of Critters, 2026-11-18)
 
