@@ -11,7 +11,7 @@ phẳng của PokiClash nhất. Thư mục này có ba thứ: tài liệu phân 
 | `tools/` | Script đọc bản rút và dựng dữ liệu (xem dưới) |
 
 Bài học đã chuyển thành luật trong skill:
-- `.claude/skills/skill-petclash/hoc_kr5_vfx.md`;
+- `.claude/skills/vfx-petclash/hoc_kr5_vfx.md`;
 - `pokiclash-hero-fx` mục 1c;
 - `pokiclash-fx-congthuc` mục 2b.
 

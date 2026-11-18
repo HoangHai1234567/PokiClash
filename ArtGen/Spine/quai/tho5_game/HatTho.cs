@@ -9,13 +9,13 @@
 // Đi đường "n_" (StageView.PreFx / AtkFx → PlayNuoc): phát lúc clip BẮT ĐẦU kèm lead (giờ trúng của clip). Mọi mốc dưới đây là mốc của
 // rig (giây clip), co giãn theo lead / khung trúng của rig. Lớp hạt không đọc được xương nên chỗ miệng, vuốt, tay, mai đo sẵn trên rig
 // (đơn vị chiều cao dáng đứng; x về phía đối thủ, y lên) theo giờ clip.
-// Hình hệ Thổ (skill-petclash mục 5): khối đá góc cạnh, trồi lên, rơi nặng, nảy một lần rồi nằm; bụi tròn nâu be; sỏi. Không dùng ảnh
+// Hình hệ Thổ (vfx-petclash mục 5): khối đá góc cạnh, trồi lên, rơi nặng, nảy một lần rồi nằm; bụi tròn nâu be; sỏi. Không dùng ảnh
 // đá, vết nứt có mạch dung nham của bộ Hỏa (hat_rock_*, hat_crack_*), không dùng chớp nước BurstFlash (bảng W là màu nước): chớp trúng
 // là sao gai màu kem. Thân khối lớn (lưỡi cát, lốc cát, cột sa thạch, gai sóng chấn, vết nứt) là mảng liền (MSolid / MFill); hạt chỉ
 // làm mép, bụi, dăm. Rung lúc trúng do rig khai (impactShake); ở đây chỉ rung cho nhịp không phải khung trúng (dậm, nện, đáp).
 // DẠNG 2 (2026-11-17, rig riêng mỗi dạng; quai/doi_tho5_dang2.py): Thạch Giáp cong_da_2 (3528), Sa Tích than_lan_cat_2 (3530), Tê Thiềm
 // thu_da_2 (3526); Sa Long thêm DẠNG 1 rong_cat_non (3529), dạng 2 là rig rong_cat_1 cũ. Mã dạng 2: n_*2 (hàm cũ thêm tham số dang, mốc
-// và bảng vị trí đo trên rig dạng 2 ở inbox/<mã>_2_ghichu.md); Sa Long dạng 1: n_long_*1. Thang cỡ dạng 1 < dạng 2 (skill-petclash mục 6).
+// và bảng vị trí đo trên rig dạng 2 ở inbox/<mã>_2_ghichu.md); Sa Long dạng 1: n_long_*1. Thang cỡ dạng 1 < dạng 2 (vfx-petclash mục 6).
 using System;
 using System.Collections.Generic;
 using UnityEngine;

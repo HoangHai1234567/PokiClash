@@ -618,7 +618,7 @@ def skill(sim, T, fr):
             ang = (sd * 47 + t * (40 if sd % 2 else -40)) % 360
             con.append(fx.item(fx.FRONT, 10, "ssolid", sd % 4, INK, pos, 2 * rr + 4.0, 1.0, ang, a_ink))
             con.append(fx.item(fx.FRONT, 11, "sblob", sd % 4, col, pos, 2 * rr, 1.0, ang, 1.0))
-        # cả khối vẽ đặc rồi làm trong 0,82 một lần (che đối thủ thì phải trong: skill-petclash mục 1)
+        # cả khối vẽ đặc rồi làm trong 0,82 một lần (che đối thủ thì phải trong: vfx-petclash mục 1)
         return [(fx.FRONT, 40, "@lop", tuple(sorted(con, key=lambda it: it[1])), None, (0.0, 0.0), 0, 0, 0, 0.82 * a_fill)]
 
     # 6. nổ hình nấm: chớp, rung, vỏ đá văng tứ tung, cầu lửa, cột khói bốc lên, mũ nấm toả ngang, vành bụi trên đất

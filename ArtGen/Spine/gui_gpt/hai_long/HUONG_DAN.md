@@ -1,6 +1,6 @@
 # Gói gửi GPT: Hải Long Ngũ Đầu (`hai_long`)
 
-Quái năm đầu trồi lên từ sóng, làm theo cách dựng đã mổ xẻ ở `.claude/skills/skill-petclash/mo_xe_quai_nhieu_dau.md`. Con nhiều cổ chồng nhau không rig được từ một ảnh liền, nên có hai lượt: concept trọn con, rồi bốn tờ mảnh rời.
+Quái năm đầu trồi lên từ sóng, làm theo cách dựng đã mổ xẻ ở `.claude/skills/animation-petclash/mo_xe_quai_nhieu_dau.md`. Con nhiều cổ chồng nhau không rig được từ một ảnh liền, nên có hai lượt: concept trọn con, rồi bốn tờ mảnh rời.
 
 **Lượt 1, chỉ gửi GPT đường dẫn:** `C:\Atomik\PokiWar\ArtGen\Spine\gui_gpt\hai_long\luot_1_concept.txt`. GPT lưu ảnh vào `C:\Atomik\PokiWar\ArtGen\Spine\inbox\hai_long\tai_ve\L1_concept.png`.
 

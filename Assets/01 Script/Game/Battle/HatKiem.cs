@@ -7,6 +7,8 @@
 // Mốc của clip: cast: cúi lead − 0,73, lướt tới lúc giữ thế tới lead − 0,17, nhát rút kiếm = lead (1,03), nhát bổ thứ hai lead + 0,73.
 // skill: rút hai kiếm lead − 2,22, biến mất lead − 1,70, bốn ảo ảnh chém lead − 1,44 / − 1,20 / − 0,96 / − 0,74 (ngang, chéo xuống,
 // bổ thẳng, chéo lên), hiện lại lead − 0,50, chuôi chạm miệng vỏ = lead (2,64), sáu vết nổ lại lead + 0,05 … + 0,40.
+// Nâng 2026-11-18 (người dùng: "khói rải rác chưa thành cụm", "hạt lẻ to, đơn lẻ", "màu tươi hơn"): bụi thành cụm tách dần (BuiCum), vòng
+// cung dẹt (CungDat), chớp chém nhỏ kem chanh, tia vụn nhỏ theo cụm (TiaVunCum), lá rơi lượn.
 // Biến tĩnh ở file này không dùng biến tĩnh của HatLua.cs lúc khởi tạo.
 using System;
 using System.Collections.Generic;
@@ -87,22 +89,21 @@ namespace PokiClash
             Add(p);
         }
 
-        // thứ văng ra ở một nhát chém: chớp toé nhỏ ở giữa vệt, tia vụn bắn dọc hai đầu vệt, lá bị cắt bay theo hướng chém
+        // thứ văng ra ở một nhát chém: chớp nổ nhỏ kem chanh ở giữa vệt (1–2 khung), tia vụn nhỏ bắn theo cụm dọc hai đầu vệt, lá bị cắt bay theo
+        // hướng chém; đối thủ giật một nhịp (DanhTrung)
         void ChemToe(Vector2 c, Vector2 d, float tH, float manh, int la)
         {
             d = Unit(d);
             var n = new Vector2(-d.y, d.x);
-            BurstFlash(c, 0.3f * tH * manh);
-            for (int i = 0; i < 6; i++)
-            {
-                float sd = (i & 1) == 0 ? 1 : -1;
-                var q = Spark(c + d * sd * U(0.1f, 0.4f) * tH * manh, d * sd + n * U(-0.35f, 0.35f), U(300, 520) * manh, U(0.16f, 0.26f), U(6, 9), 0, Front, 4);
-                q.col = (i % 3) == 0 ? W[3] : KiemC;
-            }
+            Chop(c, 0.26f * tH * manh, 0.06f);
+            DanhTrung?.Invoke(c, 0.35f * manh);
+            var w3 = W[3];
+            TiaVunCum(c + d * U(0.15f, 0.35f) * tH * manh, d, 0.35f, 3, U(380, 560) * manh, U(3f, 4f), Front, KiemC, w3);
+            TiaVunCum(c - d * U(0.15f, 0.35f) * tH * manh, -d, 0.35f, 3, U(380, 560) * manh, U(3f, 4f), Front, KiemC, w3);
             for (int i = 0; i < la; i++)
             {
                 var v = d * U(120, 320) + n * U(-170, 170) + new Vector2(0, -U(20, 120));
-                Leaf(c + d * U(-0.3f, 0.3f) * tH + n * U(-6, 6), v * manh, U(0.4f, 0.7f), U(3.5f, 6f), 560, 1.8f, (i & 1) == 0 ? Front : Back);
+                Leaf(c + d * U(-0.3f, 0.3f) * tH + n * U(-6, 6), v * manh, U(0.4f, 0.7f), U(3f, 5f), 560, 1.8f, (i & 1) == 0 ? Front : Back);
             }
         }
 
@@ -110,20 +111,21 @@ namespace PokiClash
         // cung kiếm quét qua đối thủ, vệt chém chéo lên, lá bị cắt; nhát bổ thứ hai: vệt chéo xuống bắt chéo vệt đầu.
         public float NKiemRut(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
+            MocSang();
             float L = Mathf.Max(0.4f, lead);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             var toi = Vector2.Lerp(casterFeet, foeFeet, 0.72f); // sân kéo đỉnh cú lướt tới 72 % quãng tới đối thủ (AolaSticker.Lunge)
             var hg = Unit(toi - casterFeet);
             float t0 = Mathf.Max(0.02f, L - 0.70f), t1 = Mathf.Max(t0 + 0.05f, L - 0.17f);
-            At(Mathf.Max(0.01f, L - 0.73f), () => Ripple(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.42f * casterH, 0.4f, BuiC2));
+            At(Mathf.Max(0.01f, L - 0.73f), () => CungDat(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.46f * casterH, 0.4f, CungC, 0.06f * casterH, 3));
             float goc = T;
             Every(t0, t1, 46, x =>
             {
                 float k = Mathf.Clamp01((T - goc - t0) / (t1 - t0));
                 var chan = Vector2.Lerp(casterFeet, toi, k * k * (3 - 2 * k));
                 float r = U(0, 1);
-                if (r < 0.4f) Bui(chan + new Vector2(-dir * U(0, 0.25f) * casterH, U(-5, 2)), -hg * U(60, 180) + new Vector2(0, -U(10, 60)), U(0.3f, 0.5f), 3.5f, U(8, 13), Back);
-                else if (r < 0.75f) SoiGio(chan + new Vector2(-dir * U(0.1f, 0.5f) * casterH, -U(0.15f, 0.6f) * casterH), -hg * U(180, 340), U(0.2f, 0.3f), U(7, 11), Back);
+                if (r < 0.18f) BuiCum(chan + new Vector2(-dir * U(0, 0.25f) * casterH, U(-5, 2)), -hg * U(60, 160) + new Vector2(0, -U(10, 40)), U(0.06f, 0.09f) * casterH, 0, Back);
+                else if (r < 0.65f) SoiGio(chan + new Vector2(-dir * U(0.1f, 0.5f) * casterH, -U(0.15f, 0.6f) * casterH), -hg * U(180, 340), U(0.2f, 0.3f), U(7, 11), Back);
                 else Leaf(chan + new Vector2(-dir * U(0, 0.4f) * casterH, -U(0.05f, 0.5f) * casterH), -hg * U(80, 200) + new Vector2(0, -U(30, 110)), U(0.35f, 0.55f), U(3.5f, 5.5f), 360, 1.4f, Back);
             });
             var d1 = Unit(new Vector2(dir * 0.82f, -0.57f)); // nhát rút kiếm: chéo lên về phía sau đối thủ
@@ -134,9 +136,9 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.5f);
                 VetChem(tam, d1, 1.3f * tH, 0.13f * tH, 0.24f);
-                ChemToe(tam, d1, tH, 1, 8);
+                ChemToe(tam, d1, tH, 1, 7);
                 WExtra(tam, 3, 260);
-                Ripple(foeFeet + new Vector2(0, 2), 0.1f * tH, 0.5f * tH);
+                CungDat(foeFeet + new Vector2(0, 2), 0.1f * tH, 0.55f * tH, 0.4f, W[2], 0.06f * tH);
             });
             At(L + 0.70f, () => CungKiem(Vector2.Lerp(toi + new Vector2(0, -0.6f * casterH), foeBody, 0.5f), d2, 0.6f * Mathf.Max(casterH, tH)));
             At(L + 0.73f, () =>
@@ -160,6 +162,7 @@ namespace PokiClash
         // chém to hơn (thêm hai nhát), lá bị cắt văng, cuối cùng chùm lá vỡ.
         public float NKiemAo(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
+            MocSang();
             float L = Mathf.Max(1.6f, lead);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             var hong = casterFeet + new Vector2(dir * 0.1f * casterH, -0.42f * casterH);
@@ -172,7 +175,7 @@ namespace PokiClash
             // rút hai kiếm: lóe nhỏ ở tay, lá dưới chân bật lên
             At(Mathf.Max(0.02f, L - 2.22f), () =>
             {
-                BurstFlash(hong + new Vector2(dir * 0.12f * casterH, -0.1f * casterH), 0.22f * casterH);
+                Chop(hong + new Vector2(dir * 0.12f * casterH, -0.1f * casterH), 0.22f * casterH, 0.07f);
                 for (int i = 0; i < 5; i++)
                     Leaf(casterFeet + new Vector2(U(-0.35f, 0.35f) * casterH, -U(0, 0.1f) * casterH), new Vector2(U(-60, 60), -U(140, 260)), U(0.35f, 0.5f), U(3.5f, 5.5f), 300, 1.4f, Back);
             });
@@ -181,9 +184,9 @@ namespace PokiClash
             At(tBien, () =>
             {
                 Shake?.Invoke(0.2f);
-                Ripple(casterFeet + new Vector2(0, 2), 0.1f * casterH, 0.6f * casterH, 0.4f, BuiC2);
-                for (int i = 0; i < 8; i++)
-                    Bui(casterFeet + new Vector2(U(-0.25f, 0.25f) * casterH, U(-6, 2)), new Vector2(-dir * U(60, 240), -U(10, 80)), U(0.4f, 0.65f), 4, U(10, 16), Back);
+                CungDat(casterFeet + new Vector2(0, 2), 0.1f * casterH, 0.64f * casterH, 0.4f, CungC, 0.07f * casterH);
+                for (int i = 0; i < 3; i++)
+                    BuiCum(casterFeet + new Vector2(U(-0.25f, 0.25f) * casterH, U(-6, 2)), new Vector2(-dir * U(60, 200), -U(10, 50)), U(0.1f, 0.13f) * casterH, 0, Back);
             });
             Every(tBien - 0.04f, tBien + 0.2f, 70, x =>
             {
@@ -211,9 +214,9 @@ namespace PokiClash
             // hiện lại ở chỗ cũ
             At(Mathf.Max(0.08f, L - 0.50f), () =>
             {
-                Ripple(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.5f * casterH, 0.4f, BuiC2);
-                for (int i = 0; i < 6; i++)
-                    Bui(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, U(-6, 2)), new Vector2(dir * U(40, 200), -U(10, 60)), U(0.35f, 0.6f), 3.5f, U(9, 14), Back);
+                CungDat(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.54f * casterH, 0.4f, CungC, 0.06f * casterH);
+                for (int i = 0; i < 2; i++)
+                    BuiCum(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, U(-6, 2)), new Vector2(dir * U(40, 160), -U(10, 40)), U(0.09f, 0.12f) * casterH, 0, Back);
                 for (int i = 0; i < 4; i++)
                     Leaf(hong + U2(-0.3f, 0.3f) * casterH, new Vector2(dir * U(40, 160), -U(40, 140)), U(0.4f, 0.6f), U(3.5f, 5.5f), 420, 1.6f, Back);
             });
@@ -221,8 +224,8 @@ namespace PokiClash
             At(L, () =>
             {
                 Shake?.Invoke(0.25f);
-                RingN(hong, 0.24f, 0.05f * casterH, 0.3f * casterH, W[3], 1, Front, 32);
-                BurstFlash(hong, 0.16f * casterH);
+                VongVa(hong, 0.05f * casterH, 0.3f * casterH, 0.24f, W[3], Front, 1, 32);
+                Chop(hong, 0.16f * casterH, 0.06f);
             });
             // các vết nổ lại lần lượt
             for (int j = 0; j < 6; j++)
@@ -243,16 +246,16 @@ namespace PokiClash
             At(tChot, () =>
             {
                 LaNo(foeBody, foeFeet, tH, 1.25f);
-                RingN(foeBody, 0.3f, 0.12f * tH, 0.75f * tH, W[3], 1, Front, 32);
-                WExtra(foeBody, 8, 340);
-                for (int i = 0; i < 10; i++)
+                WExtra(foeBody, 7, 340);
+                VetDat(foeFeet + new Vector2(0, 3), 0.42f * tH, 1f);
+                for (int i = 0; i < 4; i++)
                 {
                     float sd = (i & 1) == 0 ? 1 : -1;
-                    Bui(foeFeet + new Vector2(sd * U(6, 0.28f * tH), U(-6, 3)), new Vector2(sd * U(120, 320), -U(10, 60)), U(0.5f, 0.8f), 5, U(11, 18), Back);
+                    BuiCum(foeFeet + new Vector2(sd * U(0.08f, 0.32f) * tH, U(-6, 3)), new Vector2(sd * U(100, 220), -U(10, 40)), U(0.1f, 0.14f) * tH, 0, Back);
                 }
             });
-            Every(tChot, tChot + 0.45f, 22, x =>
-                Leaf(foeBody + new Vector2(U(-0.5f, 0.5f) * tH, -U(0, 0.5f) * tH), new Vector2(U(-50, 50), U(20, 90)), U(0.5f, 0.8f), U(3.5f, 6f), 240, 1.2f, U(0, 1) < 0.5f ? Front : Back));
+            Every(tChot, tChot + 0.45f, 18, x =>
+                LaRoi(foeBody + new Vector2(U(-0.5f, 0.5f) * tH, -U(0, 0.5f) * tH), new Vector2(U(-50, 50), U(10, 50)), U(0.55f, 0.85f), U(3.2f, 5.2f), U(0, 1) < 0.5f ? Front : Back));
             return L + No0; // sát thương hiện ở vết nổ đầu tiên
         }
     }

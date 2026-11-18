@@ -85,11 +85,12 @@ namespace PokiClash
         // cú trúng sắt: chớp, tia theo hướng d (nửa vòng), dăm thép
         void SgTrung(Vector2 c, Vector2 d, float tH, float manh, int nTia, int nDam)
         {
-            SatChop(c, 0.42f * tH * manh, Front, 0.14f);
-            for (int i = 0; i < Mathf.RoundToInt(nTia * manh); i++)
+            KmBong(c, -Unit(d) + new Vector2(0, -0.3f), 0.3f * tH * manh, 0.12f, KmBac);   // bông va chạm toé ngược (2026-11-18)
+            SatChop(c, 0.36f * tH * manh, Front, 0.12f);
+            for (int i = 0; i < Mathf.RoundToInt(nTia * manh); i++)   // tia thép bắn nhanh rồi khựng
             {
                 var dd = (d * U(0.2f, 1f) + new Vector2(U(-0.7f, 0.7f), U(-1f, 0.4f))).normalized;
-                Spark(c, dd, U(240, 480), U(0.18f, 0.3f), U(6, 9), 420);
+                KmTiaLua(c, dd, U(420, 760), U(6, 9), (i & 1) == 0 ? KmBac[4] : KmBac[3]);
             }
             for (int i = 0; i < Mathf.RoundToInt(nDam * manh); i++)
                 GiaoDam(c + U2(-6, 6), (d * U(0.2f, 0.8f) + new Vector2(U(-0.7f, 0.7f), -U(0.3f, 1f))) * U(160, 340) * manh, U(10, 15) * Mathf.Sqrt(manh));
@@ -98,7 +99,7 @@ namespace PokiClash
         // sóng đất ở chỗ nện / húc: vòng đất, bụi toả hai bên, sỏi
         void SgDat(Vector2 g, float tH, float manh, int nBui, int nSoi)
         {
-            Ring(g, 0.42f, 0.08f * tH, 0.62f * tH * manh, BuiC2, 0.3f, Floor, 31);
+            KmCung(g, 0.08f * tH, 0.7f * tH * manh, 0.4f, BuiC, 0.3f, Floor, 31, 0.85f);   // vòng cung dẹt không viền (KR5)
             for (int i = 0; i < Mathf.RoundToInt(nBui * manh); i++)
             {
                 float sd = (i & 1) == 0 ? 1 : -1;
@@ -227,16 +228,13 @@ namespace PokiClash
                     Bui(casterFeet + new Vector2(sd * U(0.05f, 0.3f) * casterH, U(-5, 2)), new Vector2(sd * U(60, 150), -U(10, 40)), 0, 3.5f, 10, Back);
                 }
             });
-            // tụ lực: sợi gió hút vào tướng, nhanh dần; bụi xoáy vào chân; sỏi run nảy; khiên loé hai lần
-            Every(SgSTu * k, SgSTu1 * k, x => (34 + 60 * x) * manh, x =>
-            {
-                float a = U(0, Mathf.PI * 2), R = U(0.75f, 1.15f) * casterH;
-                var dich = khien + new Vector2(-dir * 0.1f * casterH, 0);
-                var p = dich + new Vector2(Mathf.Cos(a) * R, Mathf.Sin(a) * R * 0.7f);
-                var v = dich - p;
-                float life = U(0.2f, 0.3f);
-                SgSoi(p, v / life * 1.1f, life, U(8, 12) * manh, rng.Next(2) == 0 ? Back : Front);
-            });
+            // tụ lực (2026-11-18, người dùng chê pha hút xấu): VỆT GIÓ thuôn XOẮN ỐC vào khiên, nhanh dần, hiện dần lúc sinh, chạm khiên thì nhập; dày
+            // dần tới lúc bật lao; bụi xoáy vào chân; sỏi run nảy; khiên loé hai lần; vòng gió co về khiên giữa chừng và cuối
+            var tamTu = khien + new Vector2(-dir * 0.1f * casterH, 0);
+            float rKhien = 0.1f * casterH;
+            Every(SgSTu * k, SgSTu1 * k, x => (26 + 54 * x) * manh, x =>
+                KmHut(_ => tamTu, _ => rKhien, U(0.75f, 1.15f) * casterH, U(0.26f, 0.38f), U(7, 10) * manh, SgGio, -dir, rng.Next(2) == 0 ? Back : Front, 0.7f));
+            At((SgSTu + 0.5f * (SgSTu1 - SgSTu)) * k, () => SgVong(tamTu, 0.24f, 0.9f * casterH, rKhien, 0.65f));
             Every(SgSTu * k + 0.05f, SgSTu1 * k, 16 * manh, x =>
             {
                 float sd = rng.Next(2) == 0 ? 1 : -1;
@@ -280,7 +278,7 @@ namespace PokiClash
             At(SgSHuc * k, () =>
             {
                 Shake?.Invoke(0.6f * manh);
-                SatChop(c, 0.62f * tH * manh, Front, 0.16f);
+                KmChop(c, 0.3f * tH * manh, 0.07f, KmBac);   // chớp 2 khung nhỏ (trước: 0,62 thân che đối thủ)
                 SgTrung(c, new Vector2(dir, -0.2f), tH, 1.3f * manh, 12, 8);
                 Ring(c, 0.32f, 0.06f * tH, 0.6f * tH * manh, SgThep, 0.55f, Front, 32);
                 for (int i = 0; i < Mathf.RoundToInt(18 * manh); i++)

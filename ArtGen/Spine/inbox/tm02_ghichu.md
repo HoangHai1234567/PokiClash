@@ -162,7 +162,7 @@ cột nào bám 100% một đốt); nhà đá, lòng càng là đồ cứng.
 **Dạng 2** (ước 64): như dạng 1, thêm tháp đá (cứng), vương miện san hô 3–4 nhánh (cứng, lắc trễ nhẹ), rong 2 dải × 4 đốt, găng đá
 cứng trên lòng càng búa, càng xa lưỡi cưa, gai giáp đi theo từng đốt chân.
 
-**Clip** (nhịp theo `skill-petclash` 7.1 và con gốc; dạng 2 lấy đà dài hơn, nặng hơn):
+**Clip** (nhịp theo `animation-petclash` mục 2 và con gốc; dạng 2 lấy đà dài hơn, nặng hơn):
 - `appear`: tảng đá rơi xuống đất nảy một lần (bụi), cua ló mắt ra trước, rồi bật càng, về khung 0 `idle`.
 - `idle` 2,0 s (dạng 2: 2,4 s): nhún hai lần một vòng, nhà đá trễ nửa nhịp; cuống mắt, râu, rong lệch pha; điểm phá nhịp: kìm
   nhỏ bập hai cái (học con gốc), chớp mắt một lần ở giờ khác.

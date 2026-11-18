@@ -1,15 +1,15 @@
 ---
 name: pokiclash-vfx
 description: >
-  Luật và cách làm hiệu ứng (VFX) của PokiClash trong Unity: tia chiêu mana, tuyệt kỹ, đòn đánh, chữ nổi, rung, phần động
+  [Bộ VFX] Luật và cách làm hiệu ứng (VFX) của PokiClash trong Unity: tia chiêu mana, tuyệt kỹ, đòn đánh, chữ nổi, rung, phần động
   sàn đấu, hạt máy bi; gói GPT vẽ ảnh hiệu ứng (build_fx.py), nhập ảnh vào Assets/03 Art/Fx, tối ưu dung lượng, chụp thử.
   Dùng khi thêm, sửa hay soi bất kỳ hiệu ứng nào trong game (trận, sàn đấu, máy bi, đảo), hoặc khi vẽ ảnh hiệu ứng mới.
 ---
 
 # Hiệu ứng (VFX) PokiClash
 
-> Skill gốc: `skill-petclash` (nguyên tắc thiết kế, nhịp clip, khớp animation với hiệu ứng, hiệu năng, bảng kiểm; kèm bộ
-> `VFX_KNOWLEDGE_BASE.md` và ba file ghi chú nghiên cứu). Đọc nó trước, rồi quay lại đây làm chi tiết.
+> Skill gốc: `vfx-petclash` (bộ VFX: luật dự án, nguyên tắc thiết kế, nhịp, màu, hình theo hệ, khớp với animation, kiến trúc,
+> hiệu năng, quy trình, bảng kiểm, nguồn tham khảo; kèm `VFX_KNOWLEDGE_BASE.md`, hai file nghiên cứu, `hoc_kr5_vfx.md`). Đọc nó trước, rồi quay lại đây làm chi tiết.
 
 Đọc hết trước khi đụng hiệu ứng. Game là Unity 6 URP, mọi thứ nằm trên **uGUI canvas**.
 
@@ -25,7 +25,7 @@ ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokic
 (`Assets/Epic Toon FX`, đã `.gitignore`, chỉ đọc, không tham chiếu từ prefab hay code của game): `pokiclash-hero-fx/toonfx.md`.
 Mẫu nổ, lửa, nước, khói vẽ phẳng của Kingdom Rush 5:
 - **Trang xem** soi từng khung: `ArtGen/ThamKhao/KR5/MO_WEB.bat`. Dữ liệu ảnh đã `.gitignore`.
-- **Bài học:** `skill-petclash/hoc_kr5_vfx.md`.
+- **Bài học:** `vfx-petclash/hoc_kr5_vfx.md`.
 - **Công thức hạt:** `pokiclash-fx-congthuc` mục 2b.
 
 ## 1. Luật hình (người dùng chốt, bắt buộc)

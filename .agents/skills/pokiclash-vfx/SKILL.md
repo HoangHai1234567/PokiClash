@@ -1,19 +1,32 @@
 ---
 name: pokiclash-vfx
 description: >
-  Luật và cách làm hiệu ứng (VFX) của PokiClash trong Unity: tia chiêu mana, tuyệt kỹ, đòn đánh, chữ nổi, rung, phần động
+  [Bộ VFX] Luật và cách làm hiệu ứng (VFX) của PokiClash trong Unity: tia chiêu mana, tuyệt kỹ, đòn đánh, chữ nổi, rung, phần động
   sàn đấu, hạt máy bi; gói GPT vẽ ảnh hiệu ứng (build_fx.py), nhập ảnh vào Assets/03 Art/Fx, tối ưu dung lượng, chụp thử.
   Dùng khi thêm, sửa hay soi bất kỳ hiệu ứng nào trong game (trận, sàn đấu, máy bi, đảo), hoặc khi vẽ ảnh hiệu ứng mới.
 ---
 
 # Hiệu ứng (VFX) PokiClash
 
-Đọc hết trước khi đụng hiệu ứng. Game là Unity 6 URP, mọi thứ nằm trên **uGUI canvas**. Hiệu ứng là **ảnh vẽ tay rời**, được code
-cho nở, bay, mờ, xoay, nhuộm màu. Project **không dùng** ParticleSystem, VFX Graph hay post-processing (bloom). Đừng đưa chúng vào
+> Skill gốc: `vfx-petclash` (bộ VFX: luật dự án, nguyên tắc thiết kế, nhịp, màu, hình theo hệ, khớp với animation, kiến trúc,
+> hiệu năng, quy trình, bảng kiểm, nguồn tham khảo; kèm `VFX_KNOWLEDGE_BASE.md`, hai file nghiên cứu, `hoc_kr5_vfx.md`). Đọc nó trước, rồi quay lại đây làm chi tiết.
+
+Đọc hết trước khi đụng hiệu ứng. Game là Unity 6 URP, mọi thứ nằm trên **uGUI canvas**.
+
+**Chuẩn mốc (người dùng chốt 2026-11-10):** hiệu ứng là **hạt có vật lý vẽ chồng lớp phẳng**, như bản phun lửa
+`ArtGen/Spine/chuan_fx/phun_lua.gif` (cách dựng: skill `pokiclash-hero-fx` mục 0b). **Không làm kiểu sprite tĩnh nữa**: một ảnh
+vẽ tay cho trượt, nở, mờ là chưa đạt. Ảnh vẽ tay (GPT hoặc sinh bằng thuật toán như `ArtGen/Spine/fire.py`, `lightning.py`) chỉ
+là hình của hạt hoặc tờ khung, được nhuộm màu theo tuổi. Hiệu ứng cũ (`Pop`, `Drift`, tia ảnh tĩnh) sẽ được nâng dần theo chuẩn này.
+Project **không dùng** ParticleSystem, VFX Graph hay post-processing (bloom). Đừng đưa chúng vào
 khi người dùng chưa đồng ý: chúng không chạy theo nhịp sân (`StageView.Clock`), không khớp nét vẽ tay, và làm nặng build.
 
 Cảm giác đánh và idle của tướng (khựng lúc trúng, rung, bật lùi, hạt có vật lý, biên đạo đòn theo pha, idle theo hệ, cách dùng
-ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokiclash-hero-fx`.
+ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokiclash-hero-fx`. Thông số và công thức học từ Epic Toon FX
+(`Assets/Epic Toon FX`, đã `.gitignore`, chỉ đọc, không tham chiếu từ prefab hay code của game): `pokiclash-hero-fx/toonfx.md`.
+Mẫu nổ, lửa, nước, khói vẽ phẳng của Kingdom Rush 5:
+- **Trang xem** soi từng khung: `ArtGen/ThamKhao/KR5/MO_WEB.bat`. Dữ liệu ảnh đã `.gitignore`.
+- **Bài học:** `vfx-petclash/hoc_kr5_vfx.md`.
+- **Công thức hạt:** `pokiclash-fx-congthuc` mục 2b.
 
 ## 1. Luật hình (người dùng chốt, bắt buộc)
 
@@ -25,6 +38,10 @@ ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokic
   để bù "cho rực". Muốn hoành tráng hơn thì thêm hình vẽ tay, cho to hơn, thêm nhịp (nổ, văng, rung).
 - Hiệu ứng không được che con bị trúng: vụ nổ trúng đòn luôn nhỏ hơn thân nó (`BeamHit` lấy cỡ theo `tH`).
 - Hình và chuyển động aola là của Baitian: không đăng công khai, kể cả artifact.
+- **Ngoại lệ máy bi** (người dùng dặn 2026-11-10: "copy tất cả hiệu ứng ánh sáng, gradient" của máy bi tham khảo): màn Máy bi
+  và màn mở rương nhóm được dùng lớp sáng mềm cộng sáng: ảnh `pk_g_*` sinh bằng `ArtGen/Pachinko/sinh_anh_sang.py`, material
+  `Resources/UIAdditive` (shader `PokiClash/UIAdditive`), code ở `Game/Machine/MachineGlow.cs`. Hình vẽ (GPT) vẫn tô phẳng; ánh
+  sáng chỉ do code chồng lên. Màn trận, tướng vẫn theo luật tô phẳng.
 
 ## 2. Luật trận (người dùng chốt 2026-11-03)
 
@@ -82,7 +99,7 @@ Quy ước khi viết hiệu ứng mới trên sân:
 
 1. **Gói GPT**: thêm bước vào `LINES` trong `ArtGen/Heroes/build_fx.py` (mã bước `FXnn`, tên file, mô tả tiếng Anh, độ dày viền px,
    ghi chú tiếng Việt), rồi `py -3 -I ArtGen/Heroes/build_fx.py <mã gói>`. Gói ra `ArtGen/Heroes/gui_gpt/<mã>_fx/`, gồm file prompt
-   và `HUONG_DAN.md`. Theo luật file prompt trong `AGENTS.md`: mở đầu bằng danh sách ảnh mẫu đường dẫn tuyệt đối, mục SAVE, tự đủ.
+   và `HUONG_DAN.md`. Theo luật file prompt trong `CLAUDE.md`: mở đầu bằng danh sách ảnh mẫu đường dẫn tuyệt đối, mục SAVE, tự đủ.
    Trong chat chỉ đưa người dùng đường dẫn file prompt.
 2. Ảnh hiệu ứng: nền trắng tinh, chừa lề, chiếm khoảng 75% khung 1024, không sinh vật, không chữ, không viền sticker.
    Tia vẽ **hướng sang phải** (game xoay và lật).

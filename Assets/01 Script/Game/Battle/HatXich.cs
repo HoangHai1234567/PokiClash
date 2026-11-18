@@ -113,7 +113,7 @@ namespace PokiClash
         void XqVet(Vector2 p, Vector2 v, float manh, int g)
         {
             var q = Flame(p + U2(-4, 4), v * 0.12f + new Vector2(U(-30, 30), -U(40, 120)), U(0.22f, 0.34f), U(8, 11) * manh, U(18, 26) * manh, "tron",
-                Th.pal, g, 3f, -260, 1.7f, 0.16f, 0.1f);
+                Th.pal, g, 3f, -260, 1.7f, 0.04f, 0.05f);   // khói của vệt nay là cụm liền riêng (NXichLua), lưỡi lửa ít nhả khói lẻ
             Tongue(q, -1, 0.45f);
             q.smokeGroup = Back;
         }
@@ -212,27 +212,28 @@ namespace PokiClash
             Vector2 VMoc(float tc) => (Moc(tc + XqDt) - Moc(tc - XqDt)) / (2 * XqDt * k);
             var dich = foeBody;
 
-            // 1. móc bốc lửa
+            // 1. móc bốc lửa: chớp nhỏ, lưỡi lửa bùng
             At(XqSLua * k, () =>
             {
                 var m = Moc(XqSLua);
-                Explode(m, 0.3f * manh, casterH, Back);
+                KmChop(m, 0.16f * casterH * manh, 0.06f, KmLua, Back);
                 for (int i = 0; i < 6; i++) XqLiem(m, manh, Back, 1.4f);
             });
-            // 2. quay: vệt lửa + khói theo đường móc, lửa liếm dọc xích (móc quay hiện tới khung ném)
-            Every(XqSLua * k, XqSNem * k, x => (50 + 110 * x) * manh, x =>
+            // 2. quay (2026-11-18: người dùng chê khói, lửa rải rác, chưa thành cụm): vệt lửa + KHÓI CỤM LIỀN chia theo QUÃNG đường móc quay (KR5),
+            // không theo giờ nữa nên vệt liền dù móc quay nhanh; khói than đáy còn ánh lửa, bay lên, ngả xám rồi mờ
+            float dQuay = (XqSNem - XqSLua) * k;
+            int demQ = 0;
+            At(XqSLua * k, () => KmDuoi(t => Moc((t - T0) / k), dQuay, 0.12f * casterH, (pt, ud) =>
             {
                 float tc = Tc();
                 if (!XqHien(B.mh, tc)) return;
-                XqVet(Moc(tc), VMoc(tc), manh * (0.85f + 0.3f * x), Back);
-            });
-            Every(XqSLua * k, XqSNem * k, 26 * manh, x =>
-            {
-                float tc = Tc();
-                if (!XqHien(B.mh, tc)) return;
-                Smoke(Moc(tc), new Vector2(U(-20, 20), -U(50, 90)), 0, 7 * manh, 20 * manh, Back, "fire", 0.3f);
-            });
-            Every(XqSLua * k, XqSNem * k, 54 * manh, x =>
+                float x = Mathf.Clamp01((tc - XqSLua) / (XqSNem - XqSLua));
+                XqVet(pt, VMoc(tc), manh * (0.85f + 0.3f * x), Back);
+                if (demQ++ % 2 == 0)
+                    KmKhoi(pt + U2(-3, 3), new Vector2(U(-15, 15), -U(40, 80)), U(0.1f, 0.12f) * casterH * manh, U(0.55f, 0.8f), Back, 0.8f, 0, null, 0.2f,
+                        demQ % 8 != 1);
+            }));
+            Every(XqSLua * k, XqSNem * k, 40 * manh, x =>
             {
                 float tc = Tc();
                 if (!XqHien(B.mh, tc)) return;
@@ -241,7 +242,7 @@ namespace PokiClash
                 XqLiem(San(v), manh, Back);
             });
             // 3. ném: lửa chạy dọc xích từ tay tới đối thủ, đầu xích (móc) cháy to
-            Every(XqSNem * k, XqSTroi * k, 130 * manh, x =>
+            Every(XqSNem * k, XqSTroi * k, 90 * manh, x =>
             {
                 float tc = Tc();
                 float q = EaseOut(Mathf.Clamp01((tc - XqSNem) / (XqSTroi - XqSNem)));
@@ -254,29 +255,44 @@ namespace PokiClash
             At(XqSTroi * k, () =>
             {
                 Shake?.Invoke(0.4f * manh);
-                Explode(dich, 0.5f * manh, tH);
+                KmNhip(0.8f);   // trói: nhịp trúng phụ trước cú đốt chính
+                KmNo(dich, foeFeet, tH, 0.45f * manh, "luat", dir);
                 XqVongXich(dich, foeFeet.y, tH, manh, (XqSTha - XqSTroi) * k, (XqSCot - XqSTroi) * k);
             });
             float rx = 0.44f * tH * Mathf.Sqrt(manh), ry = 0.12f * tH;
-            Every(XqSTroi * k, XqSTha * k, 60 * manh, x =>
+            // lửa liếm vòng xích: lưỡi chữ S liền khối có giọt tách (KmLuaS; ảnh chưa nhập thì lưỡi cũ)
+            Every(XqSTroi * k, XqSTha * k, 24 * manh, x =>
             {
                 float th = U(0, 6.2832f);
                 float cy = dich.y + (rng.Next(2) == 0 ? -0.1f : 0.12f) * tH;
-                XqLiem(new Vector2(dich.x + rx * Mathf.Cos(th), cy + ry * Mathf.Sin(th)), manh, Mathf.Sin(th) > 0 ? Front : Back, 1.1f);
+                var p = new Vector2(dich.x + rx * Mathf.Cos(th), cy + ry * Mathf.Sin(th));
+                int g = Mathf.Sin(th) > 0 ? Front : Back;
+                if (KmLuaS(p, U(0.12f, 0.17f) * tH * manh, U(0.3f, 0.42f), KmLua, Th.pal, g, new Vector2(U(-10, 10), -U(20, 50)), 0.35f) == null)
+                    XqLiem(p, manh, g, 1.1f);
             });
-            Every(XqSTroi * k, XqSTha * k, 36 * manh, x => XqLiem(Vector2.Lerp(Tay(Tc()), dich, U(0.05f, 0.92f)), manh, Front, 0.85f));
-            // 5. CỘT LỬA rất to + bốn nhịp đốt
-            At(XqSCot * k, () => XqCotLua(foeFeet, tH, manh, (XqSTha - XqSCot) * k));
+            Every(XqSTroi * k, XqSTha * k, 26 * manh, x => XqLiem(Vector2.Lerp(Tay(Tc()), dich, U(0.05f, 0.92f)), manh, Front, 0.85f));
+            // 5. CỘT LỬA rất to + bốn nhịp đốt (nổ KR5 nhỏ, lõi sau lưng đối thủ)
+            At(XqSCot * k, () =>
+            {
+                KmNhip(0.6f);
+                XqCotLua(foeFeet, tH, manh, (XqSTha - XqSCot) * k);
+            });
             for (int i = 0; i < 4; i++)
+            {
+                int ii = i;
                 At((XqSCot + 0.15f + 0.25f * i) * k, () =>
                 {
                     Shake?.Invoke(0.18f * manh);
-                    Explode(dich + new Vector2(U(-0.15f, 0.15f) * tH, U(-0.2f, 0.1f) * tH), 0.42f * manh, tH);
+                    if (ii > 0) KmNhip(0.4f);   // nhịp đốt đầu là cú trúng chính (StageView)
+                    KmNo(dich + new Vector2(U(-0.15f, 0.15f) * tH, U(-0.2f, 0.1f) * tH), foeFeet, tH, 0.4f * manh, "luat", dir);
                 });
-            // 6. thả: khói, lửa dọc xích tắt dần theo xích rút về
+            }
+            // 6. thả: khói cụm bay lên tách dần, lửa dọc xích tắt dần theo xích rút về
             At(XqSTha * k, () =>
             {
-                for (int i = 0; i < 6; i++) Smoke(dich + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.1f, 0.5f) * tH), null, 0, 10, 26, Back);
+                for (int i = 0; i < 3; i++)
+                    KmKhoi(dich + new Vector2(U(-0.25f, 0.25f) * tH, -U(0.2f, 0.5f) * tH), new Vector2(U(-20, 20), -U(40, 80)), U(0.14f, 0.18f) * tH,
+                        U(1.0f, 1.3f), Back, 0.5f, 2, null, 0.4f);
             });
             Every(XqSTha * k, XqSRut * k, x => 70 * manh * (1 - x), x =>
             {
@@ -347,33 +363,50 @@ namespace PokiClash
             float cao = Mathf.Clamp(feet.y - 24, 1.2f * tH, 2.4f * tH) * Mathf.Sqrt(manh);
             float v0 = Mathf.Max(380, (cao - 60) / 0.425f);
             Shake?.Invoke(0.7f * manh);
-            Ring(feet + new Vector2(0, 2), 0.45f, 0.15f * tH, 1.05f * tH * manh, Th.ring);
-            Ring(feet + new Vector2(0, 2), 0.6f, 0.1f * tH, 0.75f * tH * manh, Th.ring2, 0.3f, Floor, 31);
+            // hai vòng cung dẹt KHÔNG viền nở trên đất (KR5; vòng có viền mực dày nhìn nặng, soi tờ khung 2026-11-18)
+            KmCung(feet + new Vector2(0, 2), 0.15f * tH, 1.1f * tH * manh, 0.45f, Th.ring2, 0.3f, Floor, 30.6f, 0.9f);
+            KmCung(feet + new Vector2(0, 2), 0.1f * tH, 0.75f * tH * manh, 0.6f, Th.ember, 0.3f, Floor, 31, 0.75f);
             var cr = new P { pos = feet + new Vector2(0, 2), life = dur + 0.5f, group = Floor, seed = rng.Next(4), sz = tH };
             cr.draw = (q, k, buf) => Put(buf, Floor, 1, S("crack_" + q.seed), Color.white, q.pos, 1.4f * q.sz * 0.42f * Mathf.Min(1, q.age / 0.15f),
                 1 / 0.42f, 0, Mathf.Min(1, (1 - k) / 0.3f));
             Add(cr);
-            Explode(feet + new Vector2(0, -0.15f * tH), 0.9f * manh, tH, Back);
-            Every(0, dur, x => 170 * manh * (1 - 0.3f * x), x =>
+            KmChay(feet + new Vector2(0, 3), 0.5f * tH, dur, 0.8f, 0.42f);
+            KmNo(feet + new Vector2(0, -0.15f * tH), feet, tH, 0.9f * manh, "luat", 0);
+            // 2026-11-18 (người dùng: lửa rải rác, chưa liền, chưa mềm): thân cột là các lưỡi lửa TO chồng sát nhau sau lưng đối thủ (một khối, một
+            // viền mực), ít hơn mà to hơn; mép trước chỉ vài lưỡi chữ S nhỏ ở chân (không che mặt); giọt lửa tách khỏi ngọn; đỉnh cột là khói CỤM
+            // than đáy ánh lửa (tách cụm rồi mới mờ); cụm đốm nhỏ thay đốm lẻ to
+            Every(0, dur, x => 64 * manh * (1 - 0.3f * x), x =>
             {
                 float th = U(0, 6.2832f);
                 float c = Mathf.Cos(th), s = Mathf.Sin(th);
-                bool truoc = s > 0.2f && Mathf.Abs(c) > 0.45f;
-                var q = Flame(feet + new Vector2(rx * c * U(0.6f, 1f), 10 * s - 6), new Vector2(-c * U(10, 60), -U(0.85f, 1.15f) * v0), U(0.5f, 0.72f),
-                    U(11, 15) * manh, U(30, 44) * manh * (truoc ? 0.6f : 1f), "tron", Th.pal, truoc ? Front : Back, 1.3f, -380, 1.75f, 0.1f, 0.12f);
+                var q = Flame(feet + new Vector2(rx * c * U(0.5f, 0.95f), 10 * s - 6), new Vector2(-c * U(10, 50), -U(0.85f, 1.15f) * v0), U(0.5f, 0.72f),
+                    U(13, 17) * manh, U(38, 50) * manh, "tron", Th.pal, Back, 1.3f, -380, 1.75f, 0.03f, 0.04f);
                 Tongue(q, 1, 0.65f);
                 q.smokeGroup = Back;
             });
-            Every(0, dur * 0.85f, 70 * manh, x =>
+            Every(0, dur * 0.85f, 24 * manh, x =>
             {
-                var q = Flame(feet + new Vector2(U(-0.12f, 0.12f) * tH, -4), new Vector2(U(-20, 20), -U(1.05f, 1.3f) * v0), U(0.4f, 0.55f), 9 * manh,
-                    U(22, 30) * manh, "tron", Th.pal, Back, 1.2f, -420, 2.1f, 0, 0.08f);
+                var q = Flame(feet + new Vector2(U(-0.12f, 0.12f) * tH, -4), new Vector2(U(-20, 20), -U(1.05f, 1.3f) * v0), U(0.4f, 0.55f), 10 * manh,
+                    U(26, 34) * manh, "tron", Th.pal, Back, 1.2f, -420, 2.1f, 0, 0.04f);
                 Tongue(q, 1, 0.75f);
             });
-            Every(0.15f, dur + 0.3f, 22 * manh, x => Smoke(feet + new Vector2(U(-0.3f, 0.3f) * tH, -cao * U(0.8f, 1.05f)), new Vector2(U(-40, 40), -U(60, 120)),
-                0, 14 * manh, 34 * manh, Back, "fire", 0.4f));
-            Every(0, dur, 26 * manh, x => Ember(feet + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.2f, 0.9f) * cao), new Vector2(U(-60, 60), -U(140, 260)), 0, 10,
-                U(0, 1) < 0.5f ? Front : Back));
+            Every(0.04f, dur, 9 * manh, x =>
+            {
+                float sd = rng.Next(2) == 0 ? -1 : 1;
+                var chan = feet + new Vector2(sd * rx * U(0.55f, 0.95f), U(2, 8));
+                if (KmLuaS(chan, U(0.2f, 0.28f) * tH * manh, U(0.34f, 0.48f), KmLua, Th.pal, Front, new Vector2(-sd * U(0, 20), -U(10, 40)), 0.6f) == null)
+                {
+                    var q = Flame(chan + new Vector2(0, -6), new Vector2(-sd * U(0, 30), -U(0.5f, 0.7f) * v0), U(0.3f, 0.42f), 8 * manh, U(16, 22) * manh, "tron",
+                        Th.pal, Front, 1.6f, -380, 1.7f, 0, 0);
+                    Tongue(q, 1, 0.7f);
+                }
+            });
+            Every(0.1f, dur, 10 * manh, x => KmGiot(feet + new Vector2(U(-0.25f, 0.25f) * tH, -cao * U(0.55f, 0.95f)), new Vector2(U(-40, 40), -U(160, 260)),
+                U(6, 9) * manh, KmLua, Back));
+            Every(0.15f, dur + 0.3f, 6 * manh, x => KmKhoi(feet + new Vector2(U(-0.25f, 0.25f) * tH, -cao * U(0.85f, 1.05f)),
+                new Vector2(U(-30, 30), -U(60, 110)), U(0.16f, 0.21f) * tH * manh, U(1.0f, 1.3f), Back, 0.8f, 2, null, 0.45f));
+            Every(0, dur, 2 * manh, x => KmDomCum(feet + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.2f, 0.9f) * cao), new Vector2(U(-50, 50), -U(140, 240)),
+                Th.ember, U(0, 1) < 0.5f ? Front : Back));
         }
     }
 }

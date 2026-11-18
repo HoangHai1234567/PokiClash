@@ -1,5 +1,5 @@
 """Gói GPT vẽ Hải Long Ngũ Đầu: quái nhiều đầu có sóng nước chuyển động (người dùng dặn 2026-11-10, học cách dựng của một con
-rắn bảy đầu trong game khác, xem .claude/skills/skill-petclash/mo_xe_quai_nhieu_dau.md; thiết kế, hình và diễn xuất của con này
+rắn bảy đầu trong game khác, xem .claude/skills/animation-petclash/mo_xe_quai_nhieu_dau.md; thiết kế, hình và diễn xuất của con này
 là của mình, không lấy gì của con kia).
 
 Con nhiều cổ chồng nhau không rig được từ một ảnh liền (cổ sau bị che). Vì vậy:
@@ -328,7 +328,7 @@ def build():
             made.append(pth)
 
     gd = [f"# Gói gửi GPT: Hải Long Ngũ Đầu (`{CODE}`)", "",
-          "Quái năm đầu trồi lên từ sóng, làm theo cách dựng đã mổ xẻ ở `.claude/skills/skill-petclash/mo_xe_quai_nhieu_dau.md`. "
+          "Quái năm đầu trồi lên từ sóng, làm theo cách dựng đã mổ xẻ ở `.claude/skills/animation-petclash/mo_xe_quai_nhieu_dau.md`. "
           "Con nhiều cổ chồng nhau không rig được từ một ảnh liền, nên có hai lượt: concept trọn con, rồi bốn tờ mảnh rời.", "",
           f"**Lượt 1, chỉ gửi GPT đường dẫn:** `{W(p1)}`. GPT lưu ảnh vào `{W(out1)}`.", "",
           f"**Lượt 2** (Claude dựng file sau khi chép concept đã chọn thành `{W(CONCEPT)}`): `{W(p2)}`, bốn bước "

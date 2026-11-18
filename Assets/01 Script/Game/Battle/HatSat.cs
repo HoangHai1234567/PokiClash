@@ -57,7 +57,8 @@ namespace PokiClash
 
         const float SatBay = 0.24f; // giây bay ngắn nhất của một tinh thể (mỗi viên cộng thêm 0..0,08 s)
         static readonly Color SatTim = C(167, 159, 211), SatThep = C(142, 163, 203), SatBac = C(214, 220, 236);
-        static readonly Color[] SatChopC = { C(44, 42, 92), C(94, 111, 156), C(142, 163, 203), C(208, 216, 238), C(250, 250, 255) };
+        // chớp sắt: viền mực chung #2B2118, thép lam tươi hơn (2026-11-18: "màu tươi hơn"; trước viền chàm sẫm, thép xám tối)
+        static readonly Color[] SatChopC = { C(43, 33, 24), C(112, 132, 186), C(164, 186, 226), C(226, 232, 248), C(255, 255, 255) };
 
         // ảnh tinh thể của rig: sprite gốc ở giữa (AolaImport nhập ảnh <dạng>_tt_<vùng>.png thành sprite), nạp một lần, giữ lại
         static readonly Dictionary<string, Sprite> satAnh = new Dictionary<string, Sprite>();
@@ -105,13 +106,14 @@ namespace PokiClash
         void SatTrung(Vector2 c, Vector2 d, float tH, float manh)
         {
             Shake?.Invoke(0.1f * manh);
-            SatChop(c, 0.42f * tH * manh);
+            KmBong(c - d * 0.04f * tH, -d, 0.3f * tH * manh, 0.1f, KmBac);   // bông va chạm toé ngược hướng găm (2026-11-18)
+            SatChop(c, 0.36f * tH * manh);
             int n = Mathf.RoundToInt(5 * manh);
-            for (int i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)   // tia bạc bắn nhanh rồi khựng
             {
                 float a = U(0, 6.28f);
                 var dd = (new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.3f) - d * 0.6f).normalized;
-                Spark(c, dd, U(220, 420), U(0.18f, 0.3f), U(6, 9), 300);
+                KmTiaLua(c, dd, U(380, 680), U(6, 9), (i & 1) == 0 ? KmBac[4] : SatBac);
             }
             for (int i = 0; i < Mathf.RoundToInt(4 * manh); i++)
             {
@@ -199,12 +201,17 @@ namespace PokiClash
                 if (k == 0) tDau = tNo;
                 tCuoi = Mathf.Max(tCuoi, tNo);
                 if (k < nn - 1)
-                    At(tNo, () => SatTrung(tgt, new Vector2(dir, 0), tH, (k % 3 == 2 ? 0.95f : 0.7f) * manh));
+                    At(tNo, () =>
+                    {
+                        if (k > 0) KmNhip(0.4f);   // viên đầu là cú trúng chính (StageView), các viên sau: nhịp phụ
+                        SatTrung(tgt, new Vector2(dir, 0), tH, (k % 3 == 2 ? 0.95f : 0.7f) * manh);
+                    });
             }
             // viên cuối tới sau mọi viên khác: nổ lớn, vòng sóng, nhiều dăm
             float tKet = tCuoi + 0.04f;
             At(tKet, () =>
             {
+                KmNhip(0.8f);
                 SatTrung(giua, new Vector2(dir, 0), tH, 1.5f * manh);
                 Shake?.Invoke(0.3f * manh);
                 Ring(giua, 0.36f, 0.06f * tH, 0.62f * tH * manh, SatThep, 0.5f, Front, 32);
@@ -252,9 +259,10 @@ namespace PokiClash
         {
             Shake?.Invoke(0.6f * manh); // chớp trắng màn đã có ở impactFlash của clip skill (rig): không chớp thêm, màn bị trắng bệch
             var tam = foeFeet + new Vector2(0, -0.3f * tH);
-            SatChop(tam, 0.95f * tH * manh, Front, 0.18f);
-            Ring(foeFeet + new Vector2(0, 2), 0.42f, 0.1f * tH, 1.05f * tH * manh, SatThep);
-            Ring(foeFeet + new Vector2(0, 2), 0.55f, 0.05f * tH, 0.7f * tH * manh, SatBac, 0.3f, Floor, 31);
+            // chớp 2 khung nhỏ ở chân (trước: 0,95 thân trùm kín đối thủ); hai vòng cung dẹt KHÔNG viền nở trên đất (KR5)
+            KmChop(tam + new Vector2(0, 0.12f * tH), 0.42f * tH * manh, 0.07f, KmBac);
+            KmCung(foeFeet + new Vector2(0, 2), 0.1f * tH, 1.15f * tH * manh, 0.42f, SatBac, 0.3f, Floor, 30.6f, 0.9f);
+            KmCung(foeFeet + new Vector2(0, 2), 0.05f * tH, 0.75f * tH * manh, 0.55f, SatTim, 0.3f, Floor, 31, 0.7f);
             // vòng cột tinh thể quanh đối thủ: sau lưng (nhóm Sau) cao hơn, phía trước thấp hơn
             int nc = Mathf.RoundToInt(9 * manh);
             for (int i = 0; i < nc; i++)
@@ -294,8 +302,9 @@ namespace PokiClash
             At(Mathf.Max(0.02f, lead), () =>
             {
                 Shake?.Invoke(0.28f);
-                SatChop(c, 0.55f * tH);
-                for (int i = 0; i < 8; i++) Spark(c, new Vector2(dir * U(0.2f, 1f), U(-0.9f, 0.6f)), U(240, 460), U(0.18f, 0.3f), U(6, 9), 300);
+                KmBong(c, new Vector2(-dir, -0.3f), 0.32f * tH, 0.12f, KmBac);
+                SatChop(c, 0.42f * tH);
+                for (int i = 0; i < 8; i++) KmTiaLua(c, new Vector2(dir * U(0.2f, 1f), U(-0.9f, 0.6f)), U(420, 720), U(6, 9), (i & 1) == 0 ? KmBac[4] : SatBac);
                 for (int i = 0; i < 6; i++) SatDam(c + U2(-6, 6), new Vector2(dir * U(80, 300), -U(80, 300)), U(10, 16));
                 for (int i = 0; i < 3; i++)
                 {

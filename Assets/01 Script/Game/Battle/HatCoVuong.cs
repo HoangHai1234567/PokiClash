@@ -8,6 +8,8 @@
 //           gồng lead − 1,02, cột bắt đầu giáng lead − 0,22, cắm = lead (1,64), rễ trồi lead + 0,08, bắt cột lead + 0,98
 //   dạng 1  attack: húc = lead (0,46) · cast: nện tay lead − 0,33, rễ tới = lead (0,95) · skill: gồng gọi lead − 0,88, cột nhỏ bắt
 //           đầu rơi lead − 0,23, cắm = lead (1,18)
+// Nâng 2026-11-18 (người dùng: "khói rải rác chưa thành cụm, chưa mềm", "nổ chưa đẹp", "màu tươi hơn"): bụi thành cụm tách dần (BuiCum), vòng
+// cung dẹt đứt đoạn (CungDat), vết đất giữ ~1 s (VetDat), chớp nổ nhỏ ở trước + toé sau thân (không che mặt), vệt hút xoắn vào lõi.
 // Biến tĩnh ở file này không dùng biến tĩnh của HatLua.cs lúc khởi tạo.
 using UnityEngine;
 
@@ -41,18 +43,21 @@ namespace PokiClash
         // vòng bụi dưới chân nó, lá rơi
         public float NTruDap(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
+            MocSang();
             float L = Mathf.Max(0.2f, lead);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             At(Mathf.Max(0.02f, L - 0.3f), () =>
             {
-                for (int i = 0; i < 5; i++)
-                    Bui(casterFeet + new Vector2(U(-14, 14), U(-4, 2)), new Vector2(-dir * U(60, 180), -U(20, 70)), U(0.35f, 0.55f), 3.5f, U(8, 12), Back);
+                for (int i = 0; i < 2; i++)
+                    BuiCum(casterFeet + new Vector2(U(-14, 14), U(-4, 2)), new Vector2(-dir * U(60, 160), -U(20, 50)), U(0.07f, 0.1f) * casterH, 0, Back);
             });
             At(L, () =>
             {
                 Shake?.Invoke(0.6f);
                 var cham = foeBody + new Vector2(-dir * 0.05f * tH, -0.32f * tH); // đầu đối thủ, nơi đầu cột đập xuống
-                BurstFlash(cham, 0.5f * tH);
+                DanhTrung?.Invoke(cham, 0.8f);
+                Chop(cham, 0.36f * tH, 0.07f);
+                BurstFlash(cham, 0.5f * tH, Back, 0.16f);
                 for (int i = 0; i < 4; i++)
                 {
                     float a = (-90 + (i - 1.5f) * 40 + U(-10, 10)) * Mathf.Deg2Rad;
@@ -70,30 +75,37 @@ namespace PokiClash
             });
             At(L + 0.05f, () =>
             {
-                Ripple(foeFeet + new Vector2(0, 2), 0.1f * tH, 0.62f * tH, 0.45f, BuiC2);
-                for (int i = 0; i < 6; i++)
-                    Bui(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, U(-5, 2)), new Vector2(U(-130, 130), -U(15, 60)), U(0.45f, 0.7f), 4, U(10, 15), Back);
+                CungDat(foeFeet + new Vector2(0, 2), 0.1f * tH, 0.66f * tH, 0.45f, CungC, 0.08f * tH);
+                VetDat(foeFeet + new Vector2(0, 3), 0.42f * tH, 0.9f);
+                for (int i = 0; i < 3; i++)
+                {
+                    float sd = i == 2 ? 0 : i == 0 ? -1 : 1;
+                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.34f) * tH, U(-5, 2)), new Vector2(sd * U(70, 150), -U(15, 45)), U(0.1f, 0.14f) * tH, 0, Back);
+                }
             });
-            Every(L + 0.04f, L + 0.4f, 18, x =>
-                Leaf(foeBody + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.1f, 0.5f) * tH), new Vector2(U(-50, 50), U(20, 80)), U(0.5f, 0.75f), U(4, 6), 220, 1.2f));
+            Every(L + 0.04f, L + 0.4f, 16, x =>
+                LaRoi(foeBody + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.1f, 0.5f) * tH), new Vector2(U(-50, 50), U(10, 50)), U(0.55f, 0.8f), U(3.4f, 5.2f)));
             return L;
         }
 
         // HÚC VƯƠNG MIỆN (đòn thường dạng 1, lao tới): chóp vương miện húc vào đối thủ: chớp nhỏ, dăm đá, lá bật
         public float NVuongHuc(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
+            MocSang();
             float L = Mathf.Max(0.2f, lead);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             At(Mathf.Max(0.02f, L - 0.18f), () =>
             {
-                for (int i = 0; i < 4; i++)
-                    Bui(casterFeet + new Vector2(U(-10, 10), U(-4, 2)), new Vector2(-dir * U(80, 200), -U(20, 70)), U(0.3f, 0.5f), 3, U(7, 10), Back);
+                for (int i = 0; i < 2; i++)
+                    BuiCum(casterFeet + new Vector2(U(-10, 10), U(-4, 2)), new Vector2(-dir * U(80, 180), -U(20, 50)), U(0.06f, 0.09f) * casterH, 0, Back);
             });
             At(L, () =>
             {
                 Shake?.Invoke(0.3f);
                 var cham = foeBody + new Vector2(-dir * 0.14f * tH, -0.05f * tH);
-                BurstFlash(cham, 0.38f * tH);
+                DanhTrung?.Invoke(cham, 0.5f);
+                Chop(cham, 0.3f * tH, 0.07f);
+                BurstFlash(cham, 0.36f * tH, Back, 0.14f);
                 for (int i = 0; i < 6; i++)
                 {
                     float a = -dir * 1.1f + (i - 2.5f) * 0.35f + U(-0.1f, 0.1f); // bật ngược về phía tướng, toả hình quạt
@@ -110,6 +122,7 @@ namespace PokiClash
         // trồi nối nhau dọc mặt đất chạy tới đối thủ, rễ sau to hơn; tới nơi rễ lớn trồi quanh nó quấn lại, ba nhịp siết (chớp, lá văng)
         public float NReTroi(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
+            MocSang();
             float L = Mathf.Max(0.4f, lead);
             float tCam = Mathf.Max(0.04f, L - 0.35f);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
@@ -117,11 +130,13 @@ namespace PokiClash
             At(tCam, () =>
             {
                 Shake?.Invoke(0.4f);
-                Ripple(goc + new Vector2(0, 2), 0.1f * casterH, 0.7f * casterH, 0.5f, BuiC2);
-                for (int i = 0; i < 10; i++)
+                CungDat(goc + new Vector2(0, 2), 0.1f * casterH, 0.75f * casterH, 0.45f, CungC, 0.08f * casterH);
+                VetDat(goc + new Vector2(0, 3), 0.4f * casterH, 0.9f);
+                for (int i = 0; i < 4; i++)
                 {
                     float sd = (i & 1) == 0 ? 1 : -1;
-                    Bui(goc + new Vector2(sd * U(4, 30), U(-6, 2)), new Vector2(sd * U(100, 260), -U(15, 70)), U(0.45f, 0.75f), 4, U(10, 15), i < 6 ? Back : Front);
+                    BuiCum(goc + new Vector2(sd * U(0.05f, 0.25f) * casterH, U(-6, 2)), new Vector2(sd * U(90, 200), -U(15, 45)), U(0.1f, 0.13f) * casterH, 0,
+                        i < 3 ? Back : Front);
                 }
                 for (int i = 0; i < 6; i++) DaVun(goc + new Vector2(U(-20, 20), -4), new Vector2(U(-200, 200), -U(220, 420)), U(0.45f, 0.7f), U(2.8f, 4.4f));
             });
@@ -140,7 +155,7 @@ namespace PokiClash
                         Re(at + new Vector2(U(-10, 10), j == 0 ? -1 : 4), new Vector2(Mathf.Sin(t), -Mathf.Cos(t)), (0.22f + 0.05f * i) * tH * U(0.85f, 1.1f), 0.42f,
                             j == 0 ? Back : Front, i + j);
                     }
-                    Bui(at, new Vector2(U(-50, 50), -U(20, 50)), U(0.35f, 0.5f), 3, U(8, 12), Back);
+                    BuiCum(at, new Vector2(U(-50, 50), -U(20, 40)), U(0.06f, 0.08f) * tH, 0, Back, null, (i & 1) == 0);
                     if ((i & 1) == 0) Shake?.Invoke(0.06f);
                 });
             }
@@ -148,10 +163,15 @@ namespace PokiClash
             At(L, () =>
             {
                 Shake?.Invoke(0.5f);
+                DanhTrung?.Invoke(foeBody, 0.6f);
                 ReQuan(foeFeet, tH, 1f, 0.8f);
-                Ripple(foeFeet + new Vector2(0, 2), 0.12f * tH, 0.62f * tH, 0.45f, BuiC2);
-                for (int i = 0; i < 6; i++)
-                    Bui(foeFeet + new Vector2(U(-0.35f, 0.35f) * tH, U(-6, 2)), new Vector2(U(-110, 110), -U(15, 55)), 0, 4, 12, Back);
+                CungDat(foeFeet + new Vector2(0, 2), 0.12f * tH, 0.66f * tH, 0.45f, W[2], 0.07f * tH);
+                VetDat(foeFeet + new Vector2(0, 3), 0.42f * tH, 1f);
+                for (int i = 0; i < 3; i++)
+                {
+                    float sd = i == 2 ? 0 : i == 0 ? -1 : 1;
+                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.36f) * tH, U(-6, 2)), new Vector2(sd * U(60, 130), -U(15, 40)), U(0.1f, 0.13f) * tH, 0, Back);
+                }
             });
             for (int h = 0; h < 3; h++)
             {
@@ -160,12 +180,14 @@ namespace PokiClash
                 {
                     Shake?.Invoke(hh == 0 ? 0.35f : 0.2f);
                     var c = foeBody + new Vector2(U(-0.12f, 0.12f) * tH, (hh - 1) * 0.18f * tH);
-                    BurstFlash(c, (hh == 0 ? 0.42f : 0.3f) * tH);
+                    DanhTrung?.Invoke(c, hh == 0 ? 0.5f : 0.3f);
+                    Chop(c, (hh == 0 ? 0.3f : 0.22f) * tH, 0.06f);
+                    BurstFlash(c, (hh == 0 ? 0.42f : 0.3f) * tH, Back, 0.14f);
                     for (int j = 0; j < 4; j++)
                     {
                         float a = U(0, 6.28f);
                         var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.3f);
-                        Leaf(c + d * U(4, 10), d * U(150, 280), U(0.4f, 0.6f), U(3.5f, 5.5f), 500, 1.8f);
+                        Leaf(c + d * U(4, 10), d * U(150, 280), U(0.4f, 0.6f), U(3.2f, 5f), 500, 1.8f);
                     }
                     if (hh == 2) WExtra(c, 4, 260);
                 });
@@ -178,22 +200,18 @@ namespace PokiClash
         // vòng bụi lớn, tảng đá rêu văng, dăm đá, bụi lan hai bên; dạng 2 thêm rễ trồi quanh cột, lá rơi lả tả, bụi lúc bắt cột về tay.
         public float NTruGiang(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead, float manh = 1)
         {
+            MocSang();
             float L = Mathf.Max(0.9f, lead);
             bool lon = manh >= 1;
             float tTu = Mathf.Max(0.04f, L - (lon ? 1.02f : 0.88f)), tGiang = Mathf.Max(tTu + 0.1f, L - 0.22f);
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             var loi = casterFeet + new Vector2(dir * 0.04f * casterH, -(lon ? 0.42f : 0.3f) * casterH); // lõi pha lê
             var cam = foeFeet + new Vector2(-dir * (lon ? 0.18f : 0.12f) * tH, 0); // chân cột (hơi lệch về phía trước đối thủ, như rig)
-            // gồng: lá bị hút xoáy vào lõi
-            Every(tTu, tGiang - 0.04f, x => (lon ? 30 : 20) + 24 * x, x =>
-            {
-                float a = U(0, 6.28f);
-                var from = loi + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.7f) * U(0.55f, 0.95f) * casterH;
-                var q = Leaf(from, Vector2.zero, U(0.3f, 0.42f), U(3.5f, 6f), 0, 0, Mathf.Sin(a) < 0 ? Back : Front);
-                q.vel = (loi - from) / q.life + new Vector2(-Mathf.Sin(a), Mathf.Cos(a)) * 120;
-            });
-            At(tTu, () => Ripple(casterFeet + new Vector2(0, 2), 0.12f * casterH, 0.62f * casterH, 0.45f));
-            Every(tTu, tGiang, 8, x => Bui(casterFeet + new Vector2(U(-0.45f, 0.45f) * casterH, U(-4, 2)), new Vector2(U(-40, 40), -U(50, 120)), 0, 3, 9, Back));
+            // gồng: lá và vệt gió bị hút xoắn vào lõi, nhanh dần, nhập vào lõi; mật độ tăng dần
+            At(tTu, () => GatherLa(t => loi, 0, tGiang - tTu - 0.04f, 0.9f * casterH, lon ? 40 : 28));
+            At(tTu, () => CungDat(casterFeet + new Vector2(0, 2), 0.12f * casterH, 0.66f * casterH, 0.45f, W[2], 0.06f * casterH));
+            Every(tTu, tGiang, 4, x =>
+                BuiCum(casterFeet + new Vector2(U(-0.45f, 0.45f) * casterH, U(-4, 2)), new Vector2(U(-40, 40), -U(50, 100)), U(0.06f, 0.08f) * casterH, 0, Back));
             // bóng báo trước dưới chân đối thủ
             At(tGiang, () =>
             {
@@ -207,16 +225,19 @@ namespace PokiClash
             {
                 Shake?.Invoke(lon ? 1f : 0.55f);
                 if (lon) FlashScreen?.Invoke(FlashW);
-                Ripple(cam + new Vector2(0, 2), 0.18f * tH, (lon ? 1.3f : 0.8f) * tH, 0.55f, BuiC2);
-                RingN(cam + new Vector2(0, 2), 0.36f, 0.1f * tH, (lon ? 0.9f : 0.55f) * tH, BuiC, 0.3f, Floor, 30.6f);
+                DanhTrung?.Invoke(foeBody, lon ? 1 : 0.6f);
+                CungDat(cam + new Vector2(0, 2), 0.18f * tH, (lon ? 1.35f : 0.85f) * tH, 0.55f, CungC, (lon ? 0.13f : 0.09f) * tH);
+                CungDat(cam + new Vector2(0, 2), 0.1f * tH, (lon ? 0.9f : 0.55f) * tH, 0.45f, W[2], (lon ? 0.08f : 0.06f) * tH, 5);
+                VetDat(cam + new Vector2(0, 3), (lon ? 0.7f : 0.45f) * tH, 1.1f);
                 ThachNo(cam + new Vector2(0, -0.12f * tH), foeFeet, tH, (lon ? 0.3f : 0.18f) * tH, dir);
-                for (int i = 0; i < (lon ? 16 : 9); i++)
+                for (int i = 0; i < (lon ? 6 : 4); i++)
                 {
-                    float sd = (i & 1) == 0 ? 1 : -1;
-                    Bui(cam + new Vector2(sd * U(8, 0.35f * tH), U(-6, 3)), new Vector2(sd * U(140, 380), -U(10, 70)), U(0.55f, 0.9f), 5, U(12, 20), i < 10 ? Back : Front);
+                    float sd = i == 5 ? 0 : (i & 1) == 0 ? 1 : -1;
+                    BuiCum(cam + new Vector2(sd * U(0.1f, 0.42f) * tH, U(-6, 3)), new Vector2(sd * U(110, 260), -U(10, 45)), U(0.12f, 0.17f) * tH * (lon ? 1 : 0.8f), 0,
+                        i < 4 ? Back : Front);
                 }
-                BurstFlash(foeBody + new Vector2(0, -0.05f * tH), 0.45f * tH);
-                WExtra(foeBody, lon ? 7 : 4, 320);
+                Chop(foeBody + new Vector2(0, -0.05f * tH), 0.36f * tH, 0.07f);
+                WExtra(foeBody, lon ? 6 : 3, 320);
             });
             if (lon)
             {
@@ -225,14 +246,17 @@ namespace PokiClash
                     Shake?.Invoke(0.35f);
                     ReQuan(foeFeet, tH, 0.9f, 0.6f);
                 });
-                Every(L + 0.06f, L + 0.6f, 26, x =>
-                    Leaf(foeFeet + new Vector2(U(-0.6f, 0.6f) * tH, -U(0.4f, 1.0f) * tH), new Vector2(U(-50, 50), U(20, 90)), U(0.55f, 0.85f), U(4, 6.5f), 240, 1.2f,
+                Every(L + 0.06f, L + 0.6f, 22, x =>
+                    LaRoi(foeFeet + new Vector2(U(-0.6f, 0.6f) * tH, -U(0.4f, 1.0f) * tH), new Vector2(U(-50, 50), U(10, 50)), U(0.6f, 0.9f), U(3.6f, 5.6f),
                         U(0, 1) < 0.5f ? Back : Front));
                 At(L + 0.98f, () => // bắt cột về tay
                 {
                     Shake?.Invoke(0.2f);
-                    for (int i = 0; i < 6; i++)
-                        Bui(casterFeet + new Vector2(U(-0.3f, 0.3f) * casterH, U(-4, 2)), new Vector2(U(-120, 120), -U(20, 60)), U(0.4f, 0.6f), 4, U(9, 13), Back);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float sd = i == 2 ? 0 : i == 0 ? -1 : 1;
+                        BuiCum(casterFeet + new Vector2(sd * U(0.1f, 0.3f) * casterH, U(-4, 2)), new Vector2(sd * U(60, 140), -U(20, 45)), U(0.08f, 0.11f) * casterH, 0, Back);
+                    }
                 });
             }
             return L;

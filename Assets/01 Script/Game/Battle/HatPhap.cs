@@ -83,11 +83,11 @@ namespace PokiClash
                 });
             }
             // đầu trượng nhả tia lửa trong lúc gọi kim; lúc vụt trượng thì rung nhẹ
-            Every(tGoi, tBan - 0.05f, 14, x => Spark(A + U2(-8, 8), new Vector2(dir * U(0.1f, 1f), -U(0.3f, 1f)), U(120, 220)));
+            Every(tGoi, tBan - 0.05f, 14, x => Spark(A + U2(-8, 8), new Vector2(dir * U(0.1f, 1f), -U(0.3f, 1f)), U(120, 220), 0, 6));
             At(tBan, () => Shake?.Invoke(0.12f));
             At(L + N * 0.035f + 0.25f, () =>
             {
-                for (int i = 0; i < 4; i++) Smoke(foeBody + U2(-25, 25), null, 0, 7, 18, Back);
+                for (int i = 0; i < 2; i++) HoaKhoi(foeBody + new Vector2(U(-25, 25), -U(10, 30)), U(13, 17), Back, null, 0, true, 0.4f); // khói thành cụm
             });
             return L;
         }
@@ -109,66 +109,47 @@ namespace PokiClash
             float bay = Mathf.Max(0.12f, L - tBan);
             float R = Rt(PhapBanCau);                                     // bán kính cầu lúc rời chỗ (cầu của rig biến mất ở mốc này)
 
-            // hút: lưỡi lửa nhỏ sinh trên một vòng rộng quanh cầu (nhiều hơn ở phía dưới: lửa từ áo, từ đất bốc lên), tự lái nhanh dần vào tâm cầu
-            Every(tHut, tDay, x => 34 + 30 * x, x =>
+            // hút (2026-11-18, người dùng chê pha hút quanh cầu): VỆT lửa thuôn sinh trên vòng rộng quanh cầu của rig, hiện dần, xoắn ốc nhanh dần vào
+            // tâm, chạm vành thì nhập vào; thêm một dòng vệt từ phía dưới (lửa từ áo, từ đất bốc lên); hai vòng co; chớp lúc cầu rời chỗ (cầu là mảnh
+            // của rig nên không vẽ khối cầu, chỉ vẽ phần hút)
+            Vector2 TamT(float t) => Tam(t - goc - t00);
+            float RtT(float t) => Rt(t - goc - t00);
+            HoaTuCau(TamT, R, tHut, tBan, false, 1.1f, RtT);
+            float chieu = -dir;
+            Every(tHut, tDay, x => 10 + 14 * x, x =>
             {
-                float tc = T - goc - t00;
-                float a = U(0, 6.28f), rr = U(0.75f, 1.25f) * casterH;
-                var o = new Vector2(Mathf.Cos(a), Mathf.Abs(Mathf.Sin(a)) * (U(0, 1) < 0.72f ? 1 : -0.5f)); // y dương = phía dưới cầu trên sân
-                var p0 = Tam(tc) + o * rr;
-                var q = Flame(p0, new Vector2(-o.y, o.x) * U(-120, 120), U(0.4f, 0.55f), U(8, 12), U(4.5f, 6.5f), "tron", Th.pal, Front, 0, 0, 1.7f, 0, 0.05f);
-                Tongue(q, 1, 0.1f);
-                q.upd = (z, dt, s) =>
-                {
-                    float c = s.T - goc - t00;
-                    var v = Tam(c) - z.pos;
-                    float d = v.magnitude;
-                    if (d < Rt(c) * 0.7f)
-                    {
-                        z.dead = true;
-                        return;
-                    }
-                    float k = z.age / z.life;
-                    z.vel = Vector2.Lerp(z.vel, v / d * (240 + 1700 * k * k), Mathf.Clamp01(dt * (4 + 26 * k)));
-                };
+                float a = U(0.15f, 2.99f), rr = U(0.75f, 1.2f) * casterH; // nửa dưới cầu (y sân đi xuống)
+                HoaHut(TamT, RtT, TamT(T) + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rr, U(0.4f, 0.52f), U(0, 1) < 0.5f ? Pal[Th.pal][1] : Pal[Th.pal][2], chieu,
+                    goc + tBan + 0.02f);
             });
-            Every(tHut, tDay, 26, x =>
-            {
-                float tc = T - goc - t00;
-                float a = U(0, 6.28f);
-                var pos = Tam(tc) + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(0.5f, 0.9f) * casterH;
-                var e = Ember(pos, (Tam(tc) - pos) * 1.6f, 0.34f, 8);
-                e.upd = (q, dt, s) => q.vel *= 1 + 3 * dt;
-            });
-            // lưỡi lửa liếm ra từ thân cầu của rig trong lúc phình
-            Every(tHut + 0.1f, tBan, x => 10 + 20 * x, x =>
+            // lưỡi lửa chữ S liếm ra từ thân cầu của rig trong lúc phình
+            Every(tHut + 0.1f, tBan, x => 8 + 14 * x, x =>
             {
                 float tc = T - goc - t00, r = Rt(tc), a = U(0, 6.28f);
                 var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                var q = Flame(Tam(tc) + o * r * 0.8f, o * U(40, 110) + new Vector2(0, -U(40, 120)), U(0.22f, 0.32f), r * 0.26f, r * U(0.36f, 0.5f), "tron",
-                    Th.pal, Front, 3, -160, 1.5f, 0, 0.05f);
-                Tongue(q, 1, 0.5f);
+                HoaLuoi(Flame(Tam(tc) + o * r * 0.8f, o * U(40, 110) + new Vector2(0, -U(40, 120)), U(0.22f, 0.32f), r * 0.26f, r * U(0.36f, 0.5f), "tron",
+                    Th.pal, Front, 3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
             });
 
-            // cầu đầy: nháy vòng sát cầu, toé tia; giữ tới lúc bắn thì than hồng lách tách
+            // cầu đầy: vòng co sát cầu (không còn vòng nâu to), toé tia; giữ tới lúc bắn thì cụm tàn lửa lách tách
             At(tDay, () =>
             {
                 Shake?.Invoke(0.18f);
                 var c = Tam(PhapDay);
                 float r = Rt(PhapDay);
-                Ring(c, 0.2f, r * 0.9f, r * 1.5f, Th.ring, 1f, Front, 36);
-                for (int j = 0; j < 10; j++)
+                HoaVongCo(TamT, r * 2.1f, r * 1.05f, 0.2f, Th.ring2);
+                for (int j = 0; j < 6; j++)
                 {
-                    float a = 6.28f * (j + U(0, 0.7f)) / 10;
+                    float a = 6.28f * (j + U(0, 0.7f)) / 6;
                     var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                    Spark(c + o * r, o, U(220, 380), 0, 8, 120);
+                    Spark(c + o * r, o, U(220, 380), 0, 6, 120);
                 }
             });
-            Every(tDay, tBan, 26, x =>
+            Every(tDay, tBan, 7, x =>
             {
                 float tc = T - goc - t00, a = U(0, 6.28f);
                 var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                Ember(Tam(tc) + o * Rt(tc) * 1.1f, new Vector2(o.x, o.y - 0.6f) * U(50, 130), U(0.3f, 0.5f), 8);
+                HoaTan(Tam(tc) + o * Rt(tc) * 1.1f, new Vector2(o.x, o.y - 0.6f) * U(50, 130), U(0.3f, 0.5f), 3);
             });
 
             // bắn: quả cầu hạt nhận chỗ của cầu rig, lấy đà rồi lao thẳng vào đối thủ; đuôi lưỡi lửa, khói, tia
@@ -184,32 +165,36 @@ namespace PokiClash
             At(tBan, () =>
             {
                 Shake?.Invoke(0.25f);
-                for (int j = 0; j < 8; j++) Spark(from, -d0 + U2(-0.8f, 0.8f), U(240, 420));
+                for (int j = 0; j < 6; j++) Spark(from, -d0 + U2(-0.8f, 0.8f), U(240, 420), 0, 6);
+                HoaCau(Bay, Rb, bay + 0.01f); // khối cầu lửa nhiều múi nhận chỗ, nhận cỡ của cầu rig vừa biến mất
             });
-            Every(tBan, L, 210, x => LoiCau(Bay, Rb(T)));
-            Every(tBan, L, 110, x =>
+            Every(tBan, L, 60, x =>
             {
                 var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.5f, 0.5f) * R, -d0 * U(80, 180) + new Vector2(-d0.y, d0.x) * U(-110, 110) + new Vector2(0, -20),
-                    U(0.22f, 0.34f), R * 0.7f, R * 0.7f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0.05f);
-                Tongue(q, 1, 0.2f);
+                    U(0.22f, 0.34f), R * 0.7f, R * 0.7f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
+                HoaLuoi(q, 1, 0.2f, 0);
                 q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
             });
-            Every(tBan + 0.03f, L, 70, x => Smoke(Bay(T) - d0 * R + U2(-6, 6), new Vector2(U(-12, 12), U(-30, -10)), U(0.7f, 1f), 12, U(20, 28), Back,
-                "fire", 0.1f));
-            Every(tBan, L, 40, x => Spark(Bay(T), -d0 + U2(-0.6f, 0.6f), U(180, 320)));
+            HoaDuoiKhoi(t => Bay(t) - d0 * R, tBan + 0.03f, L, 13, 17);
+            Every(tBan, L, 16, x => Spark(Bay(T), -d0 + U2(-0.6f, 0.6f), U(180, 320), 0, 6));
 
-            // chạm: nổ lớn, hai vụ nổ phụ, khói và tro
-            At(L, () => CauNo(tgt, foeFeet, foeBody, tH, dir, non ? 1.2f : 1.6f));
+            // chạm: nổ lớn KR5, hai vụ nổ phụ, khói cụm và tro
+            At(L, () =>
+            {
+                NuocPulse?.Invoke(1f);
+                HoaCauNo(tgt, foeFeet, tH, dir, non ? 1.2f : 1.6f);
+            });
             At(L + 0.12f, () =>
             {
                 Shake?.Invoke(0.3f);
-                Explode(tgt + new Vector2(dir * U(4, 22), U(-30, 6)), non ? 0.55f : 0.8f, tH);
+                HoaNo(tgt + new Vector2(dir * U(4, 22), U(-30, 6)), non ? 0.55f : 0.8f, tH);
             });
-            if (!non) At(L + 0.24f, () => Explode(tgt + new Vector2(-dir * U(4, 20), U(-12, 14)), 0.55f, tH));
+            if (!non) At(L + 0.24f, () => HoaNo(tgt + new Vector2(-dir * U(4, 20), U(-12, 14)), 0.55f, tH));
             At(L + 0.36f, () =>
             {
-                for (int i = 0; i < 6; i++) Smoke(foeBody + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.1f, 0.5f) * tH), null, 0, 9, 24, Back, "fire");
-                for (int i = 0; i < 8; i++) Ash(foeBody + U2(-30, 30));
+                for (int i = 0; i < 3; i++)
+                    HoaKhoi(foeBody + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.15f, 0.5f) * tH), U(0.14f, 0.18f) * tH, Back, null, 0, true, 0.5f);
+                for (int i = 0; i < 4; i++) Ash(foeBody + U2(-30, 30));
             });
             return L;
         }

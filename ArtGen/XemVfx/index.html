@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hiệu ứng từng tướng</title>
+<style>
+:root{--bg:#17191c;--panel:#202327;--panel2:#292d32;--line:#353a40;--fg:#ece7dc;--dim:#a19d93;--acc:#ffb347;--acc2:#6cc3ff}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--fg);font:13px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
+header{position:sticky;top:0;z-index:5;display:flex;flex-wrap:wrap;align-items:center;gap:10px;padding:8px 14px;background:var(--panel);border-bottom:1px solid var(--line)}
+header h1{font-size:15px;margin:0 8px 0 0}
+.chip{border:1px solid var(--line);border-radius:999px;padding:3px 10px;cursor:pointer;color:var(--dim);user-select:none}
+.chip.on{background:var(--acc);border-color:var(--acc);color:#1b1b1b}
+input[type=search],select,button{background:var(--bg);border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:5px 8px;font:inherit}
+button{cursor:pointer;background:var(--panel2)}
+.note{color:var(--dim)}
+main{padding:12px 14px 40px}
+.hero{background:var(--panel);border:1px solid var(--line);border-radius:10px;margin:0 0 14px;padding:10px 12px}
+.hero h2{font-size:15px;margin:0}
+.hero .sub{color:var(--dim);margin:2px 0 8px}
+.moves{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.move{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:6px}
+.move h3{font-size:12px;margin:0 0 4px;color:var(--acc2);font-weight:600}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+.pair figure{margin:0}
+.pair figcaption{font-size:11px;color:var(--dim);text-align:center}
+canvas{display:block;width:100%;aspect-ratio:360/395;background:#0e0f10;border-radius:4px;cursor:zoom-in}
+details{margin-top:8px}
+details pre{white-space:pre-wrap;word-break:break-word;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:8px;font:12px/1.5 ui-monospace,Consolas,monospace;max-height:340px;overflow:auto}
+#big{position:fixed;inset:0;background:rgba(0,0,0,.88);display:none;z-index:10;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+#big.open{display:flex}
+#big .row{display:flex;gap:10px;max-width:96vw}
+#big canvas{width:min(46vw,640px);cursor:default}
+#big .bar{display:flex;gap:6px;align-items:center}
+@media (max-width:900px){.moves{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <h1>Hiệu ứng từng tướng</h1>
+  <span id="elems"></span>
+  <input type="search" id="q" placeholder="Tìm tướng">
+  <select id="speed"><option value="1">1×</option><option value="0.5">0.5×</option><option value="0.25">0.25×</option></select>
+  <button id="play">⏸ dừng</button>
+  <span class="note" id="info"></span>
+</header>
+<main id="list"></main>
+<div id="big">
+  <div class="row"><figure><canvas id="b0" width="720" height="790"></canvas><figcaption class="note">Trước</figcaption></figure><figure><canvas id="b1" width="720" height="790"></canvas><figcaption class="note">Sau</figcaption></figure></div>
+  <div class="bar"><button id="bPrev">◀ khung</button><button id="bPlay">⏸</button><button id="bNext">khung ▶</button><span class="note" id="bInfo"></span><button id="bClose">Đóng ✕</button></div>
+</div>
+<script>
+'use strict';
+const DUR = {danh: 2.0, mana: 3.0, ult: 4.2};      // giây mỗi đòn trong tour chụp (VfxAllTour)
+let D, playing = true, speed = 1, t0 = performance.now(), elem = null, q = '';
+const IMG = {}, players = [];
+const $ = id => document.getElementById(id);
+function img(src){ if (!IMG[src]){ const i = new Image(); i.src = src; IMG[src] = i; } return IMG[src]; }
+fetch('data.json').then(r => r.json()).then(d => {
+  D = d;
+  $('elems').innerHTML = '<span class="chip on" data-e="">Tất cả</span> ' + D.elems.map(([k, v]) => `<span class="chip" data-e="${k}">${v}</span>`).join(' ');
+  for (const c of $('elems').children) c.onclick = () => { elem = c.dataset.e || null; for (const x of $('elems').children) x.classList.toggle('on', x === c); render(); };
+  $('q').oninput = () => { q = $('q').value.toLowerCase(); render(); };
+  $('speed').onchange = () => speed = +$('speed').value;
+  $('play').onclick = () => { playing = !playing; $('play').textContent = playing ? '⏸ dừng' : '▶ chạy'; };
+  $('info').textContent = `${D.heroes.length} tướng · đợt: ${D.dots.map(x => x === 'truoc' ? 'trước' : 'sau').join(', ')}`;
+  render(); requestAnimationFrame(loop);
+});
+const io = new IntersectionObserver(es => { for (const e of es){ const p = players.find(p => p.cv === e.target); if (p) p.vis = e.isIntersecting; } });
+function render(){
+  players.length = 0; io.disconnect();
+  const L = $('list'); L.innerHTML = '';
+  const EV = Object.fromEntries(D.elems);
+  for (const h of D.heroes){
+    if (elem && h.elem !== elem) continue;
+    if (q && !(h.name.toLowerCase().includes(q) || h.id.includes(q))) continue;
+    const div = document.createElement('div'); div.className = 'hero';
+    div.innerHTML = `<h2>${h.name} <span class="note">· ${h.id}</span></h2><div class="sub">${EV[h.elem] || h.elem} · dạng: ${h.forms.join(' → ')} (chụp ở dạng cuối)</div>`;
+    const mv = document.createElement('div'); mv.className = 'moves';
+    for (const [m, label] of D.moves){
+      const box = document.createElement('div'); box.className = 'move';
+      box.innerHTML = `<h3>${label}</h3><div class="pair"></div>`;
+      const pair = box.querySelector('.pair');
+      for (const dot of ['truoc', 'sau']){
+        const n = (h.n[m] || {})[dot] || 0;
+        const f = document.createElement('figure');
+        f.innerHTML = `<canvas width="360" height="395"></canvas><figcaption>${dot === 'truoc' ? 'Trước' : 'Sau'}${n ? '' : ' (chưa có)'}</figcaption>`;
+        pair.appendChild(f);
+        const cv = f.querySelector('canvas');
+        const p = {cv, n, src: n ? `anh/${dot}/${h.id}_${m}.jpg` : null, dur: DUR[m], vis: false, h, m};
+        players.push(p); io.observe(cv);
+        cv.onclick = () => openBig(h, m);
+      }
+      mv.appendChild(box);
+    }
+    div.appendChild(mv);
+    if (h.note){ const det = document.createElement('details'); det.innerHTML = `<summary>Agent đã sửa gì</summary><pre></pre>`; det.querySelector('pre').textContent = h.note; div.appendChild(det); }
+    L.appendChild(div);
+  }
+}
+function drawFrame(cv, p, t, W, H){
+  const ctx = cv.getContext('2d');
+  if (!p.src){ ctx.fillStyle = '#0e0f10'; ctx.fillRect(0, 0, cv.width, cv.height); ctx.fillStyle = '#555'; ctx.font = (cv.width / 18) + 'px sans-serif'; ctx.fillText('chưa có', cv.width * 0.38, cv.height * 0.5); return 0; }
+  const im = img(p.src); if (!im.complete || !im.naturalWidth) return 0;
+  const k = Math.min(p.n - 1, Math.floor((t % (p.dur + 0.4)) / p.dur * p.n));
+  const i = Math.max(0, k), c = D.cols;
+  ctx.drawImage(im, (i % c) * D.w, Math.floor(i / c) * D.h, D.w, D.h, 0, 0, cv.width, cv.height);
+  return i;
+}
+let simT = 0, last = performance.now();
+function loop(now){
+  const dt = (now - last) / 1000; last = now;
+  if (playing) simT += dt * speed;
+  for (const p of players) if (p.vis) drawFrame(p.cv, p, simT);
+  if (big.open){ if (big.playing) big.t += dt * speed; drawBig(); }
+  requestAnimationFrame(loop);
+}
+const big = {open: false, playing: true, t: 0, h: null, m: null};
+function openBig(h, m){ big.open = true; big.h = h; big.m = m; big.t = 0; big.playing = true; $('big').classList.add('open'); }
+function drawBig(){
+  const h = big.h, m = big.m;
+  ['truoc', 'sau'].forEach((dot, j) => {
+    const n = (h.n[m] || {})[dot] || 0;
+    const p = {n, src: n ? `anh/${dot}/${h.id}_${m}.jpg` : null, dur: DUR[m]};
+    const i = drawFrame($('b' + j), p, big.t);
+    if (j === 0) $('bInfo').textContent = `${h.name} · ${Object.fromEntries(D.moves)[m]} · t = ${(big.t % (DUR[m] + 0.4)).toFixed(2)} s`;
+  });
+}
+$('bClose').onclick = () => { big.open = false; $('big').classList.remove('open'); };
+$('bPlay').onclick = () => { big.playing = !big.playing; $('bPlay').textContent = big.playing ? '⏸' : '▶'; };
+$('bNext').onclick = () => { big.playing = false; $('bPlay').textContent = '▶'; big.t += DUR[big.m] / Math.max(1, ((big.h.n[big.m] || {}).truoc || 30)); };
+$('bPrev').onclick = () => { big.playing = false; $('bPlay').textContent = '▶'; big.t = Math.max(0, big.t - DUR[big.m] / Math.max(1, ((big.h.n[big.m] || {}).truoc || 30))); };
+document.addEventListener('keydown', e => { if (e.key === 'Escape') $('bClose').onclick(); });
+</script>
+</body>
+</html>

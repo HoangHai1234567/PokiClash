@@ -13,18 +13,23 @@ namespace PokiClash
         // quãng (giây) từ từng mốc tới nhát bổ kết
         const float DatDam = 1.30f, DatLen = 0.98f, DatNguoc = 0.72f, DatTu = 0.42f;
 
-        // một nhát kiếm lửa trúng đối thủ: vệt lửa theo hướng d, chớp, tia lửa văng, than hồng, bụi dưới chân
+        // một nhát kiếm lửa trúng đối thủ: vệt lửa theo hướng d, chớp lửa (2026-11-18: trước dùng BurstFlash là chớp NƯỚC), tia lửa văng, cụm tàn
+        // lửa, lưỡi lửa chữ S toé theo hướng chém, bụi dưới chân
         void DatChem(Vector2 tam, Vector2 d, float tH, float manh, Vector2 foeFeet)
         {
             var pc = Pal[Th.pal];
             var n = new Vector2(-d.y, d.x);
             Shake?.Invoke(0.3f * manh);
+            NuocPulse?.Invoke(0.4f * manh);
             VetLua(tam, d, 1.15f * manh * tH, 0.1f * manh * tH, 0.2f, 0, Ink, pc[1], pc[3], pc[1]);
-            BurstFlash(tam + d * (0.1f * tH), 0.3f * manh * tH);
-            int tia = Mathf.RoundToInt(7 * manh);
+            HoaChop(tam + d * (0.1f * tH), 0.3f * manh * tH, 0.09f);
+            int tia = Mathf.RoundToInt(5 * manh);
             for (int i = 0; i < tia; i++)
-                Spark(tam + n * U(-0.14f, 0.14f) * tH, d + n * U(-0.7f, 0.7f), U(260, 480), U(0.18f, 0.3f), U(6, 9), 300);
-            for (int i = 0; i < 3; i++) Ember(tam + U2(-0.15f, 0.15f) * tH, new Vector2(U(-80, 80), -U(60, 200)), U(0.4f, 0.7f), 8);
+                Spark(tam + n * U(-0.14f, 0.14f) * tH, d + n * U(-0.7f, 0.7f), U(260, 480), U(0.18f, 0.3f), U(5, 7), 300);
+            for (int i = 0; i < 2; i++)
+                HoaLuoi(Flame(tam + d * U(0.05f, 0.2f) * tH, (d + n * U(-0.4f, 0.4f)) * U(160, 280) + new Vector2(0, -60), U(0.24f, 0.32f), 6, U(12, 16) * manh,
+                    "tron", Th.pal, i == 0 ? Front : Back, 3.5f, -180, 1.5f, 0, 0), 1, 0.3f, 0);
+            HoaTan(tam, new Vector2(U(-50, 50), -U(90, 170)), U(0.45f, 0.65f), 3);
             for (int i = 0; i < 3; i++)
             {
                 float sd = (i & 1) == 0 ? 1 : -1;

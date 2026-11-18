@@ -138,7 +138,7 @@ namespace PokiClash
             }
         }
 
-        // nhịp của clip chết: thân chạm đất thì thịch nhẹ, bụi; hơn nửa clip thì vài hạt màu hệ bay lên (skill-petclash mục 13 "Chết")
+        // nhịp của clip chết: thân chạm đất thì thịch nhẹ, bụi; hơn nửa clip thì vài hạt màu hệ bay lên (vfx-petclash mục 12 "Chết")
         void DieBeats(Actor a, float d0)
         {
             if (d0 > DieLen(a)) return; // clip chết xong (a.dead còn chạy)

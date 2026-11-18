@@ -1,7 +1,7 @@
 ---
 name: pokiclash-hero-fx
 description: >
-  Cải tiến hiệu ứng idle, đánh nhau và animation của tướng PokiClash: khựng lúc trúng (hit-stop), rung, bật lùi, chớp màu,
+  [Bộ VFX] Hiệu ứng và cảm giác đánh của tướng PokiClash (idle theo hệ, đòn, chiêu): khựng lúc trúng (hit-stop), rung, bật lùi, chớp màu,
   hạt có vật lý (tia văng, mảnh vỡ, bụi, than, khói, hạt tụ lực), biên đạo đòn theo pha, idle "sống" theo hệ, hạt trong
   .atomik (beast.py) và hạt trên sân (StageView, pool Image hoặc ParticleSystem qua UIParticle). Chuẩn mốc là bản phun lửa hạt
   chồng lớp (ArtGen/Spine/chuan_fx), không làm hiệu ứng sprite tĩnh. Học từ pixelfx (MIT), Epic Toon FX (đọc số prefab),
@@ -11,8 +11,8 @@ description: >
 
 # Hiệu ứng và cảm giác đánh của tướng (2026-11-09)
 
-> Skill gốc: `skill-petclash` (nguyên tắc thiết kế, nhịp clip, khớp animation với hiệu ứng, hiệu năng, bảng kiểm; kèm bộ
-> `VFX_KNOWLEDGE_BASE.md` và ba file ghi chú nghiên cứu). Đọc nó trước, rồi quay lại đây làm chi tiết.
+> Skill gốc: `vfx-petclash` (bộ VFX: luật dự án, nguyên tắc thiết kế, nhịp, màu, hình theo hệ, khớp với animation, kiến trúc,
+> hiệu năng, quy trình, bảng kiểm, nguồn tham khảo; kèm `VFX_KNOWLEDGE_BASE.md`, hai file nghiên cứu, `hoc_kr5_vfx.md`). Đọc nó trước, rồi quay lại đây làm chi tiết.
 
 Skill này nói **làm sao cho tướng đánh có lực, đứng có hồn**. Luật hình, tia chiêu mana, gói vẽ ảnh hiệu ứng nằm ở skill
 `pokiclash-vfx`; rig, clip .atomik nằm ở skill `pokiclash-spine-rig` (mục 13, 15, 16). Đọc hai skill đó trước, skill này chỉ thêm
@@ -157,7 +157,7 @@ Trong repo: `ArtGen/ThamKhao/KR5/`.
 - **Trang xem** `MO_WEB.bat`: hình lọc theo hệ, hệ hạt chạy đúng code của game, chiêu ghép thân + đạn + trúng.
 - **Phân tích:** `HOC_VFX_KR5.md`; tờ khung đánh số ở `to_khung/`.
 - **Dữ liệu ảnh** đã `.gitignore`, sinh lại bằng `tools/build_fx_viewer.py <bản rút>`.
-- **Bản tóm cho dự án:** `skill-petclash/hoc_kr5_vfx.md`. Đây là nguồn **gần luật tô phẳng nhất**: hiệu ứng trận vẽ phẳng 3–5 màu,
+- **Bản tóm cho dự án:** `vfx-petclash/hoc_kr5_vfx.md`. Đây là nguồn **gần luật tô phẳng nhất**: hiệu ứng trận vẽ phẳng 3–5 màu,
 mép cứng, không shader, không cộng sáng (chỉ chấm sáng nhỏ, bụi, hơi thở rồng có mép mềm). Họ làm thế này:
 - **Ảnh khung vẽ tay giữ 2 khung:** 30 khung/giây, mỗi hình lặp 2 khung (15 hình/giây) ở 2/3 hoạt ảnh. Hiệu ứng trung vị 0,5 s.
 - **Đỉnh ở khung 1–3:**
@@ -334,18 +334,10 @@ Idle đứng yên một chỗ là lỗi. Mỗi tướng có ít nhất: thở, p
 Trong .atomik: hạt idle phải **liền mạch khi lặp**. Dùng kiểu `cycle` của pixelfx: hạt i có pha `(t/D + i/n) mod 1`, vị trí,
 alpha là hàm của pha (sinh ở pha 0, tan hết trước pha 1). Không dùng hạt "bắn một lần" trong idle.
 
-## 8. Animation tướng: nguyên tắc diễn
+## 8. Animation tướng: đã chuyển sang bộ Animation
 
-- **Lấy đà ngược chiều cú đánh**, đổi dáng lớn ở khung ra đòn (bóng dáng khác hẳn), **khựng lúc chạm**, theo đà vượt quá rồi về.
-- **Dáng "snap":** dáng ra đòn nhảy tới ngay (không nội suy) ở khung ra đòn; pixelfx giữ dáng tay chân theo **bước 12 khung/giây**
-  (vị trí chân vẫn mượt) cho cảm giác vẽ tay. Thử cho đòn đánh, chiêu: lượng tử hoá góc xoay xương thân, tay theo 1/12 s, giữ dời
-  `move` mượt; soi rồi mới áp cả loạt.
-- **Nén giãn giữ thể tích:** đòn thường (0,9; 1,09); nện, đáp nặng tới (0,85; 1,15); Celeste nhảy (0,6; 1,4), đáp (1,6; 0,4) là mức
-  cực, game mình dùng nhẹ hơn. Hồi về 1 trong 0,18–0,3 s.
-- **Phụ kiện trễ và ngược chiều** thân (đuôi trễ 0,05 s mỗi đốt, tai 0,06 s, chuông 0,1 s), biên độ lớn dần ra ngọn.
-- **Con đánh vẫn hơi động lúc khựng** (Sakurai) để không chết hình; con bị đánh rung ngang.
-- **Đòn khác kiểu nhau** giữa các dòng (không toàn "nhảy lên rồi ra chiêu"): xem bảng kiểu đòn, chiêu ở `beasts_cfg_hoa.py`,
-  `beasts_cfg.py` (`_STYLE`).
+Nguyên tắc diễn (lấy đà ngược chiều, dáng snap 12 khung/giây, nén giãn giữ thể tích, phụ kiện trễ, con đánh vẫn động lúc khựng,
+đòn khác kiểu nhau giữa các dòng) nay ở `animation-petclash` mục 5. Skill này chỉ giữ phần hiệu ứng và cảm giác đánh quanh động tác.
 
 ## 9. Hạt trên sân: pool Image (mặc định) hay ParticleSystem
 

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Miệng và mắt theo luật (skill-petclash 7.2, mo_xe_quai_nhieu_dau mục 3b, 9 "Lỗi đã gặp"):
+"""Miệng và mắt theo luật (animation-petclash mục 3, mo_xe_quai_nhieu_dau mục 3b, 9 "Lỗi đã gặp"):
 
 - THỊT TRONG MIỆNG THUỘC HÀM DƯỚI, há theo hàm. Lòng miệng là lưới ô (mặc định 5×3): hàng dưới bám xương hàm 100%; hàng trên chỉ
   bám đầu ở sát bản lề (màng khoé miệng), ra phía mõm thì theo hàm luôn (0 / 0,35 / 0,8 / 1 / 1) và mỏng dần. Vẽ SAU đầu và hàm

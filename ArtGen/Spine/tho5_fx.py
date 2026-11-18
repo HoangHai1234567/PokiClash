@@ -3,7 +3,7 @@
 nào trước khi làm VFX trong Unity (người dùng 2026-11-17: "tôi chưa tưởng tượng 2 chiêu mana và cuối là sẽ đánh như nào").
 
 Tướng mình = khung rig THẬT (nướng từ <mã>_rig.py), lật quay về địch, đặt ở chỗ phe mình (fxlib.ME, dưới phải); địch ở fxlib.FOE (trên
-trái). Xương far của rig đặt đúng giữa thân địch nên mảnh bay (sỏi) bay đúng chỗ như game sẽ lái. VFX hệ Thổ (skill-petclash mục 5): khối
+trái). Xương far của rig đặt đúng giữa thân địch nên mảnh bay (sỏi) bay đúng chỗ như game sẽ lái. VFX hệ Thổ (vfx-petclash mục 5): khối
 đá góc cạnh, rơi nặng nảy một lần, bụi tròn nhạt, sỏi; pha lê hổ phách. Không glow, không gradient, viền mực.
 
     tho5_fx.py cong_da [cast|skill|attack|all]   → inbox/tho5_fx/cong_da_<clip>.gif + _soi.png, trang inbox/tho5_fx/xem.html
@@ -178,7 +178,7 @@ CAT = [(196, 160, 104), (222, 192, 138), (240, 222, 182)]                      #
 
 def loc_cat(sim, chan, t0, t1, cao=150.0):
     """lốc cát trùm đối thủ (mảng liền): thân phễu màu cát trong mờ viền mực, các dải xoáy chéo cát sẫm chạy lên, bụi tràn ở miệng và chân
-    phễu, mảnh đất nung xoay quanh; nở 0,25 s đầu, tan 0,35 s cuối (skill-petclash mục 5: khối lớn là mảng liền, hạt chỉ làm mép)."""
+    phễu, mảnh đất nung xoay quanh; nở 0,25 s đầu, tan 0,35 s cuối (vfx-petclash mục 5: khối lớn là mảng liền, hạt chỉ làm mép)."""
     dur = t1 - t0
     chan = np.array(chan, float)
 

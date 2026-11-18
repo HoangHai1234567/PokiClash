@@ -81,10 +81,10 @@ namespace PokiClash
                 Shake?.Invoke(0.45f);
                 for (int i = -1; i <= 1; i++)
                     VetLua(tam + n * (i * 0.14f * tH) - d * (Mathf.Abs(i) * 0.06f * tH), d, (i == 0 ? 0.95f : 0.78f) * tH, 0.085f * tH, 0.2f, 0, Ink, pc[1], pc[3], pc[1]);
-                BurstFlash(tam + d * (0.18f * tH), 0.34f * tH);
-                for (int i = 0; i < 8; i++)
-                    Spark(tam + n * U(-0.16f, 0.16f) * tH, d + n * U(-0.7f, 0.7f), U(260, 480), U(0.18f, 0.3f), U(6, 9), 300);
-                for (int i = 0; i < 4; i++) Ember(tam + U2(-0.15f, 0.15f) * tH, new Vector2(U(-80, 80), -U(60, 200)), U(0.4f, 0.7f), 8);
+                HoaChop(tam + d * (0.18f * tH), 0.34f * tH, 0.09f); // chớp lửa (BurstFlash là chớp nước, lấy bảng màu nước)
+                for (int i = 0; i < 6; i++)
+                    Spark(tam + n * U(-0.16f, 0.16f) * tH, d + n * U(-0.7f, 0.7f), U(260, 480), U(0.18f, 0.3f), U(5, 7), 300);
+                HoaTan(tam, new Vector2(U(-40, 40), -U(100, 170)), U(0.45f, 0.65f), 4);
                 for (int i = 0; i < 5; i++)
                 {
                     float sd = (i & 1) == 0 ? 1 : -1;
@@ -94,22 +94,69 @@ namespace PokiClash
             At(L + 0.08f, () =>
             {
                 for (int i = 0; i < 3; i++)
-                {
-                    var q = Flame(tam + n * ((i - 1) * 0.14f * tH) + d * U(-0.2f, 0.3f) * tH, new Vector2(U(-30, 30), -U(60, 140)), U(0.3f, 0.45f), 6, U(10, 14),
-                        "tron", Th.pal, Front, 2, -200, 1.4f, 0.1f, 0.1f);
-                    Tongue(q, 1, 0.5f);
-                }
+                    HoaLuoi(Flame(tam + n * ((i - 1) * 0.14f * tH) + d * U(-0.2f, 0.3f) * tH, new Vector2(U(-30, 30), -U(60, 140)), U(0.3f, 0.45f), 6, U(10, 14),
+                        "tron", Th.pal, Front, 2, -200, 1.4f, 0, 0), 1, 0.5f, 0.1f);
             });
             return L;
         }
 
-        // CHIÊU MANA: HỔ GẦM. Gồng: vòng lửa co về chân, than hồng và lưỡi lửa nhỏ bị hút vào ngực. Gầm: SÓNG XUNG KÍCH (vòng nở từ mồm, hai
-        // vòng lửa loang trên đất tới quá chỗ đối thủ, màn chớp) rồi các đợt sóng gầm nối nhau lao tới; SÓNG NHIỆT: lưỡi lửa thấp và than hồng
-        // bị thổi tạt dọc mặt đất. Đợt đầu tới nơi: nổ ở đối thủ, rồi nó cháy lách tách tới hết tiếng gầm. manh: dạng 1 nhỏ hơn.
+        // SÓNG ÂM bộ Hỏa (2026-11-18, người dùng: "sóng âm chưa đẹp"; theo tinh thần SongAmMoc của bộ Mộc): DẢI CUNG dày giữa, thuôn nhọn hai đầu
+        // (lưỡi liềm lồi về phía bay, ảnh kr_songam), lao từ mồm tới MẶT TRƯỚC thân đối thủ, nở rộng và mỏng dần theo quãng; tới nơi thì bẹt ra, mỏng hẳn
+        // rồi tan (không trùm mặt con bị trúng). Lớp ngoài kem, lớp trong cam tươi; đợt sau đảo màu (kem: q.big). Chưa có ảnh: cung hat_arc mảnh.
+        P HoaSongAm(Vector2 tu, Vector2 den, float r0, float r1, float day0, float v, bool kem, int group = Front)
+        {
+            var d = den - tu;
+            float toi = Mathf.Max(0.06f, d.magnitude / v);
+            var p = new P
+            {
+                pos = tu, home = tu, aim = Unit(d), vy = v, life = toi + 0.1f, tb = toi, R0 = r0, R1 = r1, wd = day0, big = kem, group = group,
+                seed = rng.Next(4), stops = Pal[Th.pal]
+            };
+            p.draw = (q, k, buf) =>
+            {
+                float t = q.age, f = Mathf.Clamp01(t / q.tb);
+                float R = Mathf.Lerp(q.R0, q.R1, EaseOut(f)), day = q.wd * (1 - 0.45f * f), span = 1.55f, a = Mathf.Min(1, t / 0.04f);
+                if (t > q.tb) // tới mặt trước thân: bẹt ra, mỏng hẳn rồi tan
+                {
+                    float u = (t - q.tb) / Mathf.Max(0.02f, q.life - q.tb);
+                    span *= 1 + 0.45f * u;
+                    R *= 1 + 0.12f * u;
+                    day *= 1 - u;
+                    a *= 1 - u;
+                }
+                day = Mathf.Min(day, 0.7f * R); // lúc mới ra khỏi mồm cung còn nhỏ: không cho dày quá bán kính
+                if (a < 0.03f || day < 0.8f) return;
+                var dinh = q.home + q.aim * (Mathf.Min(t, q.tb) * q.vy);
+                Color c1 = q.big ? HoaKem : q.stops[1], c2 = q.big ? q.stops[1] : HoaKem;
+                float ang = VelAng(q.aim);
+                var ks = S("kr_songam_" + q.seed);
+                if (ks)
+                {
+                    // ảnh: lưỡi liềm lồi về +x, dây cung 90 % chiều cao khung, giữa dày 16 % bề ngang khung (bản đặc đã nở sẵn viền)
+                    float chord = 2 * R * Mathf.Sin(span * 0.5f), h = chord / 0.9f, wk = day / 0.16f;
+                    var c = dinh - q.aim * (0.08f * wk);
+                    var kss = S("kr_songams_" + q.seed);
+                    Put(buf, q.group, 44, kss ? kss : ks, Ink, c, h + 3, (wk + 3) / (h + 3), ang, a);
+                    Put(buf, q.group, 44.2f, ks, c1, c, h, wk / h, ang, a);
+                    Put(buf, q.group, 44.4f, ks, c2, dinh - q.aim * (0.04f * wk), h * 0.86f, wk * 0.5f / (h * 0.86f), ang, a);
+                    return;
+                }
+                float ga = ang - 284.7f; // giữa cung của ảnh hat_arc_0 nằm ở góc 284,7 độ
+                var tam = dinh - q.aim * (R * 0.72f); // tâm vòng lùi lại để ĐỈNH cung nằm ở dinh
+                Put(buf, q.group, 44, S("arcs_0"), Ink, tam, 2 * R + 4, 1, ga, a * 0.6f);
+                Put(buf, q.group, 44.4f, S("arc_0"), c1, tam, 2 * R, 1, ga, a);
+                Put(buf, q.group, 44.3f, S("arc_0"), c2, tam - q.aim * (0.16f * R), 1.8f * R, 1, ga + 8, a * 0.45f);
+            };
+            return Add(p);
+        }
+
+        // CHIÊU MANA: HỔ GẦM. Gồng: vòng cung co về chân, vệt lửa xoắn ốc hút vào ngực. Gầm: chớp ở mồm, SÓNG XUNG KÍCH (vòng mảnh quanh mồm, hai vòng
+        // cung dẹt loang trên đất tới quá chỗ đối thủ, màn chớp) rồi các đợt sóng âm mảnh nối nhau lao tới, tan ở mặt trước đối thủ; SÓNG NHIỆT: lưỡi
+        // lửa thấp và cụm tàn lửa bị thổi tạt dọc mặt đất. Đợt đầu tới nơi: nổ ở đối thủ, rồi nó cháy lách tách tới hết tiếng gầm. manh: dạng 1 nhỏ hơn.
         public float NHoGam(Vector2 casterFeet, float casterH, Vector2 mouth, Vector2 foeBody, Vector2 foeFeet, float tH, float lead, float manh = 1)
         {
             float L = Mathf.Max(0.12f, lead);
-            float t00 = L - HoGam;
+            float t00 = L - HoGam, goc = T;
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             var pc = Pal[Th.pal];
             var dd = Unit(foeBody - mouth);
@@ -122,65 +169,56 @@ namespace PokiClash
 
             // gồng
             float tTu = Mathf.Max(0.02f, t00 + HoTu);
-            At(tTu, () => Ripple(casterFeet + new Vector2(0, 2), 0.75f * casterH, 0.12f * casterH, 0.42f, Th.ring));
+            At(tTu, () => HoaCung(casterFeet + new Vector2(0, 2), 0.75f * casterH, 0.12f * casterH, 0.42f, Th.ring));
             if (L - tTu > 0.15f)
-                Every(tTu, L - 0.06f, 30, x =>
+            {
+                float chieu = U(0, 1) < 0.5f ? 1 : -1;
+                Every(tTu, L - 0.06f, x => 18 + 22 * x, x =>
                 {
                     float a = U(0, 6.28f);
                     var from = nguc + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.7f) * U(0.5f, 0.85f) * casterH;
-                    if (U(0, 1) < 0.6f)
-                    {
-                        var e = Ember(from, (nguc - from) * 2.6f, 0.34f, 8, Back);
-                        e.upd = (q, dt, s) => q.vel *= 1 + 2.5f * dt;
-                    }
-                    else
-                    {
-                        var q = Flame(from, (nguc - from) * 2.4f, 0.34f, 9, 4, "tron", Th.pal, Back, 0, 0, 1.5f, 0, 0.05f);
-                        Tongue(q, 1, 0.1f);
-                    }
+                    HoaHut(t => nguc, t => 8, from, U(0.26f, 0.34f), U(0, 1) < 0.5f ? pc[1] : pc[2], chieu, goc + L, Back);
                 });
+            }
 
             // GẦM: sóng xung kích
             At(L, () =>
             {
                 Shake?.Invoke(1f);
                 FlashScreen?.Invoke(new Color(1, 0.9f, 0.7f, 0.3f));
-                RingN(mouth, 0.3f, 0.06f * casterH, 0.95f * casterH * manh, pc[3], 1, Front, 43);
-                Ring(casterFeet + new Vector2(0, 2), 0.5f, 0.2f * casterH, Mathf.Max(0.9f * casterH, dist * 1.2f) * manh, Th.ring);
-                for (int i = 0; i < 10; i++)
+                HoaChop(mouth, 0.36f * casterH, 0.09f);
+                RingN(mouth, 0.24f, 0.06f * casterH, 0.6f * casterH * manh, pc[3], 1, Front, 43);
+                HoaCung(casterFeet + new Vector2(0, 2), 0.2f * casterH, Mathf.Max(0.9f * casterH, dist * 1.15f) * manh, 0.5f, Th.ring);
+                for (int i = 0; i < 8; i++)
                     Bui(casterFeet + new Vector2(dir * U(0.1f, 0.5f) * casterH, U(-4, 2)), new Vector2(dir * U(200, 460), -U(10, 60)), 0, 4, 12, Back);
             });
-            At(L + 0.1f, () =>
-            {
-                RingN(mouth, 0.34f, 0.1f * casterH, 1.25f * casterH * manh, Th.ring, 1, Front, 42);
-                Ring(casterFeet + new Vector2(0, 2), 0.55f, 0.3f * casterH, Mathf.Max(1.1f * casterH, dist * 1.45f) * manh, pc[2]);
-            });
-            // các đợt sóng gầm: cung kem ngoài, cung cam trong (hơi nóng)
-            int N = Mathf.Max(3, Mathf.RoundToInt(dur / 0.11f));
+            At(L + 0.1f, () => HoaCung(casterFeet + new Vector2(0, 2), 0.3f * casterH, Mathf.Max(1.1f * casterH, dist * 1.4f) * manh, 0.55f, pc[2]));
+            // các đợt sóng âm: dải cung thuôn hai đầu (kem ngoài / cam trong, đợt sau đảo màu) lao tới MẶT TRƯỚC thân đối thủ rồi bẹt ra tan; mỗi đợt
+            // tới nơi đối thủ chớp + giật một nhịp (NuocPulse: mã "n_" đi qua PlayNuoc)
+            int N = Mathf.Max(3, Mathf.RoundToInt(dur / 0.14f));
+            var den = foeBody - dd * (0.3f * tH);
+            float toi = (den - mouth).magnitude / V;
             for (int i = 0; i < N; i++)
             {
                 int j = i;
-                At(L + 0.11f * j, () =>
+                float vj = V * (j == 0 ? 1.08f : 1);
+                At(L + 0.14f * j, () =>
                 {
-                    float m = (j == 0 ? 1.25f : 1) * manh;
-                    var den = foeBody + dd * (0.2f * tH);
-                    SongAm(mouth, den, 0.16f * casterH, 0.95f * tH * m, V * (j == 0 ? 1.08f : 1), pc[3]);
-                    SongAm(mouth - dd * 24, den - dd * 24, 0.1f * casterH, 0.62f * tH * m, V * (j == 0 ? 1.08f : 1), pc[1]);
-                    Shake?.Invoke(j == 0 ? 0.7f : 0.36f);
+                    float m = (j == 0 ? 1.2f : 1) * manh;
+                    HoaSongAm(mouth + dd * 10, den, 0.12f * casterH, 0.85f * tH * m, 0.2f * tH * m, vj, (j & 1) == 0);
+                    Shake?.Invoke(j == 0 ? 0.7f : 0.3f);
                 });
+                if (j > 0) At(L + 0.14f * j + toi * V / vj, () => NuocPulse?.Invoke(0.3f));
             }
-            // SÓNG NHIỆT dọc mặt đất: lưỡi lửa thấp lướt về phía đối thủ, than hồng bị thổi tạt
-            Every(L, L + dur, 46 * manh, x =>
+            // SÓNG NHIỆT dọc mặt đất: lưỡi lửa thấp lướt về phía đối thủ, cụm tàn lửa bị thổi tạt
+            Every(L, L + dur, 40 * manh, x =>
             {
                 float f = U(0.05f, 0.95f);
                 var p = Vector2.Lerp(casterFeet, foeFeet, f) + new Vector2(0, U(-6, 3));
-                if (U(0, 1) < 0.62f)
-                {
-                    var q = Flame(p, new Vector2(dir * U(420, 720), -U(10, 70)), U(0.22f, 0.36f), U(6, 9), U(11, 17) * manh, "tron", Th.pal, U(0, 1) < 0.5f ? Back : Front,
-                        2.2f, -60, 1.5f, 0.06f, 0.1f);
-                    Tongue(q, -1, 0.25f);
-                }
-                else Ember(p + new Vector2(0, -U(4, 0.5f * casterH)), new Vector2(dir * U(420, 760), -U(20, 140)), U(0.3f, 0.5f), 8, Back);
+                if (U(0, 1) < 0.8f)
+                    HoaLuoi(Flame(p, new Vector2(dir * U(420, 720), -U(10, 70)), U(0.22f, 0.36f), U(6, 9), U(11, 17) * manh, "tron", Th.pal,
+                        U(0, 1) < 0.5f ? Back : Front, 2.2f, -60, 1.5f, 0, 0), -1, 0.25f, 0.04f);
+                else HoaTan(p + new Vector2(0, -U(4, 0.5f * casterH)), new Vector2(dir * U(420, 700), -U(20, 120)), U(0.3f, 0.45f), 3, Back);
             });
 
             // trúng
@@ -188,22 +226,22 @@ namespace PokiClash
             At(hit, () =>
             {
                 Shake?.Invoke(0.9f);
-                Explode(foeBody, 1.15f * manh, tH);
-                BurstFlash(foeBody, 0.5f * tH);
-                Ring(foeFeet + new Vector2(0, 2), 0.4f, 0.12f * tH, 0.8f * tH * manh, Th.ring);
-                for (int i = 0; i < 8; i++) Ember(foeBody + U2(-0.2f, 0.2f) * tH, new Vector2(dir * U(120, 420), -U(40, 260)), U(0.4f, 0.7f), 9);
+                NuocPulse?.Invoke(0.8f);
+                HoaNo(foeBody, 1.05f * manh, tH, foeFeet);
+                HoaTan(foeBody, new Vector2(dir * U(160, 320), -U(80, 200)), U(0.45f, 0.65f), 5);
             });
-            Every(hit, hit + dur, 12, x =>
+            Every(hit, hit + dur, 10, x =>
             {
                 var p = foeBody + new Vector2(U(-0.22f, 0.22f), U(-0.35f, 0.3f)) * tH;
-                Spark(p, dd + nrm * U(-0.5f, 0.5f), U(300, 520), U(0.14f, 0.24f), U(6, 9), 0, Front, 3);
-                var q = Flame(p, new Vector2(dir * U(40, 160), -U(80, 180)), U(0.26f, 0.4f), 6, U(9, 14) * manh, "tron", Th.pal, U(0, 1) < 0.5f ? Back : Front, 2, -220, 1.5f,
-                    0.12f, 0.1f);
-                Tongue(q, 1, 0.5f);
+                Spark(p, dd + nrm * U(-0.5f, 0.5f), U(300, 520), U(0.14f, 0.24f), U(5, 7), 0, Front, 3);
+                HoaLuoi(Flame(p, new Vector2(dir * U(40, 160), -U(80, 180)), U(0.26f, 0.4f), 6, U(9, 14) * manh, "tron", Th.pal, U(0, 1) < 0.5f ? Back : Front, 2,
+                    -220, 1.5f, 0, 0), 1, 0.5f, 0.05f);
             });
+
             At(hit + dur, () =>
             {
-                for (int i = 0; i < 4; i++) Smoke(foeBody + new Vector2(U(-0.25f, 0.25f) * tH, -U(0.1f, 0.4f) * tH), null, 0, 9, 22, Back, "fire");
+                for (int i = 0; i < 2; i++)
+                    HoaKhoi(foeBody + new Vector2(U(-0.25f, 0.25f) * tH, -U(0.15f, 0.4f) * tH), U(0.12f, 0.16f) * tH, Back, null, 0, true, 0.5f);
             });
             return hit;
         }
@@ -218,16 +256,16 @@ namespace PokiClash
             float t00 = L - tNo;
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             var pc = Pal[Th.pal];
-            Color kem = C(255, 244, 214);
+            Color kem = C(255, 246, 214);
 
             // bật tới
             At(Mathf.Max(0.02f, t00 + HoBat), () =>
             {
                 Shake?.Invoke(0.3f);
-                Ripple(casterFeet + new Vector2(0, 2), 0.1f * casterH, 0.7f * casterH, 0.4f, Th.ring);
+                HoaCung(casterFeet + new Vector2(0, 2), 0.1f * casterH, 0.7f * casterH, 0.4f, Th.ring);
                 for (int i = 0; i < 8; i++)
                     Bui(casterFeet + new Vector2(U(-0.25f, 0.25f) * casterH, U(-6, 2)), new Vector2(-dir * U(80, 280), -U(10, 80)), U(0.4f, 0.65f), 4, U(10, 16), Back);
-                for (int i = 0; i < 6; i++) Spark(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, -4), new Vector2(-dir * U(0.3f, 1f), -U(0.2f, 0.8f)), U(260, 440));
+                for (int i = 0; i < 6; i++) Spark(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, -4), new Vector2(-dir * U(0.3f, 1f), -U(0.2f, 0.8f)), U(260, 440), 0, 6);
             });
             // màn âm bản từ lúc tan hẳn tới lúc hiện lại
             float tAm = Mathf.Max(0.03f, t00 + HoBien);
@@ -247,6 +285,7 @@ namespace PokiClash
                 At(tk, () =>
                 {
                     Shake?.Invoke(0.3f);
+                    NuocPulse?.Invoke(0.35f);
                     var c = tamSeo[k];
                     var d = huongSeo[k];
                     var nn = new Vector2(-d.y, d.x);
@@ -254,25 +293,24 @@ namespace PokiClash
                     VetLua(new Vector2(c.x, foeBody.y - 0.05f * tH), new Vector2(sg, 0), 3.4f * tH, 0.05f * tH, 0.12f, 0, Dao(kem), Dao(pc[2]), Dao(kem), pc[1], Back);
                     // nhát chém + sẹo lửa nằm lại tới lúc nổ
                     VetLua(c, d, 1.5f * tH * manh, 0.12f * tH, 0.16f, L - tk - 0.16f, Dao(kem), Dao(pc[1]), Dao(pc[3]), pc[1]);
-                    for (int j = 0; j < 5; j++)
+                    for (int j = 0; j < 4; j++)
                     {
                         float sd = (j & 1) == 0 ? 1 : -1;
-                        var q = Spark(c + d * sd * U(0.1f, 0.5f) * tH, d * sd + nn * U(-0.4f, 0.4f), U(320, 560), U(0.14f, 0.24f), U(6, 9), 0, Front, 4);
+                        var q = Spark(c + d * sd * U(0.1f, 0.5f) * tH, d * sd + nn * U(-0.4f, 0.4f), U(320, 560), U(0.14f, 0.24f), U(5, 7), 0, Front, 4);
                         q.col = Dao(Th.spark);
                     }
                 });
-                // lửa cháy dọc sẹo
-                Every(tk + 0.1f, L, 7, x =>
+                // lửa chữ S cháy dọc sẹo
+                Every(tk + 0.1f, L, 6, x =>
                 {
                     var p = tamSeo[k] + huongSeo[k] * U(-0.55f, 0.55f) * tH * manh;
-                    var q = Flame(p, new Vector2(U(-20, 20), -U(50, 120)), U(0.28f, 0.42f), 5, U(8, 12), "tron", Th.pal, Front, 2, -220, 1.4f, 0, 0.06f);
-                    Tongue(q, 1, 0.5f);
+                    HoaLuoi(Flame(p, new Vector2(U(-20, 20), -U(50, 120)), U(0.28f, 0.42f), 5, U(8, 12), "tron", Th.pal, Front, 2, -220, 1.4f, 0, 0), 1, 0.5f, 0);
                 });
             }
             // hiện lại ở chỗ cũ
             At(Mathf.Max(0.05f, t00 + tHien), () =>
             {
-                Ripple(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.55f * casterH, 0.4f, Th.ring);
+                HoaCung(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.55f * casterH, 0.4f, Th.ring);
                 for (int i = 0; i < 6; i++)
                     Bui(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, U(-6, 2)), new Vector2(dir * U(40, 200), -U(10, 60)), U(0.35f, 0.6f), 3.5f, U(9, 14), Back);
             });
@@ -285,7 +323,7 @@ namespace PokiClash
                 At(L + 0.05f * soNo, () =>
                 {
                     Shake?.Invoke(0.4f);
-                    Explode(tamSeo[k] + huongSeo[k] * U(-0.3f, 0.3f) * tH, U(0.6f, 0.85f) * manh, tH);
+                    HoaNo(tamSeo[k] + huongSeo[k] * U(-0.3f, 0.3f) * tH, U(0.5f, 0.7f) * manh, tH);
                     VetLua(tamSeo[k], huongSeo[k], 1.7f * tH * manh, 0.15f * tH, 0.2f, 0, Ink, pc[1], pc[3], pc[1]);
                 });
                 soNo++;
@@ -295,14 +333,15 @@ namespace PokiClash
             {
                 Shake?.Invoke(1f);
                 FlashScreen?.Invoke(new Color(1, 0.95f, 0.8f, 0.22f)); // rig đã khai chớp ở khung trúng: ở đây chỉ nháy nhẹ
-                CauNo(foeBody, foeFeet, foeBody, tH, dir, 1.5f * manh);
-                Ring(foeFeet + new Vector2(0, 2), 0.45f, 0.15f * tH, 1.1f * tH * manh, Th.ring);
+                NuocPulse?.Invoke(1f);
+                HoaCauNo(foeBody, foeFeet, tH, dir, 1.5f * manh);
             });
-            At(tLon + 0.14f, () => Explode(foeBody + new Vector2(dir * U(4, 22), U(-30, 6)), 0.8f * manh, tH));
+            At(tLon + 0.14f, () => HoaNo(foeBody + new Vector2(dir * U(4, 22), U(-30, 6)), 0.7f * manh, tH));
             At(tLon + 0.4f, () =>
             {
-                for (int i = 0; i < 6; i++) Smoke(foeBody + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.1f, 0.5f) * tH), null, 0, 9, 24, Back, "fire");
-                for (int i = 0; i < 8; i++) Ash(foeBody + U2(-30, 30));
+                for (int i = 0; i < 3; i++)
+                    HoaKhoi(foeBody + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.15f, 0.5f) * tH), U(0.13f, 0.17f) * tH, Back, null, 0, true, 0.5f);
+                for (int i = 0; i < 4; i++) Ash(foeBody + U2(-30, 30));
             });
             return L;
         }

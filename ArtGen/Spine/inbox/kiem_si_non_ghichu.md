@@ -128,3 +128,13 @@ kiếm, biến mất, bốn ảo ảnh khỉ con lục, hiện lại, tra kiếm
 - **Chưa xong:** Unity trên máy C không thêm `HatGiac.cs`, `HatRong.cs` (pull về lúc Editor đang mở) vào danh sách biên dịch → lỗi CS0103 ở
   `HatNuoc.cs`; cần khởi động lại Editor rồi chạy lại EditMode test (lần chạy trên bản biên dịch cũ: 101/103, hai test hỏng không do đổi này).
   Chưa xem trong trận, chưa có VFX vệt chém cho dạng 1.
+
+## 9. Dạng 1 bị mất khỏi Resources, chép lại (2026-11-18, máy ổ C)
+
+- Người dùng thấy ô Đồng / Bạc vẫn là con có giáp. Nguyên nhân: 13/11 15:20 phiên Viêm Dũng lỡ chạy `quai/vao_game.py --help` (ghi ở
+  `dat_nung_ghichu.md` mục 6) rồi "khôi phục" `tho_hoang_1` bằng `git show HEAD:<file>`; lúc đó bản khỉ con (chép 09:35) CHƯA commit nên HEAD vẫn là
+  dạng lớn cũ (fc9da2f4) → `tho_hoang_1.atomik` + chân dung thành con có giáp. Dữ liệu (`heroes.json` 2 dạng, ải 260 `evo`), `tho_hoang_2`, prefab
+  vẫn đúng.
+- Sửa: `py -3 -I ArtGen/Spine/quai/doi_kiem_si_non.py` (chỉ chép lại 2 file của `tho_hoang_1`, giữ .meta) → Unity refresh + "Gắn dạng .atomik":
+  `tho_hoang_1: rig 136 xương, 9 clip (… evolve)`, `tho_hoang: prefab giữ 2 dạng`. Cần commit 3 file `Resources/tho_hoang_1/*` để HEAD không còn
+  bản cũ.

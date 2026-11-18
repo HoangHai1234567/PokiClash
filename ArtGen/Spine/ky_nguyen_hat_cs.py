@@ -176,14 +176,15 @@ namespace PokiClash
         // một cú trúng của hồn: chớp, lưỡi lửa hồn toé theo hướng d, tia, mảnh giáp rỉ
         void HonTrung(Vector2 c, Vector2 d, float tH, float manh, int nLua, int nTia)
         {
-            HonChop(c, 0.46f * tH * manh);
+            KmBong(c - d * 0.04f * tH, -d, 0.3f * tH * manh, 0.12f, KmHon);   // bông va chạm toé ngược hướng đánh (2026-11-18)
+            HonChop(c, 0.4f * tH * manh);
             for (int i = 0; i < Mathf.RoundToInt(nLua * manh); i++)
             {
                 var dd = (d * U(0.2f, 1f) + new Vector2(U(-0.8f, 0.8f), U(-1f, 0.3f))).normalized;
                 HonLuoi(c + U2(-6, 6), dd * U(160, 360) * manh, U(6, 9) * manh, U(16, 26) * manh, U(0.22f, 0.36f), Front, 1, 0.3f);
             }
-            for (int i = 0; i < Mathf.RoundToInt(nTia * manh); i++)
-                Spark(c, (d * U(0.3f, 1f) + new Vector2(U(-0.7f, 0.7f), U(-0.9f, 0.4f))).normalized, U(220, 440), U(0.16f, 0.3f), U(6, 9), 280);
+            for (int i = 0; i < Mathf.RoundToInt(nTia * manh); i++)   // tia bắn nhanh rồi khựng
+                KmTiaLua(c, (d * U(0.3f, 1f) + new Vector2(U(-0.7f, 0.7f), U(-0.9f, 0.4f))).normalized, U(380, 680), U(6, 9), KmHon[3 + (i & 1)]);
             Extra(c, Mathf.RoundToInt(3 * manh), 260 * manh);
         }
 
@@ -207,14 +208,15 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.26f);
                 HonTrung(c, new Vector2(dir, 0.4f).normalized, tH, 1f, 8, 8);
-                Ring(c, 0.3f, 0.05f * tH, 0.5f * tH, KnXanh, 0.5f, Front, 32);
+                KmVong(_ => c, 0.3f, 0.05f * tH, 0.5f * tH, KnNhat, 0.5f, 0.85f);   // vòng mảnh không viền (2026-11-18)
             });
             return t0;
         }
 
         // MỘT HỒN ĐỒNG ĐỘI: bay ra từ mũi kiếm tới chỗ lơ lửng (quạt trên đầu) trong 0,18 s, lơ lửng nhấp nhô, tới tBay lao theo cung xuống tgt
         // (tới nơi đúng hết đời hạt) để lại đuôi lửa hồn; trúng: chớp + lưỡi lửa toé. H: chiều cao hình hồn (sân).
-        void HonDongDoi(Vector2 tip, Vector2 home, Vector2 tgt, float H, float tBay, float life, float dir, float tHFoe, float manh, bool cuoi)
+        // nhip: sức nhịp trúng phụ khi hồn chạm (0: hồn đầu, cú trúng chính do StageView lo)
+        void HonDongDoi(Vector2 tip, Vector2 home, Vector2 tgt, float H, float tBay, float life, float dir, float tHFoe, float manh, bool cuoi, float nhip = 0.4f)
         {
             float ph = U(0, 6.28f);
             var ctrl = (home + tgt) * 0.5f + new Vector2(0, -0.6f * H);
@@ -247,11 +249,13 @@ namespace PokiClash
             };
             p.onDeath = (q, s3) =>
             {
-                HonTrung(tgt, new Vector2(dir, 0.3f).normalized, tHFoe, (cuoi ? 1.45f : 0.8f) * manh, cuoi ? 12 : 5, cuoi ? 10 : 4);
+                s3.KmNhip(nhip);   // đối thủ chớp + giật theo từng hồn
+                HonTrung(tgt, new Vector2(dir, 0.3f).normalized, tHFoe, (cuoi ? 1.2f : 0.8f) * manh, cuoi ? 8 : 5, cuoi ? 8 : 4);
                 if (cuoi)
                 {
+                    // hồn cuối NỔ HỒN kiểu KR5: chớp 2 khung, lưỡi liềm lửa hồn trong khối khói hồn hai tông sau lưng đối thủ, tách cụm bay lên
                     Shake?.Invoke(0.4f * manh);
-                    Ring(tgt, 0.38f, 0.06f * tHFoe, 0.72f * tHFoe * manh, KnXanh, 0.5f, Front, 32);
+                    KmNo(tgt, new Vector2(tgt.x, tgt.y + 0.45f * tHFoe), tHFoe, 0.9f * manh, "hon", dir, KmKhoiHon);
                 }
                 else Shake?.Invoke(0.16f);
             };
@@ -269,7 +273,7 @@ namespace PokiClash
             At(tGoi, () =>
             {
                 HonChop(tip, 0.32f * casterH * manh, Front, 0.2f);
-                Ring(tip, 0.4f, 0.04f * casterH, 0.42f * casterH * manh, KnXanh, 1f, Front, 32);
+                KmVong(_ => tip, 0.4f, 0.04f * casterH, 0.42f * casterH * manh, KnNhat, 1, 0.85f);
                 for (int i = 0; i < 7; i++) HonLuoi(tip + U2(-8, 8), new Vector2(U(-160, 160), -U(140, 320)), 6, U(14, 22) * manh, U(0.24f, 0.36f), Front, 1, 0.5f);
                 for (int i = 0; i < 6; i++) Spark(tip, new Vector2(U(-1f, 1f), U(-1f, 0.1f)), U(160, 320), U(0.16f, 0.26f), U(5, 8), 120);
             });
@@ -288,7 +292,8 @@ namespace PokiClash
                 var tgt = foeBody + new Vector2(-dir * U(0f, 0.08f) * tH, (f - 0.5f) * 0.32f * tH);
                 bool cuoi = i == n - 1;
                 float life = tToi - tHien, tBay = Mathf.Max(0.22f, life - 0.34f);
-                At(tHien, () => HonDongDoi(tip, home, tgt, H, tBay, life, dir, tH, manh, cuoi));
+                float nhip = i == 0 ? 0 : cuoi ? 0.8f : 0.4f;
+                At(tHien, () => HonDongDoi(tip, home, tgt, H, tBay, life, dir, tH, manh, cuoi, nhip));
             }
             return tTrung;
         }
@@ -297,7 +302,7 @@ namespace PokiClash
         public float NHonKiem(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead, float manh)
         {
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
-            float k = Mathf.Max(0.3f, lead) / KnSLead;
+            float k = Mathf.Max(0.3f, lead) / KnSLead, T0 = T;
             float tTrung = Mathf.Max(0.3f, lead);
             bool non = manh < 0.95f;                                                      // bản nhẹ = dạng 1 (rig riêng: tay ngắn, kiếm nhỏ)
             float[] dX = non ? Kn@DANG1@SkillDauX : Kn@DANG2@SkillDauX, dY = non ? Kn@DANG1@SkillDauY : Kn@DANG2@SkillDauY;
@@ -308,18 +313,29 @@ namespace PokiClash
             Vector2 Goc(float tc) => KnO(casterFeet, casterH, dir, KnMau(gX, gY, tc));
             Vector2 Mui(float tc) => KnO(casterFeet, casterH, dir, KnMau(mX, mY, tc));
             float r = 0.012f * casterH;                                                   // cỡ hạt nhỏ theo thân
-            // khí hồn bị hút vào mép đang hiện của phần vá + tia lấp lánh ở mép
-            Every(KnSHut * k, KnSHoi * k, 40, x =>
+            // khí hồn bị hút vào mép đang hiện của phần vá (2026-11-18, người dùng chê pha hút xấu): VỆT hồn xanh thuôn kéo theo vận tốc, bay XOẮN
+            // ỐC vào mép vá, nhanh dần, hiện dần lúc sinh, chạm mép thì nhập; dày dần tới lúc kiếm lành; thêm vài lưỡi lửa hồn bay vào; tia lấp
+            // lánh ở mép
+            System.Func<float, Vector2> mep = t => Dau(Mathf.Clamp((t - T0) / k, KnSHut, KnSHoi));
+            float rMep = 0.025f * casterH;
+            Every(KnSHut * k, KnSHoi * k, x => 26 + 30 * x, x =>
+            {
+                float tc = Mathf.Lerp(KnSHut, KnSHoi, x);
+                if (KnMau1(honA, tc) < 0.5f && tc > KnSHut + 0.12f) return;
+                KmHut(mep, _ => rMep, U(0.5f, 0.9f) * casterH, U(0.3f, 0.42f), U(6, 8) * manh, KmHon[3 + rng.Next(2)], -dir, rng.Next(2) == 0 ? Back : Front, 0.7f);
+            });
+            Every(KnSHut * k, KnSHoi * k, 10, x =>
             {
                 float tc = Mathf.Lerp(KnSHut, KnSHoi, x);
                 if (KnMau1(honA, tc) < 0.5f && tc > KnSHut + 0.12f) return;
                 var dau = Dau(tc);
-                float a = U(0, 6.28f), d = U(0.5f, 0.95f) * casterH;
+                float a = U(0, 6.28f), d = U(0.5f, 0.85f) * casterH;
                 var from = dau + new Vector2(Mathf.Cos(a) * d, Mathf.Sin(a) * d * 0.7f + 0.15f * casterH);
                 var q = HonLuoi(from, (dau - from) / 0.32f, U(4, 6) * manh, U(9, 14) * manh, 0.32f, (rng.Next(2) == 0) ? Back : Front, -1, 0.1f);
                 q.drag = 0;
                 q.acc = Vector2.zero;
             });
+            At((KnSHut + 0.5f * (KnSHoi - KnSHut)) * k, () => KmVong(mep, 0.26f, 0.7f * casterH, rMep, KmHon[4], 0.8f, 0.7f));
             Every(KnSHut * k + 0.1f, KnSHoi * k, 30, x =>
             {
                 float tc = Mathf.Lerp(KnSHut + 0.1f / k, KnSHoi, x);
@@ -343,18 +359,23 @@ namespace PokiClash
                     var pt = Vector2.Lerp(g, m, i / 9f);
                     HonLuoi(pt + U2(-6, 6), new Vector2(U(-120, 120), -U(60, 200)), 6, U(14, 22) * manh, U(0.24f, 0.34f), Front, 1, 0.5f);
                 }
-                Ring(Vector2.Lerp(g, m, 0.5f), 0.36f, 0.05f * casterH, 0.5f * casterH * manh, KnXanh, 0.9f, Front, 32);
+                var giua = Vector2.Lerp(g, m, 0.5f);
+                KmVong(_ => giua, 0.36f, 0.05f * casterH, 0.5f * casterH * manh, KnNhat, 0.9f, 0.85f);
             });
             // giơ qua đầu: aura hồn bùng quanh người
             At(KnSGong * k, () =>
             {
                 Shake?.Invoke(0.22f * manh);
-                Ring(casterFeet, 0.5f, 0.1f * casterH, 0.9f * casterH * manh, KnXanh);
-                Ring(casterFeet, 0.6f, 0.06f * casterH, 0.62f * casterH * manh, KnNhat, 0.3f, Floor, 31);
-                for (int i = 0; i < Mathf.RoundToInt(14 * manh); i++)
+                KmCung(casterFeet + new Vector2(0, 2), 0.1f * casterH, 1.0f * casterH * manh, 0.45f, KnXanh, 0.3f, Floor, 30.6f, 0.85f);   // vòng cung dẹt không viền (KR5)
+                KmCung(casterFeet + new Vector2(0, 2), 0.06f * casterH, 0.75f * casterH * manh, 0.5f, KnNhat, 0.3f, Floor, 31);
+                // aura lửa hồn: lưỡi chữ S liền khối có giọt tách (KmLuaS; ảnh chưa nhập thì lưỡi cũ)
+                for (int i = 0; i < Mathf.RoundToInt(12 * manh); i++)
                 {
                     var pt = casterFeet + new Vector2(U(-0.42f, 0.42f) * casterH, -U(0.05f, 0.9f) * casterH);
-                    HonLuoi(pt, new Vector2(U(-60, 60), -U(160, 320)), 6, U(16, 26) * manh, U(0.3f, 0.45f), (i & 1) == 0 ? Back : Front, 1, 0.8f);
+                    int g = (i & 1) == 0 ? Back : Front;
+                    if (KmLuaS(pt + new Vector2(0, 0.1f * casterH), U(0.16f, 0.24f) * casterH * manh, U(0.34f, 0.48f), KmHon, "hon", g,
+                            new Vector2(U(-40, 40), -U(120, 240)), 0.5f) == null)
+                        HonLuoi(pt, new Vector2(U(-60, 60), -U(160, 320)), 6, U(16, 26) * manh, U(0.3f, 0.45f), g, 1, 0.8f);
                 }
                 var m = Mui(KnSGong);
                 for (int i = 0; i < 6; i++) Spark(m, new Vector2(U(-1f, 1f), U(-1f, 0.3f)), U(160, 300), U(0.16f, 0.26f), U(5, 8), 120);
@@ -376,25 +397,29 @@ namespace PokiClash
                 if ((rng.Next(3)) == 0) HonLuoi(Vector2.Lerp(Goc(tc), a0, U(0.4f, 0.9f)), (a0 - a1) / 0.02f * 0.05f, 6, U(14, 20) * manh, 0.18f, Front, -1, 0.1f);
             });
             // TRÚNG: chớp lớn, hai vòng sóng, cột lưỡi lửa hồn toé lên, khói hồn, mảnh giáp, đá
+            // TRÚNG (2026-11-18): NỔ HỒN KIỂU KR5 thay chớp hồn 0,9 thân trùm kín đối thủ: chớp 2 khung, lưỡi liềm lửa hồn cắm trong khối khói hồn hai
+            // tông sau lưng đối thủ, khói tách cụm bay lên rồi mờ, vòng cung dẹt hai đợt, vệt cháy, cột lưỡi lửa hồn (phần lớn sau lưng), mảnh giáp
             At(tTrung, () =>
             {
                 Shake?.Invoke(0.7f * manh);
                 var c = foeBody + new Vector2(-dir * 0.06f * tH, 0.06f * tH);
-                HonTrung(c, new Vector2(dir, 0.5f).normalized, tH, 1.6f * manh, 14, 14);
-                HonChop(c + new Vector2(0, -0.1f * tH), 0.9f * tH * manh, Front, 0.22f);
-                Ring(foeFeet, 0.5f, 0.1f * tH, 1.25f * tH * manh, KnXanh);
-                Ring(foeFeet, 0.62f, 0.06f * tH, 0.85f * tH * manh, KnNhat, 0.3f, Floor, 31);
-                Ring(c, 0.4f, 0.08f * tH, 0.9f * tH * manh, KnXanh, 0.6f, Front, 32);
-                for (int i = 0; i < Mathf.RoundToInt(16 * manh); i++)
+                HonTrung(c, new Vector2(dir, 0.5f).normalized, tH, 1.3f * manh, 8, 10);
+                KmNo(c + new Vector2(0, -0.08f * tH), foeFeet, tH, 1.5f * manh, "hon", dir, KmKhoiHon);
+                KmCung(foeFeet + new Vector2(0, 2), 0.1f * tH, 1.35f * tH * manh, 0.45f, KnXanh, 0.3f, Floor, 30.6f, 0.85f);
+                KmCung(foeFeet + new Vector2(0, 2), 0.06f * tH, 1.0f * tH * manh, 0.6f, KnNhat, 0.3f, Floor, 31);
+                for (int i = 0; i < Mathf.RoundToInt(10 * manh); i++)
                 {
                     var pt = foeFeet + new Vector2(U(-0.45f, 0.45f) * tH, -U(0f, 0.25f) * tH);
-                    HonLuoi(pt, new Vector2(U(-120, 120), -U(260, 620) * manh), 8, U(20, 34) * manh, U(0.34f, 0.5f), (i & 1) == 0 ? Back : Front, 1, 0.85f);
+                    HonLuoi(pt, new Vector2(U(-120, 120), -U(260, 620) * manh), 8, U(20, 34) * manh, U(0.34f, 0.5f), i % 3 == 0 ? Front : Back, 1, 0.85f);
                 }
-                for (int i = 0; i < Mathf.RoundToInt(5 * manh); i++)
-                    Smoke(foeFeet + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.1f, 0.5f) * tH), new Vector2(U(-40, 40), -U(60, 120)), U(1.0f, 1.4f),
-                        0.06f * tH, 0.18f * tH, Back, "dark", 0.4f);
-                for (int i = 0; i < Mathf.RoundToInt(5 * manh); i++)
+                for (int i = 0; i < Mathf.RoundToInt(3 * manh); i++)
                     Rock(foeFeet + new Vector2(U(-0.25f, 0.25f) * tH, -6), new Vector2(U(-260, 260), -U(260, 480)), foeFeet.y + U(-4, 6), U(11, 16));
+            });
+            At(tTrung + 0.3f, () =>
+            {
+                for (int i = 0; i < Mathf.RoundToInt(3 * manh); i++)
+                    KmKhoi(foeFeet + new Vector2(U(-0.35f, 0.35f) * tH, -U(0.35f, 0.6f) * tH), new Vector2(U(-30, 30), -U(50, 90)), U(0.14f, 0.18f) * tH,
+                        U(1.0f, 1.3f), Back, 0, 2, KmKhoiHon, 0.4f);
             });
             // phần vá tan: khí hồn bay lên dọc lưỡi
             Every(KnSTat * k, KnSTat * k + 0.24f * k, 60, x =>

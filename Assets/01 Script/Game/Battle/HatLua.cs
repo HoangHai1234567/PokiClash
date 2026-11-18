@@ -4,6 +4,8 @@
 // Ảnh hạt xám vân chì (Assets/03 Art/Fx/Hat, ArtGen/Spine/xuat_hat.py) nhuộm bằng Image.color; không glow, không cộng sáng.
 // Toạ độ theo khung sân web (540 x 464, y xuống) như StageView, đổi ra UI bằng StageView.P; thời gian là giây sân.
 // Không tạo GameObject lúc chạy (PrefabOnlyTests): Image sinh bằng Ui.Spawn từ prefab Items/HatLua, giữ trong hàng chờ.
+// 2026-11-18 (người dùng chê tia cụt, khói rải rác, lửa / dung nham là cầu tròn, nổ chưa đẹp, màu tối): tướng Hỏa dùng các hàm Hoa… (khối "BỘ HỎA
+// 2026-11-18" bên dưới: cụm khói tách cụm, nổ kiểu Kingdom Rush 5, cầu lửa nhiều múi, pha tụ xoắn ốc, bông va chạm) và bảng màu tươi "hoa".
 using System;
 using System.Collections.Generic;
 using PokiClash.UI;
@@ -72,27 +74,29 @@ namespace PokiClash
         {
             // sói đỏ, tinh thể đỏ trên giáp: lửa đỏ thẫm, mảnh tinh thể đỏ văng
             // suất này nay là Bạch Viêm Hổ (bạch hổ mây lửa, 2026-11-14; HatHo.cs): lửa đỏ cam thường, không mảnh tinh thể (trước: bảng "tinh" + "tinh_the")
-            { "hoa_tinh", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40) } },
+            { "hoa_tinh", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42) } },
             // Viêm Dũng (2026-11-14): chiến binh đất nung lõi dung nham, lửa cam, mảnh đá than (trước: cáo đuôi tím hồng, bảng "tim", sao lấp lánh)
-            { "huyen_viem", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(74, 62, 60) } },
+            { "huyen_viem", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42), extra = "giap", extraCol = C(74, 62, 60) } },
             // lân đỏ vàng kim, mây xoắn
-            { "lan_hoa", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 120, 40) } }, // Hỏa Sơn Long (2026-11-15): dung nham cam lõi vàng (trước là Lân Hỏa, bảng vàng + mây)
+            { "lan_hoa", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42) } }, // Hỏa Sơn Long (2026-11-15): dung nham cam lõi vàng (trước là Lân Hỏa, bảng vàng + mây)
             // sư tử vàng bờm đỏ: lửa vàng kim, sao vàng
-            { "kim_su", new Theme { pal = "vang", smoke = new[] { C(92, 66, 50), C(142, 122, 106), C(188, 176, 164), C(216, 210, 202) }, spark = C(255, 230, 120), ember = C(250, 200, 70), ring = C(252, 206, 70), extra = "sao", extraCol = C(255, 224, 100) } },
+            { "kim_su", new Theme { pal = "vang", smoke = new[] { C(70, 58, 50), C(118, 106, 98), C(170, 162, 154), C(212, 206, 198), C(232, 228, 222) }, spark = C(255, 232, 120), ember = C(255, 206, 70), ring = C(255, 206, 70), extra = "sao", extraCol = C(255, 226, 100) } },
             // suất này nay là pháp sư lửa (Viêm Sư, 2026-11-14): lửa đỏ cam lõi vàng như cầu lửa trên trượng, không mảnh văng (trước là Hồng Liên:
             // rồng sen hồng, pal "sen", cánh sen bay)
-            { "hong_lien", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40) } },
+            { "hong_lien", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42) } },
             // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): lửa đỏ cam lõi vàng như bờm lửa trên rig, mảnh giáp sắt đen văng ra (trước là
             // Giáp Long: rồng đỏ giáp xám, mảnh giáp xám)
-            { "giap_long", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(58, 56, 64) } },
+            { "giap_long", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42), extra = "giap", extraCol = C(58, 56, 64) } },
             // bò võ sĩ, mây vàng
             // suất này nay là rùa golem lửa (Hỏa Quy, 2026-11-13): lửa cam thường, mảnh đá bazan xám lam văng ra lúc trúng (trước là Ngưu Quyền: pal "nguu", mây xoắn vàng)
-            { "nguu_quyen", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(95, 108, 125) } },
+            { "nguu_quyen", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42), extra = "giap", extraCol = C(95, 108, 125) } },
             // người đá than / nham: lửa dung nham, đá
             // mắt lửa bọc giáp (Hỏa Nhãn): lửa đỏ cam lõi vàng như lửa trên rig, mảnh giáp đá vỏ chai đen tím văng ra
-            { "hoa_nhan", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(58, 50, 66) } },
+            { "hoa_nhan", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42), extra = "giap", extraCol = C(58, 50, 66) } },
             // golem lõi lửa (Nham Thần, 2026-11-13): lửa đỏ cam lõi vàng như lưỡi lửa trên rig (bảng "nham" ra nâu sẫm, lệch màu thân), mảnh đá tro văng ra
-            { "nham_than", new Theme { pal = "lua", spark = C(255, 210, 110), ember = C(248, 140, 44), ring = C(240, 110, 40), extra = "giap", extraCol = C(178, 167, 154) } },
+            { "nham_than", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42), extra = "giap", extraCol = C(178, 167, 154) } },
+            // quỷ lava cầm khiên (Tiểu Quỷ Lava, su_tu_lua; chưa có dòng FireFx: chiêu mana cầu lửa mặc định): lửa tươi, mảnh đá lava sẫm văng ra
+            { "su_tu_lua", new Theme { pal = "hoa", spark = C(255, 217, 110), ember = C(255, 164, 58), ring = C(240, 112, 42), extra = "giap", extraCol = C(92, 50, 44) } },
             // tinh linh tinh thể sắt (Thiết Tinh, suất bo_cap đảo Kim, 2026-11-16; HatSat.cs): tia bạc lam, dăm tinh thể tím oải hương
             { "bo_cap", new Theme { pal = "lua", spark = C(226, 232, 248), ember = C(196, 188, 236), ring = C(142, 163, 203), ring2 = C(214, 220, 236), extra = "tinh_the", extraCol = C(167, 159, 211) } },
             // chiến binh sắt khiên giáo (Thiết Vệ, suất doc_giac đảo Kim, 2026-11-16; HatGiao.cs): tia bạc trắng, mảnh giáp thép xám văng ra
@@ -489,18 +493,21 @@ namespace PokiClash
         {
             { "lua", new[] { C(234, 80, 42), C(248, 150, 48), C(252, 210, 78), C(254, 244, 206) } },
             { "xoan", new[] { C(206, 58, 38), C(240, 128, 44), C(249, 192, 68), C(253, 236, 176) } },
-            { "nham", new[] { C(186, 46, 30), C(236, 104, 34), C(250, 170, 50), C(254, 230, 132) } },
+            { "nham", new[] { C(138, 58, 34), C(240, 112, 42), C(255, 170, 58), C(255, 222, 90) } }, // dung nham (2026-11-18): vỏ nâu đỏ ấm, lõi cam vàng tươi
             { "tinh", new[] { C(196, 30, 42), C(236, 80, 52), C(250, 156, 64), C(255, 232, 196) } },
             { "tim", new[] { C(128, 52, 172), C(208, 84, 192), C(246, 152, 216), C(255, 234, 250) } },
-            { "vang", new[] { C(214, 52, 34), C(244, 150, 36), C(255, 212, 70), C(255, 246, 205) } },
+            { "vang", new[] { C(232, 69, 46), C(255, 170, 40), C(255, 222, 80), C(255, 246, 214) } }, // Hỏa Cung (2026-11-18: tươi hơn)
             { "sen", new[] { C(194, 40, 82), C(236, 102, 142), C(250, 182, 172), C(255, 238, 232) } },
             { "nguu", new[] { C(220, 70, 30), C(246, 140, 40), C(255, 200, 70), C(255, 240, 200) } },
             { "hon", new[] { C(70, 150, 50), C(120, 202, 58), C(178, 234, 100), C(236, 255, 200) } }, // lửa linh hồn xanh (Vong Kỵ, HatHon.cs)
+            // bộ Hỏa tươi (người dùng 2026-11-18: "màu tươi hơn", sân bãi cát sáng): đỏ tươi E8452E, cam FFA43A, vàng FFD94A, kem FFF6D6 (cam đỏ
+            // F0702A dùng cho vòng, tàn lửa); "lua" giữ nguyên cho tướng hệ khác đang mượn lửa
+            { "hoa", new[] { C(232, 69, 46), C(255, 164, 58), C(255, 217, 74), C(255, 246, 214) } },
             { "nang", new[] { C(236, 138, 34), C(252, 192, 60), C(255, 232, 140), C(255, 252, 232) } }, // năng lượng vàng lõi trắng (Thần Cơ, HatRobot.cs: RbNang)
         };
         static readonly Color[] SmokeDark = { C(50, 42, 40), C(98, 92, 90), C(152, 148, 146), C(198, 194, 190) };
         static readonly Color[] SmokeFire = { C(240, 140, 50), C(168, 86, 50), C(112, 98, 94), C(160, 156, 152), C(204, 200, 196) };
-        static readonly Color[] Lava = { Ink, C(204, 52, 28), C(242, 112, 34), C(252, 182, 56), C(255, 234, 150) };
+        static readonly Color[] Lava = { Ink, C(138, 58, 34), C(240, 112, 42), C(255, 170, 58), C(255, 222, 90) }; // vỏ nâu đỏ ấm 8A3A22, lõi cam vàng tươi
         static readonly float[] LavaF = { 1, 1, 0.8f, 0.6f, 0.34f };
 
         static Color Ramp(Color[] stops, float k)
@@ -543,16 +550,55 @@ namespace PokiClash
             var cols = Pal.TryGetValue(p.pal, out var pc) ? pc : Pal["lua"];
             float sp = p.vel.magnitude;
             int g = p.group;
-            if (p.style == "luoi") // lưỡi lửa kiểu tranh tướng: ngọn ngả ngược hướng bay và lên, sọc màu to theo dáng lưỡi
+            if (p.style == "luoi" || p.style == "krl") // lưỡi lửa kiểu tranh tướng: ngọn ngả ngược hướng bay và lên, sọc màu to theo dáng lưỡi
             {
                 var d = sp > 30 ? Unit(Unit(p.vel) * (0.5f * p.tip) + new Vector2(0, -p.tipUp)) : new Vector2(0, -1);
                 float ang = TipAngle(d);
+                // "krl" (bộ Hỏa 2026-11-18): lưỡi chữ S của bộ ảnh mới kr_lua (chân giữa đáy, ngọn chĩa lên); chưa nhập thì lưỡi lobe như cũ
+                bool kr = p.style == "krl" && S("kr_lua_0");
+                string b = kr ? "kr_lua" : "lobe";
+                float s0 = 2.7f * rr[1];
                 for (int i = 0; i < 5; i++)
                 {
                     float rad = i < 2 ? rr[i] : Mathf.Min(rr[1] * LobeF[i], rr[i] * 1.3f);
                     if (rad < 1) continue;
-                    Put(buf, g, 20 + i, S((i == 0 ? "lobes_" : "lobe_") + (p.seed & 3)), i == 0 ? Ink : cols[i - 1],
-                        p.pos - d * (r - rad) * 0.45f, 2.7f * rad + (i == 0 ? 5 : 0), 1, ang);
+                    float sz = 2.7f * rad;
+                    // kr_lua co lớp quanh CHÂN (điểm neo 0,5; 0,9 của khung): lớp trong lùi về chân cho chân các lớp trùng nhau; bản đặc đã nở sẵn viền
+                    var pos = kr ? p.pos - d * 0.4f * (s0 - sz) : p.pos - d * (r - rad) * 0.45f;
+                    Put(buf, g, 20 + i, S((i == 0 ? b + "s_" : b + "_") + (p.seed & 3)), i == 0 ? Ink : cols[i - 1], pos, sz + (i == 0 ? (kr ? 3 : 5) : 0), 1, ang);
+                }
+                return;
+            }
+            if (p.style == "liem") // lưỡi liềm lửa của vụ nổ (bộ Hỏa 2026-11-18): lưng cong ra ngoài theo p.aim (ảnh kr_liem lưng +x; thay: lưỡi lobe chĩa ra)
+            {
+                var d = Unit(p.aim);
+                bool kr = S("kr_liem_0");
+                string b = kr ? "kr_liem" : "lobe";
+                float ang = kr ? VelAng(d) : TipAngle(d);
+                for (int i = 0; i < 5; i++)
+                {
+                    float rad = i < 2 ? rr[i] : Mathf.Min(rr[1] * LobeF[i], rr[i] * 1.3f);
+                    if (rad < 1) continue;
+                    Put(buf, g, 20 + i, S((i == 0 ? b + "s_" : b + "_") + (p.seed & 3)), i == 0 ? Ink : cols[i - 1],
+                        kr ? p.pos : p.pos + d * (r - rad) * 0.3f, 2.6f * rad + (i == 0 ? (kr ? 3 : 5) : 0), 1, ang); // kr_liem co lớp quanh tâm
+                }
+                return;
+            }
+            if (p.style == "krn") // cụm dung nham mềm (bộ Hỏa 2026-11-18; người dùng chê cầu tròn): ảnh kr_nham, thay bằng giọt kéo đuôi về sau
+            {
+                bool kr = S("kr_nham_0");
+                string b = kr ? "kr_nham" : "drop";
+                var d = sp > 5 ? p.vel / sp : new Vector2(0, -1);
+                float st = 1 + Mathf.Min(0.8f, sp / p.stretchK);
+                float ang = kr ? TipAngle(d) : TipAngle(-d); // kr_nham: đỉnh khung theo hướng bay, giọt kéo (đáy khung) tuột lại sau; drop: đuôi nhọn ra sau
+                for (int i = 0; i < 5; i++)
+                {
+                    float rad = rr[i];
+                    if (rad < 1) continue;
+                    var c = i == 0 ? Ink : Color.Lerp(Lava[i], Lava[Mathf.Max(1, i - 1)], SmoothStep(0.55f, 1, k)); // nguội dần về vỏ
+                    float sz = 2.3f * rad + (i == 0 ? (kr ? 3 : 5) : 0);
+                    var pos = kr ? p.pos : p.pos + d * (r - rad) * 0.35f; // kr_nham co lớp quanh tâm
+                    Put(buf, g, 20 + i, S((i == 0 ? b + "s_" : b + "_") + (p.seed & 3)), c, pos, sz * st, 1 / st, ang); // kéo dài dọc hướng bay
                 }
                 return;
             }
@@ -723,19 +769,26 @@ namespace PokiClash
         // ---------- dung nham ----------
         void DrawLavaDrop(P z, float k, List<Item> buf)
         {
+            // giọt dung nham (2026-11-18, người dùng chê "quả cầu tròn"): một GIỌT LỆ kéo dài theo tốc độ, đầu tròn đi trước (ảnh kr_nhamgiot đầu +x;
+            // thay: giọt drop đuôi nhọn ra sau), không còn chuỗi ba hạt cườm
             float r = z.r1, sp = z.vel.magnitude;
             var d = sp > 1 ? z.vel / sp : new Vector2(0, 1);
-            float tail = Mathf.Min(1, sp / 400);
+            bool kr = S("kr_nhamgiot_0");
+            string b = kr ? "kr_nhamgiot" : "drop";
+            float st = 1 + Mathf.Min(0.75f, sp / 600);
+            float ang = kr ? VelAng(d) : TipAngle(-d);
             for (int li = 0; li < 5; li++)
             {
-                for (int pi = 0; pi < 3; pi++)
-                {
-                    float ps = pi == 0 ? 1 : pi == 1 ? 0.66f : 0.38f;
-                    var pos = z.pos - d * r * (pi == 0 ? 0 : pi == 1 ? 1.0f : 1.8f) * tail;
-                    float rad = r * LavaF[li] * ps;
-                    if (rad < 0.8f) continue;
-                    Put(buf, z.group, 20 + li, S((li == 0 ? "solid_" : "blob_") + (z.seed & 3)), Lava[li], pos, 2 * rad + (li == 0 ? 4.5f : 0));
-                }
+                float rad = r * LavaF[li];
+                if (rad < 0.8f) continue;
+                // kr_nhamgiot co lớp quanh điểm neo (0,66; 0,5) lệch về đầu giọt: lớp trong dồn về đầu tròn
+                // ảnh kr_nhamgiot nằm ngang, dày 40 % khung: khung cao 4,6 bán kính cho thân giọt dày gần bằng đường kính
+                float fk = kr ? 4.6f : 2.5f;
+                var pos = kr ? z.pos + d * 0.16f * st * fk * (r - rad) : z.pos + d * r * (1 - LavaF[li]) * 0.45f;
+                float sz = fk * rad + (li == 0 ? (kr ? 3 : 4.5f) : 0);
+                var sv = S((li == 0 ? b + "s_" : b + "_") + (z.seed & 3));
+                if (kr) Put(buf, z.group, 20 + li, sv, Lava[li], pos, sz, st, ang);
+                else Put(buf, z.group, 20 + li, sv, Lava[li], pos, sz * st, 1 / st, ang);
             }
             if (z.crust) Put(buf, z.group, 25, S("rock_" + (z.seed & 3)), Color.white, z.pos + new Vector2(r * 0.25f, -r * 0.2f), r * 0.9f, 1,
                 z.ang * Mathf.Rad2Deg);
@@ -749,8 +802,8 @@ namespace PokiClash
                 float f = 1 - k * k;
                 if (z.sz * f < 1) return;
                 Put(buf, Floor, 5, S("ell"), Ink, z.pos, (z.sz * 0.75f + 2.5f) * f, 2.6f);
-                Put(buf, Floor, 6, S("ell"), Color.Lerp(C(226, 92, 32), C(104, 46, 40), Mathf.Min(1, k * 1.4f)), z.pos, z.sz * 0.75f * f, 2.6f);
-                Put(buf, Floor, 6.5f, S("ell"), C(252, 182, 56), z.pos, z.sz * 0.4f * Mathf.Max(0, 1 - k / 0.45f), 2.8f);
+                Put(buf, Floor, 6, S("ell"), Color.Lerp(C(240, 112, 42), C(138, 58, 34), Mathf.Min(1, k * 1.4f)), z.pos, z.sz * 0.75f * f, 2.6f);
+                Put(buf, Floor, 6.5f, S("ell"), C(255, 217, 74), z.pos, z.sz * 0.4f * Mathf.Max(0, 1 - k / 0.45f), 2.8f);
             };
             Add(p);
             if (q.r1 > 4.5f)
@@ -795,9 +848,9 @@ namespace PokiClash
                 if (k > 0.98f) return;
                 float a = Mathf.Min(1, k / 0.1f), f = 1 - k * k * k;
                 Put(buf, Floor, 2, S("ell"), Ink, q.pos, (R + 5) * f * a, 3.2f);
-                Put(buf, Floor, 3, S("ell"), Color.Lerp(C(186, 46, 30), C(96, 44, 40), k), q.pos, R * f * a, 3.3f);
-                Put(buf, Floor, 4, S("ell"), C(236, 104, 34), q.pos, R * 0.65f * Mathf.Max(0, 1 - k / 0.75f) * a, 3.8f);
-                Put(buf, Floor, 4.5f, S("ell"), C(250, 170, 50), q.pos, R * 0.35f * Mathf.Max(0, 1 - k / 0.5f) * a, 4.4f);
+                Put(buf, Floor, 3, S("ell"), Color.Lerp(C(240, 112, 42), C(138, 58, 34), k), q.pos, R * f * a, 3.3f);
+                Put(buf, Floor, 4, S("ell"), C(255, 164, 58), q.pos, R * 0.65f * Mathf.Max(0, 1 - k / 0.75f) * a, 3.8f);
+                Put(buf, Floor, 4.5f, S("ell"), C(255, 217, 74), q.pos, R * 0.35f * Mathf.Max(0, 1 - k / 0.5f) * a, 4.4f);
             };
             Add(pool);
         }
@@ -863,7 +916,7 @@ namespace PokiClash
                 };
                 Add(bp);
             });
-            Every(0.1f, life * 0.8f, 6, x => Smoke(pos + new Vector2(U(-ax, ax) * 0.6f, -4), null, 0, 4, 11, Back, "dark", 0.2f));
+            Every(0.1f, life * 0.8f, 2.5f, x => HoaKhoi(pos + new Vector2(U(-ax, ax) * 0.6f, -4), U(6, 9), Back, null, U(0.7f, 0.9f), false)); // khói mảnh thành cụm
         }
 
         // ---------- nổ ----------
@@ -916,14 +969,541 @@ namespace PokiClash
             Extra(c, (int)(6 * sc + 2), 320 * sc, group);
         }
 
+        // =================== BỘ HỎA 2026-11-18: hình và nhịp học Kingdom Rush 5 ===================
+        // Người dùng chê (2026-11-18): tia cụt lủn, không va chạm; khói rải rác, chưa thành cụm, chưa mềm; lửa, dung nham là cầu tròn; nổ, sóng âm
+        // chưa đẹp; pha hút quanh cầu xấu; màu tối, đốm lửa đơn lẻ, to. Các hàm dưới đây chỉ tướng Hỏa dùng (tên Hoa…) để KHÔNG đổi hiệu ứng của
+        // hệ khác đang mượn Explode / Smoke / Ember / CauNo. Ảnh hạt mới tiền tố kr_ (đang vẽ) có thì dùng, chưa nhập thì về hình cũ (không lỗi).
+
+        // điểm trúng (toạ độ sân) và độ mạnh 0..1 mỗi nhịp tia / luồng lửa đang chạm đối thủ: StageView gắn để chớp + giật con đứng ở đó (chưa gắn
+        // thì bỏ qua; đề xuất ở Temp/vfx_hoa/BAO_CAO.md)
+        public Action<Vector2, float> HoaTrung;
+
+        static readonly Color HoaKem = C(255, 246, 214), HoaVang = C(255, 217, 74), HoaCam = C(255, 164, 58), HoaCamDo = C(240, 112, 42);
+        // khói than: đen than ngả xám (người dùng dặn), 5 nấc; tông đáy = Ramp(k), tông đỉnh = Ramp(k + 0,24)
+        static readonly Color[] HoaKhoiC = { C(52, 46, 44), C(92, 86, 84), C(142, 138, 136), C(196, 192, 188), C(228, 226, 222) };
+        // múi của cụm khói khi chưa có ảnh kr_khoi: chỗ múi (phần bán kính cụm) và cỡ múi
+        static readonly Vector2[] HoaMui = { new Vector2(-0.42f, 0.14f), new Vector2(0.42f, 0.18f), new Vector2(0.02f, -0.3f), new Vector2(-0.08f, 0.36f) };
+        static readonly float[] HoaMuiR = { 0.6f, 0.56f, 0.68f, 0.5f };
+
+        // ảnh mới nếu đã nhập, không thì ảnh cũ
+        Sprite HoaS(string moi, string cu)
+        {
+            var s = S(moi);
+            return s ? s : S(cu);
+        }
+
+        static Vector2 HoaXoay(Vector2 v, float a)
+        {
+            float c = Mathf.Cos(a), s = Mathf.Sin(a);
+            return new Vector2(v.x * c - v.y * s, v.x * s + v.y * c);
+        }
+
+        // ---------- CỤM KHÓI ----------
+        // Một khối nhiều múi (ảnh kr_khoi + bóng đáy kr_khoiday; thay: 3–4 múi sblob chồng nhau), hai tông phẳng: đáy đậm, đỉnh nhạt, một viền mực
+        // chung (mọi mực vẽ trước mọi màu). To gần đủ ngay (0,12 đời), bay lên, nhanh dần; ở 48 % đời TÁCH thành 3 cụm nhỏ (kr_khoinho) toả ra, nhỏ
+        // dần, có tro, rồi mới mờ (không vụt tắt). lua > 0: đáy cụm còn lõi lửa cam đỏ nguội dần trong 0,2 đời (khói nổ).
+        public P HoaKhoi(Vector2 pos, float R, int group = Back, Vector2? vel = null, float life = 0, bool tach = true, float lua = 0)
+        {
+            var p = new P
+            {
+                pos = pos + U2(-3, 3), vel = vel ?? new Vector2(U(-22, 22), U(-62, -36)), life = life > 0 ? life : U(1.0f, 1.3f), drag = 1.3f,
+                acc = new Vector2(0, -26), seed = rng.Next(4), ang = U(-0.25f, 0.25f), spin = U(-0.25f, 0.25f), spinDrag = 1.5f, R0 = R, group = group,
+                ph = U(0, 6.28f), big = tach, heat = lua, stops = Th.smoke ?? HoaKhoiC
+            };
+            p.upd = HoaKhoiBay;
+            p.draw = HoaVeKhoi;
+            return Add(p);
+        }
+
+        static float HoaKhoiR(P q, float k)
+        {
+            if (q.span == 1) return q.R0 * (1 - 0.75f * SmoothStep(0.1f, 1, k));                                       // cụm con: nhỏ dần
+            float g = k < 0.12f ? 0.4f + 0.48f * EaseOut(k / 0.12f) : 0.88f + 0.12f * SmoothStep(0.12f, 0.45f, k); // to gần đủ ngay
+            g *= q.big ? 1 - 0.7f * SmoothStep(0.46f, 0.74f, k) : 1 - 0.72f * SmoothStep(0.45f, 1, k);              // tách xong cụm mẹ co nhường cụm con
+            return q.R0 * g;
+        }
+
+        static float HoaKhoiK(P q, float k) => q.span == 1 ? Mathf.Lerp(q.hgt, 1, k) : 0.1f + 0.42f * k; // than đen → xám
+
+        void HoaKhoiBay(P q, float dt, HatLua s)
+        {
+            float k = q.age / q.life;
+            q.vel.x += Mathf.Sin(q.age * 3.4f + q.ph) * 24 * dt;
+            q.vel.y -= 55 * k * dt; // càng về cuối càng bay nhanh lên
+            if (!q.big || q.hit || k < 0.48f) return;
+            q.hit = true;
+            float rNow = HoaKhoiR(q, k), con = Mathf.Max(0.45f, q.life - q.age) * 1.2f;
+            for (int j = 0; j < 3; j++)
+            {
+                var o = HoaXoay(HoaMui[j], q.ang);
+                var c = new P
+                {
+                    pos = q.pos + o * rNow, vel = q.vel * 0.6f + Unit(o) * s.U(26, 52) + new Vector2(0, -s.U(14, 34)), life = con * s.U(0.85f, 1.1f),
+                    drag = 1.3f, acc = new Vector2(0, -30), seed = (q.seed + j + 1) & 3, ang = q.ang, spin = s.U(-0.4f, 0.4f), spinDrag = 1.2f,
+                    R0 = rNow * HoaMuiR[j] * 0.95f, group = q.group, ph = s.U(0, 6.28f), hgt = HoaKhoiK(q, k), span = 1, stops = q.stops, rng = q.rng
+                };
+                c.upd = s.HoaKhoiBay;
+                c.draw = s.HoaVeKhoi;
+                if (j == 0) c.onDeath = (z, s2) => s2.Ash(z.pos + s2.U2(-0.4f, 0.4f) * z.R0, null, z.group); // tro tán
+                s.Add(c);
+            }
+        }
+
+        void HoaVeKhoi(P q, float k, List<Item> buf)
+        {
+            float r = HoaKhoiR(q, k);
+            if (r < 1) return;
+            float aF, aI;
+            if (q.span == 1)
+            {
+                aF = 1 - SmoothStep(0.6f, 1, k);
+                aI = 0.7f * (1 - SmoothStep(0.25f, 0.7f, k));
+            }
+            else if (q.big)
+            {
+                aF = 1 - SmoothStep(0.56f, 0.76f, k);
+                aI = 0.85f * (1 - SmoothStep(0.4f, 0.66f, k));
+            }
+            else
+            {
+                aF = 1 - SmoothStep(0.62f, 1, k);
+                aI = 0.85f * (1 - SmoothStep(0.4f, 0.8f, k));
+            }
+            if (aF < 0.03f) return;
+            float kc = HoaKhoiK(q, k);
+            Color toi = Ramp(q.stops, kc), sang = Ramp(q.stops, kc + 0.24f);
+            if (q.heat > 0 && q.span == 0) toi = Color.Lerp(HoaCamDo, toi, 1 - q.heat * (1 - SmoothStep(0.02f, 0.2f, k))); // lõi lửa nguội trong khói
+            int g = q.group;
+            float ang = q.ang * Mathf.Rad2Deg;
+            string kb = q.span == 1 ? "kr_khoinho" : "kr_khoi";
+            var sv = S(kb + "_" + q.seed);
+            if (sv)
+            {
+                if (aI > 0.03f) Put(buf, g, 10, S(kb + "s_" + q.seed), Ink, q.pos, 2 * r + 3, 1, ang, aI); // bản đặc đã nở sẵn viền
+                var day = q.span == 0 ? S("kr_khoiday_" + q.seed) : null;
+                if (day)
+                {
+                    Put(buf, g, 11, sv, sang, q.pos, 2 * r, 1, ang, aF);
+                    Put(buf, g, 11.5f, day, toi, q.pos, 2 * r, 1, ang, aF);
+                }
+                else
+                {
+                    Put(buf, g, 11, sv, toi, q.pos, 2 * r, 1, ang, aF);
+                    Put(buf, g, 11.5f, sv, sang, q.pos + new Vector2(0, -0.16f * r), 1.6f * r, 1, ang, aF);
+                }
+                return;
+            }
+            int n = q.span == 1 ? 2 : q.R0 < 16 ? 3 : 4;
+            float mr = q.span == 1 ? 1.25f : 1;
+            for (int pass = 0; pass < (q.span == 1 ? 2 : 3); pass++) // cụm con chỉ một tông (bớt ảnh chồng)
+                for (int j = 0; j < n; j++)
+                {
+                    var o = HoaXoay(HoaMui[j], q.ang) * r;
+                    float rl = HoaMuiR[j] * r * mr;
+                    int sd = (q.seed + j) & 3;
+                    if (pass == 0)
+                    {
+                        if (aI > 0.03f) Put(buf, g, 10, S("ssolid_" + sd), Ink, q.pos + o, 2 * rl + 4, 1, ang, aI);
+                    }
+                    else if (pass == 1) Put(buf, g, 11, S("sblob_" + sd), q.span == 1 ? Color.Lerp(toi, sang, 0.5f) : toi, q.pos + o, 2 * rl, 1, ang, aF);
+                    else Put(buf, g, 11.5f, S("sblob_" + sd), sang, q.pos + o + new Vector2(0, -0.22f * rl), 1.56f * rl, 1, ang, aF);
+                }
+        }
+
+        // CỤM TÀN LỬA: 3–6 đốm nhỏ lệch cỡ bay cùng hướng (người dùng: đốm lửa đơn lẻ, to quá; nay cỡ 0,5–0,7 cũ, đi theo cụm)
+        public void HoaTan(Vector2 pos, Vector2 vel, float life = 0, int n = 4, int group = Front)
+        {
+            for (int i = 0; i < n; i++)
+                Ember(pos + U2(-6, 6), vel * U(0.82f, 1.15f) + U2(-22, 22), life > 0 ? life * U(0.8f, 1.15f) : 0, i == 0 ? U(6, 7) : U(3.5f, 5.5f), group);
+        }
+
+        // CHỚP NỔ phẳng 1–2 khung (tướng Hỏa thay BurstFlash: chớp nước lấy bảng màu NƯỚC): sao gai (kr_chop / burst) viền mực, vàng, lõi kem
+        P HoaChop(Vector2 c, float size, float life = 0.09f, int group = Front)
+        {
+            var f = new P { pos = c, life = life, group = group, seed = rng.Next(4), ang = U(0, 360), sz = size };
+            f.draw = (q, k, buf) =>
+            {
+                float s = q.sz * (0.78f + 0.3f * EaseOut(k / 0.5f));
+                Put(buf, q.group, 30, HoaS("kr_chops_" + q.seed, "bursts_" + q.seed), Ink, q.pos, s + (S("kr_chop_0") ? 3 : 6), 1, q.ang);
+                Put(buf, q.group, 31, HoaS("kr_chop_" + q.seed, "burst_" + q.seed), HoaVang, q.pos, s, 1, q.ang);
+                Put(buf, q.group, 32, HoaS("kr_chop_" + q.seed, "burst_" + q.seed), HoaKem, q.pos, s * 0.58f, 1, q.ang);
+            };
+            return Add(f);
+        }
+
+        // VÒNG CUNG SÓNG DẸT trên đất (KR5; không viền mực: vòng mảnh có viền thì thành vòng đen): nở nhanh rồi chậm, nhạt dần, đứt đoạn
+        // (ảnh kr_cung; thay: hai cung đối nhau của hat_arc, hở hai khe)
+        P HoaCung(Vector2 feet, float R0, float R1, float life, Color col, float squash = 0.3f, int group = Floor)
+        {
+            var p = new P { pos = feet, life = life, group = group, col = col, R0 = R0, R1 = R1, hgt = squash, seed = rng.Next(4), span = rng.Next(12) };
+            p.draw = (q, k, buf) =>
+            {
+                float R = q.R0 + (q.R1 - q.R0) * EaseOut(k);
+                float a = 0.95f * (1 - SmoothStep(0.4f, 1, k));
+                if (a < 0.03f || R < 2) return;
+                var kc = S("kr_cung_" + (q.seed & 3));
+                if (kc) Put(buf, q.group, 29, kc, q.col, q.pos, 2 * R * q.hgt / 0.36f, 0.36f / q.hgt, 0, a); // ảnh đã dẹt sẵn (cao 36 % khung)
+                else
+                {
+                    Put(buf, q.group, 29, S("arc_" + q.span), q.col, q.pos, 2 * R * q.hgt, 1 / q.hgt, 0, a);
+                    Put(buf, q.group, 29, S("arc_" + ((q.span + 6) % 12)), q.col, q.pos, 2 * R * 0.94f * q.hgt, 1 / q.hgt, 0, a);
+                }
+            };
+            return Add(p);
+        }
+
+        // VỆT CHÁY trên đất dưới vụ nổ lớn (KR5 decal): elip sẫm phẳng alpha 0,38, giữ khoảng 1 s rồi mờ
+        void HoaVetChay(Vector2 feet, float w, float life = 1.9f)
+        {
+            var p = new P { pos = feet, life = life, group = Floor, sz = w };
+            p.draw = (q, k, buf) => Put(buf, Floor, 0.5f, S("ell"), C(74, 52, 44), q.pos, q.sz * 0.3f * Mathf.Min(1, 0.6f + q.age / 0.2f), 1 / 0.3f, 0,
+                0.38f * Mathf.Min(1, q.age / 0.06f) * (1 - SmoothStep(0.5f, 1, k)));
+            Add(p);
+        }
+
+        // đổi hạt lửa sang lưỡi lửa chữ S (style "krl": kr_lua, thay lobe) và bỏ khói lẻ, tàn lẻ khi chết (người dùng: khói rải rác, đốm đơn lẻ):
+        // thỉnh thoảng nhả một cụm khói nhỏ sau tướng
+        P HoaLuoi(P q, float tip = 1, float up = 0.2f, float khoiP = 0.08f)
+        {
+            q.style = "krl";
+            q.tip = tip;
+            q.tipUp = up;
+            q.onDeath = khoiP <= 0 ? null : (Action<P, HatLua>)((z, s) =>
+            {
+                if (z.r1 > 11 && (float)z.rng.NextDouble() < khoiP) s.HoaKhoi(z.pos + new Vector2(0, -4), z.r1 * 0.55f, Back, null, s.U(0.6f, 0.85f), false);
+            });
+            return q;
+        }
+
+        // cỡ lưỡi liềm: bật to trong 0,1 đời rồi teo dần thành đốm (KR5: lưỡi liềm → đốm)
+        static float HoaLiemCo(P z, float k) => z.r1 * (k < 0.1f ? 0.55f + 0.45f * EaseOut(k / 0.1f) : 1 - 0.78f * SmoothStep(0.25f, 1, k));
+
+        // ---------- NỔ (học KR5 `explosion_big`) ----------
+        // cục chớp nhỏ 2 khung → chớp sao gai; KHỐI KHÓI hai tông to gần đủ ngay (sau tướng, đáy còn lõi lửa nguội) rồi tách cụm bay lên; LƯỠI LIỀM
+        // lửa cong ra ngoài cắm trong khói, teo thành đốm; vài lưỡi lửa chữ S bốc lên; tia văng hai đợt cách 0,1 s; cụm tàn lửa; biết chân `dat` thì
+        // thêm vòng cung dẹt trên đất (+ vệt cháy khi to). sc 1 ≈ nổ cầu lửa chiêu mana; chớp 0,5·H·sc, nhỏ hơn thân con bị trúng.
+        public void HoaNo(Vector2 c, float sc, float H, Vector2? dat = null, int group = Front)
+        {
+            float sq = Mathf.Sqrt(sc);
+            HoaChop(c, 0.18f * H * sc, 0.07f, group);
+            At(0.05f, () => HoaChop(c, 0.5f * H * sc, 0.09f, group));
+            // khối khói sau lưng con bị trúng: xoè hình quạt lên trên và sang hai bên để ló ra quanh viền thân ngay (đặt giữa tâm thì bị thân che hết)
+            int nk = sc < 0.5f ? 1 : sc < 0.9f ? 2 : 3;
+            for (int i = 0; i < nk; i++)
+            {
+                float a = nk == 1 ? -1.5708f + U(-0.3f, 0.3f) : -2.6f + 2.06f * i / (nk - 1) + U(-0.15f, 0.15f);
+                var ve = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+                HoaKhoi(c + ve * 0.3f * H * Mathf.Max(0.6f, sc), U(0.14f, 0.18f) * H * Mathf.Max(0.45f, sc), Back, ve * U(45, 75) + new Vector2(0, -U(25, 45)),
+                    U(0.95f, 1.25f), sc >= 0.6f, 1);
+            }
+            int nl = Mathf.Clamp(Mathf.RoundToInt(3 + 3 * sc), 3, 8);
+            for (int i = 0; i < nl; i++)
+            {
+                float a = 6.28f * (i + U(-0.25f, 0.25f)) / nl; // rải đều quanh tâm như cánh hoa, không dồn cục
+                var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.85f);
+                var q = Flame(c + d * 0.04f * H * sc, d * U(240, 360) * sq, U(0.24f, 0.32f), 8 * sc, U(14, 19) * sc, "liem", Th.pal,
+                    sc >= 1 && (i & 1) == 1 ? Back : group, 8, -50, 1.5f, 0, 0);
+                q.aim = d;
+                q.sizeFn = HoaLiemCo;
+            }
+            int nt = sc < 0.5f ? 1 : 2;
+            for (int i = 0; i < nt; i++)
+                HoaLuoi(Flame(c + U2(-6, 6) * sc, new Vector2(U(-60, 60), -U(160, 260)) * sq, U(0.28f, 0.38f), 7 * sc, U(14, 18) * sc, "tron", Th.pal,
+                    group, 3, -200, 1.6f, 0, 0), 1, 0.5f, 0);
+            int s1 = Mathf.RoundToInt(2 + 2 * sc), s2 = Mathf.RoundToInt(1 + 2 * sc);
+            for (int i = 0; i < s1; i++) Spark(c + U2(-6, 6), U2(-1, 1), U(300, 480) * sq, 0, 7);
+            At(0.1f, () =>
+            {
+                for (int i = 0; i < s2; i++) Spark(c + U2(-6, 6), U2(-1, 1), U(260, 420) * sq, 0, 6);
+            });
+            HoaTan(c, new Vector2(U(-60, 60), -U(90, 150)), 0, sc < 0.6f ? 3 : 4);
+            if (dat.HasValue)
+            {
+                HoaCung(dat.Value + new Vector2(0, 2), 0.12f * H * sc, 0.75f * H * sc, 0.42f, Th.ring);
+                if (sc >= 0.8f) HoaVetChay(dat.Value + new Vector2(0, 2), 0.55f * H * sc);
+            }
+            if (sc >= 0.6f) Ash(c + U2(-18, 18), new Vector2(U(-70, 70), -U(110, 160)));
+            Extra(c, Mathf.RoundToInt(1 + 2 * sc), 300 * sc, group);
+        }
+
+        // vụ nổ lớn lúc cầu lửa chạm (tướng Hỏa thay CauNo; CauNo giữ nguyên cho hệ Kim đang dùng): HoaNo + quạt lưỡi lửa theo hướng bay
+        // (phần lớn sau lưng đối thủ, không che nó)
+        void HoaCauNo(Vector2 tgt, Vector2 foeFeet, float tH, float dir, float sc)
+        {
+            Shake?.Invoke(0.5f * sc);
+            HoaNo(tgt, sc, tH, foeFeet);
+            int n = Mathf.RoundToInt(3 + 2 * sc);
+            for (int i = 0; i < n; i++)
+            {
+                float a = (i - (n - 1) * 0.5f) * 0.32f + U(-0.08f, 0.08f);
+                var d = new Vector2(dir * Mathf.Cos(a), Mathf.Sin(a) - 0.3f);
+                HoaLuoi(Flame(tgt + d * U(4, 10), d * U(240, 400) * Mathf.Sqrt(sc), U(0.26f, 0.36f), 8, U(15, 21) * Mathf.Sqrt(sc), "tron", Th.pal,
+                    i % 3 == 1 ? Front : Back, 4.2f, -160, 1.5f, 0, 0), 1, 0.15f, 0.12f);
+            }
+        }
+
+        // ---------- CẦU LỬA và PHA TỤ ----------
+        // KHỐI CẦU LỬA nhiều múi cuộn bám điểm chạy tam(giờ sân), bán kính rt(giờ sân) (đã gồm nhịp đập, cú nén): MỘT hạt thay chùm LoiCau (≈13 hạt
+        // tròn × 5 lớp). Ảnh kr_luakhoi / kr_cau; thay: lõi tròn + sáu múi lửa quanh vành ngọn chĩa ra ngoài, quay chậm, đổi dáng 15 hình/giây.
+        P HoaCau(Func<float, Vector2> tam, Func<float, float> rt, float life, int group = Front)
+        {
+            var p = new P
+            {
+                pos = tam(T), life = life, group = group, seed = rng.Next(4), ang = U(0, 6.28f), spin = U(0, 1) < 0.5f ? -3.2f : 3.2f, stops = Pal[Th.pal]
+            };
+            p.upd = (q, dt, s) =>
+            {
+                q.pos = tam(s.T);
+                q.vel = Vector2.zero;
+            };
+            p.draw = (q, k, buf) => HoaVeCau(q, rt(T), buf);
+            return Add(p);
+        }
+
+        void HoaVeCau(P q, float r, List<Item> buf)
+        {
+            if (r < 1.5f) return;
+            var cols = q.stops;
+            int g = q.group, fr = (q.seed + (int)(q.age * 15)) & 3; // đổi dáng mỗi 2 khung
+            float ang = q.ang * Mathf.Rad2Deg;
+            string kb = S("kr_luakhoi_0") ? "kr_luakhoi" : S("kr_cau_0") ? "kr_cau" : null;
+            if (kb != null)
+            {
+                Put(buf, g, 20, S(kb + "s_" + fr), Ink, q.pos, 2 * r + 3, 1, ang);
+                Put(buf, g, 21, S(kb + "_" + fr), cols[0], q.pos, 2 * r, 1, ang);
+                Put(buf, g, 22, S(kb + "_" + ((fr + 1) & 3)), cols[1], q.pos, 1.64f * r, 1, -ang);
+                Put(buf, g, 23, S(kb + "_" + ((fr + 2) & 3)), cols[2], q.pos, 1.16f * r, 1, ang * 1.4f);
+                Put(buf, g, 24, S(kb + "_" + ((fr + 3) & 3)), cols[3], q.pos, 0.66f * r, 1, 0);
+                return;
+            }
+            for (int pass = 0; pass < 2; pass++)
+            {
+                var c = pass == 0 ? Ink : cols[0];
+                float ext = pass == 0 ? 5 : 0;
+                Put(buf, g, 20 + pass, S((pass == 0 ? "solid_" : "blob_") + fr), c, q.pos, 1.72f * r + ext, 1, ang);
+                for (int j = 0; j < 6; j++)
+                {
+                    float th = q.ang + j * 1.047f + 0.25f * Mathf.Sin(q.age * 7 + j * 2.1f);
+                    var o = new Vector2(Mathf.Cos(th), Mathf.Sin(th));
+                    var d = Unit(o + new Vector2(0, -0.55f)); // ngọn chĩa ra ngoài, ngả lên
+                    float s = r * (1.05f + 0.18f * Mathf.Sin(q.age * 11 + j * 1.7f));
+                    Put(buf, g, 20 + pass, S((pass == 0 ? "lobes_" : "lobe_") + ((fr + j) & 3)), c, q.pos + o * r * 0.5f, s + ext, 1, TipAngle(d));
+                }
+            }
+            Put(buf, g, 22, S("blob_" + ((fr + 1) & 3)), cols[1], q.pos, 1.5f * r, 1, -ang);
+            Put(buf, g, 23, S("blob_" + ((fr + 2) & 3)), cols[2], q.pos, 1.04f * r, 1, ang);
+            Put(buf, g, 24, S("blob_" + ((fr + 3) & 3)), cols[3], q.pos + new Vector2(0, 0.1f * r), 0.56f * r, 1, 0);
+        }
+
+        // VỆT BỊ HÚT vào cầu: vệt thuôn (kr_vet đầu tròn +x; thay: streakg) sinh ở `tu`, hiện dần từ trong suốt, bay XOẮN ỐC vào tâm và nhanh dần
+        // (ease-in), chạm vành cầu thì nhập vào (không tắt giữa đường); quá `het` (giờ sân tuyệt đối: cầu đã rời chỗ) thì tắt
+        P HoaHut(Func<float, Vector2> tam, Func<float, float> rt, Vector2 tu, float life, Color col, float chieu, float het, int group = Front)
+        {
+            var o = tu - tam(T);
+            var p = new P
+            {
+                pos = tu, life = life, group = group, seed = rng.Next(2), col = col, R0 = Mathf.Max(8, o.magnitude), ph = Mathf.Atan2(o.y, o.x),
+                tip = chieu * U(1.5f, 2.4f), sz = U(5, 7.5f), launch = het, aim = new Vector2(-o.y, o.x) * chieu
+            };
+            p.upd = (q, dt, s) =>
+            {
+                if (s.T > q.launch)
+                {
+                    q.dead = true;
+                    return;
+                }
+                float k = Mathf.Clamp01(q.age / q.life);
+                float e = k * k * (0.35f + 0.65f * k); // nhanh dần
+                float rho = q.R0 * (1 - e), a = q.ph + q.tip * e;
+                var np = tam(s.T) + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rho;
+                var mv = np - q.pos;
+                if (mv.sqrMagnitude > 1e-4f)
+                {
+                    q.aim = mv;
+                    q.hgt = mv.magnitude / Mathf.Max(1e-4f, dt);
+                }
+                q.pos = np;
+                q.vel = Vector2.zero;
+                if (rho <= rt(s.T) * 0.9f) q.dead = true; // nhập vào cầu
+            };
+            p.draw = (q, k, buf) =>
+            {
+                float a = Mathf.Min(1, k / 0.25f);
+                float len = Mathf.Clamp(q.hgt / 70, 1.3f, 4.2f), ang = VelAng(q.aim);
+                var kv = S("kr_vet_" + (q.seed & 1));
+                if (kv)
+                {
+                    // ảnh kr_vet nằm ngang dài 90 % khung, dày 22 %: khung cao sz / 0,22 cho vệt dày sz, dài sz · len
+                    float h = q.sz / 0.22f, st = 0.244f * len;
+                    Put(buf, q.group, 40, S("kr_vets_" + (q.seed & 1)), Ink, q.pos, h + 3, st * h / (h + 3), ang, a * 0.9f);
+                    Put(buf, q.group, 40.5f, kv, q.col, q.pos, h, st, ang, a);
+                }
+                else
+                {
+                    Put(buf, q.group, 40, S("streakg_" + (q.seed & 1)), q.col, q.pos, q.sz, len, ang, a);
+                    Put(buf, q.group, 40.5f, S("streakg_" + (q.seed & 1)), HoaKem, q.pos + Unit(q.aim) * q.sz * len * 0.18f, q.sz * 0.5f, len * 0.6f, ang, a);
+                }
+            };
+            return Add(p);
+        }
+
+        // VÒNG CO về tâm cầu (không viền mực), hiện dần, co nhanh dần tới vành cầu
+        P HoaVongCo(Func<float, Vector2> tam, float R0, float R1, float life, Color col, int group = Front)
+        {
+            var p = new P { pos = tam(T), life = life, group = group, col = col, R0 = R0, R1 = R1 };
+            p.upd = (q, dt, s) =>
+            {
+                q.pos = tam(s.T);
+                q.vel = Vector2.zero;
+            };
+            p.draw = (q, k, buf) => Put(buf, q.group, 36, S("ring"), q.col, q.pos, 2 * Mathf.Lerp(q.R0, q.R1, k * k), 1, 0, 0.9f * Mathf.Min(1, k / 0.3f));
+            return Add(p);
+        }
+
+        // PHA TỤ CẦU dùng chung (người dùng 2026-11-18: "các skill hút khí / lửa xung quanh tụ cầu xấu"), từ t0 tới tNha (giây từ lúc gọi):
+        // - vệt thuôn xoắn ốc vào tâm, nhanh dần, hiện dần, nhập vào cầu; mật độ tăng dần tới lúc nhả;
+        // - hai vòng co về tâm; cầu (HoaCau) lớn dần theo căn tiến độ, đập ~4 nhịp/giây; 0,07 s trước lúc nhả nén còn 0,78; lúc nhả chớp.
+        // veCau false: cầu là mảnh của rig (Viêm Sư), chỉ vẽ phần hút, rtRig = bán kính cầu của rig; hut: hệ số mật độ vệt (0 = không sinh vệt).
+        // Trả bán kính cầu theo giờ sân tuyệt đối (lưỡi lửa liếm bám vành, cầu bay nhận cỡ).
+        Func<float, float> HoaTuCau(Func<float, Vector2> tam, float R, float t0, float tNha, bool veCau = true, float hut = 1, Func<float, float> rtRig = null)
+        {
+            float a0 = T + t0, a1 = T + tNha;
+            Func<float, float> rt = rtRig ?? (t =>
+            {
+                float nap = Mathf.Clamp01((t - a0) / Mathf.Max(0.05f, a1 - a0));
+                float r = R * (0.25f + 0.75f * Mathf.Sqrt(nap)) * (1 + 0.07f * Mathf.Sin((t - a0) * 26));
+                float con = a1 - t;
+                if (con >= 0 && con < 0.07f) r *= Mathf.Lerp(0.78f, 1, con / 0.07f); // nén 1–2 khung trước lúc nhả
+                return r;
+            });
+            if (veCau) At(t0, () => HoaCau(tam, rt, tNha - t0 + 0.01f));
+            var pc = Pal[Th.pal];
+            float chieu = U(0, 1) < 0.5f ? 1 : -1;
+            if (hut > 0)
+                Every(t0, tNha - 0.05f, x => (22 + 60 * x * x) * hut, x =>
+                {
+                    float a = U(0, 6.28f), rho = rt(T) * U(2.2f, 3.2f) + U(14, 30);
+                    HoaHut(tam, rt, tam(T) + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * rho, U(0.24f, 0.34f), U(0, 1) < 0.5f ? pc[2] : pc[1], chieu, a1 + 0.02f);
+                });
+            for (int i = 0; i < 2; i++)
+                At(t0 + (tNha - t0) * (0.3f + 0.42f * i), () => HoaVongCo(tam, rt(T) * 2.6f + 16, rt(T) * 1.05f, 0.22f, Th.ring2));
+            At(tNha, () => HoaChop(tam(T), 2.4f * (rtRig != null ? rtRig(T) : R), 0.08f));
+            return rt;
+        }
+
+        // ---------- VA CHẠM của tia / luồng lửa ----------
+        // BÔNG VA CHẠM ở chỗ tia chạm thân đối thủ: toé ngược về phía người bắn (ảnh kr_tiadau toé về +x; thay: sao gai nhỏ + ba lưỡi lửa xoè quanh
+        // hướng toé), đổi dáng mỗi 2 khung, cỡ đập; mở 0,06 s, khép 0,1 s cuối đời
+        P HoaBong(Vector2 at, Vector2 ve, float size, float life, int group = Front)
+        {
+            var p = new P { pos = at, aim = Unit(ve), life = life, group = group, sz = size, seed = rng.Next(4), stops = Pal[Th.pal] };
+            p.draw = (q, k, buf) =>
+            {
+                float mo = EaseOut(q.age / 0.06f) * (1 - SmoothStep(Mathf.Max(0, 1 - 0.1f / q.life), 1, k));
+                int fr = (q.seed + (int)(q.age * 15)) & 3;
+                float s = q.sz * mo * (0.88f + 0.16f * Mathf.Sin(q.age * 38));
+                if (s < 2) return;
+                var c = q.stops;
+                int g = q.group;
+                if (S("kr_tiadau_0"))
+                {
+                    // kr_tiadau: gốc toé ở mép trái khung (điểm neo 0,055; 0,5) đặt đúng chỗ chạm, toé ngược về phía người bắn (+x theo q.aim)
+                    float ang = VelAng(q.aim) + 14 * Mathf.Sin(q.age * 23);
+                    var ve = HoaXoay(q.aim, -14 * Mathf.Sin(q.age * 23) * Mathf.Deg2Rad);
+                    Put(buf, g, 33, S("kr_tiadaus_" + fr), Ink, q.pos + ve * 0.445f * (s + 3), s + 3, 1, ang);
+                    for (int i = 0; i < 4; i++)
+                    {
+                        float w = s * LobeF[i + 1];
+                        Put(buf, g, 33.1f + 0.1f * i, S("kr_tiadau_" + fr), c[i], q.pos + ve * 0.445f * w, w, 1, ang);
+                    }
+                    return;
+                }
+                for (int i = 0; i < 4; i++) // ba lưỡi lửa xoè (giữa dài, hai bên ngắn), mực trước, màu từ ngoài vào lõi
+                    for (int j = -1; j <= 1; j++)
+                    {
+                        var d = HoaXoay(q.aim, j * (0.85f + 0.12f * Mathf.Sin(q.age * 31 + j)));
+                        float L = s * (j == 0 ? 0.7f : 0.52f) * (i == 0 ? 1 : LobeF[i]);
+                        Put(buf, g, 33 + 0.1f * i, S((i == 0 ? "lobes_" : "lobe_") + ((fr + j + 1) & 3)), i == 0 ? Ink : c[i - 1], q.pos + d * s * 0.22f,
+                            L + (i == 0 ? 5 : 0), 1, TipAngle(d));
+                    }
+                Put(buf, g, 33.5f, S("bursts_" + fr), Ink, q.pos, s * 0.5f + 5, 1, q.age * 300);
+                Put(buf, g, 33.6f, S("burst_" + fr), c[2], q.pos, s * 0.5f, 1, q.age * 300);
+                Put(buf, g, 33.7f, S("burst_" + fr), c[3], q.pos, s * 0.3f, 1, q.age * 300);
+            };
+            return Add(p);
+        }
+
+        // KHÓI ĐUÔI theo QUÃNG đạn đã đi (KR5: số hạt theo quãng đường nên đuôi liền dù đạn nhanh): cứ khoảng 1,4 bán kính một cụm khói nhỏ đứng
+        // tại chỗ (sau tướng, đáy còn lõi lửa nguội), các cụm chồng mép nhau thành một vệt; pos(giờ sân tuyệt đối) là chỗ sinh
+        void HoaDuoiKhoi(Func<float, Vector2> pos, float t0, float t1, float R0, float R1)
+        {
+            var truoc = new Vector2(float.NaN, 0);
+            float buoc = 0.7f * (R0 + R1); // cụm sau chồng nửa cụm trước
+            Every(t0, t1, 120, x =>
+            {
+                var p = pos(T);
+                if (!float.IsNaN(truoc.x) && (p - truoc).sqrMagnitude < buoc * buoc) return;
+                truoc = p;
+                HoaKhoi(p + U2(-3, 3), U(R0, R1), Back, new Vector2(U(-12, 12), U(-34, -14)), U(0.5f, 0.7f), false, 0.7f);
+            });
+        }
+
+        // LỬA BÁM trên thân đối thủ sau cú trúng (KR5 "mod"): ảnh chùm 3–5 ngọn lửa con kr_luachum (mực + cam, rồi lớp vàng kr_luachuml cùng khung),
+        // đổi khung 15 hình/giây, phập phồng, nhỏ dần rồi tắt, vài giọt lửa tách bay lên; chưa có ảnh thì lưỡi lửa chữ S sinh liên tục tại chỗ
+        void HoaLuaBam(Vector2 at, float r, float dai, int group = Front)
+        {
+            if (S("kr_luachum_0"))
+            {
+                var p = new P { pos = at, life = dai, group = group, seed = rng.Next(4), sz = r * 2.6f, stops = Pal[Th.pal] };
+                p.draw = (q, k, buf) =>
+                {
+                    int fr = (q.seed + (int)(q.age * 15)) & 3;
+                    float s = q.sz * Mathf.Min(1, q.age / 0.08f) * (1 - 0.55f * SmoothStep(0.5f, 1, k)) * (1 + 0.06f * Mathf.Sin(q.age * 30));
+                    float a = 1 - SmoothStep(0.85f, 1, k);
+                    if (s < 2 || a < 0.03f) return;
+                    var pos = q.pos - new Vector2(0, s * 0.42f); // chân chùm ở `at`
+                    Put(buf, q.group, 22, S("kr_luachums_" + fr), Ink, pos, s + 3, 1, 0, a);
+                    Put(buf, q.group, 22.3f, S("kr_luachum_" + fr), q.stops[1], pos, s, 1, 0, a);
+                    Put(buf, q.group, 22.6f, S("kr_luachuml_" + fr), q.stops[2], pos, s, 1, 0, a);
+                };
+                Add(p);
+                Every(0.1f, dai * 0.8f, 4, x => HoaLuoi(Flame(at + new Vector2(U(-0.3f, 0.3f) * r, -U(0.6f, 1f) * r), new Vector2(U(-15, 15), -U(60, 110)),
+                    U(0.2f, 0.3f), r * 0.2f, r * 0.35f, "tron", Th.pal, group, 2, -200, 1.5f, 0, 0), 1, 0.8f, 0));
+                return;
+            }
+            Every(0, dai, x => 9 * (1 - 0.6f * x), x =>
+                HoaLuoi(Flame(at + U2(-4, 4), new Vector2(U(-14, 14), -U(40, 90)), U(0.24f, 0.34f), r * 0.45f, r * (1 - 0.4f * x), "tron", Th.pal, group, 2,
+                    -200, 1.5f, 0, 0), 1, 0.7f, 0));
+        }
+
         // Hỏa Cung (cung_lua, suất kim_su): chiêu mana bắn ba mũi tên CỦA RIG (xương far / fly_*), gọi đúng khung tên tới nên chỉ làm ba
         // chớp nổ nhỏ so le ở thân đối thủ (giữa, trên, dưới: đúng chỗ ba mũi tên găm); trả 0 vì đã trúng.
-        public float TenNo(Vector2 body, float tH)
+        public float TenNo(Vector2 body, float tH, Vector2? tu = null, Vector2? dat = null)
         {
-            Shake?.Invoke(0.18f);
-            Explode(body, 0.5f, tH);
-            At(0.05f, () => Explode(body + new Vector2(0, -0.09f * tH), 0.38f, tH));
-            At(0.1f, () => Explode(body + new Vector2(0, 0.09f * tH), 0.38f, tH));
+            float dir = tu.HasValue && tu.Value.x > body.x ? -1 : 1; // hướng tên bay (từ người bắn tới đối thủ)
+            Shake?.Invoke(0.2f);
+            var cho = new[] { body, body + new Vector2(0, -0.1f * tH), body + new Vector2(-dir * 0.04f * tH, 0.1f * tH) };
+            for (int i = 0; i < 3; i++)
+            {
+                var c = cho[i];
+                bool dau = i == 0;
+                At(0.05f * i, () =>
+                {
+                    HoaTrung?.Invoke(c, dau ? 0.5f : 0.3f);
+                    HoaNo(c, dau ? 0.5f : 0.36f, tH, dau ? dat : null);
+                    // lửa toé tiếp theo hướng tên (quạt ba lưỡi, hai lưỡi bên sau lưng đối thủ), tia văng ngược về phía người bắn
+                    for (int j = 0; j < 3; j++)
+                    {
+                        var d = new Vector2(dir * Mathf.Cos((j - 1) * 0.45f), Mathf.Sin((j - 1) * 0.45f) - 0.25f);
+                        HoaLuoi(Flame(c + d * 4, d * U(200, 320), U(0.22f, 0.3f), 6, U(12, 16), "tron", Th.pal, j == 1 ? Front : Back, 4, -160, 1.5f, 0, 0), 1,
+                            0.2f, 0);
+                    }
+                    if (dau)
+                        for (int j = 0; j < 3; j++) Spark(c, new Vector2(-dir * U(0.4f, 1f), U(-0.8f, 0.4f)), U(220, 380), 0, 6);
+                    HoaLuaBam(c + new Vector2(0, -4), dau ? 13 : 10, 0.7f); // lửa còn bám chỗ tên găm (KR5 "mod")
+                });
+            }
+            At(0.32f, () => HoaKhoi(body + new Vector2(0, -0.2f * tH), 0.14f * tH, Back, null, 1.1f));
             return 0;
         }
 
@@ -935,30 +1515,33 @@ namespace PokiClash
 
         public float Breath(Vector2 mouth, Vector2 target, float tH, bool swirl)
         {
-            // người dùng 2026-11-10: lửa phun phải hợp nét tranh tướng -> lưỡi lửa vẽ tay (ngọn quặp, sọc màu, vân chì đậm)
-            string style = "luoi", pal = Th.pal;
+            // người dùng 2026-11-10: lửa phun phải hợp nét tranh tướng -> lưỡi lửa vẽ tay; 2026-11-18: lưỡi chữ S (krl), luồng dừng ở MẶT TRƯỚC thân
+            // đối thủ và toé dạt quanh thân (bông va chạm), khói thành cụm
+            string style = "krl", pal = Th.pal;
             var dd = target - mouth;
             float dist = dd.magnitude;
             var u = dd / Mathf.Max(1, dist);
             var nrm = new Vector2(-u.y, u.x);
             var up = nrm.y < 0 ? nrm : -nrm;
-            const float T0 = 0.28f, T1 = 1.18f, Hit = 34;
-            Every(0, 0.2f, 40, x =>
+            const float T0 = 0.28f, T1 = 1.18f;
+            float Hit = Mathf.Max(34, 0.26f * tH);
+            var cham = mouth + u * (dist - Hit);
+            float chieu = U(0, 1) < 0.5f ? 1 : -1;
+            // lấy hơi: vệt thuôn xoắn ốc vào miệng, nhanh dần
+            Every(0, 0.22f, 36, x =>
             {
                 float a = U(0, 6.28f);
-                var pos = mouth + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(55, 80);
-                var e = Ember(pos, (mouth - pos) * 2.2f, 0.24f, 8);
-                e.upd = (q, dt, s) => q.vel *= 1 + 3 * dt;
+                HoaHut(t => mouth, t => 7, mouth + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(50, 82), U(0.18f, 0.24f), Pal[pal][U(0, 1) < 0.5f ? 1 : 2], chieu,
+                    T + 0.3f);
             });
-            Every(0.06f, T0, 30, x => Flame(mouth + U2(-4, 4), u * 25, 0.22f, 4, 10 + 26 * x, style, pal, Front, 1.8f, -320, 1, 0));
+            Every(0.06f, T0, 30, x => Flame(mouth + U2(-4, 4), u * 25, 0.22f, 4, 10 + 26 * x, style, pal, Front, 1.8f, -320, 1, 0, 0));
             Every(T0, T1, x => 95 * (x < 0.11f ? 1.5f : 1f) * Mathf.Min(1, (1 - x) * (T1 - T0) / 0.16f), x =>
             {
                 float a = U(-1, 1) * 12 * Mathf.Deg2Rad;
                 var dv = u * Mathf.Cos(a) + nrm * Mathf.Sin(a);
                 float ramp = Mathf.Min(1, x * (T1 - T0) / 0.08f);
                 var p = Flame(mouth + dv * U(0, 8), dv * U(1200, 1400), U(0.4f, 0.52f), U(13, 16), U(28, 36) * (0.8f + 0.2f * ramp), style, pal,
-                    Front, 1.8f, -320, 1, 0.3f);
-                p.smokeGroup = Back;
+                    Front, 1.8f, -320, 1, 0, 0);
                 p.upd = (q, dt, s) =>
                 {
                     float k = q.age / q.life;
@@ -968,94 +1551,98 @@ namespace PokiClash
                         q.hit = true;
                         float vu = Vector2.Dot(q.vel, u);
                         float side = Vector2.Dot(q.pos - mouth, nrm) >= 0 ? 1 : -1;
-                        q.vel += -u * vu * 0.92f + nrm * side * Mathf.Abs(vu) * U((System.Random)q.rng, 0.15f, 0.32f);
+                        q.vel += -u * vu * 0.92f + nrm * side * Mathf.Abs(vu) * U((System.Random)q.rng, 0.18f, 0.36f);
                         float rNow = q.r0 + (q.r1 - q.r0) * Mathf.Pow(EaseOut(k / 0.75f), 0.8f);
                         q.life = Mathf.Min(q.life, q.age + U((System.Random)q.rng, 0.1f, 0.16f));
                         q.r1 = Mathf.Min(q.r1, rNow * 1.05f);
                         q.r0 = Mathf.Min(q.r0, q.r1);
                         q.acc = Vector2.zero;
+                        q.group = q.rng.NextDouble() < 0.55 ? Back : Front; // dạt quanh viền thân, không trùm mặt đối thủ
                     }
                 };
             });
-            Every(T0, T1, 14, x =>
+            // khói thành cụm từ mép trên luồng (sau tướng)
+            Every(T0, T1, 4.5f, x =>
             {
                 if (x < 0.12f) return;
                 float f = U(0.45f, 0.95f);
-                Smoke(mouth + u * dist * f + up * U(14, 26) * (0.6f + f), new Vector2(U(-30, 30), U(-70, -40)) - u * 20, 0,
-                    6 * (0.8f + 0.5f * f), 18 * (0.8f + 0.5f * f), Back);
+                HoaKhoi(mouth + u * dist * f + up * U(18, 30) * (0.6f + f), U(11, 15) * (0.8f + 0.4f * f), Back, new Vector2(U(-20, 20), U(-60, -36)) - u * 16);
             });
-            Every(T0, T1, 14, x =>
+            Every(T0, T1, 8, x =>
             {
                 float f = U(0.25f, 0.8f), sd = U(0, 1) < 0.5f ? -1 : 1;
                 var pos = mouth + u * dist * f + nrm * sd * U(18, 30) * (0.5f + f);
-                Spark(pos, u * U(0.5f, 1) + nrm * sd * U(0.4f, 0.9f) + new Vector2(0, -0.3f), U(260, 420));
+                Spark(pos, u * U(0.5f, 1) + nrm * sd * U(0.4f, 0.9f) + new Vector2(0, -0.3f), U(260, 420), 0, 7);
             });
             if (swirl || Th.extra == "may") // Lân Hỏa, Ngưu Quyền: mây xoắn vàng bay dọc luồng
                 Every(T0 + 0.1f, T1, 10, x => Extra(mouth + u * dist * U(0.3f, 0.9f) + up * U(10, 30), 1, 120));
             float tHit = T0 + 0.24f;
+            // VA CHẠM: chớp + bông lửa toé ngược ở mặt trước thân suốt luồng, lửa dạt dọc mặt thân, đối thủ chớp theo nhịp
             At(tHit, () =>
             {
                 Shake?.Invoke(0.25f);
-                for (int i = 0; i < 5; i++)
+                HoaChop(cham, 0.36f * tH, 0.09f);
+                HoaBong(cham, -u, 0.5f * tH, T1 - tHit + 0.06f);
+                for (int i = 0; i < 4; i++)
                 {
                     float a = Mathf.Atan2(-u.y, -u.x) + U(-1.4f, 1.4f);
-                    Spark(target + U2(-10, 10), new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f), U(250, 460));
+                    Spark(target + U2(-10, 10), new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f), U(250, 460), 0, 7);
                 }
-                Extra(target, 4, 300);
+                Extra(target, 3, 300);
             });
+            Every(tHit, T1, 20, x =>
+            {
+                float sd = U(0, 1) < 0.5f ? -1 : 1;
+                var v = (-u * U(0.15f, 0.55f) + nrm * sd * U(0.7f, 1f) + new Vector2(0, -0.35f)) * U(260, 420);
+                HoaLuoi(Flame(cham + nrm * sd * U(4, 14), v, U(0.2f, 0.28f), 7, U(14, 19), "tron", pal, U(0, 1) < 0.5f ? Back : Front, 3.5f, -200, 1.4f, 0, 0), 1,
+                    0.3f, 0.06f);
+            });
+            Every(tHit, T1, 5, x => HoaTrung?.Invoke(target, 0.3f));
             At(T1 - 0.05f, () =>
             {
-                for (int i = 0; i < 4; i++) Smoke(mouth + u * dist * U(0.45f, 0.8f) + U2(-18, 18), null, 0, 8, 22, Back);
-                for (int i = 0; i < 8; i++) Ash(target + U2(-30, 30));
+                for (int i = 0; i < 2; i++) HoaKhoi(mouth + u * dist * U(0.5f, 0.85f) + up * U(10, 22), U(14, 18), Back);
+                HoaKhoi(cham + new Vector2(0, -0.2f * tH), U(15, 19), Back, null, 0, true, 0.6f);
+                for (int i = 0; i < 4; i++) Ash(target + U2(-30, 30));
             });
             return tHit;
         }
 
-        public float Fireball(Vector2 mouth, Vector2 tgt, float tH)
+        public float Fireball(Vector2 mouth, Vector2 tgt, float tH, Vector2? dat = null)
         {
-            const float T0 = 0.3f, TT = 0.45f;
+            const float T0 = 0.3f, TT = 0.45f, R = 19;
             var d = Unit(tgt - mouth);
+            var nd = new Vector2(-d.y, d.x);
+            float dir = tgt.x >= mouth.x ? 1 : -1;
             Vector2 Path(float t)
             {
                 float x = Mathf.Clamp01((t - T0) / TT);
                 return mouth + (tgt - mouth) * x + new Vector2(0, -40) * Mathf.Sin(Mathf.PI * x);
             }
             float t0 = T;
-            Every(0, T0 - 0.05f, 45, x =>
+            // tụ (2026-11-18): vệt xoắn ốc hút vào, hai vòng co, cầu nhiều múi lớn dần theo nhịp đập, nén rồi chớp lúc nhả
+            var rt = HoaTuCau(t => mouth, R, 0.02f, T0);
+            Every(0.1f, T0 - 0.03f, x => 8 + 16 * x, x =>
             {
-                float a = U(0, 6.28f);
-                var pos = mouth + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(45, 70);
-                var e = Ember(pos, (mouth - pos) * 2.4f, 0.22f, 8);
-                e.upd = (q, dt, s) => q.vel *= 1 + 3 * dt;
+                float r = rt(T), a = U(0, 6.28f);
+                var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+                HoaLuoi(Flame(mouth + o * r * 0.6f, o * U(20, 60) + new Vector2(0, -U(40, 90)), U(0.16f, 0.24f), r * 0.3f, r * 0.5f, "tron", Th.pal, Front, 3,
+                    -160, 1.5f, 0, 0), 1, 0.5f, 0);
             });
-            Every(0.04f, T0, 50, x => Flame(mouth + U2(-3, 3), d * 20, 0.14f, 6, 8 + 14 * x, "tron", Th.pal, Front, 1.8f, -320, 1.8f, 0));
-            Every(T0, T0 + TT, 150, x =>
+            // bay: khối cầu bám đường bay; đuôi lưỡi lửa đứng tại chỗ nguội dần (KR5); khói đuôi thành cụm
+            At(T0, () => HoaCau(t => Path(t - t0), t => R * (1 + 0.06f * Mathf.Sin(t * 40)), TT + 0.01f));
+            Every(T0, T0 + TT, 50, x =>
             {
-                var q = Flame(Path(T - t0), Vector2.zero, U(0.12f, 0.18f), 13, U(17, 21), "tron", Th.pal, Front, 0, 0, 1.9f, 0, 0);
-                q.off = U2(-6, 6);
-                q.drift = U2(-40, 40);
-                q.upd = (z, dt, s) =>
-                {
-                    z.off += z.drift * dt;
-                    var now = Path(s.T - t0);
-                    z.vel = (Path(s.T - t0 + 0.01f) - now) / 0.01f * 0.15f;
-                    z.pos = now + z.off - z.vel * dt;
-                };
-            });
-            Every(T0, T0 + TT, 60, x =>
-            {
-                var q = Flame(Path(T - t0) - d * 4 + U2(-7, 7), -d * U(60, 130) + new Vector2(-d.y, d.x) * U(-70, 70) + new Vector2(0, -20),
-                    U(0.18f, 0.26f), 17, 17, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0.04f);
-                Tongue(q, 1, 0.2f);
+                var q = Flame(Path(T - t0) - d * 6 + U2(-6, 6), -d * U(50, 120) + nd * U(-60, 60) + new Vector2(0, -20), U(0.2f, 0.27f), 15, 15, "tron", Th.pal,
+                    Front, 3, -140, 1.4f, 0, 0);
+                HoaLuoi(q, 1, 0.2f, 0);
                 q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
             });
-            Every(T0 + 0.03f, T0 + TT, 55, x => Smoke(Path(T - t0) - d * 22 + U2(-4, 4), new Vector2(U(-12, 12), U(-30, -10)), U(0.7f, 1.0f), 9,
-                U(15, 19), Front, "fire", 0.1f));
-            Every(T0, T0 + TT, 25, x => Spark(Path(T - t0), -d + U2(-0.6f, 0.6f), U(140, 260)));
+            HoaDuoiKhoi(t => Path(t - t0) - d * 22, T0 + 0.03f, T0 + TT, 11, 14); // khói đuôi theo quãng bay: liền dù cầu bay nhanh
+            Every(T0, T0 + TT, 12, x => Spark(Path(T - t0), -d + U2(-0.6f, 0.6f), U(140, 260), 0, 6));
             At(T0 + TT, () =>
             {
                 Shake?.Invoke(0.45f);
-                Explode(tgt, 0.85f, tH);
+                HoaCauNo(tgt, dat ?? tgt + new Vector2(0, 0.42f * tH), tH, dir, 0.85f);
             });
             return T0 + TT;
         }
@@ -1065,9 +1652,9 @@ namespace PokiClash
         void KimLua(Vector2 home, Vector2 aim, int span, float launch, float speed, Color[] cols, float[] fr, float[] ext, float LEN)
         {
             var q = new P { pos = home, life = 3, seed = 0, home = home, aim = aim, span = span, launch = launch };
-            for (int k = 0; k < 3; k++)
-                Flame(home + U2(-6, 6), new Vector2(U(-30, 30), U(-70, -30)), 0.22f, 5, 11, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0);
-            Ember(home, null, 0, 7);
+            for (int k = 0; k < 2; k++)
+                HoaLuoi(Flame(home + U2(-6, 6), new Vector2(U(-30, 30), U(-70, -30)), 0.22f, 5, 11, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0, 0), 1, 0.6f, 0);
+            HoaTan(home, new Vector2(0, -70), 0, 2);
             q.upd = (z, dt, s) =>
             {
                 if (!z.fly)
@@ -1075,7 +1662,7 @@ namespace PokiClash
                     z.pos = z.home + new Vector2(0, 3.5f * Mathf.Sin(z.age * 7 + z.span));
                     z.vel = (z.aim - z.pos) * 0.001f;
                     if (s.U(0, 1) < 0.12f)
-                        s.Flame(z.pos + s.U2(-8, 8), new Vector2(s.U(-15, 15), s.U(-80, -40)), 0.25f, 4, 9, "nhon", Th.pal, Front, 1.8f, -320, 1.7f, 0, 0.1f);
+                        s.Flame(z.pos + s.U2(-8, 8), new Vector2(s.U(-15, 15), s.U(-80, -40)), 0.25f, 4, 9, "nhon", Th.pal, Front, 1.8f, -320, 1.7f, 0, 0);
                     if (s.T >= z.launch)
                     {
                         z.fly = true;
@@ -1142,20 +1729,17 @@ namespace PokiClash
         void NeedleHit(Vector2 p, Vector2 d)
         {
             Shake?.Invoke(0.14f);
-            var f = new P { pos = p, life = 0.06f };
-            f.draw = (q, k, buf) =>
-            {
-                Put(buf, Front, 30, S("solid_0"), Ink, q.pos, 31);
-                Put(buf, Front, 31, S("blob_0"), C(254, 244, 214), q.pos, 26);
-            };
-            Add(f);
+            HoaTrung?.Invoke(p, 0.25f);
+            HoaChop(p, 30, 0.08f);
+            float a0 = Mathf.Atan2(-d.y, -d.x);
             for (int i = 0; i < 3; i++)
             {
-                float a = U(0, 6.28f);
-                Tongue(Flame(p, new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * 150, 0.26f, 7, 13, "tron", Th.pal, Front, 4, -320, 1.6f, 0.25f), 1, 0.2f);
+                float a = a0 + U(-1.2f, 1.2f); // toé ngược về phía kim tới
+                HoaLuoi(Flame(p, new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * 150, 0.26f, 7, 13, "tron", Th.pal, Front, 4, -320, 1.6f, 0, 0), 1, 0.2f, 0);
             }
-            for (int i = 0; i < 5; i++) Spark(p, -d + U2(-0.9f, 0.9f), U(200, 380), 0, 7);
-            Extra(p, 2, 260);
+            for (int i = 0; i < 4; i++) Spark(p, -d + U2(-0.9f, 0.9f), U(200, 380), 0, 6);
+            if (U(0, 1) < 0.5f) HoaKhoi(p + new Vector2(0, -6), U(8, 11), Back, null, U(0.7f, 0.9f), false);
+            Extra(p, 1, 260);
         }
 
         public float LavaBall(Vector2 mouth, Vector2 foeFeet, float tH, float casterGround)
@@ -1302,47 +1886,56 @@ namespace PokiClash
 
         public float Eruption(Vector2 foeFeet, float tH)
         {
+            // 2026-11-18 (người dùng chê dung nham là cầu tròn): cột là cụm dung nham mềm kéo đuôi (krn) sau lưng đối thủ, giọt văng là giọt lệ, phần lớn
+            // rơi phía sau; báo trước 0,42 s bằng vết nứt + khói mảnh; trào: chớp sát đất, vòng cung dẹt, vệt cháy, khói tách cụm bay lên
             float gy = foeFeet.y;
             var pre = new P { pos = foeFeet + new Vector2(0, 2), life = 0.45f, group = Floor, sz = tH };
             pre.draw = (q, k, buf) => Put(buf, Floor, 1, S("crack_0"), Color.white, q.pos, 1.5f * q.sz * 0.42f * (0.3f + 0.7f * EaseOut(q.age / 0.3f)), 1 / 0.42f);
             Add(pre);
             Shake?.Invoke(0.15f);
-            Every(0.05f, 0.42f, 22, x => LavaDrop(foeFeet + new Vector2(U(-0.45f, 0.45f) * tH, U(-6, 6)), new Vector2(U(-30, 30), -U(100, 180)), U(3, 5),
+            Every(0.05f, 0.42f, 14, x => LavaDrop(foeFeet + new Vector2(U(-0.45f, 0.45f) * tH, U(-6, 6)), new Vector2(U(-30, 30), -U(100, 180)), U(2.5f, 4),
                 gy + U(-6, 8)));
+            Every(0.12f, 0.42f, 5, x => HoaKhoi(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -4), U(6, 9), Back, new Vector2(U(-10, 10), -U(40, 70)),
+                U(0.5f, 0.7f), false));
             At(0.42f, () =>
             {
                 Shake?.Invoke(0.6f);
                 FlashScreen?.Invoke(new Color(1, 0.9f, 0.7f, 0.18f));
+                HoaTrung?.Invoke(foeFeet + new Vector2(0, -0.4f * tH), 0.6f);
                 Crater(foeFeet + new Vector2(0, 6), 30, 1.65f, tH);
-                Extra(foeFeet + new Vector2(0, -20), 6, 380);
+                HoaChop(foeFeet + new Vector2(0, -0.08f * tH), 0.42f * tH, 0.09f);
+                HoaCung(foeFeet + new Vector2(0, 2), 0.15f * tH, 1.0f * tH, 0.5f, Th.ring);
+                HoaVetChay(foeFeet + new Vector2(0, 2), 0.9f * tH);
+                Extra(foeFeet + new Vector2(0, -20), 4, 380);
                 for (int w = 0; w < 2; w++)
                 {
-                    int n = w == 0 ? 14 : 8;
+                    int n = w == 0 ? 10 : 6;
                     At(w * 0.1f, () =>
                     {
                         for (int i = 0; i < n; i++)
                         {
-                            float a = (-90 + U(-32, 32)) * Mathf.Deg2Rad;
-                            LavaDrop(foeFeet + new Vector2(U(-0.2f, 0.2f) * tH, -4), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(320, 560), U(8, 12),
-                                gy + U(-10, 18), U(0, 1) < 0.5f ? Front : Back);
+                            float a = (-90 + U(-34, 34)) * Mathf.Deg2Rad;
+                            LavaDrop(foeFeet + new Vector2(U(-0.2f, 0.2f) * tH, -4), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(320, 560), U(6, 9),
+                                gy + U(-10, 18), U(0, 1) < 0.3f ? Front : Back);
                         }
                     });
                 }
-                for (int i = 0; i < 6; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     float a = (-90 + U(-55, 55)) * Mathf.Deg2Rad;
                     Rock(foeFeet + new Vector2(0, -6), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(380, 680), gy + U(-14, 22));
                 }
             });
-            Every(0.42f, 0.82f, 90, x =>
+            Every(0.42f, 0.82f, 55, x =>
             {
                 var v = new Vector2(U(-60, 60), -U(640, 880) * (1 - 0.4f * x));
-                float r = U(20, 28) * (1 - 0.3f * x);
-                var q = Flame(foeFeet + new Vector2(U(-0.14f, 0.14f) * tH, -2), v, U(0.7f, 0.85f), r * 0.6f, r, "tron", "nham", Back, 0.6f, 1500, 1.5f, 0.15f);
+                float r = U(19, 27) * (1 - 0.3f * x);
+                var q = Flame(foeFeet + new Vector2(U(-0.14f, 0.14f) * tH, -2), v, U(0.6f, 0.72f), r * 0.6f, r, "krn", "nham", Back, 0.6f, 1500, 1.5f, 0, 0);
                 q.stretchK = 700;
                 q.sizeFn = (z, k) => (z.r0 + (z.r1 - z.r0) * Mathf.Min(1, k / 0.3f)) * (1 - Mathf.Max(0, (k - 0.75f) / 0.25f));
             });
-            Every(0.5f, 1.3f, 7, x => Smoke(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.3f, 1.0f) * tH), new Vector2(U(-40, 40), -U(60, 110)), 0, 10, 26, Back));
+            Every(0.5f, 1.3f, 3.5f, x => HoaKhoi(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.5f, 1.0f) * tH), U(14, 19), Back,
+                new Vector2(U(-30, 30), -U(60, 100)), U(1.0f, 1.3f)));
             return 0.42f;
         }
 
@@ -1446,9 +2039,9 @@ namespace PokiClash
                 "kim" => Needles(casterFeet, casterH, casterH * 1.1f, foeBody, tH),
                 "nham" => LavaBall(mouth, foeFeet, tH, casterFeet.y),
                 "tia_mat" => TiaMat(mouth, foeBody, tH), // Hỏa Nhãn (HatNhan.cs): tia lửa từ con ngươi
-                "ten" => TenNo(foeBody, tH), // Hỏa Cung: ba mũi tên là mảnh của rig (game lái tới đối thủ), ở đây chỉ nổ lúc tên tới
+                "ten" => TenNo(foeBody, tH, casterFeet, foeFeet), // Hỏa Cung: ba mũi tên là mảnh của rig (game lái tới đối thủ), ở đây chỉ nổ lúc tên tới
                 "dat_trao" => Eruption(foeFeet, tH), // Viêm Đao: bổ đao cắm xuống đất, dung nham trào lên dưới chân đối thủ
-                _ => Fireball(mouth, foeBody, tH),
+                _ => Fireball(mouth, foeBody, tH, foeFeet),
             };
 
         // chiêu cuối theo mã ("thien_thach", "phun_nham", "loc_xoay", "no_lon"); fromSide: phía con ra chiêu so với đối thủ (-1 trái, 1 phải)
@@ -1465,31 +2058,34 @@ namespace PokiClash
         // nổ lớn: vòng lửa loang dưới chân, cột lưỡi lửa vọt lên ôm thân (phần lớn sau lưng), rồi chớp sao gai nổ ở thân, nổ phụ
         public float BigBurst(Vector2 feet, Vector2 body, float tH)
         {
+            // 2026-11-18: vòng cung dẹt + vết nứt báo trên đất, cột lưỡi lửa chữ S ôm thân (phần lớn sau lưng), nổ KR5 (khói hai tông tách cụm, lưỡi
+            // liềm, vệt cháy) ở 0,18 s, nổ phụ 0,34 s, khói thành cụm bay lên
             float rx = 0.34f * tH;
             Shake?.Invoke(0.3f);
-            Ring(feet + new Vector2(0, 2), 0.4f, 0.15f * tH, 0.95f * tH, Th.ring);
+            HoaCung(feet + new Vector2(0, 2), 0.15f * tH, 0.95f * tH, 0.45f, Th.ring);
             var cr = new P { pos = feet + new Vector2(0, 2), life = 1.3f, group = Floor, seed = rng.Next(4), sz = tH };
             cr.draw = (q, k, buf) => Put(buf, Floor, 1, S("crack_" + q.seed), Color.white, q.pos, 1.3f * q.sz * 0.42f * Mathf.Min(1, q.age / 0.15f),
                 1 / 0.42f, 0, Mathf.Min(1, (1 - k) / 0.3f));
             Add(cr);
-            Every(0, 0.5f, x => 120 * (1 - 0.5f * x), x =>
+            Every(0, 0.5f, x => 80 * (1 - 0.5f * x), x =>
             {
                 float th = U(0, 6.28f);
                 bool front = Mathf.Sin(th) > 0.35f;
                 var q = Flame(feet + new Vector2(rx * Mathf.Cos(th), 12 * Mathf.Sin(th) - 4), new Vector2(Mathf.Cos(th) * 40, -U(420, 640)), U(0.32f, 0.5f), 9,
-                    U(20, 28) * (front ? 0.6f : 1), "tron", Th.pal, front ? Front : Back, 2.2f, -200, 1.7f, 0.1f, 0.15f);
-                Tongue(q, 1, 0.5f);
-                q.smokeGroup = Back;
+                    U(20, 28) * (front ? 0.6f : 1), "tron", Th.pal, front ? Front : Back, 2.2f, -200, 1.7f, 0, 0);
+                HoaLuoi(q, 1, 0.5f, 0.06f);
             });
             At(0.18f, () =>
             {
                 Shake?.Invoke(0.5f);
-                Explode(body, 1.15f, tH);
+                HoaTrung?.Invoke(body, 0.8f);
+                HoaNo(body, 1.15f, tH, feet);
             });
-            At(0.34f, () => Explode(body + new Vector2(U(-22, 22), U(-28, 0)), 0.7f, tH));
+            At(0.34f, () => HoaNo(body + new Vector2(U(-22, 22), U(-28, 0)), 0.65f, tH));
             At(0.5f, () =>
             {
-                for (int i = 0; i < 5; i++) Smoke(body + new Vector2(U(-30, 30), -U(30, 70)), null, 0, 10, 24, Back);
+                for (int i = 0; i < 2; i++)
+                    HoaKhoi(body + new Vector2(U(-30, 30), -U(40, 70)), U(0.16f, 0.2f) * tH, Back, new Vector2(U(-25, 25), -U(50, 80)), U(1.1f, 1.4f));
             });
             return 0.18f;
         }

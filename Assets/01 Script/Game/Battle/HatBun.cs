@@ -12,7 +12,7 @@
 //   khỏi chỗ bụng lồi); 22 gai đâm xuyên (bụi đá ở mũi từng gai; khung trúng ở đợt một); rút gai; phụt bùn hiện lại; ọe; NHỔ: bùn phun khỏi
 //   hàm (vệt bùn bám theo đối thủ bay về chỗ: StageView gọi BunNhoBay); bùn rớt lúc bay lùi; đáp.
 // - Ra sân (StageViewNuot.RaSanFx): cục đất chạm đất hai lần (toé đất), bung thành tướng (phụt bùn).
-// Hình hệ Thổ (skill-petclash mục 5) + chất bùn: cục bùn tròn méo, giọt bùn kéo theo hướng bay, chạm đất bẹp thành vết bùn rồi mờ (không nảy
+// Hình hệ Thổ (vfx-petclash mục 5) + chất bùn: cục bùn tròn méo, giọt bùn kéo theo hướng bay, chạm đất bẹp thành vết bùn rồi mờ (không nảy
 // như sỏi); đá xám (gai, nắm đấm) văng thì nảy một lần rồi nằm; bụi tròn be. Màu bùn lấy theo chân dung (sô-cô-la, bụng nâu sáng).
 using System;
 using System.Collections.Generic;
@@ -56,8 +56,8 @@ namespace PokiClash
             2.34f, -14, 0.62f, 2.37f, 165, 0.55f, 2.37f, 69, 0.58f, 2.40f, -154, 0.45f, 2.44f, 132, 0.66f,
         };
 
-        // ---- màu bùn (theo chân dung: sô-cô-la, bụng nâu sáng) ----
-        static readonly Color BunSam = C(96, 52, 30), BunC = C(140, 82, 50), BunSang = C(186, 128, 82), BunKem = C(222, 180, 128);
+        // ---- màu bùn (theo chân dung: sô-cô-la, bụng nâu sáng); nâng sáng một nấc (người dùng 2026-11-18: "màu tươi hơn") ----
+        static readonly Color BunSam = C(116, 64, 34), BunC = C(162, 96, 56), BunSang = C(210, 148, 90), BunKem = C(238, 200, 144);
         static readonly Color[] BunW = { Ink, BunSam, BunC, BunSang, BunKem };
 
         // ================= vật liệu bùn =================
@@ -105,18 +105,61 @@ namespace PokiClash
             Add(p);
         }
 
-        // giọt bùn: giọt lệ kéo theo hướng bay (ảnh giọt nhuộm bùn), rơi, chạm đất bẹp thành vết bùn
+        // giọt bùn: giọt lệ KÉO DÀI theo vận tốc (ảnh kr_nhamgiot đầu tròn +x; dự phòng ảnh giọt nhuộm bùn), rơi, chạm đất bẹp thành vết bùn
         void DrawBunGiot(P p, float k, List<Item> buf)
         {
             float s = 2.4f * p.sz * (1 - SmoothStep(0.85f, 1, k));
             if (s < 1) return;
             float sp = p.vel.magnitude;
             var d = sp > 5 ? p.vel / sp : new Vector2(0, 1);
-            float ang = TipAngle(-d);
             int i = p.seed & 3;
-            Put(buf, p.group, 40, S("drops_" + i), Ink, p.pos, s + 4, 1, ang);
-            Put(buf, p.group, 40.3f, S("drop_" + i), BunC, p.pos, s, 1, ang);
-            Put(buf, p.group, 40.6f, S("drop_" + i), BunSang, p.pos + d * s * 0.12f, s * 0.48f, 1, ang);
+            var moi = S("kr_nhamgiot_" + i);
+            if (moi != null)
+            {
+                float st = Mathf.Clamp(1 + sp / 380f, 1.2f, 2.4f), ang2 = VelAng(d);
+                Put(buf, p.group, 40, SK("kr_nhamgiots_" + i, "kr_nhamgiot_" + i), Ink, p.pos, 0.6f * s + 3.5f, (0.6f * s * st + 3.5f) / (0.6f * s + 3.5f), ang2);
+                Put(buf, p.group, 40.3f, moi, BunC, p.pos, 0.6f * s, st, ang2);
+                Put(buf, p.group, 40.6f, moi, BunSang, p.pos + d * s * 0.12f, 0.3f * s, st, ang2);
+                return;
+            }
+            float ang = TipAngle(-d), kd = Mathf.Clamp(1 + sp / 700f, 1, 1.5f);   // ảnh giọt cũ: kéo dài nhẹ theo vận tốc
+            Put(buf, p.group, 40, S("drops_" + i), Ink, p.pos, s * kd + 4, (s + 4) / (s * kd + 4), ang);
+            Put(buf, p.group, 40.3f, S("drop_" + i), BunC, p.pos, s * kd, 1 / kd, ang);
+            Put(buf, p.group, 40.6f, S("drop_" + i), BunSang, p.pos + d * s * 0.12f, s * 0.48f * kd, 1 / kd, ang);
+        }
+
+        // cục bùn: KHỐI NHÃO kéo giọt (người dùng 2026-11-18: "các cụm dung nham giờ là những quả cầu tròn nhìn không đủ mềm mại"): ảnh kr_nham
+        // (cụm đặc có giọt kéo) nếu đã nhập; không thì thân tròn méo kéo dài theo vận tốc + hai giọt đuôi nhỏ dần nối liền (chung một viền mực),
+        // rung nhão; mặt sáng lệch về phía trước
+        void DrawBunCuc(P p, float k, List<Item> buf)
+        {
+            float a = 1 - SmoothStep(0.8f, 1, k);
+            if (p.sz < 0.8f || a < 0.03f) return;
+            float sp = p.vel.magnitude;
+            var d = sp > 5 ? p.vel / sp : new Vector2(0, 1);
+            float st = 1 + Mathf.Min(0.8f, sp / 450f), lac = 1 + 0.1f * Mathf.Sin(p.age * 30 + p.ph), r = p.sz;
+            int i = p.seed & 3;
+            var moi = S("kr_nham_" + i);
+            if (moi != null)
+            {
+                float ang2 = TipAngle(d), h = 2.4f * r * st * lac, w = 2.4f * r / lac;   // ảnh dựng đứng: chiều cao theo hướng bay
+                Put(buf, p.group, 40, SK("kr_nhams_" + i, "kr_nham_" + i), Ink, p.pos, h + 4, (w + 4) / (h + 4), ang2, a);
+                Put(buf, p.group, 40.3f, moi, p.col, p.pos, h, w / h, ang2, a);
+                Put(buf, p.group, 40.6f, moi, BunSang, p.pos + d * (0.25f * r), 0.45f * h, w / h, ang2, a);
+                return;
+            }
+            float va = VelAng(d);
+            Put(buf, p.group, 40, S("solid_" + i), Ink, p.pos, 2 * r / lac + 3.5f, (2 * r * st * lac + 3.5f) / (2 * r / lac + 3.5f), va, a);
+            Put(buf, p.group, 40.3f, S("blob_" + i), p.col, p.pos, 2 * r / lac, st * lac * lac, va, a);
+            for (int j = 1; j <= 2; j++)
+            {
+                if (sp < 60) break;
+                float rj = r * (j == 1 ? 0.55f : 0.32f);
+                var pj = p.pos - d * (r * st * (j == 1 ? 1.05f : 1.75f));
+                Put(buf, p.group, 40, S("solid_" + ((i + j) & 3)), Ink, pj, 2 * rj + 3.5f, 1, va, a);
+                Put(buf, p.group, 40.3f, S("blob_" + ((i + j) & 3)), p.col, pj, 2 * rj, 1, va, a);
+            }
+            Put(buf, p.group, 40.6f, S("blob_" + ((i + 1) & 3)), BunSang, p.pos + d * (0.28f * r) + new Vector2(0, -0.2f * r), 0.9f * r, 1, va, a);
         }
 
         P BunGiot(Vector2 pos, Vector2 vel, float r, float ground, int group = Front, float grav = 900)
@@ -137,9 +180,10 @@ namespace PokiClash
             var p = new P
             {
                 pos = pos, vel = vel, life = 1.6f, acc = new Vector2(0, 950), drag = 0.5f, spin = U(-500, 500), spinDrag = 0.4f, ang = U(0, 360),
-                seed = rng.Next(4), sz = r, col = col ?? (rng.Next(3) == 0 ? BunSam : BunC), group = group, ground = ground, hgt = U(1.0f, 1.35f)
+                seed = rng.Next(4), sz = r, col = col ?? (rng.Next(3) == 0 ? BunSam : BunC), group = group, ground = ground, hgt = U(1.0f, 1.35f),
+                ph = U(0, 6.28f)
             };
-            p.draw = DrawSoiP;
+            p.draw = DrawBunCuc;
             p.onGround = (q, s) =>
             {
                 s.BunVet(q.pos, q.sz * 1.35f, q.col);
@@ -189,21 +233,25 @@ namespace PokiClash
             float sc = tH / 150f;
             if (chop) ToChop(c, 0.2f * tH * Mathf.Sqrt(muc));
             BunToe(c, 0.42f * tH * Mathf.Sqrt(muc));
-            int n = Mathf.RoundToInt(6 * muc);
+            ToVongVa(c, 0.3f * tH * Mathf.Sqrt(muc), 0.18f);
+            int n = Mathf.RoundToInt(3.5f * muc);                                // ít cục mà to, mỗi cục một khối nhão kéo giọt
             for (int i = 0; i < n; i++)
             {
                 float a = -Mathf.PI / 2 + ((i + 0.5f) / n - 0.5f) * 2.8f + U(-0.18f, 0.18f);
-                var v = new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * (U(160, 280) * (0.8f + 0.25f * muc) * sc);
-                BunCuc(c, v, U(3.5f, 6f) * (0.8f + 0.2f * muc) * sc, ground + U(-4, 8) * sc, (i & 1) == 0 ? Front : Back);
+                var v = new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * (U(170, 290) * (0.8f + 0.25f * muc) * sc);
+                BunCuc(c, v, U(4.2f, 6.2f) * (0.8f + 0.2f * muc) * sc, ground + U(-4, 8) * sc, (i & 1) == 0 ? Front : Back);
+                // hai giọt nhỏ bay kèm sát cục (chùm lệch cỡ, không giọt lẻ)
+                var nn = Unit(new Vector2(-v.y, v.x));
+                BunGiot(c + nn * 3 * sc, v * U(0.82f, 0.92f) + nn * U(-30, 30), U(2.2f, 3f) * sc, ground + U(-4, 8) * sc, (i & 1) == 0 ? Front : Back);
+                if ((i & 1) == 0) BunGiot(c - nn * 3 * sc, v * U(1.05f, 1.15f) + nn * U(-30, 30), U(1.6f, 2.2f) * sc, ground + U(-4, 8) * sc, Front);
             }
-            for (int i = 0; i < Mathf.RoundToInt(5 * muc); i++)
-                BunGiot(c + U2(-6, 6) * sc, new Vector2(U(-230, 230), -U(120, 330)) * sc, U(2.6f, 4f) * sc, ground + U(-4, 8) * sc, (i & 1) == 0 ? Front : Back);
+            ToCum(c + new Vector2(0, -4 * sc), new Vector2(U(-20, 20), -40) * sc, 9 * sc * Mathf.Sqrt(muc), 3, Back);
         }
 
         // phụt bùn quanh một khối tròn (đổi hình bóng ↔ tướng): cục bùn + giọt toả đều từ mép, bụi ở chân
         void BunPhut(Vector2 c, float R, float ground, float sH, float muc)
         {
-            int n = Mathf.RoundToInt(9 * muc);
+            int n = Mathf.RoundToInt(7 * muc);
             for (int i = 0; i < n; i++)
             {
                 float a = (i + U(-0.3f, 0.3f)) / n * 2 * Mathf.PI;
@@ -213,25 +261,22 @@ namespace PokiClash
                 BunCuc(p0, (d * U(170, 300) + new Vector2(0, -U(60, 140))) * sH, U(4, 7) * sH, ground + U(-4, 8) * sH, d.y < -0.2f ? Back : Front);
                 if ((i & 1) == 0) BunGiot(p0, (d * U(220, 360) + new Vector2(0, -U(80, 180))) * sH, U(2.6f, 4f) * sH, ground + U(-4, 8) * sH);
             }
-            for (int i = 0; i < 4; i++)
-            {
-                float s = (i & 1) == 0 ? -1 : 1;
-                ToBui(new Vector2(c.x + s * U(0.4f, 0.9f) * R, ground - U(2, 10) * sH), new Vector2(s * U(50, 120), -U(20, 60)) * sH, 0, 7 * sH * muc,
-                    17 * sH * muc, (i & 1) == 0 ? Back : Front);
-            }
+            for (int d = -1; d <= 1; d += 2)
+                ToCum(new Vector2(c.x + d * U(0.5f, 0.8f) * R, ground - U(4, 10) * sH), new Vector2(d * U(50, 110), -U(20, 50)) * sH, 13 * sH * muc, 3,
+                    d < 0 ? Back : Front);
         }
 
-        // bụi khi đáp / bật nhảy: vòng bụi dưới đất, cụm bụi lăn hai bên (hoặc về một phía), vài cục bùn
+        // bụi khi đáp / bật nhảy: sóng đất, cụm bụi nhiều múi lăn hai bên (hoặc về một phía), vài cục bùn
         void BunBui(Vector2 feet, float sH, float muc, float huong = 0)
         {
             ToVong(feet, 100 * sH * Mathf.Sqrt(muc), 0.5f);
-            for (int i = 0; i < Mathf.RoundToInt(5 * muc); i++)
+            for (int i = 0; i < 2; i++)
             {
                 float s = huong != 0 ? huong : (i & 1) == 0 ? -1 : 1;
-                ToBui(feet + new Vector2(s * U(0.05f, 0.4f) * 150 * sH, -U(2, 10) * sH), new Vector2(s * U(60, 160), -U(15, 60)) * sH, 0,
-                    7 * sH * muc, 16 * sH * muc, (i & 1) == 0 ? Back : Front);
+                ToCum(feet + new Vector2(s * U(0.12f, 0.3f) * 150 * sH, -U(4, 10) * sH), new Vector2(s * U(70, 150), -U(15, 45)) * sH, 12 * sH * muc, 3,
+                    (i & 1) == 0 ? Back : Front);
             }
-            for (int i = 0; i < Mathf.RoundToInt(3 * muc); i++)
+            for (int i = 0; i < Mathf.RoundToInt(2 * muc); i++)
             {
                 float s = huong != 0 ? huong : (i & 1) == 0 ? -1 : 1;
                 BunCuc(feet + new Vector2(s * U(0, 0.25f) * 150 * sH, -6 * sH), new Vector2(s * U(80, 200), -U(160, 300)) * sH, U(3, 5) * sH,
@@ -249,13 +294,16 @@ namespace PokiClash
                 p.upd = (q, dt, s) =>
                 {
                     float f = Mathf.Clamp01(q.age / dur);
+                    var cu = q.pos;
                     q.pos = Vector2.Lerp(a, b, f * f * (3 - 2 * f));
                     q.vel = Vector2.zero;
-                    if (s.U(0, 1) < 0.4f)
-                        ToBui(q.pos + new Vector2(s.U(-14, 14) * sc, -4 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 90), -s.U(30, 80)) * sc, 0.45f,
-                            5 * sc, 12 * sc, s.U(0, 1) < 0.5f ? Front : Back);
-                    if (s.U(0, 1) < 0.3f)
-                        BunGiot(q.pos + new Vector2(0, -8 * sc), new Vector2(s.U(-110, 110), -s.U(160, 300)) * sc, s.U(2.4f, 3.6f) * sc, q.pos.y + 3 * sc);
+                    q.R0 += (q.pos - cu).magnitude;                              // bụi, bùn rải theo quãng gò vừa chạy (vệt liền)
+                    if (q.R0 < 9 * sc) return;
+                    q.R0 -= 9 * sc;
+                    ToBui(q.pos + new Vector2(s.U(-12, 12) * sc, -5 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 80), -s.U(30, 70)) * sc, 0.5f,
+                        6 * sc, 12 * sc, s.U(0, 1) < 0.5f ? Front : Back, false);
+                    if (s.U(0, 1) < 0.35f)
+                        BunGiot(q.pos + new Vector2(0, -8 * sc), new Vector2(s.U(-110, 110), -s.U(160, 300)) * sc, s.U(2.2f, 3.2f) * sc, q.pos.y + 3 * sc);
                 };
                 p.draw = (q, k, buf) =>
                 {
@@ -414,9 +462,11 @@ namespace PokiClash
                     var d = new Vector2(dir * Mathf.Cos(a), -Mathf.Sin(a));
                     var mui = bong + d * rg * casterH;
                     int grp = d.y < -0.25f ? Back : Front;
-                    ToBui(mui, d * 60 * sH + new Vector2(0, -20 * sH), 0.45f, 4 * sH, 11 * sH, grp);
-                    ToSoi(mui, (d * U(160, 260) + new Vector2(0, -U(40, 120))) * sH, U(2.6f, 4f) * sH, (g & 1) == 0 ? ToDa : ToDa3, dat + U(-3, 8) * sH, 0, grp);
-                    if ((g & 1) == 0) BunGiot(bong + d * R, (d * U(120, 200) + new Vector2(0, -60)) * sH, U(2.2f, 3.2f) * sH, dat + U(-3, 8) * sH, grp);
+                    // mỗi mũi gai: một cụm bụi đá (không chấm lẻ); dăm, giọt bùn chỉ ở một phần ba số gai
+                    var bb = ToBui(mui, d * 60 * sH + new Vector2(0, -20 * sH), 0.5f, 5 * sH, 11 * sH, grp, false);
+                    bb.col = ToDa3;
+                    if (g % 3 == 0) ToSoiCum(mui, (d * U(160, 240) + new Vector2(0, -U(40, 120))) * sH, U(2.4f, 3.2f) * sH, ToDa, ToDa3, dat + U(-3, 8) * sH, grp);
+                    if (g % 3 == 1) BunGiot(bong + d * R, (d * U(120, 200) + new Vector2(0, -60)) * sH, U(2.2f, 3.2f) * sH, dat + U(-3, 8) * sH, grp);
                 });
             }
             At(BunDam * k, () => Shake?.Invoke(0.16f));
@@ -430,11 +480,11 @@ namespace PokiClash
             // rút gai: bụi nhỏ chỗ chân gai
             At(BunRutGai * k, () =>
             {
-                for (int i = 0; i < 7; i++)
+                for (int i = 0; i < 5; i++)
                 {
-                    float a = U(-200, 20) * Mathf.Deg2Rad;
+                    float a = (-200 + 220 * (i + U(0.2f, 0.8f)) / 5) * Mathf.Deg2Rad;
                     var d = new Vector2(dir * Mathf.Cos(a), -Mathf.Sin(a));
-                    ToBui(bong + d * R, d * 40 * sH, 0.4f, 4 * sH, 10 * sH, d.y < -0.25f ? Back : Front);
+                    ToBui(bong + d * R, d * 40 * sH, 0.45f, 5 * sH, 12 * sH, d.y < -0.25f ? Back : Front, false);
                 }
             });
             // thôi làm bóng, hiện lại còn ngậm: phụt bùn

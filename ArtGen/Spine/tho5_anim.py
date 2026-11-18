@@ -2,7 +2,7 @@
 """Năm tướng đầu đảo Thổ: ĐỀ XUẤT animation (Claude, 2026-11-17). Người dùng: "dựa vào bộ skill anim và vfx, tự sáng tạo các animation cần
 thiết dựa trên con gốc". Chỉ là bản đề xuất chờ người dùng duyệt; chưa dựng rig.
 
-Theo skill-petclash: idle 2 s lặp có điểm phá nhịp, attack 0,8–1,1 s trúng 0,4–0,55 s, cast ~1,2 s, skill 1,6–2,4 s; lấy đà ngược chiều,
+Theo animation-petclash: idle 2 s lặp có điểm phá nhịp, attack 0,8–1,1 s trúng 0,4–0,55 s, cast ~1,2 s, skill 1,6–2,4 s; lấy đà ngược chiều,
 khựng lúc chạm; hình hệ Thổ = khối đá góc cạnh trồi lên, rơi nặng nảy một lần, bụi tròn, sỏi (mục 5). Độ mạnh leo theo ải
 (memory combat-epic-theo-do-kho). Mỗi con một kiểu đòn khác nhau. Rig không vẽ VFX (đạn, cột đá, lốc là lớp hạt trên sân); mảnh của rig bay tới
 đối thủ rồi về thì code lái (xương far / fly_*).

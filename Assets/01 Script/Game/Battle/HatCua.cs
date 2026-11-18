@@ -28,17 +28,22 @@ namespace PokiClash
         static Vector2 CuDinhLao(Vector2 casterFeet, Vector2 foeFeet) => casterFeet + (foeFeet - casterFeet) * 0.72f;
         static readonly Color CuThep = C(170, 174, 184), CuGio = C(236, 238, 244);
 
-        // chùm tia lửa cưa: văng ngược về phía tướng và lên trên, nóng vàng cam (Th.spark), vài viên rơi xa
+        // chùm tia lửa cưa: văng ngược về phía tướng và lên trên, BẮN NHANH RỒI KHỰNG (cản gắt, 2026-11-18), nóng vàng cam, vài viên rơi xa
         void CuTiaLua(Vector2 c, float dir, int n, float manh)
         {
             for (int i = 0; i < n; i++)
-                Spark(c + U2(-4, 4), new Vector2(-dir * U(0.15f, 1f), U(-1f, -0.15f)), U(260, 520) * manh, U(0.22f, 0.42f), U(6, 9) * manh, 650, Front, 3);
+            {
+                var q = Spark(c + U2(-4, 4), new Vector2(-dir * U(0.15f, 1f), U(-1f, -0.15f)), U(460, 820) * manh, U(0.24f, 0.4f), U(6, 9) * manh, 650, Front,
+                    (i & 3) == 0 ? 3.5f : 7.5f);
+                q.col = (i & 1) == 0 ? KmLua[4] : KmLua[3];
+            }
         }
 
-        // một nhát trúng: chớp + tia lửa + dăm thép (+ bụi chân đối thủ nếu bui)
+        // một nhát trúng: bông va chạm toé ngược về tướng + chớp + tia lửa + dăm thép (+ bụi chân đối thủ nếu bui)
         void CuTrung(Vector2 c, Vector2 foeFeet, float dir, float tH, float manh, int tia, int dam, bool bui)
         {
-            SatChop(c, 0.38f * tH * manh, Front, 0.12f);
+            KmBong(c, new Vector2(-dir, -0.5f), 0.3f * tH * manh, 0.1f, KmLua);
+            SatChop(c, 0.3f * tH * manh, Front, 0.1f);
             CuTiaLua(c, dir, tia, manh);
             for (int i = 0; i < dam; i++) GiaoDam(c + U2(-5, 5), new Vector2(-dir * U(-0.3f, 1f), -U(0.2f, 1f)) * U(140, 300), U(8, 13) * manh);
             if (!bui) return;
@@ -84,45 +89,45 @@ namespace PokiClash
             float dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             float t0 = Mathf.Max(0.3f, lead), k = t0 / CuSLead;
             var dia = casterFeet + new Vector2(dir * CuDia.x * casterH, -CuDia.y * casterH);
-            // giật dây: khói xám phụt ở đĩa (máy hắt hơi), lần cuối máy nổ: khói to, tia lửa, rung
+            // giật dây (2026-11-18: người dùng chê khói rải rác, chưa thành cụm): CỤM KHÓI THAN nhiều múi hai tông phụt ở đĩa (máy hắt hơi), bay lên,
+            // tách cụm rồi mới mờ, có tro; mỗi lần to hơn; lần cuối máy NỔ: chớp nhỏ, khối khói to, tia lửa bắn rồi khựng, rung
             for (int j = 0; j < CuSKeo.Length; j++)
             {
                 int jj = j;
                 At(CuSKeo[j] * k + 0.1f * k, () =>
                 {
-                    int n = 2 + jj;
-                    for (int i = 0; i < n; i++)
-                        Smoke(dia + U2(-6, 6), new Vector2(-dir * U(30, 90), -U(40, 110)), U(0.6f, 0.9f), 6, 14 + 4 * jj, Back, "dark", 0.2f);
+                    for (int i = 0; i < 1 + jj; i++)
+                        KmKhoi(dia + U2(-6, 6), new Vector2(-dir * U(30, 90), -U(50, 110)), (0.1f + 0.025f * jj) * casterH * U(0.85f, 1.1f), U(0.8f, 1.1f), Back,
+                            0, jj == 0 ? 1 : 2, null, 0.4f);
+                    KmKhoi(dia + new Vector2(-dir * 6, -4), new Vector2(-dir * U(60, 120), -U(20, 50)), 0.06f * casterH, U(0.5f, 0.7f), Back, 0, 0, null, 0, true);
                 });
             }
             At(CuSNo * k, () =>
             {
                 Shake?.Invoke(0.22f);
-                for (int i = 0; i < 6; i++)
-                    Smoke(dia + U2(-8, 8), new Vector2(-dir * U(40, 140), -U(50, 160)), U(0.8f, 1.2f), 8, 26, Back, "dark", 0.3f);
-                for (int i = 0; i < 10; i++)
-                    Spark(dia + U2(-6, 6), new Vector2(U(-1f, 1f), U(-1f, 0.2f)), U(200, 380), U(0.2f, 0.34f), U(6, 8), 500, Front, 3);
+                KmChop(dia, 0.22f * casterH, 0.06f, KmLua);
+                for (int i = 0; i < 3; i++)
+                    KmKhoi(dia + U2(-8, 8), new Vector2(-dir * U(40, 140), -U(60, 150)), U(0.15f, 0.19f) * casterH, U(1.0f, 1.3f), Back, 0.6f, 2, null, 0.5f);
+                for (int i = 0; i < 8; i++)
+                    KmTiaLua(dia + U2(-6, 6), new Vector2(U(-1f, 1f), U(-1f, 0.2f)), U(380, 640), U(6, 8), KmLua[3 + (i & 1)]);
             });
-            // hút khí: vệt gió sinh trên vòng quanh tướng, bay vào tâm đĩa cưa, nhanh dần
-            Every(CuSHut0 * k, CuSHut1 * k, 46, x =>
-            {
-                float a = U(0, Mathf.PI * 2), R = U(0.7f, 1.1f) * casterH;
-                var p = dia + new Vector2(Mathf.Cos(a) * R, Mathf.Sin(a) * R * 0.75f);
-                var v = dia - p;
-                float life = U(0.22f, 0.32f);
-                var q = Spark(p, v, v.magnitude / life * 1.15f, life, U(5, 7), 0, Front, 0.3f);
-                q.col = CuGio;
-            });
-            At(CuSHut1 * k, () => Ring(dia, 0.28f, 0.5f * casterH, 0.08f * casterH, CuGio, 0.6f, Front, 32)); // vòng gió co vào đĩa
+            // hút khí: VỆT GIÓ XOẮN ỐC vào đĩa cưa, nhanh dần, chạm vành đĩa thì nhập; dày dần; hai vòng gió co về đĩa
+            float rDia = 0.12f * casterH;
+            Every(CuSHut0 * k, CuSHut1 * k, x => 24 + 40 * x, x =>
+                KmHut(_ => dia, _ => rDia, U(0.75f, 1.15f) * casterH, U(0.24f, 0.36f), U(6, 8), CuGio, -dir, Front, 0.75f));
+            At((CuSHut0 + 0.4f * (CuSHut1 - CuSHut0)) * k, () => KmVong(_ => dia, 0.24f, 0.8f * casterH, rDia, CuGio, 0.75f, 0.75f));
+            At(CuSHut1 * k, () => KmVong(_ => dia, 0.26f, 0.55f * casterH, rDia, CuGio, 0.75f, 0.85f)); // vòng gió co vào đĩa
             // ghì cưa: 11 nhát dồn dập ở chỗ cưa chạm thân đối thủ; nhát cuối mạnh hơn
             var c = CuDinhLao(casterFeet, foeFeet) + new Vector2(dir * CuDiaGhi.x * casterH, -CuDiaGhi.y * casterH);
             float buoc = (CuSNha - CuSLead - 0.08f) / (CuSNhat - 1);
             for (int j = 0; j < CuSNhat; j++)
             {
                 bool cuoi = j == CuSNhat - 1;
+                int jj = j;
                 At(t0 + j * buoc * k, () =>
                 {
                     Shake?.Invoke(cuoi ? 0.42f : 0.14f);
+                    if (jj > 0) KmNhip(cuoi ? 0.8f : 0.4f);   // nhát đầu là cú trúng chính (StageView), các nhát sau: đối thủ chớp + giật theo nhịp cưa
                     CuTrung(c + U2(-0.05f * tH, 0.05f * tH), foeFeet, dir, tH, cuoi ? 1.25f : 0.85f, cuoi ? 18 : 9, cuoi ? 8 : 3, cuoi);
                     if (cuoi) Ring(c, 0.34f, 0.06f * tH, 0.6f * tH, CuThep, 0.5f, Front, 32);
                 });

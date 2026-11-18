@@ -9,7 +9,7 @@ nướng 30 khung/giây, chạy phần mềm (lò xo, dây mềm), khép vòng c
     attack = hoat.Clip("attack", 0.9, g, ev=[(0.45, "trung", "")], trung=0.45)
     frames = hoat.nuong(sk, idle)          # list Pose, khung i ở giây i/30 (khung cuối đúng giây dur)
 
-Luật nhịp (skill-petclash 7.2, mo_xe_quai_nhieu_dau 6b): đầu dẫn thân theo (đốt về gốc trễ ~0,17 s), hai đốt kề ngược dấu, biên
+Luật nhịp (animation-petclash mục 3, mo_xe_quai_nhieu_dau 6b): đầu dẫn thân theo (đốt về gốc trễ ~0,17 s), hai đốt kề ngược dấu, biên
 độ lớn nhất giữa chuỗi; idle 2 cực trị mỗi đốt + điểm phá nhịp; ra đòn dáng → dáng, khung gãy, chạm 1 khung, giữ có trôi; gồng
 bằng rung hai dáng (đổi mỗi 2 khung); trúng đòn không lấy đà, ngọn đỉnh ở 0,07 s, sóng chạy từ ngọn về gốc.
 """

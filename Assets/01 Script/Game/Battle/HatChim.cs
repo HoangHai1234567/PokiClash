@@ -68,10 +68,12 @@ namespace PokiClash
             return Add(p);
         }
 
-        // đá vỡ to: chớp toé, tảng con văng rồi nảy trên đất, dăm đá, bụi
+        // đá vỡ to: chớp nhỏ ở trước + toé sau thân (nâng 2026-11-18: bản cũ chớp to ở trước che mặt), tảng con văng rồi nảy trên đất, dăm đá,
+        // cụm bụi tách dần
         void ThachNo(Vector2 c, Vector2 foeFeet, float tH, float R, float dir)
         {
-            BurstFlash(c, 0.7f * tH);
+            Chop(c, 0.4f * tH, 0.08f);
+            BurstFlash(c, 0.7f * tH, Back, 0.16f);
             for (int i = 0; i < 7; i++)
             {
                 float a = (-90 + (i - 3) * 34 + U(-10, 10)) * Mathf.Deg2Rad; // nửa trên, rải đều
@@ -85,7 +87,8 @@ namespace PokiClash
                 var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.35f);
                 DaVun(c + d * U(4, 14), d * U(220, 460), U(0.45f, 0.8f), U(3.2f, 5.6f));
             }
-            for (int i = 0; i < 6; i++) Bui(c + U2(-0.5f, 0.5f) * R, U2(-90, 90) + new Vector2(0, -50), U(0.5f, 0.8f), 6, U(14, 22), i < 4 ? Back : Front);
+            for (int i = 0; i < 3; i++)
+                BuiCum(c + U2(-0.5f, 0.5f) * R, U2(-80, 80) + new Vector2(0, -50), U(0.11f, 0.15f) * tH, 0, i < 2 ? Back : Front);
         }
     }
 }

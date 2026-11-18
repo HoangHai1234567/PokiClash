@@ -33,7 +33,7 @@ rig chỉ để chỗ bám (xương miệng, sự kiện), lớp VFX trên sân 
 
 ## 2. Đọc trước khi làm (bắt buộc)
 
-- `.claude/skills/skill-petclash/SKILL.md` (đọc hết, nhất là mục 7, 14, 15) và `mo_xe_quai_nhieu_dau.md` (đọc hết, nhất là mục
+- `.claude/skills/animation-petclash/SKILL.md` (đọc hết, nhất là mục 2–8) và `mo_xe_quai_nhieu_dau.md` (đọc hết, nhất là mục
   3b, 6b, 9 và **mọi mục "Lỗi đã gặp"**).
 - `.claude/skills/pokiclash-spine-rig/SKILL.md`: mục 0a (tiêu chí bắt buộc), 7 (lỗi), 9 (.atomik, bản 2, bản 3), 11 (tiến hóa nối
   liền), 17 (thân rắn, lò xo bờm, dạng cuối khác hẳn), 18 (chiêu đa dạng, há miệng), 20 (rig dựng bằng mã, toàn bộ).
@@ -91,7 +91,7 @@ rig chỉ để chỗ bám (xương miệng, sự kiện), lớp VFX trên sân 
   viền và bên trong (con số đích ở README thư viện), không tam giác mảnh dài; trọng số trơn (chuỗi: B-spline bậc hai; vùng: hoà theo
   khoảng cách đi trong hình), tối đa 4 xương mỗi đỉnh, không đỉnh nào bám cứng 100% một xương trừ đồ cứng thật (vỏ, sừng, đá).
   Xương đủ để mềm: thân, cổ, đuôi, vây, tai, râu là chuỗi nhiều đốt; phần mềm (râu, bờm, lưỡi, dây) mô phỏng dây rồi nướng.
-- Bộ clip mỗi dạng (tên trong file là tên game đọc; nhịp gốc ở `skill-petclash` 7.1 và bảng Hải Long mục 15):
+- Bộ clip mỗi dạng (tên trong file là tên game đọc; nhịp gốc ở `animation-petclash` mục 2 và bảng Hải Long mục 7):
 
 | Clip | Ý | Ghi chú |
 |---|---|---|
@@ -111,7 +111,7 @@ rig chỉ để chỗ bám (xương miệng, sự kiện), lớp VFX trên sân 
 - Ra: `ArtGen/Spine/inbox/<mã>_<k>/rig/`: `<mã>_<k>.json/.atlas/.png`, `<mã>_<k>.atomik`, `<mã>_<k>_game.json`, `xem.html` (trang xem một
   file), `khung_<clip>.png` (12 khung), `luoi.png` (lưới + trọng số), ảnh cận miệng, khớp, `so_sanh.md` (số xương, slot, đỉnh, tam giác,
   khoá, MB so với con gốc), chân dung vuông 512 không bóng. **Không chép vào `Assets/`** (Claude điều phối làm bước vào game).
-- Soi trước khi báo (bắt buộc, `skill-petclash` mục 14 và 15 "Kiểm"): tờ khung từng clip, soi cận ở khung nhanh nhất (miệng há to
+- Soi trước khi báo (bắt buộc, `animation-petclash` mục 8 và 7 "Kiểm"): tờ khung từng clip, soi cận ở khung nhanh nhất (miệng há to
   nhất, ngửa đầu, khớp, râu), mí phủ kín (in "còn hở 0 px"), lệch khung cuối so với `idle`. Nói rõ cái gì chưa xem ở tốc độ thật.
 - **Bài học từ lần soi đầu (dòng 9, 2026-11-11), mọi dòng phải kiểm:**
   - `so_concept.png`: khung t=0 idle đặt cạnh concept cùng tỉ lệ; **bóng dáng phải khớp concept** (sừng, mào, đuôi, vây, tỉ lệ đầu

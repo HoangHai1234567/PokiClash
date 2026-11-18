@@ -49,6 +49,15 @@ namespace PokiClash
         [SerializeField] RectTransform hatFloor, hatBack, hatFront;
         [SerializeField] Sprite[] hatSprites;
         HatLua hat;
+        int nuocTarget = 1; // phe bị trúng của lần PlayNuoc gần nhất (cho NuocPulse, DanhTrung)
+
+        // một nhịp trúng phụ của chiêu đang chạy (tia dội, cú phụ): con bị trúng chớp trắng và giật lùi theo k (0..1)
+        void FoePulse(float k)
+        {
+            var v = actors[nuocTarget];
+            if (v != null) v.flash = Mathf.Max(v.flash, 0.05f + 0.09f * k);
+            Bump(nuocTarget, 2f + 3.5f * k);
+        }
 
         HatLua Hat
         {
@@ -60,6 +69,11 @@ namespace PokiClash
                         Shake = v => trauma = Mathf.Min(1, trauma + v),
                         FlashScreen = c => Flash(c),
                         NegScreen = d => Neg(d),
+                        // mỗi nhịp tia nước dội vào thân (HatNuoc.NTia, 0,24 s một nhịp): con bị trúng chớp trắng và giật lùi theo nhịp
+                        // (người dùng 2026-11-18: tia phải có va chạm với địch, không chỉ giật một lần lúc chạm)
+                        NuocPulse = k => FoePulse(k),
+                        DanhTrung = (p, k) => FoePulse(k), // nhịp trúng của chiêu Mộc (tia, luồng lá, sóng âm, nổ cầu; HatMoc.cs)
+                        HoaTrung = (p, k) => FoePulse(k), // nhịp trúng của chiêu Hỏa không qua PlayNuoc (tia mắt, phun, tên, dung nham, nổ lớn)
                     };
                 return hat != null && hat.Ready ? hat : null;
             }
@@ -70,6 +84,7 @@ namespace PokiClash
         static readonly Dictionary<string, (string mana, string ult)> FireFx = new Dictionary<string, (string, string)>
         {
             { "hoa_nhan", ("tia_mat", "quyen_xoay") }, { "nham_than", ("phun", "n_cau_lan") }, { "kim_su", ("ten", "no_lon") },
+            { "su_tu_lua", ("cau", "phun_nham") }, // Tiểu Quỷ Lava (2026-11-18): cầu lửa; chiêu cuối dung nham phun dưới chân đối thủ (trước chưa có dòng, chiêu cuối không có hạt nào)
             { "hong_lien", ("n_kim_phap", "n_cau_phap") }, // suất này nay là pháp sư lửa (Viêm Sư, 2026-11-14; HatPhap.cs, đi đường "n_"): kim lửa quanh đầu trượng rồi phóng; chiêu cuối cầu lửa của rig phình to, mốc ban_cau cầu hạt lao tới đối thủ (trước: "kim", "loc_xoay")
             { "giap_long", ("dat_trao", "no_lon") }, // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): chiêu mana bổ đao cắm đất, dung nham trào dưới chân địch; chiêu cuối lao tới liên hoàn chém, nổ lớn ở nhát bổ kết (trước: "phun", "phun_nham")
             { "huyen_viem", ("n_dat_dam", "no_lon") }, // suất này nay là Viêm Dũng, chiến binh đất nung lõi dung nham (2026-11-14; HatDat.cs, đi đường "n_"): lao tới đâm rồi chém liên hoàn, dung nham trào ở nhát bổ kết; chiêu cuối năm kiếm của rig bay tới, nổ lớn (trước: "kim", "loc_xoay")
@@ -279,6 +294,7 @@ namespace PokiClash
             float len = a.aola != null ? a.aola.Duration(clip) : ClipLen(clip);
             float lead = a.aola != null ? a.aola.HitTime(clip) : len * HitAt(clip);
             h.UseTheme(a.hero.id);
+            nuocTarget = other;
             float t = h.PlayNuoc(kind, ult, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, lead);
             a.fxHitAt = Clock + t;
             a.holdAt = lead;
@@ -298,6 +314,7 @@ namespace PokiClash
             var victim = actors[other];
             float tH = victim != null ? victim.H : Height[other];
             h.UseTheme(a.hero.id);
+            nuocTarget = other;
             h.PlayNuoc(kind, false, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, a.aola.HitTime(Attack));
         }
 
@@ -318,6 +335,7 @@ namespace PokiClash
                 if (HatLua.NuocAtHit(kind)) // chiêu lao tới: nước toé lúc chạm
                 {
                     if (!h.HasWater) return 0;
+                    nuocTarget = other;
                     h.PlayNuoc(kind, true, Pos[side], a.H, Pos[side], feet, Body(other), tH, 0);
                     skillHold = Mathf.Max(skillHold, 1.2f);
                     return 0;
@@ -326,6 +344,7 @@ namespace PokiClash
                 a.fxHitAt = -1;
                 return left;
             }
+            nuocTarget = other;
             float t = h.PlayUlt(kind, feet, Body(other), tH, Mathf.Sign(Pos[side].x - feet.x));
             skillHold = Mathf.Max(skillHold, t + 0.8f);
             return t;
@@ -347,6 +366,7 @@ namespace PokiClash
                     int o = side == 0 ? 1 : 0;
                     var v = actors[o];
                     hh.UseTheme(a.hero.id);
+                    nuocTarget = o;
                     hh.PlayNuoc(kind, false, Pos[side], a.H, Pos[side], Pos[o], Body(o), v != null ? v.H : Height[o], 0);
                     return 0;
                 }
@@ -361,6 +381,7 @@ namespace PokiClash
             var victim = actors[other];
             float tH = victim != null ? victim.H : Height[other];
             h.UseTheme(a.hero.id);
+            nuocTarget = other;
             float t = h.PlayMana(kind, Pos[side], a.H, from, Pos[other], to, tH);
             // người dùng dặn 2026-11-10: tướng đứng phun cho hết luồng lửa mới về đứng; kim, cầu cũng giữ dáng tới lúc phóng
             a.holdAt = a.t;

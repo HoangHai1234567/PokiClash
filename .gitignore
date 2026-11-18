@@ -45,6 +45,10 @@ ArtGen/Spine/inbox/*/parts/
 /ArtGen/ThamKhao/KR5/build_log.txt
 /ArtGen/ThamKhao/KR5/tools/__pycache__/
 
+# Trang so sánh hiệu ứng từng tướng: ảnh chụp trong game (rig gốc của game khác, aola), chỉ xem trên máy; sinh lại bằng xay_trang.py
+/ArtGen/XemVfx/anh/
+/ArtGen/XemVfx/data.json
+
 # Epic Toon FX (Asset Store, bản quyền theo người mua): chỉ để học cách làm hiệu ứng, không commit, không tham chiếu từ prefab của game
 /Assets/Epic Toon FX/
 /Assets/Epic Toon FX.meta

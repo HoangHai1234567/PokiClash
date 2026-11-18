@@ -1,7 +1,7 @@
 ---
 name: pokiclash-spine-rig
 description: >
-  Rig xương và làm animation cho nhân vật 2D từ ảnh (ảnh GPT vẽ hoặc một ảnh liền bất kỳ): cắt mảnh, khớp vị trí, dựng xương,
+  [Bộ Animation] Rig xương và làm animation cho nhân vật 2D từ ảnh (ảnh GPT vẽ hoặc một ảnh liền bất kỳ): cắt mảnh, khớp vị trí, dựng xương,
   mảnh cứng, một lưới hay nhiều lớp lưới có trọng số (uốn mềm, không hở khớp), viết animation (đứng, đánh, trúng đòn, chiêu,
   nhảy, đi/chạy), dựng khung soi, GIF, trang Spine Web Player; xuất JSON Spine 4.2 và định dạng riêng .atomik chạy trong Unity
   của PokiClash (importer + runtime AtomikPlayer). Dùng khi người dùng muốn rig xương / làm animation từ một hình, sửa hở
@@ -11,8 +11,8 @@ description: >
 
 # Rig xương từ ảnh và định dạng .atomik (thử nghiệm)
 
-> Skill gốc: `skill-petclash` (nguyên tắc thiết kế, nhịp clip, khớp animation với hiệu ứng, hiệu năng, bảng kiểm; kèm bộ
-> `VFX_KNOWLEDGE_BASE.md` và ba file ghi chú nghiên cứu). Đọc nó trước, rồi quay lại đây làm chi tiết.
+> Skill gốc: `animation-petclash` (bộ Animation: nhịp clip, chống cứng, chuỗi xương dài, diễn, khớp animation với hiệu ứng,
+> quái nhiều đầu, lỗi hay gặp, bảng kiểm; kèm `nghien_cuu_animation.md`, `mo_xe_quai_nhieu_dau.md`). Đọc nó trước, rồi quay lại đây làm chi tiết.
 
 Làm 2026-11-07 để đo khả năng rig tự động. **Không thay quy trình chính của game** (vẽ đè lên rig aola, xem CLAUDE.md mục
 Hình tướng). Mọi thứ ở đây là thử nghiệm cho tới khi người dùng chốt khác. Ngoại lệ người dùng yêu cầu 2026-11-08: Rồng Giọt
@@ -799,7 +799,7 @@ Bẫy:
 ## 20. Rig Spine dựng bằng mã cho quái nhiều đầu, và bộ mổ xẻ rig Spine có sẵn (Hải Long, 2026-11-10)
 
 Dùng khi con không rig được từ một ảnh liền (nhiều cổ chồng nhau, thân trồi từ nước, có hiệu ứng nằm trong rig). Nguyên tắc và
-nhịp: `skill-petclash` mục 7.2, 15 và `mo_xe_quai_nhieu_dau.md`. Kết quả là JSON Spine 4.2 và `hai_long.atomik` (bản 3 của định dạng: có mặt nạ cắt, sự kiện, slot ẩn mặc định; mục 9).
+nhịp: `animation-petclash` mục 3, 7 và `mo_xe_quai_nhieu_dau.md`. Kết quả là JSON Spine 4.2 và `hai_long.atomik` (bản 3 của định dạng: có mặt nạ cắt, sự kiện, slot ẩn mặc định; mục 9).
 
 **Tệp** (`ArtGen/Spine/`): `build_hai_long.py` (gói GPT: concept, 4 tờ mảnh, tờ M05 mí mắt và mảnh tia nước để dành cho VFX, tờ M06 lưỡi, tờ M07 hình nước đợt hai), `hai_long.py`
 (`cat` cắt mảnh vào `inbox/hai_long/manh/`, `rig` dựng `inbox/hai_long/rig/`), `xem_spine_mau.html` (mẫu trang xem),

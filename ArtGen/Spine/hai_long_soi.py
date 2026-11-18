@@ -132,7 +132,7 @@ def sheet(n=12, clips=None, extra=""):
 
 
 def can():
-    """ảnh cận theo 'Kiểm' của skill-petclash mục 15: miệng há to nhất (skill 1,45–1,75 s, thủ lĩnh), ngửa đầu lè lưỡi (die, thủ lĩnh
+    """ảnh cận theo 'Kiểm' của animation-petclash mục 7: miệng há to nhất (skill 1,45–1,75 s, thủ lĩnh), ngửa đầu lè lưỡi (die, thủ lĩnh
     1,0–1,7 s), chỗ nối cổ + râu ở clip trúng đòn (0–0,3 s), hàm hai xương lúc phun (cast, đầu d thấp bên phải)."""
     # đọc chỗ đầu thủ lĩnh từ rig JSON (dáng gốc) để đặt khung nhìn
     J = json.load(open(os.path.join(RIG, NAME + ".json"), encoding="utf-8"))

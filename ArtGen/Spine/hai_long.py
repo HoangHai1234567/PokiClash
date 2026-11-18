@@ -1,7 +1,7 @@
 """Hải Long Ngũ Đầu (dạng 3 của dòng Hải Long, boss cuối đảo Thủy): cắt mảnh từ bảy tờ GPT, dựng rig Spine 4.2 (JSON + atlas + PNG),
 7 clip tên game (appear, idle, attack, cast = phun nước, skill = gầm, hit, die) và clip `aura` (nước dưới chân, lặp riêng, phát chồng
 lên mọi clip: AtomikPose.Overlay). Gói prompt: build_hai_long.py. Cách dựng, trọng số lưới và các luật nhịp học từ bài mổ xẻ
-.claude/skills/skill-petclash/mo_xe_quai_nhieu_dau.md (mục 3b, 6b, 9); cách làm: skill pokiclash-spine-rig mục 20.
+.claude/skills/animation-petclash/mo_xe_quai_nhieu_dau.md (mục 3b, 6b, 9); cách làm: skill pokiclash-spine-rig mục 20.
 Bản 4 (2026-11-11, lô 10 tướng mới đảo Thủy, đặc tả ArtGen/Spine/quai/DAC_TA_LO_THUY.md): lưới dày, mịn, gần đều cạnh (cổ 3 cột mỗi
 đốt × 7 hàng, đầu 14×10, sóng 8×8, dải nước 4 hàng, vòng thân 13×8), hàm dưới là lưới hai xương như con gốc (họng theo đầu, cằm theo
 hàm), nước tách thành clip `aura`. KHÔNG tự chép .atomik sang Assets (Claude điều phối làm bước vào game).

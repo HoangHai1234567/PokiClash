@@ -4,6 +4,10 @@
 // Khác bộ Hỏa: chiêu nước được gọi lúc clip BẮT ĐẦU, kèm lead = thời gian tới khung nhả của clip. Pha tụ nước chạy trong lúc tướng
 // lấy đà, nước nhả đúng khung nhả (người dùng 2026-11-10: sửa animation cho khớp hiệu ứng). Hàm trả thời gian tới lúc trúng.
 // Biến tĩnh ở file này không được dùng biến tĩnh của HatLua.cs lúc khởi tạo (thứ tự khởi tạo giữa hai file không chắc).
+// 2026-11-18 (người dùng chê tia cụt lủn, nước chưa như Kingdom Rush, bọt rải rác, pha tụ xấu, màu tối): bảng màu nước tươi; hình hạt
+// kiểu Kingdom Rush hat_kr_* (có hình cũ dự phòng); tia nước chạm tận thân, loe ra ôm thân, bông toé liên tục, đuôi đứt bay nốt rồi vỡ;
+// pha tụ bằng vệt xoắn ốc nhập vào cầu nước sóng sánh; toé kiểu Kingdom Rush (mão đục lỗ, khối văng → giọt → chấm, vành giọt, vệt ướt);
+// đạn có đuôi liền chia theo quãng bay; bọt thành cụm. Báo cáo: Temp/vfx_thuy/BAO_CAO.md.
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,33 +25,38 @@ namespace PokiClash
 
         static Color[] WPal(Color d, Color m, Color l) => new[] { C(43, 33, 24), d, m, l, C(244, 252, 255) };
 
-        static readonly WTheme WDefault = new WTheme { w = WPal(C(30, 104, 190), C(58, 150, 226), C(140, 208, 246)) };
+        // bảng nước tươi (người dùng 2026-11-18: "màu tươi hơn", sân bãi cát sáng, trời xanh): lam đậm sát viền #2B7FD0, lam #4EB6F2,
+        // lam nhạt #9FE0FF, kem #F2FBFF (bọt). Không lam xám, không xanh đục. Bảng từng tướng Thủy dưới đây giữ sắc của tướng nhưng nâng
+        // sáng và độ bão hoà theo bảng này.
+        static readonly WTheme WDefault = new WTheme { w = WPal(C(43, 127, 208), C(78, 182, 242), C(159, 224, 255)) };
         static readonly Dictionary<string, WTheme> WThemes = new Dictionary<string, WTheme>
         {
             // lô 10 tướng mới đảo Thủy (2026-11-11), màu theo bảng màu từng dòng (ArtGen/Spine/inbox/tm0*_ghichu.md); mực và bọt chung
             // giọt mưa võ sĩ: lam đại dương #1F5DB5, lam ngọc sáng #35BFE6, bọt nhạt
-            { "ti_tach", new WTheme { w = WPal(C(31, 93, 181), C(53, 191, 230), C(158, 223, 243)) } },
+            { "ti_tach", new WTheme { w = WPal(C(36, 116, 210), C(64, 190, 244), C(166, 232, 255)) } }, // 2026-11-18: nâng sáng
             // cua ẩn sĩ nhà đá: giáp chàm #3D5486, vỏ lam xám #6A8BBB, lam bọt #BFE6E2; mảnh đá bazan văng
             // suất này nay là dòng ếch xanh (2026-11-11): bỏ họa tiết mảnh đá của cua; màu nước tạm giữ, chờ người dùng chọn
-            { "thach_giai", new WTheme { w = WPal(C(61, 84, 134), C(106, 139, 187), C(191, 230, 226)) } },
+            // 2026-11-18: lam xám tạm của cua làm cầu nước của ếch đục, tối (ảnh trước) → bảng nước tươi chung
+            { "thach_giai", new WTheme { w = WPal(C(43, 127, 208), C(78, 182, 242), C(159, 224, 255)) } },
             // nòng nọc / ếch xoáy: cô-ban #2457C5, cerulean #3FA9E0, vây nhạt #9FE1F0
-            { "ca_den", new WTheme { w = WPal(C(52, 66, 143), C(76, 95, 196), C(155, 168, 242)) } },   // chàm của cá đèn lồng
+            { "ca_den", new WTheme { w = WPal(C(58, 100, 216), C(96, 162, 248), C(178, 214, 255)) } },   // chàm của cá đèn lồng; 2026-11-18: chàm tím sẫm làm tia tối → lam chàm tươi
             // hà mã: hồn nước ba lam #2B7FD6, #4FB6EE, #A6DEF8
-            { "ha_ba", new WTheme { w = WPal(C(43, 127, 214), C(79, 182, 238), C(166, 222, 248)) } },
+            { "ha_ba", new WTheme { w = WPal(C(43, 127, 214), C(79, 184, 244), C(166, 230, 255)) } },
             // sò ngọc: mòng két #1F9AA8, ngọc lam #36C2B4, ngọc lam nhạt #7ED8CB; gai san hô cam văng
             // suất này nay là dòng bạch tuộc quái vật (2026-11-12, mã bach_tuoc): nước là MỰC, đen tím than nhạt dần; bỏ gai san hô
-            { "so_ngoc", new WTheme { w = WPal(C(40, 35, 52), C(74, 66, 96), C(140, 130, 166)) } },
+            // 2026-11-18: mực vẫn đen nhưng toé có ánh tím tươi (người dùng: tông tối, xám thì nâng sáng, tăng bão hoà); bọt tím rất nhạt
+            { "so_ngoc", new WTheme { w = new[] { C(43, 33, 24), C(34, 28, 50), C(98, 64, 162), C(186, 142, 246), C(240, 230, 255) } } },
             // kỳ giông mưa bão: chàm bão #34477E, xanh đá mưa #6E88BC, lam nhạt #9CC0E8; mây giông xám bay lên
-            { "giong_bao", new WTheme { w = WPal(C(42, 53, 128), C(47, 159, 179), C(190, 232, 244)) } },   // pháp sư nước: chàm của mũ, lam ngọc của áo, lam băng
+            { "giong_bao", new WTheme { w = WPal(C(46, 96, 204), C(52, 186, 222), C(188, 242, 254)) } },   // pháp sư nước: chàm của mũ, lam ngọc của áo, lam băng (2026-11-18: chàm sáng lên)
             // cá voi biến dị (2026-11-11, thay cá voi sen): lam đá sẫm #2F4A6E, lam biển #4F86B0, trắng băng #BFE3EE; mảnh đá đen văng
-            { "lien_kinh", new WTheme { w = WPal(C(47, 74, 110), C(79, 134, 176), C(191, 227, 238)), fx = new Theme { extra = "tinh_the", extraCol = C(58, 56, 66) } } },
+            { "lien_kinh", new WTheme { w = WPal(C(40, 112, 196), C(84, 164, 232), C(196, 238, 252)), fx = new Theme { extra = "tinh_the", extraCol = C(58, 56, 66) } } },
             // rắn vực sâu: chàm vực #2E2F6E, chàm xám #5058A8, bạc hà #8FE3D0; chấm đèn bạc hà
-            { "uyen_xa", new WTheme { w = WPal(C(34, 78, 190), C(64, 140, 232), C(134, 214, 240)) } },   // rắn nước có sừng (2026-11-11): lam cô-ban của thân, nhạt dần về màu đốm bong bóng; bỏ họa tiết sao của rắn đèn cũ
+            { "uyen_xa", new WTheme { w = WPal(C(38, 98, 214), C(70, 162, 246), C(152, 226, 255)) } },   // rắn nước có sừng (2026-11-11): lam cô-ban của thân, nhạt dần về màu đốm bong bóng; bỏ họa tiết sao của rắn đèn cũ
             // cá sấu băng: petrol sẫm #1F5566, petrol #3C8396, cạnh băng #9DBAC6; mảnh băng đục
             // suất này nay là dòng rồng vây (2026-11-12, mã rong_vay): chàm của thân #34408F, lam ngọc của vây #49BFC4, lam nhạt; bỏ mảnh băng
-            { "han_ngac", new WTheme { w = WPal(C(52, 64, 143), C(73, 191, 196), C(178, 226, 230)) } },
+            { "han_ngac", new WTheme { w = WPal(C(44, 106, 208), C(58, 198, 218), C(178, 240, 246)) } }, // 2026-11-18: lốc xám đục (ảnh trước) → lam tươi
             // rồng biển nhiều đầu: ngọc bích sẫm, ngọc bích #2FA79B, bạc hà #A6E6D8; sao vàng như gạc
-            { "hai_long", new WTheme { w = WPal(C(31, 127, 120), C(47, 167, 155), C(166, 230, 216)), fx = new Theme { extra = "sao", extraCol = C(233, 184, 74) } } },
+            { "hai_long", new WTheme { w = WPal(C(26, 140, 152), C(52, 198, 192), C(172, 242, 230)), fx = new Theme { extra = "sao", extraCol = C(233, 184, 74) } } },
             // đảo Mộc, tinh linh rừng mập (2026-11-12, dòng Mầm Ú, id mam_u; chiêu lá ở HatMoc.cs): lục lá đậm của mầm, lục non, lục nhạt của thân;
             // sao vàng văng lúc húc bụng
             { "mam_u", new WTheme { w = WPal(C(62, 140, 88), C(156, 204, 92), C(206, 230, 140)), fx = new Theme { extra = "sao", extraCol = C(255, 226, 120) } } },
@@ -217,17 +226,33 @@ namespace PokiClash
             return Add(p);
         }
 
+        // 2026-11-18: giọt nhỏ hơn (người dùng: giọt lẻ to quá), hình giọt Kingdom Rush hat_kr_giot nếu đã nhập
         void DrawDrop(P p, float k, List<Item> buf)
         {
-            float s = 2.6f * p.sz * (1 - SmoothStep(0.8f, 1, k));
+            float s = 2.3f * p.sz * (1 - SmoothStep(0.8f, 1, k));
             if (s < 1) return;
             float sp = p.vel.magnitude;
             var d = sp > 5 ? p.vel / sp : new Vector2(0, 1);
-            float ang = TipAngle(-d); // đuôi nhọn ở phía sau hướng bay
-            var w = p.stops ?? W;
-            Put(buf, p.group, 40, S("drops_" + (p.seed & 3)), Ink, p.pos, s + 4, 1, ang);
-            Put(buf, p.group, 40.3f, S("drop_" + (p.seed & 3)), w[2], p.pos, s, 1, ang);
-            Put(buf, p.group, 40.6f, S("drop_" + (p.seed & 3)), w[3], p.pos + d * s * 0.1f, s * 0.56f, 1, ang);
+            PutGiot(buf, p.group, 40, p.pos, d, s, p.stops ?? W, p.seed, sp);
+        }
+
+        // một giọt lệ ba lớp (mực, giữa, nhạt lệch về đầu). hat_kr_giot: đầu tròn ở +x, quay đầu ra trước, giọt rơi nhanh (mưa) kéo dài
+        // theo tốc độ. Dự phòng hat_drop: ngọn nhọn chĩa lên, quay cho đuôi nhọn ra sau hướng bay
+        void PutGiot(List<Item> buf, int g, float layer, Vector2 pos, Vector2 d, float s, Color[] w, int sd, float sp = 0)
+        {
+            var gi = SK("kr_giot_", sd);
+            if (gi != null)
+            {
+                float ang = VelAng(d), st = 1 + 0.9f * Mathf.Clamp01((sp - 300) / 600);
+                Put(buf, g, layer, SK("kr_giots_", sd) ?? gi, Ink, pos, s + 3.5f, (s * st + 3.5f) / (s + 3.5f), ang);
+                Put(buf, g, layer + 0.3f, gi, w[2], pos, s, st, ang);
+                Put(buf, g, layer + 0.6f, gi, w[3], pos + d * s * 0.12f, s * 0.56f, st, ang);
+                return;
+            }
+            float a2 = TipAngle(-d);
+            Put(buf, g, layer, S("drops_" + (sd & 3)), Ink, pos, s + 4, 1, a2);
+            Put(buf, g, layer + 0.3f, S("drop_" + (sd & 3)), w[2], pos, s, 1, a2);
+            Put(buf, g, layer + 0.6f, S("drop_" + (sd & 3)), w[3], pos + d * s * 0.1f, s * 0.56f, 1, a2);
         }
 
         public P Drop(Vector2 pos, Vector2 vel, float life = 0, float r = 5, float grav = 900, int group = Front, float ground = float.NaN,
@@ -292,8 +317,74 @@ namespace PokiClash
             Ring(pos, life, R0, R1, col ?? W[2]);
         }
 
-        // vương miện nước mọc từ mặt đất rồi lún xuống (đáy bám đất)
+        // vương miện nước (mão) mọc từ mặt đất (người dùng 2026-11-18: toé như Kingdom Rush): to nhất ngay khung đầu, các lưỡi nhọn chĩa
+        // lên; ở 30% đời bị đục lỗ (hat_kr_maolo), từ 50% sụp xuống và vỡ thành giọt văng ra từ các ngọn; trên đất còn vành giọt elip.
+        // Ảnh hat_kr_mao: chân giữa đáy khung vuông (đáy hình ở ~96% khung, hình rộng ~92% khung). Chưa nhập: vương miện cũ (CrownCu).
         void Crown(Vector2 feet, float wd, float life = 0.42f, int group = Front)
+        {
+            if (SK("kr_mao_", 0) == null)
+            {
+                CrownCu(feet, wd, life, group);
+                return;
+            }
+            life = Mathf.Max(life, 0.5f);
+            var p = new P { pos = feet, life = life, group = group, seed = rng.Next(4), wd = wd, stops = W };
+            p.draw = (q, k, buf) =>
+            {
+                float s = q.wd / 0.92f;
+                float gx = 1 + 0.14f * SmoothStep(0.45f, 1, k);
+                float gy = (k < 0.06f ? 0.86f + 0.14f * k / 0.06f : 1) * (1 - 0.8f * SmoothStep(0.5f, 1, k));
+                float a = 1 - SmoothStep(0.78f, 1, k);
+                if (gy < 0.05f || a < 0.03f) return;
+                bool lo = k > 0.3f && SK("kr_maolo_", q.seed) != null;
+                string bv = lo ? "kr_maolo_" : "kr_mao_", bs = lo ? "kr_maolos_" : "kr_maos_";
+                var w = q.stops;
+                for (int i = 0; i < 4; i++)
+                {
+                    float f = i < 2 ? 1 : i == 2 ? 0.8f : 0.58f; // lớp trong nhỏ dần, cùng chân: mép đậm, lõi nhạt
+                    float hs = s * f * gy, ws = s * f * gx, ext = i == 0 ? 5 : 0;
+                    var spr = i == 0 ? SK(bs, q.seed) ?? SK(bv, q.seed) : SK(bv, q.seed);
+                    Put(buf, q.group, 34 + i * 0.1f, spr, i == 0 ? w[0] : w[i], q.pos - new Vector2(0, 0.46f * hs), hs + ext, (ws + ext) / (hs + ext), 0, a);
+                }
+            };
+            Add(p);
+            VanhGiot(feet + new Vector2(0, 2), 0.6f * wd, life + 0.15f);
+            var th = wth;
+            int nd = Mathf.Clamp((int)(wd / 13), 3, 9);
+            At(life * 0.5f, () => InW(th, () => // mão sụp: các ngọn vỡ thành giọt
+            {
+                for (int i = 0; i < nd; i++)
+                {
+                    float x = U(-0.42f, 0.42f);
+                    Drop(feet + new Vector2(x * wd, -U(0.45f, 0.8f) * wd), new Vector2(Mathf.Sign(x) * U(50, 150), -U(40, 150)), 0, U(2, 3.4f), 900,
+                        U(0, 1) < 0.6f ? group : Back, feet.y + U(-6, 10));
+                }
+            }));
+        }
+
+        // vành giọt elip trên đất sau cú toé (Kingdom Rush): nở nhẹ rồi các giọt nhỏ dần, mờ ở nửa sau. Ảnh hat_kr_vanh (i = 0, 1) đã dẹt
+        // sẵn nên vẽ khung vuông; chưa nhập thì vòng nước dẹt không viền.
+        void VanhGiot(Vector2 feet, float R, float life = 0.55f)
+        {
+            var p = new P { pos = feet, life = life, group = Floor, seed = rng.Next(2), sz = R, stops = W };
+            p.draw = (q, k, buf) =>
+            {
+                float R2 = q.sz * (0.7f + 0.3f * EaseOut(k / 0.4f));
+                float a = 1 - SmoothStep(0.55f, 1, k);
+                var v = SK("kr_vanh_", q.seed & 1);
+                if (v != null)
+                {
+                    Put(buf, Floor, 5, SK("kr_vanhs_", q.seed & 1) ?? v, Ink, q.pos, 2 * R2 + 3, 1, 0, a);
+                    Put(buf, Floor, 5.1f, v, q.stops[3], q.pos, 2 * R2, 1, 0, a);
+                    return;
+                }
+                Put(buf, Floor, 5, S("ring"), q.stops[3], q.pos, 2 * R2 * 0.3f, 1 / 0.3f, 0, a);
+            };
+            Add(p);
+        }
+
+        // vương miện nước bản cũ (hat_crown_0, 1): mọc từ mặt đất rồi lún xuống (đáy bám đất)
+        void CrownCu(Vector2 feet, float wd, float life = 0.42f, int group = Front)
         {
             var p = new P { pos = feet, life = life, group = group, seed = rng.Next(2), wd = wd, stops = W };
             p.draw = (q, k, buf) =>
@@ -328,29 +419,30 @@ namespace PokiClash
             Add(p);
         }
 
-        // nước toé lúc trúng: chớp toé, vành lưỡi sóng toả đều, giọt văng vòng cung, bọt, vương miện nước, vòng sóng
+        // nước toé lúc trúng (2026-11-18 theo Kingdom Rush): đỉnh ngay khung đầu, tan bằng vỡ ra. Ở thân: chớp sao kem 2 khung + các khối
+        // nước văng ra (đốm kem, dải đậm ở đáy) → giọt → chấm; dưới chân: mão nước đục lỗ rồi sụp thành giọt, vành giọt elip, vòng sóng;
+        // giọt văng theo chùm lệch cỡ, bọt thành cụm
         void Splash(Vector2 c, float sc, float ground, float tH, int group = Front)
         {
-            BurstFlash(c, 0.72f * tH * sc, group);
-            int n = (int)(8 * sc + 1);
-            for (int i = 0; i < n; i++)
-            {
-                float a = 6.28f * (i + U(-0.3f, 0.3f)) / n;
-                Wave(c + U2(-4, 4), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(200, 330) * sc, U(0.3f, 0.42f), 8 * sc, U(14, 19) * sc, group, 1, 0.15f,
-                    4.5f, 300);
-            }
-            for (int i = 0; i < (int)(14 * sc); i++)
-            {
-                float a = (-90 + U(-85, 85)) * Mathf.Deg2Rad;
-                Drop(c + U2(-6, 6), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(240, 460) * sc, 0, U(3, 6), 900, U(0, 1) < 0.6f ? group : Back,
-                    ground + U(-10, 18));
-            }
-            for (int i = 0; i < (int)(5 * sc); i++) Foam(c + U2(-18, 18) * sc, null, 0, 4, U(9, 14) * sc, group);
+            KrHit(c, 0.6f * tH * sc, group, (int)(5 + 2.4f * sc), 1.1f);
             var feet = new Vector2(c.x, ground);
-            Crown(feet + new Vector2(0, 4), 0.78f * tH * sc);
-            Ripple(feet, 0.12f * tH, 0.75f * tH * sc);
-            var w3 = W[3];
-            At(0.12f, () => Ripple(feet, 0.08f * tH, 0.5f * tH * sc, 0.5f, w3));
+            Crown(feet + new Vector2(0, 4), 0.78f * tH * sc, 0.55f);
+            int nc = sc > 1 ? 4 : 3;
+            for (int j = 0; j < nc; j++)
+            {
+                float a0 = (-90 + U(-75, 75)) * Mathf.Deg2Rad;
+                int m = U(0, 1) < 0.5f ? 2 : 3;
+                bool back = U(0, 1) < 0.4f;
+                for (int i = 0; i < m; i++)
+                {
+                    float a = a0 + U(-0.2f, 0.2f);
+                    Drop(c + U2(-6, 6), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(260, 440) * sc * (1 - 0.16f * i), 0, U(2.2f, 3.8f) * (i == 0 ? 1.2f : 0.8f), 900,
+                        back ? Back : group, ground + U(-10, 18));
+                }
+            }
+            BotCum(c + U2(-14, 14) * sc, new Vector2(U(-40, 40), U(-50, -20)), U(9, 12) * sc, group);
+            if (sc > 0.9f) BotCum(c + U2(-18, 18) * sc, new Vector2(U(-50, 50), U(-40, -10)), U(7, 10) * sc, Back);
+            Ripple(feet, 0.12f * tH, 0.72f * tH * sc);
             WExtra(c, (int)(4 * sc + 1), 300 * sc, group);
         }
 
@@ -393,37 +485,388 @@ namespace PokiClash
             return Add(p);
         }
 
-        // tụ nước về điểm cFn(giây từ lúc gọi): giọt và lưỡi sóng nhỏ bay trôn ốc vào tâm, vòng nước co lại dần
-        void Gather(Func<float, Vector2> cFn, float t0, float t1, float reach = 85, float rate = 60, int group = Front)
+        // tụ nước về điểm cFn(giây từ lúc gọi) (người dùng 2026-11-18: pha hút quanh cầu xấu): VỆT nước thuôn (đầu đậm đuôi nhạt, dài theo
+        // tốc) hiện dần trên một vòng rồi bay xoắn ốc vào tâm, càng gần càng nhanh (ease-in); vẽ dưới cầu nên tới mép cầu là nhập vào, chết
+        // đúng lúc chạm tâm và làm cầu phồng (pulse[0]). Mật độ tăng dần tới lúc nhả; hai vòng nước co về tâm ở 0,42 s và 0,2 s trước lúc nhả.
+        void Gather(Func<float, Vector2> cFn, float t0, float t1, float reach = 85, float rate = 60, int group = Front, float[] pulse = null)
         {
             if (t1 - t0 < 0.05f) return;
             float start = T;
-            Every(t0, t1, rate, x =>
+            float thick = Mathf.Clamp(reach / 22, 2.6f, 4.4f);
+            Every(t0, t1, x => rate * (0.3f + 1.2f * x * x), x =>
             {
-                float R = U(0.7f, 1) * reach;
-                bool big = U(0, 1) < 0.3f;
                 var q = new P
                 {
-                    life = U(0.3f, 0.42f), seed = rng.Next(4), group = group, sz = U(3, 5.5f), r0 = 5, r1 = U(7, 10), tip = 1, tipUp = 0,
-                    fade = 0.75f, ph = U(0, 6.28f), R0 = R, stops = W
+                    life = U(0.3f, 0.42f), seed = rng.Next(4), group = group, ph = U(0, 6.28f), R0 = U(0.72f, 1) * reach, sz = thick * U(0.75f, 1.15f),
+                    spin = U(0, 1) < 0.5f ? -1 : 1, big = U(0, 1) < 0.3f, stops = W
                 };
-                q.pos = cFn(T - start) + new Vector2(Mathf.Cos(q.ph), Mathf.Sin(q.ph) * 0.8f) * R;
+                q.pos = cFn(T - start) + new Vector2(Mathf.Cos(q.ph), Mathf.Sin(q.ph) * 0.8f) * q.R0;
                 q.upd = (z, dt, s) =>
                 {
                     float k = Mathf.Min(1, z.age / z.life);
-                    float a = z.ph + 4.5f * k * k;
-                    float rr = z.R0 * Mathf.Pow(1 - k, 1.3f);
-                    var np = cFn(s.T - start) + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.8f) * rr;
+                    float a = z.ph + z.spin * 2.4f * k * k;
+                    float rr = z.R0 * (1 - k * k * (0.6f + 0.4f * k));
+                    var np = cFn(s.T + dt - start) + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.8f) * rr;
                     z.vel = (np - z.pos) / Mathf.Max(dt, 1e-5f);
                 };
-                if (big) q.draw = DrawWave;
-                else q.draw = DrawDrop;
+                q.draw = (z, k, buf) =>
+                {
+                    float sp = z.vel.magnitude;
+                    if (sp < 1) return;
+                    float g = Mathf.Min(1, k / 0.25f); // hiện dần, không bật phụt
+                    float th = z.sz * (0.55f + 0.45f * g), len = th * Mathf.Clamp(sp / 110, 1.8f, 5);
+                    var w = z.stops;
+                    PutVet(buf, z.group, 14, z.pos, z.vel / sp, len, th, z.big ? FoamC : w[3], z.big ? w[3] : w[2], g, z.seed);
+                };
+                if (pulse != null) q.onDeath = (z, s) => pulse[0] = Mathf.Min(0.3f, pulse[0] + 0.07f);
                 Add(q);
             });
-            int n = Mathf.Max(1, (int)((t1 - t0) / 0.22f));
             var w3 = W[3];
+            for (int i = 0; i < 2; i++)
+            {
+                float tr = t1 - 0.42f + i * 0.22f;
+                if (tr < t0) continue;
+                At(tr, () => RingCo(cFn(T - start), reach * 1.05f, reach * 0.12f, 0.3f, w3, group));
+            }
+        }
+
+        // ================= hình hạt kiểu Kingdom Rush (2026-11-18) =================
+        // Bộ hình mới hat_kr_<tên>_<i> (bản vân) và hat_kr_<tên>s_<i> (bản đặc), i = 0..3, đang được vẽ. Chỗ nào dùng cũng có hình cũ dự
+        // phòng: ảnh mới chưa nhập thì S trả null và vẽ bằng hình cũ, không lỗi.
+        static readonly Dictionary<string, string[]> KNames = new Dictionary<string, string[]>();
+
+        static string KN(string b, int i)
+        {
+            if (!KNames.TryGetValue(b, out var a))
+            {
+                a = new string[4];
+                for (int j = 0; j < 4; j++) a[j] = b + j;
+                KNames[b] = a;
+            }
+            return a[i & 3];
+        }
+
+        Sprite SK(string b, int i) => S(KN(b, i));
+
+        static float Hash(int a)
+        {
+            uint h = (uint)a * 2654435761u;
+            h ^= h >> 13;
+            h *= 0x5bd1e995;
+            h ^= h >> 15;
+            return (h & 0xffff) / 65535f;
+        }
+
+        static float Sq(float v) => v * v;
+
+        // chạy fn với bảng màu nước th (sự kiện hẹn giờ chạy lúc có thể đã đổi tướng ra chiêu: hai tướng nước đánh nhau không lẫn màu)
+        void InW(WTheme th, Action fn)
+        {
+            var o = wth;
+            wth = th;
+            fn();
+            wth = o;
+        }
+
+        void AtW(float t, Action fn)
+        {
+            var th = wth;
+            At(t, () => InW(th, fn));
+        }
+
+        void EveryW(float t0, float t1, Func<float, float> rate, Action<float> fn)
+        {
+            var th = wth;
+            Every(t0, t1, rate, x =>
+            {
+                var o = wth;
+                wth = th;
+                fn(x);
+                wth = o;
+            });
+        }
+
+        void EveryW(float t0, float t1, float rate, Action<float> fn) => EveryW(t0, t1, _ => rate, fn);
+
+        // nhịp đập của dòng nước đang dội vào đối thủ (tia nước: mỗi 0,24 s; số 0..1 là độ mạnh). StageView CHƯA gắn (đề xuất trong
+        // Temp/vfx_thuy/BAO_CAO.md): gắn vào chớp _Flash + giật lùi nhẹ của con bị trúng thì đối thủ "chớp + giật" suốt dòng tia
+        public Action<float> NuocPulse;
+
+        // vệt nước thuôn: hat_kr_vet (đầu tròn ở +x, đuôi nhọn về -x); dự phòng ảnh giọt hat_drop_1 (ngọn chĩa lên) quay cho đầu tròn ra
+        // trước. Ba lớp: mực, thân màu body, đầu màu head nhỏ lệch về trước (đầu đậm đuôi nhạt). ink = false: không viền (vệt sáng trên tia)
+        void PutVet(List<Item> buf, int g, float layer, Vector2 pos, Vector2 dir, float len, float th, Color body, Color head, float alpha, int seed,
+            bool ink = true)
+        {
+            var s = SK("kr_vet_", seed);
+            if (s != null)
+            {
+                float ang = VelAng(dir);
+                if (ink) Put(buf, g, layer, SK("kr_vets_", seed) ?? s, Ink, pos, th + 3, (len + 3) / (th + 3), ang, alpha);
+                Put(buf, g, layer + 0.1f, s, body, pos, th, len / th, ang, alpha);
+                if (ink) Put(buf, g, layer + 0.2f, s, head, pos + dir * len * 0.22f, th * 0.62f, len * 0.5f / (th * 0.62f), ang, alpha);
+                return;
+            }
+            float a2 = TipAngle(-dir);
+            if (ink) Put(buf, g, layer, S("drops_1"), Ink, pos, len + 3, (th + 3) / (len + 3), a2, alpha);
+            Put(buf, g, layer + 0.1f, S("drop_1"), body, pos, len, th / len, a2, alpha);
+            if (ink) Put(buf, g, layer + 0.2f, S("drop_1"), head, pos + dir * len * 0.2f, len * 0.5f, th * 0.62f / (len * 0.5f), a2, alpha);
+        }
+
+        // vòng nước co về tâm (không viền mực: vòng mảnh có viền thì thành vòng đen): hiện dần, co nhanh dần
+        void RingCo(Vector2 c, float R0, float R1, float life, Color col, int group = Front)
+        {
+            var p = new P { pos = c, life = life, group = group, col = col, R0 = R0, R1 = R1 };
+            p.draw = (q, k, buf) =>
+            {
+                float R = q.R0 + (q.R1 - q.R0) * k * k;
+                float a = Mathf.Min(1, k / 0.25f) * (1 - SmoothStep(0.8f, 1, k));
+                Put(buf, q.group, 13, S("ring"), q.col, q.pos, 2 * R * 0.82f, 1 / 0.82f, 0, 0.9f * a);
+            };
+            Add(p);
+        }
+
+        // cầu nước đang tụ / đang bay (người dùng 2026-11-18: cầu là khối nước sóng sánh có đốm sáng, không phải hình tròn trơn): khối
+        // hat_kr_khoinuoc đổi hình mỗi 2 khung, lõi cuộn hat_kr_cau quay, đốm kem hat_kr_dom khớp đúng khung khối; lớp đậm lệch xuống thành
+        // dải đậm ở đáy. Lớn dần theo nhịp đập, mỗi vệt nhập vào thì phồng (pulse[0], tự xẹp); nén lại 2 khung ngay trước tSqz (lúc nhả).
+        // tail > 0: khi bay rải đốt đuôi theo quãng (bán kính đốt = tail × bán kính cầu) nên đuôi liền. cFn, rFn: theo giây từ lúc gọi.
+        // Chưa có ảnh mới: khối tròn bốn lớp + hai vòng xoắn như bản cũ.
+        P CauNuoc(Func<float, Vector2> cFn, float tEnd, Func<float, float> rFn, float[] pulse = null, float tSqz = -1, int group = Front, float tail = 0)
+        {
+            var p = new P { pos = cFn(0), life = tEnd, group = group, seed = rng.Next(4), stops = W };
+            p.upd = (q, dt, s) =>
+            {
+                var np = cFn(q.age);
+                q.drift = np - q.pos;
+                q.pos = np;
+                q.vel = Vector2.zero;
+                if (pulse != null) pulse[0] *= Mathf.Exp(-7 * dt);
+                if (tail <= 0) return;
+                float mv = q.drift.magnitude;
+                if (mv < 0.5f || mv > 200) return;
+                float r = rFn(q.age) * tail, step = Mathf.Max(4, r * 0.55f);
+                var d = q.drift / mv;
+                q.tb += mv;
+                int guard = 0;
+                while (q.tb >= step && guard++ < 8)
+                {
+                    q.tb -= step;
+                    s.DuoiNuoc(q.pos - d * q.tb, r * s.U(0.85f, 1.05f), 0.2f, q.stops, q.group);
+                }
+            };
+            p.draw = (q, k, buf) =>
+            {
+                float age = q.age;
+                float r = rFn(age);
+                if (r < 1.5f) return;
+                r *= 1 + 0.06f * Mathf.Sin(age * 15) + (pulse != null ? pulse[0] : 0);
+                float sx = 1;
+                if (tSqz > 0 && age > tSqz - 0.07f && age < tSqz) // nén lại 2 khung trước lúc nhả
+                {
+                    r *= 0.8f;
+                    sx = 1.14f;
+                }
+                float mv = q.drift.magnitude;
+                float ang = mv > 0.3f ? VelAng(q.drift) : 0;
+                float st = sx * (1 + Mathf.Min(0.3f, mv / 12));
+                int fr = q.seed + (int)(age / 0.066f); // đổi hình mỗi 2 khung: nước sóng sánh
+                var w = q.stops;
+                int g = q.group;
+                var kn = SK("kr_khoinuoc_", fr);
+                if (kn != null)
+                {
+                    var up = new Vector2(0, -r * 0.1f);
+                    Put(buf, g, 20, SK("kr_khoinuocs_", fr) ?? S("solid_" + (fr & 3)), Ink, q.pos, 2 * r + 5, st, ang);
+                    Put(buf, g, 21, kn, w[1], q.pos, 2 * r, st, ang);
+                    var core = SK("kr_cau_", fr);
+                    Put(buf, g, 22, core ?? kn, w[2], q.pos + up * 0.8f, 1.7f * r, st, core != null ? age * 160 : ang);
+                    Put(buf, g, 23, core != null ? SK("kr_cau_", fr + 1) : kn, w[3], q.pos + up * 1.8f + new Vector2(-r * 0.1f, 0), 1.06f * r, 1,
+                        core != null ? -age * 220 : ang);
+                    var dom = SK("kr_dom_", fr);
+                    if (dom != null) Put(buf, g, 24, dom, FoamC, q.pos, 2 * r, st, ang);
+                    else Put(buf, g, 24, S("foam_" + (fr & 3)), FoamC, q.pos + new Vector2(-r * 0.32f, -r * 0.36f), 0.42f * r);
+                    return;
+                }
+                int sd = q.seed;
+                Put(buf, g, 20, S("solid_" + sd), Ink, q.pos, 2 * r + 5, st, ang);
+                Put(buf, g, 21, S("blob_" + sd), w[1], q.pos, 2 * r, st, ang);
+                Put(buf, g, 22, S("blob_" + ((sd + 1) & 3)), w[2], q.pos + new Vector2(0, -r * 0.08f), 1.66f * r, st, ang);
+                Put(buf, g, 23, S("blob_" + ((sd + 2) & 3)), w[3], q.pos + new Vector2(-r * 0.12f, -r * 0.2f), 1.1f * r, 1, ang);
+                for (int j = 0; j < 2; j++)
+                {
+                    float a = age * 7 + j * Mathf.PI;
+                    Put(buf, g, 24, S("curl_" + j), j == 0 ? w[4] : w[3], q.pos + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.7f) * r * 0.3f, r * 0.7f, 1,
+                        -a * Mathf.Rad2Deg);
+                }
+                Put(buf, g, 24.5f, S("foam_" + (fr & 3)), FoamC, q.pos + new Vector2(-r * 0.32f, -r * 0.36f), 0.36f * r);
+            };
+            return Add(p);
+        }
+
+        // nước trúng nhỏ kiểu Kingdom Rush (0,33 s): chớp sao kem 2 khung (hat_kr_chop; dự phòng nước toé nhìn thẳng hat_crown_2, 3) →
+        // n khối nước văng đều quanh tâm (lệch ngẫu nhiên) → giọt → chấm. bias: vận tốc cộng thêm (toé lệch một phía)
+        void KrHit(Vector2 c, float size, int group = Front, int n = 7, float speed = 1, Vector2? bias = null)
+        {
+            var star = new P { pos = c, life = 0.1f, group = group, seed = rng.Next(4), sz = size, ang = U(0, 360), stops = W };
+            star.draw = (q, k, buf) =>
+            {
+                float s = q.sz * (0.88f + 0.25f * k);
+                var w = q.stops;
+                var ch = SK("kr_chop_", q.seed);
+                if (ch != null)
+                {
+                    Put(buf, q.group, 44, SK("kr_chops_", q.seed) ?? ch, Ink, q.pos, s + 5, 1, q.ang);
+                    Put(buf, q.group, 44.1f, ch, w[3], q.pos, s, 1, q.ang);
+                    Put(buf, q.group, 44.2f, ch, FoamC, q.pos, 0.62f * s, 1, q.ang + 18);
+                    return;
+                }
+                int cs = 2 + (q.seed & 1);
+                Put(buf, q.group, 44, S("crowns_" + cs), Ink, q.pos, 0.8f * s + 5, 1, q.ang);
+                Put(buf, q.group, 44.1f, S("crown_" + cs), w[3], q.pos, 0.8f * s, 1, q.ang);
+                Put(buf, q.group, 44.2f, S("crown_" + cs), FoamC, q.pos, 0.5f * s, 1, q.ang + 18);
+            };
+            Add(star);
+            var b = bias ?? Vector2.zero;
+            float k0 = Mathf.Clamp(size / 60, 0.6f, 1.5f);
             for (int i = 0; i < n; i++)
-                At(t0 + i * 0.22f, () => RingN(cFn(T - start), 0.34f, reach * 0.9f, reach * 0.16f, w3, 1, group, 18));
+            {
+                float a = 6.2832f * (i + U(-0.3f, 0.3f)) / n;
+                var dir = new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.85f);
+                Khoi(c + dir * size * 0.12f, (dir * U(190, 320) * k0 + b) * speed, U(0.28f, 0.36f), size * U(0.08f, 0.13f), group);
+            }
+        }
+
+        // khối nước văng (Kingdom Rush): bay ra, cản mạnh, rơi nhẹ; 42% đời đầu là khối có đốm kem và dải đậm ở đáy, rồi thành giọt thuôn
+        // theo hướng bay, 20% cuối là chấm nhỏ dần rồi mất (tan bằng vỡ nhỏ, không mờ phụt)
+        P Khoi(Vector2 pos, Vector2 vel, float life, float r, int group = Front)
+        {
+            var p = new P { pos = pos, vel = vel, life = life, drag = 5.5f, acc = new Vector2(0, 420), seed = rng.Next(4), sz = r, group = group, stops = W };
+            p.draw = (q, k, buf) =>
+            {
+                var w = q.stops;
+                int g = q.group, sd = q.seed;
+                float sp = q.vel.magnitude;
+                var d = sp > 5 ? q.vel / sp : new Vector2(0, 1);
+                if (k < 0.42f)
+                {
+                    float r = q.sz * (k < 0.08f ? 0.7f + 0.3f * k / 0.08f : 1), ang = VelAng(d), st = 1 + Mathf.Min(0.35f, sp / 900);
+                    var kn = SK("kr_khoinuoc_", sd);
+                    if (kn != null)
+                    {
+                        Put(buf, g, 40, SK("kr_khoinuocs_", sd) ?? kn, Ink, q.pos, 2 * r + 3.5f, st, ang);
+                        Put(buf, g, 40.2f, kn, w[1], q.pos, 2 * r, st, ang);
+                        Put(buf, g, 40.4f, kn, w[2], q.pos + new Vector2(0, -r * 0.14f), 1.72f * r, st, ang);
+                        var dom = SK("kr_dom_", sd);
+                        if (dom != null) Put(buf, g, 40.6f, dom, FoamC, q.pos, 2 * r, st, ang);
+                        else Put(buf, g, 40.6f, S("foam_" + sd), FoamC, q.pos + new Vector2(-r * 0.25f, -r * 0.3f), 0.5f * r);
+                        return;
+                    }
+                    Put(buf, g, 40, S("solid_" + sd), Ink, q.pos, 2 * r + 3.5f, st, ang);
+                    Put(buf, g, 40.2f, S("blob_" + sd), w[1], q.pos, 2 * r, st, ang);
+                    Put(buf, g, 40.4f, S("blob_" + ((sd + 1) & 3)), w[2], q.pos + new Vector2(0, -r * 0.16f), 1.7f * r, st, ang);
+                    Put(buf, g, 40.6f, S("blob_" + ((sd + 2) & 3)), FoamC, q.pos + new Vector2(-r * 0.25f, -r * 0.32f), 0.6f * r);
+                    return;
+                }
+                if (k < 0.8f)
+                {
+                    PutGiot(buf, g, 40, q.pos, d, q.sz * 2.2f * (1 - 0.45f * (k - 0.42f) / 0.38f), w, sd, sp);
+                    return;
+                }
+                float rd = q.sz * 0.55f * (1 - (k - 0.8f) / 0.2f);
+                if (rd < 0.6f) return;
+                Put(buf, g, 40, S("solid_" + sd), Ink, q.pos, 2 * rd + 2.5f);
+                Put(buf, g, 40.2f, S("solid_" + sd), w[2], q.pos, 2 * rd);
+            };
+            return Add(p);
+        }
+
+        // cụm bọt / hơi nước (người dùng 2026-11-18: bọt, hơi nước thành cụm mềm, không rải rác): ba múi lệch cỡ chồng nhau, chung một
+        // viền mực (mực của mọi múi vẽ dưới mọi màu), bay cùng nhau, nở tới đỉnh ở 25% đời rồi co mượt. hoi: hơi nước (hat_kr_khoi,
+        // hat_kr_khoinho; dự phòng bọt), không viền, trong mờ 0,62, bay lên
+        P BotCum(Vector2 pos, Vector2? vel = null, float r = 9, int group = Front, float life = 0, bool hoi = false)
+        {
+            var p = new P
+            {
+                pos = pos, vel = vel ?? new Vector2(U(-20, 20), U(-40, -10)), life = life > 0 ? life : U(0.5f, 0.75f), drag = 2.5f,
+                acc = new Vector2(0, hoi ? -40 : 0), seed = rng.Next(4), sz = r, group = group, ang = U(0, 360), big = hoi, stops = W,
+                off = new Vector2(U(0.5f, 0.72f), U(0.38f, 0.58f)), ph = U(0, 6.28f)
+            };
+            p.draw = (q, k, buf) =>
+            {
+                float r0 = k < 0.25f ? 0.55f + 0.45f * EaseOut(k / 0.25f) : 1 - 0.82f * SmoothStep(0.25f, 1, k);
+                float rr0 = q.sz * r0, a = 1 - SmoothStep(0.72f, 1, k);
+                if (rr0 < 1 || a < 0.03f) return;
+                int g = q.group, sd = q.seed;
+                for (int i = 0; i < 3; i++)
+                {
+                    float rr = i == 0 ? rr0 : rr0 * (i == 1 ? q.off.x : q.off.y);
+                    float an = q.ph + i * 2.3f;
+                    var pp = q.pos + (i == 0 ? Vector2.zero : new Vector2(Mathf.Cos(an), Mathf.Sin(an) * 0.8f) * rr0 * 0.8f);
+                    float ga = q.ang + i * 40;
+                    if (q.big)
+                    {
+                        var hs = SK(i == 0 ? "kr_khoi_" : "kr_khoinho_", sd + i) ?? S("foam_" + ((sd + i) & 3));
+                        Put(buf, g, 31, hs, i == 0 ? FoamC : q.stops[4], pp, 2 * rr, 1, ga, 0.62f * a);
+                        continue;
+                    }
+                    Put(buf, g, 30, S("foams_" + ((sd + i) & 3)), Ink, pp, 2 * rr + 3.5f, 1, ga, a);
+                    Put(buf, g, 31, S("foam_" + ((sd + i) & 3)), FoamC, pp, 2 * rr, 1, ga, a);
+                }
+            };
+            return Add(p);
+        }
+
+        // một đốt đuôi nước đứng yên tại chỗ sinh rồi co dần (đuôi đạn chia theo quãng bay nên liền); các đốt chung lớp nên hoà thành một
+        // dải có một viền mực
+        void DuoiNuoc(Vector2 pos, float r, float life, Color[] w, int group = Front, float layer = 14)
+        {
+            var p = new P { pos = pos, life = life, group = group, seed = rng.Next(4), sz = r, stops = w, ph = layer };
+            p.draw = (q, k, buf) =>
+            {
+                float rr = q.sz * Mathf.Pow(1 - k, 0.7f);
+                if (rr < 0.8f) return;
+                int sd = q.seed;
+                float L = q.ph;
+                Put(buf, q.group, L, S("solid_" + sd), Ink, q.pos, 2 * rr + 4.5f);
+                Put(buf, q.group, L + 0.1f, S("blob_" + sd), q.stops[1], q.pos, 2 * rr);
+                Put(buf, q.group, L + 0.2f, S("blob_" + ((sd + 1) & 3)), q.stops[2], q.pos, 1.5f * rr);
+                if (k < 0.5f) Put(buf, q.group, L + 0.3f, S("blob_" + ((sd + 2) & 3)), q.stops[3], q.pos, 0.85f * rr * (1 - 1.2f * k));
+            };
+            Add(p);
+        }
+
+        // rải đốt đuôi theo quãng đạn đi trong bước này (gọi trong upd của đạn, trước khi đạn dời): đạn nhanh vẫn có đuôi liền
+        void RaiDuoi(P z, float dt, float step, float r, float life, int group = Front)
+        {
+            float sp = z.vel.magnitude, mv = sp * dt;
+            if (mv < 1e-3f) return;
+            var d = z.vel / sp;
+            z.tb += mv;
+            int guard = 0;
+            while (z.tb >= step && guard++ < 6)
+            {
+                z.tb -= step;
+                DuoiNuoc(z.pos + d * (mv - z.tb), r * U(0.85f, 1.1f), life, z.stops, group);
+            }
+        }
+
+        // lá nước ôm theo thân ở chỗ tia chạm: cung quanh tâm thân O bán kính R, từ hướng về người bắn (back) quay ±th0 rad; dày A ở giữa,
+        // mỏng dần thành sừng nhọn ôm ra sau thân. Trả chỉ số đầu, số điểm = 2n
+        int LaOm(Vector2 O, Vector2 back, float R, float A, float th0, float age, int n = 12)
+        {
+            int s = mp.Count;
+            for (int i = 0; i < n; i++)
+            {
+                float t = -1 + 2f * i / (n - 1), th = t * th0, ca = Mathf.Cos(th), sa = Mathf.Sin(th);
+                var d = new Vector2(back.x * ca - back.y * sa, back.x * sa + back.y * ca);
+                float prof = Mathf.Pow(Mathf.Max(0, Mathf.Cos(t * 1.5708f)), 0.7f) * (1 + 0.18f * Mathf.Sin(age * 26 + i * 1.7f));
+                mp.Add(O + d * (R + A * prof));
+            }
+            for (int i = n - 1; i >= 0; i--)
+            {
+                float t = -1 + 2f * i / (n - 1), th = t * th0 * 1.05f, ca = Mathf.Cos(th), sa = Mathf.Sin(th);
+                mp.Add(O + new Vector2(back.x * ca - back.y * sa, back.x * sa + back.y * ca) * R);
+            }
+            return s;
         }
 
         static readonly Color BubbleHi = C(214, 240, 252);
@@ -456,15 +899,24 @@ namespace PokiClash
             return Add(p);
         }
 
+        // vệt ướt trên cát (người dùng 2026-11-18: vệt ướt giữ khoảng 1 s rồi mờ): loang ra trong 0,14 s, giữ nguyên tới 62% đời rồi mờ dần
+        // (không co); hai mảng phẳng trong mờ, không viền mực, vài chấm ướt quanh
         void Puddle(Vector2 pos, float R = 22, float life = 1.3f)
         {
-            var p = new P { pos = pos, life = life, group = Floor, sz = R, stops = W };
+            life = Mathf.Max(life, 1.5f);
+            var p = new P { pos = pos, life = life, group = Floor, sz = R, stops = W, seed = rng.Next(1 << 16) };
             p.draw = (q, k, buf) =>
             {
-                float a = Mathf.Min(1, k / 0.12f), f = 1 - k * k * k;
-                Put(buf, Floor, 2, S("ell"), Ink, q.pos, (q.sz + 4) * a * f, 3.3f, 0, 0.9f);
-                Put(buf, Floor, 3, S("ell"), q.stops[2], q.pos, q.sz * a * f, 3.4f);
-                Put(buf, Floor, 4, S("ell"), q.stops[3], q.pos + new Vector2(-6, -1), q.sz * 0.55f * a * (1 - k * k), 3.8f);
+                float g = EaseOut(q.age / 0.14f), hold = 1 - SmoothStep(0.62f, 1, k), R2 = q.sz * g * (1 + 0.06f * k);
+                if (R2 < 0.5f || hold < 0.02f) return;
+                Put(buf, Floor, 2, S("ell"), q.stops[1], q.pos, R2, 3.3f, 0, 0.3f * hold);
+                Put(buf, Floor, 2.1f, S("ell"), q.stops[2], q.pos + new Vector2(-R2 * 0.3f, -1), R2 * 0.55f, 3.6f, 0, 0.36f * hold);
+                for (int i = 0; i < 4; i++) // chấm ướt rải quanh
+                {
+                    float hx = Hash(q.seed + i * 7) * 2 - 1, hy = Hash(q.seed + i * 13 + 3) - 0.5f;
+                    float rs = q.sz * (0.12f + 0.12f * Hash(q.seed + i * 29)) * g;
+                    Put(buf, Floor, 2.2f, S("ell"), q.stops[1], q.pos + new Vector2(hx * q.sz * 2.3f, hy * q.sz * 0.9f), rs, 2.2f, 0, 0.32f * hold);
+                }
             };
             Add(p);
         }
@@ -484,85 +936,191 @@ namespace PokiClash
         // ================= CHIÊU NƯỚC =================
         // lead: giây từ lúc gọi (đầu clip) tới khung nhả của clip. Mỗi hàm trả giây từ lúc gọi tới lúc trúng đối thủ.
 
-        // tia nước: tụ ở miệng trong lúc lấy đà, tới khung nhả thì bắn dòng nước liền (lõi mảng + lưỡi sóng cuộn chạy đè lên)
+        // bề ngang (nửa) của lõi tia ở quãng x (tính từ gốc): mép gợn chảy tới; gốc ở miệng hẹp; đuôi đã đứt thì tròn; chưa chạm thì mũi tròn
+        // mập; đã chạm thân thì loe ra ở 36 đơn vị cuối
+        static float TiaHW(float x, float a, float tail, float head, float dist, bool hit, float hw0)
+        {
+            float f = 1 + 0.16f * Mathf.Sin(x * 0.085f - a * 34) + 0.08f * Mathf.Sin(x * 0.19f - a * 57);
+            if (tail <= 0) f *= 0.6f + 0.4f * SmoothStep(0, 26, x);
+            else f *= Mathf.Sqrt(Mathf.Clamp01((x - tail) / 12));
+            if (hit) f *= 1 + 0.75f * SmoothStep(dist - 36, dist, x);
+            else f *= Mathf.Sqrt(Mathf.Clamp01((head - x) / 10 + 0.12f)) * (1 + 0.35f * Mathf.Exp(-Sq((head - x - 10) / 12)));
+            return hw0 * f;
+        }
+
+        // lớp của lõi tia: mực, lam đậm (mép), lam, lam nhạt (lõi rộng), sọc kem lệch về một bên (vệt sáng trên lưng dòng nước)
+        static readonly float[] TiaW = { 1, 1, 0.8f, 0.62f, 0.34f };
+        static readonly float[] TiaO = { 0, 0, -0.06f, -0.12f, -0.24f };
+
+        // tia nước (người dùng 2026-11-18: "cuối tia nhìn cụt lủn, không có sự va chạm giữa tia đó với địch"):
+        // - tụ ở miệng trong lúc lấy đà: vệt nước xoắn ốc nhập vào cầu nước sóng sánh, cầu nén 2 khung rồi toé lúc nhả;
+        // - dòng nước liền (mảng): mép lam đậm, lõi lam nhạt rộng, sọc kem gợn chạy theo dòng, mép gợn chảy tới, vệt sáng lướt trên dòng;
+        //   đầu dòng tới TẬN mặt trước thân đối thủ (cách tâm thân 0,24 tH), không dừng giữa chừng;
+        // - chỗ chạm: dòng loe ra, lá nước trăng khuyết ôm theo thân (trong mờ 0,86 để không che mặt), bông nước toé chĩa ngược về phía
+        //   người bắn đổi hình mỗi 2 khung (hat_kr_tiadau; dự phòng vương miện nước nằm nghiêng), khối nước tạt ngang theo thân, chùm giọt
+        //   bắn ngược, cụm bọt; mỗi 0,24 s một nhịp đập (vòng sóng, mão nhỏ dưới chân, rung nhẹ, NuocPulse cho chớp + giật đối thủ);
+        // - hết tia: đuôi đứt từ gốc (miệng nhỏ giọt), đoạn còn lại bay nốt tới đích, rơi giọt dọc đường, tới nơi thì vỡ toé thành giọt.
+        // Trả giây tới lúc đầu dòng chạm đối thủ (hợp đồng thời gian với StageView: HoldNuoc("n_tia") = dur + 0,05 không đổi).
         public float NTia(Vector2 mouth, Vector2 target, Vector2 foeFeet, float casterGround, float tH, float lead, float dur = 0.88f)
         {
             var dd = target - mouth;
-            float dist = dd.magnitude;
-            var u = dd / Mathf.Max(1, dist);
+            float d0 = dd.magnitude;
+            var u = dd / Mathf.Max(1, d0);
             var nrm = new Vector2(-u.y, u.x);
+            var back = -u;
             var src = mouth + u * 14;
+            float rf = Mathf.Clamp(d0 - 70, 0, 0.24f * tH);
+            var hitP = target - u * rf; // mặt trước thân đối thủ
+            float dist = Mathf.Max(20, Vector2.Dot(hitP - src, u));
             float T0 = Mathf.Max(0.14f, lead), T1 = T0 + dur;
-            const float SP = 1150;
-            float travel = Mathf.Max(0.03f, (dist - 30) / SP);
-            Gather(t => src, 0, T0 - 0.04f, 60, 55);
-            Orb(t => src, T0, T1 + 0.05f, 17,
-                a => a < T0 ? 17 * EaseOut(a / T0) : 17 * (1 - 0.6f * (a - T0) / (T1 - T0)) * (1 - SmoothStep(T1 - 0.1f, T1 + 0.05f, a)));
-            At(T0, () =>
+            const float SP = 1250, SPT = 1450; // tốc đầu dòng, tốc đoạn đuôi đứt bay nốt
+            float travel = Mathf.Max(0.03f, dist / SP), tHit = T0 + travel, tCut = T1 + dist / SPT;
+            bool big = dur > 1;
+            float hw0 = big ? 11 : 9.5f;
+            float start = T;
+            var pulse = new float[1];
+            Gather(t => src, 0, T0 - 0.03f, 62, 70, Front, pulse);
+            CauNuoc(t => src, T1 + 0.08f, a => a < T0 ? 16 * EaseOut(a / T0) : 16 * (1 - 0.45f * (a - T0) / dur) * (1 - SmoothStep(T1 - 0.05f, T1 + 0.08f, a)),
+                pulse, T0);
+            AtW(T0, () =>
             {
                 Shake?.Invoke(0.2f);
-                for (int i = 0; i < 4; i++) Foam(src + U2(-8, 8), null, 0, 4, 10);
+                KrHit(src + u * 8, 30, Front, 5, 0.8f, u * 120); // cầu toé lúc nhả
+                BotCum(src + U2(-6, 6), u * 30 + new Vector2(0, -20), 7);
             });
-            var core = new P { pos = src, life = dur + travel + 0.1f, group = Front, stops = W };
+            var core = new P { pos = src, life = tCut - T0 + 0.02f, group = Front, stops = W };
             core.draw = (q, k, buf) =>
             {
                 float a = q.age;
-                float head = Mathf.Min(dist - 18, SP * a), tail = Mathf.Max(0, SP * (a - dur));
-                if (head - tail < 30) return;
-                int n = Mathf.Max(2, Mathf.CeilToInt((head - tail) / 12) + 1);
-                for (int li = 0; li < 4; li++)
+                float head = Mathf.Min(dist, SP * a), tail = a > dur ? Mathf.Min(head, SPT * (a - dur)) : 0;
+                if (head - tail < 4) return;
+                bool hit = head >= dist - 0.5f;
+                int n = Mathf.Clamp(Mathf.CeilToInt((head - tail) / 9) + 1, 3, 48);
+                for (int li = 0; li < 5; li++)
                 {
-                    float wf = li < 2 ? 1 : li == 2 ? 0.66f : 0.28f, off = li < 2 ? 0 : li == 2 ? -0.12f : -0.3f, grow = li == 0 ? 2.4f : 0;
+                    float wf = TiaW[li], off = TiaO[li], grow = li == 0 ? 2.4f : 0;
                     int a0 = mp.Count;
                     for (int pass = 0; pass < 2; pass++)
                         for (int i = 0; i < n; i++)
                         {
                             float x = tail + (head - tail) * i / (n - 1);
-                            float hw = (7.5f + 1.6f * Mathf.Sin(x * 0.07f - a * 30)) * Mathf.Min(1, Mathf.Min((x - tail) / 26 + 0.25f, (head - x) / 16 + 0.45f));
-                            var c = src + u * x + nrm * (3 * Mathf.Sin(x * 0.045f - a * 22) + off * hw);
+                            float hw = TiaHW(x, a, tail, head, dist, hit, hw0);
+                            if (li == 4) hw *= 0.7f + 0.3f * Mathf.Sin(x * 0.11f - a * 46); // sọc kem gợn chạy theo dòng
+                            var c = src + u * x + nrm * (2.4f * Mathf.Sin(x * 0.045f - a * 20) * Mathf.Min(1, x / 40) + off * hw);
                             mp.Add(c + nrm * ((pass == 0 ? 1 : -1) * (hw * wf + grow)));
                         }
-                    MRibbon(Front, 9 + li * 0.1f, a0, a0 + n, n, li == 0 ? Ink : q.stops[li]);
+                    MRibbon(Front, 9 + li * 0.1f, a0, a0 + n, n, li == 0 ? Ink : li == 4 ? FoamC : q.stops[li]);
                 }
             };
-            At(T0, () => Add(core));
-            Every(T0, T1, x => 90 * (x < 0.1f ? 1.4f : 1) * Mathf.Min(1, (1 - x) * dur / 0.14f), x =>
+            AtW(T0, () => Add(core));
+            // vệt sáng lướt trên dòng (không viền): cho thấy nước đang chảy tới
+            EveryW(T0 + 0.02f, T1, 30, x =>
             {
-                float a = U(-1, 1) * 2.5f * Mathf.Deg2Rad;
-                var dv = u * Mathf.Cos(a) + nrm * Mathf.Sin(a);
-                var q = Wave(src + dv * U(0, 10) + nrm * U(-3, 3), dv * SP * U(0.95f, 1.05f), travel * U(0.95f, 1.08f), 14, U(17, 22), Front, 1, 0.12f, 0,
-                    0, 0.9f, 0.35f);
-                q.upd = (z, dt, s) => z.vel += nrm * (Mathf.Sin(z.age * 24 + z.ph) * 700 * dt); // dòng nước lượn
+                var q = new P { pos = src + nrm * (U(-0.4f, 0.4f) * hw0), vel = u * SP * U(1, 1.1f), life = Mathf.Max(0.02f, (dist - 18) / SP), group = Front,
+                    seed = rng.Next(4), sz = U(2.2f, 3.2f), stops = W };
+                q.draw = (z, k, buf) => PutVet(buf, Front, 15, z.pos, u, z.sz * 7, z.sz, z.stops[4], z.stops[4], Mathf.Min(1, k / 0.15f), z.seed, false);
+                Add(q);
             });
-            Every(T0 + 0.05f, T1, 26, x =>
+            // giọt rơi khỏi dòng: chùm hai giọt lệch cỡ
+            EveryW(T0 + 0.05f, T1, 9, x =>
+            {
+                float sd = U(0, 1) < 0.5f ? -1 : 1, xx = dist * U(0.15f, 0.85f);
+                float gy = casterGround + (foeFeet.y - casterGround) * (xx / dist) + U(0, 24);
+                for (int i = 0; i < 2; i++)
+                    Drop(src + u * (xx + i * 6) + nrm * sd * 9, u * U(80, 200) + nrm * sd * U(50, 150) + new Vector2(0, -50), 0, U(2, 3.4f) * (i == 0 ? 1.1f : 0.75f),
+                        900, Front, gy);
+            });
+            // chỗ chạm: lá nước ôm thân + bông toé chĩa về phía người bắn (một hạt sống từ lúc chạm tới khi đoạn đuôi tới nơi)
+            var O = hitP + u * Mathf.Max(14, rf);
+            float R = Mathf.Max(14, rf);
+            var hd = new P { pos = hitP, life = tCut - tHit + 0.04f, group = Front, seed = rng.Next(4), stops = W, sz = (big ? 0.56f : 0.5f) * tH };
+            hd.draw = (q, k, buf) =>
+            {
+                float age = q.age;
+                int step = (int)(age / 0.066f), fr = q.seed + step; // đổi hình mỗi 2 khung
+                float j = Hash(q.seed * 31 + step), endK = SmoothStep(q.life - 0.1f, q.life, age);
+                float s = q.sz * (1 + 0.3f * (1 - Mathf.Min(1, age / 0.1f))) * (0.9f + 0.18f * j) * (1 - 0.5f * endK); // to nhất ngay khung đầu
+                var w = q.stops;
+                float A = 0.1f * tH * (1 - 0.5f * endK) * (big ? 1.15f : 1);
+                MSolid(Front, 30, LaOm(O, back, R, A, 1.2f, age), 24, w[2], 0.86f, 2.2f);
+                MFill(Front, 30.2f, LaOm(O, back, R + 0.1f * A, 0.6f * A, 1.0f, age + 0.3f), 24, w[3], 0.86f, false);
+                MFill(Front, 30.3f, LaOm(O, back, R + 0.2f * A, 0.28f * A, 0.72f, age + 0.6f), 24, FoamC, 0.86f, false);
+                var td = SK("kr_tiadau_", fr);
+                if (td != null)
+                {
+                    float ang = VelAng(back) + (j - 0.5f) * 18;
+                    var c0 = q.pos + back * s * 0.22f;
+                    Put(buf, Front, 46, SK("kr_tiadaus_", fr) ?? td, Ink, c0, s + 5, 1, ang);
+                    Put(buf, Front, 46.1f, td, w[2], c0, s, 1, ang);
+                    Put(buf, Front, 46.2f, td, w[3], c0 + u * s * 0.06f, 0.8f * s, 1, ang);
+                    Put(buf, Front, 46.3f, td, FoamC, c0 + u * s * 0.12f, 0.55f * s, 1, ang);
+                    return;
+                }
+                int cs = fr & 1; // dự phòng: vương miện nước cũ nằm nghiêng, chân ở chỗ chạm, các ngọn chĩa về phía người bắn
+                var f = CrownF[cs];
+                float a2 = TipAngle(back) + (j - 0.5f) * 18;
+                for (int i = 0; i < 5; i++)
+                {
+                    float side = s * 0.8f / f.x * (0.6f + 0.4f * WF[i]), hg = side * Mathf.Sqrt(WF[i]), ext = i == 0 ? 5 : 0;
+                    Put(buf, Front, 46 + i * 0.1f, S((i == 0 ? "crowns_" : "crown_") + cs), w[i], q.pos + back * (f.y * hg / 2), hg + ext, (side + ext) / (hg + ext), a2);
+                }
+            };
+            AtW(tHit, () => Add(hd));
+            // khối nước tạt ngang theo thân, chùm giọt bắn ngược về phía người bắn, cụm bọt
+            EveryW(tHit, tCut, 18, x =>
             {
                 float sd = U(0, 1) < 0.5f ? -1 : 1;
-                Drop(src + u * dist * U(0.15f, 0.85f) + nrm * sd * 10, u * U(120, 260) + nrm * sd * U(90, 200) + new Vector2(0, -60), 0, U(2.5f, 4.5f),
-                    900, Front, casterGround + (foeFeet.y - casterGround) * U(0.2f, 0.9f) + U(0, 30));
+                Khoi(hitP + nrm * sd * U(4, 14), nrm * sd * U(170, 290) + back * U(30, 120) + new Vector2(0, -U(20, 90)), U(0.3f, 0.38f), U(4.5f, 7));
             });
-            float tHit = T0 + travel;
-            Every(tHit, T1 + travel, 38, x =>
+            EveryW(tHit, tCut, 11, x =>
             {
-                float a = Mathf.Atan2(-u.y, -u.x) + U(-1.3f, 1.3f);
-                Drop(target + U2(-10, 10), new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f) * U(200, 420), 0, U(3, 5.5f), 900,
-                    U(0, 1) < 0.6f ? Front : Back, foeFeet.y + U(-10, 18));
-            });
-            Every(tHit, T1 + travel, 22, x => Foam(target + U2(-16, 16), U2(-60, 60), 0, 4, U(9, 14)));
-            Every(tHit, T1 + travel, 9, x => Wave(target + U2(-8, 8), new Vector2((U(0, 1) < 0.5f ? -1 : 1) * U(120, 240), -U(60, 200)), 0.34f, 7,
-                U(12, 16), Front, 1, 0.3f, 4, 500));
-            int rip = Mathf.Max(1, Mathf.CeilToInt(dur / 0.24f));
-            for (int i = 0; i < rip; i++)
-                At(tHit + i * 0.24f, () =>
+                float a = Mathf.Atan2(back.y, back.x) + U(-1.1f, 1.1f);
+                int m = U(0, 1) < 0.4f ? 3 : 2;
+                bool bk = U(0, 1) < 0.35f;
+                for (int i = 0; i < m; i++)
                 {
-                    Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.7f * tH);
-                    Crown(foeFeet + new Vector2(U(-10, 10), 6), 0.7f * tH, 0.36f);
+                    float ai = a + U(-0.15f, 0.15f);
+                    Drop(hitP + U2(-6, 6), new Vector2(Mathf.Cos(ai), Mathf.Sin(ai) - 0.45f) * U(200, 400) * (1 - 0.18f * i), 0, U(2, 3.6f) * (i == 0 ? 1.15f : 0.8f), 900,
+                        bk ? Back : Front, foeFeet.y + U(-10, 18));
+                }
+            });
+            EveryW(tHit, tCut, 5, x => BotCum(hitP + back * 8 + U2(-12, 12), back * U(20, 60) + U2(-30, 30), U(6, 9)));
+            int nb = Mathf.Max(1, Mathf.CeilToInt((tCut - tHit) / 0.24f));
+            for (int i = 0; i < nb; i++)
+            {
+                int ii = i;
+                AtW(tHit + i * 0.24f, () =>
+                {
+                    Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.62f * tH);
+                    if ((ii & 1) == 0) Crown(foeFeet + new Vector2(U(-12, 12), 6), 0.5f * tH, 0.5f);
+                    Shake?.Invoke(ii == 0 ? 0.3f : 0.08f);
+                    NuocPulse?.Invoke(ii == 0 ? 1 : 0.45f);
                 });
-            At(tHit, () => Shake?.Invoke(0.3f));
-            At(T1 + travel, () => Splash(target, 0.8f, foeFeet.y, tH));
+            }
+            // hết tia: nước đứt từ gốc, miệng nhỏ giọt; đoạn còn lại bay nốt, rơi giọt dọc đường
+            AtW(T1, () =>
+            {
+                for (int i = 0; i < 4; i++)
+                    Drop(src + U2(-5, 5), new Vector2(U(-50, 50), U(-60, 10)) + u * U(20, 80), 0, U(2.2f, 3.4f), 900, Front, casterGround + U(-6, 10));
+                BotCum(src + u * 6, u * 40, 7);
+            });
+            EveryW(T1 + 0.02f, tCut, 36, x =>
+            {
+                float tl = Mathf.Min(dist, SPT * (T - start - T1));
+                Drop(src + u * tl + nrm * U(-6, 6), u * U(100, 220) + new Vector2(0, -U(10, 60)), 0, U(2, 3), 900, Front,
+                    casterGround + (foeFeet.y - casterGround) * (tl / dist) + U(0, 24));
+            });
+            AtW(tCut, () => // đoạn cuối tới đích: vỡ toé thành giọt, vệt ướt
+            {
+                Splash(hitP, big ? 0.9f : 0.8f, foeFeet.y, tH);
+                Puddle(foeFeet + new Vector2(0, 3), 22, 1.5f);
+            });
             return tHit;
         }
 
-        // cầu nước: cầu lớn dần ở miệng trong lúc lấy đà, tới khung nhả thì ném vòng cung, vỡ thành nước toé, cột nước, mưa giọt
+        // cầu nước (2026-11-18): vệt nước xoắn ốc nhập vào cầu sóng sánh lớn dần theo nhịp ở miệng trong lúc lấy đà, cầu nén 2 khung rồi
+        // nhả: toé ở miệng, cầu bay vòng cung kéo đuôi liền (đốt đuôi chia theo quãng bay), nhỏ giọt; trúng thì vỡ toé lớn, cột nước sau
+        // lưng, mưa giọt, vệt ướt giữ khoảng 1 s
         public float NCau(Vector2 mouth, Vector2 target, float casterGround, Vector2 foeFeet, float tH, float lead)
         {
             var src = mouth;
@@ -575,29 +1133,26 @@ namespace PokiClash
                 return src + (target - src) * x + new Vector2(0, -4 * ARC * x * (1 - x));
             }
             float start = T;
-            Gather(Path, 0, T0 - 0.05f, 90, 75);
-            Orb(Path, T0 - 0.05f, T0 + TT, 30);
-            At(T0, () =>
+            var pulse = new float[1];
+            float tg = Mathf.Max(0.1f, T0 - 0.05f);
+            Gather(Path, 0, T0 - 0.05f, 90, 80, Front, pulse);
+            CauNuoc(Path, T0 + TT, a => 30 * EaseOut(a / tg) * (1 - SmoothStep(T0 + TT - 0.04f, T0 + TT, a)), pulse, T0, Front, 0.62f);
+            AtW(T0, () =>
             {
                 Shake?.Invoke(0.15f);
-                for (int i = 0; i < 4; i++) Foam(src + U2(-10, 10), null, 0, 4, 11);
+                KrHit(src, 40, Front, 5, 0.7f);
+                BotCum(src + U2(-8, 8), null, 8);
             });
-            Every(T0, T0 + TT, 34, x => Drop(Path(T - start) + U2(-14, 14), new Vector2(U(-50, 50), U(-40, 60)), 0, U(3, 5), 900, Front,
+            EveryW(T0, T0 + TT, 12, x => Drop(Path(T - start) + U2(-10, 10), new Vector2(U(-40, 40), U(-20, 60)), 0, U(2.2f, 3.6f), 900, Front,
                 casterGround + (foeFeet.y - casterGround) * x + U(-5, 30)));
-            Every(T0, T0 + TT, 24, x => Foam(Path(T - start) + U2(-10, 10), new Vector2(0, -15), 0, 4, U(8, 12)));
-            Every(T0, T0 + TT, 30, x =>
-            {
-                float t = T - start;
-                Wave(Path(t), -Unit(Path(t + 0.02f) - Path(t)) * U(40, 120) + U2(-40, 40), 0.22f, 9, 13, Front, 1, 0.1f, 3);
-            });
-            At(T0 + TT, () =>
+            AtW(T0 + TT, () =>
             {
                 Shake?.Invoke(0.6f);
                 FlashScreen?.Invoke(FlashW);
                 Splash(target, 1.25f, foeFeet.y, tH);
                 BackColumn(foeFeet, tH);
-                RainBack(foeFeet, tH, 18);
-                Puddle(foeFeet + new Vector2(0, 3));
+                RainBack(foeFeet, tH, 14);
+                Puddle(foeFeet + new Vector2(0, 3), 26, 1.5f);
             });
             return T0 + TT;
         }
@@ -724,6 +1279,8 @@ namespace PokiClash
             float T0 = Mathf.Max(0.25f, lead);
             float gap = Mathf.Min(0.08f, (T0 - 0.12f) / count);
             float dist = (target - A).magnitude;
+            var thW = wth;
+            Gather(t => A, 0, T0 - 0.06f, 0.55f * casterH, 55); // 2026-11-18: nước bị hút xoắn ốc về vòng cung trên đầu trong lúc giơ gậy
             for (int i0 = 0; i0 < count; i0++)
             {
                 int i = i0;
@@ -736,8 +1293,8 @@ namespace PokiClash
                         pos = home, life = 4, home = home, aim = target + new Vector2(U(-0.18f, 0.18f), U(-0.15f, 0.2f)) * tH, span = i,
                         launch = T + (T0 - 0.04f - i * gap) + i * 0.1f, group = Front, stops = W
                     };
-                    Foam(home, null, 0, 4, 10);
-                    for (int j = 0; j < 3; j++) Drop(home + U2(-10, 10), new Vector2(U(-60, 60), -U(20, 90)), 0.35f, 2.8f);
+                    BotCum(home, null, 7);
+                    for (int j = 0; j < 2; j++) Drop(home + U2(-10, 10), new Vector2(U(-60, 60), -U(20, 90)), 0.35f, 2.4f);
                     q.upd = (z, dt, s) =>
                     {
                         if (!z.fly)
@@ -754,20 +1311,16 @@ namespace PokiClash
                             return;
                         }
                         var dv = Unit(z.vel);
-                        if (s.U(0, 1) < 0.5f) s.Drop(z.pos - dv * 26, -dv * 80 + s.U2(-50, 50), 0.25f, 3, 200);
-                        if (s.U(0, 1) < 0.25f) s.Foam(z.pos - dv * 28, Vector2.zero, 0.3f, 3, 6);
+                        if (s.U(0, 1) < 0.5f) s.Drop(z.pos - dv * 26, -dv * 80 + s.U2(-50, 50), 0.25f, 2.4f, 200);
                         if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
                         {
                             z.dead = true;
                             s.Shake?.Invoke(0.14f);
-                            s.BurstFlash(z.aim, 0.34f * tH, Front, 0.1f);
-                            for (int j = 0; j < 5; j++)
+                            s.InW(thW, () => // 2026-11-18: nước trúng nhỏ kiểu Kingdom Rush thay chớp toé + giọt rời
                             {
-                                float a = s.U(0, 6.28f);
-                                s.Drop(z.aim, new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.4f) * s.U(140, 300), 0.4f, 3.2f);
-                            }
-                            s.Foam(z.aim + s.U2(-8, 8), null, 0, 4, 9);
-                            s.WExtra(z.aim, 1, 240);
+                                s.KrHit(z.aim, 0.34f * tH, Front, 5, 1, dv * -60);
+                                s.WExtra(z.aim, 1, 240);
+                            });
                         }
                     };
                     q.draw = (z, k, buf) =>
@@ -805,32 +1358,31 @@ namespace PokiClash
         public float NDan(Vector2 mouth, Vector2 target, Vector2 foeFeet, float tH, float lead)
         {
             float T0 = Mathf.Max(DanTravel + 0.02f, lead);
-            At(T0 - DanTravel, () =>
+            var th = wth;
+            AtW(T0 - DanTravel, () =>
             {
                 var aim = target + new Vector2(U(-0.1f, 0.1f), U(-0.08f, 0.1f)) * tH;
                 var dd = aim - mouth;
                 float dist = Mathf.Max(1, dd.magnitude);
                 var u = dd / dist;
-                for (int i = 0; i < 3; i++) Foam(mouth + U2(-6, 6), -u * U(20, 70) + U2(-30, 30), 0.24f, 3, 9);
-                for (int i = 0; i < 4; i++) Drop(mouth + U2(-5, 5), -u * U(40, 120) + new Vector2(U(-70, 70), -U(30, 110)), 0.32f, 2.6f);
+                KrHit(mouth + u * 4, 22, Front, 4, 0.6f, u * 60); // 2026-11-18: toé nhỏ ở đầu gậy lúc nhả
+                for (int i = 0; i < 2; i++) Drop(mouth + U2(-5, 5), -u * U(40, 120) + new Vector2(U(-70, 70), -U(30, 110)), 0.32f, 2.4f);
                 var q = new P { pos = mouth, life = DanTravel + 0.25f, aim = aim, group = Front, stops = W, vel = u * (dist / DanTravel), fly = true };
                 q.upd = (z, dt, s) =>
                 {
                     var dv = Unit(z.vel);
-                    if (s.U(0, 1) < 0.7f) s.Drop(z.pos - dv * 20, -dv * 70 + s.U2(-45, 45), 0.22f, 2.8f, 240);
-                    if (s.U(0, 1) < 0.3f) s.Foam(z.pos - dv * 22, Vector2.zero, 0.26f, 3, 7);
+                    s.RaiDuoi(z, dt, 6, 4.2f, 0.14f); // đuôi liền chia theo quãng bay
+                    if (s.U(0, 1) < 0.25f) s.Drop(z.pos - dv * 20, -dv * 70 + s.U2(-45, 45), 0.22f, 2.2f, 240);
                     if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
                     {
                         z.dead = true;
                         s.Shake?.Invoke(0.12f);
-                        s.BurstFlash(z.aim, 0.44f * tH, Front, 0.12f);
-                        for (int j = 0; j < 6; j++)
+                        s.InW(th, () =>
                         {
-                            float a = s.U(0, 6.28f);
-                            s.Drop(z.aim, new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.4f) * s.U(150, 320), 0.4f, 3.2f);
-                        }
-                        for (int j = 0; j < 2; j++) s.Foam(z.aim + s.U2(-9, 9), null, 0, 4, 10);
-                        s.WExtra(z.aim, 1, 240);
+                            s.KrHit(z.aim, 0.44f * tH, Front, 6, 1, dv * -50);
+                            s.BotCum(z.aim + s.U2(-8, 8), null, 8);
+                            s.WExtra(z.aim, 1, 240);
+                        });
                     }
                 };
                 q.draw = (z, k, buf) =>
@@ -856,51 +1408,59 @@ namespace PokiClash
         static readonly Color NgocA = C(241, 228, 236), NgocB = C(201, 182, 218);
         // quả bóng mực của dòng bạch tuộc (suất so_ngoc, 2026-11-12, mã "n_muc"): cùng đường bay với viên ngọc, to hơn, đen mực với vệt
         // tím than ở mép dưới; giọt, vũng và cú toé lấy màu mực từ WTheme của tướng
-        static readonly Color MucA = C(40, 35, 52), MucB = C(92, 82, 116);
+        static readonly Color MucA = C(40, 35, 52), MucB = C(124, 86, 196); // 2026-11-18: vệt tím than → tím tươi
         public const float NgocTravel = 0.2f;
 
         public float NNgoc(Vector2 mouth, Vector2 target, Vector2 foeFeet, float tH, float lead, bool muc = false)
         {
             float T0 = Mathf.Max(0.05f, lead);
-            At(T0, () =>
+            float tg = Mathf.Max(0.02f, T0 - 0.55f);
+            float sz = (muc ? 0.13f : 0.085f) * tH;
+            var th = wth;
+            // 2026-11-18 (pha tụ): trong lúc phồng người, vệt nước (mực) xoắn ốc nhập vào cầu nước sóng sánh ở miệng, cầu nén 2 khung rồi
+            // toé đúng lúc phụt viên ngọc / bóng mực
+            if (T0 - tg > 0.15f)
+            {
+                var pulse = new float[1];
+                float tl = T0 - tg;
+                AtW(tg, () =>
+                {
+                    Gather(t => mouth, 0, tl - 0.03f, muc ? 72 : 60, 60, Front, pulse);
+                    CauNuoc(t => mouth, tl + 0.02f, a => 1.05f * sz * EaseOut(a / tl), pulse, tl);
+                });
+            }
+            AtW(T0, () =>
             {
                 var aim = target + new Vector2(U(-0.06f, 0.06f), U(-0.06f, 0.08f)) * tH;
                 var dd = aim - mouth;
                 float dist = Mathf.Max(1, dd.magnitude);
                 var u = dd / dist;
                 Shake?.Invoke(0.2f);
-                BurstFlash(mouth, 0.3f * tH, Front, 0.1f);
-                for (int i = 0; i < 4; i++) Foam(mouth + U2(-8, 8), -u * U(20, 80) + U2(-30, 30), 0.26f, 3, 10);
-                for (int i = 0; i < 7; i++) Drop(mouth + U2(-6, 6), u * U(60, 260) + new Vector2(U(-120, 120), -U(40, 200)), 0.36f, U(2.4f, 3.6f));
+                KrHit(mouth + u * 6, 0.26f * tH, Front, 4, 0.7f, u * 150);
+                for (int i = 0; i < 3; i++) Drop(mouth + U2(-6, 6), u * U(60, 260) + new Vector2(U(-120, 120), -U(40, 200)), 0.36f, U(2.2f, 3.2f));
                 var q = new P
                 {
                     pos = mouth, life = NgocTravel + 0.3f, aim = aim, group = Front, stops = W, vel = u * (dist / NgocTravel), fly = true,
-                    seed = rng.Next(4), sz = (muc ? 0.13f : 0.085f) * tH,
+                    seed = rng.Next(4), sz = sz,
                 };
                 q.upd = (z, dt, s) =>
                 {
-                    var dv = Unit(z.vel);
-                    if (s.U(0, 1) < 0.8f) s.Drop(z.pos - dv * z.sz, -dv * 60 + s.U2(-55, 55), 0.24f, 2.8f, 300);
-                    if (s.U(0, 1) < 0.25f) s.Foam(z.pos - dv * z.sz, Vector2.zero, 0.24f, 3, 7);
+                    s.RaiDuoi(z, dt, Mathf.Max(5, z.sz * 0.7f), z.sz * 0.62f, 0.14f); // đuôi nước (mực) liền chia theo quãng bay
                     if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
                     {
                         z.dead = true;
-                        s.Shake?.Invoke(0.45f);
-                        s.BurstFlash(z.aim, 0.6f * tH, Front, 0.13f);
-                        s.Splash(z.aim, 0.85f, foeFeet.y, tH);
-                        for (int j = 0; j < 9; j++)
+                        s.InW(th, () =>
                         {
-                            float a = s.U(0, 6.28f);
-                            s.Drop(z.aim, new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f) * s.U(160, 380), 0.42f, 3.4f);
-                        }
-                        for (int j = 0; j < 3; j++) s.Foam(z.aim + s.U2(-10, 10), null, 0, 4, 11);
-                        s.Puddle(foeFeet + new Vector2(0, 3));
+                            s.Shake?.Invoke(0.45f);
+                            s.Splash(z.aim, 0.85f, foeFeet.y, tH);
+                            s.Puddle(foeFeet + new Vector2(0, 3), 22, 1.5f);
+                        });
                     }
                 };
                 q.draw = (z, k, buf) =>
                 {
                     float rr = z.sz * (z.age < 0.04f ? 0.55f + 0.45f * z.age / 0.04f : 1);
-                    float ang = TipAngle(Unit(z.vel));
+                    float ang = VelAng(Unit(z.vel)); // dài theo hướng bay
                     Put(buf, Front, 26, S("solid_" + z.seed), Ink, z.pos, 2 * rr + 4, 1.18f, ang);
                     Put(buf, Front, 27, S("blob_" + z.seed), muc ? MucA : NgocA, z.pos, 2 * rr, 1.18f, ang);
                     Put(buf, Front, 28, S("blob_" + ((z.seed + 1) & 3)), muc ? MucB : NgocB, z.pos + new Vector2(-rr * 0.2f, rr * 0.28f), 0.9f * rr);
@@ -1006,7 +1566,7 @@ namespace PokiClash
                 Wave(c + new Vector2(sx * U(0.1f, 0.5f) * tH * 0.6f, -U(0, 14)), new Vector2(sx * U(160, 300), -U(120, 300)), U(0.26f, 0.36f), sz * 0.6f,
                     sz, Front, 1, 0.5f, 2, 900, 0.72f, 0.3f);
             });
-            Every(T0, T0 + TT, 30, x => Foam(Now(out _) - u * 0.75f * tH + side * U(-30, 30), new Vector2(0, -8), 0, 5, U(9, 13), Back));
+            Every(T0, T0 + TT, 10, x => BotCum(Now(out _) - u * 0.75f * tH + side * U(-30, 30), new Vector2(0, -8), U(9, 13), Back)); // bọt thành cụm
             var w3 = W[3];
             Every(T0, T0 + TT, 7, x => RingN(Now(out _) - u * 0.8f * tH, 0.4f, 8, 44, w3));
             Every(T0, T0 + TT, 26, x =>
@@ -1026,13 +1586,13 @@ namespace PokiClash
                         U(20, 30) * (fr ? 0.6f : 1), fr ? Front : Back, 1, 0.4f, 1.5f, 1100, 0.72f, 0.6f);
                 }
                 Splash(foeFeet + new Vector2(0, -0.4f * tH), 1.1f, foeFeet.y, tH);
-                for (int i = 0; i < 12; i++) // bọt tràn hai bên sát đất
+                for (int i = 0; i < 5; i++) // bọt tràn hai bên sát đất, thành cụm
                 {
                     float sd = U(0, 1) < 0.5f ? -1 : 1;
-                    Foam(B + new Vector2(sd * U(10, 40), U(-6, 6)), new Vector2(sd * U(120, 260), -U(0, 30)), U(0.6f, 0.9f), 6, U(11, 16),
-                        U(0, 1) < 0.5f ? Front : Back);
+                    BotCum(B + new Vector2(sd * U(10, 40), U(-6, 6)), new Vector2(sd * U(120, 260), -U(0, 30)), U(11, 15), U(0, 1) < 0.5f ? Front : Back,
+                        U(0.6f, 0.9f));
                 }
-                RainBack(foeFeet, tH, 18);
+                RainBack(foeFeet, tH, 14);
                 Puddle(foeFeet + new Vector2(0, 3), 26, 1.4f);
             });
             return T0 + TT;
@@ -1082,7 +1642,7 @@ namespace PokiClash
                         z.dead = true;
                     };
             });
-            Every(T0 + 0.15f, T1 + 0.1f, 5, x => Crown(foeFeet + new Vector2(U(-0.6f, 0.6f) * tH, U(0, 14)), U(0.25f, 0.4f) * tH, 0.3f));
+            Every(T0 + 0.15f, T1 + 0.1f, 3.5f, x => Crown(foeFeet + new Vector2(U(-0.6f, 0.6f) * tH, U(0, 14)), U(0.25f, 0.4f) * tH, 0.3f));
             var w3 = W[3];
             for (int i = 0; i < 4; i++)
                 At(T0 + 0.15f + i * 0.3f, () => Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.7f * tH, 0.5f, w3));
@@ -1139,7 +1699,7 @@ namespace PokiClash
                     z.group = Mathf.Sin(a) < 0 ? Back : Front;
                 };
             });
-            Every(0.1f, T1, 16, x => Foam(Cc + new Vector2(U(-0.25f, 0.25f) * tH, U(-6, 6)), Vector2.zero, 0.4f, 3, U(6, 9), Back));
+            Every(0.1f, T1, 6, x => BotCum(Cc + new Vector2(U(-0.25f, 0.25f) * tH, U(-6, 6)), Vector2.zero, U(6, 9), Back, 0.45f));
             At(0.1f, () => Shake?.Invoke(0.15f));
             At(T1, () =>
             {
@@ -1147,7 +1707,7 @@ namespace PokiClash
                 FlashScreen?.Invoke(FlashW);
                 Crown(Cc + new Vector2(0, 4), 0.85f * tH, 0.5f);
                 Ripple(Cc, 0.15f * tH, 0.85f * tH);
-                BurstFlash(foeFeet + new Vector2(0, -0.45f * tH), 0.6f * tH);
+                KrHit(foeFeet + new Vector2(0, -0.45f * tH), 0.6f * tH, Front, 7);
                 var pil = new P { pos = Cc, life = 0.66f, group = Front, stops = W };
                 pil.draw = (q, k, buf) =>
                 {
@@ -1175,8 +1735,7 @@ namespace PokiClash
                     Wave(Cc + new Vector2(U(-0.2f, 0.2f) * tH, -4), new Vector2(U(-50, 50), -U(520, 800) * (1 - 0.4f * x)), U(0.4f, 0.55f), 9,
                         U(18, 26) * (fr ? 0.6f : 1), fr ? Front : Back, 1, 0.6f, 1.4f, 900, 0.72f, 0.5f);
                 });
-                Every(0.1f, 0.6f, 20, x => Foam(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(1, 1.3f) * tH), new Vector2(U(-60, 60), -U(0, 40)), 0, 6,
-                    U(11, 16), Back));
+                Every(0.1f, 0.6f, 8, x => BotCum(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(1, 1.3f) * tH), new Vector2(U(-60, 60), -U(0, 40)), U(11, 16), Back));
                 RainBack(foeFeet, tH, 18);
                 Puddle(foeFeet + new Vector2(0, 3), 24);
                 WExtra(foeFeet + new Vector2(0, -0.5f * tH), 5, 320);
@@ -1284,12 +1843,12 @@ namespace PokiClash
                     U(11, 17) * (0.6f + 0.4f * hh), Front, 1, 0.35f, 3, 500, 0.72f, 0.25f);
             });
             // miệng phễu: bọt cuộn, giọt văng
-            Every(TA + T_UP, T1 + 0.1f, 26, x =>
+            Every(TA + T_UP, T1 + 0.1f, 9, x =>
             {
                 float a = U(0, 6.28f);
                 var c = Centre(1, T - start);
                 float R = Radius(1);
-                Foam(c + new Vector2(R * Mathf.Cos(a), 0.3f * R * Mathf.Sin(a) + 4), new Vector2(Mathf.Cos(a) * 60, -U(10, 50)), 0, 6, U(10, 15),
+                BotCum(c + new Vector2(R * Mathf.Cos(a), 0.3f * R * Mathf.Sin(a) + 4), new Vector2(Mathf.Cos(a) * 60, -U(10, 50)), U(10, 14),
                     Mathf.Sin(a) > 0 ? Front : Back);
             });
             Every(TA + T_UP, T1, 26, x => Drop(Centre(U(0.5f, 1), T - start) + new Vector2(U(-30, 30), 0),
@@ -1311,9 +1870,10 @@ namespace PokiClash
             Shake?.Invoke(0.6f);
             FlashScreen?.Invoke(FlashW);
             Splash(foeBody, 1.25f, foeFeet.y, tH);
+            BotCum(foeBody + U2(-20, 20), new Vector2(U(-60, 60), -U(30, 70)), 12, Back, 0, true); // hơi nước bốc thành cụm
             BackColumn(foeFeet, tH);
-            RainBack(foeFeet, tH, 18);
-            Puddle(foeFeet + new Vector2(0, 3));
+            RainBack(foeFeet, tH, 14);
+            Puddle(foeFeet + new Vector2(0, 3), 26, 1.5f);
             return 0;
         }
 

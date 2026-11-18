@@ -17,8 +17,9 @@ namespace PokiClash
     public sealed partial class HatLua
     {
         // màu: đất nâu của gò / hố (rig), quặng sắt đen (dạng 1), hematit đỏ gỉ (dạng 2)
-        static readonly Color KhDat = C(139, 101, 66), KhDat2 = C(110, 80, 52);
-        static readonly Color KhSat = C(67, 71, 81), KhSat2 = C(96, 100, 112);
+        // 2026-11-18 ("màu tươi hơn, hợp sân cát biển sáng"): đất nâu ấm, quặng sắt sáng hơn chút (vẫn sẫm hơn nền cát để nổi)
+        static readonly Color KhDat = C(156, 108, 64), KhDat2 = C(124, 84, 50);
+        static readonly Color KhSat = C(78, 84, 100), KhSat2 = C(114, 122, 140);
         static readonly Color KhDo = C(152, 58, 44), KhDo2 = C(110, 38, 32);
 
         // mốc rig (giây clip): đòn thường, chiêu mana, chiêu cuối từng dạng
@@ -32,7 +33,7 @@ namespace PokiClash
         static readonly float[] KhLui1 = { 3.02f, 3.62f };         // nhảy về chạm đất
         const float KhHuc1 = 2.08f, KhXuong = 2.36f, KhTroi2 = 2.46f;  // dạng 2: húc lần một, rơi lại hố, đất nổ lần hai
 
-        static readonly Color KhBuiC = C(150, 112, 76), KhBuiC2 = C(122, 90, 60);   // bụi đất nâu sẫm (bụi be của bộ khác lẫn vào nền cát)
+        static readonly Color KhBuiC = C(170, 124, 80), KhBuiC2 = C(138, 98, 62);   // bụi đất nâu ấm (bụi be của bộ khác lẫn vào nền cát)
 
         // cụm bụi đất nâu
         P KhBui(Vector2 pos, Vector2 vel, float life = 0, float r0 = 5, float r1 = 16, int group = Front)
@@ -75,8 +76,10 @@ namespace PokiClash
         {
             Shake?.Invoke(0.6f * manh);
             var tam = foeFeet + new Vector2(0, -0.3f * tH);
-            BurstFlash(tam, 0.8f * tH * manh, Front, 0.16f);
-            Ring(foeFeet + new Vector2(0, 2), 0.42f, 0.1f * tH, 1.05f * tH * manh, KhBuiC2);
+            // chớp 2 khung nhỏ ở chân (trước: chớp 0,8 thân trùm kín đối thủ), vòng cung dẹt không viền (KR5), vệt đất xới giữ ~1 s
+            KmChop(tam + new Vector2(0, 0.12f * tH), 0.4f * tH * manh, 0.07f, KmBac);
+            KmCung(foeFeet + new Vector2(0, 2), 0.1f * tH, 1.15f * tH * manh, 0.42f, KhBuiC, 0.3f, Floor, 30.6f, 0.9f);
+            KmChay(foeFeet + new Vector2(0, 3), 0.45f * tH * manh, 1f, 0.9f, 0.3f);
             int nc = Mathf.RoundToInt(9 * manh);
             for (int i = 0; i < nc; i++)
             {
@@ -123,12 +126,13 @@ namespace PokiClash
         void KhGam(Vector2 c, Vector2 d, float tH, float sc, int dang)
         {
             Color c1 = dang == 2 ? KhDo : KhSat, c2 = dang == 2 ? KhDo2 : KhSat2;
-            BurstFlash(c, 0.36f * tH * sc);
-            for (int i = 0; i < Mathf.RoundToInt(4 * sc); i++)
+            KmBong(c - d * 0.04f * tH, -d + new Vector2(0, -0.2f), 0.3f * tH * sc, 0.1f, KmBac);   // bông va chạm toé ngược (2026-11-18)
+            BurstFlash(c, 0.3f * tH * sc);
+            for (int i = 0; i < Mathf.RoundToInt(4 * sc); i++)   // tia bắn nhanh rồi khựng
             {
                 float a = U(0, 6.28f);
                 var dd = (new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.3f) - d * 0.6f).normalized;
-                Spark(c, dd, U(200, 380) * sc, U(0.16f, 0.28f), U(6, 9), 320);
+                KmTiaLua(c, dd, U(360, 640) * sc, U(6, 9), (i & 1) == 0 ? KmBac[4] : KmBac[3]);
             }
             for (int i = 0; i < Mathf.RoundToInt(5 * sc); i++)
             {
@@ -204,6 +208,7 @@ namespace PokiClash
                 At(Mathf.Max(0.02f, ts[j] * k), () =>
                 {
                     Shake?.Invoke(cuoi ? 0.45f : 0.18f);
+                    if (j > 0) KmNhip(cuoi ? 0.8f : 0.4f);   // mảnh đầu là cú trúng chính (StageView)
                     KhGam(c, d, tH, cuoi ? 1.2f : 0.8f, dang);
                     if (cuoi)
                     {
@@ -282,6 +287,7 @@ namespace PokiClash
                 At(KhHuc1 * k, () =>
                 {
                     Shake?.Invoke(0.3f);
+                    KmNhip(1);   // húc lần một (trước cú trúng chính)
                     KhGam(foeBody + new Vector2(-dir * 0.22f * tH, 0.12f * tH), new Vector2(0, -1), tH, 0.9f, 2);
                 });
                 At(KhXuong * k, () => KhDatToe(dich, H, 0.6f, 5, false));

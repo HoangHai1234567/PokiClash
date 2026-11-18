@@ -7,6 +7,9 @@
 // - Chiêu mana "Nguyệt Nhận": mỗi lưỡi trăng (dạng 1: mảnh vỏ) cắm vào, đối thủ giật nhẹ ra xa kẻ đánh và nháy (mảnh cuối mạnh hơn; dạng 1
 //   nhẹ hơn) (HatLua.TinhLuoiCam).
 // Hai dạng (mã dạng 1 thêm đuôi "1", HatLua.TinhDang) dùng chung phần này.
+// - Bộ Thổ chiêu NHIỀU CÚ (2026-11-18, người dùng: "không có sự va chạm giữa tia đó với địch"): mỗi cú đạn / mảnh / cột phụ chạm tới thì đối
+//   thủ chớp + giật nhẹ ra xa kẻ đánh (HatLua.ThoNhip: mốc cùng công thức với hàm hiệu ứng). Cú chính vẫn do StageView.Hurt. Phần này chỉ dời
+//   ảnh và chớp, KHÔNG đổi cỡ ảnh (không đè cỡ của phần khác như lúc bị nhổ).
 // Trạng thái suy thẳng từ giờ clip của kẻ đánh, không lưu cờ (clip bị cắt thì đối thủ về cỡ cũ ngay khung sau); chỉ nhớ phía nào đang bị đổi
 // cỡ để trả lại cỡ ảnh, cỡ bóng khi xong. Đối thủ không phải ảnh aola / rig (ô trống) thì bỏ qua.
 using UnityEngine;
@@ -17,14 +20,20 @@ namespace PokiClash
     {
         readonly bool[] tinhDoi = new bool[2]; // phía đang bị Thổ Tinh đổi cỡ ảnh
 
-        // v đang bị Thổ Tinh đánh: cỡ ảnh (sx, sy quanh chân), cỡ bóng, dời ảnh (đơn vị sân, y xuống); false: không bị gì
-        bool TinhCo(Actor v, out float sx, out float sy, out float bong, out Vector2 off, out float hien)
+        // v đang bị Thổ Tinh đánh: cỡ ảnh (sx, sy quanh chân), cỡ bóng, dời ảnh (đơn vị sân, y xuống); false: không bị gì. doiCo: có đổi cỡ ảnh
+        bool TinhCo(Actor v, out float sx, out float sy, out float bong, out Vector2 off, out float hien, out bool doiCo)
         {
             sx = sy = bong = hien = 1;
             off = Vector2.zero;
+            doiCo = true;
             if (v == null || v.aola == null || !v.body || v.exit > 0 || Entering(v)) return false;
             var k = actors[1 - v.side];
             if (k == null || k.aola == null || k.loop || k.dead > 0) return false;
+            if (ThoCuPhu(v, k, out off))                                    // bộ Thổ: cú phụ của chiêu nhiều cú
+            {
+                doiCo = false;
+                return true;
+            }
             if (k.clip == Skill && HatLua.TinhDang(FireUlt(k.hero, k.form), "n_tinh_hang") > 0)
             {
                 float c = HatLua.TinhCoDoiThu(k.t);
@@ -54,10 +63,33 @@ namespace PokiClash
             return false;
         }
 
+        // cú phụ của chiêu bộ Thổ nhiều cú vừa chạm v (≤ 0,2 s): giật nhẹ ra xa kẻ đánh rồi về, chớp khung đầu (mạnh dần theo Power như Hurt)
+        bool ThoCuPhu(Actor v, Actor k, out Vector2 off)
+        {
+            off = Vector2.zero;
+            if (k.hero == null || k.hero.elem != PokiClash.Core.Elem.Tho) return false;
+            string kind = k.clip == Cast ? FireMana(k.hero, k.form) : k.clip == Skill ? FireUlt(k.hero, k.form) : k.clip == Attack ? FireAtk(k.hero, k.form) : null;
+            if (kind == null || !HatLua.ThoNhip(kind, k.t, k.aola.HitTime(k.clip), out float since, out float muc)) return false;
+            muc *= 0.85f + 0.3f * Power(k.side);
+            float f = since < 0.025f ? since / 0.025f : Mathf.Max(0, 1 - (since - 0.025f) / 0.1f);
+            var away = (Pos[v.side] - Pos[k.side]).normalized;
+            off = away * (0.03f * muc * f * v.H) + new Vector2(0, -0.012f * muc * f * v.H);
+            if (since < 0.05f) v.flash = Mathf.Max(v.flash, 0.09f * muc);
+            return true;
+        }
+
         // gọi trong Place sau phần bật lùi / bị nhổ: đặt cỡ ảnh, cỡ bóng, cộng dời ảnh; hết bị thì trả cỡ cũ
         void TinhDat(Actor a, ref float ox, ref float oy, ref float alpha)
         {
-            if (!TinhCo(a, out float sx, out float sy, out float bong, out var off, out float hien))
+            bool co = TinhCo(a, out float sx, out float sy, out float bong, out var off, out float hien, out bool doiCo);
+            if (co && !doiCo)                                                    // chỉ giật / chớp: không động tới cỡ ảnh
+            {
+                ox += off.x;
+                oy += off.y;
+                co = false;
+                if (!tinhDoi[a.side]) return;
+            }
+            if (!co)
             {
                 if (!tinhDoi[a.side]) return;
                 tinhDoi[a.side] = false;

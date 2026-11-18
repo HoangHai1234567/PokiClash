@@ -40,11 +40,12 @@ namespace PokiClash
         // một cú trúng của mũi thép: chớp, tia bạc theo hướng d, dăm thép
         void GiaoTrung(Vector2 c, Vector2 d, float tH, float manh, int nTia = 6, int nDam = 4)
         {
-            SatChop(c, 0.42f * tH * manh);
-            for (int i = 0; i < Mathf.RoundToInt(nTia * manh); i++)
+            KmBong(c - d * 0.04f * tH, -d + new Vector2(0, -0.25f), 0.3f * tH * manh, 0.1f, KmBac);   // bông va chạm toé ngược (2026-11-18)
+            SatChop(c, 0.36f * tH * manh);
+            for (int i = 0; i < Mathf.RoundToInt(nTia * manh); i++)   // tia bạc bắn nhanh rồi khựng
             {
                 var dd = (d * U(0.3f, 1f) + new Vector2(U(-0.6f, 0.6f), U(-0.8f, 0.5f))).normalized;
-                Spark(c, dd, U(240, 460), U(0.18f, 0.3f), U(6, 9), 300);
+                KmTiaLua(c, dd, U(420, 740), U(6, 9), (i & 1) == 0 ? KmBac[4] : GiaoBac);
             }
             for (int i = 0; i < Mathf.RoundToInt(nDam * manh); i++)
                 GiaoDam(c + U2(-6, 6), (d * U(0.2f, 0.8f) + new Vector2(U(-0.7f, 0.7f), -U(0.3f, 1f))) * U(160, 340) * manh, U(10, 16) * Mathf.Sqrt(manh));
@@ -96,7 +97,8 @@ namespace PokiClash
 
         // MỘT KIM SẮT: hiện ở home (sân) lúc gọi, mũi chĩa theo `toa` (hướng xoè quạt, sân), lơ lửng run dần; tới tL (giây từ lúc hiện) lùi lấy
         // đà và xoay mũi về đích, rồi lao tới tgt, tới nơi lúc tH2 (giây từ lúc hiện) thì găm: chớp + dăm. L, W: dài, rộng kim (sân).
-        void KimSat(Vector2 home, Vector2 toa, Vector2 tgt, float L, float W, float tL, float tH2, float tHFoe, float manh, bool cuoi)
+        // nhip: sức nhịp trúng phụ khi kim găm (0: kim đầu, cú trúng chính do StageView lo)
+        void KimSat(Vector2 home, Vector2 toa, Vector2 tgt, float L, float W, float tL, float tH2, float tHFoe, float manh, bool cuoi, float nhip = 0.4f)
         {
             var aim = (tgt - home).normalized;
             float ph = U(0, 6.28f);
@@ -115,7 +117,7 @@ namespace PokiClash
                     float u = Mathf.Clamp01((t - tL) / Mathf.Max(0.02f, tH2 - tL));
                     var lui = q.home - q.aim * (0.18f * L);
                     np = u < 0.18f ? Vector2.Lerp(q.home, lui, EaseOut(u / 0.18f)) : Vector2.Lerp(lui, tgt, Mathf.Pow((u - 0.18f) / 0.82f, 1.6f));
-                    if ((float)q.rng.NextDouble() < 0.6f)
+                    if ((float)q.rng.NextDouble() < 0.25f)   // vệt tia sau kim (hàm gọi mỗi bước con 120 Hz: 0,25 ≈ 30 tia/giây mỗi kim, trước 0,6 vượt ngân sách)
                         Spark(q.pos - q.aim * (0.45f * L), -q.aim * U(60, 140) + U2(-30, 30), U(40, 100), U(0.1f, 0.2f), U(4, 7), 0);
                 }
                 q.vel = dt > 1e-5f ? (np - q.pos) / dt : Vector2.zero;
@@ -136,7 +138,11 @@ namespace PokiClash
                 Put(buf, q.group, 45.5f, S("needle_0"), GiaoThep, q.pos, hh, st, ang);
                 Put(buf, q.group, 45.6f, S("needle_0"), GiaoBac, q.pos + dv * (0.12f * hh), hh * 0.55f, st * 0.45f, ang);
             };
-            p.onDeath = (q, s3) => GiaoTrung(tgt, aim, tHFoe, (cuoi ? 1.5f : 0.75f) * manh, cuoi ? 10 : 4, cuoi ? 9 : 3);
+            p.onDeath = (q, s3) =>
+            {
+                s3.KmNhip(nhip);
+                GiaoTrung(tgt, aim, tHFoe, (cuoi ? 1.5f : 0.75f) * manh, cuoi ? 10 : 4, cuoi ? 9 : 3);
+            };
             Add(p);
         }
 
@@ -170,7 +176,7 @@ namespace PokiClash
                 float tL = tBay - tHien, tH2 = tToi - tHien;
                 At(tHien, () =>
                 {
-                    KimSat(home, toa, tgt, L, W, tL, tH2, tH, manh, cuoi);
+                    KimSat(home, toa, tgt, L, W, tL, tH2, tH, manh, cuoi, cuoi ? 0.8f : thu == 0 ? 0 : 0.4f);
                     SatChop(home, 0.16f * casterH * manh, Front, 0.12f);
                     for (int j = 0; j < 2; j++) Spark(home, new Vector2(U(-1f, 1f), U(-1f, 0.3f)), U(80, 180), U(0.12f, 0.2f), U(4, 6), 100);
                 });
@@ -180,9 +186,9 @@ namespace PokiClash
             At(tDam, () =>
             {
                 Shake?.Invoke(0.45f * manh);
-                SatChop(dat + new Vector2(0, -0.06f * casterH), 0.4f * casterH * manh, Front, 0.14f);
-                Ring(dat, 0.4f, 0.08f * casterH, 0.9f * casterH * manh, GiaoThep);
-                Ring(dat, 0.5f, 0.04f * casterH, 0.6f * casterH * manh, GiaoBac, 0.3f, Floor, 31);
+                KmChop(dat + new Vector2(0, -0.06f * casterH), 0.3f * casterH * manh, 0.07f, KmBac);
+                KmCung(dat, 0.08f * casterH, 1.0f * casterH * manh, 0.42f, GiaoBac, 0.3f, Floor, 30.6f, 0.9f);   // vòng cung dẹt không viền (KR5)
+                KmCung(dat, 0.04f * casterH, 0.65f * casterH * manh, 0.52f, KmBac[3], 0.3f, Floor, 31, 0.7f);
                 for (int i = 0; i < Mathf.RoundToInt(8 * manh); i++)
                 {
                     float sd = (i & 1) == 0 ? -1 : 1;

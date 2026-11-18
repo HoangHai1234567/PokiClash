@@ -39,7 +39,7 @@ ngọn), 2–3 khoá mỗi đốt mỗi nửa vòng. Tai 10 khoá/4 s, ngọn t�
 
 **Nhịp skill (28 khung, 89% thẳng, dáng → dáng cùng khung 0/6/13/14/15/17/22/28):** 0 → 6 lấy đà (thân `bone5` −50°, đầu cúi), 13 cuộn
 chặt (bone3 +44°), **14 → 15 bung trong 1 khung** (bone3 44 → −48°, bone5 −78 → +28°, đầu 82° → 2°), `bone2` dời tới 40 đơn vị ở khung
-17, giữ có trôi tới 22, về khung 28 bằng khoá bậc. Đúng công thức "khung gãy → chạm 1 khung → giữ có trôi" của `skill-petclash` 7.2.
+17, giữ có trôi tới 22, về khung 28 bằng khoá bậc. Đúng công thức "khung gãy → chạm 1 khung → giữ có trôi" của `animation-petclash` mục 3.
 
 **Hit_01 (15 khung):** khung 0 đã là dáng bị đánh (`bone16` −88°, cổ 42°), về trong 0,5 s; mắt đổi sang hình `shouji`.
 

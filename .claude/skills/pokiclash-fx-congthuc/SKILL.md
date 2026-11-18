@@ -1,7 +1,7 @@
 ---
 name: pokiclash-fx-congthuc
 description: >
-  Sổ công thức hiệu ứng hạt chồng lớp phẳng của PokiClash (bộ Hỏa 2026-11-10): cách làm từng loại lửa (tròn, nhọn, xoắn,
+  [Bộ VFX] Sổ công thức hiệu ứng hạt chồng lớp phẳng của PokiClash (bộ Hỏa 2026-11-10): cách làm từng loại lửa (tròn, nhọn, xoắn,
   dung nham), khói, tro, vòng lửa, phun lửa, cầu lửa, cầu dung nham, kim lửa, lốc xoáy, nổ, thiên thạch, dung nham phun, lên cấp;
   cách thêm hệ mới (Thủy, Mộc, Kim, Thổ...) và chiêu mới trên fxlib.py; mẫu nổ, lửa, nước, khói học từ Kingdom Rush 5 (mục 2b). Dùng khi làm, sửa, soi bất kỳ hiệu ứng nào, hoặc khi mở
   rộng sang hệ khác.
@@ -9,8 +9,8 @@ description: >
 
 # Sổ công thức hiệu ứng (fxlib)
 
-> Skill gốc: `skill-petclash` (nguyên tắc thiết kế, nhịp clip, khớp animation với hiệu ứng, hiệu năng, bảng kiểm; kèm bộ
-> `VFX_KNOWLEDGE_BASE.md` và ba file ghi chú nghiên cứu). Đọc nó trước, rồi quay lại đây làm chi tiết.
+> Skill gốc: `vfx-petclash` (bộ VFX: luật dự án, nguyên tắc thiết kế, nhịp, màu, hình theo hệ, khớp với animation, kiến trúc,
+> hiệu năng, quy trình, bảng kiểm, nguồn tham khảo; kèm `VFX_KNOWLEDGE_BASE.md`, hai file nghiên cứu, `hoc_kr5_vfx.md`). Đọc nó trước, rồi quay lại đây làm chi tiết.
 
 Đọc kèm: skill `pokiclash-vfx` (luật hình, vẽ tay, tô phẳng) và `pokiclash-hero-fx` (cảm giác đánh; mục 0b, 0c là lịch sử và
 lỗi đã gặp). Sổ này trả lời: **muốn làm hiệu ứng X thì dựng thế nào, số bao nhiêu, tránh lỗi gì.**
@@ -64,7 +64,7 @@ lửa 20–24 → cung, vòng 26–35 → hạt trên cùng 39–45.
 
 ### 2b. Học từ Kingdom Rush 5: nổ, lửa, nước, khói (2026-11-18)
 
-Nguồn và số đo: `skill-petclash/hoc_kr5_vfx.md`. Trang xem để soi từng khung: `ArtGen/ThamKhao/KR5/MO_WEB.bat`. Tờ khung đánh số để
+Nguồn và số đo: `vfx-petclash/hoc_kr5_vfx.md`. Trang xem để soi từng khung: `ArtGen/ThamKhao/KR5/MO_WEB.bat`. Tờ khung đánh số để
 so: `ArtGen/ThamKhao/KR5/to_khung/` (không commit, sinh lại theo README của thư mục). Họ vẽ ảnh
 khung phẳng; dưới đây là cách đổi sang hạt của `fxlib`. **Luật dự án vẫn đè lên** (viền mực, khói than xám, không gradient,
 không che con bị trúng).

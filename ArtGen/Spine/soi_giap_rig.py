@@ -456,7 +456,7 @@ def lam_clip(sk, info):
     out.append(Clip("hit", CD["hit_01"][0], hit))
 
     # ================= BA CLIP TẤN CÔNG (làm lại 2026-11-16 sau khi người dùng chê "còn yếu và hơi xấu"): dáng khoá đặt bằng soi_giap_don.Bo
-    # (chân IK bám đất, tay búa theo đích, lớp phụ trễ). Nhịp theo skill-petclash 7.1: lấy đà NGƯỢC chiều cú đánh, ra đòn 2 khung, quá đà,
+    # (chân IK bám đất, tay búa theo đích, lớp phụ trễ). Nhịp theo animation-petclash mục 2: lấy đà NGƯỢC chiều cú đánh, ra đòn 2 khung, quá đà,
     # giữ có trôi, về. Góc tay búa (ta) và góc búa (ba) ghi LIỀN vòng (âm dần = quay theo chiều kim đồng hồ: sau → trên → trước).
     B = DON.Bo(sk)
     KB = info["cao"] / 640.68 if NON else 1.0                 # dạng non nhỏ hơn: độ dời tuyệt đối trong dáng khoá co theo chiều cao

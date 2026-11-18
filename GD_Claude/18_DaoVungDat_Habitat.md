@@ -216,7 +216,7 @@ Ba lớp, mỗi lớp một nhịp để không đơn điệu:
 
 Cách làm: món nhỏ lặp (gợn, sóng, lá, mưa, tuyết) dùng `IslandAnim` và hạt chồng lớp; món lớn có khớp (sò mở khép, đèn hải đăng quay, xoáy nước) làm rig `.atomik` nhỏ; nước dùng shader `InkWater`. Mọi hiệu ứng theo luật tô phẳng: không quầng sáng, không bóng đổ, "phát sáng" thể hiện bằng đổi màu.
 
-Hạt (bọt, mưa, lấp lánh) làm theo chuẩn hạt chồng lớp (skill `pokiclash-hero-fx`, `skill-petclash`), không dùng hình tĩnh lật khung.
+Hạt (bọt, mưa, lấp lánh) làm theo chuẩn hạt chồng lớp (skill `pokiclash-hero-fx`, `vfx-petclash`), không dùng hình tĩnh lật khung.
 
 **Máy yếu**: chỉ chạy rig và hạt của habitat nằm trong khung nhìn cộng một lề. Ngoài khung thì dừng hẳn. Mỗi lúc thấy khoảng 3–4 habitat.
 

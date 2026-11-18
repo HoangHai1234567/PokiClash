@@ -145,7 +145,7 @@ Cách dựng như Hải Long (`pokiclash-spine-rig` mục 20): concept làm mố
   (vai, cẳng, bàn IK), chân sau 2 × (đùi, cẳng, bàn IK), áo choàng lá súng lưới 3 × 2 xương (lò xo, mép lá gợn khi nhảy, đập),
   dây sậy 4 đốt, khoá cứng, băng sậy cứng theo cẳng tay.
 
-**Clip** (mục 5 đặc tả; nhịp theo `skill-petclash` 7.1):
+**Clip** (mục 5 đặc tả; nhịp theo `animation-petclash` mục 2):
 - `appear`: dạng 1 bật ra từ một bong bóng (khung đầu trống, tụ lại 0 → 1,1 → 1), đuôi bung từ cuộn chặt; dạng 2 nhảy vào khung
   đáp nặng, nện đất, ộp một tiếng (túi phồng). Kết thúc đúng khung 0 `idle`.
 - `idle`: dạng 1 2,0 s: thở, nhún hai lần (học con gốc), đuôi cuộn / nhả nhẹ trễ pha, mắt nảy lệch pha, phá nhịp phồng họng 0,35 s

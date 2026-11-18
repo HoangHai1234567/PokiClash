@@ -1,13 +1,18 @@
 ---
 name: pokiclash-hero-fx
 description: >
-  Cải tiến hiệu ứng idle, đánh nhau và animation của tướng PokiClash: khựng lúc trúng (hit-stop), rung, bật lùi, chớp màu,
+  [Bộ VFX] Hiệu ứng và cảm giác đánh của tướng PokiClash (idle theo hệ, đòn, chiêu): khựng lúc trúng (hit-stop), rung, bật lùi, chớp màu,
   hạt có vật lý (tia văng, mảnh vỡ, bụi, than, khói, hạt tụ lực), biên đạo đòn theo pha, idle "sống" theo hệ, hạt trong
-  .atomik (beast.py) và hạt trên sân (StageView, pool Image hoặc ParticleSystem qua UIParticle). Học từ pixelfx (MIT), các
-  skill VFX Unity và bộ GameFeel. Dùng khi làm cho tướng đánh "có lực" hơn, thêm hạt, sửa idle đứng im, chỉnh nhịp đòn, chiêu.
+  .atomik (beast.py) và hạt trên sân (StageView, pool Image hoặc ParticleSystem qua UIParticle). Chuẩn mốc là bản phun lửa hạt
+  chồng lớp (ArtGen/Spine/chuan_fx), không làm hiệu ứng sprite tĩnh. Học từ pixelfx (MIT), Epic Toon FX (đọc số prefab),
+  Clash of Critters, Kingdom Rush 5 (nổ, lửa, nước, khói vẽ phẳng; trang xem trên máy), các skill VFX Unity và bộ GameFeel. Dùng khi làm cho tướng đánh "có lực" hơn, thêm hạt, sửa idle đứng im,
+  chỉnh nhịp đòn, chiêu, làm bất kỳ hiệu ứng mới nào.
 ---
 
 # Hiệu ứng và cảm giác đánh của tướng (2026-11-09)
+
+> Skill gốc: `vfx-petclash` (bộ VFX: luật dự án, nguyên tắc thiết kế, nhịp, màu, hình theo hệ, khớp với animation, kiến trúc,
+> hiệu năng, quy trình, bảng kiểm, nguồn tham khảo; kèm `VFX_KNOWLEDGE_BASE.md`, hai file nghiên cứu, `hoc_kr5_vfx.md`). Đọc nó trước, rồi quay lại đây làm chi tiết.
 
 Skill này nói **làm sao cho tướng đánh có lực, đứng có hồn**. Luật hình, tia chiêu mana, gói vẽ ảnh hiệu ứng nằm ở skill
 `pokiclash-vfx`; rig, clip .atomik nằm ở skill `pokiclash-spine-rig` (mục 13, 15, 16). Đọc hai skill đó trước, skill này chỉ thêm
@@ -15,6 +20,9 @@ phần cảm giác.
 
 ## 0. Luật không được phá
 
+- **Chuẩn mốc (người dùng chốt 2026-11-10):** mọi hiệu ứng mới phải đạt tầm bản phun lửa `ArtGen/Spine/chuan_fx/phun_lua.gif`
+  (xem mục 0b). **Không làm kiểu sprite tĩnh nữa**: không lấy một ảnh GPT rồi cho trượt, nở, mờ là xong. Ảnh vẽ (GPT hoặc thuật
+  toán) chỉ là **hình của hạt** hoặc tờ khung; chuyển động do hạt có vật lý và đường cong theo tuổi.
 - **Hình:** vẽ tay, viền mực nâu `#2B2118`, tô phẳng chì sáp. **Không glow, không additive, không bloom, không gradient.** Mọi
   công thức "ánh sáng" học từ nơi khác phải đổi thành **hình phẳng, màu phẳng, alpha** (mục 2).
 - **Engine:** hiệu ứng trận là ảnh rời trên uGUI canvas, chạy theo **đồng hồ sân** `StageView.Clock`, không theo
@@ -28,11 +36,93 @@ phần cảm giác.
 - Tướng vẽ lại phải có **chuyển động phụ**: mây, vòng, đồ bay, tai, đuôi, lửa không được đứng im (ghi nhớ "hero-secondary-motion").
 - Người dùng chấm trên **điện thoại Android** (bản Build thường): soi trong editor xong vẫn phải thử trên máy.
 
+## 0b. Chuẩn mốc: hạt chồng lớp phẳng (bản phun lửa, 2026-11-10)
+
+Bản mẫu: `ArtGen/Spine/phun_lua_thu.py` (mô phỏng và xuất GIF, tờ 12 khung) và `ArtGen/Spine/fire.py` (ảnh hạt sinh bằng thuật toán,
+dùng `lightning.py`). Chạy `py -3 -I phun_lua_thu.py <thư mục ra>`; `ERODE=1` cho khói tan bằng ăn mòn (`chuan_fx/phun_lua_an_mon.gif`,
+chờ người dùng chọn).
+
+- **Bốn bước như VFX Graph** (skill `unity-vfx-graph`): **Spawn** (nhịp sinh, lên nhanh 0,08 s, tắt dần 0,16 s cuối, đợt bắn) →
+  **Initialize** (vị trí, nón, tốc, đời, cỡ đầu và cuối, hạt giống) → **Update** (cản mũ, nổi, rối sin mượt, chạm đích thì tạt
+  ngang, sinh hạt con khi chết) → **Output** (vẽ). Chỉ học cách chia; không dùng VFX Graph thật, vì nó không vẽ trong Canvas UI,
+  không chạy WebGL và khác nét vẽ tay.
+- **Chồng lớp phẳng:** mỗi hạt lửa vẽ ở 5 lớp chung cho cả luồng: **mực** (ảnh trắng đặc nở thêm ~2,5 đơn vị) → đỏ → cam → vàng →
+  kem. Lớp trong nhỏ hơn và **co nhanh hơn theo tuổi** (kem hết ở 40% đời, vàng 68%, cam 95%), nên lửa nguội từ lõi ra mép rồi
+  thành khói. Hạt cùng lớp chồng lên nhau hoà thành **một khối liền, một viền mực ngoài**: mềm mà vẫn tô phẳng. Ảnh hạt là ảnh
+  **xám có vân chì**, nhuộm màu bằng `Image.color` (nhân màu), nên một ảnh dùng cho mọi lớp, mọi hệ.
+- Trên sân Unity: mỗi lớp là một container con (thứ tự sibling = thứ tự lớp), mỗi hạt có một Image ở mỗi lớp. Bản phun lửa đông
+  nhất khoảng 45 hạt × 5 lớp: phải dồn vào sub-canvas riêng, tính overdraw.
+- **Dáng luồng:** nón nửa góc 12°, tốc 1200–1400 đơn vị sân/s (≈ 8–9 H/s), cản 1,8/s, đời 0,40–0,52 s; cỡ nở theo quãng bay
+  (7–10 → 32–40) nên luồng **loe thành hình nón**; lực nổi tăng dần; rối vuông góc tăng theo tuổi; 35% hạt sau 30% đời vẽ bằng
+  **lưỡi lửa** chĩa lên ở mép.
+- **Chạm đích:** dừng ở **mặt trước thân** đối thủ (cách tâm khoảng 34 đơn vị), cắt 92% tốc dọc, tạt ngang 15–32%, bỏ lực nổi,
+  đời còn 0,10–0,16 s, không nở thêm. Thiếu điều này lửa sẽ trùm kín con bị trúng hoặc vọt lên trời (đã gặp ở bản 2).
+- **Khói:** sinh liên tục từ **mép trên** luồng (20/s, sau 0,12 s) và từ 30–45% hạt lửa chết, thêm một đám khi hết phun. Khói
+  bay lên chậm, màu kem ngả xám theo tuổi, **tan bằng co nhỏ** (hoặc ăn mòn), không mờ alpha. Khói vẽ **sau** lửa.
+- **Tia văng, than:** vệt thuôn có viền kéo dài theo vận tốc (tối đa 3,6 lần), ra từ **mép** luồng và bay ra ngoài; cú trúng
+  bắn 2 đợt cách 0,1 s. Than tụ lực bay vào miệng, cầu lửa nở ở miệng 0,28 s.
+- Vòng soi đã đi (đừng lặp lỗi): lửa chậm, luồng mập như xúc xích → tăng tốc, nở theo quãng; lõi vàng thành đốm da báo → lõi to,
+  co chậm hơn; trúng đích bắn lên trời → mục chạm đích; cục đỏ đọng cuối đòn → co mạnh cuối đời (còn 12%); khói lẻ như bong bóng →
+  khói liên tục từ mép, gộp thành mây; vệt tụ lực như gai cắm vào đầu → đổi thành than; GIF ngả màu → bảng màu chung từ nhiều khung.
+
+Mọi hiệu ứng mới: viết câu biên đạo → dựng bằng khung này (đổi hình hạt, lớp màu, nhịp) → GIF và tờ 12 khung → soi ít nhất 3 vòng,
+so với chuẩn mốc → mới đưa vào sân. Thông số mẫu theo từng loại lớp và công thức từng kiểu hiệu ứng: xem `toonfx.md`.
+
+### 0c. Thư viện `fxlib.py` và bộ Hỏa (2026-11-10)
+
+**Công thức từng hiệu ứng** (cách làm từng loại lửa, khói, vòng lửa, dung nham, đạn bay, lốc, kim, nổ, thiên thạch, lên cấp) và
+**cách thêm hệ mới** nằm ở skill `pokiclash-fx-congthuc`. Mục này giữ lịch sử và các lỗi đã gặp. Người dùng đã bỏ aura lửa, sóng
+nhiệt, kiểu lửa anime (2026-11-10): không làm lại khi chưa được yêu cầu.
+
+Hiệu ứng mới **dựng trên `ArtGen/Spine/fxlib.py`**, không chép lại khung phun lửa. Thư viện gồm:
+- `Sim` với lịch sinh: `at` (một lần), `every` (luồng, nhịp có thể là hàm), `periodic` (lặp liền mạch: rng riêng theo `j mod n`);
+- hạt dựng sẵn: `flame` (kiểu tron / nhon / xoan / nham), `smoke`, `ash`, `ember`, `spark`, `ring`;
+- vật liệu `mat_*`; 4 nhóm vẽ FLOOR / BACK / HERO / FRONT;
+- tướng thật cắt nền từ tranh GPT (`load_hero`): chớp, nhuộm, rung màn;
+- xuất GIF và tờ khung (`run`, `save`).
+
+Ảnh hạt nằm trong `fire.py`: lưỡi móc câu `hook`, vòng xoắn `curl`, khe nứt dung nham `lava_crack`, đá dung nham `lava_rock`, sao `star4`, kim `needle`, tro `ash`. Bộ mẫu là `ArtGen/Spine/bo_hoa.py`: kiểu lửa, phun lửa (tròn, xoắn), vòng lửa, lên cấp, dung nham, thiên thạch, nổ lửa, cầu lửa, cầu dung nham, lốc xoáy, kim lửa. GIF ở `ArtGen/Spine/chuan_fx/bo_hoa/`, trang xem `xem.html`.
+
+Hình tướng trong GIF là tranh GPT vẽ trên rig aola: chỉ xem trên máy, không đăng.
+
+Luật rút ra khi soi (đừng lặp lỗi):
+- **Khói** (người dùng dặn): than đen ngả dần sang xám, có tro tán; **tan dần, bay lên hết, không vụt tắt**. Cách làm: co smoothstep
+  còn ~25% cỡ, alpha phẳng nhạt ở 30% cuối (viền mực nhạt trước ruột), càng cuối càng bay nhanh lên. Chỉ cho bị cắn (ăn mòn)
+  khi đã ngả xám, vì khói đen bị cắn trông như vầng trăng đen. Khói của đòn trúng ở nhóm BACK, ít và nhỏ. Khói thưa thì thành
+  chuỗi bóng đen: cho cụm nhỏ, dày, chồng nhau.
+- **Vòng sóng** vẽ theo pixel (`ringpx`: dải màu mảnh dần, viền mực cố định 2,5 đơn vị). Phóng to ảnh vòng thì viền mực phóng
+  theo, thành vòng nâu dày.
+- **Lưỡi nhọn** (`nhon`) phải có lõi to (0,9 / 0,78 / 0,6) và heat 1,6–1,7; lõi nhỏ hay nguội nhanh thì thành giọt nâu như bùn.
+  Bảng màu lửa sáng: `(234,80,42) (248,150,48) (252,210,78) (254,244,206)`, nền xám ảnh hạt 236 (nhân màu còn 0,93).
+- **Dung nham** chỉ đóng vỏ nâu khi đã chạm đất (`p.cool`). Giọt kéo dài vừa phải (stretch_k ≥ 900), không thì thành hạt đậu.
+  Đá văng cỡ ≥ 18 thì mới thấy vân nứt.
+- **Chớp, nhuộm tướng giữ nét viền** (chỉ nhuộm phần có độ sáng > 70), không thì tướng trông như trong suốt.
+- **Nổ lớn** (thiên thạch) đặt lõi ở BACK, ôm viền thân đối thủ, chỉ vài lưỡi nhỏ sát đất ở FRONT. Nổ trúng thường (`no_lua`) gọn,
+  nhỏ hơn thân, ở FRONT.
+- Vòng lửa dùng `periodic` để nối vòng liền. Hạt con phải lấy `q.rng` của hạt mẹ, không lấy `sim.rng`.
+- **Khói giật** (người dùng thấy): do mọi thứ đổi theo nấc (đổi khung ăn mòn, góc làm tròn 6°, alpha 20 nấc). Khói làm như Epic Toon FX:
+  mỗi hạt một hình cố định, cỡ nở tới đỉnh ở 27% đời rồi co mượt về 0, xoay chậm dần, alpha trơn (40 nấc), góc làm tròn 3°.
+  Không ăn mòn khói.
+- **Hơi nóng** (`fxlib.heat`, ảnh `haze` vẽ theo pixel): 2–3 nét lượn mảnh màu kem, không viền, alpha 0,75, pha chạy theo tuổi;
+  chỉ còn dùng phụ trong vòng lửa. Hiệu ứng sóng nhiệt riêng và aura đã bị bỏ.
+- **Đạn bay** (cầu lửa, kim):
+  - lõi sinh liên tục, đời ngắn và **bám theo đạn** (`upd` đặt lại vị trí theo đường bay). Bỏ lại sau thì đạn dài như que;
+  - đuôi lửa ngắn, co nhanh;
+  - đuôi khói đứng tại chỗ, sinh dày (≥ 100/s), cụm đầu to (r0 ≥ 9), bảng `SMOKE_FIRE` (cam → nâu → xám). Thưa thì thành chuỗi bóng đen;
+  - vệt kim bay dùng tia kéo dài (`spark`) chứ không dùng chuỗi cụm lửa (thành hạt cườm).
+- **Lốc xoáy:** phễu hạt bay vòng (bán kính tăng theo độ cao, nửa sau BACK, nửa trước FRONT và nhỏ hơn) chưa đủ đọc. Phải có
+  **dải cung nằm ngang bay lên** (`arcpx`, cắt hai nửa elip vào hai nhóm) như vòng xoáy Epic Toon FX. Chiều cao lốc không vượt
+  mép trên sân: đối thủ đứng ở y 236, nên khoảng 1,2 H.
+- **Gói GPT vẽ hình hạt:** `build_hat.py` (H01–H07; xám không viền cho hạt chồng lớp, đủ màu có viền cho hạt nhỏ, đá), `--nhap` cắt về
+  `hat_gpt/`. `fxlib.Art` tự dùng ảnh GPT khi có (bảng `Art.GPT`, thiếu thì quay về hình thuật toán).
+
 ## 1. Nguồn đã đọc và lấy gì
 
 | Nguồn | Ở đâu | Lấy gì |
 |---|---|---|
 | **pixelfx** (patch-gg, MIT; lõi hạt chuyển từ Sprite Fusion của Hugo Duprez, lõi diễn chuyển từ Hollow Crown, đều MIT) | `E:\ProjectAtomik\_ref\pixelfx` (máy ổ D: `D:\_ref\pixelfx`). `src/core/sim.js` (hạt), `src/core/act.js` (diễn), `src/fx/moves/*.js` (đòn trọn vẹn), `docs/AUTHORING.md` (thước đo) | cách diễn quanh hiệu ứng (lấy đà, khựng, rung, con bị đánh bật lò xo), 12 kiểu hạt có vật lý, biên đạo theo pha. **Không lấy hình**: toàn pixel art có lớp sáng cộng dồn |
+| **Epic Toon FX** (Archanor VFX, Asset Store; đã `.gitignore`, chỉ đọc) | `Assets/Epic Toon FX/`; đọc số bằng `tools/ps_dump.py`, `ps_show.py`, `ps_stats.py`; ghi chép ở `toonfx.md` | phân vị đời, tốc, cản theo loại lớp; tờ khung **ăn mòn** (tan bằng bị cắn, không mờ); cản mạnh "bắn rồi khựng"; màu theo tuổi = nhiệt độ; tốc âm từ mặt cầu (hút vào); công thức đấm, chém, nổ, nova, tụ lực, buff, hồi máu, lên cấp, choáng, chữ tượng thanh. **Không lấy ảnh, không tham chiếu prefab** |
+| Skill `unity-vfx-graph` (a5c-ai/babysitter, MIT; cài ở `.claude/skills/unity-vfx-graph`) | project | cách chia Spawn → Initialize → Update → Output cho bộ mô phỏng (mục 0b). Không dùng VFX Graph thật |
 | Skill `game-feel` (gamedev-skills/awesome-gamedev-agent-skills, Apache-2.0) | github | bảng mức đòn (rung kiểu trauma, khựng, số hạt), 5–8 phản hồi nhỏ trong ~100 ms |
 | Skill `scenario-unity-vfx` (scenario-labs/skills, MIT) | github | nhịp từng lớp hiệu ứng, ngân sách hạt điện thoại, đo overdraw thay vì đếm hạt. Bỏ phần "additive glow" |
 | ParticleEffectForUGUI / UIParticle (mob-sakai, MIT, v4.14.2) | github | cách cho ParticleSystem vẽ trong canvas (mục 9) |
@@ -61,6 +151,43 @@ dài clip, mốc trúng của 33 thú (`gpuAnimData` trong prefab GPU Spine). H�
 - Áp cho game mình: giữ luật tô phẳng (thay quầng bằng vòng phẳng, ảnh kem 1–2 khung), lấy **nhịp** (2 đợt hạt cách 0,1 s, lớp phụ
   trễ 0,15 s, cỡ bật 14% đời, tan sau 72%) và cách dùng **ảnh vẽ tay chạy khung** cho hiệu ứng chính thay vì nhiều hạt.
 
+## 1c. Kingdom Rush 5 đục máy (2026-11-18, bản rút `D:\Ripper\KingdomRush5`, chỉ xem trên máy, không lấy hình)
+
+Trong repo: `ArtGen/ThamKhao/KR5/`.
+- **Trang xem** `MO_WEB.bat`: hình lọc theo hệ, hệ hạt chạy đúng code của game, chiêu ghép thân + đạn + trúng.
+- **Phân tích:** `HOC_VFX_KR5.md`; tờ khung đánh số ở `to_khung/`.
+- **Dữ liệu ảnh** đã `.gitignore`, sinh lại bằng `tools/build_fx_viewer.py <bản rút>`.
+- **Bản tóm cho dự án:** `vfx-petclash/hoc_kr5_vfx.md`. Đây là nguồn **gần luật tô phẳng nhất**: hiệu ứng trận vẽ phẳng 3–5 màu,
+mép cứng, không shader, không cộng sáng (chỉ chấm sáng nhỏ, bụi, hơi thở rồng có mép mềm). Họ làm thế này:
+- **Ảnh khung vẽ tay giữ 2 khung:** 30 khung/giây, mỗi hình lặp 2 khung (15 hình/giây) ở 2/3 hoạt ảnh. Hiệu ứng trung vị 0,5 s.
+- **Đỉnh ở khung 1–3:**
+  - nổ: chớp 1 khung rồi khói và lửa đã to gần đủ;
+  - nước toé: to nhất ngay khung 1;
+  - nổ của chiêu lớn: lấy đà 2 khung bằng cục chớp nhỏ.
+
+  Nửa sau là tan.
+- **Mỗi đòn là chuỗi mảnh:** đạn (bay trung vị 0,83 s) → hạt đuôi → hiệu ứng trúng (gốc ở chân, xếp theo y cùng nhân vật) → decal
+  (giữ 1–2 s, mờ 0,5–1,5 s) → payload (lửa cháy trên đất) → mod (lửa lặp trên người địch 3 s).
+- **Hạt chỉ "dập" hình tự tan:**
+  - 100/113 hệ hạt là hạt có hoạt ảnh 6–15 khung, đời = độ dài hoạt ảnh, alpha giữ nguyên, phần lớn không vận tốc;
+  - đuôi đạn 30–70 hạt/giây, xoay ngẫu nhiên 360°;
+  - sinh chia đều theo quãng đạn vừa đi trong tick nên đuôi liền.
+- **Tan bằng vỡ ra:**
+  - khói: khối → cụm nhỏ → sỏi;
+  - nước: khối bị đục lỗ → giọt → chấm;
+  - lửa: lưỡi liềm → đốm.
+
+  Alpha chỉ ở 30–40% cuối.
+- **Tia, luồng thở:** một hoạt ảnh kéo dãn từ miệng tới đích (`scale.x = khoảng cách / bề rộng ảnh`), không phải đạn bay.
+- **Báo trước 0,4 s** cho đòn đánh xuống đất: lỗ mở trên đất rồi cột lửa mới phun.
+- **Tween nhỏ cho vật đứng yên:** bật 1 → 1,2 → 1 trong 0,1 s; thở 1,01 ↔ 0,99 mỗi 0,8 s.
+- Áp cho game mình:
+  - giữ hạt chồng lớp phẳng và viền mực;
+  - lấy **giữ 2 khung** (đổi hình hạt mỗi 2 khung sân), **đỉnh sớm**, **chuỗi mảnh của đòn**, **tan bằng vỡ ra**;
+  - lấy hình từng pha của nổ, nước toé, cột lửa.
+
+  Công thức hạt: `pokiclash-fx-congthuc` mục 2b.
+
 ## 2. Đổi "ánh sáng" sang luật vẽ tay
 
 pixelfx dựng sức mạnh bằng ánh sáng (lõi trắng nóng, quầng, ánh lên sàn). Game mình làm bằng **hình và nhịp**:
@@ -73,6 +200,9 @@ pixelfx dựng sức mạnh bằng ánh sáng (lõi trắng nóng, quầng, ánh
 | khói, hơi mờ trong suốt | cụm tròn tô phẳng màu khói, **alpha phẳng 0,4–0,7**, nở to và nhạt dần (được: chỉ đổi alpha, không gradient) |
 | lửa nguội dần theo dải màu | 3–4 **hình rời** theo dải màu phẳng (vàng → cam → đỏ → khói), đổi hình theo tuổi hạt |
 | "lines and light, not fills" | **đường và hình nhỏ, không mảng lớn**: vệt, vòng, mảnh, chấm có viền; tránh khối màu bão hoà to che người |
+| mờ dần bằng alpha (ETFX, CoC) | **co cỡ về 0** hoặc **tờ khung ăn mòn** (`fire.erode_frames`: bị cắn thành lưỡi liềm, dừng ở lưỡi liềm còn dày rồi co); alpha chỉ cắt 10–20% cuối |
+| lửa nhiều quầng chồng cộng sáng | **chồng lớp phẳng** mực > đỏ > cam > vàng > kem, lớp trong co theo tuổi (mục 0b) |
+| khói tách rời lửa | **khói đi cùng luồng**: hạt bay cùng hướng, màu theo tuổi cam → đỏ → xám (ETFX phun lửa Toony) |
 
 ## 3. Chọn tầng làm
 
@@ -147,6 +277,15 @@ Một hiệu ứng đứng một mình trông như cái nhãn dán; **thân tư�
 | **bông, lá, cánh hoa** | rơi chậm 0,1–0,3 H/s, lượn sin, cản 2,2/s | lá, hoa, tuyết, lông | idle Mộc, chiêu hoa, băng |
 | **lấp lánh** | đứng yên, nhấp nháy 2–3 nhịp | sao 4 cánh phẳng | kim loại, ngọc, thánh |
 
+- **Số đối chiếu Epic Toon FX** (trung vị nhóm Combat, 1 đơn vị ETFX ≈ 0,5 H; chi tiết `toonfx.md` mục 2):
+  - **tia văng:** đời 0,4 s, tốc ≈ 9 H/s, cản mạnh (dampen 0,2 ≈ 6,7/s), 15 hạt, kéo dài theo vận tốc;
+  - **gai:** 0,25 s, 12 cái;
+  - **vòng:** 0,3 s, nở 0,3–0,5 → 1;
+  - **khói:** 0,7 s, 12 cụm, bay lên nhẹ, co về 0;
+  - **lõi:** 0,3 s;
+  - mọi lớp bắn ở 0 s, tách nhau bằng đời.
+  
+  Hạt trong bảng trên (2–5 H/s, cản 2,2/s) còn **chậm và trôi**: tia văng nên 6–10 H/s với cản 5–8/s, "bắn rồi khựng".
 - **Mọi hạt khác nhau** (cỡ, tốc, giờ trễ, đời) bằng số giả ngẫu nhiên có hạt giống: cùng một clip luôn ra cùng một hình.
 - **Nhanh vào, chậm ra:** tung mạnh rồi cản; kết thúc bằng co nhỏ hoặc tan, không biến mất cái rụp.
 - **Có lưu dấu:** mảnh vỡ, vết cháy nằm lại 0,5–1,5 s trên sàn rồi mới tan, không che con đang đứng.
@@ -195,18 +334,10 @@ Idle đứng yên một chỗ là lỗi. Mỗi tướng có ít nhất: thở, p
 Trong .atomik: hạt idle phải **liền mạch khi lặp**. Dùng kiểu `cycle` của pixelfx: hạt i có pha `(t/D + i/n) mod 1`, vị trí,
 alpha là hàm của pha (sinh ở pha 0, tan hết trước pha 1). Không dùng hạt "bắn một lần" trong idle.
 
-## 8. Animation tướng: nguyên tắc diễn
+## 8. Animation tướng: đã chuyển sang bộ Animation
 
-- **Lấy đà ngược chiều cú đánh**, đổi dáng lớn ở khung ra đòn (bóng dáng khác hẳn), **khựng lúc chạm**, theo đà vượt quá rồi về.
-- **Dáng "snap":** dáng ra đòn nhảy tới ngay (không nội suy) ở khung ra đòn; pixelfx giữ dáng tay chân theo **bước 12 khung/giây**
-  (vị trí chân vẫn mượt) cho cảm giác vẽ tay. Thử cho đòn đánh, chiêu: lượng tử hoá góc xoay xương thân, tay theo 1/12 s, giữ dời
-  `move` mượt; soi rồi mới áp cả loạt.
-- **Nén giãn giữ thể tích:** đòn thường (0,9; 1,09); nện, đáp nặng tới (0,85; 1,15); Celeste nhảy (0,6; 1,4), đáp (1,6; 0,4) là mức
-  cực, game mình dùng nhẹ hơn. Hồi về 1 trong 0,18–0,3 s.
-- **Phụ kiện trễ và ngược chiều** thân (đuôi trễ 0,05 s mỗi đốt, tai 0,06 s, chuông 0,1 s), biên độ lớn dần ra ngọn.
-- **Con đánh vẫn hơi động lúc khựng** (Sakurai) để không chết hình; con bị đánh rung ngang.
-- **Đòn khác kiểu nhau** giữa các dòng (không toàn "nhảy lên rồi ra chiêu"): xem bảng kiểu đòn, chiêu ở `beasts_cfg_hoa.py`,
-  `beasts_cfg.py` (`_STYLE`).
+Nguyên tắc diễn (lấy đà ngược chiều, dáng snap 12 khung/giây, nén giãn giữ thể tích, phụ kiện trễ, con đánh vẫn động lúc khựng,
+đòn khác kiểu nhau giữa các dòng) nay ở `animation-petclash` mục 5. Skill này chỉ giữ phần hiệu ứng và cảm giác đánh quanh động tác.
 
 ## 9. Hạt trên sân: pool Image (mặc định) hay ParticleSystem
 
@@ -238,8 +369,9 @@ Số dòng tính tới 2026-11-09, có thể lệch; tìm theo tên hàm.
 | đồng hồ sân, nhịp chậm lúc đánh | `StageView.Update` (dt = min(0,05, unscaledDeltaTime) × Pace 3 × slow × fast; `AttackPace` 1,3, `SkillPace` 1, `skillHold`) |
 | **thêm khựng** | biến `freeze` trong `StageView.Update`: còn khựng thì dt = 0 (hoặc ×0,1) cho tướng, hiệu ứng sân, rung vẫn giảm theo giờ thật; đặt freeze ở chỗ gọi `onHit` |
 | khoảnh khắc trúng | `StageView.Update` gọi `onHit` khi `a.t >= HitTime`; `HitTime = HitFrame / Fps` (`AolaSticker`); .atomik lấy `game.hitTimes` (`AolaActor`, làm tròn theo fps); mỗi clip một nhịp trúng |
-| phản hồi sát thương | `BattlePlayer` sự kiện Dmg → `StageView.Hurt` (flash 0,16, rung 6/12, clip Hit nếu đang đứng), `Burst` (chữ + 9 tia), `Number`, `Text` |
-| rung | `StageView` một số `shake` (Max, giảm 40/s) lắc cả `root` "rung": đổi sang trauma + bump có hướng (mục 4) |
+| phản hồi sát thương | `BattlePlayer` sự kiện Dmg → `StageView.Hurt` (chớp 0,16, đẩy màn có hướng, khựng 35–70 ms / chí mạng 70–130 ms, bật lùi tối thiểu khi rig không khai, rung chỉ cho cú lớn; mọi mức nhân theo `Power`), `Burst` (chữ, 7–20 tia "bắn rồi khựng", vòng sóng khi mạnh), `Number` (bật ra xa kẻ đánh), `KoHit` (cú hạ gục; con cuối khựng 0,2 s), rung tay `Haptics` (Hit, HitBig, UltHit, Ko) |
+| rung | `StageView`: `Bump(side, đơn vị)` đẩy màn theo hướng cú đánh, hồi λ 9,75/s, giữ yên lúc khựng; `AddTrauma` rung sin lệch tần số; `Freeze(s)` khựng (max, ≤ 0,2 s). Lớp `rung` phóng nhẹ quanh tâm cho mép không lộ (≤ 8%). Đã bỏ `shake` ngẫu nhiên mỗi khung (2026-11-16) |
+| **độ epic theo độ khó** (người dùng 2026-11-16) | `StageView.Epic` 0..1 do `BattleController.EpicOf` đặt (50% tiến độ cả game + 35% tiến độ trong đảo + 15% có boss; huy hiệu theo bậc, hang theo tầng); `Power(kẻ đánh)` = Epic + 0,25 boss + 0,1 mỗi dạng tiến hóa. Hiệu ứng trúng mới phải nhân theo `Power`: ải đầu gọn, ải cuối mạnh. Đo bằng menu `PokiClash/Thử/Cảm giác trận` (nhật ký `Temp/PokiShots/game_feel/nhat_ky.txt`) |
 | **bật lùi, nghiêng lò xo** | `StageView.Place`/vòng tướng trong `Update` (đã có né `hop`, lệch lao 985–1019): thêm offset bật lùi và góc lò xo cho actor bị đánh |
 | hiệu ứng sân có sẵn | pool `Take`/`AddFx`/`Release`; khối `Pop`, `Drift`, `Spin`, `Ripple`, `Spark`, `Ring`, `Burst`, `Flash`; ảnh gán bởi `Editor/BeamFxMenu.cs` từ `Assets/03 Art/Fx` |
 | neo vị trí | `StageView` `Head`/`Body`/`Pos`; điểm bắn tia `AolaSticker`; xương .atomik chưa mở ra ngoài (`AtomikPose.BonePos` có sẵn nếu cần neo hạt theo bờm, vũ khí) |
