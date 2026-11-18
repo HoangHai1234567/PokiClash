@@ -69,6 +69,59 @@ TAY_GAN = ("dabi_r", "xiaobi_r", "xiaobi_r2")          # bắp, cẳng, bàn (b�
 TAY_XA = ("dabi_l", "xiaobi_l", "shouzhang_l")         # bên phải tranh
 DUOI = ("duoi0", "duoi1", "duoi2")
 
+# DẠNG 1 "Thiên Thạch Thú Non" (TH_DANG=non; người dùng 2026-11-18: "làm dạng 1", chọn cùng rig 3806, concept A "mầm tinh thể"; ghi chú
+# inbox/tinh_hach_non_ghichu.md). Cùng xương / lưới / clip; xương của họ nhân tỉ lệ inbox/tinh_hach_non/mau/ti_le.json NGAY sau khi dựng.
+# Mảnh dạng 2 dùng lại (thân, hai tay, móng, lòng miệng, quả cầu) gắn ở khung dạng 2 (tạm trả tỉ lệ về gốc: co theo xương như bố cục);
+# mảnh mới (đầu, hàm, mầm tinh thể, đuôi, ba thiên thạch: inbox/tinh_hach_non/manh, hộp px concept A) và xương riêng (đuôi, tt_*, quỹ đạo,
+# quả cầu) đặt thẳng theo concept A qua tinh_hach_non.tf() trên bộ xương đã co. Không có tinh thể vắt vai (concept A không có).
+NON = os.environ.get("TH_DANG", "") == "non"
+if NON:
+    import tinh_hach_non as THN  # noqa: E402
+    TEN_RIG = "tinh_hach_non"
+    RA = os.environ.get("TH_RA") or os.path.join(HERE, "inbox", "tinh_hach_non", "rig")
+    TI_NON = json.load(open(os.path.join(THN.MAU, "ti_le.json"), encoding="utf-8"))
+    MANH_MOI = ("dau", "ham", "rung", "duoi")          # + cum1..3
+    DUOI_J_NON = [[545.0, 772.0], [430.0, 820.0], [310.0, 842.0], [185.0, 815.0]]   # px concept A: gốc (khuất) → chóp lưỡi
+    Y_CHAN_MAM = 330.0                                  # px concept A: chân ba mầm tinh thể trên sống lưng
+
+
+def la_moi(ten_m):
+    return NON and (ten_m in MANH_MOI or ten_m.startswith("cum"))
+
+
+def ap_ti(sk, bat):
+    """dạng non: bat=True đặt tỉ lệ ti_le.json lên các xương của họ (đã có), False trả về dáng gốc dạng 2; tính lại W0."""
+    if "ti_goc" not in sk.info:
+        sk.info["ti_goc"] = {nm: {k: sk.bones[sk.bi[nm]][k] for k in ("x", "y", "sx", "sy")} for nm in TI_NON if nm in sk.bi}
+    for nm, g in sk.info["ti_goc"].items():
+        b = sk.bones[sk.bi[nm]]
+        b.update(g)
+        if bat:
+            k = TI_NON[nm]
+            if isinstance(k, dict):
+                b["x"] += k.get("dx", 0.0)
+                b["y"] += k.get("dy", 0.0)
+                k = k.get("s", 1.0)
+            b["sx"] *= k
+            b["sy"] *= k
+    sk.W0 = sk.the_gioi(khung.Pose())
+    sk.info["ti_bat"] = bat
+
+
+class Khung2:
+    """with Khung2(sk): gắn mảnh dạng 2 ở dáng gốc dạng 2 (điểm gắn lưu theo hệ xương nên ra khỏi khối là co theo xương)."""
+
+    def __init__(self, sk):
+        self.sk = sk
+
+    def __enter__(self):
+        if NON:
+            ap_ti(self.sk, False)
+
+    def __exit__(self, *a):
+        if NON:
+            ap_ti(self.sk, True)
+
 
 # ---------------------------------------------------------------- nạp, chuyển động của họ đã đổi về kế thừa thường
 def nap():
@@ -128,12 +181,41 @@ def anh_manh(ten):
     return QR.anh_manh(ten)
 
 
+def anh_manh_moi(ten):
+    """dạng non: mảnh mới (inbox/tinh_hach_non/manh, hộp px concept A), thu về D_PX pixel mỗi đơn vị rig."""
+    DATJ = json.load(open(os.path.join(THN.MANH, "dat.json")))
+    s_px, _, _ = THN.tf()
+    g = Image.open(os.path.join(THN.MANH, ten + ".png")).convert("RGBA")
+    kq = D_PX / s_px
+    g = g.convert("RGBa").resize((max(2, round(g.width * kq)), max(2, round(g.height * kq))), Image.LANCZOS).convert("RGBA")
+    return anh.loang_mau(g), DATJ[ten]["hop"], kq
+
+
+def att_co(a, ten, Wi, W0):
+    """dạng non: lưới (gộp) của họ ở khung 0 idle → cùng lưới trên bộ xương đã nhân tỉ lệ (mỗi đỉnh da hoá lại bằng W0 mới)."""
+    Q = np.array(a["xy"], float).reshape(-1, 2)
+    out = []
+    for v, ws in zip(Q, a["w"]):
+        acc, tot = np.zeros(2), 0.0
+        for k, w in ws:
+            n = ten[k]
+            if n in W0 and n in Wi and w > 0:
+                acc += w * (W0[n] @ np.linalg.solve(Wi[n], np.array([v[0], v[1], 1.0])))[:2]
+                tot += w
+        out.append(acc / tot if tot > 0 else v)
+    return dict(a, xy=np.asarray(out).ravel().tolist())
+
+
 def luoi_manh(sk, ten_m):
-    im, (x0, y0, x1, y1), kq = anh_manh(ten_m)
+    if la_moi(ten_m):
+        im, (x0, y0, x1, y1), kq = anh_manh_moi(ten_m)
+        to_rig = THN.tf()[1]
+    else:
+        im, (x0, y0, x1, y1), kq = anh_manh(ten_m)
+        _, to_rig, _ = QR.tf()
     if ten_m not in sk.images:
         sk.anh(ten_m, im)
     im = sk.images[ten_m]
-    _, to_rig, _ = QR.tf()
     bv = max(6.0, min(12.0, 0.06 * min(im.width, im.height)))
     L = luoi.luoi_vung(im, buoc_vien=bv, buoc_trong=bv * 1.5, vien=2, ten=ten_m, in_tk=False)
     V = to_rig(np.stack([x0 + L.pts[:, 0] / kq, y0 + L.pts[:, 1] / kq], 1))
@@ -146,6 +228,21 @@ def gan_tu_do(sk, ten_m, Wd):
     W = Wd(V) if callable(Wd) else Wd
     sk.luoi_gan(ten_m, ten_m, L, W, the_gioi=V)
     return L, V
+
+
+def gan_moi(sk, ten_m, a0, ten, Wi):
+    """dạng non: mảnh mới gắn trên nhóm lưới của họ ĐÃ CO (att_co), điểm gắn theo W0 đã nhân tỉ lệ (như QR.gan_manh)."""
+    L, V = luoi_manh(sk, ten_m)
+    Wi_s = dict(Wi)
+    Wi_s.update(sk.W0)
+    rows = QR.trong_so_goc(V, att_co(a0, ten, Wi, sk.W0), ten, Wi_s)
+    vong = MUOT.get(ten_m, 0)
+    if vong:
+        sk.luoi_gan(ten_m, ten_m, L, QR.lam_tron_ts(L, rows, vong), the_gioi=V)
+    else:
+        sk.luoi_gan(ten_m, ten_m, L, trongso.cung(L.n, "move"), the_gioi=V)
+        sk.atts[ten_m][ten_m]["verts"] = rows
+    return L
 
 
 def att_luoi(a, ten):
@@ -180,6 +277,9 @@ def dung():
     # kiểm: ma trận dáng gốc của mình = khung 0 idle của họ
     lech = max(float(np.hypot(*(sk.W0[n][:2, 2] - Wi[n][:2, 2]))) for n in goc0)
     print(f"lệch vị trí xương so với khung 0 idle: {lech:.2f} đv")
+    if NON:
+        ap_ti(sk, True)                                                  # từ đây W0 = dáng gốc dạng 1
+        print("dạng non: tỉ lệ", {k: v for k, v in TI_NON.items() if k in sk.bi})
     sk.xuong("mieng", "move", 0.0, 0.0)
     sk.info.update(by0=by0, ten=ten, Wi=Wi)
     DATJ = json.load(open(os.path.join(MANH, "dat.json")))
@@ -189,13 +289,27 @@ def dung():
         x0, y0, x1, y1 = DATJ[tm]["hop"]
         return to_rig(np.array([[x0, y0], [x1, y1]], float))
 
+    if NON:
+        DATN = json.load(open(os.path.join(THN.MANH, "dat.json")))
+        _, to_rig_n, _ = THN.tf()
+        hb = json.load(open(os.path.join(THN.MAU, "bo_cuc_khung.json"), encoding="utf-8"))
+        b_rig = THN.A.canvas_map(tuple(hb["khung_rig"]), THN.W, THN.H, pad=THN.PAD)[0]
+
+        def hop_n(tm):
+            x0, y0, x1, y1 = DATN[tm]["hop"]
+            return to_rig_n(np.array([[x0, y0], [x1, y1]], float))
+
+        def hop_bc(s):                                                   # hộp slot trên bố cục (da dạng 2 đã co) → rig dạng 1
+            x0, y0, x1, y1 = hb["slot"][s]
+            return b_rig(np.array([[x0, y0], [x1, y1]], float))
+
     tong = [0, 0]
     # --- 5 thiên thạch (cụm tinh thể) bay kiểu NGUYÊN TỬ: mỗi cái một quỹ đạo elip nghiêng riêng quanh thân. Elip dựng bằng hai xương quay
     # ngược chiều (vòng a quay +u, vòng b quay −u → elip bán trục a + b, a − b, nghiêng α): aura cộng góc vào hai xương (+Δ, −2Δ) nên cast /
     # skill cộng THÊM tốc độ quay mà không cần biết thiên thạch đang ở đâu trên quỹ đạo. Mỗi thiên thạch: xương quy_j (con all2, tâm quỹ
     # đạo) → quy2_j (đầu vòng a) → dao_j (đầu vòng b, mang hình); hai bóng mờ vệt bay (cùng chuỗi, góc trễ); slot sau lưng + slot trước ngực.
-    cums = sorted(k for k in DATJ if k.startswith("cum"))
-    hb_t, hb_d = hop_rig("than"), hop_rig("dau")
+    cums = sorted(k for k in (DATN if NON else DATJ) if k.startswith("cum"))
+    hb_t, hb_d = (hop_bc("than"), hop_bc("dau")) if NON else (hop_rig("than"), hop_rig("dau"))
     x0_, x1_ = float(min(hb_t[0, 0], hb_d[0, 0])), float(max(hb_t[1, 0], hb_d[1, 0]))
     y0_, y1_ = float(min(hb_t[0, 1], hb_t[1, 1])), float(max(hb_t[0, 1], hb_t[1, 1]))
     C_Q = np.array([(x0_ + x1_) / 2, (y0_ + y1_) / 2])
@@ -225,18 +339,24 @@ def dung():
     sk.info["quy_tam"] = (C_Q, A_Q, B_Q)
     print(f"quỹ đạo: tâm {np.round(C_Q)}, bán trục {A_Q:.0f} × {B_Q:.0f}")
     # --- đuôi: chuỗi ba xương riêng (con all3), khớp đọc trên concept (gốc khuất sau thân → chóp quạt tinh thể)
-    J = to_rig(np.array([[600.0, 738.0], [480.0, 765.0], [390.0, 762.0], [215.0, 735.0]]))
+    if NON:                                                              # khớp đọc trên concept A (gốc khuất sau tay gần → chóp lưỡi)
+        J = to_rig_n(np.array(DUOI_J_NON))
+    else:
+        J = to_rig(np.array([[600.0, 738.0], [480.0, 765.0], [390.0, 762.0], [215.0, 735.0]]))
     sk.chuoi("duoi", "all3", J, ten_rieng=list(DUOI))
     sk.info["duoi_J"] = J
     # --- rừng tinh thể: hai xương riêng (con all4 / all5) ở chân rừng; tinh thể vắt vai: xương riêng con all5
-    rr = hop_rig("rung")
+    # (dạng non: ba mầm tinh thể + hai nụ; xương ở chân mầm trên sống lưng; tinh thể vắt vai không có, xương tt_nam_g giữ cho clip)
+    rr = hop_n("rung") if NON else hop_rig("rung")
     xa, xb = float(rr[0, 0]), float(rr[1, 0])
-    yb = float(to_rig(np.array([[0.0, 430.0]]))[0, 1])
+    yb = float((to_rig_n if NON else to_rig)(np.array([[0.0, Y_CHAN_MAM if NON else 430.0]]))[0, 1])
     sk.xuong("tt_sau", "all4", xa + 0.28 * (xb - xa), yb, goc=90.0, dai=200.0, the_gioi=True)
     sk.xuong("tt_truoc", "all5", xa + 0.72 * (xb - xa), yb, goc=90.0, dai=200.0, the_gioi=True)
-    cn = to_rig(np.array([[870.0, 440.0]]))[0]
+    cn = (to_rig_n if NON else to_rig)(np.array([[870.0, 440.0]]))[0]
     sk.xuong("tt_nam_g", "all5", float(cn[0]), float(cn[1]), goc=90.0, dai=150.0, the_gioi=True)
     for ten_m, goc in MANH_GOC:
+        if NON and ten_m == "tt_nam":
+            continue
         sk.slot(ten_m, "move", ten_m)
         if ten_m == "duoi":
             L, V = luoi_manh(sk, "duoi")
@@ -254,18 +374,24 @@ def dung():
         else:
             QR.MUOT = MUOT
             a0 = QR.gop_att([by0[s] for s in goc])
-            L = QR.gan_manh(sk, ten_m, ten_m, a0, ten, Wi)
+            if la_moi(ten_m):
+                L = gan_moi(sk, ten_m, a0, ten, Wi)
+            else:
+                with Khung2(sk):
+                    L = QR.gan_manh(sk, ten_m, ten_m, a0, ten, Wi)
         tong[0] += L.n
         tong[1] += len(L.tris)
     # --- móng: cứng trên xương ngón nặng nhất ở tâm móng; móng tay xa vẽ ngay sau tay xa, móng tay gần ngay sau tay gần
+    # (dạng non: móng dạng 2 dùng lại, gắn ở khung dạng 2)
     for ben, truoc in (("xa", "rung"), ("gan", "dau")):
         a_tay = QR.gop_att([by0[s] for s in NGON_GOC[ben]])
         for tm in sorted(k for k in DATJ if k.startswith(f"ngon_{ben}")):
-            c = hop_rig(tm).mean(0)
-            w0 = QR.trong_so_goc(np.array([c]), a_tay, ten, Wi)[0]
-            xb_ = max(w0, key=lambda r: r[3])[0] if w0 else ("xiaobi_r2" if ben == "gan" else "shouzhang_l")
-            sk.slot(tm, "move", tm, truoc=truoc)
-            gan_tu_do(sk, tm, lambda V, b=xb_: [{b: 1.0}] * len(V))
+            with Khung2(sk):
+                c = hop_rig(tm).mean(0)
+                w0 = QR.trong_so_goc(np.array([c]), a_tay, ten, Wi)[0]
+                xb_ = max(w0, key=lambda r: r[3])[0] if w0 else ("xiaobi_r2" if ben == "gan" else "shouzhang_l")
+                sk.slot(tm, "move", tm, truoc=truoc)
+                gan_tu_do(sk, tm, lambda V, b=xb_: [{b: 1.0}] * len(V))
             print(f"  {tm} → {xb_}")
     # --- quả cầu thiên thạch (chiêu cuối): xương bong (con all2) ở tâm thân, ẩn mặc định
     C_Q, A_Q, B_Q = sk.info["quy_tam"]
@@ -273,6 +399,15 @@ def dung():
     sk.xuong("bong_q", "bong", 0.0, 0.0)                                 # bong: kéo / bẹp (không xoay); bong_q: quả cầu lăn
     im_b = Image.open(os.path.join(MANH, "bong.png")).convert("RGBA")
     D_BONG = 1.35 * A_Q                                                  # đường kính quả cầu (cả gai) ≈ chiều cao thân
+    if NON:
+        # dạng non: quả cầu vẽ lại (mặt con non, gai ngắn); thân quả cầu cùng tỉ lệ như dạng 2 (0,9: đường kính / chiều cao như dạng 2) →
+        # giữ phép thu của ảnh dạng 2 cho ảnh mới (gai ngắn hơn thì ảnh nhỏ hơn, thân cầu không phình)
+        p_n = os.path.join(THN.MANH, "bong.png")
+        D_BONG *= 0.9
+        if os.path.exists(p_n):
+            im_n = Image.open(p_n).convert("RGBA")
+            D_BONG *= max(im_n.size) / max(im_b.size)
+            im_b = im_n
     kq_b = min(1.0, D_BONG * D_PX / max(im_b.size))
     im_s = im_b.convert("RGBa").resize((max(2, round(im_b.width * kq_b)), max(2, round(im_b.height * kq_b))), Image.LANCZOS).convert("RGBA")
     sk.anh("bong", anh.loang_mau(im_s))
@@ -342,6 +477,9 @@ T_GAM0, T_GAM1 = 1.15, 1.75
 D_AURA = 8.0                          # thiên thạch bay quỹ đạo nguyên tử (clip lặp chồng lên mọi clip)
 TRE_G = (0.025, 0.05)                 # độ trễ hai bóng mờ vệt bay (giây)
 THAN_SLOT = ("duoi", "tay_xa", "rung", "than", "tt_nam", "long_mieng", "ham", "tay_gan", "dau")
+# chiều HÁ của xương hàm all10. Đo 2026-11-18 (cả dạng 2): góc DƯƠNG làm hàm xoay lên chui vào trong đầu (attack 0,40: hộp hàm chồng hộp
+# đầu 240 đv, hàm khuất sau đầu) = KHÉP; ghi chú cũ "dương = há" sai, mọi pha "há to / gầm" đang khép miệng còn cú đớp thì hé ra.
+HA = -1.0
 
 
 def lam_clip(sk, info, cao=1300.0):
@@ -489,7 +627,7 @@ def lam_clip(sk, info, cao=1300.0):
         P.rot("all4", 0.8 * song(t, 0.06))
         P.rot("all5", 1.0 * song(t, 0.10))
         P.rot("all6", 1.6 * song(t, 0.16))
-        P.rot("all10", 2.0 + 2.0 * song(t, 0.30, 2.0))
+        P.rot("all10", HA * (2.0 + 2.0 * song(t, 0.30, 2.0)))
         for j, bn in enumerate(TAY_GAN):
             P.rot(bn, (1.2 + 0.6 * j) * song(t, 0.20 + 0.08 * j))
         for j, bn in enumerate(TAY_XA):
@@ -503,7 +641,7 @@ def lam_clip(sk, info, cao=1300.0):
             lac = math.sin(2 * math.pi * (t - L0) / 0.30) * e
             P.rot("all6", 9.0 * lac)
             P.rot("all5", -3.5 * lac)
-            P.rot("all10", 6.0 * e)
+            P.rot("all10", HA * 6.0 * e)
             P.rot("tt_sau", 4.0 * math.sin(2 * math.pi * (t - L0) / 0.11) * e)
             P.rot("tt_truoc", -4.5 * math.sin(2 * math.pi * (t - L0 - 0.03) / 0.12) * e)
             P.rot("tt_nam_g", 5.0 * math.sin(2 * math.pi * (t - L0 - 0.05) / 0.10) * e)
@@ -564,7 +702,7 @@ def lam_clip(sk, info, cao=1300.0):
         P.rot("all6", 12.0 * dau)
         ha = cv(t, [(0.0, 0.0), (0.28, 0.2), (0.40, 1.0, "out"), (T_ATK - 0.02, 1.0), (T_ATK + 0.02, -0.25, "in"), (0.70, -0.2),
                     (D_ATK, 0.0, "io")])
-        P.rot("all10", 2.0 + 17.0 * ha)
+        P.rot("all10", HA * (2.0 + 17.0 * ha))
         if T_ATK < t < 0.72:
             e = math.sin(math.pi * (t - T_ATK) / (0.72 - T_ATK))
             x = math.sin(2 * math.pi * (t - T_ATK) / 0.13) * e
@@ -616,7 +754,7 @@ def lam_clip(sk, info, cao=1300.0):
         gam = em((t - (T_XOA1 - 0.10)) / 0.15) * (1 - em((t - 1.85) / 0.40))   # ngóc lên gầm khi phóng
         P.rot("all5", 5.0 * gam)
         P.rot("all6", 12.0 * gam)
-        P.rot("all10", 15.0 * gam)
+        P.rot("all10", HA * 15.0 * gam)
         for tk in T_PHONG:                                              # mỗi thiên thạch phóng đi: hất người tới
             k = math.exp(-((t - tk - 0.03) / 0.045) ** 2)
             P.rot("all4", -2.5 * k)
@@ -706,7 +844,7 @@ def lam_clip(sk, info, cao=1300.0):
         for j, b in enumerate(DUOI):
             P.rot(b, 22.0 * cuon)
         hien_bong = T_CUON1 - 0.04 <= t < T_BUNG1 - 0.06
-        for sl in THAN_SLOT + tuple(s for s in sk.si if s.startswith("ngon_")):
+        for sl in tuple(s for s in THAN_SLOT if s in sk.si) + tuple(s for s in sk.si if s.startswith("ngon_")):
             P.alpha[sl] = 0.0 if hien_bong else 1.0
         P.alpha["bong"] = 1.0 if hien_bong else 0.0
         if hien_bong:
@@ -730,7 +868,7 @@ def lam_clip(sk, info, cao=1300.0):
         # bung người: gầm khi đáp
         gam = em((t - T_BUNG1) / 0.15) * (1 - em((t - (D_SKILL - 0.45)) / 0.35))
         P.rot("all6", 14.0 * gam)
-        P.rot("all10", 15.0 * gam)
+        P.rot("all10", HA * 15.0 * gam)
         if t > T_VE:
             b = math.exp(-(t - T_VE) / 0.09) * math.cos((t - T_VE) * 2 * math.pi / 0.22)
             P.scale("all3", 1 + 0.08 * b, 1 - 0.10 * b)
@@ -771,23 +909,24 @@ def lam_clip(sk, info, cao=1300.0):
             w = ease((t - (T_GAM0 - 0.15)) / 0.15) * (1 - ease((t - T_GAM1) / (D_APPEAR - 0.1 - T_GAM1)))
             P.rot("all6", 14.0 * w)
             P.rot("all5", 4.0 * w)
-            P.rot("all10", 16.0 * w)
+            P.rot("all10", HA * 16.0 * w)
             if T_GAM0 < t < T_GAM1:
                 r = hoat.rung(t, T_GAM0, T_GAM1, 2)
                 P.rot("all4", 1.5 * r)
                 P.rot("tt_sau", 3.0 * r)
                 P.rot("tt_truoc", -3.0 * r)
 
+    T_PHONG_ = T_PHONG[:len(QUY)]                                      # dạng non: ba thiên thạch
     clips = [
-        Clip("appear", D_APPEAR, f_appear, ev=[(T_DAP, "cham_dat", ""), (T_DAP, "nen", ""), *[(tk, "tro_lai", "") for tk in T_TRO],
-                                               (T_GAM0, "gam", "")]),
+        Clip("appear", D_APPEAR, f_appear, ev=[(T_DAP, "cham_dat", ""), (T_DAP, "nen", ""),
+                                               *[(tk, "tro_lai", "") for tk in T_TRO[:len(QUY)]], (T_GAM0, "gam", "")]),
         Clip("idle", D_IDLE, f_idle, loop=True),
         Clip("walk", CD["run_01"][0], f_walk, loop=True),
         Clip("attack", D_ATK, f_attack, ev=[(0.30, "vo", ""), (T_ATK, "trung", ""), (T_ATK + 0.13, "xe", ""), (T_ATK + 0.26, "xe", "")],
              trung=T_ATK),
         Clip("cast", D_CAST, f_cast, ev=[(T_XOA0, "xoa", ""), (0.40, "quay_nhanh", ""), (T_TU0, "tu", ""),
-                                         *[(tk, "phong", str(j)) for j, tk in enumerate(T_PHONG)],
-                                         *[(tk + BAY, "no", str(j)) for j, tk in enumerate(T_PHONG)], (T_PHONG[0] + BAY, "trung", ""),
+                                         *[(tk, "phong", str(j)) for j, tk in enumerate(T_PHONG_)],
+                                         *[(tk + BAY, "no", str(j)) for j, tk in enumerate(T_PHONG_)], (T_PHONG[0] + BAY, "trung", ""),
                                          (T_MOC_C, "moc", "")], trung=T_PHONG[0] + BAY),
         Clip("skill", D_SKILL, f_skill, ev=[(T_CUON1, "cuon", ""), (0.40, "quay_nhanh", ""), (T_LEN0, "bay_len", ""),
                                              (T_LEN1 + 0.02, "lua", ""), (T_NO, "no_lon", ""), (T_NO, "trung", ""), (T_BUNG1, "bung", ""),
@@ -920,7 +1059,8 @@ def main(a):
         out.save(pth)
         print(pth, out.size)
         return
-    xuat.xuat_het(sk, clips, RA, TEN_RIG, tieu_de="Thiên thạch thú (tinh_hach_1): tướng 9 đảo Thổ", dang=1, so_dang=1,
+    tieu = ("Thiên Thạch Thú Non (tinh_hach_non): tướng 9 đảo Thổ, dạng 1" if NON else "Thiên thạch thú (tinh_hach_1): tướng 9 đảo Thổ")
+    xuat.xuat_het(sk, clips, RA, TEN_RIG, tieu_de=tieu, dang=1, so_dang=1,
                   dung_yen=("cast",), lao=("attack", "skill"), far=("cast",), ma_goc=None, khop_idle=0.2, cao=cao, impact=IMPACT,
                   tol={"rotate": 0.08, "translate": 0.15, "scale": 0.0015}, dich_mb=0.4, tran_mb=0.7, span=3.4)
 

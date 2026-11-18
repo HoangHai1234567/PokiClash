@@ -4898,10 +4898,10 @@
   {
    "id": "giap_nham_skill",
    "owner": "giap_nham",
-   "name": "Nham Quyền",
+   "name": "Nguyệt Nhận",
    "rarity": "rare",
    "kind": "skill",
-   "icon": "fist",
+   "icon": "moon",
    "cost": {
     "mana": 40
    },
@@ -4923,10 +4923,10 @@
   {
    "id": "giap_nham_ult",
    "owner": "giap_nham",
-   "name": "Nham Giáp Thiên Băng",
+   "name": "Hằng Tinh Diệt",
    "rarity": "legend",
    "kind": "ult",
-   "icon": "crack",
+   "icon": "sun",
    "cost": {
     "rage": 100,
     "mana": 50
@@ -4948,10 +4948,10 @@
   {
    "id": "giap_nham_pas",
    "owner": "giap_nham",
-   "name": "Bờm Đỏ Chiến Ý",
+   "name": "Vệ Tinh Hộ Thể",
    "rarity": "epic",
    "kind": "passive",
-   "icon": "rage",
+   "icon": "shield",
    "trigger": "turnStart",
    "effects": [
     {
@@ -6874,10 +6874,10 @@
   {
    "id": "giap_nham_boss",
    "owner": "giap_nham",
-   "name": "Nham Giáp Chấn Địa",
+   "name": "Lõi Hành Tinh",
    "rarity": "legend",
    "kind": "passive",
-   "icon": "helmet",
+   "icon": "rock",
    "trigger": "lowHp",
    "below": 0.5,
    "effects": [

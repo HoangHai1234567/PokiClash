@@ -45,12 +45,15 @@ namespace PokiClash.EditorTools
             // thân máy bi (ArtGen/Pachinko/build.py --duyet) cao 1394 px: nhập ở 2048 để giữ nét
             bool big = assetPath.Contains("/Fallback/") && !assetPath.Contains("/Icons/") || assetPath.Contains("/Islands/") || assetPath.Contains("/BattleBG/")
                 || assetPath.Contains("/Pachinko/pk_than_may")
-                || assetPath.Contains("/Boot/boot_ban_do"); // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
+                || assetPath.Contains("/Boot/boot_ban_do") // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
+                || assetPath.Contains("/Home/home_base"); // nền đảo Nhà 1469 x 752, trải ra hơn 4 màn ngang (GD_Claude/21)
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
             // bản đồ đảo hệ: bản đồ dài đảo 70 ải cao 4288 (ArtGen/Islands/build_zone70.py), nhập ở 4096 (gần đủ nét, máy nào cũng
             // đọc được); ảnh đảo 8 ải dưới 2048 không đổi
             if (assetPath.Contains("/Islands/zone_")) ti.maxTextureSize = 4096;
+            // ảnh nền đảo vùng đất (GD_Claude/18, ArtGen/Islands/land_thuy/m0/build_land.py): 2688 x 1504, trải ra 4,4 màn ngang
+            if (assetPath.Contains("/Islands/land_")) ti.maxTextureSize = 4096;
             // mặt tướng màn VS (ArtGen/BattleIntro, 384 x 384, mỗi dạng tướng một ảnh, hơn trăm ảnh): ASTC 8x8 cho nhẹ APK
             bool face = assetPath.Contains("/BattleIntro/Resources/HeroFaces/");
             if (face) ti.maxTextureSize = 512;

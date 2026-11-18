@@ -5,7 +5,7 @@ description: >
   hạt có vật lý (tia văng, mảnh vỡ, bụi, than, khói, hạt tụ lực), biên đạo đòn theo pha, idle "sống" theo hệ, hạt trong
   .atomik (beast.py) và hạt trên sân (StageView, pool Image hoặc ParticleSystem qua UIParticle). Chuẩn mốc là bản phun lửa hạt
   chồng lớp (ArtGen/Spine/chuan_fx), không làm hiệu ứng sprite tĩnh. Học từ pixelfx (MIT), Epic Toon FX (đọc số prefab),
-  Clash of Critters, các skill VFX Unity và bộ GameFeel. Dùng khi làm cho tướng đánh "có lực" hơn, thêm hạt, sửa idle đứng im,
+  Clash of Critters, Kingdom Rush 5 (nổ, lửa, nước, khói vẽ phẳng; trang xem trên máy), các skill VFX Unity và bộ GameFeel. Dùng khi làm cho tướng đánh "có lực" hơn, thêm hạt, sửa idle đứng im,
   chỉnh nhịp đòn, chiêu, làm bất kỳ hiệu ứng mới nào.
 ---
 
@@ -150,6 +150,43 @@ dài clip, mốc trúng của 33 thú (`gpuAnimData` trong prefab GPU Spine). H�
   (skill `pokiclash-spine-rig` mục 17).
 - Áp cho game mình: giữ luật tô phẳng (thay quầng bằng vòng phẳng, ảnh kem 1–2 khung), lấy **nhịp** (2 đợt hạt cách 0,1 s, lớp phụ
   trễ 0,15 s, cỡ bật 14% đời, tan sau 72%) và cách dùng **ảnh vẽ tay chạy khung** cho hiệu ứng chính thay vì nhiều hạt.
+
+## 1c. Kingdom Rush 5 đục máy (2026-11-18, bản rút `D:\Ripper\KingdomRush5`, chỉ xem trên máy, không lấy hình)
+
+Trong repo: `ArtGen/ThamKhao/KR5/`.
+- **Trang xem** `MO_WEB.bat`: hình lọc theo hệ, hệ hạt chạy đúng code của game, chiêu ghép thân + đạn + trúng.
+- **Phân tích:** `HOC_VFX_KR5.md`; tờ khung đánh số ở `to_khung/`.
+- **Dữ liệu ảnh** đã `.gitignore`, sinh lại bằng `tools/build_fx_viewer.py <bản rút>`.
+- **Bản tóm cho dự án:** `skill-petclash/hoc_kr5_vfx.md`. Đây là nguồn **gần luật tô phẳng nhất**: hiệu ứng trận vẽ phẳng 3–5 màu,
+mép cứng, không shader, không cộng sáng (chỉ chấm sáng nhỏ, bụi, hơi thở rồng có mép mềm). Họ làm thế này:
+- **Ảnh khung vẽ tay giữ 2 khung:** 30 khung/giây, mỗi hình lặp 2 khung (15 hình/giây) ở 2/3 hoạt ảnh. Hiệu ứng trung vị 0,5 s.
+- **Đỉnh ở khung 1–3:**
+  - nổ: chớp 1 khung rồi khói và lửa đã to gần đủ;
+  - nước toé: to nhất ngay khung 1;
+  - nổ của chiêu lớn: lấy đà 2 khung bằng cục chớp nhỏ.
+
+  Nửa sau là tan.
+- **Mỗi đòn là chuỗi mảnh:** đạn (bay trung vị 0,83 s) → hạt đuôi → hiệu ứng trúng (gốc ở chân, xếp theo y cùng nhân vật) → decal
+  (giữ 1–2 s, mờ 0,5–1,5 s) → payload (lửa cháy trên đất) → mod (lửa lặp trên người địch 3 s).
+- **Hạt chỉ "dập" hình tự tan:**
+  - 100/113 hệ hạt là hạt có hoạt ảnh 6–15 khung, đời = độ dài hoạt ảnh, alpha giữ nguyên, phần lớn không vận tốc;
+  - đuôi đạn 30–70 hạt/giây, xoay ngẫu nhiên 360°;
+  - sinh chia đều theo quãng đạn vừa đi trong tick nên đuôi liền.
+- **Tan bằng vỡ ra:**
+  - khói: khối → cụm nhỏ → sỏi;
+  - nước: khối bị đục lỗ → giọt → chấm;
+  - lửa: lưỡi liềm → đốm.
+
+  Alpha chỉ ở 30–40% cuối.
+- **Tia, luồng thở:** một hoạt ảnh kéo dãn từ miệng tới đích (`scale.x = khoảng cách / bề rộng ảnh`), không phải đạn bay.
+- **Báo trước 0,4 s** cho đòn đánh xuống đất: lỗ mở trên đất rồi cột lửa mới phun.
+- **Tween nhỏ cho vật đứng yên:** bật 1 → 1,2 → 1 trong 0,1 s; thở 1,01 ↔ 0,99 mỗi 0,8 s.
+- Áp cho game mình:
+  - giữ hạt chồng lớp phẳng và viền mực;
+  - lấy **giữ 2 khung** (đổi hình hạt mỗi 2 khung sân), **đỉnh sớm**, **chuỗi mảnh của đòn**, **tan bằng vỡ ra**;
+  - lấy hình từng pha của nổ, nước toé, cột lửa.
+
+  Công thức hạt: `pokiclash-fx-congthuc` mục 2b.
 
 ## 2. Đổi "ánh sáng" sang luật vẽ tay
 

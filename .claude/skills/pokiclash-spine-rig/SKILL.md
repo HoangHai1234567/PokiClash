@@ -176,6 +176,14 @@ Con bám rig gốc là dạng cuối; dạng trước làm trên cùng xương, 
    chung (kín viền); đừng độn màu phẳng ra sau (lúc đung đưa lộ mảng không viền). Lỗ kín không phải lòng miệng thì lấp hết (con ngươi
    to). Đĩa lòng miệng cũ phải xén trong hình bóng đầu mới. Mảnh chỉ đổi màu (thân 2–3 màu phẳng, roi râu) thì đổi màu bằng mã theo lớp
    màu gần nhất (dời độ lệch lớp, giữ vân sáp và mọi bước dọn chỗ nối) thay vì cho GPT vẽ lại.
+9. **Dạng non dựng bằng CHÍNH script rig dạng sau, mảnh mới đặt thẳng theo concept** (Thiên Thạch Thú Non, 2026-11-18; mẫu
+   `ArtGen/Spine/tinh_hach_rig.py` chế độ `TH_DANG=non`, `tinh_hach_non.py`). Căn concept lên bố cục bằng co + dời (IoU phần thân, bỏ vật
+   bay), `tf()` = px concept → bố cục → rig dạng này. Nhân tỉ lệ xương NGAY sau khi dựng (`ap_ti`); mảnh dạng sau dùng lại thì gắn trong
+   `Khung2` (tạm trả tỉ lệ gốc: điểm gắn theo hệ xương nên tự co như bố cục); mảnh mới gắn thẳng trên bộ xương đã co (lưới gộp của họ da
+   hoá lại bằng W0 mới, `att_co`). Màu concept trùng dạng sau (đo trung vị da) thì chỉ gen lại chỗ khác hẳn (đầu, hàm, vật trên lưng, đuôi)
+   + vật có mặt người lớn (quả cầu cuộn người); vật đứng riêng viền kín (thiên thạch bay) cắt thẳng từ concept. Bẫy: `sk.the_gioi()` không
+   đối số chỉ trả bản chép W0 cũ, tính lại phải `the_gioi(khung.Pose())`. Hiệu ứng trên sân đo lại theo dạng bằng script (chạy trên dạng sau
+   trước: ra đúng bảng cũ mới tin số dạng này).
 
 **Các khúc NỐI NHAU thì gen LIỀN một ảnh rồi cắt, không gen riêng từng khúc** (người dùng dặn 2026-11-11, rồng vây: "những khớp
 nối thì gen cả con ra rồi cắt chứ không gen riêng không thì sẽ lệch"). Thân rắn / rồng, cổ – ngực – lưng – đuôi, tay hay chân nhiều

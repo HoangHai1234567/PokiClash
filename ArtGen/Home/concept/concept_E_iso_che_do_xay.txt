@@ -1,0 +1,27 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_A_toan_dao_nha.png: approved earlier concept (building designs, forest, environments)
+image 3 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_B_mot_man_nha.png: earlier screen concept (UI design to keep)
+image 4 = C:\Atomik\PokiWar\ArtGen\Home\concept\refs\workers.png: creatures A-G
+image 5 = C:\Atomik\PokiWar\ArtGen\Home\concept\refs\iso_build.png: isometric layout sketch of one screen in build mode (make_refs_iso.py)
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\concept\concept_E_iso_che_do_xay.png
+Magnific: gpt-2-6, 9:16, 1k, quality high
+
+Concept mockup of ONE SCREEN of a vertical mobile game (9:16 portrait) in BUILD MODE: the player is at HOME, moving a building on a large home island, with the game UI on top. The land clearly continues beyond the left, right and top edges of the screen.
+
+KEEP: the building designs, the forest look and the drawing style of image 2, and the UI look of image 3. CHANGE: the camera, and show build mode.
+
+CAMERA (most important): strict isometric projection like a classic mobile base-building game (2:1 dimetric). The ground is a diamond grid whose lines run in the two diagonal directions, about 27 degrees from horizontal (each cell is twice as wide as it is tall). Every lot edge, building footprint, field, fence, path tile and the shoreline follow these two diagonal directions. Every building, tree clump and prop sits on a diamond-shaped footprint with one corner pointing straight down toward the viewer, so we always see its roof plus its left wall and its right wall, all at the same angle; vertical edges stay perfectly vertical. No perspective. Zoomed in: one grid cell is about one tenth of the screen width, the main house is about half the screen width.
+
+LAYOUT: follow image 5, which is only a rough layout sketch (not a style reference): its boxes only show footprint, angle and relative size. Do NOT draw numbers or letters.
+- The scene: 1 main house (top centre, red roof), 2 and 3 fenced vegetable fields, 7 stone well with irrigation ditches, 11 ball tree with white striped balls, 8 kitchen cottage, P plaza with a stone sea-dragon statue, a path of square dirt tiles from the dock to the main house, a locked forest lot at the top left (padlock signpost), a forest lot ready to clear at the top right (axe signpost), the beach corner with D dock and sailboat at the bottom.
+- BUILD MODE: the diamond grid is now visible on all cleared ground as thin white dashed lines along the two diagonals, one small diamond per cell; it stops at the forest and the beach.
+- 9, the stone forge, is picked up: it floats a little above the ground (a clear gap under it), with a soft green diamond footprint on the ground below it exactly matching its size (it can be placed here). Above the forge three small round paper buttons: a green check mark, a red cross, and an "i" info sign.
+- A few cells drawn in soft red next to the front corner of the main house show where buildings cannot be placed.
+- Creatures do not work in build mode: creatures A and E stand near their buildings and watch, a small question mark above one of them. Creatures exactly as in image 4, about one grid cell tall. No people.
+
+UI (hand-drawn paper style as in image 3, flat, no shadows):
+- Top bar: the same torn-paper banner with the home badge and the three counters (white ball with one grey stripe, wooden log, grey ore rock with a blue crystal), each followed by a scribble.
+- Bottom: a build tray. Above it a row of three small paper tabs with icons: a little house, a flower, a square path tile. In the tray a row of four paper cards, each with a small drawing of the item seen from the same isometric angle: a fenced vegetable field, a stone well, a fishing pond, a paper lantern; under each a log icon and a scribble cost. The fourth card is greyed with a small padlock.
+Use short scribble lines instead of real words. No readable text.
+
+STYLE: hand-drawn on cream paper, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area, chunky cute doodles (image 1, image 2). No drop shadows, no cast shadows on the ground, no glossy highlights, no glow, no gradients, no 3D render.

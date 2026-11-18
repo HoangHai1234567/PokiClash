@@ -1,0 +1,19 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_E_iso_che_do_xay.png: approved concept (building designs, angle)
+image 3 = khung (make_building_refs.py): refs\frame_3x4.png (tờ A, B, C), refs\frame_6.png (Nhà chính, Mỏ), refs\frame_4x2.png (tờ D)
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\buildings\ sheet_A.png, sheet_B.png, sheet_C.png, main.png, mine.png, sheet_D.png; clouds.png
+Magnific: gpt-2-6, 1k, quality high (tờ 16:9; Nhà chính, Mỏ 1:1)
+
+CHUNG:
+Game object sprites for a mobile base-building game, in strict isometric 2:1 projection, on a plain flat pure white background.
+FRAME (most important): follow image 3 exactly. Each green diamond is the ground footprint of one object (twice as wide as tall, bottom corner pointing down). Draw each object standing on its own diamond: its base fills the diamond and follows the diamond edges; we see its roof and its left and right walls; it may rise upward inside the grey frame. Do not draw the numbers, the grey lines or the flat green diamonds (the object's own small ground patch replaces them). Everything else pure flat white.
+STYLE: same designs and same angle as image 2, drawn like image 1: hand-drawn, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area, chunky cute shapes. No drop shadows, no shadows on the ground, no glossy highlights, no glow, no gradients, no 3D render. No text, no creatures, no people.
+
+TỜ A: 1 fenced vegetable field (dark soil furrows with carrots, cabbages, pumpkins, low wooden rails along the diamond edges, a small gate at the front corner); 2 apple orchard (four small apple trees on grass, a wooden ladder, two baskets of red apples, low wooden rails); 3 sawmill (open timber shed with a slanted blue plank roof, a big round saw blade on a workbench, stacked logs and planks beside it).
+TỜ B: 1 storage barn (small red wooden barn with a big double door on the left wall, crates and sacks in front); 2 fishing pond (pond with a stone rim, flat blue water with pencil hatching, lily pads, reeds, a small wooden jetty at the front); 3 forge (stone forge with a chimney under a small timber roof, an anvil, bellows, a tool rack, coals drawn flat orange).
+TỜ C: 1 kitchen (small cottage with a thatched roof, an open counter with a stone oven, chimney, pots and pans hanging); 2 hot spring (round natural stone pool with pale blue water and drawn steam curls, bamboo fence on the two back sides, a wooden bucket); 3 water wheel mill (small timber mill house with a big wooden water wheel on its left side, as if standing beside a stream).
+NHÀ CHÍNH (6x6): cozy two-storey wooden cottage with a red tiled roof, a chimney, flower boxes under the windows, a front door with steps on the left wall, a stone foundation, a small flag on the roof ridge; clearly a home.
+MỎ (6x6): a grey rock outcrop hill filling the diamond, with coloured crystals poking out of the rock, a timber-framed mine entrance on the left face, a minecart on short rails coming out of it, a pile of ore, a lantern on a post.
+TỜ D (2x2): 1 stone well with a little wooden roof and a crank; 2 ball tree: a small round tree whose fruits are white balls with one grey stripe; 3 wooden bench; 4 rope swing hanging from a wooden frame.
+
+MÂY: Three separate large cloud masses for covering the edges of a game map, hand-drawn like image 1: puffy rounded cumulus shapes made of many round lobes, wide (about two and a half times wider than tall), flat cream-white fill with light coloured-pencil hatching, a pale blue-grey band along the bottom lobes, wobbly blue-grey ink outlines. On a plain flat pure blue background (#3a8fd8), each cloud fully separate with blue space all around. No shadows, no glow, no gradients, no text.

@@ -32,6 +32,7 @@ namespace PokiClash.EditorTools
                 return false;
             }
             var err = d.Validate();
+            err.AddRange(d.Cfg.home.Validate()); // khối "home" của balance.json (Nhà, HomeConfig)
             foreach (var e in err) Debug.LogError("[Dữ liệu] " + e);
             if (err.Count > 0) return false;
 

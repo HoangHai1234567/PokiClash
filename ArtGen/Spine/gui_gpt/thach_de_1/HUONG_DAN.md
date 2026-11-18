@@ -78,3 +78,15 @@ Concept đã chọn: `L1_duyet.png` (= `L3_B2Y.png`). Mảnh vẽ rời, trọn 
 - **Tờ A**: hành tinh (đĩa tròn trọn, KHÔNG hố), mặt trăng to, mặt trăng nhỏ, bốn hố rời của hành tinh. File prompt `D:\PokiClash\ArtGen\Spine\gui_gpt\thach_de_1\luot_4_manh_A.txt`; ảnh lưu `D:\PokiClash\ArtGen\Spine\inbox\thach_de_1\tai_ve\M_A.png`. Kiểm: đủ 7 mảnh, không mảnh nào chạm nhau, viền kín.
 - **Tờ B**: đầu (mặt nạ thú + cặp sừng trăng lưỡi liềm), vỏ vai to, vỏ vai nhỏ, hai khối cẳng tay, năm vệ tinh. File prompt `D:\PokiClash\ArtGen\Spine\gui_gpt\thach_de_1\luot_4_manh_B.txt`; ảnh lưu `D:\PokiClash\ArtGen\Spine\inbox\thach_de_1\tai_ve\M_B.png`. Kiểm: đủ 10 mảnh, không mảnh nào chạm nhau, viền kín.
 - **Tờ C**: tám lưỡi trăng (dựng đứng, đế dưới, mũi trên cong sang phải), tám đốt tay, hai đùi, hai bàn chân, hai gối, hông, bốn mảnh vụn. File prompt `D:\PokiClash\ArtGen\Spine\gui_gpt\thach_de_1\luot_4_manh_C.txt`; ảnh lưu `D:\PokiClash\ArtGen\Spine\inbox\thach_de_1\tai_ve\M_C.png`. Kiểm: đủ 27 mảnh, không mảnh nào chạm nhau, viền kín.
+
+## Lượt 5: tờ D, hàm dưới và bàn tay xoè (2026-11-18)
+
+Người dùng: "tạo thêm hàm dưới cho tướng", chiêu cuối "dang 2 tay ngửa lòng bàn tay ra (cần thì gen thêm)".
+
+| Ảnh mẫu | Đường dẫn | Trông như thế nào |
+|---|---|---|
+| 1 | `C:\Atomik\PokiWar\ArtGen\Spine\inbox\thach_de_1\tai_ve\L1_duyet.png` | Concept đã duyệt (hành tinh đá, nắm đấm mặt trăng), 1536x1024, nền trắng |
+| 2 | `C:\Atomik\PokiWar\ArtGen\Spine\inbox\thach_de_1\manh\dau.png` | Mảnh đầu đã cắt (mặt nạ thú sừng trăng, miệng ngậm, hai nanh), 407x455, nền trong |
+
+- **Tờ D**: đầu bỏ hàm dưới và nanh (hàm trên có răng nanh nhỏ), hàm dưới kèm lòng miệng, hai nanh rời, bàn tay to và nhỏ xoè ngửa. File prompt `C:\Atomik\PokiWar\ArtGen\Spine\gui_gpt\thach_de_1\luot_5_manh_D.txt`; ảnh lưu `C:\Atomik\PokiWar\ArtGen\Spine\inbox\thach_de_1\tai_ve\M_D.png`. Kiểm: đủ 6 mảnh rời, đầu trên KHÔNG còn cằm và nanh, lòng miệng nằm trên hàm dưới, hai bàn tay ngửa đủ bốn ngón + ngón cái, viền kín.
+- Sửa nhanh: "keep the upper head exactly like image 2 above the mouth line"; "the open hands must show the palm facing up, fingers attached".

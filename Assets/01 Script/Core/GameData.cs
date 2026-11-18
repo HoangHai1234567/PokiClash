@@ -166,6 +166,7 @@ namespace PokiClash.Core
             foreach (var p in J.Arr(o, "path")) z.path.Add(ParsePt(p));
             foreach (var s in J.Arr(o, "stops")) z.stops.Add(Convert.ToDouble(s));
             foreach (var s in J.Arr(o, "plates")) z.plates.Add(Convert.ToInt32(s));
+            z.land = LandDef.Parse(J.Obj(o, "land"));
             return z;
         }
 
@@ -233,6 +234,7 @@ namespace PokiClash.Core
                 for (int i = 0; i < z.nodes.Count; i++)
                     if (!In01(z.nodes[i])) err.Add($"{z.name}: toạ độ ải {i + 1} {z.nodes[i]} ngoài 0–1");
                 if (!In01(z.world)) err.Add($"{z.name}: toạ độ trên đảo lớn {z.world} ngoài 0–1");
+                foreach (var e in z.land.Check(z.name, ZoneStages(z.id).Where(x => x.tag == StageTag.Hero).Select(x => x.idx).ToList())) err.Add(e);
                 // bản đồ dài: đường đủ điểm trong ảnh, mỗi ải tướng một chỗ trên đường (tăng dần) và một bên bảng tên
                 if (z.path.Count == 0) continue;
                 if (z.path.Count < 2) err.Add($"{z.name}: đường chỉ có {z.path.Count} điểm");

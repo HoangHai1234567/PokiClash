@@ -1,0 +1,31 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_E_iso_che_do_xay.png: same home at play zoom, correct isometric angle (look of buildings, forest, ground)
+image 3 = C:\Atomik\PokiWar\ArtGen\Home\concept\refs\workers.png: creatures A-G
+image 4 = C:\Atomik\PokiWar\ArtGen\Home\concept\refs\iso_overview.png: isometric layout sketch (make_refs_iso.py)
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\concept\concept_F_iso_toan_dao_2.png
+Magnific: gpt-2-6, 16:9, 1k, quality high
+(Lần 1, concept_C_iso_toan_dao.png, dùng concept_A làm mẫu nên GPT vẽ lại bố cục cũ: đảo không rộng ra, không thành thoi. Lần này bỏ concept_A.)
+
+Concept art for a vertical mobile creature-collecting game: the player's HOME, zoomed FAR out so the whole huge base fits in the picture, mid-game. It is the same world as image 2 (which shows a small part of it at play zoom): same drawing style, same building designs, same forest, same isometric angle, but seen from much farther away, so every building is small.
+
+CAMERA (most important): strict isometric projection like a classic mobile base-building game (2:1 dimetric), exactly the angle of image 2. The ground is an invisible diamond grid whose lines run in the two diagonal directions, about 27 degrees from horizontal (each cell twice as wide as tall). Every lot, footprint, field, fence and path follows these two diagonals. Every building sits on a diamond footprint with one corner pointing straight down toward the viewer; we see its roof and its left and right walls. No perspective: far objects are the same size as near ones.
+
+SHAPE AND SIZE: the land is ONE HUGE DIAMOND (a rhombus twice as wide as tall) filling most of the picture width; its four corners point up, right, down and left, and its four edges are straight diagonal lines, exactly as in image 4. It is divided into 6 by 6 square lots (seen as diamonds). The settlement covers only the lower-middle quarter; everything else is still dense forest. The buildings are small: the main house is about one twentieth of the picture width.
+
+LAYOUT: follow image 4 closely (a layout sketch, not a style reference: its boxes only give footprint, angle and relative size; its thin white lines only mark lot borders). Do NOT draw numbers, letters, grid lines or lot borders.
+- L: locked forest lots: each is a diamond block of land completely filled with tall dense trees (pines and round broadleaf trees, a few mossy boulders, ground hidden). Neighbouring forest lots merge into one forest, but where forest meets cleared land the edge is a straight diagonal line with stepped corners, like a quilt of diamonds. Small wooden signposts with a padlock at the front of the locked lots next to the settlement.
+- S: lots ready to clear: forest with a signpost carrying a round axe icon.
+- C: a lot being cleared: stumps, felled logs, flying leaves; creature B chops with an axe.
+- H: three grassy plateaus at the top corner and one at the right corner, raised blocks with short brown cliff faces and pine trees; a waterfall from the top plateaus feeds a stream through the forest lake (W) down to the fishing pond (5).
+- W: two lakes inside forest lots (one near the top, one at the left).
+- Light green: the cleared meadow of the settlement, lower middle of the diamond.
+- Outside the two upper edges: a narrow band of higher green hills with brown cliffs; along the very top of the picture a far landscape strip of distant hills and sea. Outside the two lower edges: a sandy beach band running along the diagonals, then open sea filling the bottom corners of the picture.
+- D: a wooden dock at the bottom corner of the diamond with a moored sailboat.
+
+BUILDINGS (numbers in image 4, same designs as image 2; footprints and relative sizes as in the sketch): 1 main house (red roof, biggest); 2 and 3 fenced vegetable fields (creature A hoes in field 2); 4 apple orchard; 5 fishing pond with a jetty (creature C fishing); 6 sawmill with stacked logs; 7 stone well with irrigation ditches; 8 kitchen cottage with a stone oven (creature E); 9 stone forge with an anvil (creature F); 10 hot spring pool (creature G soaking); 11 ball tree with white balls with one grey stripe; 12 storage barn; 13 mine on a grey rock outcrop with crystal ore and a minecart (creature D with a pickaxe). A path of square dirt tiles from the dock to the main house, a small plaza with a stone sea-dragon statue, fences along the diagonals.
+
+Creatures exactly as in image 3, tiny (about one grid cell), each once. No people.
+
+STYLE: hand-drawn on cream paper, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area, chunky cute doodles (image 1, image 2). No drop shadows, no cast shadows, no glossy highlights, no glow, no gradients, no 3D render. Sea flat blue with pencil hatching and a white foam line along the shore.
+
+No text, no UI.

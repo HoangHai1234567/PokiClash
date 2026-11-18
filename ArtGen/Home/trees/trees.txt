@@ -1,0 +1,14 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\base\base_dao_nen_3.png: base island (trees of the forest at the top: tree style and size)
+image 3 = C:\Atomik\PokiWar\ArtGen\Home\trees\refs\frame_5.png: 5 slots (make_tree_refs.py)
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\trees\ tree_sheet_1.png, tree_sheet_2.png, tree_sheet_3.png
+Magnific: gpt-2-6, 16:9, 1k, quality high
+Người dùng dặn 2026-11-18: ô rừng đang lặp lại, gen thêm vài kiểu cây đặt ngẫu nhiên.
+
+CHUNG: Five separate single plants for a mobile base-building game, as game object sprites on a plain flat pure white background, in strict isometric view (seen slightly from above, like the trees in image 2).
+FRAME (most important): follow image 3: in each slot the small green diamond is the ground spot of one plant; draw the plant standing exactly on that diamond (its trunk or base centred on it, a small patch of grass under it filling the diamond), rising upward inside the grey frame. One plant per slot, fully separate. Do not draw the numbers, grey lines or the flat diamonds. Everything else pure white.
+STYLE: exactly the tree style of the forest at the top of image 2, drawn like image 1: hand-drawn, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area, chunky cute shapes. No drop shadows, no shadows on the ground, no glossy highlights, no glow, no gradients, no 3D render. No text.
+
+TỜ 1: 1 tall dark-green pine; 2 big round broadleaf tree with a brown trunk; 3 tall slender cypress; 4 bushy wide tree with two round crowns; 5 short young pine.
+TỜ 2: 1 tree with pink blossoms; 2 birch with a white trunk and light green leaves; 3 big old tree with a thick twisted trunk and dark green crown; 4 coconut palm with a curved trunk; 5 small round light-green tree.
+TỜ 3: 1 round green bush; 2 clump of ferns; 3 mossy grey boulder; 4 tree stump with a few mushrooms; 5 fallen mossy log lying along the diamond.

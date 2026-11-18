@@ -14,6 +14,12 @@ namespace PokiClash
 
         public RectTransform Rect => (RectTransform)transform;
 
+        // ẩn ảnh chân dung (giữ khung, hình tướng chạy rig gắn vào đây thay chỗ)
+        public void SetBody(bool show)
+        {
+            if (body) body.enabled = show && body.sprite;
+        }
+
         // Dùng khi nướng prefab (Editor).
         public void Setup(Image bodyImg, Image emblemImg)
         {

@@ -29,6 +29,26 @@ namespace PokiClash
         [SerializeField] Parts p;
 
         public RectTransform Rect => (RectTransform)transform;
+        // khung chân dung (gốc ở chân tướng): đảo vùng đất gắn hình tướng chạy rig vào đây rồi ẩn ảnh chân dung
+        public RectTransform HeroRect => p.hero.Rect;
+        public void ShowPortraitBody(bool show) => p.hero.SetBody(show);
+
+        // đảo vùng đất zoom xa: bảng tên phóng to (huy hiệu, tên, cấp đi theo), lùi ra ngoài cho khỏi đè tướng
+        Vector2 plateBase;
+        int plateSide = 1;
+        public void SetPlateZoom(float k)
+        {
+            var pr = p.plate.rectTransform;
+            pr.localScale = new Vector3(k, k, 1);
+            pr.anchoredPosition = plateBase + new Vector2(plateSide * (k - 1) * PlateW * 0.5f, 0);
+        }
+
+        // đảo vùng đất: bệ ở vùng boss còn mây phủ ẩn bảng tên (huy hiệu, tên, cấp đi theo) và vầng sáng cho đỡ lệnh vẽ
+        public void ShowPlate(bool on)
+        {
+            p.plate.gameObject.SetActive(on);
+            if (!on && p.glow) p.glow.gameObject.SetActive(false);
+        }
 
         // Dùng khi dựng prefab (Editor).
         public void Setup(Parts parts) => p = parts;
@@ -48,8 +68,9 @@ namespace PokiClash
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
         // pos: chỗ ải trong khung ảnh đảo (gốc trên trái), là tâm mặt bệ; side: bảng tên bên phải (1) hay trái (-1)
+        // shadeLocked: ải chưa mở thì tướng thành bóng sẫm (đảo vùng đất để đủ màu, người dùng chốt 2026-11-13)
         public void Bind(StageDef st, HeroDef hero, int formStar, int level, bool open, bool cleared, bool current, Vector2 pos, int side,
-            Sprite pedestal, Action onClick)
+            Sprite pedestal, Action onClick, bool shadeLocked = true)
         {
             name = "ai_" + st.idx;
             float w = Width(st.kind), hh = HeroHeight(st.kind);
@@ -69,12 +90,13 @@ namespace PokiClash
             p.glowPulse.enabled = current;
 
             // tướng đứng giữa mặt bệ (gốc ảnh chân dung ở chân)
-            p.hero.Bind(hero, hh, !open, formStar);
+            p.hero.Bind(hero, hh, shadeLocked && !open, formStar);
             var hr = p.hero.Rect;
             hr.anchorMin = hr.anchorMax = new Vector2(0.5f, 0.5f);
             hr.anchoredPosition = new Vector2(0, 0.04f * ph);
             hr.localScale = Vector3.one;
             p.hit.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(0, hh * 0.4f), new Vector2(w, hh + ph * 0.6f));
+            p.hit.canvasRenderer.cullTransparentMesh = true; // vùng chạm trong suốt: vẫn nhận chạm, không vẽ (đỡ một lệnh vẽ mỗi bệ)
             Action tap = () =>
             {
                 SketchButton.Sound?.Invoke(open ? "click" : "error"); // huy hiệu là nút kit, tự phát tiếng
@@ -85,6 +107,9 @@ namespace PokiClash
             // bảng tên
             var pr = p.plate.rectTransform;
             pr.Place(new Vector2(0.5f, 0.5f), new Vector2(side * (w * 0.5f + PlateW * 0.5f - 18), hh * 0.24f), new Vector2(PlateW, PlateH));
+            plateBase = pr.anchoredPosition;
+            plateSide = side;
+            pr.localScale = Vector3.one;
             p.plate.color = open ? Theme.CardFill : new Color(0.93f, 0.9f, 0.84f, 0.92f);
             p.plateClick.OnClick = tap;
             var br = p.badge.Rect;

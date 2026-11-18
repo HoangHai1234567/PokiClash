@@ -14,7 +14,8 @@ namespace PokiClash
         public const string Badges = "Badges";
         public const string Cave = "Cave";
         public const string Farm = "Farm";
+        public const string Home = "Home"; // Nhà (2026-11-18), thay Trang trại trên sảnh
 
-        public static readonly string[] Features = { Hub, Zone, Battle, Machine, Heroes, Cards, Notebook, Badges, Cave, Farm };
+        public static readonly string[] Features = { Hub, Zone, Battle, Machine, Heroes, Cards, Notebook, Badges, Cave, Farm, Home };
     }
 }

@@ -311,6 +311,7 @@ namespace PokiClash.Core
         public FarmConfig farm = new FarmConfig();
         public AdsConfig ads = new AdsConfig();
         public TreesConfig trees = new TreesConfig();
+        public HomeConfig home = new HomeConfig(); // Nhà (2026-11-18, HomeConfig.cs)
 
         public SimTeam SimTeamOf(Elem z) => simTeams.Find(t => t.zone == z);
 
@@ -609,6 +610,7 @@ namespace PokiClash.Core
                     chestSlots = J.Int(af, "chestSlots"),
                     chest = new ChestTable { kind = "chest_afk", rolls = Rolls(J.Arr(af, "chest")) },
                 };
+            c.home = HomeConfig.Parse(J.Obj(root, "home"), Rolls);
             return c;
         }
 

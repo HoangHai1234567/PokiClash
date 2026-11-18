@@ -134,6 +134,70 @@ trần 3000 tính cả phần đã tiêu. Đã tiêu tổng 1235 credit (13 ản
   đá vụn của skill_04 / 05 / generate chưa dùng; cú đấm của họ bật 92° trong một khung (chưa giãn); chưa có VFX hạt Unity (chỉ đặt sự
   kiện `tu`, `nem`, `trung`, `cham_dat`, `troi`, `xong`); chưa làm dạng non, chưa `evolve`; CHƯA vào game.
 
+## 3f. Lượt sửa đòn 2026-11-18 (máy C, sau khi người dùng xem)
+
+Người dùng: **"các chiêu đánh của tướng này còn chưa đẹp, cần cải tiến nhiều"**; đánh thường **"lên cao, dùng 2 tay đập xuống người đối thủ"**;
+**"tạo thêm hàm dưới cho tướng"**; cast **"hét gầm lên, các gai sau lưng bắt đầu tách ra nổi lên sau đó lần lượt từng gai xoay hướng vào
+mục tiêu rồi lao vào"**; chiêu cuối **"dang 2 tay ngửa lòng bàn tay ra (cần thì gen thêm) rồi từ từ bay lên trời, sau đó rất nhiều tiểu
+hành tinh / thiên thạch / đá sẽ lao vào bám xung quanh đối thủ, sau đó tướng ép 2 tay gần vào nhau ở phía trước, các hành tinh quanh đối
+thủ co nhỏ lại (tướng ở trong cũng phải co theo để không bị lộ) rồi triệu hồi 1 mặt trời trên đầu đối thủ rồi bắn 1 tia nhiệt cực lớn
+xuống tạo ra 1 vụ nổ hình nấm, đá văng tứ tung (vfx làm thêm cho hoành tráng)"**.
+
+- Máy C chưa có `scan/monster_3802` (thư mục `rig/` bị gitignore): quét lại bằng `mo_xe/chay.py info / att "anim=idle_01&t=0" / sample
+  <15 clip> 30` vào `D:\Ripper\SwordxStaff\scan\monster_3802\`.
+- **Tờ D** (`thach_de_manh.py prompt_d` → `gui_gpt/thach_de_1/luot_5_manh_D.txt`, gen bằng Codex, 0 credit Magnific; tổng vẫn 1235):
+  đầu trên (bỏ hàm, có hàng nanh trên), hàm dưới kèm lòng miệng, hai nanh rời, bàn tay to / nhỏ xoè ngửa. Ra đúng ngay lượt đầu.
+- **Ghép đầu** (`thach_de_dau.py`): đầu trên dò tỉ lệ + dời cho vùng trên miệng trùng đầu cũ (IoU 0,956, tỉ lệ 0,745); nanh theo vùng kem
+  của đầu cũ; hàm đặt cho răng dưới cài vào khe nanh trên lúc ngậm (cằm cao lên 19 px so với đầu cũ, nanh dời theo); lòng miệng ngoài hình
+  bóng đầu trên (co 14 px) bị cắt, kẻ lại viền → `manh/ham_cat.png`. Tờ so `manh/_dau_so.png` (đầu cũ, há 0 / 14 / 28°). Há quá ~20° thì
+  lòng miệng lòi ra sau má phải: rig dùng tối đa `HA = 19°`.
+- **Rig** (`thach_de_rig.py`): xương `ham` (con bone7, bản lề sau miệng), slot `ham@k` (sau đầu) và `nanh_1@k`, `nanh_2@k` (trước đầu) đi
+  theo độ đậm của `P_tou1@k`; bàn tay xoè `tay_xoe_to` (bone96), `tay_xoe_nho@k` (bone102) đi kèm mặt trăng nắm đấm, `dat_dang(xoe=...)`
+  đổi trong một khung; mỗi lưỡi trăng lưng có xương riêng `gai_i` ở đế (trục x chĩa ra theo bán kính). Bỏ phần bay mặt trăng cũ
+  (`fly_j`, `fly_n`); không khai `far` cho clip nào (gai, mặt trời do VFX lái). Thêm `tron()` trộn dáng nhiều clip gốc, `dich_tg` / `dat_tg`
+  đặt xương theo trục thế giới; `span = 5,0` (chiêu cuối bay lên 0,72 chiều cao, tay giơ quá đầu).
+- **attack "Thiên Chuỳ"** 1,40 s (trúng 0,68): skill_03 của họ giãn giờ (nhún, nhảy, ôm hai nắm đấm quá đầu), lao (`move`, sân nắn tới
+  72 % quãng), hai nắm đấm đưa ra trước 0,36 / 0,22 chiều cao rồi nện; há quát ở đỉnh, nghiến răng lúc nện; thân nén, quỹ đạo vệ tinh bung.
+  Cú vung tay vẫn nhanh (60 khung/giây: đốt tay đi ~470 đơn vị một khung) vì đó là tốc độ cú nện của clip gốc: người dùng xem rồi quyết.
+- **cast "Nguyệt Nhận"** 2,10 s: idle trộn dáng dang của skill_05, ngửa đầu 28°, đầu phồng 7 %, há 19° run (gầm 0,32–0,92); mười lưỡi bứt
+  khỏi vành (0,30 + 0,024 i), nổi thành vòng quạt quanh lưng, lần lượt (trước → sau) xoay mũi về đích, giật lùi rồi PHÓNG: sự kiện `ban`
+  (chuỗi = số gai) ở 0,98 + 0,062 j, rig ẩn gai tại chỗ, VFX bay 0,20 s; `trung` = 1,192; lưỡi mới mọc lại từ vành (1,52 → 2,04).
+- **skill "Hằng Tinh Diệt"** 4,70 s: dang tay (dáng dang skill_05) đổi sang bàn tay xoè ngửa ở 0,16; bay lên 0,36 → 1,45 (xương `all`,
+  0,72 chiều cao, nhấp nhô); hai tay nâng nhịp gọi đá 1,0 → 2,15 (`hut`); ép 2,15 → 2,83 (`ep`): hai bàn tay xuống thấp trước bụng, lòng quay
+  vào nhau, run, vệ tinh co sát lõi; gọi mặt trời 3,05 (`goi`, `gam`): hai tay giơ cao chữ V, há gầm; vung tay ra lệnh 3,40 (`tia`), đổi về
+  nắm đấm; nổ 3,48 (`trung`); hạ xuống, đáp đất 4,15 (`cham_dat`).
+- idle có gầm gừ khẽ ở 2,3 s; appear há gầm khi vừa đứng vững; hit bật há; die hàm trễ há.
+- Đo: `thach_de_rig.py kiem` (bước xoay lớn nhất mỗi khung: attack 113° = cú nện của họ; cast 151° ở gai đang ẩn; skill 73° lúc đổi bàn tay),
+  `chay.py sample ... 60` (skill tối đa 172 đơn vị / khung sau khi bỏ cú vung giữa chừng). Mọi clip nối về idle lệch 0 px. .atomik 592 KB.
+- **Bản xem trước VFX** (`thach_de_fx.py`, rig thật + đối thủ + hạt phẳng, như `tho5_fx.py`) → `inbox/thach_de_1/fx/xem.html`:
+  attack (bụi bật, nện: sao kem, dăm, nứt đất, đối thủ bẹp); cast (sóng gầm kem, đất rung, vụn ở đế gai, gai bay có bóng mờ + vệt bụi, cắm
+  vào thân rồi vỡ); skill (sỏi nổi lên theo khi bay; 45 thiên thạch / đá trăng có đuôi lửa hoặc bụi lao tới bám thành vỏ cầu quanh đối thủ,
+  nửa sau vẽ sau đối thủ; ép: vỏ co còn 44 %, đối thủ co theo, bụi dăm phì ra; mặt trời đĩa phẳng bốn lớp + vành lưỡi lửa quay; tia nhiệt
+  mảng liền bốn lớp mép gợn; nổ: chớp, rung, vỏ đá văng tứ tung, cầu lửa, vành bụi, mây nấm dựng hình (cột + mũ vòm + cuộn mép, lửa → than
+  → xám, cả khối trong 0,82 vì phủ lên đối thủ); đáp đất). Trong game: lớp hạt Unity làm lại theo bản này, game phải co đối thủ theo `ep`.
+
+Chưa làm: chưa vào game / Unity (vẫn chờ: thay `giap_nham`? tên? số dạng?), chưa có VFX C#, chưa làm dạng non.
+
+## 3g. Vào game 2026-11-18 (người dùng: "ok cho vào game đi rồi gen dạng 1 của nó")
+
+- Thay hẳn suất 10 `giap_nham` (giữ id, chỉ số, hiệu ứng thẻ, không đổi bản lưu / golden số): `quai/doi_thach_de.py`. Tên Claude đặt, người
+  dùng đổi được: **Thổ Tinh**, "Hành tinh đá gọi mặt trời", "Dòng Thổ Tinh"; thẻ Nguyệt Nhận (moon), Hằng Tinh Diệt (sun), Vệ Tinh Hộ
+  Thể (shield), thẻ boss Lõi Hành Tinh (rock). Hai dạng tạm chung `Resources/thach_de_1` (cỡ 0,92 / 1,1); có rig dạng 1 thì
+  `doi_thach_de.py chep_non <rig>` + `dang_1` (dạng 1 "Tiểu Thổ Tinh" → `thach_de_non`). RosterTests sửa dòng giap_nham.
+- Unity (máy C): refresh, "Nhập dữ liệu", "Gắn dạng .atomik" (prefab giap_nham giữ 2 dạng thach_de_1), xoá `Resources/giap_nham_1`, `_2`.
+- VFX C# (agent làm theo `thach_de_fx.py`): `Game/Battle/HatThoTinh.cs` (mã `n_tinh_nen` đòn thường, `n_tinh_gai` chiêu mana, `n_tinh_hang`
+  chiêu cuối; lưỡi trăng, đá trăng vẽ bằng mảng đa giác / hạt có sẵn vì mã chạy không tạo sprite; mây nấm là hợp các hình tròn một mảng,
+  trong 0,82), `Game/Battle/StageViewThoTinh.cs` (đối thủ co theo vỏ đá 2,15 → 2,83 còn ~0,405, bật về lúc nổ 3,48; bẹp lúc nện; giật
+  theo từng lưỡi), dòng thêm ở `StageView.ThoFx` / `ThoAtk` / `Place` (`TinhDat`), `HatNuoc` (ba case), `HatVoi.AtkLao` (`n_tinh_nen`).
+  Số điểm bám đo bằng `ArtGen/Spine/thach_de_do_hat.py`. Menu thử: `Editor/ThoTinhFxTour.cs` (ảnh `Temp/PokiShots/tho_fx/tinh_*.jpg`).
+
+- 2026-11-18 sau tour, người dùng: **"khi tia năng lượng bắn xuống phải nổ thật epic, sau đó nổ xong có khói đen tỏa ra thì hiện tướng đằng
+  sau khói đen mờ mờ cho mượt chứ không hiện tướng luôn sẽ bị kiểu hơi lỗi"**. Sửa trong game (`HatThoTinh.cs` mục 6, `StageViewThoTinh.cs`):
+  chớp + rung hai nhịp, sao chớp lớn, cầu lửa bốn lớp hợp tròn (`TtCauLua`: phình 0,16 s, bốc lên, lõi co trước, lớp ngoài nguội thành than),
+  cột lửa vọt theo tia 0,32 s, hai vòng sóng đứng + sóng sát đất + vành bụi, 40 dăm, 24 lưỡi lửa, 26 tia lửa, năm vết nứt, ba tiếng nổ phụ,
+  KHÓI ĐEN dày (72 cụm / giây trong 0,52 s, phần lớn lớp trước phủ chỗ đối thủ, cụm thấp lan ngang; tan dần 1,7–2,4 s). Đối thủ ẩn từ lúc nổ
+  tới +0,45 s rồi hiện MỜ DẦN tới +1,25 s sau làn khói (`HatLua.TinhHienDoiThu`, `TinhDat(..., ref alpha)`), bóng lớn dần theo.
+
 ## 4. Việc tiếp (sau khi người dùng xem)
 
 0. Rig THỬ CHUYỂN ĐỘNG trước (da gốc + hình giữ chỗ: đĩa hành tinh có mặt nạ, vệ tinh, lưỡi trăng) cho idle, một cú đấm, một chiêu.

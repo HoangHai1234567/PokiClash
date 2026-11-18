@@ -3,7 +3,7 @@ name: pokiclash-fx-congthuc
 description: >
   Sổ công thức hiệu ứng hạt chồng lớp phẳng của PokiClash (bộ Hỏa 2026-11-10): cách làm từng loại lửa (tròn, nhọn, xoắn,
   dung nham), khói, tro, vòng lửa, phun lửa, cầu lửa, cầu dung nham, kim lửa, lốc xoáy, nổ, thiên thạch, dung nham phun, lên cấp;
-  cách thêm hệ mới (Thủy, Mộc, Kim, Thổ...) và chiêu mới trên fxlib.py. Dùng khi làm, sửa, soi bất kỳ hiệu ứng nào, hoặc khi mở
+  cách thêm hệ mới (Thủy, Mộc, Kim, Thổ...) và chiêu mới trên fxlib.py; mẫu nổ, lửa, nước, khói học từ Kingdom Rush 5 (mục 2b). Dùng khi làm, sửa, soi bất kỳ hiệu ứng nào, hoặc khi mở
   rộng sang hệ khác.
 ---
 
@@ -61,6 +61,61 @@ lửa 20–24 → cung, vòng 26–35 → hạt trên cùng 39–45.
 7. **Mọi thứ đổi liên tục:** góc làm tròn 3°, alpha 40 nấc. Vòng, cung, hơi nóng vẽ theo pixel (`ringpx`, `arcpx`, `haze`) để
    viền mực không phóng to theo ảnh.
 8. **Lặp liền mạch** (vòng lửa): dùng `periodic`; hạt con lấy `q.rng` của hạt mẹ; hàm vẽ chỉ phụ thuộc tuổi hạt.
+
+### 2b. Học từ Kingdom Rush 5: nổ, lửa, nước, khói (2026-11-18)
+
+Nguồn và số đo: `skill-petclash/hoc_kr5_vfx.md`. Trang xem để soi từng khung: `ArtGen/ThamKhao/KR5/MO_WEB.bat`. Tờ khung đánh số để
+so: `ArtGen/ThamKhao/KR5/to_khung/` (không commit, sinh lại theo README của thư mục). Họ vẽ ảnh
+khung phẳng; dưới đây là cách đổi sang hạt của `fxlib`. **Luật dự án vẫn đè lên** (viền mực, khói than xám, không gradient,
+không che con bị trúng).
+
+**Chung:**
+- **Giữ 2 khung:** hạt đổi hình theo tuổi (ảnh rời, tờ ăn mòn) thì đổi mỗi 2 khung sân, không mỗi khung.
+- **Đỉnh trong 0,1 s đầu.** Lửa của vụ nổ hết ở khoảng 60% thời lượng; 40% cuối là khói tan.
+- **Tan bằng vỡ ra rồi mới mờ:**
+  - cụm khói lớn tách thành 3–5 cụm nhỏ (cụm con sinh từ chỗ cụm mẹ, toả nhẹ, nhỏ dần);
+  - lưỡi lửa teo thành đốm;
+  - khối nước đục lỗ rồi vỡ giọt.
+
+  Alpha chỉ cắt ở 30–40% cuối.
+- **Đòn ghép từ mảnh, mỗi mảnh một `at()`:** đạn → đuôi → trúng → vệt trên đất → vùng → bám lên đối thủ.
+
+**Nổ của chiêu** (bổ sung cho `explode`):
+
+| Pha | Thời điểm | Làm gì |
+|---|---|---|
+| Lấy đà | 0–0,07 s | cục chớp kem nhỏ (1/3 cỡ nổ) giữ 2 khung |
+| Bung | 0,07 s | khói đã to gần đủ ngay, chung lúc với lửa |
+| Lửa | 0,07–0,3 s | hạt **lưỡi liềm** cong ra ngoài cắm trong khối khói, đời 0,2–0,3 s, co thành chấm vàng; chấm trôi theo cụm khói tới khoảng 60% thời lượng |
+| Sóng | cùng lúc bung | **vòng cung dẹt** trên `FLOOR`: elip phẳng không viền, nở nhanh, mỏng dần, đứt thành 3–5 cung |
+| Vệt đất | sau bung | vệt đậm của hệ, alpha 0,3–0,5, giữ 1 s rồi mờ 1–1,5 s |
+| Khói | nửa sau | hai tông phẳng: đỉnh cụm nhạt, đáy cụm đậm; cụm to, vừa, nhỏ xen nhau, bay lên, tách, nhỏ dần |
+| Lớp phụ (chiêu lớn) | | sao 4 cánh lấp lánh; 2–3 mảnh đá có tàn văng một phía; lõi nguội kem → vàng → cam → đỏ nâu ngay trong khói |
+| Nổ lửa lan | | vòng 20–30 ngọn lửa nhỏ mọc quanh tâm cùng lúc, tắt từ ngoài vào |
+
+**Lửa:**
+- **Lửa bám người và lửa trên đất:** ít hình (khoảng 5 dáng), lưỡi chữ S cộng 2–3 giọt tách bay phía trên. Nhiều bản đặt cạnh nhau, mỗi bản lệch pha ngẫu nhiên; trạng thái cháy kéo dài khoảng 3 s.
+- **Cột lửa, cột phun từ đất (khoảng 1,2 s):**
+  1. báo trước 0,4 s bằng vết nứt hoặc lỗ trên đất, khớp lúc tướng lấy đà;
+  2. bông lửa nhỏ ở miệng;
+  3. **mũi giáo mảnh** phóng lên trước;
+  4. cột đầy, có dải xoắn;
+  5. cột đứt thành lưỡi rời bay lên rồi tan; vết khép lại.
+- **Đuôi đạn lửa:** hạt đứng yên tại chỗ sinh, tự nguội vàng → cam → đỏ trong khoảng 0,27 s, 50 hạt/giây.
+
+**Nước:**
+- **Toé không lấy đà:** khung đầu là hình to nhất, một mão gồm các lưỡi nhọn có vệt sáng trên lưng.
+  - Ở 25–50% đời, **đục lỗ ở giữa khối** (cùng với luật "rách từ đáy" đã có).
+  - Sau đó sụp, vỡ giọt rơi.
+  - Trên `FLOOR` còn một **vành giọt hình elip**.
+  - Toé lớn 0,6 s.
+- **Nước trúng nhỏ (0,33 s):** sao → 6–8 khối văng ra → giọt → giọt nhỏ → chấm. Mỗi khối có 1–2 **đốm kem phẳng** bên trong và dải đậm ở đáy.
+- **Bong bóng:** 1–4 hạt/giây, bay lên chậm, cỡ 0,5–1,4; vỡ bằng co cỡ về khoảng 0,05.
+
+**Khói:**
+- **Khói bốc liên tục** (máy, vết cháy): 6–10 hạt/giây, đi lên khoảng nửa thân mỗi giây, mỗi hạt tự tan trong khoảng 1 s.
+- **Khói đuôi đạn:** hạt đứng yên, tự vỡ vụn và co, xoay ngẫu nhiên 360°. Tính số hạt theo quãng đường đạn vừa đi trong khung để đuôi liền (đã có luật ≥ 100/s cho `SMOKE_FIRE`).
+- **Bụi (dậm, phóng, đáp):** vòng cung phẳng sát đất cộng khối bụi to nhất ngay khung đầu, vỡ thành cụm nhỏ rồi sỏi, 0,4–0,6 s.
 
 ## 3. Kiểu lửa (`mat_flame` style)
 

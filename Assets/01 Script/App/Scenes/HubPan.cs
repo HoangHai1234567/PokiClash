@@ -35,6 +35,14 @@ namespace PokiClash
 
         void OnEnable() => Recenter();
 
+        // đặt chỗ nhìn (Nhà: lướt tới Nhà chính lúc vào)
+        public void SetOffset(Vector2 o)
+        {
+            offset = o;
+            velocity = Vector2.zero;
+            Apply();
+        }
+
         public void OnBeginDrag(PointerEventData e)
         {
             dragging = true;

@@ -19,7 +19,9 @@ namespace PokiClash.EditorTools
         const string HubPath = "Assets/04 Prefabs/Screens/Hub.prefab";
         const string ZonePath = "Assets/04 Prefabs/Screens/Zone.prefab";
         const string ArtDir = "Assets/03 Art/Islands/";
-        const string CloudPath = "Assets/03 Art/Baked/Sketch/sk_CloudPuff.png";
+        // mây viền: hình mây vẽ tay của đảo vùng đất (đồng bộ với đảo, người dùng dặn 2026-11-18; trước là sk_CloudPuff nướng);
+        // xỉn theo giờ qua DayNight.clouds (menu PokiClash/Sáng tối/Mây sảnh đồng bộ đảo vùng đất gán lại sau khi dựng)
+        const string CloudPath = "Assets/03 Art/Islands/land_thuy_may_2.png";
         const string AnimJson = ArtDir + "island_anim.json";
         const string AnimItemPath = "Assets/04 Prefabs/Items/HinhDong.prefab";
         const float FW = 1080, FH = 1920, Margin = 200; // khung sảnh và lề ảnh đảo (theo script ghép)
@@ -39,7 +41,7 @@ namespace PokiClash.EditorTools
             var cloud = AssetDatabase.LoadAssetAtPath<Sprite>(CloudPath);
             if (!world || !sea || !cloud)
             {
-                Debug.LogError("[Sảnh] Thiếu world.png / sea_tile.png trong " + ArtDir + " hoặc sk_CloudPuff: chạy ArtGen/Islands/compose_islands.py trước.");
+                Debug.LogError("[Sảnh] Thiếu world.png / sea_tile.png trong " + ArtDir + " hoặc mây land_thuy_may_2: chạy ArtGen/Islands/compose_islands.py trước.");
                 return;
             }
             ArtImporter.BuildLibrary();
@@ -103,7 +105,7 @@ namespace PokiClash.EditorTools
                 var ring = NewRect("may_vien", frame);
                 Stretch(ring, Vector2.zero, Vector2.one);
                 ring.SetSiblingIndex(2);
-                Clouds(ring, cloud, Find("may_0").GetComponent<Image>().material); // sprite nướng sẵn cần material của mây có sẵn
+                Clouds(ring, cloud, null); // hình mây thường, không cần material giải mã của mây nướng cũ
 
                 var pan = khung.GetComponent<HubPan>();
                 if (!pan) pan = khung.gameObject.AddComponent<HubPan>();

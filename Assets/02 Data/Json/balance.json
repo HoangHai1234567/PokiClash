@@ -978,7 +978,8 @@
    "afk_chest_open": 4,
    "afk_boost": 3,
    "farm_boost": 3,
-   "cave_extra": 1
+   "cave_extra": 1,
+   "home_speed": 3
   },
   "pass": {
    "days": 30,
@@ -997,6 +998,307 @@
     "name": "Bỏ quảng cáo",
     "desc": "Mọi chỗ quảng cáo thưởng trao thưởng ngay, không cần xem (vẫn theo giới hạn mỗi ngày)."
    }
+  ]
+ },
+ "home": {
+  "grid": 48,
+  "lot": 8,
+  "startLots": [[3, 3], [3, 4], [4, 3], [4, 4], [4, 5], [5, 4], [5, 5]],
+  "maxLots": [9, 12, 15, 18, 22, 25, 28, 30, 32, 32],
+  "rings": [
+   {"home": 1, "player": 0, "wood": 40, "woodStep": 25, "ore": 0, "oreStep": 0, "minutes": 10, "reward": 30, "balls": 15},
+   {"home": 3, "player": 25, "wood": 220, "woodStep": 40, "ore": 30, "oreStep": 10, "minutes": 120, "reward": 80, "balls": 40},
+   {"home": 5, "player": 60, "wood": 520, "woodStep": 60, "ore": 120, "oreStep": 20, "minutes": 480, "reward": 160, "balls": 80}
+  ],
+  "lots": [
+   {"i": 0, "j": 0, "kind": "hill"},
+   {"i": 0, "j": 1, "kind": "hill"},
+   {"i": 1, "j": 0, "kind": "hill"},
+   {"i": 5, "j": 0, "kind": "hill"}
+  ],
+  "features": [
+   {"kind": "lake", "gx": 10, "gy": 10, "w": 4, "d": 4},
+   {"kind": "lake", "gx": 2, "gy": 42, "w": 4, "d": 4},
+   {"kind": "stream", "gx": 11, "gy": 14, "w": 1, "d": 34},
+   {"kind": "ore", "gx": 17, "gy": 33, "w": 6, "d": 6},
+   {"kind": "ore", "gx": 33, "gy": 9, "w": 6, "d": 6},
+   {"kind": "fertile", "gx": 24, "gy": 40, "w": 8, "d": 8}
+  ],
+  "levels": [
+   {"player": 0, "wood": 0, "ore": 0, "minutes": 0, "slots": 4, "builders": 1},
+   {"player": 10, "wood": 60, "ore": 0, "minutes": 5, "slots": 5, "builders": 1},
+   {"player": 25, "wood": 200, "ore": 0, "minutes": 30, "slots": 6, "builders": 1},
+   {"player": 40, "wood": 400, "ore": 80, "minutes": 120, "slots": 8, "builders": 2},
+   {"player": 60, "wood": 700, "ore": 200, "minutes": 240, "slots": 9, "builders": 2},
+   {"player": 80, "wood": 1000, "ore": 320, "minutes": 360, "slots": 10, "builders": 2},
+   {"player": 100, "wood": 1400, "ore": 480, "minutes": 480, "slots": 11, "builders": 2},
+   {"player": 125, "wood": 1900, "ore": 650, "minutes": 600, "slots": 12, "builders": 2},
+   {"player": 150, "wood": 2500, "ore": 850, "minutes": 720, "slots": 13, "builders": 2},
+   {"player": 175, "wood": 3200, "ore": 1100, "minutes": 720, "slots": 14, "builders": 2}
+  ],
+  "woodCap": 200,
+  "oreCap": 60,
+  "breadCap": 20,
+  "orePerStone": 5,
+  "evoPerOre": 0.008,
+  "fertileBonus": 0.1,
+  "restCutMax": 0.75,
+  "speedMin": 30,
+  "beautyTiers": [10, 30, 60, 100, 160],
+  "restPerTier": 0.05,
+  "beautyGifts": [{"wood": 50}, {"wood": 100, "ore": 20}, {"balls": 30, "ore": 40}, {"evo": 2}, {"stones": 10}],
+  "tile": 2,
+  "startTiles": [
+   {"b": "dirt", "gx": 23, "gy": 23},
+   {"b": "dirt", "gx": 22, "gy": 23},
+   {"b": "dirt", "gx": 22, "gy": 22},
+   {"b": "dirt", "gx": 21, "gy": 22},
+   {"b": "dirt", "gx": 21, "gy": 21},
+   {"b": "dirt", "gx": 20, "gy": 21},
+   {"b": "dirt", "gx": 20, "gy": 20},
+   {"b": "dirt", "gx": 19, "gy": 20},
+   {"b": "dirt", "gx": 19, "gy": 19},
+   {"b": "dirt", "gx": 18, "gy": 19},
+   {"b": "dirt", "gx": 18, "gy": 18},
+   {"b": "dirt", "gx": 17, "gy": 18},
+   {"b": "dirt", "gx": 17, "gy": 17}
+  ],
+  "tiles": [
+   {"id": "dirt", "name": "Đất", "wood": 1},
+   {"id": "sand", "name": "Cát", "wood": 1},
+   {"id": "stone", "name": "Đường đá", "wood": 2, "ore": 1},
+   {"id": "water", "name": "Nước", "wood": 3, "block": true}
+  ],
+  "fishDeco": "cup_fish",
+  "fish": [
+   {"w": 80, "k": "balls", "min": 1, "max": 2},
+   {"w": 18, "k": "cards", "min": 1, "max": 1, "rar": {"common": 70, "uncommon": 28, "rare": 2}},
+   {"w": 2, "k": "deco", "min": 1, "max": 1}
+  ],
+  "layout": [
+   {"b": "main", "gx": 28, "gy": 26},
+   {"b": "field", "gx": 24, "gy": 32},
+   {"b": "orchard", "gx": 24, "gy": 36},
+   {"b": "sawmill", "gx": 34, "gy": 24},
+   {"b": "storage", "gx": 35, "gy": 30}
+  ],
+  "buildings": [
+   {"id": "main", "name": "Nhà chính", "kind": "main", "size": 6, "home": 1},
+   {
+    "id": "field",
+    "name": "Ruộng rau",
+    "kind": "prod",
+    "size": 4,
+    "elem": "tho",
+    "output": "balls",
+    "rate": 2,
+    "irrigable": true,
+    "home": 1,
+    "count": [1, 1, 2, 2, 2, 3, 3, 3, 3, 3],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 20, "ore": 0, "minutes": 1, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 45, "ore": 0, "minutes": 10, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 90, "ore": 0, "minutes": 30, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 160, "ore": 20, "minutes": 60, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 270, "ore": 50, "minutes": 120, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 430, "ore": 100, "minutes": 240, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 650, "ore": 180, "minutes": 360, "capH": 13}
+    ]
+   },
+   {
+    "id": "orchard",
+    "name": "Vườn cây ăn quả",
+    "kind": "prod",
+    "size": 4,
+    "elem": "moc",
+    "output": "balls",
+    "rate": 2,
+    "irrigable": true,
+    "home": 1,
+    "count": [1, 1, 1, 2, 2, 2, 3, 3, 3, 3],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 20, "ore": 0, "minutes": 1, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 45, "ore": 0, "minutes": 10, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 90, "ore": 0, "minutes": 30, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 160, "ore": 20, "minutes": 60, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 270, "ore": 50, "minutes": 120, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 430, "ore": 100, "minutes": 240, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 650, "ore": 180, "minutes": 360, "capH": 13}
+    ]
+   },
+   {
+    "id": "sawmill",
+    "name": "Xưởng gỗ",
+    "kind": "prod",
+    "size": 4,
+    "elem": "moc",
+    "output": "wood",
+    "rate": 6,
+    "home": 1,
+    "count": [1, 1, 1, 1, 2, 2, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 15, "ore": 0, "minutes": 1},
+     {"slots": 1, "mult": 1.1, "wood": 40, "ore": 0, "minutes": 10},
+     {"slots": 1, "mult": 1.2, "wood": 80, "ore": 0, "minutes": 30},
+     {"slots": 2, "mult": 1.3, "wood": 150, "ore": 20, "minutes": 60},
+     {"slots": 2, "mult": 1.45, "wood": 260, "ore": 50, "minutes": 120},
+     {"slots": 2, "mult": 1.6, "wood": 420, "ore": 100, "minutes": 240},
+     {"slots": 2, "mult": 1.8, "wood": 640, "ore": 180, "minutes": 360}
+    ]
+   },
+   {
+    "id": "pond",
+    "name": "Ao cá",
+    "kind": "prod",
+    "size": 4,
+    "elem": "thuy",
+    "output": "fish",
+    "rate": 1.6,
+    "home": 2,
+    "count": [0, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 40, "ore": 0, "minutes": 1, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 70, "ore": 0, "minutes": 10, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 120, "ore": 0, "minutes": 30, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 200, "ore": 20, "minutes": 60, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 320, "ore": 50, "minutes": 120, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 480, "ore": 100, "minutes": 240, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 700, "ore": 180, "minutes": 360, "capH": 13}
+    ]
+   },
+   {
+    "id": "mine",
+    "name": "Mỏ",
+    "kind": "prod",
+    "size": 6,
+    "elem": "tho",
+    "output": "ore",
+    "rate": 2.5,
+    "need": "ore",
+    "home": 3,
+    "count": [0, 0, 1, 1, 1, 1, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 120, "ore": 0, "minutes": 20},
+     {"slots": 1, "mult": 1.1, "wood": 180, "ore": 10, "minutes": 40},
+     {"slots": 2, "mult": 1.2, "wood": 260, "ore": 30, "minutes": 90},
+     {"slots": 2, "mult": 1.3, "wood": 380, "ore": 60, "minutes": 150},
+     {"slots": 2, "mult": 1.45, "wood": 540, "ore": 100, "minutes": 240},
+     {"slots": 3, "mult": 1.6, "wood": 760, "ore": 160, "minutes": 360},
+     {"slots": 3, "mult": 1.8, "wood": 1000, "ore": 240, "minutes": 480}
+    ]
+   },
+   {
+    "id": "forge",
+    "name": "Lò rèn",
+    "kind": "prod",
+    "size": 4,
+    "elem": "kim",
+    "output": "stones",
+    "rate": 0.4,
+    "home": 4,
+    "count": [0, 0, 0, 1, 1, 1, 1, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 200, "ore": 40, "minutes": 30},
+     {"slots": 1, "mult": 1.1, "wood": 280, "ore": 60, "minutes": 60},
+     {"slots": 1, "mult": 1.2, "wood": 400, "ore": 90, "minutes": 120},
+     {"slots": 2, "mult": 1.3, "wood": 560, "ore": 130, "minutes": 180},
+     {"slots": 2, "mult": 1.45, "wood": 760, "ore": 180, "minutes": 270},
+     {"slots": 2, "mult": 1.6, "wood": 1000, "ore": 240, "minutes": 360},
+     {"slots": 2, "mult": 1.8, "wood": 1300, "ore": 320, "minutes": 480}
+    ]
+   },
+   {
+    "id": "kitchen",
+    "name": "Bếp",
+    "kind": "prod",
+    "size": 4,
+    "elem": "hoa",
+    "output": "bread",
+    "rate": 0.5,
+    "home": 4,
+    "count": [0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 180, "ore": 20, "minutes": 30},
+     {"slots": 1, "mult": 1.1, "wood": 250, "ore": 40, "minutes": 60},
+     {"slots": 1, "mult": 1.2, "wood": 360, "ore": 60, "minutes": 120},
+     {"slots": 2, "mult": 1.3, "wood": 500, "ore": 90, "minutes": 180},
+     {"slots": 2, "mult": 1.45, "wood": 680, "ore": 130, "minutes": 270},
+     {"slots": 2, "mult": 1.6, "wood": 900, "ore": 180, "minutes": 360},
+     {"slots": 2, "mult": 1.8, "wood": 1200, "ore": 240, "minutes": 480}
+    ]
+   },
+   {
+    "id": "storage",
+    "name": "Kho",
+    "kind": "support",
+    "size": 4,
+    "home": 1,
+    "count": [1, 1, 1, 1, 2, 2, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 30, "ore": 0, "minutes": 1, "cap": 300, "capOre": 100},
+     {"slots": 0, "mult": 1, "wood": 80, "ore": 10, "minutes": 15, "cap": 500, "capOre": 180},
+     {"slots": 0, "mult": 1, "wood": 160, "ore": 30, "minutes": 45, "cap": 800, "capOre": 300},
+     {"slots": 0, "mult": 1, "wood": 280, "ore": 60, "minutes": 90, "cap": 1200, "capOre": 450},
+     {"slots": 0, "mult": 1, "wood": 450, "ore": 100, "minutes": 180, "cap": 1800, "capOre": 650},
+     {"slots": 0, "mult": 1, "wood": 680, "ore": 160, "minutes": 300, "cap": 2600, "capOre": 900},
+     {"slots": 0, "mult": 1, "wood": 1000, "ore": 240, "minutes": 420, "cap": 3600, "capOre": 1200}
+    ]
+   },
+   {
+    "id": "well",
+    "name": "Giếng",
+    "kind": "support",
+    "size": 2,
+    "home": 2,
+    "count": [0, 1, 2, 2, 3, 3, 4, 4, 4, 4],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 25, "ore": 0, "minutes": 5, "radius": 4, "bonus": 0.1},
+     {"slots": 0, "mult": 1, "wood": 60, "ore": 10, "minutes": 30, "radius": 4, "bonus": 0.12},
+     {"slots": 0, "mult": 1, "wood": 120, "ore": 30, "minutes": 90, "radius": 5, "bonus": 0.15}
+    ]
+   },
+   {
+    "id": "waterwheel",
+    "name": "Cối nước",
+    "kind": "support",
+    "size": 4,
+    "need": "stream",
+    "home": 5,
+    "count": [0, 0, 0, 0, 1, 1, 1, 2, 2, 2],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 300, "ore": 60, "minutes": 120, "radius": 8, "bonus": 0.2},
+     {"slots": 0, "mult": 1, "wood": 450, "ore": 100, "minutes": 240, "radius": 8, "bonus": 0.23},
+     {"slots": 0, "mult": 1, "wood": 650, "ore": 160, "minutes": 360, "radius": 9, "bonus": 0.26}
+    ]
+   },
+   {
+    "id": "hotspring",
+    "name": "Suối nước nóng",
+    "kind": "support",
+    "size": 4,
+    "home": 4,
+    "count": [0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 220, "ore": 40, "minutes": 60, "bonus": 0.25},
+     {"slots": 0, "mult": 1, "wood": 520, "ore": 140, "minutes": 240, "bonus": 0.5}
+    ]
+   },
+   {"id": "tree", "name": "Cây bi", "kind": "tree", "size": 2, "home": 1},
+   {"id": "fence_wood", "name": "Hàng rào gỗ", "kind": "deco", "size": 1, "beauty": 1, "wood": 4},
+   {"id": "flowerbed", "name": "Luống hoa", "kind": "deco", "size": 1, "beauty": 2, "wood": 8},
+   {"id": "lantern", "name": "Đèn lồng giấy", "kind": "deco", "size": 1, "beauty": 2, "wood": 10, "set": "hoa"},
+   {"id": "bench", "name": "Ghế gỗ", "kind": "deco", "size": 2, "beauty": 3, "wood": 20},
+   {"id": "shell_lamp", "name": "Đèn vỏ sò", "kind": "deco", "size": 1, "beauty": 3, "wood": 10, "ore": 4, "set": "thuy"},
+   {"id": "bamboo_fence", "name": "Rào tre", "kind": "deco", "size": 1, "beauty": 2, "wood": 6, "set": "moc"},
+   {"id": "bronze_bell", "name": "Chuông đồng", "kind": "deco", "size": 1, "beauty": 3, "wood": 6, "ore": 8, "set": "kim"},
+   {"id": "stone_jar", "name": "Chum đá", "kind": "deco", "size": 1, "beauty": 3, "ore": 10, "set": "tho"},
+   {"id": "swing", "name": "Xích đu", "kind": "deco", "size": 2, "beauty": 5, "wood": 60, "ore": 10},
+   {"id": "cup_fish", "name": "Cúp câu cá", "kind": "deco", "size": 1, "beauty": 4, "reward": true},
+   {"id": "statue_thuy", "name": "Tượng Hải Long", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "thuy"},
+   {"id": "statue_hoa", "name": "Tượng boss Đảo Hỏa", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "hoa"},
+   {"id": "statue_kim", "name": "Tượng boss Đảo Kim", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "kim"},
+   {"id": "statue_moc", "name": "Tượng boss Đảo Mộc", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "moc"},
+   {"id": "statue_tho", "name": "Tượng boss Đảo Thổ", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "tho"}
   ]
  }
 }

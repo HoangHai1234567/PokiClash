@@ -1473,9 +1473,17 @@ namespace PokiClash
                 case "n_thach_vo": return NThachVo(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thiên Thạch Thú (HatThach.cs, suất cu_phu; phiên assets-3c)
                 case "n_thach_xoay": return NThachXoay(casterFeet, casterH, foeFeet, foeBody, tH, lead);
                 case "n_thach_cau": return NThachCau(casterFeet, casterH, foeFeet, foeBody, tH, lead);
+                case "n_thach_xoay1": return NThachXoay1(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thiên Thạch Thú Non (dạng 1, rig tinh_hach_non): ba thiên thạch
+                case "n_thach_cau1": return NThachCau1(casterFeet, casterH, foeFeet, foeBody, tH, lead);
                 case "n_bun_danh": return NBunDanh(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bùn Ngoạm (HatBun.cs, rig quai_bun_1), đòn thường: tay bùn co giãn đấm
                 case "n_bun_troi": return NBunTroi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bùn Ngoạm: cắm tay xuống bùn, nắm đấm bùn khổng lồ trồi
                 case "n_bun_ngoam": return NBunNgoam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Bùn Ngoạm: chiêu cuối lao ngoạm, nuốt, gai đâm, nhổ
+                case "n_tinh_nen": return NTinhNen(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thổ Tinh (HatThoTinh.cs, suất giap_nham), đòn thường: nhảy nện hai nắm đấm
+                case "n_tinh_gai": return NTinhGai(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thổ Tinh: gầm, mười lưỡi trăng lưng phóng
+                case "n_tinh_hang": return NTinhHang(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Thổ Tinh: chiêu cuối thiên thạch bọc, ép, mặt trời, tia nhiệt, nổ nấm
+                case "n_tinh_nen1": return NTinhNen1(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tiểu Thổ Tinh (dạng 1, rig thach_de_non)
+                case "n_tinh_gai1": return NTinhGai1(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tiểu Thổ Tinh: sáu mảnh vỏ lưng phóng
+                case "n_tinh_hang1": return NTinhHang1(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Tiểu Thổ Tinh: chiêu cuối (nhẹ hơn)
                 default: return NVa(foeBody, foeFeet, tH);
             }
         }

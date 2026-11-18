@@ -346,6 +346,19 @@ namespace PokiClash
             lastShot = now;
         }
 
+        // khung này không Show (ngoài khung nhìn, đứng yên, vẽ thưa khung): tắt camera, RenderTexture giữ lần chụp cuối. Không gọi thì
+        // camera giữ trạng thái của lần Show cuối, có thể vẽ lại mỗi khung dù hình không đổi (đo 2026-11-18: 10 tướng đảo vùng đất
+        // chiếm 102k / 109k tris)
+        public void Hold()
+        {
+            if (!cam || lastShot == Time.frameCount) return;
+            cam.enabled = false;
+            if (fxCam) fxCam.enabled = false;
+        }
+
+        // nhân màu hình (1: nguyên màu; đảo vùng đất: tướng ở vùng boss chưa mở tô tối, ZoneSceneLand)
+        public float Tint = 1;
+
         public void Show(string clip, float t, bool loop, float alpha, bool gray, float flash)
         {
             // hình aola theo khung (floor t·fps), rig .atomik theo thời gian liên tục (AolaActor.ShowTime)
@@ -353,7 +366,7 @@ namespace PokiClash
             if (clip == StageView.Skill && !loop && Jumps && t >= SkillLen) actor.ShowTime(AolaActor.SkillLand, t - SkillLen, false);
             else actor.ShowTime(ClipName(clip), t, loop);
             SyncCamera();
-            img.color = new Color(1, 1, 1, alpha);
+            img.color = new Color(Tint, Tint, Tint, alpha);
             if (mat)
             {
                 mat.SetFloat("_Gray", gray ? 1 : 0);
@@ -361,7 +374,7 @@ namespace PokiClash
             }
             if (fxImg)
             {
-                fxImg.color = new Color(1, 1, 1, alpha);
+                fxImg.color = new Color(Tint, Tint, Tint, alpha);
                 if (fxMat) fxMat.SetFloat("_Gray", gray ? 1 : 0);
             }
         }

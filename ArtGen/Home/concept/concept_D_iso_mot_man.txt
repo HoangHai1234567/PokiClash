@@ -1,0 +1,36 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_A_toan_dao_nha.png: approved earlier concept (building designs, forest, environments)
+image 3 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_B_mot_man_nha.png: earlier screen concept (UI design to keep)
+image 4 = C:\Atomik\PokiWar\ArtGen\Home\concept\refs\workers.png: creatures A-G
+image 5 = C:\Atomik\PokiWar\ArtGen\Home\concept\refs\iso_screen.png: isometric layout sketch of one screen (make_refs_iso.py)
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\concept\concept_D_iso_mot_man.png
+Magnific: gpt-2-6, 9:16, 1k, quality high
+
+Concept mockup of ONE SCREEN of a vertical mobile game (9:16 portrait) at normal play zoom: the player is at HOME, looking at one part of a large home island, with the game UI on top. The land clearly continues beyond the left, right and top edges of the screen.
+
+KEEP: the building designs, the forest look and the drawing style of image 2, and the UI design of image 3. CHANGE: the camera.
+
+CAMERA (most important): strict isometric projection like a classic mobile base-building game (2:1 dimetric). The ground is an invisible diamond grid whose lines run in the two diagonal directions, about 27 degrees from horizontal (each cell is twice as wide as it is tall). Every lot edge, building footprint, field, fence, path tile and the shoreline follow these two diagonal directions. Every building, tree clump and prop sits on a diamond-shaped footprint with one corner pointing straight down toward the viewer, so we always see its roof plus its left wall and its right wall, all at the same angle; vertical edges stay perfectly vertical. No perspective. Zoomed in: one grid cell is about one tenth of the screen width, the main house is about half the screen width.
+
+LAYOUT: follow image 5, which is only a rough layout sketch (not a style reference): its boxes only show footprint, angle and relative size. Do NOT draw numbers, letters or grid lines.
+- 1 (top centre): the main house, cozy two-storey wooden cottage with a red tiled roof and a chimney.
+- 2 and 3: fenced vegetable fields with furrows, carrots, cabbages, pumpkins. Creature A hoes in field 2; above it a round paper bubble with a white ball with one grey stripe.
+- 7: stone well with a crank; small blue irrigation ditches run along the grid to both fields.
+- 5 (partly cut by the left edge): fishing pond with a small jetty; creature C fishes; above it a bubble with a small card icon.
+- 11: the ball tree, its fruits are white balls with one grey stripe.
+- 9 (partly cut by the right edge): stone forge with an anvil and bellows, coals drawn flat orange; creature F hammers.
+- 8: kitchen cottage with an open counter and a stone oven, smoke from the chimney; creature E stirs a big pot; above it a bubble with a bread loaf.
+- P: small plaza with a stone sea-dragon statue on a pedestal, a bench, paper lanterns, flower beds.
+- A path of square dirt tiles along the grid runs from the dock up to the main house.
+- Top left: the front corner of a locked forest lot (tall dense trees hiding the ground, straight diagonal edges), with a wooden signpost with a padlock. Top right: a forest lot ready to clear, signpost with a round axe icon and two small motion lines.
+- Bottom: the corner of the land; a sandy beach band along the two diagonal edges, D a wooden dock with a moored sailboat, then flat blue sea with pencil hatching and a white foam line.
+- Creature G strolls near the plaza with a small heart above its head.
+Creatures exactly as in image 4 (same design, colours and silhouette), about one grid cell tall, each once. No people.
+
+UI (as in image 3, hand-drawn paper style, flat, no shadows):
+- Top bar: torn-paper banner; a round badge with a small house icon and a scribble (home level); three counters, each an icon plus a scribble: a white ball with one grey stripe, a wooden log, a grey ore rock with a blue crystal.
+- Under each working building a small paper name plate with one or two tiny square card slots: a filled slot shows the tiny face of the creature working there, an empty slot shows a plus sign.
+- Bottom: a paper panel with four round buttons, icons only: a hammer (build), a creature head with two curved arrows (auto-assign), a gift bag (decorations), and a bigger round button with a sailboat (sail back to the adventure islands).
+Use short scribble lines instead of real words. No readable text.
+
+STYLE: hand-drawn on cream paper, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area, chunky cute doodles (image 1, image 2). No drop shadows, no cast shadows on the ground, no glossy highlights, no glow, no gradients, no 3D render.

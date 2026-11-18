@@ -36,6 +36,15 @@ ArtGen/Spine/inbox/*/rig/
 ArtGen/Spine/inbox/*/rig_lien/
 ArtGen/Spine/inbox/*/parts/
 
+# Kingdom Rush 5 (Ironhide): hình, số template, tờ khung rút từ game chỉ để học trên máy, không commit.
+# Sinh lại: py -3 -I ArtGen/ThamKhao/KR5/tools/build_fx_viewer.py <bản rút KR5> rồi tools/contact_sheets.py
+/ArtGen/ThamKhao/KR5/fx_viewer/data.json
+/ArtGen/ThamKhao/KR5/fx_viewer/sheets/
+/ArtGen/ThamKhao/KR5/fx_viewer/exo/
+/ArtGen/ThamKhao/KR5/to_khung/
+/ArtGen/ThamKhao/KR5/build_log.txt
+/ArtGen/ThamKhao/KR5/tools/__pycache__/
+
 # Epic Toon FX (Asset Store, bản quyền theo người mua): chỉ để học cách làm hiệu ứng, không commit, không tham chiếu từ prefab của game
 /Assets/Epic Toon FX/
 /Assets/Epic Toon FX.meta

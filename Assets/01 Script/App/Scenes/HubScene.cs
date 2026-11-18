@@ -22,7 +22,7 @@ namespace PokiClash
         // công trình side meta theo thứ tự đặt trên sảnh: tên, icon, điều kiện mở, lệch so với làng (toạ độ ảnh)
         public static readonly (string name, string icon, string need, float dx, float dy)[] Buildings =
         {
-            ("Trang trại", "seed", "Có 3 tướng để mở Trang trại", -0.27f, 0.035f),
+            ("Nhà", "seed", "Có 3 tướng để mở Nhà", -0.27f, 0.035f), // Nhà thay Trang trại (2026-11-18), icon giữ "seed"
             ("Đền Huy Hiệu", "crown", "Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu", 0.27f, 0.035f),
             ("Hang Tiềm Năng", "rock", $"Đạt cấp {Progress.CaveLevel} để mở Hang Tiềm Năng", 0f, 0.155f),
             ("Cây bi", "leaf", "Qua ải 1 để có cây bi đầu tiên", -0.27f, 0.155f),
@@ -116,10 +116,10 @@ namespace PokiClash
             {
                 var item = Buildings[i];
                 bool temple = item.icon == "crown", cave = item.icon == "rock", farm = item.icon == "seed", tree = item.icon == "leaf";
-                bool open = farm ? Farm.Open(s, d.Cfg) : temple ? Progress.BadgesOpen(s) : cave ? Progress.CaveOpen(s) : tree && Trees.Open(s, d.Cfg) > 0;
+                bool open = farm ? Home.Open(s, d.Cfg) : temple ? Progress.BadgesOpen(s) : cave ? Progress.CaveOpen(s) : tree && Trees.Open(s, d.Cfg) > 0;
                 double now = PokiClash.Game.SaveService.Now();
-                // chấm báo: có dãy huy hiệu vừa mở, chưa đánh trận nào; trang trại cần chăm; cây bi đầy
-                bool alert = (temple && open && Badges.HasNew(s, d)) || (farm && open && Farm.Alert(s, d, now)) || (tree && open && Trees.Full(s, d.Cfg, now));
+                // chấm báo: có dãy huy hiệu vừa mở, chưa đánh trận nào; Nhà cần chăm; cây bi đầy
+                bool alert = (temple && open && Badges.HasNew(s, d)) || (farm && open && Home.Alert(s, d, now)) || (tree && open && Trees.Full(s, d.Cfg, now));
                 buildings[i].Bind(item.name, open, alert, () =>
                 {
                     if (tree && open)
@@ -131,7 +131,7 @@ namespace PokiClash
                     if ((temple || cave || farm) && open)
                     {
                         App.Audio.Play("click");
-                        App.Router.Go(temple ? SceneIds.Badges : cave ? SceneIds.Cave : SceneIds.Farm);
+                        App.Router.Go(temple ? SceneIds.Badges : cave ? SceneIds.Cave : SceneIds.Home);
                         return;
                     }
                     App.Audio.Play(open ? "click" : "error");

@@ -1,0 +1,22 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\base\refs\base_layout.png: exact layout of the base ground (make_base_refs.py, toạ độ từ balance.json home)
+image 3 (chỉ bản _1) = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_F_iso_toan_dao_2.png: approved concept, look of terrain only
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\base\base_dao_nen_1.png (có image 3), base_dao_nen_2.png (không image 3)
+Magnific: gpt-2-6, 16:9, 1k, quality high
+
+Hand-drawn BASE GROUND of a home island for a vertical mobile base-building game, in strict isometric 2:1 projection. This is only the bottom layer: forests, buildings and props will be added later as separate images on top, so the ground itself must be EMPTY.
+
+LAYOUT (most important): follow image 2 exactly, same position and same size in the picture. One big diamond-shaped meadow whose four corners point up, right, down and left, with straight diagonal edges (about 27 degrees from horizontal). Do NOT draw any labels, letters, grid lines or outlines.
+- The meadow: flat open grass, one flat light green with soft coloured-pencil hatching and a few gentle patches of slightly different green, sparse tiny grass tufts and a very few tiny flowers. NOTHING standing on the meadow: no trees, no bushes, no rocks, no paths, no fences, no buildings, no signs, no creatures.
+- H (four places): raised square grassy plateaus seen from the same isometric angle, with short vertical brown cliff faces (hatched stripes), their edges following the diagonals; a few small pine trees only on top of the plateaus.
+- A small waterfall falls from the cliff between the top plateaus into the small lake below it. From that lake a narrow stream runs straight down-left across the meadow (one narrow channel along the grid diagonal) to the beach and into the sea.
+- lake (two places): small ponds sunk into the meadow, flat blue water with pencil hatching, a thin pale shore and a white foam line.
+- ore (two places): flat patches of grey rocky ground lying on the meadow with a few small coloured crystals poking out; low, nothing tall.
+- Along the two lower edges: a sandy beach band with a darker wet-sand line, then the sea with a white foam line along the shore.
+- Outside the two upper edges: a band of higher green hills with short brown cliffs; behind them, along the very top of the picture, a far landscape of distant hills, sea and small islands.
+- dock: a short wooden jetty at the bottom corner going out into the sea.
+- Sea: flat blue with pencil hatching, filling the bottom corners and the sides.
+
+STYLE: hand-drawn on cream paper, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area (image 1). [bản _1: Same terrain look as image 3 (grass, beach, cliffs, waterfall, sea), but do NOT copy its forest, buildings, paths or layout.] No drop shadows, no cast shadows, no glossy highlights, no glow, no gradients, no 3D render.
+
+No text, no UI.

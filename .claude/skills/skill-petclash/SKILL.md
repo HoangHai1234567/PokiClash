@@ -25,6 +25,10 @@ Tài liệu đi kèm trong thư mục này:
 - `nghien_cuu_thiet_ke.md`: đối chiếu các nguyên tắc với nguồn gốc, số đo nhịp, hình theo hệ.
 - `nghien_cuu_animation.md`: số đo nhịp clip, chống cứng, physics, đồng bộ với hiệu ứng, tiến hóa, phân biệt theo dáng.
 - `nghien_cuu_hieu_nang.md`: chi phí uGUI, vẽ đè, lưới tự dựng, ảnh hạt, rác bộ nhớ, cách đo.
+- `hoc_kr5_vfx.md`: học hiệu ứng nổ, lửa, nước, khói của Kingdom Rush 5 (đục máy 2026-11-18; vẽ phẳng 3–5 màu, không shader,
+  gần luật dự án nhất trong các nguồn đã đọc): giữ 2 khung, đỉnh ở khung 1–3, đòn ghép từ đạn → đuôi → trúng → decal → payload →
+  mod, hạt chỉ "dập" hình tự tan. Trang xem và tài liệu trong repo: `ArtGen/ThamKhao/KR5/` (`MO_WEB.bat`, `HOC_VFX_KR5.md`;
+  dữ liệu ảnh không commit, sinh lại theo `README.md` của thư mục).
 - `mo_xe_quai_nhieu_dau.md`: mổ xẻ một con quái nhiều đầu đứng trong nước của game tham khảo (xương để làm gì, nước có theo đầu
   không, mặt nạ cắt, nhịp từng clip, cần gen gì, tách ảnh thế nào) và con đã dựng theo cách đó (Hải Long Ngũ Đầu,
   `ArtGen/Spine/hai_long.py`). Đọc khi làm quái / boss nhiều đầu, nhiều cổ, thân dài trồi lên từ nước.
@@ -100,6 +104,8 @@ Mốc ngoài để so (nguồn ở ba file `nghien_cuu_*.md`):
 - Hiệu ứng 2D: lấy đà 0,1–0,25 s, chớp 0,03–0,1 s, bung 0,1–0,3 s, tan 0,3–1 s; lấy đà cộng va chạm không quá 1/3 tổng. Trúng
   nhỏ 0,2–0,5 s, chiêu 0,5–1 s, nổ có khói 0,8–2 s.
 - Khung va chạm 1–3 khung; dài hơn đọc thành đổi cảnh.
+- Kingdom Rush 5 (`hoc_kr5_vfx.md`): hiệu ứng trung vị 0,5 s; nổ 0,6–1,0 s; nước trúng nhỏ 0,33 s; mọi hệ vẽ giữ 2 khung (15 hình/giây);
+  đỉnh ở khung 1–3; nổ của chiêu lấy đà 2 khung bằng cục chớp nhỏ; đòn đánh xuống đất báo trước 0,4 s (lỗ, vết nứt trên đất).
 - Khựng 60–120 ms, dài hơn thì giống giật máy; game đối kháng khựng 9–14 khung. Dự án khựng 0,03–0,2 s (`pokiclash-hero-fx` mục 4).
 - Đòn nhiều nhịp chỉ khựng ở nhịp đầu và nhịp cuối. Chớp màn không quá 3 lần mỗi giây.
 
@@ -273,7 +279,8 @@ Nguồn và số ở `nghien_cuu_hieu_nang.md`. Chưa có số đo trên máy th
 ## 11. Quy trình làm một hiệu ứng hoặc một bộ hệ mới
 
 1. **Đọc hình tướng** sẽ dùng chiêu (màu, họa tiết, dáng) và động tác clip của từng dạng.
-2. **Tìm mẫu:** ảnh hiệu ứng đã duyệt của game, Epic Toon FX (`toonfx.md`, chỉ đọc số), Clash of Critters, tài liệu trong thư mục này.
+2. **Tìm mẫu:** ảnh hiệu ứng đã duyệt của game, Epic Toon FX (`toonfx.md`, chỉ đọc số), Clash of Critters, Kingdom Rush 5 (trang
+   xem có lọc theo hệ, soi từng khung; `hoc_kr5_vfx.md`), tài liệu trong thư mục này.
 3. **Viết ba pha và danh sách phần tử** (chính, phụ, nhịp, lớp) trước khi viết mã.
 4. **Ảnh hạt:** cần hình mới thì gọi GPT vẽ lưới 2 × 2 xám vân chì không viền (`build_hat.py`), nhập, xuất sang Unity (`xuat_hat.py`).
 5. **Bản xem trước Python** (`fxlib.py`, `bo_<hệ>.py`): ra GIF và tờ 12 khung trên nền sân thật với hai tướng thật.
@@ -296,6 +303,8 @@ Nguồn và số ở `nghien_cuu_hieu_nang.md`. Chưa có số đo trên máy th
 - [ ] Không che con bị trúng, thanh máu, bảng thẻ; không vượt mép sân? Chớp màn không quá 3 lần mỗi giây?
 - [ ] Cỡ đúng thang: đòn thường < mana < chiêu cuối; dạng sau to hơn dạng trước?
 - [ ] Các phần tử so le, không cùng bật cùng tắt; không đường cong tuyến tính?
+- [ ] Đỉnh tới trong 0,1 s đầu của pha nhả? Tan bằng vỡ ra (khói tách cụm, nước vỡ giọt, lửa teo thành đốm) rồi mới mờ? Đòn đánh
+  xuống đất có báo trước trên đất? (so mẫu Kingdom Rush 5, `hoc_kr5_vfx.md`)
 - [ ] Chạy đúng ở cả hai chiều bắn và trong ô xem của hộp chi tiết tướng?
 - [ ] Số hạt trong ngân sách; không có ảnh to chồng nhau nhiều lớp?
 - [ ] Đã tự xem từng khung chụp trong Unity; test EditMode qua; đã thử Android (hoặc nói rõ là chưa)?
@@ -323,6 +332,9 @@ Công thức đã làm thật (lửa, nước) và lỗi đã gặp: `pokiclash-
   một lưới, cả đầu một ảnh): người dùng trả lại. Luật và công cụ: `pokiclash-spine-rig` mục 00 (`mo_xe/chay.py att`, `to_manh.py`).
 - Làm hiệu ứng bằng một ảnh tĩnh trượt đi. Sét, lửa, nước là **chuyển động**.
 - Khói vụt tắt hoặc giật: phải co nhỏ dần và bay lên tới hết.
+- Nổ đạt đỉnh chậm (nở dần trong 0,3 s) hoặc chỉ mờ đi tại chỗ: mẫu Kingdom Rush 5 chớp 1 khung, khói và lửa to gần đủ ngay
+  khung 2, nửa sau là tách cụm, bay lên, nhỏ dần (`hoc_kr5_vfx.md`).
+- Hình hạt đổi mỗi khung sân nên chuyển động "trôi", nhòe: đổi mỗi 2 khung (giữ 2 khung như mọi hiệu ứng của Kingdom Rush 5).
 - Dựng khối lớn bằng hạt rời; hoặc dựng thành một khối nhẵn cứng.
 - Hiệu ứng lửa, nước chung chung, không hợp nét của tướng đang ra chiêu.
 - Tướng về đứng trong khi luồng phun còn chạy.

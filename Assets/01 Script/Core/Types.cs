@@ -205,6 +205,8 @@ namespace PokiClash.Core
         public List<double> stops = new List<double>();
         public List<int> plates = new List<int>();
         public Pt world; // vị trí vùng trên ảnh đảo lớn
+        // đảo kiểu vùng đất (Land.cs, GD_Claude/18): có thì màn đảo vẽ vùng đất kéo hai chiều thay bản đồ dọc
+        public LandDef land = new LandDef();
     }
 
     // hiệu ứng đầu trận của tiềm năng (và đặc tính hệ của huy hiệu, bộ tiềm năng): mana, nộ cộng lúc dựng tướng; chí mạng, hút máu

@@ -90,6 +90,65 @@ TEN = {
 }
 HANG = {"A": None, "B": [520], "C": [380, 650]}        # ranh hàng (y) để xếp thứ tự đọc; A xếp riêng
 
+# ---- lượt 5 (người dùng 2026-11-18: "tạo thêm hàm dưới", chiêu cuối "dang 2 tay ngửa lòng bàn tay ra (cần thì gen thêm)"): tờ D
+DAU_D = os.path.join(MANH, "dau.png")
+TO_D = dict(
+    vi="đầu bỏ hàm dưới và nanh (hàm trên có răng nanh nhỏ), hàm dưới kèm lòng miệng, hai nanh rời, bàn tay to và nhỏ xoè ngửa",
+    ds=["UPPER HEAD, centre about (230, 260): image 2 WITHOUT its lower jaw and WITHOUT its two big tusks: both crescent horns, the "
+        "heavy brow, the two amber eyes, the nose and cheeks (everything ABOVE the mouth line) at EXACTLY the size, proportions and "
+        "three-quarter view of image 2 (407 px wide). Its bottom edge is the UPPER LIP: a row of short pointed cream upper fangs hangs "
+        "from it, a slightly bigger fang at each corner. Closed ink outline all the way round, also under the fangs.",
+        "BIG OPEN HAND, centre about (850, 270), about 520 px wide and 380 px tall: the big LEFT fist of image 1 OPENED with the palm "
+        "turned UP to the sky, seen from the front and a little above. The palm is a broad round dish of the same grey-lilac moon rock "
+        "(side faces in the darker tone) with one big shallow round crater in its middle; four thick stubby fingers, each made of two "
+        "chunky rounded stone segments like the knuckle stones under the fists of image 1, spread out to the LEFT and curl a little "
+        "upward at the tips; a short thick stone thumb points UP from the near edge of the palm. The wrist side (RIGHT end) is a plain "
+        "rounded edge. All fingers stay joined to the palm: ONE closed shape.",
+        "LOWER JAW, centre about (230, 780), about 250 px wide and 270 px tall: the lower jaw of image 2 for an OPENING MOUTH, same "
+        "three-quarter view facing right: at the bottom the chin and lower lip in the same grey-lilac rock and ink line (the part of "
+        "image 2 below the mouth line); along the top of the lip a row of short blunt cream lower teeth; ABOVE the teeth the INSIDE of "
+        "the mouth: one dark maroon area (#4A2228) with a rounded red-brown tongue (#A8505A) lying in it. This dark area rises about "
+        "150 px above the teeth and its top is a smooth dome. NO tusks on this piece.",
+        "TWO TUSKS, centres about (500, 780) and (620, 780): the two big curved cream tusks of image 2, each drawn ALONE as its own "
+        "closed shape with an ink outline: the near one about 80 px wide and 140 px tall, the far one about 65 x 115 px; wide base at "
+        "the bottom, tip at the top curving outward.",
+        "SMALL OPEN HAND, centre about (1250, 740), about 400 px wide and 290 px tall: the same open palm-up hand for the RIGHT fist of "
+        "image 1: a MIRROR of the big open hand (fingers spread to the RIGHT and curl up at the tips, thumb up, wrist on the LEFT), "
+        "smaller. ONE closed shape."])
+TEN["D"] = ["dau_tren", "tay_xoe_to", "ham", "nanh_1", "nanh_2", "tay_xoe_nho"]
+HANG["D"] = [540]
+
+
+def prompt_d():
+    p_hd = os.path.join(HERE, "gui_gpt", f"{CODE}_1", "HUONG_DAN.md")
+    hd = open(p_hd, encoding="utf-8").read().rstrip("\n").split("\n")
+    td = "## Lượt 5: tờ D, hàm dưới và bàn tay xoè (2026-11-18)"
+    if td in hd:
+        hd = hd[:hd.index(td) - 1]
+    out = os.path.join(TAI, "M_D.png")
+    p = os.path.join(HERE, "gui_gpt", f"{CODE}_1", "luot_5_manh_D.txt")
+    lines = DAU.format(duyet=os.path.normpath(DUYET)).split("\n")
+    lines += [f"image 2 = {os.path.normpath(DAU_D)}: the approved HEAD piece of that character (407x455 px, transparent background): "
+              "horned beast mask, three-quarter view facing right, closed scowling mouth with two big cream tusks rising from the lower "
+              "jaw. Shown at its real size: keep EXACTLY its size, drawing and colours.",
+              "", f"SAVE: save it as a PNG to {os.path.normpath(out)}",
+              "If a file with that name already exists, save as M_D_2.png, M_D_3.png ... in the same folder. Do not edit, move or "
+              "delete any other file.", "", CHUNG.replace("image 1", "images 1 and 2", 1), "", "PIECES:"] + \
+        [f"- {d}" for d in TO_D["ds"]] + ["", PAL + " Inside of the mouth: maroon #4A2228, tongue #A8505A.", "",
+                                          "CANVAS: landscape 1536x1024, pure-white background (#FFFFFF)."]
+    open(p, "w", encoding="utf-8", newline="\n").write("\n".join(lines) + "\n")
+    hd += ["", td, "",
+           "Người dùng: \"tạo thêm hàm dưới cho tướng\", chiêu cuối \"dang 2 tay ngửa lòng bàn tay ra (cần thì gen thêm)\".", "",
+           "| Ảnh mẫu | Đường dẫn | Trông như thế nào |", "|---|---|---|",
+           f"| 1 | `{os.path.normpath(DUYET)}` | Concept đã duyệt (hành tinh đá, nắm đấm mặt trăng), 1536x1024, nền trắng |",
+           f"| 2 | `{os.path.normpath(DAU_D)}` | Mảnh đầu đã cắt (mặt nạ thú sừng trăng, miệng ngậm, hai nanh), 407x455, nền trong |", "",
+           f"- **Tờ D**: {TO_D['vi']}. File prompt `{os.path.normpath(p)}`; ảnh lưu `{os.path.normpath(out)}`. Kiểm: đủ 6 mảnh rời, "
+           "đầu trên KHÔNG còn cằm và nanh, lòng miệng nằm trên hàm dưới, hai bàn tay ngửa đủ bốn ngón + ngón cái, viền kín.",
+           "- Sửa nhanh: \"keep the upper head exactly like image 2 above the mouth line\"; \"the open hands must show the palm facing "
+           "up, fingers attached\"."]
+    open(p_hd, "w", encoding="utf-8", newline="\n").write("\n".join(hd) + "\n")
+    print(p)
+
 
 def prompt():
     p_hd = os.path.join(HERE, "gui_gpt", f"{CODE}_1", "HUONG_DAN.md")
@@ -155,5 +214,7 @@ if __name__ == "__main__":
         print(__doc__)
     elif a[0] == "prompt":
         prompt()
+    elif a[0] == "prompt_d":
+        prompt_d()
     elif a[0] == "cat":
         cat(a[1:] or list(TO))

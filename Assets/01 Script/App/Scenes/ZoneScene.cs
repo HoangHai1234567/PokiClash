@@ -14,6 +14,8 @@
 //     cát của ảnh; bệ cỡ thật đặt ở bãi của ảnh (ZoneDef.stops), bảng tên ngược phía địa danh (ZoneDef.plates).
 //   - Chưa có: bản đồ rộng 3 màn; đường mòn cong qua các điểm ải của ảnh 8 ải (Catmull-Rom như nét vẽ tay của web), bệ thu nhỏ 0,75.
 // Không hiện tướng của người chơi trên bản đồ (người dùng bỏ sticker đội trưởng cạnh ải đang đánh, 2026-11-02).
+// Đảo có vùng đất (ZoneDef.land, GD_Claude/18): vùng đất kéo hai chiều, mỗi ải tướng một habitat có tướng chạy rig, chấm ải to
+// trên một đường; phần này ở ZoneSceneLand.cs.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,7 +34,7 @@ namespace PokiClash
         public int prep; // số ải cần mở hộp chuẩn bị (0 = không)
     }
 
-    public sealed class ZoneScene : SceneRoot
+    public sealed partial class ZoneScene : SceneRoot
     {
         public static Elem LastZone = Elem.Thuy;
 
@@ -140,6 +142,14 @@ namespace PokiClash
                 img.type = Image.Type.Tiled;
                 img.color = Color.white;
             }
+            if (EnterLand(z))
+            {
+                entered = true;
+                builtProg = -1;
+                Render();
+                if (prep > 0) StartCoroutine(PrepLater(prep));
+                return;
+            }
             var sprite = App.Art ? App.Art.Get(z.art) : null;
             float aspect = sprite ? sprite.rect.width / sprite.rect.height : PokiCanvas.RefW / PokiCanvas.RefH;
             mapW = PokiCanvas.RefW * (Islands.IsLong(zone) && !HasPath(z) ? MKLong : MK);
@@ -149,6 +159,7 @@ namespace PokiClash
             Theme.SetSprite(p.map, sprite);
             p.map.rectTransform.sizeDelta = new Vector2(mapW, mapH);
             if (mapAnim) mapAnim.Bind(z.art);
+            if (dayNight) dayNight.Bind(z.art);
 
             entered = true;
             builtProg = -1;
@@ -183,17 +194,19 @@ namespace PokiClash
             if (rebuild)
             {
                 var stages = d.ZoneStages(zone).ToList();
+                ClearLandHeroes(); // hình tướng vùng đất: diễn viên ở xa trong thế giới, không đi theo nút bị xoá
                 Clear(p.pathLayer);
                 Clear(p.nodeLayer);
                 afkAt.Clear();
                 afkTag = null;
-                focus = Islands.IsLong(zone) ? RenderTrail(z, d, s, stages, prog) : RenderNodes(z, d, s, stages, prog);
+                focus = land != null ? RenderLand(z, d, s, stages, prog)
+                    : Islands.IsLong(zone) ? RenderTrail(z, d, s, stages, prog) : RenderNodes(z, d, s, stages, prog);
                 builtProg = prog;
             }
             PlaceAfkTag();
             ShowInfo(z, s, prog);
             ShowBottom(z, s);
-            if (rebuild) StartCoroutine(ScrollToCurrent(focus));
+            if (rebuild) StartCoroutine(land != null ? LandToCurrent(focus) : ScrollToCurrent(focus));
         }
 
         // đảo 8 ải: mỗi ải một bệ tại điểm ải của ảnh đảo; trả chỗ ải đang đánh (để cuộn tới)

@@ -185,7 +185,8 @@ namespace PokiClash
             { "phu_van", (new[] { "n_vien_chan" }, new[] { "n_vien_tang" }) }, // Sơn Viên (rig quy_nui_1, cả hai dạng): nện đất, sóng chấn gai đá; chiêu cuối tụ tảng đá khổng lồ trên tay phụ, bốn tay ném
             { "rua_nui", (new[] { "n_trung_gai" }, new[] { "n_trung_mieng" }) }, // Sa Trùng (rig sau_dat_1, ải 40; dạng 1 tạm cùng rig): giáng đầu, ba gai đá đầu ngạnh; chiêu cuối lặn, gò đất chạy ngầm, trồi ngoạm
             { "ho_kim_cuong", (new[] { "n_bun_troi" }, new[] { "n_bun_ngoam" }) }, // suất này nay là Bùn Ngoạm, quái bùn (2026-11-17, rig quai_bun_1, ải 50, HatBun.cs): cắm tay xuống bùn, nắm đấm bùn khổng lồ của rig trồi dưới đối thủ; chiêu cuối lao ngoạm NUỐT đối thủ (StageViewNuot.cs giấu nó), thành quả bóng, 22 gai đâm xuyên, NHỔ nó bay về chỗ. Một dạng (thêm dạng 1 thì thêm mã vào mảng)
-            { "cu_phu", (new[] { "n_thach_xoay" }, new[] { "n_thach_cau" }) }, // suất này nay là Thiên Thạch Thú (HatThach.cs, rig tinh_hach_1; phiên assets-3c)
+            { "cu_phu", (new[] { "n_thach_xoay1", "n_thach_xoay" }, new[] { "n_thach_cau1", "n_thach_cau" }) }, // suất này nay là Thiên Thạch Thú (HatThach.cs): Thiên Thạch Thú Non (rig tinh_hach_non, ba thiên thạch, quả cầu nhỏ) / Thiên Thạch Thú (tinh_hach_1, năm thiên thạch)
+            { "giap_nham", (new[] { "n_tinh_gai1", "n_tinh_gai" }, new[] { "n_tinh_hang1", "n_tinh_hang" }) }, // suất này nay là Thổ Tinh, final boss ải 70 (HatThoTinh.cs): Tiểu Thổ Tinh (rig thach_de_non, sáu mảnh vỏ) / Thổ Tinh (thach_de_1, mười lưỡi trăng): gầm, mảnh lưng lần lượt phóng; chiêu cuối thiên thạch bọc đối thủ, ép co (StageViewThoTinh.cs), mặt trời, tia nhiệt, nổ nấm
         };
 
         // đòn đánh thường của tướng Thổ theo DẠNG (HatLua.AtkLao nhận thì phát cả khi lao tới)
@@ -199,6 +200,7 @@ namespace PokiClash
             { "rua_nui", new[] { "n_trung_dop" } }, // Sa Trùng: đớp nghiền: vết cắn lớn, dăm đá, hai nhịp nghiến
             { "ho_kim_cuong", new[] { "n_bun_danh" } }, // Bùn Ngoạm (rig khai stay + far): tay bùn co giãn tới đấm đối thủ: giọt bùn rơi theo tay, toé bùn
             { "cu_phu", new[] { "n_thach_vo" } }, // Thiên Thạch Thú (HatThach.cs; phiên assets-3c)
+            { "giap_nham", new[] { "n_tinh_nen1", "n_tinh_nen" } }, // Tiểu Thổ Tinh / Thổ Tinh (HatThoTinh.cs, rig khai lunge): nhảy lao tới nện hai nắm đấm: sao kem, dăm, nứt đất, đối thủ bẹp (StageViewThoTinh.cs)
         };
 
         // đòn đánh thường theo DẠNG (bảng đo trên rig mỗi dạng một khác): ưu tiên hơn các bảng trên
@@ -1616,6 +1618,7 @@ namespace PokiClash
                 if (freeze > 0) ox += Mathf.Sin(Time.unscaledTime * 95) * 0.015f * a.H;
             }
             if (nuot == 2) NhoDat(a, nk, ntf, x, y, ref ox, ref oy, ref rot); // bị nhổ: bay theo cung từ miệng kẻ đánh về chỗ, nảy
+            TinhDat(a, ref ox, ref oy, ref alpha); // bị Thổ Tinh đánh: co vào vỏ đá, bẹp, giật theo lưỡi trăng (StageViewThoTinh.cs)
             a.rt.anchoredPosition = P(x + ox, y + oy);
             a.rt.localEulerAngles = new Vector3(0, 0, -rot * Mathf.Rad2Deg);
 

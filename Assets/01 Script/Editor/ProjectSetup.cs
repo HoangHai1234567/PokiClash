@@ -202,6 +202,7 @@ namespace PokiClash.EditorTools
             [SceneIds.Badges] = typeof(BadgesScene),
             [SceneIds.Cave] = typeof(CaveScene),
             [SceneIds.Farm] = typeof(FarmScene),
+            [SceneIds.Home] = typeof(HomeScene),
         };
 
         const string AppPrefab = "Assets/04 Prefabs/App/App.prefab";

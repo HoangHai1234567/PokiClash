@@ -108,7 +108,7 @@ móng tay xa; Q6 cả rừng tinh thể (sau thân, chân cụm kéo dài khuấ
 - Gắn: thân trên gộp shenti_02/04/03; tay trên gộp bắp + cẳng + ngón của họ (làm trơn trọng số); đầu / hàm / lòng miệng trên tou / zuiba_02 /
   zuiba_01; móng cứng trên xương ngón nặng nhất ở tâm móng; 5 cụm cứng trên qiu_07/01/02/04/05 (gán một – một); rừng tinh thể trên hai
   xương riêng tt_sau (con all4) / tt_truoc (con all5) hoà theo bề ngang; tinh thể vắt vai trên tt_nam_g (con all5); đuôi chuỗi duoi0..2 (con
-  all3, khớp đọc trên concept). Góc hàm all10 của họ: DƯƠNG = há.
+  all3, khớp đọc trên concept). Góc hàm all10: DƯƠNG = KHÉP (hàm xoay lên chui vào đầu; ghi "dương = há" trước đây sai, đo lại 2026-11-18 ở `tinh_hach_non_ghichu.md` mục 5: mọi pha há / gầm của bản đang trong game đang khép miệng; code đã đổi chiều bằng `HA = -1`, bản trong game chưa xuất lại).
 - Clip: tay gần của mình KHÔNG giơ quá đầu được (lưới tay của họ mảnh, giơ cao kéo tay mình thành cọng dài như xúc tu: thử skill_02,
   skill_04 đều xấu) → attack và skill tự viết trên dáng idle, chỉ xoay thân / đầu / hàm / tay xa:
   - appear 2,5 s: rơi từ trời (nghiêng), đáp nện + bẹp nảy, 5 cụm trồi lên so le, rừng tinh thể dựng lên nảy, gầm (cham_dat, nen,

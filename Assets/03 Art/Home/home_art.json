@@ -1,0 +1,227 @@
+{
+ "home_b_field": {
+  "w": 397,
+  "h": 310,
+  "kind": "object",
+  "pivot": [
+   0.5025,
+   0.0
+  ],
+  "foot": 349,
+  "cells": 4
+ },
+ "home_b_orchard": {
+  "w": 397,
+  "h": 351,
+  "kind": "object",
+  "pivot": [
+   0.5013,
+   0.0
+  ],
+  "foot": 395,
+  "cells": 4
+ },
+ "home_b_sawmill": {
+  "w": 397,
+  "h": 369,
+  "kind": "object",
+  "pivot": [
+   0.4987,
+   0.0
+  ],
+  "foot": 396,
+  "cells": 4
+ },
+ "home_b_storage": {
+  "w": 401,
+  "h": 374,
+  "kind": "object",
+  "pivot": [
+   0.5025,
+   0.0
+  ],
+  "foot": 400,
+  "cells": 4
+ },
+ "home_b_pond": {
+  "w": 407,
+  "h": 328,
+  "kind": "object",
+  "pivot": [
+   0.5025,
+   0.0
+  ],
+  "foot": 391,
+  "cells": 4
+ },
+ "home_b_forge": {
+  "w": 405,
+  "h": 439,
+  "kind": "object",
+  "pivot": [
+   0.5,
+   0.0
+  ],
+  "foot": 404,
+  "cells": 4
+ },
+ "home_b_kitchen": {
+  "w": 411,
+  "h": 445,
+  "kind": "object",
+  "pivot": [
+   0.5109,
+   0.0
+  ],
+  "foot": 410,
+  "cells": 4
+ },
+ "home_b_hotspring": {
+  "w": 413,
+  "h": 346,
+  "kind": "object",
+  "pivot": [
+   0.5109,
+   0.0
+  ],
+  "foot": 412,
+  "cells": 4
+ },
+ "home_b_waterwheel": {
+  "w": 424,
+  "h": 446,
+  "kind": "object",
+  "pivot": [
+   0.5047,
+   0.0
+  ],
+  "foot": 423,
+  "cells": 4
+ },
+ "home_b_well": {
+  "w": 254,
+  "h": 303,
+  "kind": "object",
+  "pivot": [
+   0.5,
+   0.0
+  ],
+  "foot": 253,
+  "cells": 2
+ },
+ "home_b_tree": {
+  "w": 254,
+  "h": 324,
+  "kind": "object",
+  "pivot": [
+   0.5,
+   0.0
+  ],
+  "foot": 253,
+  "cells": 2
+ },
+ "home_b_bench": {
+  "w": 254,
+  "h": 252,
+  "kind": "object",
+  "pivot": [
+   0.502,
+   0.0
+  ],
+  "foot": 253,
+  "cells": 2
+ },
+ "home_b_swing": {
+  "w": 254,
+  "h": 325,
+  "kind": "object",
+  "pivot": [
+   0.5,
+   0.0
+  ],
+  "foot": 253,
+  "cells": 2
+ },
+ "home_b_main": {
+  "w": 689,
+  "h": 715,
+  "kind": "object",
+  "pivot": [
+   0.5,
+   0.0
+  ],
+  "foot": 688,
+  "cells": 6
+ },
+ "home_b_mine": {
+  "w": 901,
+  "h": 809,
+  "kind": "object",
+  "pivot": [
+   0.4994,
+   0.0
+  ],
+  "foot": 900,
+  "cells": 6
+ },
+ "home_forest_a": {
+  "w": 900,
+  "h": 636,
+  "kind": "forest",
+  "pivot": [
+   0.4983,
+   0.0016
+  ],
+  "foot": 826,
+  "cells": 8
+ },
+ "home_forest_b": {
+  "w": 898,
+  "h": 646,
+  "kind": "forest",
+  "pivot": [
+   0.5006,
+   0.0
+  ],
+  "foot": 853,
+  "cells": 8
+ },
+ "home_forest_c": {
+  "w": 905,
+  "h": 665,
+  "kind": "forest",
+  "pivot": [
+   0.4989,
+   0.0
+  ],
+  "foot": 851,
+  "cells": 8
+ },
+ "home_cloud_1": {
+  "w": 614,
+  "h": 259,
+  "kind": "cloud"
+ },
+ "home_cloud_2": {
+  "w": 628,
+  "h": 266,
+  "kind": "cloud"
+ },
+ "home_cloud_3": {
+  "w": 811,
+  "h": 263,
+  "kind": "cloud"
+ },
+ "home_base": {
+  "w": 1469,
+  "h": 752,
+  "kind": "base",
+  "top": [
+   723.44,
+   -30
+  ],
+  "diamondW": 1460.0,
+  "grid": 48,
+  "stretchX": 1.0928
+ }
+}

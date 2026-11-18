@@ -21,7 +21,8 @@ namespace PokiClash.Core
     public static class AdGate
     {
         public const int Unlimited = 999;
-        public const string TreeDouble = "tree_double", AfkChestOpen = "afk_chest_open", AfkBoost = "afk_boost", FarmBoost = "farm_boost", CaveExtra = "cave_extra";
+        public const string TreeDouble = "tree_double", AfkChestOpen = "afk_chest_open", AfkBoost = "afk_boost", FarmBoost = "farm_boost", CaveExtra = "cave_extra",
+            HomeSpeed = "home_speed"; // Nhà: rút 30 phút việc xây, nâng cấp, dọn rừng
 
         public static AdState Of(SaveData s) => s.ads ?? (s.ads = new AdState());
 

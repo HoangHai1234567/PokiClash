@@ -1,0 +1,837 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>KR5 hiệu ứng</title>
+<style>
+:root{--bg:#16181b;--panel:#1f2226;--panel2:#262a2f;--line:#33383e;--fg:#e6e2d8;--dim:#9a968c;--acc:#ffb347;--acc2:#6cc3ff}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--fg);font:13px/1.45 system-ui,Segoe UI,Roboto,sans-serif}
+header{display:flex;align-items:center;gap:16px;padding:8px 14px;border-bottom:1px solid var(--line);background:var(--panel)}
+header h1{font-size:15px;margin:0;font-weight:600}
+.tabs{display:flex;gap:4px}
+.tabs button{background:none;border:1px solid transparent;color:var(--dim);padding:5px 12px;border-radius:6px;cursor:pointer;font:inherit}
+.tabs button.on{color:var(--fg);border-color:var(--line);background:var(--panel2)}
+#app{display:grid;grid-template-columns:240px 1fr;height:calc(100% - 45px)}
+aside{border-right:1px solid var(--line);overflow:auto;padding:10px;background:var(--panel)}
+aside h3{font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--dim);margin:14px 0 6px}
+aside input[type=search],aside select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--fg);padding:6px 8px;border-radius:6px;font:inherit}
+.chips{display:flex;flex-wrap:wrap;gap:5px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 9px;cursor:pointer;color:var(--dim);user-select:none;font-size:12px}
+.chip.on{color:#1b1b1b;background:var(--acc);border-color:var(--acc)}
+.chip small{opacity:.7;margin-left:3px}
+label.ck{display:flex;align-items:center;gap:6px;margin:4px 0;color:var(--dim);cursor:pointer}
+main{overflow:auto;position:relative}
+#grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px;padding:10px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:8px;overflow:hidden;cursor:pointer}
+.card:hover{border-color:var(--acc)}
+.card canvas{display:block;width:100%;aspect-ratio:1;background:#202328}
+.card .nm{padding:4px 6px;font-size:11px;color:var(--dim);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.card .tg{padding:0 6px 5px;font-size:10px;color:var(--acc2)}
+#more{margin:6px 10px 20px;background:var(--panel2);color:var(--fg);border:1px solid var(--line);padding:8px 14px;border-radius:6px;cursor:pointer}
+#count{padding:8px 12px 0;color:var(--dim)}
+#detail{position:fixed;inset:45px 0 0 240px;background:var(--bg);display:none;grid-template-columns:1fr 380px;z-index:5}
+#detail.open{display:grid}
+#stageWrap{position:relative;border-right:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+#stage{flex:1;width:100%;min-height:0;display:block;cursor:grab}
+.bar{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:6px 10px;border-top:1px solid var(--line);background:var(--panel)}
+.bar button,.bar select{background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 9px;font:inherit;cursor:pointer}
+.bar button.on{border-color:var(--acc);color:var(--acc)}
+.bar .t{color:var(--dim);font-variant-numeric:tabular-nums;min-width:120px}
+#timeline{height:34px;position:relative;background:#111316;border-top:1px solid var(--line);cursor:pointer}
+#timeline .ev{position:absolute;top:3px;font-size:10px;color:#111;background:var(--acc2);border-radius:3px;padding:0 4px;white-space:nowrap;transform:translateX(-1px)}
+#timeline .ev.hit{background:var(--acc)}
+#timeline .head{position:absolute;top:0;bottom:0;width:2px;background:#fff}
+#info{overflow:auto;padding:12px 14px}
+#info h2{font-size:14px;margin:0 0 4px;word-break:break-all}
+#info .sub{color:var(--dim);margin-bottom:10px}
+#info table{border-collapse:collapse;width:100%;font-size:12px;margin:6px 0 12px}
+#info td{border-bottom:1px solid var(--line);padding:3px 4px;vertical-align:top}
+#info td:first-child{color:var(--dim);white-space:nowrap;width:42%}
+#info h4{margin:14px 0 4px;font-size:12px;color:var(--acc)}
+#info pre{background:#111316;border:1px solid var(--line);border-radius:6px;padding:8px;font-size:11px;overflow:auto;max-height:260px;white-space:pre-wrap;word-break:break-all}
+#info a{color:var(--acc2);cursor:pointer;text-decoration:none}
+#strip{overflow:auto;background:#111316;border:1px solid var(--line);border-radius:6px;max-height:340px;position:relative}
+#strip img{display:block;image-rendering:auto}
+.pal{display:flex;height:22px;border-radius:4px;overflow:hidden;margin:4px 0}
+.pal div{flex:1}
+.close{position:absolute;top:8px;right:10px;z-index:3;background:var(--panel2);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:4px 10px;cursor:pointer}
+.note{color:var(--dim);font-size:12px}
+.atk{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);color:var(--fg);border-radius:6px;padding:6px 8px;margin:4px 0;cursor:pointer;font:inherit}
+.atk.on{border-color:var(--acc)}
+.atk small{color:var(--dim)}
+.k{display:inline-block;font-size:10px;border:1px solid var(--line);border-radius:4px;padding:0 4px;margin-left:4px;color:var(--dim)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Kingdom Rush 5 · hiệu ứng</h1>
+  <div class="tabs">
+    <button data-tab="learn" class="on">Đáng học</button>
+    <button data-tab="lib">Thư viện hình</button>
+    <button data-tab="tpl">Hệ hạt và tổ hợp</button>
+    <button data-tab="unit">Chiêu của đơn vị</button>
+  </div>
+  <span class="note" id="status">đang nạp dữ liệu…</span>
+</header>
+<div id="app">
+  <aside>
+    <input type="search" id="q" placeholder="Tìm theo tên (vd. explosion, fire)">
+    <h3>Hệ</h3><div class="chips" id="tagChips"></div>
+    <h3 id="kindH">Loại</h3><div class="chips" id="kindChips"></div>
+    <h3>Nguồn</h3><select id="src"></select>
+    <h3>Tuỳ chọn</h3>
+    <label class="ck" id="bodyCk"><input type="checkbox" id="showBody"> hiện cả thân nhân vật</label>
+    <label class="ck"><input type="checkbox" id="animThumb" checked> chạy hoạt ảnh trong lưới</label>
+    <p class="note" style="margin-top:14px">Toàn bộ hiệu ứng trong trận vẽ bằng blend alpha thường (không cộng sáng). Ánh sáng, quầng, lửa sáng đều là màu vẽ sẵn trong khung.</p>
+  </aside>
+  <main id="main">
+    <div id="count"></div>
+    <div id="grid"></div>
+    <button id="more">Xem thêm</button>
+  </main>
+</div>
+<div id="detail">
+  <div id="stageWrap">
+    <button class="close" id="closeBtn">Đóng ✕</button>
+    <canvas id="stage"></canvas>
+    <div id="timeline"></div>
+    <div class="bar">
+      <button id="playBtn">⏸</button>
+      <button id="stepB">◀ khung</button><button id="stepF">khung ▶</button>
+      <button id="replay">↺ phát lại</button>
+      <select id="speed"><option value="1">1×</option><option value="0.5">0.5×</option><option value="0.25">0.25×</option><option value="0.1">0.1×</option><option value="2">2×</option></select>
+      <select id="bg"><option value="dark">nền tối</option><option value="grass">nền đất cỏ</option><option value="light">nền sáng</option><option value="check">ô caro</option></select>
+      <button id="onion">bóng khung kề</button>
+      <button id="boxes">khung + gốc</button>
+      <span class="t" id="tlabel"></span>
+    </div>
+  </div>
+  <div id="info"></div>
+</div>
+<script>
+'use strict';
+// ------------------------------------------------------------ dữ liệu
+let D = null; const RS = 0.5, FPS = 30, EPS = 1e-9;
+const IMG = {}, EXO = {}, EXO_LOADING = {};
+function img(src){ let im = IMG[src]; if (!im){ im = new Image(); im.src = 'sheets/' + src; IMG[src] = im; } return im; }
+function ready(im){ return im && im.complete && im.naturalWidth > 0; }
+function loadExo(en){
+  if (EXO[en] || EXO_LOADING[en]) return; const m = D.exos[en]; if (!m) return;
+  EXO_LOADING[en] = fetch(m.f).then(r => r.json()).then(j => { EXO[en] = j; img(j.img); });
+}
+// ------------------------------------------------------------ ma trận [a b c d e f]
+function mul(m, n){ const [a,b,c,d,e,f] = m, [A,B,C,DD,E,F] = n; return [a*A+c*B, b*A+d*B, a*C+c*DD, b*C+d*DD, a*E+c*F+e, b*E+d*F+f]; }
+const T = (x,y) => [1,0,0,1,x,y], S = (x,y) => [x,0,0,y,0,0];
+const R = t => { const c = Math.cos(t), s = Math.sin(t); return [c,s,-s,c,0,0]; };
+function loveM(x, y, r, sx, sy, ox, oy, kx, ky){
+  const c = Math.cos(r), s = Math.sin(r);
+  const a = c*sx - ky*s*sy, b = s*sx + ky*c*sy, cc = kx*c*sx - s*sy, d = kx*s*sx + c*sy;
+  return [a, b, cc, d, x - ox*a - oy*cc, y - ox*b - oy*d];
+}
+function setT(ctx, m){ ctx.setTransform(m[0], m[1], m[2], m[3], m[4], m[5]); }
+// ------------------------------------------------------------ khung hoạt ảnh (đúng animation_db:fni)
+function animIdx(n, t, loop, fps){
+  if (n <= 1) return 0;
+  if (loop) return ((Math.floor(t*fps + EPS) % n) + n) % n;
+  return Math.min(n, Math.max(1, Math.ceil(t*fps + EPS))) - 1;
+}
+function assetLen(key){ const a = D.assets[key]; if (!a) return 0; return a.t === 'x' ? a.n : a.seq.length; }
+function assetFps(key){ const a = D.assets[key]; if (a && a.t === 'x'){ const m = D.exos[a.exo]; return m ? m.fps : 30; } return 30; }
+// vẽ một tài sản tại ma trận gốc M (toạ độ màn hình y xuống, gốc = vị trí thực thể)
+function drawAsset(ctx, M, key, t, o, boxes){
+  const a = D.assets[key]; if (!a) return;
+  const loop = o.loop !== false, fps = o.fps || assetFps(key);
+  const sc = o.sc || [1,1], an = o.an || [0.5,0.5], al = (o.al == null ? 255 : o.al) / 255, flip = o.fx ? -1 : 1;
+  if (al <= 0) return;
+  if (a.t !== 'x'){
+    const im = img(a.img); if (!ready(im)) return;
+    const c = a.cells[a.seq[animIdx(a.seq.length, t, loop, fps)]]; if (!c || !c[2]) return;
+    const [x,y,w,h,dx,dy,W,H] = c;
+    let m = mul(M, T(o.of ? o.of[0] : 0, o.of ? -o.of[1] : 0));
+    if (o.r) m = mul(m, R(-o.r));
+    m = mul(m, S(sc[0]*RS*flip, sc[1]*RS));
+    setT(ctx, m); ctx.globalAlpha = Math.min(1, al);
+    ctx.drawImage(im, x, y, w, h, dx - an[0]*W, dy - (1-an[1])*H, w, h);
+    if (boxes){ ctx.globalAlpha = 1; ctx.lineWidth = 1/Math.hypot(m[0], m[1]); ctx.strokeStyle = 'rgba(108,195,255,.8)'; ctx.strokeRect(dx - an[0]*W, dy - (1-an[1])*H, w, h); }
+    return;
+  }
+  const ex = EXO[a.exo]; if (!ex){ loadExo(a.exo); return; }
+  const im = img(ex.img); if (!ready(im)) return;
+  const frames = ex.anims[a.anim]; if (!frames || !frames.length) return;
+  const fr = frames[animIdx(frames.length, t, loop, ex.fps)];
+  const fsx = flip*sc[0], fsy = sc[1], rr = o.r || 0;
+  const offx = o.of ? o.of[0] : 0, offy = o.of ? o.of[1] : 0;
+  for (const p of fr){
+    const pm = ex.parts[p[0]]; if (!pm || !pm[2]) continue;
+    const po = ex.po[p[0]] || [0,0];
+    const [x,y,w,h,dx,dy,W,H] = pm;
+    const ox = 0.5*W - po[0]/RS, oy = 0.5*H - po[1]/RS;
+    const m = mul(M, loveM(p[1]*fsx + offx, p[2]*fsy + offy, (p[3] - rr)*Math.sign(fsx), p[4]*flip*RS*sc[0], p[5]*RS*sc[1], ox, oy, p[6], p[7]));
+    const pa = Math.max(0, Math.min(1, p[8])) * al; if (pa <= 0) continue;
+    setT(ctx, m); ctx.globalAlpha = pa;
+    ctx.drawImage(im, x, y, w, h, dx, dy, w, h);
+    if (boxes){ ctx.globalAlpha = 1; ctx.lineWidth = 1/Math.hypot(m[0], m[1]); ctx.strokeStyle = 'rgba(108,195,255,.6)'; ctx.strokeRect(dx, dy, w, h); }
+  }
+}
+// hộp bao (toạ độ thực thể, y xuống) để căn khung nhìn
+function assetBounds(key, o){
+  const a = D.assets[key]; if (!a) return null; o = o || {};
+  const sc = o.sc || [1,1], an = o.an || [0.5,0.5];
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9;
+  const add = (x, y) => { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); };
+  if (a.t !== 'x'){
+    for (const c of a.cells){ if (!c || !c[2]) continue; const [x,y,w,h,dx,dy,W,H] = c;
+      add((dx - an[0]*W)*RS*sc[0], (dy - (1-an[1])*H)*RS*sc[1]); add((dx + w - an[0]*W)*RS*sc[0], (dy + h - (1-an[1])*H)*RS*sc[1]); }
+  } else {
+    const ex = EXO[a.exo]; if (!ex) return null;
+    for (const fr of ex.anims[a.anim] || []) for (const p of fr){
+      const pm = ex.parts[p[0]]; if (!pm || !pm[2] || p[8] <= 0) continue; const po = ex.po[p[0]] || [0,0];
+      const [x,y,w,h,dx,dy,W,H] = pm; const ox = 0.5*W - po[0]/RS, oy = 0.5*H - po[1]/RS;
+      const m = loveM(p[1]*sc[0], p[2]*sc[1], p[3], p[4]*RS*sc[0], p[5]*RS*sc[1], ox, oy, p[6], p[7]);
+      for (const [u, v] of [[dx,dy],[dx+w,dy],[dx,dy+h],[dx+w,dy+h]]) add(m[0]*u + m[2]*v + m[4], m[1]*u + m[3]*v + m[5]);
+    }
+  }
+  if (x1 < x0) return null;
+  const of = o.of || [0,0];
+  return [x0 + of[0], y0 - of[1], x1 + of[0], y1 - of[1]];
+}
+// ------------------------------------------------------------ thực thể mô phỏng (render + tween + hạt + đạn), theo systems.lua
+const TICK = 1/60;
+function lerpV(a, b, t, fn){
+  const f = fn === 'quad' ? t*t : fn === 'sine' ? 0.5*(1 - Math.cos(t*Math.PI)) : fn === 'step' ? 0 : t;
+  if (Array.isArray(a)) return [a[0] + (b[0]-a[0])*f, a[1] + (b[1]-a[1])*f];
+  if (typeof a === 'boolean') return a;
+  return a + (b - a)*f;
+}
+function phaseInterp(vals, ph, def){
+  if (!vals || !vals.length) return def;
+  if (vals.length === 1) return vals[0];
+  const n = vals.length - 1, i = Math.min(n - 1, Math.floor(ph*n)), f = ph*n - i;
+  const a = vals[i], b = vals[i+1];
+  if (Array.isArray(a)) return a.map((x, k) => x + (b[k] - x)*f);
+  if (typeof a === 'boolean') return a;
+  return a + (b - a)*f;
+}
+function rand(a, b){ return a + Math.random()*(b - a); }
+class Ent {
+  constructor(scene, name, pos, t0, opt){
+    this.sc = scene; this.name = name; this.d = D.tpl[name] || {}; this.pos = [pos[0], pos[1]]; this.t0 = t0; this.dead = false;
+    this.opt = opt || {}; this.flip = !!this.opt.flip;
+    this.sp = (this.d.sp || []).map(s => ({...s, st: t0 + (s.rts ? -Math.random()*s.rts : 0)}));
+    this.ps = this.d.ps ? new PSys(this, this.d.ps, t0) : null;
+    if (this.d.tw && this.d.tw.dis && !this.opt.forceTween) this.tw = null; else this.tw = this.d.tw || null;
+    this.twT0 = t0 + (this.tw && this.tw.rts ? -Math.random()*this.tw.rts : 0);
+    this.life = null;
+    if (this.d.aur && this.d.aur.duration) this.life = this.d.aur.duration;
+    if (this.d.mod && this.d.mod.duration) this.life = Math.min(this.d.mod.duration, 4);
+    if (this.d.tim && this.d.tim.duration) this.life = this.d.tim.duration;
+    if (this.opt.life) this.life = this.opt.life;
+    this.r = 0;
+  }
+  update(t){
+    if (this.dead) return;
+    const lt = t - this.t0;
+    // tween
+    let finished = true;
+    if (this.tw){
+      for (const p of this.tw.p){
+        const keys = p.k; const s = this.sp[(p.s || 1) - 1]; if (!s || !keys.length) continue;
+        const st = keys[0][0], et = keys[keys.length-1][0], dur = et - st;
+        let time = t - this.twT0 + (p.to || 0);
+        if (p.l && dur > 0) time = time % dur;
+        if (this.tw.rev) time = dur - time;
+        time = Math.max(st, Math.min(et, time));
+        let ka = keys[0], kb = keys[keys.length-1];
+        for (const k of keys){ if (k[0] <= time) ka = k; if (time <= k[0]){ kb = k; break; } }
+        let v = ka === kb ? ka[1] : lerpV(ka[1], kb[1], (time - ka[0])/(kb[0] - ka[0]), ka[2] || p.i);
+        const nm = p.n === 'alpha' ? 'al' : p.n === 'scale' ? 'sc' : p.n === 'offset' ? 'of' : p.n === 'r' ? 'r' : p.n === 'hidden' ? 'hid' : null;
+        if (!nm) continue;
+        if (p.m){ const base = s['_b_' + nm] ?? (s['_b_' + nm] = s[nm] ?? (nm === 'sc' ? [1,1] : nm === 'al' ? 255 : 0));
+          v = Array.isArray(v) ? [v[0]*base[0], v[1]*base[1]] : (typeof v === 'boolean' ? v && base : v*base); }
+        s[nm] = v;
+        if (!p.l && ka !== keys[keys.length-1]) finished = false;
+      }
+      if (finished && this.tw.rm !== false && !this.d.ps) this.dead = true;
+    }
+    // timed (fx): xoá khi sprite chạy xong 1 lượt
+    if (this.d.tim && !this.life){
+      const s = this.sp[(this.d.tim.sprite_id || 1) - 1];
+      if (s && s.a){ const n = assetLen(s.a), fps = s.fps || assetFps(s.a); if (n && (t - s.st) >= n/fps * (this.d.tim.runs || 1)) this.dead = true; }
+      else if (!this.d.ps) this.dead = lt > 1.5;
+    }
+    if (this.life != null && lt >= this.life){ if (this.ps){ this.ps.emit = false; } else this.dead = true; }
+    if (this.bul) this.bul.update(t);
+    if (this.ps){ this.ps.update(t); if (this.ps.done) this.dead = true; }
+    if (this.follow && !this.follow.dead){ this.pos = [this.follow.pos[0], this.follow.pos[1]]; }
+    else if (this.follow && this.follow.dead && this.ps){ this.ps.emit = false; this.ps.srcDead = true; }
+  }
+  draws(out, t){
+    if (this.dead) return;
+    const sc = this.sc;
+    this.sp.forEach((s, i) => {
+      if (!s.a || s.hid) return;
+      if (s.ign && t < s.st) return;
+      const z = s.z ?? D.z.Z_OBJECTS ?? 3000;
+      out.push({z, y: this.pos[1] + (s.sy || 0), o: (s.do || i + 1), fn: (ctx, V, boxes) => {
+        const M = mul(V, T(this.pos[0], -this.pos[1]));
+        drawAsset(ctx, M, s.a, t - s.st + (s.to || 0), {loop: s.loop, fps: s.fps, sc: s.sc, an: s.an, al: s.al, of: s.of, r: (s.r || 0) + this.r, fx: (s.fx ? !this.flip : this.flip)}, boxes);
+      }});
+    });
+    if (this.ps) this.ps.draws(out, t);
+  }
+}
+class PSys {
+  constructor(ent, d, t0){
+    this.e = ent; this.d = d; this.emit = true; this.parts = [];
+    const rate = d.emission_rate || 1; this.emit_ts = t0 - 1/rate + (d.ts_offset || 0); this.ts = t0; this.last = null; this.done = false; this.lastT = t0;
+    this.emitStart = t0;
+  }
+  update(t){
+    const d = this.d, e = this.e, rate = d.emission_rate || 1;
+    if (!this.last) this.last = [e.pos[0], e.pos[1]];
+    if (d.emit_duration != null && this.emit && t - this.emitStart > d.emit_duration) this.emit = false;
+    if (!this.emit){ this.emit_ts = t + (d.ts_offset || 0); this.last = [e.pos[0], e.pos[1]]; }
+    if (this.emit && 1/rate < t - this.emit_ts){
+      const cf = (t - this.emit_ts)*rate, stx = (e.pos[0] - this.last[0])/cf, sty = (e.pos[1] - this.last[1])/cf, cnt = Math.floor(cf);
+      for (let i = 1; i <= cnt; i++){
+        const pts = this.emit_ts + i/rate;
+        const p = {ts: pts, last: pts, r: 0, spin: 0, sf: [1,1], vx: 0, vy: 0};
+        const lt = d.particle_lifetime || [0.9, 1]; p.life = rand(lt[0], lt[1]);
+        p.x = this.last[0] + stx*i; p.y = this.last[1] + sty*i;
+        if (d.emit_area_spread){ p.x += rand(-d.emit_area_spread.x/2, d.emit_area_spread.x/2); p.y += rand(-d.emit_area_spread.y/2, d.emit_area_spread.y/2); }
+        if (d.emit_offset){ p.x += (e.flip ? -1 : 1)*d.emit_offset.x; p.y += d.emit_offset.y; }
+        const dir = (d.emit_direction || 0) + (e.dirOverride || 0);
+        if (d.emit_speed){ const a = dir + rand(-(d.emit_spread || 0), d.emit_spread || 0), sp = rand(d.emit_speed[0], d.emit_speed[1]); p.vx = Math.cos(a)*sp; p.vy = Math.sin(a)*sp; }
+        if (d.emit_rotation != null) p.r = d.emit_rotation;
+        else if (d.track_rotation && e.follow) p.r = e.follow.r;
+        else p.r = dir + rand(-(d.emit_rotation_spread || 0), d.emit_rotation_spread || 0);
+        if (d.spin) p.spin = rand(d.spin[0], d.spin[1]);
+        if (d.scale_var){ const f = rand(d.scale_var[0], d.scale_var[1]); p.sf = [f, d.scale_same_aspect === false ? rand(d.scale_var[0], d.scale_var[1]) : f]; }
+        const nA = (d.assets || []).length;
+        if (nA > 1){ if (d.cycle_names){ this._ci = ((this._ci || 0) % nA) + 1; p.ni = this._ci - 1; } else p.ni = Math.floor(Math.random()*nA); } else p.ni = 0;
+        this.parts.push(p);
+      }
+      this.emit_ts += cnt/rate; this.last[0] += stx*cnt; this.last[1] += sty*cnt;
+    }
+    const keep = [];
+    for (const p of this.parts){
+      const tp = t - p.last, ph = (t - p.ts)/p.life;
+      if (ph >= 1) continue;
+      p.last = t; p.x += p.vx*tp; p.y += p.vy*tp; p.r += p.spin*tp; p.ph = Math.max(0, ph);
+      keep.push(p);
+    }
+    this.parts = keep;
+    if (this.srcDead && !keep.length) this.done = true;
+    if (d.source_lifetime != null && d.source_lifetime < t - this.ts){ this.emit = false; if (!keep.length) this.done = true; }
+    if (!this.emit && !keep.length && (this.e.life != null || this.srcDead)) this.done = true;
+  }
+  draws(out, t){
+    const d = this.d, z = d.z ?? 3400;
+    for (const p of this.parts){
+      const key = (d.assets || [])[p.ni]; if (!key) continue;
+      const sx = phaseInterp(d.scales_x, p.ph, 1)*p.sf[0], sy = phaseInterp(d.scales_y, p.ph, 1)*p.sf[1];
+      const al = phaseInterp(d.alphas, p.ph, 255);
+      let tt = t - p.ts; if (d.animation_fps) tt = tt*d.animation_fps/FPS;
+      const an = d.anchor ? [d.anchor.x, d.anchor.y] : [0.5,0.5];
+      out.push({z, y: p.y + (d.sort_y_offset || 0), o: p.ts*100, fn: (ctx, V, boxes) => {
+        const M = mul(V, T(p.x, -p.y));
+        drawAsset(ctx, M, key, d.animated ? tt : 0, {loop: d.loop !== false && d.animated ? d.loop : false, sc: [sx, sy], an, al, r: p.r}, boxes);
+      }});
+    }
+  }
+}
+// đạn: bay từ A tới B. bomb/arrow có flight_time: parabol theo g; bolt: đường thẳng; khi tới nơi gọi hit
+class Bul {
+  constructor(ent, from, to, t0, onHit){
+    this.e = ent; const b = ent.d.bl || {}; this.from = from; this.to = to; this.t0 = t0; this.onHit = onHit;
+    const dx = to[0] - from[0], dy = to[1] - from[1], dist = Math.hypot(dx, dy);
+    const ray = ent.d.ray;
+    if (ray && ray.image_width){   // tia: một hình kéo dãn từ nguồn tới đích (scripts.ray*_simple)
+      this.isRay = true; const s0 = ent.sp[0];
+      const k = dist/ray.image_width; ent.r = Math.atan2(dy, dx);
+      if (s0){ s0.sc = [k*((s0.sc && s0.sc[0]) || 1), (s0.sc && s0.sc[1]) || 1]; }
+      const mid = s0 && s0.an && Math.abs(s0.an[0] - 0.5) < 0.01;
+      ent.pos = mid ? [from[0] + dx/2, from[1] + dy/2] : [from[0], from[1]];
+      const n = s0 && s0.a ? assetLen(s0.a)/assetFps(s0.a) : 0.6;
+      this.T = b.hit_time || 0; this.life = ray.ray_duration || n; return;
+    }
+    const chain0 = [ent.name].concat(ent.d.b || []).join(' ');
+    if (b.hit_time != null && !b.flight_time && !/bolt|arrow|bomb/.test(chain0)){   // đạn đứng yên (luồng thở, cột): diễn tại nguồn, quay về đích
+      this.isRay = true; ent.r = Math.atan2(dy, dx); ent.pos = [from[0], from[1]];
+      const s0 = ent.sp[0]; this.T = b.hit_time; this.life = s0 && s0.a ? assetLen(s0.a)/assetFps(s0.a) : 0.8; return;
+    }
+    const chain = [ent.name].concat(ent.d.b || []).join(' ');
+    this.straight = /bolt|ray|lance|beam|missile|rocket/.test(chain) && !b.flight_time;
+    this.T = b.flight_time || (this.straight ? dist/Math.max(150, b.max_speed || 450) : 0.6);
+    this.g = (b.g != null && !this.straight) ? b.g : 0;
+    this.vx = dx/this.T; this.vy = (dy - 0.5*this.g*this.T*this.T)/this.T;
+    this.align = !!b.align_with_trajectory || this.straight; this.rs = b.rotation_speed || 0;
+    ent.pos = [from[0], from[1]];
+  }
+  update(t){
+    const lt = Math.max(0, t - this.t0), e = this.e;
+    if (this.isRay){
+      if (!this.hit && lt >= this.T){ this.hit = true; this.onHit && this.onHit(t); }
+      if (lt >= this.life) e.dead = true;
+      return;
+    }
+    if (lt >= this.T){ e.pos = [this.to[0], this.to[1]]; if (!e.dead){ e.dead = true; this.onHit && this.onHit(t); } return; }
+    e.pos = [this.from[0] + this.vx*lt, this.from[1] + this.vy*lt + 0.5*this.g*lt*lt];
+    if (this.align) e.r = Math.atan2(this.vy + this.g*lt, this.vx);
+    else if (this.rs) e.r = this.rs*lt;
+  }
+}
+// ------------------------------------------------------------ cảnh: danh sách sự kiện theo thời gian
+class Scene {
+  constructor(){ this.ents = []; this.events = []; this.marks = []; this.dur = 3; this.static = []; this.target = null; }
+  at(time, label, fn, hit){ this.events.push({time, fn, done: false}); if (label) this.marks.push({time, label, hit}); }
+  spawn(name, pos, t, opt){
+    if (!D.tpl[name]) return null;
+    const e = new Ent(this, name, pos, t, opt); this.ents.push(e);
+    const d = e.d;
+    if (d.bl && opt && opt.to){
+      e.bul = new Bul(e, pos, opt.to, t, (th) => {
+        if (d.bl.hit_fx) this.spawn(d.bl.hit_fx, opt.to, th);
+        if (d.bl.hit_decal) this.spawn(d.bl.hit_decal, opt.to, th, {life: 2.5});
+        if (d.bl.hit_payload) this.spawn(d.bl.hit_payload, opt.to, th, {life: 3});
+        if (d.bl.mod) this.spawn(d.bl.mod, opt.to, th, {life: 2.5});
+        if (Array.isArray(d.bl.mods)) d.bl.mods.forEach(m => this.spawn(m, opt.to, th, {life: 2.5}));
+        this.marks.push({time: th, label: 'trúng', hit: true});
+      });
+      if (d.bl.particles_name){ const pe = this.spawn(d.bl.particles_name, pos, t); if (pe){ pe.follow = e; pe.life = null; } }
+      if (d.bl.start_fx) this.spawn(d.bl.start_fx, pos, t);
+    }
+    return e;
+  }
+  reset(){ this.ents = []; for (const ev of this.events) ev.done = false; this.marks = this.marks.filter(m => !m.dyn); this.marks = this.marks.filter(m => m.label !== 'trúng'); }
+  step(t){
+    for (const ev of this.events) if (!ev.done && ev.time <= t){ ev.done = true; ev.fn(ev.time); }
+    for (const e of this.ents) e.update(t);
+    this.ents = this.ents.filter(e => !e.dead);
+  }
+  draw(ctx, V, t, boxes){
+    const out = [];
+    for (const s of this.static) s(out, t);
+    for (const e of this.ents) e.draws(out, t);
+    out.sort((a, b) => a.z - b.z || b.y - a.y || a.o - b.o);
+    for (const it of out) it.fn(ctx, V, boxes);
+  }
+}
+// ------------------------------------------------------------ giao diện
+const $ = id => document.getElementById(id);
+const state = {tab: 'learn', tags: new Set(), kinds: new Set(), src: '', q: '', page: 0, list: []};
+const KIND_VI = {fx: 'hiệu ứng', decal: 'decal nền', bullet: 'đạn', aura: 'vùng (aura)', mod: 'hiệu ứng bám (mod)', ps: 'hệ hạt', other: 'khác', enemy: 'quái', soldier: 'lính'};
+const UKIND_VI = {hero: 'tướng', tower: 'tháp', enemy: 'quái', soldier: 'lính', other: 'khác'};
+const SRC_VI = {hero: 'Tướng', tower: 'Tháp', enemy: 'Quái', stage: 'Màn', item: 'Vật phẩm', common: 'Chung', other: 'Khác'};
+let TAGVI = {};
+function srcLabel(s){ if (!s) return ''; const [k, v] = s.split(':'); return (SRC_VI[k] || k) + ' · ' + v; }
+
+fetch('data.json').then(r => { if (!r.ok) throw new Error('thiếu data.json'); return r.json(); }).catch(e => { document.getElementById('status').textContent = 'Chưa có dữ liệu: chạy tools/build_fx_viewer.py <bản rút KR5> (xem README.md)'; throw e; }).then(j => {
+  D = j; TAGVI = Object.fromEntries(D.tags);
+  $('status').textContent = `${Object.keys(D.assets).length} hình · ${Object.keys(D.tpl).length} template · ${Object.keys(D.units).length} đơn vị`;
+  for (const b of document.querySelectorAll('.tabs button')) b.onclick = () => setTab(b.dataset.tab);
+  $('q').oninput = () => { state.q = $('q').value.toLowerCase(); refresh(); };
+  $('src').onchange = () => { state.src = $('src').value; refresh(); };
+  $('showBody').onchange = refresh;
+  $('more').onclick = () => { state.page++; renderGrid(false); };
+  const p = new URLSearchParams(location.search);
+  if (p.get('tab')) state.tab = p.get('tab');
+  if (p.get('q')){ state.q = p.get('q').toLowerCase(); $('q').value = p.get('q'); }
+  if (p.get('tag')) p.get('tag').split(',').forEach(t => state.tags.add(t));
+  setTab(state.tab, true);
+  if (p.get('open')){ openItem(p.get('open')); if (p.get('atk')){ openUnit(p.get('open'), +p.get('atk')); restart(); renderTimeline(); } }
+  if (p.get('t') && scene){ const go = () => { stepTo(+p.get('t')); playing = false; $('playBtn').textContent = '▶';
+    if (p.get('debug')){ const pre = document.createElement('pre'); pre.id = 'dbg'; pre.textContent = JSON.stringify(scene.ents.map(e => ({n: e.name, pos: e.pos.map(x => +x.toFixed(1)), r: +e.r.toFixed(2), sp: e.sp.map(s => [s.a, s.sc, s.st]), dead: e.dead}))); document.body.appendChild(pre); } }; setTimeout(go, 1500); }
+  if (p.get('bg')) $('bg').value = p.get('bg');
+  if (p.get('boxes')){ boxes = true; $('boxes').classList.add('on'); }
+  requestAnimationFrame(loop);
+});
+
+// ------------------------------------------------------------ tab Đáng học (theo HOC_VFX_KR5.md)
+const LEARN = [
+  ['Nổ', 'Đỉnh tới ngay khung 1–3, khói đã to gần đủ từ đầu; nửa sau là khói tách cụm bay lên và mờ dần. Vẽ giữ 2 khung.', [
+    ['lib', 'a:explosion_big', 'Mẫu chuẩn 18 khung: chớp 1 khung → khói nâu hai tông đầy ngay khung 2, lưỡi liềm lửa cong ra ngoài, vòng cung vàng dẹt trên đất → lửa teo thành đốm → cụm khói nhỏ dần, mờ ở 40% cuối, vệt bóng xám dưới đất.'],
+    ['lib', 'a:explosion_KR5_big', 'Bản mới: cục chớp nhỏ giữ 2 khung rồi mới phình ở khung 3 (lấy đà 0,1 s).'],
+    ['lib', 'a:fireball_explosion', 'Cầu lửa phẳng 4 màu (kem, vàng, cam, cam đậm) vỡ thành cục; khói xám đen hiện phía sau; lửa bị "ăn" thành lưỡi liềm và đốm.'],
+    ['lib', 'a:tower_dwarf_skill_main_explosion_idle', 'Thêm lớp phụ: sao 4 cánh lấp lánh, mảnh đá đen có tàn đỏ văng một phía, lõi lửa nguội vàng → cam → đỏ nâu trong khói.'],
+    ['lib', 'a:dwarven_flamespitter_tower_blazing_trail_explosion_idle', 'Nổ lan: một vụ nổ ở tâm + vòng 20–30 ngọn lửa nhỏ mọc cùng lúc, tắt từ ngoài vào.'],
+    ['lib', 'x:explosionDef|idle', 'Exo: chớp mềm, vòng bụi xám dẹt nở trên đất, khối có lỗ đen, giọt văng lên rơi xuống; vòng cung ở đất còn lâu nhất.'],
+    ['tpl', 'tower_tricannon_bomb_4', 'Một đòn đủ mảnh: đạn parabol quay theo quỹ đạo → đuôi khói 70 hạt/giây → nổ (gốc ở chân) → hố bom giữ 1 s rồi mờ tới 2,5 s.'],
+    ['tpl', 'bullet_tower_flamespitter_skill_bomb', 'Bom lửa: thêm payload (lửa cháy trên đất) và mod cháy bám lên địch.'],
+  ]],
+  ['Lửa', 'Lửa lặp rất ít hình, nhiều bản lệch pha. Lửa nguội theo tuổi: kem → vàng → cam → đỏ nâu → khói.', [
+    ['lib', 'a:fire_large', 'Lửa lặp 10 khung = 5 hình, 0,33 s. Lưỡi chữ S + 2–3 giọt tách rời; mỗi hình đổi hẳn dáng.'],
+    ['tpl', 'mod_burning_tower_flamespitter', 'Cháy bám người: fire_small lặp suốt 3 s, đặt ở mod_offset của từng con.'],
+    ['lib', 'a:dwarven_flamespitter_tower_scorching_torches_fx_idle', 'Cột lửa 1,2 s: lỗ đất báo trước 0,4 s → bông lửa → mũi giáo mảnh → cột có dải xoắn → đứt thành lưỡi rời bay lên.'],
+    ['tpl', 'ps_bullet_tower_flamespitter_skill_bomb', 'Đuôi lửa: 50 hạt/giây đứng yên tại chỗ dập, mỗi hạt 8 khung tự nguội rồi mất.'],
+    ['unit', 'tower_flamespitter_lvl4', 'Tháp phun lửa: đòn ném bom lửa (chọn đòn thứ 2).', 1],
+    ['lib', 'a:hero_evil_dragon_breath_idle', 'Luồng thở: một hoạt ảnh 42 khung kéo dãn từ miệng tới đích (scale.x = khoảng cách / image_width).'],
+    ['unit', 'hero_dragon_gem', 'Rồng đá quý thở (đòn breath).', 1],
+    ['lib', 'x:BonfireDef|loop', 'Lửa trại trên map (exo).'],
+  ]],
+  ['Nước', 'Không lấy đà: khung 1 là hình to nhất. Khối nước bị đục lỗ, sụp, vỡ thành giọt, còn vành giọt trên đất.', [
+    ['lib', 'a:fx_water_splash_big', 'Mão nước nhọn ngay khung 1 → đục lỗ từ trong (khung 5–10) → sụp → giọt rơi → vành elip trên đất. 0,63 s.'],
+    ['lib', 'a:hermit_toad_tower_splash_run', 'Vẽ trắng xám để nhuộm nhiều màu; sương tròn mềm hiện phía sau ở giữa đời.'],
+    ['lib', 'a:hero_dragon_arborean_water_hit_fx_idle', 'Nước trúng 5 hình, 0,33 s: sao → 6–8 khối văng → giọt → chấm. Mỗi khối có đốm kem bên trong, vành tối ở đáy.'],
+    ['tpl', 'ps_bullet_hero_dragon_arb_water', 'Đuôi đạn nước: 14 hạt/giây, hạt quay theo hướng đạn (track_rotation).'],
+    ['tpl', 'ps_tower_hermit_toad_mage_bubbles_area', 'Bong bóng: 1 hạt/giây, bay lên chậm 3–11 đv/s, cỡ 0,5–1,4.'],
+    ['lib', 'x:WaterSparksDef|loop', 'Lấp lánh trên mặt biển của map.'],
+  ]],
+  ['Khói và bụi', 'Khói tan bằng cách vỡ ra thành cụm nhỏ rồi mờ, không chỉ mờ đi. Khói nổ mép cứng hai tông; bụi mép mềm.', [
+    ['lib', 'a:tower_build_dust', 'Bụi xây tháp 0,4 s: dải cụm tròn chồng nhau, đỉnh sáng đáy tối, to nhất ngay khung 1, phình nhẹ, mờ.'],
+    ['lib', 'a:rocket_gunners_tower_take_off_fx_idle', 'Bụi phóng: vòng cung trắng trên đất + khối bụi vỡ thành cụm nhỏ rồi thành sỏi.'],
+    ['lib', 'a:Blaze_humitodeatras_run', 'Hạt khói đuôi 15 khung: cụm đen lõi đỏ vỡ vụn rồi mất.'],
+    ['tpl', 'tower_tricannon_bomb_4_trail', 'Đuôi khói bom: 70 hạt/giây, hạt 6 khung ở 15 khung/giây, xoay ngẫu nhiên 360°.'],
+    ['tpl', 'ps_hero_robot_smoke_1', 'Khói bốc liên tục: 6 hạt/giây, vận tốc 20–25, mỗi hạt tự tan trong 0,9–1 s.'],
+    ['lib', 'x:SmokeBonfireDef|loop', 'Khói lửa trại: hai cụm lệch nửa chu kỳ, lõi cam ở đáy, xám ở đỉnh.'],
+  ]],
+];
+function renderLearn(){
+  const g = $('grid'); g.innerHTML = ''; thumbs.clear();
+  $('count').innerHTML = 'Chọn theo tài liệu <code>ArtGen/ThamKhao/KR5/HOC_VFX_KR5.md</code>. Bấm một ô để xem chạy và soi từng khung.';
+  g.style.display = 'block';
+  for (const [h, lead, list] of LEARN){
+    const sec = document.createElement('div'); sec.style.margin = '6px 0 18px';
+    sec.innerHTML = `<h2 style="font-size:15px;margin:6px 0 2px">${h}</h2><div class="note" style="margin-bottom:8px">${lead}</div>`;
+    const row = document.createElement('div'); row.style.cssText = 'display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:8px';
+    for (const [tab, id, note, atk] of list){
+      let key = null;
+      if (tab === 'lib') key = D.assets[id] ? id : null;
+      else if (tab === 'tpl') key = D.tpl[id] ? thumbOfTpl(D.tpl[id]) : null;
+      else if (D.units[id]){ const a = D.units[id].atk[atk || 0]; key = (a && a.body && a.body[0] && a.body[0].find(k => k && D.assets[k])) || (D.units[id].idle || []).find(k => k && D.assets[k]); }
+      const c = document.createElement('div'); c.className = 'card';
+      c.innerHTML = `<canvas width="300" height="300"></canvas><div class="nm" title="${id}">${id.replace(/^[asx]:/, '').replace('|', ' · ')}</div><div class="note" style="padding:0 6px 7px;font-size:11.5px;color:var(--fg)">${note}</div>`;
+      c.onclick = () => { setTab(tab, true); openItem(id); if (atk != null && tab === 'unit'){ openUnit(id, atk); restart(); renderTimeline(); } };
+      row.appendChild(c);
+      const cv = c.querySelector('canvas'); thumbs.set(cv, {cv, key, vis: false, b: null, t0: Math.random()*2}); io.observe(cv);
+    }
+    sec.appendChild(row); g.appendChild(sec);
+  }
+  $('more').style.display = 'none';
+}
+function setTab(tab, keep){
+  state.tab = tab; state.page = 0;
+  if (!keep){ state.kinds.clear(); state.src = ''; }
+  for (const b of document.querySelectorAll('.tabs button')) b.classList.toggle('on', b.dataset.tab === tab);
+  $('bodyCk').style.display = tab === 'lib' ? '' : 'none';
+  document.querySelector('aside').style.visibility = tab === 'learn' ? 'hidden' : '';
+  $('grid').style.display = '';
+  closeDetail();
+  if (tab === 'learn'){ if (!io) io = new IntersectionObserver(es => { for (const e of es){ const t = thumbs.get(e.target); if (t) t.vis = e.isIntersecting; } }, {root: $('main')}); renderLearn(); return; }
+  refresh();
+}
+function items(){
+  if (state.tab === 'lib') return Object.entries(D.assets).map(([k, a]) => ({id: k, name: k.slice(2).replace('|', ' · '), tags: a.tags, src: a.src, kind: a.t === 'x' ? 'exo' : (a.t === 's' ? 'tĩnh' : 'khung'), body: a.body, thumb: k, n: a.n}));
+  if (state.tab === 'tpl') return Object.entries(D.tpl).map(([k, o]) => ({id: k, name: k, tags: o.tags || [], kind: o.k, src: srcOfTpl(o), thumb: thumbOfTpl(o)}));
+  return Object.entries(D.units).map(([k, u]) => ({id: k, name: k, tags: unitTags(u), kind: u.k, src: srcOfUnit(u), thumb: (u.idle || []).find(x => x && D.assets[x]) || null, n: u.atk.length}));
+}
+function srcOfTpl(o){ for (const s of o.sp || []) if (s.a && D.assets[s.a]) return D.assets[s.a].src; for (const a of (o.ps && o.ps.assets) || []) if (a && D.assets[a]) return D.assets[a].src; return 'other:?'; }
+function thumbOfTpl(o){ for (const s of o.sp || []) if (s.a && D.assets[s.a]) return s.a; for (const a of (o.ps && o.ps.assets) || []) if (a && D.assets[a]) return a; return null; }
+function srcOfUnit(u){ for (const k of u.idle || []) if (k && D.assets[k]) return D.assets[k].src; return 'other:?'; }
+function unitTags(u){ if (u._tags) return u._tags; const s = new Set(); const walk = n => { const o = D.tpl[n]; if (!o) return; (o.tags || []).forEach(t => s.add(t)); };
+  for (const a of u.atk) for (const k of ['bullet','mod','entity','aura','hit_fx','start_fx','hit_decal']) if (typeof a[k] === 'string'){ walk(a[k]); const o = D.tpl[a[k]]; if (o && o.bl) ['hit_fx','particles_name','hit_decal','hit_payload','mod'].forEach(x => o.bl[x] && walk(o.bl[x])); }
+  return u._tags = [...s]; }
+function refresh(){
+  const all = items();
+  // chip hệ + loại + nguồn theo danh sách hiện tại
+  const tc = {}, kc = {}, sc = {};
+  for (const it of all){ if (state.tab === 'lib' && it.body && !$('showBody').checked) continue; it.tags.forEach(t => tc[t] = (tc[t] || 0) + 1); kc[it.kind] = (kc[it.kind] || 0) + 1; const g = it.src.split(':')[0]; sc[it.src] = (sc[it.src] || 0) + 1; sc[g] = (sc[g] || 0) + 1; }
+  $('tagChips').innerHTML = D.tags.map(([k, v]) => `<span class="chip ${state.tags.has(k) ? 'on' : ''}" data-k="${k}">${v}<small>${tc[k] || 0}</small></span>`).join('');
+  for (const c of $('tagChips').children) c.onclick = () => { const k = c.dataset.k; state.tags.has(k) ? state.tags.delete(k) : state.tags.add(k); state.page = 0; refresh(); };
+  const KV = state.tab === 'unit' ? UKIND_VI : KIND_VI;
+  $('kindChips').innerHTML = Object.keys(kc).sort().map(k => `<span class="chip ${state.kinds.has(k) ? 'on' : ''}" data-k="${k}">${KV[k] || k}<small>${kc[k]}</small></span>`).join('');
+  for (const c of $('kindChips').children) c.onclick = () => { const k = c.dataset.k; state.kinds.has(k) ? state.kinds.delete(k) : state.kinds.add(k); state.page = 0; refresh(); };
+  const groups = Object.keys(sc).filter(k => !k.includes(':')).sort();
+  let opts = `<option value="">Tất cả nguồn</option>`;
+  for (const g of groups){ opts += `<option value="${g}">${SRC_VI[g] || g} (${sc[g]})</option>`;
+    for (const s of Object.keys(sc).filter(k => k.startsWith(g + ':')).sort()) opts += `<option value="${s}">&nbsp;&nbsp;${s.split(':')[1]} (${sc[s]})</option>`; }
+  $('src').innerHTML = opts; $('src').value = state.src;
+  // lọc
+  state.list = all.filter(it => {
+    if (state.tab === 'lib' && it.body && !$('showBody').checked) return false;
+    if (state.q && !it.name.toLowerCase().includes(state.q)) return false;
+    if (state.tags.size && !it.tags.some(t => state.tags.has(t))) return false;
+    if (state.kinds.size && !state.kinds.has(it.kind)) return false;
+    if (state.src && !(it.src === state.src || it.src.startsWith(state.src + ':'))) return false;
+    return true;
+  });
+  const pri = it => (it.tags.some(t => ['no','lua','nuoc','khoi'].includes(t)) ? 0 : 1);
+  state.list.sort((a, b) => pri(a) - pri(b) || a.name.localeCompare(b.name));
+  renderGrid(true);
+}
+const thumbs = new Map(); let io = null;
+function renderGrid(reset){
+  const g = $('grid');
+  if (reset){ g.innerHTML = ''; thumbs.clear(); state.page = 0; }
+  const per = 120, from = state.page*per, part = state.list.slice(from, from + per);
+  $('count').textContent = `${state.list.length} mục` + (state.tags.size ? ' · lọc hệ: ' + [...state.tags].map(t => TAGVI[t]).join(', ') : '');
+  if (!io) io = new IntersectionObserver(es => { for (const e of es){ const t = thumbs.get(e.target); if (t) t.vis = e.isIntersecting; } }, {root: $('main')});
+  for (const it of part){
+    const c = document.createElement('div'); c.className = 'card';
+    const extra = state.tab === 'unit' ? `${it.n} đòn` : (it.n ? it.n + ' khung' : '');
+    c.innerHTML = `<canvas width="300" height="300"></canvas><div class="nm" title="${it.name}">${it.name}</div><div class="tg">${it.tags.map(t => TAGVI[t]).join(' · ')}${extra ? ' <span class="k">' + extra + '</span>' : ''} <span class="k">${(state.tab === 'unit' ? UKIND_VI : KIND_VI)[it.kind] || it.kind}</span></div>`;
+    c.onclick = () => openItem(it.id);
+    g.appendChild(c);
+    const cv = c.querySelector('canvas'); const th = {cv, key: it.thumb, vis: false, b: null, t0: Math.random()*2};
+    thumbs.set(cv, th); io.observe(cv);
+  }
+  $('more').style.display = from + per < state.list.length ? '' : 'none';
+}
+function drawThumb(th, now){
+  const ctx = th.cv.getContext('2d'); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0, 0, 300, 300);
+  if (!th.key || !D.assets[th.key]) { ctx.fillStyle = '#555'; ctx.font = '20px sans-serif'; ctx.fillText('(không có hình)', 70, 155); return; }
+  if (!th.b) th.b = assetBounds(th.key);
+  const b = th.b; if (!b) return;
+  const w = b[2] - b[0], h = b[3] - b[1], z = Math.min(270/Math.max(w, 1), 270/Math.max(h, 1), 3);
+  const V = [z, 0, 0, z, 150 - (b[0] + w/2)*z, 150 - (b[1] + h/2)*z];
+  const n = assetLen(th.key), fps = assetFps(th.key);
+  const t = $('animThumb').checked ? ((now/1000 + th.t0) % (n/fps + 0.4)) : (n > 1 ? (n/2)/fps : 0);
+  drawAsset(ctx, V, th.key, t, {loop: false});
+}
+// ------------------------------------------------------------ chi tiết
+const view = {cx: 0, cy: 0, z: 1.5, auto: true};
+let scene = null, simT = 0, playing = true, speed = 1, lastNow = 0, onion = false, boxes = false, cur = null;
+$('closeBtn').onclick = closeDetail;
+$('playBtn').onclick = () => { playing = !playing; $('playBtn').textContent = playing ? '⏸' : '▶'; };
+$('replay').onclick = () => restart();
+$('speed').onchange = () => speed = +$('speed').value;
+$('onion').onclick = () => { onion = !onion; $('onion').classList.toggle('on', onion); };
+$('boxes').onclick = () => { boxes = !boxes; $('boxes').classList.toggle('on', boxes); };
+$('stepF').onclick = () => { playing = false; $('playBtn').textContent = '▶'; stepTo(simT + 1/FPS); };
+$('stepB').onclick = () => { playing = false; $('playBtn').textContent = '▶'; stepTo(Math.max(0, simT - 1/FPS)); };
+$('timeline').onclick = e => { const r = $('timeline').getBoundingClientRect(); stepTo((e.clientX - r.left)/r.width*scene.dur); };
+function closeDetail(){ $('detail').classList.remove('open'); cur = null; scene = null; }
+function restart(){ if (!scene) return; scene.reset(); simT = 0; scene.step(0); }
+function stepTo(t){ if (!scene) return; if (t < simT){ scene.reset(); simT = 0; scene.step(0); } while (simT + TICK <= t){ simT += TICK; scene.step(simT); } simT = t; scene.step(t); }
+const stage = $('stage');
+let drag = null;
+stage.onmousedown = e => { drag = [e.clientX, e.clientY, view.cx, view.cy]; view.auto = false; stage.style.cursor = 'grabbing'; };
+window.addEventListener('mouseup', () => { drag = null; stage.style.cursor = 'grab'; });
+window.addEventListener('mousemove', e => { if (!drag) return; view.cx = drag[2] - (e.clientX - drag[0])/view.z; view.cy = drag[3] - (e.clientY - drag[1])/view.z; });
+stage.addEventListener('wheel', e => { e.preventDefault(); view.auto = false; view.z = Math.max(0.2, Math.min(12, view.z*Math.exp(-e.deltaY*0.0015))); }, {passive: false});
+
+// tải sẵn ảnh của mọi template liên quan (đạn → đuôi → trúng → decal → payload → mod)
+function preloadTpl(name, seen){
+  seen = seen || new Set(); if (!name || seen.has(name)) return; seen.add(name);
+  const o = D.tpl[name]; if (!o) return;
+  const keys = (o.sp || []).map(s => s.a).concat((o.ps && o.ps.assets) || []);
+  for (const k of keys){ const a = k && D.assets[k]; if (!a) continue; if (a.t === 'x') loadExo(a.exo); else img(a.img); }
+  if (o.bl) ['hit_fx', 'hit_decal', 'particles_name', 'hit_payload', 'mod', 'start_fx'].forEach(f => typeof o.bl[f] === 'string' && preloadTpl(o.bl[f], seen));
+  (o.ref || []).forEach(r => preloadTpl(r, seen));
+}
+function preloadUnit(u){
+  const keys = (u.idle || []).slice(); u.atk.forEach(a => (a.body || []).forEach(ks => ks.forEach(k => keys.push(k))));
+  for (const k of keys){ const a = k && D.assets[k]; if (a){ if (a.t === 'x') loadExo(a.exo); else img(a.img); } }
+  const s = new Set(); u.atk.forEach(a => ['bullet', 'entity', 'aura', 'mod', 'hit_fx', 'start_fx', 'hit_decal'].forEach(f => typeof a[f] === 'string' && preloadTpl(a[f], s)));
+}
+function openItem(id){
+  if (state.tab === 'tpl') preloadTpl(id); else if (state.tab === 'unit' && D.units[id]) preloadUnit(D.units[id]);
+  cur = id; $('detail').classList.add('open'); view.auto = true; simT = 0; playing = true; $('playBtn').textContent = '⏸';
+  if (state.tab === 'lib') openAsset(id);
+  else if (state.tab === 'tpl') openTpl(id);
+  else openUnit(id, 0);
+  restart(); renderTimeline();
+}
+function fitTo(b, pad){
+  const r = stage.getBoundingClientRect(); pad = pad || 60;
+  const w = Math.max(40, b[2] - b[0]), h = Math.max(40, b[3] - b[1]);
+  view.z = Math.min((r.width - pad)/w, (r.height - pad)/h, 4); view.cx = (b[0] + b[2])/2; view.cy = (b[1] + b[3])/2;
+}
+function row(k, v){ return v == null || v === '' ? '' : `<tr><td>${k}</td><td>${v}</td></tr>`; }
+function fmt(v){ if (typeof v === 'number') return +v.toFixed(3); if (Array.isArray(v)) return '[' + v.map(fmt).join(', ') + ']'; if (v && typeof v === 'object') return '{' + Object.entries(v).map(([k, x]) => k + ': ' + fmt(x)).join(', ') + '}'; return String(v); }
+function tplLink(n){ return D.tpl[n] ? `<a data-tpl="${n}">${n}</a>` : (D.units[n] ? `<a data-unit="${n}">${n}</a>` : n); }
+function bindLinks(){
+  for (const a of $('info').querySelectorAll('a[data-tpl]')) a.onclick = () => { state.tab = 'tpl'; for (const b of document.querySelectorAll('.tabs button')) b.classList.toggle('on', b.dataset.tab === 'tpl'); refresh(); openItem(a.dataset.tpl); };
+  for (const a of $('info').querySelectorAll('a[data-asset]')) a.onclick = () => { state.tab = 'lib'; for (const b of document.querySelectorAll('.tabs button')) b.classList.toggle('on', b.dataset.tab === 'lib'); refresh(); openItem(a.dataset.asset); };
+  for (const a of $('info').querySelectorAll('a[data-unit]')) a.onclick = () => { state.tab = 'unit'; for (const b of document.querySelectorAll('.tabs button')) b.classList.toggle('on', b.dataset.tab === 'unit'); refresh(); openItem(a.dataset.unit); };
+}
+// --- 1. một hình
+function openAsset(key){
+  const a = D.assets[key]; scene = new Scene();
+  const use = (a.used || [])[0], ts = use && D.tpl[use] ? (D.tpl[use].sp || []).find(s => s.a === key) : null;
+  const o = {loop: true, an: ts ? ts.an : [0.5, 0.5]};
+  const n = assetLen(key), fps = assetFps(key);
+  scene.dur = Math.max(n/fps, 0.5);
+  scene.static.push((out, t) => out.push({z: 0, y: 0, o: 0, fn: (ctx, V, bx) => {
+    if (onion && n > 1){ for (const d of [-2, -1, 1, 2]){ const tt = ((Math.floor(t*fps + EPS) + d + n) % n)/fps + EPS; ctx.save(); drawAsset(ctx, V, key, tt, {...o, al: d*d === 1 ? 70 : 30}); ctx.restore(); } }
+    drawAsset(ctx, V, key, t % scene.dur, o, bx);
+    if (bx){ setT(ctx, V); ctx.strokeStyle = '#ff5e5e'; ctx.lineWidth = 1/view.z; ctx.beginPath(); ctx.moveTo(-8, 0); ctx.lineTo(8, 0); ctx.moveTo(0, -8); ctx.lineTo(0, 8); ctx.stroke(); }
+  }}));
+  scene.loopAll = true;
+  const fitB = () => { const b = assetBounds(key, o); if (b){ fitTo(b); return true; } return false; };
+  if (!fitB()){ const iv = setInterval(() => { if (cur !== key){ clearInterval(iv); return; } if (fitB()) clearInterval(iv); }, 100); }
+  let h = `<h2>${key.slice(2).replace('|', ' · ')}</h2><div class="sub">${srcLabel(a.src)} · ${a.tags.map(t => TAGVI[t]).join(', ') || 'chưa xếp hệ'}</div><table>`;
+  h += row('loại', a.t === 'x' ? 'exoskeleton (mảnh + transform từng khung, xuất từ Animate)' : a.t === 's' ? 'sprite tĩnh' : 'chuỗi khung vẽ tay');
+  h += row('số khung', a.t === 'x' ? n : `${n} (khác nhau: ${a.cells.length})`);
+  h += row('thời lượng', (n/fps).toFixed(2) + ' s ở ' + fps + ' khung/giây');
+  if (a.sz) h += row('cỡ khung gốc', `${a.sz[0]}×${a.sz[1]} px ảnh (= ${a.sz[0]*RS}×${a.sz[1]*RS} đơn vị game)`);
+  if (a.cells){ const cw = Math.max(...a.cells.map(c => c[2])), ch = Math.max(...a.cells.map(c => c[3])); h += row('vùng có hình', `${cw}×${ch} px`); }
+  if (a.seq && a.seq.length !== a.cells.length) h += row('thứ tự khung', a.seq.map(x => x + 1).join(' '));
+  if (ts) h += row('neo (anchor)', fmt(ts.an)) + row('scale trong game', ts.sc ? fmt(ts.sc) : '1') + row('lặp', ts.loop ? 'có' : 'không');
+  h += '</table>';
+  if (a.used && a.used.length) h += `<h4>Template dùng hình này</h4><div>${a.used.map(tplLink).join(', ')}</div>`;
+  if (a.t !== 'x'){
+    h += `<h4>Tấm khung (cắt sát, đúng thứ tự)</h4><div id="strip"><img src="sheets/${a.img}"></div>`;
+    h += `<h4>Bảng màu chính</h4><div id="pal" class="note">đang tính…</div>`;
+  } else h += `<h4>Mảnh exo</h4><div class="note">Hình dựng từ các mảnh sprite đặt bằng transform (x, y, xoay, co giãn, xiên, alpha) mỗi khung. Bật "khung + gốc" để thấy từng mảnh.</div><div id="strip"><img src="sheets/${(EXO[a.exo] || {}).img || ''}"></div>`;
+  $('info').innerHTML = h; bindLinks();
+  if (a.t === 'x' && !EXO[a.exo]){ loadExo(a.exo); EXO_LOADING[a.exo] && EXO_LOADING[a.exo].then(() => { if (cur === key) openAsset(key); }); }
+  if (a.t !== 'x') palette(a);
+}
+function palette(a){
+  const im = img(a.img);
+  const go = () => {
+    const c = document.createElement('canvas'), W = Math.min(im.naturalWidth, 1024), H = Math.round(im.naturalHeight*W/im.naturalWidth);
+    c.width = W; c.height = H; const x = c.getContext('2d'); x.drawImage(im, 0, 0, W, H);
+    const d = x.getImageData(0, 0, W, H).data, bins = {}; let tot = 0, soft = 0, solid = 0;
+    for (let i = 0; i < d.length; i += 4){ const al = d[i+3]; if (al < 8) continue; tot++; if (al < 230) soft++; else solid++;
+      const k = (d[i] >> 4) << 8 | (d[i+1] >> 4) << 4 | (d[i+2] >> 4); bins[k] = (bins[k] || 0) + al/255; }
+    const top = Object.entries(bins).sort((p, q) => q[1] - p[1]).slice(0, 14).map(([k]) => { k = +k; return [((k >> 8) & 15)*17, ((k >> 4) & 15)*17, (k & 15)*17]; });
+    top.sort((p, q) => (p[0]*.3 + p[1]*.59 + p[2]*.11) - (q[0]*.3 + q[1]*.59 + q[2]*.11));
+    const el = $('pal'); if (!el) return;
+    el.innerHTML = `<div class="pal">${top.map(c => `<div style="background:rgb(${c})" title="rgb(${c})"></div>`).join('')}</div>` +
+      `<div class="note">xếp tối → sáng. Điểm ảnh bán trong suốt (alpha &lt; 90%): <b>${(100*soft/Math.max(tot,1)).toFixed(0)}%</b> — càng cao càng mềm (khói, quầng); thấp là hình nét đặc.</div>`;
+  };
+  if (ready(im)) go(); else im.addEventListener('load', go, {once: true});
+}
+// --- 2. template
+function openTpl(name){
+  const o = D.tpl[name]; scene = new Scene();
+  let pad = [-120, -120, 120, 120];
+  if (o.bl){
+    const A = [-200, 30], B = [180, 0];
+    scene.dur = (o.bl.flight_time || 0.8) + 2.2;
+    scene.at(0.2, 'bắn', t => scene.spawn(name, A, t, {to: B}));
+    scene.static.push(targetMark(B));
+    pad = [-260, -170, 260, 90];
+  } else {
+    scene.at(0, 'sinh', t => scene.spawn(name, [0, 0], t, {forceTween: true}));
+    let dur = 1;
+    for (const s of o.sp || []) if (s.a) dur = Math.max(dur, assetLen(s.a)/(s.fps || assetFps(s.a)));
+    if (o.tw) for (const p of o.tw.p) dur = Math.max(dur, p.k[p.k.length-1][0]);
+    if (o.ps){ const lt = (o.ps.particle_lifetime || [1, 1])[1]; dur = Math.max(dur, (o.ps.emit_duration || o.ps.source_lifetime || 2) + lt); }
+    if (o.aur && o.aur.duration) dur = Math.min(Math.max(dur, o.aur.duration), 6);
+    if (o.mod && o.mod.duration) dur = Math.min(Math.max(dur, o.mod.duration), 4);
+    scene.dur = Math.min(dur + 0.5, 8);
+    let b = null; for (const s of o.sp || []) if (s.a){ const bb = assetBounds(s.a, s); if (bb) b = b ? [Math.min(b[0], bb[0]), Math.min(b[1], bb[1]), Math.max(b[2], bb[2]), Math.max(b[3], bb[3])] : bb; }
+    if (b) pad = [Math.min(b[0], -60), Math.min(b[1], -60), Math.max(b[2], 60), Math.max(b[3], 60)];
+    if (o.ps && o.ps.emit_speed){ const L = o.ps.emit_speed[1]*(o.ps.particle_lifetime || [1,1])[1]; pad = [Math.min(pad[0], -L), Math.min(pad[1], -L), Math.max(pad[2], L), Math.max(pad[3], L)]; }
+  }
+  fitTo(pad, 80);
+  let h = `<h2>${name}</h2><div class="sub">${KIND_VI[o.k] || o.k} · kế thừa: ${(o.b || []).join(' ← ') || '—'} · ${(o.tags || []).map(t => TAGVI[t]).join(', ')}</div>`;
+  if (o.sp && o.sp.length){
+    h += `<h4>Lớp sprite (${o.sp.length})</h4><table>`;
+    o.sp.forEach((s, i) => { h += row('#' + (i + 1), (s.a ? `<a data-asset="${s.a}">${s.a.slice(2)}</a>` : `<i>thiếu ${s.miss || ''}</i>`) +
+      `<br><span class="note">z ${s.z ?? '-'} · neo ${fmt(s.an)}${s.sc ? ' · scale ' + fmt(s.sc) : ''}${s.of && (s.of[0] || s.of[1]) ? ' · lệch ' + fmt(s.of) : ''}${s.al != null ? ' · alpha ' + s.al : ''}${s.loop ? ' · lặp' : ''}${s.sy ? ' · sort_y ' + s.sy : ''}${s.rts ? ' · lệch pha ngẫu nhiên ' + s.rts + 's' : ''}${s.fps ? ' · fps ' + s.fps : ''}</span>`); });
+    h += '</table>';
+  }
+  if (o.tw){ h += `<h4>Tween (đổi thuộc tính theo thời gian)</h4><table>`;
+    for (const p of o.tw.p) h += row(`${p.n} · sprite ${p.s || 1}`, p.k.map(k => `${(+k[0]).toFixed(2)}s → ${fmt(k[1])}${k[2] ? ' (' + k[2] + ')' : ''}`).join('<br>') + (p.l ? '<br><span class="note">lặp</span>' : '') + (p.m ? '<br><span class="note">nhân với giá trị gốc</span>' : ''));
+    h += row('xoá khi xong', o.tw.rm === false ? 'không' : 'có') + (o.tw.dis ? row('ghi chú', 'tắt sẵn, script bật khi cần (ở đây bật để xem)') : '') + '</table>'; }
+  if (o.ps){ const p = o.ps; h += `<h4>Hệ hạt</h4><table>`;
+    h += row('hình hạt', (p.assets || []).map(a => a ? `<a data-asset="${a}">${a.slice(2)}</a>` : '—').join('<br>'));
+    h += row('tốc độ phát', p.emission_rate + ' hạt/giây') + row('đời hạt', fmt(p.particle_lifetime) + ' s') + row('alpha theo đời', fmt(p.alphas)) +
+      row('scale X theo đời', p.scales_x ? fmt(p.scales_x) : '') + row('scale Y theo đời', p.scales_y ? fmt(p.scales_y) : '') + row('biến thiên cỡ', p.scale_var ? fmt(p.scale_var) : '') +
+      row('vận tốc', p.emit_speed ? fmt(p.emit_speed) + ' đv/s' : '') + row('hướng phát', p.emit_direction != null ? (p.emit_direction*180/Math.PI).toFixed(0) + '°' : '') + row('toả', p.emit_spread ? '±' + (p.emit_spread*180/Math.PI).toFixed(0) + '°' : '') +
+      row('xoay ban đầu', p.emit_rotation_spread ? '±' + (p.emit_rotation_spread*180/Math.PI).toFixed(0) + '°' : (p.emit_rotation != null ? fmt(p.emit_rotation) : '')) + row('tự quay', p.spin ? fmt(p.spin) + ' rad/s' : '') +
+      row('vùng phát', p.emit_area_spread ? fmt(p.emit_area_spread) : '') + row('lệch điểm phát', p.emit_offset ? fmt(p.emit_offset) : '') + row('thời gian phát', p.emit_duration != null ? p.emit_duration + ' s' : '') +
+      row('đời nguồn', p.source_lifetime != null ? p.source_lifetime + ' s' : '') + row('hạt có hoạt ảnh', p.animated ? 'có' + (p.animation_fps ? ' (' + p.animation_fps + ' khung/giây)' : '') + (p.loop ? ', lặp' : ', chạy 1 lần') : 'không') + row('z', p.z) + '</table>'; }
+  if (o.bl){ h += `<h4>Đạn</h4><table>`; for (const [k, v] of Object.entries(o.bl)) h += row(k, typeof v === 'string' ? tplLink(v) : fmt(v)); h += '</table><p class="note">Đường bay mô phỏng: có flight_time thì bay parabol theo g; bolt/tia bay thẳng. Đích ở bên phải.</p>'; }
+  for (const [k, lab] of [['aur', 'Aura'], ['mod', 'Modifier'], ['tim', 'Timed']]) if (o[k]){ h += `<h4>${lab}</h4><table>`; for (const [kk, v] of Object.entries(o[k])) h += row(kk, fmt(v)); h += '</table>'; }
+  if (o.ref && o.ref.length) h += `<h4>Template liên quan</h4><div>${o.ref.map(tplLink).join(', ')}</div>`;
+  const users = Object.entries(D.tpl).filter(([k, x]) => (x.ref || []).includes(name)).map(([k]) => k);
+  const uusers = Object.entries(D.units).filter(([k, u]) => JSON.stringify(u.atk).includes('"' + name + '"')).map(([k]) => k);
+  if (users.length || uusers.length) h += `<h4>Được dùng bởi</h4><div>${uusers.map(tplLink).concat(users.map(tplLink)).join(', ')}</div>`;
+  $('info').innerHTML = h; bindLinks();
+}
+function targetMark(B){
+  return (out, t) => out.push({z: 1000, y: 9999, o: 0, fn: (ctx, V) => { setT(ctx, mul(V, T(B[0], -B[1]))); ctx.globalAlpha = 0.5; ctx.strokeStyle = '#ff6b6b'; ctx.lineWidth = 1.5/view.z;
+    ctx.beginPath(); ctx.ellipse(0, 0, 22, 9, 0, 0, Math.PI*2); ctx.stroke(); ctx.globalAlpha = 1; }});
+}
+// --- 3. đơn vị và chiêu
+function openUnit(name, ai){
+  const u = D.units[name]; const atk = u.atk[ai] || u.atk[0]; scene = new Scene();
+  const flipT = false, P = [0, 0];
+  const B = u.k === 'tower' ? [210, -90] : (atk.g === 'melee' ? [55, 0] : [240, 0]);
+  const bodyKeys = (atk.body && atk.body[0]) || [];
+  let bodyDur = 0.6;
+  bodyKeys.forEach(k => { if (k && D.assets[k]) bodyDur = Math.max(bodyDur, assetLen(k)/assetFps(k)); });
+  scene.static.push((out, t) => {
+    u.body.forEach((b, j) => {
+      const ka = bodyKeys[j], ki = u.idle[j];
+      let key = ka && D.assets[ka] && t < bodyDur ? ka : ki, tt = key === ka ? t : t - bodyDur;
+      if (!key || !D.assets[key]) return;
+      out.push({z: b.z ?? 3000, y: 0, o: b.do || j + 1, fn: (ctx, V, bx) => drawAsset(ctx, V, key, Math.max(0, tt), {loop: key !== ka, an: b.an, of: b.of, sc: b.sc}, bx)});
+    });
+  });
+  scene.static.push(targetMark(B));
+  const ev = [];
+  const tShoot = atk.shoot_time ?? (Array.isArray(atk.shoot_times) ? atk.shoot_times[0] : null) ?? atk.spawn_time ?? atk.hit_time ?? atk.cast_time ?? 0.3;
+  const pt = v => Array.isArray(v) ? (Array.isArray(v[0]) ? v[0] : (typeof v[0] === 'number' ? v : null)) : null;
+  const off = pt(atk.bullet_start_offset) || pt(atk.spawn_offset) || pt(atk.spawn_pos_offset) || [0, 40];
+  const src = [P[0] + (off ? off[0] : 0), P[1] + (off ? off[1] : 40)];
+  if (atk.start_fx) scene.at(0, 'start_fx', t => scene.spawn(atk.start_fx, P, t));
+  const bl = atk.bullet || (Array.isArray(atk.bullets) ? atk.bullets[0] : null);
+  let endT = bodyDur;
+  if (typeof bl === 'string'){
+    const n = Math.min(atk.bullet_count || 1, 5);
+    for (let i = 0; i < n; i++) scene.at(tShoot + i*0.12, i ? null : 'bắn ' + bl, t => scene.spawn(bl, src, t, {to: [B[0] + (i - (n-1)/2)*14, B[1] + (i % 2)*8]}));
+    endT = Math.max(endT, tShoot + ((D.tpl[bl] && D.tpl[bl].bl && D.tpl[bl].bl.flight_time) || 0.8) + 1.6);
+  }
+  for (const k of ['entity', 'aura']){ const n = atk[k]; if (typeof n !== 'string') continue;
+    const o = D.tpl[n]; const at = o && (o.k === 'aura' || o.k === 'decal' || o.k === 'fx') ? B : src;
+    scene.at(tShoot, (o ? 'sinh ' : 'gọi (không có hình) ') + n, t => scene.spawn(n, at, t, {life: Math.min((o && o.aur && o.aur.duration) || 3, 4), forceTween: true}));
+    endT = Math.max(endT, tShoot + 3.2); }
+  const mods = [].concat(atk.mod || [], Array.isArray(atk.mods) ? atk.mods : []);
+  for (const m of mods) if (typeof m === 'string'){ scene.at(tShoot + (bl ? 0.5 : 0), 'mod ' + m, t => scene.spawn(m, B, t, {life: 2.5}), true); endT = Math.max(endT, tShoot + 3); }
+  if (atk.hit_fx && !bl) { const ht = atk.hit_time ?? tShoot; scene.at(ht, 'hit_fx', t => scene.spawn(atk.hit_fx, B, t), true); endT = Math.max(endT, ht + 1.2); }
+  if (atk.hit_decal && !bl) { const ht = atk.hit_time ?? tShoot; scene.at(ht, 'decal', t => scene.spawn(atk.hit_decal, B, t, {life: 2})); }
+  scene.dur = Math.min(Math.max(endT, bodyDur) + 0.6, 9);
+  let fb = null; for (let j = 0; j < u.body.length; j++){ const k = bodyKeys[j] || u.idle[j]; const bb = k && assetBounds(k, u.body[j]); if (bb) fb = fb ? [Math.min(fb[0], bb[0]), Math.min(fb[1], bb[1]), Math.max(fb[2], bb[2]), Math.max(fb[3], bb[3])] : bb; }
+  fb = fb || [-60, -120, 60, 10];
+  fitTo([Math.min(fb[0], -40), Math.min(fb[1], -B[1] - 90), Math.max(fb[2], B[0] + 80), Math.max(fb[3], -B[1] + 50)], 80);
+  let h = `<h2>${name}</h2><div class="sub">${UKIND_VI[u.k]} · ${u.atk.length} đòn · ${unitTags(u).map(t => TAGVI[t]).join(', ')}</div>`;
+  h += `<div>${u.atk.map((a, i) => `<button class="atk ${a === atk ? 'on' : ''}" data-i="${i}">${a.g}[${a.i}] ${a.animation || '(không anim)'} <small>${[a.bullet, a.entity, a.aura, a.mod, a.hit_fx].filter(x => typeof x === 'string').join(' · ')}</small></button>`).join('')}</div>`;
+  h += `<h4>Đòn đang xem</h4><table>`;
+  for (const [k, v] of Object.entries(atk)) if (!['body','g','i'].includes(k)) h += row(k, typeof v === 'string' ? tplLink(v) : fmt(v));
+  h += row('thân (khung)', bodyKeys.filter(Boolean).map(k => `<a data-asset="${k}">${k.slice(2)}</a> (${assetLen(k)} khung)`).join('<br>'));
+  h += '</table><p class="note">Dựng gần đúng từ template: thân chạy anim của đòn, ở shoot_time sinh đạn/thực thể, đạn tới đích thì sinh hit_fx, decal, mod. Đường đi thật và số mục tiêu do script trong game quyết định.</p>';
+  $('info').innerHTML = h; bindLinks();
+  for (const b of $('info').querySelectorAll('.atk')) b.onclick = () => { openUnit(name, +b.dataset.i); restart(); renderTimeline(); };
+}
+function renderTimeline(){
+  const tl = $('timeline'); if (!scene) return;
+  tl.innerHTML = scene.marks.map(m => `<div class="ev ${m.hit ? 'hit' : ''}" style="left:${100*m.time/scene.dur}%">${m.label}</div>`).join('') + '<div class="head" id="head"></div>';
+}
+// ------------------------------------------------------------ vòng vẽ
+function loop(now){
+  const dt = Math.min(0.1, (now - (lastNow || now))/1000); lastNow = now;
+  for (const th of thumbs.values()) if (th.vis) drawThumb(th, now);
+  if (scene && $('detail').classList.contains('open')){
+    const r = stage.getBoundingClientRect(), dpr = devicePixelRatio || 1;
+    if (stage.width !== Math.round(r.width*dpr) || stage.height !== Math.round(r.height*dpr)){ stage.width = Math.round(r.width*dpr); stage.height = Math.round(r.height*dpr); }
+    if (playing){
+      let target = simT + dt*speed;
+      if (target > scene.dur){ if (scene.loopAll){ target = target % scene.dur; simT = 0; scene.reset(); scene.step(0); } else { target = 0; scene.reset(); simT = 0; scene.step(0); renderTimeline(); } }
+      while (simT + TICK <= target){ simT += TICK; scene.step(simT); }
+      simT = target;
+    }
+    const ctx = stage.getContext('2d'); ctx.setTransform(1,0,0,1,0,0);
+    const bg = $('bg').value;
+    if (bg === 'check'){ const s = 16*dpr; for (let y = 0; y < stage.height; y += s) for (let x = 0; x < stage.width; x += s){ ctx.fillStyle = ((x + y)/s) % 2 ? '#3a3d42' : '#2c2f33'; ctx.fillRect(x, y, s, s); } }
+    else { ctx.fillStyle = bg === 'grass' ? '#6b7a45' : bg === 'light' ? '#e4dccb' : '#1a1c1f'; ctx.fillRect(0, 0, stage.width, stage.height); }
+    const z = view.z*dpr, V = [z, 0, 0, z, stage.width/2 - view.cx*z, stage.height/2 - view.cy*z];
+    ctx.save(); setT(ctx, V); ctx.strokeStyle = 'rgba(255,255,255,.08)'; ctx.lineWidth = 1/z; ctx.beginPath(); ctx.moveTo(-2000, 0); ctx.lineTo(2000, 0); ctx.moveTo(0, -2000); ctx.lineTo(0, 2000); ctx.stroke(); ctx.restore();
+    scene.draw(ctx, V, simT, boxes);
+    ctx.globalAlpha = 1;
+    const fr = Math.floor(simT*FPS + EPS) + 1;
+    $('tlabel').textContent = `t = ${simT.toFixed(2)} s · khung ${fr} · ${Math.round(view.z*100)}%`;
+    const hd = $('head'); if (hd) hd.style.left = (100*simT/scene.dur) + '%';
+  }
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>

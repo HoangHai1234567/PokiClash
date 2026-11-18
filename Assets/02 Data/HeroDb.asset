@@ -1171,7 +1171,7 @@ MonoBehaviour:
   - id: cu_phu
     name: "Thi\xEAn Th\u1EA1ch Th\xFA"
     title: "Qu\xE1i th\xFA l\u01B0ng r\u1EEBng tinh th\u1EC3"
-    aola: tinh_hach_1
+    aola: tinh_hach_non
     elem: 4
     rarity: 3
     stats: 500000002800000028000000500000002d00000028000000
@@ -1182,17 +1182,17 @@ MonoBehaviour:
     line: "D\xF2ng Thi\xEAn Th\u1EA1ch Th\xFA"
     size: 0.92
     forms:
-    - name: "Thi\xEAn Th\u1EA1ch Th\xFA"
-      aola: tinh_hach_1
+    - name: "Thi\xEAn Th\u1EA1ch Th\xFA Non"
+      aola: tinh_hach_non
       size: 0.92
     - name: "Thi\xEAn Th\u1EA1ch Th\xFA"
       aola: tinh_hach_1
       size: 1.1
     minion: 0
   - id: giap_nham
-    name: "Gi\xE1p Nham"
-    title: "Chi\u1EBFn th\u1EA7n gi\xE1p v\xE0ng"
-    aola: giap_nham_1
+    name: "Th\u1ED5 Tinh"
+    title: "H\xE0nh tinh \u0111\xE1 g\u1ECDi m\u1EB7t tr\u1EDDi"
+    aola: thach_de_non
     elem: 4
     rarity: 4
     stats: 32000000640000003c0000001e0000003c0000002d000000
@@ -1200,14 +1200,14 @@ MonoBehaviour:
     ult: giap_nham_ult
     passive: giap_nham_pas
     shards: 50
-    line: "D\xF2ng Gi\xE1p Nham"
+    line: "D\xF2ng Th\u1ED5 Tinh"
     size: 0.92
     forms:
-    - name: "\u0110\u1EA5u S\u0129 Nham"
-      aola: giap_nham_1
+    - name: "Ti\u1EC3u Th\u1ED5 Tinh"
+      aola: thach_de_non
       size: 0.92
-    - name: "Gi\xE1p Nham"
-      aola: giap_nham_2
+    - name: "Th\u1ED5 Tinh"
+      aola: thach_de_1
       size: 1.1
     minion: 0
   minions:

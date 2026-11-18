@@ -1874,7 +1874,7 @@
    "id": "cu_phu",
    "name": "Thiên Thạch Thú",
    "title": "Quái thú lưng rừng tinh thể",
-   "aola": "tinh_hach_1",
+   "aola": "tinh_hach_non",
    "elem": "tho",
    "rarity": "epic",
    "stats": [
@@ -1893,8 +1893,8 @@
    "size": 0.92,
    "forms": [
     {
-     "name": "Thiên Thạch Thú",
-     "aola": "tinh_hach_1",
+     "name": "Thiên Thạch Thú Non",
+     "aola": "tinh_hach_non",
      "size": 0.92
     },
     {
@@ -1906,9 +1906,9 @@
   },
   {
    "id": "giap_nham",
-   "name": "Giáp Nham",
-   "title": "Chiến thần giáp vàng",
-   "aola": "giap_nham_1",
+   "name": "Thổ Tinh",
+   "title": "Hành tinh đá gọi mặt trời",
+   "aola": "thach_de_non",
    "elem": "tho",
    "rarity": "legend",
    "stats": [
@@ -1923,17 +1923,17 @@
    "ult": "giap_nham_ult",
    "passive": "giap_nham_pas",
    "shards": 50,
-   "line": "Dòng Giáp Nham",
+   "line": "Dòng Thổ Tinh",
    "size": 0.92,
    "forms": [
     {
-     "name": "Đấu Sĩ Nham",
-     "aola": "giap_nham_1",
+     "name": "Tiểu Thổ Tinh",
+     "aola": "thach_de_non",
      "size": 0.92
     },
     {
-     "name": "Giáp Nham",
-     "aola": "giap_nham_2",
+     "name": "Thổ Tinh",
+     "aola": "thach_de_1",
      "size": 1.1
     }
    ]

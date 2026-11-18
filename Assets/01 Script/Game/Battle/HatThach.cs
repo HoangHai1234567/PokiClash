@@ -3,6 +3,8 @@
 // ArtGen/Spine/inbox/tho9_ghichu.md; vào game: quai/doi_tinh_hach.py). Đi đường "n_" như bộ Thổ (HatTho.cs): phát lúc clip BẮT ĐẦU kèm
 // lead (giờ trúng của clip); mốc dưới đây là giây của rig, co giãn theo k = lead / giờ trúng của rig. Thiên thạch, quả cầu là hình của
 // rig (game lái bản sao bay tới đối thủ qua xương far / fly_*); ở đây chỉ tia ma sát, lửa, đá, bụi, nổ.
+// DẠNG 1 "Thiên Thạch Thú Non" (2026-11-18): rig riêng tinh_hach_non (ghi chú ArtGen/Spine/inbox/tinh_hach_non_ghichu.md), cùng nhịp clip,
+// ba thiên thạch, quả cầu nhỏ hơn: mã n_thach_xoay1 / n_thach_cau1 dùng bộ số ThtD1 (đòn thường n_thach_vo dùng chung hai dạng).
 // Người dùng (lượt 3): "chiêu mana vẫn dùng 2 tay xoa nhau, các thiên thạch xung quanh bay nhanh hơn rồi lao vào người đối thủ";
 // "chiêu cuối tướng cuộn người lại thành 1 quả bóng thiên thạch đầy gai ... bay lên cao, lao xuống người đối thủ như 1 viên thiên thạch,
 // có hiệu ứng xé gió tạo lửa rồi nổ rất lớn".
@@ -49,12 +51,46 @@ namespace PokiClash
             new Vector3(0.070f, -0.022f, 0.842f), new Vector3(0.009f, -0.022f, 0.664f), new Vector3(0.000f, -0.022f, 0.551f),
         };
 
-        // tâm quả cầu trên sân ở giây clip tr (rig): chân + cú lao đã nắn (V = 72 % quãng tới đối thủ) + tâm so với move
-        static Vector2 ThtCauSan(Vector2 feet, float H, float dir, Vector2 V, float tr)
+        // Bộ số theo DẠNG: dạng 1 "Thiên Thạch Thú Non" (2026-11-18) là rig riêng tinh_hach_non (đầu to, ba thiên thạch, quả cầu nhỏ hơn,
+        // cùng nhịp clip). Đo bằng ArtGen/Spine/tinh_hach_do_hat.py (TH_DANG=non); script đo lại đúng từng số bảng dạng 2 ở trên (Tay, Tu
+        // của dạng 2 đã chỉnh tay +0,029 / −0,008 và +0,009 / −0,003 so với số đo: dạng 1 cộng cùng độ lệch). muc: độ mạnh nổ, rung, chớp.
+        sealed class ThtDang
         {
-            float f = Mathf.Clamp(tr / 0.05f, 0, ThtCau.Length - 1.001f);
+            public Vector2 tay, tu;
+            public Vector2[] s0;
+            public Vector3[] cau;
+            public float rCau, muc;
+        }
+        static readonly ThtDang ThtD2 = new ThtDang { tay = ThtTay, tu = ThtTu, s0 = ThtS0, cau = ThtCau, rCau = ThtRCau, muc = 1f };
+        static readonly Vector3[] ThtCau1 =
+        {
+            new Vector3(0.000f, 0.055f, 0.528f), new Vector3(0.000f, 0.055f, 0.528f), new Vector3(0.000f, 0.055f, 0.528f), new Vector3(0.000f, 0.055f, 0.528f),
+            new Vector3(0.000f, 0.055f, 0.528f), new Vector3(0.000f, 0.055f, 0.528f), new Vector3(0.000f, 0.055f, 0.528f), new Vector3(0.000f, 0.055f, 0.528f),
+            new Vector3(0.000f, 0.055f, 0.530f), new Vector3(0.000f, 0.055f, 0.542f), new Vector3(0.000f, 0.055f, 0.550f), new Vector3(0.000f, 0.055f, 0.559f),
+            new Vector3(0.000f, 0.055f, 0.576f), new Vector3(0.000f, 0.055f, 0.587f), new Vector3(0.000f, 0.055f, 0.588f), new Vector3(0.000f, 0.055f, 0.586f),
+            new Vector3(0.000f, 0.055f, 0.573f), new Vector3(0.000f, 0.055f, 0.553f), new Vector3(0.000f, 0.055f, 0.544f), new Vector3(0.000f, 0.055f, 0.530f),
+            new Vector3(0.000f, 0.055f, 0.528f), new Vector3(-0.068f, 0.055f, 1.148f), new Vector3(-0.093f, 0.055f, 1.370f), new Vector3(-0.126f, 0.055f, 1.669f),
+            new Vector3(-0.136f, 0.055f, 1.760f), new Vector3(-0.146f, 0.055f, 1.855f), new Vector3(-0.148f, 0.055f, 1.872f), new Vector3(-0.149f, 0.055f, 1.878f),
+            new Vector3(-0.147f, 0.055f, 1.876f), new Vector3(-0.109f, 0.055f, 1.836f), new Vector3(-0.058f, 0.055f, 1.784f), new Vector3(0.024f, 0.055f, 1.699f),
+            new Vector3(0.309f, 0.055f, 1.403f), new Vector3(0.807f, 0.055f, 0.888f), new Vector3(1.154f, 0.055f, 0.528f), new Vector3(1.154f, 0.055f, 0.528f),
+            new Vector3(0.871f, 0.055f, 0.790f), new Vector3(0.682f, 0.055f, 0.964f), new Vector3(0.626f, 0.055f, 1.016f), new Vector3(0.570f, 0.055f, 1.067f),
+            new Vector3(0.561f, 0.055f, 1.076f), new Vector3(0.556f, 0.055f, 1.078f), new Vector3(0.539f, 0.055f, 1.077f), new Vector3(0.508f, 0.055f, 1.075f),
+            new Vector3(0.414f, 0.055f, 1.058f), new Vector3(0.295f, 0.055f, 1.017f), new Vector3(0.233f, 0.055f, 0.984f), new Vector3(0.173f, 0.055f, 0.941f),
+            new Vector3(0.070f, 0.055f, 0.819f), new Vector3(0.009f, 0.055f, 0.642f), new Vector3(0.000f, 0.055f, 0.528f),
+        };
+        static readonly ThtDang ThtD1 = new ThtDang
+        {
+            tay = new Vector2(-0.111f, 0.487f), tu = new Vector2(0.069f, 0.532f),
+            s0 = new[] { new Vector2(0.120f, 0.535f), new Vector2(0.006f, 0.519f), new Vector2(0.096f, 0.564f) },
+            cau = ThtCau1, rCau = 0.337f, muc = 0.75f
+        };
+
+        // tâm quả cầu trên sân ở giây clip tr (rig): chân + cú lao đã nắn (V = 72 % quãng tới đối thủ) + tâm so với move
+        static Vector2 ThtCauSan(Vector3[] cau, Vector2 feet, float H, float dir, Vector2 V, float tr)
+        {
+            float f = Mathf.Clamp(tr / 0.05f, 0, cau.Length - 1.001f);
             int i = (int)f;
-            var v = Vector3.Lerp(ThtCau[i], ThtCau[Mathf.Min(ThtCau.Length - 1, i + 1)], f - i);
+            var v = Vector3.Lerp(cau[i], cau[Mathf.Min(cau.Length - 1, i + 1)], f - i);
             return feet + V * v.x + new Vector2(dir * v.y * H, -v.z * H);
         }
 
@@ -137,10 +173,18 @@ namespace PokiClash
         // CHIÊU MANA "Thiên thạch xoáy": HAI TAY XOA (tia lửa đá hổ phách / ngọc lam toé giữa hai bàn tay, chớp nhỏ theo nhịp miết); mảnh tinh
         // thể bị hút về trước đôi tay lúc thiên thạch xoáy về; NĂM thiên thạch lần lượt lao vào đối thủ: lửa đuôi, tia, khói mỏng theo đúng
         // đường bay của bản sao trong rig; mỗi viên trúng: dăm đá, tinh thể, lửa nhỏ (viên cuối to hơn)
-        public float NThachXoay(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
+        public float NThachXoay(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead) =>
+            ThtXoay(ThtD2, casterFeet, casterH, foeFeet, foeBody, tH, lead);
+
+        // dạng 1 (Thiên Thạch Thú Non): ba thiên thạch, nhẹ hơn
+        public float NThachXoay1(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead) =>
+            ThtXoay(ThtD1, casterFeet, casterH, foeFeet, foeBody, tH, lead);
+
+        float ThtXoay(ThtDang d, Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
             float L = Mathf.Max(0.3f, lead), k = L / ThtXoayT, dir = foeFeet.x >= casterFeet.x ? 1 : -1, sH = casterH / 150f, sc = tH / 150f;
-            var tay = ToSan(casterFeet, casterH, dir, ThtTay);
+            var s0 = d.s0;
+            var tay = ToSan(casterFeet, casterH, dir, d.tay);
             Every(ThtXoa0 * k, ThtXoa1 * k, 30, x =>
             {
                 float a = U(-2.6f, -0.4f);
@@ -149,7 +193,7 @@ namespace PokiClash
             });
             for (int i = 0; i < 5; i++)
                 At((ThtXoa0 + 0.06f + 0.16f * i) * k, () => ToChop(tay + U2(-5, 5) * sH, 0.10f * casterH, Front, 0.08f));
-            var tu = ToSan(casterFeet, casterH, dir, ThtTu);
+            var tu = ToSan(casterFeet, casterH, dir, d.tu);
             At(ThtTu0 * k, () =>
             {
                 for (int i = 0; i < 14; i++)
@@ -159,11 +203,11 @@ namespace PokiClash
                     ToHut(p0, _ => tu, U(0.18f, 0.25f) * k, U(2.5f, 4) * sH, (i & 1) == 0 ? ThtNgoc : ToPhach, 2.2f);
                 }
             });
-            for (int j = 0; j < ThtS0.Length; j++)
+            for (int j = 0; j < s0.Length; j++)
             {
                 int jj = j;
                 float t0 = (ThtPhong0 + ThtPhongCach * j) * k, tb = ThtBay * k;
-                var a0 = ToSan(casterFeet, casterH, dir, ThtS0[j]);
+                var a0 = ToSan(casterFeet, casterH, dir, s0[j]);
                 var v = foeBody - a0;
                 var nn = dir * new Vector2(v.y, -v.x).normalized;
                 float sgn = (j & 1) == 1 ? 1 : -1;
@@ -186,12 +230,12 @@ namespace PokiClash
                 Every(t0, t0 + tb, 24, x => Smoke(Duong(T) - dv * 10 * sH, -dv * 20 + U2(-10, 10), U(0.5f, 0.8f), 4 * sH, 10 * sH, Back, "dark", 0.15f));
                 At(t0 + tb, () =>
                 {
-                    bool cuoi = jj == ThtS0.Length - 1;
-                    ThtTrung(foeBody + new Vector2(U(-0.12f, 0.12f) * tH, U(-0.12f, 0.08f) * tH), foeFeet, tH, cuoi ? 1.5f : 0.9f);
-                    if (jj > 0) Shake?.Invoke(cuoi ? 0.25f : 0.12f);
+                    bool cuoi = jj == s0.Length - 1;
+                    ThtTrung(foeBody + new Vector2(U(-0.12f, 0.12f) * tH, U(-0.12f, 0.08f) * tH), foeFeet, tH, (cuoi ? 1.5f : 0.9f) * d.muc);
+                    if (jj > 0) Shake?.Invoke((cuoi ? 0.25f : 0.12f) * d.muc);
                 });
             }
-            At((ThtPhong0 + ThtPhongCach * (ThtS0.Length - 1) + ThtBay) * k + 0.05f, () => ToVong(foeFeet, 85 * sc, 0.5f));
+            At((ThtPhong0 + ThtPhongCach * (s0.Length - 1) + ThtBay) * k + 0.05f, () => ToVong(foeFeet, 85 * sc, 0.5f));
             return L;
         }
 
@@ -199,12 +243,19 @@ namespace PokiClash
         // vọt lên (đất phụt, vòng bụi) → LAO XUỐNG: lửa xé gió bùng quanh mặt trước quả cầu, đuôi sao chổi lửa + khói, vệt gió kem → NỔ RẤT LỚN
         // ngay đối thủ (lõi lửa sau lưng nó, vành lưỡi lửa, cột lửa, hai vòng sóng, đá + tinh thể văng, vết nứt toả, vành khói, nấm khói, hai
         // nổ phụ) → nảy về kéo than, khói → đáp (vòng bụi)
-        public float NThachCau(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
+        public float NThachCau(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead) =>
+            ThtCauChieu(ThtD2, casterFeet, casterH, foeFeet, foeBody, tH, lead);
+
+        // dạng 1 (Thiên Thạch Thú Non): quả cầu nhỏ hơn, nổ nhẹ hơn (muc)
+        public float NThachCau1(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead) =>
+            ThtCauChieu(ThtD1, casterFeet, casterH, foeFeet, foeBody, tH, lead);
+
+        float ThtCauChieu(ThtDang d, Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
             float L = Mathf.Max(0.3f, lead), k = L / ThtNo, dir = foeFeet.x >= casterFeet.x ? 1 : -1, sH = casterH / 150f, sc = tH / 150f;
             var V = (foeFeet - casterFeet) * 0.72f;
-            float tGoi = T, rb = ThtRCau * casterH;
-            Vector2 Cau(float tt) => ThtCauSan(casterFeet, casterH, dir, V, (tt - tGoi) / k);
+            float tGoi = T, rb = d.rCau * casterH, m = d.muc;
+            Vector2 Cau(float tt) => ThtCauSan(d.cau, casterFeet, casterH, dir, V, (tt - tGoi) / k);
             // cuộn người: bụi bung che chỗ đổi hình
             At((ThtCuon - 0.05f) * k, () =>
             {
@@ -288,13 +339,14 @@ namespace PokiClash
             {
                 var c = Vector2.Lerp(Cau(T), foeBody, 0.55f);
                 var dat = new Vector2(c.x, foeFeet.y);
-                Shake?.Invoke(0.9f);
-                FlashScreen?.Invoke(new Color(1, 0.96f, 0.84f, 0.5f));
-                Explode(c, 1.4f, tH, Back);
-                Explode(c + new Vector2(0, 0.05f * tH), 0.55f, tH, Front);
-                for (int i = 0; i < 20; i++)
+                Shake?.Invoke(0.9f * m);
+                FlashScreen?.Invoke(new Color(1, 0.96f, 0.84f, 0.5f * m));
+                Explode(c, 1.4f * m, tH, Back);
+                Explode(c + new Vector2(0, 0.05f * tH), 0.55f * m, tH, Front);
+                int nVanh = Mathf.RoundToInt(20 * m);
+                for (int i = 0; i < nVanh; i++)
                 {
-                    float a = -180f * (i + U(-0.3f, 0.3f)) / 19 * Mathf.Deg2Rad;      // vành lưỡi lửa nửa trên, rải đều
+                    float a = -180f * (i + U(-0.3f, 0.3f)) / (nVanh - 1) * Mathf.Deg2Rad;      // vành lưỡi lửa nửa trên, rải đều
                     var q = Flame(dat + U2(-10, 10) * sc, new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 1.1f) * U(320, 680) * sc, U(0.45f, 0.7f), 15 * sc, U(28, 40) * sc,
                         "tron", Th.pal, Back, 4, -200, 1.5f, 0.35f);
                     Tongue(q, 1, 0.2f);
@@ -317,9 +369,9 @@ namespace PokiClash
                     Tongue(q, 1, 0.5f);
                     q.smokeGroup = Back;
                 });
-                Ring(dat + new Vector2(0, 2), 0.42f, 0.2f * tH, 1.8f * tH, Th.ring);
-                At(0.1f, () => Ring(dat + new Vector2(0, 2), 0.36f, 0.1f * tH, 1.3f * tH, Th.ring2));
-                ToVong(dat, 140 * sc, 0.6f);
+                Ring(dat + new Vector2(0, 2), 0.42f, 0.2f * tH, 1.8f * m * tH, Th.ring);
+                At(0.1f, () => Ring(dat + new Vector2(0, 2), 0.36f, 0.1f * tH, 1.3f * m * tH, Th.ring2));
+                ToVong(dat, 140 * m * sc, 0.6f);
                 for (int i = 0; i < 12; i++)
                 {
                     float a = (-90 + U(-75, 75)) * Mathf.Deg2Rad;
@@ -351,10 +403,10 @@ namespace PokiClash
                 for (int i = 0; i < 14; i++) Ash(c + U2(-40, 40) * sc, new Vector2(U(-80, 80), -U(80, 160)));
                 At(0.13f, () =>
                 {
-                    Shake?.Invoke(0.4f);
-                    Explode(c + new Vector2(dir * U(0.1f, 0.25f) * tH, -U(0.1f, 0.22f) * tH), 0.75f, tH, Back);
+                    Shake?.Invoke(0.4f * m);
+                    Explode(c + new Vector2(dir * U(0.1f, 0.25f) * tH, -U(0.1f, 0.22f) * tH), 0.75f * m, tH, Back);
                 });
-                At(0.3f, () => Explode(c + new Vector2(-dir * U(0.05f, 0.2f) * tH, -U(0.0f, 0.15f) * tH), 0.55f, tH, Back));
+                if (m >= 1) At(0.3f, () => Explode(c + new Vector2(-dir * U(0.05f, 0.2f) * tH, -U(0.0f, 0.15f) * tH), 0.55f, tH, Back));
             });
             // nảy về: than, khói mỏng theo quả cầu
             Every((ThtNo + 0.04f) * k, ThtNay * k, 26, x =>

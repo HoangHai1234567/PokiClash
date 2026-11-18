@@ -23,6 +23,10 @@ khi người dùng chưa đồng ý: chúng không chạy theo nhịp sân (`Sta
 Cảm giác đánh và idle của tướng (khựng lúc trúng, rung, bật lùi, hạt có vật lý, biên đạo đòn theo pha, idle theo hệ, cách dùng
 ParticleSystem qua UIParticle nếu người dùng đồng ý): xem skill `pokiclash-hero-fx`. Thông số và công thức học từ Epic Toon FX
 (`Assets/Epic Toon FX`, đã `.gitignore`, chỉ đọc, không tham chiếu từ prefab hay code của game): `pokiclash-hero-fx/toonfx.md`.
+Mẫu nổ, lửa, nước, khói vẽ phẳng của Kingdom Rush 5:
+- **Trang xem** soi từng khung: `ArtGen/ThamKhao/KR5/MO_WEB.bat`. Dữ liệu ảnh đã `.gitignore`.
+- **Bài học:** `skill-petclash/hoc_kr5_vfx.md`.
+- **Công thức hạt:** `pokiclash-fx-congthuc` mục 2b.
 
 ## 1. Luật hình (người dùng chốt, bắt buộc)
 

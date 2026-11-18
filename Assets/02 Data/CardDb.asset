@@ -3920,10 +3920,10 @@ MonoBehaviour:
     owner: cu_phu
     effectsJson: '[{"k":"buff","stat":"crit","v":0.12,"turns":99}]'
   - id: giap_nham_skill
-    name: "Nham Quy\u1EC1n"
+    name: "Nguy\u1EC7t Nh\u1EADn"
     rarity: 2
     kind: 1
-    icon: fist
+    icon: moon
     costMana: 40
     costRage: 0
     trigger: 0
@@ -3936,10 +3936,10 @@ MonoBehaviour:
     owner: giap_nham
     effectsJson: '[{"k":"dmg","mult":1.4},{"k":"buff","stat":"def","v":-0.2,"turns":2,"until":"end","on":"foe"}]'
   - id: giap_nham_ult
-    name: "Nham Gi\xE1p Thi\xEAn B\u0103ng"
+    name: "H\u1EB1ng Tinh Di\u1EC7t"
     rarity: 4
     kind: 2
-    icon: crack
+    icon: sun
     costMana: 50
     costRage: 100
     trigger: 0
@@ -3952,10 +3952,10 @@ MonoBehaviour:
     owner: giap_nham
     effectsJson: '[{"k":"dmg","mult":3},{"k":"status","id":"stun","turns":1,"chance":0.5,"on":"foe"}]'
   - id: giap_nham_pas
-    name: "B\u1EDDm \u0110\u1ECF Chi\u1EBFn \xDD"
+    name: "V\u1EC7 Tinh H\u1ED9 Th\u1EC3"
     rarity: 3
     kind: 3
-    icon: rage
+    icon: shield
     costMana: 0
     costRage: 0
     trigger: 2
@@ -5634,10 +5634,10 @@ MonoBehaviour:
     owner: ho_kim_cuong
     effectsJson: '[{"k":"cleanse"},{"k":"shield","pct":0.2},{"k":"buff","stat":"atk","v":0.25,"turns":2}]'
   - id: giap_nham_boss
-    name: "Nham Gi\xE1p Ch\u1EA5n \u0110\u1ECBa"
+    name: "L\xF5i H\xE0nh Tinh"
     rarity: 4
     kind: 3
-    icon: helmet
+    icon: rock
     costMana: 0
     costRage: 0
     trigger: 3

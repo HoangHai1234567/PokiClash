@@ -1,0 +1,16 @@
+image 1 = C:\Atomik\PokiWar\ArtGen\Islands\refs\world_style.png: drawing style
+image 2 = C:\Atomik\PokiWar\ArtGen\Home\concept\concept_F_iso_toan_dao_2.png: approved concept (look of the forest only)
+image 3 = C:\Atomik\PokiWar\ArtGen\Home\base\refs\forest_layout.png: footprint diamond and frame (make_forest_refs.py)
+SAVE: C:\Atomik\PokiWar\ArtGen\Home\base\forest_lot_A.png, forest_lot_B.png, forest_lot_C.png (ba kiểu, chỉ khác câu VARIANT)
+Magnific: gpt-2-6, 1:1, 1k, quality high
+
+One square lot of dense locked forest for a mobile base-building game, as a single game object on a plain flat white background, in strict isometric 2:1 projection.
+
+FRAME (most important): follow image 3 exactly. The green diamond in image 3 is the ground footprint of the lot (twice as wide as tall, corners pointing up, right, down and left, bottom corner at the bottom centre of the picture). Draw a patch of grass ground exactly filling that diamond, completely covered by tall, tightly packed trees, so that almost no ground is visible except a thin grassy rim along the two lower edges. Trees stand on the diamond and rise upward, staying inside the grey frame. Nothing outside the diamond except the trees rising above it. Everything else is pure flat white. Do not draw the grey lines, the text or the outline of image 3.
+
+VARIANT A: mostly tall dark-green pine trees of different heights, two or three round bushes at the front.
+
+STYLE: the forest look of image 2, drawn like image 1: hand-drawn, wobbly dark-brown ink outlines, coloured pencil and wax crayon hatching, one flat colour per area, chunky cute shapes, every tree with a clear outline. No drop shadows, no shadows on the ground, no glossy highlights, no glow, no gradients, no 3D render. No text.
+
+(VARIANT B: a mix of big round broadleaf trees and a few pines, with two mossy grey boulders at the front edge.)
+(VARIANT C: a mix of pines and round trees with a fallen mossy log, ferns and a tree stump at the front edge.)

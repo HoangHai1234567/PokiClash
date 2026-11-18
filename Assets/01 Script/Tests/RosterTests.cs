@@ -43,8 +43,11 @@ namespace PokiClash.Tests
             // .atomik vẽ lại (ArtGen/Spine/build_kim.py, kim_nghe_<k>); từ 2026-11-17 suất này là Nhật Vương, vua robot (rig vua_may_<k>,
             // ArtGen/Spine/quai/doi_vua_may.py; trước: rig aola goc_1840 → goc_1841, rồi kim_nghe_1 → kim_nghe_2)
             Assert.AreEqual(new[] { "vua_may_1", "vua_may_2" }, System.Array.ConvertAll(d.Hero("kim_nghe").forms, f => f.aola));
-            // đảo Thổ (2026-11-10): boss Giáp Nham .atomik vẽ lại (ArtGen/Spine/build_tho.py; trước: goc_1273 → goc_1274)
-            Assert.AreEqual(new[] { "giap_nham_1", "giap_nham_2" }, System.Array.ConvertAll(d.Hero("giap_nham").forms, f => f.aola));
+            // đảo Thổ, boss ải 70 (giap_nham): từ 2026-11-18 là Tiểu Thổ Tinh (rig thach_de_non, cùng xương, co tỉ lệ) → Thổ Tinh, hành tinh
+            // đá (rig thach_de_1); ArtGen/Spine/quai/doi_thach_de.py; trước: Giáp Nham giap_nham_1 → giap_nham_2, rồi goc_1273 → goc_1274
+            Assert.AreEqual(new[] { "thach_de_non", "thach_de_1" }, System.Array.ConvertAll(d.Hero("giap_nham").forms, f => f.aola));
+            // suất 9 đảo Thổ (cu_phu, ải 60): Thiên Thạch Thú Non (rig tinh_hach_non, 2026-11-18) → Thiên Thạch Thú (tinh_hach_1, 2026-11-17)
+            Assert.AreEqual(new[] { "tinh_hach_non", "tinh_hach_1" }, System.Array.ConvertAll(d.Hero("cu_phu").forms, f => f.aola));
             // lô 10 tướng mới đảo Thủy (2026-11-11): .atomik dựng từ quái tham khảo, mã hình <id>_<k>; dòng 1–9 hai dạng, Hải Long ba dạng
             Assert.AreEqual(new[] { "ti_tach_1", "ti_tach_2" }, System.Array.ConvertAll(d.Hero("ti_tach").forms, f => f.aola));
             Assert.AreEqual(new[] { "hai_long_1", "hai_long_2", "hai_long_3" }, System.Array.ConvertAll(d.Hero("hai_long").forms, f => f.aola));

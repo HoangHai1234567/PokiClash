@@ -87,7 +87,8 @@ namespace PokiClash.Core
         public int caveFloor; // số tầng Hang Tiềm Năng đã qua lần đầu (tầng sau mở khi qua tầng trước)
         public int badgeGifts; // số mốc sao Đền Huy Hiệu đã nhận
         public CaveDay cave; // Hang Tiềm Năng: lượt trong ngày
-        public FarmState farm; // trang trại (null = chưa dùng)
+        public FarmState farm; // trang trại (null = chưa dùng; Nhà gộp sang rồi đặt null, Home.Of)
+        public HomeState home; // Nhà (2026-11-18, thay Trang trại; null = chưa mở lần nào)
         public AdState ads; // lượt quảng cáo đã dùng trong ngày theo chỗ đặt
         public TreeState trees; // cây bi (null = chưa tính lần nào)
         public Entitlements ent; // quyền lợi gói đã mua
@@ -408,7 +409,7 @@ namespace PokiClash.Core
         static readonly HashSet<string> Known = new HashSet<string>
         {
             "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "rings", "heroes", "team", "zones", "zoneChests", "clears",
-            "afkSince", "afk", "badges", "potentialStones", "evoStones", "potentialCrystals", "caveFloor", "badgeGifts", "cave", "farm", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
+            "afkSince", "afk", "badges", "potentialStones", "evoStones", "potentialCrystals", "caveFloor", "badgeGifts", "cave", "farm", "home", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
         };
 
         public static int VersionOf(string json)
@@ -553,6 +554,7 @@ namespace PokiClash.Core
                     foreach (var kv in rest)
                         if (kv.Value is double ms) s.farm.rest[kv.Key] = ms;
             }
+            s.home = ReadHome(J.Obj(o, "home"));
             var tro = J.Obj(o, "trees");
             if (tro != null)
             {
@@ -596,6 +598,61 @@ namespace PokiClash.Core
             foreach (var kv in o) if (!Known.Contains(kv.Key)) s.extra[kv.Key] = kv.Value;
             return s;
         }
+
+        // Nhà (Home.cs): công trình, ô rừng, gỗ, quặng, bánh, nghỉ, túi trang trí
+        static HomeState ReadHome(Dictionary<string, object> ho)
+        {
+            if (ho == null) return null;
+            var h = new HomeState
+            {
+                lastTick = J.Num(ho, "lastTick"), boostUntil = J.Num(ho, "boostUntil"), nextId = J.Int(ho, "nextId", 1),
+                wood = J.Num(ho, "wood"), ore = J.Num(ho, "ore"), bread = J.Int(ho, "bread"),
+                seed = (uint)Math.Max(1, J.Num(ho, "seed", 1)), beautyGifts = J.Int(ho, "beautyGifts"),
+            };
+            foreach (var x in J.Arr(ho, "lots")) if (x is double l) h.lots.Add((int)l);
+            foreach (var kv in J.Obj(ho, "clearing") ?? new Dictionary<string, object>())
+                if (kv.Value is double ms && int.TryParse(kv.Key, out var lot)) h.clearing[lot] = ms;
+            foreach (var kv in J.Obj(ho, "rest") ?? new Dictionary<string, object>())
+                if (kv.Value is double ms) h.rest[kv.Key] = ms;
+            foreach (var kv in J.Obj(ho, "bag") ?? new Dictionary<string, object>())
+                if (kv.Value is double n && n > 0) h.bag[kv.Key] = (int)n;
+            foreach (var kv in J.Obj(ho, "tiles") ?? new Dictionary<string, object>())
+                if (kv.Value is string t && int.TryParse(kv.Key, out var ti)) h.tiles[ti] = t;
+            foreach (var x in J.Arr(ho, "buildings"))
+            {
+                var bo = J.Obj(x);
+                if (bo == null) continue;
+                var b = new HomeBuilding
+                {
+                    id = J.Int(bo, "id"), def = J.Str(bo, "def"), gx = J.Int(bo, "x"), gy = J.Int(bo, "y"), level = J.Int(bo, "lv", 1),
+                    flip = J.Bool(bo, "flip"), job = J.Int(bo, "job"), until = J.Num(bo, "until"), acc = J.Num(bo, "acc"), tree = J.Int(bo, "tree", -1),
+                };
+                foreach (var y in J.Arr(bo, "slots"))
+                {
+                    var so = J.Obj(y);
+                    b.slots.Add(new HomeSlot { hero = J.Str(so, "hero"), energy = J.Num(so, "energy"), stock = J.Num(so, "stock") });
+                }
+                h.buildings.Add(b);
+            }
+            return h;
+        }
+
+        static Dictionary<string, object> WriteHome(HomeState h) => new Dictionary<string, object>
+        {
+            ["lastTick"] = h.lastTick, ["boostUntil"] = h.boostUntil, ["nextId"] = h.nextId, ["wood"] = h.wood, ["ore"] = h.ore,
+            ["bread"] = h.bread, ["seed"] = (double)h.seed, ["beautyGifts"] = h.beautyGifts,
+            ["lots"] = h.lots.Cast<object>().ToList(),
+            ["clearing"] = h.clearing.ToDictionary(kv => kv.Key.ToString(), kv => (object)kv.Value),
+            ["rest"] = h.rest.ToDictionary(kv => kv.Key, kv => (object)kv.Value),
+            ["bag"] = h.bag.ToDictionary(kv => kv.Key, kv => (object)kv.Value),
+            ["tiles"] = h.tiles.OrderBy(kv => kv.Key).ToDictionary(kv => kv.Key.ToString(), kv => (object)kv.Value),
+            ["buildings"] = h.buildings.Select(b => (object)new Dictionary<string, object>
+            {
+                ["id"] = b.id, ["def"] = b.def, ["x"] = b.gx, ["y"] = b.gy, ["lv"] = b.level, ["flip"] = b.flip, ["job"] = b.job,
+                ["until"] = b.until, ["acc"] = b.acc, ["tree"] = b.tree,
+                ["slots"] = b.slots.Select(sl => (object)new Dictionary<string, object> { ["hero"] = sl.hero, ["energy"] = sl.energy, ["stock"] = sl.stock }).ToList(),
+            }).ToList(),
+        };
 
         static PotLine[] ReadLines(object v)
         {
@@ -705,6 +762,7 @@ namespace PokiClash.Core
                     }).ToList(),
                     ["rest"] = s.farm.rest.ToDictionary(kv => kv.Key, kv => (object)kv.Value),
                 };
+            if (s.home != null) o["home"] = WriteHome(s.home);
             if (s.cave != null)
                 o["cave"] = new Dictionary<string, object>
                 {
