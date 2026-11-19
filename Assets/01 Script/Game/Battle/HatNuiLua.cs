@@ -84,17 +84,22 @@ namespace PokiClash
         }
 
         // lửa phụt ở miệng một ống theo hướng ống + một cụm khói nhỏ (y sân đi xuống); sc: cỡ. 2026-11-18: bớt hạt (16 phát × 6 ống), khói thành cụm
-        void OngPhut(Vector2 mieng, Vector2 ax, float sc)
+        // khoi false (2026-11-19 chiều): bỏ cụm khói miệng ống khi đạn đã tự nhả vệt khói đuôi từ ngay miệng ống (giữ ngân sách hạt cho 16 viên)
+        void OngPhut(Vector2 mieng, Vector2 ax, float sc, bool khoi = true)
         {
             for (int j = 0; j < 2; j++)
                 HoaLuoi(Flame(mieng + ax * U(2, 8), ax * U(220, 380) * sc + U2(-40, 40), U(0.16f, 0.24f), 5 * sc, U(10, 14) * sc, "tron", Th.pal, Front,
                     4.5f, -120, 1.5f, 0, 0), 1, 0.1f, 0);
-            HoaKhoi(mieng + ax * U(4, 12), U(9, 12) * sc, Back, ax * U(60, 120) * sc + new Vector2(U(-15, 15), -U(20, 40)), U(0.55f, 0.8f), false, 0.6f);
+            if (khoi)
+                HoaKhoi(mieng + ax * U(4, 12), U(9, 12) * sc, Back, ax * U(60, 120) * sc + new Vector2(U(-15, 15), -U(20, 40)), U(0.55f, 0.8f), false, 0.6f);
             Spark(mieng, ax + U2(-0.5f, 0.5f), U(220, 360), 0, 6);
         }
 
         // MỘT ĐẠN TẦM NHIỆT: rời `from` theo hướng `ax`, bay D giây theo đường cong ngẫu nhiên, luôn tới đúng `tgt`. r: bán kính đầu đạn.
-        void TenNhiet(Vector2 from, Vector2 ax, Vector2 tgt, float D, float r)
+        // vet > 0 (2026-11-19, người dùng: "tên lửa ... nên thêm trail smoke vào", "trail để lại vệt dài hơn", rồi chê dải liền "phải là khói chứ
+        // không phải tô đen"): đạn kéo VỆT KHÓI BÔNG HoaKhoiDuoi từ gốc đuôi lửa: cụm "khoi" xám nâu KhoiSam chồng sát nhau thành vệt mềm liền;
+        // vet = chiều cao thân đối thủ × độ mạnh dạng
+        void TenNhiet(Vector2 from, Vector2 ax, Vector2 tgt, float D, float r, float vet = 0)
         {
             float dist = Mathf.Max(40, (tgt - from).magnitude);
             // điểm lái 1: dọc trục ống (đạn phóng ra theo hướng ống, kể cả khi ống chĩa ngược phía đối thủ)
@@ -116,6 +121,10 @@ namespace PokiClash
             var h = new P { pos = from, life = D, group = Front, seed = rng.Next(4), r0 = r, pal = Th.pal, aim = ax };
             float dong = 0;
             int dem = 0;
+            // khung vẽ sẵn (2026-11-19): đầu + đuôi đạn là cầu lửa "cau_lua" (lặp, mũi theo đường cong, khung cao 4 r) nên bỏ chuỗi lưỡi lửa đuôi và
+            // cụm khói đuôi; giữ tia văng thưa
+            var cau = FbArt("cau_lua");
+            h.ph = U(0, 24);
             h.upd = (z, dt, s) =>
             {
                 float x = Mathf.Clamp01(z.age / z.life);
@@ -129,15 +138,37 @@ namespace PokiClash
                 {
                     dong -= 1;
                     dem++;
-                    var q = s.Flame(now - z.aim * z.r0 * 0.5f + s.U2(-0.3f, 0.3f) * z.r0, -z.aim * s.U(40, 110) + new Vector2(0, -20), s.U(0.16f, 0.24f),
-                        z.r0 * 0.95f, z.r0 * 0.95f, "tron", z.pal, (dem & 1) == 0 ? Front : Back, 3, -140, 1.4f, 0, 0);
-                    s.HoaLuoi(q, 1, 0.2f, 0);
-                    q.sizeFn = (w, k) => w.r1 * Mathf.Pow(1 - k, 1.1f);
-                    if (dem % 6 == 0)
+                    if (cau == null)
+                    {
+                        var q = s.Flame(now - z.aim * z.r0 * 0.5f + s.U2(-0.3f, 0.3f) * z.r0, -z.aim * s.U(40, 110) + new Vector2(0, -20), s.U(0.16f, 0.24f),
+                            z.r0 * 0.95f, z.r0 * 0.95f, "tron", z.pal, (dem & 1) == 0 ? Front : Back, 3, -140, 1.4f, 0, 0);
+                        s.HoaLuoi(q, 1, 0.2f, 0);
+                        q.sizeFn = (w, k) => w.r1 * Mathf.Pow(1 - k, 1.1f);
+                    }
+                    // khung vẽ sẵn: bỏ luôn cụm khói đuôi (không còn chuỗi lưỡi lửa nối, các cụm đứng lẻ thành "khói rải rác")
+                    if (cau == null && dem % 6 == 0)
                         s.HoaKhoi(now - z.aim * z.r0 * 1.4f, z.r0 * 1.3f, Back, new Vector2(s.U(-12, 12), s.U(-34, -14)), s.U(0.45f, 0.65f), false, 0.7f);
                     if (dem % 7 == 0) s.Spark(now, -z.aim + s.U2(-0.6f, 0.6f), s.U(140, 240), 0, 6);
                 }
             };
+            if (cau != null)
+            {
+                var fd = Fbs["cau_lua"];
+                h.draw = (z, k, buf) =>
+                {
+                    FbHuong(z.aim, out float ang, out bool flip);
+                    float rad = z.r0 * (0.55f + 0.45f * Mathf.Min(1, k / 0.1f));
+                    DrawFb(buf, cau, fd, z.ph + z.age * fd.fps * 1.3f, z.pos, 4f * rad, z.group, 27, ang, flip, Color.white, 1);
+                };
+                Add(h);
+                // 2026-11-19 khuya (người dùng chê dải liền màu than "tô đen"; soi ảnh chụp: nhả theo giây thành cụm rời cách quãng): vệt KHÓI THẬT =
+                // cụm "khoi" 0,23 thân nhả theo QUÃNG ĐƯỜNG (mỗi 0,33 cỡ cụm: chồng 2/3), sống 0,55 s, nở 15 % về cuối, trôi lên chậm, độ đặc 0,8;
+                // nhả từ 0,1 s tới 85 % quãng bay
+                if (vet > 0)
+                    HoaKhoiDuoi(() => h.pos - h.aim * (2f * h.r0), () => !h.dead && h.age < h.life, () => h.age > 0.1f && h.age < 0.85f * h.life,
+                        0.23f * vet, KhoiSam, 0.8f, 0.33f, 0.55f);
+                return;
+            }
             // đầu đạn: một khối lửa dẹt theo hướng bay, viền mực + bốn lớp màu từ ngoài vào lõi (một hạt); ảnh khối lửa nhiều múi kr_luakhoi đổi dáng mỗi
             // 2 khung khi đã nhập, chưa có thì khối tròn cũ
             h.draw = (z, k, buf) =>
@@ -155,8 +186,16 @@ namespace PokiClash
         }
 
         // nổ nhỏ gọn cho loạt đạn tầm nhiệt (16 viên trong khoảng 1 s, giữ ngân sách hạt): chớp, ba lưỡi liềm, hai tia, cụm tàn lửa nhỏ
-        void HoaNoNho(Vector2 c, float tH, float manh)
+        // huong (2026-11-19): hướng đạn tới (±1, 0 chưa biết) để lật khung "trung_lua"
+        void HoaNoNho(Vector2 c, float tH, float manh, float huong = 0)
         {
+            // khung vẽ sẵn (2026-11-19): một "trung_lua" nhỏ (0,55 thân) chạy nhanh, hai tia, cụm tàn lửa nhỏ; thay chớp + ba lưỡi liềm
+            if (HoaFbTrung(c, 0.55f * tH * manh, huong == 0 ? Vector2.zero : new Vector2(huong, U(-0.4f, 0.4f)), Front, 1.25f) != null)
+            {
+                for (int i = 0; i < 2; i++) Spark(c, U2(-1, 1), U(260, 400), 0, 6);
+                HoaTan(c, new Vector2(U(-40, 40), -U(80, 130)), 0.45f, 2); // tàn lửa tan nhanh (2026-11-19 khuya: trước sống 0,7–1,2 s; nhường ngân sách cho vệt khói)
+                return;
+            }
             HoaChop(c, 0.24f * tH * manh, 0.08f);
             for (int i = 0; i < 3; i++)
             {
@@ -205,6 +244,18 @@ namespace PokiClash
                     DaBazan(casterFeet + new Vector2(U(-0.45f, 0.45f) * casterH, -4), new Vector2(U(-220, 220), -U(200, 380)), U(0.45f, 0.7f), U(3.4f, 5.4f));
             });
 
+            // viên kéo vệt khói (2026-11-19 khuya): giữ vệt dày liền thì ngân sách hạt chỉ đủ cho vài viên, nên chọn các viên từ ống chĩa NGƯỢC về sau
+            // (góc ≥ 100 độ: bay vòng dài lên rồi cắm xuống, vệt đẹp nhất), rải đều trong loạt; dạng 3 (16 phát) và dạng 2 (12) 4 viên, dạng 1 (8) 3
+            int soKhoi = n >= 12 ? 4 : 3;
+            var keoKhoi = new bool[n];
+            var ungVien = new System.Collections.Generic.List<int>();
+            for (int i = 0; i < n; i++)
+                if (NuiOngG[i] >= 100) ungVien.Add(i);
+            if (ungVien.Count < soKhoi)
+                for (int i = 0; i < soKhoi; i++) keoKhoi[Mathf.RoundToInt(i * (n - 1f) / Mathf.Max(1, soKhoi - 1))] = true; // không đủ ống ngược: rải đều
+            else
+                for (int i = 0; i < soKhoi; i++) keoKhoi[ungVien[Mathf.RoundToInt(i * (ungVien.Count - 1f) / Mathf.Max(1, soKhoi - 1))]] = true;
+
             // loạt bắn
             float tDau = 0, tCuoi = 0;
             for (int i = 0; i < n; i++)
@@ -221,8 +272,10 @@ namespace PokiClash
                 {
                     var m = Rig(NuiOngP[k]);
                     Shake?.Invoke(0.07f);
-                    OngPhut(m, ax, 1f);
-                    TenNhiet(m + ax * r, ax, tgt, D, r);
+                    bool duoi = HasFb("khoi") && HasFb("cau_lua");
+                    OngPhut(m, ax, 1f, !duoi);
+                    // vệt khói bông theo thân đối thủ (2026-11-19 khuya): chỉ các viên đã chọn (keoKhoi) kéo khói
+                    TenNhiet(m + ax * r, ax, tgt, D, r, keoKhoi[k] ? tH * manh : 0);
                 });
                 float tNo = ts + D;
                 if (k == 0) tDau = tNo;
@@ -232,9 +285,10 @@ namespace PokiClash
                     {
                         Shake?.Invoke(k % 4 == 3 ? 0.26f : 0.12f);
                         NuocPulse?.Invoke(k % 4 == 3 ? 0.5f : 0.25f);
-                        if (k % 4 == 3) HoaNo(tgt, 0.55f * manh, tH);
-                        else HoaNoNho(tgt, tH, manh);
-                        if (k % 2 == 0) LavaDrop(tgt, new Vector2(U(-200, 200), -U(160, 320)), U(3.5f, 5), foeFeet.y, U(0, 1) < 0.5f ? Back : Front);
+                        if (k % 4 == 3) HoaNo(tgt, 0.55f * manh, tH, null, Front, dir); // khung vẽ sẵn (2026-11-19): lật theo phía bắn
+                        else HoaNoNho(tgt, tH, manh, dir);
+                        // giọt dung nham văng: một viên trong bốn (2026-11-19 đêm: trước mỗi viên chẵn; nhường ngân sách hạt cho vệt khói đuôi dài)
+                        if (k % 4 == 1) LavaDrop(tgt, new Vector2(U(-200, 200), -U(160, 320)), U(3.5f, 5), foeFeet.y, U(0, 1) < 0.5f ? Back : Front);
                     });
             }
 
@@ -255,7 +309,7 @@ namespace PokiClash
             At(tKet + 0.13f, () =>
             {
                 Shake?.Invoke(0.35f);
-                HoaNo(giua + new Vector2(dir * U(4, 20), U(-26, 6)), 0.75f, tH);
+                HoaNo(giua + new Vector2(dir * U(4, 20), U(-26, 6)), 0.75f, tH, null, Front, dir);
             });
             At(tKet + 0.34f, () =>
             {
@@ -279,14 +333,17 @@ namespace PokiClash
 
             // tụ (2026-11-18, người dùng chê pha hút quanh cầu): vệt lửa xoắn ốc hút vào mồm nhanh dần, hai vòng co, cầu nhiều múi lớn dần giữa hai hàm
             // theo nhịp đập, nén rồi chớp lúc nhả; lưỡi lửa liếm quanh cầu
-            var rt = HoaTuCau(t => tam, R, t0 + 0.04f, L, true, 1.2f);
-            Every(t0 + 0.14f, L, x => 10 + 12 * x, x =>
-            {
-                float r = rt(T), a = U(0, 6.28f);
-                var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                HoaLuoi(Flame(tam + o * r * 0.5f, o * U(20, 70) + new Vector2(0, -U(40, 90)), U(0.18f, 0.28f), r * 0.34f, r * 0.56f, "tron", Th.pal, Front,
-                    3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
-            });
+            // khung vẽ sẵn (2026-11-19): cầu đang tụ và cầu bay là "cau_lua" (HatFbHoa.cs) đã có lửa, nên bỏ lưỡi lửa liếm quanh cầu và chuỗi lưỡi đuôi
+            bool fb = HasFb("cau_lua");
+            var rt = HoaTuCau(t => tam, R, t0 + 0.04f, L, true, 1.2f, null, dir);
+            if (!fb)
+                Every(t0 + 0.14f, L, x => 10 + 12 * x, x =>
+                {
+                    float r = rt(T), a = U(0, 6.28f);
+                    var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+                    HoaLuoi(Flame(tam + o * r * 0.5f, o * U(20, 70) + new Vector2(0, -U(40, 90)), U(0.18f, 0.28f), r * 0.34f, r * 0.56f, "tron", Th.pal, Front,
+                        3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
+                });
             // cầu đầy (0,12 s trước khi nhả): toé tia
             At(Mathf.Max(t0 + 0.1f, L - 0.12f), () =>
             {
@@ -316,15 +373,19 @@ namespace PokiClash
                 for (int i = 0; i < 6; i++)
                     BuiTro(casterFeet + new Vector2(dir * U(-0.1f, 0.4f) * casterH, U(-5, 2)), new Vector2(dir * U(90, 220), -U(10, 60)), U(0.35f, 0.6f), 4,
                         U(8, 12), Back);
-                HoaCau(Bay, t => R * (1 + 0.06f * Mathf.Sin(t * 40)), NuiCauBay + 0.01f);
+                System.Func<float, float> rb = t => R * (1 + 0.06f * Mathf.Sin(t * 40));
+                // vệt khói đuôi (2026-11-19 chiều): cụm 0,22–0,35 thân theo cỡ cầu
+                // 2026-11-19 đêm: khói sẫm, vệt dài như loạt đạn chiêu cuối (cùng tướng final boss)
+                if (!fb || HoaFbCau(Bay, rb, NuiCauBay + 0.01f, Front, true, 0, KhoiCo(R, tH), KhoiSam, 1.1f) == null) HoaCau(Bay, rb, NuiCauBay + 0.01f);
             });
-            Every(L, L + NuiCauBay, 50, x =>
-            {
-                var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.4f, 0.4f) * R, -d0 * U(60, 140) + new Vector2(-d0.y, d0.x) * U(-80, 80) + new Vector2(0, -20),
-                    U(0.2f, 0.3f), R * 0.8f, R * 0.8f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
-                HoaLuoi(q, 1, 0.2f, 0);
-                q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
-            });
+            if (!fb)
+                Every(L, L + NuiCauBay, 50, x =>
+                {
+                    var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.4f, 0.4f) * R, -d0 * U(60, 140) + new Vector2(-d0.y, d0.x) * U(-80, 80) + new Vector2(0, -20),
+                        U(0.2f, 0.3f), R * 0.8f, R * 0.8f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
+                    HoaLuoi(q, 1, 0.2f, 0);
+                    q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
+                });
             HoaDuoiKhoi(t => Bay(t) - d0 * R, L + 0.03f, L + NuiCauBay, 12, 15);
             Every(L, L + NuiCauBay, 14, x => Spark(Bay(T), -d0 + U2(-0.6f, 0.6f), U(160, 280), 0, 6));
 
@@ -339,7 +400,7 @@ namespace PokiClash
             At(tNo + 0.13f, () =>
             {
                 Shake?.Invoke(0.25f);
-                HoaNo(tgt + new Vector2(dir * U(4, 20), U(-26, 6)), 0.6f, tH);
+                HoaNo(tgt + new Vector2(dir * U(4, 20), U(-26, 6)), 0.6f, tH, null, Front, dir);
             });
             At(tNo + 0.34f, () =>
             {
@@ -368,7 +429,7 @@ namespace PokiClash
             At(L, () =>
             {
                 Shake?.Invoke(0.45f);
-                HoaNo(cham, 0.55f, tH);
+                HoaNo(cham, 0.55f, tH, null, Front, dir); // khung vẽ sẵn (2026-11-19): "trung_lua" lật theo hướng húc
                 for (int i = 0; i < 6; i++)
                 {
                     float a = (i - 2.5f) * 0.4f + U(-0.1f, 0.1f); // quạt quanh hướng húc, hơi hất lên

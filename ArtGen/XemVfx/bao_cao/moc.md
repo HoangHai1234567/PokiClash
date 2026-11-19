@@ -291,3 +291,176 @@ Chưa mở Unity, chưa chụp ảnh SAU. Phần "mong thấy" dưới đây là
    - sóng âm (`thanh_long` mana);
    - pha tụ cầu (`gac_da`, `bom_la` chiêu cuối);
    - sóng đất (`phong_linh` chiêu cuối).
+
+## Đợt khung vẽ sẵn (flipbook) 2026-11-19
+
+Bản sửa ở thư mục làm việc `fb_moc/` (scratchpad của phiên), chưa chép vào `Assets/`. Biên dịch thử ngoài Unity: Core, Game, Editor đều 0 lỗi.
+
+**Chung:**
+- File mới `HatFbMoc.cs` (partial `HatLua`), chỉ chiêu Mộc gọi:
+  - `MocGaiFb`: gai lá `gai_la`. Đỉnh phóng (khung 8) rơi đúng giờ hẹn, nên giờ trúng cũ giữ nguyên và khung nứt đất hiện trước một nhịp. Pha giữ (khung 9–16) kéo dài được; cuối đời mờ 0,08 s.
+  - `MocLocFb`: lốc `loc` lặp sau lưng con đang gồng. Nở từ 40 % trong 0,18 s, mờ dần 0,2 s lúc tắt.
+  - `MocKhoiFb`: khung `khoi` nhuộm ra bụi đất (`MocBuiFbC` = 255, 236, 204), có trôi và hãm.
+  - `MocBuiHaiBen`: hai cụm hai bên cú dậm / nện, thêm một cụm giữa nếu cần. Thay 3–6 cụm `BuiCum`.
+- Chỗ nào cũng giữ đường cũ khi chưa nhập ảnh (`HasFb` / trả null).
+- Đồ dùng chung với hệ khác giữ nguyên: `BuiCum`, `Bui`, `Spike`, `Shard`, `ThachNo`, `CungDat`, `VetDat`, `GatherLa`, `Chop`, `LaRoi` (`HatCoVuong.cs` và các hệ Kim, Hỏa đang dùng). Chỉ đổi chỗ gọi trong chiêu Mộc và các hàm chỉ Mộc dùng: `NoCau`, `DatNut`, `CotLa`, `DaNo`.
+- Không đụng tia `TiaMoc` (kể cả bụi dưới chân lúc tia chạm), sóng âm `SongChi`, quả cầu `CauLa`, hút xoắn `GatherLa`, lá vỡ `LaNo`, chớp, sét.
+- Không dùng `no`: khung lửa nhuộm lục ra nâu bùn (ảnh thử `fb_moc_xem/tint_no.jpg`). Không dùng `lua_*`, `nuoc_*`, `cau_*`.
+
+### mam_u (Mầm Ú): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: không có hiệu ứng riêng.
+- Mana `n_la`: giữ nguyên (luồng lá, không có khung lá).
+- Chiêu cuối `n_la_va`: bốn cụm `BuiCum` dưới chân đối thủ thành hai cụm khói nhuộm đất. `LaNo` giữ.
+
+### tien_la (Cầu Gai): đợt khung vẽ sẵn 2026-11-19
+- Mana `n_gai`:
+  - Hàng gai chạy tới chân đối thủ: 4 `Tuft` thành 4 cụm `gai_la` chính lớn dần, thêm 3 cụm nhỏ chen giữa lệch sang bên kia, trễ nửa nhịp. Đỉnh phóng trùng nhịp cụm cũ (gọi + 0,07 s). Vẽ ở Back.
+  - Vòng gai quanh đối thủ: `Tuft` + 5 `Spike` thành 4 cụm cao so le sau lưng (1,05–1,3 tH, đỉnh lệch nhau 0–0,08 s) và 2 cụm thấp hai bên phía trước (0,4 tH, không che mặt). Gai giữ ~0,4 s rồi gãy rụng lá ngay trong khung, nên bỏ đợt "gai rút" bằng dăm.
+  - Bụi thành khói nhuộm đất.
+  - Giữ: dăm gai hút lúc gồng, `GaiNo` (chớp, khối toé, dăm), nhịp rung và dăm theo từng gai, cung đất, vết đất, giờ trúng.
+- Chiêu cuối `n_gai_va`: `Tuft` thành 3 cụm `gai_la` so le sau lưng (bỏ khung nứt vì gọi đúng khung chạm). Bụi thành khói.
+
+### long_vuot (người cây): đợt khung vẽ sẵn 2026-11-19
+- Mana `n_gai_va` và chiêu cuối `n_la_va` dùng chung hàm với Cầu Gai và Mầm Ú: gai quất trúng có 3 cụm gai lá bật sau lưng đối thủ, bụi thành khói.
+
+### gac_da (Gạc Đá): đợt khung vẽ sẵn 2026-11-19
+- Mana `n_da_va`: bụi đá của `DaNo` (hai `BuiCum` mỗi cú) thành một cụm khói sau thân. Bụi chân thành hai cụm. Dăm đá giữ.
+- Chiêu cuối `n_cau_la`:
+  - Bụi cuốn lên lúc tụ thành khói bay lên, 3,5 cụm/giây.
+  - Bụi chân của `NoCau` thành 3 cụm khói.
+  - Giữ: cầu, `GatherLa` (người dùng dặn "gió / lá bị hút vào cầu", lốc mọc từ đất không đúng ý), múi năng lượng của `NoCau` (chưa có khung nổ năng lượng lục).
+
+### bom_la (Lộc Phong): đợt khung vẽ sẵn 2026-11-19
+- Mana `n_cau_tia`: không đổi (tia có va chạm, cầu, hút).
+- Chiêu cuối `n_cau_mom`: bụi cuốn lên thành khói bay lên. `NoCau` như Gạc Đá.
+
+### phong_linh (Lâm Tượng): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường `n_hat_nga`: bụi cào đất, chân sau đạp và cú nện thành khói (1, 2 và 2 cụm).
+- Mana `n_voi_phun`: không đổi (hạt cây, lá, phấn).
+- Chiêu cuối `n_dam_rung` / `n_dam_rung1`:
+  - Lúc gồng: lốc `loc` sau lưng voi tới ngay trước cú dậm. Lá cuốn giảm từ 76 xuống 40 lá/giây.
+  - Mỗi `CotLa` dọc sóng đất có thêm một cụm `gai_la` phóng lên. Lá bắn lên còn ~40 %. Bụi thành khói.
+  - Rễ nâu (5 `Spike`, dạng cuối) thành 5 cụm `gai_la` có thớ gỗ: 3 cao so le sau lưng, 2 thấp hai bên.
+  - Bụi dậm và bụi trúng thành khói.
+  - Giữ: `SongDat`, cung đất, vết đất, `LaNo`, đất vụn, giờ trúng.
+
+### gio_loc (Linh Điểu): đợt khung vẽ sẵn 2026-11-19
+- Giữ nguyên phần phiên sáng nay vừa làm (`NMoDam`, `NLaGam`, `NThachRoi`); chỉ thay bụi và thêm lốc.
+- Đòn thường `n_mo_dam`: 6 đốm `Bui` lúc bật thành 2 cụm khói hất ra sau.
+- Mana `n_la_gam`: 9 đốm `Bui` lúc quạt thành 3 cụm khói bay về phía đối thủ.
+- Chiêu cuối `n_thach_roi`:
+  - Lúc gồng: lốc sau lưng chim, tắt sau lúc ngửa cổ gọi. Lá và sợi gió cuốn còn ~55 %. Bụi gồng thành khói.
+  - Bụi đuôi tảng đá: `Bui` 46/giây thành khói 18/giây, cỡ theo tảng.
+  - Bụi dội xuống đất: 14 `Bui` thành 4 cụm khói.
+  - Giữ `ThachNo` (Cổ Vương dùng chung), tảng đá, lá, sợi gió, vòng `Ripple`.
+
+### thanh_long (Rồng Trúc): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường `n_rong_dam`: bụi chồm thành 1 cụm khói, dậm thành 3 cụm. `DatNut` mỗi chỗ đất bật là 1 cụm khói. Sét giữ.
+- Mana `n_rong_gam`: giữ `SongChi`. Bụi bị thổi thành khói, ít cụm hơn.
+- Chiêu cuối `n_rong_van`:
+  - Bụi lúc sấp thành khói.
+  - Lúc dựng cánh gầm: lốc sau lưng rồng, mờ dần vào kén. Lá cuốn giảm từ 70 xuống 36 lá/giây.
+  - Măng nhú báo trước: 4 `Spike` thành 4 cụm `gai_la` nhỏ (hai giữa sau lưng, hai ngoài phía trước), đứng chờ rồi gãy đúng lúc sập cánh.
+  - Rừng măng trúc: 7 `Spike` thành 6 cụm `gai_la` so le (4 cao sau lưng, 2 thấp hai bên). Khung nứt đất hiện cùng vòng co báo trước.
+  - Bỏ 2 `CotLa` (trùng việc). Lá phun giảm từ 80 xuống 60 lá/giây. Bụi thành khói.
+  - Giữ kén, bão lá, vệt chém, sét.
+
+### moc_tinh (Giác Mộc): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường `n_giac_dam`: bụi co chân thành 1 cụm khói, dậm thành 3 cụm, `DatNut` (5 chỗ + chỗ trúng) thành khói. Vết nứt hổ phách giữ.
+- Mana `n_giac_tia`: không đổi (tia).
+- Chiêu cuối `n_giac_tim`:
+  - Bụi lúc mở ngực thành 2 cụm khói. Bụi cuốn lên thành khói bay lên.
+  - Bụi dọc đường tia thành khói (~5,5 cụm/giây).
+  - `NoCau` như Gạc Đá.
+- Code hiện tại không có gai đâm lên (gợi ý giao việc có nhắc Giác Mộc), nên không thêm gai.
+
+### tho_hoang (Voọc Tướng): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: không có hiệu ứng riêng.
+- Mana `n_kiem_rut`: bụi tuột lại lúc lướt thành khói, thưa hơn.
+- Chiêu cuối `n_kiem_ao`: bụi lúc biến mất thành 2 cụm khói, lúc hiện lại thành 1, lúc chốt thành 2. Vệt chém, sẹo, sợi gió, lá giữ.
+
+### Còn ngờ (đợt khung vẽ sẵn)
+- Bụi mới đậm hơn bụi be cũ, vì khung khói nâu xám nhân màu chỉ tối đi. Cần soi trên nền cát. Nếu tối quá thì cần một bộ khung bụi be riêng.
+- Lốc có dải tím và ngọc lam, đặt sau lưng con ra chiêu (cao 1,1–1,25 lần thân). Cần soi xem có lấn hình Rồng Trúc, Linh Điểu không.
+- Gai lá xanh thay gai kem của Cầu Gai và rễ nâu của Lâm Tượng, nên đổi màu nhận diện. Nếu người dùng muốn giữ màu cũ thì nhuộm `tint`, nhưng chỉ tối đi được.
+- `NoCau` vẫn là múi năng lượng bằng hạt. Đề xuất gen thêm bộ 24 khung "nổ năng lượng lá" (lục, chanh, kem).
+- Lúc sập cánh (Vạn Diệp), 0,2 s đầu vẫn ~150 hạt sống, do đuôi bão lá có từ trước. Bản cũ ~230.
+- Chưa soi trong Unity. Cần tour chụp lại 10 tướng: hàng gai của Cầu Gai, rừng măng, rễ Lâm Tượng, lốc lúc gồng, bụi.
+
+### Cần đổi ở file không thuộc hệ Mộc
+- Chép `HatFbMoc.cs` vào `Assets/01 Script/Game/Battle/`. Unity tự tạo `.meta` và cập nhật csproj.
+- `HatCoVuong.cs` (Cổ Vương, nay là hệ Thổ) còn dùng `ThachNo`, `BuiCum`, `Spike` (rễ trồi) kiểu cũ. Agent Thổ có thể gọi `MocGaiFb` / `MocKhoiFb` / `MocBuiHaiBen` của `HatFbMoc.cs` (cùng partial class).
+- `HatNuoc.cs`, `PlayNuoc`: `n_gai` / `n_gai_va` vẫn rẽ theo `HasGai` (ảnh gai cũ). Không cần đổi, vì `NGai` còn dùng `Shard` (ảnh `shard_*`).
+
+### Sửa lớp vẽ gai (2026-11-19, sau khi người dùng xem trong game: "có vài vụ nổ layer nằm dưới địch nên không thấy rõ")
+- Hàm mới `MocVongGai` (`HatFbMoc.cs`) dựng vòng gai quanh chân đối thủ:
+  - Lớp trước (Front): hai cụm to hai bên, lệch ±0,62–0,64 tH, cao 0,78–0,84 tH, đứng chếch trước chân. Thêm một cụm vừa chếch trước chân phía con ra chiêu (±0,4 tH, 0,6 tH), vẽ đè lên.
+  - Lớp sau (Back): cụm cao làm nền, to hơn để ló lên trên vai.
+  - Không cụm cao nào ngay trước mặt.
+- Cầu Gai, mana:
+  - Hàng gai chạy tới chuyển sang Front.
+  - Vòng gai: cụm sau lưng từ 0,95–1,3 lên 1,25–1,5 tH; hai cụm trước từ 0,4–0,44 lên 0,78–0,84 tH, thêm cụm chếch trước 0,6 tH.
+- Cầu Gai chiêu cuối / Long Vuốt mana (`NGaiVa`): ba cụm Back thành hai cụm Back (1,3 và 0,95 tH) và hai cụm Front hai bên (0,72–0,77 tH). Hàm không biết phía con ra chiêu nên không có cụm chếch trước.
+- Rồng Trúc, rừng măng: cụm sau lưng từ 0,96–1,25 lên 1,25–1,55 tH; hai cụm trước từ 0,46–0,5 lên 0,83–0,89 tH, thêm cụm chếch trước 0,64 tH.
+- Rồng Trúc, măng nhú: hai cụm ngoài (Front) dời ra ±0,52 tH, cao 0,34 tH; hai cụm trong (Back) cao 0,42 tH.
+- Lâm Tượng, rễ: cụm sau lưng từ 0,9–1,12 lên 1,15–1,4 tH; hai cụm trước từ 0,44–0,46 lên 0,78–0,84 tH, thêm cụm chếch trước 0,6 tH.
+- Lâm Tượng, cột gai dọc sóng đất: chuyển sang Front, trừ cột cuối sát chân đối thủ.
+- Lốc không đổi.
+- Biên dịch thử: 0 lỗi.
+
+### bom_la (Lộc Phong): tia vẽ sẵn cho mana `n_cau_tia` (2026-11-19)
+- Người dùng chê: "các tia năng lượng/nước như này nhìn vẫn chưa đã".
+- Có đủ ảnh (`HasTia(DaTiaMoc)`) thì `NCauTia` chạy `NCauTiaFb` (`HatLoc.cs`). `TiaFb` thay thân tia `TiaMoc` + cầu nhỏ `CauLa` + bông trúng. Chưa đủ ảnh thì tia hạt cũ.
+- **Cỡ:** bề dày 0,22 casterH (tia cũ 0,11 × chiều cao lớn hơn giữa hai con).
+- **Điểm đầu, điểm cuối:** đầu là điểm giữa hai gạc (`mouth`), cuối là mặt trước thân đối thủ (`ChamThan`), như cũ.
+- **Tụ:** từ lead − 0,62; cầu xoáy đầu nòng lớn dần. Hạt hút xoắn giữ, với rộng 0,6 casterH.
+- **Giờ chạm giữ:** lead + quãng/1150.
+  - Lúc phóng = giờ chạm − tVuon (tVuon = quãng/2600, kẹp 0,07–0,14), nên phóng trễ khung bắn của clip ~0,1 s.
+  - Chớp nòng dời theo lúc phóng.
+  - Giờ trả về không đổi.
+- **Dội:** tBan = lead + 0,68 − giờ chạm (mốc tắt cũ). Nhịp trúng như `TiaMoc`:
+  - lúc chạm: rung 0,3 + `DanhTrung` 0,7;
+  - mỗi 0,12 s tới lead + 0,84: `DanhTrung` 0,3 + rung 0,1;
+  - mỗi nhịp một lá bật ngược, xen lá phong đỏ cam và lá xanh;
+  - tia vụn 7 cụm/giây, bụi khói dưới chân đối thủ.
+- **Tắt:** 6 mảnh năng lượng bay theo hướng tia rồi rơi, kèm lá phong. Đuôi tia tới đích thì `LaNo` 0,7.
+- Biên dịch thử: 0 lỗi. Chưa soi trong Unity: khung `tia_moc_trung` chưa có nên trong game vẫn chạy tia cũ.
+
+### moc_tinh (Giác Mộc): tia vẽ sẵn da vàng cho mana và chiêu cuối (2026-11-19)
+- Có đủ ảnh (`HasTia(DaTiaVang)`) thì hàm `GiacTiaFb` (`HatGiac.cs`) thay thân tia `TiaMoc`, bông gốc và bông trúng bằng `TiaFb(DaTiaVang)`. Chưa đủ ảnh thì tia hạt cũ.
+- **Giữ hợp đồng thời gian của `TiaMoc`:**
+  - đầu tia chạm đúng giờ trúng cũ (lead + quãng/2600): lúc phóng = giờ chạm − tVuon, nên lệch khung bắn của clip dưới 0,07 s;
+  - nhịp trúng như cũ: lúc chạm rung 0,3·manh + `DanhTrung` 0,7; rồi mỗi 0,12 s tới mốc nhịp cuối `DanhTrung` 0,3 + rung 0,1·manh;
+  - đuôi tia bay vào tới đích đúng lúc tia cũ mất hẳn, nên `LaNo` của mana và `NoCau` của chiêu cuối giữ giờ;
+  - chớp nòng dời theo lúc phóng;
+  - giờ trả về không đổi.
+- **Thêm theo nhịp trúng:** xen sao lấp lánh (họa tiết của tướng) và lá hổ phách bật ngược; tia vụn hổ phách toé ngược; bụi khói dưới chân đối thủ. Lúc ngừng nhả, 6 mảnh năng lượng bay theo hướng tia.
+- **Mana `n_giac_tia`:** bề dày 0,22 casterH. Cầu xoáy đầu nòng thay `CauLa`, bám đỉnh sừng theo clip từ mốc tụ cũ, tới khung bắn thì đứng ở `mouth`. Hút xoắn và năng lượng từ tim giữ; tầm hút 0,6 casterH.
+- **Chiêu cuối `n_giac_tim`:** bề dày 0,28 casterH.
+  - Cầu xoáy chỉ hiện ~0,3 s ngay trước lúc bắn, để không che quả tim của rig suốt pha tụ.
+  - Giữ: nhịp tim, hút, vòng co, chớp màn, tia vụn gốc, bụi và lá dọc tia, nứt đất, `NoCau` cuối.
+- **Màu:** da vàng (vàng, cam mép, lõi kem, sao) gần bảng hổ phách của tướng (#D68620 / #FABE3C / #FFE896), tôi thấy không lệch.
+- Biên dịch thử: 0 lỗi. Chưa soi trong Unity.
+
+### Cải tiến chiêu mana ba tướng theo trang so sánh (2026-11-19)
+- **gio_loc (Linh Điểu), `n_la_gam`** (`HatChim.cs`). Người dùng: "chim lông bay nhìn hơi chán". Nhịp rig giữ nguyên.
+  - Lúc vỗ phóng (`LaBungCanh`): chớp nhỏ, vòng gió, quạt 10 lá và 8 sợi gió bung ở cánh.
+  - Vệt bám từng lá cánh của rig (`LaCanhVet`): dựng lại đường bay của 10 lá theo công thức `chim_la_rig.py` (đích tản quanh thân đối thủ, cung `vong`, nhịp `ra` / `vao`), cả lúc đi và lúc về. Dọc đường có lá nhỏ xoáy quanh và sợi gió.
+  - Chỗ xuất phát trên cánh là ước lượng, nên vệt có thể lệch lá thật ở đoạn đầu.
+  - Thêm 4 lông `long_la` (`FbFly`, `LongLaBay`) tới đúng nhịp găm, găm thì lá vụn bật ngược.
+  - Mỗi cú găm: `DanhTrung` 0,5 / 0,3 / 0,3 (sân tự thêm bông trắng + nhún) và một bông `tia_moc_trung` nhỏ xoay theo hướng lá. Chưa có khung thì chớp toé cũ.
+- **long_vuot (người cây), `n_gai_va`** (`HatMoc.cs`). Người dùng: "cây quật nhẹ nhàng, ít cây, chưa có impact".
+  - `NGaiVa` nhận ra người cây qua bảng màu đang dùng (`ThemeLa("long_vuot")`) và chạy `NQuatGai`. Cầu Gai (cũng mã `n_gai_va`) giữ bản cũ.
+  - Bốn cây `quat_dat` so le, lệch nhau 0 / 0,09 / 0,16 / 0,23 s, mỗi cây ngả ra ngoài:
+    - cây chính lớp trước, lệch ±0,48 tH, cao 1,36 tH;
+    - cây phụ lớp trước bên kia, ±0,64 tH, cao 1,18 tH;
+    - hai cây sau lưng, cao 1,55 và 1,1 tH.
+  - Cây chính: rung 0,5 + `DanhTrung` 1. Cây sau: rung 0,3 + `DanhTrung` 0,45. Mỗi gốc một cụm bụi đất + 3 đá đất văng.
+  - Thêm 2 cụm gai lá; dăm gai, cung đất, vết đất, bụi hai bên giữ.
+  - Hàm không biết phía con ra chiêu nên bên của cây chính bốc ngẫu nhiên. Muốn đặt đúng phía thì cần tách mã riêng (vd. `n_quat_gai`) ở `StageView.MocFx` + `HatNuoc.PlayNuoc` / `NuocAtHit`, truyền `casterFeet`.
+- **tho_hoang (Voọc Tướng), `n_kiem_rut`** (`HatKiem.cs`). Người dùng: "thêm vệt chém không gian vào".
+  - Mỗi nhát chém một khung `chem_kg` (`ChemKg`) đè lên đối thủ: nhát rút 1,5 tH, nhát bổ cuối 1,8 tH.
+  - Xoay theo hướng nhát chém: vệt trong khung nghiêng 33°, chọn lật hay không cho góc xoay nhỏ nhất.
+  - Khựng: `DanhTrung` 0,6 / 0,8 gọi trước `ChemToe`, để bông trắng của sân lấy cỡ lớn. Rung 0,55 / 0,6.
+  - Vệt `VetChem`, tia vụn, lá giữ.
+- Biên dịch thử: 0 lỗi. Chưa soi trong Unity.

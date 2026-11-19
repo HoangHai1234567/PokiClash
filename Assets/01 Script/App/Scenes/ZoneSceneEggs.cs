@@ -5,7 +5,7 @@
 //    chơi nhìn thấy, nhấn mạnh là vài lần thôi"): mây quanh bệ dạt ra, boss hiện màu thật tung tuyệt kỹ tại chỗ (có hiệu ứng), xong mây
 //    khép lại, boss về xám. Mỗi lần vào đảo nhiều nhất 3 lần: lần đầu sau 10–16 giây, sau đó cách 70–120 giây, boss đang trong khung.
 // 3. Cảnh vùng rò qua mây (land.secs[k].tease): đom đóm, đèn biển quét, bong bóng, hải âu, sét và mưa, cá voi phun nước, nấm phát
-//    sáng, tuyết rơi, xoáy nước.
+//    sáng, tuyết rơi, xoáy nước; đảo Mộc thêm bướm, gió hang nanh, lá rơi, pha lê lấp lánh (màu nhuộm theo tease.c).
 // 4. Chọc mây: chạm mây thì đám quanh đó dạt ra rồi nảy về (lò xo từng đám, chạm liên tục cộng dồn mượt, mây giữ đục; người dùng
 //    2026-11-18: "mây tỏa ra vẫn mờ và chưa mượt khi tap liên tục"); chọc 7 lần một vùng thì boss hắt xì thổi tung mây, quà một lần
 //    (+3 bi, landPoke).
@@ -187,18 +187,44 @@ namespace PokiClash
                     tz.imgs.Add(img);
                 }
             }
+            // màu nhuộm của dữ liệu (tease.c), không có thì màu mặc định của loại
+            Color Tint(Color def, float a)
+            {
+                var c = !string.IsNullOrEmpty(t.c) && ColorUtility.TryParseHtmlString(t.c, out var pc) ? pc : def;
+                c.a = a;
+                return c;
+            }
             switch (t.k)
             {
-                case "dom_dom": Add(A("anim_glow"), 46, 9, new Color(1, 0.95f, 0.45f, 0)); break;
+                case "dom_dom": Add(A("anim_glow"), 46, 9, Tint(new Color(1, 0.95f, 0.45f), 0)); break;
                 case "den_bien":
                     Add(A("anim_beam"), tz.s, 1, new Color(1, 0.95f, 0.7f, 0.5f));
                     tz.imgs[0].rectTransform.pivot = new Vector2(0, 0.5f);
                     break;
                 case "bong_bong": Add(Egg("trung_bong"), 40, 8, new Color(1, 1, 1, 0)); break;
                 case "chim":
-                    Add(A("land_thuy_chim_1"), 92, 1, Color.white);
-                    Add(A("land_thuy_chim_2"), 84, 1, Color.white);
-                    break;
+                    {
+                        // hải âu cắt từ chính ảnh nền của đảo (land_<đảo>_chim_*), thiếu thì mượn của đảo Thủy
+                        Sprite Bird(int i)
+                        {
+                            var b = A(land.art + "_chim_" + i);
+                            return b ? b : A("land_thuy_chim_" + i);
+                        }
+                        Add(Bird(1), 92, 1, Color.white);
+                        Add(Bird(2), 84, 1, Color.white);
+                        break;
+                    }
+                case "buom":
+                    {
+                        // bướm cánh trắng nhuộm mỗi con một màu, bay lượn trên mây
+                        // màu đậm: nằm trên nền mây trắng, màu phấn thì chìm mất (tour 2026-11-19)
+                        var pal = new[] { new Color(1f, 0.36f, 0.6f), new Color(1f, 0.78f, 0.1f), new Color(0.3f, 0.6f, 1f), new Color(1f, 0.5f, 0.15f), new Color(0.66f, 0.4f, 1f) };
+                        foreach (var c in pal) Add(Egg("trung_buom"), 110, 1, c);
+                        break;
+                    }
+                case "gio": Add(A("anim_wind"), 170, 3, new Color(1, 1, 1, 0)); break;
+                case "la_roi": Add(Egg("trung_la"), 78, 10, Tint(new Color(0.94f, 0.54f, 0.24f), 0)); break;
+                case "pha_le": Add(A("anim_sparkle"), 96, 6, Tint(new Color(0.78f, 1f, 0.72f), 0)); break;
                 case "set":
                     Add(A("anim_glow"), tz.s * 1.6f, 1, new Color(1, 1, 0.85f, 0));
                     Add(Egg("trung_set"), 74, 1, new Color(1, 1, 1, 0));
@@ -210,7 +236,7 @@ namespace PokiClash
                     tz.imgs[0].rectTransform.localScale = new Vector3(1, 0, 1);
                     break;
                 case "phat_sang": Add(A("anim_glow"), tz.s, 1, new Color(0.78f, 0.45f, 1, 0.4f)); break;
-                case "tuyet": Add(Egg("trung_tuyet"), 64, 16, new Color(1, 1, 1, 0)); break;
+                case "tuyet": Add(Egg("trung_tuyet"), 64, 16, Tint(Color.white, 0)); break; // tuyết (Thủy), tro xám (Hỏa)
                 case "xoay": Add(A("anim_whirlpool"), tz.s, 1, new Color(1, 1, 1, 0.9f)); break;
             }
             tz.seed = tz.imgs.Select((_, i) => Mathf.Repeat(Mathf.Sin((k * 13 + i) * 12.9898f) * 43758.547f, 1f)).ToArray();
@@ -351,6 +377,52 @@ namespace PokiClash
                     break;
                 case "xoay":
                     im[0].rectTransform.localEulerAngles = new Vector3(0, 0, -t * 30);
+                    break;
+                case "buom":
+                    for (int i = 0; i < im.Count; i++)
+                    {
+                        float sd = tz.seed[i], a = t * (0.5f + 0.25f * sd) + sd * 31;
+                        im[i].rectTransform.anchoredPosition = tz.at + new Vector2(Mathf.Sin(a) * tz.s * 0.42f,
+                            Mathf.Cos(a * 0.77f + sd * 9) * tz.s * 0.2f + Mathf.Sin(t * 5 + sd * 13) * 7);
+                        // vỗ cánh: bề ngang co giãn, nghiêng theo hướng bay
+                        float flap = 0.3f + 0.7f * Mathf.Abs(Mathf.Sin(t * 9 + sd * 10));
+                        im[i].rectTransform.localScale = new Vector3(flap, 1, 1) * (0.8f + 0.4f * sd);
+                        im[i].rectTransform.localEulerAngles = new Vector3(0, 0, Mathf.Cos(a) * 18);
+                    }
+                    break;
+                case "gio":
+                    for (int i = 0; i < im.Count; i++)
+                    {
+                        float sd = tz.seed[i], u = Mathf.Repeat(t / 3.4f + i / (float)im.Count, 1);
+                        im[i].rectTransform.anchoredPosition = tz.at + new Vector2((u - 0.5f) * tz.s * 2.2f, (sd - 0.5f) * tz.s * 0.8f + Mathf.Sin(u * 6 + sd * 7) * 12);
+                        im[i].rectTransform.localScale = Vector3.one * (0.75f + 0.5f * sd);
+                        SetAlpha(im[i], 0.9f * Mathf.Sin(u * Mathf.PI));
+                    }
+                    break;
+                case "la_roi":
+                    for (int i = 0; i < im.Count; i++)
+                    {
+                        float sd = tz.seed[i], u = Mathf.Repeat(t * 0.15f + sd, 1);
+                        im[i].rectTransform.anchoredPosition = tz.at + new Vector2((sd - 0.5f) * tz.s + Mathf.Sin(t * 1.3f + sd * 20) * 40, tz.s * 0.3f - u * tz.s * 0.7f);
+                        im[i].rectTransform.localEulerAngles = new Vector3(0, 0, Mathf.Sin(t * 2 + sd * 9) * 55);
+                        im[i].rectTransform.localScale = Vector3.one * (0.7f + 0.5f * sd);
+                        SetAlpha(im[i], Mathf.Sin(u * Mathf.PI));
+                    }
+                    break;
+                case "pha_le":
+                    for (int i = 0; i < im.Count; i++)
+                    {
+                        // lấp lánh: mỗi tia nhá lên rồi tắt, mỗi lượt một chỗ mới quanh cụm pha lê
+                        float sd = tz.seed[i], cyc = t / (1.6f + sd) + sd * 7, u = Mathf.Repeat(cyc, 1);
+                        float h = Mathf.Floor(cyc) * 12.9898f + i * 78.233f;
+                        float hx = Mathf.Repeat(Mathf.Sin(h) * 43758.547f, 1), hy = Mathf.Repeat(Mathf.Sin(h * 1.7f) * 24634.63f, 1);
+                        var rt = im[i].rectTransform;
+                        rt.anchoredPosition = tz.at + new Vector2((hx - 0.5f) * tz.s, (hy - 0.3f) * tz.s * 0.7f);
+                        float pop = u < 0.5f ? Mathf.Sin(u / 0.5f * Mathf.PI) : 0;
+                        rt.localScale = Vector3.one * (pop * (0.6f + 0.6f * sd));
+                        rt.localEulerAngles = new Vector3(0, 0, t * 40 + sd * 90);
+                        SetAlpha(im[i], pop > 0.01f ? 1 : 0);
+                    }
                     break;
             }
         }

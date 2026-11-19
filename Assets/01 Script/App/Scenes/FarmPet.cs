@@ -9,6 +9,7 @@
 // - Nghỉ (Sleep, vừa rút khỏi chỗ làm): nằm trên ổ rơm, thở chậm, "z" bay lên; chạm thì hiện còn nghỉ bao lâu.
 // - Đi (Walk): nhảy lò cò tới một điểm rồi vào trạng thái đích (đổi chỗ, về ổ rơm, ra bãi cỏ).
 // Toạ độ: localPosition trong lớp thú (FarmScene.PetLayer) là điểm chân; lớp hạt trùng khung với lớp thú.
+// Cảnh chủ là IFarmPetHost: Trang trại (FarmScene) hoặc màn Nhà (HomeScene, quái đi lang thang trên đất đã mở, kéo vào công trình).
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -20,6 +21,20 @@ using Random = UnityEngine.Random;
 
 namespace PokiClash
 {
+    // cảnh chứa thú: chỗ làm (spot), hạt, chỗ đi chơi, chạm / kéo thả
+    public interface IFarmPetHost
+    {
+        float SpotFace(int spot);
+        Sprite Prop(FarmProp k);
+        Sprite ProductOf(string kind);
+        void Fx(Sprite s, Color c, Vector2 pos, Vector2 vel, float gravity, float life, float size0, float size1, float spin = 0, bool pop = false, float drag = 0);
+        Vector2 RoamPoint(Vector2 near);
+        Vector2 ClampMeadow(Vector2 pt);
+        void PetTapped(FarmPet pet);
+        void PetDragging(FarmPet pet, Vector2 pt);
+        bool PetDropped(FarmPet pet, Vector2 pt);
+    }
+
     public sealed class FarmPet : MonoBehaviour, IPointerClickHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public enum Mode { Roam, Walk, Work, Tired, Sleep, Drag }
@@ -47,7 +62,9 @@ namespace PokiClash
         public int Spot { get; private set; } = -1;
         public Vector2 Pos => pos;
 
-        FarmScene scene;
+        IFarmPetHost scene;
+        UnityEngine.Object sceneObj; // để biết cảnh chủ đã huỷ chưa (interface không so được với null của Unity)
+        PointerEventData dragEvent; // ngón đang kéo: mỗi khung đặt lại theo ngón (bản đồ có thể tự trôi khi kéo tới mép)
         string kind;
         Vector2 pos, walkTo, dragOffset;
         Mode after; // trạng thái khi đi tới nơi
@@ -58,9 +75,10 @@ namespace PokiClash
 
         RectTransform Rt => (RectTransform)transform;
 
-        public void Bind(FarmScene owner, HeroDef h)
+        public void Bind(IFarmPetHost owner, HeroDef h)
         {
             scene = owner;
+            sceneObj = owner as UnityEngine.Object;
             Hero = h.id;
             name = "thu_" + h.id;
             p.portrait.Bind(h, Height);
@@ -182,6 +200,7 @@ namespace PokiClash
             }
             State = Mode.Drag;
             hopT = -1;
+            dragEvent = e;
             p.tag.gameObject.SetActive(false);
             dragOffset = pos - Local(e);
             Kick(-0.18f);
@@ -193,6 +212,12 @@ namespace PokiClash
         public void OnDrag(PointerEventData e)
         {
             if (State != Mode.Drag) return;
+            dragEvent = e;
+            FollowFinger(e);
+        }
+
+        void FollowFinger(PointerEventData e)
+        {
             var to = Local(e) + dragOffset;
             Look(to.x - pos.x);
             pos = to;
@@ -202,6 +227,7 @@ namespace PokiClash
 
         public void OnEndDrag(PointerEventData e)
         {
+            dragEvent = null;
             if (State != Mode.Drag) return;
             State = Mode.Roam;
             lift = 0;
@@ -244,7 +270,7 @@ namespace PokiClash
 
         void Update()
         {
-            if (!scene) return;
+            if (sceneObj == null) return;
             float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f);
             float t = Time.unscaledTime;
             float rot = 0, extraLift = 0;
@@ -266,6 +292,7 @@ namespace PokiClash
                     Hop(dt);
                     break;
                 case Mode.Drag:
+                    if (dragEvent != null) FollowFinger(dragEvent);
                     extraLift = 26 + Mathf.Sin(t * 14) * 4;
                     rot = Mathf.Sin(t * 9) * 7;
                     break;

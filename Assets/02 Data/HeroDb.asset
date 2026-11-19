@@ -25,14 +25,14 @@ MonoBehaviour:
     passive: bo_cap_pas
     shards: 15
     line: "D\xF2ng Thi\u1EBFt Tinh"
-    size: 0.88
+    size: 0.83
     forms:
     - name: "Thi\u1EBFt Tinh Nhi"
       aola: tinh_sat_1
-      size: 0.88
+      size: 0.83
     - name: "Thi\u1EBFt Tinh"
       aola: tinh_sat_2
-      size: 1
+      size: 1.01
     minion: 0
   - id: bo_ngua
     name: "Thi\u1EBFt Kho\xE1ng"
@@ -46,14 +46,14 @@ MonoBehaviour:
     passive: bo_ngua_pas
     shards: 15
     line: "D\xF2ng Thi\u1EBFt Kho\xE1ng"
-    size: 0.92
+    size: 0.79
     forms:
     - name: "Thi\u1EBFt Kho\xE1ng Nhi"
       aola: quang_sat_1
-      size: 0.92
+      size: 0.79
     - name: "Thi\u1EBFt Kho\xE1ng"
       aola: quang_sat_2
-      size: 1
+      size: 0.85
     minion: 0
   - id: doc_giac
     name: "Thi\u1EBFt V\u1EC7"
@@ -67,14 +67,14 @@ MonoBehaviour:
     passive: doc_giac_pas
     shards: 10
     line: "D\xF2ng Thi\u1EBFt V\u1EC7"
-    size: 0.92
+    size: 0.83
     forms:
     - name: "Thi\u1EBFt V\u1EC7 Nhi"
       aola: chien_sat_1
-      size: 0.92
+      size: 0.83
     - name: "Thi\u1EBFt V\u1EC7"
       aola: chien_sat_2
-      size: 1.1
+      size: 0.98
     minion: 0
   - id: phi_thuong
     name: "Thi\u1EBFt C\u01B0a"
@@ -88,14 +88,14 @@ MonoBehaviour:
     passive: phi_thuong_pas
     shards: 15
     line: "D\xF2ng Thi\u1EBFt C\u01B0a"
-    size: 0.92
+    size: 0.86
     forms:
     - name: "Thi\u1EBFt C\u01B0a"
       aola: cua_xich_1
-      size: 0.92
+      size: 0.86
     - name: "Thi\u1EBFt C\u01B0a"
       aola: cua_xich_1
-      size: 1.1
+      size: 1.11
     minion: 0
   - id: khien_bac
     name: "Qu\u1EF7 X\xEDch"
@@ -109,14 +109,14 @@ MonoBehaviour:
     passive: khien_bac_pas
     shards: 20
     line: "D\xF2ng Qu\u1EF7 X\xEDch"
-    size: 0.92
+    size: 0.81
     forms:
     - name: "Qu\u1EF7 X\xEDch Nhi"
       aola: quy_xich_1
-      size: 0.92
+      size: 0.81
     - name: "Qu\u1EF7 X\xEDch"
       aola: quy_xich_2
-      size: 1.1
+      size: 1.02
     minion: 0
   - id: chien_than
     name: "S\xF3i Gi\xE1p"
@@ -130,14 +130,14 @@ MonoBehaviour:
     passive: chien_than_pas
     shards: 20
     line: "D\xF2ng S\xF3i Gi\xE1p"
-    size: 0.86
+    size: 0.84
     forms:
     - name: "S\xF3i Gi\xE1p Con"
       aola: soi_giap_1
-      size: 0.86
+      size: 0.84
     - name: "S\xF3i Gi\xE1p"
       aola: soi_giap_2
-      size: 1.1
+      size: 1.02
     minion: 0
   - id: thiet_phu
     name: "Th\u1EA7n C\u01A1"
@@ -151,14 +151,14 @@ MonoBehaviour:
     passive: thiet_phu_pas
     shards: 30
     line: "D\xF2ng Th\u1EA7n C\u01A1"
-    size: 0.92
+    size: 0.93
     forms:
     - name: "Th\u1EA7n C\u01A1 Nhi"
       aola: robot_co_1
-      size: 0.92
+      size: 0.93
     - name: "Th\u1EA7n C\u01A1"
       aola: robot_co_2
-      size: 1.1
+      size: 1.12
     minion: 0
   - id: tam_kiem
     name: "Vong K\u1EF5"
@@ -172,14 +172,14 @@ MonoBehaviour:
     passive: tam_kiem_pas
     shards: 30
     line: "D\xF2ng Vong K\u1EF5"
-    size: 0.92
+    size: 1.12
     forms:
     - name: "Vong K\u1EF5 Nhi"
       aola: ky_nguyen_1
-      size: 0.92
+      size: 1.12
     - name: "Vong K\u1EF5"
       aola: ky_nguyen_2
-      size: 1.1
+      size: 1.28
     minion: 0
   - id: ung_thep
     name: "Ph\xE1o Gi\xE1p"
@@ -193,14 +193,14 @@ MonoBehaviour:
     passive: ung_thep_pas
     shards: 30
     line: "D\xF2ng Ph\xE1o Gi\xE1p"
-    size: 0.92
+    size: 0.88
     forms:
     - name: "Ph\xE1o Gi\xE1p Nhi"
       aola: thu_phao_1
-      size: 0.92
+      size: 0.88
     - name: "Ph\xE1o Gi\xE1p"
       aola: thu_phao_2
-      size: 1.1
+      size: 1.14
     minion: 0
   - id: kim_nghe
     name: "Nh\u1EADt V\u01B0\u01A1ng"
@@ -214,14 +214,14 @@ MonoBehaviour:
     passive: kim_nghe_pas
     shards: 50
     line: "D\xF2ng Nh\u1EADt V\u01B0\u01A1ng"
-    size: 0.92
+    size: 1.03
     forms:
     - name: "Nh\u1EADt Ho\xE0ng T\u1EED"
       aola: vua_may_1
-      size: 0.92
+      size: 1.03
     - name: "Nh\u1EADt V\u01B0\u01A1ng"
       aola: vua_may_2
-      size: 1.1
+      size: 0.94
     minion: 0
   - id: tien_la
     name: "C\u1EA7u Gai"
@@ -235,14 +235,14 @@ MonoBehaviour:
     passive: tien_la_pas
     shards: 15
     line: "D\xF2ng C\u1EA7u Gai"
-    size: 0.8
+    size: 0.68
     forms:
     - name: "C\u1EA7u Gai Nh\xED"
       aola: tien_la_1
-      size: 0.8
+      size: 0.68
     - name: "C\u1EA7u Gai"
       aola: tien_la_2
-      size: 0.96
+      size: 0.81
     minion: 0
   - id: mam_u
     name: "M\u1EA7m \xDA"
@@ -256,17 +256,17 @@ MonoBehaviour:
     passive: mam_u_pas
     shards: 10
     line: "D\xF2ng M\u1EA7m \xDA"
-    size: 0.9
+    size: 0.83
     forms:
     - name: "H\u1EA1t \xDA"
       aola: mam_u_1
-      size: 0.9
+      size: 0.83
     - name: "M\u1EA7m \xDA"
       aola: mam_u_2
-      size: 1.02
+      size: 0.79
     - name: "Hoa \xDA"
       aola: mam_u_3
-      size: 1.14
+      size: 0.85
     minion: 0
   - id: gac_da
     name: "G\u1EA1c \u0110\xE1"
@@ -280,14 +280,14 @@ MonoBehaviour:
     passive: gac_da_pas
     shards: 15
     line: "D\xF2ng G\u1EA1c \u0110\xE1"
-    size: 0.92
+    size: 0.89
     forms:
     - name: "M\u1EA7m \u0110\xE1"
       aola: gac_da_1
-      size: 0.92
+      size: 0.89
     - name: "G\u1EA1c \u0110\xE1"
       aola: gac_da_2
-      size: 1.1
+      size: 0.98
     minion: 0
   - id: bom_la
     name: "L\u1ED9c Phong"
@@ -301,14 +301,14 @@ MonoBehaviour:
     passive: bom_la_pas
     shards: 15
     line: "D\xF2ng L\u1ED9c Phong"
-    size: 0.8
+    size: 0.76
     forms:
     - name: "G\u1ED1c Ng\u01A1"
       aola: bom_la_1
-      size: 0.8
+      size: 0.76
     - name: "L\u1ED9c Phong"
       aola: bom_la_2
-      size: 1.1
+      size: 0.94
     minion: 0
   - id: phong_linh
     name: "L\xE2m T\u01B0\u1EE3ng"
@@ -322,18 +322,18 @@ MonoBehaviour:
     passive: phong_linh_pas
     shards: 20
     line: "D\xF2ng L\xE2m T\u01B0\u1EE3ng"
-    size: 0.92
+    size: 0.64
     forms:
     - name: "T\u01B0\u1EE3ng M\u1EA7m"
       aola: phong_linh_1
-      size: 0.92
+      size: 0.64
     - name: "L\xE2m T\u01B0\u1EE3ng"
       aola: phong_linh_2
-      size: 1.1
+      size: 0.91
     minion: 0
   - id: gio_loc
-    name: "C\u1ED5 V\u01B0\u01A1ng"
-    title: "T\u01B0\u1EE3ng vua c\u1ED5 c\u1EA7m tr\u1EE5"
+    name: "Linh \u0110i\u1EC3u"
+    title: "Chim th\u1EA7n gi\u1EEF r\u1EEBng"
     aola: gio_loc_1
     elem: 1
     rarity: 2
@@ -342,15 +342,15 @@ MonoBehaviour:
     ult: gio_loc_ult
     passive: gio_loc_pas
     shards: 20
-    line: "D\xF2ng C\u1ED5 V\u01B0\u01A1ng"
-    size: 0.88
+    line: "D\xF2ng Linh \u0110i\u1EC3u"
+    size: 0.87
     forms:
-    - name: "C\u1ED5 V\u01B0\u01A1ng Nhi"
+    - name: "\u0110i\u1EC3u Nhi"
       aola: gio_loc_1
-      size: 0.88
-    - name: "C\u1ED5 V\u01B0\u01A1ng"
+      size: 0.87
+    - name: "Linh \u0110i\u1EC3u"
       aola: gio_loc_2
-      size: 1.1
+      size: 0.83
     minion: 0
   - id: long_vuot
     name: "Long Vu\u1ED1t"
@@ -364,14 +364,14 @@ MonoBehaviour:
     passive: long_vuot_pas
     shards: 30
     line: "D\xF2ng Long Vu\u1ED1t"
-    size: 0.92
+    size: 0.87
     forms:
     - name: "Long Vu\u1ED1t Con"
       aola: long_vuot_1
-      size: 0.92
+      size: 0.87
     - name: "Long Vu\u1ED1t"
       aola: long_vuot_2
-      size: 1.1
+      size: 1.01
     minion: 0
   - id: tho_hoang
     name: "Vo\u1ECDc T\u01B0\u1EDBng"
@@ -385,14 +385,14 @@ MonoBehaviour:
     passive: tho_hoang_pas
     shards: 30
     line: "D\xF2ng Vo\u1ECDc T\u01B0\u1EDBng"
-    size: 0.92
+    size: 0.75
     forms:
     - name: "Vo\u1ECDc Non"
       aola: tho_hoang_1
-      size: 0.92
+      size: 0.75
     - name: "Vo\u1ECDc T\u01B0\u1EDBng"
       aola: tho_hoang_2
-      size: 1.1
+      size: 1.06
     minion: 0
   - id: moc_tinh
     name: "Gi\xE1c M\u1ED9c"
@@ -406,14 +406,14 @@ MonoBehaviour:
     passive: moc_tinh_pas
     shards: 30
     line: "D\xF2ng Gi\xE1c M\u1ED9c"
-    size: 0.9
+    size: 1.08
     forms:
     - name: "Gi\xE1c M\u1ED9c Non"
       aola: giac_moc_1
-      size: 0.9
+      size: 1.08
     - name: "Gi\xE1c M\u1ED9c"
       aola: giac_moc_2
-      size: 1.05
+      size: 1.2
     minion: 0
   - id: thanh_long
     name: Thanh Long
@@ -427,17 +427,17 @@ MonoBehaviour:
     passive: thanh_long_pas
     shards: 50
     line: "D\xF2ng Thanh Long"
-    size: 0.95
+    size: 1.11
     forms:
     - name: Thanh Long Con
       aola: moc_vuong_d1
-      size: 0.95
+      size: 1.11
     - name: Thanh Long
       aola: moc_vuong_d2
-      size: 1.1
+      size: 1.23
     - name: "L\xF4i Thanh Long"
       aola: moc_vuong_1
-      size: 1.16
+      size: 1.56
     minion: 0
   - id: thach_giai
     name: "Th\u1EA1ch Gi\u1EA3i"
@@ -451,14 +451,14 @@ MonoBehaviour:
     passive: thach_giai_pas
     shards: 10
     line: "D\xF2ng Th\u1EA1ch Gi\u1EA3i"
-    size: 0.92
+    size: 0.93
     forms:
     - name: "Th\u1EA1ch Gi\u1EA3i"
       aola: thach_giai_1
-      size: 0.92
+      size: 0.93
     - name: "Th\u1EA1ch Th\xE0nh Gi\u1EA3i"
       aola: thach_giai_2
-      size: 1.1
+      size: 0.9
     minion: 0
   - id: ca_den
     name: "H\u1EA3i \u0110\u0103ng"
@@ -472,14 +472,14 @@ MonoBehaviour:
     passive: ca_den_pas
     shards: 15
     line: "D\xF2ng H\u1EA3i \u0110\u0103ng"
-    size: 0.92
+    size: 0.73
     forms:
     - name: "L\u1ED3ng \u0110\xE8n"
       aola: ca_den_1
-      size: 0.92
+      size: 0.73
     - name: "H\u1EA3i \u0110\u0103ng"
       aola: ca_den_2
-      size: 1.1
+      size: 0.96
     minion: 0
   - id: ti_tach
     name: "T\xED T\xE1ch"
@@ -493,14 +493,14 @@ MonoBehaviour:
     passive: ti_tach_pas
     shards: 15
     line: "D\xF2ng T\xED T\xE1ch"
-    size: 0.92
+    size: 0.79
     forms:
     - name: "T\xED T\xE1ch"
       aola: ti_tach_1
-      size: 0.92
+      size: 0.79
     - name: "S\xF3ng Th\u1EA7n"
       aola: ti_tach_2
-      size: 1.1
+      size: 0.97
     minion: 0
   - id: hai_long
     name: "H\u1EA3i Long"
@@ -514,17 +514,17 @@ MonoBehaviour:
     passive: hai_long_pas
     shards: 50
     line: "D\xF2ng H\u1EA3i Long"
-    size: 0.95
+    size: 1.27
     forms:
     - name: "H\u1EA3i Long Nhi"
       aola: hai_long_1
-      size: 0.95
+      size: 1.27
     - name: "H\u1EA3i Long Tam Th\u1EE7"
       aola: hai_long_2
-      size: 1.1
+      size: 1.26
     - name: "H\u1EA3i Long Ng\u0169 \u0110\u1EA7u"
       aola: hai_long_3
-      size: 1.16
+      size: 1.4
     minion: 0
   - id: han_ngac
     name: "H\xE0n Ng\u1EA1c"
@@ -538,14 +538,14 @@ MonoBehaviour:
     passive: han_ngac_pas
     shards: 30
     line: "D\xF2ng H\xE0n Ng\u1EA1c"
-    size: 0.92
+    size: 1.08
     forms:
     - name: "Ng\u1EA1c Nhi"
       aola: han_ngac_1
-      size: 0.92
+      size: 1.08
     - name: "H\xE0n Ng\u1EA1c V\u01B0\u01A1ng"
       aola: han_ngac_2
-      size: 1.1
+      size: 1.26
     minion: 0
   - id: ha_ba
     name: "S\xF2 Ngo\u1EA1m"
@@ -559,14 +559,14 @@ MonoBehaviour:
     passive: ha_ba_pas
     shards: 15
     line: "D\xF2ng S\xF2 Ngo\u1EA1m"
-    size: 0.92
+    size: 0.87
     forms:
     - name: "S\xF2 H\xE1u"
       aola: ha_ba_1
-      size: 0.92
+      size: 0.87
     - name: "S\xF2 Ngo\u1EA1m"
       aola: ha_ba_2
-      size: 1.1
+      size: 1.12
     minion: 0
   - id: so_ngoc
     name: "B\xE1t Tr\u1EA3o"
@@ -580,14 +580,14 @@ MonoBehaviour:
     passive: so_ngoc_pas
     shards: 20
     line: "D\xF2ng B\xE1t Tr\u1EA3o"
-    size: 0.92
+    size: 0.91
     forms:
     - name: "Tr\u1EA3o Nhi"
       aola: so_ngoc_1
-      size: 0.92
+      size: 0.91
     - name: "B\xE1t Tr\u1EA3o"
       aola: so_ngoc_2
-      size: 1.1
+      size: 1.01
     minion: 0
   - id: giong_bao
     name: "Gi\xF4ng B\xE3o"
@@ -601,14 +601,14 @@ MonoBehaviour:
     passive: giong_bao_pas
     shards: 20
     line: "D\xF2ng Gi\xF4ng B\xE3o"
-    size: 0.92
+    size: 0.77
     forms:
     - name: "Gi\xF4ng M\u01B0a"
       aola: giong_bao_1
-      size: 0.92
+      size: 0.77
     - name: "Gi\xF4ng B\xE3o"
       aola: giong_bao_2
-      size: 1.1
+      size: 1.06
     minion: 0
   - id: uyen_xa
     name: "Uy\xEAn X\xE0"
@@ -622,14 +622,14 @@ MonoBehaviour:
     passive: uyen_xa_pas
     shards: 30
     line: "D\xF2ng Uy\xEAn X\xE0"
-    size: 0.92
+    size: 1.07
     forms:
     - name: "Uy\xEAn Nhi"
       aola: uyen_xa_1
-      size: 0.92
+      size: 1.07
     - name: "Uy\xEAn X\xE0"
       aola: uyen_xa_2
-      size: 1.1
+      size: 1.28
     minion: 0
   - id: lien_kinh
     name: "Th\xF4n K\xECnh"
@@ -643,14 +643,14 @@ MonoBehaviour:
     passive: lien_kinh_pas
     shards: 30
     line: "D\xF2ng Th\xF4n K\xECnh"
-    size: 0.92
+    size: 0.78
     forms:
     - name: "K\xECnh Nhi"
       aola: lien_kinh_1
-      size: 0.92
+      size: 0.78
     - name: "Th\xF4n K\xECnh"
       aola: lien_kinh_2
-      size: 1.1
+      size: 0.98
     minion: 0
   - id: su_tu_lua
     name: "Ti\u1EC3u Qu\u1EF7 Lava"
@@ -664,17 +664,17 @@ MonoBehaviour:
     passive: su_tu_lua_pas
     shards: 15
     line: "D\xF2ng Qu\u1EF7 Lava"
-    size: 0.9
+    size: 0.48
     forms:
     - name: "Ti\u1EC3u Qu\u1EF7 Lava"
       aola: quy_lava_1
-      size: 0.9
+      size: 0.48
     - name: "Hi\u1EC7p S\u0129 Dung Nham"
       aola: quy_lava_2
-      size: 1.02
+      size: 0.54
     - name: "Hi\u1EC7p S\u0129 Dung Nham"
       aola: quy_lava_2
-      size: 1.14
+      size: 0.66
     minion: 0
   - id: hoa_nhan
     name: "H\u1ECFa Nh\xE3n"
@@ -688,14 +688,14 @@ MonoBehaviour:
     passive: hoa_nhan_pas
     shards: 10
     line: "D\xF2ng H\u1ECFa Nh\xE3n"
-    size: 0.92
+    size: 0.67
     forms:
     - name: "Nh\xE3n Than"
       aola: hoa_nhan_1
-      size: 0.92
+      size: 0.67
     - name: "H\u1ECFa Nh\xE3n"
       aola: hoa_nhan_2
-      size: 1.1
+      size: 0.91
     minion: 0
   - id: kim_su
     name: "H\u1ECFa Cung"
@@ -709,14 +709,14 @@ MonoBehaviour:
     passive: kim_su_pas
     shards: 15
     line: "D\xF2ng H\u1ECFa Cung"
-    size: 0.92
+    size: 0.8
     forms:
     - name: "H\u1ECFa Cung Nhi"
       aola: kim_su_1
-      size: 0.92
+      size: 0.8
     - name: "H\u1ECFa Cung"
       aola: kim_su_2
-      size: 1.1
+      size: 0.93
     minion: 0
   - id: nham_than
     name: "Nham Th\u1EA7n"
@@ -730,14 +730,14 @@ MonoBehaviour:
     passive: nham_than_pas
     shards: 15
     line: "D\xF2ng Nham Th\u1EA7n"
-    size: 0.92
+    size: 0.81
     forms:
     - name: Nham Con
       aola: nham_than_1
-      size: 0.92
+      size: 0.81
     - name: "Nham Th\u1EA7n"
       aola: nham_than_2
-      size: 1.1
+      size: 0.94
     minion: 0
   - id: hong_lien
     name: "Vi\xEAm S\u01B0"
@@ -751,14 +751,14 @@ MonoBehaviour:
     passive: hong_lien_pas
     shards: 20
     line: "D\xF2ng Vi\xEAm S\u01B0"
-    size: 0.8
+    size: 0.73
     forms:
     - name: "Vi\xEAm \u0110\u1ED3ng"
       aola: phap_lua_non
-      size: 0.8
+      size: 0.73
     - name: "Vi\xEAm S\u01B0"
       aola: phap_lua_1
-      size: 1.1
+      size: 0.87
     minion: 0
   - id: giap_long
     name: "Vi\xEAm \u0110ao"
@@ -772,14 +772,14 @@ MonoBehaviour:
     passive: giap_long_pas
     shards: 30
     line: "D\xF2ng Vi\xEAm \u0110ao"
-    size: 0.8
+    size: 0.65
     forms:
     - name: "Vi\xEAm \u0110ao Nhi"
       aola: quy_dao_non
-      size: 0.8
+      size: 0.65
     - name: "Vi\xEAm \u0110ao"
       aola: quy_dao_1
-      size: 1.1
+      size: 0.89
     minion: 0
   - id: huyen_viem
     name: "Vi\xEAm D\u0169ng"
@@ -793,14 +793,14 @@ MonoBehaviour:
     passive: huyen_viem_pas
     shards: 30
     line: "D\xF2ng Vi\xEAm D\u0169ng"
-    size: 0.85
+    size: 0.67
     forms:
     - name: "Vi\xEAm D\u0169ng Nhi"
       aola: dat_nung_non
-      size: 0.85
+      size: 0.67
     - name: "Vi\xEAm D\u0169ng"
       aola: dat_nung_1
-      size: 0.95
+      size: 0.8
     minion: 0
   - id: hoa_tinh
     name: "B\u1EA1ch Vi\xEAm H\u1ED5"
@@ -814,14 +814,14 @@ MonoBehaviour:
     passive: hoa_tinh_pas
     shards: 30
     line: "D\xF2ng B\u1EA1ch Vi\xEAm H\u1ED5"
-    size: 0.9
+    size: 0.98
     forms:
     - name: "Vi\xEAm H\u1ED5 Nhi"
       aola: hoa_ho_non
-      size: 0.9
+      size: 0.98
     - name: "B\u1EA1ch Vi\xEAm H\u1ED5"
       aola: hoa_ho_1
-      size: 0.95
+      size: 1.18
     minion: 0
   - id: lan_hoa
     name: "H\u1ECFa S\u01A1n Long"
@@ -835,17 +835,17 @@ MonoBehaviour:
     passive: lan_hoa_pas
     shards: 50
     line: "D\xF2ng H\u1ECFa S\u01A1n Long"
-    size: 0.85
+    size: 0.79
     forms:
     - name: "H\u1ECFa S\u01A1n Nhi"
       aola: nui_lua_non
-      size: 0.85
+      size: 0.79
     - name: "H\u1ECFa S\u01A1n Th\xFA"
       aola: nui_lua_2
-      size: 0.86
+      size: 0.95
     - name: "H\u1ECFa S\u01A1n Long"
       aola: nui_lua_1
-      size: 0.92
+      size: 1.12
     minion: 0
   - id: nguu_quyen
     name: "H\u1ECFa Quy"
@@ -859,89 +859,14 @@ MonoBehaviour:
     passive: nguu_quyen_pas
     shards: 20
     line: "D\xF2ng H\u1ECFa Quy"
-    size: 0.78
+    size: 0.82
     forms:
     - name: "H\u1ECFa Quy Con"
       aola: rua_lua_non
-      size: 0.78
+      size: 0.82
     - name: "H\u1ECFa Quy"
       aola: rua_lua_1
-      size: 1.1
-    minion: 0
-  - id: vo_su
-    name: "V\xF5 S\u01B0"
-    title: "Quy\u1EC1n th\u1EE7 \xE1o v\u1EA3i"
-    aola: monk_boxer
-    elem: 4
-    rarity: 1
-    stats: 2d0000002d0000003c0000002d0000003c0000002d000000
-    skill: vs_skill
-    ult: vs_ult
-    passive: vs_pas
-    shards: 15
-    line: "D\xF2ng Th\u1ECF V\xF5"
-    size: 1
-    forms:
-    - name: "V\xF5 S\u01B0"
-      aola: monk_boxer
-      size: 1
-    minion: 0
-  - id: gau_mo
-    name: "G\u1EA5u Th\u1EE3 M\u1ECF"
-    title: "Th\u1EE3 \u0111\xE0o h\u1EA7m"
-    aola: goc_373
-    elem: 4
-    rarity: 0
-    stats: 5a0000008200000096000000320000003200000050000000
-    skill: gau_mo_skill
-    ult: gau_mo_ult
-    passive: gau_mo_pas
-    shards: 10
-    line: "D\xF2ng G\u1EA5u Th\u1EE3 M\u1ECF"
-    size: 1
-    forms:
-    - name: "G\u1EA5u Th\u1EE3 M\u1ECF"
-      aola: goc_373
-      size: 1
-    minion: 0
-  - id: soc_da
-    name: "S\xF3c \u0110\xE1"
-    title: "M\xE1 ph\u1ED3ng \u0111\u1EA7y s\u1ECFi"
-    aola: goc_825
-    elem: 4
-    rarity: 1
-    stats: 460000003c000000280000003c0000002800000014000000
-    skill: soc_da_skill
-    ult: soc_da_ult
-    passive: soc_da_pas
-    shards: 15
-    line: "D\xF2ng S\xF3c \u0110\xE1"
-    size: 0.92
-    forms:
-    - name: "S\xF3c \u0110\xE1"
-      aola: goc_825
-      size: 0.92
-    - name: "S\xF3c \u0110\xE1"
-      aola: goc_826
-      size: 1.1
-    minion: 0
-  - id: bo_hung
-    name: "B\u1ECD Hung C\xE1t"
-    title: "L\u0103n c\u1EA7u c\xE1t v\xE0ng"
-    aola: goc_210
-    elem: 4
-    rarity: 1
-    stats: c8000000640000009600000064000000960000005a000000
-    skill: bo_hung_skill
-    ult: bo_hung_ult
-    passive: bo_hung_pas
-    shards: 15
-    line: "D\xF2ng B\u1ECD Hung C\xE1t"
-    size: 1
-    forms:
-    - name: "B\u1ECD Hung C\xE1t"
-      aola: goc_210
-      size: 1
+      size: 1.08
     minion: 0
   - id: thach_nhan
     name: "Th\u1EA1ch Gi\xE1p"
@@ -955,74 +880,14 @@ MonoBehaviour:
     passive: thach_nhan_pas
     shards: 15
     line: "D\xF2ng Th\u1EA1ch Gi\xE1p"
-    size: 0.88
+    size: 0.77
     forms:
     - name: "Th\u1EA1ch Gi\xE1p Nhi"
       aola: cong_da_1
-      size: 0.88
+      size: 0.77
     - name: "Th\u1EA1ch Gi\xE1p"
       aola: cong_da_2
-      size: 1
-    minion: 0
-  - id: sa_than
-    name: "Sa Th\u1EA7n"
-    title: "H\u1ED9 v\u1EC7 sa m\u1EA1c"
-    aola: goc_1000
-    elem: 4
-    rarity: 2
-    stats: fa00000064000000c800000064000000c8000000b4000000
-    skill: sa_than_skill
-    ult: sa_than_ult
-    passive: sa_than_pas
-    shards: 20
-    line: "D\xF2ng Sa Th\u1EA7n"
-    size: 1
-    forms:
-    - name: "Sa Th\u1EA7n"
-      aola: goc_1000
-      size: 1
-    minion: 0
-  - id: ky_lan
-    name: "K\u1EF3 L\xE2n C\xE1t"
-    title: "B\u1EDDm c\xE1t ho\xE0ng kim"
-    aola: goc_88
-    elem: 4
-    rarity: 3
-    stats: 320000004600000032000000280000003200000028000000
-    skill: ky_lan_skill
-    ult: ky_lan_ult
-    passive: ky_lan_pas
-    shards: 30
-    line: "D\xF2ng K\u1EF3 L\xE2n C\xE1t"
-    size: 0.9
-    forms:
-    - name: "K\u1EF3 L\xE2n C\xE1t"
-      aola: goc_88
-      size: 0.9
-    - name: "K\u1EF3 L\xE2n C\xE1t"
-      aola: goc_89
-      size: 1.02
-    - name: "K\u1EF3 L\xE2n C\xE1t"
-      aola: goc_90
-      size: 1.14
-    minion: 0
-  - id: ca_sa
-    name: "\u0110\u1EA1i S\u01B0 C\xE0 Sa"
-    title: "Kim cang h\u1ED9 ph\xE1p"
-    aola: monk_2217
-    elem: 4
-    rarity: 4
-    stats: 6e000000460000005f000000880000005f0000007c000000
-    skill: cs_skill
-    ult: cs_ult
-    passive: cs_pas
-    shards: 50
-    line: "D\xF2ng Th\u1ECF V\xF5"
-    size: 1.18
-    forms:
-    - name: "\u0110\u1EA1i S\u01B0 C\xE0 Sa"
-      aola: monk_2217
-      size: 1.18
+      size: 0.95
     minion: 0
   - id: lung_vuong
     name: "Sa T\xEDch"
@@ -1036,14 +901,14 @@ MonoBehaviour:
     passive: lung_vuong_pas
     shards: 10
     line: "D\xF2ng Sa T\xEDch"
-    size: 0.9
+    size: 0.79
     forms:
     - name: "Sa T\xEDch Nhi"
       aola: than_lan_cat_1
-      size: 0.9
+      size: 0.79
     - name: "Sa T\xEDch"
       aola: than_lan_cat_2
-      size: 1.04
+      size: 1.09
     minion: 0
   - id: cao_da
     name: "T\xEA Thi\u1EC1m"
@@ -1057,11 +922,11 @@ MonoBehaviour:
     passive: cao_da_pas
     shards: 15
     line: "D\xF2ng T\xEA Thi\u1EC1m"
-    size: 0.92
+    size: 0.84
     forms:
     - name: "T\xEA Thi\u1EC1m Nhi"
       aola: thu_da_1
-      size: 0.92
+      size: 0.84
     - name: "T\xEA Thi\u1EC1m"
       aola: thu_da_2
       size: 1.08
@@ -1078,14 +943,14 @@ MonoBehaviour:
     passive: ho_khoan_pas
     shards: 15
     line: "D\xF2ng Sa Long"
-    size: 0.85
+    size: 0.95
     forms:
     - name: Sa Long Nhi
       aola: rong_cat_non
-      size: 0.85
+      size: 0.95
     - name: Sa Long
       aola: rong_cat_1
-      size: 1.1
+      size: 1.05
     minion: 0
   - id: phu_van
     name: "S\u01A1n Vi\xEAn"
@@ -1099,18 +964,18 @@ MonoBehaviour:
     passive: phu_van_pas
     shards: 20
     line: "D\xF2ng S\u01A1n Vi\xEAn"
-    size: 0.96
+    size: 0.71
     forms:
     - name: "S\u01A1n Vi\xEAn"
       aola: quy_nui_1
-      size: 0.96
+      size: 0.71
     - name: "S\u01A1n Vi\xEAn"
       aola: quy_nui_1
-      size: 1.14
+      size: 0.91
     minion: 0
   - id: hat_de
-    name: "H\u1EA1t D\u1EBB"
-    title: "D\u0169ng s\u0129 khi\xEAn h\u1EA1t d\u1EBB"
+    name: "C\u1ED5 V\u01B0\u01A1ng"
+    title: "T\u01B0\u1EE3ng vua c\u1ED5 c\u1EA7m tr\u1EE5"
     aola: hat_de_1
     elem: 4
     rarity: 2
@@ -1119,15 +984,15 @@ MonoBehaviour:
     ult: hat_de_ult
     passive: hat_de_pas
     shards: 20
-    line: "D\xF2ng H\u1EA1t D\u1EBB"
-    size: 0.92
+    line: "D\xF2ng C\u1ED5 V\u01B0\u01A1ng"
+    size: 0.89
     forms:
-    - name: "L\xEDnh H\u1EA1t D\u1EBB"
+    - name: "C\u1ED5 V\u01B0\u01A1ng Nhi"
       aola: hat_de_1
-      size: 0.92
-    - name: "D\u0169ng S\u0129 H\u1EA1t D\u1EBB"
+      size: 0.89
+    - name: "C\u1ED5 V\u01B0\u01A1ng"
       aola: hat_de_2
-      size: 1.1
+      size: 1.17
     minion: 0
   - id: rua_nui
     name: "Sa Tr\xF9ng"
@@ -1141,14 +1006,14 @@ MonoBehaviour:
     passive: rua_nui_pas
     shards: 30
     line: "D\xF2ng Sa Tr\xF9ng"
-    size: 0.85
+    size: 0.81
     forms:
     - name: "Sa Tr\xF9ng Nhi"
       aola: sau_dat_non
-      size: 0.85
+      size: 0.81
     - name: "Sa Tr\xF9ng"
       aola: sau_dat_1
-      size: 1.1
+      size: 1.01
     minion: 0
   - id: ho_kim_cuong
     name: "B\xF9n Ngo\u1EA1m"
@@ -1162,11 +1027,11 @@ MonoBehaviour:
     passive: ho_kim_cuong_pas
     shards: 30
     line: "D\xF2ng B\xF9n Ngo\u1EA1m"
-    size: 1.16
+    size: 1.08
     forms:
     - name: "B\xF9n Ngo\u1EA1m"
       aola: quai_bun_1
-      size: 1.16
+      size: 1.08
     minion: 0
   - id: cu_phu
     name: "Thi\xEAn Th\u1EA1ch Th\xFA"
@@ -1180,14 +1045,14 @@ MonoBehaviour:
     passive: cu_phu_pas
     shards: 30
     line: "D\xF2ng Thi\xEAn Th\u1EA1ch Th\xFA"
-    size: 0.92
+    size: 1
     forms:
     - name: "Thi\xEAn Th\u1EA1ch Th\xFA Non"
       aola: tinh_hach_non
-      size: 0.92
+      size: 1
     - name: "Thi\xEAn Th\u1EA1ch Th\xFA"
       aola: tinh_hach_1
-      size: 1.1
+      size: 1.08
     minion: 0
   - id: giap_nham
     name: "Th\u1ED5 Tinh"
@@ -1201,14 +1066,14 @@ MonoBehaviour:
     passive: giap_nham_pas
     shards: 50
     line: "D\xF2ng Th\u1ED5 Tinh"
-    size: 0.92
+    size: 1.06
     forms:
     - name: "Ti\u1EC3u Th\u1ED5 Tinh"
       aola: thach_de_non
-      size: 0.92
+      size: 1.06
     - name: "Th\u1ED5 Tinh"
       aola: thach_de_1
-      size: 1.1
+      size: 1.39
     minion: 0
   minions:
   - id: linh_cua
@@ -1223,11 +1088,11 @@ MonoBehaviour:
     passive: linh_cua_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.58
     forms:
     - name: "Cua K\xECm"
       aola: goc_1313
-      size: 0.8
+      size: 0.58
     minion: 1
   - id: linh_cua2
     name: "Cua Ph\xE1o"
@@ -1241,11 +1106,11 @@ MonoBehaviour:
     passive: linh_cua2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.83
     forms:
     - name: "Cua Ph\xE1o"
       aola: goc_1314
-      size: 0.86
+      size: 0.83
     minion: 1
   - id: linh_noc
     name: "C\xE1 N\xF3c"
@@ -1259,11 +1124,11 @@ MonoBehaviour:
     passive: linh_noc_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.77
     forms:
     - name: "C\xE1 N\xF3c"
       aola: goc_16
-      size: 0.8
+      size: 0.77
     minion: 1
   - id: linh_noc2
     name: "C\xE1 N\xF3c \u0110i\u1EC7n"
@@ -1277,11 +1142,11 @@ MonoBehaviour:
     passive: linh_noc2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 1.07
     forms:
     - name: "C\xE1 N\xF3c \u0110i\u1EC7n"
       aola: goc_17
-      size: 0.86
+      size: 1.07
     minion: 1
   - id: linh_ngu
     name: "Song Ng\u01B0 Con"
@@ -1313,11 +1178,11 @@ MonoBehaviour:
     passive: linh_ngu2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 1.06
     forms:
     - name: "Song Ng\u01B0"
       aola: goc_830
-      size: 0.86
+      size: 1.06
     minion: 1
   - id: linh_bo
     name: "B\u1ECD S\u1EEBng"
@@ -1331,11 +1196,11 @@ MonoBehaviour:
     passive: linh_bo_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.62
     forms:
     - name: "B\u1ECD S\u1EEBng"
       aola: goc_40
-      size: 0.8
+      size: 0.62
     minion: 1
   - id: linh_bo2
     name: "B\u1ECD S\u1EEBng G\u1ED7"
@@ -1349,11 +1214,11 @@ MonoBehaviour:
     passive: linh_bo2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.79
     forms:
     - name: "B\u1ECD S\u1EEBng G\u1ED7"
       aola: goc_41
-      size: 0.86
+      size: 0.79
     minion: 1
   - id: linh_ran
     name: "S\xE2u U\u1ED1n"
@@ -1367,11 +1232,11 @@ MonoBehaviour:
     passive: linh_ran_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.68
     forms:
     - name: "S\xE2u U\u1ED1n"
       aola: goc_58
-      size: 0.8
+      size: 0.68
     minion: 1
   - id: linh_ran2
     name: "R\u1EAFn Gai"
@@ -1385,11 +1250,11 @@ MonoBehaviour:
     passive: linh_ran2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.88
     forms:
     - name: "R\u1EAFn Gai"
       aola: goc_59
-      size: 0.86
+      size: 0.88
     minion: 1
   - id: linh_chim
     name: "Chim L\xE1"
@@ -1403,11 +1268,11 @@ MonoBehaviour:
     passive: linh_chim_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.83
     forms:
     - name: "Chim L\xE1"
       aola: goc_82
-      size: 0.8
+      size: 0.83
     minion: 1
   - id: linh_chim2
     name: "Chim L\u01B0u Ly"
@@ -1421,11 +1286,11 @@ MonoBehaviour:
     passive: linh_chim2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 1.02
     forms:
     - name: "Chim L\u01B0u Ly"
       aola: goc_83
-      size: 0.86
+      size: 1.02
     minion: 1
   - id: linh_lo
     name: "L\xF2 L\u1EEDa"
@@ -1439,11 +1304,11 @@ MonoBehaviour:
     passive: linh_lo_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.69
     forms:
     - name: "L\xF2 L\u1EEDa"
       aola: goc_64
-      size: 0.8
+      size: 0.69
     minion: 1
   - id: linh_lo2
     name: "L\xF2 Qu\xE1i"
@@ -1457,11 +1322,11 @@ MonoBehaviour:
     passive: linh_lo2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 1.05
     forms:
     - name: "L\xF2 Qu\xE1i"
       aola: goc_65
-      size: 0.86
+      size: 1.05
     minion: 1
   - id: linh_nam
     name: "N\u1EA5m L\u1EEDa"
@@ -1475,11 +1340,11 @@ MonoBehaviour:
     passive: linh_nam_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.71
     forms:
     - name: "N\u1EA5m L\u1EEDa"
       aola: goc_13
-      size: 0.8
+      size: 0.71
     minion: 1
   - id: linh_nam2
     name: "Qu\xE1i Nham"
@@ -1493,11 +1358,11 @@ MonoBehaviour:
     passive: linh_nam2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.98
     forms:
     - name: "Qu\xE1i Nham"
       aola: goc_14
-      size: 0.86
+      size: 0.98
     minion: 1
   - id: linh_khi
     name: "Kh\u1EC9 L\u1EEDa"
@@ -1529,11 +1394,11 @@ MonoBehaviour:
     passive: linh_khi2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.92
     forms:
     - name: "Kh\u1EC9 H\u1ECFa Di\u1EC7m"
       aola: goc_292
-      size: 0.86
+      size: 0.92
     minion: 1
   - id: linh_giap
     name: "Gi\xE1p V\u1EC7"
@@ -1547,11 +1412,11 @@ MonoBehaviour:
     passive: linh_giap_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.68
     forms:
     - name: "Gi\xE1p V\u1EC7"
       aola: goc_121
-      size: 0.8
+      size: 0.68
     minion: 1
   - id: linh_giap2
     name: "Chi\u1EBFn Gi\xE1p"
@@ -1565,11 +1430,11 @@ MonoBehaviour:
     passive: linh_giap2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 1.07
     forms:
     - name: "Chi\u1EBFn Gi\xE1p"
       aola: goc_122
-      size: 0.86
+      size: 1.07
     minion: 1
   - id: linh_khien
     name: "N\xF3c S\u1EAFt"
@@ -1583,11 +1448,11 @@ MonoBehaviour:
     passive: linh_khien_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.68
     forms:
     - name: "N\xF3c S\u1EAFt"
       aola: goc_1061
-      size: 0.8
+      size: 0.68
     minion: 1
   - id: linh_khien2
     name: "N\xF3c Khi\xEAn"
@@ -1601,11 +1466,11 @@ MonoBehaviour:
     passive: linh_khien2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.92
     forms:
     - name: "N\xF3c Khi\xEAn"
       aola: goc_1062
-      size: 0.86
+      size: 0.92
     minion: 1
   - id: linh_may
     name: "M\xE1y Bay Con"
@@ -1619,11 +1484,11 @@ MonoBehaviour:
     passive: linh_may_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.77
     forms:
     - name: "M\xE1y Bay Con"
       aola: goc_949
-      size: 0.8
+      size: 0.77
     minion: 1
   - id: linh_may2
     name: "Ph\u1EA3n L\u1EF1c"
@@ -1637,11 +1502,11 @@ MonoBehaviour:
     passive: linh_may2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.95
     forms:
     - name: "Ph\u1EA3n L\u1EF1c"
       aola: goc_950
-      size: 0.86
+      size: 0.95
     minion: 1
   - id: linh_khoan
     name: "Chu\u1ED9t Khoan"
@@ -1655,11 +1520,11 @@ MonoBehaviour:
     passive: linh_khoan_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.84
     forms:
     - name: "Chu\u1ED9t Khoan"
       aola: goc_1041
-      size: 0.8
+      size: 0.84
     minion: 1
   - id: linh_khoan2
     name: "Khoan Gi\xE1p"
@@ -1673,11 +1538,11 @@ MonoBehaviour:
     passive: linh_khoan2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 1
     forms:
     - name: "Khoan Gi\xE1p"
       aola: goc_1042
-      size: 0.86
+      size: 1
     minion: 1
   - id: linh_da
     name: "\u0110\xE1 Con"
@@ -1691,11 +1556,11 @@ MonoBehaviour:
     passive: linh_da_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.65
     forms:
     - name: "\u0110\xE1 Con"
       aola: goc_832
-      size: 0.8
+      size: 0.65
     minion: 1
   - id: linh_da2
     name: "\u0110\xE1 X\xEDch"
@@ -1709,11 +1574,11 @@ MonoBehaviour:
     passive: linh_da2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.96
     forms:
     - name: "\u0110\xE1 X\xEDch"
       aola: goc_833
-      size: 0.86
+      size: 0.96
     minion: 1
   - id: linh_ngua
     name: "Ng\u1EF1a Con"
@@ -1727,11 +1592,11 @@ MonoBehaviour:
     passive: linh_ngua_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.8
+    size: 0.72
     forms:
     - name: "Ng\u1EF1a Con"
       aola: goc_297
-      size: 0.8
+      size: 0.72
     minion: 1
   - id: linh_ngua2
     name: "Ng\u1EF1a R\u1EB1n"
@@ -1745,11 +1610,11 @@ MonoBehaviour:
     passive: linh_ngua2_pas
     shards: 0
     line: "L\xEDnh"
-    size: 0.86
+    size: 0.98
     forms:
     - name: "Ng\u1EF1a R\u1EB1n"
       aola: goc_298
-      size: 0.86
+      size: 0.98
     minion: 1
   starters:
   - ti_tach
@@ -1757,4 +1622,4 @@ MonoBehaviour:
   - bo_cap
   - tien_la
   - thach_nhan
-  legendMilestoneHero: ca_sa
+  legendMilestoneHero: giap_nham

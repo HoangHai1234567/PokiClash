@@ -1,5 +1,7 @@
 // Chuyển scene: khép mây → Exit scene cũ → gỡ scene cũ → nạp cộng scene mới → Enter(args) → mở mây.
 // Yêu cầu đến khi đang chuyển dở thì xếp hàng, chỉ giữ yêu cầu mới nhất.
+// Màn che: mây hai bên (CloudCover); sảnh ↔ Nhà và màn tải dùng chuyến tàu qua mây (ShipVoyage.Takes) nếu App đã gắn.
+// Màn che chung một giao diện ISceneCover.
 using System;
 using System.Collections;
 using UnityEngine;
@@ -7,10 +9,20 @@ using UnityEngine.SceneManagement;
 
 namespace PokiClash
 {
+    // màn che lúc chuyển scene: Close che kín (rồi mới gỡ scene cũ), Open mở ra màn mới
+    public interface ISceneCover
+    {
+        bool Closed { get; }
+        IEnumerator Close();
+        IEnumerator Open();
+        void Block(bool on);
+    }
+
     public sealed class SceneRouter : MonoBehaviour
     {
         [SerializeField] CloudCover cover;
         [SerializeField] TopBars bars;
+        ShipVoyage voyage; // App gắn lúc chạy (prefab riêng)
         bool busy;
         (string scene, object args)? pending;
 
@@ -25,6 +37,8 @@ namespace PokiClash
             cover = cloud;
             bars = topBars;
         }
+
+        public void SetVoyage(ShipVoyage v) => voyage = v;
 
         public void Go(string scene, object args = null)
         {
@@ -45,12 +59,13 @@ namespace PokiClash
         IEnumerator Run(string scene, object args)
         {
             busy = true;
-            if (!cover.Closed)
+            ISceneCover tr = voyage && voyage.Takes(Current, scene) ? voyage : cover;
+            if (!tr.Closed)
             {
-                App.Audio?.Play("whoosh");
-                yield return cover.Close();
+                if (tr == (ISceneCover)cover) App.Audio?.Play("whoosh");
+                yield return tr.Close();
             }
-            else cover.Block(true);
+            else tr.Block(true);
 
             App.Modals?.CloseAll();
             if (CurrentRoot)
@@ -84,7 +99,7 @@ namespace PokiClash
                 }
                 else
                 {
-                    yield return cover.Open();
+                    yield return tr.Open();
                     busy = false;
                 }
                 yield break;
@@ -119,7 +134,7 @@ namespace PokiClash
 
             // chờ một chút cho bố cục dựng xong như bản web (60 ms) rồi mới mở mây
             yield return new WaitForSecondsRealtime(0.06f);
-            yield return cover.Open();
+            yield return tr.Open();
             busy = false;
 
             if (pending.HasValue)

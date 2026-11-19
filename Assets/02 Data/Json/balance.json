@@ -27,7 +27,7 @@
   "maxRounds": 60
  },
  "progression": {
-  "saveVersion": 12,
+  "saveVersion": 13,
   "maxLevel": 200,
   "expBase": 45,
   "expPow": 1.0,
@@ -247,8 +247,8 @@
   "measured": {
    "balls": 6000,
    "ringHits": [
-    1.6,
-    0.95
+    1.06,
+    1.07
    ]
   }
  },
@@ -302,7 +302,7 @@
   "thuy": {
    "team": [
     "ti_tach",
-    "vo_su",
+    "cao_da",
     "tien_la"
    ],
    "star": 1,
@@ -312,7 +312,7 @@
    "team": [
     "so_ngoc",
     "ti_tach",
-    "vo_su"
+    "cao_da"
    ],
    "star": 3,
    "card": 2
@@ -1001,10 +1001,10 @@
   ]
  },
  "home": {
-  "grid": 48,
-  "lot": 8,
-  "startLots": [[3, 3], [3, 4], [4, 3], [4, 4], [4, 5], [5, 4], [5, 5]],
-  "maxLots": [9, 12, 15, 18, 22, 25, 28, 30, 32, 32],
+  "grid": 72,
+  "lot": 12,
+  "startLots": [[2, 2], [2, 3], [2, 4], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [4, 4]],
+  "maxLots": [11, 14, 17, 20, 24, 27, 30, 32, 32, 32],
   "rings": [
    {"home": 1, "player": 0, "wood": 40, "woodStep": 25, "ore": 0, "oreStep": 0, "minutes": 10, "reward": 30, "balls": 15},
    {"home": 3, "player": 25, "wood": 220, "woodStep": 40, "ore": 30, "oreStep": 10, "minutes": 120, "reward": 80, "balls": 40},
@@ -1017,12 +1017,12 @@
    {"i": 5, "j": 0, "kind": "hill"}
   ],
   "features": [
-   {"kind": "lake", "gx": 10, "gy": 10, "w": 4, "d": 4},
-   {"kind": "lake", "gx": 2, "gy": 42, "w": 4, "d": 4},
-   {"kind": "stream", "gx": 11, "gy": 14, "w": 1, "d": 34},
-   {"kind": "ore", "gx": 17, "gy": 33, "w": 6, "d": 6},
-   {"kind": "ore", "gx": 33, "gy": 9, "w": 6, "d": 6},
-   {"kind": "fertile", "gx": 24, "gy": 40, "w": 8, "d": 8}
+   {"kind": "lake", "gx": 13, "gy": 12, "w": 7, "d": 9},
+   {"kind": "lake", "gx": 7, "gy": 65, "w": 4, "d": 5},
+   {"kind": "stream", "gx": 16, "gy": 21, "w": 1, "d": 51},
+   {"kind": "ore", "gx": 27, "gy": 63, "w": 6, "d": 6},
+   {"kind": "ore", "gx": 51, "gy": 15, "w": 6, "d": 6},
+   {"kind": "fertile", "gx": 38, "gy": 62, "w": 8, "d": 8}
   ],
   "levels": [
    {"player": 0, "wood": 0, "ore": 0, "minutes": 0, "slots": 4, "builders": 1},
@@ -1049,19 +1049,20 @@
   "beautyGifts": [{"wood": 50}, {"wood": 100, "ore": 20}, {"balls": 30, "ore": 40}, {"evo": 2}, {"stones": 10}],
   "tile": 2,
   "startTiles": [
-   {"b": "dirt", "gx": 23, "gy": 23},
    {"b": "dirt", "gx": 22, "gy": 23},
-   {"b": "dirt", "gx": 22, "gy": 22},
-   {"b": "dirt", "gx": 21, "gy": 22},
-   {"b": "dirt", "gx": 21, "gy": 21},
-   {"b": "dirt", "gx": 20, "gy": 21},
-   {"b": "dirt", "gx": 20, "gy": 20},
-   {"b": "dirt", "gx": 19, "gy": 20},
-   {"b": "dirt", "gx": 19, "gy": 19},
-   {"b": "dirt", "gx": 18, "gy": 19},
-   {"b": "dirt", "gx": 18, "gy": 18},
-   {"b": "dirt", "gx": 17, "gy": 18},
-   {"b": "dirt", "gx": 17, "gy": 17}
+   {"b": "dirt", "gx": 23, "gy": 23},
+   {"b": "dirt", "gx": 23, "gy": 24},
+   {"b": "dirt", "gx": 24, "gy": 24},
+   {"b": "dirt", "gx": 24, "gy": 25},
+   {"b": "dirt", "gx": 25, "gy": 25},
+   {"b": "dirt", "gx": 25, "gy": 26},
+   {"b": "dirt", "gx": 26, "gy": 26},
+   {"b": "dirt", "gx": 26, "gy": 27},
+   {"b": "dirt", "gx": 27, "gy": 27},
+   {"b": "dirt", "gx": 27, "gy": 28},
+   {"b": "dirt", "gx": 28, "gy": 28},
+   {"b": "dirt", "gx": 28, "gy": 29},
+   {"b": "dirt", "gx": 29, "gy": 29}
   ],
   "tiles": [
    {"id": "dirt", "name": "Đất", "wood": 1},
@@ -1076,11 +1077,11 @@
    {"w": 2, "k": "deco", "min": 1, "max": 1}
   ],
   "layout": [
-   {"b": "main", "gx": 28, "gy": 26},
-   {"b": "field", "gx": 24, "gy": 32},
-   {"b": "orchard", "gx": 24, "gy": 36},
-   {"b": "sawmill", "gx": 34, "gy": 24},
-   {"b": "storage", "gx": 35, "gy": 30}
+   {"b": "main", "gx": 39, "gy": 39},
+   {"b": "field", "gx": 32, "gy": 47},
+   {"b": "orchard", "gx": 32, "gy": 53},
+   {"b": "sawmill", "gx": 47, "gy": 35},
+   {"b": "storage", "gx": 49, "gy": 44}
   ],
   "buildings": [
    {"id": "main", "name": "Nhà chính", "kind": "main", "size": 6, "home": 1},

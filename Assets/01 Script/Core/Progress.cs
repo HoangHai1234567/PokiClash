@@ -94,6 +94,9 @@ namespace PokiClash.Core
         // mini boss / boss và qua lại mini boss, boss tỉ lệ nhỏ (StageEvo), rương bậc Đền Huy Hiệu (Badges). Chừa chỗ: mỏ đá trong trang
         // trại (chưa làm, GD_Claude/20_TangDayNoiDung.md) thì cộng thẳng vào SaveData.evoStones như các nguồn trên.
 
+        // Bậc theo dạng (2026-11-19, StarTier.Stops): tướng có bao nhiêu hình thì bấy nhiêu bậc; lên sao nhảy tới điểm dừng kế (gộp mảnh
+        // các sao tổng ở giữa, cần cấp người chơi của mốc bậc cũ nếu đi qua, KHÔNG tốn đá); tiến hóa chỉ ở sao cuối bậc, đổi hình, tốn đá.
+
         public enum StarStep { Max, StarUp, Evolve }
 
         // bước kế của tướng theo sao (không xét đã có tướng chưa): tối đa, lên sao (mảnh) hay tiến hóa (đá)
@@ -101,8 +104,29 @@ namespace PokiClash.Core
         {
             int star = s.Hero(hero).star;
             if (star >= StarTier.MaxStar) return StarStep.Max;
-            return StarTier.AtEvolveGate(star) ? StarStep.Evolve : StarStep.StarUp;
+            return StarTier.AtGate(d.Cfg, d.Hero(hero), star) ? StarStep.Evolve : StarStep.StarUp;
         }
+
+        // giá lên sao từ sao tổng star tới điểm dừng kế to: mảnh là tổng ShardCost các sao tổng ở giữa; đi qua đầu bậc của thang 20 sao
+        // (xưa là tiến hóa) thì cần cấp người chơi của mốc đó (evoLevel), không tốn đá
+        public static (int shards, int level, int to) StarUpCost(BalanceConfig cfg, HeroDef h, int star)
+        {
+            int to = StarTier.NextStop(cfg, h, star);
+            long sh = 0;
+            int lv = 0;
+            for (int g = star + 1; g <= to; g++)
+            {
+                int c = ShardCost(cfg, h, g);
+                if (c == int.MaxValue) return (int.MaxValue, int.MaxValue, to);
+                sh += c;
+                if (StarTier.InTier(g) == 1) lv = Math.Max(lv, EvolveCost(cfg, h, StarTier.Tier(g)).level);
+            }
+            return ((int)Math.Min(int.MaxValue, sh), lv, to);
+        }
+
+        // giá lần lên sao kế của tướng đang có
+        public static (int shards, int level, int to) StarUpCost(SaveData s, GameData d, string hero) =>
+            StarUpCost(d.Cfg, d.Hero(hero), s.Hero(hero).star);
 
         // mảnh để lên sao toStar trong bậc (2..5★ của bậc): giá tướng Khá (cfg.shardCost, 4 số mỗi bậc) nhân hệ số độ hiếm.
         // Sao 1 của bậc lên bằng tiến hóa (đá), không tốn mảnh: trả 0.
@@ -120,15 +144,17 @@ namespace PokiClash.Core
         {
             var p = s.Hero(hero);
             if (p == null || !p.owned || NextStep(s, d, hero) != StarStep.StarUp) return false;
-            return p.shards >= ShardCost(d.Cfg, d.Hero(hero), p.star + 1);
+            var c = StarUpCost(s, d, hero);
+            return p.shards >= c.shards && s.level >= c.level;
         }
 
         public static bool StarUp(SaveData s, GameData d, string hero)
         {
             if (!CanStarUp(s, d, hero)) return false;
             var p = s.Hero(hero);
-            p.shards -= ShardCost(d.Cfg, d.Hero(hero), p.star + 1);
-            p.star++;
+            var c = StarUpCost(s, d, hero);
+            p.shards -= c.shards;
+            p.star = c.to;
             return true;
         }
 
@@ -168,7 +194,7 @@ namespace PokiClash.Core
             var p = s.Hero(hero);
             var h = d.Hero(hero);
             if (!p.owned) return (p.shards, h.shards);
-            return (p.shards, NextStep(s, d, hero) == StarStep.StarUp ? ShardCost(d.Cfg, h, p.star + 1) : 0);
+            return (p.shards, NextStep(s, d, hero) == StarStep.StarUp ? StarUpCost(d.Cfg, h, p.star).shards : 0);
         }
 
         // số việc đang chờ ở mục Tướng (nâng thẻ; lên sao hoặc tiến hóa được): chấm đỏ và số trên nút Tướng

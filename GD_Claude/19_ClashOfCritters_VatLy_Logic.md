@@ -59,14 +59,16 @@ Toạ độ world (u), y lên. Khung rộng khoảng 5,49 u, cao 8,17 u (33 × 5
 |---|---|---|
 | Khung vòm | `EdgeCollider2D` 26 điểm, offset (−0,18; 0,55) | x −2,78…2,71, y −3,39…4,78; vòm tròn ở trên, hốc nhọn ở trên phải (chỗ làn phóng nối vào) |
 | 22 đinh | tròn r 0,15 | hàng y 3,89 / 3,5 / 2,9 / 2,5 / 1,9 / 1,2 / 0,8 / 0,45 / 0 / −0,55 / −1,2, đối xứng quanh x 0 (bảng đủ ở `Pachinko.cs`, `PegsU`) |
-| Nấm đỉnh | tròn r 0,352 (prefab r 0,4, lệch y 0,23) | (−0,033; 4,917), lún nửa vào vòm |
+| Nấm đỉnh | tròn r 0,35 (prefab r 0,4 × 0,875, lệch y 0,23) | (−0,033; 4,916), lún nửa vào vòm |
 | Hai nấm lớn | tròn r 0,55 | (±1,65; 1,985); trái: nấm trứng, phải: nấm khiên |
 | Mái cốc thẻ | 4 thanh 0,19 × 0,53 | (±0,495; −0,052) nghiêng 69,1°; (±0,828; −0,267) nghiêng 52° |
 | Cốc thẻ | cảm biến 0,80 × 1,21 | tâm (0,012; −0,832), dưới mái |
 | Đáy chữ V | 2 thanh 0,18 × 0,70 và 0,18 × 0,63, 3 núm r 0,09–0,13 | dưới cốc, y khoảng −1,2…−1,4 |
-| 4 vách ô | thân rộng 0,228, đầu tròn ở y −2,01 | x −1,75 / −0,572 / 0,571 / 1,734 |
+| 4 vách ô | thân là hộp rộng 0,2279, cao 1,397–1,427 (đỉnh y −2,019); nắp tròn r 0,1111 tâm y −2,0101 | x −1,7529 / −0,5749 / 0,5681 / 1,7311 (nắp lệch +0,0004) |
 | 5 ô đáy | cảm biến chữ nhật | tâm x −2,343 / −1,165 / −0,005 / 1,150 / 2,317, y −2,756; rộng 1,024 (ô giữa 1,15), cao 1,402 (ô giữa 1,15) |
 | Camera | trực giao, nửa cao 6,67 u | |
+| Da va chạm | `defaultContactOffset` 0,01 (Physics2DSettings) | Box2D bọc hộp và edge thêm 0,01 u, hình tròn không |
+| Bước vật lý | Fixed Timestep 0,016 (TimeManager); Physics2D 8 vòng vận tốc, 3 vòng vị trí, velocityThreshold 1 | |
 
 Ô giữa nằm khuất dưới đáy V. Bi chỉ vào được khi chui ngang qua khe giữa đáy V và đầu vách.
 
@@ -74,16 +76,21 @@ Toạ độ world (u), y lên. Khung rộng khoảng 5,49 u, cao 8,17 u (33 × 5
 
 - Nút PUSH: bi chạy lên làn ngoài mép phải, ra bàn ở hốc trên phải.
 - Tốc lúc ra bàn = lực × 0,016 (một bước vật lý, khối lượng 1) = **10,4–10,9 u/giây**.
-- Vị trí và hướng ra bàn không có trong asset (nằm trong Lua). Bản chép đặt bi ra ở (1,90; 3,875), bay ngang sang trái (180°), làn là đường hình chạy đều 22 u/giây.
+- Vị trí và hướng ra bàn không có trong asset (nằm trong Lua). Hình bàn dựng lại từ sprite (2026-11-19) cho thấy miệng ống ở góc
+  trên phải, giữa đầu ray trong và chỗ vòm bắt đầu, tiếp tuyến với vòm.
+  - Bi ra ống lăn ép vòm lên đỉnh, đâm gờ đỉnh (`topball`, nhô dưới vòm 0,21 u), rồi rơi ngẫu nhiên.
+  - Bản chép: ra ở (1,814; 3,947), hướng 141,3° (song song đoạn khung 0 → 1); làn là đường hình chạy đều 22 u/giây.
+  - 100 % bi chạm gờ đỉnh. Bản cũ phóng ngang 180° từ (1,90; 3,875) chỉ 6 % chạm.
 
 ### 1.5 Số đo khi chạy lại bàn này
 
 | Đo | Kết quả |
 |---|---|
-| Thời gian bay | trung vị 3,1 giây |
-| Chạm đinh | khoảng 11 lần mỗi bi |
-| Chạm nấm lớn | trái 1,6 lần, phải 0,95 lần mỗi bi |
-| Tỉ lệ vào cốc thẻ nếu để vật lý thuần | 11–22 % ở mọi hướng phóng (game công bố 3,3 %) |
+| Thời gian bay | trung vị 3,07 giây (phóng dọc vòm; phóng ngang cũ: 2,95 khi bi xoay, 3,1 trước đó) |
+| Chạm gờ đỉnh | 100 % bi, khoảng 0,19 giây sau khi ra ống (phóng ngang cũ: 6 %) |
+| Chạm đinh | khoảng 10,4 lần mỗi bi |
+| Chạm nấm lớn | trái 1,06 lần, phải 1,07 lần mỗi bi (phóng ngang cũ: 1,65 / 0,78) |
+| Tỉ lệ vào cốc thẻ nếu để vật lý thuần | 15 % (game công bố 3,3 %); hướng nào cũng 11–22 % |
 
 ## 2. Máy bi: logic
 
@@ -182,19 +189,19 @@ Thân thú nướng thành VAT (vị trí đỉnh mỗi khung), không còn xư�
 
 ## 4. Đã chép vào PokiClash ra sao
 
-| Mục | Critters | Máy mình (`Core/Pachinko.cs`, từ 2026-11-09) |
+| Mục | Critters | Máy mình (`Core/Pachinko.cs`, từ 2026-11-09; bám Box2D sát hơn từ 2026-11-19) |
 |---|---|---|
-| Hình học | `table_01` | chép nguyên, 1 u = 78 đơn vị máy, khung 460 × 680 |
+| Hình học | `table_01` | chép nguyên, 1 u = 78 đơn vị máy, khung 460 × 680; hộp là chữ nhật thật, vách = hộp + nắp tròn, da 0,01 u cho hộp và khung |
 | Vật liệu, trọng lực, kẹp tốc, lực phóng | như mục 1 | chép nguyên: trọng lực 2 × 9,81 u/giây², cản 0, kẹp 4–14, lực 650–680 |
-| Ma sát | Box2D | tự viết: bớt tốc tiếp tuyến tới 0,22 × xung pháp tuyến, không quá 1/3 (bi tròn lăn được) |
-| Bước vật lý | Physics2D | tự viết, bước con 1/360 giây, lưới tra nhanh vật cản |
+| Ma sát | Box2D | tự viết kiểu Box2D có xoay: bi giữ tốc góc (khối lượng 1, tròn đặc I = 0,5 m r², angularDrag 0); xung ma sát = −tốc trượt ở điểm tiếp xúc × m/3, kẹp ± 0,22 × xung pháp tuyến |
+| Bước vật lý | Physics2D, 0,016 giây | tự viết, bước 0,016 giây (kẹp tốc một lần đầu bước, tính từ lúc bi ra bàn), 6 bước con, lưới tra nhanh vật cản |
 | Bi va bi | có (theo research) | không, để đường bi chỉ phụ thuộc lực phóng |
-| Kết quả | chọn trước, phát lại | chọn ô theo `pachinko.odds`, rồi thử lực 650–680 tới khi đường bi thật rơi đúng ô. Lực thử ra ô khác giữ vào kho; lúc rảnh thử sẵn 2 đường mỗi khung. Trung bình 2 lần thử, 0,07 ms mỗi lần; 6.000 bi không bi nào trượt |
+| Kết quả | chọn trước, phát lại | chọn ô theo `pachinko.odds`, rồi thử lực 650–680 tới khi đường bi thật rơi đúng ô. Lực thử ra ô khác giữ vào kho; lúc rảnh thử sẵn 2 đường mỗi khung. Trung bình 1,9 lần thử, 0,07 ms mỗi lần (mono ngoài Unity 0,34 ms); 6.000 bi không bi nào trượt |
 | Tỉ lệ | 95 / 3,3 / 1,7 | 25,3 / 22 / 1,7 / 22 / 25,7 % và cốc 3,3 % (0,4 % thiếu chia vào hai ô ngoài) |
 | Nấm tiến độ | trứng ra sinh vật, khiên ra khiên | trái 25 nấc ra Rương bạc, phải 25 nấc ra +5 bi |
 | Cược | ×1…×100, theo số bi | ×1, ×2 luôn mở; ×3 từ 150, ×5 từ 300, ×10 từ 700 bi |
 | Cây bi | 8 cây, trần 420 bi | 5 cây, không trần |
-| Tất định | không rõ | web và Unity trùng từng bit: sin/cos thay bằng đa thức Taylor, chỉ dùng + − × ÷ |
+| Tất định | không rõ | cùng hạt giống ra cùng đường bi; bản web còn vật lý cũ (trước 2026-11-19), không còn trùng Unity |
 
 Bàn cũ trước 2026-11-09 (85 đinh, trọng lực 1.100, kẹp 150–525) ghi ở `07_MayBi.md`, mục "Vật lý chép". Bàn đó không còn đúng.
 

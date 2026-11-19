@@ -63,27 +63,38 @@ Chủ dự án gửi ảnh chụp máy bi Critters, dặn "copy lại y hệt, k
 - Khung vòm `EdgeCollider2D` 26 điểm, có hốc nhọn ở trên phải.
 - 22 đinh r 0,15; nấm đỉnh r 0,35 lún nửa vào vòm; hai nấm lớn r 0,55.
 - Mái hai cánh (4 thanh 0,19 × 0,53), cốc dưới mái 0,80 × 1,21, đáy V hai thanh và ba núm.
-- 4 vách ô (thân 0,228, đầu tròn), 5 ô cảm biến. Bi r 0,081.
-- Hộp chữ nhật đổi thành viên con nhộng cùng dài, cùng dày. Cảm biến: bi chạm là vào, như trigger.
+- 4 vách ô: thân là hộp rộng 0,2279, nắp tròn r 0,1111 ở y −2,0101; 5 ô cảm biến. Bi r 0,081.
+- Hộp (mái, đáy V, thân vách) là hình chữ nhật thật, đầu bằng (trước 2026-11-19 là viên con nhộng). Cảm biến: bi chạm là vào, như trigger.
 
 **Vật lý:**
 - Vật liệu như cũ: nảy 0,8, nấm đỉnh 0,9; khung, vách, nấm lớn có ma sát 0,22; trộn kiểu Box2D.
 - Config của máy đó ghi `gravity 2, linerDrag 0`. Chạy thử với 2 u/giây² thì bi lơ lửng (trung vị 7 giây, 18 lần chạm đinh), nên hiểu là hệ số trọng lực: 2 × 9,81 u/giây², cản 0.
 - Kẹp tốc 4–14 u/giây. Va chậm dưới 1 u/giây thì không nảy.
-- Bước con 1/360 giây. Có lưới tra nhanh vật cản, cho ra đúng từng số như duyệt hết vật cản.
+- Bước 0,016 giây như Fixed Timestep của máy đó, kẹp tốc một lần đầu mỗi bước (tính từ lúc bi ra bàn), chia 6 bước con cho trọng lực và va chạm. Có lưới tra nhanh vật cản, cho ra đúng từng số như duyệt hết vật cản.
 - Bi không va bi.
+- **Bám Box2D sát hơn (quét lại 2026-11-19, bản đục 0.51.1):** hộp và khung edge có da 0,01 u (`defaultContactOffset` của Physics2DSettings); bi xoay như Rigidbody2D không khoá xoay (khối lượng 1, tròn đặc, angularDrag 0): ma sát tính trên tốc trượt ở điểm tiếp xúc (tốc tiếp tuyến trừ tốc góc × r), giữ tốc góc qua các lần chạm, nên bi lăn dọc khung không mất tốc như kiểu bớt 1/3 cũ. Đo lại: bay trung vị 3,12 → 2,95 giây, chạm đinh 11,1 → 10,8 mỗi bi, chạm nấm trái 1,60 → 1,65, phải 0,95 → 0,78; vật lý thuần cốc thẻ 20 → 17 %.
 
 **Phóng:**
 - Bấm thả thì bi chạy lên làn ngoài mép phải. Làn chỉ là đường hình, chạy đều 22 u/giây.
-- Bi ra bàn ở hốc trên phải, bay ngang sang trái (180°), tốc = lực 650–680 × 0,016 = 10,4–10,9 u/giây.
-- Vị trí và hướng phóng thật không có trong asset (nằm trong Lua mã hoá). Hốc nhọn trên phải mở ra phía phải, khớp với làn nối vào đó.
-- Bay trung vị 3,1 giây, khoảng 11 lần chạm đinh.
+- Bi ra ở miệng ống góc trên phải, tốc = lực 650–680 × 0,016 = 10,4–10,9 u/giây, hướng **dọc theo vòm** (141,3°, song song đoạn
+  khung đầu tiên của vòm). Bi lăn ép sát mặt trong vòm lên đỉnh, sau khoảng 0,19 giây đâm vào **gờ đỉnh** (nấm đỉnh `topball`,
+  tròn r 0,35, lún nửa vào vòm, nhô xuống dưới vòm 0,21 u), rồi văng xuống ngẫu nhiên.
+- Sửa 2026-11-19 (chủ dự án: "bóng ra khỏi ống đâm vào gờ nhô ở đỉnh máy rồi rơi random"). Trước đó bi bay ngang 180° từ
+  (1,90; 3,875), chỉ 6 % bi chạm gờ đỉnh. Giờ 100 % bi chạm.
+- Chỗ và hướng phóng thật không có trong asset (nằm trong Lua mã hoá). Suy từ hình bàn dựng lại từ sprite của bản đục:
+  - dải làn (mũi tên tím) chạy lên mép phải giữa hai thanh ray;
+  - miệng ống nằm giữa đầu ray trong (điểm khung 23–24) và chỗ vòm bắt đầu (điểm 0), tiếp tuyến với vòm.
+  - Chỗ ra (1,814; 3,947) cách đoạn vòm 0,095 u: bán kính bi 0,081 + da 0,01 + hở.
+- Bay trung vị 3,07 giây, khoảng 10,4 lần chạm đinh. Chạm nấm trái 1,06, phải 1,07 mỗi bi (bi rơi từ đỉnh giữa nên hai bên đều
+  hơn). Vật lý thuần: ô 32 / 13 / 2,5 / 12,5 / 24,5 %, cốc 15 %.
+- Kinh tế mỗi bi ×1 đổi theo: EXP 8,70 → 8,38, bi hoàn 0,302 → 0,334, thẻ 0,085 → 0,070. Mô phỏng 10 ngày: người chăm cấp 58
+  (88 ải), người ít cấp 20. Chưa chỉnh bù số kinh tế.
 
 **Kết quả chọn trước, đường bi vẫn là vật lý thật:**
 - Vật lý thuần của chính bàn này cho cốc thẻ 11–22 % ở mọi hướng phóng, trong khi game đó công bố 3,3 %. Bản đục có `PinballRecordSystem`/`PinballReplaySystem`, nên gần như chắc game đó chọn kết quả trước rồi phát đường bi khớp.
 - Ở đây làm y như vậy (`Board.odds`): mỗi lần phóng chọn ô theo bảng `pachinko.odds`, rồi thử các lực phóng trong 650–680 tới khi đường bi thật rơi đúng ô.
 - Lực đã thử mà rơi ô khác thì giữ trong kho cho lần sau. Lúc rảnh, máy thử sẵn 2 đường mỗi khung (`Board.Warm`).
-- Trung bình 2 lần thử mỗi bi, khoảng 0,07 ms mỗi lần trên PC. 6.000 bi trong test: không bi nào trượt kết quả.
+- Trung bình 1,9 lần thử mỗi bi, khoảng 0,07 ms mỗi lần trên PC (0,34 ms khi chạy mono ngoài Unity). 6.000 bi trong test: không bi nào trượt kết quả.
 - Vì đường bi chỉ phụ thuộc lực phóng nên bi không va bi. Đường thử và đường thật chạy cùng một hàm trên cùng máy, nên không lo lệch số thực giữa các máy.
 - Rời màn khi bi còn bay thì tính theo ô đã chọn cho bi đó.
 
@@ -100,7 +111,7 @@ Chủ dự án gửi ảnh chụp máy bi Critters, dặn "copy lại y hệt, k
 
 - Số công bố của game đó cộng lại 99,6 %; 0,4 % còn thiếu chia vào hai ô ngoài.
 - **Vòng nấm** (thay vòng trứng, vòng khiên của game đó): mỗi lần bi chạm nấm cộng nấc theo cược; nấm trái đủ 25 nấc ra Rương bạc, nấm phải đủ 25 nấc ra +5 bi. Vòng lưu ở `SaveData.rings`.
-- Đo được trung bình mỗi bi chạm nấm trái 1,6 lần, nấm phải 0,95 lần (`pachinko.measured.ringHits`, test so lại).
+- Đo được trung bình mỗi bi chạm nấm trái 1,06 lần, nấm phải 1,07 lần (`pachinko.measured.ringHits`, test so lại; phóng dọc vòm từ 2026-11-19; khi còn phóng ngang: 1,65 / 0,78 lúc bi xoay, 1,6 / 0,95 trước đó). Vì nấm phải ít chạm hơn nên bi hoàn mỗi bi ×1 giảm 0,340 → 0,302; mô phỏng 10 ngày: người chăm cấp 59 → 57 (88 ải), người vừa 51 → 48, người ít giữ cấp 19. Số kinh tế chưa chỉnh bù.
 - Kinh tế mỗi bi ×1, so với bàn cũ: EXP 9,14 → 8,78; bi hoàn 0,325 → 0,340; thẻ 0,088 → 0,089. Mô phỏng 10 ngày gần như không đổi (người chơi chăm cấp 61, 96 ải; người chơi ít cấp 20 → 19).
 
 **Hình** (`Game/Machine/MachineBoard.cs`):
@@ -213,6 +224,57 @@ Chủ dự án dặn: thanh kinh nghiệm phải nhún cả viền; học mốc 
 - **Thanh kinh nghiệm nhún cả viền:** rãnh vẽ tay cắt khỏi thân máy (`ArtGen/Pachinko/cat_ranh.py` → `pk_ranh_exp.png`), đặt trùng khít lên rãnh, gom với thanh thành `khung_thanh`. Cả nhóm nhún theo dáng Critters (ngang 3 %, dọc 18 %, chữ thêm 12 %), không nhỏ hơn cỡ gốc.
 - **Menu:** `PokiClash/Prefab/Máy bi: thân máy vẽ tay` (dựng `khung_thanh`), `PokiClash/Prefab/Máy bi: mốc quà` (ô quà). Tour thử: `PokiClash/Thử/Máy bi: mốc quà, cược theo số bi`.
 - Duyệt lại thân máy (`build.py --duyet`) thì chạy lại `cat_ranh.py` rồi menu thân máy.
+
+## Quét lại bản đục, EXP toả ra, mở rương, ảnh Magnific (2026-11-19)
+
+Chủ dự án dặn: quét lại máy bi của Critters và làm máy mình giống hệt (vật lý, vị trí từng đinh); làm đẹp hiệu ứng, hình bằng
+Magnific; kinh nghiệm nhận được phải toả ra, trễ một chút rồi tween lên mượt; hiệu ứng mở rương phải đẹp.
+
+**Quét lại** (bản đục 0.51.1, `D:\Ripper\ClashOfCritters`, đọc thẳng prefab `pbsc_pinball_table_01`, `pbsc_pinball`,
+`Physics2DSettings`, `TimeManager`; dựng lại ảnh bàn từ sprite để so):
+- 22 đinh, nấm đỉnh, hai nấm lớn, 4 thanh mái, đáy V, 3 núm, 5 ô, cốc, khung vòm 26 điểm trong code đã trùng prefab tới 0,001 u.
+- Lệch còn lại, đã sửa ở `Core/Pachinko.cs` (chi tiết mục "Bàn chép y máy tham khảo" ở trên):
+  - vách ô lệch 0,003 u, thiếu nắp tròn riêng r 0,1111;
+  - nấm đỉnh r 0,352 → 0,35;
+  - hộp làm thành viên con nhộng → hình chữ nhật thật, thêm da 0,01 u của Box2D;
+  - bi không xoay → bi xoay, ma sát theo tốc trượt;
+  - bước 1/60 → 0,016 giây (`Fixed Timestep` của họ), kẹp tốc mỗi bước 0,016.
+- Màn hình nội suy vị trí bi giữa hai bước (`Ball.px/py`, `MachineBoard.Blend`), vì bước 0,016 lệch nhịp khung 60 hình/giây.
+- **Phóng dọc vòm, đâm gờ đỉnh** (chủ dự án chỉ ra cùng ngày): bi ra miệng ống ở góc trên phải theo tiếp tuyến vòm, lăn ép vòm,
+  đâm gờ đỉnh rồi rơi ngẫu nhiên. Trước đó bi bay ngang, chỉ 6 % chạm gờ (mục "Phóng" ở trên).
+- Vẫn khác: bi không va bi (để chọn kết quả trước). Chỗ và hướng phóng suy từ hình bàn, vì số thật nằm trong Lua mã hoá.
+
+**EXP toả ra** (`MachineExpBar.Spray`, dùng cho ô EXP → bảng số, bảng số → thanh, EXP từ nấm/mốc quà):
+- 3–7 kẹo phụt ra cùng lúc theo hình quạt quanh điểm đi, hãm dần trong 0,28 giây, nảy cỡ 0,3 → 1,18 → 1.
+- Khựng lơ lửng 0,14 giây; viên sau khựng lâu thêm 0,055 giây nên rời chùm lần lượt.
+- Bay về đích theo đường cong nhẹ, ease in-out bậc ba, 0,52–0,6 giây, nhỏ dần còn 0,72, có vệt lấp lánh. Tới nơi mới cộng.
+- Bảng số thu lên thanh: cả chùm phụt khỏi bảng một lần (số trên bảng đếm lùi), rồi bay lần lượt lên đầu thanh.
+- Thanh EXP chạy tới số mới (đầy dần, chữ số đếm lên), không nhảy. Qua cấp thì chạy đầy, nhún vòng cấp, về 0 rồi chạy tiếp.
+- EXP trong rương: thanh giữ lại suốt màn mở rương. Đóng màn thì chùm kẹo toả ra từ giữa màn rồi bay lên thanh (`MachineScene.OpenChests`).
+
+**Mở rương** (`MachineChestOpen`, tô phẳng, không quầng):
+- Nền tối 0,95 (0,92 vẫn thấy rõ mặt máy, vì màu hoà trong không gian linear).
+- Rương đóng đứng trước vầng tia phẳng màu bậc rương xoay chậm (thay quầng mềm), nhạt (alpha 0,09–0,16), rộng 1,5 rương cho khỏi
+  đè rương bên. Đáp xuống thì phụt bụi, rương bẹt nhẹ. Bấm lúc rương còn bay vào thì chờ đáp xong mới gồng.
+- Gồng: lắc mạnh dần, nén 0,86 × 1,06, nhún nhảy nhỏ, lấp lánh hút vào lòng rương, vầng tia đậm dần. Rương vàng gồng 0,6 giây,
+  bạc 0,45, gỗ 0,36.
+- Bật nắp: đổi sang rương mở sạch, bóp giãn 1,25 × 0,8 → 0,9 × 1,15 → 1. Cùng lúc: loé gai, vòng dày, vòng giọt, quạt sáng vọt lên
+  từ lòng rương, giấy màu năm màu bắn lên rồi rơi, giọt sáng toả, sao. Rương bạc thêm xu và màn giật nhẹ. Rương vàng thêm xu, ngọc,
+  đợt pháo thứ hai, màn giật mạnh hơn.
+- Thưởng quý nhất vọt ra từ lòng rương lên trên rương (kéo, nảy, bẹt rồi đứng), loé nhỏ ở đỉnh, vầng tia dời lên sau thưởng.
+- Bảng tổng kết: quầng sau ô đổi thành vầng tia phẳng màu độ hiếm xoay chậm.
+- Sửa lỗi cũ: hạt của màn này phát theo toạ độ tâm trong khi prefab hạt `Items/HatMayBi` neo góc trên trái, nên hạt cũ lệch chỗ.
+  Giờ đổi điểm phát qua `Fx()`.
+- Hạt thiếu ảnh (chưa dựng lại danh mục) thì bỏ qua, không vẽ thành ô vuông trắng (`MachineFx.Emit`).
+
+**Ảnh Magnific** (GPT 2.6, 1k high, 95 credit một tờ; ảnh gốc ở `ArtGen/Pachinko/tai_ve/magnific/`):
+- `fx_mo_ruong.png`, 12 hình hiệu ứng trắng để game tô màu: vầng tia, quạt sáng, loé gai, vòng giọt, ba kiểu giấy màu, lấp lánh
+  béo, giọt, bụi, dây xoắn, tinh tú.
+- `ruong_mo_xu.png`: ba rương mở sạch (lòng kem, không sao vẽ sẵn), xu thẳng, xu nghiêng, ngọc tím.
+- `nen_mat_choi.png`: tranh trời mây vẽ tay làm nền mặt chơi. `ghep_ban.py` phủ tranh trong vòm (đẩy lên 48 đơn vị máy cho mây ló
+  trên hàng ô), thay lớp chấm hồng.
+- Cắt bằng `py -3 -I ArtGen/Pachinko/cat_magnific.py`: xoá nền trắng loang từ mép (nét được nong 2 px để khỏi rò vào ruột hình),
+  gán mảng hình vào ô theo tâm. Ghi vào `Assets/03 Art/Pachinko`, rồi chạy menu `PokiClash/Dựng lại danh mục ảnh`.
 
 ## Việc còn lại (ghi 2026-11-04)
 

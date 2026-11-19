@@ -29,16 +29,24 @@ namespace PokiClash.UI
             Rect.sizeDelta = new Vector2(Mathf.Min(max, stars.Length) * Size * 0.9f, Size);
         }
 
-        // màu sao theo bậc (Core.StarTier): Đồng, Bạc, Vàng, Kim Cương
+        // màu sao theo bậc (Core.StarTier): Đồng, Bạc, Vàng, Kim Cương. 2026-11-19 (người dùng: sao cần hiện rõ hơn): Bạc ngả xanh thép
+        // đậm hơn để khỏi lẫn với sao trống trên nền giấy
         public static readonly Color[] TierColors =
         {
-            new Color32(0xc9, 0x86, 0x4a, 0xff), new Color32(0xb9, 0xc6, 0xd0, 0xff), new Color32(0xff, 0xc9, 0x3c, 0xff), new Color32(0x7c, 0xd8, 0xff, 0xff),
+            new Color32(0xd0, 0x84, 0x3c, 0xff), new Color32(0x9f, 0xb6, 0xcc, 0xff), new Color32(0xff, 0xc4, 0x2a, 0xff), new Color32(0x6c, 0xd2, 0xff, 0xff),
         };
 
         public static Color TierColor(int tier) => TierColors[Mathf.Clamp(tier, 0, TierColors.Length - 1)];
 
-        // sao tổng (1..StarTier.MaxStar): 5 sao, tô số sao trong bậc bằng màu của bậc (Đồng 3★ = 3 sao đồng, 2 sao trống)
+        // sao chưa có: ruột giấy, cả sao (cả viền) mờ để sao đã có nổi hẳn lên
+        public static readonly Color Empty = new Color(0.9f, 0.83f, 0.66f, 0.42f);
+
+        // sao tổng (1..StarTier.MaxStar) theo thang 4 bậc chung (chỗ không biết tướng): 5 sao, tô số sao trong bậc bằng màu của bậc
         public void SetTiered(int star) => SetTier(Core.StarTier.Tier(star), Core.StarTier.InTier(star));
+
+        // sao tổng theo bậc của tướng (bậc theo dạng 2026-11-19: tướng 2 dạng chỉ có Đồng, Bạc; Core.StarTier.Stops)
+        public void SetTiered(Core.BalanceConfig cfg, Core.HeroDef hero, int star) =>
+            SetTier(Core.StarTier.TierOf(cfg, hero, star), Core.StarTier.InTierOf(cfg, hero, star));
 
         // n sao (0..5) của bậc tier tô màu bậc, còn lại trống (mốc bậc chưa tới trên thanh tiến hóa: 0 sao)
         public void SetTier(int tier, int n)
@@ -48,7 +56,7 @@ namespace PokiClash.UI
             for (int i = 0; i < stars.Length; i++)
             {
                 stars[i].gameObject.SetActive(i < max);
-                stars[i].color = i < n ? c : Theme.Paper3;
+                stars[i].color = i < n ? c : Empty;
             }
             Rect.sizeDelta = new Vector2(Mathf.Min(max, stars.Length) * Size * 0.9f, Size);
         }

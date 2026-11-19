@@ -41,6 +41,8 @@ namespace PokiClash.EditorTools
             if (id == null) return null;
             foreach (var (from, to) in SaveCodec.BoTuongCu)
                 if (from == id) return to;
+            foreach (var (from, to) in SaveCodec.BoThoCu) // 7 tướng Thổ cũ, 2026-11-19
+                if (from == id) return to;
             return id;
         }
 
@@ -95,7 +97,7 @@ namespace PokiClash.EditorTools
         {
             var pg = Load("Golden/progression.json");
             var s = SaveData.New(d, 0, Starter);
-            foreach (var id in new[] { "vo_su", "so_ngoc", "giap_long", "ca_sa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "so_ngoc", "giap_long", "giap_nham" }) s.Hero(id).owned = true;
             var r = new Rng(77);
             int n = J.Arr(pg, "drops").Count;
             var drops = new List<object>();
@@ -115,7 +117,7 @@ namespace PokiClash.EditorTools
             var pk = Load("Golden/pachinko.json");
             var c = J.Obj(pk, "chest");
             var s = SaveData.New(d, 0, Starter);
-            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             var r = new Rng(11);
             foreach (var x in J.Arr(c, "opens"))
@@ -145,7 +147,7 @@ namespace PokiClash.EditorTools
             var cfg = d.Cfg;
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, (long)t0);
-            foreach (var id in new[] { "vo_su", "tien_la" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la" }) s.Hero(id).owned = true;
             var rng = new Rng(21);
             foreach (var x in J.Arr(g, "steps"))
             {
@@ -204,7 +206,7 @@ namespace PokiClash.EditorTools
         {
             var g = Load("Golden/farm.json");
             var s = SaveData.New(d, 0, Starter);
-            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "nguu_quyen" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la", "so_ngoc", "nguu_quyen" }) s.Hero(id).owned = true;
             s.level = 9;
             s.Hero("so_ngoc").star = 6; // Bạc 1★ = 3 sao cũ (trang trại tính theo sao cũ, StarTier.Legacy)
             double t0 = J.Num(g, "t0");
@@ -262,10 +264,10 @@ namespace PokiClash.EditorTools
         {
             var s = SaveData.New(d, 0, Starter);
             s.level = 6;
-            s.Hero("vo_su").owned = true;
-            s.team = new List<string> { Starter, "vo_su" };
+            s.Hero("cao_da").owned = true;
+            s.team = new List<string> { Starter, "cao_da" };
             s.Hero(Starter).potential = new[] { new PotLine { k = PotKind.Rage, r = 3 }, new PotLine { k = PotKind.Crit, r = 4 }, new PotLine { k = PotKind.Atk, r = 2 }, null };
-            s.Hero("vo_su").potential = new[] { new PotLine { k = PotKind.Mana, r = 2 }, new PotLine { k = PotKind.Lifesteal, r = 3 }, null, null };
+            s.Hero("cao_da").potential = new[] { new PotLine { k = PotKind.Mana, r = 2 }, new PotLine { k = PotKind.Lifesteal, r = 3 }, null, null };
             return s;
         }
 
@@ -280,8 +282,8 @@ namespace PokiClash.EditorTools
             var cfg = d.Cfg;
             var s = SaveData.New(d, 0, Starter);
             s.Hero(Starter).star = 8; // sao tổng (2026-11-17): 4 ô như PotentialTests
-            s.Hero("vo_su").owned = true;
-            s.Hero("vo_su").star = 3; // 2 ô
+            s.Hero("cao_da").owned = true;
+            s.Hero("cao_da").star = 3; // 2 ô
             s.potentialStones = 300;
             var rng = new Rng(41);
             foreach (var x in J.Arr(g, "spins"))
@@ -342,7 +344,7 @@ namespace PokiClash.EditorTools
             var cfg = d.Cfg;
             // BadgeTests.StatSave
             var s = SaveData.New(d, 0);
-            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "giap_long" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la", "so_ngoc", "giap_long" }) s.Hero(id).owned = true;
             s.badges[(int)Elem.Thuy].tier = 2;
             s.badges[(int)Elem.Hoa].tier = 5;
             foreach (var x in J.Arr(g, "stats"))

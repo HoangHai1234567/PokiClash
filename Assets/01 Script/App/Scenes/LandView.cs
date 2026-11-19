@@ -148,6 +148,26 @@ namespace PokiClash
 
         public void ShowAll(float dur) => Show(size * 0.5f, MinZoom, dur);
 
+        // dời bản đồ một vectơ thế giới (điểm đang ở a sẽ hiện ở a + d), giữ trong mép: bến tàu màn Nhà đặt máy theo tàu lúc cập bến
+        public void ShiftWorld(Vector3 d)
+        {
+            if (!On) return;
+            tween = false;
+            vel = Vector2.zero;
+            pos = Clamp(pos + (Vector2)View.InverseTransformVector(d), zoom);
+            Apply();
+        }
+
+        // dời bản đồ d px khung (y xuống), giữ trong mép: màn Nhà kéo quái tới mép khung thì bản đồ tự trôi theo
+        public void Nudge(Vector2 d)
+        {
+            if (!On || d == Vector2.zero) return;
+            tween = false;
+            vel = Vector2.zero;
+            pos = Clamp(new Vector2(pos.x + d.x, pos.y - d.y), zoom);
+            Apply();
+        }
+
         // tour thử: trạng thái để ghi log
         public string Describe() =>
             $"zoom {zoom:0.###} (min {MinZoom:0.###}, max {maxZoom:0.###}) pos {pos} view {ViewSize} tween {tween} kéo {dragging} ngón {fingers.Count}";
@@ -243,19 +263,24 @@ namespace PokiClash
             Apply();
         }
 
+        // khung nhìn đổi cỡ (xoay, tai thỏ, khung đầu tiên chưa xếp xong) mà chưa tính lại thì tính ngay: zoom vừa đảo, giữ trong mép.
+        // Màn gọi trước khi đặt máy ngay (bến tàu), để khung sau Update không dời máy nữa.
+        public void Sync()
+        {
+            if (!On || !content || ViewSize == lastView) return;
+            lastView = ViewSize;
+            bool atMin = Mathf.Approximately(zoom, MinZoom);
+            MinZoom = Fit();
+            if (atMin || zoom < MinZoom) zoom = MinZoom;
+            pos = Clamp(pos, zoom);
+            Apply();
+        }
+
         void Update()
         {
             if (!On || !content) return;
             float dt = Mathf.Min(Time.unscaledDeltaTime, 0.05f);
-            if (ViewSize != lastView) // đổi cỡ màn (xoay, tai thỏ): tính lại zoom vừa đảo
-            {
-                lastView = ViewSize;
-                bool atMin = Mathf.Approximately(zoom, MinZoom);
-                MinZoom = Fit();
-                if (atMin || zoom < MinZoom) zoom = MinZoom;
-                pos = Clamp(pos, zoom);
-                Apply();
-            }
+            Sync();
             if (tween)
             {
                 tT += dt;

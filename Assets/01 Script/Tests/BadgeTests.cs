@@ -56,7 +56,7 @@ namespace PokiClash.Tests
         static SaveData StatSave(GameData d)
         {
             var s = SaveData.New(d, 0);
-            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc", "giap_long" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la", "so_ngoc", "giap_long" }) s.Hero(id).owned = true;
             s.badges[(int)Elem.Thuy].tier = 2;
             s.badges[(int)Elem.Hoa].tier = 5;
             return s;
@@ -163,7 +163,7 @@ namespace PokiClash.Tests
             var plain = HeroStats.Compute(cfg, h, 5, 1);
             var boosted = HeroStats.Compute(cfg, h, 5, 1, false, Teams.MemberOf(s, "ti_tach", d).mods);
             Assert.AreEqual(plain.hp * (1 + cfg.badges.bonus[2]), boosted.hp, 1.0);
-            Assert.IsNull(Teams.MemberOf(s, "vo_su", d).mods, "hệ khác không được cộng");
+            Assert.IsNull(Teams.MemberOf(s, "cao_da", d).mods, "hệ khác không được cộng");
             var json = SaveCodec.Write(s);
             Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(json, d, out var back));
             Assert.AreEqual(3, back.badges[(int)Elem.Thuy].tier);
@@ -269,10 +269,10 @@ namespace PokiClash.Tests
 
             // đặc tính Thủy (khiên) vào trận qua BattleStart cho tướng Thủy, không cho tướng hệ khác
             Assert.AreEqual(PotKind.Shield, tr.Value.k, "Thủy: khiên đầu trận");
-            s.Hero("vo_su").owned = true;
+            s.Hero("cao_da").owned = true;
             var st = Potential.Start(s, d, "ti_tach");
             Assert.AreEqual(tr.Value.v, st.shield, 1e-12);
-            Assert.IsNull(Potential.Start(s, d, "vo_su"), "tướng Thổ không có đặc tính Thủy");
+            Assert.IsNull(Potential.Start(s, d, "cao_da"), "tướng Thổ không có đặc tính Thủy");
             var b = Battle.Create(d, Teams.Player(s, new List<string> { "ti_tach" }, d), Teams.Enemy(Badges.Stage(d, Elem.Hoa, 1, 1), d), 3);
             var f = b.sides[0].fighters[0];
             Assert.AreEqual(Js.Round(f.maxHp * tr.Value.v), f.shield, "khiên đầu trận");
@@ -281,7 +281,7 @@ namespace PokiClash.Tests
             for (int e = 0; e < 5; e++) s.badges[e].tier = Badges.MaxTier(cfg);
             double team = cfg.badges.teamBonus[Badges.MaxTier(cfg) - 1] * 5;
             Assert.AreEqual(team, Badges.TeamBonus(s, cfg), 1e-12);
-            Assert.AreEqual(Badges.Bonus(cfg, Badges.MaxTier(cfg)) + team, Teams.MemberOf(s, "vo_su", d).mods.hpPct, 1e-12);
+            Assert.AreEqual(Badges.Bonus(cfg, Badges.MaxTier(cfg)) + team, Teams.MemberOf(s, "cao_da", d).mods.hpPct, 1e-12);
             Assert.IsNull(Badges.Current(s, cfg, Elem.Thuy), "xong bậc cuối thì không còn trận");
         }
     }

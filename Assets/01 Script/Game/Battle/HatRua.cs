@@ -110,7 +110,10 @@ namespace PokiClash
             float RtT(float t) => HoaNhip(Rt(t - goc - t00), t, goc + L);
 
             // cầu lửa nhiều múi lớn dần trên mũi sừng (nhịp đập, nén trước lúc hất, chớp lúc hất) + hai vòng co; vệt quanh vòng thưa (lửa chính từ lưng)
-            HoaTuCau(TamT, R, tA - 0.02f, L, true, 0.35f, RtT);
+            // khung vẽ sẵn (2026-11-19): cầu là "cau_lua" (HatFbHoa.cs: đứng yên thì đuôi lửa bốc lên, ngả về phía đối thủ) nên bỏ lưỡi lửa liếm quanh
+            // cầu và chuỗi lưỡi đuôi lúc bay
+            bool fb = HasFb("cau_lua");
+            HoaTuCau(TamT, R, tA - 0.02f, L, true, 0.35f, RtT, dir);
             // từng ngọn lửa trên lưng (thứ tự, giờ như clip): nháy tia ở gốc, lưỡi lửa nhỏ co lại tại gốc, nhả VỆT lửa xoắn ốc nhanh dần vào cầu
             float chieu = dir;
             for (int i = 0; i < nguon.Length; i++)
@@ -131,13 +134,14 @@ namespace PokiClash
                     Th.pal, Front, 2, -200, 1.4f, 0, 0), 1, 0.7f, 0));
             }
             // lưỡi lửa liếm ra từ thân cầu
-            Every(tA + 0.1f, L, x => 8 + 16 * x, x =>
-            {
-                float r = RtT(T), a = U(0, 6.28f);
-                var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                HoaLuoi(Flame(TamT(T) + o * r * 0.55f, o * U(30, 90) + new Vector2(-dir * U(10, 50), -U(40, 110)), U(0.2f, 0.3f), r * 0.34f, r * U(0.46f, 0.6f),
-                    "tron", Th.pal, Front, 3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
-            });
+            if (!fb)
+                Every(tA + 0.1f, L, x => 8 + 16 * x, x =>
+                {
+                    float r = RtT(T), a = U(0, 6.28f);
+                    var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+                    HoaLuoi(Flame(TamT(T) + o * r * 0.55f, o * U(30, 90) + new Vector2(-dir * U(10, 50), -U(40, 110)), U(0.2f, 0.3f), r * 0.34f,
+                        r * U(0.46f, 0.6f), "tron", Th.pal, Front, 3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
+                });
             // cầu đầy: vòng co sát cầu, toé tia; giữ tới lúc hất sừng thì cụm tàn lửa lách tách quanh cầu
             At(tDay, () =>
             {
@@ -171,15 +175,18 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.2f);
                 for (int j = 0; j < 5; j++) Spark(from, -d0 + U2(-0.7f, 0.7f), U(220, 380), 0, 6);
-                HoaCau(Bay, t => R * (1 + 0.06f * Mathf.Sin(t * 40)), CauSungBay + 0.01f);
+                System.Func<float, float> rb = t => R * (1 + 0.06f * Mathf.Sin(t * 40));
+                // vệt khói đuôi (2026-11-19 chiều): cụm 0,22–0,35 thân theo cỡ cầu
+                if (!fb || HoaFbCau(Bay, rb, CauSungBay + 0.01f, Front, true, 0, KhoiCo(R, tH)) == null) HoaCau(Bay, rb, CauSungBay + 0.01f);
             });
-            Every(L, L + CauSungBay, 50, x =>
-            {
-                var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.4f, 0.4f) * R, -d0 * U(60, 140) + new Vector2(-d0.y, d0.x) * U(-80, 80) + new Vector2(0, -20),
-                    U(0.2f, 0.3f), R * 0.8f, R * 0.8f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
-                HoaLuoi(q, 1, 0.2f, 0);
-                q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
-            });
+            if (!fb)
+                Every(L, L + CauSungBay, 50, x =>
+                {
+                    var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.4f, 0.4f) * R, -d0 * U(60, 140) + new Vector2(-d0.y, d0.x) * U(-80, 80) + new Vector2(0, -20),
+                        U(0.2f, 0.3f), R * 0.8f, R * 0.8f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
+                    HoaLuoi(q, 1, 0.2f, 0);
+                    q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
+                });
             HoaDuoiKhoi(t => Bay(t) - d0 * R, L + 0.03f, L + CauSungBay, 11, 14);
             Every(L, L + CauSungBay, 14, x => Spark(Bay(T), -d0 + U2(-0.6f, 0.6f), U(160, 280), 0, 6));
 
@@ -193,7 +200,7 @@ namespace PokiClash
             At(tNo + 0.13f, () =>
             {
                 Shake?.Invoke(non ? 0.2f : 0.3f);
-                HoaNo(tgt + new Vector2(dir * U(4, 20), U(-26, 6)), non ? 0.5f : 0.7f, tH);
+                HoaNo(tgt + new Vector2(dir * U(4, 20), U(-26, 6)), non ? 0.5f : 0.7f, tH, null, Front, dir); // khung vẽ sẵn: lật theo hướng cầu bay
             });
             At(tNo + 0.34f, () =>
             {
@@ -204,10 +211,11 @@ namespace PokiClash
             return tNo;
         }
 
-        // bán kính cầu đang tụ (đo theo rig) thêm nhịp đập ~4 nhịp/giây và cú nén còn 0,78 trong 0,07 s trước giờ nhả `nha` (giờ sân tuyệt đối)
+        // bán kính cầu đang tụ (đo theo rig) thêm nhịp đập 7 nhịp/giây ±6 % (2026-11-19 đêm, người dùng: cầu "nhìn hơi tĩnh"; trước ~4 nhịp ±7 %) và cú
+        // nén còn 0,78 trong 0,07 s trước giờ nhả `nha` (giờ sân tuyệt đối)
         static float HoaNhip(float r, float t, float nha)
         {
-            r *= 1 + 0.07f * Mathf.Sin(t * 26);
+            r *= 1 + 0.06f * Mathf.Sin(t * 44);
             float con = nha - t;
             return con >= 0 && con < 0.07f ? r * Mathf.Lerp(0.78f, 1, con / 0.07f) : r;
         }
@@ -221,15 +229,18 @@ namespace PokiClash
             float R = Mathf.Clamp(0.125f * casterH, 11, 22);
             var tam = mouth + new Vector2(dir * 0.3f, 0.1f) * R;
 
-            // tụ (2026-11-18): vệt lửa xoắn ốc hút vào mõm, hai vòng co, cầu nhiều múi lớn dần theo nhịp đập, nén rồi chớp lúc nhả
-            var rt = HoaTuCau(t => tam, R, t0, L);
-            Every(t0 + 0.14f, L, 12, x =>
-            {
-                float r = rt(T), a = U(0, 6.28f);
-                var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                HoaLuoi(Flame(tam + o * r * 0.5f, o * U(20, 70) + new Vector2(0, -U(40, 90)), U(0.18f, 0.26f), r * 0.34f, r * 0.55f, "tron", Th.pal, Front,
-                    3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
-            });
+            // tụ (2026-11-18): vệt lửa xoắn ốc hút vào mõm, hai vòng co, cầu nhiều múi lớn dần theo nhịp đập, nén rồi chớp lúc nhả; khung vẽ sẵn
+            // (2026-11-19): cầu là "cau_lua" (đã có lửa) nên bỏ lưỡi lửa liếm quanh cầu và chuỗi lưỡi đuôi lúc bay
+            bool fb = HasFb("cau_lua");
+            var rt = HoaTuCau(t => tam, R, t0, L, true, 1, null, dir);
+            if (!fb)
+                Every(t0 + 0.14f, L, 12, x =>
+                {
+                    float r = rt(T), a = U(0, 6.28f);
+                    var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
+                    HoaLuoi(Flame(tam + o * r * 0.5f, o * U(20, 70) + new Vector2(0, -U(40, 90)), U(0.18f, 0.26f), r * 0.34f, r * 0.55f, "tron", Th.pal, Front,
+                        3, -160, 1.5f, 0, 0), 1, 0.5f, 0);
+                });
 
             // nhả: cầu bay vòng cung nhẹ tới đối thủ
             var tgt = foeBody + new Vector2(-dir * 0.06f * tH, 0);
@@ -243,15 +254,18 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.14f);
                 for (int j = 0; j < 4; j++) Spark(tam, -d0 + U2(-0.7f, 0.7f), U(180, 320), 0, 6);
-                HoaCau(Bay, t => R * (1 + 0.06f * Mathf.Sin(t * 40)), CauMiengBay + 0.01f);
+                System.Func<float, float> rb = t => R * (1 + 0.06f * Mathf.Sin(t * 40));
+                // vệt khói đuôi (2026-11-19 chiều): cụm 0,22–0,35 thân theo cỡ cầu
+                if (!fb || HoaFbCau(Bay, rb, CauMiengBay + 0.01f, Front, true, 0, KhoiCo(R, tH)) == null) HoaCau(Bay, rb, CauMiengBay + 0.01f);
             });
-            Every(L, L + CauMiengBay, 40, x =>
-            {
-                var q = Flame(Bay(T) - d0 * 4 + U2(-7, 7), -d0 * U(60, 130) + new Vector2(-d0.y, d0.x) * U(-70, 70) + new Vector2(0, -20), U(0.18f, 0.26f),
-                    R * 0.85f, R * 0.85f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
-                HoaLuoi(q, 1, 0.2f, 0);
-                q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
-            });
+            if (!fb)
+                Every(L, L + CauMiengBay, 40, x =>
+                {
+                    var q = Flame(Bay(T) - d0 * 4 + U2(-7, 7), -d0 * U(60, 130) + new Vector2(-d0.y, d0.x) * U(-70, 70) + new Vector2(0, -20), U(0.18f, 0.26f),
+                        R * 0.85f, R * 0.85f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
+                    HoaLuoi(q, 1, 0.2f, 0);
+                    q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
+                });
             HoaDuoiKhoi(t => Bay(t) - d0 * 22, L + 0.03f, L + CauMiengBay, 10, 13);
             Every(L, L + CauMiengBay, 12, x => Spark(Bay(T), -d0 + U2(-0.6f, 0.6f), U(140, 260), 0, 6));
             float tNo = L + CauMiengBay;

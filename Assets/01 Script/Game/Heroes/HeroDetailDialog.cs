@@ -3,8 +3,9 @@
 //   bậc ("Bạc 3 sao"), huy hiệu, độ hiếm, danh hiệu;
 // - thanh mốc tiến hóa theo bậc (EvolutionStrip), hàng 4 chỉ số (số gọn NumFmt.Short), khung mảnh và nơi rơi (tướng chưa có);
 // - 3 thẻ riêng cỡ nhỏ (chạm mở ChiTietThe), dưới mỗi thẻ là nút "Lên cấp n", thanh bản sao hoặc "Cấp tối đa";
-// - thanh mảnh / đá của bước kế, dòng điều kiện và hàng nút Tiềm năng, nút chính theo Progress.NextStep ("Lên sao" tốn mảnh,
-//   "Tiến hóa" tốn đá tiến hóa và cần cấp người chơi, "Tối đa"), đội (bậc sao 2026-11-17, GD_Claude/20_TangDayNoiDung.md);
+// - thanh mảnh của lần lên sao kế, dòng điều kiện và hàng nút Tiềm năng, "Lên sao" (chỉ tốn mảnh; bước đi qua mốc bậc cũ cần cấp
+//   người chơi), đội. Tiến hóa (đá + cấp, đổi hình) là nút riêng màu xanh lá trên thanh tiến hóa, giữa mốc đang ở và mốc kế
+//   (người dùng dặn 2026-11-19: tách rõ lên sao với tiến hóa; tướng có bao nhiêu hình thì bấy nhiêu bậc, StarTier.Stops);
 // - nút hack tiến hóa ở góc trái sân khấu, trên hàng nút clip, để thử đổi dạng; hiện cả ở bản build (thử trên máy, người dùng
 //   dặn 2026-11-06), nhớ tắt trước khi phát hành.
 // Mọi phần có sẵn trong prefab, Render bật tắt và gán dữ liệu.
@@ -125,10 +126,32 @@ namespace PokiClash
             }
         }
 
+        // chữ đầu hộp (sao, bậc, độ hiếm) vẽ trên hình tướng: hình to hay tràn lên chữ (người dùng dặn 2026-11-19: sao, bậc phải rõ).
+        // Đưa nhánh chứa chữ lên sau nhánh chứa ô xem ở cha chung; cha chung có LayoutGroup thì thôi (đổi thứ tự sẽ dời chỗ)
+        static void DrawAbove(Transform top, Transform below)
+        {
+            for (var h = top; h && h.parent; h = h.parent)
+            {
+                var parent = h.parent;
+                Transform b = null;
+                for (var v = below; v && v.parent; v = v.parent)
+                    if (v.parent == parent)
+                    {
+                        b = v;
+                        break;
+                    }
+                if (!b) continue;
+                if (b == h || parent.GetComponent<LayoutGroup>()) return;
+                if (h.GetSiblingIndex() < b.GetSiblingIndex()) h.SetSiblingIndex(b.GetSiblingIndex());
+                return;
+            }
+        }
+
         public void Show(string heroId, Action changed)
         {
             id = heroId;
             onChange = changed;
+            if (p.stars && p.viewer) DrawAbove(p.stars.transform, p.viewer.transform);
             BindViewer();
             for (int i = 0; i < p.clips.Length && i < ClipIds.Length; i++)
             {
@@ -141,19 +164,20 @@ namespace PokiClash
         // dựng lại ô xem theo sao hiện tại (lên sao qua mốc tiến hóa thì đổi dạng)
         void BindViewer() => p.viewer.Bind(App.Data.Hero(id), viewSize, !App.Save.Data.Hero(id).owned);
 
-        // hack thử: chưa có thì nhận tướng 1 sao; có rồi thì lên 1 sao (qua cả mốc tiến hóa), bỏ qua điều kiện; tối đa thì về 1 sao
+        // hack thử: chưa có thì nhận tướng 1 sao; có rồi thì lên 1 sao hiện (qua cả mốc tiến hóa), bỏ qua điều kiện; tối đa thì về 1 sao
         void HackStar()
         {
             var s = App.Save.Data;
             var hp = s.Hero(id);
+            var hero = App.Data.Hero(id);
             if (!hp.owned)
             {
                 Progress.UnlockHero(s, id);
                 hp.star = 1;
             }
-            else hp.star = hp.star < StarTier.MaxStar ? hp.star + 1 : 1;
+            else hp.star = hp.star < StarTier.MaxStar ? StarTier.NextStop(App.Data.Cfg, hero, hp.star) : 1;
             App.Save.Save();
-            App.Toasts.Show($"Hack: {App.Data.Hero(id).name} {StarTier.Label(hp.star)} ({HeroArt.FormOf(App.Data.Hero(id)).name})", Icon("star"));
+            App.Toasts.Show($"Hack: {hero.name} {StarTier.Label(App.Data.Cfg, hero, hp.star)} ({HeroArt.FormOf(hero).name})", Icon("star"));
             onChange?.Invoke();
             BindViewer();
             Render(HeroViewer.Skill);
@@ -182,24 +206,33 @@ namespace PokiClash
             p.rarity.text = Elements.RarityName(hero.rarity);
             p.rarity.color = Theme.RarityInk(hero.rarity); // cùng màu chữ độ hiếm với thẻ tướng
             p.stars.gameObject.SetActive(hp.owned);
-            if (hp.owned) p.stars.SetTiered(hp.star);
+            if (hp.owned)
+            {
+                p.stars.SetSize(StarSize); // sao to cho rõ (người dùng dặn 2026-11-19)
+                p.stars.SetTiered(cfg, hero, hp.star);
+            }
+            string tierText = StarTier.Label(cfg, hero, hp.star);
             if (p.tierLabel)
             {
+                // chữ viền như tên tướng (ruột màu bậc, viền mực): đọc được cả khi hình tướng tràn lên đầu hộp
                 p.tierLabel.gameObject.SetActive(hp.owned);
-                p.tierLabel.text = StarTier.Label(hp.star);
-                p.tierLabel.color = Color.Lerp(UiStars.TierColor(StarTier.Tier(hp.star)), Theme.Ink, 0.45f); // màu bậc sẫm cho dễ đọc trên giấy
+                p.tierLabel.text = tierText;
+                p.tierLabel.fontSharedMaterial = p.name.fontSharedMaterial;
+                p.tierLabel.color = UiStars.TierColor(StarTier.TierOf(cfg, hero, hp.star));
+                p.rarity.fontSharedMaterial = p.name.fontSharedMaterial;
+                p.rarity.color = Theme.Of(hero.rarity);
             }
             p.line.text = hero.line;
             double[] values = { stats.hp, stats.atk, stats.def };
             if (p.stats.Length == 4) DropSpeedGroup(p.stats); // bỏ ô Tốc
             for (int i = 0; i < p.stats.Length && i < values.Length; i++) p.stats[i].text = NumFmt.Short(values[i]);
-            p.statNote.text = $"Ở cấp {s.level}" + (hp.owned ? $", {StarTier.Label(hp.star)}" : "") +
+            p.statNote.text = $"Ở cấp {s.level}" + (hp.owned ? $", {tierText}" : "") +
                               (badge > 0 ? $", huy hiệu {Badges.TierName(cfg, badge)} +{Badges.Bonus(cfg, badge) * 100:0}%" : "");
             if (p.evolution) p.evolution.Bind(hero, hp.star, hp.owned, cfg);
             if (p.hackStar)
             {
                 p.hackStar.gameObject.SetActive(true); // hiện cả ở bản build để thử trên máy (người dùng dặn 2026-11-06)
-                p.hackStar.SetText(!hp.owned ? "Hack: nhận" : hp.star < StarTier.MaxStar ? $"Hack: {StarTier.Label(hp.star + 1)}" : "Hack: 1 sao");
+                p.hackStar.SetText(!hp.owned ? "Hack: nhận" : hp.star < StarTier.MaxStar ? $"Hack: {StarTier.Label(cfg, hero, StarTier.NextStop(cfg, hero, hp.star))}" : "Hack: 1 sao");
                 p.hackStar.FitWidth();
                 p.hackStar.SetOnClick(HackStar);
             }
@@ -266,57 +299,72 @@ namespace PokiClash
             p.potentialPulse.enabled = fresh;
             if (!fresh) p.potentialButton.transform.localScale = Vector3.one;
 
-            // lên sao / tiến hóa: một nút chính theo bước kế (Progress.NextStep)
+            // lên sao (hàng nút dưới, chỉ mảnh) và tiến hóa (nút xanh lá trên thanh tiến hóa, đá + cấp, đổi hình): hai nút riêng
             var step = Progress.NextStep(s, d, id);
-            int next = Mathf.Min(StarTier.MaxStar, hp.star + 1);
-            // dạng của sao kế tiếp (tiến hóa có thể đổi dạng thì phải đọc animation mới): đọc trước ở luồng phụ để bấm không khựng
+            int next = StarTier.NextStop(cfg, hero, hp.star);
+            int tier = StarTier.TierOf(cfg, hero, hp.star), tiers = StarTier.Tiers(hero);
+            // dạng của sao kế tiếp (tiến hóa đổi dạng thì phải đọc animation mới): đọc trước ở luồng phụ để bấm không khựng
             if (step != Progress.StarStep.Max) Game.AolaActor.Prewarm(HeroArt.FormOf(hero, next).aola);
-            int gain = Mathf.RoundToInt((float)((HeroStats.StarMult(cfg, next) / HeroStats.StarMult(cfg, hp.star) - 1) * 100));
+            int Gain(int from, int to) => Mathf.RoundToInt((float)((HeroStats.StarMult(cfg, to) / HeroStats.StarMult(cfg, from) - 1) * 100));
+            string LvNeed(int lv) => lv <= 0 || s.level >= lv ? "" : $" · cần cấp {lv} (đang {s.level})";
+
+            // nút Tiến hóa trên thanh: sang bậc kế (hiện cả khi chưa tới sao cuối bậc, mờ, để thấy chỗ tiến hóa)
+            if (p.evolution)
+            {
+                if (tier + 1 < tiers)
+                {
+                    int toStar = StarTier.TierStartStar(cfg, hero, tier + 1);
+                    var evoCost = Progress.EvolveCost(cfg, hero, StarTier.Tier(toStar));
+                    bool atGate = step == Progress.StarStep.Evolve;
+                    bool can = atGate && Progress.CanEvolve(s, d, id);
+                    string caption = atGate
+                        ? $"{s.evoStones}/{evoCost.stones} đá" + (s.level < evoCost.level ? $" · cấp {evoCost.level}" : "")
+                        : $"cần {StarTier.Name(tier)} 5 sao";
+                    p.evolution.ShowEvolve(tier + 1, caption, can, can, () => DoEvolve(hero));
+                }
+                else p.evolution.ShowEvolve(-1, "", false, false, null);
+            }
+
             bool ok = false;
-            string stepLabel;
             if (step == Progress.StarStep.Max)
             {
-                stepLabel = "Tối đa";
-                p.evolveNeed.text = $"Đã đạt {StarTier.Label(hp.star)}: mảnh nhận thêm đổi thành bản sao thẻ";
-                EvolveBar(Icon("star"), UiStars.TierColor(StarTier.Count - 1), 1, 1, "Tối đa");
+                p.evolveNeed.text = $"Đã đạt {tierText}, tối đa: mảnh nhận thêm đổi thành bản sao thẻ";
+                EvolveBar(Icon("star"), UiStars.TierColor(tiers - 1), 1, 1, "Tối đa");
             }
             else if (step == Progress.StarStep.StarUp)
             {
-                int cost = Progress.ShardCost(cfg, hero, next);
+                var c = Progress.StarUpCost(cfg, hero, hp.star);
                 ok = Progress.CanStarUp(s, d, id);
-                stepLabel = "Lên sao";
-                p.evolveNeed.text = $"Lên {StarTier.Label(next)} (+{gain}% chỉ số): {hp.shards}/{cost} mảnh {hero.name}";
-                EvolveBar(Icon("shard"), Color.white, hp.shards, cost, $"{hp.shards}/{cost} mảnh");
+                p.evolveNeed.text = $"Lên {StarTier.Label(cfg, hero, next)} (+{Gain(hp.star, next)}% chỉ số): {hp.shards}/{c.shards} mảnh {hero.name}{LvNeed(c.level)}";
+                EvolveBar(Icon("shard"), Color.white, hp.shards, c.shards, $"{hp.shards}/{c.shards} mảnh");
             }
             else
             {
-                var c = Progress.EvolveCost(s, d, id);
-                ok = Progress.CanEvolve(s, d, id);
-                stepLabel = "Tiến hóa";
-                bool morph = hero.FormIndex(cfg.formStars, next) != hero.FormIndex(cfg.formStars, hp.star);
-                string lvNeed = s.level >= c.level ? "" : $" · cần cấp {c.level} (đang {s.level})";
-                p.evolveNeed.text = $"Tiến hóa lên {StarTier.Label(next)} (+{gain}% chỉ số{(morph ? ", đổi hình" : "")}): {s.evoStones}/{c.stones} đá tiến hóa{lvNeed}";
-                EvolveBar(Icon("rock"), RewardTile.EvoTint, s.evoStones, c.stones, $"{s.evoStones}/{c.stones} đá");
+                // sao cuối bậc: lên sao dừng, chờ tiến hóa ở nút trên thanh; thanh mảnh tính cho lần lên sao đầu của bậc sau
+                var gate = Progress.EvolveCost(s, d, id);
+                var after = Progress.StarUpCost(cfg, hero, next);
+                string form = HeroArt.FormOf(hero, next).name;
+                p.evolveNeed.text = $"Đủ {tierText}: bấm Tiến hóa trên thanh để thành {form} (+{Gain(hp.star, next)}% chỉ số; " +
+                                    $"{gate.stones} đá{(gate.level > 0 ? $", cấp {gate.level}" : "")})";
+                EvolveBar(Icon("shard"), Color.white, hp.shards, after.shards, $"{hp.shards}/{after.shards} mảnh");
             }
             p.evolveButton.gameObject.SetActive(true);
-            p.evolveButton.name = "nut_" + stepLabel;
-            p.evolveButton.SetText(stepLabel);
+            p.evolveButton.name = "nut_len_sao";
+            p.evolveButton.SetText(step == Progress.StarStep.Max ? "Tối đa" : "Lên sao");
             p.evolveButton.SetOnClick(() =>
             {
                 var st = Progress.NextStep(s, d, id);
-                bool done = st == Progress.StarStep.StarUp ? Progress.StarUp(s, d, id) : st == Progress.StarStep.Evolve && Progress.Evolve(s, d, id);
-                if (!done)
+                if (!Progress.StarUp(s, d, id))
                 {
-                    App.Toasts.Show(st == Progress.StarStep.Max ? "Đã tối đa sao" : st == Progress.StarStep.StarUp ? "Chưa đủ mảnh" : "Chưa đủ đá tiến hóa hoặc cấp",
-                        Icon("info"));
+                    App.Toasts.Show(st == Progress.StarStep.Max ? "Đã tối đa sao"
+                        : st == Progress.StarStep.Evolve ? $"Đủ 5 sao {StarTier.Name(StarTier.TierOf(cfg, hero, s.Hero(id).star))}: bấm Tiến hóa trên thanh"
+                        : "Chưa đủ mảnh hoặc cấp", Icon("info"));
                     return;
                 }
                 App.Audio.Play("level");
-                var now = s.Hero(id).star;
-                App.Toasts.Show(st == Progress.StarStep.Evolve ? $"{hero.name} tiến hóa lên {StarTier.Label(now)}!" : $"{hero.name} lên {StarTier.Label(now)}!", Icon("star"));
+                App.Toasts.Show($"{hero.name} lên {StarTier.Label(cfg, hero, s.Hero(id).star)}!", Icon("star"));
                 App.Save.Save();
                 onChange?.Invoke();
-                if (st == Progress.StarStep.Evolve) BindViewer(); // qua mốc bậc có thể đổi dạng
                 Render(HeroViewer.Skill);
             });
             p.evolveButton.Interactable = ok;
@@ -344,7 +392,28 @@ namespace PokiClash
             });
         }
 
-        // thanh mảnh / đá của bước kế (prefab chưa dựng thanh thì bỏ qua)
+        const float StarSize = 44; // cỡ sao cạnh tên tướng
+
+        // tiến hóa (nút trên thanh tiến hóa): đá + cấp, sang bậc sau, đổi hình
+        void DoEvolve(HeroDef hero)
+        {
+            var s = App.Save.Data;
+            var d = App.Data;
+            if (!Progress.Evolve(s, d, id))
+            {
+                App.Toasts.Show("Chưa đủ đá tiến hóa hoặc cấp", Icon("info"));
+                return;
+            }
+            App.Audio.Play("level");
+            int now = s.Hero(id).star;
+            App.Toasts.Show($"{HeroArt.FormOf(hero, now).name} tiến hóa: {StarTier.Label(d.Cfg, hero, now)}!", Icon("star"));
+            App.Save.Save();
+            onChange?.Invoke();
+            BindViewer(); // qua bậc là đổi dạng
+            Render(HeroViewer.Skill);
+        }
+
+        // thanh mảnh của lần lên sao kế (prefab chưa dựng thanh thì bỏ qua)
         void EvolveBar(Sprite icon, Color tint, int have, int need, string text)
         {
             if (p.evolveIcon)

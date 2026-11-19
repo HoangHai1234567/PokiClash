@@ -1444,120 +1444,6 @@
  ],
  "innate": [
   {
-   "id": "vs_skill",
-   "owner": "vo_su",
-   "name": "Thiết Quyền",
-   "rarity": "common",
-   "kind": "skill",
-   "icon": "fist",
-   "cost": {
-    "mana": 30
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 1.2
-    },
-    {
-     "k": "rage",
-     "v": 10
-    }
-   ]
-  },
-  {
-   "id": "vs_ult",
-   "owner": "vo_su",
-   "name": "Bách Liệt Quyền",
-   "rarity": "rare",
-   "kind": "ult",
-   "icon": "fist2",
-   "cost": {
-    "rage": 100,
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 0.5,
-     "hits": 5
-    }
-   ]
-  },
-  {
-   "id": "vs_pas",
-   "owner": "vo_su",
-   "name": "Da Đồng",
-   "rarity": "common",
-   "kind": "passive",
-   "icon": "shield",
-   "trigger": "start",
-   "effects": [
-    {
-     "k": "buff",
-     "stat": "def",
-     "v": 0.15,
-     "turns": 99
-    }
-   ]
-  },
-  {
-   "id": "cs_skill",
-   "owner": "ca_sa",
-   "name": "Khói Hương",
-   "rarity": "rare",
-   "kind": "skill",
-   "icon": "incense",
-   "cost": {
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "heal",
-     "pct": 0.25
-    },
-    {
-     "k": "cleanse"
-    }
-   ]
-  },
-  {
-   "id": "cs_ult",
-   "owner": "ca_sa",
-   "name": "Kim Cang Pháp Tướng",
-   "rarity": "legend",
-   "kind": "ult",
-   "icon": "crown",
-   "cost": {
-    "rage": 100,
-    "mana": 50
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 3
-    },
-    {
-     "k": "shield",
-     "pct": 0.3
-    }
-   ]
-  },
-  {
-   "id": "cs_pas",
-   "owner": "ca_sa",
-   "name": "Phật Tâm",
-   "rarity": "epic",
-   "kind": "passive",
-   "icon": "heart",
-   "trigger": "death",
-   "effects": [
-    {
-     "k": "revive",
-     "pct": 0.35
-    }
-   ]
-  },
-  {
    "id": "hai_long_skill",
    "owner": "hai_long",
    "name": "Hải Long Phun",
@@ -2938,177 +2824,6 @@
    ]
   },
   {
-   "id": "gau_mo_skill",
-   "owner": "gau_mo",
-   "name": "Thiết Quyền",
-   "rarity": "common",
-   "kind": "skill",
-   "icon": "fist",
-   "cost": {
-    "mana": 30
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 1.2
-    },
-    {
-     "k": "rage",
-     "v": 10
-    }
-   ]
-  },
-  {
-   "id": "gau_mo_ult",
-   "owner": "gau_mo",
-   "name": "Bách Liệt Quyền",
-   "rarity": "rare",
-   "kind": "ult",
-   "icon": "fist2",
-   "cost": {
-    "rage": 100,
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 0.5,
-     "hits": 5
-    }
-   ]
-  },
-  {
-   "id": "gau_mo_pas",
-   "owner": "gau_mo",
-   "name": "Da Đồng",
-   "rarity": "common",
-   "kind": "passive",
-   "icon": "shield",
-   "trigger": "start",
-   "effects": [
-    {
-     "k": "buff",
-     "stat": "def",
-     "v": 0.15,
-     "turns": 99
-    }
-   ]
-  },
-  {
-   "id": "soc_da_skill",
-   "owner": "soc_da",
-   "name": "Thiết Quyền",
-   "rarity": "common",
-   "kind": "skill",
-   "icon": "fist",
-   "cost": {
-    "mana": 30
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 1.2
-    },
-    {
-     "k": "rage",
-     "v": 10
-    }
-   ]
-  },
-  {
-   "id": "soc_da_ult",
-   "owner": "soc_da",
-   "name": "Bách Liệt Quyền",
-   "rarity": "rare",
-   "kind": "ult",
-   "icon": "fist2",
-   "cost": {
-    "rage": 100,
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 0.5,
-     "hits": 5
-    }
-   ]
-  },
-  {
-   "id": "soc_da_pas",
-   "owner": "soc_da",
-   "name": "Da Đồng",
-   "rarity": "common",
-   "kind": "passive",
-   "icon": "shield",
-   "trigger": "start",
-   "effects": [
-    {
-     "k": "buff",
-     "stat": "def",
-     "v": 0.15,
-     "turns": 99
-    }
-   ]
-  },
-  {
-   "id": "bo_hung_skill",
-   "owner": "bo_hung",
-   "name": "Thiết Quyền",
-   "rarity": "common",
-   "kind": "skill",
-   "icon": "fist",
-   "cost": {
-    "mana": 30
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 1.2
-    },
-    {
-     "k": "rage",
-     "v": 10
-    }
-   ]
-  },
-  {
-   "id": "bo_hung_ult",
-   "owner": "bo_hung",
-   "name": "Bách Liệt Quyền",
-   "rarity": "rare",
-   "kind": "ult",
-   "icon": "fist2",
-   "cost": {
-    "rage": 100,
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 0.5,
-     "hits": 5
-    }
-   ]
-  },
-  {
-   "id": "bo_hung_pas",
-   "owner": "bo_hung",
-   "name": "Da Đồng",
-   "rarity": "common",
-   "kind": "passive",
-   "icon": "shield",
-   "trigger": "start",
-   "effects": [
-    {
-     "k": "buff",
-     "stat": "def",
-     "v": 0.15,
-     "turns": 99
-    }
-   ]
-  },
-  {
    "id": "thach_nhan_skill",
    "owner": "thach_nhan",
    "name": "Văng Sỏi",
@@ -3169,120 +2884,6 @@
      "stat": "dmgTaken",
      "v": -0.08,
      "turns": 99
-    }
-   ]
-  },
-  {
-   "id": "sa_than_skill",
-   "owner": "sa_than",
-   "name": "Thiết Quyền",
-   "rarity": "common",
-   "kind": "skill",
-   "icon": "fist",
-   "cost": {
-    "mana": 30
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 1.2
-    },
-    {
-     "k": "rage",
-     "v": 10
-    }
-   ]
-  },
-  {
-   "id": "sa_than_ult",
-   "owner": "sa_than",
-   "name": "Bách Liệt Quyền",
-   "rarity": "rare",
-   "kind": "ult",
-   "icon": "fist2",
-   "cost": {
-    "rage": 100,
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 0.5,
-     "hits": 5
-    }
-   ]
-  },
-  {
-   "id": "sa_than_pas",
-   "owner": "sa_than",
-   "name": "Da Đồng",
-   "rarity": "common",
-   "kind": "passive",
-   "icon": "shield",
-   "trigger": "start",
-   "effects": [
-    {
-     "k": "buff",
-     "stat": "def",
-     "v": 0.15,
-     "turns": 99
-    }
-   ]
-  },
-  {
-   "id": "ky_lan_skill",
-   "owner": "ky_lan",
-   "name": "Khói Hương",
-   "rarity": "rare",
-   "kind": "skill",
-   "icon": "incense",
-   "cost": {
-    "mana": 40
-   },
-   "effects": [
-    {
-     "k": "heal",
-     "pct": 0.25
-    },
-    {
-     "k": "cleanse"
-    }
-   ]
-  },
-  {
-   "id": "ky_lan_ult",
-   "owner": "ky_lan",
-   "name": "Kim Cang Pháp Tướng",
-   "rarity": "legend",
-   "kind": "ult",
-   "icon": "crown",
-   "cost": {
-    "rage": 100,
-    "mana": 50
-   },
-   "effects": [
-    {
-     "k": "dmg",
-     "mult": 3
-    },
-    {
-     "k": "shield",
-     "pct": 0.3
-    }
-   ]
-  },
-  {
-   "id": "ky_lan_pas",
-   "owner": "ky_lan",
-   "name": "Phật Tâm",
-   "rarity": "epic",
-   "kind": "passive",
-   "icon": "heart",
-   "trigger": "death",
-   "effects": [
-    {
-     "k": "revive",
-     "pct": 0.35
     }
    ]
   },
@@ -3559,10 +3160,10 @@
   {
    "id": "gio_loc_skill",
    "owner": "gio_loc",
-   "name": "Rễ Trói Đất",
+   "name": "Lông Lá Găm",
    "rarity": "uncommon",
    "kind": "skill",
-   "icon": "seed",
+   "icon": "leaf",
    "cost": {
     "mana": 35
    },
@@ -3577,7 +3178,7 @@
   {
    "id": "gio_loc_ult",
    "owner": "gio_loc",
-   "name": "Thần Trụ Giáng Thế",
+   "name": "Thiên Thạch Giáng",
    "rarity": "epic",
    "kind": "ult",
    "icon": "rock",
@@ -3596,10 +3197,10 @@
   {
    "id": "gio_loc_pas",
    "owner": "gio_loc",
-   "name": "Thân Đá Rời",
+   "name": "Cánh Lá Nhẹ",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "shield",
+   "icon": "wing",
    "trigger": "start",
    "effects": [
     {
@@ -4666,7 +4267,7 @@
   {
    "id": "hat_de_skill",
    "owner": "hat_de",
-   "name": "Ném Hạt Dẻ",
+   "name": "Rễ Trói Đất",
    "rarity": "uncommon",
    "kind": "skill",
    "icon": "seed",
@@ -4684,7 +4285,7 @@
   {
    "id": "hat_de_ult",
    "owner": "hat_de",
-   "name": "Mưa Hạt Dẻ",
+   "name": "Thần Trụ Giáng Thế",
    "rarity": "epic",
    "kind": "ult",
    "icon": "rock",
@@ -4703,7 +4304,7 @@
   {
    "id": "hat_de_pas",
    "owner": "hat_de",
-   "name": "Khiên Vỏ Cứng",
+   "name": "Giáp Đá Cổ",
    "rarity": "rare",
    "kind": "passive",
    "icon": "shield",
@@ -6649,10 +6250,10 @@
   {
    "id": "gio_loc_boss",
    "owner": "gio_loc",
-   "name": "Rễ Hút Linh Lực",
+   "name": "Gió Cuốn",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "leaf",
+   "icon": "wind",
    "trigger": "onHit",
    "effects": [
     {
@@ -6833,10 +6434,10 @@
   {
    "id": "hat_de_boss",
    "owner": "hat_de",
-   "name": "Vỏ Dẻ Hộ Thân",
+   "name": "Rễ Đá Hộ Thân",
    "rarity": "rare",
    "kind": "passive",
-   "icon": "shield",
+   "icon": "rock",
    "trigger": "onHit",
    "chance": 0.3,
    "effects": [

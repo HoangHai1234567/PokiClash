@@ -36,7 +36,7 @@ namespace PokiClash.Tests
             Assert.IsNull(s.starter);
             Assert.IsEmpty(s.team);
             Assert.IsFalse(s.Hero("ti_tach").owned);
-            Assert.IsFalse(s.Hero("ca_sa").owned);
+            Assert.IsFalse(s.Hero("giap_nham").owned);
             Assert.AreEqual(0, s.zones[(int)Elem.Thuy]);
             Assert.IsTrue(File.Exists(Path.Combine(dir, $"save_v{TestData.Load().Cfg.saveVersion}.json")));
         }
@@ -72,9 +72,9 @@ namespace PokiClash.Tests
             svc.Data.balls = 123;
             svc.Data.zones[(int)Elem.Hoa] = 3;
             svc.Data.clears[12] = 2;
-            svc.Data.Hero("vo_su").owned = true;
-            svc.Data.Hero("vo_su").skill.lv = 3;
-            svc.Data.team.Add("vo_su");
+            svc.Data.Hero("cao_da").owned = true;
+            svc.Data.Hero("cao_da").skill.lv = 3;
+            svc.Data.team.Add("cao_da");
             svc.Data.settings.boil = false;
             svc.Data.extra["homestead"] = new System.Collections.Generic.Dictionary<string, object> { ["thuy"] = 1.0 };
             svc.Data.chests.Add(new PendingChest { kind = "chest_gold", x = 3 });
@@ -89,8 +89,8 @@ namespace PokiClash.Tests
             Assert.AreEqual(123, s.balls);
             Assert.AreEqual(3, s.zones[(int)Elem.Hoa]);
             Assert.AreEqual(2, s.clears[12]);
-            Assert.AreEqual(3, s.Hero("vo_su").skill.lv);
-            Assert.AreEqual(new[] { "ti_tach", "vo_su" }, s.team.ToArray());
+            Assert.AreEqual(3, s.Hero("cao_da").skill.lv);
+            Assert.AreEqual(new[] { "ti_tach", "cao_da" }, s.team.ToArray());
             Assert.IsFalse(s.settings.boil);
             Assert.IsTrue(s.extra.ContainsKey("homestead"), "khoá lạ được giữ nguyên");
             Assert.AreEqual(2, s.chests.Count, "rương máy bi chờ mở");
@@ -175,7 +175,7 @@ namespace PokiClash.Tests
             }
             Assert.AreEqual(7, r.Hero("so_ngoc").shards);
             Assert.AreEqual(0, r.evoStones);
-            Assert.AreEqual(1, r.Hero("vo_su").star, "tướng chưa có vẫn 1 sao");
+            Assert.AreEqual(1, r.Hero("cao_da").star, "tướng chưa có vẫn 1 sao");
         }
 
         [Test]

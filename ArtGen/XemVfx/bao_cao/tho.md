@@ -152,3 +152,175 @@ Thạch Thú ult, Thổ Tinh ult, Bùn Ngoạm ult, Hạt Dẻ mana. Các chiêu
    khói các hệ đồng bộ. Bụi chung `Bui` (`HatVoi.cs`) cũng nên đổi như `ToBui`.
 4. Nếu ảnh `kr_cung` là vòng đã dẹt sẵn: có thể thay mảng cung trong `ToVong` bằng ảnh đó (một dòng `Put`), nhưng cần biết hướng và độ dẹt của ảnh.
 5. Bùn Ngoạm ra sân (`BunRaSan`) dùng chung vật liệu nên đã đẹp theo; `StageViewNuot.cs` không cần đổi.
+
+## Đợt khung vẽ sẵn 2026-11-19 (flipbook, HatFlip.cs)
+
+Bản sửa ở `scratchpad/fb_tho/` (gốc lúc chép ở `scratchpad/fb_tho_base/`), chưa chép vào Assets. Biên dịch thử
+(`ArtGen/Spine/quai/tho5_game/bien_dich_thu.py`, chạy từ gốc project): Core, Game, Editor 0 lỗi.
+
+Chung cho cả hệ (file mới `HatFbTho.cs` + các hàm chung trong `HatTho.cs`; chưa nhập ảnh `hat_fb_*` thì mọi chỗ rơi về hạt cũ y như trước):
+- `ToCum` (cụm bụi nhiều múi): một khung `khoi` nhuộm bụi đất, cao (2,6 + 0,4 n) R. Có tham số màu (cát cho Sa Tích, Sa Long, Sa Trùng) và
+  cờ "giữa không trung" (tâm cụm ở điểm gọi, bỏ 3 khung đầu cho cụm bung quanh điểm).
+- `ToNo` (cú trúng): hai cụm bụi hạt → một khung `khoi` sau thân, cao 0,36 tH × √muc, màu theo dăm (cát / đất nung / đá trăng / đất), dời
+  0,16 tH về phía kẻ đánh. Ghép thử thấy cụm ngay sau giữa thân bị thân che gần hết. Giữ chớp, vòng va chạm, bông va chạm, chùm dăm.
+- `ToKhoiCum` (khói than nổ lớn): một khung `khoi` nhuộm khói than.
+- Đuôi bụi (`ToDuoiThang`, `ToTangBay`, `ToLuoiCat`, gò `TrungGo`): cụm `khoi` bước gấp đôi, chồng nhau thành dải.
+- Dòng bụi sinh đều (lắc mai, cát bốc, cát xoáy, gồng, lăn, đất rung): `ToBuiFb`, chỉ sinh 40 % số cụm, mỗi cụm to × 1,3.
+- Gai / cột đá trồi: khung `gai_sat` nhuộm màu đá (`FbGai`). Chạy ba pha đúng nhịp cũ: lên (khung 4 → 11), giữ (11 → 18), vỡ rơi.
+  Bỏ phần nứt đất của khung, vì vết nứt và hố đã có `ToNut` / `ToHo`.
+- Nhuộm chỉ làm tối được (Image nhân màu). Khung khói xám nâu ~(124, 109, 102) nhuộm theo gợi ý (200, 170, 130) ra nâu sô-cô-la (soi tờ
+  nhuộm thử), nên bụi đất dùng (250, 218, 172), ra nâu đất ~(122, 94, 70). Gai sắt nhuộm (255, 214, 152) ra sa thạch.
+
+### thach_nhan (Thạch Giáp): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi sau gót, bụi chỗ húc ra khung `khoi`. Chớp, dăm, vòng bụi dạng 2 giữ.
+- Mana: bụi lắc mai ra `khoi` (40 % số cụm, to hơn). Bụi ở hốc mai lúc sỏi / pha lê rời là cụm giữa không trung. Đuôi bụi của mảnh rig là
+  cụm `khoi` bước gấp đôi; mỗi cú găm có bụi `khoi`.
+- Chiêu cuối: bụi gồng, bụi ở hốc pha lê, bụi mỗi mảnh mưa ra `khoi`. Giữ mảnh pha lê bay / rơi / cắm (vật rơi, không phải gai trồi).
+
+### lung_vuong (Sa Tích): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi cát ra `khoi` nhuộm cát. Vết cắn giữ.
+- Mana: cát bốc quanh áo ra `khoi` nhuộm cát (40 % số cụm). Đuôi cát của phiến là cụm `khoi`. Bụi cú găm nhuộm đỏ đất nung.
+- Chiêu cuối: cát xoáy quanh chân đối thủ, bụi dậm ra `khoi` nhuộm cát. Bụi tràn miệng / chân phễu của lốc cát ra `khoi` (40 %).
+  Thân lốc cát giữ mảng liền: khung `loc` là lốc năng lượng xanh tím, nhuộm ra lục xỉn.
+
+### cao_da (Tê Thiềm): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường (giáng sừng / đâm pha lê): bụi ra `khoi`; giữ chớp, dăm, mảnh pha lê bật.
+- Mana: đuôi bụi tảng đá ra `khoi`; bụi ở miệng lúc nhả là cụm giữa không trung. Giữ hút xoắn ốc, vòng co, tảng đá, đá vỡ.
+- Chiêu cuối dạng 1 (lăn): bụi toé lúc xoay và vệt bụi đường lăn ra `khoi` (40 %).
+- Chiêu cuối dạng 2 (bổ): ba cột pha lê ra `gai_sat` nhuộm hổ phách, nghiêng như cũ, trồi 0,07 s, giữ 0,3 s, vỡ 0,18 s. Khung tự vỡ mảnh nên
+  bỏ cú nổ dăm lúc cột tan. Bụi gồng ra `khoi`.
+
+### ho_khoan (Sa Long): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi cú vuốt nhuộm cát. Giữ ba vệt vuốt.
+- Mana: lưỡi cát trăng khuyết giữ (mảng liền). Đuôi cát ra `khoi` nhuộm cát. Lúc vỡ: hai cụm cát `khoi` thay ba cụm hạt.
+- Chiêu cuối (cả hai dạng): cột sa thạch ra `gai_sat` nhuộm sa thạch, đúng nhịp cũ (lên 0,12 s, giữ, vỡ 0,25 s), đỉnh cao bằng cột cũ.
+  Bụi chân cột có sẵn trong khung nên bỏ hai cụm bụi hạt. Giữ dăm, hố, hút cát, vòng co, vết nứt. Mất hai vạch son trên thân cột.
+
+### phu_van (Sơn Viên): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi ba cú đấm ra `khoi`.
+- Mana: sóng chấn mỗi nhịp một cụm `gai_sat` nhuộm đá nâu be, lớn dần về phía đối thủ, so le trước / sau, lật xen kẽ (trồi 0,08 s, giữ
+  0,1 s, vỡ 0,16 s). Bỏ cụm bụi hạt từng nhịp, giữ sỏi bắn và cú hất cuối.
+- Chiêu cuối: bụi chỗ đá bứt khỏi đất, đuôi bụi tảng khổng lồ ra `khoi`. Thêm một cụm bụi `khoi` to 0,95 tH sau lưng đối thủ lúc tảng vỡ.
+  Giữ tảng, hút, vòng co, đá vỡ, mưa đá nhỏ.
+
+### hat_de (Cổ Vương): đợt khung vẽ sẵn 2026-11-19
+- Hàm mới trong `HatCoVuong.cs`:
+  - `CvBui`: cụm bụi `khoi` nhuộm đất, cao 2,8 r, thay `BuiCum` (của `HatMoc.cs`);
+  - `CvSo`: số cụm còn ~2/3, mỗi cụm to × 1,2;
+  - `CvDaNo`: bản `ThachNo` (của `HatChim.cs`) với bụi là một cụm `khoi` to 0,5 tH sau thân.
+- Đòn thường hai dạng, mana (nện, rễ trồi: cụm bụi ở nhịp chẵn), chiêu cuối (gồng, cột cắm, bắt cột): mọi cụm bụi qua `CvBui`.
+- Giữ rễ (`Re` / `ReQuan`): khung `gai_la` là lá xanh, không phải rễ gỗ. Giữ lá, tảng rêu, dăm, chớp, vòng cung đất, vết đất, bóng báo
+  trước, `DanhTrung`.
+
+### rua_nui (Sa Trùng): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi tổ, bụi cú đớp và nghiến ra `khoi` nhuộm cát. Giữ vết cắn.
+- Mana: ba gai đá đầu ngạnh ra `gai_sat` nhuộm sa thạch, nghiêng như cũ (khung xoay ngược kim nên đổi dấu góc), đúng nhịp (trồi 0,08 s,
+  giữ, lún 0,2 s). Cụm gai rộng gần bằng cao, nên hai gai bên dời từ ±0,55 ra ±0,68 tH để gai lớp trước không đè thân đối thủ.
+  Mất ngạnh hổ phách ở mũi.
+- Chiêu cuối: đất phụt, gò chạy ngầm (bước gấp đôi) ra `khoi` nhuộm cát.
+
+### ho_kim_cuong (Bùn Ngoạm): đợt khung vẽ sẵn 2026-11-19
+- Mọi cụm bụi ra `khoi` nhuộm đất: cú trúng, đáp, phụt bùn, gò bùn, mũi gai (nửa số), rút gai (60 %), ra sân (hai cụm thay ba).
+- Giữ toàn bộ bùn (cục, giọt, toé, vương miện, vết): khung `nuoc_toe` nhuộm nâu ra lục xỉn.
+
+### cu_phu (Thiên Thạch Thú): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi ra `khoi`. Giữ vết cắn, mảnh tinh thể.
+- Mana:
+  - mỗi thiên thạch có một khung `cau_lua` bám đúng đường bay của bản sao (`FbCauBam`, lớp sau, cao 0,4 casterH), thay dòng 95 cụm lửa/giây;
+  - viên trúng có `trung_lua` sau thân (0,7 tH, viên cuối 0,95 tH; bay sang trái thì lật), thay nổ lửa nhỏ / ba lưỡi lửa;
+  - khói đuôi ra `khoi` nhuộm than (40 %);
+  - giữ tia ma sát, hút xoắn, vòng co.
+- Chiêu cuối:
+  - bụi cuộn người (ba cụm thay năm) và bụi quay ra `khoi`;
+  - lao xuống: một `cau_lua` bám tâm quả cầu, cao 4 × bán kính cầu (lõi vàng nấp sau quả cầu, vành lửa ló quanh, đuôi ngược hướng lao). Thay
+    mười lưỡi lửa bùng và dòng 70–190 cụm lửa/giây;
+  - nổ: `no` 1,7 tH sau lưng đối thủ (chân ở mặt đất) + `nham` 0,9 tH ở lớp đất, lệch về phía mình. Thay nổ lưỡi lửa, sáu lưỡi nhọn, lửa tạt,
+    cột lửa;
+  - khói than: chỉ giữ hai cụm thấp (ra `khoi`), vì khung nổ đã có nấm khói;
+  - nổ phụ ra `trung_lua`;
+  - giữ chớp, sóng đất, hố, vết nứt, dăm, mảnh tinh thể, tia, tro, than; nảy về: khói ra `khoi`.
+
+### giap_nham (Thổ Tinh): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: bụi ra `khoi`; bụi cú nện nhuộm tím nhạt đá trăng.
+- Mana: bụi đất rung (40 %), bụi đế mảnh (60 %, tím nhạt), vệt bụi mảnh bay (bước gấp đôi), bụi cú cắm ra `khoi`. Giữ sóng gầm `SongChi`,
+  mảnh bay.
+- Chiêu cuối:
+  - thiên thạch lửa: đuôi là `cau_lua` bám đường bay (lớp trước, dưới hòn đá); thiên thạch bụi giữ dải đuôi bụi;
+  - bụi bám (nửa số), bụi phì khi ép (40 %) ra `khoi`;
+  - ba nổ phụ ra `trung_lua`, toé ra xa tâm nổ;
+  - khói đen ra `khoi` nhuộm than đậm (~73, 61, 56): ~35–40 % số cụm, cao 2,2 bán kính cũ, trong 0,88, chạy chậm, mỏng dần 0,5 s cuối, để
+    đối thủ hiện mờ dần sau khói;
+  - giữ nguyên cầu lửa, mây nấm (người dùng đã duyệt), mặt trời, tia nhiệt + bông va chạm (tia đã có va chạm), cột lửa, lưỡi lửa văng,
+    45 hòn đá văng.
+
+### Chỗ còn ngờ (đợt khung vẽ sẵn)
+- Chưa xem trong trận. Chỉ ghép thô bằng Python, đối thủ giả, để kiểm điểm neo, cỡ, lớp: `scratchpad/fb_tho_soi/soi_tho_fb.jpg`.
+- Bụi nâu đất sẫm hơn bụi be sáng cũ (#E8C99A): nhuộm không làm sáng được. Muốn bụi sáng như cũ phải có khung khói sáng riêng.
+- Đá vẽ sẵn ra be xám / khaki, mất chi tiết riêng: vạch son cột Sa Long, ngạnh hổ phách gai Sa Trùng. Cột pha lê Tê Thiềm dạng 2 ra hổ phách
+  nâu, tối hơn `ToPhach`.
+- Cụm gai vẽ sẵn rộng gần bằng cao (cột cũ hẹp): cột giữa Sa Long 1,45 tH rộng ~1,4 tH (sau lưng đối thủ, không che).
+- Cỡ thiên thạch bản sao (mana Thiên Thạch Thú) chưa đo. Sao chổi chiêu cuối dài ~1,8 lần tướng; muốn ngắn thì giảm hệ số `4f * rb` trong
+  `ThtCauChieu`.
+- `Fb` không hiện dần: cầu lửa bám vật bay bật ra đủ cỡ ngay (chiêu cuối Thiên Thạch Thú có chớp che lúc bật).
+- Khói đen Thổ Tinh: nếu đối thủ hiện sớm / muộn so với `TinhHien0..1` thì chỉnh tốc 0,6, `life` 0,75 × đời cũ trong `TtHang`.
+- Ứng viên chưa làm: rễ Cổ Vương, lốc cát Sa Tích, bùn (không có khung hợp).
+
+### Cần đổi ở file không thuộc phiên này
+- Khi chép vào Assets: thêm file mới `HatFbTho.cs` cạnh `HatFlip.cs` (Unity tự sinh .meta). `StageView.cs`, `HatFlip.cs`, `HatNuoc.cs`
+  không cần đổi.
+- `ArtGen/Spine/quai/tho5_game/vao_game.py` chép `ArtGen/Spine/quai/tho5_game/HatTho.cs` vào Assets. Bản này đã cũ (1061 dòng, màu tối của
+  ngày 11-17): chạy lại thì đè mất mọi đợt sửa sau. Đừng chạy lại, hoặc chép `HatTho.cs` mới vào đó trước.
+
+### Đợt sửa sau khi người dùng xem trong game (2026-11-19): nổ lên lớp trước, vệt khói đuôi
+Người dùng: "có vài vụ nổ layer nằm dưới địch nên không thấy rõ, các fireball, tên lửa,... nên thêm trail smoke vào".
+Biên dịch thử (từ gốc project): Core, Game, Editor 0 lỗi.
+- **Nổ lên lớp trước** (`HatThach.cs`, Thiên Thạch Thú; `nham` giữ lớp đất):
+  - chiêu cuối: `no` từ sau lưng đối thủ lên Front. Neo dời 0,2 tH về phía mình, cao 1,6 tH (trước 1,7), tốc 1,25 (~0,8 s) cho khỏi trùm đối thủ lâu;
+  - viên thiên thạch mana trúng: `trung_lua` lên Front, neo dời 0,14 tH ngược hướng bay (mặt trước thân);
+  - nổ phụ chiêu cuối: `trung_lua` lên Front, dời về phía mình 0,15–0,25 tH và thấp hơn chỗ cũ (cũ ở phía xa, cao ngang đầu).
+  - Nổ phụ Thổ Tinh vốn đã ở Front.
+- **Vệt khói đuôi** (`FbKhoiDuoi` của `HatFlip.cs`, lớp thấp hơn vật bay; bỏ đuôi khói cũ, không chồng hai vệt):
+  - Thiên Thạch Thú mana: mỗi thiên thạch một vệt, cụm 0,24 tH, 30 cụm/giây, giữa đuôi cầu lửa (Back 27, dưới cầu lửa Back 34). Thay dòng
+    `ToKhoiFb` thưa.
+  - Thiên Thạch Thú chiêu cuối: vệt sau quả cầu lao xuống, cụm 0,32 tH, 26 cụm/giây, 1,8 bán kính sau tâm (Back 27). Thay dòng `ToKhoiFb`.
+  - Thổ Tinh chiêu cuối: mỗi thiên thạch lửa một vệt, cụm 0,22 tH, 10 cụm/giây (~8 thiên thạch lửa bay cùng lúc nên thưa), Front 27 dưới
+    cầu lửa / hòn đá. Thôi nhả ở 80 % quãng cho khói không đọng trên mặt đối thủ. Thiên thạch bụi giữ dải đuôi bụi.
+  - Tảng đá bay `ToTangBay` (Tê Thiềm mana, Sơn Viên chiêu cuối): vệt khói nhuộm bụi đất, cụm 1,6 bán kính (26–55), 26 cụm/giây, Front 27
+    dưới tảng. Thay đuôi cụm khói theo quãng; sỏi rơi giữ. Mưa đá nhỏ (r < 8) không kéo khói.
+- Vật bay đã có đuôi bụi khung `khoi` từ đợt trước nên không thêm: mảnh rig `ToDuoiThang`, lưỡi cát, mảnh bay Thổ Tinh.
+- Còn ngờ: Thổ Tinh lúc đông nhất (thiên thạch + vỏ đá + khói) sát trần 120 hạt; dư thì hạ 10 cụm/giây xuống 6.
+
+### Lốc cát vẽ sẵn (2026-11-19, người dùng chê lốc cũ "màu hơi trầm và chưa hợp lắm")
+- Sa Tích chiêu cuối (`ToLocCat` trong `HatTho.cs`; hệ Thổ không còn lốc cát / lốc bụi nào khác):
+  - thân lốc là khung `loc_cat` LẶP, hai lớp lệch pha nửa vòng: lớp sau đặc, lớp trước trong 0,5 để đối thủ vẫn lộ trong lốc;
+  - đỉnh khung bằng miệng phễu cũ; bề ngang giãn 1,3 lần (ghép thử: phễu của khung hẹp hơn thân đối thủ), tốc 1,3;
+  - hiện mượt: cao 35 % → đủ trong 0,22 s, mờ vào 0,15 s, tắt dần 0,35 s cuối;
+  - bỏ phễu mảng liền + sáu dải xoắn cũ;
+  - giữ mảnh đất nung bay quanh (36 → 22 mảnh/giây vì khung đã có sỏi văng), bụi miệng / chân, cát xoáy quanh chân trước lốc, giờ trả về.
+- Chưa nhập ảnh thì về phễu cũ. Biên dịch thử 0 lỗi. Ghép thử: `scratchpad/fb_tho_soi/soi_loc.jpg`.
+- To lên (người dùng xem trong trận: "lốc xoáy làm to lên cho che hết tướng địch"):
+  - chân lốc hạ 0,34 T dưới chân đối thủ (T = 150 sc ~ thân đối thủ; dạng 2 × 1,15);
+  - khung cao 2,05 T, lộ trên chân đối thủ ~1,65 T; không vượt mép trên sân;
+  - giãn ngang 1,75 lần: ngang chân ~1,2 T, eo ngang bụng ~0,8–1,2 T, ngực ~1,7 T, miệng ~2,3 T; lớp trước vẫn trong 0,5.
+  - Eo khung chỉ ~0,23–0,33 bề ngang (đo 8 khung). Muốn eo ≥ 1,35 T phải giãn ~2,5 lần, vân chì méo quá nên dừng ở 1,75.
+  - Ghép thử: `scratchpad/fb_tho_soi/soi_loc2.jpg`. Biên dịch thử 0 lỗi.
+- Đổi sang khung `loc_cat_bao` (lốc trùm, cột xoáy dày, gốc gần rộng bằng miệng), ưu tiên khi đã nhập ảnh:
+  - không còn khung `loc_cat_bao` thì về `loc_cat` với cỡ của bước trước; không còn khung nào thì về phễu cũ;
+  - bỏ hạ chân: chân lốc ngay dưới chân đối thủ (+0,04 T);
+  - khung cao 1,7 tH (đỉnh lốc ~1,6 tH), tự hạ khi sát mép trên sân (phe địch ra ~1,64 tH);
+  - giãn ngang 1,2 (dạng 2: 1,25): ngang chân / bụng ~1,1–1,25 tH, ngực ~1,5 tH, trùm kín từ chân tới đầu; lớp trước trong 0,5;
+  - `ToLocCat` thêm tham số `tH` (`NTichLoc` truyền vào).
+  - Ghép thử đúng chỗ hai phe (`StageView.Pos`): `scratchpad/fb_tho_soi/soi_loc3.jpg`. Biên dịch thử 0 lỗi.
+
+### Tia vẽ sẵn (2026-11-19, người dùng: "tia năng lượng/nước như này nhìn vẫn chưa đã")
+- Hệ Thổ chỉ có MỘT tia: tia nhiệt chiêu cuối Thổ Tinh (`TtHang`, `HatThoTinh.cs`). Tia đứng từ đáy mặt trời xuống vỏ đá.
+  - Có `DaTiaLua` thì dùng `TiaFb`: dày 0,28 casterH, bám mặt trời đang phình và vỏ đang co, tụ 0,2 s (rig) ở đáy mặt trời.
+  - Gọi sớm tụ + vươn (quãng / 2600, kẹp 0,07–0,14) để chạm đúng mốc tia cũ `TtSkTia`; dội 0,32 s rig (tới lúc tia cũ bắt đầu rút), đuôi bay nốt.
+  - Bỏ thân tia mảng liền `TtTia`, lưỡi lửa liếm, ba `ToBong`. Giữ rung, ba vòng va chạm nhấp, giờ nổ, giờ trả về.
+  - Chưa có bộ da thì về tia cũ.
+  - Lo: cầu lửa đầu nòng cao 2,3 × bề dày (~110 đơn vị) to hơn mặt trời (~80), sẽ đè nửa dưới mặt trời lúc tụ.
+- Không có tia nào khác:
+  - Thiên Thạch Thú dùng thiên thạch, Sa Long lưỡi cát, Cổ Vương rễ / cột;
+  - mảnh bay, vết vuốt, cột lửa không phải tia.
+- Biên dịch thử 0 lỗi.
+  - Cầu đầu nòng thu nhỏ: `nongK` = 65 × sc × mo / (2,3 × bề dày), kẹp 0,35–1 (~0,6, cao ~65 đơn vị), nhỏ hơn mặt trời, không còn đè lúc tụ.

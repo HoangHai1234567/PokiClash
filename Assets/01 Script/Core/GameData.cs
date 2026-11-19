@@ -215,10 +215,11 @@ namespace PokiClash.Core
             }
             // 40 tướng 8 mỗi hệ, rồi 10 tướng mỗi đảo (Thủy thêm 5 2026-11-02, Mộc thêm 7, Hỏa thêm 8, Kim thêm 8 2026-11-05, Hỏa thêm Ngưu
             // Quyền, Thổ thêm 9 2026-11-06, Thủy thêm 10 2026-11-11: 88); 2026-11-16 bỏ 31 tướng cũ không còn suất đảo (SaveCodec.BoTuongCu):
-            // 10 tướng đứng ải mỗi đảo Thủy, Mộc, Hỏa, Kim, đảo Thổ chưa làm lại giữ 17
-            Expect(Heroes.Count, 57, "Số tướng");
+            // 10 tướng đứng ải mỗi đảo Thủy, Mộc, Hỏa, Kim, đảo Thổ chưa làm lại giữ 17; 2026-11-19 bỏ 7 tướng Thổ cũ (SaveCodec.BoThoCu):
+            // 10 tướng đứng ải mỗi đảo
+            Expect(Heroes.Count, 50, "Số tướng");
             Expect(Pool.Count, 75, "Số thẻ chung"); // 23 của bản web, thêm 12 ở Unity (2026-11-04), thêm 40 (2026-11-17)
-            Expect(Innate.Count, 172, "Số thẻ riêng"); // 57 tướng × 3 + thẻ Tiến Hóa của boss
+            Expect(Innate.Count, 151, "Số thẻ riêng"); // 50 tướng × 3 + thẻ Tiến Hóa của boss
             Expect(Minions.Count, 30, "Số lính"); // 3 loại lính mỗi đảo 70 ải (5 đảo), mỗi loại 2 bậc
             Expect(MinionCards.Count, 90, "Số thẻ của lính");
             Expect(Zones.Count, 5, "Số đảo");

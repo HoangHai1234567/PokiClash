@@ -65,7 +65,7 @@ namespace PokiClash.Tests
                 if (System.Math.Abs(want - got) > 4 * sigma) fails.Add($"kết quả {i}: bảng {want:0.0}%, ra {got:0.00}%");
             }
             Assert.IsEmpty(fails, string.Join("\n", fails));
-            TestContext.WriteLine($"{board.tries / (double)total:0.00} lần thử vật lý mỗi bi, {frames / 60.0:0} giây máy");
+            TestContext.WriteLine($"{board.tries / (double)total:0.00} lần thử vật lý mỗi bi, {frames * Board.Dt:0} giây máy");
             var again = Drop(new Board(7) { odds = cfg.odds }, 400, out _, out _);
             CollectionAssert.AreEqual(outs.Take(400).ToList(), again, "cùng hạt giống thì cùng kết quả");
         }
@@ -87,7 +87,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var c = J.Obj(G, "chest");
             var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
-            foreach (var id in new[] { "vo_su", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la", "so_ngoc" }) s.Hero(id).owned = true;
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             var r = new Rng(11);
             int i = 0;
@@ -185,7 +185,7 @@ namespace PokiClash.Tests
                 var want = J.Obj(lg, owned ? "owned" : "fresh");
                 var s = SaveData.New(d, 0);
                 s.balls = 1000;
-                if (owned) s.Hero("ca_sa").owned = true;
+                if (owned) s.Hero("giap_nham").owned = true;
                 int at = -1;
                 Reward got = null;
                 for (int i = 0; i < 120 && at < 0; i++)
@@ -202,15 +202,15 @@ namespace PokiClash.Tests
                 if (!owned)
                 {
                     Assert.AreEqual(RewardKind.Hero, got.k);
-                    Assert.AreEqual("ca_sa", got.hero);
-                    Assert.IsTrue(s.Hero("ca_sa").owned);
+                    Assert.AreEqual("giap_nham", got.hero);
+                    Assert.IsTrue(s.Hero("giap_nham").owned);
                 }
                 else
                 {
                     Assert.AreEqual(RewardKind.LegendCopies, got.k);
                     Assert.AreEqual(J.Str(wr, "slot"), SlotKey[(int)got.slot]);
                     Assert.AreEqual(15, got.n);
-                    Assert.AreEqual(15, s.Hero("ca_sa").Card(got.slot).copies);
+                    Assert.AreEqual(15, s.Hero("giap_nham").Card(got.slot).copies);
                 }
                 Assert.IsNull(Pachinko.SpendBall(s, d, 3), "chỉ một lần");
             }

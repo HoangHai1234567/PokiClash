@@ -23,7 +23,7 @@ namespace PokiClash.Tests
             var g = J.Obj(MiniJson.Parse(TestData.Read("Golden/afk.json")));
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, (long)t0);
-            foreach (var id in new[] { "vo_su", "tien_la" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "tien_la" }) s.Hero(id).owned = true;
             var rng = new Rng(21);
             int i = 0;
             foreach (var x in J.Arr(g, "steps"))

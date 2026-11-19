@@ -32,6 +32,7 @@ namespace PokiClash
             { "tien_la", MPal(C(42, 127, 46), C(96, 186, 66), C(236, 240, 172)) },
             { "phong_linh", MPal(C(42, 127, 46), C(63, 174, 58), C(123, 211, 74)) },
             { "gio_loc", MPal(C(50, 124, 46), C(88, 184, 60), C(150, 218, 92)) },
+            { "hat_de", MPal(C(50, 124, 46), C(88, 184, 60), C(150, 218, 92)) }, // Cổ Vương (hệ Thổ, suất hat_de từ 2026-11-19; chiêu HatCoVuong.cs gọi MocSang)
             { "tho_hoang", MPal(C(40, 120, 50), C(80, 176, 66), C(168, 228, 108)) },
             { "thanh_long", MPal(C(30, 124, 80), C(54, 176, 100), C(150, 228, 140)) },
             { "long_vuot", MPal(C(56, 124, 52), C(104, 170, 64), C(170, 214, 96)) },
@@ -616,11 +617,13 @@ namespace PokiClash
             TiaVunCum(c, new Vector2(1, -0.7f), 0.9f, 3, 460 * s, 4f);
             for (int i = 0; i < 2; i++)
                 BuiCum(c + new Vector2(U(-0.3f, 0.3f), U(-0.35f, 0.05f)) * tH * s, new Vector2(U(-70, 70), -U(40, 90)), U(0.11f, 0.15f) * tH * s, 0, Back, CumPhan);
-            for (int i = 0; i < 3; i++)
-            {
-                float sd = i == 2 ? 0 : i == 0 ? -1 : 1;
-                BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.42f) * tH, U(-6, 2)), new Vector2(sd * U(80, 170), -U(15, 45)), U(0.11f, 0.15f) * tH * s, 0, Back);
-            }
+            // khung vẽ sẵn (2026-11-19): bụi dưới chân là hai cụm khói nhuộm đất + một cụm giữa (thay ba cụm BuiCum); phấn lá giữ hạt cũ
+            if (!MocBuiHaiBen(foeFeet, 0.14f * tH * s, 0.3f * tH, 130, true))
+                for (int i = 0; i < 3; i++)
+                {
+                    float sd = i == 2 ? 0 : i == 0 ? -1 : 1;
+                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.42f) * tH, U(-6, 2)), new Vector2(sd * U(80, 170), -U(15, 45)), U(0.11f, 0.15f) * tH * s, 0, Back);
+                }
             CungDat(foeFeet + new Vector2(0, 2), 0.12f * tH, 0.8f * tH * s, 0.42f, MocChanh, 0.09f * tH * s);
             var w2 = W[2];
             At(0.08f, () => CungDat(foeFeet + new Vector2(0, 2), 0.08f * tH, 0.58f * tH * s, 0.42f, w2, 0.06f * tH * s, 5));
@@ -759,11 +762,12 @@ namespace PokiClash
             Shake?.Invoke(0.6f);
             LaNo(foeBody, foeFeet, tH, 1.3f);
             WExtra(foeBody, 6, 320);
-            for (int i = 0; i < 4; i++)
-            {
-                float sd = (i & 1) == 0 ? 1 : -1;
-                BuiCum(foeFeet + new Vector2(sd * U(0.1f, 0.34f) * tH, U(-6, 2)), new Vector2(sd * U(60, 140), -U(15, 40)), U(0.1f, 0.14f) * tH, 0, Back);
-            }
+            if (!MocBuiHaiBen(foeFeet, 0.13f * tH, 0.24f * tH, 110)) // khung vẽ sẵn (2026-11-19): hai cụm khói nhuộm đất thay bốn cụm BuiCum
+                for (int i = 0; i < 4; i++)
+                {
+                    float sd = (i & 1) == 0 ? 1 : -1;
+                    BuiCum(foeFeet + new Vector2(sd * U(0.1f, 0.34f) * tH, U(-6, 2)), new Vector2(sd * U(60, 140), -U(15, 40)), U(0.1f, 0.14f) * tH, 0, Back);
+                }
             VetDat(foeFeet + new Vector2(0, 3), 0.36f * tH, 0.9f);
             return 0;
         }
@@ -891,19 +895,39 @@ namespace PokiClash
                     var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.2f);
                     Shard(body + d * 0.42f * casterH, d * U(260, 480), U(0.35f, 0.6f), U(2.8f, 4.6f));
                 }
-                for (int i = 0; i < 3; i++)
-                {
-                    float sd = i == 1 ? 0 : i == 0 ? -1 : 1;
-                    BuiCum(casterFeet + new Vector2(sd * U(0.2f, 0.32f) * casterH, U(-4, 2)), new Vector2(sd * U(60, 120), -U(15, 40)), U(0.1f, 0.13f) * casterH, 0, Back);
-                }
+                if (!MocBuiHaiBen(casterFeet, 0.12f * casterH, 0.26f * casterH, 90)) // khung vẽ sẵn (2026-11-19): hai cụm khói nhuộm đất thay ba cụm BuiCum
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float sd = i == 1 ? 0 : i == 0 ? -1 : 1;
+                        BuiCum(casterFeet + new Vector2(sd * U(0.2f, 0.32f) * casterH, U(-4, 2)), new Vector2(sd * U(60, 120), -U(15, 40)), U(0.1f, 0.13f) * casterH, 0, Back);
+                    }
             });
             const int N = 4;
             const float Gap = 0.06f;
             var run = foeFeet - casterFeet;
+            // khung vẽ sẵn (2026-11-19, người dùng chê "gai lá đâm lên xấu"): gai lá (gai_la) thay cụm gai Tuft / gai dài Spike. Đỉnh phóng của
+            // từng cụm rơi đúng nhịp cụm cũ (gọi + 0,07 s), nên khung nứt đất hiện trước một chút; giờ trúng không đổi
+            bool fb = HasFb("gai_la");
             for (int i0 = 0; i0 < N; i0++)
             {
                 int i = i0;
-                At(s0 + 0.05f + i * Gap, () =>
+                float tGoi = s0 + 0.05f + i * Gap;
+                if (fb) // hàng gai so le: cụm chính lớn dần, cụm nhỏ chen giữa lệch sang bên kia, trễ nửa nhịp. Vẽ ở lớp TRƯỚC (người dùng xem trong
+                        // game 2026-11-19: gai ở lớp sau bị thân che, không thấy rõ); hàng nằm giữa hai con nên không che mặt ai
+                {
+                    var at = casterFeet + run * (0.36f + 0.12f * i) + new Vector2(U(-6, 6), (i & 1) == 0 ? -4 : 4);
+                    MocGaiFb(at, (0.5f + 0.1f * i) * tH, tGoi + 0.07f, 0.1f, Front, 35 + 0.01f * i, (i & 1) == 1);
+                    if (i < N - 1)
+                        MocGaiFb(casterFeet + run * (0.42f + 0.12f * i) + new Vector2(U(-6, 6), (i & 1) == 0 ? 6 : -6), (0.32f + 0.06f * i) * tH, tGoi + 0.1f, 0.06f, Front,
+                            (i & 1) == 0 ? 35.05f : 34.9f, (i & 1) == 0); // cụm đứng thấp hơn trên màn (gần người xem) vẽ đè lên
+                    At(tGoi, () =>
+                    {
+                        Shake?.Invoke(0.06f);
+                        Shard(at + new Vector2(U(-8, 8), -6), new Vector2(U(-110, 110), -U(150, 260)), U(0.35f, 0.5f), U(2.6f, 4)); // dăm gai phụ đi kèm
+                    });
+                    continue;
+                }
+                At(tGoi, () =>
                 {
                     var at = casterFeet + run * (0.36f + 0.12f * i) + new Vector2(U(-6, 6), U(-3, 3)); // bắt đầu ngoài thân con ra chiêu
                     Tuft(at, (0.44f + 0.09f * i) * tH, 0.5f);
@@ -913,24 +937,35 @@ namespace PokiClash
                 });
             }
             float hit = s0 + 0.05f + N * Gap + 0.03f;
+            // vòng gai lá quanh chân đối thủ (MocVongGai): bốn cụm cao so le sau lưng, to hơn để ló lên trên vai (đỉnh lệch nhau 0–0,08 s); lớp
+            // trước ba cụm thấy rõ: hai cụm to hai bên + một cụm vừa chếch trước chân phía Cầu Gai (bản đầu: hai cụm 0,4 tH, gần như không thấy).
+            // Giữ tới ~0,45 s sau trúng rồi gãy rụng lá ngay trong khung, nên bỏ đợt "gai rút" bằng dăm. start 4,5: khung nứt đất ngắn, hiện khi
+            // hàng gai chạy gần tới nơi (sớm quá thì mất cảm giác gai chạy tới)
+            if (fb)
+                MocVongGai(foeFeet, tH, hit, 0.4f, casterFeet.x < foeFeet.x ? -1 : 1,
+                    new[] { (-0.42f, 1.3f, 0f), (-0.12f, 1.5f, 0.03f), (0.2f, 1.42f, 0.055f), (0.46f, 1.25f, 0.08f) });
             At(hit, () =>
             {
                 Shake?.Invoke(0.5f);
                 DanhTrung?.Invoke(foeBody, 0.6f);
-                Tuft(foeFeet + new Vector2(0, -3), 1.35f * tH, 0.74f, Back, 2 + rng.Next(2));
-                Tuft(foeFeet + new Vector2(-0.52f * tH, 6), 0.4f * tH, 0.66f, Front, 1); // hai cụm trước đứng hai bên, thấp: không che mặt con bị trúng
-                Tuft(foeFeet + new Vector2(0.52f * tH, 7), 0.4f * tH, 0.66f, Front, 1);
+                if (!fb)
+                {
+                    Tuft(foeFeet + new Vector2(0, -3), 1.35f * tH, 0.74f, Back, 2 + rng.Next(2));
+                    Tuft(foeFeet + new Vector2(-0.52f * tH, 6), 0.4f * tH, 0.66f, Front, 1); // hai cụm trước đứng hai bên, thấp: không che mặt con bị trúng
+                    Tuft(foeFeet + new Vector2(0.52f * tH, 7), 0.4f * tH, 0.66f, Front, 1);
+                }
                 GaiNo(foeBody, tH, 1);
                 WExtra(foeBody, 5, 300);
                 CungDat(foeFeet + new Vector2(0, 2), 0.14f * tH, 0.66f * tH, 0.45f, W[2], 0.07f * tH);
                 VetDat(foeFeet + new Vector2(0, 3), 0.42f * tH, 1f);
-                for (int i = 0; i < 4; i++)
-                {
-                    float sd = (i & 1) == 0 ? 1 : -1;
-                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.38f) * tH, U(-6, 2)), new Vector2(sd * U(60, 140), -U(15, 45)), U(0.1f, 0.14f) * tH, 0, Back);
-                }
+                if (!MocBuiHaiBen(foeFeet, 0.13f * tH, 0.3f * tH, 100)) // khung vẽ sẵn: hai cụm khói nhuộm đất thay bốn cụm BuiCum
+                    for (int i = 0; i < 4; i++)
+                    {
+                        float sd = (i & 1) == 0 ? 1 : -1;
+                        BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.38f) * tH, U(-6, 2)), new Vector2(sd * U(60, 140), -U(15, 45)), U(0.1f, 0.14f) * tH, 0, Back);
+                    }
             });
-            // gai dài đâm chéo lên: ba cái cao sau lưng, hai cái thấp phía trước
+            // gai dài đâm chéo lên: ba cái cao sau lưng, hai cái thấp phía trước (có khung vẽ sẵn thì chỉ còn nhịp rung + dăm gai văng theo)
             for (int j0 = 0; j0 < 5; j0++)
             {
                 int j = j0;
@@ -941,35 +976,96 @@ namespace PokiClash
                     float tilt = x * (back ? 1.5f : -1.3f) + U(-0.08f, 0.08f); // sau lưng xoè ra ngoài, phía trước chĩa chéo vào trong
                     var d = new Vector2(Mathf.Sin(tilt), -Mathf.Cos(tilt));
                     var at = foeFeet + new Vector2(x * tH, back ? -2 : 7);
-                    Spike(at, d, (back ? U(1.2f, 1.45f) : U(0.42f, 0.52f)) * tH, 0.62f - j * 0.02f, back ? Back : Front, j, back ? 0.42f : 0.55f);
+                    if (!fb) Spike(at, d, (back ? U(1.2f, 1.45f) : U(0.42f, 0.52f)) * tH, 0.62f - j * 0.02f, back ? Back : Front, j, back ? 0.42f : 0.55f);
                     Shake?.Invoke(0.12f);
                     for (int i = 0; i < 2; i++) Shard(at + d * 10, d * U(160, 300) + U2(-80, 80), U(0.35f, 0.55f), U(2.4f, 3.8f));
                 });
             }
-            At(hit + 0.5f, () => // gai rút: vụn rơi, bụi lún
-            {
-                for (int i = 0; i < 6; i++)
-                    Shard(foeFeet + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.1f, 0.8f) * tH), new Vector2(U(-50, 50), U(-30, 40)), U(0.4f, 0.6f), U(2.4f, 3.6f));
-                BuiCum(foeFeet + new Vector2(U(-0.2f, 0.2f) * tH, -2), new Vector2(U(-30, 30), -U(15, 35)), 0.12f * tH, 0, Back);
-            });
+            if (!fb)
+                At(hit + 0.5f, () => // gai rút: vụn rơi, bụi lún
+                {
+                    for (int i = 0; i < 6; i++)
+                        Shard(foeFeet + new Vector2(U(-0.4f, 0.4f) * tH, -U(0.1f, 0.8f) * tH), new Vector2(U(-50, 50), U(-30, 40)), U(0.4f, 0.6f), U(2.4f, 3.6f));
+                    BuiCum(foeFeet + new Vector2(U(-0.2f, 0.2f) * tH, -2), new Vector2(U(-30, 30), -U(15, 35)), 0.12f * tH, 0, Back);
+                });
             return hit;
         }
 
-        // cú TÔNG của chiêu cuối "Lăn Gai" (quả cầu gai xoay lao vào): gọi đúng khung chạm; gai gãy văng tung, cụm gai bật lên dưới chân
+        // tướng đang ra chiêu có phải là id không (wth do UseTheme đặt theo tướng, MocSang có thể đã đổi sang bản tươi)
+        bool ThemeLa(string id) => WThemes.TryGetValue(id, out var t) && (wth == t || (mocSang.TryGetValue(t, out var s) && wth == s));
+
+        // CÂY QUẬT của người cây Long Vuốt (mana "n_gai_va", 2026-11-19; người dùng: "cây quật nhìn hơi nhẹ nhàng và hơi ít cây, chưa có impact").
+        // Gọi đúng khung trúng (dây gai của rig quật xuống). Khung vẽ sẵn quat_dat (thân dây leo xoắn nện xuống, đất nứt, đá đất + lá văng, bụi;
+        // neo chân): bốn cây so le quanh đối thủ, cây chính ở lớp TRƯỚC lệch một bên (bắt đầu ở khung đã gần nện xuống, đúng lúc trúng), cây phụ
+        // trước bên kia, hai cây sau lưng (một cây cao ló lên trên vai); mỗi cây ngả RA NGOÀI (không quất ngang mặt đối thủ). Cây chính: rung 0,5 +
+        // DanhTrung 1 (sân tự thêm khựng nhún + bông toé trắng); cây sau: rung 0,3 + DanhTrung 0,45. Mỗi gốc cây một cụm bụi đất + đá đất văng; hai
+        // cụm gai lá bật quanh chân; dăm gai (GaiNo), cung đất, vết đất giữ. Hàm không biết con ra chiêu ở phía nào nên bên của cây chính bốc ngẫu nhiên.
+        // Chưa nhập khung quat_dat thì bản cũ (NGaiVa).
+        public float NQuatGai(Vector2 foeBody, Vector2 foeFeet, float tH)
+        {
+            MocSang();
+            float s = U(0, 1) < 0.5f ? -1 : 1;
+            var cay = new[] { (0.48f * s, 10f, 1.36f, 0f, Front), (-0.64f * s, 8f, 1.18f, 0.09f, Front), (-0.14f * s, -4f, 1.55f, 0.16f, Back), (0.78f * s, -2f, 1.1f, 0.23f, Back) };
+            const float Sp = 1.35f, St = 2;
+            float song = (24 - St) / (24 * Sp);
+            for (int i = 0; i < cay.Length; i++)
+            {
+                var (ox, oy, hh, tre, nhom) = cay[i];
+                int ii = i;
+                At(tre, () =>
+                {
+                    var goc = foeFeet + new Vector2(ox * tH, oy);
+                    Fb("quat_dat", goc, hh * tH, nhom, nhom == Front ? 37 + 0.01f * ii : 33, Sp, 0, ox > 0, null, 1, song, St, 0.22f);
+                    Shake?.Invoke(ii == 0 ? 0.5f : 0.3f);
+                    DanhTrung?.Invoke(foeBody, ii == 0 ? 1f : 0.45f);
+                    if (MocKhoiFb(goc + new Vector2(0, -2), (ii == 0 ? 0.15f : 0.12f) * tH, new Vector2(Mathf.Sign(ox) * U(60, 130), -U(15, 35)), Back, 4, 1.35f) == null)
+                        BuiCum(goc, new Vector2(Mathf.Sign(ox) * U(60, 130), -U(15, 35)), 0.12f * tH, 0, Back);
+                    for (int j = 0; j < 3; j++)
+                        DaVun(goc + new Vector2(U(-10, 10), -4), new Vector2(U(-200, 200), -U(240, 440)), U(0.45f, 0.7f), U(2.8f, 4.4f), nhom);
+                });
+            }
+            Shake?.Invoke(0.2f);
+            GaiNo(foeBody, tH, 1.2f, 12);
+            WExtra(foeBody, 6, 320);
+            if (HasFb("gai_la")) // hai cụm gai lá bật quanh chân: một cụm trước ở ngoài cùng phía cây phụ, một cụm sau lưng
+            {
+                MocGaiFb(foeFeet + new Vector2(-0.95f * s * tH, 9), 0.6f * tH, 0.06f, 0.2f, Front, 35.3f, s < 0, 1.35f, 4.5f);
+                MocGaiFb(foeFeet + new Vector2(0.24f * s * tH, -5), 0.95f * tH, 0.12f, 0.2f, Back, 34, s > 0, 1.35f, 4.5f);
+            }
+            CungDat(foeFeet + new Vector2(0, 2), 0.16f * tH, 0.95f * tH, 0.45f, CungC, 0.1f * tH);
+            VetDat(foeFeet + new Vector2(0, 3), 0.5f * tH, 1.1f);
+            if (!MocBuiHaiBen(foeFeet, 0.15f * tH, 0.34f * tH, 140, true))
+                for (int i = 0; i < 4; i++)
+                {
+                    float sd = (i & 1) == 0 ? 1 : -1;
+                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.38f) * tH, U(-6, 2)), new Vector2(sd * U(70, 150), -U(15, 45)), U(0.11f, 0.15f) * tH, 0, Back);
+                }
+            return 0;
+        }
+
+        // cú TÔNG của chiêu cuối "Lăn Gai" (quả cầu gai xoay lao vào): gọi đúng khung chạm; gai gãy văng tung, cụm gai bật lên dưới chân.
+        // Mã n_gai_va cũng là chiêu mana của người cây Long Vuốt: có khung quat_dat thì sang NQuatGai (2026-11-19)
         public float NGaiVa(Vector2 foeBody, Vector2 foeFeet, float tH)
         {
+            if (HasFb("quat_dat") && ThemeLa("long_vuot")) return NQuatGai(foeBody, foeFeet, tH);
             MocSang();
             Shake?.Invoke(0.7f);
             GaiNo(foeBody, tH, 1.4f, 18);
             WExtra(foeBody, 7, 340);
-            Tuft(foeFeet + new Vector2(0, -3), 0.9f * tH, 0.5f, Back, 1);
+            // khung vẽ sẵn (2026-11-19): vòng gai lá (MocVongGai) gọi đúng khung chạm nên bỏ khung nứt đất. Sau lưng một cụm cao ló lên trên vai +
+            // một cụm vừa; lớp trước hai cụm to hai bên chân (người dùng xem trong game: gai chỉ ở lớp sau thì bị thân che). Hàm này không biết
+            // con ra chiêu ở phía nào nên bỏ cụm chếch trước. Không có khung thì cụm gai Tuft cũ
+            if (HasFb("gai_la"))
+                MocVongGai(foeFeet, tH, 0.05f, 0.24f, 0, new[] { (0.04f, 1.3f, 0f), (-0.36f, 0.95f, 0.05f) }, 0.92f, 2.5f);
+            else Tuft(foeFeet + new Vector2(0, -3), 0.9f * tH, 0.5f, Back, 1);
             CungDat(foeFeet + new Vector2(0, 2), 0.14f * tH, 0.74f * tH, 0.45f, W[2], 0.08f * tH);
             VetDat(foeFeet + new Vector2(0, 3), 0.42f * tH, 1f);
-            for (int i = 0; i < 4; i++)
-            {
-                float sd = (i & 1) == 0 ? 1 : -1;
-                BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.38f) * tH, U(-6, 2)), new Vector2(sd * U(70, 150), -U(15, 45)), U(0.11f, 0.15f) * tH, 0, Back);
-            }
+            if (!MocBuiHaiBen(foeFeet, 0.14f * tH, 0.3f * tH, 120)) // khung vẽ sẵn: hai cụm khói nhuộm đất thay bốn cụm BuiCum
+                for (int i = 0; i < 4; i++)
+                {
+                    float sd = (i & 1) == 0 ? 1 : -1;
+                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.38f) * tH, U(-6, 2)), new Vector2(sd * U(70, 150), -U(15, 45)), U(0.11f, 0.15f) * tH, 0, Back);
+                }
             return 0;
         }
     }

@@ -69,21 +69,21 @@ namespace PokiClash.Tests
 
             // Giọt Sương không còn trong dữ liệu (2026-11-16): thêm thẳng vào cây bản lưu
             var old = SaveData.New(d, 0, null);
-            old.Hero("vo_su").owned = true;
+            old.Hero("cao_da").owned = true;
             var tree = J.Obj(MiniJson.Parse(V4(old)));
-            var gs = J.Obj(MiniJson.Parse(MiniJson.Write(J.Obj(J.Obj(tree, "heroes"), "vo_su"))));
+            var gs = J.Obj(MiniJson.Parse(MiniJson.Write(J.Obj(J.Obj(tree, "heroes"), "cao_da"))));
             J.Obj(tree, "heroes")["giot_suong"] = gs;
-            tree["team"] = new List<object> { "vo_su", "giot_suong" };
+            tree["team"] = new List<object> { "cao_da", "giot_suong" };
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var a));
             // v4 -> v5 chọn Giọt Sương, rồi v5 -> v6 chuyển Giọt Sương sang Tí Tách (tướng mới cùng suất ải 1)
             Assert.AreEqual("ti_tach", a.starter);
-            CollectionAssert.AreEqual(new[] { "vo_su", "ti_tach" }, a.team, "đội giữ thứ tự, Giọt Sương đổi thành Tí Tách");
+            CollectionAssert.AreEqual(new[] { "cao_da", "ti_tach" }, a.team, "đội giữ thứ tự, Giọt Sương đổi thành Tí Tách");
             Assert.IsTrue(a.Hero("ti_tach").owned);
 
             var noGs = SaveData.New(d, 0, null);
-            noGs.Hero("vo_su").owned = true;
+            noGs.Hero("cao_da").owned = true;
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(V4(noGs), d, out var b));
-            Assert.AreEqual("vo_su", b.starter, "không có Giọt Sương thì tướng đầu tiên đã có");
+            Assert.AreEqual("cao_da", b.starter, "không có Giọt Sương thì tướng đầu tiên đã có");
 
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(V4(SaveData.New(d, 0, null)), d, out var c));
             Assert.IsNull(c.starter, "không có tướng nào thì để chọn");
@@ -99,7 +99,7 @@ namespace PokiClash.Tests
                 var s = SaveData.New(d, 0, id);
                 for (int i = 1; i <= 3; i++) Progress.WinStage(s, d, d.ZoneStages(Elem.Thuy).First(st => st.idx == i).id, rng);
                 Assert.AreEqual(1, Progress.TeamSlots(s), id + ": cấp 1 vẫn 1 ô");
-                string gift = id == "thach_nhan" ? "phi_thuong" : "vo_su"; // Thiết Cưa thay Mèo Quyền Sắt từ 2026-11-16
+                string gift = id == "thach_nhan" ? "phi_thuong" : "cao_da"; // Thiết Cưa thay Mèo Quyền Sắt từ 2026-11-16
                 Assert.IsTrue(s.Hero(gift).owned, $"{id}: quà ải 3 là {gift}");
                 CollectionAssert.AreEqual(new[] { id }, s.team, id + ": hết ô thì quà không vào đội");
                 // có ô trống (cấp 10) thì tướng tặng vào đội ngay
@@ -107,7 +107,7 @@ namespace PokiClash.Tests
                 s2.level = Progress.SlotLevels[1];
                 for (int i = 1; i <= 3; i++) Progress.WinStage(s2, d, d.ZoneStages(Elem.Thuy).First(st => st.idx == i).id, rng);
                 CollectionAssert.AreEqual(new[] { id, gift }, s2.team, id + ": quà vào ô đội 2 còn trống");
-                Assert.AreEqual(id == "thach_nhan", !s.Hero("vo_su").owned, id + ": Võ Sư");
+                Assert.AreEqual(id == "thach_nhan", !s.Hero("cao_da").owned, id + ": Tê Thiềm");
                 // đội trên đảo Thủy: một tướng khắc Thủy (Thổ) và một tướng trung tính
                 var owned = s.heroes.Where(kv => kv.Value.owned).Select(kv => d.Hero(kv.Key)).ToList();
                 Assert.AreEqual(2, owned.Count, id);

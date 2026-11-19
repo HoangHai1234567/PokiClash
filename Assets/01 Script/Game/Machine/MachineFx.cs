@@ -117,7 +117,8 @@ namespace PokiClash
                 img.sprite = Sprite(b.sprite);
                 // ảnh sáng mềm pk_g_* vẽ cộng sáng (lớp glow "add" của máy tham khảo); hạt dùng lại nên luôn đặt lại material
                 img.material = MachineGlow.IsGlow(b.sprite) ? MachineGlow.Add : null;
-                if (MachineGlow.IsGlow(b.sprite) && !img.sprite) { Give(img); continue; }
+                // thiếu ảnh (chưa dựng lại danh mục sau khi thêm hình mới) thì bỏ hạt, đừng vẽ thành ô vuông trắng
+                if (!string.IsNullOrEmpty(b.sprite) && !img.sprite) { Give(img); continue; }
                 img.enabled = false;
                 live.Add(new Hat
                 {

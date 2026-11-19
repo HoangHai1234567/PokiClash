@@ -189,13 +189,17 @@ namespace PokiClash
             // không theo giờ nữa nên vệt liền dù móc quay nhanh; khói than đáy còn ánh lửa, bay lên, ngả xám rồi mờ
             float dQuay = (XqSNem - XqSLua) * k;
             int demQ = 0;
+            // khung vẽ sẵn (2026-11-19, người dùng: "các fireball ... nên thêm trail smoke vào"): có khung "khoi" thì vệt khói đuôi theo móc lửa
+            // (KmDuoiKhoi, HatFbKim.cs; cụm 0,24 thân, 22 cụm/giây, sau tướng dưới lưỡi lửa) thay chuỗi khói một múi, không để cả hai
+            bool fbKhoi = HasFb("khoi");
+            if (fbKhoi) At(XqSLua * k, () => KmDuoiKhoi(t => Moc((t - T0) / k), dQuay, 0.24f * casterH * manh, 0.04f * casterH, 22, Back));
             At(XqSLua * k, () => KmDuoi(t => Moc((t - T0) / k), dQuay, 0.12f * casterH, (pt, ud) =>
             {
                 float tc = Tc();
                 if (!XqHien(B.mh, tc)) return;
                 float x = Mathf.Clamp01((tc - XqSLua) / (XqSNem - XqSLua));
                 XqVet(pt, VMoc(tc), manh * (0.85f + 0.3f * x), Back);
-                if (demQ++ % 2 == 0)
+                if (!fbKhoi && demQ++ % 2 == 0)
                     KmKhoi(pt + U2(-3, 3), new Vector2(U(-15, 15), -U(40, 80)), U(0.1f, 0.12f) * casterH * manh, U(0.55f, 0.8f), Back, 0.8f, 0, null, 0.2f,
                         demQ % 8 != 1);
             }));
@@ -341,21 +345,26 @@ namespace PokiClash
             // 2026-11-18 (người dùng: lửa rải rác, chưa liền, chưa mềm): thân cột là các lưỡi lửa TO chồng sát nhau sau lưng đối thủ (một khối, một
             // viền mực), ít hơn mà to hơn; mép trước chỉ vài lưỡi chữ S nhỏ ở chân (không che mặt); giọt lửa tách khỏi ngọn; đỉnh cột là khói CỤM
             // than đáy ánh lửa (tách cụm rồi mới mờ); cụm đốm nhỏ thay đốm lẻ to
-            Every(0, dur, x => 64 * manh * (1 - 0.3f * x), x =>
+            // khung vẽ sẵn (2026-11-19): thân cột là ba khung lửa lặp "lua_lap" chồng nhau sau lưng (KmCotLuaFb, HatFbKim.cs) thay ~90 lưỡi rời;
+            // mép trước (KmLuaS), nổ chân (KmNo), khói đỉnh (KmKhoi) cũng ra khung; chưa nhập ảnh thì lưỡi lửa dưới
+            if (!KmCotLuaFb(feet, cao, dur))
             {
-                float th = U(0, 6.2832f);
-                float c = Mathf.Cos(th), s = Mathf.Sin(th);
-                var q = Flame(feet + new Vector2(rx * c * U(0.5f, 0.95f), 10 * s - 6), new Vector2(-c * U(10, 50), -U(0.85f, 1.15f) * v0), U(0.5f, 0.72f),
-                    U(13, 17) * manh, U(38, 50) * manh, "tron", Th.pal, Back, 1.3f, -380, 1.75f, 0.03f, 0.04f);
-                Tongue(q, 1, 0.65f);
-                q.smokeGroup = Back;
-            });
-            Every(0, dur * 0.85f, 24 * manh, x =>
-            {
-                var q = Flame(feet + new Vector2(U(-0.12f, 0.12f) * tH, -4), new Vector2(U(-20, 20), -U(1.05f, 1.3f) * v0), U(0.4f, 0.55f), 10 * manh,
-                    U(26, 34) * manh, "tron", Th.pal, Back, 1.2f, -420, 2.1f, 0, 0.04f);
-                Tongue(q, 1, 0.75f);
-            });
+                Every(0, dur, x => 64 * manh * (1 - 0.3f * x), x =>
+                {
+                    float th = U(0, 6.2832f);
+                    float c = Mathf.Cos(th), s = Mathf.Sin(th);
+                    var q = Flame(feet + new Vector2(rx * c * U(0.5f, 0.95f), 10 * s - 6), new Vector2(-c * U(10, 50), -U(0.85f, 1.15f) * v0), U(0.5f, 0.72f),
+                        U(13, 17) * manh, U(38, 50) * manh, "tron", Th.pal, Back, 1.3f, -380, 1.75f, 0.03f, 0.04f);
+                    Tongue(q, 1, 0.65f);
+                    q.smokeGroup = Back;
+                });
+                Every(0, dur * 0.85f, 24 * manh, x =>
+                {
+                    var q = Flame(feet + new Vector2(U(-0.12f, 0.12f) * tH, -4), new Vector2(U(-20, 20), -U(1.05f, 1.3f) * v0), U(0.4f, 0.55f), 10 * manh,
+                        U(26, 34) * manh, "tron", Th.pal, Back, 1.2f, -420, 2.1f, 0, 0.04f);
+                    Tongue(q, 1, 0.75f);
+                });
+            }
             Every(0.04f, dur, 9 * manh, x =>
             {
                 float sd = rng.Next(2) == 0 ? -1 : 1;

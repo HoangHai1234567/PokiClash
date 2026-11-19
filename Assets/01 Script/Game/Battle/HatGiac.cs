@@ -81,20 +81,25 @@ namespace PokiClash
             var w = W;
             // co chân: bụi nhẹ dưới chân trụ
             float tCo = Mathf.Max(0.02f, L - 0.60f);
-            Every(tCo, tCo + 0.18f, 6, x =>
-                BuiCum(casterFeet + new Vector2(-dir * U(0.05f, 0.35f) * casterH, U(-4, 2)), new Vector2(-dir * U(20, 70), -U(20, 50)), U(0.05f, 0.07f) * casterH, 0, Back));
+            if (HasFb("khoi")) // khung vẽ sẵn (2026-11-19): một cụm khói nhuộm đất nhỏ dưới chân trụ thay vài cụm BuiCum lấm tấm
+                At(tCo, () => MocKhoiFb(casterFeet + new Vector2(-dir * U(0.12f, 0.28f) * casterH, U(-3, 2)), 0.07f * casterH, new Vector2(-dir * U(20, 60), -U(15, 35)),
+                    Back, 3, 1.3f, 0.85f));
+            else
+                Every(tCo, tCo + 0.18f, 6, x =>
+                    BuiCum(casterFeet + new Vector2(-dir * U(0.05f, 0.35f) * casterH, U(-4, 2)), new Vector2(-dir * U(20, 70), -U(20, 50)), U(0.05f, 0.07f) * casterH, 0, Back));
             // DẬM
             At(tDam, () =>
             {
                 Shake?.Invoke(0.85f);
                 CungDat(chan + new Vector2(0, 2), 0.1f * casterH, 0.8f * casterH, 0.45f, CungC, 0.09f * casterH);
                 VetDat(chan + new Vector2(0, 3), 0.42f * casterH, 0.9f, w[3]);
-                for (int i = 0; i < 5; i++)
-                {
-                    float sd = i == 2 ? 0 : (i & 1) == 0 ? 1 : -1;
-                    BuiCum(chan + new Vector2(sd * U(0.1f, 0.3f) * casterH, U(-6, 2)), new Vector2(sd * U(80, 200), -U(15, 50)), U(0.1f, 0.14f) * casterH, 0,
-                        i < 3 ? Back : Front);
-                }
+                if (!MocBuiHaiBen(chan, 0.14f * casterH, 0.24f * casterH, 140, true)) // khung vẽ sẵn: hai cụm khói nhuộm đất + một cụm giữa thay năm cụm BuiCum
+                    for (int i = 0; i < 5; i++)
+                    {
+                        float sd = i == 2 ? 0 : (i & 1) == 0 ? 1 : -1;
+                        BuiCum(chan + new Vector2(sd * U(0.1f, 0.3f) * casterH, U(-6, 2)), new Vector2(sd * U(80, 200), -U(15, 50)), U(0.1f, 0.14f) * casterH, 0,
+                            i < 3 ? Back : Front);
+                    }
                 for (int i = 0; i < 7; i++) DaVun(chan + new Vector2(U(-22, 22), -4), new Vector2(U(-220, 220), -U(240, 450)), U(0.45f, 0.75f), U(2.6f, 4.2f));
                 for (int i = 0; i < 4; i++) Leaf(chan + new Vector2(U(-20, 20), -U(4, 14)), new Vector2(U(-140, 140), -U(260, 420)), U(0.5f, 0.8f), U(3.6f, 5.6f), 700, 1.2f);
                 GiacTiaVun(chan, 6, 0.8f);
@@ -160,29 +165,103 @@ namespace PokiClash
                 return r * NenNha(t, L);
             };
             float goc = T;
+            // tia vẽ sẵn (2026-11-19, da vàng DaTiaVang gần màu hổ phách): cầu xoáy đầu nòng thay quả cầu CauLa, bám đỉnh sừng như cũ
+            bool fb = HasTia(DaTiaVang);
             At(tTu, () =>
             {
-                CauLa(cFn, L + dur - tTu, rFn, Front, L - tTu);
-                GatherLa(cFn, 0, L - tTu - 0.3f, 0.5f * casterH, 24);
+                if (!fb) CauLa(cFn, L + dur - tTu, rFn, Front, L - tTu);
+                GatherLa(cFn, 0, L - tTu - 0.3f, (fb ? 0.6f : 0.5f) * casterH, 24); // cầu vẽ sẵn to hơn cầu cũ: gió, lá hút từ xa hơn
             });
             // năng lượng từ tim (ngực hé mở) bốc lên đỉnh sừng trong lúc ngẩng: mật độ tăng dần
             Every(tTu, 1.10f / kT, x => 10 + 24 * x, x =>
                 NangHut(cFn, goc + tTu, tim + U2(-10, 10), U(420, 620), U(3f, 4.4f), Back));
-            At(L, () =>
-            {
-                Shake?.Invoke(0.35f);
-                Chop(mouth, 0.34f * casterH, 0.08f);
-                WExtra(mouth, 4, 220);
-            });
             // tia năng lượng thẳng từ quả cầu: giờ trúng giữ như bản trước (quãng / 2600)
             float travel = (foeBody - mouth).magnitude / 2600f;
             float hit = L + travel;
             float hw = 0.05f * Mathf.Max(casterH, tH);
             float datY = foeFeet.y;
-            At(L, () => TiaMoc(mouth, ChamThan(mouth, foeBody, tH), travel, dur, hw, tH, 1, datY));
+            float tPhong = L;
+            if (fb) // gốc tia: đỉnh sừng theo clip tới khung bắn, rồi đứng ở `mouth`
+                tPhong = GiacTiaFb(() => T - goc < L ? cFn(T - goc - tTu) : mouth, mouth, ChamThan(mouth, foeBody, tH), tTu, hit, L + dur, L + 0.84f,
+                    0.22f * casterH, 1, tH, datY);
+            At(tPhong, () => // chớp nòng đúng lúc tia phóng (tia hạt cũ: khung bắn của clip)
+            {
+                Shake?.Invoke(0.35f);
+                Chop(mouth, 0.34f * casterH, 0.08f);
+                WExtra(mouth, 4, 220);
+            });
+            if (!fb) At(L, () => TiaMoc(mouth, ChamThan(mouth, foeBody, tH), travel, dur, hw, tH, 1, datY));
             At(hit, () => WExtra(foeBody, 4, 300));
             At(L + dur, () => LaNo(foeBody, foeFeet, tH, 0.75f));
             return hit;
+        }
+
+        // TIA VẼ SẴN của Giác Mộc (2026-11-19; người dùng: "các tia năng lượng/nước như này nhìn vẫn chưa đã"): TiaFb da vàng DaTiaVang (năng lượng
+        // vàng cam lõi kem, dải xoắn, sao lấp lánh; gần hổ phách của tướng) thay thân tia TiaMoc + bông gốc + bông trúng, GIỮ hợp đồng thời gian
+        // của TiaMoc. Gọi lúc đầu chiêu (giây 0).
+        //   tu: gốc tia (hàm, bám rig); src: gốc tia lúc bắn; cham: điểm chạm (ChamThan); tNong: lúc cầu đầu nòng bắt đầu hiện, lớn dần tới lúc phóng;
+        //   hit: giờ chạm cũ (đầu tia chạm đúng lúc này: lúc phóng lùi lại tVuon giây của TiaFb); tHet: lúc tia hạt cũ mất hẳn, đuôi tia vẽ sẵn bay
+        //   tới đích đúng lúc này (nên ngừng nhả sớm hơn quãng đuôi bay); tNgon: lúc nhịp trúng cuối (ngọn TiaMoc bắt đầu tắt); manh: như TiaMoc
+        //   (mana 1, chiêu cuối 1,4).
+        // Nhịp trúng như TiaMoc: chạm: rung 0,3·manh + DanhTrung 0,7 + chùm tia vụn; rồi mỗi 0,12 s tới tNgon: DanhTrung 0,3 + rung 0,1·manh (xen sao
+        // lấp lánh / lá hổ phách bật ngược). Tia vụn hổ phách toé ngược suốt lúc dội, bụi dưới chân đối thủ; lúc ngừng nhả vài mảnh năng lượng bay
+        // theo hướng tia rồi rơi. Trả lúc phóng (giây kể từ lúc gọi) để hàm gọi đặt chớp nòng.
+        float GiacTiaFb(Func<Vector2> tu, Vector2 src, Vector2 cham, float tNong, float hit, float tHet, float tNgon, float day, float manh, float tH, float datY)
+        {
+            float dai = (cham - src).magnitude;
+            var u = Unit(cham - src);
+            var nrm = new Vector2(-u.y, u.x);
+            float tVuon = Mathf.Clamp(dai / 2600f, 0.07f, 0.14f);    // như TiaFb
+            float tPhong = Mathf.Max(tNong + 0.05f, hit - tVuon);
+            float tDuoi = dai / Mathf.Max(380, dai / 0.32f);          // đuôi bay nốt vào đích (tốc trôi đoạn của TiaFb)
+            float tNgung = Mathf.Max(hit + 0.3f, tHet - tDuoi);       // ngừng nhả
+            var w = W;
+            At(tNong, () => TiaFb(DaTiaVang, tu, () => cham, day, tPhong - tNong, tNgung - hit));
+            At(hit, () =>
+            {
+                Shake?.Invoke(0.3f * manh);
+                DanhTrung?.Invoke(cham, 0.7f);
+                TiaVunCum(cham, -u, 1.2f, 5, 520 * manh, 4.4f, Front, w[2], MocChanh);
+            });
+            int nv = Mathf.Max(1, Mathf.FloorToInt((tNgon - hit) / 0.12f));
+            for (int i = 0; i < nv; i++)
+            {
+                int ii = i;
+                At(hit + 0.06f + 0.12f * i, () =>
+                {
+                    DanhTrung?.Invoke(cham, 0.3f);
+                    Shake?.Invoke(0.1f * manh);
+                    if ((ii & 1) == 0) WExtra(cham, 1, 220); // sao lấp lánh (họa tiết của tướng) bật ra theo nhịp, hợp sao trên da tia vàng
+                    else Leaf(cham + U2(-6, 6), Unit(-u + nrm * U(-1.1f, 1.1f)) * U(180, 340) + new Vector2(0, -U(40, 120)), U(0.4f, 0.6f), U(3.6f, 5.4f), 620, 2f,
+                        U(0, 1) < 0.6f ? Front : Back);
+                });
+            }
+            Every(hit, tNgung, 7 * manh, x =>
+                TiaVunCum(cham + nrm * U(-0.4f, 0.4f) * day, -u, 1.3f, 3, U(300, 480) * manh, U(3f, 4.4f), U(0, 1) < 0.7f ? Front : Back, MocChanh, w[3]));
+            bool kh = HasFb("khoi");
+            Every(hit, tNgung, kh ? 2 : 3, x =>
+            {
+                var at = new Vector2(cham.x + U(-0.25f, 0.25f) * tH, datY + U(-4, 2));
+                if (kh) MocKhoiFb(at, U(0.08f, 0.11f) * tH, new Vector2(u.x * U(40, 100), -U(20, 40)), Back, 3.5f, 1.3f, 0.85f);
+                else BuiCum(at, new Vector2(U(-60, 60), -U(20, 50)), U(0.08f, 0.12f) * tH, 0, Back);
+            });
+            for (int j = 0; j < 6; j++)
+            {
+                int jj = j;
+                At(tNgung + 0.03f * j, () =>
+                {
+                    var at = src + u * dai * U(0.1f, 0.6f) + nrm * U(-0.5f, 0.5f) * day;
+                    var p = new P
+                    {
+                        pos = at, vel = u * U(260, 460) + nrm * U(-60, 60) + new Vector2(0, -U(10, 50)), life = U(0.32f, 0.5f), drag = 2.2f,
+                        acc = new Vector2(0, 360), sz = day * U(0.18f, 0.3f), spin = U(-400, 400), ang = VelAng(u), group = Front,
+                        col = (jj & 1) == 0 ? MocChanh : w[3]
+                    };
+                    p.draw = DrawMangVo;
+                    Add(p);
+                });
+            }
+            return tPhong;
         }
 
         // TIM CỔ THỤ KHAI QUANG (chiêu cuối): vỏ ngực mở, quả tim đập nhanh dần, mỗi nhịp một vòng lan, gió và lá quanh người bị hút xoắn vào tim,
@@ -204,11 +283,12 @@ namespace PokiClash
             At(tMo, () =>
             {
                 CungDat(casterFeet + new Vector2(0, 2), 0.15f * casterH, 0.7f * casterH, 0.5f, CungC, 0.07f * casterH);
-                for (int i = 0; i < 4; i++)
-                {
-                    float sd = (i & 1) == 0 ? 1 : -1;
-                    BuiCum(casterFeet + new Vector2(sd * U(0.12f, 0.4f) * casterH, U(-4, 2)), new Vector2(sd * U(40, 100), -U(30, 70)), U(0.08f, 0.11f) * casterH, 0, Back);
-                }
+                if (!MocBuiHaiBen(casterFeet, 0.1f * casterH, 0.3f * casterH, 70)) // khung vẽ sẵn (2026-11-19): hai cụm khói nhuộm đất thay bốn cụm BuiCum
+                    for (int i = 0; i < 4; i++)
+                    {
+                        float sd = (i & 1) == 0 ? 1 : -1;
+                        BuiCum(casterFeet + new Vector2(sd * U(0.12f, 0.4f) * casterH, U(-4, 2)), new Vector2(sd * U(40, 100), -U(30, 70)), U(0.08f, 0.11f) * casterH, 0, Back);
+                    }
             });
             // tim tụ lực: nhịp đập nhanh dần (0,34 s → 0,12 s), mỗi nhịp một vòng lan; nhịp sau mạnh thì chớp nhỏ + rung
             float tb = tTu, gap = 0.34f;
@@ -232,8 +312,14 @@ namespace PokiClash
             At(tTu, () =>
             {
                 GatherLa(cFn, 0, L - tTu - 0.06f, 1.2f * casterH, 58);
-                Every(0, L - tTu - 0.06f, 5, x =>
-                    BuiCum(casterFeet + new Vector2(U(-0.55f, 0.55f) * casterH, U(-4, 2)), new Vector2(U(-30, 30), -U(100, 170)), U(0.06f, 0.09f) * casterH, 0, Back));
+                // bụi dưới chân bị cuốn lên (khung vẽ sẵn 2026-11-19: cụm khói nhuộm đất bay lên, thưa hơn; chưa nhập khung thì BuiCum cũ)
+                bool kh = HasFb("khoi");
+                Every(0, L - tTu - 0.06f, kh ? 3.5f : 5, x =>
+                {
+                    var at = casterFeet + new Vector2(U(-0.55f, 0.55f) * casterH, U(-4, 2));
+                    if (kh) MocKhoiFb(at, U(0.07f, 0.1f) * casterH, new Vector2(U(-30, 30), -U(80, 130)), Back, 2.5f, 1.1f, 0.85f);
+                    else BuiCum(at, new Vector2(U(-30, 30), -U(100, 170)), U(0.06f, 0.09f) * casterH, 0, Back);
+                });
             });
             // năng lượng hổ phách bị hút vào tim: xoắn vào, nhanh dần, mật độ tăng tới lúc bắn
             Every(tTu, L - 0.08f, x => 14 + 34 * x, x =>
@@ -248,23 +334,32 @@ namespace PokiClash
             float hit = L + travel;
             float hw = 0.11f * Mathf.Max(casterH, tH);
             float datY = foeFeet.y;
-            At(L, () =>
+            // tia vẽ sẵn (2026-11-19, da vàng DaTiaVang, GiacTiaFb): tim là quả cầu của rig nên cầu xoáy đầu nòng chỉ hiện ~0,3 s ngay trước lúc bắn
+            // (tim "rực sáng cực mạnh rồi bắn"), không che tim suốt pha tụ; bề dày 0,28 casterH; đuôi tia tới đích đúng lúc nổ cầu (tHet) như cũ
+            bool fb = HasTia(DaTiaVang);
+            float tPhong = L;
+            if (fb) tPhong = GiacTiaFb(() => tim, tim, ChamThan(tim, foeBody, tH), Mathf.Max(tTu, hit - 0.42f), hit, L + dur + 0.02f, L + 0.96f, 0.28f * casterH, 1.4f, tH, datY);
+            At(tPhong, () =>
             {
                 Shake?.Invoke(1f);
                 FlashScreen?.Invoke(new Color(1f, 0.96f, 0.72f, 0.4f));
                 Chop(tim, 0.8f * casterH, 0.09f);
-                TiaMoc(tim, ChamThan(tim, foeBody, tH), travel, dur, hw, tH, 1.4f, datY, 0.5f * casterH);
+                if (!fb) TiaMoc(tim, ChamThan(tim, foeBody, tH), travel, dur, hw, tH, 1.4f, datY, 0.5f * casterH);
                 WExtra(tim, 6, 320);
             });
             // gốc tia: tia vụn văng ngược theo cụm
             Every(L, L + dur - 0.1f, 8, x =>
                 TiaVunCum(tim + U2(-8, 8), new Vector2(-dir, U(-0.6f, 0.4f)), 0.8f, 3, U(260, 480), U(3f, 4.4f), Front, MocChanh, w[3]));
             // dọc đường tia: bụi cụm bốc từ đất, lá bị thổi dạt
+            bool khTia = HasFb("khoi");
             Every(L + 0.03f, L + dur, 10, x =>
             {
                 float f = U(0.15f, 0.85f);
                 var at = Vector2.Lerp(tim, foeBody, f);
-                BuiCum(new Vector2(at.x, Mathf.Lerp(casterFeet.y, foeFeet.y, f) + U(-4, 2)), new Vector2(dir * U(40, 140), -U(40, 100)), U(0.06f, 0.09f) * tH, 0, Back);
+                var dat = new Vector2(at.x, Mathf.Lerp(casterFeet.y, foeFeet.y, f) + U(-4, 2));
+                if (!khTia) BuiCum(dat, new Vector2(dir * U(40, 140), -U(40, 100)), U(0.06f, 0.09f) * tH, 0, Back);
+                else if (U(0, 1) < 0.55f) // khung vẽ sẵn (2026-11-19): bụi bốc là cụm khói nhuộm đất dạt theo hướng tia, thưa hơn (cụm to, sống lâu)
+                    MocKhoiFb(dat, U(0.07f, 0.1f) * tH, new Vector2(dir * U(60, 150), -U(30, 70)), Back, 3, 1.3f, 0.85f);
                 Leaf(at + new Vector2(0, U(-hw, hw)), new Vector2(dir * U(120, 320), U(-160, 60)), U(0.35f, 0.6f), U(3.4f, 5.2f), 300, 1.4f);
             });
             // chỗ trúng: đất dưới chân đối thủ nứt, họa tiết

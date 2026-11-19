@@ -38,8 +38,8 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
             s.Hero("ti_tach").star = 8; // 4 ô (Bạc 3 sao)
-            s.Hero("vo_su").owned = true;
-            s.Hero("vo_su").star = 3; // 2 ô (Đồng 3 sao)
+            s.Hero("cao_da").owned = true;
+            s.Hero("cao_da").star = 3; // 2 ô (Đồng 3 sao)
             s.potentialStones = 300;
             var rng = new Rng(41);
             int i = 0;
@@ -107,10 +107,10 @@ namespace PokiClash.Tests
         {
             var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
             s.level = 6;
-            s.Hero("vo_su").owned = true;
-            s.team = new List<string> { "ti_tach", "vo_su" };
+            s.Hero("cao_da").owned = true;
+            s.team = new List<string> { "ti_tach", "cao_da" };
             s.Hero("ti_tach").potential = new[] { new PotLine { k = PotKind.Rage, r = 3 }, new PotLine { k = PotKind.Crit, r = 4 }, new PotLine { k = PotKind.Atk, r = 2 }, null };
-            s.Hero("vo_su").potential = new[] { new PotLine { k = PotKind.Mana, r = 2 }, new PotLine { k = PotKind.Lifesteal, r = 3 }, null, null };
+            s.Hero("cao_da").potential = new[] { new PotLine { k = PotKind.Mana, r = 2 }, new PotLine { k = PotKind.Lifesteal, r = 3 }, null, null };
             return s;
         }
 

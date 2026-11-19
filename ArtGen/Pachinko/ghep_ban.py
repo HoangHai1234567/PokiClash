@@ -27,6 +27,8 @@ spec.loader.exec_module(pk)
 
 GEOM = HERE / "refs" / "mat_may.json"
 PARTS = HERE / "tai_ve" / "bo_phan.png"
+BG = HERE / "tai_ve" / "magnific" / "nen_mat_choi.png"
+RAISE = 48  # đơn vị máy
 OUT = pk.BOARD_PNG
 
 INK = (43, 33, 24, 255)
@@ -140,7 +142,23 @@ def main():
         d.line([(t, img.height), (t + img.height, 0)], fill=(236, 92, 64, 255), width=K)
     paste_masked(sur, outside)
 
-    # 2. chấm trang trí trên mặt chơi (trong vòm)
+    # 2. nền mặt chơi trong vòm: tranh trời mây vẽ tay gen Magnific (2026-11-19, tai_ve/magnific/nen_mat_choi.png) phủ kín hộp bao
+    # của vòm, đáy tranh ở đáy máy (mây ló lên trên các ô); chưa có tranh thì chấm trang trí như cũ
+    if BG.exists():
+        xs = [x for x, _ in poly]
+        bx0, bx1, by0 = min(xs), max(xs), min(y for _, y in poly)
+        bw, bh = (bx1 - bx0) * K, (BH - by0) * K
+        bg = Image.open(BG).convert("RGBA")
+        s = max(bw / bg.width, bh / bg.height)
+        bg = bg.resize((round(bg.width * s), round(bg.height * s)), Image.LANCZOS)
+        layer = Image.new("RGBA", img.size, (0, 0, 0, 0))
+        lift = round(RAISE * K)  # đẩy tranh lên cho mây ló rõ trên hàng ô; dải dưới đáy kéo dãn hàng điểm cuối của tranh
+        top = round(BH * K - bg.height - lift)
+        layer.paste(bg, (round(bx0 * K + (bw - bg.width) / 2), top))
+        if lift > 0:
+            strip = bg.crop((0, bg.height - 2, bg.width, bg.height)).resize((bg.width, lift + 2))
+            layer.paste(strip, (round(bx0 * K + (bw - bg.width) / 2), top + bg.height - 2))
+        paste_masked(layer, inside)
     dots = Image.new("RGBA", img.size, (0, 0, 0, 0))
     dd = ImageDraw.Draw(dots)
     y = 60
@@ -150,7 +168,8 @@ def main():
             dd.ellipse([(x - 2.2) * K, (y - 2.2) * K, (x + 2.2) * K, (y + 2.2) * K], fill=(232, 85, 63, 31))
             x += 22
         y += 22
-    paste_masked(dots, inside)
+    if not BG.exists():
+        paste_masked(dots, inside)
 
     # 3. ô đáy: tô theo loại ô, cắt theo khung
     for x0, y0, x1, y1, kind in g["slots"]:
@@ -199,18 +218,33 @@ def main():
         d.polygon(tri, fill=CHEVRON + (255,), outline=INK, width=round(0.9 * K))
         yy -= 24
 
-    # 6. vách ô: cọc vẽ tay (núm tròn trên đầu, thân tới đáy máy)
+    # 6. vách ô: cọc vẽ tay (núm tròn trên đầu, thân tới đáy máy). Thân vách là hộp đầu bằng, đầu cọc là nắp tròn (pegs loại Cap)
     knob_h = post.width
     tops = [s for s in g["segs"] if s[5] == "Divider"]
+    caps = [p for p in g["pegs"] if p[3] == "Cap"]
+    top_img = post.crop((0, 0, post.width, knob_h))
+    stick = post.crop((0, knob_h, post.width, post.height))
     for x1, y1, x2, y2, r, _ in tops:
         wdt = 2 * r
         s = wdt / post.width
-        top_img = post.crop((0, 0, post.width, knob_h))
-        stick = post.crop((0, knob_h, post.width, post.height))
-        ytop = y1 - r
-        stick_len = BH - (ytop + knob_h * s) + 1
-        put(stick, x1, ytop + knob_h * s + stick_len / 2 - 0.5, post.width * s * 0.9, stick_len)
-        put(top_img, x1, ytop + knob_h * s / 2, wdt, knob_h * s)
+        cap = min(caps, key=lambda p: abs(p[0] - x1)) if caps else None
+        if not cap:
+            ytop = min(y1, y2) - r
+            stick_len = BH - (ytop + knob_h * s) + 1
+            put(stick, x1, ytop + knob_h * s + stick_len / 2 - 0.5, post.width * s * 0.9, stick_len)
+            put(top_img, x1, ytop + knob_h * s / 2, wdt, knob_h * s)
+            continue
+        # thân: thanh gỗ đúng bề rộng hộp va chạm (cọc vẽ tay của tờ bộ phận chỉ dày nửa hộp), mực hai mép; núm vẽ tay đè nắp tròn
+        cx, cy, cr = cap[0], cap[1], cap[2]
+        y0 = cy + cr * 0.4  # góc trên của hộp nằm ngang tâm nắp: bắt đầu thấp hơn chút cho núm che góc
+        bar = Image.new("L", img.size, 0)
+        ImageDraw.Draw(bar).rectangle([P(x1 - r, y0), P(x1 + r, BH)], fill=255)
+        paste_masked(hatch(img.size, WOOD, step=4, width=1, base_a=255), bar)
+        dd = ImageDraw.Draw(img)
+        for ex in (x1 - r + 0.8, x1 + r - 0.8):
+            dd.line([P(ex, y0), P(ex, BH)], fill=INK, width=round(1.6 * K))
+        kw = 2 * cr * post.width / 57  # núm mờ đục 57/59 bề rộng ảnh
+        put(top_img, cx, cy, kw, kw * knob_h / post.width)
 
     # 7. cốc dưới mái (cảm biến cốc thẻ), mái hai cánh, đáy V và núm
     for x0, y0, x1, y1, _ in g["cups"]:
@@ -218,8 +252,9 @@ def main():
         put(cup, (x0 + x1) / 2, y0 + (y1 - y0) * 0.6, cw, cw * cup.height / cup.width)
     for x1, y1, x2, y2, r, kind in g["segs"]:
         if kind in ("Roof", "Floor"):
+            # hộp đầu bằng: x1y1–x2y2 đã là trục dọc đủ dài (trước 2026-11-19 là viên con nhộng, phải cộng thêm r mỗi đầu)
             spr = roof if x2 > x1 else roof.transpose(Image.FLIP_LEFT_RIGHT)
-            plank(spr, x1, y1, x2, y2, 2 * r, r)
+            plank(spr, x1, y1, x2, y2, 2 * r, 0)
     for x, y, r, kind in g["pegs"]:
         if kind == "Post":
             put(bump, x, y, 2 * r + 1.5)

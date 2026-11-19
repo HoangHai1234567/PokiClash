@@ -28,7 +28,7 @@
    "first": true,
    "shards": [
     [
-     "vo_su",
+     "cao_da",
      15,
      true,
      0
@@ -225,9 +225,9 @@
     "big": false,
     "cards": [
      [
-      "vo_su",
+      "cao_da",
       "skill",
-      "vs_skill",
+      "cao_da_skill",
       "common"
      ]
     ]
@@ -851,15 +851,15 @@
     "big": false,
     "cards": [
      [
-      "vo_su",
+      "cao_da",
       "skill",
-      "vs_skill",
+      "cao_da_skill",
       "common"
      ],
      [
-      "vo_su",
+      "cao_da",
       "passive",
-      "vs_pas",
+      "cao_da_pas",
       "common"
      ]
     ]
@@ -873,15 +873,15 @@
     "big": false,
     "cards": [
      [
-      "so_ngoc",
-      "skill",
-      "so_ngoc_skill",
+      "cao_da",
+      "ult",
+      "cao_da_ult",
       "uncommon"
      ],
      [
-      "so_ngoc",
-      "skill",
-      "so_ngoc_skill",
+      "cao_da",
+      "ult",
+      "cao_da_ult",
       "uncommon"
      ]
     ]
@@ -895,9 +895,9 @@
     "big": true,
     "cards": [
      [
-      "so_ngoc",
-      "skill",
-      "so_ngoc_skill",
+      "cao_da",
+      "ult",
+      "cao_da_ult",
       "uncommon"
      ],
      [
@@ -907,9 +907,9 @@
       "rare"
      ],
      [
-      "vo_su",
+      "cao_da",
       "passive",
-      "vs_pas",
+      "cao_da_pas",
       "common"
      ],
      [
@@ -1023,7 +1023,7 @@
    "mam_u",
    "ti_tach",
    "so_ngoc",
-   "vo_su"
+   "cao_da"
   ]
  }
 }

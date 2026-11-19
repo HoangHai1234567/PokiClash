@@ -23,7 +23,7 @@ namespace PokiClash
     // đồ nghề và hạt của cảnh (thứ tự trùng mảng props của FarmScene)
     public enum FarmProp { Hoe, Can, Basket, Bread, Hammer, Sack, Apple, Carrot, Dust, Spark, Smoke, Heart, Seed, Drop, Zzz, Ball }
 
-    public sealed class FarmScene : SceneRoot
+    public sealed class FarmScene : SceneRoot, IFarmPetHost
     {
         public override string Title => "Trang trại";
 

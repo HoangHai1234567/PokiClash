@@ -196,7 +196,7 @@ namespace PokiClash
             foreach (var h in owned)
             {
                 var cell = Ui.Spawn(cellPrefab, grid);
-                cell.SetStats(s.Hero(h.id).star, power[h.id]);
+                cell.SetStats(s.Hero(h.id).star, power[h.id], h);
                 cells.Add((cell, h));
             }
             if (filterRow) Arrange(false);

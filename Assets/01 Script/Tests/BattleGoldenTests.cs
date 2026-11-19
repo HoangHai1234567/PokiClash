@@ -133,8 +133,11 @@ namespace PokiClash.Tests
         public void HoiSinh_PhatTam_LanDauGuc()
         {
             var d = TestData.Load();
-            var pas = d.Card("cs_pas");
-            Assert.AreEqual(PassiveTrigger.Death, pas.trigger);
+            // Phật Tâm (hồi sinh lần đầu gục) chỉ có ở Đại Sư Cà Sa và Kỳ Lân Cát, bỏ cùng các tướng Thổ cũ 2026-11-19: luật hồi sinh vẫn
+            // còn trong Battle cho tướng sau này, test chạy lại khi dữ liệu có thẻ bị động hồi sinh
+            if (!d.Innate.Any(c => c.trigger == PassiveTrigger.Death && c.Effects.Any(e => e.K == EffectKind.Revive)))
+                Assert.Ignore("chưa tướng nào có thẻ bị động hồi sinh");
+            var pas = d.Innate.First(c => c.trigger == PassiveTrigger.Death && c.Effects.Any(e => e.K == EffectKind.Revive));
             Assert.AreEqual("Lần đầu gục: hồi sinh với 35% máu.", CardText.Text(pas, 1, d.Cfg.cardLvStep));
             // tìm trận golden có hồi sinh và kiểm: không có "death" ngay trước, máu = 35%·máu tối đa ở cấp thẻ 1
             int found = 0;
@@ -149,7 +152,7 @@ namespace PokiClash.Tests
                     if (log[i].t != EvType.Revive) continue;
                     found++;
                     Assert.AreEqual(EvType.Passive, log[i - 1].t);
-                    // Phật Tâm của Cà Sa, hoặc bản chép của nó (Kỳ Lân Cát mượn bộ thẻ Cà Sa, thẻ tạm 2026-11-02)
+                    // thẻ bị động hồi sinh (Phật Tâm)
                     Assert.AreEqual(PassiveTrigger.Death, d.Card(log[i - 1].card).trigger, log[i - 1].card);
                     var f = log[i].snap.f[log[i].side][log[i].idx];
                     Assert.IsFalse(f.dead);
@@ -181,7 +184,7 @@ namespace PokiClash.Tests
             var p = new TeamSetup { name = "Bạn", ai = true };
             int lv = st.enemies[0].level; // ngang cấp boss (thang 200)
             // sao tối đa của thang đang dùng (thang 1..20 từ 2026-11-17; trước 5)
-            foreach (var id in new[] { "han_ngac", "ca_sa", "giap_long" })
+            foreach (var id in new[] { "han_ngac", "giap_nham", "giap_long" })
                 p.members.Add(new Member { heroId = id, level = lv, star = d.Cfg.maxStar, cardSkill = 5, cardUlt = 5, cardPassive = 5 });
             var log = new List<BattleEvent>();
             var b = Battle.Create(d, p, Teams.Enemy(st, d), 11);
@@ -227,7 +230,7 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var p = new TeamSetup { name = "Bạn", ai = false };
             p.members.Add(new Member { heroId = "thach_giai", level = 5, star = 1 });
-            p.members.Add(new Member { heroId = "vo_su", level = 5, star = 1 });
+            p.members.Add(new Member { heroId = "cao_da", level = 5, star = 1 });
             var e = new TeamSetup { name = "Địch", ai = true };
             e.members.Add(new Member { heroId = "nguu_quyen", level = 3, star = 1 });
             var b = Battle.Create(d, p, e, 7);
@@ -270,7 +273,7 @@ namespace PokiClash.Tests
             Assert.IsTrue(d.Card("nem_da").repeat, "Ném Đá ra lại được");
             Assert.IsFalse(d.Card("cuong_no").repeat, "Cuồng Nộ mỗi lượt một lần");
             var p = new TeamSetup { name = "Bạn", ai = false };
-            p.members.Add(new Member { heroId = "vo_su", level = 5, star = 1 });
+            p.members.Add(new Member { heroId = "cao_da", level = 5, star = 1 });
             var e = new TeamSetup { name = "Địch", ai = true };
             e.members.Add(new Member { heroId = "nguu_quyen", level = 3, star = 1 });
             int repeatSeen = 0, onceNextTurn = 0;
@@ -383,7 +386,7 @@ namespace PokiClash.Tests
         static Battle Duel(GameData d, int foes = 1)
         {
             var p = new TeamSetup { name = "Bạn", ai = false };
-            p.members.Add(new Member { heroId = "vo_su", level = 30, star = 1 });
+            p.members.Add(new Member { heroId = "cao_da", level = 30, star = 1 });
             var e = new TeamSetup { name = "Địch", ai = true };
             for (int i = 0; i < foes; i++) e.members.Add(new Member { heroId = "nguu_quyen", level = 30, star = 1 });
             var b = Battle.Create(d, p, e, 5, 200, 200);
@@ -505,7 +508,10 @@ namespace PokiClash.Tests
             me = b.ActiveOf(0);
             evs = RunQueue(b, "thu_the", "thu_the", "dap_khien");
             Assert.AreEqual(0, me.shield);
-            Assert.AreEqual(Js.Round(me.maxHp * 0.34), evs.Find(x => x.t == EvType.Dmg && x.to == 1 && x.dmgKind == DmgKind.Card).amount);
+            // khiên mỗi thẻ làm tròn riêng (12% + 12% + 10% máu tối đa): so với tổng khiên thật, gần 34% máu
+            double shields = evs.FindAll(x => x.t == EvType.Shield).Sum(x => x.amount);
+            Assert.AreEqual(me.maxHp * 0.34, shields, 2);
+            Assert.AreEqual(shields, evs.Find(x => x.t == EvType.Dmg && x.to == 1 && x.dmgKind == DmgKind.Card).amount);
         }
     }
 }

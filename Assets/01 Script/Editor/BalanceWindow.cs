@@ -542,7 +542,7 @@ namespace PokiClash.EditorTools
             const double H = 3600000;
             var rosters = new (string name, string[] heroes, int level, int star, int zonesDone)[]
             {
-                ("4 tướng, cấp 9, 1 sao (đầu game)", new[] { "ti_tach", "vo_su", "tien_la", "so_ngoc" }, 9, 1, 1),
+                ("4 tướng, cấp 9, 1 sao (đầu game)", new[] { "ti_tach", "cao_da", "tien_la", "so_ngoc" }, 9, 1, 1),
                 ("8 tướng, cấp 18, 2 sao (giữa game)", d.Heroes.Take(8).Select(h => h.id).ToArray(), 18, 2, 3),
                 ("11 tướng, cấp 28, 4 sao (cuối game)", d.Heroes.Select(h => h.id).ToArray(), 28, 4, 5),
             };

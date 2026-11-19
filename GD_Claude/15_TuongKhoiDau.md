@@ -18,6 +18,7 @@ Viết 2026-11-03. Người dùng muốn: khi vào game, người chơi chọn 1
   - Bu Lông, Nụ Hoa bị bỏ, bản lưu gộp vào Thiết Tinh, Cầu Gai (bản lưu v11);
   - quà ải 3 đảo Thủy cho người chọn Thạch Nhân: Thiết Cưa (`phi_thuong`, Kim Khá) thay Mèo Quyền Sắt;
   - quà ải 25 đảo Thủy: Mầm Ú (`mam_u`, Mộc Thường) thay Mầm Gỗ.
+- 2026-11-19 (người dùng chọn khi bỏ 7 tướng Thổ cũ): quà ải 3 đảo Thủy là Tê Thiềm (`cao_da`, Thổ Khá, tướng ải 10 đảo Thổ) thay Võ Sư; người chọn Thạch Giáp (id `thach_nhan`) vẫn nhận Thiết Cưa. Các đoạn dưới nhắc Võ Sư là số đo cũ.
 - Năm tướng hiện tại: Tí Tách, Sư Tử Lửa (id `su_tu_lua`, hình Tiểu Quỷ Lava), Thiết Tinh, Cầu Gai, Thạch Nhân. Số đo ở mục 6 là của bộ tướng cũ, chưa đo lại.
 
 Hệ quả:

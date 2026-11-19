@@ -25,8 +25,9 @@ dự án hơn mọi nguồn đã đọc. Khác dự án ở ba chỗ:
 
 ## 1. Năm điều lấy về
 
-1. **Giữ 2 khung.** Họ chạy 30 khung/giây nhưng 2/3 hoạt ảnh hiệu ứng có mỗi hình lặp 2 khung (tỉ lệ trung vị 2,0), tức 15
-   hình/giây. Áp cho hạt của dự án: đổi hình hạt (tờ hình rời theo tuổi) mỗi 2 khung sân. Chuyển động giòn hơn, không "trôi".
+1. **Giữ 2 khung** (chỉ ghi lại để biết; **dự án không theo**). Họ chạy 30 khung/giây nhưng 2/3 hoạt ảnh hiệu ứng có mỗi hình lặp
+   2 khung (tỉ lệ trung vị 2,0), tức 15 hình/giây. Người dùng 2026-11-19 muốn VFX **mượt hơn, nhiều khung hơn**: đổi hình mỗi khung,
+   toé / nổ 12–20 khung (`SKILL.md` mục 1c).
 2. **Đỉnh tới ngay khung 1–3, tan chiếm nửa sau.**
    - Nổ: chớp 1 khung (0,03 s); khói và lửa đã to gần đủ ở khung 2; nửa sau là khói tách cụm, bay lên, mờ.
    - Nước toé: hình to nhất ngay khung 1, không lấy đà.

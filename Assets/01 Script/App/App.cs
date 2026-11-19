@@ -28,12 +28,15 @@ namespace PokiClash
         [Header("Màn mở game (menu PokiClash/Prefab/Màn mở game: sa bàn)")]
         public BootTitle bootTitle;
 
+        [Header("Chuyến tàu qua mây: sảnh ↔ Nhà, màn tải (menu PokiClash/Prefab/Bến tàu: ...)")]
+        public ShipVoyage voyagePrefab;
+
         [Header("Thử trong Editor")]
         [Tooltip("Scene mở đầu tiên (để trống là Hub)")]
         public string firstScene = SceneIds.Hub;
 
-        // màn mở game đang che sảnh: hộp giới thiệu, nút Back chờ nó xong
-        public static bool Booting => BootTitle.Current != null;
+        // màn mở game / màn tải đang che sảnh: hộp giới thiệu, nút Back chờ nó xong
+        public static bool Booting => BootTitle.Current != null || ShipVoyage.Booting;
 
 #if UNITY_EDITOR
         // menu "PokiClash/Thử/Bỏ màn mở game": Play vào thẳng sảnh
@@ -129,6 +132,13 @@ namespace PokiClash
             Toasts = toasts;
             cloud.CloseNow();
             Router = router;
+            if (voyagePrefab)
+            {
+                var v = Instantiate(voyagePrefab);
+                v.name = voyagePrefab.name;
+                DontDestroyOnLoad(v.gameObject);
+                Router.SetVoyage(v);
+            }
         }
 
         void Start()
@@ -158,8 +168,17 @@ namespace PokiClash
         {
             ApplySettings();
             var first = !string.IsNullOrEmpty(PendingFirst) ? PendingFirst : string.IsNullOrEmpty(firstScene) ? SceneIds.Hub : firstScene;
-            // chạy thẳng vào sảnh (không phải bấm Play ở scene khác): màn mở game diễn trên sảnh đang nạp
-            if (string.IsNullOrEmpty(PendingFirst) && first == SceneIds.Hub && !SkipBoot) BootTitle.Spawn(bootTitle);
+            // chạy thẳng vào sảnh (không phải bấm Play ở scene khác): màn tải tàu đi trên biển (người dùng 2026-11-19, thay màn
+            // sa bàn BootTitle), nạp xong thì tàu đi qua mây cập bến sảnh
+            if (string.IsNullOrEmpty(PendingFirst) && first == SceneIds.Hub && !SkipBoot)
+            {
+                if (ShipVoyage.I)
+                {
+                    cloud.OpenNow();
+                    ShipVoyage.I.BeginBoot();
+                }
+                else BootTitle.Spawn(bootTitle);
+            }
             Router.Go(first, PendingArgs);
             PendingFirst = null;
             PendingArgs = null;

@@ -10,6 +10,7 @@
 // - n_khoang_dao1 / n_khoang_dao (chiêu cuối): đất toé lúc mũi tinh thể cắm hố, đất phụt theo lúc chui; đất hất sau gò lúc chạy ngầm (gò đi
 //   theo cú lunge của sân: từ chân mình tới 72 % quãng tới đối thủ); sỏi rung trước khi trồi; đất nổ tung lúc trồi; húc: chớp + vòng cột tinh
 //   thể quanh đối thủ (NSatDap); dạng 2 thêm nhát húc đầu, rơi lại xuống hố, đất nổ lần hai to hơn; bụi lúc rơi đất và lúc nhảy về.
+//   Từ 2026-11-19 vòng cột là khung vẽ sẵn "gai_sat" nhuộm theo dạng (KmGaiVong), bụi đất nổ to là khung "khoi" nhuộm nâu (KmBuiFb).
 using UnityEngine;
 
 namespace PokiClash
@@ -80,7 +81,10 @@ namespace PokiClash
             KmChop(tam + new Vector2(0, 0.12f * tH), 0.4f * tH * manh, 0.07f, KmBac);
             KmCung(foeFeet + new Vector2(0, 2), 0.1f * tH, 1.15f * tH * manh, 0.42f, KhBuiC, 0.3f, Floor, 30.6f, 0.9f);
             KmChay(foeFeet + new Vector2(0, 3), 0.45f * tH * manh, 1f, 0.9f, 0.3f);
-            int nc = Mathf.RoundToInt(9 * manh);
+            // khung vẽ sẵn (2026-11-19, người dùng chê cột tinh thể cũ "gai sắt đâm lên xấu"): vòng cụm gai quặng đâm lên bằng khung "gai_sat"
+            // nhuộm theo dạng (quặng sắt xám / hematit đỏ gỉ; KmGaiVong, HatFbKim.cs). Chưa nhập ảnh: cột quặng cũ
+            bool gai = KmGaiVong(foeFeet, tH, manh, dang == 2 ? KhDoFb : KhSatFb, dang == 2 ? KhDoFb2 : KhSatFb2);
+            int nc = gai ? 0 : Mathf.RoundToInt(9 * manh);
             for (int i = 0; i < nc; i++)
             {
                 float a = 6.28f * (i + U(-0.2f, 0.2f)) / nc;
@@ -104,7 +108,10 @@ namespace PokiClash
         void KhDatToe(Vector2 dat, float H, float sc, int n, bool da = true)
         {
             Ripple(dat + new Vector2(0, 2), 0.05f * H, 0.5f * H * sc, 0.45f, KhBuiC2);
-            for (int i = 0; i < Mathf.RoundToInt(6 * sc); i++)
+            // khung vẽ sẵn (2026-11-19): đất nổ to (sc ≥ 0,85: cắm hố, trồi lên, húc) thì bụi là hai cụm khung "khoi" nhuộm nâu đất (KmBuiFb,
+            // HatFbKim.cs) thay vòng cụm bụi rời; cục đất, đá giữ
+            bool fb = sc >= 0.85f && KmBuiFb(dat, H, sc);
+            for (int i = 0; i < (fb ? 0 : Mathf.RoundToInt(6 * sc)); i++)
             {
                 float sd = (i & 1) == 0 ? 1 : -1;
                 KhBui(dat + new Vector2(sd * U(4, 0.24f * H) * sc, U(-5, 2)), new Vector2(sd * U(90, 260) * sc, -U(20, 110)), U(0.5f, 0.85f), 6,

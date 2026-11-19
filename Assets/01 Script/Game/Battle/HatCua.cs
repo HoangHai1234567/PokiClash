@@ -96,9 +96,12 @@ namespace PokiClash
                 int jj = j;
                 At(CuSKeo[j] * k + 0.1f * k, () =>
                 {
-                    for (int i = 0; i < 1 + jj; i++)
-                        KmKhoi(dia + U2(-6, 6), new Vector2(-dir * U(30, 90), -U(50, 110)), (0.1f + 0.025f * jj) * casterH * U(0.85f, 1.1f), U(0.8f, 1.1f), Back,
-                            0, jj == 0 ? 1 : 2, null, 0.4f);
+                    // khung vẽ sẵn (2026-11-19): có khung "khoi" (KmKhoi đổi sang khung) thì MỘT cụm to dần mỗi lần, vì nhiều khung cùng chỗ chồng
+                    // thành bóng đôi
+                    bool fb = HasFb("khoi");
+                    for (int i = 0; i < (fb ? 1 : 1 + jj); i++)
+                        KmKhoi(dia + U2(-6, 6), new Vector2(-dir * U(30, 90), -U(50, 110)), (0.1f + 0.025f * jj) * casterH * U(0.85f, 1.1f) * (fb ? 1 + 0.2f * jj : 1),
+                            U(0.8f, 1.1f), Back, 0, jj == 0 ? 1 : 2, null, 0.4f);
                     KmKhoi(dia + new Vector2(-dir * 6, -4), new Vector2(-dir * U(60, 120), -U(20, 50)), 0.06f * casterH, U(0.5f, 0.7f), Back, 0, 0, null, 0, true);
                 });
             }
@@ -106,8 +109,11 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.22f);
                 KmChop(dia, 0.22f * casterH, 0.06f, KmLua);
-                for (int i = 0; i < 3; i++)
-                    KmKhoi(dia + U2(-8, 8), new Vector2(-dir * U(40, 140), -U(60, 150)), U(0.15f, 0.19f) * casterH, U(1.0f, 1.3f), Back, 0.6f, 2, null, 0.5f);
+                // khung vẽ sẵn (2026-11-19): có khung "khoi" thì hai cụm (một to ở đĩa, một vừa lệch ra sau, lên trên) thay ba cụm cùng chỗ
+                bool fb = HasFb("khoi");
+                for (int i = 0; i < (fb ? 2 : 3); i++)
+                    KmKhoi(dia + (fb ? new Vector2(-dir * 0.12f * casterH, -0.07f * casterH) * i : U2(-8, 8)), new Vector2(-dir * U(40, 140), -U(60, 150)),
+                        U(0.15f, 0.19f) * casterH * (fb ? (i == 0 ? 1.3f : 0.9f) : 1), U(1.0f, 1.3f), Back, 0.6f, 2, null, 0.5f);
                 for (int i = 0; i < 8; i++)
                     KmTiaLua(dia + U2(-6, 6), new Vector2(U(-1f, 1f), U(-1f, 0.2f)), U(380, 640), U(6, 8), KmLua[3 + (i & 1)]);
             });

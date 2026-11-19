@@ -451,42 +451,6 @@
    "cost": ""
   },
   {
-   "id": "vs_skill",
-   "lv1": "Gây 120% Công sát thương. +10 nộ.",
-   "lv5": "Gây 192% Công sát thương. +16 nộ.",
-   "cost": "30 mana"
-  },
-  {
-   "id": "vs_ult",
-   "lv1": "Đánh 5 lần, mỗi lần 50% Công.",
-   "lv5": "Đánh 5 lần, mỗi lần 80% Công.",
-   "cost": "100 nộ + 40 mana"
-  },
-  {
-   "id": "vs_pas",
-   "lv1": "Vào trận: +15% Thủ cả trận.",
-   "lv5": "Vào trận: +24% Thủ cả trận.",
-   "cost": ""
-  },
-  {
-   "id": "cs_skill",
-   "lv1": "Hồi 25% máu. Xoá hiệu ứng xấu.",
-   "lv5": "Hồi 40% máu. Xoá hiệu ứng xấu.",
-   "cost": "40 mana"
-  },
-  {
-   "id": "cs_ult",
-   "lv1": "Gây 300% Công sát thương. Khiên bằng 30% máu tối đa.",
-   "lv5": "Gây 480% Công sát thương. Khiên bằng 48% máu tối đa.",
-   "cost": "100 nộ + 50 mana"
-  },
-  {
-   "id": "cs_pas",
-   "lv1": "Lần đầu gục: hồi sinh với 35% máu.",
-   "lv5": "Lần đầu gục: hồi sinh với 56% máu.",
-   "cost": ""
-  },
-  {
    "id": "hai_long_skill",
    "lv1": "Gây 140% Công sát thương. 30% cơ hội: Làm địch choáng.",
    "lv5": "Gây 224% Công sát thương. 48% cơ hội: Làm địch choáng.",
@@ -883,60 +847,6 @@
    "cost": ""
   },
   {
-   "id": "gau_mo_skill",
-   "lv1": "Gây 120% Công sát thương. +10 nộ.",
-   "lv5": "Gây 192% Công sát thương. +16 nộ.",
-   "cost": "30 mana"
-  },
-  {
-   "id": "gau_mo_ult",
-   "lv1": "Đánh 5 lần, mỗi lần 50% Công.",
-   "lv5": "Đánh 5 lần, mỗi lần 80% Công.",
-   "cost": "100 nộ + 40 mana"
-  },
-  {
-   "id": "gau_mo_pas",
-   "lv1": "Vào trận: +15% Thủ cả trận.",
-   "lv5": "Vào trận: +24% Thủ cả trận.",
-   "cost": ""
-  },
-  {
-   "id": "soc_da_skill",
-   "lv1": "Gây 120% Công sát thương. +10 nộ.",
-   "lv5": "Gây 192% Công sát thương. +16 nộ.",
-   "cost": "30 mana"
-  },
-  {
-   "id": "soc_da_ult",
-   "lv1": "Đánh 5 lần, mỗi lần 50% Công.",
-   "lv5": "Đánh 5 lần, mỗi lần 80% Công.",
-   "cost": "100 nộ + 40 mana"
-  },
-  {
-   "id": "soc_da_pas",
-   "lv1": "Vào trận: +15% Thủ cả trận.",
-   "lv5": "Vào trận: +24% Thủ cả trận.",
-   "cost": ""
-  },
-  {
-   "id": "bo_hung_skill",
-   "lv1": "Gây 120% Công sát thương. +10 nộ.",
-   "lv5": "Gây 192% Công sát thương. +16 nộ.",
-   "cost": "30 mana"
-  },
-  {
-   "id": "bo_hung_ult",
-   "lv1": "Đánh 5 lần, mỗi lần 50% Công.",
-   "lv5": "Đánh 5 lần, mỗi lần 80% Công.",
-   "cost": "100 nộ + 40 mana"
-  },
-  {
-   "id": "bo_hung_pas",
-   "lv1": "Vào trận: +15% Thủ cả trận.",
-   "lv5": "Vào trận: +24% Thủ cả trận.",
-   "cost": ""
-  },
-  {
    "id": "thach_nhan_skill",
    "lv1": "Gây 100% Công sát thương. Khiên bằng 10% máu tối đa.",
    "lv5": "Gây 160% Công sát thương. Khiên bằng 16% máu tối đa.",
@@ -952,42 +862,6 @@
    "id": "thach_nhan_pas",
    "lv1": "Vào trận: giảm 8% sát thương cả trận.",
    "lv5": "Vào trận: giảm 13% sát thương cả trận.",
-   "cost": ""
-  },
-  {
-   "id": "sa_than_skill",
-   "lv1": "Gây 120% Công sát thương. +10 nộ.",
-   "lv5": "Gây 192% Công sát thương. +16 nộ.",
-   "cost": "30 mana"
-  },
-  {
-   "id": "sa_than_ult",
-   "lv1": "Đánh 5 lần, mỗi lần 50% Công.",
-   "lv5": "Đánh 5 lần, mỗi lần 80% Công.",
-   "cost": "100 nộ + 40 mana"
-  },
-  {
-   "id": "sa_than_pas",
-   "lv1": "Vào trận: +15% Thủ cả trận.",
-   "lv5": "Vào trận: +24% Thủ cả trận.",
-   "cost": ""
-  },
-  {
-   "id": "ky_lan_skill",
-   "lv1": "Hồi 25% máu. Xoá hiệu ứng xấu.",
-   "lv5": "Hồi 40% máu. Xoá hiệu ứng xấu.",
-   "cost": "40 mana"
-  },
-  {
-   "id": "ky_lan_ult",
-   "lv1": "Gây 300% Công sát thương. Khiên bằng 30% máu tối đa.",
-   "lv5": "Gây 480% Công sát thương. Khiên bằng 48% máu tối đa.",
-   "cost": "100 nộ + 50 mana"
-  },
-  {
-   "id": "ky_lan_pas",
-   "lv1": "Lần đầu gục: hồi sinh với 35% máu.",
-   "lv5": "Lần đầu gục: hồi sinh với 56% máu.",
    "cost": ""
   },
   {

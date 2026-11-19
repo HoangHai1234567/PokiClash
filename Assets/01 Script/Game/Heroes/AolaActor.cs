@@ -113,6 +113,25 @@ namespace PokiClash.Game
 
         // khung vẽ rig khai riêng (game.span, số lần chiều cao khai); 0 = không khai, AolaSticker dùng khung mặc định
         public float Span => atk != null && atk.game != null ? atk.game.span : 0;
+
+        // Chỗ xương move ở tư thế vừa vẽ (đơn vị thế giới, đã lật; dọc chỉ phần lên khỏi đất). AolaSticker cho camera bám theo để cú
+        // lao, cú nhảy trong rig không ra khỏi khung ảnh (2026-11-19, Tiểu Quỷ Lava lao 2,9 lần chiều cao lúc đâm giáo mà khung chỉ
+        // ±1,7). Dạng aola: 0.
+        public Vector2 Follow { get; private set; }
+
+        // Khung bao hình của clip (AtomikAsset.fit, đo lúc nhập): |x| lớn nhất, đỉnh, đáy theo chiều cao dáng đứng, gốc ở chân, đã trừ
+        // chỗ xương move như Follow. false: dạng aola, hoặc rig nhập trước khi có số đo.
+        public bool Extent(string clip, out float mx, out float top, out float bot)
+        {
+            mx = top = bot = 0;
+            int ci = AtkClip(clip);
+            var f = atk != null ? atk.fit : null;
+            if (ci < 0 || f == null || f.Length < 3 * ci + 3) return false;
+            mx = f[3 * ci];
+            top = f[3 * ci + 1];
+            bot = f[3 * ci + 2];
+            return true;
+        }
         bool[] atkPlain;
         AtomikPose.SkinPass passMain, passFx;
         MeshRenderer atkFxRenderer;
@@ -163,6 +182,7 @@ namespace PokiClash.Game
         {
             flip = flipX;
             sortBase = sorting;
+            Follow = Vector2.zero;
             if (a && a.atomik) return LoadAtomik(a, height);
             atk = null;
             atkPlain = null;
@@ -345,6 +365,8 @@ namespace PokiClash.Game
             if (atkAura >= 0 && atkAura != ci) apose.Overlay(atkAura, ta);
             if (farTarget.HasValue && HasFar(current)) FarAtomik();
             apose.World();
+            var mp = atkMove >= 0 ? apose.BonePos(atkMove) : Vector2.zero;
+            Follow = new Vector2((flip ? -mp.x : mp.x) * unit, Mathf.Max(0, mp.y) * unit);
             bool split = SplitFx && atkPlain != null;
             int hs = hideShadow ? atkShadow : -1;
             int nv = apose.Skin(passMain, split ? atkPlain : null, false, av, au, ac, unit, flip, hs, out bool trisChanged);

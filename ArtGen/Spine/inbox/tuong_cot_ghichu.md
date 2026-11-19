@@ -154,3 +154,18 @@ bước quấn 360°. Cánh tay xa lúc giơ cao (skill) lơ lửng tách vai nh
 - Tour trong trận (menu "Đảo Mộc: rễ trói đất và thần trụ giáng thế Cổ Vương ...", ảnh `Temp/PokiShots/thuy_fx/gio_loc_*`); tờ tổng
   `inbox/tuong_cot_trong_tran.jpg`. Đã xem: tên, thẻ, đập cột / húc, rễ quấn, cột khổng lồ giáng đúng chỗ đối thủ và bay về, cột nhỏ dạng 1.
   CHƯA xem: Cổ Vương là địch (boss ải 30 đánh xuống), appear / die / evolve trong game, hộp chi tiết tướng.
+
+## 11. CHUYỂN SANG ĐẢO THỔ (2026-11-19; người dùng: "tướng thứ 6 đảo mộc hiện tại phải ở đảo thổ")
+
+- Lời dặn 2026-11-17 ghi "đảo mộc" nhưng người dùng định giao tướng 6 đảo **Thổ** (cùng lúc họ giao tướng 7, 8, 9 đảo Thổ; suất 6 đảo Thổ là
+  suất duy nhất trong 6–10 chưa làm lại). Phiên trước đè lên Linh Điểu mà không hỏi: lỗi quy trình (memory "hỏi trước khi thay suất đã xong").
+- **Suất mới**: tướng 6 đảo Thổ = ải 30 "Rừng Sồi Già" (giữ tên: cả chặng 30–39 mang tên này, bản đồ Thổ hiện có cây sồi cổ thụ ở chỗ đó;
+  tượng vua cổ rễ quấn hợp rừng sồi già), id game `hat_de`, thay hẳn Hạt Dẻ. Màu giữ nguyên (người dùng: "giữ nguyên").
+- Dữ liệu (`quai/doi_suat6_tho.py`): tên, danh hiệu, dòng như cũ; dạng **Cổ Vương Nhi** (`hat_de_1` = `tuong_cot_non_th.atomik`, 0,88) /
+  **Cổ Vương** (`hat_de_2` = `tuong_cot_1.atomik`, 1,1). Giữ chỉ số và HIỆU ỨNG thẻ của suất `hat_de` (độ khó ải 30 đảo Thổ, golden không đổi),
+  tên thẻ Claude đặt: **Rễ Trói Đất** (chiêu mana, 2 nhát), **Thần Trụ Giáng Thế** (chiêu cuối, 3 nhát), **Giáp Đá Cổ** (bị động: trúng đòn
+  25% được khiên 7%), bị động boss **Rễ Đá Hộ Thân** (trúng đòn 30% được khiên 6%). Thẻ chung `hat_de` (hồi máu, trong kho thẻ) không đụng.
+- Code: `StageView.ThoFx["hat_de"]` (mana `n_re_troi`, ult `n_tru_giang1` / `n_tru_giang`), `ThoAtk["hat_de"]` (`n_vuong_huc` / `n_tru_dap`),
+  bỏ `AtkDang["gio_loc"]`; `HatNuoc.WThemes["hat_de"]`, `HatMoc.MocTuoi["hat_de"]` (cùng màu cũ; chiêu vẫn gọi `MocSang`). `HatCoVuong.cs`
+  không đổi chiêu (ba nhịp siết của rễ dựng cho thẻ 3 nhát, thẻ `hat_de` 2 nhát: số sát thương hiện nối nhau sau clip nên không lệch).
+  Menu thử `ThoFxTour.TryCoVuongNhi` (sao 1) / `TryCoVuong` (sao 6). `quai/da_nhan.json` thêm dòng `hat_de`.

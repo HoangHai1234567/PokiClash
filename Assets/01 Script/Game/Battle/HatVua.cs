@@ -76,14 +76,27 @@ namespace PokiClash
         void VmDuongLua(Vector2 a, Vector2 b, float t0, float t1, float H, float manh)
         {
             float t00 = T;
+            // khung vẽ sẵn (2026-11-19): cứ ba nhịp một cụm lửa lặp "lua_lap" nhỏ mọc, cháy, co tại chỗ (đường lửa liền khối, KmFbMoc ở
+            // HatFbKim.cs) thay lưỡi lửa rời; tia, bụi giữ. Chưa nhập ảnh: lưỡi lửa cũ
+            bool fb = HasFb("lua_lap");
+            int dem = 0;
             Every(t0, t1, 70, x =>
             {
                 float u = Mathf.Clamp01((T - t00 - t0) / Mathf.Max(0.05f, t1 - t0));
                 var p = Vector2.Lerp(a, b, u) + new Vector2(U(-6, 6), U(-3, 2));
                 if (U(0, 1) < 0.45f) KmTiaLua(p, new Vector2(U(-0.3f, 0.3f), -1), U(260, 460) * manh, U(5, 7), KmNang[3 + rng.Next(2)]);
-                var q = Flame(p, new Vector2(U(-20, 20), -U(60, 140)), U(0.18f, 0.28f), 0.05f * H * manh, 0.09f * H * manh, "tron", "vtuoi",
-                    U(0, 1) < 0.5f ? Back : Front, 2.5f, -200, 1.6f, 0, 0.1f);
-                Tongue(q, 1, 0.3f);
+                if (fb)
+                {
+                    if (dem++ % 3 == 0)
+                        KmFbMoc("lua_lap", p + new Vector2(0, 2), 0.2f * H * manh * U(0.85f, 1.15f), U(0.3f, 0.42f), U(0, 1) < 0.5f ? Back : Front, 22, 0.06f,
+                            0.16f, 0.4f, rng.Next(2) == 0);
+                }
+                else
+                {
+                    var q = Flame(p, new Vector2(U(-20, 20), -U(60, 140)), U(0.18f, 0.28f), 0.05f * H * manh, 0.09f * H * manh, "tron", "vtuoi",
+                        U(0, 1) < 0.5f ? Back : Front, 2.5f, -200, 1.6f, 0, 0.1f);
+                    Tongue(q, 1, 0.3f);
+                }
                 if (U(0, 1) < 0.35f) BuiTro(p, new Vector2(U(-40, 40), -U(10, 40)), U(0.4f, 0.6f), 3, U(7, 10), Back);
             });
         }
@@ -240,28 +253,60 @@ namespace PokiClash
                 foreach (var h in fh) w += 0.2f * SmoothStep(h - 0.03f, h + 0.05f, f);   // qua mỗi hành tinh tia dày thêm
                 return w;
             }
+            // TIA VẼ SẴN (2026-11-19, người dùng: "tia năng lượng ... nhìn vẫn chưa đã": ống thẳng đặc, chỗ trúng nhỏ): có bộ DaTiaVang thì
+            // TiaFb (HatTiaFb.cs): đoạn năng lượng Mặt Trời vàng tươi xoắn có sao trôi liên tục từ Mặt Trời đỉnh cột xuống, cầu đầu nòng lớn dần
+            // từ lúc Mặt Trời lên đỉnh (tDinh), bông va chạm lặp; vẽ TRƯỚC tướng (thấy rõ chỗ trúng; tia đè lên đoạn tia tối màu của rig), dày
+            // 0,22 thân người ra chiêu, chỗ trúng ở đỉnh đầu đối thủ (tia không xuyên mặt). Giữ giờ chạm (tBan + lao), giờ tắt (tTat), nhịp
+            // NuocPulse + rung theo nhịp tia, chớp ở hành tinh, tia lửa văng hai bên; bỏ thân tia liền khối và bông va chạm cũ. Chưa nhập ảnh:
+            // đường cũ
+            bool tiaFb = HasTia(DaTiaVang);
+            float tCham = tBan + lao, dayTia = 0.22f * casterH * manh, tVuon = lao;
+            if (tiaFb)
+            {
+                cham = foeBody + new Vector2(0, -0.42f * tH);
+                daiCham = Mathf.Max(1, cham.y - dinh.y);
+                for (int i = 0; i < hanh.Length; i++) fh[i] = Mathf.Clamp01((Cot(hanh[i]).y - dinh.y) / daiCham);
+                tVuon =Mathf.Clamp((cham - dinh).magnitude / 2600f, 0.07f, 0.14f);   // như TiaFb: đầu tia vươn tới đích
+                float tTuTia = Mathf.Max(0.05f, tCham - tDinh - tVuon), tBanTia = Mathf.Max(0.2f, tTat - tCham);
+                At(tDinh, () => TiaFb(DaTiaVang, dinh, cham, dayTia, tTuTia, tBanTia));
+                // nhịp trúng theo tia (thay KmCham): đầu tia chạm 0,02 s trước cú trúng chính của StageView nên bỏ nhịp đầu; rung nhỏ dồn dập, tia
+                // kim loại bắn ngược rồi khựng (ít hơn: bông khung đã lớn), nhịp mạnh lúc tắt
+                Every(tCham, tTat, 7, x =>
+                {
+                    Shake?.Invoke(0.05f * manh);
+                    KmNhip(0.4f);
+                });
+                Every(tCham, tTat, 16, x =>
+                {
+                    float sd = rng.Next(2) == 0 ? -1 : 1;
+                    KmTiaLua(cham, new Vector2(sd * U(0.5f, 1.2f), -U(0.2f, 0.9f)), U(380, 720), U(5, 8), KmNang[3 + rng.Next(2)]);
+                });
+                At(tTat, () => KmNhip(0.6f));
+            }
             At(tBan, () =>
             {
                 Shake?.Invoke(0.2f * manh);
                 FlashScreen?.Invoke(VmFlash);
                 KmChop(dinh, 2.4f * R, 0.07f, KmNang);
                 KmVong(_ => dinh, 0.24f, R, 3.4f * R, VmVang[3], 1, 0.85f);
-                KmTia(dinh, cham, tTat - tBan, hw, KmNang, Back, daiCham / Mathf.Max(0.04f, lao), rut).sizeFn = (z, f) => Rong(f);
+                if (!tiaFb) KmTia(dinh, cham, tTat - tBan, hw, KmNang, Back, daiCham / Mathf.Max(0.04f, lao), rut).sizeFn = (z, f) => Rong(f);
             });
             // va chạm liên tục + đối thủ chớp, giật theo nhịp tia (NuocPulse); đầu tia chạm 0,02 s trước cú trúng chính của StageView nên bỏ nhịp đầu
-            KmCham(cham, new Vector2(0, 1), tBan + lao, tTat + 0.5f * rut, 1.15f * hw, KmNang, manh, 0);
-            // tia lửa văng hai bên thân tia
-            Every(tBan + 0.03f, tTat, 22, x =>
+            if (!tiaFb) KmCham(cham, new Vector2(0, 1), tBan + lao, tTat + 0.5f * rut, 1.15f * hw, KmNang, manh, 0);
+            // tia lửa văng hai bên thân tia (tia vẽ sẵn: theo bề dày khung, đầu tia vươn từ tCham − tVuon)
+            float tMoc = tCham - tVuon;
+            Every(tMoc + 0.03f, tTat, 22, x =>
             {
-                float v = U(0.1f, 0.95f) * Mathf.Clamp01((T - T0 - tBan) / lao);
+                float v = U(0.1f, 0.95f) * Mathf.Clamp01((T - T0 - tMoc) / tVuon);
                 var p = Vector2.Lerp(dinh, cham, v);
                 float sd = U(0, 1) < 0.5f ? -1 : 1;
-                KmTiaLua(p + new Vector2(sd * hw * Rong(v), 0), new Vector2(sd, U(-0.4f, 0.3f)), U(260, 460), U(5, 7), VmVang[2 + rng.Next(2)]);
+                KmTiaLua(p + new Vector2(sd * (tiaFb ? 0.5f * dayTia : hw * Rong(v)), 0), new Vector2(sd, U(-0.4f, 0.3f)), U(260, 460), U(5, 7),
+                    VmVang[2 + rng.Next(2)]);
             });
             for (int i = 0; i < hanh.Length; i++)
             {
                 var p = Cot(hanh[i]);
-                At(tBan + lao * fh[i], () =>      // lúc đầu tia giáng tới hành tinh này: chớp nhỏ, vòng bung, tia
+                At(tMoc + tVuon * fh[i], () =>      // lúc đầu tia giáng tới hành tinh này: chớp nhỏ, vòng bung, tia
                 {
                     KmChop(p, 1.8f * R, 0.06f, KmNang);
                     RbVong(p, 0.22f, R, 3f * R, VmVang[2]);
@@ -368,16 +413,31 @@ namespace PokiClash
                 float tDuoi = Mathf.Min(tn, VmSMTat[j] * k + 0.03f) - th;
                 int demD = 0;
                 if (tDuoi > 0.02f)
-                    At(th, () => KmDuoi(t => Rot(jj, t), tDuoi, 0.11f * tH * sc, (pt, ud) =>
+                    At(th, () =>
                     {
-                        var q = Flame(pt + U2(-0.08f, 0.08f) * tH * sc, -ud * U(60, 140) + new Vector2(0, -U(40, 90)), U(0.18f, 0.26f), 0.08f * tH * sc,
-                            0.13f * tH * sc, "tron", "luat", Back, 2.5f, -150, 1.4f, 0, 0.1f);
-                        Tongue(q, -1, 0.3f);
-                        if (demD++ % 2 == 0)
-                            KmKhoi(pt - ud * 0.1f * tH * sc + U2(-3, 3), new Vector2(U(-10, 10), -U(20, 40)), U(0.09f, 0.11f) * tH * sc, U(0.45f, 0.65f), Back,
-                                0.8f, 0, null, 0.15f, true);
-                        if (U(0, 1) < 0.2f) KmTiaLua(pt, -ud + U2(-0.4f, 0.4f), U(260, 420), U(5, 7), KmLua[4]);
-                    }));
+                        // khung vẽ sẵn (2026-11-19): lửa bọc + đuôi lửa là khung "cau_lua" bám theo thiên thạch của rig, SAU tướng (đá của rig vẫn nằm
+                        // trên), chỉ trong lúc thiên thạch hiện; hướng = từ giữa quãng rơi tới tâm đối thủ (rig rơi thẳng); thay chuỗi lưỡi lửa rời.
+                        // Khói cụm, tia giữ. Chưa nhập ảnh: lưỡi lửa cũ
+                        float tm = 0.5f * (VmSMHien[jj] + VmSMTat[jj]) * k, hien = (VmSMTat[jj] - VmSMHien[jj]) * k;
+                        bool fb = KmCauBam(t => Rot(jj, t), hien, 0.7f * tH * sc, foeBody - Rot(jj, T0 + tm));
+                        // vệt khói đuôi (2026-11-19, người dùng: "các fireball ... nên thêm trail smoke vào"): FbKhoiDuoi nhả giữa đuôi lửa của
+                        // cau_lua (lùi 0,6 cao khung), dày (40 cụm/giây vì thiên thạch chỉ hiện ~0,17–0,27 s), cụm 0,22 thân × cỡ (tối đa 0,3), sau tướng
+                        // dưới cau_lua; thay chuỗi khói một múi
+                        bool fbKhoi = KmDuoiKhoi(t => Rot(jj, t), hien, Mathf.Min(0.22f * sc, 0.3f) * tH, 0.6f * 0.7f * tH * sc, 40, Back, 18);
+                        KmDuoi(t => Rot(jj, t), tDuoi, 0.11f * tH * sc, (pt, ud) =>
+                        {
+                            if (!fb)
+                            {
+                                var q = Flame(pt + U2(-0.08f, 0.08f) * tH * sc, -ud * U(60, 140) + new Vector2(0, -U(40, 90)), U(0.18f, 0.26f), 0.08f * tH * sc,
+                                    0.13f * tH * sc, "tron", "luat", Back, 2.5f, -150, 1.4f, 0, 0.1f);
+                                Tongue(q, -1, 0.3f);
+                            }
+                            if (!fbKhoi && demD++ % 2 == 0)
+                                KmKhoi(pt - ud * 0.1f * tH * sc + U2(-3, 3), new Vector2(U(-10, 10), -U(20, 40)), U(0.09f, 0.11f) * tH * sc, U(0.45f, 0.65f), Back,
+                                    0.8f, 0, null, 0.15f, true);
+                            if (U(0, 1) < 0.2f) KmTiaLua(pt, -ud + U2(-0.4f, 0.4f), U(260, 420), U(5, 7), KmLua[4]);
+                        });
+                    });
                 At(tn, () =>
                 {
                     var tgt = foeBody + new Vector2(-dir * 0.04f * tH, -0.05f * tH);

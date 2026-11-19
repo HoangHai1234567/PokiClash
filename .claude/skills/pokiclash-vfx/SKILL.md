@@ -34,6 +34,12 @@ Mẫu nổ, lửa, nước, khói vẽ phẳng của Kingdom Rush 5:
 - **Tô phẳng, không bóng, không ánh sáng** (2026-11-04, áp cho cả hiệu ứng của tướng): mỗi vùng một màu đều, không mảng sáng
   tối, không điểm sáng trắng, không bóng loáng, **không quầng sáng (glow, halo), không gradient**. Màu trắng chỉ là màu phẳng
   (bọt, ngôi sao lấp lánh), không phải ánh phản chiếu. Câu dán vào prompt có sẵn: `FLAT_FIX`, `LINE` trong `ArtGen/Heroes/build_fx.py`.
+- **Ngoại lệ từ 2026-11-19, do người dùng chọn style mẫu:** lửa, nước, nổ, khói, năng lượng theo `vfx-petclash` mục 1c.
+  - Không viền mực; 3–4 tông + mảng sáng bầu dục.
+  - Nước được chuyển màu lam đậm → ngọc lam; lửa và năng lượng được quầng sáng mềm (ảnh mềm, alpha thường, không cộng sáng).
+  - Nhiều khung, mượt.
+  - Ảnh mẫu: `ArtGen/StyleRefs/vfx_mau/`.
+  - Hình tướng và UI vẫn theo các dòng trên.
 - Trong engine chỉ được chồng lớp, đổi alpha, nhuộm màu `Image.color`. **Không** dùng additive blend, bloom hay shader phát sáng
   để bù "cho rực". Muốn hoành tráng hơn thì thêm hình vẽ tay, cho to hơn, thêm nhịp (nổ, văng, rung).
 - Hiệu ứng không được che con bị trúng: vụ nổ trúng đòn luôn nhỏ hơn thân nó (`BeamHit` lấy cỡ theo `tH`).

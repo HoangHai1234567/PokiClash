@@ -21,6 +21,10 @@ namespace PokiClash
         {
             public Color[] w; // mực, xanh đậm, xanh giữa, xanh nhạt, bọt
             public Theme fx; // họa tiết thêm (dùng lại Extra của bộ Hỏa): mảnh băng, sao...
+            // tia nước CHIÊU CUỐI to theo thân người bắn (2026-11-19): nửa bề dày lõi tia = tiaTo × casterH (chặn 22–29 = 2–2,6 lần tia chiêu
+            // cuối thường 11); 0 = tia thường. Dùng cho tướng há mồm rất to phun luồng nước (Thôn Kình)
+            // Tia vẽ sẵn (2026-11-19): bề dày tia chiêu cuối = 2,2 × tiaTo × casterH (Thôn Kình ~0,33 casterH)
+            public float tiaTo;
         }
 
         static Color[] WPal(Color d, Color m, Color l) => new[] { C(43, 33, 24), d, m, l, C(244, 252, 255) };
@@ -49,7 +53,8 @@ namespace PokiClash
             // kỳ giông mưa bão: chàm bão #34477E, xanh đá mưa #6E88BC, lam nhạt #9CC0E8; mây giông xám bay lên
             { "giong_bao", new WTheme { w = WPal(C(46, 96, 204), C(52, 186, 222), C(188, 242, 254)) } },   // pháp sư nước: chàm của mũ, lam ngọc của áo, lam băng (2026-11-18: chàm sáng lên)
             // cá voi biến dị (2026-11-11, thay cá voi sen): lam đá sẫm #2F4A6E, lam biển #4F86B0, trắng băng #BFE3EE; mảnh đá đen văng
-            { "lien_kinh", new WTheme { w = WPal(C(40, 112, 196), C(84, 164, 232), C(196, 238, 252)), fx = new Theme { extra = "tinh_the", extraCol = C(58, 56, 66) } } },
+            // 2026-11-19 (người dùng: "chiêu cuối tướng này tia nước nhỏ quá"): cá voi há mồm rất to nên tia chiêu cuối dày theo thân (tiaTo)
+            { "lien_kinh", new WTheme { w = WPal(C(40, 112, 196), C(84, 164, 232), C(196, 238, 252)), fx = new Theme { extra = "tinh_the", extraCol = C(58, 56, 66) }, tiaTo = 0.15f } },
             // rắn vực sâu: chàm vực #2E2F6E, chàm xám #5058A8, bạc hà #8FE3D0; chấm đèn bạc hà
             { "uyen_xa", new WTheme { w = WPal(C(38, 98, 214), C(70, 162, 246), C(152, 226, 255)) } },   // rắn nước có sừng (2026-11-11): lam cô-ban của thân, nhạt dần về màu đốm bong bóng; bỏ họa tiết sao của rắn đèn cũ
             // cá sấu băng: petrol sẫm #1F5566, petrol #3C8396, cạnh băng #9DBAC6; mảnh băng đục
@@ -70,8 +75,10 @@ namespace PokiClash
             { "bo_ngua", new WTheme { w = WPal(C(110, 82, 56), C(150, 118, 84), C(206, 186, 160)), fx = new Theme { extra = "giap", extraCol = C(70, 72, 82) } } },
             // đảo Mộc, Lộc Phong (2026-11-12, suất bom_la; chiêu ở HatLoc.cs): lục bảo của pha lê và vân nhựa trên gạc (đậm, tươi, nhạt); sao vàng lá phong văng lúc trúng
             { "bom_la", new WTheme { w = WPal(C(30, 150, 110), C(64, 206, 150), C(184, 240, 212)), fx = new Theme { extra = "sao", extraCol = C(240, 172, 62) } } },
-            // đảo Mộc, Cổ Vương (2026-11-17, tượng vua cổ rễ quấn cầm cột, suất gio_loc thay Linh Điểu; chiêu ở HatCoVuong.cs): lục sẫm, lục lá, lục non của lá trên rễ; dăm đá xám lục văng lúc trúng
-            { "gio_loc", new WTheme { w = WPal(C(58, 104, 52), C(109, 190, 69), C(160, 216, 104)), fx = new Theme { extra = "giap", extraCol = C(120, 128, 110) } } },
+            // đảo Mộc, Linh Điểu (2026-11-12, chim bảo hộ rừng, suất gio_loc; chiêu ở HatChim.cs; 2026-11-17 bị Cổ Vương đè nhầm, trả lại 2026-11-19): lục sẫm của gân lá, lục lá cánh, lục non; cánh hoa hồng của cành cánh văng lúc trúng
+            { "gio_loc", new WTheme { w = WPal(C(42, 106, 58), C(76, 154, 82), C(147, 198, 99)), fx = new Theme { extra = "canh_sen", extraCol = C(242, 166, 188) } } },
+            // đảo Thổ, Cổ Vương (2026-11-17, tượng vua cổ rễ quấn cầm cột, tướng 6 đảo Thổ, suất hat_de từ 2026-11-19; chiêu ở HatCoVuong.cs): lục sẫm, lục lá, lục non của lá trên rễ; dăm đá xám lục văng lúc trúng
+            { "hat_de", new WTheme { w = WPal(C(58, 104, 52), C(109, 190, 69), C(160, 216, 104)), fx = new Theme { extra = "giap", extraCol = C(120, 128, 110) } } },
             // đảo Mộc, Voọc Tướng (2026-11-12, voọc kiếm sĩ giáp lá, suất tho_hoang; chiêu ở HatKiem.cs): lục sẫm của mũ giáp, lục lá, lục non của lá cài mũ; sao vàng của đinh giáp và tua văng lúc trúng
             { "tho_hoang", new WTheme { w = WPal(C(34, 96, 52), C(84, 160, 70), C(176, 222, 120)), fx = new Theme { extra = "sao", extraCol = C(246, 196, 72) } } },
             // đảo Mộc, người cây đầm lầy (2026-11-12, suất long_vuot; dây gai và quả cầu dây leo là mảnh của rig): lục sẫm của dây gai, lục rêu thân, lục rêu vai; kem của gai văng lúc trúng
@@ -322,6 +329,14 @@ namespace PokiClash
         // Ảnh hat_kr_mao: chân giữa đáy khung vuông (đáy hình ở ~96% khung, hình rộng ~92% khung). Chưa nhập: vương miện cũ (CrownCu).
         void Crown(Vector2 feet, float wd, float life = 0.42f, int group = Front)
         {
+            // khung vẽ sẵn (2026-11-19): vương miện nước toé từ đất nuoc_toe (dâng, xoè ngọn, vỡ giọt, còn vũng mỏng) thay mão kr_mao + vành
+            // giọt + giọt sụp. Bề ngang ngọn lúc xoè nhất ~ 1,05 × cao khung nên cao = 0,95 × wd; mão ngắn đời (mưa) thì chạy nhanh hơn. Lớp
+            // trước tướng thì trong mờ 0,92 (mão lớn dưới chân che chân đối thủ)
+            if (FbNuoc("nuoc_toe"))
+            {
+                ToeNuoc(feet, 0.95f * wd, Mathf.Clamp(0.8f / Mathf.Max(0.1f, life), 1.3f, 2.2f), group, 34, group == Front ? 0.92f : 1);
+                return;
+            }
             if (SK("kr_mao_", 0) == null)
             {
                 CrownCu(feet, wd, life, group);
@@ -422,10 +437,29 @@ namespace PokiClash
         // nước toé lúc trúng (2026-11-18 theo Kingdom Rush): đỉnh ngay khung đầu, tan bằng vỡ ra. Ở thân: chớp sao kem 2 khung + các khối
         // nước văng ra (đốm kem, dải đậm ở đáy) → giọt → chấm; dưới chân: mão nước đục lỗ rồi sụp thành giọt, vành giọt elip, vòng sóng;
         // giọt văng theo chùm lệch cỡ, bọt thành cụm
-        void Splash(Vector2 c, float sc, float ground, float tH, int group = Front)
+        // dir: hướng nước bay tới (khung vẽ sẵn trung_nuoc có hướng; null = lật ngẫu nhiên)
+        void Splash(Vector2 c, float sc, float ground, float tH, int group = Front, Vector2? dir = null)
         {
-            KrHit(c, 0.6f * tH * sc, group, (int)(5 + 2.4f * sc), 1.1f);
             var feet = new Vector2(c.x, ground);
+            // khung vẽ sẵn (2026-11-19): nước trúng đích trung_nuoc ở thân + vương miện nước nuoc_toe dưới chân (Crown) thay chớp sao kem, khối
+            // nước văng có viền mực, cụm bọt viền mực. Giữ một chùm giọt bắn ra sau (chiều sâu), vòng sóng trên đất, họa tiết thêm của tướng.
+            // Cao khung ~ 1 × tH × sc (bông toé đỉnh ~0,9 khung, lõi đặc ~0,5 khung): toé lớn chiêu cuối (sc 1,25) không che mặt quá ~0,2 s
+            if (FbNuoc("trung_nuoc"))
+            {
+                TrungNuoc(c, Mathf.Min(1.3f, sc) * tH, dir, group, 44, 1.25f, 0.92f);
+                Crown(feet + new Vector2(0, 4), 0.78f * tH * sc, 0.55f);
+                float a0 = (-90 + U(-60, 60)) * Mathf.Deg2Rad;
+                for (int i = 0; i < 2; i++)
+                {
+                    float a = a0 + U(-0.2f, 0.2f);
+                    Drop(c + U2(-6, 6), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(260, 420) * sc * (1 - 0.16f * i), 0, U(2.2f, 3.4f), 900, Back,
+                        ground + U(-10, 10));
+                }
+                Ripple(feet, 0.12f * tH, 0.72f * tH * sc);
+                WExtra(c, (int)(4 * sc + 1), 300 * sc, group);
+                return;
+            }
+            KrHit(c, 0.6f * tH * sc, group, (int)(5 + 2.4f * sc), 1.1f);
             Crown(feet + new Vector2(0, 4), 0.78f * tH * sc, 0.55f);
             int nc = sc > 1 ? 4 : 3;
             for (int j = 0; j < nc; j++)
@@ -632,7 +666,13 @@ namespace PokiClash
         // Chưa có ảnh mới: khối tròn bốn lớp + hai vòng xoắn như bản cũ.
         P CauNuoc(Func<float, Vector2> cFn, float tEnd, Func<float, float> rFn, float[] pulse = null, float tSqz = -1, int group = Front, float tail = 0)
         {
-            var p = new P { pos = cFn(0), life = tEnd, group = group, seed = rng.Next(4), stops = W };
+            // khung vẽ sẵn (2026-11-19): cầu nước cau_nuoc (khối nước 4 tông lam, dải bọt xoay quanh, lặp 24 khung) thay khối kr_khoinuoc + lõi
+            // cuộn + đốm kem có viền mực. Giữ cỡ theo rFn (lớn dần theo nhịp, phồng khi vệt nhập, nén 2 khung trước lúc nhả), giãn theo hướng
+            // bay; thân cầu chiếm ~0,78 cao khung nên cao khung = 2,56 r. Đuôi liền vẫn rải đốt, bỏ viền mực cho hợp khung (không viền)
+            Sprite[] fbA = FbNuoc("cau_nuoc") ? FbArt("cau_nuoc") : null;
+            var fbD = fbA != null ? Fbs["cau_nuoc"] : null;
+            var fbT = FbNuocTint();
+            var p = new P { pos = cFn(0), life = tEnd, group = group, seed = rng.Next(4), stops = W, ph = U(0, 24) };
             p.upd = (q, dt, s) =>
             {
                 var np = cFn(q.age);
@@ -650,7 +690,7 @@ namespace PokiClash
                 while (q.tb >= step && guard++ < 8)
                 {
                     q.tb -= step;
-                    s.DuoiNuoc(q.pos - d * q.tb, r * s.U(0.85f, 1.05f), 0.2f, q.stops, q.group);
+                    s.DuoiNuoc(q.pos - d * q.tb, r * s.U(0.85f, 1.05f), 0.2f, q.stops, q.group, 14, fbA == null);
                 }
             };
             p.draw = (q, k, buf) =>
@@ -668,6 +708,11 @@ namespace PokiClash
                 float mv = q.drift.magnitude;
                 float ang = mv > 0.3f ? VelAng(q.drift) : 0;
                 float st = sx * (1 + Mathf.Min(0.3f, mv / 12));
+                if (fbA != null) // khung vẽ sẵn: cầu cau_nuoc lặp, chồng mờ khung kế (mượt), lệch pha ngẫu nhiên mỗi cầu
+                {
+                    VeCauNuocFb(buf, fbA, fbD, q.ph + age * fbD.fps, q.pos, 2.56f * r, st, q.group, 20, ang, fbT, Mathf.Min(1, age / 0.05f));
+                    return;
+                }
                 int fr = q.seed + (int)(age / 0.066f); // đổi hình mỗi 2 khung: nước sóng sánh
                 var w = q.stops;
                 int g = q.group;
@@ -817,16 +862,17 @@ namespace PokiClash
 
         // một đốt đuôi nước đứng yên tại chỗ sinh rồi co dần (đuôi đạn chia theo quãng bay nên liền); các đốt chung lớp nên hoà thành một
         // dải có một viền mực
-        void DuoiNuoc(Vector2 pos, float r, float life, Color[] w, int group = Front, float layer = 14)
+        // ink = false: không viền mực (đuôi của cầu nước khung vẽ sẵn, khung không viền; khung vẽ sẵn 2026-11-19)
+        void DuoiNuoc(Vector2 pos, float r, float life, Color[] w, int group = Front, float layer = 14, bool ink = true)
         {
-            var p = new P { pos = pos, life = life, group = group, seed = rng.Next(4), sz = r, stops = w, ph = layer };
+            var p = new P { pos = pos, life = life, group = group, seed = rng.Next(4), sz = r, stops = w, ph = layer, big = ink };
             p.draw = (q, k, buf) =>
             {
                 float rr = q.sz * Mathf.Pow(1 - k, 0.7f);
                 if (rr < 0.8f) return;
                 int sd = q.seed;
                 float L = q.ph;
-                Put(buf, q.group, L, S("solid_" + sd), Ink, q.pos, 2 * rr + 4.5f);
+                if (q.big) Put(buf, q.group, L, S("solid_" + sd), Ink, q.pos, 2 * rr + 4.5f);
                 Put(buf, q.group, L + 0.1f, S("blob_" + sd), q.stops[1], q.pos, 2 * rr);
                 Put(buf, q.group, L + 0.2f, S("blob_" + ((sd + 1) & 3)), q.stops[2], q.pos, 1.5f * rr);
                 if (k < 0.5f) Put(buf, q.group, L + 0.3f, S("blob_" + ((sd + 2) & 3)), q.stops[3], q.pos, 0.85f * rr * (1 - 1.2f * k));
@@ -927,9 +973,18 @@ namespace PokiClash
                 U(3, 5), 900, U(0, 1) < 0.5f ? Front : Back, c.y + U(-10, 20)));
 
         // cột lưỡi sóng dựng lên sau lưng đối thủ (sau cú trúng lớn)
-        void BackColumn(Vector2 foeFeet, float tH, float dur = 0.28f, float rate = 80) =>
+        void BackColumn(Vector2 foeFeet, float tH, float dur = 0.28f, float rate = 80)
+        {
+            // khung vẽ sẵn (2026-11-19): một vương miện nước lớn nuoc_toe dựng sau lưng đối thủ (lớp sau tướng) thay ~22 lưỡi sóng cuộn có viền
+            // mực bắn lên; cao ~1,1 tH như cột lưỡi sóng cũ
+            if (FbNuoc("nuoc_toe"))
+            {
+                ToeNuoc(foeFeet + new Vector2(U(-0.06f, 0.06f) * tH, -3), 1.2f * tH, 1.35f, Back, 20);
+                return;
+            }
             Every(0, dur, rate, x => Wave(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -4), new Vector2(U(-50, 50), -U(380, 620) * (1 - 0.4f * x)),
                 U(0.4f, 0.55f), 8, U(16, 24), Back, 1, 0.5f, 1.6f, 900, 0.72f, 0.5f));
+        }
 
         static readonly Color FlashW = new Color(0.9f, 0.97f, 1f, 0.3f);
 
@@ -937,14 +992,15 @@ namespace PokiClash
         // lead: giây từ lúc gọi (đầu clip) tới khung nhả của clip. Mỗi hàm trả giây từ lúc gọi tới lúc trúng đối thủ.
 
         // bề ngang (nửa) của lõi tia ở quãng x (tính từ gốc): mép gợn chảy tới; gốc ở miệng hẹp; đuôi đã đứt thì tròn; chưa chạm thì mũi tròn
-        // mập; đã chạm thân thì loe ra ở 36 đơn vị cuối
-        static float TiaHW(float x, float a, float tail, float head, float dist, bool hit, float hw0)
+        // mập; đã chạm thân thì loe ra ở 36 đơn vị cuối. kl: nhân các quãng dọc (gốc hẹp, đuôi tròn, đoạn loe, mũi tròn) cho tia to (2026-11-19:
+        // tia chiêu cuối Thôn Kình dày 2–2,6 lần thì mũi, đuôi, đoạn loe cũng dài theo, không thành đầu bằng)
+        static float TiaHW(float x, float a, float tail, float head, float dist, bool hit, float hw0, float kl = 1)
         {
-            float f = 1 + 0.16f * Mathf.Sin(x * 0.085f - a * 34) + 0.08f * Mathf.Sin(x * 0.19f - a * 57);
-            if (tail <= 0) f *= 0.6f + 0.4f * SmoothStep(0, 26, x);
-            else f *= Mathf.Sqrt(Mathf.Clamp01((x - tail) / 12));
-            if (hit) f *= 1 + 0.75f * SmoothStep(dist - 36, dist, x);
-            else f *= Mathf.Sqrt(Mathf.Clamp01((head - x) / 10 + 0.12f)) * (1 + 0.35f * Mathf.Exp(-Sq((head - x - 10) / 12)));
+            float f = 1 + 0.16f * Mathf.Sin(x * 0.085f / kl - a * 34) + 0.08f * Mathf.Sin(x * 0.19f / kl - a * 57);
+            if (tail <= 0) f *= 0.6f + 0.4f * SmoothStep(0, 26 * kl, x);
+            else f *= Mathf.Sqrt(Mathf.Clamp01((x - tail) / (12 * kl)));
+            if (hit) f *= 1 + 0.75f * SmoothStep(dist - 36 * kl, dist, x);
+            else f *= Mathf.Sqrt(Mathf.Clamp01((head - x) / (10 * kl) + 0.12f)) * (1 + 0.35f * Mathf.Exp(-Sq((head - x - 10 * kl) / (12 * kl))));
             return hw0 * f;
         }
 
@@ -961,8 +1017,16 @@ namespace PokiClash
         //   bắn ngược, cụm bọt; mỗi 0,24 s một nhịp đập (vòng sóng, mão nhỏ dưới chân, rung nhẹ, NuocPulse cho chớp + giật đối thủ);
         // - hết tia: đuôi đứt từ gốc (miệng nhỏ giọt), đoạn còn lại bay nốt tới đích, rơi giọt dọc đường, tới nơi thì vỡ toé thành giọt.
         // Trả giây tới lúc đầu dòng chạm đối thủ (hợp đồng thời gian với StageView: HoldNuoc("n_tia") = dur + 0,05 không đổi).
-        public float NTia(Vector2 mouth, Vector2 target, Vector2 foeFeet, float casterGround, float tH, float lead, float dur = 0.88f)
+        // hwTo > 0: nửa bề dày lõi tia (tia TO của tướng há mồm rất to, WTheme.tiaTo; 0 = 9,5 thường, 11 chiêu cuối). Tia to thì cầu tụ, toé lúc
+        // nhả, gợn, vệt sáng, giọt mép, khối văng to theo bề dày (kt); bông trúng, mão, vòng sóng, toé cuối to thêm 30 % mỗi lần dày gấp đôi
+        // (kh). Giờ trúng, nhịp đập, NuocPulse không đổi
+        // dayKhung > 0: bề dày tia vẽ sẵn (2026-11-19: mọi tia nước của tướng Thủy bảng lam / ngọc lam, xem PlayNuoc): có đủ khung DaTiaNuoc
+        // thì phát NTiaKhung (HatFbThuy.cs), cùng giờ chạm, nhịp đập, giờ trả về; chưa có khung (hoặc bảng mực tím) thì tia mảng liền bên dưới
+        public float NTia(Vector2 mouth, Vector2 target, Vector2 foeFeet, float casterGround, float tH, float lead, float dur = 0.88f, float hwTo = 0,
+            float dayKhung = 0)
         {
+            if (dayKhung > 0 && HasTia(DaTiaNuoc) && FbNuoc("tia_nuoc_doan"))
+                return NTiaKhung(mouth, target, foeFeet, casterGround, tH, lead, dur, dayKhung);
             var dd = target - mouth;
             float d0 = dd.magnitude;
             var u = dd / Mathf.Max(1, d0);
@@ -976,16 +1040,26 @@ namespace PokiClash
             const float SP = 1250, SPT = 1450; // tốc đầu dòng, tốc đoạn đuôi đứt bay nốt
             float travel = Mathf.Max(0.03f, dist / SP), tHit = T0 + travel, tCut = T1 + dist / SPT;
             bool big = dur > 1;
-            float hw0 = big ? 11 : 9.5f;
+            float hwN = big ? 11 : 9.5f, hw0 = hwTo > 0 ? hwTo : hwN;
+            // tia to (2026-11-19, Thôn Kình chiêu cuối): kt = bề dày so với tia thường; kc = cầu tụ / toé ở miệng; kh = bông trúng, toé chân
+            float kt = hw0 / hwN, kc = Mathf.Max(1, 0.8f * kt), kh = 1 + 0.3f * (kt - 1), sk = Mathf.Sqrt(kt);
+            float rc = 16 * kc;
             float start = T;
             var pulse = new float[1];
-            Gather(t => src, 0, T0 - 0.03f, 62, 70, Front, pulse);
-            CauNuoc(t => src, T1 + 0.08f, a => a < T0 ? 16 * EaseOut(a / T0) : 16 * (1 - 0.45f * (a - T0) / dur) * (1 - SmoothStep(T1 - 0.05f, T1 + 0.08f, a)),
+            Gather(t => src, 0, T0 - 0.03f, 62 * sk, 70, Front, pulse);
+            CauNuoc(t => src, T1 + 0.08f, a => a < T0 ? rc * EaseOut(a / T0) : rc * (1 - 0.45f * (a - T0) / dur) * (1 - SmoothStep(T1 - 0.05f, T1 + 0.08f, a)),
                 pulse, T0);
+            // khung vẽ sẵn (2026-11-19): có khung nước thì bông toé chỗ chạm, toé lúc nhả là trung_nuoc; bớt khối văng / giọt, bỏ cụm bọt viền mực
+            bool fb = FbNuoc("trung_nuoc");
             AtW(T0, () =>
             {
                 Shake?.Invoke(0.2f);
-                KrHit(src + u * 8, 30, Front, 5, 0.8f, u * 120); // cầu toé lúc nhả
+                if (fb) // khung vẽ sẵn: cầu toé lúc nhả = bông nước nhỏ chĩa theo dòng
+                {
+                    TrungNuoc(src + u * 10 * kc, 54 * kc, u, Front, 44, 1.7f);
+                    return;
+                }
+                KrHit(src + u * 8, 30 * kc, Front, 5, 0.8f, u * 120); // cầu toé lúc nhả
                 BotCum(src + U2(-6, 6), u * 30 + new Vector2(0, -20), 7);
             });
             var core = new P { pos = src, life = tCut - T0 + 0.02f, group = Front, stops = W };
@@ -1004,9 +1078,9 @@ namespace PokiClash
                         for (int i = 0; i < n; i++)
                         {
                             float x = tail + (head - tail) * i / (n - 1);
-                            float hw = TiaHW(x, a, tail, head, dist, hit, hw0);
-                            if (li == 4) hw *= 0.7f + 0.3f * Mathf.Sin(x * 0.11f - a * 46); // sọc kem gợn chạy theo dòng
-                            var c = src + u * x + nrm * (2.4f * Mathf.Sin(x * 0.045f - a * 20) * Mathf.Min(1, x / 40) + off * hw);
+                            float hw = TiaHW(x, a, tail, head, dist, hit, hw0, kt);
+                            if (li == 4) hw *= 0.7f + 0.3f * Mathf.Sin(x * 0.11f / kt - a * 46); // sọc kem gợn chạy theo dòng
+                            var c = src + u * x + nrm * (2.4f * sk * Mathf.Sin(x * 0.045f - a * 20) * Mathf.Min(1, x / 40) + off * hw);
                             mp.Add(c + nrm * ((pass == 0 ? 1 : -1) * (hw * wf + grow)));
                         }
                     MRibbon(Front, 9 + li * 0.1f, a0, a0 + n, n, li == 0 ? Ink : li == 4 ? FoamC : q.stops[li]);
@@ -1017,7 +1091,7 @@ namespace PokiClash
             EveryW(T0 + 0.02f, T1, 30, x =>
             {
                 var q = new P { pos = src + nrm * (U(-0.4f, 0.4f) * hw0), vel = u * SP * U(1, 1.1f), life = Mathf.Max(0.02f, (dist - 18) / SP), group = Front,
-                    seed = rng.Next(4), sz = U(2.2f, 3.2f), stops = W };
+                    seed = rng.Next(4), sz = U(2.2f, 3.2f) * sk, stops = W };
                 q.draw = (z, k, buf) => PutVet(buf, Front, 15, z.pos, u, z.sz * 7, z.sz, z.stops[4], z.stops[4], Mathf.Min(1, k / 0.15f), z.seed, false);
                 Add(q);
             });
@@ -1027,13 +1101,13 @@ namespace PokiClash
                 float sd = U(0, 1) < 0.5f ? -1 : 1, xx = dist * U(0.15f, 0.85f);
                 float gy = casterGround + (foeFeet.y - casterGround) * (xx / dist) + U(0, 24);
                 for (int i = 0; i < 2; i++)
-                    Drop(src + u * (xx + i * 6) + nrm * sd * 9, u * U(80, 200) + nrm * sd * U(50, 150) + new Vector2(0, -50), 0, U(2, 3.4f) * (i == 0 ? 1.1f : 0.75f),
+                    Drop(src + u * (xx + i * 6) + nrm * sd * 9 * kt, u * U(80, 200) + nrm * sd * U(50, 150) + new Vector2(0, -50), 0, U(2, 3.4f) * (i == 0 ? 1.1f : 0.75f),
                         900, Front, gy);
             });
             // chỗ chạm: lá nước ôm thân + bông toé chĩa về phía người bắn (một hạt sống từ lúc chạm tới khi đoạn đuôi tới nơi)
             var O = hitP + u * Mathf.Max(14, rf);
             float R = Mathf.Max(14, rf);
-            var hd = new P { pos = hitP, life = tCut - tHit + 0.04f, group = Front, seed = rng.Next(4), stops = W, sz = (big ? 0.56f : 0.5f) * tH };
+            var hd = new P { pos = hitP, life = tCut - tHit + 0.04f, group = Front, seed = rng.Next(4), stops = W, sz = (big ? 0.56f : 0.5f) * tH * kh };
             hd.draw = (q, k, buf) =>
             {
                 float age = q.age;
@@ -1041,10 +1115,11 @@ namespace PokiClash
                 float j = Hash(q.seed * 31 + step), endK = SmoothStep(q.life - 0.1f, q.life, age);
                 float s = q.sz * (1 + 0.3f * (1 - Mathf.Min(1, age / 0.1f))) * (0.9f + 0.18f * j) * (1 - 0.5f * endK); // to nhất ngay khung đầu
                 var w = q.stops;
-                float A = 0.1f * tH * (1 - 0.5f * endK) * (big ? 1.15f : 1);
+                float A = 0.1f * tH * (1 - 0.5f * endK) * (big ? 1.15f : 1) * sk;
                 MSolid(Front, 30, LaOm(O, back, R, A, 1.2f, age), 24, w[2], 0.86f, 2.2f);
                 MFill(Front, 30.2f, LaOm(O, back, R + 0.1f * A, 0.6f * A, 1.0f, age + 0.3f), 24, w[3], 0.86f, false);
                 MFill(Front, 30.3f, LaOm(O, back, R + 0.2f * A, 0.28f * A, 0.72f, age + 0.6f), 24, FoamC, 0.86f, false);
+                if (fb) return; // khung vẽ sẵn: bông toé là các lượt trung_nuoc theo nhịp đập (dưới), lá nước ôm thân giữ
                 var td = SK("kr_tiadau_", fr);
                 if (td != null)
                 {
@@ -1066,13 +1141,14 @@ namespace PokiClash
                 }
             };
             AtW(tHit, () => Add(hd));
-            // khối nước tạt ngang theo thân, chùm giọt bắn ngược về phía người bắn, cụm bọt
-            EveryW(tHit, tCut, 18, x =>
+            // khối nước tạt ngang theo thân, chùm giọt bắn ngược về phía người bắn, cụm bọt (khung vẽ sẵn: bông toé đã có giọt, bọt nên bớt
+            // khối văng 18 → 7/s, chùm giọt 11 → 6/s, bỏ cụm bọt viền mực)
+            EveryW(tHit, tCut, fb ? 7 : 18, x =>
             {
                 float sd = U(0, 1) < 0.5f ? -1 : 1;
-                Khoi(hitP + nrm * sd * U(4, 14), nrm * sd * U(170, 290) + back * U(30, 120) + new Vector2(0, -U(20, 90)), U(0.3f, 0.38f), U(4.5f, 7));
+                Khoi(hitP + nrm * sd * U(4, 14) * kt, nrm * sd * U(170, 290) + back * U(30, 120) + new Vector2(0, -U(20, 90)), U(0.3f, 0.38f), U(4.5f, 7) * sk);
             });
-            EveryW(tHit, tCut, 11, x =>
+            EveryW(tHit, tCut, fb ? 6 : 11, x =>
             {
                 float a = Mathf.Atan2(back.y, back.x) + U(-1.1f, 1.1f);
                 int m = U(0, 1) < 0.4f ? 3 : 2;
@@ -1084,16 +1160,21 @@ namespace PokiClash
                         bk ? Back : Front, foeFeet.y + U(-10, 18));
                 }
             });
-            EveryW(tHit, tCut, 5, x => BotCum(hitP + back * 8 + U2(-12, 12), back * U(20, 60) + U2(-30, 30), U(6, 9)));
+            if (!fb) EveryW(tHit, tCut, 5, x => BotCum(hitP + back * 8 + U2(-12, 12), back * U(20, 60) + U2(-30, 30), U(6, 9)));
             int nb = Mathf.Max(1, Mathf.CeilToInt((tCut - tHit) / 0.24f));
             for (int i = 0; i < nb; i++)
             {
                 int ii = i;
                 AtW(tHit + i * 0.24f, () =>
                 {
-                    Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.62f * tH);
-                    if ((ii & 1) == 0) Crown(foeFeet + new Vector2(U(-12, 12), 6), 0.5f * tH, 0.5f);
-                    Shake?.Invoke(ii == 0 ? 0.3f : 0.08f);
+                    // khung vẽ sẵn (2026-11-19): mỗi nhịp đập một bông nước trung_nuoc ở mặt trước thân (tia tới từ phía người bắn, nghiêng theo
+                    // tia), lượt đầu to nhất (thay bông kr_tiadau đổi hình mỗi 2 khung). Mỗi lượt ~0,6 s nên chồng 2–3 lượt: dòng nước dội liên tục
+                    if (fb)
+                        TrungNuoc(hitP + back * (0.04f * tH) + nrm * U(-4, 4) * kt, (big ? 0.82f : 0.75f) * tH * kh * (ii == 0 ? 1.15f : U(0.9f, 1)), u, Front, 46,
+                            ii == 0 ? 1.35f : 1.5f, 0.92f);
+                    Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.62f * tH * kh);
+                    if ((ii & 1) == 0) Crown(foeFeet + new Vector2(U(-12, 12), 6), 0.5f * tH * kh, 0.5f);
+                    Shake?.Invoke((ii == 0 ? 0.3f : 0.08f) * kh);
                     NuocPulse?.Invoke(ii == 0 ? 1 : 0.45f);
                 });
             }
@@ -1102,7 +1183,7 @@ namespace PokiClash
             {
                 for (int i = 0; i < 4; i++)
                     Drop(src + U2(-5, 5), new Vector2(U(-50, 50), U(-60, 10)) + u * U(20, 80), 0, U(2.2f, 3.4f), 900, Front, casterGround + U(-6, 10));
-                BotCum(src + u * 6, u * 40, 7);
+                if (!fb) BotCum(src + u * 6, u * 40, 7); // khung vẽ sẵn: bỏ cụm bọt viền mực ở miệng, cầu khung đang co lại đã đủ
             });
             EveryW(T1 + 0.02f, tCut, 36, x =>
             {
@@ -1112,8 +1193,8 @@ namespace PokiClash
             });
             AtW(tCut, () => // đoạn cuối tới đích: vỡ toé thành giọt, vệt ướt
             {
-                Splash(hitP, big ? 0.9f : 0.8f, foeFeet.y, tH);
-                Puddle(foeFeet + new Vector2(0, 3), 22, 1.5f);
+                Splash(hitP, (big ? 0.9f : 0.8f) * kh, foeFeet.y, tH, Front, u); // khung vẽ sẵn: bông toé cuối theo hướng tia (tia to: to theo kh)
+                Puddle(foeFeet + new Vector2(0, 3), 22 * kh, 1.5f);
             });
             return tHit;
         }
@@ -1121,7 +1202,10 @@ namespace PokiClash
         // cầu nước (2026-11-18): vệt nước xoắn ốc nhập vào cầu sóng sánh lớn dần theo nhịp ở miệng trong lúc lấy đà, cầu nén 2 khung rồi
         // nhả: toé ở miệng, cầu bay vòng cung kéo đuôi liền (đốt đuôi chia theo quãng bay), nhỏ giọt; trúng thì vỡ toé lớn, cột nước sau
         // lưng, mưa giọt, vệt ướt giữ khoảng 1 s
-        public float NCau(Vector2 mouth, Vector2 target, float casterGround, Vector2 foeFeet, float tH, float lead)
+        // co: nhân cỡ cầu (chỉ nhân cỡ); oc = true (2026-11-19, Thạch Giải: "không cần làm animation tụ nước vì nó ợ từ trong bụng ra, khi nào
+        // nó ợ thì bắn cầu nước từ mồm ra"): bỏ pha tụ (vệt xoắn ốc, cầu lớn dần ở miệng), đúng khung ợ cầu hiện ở giữa mồm (nở 0,06 s) rồi bay
+        // luôn; giờ trúng giữ T0 + 0,55
+        public float NCau(Vector2 mouth, Vector2 target, float casterGround, Vector2 foeFeet, float tH, float lead, float co = 1, bool oc = false)
         {
             var src = mouth;
             float T0 = Mathf.Max(0.2f, lead);
@@ -1134,13 +1218,27 @@ namespace PokiClash
             }
             float start = T;
             var pulse = new float[1];
-            float tg = Mathf.Max(0.1f, T0 - 0.05f);
-            Gather(Path, 0, T0 - 0.05f, 90, 80, Front, pulse);
-            CauNuoc(Path, T0 + TT, a => 30 * EaseOut(a / tg) * (1 - SmoothStep(T0 + TT - 0.04f, T0 + TT, a)), pulse, T0, Front, 0.62f);
+            float tg = Mathf.Max(0.1f, T0 - 0.05f), rc = 30 * co;
+            if (oc)
+                CauNuoc(Path, T0 + TT, a => a < T0 ? 0 : rc * (0.6f + 0.4f * EaseOut((a - T0) / 0.06f)) * (1 - SmoothStep(T0 + TT - 0.04f, T0 + TT, a)), null, -1,
+                    Front, 0.62f);
+            else
+            {
+                Gather(Path, 0, T0 - 0.05f, 90, 80, Front, pulse);
+                CauNuoc(Path, T0 + TT, a => rc * EaseOut(a / tg) * (1 - SmoothStep(T0 + TT - 0.04f, T0 + TT, a)), pulse, T0, Front, 0.62f);
+            }
+            // khung vẽ sẵn (2026-11-19): cầu là cau_nuoc (trong CauNuoc); toé ở miệng lúc nhả là bông trung_nuoc nhỏ chĩa theo hướng ném, bỏ cụm
+            // bọt viền mực; trúng: Splash khung (trung_nuoc theo hướng cầu rơi tới + nuoc_toe) và cột nước sau lưng là nuoc_toe lớn (BackColumn)
+            var uc = Unit(target - src);
             AtW(T0, () =>
             {
                 Shake?.Invoke(0.15f);
-                KrHit(src, 40, Front, 5, 0.7f);
+                if (FbNuoc("trung_nuoc"))
+                {
+                    TrungNuoc(src + uc * 8 * co, 66 * Mathf.Sqrt(co), uc, Front, 44, 1.6f);
+                    return;
+                }
+                KrHit(src, 40 * Mathf.Sqrt(co), Front, 5, 0.7f);
                 BotCum(src + U2(-8, 8), null, 8);
             });
             EveryW(T0, T0 + TT, 12, x => Drop(Path(T - start) + U2(-10, 10), new Vector2(U(-40, 40), U(-20, 60)), 0, U(2.2f, 3.6f), 900, Front,
@@ -1149,7 +1247,7 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.6f);
                 FlashScreen?.Invoke(FlashW);
-                Splash(target, 1.25f, foeFeet.y, tH);
+                Splash(target, 1.25f, foeFeet.y, tH, Front, target - src + new Vector2(0, 4 * ARC)); // hướng cầu lúc rơi tới (cuối vòng cung)
                 BackColumn(foeFeet, tH);
                 RainBack(foeFeet, tH, 14);
                 Puddle(foeFeet + new Vector2(0, 3), 26, 1.5f);
@@ -1318,7 +1416,10 @@ namespace PokiClash
                             s.Shake?.Invoke(0.14f);
                             s.InW(thW, () => // 2026-11-18: nước trúng nhỏ kiểu Kingdom Rush thay chớp toé + giọt rời
                             {
-                                s.KrHit(z.aim, 0.34f * tH, Front, 5, 1, dv * -60);
+                                // khung vẽ sẵn (2026-11-19): mỗi mũi trúng một bông trung_nuoc nghiêng theo hướng mũi lao tới (6–8 mũi nên nhỏ hơn
+                                // đòn thường: 0,58 tH, chạy nhanh 1,55)
+                                if (s.FbNuoc("trung_nuoc")) s.TrungNuoc(z.aim, 0.58f * tH, dv, Front, 44, 1.55f);
+                                else s.KrHit(z.aim, 0.34f * tH, Front, 5, 1, dv * -60);
                                 s.WExtra(z.aim, 1, 240);
                             });
                         }
@@ -1340,7 +1441,7 @@ namespace PokiClash
                 });
             }
             float end = T0 + count * 0.1f + dist / 1500 + 0.05f;
-            At(end, () =>
+            AtW(end, () => // khung vẽ sẵn (2026-11-19): mão là nuoc_toe (Crown); AtW cho đúng bảng nước
             {
                 Crown(foeFeet + new Vector2(0, 6), 0.7f * tH);
                 Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.7f * tH);
@@ -1365,7 +1466,9 @@ namespace PokiClash
                 var dd = aim - mouth;
                 float dist = Mathf.Max(1, dd.magnitude);
                 var u = dd / dist;
-                KrHit(mouth + u * 4, 22, Front, 4, 0.6f, u * 60); // 2026-11-18: toé nhỏ ở đầu gậy lúc nhả
+                // khung vẽ sẵn (2026-11-19): toé nhỏ ở đầu gậy là bông trung_nuoc nhỏ chĩa theo hướng bắn
+                if (FbNuoc("trung_nuoc")) TrungNuoc(mouth + u * 6, 42, u, Front, 44, 1.8f);
+                else KrHit(mouth + u * 4, 22, Front, 4, 0.6f, u * 60); // 2026-11-18: toé nhỏ ở đầu gậy lúc nhả
                 for (int i = 0; i < 2; i++) Drop(mouth + U2(-5, 5), -u * U(40, 120) + new Vector2(U(-70, 70), -U(30, 110)), 0.32f, 2.4f);
                 var q = new P { pos = mouth, life = DanTravel + 0.25f, aim = aim, group = Front, stops = W, vel = u * (dist / DanTravel), fly = true };
                 q.upd = (z, dt, s) =>
@@ -1379,8 +1482,14 @@ namespace PokiClash
                         s.Shake?.Invoke(0.12f);
                         s.InW(th, () =>
                         {
-                            s.KrHit(z.aim, 0.44f * tH, Front, 6, 1, dv * -50);
-                            s.BotCum(z.aim + s.U2(-8, 8), null, 8);
+                            // khung vẽ sẵn (2026-11-19): đạn trúng = bông trung_nuoc 0,82 tH (đòn thường 0,7–1 × tH) theo hướng đạn bay, bỏ
+                            // chớp sao + khối văng + cụm bọt viền mực
+                            if (s.FbNuoc("trung_nuoc")) s.TrungNuoc(z.aim, 0.82f * tH, dv, Front, 44, 1.35f);
+                            else
+                            {
+                                s.KrHit(z.aim, 0.44f * tH, Front, 6, 1, dv * -50);
+                                s.BotCum(z.aim + s.U2(-8, 8), null, 8);
+                            }
                             s.WExtra(z.aim, 1, 240);
                         });
                     }
@@ -1436,7 +1545,10 @@ namespace PokiClash
                 float dist = Mathf.Max(1, dd.magnitude);
                 var u = dd / dist;
                 Shake?.Invoke(0.2f);
-                KrHit(mouth + u * 6, 0.26f * tH, Front, 4, 0.7f, u * 150);
+                // khung vẽ sẵn (2026-11-19): toé ở miệng lúc phụt ngọc là bông trung_nuoc nhỏ theo hướng phụt (bóng mực của bạch tuộc: bảng tím,
+                // FbNuoc trả false nên giữ hạt cũ)
+                if (FbNuoc("trung_nuoc")) TrungNuoc(mouth + u * 8, 0.46f * tH, u, Front, 44, 1.6f);
+                else KrHit(mouth + u * 6, 0.26f * tH, Front, 4, 0.7f, u * 150);
                 for (int i = 0; i < 3; i++) Drop(mouth + U2(-6, 6), u * U(60, 260) + new Vector2(U(-120, 120), -U(40, 200)), 0.36f, U(2.2f, 3.2f));
                 var q = new P
                 {
@@ -1452,7 +1564,7 @@ namespace PokiClash
                         s.InW(th, () =>
                         {
                             s.Shake?.Invoke(0.45f);
-                            s.Splash(z.aim, 0.85f, foeFeet.y, tH);
+                            s.Splash(z.aim, 0.85f, foeFeet.y, tH, Front, z.vel); // khung vẽ sẵn: bông toé theo hướng ngọc bay
                             s.Puddle(foeFeet + new Vector2(0, 3), 22, 1.5f);
                         });
                     }
@@ -1515,7 +1627,7 @@ namespace PokiClash
             Vector2 Now(out float x) => Front_(T - start, out x);
             Gather(t => A + new Vector2(0, -8), 0, T0, 60, 50);
             At(0.05f, () => Ripple(casterFeet + new Vector2(0, -2), 0.22f * casterH, 0.66f * casterH));
-            At(T0 - TR, () =>
+            AtW(T0 - TR, () => // khung vẽ sẵn (2026-11-19): mão lúc sóng dâng là nuoc_toe (Crown); AtW cho đúng bảng nước
             {
                 Shake?.Invoke(0.25f);
                 Crown(A + new Vector2(0, 4), 0.6f * tH);
@@ -1575,26 +1687,40 @@ namespace PokiClash
                 Drop(c + new Vector2(sx * U(-0.2f, 0.5f) * tH, -U(0.5f, 1) * tH), new Vector2(U(-120, 120), -U(100, 260)), 0, U(3, 5), 900, Front,
                     c.y + U(-6, 20));
             });
-            At(T0 + TT + 0.04f, () =>
+            // khung vẽ sẵn (2026-11-19): con sóng mảng tới nơi thì giao cho khung song_nuoc (từ khung 10: mào cuộn lớn nhất → đổ ập → bọt tràn
+            // → vũng mỏng) đổ chồm qua đối thủ theo hướng sóng (khung vẽ đổ sang PHẢI, đổ sang trái thì lật), thay 18 lưỡi sóng cuộn có viền
+            // mực bắn qua đầu và 5 cụm bọt viền mực tràn hai bên. Mào cuộn ở ~0,8 bề ngang khung nên neo lùi về phía người ra chiêu 0,36 cao
+            // khung cho mào đổ trúng đối thủ; trong mờ 0,86 (khối nước lớn phủ lên con bị trúng). Phát sớm 0,08 s cho chồng lên lúc mảng sụp
+            bool fbS = FbNuoc("song_nuoc");
+            if (fbS)
+            {
+                float hs = 1.2f * tH;
+                var tint = FbNuocTint();
+                At(T0 + TT - 0.04f, () => SongNuoc(foeFeet + new Vector2(-sx * 0.36f * hs, 4), hs, sx < 0, 10, 1.25f, tint));
+            }
+            AtW(T0 + TT + 0.04f, () =>
             {
                 Shake?.Invoke(0.75f);
                 FlashScreen?.Invoke(FlashW);
-                for (int i = 0; i < 18; i++) // nước chồm qua đầu rồi đổ xuống
-                {
-                    bool fr = U(0, 1) < 0.25f;
-                    Wave(B + new Vector2(U(-50, 50), -10), new Vector2(U(-150, 150) + u.x * 120, -U(380, 640)), U(0.45f, 0.65f), 12,
-                        U(20, 30) * (fr ? 0.6f : 1), fr ? Front : Back, 1, 0.4f, 1.5f, 1100, 0.72f, 0.6f);
-                }
-                Splash(foeFeet + new Vector2(0, -0.4f * tH), 1.1f, foeFeet.y, tH);
-                for (int i = 0; i < 5; i++) // bọt tràn hai bên sát đất, thành cụm
-                {
-                    float sd = U(0, 1) < 0.5f ? -1 : 1;
-                    BotCum(B + new Vector2(sd * U(10, 40), U(-6, 6)), new Vector2(sd * U(120, 260), -U(0, 30)), U(11, 15), U(0, 1) < 0.5f ? Front : Back,
-                        U(0.6f, 0.9f));
-                }
+                if (!fbS)
+                    for (int i = 0; i < 18; i++) // nước chồm qua đầu rồi đổ xuống
+                    {
+                        bool fr = U(0, 1) < 0.25f;
+                        Wave(B + new Vector2(U(-50, 50), -10), new Vector2(U(-150, 150) + u.x * 120, -U(380, 640)), U(0.45f, 0.65f), 12,
+                            U(20, 30) * (fr ? 0.6f : 1), fr ? Front : Back, 1, 0.4f, 1.5f, 1100, 0.72f, 0.6f);
+                    }
+                Splash(foeFeet + new Vector2(0, -0.4f * tH), 1.1f, foeFeet.y, tH, Front, u);
+                if (!fbS)
+                    for (int i = 0; i < 5; i++) // bọt tràn hai bên sát đất, thành cụm
+                    {
+                        float sd = U(0, 1) < 0.5f ? -1 : 1;
+                        BotCum(B + new Vector2(sd * U(10, 40), U(-6, 6)), new Vector2(sd * U(120, 260), -U(0, 30)), U(11, 15), U(0, 1) < 0.5f ? Front : Back,
+                            U(0.6f, 0.9f));
+                    }
                 RainBack(foeFeet, tH, 14);
                 Puddle(foeFeet + new Vector2(0, 3), 26, 1.4f);
             });
+            HaiLongBao(foeFeet, tH, T0 - TR, T0 + TT + 0.5f, T0 + TT + 0.04f, 2, 4); // 2026-11-19: Hải Long dạng 1 thêm lốc phụ + sét (HatFbThuy.cs)
             return T0 + TT;
         }
 
@@ -1642,7 +1768,8 @@ namespace PokiClash
                         z.dead = true;
                     };
             });
-            Every(T0 + 0.15f, T1 + 0.1f, 3.5f, x => Crown(foeFeet + new Vector2(U(-0.6f, 0.6f) * tH, U(0, 14)), U(0.25f, 0.4f) * tH, 0.3f));
+            // khung vẽ sẵn (2026-11-19): mão nhỏ là nuoc_toe chạy nhanh (Crown); EveryW cho đúng bảng nước của tướng gọi mưa
+            EveryW(T0 + 0.15f, T1 + 0.1f, 3.5f, x => Crown(foeFeet + new Vector2(U(-0.6f, 0.6f) * tH, U(0, 14)), U(0.25f, 0.4f) * tH, 0.3f));
             var w3 = W[3];
             for (int i = 0; i < 4; i++)
                 At(T0 + 0.15f + i * 0.3f, () => Ripple(foeFeet + new Vector2(0, 2), 0.15f * tH, 0.7f * tH, 0.5f, w3));
@@ -1701,13 +1828,36 @@ namespace PokiClash
             });
             Every(0.1f, T1, 6, x => BotCum(Cc + new Vector2(U(-0.25f, 0.25f) * tH, U(-6, 6)), Vector2.zero, U(6, 9), Back, 0.45f));
             At(0.1f, () => Shake?.Invoke(0.15f));
-            At(T1, () =>
+            AtW(T1, () => // khung vẽ sẵn (2026-11-19): AtW để chọn khung / hạt theo đúng bảng nước của tướng ra chiêu
             {
                 Shake?.Invoke(0.65f);
                 FlashScreen?.Invoke(FlashW);
-                Crown(Cc + new Vector2(0, 4), 0.85f * tH, 0.5f);
+                Crown(Cc + new Vector2(0, 4), 0.85f * tH, 0.5f); // khung vẽ sẵn: nuoc_toe lớn ở chân cột
                 Ripple(Cc, 0.15f * tH, 0.85f * tH);
-                KrHit(foeFeet + new Vector2(0, -0.45f * tH), 0.6f * tH, Front, 7);
+                // khung vẽ sẵn: cột nước húc từ dưới lên thân = bông trung_nuoc xoay cho tia tới từ DƯỚI (thay chớp sao + khối văng viền mực)
+                bool fb = FbNuoc("trung_nuoc");
+                if (fb) TrungNuoc(foeFeet + new Vector2(0, -0.45f * tH), 1.0f * tH, new Vector2(0, -1), Front, 44, 1.25f, 0.9f, 90);
+                else KrHit(foeFeet + new Vector2(0, -0.45f * tH), 0.6f * tH, Front, 7);
+                // khung vẽ sẵn (2026-11-19, người dùng chê lốc / cột nước mảng "màu hơi trầm và chưa hợp"): cột xoáy nước là lốc "loc_nuoc" hai
+                // lớp bao quanh đối thủ (sau tướng đặc, trước tướng lật + trong mờ 0,5), vọt lên 1,3 tH trong 0,12 s như cột cũ, xoáy nhanh
+                // (tốc 1,7), cuối co 25 % và tắt dần 0,26 s; bỏ cột mảng ba lớp có viền mực + bọt đầu cột. Chưa nhập khung: cột mảng cũ
+                // 2026-11-19 ("lốc xoáy làm to lên cho che hết tướng địch"): cao 1,7 tH (chặn mép trên sân), giãn ngang 1,9, chân khung hạ 0,1 cao
+                // khung như vòi rồng NVoi; phần chân đối thủ đã có mão nuoc_toe 0,85 tH ở trên
+                // 2026-11-19 (khung lốc TRÙM "loc_nuoc_bao": cột xoáy dày, gốc gần rộng bằng miệng): có khung thì dùng nó, cao 1,65 tH (LocBaoCao),
+                // giãn ngang chỉ 1,25, chân khung hạ 0,04 cao khung: trùm kín từ chân tới đầu. Chưa có thì lốc phễu loc_nuoc to (giãn 1,9) như trên
+                bool loc;
+                if (FbNuoc("loc_nuoc_bao"))
+                {
+                    float HB = LocBaoCao(Cc.y, tH);
+                    Func<float, float> caoB = t => HB * EaseOut(t / 0.12f) * (1 - 0.25f * SmoothStep(0.4f, 0.66f, t));
+                    loc = LocNuocBao(t => Cc + new Vector2(0, LocBaoHa * caoB(t)), caoB, 0.66f, 0.5f, 1.7f, LocBaoGian, 0.05f, 0.26f, 16, "loc_nuoc_bao");
+                }
+                else
+                {
+                    float HX = Mathf.Clamp((Cc.y - 24) / (0.85f * 1.04f), 1.3f * tH, 1.7f * tH);
+                    Func<float, float> caoX = t => HX * EaseOut(t / 0.12f) * (1 - 0.25f * SmoothStep(0.4f, 0.66f, t));
+                    loc = FbNuoc("loc_nuoc") && LocNuocBao(t => Cc + new Vector2(0, 0.1f * caoX(t)), caoX, 0.66f, 0.5f, 1.7f, 1.9f, 0.05f, 0.26f, 16);
+                }
                 var pil = new P { pos = Cc, life = 0.66f, group = Front, stops = W };
                 pil.draw = (q, k, buf) =>
                 {
@@ -1728,18 +1878,22 @@ namespace PokiClash
                         Put(buf, Front, 17.1f, S("foam_" + (i & 3)), FoamC, pos, 2 * r);
                     }
                 };
-                Add(pil);
-                Every(0, 0.45f, x => 60 * (1 - 0.5f * x), x =>
+                if (!loc) Add(pil); // có khung lốc thì không vẽ cột mảng
+                // khung vẽ sẵn: vương miện nuoc_toe ở chân đã toé lên nên lưỡi sóng bắn quanh cột bớt 60 → 26/s
+                float rate = fb ? 26 : 60;
+                Every(0, 0.45f, x => rate * (1 - 0.5f * x), x =>
                 {
                     bool fr = U(0, 1) < 0.25f;
                     Wave(Cc + new Vector2(U(-0.2f, 0.2f) * tH, -4), new Vector2(U(-50, 50), -U(520, 800) * (1 - 0.4f * x)), U(0.4f, 0.55f), 9,
                         U(18, 26) * (fr ? 0.6f : 1), fr ? Front : Back, 1, 0.6f, 1.4f, 900, 0.72f, 0.5f);
                 });
-                Every(0.1f, 0.6f, 8, x => BotCum(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(1, 1.3f) * tH), new Vector2(U(-60, 60), -U(0, 40)), U(11, 16), Back));
+                if (!loc) // khung lốc đã có bọt ở miệng phễu: bỏ cụm bọt viền mực trên đầu cột
+                    Every(0.1f, 0.6f, 8, x => BotCum(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(1, 1.3f) * tH), new Vector2(U(-60, 60), -U(0, 40)), U(11, 16), Back));
                 RainBack(foeFeet, tH, 18);
                 Puddle(foeFeet + new Vector2(0, 3), 24);
                 WExtra(foeFeet + new Vector2(0, -0.5f * tH), 5, 320);
             });
+            HaiLongBao(foeFeet, tH, Mathf.Max(0.1f, T1 - 0.35f), T1 + 0.6f, T1, 2, 4); // 2026-11-19: Hải Long dạng 2 thêm lốc phụ + sét (HatFbThuy.cs)
             return T1;
         }
 
@@ -1780,11 +1934,52 @@ namespace PokiClash
             var w3 = W[3];
             int rings = Mathf.Max(2, (int)(T1 / 0.28f));
             for (int i = 0; i < rings; i++) At(0.05f + i * 0.28f, () => RingN(CcT(T - start), 0.4f, 0.9f * tH, 0.2f * tH, w3));
-            At(TA, () =>
+            AtW(TA, () => // khung vẽ sẵn (2026-11-19): AtW cho mão (nuoc_toe) theo đúng bảng nước của tướng ra chiêu
             {
                 Shake?.Invoke(0.35f);
                 Crown(Cs + new Vector2(0, 4), 0.75f * tH, 0.5f);
             });
+            // khung vẽ sẵn (2026-11-19, người dùng xem Hải Long chê "phần lốc xoáy nước ... màu hơi trầm và chưa hợp lắm"): có khung "loc_nuoc"
+            // thì thân vòi / lốc là khung lốc nước hai lớp bao quanh đối thủ (LocNuocBao: sau tướng đặc, trước tướng lật + trong mờ 0,5), thay
+            // 8 đĩa mảng có viền mực tô bảng nước của tướng. Dâng lên từ TA: cao 15 % → HT trong 0,22 s (hiện dần 0,12 s), chân theo CcT (lốc
+            // n_loc lướt từ trước mặt tướng tới chân đối thủ), sụp từ T1: co 30 % và tắt dần trong 0,35 s. Bỏ luôn các hạt bám hình đĩa cũ (sọc
+            // bọt trượt quanh mặt phễu, lưỡi sóng viền mực ở hai mép, cụm bọt viền mực ở miệng phễu): khung đã có dải bọt. Giữ nước bị hút vào
+            // chân, vòng co, mão nuoc_toe lúc dựng, giọt văng, họa tiết thêm, cú sụp toé; giờ trả về giữ nguyên
+            // 2026-11-19 (người dùng: "lốc xoáy làm to lên cho che hết tướng địch"): lốc cao 1,7 tH (chặn mép trên sân, tối thiểu 1,3 tH), giãn
+            // ngang 1,9, chân khung hạ 0,1 cao khung dưới chân đối thủ (vòng nước chân lốc ôm quanh chân, đoạn ngang thân nằm ở phần phễu nở). Đo
+            // bề ngang khung theo chiều cao: thân phễu ~0,2 bề ngang khung ở 15–30 % cao, 0,45 ở 50 %, 0,65 ở 60–85 %, nên ngang thân đối
+            // thủ: chân ~0,7 tH, giữa thân ~1 tH, ngực trở lên ≥ 1,3 tH. Chân (đoạn phễu thon) bù bằng vương miện nuoc_toe toé lặp ở gốc lốc
+            // 2026-11-19 (khung lốc TRÙM "loc_nuoc_bao": cột xoáy dày, gốc gần rộng bằng miệng): có khung thì lốc bao quanh đối thủ là nó, cao
+            // 1,65 tH (LocBaoCao), giãn ngang 1,25, chân khung hạ 0,04 cao khung: trùm kín từ chân tới đầu, không cần mão bù chân. Lốc n_loc
+            // đang lướt tới vẫn là phễu loc_nuoc vừa (1,3 tH, giãn 1,25), tới chân đối thủ thì chuyển sang lốc trùm: phễu tắt dần 0,15 s, lốc
+            // trùm hiện dần 0,15 s và nở từ 70 % cao. Chưa có khung trùm: lốc phễu to (giãn 1,9) + mão bù chân như dưới
+            bool bao = FbNuoc("loc_nuoc_bao"), pheu = FbNuoc("loc_nuoc");
+            bool fbL = bao || pheu;
+            if (bao)
+            {
+                float HB = LocBaoCao(Cd.y, tH), tToi = di ? TA + 0.1f + T_DI : TA;
+                bool noi = di && pheu; // lướt bằng phễu rồi nối sang lốc trùm
+                if (noi)
+                {
+                    float HP = 1.3f * tH;
+                    AtW(TA, () => LocNuocBao(t => CcT(TA + t), t => HP * (0.15f + 0.85f * EaseOut(t / 0.22f)), tToi - TA + 0.15f, 0.5f, 1.15f, 1.25f, 0.12f,
+                        0.15f));
+                }
+                float t0 = noi ? tToi - 0.02f : TA;
+                Func<float, float> caoB = t => HB * (noi ? 0.7f + 0.3f * EaseOut(t / 0.2f) : 0.15f + 0.85f * EaseOut(t / 0.22f)) *
+                    (1 - 0.3f * SmoothStep(T1 - t0, T_END - t0, t));
+                AtW(t0, () => LocNuocBao(t => CcT(t0 + t) + new Vector2(0, LocBaoHa * caoB(t)), caoB, T_END - t0, 0.5f, 1.15f, LocBaoGian, noi ? 0.15f : 0.12f,
+                    0.35f, 18, "loc_nuoc_bao"));
+            }
+            else if (pheu)
+            {
+                float HL = Mathf.Clamp((Cd.y - 24) / (0.85f * 1.04f), 1.3f * tH, 1.7f * tH);
+                Func<float, float> cao = t => HL * (0.15f + 0.85f * EaseOut(t / 0.22f)) * (1 - 0.3f * SmoothStep(T1 - TA, T_END - TA, t));
+                AtW(TA, () => LocNuocBao(t => CcT(TA + t) + new Vector2(0, 0.1f * cao(t)), cao, T_END - TA, 0.5f, 1.15f, 1.9f));
+                // gốc lốc: vương miện nước toé lặp phủ phần chân đối thủ (đoạn phễu thon)
+                EveryW(TA + 0.18f, T1 - 0.1f, 3.2f, x => ToeNuoc(CcT(T - start) + new Vector2(U(-0.08f, 0.08f) * tH, 2), 0.78f * tH * U(0.9f, 1.1f), 1.6f, Front,
+                    17, 0.75f));
+            }
             var body = new P { pos = Cd, life = T_END, group = Front, stops = W };
             body.draw = (q, k, buf) =>
             {
@@ -1816,9 +2011,9 @@ namespace PokiClash
                     MFill(Front, L + 0.003f, c0 + 2 * RN, RN, q.stops[3], Al, false);
                 }
             };
-            Add(body);
+            if (!fbL) Add(body); // khung vẽ sẵn: có khung lốc thì không vẽ đĩa mảng
             // sọc bọt trượt quanh mặt trước của phễu (từ phải sang trái = phễu đang quay)
-            Every(TA + 0.1f, T1, 16, x =>
+            if (!fbL) Every(TA + 0.1f, T1, 16, x =>
             {
                 var q = new P { pos = Cd, life = U(0.45f, 0.6f), tb = T - start, hgt = U(0.05f, 0.3f), sz = U(26, 44) * sc, col = U(0, 1) < 0.65f ? FoamC : w3 };
                 q.draw = (z, k, buf) =>
@@ -1834,16 +2029,16 @@ namespace PokiClash
                 };
                 Add(q);
             });
-            // mào sóng văng ra ở hai mép phễu
-            Every(TA + 0.12f, T1, 30, x =>
+            // mào sóng văng ra ở hai mép phễu (khung vẽ sẵn: bỏ khi có khung lốc)
+            if (!fbL) Every(TA + 0.12f, T1, 30, x =>
             {
                 float hh = U(0.15f, 1), sd = U(0, 1) < 0.5f ? -1 : 1;
                 var c = Centre(hh, T - start);
                 Wave(c + new Vector2(sd * Radius(hh) * 0.9f, 0), new Vector2(sd * U(120, 240), -U(60, 200)), U(0.26f, 0.38f), 6,
                     U(11, 17) * (0.6f + 0.4f * hh), Front, 1, 0.35f, 3, 500, 0.72f, 0.25f);
             });
-            // miệng phễu: bọt cuộn, giọt văng
-            Every(TA + T_UP, T1 + 0.1f, 9, x =>
+            // miệng phễu: bọt cuộn, giọt văng (khung vẽ sẵn: bọt cuộn bỏ khi có khung lốc, giọt văng giữ)
+            if (!fbL) Every(TA + T_UP, T1 + 0.1f, 9, x =>
             {
                 float a = U(0, 6.28f);
                 var c = Centre(1, T - start);
@@ -1854,22 +2049,25 @@ namespace PokiClash
             Every(TA + T_UP, T1, 26, x => Drop(Centre(U(0.5f, 1), T - start) + new Vector2(U(-30, 30), 0),
                 new Vector2((U(0, 1) < 0.5f ? -1 : 1) * U(170, 300), -U(40, 160)), 0, U(3, 5), 900, U(0, 1) < 0.5f ? Front : Back, foeFeet.y + U(-10, 24)));
             Every(TA + T_UP, T1, 4, x => WExtra(Centre(U(0.4f, 1), T - start), 1, 220));
-            At(T1 + 0.15f, () => // vòi sụp: nước đổ xuống toé ra
+            AtW(T1 + 0.15f, () => // vòi sụp: nước đổ xuống toé ra (khung vẽ sẵn 2026-11-19: Splash ra trung_nuoc + nuoc_toe; AtW cho đúng bảng nước)
             {
                 Shake?.Invoke(0.4f);
                 Splash(foeFeet + new Vector2(0, -0.3f * tH), 0.9f, foeFeet.y, tH, Back);
                 RainBack(foeFeet, tH, 16, 0.6f, 0, 0.35f);
                 Puddle(foeFeet + new Vector2(0, 3), 20, 1);
             });
+            if (!di) HaiLongBao(foeFeet, tH, TA, T1, TA + 0.15f, 3, 6); // 2026-11-19: vòi rồng Hải Long dạng 3 thêm lốc phụ + sét (HatFbThuy.cs)
             return di ? TA + 0.1f + 0.85f * T_DI : TA + 0.15f;
         }
 
         // cú va nước của chiêu lao tới (trượt, húc, liên hoàn): gọi đúng khung trúng, nước toé lớn ở thân đối thủ, cột nước, mưa giọt
-        public float NVa(Vector2 foeBody, Vector2 foeFeet, float tH)
+        // dir: hướng cú lao tới (khung vẽ sẵn 2026-11-19: bông trung_nuoc có hướng; null = lật ngẫu nhiên). Có khung nước thì Splash là
+        // trung_nuoc + nuoc_toe, cột nước sau lưng là nuoc_toe lớn (BackColumn); cụm hơi nước (không viền), mưa giọt, vệt ướt giữ
+        public float NVa(Vector2 foeBody, Vector2 foeFeet, float tH, Vector2? dir = null)
         {
             Shake?.Invoke(0.6f);
             FlashScreen?.Invoke(FlashW);
-            Splash(foeBody, 1.25f, foeFeet.y, tH);
+            Splash(foeBody, 1.25f, foeFeet.y, tH, Front, dir);
             BotCum(foeBody + U2(-20, 20), new Vector2(U(-60, 60), -U(30, 70)), 12, Back, 0, true); // hơi nước bốc thành cụm
             BackColumn(foeFeet, tH);
             RainBack(foeFeet, tH, 14);
@@ -1890,8 +2088,15 @@ namespace PokiClash
             if (!HasWater) return 0;
             switch (kind)
             {
-                case "n_tia": return NTia(mouth, foeBody, foeFeet, casterFeet.y, tH, lead, ult ? 1.25f : 0.88f);
-                case "n_cau": return NCau(mouth, foeBody, casterFeet.y, foeFeet, tH, lead);
+                case "n_va": return NVa(foeBody, foeFeet, tH, new Vector2(Mathf.Sign(foeFeet.x - casterFeet.x), 0)); // khung vẽ sẵn (2026-11-19): truyền hướng lao tới cho bông toé (trước rơi xuống default)
+                case "n_tia": // 2026-11-19: chiêu cuối của tướng có WTheme.tiaTo (Thôn Kình) là tia to theo thân người bắn
+                    // 2026-11-19 (người dùng muốn cải thiện "các tia nước" luôn, sau bản thử Tí Tách): MỌI tia nước của tướng Thủy là tia vẽ sẵn
+                    // (NTiaKhung; bảng mực tím / chưa có khung thì tia mảng cũ). Bề dày theo thân người bắn: mana 0,22 casterH (26–44), chiêu cuối
+                    // 0,28 (34–56), chiêu cuối của tướng há mồm rất to (tiaTo, Thôn Kình) 2,2 × tiaTo = 0,33 casterH (44–68). Riêng từng tướng
+                    // (gốc tia đo trên rig: giữa mồm Hải Đăng / Thạch Giải, đầu trượng Giông Bão, giữa hai sừng Uyên Xà; bề dày, cầu đầu nòng, tụ):
+                    // NTiaNuoc (HatFbThuy.cs)
+                    return NTiaNuoc(ult, casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);
+                case "n_cau": return NCauNuoc(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // 2026-11-19: Thạch Giải ợ cầu ở giữa mồm, không tụ, cầu × 1,6 (HatFbThuy.cs)
                 case "n_bong": return NBong(mouth, foeBody, foeFeet, tH, lead);
                 case "n_luoi": return NLuoi(mouth, foeBody, foeFeet, tH, lead);
                 case "n_thuong": return NThuong(casterFeet, casterH, foeBody, foeFeet, tH, lead, ult ? 8 : 6);
@@ -1916,7 +2121,11 @@ namespace PokiClash
                 case "n_dam_rung1": return NDamRung(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.7f); // dạng 1 (Tượng Mầm): bản nhẹ, không có rễ trồi
                 case "n_cau_mom": return NCauMom(casterFeet, casterH, foeFeet, foeBody, tH, lead);
                 case "n_cau_mom1": return NCauMom(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.10f, 1.02f); // Lộc Phong: tụ cầu to trước mõm, gật đầu nện vào đối thủ
-                case "n_tru_dap": return NTruDap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương (HatCoVuong.cs), đòn đánh thường dạng 2: lao tới đập cột xuống đầu đối thủ
+                case "n_mo_dam": return NMoDam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu (HatChim.cs), đòn đánh thường: lao tới đâm mỏ
+                case "n_la_gam": return NLaGam(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu: quạt cánh, lá cánh (mảnh của rig) găm vào đối thủ rồi rút về
+                case "n_thach_roi": return NThachRoi(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Linh Điểu: gọi tảng đá phủ rêu rơi từ trời xuống đầu đối thủ
+                case "n_thach_roi1": return NThachRoi(casterFeet, casterH, foeFeet, foeBody, tH, lead, 0.78f); // dạng 1 (Điểu Nhi): tảng nhỏ hơn
+                case "n_tru_dap": return NTruDap(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương (HatCoVuong.cs, suất hat_de đảo Thổ), đòn đánh thường dạng 2: lao tới đập cột xuống đầu đối thủ
                 case "n_vuong_huc": return NVuongHuc(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương Nhi, đòn đánh thường dạng 1: lao húc chóp vương miện
                 case "n_re_troi": return HasGai ? NReTroi(casterFeet, casterH, foeFeet, foeBody, tH, lead) : NLa(mouth, foeBody, foeFeet, tH, lead); // Cổ Vương: cắm cột / nện tay, rễ trồi dọc đất tới đối thủ rồi quấn
                 case "n_tru_giang": return NTruGiang(casterFeet, casterH, foeFeet, foeBody, tH, lead); // Cổ Vương: lá hút vào lõi, cột khổng lồ (mảnh của rig) giáng xuống đối thủ, rễ trồi

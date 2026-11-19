@@ -94,10 +94,14 @@ namespace PokiClash
             click.OnClick = onClick;
         }
 
-        // sao tổng (1..20, tô màu bậc) và lực chiến (ô chọn đội)
-        public void SetStats(int star, int heroPower)
+        // sao tổng (1..20) tô theo bậc của tướng (bậc theo dạng 2026-11-19; không có tướng thì thang 4 bậc chung) và lực chiến (ô chọn đội)
+        public void SetStats(int star, int heroPower, HeroDef hero = null)
         {
-            if (stars) stars.SetTiered(star);
+            if (stars)
+            {
+                if (hero != null) stars.SetTiered(App.Data.Cfg, hero, star);
+                else stars.SetTiered(star);
+            }
             if (power) power.text = NumFmt.Short(heroPower);
         }
     }

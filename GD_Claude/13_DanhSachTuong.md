@@ -254,7 +254,7 @@ Người dùng gửi 10 hình aola cho đảo Thổ, thứ tự trái sang phả
 - **Hình ải 50** (金刚虎王, aola gắn nhãn siêu tiến hóa) là siêu tiến hóa của dòng Hổ Khoan ở ải 15 (`pmDataMap` cột 27 của 487). Tạm làm tướng riêng 1 dạng như Thỏ Hoàng ở đảo Mộc, chỉ số là 6 chỉ số của chính dạng đó; câu hỏi 30 ở `12_KeHoach_OpenSpec.md`.
 - Chỉ số gốc = 6 chỉ số aola của dạng 1 (`pmDataMap` cột 4–9), như đảo Mộc, Hỏa, Kim.
 - Thạch Nhân giữ tên ba dạng như cũ (cả ba đều tên Thạch Nhân).
-- Tướng Thổ cũ không có suất trên đảo (giữ trong danh sách): `vo_su` (vẫn là quà ải 3 đảo Thủy), `gau_mo`, `soc_da`, `bo_hung`, `sa_than`, `ky_lan`, `ca_sa` (vẫn là tướng mốc huyền thoại `legendMilestoneHero`). Ngày 2026-11-16 vẫn giữ cả 7 con vì đảo Thổ chưa làm lại (người dùng dặn để nguyên).
+- (Đã bỏ 2026-11-19, xem mục "Bỏ 7 tướng Thổ cũ".) Tướng Thổ cũ không có suất trên đảo (giữ trong danh sách): `vo_su` (vẫn là quà ải 3 đảo Thủy), `gau_mo`, `soc_da`, `bo_hung`, `sa_than`, `ky_lan`, `ca_sa` (vẫn là tướng mốc huyền thoại `legendMilestoneHero`). Ngày 2026-11-16 vẫn giữ cả 7 con vì đảo Thổ chưa làm lại (người dùng dặn để nguyên).
 - Đo bằng máy tự chơi (đội Mộc Khá khắc hệ: Nụ Hoa, Dê Hoa; bằng cấp; 150 trận mỗi ải, 5 mốc cuối 300): cường hóa 92%, 2 địch 74%, 3 địch 85%, mini boss 64–67% (Hạt Dẻ 65, Rùa Núi 64, Hổ Kim Cương 66, Cự Phủ 67), boss Giáp Nham 59%.
 
 Lính đảo Thổ (dạng aola hệ Đất chưa có trong danh sách tướng; Claude chọn, người dùng chưa duyệt):
@@ -291,6 +291,16 @@ Danh sách Thổ cũ (2026-10-31), giữ để đối chiếu:
 | `y_trach` | Y Trạch | Không còn là tướng riêng: thành dạng 2 của `tieu_y` |
 | `van_quan`, `hac_duc` | Vạn Quân, Hắc Dực Vạn Quân | Không còn là tướng riêng: thành dạng 2, 3 của `lam_quan` |
 
+### Bỏ 7 tướng Thổ cũ (2026-11-19)
+
+Người dùng: "bỏ các tướng đảo thổ cũ đi" (đảo Thổ đã đủ 10 tướng đứng ải).
+
+- Bỏ `vo_su` Võ Sư, `gau_mo` Gấu Thợ Mỏ, `soc_da` Sóc Đá, `bo_hung` Bọ Hung Cát, `sa_than` Sa Thần, `ky_lan` Kỳ Lân Cát, `ca_sa` Đại Sư Cà Sa: 21 thẻ riêng, 10 thư mục hình (`monk_boxer`, `goc_373`, `goc_825`, `goc_826`, `goc_210`, `goc_1000`, `goc_88`, `goc_89`, `goc_90`, `monk_2217`), 7 prefab và dòng của chúng trong `HeroModels.asset`. Còn 50 tướng, 10 mỗi đảo.
+- Vai trò chuyển sang (người dùng chọn): quà ải 3 đảo Thủy Võ Sư → Tê Thiềm (`cao_da`, Thổ, Khá; người chọn Thạch Giáp vẫn nhận Thiết Cưa); tướng mốc huyền thoại máy bi Cà Sa → Thổ Tinh (`giap_nham`). Đội mẫu mô phỏng (`balance.json` simTeams) và tướng mẫu của test, tour: Võ Sư → Tê Thiềm, Cà Sa → Thổ Tinh, Kỳ Lân Cát → Sa Trùng; tướng mẫu "dòng 1 dạng" → Bùn Ngoạm.
+- Bản lưu v12 -> v13 (`SaveCodec.BoThoCu`): Võ Sư → Tê Thiềm, Gấu Thợ Mỏ → Sa Tích, Sóc Đá → Thạch Giáp, Bọ Hung Cát → Sa Long, Sa Thần → Sơn Viên, Kỳ Lân Cát → Sa Trùng, Cà Sa → Thổ Tinh.
+- Không còn tướng nào có thẻ hồi sinh (Phật Tâm chỉ ở Cà Sa, Kỳ Lân Cát): luật hồi sinh vẫn trong `Battle`, test `HoiSinh_PhatTam_LanDauGuc` bỏ qua tới khi có tướng mới dùng.
+- Golden tính lại bằng 4 menu như lần 2026-11-16 (đầu vào 200 trận `battles.json` đổi theo bảng gộp trên).
+
 ### Bỏ tướng cũ không còn suất đảo (2026-11-16)
 
 Người dùng dặn: tướng đã bị thay mà còn trong game thì bỏ; đảo Thổ chưa làm con nào nên để nguyên; hai tướng cuối đảo Hỏa chưa làm.
@@ -308,6 +318,14 @@ Người dùng dặn: tướng đã bị thay mà còn trong game thì bỏ; đ�
 - Tướng khởi đầu Kim, Mộc, quà đảo Thủy đổi theo (`15_TuongKhoiDau.md`).
 - Golden và test tính lại bên Unity: menu "Tính lại golden islands, roster, cardtext, zones", "Tính lại golden theo danh sách tướng", "Tính lại golden theo tướng mẫu của test" (mới, `Editor/GoldenFixtureMenu.cs`), "Tính lại golden sim, tướng trên nút ải". Đầu vào 200 trận mẫu `battles.json` đổi tướng cũ theo bảng trên.
 - Chưa xoá: hình thừa trong Resources của các dạng đã bị thay từ trước (Bọ Cạp, Bọ Ngựa, Độc Giác, Phi Thương, Khiên Bạc, Chiến Thần, Thiết Phủ, Tam Kiếm, Hồng Liên, Huyễn Viêm cũ, `goc_4/5/6`, `goc_678`, `goc_685`) và hình cũ của Hỏa Tinh, Lân Hỏa. Menu "Xoá dạng aola không còn tướng nào dùng" xoá hết các thư mục này (kể cả hình cũ Hỏa Tinh, Lân Hỏa).
+
+## Cỡ trên sân (2026-11-19)
+
+Người dùng: "các con đầu tiên có vài con to quá, các final boss lại bé tí; càng về sau càng to, pháp sư có thể nhỏ đi một chút".
+
+- Cỡ trên sân = 150 (phía địch) hoặc 176 (phía mình) × `size` của dạng × 1,18 nếu boss; rig tự co theo chiều cao dáng đứng, nên `size` tính từ hình thật chứ không đặt chung một số.
+- Độ to M = V^0,6 × cao^0,4 (V: căn diện tích hình, điểm sân phía địch). Dạng cuối ở ải ra mắt (ải 1, 5, 10, 15, 20, 30, 40, 50, 60, 70) theo bậc 132, 138, 144, 150, 162, 170, 178, 186, 196, 222; dạng nhỏ 78% (dòng 3 dạng: 72%, 86%); pháp sư (Viêm Sư, Giông Bão) ×0,92; trần cao 255 điểm phía địch. Lính bậc 1 M 100, bậc 2 M 128.
+- Đo và ghi bằng menu Unity "PokiClash/Thử/Cỡ tướng: đo và chụp hàng tướng từng đảo (đang Play)" rồi `ArtGen/CoTuong/co_tuong.py do | tinh | ghi` (chỉnh tay ở `ArtGen/CoTuong/chinh_tay.json`: Tiểu Quỷ Lava 0,48/0,54/0,66 vì lửa quanh người, Bùn Ngoạm 1,08 vì khối bùn đặc). Thêm tướng mới thì chạy lại.
 
 ## Việc còn lại (chưa làm)
 

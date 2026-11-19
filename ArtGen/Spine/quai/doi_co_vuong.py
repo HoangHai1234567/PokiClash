@@ -2,8 +2,12 @@
 """Đổi suất 6 đảo Mộc (id `gio_loc`, ải 30 "Thung Lũng Lá") sang dòng CỔ VƯƠNG: tượng vua cổ rễ quấn cầm cột đá (người dùng 2026-11-17:
 "ok ổn cho vào game đi"). Thay hẳn Linh Điểu (chim_la). Ghi chú: ArtGen/Spine/inbox/tuong_cot_ghichu.md.
 
+ĐÃ THAY 2026-11-19: Cổ Vương là tướng 6 đảo THỔ (ghép nhầm vào gio_loc); nay ở suất hat_de, Linh Điểu trả về gio_loc. Dùng
+quai/doi_suat6_tho.py, đừng chạy lại script này (nó đè Cổ Vương lên gio_loc lần nữa).
+
 Giữ id tướng, id thẻ, chỉ số, hiệu ứng thẻ, tên thư mục dạng (gio_loc_1, gio_loc_2: prefab không phải đổi); đổi tên hiển thị, biểu tượng
 thẻ, cỡ, hình:
+
     tướng   Linh Điểu -> Cổ Vương; danh hiệu "Tượng vua cổ cầm trụ"; dòng "Dòng Cổ Vương"
     dạng    Cổ Vương Nhi (gio_loc_1 = tuong_cot_non_th.atomik, rig monster_3273, có clip evolve) / Cổ Vương (gio_loc_2 = tuong_cot_1.atomik,
             rig monster_3608)

@@ -1,0 +1,626 @@
+[
+ {
+  "name": "no",
+  "label": "Nổ",
+  "anchor": "chan",
+  "note": "phồng, chớp sao, nấm, nguội, khói nâu, mảnh khuyết",
+  "frames": 24,
+  "w": 262,
+  "h": 244,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 962,
+  "astc_kb": 411,
+  "bleed": []
+ },
+ {
+  "name": "nuoc_toe",
+  "label": "Nước toé",
+  "anchor": "chan",
+  "note": "vương miện nước, sụp thành giọt",
+  "frames": 24,
+  "w": 272,
+  "h": 226,
+  "pivot": [
+   0.5,
+   0.009
+  ],
+  "png_kb": 625,
+  "astc_kb": 301,
+  "bleed": []
+ },
+ {
+  "name": "song_nuoc",
+  "label": "Sóng nước",
+  "anchor": "chan",
+  "note": "sóng dâng, cuộn, đổ, vỡ bọt",
+  "frames": 24,
+  "w": 248,
+  "h": 205,
+  "pivot": [
+   0.5,
+   0.01
+  ],
+  "png_kb": 627,
+  "astc_kb": 284,
+  "bleed": []
+ },
+ {
+  "name": "trung_nuoc",
+  "label": "Nước trúng đích",
+  "anchor": "tam",
+  "note": "tia từ trái, toé ngược lại",
+  "frames": 24,
+  "w": 256,
+  "h": 274,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 707,
+  "astc_kb": 380,
+  "bleed": []
+ },
+ {
+  "name": "cau_nuoc",
+  "label": "Cầu nước (lặp)",
+  "anchor": "tam",
+  "note": "cầu nước có dải bọt xoay",
+  "frames": 24,
+  "w": 242,
+  "h": 246,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1274,
+  "astc_kb": 516,
+  "bleed": []
+ },
+ {
+  "name": "lua_lap",
+  "label": "Lửa cháy (lặp)",
+  "anchor": "chan",
+  "note": "cụm lưỡi lửa liếm lên",
+  "frames": 24,
+  "w": 198,
+  "h": 260,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 948,
+  "astc_kb": 465,
+  "bleed": []
+ },
+ {
+  "name": "cau_lua",
+  "label": "Cầu lửa bay (lặp)",
+  "anchor": "tam",
+  "note": "bay sang phải, đuôi lửa sau",
+  "frames": 24,
+  "w": 270,
+  "h": 170,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 825,
+  "astc_kb": 430,
+  "bleed": []
+ },
+ {
+  "name": "trung_lua",
+  "label": "Lửa trúng đích",
+  "anchor": "tam",
+  "note": "chớp sao, lưỡi lửa, tàn, khói",
+  "frames": 24,
+  "w": 260,
+  "h": 244,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 938,
+  "astc_kb": 421,
+  "bleed": []
+ },
+ {
+  "name": "nham",
+  "label": "Dung nham phun",
+  "anchor": "chan",
+  "note": "nứt, phun dòng dẻo, đổ thành vũng, nguội",
+  "frames": 24,
+  "w": 282,
+  "h": 232,
+  "pivot": [
+   0.5,
+   0.009
+  ],
+  "png_kb": 1062,
+  "astc_kb": 429,
+  "bleed": []
+ },
+ {
+  "name": "khoi_nong",
+  "label": "Khói nóng (sau nổ)",
+  "anchor": "chan",
+  "note": "khói nâu có mảng cam",
+  "frames": 24,
+  "w": 248,
+  "h": 245,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 678,
+  "astc_kb": 316,
+  "bleed": []
+ },
+ {
+  "name": "khoi",
+  "label": "Khói",
+  "anchor": "chan",
+  "note": "bản khói nâu xám (bỏ mảng cam)",
+  "frames": 24,
+  "w": 248,
+  "h": 245,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 589,
+  "astc_kb": 316,
+  "bleed": []
+ },
+ {
+  "name": "loc",
+  "label": "Lốc năng lượng (lặp)",
+  "anchor": "chan",
+  "note": "xanh lá ngọc, lõi sáng",
+  "frames": 24,
+  "w": 248,
+  "h": 238,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 1987,
+  "astc_kb": 588,
+  "bleed": []
+ },
+ {
+  "name": "gai_la",
+  "label": "Gai lá đâm lên",
+  "anchor": "chan",
+  "note": "nứt, phóng lên, giữ, gãy rụng lá",
+  "frames": 24,
+  "w": 250,
+  "h": 227,
+  "pivot": [
+   0.5,
+   0.009
+  ],
+  "png_kb": 809,
+  "astc_kb": 393,
+  "bleed": []
+ },
+ {
+  "name": "gai_bang",
+  "label": "Gai tinh thể (băng)",
+  "anchor": "chan",
+  "note": "bản gốc GPT: lam nhạt",
+  "frames": 24,
+  "w": 238,
+  "h": 216,
+  "pivot": [
+   0.5,
+   0.009
+  ],
+  "png_kb": 624,
+  "astc_kb": 311,
+  "bleed": []
+ },
+ {
+  "name": "gai_sat",
+  "label": "Gai sắt đâm lên",
+  "anchor": "chan",
+  "note": "bản gốc đổi màu xám thép",
+  "frames": 24,
+  "w": 238,
+  "h": 216,
+  "pivot": [
+   0.5,
+   0.009
+  ],
+  "png_kb": 597,
+  "astc_kb": 311,
+  "bleed": []
+ },
+ {
+  "name": "loc_nuoc",
+  "label": "Lốc nước (lặp)",
+  "anchor": "chan",
+  "note": "vòi rồng nước xoắn, bọt trắng",
+  "frames": 24,
+  "w": 238,
+  "h": 251,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 1510,
+  "astc_kb": 519,
+  "bleed": []
+ },
+ {
+  "name": "loc_lua",
+  "label": "Lốc lửa (lặp)",
+  "anchor": "chan",
+  "note": "lốc xoáy lửa, lưỡi lửa xoắn",
+  "frames": 24,
+  "w": 240,
+  "h": 251,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 1394,
+  "astc_kb": 514,
+  "bleed": []
+ },
+ {
+  "name": "loc_cat",
+  "label": "Lốc cát (lặp)",
+  "anchor": "chan",
+  "note": "lốc cát / bụi xoắn",
+  "frames": 24,
+  "w": 242,
+  "h": 250,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 1489,
+  "astc_kb": 522,
+  "bleed": []
+ },
+ {
+  "name": "cau_tu",
+  "label": "Cầu lửa đang tụ (lặp)",
+  "anchor": "tam",
+  "note": "lõi phập phồng, lưỡi lửa cuộn quanh",
+  "frames": 24,
+  "w": 254,
+  "h": 264,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1574,
+  "astc_kb": 529,
+  "bleed": []
+ },
+ {
+  "name": "cau_bay",
+  "label": "Cầu lửa bay mới (lặp)",
+  "anchor": "tam",
+  "note": "bay sang phải, lửa cuộn, đuôi dài",
+  "frames": 24,
+  "w": 262,
+  "h": 166,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1098,
+  "astc_kb": 349,
+  "bleed": []
+ },
+ {
+  "name": "loc_nuoc_bao",
+  "label": "Lốc nước trùm (lặp)",
+  "anchor": "chan",
+  "note": "cột xoáy dày, gốc gần rộng bằng miệng",
+  "frames": 24,
+  "w": 240,
+  "h": 249,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 2266,
+  "astc_kb": 592,
+  "bleed": []
+ },
+ {
+  "name": "loc_lua_bao",
+  "label": "Lốc lửa trùm (lặp)",
+  "anchor": "chan",
+  "note": "cột xoáy lửa dày",
+  "frames": 24,
+  "w": 244,
+  "h": 246,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 2045,
+  "astc_kb": 578,
+  "bleed": []
+ },
+ {
+  "name": "loc_cat_bao",
+  "label": "Lốc cát trùm (lặp)",
+  "anchor": "chan",
+  "note": "cột xoáy cát dày",
+  "frames": 24,
+  "w": 248,
+  "h": 252,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 2114,
+  "astc_kb": 612,
+  "bleed": []
+ },
+ {
+  "name": "tia_moc_doan",
+  "label": "Tia lá: đoạn thân (lặp)",
+  "anchor": "tam",
+  "note": "đoạn năng lượng xanh chảy sang phải, dây leo xoắn, lá phong",
+  "frames": 24,
+  "w": 260,
+  "h": 126,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 942,
+  "astc_kb": 275,
+  "bleed": []
+ },
+ {
+  "name": "tia_moc_nong",
+  "label": "Tia lá: đầu nòng (lặp)",
+  "anchor": "tam",
+  "note": "cầu năng lượng xoáy, tia lóe",
+  "frames": 24,
+  "w": 262,
+  "h": 256,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1379,
+  "astc_kb": 549,
+  "bleed": []
+ },
+ {
+  "name": "tia_moc_trung",
+  "label": "Tia lá: va chạm (lặp)",
+  "anchor": "tam",
+  "note": "tia tới từ trái, toé ngược, lá bay",
+  "frames": 24,
+  "w": 262,
+  "h": 268,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1700,
+  "astc_kb": 514,
+  "bleed": []
+ },
+ {
+  "name": "tia_nuoc_doan",
+  "label": "Tia nước: đoạn thân (lặp)",
+  "anchor": "tam",
+  "note": "đoạn nước chảy sang phải, sợi bọt xoắn",
+  "frames": 24,
+  "w": 260,
+  "h": 136,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 815,
+  "astc_kb": 307,
+  "bleed": []
+ },
+ {
+  "name": "tia_nuoc_trung",
+  "label": "Tia nước: va chạm (lặp)",
+  "anchor": "tam",
+  "note": "tia tới từ trái, vương miện nước toé ngược",
+  "frames": 24,
+  "w": 300,
+  "h": 260,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1233,
+  "astc_kb": 468,
+  "bleed": []
+ },
+ {
+  "name": "tia_lua_doan",
+  "label": "Tia lửa: đoạn thân (lặp)",
+  "anchor": "tam",
+  "note": "đoạn lửa chảy sang phải, sợi lửa xoắn",
+  "frames": 24,
+  "w": 260,
+  "h": 138,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 968,
+  "astc_kb": 318,
+  "bleed": []
+ },
+ {
+  "name": "tia_lua_nong",
+  "label": "Tia lửa: đầu nòng (lặp)",
+  "anchor": "tam",
+  "note": "cầu lửa xoáy, tia lóe",
+  "frames": 24,
+  "w": 284,
+  "h": 252,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1719,
+  "astc_kb": 560,
+  "bleed": []
+ },
+ {
+  "name": "tia_lua_trung",
+  "label": "Tia lửa: va chạm (lặp)",
+  "anchor": "tam",
+  "note": "tia tới từ trái, lửa toé ngược",
+  "frames": 24,
+  "w": 262,
+  "h": 272,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1657,
+  "astc_kb": 516,
+  "bleed": []
+ },
+ {
+  "name": "tia_vang_doan",
+  "label": "Tia vàng: đoạn thân (lặp)",
+  "anchor": "tam",
+  "note": "đoạn năng lượng Mặt Trời, dải xoắn, sao",
+  "frames": 24,
+  "w": 260,
+  "h": 142,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 800,
+  "astc_kb": 333,
+  "bleed": []
+ },
+ {
+  "name": "tia_vang_nong",
+  "label": "Tia vàng: đầu nòng (lặp)",
+  "anchor": "tam",
+  "note": "cầu Mặt Trời, tia lóe",
+  "frames": 24,
+  "w": 276,
+  "h": 256,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1579,
+  "astc_kb": 559,
+  "bleed": []
+ },
+ {
+  "name": "tia_vang_trung",
+  "label": "Tia vàng: va chạm (lặp)",
+  "anchor": "tam",
+  "note": "tia tới từ trái, năng lượng vàng toé ngược",
+  "frames": 24,
+  "w": 260,
+  "h": 268,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1583,
+  "astc_kb": 515,
+  "bleed": []
+ },
+ {
+  "name": "long_la",
+  "label": "Lông lá găm bay (lặp)",
+  "anchor": "tam",
+  "note": "lông lá nhọn bay sang phải, vệt lá xoáy",
+  "frames": 24,
+  "w": 292,
+  "h": 232,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1148,
+  "astc_kb": 413,
+  "bleed": []
+ },
+ {
+  "name": "quat_dat",
+  "label": "Cây quật nện đất",
+  "anchor": "chan",
+  "note": "thân dây leo nện, đất nứt, đá đất văng, lá bung, bụi",
+  "frames": 24,
+  "w": 262,
+  "h": 249,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 1490,
+  "astc_kb": 573,
+  "bleed": []
+ },
+ {
+  "name": "chem_kg",
+  "label": "Vệt chém không gian",
+  "anchor": "tam",
+  "note": "vệt chém chéo xé không gian, 2 vệt phụ, vỡ mảnh",
+  "frames": 24,
+  "w": 248,
+  "h": 240,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 1266,
+  "astc_kb": 484,
+  "bleed": []
+ },
+ {
+  "name": "trung_trang",
+  "label": "Bông toé trắng lúc trúng",
+  "anchor": "tam",
+  "note": "chớp sao trắng, tia nhọn, giọt trắng văng",
+  "frames": 24,
+  "w": 240,
+  "h": 252,
+  "pivot": [
+   0.5,
+   0.5
+  ],
+  "png_kb": 388,
+  "astc_kb": 338,
+  "bleed": []
+ },
+ {
+  "name": "set_danh",
+  "label": "Sét đánh",
+  "anchor": "chan",
+  "note": "sét từ trời xuống đất, toé tia điện",
+  "frames": 24,
+  "w": 234,
+  "h": 260,
+  "pivot": [
+   0.5,
+   0.008
+  ],
+  "png_kb": 648,
+  "astc_kb": 370,
+  "bleed": []
+ }
+]

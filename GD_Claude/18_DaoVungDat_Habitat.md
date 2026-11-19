@@ -476,7 +476,115 @@ Người dùng: "tris nhiều quá, batches cũng nhiều so với game 2D". Men
 - **Canvas con:** `lop_may_vung` (mây phủ tĩnh), `lop_tren_may` (easter egg, bút chì), cho canvas chính khỏi phải gộp lại hàng trăm đám mây mỗi khung.
 - **Ẩn thứ nằm dưới mây:** ảnh tướng, ảnh hiệu ứng, bảng tên của bệ vùng còn mây phủ ẩn hẳn (mỗi tướng 1–2 RenderTexture riêng, mỗi bảng tên 3–4 lệnh vẽ); hiện khi tung tuyệt kỹ hay khi mây tan.
 - **Vùng chạm trong suốt** (cờ, bệ): `cullTransparentMesh`.
-- **Sprite Atlas** (menu `PokiClash/Tối ưu/Sprite Atlas đảo (dựng lại)`, bật Sprite Atlas V2 cho project): `Islands/dao_hinh_roi.spriteatlasv2` gồm cờ, easter egg, bút chì, hiệu ứng đảo `anim_*`, mây, chim, thuyền, rương, icon bảng tên bệ. Atlas 2048, không xoay, không gói sát. Chưa gom cả 75 icon (cần texture 4096).
+- **Sprite Atlas** (menu `PokiClash/Tối ưu/Sprite Atlas đảo (dựng lại)`, bật Sprite Atlas V2 cho project):
+  - `Islands/dao_hinh_roi.spriteatlasv2` gồm cờ, easter egg, bút chì, hiệu ứng đảo `anim_*`, rương, icon bảng tên bệ;
+  - mỗi đảo vùng đất một atlas `dao_hinh_roi_<đảo>` cho mây, chim, thuyền cắt từ ảnh nền (mỗi lúc chỉ mở một đảo);
+  - atlas 2048, không xoay, không gói sát. Chưa gom cả 75 icon (cần texture 4096);
+  - hình nguồn trong atlas nhập không nén (`ArtImporter` hỏi `AtlasMenu.InAtlas`), atlas nén một lần. Nguồn nén sẵn thì gói lại mờ, Unity báo lỗi.
+
+### Làm lại Mộc, Hỏa, Kim, Thổ theo đảo Thủy (2026-11-19)
+
+Người dùng: "từ đảo mộc đến đảo kim bạn làm đều lệch với đảo thủy, các bệ boss đảo thủy đều hòa nhập với môi trường của boss chứ không dùng chung, ngoài ra path đi không đâm vào boss mà chỉ đi quanh boss thôi, sửa lại hết đi, cả đảo thổ"; rồi "làm ít path kiểu uốn lượn chữ S liên tục thôi".
+- **Ảnh nền mới** `nen/nen_be_vung_*.png` của bốn đảo, gen từ nền / concept cũ kèm ảnh nền Thủy làm mẫu (prompt `nen/nen_be_vung*.txt`):
+  - mỗi bệ làm bằng chất liệu vùng (Mộc: đá rêu, bồn hoa, mũ nấm, dây leo, lá phong, vuốt đá, cọc trúc, pha lê, rễ cây thần; Hỏa: cột bazan, vỏ dung nham, gỗ cháy, lưu huỳnh, đồng, lá sen đá, sắt, pha lê tím, hồng ngọc, miệng núi; Kim: cọc neo dây thừng, bánh răng đồng thau, lá thép, lưới thép, đồng, gạch, quặng, tường thành, tổ thép, cẩm thạch; Thổ: sỏi, ụ đất, ngọc lục, pha lê hồng, đá phù văn, rễ sồi, rơm, kim cương, chum gốm, bậc sa thạch);
+  - đường lướt cạnh bệ, cong nhẹ, ít khúc chữ S;
+  - sửa đường thêm vài lần mỗi đảo cho đúng một tuyến (Mộc, Hỏa: bỏ nối tắt về bến; Kim: bỏ nhánh, nối 50 → 60, nối 20 → 30; Thổ: xoá con thú sót).
+- **Dò đường:** bỏ ép đường xuyên tâm bệ (GUIDE chỉ còn ở bệ cuối, để mốc bệ 70 nằm cuối đường); bán trục riêng từng bệ (`RING_OF`); điểm phải đi qua (`VIA`); màu đường kem riêng cho Kim, Thổ.
+- **Bệ đứng xa đường** (bệ mỏ ải 40 đảo Kim): `ROAD_AT` trong `diem_tho.py` ghim điểm đường làm mốc chia cờ, xuất ra `habs[].road`; C# `LandHab.road` / `LandLayout` dùng mốc này thay tâm bệ (không có thì như cũ).
+- **Cỡ đảo:** Mộc giữ nguyên; Hỏa, Kim, Thổ phóng 1,1 lần cho chặng 9 cờ đủ chỗ. Cờ cách nhau 124–541 px.
+- **Phần động** đặt lại theo nền mới; đảo Thổ thêm khói ở lò gốm.
+
+### Môi trường theo boss (2026-11-19)
+
+Người dùng: "các môi trường bạn làm phải phù hợp với kiểu boss, tôi thấy sâu cát lại môi trường là 1 thôn làng là không được, sửa lại hết 4 đảo". Nền `nen/nen_boss_1.png` (prompt `nen/nen_moi_truong_boss.txt`, ảnh mẫu tờ boss của đảo): giữ đường, bệ, chỉ đổi vùng không hợp boss.
+- **Mộc:** 1 vườn xương rồng (Cầu Gai), 10 phế tích đá rêu có tượng đầu đá (Gạc Đá), 15 rừng phong đỏ (Lộc Phong), 30 tổ chim lớn trên cây (Linh Điểu), 60 rừng gốc cổ thụ và thân cây xoắn hình sừng (Giác Mộc), 70 thêm hai tượng rồng ngọc (Thanh Long).
+- **Hỏa:** 10 trại cung thủ có bia tập bắn (Hỏa Cung), 15 bãi dung nham và ngai đá (Nham Thần), 20 ao nước nóng có đá mai rùa (Hỏa Quy), 50 hố tượng binh đất nung (Viêm Dũng), 60 mỏm núi mây lửa có miếu bạch hổ (Bạch Viêm Hổ).
+- **Kim:** 1 pha lê tím xanh quanh bến (Thiết Tinh), 5 trạm gác có khiên giáo (Thiết Vệ), 10 mỏ quặng sắt (Thiết Khoáng), 15 xưởng cưa gỗ (Thiết Cưa), 20 sân ngục xích (Quỷ Xích), 30 trại chiến sói (Sói Giáp), 40 phế tích người máy khổng lồ (Thần Cơ), 60 pháo đài có pháo (Pháo Giáp), 70 đĩa mặt trời vàng trên tháp (Nhật Vương).
+- **Thổ:** 1 hổ phách trên bãi sỏi (Thạch Giáp), 5 đá sa thạch phơi nắng (Sa Tích), 10 ao sét (Tê Thiềm), 15 hẻm sa thạch có đá hình rồng (Sa Long), 20 mỏm đá tảng (Sơn Viên), 30 phế tích vương triều dưới gốc sồi (Cổ Vương), 40 cồn cát có hang sâu và xương (Sa Trùng, thay ruộng bậc thang có chòi), 50 đầm bùn (Bùn Ngoạm), 60 hố thiên thạch có tinh thể (Thiên Thạch Thú), 70 đĩa mặt trời trên kim tự viện (Thổ Tinh).
+- **Soi:** `ArtGen/Islands/xem_boss_tren_nen.py` đặt chân dung boss lên bệ → `land_<đảo>/m1/xem_boss.png`.
+- **Phần động đổi theo:** hơi nước ao rùa, khói lò nung tượng (Hỏa); khói bếp trại sói, lấp lánh pha lê bến và mặt trời (Kim); khói hố thiên thạch, gió cát, lấp lánh hổ phách (Thổ).
+
+### Đảo Mộc (2026-11-19)
+
+Người dùng: "làm tiếp tương tự đảo mộc theo đảo thủy đi, các hình dáng đảo và path đi có thể thay đổi". Góp ý concept: nhiều chi tiết lặt vặt nhìn AI, làm nổi chỗ boss; rồi lại quá tối giản; chốt bản vừa chi tiết (concept D, "đảo này ok rồi").
+- **Thư mục** `ArtGen/Islands/land_moc/`:
+  - `concept/`: prompt và ảnh concept A–D;
+  - `nen/`: ảnh nền bỏ thú và cờ. Đang dùng `nen_trong_5.png`;
+  - `m0/`: script chép từ Thủy, đổi tên `land_moc`.
+- **Bố cục:** đi ngược chiều kim đồng hồ quanh đảo, rồi xoắn vào cây thần ở giữa. Đường: bến → 1 → 5 → 10 → 15 → 20 → 30 → 40 → 50 → 60 → 70.
+- **Một đường, đủ chỗ cho cờ:**
+  - ảnh nền gen lại ba lần cho đúng một tuyến: bỏ nhánh 1↔50, bỏ vòng 40↔cổng trúc, bỏ lối tắt cổng trúc → 60;
+  - đường 20 → 30 thêm khúc cua tay áo, đường 50 → 60 vòng quanh cụm pha lê nhỏ;
+  - cờ cách nhau 115–211 px (Thủy thấp nhất 119; cờ cỡ 104).
+- **Đường xuyên tâm bệ** (khác Thủy, đường Thủy vòng quanh bệ):
+  - `do_duong.py` chỉ dò Dijkstra giữa hai bệ. Trong lòng bệ, đường nối thẳng điểm chạm → tâm → lối ra (`CONTACT`, `GUIDE` ghim tay trong `diem_tho.py`);
+  - điểm mốc của bệ có đường đi qua tâm thì giữ ở tâm, không trượt (`near.min() > 0.35·ry`, khớp `ZoneSceneLand.LandLayout`). Trượt thì cờ của chặng sau rơi xuống trước bệ;
+  - nét đứt "đường đã đi" bỏ qua lòng bệ.
+- **Mây vùng khoá** không phủ lên đường, cờ, bệ của các vùng trước nó (`vung.may` nhận `Q`, `habs`). Đám chạm thì thu nhỏ dần, nhỏ quá thì bỏ.
+- **Easter egg riêng** (`vung.py` TEASE, màu `c`):
+  - bướm nhiều màu (đồng hoa), đom đóm tím (nấm), hải âu (rừng dây leo, vách vuốt), gió (hang nanh), lá phong cam rơi, đom đóm vàng chanh (rừng trúc), pha lê lấp lánh, lá cây thần rơi;
+  - ghi chú `trung_ghi_moc_1..9`;
+  - hình `trung_buom`, `trung_la` (trắng để nhuộm; `m0/ve_trung_moc.py`).
+- **Nhiều đảo trong một màn Zone:**
+  - `ZoneScene.landWaters`, `landSketches`: material `land_water_<đảo>` (ảnh khoảng cách tới bờ riêng), `land_sketch_<đảo>` (trường vùng riêng), chọn theo `land.art`;
+  - menu "Dựng nước, ảnh (mọi đảo)", "Dựng cờ ải, vùng boss" lặp qua mọi `Baked/Islands/land_<đảo>_dist|_vung.png`;
+  - hải âu easter egg lấy hình `land_<đảo>_chim_*`.
+- **Ải 30** là Linh Điểu (dòng Điểu Nhi), không phải gôlem đá (phiên khác đổi lại 2026-11-19).
+- **Tour:** `PokiClash/Thử/Đảo Mộc vùng đất: toàn đảo, vùng boss, easter egg`. Ảnh lưu ở `Temp/PokiShots/land/moc_*.jpg`.
+
+### Đảo Hỏa (2026-11-19)
+
+Người dùng: "làm tiếp đảo hỏa"; góp ý concept: hai vùng 20, 30 "nhìn không giống đảo hỏa" (sân cát vàng, rừng xanh ao nước); duyệt bản sửa: "ok nhìn ổn, làm mấy cái khói bốc lên thành anim đi cho sinh động".
+- **Thư mục** `ArtGen/Islands/land_hoa/`:
+  - `concept/`: `make_refs_hoa.py` (tờ boss, bố cục), prompt A (đảo núi lửa), B (sửa vùng 20, 30 theo mốc bản đồ Hỏa cũ `refs/hoa_cu_moc.png`);
+  - `nen/`: ảnh nền bỏ thú, bỏ khói. Đang dùng `nen_trong_2.png`;
+  - `m0/`: script chép từ Mộc.
+- **Bố cục:** đi theo chiều kim đồng hồ quanh đảo (tây nam → tây → bắc → đông → đông nam), vào đồi hồng ngọc, rồi leo xoắn quanh núi lửa lên miệng núi (ải 70). Sông dung nham ngăn bệ 1 với vùng 50, không có đường 1↔50.
+- **Rút kinh nghiệm Mộc ngay ở bố cục:**
+  - chặng 9 cờ uốn lượn sẵn;
+  - màu theo chất lửa nhưng mỗi vùng một tông: bazan đen, tro xám, đỏ than, cam dung nham, đồng, tím ma trơi, đỏ hồng ngọc, xám thép.
+  - Prompt đầu dặn "ao sen xanh ngọc, rêu xanh" làm hai vùng 20, 30 ra vườn xanh: không dặn màu xanh cho đảo lửa.
+- **Ảnh nền:** gen hai lần để nối đường 40→50, 10→15, kéo dài 20→30, 30→40, 50→60, bỏ lối cụt vào chùa. Cờ cách nhau 118–240 px.
+- **Khói động** (IslandAnim kiểu `plume`, mới):
+  - mỗi cột 5–8 múi to nhỏ xen kẽ, sinh dày cho gối lên nhau;
+  - múi nở nhanh lúc rời miệng rồi chậm dần, bay lên, loe rộng theo gió, tách cụm rồi mới mờ; hai tông đáy đậm, đỉnh nhạt;
+  - hơi nước trắng ngà ở 3 lỗ phun lưu huỳnh và 3 ao suối nóng; khói xám ở nóc lò đồng và ống khói lò rèn;
+  - miệng núi lửa không có khói: bệ 20 nằm ngay phía trên, khói đè bệ;
+  - khoá json: `c` màu đáy, `n` số múi, `l` đời múi, `v` chiều gió;
+  - xem trước bằng Python cùng công thức: `m0/xem_khoi.py` → `m0/xem_khoi/*.gif`.
+- **Phần động khác:**
+  - tàn lửa chạy dọc sông dung nham (rivers);
+  - lấp lánh trên hồng ngọc;
+  - gợn ao suối nóng;
+  - đèn đêm ở lửa lò, đèn đá, ao dung nham, lò rèn, miệng núi, thác dung nham, ma trơi.
+- **Easter egg** (`vung.py` TEASE, màu `c`):
+  - tàn lửa cam, lá cháy đỏ rơi, hải âu, tia lửa vàng, cánh sen hồng rơi, tia lửa lò rèn, ma trơi tím, hồng ngọc lấp lánh, tro xám rơi (kiểu `tuyet` nhận màu);
+  - ghi chú `trung_ghi_hoa_1..9` (`m0/ve_trung_hoa.py`).
+- **Tour:** `PokiClash/Thử/Đảo Hỏa vùng đất: toàn đảo, khói, vùng boss, easter egg`. Dùng chung code tour với Mộc (`RunIslandTour`); ảnh `Temp/PokiShots/land/hoa_*.jpg`.
+
+### Đảo Kim (2026-11-19)
+
+Người dùng: "làm tiếp đảo kim"; chỉ ra bản concept 1 đường lỗi; duyệt bản 2 ("ok bản 2 ổn").
+- **Thư mục** `ArtGen/Islands/land_kim/`:
+  - `concept/`: `make_refs_kim.py`, các mốc bản đồ Kim cũ `refs/kim_cu_moc.png`, prompt A; ảnh mẫu độ chi tiết là concept Hỏa đã duyệt;
+  - `nen/nen_trong_1.png`;
+  - `m0/`: script chép từ Hỏa.
+- **Bố cục:** ngược chiều kim đồng hồ: cảng (đáy) → cầu bánh răng → rừng lưỡi liềm → tháp canh → gác chuông → xưởng đúc → mỏ bạc → thành ba kiếm → tổ pha lê (đồi trong) → tháp Thiên Chung trên núi giữa. Sông từ núi ra biển ngăn bệ 1 với 50.
+- **Concept bản 1 bị loại:** đường từ bệ 50 men bờ, băng qua sông nối vào bệ 1 (lỗi cũ của Mộc), thiếu đoạn 50→60, cầu bánh răng nằm lệch đường.
+- **Ảnh nền:** gen một lần (bỏ thú, uốn dài 20→30, 30→40, 40→50, 50→60).
+- **Ba điểm riêng:**
+  - màu đường kem nhạt hơn đảo khác (251, 243, 195): `do_duong.py` có `ROAD`, `TOL` riêng;
+  - đường 40→50 vòng trái, chui sau hai tháp thành: điểm bắt buộc đi qua `VIA` trong `diem_tho.py`, nếu không đường dò đi tắt qua đá;
+  - vòng đá nhỏ hơn đảo khác (72 × 30): phóng cả đảo 1,2 lần (`SCALE` trong `build_land.py`, vùng đất 6531 × 3994); cờ cách nhau 121–516 px.
+- **Phần động:**
+  - khói xám ở ống khói xưởng đúc;
+  - gợn sông suối, pha lê và chuông vàng lấp lánh, bọt bờ, sóng;
+  - đèn đêm ở vạc đồng, lò đúc, tháp chuông, tháp canh, cửa thành, cửa mỏ;
+  - bánh răng cầu và chuông vẽ sẵn bị mặt cầu / khung gác che một phần: không phủ hình động lên (phủ thì đè mặt cầu, chuông lắc lộ chuông vẽ sẵn phía sau).
+- **Easter egg:**
+  - bong bóng suối, lá thép rơi, hải âu, gió ngân, tia đồng nóng chảy, ánh quặng bạc, sét và mưa ở thành kiếm nguyền, pha lê lấp lánh, kim tuyến vàng;
+  - ghi chú `trung_ghi_kim_1..9`.
+- **Tour:** `PokiClash/Thử/Đảo Kim vùng đất: …`, ảnh `Temp/PokiShots/land/kim_*.jpg`.
 
 ## Câu cần chốt
 

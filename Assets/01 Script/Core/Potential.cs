@@ -143,11 +143,13 @@ namespace PokiClash.Core
         // sao tổng mở ô slot (0..), 0 nếu không có ô đó
         public static int SlotStar(BalanceConfig cfg, int slot) => slot < cfg.potential.slotStar.Length ? cfg.potential.slotStar[slot] : 0;
 
-        // "Mở ở Bạc 1 sao"
-        public static string SlotNeed(BalanceConfig cfg, int slot)
+        // "Mở ở Bạc 1 sao"; có tướng thì theo bậc của tướng (bậc theo dạng 2026-11-19): sao hiện đầu tiên mở được ô
+        public static string SlotNeed(BalanceConfig cfg, int slot, HeroDef h = null)
         {
             int st = SlotStar(cfg, slot);
-            return st <= 0 ? "Chưa có" : $"Mở ở {StarTier.Name(StarTier.Tier(st))} {StarTier.InTier(st)} sao";
+            if (st <= 0) return "Chưa có";
+            if (h != null) return "Mở ở " + StarTier.Label(cfg, h, StarTier.NextStop(cfg, h, st - 1));
+            return $"Mở ở {StarTier.Name(StarTier.Tier(st))} {StarTier.InTier(st)} sao";
         }
 
         // số ô khoá thật (ô đã mở và đang có dòng)

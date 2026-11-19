@@ -1,7 +1,10 @@
 // Máy bi: vật lý thuần (đinh, nấm, mái, đáy V, vách, ô) chép đúng bàn table_01 của máy bi tham khảo (đục ở D:\CrittersRipper,
 // báo cáo analysis/PINBALL_REPORT.md): toạ độ, cỡ, vật liệu, trọng lực, cản, kẹp tốc, lực phóng; bi phóng lên làn phải rồi ra
 // bàn ở hốc trên phải. Kết quả chọn theo bảng tỉ lệ (cfg.odds) rồi phát một đường bi vật lý thật rơi đúng chỗ đó (Board.odds).
-// Vật lý tự viết (không dùng Physics2D) để có hạt giống, chạy được trong EditMode test và mô phỏng.
+// Vật lý tự viết (không dùng Physics2D) để có hạt giống, chạy được trong EditMode test và mô phỏng. Từ 2026-11-19 bám Box2D
+// của máy đó sát hơn (quét lại bản đục 0.51.1, prefab pbsc_pinball_table_01, ProjectSettings): hộp là hình chữ nhật thật, hộp và
+// khung edge có da 0,01 u (defaultContactOffset), vách ô = hộp + nắp tròn, bi xoay (ma sát có spin, khối lượng 1, tròn đặc),
+// bước cố định 0,016 giây (Fixed Timestep) và kẹp tốc mỗi bước đó.
 // Toạ độ máy: x sang phải, y xuống, khung BW × BH; một u của máy tham khảo bằng U đơn vị máy (X(), Y() đổi từ u, y lên, sang máy).
 // Bảng thưởng ở cuối file: ô đáy, rương, mốc Huyền thoại, mốc quà, vòng nấm.
 using System;
@@ -11,7 +14,7 @@ using System.Linq;
 namespace PokiClash.Core
 {
     public enum SlotKind { Exp5, Exp10, Exp15, Ball, ChestWood, ChestSilver, ChestGold }
-    public enum PegKind { Peg, Bumper, Post, Top }
+    public enum PegKind { Peg, Bumper, Post, Top, Cap } // Cap: nắp tròn đầu vách ô (không phát sự kiện chạm)
     public enum SegKind { Wall, Ceiling, Shoulder, Divider, Roof, Floor }
 
     // vật cản tròn; e: hệ số nảy, f: ma sát (đã trộn với bi như Box2D: nảy lấy max, ma sát lấy căn của tích)
@@ -21,11 +24,13 @@ namespace PokiClash.Core
         public PegKind kind;
     }
 
-    // đoạn thẳng có bề dày (viên con nhộng bán kính r; r = 0 là cạnh mỏng như khung)
+    // đoạn thẳng có bề dày: viên con nhộng bán kính r (r = 0 là cạnh mỏng như khung edge); box = true là hộp chữ nhật đầu bằng
+    // (BoxCollider2D: x1y1–x2y2 là trục dọc đủ dài của hộp, r là nửa bề rộng). Khung edge và hộp va chạm có thêm da Board.Skin.
     public struct Seg
     {
         public double x1, y1, x2, y2, r, e, f;
         public SegKind kind;
+        public bool box;
     }
 
     // ô cảm biến hình chữ nhật w × h quanh (x, y): bi chạm vào là vào (như trigger của máy tham khảo)
@@ -46,6 +51,9 @@ namespace PokiClash.Core
     {
         public int id;
         public double x, y, vx, vy;
+        public double px, py; // chỗ bi lúc bắt đầu bước vừa chạy: màn hình nội suy px → x (bước 0,016 lệch nhịp khung 60 hình/giây)
+        public double w; // tốc góc (rad/giây, toạ độ máy y xuống): điểm tiếp xúc của bi có tốc v + w × r
+        public int tick; // số bước con đã chạy trên bàn (kẹp tốc mỗi Sub bước con, tức mỗi bước 0,016 giây tính từ lúc ra bàn)
         public int mult;
         public bool alive;
         public double age;
@@ -73,21 +81,32 @@ namespace PokiClash.Core
         public static double X(double u) => BW / 2 + (u - XC) * U;
         public static double Y(double v) => Y0 + (YT - v) * U;
 
-        public const double BallR = 0.081 * U;
+        public const double BallR = 0.081 * U; // collider r 0,1 × tỉ lệ 0,8104 của prefab bi
 
         // vật liệu máy tham khảo, trộn với bi (bi: ma sát 0,4, nảy 0): đinh, mái, đáy V nảy 0,8 trơn; nấm đỉnh nảy 0,9 trơn;
-        // nấm lớn, khung, vách ô nảy 0,8, ma sát 0,22. Va chậm hơn VRest (tốc pháp tuyến 1 u/giây) thì không nảy.
+        // nấm lớn, khung, vách ô nảy 0,8, ma sát 0,22. Va chậm hơn VRest (tốc pháp tuyến 1 u/giây, velocityThreshold) thì không nảy.
         public const double ERed = 0.8, ETop = 0.9, EGreen = 0.8, EOrange = 0.8, Fric = 0.22, EBall = 0;
         public const double VRest = 1 * U;
+        // Physics2DSettings.defaultContactOffset 0,01: Box2D bọc hộp, polygon, edge một lớp da dày bằng số này (hình tròn thì không)
+        public const double Skin = 0.01 * U;
+        // bi: Rigidbody2D khối lượng 1, angularDrag 0, không khoá xoay; hình tròn đặc I = 0,5 m r². Khối lượng hiệu dụng theo phương
+        // tiếp tuyến (đẩy cả dời lẫn xoay) MassT = 1 / (1/m + r²/I) = m/3.
+        public const double MassT = 1.0 / 3, InvInertiaR = 2 / BallR; // Δw = −jt × r / I = −jt × 2 / r (m = 1)
         // config máy tham khảo: gravity 2 (hệ số trọng lực, 2 × 9,81 u/giây²), linerDrag 0, kẹp tốc 4–14 u/giây
         public const double Gravity = 2 * 9.81 * U, Drag = 0, VMin = 4 * U, VMax = 14 * U;
         // lực phóng 650–680 trong một bước vật lý 0,016 giây (khối lượng 1): bi ra hốc với tốc 10,4–10,88 u/giây
         public const double ForceMin = 650, ForceMax = 680, ForceStep = 0.016, LaneSpeed = 22;
+        // TimeManager của máy đó: Fixed Timestep 0,016. Mỗi bước kẹp tốc một lần (như script đặt vận tốc trước bước vật lý), rồi
+        // chia Sub bước con cho trọng lực và va chạm.
         public const int Sub = 6;
-        public const double Dt = 1.0 / 60;
+        public const double Dt = 0.016;
 
-        // làn phóng (ngoài khung, mép phải): chân làn, cột dọc, cung quẹo trái, đoạn thẳng vào hốc trên phải của khung
-        public const double LaneX = 2.95, LaneY0 = -2.40, LaneArc = 0.35, SpawnX = 1.90, SpawnY = 3.875, LaunchDeg = 180;
+        // làn phóng (ngoài khung, mép phải): chân làn, cột dọc, cung quẹo trái, đoạn thẳng vào miệng ống ở góc trên phải của khung.
+        // Miệng ống (quét lại 2026-11-19 theo hình bàn dựng từ sprite của bản đục): giữa đầu ray trong (điểm khung 23–24) và chỗ vòm bắt
+        // đầu (điểm 0), hướng ra tiếp tuyến với vòm (song song đoạn khung 0 → 1, 141,3°). Bi ra ống lăn ép sát mặt trong vòm lên đỉnh,
+        // đâm vào gờ tròn nấm đỉnh (lún nửa vào vòm, nhô dưới vòm 0,21 u) rồi văng xuống ngẫu nhiên. Chỗ ra cách đoạn vòm 0,095 u
+        // (bán kính bi 0,081 + da 0,01 + hở). Trước đó phóng ngang 180° từ (1,90; 3,875): chỉ 6 % bi chạm gờ đỉnh.
+        public const double LaneX = 2.95, LaneY0 = -2.40, LaneArc = 0.35, SpawnX = 1.814, SpawnY = 3.947, LaunchDeg = 141.3;
         public const double LaneHalf = 0.14; // nửa bề rộng làn (u), chỉ để vẽ
 
         // khung (EdgeCollider2D 26 điểm, toạ độ cục bộ, cộng FrameOff ra toạ độ thế giới)
@@ -109,9 +128,14 @@ namespace PokiClash.Core
             -2, 0.8, 2, 0.8, -1, 0.45, 0, 0.491, 1, 0.45, -1.6, 0, 1.6, 0, -2, -0.55, 2, -0.55, -1.6, -1.2, 1.6, -1.2,
         };
 
-        // vách ô: thân rộng 0,228, đầu tròn ở y −2,01
-        static readonly double[] DividerU = { -1.75, -0.572, 0.571, 1.734 };
-        public const double DividerTopU = -2.010, DividerHalfU = 0.114;
+        // vách ô (triggerframe_ 1–4): hộp rộng 0,2279 (tâm x, tâm y, cao) và nắp tròn r 0,1111 ở y −2,0101 (tâm x)
+        static readonly double[] DividerBoxU =
+        {
+            -1.7528959, -2.7323512, 1.427046, -0.5748959, -2.7208376, 1.4040191,
+            0.5681041, -2.7184149, 1.3991736, 1.7311041, -2.7173091, 1.396962,
+        };
+        static readonly double[] DividerCapXU = { -1.7525377, -0.5745377, 0.5684623, 1.7314623 };
+        public const double DividerWU = 0.22791731, DividerCapYU = -2.0100967, DividerCapRU = 0.11108589;
 
         // ô đáy (trái sang phải): kẹo ngoài, kẹo + sự kiện, ô khuất (jackpot), kẹo + sự kiện, kẹo ngoài
         public static readonly SlotKind[] SlotLayout = { SlotKind.Exp5, SlotKind.Exp10, SlotKind.ChestGold, SlotKind.Exp10, SlotKind.Exp5 };
@@ -147,16 +171,17 @@ namespace PokiClash.Core
         void AddPeg(double xu, double yu, double ru, PegKind kind, double e, double f) =>
             pegs.Add(new Peg { x = X(xu), y = Y(yu), r = ru * U, kind = kind, e = e, f = f });
 
-        void AddSeg(double x1u, double y1u, double x2u, double y2u, double ru, SegKind kind, double e, double f) =>
-            segs.Add(new Seg { x1 = X(x1u), y1 = Y(y1u), x2 = X(x2u), y2 = Y(y2u), r = ru * U, kind = kind, e = e, f = f });
+        void AddSeg(double x1u, double y1u, double x2u, double y2u, double ru, SegKind kind, double e, double f, bool box = false) =>
+            segs.Add(new Seg { x1 = X(x1u), y1 = Y(y1u), x2 = X(x2u), y2 = Y(y2u), r = ru * U, kind = kind, e = e, f = f, box = box });
 
-        // BoxCollider2D (tâm, góc quay độ ngược kim đồng hồ, rộng w, dài h theo trục y cục bộ) thành viên con nhộng cùng dài
+        // BoxCollider2D (tâm, góc quay độ ngược kim đồng hồ, rộng w, dài h theo trục y cục bộ; mirror: cha lật x như cánh mái phải)
+        // thành hộp chữ nhật thật: trục dọc đủ dài h, nửa bề rộng w/2
         void AddBox(double cx, double cy, double deg, double w, double h, bool mirror, SegKind kind, double e, double f)
         {
             double a = deg * Math.PI / 180, ax = -Math.Sin(a), ay = Math.Cos(a);
             if (mirror) ax = -ax;
-            double r = w / 2, hl = h / 2 - r;
-            AddSeg(cx - ax * hl, cy - ay * hl, cx + ax * hl, cy + ay * hl, r, kind, e, f);
+            double hl = h / 2;
+            AddSeg(cx - ax * hl, cy - ay * hl, cx + ax * hl, cy + ay * hl, w / 2, kind, e, f, true);
         }
 
         void Build()
@@ -167,23 +192,28 @@ namespace PokiClash.Core
                     0, SegKind.Wall, EOrange, Fric);
             for (int i = 0; i < PegsU.Length; i += 2) AddPeg(PegsU[i], PegsU[i + 1], 0.15, PegKind.Peg, ERed, 0);
             topPeg = pegs.Count;
-            AddPeg(-0.033, 4.917, 0.352, PegKind.Top, ETop, 0);
+            AddPeg(-0.033, 4.91625, 0.35, PegKind.Top, ETop, 0); // collider r 0,4 lệch y 0,23, tỉ lệ 0,875
             ringPeg[0] = pegs.Count;
             AddPeg(-1.65, 1.985, 0.55, PegKind.Bumper, EGreen, Fric);
             ringPeg[1] = pegs.Count;
             AddPeg(1.65, 1.985, 0.55, PegKind.Bumper, EGreen, Fric);
-            // mái "cánh" hai bên cốc thẻ: mỗi bên hai thanh 0,19 × 0,53
-            AddBox(-0.495, -0.052, -69.1, 0.191, 0.535, false, SegKind.Roof, ERed, 0);
-            AddBox(-0.828, -0.267, -52.0, 0.191, 0.533, false, SegKind.Roof, ERed, 0);
-            AddBox(0.495, -0.053, -69.1, 0.191, 0.535, true, SegKind.Roof, ERed, 0);
-            AddBox(0.828, -0.268, -52.0, 0.191, 0.533, true, SegKind.Roof, ERed, 0);
-            // đáy chữ V dưới cốc thẻ: hai thanh và ba núm
-            AddBox(-0.358, -1.308, -106.7, 0.18, 0.698, false, SegKind.Floor, ERed, 0);
-            AddBox(0.372, -1.331, -72.4, 0.18, 0.627, false, SegKind.Floor, ERed, 0);
-            AddPeg(0.691, -1.205, 0.092, PegKind.Post, ERed, 0);
-            AddPeg(0.012, -1.402, 0.128, PegKind.Post, ERed, 0);
-            AddPeg(-0.667, -1.196, 0.096, PegKind.Post, ERed, 0);
-            foreach (var x in DividerU) AddSeg(x, DividerTopU, x, -3.33, DividerHalfU, SegKind.Divider, EOrange, Fric);
+            // mái "cánh" hai bên cốc thẻ: mỗi bên hai thanh 0,19 × 0,53 (cánh phải là bản lật x của cánh trái)
+            AddBox(-0.495, -0.052, -69.148960, 0.1912806, 0.53485966, false, SegKind.Roof, ERed, 0);
+            AddBox(-0.828, -0.267, -52.032160, 0.1912806, 0.53307563, false, SegKind.Roof, ERed, 0);
+            AddBox(0.495, -0.053, -69.148960, 0.1912806, 0.53485966, true, SegKind.Roof, ERed, 0);
+            AddBox(0.828, -0.268, -52.032160, 0.1912806, 0.53307563, true, SegKind.Roof, ERed, 0);
+            // đáy chữ V dưới cốc thẻ: hai thanh và ba núm (r 0,11 × tỉ lệ từng núm)
+            AddBox(-0.358, -1.308, -106.700009, 0.18007314, 0.69831985, false, SegKind.Floor, ERed, 0);
+            AddBox(0.372, -1.331, -72.397357, 0.18007314, 0.626957, false, SegKind.Floor, ERed, 0);
+            AddPeg(0.691, -1.205, 0.092125, PegKind.Post, ERed, 0);
+            AddPeg(0.012, -1.402, 0.128226483, PegKind.Post, ERed, 0);
+            AddPeg(-0.667, -1.196, 0.09625, PegKind.Post, ERed, 0);
+            // vách ô: thân là hộp (đầu bằng), nắp tròn chồng lên đầu thân
+            for (int i = 0; i < DividerCapXU.Length; i++)
+            {
+                AddBox(DividerBoxU[3 * i], DividerBoxU[3 * i + 1], 0, DividerWU, DividerBoxU[3 * i + 2], false, SegKind.Divider, EOrange, Fric);
+                AddPeg(DividerCapXU[i], DividerCapYU, DividerCapRU, PegKind.Cap, EOrange, Fric);
+            }
             for (int i = 0; i < SlotLayout.Length; i++)
             {
                 double cx = SlotU[4 * i], w = SlotU[4 * i + 1], cy = SlotU[4 * i + 2], h = SlotU[4 * i + 3];
@@ -289,7 +319,9 @@ namespace PokiClash.Core
             string F(double v) => v.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture);
             var sb = new System.Text.StringBuilder();
             sb.Append("{\n");
-            sb.Append($" \"bw\": {F(BW)}, \"bh\": {F(BH)}, \"u\": {F(U)}, \"ball_r\": {F(BallR)}, \"lane_half\": {F(LaneHalf * U)},\n");
+            // segs: [x1, y1, x2, y2, r, loại]; loại Roof, Floor, Divider là hộp đầu bằng (x1y1–x2y2 là trục dọc đủ dài, r nửa bề rộng),
+            // Wall là cạnh khung; pegs loại Cap là nắp tròn đầu vách. skin: da va chạm của hộp và khung (không vẽ)
+            sb.Append($" \"bw\": {F(BW)}, \"bh\": {F(BH)}, \"u\": {F(U)}, \"ball_r\": {F(BallR)}, \"lane_half\": {F(LaneHalf * U)}, \"skin\": {F(Skin)},\n");
             sb.Append(" \"pegs\": [" + string.Join(", ", pegs.Select(p => $"[{F(p.x)}, {F(p.y)}, {F(p.r)}, \"{p.kind}\"]")) + "],\n");
             sb.Append(" \"segs\": [" + string.Join(", ", segs.Select(g => $"[{F(g.x1)}, {F(g.y1)}, {F(g.x2)}, {F(g.y2)}, {F(g.r)}, \"{g.kind}\"]")) + "],\n");
             sb.Append(" \"cups\": [" + string.Join(", ", cups.Select(c => $"[{F(c.x - c.w / 2)}, {F(c.y - c.h / 2)}, {F(c.x + c.w / 2)}, {F(c.y + c.h / 2)}, \"{Pachinko.Key(c.reward)}\"]")) + "],\n");
@@ -303,7 +335,7 @@ namespace PokiClash.Core
         public Ball Launch(int mult)
         {
             var (x, y) = lane[0];
-            var b = new Ball { id = nextId++, x = x, y = y, mult = mult, alive = true, lane = 0 };
+            var b = new Ball { id = nextId++, x = x, y = y, px = x, py = y, mult = mult, alive = true, lane = 0 };
             b.laneV = PickSpeed(out b.target);
             balls.Add(b);
             return b;
@@ -397,6 +429,11 @@ namespace PokiClash.Core
         {
             var ev = new List<PEvent>();
             const double h = Dt / Sub;
+            foreach (var b in balls)
+            {
+                b.px = b.x;
+                b.py = b.y;
+            }
             for (int k = 0; k < Sub; k++)
                 foreach (var b in balls)
                 {
@@ -408,16 +445,29 @@ namespace PokiClash.Core
             return ev;
         }
 
-        // ma sát khi bi chạm vật có ma sát: bớt tốc theo mặt tiếp xúc, tối đa f × xung pháp tuyến (jn) và không quá 1/3 tốc
-        // tiếp tuyến (bi tròn đặc lăn được thì ma sát chỉ ăn tới đó)
-        static void Rub(Ball b, double nx, double ny, double jn, double f)
+        // bi chạm vật cố định theo pháp tuyến n (từ vật ra tâm bi): xung pháp tuyến có nảy (chỉ khi va nhanh hơn VRest), rồi ma sát
+        // kiểu Box2D có xoay: tốc trượt ở điểm tiếp xúc vt = v·t − w r (t = (−ny, nx)), xung tiếp tuyến −vt × MassT kẹp trong
+        // ± f × xung pháp tuyến; xung đó đổi cả dời lẫn xoay (bi lăn thì hết trượt, không mất tốc nữa). Trả về tốc va (−v·n) nếu
+        // bi đang lao vào, 0 nếu không.
+        static double Contact(Ball b, double nx, double ny, double e, double f)
         {
-            double tx = -ny, ty = nx;
-            double vt = b.vx * tx + b.vy * ty;
-            double cut = Math.Min(Math.Abs(vt) / 3, f * jn);
-            double dv = vt > 0 ? cut : -cut;
-            b.vx -= dv * tx;
-            b.vy -= dv * ty;
+            double vn = b.vx * nx + b.vy * ny;
+            if (vn >= 0) return 0;
+            double jn = -(1 + (-vn > VRest ? e : 0)) * vn;
+            b.vx += jn * nx;
+            b.vy += jn * ny;
+            if (f > 0)
+            {
+                double tx = -ny, ty = nx;
+                double vt = b.vx * tx + b.vy * ty - b.w * BallR;
+                double jt = -vt * MassT, lim = f * jn;
+                if (jt > lim) jt = lim;
+                else if (jt < -lim) jt = -lim;
+                b.vx += jt * tx;
+                b.vy += jt * ty;
+                b.w -= jt * InvInertiaR;
+            }
+            return -vn;
         }
 
         // bi trên làn (chỉ là đường hình, không va chạm): chạy đều LaneSpeed; hết làn thì ra bàn ở hốc trên phải theo hướng đoạn
@@ -446,6 +496,8 @@ namespace PokiClash.Core
             b.y = lane[m].y;
             b.vx = v * ex / el;
             b.vy = v * ey / el;
+            b.w = 0;
+            b.tick = 0;
             b.lane = -1;
             b.age = 0;
         }
@@ -458,37 +510,41 @@ namespace PokiClash.Core
             return dx * dx + dy * dy < BallR * BallR;
         }
 
-        // một bước con của bi đã ra bàn (mỗi bi tính riêng: bi không va bi, nên đường bi chỉ phụ thuộc tốc lúc rời làn)
+        // một bước con của bi đã ra bàn (mỗi bi tính riêng: bi không va bi, nên đường bi chỉ phụ thuộc tốc lúc rời làn). Đầu mỗi
+        // bước 0,016 giây (tính từ lúc bi ra bàn, nên bi thật và bi thử trùng nhịp) kẹp tốc vào 4–14 u/giây.
         void Move(Ball b, double h, List<PEvent> ev)
         {
             const double R = BallR;
             {
+                if (b.tick++ % Sub == 0)
+                {
+                    double sp = Math.Sqrt(b.vx * b.vx + b.vy * b.vy);
+                    if (sp > VMax)
+                    {
+                        b.vx *= VMax / sp;
+                        b.vy *= VMax / sp;
+                    }
+                    else if (sp < VMin)
+                    {
+                        if (sp > 1e-9)
+                        {
+                            b.vx *= VMin / sp;
+                            b.vy *= VMin / sp;
+                        }
+                        else b.vy = VMin;
+                    }
+                }
                 b.age += h;
                 b.vy += Gravity * h;
                 double damp = 1 / (1 + Drag * h);
                 b.vx *= damp;
                 b.vy *= damp;
-                double sp = Math.Sqrt(b.vx * b.vx + b.vy * b.vy);
-                if (sp > VMax)
-                {
-                    b.vx *= VMax / sp;
-                    b.vy *= VMax / sp;
-                }
-                else if (sp < VMin)
-                {
-                    if (sp > 1e-9)
-                    {
-                        b.vx *= VMin / sp;
-                        b.vy *= VMin / sp;
-                    }
-                    else b.vy = VMin;
-                }
                 b.x += b.vx * h;
                 b.y += b.vy * h;
                 int gx = Math.Max(0, Math.Min(gw - 1, (int)(b.x / Cell))), gy = Math.Max(0, Math.Min(gh - 1, (int)(b.y / Cell)));
                 var cellPegs = gridPegs[gy * gw + gx];
                 var cellSegs = gridSegs[gy * gw + gx];
-                // đinh, nấm, núm
+                // đinh, nấm, núm, nắp vách (tròn: không có da)
                 foreach (int i in cellPegs)
                 {
                     var p = pegs[i];
@@ -499,53 +555,85 @@ namespace PokiClash.Core
                     double d = Math.Sqrt(d2), nx = dx / d, ny = dy / d;
                     b.x = p.x + nx * rr;
                     b.y = p.y + ny * rr;
-                    double vn = b.vx * nx + b.vy * ny;
-                    if (vn < 0)
-                    {
-                        double e = -vn > VRest ? p.e : 0;
-                        b.vx -= (1 + e) * vn * nx;
-                        b.vy -= (1 + e) * vn * ny;
-                        if (p.f > 0) Rub(b, nx, ny, (1 + e) * -vn, p.f);
-                        if (-vn > 0.5 * U) ev.Add(new PEvent { peg = i, ball = b, speed = -vn });
-                    }
+                    double hit = Contact(b, nx, ny, p.e, p.f);
+                    if (hit > 0.5 * U && p.kind != PegKind.Cap) ev.Add(new PEvent { peg = i, ball = b, speed = hit });
                 }
-                // khung, mái, đáy V, vách ô
+                // khung (edge), mái, đáy V, thân vách (hộp): cộng da Skin
                 foreach (int si in cellSegs)
                 {
                     var sg = segs[si];
                     double ex = sg.x2 - sg.x1, ey = sg.y2 - sg.y1;
                     double len2 = ex * ex + ey * ey;
-                    double t = len2 > 0 ? ((b.x - sg.x1) * ex + (b.y - sg.y1) * ey) / len2 : 0;
-                    t = Math.Max(0, Math.Min(1, t));
-                    double cx = sg.x1 + ex * t, cy = sg.y1 + ey * t;
-                    double dx = b.x - cx, dy = b.y - cy;
-                    double rr = R + sg.r;
-                    double d2 = dx * dx + dy * dy;
-                    if (d2 >= rr * rr) continue;
-                    double d = Math.Sqrt(d2);
-                    double nx, ny;
-                    if (d < 1e-9)
+                    double cx, cy, nx, ny, rr;
+                    if (sg.box)
                     {
-                        // tâm bi nằm đúng trên cạnh: đẩy theo pháp tuyến của đoạn
-                        double el = Math.Sqrt(len2);
-                        nx = -ey / el;
-                        ny = ex / el;
+                        // hộp chữ nhật: điểm gần nhất trên hộp (trục dọc a, nửa dài hl, nửa rộng sg.r), bi cách hộp dưới R + da
+                        double el = Math.Sqrt(len2), ax = ex / el, ay = ey / el, hl = el / 2;
+                        double mx = (sg.x1 + sg.x2) / 2, my = (sg.y1 + sg.y2) / 2;
+                        double px = b.x - mx, py = b.y - my;
+                        double la = px * ax + py * ay, lc = -px * ay + py * ax; // toạ độ theo trục dọc, trục ngang (−ay, ax)
+                        double ca = Math.Max(-hl, Math.Min(hl, la)), cc = Math.Max(-sg.r, Math.Min(sg.r, lc));
+                        rr = R + Skin;
+                        if (ca == la && cc == lc)
+                        {
+                            // tâm bi lọt vào trong hộp: đẩy ra theo mặt gần nhất
+                            double pa = hl - Math.Abs(la), pc = sg.r - Math.Abs(lc);
+                            double na, nc;
+                            if (pa < pc)
+                            {
+                                na = la >= 0 ? 1 : -1;
+                                nc = 0;
+                                ca = na * hl;
+                            }
+                            else
+                            {
+                                na = 0;
+                                nc = lc >= 0 ? 1 : -1;
+                                cc = nc * sg.r;
+                            }
+                            nx = na * ax - nc * ay;
+                            ny = na * ay + nc * ax;
+                            cx = mx + ca * ax - cc * ay;
+                            cy = my + ca * ay + cc * ax;
+                        }
+                        else
+                        {
+                            cx = mx + ca * ax - cc * ay;
+                            cy = my + ca * ay + cc * ax;
+                            double dx = b.x - cx, dy = b.y - cy, d2 = dx * dx + dy * dy;
+                            if (d2 >= rr * rr) continue;
+                            double d = Math.Sqrt(d2);
+                            nx = dx / d;
+                            ny = dy / d;
+                        }
                     }
                     else
                     {
-                        nx = dx / d;
-                        ny = dy / d;
+                        double t = len2 > 0 ? ((b.x - sg.x1) * ex + (b.y - sg.y1) * ey) / len2 : 0;
+                        t = Math.Max(0, Math.Min(1, t));
+                        cx = sg.x1 + ex * t;
+                        cy = sg.y1 + ey * t;
+                        double dx = b.x - cx, dy = b.y - cy;
+                        rr = R + sg.r + (sg.kind == SegKind.Wall ? Skin : 0);
+                        double d2 = dx * dx + dy * dy;
+                        if (d2 >= rr * rr) continue;
+                        double d = Math.Sqrt(d2);
+                        if (d < 1e-9)
+                        {
+                            // tâm bi nằm đúng trên cạnh: đẩy theo pháp tuyến của đoạn
+                            double el = Math.Sqrt(len2);
+                            nx = -ey / el;
+                            ny = ex / el;
+                        }
+                        else
+                        {
+                            nx = dx / d;
+                            ny = dy / d;
+                        }
                     }
                     b.x = cx + nx * rr;
                     b.y = cy + ny * rr;
-                    double vn = b.vx * nx + b.vy * ny;
-                    if (vn < 0)
-                    {
-                        double e = -vn > VRest ? sg.e : 0;
-                        b.vx -= (1 + e) * vn * nx;
-                        b.vy -= (1 + e) * vn * ny;
-                        if (sg.f > 0) Rub(b, nx, ny, (1 + e) * -vn, sg.f);
-                    }
+                    Contact(b, nx, ny, sg.e, sg.f);
                 }
                 // cốc thẻ, rồi ô đáy: chạm cảm biến là vào
                 foreach (var c in cups)

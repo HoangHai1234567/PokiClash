@@ -73,6 +73,8 @@ namespace PokiClash
         // cụm, chưa mềm; pha hút / tụ cầu xấu; Mặt Trời và tia màu tối, đốm lửa đơn lẻ và to; màu phải tươi hợp sân cát biển sáng. Các hạt dưới
         // đây dùng chung cho 10 tướng Kim (HatSat … HatPhao), số theo vfx-petclash/hoc_kr5_vfx.md và pokiclash-fx-congthuc mục 2b. Hình mới
         // (bộ hat_kr_* trong Assets/03 Art/Fx/Hat) đang được vẽ: chưa nhập thì mọi hàm dùng hình cũ, không lỗi.
+        // Khung vẽ sẵn (2026-11-19, HatFbKim.cs): KmNo, KmKhoi, KmLuaS chuyển sang khung "no" / "trung_lua", "khoi", "lua_lap" khi đã nhập ảnh,
+        // nên cả 10 tướng Kim gọi các hàm này đều đổi theo; chưa nhập thì giữ bản hạt.
 
         static readonly Color KmKem = C(255, 246, 214), KmVangT = C(255, 217, 74), KmCamT = C(255, 164, 58), KmDoCam = C(240, 112, 42);
         // năng lượng / Mặt Trời tươi (người dùng 2026-11-18): mực, dải đậm sát viền cam đỏ (không nâu, không xám), cam tươi, vàng tươi, lõi kem
@@ -151,6 +153,13 @@ namespace PokiClash
         P KmKhoi(Vector2 pos, Vector2 vel, float r, float life, int group = Back, float nong = 0, int tach = 2, Color[] tong = null, float tro = 0.3f,
             bool mot = false, float den0 = 0)
         {
+            // khung vẽ sẵn (2026-11-19): cụm khói than / khói hồn nhiều múi → khung "khoi" (KmKhoiFb, HatFbKim.cs). Cụm một múi (đuôi đạn, hơi
+            // xì), cụm con lúc tách và khói xám nhạt (KmXam: khung nâu xám không sáng lên được) giữ hạt dưới
+            if (!mot && tach > 0 && (tong == null || tong == KmThan || tong == KmKhoiHon))
+            {
+                var f = KmKhoiFb(pos, vel, r, life, group, tong == KmKhoiHon, tro);
+                if (f != null) return f;
+            }
             var p = new P
             {
                 pos = pos, vel = vel, life = life, drag = 1.5f, acc = new Vector2(0, -50), seed = rng.Next(4), r0 = 0.7f * r, r1 = r, group = group,
@@ -286,6 +295,13 @@ namespace PokiClash
         // lưỡi lửa vẽ tay cũ. Cháy tại chỗ, phồng lên rồi teo, lõi nguội dần. Trả hạt (null nếu dùng lưỡi cũ).
         P KmLuaS(Vector2 chan, float h, float life, Color[] cols, string pal, int group, Vector2 vel, float giot = 0.5f)
         {
+            // khung vẽ sẵn (2026-11-19): lửa đỏ cam → khung "lua_lap" mọc, cháy, co (KmLuaFb, HatFbKim.cs); lửa hồn xanh giữ hạt (khung cam nhuộm
+            // xanh ra xỉn)
+            if (cols == KmLua)
+            {
+                var f = KmLuaFb(chan, h, life, group, vel);
+                if (f != null) return f;
+            }
             if (KmBo("kr_lua") == null)
             {
                 var f = Flame(chan + new Vector2(0, -0.3f * h), vel + new Vector2(0, -U(60, 120)), life, 0.3f * h, 0.5f * h, "tron", pal, group, 2.5f, -260, 1.6f,
@@ -407,6 +423,9 @@ namespace PokiClash
         // pal: "luat" lửa đỏ cam, "vtuoi" năng lượng vàng tươi, "hon" lửa hồn; huong: phía mảnh văng (+1 / −1); khoi: tông khói (null: than)
         void KmNo(Vector2 c, Vector2 dat, float tH, float sc, string pal, float huong, Color[] khoi = null)
         {
+            // khung vẽ sẵn (2026-11-19): lửa đỏ cam / năng lượng vàng → khung "no" (nổ to, neo ở đất, sau tướng) hoặc "trung_lua" (nổ nhỏ trên
+            // thân), KmNoFb ở HatFbKim.cs; lửa hồn và máy chưa nhập ảnh đi bản hạt dưới
+            if (pal != "hon" && KmNoFb(c, dat, tH, sc, pal, huong)) return;
             KmPal();
             var cols = KmBang(pal);
             float D = 0.68f * tH * Mathf.Pow(sc, 0.6f);
@@ -416,13 +435,16 @@ namespace PokiClash
             {
                 // khối khói hai tông sau tướng, to gần đủ ngay, đáy còn ánh lửa
                 int nk = Mathf.Clamp(Mathf.RoundToInt(0.8f + 2.6f * sc), 1, 6);   // nổ nhỏ (loạt tên lửa) ít cụm: ngân sách hạt
+                // khung vẽ sẵn (2026-11-19): khói than / khói hồn ra khung "khoi" (KmKhoi): ít cụm hơn mà to hơn (nhiều khung sát nhau thành bóng đôi)
+                bool fbKhoi = HasFb("khoi") && (khoi == null || khoi == KmThan || khoi == KmKhoiHon);
+                if (fbKhoi) nk = Mathf.Clamp(Mathf.RoundToInt(0.5f + 1.2f * sc), 1, 3);
                 for (int i = 0; i < nk; i++)
                 {
                     float a = 6.28f * (i + U(-0.25f, 0.25f)) / nk;
                     // khối lõi sau lưng đối thủ nhưng LÒI ra hai bên và trên đầu (soi tờ khung 2026-11-18: đặt sát tâm thì thân che hết)
                     var o = new Vector2(Mathf.Cos(a) * (nho ? 0.3f : 0.44f), Mathf.Sin(a) * 0.26f - (nho ? 0.12f : 0.2f)) * D;
-                    KmKhoi(c + o, Unit(o) * U(30, 70) * Mathf.Sqrt(sc) + new Vector2(0, -U(30, 60)), U(0.21f, 0.29f) * D, U(0.85f, 1.2f) * (0.8f + 0.2f * sc),
-                        Back, 1, sc < 0.6f ? 1 : 2, khoi, 0.35f);
+                    KmKhoi(c + o, Unit(o) * U(30, 70) * Mathf.Sqrt(sc) + new Vector2(0, -U(30, 60)), U(0.21f, 0.29f) * D * (fbKhoi ? 1.35f : 1),
+                        U(0.85f, 1.2f) * (0.8f + 0.2f * sc), Back, 1, sc < 0.6f ? 1 : 2, khoi, 0.35f);
                 }
                 // lưỡi liềm lửa toả đều như cánh hoa, phần lớn sau tướng
                 int nl = Mathf.Clamp(Mathf.RoundToInt(1.5f + 3.6f * sc), 3, 9);
@@ -866,7 +888,8 @@ namespace PokiClash
         // `tgt`. L: dài thân (px sân)
         // 2026-11-18: đuôi là KHÓI CỤM LIỀN chia theo quãng bay (KR5), không còn chuỗi bóng; thua: bước giữa hai cụm khói (phần dài thân); doi: hệ
         // số đời khói (loạt tên lửa đông thì khói ngắn đời hơn cho đủ ngân sách hạt; 0: không khói, chỉ lửa phụt); to: hệ số cỡ cụm khói
-        void RbTen(Vector2 from, Vector2 ax, Vector2 tgt, float D, float L, float thua = 0.7f, float doi = 1f, float to = 1f)
+        // khung vẽ sẵn (2026-11-19): có khung "khoi" thì doi nhân tần suất vệt khói (22 cụm/giây × doi), tan: tốc độ khung khói (cao = tan nhanh)
+        void RbTen(Vector2 from, Vector2 ax, Vector2 tgt, float D, float L, float thua = 0.7f, float doi = 1f, float to = 1f, float tan = 2.4f)
         {
             float dist = Mathf.Max(60, (tgt - from).magnitude);
             // tầm vòng: không nhỏ hơn ~6 lần thân tên lửa, kể cả khi đối thủ đứng sát (vòng cung phải thấy rõ)
@@ -888,6 +911,9 @@ namespace PokiClash
 
             var h = new P { pos = from, life = D, group = Front, seed = rng.Next(4), sz = L, aim = ax };
             float dong = 0, quang = 0, buoc = thua * L;
+            // khung vẽ sẵn (2026-11-19, người dùng: "tên lửa ... nên thêm trail smoke vào"): có khung "khoi" thì vệt khói đuôi FbKhoiDuoi (dưới)
+            // thay chuỗi khói một múi, không để cả hai
+            bool fbKhoi = doi > 0 && HasFb("khoi");
             var truoc = from;
             h.upd = (z, dt, s) =>
             {
@@ -909,7 +935,7 @@ namespace PokiClash
                 // khói cụm liền: mỗi `buoc` đường bay một cụm, đáy còn ánh lửa lúc mới sinh, tự nở, ngả xám, mờ
                 var d0 = now - truoc;
                 float m = d0.magnitude;
-                if (m > 1e-3f && doi > 0)
+                if (m > 1e-3f && doi > 0 && !fbKhoi)
                 {
                     var u = d0 / m;
                     float xq = buoc - quang;
@@ -927,6 +953,10 @@ namespace PokiClash
             };
             h.draw = RbVeTen;
             Add(h);
+            // vệt khói đuôi: nhả ở đuôi lửa phụt (sau thân 0,6 dài), cụm cao 1,4 dài thân (~0,25 thân tướng; tên lửa nhỏ của Pháo Giáp nhỏ hơn),
+            // 22 cụm/giây × doi cho liền (tên lửa bay ~700 đơn vị/giây), tan nhanh (tan) cho đủ ngân sách hạt; lớp 18 dưới lửa phụt và thân
+            if (fbKhoi)
+                FbKhoiDuoi(() => h.pos - h.aim * (0.6f * h.sz), () => !h.dead && h.age < h.life, 1.4f * L * to, 22 * doi, null, Front, 18, tan);
         }
 
         // phụt ở miệng ống lúc phóng: lửa, khói xám, tia (lửa đỏ cam thường)
@@ -1013,6 +1043,8 @@ namespace PokiClash
                 q.sizeFn = (z, kk) => z.r1 * Mathf.Pow(1 - kk, 1.1f);
             }));
             Every(tBan, L0, 24, x => KmTiaLua(Bay(T), -d0 + U2(-0.6f, 0.6f), U(220, 380), U(5, 7), KmNang[3]));
+            // khung vẽ sẵn (2026-11-19, người dùng: "các fireball ... nên thêm trail smoke vào"): vệt khói đuôi sau cầu (KmDuoiKhoi, HatFbKim.cs)
+            At(tBan, () => KmDuoiKhoi(Bay, L0 - tBan, 2.4f * R, R, 18));
             // trúng: nổ KR5 năng lượng vàng tươi (chớp, lưỡi liềm trong khói, vòng cung, vệt cháy), bông va chạm theo hướng bay
             At(L0, () =>
             {
@@ -1114,6 +1146,8 @@ namespace PokiClash
                 var c = Bay(T);
                 KmTiaLua(c, -Unit(Bay(T + 0.02f) - c) + U2(-0.7f, 0.7f), U(240, 420), U(5, 7), KmNang[3]);
             });
+            // khung vẽ sẵn (2026-11-19): vệt khói đuôi sau cầu to (KmDuoiKhoi), cụm tối đa 0,3 thân đối thủ
+            At(tRoi, () => KmDuoiKhoi(Bay, tNo - tRoi, Mathf.Min(1.4f * R, 0.3f * tH), 0.9f * R, 22));
             // 6. chạm: chớp, nổ vàng rất lớn, cột năng lượng phụt lên, sóng đất hai đợt, nứt đất, đá văng, bụi, khói
             var tam = foeBody + new Vector2(-dir * 0.04f * tH, -0.12f * tH);
             // 2026-11-18: nổ KR5 (chớp 2 khung → lưỡi liềm vàng trong khối khói hai tông → khói tách cụm bay lên), lõi sau lưng đối thủ, bông va

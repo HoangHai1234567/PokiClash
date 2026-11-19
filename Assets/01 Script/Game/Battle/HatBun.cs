@@ -14,6 +14,9 @@
 // - Ra sân (StageViewNuot.RaSanFx): cục đất chạm đất hai lần (toé đất), bung thành tướng (phụt bùn).
 // Hình hệ Thổ (vfx-petclash mục 5) + chất bùn: cục bùn tròn méo, giọt bùn kéo theo hướng bay, chạm đất bẹp thành vết bùn rồi mờ (không nảy
 // như sỏi); đá xám (gai, nắm đấm) văng thì nảy một lần rồi nằm; bụi tròn be. Màu bùn lấy theo chân dung (sô-cô-la, bụng nâu sáng).
+// KHUNG VẼ SẴN (2026-11-19, HatFlip.cs + HatFbTho.cs; chưa nhập ảnh hat_fb_* thì hạt cũ): mọi cụm bụi (cú trúng, đáp, phụt bùn, gò bùn, mũi
+// gai, rút gai, ra sân) là cụm khói vẽ sẵn nhuộm bụi đất, ít mà to. Giữ: bùn (cục, giọt, toé, vương miện, vết), sỏi, chớp, sóng đất, vết nứt:
+// không có khung bùn (khung nước toé nhuộm nâu ra lục xỉn).
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -245,7 +248,7 @@ namespace PokiClash
                 BunGiot(c + nn * 3 * sc, v * U(0.82f, 0.92f) + nn * U(-30, 30), U(2.2f, 3f) * sc, ground + U(-4, 8) * sc, (i & 1) == 0 ? Front : Back);
                 if ((i & 1) == 0) BunGiot(c - nn * 3 * sc, v * U(1.05f, 1.15f) + nn * U(-30, 30), U(1.6f, 2.2f) * sc, ground + U(-4, 8) * sc, Front);
             }
-            ToCum(c + new Vector2(0, -4 * sc), new Vector2(U(-20, 20), -40) * sc, 9 * sc * Mathf.Sqrt(muc), 3, Back);
+            ToCum(c + new Vector2(0, -4 * sc), new Vector2(U(-20, 20), -40) * sc, 9 * sc * Mathf.Sqrt(muc), 3, Back, 0, null, false);   // khung vẽ sẵn: giữa thân
         }
 
         // phụt bùn quanh một khối tròn (đổi hình bóng ↔ tướng): cục bùn + giọt toả đều từ mép, bụi ở chân
@@ -298,10 +301,11 @@ namespace PokiClash
                     q.pos = Vector2.Lerp(a, b, f * f * (3 - 2 * f));
                     q.vel = Vector2.zero;
                     q.R0 += (q.pos - cu).magnitude;                              // bụi, bùn rải theo quãng gò vừa chạy (vệt liền)
-                    if (q.R0 < 9 * sc) return;
-                    q.R0 -= 9 * sc;
-                    ToBui(q.pos + new Vector2(s.U(-12, 12) * sc, -5 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 80), -s.U(30, 70)) * sc, 0.5f,
-                        6 * sc, 12 * sc, s.U(0, 1) < 0.5f ? Front : Back, false);
+                    bool fb = s.HasFb("khoi");                                   // khung vẽ sẵn (2026-11-19): cụm bụi vẽ sẵn, bước gấp đôi, to × 1,3
+                    if (q.R0 < (fb ? 18 : 9) * sc) return;
+                    q.R0 -= (fb ? 18 : 9) * sc;
+                    s.ToBuiFb(q.pos + new Vector2(s.U(-12, 12) * sc, -5 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 80), -s.U(30, 70)) * sc, 0.5f,
+                        6 * sc, 12 * sc, s.U(0, 1) < 0.5f ? Front : Back, null, FbBuiC, 1, 1.3f, true);
                     if (s.U(0, 1) < 0.35f)
                         BunGiot(q.pos + new Vector2(0, -8 * sc), new Vector2(s.U(-110, 110), -s.U(160, 300)) * sc, s.U(2.2f, 3.2f) * sc, q.pos.y + 3 * sc);
                 };
@@ -462,9 +466,9 @@ namespace PokiClash
                     var d = new Vector2(dir * Mathf.Cos(a), -Mathf.Sin(a));
                     var mui = bong + d * rg * casterH;
                     int grp = d.y < -0.25f ? Back : Front;
-                    // mỗi mũi gai: một cụm bụi đá (không chấm lẻ); dăm, giọt bùn chỉ ở một phần ba số gai
-                    var bb = ToBui(mui, d * 60 * sH + new Vector2(0, -20 * sH), 0.5f, 5 * sH, 11 * sH, grp, false);
-                    bb.col = ToDa3;
+                    // mỗi mũi gai: một cụm bụi đá (không chấm lẻ); dăm, giọt bùn chỉ ở một phần ba số gai. khung vẽ sẵn (2026-11-19): cụm khói vẽ
+                    // sẵn nhuộm bụi ở nửa số mũi gai
+                    ToBuiFb(mui, d * 60 * sH + new Vector2(0, -20 * sH), 0.5f, 5 * sH, 11 * sH, grp, ToDa3, FbBuiC, 0.5f, 1.1f);
                     if (g % 3 == 0) ToSoiCum(mui, (d * U(160, 240) + new Vector2(0, -U(40, 120))) * sH, U(2.4f, 3.2f) * sH, ToDa, ToDa3, dat + U(-3, 8) * sH, grp);
                     if (g % 3 == 1) BunGiot(bong + d * R, (d * U(120, 200) + new Vector2(0, -60)) * sH, U(2.2f, 3.2f) * sH, dat + U(-3, 8) * sH, grp);
                 });
@@ -484,7 +488,7 @@ namespace PokiClash
                 {
                     float a = (-200 + 220 * (i + U(0.2f, 0.8f)) / 5) * Mathf.Deg2Rad;
                     var d = new Vector2(dir * Mathf.Cos(a), -Mathf.Sin(a));
-                    ToBui(bong + d * R, d * 40 * sH, 0.45f, 5 * sH, 12 * sH, d.y < -0.25f ? Back : Front, false);
+                    ToBuiFb(bong + d * R, d * 40 * sH, 0.45f, 5 * sH, 12 * sH, d.y < -0.25f ? Back : Front, null, FbBuiC, 0.6f, 1.1f);   // khung vẽ sẵn: 60 % số cụm
                 }
             });
             // thôi làm bóng, hiện lại còn ngậm: phụt bùn
@@ -578,8 +582,9 @@ namespace PokiClash
                 for (int i = 0; i < 3; i++)
                 {
                     float s = (i & 1) == 0 ? -1 : 1;
-                    ToBui(feet + new Vector2(dir * 0.13f * H + s * U(0.1f, 0.3f) * H, -4 * sH), new Vector2(s * U(50, 120), -U(15, 50)) * sH, 0, 6 * sH,
-                        15 * sH, (i & 1) == 0 ? Back : Front);
+                    if (i == 2 && HasFb("khoi")) continue;                       // khung vẽ sẵn (2026-11-19): hai cụm bụi vẽ sẵn to hơn thay ba cụm hạt
+                    ToBuiFb(feet + new Vector2(dir * 0.13f * H + s * U(0.1f, 0.3f) * H, -4 * sH), new Vector2(s * U(50, 120), -U(15, 50)) * sH, 0, 6 * sH,
+                        15 * sH, (i & 1) == 0 ? Back : Front, null, FbBuiC, 1, 1.25f, true, true);
                 }
             }
             else if (ev == "bung")

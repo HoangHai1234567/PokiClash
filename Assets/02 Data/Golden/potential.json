@@ -200,7 +200,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     true,
     true,
@@ -427,7 +427,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     true,
     false,
@@ -667,7 +667,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [],
    "cost": 2,
    "res": [
@@ -905,7 +905,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [],
    "cost": 2,
    "res": [
@@ -1138,7 +1138,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     false,
     true,
@@ -1374,7 +1374,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     true
    ],
@@ -1612,7 +1612,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     false,
     false,
@@ -1850,7 +1850,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     true,
     true,
@@ -2070,7 +2070,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     true,
     false,
@@ -2310,7 +2310,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [],
    "cost": 2,
    "res": [
@@ -2548,7 +2548,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [],
    "cost": 2,
    "res": [
@@ -2781,7 +2781,7 @@
    ]
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "locks": [
     false,
     true,
@@ -2868,7 +2868,7 @@
    }
   },
   {
-   "hero": "vo_su",
+   "hero": "cao_da",
    "mods": null,
    "start": {
     "mana": 15,
@@ -3755,13 +3755,13 @@
    "id": 2040,
    "enemies": [
     [
-     "vo_su",
+     "thach_nhan",
      29,
      true,
      -0.3
     ],
     [
-     "gau_mo",
+     "lung_vuong",
      27,
      false,
      -0.23
@@ -3774,13 +3774,13 @@
    "id": 2041,
    "enemies": [
     [
-     "gau_mo",
+     "lung_vuong",
      45,
      true,
      -0.17
     ],
     [
-     "soc_da",
+     "cao_da",
      43,
      false,
      -0.25
@@ -3793,13 +3793,13 @@
    "id": 2042,
    "enemies": [
     [
-     "soc_da",
+     "cao_da",
      62,
      true,
      0
     ],
     [
-     "bo_hung",
+     "ho_khoan",
      60,
      false,
      0
@@ -3812,16 +3812,16 @@
    "id": 2043,
    "enemies": [
     [
-     "bo_hung",
+     "ho_khoan",
      80,
      true,
      0.05
     ],
     [
-     "thach_nhan",
+     "phu_van",
      78,
      false,
-     0.05
+     -0.06
     ]
    ]
   },
@@ -3831,13 +3831,13 @@
    "id": 2044,
    "enemies": [
     [
-     "thach_nhan",
+     "phu_van",
      98,
      true,
-     0.1
+     -0.02
     ],
     [
-     "sa_than",
+     "hat_de",
      96,
      false,
      -0.02
@@ -3850,13 +3850,13 @@
    "id": 2045,
    "enemies": [
     [
-     "sa_than",
+     "hat_de",
      116,
      true,
      0
     ],
     [
-     "ky_lan",
+     "rua_nui",
      114,
      false,
      -0.11
@@ -3869,16 +3869,16 @@
    "id": 2046,
    "enemies": [
     [
-     "ky_lan",
+     "rua_nui",
      134,
      true,
      -0.09
     ],
     [
-     "ca_sa",
+     "ho_kim_cuong",
      132,
      false,
-     -0.29
+     -0.09
     ]
    ]
   },
@@ -3888,16 +3888,16 @@
    "id": 2047,
    "enemies": [
     [
-     "ca_sa",
+     "ho_kim_cuong",
      152,
      true,
-     -0.28
+     -0.08
     ],
     [
-     "lung_vuong",
+     "cu_phu",
      150,
      false,
-     0.28
+     -0.08
     ]
    ]
   },
@@ -3907,16 +3907,16 @@
    "id": 2048,
    "enemies": [
     [
-     "lung_vuong",
+     "cu_phu",
      172,
      true,
-     0.3
+     -0.06
     ],
     [
-     "cao_da",
+     "giap_nham",
      170,
      false,
-     0.18
+     -0.26
     ]
    ]
   },
@@ -3926,13 +3926,13 @@
    "id": 2049,
    "enemies": [
     [
-     "cao_da",
+     "giap_nham",
      195,
      true,
-     0.2
+     -0.25
     ],
     [
-     "ho_khoan",
+     "thach_nhan",
      193,
      false,
      0.2

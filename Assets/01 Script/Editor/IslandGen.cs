@@ -129,7 +129,7 @@ namespace PokiClash.EditorTools
         static readonly double[] ShardChance = { 0.3, 0.25, 0.2, 0.15, 0.1 };
 
         // Đảo Thủy (đảo 70 ải đầu tiên, 2026-11-02/03; tướng các mốc ở GD_Claude/14). Ải 1 là bóng tướng khởi đầu của người chơi (Tí
-        // Tách, thu phục được); ải 3 tặng Võ Sư (chọn Thạch Nhân làm tướng khởi đầu thì tặng Thiết Cưa), ải 25 tặng Mầm Ú (2026-11-16:
+        // Tách, thu phục được); ải 3 tặng Tê Thiềm (chọn Thạch Giáp làm tướng khởi đầu thì tặng Thiết Cưa; tới 2026-11-19 là Võ Sư, bỏ cùng các tướng Thổ cũ, người dùng chọn Tê Thiềm cùng hệ, cùng độ hiếm), ải 25 tặng Mầm Ú (2026-11-16:
         // Mèo Quyền Sắt, Mầm Gỗ bị bỏ khỏi danh sách tướng cùng các tướng cũ khác, người dùng chọn tướng thay cùng hệ, cùng độ hiếm).
         // Lô 10 tướng mới (2026-11-11, ArtGen/Spine/quai/DAC_TA_LO_THUY.md): 10 suất đổi sang tướng mới, chỉ số, thẻ, bị động boss chép
         // từ tướng cũ cùng suất (ArtGen/Spine/quai/tuong_moi_thuy.py); tên ải, lính, cường hóa giữ nguyên. Tướng cũ (Giọt Sương, Tiểu Y,
@@ -157,8 +157,8 @@ namespace PokiClash.EditorTools
             minions = new[] { new[] { "linh_cua", "linh_cua2" }, new[] { "linh_noc", "linh_noc2" }, new[] { "linh_ngu", "linh_ngu2" } },
             minionFrom = new[] { 0, 2, 4 },
             firstIsPlayer = true,
-            gifts = new[] { new Gift(3, "vo_su", "thach_nhan", "phi_thuong"), new Gift(25, "mam_u") },
-            // đội Thổ khắc Thủy (Võ Sư, Sóc Đá): cường hóa 93%, 2 địch 76%, 3 địch 86%, mini boss 72%, boss 59–68%
+            gifts = new[] { new Gift(3, "cao_da", "thach_nhan", "phi_thuong"), new Gift(25, "mam_u") },
+            // đội Thổ khắc Thủy (Võ Sư, Sóc Đá; số đo lúc hai tướng này còn): cường hóa 93%, 2 địch 76%, 3 địch 86%, mini boss 72%, boss 59–68%
             extra = new[]
             {
                 new[] { 0.0, 0, 0, 0, 0, 0 },

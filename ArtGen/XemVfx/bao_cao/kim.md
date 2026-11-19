@@ -270,3 +270,164 @@ Các chiêu còn lại dưới 90.
 
 - Số hạt không đổi, giờ trả về không đổi: `ket_qua_nhip.txt`.
 - Lần biên dịch cuối 0 lỗi (Core, Game, Editor); đã chép đè 10 file vào Assets, hash ở `hash_moi2.txt`.
+
+## Đợt khung vẽ sẵn 2026-11-19 (flipbook, HatFlip.cs)
+
+Bản sửa ở `scratchpad/fb_kim/` (bản gốc lúc chép ở `fb_kim_base/`), chưa chép vào Assets, chưa soi trong Unity (phiên khác đang dùng). Biên dịch thử
+ngoài Unity (`ArtGen/Spine/quai/tho5_game/bien_dich_thu.py`): Core, Game, Editor đều 0 lỗi.
+
+**Hàm dùng chung** (mọi tướng Kim gọi các hàm này đều đổi theo; chưa nhập ảnh khung thì giữ bản hạt):
+- File mới `HatFbKim.cs` (partial HatLua): `KmNoFb`, `KmKhoiFb`, `KmLuaFb`, `KmFbMoc`, `KmGaiVong`, `KmCotLuaFb`, `KmCauBam`, `KmBuiFb`.
+- `HatRobot.cs`:
+  - `KmNo`: lửa đỏ cam / năng lượng vàng. Nổ to (sc ≥ 0,8) ra khung `no`, neo ở đất dưới tâm, SAU tướng, cao 1,6 D (chiêu cuối 1,4–1,55 thân), lật xen kẽ. Nổ nhỏ ra khung `trung_lua` ở tâm, cao 1,5 D (0,5–0,75 thân), nhanh 1,3 lần; loạt tên lửa, nhịp đốt (sc < 0,45) thì một nửa vẽ sau tướng. Bỏ khối khói múi tròn và lưỡi liềm. Giữ chớp 2 khung, vòng cung dẹt, vệt cháy, tia, đá, mảnh. Lửa hồn giữ bản hạt; khói trong đó ra 1–3 khung `khoi` to hơn.
+  - `KmKhoi`: cụm khói than / khói hồn (nhiều múi) ra khung `khoi`, cao 3 r, tốc độ theo đời. Không đổi: khói một múi (đuôi đạn, hơi xì), cụm con, khói xám nhạt `KmXam` (khung nâu xám nhân màu không sáng lên được).
+  - `KmLuaS` (lửa đỏ cam): ra khung `lua_lap`, mọc, cháy, co tại chỗ. Lửa hồn xanh giữ hạt.
+
+### bo_cap (Thiết Tinh): đợt khung vẽ sẵn 2026-11-19
+- Chiêu cuối `n_sat_dap`: 9 cột kim rời → `KmGaiVong`, 5 cụm khung `gai_sat`:
+  - nhuộm oải hương `C(228,212,255)` / thép lam `C(212,224,255)`;
+  - sau lưng: cụm giữa 1,15 thân, hai cụm bên 0,88; phía trước hai bên: 0,62;
+  - bỏ 5 khung nứt, chạy 1,5 lần (đủ cao ~0,17 s, vỡ hết ~0,53 s như cột cũ);
+  - dăm 12 → 6, bụi 10 → 4 (khung đã có bụi, vụn);
+  - giữ chớp, hai vòng cung, đá, chớp phụ 0,18 s.
+- Đòn thường, chiêu mana giữ nguyên: va chạm thép, tinh thể của rig, không có khung tương ứng.
+
+### bo_ngua (Thiết Khoáng): đợt khung vẽ sẵn 2026-11-19
+- Chiêu cuối (`KhDap`): vòng cột quặng → `KmGaiVong`, nhuộm theo dạng:
+  - dạng 1 quặng sắt `C(196,200,214)` / `C(220,224,236)`;
+  - dạng 2 hematit `C(245,140,112)` / `C(226,118,100)`.
+- `KhDatToe` khi sc ≥ 0,85 (cắm hố, trồi lên, trồi lần hai, húc từ dưới, cú giáng đòn thường dạng 2): bụi là 2 khung `khoi` nhuộm nâu đất (`KmBuiFb`), sau tướng, thay 6·sc cụm bụi rời. Giữ gợn, cục đất, đá.
+- Chiêu mana (các cú găm), đòn thường dạng 1 giữ nguyên.
+
+### doc_giac (Thiết Vệ): đợt khung vẽ sẵn 2026-11-19
+- Không đổi (`HatGiao.cs` y nguyên): giáo, kim sắt là vật bay + va chạm thép, không có nổ / lửa / gai đâm lên.
+
+### phi_thuong (Thiết Cưa): đợt khung vẽ sẵn 2026-11-19
+- Chiêu cuối:
+  - giật dây: khói ra khung `khoi` (qua `KmKhoi`), mỗi lần MỘT cụm to dần (cao ~0,3 → 0,45 → 0,63 thân). Trước là 1 / 2 / 3 cụm cùng chỗ: nhiều khung chồng thành bóng đôi;
+  - máy nổ: 2 cụm (0,66 + 0,46 thân, cụm hai lệch ra sau, lên trên) thay 3. Chớp, tia lửa giữ.
+- Đòn thường, chiêu mana (tia lửa cưa, dăm thép) giữ nguyên.
+
+### khien_bac (Quỷ Xích): đợt khung vẽ sẵn 2026-11-19
+- Chiêu cuối:
+  - trói (`KmNo` 0,45): `trung_lua`;
+  - cột lửa: thân cột (~90 lưỡi lửa rời) → 3 khung `lua_lap` chồng sâu sau lưng (`KmCotLuaFb`). Chân 0 / 0,27 / 0,5, cao 0,6 / 0,52 / 0,46 chiều cao cột, mọc dần từ dưới lên;
+  - nổ chân cột: `no` ở dạng 2, `trung_lua` ở dạng 1;
+  - mép trước, lửa liếm vòng xích (`KmLuaS`): `lua_lap`;
+  - khói đỉnh cột, khói lúc thả: `khoi`;
+  - bốn nhịp đốt: `trung_lua`.
+- Giữ: vệt lửa + khói một múi lúc quay xích, lửa dọc xích, vòng xích, giọt, cụm đốm, vòng cung, khe nứt.
+- Đòn thường, chiêu mana giữ nguyên.
+- `HatXich.cs` là file sinh tự động: đoạn sửa trong `XqCotLua` phải chép vào `ArtGen/Spine/quy_xich_hat_cs.py` (xem cuối mục).
+
+### chien_than (Sói Giáp): đợt khung vẽ sẵn 2026-11-19
+- Không đổi (`HatSoi.cs` y nguyên): búa, gió, bụi, va chạm thép, không có khung tương ứng.
+
+### thiet_phu (Thần Cơ): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: cầu trúng (`KmNo` 0,55) ra `trung_lua`.
+- Chiêu mana:
+  - nổ 1,6 ra `no` cao ~1,44 thân, sau tướng;
+  - đợt hai 0,7 ra `trung_lua`;
+  - khói muộn ra `khoi`.
+- Chiêu cuối:
+  - 7 tên lửa ra `trung_lua` (nhỏ, một nửa sau tướng);
+  - ba đợt cuối: 1,55 ra `no`; 0,8 ra `no` (dạng 1 ra `trung_lua`); 0,6 ra `trung_lua`;
+  - khói muộn ra `khoi`.
+- Giữ: cầu năng lượng, hạt hút, đuôi, thân tên lửa + khói xám, hơi xì, cột năng lượng `RbCot`, sóng đất, nứt, đá.
+
+### tam_kiem (Vong Kỵ): đợt khung vẽ sẵn 2026-11-19
+- `HatHon.cs` không sửa (file sinh tự động). Đổi qua hàm chung:
+  - khói của nổ hồn (hồn cuối chiêu mana, nhát bổ chiêu cuối) ra 1–3 khung `khoi` to, nhuộm xám xanh `C(170,225,205)`, thay 3–5 cụm;
+  - khói hồn muộn sau nhát bổ ra `khoi` xám xanh.
+- Lửa hồn xanh (lưỡi liềm, lưỡi lửa, aura) giữ hạt: nhuộm khung lửa cam ra xanh xỉn.
+
+### ung_thep (Pháo Giáp): đợt khung vẽ sẵn 2026-11-19
+- `HatPhao.cs` không sửa. Đổi qua hàm chung:
+  - đạn sắt trúng ra `trung_lua`;
+  - 15 tên lửa chiêu mana ra `trung_lua` nhỏ (một nửa sau tướng), nổ cuối 0,95 ra `no`;
+  - chiêu cuối: nổ 1,8 ra `no` ~1,55 thân, đợt hai ra `trung_lua`;
+  - khói muộn ra `khoi`.
+- Giữ: khói họng pháo, đuôi đạn (xám nhạt), cầu năng lượng, sét, giật điện.
+
+### kim_nghe (Nhật Vương): đợt khung vẽ sẵn 2026-11-19
+- Đòn thường: đường lửa dọc đất là cụm `lua_lap` nhỏ (~0,2 thân), cứ ba nhịp một cụm (~23 cụm/giây), mọc, cháy, co tại chỗ, thay lưỡi lửa rời. Tia, bụi giữ.
+- Chiêu mana: nổ mặt trời 1,25 ra `no` (~1,24 thân, sau tướng); khói muộn ra `khoi`. Tia liền khối + va chạm (`KmTia`, `KmCham`) giữ nguyên.
+- Chiêu cuối:
+  - ba thiên thạch: khung `cau_lua` bám theo thiên thạch của rig (`KmCauBam`): sau tướng, cao 0,7 tH·sc, chỉ trong lúc thiên thạch hiện, hướng theo đường rơi thẳng của rig. Thay lưỡi lửa của đuôi; khói một múi, tia giữ;
+  - nổ: `no` (hai cú đầu dạng 1 sc 0,68 ra `trung_lua`), đợt nổ sau cú cuối ra `no`;
+  - khói muộn ra `khoi`.
+- Không nhuộm tối gì (người dùng từng chê Mặt Trời, tia tối). Giữ màn nhật thực, Mặt Trời, `RbCot`.
+
+### Chỗ còn ngờ (đợt khung vẽ sẵn)
+- Chưa xem trong trận. Chỉ ghép thử thô bằng Python với đối thủ giả để kiểm điểm neo, cỡ, lớp: `scratchpad/kim_fb_soi/soi_kim_fb.jpg`.
+- Nhuộm khung chỉ làm tối đi:
+  - tinh thể oải hương ra ~(143,137,180), tối hơn `SatTim` cũ ~15 %;
+  - khói hồn, bụi đất cũng sẫm hơn bản hạt.
+- Khung `no` / `trung_lua` là lửa đỏ cam + khói nâu, nên nổ năng lượng vàng (Thần Cơ, Pháo Giáp, Nhật Vương) giờ ra đỏ cam. Không nhuộm cho khỏi tối; muốn vàng hơn cần bộ khung riêng.
+- Hai nổ to sát nhau (Nhật Vương thiên thạch 1–2 cách 0,14 s, các đợt nổ phụ) đã lật xen kẽ, lệch 0,08 D. Vẫn thấy bóng đôi thì đổi đợt phụ sang `trung_lua`.
+- Cỡ đá thiên thạch của rig chưa đo: `cau_lua` đặt 0,7 tH·sc (cầu ~0,39 tH·sc).
+- Khói đỉnh cột lửa Quỷ Xích 6 cụm/giây ra 6–7 khung `khoi` chồng, có thể dày. Hạ tần suất phải sửa `HatXich.cs` + script sinh.
+- Giữ hạt vì chưa có khung hợp: cột năng lượng `RbCot`, lửa móc / dọc xích Quỷ Xích, lửa hồn, khói xám nhạt họng pháo, đuôi đạn.
+
+### Cần đổi ở file không thuộc phiên này
+- `ArtGen/Spine/quy_xich_hat_cs.py` (khuôn sinh `HatXich.cs`): trong `XqCotLua`, bọc hai `Every` lưỡi lửa thân cột bằng `if (!KmCotLuaFb(feet, cao, dur)) { … }` như bản sửa. Không thì chạy lại script sẽ mất.
+- Khi chép vào Assets: thêm file mới `HatFbKim.cs` cạnh `HatFlip.cs` (Unity tự sinh .meta). `StageView.cs`, `HatFlip.cs` không cần đổi.
+
+## Đợt 2 (2026-11-19): nổ lên lớp trước, vệt khói đuôi, vòng gai to hơn
+
+Người dùng xem trong game: "có vài vụ nổ layer nằm dưới địch nên không thấy rõ, các fireball, tên lửa,... nên thêm trail smoke vào". Phiên chính
+soi ảnh chụp: vòng gai chiêu cuối Thiết Tinh / Thiết Khoáng bị thân đối thủ che gần hết. Bản sửa ở `scratchpad/fb_kim/`. Biên dịch thử:
+Core, Game, Editor 0 lỗi.
+
+**Nổ lên lớp trước** (`KmNoFb`, `HatFbKim.cs`; mọi tướng gọi `KmNo`):
+- `no` (nổ to) và `trung_lua` (nổ nhỏ) đều vẽ TRƯỚC tướng, bỏ chỗ vẽ sau (cả nửa loạt tên lửa nhỏ trước đây vẽ sau).
+- Neo như cũ, dời về phía người ra chiêu: 0,2 thân với nổ to, 0,1 thân với nổ nhỏ (cột lửa Quỷ Xích không có hướng: không dời).
+- Nổ to vẫn che thân đối thủ ~0,5 s (khung 4–16).
+
+**Vệt khói đuôi** (`FbKhoiDuoi` của `HatFlip.cs`; hàm mới `KmDuoiKhoi` trong `HatFbKim.cs` cho vật bay theo đường hàm giờ). Lớp 18: dưới lưỡi lửa đuôi và thân vật bay.
+
+| Vật bay | Tướng | Cụm khói | Cụm/giây | Lớp |
+|---|---|---|---|---|
+| Tên lửa (`RbTen`) | Thần Cơ chiêu cuối | 1,4 dài thân (~0,25 thân tướng) | 22, tan nhanh 2,4 | Trước |
+| Tên lửa nhỏ | Pháo Giáp chiêu mana | 1,4 × 1,3 dài thân (~0,18–0,2 thân tướng) | ~20 cho 2/3 số quả (dạng 1: cả hai), tan nhanh 2,6 | Trước |
+| Đạn sắt, quả pháo vọt lên (`PfDuoi`) | Pháo Giáp | ~3 cỡ đạn | 24 / 17 | Trước |
+| Cầu năng lượng bay | Thần Cơ đòn thường, chiêu mana; Pháo Giáp chiêu cuối | 2,4 R; tối đa 0,3 thân | 18 / 22 / 22 | Trước |
+| Thiên thạch (sau khung `cau_lua`) | Nhật Vương chiêu cuối | 0,22 thân × cỡ (tối đa 0,3) | 40 (chỉ hiện ~0,17–0,27 s) | Sau |
+| Móc xích lửa lúc quay | Quỷ Xích chiêu cuối | 0,24 thân | 22 | Sau |
+
+- Có vệt mới thì bỏ chuỗi khói một múi cũ (không để cả hai).
+- Pháo Giáp: chỉ 2/3 số tên lửa kéo khói, cho đủ ngân sách hạt (đỉnh ước ~55 cụm khói).
+- Không thêm khói: hồn bay Vong Kỵ (lửa hồn, file sinh), tinh thể, kim sắt, giáo, búa (không phải vật cháy).
+- Cầu năng lượng kéo khói là tôi tự chọn (yêu cầu ghi "nếu hợp"). Thấy không hợp thì bỏ ba dòng `KmDuoiKhoi` ở `NRobotBan`, `NRobotCau`, `NPhaoCau`.
+
+**Vòng gai to hơn** (`KmGaiVong`, `HatFbKim.cs`):
+- Ba cụm sau: giữa 1,35 thân; hai cụm ±0,42 thân cao 1,1, ló trên vai.
+- Hai cụm trước 0,9 thân, lệch ±0,6 thân hai bên chân.
+- Thêm một cụm thấp 0,5 chếch phía trước (±0,22, bên ngẫu nhiên).
+- Không có cụm cao ngay trước mặt. Ghép thử: `scratchpad/kim_fb_soi/soi_kim_fb2.jpg`.
+
+**`HatXich.cs` là file sinh** (`ArtGen/Spine/quy_xich_hat_cs.py`). Trong `NXichLua`, ngay sau `int demQ = 0;` thêm:
+```
+bool fbKhoi = HasFb("khoi");
+if (fbKhoi) At(XqSLua * k, () => KmDuoiKhoi(t => Moc((t - T0) / k), dQuay, 0.24f * casterH * manh, 0.04f * casterH, 22, Back));
+```
+Và đổi `if (demQ++ % 2 == 0)` thành `if (!fbKhoi && demQ++ % 2 == 0)`.
+
+## Đợt 3 (2026-11-19): tia vẽ sẵn (TiaFb)
+
+Người dùng: "tia năng lượng/nước như này nhìn vẫn chưa đã" (ống thẳng đặc, chỗ trúng nhỏ). Biên dịch thử: Core, Game, Editor 0 lỗi.
+
+- Hệ Kim chỉ có MỘT tia thật: tia Mặt Trời chiêu mana Nhật Vương (`NVuaTia`, `HatVua.cs`). Đã soát:
+  - Thần Cơ, Pháo Giáp: cầu năng lượng bay, tên lửa, không có tia thẳng;
+  - Thiết Tinh: tinh thể bay;
+  - cột năng lượng dựng đứng `RbCot`: giữ;
+  - cả 10 tướng đều có mã riêng nên không tướng nào đi tia cũ của `StageView`.
+- `NVuaTia`, khi `HasTia(DaTiaVang)`:
+  - `TiaFb(DaTiaVang, dinh, cham, 0,22·casterH·manh, …)` gọi lúc Mặt Trời lên đỉnh cột (`tDinh`), nên cầu đầu nòng lớn dần đúng pha tụ ở đỉnh;
+  - `tTu = (tBan + lao) − tDinh − tVuon`, `tBan = tTat − (tBan + lao)`: giờ chạm, giờ tắt như cũ;
+  - vẽ TRƯỚC tướng, đè lên đoạn tia tối màu của rig;
+  - chỗ trúng dời lên đỉnh đầu đối thủ (thân − 0,42 tH; trước là −0,28 vì tia cũ đi sau thân), tia không xuyên mặt.
+- Giữ: nhịp `KmNhip` (bỏ nhịp đầu; 0,4 bảy lần/giây; 0,6 lúc tắt), rung theo nhịp, chớp + vòng ở đỉnh lúc bắn, chớp ở từng hành tinh lúc đầu tia đi qua (theo giờ vươn mới), tia lửa văng hai bên thân, tia kim loại bắn ngược ở chỗ trúng (16/giây), nổ mặt trời lúc trúng chính. Giờ trả về không đổi.
+- Bỏ khi có khung: `KmTia` (thân tia liền khối), `KmCham` (bông va chạm cũ). Chưa nhập ảnh thì đi đường cũ y nguyên.
+- Còn ngờ: tia vẽ trước tướng nên che phần giữa ba hành tinh của rig (trước đây tia đi sau, xuyên qua hành tinh). `TiaFb` dùng một lớp cho cả thân và bông trúng, nên không tách được thân sau / bông trước.
+- Không sửa file sinh tự động.

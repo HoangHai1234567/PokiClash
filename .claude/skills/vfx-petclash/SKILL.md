@@ -30,7 +30,8 @@ Tài liệu đi kèm trong thư mục này:
 - `nghien_cuu_thiet_ke.md`: đối chiếu các nguyên tắc với nguồn gốc, số đo nhịp, hình theo hệ.
 - `nghien_cuu_hieu_nang.md`: chi phí uGUI, vẽ đè, lưới tự dựng, ảnh hạt, rác bộ nhớ, cách đo.
 - `hoc_kr5_vfx.md`: học hiệu ứng nổ, lửa, nước, khói của Kingdom Rush 5 (vẽ phẳng 3–5 màu, không shader, gần luật dự án nhất):
-  giữ 2 khung, đỉnh ở khung 1–3, đòn ghép từ đạn → đuôi → trúng → decal → payload → mod, hạt chỉ "dập" hình tự tan.
+  đỉnh ở khung 1–3, đòn ghép từ đạn → đuôi → trúng → decal → payload → mod, hạt chỉ "dập" hình tự tan. Nhịp "giữ 2 khung" của họ
+  KHÔNG dùng nữa: người dùng muốn mượt (mục 1c).
 
 Khi các quy tắc xung đột: **luật của dự án (mục 1) > đọc được trong trận > hiệu năng > đẹp > chi tiết.**
 
@@ -62,11 +63,111 @@ trên điện thoại Android.
 | Lửa rời rạc; dung nham là cầu tròn cứng | Lửa liền khối, lưỡi chữ S có giọt tách. Dung nham là khối chảy có giọt kéo, mép gợn, khe nứt vỏ |
 | Hút khí / lửa quanh để tụ cầu xấu | Hạt bị hút là vệt thuôn bay xoắn vào tâm, tăng tốc dần, hiện dần lúc sinh, nhập vào cầu. Có 1–2 vòng co về tâm. Cầu lớn theo nhịp đập, là khối cuộn nhiều múi. Trước khi nhả, cầu nén 1–2 khung rồi chớp |
 | Nổ, sóng âm chưa đẹp; nước, lửa chưa như Kingdom Rush | Theo `hoc_kr5_vfx.md`: chớp 1–2 khung → lưỡi liềm lửa trong khói hai tông → khói tách cụm bay lên; vòng cung dẹt trên đất. Sóng âm là dải cung dày thuôn hai đầu |
+| Gai lá, gai sắt đâm lên (Cầu Gai, người cây, măng trúc Rồng Trúc, cột tinh thể Thiết Tinh / Thiết Khoáng) xấu (2026-11-19) | Làm lại theo style mục 1c, chạy theo tờ khung 12 khung: đất nứt → gai phóng lên (giãn dài ở khung bung, đất văng) → giữ, lắc nhẹ → gãy hoặc rút, vụn rơi. Gai lá cong thuôn, một tông lục, gân lá bằng nét chì. Gai sắt / tinh thể nhiều mặt sắc cạnh, một tông, cạnh mặt bằng nét chì (không mặt sáng / tối, không vệt sáng: "bỏ bóng ánh sáng" 2026-11-19). Đã có bộ 24 khung `ArtGen/Spine/vfx_gen/khung_chi/gai_la`, `gai_sat`, `gai_bang` |
+| Vụ nổ nằm dưới địch, không thấy rõ (2026-11-19, xem bản khung vẽ sẵn trong game) | Nổ (`no`, `trung_lua`, cột `nham`) vẽ ở lớp **TRƯỚC** tướng (Front), không đặt sau lưng đối thủ cho "khỏi che". Neo ở chân / thân, dời 0,1–0,2 thân về phía người ra chiêu, cho nhanh hơn chút để không trùm lâu. Gai đâm lên cũng phải có 2–3 cụm Front hai bên chân (±0,5–0,7 thân, cao 0,6–0,9); cụm sau lưng chỉ làm nền, đủ cao để ló lên trên vai |
+| Cầu lửa, tên lửa… thiếu vệt khói (2026-11-19) | Mọi vật bay cháy (cầu lửa, tên lửa, đạn pháo, thiên thạch, tảng đá bay, móc xích lửa) kéo **vệt khói đuôi**: `HatLua.FbKhoiDuoi` (cụm khung `khoi` nhỏ 0,2–0,35 thân, ~26 cụm/giây, rải trên cả đoạn vừa bay, tan ~0,5 s, lớp dưới vật bay; tảng đá nhuộm bụi đất). Bỏ đuôi khói cũ, không để hai vệt. Giữ dưới 120 hạt (loạt nhiều đạn thì thưa hoặc chỉ một phần số đạn kéo khói). Vệt phải là KHÓI: cụm khói chồng sát nhau, xám nâu, mềm. KHÔNG dùng dải mảng liền màu than: người dùng chê "phải là khói chứ không phải tô đen". Cụm rời cách quãng cũng bị chê là rải rác |
+| Tia năng lượng / nước "nhìn vẫn chưa đã" (2026-11-19): ống thẳng đặc, một bề dày, chỗ trúng nhỏ | Dựng tia bằng `HatLua.TiaFb` (`HatTiaFb.cs`) qua 4 pha: tụ → phóng → dội → tắt (chi tiết ngay dưới bảng) |
 | Màu tối, không hợp theme; đốm lửa đơn lẻ và to quá | **Màu tươi**, hợp sân cát sáng, trời xanh, chì sáp tươi. Ví dụ lửa: kem `#FFF6D6`, vàng `#FFD94A`, cam `#FFA43A`, cam đỏ `#F0702A`; nước: kem `#F2FBFF`, lam nhạt `#9FE0FF`, lam `#4EB6F2`, lam đậm `#2B7FD0`. Đốm nhỏ, đi theo cụm 3–6 lệch cỡ. Chỉ khói than là tối |
 
 Bộ hình hạt kiểu Kingdom Rush (`hat_kr_*`, sinh bằng `ArtGen/Spine/hat_kr.py`) có sẵn dáng cho các chỗ trên. Soi từng tướng
 trước / sau ở trang `ArtGen/XemVfx/MO_WEB.bat`: chụp bằng menu "PokiClash/Thử/Hiệu ứng mọi tướng: chụp bản TRƯỚC / SAU", dựng lại
 bằng `ArtGen/XemVfx/xay_trang.py`.
+
+**Sóng âm** (người dùng 2026-11-19: "làm đơn giản thôi ... vài nét vẽ tay tô chì màu xám nhạt"):
+- Mỗi cung là 2–3 nét chì xám nhạt song song, không viền mực (`hat_kr_songchi_*`, `ArtGen/Spine/hat_songchi.py`; hàm `SongChi` trong `HatSongChi.cs`).
+- Mỗi lần gầm 3–4 cung. Cung nở dần từ miệng tới mặt trước thân đối thủ rồi mờ.
+- Không vòng tròn ở miệng, không dải cung hai màu.
+- Không dùng shader bẻ cong: trên uGUI phải render cả sân ra texture mới bẻ được, nặng trên điện thoại.
+
+### 1c. Style mục tiêu cho lửa, nước, nổ, khói, năng lượng (người dùng chọn 2026-11-19, bắt buộc)
+
+> **CẬP NHẬT CUỐI 2026-11-19 (đè bảng "chất liệu game" bên dưới cho khung vẽ sẵn):** người dùng so bản gen gốc với bản làm phẳng + vân chì: "tôi nhìn thấy bản cũ đẹp hơn … có thể dùng bản gốc luôn cũng được". Khung FX vào game là BẢN GEN GỐC (cắt, tách nền, đủ màu RGBA), giữ mảng chuyển màu, khối, quầng của bản gen; không gom màu, không vân chì, không giảm 255 màu. Tia nước phải "mềm mại, 3D, tươi sáng". `chi_phang.py` chỉ để so.
+
+**Lời dặn, theo thứ tự:**
+1. Người dùng gửi 4 gói hình vector VFX hoạt hình: "đổi kiểu lửa/nước/nổ trong game theo link ảnh tôi gửi, rút ra kiểu style này", "tôi muốn vfx mượt hơn nữa nghĩa là có thể tăng frame lên".
+2. Xem bộ 15 hiệu ứng 24 khung gen theo các gói đó, họ sửa lại: **"đẹp nhưng texture chưa hợp với style game, kiểu chì vẽ, bỏ bóng ánh sáng đi"**.
+
+Kết quả là **dáng và chuyển động lấy từ ảnh mẫu, chất liệu là của game**.
+
+**Nguồn:**
+- Bốn gói ở thư mục Downloads: `comic-explosive-fire-cloud-game-effect-vector`, `water-splash-vfx-animation-cartoon-sprite-sheet`, `green-ui-vfx-tornado-energy-with-flame-game`, `explosion-set`.
+- Bản thu nhỏ: `ArtGen/StyleRefs/vfx_mau/`. Hình stock của bên thứ ba: không commit, không chép nguyên vào game khi chưa rõ giấy phép.
+
+**Phạm vi:**
+- Mục này đè lên dòng "viền mực" ở mục 1 cho lửa, nước, nổ, khói, năng lượng: **không viền mực ngoài**.
+- Luật "không quầng sáng, không gradient" của mục 1 **vẫn giữ**.
+- Hình tướng vẫn theo luật cũ.
+
+| Thành phần | Lấy từ ảnh mẫu (dáng, nhịp) | Chất liệu game (bắt buộc) |
+|---|---|---|
+| Chung | Hình vector mềm, cụm múi, nhiều khung trung gian | **Tô phẳng**: mỗi vùng một màu đều. **Vân chì màu** gạch chéo −38 độ phủ lên (như hạt `hat_*` và tranh bản đồ). **Không** mảng sáng bầu dục, đáy tối, chuyển màu, quầng mềm, điểm sáng trắng. Không viền mực ngoài. |
+| Lửa | Lưỡi nhọn sắc nhiều ngọn quặp, vệt kéo theo hướng bay, tia chớp mảnh toả từ tâm | Các **lớp màu phẳng** bảng "hoa": đỏ `#E8452E` (mép), cam `#FFA43A`, vàng `#FFD94A`, kem `#FFF6D6` (chỉ lõi / chớp). Mép rõ, không quầng. |
+| Nổ (tờ mẫu 9 khung) | (1) cụm múi phồng; (2–3) chớp sao ở tâm; (4) thành nấm có thân, đất toé hai bên; (5) nguội, còn đốm đỏ trong khói; (6–7) khói; (8–9) vỡ thành mảnh khuyết hình lưỡi liềm rồi tan | Lửa như trên, khói như dưới, đốm than là mảng đỏ / cam phẳng. |
+| Khói | Cụm múi tròn chồng nhau, đi theo luồng lửa, tan thành mảnh khuyết | **Một tông** nâu xám (`#8C7C74`). Múi ra bằng **nét chì trong** sẫm hơn màu nền ~30 %, không bằng mảng tối. Tan dần bằng alpha. |
+| Nước (tờ mẫu 16 khung) | Sóng dâng, cuộn mào, vỡ thành mảng rồi giọt, còn vũng mỏng | **4 mảng lam phẳng** theo thứ tự của bản mẫu: lam đậm `#1D5FD2` ở đỉnh, lưng → lam `#2F8FE8` → xanh trời `#35BFEA` → ngọc lam `#45DFD0` ở chân. Người dùng chê một màu "nhạt nhẽo", 2026-11-19. Mảng có mép rõ, không chuyển màu mịn. Bọt trắng ở mào và ngọn, chấm bọt nhỏ. Không vệt sáng mảnh. |
+| Năng lượng, lốc | Dải xoắn tương phản lục sẫm – lục chanh – ngọc lam, vệt tím | Dải màu phẳng. Không lõi phát sáng, không hạt sáng. |
+| Tinh thể, lá, gai | Cụm gai phóng lên, giữ, gãy / rút | Một tông cho thân, cạnh và mặt bằng nét chì. Bụi đất là mảng nhạt riêng. |
+| Màu | Tươi, bão hoà cao | Tông phải đủ đậm để không chìm trên nền trận sáng. |
+
+**Cách làm bộ khung (2026-11-19, thư mục `ArtGen/Spine/vfx_gen/`):**
+1. Gen tờ 6 × 4 = 24 khung bằng GPT 2.6 qua Magnific (1k high, 3:2, 95 credit), dùng ảnh mẫu style. Tách nền bằng Magnific (3 credit).
+2. `cat_khung.py` cắt theo mảng liền: khung lấn ô bên vẫn đủ hình. Cùng một hộp cho mọi khung, nên điểm neo đứng yên. Script cũng gỡ nền ô cờ giả lẫn trong chỗ trong mờ.
+3. (Bỏ từ cuối 2026-11-19: chỉ để so.) `chi_phang.py` làm phẳng:
+   - phân họ màu, về màu đích gần nhất;
+   - vệt sáng lấy màu vùng quanh, bỏ quầng lửa;
+   - thêm nét chì trong cho khói, tinh thể, lá;
+   - phủ vân chì.
+   - Hình nhiều dải xoắn (lốc nước / lửa / cát, 2026-11-19) thì dùng **bảng màu tự lấy** (k-means 5–6 màu từ chính bản gen, `auto_k`).
+     - Bảng cố định gộp mất dải sáng / tối, ra trầm. Người dùng chê vòi rồng cũ "màu hơi trầm".
+     - Dải mảnh thì mép rõ (`hard_alpha`): làm mờ alpha sẽ thành nửa trong suốt.
+     - Vân chì nhạt hơn (`tex_k` 0,6).
+4. Xem `vfx_gen/xem/chi.html`.
+
+**Tia vẽ sẵn** (`HatLua.TiaFb`, `HatTiaFb.cs`):
+- **Tụ:** cầu đầu nòng lớn dần.
+- **Phóng:** đầu tia vươn tới đích trong ~0,1 giây, đoạn đầu phình.
+- **Dội:**
+  - thân tia là nhiều ĐOẠN vẽ sẵn (đầu đuôi thon) trôi liên tục từ miệng tới đích, chồng 2/3 lên nhau;
+  - bề dày phập phồng ~8 lần / giây, gợn ngang;
+  - bông va chạm lặp ở thân địch, lật theo hướng tia.
+- **Tắt:** ngừng nhả, đuôi tia rời miệng rồi bay nốt vào đích.
+
+**Bộ da tia:**
+
+| Bộ da | Dùng cho |
+|---|---|
+| `DaTiaMoc` | Lá |
+| `DaTiaNuoc` | Nước |
+| `DaTiaLua` | Lửa |
+| `DaTiaVang` | Mặt Trời, hổ phách |
+
+**Số đo:**
+- Bề dày: mana ~0,22 thân người bắn, chiêu cuối 0,28.
+- Giữ giờ chạm cũ: `tTu = giờ chạm − thời gian vươn` (quãng / 2600, kẹp 0,07–0,14).
+- `nongK` / `trungK` chỉnh cỡ đầu nòng / bông trúng theo chiêu.
+
+**Mượt** (người dùng 2026-11-19):
+- **Bỏ luật "giữ 2 khung"** học từ Kingdom Rush: hạt cập nhật và đổi hình **mỗi khung**.
+- Hiệu ứng chạy theo tờ khung (flipbook) phải có nhiều khung trung gian: toé, nổ 12–20 khung, chạy 24–30 khung/giây (tờ mẫu nước toé có 16 khung).
+- Hạt đổi hình theo tuổi thì chồng mờ sang hình kế (cross-fade) hoặc dùng nhiều bước hình hơn, không nhảy cụt.
+- Vị trí, cỡ, góc đi theo đường cong êm, không giật.
+
+**Trong game (2026-11-19):**
+- Khung ở `Assets/03 Art/Fx/Hat/hat_fb_<tên>_NN.png`, xuất bằng `vfx_gen/xuat_fb.py` (giảm 255 màu, 336 khung ~2,7 MB).
+- Phát bằng `HatFlip.cs`:
+  - `Fb(fx, neo, cao, …)`: một lượt, hoặc lặp với `life`;
+  - `FbFly(fx, từ, tới, cao, tốc độ, onHit, …, khoi)`: vật bay tự xoay / lật;
+  - `FbKhoiDuoi`: vệt khói đuôi;
+  - `HasFb`: chưa nhập ảnh thì quay về hạt cũ.
+- Chạy 24 khung/giây, chồng mờ khung kế.
+- Mỗi hệ có file hàm dùng chung riêng: `HatFbHoa`, `HatFbThuy`, `HatFbMoc`, `HatFbKim`, `HatFbTho`.
+- Sau khi thêm ảnh, chạy menu "Sàn đấu: hạt lửa" và "Hộp chi tiết tướng: hạt lửa".
+- Nhân màu (`tint`) chỉ làm tối đi. Muốn bụi be sáng, nổ năng lượng vàng, nổ lá xanh thì gen bộ khung riêng.
+
+**Cách làm trong code:**
+- Lửa, nước, nổ, khói, năng lượng theo style này thì **bỏ lớp mực** (bản đặc vẽ dưới).
+- Ảnh hạt giữ vân chì: ảnh xám vân chì rồi nhuộm, hoặc khung flipbook đã tô sẵn. Không vẽ gradient.
+- Không thêm ảnh quầng sáng.
 
 ## 2. Mười nguyên tắc thiết kế
 
@@ -118,8 +219,8 @@ Mốc ngoài để so (nguồn ở ba file `nghien_cuu_*.md`):
 - Hiệu ứng 2D: lấy đà 0,1–0,25 s, chớp 0,03–0,1 s, bung 0,1–0,3 s, tan 0,3–1 s; lấy đà cộng va chạm không quá 1/3 tổng. Trúng
   nhỏ 0,2–0,5 s, chiêu 0,5–1 s, nổ có khói 0,8–2 s.
 - Khung va chạm 1–3 khung; dài hơn đọc thành đổi cảnh.
-- Kingdom Rush 5 (`hoc_kr5_vfx.md`): hiệu ứng trung vị 0,5 s; nổ 0,6–1,0 s; nước trúng nhỏ 0,33 s; mọi hệ vẽ giữ 2 khung (15 hình/giây);
-  đỉnh ở khung 1–3; nổ của chiêu lấy đà 2 khung bằng cục chớp nhỏ; đòn đánh xuống đất báo trước 0,4 s (lỗ, vết nứt trên đất).
+- Kingdom Rush 5 (`hoc_kr5_vfx.md`): hiệu ứng trung vị 0,5 s; nổ 0,6–1,0 s; nước trúng nhỏ 0,33 s; họ vẽ giữ 2 khung (15 hình/giây)
+  nhưng dự án KHÔNG theo, người dùng muốn mượt hơn (mục 1c: mỗi khung đổi hình, toé / nổ 12–20 khung ở 24–30 khung/giây); đỉnh ở khung 1–3; nổ của chiêu lấy đà 2 khung bằng cục chớp nhỏ; đòn đánh xuống đất báo trước 0,4 s (lỗ, vết nứt trên đất).
 - Khựng 60–120 ms, dài hơn thì giống giật máy; game đối kháng khựng 9–14 khung. Dự án khựng 0,03–0,2 s (`pokiclash-hero-fx` mục 4).
 - Đòn nhiều nhịp chỉ khựng ở nhịp đầu và nhịp cuối. Chớp màn không quá 3 lần mỗi giây.
 
@@ -280,7 +381,8 @@ Công thức đã làm thật (lửa, nước) và lỗi đã gặp: `pokiclash-
 - Khói vụt tắt hoặc giật: phải co nhỏ dần và bay lên tới hết.
 - Nổ đạt đỉnh chậm (nở dần trong 0,3 s) hoặc chỉ mờ đi tại chỗ: mẫu Kingdom Rush 5 chớp 1 khung, khói và lửa to gần đủ ngay
   khung 2, nửa sau là tách cụm, bay lên, nhỏ dần (`hoc_kr5_vfx.md`).
-- Hình hạt đổi mỗi khung sân nên chuyển động "trôi", nhòe: đổi mỗi 2 khung (giữ 2 khung như mọi hiệu ứng của Kingdom Rush 5).
+- Hiệu ứng giật, ít khung (giữ khung, nhảy hình cụt): người dùng muốn mượt (2026-11-19, mục 1c). Hạt đổi hình mỗi khung hoặc chồng mờ
+  sang hình kế; tờ khung toé / nổ 12–20 khung.
 - Dựng khối lớn bằng hạt rời; hoặc dựng thành một khối nhẵn cứng.
 - Hiệu ứng lửa, nước chung chung, không hợp nét của tướng đang ra chiêu.
 - Tướng về đứng trong khi luồng phun còn chạy.
@@ -296,7 +398,8 @@ Lỗi của phần animation (rig, lưới, chuỗi xương, miệng): `animatio
 
 | Nguồn | Xem ở đâu | Lấy gì | Không lấy |
 |---|---|---|---|
-| **Kingdom Rush 5** (đục 2026-11-18) | `hoc_kr5_vfx.md`; trang xem `ArtGen/ThamKhao/KR5/MO_WEB.bat` (lọc theo hệ, tua từng khung, hệ hạt chạy đúng code game) | nhịp (giữ 2 khung, đỉnh khung 1–3), hình từng pha của nổ, lửa, nước, khói, chuỗi mảnh của một đòn, hạt dập hình tự tan | hình (bản quyền Ironhide), mép mềm của khói bụi |
+| **Kingdom Rush 5** (đục 2026-11-18) | `hoc_kr5_vfx.md`; trang xem `ArtGen/ThamKhao/KR5/MO_WEB.bat` (lọc theo hệ, tua từng khung, hệ hạt chạy đúng code game) | đỉnh khung 1–3, hình từng pha của nổ, lửa, nước, khói, chuỗi mảnh của một đòn, hạt dập hình tự tan | hình (bản quyền Ironhide), nhịp "giữ 2 khung" (dự án muốn mượt) |
+| **4 gói VFX vector hoạt hình** người dùng gửi (2026-11-19) | mục 1c; `ArtGen/StyleRefs/vfx_mau/` | **style đích** của lửa, nước, nổ, khói, năng lượng: không viền, 3–4 tông + mảng sáng, nước chuyển màu, lửa có quầng mềm; tờ khung nhiều khung (nước 16, nổ 9) | chép nguyên hình vào game khi chưa rõ giấy phép |
 | **Clash of Critters** (đục 2026-11-09) | `pokiclash-hero-fx` mục 1b | mỗi cú trúng 3–4 lớp, lớp phụ trễ 0,15 s, 2 đợt hạt cách 0,1 s, cỡ bật 14% đời | quầng sáng, hình |
 | **Epic Toon FX** (Asset Store, `.gitignore`) | `pokiclash-hero-fx/toonfx.md` (công cụ đọc số `tools/ps_*.py`) | phân vị đời, tốc, cản; tờ khung ăn mòn; màu theo tuổi = nhiệt độ | ảnh, prefab |
 | **pixelfx** (MIT) | `pokiclash-hero-fx` mục 1, 6 | 12 kiểu hạt có vật lý, cách diễn quanh hiệu ứng | pixel art, lớp sáng cộng dồn |

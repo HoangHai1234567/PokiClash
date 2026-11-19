@@ -51,7 +51,7 @@ Người dùng xem concept lần 1: rừng và môi trường được, nhưng *
 | Công trình | Quán cà phê, vườn cây 4×4 ô; mỏ vàng 6×6; ruộng 8×8; ghế đá 2×2 | Công trình thường 4×4; Nhà chính, Mỏ 6×6; Giếng, Cây bi 2×2; trang trí 1×1 đến 2×2 |
 | Đất khoá | Một ảnh rời 8×8 ô: chân thoi cỏ phủ kín thông, cây tán tròn, gốc cây, đá rêu (`decoration_unlockableregion*`) | Ô rừng 8×8, mỗi kiểu một ảnh rời |
 | Nền | Đồng cỏ phẳng. Rìa ghép mảnh rời: bãi cát, cao nguyên vách nâu, núi xa, dải phong cảnh xa ở trên cùng (`bgdecoration_*`) | Như họ: hai cạnh dưới là bãi cát rồi biển, hai cạnh trên là cao nguyên, trên cùng là phong cảnh xa |
-| Cỡ làng | Clash of Clans: lưới 44 × 44 ô | Đảo **48 × 48 ô** = 6 × 6 ô rừng |
+| Cỡ làng | Clash of Clans: lưới 44 × 44 ô | Đảo **72 × 72 ô** = 6 × 6 ô rừng 12 × 12 (2026-11-19; bản đầu 48 × 48, ô rừng 8 × 8) |
 | Lưới | Chỉ hiện lúc xây (nét trắng mờ, hoặc gạch ngắn đầu tròn màu xanh) | Chỉ hiện lúc xây |
 
 - Đảo là một hình thoi lớn: 48 ô × 96 px là khoảng 4.600 px ngang, tức 4,3 màn ngang và 1,2 màn dọc. Thêm vành cát, biển, cao nguyên thì khoảng 5 × 2 màn.
@@ -350,6 +350,60 @@ Mình làm:
   - thả tay thì còn Đặt / Thôi, chỗ đỏ ghi lý do; đang dời thì nhấn lên bóng là kéo tiếp;
   - `HomeTap` bắt nhấn, giữ, kéo trên mặt đất; không cầm công trình thì chuyển nguyên sự kiện kéo cho `LandView` (kéo, chụm bản đồ như cũ); đang cầm thì ngón khác không kéo bản đồ.
   - Tour dùng sự kiện chạm giả (`10_bang_doi`, `10_keo`, `10_tha`): giữ là nhấc được, kéo 4 ô kho dời đúng, kéo đất trống bản đồ trôi.
+
+**Đảo to hơn, quái đi khắp đảo (người dùng dặn 2026-11-19)**: "chế độ home cho phép người chơi thả quái vật đi khắp map nên làm cho to ra nữa đi, cam không cần nhìn full cũng được, quái vật chỉ làm việc khi người chơi kéo nó vào chỗ làm hoặc chọn trong chỗ làm việc thôi".
+- **Lưới 72 x 72** (trước là 48 x 48), vẫn 6 x 6 ô rừng nhưng mỗi ô rừng **12 x 12** ô lưới. Số ô rừng, vòng, giá dọn, `maxLots` giữ nguyên, nên tiến độ không đổi mà mỗi ô mở ra rộng gấp 2,25. Ô lát 2 x 2 (36 x 36 ô lát).
+- Bản đồ 6.975 x 3.866 px. Thu nhỏ hết cỡ (0,56) chỉ thấy khoảng một phần tư bề ngang đảo, đúng ý người dùng.
+- **Ảnh nền ghép** từ mảnh của nền cũ, cùng mật độ px mỗi ô nên không mờ thêm (`ArtGen/Home/base/compose_base72.py`, nguồn `home_base_48.png`, ảnh soi lưới `preview_72_luoi.png`):
+  - cỏ, rừng nền, biển ghép vá (quilting), mép mềm;
+  - bờ cát hai cạnh dưới lặp từ dải bờ cũ, nắn thẳng độ trôi, nối bằng đường cắt ít lệch nhất;
+  - cụm vách, thác, hồ và vách phải phóng 1,5 cho vừa ô rừng 12 x 12; suối lặp dọc trục gy (nở dần ở chỗ ra khỏi hồ), cửa suối, hồ ven biển, bến giữ cỡ; mạch quặng phóng 1,25 cho vừa Mỏ 6 x 6;
+  - ảnh 2.210 x 1.225, nhập 4096 (`ArtImporter`). Ảnh khoảng cách tới bờ cho sóng sinh lại bằng `make_home_dist.py`;
+  - toạ độ hồ, suối đo trên mặt nạ đã ghép rồi ghi vào `balance.json`.
+- **Khoảnh đầu giữa đảo** (người dùng dặn cùng ngày: "ban đầu unlock cho người chơi 1 khoảng rộng 1 chút ở giữa map"):
+  - 3 x 3 ô rừng (2..4, 2..4), tức 36 x 36 ô lưới, thay cho 7 ô dải chéo xuống bến;
+  - làng ở giữa khoảnh: Nhà chính (39,39), ruộng, vườn bên trái, xưởng gỗ, kho bên phải, đường đất từ Nhà chính xuống phía bến tới mép khoảnh. Bến nằm ở ô rừng (5,5), mở sau;
+  - `maxLots` thêm 2 cho khớp: 11, 14, 17, 20, 24, 27, 30, 32 (tối đa 32 ô mở được);
+  - vòng 1 là 16 ô quanh khoảnh, vòng 2 là 7 ô sát mép trên; không còn vòng 3;
+  - mạch quặng trái dời sang ô rừng (2,5) (vòng 1, sát bờ trái) cho khỏi nằm trong khoảnh đầu;
+  - bản lưu cũ cũng được mở thêm các ô khoảnh mới (`Home.Of`).
+- Rìa rừng: dải cây rời sâu 6 ô ngoài hai cạnh trên (`HomeScene.SpawnRim`) nối ô rừng với rừng vẽ trên nền. Mỗi ô rừng rải lưới 6 x 6 cây và 7 đồ nhỏ. Mây rải theo px quanh mép.
+- **Bản lưu cũ**: `HomeState.grid` (bản lưu thiếu khoá này là 48). `Home.Of` gặp lưới khác thì `Home.Regrid`:
+  - ô rừng giữ chỉ số;
+  - công trình dời theo tâm nhân 1,5; chỗ không hợp lệ thì tìm chỗ trống gần Nhà chính;
+  - ô lát phủ lại đúng phần đất tương ứng.
+  - Test `BanLuu48_DoiTheoTiLe`.
+- **Quái đi lại** (H3), dùng lại `FarmPet` của Trang trại; cảnh chủ là giao diện `IFarmPetHost`, cả `FarmScene` và `HomeScene` đều theo:
+  - tướng rảnh (tối đa 14 con: trong đội trước, rồi sao, độ hiếm) rải khắp đất đã mở, nhảy lò cò tới điểm gần trong 6 ô; không xuyên công trình, hồ, suối, ô nước (`Home.Walkable`);
+  - tướng đang làm đứng trước công trình (ô 1 ngoài mặt trái, ô 2 ngoài mặt phải, ô 3 ở mũi), cử động theo việc: ruộng cuốc, vườn hái, ao rắc, bếp nhào, xưởng gỗ, mỏ, lò rèn đập búa. Hết sức thì ngồi nghiêng;
+  - tướng vừa rút ra ngủ dọc mặt trái Nhà chính. Chạm thì hiện còn nghỉ bao lâu, có bánh thì có nút "Cho ăn bánh".
+- **Chỉ giao việc khi người chơi làm**, bỏ nút Tự xếp:
+  - kéo quái đang dạo thả vào công trình làm ra đồ (sáng xanh: nhận được, đỏ: không). Kéo tới mép khung thì bản đồ tự trôi (`LandView.Nudge`);
+  - hoặc chạm công trình, bấm "Giao tướng" (ô trống) hoặc "Đổi ca" (đủ người: ô mệt nhất) để mở hộp chọn tướng. Hộp này dùng lại `FarmPickerDialog.ShowHome`, có nút rút ra.
+- Thứ tự vẽ: chỉ dời con nào lệch chỗ (lớp vật có hơn nghìn cây). Quái đứng trước mặt tường công trình thì vẽ sau công trình.
+- Tour chụp thêm `11_quai_dao`, `12_tha_quai`, `13_chon_tuong`.
+- **Bến tàu ở mũi dưới** (người dùng dặn qua phiên sảnh, 2026-11-19): chuyến tàu qua mây sảnh ↔ Nhà cập bến, rời bến ở đây.
+  - Ảnh nền nới biển ở mép dưới (2.210 x 1.330, bản đồ 6.975 x 4.197 px) cho tàu đủ chỗ.
+  - Bến vẽ bằng GPT 2.6 qua Magnific (95 credit), theo mẫu bến sảnh `ArtGen/Islands/sanh_moi/ben_tau/ben_tau_vung_1.png`. Vùng cắt mũi đảo, prompt `ArtGen/Home/base/ben_nha.txt`, ảnh ra `ben_nha_1.png`. `compose_base72.py` dán phần đổi theo chỗ khác ảnh gốc.
+  - Cầu gỗ từ mũi đảo chạy thẳng xuống biển, cọc buộc dây bên phải, đèn lồng cuối cầu, thùng gỗ ở đầu cầu.
+  - Tàu (`PierShip`, dựng bằng `ShipBuild.Pier` của phiên sảnh, con của lớp kéo) đậu bên phải cầu, mũi hướng lên; rời bến đi thẳng xuống dưới mép ảnh.
+  - `HomeScene.Enter` gán `Frame` (đặt máy ngay theo tàu, `LandView.ShiftWorld`), `Glide` (máy lướt tới tàu trước khi rời), `OnTap` (về đảo).
+  - Chỉ lần đầu tới Nhà bằng tàu: cập bến xong 0,4 giây thì máy lướt lên Nhà chính (cờ `HomeState.dockIntro` trong bản lưu). Từ lần thứ hai máy đứng ở bến, người chơi tự kéo (người dùng dặn 2026-11-19). Bến nằm ở ô rừng (5,5) chưa mở, nên quanh bến không cho cây mọc (4 ô).
+  - Mây che rìa là từng đám rời (người dùng chê mây "lấp ló", muốn mây toả nhanh, thấy rõ thuyền): dựng sẵn trong prefab (lớp `may`, `HomeSceneMenu.BuildClouds`). `CloudRing` của phiên sảnh lo trôi nhẹ, toả quanh tàu (bán kính 290); chuyến tàu mang mây sang dải mây lúc chụp màn. `HomeScene` không dời mây nữa.
+  - Mây Nhà cùng loại mây đảo (người dùng dặn): hình `Islands/land_thuy_may_1/2` xen kẽ như sảnh và dải mây chuyến tàu, cao theo tỉ lệ hình, alpha 1. Cỡ cho đều mây sảnh trên màn (rộng 380–540 px bản đồ), 150 đám xếp hai hàng so le quanh mép; hàng trong ở mép dưới chừa chỗ cuối bến.
+  - Ngày đêm như sảnh:
+    - thứ tự lớp trong lớp kéo: nền, ô lát, vật, hạt, mây, tàu, sáng tối, đèn;
+    - mây nằm dưới lớp nhuộm và gán vào `DayNight.clouds` (nhân `DayCycle.CloudTint`);
+    - biển ngoài ảnh (nền khung, hai bên) gán `seaOutside`;
+    - biển trong ảnh tối về đêm qua shader sóng.
+  - Chuyển cảnh nối liền như một thế giới (người dùng chê mờ dần): chuyến tàu ẩn giao diện cố định trước khi chụp màn làm nền trôi, hiện lại khi tàu cập bến. `HomeScene.Chrome` dùng CanvasGroup trên gốc giao diện `nha_ui`, mờ 0,25 giây; thế giới, quái, công trình, tàu không ẩn.
+
+**Lưới phát sáng khi xây (người dùng dặn 2026-11-19)**: "khi xây / đặt vị trí các building phải nhìn thấy grid kiểu ánh sáng glowing".
+- Shader `PokiClash/UIHomeGrid` (`Assets/03 Art/Shaders/UIHomeGrid.shader`, vật liệu `Assets/03 Art/Home/home_grid.mat`) trên ảnh `luoi` phủ cả bản đồ: nằm trên ô lát, dưới công trình.
+- Nét lưới theo ô: lõi mảnh tính theo px màn, zoom nào cũng mảnh như nhau, cộng quầng mềm cộng sáng. Chỉ vẽ trên ô rừng đã mở.
+- Mờ dần ra xa chỗ đang đặt: quanh chân thoi sáng nhất, xa còn khoảng 14%. Chưa cầm công trình thì cả lưới mờ 45%.
+- Chân thoi công trình đang đặt / dời: phủ xanh (đặt được) hoặc đỏ (không), viền sáng phập phồng.
+- Vào chế độ xây thì hiện dần trong 0,2 giây, ra thì tắt dần (`HomeScene.InitGrid`, `GridLots`, `GridGhost`, `FadeGrid`). Đã thử dáng bằng mô phỏng ngoài Unity.
 
 ## Ô lát: đất, cát, đường đá, nước (học Clash of Critters, 2026-11-18)
 

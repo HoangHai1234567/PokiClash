@@ -20,7 +20,8 @@ namespace PokiClash.EditorTools
     // 4 (2026-11-13, dung lượng build): khoá đổi sang khoá gọn (AtomikPose.PackAll, bỏ ô điểm điều khiển toàn 0) và icon không còn
     // là asset con (chỉ làm hình trong cửa sổ Project; trước đó mỗi dạng mang thêm 64 KB RGBA32 vào bản build).
     // 5 (2026-11-13): atlas thu về trần độ nét AtlasCap.
-    [ScriptedImporter(5, "atomik")]
+    // 6 (2026-11-19): đo khung bao hình từng clip (AtomikAsset.fit, MeasureFit) cho AolaSticker nới khung camera.
+    [ScriptedImporter(6, "atomik")]
     public sealed class AtomikImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
@@ -43,6 +44,7 @@ namespace PokiClash.EditorTools
             var asset = ScriptableObject.CreateInstance<AtomikAsset>();
             JsonUtility.FromJsonOverwrite(json, asset);
             AtomikPose.PackAll(asset);
+            asset.fit = MeasureFit(asset);
             string nm = string.IsNullOrEmpty(asset.rigName) ? Path.GetFileNameWithoutExtension(ctx.assetPath) : asset.rigName;
             asset.name = nm;
             var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false) { name = nm + "_atlas" };
@@ -68,6 +70,74 @@ namespace PokiClash.EditorTools
             ctx.AddObjectToAsset("material", mat);
             ctx.AddObjectToAsset("rig", asset, icon);
             ctx.SetMainObject(asset);
+        }
+
+        // Khung bao hình từng clip (AtomikAsset.fit): lấy mẫu 30 khung/giây, dựng lưới như AolaActor (gồm cả mặt nạ cắt: chỉ đỉnh của
+        // tam giác còn vẽ), bỏ slot mờ hẳn; trừ chỗ xương move (ngang trọn, dọc chỉ phần lên) như camera của AolaSticker bám theo. Clip
+        // có hiệu ứng ở xa (game.far) bỏ mảnh treo dưới xương far / fly*: sân tự dời khung theo đích (AolaSticker.Far).
+        public static float[] MeasureFit(AtomikAsset a)
+        {
+            if (a.bones == null || a.bones.Length == 0 || a.slots == null || a.atts == null || a.anims == null) return null;
+            var pose = new AtomikPose(a);
+            var v = new Vector3[pose.maxVerts];
+            var uv = new Vector2[pose.maxVerts];
+            var col = new Color32[pose.maxVerts];
+            var pass = pose.NewPass();
+            float h = a.game != null && a.game.height > 0 ? a.game.height : 0;
+            if (h <= 0) // như AolaActor.AtomikTop
+            {
+                pose.Sample(a.FindClip("idle"), 0);
+                pose.World();
+                int n0 = pose.Skin(pass, null, false, v, uv, col, 1, false, -1, out _);
+                h = 1;
+                for (int i = 0; i < n0; i++) h = Mathf.Max(h, v[i].y);
+            }
+            int move = a.FindBone(a.game != null && !string.IsNullOrEmpty(a.game.move) ? a.game.move : "move");
+            var farBone = new bool[a.bones.Length];
+            for (int i = 0; i < a.bones.Length; i++)
+            {
+                string nm = a.bones[i].name ?? "";
+                int p = a.bones[i].parent;
+                farBone[i] = nm == "far" || nm.StartsWith("fly") || p >= 0 && p < i && farBone[p];
+            }
+            bool[] farSlot = null;
+            for (int s = 0; s < a.slots.Length; s++)
+                if (a.slots[s].bone >= 0 && a.slots[s].bone < farBone.Length && farBone[a.slots[s].bone])
+                    (farSlot ??= new bool[a.slots.Length])[s] = true;
+            const float Fps = 30;
+            var res = new float[a.anims.Length * 3];
+            for (int ci = 0; ci < a.anims.Length; ci++)
+            {
+                var c = a.anims[ci];
+                bool far = farSlot != null && a.game?.far != null && System.Array.IndexOf(a.game.far, c.name) >= 0;
+                int steps = Mathf.Max(1, Mathf.CeilToInt(c.dur * Fps));
+                float mx = 0, top = 0, bot = 0;
+                for (int f = 0; f <= steps; f++)
+                {
+                    pose.Sample(ci, Mathf.Min(c.dur, f / Fps));
+                    pose.World();
+                    var m = move >= 0 ? pose.BonePos(move) : Vector2.zero;
+                    float fx = m.x, fy = Mathf.Max(0, m.y);
+                    pose.Skin(pass, far ? farSlot : null, false, v, uv, col, 1, false, -1, out _);
+                    var tris = pass.Tris;
+                    for (int k = 0; k + 2 < tris.Length; k += 3)
+                    {
+                        if (tris[k] == tris[k + 1] && tris[k] == tris[k + 2]) continue; // tam giác rỗng (chỗ dư của mặt nạ cắt)
+                        for (int e = 0; e < 3; e++)
+                        {
+                            int i = tris[k + e];
+                            if (col[i].a < 8) continue;
+                            mx = Mathf.Max(mx, Mathf.Abs(v[i].x - fx));
+                            top = Mathf.Max(top, v[i].y - fy);
+                            bot = Mathf.Min(bot, v[i].y - fy);
+                        }
+                    }
+                }
+                res[3 * ci] = mx / h;
+                res[3 * ci + 1] = top / h;
+                res[3 * ci + 2] = bot / h;
+            }
+            return res;
         }
 
         // Trần độ nét atlas (dung lượng build, người dùng 2026-11-13): dáng đứng cao tối đa AtlasCap điểm atlas. Tướng hiện to nhất

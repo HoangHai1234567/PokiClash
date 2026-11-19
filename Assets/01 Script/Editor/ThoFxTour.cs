@@ -201,6 +201,14 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Thổ: riêng Sơn Viên, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySonVien() => Try("phu_van", 1);
 
+        // Cổ Vương (tượng vua cổ rễ quấn cầm cột, suất hat_de ải 30, rig tuong_cot_1; dạng 1 Cổ Vương Nhi rig tuong_cot_non; 2026-11-19 chuyển
+        // từ suất gio_loc đảo Mộc về đây): sao 1 = dạng 1, sao 6 = dạng 2
+        [MenuItem("PokiClash/Thử/Đảo Thổ: riêng Cổ Vương Nhi (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        static void TryCoVuongNhi() => Try("hat_de", 1);
+
+        [MenuItem("PokiClash/Thử/Đảo Thổ: riêng Cổ Vương (sao 6), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        static void TryCoVuong() => Try("hat_de", 6);
+
         // Sa Trùng (sâu cát khổng lồ, suất rua_nui ải 40, rig sau_dat_1; 2026-11-17): sao 6 = dạng 2
         [MenuItem("PokiClash/Thử/Đảo Thổ: riêng Sa Trùng (sao 6), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySaTrung() => Try("rua_nui", 6);

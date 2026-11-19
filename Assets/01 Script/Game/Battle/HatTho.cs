@@ -16,6 +16,10 @@
 // DẠNG 2 (2026-11-17, rig riêng mỗi dạng; quai/doi_tho5_dang2.py): Thạch Giáp cong_da_2 (3528), Sa Tích than_lan_cat_2 (3530), Tê Thiềm
 // thu_da_2 (3526); Sa Long thêm DẠNG 1 rong_cat_non (3529), dạng 2 là rig rong_cat_1 cũ. Mã dạng 2: n_*2 (hàm cũ thêm tham số dang, mốc
 // và bảng vị trí đo trên rig dạng 2 ở inbox/<mã>_2_ghichu.md); Sa Long dạng 1: n_long_*1. Thang cỡ dạng 1 < dạng 2 (vfx-petclash mục 6).
+// KHUNG VẼ SẴN (2026-11-19, HatFlip.cs + HatFbTho.cs): bụi (ToCum, ToNo, đuôi bụi, dòng bụi), khói than (ToKhoiCum), gai / cột đá trồi (ToCot,
+// ToSongChan, TrungGaiDa, cột pha lê Tê Thiềm dạng 2) dùng khung vẽ sẵn khi đã nhập ảnh hat_fb_*; chưa nhập thì hạt cũ y như trước. Nhịp, chỗ,
+// cỡ, giờ trúng giữ nguyên; sỏi, dăm, chớp, vòng va chạm, hố, vết nứt, lưỡi cát, tảng đá, mảnh pha lê vẫn là hạt / mảng liền cũ. Thân lốc cát
+// (ToLocCat) là khung "loc_cat" hai lớp lệch pha (2026-11-19, người dùng chê lốc cũ "màu hơi trầm").
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -144,9 +148,19 @@ namespace PokiClash
             return Add(p);
         }
 
-        // cụm bụi chồng nhiều múi (to, vừa, nhỏ dính nhau, một viền mực ngoài): múi giữa + n−1 múi quanh, toả nhẹ rồi tách dần
-        void ToCum(Vector2 c, Vector2 vel, float R, int n, int group = Front, float life = 0)
+        // cụm bụi chồng nhiều múi (to, vừa, nhỏ dính nhau, một viền mực ngoài): múi giữa + n−1 múi quanh, toả nhẹ rồi tách dần.
+        // khung vẽ sẵn (2026-11-19): có khung "khoi" thì MỘT cụm khói vẽ sẵn nhuộm bụi (tint, mặc định bụi đất) cao (2,6 + 0,4 n) R (rộng ~ cao,
+        // tức ~3,6 R với n = 3: rộng hơn cụm múi cũ) thay n múi hạt (ít cụm mà to, mềm, tự tách mảnh rồi tan); dat: c ở sát đất (chân cụm ở mặt
+        // đất) hay giữa không trung (tâm cụm ở c)
+        void ToCum(Vector2 c, Vector2 vel, float R, int n, int group = Front, float life = 0, Color? tint = null, bool dat = true)
         {
+            if (HasFb("khoi"))
+            {
+                float h = R * (2.6f + 0.4f * n);
+                FbBui(c + new Vector2(0, (dat ? 0.1f : 0.42f) * h), vel * 0.6f, h, group, tint ?? FbBuiC, life > 0 ? Mathf.Clamp(0.85f / life, 0.6f, 2.4f) : 1.4f,
+                    0.92f, dat ? 1 : 3);                                       // giữa không trung: bỏ ba khung đầu (cụm nhỏ ở chân) cho cụm bung quanh c
+                return;
+            }
             float a0 = U(0, 6.28f);
             ToBui(c, vel, life, 0.6f * R, R, group);
             for (int i = 1; i < n; i++)
@@ -158,9 +172,15 @@ namespace PokiClash
             }
         }
 
-        // cụm khói than chồng nhiều múi (nổ lớn)
+        // cụm khói than chồng nhiều múi (nổ lớn). khung vẽ sẵn (2026-11-19): một cụm khói vẽ sẵn nhuộm khói than, tâm cụm ở c
         void ToKhoiCum(Vector2 c, Vector2 vel, float R, int n, float life, int group = Back)
         {
+            if (HasFb("khoi"))
+            {
+                float h = R * (2.6f + 0.4f * n);
+                FbBui(c + new Vector2(0, 0.4f * h), vel * 0.6f, h, group, FbKhoiDen, Mathf.Clamp(0.95f / life, 0.4f, 1.6f), 0.95f, 2, 32);
+                return;
+            }
             float a0 = U(0, 6.28f);
             ToKhoi(c, vel, life, 0.6f * R, R, group);
             for (int i = 1; i < n; i++)
@@ -344,6 +364,19 @@ namespace PokiClash
                 ToSoiCum(c, v, U(3f, 4.4f) * (0.85f + 0.15f * muc) * sc, (i & 1) == 0 ? c1 : c2, (i & 1) == 0 ? c2 : c1, ground + U(-4, 6) * sc,
                     (i & 1) == 0 ? Front : Back);
             }
+            // khung vẽ sẵn (2026-11-19): bụi của cú trúng là MỘT cụm khói vẽ sẵn sau thân (cao 0,36 tH × √muc, màu theo dăm), thay hai cụm múi hạt;
+            // dời 0,16 tH về phía kẻ đánh (ghép thử: cụm ngay sau giữa thân bị thân che gần hết) và trôi theo hướng đó; cú sát đất thì chân cụm ở
+            // mặt đất
+            if (HasFb("khoi"))
+            {
+                float h = 0.36f * tH * m;
+                bool satDat = ground - c.y < 0.42f * tH;
+                var lui = coHuong ? -Unit(huong) : Vector2.zero;
+                var at = c + new Vector2(lui.x * 0.16f * tH, 0);
+                FbBui(satDat ? new Vector2(at.x, ground - 2 * sc) : at + new Vector2(0, 0.42f * h), new Vector2(lui.x * U(20, 50) + U(-15, 15), -U(20, 40)) * sc, h,
+                    Back, FbTint(c1), muc >= 1.5f ? 1.25f : 1.45f, 0.92f, satDat ? 1 : 3);
+                return;
+            }
             ToCum(c + new Vector2(0, -4 * sc), new Vector2(U(-20, 20), -U(30, 60)) * sc, 11 * m * sc, muc >= 1.2f ? 4 : 3, Back);
             if (ground - c.y < 0.42f * tH && muc >= 1) ToCum(new Vector2(c.x, ground - 4 * sc), new Vector2(U(-30, 30), -12) * sc, 9 * m * sc, 3, Back);
         }
@@ -416,10 +449,13 @@ namespace PokiClash
 
         // đuôi bụi liền cho mảnh của rig bay thẳng từ a tới b trong tb giây (game lái, lớp hạt không đọc được xương): rải cụm đứng tại chỗ theo
         // quãng (KR5: đuôi chia theo quãng nên liền). Rig có thể nhanh dần nên đuôi theo u² của giờ: luôn ở SAU mảnh, không vượt lên trước
+        // khung vẽ sẵn (2026-11-19): có khung "khoi" thì đuôi là các cụm khói vẽ sẵn nhuộm theo col, bước gấp đôi, cụm to hơn (chồng nhau thành dải)
         void ToDuoiThang(Vector2 a, Vector2 b, float tb, float r, Color col)
         {
             var dv = Unit(b - a);
-            float len = (b - a).magnitude, buoc = Mathf.Max(6, 0.9f * r);
+            bool fb = HasFb("khoi");
+            float len = (b - a).magnitude, buoc = fb ? Mathf.Max(12, 1.8f * r) : Mathf.Max(6, 0.9f * r);
+            var tint = FbTint(col == ToCat3 ? ToCat : col);
             var p = new P { pos = a, life = tb, group = Front };
             p.upd = (z, dt, s) =>
             {
@@ -428,6 +464,12 @@ namespace PokiClash
                 {
                     z.R0 += buoc;
                     var at = a + dv * z.R0 + new Vector2(-dv.y, dv.x) * s.U(-0.25f, 0.25f) * r;
+                    if (fb)
+                    {
+                        float h = 2.6f * r;
+                        s.FbBui(at + new Vector2(0, 0.42f * h), new Vector2(s.U(-8, 8), -s.U(6, 18)), h, Front, tint, 2f, 0.85f, 4);
+                        continue;
+                    }
                     var c = s.ToBui(at, new Vector2(s.U(-12, 12), -s.U(10, 30)), s.U(0.34f, 0.46f), 0.45f * r, 0.8f * r, Front, false);
                     c.col = col;
                 }
@@ -563,13 +605,15 @@ namespace PokiClash
                 q.vel = Vector2.zero;
                 q.sz = r * Mathf.Lerp(1, co1, f);
                 var dv = q.pos - cu;
+                if (dv.sqrMagnitude > 1e-6f) q.aim = dv.normalized;               // hướng bay hiện tại (vệt khói đuôi đọc)
                 q.R0 += dv.magnitude;
-                float buoc = Mathf.Max(7, 0.85f * q.sz);
+                bool fb = s.HasFb("khoi");                                       // khung vẽ sẵn: bụi đuôi do FbKhoiDuoi lo, ở đây chỉ còn sỏi rơi
+                float buoc = fb ? Mathf.Max(14, 1.7f * q.sz) : Mathf.Max(7, 0.85f * q.sz);
                 if (q.R0 < buoc || dv.sqrMagnitude < 1e-6f) return;
                 q.R0 -= buoc;
                 var u = dv.normalized;
-                var c = s.ToBui(q.pos - u * (0.75f * q.sz) + new Vector2(-u.y, u.x) * s.U(-0.3f, 0.3f) * q.sz, -u * s.U(10, 30) + new Vector2(0, -s.U(8, 24)),
-                    s.U(0.36f, 0.5f), 0.35f * q.sz, 0.62f * q.sz, Front, false);
+                var at = q.pos - u * (0.75f * q.sz) + new Vector2(-u.y, u.x) * s.U(-0.3f, 0.3f) * q.sz;
+                if (!fb) s.ToBui(at, -u * s.U(10, 30) + new Vector2(0, -s.U(8, 24)), s.U(0.36f, 0.5f), 0.35f * q.sz, 0.62f * q.sz, Front, false);
                 if (s.U(0, 1) < 0.18f) s.ToSoi(q.pos, -u * s.U(30, 80) + new Vector2(s.U(-40, 40), -s.U(20, 60)), s.U(0.12f, 0.2f) * q.sz, ToDa2, dat + s.U(-4, 8));
             };
             p.draw = DrawTang;
@@ -578,7 +622,13 @@ namespace PokiClash
                 trung?.Invoke(b);
                 if (vo > 0) s.ToTangVo(b, q.sz, b - a, dat, q.seed, phach, vo);
             };
+            p.aim = Unit(b - a);
             Add(p);
+            // VỆT KHÓI ĐUÔI (người dùng 2026-11-19: "... nên thêm trail smoke vào"): FbKhoiDuoi nhuộm bụi đất nhả sau tảng (0,75 bán kính sau tâm,
+            // lớp trước nhưng dưới tảng), cụm cao 1,6 bán kính (26–55 đơn vị sân); thay đuôi cụm khói theo quãng cũ (không chồng hai vệt). Tảng
+            // nhỏ (mưa đá r < 8) không kéo khói
+            if (r >= 8)
+                FbKhoiDuoi(() => p.pos - p.aim * (0.75f * p.sz), () => !p.dead && p.age < p.life, Mathf.Clamp(1.6f * r, 26, 55), 26, FbBuiC, Front, 27);
         }
 
         // lưỡi cát trăng khuyết (mảng liền viền mực, dải sáng ở mép trước) bay thẳng a → b trong tb giây, ĐUÔI CÁT liền phía sau; tới nơi gọi
@@ -588,15 +638,22 @@ namespace PokiClash
             var d = Unit(b - a);
             var ax = new Vector2(-d.y, d.x);
             var p = new P { pos = a, vel = (b - a) / tb, life = tb, group = Front, sz = R };
+            bool fb = HasFb("khoi");                                             // khung vẽ sẵn (2026-11-19): đuôi cát là cụm khói vẽ sẵn nhuộm cát
             p.upd = (q, dt, s) =>
             {
                 q.R0 += q.vel.magnitude * dt;
-                float buoc = Mathf.Max(6, 0.3f * q.sz);
+                float buoc = fb ? Mathf.Max(12, 0.6f * q.sz) : Mathf.Max(6, 0.3f * q.sz);
                 while (q.R0 >= buoc)
                 {
                     q.R0 -= buoc;
-                    var c = s.ToBui(q.pos - d * (q.sz * 0.42f) + ax * s.U(-0.4f, 0.4f) * q.sz, -d * s.U(10, 30) + new Vector2(0, -s.U(5, 20)), s.U(0.3f, 0.42f),
-                        0.12f * q.sz, 0.24f * q.sz, Front, false);
+                    var at = q.pos - d * (q.sz * 0.42f) + ax * s.U(-0.4f, 0.4f) * q.sz;
+                    if (fb)
+                    {
+                        float h = 0.62f * q.sz;
+                        s.FbBui(at + new Vector2(0, 0.42f * h), -d * s.U(8, 20) + new Vector2(0, -s.U(4, 14)), h, Front, FbCatC, 2.1f, 0.85f, 4);
+                        continue;
+                    }
+                    var c = s.ToBui(at, -d * s.U(10, 30) + new Vector2(0, -s.U(5, 20)), s.U(0.3f, 0.42f), 0.12f * q.sz, 0.24f * q.sz, Front, false);
                     c.col = s.U(0, 1) < 0.5f ? ToCat : ToCat3;
                 }
             };
@@ -617,12 +674,19 @@ namespace PokiClash
                     MSolid(Front, 26, Crescent(z.pos - d * (0.2f * z.sz * k), d, ax, z.sz, ep, 0.42f * ep, 1.15f * loe, n), N, ToCat, al, 2.4f);
                 };
                 s.Add(v);
-                for (int i = 0; i < 3; i++)
-                {
-                    float sd = i - 1;
-                    var c = s.ToBui(b + ax * (sd * 0.5f * R), ax * (sd * 60) - d * 40 + new Vector2(0, -30), s.U(0.4f, 0.55f), 0.25f * R, 0.42f * R, Front, false);
-                    c.col = ToCat3;
-                }
+                if (fb)                                                          // khung vẽ sẵn: lưỡi vỡ thành hai cụm cát vẽ sẵn hai đầu lưỡi
+                    for (int i = -1; i <= 1; i += 2)
+                    {
+                        float h = 0.9f * R;
+                        s.FbBui(b + ax * (i * 0.4f * R) + new Vector2(0, 0.42f * h), ax * (i * 36) - d * 24 + new Vector2(0, -18), h, Front, FbCatC, 1.8f, 0.9f, 3);
+                    }
+                else
+                    for (int i = 0; i < 3; i++)
+                    {
+                        float sd = i - 1;
+                        var c = s.ToBui(b + ax * (sd * 0.5f * R), ax * (sd * 60) - d * 40 + new Vector2(0, -30), s.U(0.4f, 0.55f), 0.25f * R, 0.42f * R, Front, false);
+                        c.col = ToCat3;
+                    }
             };
             Add(p);
         }
@@ -631,6 +695,17 @@ namespace PokiClash
         void ToCot(Vector2 chan, float w, float h, float giu, int group, float sc)
         {
             const float tLen = 0.12f, tLun = 0.25f;
+            // khung vẽ sẵn (2026-11-19; người dùng: "gai ... đâm lên xấu"): cụm cột sa thạch vẽ sẵn (khung gai sắt nhuộm sa thạch) trồi đúng nhịp cũ
+            // (lên 0,12 s, giữ, vỡ rơi 0,25 s), đỉnh cao bằng cột cũ; bụi + vụn ở chân có sẵn trong khung nên bỏ hai cụm bụi hạt; giữ dăm, hố
+            if (HasFb("gai_sat"))
+            {
+                FbGai(chan, h, group, FbSaThach, tLen, giu, tLun, U(0, 1) < 0.5f);
+                for (int i = 0; i < 2; i++)
+                    ToSoiCum(chan + new Vector2(U(-0.3f, 0.3f) * w, -4), new Vector2(U(-160, 160), U(-300, -170)) * sc, U(2.8f, 4f) * sc,
+                        i == 0 ? ToCat2 : ToSaThach, ToCatSam, chan.y + 2, (i & 1) == 0 ? Front : Back);
+                ToHo(chan, 0.65f * w, giu);
+                return;
+            }
             var p = new P { pos = chan, life = tLen + giu + tLun, group = group, sz = h, wd = w, hgt = U(-0.25f, 0.25f) * w };
             p.draw = (q, k, buf) =>
             {
@@ -724,12 +799,69 @@ namespace PokiClash
 
         // lốc cát trùm đối thủ (mảng liền trong mờ, viền mực): thân phễu cát, sáu dải xoáy chéo sẫm / sáng chạy lên, miệng loe; nở 0,25 s
         // đầu, tan 0,35 s cuối; mảnh đất nung bay quanh, bụi tràn miệng và chân phễu. Khối lớn phủ lên đối thủ nên trong mờ 0,82.
-        void ToLocCat(Vector2 chan, float cao, float t0, float t1, float sc)
+        void ToLocCat(Vector2 chan, float cao, float t0, float t1, float sc, float tH = 0)
         {
             float dur = t1 - t0;
+            // LỐC TRÙM "loc_cat_bao" (2026-11-19, ưu tiên khi đã nhập ảnh): cột xoáy DÀY, gốc gần rộng bằng miệng (đo 8 khung: ngang 0,56–0,68 bề
+            // ngang khung ở 20–50 % cao, 0,76–0,85 ở 60–80 %), nên không cần hạ chân / giãn mạnh như khung phễu: chân lốc ngay dưới chân đối thủ
+            // (+0,04 T), khung cao 1,7 tH (đỉnh lốc ~1,6 tH), giãn ngang 1,2 (dạng 2: 1,25) → ngang chân / bụng ~1,1–1,25 tH, ngực ~1,5 tH: trùm
+            // kín từ chân tới đầu. Hai lớp, lớp trước trong 0,5, nhịp hiện / tắt như dưới
+            bool baoFb = HasFb("loc_cat_bao");
+            // khung vẽ sẵn "loc_cat" (2026-11-19; người dùng chê lốc cũ "màu hơi trầm và chưa hợp lắm"): thân lốc là khung lốc cát LẶP (phễu hẹp ở
+            // đất nở lên, dải cát xoắn kem / vàng cát / nâu) thay phễu mảng liền + sáu dải xoắn. Hai lớp lệch pha nửa vòng: lớp SAU đặc, lớp TRƯỚC
+            // trong 0,5 (đối thủ vẫn lộ trong lốc, như phễu cũ trong 0,82). Hiện mượt: cao 35 % → đủ trong 0,22 s, mờ vào 0,15 s, tắt dần 0,35 s
+            // cuối. Mảnh đất nung bay quanh và bụi miệng / chân giữ bên dưới (thưa hơn).
+            // CỠ (người dùng xem trong trận 2026-11-19: "lốc xoáy làm to lên cho che hết tướng địch"): khung lốc eo hẹp ở 20–40 % cao (chỉ ~0,23–0,33
+            // bề ngang khung, đo trên 8 khung), miệng rộng ở 50–85 %. Nên hạ CHÂN lốc 0,34 T dưới chân đối thủ (T = 150 sc ~ thân đối thủ, dạng 2
+            // × 1,15) cho thân nó nằm từ 17 % cao khung trở lên, khung cao 2,05 T (lộ trên chân đối thủ ~1,65 T), giãn ngang 1,75 lần: ngang chân
+            // ~1,2 T, ngang bụng (eo) ~0,8–1,2 T, ngang ngực ~1,7 T, miệng ~2,3 T. Không vượt mép trên sân (đỉnh cách mép 12). Giãn hơn nữa cho eo
+            // ≥ 1,35 T thì vân chì bị kéo méo quá (eo cần giãn ~2,5 lần)
+            bool locFb = baoFb || HasFb("loc_cat");
+            if (locFb)
+                At(t0, () =>
+                {
+                    string ten = baoFb ? "loc_cat_bao" : "loc_cat";
+                    var art = FbArt(ten);
+                    var d = Fbs[ten];
+                    float T150 = 150 * sc, tHt = tH > 1 ? tH : T150, fps = d.fps * 1.3f, ph = U(0, 24);
+                    Vector2 goc;
+                    float H0, Gian;
+                    if (baoFb)
+                    {
+                        goc = chan + new Vector2(0, 0.04f * T150);
+                        H0 = Mathf.Max(cao / 0.95f, Mathf.Min(1.7f * tHt, (goc.y - 12) / 0.95f));
+                        Gian = T150 > 1.05f * tHt ? 1.25f : 1.2f;
+                    }
+                    else
+                    {
+                        goc = chan + new Vector2(0, 0.34f * T150);
+                        H0 = Mathf.Max(cao / 0.97f, Mathf.Min(2.05f * T150, (goc.y - 12) / 0.97f));
+                        Gian = 1.75f;
+                    }
+                    for (int lop = 0; lop < 2; lop++)
+                    {
+                        bool truoc = lop == 1;
+                        var p = new P { pos = goc, life = dur, group = truoc ? Front : Back };
+                        p.draw = (q, k, buf) =>
+                        {
+                            float a = q.age;
+                            float hien = Mathf.Min(1, a / 0.15f) * Mathf.Clamp01((dur - a) / 0.35f) * (truoc ? 0.5f : 1);
+                            if (hien < 0.02f) return;
+                            float h = H0 * (0.35f + 0.65f * EaseOut(Mathf.Min(1, a / 0.22f)));
+                            // khung lặp f (chồng mờ khung kế như DrawFb), neo giữa đáy, bề ngang × Gian
+                            float f = (ph + (truoc ? 12 : 0) + a * fps) % d.n;
+                            int i = (int)f, j = (i + 1) % d.n;
+                            float u = f - i, lp = truoc ? 22 : 24;
+                            var tam = q.pos + new Vector2(0, -(0.5f - d.py) * h);
+                            Put(buf, q.group, lp, art[i], Color.white, tam, h, d.aspect * Gian, 0, hien);
+                            if (u > 0.02f) Put(buf, q.group, lp + 0.001f, art[j], Color.white, tam, h, d.aspect * Gian, 0, hien * u);
+                        };
+                        Add(p);
+                    }
+                });
             Func<float, float, float> bk = (u, mo) => 1.35f * (12 + 28 * u + 30 * u * u * u) * (0.35f + 0.65f * mo) * sc;   // miệng phễu loe; rộng hơn bản xem trước 35 % (2026-11-17, soi trong game: hẹp hơn thân đối thủ to)
             Func<float, float, float> lac = (a, u) => 7 * sc * Mathf.Sin(a * 8 + u * 4.5f) * u;
-            At(t0, () =>
+            if (!locFb) At(t0, () =>
             {
                 var p = new P { pos = chan, life = dur, group = Front };
                 p.draw = (q, k, buf) =>
@@ -777,8 +909,8 @@ namespace PokiClash
                 };
                 Add(p);
             });
-            // mảnh đất nung + bụi bay quanh lốc, bụi tràn miệng / chân phễu
-            Every(t0 + 0.12f, t1 - 0.25f, 36, x =>
+            // mảnh đất nung + bụi bay quanh lốc, bụi tràn miệng / chân phễu (khung lốc cát đã có sỏi văng sẵn nên mảnh bay quanh thưa còn 22 / giây)
+            Every(t0 + 0.12f, t1 - 0.25f, locFb ? 22 : 36, x =>
             {
                 float u = U(0.15f, 0.95f), a0 = U(0, 6.28f), sp = U(9, 14);
                 var q = new P { pos = chan, life = U(0.35f, 0.6f), group = Front, seed = rng.Next(4), sz = U(3.5f, 6f) * sc, col = U(0, 1) < 0.5f ? ToGom : ToGom2,
@@ -792,15 +924,17 @@ namespace PokiClash
                 };
                 q.draw = DrawSoiP;
                 Add(q);
+                // khung vẽ sẵn (2026-11-19): bụi tràn miệng / chân phễu là cụm cát vẽ sẵn, ít mà to (xác suất × 0,4, cụm × 1,3)
                 if (U(0, 1) < 0.45f)
                 {
                     float d = U(0, 1) < 0.5f ? -1 : 1;
-                    ToBui(chan + new Vector2(d * 60 * sc, -cao * 0.95f), new Vector2(d * 70, -10) * sc, 0.5f, 5 * sc, 13 * sc);
+                    ToBuiFb(chan + new Vector2(d * 60 * sc, -cao * 0.95f), new Vector2(d * 70, -10) * sc, 0.5f, 5 * sc, 13 * sc, Front, null, FbCatC, 0.4f, 1.3f,
+                        false, true);
                 }
                 if (U(0, 1) < 0.35f)
                 {
                     float d = U(0, 1) < 0.5f ? -1 : 1;
-                    ToBui(chan + new Vector2(d * 20 * sc, -2), new Vector2(d * 80, -10) * sc, 0.45f, 4 * sc, 12 * sc, Back);
+                    ToBuiFb(chan + new Vector2(d * 20 * sc, -2), new Vector2(d * 80, -10) * sc, 0.45f, 4 * sc, 12 * sc, Back, null, FbCatC, 0.4f, 1.3f, true, true);
                 }
             });
         }
@@ -816,6 +950,19 @@ namespace PokiClash
                 At(tb * f, () =>
                 {
                     var c = Vector2.Lerp(a, b, f);
+                    // khung vẽ sẵn (2026-11-19; "gai ... đâm lên xấu"): mỗi nhịp MỘT cụm gai đá vẽ sẵn (khung gai sắt nhuộm đá nâu be), lớn dần về
+                    // phía đối thủ, xếp so le hai bên đường chạy, lật xen kẽ; trồi 0,08 s, giữ 0,1 s, vỡ 0,16 s (như gai cũ 0,32 s); bụi, vụn ở chân có
+                    // sẵn trong khung nên bỏ cụm bụi hạt, giữ sỏi bắn
+                    if (HasFb("gai_sat"))
+                    {
+                        int ii = Mathf.RoundToInt(f * n);
+                        float so = (ii & 1) == 0 ? -1 : 1;
+                        FbGai(c + new Vector2(U(-6, 6), so * 4) * sc, U(30, 40) * (0.7f + 0.6f * f) * sc, Front, FbDaNau, 0.08f, 0.1f, 0.16f,
+                            (ii & 2) == 0, U(-6, 6));
+                        if ((ii & 1) == 1) ToSoi(c, new Vector2(U(-120, 120), -U(180, 280)) * sc, U(2.2f, 3.2f) * sc, ToDa2, c.y + 3 * sc);
+                        if (cuoi) toi?.Invoke();
+                        return;
+                    }
                     for (int m = 0; m < 2; m++)
                     {
                         var q = new P
@@ -922,11 +1069,12 @@ namespace PokiClash
             bool d2 = dang == 2;
             float lac0 = d2 ? 0.26f : GiapLac0, dap = d2 ? 0.68f : GiapDap;
             Func<float, Vector2> mai = t => ToSan(casterFeet, casterH, dir, ToDiem(d2 ? GiapMai2 : GiapMai, lac0, 0.08f, t / k));
-            // lắc mai: bụi bốc thành cụm liền quanh mai (ít mà to, không rải rác), sỏi nhỏ rơi
+            // lắc mai: bụi bốc thành cụm liền quanh mai (ít mà to, không rải rác), sỏi nhỏ rơi. khung vẽ sẵn (2026-11-19): cụm khói vẽ sẵn nhuộm
+            // bụi, 40 % số cụm, to × 1,3
             Every(lac0 * k, GiapLac1 * k, 13, x =>
             {
                 var p = mai((lac0 + (GiapLac1 - lac0) * x) * k) + new Vector2(U(-0.16f, 0.16f), U(-0.08f, 0.08f)) * casterH;
-                ToBui(p, new Vector2(U(-30, 30), -U(20, 50)) * sH, U(0.5f, 0.65f), 5 * sH, U(9, 12) * sH, Front, false);
+                ToBuiFb(p, new Vector2(U(-30, 30), -U(20, 50)) * sH, U(0.5f, 0.65f), 5 * sH, U(9, 12) * sH, Front, null, FbBuiC, 0.4f, 1.3f);
                 if (U(0, 1) < 0.4f) ToSoi(p, new Vector2(U(-90, 90), U(-160, -60)) * sH, 1.8f * sH, ToDa, casterFeet.y + 4 * sH);
             });
             for (int i = 0; i < 3; i++)
@@ -936,7 +1084,7 @@ namespace PokiClash
                 var cham = foeBody + new Vector2(-dir * 0.1f * tH, 0);           // mảnh của rig tới đúng giữa thân đối thủ (xương far): bông ở mặt trước
                 At(GiapPhong[j] * k, () =>
                 {
-                    ToCum(tu, new Vector2(-dir * 30, -30) * sH, (d2 ? 9 : 7) * sH, 3);
+                    ToCum(tu, new Vector2(-dir * 30, -30) * sH, (d2 ? 9 : 7) * sH, 3, Front, 0, null, false);   // khung vẽ sẵn: cụm giữa không trung (hốc mai)
                     ToDuoiThang(tu, cham, GiapBay * k, (d2 ? 8 : 6) * sH, d2 ? ToCat3 : ToBuiC);
                 });
                 At((GiapPhong[j] + GiapBay) * k, () =>
@@ -963,8 +1111,9 @@ namespace PokiClash
             bool d2 = dang == 2;
             float L = Mathf.Max(0.3f, lead), k = L / (d2 ? 1.56f : GiapSkill), dir = foeFeet.x >= casterFeet.x ? 1 : -1, sc = tH / 150f, sH = casterH / 150f;
             float gong1 = d2 ? 0.84f : GiapGong1, ban = d2 ? 0.90f : GiapBan, mua = d2 ? 1.22f : GiapMua, to = d2 ? 1.25f : 1f;
-            Every(GiapGong0 * k, gong1 * k, 10, x =>
-                ToBui(casterFeet + new Vector2(U(-0.4f, 0.4f) * casterH, -2), new Vector2(U(-40, 40), -20) * sH, 0.55f, 5 * sH, 11 * sH, Back, false));
+            Every(GiapGong0 * k, gong1 * k, 10, x =>                         // khung vẽ sẵn (2026-11-19): bụi gồng là cụm vẽ sẵn, 40 % số cụm, to × 1,3
+                ToBuiFb(casterFeet + new Vector2(U(-0.4f, 0.4f) * casterH, -2), new Vector2(U(-40, 40), -20) * sH, 0.55f, 5 * sH, 11 * sH, Back, null, FbBuiC, 0.4f,
+                    1.3f, true));
             At(GiapGong0 * k, () => Shake?.Invoke(0.05f));
             At(ban * k, () =>
             {
@@ -972,7 +1121,7 @@ namespace PokiClash
                 ToChop(goc, 0.3f * casterH, Front, 0.1f);
                 for (int i = 0; i < (d2 ? 8 : 6); i++)
                     ToPhaLe(goc + new Vector2(U(-18, 18) * sH, 0), new Vector2(U(-60, 60), -1100 - 120 * i) * sH, 30 * sH, 12 * sH, 0.5f);
-                ToCum(goc, new Vector2(0, -40) * sH, 12 * sH, 4);
+                ToCum(goc, new Vector2(0, -40) * sH, 12 * sH, 4, Front, 0, null, false);   // khung vẽ sẵn: cụm giữa không trung (hốc pha lê)
                 ToVong(casterFeet, 80 * sH);
                 Shake?.Invoke(0.15f);
             });
@@ -1028,7 +1177,7 @@ namespace PokiClash
             float L = Mathf.Max(0.05f, lead), dir = foeFeet.x >= casterFeet.x ? 1 : -1, sH = casterH / 150f;
             if (dang == 2)
                 At(L * 0.38f / 0.52f, () =>
-                    ToCum(casterFeet + new Vector2(-dir * 0.15f * casterH, -4 * sH), new Vector2(-dir * U(90, 150), -U(20, 40)) * sH, 12 * sH, 3, Back));
+                    ToCum(casterFeet + new Vector2(-dir * 0.15f * casterH, -4 * sH), new Vector2(-dir * U(90, 150), -U(20, 40)) * sH, 12 * sH, 3, Back, 0, FbCatC));
             At(L, () =>
             {
                 var c = foeBody + new Vector2(-dir * 0.12f * tH, 0.04f * tH);
@@ -1044,13 +1193,13 @@ namespace PokiClash
             bool d2 = dang == 2;
             float L = Mathf.Max(0.05f, lead), k = L / (d2 ? 0.672f : TichCast), dir = foeFeet.x >= casterFeet.x ? 1 : -1, sc = tH / 150f, sH = casterH / 150f;
             float x0 = d2 ? 0.05f : 0.12f, x1 = 0.45f;
-            // cát bốc quanh áo choàng: cụm liền nở dần theo nhịp xoè (mật độ tăng tới lúc phóng), không chấm rải rác
+            // cát bốc quanh áo choàng: cụm liền nở dần theo nhịp xoè (mật độ tăng tới lúc phóng), không chấm rải rác. khung vẽ sẵn (2026-11-19):
+            // cụm khói vẽ sẵn nhuộm cát, 40 % số cụm, to × 1,3
             Every(x0 * k, x1 * k, x => (d2 ? 10 : 8) + 10 * x, x =>
             {
                 var p = ToSan(casterFeet, casterH, dir, d2 ? ToDiem(TichAo2, 0.05f, 0.1f, x0 + (x1 - x0) * x) : ToDiem(TichAo, 0.12f, 0.11f, x0 + (x1 - x0) * x))
                         + U2(-0.2f, 0.2f) * casterH;
-                var b = ToBui(p, new Vector2(U(-40, 40), U(-60, -20)) * sH, U(0.5f, 0.65f), 5 * sH, U(9, 12) * sH, Front, false);
-                b.col = U(0, 1) < 0.5f ? ToCat : ToCat3;
+                ToBuiFb(p, new Vector2(U(-40, 40), U(-60, -20)) * sH, U(0.5f, 0.65f), 5 * sH, U(9, 12) * sH, Front, U(0, 1) < 0.5f ? ToCat : ToCat3, FbCatC, 0.4f, 1.3f);
             });
             var ph = d2 ? TichPhong2 : TichPhong;
             var cham = foeBody + new Vector2(-dir * 0.1f * tH, 0);
@@ -1072,13 +1221,13 @@ namespace PokiClash
             bool d2 = dang == 2;
             float L = Mathf.Max(0.3f, lead), k = L / TichSkill, sc = tH / 150f, sH = casterH / 150f, dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             var dam = d2 ? ToSan(casterFeet, casterH, dir, TichVuot2) + new Vector2(0, casterH * 0.05f) : casterFeet;
-            // cát xoáy quanh chân đối thủ: cụm liền chạy vòng (mật độ tăng dần tới lúc lốc trùm)
+            // cát xoáy quanh chân đối thủ: cụm liền chạy vòng (mật độ tăng dần tới lúc lốc trùm). khung vẽ sẵn (2026-11-19): cụm khói vẽ sẵn nhuộm
+            // cát, chân ở mặt đất, 40 % số cụm, to × 1,3
             Every(0.08f * k, L, x => 8 + 12 * x, x =>
             {
                 float a = U(0, 6.28f);
-                var b = ToBui(foeFeet + new Vector2(50 * Mathf.Cos(a), -4 + 8 * Mathf.Sin(a)) * sc, new Vector2(-70 * Mathf.Sin(a), -20) * sc, 0.55f, 5 * sc,
-                    11 * sc, Mathf.Sin(a) > 0 ? Front : Back, false);
-                b.col = U(0, 1) < 0.5f ? ToCat : ToCat3;
+                ToBuiFb(foeFeet + new Vector2(50 * Mathf.Cos(a), -4 + 8 * Mathf.Sin(a)) * sc, new Vector2(-70 * Mathf.Sin(a), -20) * sc, 0.55f, 5 * sc,
+                    11 * sc, Mathf.Sin(a) > 0 ? Front : Back, U(0, 1) < 0.5f ? ToCat : ToCat3, FbCatC, 0.4f, 1.3f, true);
             });
             foreach (float td in d2 ? new[] { TichDam, TichSkill } : new[] { TichDam })
                 At(td * k, () =>
@@ -1086,11 +1235,11 @@ namespace PokiClash
                     ToVong(dam, (d2 ? 95 : 80) * sH);
                     ToHo(dam, (d2 ? 30 : 24) * sH, 0.7f);
                     for (int d = -1; d <= 1; d += 2)
-                        ToCum(dam + new Vector2(d * 40 * sH, -4 * sH), new Vector2(d * 90, -20) * sH, 12 * sH, 3);
+                        ToCum(dam + new Vector2(d * 40 * sH, -4 * sH), new Vector2(d * 90, -20) * sH, 12 * sH, 3, Front, 0, FbCatC);
                     Shake?.Invoke(0.25f);
                 });
             float cao = Mathf.Min((d2 ? 1.45f : 1.25f) * tH, foeFeet.y - 30);   // phễu tự hạ khi đối thủ đứng sát mép trên sân
-            ToLocCat(foeFeet + new Vector2(0, 4 * sc), cao, Mathf.Max(0, L - 0.06f * k), (TichHet + 0.2f) * k, sc * (d2 ? 1.15f : 1f));
+            ToLocCat(foeFeet + new Vector2(0, 4 * sc), cao, Mathf.Max(0, L - 0.06f * k), (TichHet + 0.2f) * k, sc * (d2 ? 1.15f : 1f), tH);
             return L;
         }
 
@@ -1165,7 +1314,7 @@ namespace PokiClash
                     ToVong(foeFeet, (d2 ? 100 : 80) * sc);
                     Shake?.Invoke(0.2f);
                 }, 1, -1, d2 ? 5 : 4, foeFeet.y);
-                ToCum(m, new Vector2(-dir * 50, -20) * sH, 9 * sH, 3);
+                ToCum(m, new Vector2(-dir * 50, -20) * sH, 9 * sH, 3, Front, 0, null, false);   // khung vẽ sẵn: cụm giữa không trung (miệng)
             });
             return L + ThiemBayDa;
         }
@@ -1181,14 +1330,16 @@ namespace PokiClash
                 float u = Mathf.Clamp01((t / k - ThiemLao) / (ThiemSkill - ThiemLao));
                 return Vector2.Lerp(casterFeet, toi, u * u * (3 - 2 * u));
             };
+            // khung vẽ sẵn (2026-11-19): bụi toé lúc xoay và vệt bụi đường lăn là cụm khói vẽ sẵn nhuộm bụi, chân ở mặt đất, 40 % số cụm, to × 1,3
             Every((ThiemCuon + 0.04f) * k, ThiemLao * k, 15, x =>
             {
                 var p = casterFeet + new Vector2(U(-10, 10) * sH, -4 * sH);
-                ToBui(p, new Vector2(-dir * U(60, 140), U(-50, -10)) * sH, 0.55f, 6 * sH, 13 * sH, Back, false);
+                ToBuiFb(p, new Vector2(-dir * U(60, 140), U(-50, -10)) * sH, 0.55f, 6 * sH, 13 * sH, Back, null, FbBuiC, 0.4f, 1.3f, true);
                 if (U(0, 1) < 0.35f) ToSoiCum(p, new Vector2(-dir * U(80, 200), U(-220, -100)) * sH, 2.4f * sH, ToDa, ToDa2, casterFeet.y + 4 * sH, Back);
             });
             float tl0 = ThiemLao * k;
-            Every(tl0, L, 20, x => ToBui(cho(tl0 + x * (L - tl0)) + new Vector2(0, -2 * sH), new Vector2(U(-20, 20), U(-30, -5)) * sH, 0.6f, 7 * sH, 14 * sH, Back, false));
+            Every(tl0, L, 20, x => ToBuiFb(cho(tl0 + x * (L - tl0)) + new Vector2(0, -2 * sH), new Vector2(U(-20, 20), U(-30, -5)) * sH, 0.6f, 7 * sH, 14 * sH, Back,
+                null, FbBuiC, 0.4f, 1.3f, true));
             At(L, () =>
             {
                 ToNo(foeBody + new Vector2(-dir * 0.1f * tH, 0.07f * tH), foeFeet.y, tH, 2.2f, ToDa, ToPhach, new Vector2(dir, 0));
@@ -1250,7 +1401,7 @@ namespace PokiClash
                     var m = ToSan(casterFeet, casterH, dir, d1 ? LongVuotCast1 : LongVuotCast[j]);
                     float R = d1 ? (26 + 4 * j) * sH : (34 + 5 * j) * sH;
                     var dich = foeBody + new Vector2(-dir * 0.1f * tH, (d1 ? j - 0.5f : j - 1) * 16 * sc);   // lưỡi tới mặt trước thân, không xuyên qua
-                    ToCum(m, new Vector2(-dir * 40, -30) * sH, 7 * sH, 2);
+                    ToCum(m, new Vector2(-dir * 40, -30) * sH, 7 * sH, 2, Front, 0, FbCatC);
                     ToLuoiCat(m, dich, LongBayLuoi, R, p => ToNo(p, foeFeet.y, tH, d1 ? 0.7f : 0.9f, ToCat, ToCat2, dich - m));
                 });
             }
@@ -1279,7 +1430,7 @@ namespace PokiClash
                 ToVong(nen, 100 * sH, 0.55f);
                 ToHo(nen, 30 * sH);
                 for (int d = -1; d <= 1; d += 2)
-                    ToCum(nen + new Vector2(d * 30 * sH, -4 * sH), new Vector2(d * 90, -30) * sH, 12 * sH, 3);
+                    ToCum(nen + new Vector2(d * 30 * sH, -4 * sH), new Vector2(d * 90, -30) * sH, 12 * sH, 3, Front, 0, FbCatC);
                 Shake?.Invoke(0.3f);
                 ToNut(nen, foeFeet + new Vector2(dir * 0.13f * tH, 2), 0.18f * k, sc);
             });
@@ -1293,7 +1444,7 @@ namespace PokiClash
                 At(LongCotT[j] * k, () =>
                 {
                     ToCot(foeFeet + new Vector2(dx[j] * tH, (to ? 2 : 4) * sc), (to ? 0.48f : 0.26f) * tH, (to ? 1.45f : 0.75f) * tH, to ? 0.55f : 0.35f,
-                        Back, sc);
+                        Front, sc); // lớp TRƯỚC (người dùng 2026-11-19: "gai đất, nổ đang bị lỗi layer hiện đằng sau tướng địch")
                     if (to) ToNo(foeBody + new Vector2(0, 10 * sc), foeFeet.y, tH, 2.2f, ToCat, ToCat2);
                     else
                     {
@@ -1331,9 +1482,10 @@ namespace PokiClash
         public float NThiemBo2(Vector2 casterFeet, float casterH, Vector2 foeFeet, Vector2 foeBody, float tH, float lead)
         {
             float L = Mathf.Max(0.3f, lead), k = L / ThiemBo2, dir = foeFeet.x >= casterFeet.x ? 1 : -1, sc = tH / 150f, sH = casterH / 150f;
-            Every(ThiemGong2 * k, ThiemNhay2 * k, 10, x =>
+            Every(ThiemGong2 * k, ThiemNhay2 * k, 10, x =>                   // khung vẽ sẵn (2026-11-19): bụi gồng là cụm vẽ sẵn, 40 % số cụm, to × 1,3
             {
-                ToBui(casterFeet + new Vector2(U(-0.4f, 0.4f) * casterH, -2), new Vector2(U(-40, 40), -20) * sH, 0.55f, 6 * sH, 12 * sH, Back, false);
+                ToBuiFb(casterFeet + new Vector2(U(-0.4f, 0.4f) * casterH, -2), new Vector2(U(-40, 40), -20) * sH, 0.55f, 6 * sH, 12 * sH, Back, null, FbBuiC, 0.4f,
+                    1.3f, true);
                 if (U(0, 1) < 0.4f)
                     ToSoi(casterFeet + new Vector2(dir * U(-0.1f, 0.3f) * casterH, -U(0.9f, 1.1f) * casterH), new Vector2(U(-60, 60), 60) * sH, 2.6f * sH, ToPhach,
                         casterFeet.y + 4 * sH);
@@ -1359,6 +1511,13 @@ namespace PokiClash
                 {
                     var at = foeFeet + new Vector2((i - 1) * 0.7f * tH, i == 1 ? 2 : 4);
                     float h = (i == 1 ? 1.4f : 0.8f) * tH, w = (i == 1 ? 0.36f : 0.24f) * tH;
+                    // khung vẽ sẵn (2026-11-19; "gai ... đâm lên xấu"): cụm cột pha lê vẽ sẵn (khung gai sắt nhuộm hổ phách), nghiêng như cột cũ, trồi
+                    // 0,07 s, giữ 0,3 s, vỡ rơi 0,18 s (đời 0,55 s như cũ); khung tự vỡ thành mảnh nên bỏ cú nổ dăm lúc tan
+                    if (HasFb("gai_sat"))
+                    {
+                        FbGai(at, h, Front, FbPhachC, 0.07f, 0.3f, 0.18f, i == 0, -(i - 1) * 14);
+                        continue;
+                    }
                     var q = new P { pos = at, life = 0.55f, group = Back, sz = h, wd = w, ang = (i - 1) * 14 };
                     q.draw = (z, kk, buf) =>
                     {
@@ -1404,7 +1563,7 @@ namespace PokiClash
                 ToVong(nen, 80 * sH, 0.5f);
                 ToHo(nen, 24 * sH, 0.7f);
                 for (int d = -1; d <= 1; d += 2)
-                    ToCum(nen + new Vector2(d * 26 * sH, -4 * sH), new Vector2(d * 80, -25) * sH, 10 * sH, 3);
+                    ToCum(nen + new Vector2(d * 26 * sH, -4 * sH), new Vector2(d * 80, -25) * sH, 10 * sH, 3, Front, 0, FbCatC);
                 Shake?.Invoke(0.22f);
                 ToNut(nen, foeFeet + new Vector2(dir * 0.1f * tH, 2), 0.16f * k, sc);
             });
@@ -1412,13 +1571,13 @@ namespace PokiClash
             // cao 1,35 × (dạng 2: 1,45 ×)
             At(LongCot1a * k, () =>
             {
-                ToCot(foeFeet + new Vector2(dir * 0.66f * tH, 4 * sc), 0.24f * tH, 0.78f * tH, 0.3f, Back, sc);
+                ToCot(foeFeet + new Vector2(dir * 0.66f * tH, 4 * sc), 0.24f * tH, 0.78f * tH, 0.3f, Front, sc);
                 Shake?.Invoke(0.14f);
                 ToNo(foeFeet + new Vector2(dir * 0.66f * tH, -0.5f * tH), foeFeet.y, tH, 0.6f, ToCat2, ToSaThach);
             });
             At(L, () =>
             {
-                ToCot(foeFeet + new Vector2(dir * 0.08f * tH, 2 * sc), 0.38f * tH, 1.35f * tH, 0.45f, Back, sc);
+                ToCot(foeFeet + new Vector2(dir * 0.08f * tH, 2 * sc), 0.38f * tH, 1.35f * tH, 0.45f, Front, sc); // lớp TRƯỚC (người dùng 2026-11-19: "gai đất, nổ đang bị lỗi layer hiện đằng sau tướng địch")
                 ToNo(foeBody + new Vector2(0, 10 * sc), foeFeet.y, tH, 1.6f, ToCat, ToCat2);
             });
             return L;
@@ -1512,7 +1671,8 @@ namespace PokiClash
             {
                 var p0 = casterFeet + new Vector2(dir * U(-0.7f, 0.45f) * casterH, U(-6, 4) * sH);
                 ToHut(p0, s => tay(s - t0), U(0.34f, 0.42f), U(3.2f, 6f) * sH, U(0, 1) < 0.5f ? ToDa : ToDa2, 2f, 40 * sH);
-                if (U(0, 1) < 0.3f) ToBui(p0, new Vector2(U(-30, 30), -40) * sH, 0.5f, 5 * sH, 10 * sH, Back, false);
+                if (U(0, 1) < 0.3f)                                              // khung vẽ sẵn (2026-11-19): bụi chỗ đá bứt khỏi đất, 40 % số cụm, to × 1,3
+                    ToBuiFb(p0, new Vector2(U(-30, 30), -40) * sH, 0.5f, 5 * sH, 10 * sH, Back, null, FbBuiC, 0.4f, 1.3f, true);
             });
             foreach (float f in new[] { 0.3f, 0.6f, 0.9f })
                 At((VienTu0 + (VienTu1 - VienTu0) * f) * k, () => ToVongCo(s => tay(s - t0), 1.9f * rLuc(T - t0), 0.34f * k, ToCat3, 0.8f));
@@ -1531,6 +1691,9 @@ namespace PokiClash
                 ToTangBay(tay(L), dich0, VienBayTang, rLuc(L - 0.07f), 90 * sc, true, p =>
                 {
                     ToNo(p, foeFeet.y, tH, 2.8f, ToDa, ToPhach, dich0 - tay(L));
+                    // khung vẽ sẵn (2026-11-19): tảng khổng lồ vỡ thì bụi đất cuộn lên to sau lưng đối thủ (chân ở mặt đất, cao 0,95 tH)
+                    if (HasFb("khoi"))
+                        FbBui(foeFeet + new Vector2(-dir * 0.12f * tH, 0), new Vector2(-dir * 20, -20) * sc, 0.95f * tH, Back, FbBuiC, 1.1f, 0.92f, 3);
                     ToVong(foeFeet, 130 * sc, 0.7f);
                     ToHo(foeFeet, 42 * sc);
                     Shake?.Invoke(0.3f);
@@ -1573,7 +1736,7 @@ namespace PokiClash
             }
             for (int d = -1; d <= 1; d += 2)                                     // đất phụt: hai cụm bụi nhiều múi bốc lên, lan hai bên
                 ToCum(chan + new Vector2(d * U(20, 40) * sH, -U(8, 20) * sH), new Vector2(d * U(40, 90), -U(40, 80)) * sH, 11 * sH * Mathf.Sqrt(muc),
-                    muc >= 1.5f ? 4 : 3, d < 0 ? Back : Front);
+                    muc >= 1.5f ? 4 : 3, d < 0 ? Back : Front, 0, FbCatC);
         }
 
         // gò đất chạy ngầm từ a tới b trong (t0, t1): một ụ đất nâu (mảng liền viền mực) trượt dọc mặt đất, bụi + sỏi văng phía sau, vết nứt
@@ -1591,10 +1754,15 @@ namespace PokiClash
                     q.pos = Vector2.Lerp(a, b, f * f * (3 - 2 * f));
                     q.vel = Vector2.zero;
                     q.R0 += (q.pos - cu).magnitude;                              // bụi rải theo quãng gò vừa chạy: vệt liền, không lấm tấm
-                    if (q.R0 < 9 * sc) return;
-                    q.R0 -= 9 * sc;
-                    ToBui(q.pos + new Vector2(s.U(-12, 12) * sc, -5 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 80), -s.U(30, 70)) * sc, 0.5f,
-                        6 * sc, 13 * sc, s.U(0, 1) < 0.5f ? Front : Back, false);
+                    bool fb = s.HasFb("khoi");                                   // khung vẽ sẵn (2026-11-19): cụm cát vẽ sẵn, bước gấp đôi, to × 1,3
+                    if (q.R0 < (fb ? 18 : 9) * sc) return;
+                    q.R0 -= (fb ? 18 : 9) * sc;
+                    if (fb)
+                        s.ToBuiFb(q.pos + new Vector2(s.U(-12, 12) * sc, -5 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 80), -s.U(30, 70)) * sc, 0.5f,
+                            6 * sc, 13 * sc, s.U(0, 1) < 0.5f ? Front : Back, null, FbCatC, 1, 1.3f, true);
+                    else
+                        ToBui(q.pos + new Vector2(s.U(-12, 12) * sc, -5 * sc), new Vector2(-Mathf.Sign(b.x - a.x) * s.U(30, 80), -s.U(30, 70)) * sc, 0.5f,
+                            6 * sc, 13 * sc, s.U(0, 1) < 0.5f ? Front : Back, false);
                     if (s.U(0, 1) < 0.3f)
                         ToSoi(q.pos + new Vector2(0, -6 * sc), new Vector2(s.U(-120, 120), -s.U(180, 320)) * sc, s.U(2f, 3.4f) * sc,
                             s.U(0, 1) < 0.5f ? ToCat2 : ToCatSam, q.pos.y + 2 * sc);
@@ -1620,6 +1788,13 @@ namespace PokiClash
         void TrungGaiDa(Vector2 chan, float w, float h, float ang, float giu, int group)
         {
             const float tLen = 0.08f, tLun = 0.2f;
+            // khung vẽ sẵn (2026-11-19; "gai ... đâm lên xấu"): cụm gai sa thạch vẽ sẵn (khung gai sắt nhuộm sa thạch), nghiêng theo ang (khung
+            // xoay ngược kim nên đổi dấu), lật theo phía nghiêng; đúng nhịp cũ trồi 0,08 s, giữ, lún 0,2 s; đỉnh cao bằng gai cũ
+            if (HasFb("gai_sat"))
+            {
+                FbGai(chan, h, group, FbSaThach, tLen, giu, tLun, ang < 0, -ang);
+                return;
+            }
             var p = new P { pos = chan, life = tLen + giu + tLun, group = group, sz = h, wd = w, ang = ang };
             p.draw = (q, k, buf) =>
             {
@@ -1663,7 +1838,8 @@ namespace PokiClash
             At(TrungLao * k, () =>
             {
                 for (int d = 0; d < 2; d++)
-                    ToCum(casterFeet + new Vector2(dir * (d == 0 ? -0.15f : 0.15f) * casterH, -4 * sH), new Vector2(-dir * U(70, 140), -U(20, 45)) * sH, 12 * sH, 3, Back);
+                    ToCum(casterFeet + new Vector2(dir * (d == 0 ? -0.15f : 0.15f) * casterH, -4 * sH), new Vector2(-dir * U(70, 140), -U(20, 45)) * sH, 12 * sH, 3, Back,
+                        0, FbCatC);
             });
             At(L, () =>
             {
@@ -1686,7 +1862,7 @@ namespace PokiClash
         {
             float L = Mathf.Max(0.3f, lead), k = L / TrungGaiT, dir = foeFeet.x >= casterFeet.x ? 1 : -1, sc = tH / 150f, sH = casterH / 150f;
             At(TrungVuon * k, () =>
-                ToCum(casterFeet + new Vector2(0, -0.1f * casterH), new Vector2(0, -30) * sH, 12 * sH, 4, Back, 0.7f));
+                ToCum(casterFeet + new Vector2(0, -0.1f * casterH), new Vector2(0, -30) * sH, 12 * sH, 4, Back, 0.7f, FbCatC));
             var nen = ToSan(casterFeet, casterH, dir, TrungNenP);
             At(TrungNen * k, () =>
             {
@@ -1694,15 +1870,16 @@ namespace PokiClash
                 ToVong(nen, 110 * sH, 0.55f);
                 ToHo(nen, 34 * sH);
                 for (int d = -1; d <= 1; d += 2)
-                    ToCum(nen + new Vector2(d * 30 * sH, -4 * sH), new Vector2(d * 100, -35) * sH, 13 * sH, 3);
+                    ToCum(nen + new Vector2(d * 30 * sH, -4 * sH), new Vector2(d * 100, -35) * sH, 13 * sH, 3, Front, 0, FbCatC);
                 Shake?.Invoke(0.28f);
                 ToNut(nen, foeFeet + new Vector2(-dir * 0.1f * tH, 2), (TrungGai - TrungNen) * k, sc);
             });
             At(TrungGai * k, () =>
             {
-                TrungGaiDa(foeFeet + new Vector2(dir * 0.12f * tH, 2 * sc), 0.30f * tH, 1.30f * tH, dir * 6, 0.42f, Back);
-                TrungGaiDa(foeFeet + new Vector2(-0.55f * tH, 4 * sc), 0.22f * tH, 0.80f * tH, -18, 0.34f, Back);
-                TrungGaiDa(foeFeet + new Vector2(0.55f * tH, 4 * sc), 0.22f * tH, 0.80f * tH, 18, 0.34f, Front);
+                float ra = HasFb("gai_sat") ? 0.68f : 0.55f;                     // khung vẽ sẵn: cụm gai rộng ~ cao nên hai gai bên dời ra ngoài thân thêm
+                TrungGaiDa(foeFeet + new Vector2(dir * 0.12f * tH, 2 * sc), 0.30f * tH, 1.30f * tH, dir * 6, 0.42f, Front); // lớp TRƯỚC (người dùng 2026-11-19: "gai đất, nổ đang bị lỗi layer hiện đằng sau tướng địch")
+                TrungGaiDa(foeFeet + new Vector2(-ra * tH, 4 * sc), 0.22f * tH, 0.80f * tH, -18, 0.34f, Front);
+                TrungGaiDa(foeFeet + new Vector2(ra * tH, 4 * sc), 0.22f * tH, 0.80f * tH, 18, 0.34f, Front);
                 ToVong(foeFeet, 95 * sc, 0.5f);
             });
             At(L, () => ToNo(foeBody + new Vector2(0, 0.06f * tH), foeFeet.y, tH, 1.9f, ToSaThach, ToDa));

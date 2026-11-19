@@ -160,6 +160,7 @@ Trong repo: `ArtGen/ThamKhao/KR5/`.
 - **Bản tóm cho dự án:** `vfx-petclash/hoc_kr5_vfx.md`. Đây là nguồn **gần luật tô phẳng nhất**: hiệu ứng trận vẽ phẳng 3–5 màu,
 mép cứng, không shader, không cộng sáng (chỉ chấm sáng nhỏ, bụi, hơi thở rồng có mép mềm). Họ làm thế này:
 - **Ảnh khung vẽ tay giữ 2 khung:** 30 khung/giây, mỗi hình lặp 2 khung (15 hình/giây) ở 2/3 hoạt ảnh. Hiệu ứng trung vị 0,5 s.
+  **Dự án không theo nhịp này**: người dùng 2026-11-19 muốn mượt hơn, nhiều khung hơn (`vfx-petclash` mục 1c).
 - **Đỉnh ở khung 1–3:**
   - nổ: chớp 1 khung rồi khói và lửa đã to gần đủ;
   - nước toé: to nhất ngay khung 1;
@@ -182,9 +183,9 @@ mép cứng, không shader, không cộng sáng (chỉ chấm sáng nhỏ, bụi
 - **Báo trước 0,4 s** cho đòn đánh xuống đất: lỗ mở trên đất rồi cột lửa mới phun.
 - **Tween nhỏ cho vật đứng yên:** bật 1 → 1,2 → 1 trong 0,1 s; thở 1,01 ↔ 0,99 mỗi 0,8 s.
 - Áp cho game mình:
-  - giữ hạt chồng lớp phẳng và viền mực;
-  - lấy **giữ 2 khung** (đổi hình hạt mỗi 2 khung sân), **đỉnh sớm**, **chuỗi mảnh của đòn**, **tan bằng vỡ ra**;
-  - lấy hình từng pha của nổ, nước toé, cột lửa.
+  - lấy **đỉnh sớm**, **chuỗi mảnh của đòn**, **tan bằng vỡ ra**, hình từng pha của nổ, nước toé, cột lửa;
+  - KHÔNG lấy "giữ 2 khung", và kể từ 2026-11-19 lửa, nước, nổ, khói, năng lượng theo style mục 1c của `vfx-petclash`: không viền
+    mực, 3–4 tông + mảng sáng, nước chuyển màu, lửa có quầng mềm, nhiều khung, mượt.
 
   Công thức hạt: `pokiclash-fx-congthuc` mục 2b.
 

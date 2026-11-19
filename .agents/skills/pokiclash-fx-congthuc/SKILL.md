@@ -70,7 +70,9 @@ khung phẳng; dưới đây là cách đổi sang hạt của `fxlib`. **Luật
 không che con bị trúng).
 
 **Chung:**
-- **Giữ 2 khung:** hạt đổi hình theo tuổi (ảnh rời, tờ ăn mòn) thì đổi mỗi 2 khung sân, không mỗi khung.
+- **Mượt, không giữ khung** (người dùng 2026-11-19 đổi ý so với bản KR5 "giữ 2 khung"): hạt đổi hình theo tuổi (ảnh rời, tờ ăn mòn)
+  thì đổi MỖI khung, hoặc chồng mờ sang hình kế. Tờ khung toé / nổ 12–20 khung ở 24–30 khung/giây. Style hình theo `vfx-petclash` mục 1c
+  (không viền mực, 3–4 tông + mảng sáng, nước chuyển màu, lửa có quầng mềm).
 - **Đỉnh trong 0,1 s đầu.** Lửa của vụ nổ hết ở khoảng 60% thời lượng; 40% cuối là khói tan.
 - **Tan bằng vỡ ra rồi mới mờ:**
   - cụm khói lớn tách thành 3–5 cụm nhỏ (cụm con sinh từ chỗ cụm mẹ, toả nhẹ, nhỏ dần);
@@ -84,7 +86,7 @@ không che con bị trúng).
 
 | Pha | Thời điểm | Làm gì |
 |---|---|---|
-| Lấy đà | 0–0,07 s | cục chớp kem nhỏ (1/3 cỡ nổ) giữ 2 khung |
+| Lấy đà | 0–0,07 s | cục chớp kem nhỏ (1/3 cỡ nổ), phồng dần qua các khung chứ không giữ hình |
 | Bung | 0,07 s | khói đã to gần đủ ngay, chung lúc với lửa |
 | Lửa | 0,07–0,3 s | hạt **lưỡi liềm** cong ra ngoài cắm trong khối khói, đời 0,2–0,3 s, co thành chấm vàng; chấm trôi theo cụm khói tới khoảng 60% thời lượng |
 | Sóng | cùng lúc bung | **vòng cung dẹt** trên `FLOOR`: elip phẳng không viền, nở nhanh, mỏng dần, đứt thành 3–5 cung |

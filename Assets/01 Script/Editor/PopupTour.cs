@@ -35,14 +35,14 @@ namespace PokiClash.EditorTools
             App.Modals.CloseAll();
 
             // đội 1 ô: chưa xong đảo nào, đang ở ải 5 đảo Thủy
-            foreach (var h in new[] { "thach_giai", "ti_tach", "vo_su", "ky_lan" }) Progress.UnlockHero(s, h);
+            foreach (var h in new[] { "thach_giai", "ti_tach", "cao_da", "rua_nui" }) Progress.UnlockHero(s, h);
             // sổ tướng: tướng chưa mở có mảnh thì hiện bóng sẫm, chưa có mảnh thì ẩn
             foreach (var h in d.Heroes.Where(h => !s.Hero(h.id).owned)) s.Hero(h.id).shards = 0;
             s.Hero("han_ngac").shards = 7;
             s.Hero("ha_ba").shards = 2;
             for (int i = 0; i < s.zones.Length; i++) s.zones[i] = 0;
             s.zones[(int)Elem.Thuy] = 4;
-            s.team = new List<string> { "thach_giai", "ti_tach", "vo_su" };
+            s.team = new List<string> { "thach_giai", "ti_tach", "cao_da" };
             App.Save.Save();
             yield return Go(SceneIds.Heroes);
             yield return Shot("tuong_doi_1o");
@@ -118,7 +118,7 @@ namespace PokiClash.EditorTools
                 new Reward { k = RewardKind.Exp, n = 15 },
                 new Reward { k = RewardKind.Balls, n = 3 },
                 new Reward { k = RewardKind.Stones, n = 2 },
-                new Reward { k = RewardKind.Shards, res = new ShardResult { hero = "ky_lan", n = 4, converted = 1 } },
+                new Reward { k = RewardKind.Shards, res = new ShardResult { hero = "rua_nui", n = 4, converted = 1 } },
                 new Reward { k = RewardKind.Shards, res = new ShardResult { hero = "han_ngac", n = 10, unlocked = true } },
             };
             for (int i = 0; i < 3; i++)
@@ -151,7 +151,7 @@ namespace PokiClash.EditorTools
             var m = App.Modals.Open(resPrefab, mandatory: true);
             m.Show(true, "Đảo Thủy · Ải 5 · Vũng San Hô", 40, "4 hiệp · gây 1320 sát thương");
             m.Reward().Item(App.Art.Icon("ball"), "×12", "Bi").Tag("Lần đầu", Theme.Yellow);
-            m.Reward().Hero(d.Hero("ky_lan"), "×3").Tag("7/20", Theme.Paper2);
+            m.Reward().Hero(d.Hero("rua_nui"), "×3").Tag("7/20", Theme.Paper2);
             m.Reward().Hero(d.Hero("han_ngac"), "×10").Tag("MỞ KHÓA!", Theme.Red);
             m.Button("Ải tiếp »", BtnColor.Green, 210, null);
             m.Button("Đánh lại", BtnColor.Paper, 200, null);

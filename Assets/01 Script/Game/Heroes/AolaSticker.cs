@@ -3,6 +3,10 @@
 // Nhập hình tướng aola) thì TryCreate trả null và ô tướng trên sân để trống.
 // Camera chỉ chụp khi hình đổi (AolaActor.Version: animation 25 khung/giây trên màn 60 khung, khung camera dời), các khung khác tắt và
 // RawImage giữ ảnh cũ; cứ 30 khung chụp lại một lần phòng RenderTexture mất nội dung (Android đi nền rồi về).
+// Khung camera đi theo thân (2026-11-19, người dùng: "vài tướng khi dùng chiêu bị biến mất kiểu chui vào một cái mask", vd. Tiểu Quỷ
+// Lava đâm giáo): camera bám xương move của rig (AolaActor.Follow), ảnh dời ngược lại đúng chừng đó nên trên màn không đổi gì; clip vươn
+// xa hơn khung (AtomikAsset.fit) thì camera lùi ra trong lúc clip chạy, viền giấy chia lại cho dày như cũ. Rect là khung ngoài cho nơi
+// gọi đặt chỗ, đổi tỉ lệ, bật tắt; ảnh là con của nó, sticker tự dời.
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;
@@ -18,6 +22,12 @@ namespace PokiClash
         // rig để hình không bị mép khung cắt dọc (2026-11-14)
         float Span = DefSpan;
         const float FootV = 0.2f; // chân nằm ở 20% chiều cao ảnh
+        // khung nới theo clip (AtomikAsset.fit): chừa mép cho viền giấy, trần để ảnh không nhoè quá (RenderTexture giữ cỡ của Span)
+        const float FitMargin = 0.06f, MaxSpan = 8f;
+        float curSpan = DefSpan;  // khung camera đang dùng (Span hoặc nới cho clip)
+        float uiHeight;           // chiều cao dáng đứng trên UI
+        int px;                   // cạnh RenderTexture
+        Vector2 farShift, follow; // dời khung camera (đơn vị = chiều cao dáng đứng, +y lên): theo đích hiệu ứng ở xa, theo thân
         static int count, builtFrame = -1;
 
         // Dựng sticker tốn (prefab, hàng chục hình, RenderTexture có depth): giao diện (hộp chi tiết, đội hình) mỗi khung dựng tối đa
@@ -67,9 +77,12 @@ namespace PokiClash
                 return null;
             }
             float span = Mathf.Max(DefSpan, actor.Span);
-            var s = new AolaSticker { actor = actor, world = go, flip = flip, stageHeight = uiHeight / StageView.K, Span = span };
+            var s = new AolaSticker
+            {
+                actor = actor, world = go, flip = flip, stageHeight = uiHeight / StageView.K, Span = span, curSpan = span, uiHeight = uiHeight
+            };
             // khung rộng hơn mặc định: ảnh không cần luỹ thừa 2, trần 1536 (2048 thì mỗi tướng 24 MB kể depth) để giữ độ nét trên sân
-            int px = span > DefSpan
+            int px = s.px = span > DefSpan
                 ? Mathf.Clamp(Mathf.CeilToInt(uiHeight * span / 64f) * 64, 256, 1536)
                 : Mathf.Clamp(Mathf.NextPowerOfTwo((int)(uiHeight * span)), 256, 1024);
             // URP render graph báo lỗi mỗi khung nếu RenderTexture đích của camera không có depth buffer
@@ -86,12 +99,17 @@ namespace PokiClash
             cam.nearClipPlane = 0.1f;
             cam.farClipPlane = 50;
 
-            s.img = new GameObject("aola", typeof(RectTransform)).AddComponent<RawImage>();
-            s.Rect = s.img.rectTransform;
+            // khung ngoài: nơi gọi đặt chỗ, đổi tỉ lệ, bật tắt (cỡ, chân như ảnh cũ); ảnh: con, chân trùng chân khung ngoài, sticker tự dời
+            s.Rect = (RectTransform)new GameObject("aola", typeof(RectTransform)).transform;
             s.Rect.SetParent(parent, false);
             s.Rect.anchorMin = s.Rect.anchorMax = new Vector2(0.5f, 0);
             s.Rect.pivot = new Vector2(0.5f, FootV);
             s.Rect.sizeDelta = new Vector2(uiHeight * span, uiHeight * span);
+            s.img = new GameObject("anh", typeof(RectTransform)).AddComponent<RawImage>();
+            var ir = s.img.rectTransform;
+            ir.SetParent(s.Rect, false);
+            ir.anchorMin = ir.anchorMax = ir.pivot = new Vector2(0.5f, FootV);
+            ir.sizeDelta = new Vector2(uiHeight * span, uiHeight * span);
             s.img.texture = s.rt;
             s.img.raycastTarget = false;
             var baseMat = Theme.Assets ? Theme.Assets.sticker : null;
@@ -118,7 +136,7 @@ namespace PokiClash
             fxCam.targetTexture = fxRt;
             fxImg = new GameObject("aola_fx", typeof(RectTransform)).AddComponent<RawImage>();
             var r = fxImg.rectTransform;
-            r.SetParent(Rect, false);
+            r.SetParent(img.rectTransform, false); // cùng khung, dời theo ảnh tướng
             r.anchorMin = Vector2.zero;
             r.anchorMax = Vector2.one;
             r.offsetMin = r.offsetMax = Vector2.zero;
@@ -314,11 +332,19 @@ namespace PokiClash
         public void FarAhead(string clip, float heights) =>
             Far(clip, new Vector2((flip ? -1 : 1) * heights * stageHeight, -0.4f * stageHeight), false);
 
-        // dịch khung camera (đơn vị thế giới = chiều cao dáng đứng; +y lên) và ảnh trên sân theo
+        // dịch khung camera theo đích hiệu ứng ở xa (đơn vị thế giới = chiều cao dáng đứng; +y lên)
         void Shift(Vector2 w)
         {
+            farShift = w;
+            Frame();
+        }
+
+        // đặt khung camera = dời theo đích + bám thân, ảnh dời ngược lại cùng chừng đó: thân đứng đúng chỗ trên màn
+        void Frame()
+        {
             if (!cam) return;
-            var lp = new Vector3(w.x, Span * (0.5f - FootV) + w.y, -10);
+            var w = farShift + follow;
+            var lp = new Vector3(w.x, curSpan * (0.5f - FootV) + w.y, -10);
             if (cam.transform.localPosition != lp)
             {
                 cam.transform.localPosition = lp;
@@ -327,7 +353,31 @@ namespace PokiClash
                 cam.enabled = true;
                 if (fxCam) fxCam.enabled = true;
             }
-            Rect.anchoredPosition = w * stageHeight * StageView.K;
+            img.rectTransform.anchoredPosition = w * uiHeight;
+        }
+
+        // khung camera cho clip đang hiện: khung của tướng (Span), nới khi số đo của clip vươn xa hơn (AtomikAsset.fit)
+        float SpanFor(string actorClip)
+        {
+            if (!actor.Extent(actorClip, out float mx, out float top, out float bot)) return Span;
+            float need = Mathf.Max(2 * (mx + FitMargin), (top + FitMargin) / (1 - FootV), (FitMargin - bot) / FootV);
+            return Mathf.Clamp(need, Span, Mathf.Max(Span, MaxSpan));
+        }
+
+        // đổi khung camera: cỡ chụp, cỡ ảnh trên UI, viền giấy chia lại theo khung (RenderTexture giữ nguyên cỡ)
+        void SetSpan(float s)
+        {
+            if (!cam || Mathf.Abs(s - curSpan) < 1e-3f) return;
+            curSpan = s;
+            cam.orthographicSize = s / 2;
+            if (fxCam) fxCam.orthographicSize = s / 2;
+            img.rectTransform.sizeDelta = new Vector2(uiHeight * s, uiHeight * s);
+            if (mat)
+            {
+                mat.SetFloat("_White", 3f * px / 512f * DefSpan / s);
+                mat.SetFloat("_Ink", 2.5f * px / 512f * DefSpan / s);
+            }
+            camDirty = true;
         }
 
         // bật camera đúng khung hình đổi; trong cùng một khung đã bật thì giữ (Show gọi hai lần không tắt mất lần chụp)
@@ -363,8 +413,12 @@ namespace PokiClash
         {
             // hình aola theo khung (floor t·fps), rig .atomik theo thời gian liên tục (AolaActor.ShowTime)
             // chiêu cuối hai clip: hết "skill" thì chạy tiếp "skill_land" (khung cuối clip trước trùng khung đầu clip sau)
-            if (clip == StageView.Skill && !loop && Jumps && t >= SkillLen) actor.ShowTime(AolaActor.SkillLand, t - SkillLen, false);
-            else actor.ShowTime(ClipName(clip), t, loop);
+            string shown = clip == StageView.Skill && !loop && Jumps && t >= SkillLen ? AolaActor.SkillLand : ClipName(clip);
+            if (shown == AolaActor.SkillLand) actor.ShowTime(shown, t - SkillLen, false);
+            else actor.ShowTime(shown, t, loop);
+            SetSpan(SpanFor(actor.HasClip(shown) ? shown : AolaActor.Idle));
+            follow = actor.Follow;
+            Frame();
             SyncCamera();
             img.color = new Color(Tint, Tint, Tint, alpha);
             if (mat)
@@ -388,7 +442,7 @@ namespace PokiClash
         {
             if (cam) cam.enabled = false;
             if (fxCam) fxCam.enabled = false;
-            if (img) Object.Destroy(img.gameObject); // ảnh hạt là con, đi theo
+            if (Rect) Object.Destroy(Rect.gameObject); // ảnh tướng, ảnh hạt là con, đi theo
             if (world) Object.Destroy(world);
             if (rt)
             {

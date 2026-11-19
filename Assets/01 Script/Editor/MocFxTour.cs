@@ -21,7 +21,7 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Thử/Đảo Mộc: vòi phun và dậm rừng Lâm Tượng, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 132)]
         static void TryVoi() => ThuyFxTour.TryOnly("phong_linh");
 
-        [MenuItem("PokiClash/Thử/Đảo Mộc: rễ trói đất và thần trụ giáng thế Cổ Vương, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 133)]
+        [MenuItem("PokiClash/Thử/Đảo Mộc: lá găm và thiên thạch đá Linh Điểu, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 133)]
         static void TryChim() => ThuyFxTour.TryOnly("gio_loc");
 
         [MenuItem("PokiClash/Thử/Đảo Mộc: dây gai và quả cầu dây leo người cây, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 134)]

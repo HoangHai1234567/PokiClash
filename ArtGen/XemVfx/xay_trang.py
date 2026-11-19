@@ -1,8 +1,9 @@
 # Dựng trang so sánh hiệu ứng từng tướng (bản TRƯỚC / SAU một đợt sửa VFX).
 #   py -3 -I ArtGen/XemVfx/xay_trang.py
-# Đọc ảnh tour Temp/PokiShots/vfx_all/<đợt>/<tướng>/<danh|mana|ult>_NN.jpg (menu "PokiClash/Thử/Hiệu ứng mọi tướng: chụp bản
-# TRƯỚC / SAU"), cắt vùng sân, gói mỗi đòn thành một tấm lưới vào anh/<đợt>/<tướng>_<đòn>.jpg, ghi data.json. Kèm báo cáo của agent
-# từng hệ nếu có (Temp/vfx_<hệ>/BAO_CAO.md). Chỉ lấy tướng có rig .atomik / Spine (người dùng: con khác không phải test).
+# Đọc ảnh tour ArtGen/XemVfx/chup/<đợt>/<tướng>/<danh|mana|ult>_NN.jpg (menu "PokiClash/Thử/Hiệu ứng mọi tướng: chụp bản
+# TRƯỚC / SAU"; trước 2026-11-19 tour ghi vào Temp/PokiShots/vfx_all, Unity xoá Temp khi tắt), cắt vùng sân, gói mỗi đòn thành một
+# tấm lưới vào anh/<đợt>/<tướng>_<đòn>.jpg, ghi data.json. Tướng nào không còn ảnh gốc mà đã có tấm từ lần dựng trước thì giữ tấm cũ
+# (số khung lấy ở data.json cũ). Kèm báo cáo agent từng hệ (bao_cao/<hệ>.md). Chỉ lấy tướng có rig .atomik / Spine.
 # Ảnh là hình trong game (rig gốc của game khác, aola): chỉ xem trên máy, anh/ và data.json đã .gitignore.
 import os, sys, json, glob, re
 from PIL import Image
@@ -10,7 +11,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..'))
-SHOTS = os.path.join(ROOT, 'Temp', 'PokiShots', 'vfx_all')
+SHOTS = os.path.join(HERE, 'chup')
 HEROES = os.path.join(ROOT, 'Assets', '02 Data', 'Json', 'heroes.json')
 RES = os.path.join(ROOT, 'Assets', '03 Art', 'Heroes', 'Resources')
 OUT = os.path.join(HERE, 'anh')
@@ -51,7 +52,7 @@ def strip(src_dir, move, dst):
 def notes():
     """báo cáo agent: tách theo tiêu đề có id tướng"""
     res = {}
-    for f in glob.glob(os.path.join(ROOT, 'Temp', 'vfx_*', 'BAO_CAO.md')):
+    for f in glob.glob(os.path.join(HERE, 'bao_cao', '*.md')):
         t = open(f, encoding='utf-8').read()
         parts = re.split(r'^(#{2,3} .*)$', t, flags=re.M)
         for i in range(1, len(parts), 2):
@@ -64,17 +65,25 @@ def notes():
 def main():
     hs = heroes()
     nt = notes()
+    # số khung từ lần dựng trước: tướng không còn ảnh gốc thì giữ tấm cũ trong anh/<đợt>/
+    old = {}
+    try:
+        for e in json.load(open(os.path.join(HERE, 'data.json'), encoding='utf-8')).get('heroes', []):
+            old[e['id']] = e.get('n', {})
+    except Exception:
+        pass
     data = {'cols': COLS, 'w': W, 'h': H, 'moves': MOVES, 'elems': ELEMS, 'dots': [], 'heroes': []}
     for d in DOTS:
-        if os.path.exists(os.path.join(SHOTS, d, 'ds.json')): data['dots'].append(d)
+        if os.path.exists(os.path.join(SHOTS, d, 'ds.json')) or glob.glob(os.path.join(OUT, d, '*.jpg')): data['dots'].append(d)
     for h in hs:
         e = dict(h); e['n'] = {}
         for d in data['dots']:
             src = os.path.join(SHOTS, d, h['id'])
-            if not os.path.isdir(src): continue
             os.makedirs(os.path.join(OUT, d), exist_ok=True)
             for m, _ in MOVES:
-                n = strip(src, m, os.path.join(OUT, d, '%s_%s.jpg' % (h['id'], m)))
+                dst = os.path.join(OUT, d, '%s_%s.jpg' % (h['id'], m))
+                n = strip(src, m, dst) if os.path.isdir(src) else 0
+                if not n and os.path.exists(dst): n = (old.get(h['id'], {}).get(m) or {}).get(d, 0)
                 if n: e['n'].setdefault(m, {})[d] = n
         if h['id'] in nt: e['note'] = '\n\n'.join(nt[h['id']])
         data['heroes'].append(e)

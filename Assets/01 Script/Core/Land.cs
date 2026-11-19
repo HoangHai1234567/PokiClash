@@ -19,6 +19,11 @@ namespace PokiClash.Core
         public int size = 3;  // 3: habitat thường, 4: habitat to (mini boss, boss)
         public int plate = 1; // bảng tên bên phải (1) hay trái (-1)
         public Pt ring;       // bán trục ngang, dọc của vòng đá, tỉ lệ ảnh nền (chấm ải không đè lên)
+        // điểm đường gần bệ (tỉ lệ ảnh nền) làm mốc chia cờ; không có (âm) thì lấy điểm đường gần tâm bệ nhất. Bệ đứng cách đường một
+        // quãng (bệ theo môi trường vùng, đường lướt cạnh bệ như đảo Thủy; người dùng 2026-11-19) cần mốc này, không thì điểm đường
+        // gần tâm nhất có thể thuộc chặng khác
+        public Pt road = new Pt(-1, -1);
+        public bool HasRoad => road.x >= 0 && road.y >= 0;
     }
 
     // số vùng boss đã diễn cảnh mở (mây tan, bút chì tô) của từng đảo, lưu trong SaveData.extra["landShown"] (không thêm trường vào bản
@@ -77,6 +82,7 @@ namespace PokiClash.Core
     {
         public string k;
         public double x, y, s; // tâm, cỡ (tỉ lệ vùng đất; s theo bề ngang)
+        public string c;       // màu nhuộm "#rrggbb" (đom đóm, lá rơi đảo Mộc); null: màu mặc định của loại
     }
 
     [Serializable]
@@ -175,6 +181,7 @@ namespace PokiClash.Core
                     size = J.Int(h, "size", 3),
                     plate = J.Int(h, "plate", 1) >= 0 ? 1 : -1,
                     ring = P(J.Get(h, "ring")),
+                    road = J.Get(h, "road") != null ? P(J.Get(h, "road")) : new Pt(-1, -1),
                 });
             }
             foreach (var x in J.Arr(o, "secs"))
@@ -205,7 +212,7 @@ namespace PokiClash.Core
                 foreach (var tz in J.Arr(c, "tease"))
                 {
                     var t = J.Obj(tz);
-                    if (t != null) sec.tease.Add(new LandTease { k = J.Str(t, "k"), x = J.Num(t, "x"), y = J.Num(t, "y"), s = J.Num(t, "s") });
+                    if (t != null) sec.tease.Add(new LandTease { k = J.Str(t, "k"), x = J.Num(t, "x"), y = J.Num(t, "y"), s = J.Num(t, "s"), c = J.Str(t, "c") });
                 }
                 foreach (var cl in J.Arr(c, "clouds"))
                 {

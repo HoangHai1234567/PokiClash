@@ -29,13 +29,24 @@ namespace PokiClash
         public const float FlyTime = 0.55f, FlyJitter = 0.12f, FlyGap = 0.06f, StarSize = 56, SoundGap = 0.07f;
         public const int MaxStars = 4;
 
+        // chùm EXP (chủ dự án dặn 2026-11-19: "nhận kinh nghiệm phải toả ra, trễ một chút rồi tween lên mượt"): mọi viên phụt ra cùng
+        // lúc theo hình quạt quanh điểm đi, hãm dần trong SprayOut giây (nảy cỡ 0,3 → 1,18 → 1); khựng lơ lửng SprayHold giây, viên
+        // sau khựng lâu hơn SprayGap giây nên rời chùm lần lượt; rồi bay về đích theo đường cong nhẹ, nhanh dần rồi chậm lại (ease
+        // in-out bậc ba) trong SprayFly giây, nhỏ dần còn 0,72, tới nơi mới cộng
+        public const float SprayOut = 0.28f, SprayHold = 0.14f, SprayGap = 0.055f, SprayFly = 0.52f, SprayFlyJitter = 0.08f;
+        // thanh chạy tới số mới: phần còn thiếu × FillRate mỗi giây, ít nhất FillMin thanh mỗi giây (thanh đầy dần, chữ số đếm lên);
+        // lên cấp thì chạy đầy, nhún vòng cấp, về 0 rồi chạy tiếp
+        public const float FillRate = 7f, FillMin = 0.9f;
+
         // nhún khi cộng: dáng chép thanh năng lượng của máy tham khảo (nền và phần đầy cùng phóng 1,2 → 1,08 → 1,2 → 1,08 → 1,2 → 1
         // trong 0,25 giây, chữ số phóng mạnh hơn). Thanh này dài nên biên độ chia theo trục: ngang PunchX, dọc PunchY, chữ thêm PunchText.
         // Không bao giờ nhỏ hơn 1, để bản rãnh nhún luôn che kín rãnh vẽ sẵn của thân máy bên dưới.
         public static readonly float[] PunchCurve = { 0, 1, 0.05f, 0.4f, 0.1f, 1, 0.15f, 0.4f, 0.2f, 0.7f, 0.25f, 0 };
         public const float PunchX = 0.03f, PunchY = 0.18f, PunchText = 0.12f;
 
-        int level, exp; // đang hiện
+        int level, exp; // đích của thanh (đã nhận)
+        int dispLv; // đang hiện: cấp và EXP chạy dần tới đích
+        float dispExp;
         int flying;
         bool bound;
         MachineFx fx;
@@ -176,76 +187,151 @@ namespace PokiClash
             if (level != S.level || exp != S.exp) Show(S.level, S.exp, false);
         }
 
+        // đặt đích của thanh; instant thì hiện ngay, không thì Update cho thanh chạy tới (lên cấp: chạy đầy rồi về 0)
         void Show(int lv, int e, bool instant)
         {
-            bool up = lv > level && !instant;
-            if (up) bar.Set(0, 1, 0, null, true); // lên cấp: thanh về 0 rồi đầy lại tới số mới
             level = lv;
             exp = e;
-            int need = Progress.ExpToNext(level, Cfg);
-            bool max = level >= Cfg.maxLevel;
-            bar.Set(max ? need : exp, need, 0, max ? "Tối đa" : $"{exp}/{need}", instant);
-            if (arc) arc.fillAmount = max ? 1 : Mathf.Clamp01((float)exp / Mathf.Max(1, need));
-            if (lvText) lvText.text = level.ToString();
-            if (up) LevelPop();
+            if (instant || lv < dispLv || (lv == dispLv && e < dispExp - 0.5f))
+            {
+                dispLv = lv;
+                dispExp = e;
+            }
+            Paint();
         }
 
-        // n EXP bay từ điểm from (thế giới) lên thanh, chia cho 1..MaxStars sao (10 EXP một sao, ít nhất 1)
-        public void Fly(Vector3 from, int n)
+        // vẽ thanh theo số đang hiện
+        void Paint()
+        {
+            int need = Progress.ExpToNext(dispLv, Cfg);
+            bool max = dispLv >= Cfg.maxLevel;
+            int shown = Mathf.Min(need, Mathf.RoundToInt(dispExp));
+            bar.Set(max ? need : dispExp, need, 0, max ? "Tối đa" : $"{shown}/{need}", true);
+            if (arc) arc.fillAmount = max ? 1 : Mathf.Clamp01(dispExp / Mathf.Max(1, need));
+            if (lvText) lvText.text = dispLv.ToString();
+        }
+
+        // thanh chạy tới đích: đầy dần, chữ số đếm lên; qua cấp thì chạy đầy, nhún vòng cấp, về 0
+        void Tween(float dt)
+        {
+            if (dispLv == level && Mathf.Abs(dispExp - exp) < 0.01f) return;
+            int need = Mathf.Max(1, Progress.ExpToNext(dispLv, Cfg));
+            float goal = dispLv < level ? need : exp;
+            float step = Mathf.Max(Mathf.Abs(goal - dispExp) * FillRate, need * FillMin) * dt;
+            dispExp = Mathf.MoveTowards(dispExp, goal, step);
+            if (dispLv < level && dispExp >= need - 0.01f)
+            {
+                dispLv++;
+                dispExp = 0;
+                LevelPop();
+            }
+            else if (dispLv == level && Mathf.Abs(dispExp - exp) < 0.01f) dispExp = exp;
+            Paint();
+        }
+
+        // số viên của một chùm EXP n: 3..7 (thêm một viên mỗi 10 EXP)
+        public static int SprayCount(int n) => Mathf.Clamp(2 + Mathf.CeilToInt(n / 10f), 3, 7);
+
+        // chia n cho k phần gần đều (phần đầu nhận dư)
+        public static int Part(int n, int k, int i) => n / k + (i < n % k ? 1 : 0);
+
+        // n EXP bay từ điểm from (thế giới) lên thanh: chùm kẹo toả ra, khựng, rồi lần lượt bay mượt về đầu phần đầy
+        public void Fly(Vector3 from, int n, float delay = 0)
         {
             if (!bound || n <= 0) return;
-            int k = Mathf.Clamp(Mathf.CeilToInt(n / 10f), 1, MaxStars);
-            int left = n;
-            for (int i = 0; i < k; i++)
+            int k = SprayCount(n);
+            Spray(MachineScoreBoard.Candy, from, () => bar.TipWorld(), k, delay, i => Arrive(Part(n, k, i)));
+        }
+
+        // một chùm count icon từ from (thế giới) về to() (đích tính lại mỗi khung, vì đầu thanh chạy), trễ delay giây; viên thứ i tới
+        // nơi thì gọi arrive(i). radius: tầm toả (px lớp bay)
+        public void Spray(Sprite sprite, Vector3 from, System.Func<Vector3> to, int count, float delay, System.Action<int> arrive,
+            float size = StarSize, float radius = 105)
+        {
+            if (count <= 0) return;
+            if (!bound)
             {
-                int part = i == k - 1 ? left : n / k;
-                left -= part;
+                for (int i = 0; i < count; i++) arrive?.Invoke(i);
+                return;
+            }
+            float a0 = Random.Range(0f, 360f);
+            for (int i = 0; i < count; i++)
+            {
                 flying++;
-                StartCoroutine(FlyOne(from, part, i * FlyGap));
+                // quạt đều quanh điểm đi, lệch ngẫu nhiên; viên sau rời chùm sau
+                float ang = a0 + 360f * i / count + Random.Range(-20f, 20f);
+                StartCoroutine(SprayOne(sprite, from, to, ang, radius * Random.Range(0.62f, 1f), delay + i * 0.012f,
+                    SprayHold + i * SprayGap, i, arrive, size));
             }
         }
 
-        IEnumerator FlyOne(Vector3 from, int n, float delay)
+        IEnumerator SprayOne(Sprite sprite, Vector3 from, System.Func<Vector3> to, float ang, float rad, float delay, float hold, int index,
+            System.Action<int> arrive, float size)
         {
             var img = fx.Take(flyLayer);
             stars.Add(img);
-            img.sprite = MachineScoreBoard.Candy;
+            img.sprite = sprite;
             img.preserveAspect = true;
             img.color = Color.white;
             img.enabled = false;
             var rt = img.rectTransform;
-            rt.sizeDelta = Vector2.one * StarSize;
+            rt.sizeDelta = Vector2.one * size;
             rt.localEulerAngles = Vector3.zero;
+            rt.localScale = Vector3.zero;
             for (float w = 0; w < delay; w += Time.unscaledDeltaTime) yield return null;
             img.enabled = true;
 
+            // 1. toả: hãm dần (ease-out bậc ba), hơi dồn lên trên; cỡ nảy 0,3 → 1,18 → 1; xoay đầu rồi chậm lại
             var a = Anch(from);
-            // điểm uốn: văng sang một bên và lên trên trước khi lao về thanh (như kẹo nhảy khỏi ô rồi bay về thanh cấp)
-            float side = Random.Range(-1f, 1f);
-            var c = a + new Vector2(side * 220, 260 + Random.Range(0, 140));
-            float dur = FlyTime + Random.Range(0, FlyJitter);
-            float trail = 0;
+            var dir = new Vector2(Mathf.Cos(ang * Mathf.Deg2Rad), Mathf.Sin(ang * Mathf.Deg2Rad));
+            var p1 = a + new Vector2(dir.x, dir.y * 0.75f + 0.3f) * rad;
+            float rot = Random.Range(-30f, 30f), spin = Random.Range(-1f, 1f) * 260;
+            for (float t = 0; t < SprayOut; t += Time.unscaledDeltaTime)
+            {
+                float u = t / SprayOut, e = 1 - (1 - u) * (1 - u) * (1 - u);
+                rt.anchoredPosition = Vector2.LerpUnclamped(a, p1, e);
+                rt.localScale = Vector3.one * (u < 0.45f ? Mathf.Lerp(0.3f, 1.18f, u / 0.45f) : Mathf.Lerp(1.18f, 1, (u - 0.45f) / 0.55f));
+                rot += spin * (1 - u) * Time.unscaledDeltaTime;
+                rt.localEulerAngles = new Vector3(0, 0, rot);
+                rt.SetAsLastSibling();
+                yield return null;
+            }
+            // 2. khựng: lơ lửng nhấp nhô nhẹ, xoay dần về thẳng
+            float ph = Random.Range(0f, 6.28f), rot0 = rot;
+            for (float t = 0; t < hold; t += Time.unscaledDeltaTime)
+            {
+                rt.anchoredPosition = p1 + new Vector2(0, Mathf.Sin(t * 10 + ph) * 3.5f);
+                rt.localScale = Vector3.one * (1 + 0.04f * Mathf.Sin(t * 14 + ph));
+                rot = Mathf.Lerp(rot0, 0, Mathf.Clamp01(t / 0.25f));
+                rt.localEulerAngles = new Vector3(0, 0, rot);
+                yield return null;
+            }
+            // 3. bay mượt về đích: ease in-out bậc ba, đường cong lệch về phía đã toả, nhỏ dần 1 → 0,72, vệt lấp lánh
+            var p2 = rt.anchoredPosition;
+            float dur = SprayFly + Random.Range(0, SprayFlyJitter), trail = 0, rotS = rot;
+            float side = dir.x >= 0 ? 1 : -1;
+            var b = Anch(to());
             for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
             {
-                float k = t / dur;
-                float e = k * k * (3 - 2 * k);
-                var b = Anch(bar.TipWorld());
-                var p = (1 - e) * (1 - e) * a + 2 * (1 - e) * e * c + e * e * b;
+                float u = t / dur, e = u < 0.5f ? 4 * u * u * u : 1 - Mathf.Pow(-2 * u + 2, 3) / 2;
+                b = Anch(to());
+                var d = b - p2;
+                var c = (p2 + b) * 0.5f + new Vector2(-d.y, d.x).normalized * side * Mathf.Min(140, d.magnitude * 0.22f);
+                var p = (1 - e) * (1 - e) * p2 + 2 * (1 - e) * e * c + e * e * b;
                 rt.anchoredPosition = p;
-                // nhảy ra 0,5 → 1,15 trong 0,12 giây đầu, nhỏ dần về 0,75 khi tới
-                float s = k < 0.2f ? Mathf.Lerp(0.5f, 1.15f, k / 0.2f) : Mathf.Lerp(1.15f, 0.75f, (k - 0.2f) / 0.8f);
-                rt.localScale = Vector3.one * s;
-                rt.localEulerAngles = new Vector3(0, 0, Mathf.Sin(k * Mathf.PI) * 25 * side);
-                if ((trail += Time.unscaledDeltaTime) > 0.045f)
+                rt.localScale = Vector3.one * Mathf.Lerp(1, 0.72f, e);
+                rt.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(rotS, 0, e) + Mathf.Sin(u * Mathf.PI) * 14 * side);
+                if ((trail += Time.unscaledDeltaTime) > 0.04f && u > 0.12f)
                 {
                     trail = 0;
-                    fx.Emit(Trail, p, 40);
+                    fx.Emit(Trail, p, size * 0.7f);
                 }
                 yield return null;
             }
             Return(img);
             flying--;
-            Arrive(n);
+            fx.Emit(Hit, b, 34);
+            arrive?.Invoke(index);
         }
 
         void Arrive(int n)
@@ -266,7 +352,7 @@ namespace PokiClash
                 e = S.exp;
             }
             Show(lv, e, false);
-            bumpT = 0;
+            if (tipT < 0.2f) bumpT = 0; // viên tới liền nhau: không nhún lại khi nhún trước còn đang mạnh
             tipT = 0.35f;
             fx.Emit(Hit, Anch(bar.TipWorld()), 40);
             float now = Time.unscaledTime;
@@ -303,9 +389,11 @@ namespace PokiClash
 
         void Update()
         {
-            if (!bound) return;
+            // fx không qua được lần nạp lại script giữa lúc Play (bound thì có): coi như chưa gắn
+            if (!bound || fx == null) return;
             float dt = Time.unscaledDeltaTime;
             fx.Update(dt);
+            Tween(dt);
             if (tipGlow)
             {
                 tipT -= dt;

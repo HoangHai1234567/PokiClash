@@ -24,6 +24,20 @@ Người dùng dặn 2026-11-17 (kèm ảnh hộp chi tiết Pháo Giáp và mà
 - **Địch**: `Teams.EnemyStar(level)` theo thang mới, bám sao kỳ vọng của người chơi ở cấp đó (đo bằng ProgressSim).
 - **Độ khó mục tiêu**: người chơi "vừa" lên Bạc cho tướng chủ lực trong đảo đầu, Vàng khoảng giữa game, không max (Kim Cương 5★) được tướng nào trước khoảng ngày 45–60. Số cụ thể đo bằng máy, báo lại.
 
+### Bậc theo dạng (người dùng dặn 2026-11-19, thay cách hiện 4 bậc cho mọi tướng)
+
+- Người dùng: "tướng chỉ có 2 mốc tiến hóa thì hiện 2 cái thôi … không thể để nhiều hơn"; nút lên sao và nút tiến hóa phải tách rõ; sao phải hiện rõ hơn.
+- **Số bậc của tướng = số hình** trong dòng tiến hóa (dạng trùng hình dạng trước không tính: Thiết Cưa, Sơn Viên đang 2 dạng cùng hình, dạng 3 Quỷ Lava trùng dạng 2). Hiện 57 tướng: 8 tướng 1 bậc, 44 tướng 2 bậc (Đồng, Bạc), 5 tướng 3 bậc (Đồng, Bạc, Vàng). Không tướng nào có Kim Cương.
+- **Bên trong giữ thang 20 sao** (`HeroProg.star` vẫn là sao tổng): chỉ số, tổng giá mảnh, sao địch, bản lưu, golden không đổi; mọi tướng tối đa vẫn hệ số 2,09.
+- Bậc k ≥ 1 bắt đầu đúng mốc đổi hình (`formStars` 6, 11), bậc cuối kéo tới sao tổng 20. 5 sao hiện của bậc là 5 điểm dừng trải đều trên đoạn sao tổng của bậc (`StarTier.Stops`):
+  - 2 dạng: Đồng 1–5 = 1..5; Bạc 1–5 = 6, 10, 13, 17, 20.
+  - 3 dạng: Đồng, Bạc như thang cũ; Vàng 1–5 = 11, 13, 16, 18, 20.
+  - 1 dạng: Đồng 1–5 = 1, 6, 11, 15, 20 (không tiến hóa).
+- **Lên sao** (nút cam ở hàng dưới hộp chi tiết): chỉ tốn mảnh, bằng tổng giá các sao tổng ở giữa (`Progress.StarUpCost`); bước đi qua đầu bậc của thang cũ cần cấp người chơi như mốc tiến hóa cũ (95, 150), không tốn đá.
+- **Tiến hóa** (nút xanh lá trên thanh tiến hóa, giữa mốc đang ở và mốc kế): chỉ ở sao cuối bậc, tốn đá + cấp như cũ (20 đá cấp 30 lên Bạc, 55 đá cấp 95 lên Vàng), luôn đổi hình.
+- Hệ quả cần theo dõi: đá tiến hóa mỗi tướng dùng ít đi (2 dạng: 20 đá thay vì 195; 3 dạng: 75; 1 dạng: 0), nguồn đá đang tính cho 195 đá mỗi tướng nên sẽ dư. Chưa chỉnh nguồn đá (chờ người dùng quyết; đo bằng ProgressSim).
+- Tiềm năng: ô vẫn mở theo sao tổng (1, 3, 6, 8, 11, 16); chữ "Mở ở …" hiện theo bậc của tướng (2 dạng: Đồng 1, Đồng 3, Bạc 1, Bạc 2, Bạc 3, Bạc 4).
+
 ### Độ hiếm và khoảng cách lực chiến
 
 - Độ hiếm tăng theo suất ải trong đảo: ải 1, 5 Thường; 10, 15 Khá; 20, 30 Hiếm; 40, 50, 60 Sử thi; **ải 70 (boss cuối đảo) Huyền thoại**. Đảo Thủy đã đúng phân bố, chỉ sai chỗ (Hàn Ngạc Huyền thoại ở ải 60, Hải Long Sử thi ở ải 70).

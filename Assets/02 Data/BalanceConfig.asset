@@ -38,7 +38,7 @@ MonoBehaviour:
     bossEvoEarly: 0.75
     cardLvStep: 0.15
     maxRounds: 60
-    saveVersion: 12
+    saveVersion: 13
     maxLevel: 200
     expBase: 45
     expPow: 1
@@ -222,8 +222,8 @@ MonoBehaviour:
       v: 5
     ratesBalls: 6000
     ringHits:
-    - 1.6
-    - 0.95
+    - 1.06
+    - 1.07
     rates:
     - k: exp5
       p: 0.51
@@ -280,7 +280,7 @@ MonoBehaviour:
     - zone: 2
       team:
       - ti_tach
-      - vo_su
+      - cao_da
       - tien_la
       star: 1
       card: 1
@@ -288,7 +288,7 @@ MonoBehaviour:
       team:
       - so_ngoc
       - ti_tach
-      - vo_su
+      - cao_da
       star: 3
       card: 2
     - zone: 0
@@ -757,9 +757,21 @@ MonoBehaviour:
       cap: 50
       unlockLevels: 1e00000032000000500000006e000000
     home:
-      grid: 48
-      lot: 8
+      grid: 72
+      lot: 12
       startLots:
+      - i: 2
+        j: 2
+        kind: start
+      - i: 2
+        j: 3
+        kind: start
+      - i: 2
+        j: 4
+        kind: start
+      - i: 3
+        j: 2
+        kind: start
       - i: 3
         j: 3
         kind: start
@@ -767,21 +779,15 @@ MonoBehaviour:
         j: 4
         kind: start
       - i: 4
+        j: 2
+        kind: start
+      - i: 4
         j: 3
         kind: start
       - i: 4
         j: 4
         kind: start
-      - i: 4
-        j: 5
-        kind: start
-      - i: 5
-        j: 4
-        kind: start
-      - i: 5
-        j: 5
-        kind: start
-      maxLots: 090000000c0000000f0000001200000016000000190000001c0000001e0000002000000020000000
+      maxLots: 0b0000000e0000001100000014000000180000001b0000001e000000200000002000000020000000
       rings:
       - home: 1
         player: 0
@@ -825,33 +831,33 @@ MonoBehaviour:
         kind: hill
       features:
       - kind: lake
-        gx: 10
-        gy: 10
-        w: 4
-        d: 4
+        gx: 13
+        gy: 12
+        w: 7
+        d: 9
       - kind: lake
-        gx: 2
-        gy: 42
+        gx: 7
+        gy: 65
         w: 4
-        d: 4
+        d: 5
       - kind: stream
-        gx: 11
-        gy: 14
+        gx: 16
+        gy: 21
         w: 1
-        d: 34
+        d: 51
       - kind: ore
-        gx: 17
-        gy: 33
+        gx: 27
+        gy: 63
         w: 6
         d: 6
       - kind: ore
-        gx: 33
-        gy: 9
+        gx: 51
+        gy: 15
         w: 6
         d: 6
       - kind: fertile
-        gx: 24
-        gy: 40
+        gx: 38
+        gy: 62
         w: 8
         d: 8
       levels:
@@ -978,20 +984,20 @@ MonoBehaviour:
           rar: []
       layout:
       - b: main
-        gx: 28
-        gy: 26
+        gx: 39
+        gy: 39
       - b: field
-        gx: 24
-        gy: 32
+        gx: 32
+        gy: 47
       - b: orchard
-        gx: 24
-        gy: 36
+        gx: 32
+        gy: 53
       - b: sawmill
-        gx: 34
-        gy: 24
+        gx: 47
+        gy: 35
       - b: storage
-        gx: 35
-        gy: 30
+        gx: 49
+        gy: 44
       buildings:
       - id: main
         name: "Nh\xE0 ch\xEDnh"
@@ -2189,41 +2195,44 @@ MonoBehaviour:
         block: 1
       startTiles:
       - b: dirt
+        gx: 22
+        gy: 23
+      - b: dirt
         gx: 23
         gy: 23
       - b: dirt
-        gx: 22
-        gy: 23
+        gx: 23
+        gy: 24
       - b: dirt
-        gx: 22
-        gy: 22
+        gx: 24
+        gy: 24
       - b: dirt
-        gx: 21
-        gy: 22
+        gx: 24
+        gy: 25
       - b: dirt
-        gx: 21
-        gy: 21
+        gx: 25
+        gy: 25
       - b: dirt
-        gx: 20
-        gy: 21
+        gx: 25
+        gy: 26
       - b: dirt
-        gx: 20
-        gy: 20
+        gx: 26
+        gy: 26
       - b: dirt
-        gx: 19
-        gy: 20
+        gx: 26
+        gy: 27
       - b: dirt
-        gx: 19
-        gy: 19
+        gx: 27
+        gy: 27
       - b: dirt
-        gx: 18
-        gy: 19
+        gx: 27
+        gy: 28
       - b: dirt
-        gx: 18
-        gy: 18
+        gx: 28
+        gy: 28
       - b: dirt
-        gx: 17
-        gy: 18
+        gx: 28
+        gy: 29
       - b: dirt
-        gx: 17
-        gy: 17
+        gx: 29
+        gy: 29

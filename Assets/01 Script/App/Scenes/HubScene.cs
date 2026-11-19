@@ -1,4 +1,8 @@
 // Sảnh (chép worldScreen của Web/src/view/screens/world.ts): đảo lớn chia 5 vùng hệ, làng máy bi ở giữa.
+// Bản đồ thế giới (người dùng 2026-11-19, ArtGen/Islands/sanh_moi): năm đảo liền nhau có địa hình cao thấp, kéo được 4 hướng, vành mây
+// che miền chưa mở; không còn làng máy bi trên đảo, công trình side meta ra cột nút cố định. Mây che từng đảo (HubFog): mới chơi che
+// hết, chọn tướng khởi đầu thì tan đảo cùng hệ, xong trận hướng dẫn (tạm: thắng ải đầu) thì tan nốt (HubIslands). Mỗi đảo mới mở
+// diễn tan mây một lần, khoá chạm trong lúc diễn, camera lướt tới đảo đó.
 // Không khoá vùng nào: bảng tên ghi cấp đề nghị, độ khó so với cấp người chơi, tiến độ. Mũi tên nhún chỉ đảo nên đánh.
 // Rìa làng có chỗ cho công trình side meta (phác chì khi chưa mở). Hàng nút tròn ở đáy. Lần đầu hiện màn giới thiệu.
 // Prefab màn hình Assets/04 Prefabs/Screens/Hub: vùng đảo (Items/BangVung) và công trình (Items/CongTrinh) đặt sẵn theo toạ độ ảnh.
@@ -43,6 +47,18 @@ namespace PokiClash
         [SerializeField] TextMeshProUGUI villageBalls;
         [SerializeField] HubBuilding[] buildings; // theo thứ tự Buildings
         [SerializeField] BottomButton[] bottom; // Tướng, Sổ thẻ, Máy Bi, Đánh tiếp, Sổ tay
+        [Tooltip("Mây che từng đảo của bản đồ thế giới (menu PokiClash/Prefab/Sảnh bản đồ thế giới)")]
+        [SerializeField] HubFog fog;
+        [SerializeField] HubPan pan;
+        [Tooltip("Tàu ở bến cạnh đảo Thủy (menu PokiClash/Prefab/Bến tàu: ...)")]
+        [SerializeField] PierShip pier;
+        [Tooltip("Ảnh từng đảo trên bản đồ: quầng sáng màu hệ, bấm theo hình đảo, nhún (HubIslandArt)")]
+        [SerializeField] HubIslandArt[] islandArts = new HubIslandArt[0];
+        [Tooltip("Giao diện cố định (hàng nút đáy, cột thẻ công trình): ẩn lúc chuyến tàu qua mây")]
+        [SerializeField] CanvasGroup[] chrome = new CanvasGroup[0];
+        Coroutine chromeFade;
+
+        Coroutine reveal;
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(RectTransform[] cloudRts, HubZone[] zoneItems, ClickCatcher villageClick, TextMeshProUGUI villageText,
@@ -56,9 +72,92 @@ namespace PokiClash
             bottom = bottomButtons;
         }
 
+        // Dùng khi dựng prefab (Editor): bản đồ thế giới.
+        public void SetupMap(HubFog fogLayer, HubPan panLayer)
+        {
+            fog = fogLayer;
+            pan = panLayer;
+        }
+
+        public void SetupIslands(HubIslandArt[] arts) => islandArts = arts;
+
+        public void SetupPier(PierShip p, CanvasGroup[] chromeGroups)
+        {
+            pier = p;
+            chrome = chromeGroups;
+        }
+
+        public override void Chrome(bool on, bool fade)
+        {
+            if (chromeFade != null) StopCoroutine(chromeFade);
+            chromeFade = null;
+            if (fade && isActiveAndEnabled) chromeFade = StartCoroutine(FadeChrome(on));
+            else
+                foreach (var g in chrome)
+                    if (g)
+                    {
+                        g.alpha = on ? 1 : 0;
+                        g.blocksRaycasts = on;
+                    }
+        }
+
+        IEnumerator FadeChrome(bool on)
+        {
+            foreach (var g in chrome)
+                if (g) g.blocksRaycasts = on;
+            float from = chrome.Length > 0 && chrome[0] ? chrome[0].alpha : 0, to = on ? 1 : 0;
+            for (float t = 0; t < 0.25f; t += Time.unscaledDeltaTime)
+            {
+                foreach (var g in chrome)
+                    if (g) g.alpha = Mathf.Lerp(from, to, t / 0.25f);
+                yield return null;
+            }
+            foreach (var g in chrome)
+                if (g) g.alpha = to;
+            chromeFade = null;
+        }
+
+        // bến tàu: camera cho chuyến tàu qua mây (đặt ngay / lướt tới tàu), chạm tàu là về Nhà
+        void HookPier()
+        {
+            if (!pier) return;
+            pier.Frame = (p, w) =>
+            {
+                if (pan) pan.FrameAt(p, w);
+            };
+            pier.Glide = GlideTo;
+            pier.OnTap = () =>
+            {
+                var s = App.Save.Data;
+                if (Home.Open(s, App.Data.Cfg))
+                {
+                    App.Audio.Play("click");
+                    App.Router.Go(SceneIds.Home);
+                }
+                else
+                {
+                    App.Audio.Play("error");
+                    var farm = System.Array.Find(Buildings, b => b.icon == "seed");
+                    App.Toasts.Show(farm.need ?? "Nhà chưa mở", Icon("lock"));
+                }
+            };
+        }
+
+        IEnumerator GlideTo(RectTransform p)
+        {
+            if (!pan) yield break;
+            pan.GlideTo(p);
+            float t0 = Time.unscaledTime;
+            while (pan.Gliding && Time.unscaledTime - t0 < 1f) yield return null;
+        }
+
         public override void Enter(object args)
         {
+            HookPier();
+            Chrome(true, false);
             Render();
+            var start = StartFocus();
+            if (pan && start) pan.GlideTo(start);
             if (!App.Save.Data.intro || App.Save.Data.starter == null) StartCoroutine(IntroLater());
         }
 
@@ -81,31 +180,136 @@ namespace PokiClash
 
         void Render()
         {
-            if (zones == null || !village) return; // chưa nướng prefab màn hình
+            if (zones == null) return; // chưa nướng prefab màn hình
             var d = App.Data;
             var s = App.Save.Data;
-            var recoZone = Progress.RecommendedZone(s, d);
+            int open = HubIslands.Open(s, d);
+            var recoZone = RecoZone(s, d, open);
             foreach (var item in zones)
             {
                 var z = d.Zone(item.Zone);
                 item.gameObject.SetActive(z != null);
                 if (z == null) continue;
                 int prog = s.zones[(int)z.id];
-                item.Bind(z, prog, Progress.NextLevel(s, d, z.id), Progress.DifficultyOf(s, d, z), z == recoZone);
-                item.SetOnClick(() =>
+                item.Bind(z, prog, Progress.NextLevel(s, d, z.id), Progress.DifficultyOf(s, d, z), z == recoZone && open != 0);
+                Action go = () =>
                 {
                     App.Audio.Play("click");
                     App.Router.Go(SceneIds.Zone, z.id);
-                });
+                };
+                item.SetOnClick(go);
+                // bấm vào hình đảo cũng vào đảo (đảo nhún nhẹ); đảo chưa mở (mây che) thì không sáng, không nhận bấm
+                foreach (var art in islandArts)
+                    if (art && art.Zone == z.id)
+                    {
+                        art.OnClick = go;
+                        art.SetOpen((open & HubIslands.Bit(z.id)) != 0);
+                    }
             }
-            villageBalls.text = $"{s.balls} bi đang có";
-            village.OnClick = () =>
-            {
-                App.Audio.Play("click");
-                App.Router.Go(SceneIds.Machine);
-            };
+            if (villageBalls) villageBalls.text = $"{s.balls} bi đang có";
+            if (village)
+                village.OnClick = () =>
+                {
+                    App.Audio.Play("click");
+                    App.Router.Go(SceneIds.Machine);
+                };
             SideMeta(s);
             BottomRow(s, recoZone);
+            Fog(s, d, open);
+        }
+
+        // đảo nên đánh: chưa mở hết thì là đảo đã mở (đảo của tướng khởi đầu)
+        static ZoneDef RecoZone(SaveData s, GameData d, int open)
+        {
+            var reco = Progress.RecommendedZone(s, d);
+            if (open == HubIslands.All || open == 0 || (open & HubIslands.Bit(reco.id)) != 0) return reco;
+            foreach (var e in Elements.All)
+                if ((open & HubIslands.Bit(e)) != 0 && d.Zone(e) != null)
+                    return d.Zone(e);
+            return reco;
+        }
+
+        // chỗ nhìn lúc vào sảnh: đảo vừa mở (sắp diễn tan mây), không thì đảo nên đánh
+        RectTransform StartFocus()
+        {
+            if (!fog) return null;
+            var s = App.Save.Data;
+            var d = App.Data;
+            int open = HubIslands.Open(s, d), fresh = open & ~HubIslands.Shown(s);
+            if (fresh != 0 && fresh != HubIslands.All)
+                foreach (var e in Elements.All)
+                    if ((fresh & HubIslands.Bit(e)) != 0)
+                        return fog.Center(e);
+            if (fresh == HubIslands.All || open == 0) return null; // mở cả bản đồ / chưa mở gì: nhìn toàn cảnh từ giữa
+            return fog.Center(RecoZone(s, d, open).id);
+        }
+
+        // mây che các đảo chưa mở; đảo mới mở mà chưa diễn thì diễn tan mây
+        void Fog(SaveData s, GameData d, int open)
+        {
+            if (!fog || reveal != null) return; // đang diễn tan mây: không dựng lại mây giữa chừng
+            int shown = HubIslands.Shown(s) & open;
+            int fresh = open & ~shown;
+            fog.Apply(HubIslands.All & ~shown, LockedTap);
+            if (fresh != 0 && reveal == null) reveal = StartCoroutine(Reveal(fresh));
+        }
+
+        void LockedTap(Elem e)
+        {
+            App.Audio.Play("error");
+            var s = App.Save.Data;
+            string msg = string.IsNullOrEmpty(s.starter)
+                ? "Chọn bạn đồng hành để mở đảo đầu tiên"
+                : $"{App.Data.Zone(e)?.name ?? "Đảo"}: hoàn thành trận đầu tiên để mở";
+            App.Toasts.Show(msg, Icon("lock"));
+        }
+
+        IEnumerator Reveal(int fresh)
+        {
+            // chờ màn chuyển xong, hộp thoại (chọn tướng khởi đầu) đóng
+            while (App.Booting || App.Router.Busy || (App.Modals != null && App.Modals.Count > 0)) yield return null;
+            var cover = FindAnyObjectByType<CloudCover>(FindObjectsInactive.Include);
+            if (cover) cover.Block(true);
+            yield return new WaitForSecondsRealtime(0.35f);
+            int n = 0;
+            foreach (var e in Elements.All)
+                if ((fresh & HubIslands.Bit(e)) != 0)
+                    n++;
+            if (n == 1)
+            {
+                foreach (var e in Elements.All)
+                    if ((fresh & HubIslands.Bit(e)) != 0)
+                    {
+                        if (pan && fog.Center(e)) pan.GlideTo(fog.Center(e));
+                        float t0 = Time.unscaledTime;
+                        while (pan && pan.Gliding && Time.unscaledTime - t0 < 1.5f) yield return null;
+                        yield return fog.Reveal(e);
+                    }
+            }
+            else
+            {
+                // mở nhiều đảo một lúc: lần lượt tan từng đảo, cách nhau một nhịp ngắn, camera giữ toàn cảnh
+                Coroutine last = null;
+                foreach (var e in Elements.All)
+                    if ((fresh & HubIslands.Bit(e)) != 0)
+                    {
+                        last = StartCoroutine(fog.Reveal(e));
+                        yield return new WaitForSecondsRealtime(0.45f);
+                    }
+                if (last != null) yield return last;
+            }
+            HubIslands.SetShown(App.Save.Data, HubIslands.Shown(App.Save.Data) | fresh);
+            if (cover) cover.Block(false);
+            reveal = null;
+        }
+
+        void OnDisable()
+        {
+            if (reveal == null) return;
+            StopCoroutine(reveal);
+            reveal = null;
+            var cover = FindAnyObjectByType<CloudCover>(FindObjectsInactive.Include);
+            if (cover) cover.Block(false);
         }
 
         // công trình side meta ở rìa làng: hiện khi mở, trước đó phác chì kèm điều kiện mở

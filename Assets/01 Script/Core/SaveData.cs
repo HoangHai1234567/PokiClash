@@ -149,8 +149,24 @@ namespace PokiClash.Core
             new Dictionary<int, Action<Dictionary<string, object>>>
             {
                 [2] = MigrateAdsV2, [3] = MigrateRosterV3, [4] = MigrateStarterV4, [5] = MigrateThuyV5, [6] = MigrateCaDenV6, [7] = MigrateMamU, [8] = MigrateGacDa, [9] = MigrateHoaNhan,
-                [10] = MigrateBoTuongCu, [11] = MigrateSaoV12,
+                [10] = MigrateBoTuongCu, [11] = MigrateSaoV12, [12] = MigrateBoThoCu,
             };
+
+        // v12 -> v13 (2026-11-19, người dùng: "bỏ các tướng đảo thổ cũ đi"): 7 tướng Thổ cũ không đứng ải nào bị bỏ khỏi danh sách tướng.
+        // Bản lưu gộp vào tướng đảo Thổ cùng hoặc gần độ hiếm (sở hữu, mảnh, sao, cấp thẻ, tiềm năng, đội, trang trại, tướng khởi đầu) như
+        // BoTuongCu. Võ Sư (quà ải 3 đảo Thủy) thay bằng Tê Thiềm, Đại Sư Cà Sa (tướng mốc bi máy bi) bằng Thổ Tinh: người dùng chọn.
+        public static readonly (string from, string to)[] BoThoCu =
+        {
+            ("vo_su", "cao_da"), ("gau_mo", "lung_vuong"), ("soc_da", "thach_nhan"), ("bo_hung", "ho_khoan"), ("sa_than", "phu_van"),
+            ("ky_lan", "rua_nui"), ("ca_sa", "giap_nham"),
+        };
+
+        public static void MigrateBoThoCu(Dictionary<string, object> o)
+        {
+            GopTuong(o, BoThoCu);
+            var st = J.Str(o, "starter");
+            if (st != null) o["starter"] = Map(BoThoCu, st);
+        }
 
         // v11 -> v12 (2026-11-17, bậc sao kiểu Clash of Critters, StarTier): sao cũ 1..5 đổi sang sao tổng 1, 3, 6, 8, 11 (Đồng 1★,
         // Đồng 3★, Bạc 1★, Bạc 3★, Vàng 1★), giữ dạng đang có (mốc đổi dạng cũ 3, 5 thành 6, 11). Mảnh, đá giữ nguyên.
@@ -608,6 +624,8 @@ namespace PokiClash.Core
                 lastTick = J.Num(ho, "lastTick"), boostUntil = J.Num(ho, "boostUntil"), nextId = J.Int(ho, "nextId", 1),
                 wood = J.Num(ho, "wood"), ore = J.Num(ho, "ore"), bread = J.Int(ho, "bread"),
                 seed = (uint)Math.Max(1, J.Num(ho, "seed", 1)), beautyGifts = J.Int(ho, "beautyGifts"),
+                grid = J.Int(ho, "grid", 48), // bản lưu trước 2026-11-19: đảo 48 x 48 (Home.Regrid dời theo tỉ lệ)
+                dockIntro = J.Bool(ho, "dockIntro"),
             };
             foreach (var x in J.Arr(ho, "lots")) if (x is double l) h.lots.Add((int)l);
             foreach (var kv in J.Obj(ho, "clearing") ?? new Dictionary<string, object>())
@@ -640,7 +658,7 @@ namespace PokiClash.Core
         static Dictionary<string, object> WriteHome(HomeState h) => new Dictionary<string, object>
         {
             ["lastTick"] = h.lastTick, ["boostUntil"] = h.boostUntil, ["nextId"] = h.nextId, ["wood"] = h.wood, ["ore"] = h.ore,
-            ["bread"] = h.bread, ["seed"] = (double)h.seed, ["beautyGifts"] = h.beautyGifts,
+            ["bread"] = h.bread, ["seed"] = (double)h.seed, ["beautyGifts"] = h.beautyGifts, ["grid"] = h.grid, ["dockIntro"] = h.dockIntro,
             ["lots"] = h.lots.Cast<object>().ToList(),
             ["clearing"] = h.clearing.ToDictionary(kv => kv.Key.ToString(), kv => (object)kv.Value),
             ["rest"] = h.rest.ToDictionary(kv => kv.Key, kv => (object)kv.Value),

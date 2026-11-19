@@ -277,3 +277,14 @@ chỉ mang `q × far` (game tính phần quãng = x / x của far); `la_k` mang 
 
 1. Người dùng chơi thử ải 30 đảo Mộc, hộp chi tiết tướng, tiến hóa; chỉnh tên, cỡ, hiệu ứng theo lời họ.
 2. Soi chiều ngược lại (Linh Điểu là boss ải 30 đánh xuống người chơi), appear / die / evolve trong game.
+
+## 9. Bị đè nhầm rồi trả lại (2026-11-17 → 2026-11-19)
+
+- 2026-11-17 người dùng gõ "con tướng thứ 6 đảo mộc, concept tượng đá cổ đại cầm 1 cột đá lớn". Phiên đó làm theo đúng chữ: dựng Cổ Vương
+  (`tuong_cot_ghichu.md`) rồi đè lên suất `gio_loc`, không hỏi lại dù suất đang là Linh Điểu đã vào game. Người dùng định giao tướng 6
+  đảo **Thổ**: cùng lúc họ giao tướng 7, 8, 9 đảo Thổ.
+- 2026-11-19 người dùng phát hiện ("tướng thứ 6 đảo mộc hiện tại phải ở đảo thổ"). Trả Linh Điểu về `gio_loc` đúng bản trước 17/11:
+  `quai/doi_suat6_tho.py` (heroes.json, cards.json, chép `chim_la_non.atomik` / `chim_la_1.atomik` + chân dung vào Resources/gio_loc_1, 2;
+  `.asset` lấy lại từ git `6fd05422^`). `HatChim.cs` có lại ba chiêu (đâm mỏ, lá găm, thiên thạch; phần dùng chung giữ bản nâng
+  2026-11-18), `StageView.MocAtk` / `MocFx`, `HatNuoc.WThemes["gio_loc"]` + bốn mã `n_mo_dam`, `n_la_gam`, `n_thach_roi(1)`,
+  menu `MocFxTour.TryChim` như cũ; `quai/da_nhan.json` dòng `gio_loc` như cũ. Cổ Vương sang suất `hat_de` (đảo Thổ, ải 30).

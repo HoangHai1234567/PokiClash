@@ -35,6 +35,10 @@ namespace PokiClash
     {
         [Tooltip("Sóng đập bờ cho ảnh nền vùng đất (shader PokiClash/UIInkWater; menu PokiClash/Đảo vùng đất/Dựng nước, ảnh)")]
         [SerializeField] Material landWater;
+        [Tooltip("Sóng đập bờ từng đảo vùng đất: material tên land_water_<đảo> (land.art = land_<đảo>); không có thì dùng landWater")]
+        [SerializeField] Material[] landWaters;
+        [Tooltip("Phác chì vùng boss từng đảo: material tên land_sketch_<đảo> (ảnh trường vùng riêng); menu Dựng cờ ải, vùng boss")]
+        [SerializeField] Material[] landSketches;
         [Tooltip("Camera kéo, chụm hai ngón để zoom của đảo vùng đất (trên khung cuộn, cùng chỗ ScrollRect; menu Dựng nước, ảnh)")]
         [SerializeField] LandView landView;
         [Tooltip("Lớp sáng tối theo giờ máy trên ảnh bản đồ (menu PokiClash/Sáng tối/Dựng lớp sáng tối)")]
@@ -174,7 +178,8 @@ namespace PokiClash
             p.map.name = "anh_" + land.art;
             Theme.SetSprite(p.map, sprite);
             p.map.rectTransform.sizeDelta = new Vector2(mapW, mapH);
-            p.map.material = landWater ? landWater : mapMaterial;
+            var water = IslandMat(landWaters, "land_water_", landWater);
+            p.map.material = water ? water : mapMaterial;
             // biển quanh đảo: tấm biển lặp cắt từ chính nét biển của ảnh nền, cùng mật độ điểm ảnh, tràn ra ngoài bản đồ (thay biển lặp
             // cũ có vẽ sóng, hai lớp nước không khớp; góp ý 2026-11-18)
             var seaArt = App.Art && !string.IsNullOrEmpty(land.sea) ? App.Art.Get(land.sea) : null;
@@ -195,10 +200,13 @@ namespace PokiClash
             nextUlt = eggClock + Random.Range(10f, 16f);
             if (landSketch)
             {
-                bool on = land.secs.Count > 0 && sprite;
+                // ảnh trường vùng riêng từng đảo; đảo chưa có material phác chì thì tắt phác (mây vẫn phủ)
+                var sketch = IslandMat(landSketches, "land_sketch_", landSketch.material);
+                bool on = land.secs.Count > 0 && sprite && sketch;
                 landSketch.gameObject.SetActive(on);
                 if (on)
                 {
+                    landSketch.material = sketch;
                     landSketch.sprite = sprite; // không qua Theme.SetSprite: giữ material phác chì
                     var r = landSketch.rectTransform;
                     r.anchorMin = Vector2.zero;
@@ -208,6 +216,16 @@ namespace PokiClash
                 }
             }
             return true;
+        }
+
+        // material riêng của đảo đang mở: tên <đầu>_<đảo>, đảo lấy từ land.art (land_thuy → thuy)
+        Material IslandMat(Material[] mats, string head, Material fallback)
+        {
+            string key = land != null && land.art != null && land.art.StartsWith("land_") ? head + land.art.Substring(5) : null;
+            if (mats != null && key != null)
+                foreach (var m in mats)
+                    if (m && m.name == key) return m;
+            return fallback && (key == null || fallback.name == key) ? fallback : null;
         }
 
         public override void Exit() => ClearLandHeroes();
@@ -274,18 +292,27 @@ namespace PokiClash
                 float cx = (float)h.at.x * W, cy = (float)h.at.y * H;
                 float rx = (float)h.ring.x * W + LandPad, ry = (float)h.ring.y * H + LandPad, body = LandHeroH(h.size) * 0.62f;
                 float near = Mathf.Max(rx, ry) * 1.6f, best = float.MaxValue;
+                // mốc chia cờ: điểm đường gần bệ (road) nếu dữ liệu có, không thì tâm bệ; khớp build_land.py
+                float ax = h.HasRoad ? (float)h.road.x * W : cx, ay = h.HasRoad ? (float)h.road.y * H : cy;
                 span[k] = new List<int>();
                 for (int i = 0; i < n; i++)
                 {
                     float dx = Q[i].x - cx, dy = Q[i].y - cy;
                     if (InRing(l, h, Q[i], 0) || Mathf.Abs(dx) < 0.4f * rx && dy < 0 && dy > -body - LandPad) free[i] = false;
-                    float dd = dx * dx + dy * dy;
+                    float ex = Q[i].x - ax, ey = Q[i].y - ay, dd = ex * ex + ey * ey;
                     if (dd <= near * near) span[k].Add(i);
                     if (dd < best)
                     {
                         best = dd;
                         along[k] = i * 2f;
                     }
+                }
+                // đường xuyên qua tâm bệ (đảo Mộc): điểm mốc giữ ở tâm, không trượt (trượt ra trước bệ thì cờ chặng sau rơi xuống
+                // trước bệ, 2026-11-19); khớp build_land.py (near.min() > 0.35·ry)
+                if (Mathf.Sqrt(best) <= 0.35f * ry)
+                {
+                    span[k].Clear();
+                    span[k].Add((int)(along[k] / 2f));
                 }
             }
             // chia đều (góp ý 2026-11-18): điểm mốc của habitat (trừ ải đầu, cuối) trượt trong đoạn ôm vòng đá, chọn chỗ cho khoảng
@@ -354,7 +381,8 @@ namespace PokiClash
             var lay = LandLayout(land, stages);
             landStages = stages;
             int cur = Mathf.Min(prog, stages.Count - 1);
-            if (prog > 0) DashesAlong(lay.poly, lay.at[0], lay.at[cur]);
+            // đường đi xuyên tâm bệ (đảo Mộc): không vẽ nét đã đi trong lòng vòng đá
+            if (prog > 0) DashesAlong(lay.poly, lay.at[0], lay.at[cur], q => land.habs.Any(h => InRing(land, h, q, 12)));
             float pip = (float)land.pip, pipNow = (float)land.pipNow;
             // vùng boss: số vùng đã mở; vùng vừa mở so với lần vào trước (thắng boss quay về) dựng như còn khoá rồi diễn mở (mây tan, bút
             // chì tô); câu báo khi chạm vào vùng khoá (hạ boss của vùng trước)

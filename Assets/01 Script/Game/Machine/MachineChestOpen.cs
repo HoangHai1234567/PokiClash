@@ -10,6 +10,15 @@
 // - mở hết thì bảng tổng kết: mọi thưởng của nhóm gộp thành ô, mỗi ô bật trong 0,667 giây (cỡ 0,76 → 1,18 → 1), quầng sau ô
 //   0,217–0,267 giây, thẻ và mảnh lật từ thẻ úp tô màu độ hiếm; nút "Nhận" / "Mở tiếp (n)".
 // Toạ độ của máy đó tính trên khung rộng 750, ở đây nhân theo bề rộng màn. Thưởng đã cộng vào bản lưu trước khi gọi.
+// Làm đẹp lại 2026-11-19 (chủ dự án dặn "fx mở rương phải đẹp"), tô phẳng theo luật hiệu ứng không quầng, hình vẽ tay gen Magnific
+// (ArtGen/Pachinko/cat_magnific.py: pk_fx_hao_quang, pk_fx_quat_sang, pk_fx_bung, pk_fx_vong_giot, giấy màu, xu, ngọc, rương mở sạch):
+// - rương đóng đứng trước vầng tia phẳng màu bậc rương xoay chậm (thay quầng mềm), đáp xuống thì phụt bụi;
+// - chạm: gồng (lắc mạnh dần, nén 0,86 × 1,06, nhún nhảy nhỏ; rương vàng gồng lâu hơn), lấp lánh hút vào rương, vầng tia đậm dần;
+// - bật nắp: đổi sang rương mở (nắp ngửa, lòng sáng kem), bóp giãn 1,25 × 0,8 → 0,9 × 1,15 → 1; loé gai, vòng dày, vòng giọt lan ra,
+//   quạt sáng vọt lên từ lòng rương, giấy màu nhiều màu bắn lên rồi rơi, giọt sáng toả, sao; rương bạc thêm xu, rương vàng thêm xu,
+//   ngọc, đợt pháo thứ hai và cả màn giật nhẹ;
+// - thưởng quý nhất vọt ra từ lòng rương lên trên rương (kéo dài, nảy, bẹt rồi đứng), vầng tia chuyển lên sau thưởng.
+// Hạt (Items/HatMayBi) neo góc trên trái nên mọi điểm phát đổi qua Fx() trước khi phát.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,16 +52,18 @@ namespace PokiClash
         static readonly float[] ShakeGold = { 0, 7.1f, -2.5f, 7.1f, -2.5f, 7.1f, -4f, 10.2f, 0 };
         public const float RefW = 750, OpenAllGap = 0.15f;
         // nền đen 0,8 của máy tham khảo (hoà gamma); project hoà trong không gian linear nên cần 0,92 mới tối như vậy
-        public const float Dim = 0.92f;
+        public const float Dim = 0.95f; // 2026-11-19: tối hơn chút cho rương, giấy màu nổi (0,92 vẫn thấy rõ mặt máy phía sau)
 
         sealed class Slot
         {
             public Item item;
             public RectTransform holder, chest;
-            public Image closed, lid, body, glow, rays;
+            public Image closed, lid, body, glow, rays, fan;
             public RewardTile tile;
-            public bool opened, opening;
+            public bool opened, opening, landed;
             public Vector2 home;
+            public float raysA; // alpha vầng tia đang muốn (Update chạy tới)
+            public Vector2 raysAt; // chỗ vầng tia muốn tới (giữa rương, rồi sau thưởng)
         }
 
         RectTransform root, layer;
@@ -111,8 +122,9 @@ namespace PokiClash
             backdrop.raycastTarget = true; // chặn chạm xuống màn máy
             btn.onClick.AddListener(TapEmpty);
 
-            raysBg = MachineGlow.Make("tia_nen", root, MachineGlow.Rays, MachineGlow.Hex("#ffe08a", 0));
-            if (raysBg) raysBg.rectTransform.sizeDelta = Vector2.one * frame.rect.width * 1.5f;
+            // vầng tia phẳng lớn sau cả màn (thay tia sáng mềm), xoay chậm, rất nhạt
+            raysBg = Flat("tia_nen", root, Sun, MachineGlow.Hex("#ffe08a", 0));
+            if (raysBg) raysBg.rectTransform.sizeDelta = Vector2.one * frame.rect.width * 1.6f;
             layer = New("lop", root);
             layer.Stretch();
             fx = new MachineFx(particle, layer);
@@ -122,6 +134,33 @@ namespace PokiClash
         }
 
         RectTransform New(string name, Transform parent) => MachineGlow.NewRect(name, parent);
+
+        // hình hiệu ứng phẳng gen Magnific (cat_magnific.py); thiếu thì dùng hình cũ cùng vai
+        const string Sun = "pk_fx_hao_quang", SunOld = "pk_fx_tia_toa", Fan = "pk_fx_quat_sang", FanOld = "pk_o_sang_ruong", Pop = "pk_fx_bung",
+            PopOld = "pk_fx_loe", Drops = "pk_fx_vong_giot";
+
+        // ảnh phẳng tô màu (không cộng sáng), lấy tên dự phòng nếu chưa có ảnh mới; null nếu thiếu cả hai
+        Image Flat(string name, Transform parent, string sprite, Color color)
+        {
+            string use = S(sprite) ? sprite : sprite == Sun ? SunOld : sprite == Fan ? FanOld : sprite == Pop ? PopOld : sprite == Drops ? "pk_fx_vong_dut" : sprite;
+            var img = MachineGlow.Make(name, parent, use, color, false);
+            if (img)
+            {
+                img.raycastTarget = false;
+                img.preserveAspect = true;
+                img.material = Theme.Plain;
+            }
+            return img;
+        }
+
+        // điểm trong lớp (gốc giữa) → toạ độ neo của hạt (Items/HatMayBi neo góc trên trái)
+        Vector2 Fx(Vector2 local)
+        {
+            var r = layer.rect;
+            return new Vector2(local.x - r.xMin, local.y - r.yMax);
+        }
+
+        Vector2 Local(RectTransform rt, Vector2 offset) => (Vector2)layer.InverseTransformPoint(rt.TransformPoint(offset));
 
         Image Img(string name, Transform parent, Sprite s)
         {
@@ -139,10 +178,17 @@ namespace PokiClash
             float w = 188 * k * 1.1f; // rương rộng như capsule (188 đơn vị khung 750) thêm chút
             s.holder = New("ruong", layer);
             s.holder.anchoredPosition = home;
-            s.rays = MachineGlow.Make("tia", s.holder, MachineGlow.Rays, MachineGlow.A(TierColor(Tier(it.kind)), 0));
-            if (s.rays) s.rays.rectTransform.sizeDelta = Vector2.one * w * 2.6f;
-            s.glow = MachineGlow.Make("quang", s.holder, MachineGlow.Glow, MachineGlow.A(TierColor(Tier(it.kind)), 0.3f));
-            if (s.glow) s.glow.rectTransform.sizeDelta = Vector2.one * w * 1.5f;
+            // vầng tia phẳng màu bậc rương sau rương: nhạt lúc chờ, đậm lên khi gồng, chuyển lên sau thưởng khi mở
+            int tier = Tier(it.kind);
+            // màu hoà trong không gian linear: alpha thấp trông đậm hơn số ghi, nên để nhạt
+            s.raysA = tier >= 2 ? 0.16f : tier == 1 ? 0.12f : 0.09f;
+            s.raysAt = new Vector2(0, -w * 0.05f);
+            s.rays = Flat("tia", s.holder, Sun, MachineGlow.A(TierColor(tier), 0));
+            if (s.rays)
+            {
+                s.rays.rectTransform.sizeDelta = Vector2.one * w * 1.5f;
+                s.rays.rectTransform.anchoredPosition = s.raysAt;
+            }
             var cloud = Img("may", s.holder, S("pk_may_do"));
             cloud.enabled = cloud.sprite;
             cloud.rectTransform.sizeDelta = new Vector2(w * 1.25f, w * 0.45f);
@@ -258,7 +304,17 @@ namespace PokiClash
             }
             s.holder.localScale = Vector3.one;
             s.holder.anchoredPosition = s.home;
-            fx.Emit(MachineFx.RingHit, s.home + new Vector2(0, -60 * k * 0.6f), MachineFx.UnitBall * 0.9f);
+            // đáp: bụi phụt hai bên chân rương, rương bẹt nhẹ rồi đứng
+            float w = s.chest.sizeDelta.x;
+            fx.Emit(Dust, Fx(Local(s.chest, new Vector2(0, w * 0.05f))), w);
+            for (float t = 0; t < 0.22f; t += Time.unscaledDeltaTime)
+            {
+                float u = t / 0.22f, q = Mathf.Sin(u * Mathf.PI) * (1 - u);
+                s.chest.localScale = new Vector3(1 + 0.18f * q, 1 - 0.16f * q, 1);
+                yield return null;
+            }
+            s.chest.localScale = Vector3.one;
+            s.landed = true;
         }
 
         void OpenAll()
@@ -288,38 +344,100 @@ namespace PokiClash
         {
             if (s.opened || s.opening) yield break;
             s.opening = true;
+            // bấm lúc rương còn bay vào: chờ đáp xong mới gồng
+            for (float t = 0; !s.landed && t < 1.5f; t += Time.unscaledDeltaTime) yield return null;
             int tier = Tier(s.item.kind);
             bool gold = tier >= 2;
             var col = TierColor(tier);
+            float w = s.chest.sizeDelta.x;
             App.Audio.Play("whoosh", 0.6f, 1.1f);
-            // lắc quanh đáy và nén 1 → 0,8
+            // 1. gồng: lắc quanh đáy mạnh dần (theo nhịp lắc của máy tham khảo, biên độ tăng), nén 1 → 0,86 × 1,06 và nhún nhảy
+            // nhỏ; lấp lánh hút vào lòng rương; vầng tia đậm dần
             var keys = gold ? ShakeGold : Shake;
-            float shake = gold ? 0.433f : 0.25f;
+            float shake = gold ? 0.6f : tier == 1 ? 0.45f : 0.36f;
+            s.raysA = gold ? 0.3f : 0.24f;
+            float suck = 0;
             for (float t = 0; t < shake; t += Time.unscaledDeltaTime)
             {
-                float u = t / shake * (keys.Length - 1);
-                int a = Mathf.Min(keys.Length - 2, (int)u);
-                s.chest.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(keys[a], keys[a + 1], u - a));
-                s.chest.localScale = Vector3.one * Mathf.Lerp(1, 0.8f, t / shake);
+                float u = t / shake, grow = 0.55f + 0.75f * u;
+                float ku = u * (keys.Length - 1);
+                int a = Mathf.Min(keys.Length - 2, (int)ku);
+                s.chest.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(keys[a], keys[a + 1], ku - a) * grow);
+                float hop = Mathf.Abs(Mathf.Sin(u * Mathf.PI * (gold ? 4 : 3))) * w * 0.035f * u;
+                s.chest.anchoredPosition = new Vector2(0, -w * 0.4f + hop);
+                s.chest.localScale = new Vector3(Mathf.Lerp(1, 1.06f, u), Mathf.Lerp(1, 0.86f, u), 1);
+                if ((suck += Time.unscaledDeltaTime) > (gold ? 0.05f : 0.07f))
+                {
+                    suck = 0;
+                    SuckIn(s, col, w);
+                }
                 yield return null;
             }
             s.chest.localEulerAngles = Vector3.zero;
-            // phồng 1,2 trong 0,05 giây
-            for (float t = 0; t < 0.05f; t += Time.unscaledDeltaTime)
-            {
-                s.chest.localScale = Vector3.one * Mathf.Lerp(0.8f, 1.2f, t / 0.05f);
-                yield return null;
-            }
+            s.chest.anchoredPosition = new Vector2(0, -w * 0.4f);
             App.Audio.Play("chest");
             Haptics.Play(gold ? Haptic.OpenGold : tier == 1 ? Haptic.OpenSilver : Haptic.OpenWood);
-            StartCoroutine(Pieces(s));
+            // 2. bật nắp: có ảnh rương mở sạch thì đổi ảnh và bóp giãn; thiếu thì nắp, thân bay ra như capsule (bản cũ)
+            var openS = S($"pk_ruong_{Key(s.item.kind)}_mo_sach");
+            if (openS && s.closed)
+            {
+                s.closed.sprite = openS;
+                StartCoroutine(Squash(s.chest));
+            }
+            else StartCoroutine(Pieces(s));
             StartCoroutine(Burst(s, col, tier));
+            if (gold) StartCoroutine(Jolt(14 * k * 0.6f));
+            else if (tier == 1) StartCoroutine(Jolt(6 * k * 0.6f));
             yield return Reveal(s, col);
             s.opened = true;
             s.opening = false;
         }
 
+        // một lấp lánh xuất hiện quanh rương rồi lao vào lòng rương (gồng trước khi bật)
+        void SuckIn(Slot s, Color col, float w)
+        {
+            var c = Local(s.chest, new Vector2(0, w * 0.45f));
+            float ang = UnityEngine.Random.Range(0f, 360f), r = w * UnityEngine.Random.Range(0.75f, 1.1f), life = 0.22f;
+            var from = c + new Vector2(Mathf.Cos(ang * Mathf.Deg2Rad), Mathf.Sin(ang * Mathf.Deg2Rad)) * r;
+            fx.Emit(new MachineFx.Burst
+            {
+                sprite = "pk_fx_tinh_tu", life = life, size = 0.16f, sizeMax = 0.24f, speed = r / w / life, dir = ang + 180, rotRange = 20,
+                curve = new[] { 0, 0.3f, 0.3f, 1f, 1, 0.4f }, from = Color.white, to = Color.Lerp(Color.white, col, 0.6f), fadeAt = 0.75f,
+            }, Fx(from), w);
+        }
+
+        // rương mở bóp giãn quanh đáy: 1,25 × 0,8 → 0,9 × 1,15 → 1,04 × 0,97 → 1 trong 0,36 giây
+        IEnumerator Squash(RectTransform rt)
+        {
+            float[] T = { 0, 0.06f, 0.16f, 0.26f, 0.36f };
+            Vector2[] V = { new Vector2(1.25f, 0.8f), new Vector2(1.25f, 0.8f), new Vector2(0.9f, 1.15f), new Vector2(1.04f, 0.97f), Vector2.one };
+            for (float t = 0; t < T[T.Length - 1] && rt; t += Time.unscaledDeltaTime)
+            {
+                int a = 0;
+                while (a < T.Length - 2 && t > T[a + 1]) a++;
+                float u = (t - T[a]) / (T[a + 1] - T[a]);
+                u = u * u * (3 - 2 * u);
+                var v = Vector2.Lerp(V[a], V[a + 1], u);
+                rt.localScale = new Vector3(v.x, v.y, 1);
+                yield return null;
+            }
+            if (rt) rt.localScale = Vector3.one;
+        }
+
+        // cả lớp giật nhẹ (rương bạc, vàng): lệch ngẫu nhiên giảm dần trong 0,3 giây
+        IEnumerator Jolt(float amp)
+        {
+            for (float t = 0; t < 0.3f && layer; t += Time.unscaledDeltaTime)
+            {
+                float d = amp * (1 - t / 0.3f);
+                layer.anchoredPosition = new Vector2(UnityEngine.Random.Range(-d, d), UnityEngine.Random.Range(-d, d));
+                yield return null;
+            }
+            if (layer) layer.anchoredPosition = Vector2.zero;
+        }
+
         // nắp vọt lên nghiêng 45°, thân rơi nghiêng -26°, mờ 0,367–0,433 giây (tính từ lúc mở 0,3), co về 0,3 rồi tắt
+        // (chỉ dùng khi chưa có ảnh rương mở sạch)
         IEnumerator Pieces(Slot s)
         {
             string key = Key(s.item.kind);
@@ -367,33 +485,52 @@ namespace PokiClash
             body.gameObject.SetActive(false);
         }
 
-        // chớp tròn, vòng sóng, hạt; rương quý thêm tia và lớp quầng
+        // bật nắp: loé gai, vòng dày, vòng giọt, quạt sáng từ lòng rương, giấy màu, giọt sáng, sao; bạc thêm xu; vàng thêm xu, ngọc,
+        // đợt pháo thứ hai. Mọi hình đều phẳng (không cộng sáng)
         IEnumerator Burst(Slot s, Color col, int tier)
         {
-            var at = s.holder.anchoredPosition;
             float w = s.chest.sizeDelta.x;
-            var flash = MachineGlow.Make("chop", s.holder, MachineGlow.Glow, Color.white);
-            var wave = MachineGlow.Make("song", s.holder, MachineGlow.Ring, MachineGlow.A(col, 0.9f));
-            fx.Emit(MachineFx.ChestHit(tier >= 2 ? 3 : 2), at, MachineFx.UnitBall * 0.35f * k);
-            if (s.rays) StartCoroutine(Fade(s.rays, MachineGlow.A(col, tier >= 2 ? 0.4f : tier == 1 ? 0.25f : 0.15f), 0.3f));
-            for (float t = 0; t < 0.15f; t += Time.unscaledDeltaTime)
+            var mouth = Local(s.chest, new Vector2(0, w * 0.5f)); // lòng rương (rương cao 0,8 w, gốc ở đáy)
+            var at = Fx(mouth);
+            var pale = Color.Lerp(Color.white, col, 0.35f);
+            fx.Emit(OpenFlash, at, w, pale);
+            fx.Emit(OpenRing, at, w, col);
+            fx.Emit(OpenSparks, at, w, Color.Lerp(Color.white, col, 0.5f));
+            foreach (var c in Confetti) fx.Emit(ConfettiBurst(tier), at, w, c);
+            if (tier >= 1) fx.Emit(Coins(tier), at, w);
+            if (tier >= 2) fx.Emit(Gems, at, w);
+            // quạt sáng vọt lên từ lòng rương, đứng lại sau thưởng, thở nhẹ
+            s.fan = Flat("quat", s.holder, Fan, MachineGlow.A(pale, 0.9f));
+            if (s.fan)
             {
-                float u = t / 0.133f;
-                if (flash)
-                {
-                    flash.rectTransform.sizeDelta = Vector2.one * w * 1.8f * Mathf.Lerp(0.98f, 1.79f, Mathf.Min(1, u));
-                    flash.color = new Color(1, 1, 1, Mathf.Max(0, 1 - u));
-                }
-                if (wave)
-                {
-                    float v = Mathf.Min(1, t / 0.116f);
-                    wave.rectTransform.sizeDelta = Vector2.one * 1000 * k * Mathf.Lerp(0.15f, 1, 1 - (1 - v) * (1 - v));
-                    wave.color = MachineGlow.A(col, 0.9f * (1 - v));
-                }
+                var frt = s.fan.rectTransform;
+                frt.pivot = new Vector2(0.5f, 0.04f);
+                frt.anchoredPosition = (Vector2)s.holder.InverseTransformPoint(s.chest.TransformPoint(new Vector2(0, w * 0.48f)));
+                frt.sizeDelta = new Vector2(w * 1.15f, w * 1.0f);
+                frt.SetSiblingIndex(s.chest.GetSiblingIndex()); // sau rương: quạt mọc từ lòng rương lên
+                StartCoroutine(FanRise(frt));
+            }
+            if (tier >= 2)
+            {
+                yield return new WaitForSecondsRealtime(0.16f);
+                var hi = Fx(mouth + new Vector2(0, w * 0.6f));
+                fx.Emit(OpenFlash, hi, w * 0.7f, MachineGlow.Hex("#fff3b0"));
+                foreach (var c in Confetti) fx.Emit(ConfettiBurst(1), hi, w * 0.9f, c);
+                fx.Emit(OpenSparks, hi, w * 0.8f, MachineGlow.Hex("#ffe27a"));
+                App.Audio.Play("coin", 0.7f, 1.2f);
+            }
+        }
+
+        // quạt sáng: dài ra 0 → 1,12 → 1 trong 0,3 giây rồi thở 0,96 ↔ 1,04
+        IEnumerator FanRise(RectTransform rt)
+        {
+            for (float t = 0; rt; t += Time.unscaledDeltaTime)
+            {
+                float y = t < 0.18f ? Mathf.Lerp(0, 1.12f, t / 0.18f) : t < 0.3f ? Mathf.Lerp(1.12f, 1, (t - 0.18f) / 0.12f) : 1 + 0.04f * Mathf.Sin((t - 0.3f) * 5);
+                float x = t < 0.18f ? Mathf.Lerp(0.6f, 1, t / 0.18f) : 1;
+                rt.localScale = new Vector3(x, y, 1);
                 yield return null;
             }
-            if (flash) Destroy(flash.gameObject);
-            if (wave) Destroy(wave.gameObject);
         }
 
         IEnumerator Fade(Image img, Color to, float dur)
@@ -407,7 +544,8 @@ namespace PokiClash
             if (img) img.color = to;
         }
 
-        // thưởng quý nhất nảy ra khỏi rương: kéo 1 × 2,5, nảy 48, bẹt 1,3 × 0,9, rồi 0,95 × 1,1, yên lúc 0,616 giây sau khi mở
+        // thưởng quý nhất vọt ra từ lòng rương lên trên rương: kéo 0,4 × 1,0 → 1 × 1,15 (vọt lên), bẹt 1,3 × 0,9 khi dừng, 0,95 × 1,1,
+        // đứng lúc 0,62 giây; vầng tia chuyển lên sau thưởng; tới đỉnh thì loé nhỏ
         IEnumerator Reveal(Slot s, Color col)
         {
             if (!tilePrefab) yield break;
@@ -420,25 +558,117 @@ namespace PokiClash
             var rt = tile.Rect;
             rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0);
             rt.sizeDelta = new Vector2(RewardTile.W, RewardTile.H);
-            var y0 = s.chest.anchoredPosition.y;
+            float w = s.chest.sizeDelta.x;
+            float y0 = s.chest.anchoredPosition.y + w * 0.42f; // lòng rương
+            float y1 = s.chest.anchoredPosition.y + w * 0.62f; // đứng trên rương
             float baseS = k * 0.9f;
-            // mốc (giây từ lúc bật, sx, sy, cao)
-            float[] T = { 0, 0.15f, 0.36f, 0.48f, 0.616f };
-            Vector3[] V = { new Vector3(0.4f, 1f, 0), new Vector3(1f, 1.15f, 48), new Vector3(1.3f, 0.9f, 0), new Vector3(0.95f, 1.1f, 0), new Vector3(1, 1, 0) };
+            s.raysAt = new Vector2(0, y1 + RewardTile.H * baseS * 0.5f);
+            float[] T = { 0, 0.18f, 0.36f, 0.48f, 0.62f };
+            Vector3[] V = { new Vector3(0.4f, 1f, 0), new Vector3(1f, 1.15f, 1.18f), new Vector3(1.3f, 0.9f, 1), new Vector3(0.95f, 1.1f, 1), new Vector3(1, 1, 1) };
+            bool popped = false;
             for (float t = 0; t < T[T.Length - 1]; t += Time.unscaledDeltaTime)
             {
                 int a = 0;
                 while (a < T.Length - 2 && t > T[a + 1]) a++;
                 float u = (t - T[a]) / (T[a + 1] - T[a]);
+                if (a == 0) u = 1 - (1 - u) * (1 - u); // vọt nhanh rồi chậm
                 var v = Vector3.Lerp(V[a], V[a + 1], u);
-                if (a == 0) v.y = Mathf.Lerp(2.5f * 0.4f, 1.15f, u); // kéo dài lúc bật
                 rt.localScale = new Vector3(v.x, v.y, 1) * baseS;
-                rt.anchoredPosition = new Vector2(0, y0 + v.z * k * Mathf.Sin(Mathf.Clamp01(t / 0.36f) * Mathf.PI));
+                rt.anchoredPosition = new Vector2(0, Mathf.LerpUnclamped(y0, y1, v.z));
+                if (!popped && t >= T[1])
+                {
+                    popped = true;
+                    fx.Emit(TilePop, Fx(Local(rt, new Vector2(0, RewardTile.H * 0.5f))), w, Color.Lerp(Color.white, col, 0.4f));
+                }
                 yield return null;
             }
             rt.localScale = Vector3.one * baseS;
-            rt.anchoredPosition = new Vector2(0, y0);
+            rt.anchoredPosition = new Vector2(0, y1);
         }
+
+        // ---------- bộ hạt mở rương (unit = bề rộng rương) ----------
+
+        static Color Hc(string hex) => MachineGlow.Hex(hex, 1);
+
+        // giấy màu: mỗi màu một loạt (tint nhân vào hình trắng)
+        static readonly Color[] Confetti = { Hc("#ff8fb3"), Hc("#ffd24a"), Hc("#7cc8ff"), Hc("#8fe0b0"), Hc("#c49bff") };
+
+        static readonly MachineFx.Burst[] Dust =
+        {
+            new MachineFx.Burst { sprite = "pk_fx_bui", count = 3, life = 0.35f, lifeMax = 0.5f, size = 0.16f, sizeMax = 0.24f, speed = 0.5f, speedMax = 0.9f, dir = 180, arc = 30,
+                dampen = 0.25f, curve = new[] { 0, 0.5f, 0.3f, 1f, 1, 1.15f }, from = Color.white, to = Hc("#f3e6d0"), fadeAt = 0.4f, spin = true },
+            new MachineFx.Burst { sprite = "pk_fx_bui", count = 3, life = 0.35f, lifeMax = 0.5f, size = 0.16f, sizeMax = 0.24f, speed = 0.5f, speedMax = 0.9f, dir = 0, arc = 30,
+                dampen = 0.25f, curve = new[] { 0, 0.5f, 0.3f, 1f, 1, 1.15f }, from = Color.white, to = Hc("#f3e6d0"), fadeAt = 0.4f, spin = true },
+        };
+
+        // loé gai to co nhanh, loé nhỏ trắng ở giữa
+        static readonly MachineFx.Burst[] OpenFlash =
+        {
+            new MachineFx.Burst { sprite = Pop, life = 0.22f, size = 1.5f, curve = new[] { 0, 0.5f, 0.25f, 1.15f, 1, 1.3f }, from = Color.white, to = Color.white, fadeAt = 0.35f, spin = true },
+            new MachineFx.Burst { sprite = "pk_fx_lap_lanh_beo", life = 0.18f, size = 0.7f, curve = new[] { 0, 0.3f, 0.3f, 1.1f, 1, 0.6f }, from = Color.white, to = Color.white, fadeAt = 0.5f, rotRange = 10 },
+        };
+
+        // vòng dày và vòng giọt lan ra
+        static readonly MachineFx.Burst[] OpenRing =
+        {
+            new MachineFx.Burst { sprite = "pk_fx_vong_day", life = 0.3f, size = 2.4f, curve = new[] { 0, 0.2f, 1, 1f }, from = Color.white, to = Color.white, fadeAt = 0.45f },
+            new MachineFx.Burst { sprite = Drops, life = 0.32f, size = 2.0f, curve = new[] { 0, 0.3f, 1, 1.2f }, from = Color.white, to = Color.white, fadeAt = 0.5f, spin = true },
+        };
+
+        // giọt sáng bắn toả (kéo dài theo hướng bay), lấp lánh, sao
+        static readonly MachineFx.Burst[] OpenSparks =
+        {
+            new MachineFx.Burst { sprite = "pk_fx_giot", count = 10, life = 0.22f, lifeMax = 0.34f, size = 0.32f, sizeMax = 0.5f, speed = 5, speedMax = 8, arc = 360, dampen = 0.35f,
+                stretch = 1.6f, thin = 0.4f, curve = new[] { 0, 1f, 1, 0.3f }, from = Color.white, to = Color.white, fadeAt = 0.6f },
+            new MachineFx.Burst { sprite = "pk_fx_tinh_tu", count = 6, life = 0.35f, lifeMax = 0.6f, size = 0.12f, sizeMax = 0.24f, speed = 1, speedMax = 2.8f, arc = 360, radius = 0.3f,
+                dampen = 0.3f, curve = new[] { 0, 0.2f, 0.25f, 1.1f, 1, 0.3f }, from = Color.white, to = Color.white, fadeAt = 0.6f, rotSpeed = 120 },
+            new MachineFx.Burst { sprite = "fx_star", count = 4, life = 0.45f, lifeMax = 0.7f, size = 0.14f, sizeMax = 0.22f, speed = 2.5f, speedMax = 4.5f, dir = 90, arc = 150,
+                grav = 0.5f, spin = true, rotSpeed = 300, curve = new[] { 0, 0.4f, 0.2f, 1, 1, 0.6f }, from = Hc("#ffe27a"), to = Hc("#ffb000"), fadeAt = 0.7f },
+        };
+
+        // giấy màu bắn lên theo quạt rồi rơi, xoay; mỗi màu gọi một lần (ít hơn ở rương gỗ)
+        static MachineFx.Burst[] ConfettiBurst(int tier)
+        {
+            int n = tier >= 2 ? 3 : tier == 1 ? 2 : 1;
+            MachineFx.Burst B(string sp, int c, float s0, float s1) => new MachineFx.Burst
+            {
+                sprite = sp, count = c, life = 0.8f, lifeMax = 1.25f, size = s0, sizeMax = s1, speed = 3.5f, speedMax = 7f, dir = 90, arc = 120, radius = 0.15f,
+                grav = 0.9f, limit = 1.2f, dampen = 0.12f, spin = true, rotSpeed = 420, curve = new[] { 0, 0.5f, 0.12f, 1f, 1, 0.85f }, fadeAt = 0.75f,
+            };
+            return new[]
+            {
+                B("pk_fx_giay_dai", n, 0.1f, 0.15f),
+                B("pk_fx_giay_vuong", n, 0.06f, 0.09f),
+                B("pk_fx_giay_tron", Mathf.Max(1, n - 1), 0.05f, 0.08f),
+                B("pk_fx_day_xoan", tier >= 1 ? 1 : 0, 0.14f, 0.2f),
+            };
+        }
+
+        // xu vàng bắn lên, lật (xen hình xu nghiêng), rơi
+        static MachineFx.Burst[] Coins(int tier)
+        {
+            int n = tier >= 2 ? 5 : 3;
+            MachineFx.Burst B(string sp, int c) => new MachineFx.Burst
+            {
+                sprite = sp, count = c, life = 0.75f, lifeMax = 1.0f, size = 0.16f, sizeMax = 0.22f, speed = 4f, speedMax = 7.5f, dir = 90, arc = 90, radius = 0.1f,
+                grav = 1.4f, spin = false, rotRange = 25, rotSpeed = 200, curve = new[] { 0, 0.5f, 0.15f, 1f, 1, 0.9f }, fadeAt = 0.8f,
+            };
+            return new[] { B("pk_xu", n), B("pk_xu_nghieng", n - 1) };
+        }
+
+        static readonly MachineFx.Burst[] Gems =
+        {
+            new MachineFx.Burst { sprite = "pk_ngoc_tim", count = 3, life = 0.8f, lifeMax = 1.1f, size = 0.16f, sizeMax = 0.22f, speed = 4.5f, speedMax = 7f, dir = 90, arc = 70,
+                grav = 1.2f, rotRange = 30, rotSpeed = 160, curve = new[] { 0, 0.5f, 0.15f, 1f, 1, 0.9f }, fadeAt = 0.8f },
+        };
+
+        // thưởng vọt tới đỉnh: loé gai nhỏ, 4 lấp lánh
+        static readonly MachineFx.Burst[] TilePop =
+        {
+            new MachineFx.Burst { sprite = Pop, life = 0.16f, size = 0.9f, curve = new[] { 0, 0.5f, 0.4f, 1.1f, 1, 1.2f }, from = Color.white, to = Color.white, fadeAt = 0.3f, spin = true },
+            new MachineFx.Burst { sprite = "pk_fx_lap_lanh_beo", count = 4, life = 0.3f, lifeMax = 0.45f, size = 0.1f, sizeMax = 0.16f, speed = 1.5f, speedMax = 3, arc = 360, radius = 0.3f,
+                dampen = 0.3f, curve = new[] { 0, 0.3f, 0.3f, 1.1f, 1, 0.4f }, from = Color.white, to = Color.white, fadeAt = 0.6f, rotRange = 15 },
+        };
 
         static int Rank(Reward r)
         {
@@ -506,17 +736,19 @@ namespace PokiClash
             if (rt) rt.gameObject.SetActive(false);
         }
 
-        // một ô tổng kết: quầng sau ô, cỡ 0,76 → 1,18 → 1 trong 0,667 giây; ô có độ hiếm lật từ thẻ úp tô màu độ hiếm
+        // một ô tổng kết: vầng tia phẳng màu độ hiếm sau ô (xoay chậm, thay quầng mềm), cỡ 0,76 → 1,18 → 1 trong 0,667 giây; ô có độ
+        // hiếm lật từ thẻ úp tô màu độ hiếm
         IEnumerator PopTile(RectTransform grid, RectTransform rt, Rarity? rar, float delay)
         {
             yield return new WaitForSecondsRealtime(delay);
             var col = rar.HasValue ? Theme.Of(rar.Value) : Theme.Hex("#ffe08a");
-            var halo = MachineGlow.Make("quang_o", grid, MachineGlow.Glow, MachineGlow.A(col, 0));
+            var halo = rar.HasValue ? Flat("tia_o", grid, Sun, MachineGlow.A(col, 0)) : null;
             if (halo)
             {
                 halo.rectTransform.anchoredPosition = rt.anchoredPosition;
-                halo.rectTransform.sizeDelta = Vector2.one * RewardTile.H * 1.9f;
+                halo.rectTransform.sizeDelta = Vector2.one * RewardTile.H * 1.4f;
                 halo.rectTransform.SetSiblingIndex(rt.GetSiblingIndex());
+                StartCoroutine(Spin(halo.rectTransform, 30));
             }
             Image back = null;
             var backS = S("pk_the_up");
@@ -543,15 +775,24 @@ namespace PokiClash
                     if (f >= 0.5f && back.gameObject.activeSelf)
                     {
                         back.gameObject.SetActive(false);
-                        fx.Emit(MachineFx.RingHit, (Vector2)layer.InverseTransformPoint(rt.position), MachineFx.UnitBall * 0.8f, col);
+                        fx.Emit(TilePop, Fx((Vector2)layer.InverseTransformPoint(rt.position)), RewardTile.H * grid.localScale.x, Color.Lerp(Color.white, col, 0.5f));
                     }
                 }
                 rt.localScale = new Vector3(sx, s, 1);
-                if (halo) halo.color = MachineGlow.A(col, t < 0.217f ? 0 : Mathf.Min(0.6f, (t - 0.217f) / 0.05f * 0.6f));
+                if (halo) halo.color = MachineGlow.A(col, t < 0.217f ? 0 : Mathf.Min(0.32f, (t - 0.217f) / 0.1f * 0.32f));
                 yield return null;
             }
             if (back) back.gameObject.SetActive(false);
             rt.localScale = Vector3.one;
+        }
+
+        IEnumerator Spin(RectTransform rt, float degPerSec)
+        {
+            for (float a = UnityEngine.Random.Range(0f, 360f); rt; a += degPerSec * Time.unscaledDeltaTime)
+            {
+                rt.localEulerAngles = new Vector3(0, 0, a);
+                yield return null;
+            }
         }
 
         SketchButton MakeButton(string text, Vector2 at, Color color, Action click)
@@ -579,22 +820,30 @@ namespace PokiClash
             if (raysBg)
             {
                 raysBg.rectTransform.localEulerAngles = new Vector3(0, 0, -time * 10);
-                if (!closing) raysBg.color = MachineGlow.Hex("#ffe08a", Mathf.Min(0.07f, time * 0.2f));
+                if (!closing) raysBg.color = MachineGlow.Hex("#ffe08a", Mathf.Min(0.035f, time * 0.12f));
             }
             for (int i = 0; i < slots.Count; i++)
             {
                 var s = slots[i];
                 if (!s.holder || !s.holder.gameObject.activeSelf) continue;
-                // lơ lửng (chưa mở, không đang bay vào) và quầng thở 0,9 ↔ 1 (chu kỳ của máy đó: 1,75 giây lên, 4,25 giây về)
+                // lơ lửng (chưa mở, không đang bay vào); vầng tia thở 0,9 ↔ 1 (chu kỳ quầng của máy đó: 1,75 giây lên, 4,25 giây về), đậm
+                // dần tới raysA, dời tới raysAt (lên sau thưởng khi mở), mở rồi thì to hơn
                 if (!s.opening && !s.opened && s.holder.localScale.x >= 0.999f)
                     s.chest.anchoredPosition = new Vector2(0, -s.chest.sizeDelta.x * 0.4f + Mathf.Sin(time * 3.9f + i * 1.3f) * 7 * k);
-                if (s.glow)
+                if (s.rays)
                 {
+                    var rrt = s.rays.rectTransform;
                     float ph = time % 6f;
                     float g = ph < 1.75f ? Mathf.Lerp(0.9f, 1, ph / 1.75f) : Mathf.Lerp(1, 0.9f, (ph - 1.75f) / 4.25f);
-                    s.glow.rectTransform.localScale = Vector3.one * g;
+                    float big = s.opening || s.opened ? 1.15f : 1;
+                    float kk = 1 - Mathf.Exp(-dt * 10);
+                    rrt.localScale = Vector3.Lerp(rrt.localScale, Vector3.one * g * big, kk);
+                    rrt.anchoredPosition = Vector2.Lerp(rrt.anchoredPosition, s.raysAt, kk);
+                    rrt.localEulerAngles = new Vector3(0, 0, time * (s.opened ? 18 : 25));
+                    var c = s.rays.color;
+                    c.a = Mathf.MoveTowards(c.a, s.raysA, dt * 1.5f);
+                    s.rays.color = c;
                 }
-                if (s.rays) s.rays.rectTransform.localEulerAngles = new Vector3(0, 0, time * 25);
             }
         }
     }

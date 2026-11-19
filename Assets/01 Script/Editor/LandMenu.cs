@@ -1,17 +1,18 @@
 // Đảo kiểu vùng đất (GD_Claude/18_DaoVungDat_Habitat.md, M1 2026-11-18).
-// - "PokiClash/Đảo vùng đất/Dựng nước, ảnh (Thủy)": đặt cách nhập ảnh khoảng cách tới bờ (Baked/Islands/land_thuy_dist.png: không sRGB,
-//   không nén, không mipmap; ghi bằng ArtGen/Islands/land_thuy/m0/build_land.py --xuat), nhập lại ảnh nền land_thuy (4096, luật trong
-//   ArtImporter), tạo hoặc cập nhật material sóng Assets/03 Art/Islands/land_water_thuy.mat (shader PokiClash/UIInkWater), gán vào
-//   Screens/Zone (ZoneScene.landWater), dựng lại danh mục ảnh. Chạy lại được nhiều lần.
+// - "PokiClash/Đảo vùng đất/Dựng nước, ảnh (mọi đảo)": với mỗi đảo có ảnh khoảng cách tới bờ Baked/Islands/land_<đảo>_dist.png (thủy,
+//   mộc…; ghi bằng ArtGen/Islands/land_<đảo>/m0/build_land.py --xuat): đặt cách nhập (không sRGB, không nén, không mipmap), nhập lại
+//   ảnh nền land_<đảo> (4096, luật trong ArtImporter), tạo hoặc cập nhật material sóng Assets/03 Art/Islands/land_water_<đảo>.mat
+//   (shader PokiClash/UIInkWater); gán vào Screens/Zone (ZoneScene.landWaters, landWater = của Thủy), dựng lại danh mục ảnh. Chạy lại
+//   được nhiều lần.
 // - "PokiClash/Thử/Đảo Thủy vùng đất: …" (đang Play): đặt tiến độ đảo Thủy 0, 23, 69 ải, vào đảo, đưa từng habitat vào giữa, chụp
 //   liên tục (idle, đòn đánh định kỳ) vào Temp/PokiShots/land/; xong trả lại bản lưu như trước. Chụp bằng ScreenCapture (không gán
 //   targetTexture cho camera: canvas tính lại cỡ, UI lệch).
 // - "PokiClash/Đảo vùng đất/Dựng cờ ải, vùng boss": prefab Items/CoAi (LandFlag: vùng chạm trong suốt, than có nhịp phồng, ô đá,
 //   vải, cán; khung vải Assets/03 Art/Islands/Co/co_vai_*, vẽ bằng ArtGen/Islands/land_thuy/m0/ve_co.py), gán ZoneScene.flagPrefab;
 //   vùng boss chưa mở: gán ZoneScene.secPrefab (Items/HinhDong: mây phủ, bút chì), pencilArt (Islands/Co/but_chi.png); đặt cách nhập
-//   ảnh trường vùng Baked/Islands/land_thuy_vung.png (không sRGB, không nén, không mipmap; build_land.py --xuat ghi), tạo material
-//   Islands/land_sketch_thuy.mat (shader PokiClash/UILandSketch), dựng ảnh phác chì "phac_vung" làm con đầu của ảnh bản đồ (dưới hiệu
-//   ứng, sáng tối), gán ZoneScene.landSketch; prefab Items/TrungPhuc (Image + ClickCatcher: mây phủ chọc được, mắt boss, rương bí ẩn),
+//   ảnh trường vùng Baked/Islands/land_<đảo>_vung.png của mọi đảo (không sRGB, không nén, không mipmap; build_land.py --xuat ghi),
+//   tạo material Islands/land_sketch_<đảo>.mat (shader PokiClash/UILandSketch) gán vào ZoneScene.landSketches, dựng ảnh phác chì
+//   "phac_vung" làm con đầu của ảnh bản đồ (dưới hiệu ứng, sáng tối), gán ZoneScene.landSketch; prefab Items/TrungPhuc (Image + ClickCatcher: mây phủ chọc được, mắt boss, rương bí ẩn),
 //   gán ZoneScene.eggPrefab, eggArt (Islands/Co/trung_*, Pachinko/pk_ruong_go); dựng lại danh mục ảnh.
 // - "PokiClash/Thử/Đảo Thủy vùng đất: easter egg vùng khoá …" (đang Play): tiến độ 23, chụp cảnh rò qua mây, boss tung tuyệt kỹ,
 //   chọc mây hắt xì, rương bí ẩn; xong trả bản lưu.
@@ -19,6 +20,9 @@
 //   (UnityStats) vào Console.
 // - "PokiClash/Thử/Đảo Thủy vùng đất: vùng boss …" (đang Play): vùng tối ở tiến độ 0, 23; vùng vừa mở tan tối (19 → 20); cờ trên
 //   đường khúc 50–60 (tiến độ 70), 46; thử nút "Khoá lại hết đảo", ô số đảo Thủy của SRDebugger (gọi qua reflection); trả bản lưu.
+// - "PokiClash/Thử/Đảo Mộc vùng đất: …" (đang Play): toàn đảo và từng bệ ở tiến độ 69 (cờ trên đường, tướng trên bệ), vùng khoá ở
+//   tiến độ 0, 23 (phác chì, mây, bướm, gió, lá rơi, pha lê, đom đóm), lần đầu vào đảo, mở vùng ải 21–30, boss vùng khoá tung tuyệt
+//   kỹ; ảnh vào Temp/PokiShots/land/<đảo>_*.jpg; xong trả bản lưu. Đảo Hỏa cùng tour (kèm cột khói).
 // - "PokiClash/Thử/Đảo Thủy vùng đất: cờ ải …" (đang Play): tiến độ 45, chụp cờ khúc 40–60 (hai ảnh cách nhau cho thấy vải bay),
 //   khúc đã qua, khúc chưa mở, toàn đảo, đêm; rồi sảnh lúc 10h, 18h20, 22h (mây sảnh); xong trả lại bản lưu và giờ.
 using System.Collections;
@@ -35,19 +39,76 @@ namespace PokiClash.EditorTools
 {
     public static class LandMenu
     {
-        const string DistPath = "Assets/03 Art/Baked/Islands/land_thuy_dist.png";
-        const string ArtPath = "Assets/03 Art/Islands/land_thuy.png";
-        const string MatPath = "Assets/03 Art/Islands/land_water_thuy.mat";
+        const string BakedDir = "Assets/03 Art/Baked/Islands";
+        const string IslandDir = "Assets/03 Art/Islands";
         const string ZonePath = "Assets/04 Prefabs/Screens/Zone.prefab";
         const string FlagPath = "Assets/04 Prefabs/Items/CoAi.prefab";
         const string FlagArt = "Assets/03 Art/Islands/Co";
         const string ItemPath = "Assets/04 Prefabs/Items/HinhDong.prefab";
-        const string SecTexPath = "Assets/03 Art/Baked/Islands/land_thuy_vung.png";
-        const string SketchMatPath = "Assets/03 Art/Islands/land_sketch_thuy.mat";
         const string PencilPath = "Assets/03 Art/Islands/Co/but_chi.png";
         const string EggPath = "Assets/04 Prefabs/Items/TrungPhuc.prefab";
         const string ChestArtPath = "Assets/03 Art/Pachinko/pk_ruong_go.png";
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "land");
+
+        // các đảo vùng đất có ảnh Baked/Islands/land_<đảo><đuôi>.png (đuôi _dist: khoảng cách tới bờ, _vung: trường vùng boss); Thủy đầu
+        static List<(string isl, string path)> Islands(string tail)
+        {
+            var list = new List<(string isl, string path)>();
+            if (!Directory.Exists(BakedDir)) return list;
+            foreach (var f in Directory.GetFiles(BakedDir, "land_*" + tail + ".png"))
+            {
+                var n = Path.GetFileNameWithoutExtension(f);
+                list.Add((n.Substring(5, n.Length - 5 - tail.Length), BakedDir + "/" + n + ".png"));
+            }
+            return list.OrderBy(x => x.isl == "thuy" ? 0 : 1).ThenBy(x => x.isl).ToList();
+        }
+
+        // ảnh số (khoảng cách, trường vùng): đọc đúng số, không sRGB, không nén, không mipmap, RG16
+        static void ImportField(string path)
+        {
+            var ti = AssetImporter.GetAtPath(path) as TextureImporter;
+            if (!ti) return;
+            ti.textureType = TextureImporterType.Default;
+            ti.sRGBTexture = false;
+            ti.mipmapEnabled = false;
+            ti.alphaSource = TextureImporterAlphaSource.None;
+            ti.wrapMode = TextureWrapMode.Clamp;
+            ti.filterMode = FilterMode.Bilinear;
+            ti.npotScale = TextureImporterNPOTScale.None;
+            ti.maxTextureSize = 2048;
+            ti.textureCompression = TextureImporterCompression.Uncompressed;
+            foreach (var pf in new[] { "Standalone", "Android", "iPhone" })
+            {
+                var ps = ti.GetPlatformTextureSettings(pf);
+                ps.overridden = true;
+                ps.maxTextureSize = 2048;
+                ps.format = TextureImporterFormat.RG16;
+                ti.SetPlatformTextureSettings(ps);
+            }
+            ti.SaveAndReimport();
+        }
+
+        // material của đảo: tạo nếu chưa có, đặt shader và một ảnh
+        static Material IslandMat(string path, Shader shader, string tex, string texPath)
+        {
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (!mat)
+            {
+                mat = new Material(shader) { name = Path.GetFileNameWithoutExtension(path) };
+                AssetDatabase.CreateAsset(mat, path);
+            }
+            else mat.shader = shader;
+            mat.SetTexture(tex, AssetDatabase.LoadAssetAtPath<Texture2D>(texPath));
+            EditorUtility.SetDirty(mat);
+            return mat;
+        }
+
+        static void SetArray(SerializedObject so, string prop, IList<Material> mats)
+        {
+            var a = so.FindProperty(prop);
+            a.arraySize = mats.Count;
+            for (int i = 0; i < mats.Count; i++) a.GetArrayElementAtIndex(i).objectReferenceValue = mats[i];
+        }
 
         [MenuItem("PokiClash/Đảo vùng đất/Dựng cờ ải, vùng boss", priority = 71)]
         static void BuildFlag()
@@ -96,43 +157,17 @@ namespace PokiClash.EditorTools
             {
                 Object.DestroyImmediate(root);
             }
-            // ảnh trường vùng (R: vùng × 25, G: đất) cho shader phác chì: đọc đúng số, không nén
-            var ti = AssetImporter.GetAtPath(SecTexPath) as TextureImporter;
-            if (ti)
-            {
-                ti.textureType = TextureImporterType.Default;
-                ti.sRGBTexture = false;
-                ti.mipmapEnabled = false;
-                ti.alphaSource = TextureImporterAlphaSource.None;
-                ti.wrapMode = TextureWrapMode.Clamp;
-                ti.filterMode = FilterMode.Bilinear;
-                ti.npotScale = TextureImporterNPOTScale.None;
-                ti.maxTextureSize = 2048;
-                ti.textureCompression = TextureImporterCompression.Uncompressed;
-                foreach (var pf in new[] { "Standalone", "Android", "iPhone" })
-                {
-                    var ps = ti.GetPlatformTextureSettings(pf);
-                    ps.overridden = true;
-                    ps.maxTextureSize = 2048;
-                    ps.format = TextureImporterFormat.RG16;
-                    ti.SetPlatformTextureSettings(ps);
-                }
-                ti.SaveAndReimport();
-            }
-            else Debug.LogError($"[Vùng đất] Chưa có {SecTexPath}: chạy build_land.py --xuat rồi refresh");
+            // ảnh trường vùng (R: vùng × 25, G: đất) cho shader phác chì của từng đảo: đọc đúng số, không nén
             var sketchShader = Shader.Find("PokiClash/UILandSketch");
-            var mat = AssetDatabase.LoadAssetAtPath<Material>(SketchMatPath);
-            if (!mat && sketchShader)
+            var sketches = new List<Material>();
+            var fields = Islands("_vung");
+            if (fields.Count == 0) Debug.LogError($"[Vùng đất] Chưa có {BakedDir}/land_<đảo>_vung.png: chạy build_land.py --xuat rồi refresh");
+            foreach (var (isl, path) in fields)
             {
-                mat = new Material(sketchShader) { name = "land_sketch_thuy" };
-                AssetDatabase.CreateAsset(mat, SketchMatPath);
+                ImportField(path);
+                if (sketchShader) sketches.Add(IslandMat($"{IslandDir}/land_sketch_{isl}.mat", sketchShader, "_SecTex", path));
             }
-            if (mat)
-            {
-                if (sketchShader) mat.shader = sketchShader;
-                mat.SetTexture("_SecTex", AssetDatabase.LoadAssetAtPath<Texture2D>(SecTexPath));
-                EditorUtility.SetDirty(mat);
-            }
+            var mat = sketches.Count > 0 ? sketches[0] : null;
             var pencil = AssetDatabase.LoadAssetAtPath<Sprite>(PencilPath);
             // món chạm được: Image (nhận chạm) + ClickCatcher
             Image egg;
@@ -184,6 +219,7 @@ namespace PokiClash.EditorTools
                 sk.preserveAspect = false;
                 go.SetActive(false);
                 so.FindProperty("landSketch").objectReferenceValue = sk;
+                SetArray(so, "landSketches", sketches);
                 so.FindProperty("eggPrefab").objectReferenceValue = egg;
                 // canvas con sau lớp nút: mây phủ tĩnh, lớp trên mây (cùng khung toạ độ với lớp nút; GraphicRaycaster: chạm mây, mắt boss)
                 var nodes = (RectTransform)so.FindProperty("p.nodeLayer").objectReferenceValue;
@@ -220,7 +256,8 @@ namespace PokiClash.EditorTools
             }
             ArtImporter.BuildLibrary();
             AssetDatabase.SaveAssets();
-            Debug.Log($"[Vùng đất] Đã dựng {FlagPath} ({frames.Count} khung vải), gán vào Zone cùng phác chì {SketchMatPath}, bút chì");
+            Debug.Log($"[Vùng đất] Đã dựng {FlagPath} ({frames.Count} khung vải), gán vào Zone cùng phác chì "
+                      + string.Join(", ", sketches.Select(m => m.name)) + $", bút chì, {eggArt.Count} hình easter egg");
         }
 
         [MenuItem("PokiClash/Thử/Đảo Thủy vùng đất: cờ ải chia đều, nổi bật (đang Play)", priority = 126)]
@@ -290,56 +327,39 @@ namespace PokiClash.EditorTools
             App.Router.Go(SceneIds.Hub);
         }
 
-        [MenuItem("PokiClash/Đảo vùng đất/Dựng nước, ảnh (Thủy)", priority = 70)]
+        [MenuItem("PokiClash/Đảo vùng đất/Dựng nước, ảnh (mọi đảo)", priority = 70)]
         static void Build()
         {
-            var ti = AssetImporter.GetAtPath(DistPath) as TextureImporter;
-            if (!ti)
+            var dists = Islands("_dist");
+            if (dists.Count == 0)
             {
-                Debug.LogError($"[Vùng đất] Chưa có {DistPath}: chạy build_land.py --xuat rồi refresh");
+                Debug.LogError($"[Vùng đất] Chưa có {BakedDir}/land_<đảo>_dist.png: chạy build_land.py --xuat rồi refresh");
                 return;
             }
-            ti.textureType = TextureImporterType.Default;
-            ti.sRGBTexture = false;
-            ti.mipmapEnabled = false;
-            ti.alphaSource = TextureImporterAlphaSource.None;
-            ti.wrapMode = TextureWrapMode.Clamp;
-            ti.filterMode = FilterMode.Bilinear;
-            ti.npotScale = TextureImporterNPOTScale.None;
-            ti.maxTextureSize = 2048;
-            ti.textureCompression = TextureImporterCompression.Uncompressed;
-            foreach (var pf in new[] { "Standalone", "Android", "iPhone" })
-            {
-                var ps = ti.GetPlatformTextureSettings(pf);
-                ps.overridden = true;
-                ps.maxTextureSize = 2048;
-                ps.format = TextureImporterFormat.RG16;
-                ti.SetPlatformTextureSettings(ps);
-            }
-            ti.SaveAndReimport();
-            AssetDatabase.ImportAsset(ArtPath, ImportAssetOptions.ForceUpdate);
-
             var shader = Shader.Find("PokiClash/UIInkWater");
             if (!shader)
             {
                 Debug.LogError("[Vùng đất] Không thấy shader PokiClash/UIInkWater");
                 return;
             }
-            var mat = AssetDatabase.LoadAssetAtPath<Material>(MatPath);
-            if (!mat)
+            var mats = new List<Material>();
+            var arts = new List<string>();
+            foreach (var (isl, path) in dists)
             {
-                mat = new Material(shader) { name = "land_water_thuy" };
-                AssetDatabase.CreateAsset(mat, MatPath);
+                ImportField(path);
+                var artPath = $"{IslandDir}/land_{isl}.png";
+                AssetDatabase.ImportAsset(artPath, ImportAssetOptions.ForceUpdate);
+                mats.Add(IslandMat($"{IslandDir}/land_water_{isl}.mat", shader, "_DistTex", path));
+                var art = AssetDatabase.LoadAssetAtPath<Texture2D>(artPath);
+                arts.Add($"land_{isl} {(art ? art.width + "x" + art.height : "THIẾU ẢNH NỀN")}");
             }
-            else mat.shader = shader;
-            mat.SetTexture("_DistTex", AssetDatabase.LoadAssetAtPath<Texture2D>(DistPath));
-            EditorUtility.SetDirty(mat);
 
             var root = PrefabUtility.LoadPrefabContents(ZonePath);
             try
             {
                 var so = new SerializedObject(root.GetComponentInChildren<ZoneScene>(true));
-                so.FindProperty("landWater").objectReferenceValue = mat;
+                so.FindProperty("landWater").objectReferenceValue = mats[0];
+                SetArray(so, "landWaters", mats);
                 // camera kéo, zoom của đảo vùng đất: cùng chỗ ScrollRect (ZoneScene tắt ScrollRect khi vào đảo vùng đất)
                 var scroll = (ScrollRect)so.FindProperty("p.scroll").objectReferenceValue;
                 var lv = scroll.GetComponent<LandView>();
@@ -354,8 +374,8 @@ namespace PokiClash.EditorTools
             }
             ArtImporter.BuildLibrary();
             AssetDatabase.SaveAssets();
-            var art = AssetDatabase.LoadAssetAtPath<Texture2D>(ArtPath);
-            Debug.Log($"[Vùng đất] Đã dựng {MatPath}, gán vào Zone; ảnh nền {(art ? art.width + "x" + art.height : "THIẾU")}");
+            Debug.Log("[Vùng đất] Đã dựng material sóng " + string.Join(", ", mats.Select(m => m.name)) + " gán vào Zone; ảnh nền: "
+                      + string.Join(", ", arts));
         }
 
         [MenuItem("PokiClash/Thử/Đảo Thủy vùng đất: habitat, tướng idle và đánh, chấm ải, sóng (đang Play)", priority = 125)]
@@ -503,15 +523,134 @@ namespace PokiClash.EditorTools
         }
 
         // shown: số vùng boss đã diễn cảnh mở (-1: bằng số vùng đã mở, không diễn)
-        static IEnumerator EnterThuy(int prog, int shown = -1)
+        static IEnumerator EnterThuy(int prog, int shown = -1) => EnterLand(Elem.Thuy, prog, shown);
+
+        static IEnumerator EnterLand(Elem e, int prog, int shown = -1)
         {
-            App.Save.Data.zones[(int)Elem.Thuy] = prog;
-            var land = App.Data.Zone(Elem.Thuy)?.land;
-            if (land != null && land.Has) LandShown.Set(App.Save.Data, Elem.Thuy, shown >= 0 ? shown : land.OpenSections(prog));
+            App.Save.Data.zones[(int)e] = prog;
+            var land = App.Data.Zone(e)?.land;
+            if (land != null && land.Has) LandShown.Set(App.Save.Data, e, shown >= 0 ? shown : land.OpenSections(prog));
             App.Router.Go(SceneIds.Hub);
             yield return WaitRouter(SceneIds.Hub);
-            App.Router.Go(SceneIds.Zone, Elem.Thuy);
+            App.Router.Go(SceneIds.Zone, e);
             yield return WaitRouter(SceneIds.Zone);
+        }
+
+        [MenuItem("PokiClash/Thử/Đảo Mộc vùng đất: toàn đảo, vùng boss, easter egg (đang Play)", priority = 130)]
+        static void MocTour() => IslandTour(Elem.Moc, "moc");
+
+        [MenuItem("PokiClash/Thử/Đảo Hỏa vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 131)]
+        static void HoaTour() => IslandTour(Elem.Hoa, "hoa");
+
+        [MenuItem("PokiClash/Thử/Đảo Kim vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 132)]
+        static void KimTour() => IslandTour(Elem.Kim, "kim");
+
+        [MenuItem("PokiClash/Thử/Đảo Thổ vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 133)]
+        static void ThoTour() => IslandTour(Elem.Tho, "tho");
+
+        static void IslandTour(Elem e, string tag)
+        {
+            if (!EditorApplication.isPlaying || App.I == null)
+            {
+                Debug.LogWarning("[Thử] Bấm Play trước");
+                return;
+            }
+            App.I.StartCoroutine(RunIslandTour(e, tag));
+        }
+
+        // ảnh <tag>_*.jpg: toàn đảo, từng bệ (tiến độ 69), vùng khoá + easter egg (23, 0), lần đầu vào đảo, mở vùng 21–30, tuyệt kỹ
+        static IEnumerator RunIslandTour(Elem isl, string pre)
+        {
+            var path = App.Save.FilePath;
+            string backup = File.Exists(path) ? File.ReadAllText(path) : null;
+            Directory.CreateDirectory(Dir);
+            foreach (var f in Directory.GetFiles(Dir, pre + "_*.jpg")) File.Delete(f);
+            try
+            {
+                DayCycle.Override = 10f;
+                // mở hết: toàn đảo, từng bệ (tướng trên bệ, cờ đúng trên đường, bảng tên)
+                yield return EnterLand(isl, 69);
+                var zs = Object.FindAnyObjectByType<ZoneScene>();
+                yield return new WaitForSecondsRealtime(2f);
+                zs.LandOverview();
+                yield return new WaitForSecondsRealtime(1.5f);
+                yield return Shot($"{pre}_69_toan");
+                foreach (var idx in new[] { 1, 5, 10, 15, 20, 30, 40, 50, 60, 70 })
+                {
+                    zs.LandFocus(idx, 0.6f);
+                    yield return new WaitForSecondsRealtime(1.6f);
+                    yield return Shot($"{pre}_69_ai{idx:00}");
+                }
+                // vùng khoá ở tiến độ 23: phác chì + mây, đom đóm (vùng 7), pha lê (vùng 8), lá rơi (vùng 9), chim (vùng 6)
+                yield return EnterLand(isl, 23);
+                zs = Object.FindAnyObjectByType<ZoneScene>();
+                yield return new WaitForSecondsRealtime(2f);
+                zs.LandOverview();
+                yield return new WaitForSecondsRealtime(1.5f);
+                yield return Shot($"{pre}_23_toan");
+                foreach (var (idx, tag) in new[] { (40, "v6_chim"), (50, "v7_domdom"), (60, "v8_phale"), (70, "v9_laroi") })
+                {
+                    zs.LandFocus(idx, 0.55f);
+                    yield return new WaitForSecondsRealtime(1.2f);
+                    for (int k = 0; k < 3; k++)
+                    {
+                        yield return new WaitForSecondsRealtime(0.6f);
+                        yield return Shot($"{pre}_23_{tag}_{k}");
+                    }
+                }
+                // boss vùng khoá tung tuyệt kỹ (vùng 7: ải 50)
+                zs.LandFocus(50, 0.6f);
+                yield return new WaitForSecondsRealtime(1.8f);
+                Debug.Log("[Thử] " + zs.LandEgg("ult", 7));
+                for (int k = 0; k < 8; k++)
+                {
+                    yield return new WaitForSecondsRealtime(0.4f);
+                    yield return Shot($"{pre}_ult7_{k}");
+                }
+                yield return new WaitForSecondsRealtime(1.5f);
+                // tiến độ 0 (đã xem vùng 0): bướm (vùng 1), gió hang nanh (vùng 4), lá đỏ (vùng 5)
+                yield return EnterLand(isl, 0, 1);
+                zs = Object.FindAnyObjectByType<ZoneScene>();
+                yield return new WaitForSecondsRealtime(2f);
+                zs.LandOverview();
+                yield return new WaitForSecondsRealtime(1.5f);
+                yield return Shot($"{pre}_00_toan");
+                foreach (var (idx, tag) in new[] { (5, "v1_buom"), (20, "v4_gio"), (30, "v5_laroi") })
+                {
+                    zs.LandFocus(idx, 0.55f);
+                    yield return new WaitForSecondsRealtime(1.2f);
+                    for (int k = 0; k < 3; k++)
+                    {
+                        yield return new WaitForSecondsRealtime(0.6f);
+                        yield return Shot($"{pre}_00_{tag}_{k}");
+                    }
+                }
+                // lần đầu vào đảo: diễn mở vùng 0
+                yield return EnterLand(isl, 0, 0);
+                for (int k = 0; k < 10; k++)
+                {
+                    yield return new WaitForSecondsRealtime(k == 0 ? 0.4f : 0.6f);
+                    yield return Shot($"{pre}_dau_{k:00}");
+                }
+                // qua ải 20 quay lại: diễn mở vùng ải 21–30 (đường cua tay áo)
+                yield return EnterLand(isl, 20, 5);
+                for (int k = 0; k < 14; k++)
+                {
+                    yield return new WaitForSecondsRealtime(k == 0 ? 0.5f : 0.55f);
+                    yield return Shot($"{pre}_mo_{k:00}");
+                }
+                Debug.Log($"[Thử] Xong đảo {isl}: " + Path.GetFullPath(Dir));
+            }
+            finally
+            {
+                DayCycle.Override = null;
+                if (backup != null)
+                {
+                    File.WriteAllText(path, backup);
+                    App.Save.Load();
+                }
+            }
+            App.Router.Go(SceneIds.Hub);
         }
 
         static IEnumerator RunSectionTour()

@@ -164,23 +164,19 @@ namespace PokiClash
             return MachineGlow.NewImage(name, parent) as T;
         }
 
-        // kẹo EXP bay từ một điểm thế giới lên bảng (chia 1..4 kẹo, 10 EXP một kẹo); tới nơi bảng cộng
+        // kẹo EXP từ một điểm thế giới lên bảng: chùm kẹo toả ra, khựng, rồi lần lượt bay mượt về icon kẹo của bảng
+        // (MachineExpBar.Spray, 3..7 viên); viên nào tới thì bảng cộng phần của viên đó
         public void Receive(MachineExpBar bar, Vector3 from, int n, float delay = 0)
         {
             if (n <= 0) return;
             bar.Held += n;
-            int k = Mathf.Clamp(Mathf.CeilToInt(n / 10f), 1, 4), left = n;
-            for (int i = 0; i < k; i++)
+            int k = MachineExpBar.SprayCount(n);
+            incoming += k;
+            bar.Spray(Candy, from, () => IconWorld, k, delay, i =>
             {
-                int part = i == k - 1 ? left : n / k;
-                left -= part;
-                incoming++;
-                bar.FlyIcon(Candy, from, IconWorld, delay + i * 0.06f, () =>
-                {
-                    incoming--;
-                    Add(part);
-                }, 64, 0.55f);
-            }
+                incoming--;
+                Add(MachineExpBar.Part(n, k, i));
+            }, 60, 92);
         }
 
         // cộng lên bảng: số chạy tới, nhún, quầng loé, đèn viền nháy, vệt sáng lia qua
@@ -202,19 +198,17 @@ namespace PokiClash
             // viền chớp 3 lần rồi mới thu (clip collect của bảng máy tham khảo)
             collectT = 0;
             yield return new WaitForSecondsRealtime(CollectFlash);
-            int total = target, k = Mathf.Clamp(Mathf.CeilToInt(total / 15f), 3, 10), left = total;
-            for (int i = 0; i < k; i++)
-            {
-                int part = i == k - 1 ? left : total / k;
-                left -= part;
-                target -= part;
-                punchT = 0;
-                bar.FlyIcon(Candy, IconWorld, bar.TipWorld, 0, () => bar.Deposit(part), 52, 0.5f);
-                App.Audio.Play("pick", 0.35f, 1.0f + i * 0.04f);
-                yield return new WaitForSecondsRealtime(0.07f);
-            }
+            // cả chùm phụt khỏi bảng một lần (số trên bảng đếm lùi về 0), khựng, rồi lần lượt bay mượt lên đầu thanh
+            int total = target, k = Mathf.Clamp(Mathf.CeilToInt(total / 15f), 4, 10);
             target = 0;
-            for (float t = 0; bar.Busy && t < 3; t += Time.unscaledDeltaTime) yield return null;
+            punchT = 0;
+            joltT = 0;
+            App.Audio.Play("whoosh", 0.35f, 1.25f);
+            bar.Spray(Candy, IconWorld, () => bar.TipWorld, k, 0, i =>
+            {
+                bar.Deposit(MachineExpBar.Part(total, k, i));
+            }, 54, 130);
+            for (float t = 0; bar.Busy && t < 4; t += Time.unscaledDeltaTime) yield return null;
         }
 
         // chữ "+N" bật lên trên số rồi trôi lên, mờ

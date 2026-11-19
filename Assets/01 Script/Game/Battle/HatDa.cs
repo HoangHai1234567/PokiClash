@@ -39,8 +39,11 @@ namespace PokiClash
                 var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.3f);
                 DaVun(c + d * U(4, 12), d * U(180, 380) * sc, U(0.45f, 0.75f), U(2.8f, 4.8f));
             }
-            for (int i = 0; i < 2; i++)
-                BuiCum(c + new Vector2(U(-0.25f, 0.25f), U(-0.2f, 0.1f)) * tH, new Vector2(U(-70, 70), -U(30, 70)), U(0.1f, 0.13f) * tH * sc, 0, Back);
+            // khung vẽ sẵn (2026-11-19): bụi đá là một cụm khói nhuộm đất sau thân (đáy cụm dưới chỗ nện một chút, cụm ôm quanh chỗ nện) thay hai
+            // cụm BuiCum
+            if (MocKhoiFb(c + new Vector2(U(-0.08f, 0.08f) * tH, 0.14f * tH), 0.13f * tH * sc, new Vector2(U(-40, 40), -U(30, 60)), Back, 4.5f, 1.4f) == null)
+                for (int i = 0; i < 2; i++)
+                    BuiCum(c + new Vector2(U(-0.25f, 0.25f), U(-0.2f, 0.1f)) * tH, new Vector2(U(-70, 70), -U(30, 70)), U(0.1f, 0.13f) * tH * sc, 0, Back);
         }
 
         // HAI TẢNG TAY NỆN TRÚNG (chiêu mana): tảng gần chạm ở khung trúng của clip, tảng xa sau đó 0,10 s; mỗi cú đá vụn + bụi, cú sau
@@ -64,11 +67,12 @@ namespace PokiClash
                 DanhTrung?.Invoke(c2, 0.7f);
                 DaNo(c2, tH, 1.1f);
                 WExtra(c2, 4, 300);
-                for (int i = 0; i < 4; i++)
-                {
-                    float sd = (i & 1) == 0 ? 1 : -1;
-                    BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.36f) * tH, U(-6, 2)), new Vector2(sd * U(60, 140), -U(15, 45)), U(0.1f, 0.14f) * tH, 0, Back);
-                }
+                if (!MocBuiHaiBen(foeFeet, 0.13f * tH, 0.26f * tH, 100)) // khung vẽ sẵn (2026-11-19): hai cụm khói nhuộm đất thay bốn cụm BuiCum
+                    for (int i = 0; i < 4; i++)
+                    {
+                        float sd = (i & 1) == 0 ? 1 : -1;
+                        BuiCum(foeFeet + new Vector2(sd * U(0.12f, 0.36f) * tH, U(-6, 2)), new Vector2(sd * U(60, 140), -U(15, 45)), U(0.1f, 0.14f) * tH, 0, Back);
+                    }
                 VetDat(foeFeet + new Vector2(0, 3), 0.38f * tH, 0.9f);
             });
             return s0;
@@ -269,9 +273,15 @@ namespace PokiClash
                 CauLa(cFn, hit - tTu, rFn, Front, tNem - tTu);
                 CungDat(casterFeet + new Vector2(0, 2), 0.15f * casterH, 0.6f * casterH, 0.45f, W[2], 0.06f * casterH);
                 GatherLa(cFn, 0, tNem - tTu - 0.04f, 1.1f * casterH, 56);
-                // bụi và lá dưới chân bị cuốn lên: cụm nhỏ, bay lên rồi tách
-                Every(0, tDay - tTu, 5, x =>
-                    BuiCum(casterFeet + new Vector2(U(-0.5f, 0.5f) * casterH, U(-4, 2)), new Vector2(U(-30, 30), -U(90, 160)), U(0.06f, 0.09f) * casterH, 0, Back));
+                // bụi và lá dưới chân bị cuốn lên: cụm nhỏ, bay lên rồi tách (khung vẽ sẵn 2026-11-19: cụm khói nhuộm đất, thưa hơn vì mỗi cụm to và
+                // sống lâu hơn; chưa nhập khung thì BuiCum cũ)
+                bool kh = HasFb("khoi");
+                Every(0, tDay - tTu, kh ? 3.5f : 5, x =>
+                {
+                    var at = casterFeet + new Vector2(U(-0.5f, 0.5f) * casterH, U(-4, 2));
+                    if (kh) MocKhoiFb(at, U(0.07f, 0.1f) * casterH, new Vector2(U(-30, 30), -U(70, 120)), Back, 2.5f, 1.1f, 0.85f);
+                    else BuiCum(at, new Vector2(U(-30, 30), -U(90, 160)), U(0.06f, 0.09f) * casterH, 0, Back);
+                });
             });
             At(tDay, () =>
             {

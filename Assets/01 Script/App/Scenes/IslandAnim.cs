@@ -8,7 +8,8 @@
 // Đảo vùng đất (khoá land_<hệ>, ArtGen/Islands/land_thuy/m0/vat_dong.py, góp ý 2026-11-18 "đảo còn tĩnh"): hình rời cắt từ ảnh nền
 // (khoá "a" là tên ảnh trong danh mục): drift mây trôi ngang vòng lại, glide hải âu lượn vòng elip, boat thuyền dập dềnh chòng chành
 // trôi qua lại; rain mưa rơi xiên dưới mây giông; swirl xoáy nước không kèm đinh ba. "v": tốc trôi (bề ngang ảnh / giây) hoặc bán
-// kính lượn (lần bề ngang hình).
+// kính lượn (lần bề ngang hình). plume: cột khói / hơi nước nhiều múi (đảo Hỏa vùng đất): "c" màu đáy, "n" số múi, "l" đời múi
+// (giây), "v" chiều gió (-1 trái, 1 phải).
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -107,6 +108,17 @@ namespace PokiClash
             switch (k)
             {
                 case "smoke": fx.Add(new Emitter { host = this, at = p, size = s, kind = k, life = 4f, items = NewImages("smoke_big", 4), alt = SpriteOf("smoke_small"), seed = seed }); break;
+                case "plume":
+                    {
+                        var low = ColorUtility.TryParseHtmlString(J.Str(it, "c") ?? "", out var lc) ? lc : new Color(0.88f, 0.86f, 0.82f);
+                        fx.Add(new Plume
+                        {
+                            host = this, at = p, size = s, seed = seed, life = (float)J.Num(it, "l", 3.8), wind = (float)J.Num(it, "v", 1),
+                            items = NewImages("smoke_big", Mathf.Clamp((int)J.Num(it, "n", 7), 3, 12)), big = SpriteOf("smoke_big"),
+                            small = SpriteOf("smoke_small"), low = low, high = Color.Lerp(low, Color.white, 0.65f),
+                        });
+                        break;
+                    }
                 case "flame": fx.Add(new Flame { host = this, at = p, size = s, img = NewImage("flame_a"), a = SpriteOf("flame_a"), b = SpriteOf("flame_b"), seed = seed }); break;
                 case "gear": fx.Add(new Spin { host = this, at = p, size = s, img = NewImage("gear_big"), speed = -40 }); break;
                 case "gear2": fx.Add(new Spin { host = this, at = p, size = s, img = NewImage("gear_small"), speed = 55 }); break;
@@ -232,6 +244,53 @@ namespace PokiClash
         static float Hash(int seed, int i) => Mathf.Repeat(Mathf.Sin(seed * 12.9898f + i * 78.233f) * 43758.547f, 1f);
 
         // ---------- các kiểu chuyển động ----------
+
+        // cột khói / hơi nước (người dùng 2026-11-19: "làm mấy cái khói bốc lên thành anim đi cho sinh động"; luật khói vfx-petclash
+        // mục 1b): cụm nhiều múi to nhỏ xen kẽ sinh dày, gối lên nhau; múi nở nhanh lúc rời miệng rồi chậm dần, bay lên, gió đẩy lệch,
+        // tách cụm rồi mới mờ (không vụt tắt); hai tông: đáy đậm (low), đỉnh nhạt (high). Cỡ bằng localScale, sizeDelta chỉ đổi khi
+        // đổi hình múi (đỡ dựng lại lưới).
+        sealed class Plume : Fx
+        {
+            public Vector2 at;
+            public float size, life, wind;
+            public int seed;
+            public Image[] items;
+            public Sprite big, small;
+            public Color low, high;
+            public override void Tick(float t)
+            {
+                float w = host.S(size);
+                var p0 = host.P(at);
+                int n = items.Length;
+                for (int i = 0; i < n; i++)
+                {
+                    float o = (float)i / n * life + Hash(seed, i) * 0.25f;
+                    float age = Mathf.Repeat(t + o, life);
+                    float k = age / life;
+                    int gen = Mathf.FloorToInt((t + o) / life);
+                    float r = Hash(seed, gen * 31 + i); // mỗi lượt một múi khác: cỡ, chỗ, góc
+                    var img = items[i];
+                    var sp = (i + gen) % 3 == 0 ? small : big;
+                    if (img.sprite != sp) img.sprite = sp;
+                    var rt = img.rectTransform;
+                    var sd = new Vector2(w, sp ? w * sp.rect.height / sp.rect.width : w);
+                    if (rt.sizeDelta != sd) rt.sizeDelta = sd;
+                    float e = 1 - Mathf.Pow(1 - k, 1.8f); // bay nhanh lúc rời miệng rồi chậm dần
+                    float rise = e * w * 2.0f;
+                    // loe dần theo độ cao: gió đẩy lệch, mỗi múi lệch một phía, lắc nhẹ (cột không thẳng đứng như chuỗi bóng)
+                    float drift = Mathf.Pow(k, 1.4f) * w * 0.9f * wind + Mathf.Sin(age * 1.5f + r * 6.3f) * w * 0.1f * (0.3f + k)
+                                  + (r - 0.5f) * w * 0.5f * k;
+                    float sc = (0.35f + 1.25f * (1 - Mathf.Pow(1 - k, 2f))) * (0.75f + 0.5f * r);
+                    float a = k < 0.1f ? k / 0.1f : k < 0.45f ? 1 : 1 - Mathf.SmoothStep(0, 1, (k - 0.45f) / 0.55f);
+                    var c = Color.Lerp(low, high, Mathf.SmoothStep(0, 1, Mathf.Min(1, k * 1.4f)));
+                    c.a = a * 0.95f;
+                    rt.anchoredPosition = p0 + new Vector2(drift, rise);
+                    rt.localEulerAngles = new Vector3(0, 0, (r - 0.5f) * 30 + k * 20 * wind);
+                    rt.localScale = new Vector3(sc, sc, 1);
+                    img.color = c;
+                }
+            }
+        }
 
         sealed class Spin : Fx
         {

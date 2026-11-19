@@ -119,12 +119,18 @@ namespace PokiClash
             float t0 = Mathf.Max(0.02f, L - 0.70f), t1 = Mathf.Max(t0 + 0.05f, L - 0.17f);
             At(Mathf.Max(0.01f, L - 0.73f), () => CungDat(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.46f * casterH, 0.4f, CungC, 0.06f * casterH, 3));
             float goc = T;
+            bool kh = HasFb("khoi"); // khung vẽ sẵn (2026-11-19): bụi tuột lại sau lưng là cụm khói nhuộm đất, thưa hơn (cụm to, sống lâu)
             Every(t0, t1, 46, x =>
             {
                 float k = Mathf.Clamp01((T - goc - t0) / (t1 - t0));
                 var chan = Vector2.Lerp(casterFeet, toi, k * k * (3 - 2 * k));
                 float r = U(0, 1);
-                if (r < 0.18f) BuiCum(chan + new Vector2(-dir * U(0, 0.25f) * casterH, U(-5, 2)), -hg * U(60, 160) + new Vector2(0, -U(10, 40)), U(0.06f, 0.09f) * casterH, 0, Back);
+                if (r < 0.18f)
+                {
+                    var at = chan + new Vector2(-dir * U(0, 0.25f) * casterH, U(-5, 2));
+                    if (!kh) BuiCum(at, -hg * U(60, 160) + new Vector2(0, -U(10, 40)), U(0.06f, 0.09f) * casterH, 0, Back);
+                    else if (r < 0.1f) MocKhoiFb(at, U(0.07f, 0.1f) * casterH, -hg * U(60, 140) + new Vector2(0, -U(10, 30)), Back, 3, 1.4f, 0.85f);
+                }
                 else if (r < 0.65f) SoiGio(chan + new Vector2(-dir * U(0.1f, 0.5f) * casterH, -U(0.15f, 0.6f) * casterH), -hg * U(180, 340), U(0.2f, 0.3f), U(7, 11), Back);
                 else Leaf(chan + new Vector2(-dir * U(0, 0.4f) * casterH, -U(0.05f, 0.5f) * casterH), -hg * U(80, 200) + new Vector2(0, -U(30, 110)), U(0.35f, 0.55f), U(3.5f, 5.5f), 360, 1.4f, Back);
             });
@@ -134,7 +140,11 @@ namespace PokiClash
             At(Mathf.Max(0.02f, L - 0.03f), () => CungKiem(Vector2.Lerp(toi + new Vector2(0, -0.45f * casterH), foeBody, 0.45f), d1, 0.62f * Mathf.Max(casterH, tH)));
             At(L, () =>
             {
-                Shake?.Invoke(0.5f);
+                // 2026-11-19 (người dùng: "thêm vệt chém không gian vào"): vệt chém xé không gian vẽ sẵn đè lên đối thủ theo hướng nhát chém; khựng
+                // mạnh hơn (DanhTrung gọi TRƯỚC ChemToe để bông toé trắng của sân lấy cỡ lớn)
+                bool kg = ChemKg(tam, d1, 1.5f * tH);
+                Shake?.Invoke(kg ? 0.55f : 0.5f);
+                if (kg) DanhTrung?.Invoke(tam, 0.6f);
                 VetChem(tam, d1, 1.3f * tH, 0.13f * tH, 0.24f);
                 ChemToe(tam, d1, tH, 1, 7);
                 WExtra(tam, 3, 260);
@@ -143,12 +153,30 @@ namespace PokiClash
             At(L + 0.70f, () => CungKiem(Vector2.Lerp(toi + new Vector2(0, -0.6f * casterH), foeBody, 0.5f), d2, 0.6f * Mathf.Max(casterH, tH)));
             At(L + 0.73f, () =>
             {
-                Shake?.Invoke(0.4f);
+                bool kg = ChemKg(tam, d2, 1.8f * tH); // nhát cuối: vệt to nhất
+                Shake?.Invoke(kg ? 0.6f : 0.4f);
+                if (kg) DanhTrung?.Invoke(tam, 0.8f);
                 VetChem(tam, d2, 1.2f * tH, 0.12f * tH, 0.24f);
                 ChemToe(tam, d2, tH, 0.9f, 6);
                 WExtra(tam, 2, 220);
             });
             return L;
+        }
+
+        // VỆT CHÉM KHÔNG GIAN (2026-11-19, khung chem_kg: vệt chém chéo xé không gian dưới trái → trên phải, lõi trắng viền lục, rãnh lục sẫm, hai
+        // vệt phụ, vỡ mảnh; neo tâm). Vệt trong khung nghiêng ~33° (đo trên khung); vệt chém là một đường nên chọn lật hay không sao cho góc xoay
+        // nhỏ nhất (khung đứng gần thẳng, các mảnh vỡ không lộn ngược). Bắt đầu ở khung 1 (đường chém mảnh vừa xé), chạy nhanh 1,6 lần. Đè lên
+        // đối thủ, dưới vệt chém VetChem. Trả false khi chưa nhập khung.
+        bool ChemKg(Vector2 tam, Vector2 d, float h)
+        {
+            if (!HasFb("chem_kg")) return false;
+            const float Goc0 = 33;
+            float phi = Mathf.Atan2(-d.y, d.x) * Mathf.Rad2Deg;             // góc đường chém trên màn (y lên)
+            float Chuan(float a) { a = Mathf.Repeat(a + 90, 180) - 90; return a; } // góc của một đường: (−90, 90]
+            float aKhong = Chuan(phi - Goc0), aLat = Chuan(phi + Goc0);    // không lật: đường khung 33°; lật: −33°
+            bool lat = Mathf.Abs(aLat) < Mathf.Abs(aKhong);
+            Fb("chem_kg", tam, h, Front, 44, 1.6f, lat ? aLat : aKhong, lat, null, 0.96f, -1, 1);
+            return true;
         }
 
         // hướng bốn nhát của bốn ảo ảnh (x theo phía trước mặt tướng, y xuống), cùng thứ tự với rig (AO trong kiem_si_clip.py), và hai nhát
@@ -185,8 +213,13 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.2f);
                 CungDat(casterFeet + new Vector2(0, 2), 0.1f * casterH, 0.64f * casterH, 0.4f, CungC, 0.07f * casterH);
-                for (int i = 0; i < 3; i++)
-                    BuiCum(casterFeet + new Vector2(U(-0.25f, 0.25f) * casterH, U(-6, 2)), new Vector2(-dir * U(60, 200), -U(10, 50)), U(0.1f, 0.13f) * casterH, 0, Back);
+                if (HasFb("khoi")) // khung vẽ sẵn (2026-11-19): hai cụm khói nhuộm đất bật ra sau thay ba cụm BuiCum
+                    for (int i = 0; i < 2; i++)
+                        MocKhoiFb(casterFeet + new Vector2(U(-0.22f, 0.22f) * casterH, U(-4, 2)), U(0.11f, 0.14f) * casterH, new Vector2(-dir * U(60, 180), -U(10, 40)), Back,
+                            U(3.5f, 4.5f));
+                else
+                    for (int i = 0; i < 3; i++)
+                        BuiCum(casterFeet + new Vector2(U(-0.25f, 0.25f) * casterH, U(-6, 2)), new Vector2(-dir * U(60, 200), -U(10, 50)), U(0.1f, 0.13f) * casterH, 0, Back);
             });
             Every(tBien - 0.04f, tBien + 0.2f, 70, x =>
             {
@@ -215,8 +248,10 @@ namespace PokiClash
             At(Mathf.Max(0.08f, L - 0.50f), () =>
             {
                 CungDat(casterFeet + new Vector2(0, 2), 0.08f * casterH, 0.54f * casterH, 0.4f, CungC, 0.06f * casterH);
-                for (int i = 0; i < 2; i++)
-                    BuiCum(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, U(-6, 2)), new Vector2(dir * U(40, 160), -U(10, 40)), U(0.09f, 0.12f) * casterH, 0, Back);
+                // khung vẽ sẵn (2026-11-19): một cụm khói nhuộm đất thay hai cụm BuiCum
+                if (MocKhoiFb(casterFeet + new Vector2(U(-0.12f, 0.12f) * casterH, U(-4, 2)), 0.12f * casterH, new Vector2(dir * U(40, 140), -U(10, 30)), Back, 4) == null)
+                    for (int i = 0; i < 2; i++)
+                        BuiCum(casterFeet + new Vector2(U(-0.2f, 0.2f) * casterH, U(-6, 2)), new Vector2(dir * U(40, 160), -U(10, 40)), U(0.09f, 0.12f) * casterH, 0, Back);
                 for (int i = 0; i < 4; i++)
                     Leaf(hong + U2(-0.3f, 0.3f) * casterH, new Vector2(dir * U(40, 160), -U(40, 140)), U(0.4f, 0.6f), U(3.5f, 5.5f), 420, 1.6f, Back);
             });
@@ -248,11 +283,12 @@ namespace PokiClash
                 LaNo(foeBody, foeFeet, tH, 1.25f);
                 WExtra(foeBody, 7, 340);
                 VetDat(foeFeet + new Vector2(0, 3), 0.42f * tH, 1f);
-                for (int i = 0; i < 4; i++)
-                {
-                    float sd = (i & 1) == 0 ? 1 : -1;
-                    BuiCum(foeFeet + new Vector2(sd * U(0.08f, 0.32f) * tH, U(-6, 3)), new Vector2(sd * U(100, 220), -U(10, 40)), U(0.1f, 0.14f) * tH, 0, Back);
-                }
+                if (!MocBuiHaiBen(foeFeet, 0.13f * tH, 0.24f * tH, 150)) // khung vẽ sẵn (2026-11-19): hai cụm khói nhuộm đất thay bốn cụm BuiCum
+                    for (int i = 0; i < 4; i++)
+                    {
+                        float sd = (i & 1) == 0 ? 1 : -1;
+                        BuiCum(foeFeet + new Vector2(sd * U(0.08f, 0.32f) * tH, U(-6, 3)), new Vector2(sd * U(100, 220), -U(10, 40)), U(0.1f, 0.14f) * tH, 0, Back);
+                    }
             });
             Every(tChot, tChot + 0.45f, 18, x =>
                 LaRoi(foeBody + new Vector2(U(-0.5f, 0.5f) * tH, -U(0, 0.5f) * tH), new Vector2(U(-50, 50), U(10, 50)), U(0.55f, 0.85f), U(3.2f, 5.2f), U(0, 1) < 0.5f ? Front : Back));

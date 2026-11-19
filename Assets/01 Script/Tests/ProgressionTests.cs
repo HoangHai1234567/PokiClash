@@ -57,7 +57,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0, TestData.OldStarter); // bản lưu mẫu của golden (TestData.OldStarter)
-            foreach (var id in new[] { "vo_su", "so_ngoc", "giap_long", "ca_sa" }) s.Hero(id).owned = true;
+            foreach (var id in new[] { "cao_da", "so_ngoc", "giap_long", "giap_nham" }) s.Hero(id).owned = true;
             var r = new Rng(77);
             var want = J.Arr(G, "drops");
             for (int i = 0; i < want.Count; i++)
@@ -124,17 +124,17 @@ namespace PokiClash.Tests
             var d = TestData.Load();
             var cfg = d.Cfg;
             var s = SaveData.New(d, 0);
-            Progress.UnlockHero(s, "vo_su");
-            var c = s.Hero("vo_su").skill;
-            Assert.IsFalse(Progress.CanUpCard(s, cfg, "vo_su", CardSlot.Skill));
+            Progress.UnlockHero(s, "cao_da");
+            var c = s.Hero("cao_da").skill;
+            Assert.IsFalse(Progress.CanUpCard(s, cfg, "cao_da", CardSlot.Skill));
             c.copies = 2;
-            Assert.IsTrue(Progress.UpCard(s, cfg, "vo_su", CardSlot.Skill));
+            Assert.IsTrue(Progress.UpCard(s, cfg, "cao_da", CardSlot.Skill));
             Assert.AreEqual(2, c.lv);
             Assert.AreEqual(0, c.copies);
-            // Thiết Quyền cấp 2: mô tả theo số thật
-            Assert.AreEqual("Gây 138% Công sát thương. +12 nộ.", CardText.Text(d.Card(d.Hero("vo_su").skill), 2, cfg.cardLvStep));
+            // Phun Đá (Tê Thiềm, thay Thiết Quyền của Võ Sư 2026-11-19) cấp 2: mô tả theo số thật
+            Assert.AreEqual("Gây 115% Công sát thương. Địch −17% Thủ 2 lượt.", CardText.Text(d.Card(d.Hero("cao_da").skill), 2, cfg.cardLvStep));
             c.copies = 100;
-            while (Progress.UpCard(s, cfg, "vo_su", CardSlot.Skill)) { }
+            while (Progress.UpCard(s, cfg, "cao_da", CardSlot.Skill)) { }
             Assert.AreEqual(5, c.lv);
             Assert.AreEqual(100 - 4 - 8 - 15, c.copies, "cấp tối đa: bản sao còn lại được giữ");
             Assert.AreEqual(int.MaxValue, Progress.CardReq(cfg, 5));
@@ -191,6 +191,22 @@ namespace PokiClash.Tests
             Assert.AreEqual(999, p.shards, "tiến hóa không tốn mảnh");
             Assert.AreEqual(1, h.FormIndex(cfg.formStars, p.star), "Bạc 1 sao là dạng 2");
             Assert.IsTrue(Progress.StarUp(s, d, "ti_tach"), "lên Bạc 2 sao bằng mảnh để dành");
+            // bậc theo dạng (2026-11-19): Tí Tách 2 dạng nên bậc Bạc trải sao tổng 6..20; Bạc 2 sao là sao tổng 10, gộp mảnh sao 7..10
+            Assert.AreEqual(10, p.star);
+            Assert.AreEqual("Bạc 2 sao", StarTier.Label(cfg, h, p.star));
+            Assert.AreEqual(999 - Enumerable.Range(7, 4).Sum(g => Progress.ShardCost(cfg, h, g)), p.shards, "gộp mảnh các sao tổng ở giữa");
+            // Bạc 2 → 3 sao đi qua đầu bậc Vàng của thang cũ: cần cấp như mốc tiến hóa cũ, không tốn đá
+            var up = Progress.StarUpCost(s, d, "ti_tach");
+            Assert.AreEqual(13, up.to);
+            Assert.AreEqual(cfg.evoLevel[1], up.level);
+            p.shards = 999;
+            s.level = up.level - 1;
+            Assert.IsFalse(Progress.CanStarUp(s, d, "ti_tach"), "thiếu cấp người chơi");
+            s.level = up.level;
+            int stones = s.evoStones;
+            Assert.IsTrue(Progress.StarUp(s, d, "ti_tach"));
+            Assert.AreEqual(stones, s.evoStones, "lên sao không tốn đá");
+            Assert.AreEqual(Progress.StarStep.StarUp, Progress.NextStep(s, d, "ti_tach"), "không còn tiến hóa sau bậc cuối");
 
             // tối đa: không lên sao, không tiến hóa
             p.star = StarTier.MaxStar;

@@ -38,8 +38,8 @@ namespace PokiClash.EditorTools
             var s = App.Save.Data;
             var d = App.Data;
             App.Modals.CloseAll();
-            foreach (var id in new[] { "ti_tach", "vo_su", "tien_la" }) Progress.UnlockHero(s, id);
-            s.team = new System.Collections.Generic.List<string> { "ti_tach", "vo_su", "tien_la" };
+            foreach (var id in new[] { "ti_tach", "cao_da", "tien_la" }) Progress.UnlockHero(s, id);
+            s.team = new System.Collections.Generic.List<string> { "ti_tach", "cao_da", "tien_la" };
             s.level = 12;
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy) - 1;
             App.Save.Save();

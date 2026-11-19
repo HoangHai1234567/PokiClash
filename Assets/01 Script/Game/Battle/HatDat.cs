@@ -22,11 +22,13 @@ namespace PokiClash
             Shake?.Invoke(0.3f * manh);
             NuocPulse?.Invoke(0.4f * manh);
             VetLua(tam, d, 1.15f * manh * tH, 0.1f * manh * tH, 0.2f, 0, Ink, pc[1], pc[3], pc[1]);
-            HoaChop(tam + d * (0.1f * tH), 0.3f * manh * tH, 0.09f);
+            // khung vẽ sẵn (2026-11-19): mỗi nhát một "trung_lua" xoay theo hướng chém (0,6–0,9 thân), thay chớp sao gai + hai lưỡi lửa toé
+            bool fb = HoaFbTrung(tam + d * (0.06f * tH), Mathf.Clamp(0.68f * manh, 0.55f, 0.9f) * tH, d) != null;
+            if (!fb) HoaChop(tam + d * (0.1f * tH), 0.3f * manh * tH, 0.09f);
             int tia = Mathf.RoundToInt(5 * manh);
             for (int i = 0; i < tia; i++)
                 Spark(tam + n * U(-0.14f, 0.14f) * tH, d + n * U(-0.7f, 0.7f), U(260, 480), U(0.18f, 0.3f), U(5, 7), 300);
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < (fb ? 0 : 2); i++)
                 HoaLuoi(Flame(tam + d * U(0.05f, 0.2f) * tH, (d + n * U(-0.4f, 0.4f)) * U(160, 280) + new Vector2(0, -60), U(0.24f, 0.32f), 6, U(12, 16) * manh,
                     "tron", Th.pal, i == 0 ? Front : Back, 3.5f, -180, 1.5f, 0, 0), 1, 0.3f, 0);
             HoaTan(tam, new Vector2(U(-50, 50), -U(90, 170)), U(0.45f, 0.65f), 3);
@@ -46,7 +48,7 @@ namespace PokiClash
             At(Mathf.Max(0.02f, L - DatDam), () => DatChem(tam, new Vector2(dir, 0), tH, 0.8f, foeFeet));                              // đâm thẳng
             At(Mathf.Max(0.03f, L - DatLen), () => DatChem(tam, Unit(new Vector2(dir * 0.55f, -0.84f)), tH, 0.85f, foeFeet));          // hất lên
             At(Mathf.Max(0.04f, L - DatNguoc), () => DatChem(tam, Unit(new Vector2(-dir * 0.8f, 0.6f)), tH, 0.85f, foeFeet));          // chém ngược về
-            At(Mathf.Max(0.05f, L - DatTu), () => Eruption(foeFeet, tH));                                                              // nứt đất 0,42 s rồi trào
+            At(Mathf.Max(0.05f, L - DatTu), () => Eruption(foeFeet, tH, 1.45f, dir));                                                  // nứt đất 0,42 s rồi trào (cột "nham" dời về phía người chém)
             At(L, () => DatChem(tam, Unit(new Vector2(dir * 0.35f, 0.94f)), tH, 1.25f, foeFeet));                                      // bổ kết
             return L;
         }

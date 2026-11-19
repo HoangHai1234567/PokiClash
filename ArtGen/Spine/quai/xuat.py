@@ -146,7 +146,8 @@ def thong_tin_tran(sk, ve, clips, frames, dang=1, so_dang=2, dung_yen=("cast", "
     (clip ngoài attack cũng lao), far (clip có xương far/fly*: thường rỗng vì VFX ở lớp riêng), muzzle (vị trí xương `mieng` ở
     khung nhả của cast, y lên, gốc ở chân), beam, beamStyle, move, shadow, impact* (khựng, rung, bật lùi, chớp màn; mặc định mạnh
     dần theo dạng), plain (slot vẽ không viền sticker), span (khung vẽ của tướng trên sân tính bằng số lần chiều cao khai; không khai thì
-    game dùng 3,4 = ±1,7 chiều cao quanh chân: rig có đòn vươn xa hơn thế, như Viêm Đao, thì khai để hình không bị cắt dọc)."""
+    game dùng 3,4 = ±1,7 chiều cao quanh chân: rig có đòn vươn xa hơn thế, như Viêm Đao, thì khai để hình không bị cắt dọc). Từ
+    2026-11-19 game tự lo: camera bám xương move, clip vươn xa tự nới khung (AtomikImporter đo lúc nhập), nên không cần khai span nữa."""
     hc = [n for n in clips if n not in ("idle", "aura", "evolve", "appear", "die", "hit") and clips[n].gio_trung() is not None]
     g = {"fps": fps_tran, "height": 0.0, "hitClips": hc, "hitTimes": [round(clips[n].gio_trung(), 4) for n in hc],
          "lunge": [c for c in lao if c in clips], "stay": [c for c in dung_yen if c in clips], "far": [c for c in far if c in clips],

@@ -563,6 +563,7 @@ namespace PokiClash
                     else OnLand(e.reward, e.slot, e.ball.x, e.ball.y, e.ball.mult);
                 }
             }
+            view.Blend = Mathf.Clamp01((float)(acc / Tick));
             // rảnh tay (không chạy chậm): thử sẵn vài đường bi cho các ô còn thiếu trong kho
             if (slowT <= 0) board.Warm(2);
             // máng thả tạm ngừng khi đang chạy chậm
@@ -885,11 +886,21 @@ namespace PokiClash
                 SaveNow();
                 RebuildTray();
                 int left = S.chests.Count;
+                // EXP trong rương: bản lưu đã cộng, thanh giữ lại tới khi đóng màn mở rương rồi mới nhận theo chùm kẹo toả ra từ giữa màn
+                int chestExp = items.Sum(it => it.rewards == null ? 0 : it.rewards.Where(r => r.k == RewardKind.Exp).Sum(r => r.n));
+                if (p.expBar && chestExp > 0) p.expBar.Held += chestExp;
                 if (Frame && view.FloatTextPrefab && view.ParticlePrefab && MachineChestOpen.Ready)
                     yield return MachineChestOpen.Play(Frame, items, left, TrayPoint(), view.FloatTextPrefab, view.ParticlePrefab);
                 else
                     foreach (var it in items)
                         yield return ChestBox.Show(Pachinko.ChestName(it.kind) + (it.x > 1 ? $" ×{it.x}" : ""), it.kind, null, it.rewards, "Nhận");
+                if (p.expBar && chestExp > 0)
+                {
+                    int k = MachineExpBar.SprayCount(chestExp), total = chestExp;
+                    var bar = p.expBar;
+                    bar.Spray(MachineScoreBoard.Candy, Frame ? Frame.position : bar.TipWorld, () => bar.TipWorld, k, 0.05f,
+                        i => bar.Deposit(MachineExpBar.Part(total, k, i)), 62, 150);
+                }
                 RefreshUi();
             }
             opening = false;

@@ -1,5 +1,5 @@
-// Nhà (GD_Claude/21_Nha_Home.md, 2026-11-18), thay Trang trại. Đảo lưới thoi 48 x 48 ô (isometric 2:1 như Clash of Critters), chia
-// 6 x 6 ô rừng 8 x 8 ô; khoảnh đầu 2 x 2 ô rừng đã dọn. Người chơi đặt công trình tự do trên ô đã mở, dọn ô rừng kề đất đã mở theo cấp
+// Nhà (GD_Claude/21_Nha_Home.md, 2026-11-18), thay Trang trại. Đảo lưới thoi 72 x 72 ô (isometric 2:1 như Clash of Critters; trước
+// 2026-11-19 là 48 x 48), chia 6 x 6 ô rừng 12 x 12 ô; khoảnh đầu 3 x 3 ô rừng giữa đảo đã dọn. Người chơi đặt công trình tự do trên ô đã mở, dọn ô rừng kề đất đã mở theo cấp
 // Nhà chính và cấp người chơi, giao tướng vào công trình làm ra đồ (luật sức làm, nghỉ, năng suất lấy từ Trang trại: Farm.Hours,
 // Farm.RestMin, farm.rarityPower / starStep / match / capHours / boostMult), đặt trang trí lấy điểm đẹp.
 // - Đầu ra: bi (ruộng, vườn), gỗ (xưởng gỗ), quặng và ít đá tiến hóa (mỏ), câu cá (bi, thẻ, cúp), đá tiềm năng (lò rèn, ăn quặng trong
@@ -9,7 +9,7 @@
 // - Xây, nâng cấp, dọn rừng tốn thời gian và một đội thợ; xong thì tự xong ở lần tính kế. Trang trí đặt ngay.
 // - Đồng hồ theo đoạn như Trang trại: giờ máy lùi thì bỏ qua đoạn đó.
 // - Bản lưu cũ: lần đầu mở Nhà (Of) gộp Trang trại sang (bi tích về túi, tướng đang làm sang công trình cùng việc, nghỉ giữ nguyên) và
-//   đặt Cây bi đã mở vào nhà; Trees vẫn tính bi của cây.
+//   đặt Cây bi đã mở vào nhà; Trees vẫn tính bi của cây. Bản lưu của lưới khác (đảo 48 x 48 cũ) thì dời theo tỉ lệ (Regrid).
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +44,8 @@ namespace PokiClash.Core
         public double wood, ore;
         public int bread;
         public uint seed = 1; // câu cá
+        public bool dockIntro; // đã có lần tới Nhà bằng tàu và máy lướt lên Nhà chính (người dùng 2026-11-19: chỉ lần đầu; sau đó máy ở bến)
+        public int grid; // cạnh lưới lúc lưu (bản lưu trước 2026-11-19 không có: 48); khác HomeConfig.grid thì Of dời theo tỉ lệ
         public int beautyGifts; // số mốc điểm đẹp đã nhận
         public List<int> lots = new List<int>(); // ô rừng đã mở (i * 6 + j)
         public Dictionary<int, double> clearing = new Dictionary<int, double>(); // ô rừng đang dọn → xong lúc (ms)
@@ -129,7 +131,7 @@ namespace PokiClash.Core
         public static HomeState Fresh(GameData d, double now)
         {
             var c = d.Cfg.home;
-            var h = new HomeState { lastTick = now };
+            var h = new HomeState { lastTick = now, grid = c.grid };
             foreach (var l in c.startLots) h.lots.Add(LotIndex(c, l.i, l.j));
             foreach (var p in c.layout) Add(d.Cfg, h, p.b, p.gx, p.gy);
             foreach (var t in c.startTiles) h.tiles[TileIndex(c, t.gx, t.gy)] = t.b;
@@ -138,7 +140,19 @@ namespace PokiClash.Core
 
         public static HomeState Of(SaveData s, GameData d, double now)
         {
-            if (s.home != null) return s.home;
+            if (s.home != null)
+            {
+                // khoảnh đầu nới rộng (2026-11-19: 3 x 3 ô rừng giữa đảo): bản lưu cũ cũng được mở các ô đó (trước khi dời theo lưới mới)
+                foreach (var l in d.Cfg.home.startLots)
+                {
+                    int k = LotIndex(d.Cfg.home, l.i, l.j);
+                    if (s.home.lots.Contains(k)) continue;
+                    s.home.lots.Add(k);
+                    s.home.clearing.Remove(k);
+                }
+                if (s.home.grid != d.Cfg.home.grid) Regrid(s, d);
+                return s.home;
+            }
             s.home = Fresh(d, now);
             FromFarm(s, d, now);
             SyncTrees(s, d);
@@ -193,6 +207,53 @@ namespace PokiClash.Core
             s.farm = null;
         }
 
+        // bản lưu của lưới khác (đảo 48 x 48 trước 2026-11-19): ô rừng giữ chỉ số (vẫn 6 x 6), công trình dời theo tâm nhân tỉ lệ, ô lát
+        // phủ lại đúng phần đất tương ứng; công trình rơi vào chỗ không hợp lệ thì tìm chỗ trống gần Nhà chính, ô lát không hợp lệ thì bỏ
+        public static void Regrid(SaveData s, GameData d)
+        {
+            var h = s.home;
+            var c = d.Cfg.home;
+            int old = h.grid > 0 ? h.grid : 48;
+            h.grid = c.grid;
+            if (old == c.grid) return;
+            double k = (double)c.grid / old;
+            foreach (var b in h.buildings)
+            {
+                int n = Def(d.Cfg, b.def)?.size ?? 1;
+                b.gx = (int)Math.Round((b.gx + n / 2.0) * k - n / 2.0, MidpointRounding.AwayFromZero);
+                b.gy = (int)Math.Round((b.gy + n / 2.0) * k - n / 2.0, MidpointRounding.AwayFromZero);
+            }
+            foreach (var b in h.buildings.Where(x => x.def == "main").Concat(h.buildings.Where(x => x.def != "main")).ToList())
+            {
+                if (CanPlace(s, d, b.def, b.gx, b.gy, b.id) == HomeErr.Ok) continue;
+                var pos = FindSpot(s, d, b.def, b.id);
+                if (pos == null) continue;
+                b.gx = pos.Value.gx;
+                b.gy = pos.Value.gy;
+            }
+            int t = Math.Max(1, c.tile), os = Math.Max(1, old / t), ns = TilesPerSide(c);
+            var oldTiles = h.tiles.ToList();
+            h.tiles.Clear();
+            foreach (var kv in oldTiles.OrderBy(x => x.Key))
+            {
+                int tx = kv.Key / os, ty = kv.Key % os;
+                for (int x = (int)Math.Floor(tx * k); x <= (int)Math.Ceiling((tx + 1) * k) - 1; x++)
+                for (int y = (int)Math.Floor(ty * k); y <= (int)Math.Ceiling((ty + 1) * k) - 1; y++)
+                    if (x >= 0 && y >= 0 && x < ns && y < ns) h.tiles[TileIndex(c, x, y)] = kv.Value;
+            }
+            foreach (var key in h.tiles.Keys.ToList())
+            {
+                int tx = key / ns, ty = key % ns;
+                for (int x = tx * t; x < (tx + 1) * t && h.tiles.ContainsKey(key); x++)
+                for (int y = ty * t; y < (ty + 1) * t; y++)
+                    if (!LotOpenAt(h, c, x, y) || FeatureAt(c, x, y) != null || At(h, d.Cfg, x, y) != null)
+                    {
+                        h.tiles.Remove(key);
+                        break;
+                    }
+            }
+        }
+
         // Cây bi đã mở (Trees.Open) mà chưa có chỗ trong nhà: đặt vào ô trống gần Nhà chính
         public static void SyncTrees(SaveData s, GameData d)
         {
@@ -245,6 +306,13 @@ namespace PokiClash.Core
             }
             if (df.need == "stream" && !NextToStream(c, gx, gy, n)) return HomeErr.NeedStream;
             return HomeErr.Ok;
+        }
+
+        // quái đi được (màn Nhà cho tướng rảnh đi lang thang): ô rừng đã mở, không công trình, không hồ, suối, đá, không ô lát nước
+        public static bool Walkable(HomeState h, BalanceConfig cfg, int gx, int gy)
+        {
+            var c = cfg.home;
+            return InMap(c, gx, gy) && LotOpenAt(h, c, gx, gy) && !Blocks(FeatureAt(c, gx, gy)) && !TileBlocks(h, c, gx, gy) && At(h, cfg, gx, gy) == null;
         }
 
         static bool NextToStream(HomeConfig c, int gx, int gy, int n)

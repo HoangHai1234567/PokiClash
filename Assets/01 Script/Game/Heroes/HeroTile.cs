@@ -68,7 +68,7 @@ namespace PokiClash
             if (badge > 0) p.badge.Bind(hero.elem, badge, 48);
 
             p.stars.gameObject.SetActive(owned);
-            if (owned) p.stars.SetTiered(hp.star);
+            if (owned) p.stars.SetTiered(App.Data.Cfg, hero, hp.star); // bậc theo dạng của tướng (2026-11-19)
             p.shards.gameObject.SetActive(!owned);
             if (!owned) p.shards.Set(hp.shards, hero.shards, 0, $"{hp.shards}/{hero.shards} mảnh", true);
 

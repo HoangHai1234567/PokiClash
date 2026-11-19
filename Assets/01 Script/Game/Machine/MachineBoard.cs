@@ -48,6 +48,10 @@ namespace PokiClash
         [SerializeField] MachineGlow.Kit kit;
 
         public Board Board { get; private set; }
+        // phần bước vật lý đã trôi qua (0..1) kể từ bước gần nhất: bi vẽ ở giữa px,py và x,y cho mượt (MachineScene đặt mỗi khung)
+        public float Blend = 1;
+
+        Vector2 BallAt(Ball b) => Local(b.px + (b.x - b.px) * Blend, b.py + (b.y - b.py) * Blend);
         public RectTransform Root => (RectTransform)transform;
         public HoldArea Hold => p.hold;
         public TextMeshProUGUI FloatTextPrefab => p.floatText;
@@ -791,7 +795,7 @@ namespace PokiClash
                 if (!on) continue;
                 var b = list[i];
                 bi.color = BallColor(b.mult);
-                bi.rectTransform.anchoredPosition = Local(b.x, b.y);
+                bi.rectTransform.anchoredPosition = BallAt(b);
             }
             SyncTrails();
             fx.Update(simDt);
@@ -987,7 +991,7 @@ namespace PokiClash
                     trails[b.id] = tr;
                 }
                 tr.seen = tr.alive = true;
-                tr.head = Local(b.x, b.y);
+                tr.head = BallAt(b);
                 tr.color = BallColor(b.mult);
                 if (tr.pts.Count == 0 || simTime - tr.pts[tr.pts.Count - 1].t >= TrailStep) tr.pts.Add((tr.head, simTime));
             }

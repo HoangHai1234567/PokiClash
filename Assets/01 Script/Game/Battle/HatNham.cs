@@ -88,12 +88,18 @@ namespace PokiClash
                 HoaLuoi(q, 1, 0.25f, 0.04f);
                 if (U(0, 1) < 0.25f) Spark(c + new Vector2(0, R * 0.8f), -hg + new Vector2(0, -U(0.2f, 0.8f)), U(220, 380), 0, 6);
             });
-            // khói đuôi thành cụm (2026-11-18: trước là chuỗi chấm khói đen rải rác dọc đường lăn)
-            Every(tBay + 0.05f, L, 5, x =>
-            {
-                float u = Mathf.Clamp01((T - goc - tBay) / CauLanBay);
-                HoaKhoi(Toi(u) - new Vector2(dir * R * 0.6f, -R * 0.5f), U(10, 13), Back, new Vector2(-dir * U(20, 60), -U(30, 60)), U(0.6f, 0.9f), false, 0.6f);
-            });
+            // khói đuôi thành cụm (2026-11-18: trước là chuỗi chấm khói đen rải rác dọc đường lăn). 2026-11-19 chiều (người dùng: "nên thêm trail
+            // smoke vào"): có khung vẽ sẵn thì là vệt khói liền FbKhoiDuoi (20 cụm/giây, 0,3 thân) sau lưng quả cầu, sau tướng, thay 5 cụm/giây
+            if (HasFb("khoi"))
+                At(tBay + 0.03f, () => FbKhoiDuoi(() => Toi(Mathf.Clamp01((T - goc - tBay) / CauLanBay)) - new Vector2(dir * R * 0.6f, -R * 0.5f),
+                    () => T < goc + L, KhoiCo(0.5f * R, tH), 20, null, Back, 12));
+            else
+                Every(tBay + 0.05f, L, 5, x =>
+                {
+                    float u = Mathf.Clamp01((T - goc - tBay) / CauLanBay);
+                    HoaKhoi(Toi(u) - new Vector2(dir * R * 0.6f, -R * 0.5f), U(10, 13), Back, new Vector2(-dir * U(20, 60), -U(30, 60)), U(0.6f, 0.9f), false,
+                        0.6f);
+                });
 
             // chạm: chớp nổ lớn ở mặt trước thân đối thủ, lưỡi lửa toé theo hướng tông, đá tro vỡ văng, vòng lửa dưới chân
             var cham = foeBody + new Vector2(-dir * 0.1f * tH, 0);
@@ -101,8 +107,9 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.6f);
                 NuocPulse?.Invoke(1f);
-                HoaNo(cham, 1.2f, tH, foeFeet); // nổ KR5: chớp, khối khói hai tông, lưỡi liềm, vòng cung dẹt + vệt cháy dưới chân
-                for (int i = 0; i < 6; i++)
+                HoaNo(cham, 1.2f, tH, foeFeet, Front, dir); // nổ KR5: chớp, khối khói hai tông, lưỡi liềm, vòng cung dẹt + vệt cháy dưới chân
+                // khung vẽ sẵn (2026-11-19): nổ là "no" sau lưng + "trung_lua" tạt theo hướng tông, nên bỏ quạt sáu lưỡi lửa (giữ dăm đá, tia)
+                for (int i = 0; i < (HasFb("trung_lua") ? 0 : 6); i++)
                 {
                     float a = (i - 2.5f) * 0.36f + U(-0.1f, 0.1f); // quạt quanh hướng tông, hơi hất lên
                     var d = new Vector2(dir * Mathf.Cos(a), Mathf.Sin(a) - 0.25f);
@@ -125,7 +132,7 @@ namespace PokiClash
             At(L + 0.13f, () =>
             {
                 Shake?.Invoke(0.3f);
-                HoaNo(cham + new Vector2(dir * U(4, 20), U(-26, 6)), 0.6f, tH);
+                HoaNo(cham + new Vector2(dir * U(4, 20), U(-26, 6)), 0.6f, tH, null, Front, dir);
             });
             At(L + 0.34f, () =>
             {
@@ -180,7 +187,10 @@ namespace PokiClash
             At(L, () =>
             {
                 Shake?.Invoke(0.3f);
-                HoaNo(dau, 0.42f, tH); // nổ nhỏ màu lửa (BurstFlash là chớp nước, lấy bảng màu nước)
+                // khung vẽ sẵn (2026-11-19): lửa trúng đích "trung_lua" 0,7 thân ở đỉnh đầu, xoay cho lửa tạt NGƯỢC LÊN về phía bàn tay nện từ trên
+                // xuống (đòn chúc xuống, hơi về trước), thay nổ nhỏ hạt; bỏ ba lưỡi lửa cổ tay
+                bool fb = HoaFbTrung(dau + new Vector2(0, -0.08f * tH), 0.7f * tH, new Vector2(dir * 0.3f, 1)) != null;
+                if (!fb) HoaNo(dau, 0.42f, tH); // nổ nhỏ màu lửa (BurstFlash là chớp nước, lấy bảng màu nước)
                 for (int i = 0; i < 6; i++)
                 {
                     float sd = (i & 1) == 0 ? -1 : 1; // văng sang hai bên, hơi chúi xuống theo cú nện
@@ -191,7 +201,7 @@ namespace PokiClash
                     float sd = (i & 1) == 0 ? -1 : 1;
                     DaTro(dau + new Vector2(sd * U(4, 14), U(-4, 6)), new Vector2(sd * U(140, 300), -U(80, 240)), U(0.45f, 0.7f), U(3, 4.8f));
                 }
-                for (int i = 0; i < 3; i++) // lửa cổ tay toé theo
+                for (int i = 0; i < (fb ? 0 : 3); i++) // lửa cổ tay toé theo
                 {
                     var q = Flame(dau + U2(-8, 8), new Vector2(-dir * U(40, 160), -U(120, 240)), U(0.24f, 0.34f), 6, U(12, 17), "tron", Th.pal, Front, 3,
                         -180, 1.3f, 0, 0);

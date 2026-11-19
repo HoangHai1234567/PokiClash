@@ -82,7 +82,13 @@ namespace PokiClash
         }
 
         // đuôi khói liền của đạn bay theo bay(giờ sân) trong dur giây
-        void PfDuoi(Func<float, Vector2> bay, float dur, float sz, float doi = 1, float thua = 1.6f) => KmDuoi(bay, dur, thua * sz, (pt, ud) => PfVet(pt - ud * sz, sz * (0.7f + 0.25f * thua), doi));
+        // khung vẽ sẵn (2026-11-19, người dùng: "đạn ... nên thêm trail smoke vào"): có khung "khoi" thì vệt khói đuôi KmDuoiKhoi (cụm cao
+        // ~3 cỡ đạn × hệ số thưa, 24 cụm/giây × doi) thay chuỗi khói một múi, không để cả hai
+        void PfDuoi(Func<float, Vector2> bay, float dur, float sz, float doi = 1, float thua = 1.6f)
+        {
+            if (KmDuoiKhoi(bay, dur, 3f * sz * (0.7f + 0.25f * thua) / 1.1f, sz, 24 * doi)) return;
+            KmDuoi(bay, dur, thua * sz, (pt, ud) => PfVet(pt - ud * sz, sz * (0.7f + 0.25f * thua), doi));
+        }
 
         // khói phụt ở họng pháo theo hướng nòng: cụm khói xám hai tông nhiều múi nở ra, tách cụm rồi tan (2026-11-18)
         void PfKhoiHong(Vector2 m, Vector2 ax, float sc, int n)
@@ -229,7 +235,11 @@ namespace PokiClash
                     float D = Mathf.Max(0.3f, tNo - tTach);
                     var ax = Unit(new Vector2((jj - (tach - 1) * 0.5f) * 1.1f + U(-0.3f, 0.3f), U(0.35f, 0.8f)));  // toả ra, chúc xuống (y sân đi xuống)
                     var tgt = foeBody + new Vector2(-dir * U(0f, 0.18f) * tH, U(-0.32f, 0.22f) * tH);
-                    At(tTach, () => RbTen(Pt, ax, tgt, D, Lt, 1f, (ii * tach + jj) % 2 == 0 ? 0.5f : 0, 1.3f));   // loạt 15 quả bay cùng lúc: một nửa kéo khói (cụm to, ngắn đời), nửa kia chỉ lửa phụt, cho đủ ngân sách hạt
+                    // loạt 15 quả bay cùng lúc: một nửa kéo khói (cụm to, ngắn đời), nửa kia chỉ lửa phụt, cho đủ ngân sách hạt. Khung vẽ sẵn
+                    // (2026-11-19, người dùng: "tên lửa ... nên thêm trail smoke vào"): có khung "khoi" thì hai trên ba quả mỗi loạt (dạng 1: cả
+                    // hai) kéo vệt khói đủ dày cho liền (doi 0,9 ≈ 20 cụm/giây), tan nhanh 2,6 lần: ~10 quả kéo khói, đỉnh ~55 cụm khói
+                    float doi = HasFb("khoi") ? (tach == 2 || jj != 1 ? 0.9f : 0) : (ii * tach + jj) % 2 == 0 ? 0.5f : 0;
+                    At(tTach, () => RbTen(Pt, ax, tgt, D, Lt, 1f, doi, 1.3f, 2.6f));
                     At(tTach + D, () => RbNoTen(tgt, foeFeet, tH, ii * tach + jj, 0.75f * manh, dir));
                     tCuoi = Mathf.Max(tCuoi, tTach + D);
                 }
@@ -352,6 +362,9 @@ namespace PokiClash
                 q.sizeFn = (z, kk) => z.r1 * Mathf.Pow(1 - kk, 1.1f);
             }));
             Every(tBan, L0, 28, x => KmTiaLua(Bay(T), -d0 + U2(-0.7f, 0.7f), U(240, 420), U(5, 8), KmNang[3]));
+            // khung vẽ sẵn (2026-11-19, người dùng: "các fireball ... nên thêm trail smoke vào"): vệt khói đuôi sau cầu (KmDuoiKhoi, HatFbKim.cs),
+            // cụm tối đa 0,3 thân đối thủ
+            At(tBan, () => KmDuoiKhoi(Bay, L0 - tBan, Mathf.Min(1.2f * R, 0.3f * tH), 0.9f * R, 22));
             Every(tBan, L0, 22, x => PfSetQuanh(Bay(T), 0.8f * R, U(1.4f, 2.0f) * R, Mathf.Clamp(0.05f * R, 2, 5), 0.1f));
             // 3. trúng: chớp màn, nổ năng lượng rất lớn, cột năng lượng, sóng đất hai đợt, nứt đất, đá, khói
             // trúng (2026-11-18): bông va chạm theo hướng bay, nổ KR5 năng lượng vàng tươi rất lớn (lõi sau lưng đối thủ, không còn chớp 1,4 thân

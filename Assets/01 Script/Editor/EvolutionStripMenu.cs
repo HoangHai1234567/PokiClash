@@ -1,6 +1,7 @@
 // Dựng thanh mốc tiến hóa (EvolutionStrip) vào prefab Dialogs/ChiTietTuong: một hàng mới ngay dưới hàng ô xem tướng, gồm thanh
-// kit (Thanh, loại Exp) và 4 mốc bậc sao Đồng, Bạc, Vàng, Kim Cương (kit ChanDung, kit Sao, chữ chép từ nhãn dòng tiến hóa của hộp;
-// bậc sao 2026-11-17, trước là 3 mốc theo dạng). Chạy lại thì dựng lại hàng đó.
+// kit (Thanh, loại Exp), 4 chỗ mốc bậc (kit ChanDung, kit Sao, chữ chép từ nhãn dòng tiến hóa của hộp; lúc chạy chỉ hiện đúng số bậc
+// của tướng, bậc theo dạng 2026-11-19) và nút Tiến hóa kit Tiny màu xanh lá trên thanh (giữa hai mốc, có nhịp phồng) với dòng giá
+// dưới nút. Chạy lại thì dựng lại hàng đó.
 // Menu "Hộp chi tiết tướng: nhãn bậc sao + thanh mảnh, đá" (2026-11-17): nhãn "Bạc 3 sao" cạnh hàng sao và một hàng thanh (icon mảnh / đá
 // tiến hóa + thanh kit) ngay trên dòng điều kiện tiến hóa. Chạy lại thì dựng lại hai phần đó.
 // Sau khi dựng, chỉnh vị trí và cỡ trong Editor như mọi prefab khác.
@@ -19,7 +20,7 @@ namespace PokiClash.EditorTools
     public static class EvolutionStripMenu
     {
         const string DialogPath = "Assets/04 Prefabs/Dialogs/ChiTietTuong.prefab";
-        const int Nodes = 4; // 4 bậc sao (Core.StarTier.Count)
+        const int Nodes = 4; // tối đa 4 bậc (Core.StarTier.Count); tướng hiện có 1–3 bậc theo số hình
         const float Pad = 100, BarH = 32, PortraitH = 128, Top = 8;
         const float TrackY = Top + PortraitH * (1 - HeroArt.FootY) + 4 + BarH / 2; // tâm thanh, tính từ mép trên
         const float StarsY = TrackY + BarH / 2 + 6 + 13, NameY = StarsY + 13 + 4 + 17, Height = NameY + 17 + 10;
@@ -92,7 +93,7 @@ namespace PokiClash.EditorTools
                     prt.anchoredPosition = new Vector2(0, BarH / 2 + 4); // chân (pivot của ChanDung) đứng trên thanh
 
                     var stars = ((GameObject)PrefabUtility.InstantiatePrefab(kit.stars.gameObject, node)).GetComponent<UiStars>();
-                    stars.SetSize(22);
+                    stars.SetSize(28); // to hơn cho rõ (người dùng dặn 2026-11-19)
                     stars.SetTier(i, Core.StarTier.PerTier);
                     var srt = stars.Rect;
                     srt.anchorMin = srt.anchorMax = new Vector2(0.5f, 0.5f);
@@ -113,8 +114,29 @@ namespace PokiClash.EditorTools
                 note.text = "Dòng 1 dạng: lên sao không đổi hình";
                 note.gameObject.SetActive(false);
 
+                // nút Tiến hóa: trên thanh (tâm nút trùng tâm thanh), Bind đặt ngang giữa mốc đang ở và mốc kế; dòng giá ở hàng tên bậc
+                var evoBtn = ((GameObject)PrefabUtility.InstantiatePrefab(kit.Button(BtnSize.Tiny).gameObject, rail)).GetComponent<SketchButton>();
+                evoBtn.name = "nut_tien_hoa";
+                evoBtn.SetRole(BtnColor.Green);
+                evoBtn.SetText("Tiến hóa");
+                evoBtn.FitWidth();
+                var ert = evoBtn.Rect;
+                ert.anchorMin = ert.anchorMax = new Vector2(0.5f, 0.5f);
+                ert.pivot = new Vector2(0.5f, 0.5f);
+                ert.anchoredPosition = Vector2.zero;
+                var pulse = evoBtn.GetComponent<Pulse>();
+                if (!pulse) pulse = evoBtn.gameObject.AddComponent<Pulse>();
+                pulse.enabled = false;
+                evoBtn.gameObject.SetActive(false);
+                var cost = Label(lineLabel, rail, "gia_tien_hoa");
+                cost.rectTransform.sizeDelta = new Vector2(1.6f * Pad + 60, 34);
+                cost.rectTransform.anchoredPosition = new Vector2(0, TrackY - NameY);
+                cost.fontStyle = FontStyles.Bold;
+                cost.text = "20/20 đá · cấp 30";
+                cost.gameObject.SetActive(false);
+
                 var strip = root.GetComponent<EvolutionStrip>();
-                strip.Setup(bar, rail, nodes, note);
+                strip.Setup(bar, rail, nodes, note, evoBtn, cost, pulse);
                 evo.objectReferenceValue = strip;
                 so.ApplyModifiedPropertiesWithoutUndo();
                 PrefabUtility.SaveAsPrefabAsset(contents, DialogPath);
@@ -271,6 +293,7 @@ namespace PokiClash.EditorTools
         static IEnumerator RunStrip()
         {
             var s = App.Save.Data;
+            BootTitle.Dismiss(); // màn mở game che mọi thứ
             Debug.Log("[Tiến hóa] Bắt đầu chụp hộp chi tiết");
             try
             {
@@ -279,21 +302,26 @@ namespace PokiClash.EditorTools
                 while ((App.Router.Busy || App.Router.Current != SceneIds.Heroes) && Time.realtimeSinceStartup - t0 < 30) yield return null;
                 yield return new WaitForSecondsRealtime(0.5f);
                 yield return Shot("luoi");
-                // (tướng, có chưa, sao tổng): dòng 3 dạng ở Đồng 1★, Bạc 1★, Vàng 1★, Kim Cương 5★; dòng 2 dạng ở Đồng 5★ (chờ tiến hóa),
-                // Vàng 3★ và chưa có; dòng 1 dạng; tướng chưa có
-                var cases = new (string id, bool owned, int star)[]
+                // (tướng, có chưa, sao tổng, đủ đá + cấp): bậc theo dạng 2026-11-19. Dòng 3 dạng (Mầm Ú) ở Đồng 1★, Bạc 1★, Vàng 1★, Vàng 5★;
+                // dòng 2 dạng (Voọc Tướng) ở Đồng 3★, Đồng 5★ chờ tiến hóa (thiếu đá, rồi đủ), Bạc 3★; dòng 1 dạng (Bùn Ngoạm, Thiết Cưa hai
+                // dạng cùng hình); tướng chưa có
+                var cases = new (string id, bool owned, int star, bool rich)[]
                 {
-                    ("mam_u", true, 1), ("mam_u", true, 6), ("mam_u", true, 11), ("mam_u", true, 20),
-                    ("thach_giai", true, 5), ("thach_giai", true, 13), ("phi_thuong", false, 1), ("ho_kim_cuong", true, 8), ("han_ngac", false, 1),
+                    ("mam_u", true, 1, false), ("mam_u", true, 6, false), ("mam_u", true, 11, false), ("mam_u", true, 20, false),
+                    ("tho_hoang", true, 3, false), ("tho_hoang", true, 5, false), ("tho_hoang", true, 5, true), ("tho_hoang", true, 13, false),
+                    ("ho_kim_cuong", true, 11, false), ("phi_thuong", true, 6, false), ("han_ngac", false, 1, false),
                 };
-                foreach (var (id, owned, star) in cases)
+                foreach (var (id, owned, star, rich) in cases)
                 {
                     var hp = s.Hero(id);
                     hp.owned = owned;
                     hp.star = star;
+                    hp.shards = rich ? 999 : 7;
+                    s.evoStones = rich ? 500 : 3;
+                    s.level = rich ? 200 : 15;
                     HeroDetail.Open(id);
                     yield return new WaitForSecondsRealtime(0.8f);
-                    yield return Shot($"{id}_{(owned ? "sao" + star : "chua_co")}");
+                    yield return Shot($"{id}_{(owned ? "sao" + star : "chua_co")}{(rich ? "_du" : "")}");
                     App.Modals.CloseAll();
                     yield return new WaitForSecondsRealtime(0.3f);
                 }

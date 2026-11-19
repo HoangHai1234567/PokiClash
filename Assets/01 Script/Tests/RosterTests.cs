@@ -13,24 +13,25 @@ namespace PokiClash.Tests
         static Dictionary<string, object> Golden() => J.Obj(MiniJson.Parse(TestData.Read("Golden/roster.json")));
 
         [Test]
-        public void DanhSach57Tuong_Thuy10_Hoa10_Kim10_Moc10_Tho17()
+        public void DanhSach50Tuong_MoiDao10()
         {
             // 40 tướng 8 mỗi hệ, rồi 10 tướng mỗi đảo (2026-11-05/06, Thủy lô mới 2026-11-11). 2026-11-16 (người dùng): tướng cũ không còn
-            // suất đảo bị bỏ (SaveCodec.BoTuongCu), chỉ giữ 10 tướng đứng ải của mỗi đảo; đảo Thổ chưa làm lại nên giữ cả 7 tướng Thổ cũ
+            // suất đảo bị bỏ (SaveCodec.BoTuongCu), chỉ giữ 10 tướng đứng ải của mỗi đảo; 2026-11-19 bỏ nốt 7 tướng Thổ cũ (SaveCodec.BoThoCu)
             var d = TestData.Load();
             Assert.IsEmpty(d.Validate());
-            Assert.AreEqual(57, d.Heroes.Count);
+            Assert.AreEqual(50, d.Heroes.Count);
             for (int e = 0; e < 5; e++)
-                Assert.AreEqual((Elem)e == Elem.Tho ? 17 : 10, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
-            // mỗi tướng hệ Thủy, Mộc, Hỏa, Kim đều đứng ở một ải tướng của đảo cùng hệ
+                Assert.AreEqual(10, d.Heroes.FindAll(h => (int)h.elem == e).Count, ((Elem)e).ToString());
+            // mỗi tướng đều đứng ở một ải tướng của đảo cùng hệ
             foreach (var h in d.Heroes)
-                if (h.elem != Elem.Tho)
-                    Assert.IsTrue(d.ZoneStages(h.elem).Any(st => st.tag == StageTag.Hero && st.enemies[0].hero == h.id), h.id + " có suất đảo");
+                Assert.IsTrue(d.ZoneStages(h.elem).Any(st => st.tag == StageTag.Hero && st.enemies[0].hero == h.id), h.id + " có suất đảo");
             // 5 tướng khởi đầu, mỗi hệ một, theo thứ tự đảo (15_TuongKhoiDau.md); hệ Thủy: Tí Tách thay Giọt Sương từ 2026-11-11; hệ Kim,
             // Mộc: Thiết Tinh, Cầu Gai (tướng ải 1) thay Bu Lông, Nụ Hoa từ 2026-11-16
             Assert.AreEqual(new[] { "ti_tach", "su_tu_lua", "bo_cap", "tien_la", "thach_nhan" }, d.Starters.ToArray());
             foreach (var (old, _) in SaveCodec.BoTuongCu)
                 Assert.IsNull(d.Hero(old), old + " bị bỏ (tướng cũ không còn suất đảo)");
+            foreach (var (old, _) in SaveCodec.BoThoCu)
+                Assert.IsNull(d.Hero(old), old + " bị bỏ (tướng Thổ cũ)");
             foreach (var id in new[] { "gia_bi", "su_gia", "y_trach", "van_quan", "hac_duc" })
                 Assert.IsNull(d.Hero(id), id + " đã gộp hoặc bỏ");
             // Thanh Long 3 dạng, Long Vuốt 2 dạng; từ 2026-11-08 là hình .atomik vẽ lại theo concept đã duyệt (ArtGen/Spine/build_moc.py,
@@ -96,15 +97,62 @@ namespace PokiClash.Tests
             }
         }
 
-        // thanh mốc tiến hóa theo bậc sao (2026-11-17): thanh là sao 1..20, mốc bậc ở sao 1, 6, 11, 16, thanh đầy ở Kim Cương 5 sao
+        // bậc theo dạng (người dùng dặn 2026-11-19): số bậc = số hình của dòng (dạng trùng hình dạng trước không tính), mỗi bậc 5 sao hiện;
+        // bậc sau bắt đầu ở mốc đổi hình, bậc cuối tới sao tổng 20 nên mọi tướng tối đa cùng hệ số; tổng mảnh như thang 20 sao cũ
         [Test]
-        public void ThanhTienHoa_MocTheoBac_DayOKimCuong5Sao()
+        public void BacTheoDang_SoBacBangSoHinh_ToiDaNhuNhau()
         {
-            Assert.AreEqual(new[] { 1, 6, 11, 16 }, Enumerable.Range(0, StarTier.Count).Select(EvolutionStrip.StartStar).ToArray());
-            Assert.AreEqual(0, EvolutionStrip.Fill(1), 1e-5);
-            Assert.AreEqual(5f / 19, EvolutionStrip.Pos(6), 1e-5, "mốc Bạc");
-            Assert.AreEqual(1, EvolutionStrip.Fill(StarTier.MaxStar), 1e-5);
-            for (int star = 2; star <= StarTier.MaxStar; star++) Assert.Greater(EvolutionStrip.Fill(star), EvolutionStrip.Fill(star - 1));
+            var d = TestData.Load();
+            var cfg = d.Cfg;
+            foreach (var h in d.Heroes)
+            {
+                int pics = h.forms.Select(f => f.aola).Where((a, i) => i == 0 || a != h.forms[i - 1].aola).Count();
+                int tiers = StarTier.Tiers(h);
+                Assert.AreEqual(System.Math.Max(1, pics), tiers, h.id + " số bậc");
+                var st = StarTier.Stops(cfg, h);
+                Assert.AreEqual(tiers * StarTier.PerTier, st.Length, h.id);
+                Assert.AreEqual(1, st[0], h.id);
+                Assert.AreEqual(StarTier.MaxStar, st[st.Length - 1], h.id);
+                for (int i = 1; i < st.Length; i++) Assert.Greater(st[i], st[i - 1], $"{h.id} điểm dừng {i}");
+                // mỗi bậc là một dạng: sao 1 của bậc k ở dạng mở đầu bậc đó, bậc sau đổi hình
+                for (int k = 1; k < tiers; k++)
+                {
+                    int a = st[k * StarTier.PerTier];
+                    Assert.AreNotEqual(h.Form(cfg.formStars, a - 1).aola, h.Form(cfg.formStars, a).aola, $"{h.id} bậc {k} đổi hình");
+                    Assert.IsTrue(StarTier.AtGate(cfg, h, a - 1), $"{h.id} sao cuối bậc {k - 1} là mốc tiến hóa");
+                }
+                // đi hết đường: lên sao (mảnh) và tiến hóa (bậc − 1 lần); tổng mảnh bằng thang cũ
+                long shards = 0, old = 0;
+                int evo = 0, star = 1;
+                while (star < StarTier.MaxStar)
+                {
+                    if (StarTier.AtGate(cfg, h, star))
+                    {
+                        evo++;
+                        star++;
+                        continue;
+                    }
+                    var c = Progress.StarUpCost(cfg, h, star);
+                    Assert.Greater(c.to, star, h.id);
+                    shards += c.shards;
+                    star = c.to;
+                }
+                for (int g = 2; g <= StarTier.MaxStar; g++) old += Progress.ShardCost(cfg, h, g);
+                Assert.AreEqual(tiers - 1, evo, h.id + " số lần tiến hóa");
+                Assert.AreEqual(old, shards, h.id + " tổng mảnh");
+                Assert.AreEqual(tiers - 1, StarTier.TierOf(cfg, h, StarTier.MaxStar), h.id + " bậc cuối");
+                Assert.AreEqual(StarTier.PerTier, StarTier.InTierOf(cfg, h, StarTier.MaxStar), h.id + " 5 sao bậc cuối");
+            }
+            // dòng 2 dạng: Đồng 1–5 rồi Bạc 1–5 trải tới sao tổng 20, không có Vàng, Kim Cương
+            var voc = d.Hero("tho_hoang");
+            Assert.AreEqual(new[] { 1, 2, 3, 4, 5, 6, 10, 13, 17, 20 }, StarTier.Stops(cfg, voc));
+            Assert.AreEqual("Bạc 1 sao", StarTier.Label(cfg, voc, 6));
+            Assert.AreEqual("Bạc 5 sao", StarTier.Label(cfg, voc, StarTier.MaxStar));
+            // dòng 3 dạng: Đồng, Bạc trùng thang cũ, Vàng trải 11..20; dòng 1 dạng: một bậc, không tiến hóa
+            Assert.AreEqual(3, StarTier.Tiers(d.Hero("hai_long")));
+            Assert.AreEqual(new[] { 11, 13, 16, 18, 20 }, StarTier.Stops(cfg, d.Hero("hai_long")).Skip(10).ToArray());
+            Assert.AreEqual(1, StarTier.Tiers(d.Hero("ho_kim_cuong"))); // Bùn Ngoạm: dòng 1 dạng (Võ Sư bỏ 2026-11-19)
+            Assert.AreEqual(1, StarTier.Tiers(d.Hero("phi_thuong")), "Thiết Cưa: hai dạng cùng hình, chờ vẽ dạng 2");
         }
 
         // tướng đứng trên nút ải ở màn đảo: boss, không thì địch cấp cao nhất, bằng cấp thì độ hiếm; boss tiến hóa hiện dạng 1
@@ -168,7 +216,7 @@ namespace PokiClash.Tests
             // (tướng cũ không còn trong dữ liệu từ 2026-11-16 nên dựng thẳng trên cây JSON)
             var d = TestData.Load();
             var s = SaveData.New(d, 0, null);
-            s.Hero("vo_su").owned = true;
+            s.Hero("cao_da").owned = true;
             s.Hero("hai_long").shards = 2; // tướng mới đã có mảnh: cộng dồn
             var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
             tree["v"] = 5.0;
@@ -187,7 +235,7 @@ namespace PokiClash.Tests
             kb["shards"] = 9.0; // chưa sở hữu, chỉ có mảnh
             hs["kuba"] = kb;
             tree["starter"] = "giot_suong";
-            tree["team"] = new List<object> { "giot_suong", "lam_quan", "vo_su" };
+            tree["team"] = new List<object> { "giot_suong", "lam_quan", "cao_da" };
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var r));
             Assert.AreEqual(d.Cfg.saveVersion, r.v);
             Assert.AreEqual("ti_tach", r.starter);
@@ -201,7 +249,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(9, r.Hero("lien_kinh").shards);
             foreach (var old in new[] { "giot_suong", "lam_quan", "kuba" })
                 Assert.IsNull(r.Hero(old), old);
-            Assert.AreEqual(new[] { "ti_tach", "hai_long", "vo_su" }, r.team.ToArray());
+            Assert.AreEqual(new[] { "ti_tach", "hai_long", "cao_da" }, r.team.ToArray());
             Assert.AreEqual(d.Heroes.Count, r.heroes.Count);
         }
 
@@ -212,7 +260,7 @@ namespace PokiClash.Tests
             // SaveCodec.BoTuongCu), tướng khởi đầu, đội, trang trại đổi id theo; tướng cũ không còn trong bản lưu
             var d = TestData.Load();
             var s = SaveData.New(d, 0, null);
-            s.Hero("vo_su").owned = true;
+            s.Hero("cao_da").owned = true;
             s.Hero("bo_cap").shards = 3;
             var tree = J.Obj(MiniJson.Parse(SaveCodec.Write(s)));
             tree["v"] = 10.0;
@@ -236,7 +284,7 @@ namespace PokiClash.Tests
             mk["shards"] = 2.0;
             hs["ma_ket"] = mk; // ca_ngua và ma_ket cùng gộp vào so_ngoc
             tree["starter"] = "bu_long";
-            tree["team"] = new List<object> { "bu_long", "phap_luan", "vo_su" };
+            tree["team"] = new List<object> { "bu_long", "phap_luan", "cao_da" };
             Assert.AreEqual(LoadStatus.Migrated, SaveCodec.Read(MiniJson.Write(tree), d, out var r));
             Assert.AreEqual(d.Cfg.saveVersion, r.v);
             Assert.AreEqual("bo_cap", r.starter);
@@ -249,7 +297,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(2, r.Hero("giap_long").ult.lv);
             Assert.IsTrue(r.Hero("so_ngoc").owned);
             Assert.AreEqual(2, r.Hero("so_ngoc").shards);
-            Assert.AreEqual(new[] { "bo_cap", "giap_long", "vo_su" }, r.team.ToArray());
+            Assert.AreEqual(new[] { "bo_cap", "giap_long", "cao_da" }, r.team.ToArray());
             foreach (var (old, _) in SaveCodec.BoTuongCu) Assert.IsNull(r.Hero(old), old);
             Assert.AreEqual(d.Heroes.Count, r.heroes.Count);
         }

@@ -127,7 +127,9 @@ def layout():
         free &= ~(((dx / rx) ** 2 + (dy / ry) ** 2 <= 1) | ((abs(dx) < 0.4 * rx) & (dy < 0) & (dy > -body - PAD)))
         near = np.hypot(dx, dy)
         along.append(t[int(np.argmin(near))])
-        span.append(t[near <= max(rx, ry) * 1.6])  # đoạn đường ôm vòng đá: điểm mốc của habitat được trượt trong đoạn này
+        # đoạn đường ôm vòng đá: điểm mốc của habitat được trượt trong đoạn này; đường xuyên qua tâm bệ (đảo Mộc) thì giữ ở tâm, không
+        # trượt (trượt ra trước bệ thì cờ của chặng sau rơi xuống trước bệ, 2026-11-19); khớp ZoneSceneLand.LandLayout
+        span.append(t[near <= max(rx, ry) * 1.6] if near.min() > 0.35 * ry else np.array([t[int(np.argmin(near))]]))
     # chia đều (góp ý 2026-11-18): dời điểm mốc từng habitat trong đoạn đường ôm vòng đá cho khoảng cách chấm hai đoạn kề nhau gần
     # bằng nhau (lặp vài lượt); khớp ZoneScene.LandLayout
     stg = [h["stage"] for h in habs]

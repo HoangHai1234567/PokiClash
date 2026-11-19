@@ -20,17 +20,17 @@
    "passive": "bo_cap_pas",
    "shards": 15,
    "line": "Dòng Thiết Tinh",
-   "size": 0.88,
+   "size": 0.83,
    "forms": [
     {
      "name": "Thiết Tinh Nhi",
      "aola": "tinh_sat_1",
-     "size": 0.88
+     "size": 0.83
     },
     {
      "name": "Thiết Tinh",
      "aola": "tinh_sat_2",
-     "size": 1.0
+     "size": 1.01
     }
    ]
   },
@@ -54,17 +54,17 @@
    "passive": "bo_ngua_pas",
    "shards": 15,
    "line": "Dòng Thiết Khoáng",
-   "size": 0.92,
+   "size": 0.79,
    "forms": [
     {
      "name": "Thiết Khoáng Nhi",
      "aola": "quang_sat_1",
-     "size": 0.92
+     "size": 0.79
     },
     {
      "name": "Thiết Khoáng",
      "aola": "quang_sat_2",
-     "size": 1.0
+     "size": 0.85
     }
    ]
   },
@@ -88,17 +88,17 @@
    "passive": "doc_giac_pas",
    "shards": 10,
    "line": "Dòng Thiết Vệ",
-   "size": 0.92,
+   "size": 0.83,
    "forms": [
     {
      "name": "Thiết Vệ Nhi",
      "aola": "chien_sat_1",
-     "size": 0.92
+     "size": 0.83
     },
     {
      "name": "Thiết Vệ",
      "aola": "chien_sat_2",
-     "size": 1.1
+     "size": 0.98
     }
    ]
   },
@@ -122,17 +122,17 @@
    "passive": "phi_thuong_pas",
    "shards": 15,
    "line": "Dòng Thiết Cưa",
-   "size": 0.92,
+   "size": 0.86,
    "forms": [
     {
      "name": "Thiết Cưa",
      "aola": "cua_xich_1",
-     "size": 0.92
+     "size": 0.86
     },
     {
      "name": "Thiết Cưa",
      "aola": "cua_xich_1",
-     "size": 1.1
+     "size": 1.11
     }
    ]
   },
@@ -156,17 +156,17 @@
    "passive": "khien_bac_pas",
    "shards": 20,
    "line": "Dòng Quỷ Xích",
-   "size": 0.92,
+   "size": 0.81,
    "forms": [
     {
      "name": "Quỷ Xích Nhi",
      "aola": "quy_xich_1",
-     "size": 0.92
+     "size": 0.81
     },
     {
      "name": "Quỷ Xích",
      "aola": "quy_xich_2",
-     "size": 1.1
+     "size": 1.02
     }
    ]
   },
@@ -190,17 +190,17 @@
    "passive": "chien_than_pas",
    "shards": 20,
    "line": "Dòng Sói Giáp",
-   "size": 0.86,
+   "size": 0.84,
    "forms": [
     {
      "name": "Sói Giáp Con",
      "aola": "soi_giap_1",
-     "size": 0.86
+     "size": 0.84
     },
     {
      "name": "Sói Giáp",
      "aola": "soi_giap_2",
-     "size": 1.1
+     "size": 1.02
     }
    ]
   },
@@ -224,17 +224,17 @@
    "passive": "thiet_phu_pas",
    "shards": 30,
    "line": "Dòng Thần Cơ",
-   "size": 0.92,
+   "size": 0.93,
    "forms": [
     {
      "name": "Thần Cơ Nhi",
      "aola": "robot_co_1",
-     "size": 0.92
+     "size": 0.93
     },
     {
      "name": "Thần Cơ",
      "aola": "robot_co_2",
-     "size": 1.1
+     "size": 1.12
     }
    ]
   },
@@ -258,17 +258,17 @@
    "passive": "tam_kiem_pas",
    "shards": 30,
    "line": "Dòng Vong Kỵ",
-   "size": 0.92,
+   "size": 1.12,
    "forms": [
     {
      "name": "Vong Kỵ Nhi",
      "aola": "ky_nguyen_1",
-     "size": 0.92
+     "size": 1.12
     },
     {
      "name": "Vong Kỵ",
      "aola": "ky_nguyen_2",
-     "size": 1.1
+     "size": 1.28
     }
    ]
   },
@@ -292,17 +292,17 @@
    "passive": "ung_thep_pas",
    "shards": 30,
    "line": "Dòng Pháo Giáp",
-   "size": 0.92,
+   "size": 0.88,
    "forms": [
     {
      "name": "Pháo Giáp Nhi",
      "aola": "thu_phao_1",
-     "size": 0.92
+     "size": 0.88
     },
     {
      "name": "Pháo Giáp",
      "aola": "thu_phao_2",
-     "size": 1.1
+     "size": 1.14
     }
    ]
   },
@@ -326,17 +326,17 @@
    "passive": "kim_nghe_pas",
    "shards": 50,
    "line": "Dòng Nhật Vương",
-   "size": 0.92,
+   "size": 1.03,
    "forms": [
     {
      "name": "Nhật Hoàng Tử",
      "aola": "vua_may_1",
-     "size": 0.92
+     "size": 1.03
     },
     {
      "name": "Nhật Vương",
      "aola": "vua_may_2",
-     "size": 1.1
+     "size": 0.94
     }
    ]
   },
@@ -360,17 +360,17 @@
    "passive": "tien_la_pas",
    "shards": 15,
    "line": "Dòng Cầu Gai",
-   "size": 0.8,
+   "size": 0.68,
    "forms": [
     {
      "name": "Cầu Gai Nhí",
      "aola": "tien_la_1",
-     "size": 0.8
+     "size": 0.68
     },
     {
      "name": "Cầu Gai",
      "aola": "tien_la_2",
-     "size": 0.96
+     "size": 0.81
     }
    ]
   },
@@ -394,22 +394,22 @@
    "passive": "mam_u_pas",
    "shards": 10,
    "line": "Dòng Mầm Ú",
-   "size": 0.9,
+   "size": 0.83,
    "forms": [
     {
      "name": "Hạt Ú",
      "aola": "mam_u_1",
-     "size": 0.9
+     "size": 0.83
     },
     {
      "name": "Mầm Ú",
      "aola": "mam_u_2",
-     "size": 1.02
+     "size": 0.79
     },
     {
      "name": "Hoa Ú",
      "aola": "mam_u_3",
-     "size": 1.14
+     "size": 0.85
     }
    ]
   },
@@ -433,17 +433,17 @@
    "passive": "gac_da_pas",
    "shards": 15,
    "line": "Dòng Gạc Đá",
-   "size": 0.92,
+   "size": 0.89,
    "forms": [
     {
      "name": "Mầm Đá",
      "aola": "gac_da_1",
-     "size": 0.92
+     "size": 0.89
     },
     {
      "name": "Gạc Đá",
      "aola": "gac_da_2",
-     "size": 1.1
+     "size": 0.98
     }
    ]
   },
@@ -467,17 +467,17 @@
    "passive": "bom_la_pas",
    "shards": 15,
    "line": "Dòng Lộc Phong",
-   "size": 0.8,
+   "size": 0.76,
    "forms": [
     {
      "name": "Gốc Ngơ",
      "aola": "bom_la_1",
-     "size": 0.8
+     "size": 0.76
     },
     {
      "name": "Lộc Phong",
      "aola": "bom_la_2",
-     "size": 1.1
+     "size": 0.94
     }
    ]
   },
@@ -501,24 +501,24 @@
    "passive": "phong_linh_pas",
    "shards": 20,
    "line": "Dòng Lâm Tượng",
-   "size": 0.92,
+   "size": 0.64,
    "forms": [
     {
      "name": "Tượng Mầm",
      "aola": "phong_linh_1",
-     "size": 0.92
+     "size": 0.64
     },
     {
      "name": "Lâm Tượng",
      "aola": "phong_linh_2",
-     "size": 1.1
+     "size": 0.91
     }
    ]
   },
   {
    "id": "gio_loc",
-   "name": "Cổ Vương",
-   "title": "Tượng vua cổ cầm trụ",
+   "name": "Linh Điểu",
+   "title": "Chim thần giữ rừng",
    "aola": "gio_loc_1",
    "elem": "moc",
    "rarity": "rare",
@@ -534,18 +534,18 @@
    "ult": "gio_loc_ult",
    "passive": "gio_loc_pas",
    "shards": 20,
-   "line": "Dòng Cổ Vương",
-   "size": 0.88,
+   "line": "Dòng Linh Điểu",
+   "size": 0.87,
    "forms": [
     {
-     "name": "Cổ Vương Nhi",
+     "name": "Điểu Nhi",
      "aola": "gio_loc_1",
-     "size": 0.88
+     "size": 0.87
     },
     {
-     "name": "Cổ Vương",
+     "name": "Linh Điểu",
      "aola": "gio_loc_2",
-     "size": 1.1
+     "size": 0.83
     }
    ]
   },
@@ -569,17 +569,17 @@
    "passive": "long_vuot_pas",
    "shards": 30,
    "line": "Dòng Long Vuốt",
-   "size": 0.92,
+   "size": 0.87,
    "forms": [
     {
      "name": "Long Vuốt Con",
      "aola": "long_vuot_1",
-     "size": 0.92
+     "size": 0.87
     },
     {
      "name": "Long Vuốt",
      "aola": "long_vuot_2",
-     "size": 1.1
+     "size": 1.01
     }
    ]
   },
@@ -603,17 +603,17 @@
    "passive": "tho_hoang_pas",
    "shards": 30,
    "line": "Dòng Voọc Tướng",
-   "size": 0.92,
+   "size": 0.75,
    "forms": [
     {
      "name": "Voọc Non",
      "aola": "tho_hoang_1",
-     "size": 0.92
+     "size": 0.75
     },
     {
      "name": "Voọc Tướng",
      "aola": "tho_hoang_2",
-     "size": 1.1
+     "size": 1.06
     }
    ]
   },
@@ -637,17 +637,17 @@
    "passive": "moc_tinh_pas",
    "shards": 30,
    "line": "Dòng Giác Mộc",
-   "size": 0.9,
+   "size": 1.08,
    "forms": [
     {
      "name": "Giác Mộc Non",
      "aola": "giac_moc_1",
-     "size": 0.9
+     "size": 1.08
     },
     {
      "name": "Giác Mộc",
      "aola": "giac_moc_2",
-     "size": 1.05
+     "size": 1.2
     }
    ]
   },
@@ -671,22 +671,22 @@
    "passive": "thanh_long_pas",
    "shards": 50,
    "line": "Dòng Thanh Long",
-   "size": 0.95,
+   "size": 1.11,
    "forms": [
     {
      "name": "Thanh Long Con",
      "aola": "moc_vuong_d1",
-     "size": 0.95
+     "size": 1.11
     },
     {
      "name": "Thanh Long",
      "aola": "moc_vuong_d2",
-     "size": 1.1
+     "size": 1.23
     },
     {
      "name": "Lôi Thanh Long",
      "aola": "moc_vuong_1",
-     "size": 1.16
+     "size": 1.56
     }
    ]
   },
@@ -710,17 +710,17 @@
    "passive": "thach_giai_pas",
    "shards": 10,
    "line": "Dòng Thạch Giải",
-   "size": 0.92,
+   "size": 0.93,
    "forms": [
     {
      "name": "Thạch Giải",
      "aola": "thach_giai_1",
-     "size": 0.92
+     "size": 0.93
     },
     {
      "name": "Thạch Thành Giải",
      "aola": "thach_giai_2",
-     "size": 1.1
+     "size": 0.9
     }
    ]
   },
@@ -744,17 +744,17 @@
    "passive": "ca_den_pas",
    "shards": 15,
    "line": "Dòng Hải Đăng",
-   "size": 0.92,
+   "size": 0.73,
    "forms": [
     {
      "name": "Lồng Đèn",
      "aola": "ca_den_1",
-     "size": 0.92
+     "size": 0.73
     },
     {
      "name": "Hải Đăng",
      "aola": "ca_den_2",
-     "size": 1.1
+     "size": 0.96
     }
    ]
   },
@@ -778,17 +778,17 @@
    "passive": "ti_tach_pas",
    "shards": 15,
    "line": "Dòng Tí Tách",
-   "size": 0.92,
+   "size": 0.79,
    "forms": [
     {
      "name": "Tí Tách",
      "aola": "ti_tach_1",
-     "size": 0.92
+     "size": 0.79
     },
     {
      "name": "Sóng Thần",
      "aola": "ti_tach_2",
-     "size": 1.1
+     "size": 0.97
     }
    ]
   },
@@ -812,22 +812,22 @@
    "passive": "hai_long_pas",
    "shards": 50,
    "line": "Dòng Hải Long",
-   "size": 0.95,
+   "size": 1.27,
    "forms": [
     {
      "name": "Hải Long Nhi",
      "aola": "hai_long_1",
-     "size": 0.95
+     "size": 1.27
     },
     {
      "name": "Hải Long Tam Thủ",
      "aola": "hai_long_2",
-     "size": 1.1
+     "size": 1.26
     },
     {
      "name": "Hải Long Ngũ Đầu",
      "aola": "hai_long_3",
-     "size": 1.16
+     "size": 1.4
     }
    ]
   },
@@ -851,17 +851,17 @@
    "passive": "han_ngac_pas",
    "shards": 30,
    "line": "Dòng Hàn Ngạc",
-   "size": 0.92,
+   "size": 1.08,
    "forms": [
     {
      "name": "Ngạc Nhi",
      "aola": "han_ngac_1",
-     "size": 0.92
+     "size": 1.08
     },
     {
      "name": "Hàn Ngạc Vương",
      "aola": "han_ngac_2",
-     "size": 1.1
+     "size": 1.26
     }
    ]
   },
@@ -885,17 +885,17 @@
    "passive": "ha_ba_pas",
    "shards": 15,
    "line": "Dòng Sò Ngoạm",
-   "size": 0.92,
+   "size": 0.87,
    "forms": [
     {
      "name": "Sò Háu",
      "aola": "ha_ba_1",
-     "size": 0.92
+     "size": 0.87
     },
     {
      "name": "Sò Ngoạm",
      "aola": "ha_ba_2",
-     "size": 1.1
+     "size": 1.12
     }
    ]
   },
@@ -919,17 +919,17 @@
    "passive": "so_ngoc_pas",
    "shards": 20,
    "line": "Dòng Bát Trảo",
-   "size": 0.92,
+   "size": 0.91,
    "forms": [
     {
      "name": "Trảo Nhi",
      "aola": "so_ngoc_1",
-     "size": 0.92
+     "size": 0.91
     },
     {
      "name": "Bát Trảo",
      "aola": "so_ngoc_2",
-     "size": 1.1
+     "size": 1.01
     }
    ]
   },
@@ -953,17 +953,17 @@
    "passive": "giong_bao_pas",
    "shards": 20,
    "line": "Dòng Giông Bão",
-   "size": 0.92,
+   "size": 0.77,
    "forms": [
     {
      "name": "Giông Mưa",
      "aola": "giong_bao_1",
-     "size": 0.92
+     "size": 0.77
     },
     {
      "name": "Giông Bão",
      "aola": "giong_bao_2",
-     "size": 1.1
+     "size": 1.06
     }
    ]
   },
@@ -987,17 +987,17 @@
    "passive": "uyen_xa_pas",
    "shards": 30,
    "line": "Dòng Uyên Xà",
-   "size": 0.92,
+   "size": 1.07,
    "forms": [
     {
      "name": "Uyên Nhi",
      "aola": "uyen_xa_1",
-     "size": 0.92
+     "size": 1.07
     },
     {
      "name": "Uyên Xà",
      "aola": "uyen_xa_2",
-     "size": 1.1
+     "size": 1.28
     }
    ]
   },
@@ -1021,17 +1021,17 @@
    "passive": "lien_kinh_pas",
    "shards": 30,
    "line": "Dòng Thôn Kình",
-   "size": 0.92,
+   "size": 0.78,
    "forms": [
     {
      "name": "Kình Nhi",
      "aola": "lien_kinh_1",
-     "size": 0.92
+     "size": 0.78
     },
     {
      "name": "Thôn Kình",
      "aola": "lien_kinh_2",
-     "size": 1.1
+     "size": 0.98
     }
    ]
   },
@@ -1055,22 +1055,22 @@
    "passive": "su_tu_lua_pas",
    "shards": 15,
    "line": "Dòng Quỷ Lava",
-   "size": 0.9,
+   "size": 0.48,
    "forms": [
     {
      "name": "Tiểu Quỷ Lava",
      "aola": "quy_lava_1",
-     "size": 0.9
+     "size": 0.48
     },
     {
      "name": "Hiệp Sĩ Dung Nham",
      "aola": "quy_lava_2",
-     "size": 1.02
+     "size": 0.54
     },
     {
      "name": "Hiệp Sĩ Dung Nham",
      "aola": "quy_lava_2",
-     "size": 1.14
+     "size": 0.66
     }
    ]
   },
@@ -1094,17 +1094,17 @@
    "passive": "hoa_nhan_pas",
    "shards": 10,
    "line": "Dòng Hỏa Nhãn",
-   "size": 0.92,
+   "size": 0.67,
    "forms": [
     {
      "name": "Nhãn Than",
      "aola": "hoa_nhan_1",
-     "size": 0.92
+     "size": 0.67
     },
     {
      "name": "Hỏa Nhãn",
      "aola": "hoa_nhan_2",
-     "size": 1.1
+     "size": 0.91
     }
    ]
   },
@@ -1128,17 +1128,17 @@
    "passive": "kim_su_pas",
    "shards": 15,
    "line": "Dòng Hỏa Cung",
-   "size": 0.92,
+   "size": 0.8,
    "forms": [
     {
      "name": "Hỏa Cung Nhi",
      "aola": "kim_su_1",
-     "size": 0.92
+     "size": 0.8
     },
     {
      "name": "Hỏa Cung",
      "aola": "kim_su_2",
-     "size": 1.1
+     "size": 0.93
     }
    ]
   },
@@ -1162,17 +1162,17 @@
    "passive": "nham_than_pas",
    "shards": 15,
    "line": "Dòng Nham Thần",
-   "size": 0.92,
+   "size": 0.81,
    "forms": [
     {
      "name": "Nham Con",
      "aola": "nham_than_1",
-     "size": 0.92
+     "size": 0.81
     },
     {
      "name": "Nham Thần",
      "aola": "nham_than_2",
-     "size": 1.1
+     "size": 0.94
     }
    ]
   },
@@ -1196,17 +1196,17 @@
    "passive": "hong_lien_pas",
    "shards": 20,
    "line": "Dòng Viêm Sư",
-   "size": 0.8,
+   "size": 0.73,
    "forms": [
     {
      "name": "Viêm Đồng",
      "aola": "phap_lua_non",
-     "size": 0.8
+     "size": 0.73
     },
     {
      "name": "Viêm Sư",
      "aola": "phap_lua_1",
-     "size": 1.1
+     "size": 0.87
     }
    ]
   },
@@ -1230,17 +1230,17 @@
    "passive": "giap_long_pas",
    "shards": 30,
    "line": "Dòng Viêm Đao",
-   "size": 0.8,
+   "size": 0.65,
    "forms": [
     {
      "name": "Viêm Đao Nhi",
      "aola": "quy_dao_non",
-     "size": 0.8
+     "size": 0.65
     },
     {
      "name": "Viêm Đao",
      "aola": "quy_dao_1",
-     "size": 1.1
+     "size": 0.89
     }
    ]
   },
@@ -1264,17 +1264,17 @@
    "passive": "huyen_viem_pas",
    "shards": 30,
    "line": "Dòng Viêm Dũng",
-   "size": 0.85,
+   "size": 0.67,
    "forms": [
     {
      "name": "Viêm Dũng Nhi",
      "aola": "dat_nung_non",
-     "size": 0.85
+     "size": 0.67
     },
     {
      "name": "Viêm Dũng",
      "aola": "dat_nung_1",
-     "size": 0.95
+     "size": 0.8
     }
    ]
   },
@@ -1298,17 +1298,17 @@
    "passive": "hoa_tinh_pas",
    "shards": 30,
    "line": "Dòng Bạch Viêm Hổ",
-   "size": 0.9,
+   "size": 0.98,
    "forms": [
     {
      "name": "Viêm Hổ Nhi",
      "aola": "hoa_ho_non",
-     "size": 0.9
+     "size": 0.98
     },
     {
      "name": "Bạch Viêm Hổ",
      "aola": "hoa_ho_1",
-     "size": 0.95
+     "size": 1.18
     }
    ]
   },
@@ -1332,22 +1332,22 @@
    "passive": "lan_hoa_pas",
    "shards": 50,
    "line": "Dòng Hỏa Sơn Long",
-   "size": 0.85,
+   "size": 0.79,
    "forms": [
     {
      "name": "Hỏa Sơn Nhi",
      "aola": "nui_lua_non",
-     "size": 0.85
+     "size": 0.79
     },
     {
      "name": "Hỏa Sơn Thú",
      "aola": "nui_lua_2",
-     "size": 0.86
+     "size": 0.95
     },
     {
      "name": "Hỏa Sơn Long",
      "aola": "nui_lua_1",
-     "size": 0.92
+     "size": 1.12
     }
    ]
   },
@@ -1371,138 +1371,17 @@
    "passive": "nguu_quyen_pas",
    "shards": 20,
    "line": "Dòng Hỏa Quy",
-   "size": 0.78,
+   "size": 0.82,
    "forms": [
     {
      "name": "Hỏa Quy Con",
      "aola": "rua_lua_non",
-     "size": 0.78
+     "size": 0.82
     },
     {
      "name": "Hỏa Quy",
      "aola": "rua_lua_1",
-     "size": 1.1
-    }
-   ]
-  },
-  {
-   "id": "vo_su",
-   "name": "Võ Sư",
-   "title": "Quyền thủ áo vải",
-   "aola": "monk_boxer",
-   "elem": "tho",
-   "rarity": "uncommon",
-   "stats": [
-    45,
-    45,
-    60,
-    45,
-    60,
-    45
-   ],
-   "skill": "vs_skill",
-   "ult": "vs_ult",
-   "passive": "vs_pas",
-   "shards": 15,
-   "line": "Dòng Thỏ Võ",
-   "size": 1,
-   "forms": [
-    {
-     "name": "Võ Sư",
-     "aola": "monk_boxer",
-     "size": 1
-    }
-   ]
-  },
-  {
-   "id": "gau_mo",
-   "name": "Gấu Thợ Mỏ",
-   "title": "Thợ đào hầm",
-   "aola": "goc_373",
-   "elem": "tho",
-   "rarity": "common",
-   "stats": [
-    90,
-    130,
-    150,
-    50,
-    50,
-    80
-   ],
-   "skill": "gau_mo_skill",
-   "ult": "gau_mo_ult",
-   "passive": "gau_mo_pas",
-   "shards": 10,
-   "line": "Dòng Gấu Thợ Mỏ",
-   "size": 1,
-   "forms": [
-    {
-     "name": "Gấu Thợ Mỏ",
-     "aola": "goc_373",
-     "size": 1
-    }
-   ]
-  },
-  {
-   "id": "soc_da",
-   "name": "Sóc Đá",
-   "title": "Má phồng đầy sỏi",
-   "aola": "goc_825",
-   "elem": "tho",
-   "rarity": "uncommon",
-   "stats": [
-    70,
-    60,
-    40,
-    60,
-    40,
-    20
-   ],
-   "skill": "soc_da_skill",
-   "ult": "soc_da_ult",
-   "passive": "soc_da_pas",
-   "shards": 15,
-   "line": "Dòng Sóc Đá",
-   "size": 0.92,
-   "forms": [
-    {
-     "name": "Sóc Đá",
-     "aola": "goc_825",
-     "size": 0.92
-    },
-    {
-     "name": "Sóc Đá",
-     "aola": "goc_826",
-     "size": 1.1
-    }
-   ]
-  },
-  {
-   "id": "bo_hung",
-   "name": "Bọ Hung Cát",
-   "title": "Lăn cầu cát vàng",
-   "aola": "goc_210",
-   "elem": "tho",
-   "rarity": "uncommon",
-   "stats": [
-    200,
-    100,
-    150,
-    100,
-    150,
-    90
-   ],
-   "skill": "bo_hung_skill",
-   "ult": "bo_hung_ult",
-   "passive": "bo_hung_pas",
-   "shards": 15,
-   "line": "Dòng Bọ Hung Cát",
-   "size": 1,
-   "forms": [
-    {
-     "name": "Bọ Hung Cát",
-     "aola": "goc_210",
-     "size": 1
+     "size": 1.08
     }
    ]
   },
@@ -1526,114 +1405,17 @@
    "passive": "thach_nhan_pas",
    "shards": 15,
    "line": "Dòng Thạch Giáp",
-   "size": 0.88,
+   "size": 0.77,
    "forms": [
     {
      "name": "Thạch Giáp Nhi",
      "aola": "cong_da_1",
-     "size": 0.88
+     "size": 0.77
     },
     {
      "name": "Thạch Giáp",
      "aola": "cong_da_2",
-     "size": 1.0
-    }
-   ]
-  },
-  {
-   "id": "sa_than",
-   "name": "Sa Thần",
-   "title": "Hộ vệ sa mạc",
-   "aola": "goc_1000",
-   "elem": "tho",
-   "rarity": "rare",
-   "stats": [
-    250,
-    100,
-    200,
-    100,
-    200,
-    180
-   ],
-   "skill": "sa_than_skill",
-   "ult": "sa_than_ult",
-   "passive": "sa_than_pas",
-   "shards": 20,
-   "line": "Dòng Sa Thần",
-   "size": 1,
-   "forms": [
-    {
-     "name": "Sa Thần",
-     "aola": "goc_1000",
-     "size": 1
-    }
-   ]
-  },
-  {
-   "id": "ky_lan",
-   "name": "Kỳ Lân Cát",
-   "title": "Bờm cát hoàng kim",
-   "aola": "goc_88",
-   "elem": "tho",
-   "rarity": "epic",
-   "stats": [
-    50,
-    70,
-    50,
-    40,
-    50,
-    40
-   ],
-   "skill": "ky_lan_skill",
-   "ult": "ky_lan_ult",
-   "passive": "ky_lan_pas",
-   "shards": 30,
-   "line": "Dòng Kỳ Lân Cát",
-   "size": 0.9,
-   "forms": [
-    {
-     "name": "Kỳ Lân Cát",
-     "aola": "goc_88",
-     "size": 0.9
-    },
-    {
-     "name": "Kỳ Lân Cát",
-     "aola": "goc_89",
-     "size": 1.02
-    },
-    {
-     "name": "Kỳ Lân Cát",
-     "aola": "goc_90",
-     "size": 1.14
-    }
-   ]
-  },
-  {
-   "id": "ca_sa",
-   "name": "Đại Sư Cà Sa",
-   "title": "Kim cang hộ pháp",
-   "aola": "monk_2217",
-   "elem": "tho",
-   "rarity": "legend",
-   "stats": [
-    110,
-    70,
-    95,
-    136,
-    95,
-    124
-   ],
-   "skill": "cs_skill",
-   "ult": "cs_ult",
-   "passive": "cs_pas",
-   "shards": 50,
-   "line": "Dòng Thỏ Võ",
-   "size": 1.18,
-   "forms": [
-    {
-     "name": "Đại Sư Cà Sa",
-     "aola": "monk_2217",
-     "size": 1.18
+     "size": 0.95
     }
    ]
   },
@@ -1657,17 +1439,17 @@
    "passive": "lung_vuong_pas",
    "shards": 10,
    "line": "Dòng Sa Tích",
-   "size": 0.9,
+   "size": 0.79,
    "forms": [
     {
      "name": "Sa Tích Nhi",
      "aola": "than_lan_cat_1",
-     "size": 0.9
+     "size": 0.79
     },
     {
      "name": "Sa Tích",
      "aola": "than_lan_cat_2",
-     "size": 1.04
+     "size": 1.09
     }
    ]
   },
@@ -1691,12 +1473,12 @@
    "passive": "cao_da_pas",
    "shards": 15,
    "line": "Dòng Tê Thiềm",
-   "size": 0.92,
+   "size": 0.84,
    "forms": [
     {
      "name": "Tê Thiềm Nhi",
      "aola": "thu_da_1",
-     "size": 0.92
+     "size": 0.84
     },
     {
      "name": "Tê Thiềm",
@@ -1725,17 +1507,17 @@
    "passive": "ho_khoan_pas",
    "shards": 15,
    "line": "Dòng Sa Long",
-   "size": 0.85,
+   "size": 0.95,
    "forms": [
     {
      "name": "Sa Long Nhi",
      "aola": "rong_cat_non",
-     "size": 0.85
+     "size": 0.95
     },
     {
      "name": "Sa Long",
      "aola": "rong_cat_1",
-     "size": 1.1
+     "size": 1.05
     }
    ]
   },
@@ -1759,24 +1541,24 @@
    "passive": "phu_van_pas",
    "shards": 20,
    "line": "Dòng Sơn Viên",
-   "size": 0.96,
+   "size": 0.71,
    "forms": [
     {
      "name": "Sơn Viên",
      "aola": "quy_nui_1",
-     "size": 0.96
+     "size": 0.71
     },
     {
      "name": "Sơn Viên",
      "aola": "quy_nui_1",
-     "size": 1.14
+     "size": 0.91
     }
    ]
   },
   {
    "id": "hat_de",
-   "name": "Hạt Dẻ",
-   "title": "Dũng sĩ khiên hạt dẻ",
+   "name": "Cổ Vương",
+   "title": "Tượng vua cổ cầm trụ",
    "aola": "hat_de_1",
    "elem": "tho",
    "rarity": "rare",
@@ -1792,18 +1574,18 @@
    "ult": "hat_de_ult",
    "passive": "hat_de_pas",
    "shards": 20,
-   "line": "Dòng Hạt Dẻ",
-   "size": 0.92,
+   "line": "Dòng Cổ Vương",
+   "size": 0.89,
    "forms": [
     {
-     "name": "Lính Hạt Dẻ",
+     "name": "Cổ Vương Nhi",
      "aola": "hat_de_1",
-     "size": 0.92
+     "size": 0.89
     },
     {
-     "name": "Dũng Sĩ Hạt Dẻ",
+     "name": "Cổ Vương",
      "aola": "hat_de_2",
-     "size": 1.1
+     "size": 1.17
     }
    ]
   },
@@ -1827,17 +1609,17 @@
    "passive": "rua_nui_pas",
    "shards": 30,
    "line": "Dòng Sa Trùng",
-   "size": 0.85,
+   "size": 0.81,
    "forms": [
     {
      "name": "Sa Trùng Nhi",
      "aola": "sau_dat_non",
-     "size": 0.85
+     "size": 0.81
     },
     {
      "name": "Sa Trùng",
      "aola": "sau_dat_1",
-     "size": 1.1
+     "size": 1.01
     }
    ]
   },
@@ -1861,12 +1643,12 @@
    "passive": "ho_kim_cuong_pas",
    "shards": 30,
    "line": "Dòng Bùn Ngoạm",
-   "size": 1.16,
+   "size": 1.08,
    "forms": [
     {
      "name": "Bùn Ngoạm",
      "aola": "quai_bun_1",
-     "size": 1.16
+     "size": 1.08
     }
    ]
   },
@@ -1890,17 +1672,17 @@
    "passive": "cu_phu_pas",
    "shards": 30,
    "line": "Dòng Thiên Thạch Thú",
-   "size": 0.92,
+   "size": 1,
    "forms": [
     {
      "name": "Thiên Thạch Thú Non",
      "aola": "tinh_hach_non",
-     "size": 0.92
+     "size": 1
     },
     {
      "name": "Thiên Thạch Thú",
      "aola": "tinh_hach_1",
-     "size": 1.1
+     "size": 1.08
     }
    ]
   },
@@ -1924,17 +1706,17 @@
    "passive": "giap_nham_pas",
    "shards": 50,
    "line": "Dòng Thổ Tinh",
-   "size": 0.92,
+   "size": 1.06,
    "forms": [
     {
      "name": "Tiểu Thổ Tinh",
      "aola": "thach_de_non",
-     "size": 0.92
+     "size": 1.06
     },
     {
      "name": "Thổ Tinh",
      "aola": "thach_de_1",
-     "size": 1.1
+     "size": 1.39
     }
    ]
   }
@@ -1960,12 +1742,12 @@
    "passive": "linh_cua_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.58,
    "forms": [
     {
      "name": "Cua Kìm",
      "aola": "goc_1313",
-     "size": 0.8
+     "size": 0.58
     }
    ],
    "minion": true,
@@ -1992,12 +1774,12 @@
    "passive": "linh_cua2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.83,
    "forms": [
     {
      "name": "Cua Pháo",
      "aola": "goc_1314",
-     "size": 0.86
+     "size": 0.83
     }
    ],
    "minion": true,
@@ -2024,12 +1806,12 @@
    "passive": "linh_noc_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.77,
    "forms": [
     {
      "name": "Cá Nóc",
      "aola": "goc_16",
-     "size": 0.8
+     "size": 0.77
     }
    ],
    "minion": true,
@@ -2056,12 +1838,12 @@
    "passive": "linh_noc2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 1.07,
    "forms": [
     {
      "name": "Cá Nóc Điện",
      "aola": "goc_17",
-     "size": 0.86
+     "size": 1.07
     }
    ],
    "minion": true,
@@ -2120,12 +1902,12 @@
    "passive": "linh_ngu2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 1.06,
    "forms": [
     {
      "name": "Song Ngư",
      "aola": "goc_830",
-     "size": 0.86
+     "size": 1.06
     }
    ],
    "minion": true,
@@ -2152,12 +1934,12 @@
    "passive": "linh_bo_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.62,
    "forms": [
     {
      "name": "Bọ Sừng",
      "aola": "goc_40",
-     "size": 0.8
+     "size": 0.62
     }
    ],
    "minion": true,
@@ -2184,12 +1966,12 @@
    "passive": "linh_bo2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.79,
    "forms": [
     {
      "name": "Bọ Sừng Gỗ",
      "aola": "goc_41",
-     "size": 0.86
+     "size": 0.79
     }
    ],
    "minion": true,
@@ -2216,12 +1998,12 @@
    "passive": "linh_ran_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.68,
    "forms": [
     {
      "name": "Sâu Uốn",
      "aola": "goc_58",
-     "size": 0.8
+     "size": 0.68
     }
    ],
    "minion": true,
@@ -2248,12 +2030,12 @@
    "passive": "linh_ran2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.88,
    "forms": [
     {
      "name": "Rắn Gai",
      "aola": "goc_59",
-     "size": 0.86
+     "size": 0.88
     }
    ],
    "minion": true,
@@ -2280,12 +2062,12 @@
    "passive": "linh_chim_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.83,
    "forms": [
     {
      "name": "Chim Lá",
      "aola": "goc_82",
-     "size": 0.8
+     "size": 0.83
     }
    ],
    "minion": true,
@@ -2312,12 +2094,12 @@
    "passive": "linh_chim2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 1.02,
    "forms": [
     {
      "name": "Chim Lưu Ly",
      "aola": "goc_83",
-     "size": 0.86
+     "size": 1.02
     }
    ],
    "minion": true,
@@ -2344,12 +2126,12 @@
    "passive": "linh_lo_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.69,
    "forms": [
     {
      "name": "Lò Lửa",
      "aola": "goc_64",
-     "size": 0.8
+     "size": 0.69
     }
    ],
    "minion": true,
@@ -2376,12 +2158,12 @@
    "passive": "linh_lo2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 1.05,
    "forms": [
     {
      "name": "Lò Quái",
      "aola": "goc_65",
-     "size": 0.86
+     "size": 1.05
     }
    ],
    "minion": true,
@@ -2408,12 +2190,12 @@
    "passive": "linh_nam_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.71,
    "forms": [
     {
      "name": "Nấm Lửa",
      "aola": "goc_13",
-     "size": 0.8
+     "size": 0.71
     }
    ],
    "minion": true,
@@ -2440,12 +2222,12 @@
    "passive": "linh_nam2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.98,
    "forms": [
     {
      "name": "Quái Nham",
      "aola": "goc_14",
-     "size": 0.86
+     "size": 0.98
     }
    ],
    "minion": true,
@@ -2504,12 +2286,12 @@
    "passive": "linh_khi2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.92,
    "forms": [
     {
      "name": "Khỉ Hỏa Diệm",
      "aola": "goc_292",
-     "size": 0.86
+     "size": 0.92
     }
    ],
    "minion": true,
@@ -2536,12 +2318,12 @@
    "passive": "linh_giap_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.68,
    "forms": [
     {
      "name": "Giáp Vệ",
      "aola": "goc_121",
-     "size": 0.8
+     "size": 0.68
     }
    ],
    "minion": true,
@@ -2568,12 +2350,12 @@
    "passive": "linh_giap2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 1.07,
    "forms": [
     {
      "name": "Chiến Giáp",
      "aola": "goc_122",
-     "size": 0.86
+     "size": 1.07
     }
    ],
    "minion": true,
@@ -2600,12 +2382,12 @@
    "passive": "linh_khien_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.68,
    "forms": [
     {
      "name": "Nóc Sắt",
      "aola": "goc_1061",
-     "size": 0.8
+     "size": 0.68
     }
    ],
    "minion": true,
@@ -2632,12 +2414,12 @@
    "passive": "linh_khien2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.92,
    "forms": [
     {
      "name": "Nóc Khiên",
      "aola": "goc_1062",
-     "size": 0.86
+     "size": 0.92
     }
    ],
    "minion": true,
@@ -2664,12 +2446,12 @@
    "passive": "linh_may_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.77,
    "forms": [
     {
      "name": "Máy Bay Con",
      "aola": "goc_949",
-     "size": 0.8
+     "size": 0.77
     }
    ],
    "minion": true,
@@ -2696,12 +2478,12 @@
    "passive": "linh_may2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.95,
    "forms": [
     {
      "name": "Phản Lực",
      "aola": "goc_950",
-     "size": 0.86
+     "size": 0.95
     }
    ],
    "minion": true,
@@ -2728,12 +2510,12 @@
    "passive": "linh_khoan_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.84,
    "forms": [
     {
      "name": "Chuột Khoan",
      "aola": "goc_1041",
-     "size": 0.8
+     "size": 0.84
     }
    ],
    "minion": true,
@@ -2760,12 +2542,12 @@
    "passive": "linh_khoan2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 1,
    "forms": [
     {
      "name": "Khoan Giáp",
      "aola": "goc_1042",
-     "size": 0.86
+     "size": 1
     }
    ],
    "minion": true,
@@ -2792,12 +2574,12 @@
    "passive": "linh_da_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.65,
    "forms": [
     {
      "name": "Đá Con",
      "aola": "goc_832",
-     "size": 0.8
+     "size": 0.65
     }
    ],
    "minion": true,
@@ -2824,12 +2606,12 @@
    "passive": "linh_da2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.96,
    "forms": [
     {
      "name": "Đá Xích",
      "aola": "goc_833",
-     "size": 0.86
+     "size": 0.96
     }
    ],
    "minion": true,
@@ -2856,12 +2638,12 @@
    "passive": "linh_ngua_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.8,
+   "size": 0.72,
    "forms": [
     {
      "name": "Ngựa Con",
      "aola": "goc_297",
-     "size": 0.8
+     "size": 0.72
     }
    ],
    "minion": true,
@@ -2888,12 +2670,12 @@
    "passive": "linh_ngua2_pas",
    "shards": 0,
    "line": "Lính",
-   "size": 0.86,
+   "size": 0.98,
    "forms": [
     {
      "name": "Ngựa Rằn",
      "aola": "goc_298",
-     "size": 0.86
+     "size": 0.98
     }
    ],
    "minion": true,
@@ -2908,5 +2690,5 @@
   "tien_la",
   "thach_nhan"
  ],
- "legendMilestoneHero": "ca_sa"
+ "legendMilestoneHero": "giap_nham"
 }

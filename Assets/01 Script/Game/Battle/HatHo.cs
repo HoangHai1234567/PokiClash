@@ -81,7 +81,9 @@ namespace PokiClash
                 Shake?.Invoke(0.45f);
                 for (int i = -1; i <= 1; i++)
                     VetLua(tam + n * (i * 0.14f * tH) - d * (Mathf.Abs(i) * 0.06f * tH), d, (i == 0 ? 0.95f : 0.78f) * tH, 0.085f * tH, 0.2f, 0, Ink, pc[1], pc[3], pc[1]);
-                HoaChop(tam + d * (0.18f * tH), 0.34f * tH, 0.09f); // chớp lửa (BurstFlash là chớp nước, lấy bảng màu nước)
+                // khung vẽ sẵn (2026-11-19): lửa trúng đích "trung_lua" 0,8 thân xoay theo hướng vả (lửa tạt ngược về phía vuốt), thay chớp sao gai
+                if (HoaFbTrung(tam + d * (0.08f * tH), 0.8f * tH, d) == null)
+                    HoaChop(tam + d * (0.18f * tH), 0.34f * tH, 0.09f); // chớp lửa (BurstFlash là chớp nước, lấy bảng màu nước)
                 for (int i = 0; i < 6; i++)
                     Spark(tam + n * U(-0.16f, 0.16f) * tH, d + n * U(-0.7f, 0.7f), U(260, 480), U(0.18f, 0.3f), U(5, 7), 300);
                 HoaTan(tam, new Vector2(U(-40, 40), -U(100, 170)), U(0.45f, 0.65f), 4);
@@ -93,6 +95,13 @@ namespace PokiClash
             });
             At(L + 0.08f, () =>
             {
+                // khung vẽ sẵn (2026-11-19): ba cụm lửa lặp nhỏ "lua_lap" cháy trên ba vết vuốt 0,45 s, thay ba lưỡi lửa chữ S
+                if (HasFb("lua_lap"))
+                {
+                    for (int i = 0; i < 3; i++)
+                        HoaFbLua(tam + n * ((i - 1) * 0.14f * tH) + d * U(-0.1f, 0.25f) * tH, U(0.18f, 0.24f) * tH, U(0.38f, 0.5f), Front, 24, 0.06f, 0.6f);
+                    return;
+                }
                 for (int i = 0; i < 3; i++)
                     HoaLuoi(Flame(tam + n * ((i - 1) * 0.14f * tH) + d * U(-0.2f, 0.3f) * tH, new Vector2(U(-30, 30), -U(60, 140)), U(0.3f, 0.45f), 6, U(10, 14),
                         "tron", Th.pal, Front, 2, -200, 1.4f, 0, 0), 1, 0.5f, 0.1f);
@@ -100,52 +109,32 @@ namespace PokiClash
             return L;
         }
 
-        // SÓNG ÂM bộ Hỏa (2026-11-18, người dùng: "sóng âm chưa đẹp"; theo tinh thần SongAmMoc của bộ Mộc): DẢI CUNG dày giữa, thuôn nhọn hai đầu
-        // (lưỡi liềm lồi về phía bay, ảnh kr_songam), lao từ mồm tới MẶT TRƯỚC thân đối thủ, nở rộng và mỏng dần theo quãng; tới nơi thì bẹt ra, mỏng hẳn
-        // rồi tan (không trùm mặt con bị trúng). Lớp ngoài kem, lớp trong cam tươi; đợt sau đảo màu (kem: q.big). Chưa có ảnh: cung hat_arc mảnh.
-        P HoaSongAm(Vector2 tu, Vector2 den, float r0, float r1, float day0, float v, bool kem, int group = Front)
+        // SÓNG ÂM RÕ (2026-11-19 khuya; người dùng: "phần sóng âm chiêu mana tướng này chưa rõ"): như SongChi (HatSongChi.cs, cung 2–3 nét chì xám
+        // nhạt, không viền mực) nhưng nét DÀY gấp đôi (hai lớp ảnh cung lệch nhau 3 % dọc hướng bay) và đặc hơn; nở h0 → h1 trên đường bay, rung nhẹ,
+        // tới đích (mặt trước thân đối thủ) nở thêm chút rồi mờ hẳn trong 0,12 s. Chưa có ảnh cung thì về SongChi.
+        P SongChiDay(Vector2 tu, Vector2 den, float h0, float h1, float v, float alpha)
         {
+            if (S("kr_songchi_0") == null) return SongChi(tu, den, h0, h1, v, alpha);
             var d = den - tu;
-            float toi = Mathf.Max(0.06f, d.magnitude / v);
-            var p = new P
-            {
-                pos = tu, home = tu, aim = Unit(d), vy = v, life = toi + 0.1f, tb = toi, R0 = r0, R1 = r1, wd = day0, big = kem, group = group,
-                seed = rng.Next(4), stops = Pal[Th.pal]
-            };
+            float toi = Mathf.Max(0.08f, d.magnitude / v);
+            var p = new P { pos = tu, home = tu, aim = Unit(d), vy = v, life = toi + 0.12f, tb = toi, R0 = h0, R1 = h1, wd = alpha, seed = rng.Next(4) };
             p.draw = (q, k, buf) =>
             {
                 float t = q.age, f = Mathf.Clamp01(t / q.tb);
-                float R = Mathf.Lerp(q.R0, q.R1, EaseOut(f)), day = q.wd * (1 - 0.45f * f), span = 1.55f, a = Mathf.Min(1, t / 0.04f);
-                if (t > q.tb) // tới mặt trước thân: bẹt ra, mỏng hẳn rồi tan
+                float h = Mathf.Lerp(q.R0, q.R1, EaseOut(f));
+                float a = Mathf.Min(1, t / 0.04f) * q.wd;
+                if (t > q.tb)
                 {
-                    float u = (t - q.tb) / Mathf.Max(0.02f, q.life - q.tb);
-                    span *= 1 + 0.45f * u;
-                    R *= 1 + 0.12f * u;
-                    day *= 1 - u;
+                    float u = Mathf.Clamp01((t - q.tb) / Mathf.Max(0.02f, q.life - q.tb));
                     a *= 1 - u;
+                    h *= 1 + 0.1f * u;
                 }
-                day = Mathf.Min(day, 0.7f * R); // lúc mới ra khỏi mồm cung còn nhỏ: không cho dày quá bán kính
-                if (a < 0.03f || day < 0.8f) return;
+                if (a < 0.03f) return;
                 var dinh = q.home + q.aim * (Mathf.Min(t, q.tb) * q.vy);
-                Color c1 = q.big ? HoaKem : q.stops[1], c2 = q.big ? q.stops[1] : HoaKem;
-                float ang = VelAng(q.aim);
-                var ks = S("kr_songam_" + q.seed);
-                if (ks)
-                {
-                    // ảnh: lưỡi liềm lồi về +x, dây cung 90 % chiều cao khung, giữa dày 16 % bề ngang khung (bản đặc đã nở sẵn viền)
-                    float chord = 2 * R * Mathf.Sin(span * 0.5f), h = chord / 0.9f, wk = day / 0.16f;
-                    var c = dinh - q.aim * (0.08f * wk);
-                    var kss = S("kr_songams_" + q.seed);
-                    Put(buf, q.group, 44, kss ? kss : ks, Ink, c, h + 3, (wk + 3) / (h + 3), ang, a);
-                    Put(buf, q.group, 44.2f, ks, c1, c, h, wk / h, ang, a);
-                    Put(buf, q.group, 44.4f, ks, c2, dinh - q.aim * (0.04f * wk), h * 0.86f, wk * 0.5f / (h * 0.86f), ang, a);
-                    return;
-                }
-                float ga = ang - 284.7f; // giữa cung của ảnh hat_arc_0 nằm ở góc 284,7 độ
-                var tam = dinh - q.aim * (R * 0.72f); // tâm vòng lùi lại để ĐỈNH cung nằm ở dinh
-                Put(buf, q.group, 44, S("arcs_0"), Ink, tam, 2 * R + 4, 1, ga, a * 0.6f);
-                Put(buf, q.group, 44.4f, S("arc_0"), c1, tam, 2 * R, 1, ga, a);
-                Put(buf, q.group, 44.3f, S("arc_0"), c2, tam - q.aim * (0.16f * R), 1.8f * R, 1, ga + 8, a * 0.45f);
+                float ang = VelAng(q.aim) + 2f * Mathf.Sin(t * 41 + q.seed * 1.9f);
+                var sp = S("kr_songchi_" + q.seed);
+                Put(buf, Front, 44.6f, sp, SongChiC, dinh - q.aim * (0.12f * h), h, 1, ang, a);
+                Put(buf, Front, 44.61f, sp, SongChiC, dinh - q.aim * (0.15f * h), h * 0.98f, 1, ang, a * 0.85f); // lớp thứ hai: nét dày gấp đôi
             };
             return Add(p);
         }
@@ -187,39 +176,47 @@ namespace PokiClash
                 Shake?.Invoke(1f);
                 FlashScreen?.Invoke(new Color(1, 0.9f, 0.7f, 0.3f));
                 HoaChop(mouth, 0.36f * casterH, 0.09f);
-                RingN(mouth, 0.24f, 0.06f * casterH, 0.6f * casterH * manh, pc[3], 1, Front, 43);
                 HoaCung(casterFeet + new Vector2(0, 2), 0.2f * casterH, Mathf.Max(0.9f * casterH, dist * 1.15f) * manh, 0.5f, Th.ring);
                 for (int i = 0; i < 8; i++)
                     Bui(casterFeet + new Vector2(dir * U(0.1f, 0.5f) * casterH, U(-4, 2)), new Vector2(dir * U(200, 460), -U(10, 60)), 0, 4, 12, Back);
             });
-            At(L + 0.1f, () => HoaCung(casterFeet + new Vector2(0, 2), 0.3f * casterH, Mathf.Max(1.1f * casterH, dist * 1.4f) * manh, 0.55f, pc[2]));
             // các đợt sóng âm: dải cung thuôn hai đầu (kem ngoài / cam trong, đợt sau đảo màu) lao tới MẶT TRƯỚC thân đối thủ rồi bẹt ra tan; mỗi đợt
             // tới nơi đối thủ chớp + giật một nhịp (NuocPulse: mã "n_" đi qua PlayNuoc)
-            int N = Mathf.Max(3, Mathf.RoundToInt(dur / 0.14f));
-            var den = foeBody - dd * (0.3f * tH);
+            // sóng âm vẽ chì (2026-11-19, người dùng: "làm đơn giản thôi"): 3–4 cung nét chì xám nhạt (SongChi, HatSongChi.cs) thay dải cung kem /
+            // cam viền mực; bỏ vòng tròn ở miệng và vòng cung đất thứ hai
+            // 2026-11-19 khuya (người dùng: "phần sóng âm chiêu mana tướng này chưa rõ"): 6 cung cách 0,1 s (dạng nhỏ 5), to hơn (0,3 → 1,35 thân;
+            // cung đầu 1,2 lần), nét dày gấp đôi (SongChiDay), bay tới TẬN mặt trước thân đối thủ (0,12 thân trước tâm); mỗi cung tới nơi: bông toé
+            // trắng "trung_trang" nhỏ ở chỗ chạm, rung nhẹ, nhịp trúng HoaTrung. Lúc gầm thêm ba gợn "méo không khí": cung chì nhỏ nhạt nở đồng tâm ở
+            // miệng.
+            int N = manh < 0.95f ? 5 : 6;
+            var den = foeBody - dd * (0.12f * tH);
             float toi = (den - mouth).magnitude / V;
             for (int i = 0; i < N; i++)
             {
                 int j = i;
                 float vj = V * (j == 0 ? 1.08f : 1);
-                At(L + 0.14f * j, () =>
+                At(L + 0.1f * j, () =>
                 {
                     float m = (j == 0 ? 1.2f : 1) * manh;
-                    HoaSongAm(mouth + dd * 10, den, 0.12f * casterH, 0.85f * tH * m, 0.2f * tH * m, vj, (j & 1) == 0);
-                    Shake?.Invoke(j == 0 ? 0.7f : 0.3f);
+                    SongChiDay(mouth + dd * 10, den, 0.3f * casterH, 1.35f * tH * m, vj, 1f - 0.05f * j);
+                    Shake?.Invoke(j == 0 ? 0.7f : 0.25f);
                 });
-                if (j > 0) At(L + 0.14f * j + toi * V / vj, () => NuocPulse?.Invoke(0.3f));
+                if (j > 0)
+                    At(L + 0.1f * j + toi * V / vj, () =>
+                    {
+                        var cham = den + nrm * U(-0.12f, 0.12f) * tH;
+                        Fb("trung_trang", cham, 0.42f * tH, Front, 33, 1.6f, U(-15, 15), dir < 0, null, 0.9f);
+                        Shake?.Invoke(0.12f);
+                        HoaTrung?.Invoke(cham, 0.3f);
+                    });
             }
-            // SÓNG NHIỆT dọc mặt đất: lưỡi lửa thấp lướt về phía đối thủ, cụm tàn lửa bị thổi tạt
-            Every(L, L + dur, 40 * manh, x =>
+            for (int i = 0; i < 3; i++)
             {
-                float f = U(0.05f, 0.95f);
-                var p = Vector2.Lerp(casterFeet, foeFeet, f) + new Vector2(0, U(-6, 3));
-                if (U(0, 1) < 0.8f)
-                    HoaLuoi(Flame(p, new Vector2(dir * U(420, 720), -U(10, 70)), U(0.22f, 0.36f), U(6, 9), U(11, 17) * manh, "tron", Th.pal,
-                        U(0, 1) < 0.5f ? Back : Front, 2.2f, -60, 1.5f, 0, 0), -1, 0.25f, 0.04f);
-                else HoaTan(p + new Vector2(0, -U(4, 0.5f * casterH)), new Vector2(dir * U(420, 700), -U(20, 120)), U(0.3f, 0.45f), 3, Back);
-            });
+                int j = i;
+                At(L + 0.04f * j, () => SongChi(mouth + dd * 4, mouth + dd * (0.3f * casterH), (0.1f + 0.04f * j) * casterH, (0.45f + 0.08f * j) * casterH, 700,
+                    0.55f));
+            }
+            // SÓNG NHIỆT dọc mặt đất: bỏ (2026-11-19 khuya; người dùng: "tự nhiên thấy mấy đốm lửa spawn ra ở dưới nhìn không đẹp")
 
             // trúng
             float hit = L + fly;
@@ -227,15 +224,10 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.9f);
                 NuocPulse?.Invoke(0.8f);
-                HoaNo(foeBody, 1.05f * manh, tH, foeFeet);
+                HoaNo(foeBody, 1.05f * manh, tH, foeFeet, Front, dir); // khung vẽ sẵn (2026-11-19): "no" sau lưng + "trung_lua" lật theo hướng sóng
                 HoaTan(foeBody, new Vector2(dir * U(160, 320), -U(80, 200)), U(0.45f, 0.65f), 5);
-            });
-            Every(hit, hit + dur, 10, x =>
-            {
-                var p = foeBody + new Vector2(U(-0.22f, 0.22f), U(-0.35f, 0.3f)) * tH;
-                Spark(p, dd + nrm * U(-0.5f, 0.5f), U(300, 520), U(0.14f, 0.24f), U(5, 7), 0, Front, 3);
-                HoaLuoi(Flame(p, new Vector2(dir * U(40, 160), -U(80, 180)), U(0.26f, 0.4f), 6, U(9, 14) * manh, "tron", Th.pal, U(0, 1) < 0.5f ? Back : Front, 2,
-                    -220, 1.5f, 0, 0), 1, 0.5f, 0.05f);
+                // 2026-11-19 khuya: bỏ hai cụm lửa "lua_lap" cháy ở chân đối thủ và lửa / tia rải trên thân suốt tiếng gầm (người dùng: "mấy đốm lửa
+                // spawn ra ở dưới nhìn không đẹp"); chỉ giữ lửa của cú nổ chính
             });
 
             At(hit + dur, () =>
@@ -300,12 +292,27 @@ namespace PokiClash
                         q.col = Dao(Th.spark);
                     }
                 });
-                // lửa chữ S cháy dọc sẹo
-                Every(tk + 0.1f, L, 6, x =>
+                // lửa chữ S cháy dọc sẹo; khung vẽ sẵn (2026-11-19): một cụm lửa lặp nhỏ "lua_lap" cháy giữa mỗi sẹo tới lúc nổ (dạng 1 ít lượt: thêm
+                // một cụm lệch dọc sẹo)
+                if (HasFb("lua_lap"))
                 {
-                    var p = tamSeo[k] + huongSeo[k] * U(-0.55f, 0.55f) * tH * manh;
-                    HoaLuoi(Flame(p, new Vector2(U(-20, 20), -U(50, 120)), U(0.28f, 0.42f), 5, U(8, 12), "tron", Th.pal, Front, 2, -220, 1.4f, 0, 0), 1, 0.5f, 0);
-                });
+                    float sTu = tk + 0.1f;
+                    if (L - sTu > 0.08f)
+                        At(sTu, () =>
+                        {
+                            int nc = n <= 6 ? 2 : 1;
+                            for (int c = 0; c < nc; c++)
+                                HoaFbLua(tamSeo[k] + huongSeo[k] * (nc == 1 ? U(-0.15f, 0.15f) : (c == 0 ? -0.3f : 0.3f)) * tH * manh, U(0.18f, 0.24f) * tH * manh,
+                                    L - sTu + 0.05f, Front, 24, 0.08f, 0.2f);
+                        });
+                }
+                else
+                    Every(tk + 0.1f, L, 6, x =>
+                    {
+                        var p = tamSeo[k] + huongSeo[k] * U(-0.55f, 0.55f) * tH * manh;
+                        HoaLuoi(Flame(p, new Vector2(U(-20, 20), -U(50, 120)), U(0.28f, 0.42f), 5, U(8, 12), "tron", Th.pal, Front, 2, -220, 1.4f, 0, 0), 1, 0.5f,
+                            0);
+                    });
             }
             // hiện lại ở chỗ cũ
             At(Mathf.Max(0.05f, t00 + tHien), () =>
@@ -323,7 +330,7 @@ namespace PokiClash
                 At(L + 0.05f * soNo, () =>
                 {
                     Shake?.Invoke(0.4f);
-                    HoaNo(tamSeo[k] + huongSeo[k] * U(-0.3f, 0.3f) * tH, U(0.5f, 0.7f) * manh, tH);
+                    HoaNo(tamSeo[k] + huongSeo[k] * U(-0.3f, 0.3f) * tH, U(0.5f, 0.7f) * manh, tH, null, Front, huongSeo[k].x >= 0 ? 1 : -1); // khung vẽ sẵn: lật theo sẹo
                     VetLua(tamSeo[k], huongSeo[k], 1.7f * tH * manh, 0.15f * tH, 0.2f, 0, Ink, pc[1], pc[3], pc[1]);
                 });
                 soNo++;
@@ -336,7 +343,7 @@ namespace PokiClash
                 NuocPulse?.Invoke(1f);
                 HoaCauNo(foeBody, foeFeet, tH, dir, 1.5f * manh);
             });
-            At(tLon + 0.14f, () => HoaNo(foeBody + new Vector2(dir * U(4, 22), U(-30, 6)), 0.7f * manh, tH));
+            At(tLon + 0.14f, () => HoaNo(foeBody + new Vector2(dir * U(4, 22), U(-30, 6)), 0.7f * manh, tH, null, Front, dir));
             At(tLon + 0.4f, () =>
             {
                 for (int i = 0; i < 3; i++)

@@ -79,7 +79,7 @@ namespace PokiClash
                     var home = A + new Vector2(dir * (0.25f * RA + RA * Mathf.Cos(th)), -0.75f * RA * Mathf.Sin(th));
                     var aim = foeBody + new Vector2(U(-0.18f, 0.18f) * tH, U(-0.15f, 0.2f) * tH);
                     float launch = goc + tBan + ii * 0.035f;
-                    KimLua(home, aim, ii, launch, (aim - home).magnitude / bay, cols, fr, ext, LEN);
+                    KimLua(home, aim, ii, launch, (aim - home).magnitude / bay, cols, fr, ext, LEN, 0.2f * tH); // vệt khói đuôi kim (2026-11-19 chiều)
                 });
             }
             // đầu trượng nhả tia lửa trong lúc gọi kim; lúc vụt trượng thì rung nhẹ
@@ -166,15 +166,19 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.25f);
                 for (int j = 0; j < 6; j++) Spark(from, -d0 + U2(-0.8f, 0.8f), U(240, 420), 0, 6);
-                HoaCau(Bay, Rb, bay + 0.01f); // khối cầu lửa nhiều múi nhận chỗ, nhận cỡ của cầu rig vừa biến mất
+                // khối cầu lửa nhận chỗ, nhận cỡ của cầu rig vừa biến mất; khung vẽ sẵn (2026-11-19): cầu lửa "cau_lua" (mũi theo hướng lao, đuôi lửa
+                // vẽ sẵn) thay khối nhiều múi
+                // vệt khói đuôi (2026-11-19 chiều): cụm 0,22–0,35 thân theo cỡ cầu
+                if (HoaFbCau(Bay, Rb, bay + 0.01f, Front, true, 0, KhoiCo(R, tH)) == null) HoaCau(Bay, Rb, bay + 0.01f);
             });
-            Every(tBan, L, 60, x =>
-            {
-                var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.5f, 0.5f) * R, -d0 * U(80, 180) + new Vector2(-d0.y, d0.x) * U(-110, 110) + new Vector2(0, -20),
-                    U(0.22f, 0.34f), R * 0.7f, R * 0.7f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
-                HoaLuoi(q, 1, 0.2f, 0);
-                q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
-            });
+            if (!HasFb("cau_lua")) // khung vẽ sẵn: đuôi lửa đã vẽ trong "cau_lua", bỏ chuỗi lưỡi lửa đuôi
+                Every(tBan, L, 60, x =>
+                {
+                    var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.5f, 0.5f) * R, -d0 * U(80, 180) + new Vector2(-d0.y, d0.x) * U(-110, 110) + new Vector2(0, -20),
+                        U(0.22f, 0.34f), R * 0.7f, R * 0.7f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
+                    HoaLuoi(q, 1, 0.2f, 0);
+                    q.sizeFn = (z, k) => z.r1 * Mathf.Pow(1 - k, 1.1f);
+                });
             HoaDuoiKhoi(t => Bay(t) - d0 * R, tBan + 0.03f, L, 13, 17);
             Every(tBan, L, 16, x => Spark(Bay(T), -d0 + U2(-0.6f, 0.6f), U(180, 320), 0, 6));
 
@@ -187,9 +191,9 @@ namespace PokiClash
             At(L + 0.12f, () =>
             {
                 Shake?.Invoke(0.3f);
-                HoaNo(tgt + new Vector2(dir * U(4, 22), U(-30, 6)), non ? 0.55f : 0.8f, tH);
+                HoaNo(tgt + new Vector2(dir * U(4, 22), U(-30, 6)), non ? 0.55f : 0.8f, tH, null, Front, dir); // khung vẽ sẵn: lật theo hướng cầu lao
             });
-            if (!non) At(L + 0.24f, () => HoaNo(tgt + new Vector2(-dir * U(4, 20), U(-12, 14)), 0.55f, tH));
+            if (!non) At(L + 0.24f, () => HoaNo(tgt + new Vector2(-dir * U(4, 20), U(-12, 14)), 0.55f, tH, null, Front, -dir));
             At(L + 0.36f, () =>
             {
                 for (int i = 0; i < 3; i++)

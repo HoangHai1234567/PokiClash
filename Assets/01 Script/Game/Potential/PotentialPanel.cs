@@ -60,8 +60,8 @@ namespace PokiClash
                     $"{set.need[lv - 1]} dòng " + string.Join(", ", Potential.SetBonusOf(set, lv).Select(b => Potential.Text(b.k, b.v)))))));
 
         // chữ trong ô nhỏ: "Mở ở Bạc 1 sao", "Trống" hoặc "Máu\n+13%"
-        public static string CellText(BalanceConfig cfg, PotLine x, bool on, int slot) =>
-            !on ? Potential.SlotNeed(cfg, slot)
+        public static string CellText(BalanceConfig cfg, PotLine x, bool on, int slot, HeroDef hero = null) =>
+            !on ? Potential.SlotNeed(cfg, slot, hero)
             : x == null ? "Trống"
             : $"{Potential.ShortName(x.k)}\n{Potential.Amount(x.k, Potential.Value(cfg, x))}";
 

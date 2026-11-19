@@ -93,7 +93,7 @@ namespace PokiClash.Core
     [Serializable]
     public class HomeConfig
     {
-        public int grid = 48, lot = 8;
+        public int grid = 72, lot = 12; // đảo 72 x 72 ô, 6 x 6 ô rừng 12 x 12 (người dùng dặn 2026-11-19: đảo to ra cho quái đi khắp nơi)
         public List<HomeLotDef> startLots = new List<HomeLotDef>();
         public int[] maxLots = new int[0]; // tổng ô rừng đã mở tối đa theo cấp Nhà (kể cả khoảnh đầu)
         public List<HomeRing> rings = new List<HomeRing>();
@@ -120,8 +120,8 @@ namespace PokiClash.Core
         {
             var c = new HomeConfig();
             if (o == null) return c;
-            c.grid = J.Int(o, "grid", 48);
-            c.lot = J.Int(o, "lot", 8);
+            c.grid = J.Int(o, "grid", 72);
+            c.lot = J.Int(o, "lot", 12);
             foreach (var x in J.Arr(o, "startLots"))
             {
                 var a = J.Arr(x);

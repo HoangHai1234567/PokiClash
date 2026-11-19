@@ -86,7 +86,7 @@ namespace PokiClash
                 bool on = i < open;
                 r.bg.color = on && x != null ? Color.Lerp(PotentialPanel.RarityColor(x.r), Color.white, 0.7f) : on ? Color.white : Theme.Paper2;
                 string set = x != null ? PotentialPanel.SetOf(cfg, x.k) : "";
-                r.text.text = !on ? Potential.SlotNeed(cfg, i) : x == null ? "Trống: khai phá để có dòng"
+                r.text.text = !on ? Potential.SlotNeed(cfg, i, hero) : x == null ? "Trống: khai phá để có dòng"
                     : PotentialPanel.LineText(cfg, x) + (set.Length > 0 ? $" <size=70%><color=#7a6f62>· {set}</color></size>" : "");
                 r.text.color = on ? Theme.Ink : Theme.Ink3;
                 bool line = on && x != null;

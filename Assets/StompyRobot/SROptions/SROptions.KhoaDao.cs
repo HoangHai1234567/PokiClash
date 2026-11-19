@@ -21,6 +21,7 @@ public partial class SROptions
         PokiCheat("Khoá lại hết đảo", (s, d) =>
         {
             foreach (var e in Elements.All) PokiSetIsland(s, d, e, 0);
+            HubIslands.SetShown(s, 0); // sảnh: mây che lại, vào sảnh diễn tan mây đảo của tướng khởi đầu
         });
         PokiIslandsChanged();
     }

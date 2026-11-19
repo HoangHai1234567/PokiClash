@@ -170,6 +170,9 @@ namespace PokiClash
         IEnumerator PrepLater(int id)
         {
             yield return new WaitForSecondsRealtime(0.25f);
+            // thắng boss bấm "Ải tiếp" về đảo: đang diễn mở vùng mới (mây tan, bút chì tô) thì không hiện hộp chuẩn bị đè lên,
+            // chờ diễn xong (cờ mọc hết, nhả khoá chạm) rồi mới mở
+            while (reveal != null) yield return null;
             StagePrep.Open(id);
         }
 
@@ -446,10 +449,12 @@ namespace PokiClash
         }
 
         // vệt đường dọc đường mòn từ ải 1 (quãng from) tới quãng end
-        void DashesAlong(List<TrailPt> poly, float from, float end)
+        // skip: bỏ nét ở chỗ này (toạ độ bản đồ, y xuống), vd. lòng bệ đảo vùng đất khi đường đi xuyên tâm bệ
+        void DashesAlong(List<TrailPt> poly, float from, float end, System.Func<Vector2, bool> skip = null)
         {
             for (float t = from + 36; t < end - 30; t += 60)
             {
+                if (skip != null && skip(PointAt(poly, t))) continue;
                 var dir = Flip(PointAt(poly, t + 2)) - Flip(PointAt(poly, t - 2));
                 var dash = Ui.Spawn(dashPrefab, p.pathLayer);
                 dash.rectTransform.anchoredPosition = Flip(PointAt(poly, t));

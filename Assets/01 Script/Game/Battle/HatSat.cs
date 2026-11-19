@@ -8,7 +8,7 @@
 //   lúc ẩn), cho bay đường cong tăng tốc găm vào thân đối thủ, mũi xoay theo hướng bay, vệt tia bạc; mỗi viên chạm thì chớp + dăm tinh thể;
 //   viên cuối nổ to hơn. Đường bay là mã, đích cố định lúc phát chiêu.
 // - n_sat_dap1 / n_sat_dap (chiêu cuối, phát lúc chạm `cham_dat`): chớp lớn, hai vòng sóng đất, VÒNG CỘT TINH THỂ trồi lên quanh đối thủ rồi
-//   vỡ thành dăm, bụi, đá vụn, rung mạnh (dạng 1 bản nhẹ).
+//   vỡ thành dăm, bụi, đá vụn, rung mạnh (dạng 1 bản nhẹ). Từ 2026-11-19 vòng cột là khung vẽ sẵn "gai_sat" nhuộm oải hương (KmGaiVong).
 // - n_sat_tong (đòn thường, tướng lao tới): chỗ vỏ tinh thể tông vào thân đối thủ: chớp, tia bạc, dăm tinh thể, bụi dưới chân.
 // Chỗ, cỡ, góc ảnh và hướng mũi từng viên lúc ẩn là số đo trên rig đã xuất (phần của chiều cao KHAI cho game, x về phía trước, y lên; độ,
 // 0 = phía trước, 90 = lên): đổi clip cast hay hình thì đo lại bằng ArtGen/Spine/tinh_sat_do_hat.py 1 / 2.
@@ -263,8 +263,11 @@ namespace PokiClash
             KmChop(tam + new Vector2(0, 0.12f * tH), 0.42f * tH * manh, 0.07f, KmBac);
             KmCung(foeFeet + new Vector2(0, 2), 0.1f * tH, 1.15f * tH * manh, 0.42f, SatBac, 0.3f, Floor, 30.6f, 0.9f);
             KmCung(foeFeet + new Vector2(0, 2), 0.05f * tH, 0.75f * tH * manh, 0.55f, SatTim, 0.3f, Floor, 31, 0.7f);
+            // khung vẽ sẵn (2026-11-19, người dùng chê cột kim cũ "gai sắt đâm lên xấu"): vòng cụm gai tinh thể đâm lên bằng khung "gai_sat"
+            // nhuộm oải hương / thép lam (KmGaiVong, HatFbKim.cs); khung đã có bụi đất và vụn vỡ nên bớt dăm, bụi rời. Chưa nhập ảnh: cột kim cũ
+            bool gai = KmGaiVong(foeFeet, tH, manh, SatTimFb, SatThepFb);
             // vòng cột tinh thể quanh đối thủ: sau lưng (nhóm Sau) cao hơn, phía trước thấp hơn
-            int nc = Mathf.RoundToInt(9 * manh);
+            int nc = gai ? 0 : Mathf.RoundToInt(9 * manh);
             for (int i = 0; i < nc; i++)
             {
                 float a = 6.28f * (i + U(-0.2f, 0.2f)) / nc;
@@ -273,12 +276,12 @@ namespace PokiClash
                 bool sau = Mathf.Sin(a) < 0;
                 SatCot(at, U(0.45f, 0.8f) * tH * manh * (sau ? 1.1f : 0.85f), U(0.12f, 0.18f) * tH * manh, 0.03f + 0.02f * (i % 3), sau ? Back : Front);
             }
-            for (int i = 0; i < Mathf.RoundToInt(12 * manh); i++)
+            for (int i = 0; i < Mathf.RoundToInt((gai ? 6 : 12) * manh); i++)
             {
                 float a = U(0, 6.28f);
                 SatDam(tam + U2(-10, 10), new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f) * U(260, 520) * manh, U(13, 21));
             }
-            for (int i = 0; i < Mathf.RoundToInt(10 * manh); i++)
+            for (int i = 0; i < Mathf.RoundToInt((gai ? 4 : 10) * manh); i++)
             {
                 float sd = (i & 1) == 0 ? -1 : 1;
                 Bui(foeFeet + new Vector2(sd * U(0.05f, 0.5f) * tH * manh, U(-5, 2)), new Vector2(sd * U(160, 380) * manh, -U(10, 90)), U(0.5f, 0.8f), 5,

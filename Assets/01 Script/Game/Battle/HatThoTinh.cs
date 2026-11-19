@@ -23,6 +23,9 @@
 //   nó); ép 2,15 → 2,83: vỏ co còn 44 %, run, bụi dăm phì ra, đối thủ co theo (StageViewThoTinh.cs, hai dạng chung); mặt trời đĩa phẳng bốn
 //   lớp + vành lưỡi lửa quay trên đầu đối thủ (3,05); tia nhiệt (3,40); NỔ 3,48: chớp vừa, rung mạnh, vỏ đá văng tứ tung (nảy một lần rồi
 //   nằm, mờ dần), cầu lửa, vành bụi, mây nấm dựng hình (cột + mũ vòm + cuộn mép, lửa → than → xám, tan dần); đáp đất 4,15.
+// KHUNG VẼ SẴN (2026-11-19, HatFlip.cs + HatFbTho.cs; chưa nhập ảnh hat_fb_* thì hạt cũ): bụi, vệt bụi, khói đen là cụm khói vẽ sẵn; đuôi
+// thiên thạch lửa là cầu lửa vẽ sẵn bám đường bay; ba tiếng nổ phụ là lửa trúng vẽ sẵn. GIỮ NGUYÊN (người dùng đã duyệt / không có khung tương
+// ứng): sóng gầm SongChi, mảnh bay, cầu lửa TtCauLua, mây nấm TtNam, mặt trời, tia nhiệt và bông va chạm của tia, cột lửa, ẩn / hiện đối thủ.
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,6 +45,7 @@ namespace PokiClash
         // cầu lửa vụ nổ: bốn lớp từ ngoài vào lõi (đỏ cam, cam, vàng, kem); lớp ngoài nguội dần thành than
         static readonly Color[] TtLuaC = { C(230, 82, 36), C(246, 140, 44), C(252, 204, 78), C(255, 244, 210) };
         static readonly Color TtThan = C(58, 48, 46);
+        static readonly Color TtKhoiDenC = C(150, 142, 140);   // khung vẽ sẵn (2026-11-19): nhuộm khung khói (~124, 109, 102) ra khói đen than (~73, 61, 56)
 
         // ---------- nhịp (giây rig, hai dạng chung) ----------
         const float TtCaoXem = 172.5f;                                     // tướng mình cao chừng này trong bản xem trước
@@ -375,43 +379,9 @@ namespace PokiClash
             MRibbon(Front, 58, a0, b0, N, col, al);
         }
 
-        // một cung sóng gầm: phình từ miệng về phía trước (f), tan dần. Ảnh kr_songam (dải cung lồi +x) nếu đã nhập; không thì mảng liền hình
-        // lưỡi liềm THON hai đầu (dày giữa, nhọn mũi), một viền mực ngoài (người dùng 2026-11-18: "sóng âm chưa đẹp": bỏ dải đều hai viền như ống)
-        void TtSongGam(Vector2 m, Vector2 f, float s)
-        {
-            var p = new P { pos = m, life = 0.42f, group = Front, aim = f, sz = s, seed = rng.Next(4) };
-            p.draw = (q, k, buf) =>
-            {
-                float r = (22 + 135 * EaseOut(k)) * q.sz, a = Mathf.Pow(1 - k, 1.2f);
-                if (a < 0.03f) return;
-                var ff = q.aim;
-                var n = new Vector2(-ff.y, ff.x);
-                var c = q.pos + ff * (0.2f * r);
-                var sp = S("kr_songam_" + q.seed);
-                if (sp != null)
-                {
-                    float ang = VelAng(ff), w = 0.55f * r, h = 2 * r;
-                    Put(buf, Front, 58, SK("kr_songams_" + q.seed, "kr_songam_" + q.seed), Ink, c + ff * (0.45f * r), h + 4, (w + 4) / (h + 4), ang, a);
-                    Put(buf, Front, 58.1f, sp, ToKem, c + ff * (0.45f * r), h, w / h, ang, a);
-                    return;
-                }
-                const int N = 11;
-                float bw = (6.5f - 3f * k) * q.sz, ea = 0.62f * r;
-                int s0 = mp.Count;
-                for (int i = 0; i < N; i++)
-                {
-                    float u = i / (N - 1f), ph = (-56 + 112 * u) * Mathf.Deg2Rad, t = Mathf.Sin(Mathf.PI * u);
-                    mp.Add(c + ff * ((ea + bw * t) * Mathf.Cos(ph)) + n * ((r + bw * t) * Mathf.Sin(ph)));
-                }
-                for (int i = N - 2; i >= 1; i--)
-                {
-                    float u = i / (N - 1f), ph = (-56 + 112 * u) * Mathf.Deg2Rad, t = Mathf.Sin(Mathf.PI * u);
-                    mp.Add(c + ff * ((ea - bw * t) * Mathf.Cos(ph)) + n * ((r - bw * t) * Mathf.Sin(ph)));
-                }
-                MSolid(Front, 58, s0, mp.Count - s0, ToKem, a, 2f);
-            };
-            Add(p);
-        }
+        // một cung sóng gầm phình từ miệng về phía trước (f) rồi tan. 2026-11-19 (người dùng: sóng âm "làm đơn giản thôi ... vài nét vẽ tay tô
+        // chì màu xám nhạt"): cung nét chì xám nhạt không viền (SongChi, HatSongChi.cs), quãng và cỡ giữ như bản cung kem viền mực cũ
+        void TtSongGam(Vector2 m, Vector2 f, float s) => SongChi(m, m + f * (170 * s), 60 * s, 340 * s, 170 * s / 0.38f, 0.9f);
 
         // mảnh bay (lưỡi trăng dạng 2 / mảnh vỏ dạng 1; mảng theo đường viền ảnh của dạng): c = tâm khung ảnh trên sân, d = hướng đáy → đỉnh ảnh
         // (sân), dir: phía đối thủ (ảnh lật khi đối thủ ở bên trái), h / w: cao / rộng khung ảnh. full: viền mực + mặt bên sẫm + hố; không full:
@@ -740,7 +710,7 @@ namespace PokiClash
             float k = TtK(lead, TtCaTr), dir = foeFeet.x >= casterFeet.x ? 1 : -1;
             float sC = casterH / TtCaoXem, tGoi = T;
             // sóng gầm: cung kem phình ra từ miệng, hướng giữa phía trước và đối thủ
-            Every(TtGam0 * k, TtGam1 * k, 9, x =>
+            Every(TtGam0 * k, TtGam1 * k, 5, x => // 5 cung / giây (trước 9: dày quá)
             {
                 float tr = (T - tGoi) / k;
                 var mo = ToSan(casterFeet, casterH, dir, ToDiem(dg.mieng, 0.30f, 0.05f, tr) + dg.miengLech);
@@ -752,7 +722,8 @@ namespace PokiClash
             {
                 var p = casterFeet + new Vector2(-dir * U(-90, 70) * sC, U(-4, 6));
                 ToSoi(p, new Vector2(U(-30, 30), U(-150, -80)) * sC, U(2f, 3.4f) * sC, U(0, 1) < 0.5f ? TtDa : TtDa2, p.y);
-                if (U(0, 1) < 0.45f) ToBui(p, new Vector2(U(-30, 30), -24) * sC, 0.55f, 8 * sC, 16 * sC, Back, false);
+                // khung vẽ sẵn (2026-11-19): bụi đất rung là cụm khói vẽ sẵn nhuộm bụi, chân ở mặt đất, 40 % số cụm, to × 1,2
+                if (U(0, 1) < 0.45f) ToBuiFb(p, new Vector2(U(-30, 30), -24) * sC, 0.55f, 8 * sC, 16 * sC, Back, null, FbBuiC, 0.4f, 1.2f, true);
             });
             At(TtGam0 * k, () => Shake?.Invoke(0.25f * dg.muc));
             int nn = dg.idx.Length;
@@ -765,7 +736,8 @@ namespace PokiClash
                     var p = ToSan(casterFeet, casterH, dir, tach);
                     for (int j = 0; j < 2; j++)
                         ToSoi(p, new Vector2(U(-90, 90), U(-140, -40)) * sC, U(2.5f, 4) * sC, TtDa2, casterFeet.y + U(-2, 8), 0, (j & 1) == 0 ? Front : Back);
-                    ToBui(p, new Vector2(U(-20, 20), -30) * sC, 0.45f, 5 * sC, 12 * sC, Back);
+                    // khung vẽ sẵn (2026-11-19): bụi đá trăng ở đế mảnh là cụm khói vẽ sẵn nhuộm tím nhạt, 60 % số mảnh
+                    ToBuiFb(p, new Vector2(U(-20, 20), -30) * sC, 0.45f, 5 * sC, 12 * sC, Back, null, FbTrangC, 0.6f, 1.1f, false, true);
                 });
             }
             // phóng: theo thứ tự của rig (mảnh phía trước trước), đúng lúc rig ẩn
@@ -817,16 +789,24 @@ namespace PokiClash
                     TtVeManh(dg, buf, 48, b0 - u * (h * 0.18f), u, dir, h, w, 1 - Mathf.Max(0, (q.age - bay - 0.08f) / 0.04f), true);
                 }
             };
+            bool fb = HasFb("khoi");
             p.upd = (q, dt, s) =>                                                  // vệt bụi liền theo quãng mảnh vừa bay (KR5), cụm đứng tại chỗ
             {
                 if (q.age >= bay) return;
-                float f = q.age / bay, buoc = 8 * sc;
+                float f = q.age / bay, buoc = (fb ? 16 : 8) * sc;               // khung vẽ sẵn (2026-11-19): cụm vẽ sẵn nhuộm be, bước gấp đôi
                 var vi = Vi(f);
                 q.R0 += (vi - q.home).magnitude;
                 q.home = vi;
                 if (q.R0 < buoc || f < 0.03f) return;
                 q.R0 -= buoc;
-                var c = s.ToBui(vi - Mui(f) * (0.3f * h), new Vector2(s.U(-12, 12), -s.U(10, 26)) * sc, s.U(0.32f, 0.42f), 4 * sc, s.U(7, 10) * sc, Front, false);
+                var at = vi - Mui(f) * (0.3f * h);
+                if (fb)
+                {
+                    float hh = 22 * sc;
+                    s.FbBui(at + new Vector2(0, 0.42f * hh), new Vector2(s.U(-8, 8), -s.U(6, 16)) * sc, hh, Front, FbCatC, 2.1f, 0.85f, 4);
+                    return;
+                }
+                var c = s.ToBui(at, new Vector2(s.U(-12, 12), -s.U(10, 26)) * sc, s.U(0.32f, 0.42f), 4 * sc, s.U(7, 10) * sc, Front, false);
                 c.col = TtBui4;
             };
             p.home = a0;
@@ -843,7 +823,7 @@ namespace PokiClash
                         TtDaVang(b0, new Vector2(U(-160, 160), U(-220, -60)) * sc, 0.5f * h * U(0.18f, 0.28f), 0.7f, foeFeet.y + U(-4, 8) * sc, Front, U(0, 360),
                             true, rng.Next(4));
                     ToSoiCum(b0, new Vector2(-Mathf.Sign(ab.x) * U(60, 160), U(-220, -120)) * sc, U(3f, 4f) * sc, TtDa, TtDa2, foeFeet.y + U(-4, 8) * sc);
-                    ToCum(b0, new Vector2(U(-30, 30), -30) * sc, 11 * sc * (cuoi ? 1.4f : 1), cuoi ? 4 : 3, Back);
+                    ToCum(b0, new Vector2(U(-30, 30), -30) * sc, 11 * sc * (cuoi ? 1.4f : 1), cuoi ? 4 : 3, Back, 0, FbTrangC, false);   // khung vẽ sẵn: giữa thân
                 });
             });
         }
@@ -915,19 +895,31 @@ namespace PokiClash
                 At(d.gio * k, () =>
                 {
                     var p = new P { pos = d.tu, life = d.bay * k, group = Front };
+                    // khung vẽ sẵn (2026-11-19): đuôi lửa của thiên thạch lửa là CẦU LỬA vẽ sẵn bám đúng đường bay (lõi vàng nấp sau hòn đá, vành lửa
+                    // + đuôi ló ra), thay dải đuôi bốn lớp; thiên thạch bụi giữ dải đuôi bụi
+                    bool cauFb = d.lua && HasFb("cau_lua");
+                    float t0m = T, song = d.bay * k;
+                    System.Func<float, Vector2> viTri = tt => d.tu + (ChoBam(d, (tt - tGoi) / k) - d.tu) * Mathf.Pow(Mathf.Clamp01((tt - t0m) / song), 1.6f);
+                    var huongBay = Unit(ChoBam(d, Tr()) - d.tu);
+                    if (cauFb) FbCauBam(viTri, huongBay, 2.2f * d.sz, song, Front, 49);
+                    // VỆT KHÓI ĐUÔI cho thiên thạch lửa (người dùng 2026-11-19: "fireball ... nên thêm trail smoke vào"): cụm khói 0,22 tH sau hòn đá,
+                    // lớp trước nhưng dưới cầu lửa / hòn đá; thưa (10 cụm / giây) vì ~8 thiên thạch lửa bay cùng lúc; thôi nhả ở 80 % quãng cho khói
+                    // không đọng trên mặt đối thủ
+                    if (d.lua && HasFb("khoi"))
+                        FbKhoiDuoi(() => viTri(T) - huongBay * d.sz, () => (T - t0m) / song < 0.8f, 0.22f * tH, 10, null, Front, 27);
                     p.draw = (q, kk, buf) =>
                     {
                         float f = Mathf.Min(1, q.age / q.life), tr = Tr();
                         var b = ChoBam(d, tr);
-                        TtDuoi(d.tu, b, f, d.sz, d.lua, tr);
+                        if (!cauFb) TtDuoi(d.tu, b, f, d.sz, d.lua, tr);
                         var pos = d.tu + (b - d.tu) * Mathf.Pow(f, 1.6f);
                         TtVeDa(buf, Front, 50, pos, 0.47f * 1.1f * d.sz, d.ang - dir * 200 * f, d.seed, 1, d.vun);
                     };
                     p.onDeath = (q, s) =>                                        // bám: bụi, dăm, rung khẽ; thành một hòn của vỏ tới lúc nổ
                     {
                         var b = ChoBam(d, Tr());
-                        var bb = ToBui(b, new Vector2(U(-20, 20), -15) * sc, 0.42f, 6 * sc, 13 * sc, d.z >= 0 ? Front : Back, false);
-                        bb.col = TtBui4;
+                        // khung vẽ sẵn: bụi bám là cụm khói vẽ sẵn nhuộm be, nửa số hòn
+                        ToBuiFb(b, new Vector2(U(-20, 20), -15) * sc, 0.42f, 6 * sc, 13 * sc, d.z >= 0 ? Front : Back, TtBui4, FbCatC, 0.5f, 1.1f);
                         if (U(0, 1) < 0.5f) ToSoi(b, new Vector2(U(-120, 120), U(-150, -40)) * sc, U(1.8f, 3f) * sc, TtDa2, foeFeet.y + U(-4, 8) * sc);
                         Shake?.Invoke(0.03f * m);
                         float con = tNoAbs - T;
@@ -952,8 +944,8 @@ namespace PokiClash
                 float a = U(0, 6.28f);
                 var u = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
                 var p = C0 + u * (RS0 * TtVo(Tr()) * 0.95f);
-                var b = ToBui(p, u * U(40, 90) * sc, 0.5f, 7 * sc, 15 * sc, u.y < -0.2f ? Back : Front, false);
-                b.col = TtBui4;
+                // khung vẽ sẵn (2026-11-19): bụi phì ra ở mép vỏ là cụm khói vẽ sẵn nhuộm be, 40 % số cụm, to × 1,3
+                ToBuiFb(p, u * U(40, 90) * sc, 0.5f, 7 * sc, 15 * sc, u.y < -0.2f ? Back : Front, TtBui4, FbCatC, 0.4f, 1.3f);
                 if (U(0, 1) < 0.5f) ToSoi(p, (u * U(80, 160) + new Vector2(0, -60)) * sc, U(1.8f, 3f) * sc, TtDa2, foeFeet.y + U(-4, 8) * sc);
             });
 
@@ -978,30 +970,51 @@ namespace PokiClash
             Every((TtSkGoi + 0.1f) * k, (TtSkNo + 0.4f) * k, 5, x => TtHoiNong(sun + new Vector2(U(-30, 30), 20) * sc, 30 * sc));
 
             // 5. tia nhiệt từ đáy mặt trời xuống quả cầu đá; lửa toé ở chỗ tia đập vào vỏ
-            At(TtSkTia * k, () =>
+            // TIA VẼ SẴN (2026-11-19, HatTiaFb.cs; người dùng: "tia năng lượng ... nhìn vẫn chưa đã"): có bộ da DaTiaLua thì tia là các đoạn lửa vẽ
+            // sẵn trôi từ đáy mặt trời xuống mặt vỏ đá (bám mặt trời đang phình và vỏ đang co), cầu lửa xoáy tụ ở đáy mặt trời 0,2 s, bông lửa
+            // toé lặp ở chỗ chạm; dày 0,28 casterH (chiêu cuối). Nối giờ như NTiaKhung (HatFbThuy.cs): gọi sớm tụ + vươn (quãng / 2600, kẹp
+            // 0,07–0,14) để CHẠM đúng mốc tia cũ TtSkTia; dội 0,32 s rig (tới lúc tia cũ bắt đầu rút từ trên xuống), rồi đuôi tia bay nốt vào vỏ.
+            // Bỏ thân tia mảng liền, lưỡi lửa liếm và ba bông va chạm cũ (khung bông trúng lo); giữ rung, vòng va chạm nhấp, giờ nổ, giờ trả về
+            bool tiaFb = HasTia(DaTiaLua);
+            if (tiaFb)
             {
-                Shake?.Invoke(0.35f * m);
-                var p = new P { pos = sun, life = 0.5f * k, group = Front };
-                p.draw = (q, kk, buf) =>
+                Vector2 TiaTu() => new Vector2(sun.x, sun.y + 0.6f * RSun(Tr()));
+                Vector2 TiaToi() => C0 + new Vector2(0, -RS0 * TtVo(Tr()) * 0.85f);
+                float tTuTia = 0.2f * k;
+                var tu0 = new Vector2(sun.x, sun.y + 0.6f * RSun(TtSkTia));
+                var toi0 = C0 + new Vector2(0, -RS0 * TtVo(TtSkTia) * 0.85f);
+                float tVuon = Mathf.Clamp((toi0 - tu0).magnitude / 2600f, 0.07f, 0.14f);
+                // cầu đầu nòng nhỏ hơn mặt trời (cao ~65 đơn vị sân theo cỡ mặt trời; mặc định 2,3 × bề dày ≈ 110 đè mặt trời lúc tụ): nongK ~0,6
+                float dayTia = 0.28f * casterH, nongK = Mathf.Clamp(65 * sc * mo / (DaTiaLua.nongCo * dayTia), 0.35f, 1f);
+                At(Mathf.Max(0, TtSkTia * k - tVuon - tTuTia), () => TiaFb(DaTiaLua, TiaTu, TiaToi, dayTia, tTuTia, 0.32f * k, Front, 36, null, nongK));
+                At(TtSkTia * k, () => Shake?.Invoke(0.35f * m));
+            }
+            else
+                At(TtSkTia * k, () =>
                 {
-                    float tr = Tr();
-                    TtTia(sun, C0 + new Vector2(0, -RS0 * TtVo(tr) * 0.85f), sc * mo, tr, RSun(tr));   // chân tia đặt đúng mặt trên vỏ đá
-                };
-                Add(p);
-            });
+                    Shake?.Invoke(0.35f * m);
+                    var p = new P { pos = sun, life = 0.5f * k, group = Front };
+                    p.draw = (q, kk, buf) =>
+                    {
+                        float tr = Tr();
+                        TtTia(sun, C0 + new Vector2(0, -RS0 * TtVo(tr) * 0.85f), sc * mo, tr, RSun(tr));   // chân tia đặt đúng mặt trên vỏ đá
+                    };
+                    Add(p);
+                });
             // chỗ tia đập vào vỏ: BÔNG va chạm toé lên + vòng va chạm nhấp liên tục, lưỡi lửa nhỏ liếm ra hai bên (tia không cụt lủn giữa không trung)
-            Every((TtSkTia + 0.02f) * k, TtSkNo * k, 40, x =>
-            {
-                float a = U(-Mathf.PI * 0.95f, -Mathf.PI * 0.05f);
-                var q = Flame(C0 + new Vector2(U(-14, 14) * sc, -RS0 * TtVo(Tr()) * 0.85f), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(140, 240) * sc, U(0.2f, 0.32f),
-                    5 * sc, 11 * sc, "tron", "lua", Front, 1.8f, -120, 1.2f, 0.25f, 0.05f);
-                Tongue(q, 1, 0.3f);
-            });
+            if (!tiaFb)
+                Every((TtSkTia + 0.02f) * k, TtSkNo * k, 40, x =>
+                {
+                    float a = U(-Mathf.PI * 0.95f, -Mathf.PI * 0.05f);
+                    var q = Flame(C0 + new Vector2(U(-14, 14) * sc, -RS0 * TtVo(Tr()) * 0.85f), new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(140, 240) * sc,
+                        U(0.2f, 0.32f), 5 * sc, 11 * sc, "tron", "lua", Front, 1.8f, -120, 1.2f, 0.25f, 0.05f);
+                    Tongue(q, 1, 0.3f);
+                });
             for (int j = 0; j < 3; j++)
                 At((TtSkTia + 0.01f + 0.035f * j) * k, () =>
                 {
                     var cham = C0 + new Vector2(0, -RS0 * TtVo(Tr()) * 0.85f);
-                    ToBong(cham, new Vector2(0, 1), (0.5f - 0.08f * j) * tH * mo, TtLua[2], Front, 0.14f);
+                    if (!tiaFb) ToBong(cham, new Vector2(0, 1), (0.5f - 0.08f * j) * tH * mo, TtLua[2], Front, 0.14f);
                     ToVongVa(cham, 0.5f * tH * mo, 0.18f, 0.4f);
                 });
 
@@ -1079,27 +1092,43 @@ namespace PokiClash
                 {
                     float a = U(0, 6.28f);
                     var p = C0 + new Vector2(Mathf.Cos(a), 0.7f * Mathf.Sin(a)) * U(0.35f, 0.6f) * tH * mo;
-                    ToChop(p, 0.34f * tH * mo, Front, 0.12f);
-                    for (int i = 0; i < 4; i++)
-                        Tongue(Flame(p, U2(-120, 120) * sc + new Vector2(0, -80 * sc), U(0.25f, 0.36f), 6 * sc, 13 * sc * mo, "tron", "lua", Front, 2, -160, 1.3f, 0.4f, 0.05f),
-                            1, 0.25f);
+                    // khung vẽ sẵn (2026-11-19): tiếng nổ phụ là lửa trúng vẽ sẵn (có chớp sao ở khung đầu), hướng toé ra xa tâm nổ; thay chớp + bốn lưỡi
+                    // lửa. Đối thủ đang ẩn trong cầu lửa nên để lớp trước, dưới cầu lửa / mây nấm
+                    if (HasFb("trung_lua")) Fb("trung_lua", p, 0.6f * tH * mo, Front, 36, 1.3f, U(-25, 25), p.x < C0.x);
+                    else
+                    {
+                        ToChop(p, 0.34f * tH * mo, Front, 0.12f);
+                        for (int i = 0; i < 4; i++)
+                            Tongue(Flame(p, U2(-120, 120) * sc + new Vector2(0, -80 * sc), U(0.25f, 0.36f), 6 * sc, 13 * sc * mo, "tron", "lua", Front, 2, -160, 1.3f, 0.4f,
+                                0.05f), 1, 0.25f);
+                    }
                     Shake?.Invoke(0.12f * m);
                 });
             }
             // KHÓI ĐEN: cụm to bay toả ra (phần lớn lớp trước, phủ chỗ đối thủ), cụm thấp lan ngang sát đất; tan dần bay lên, không vụt tắt
             // khói than cụm nhiều múi (đỉnh nhạt, đáy đậm), một số cụm to tách đôi ba giữa đời; ít hạt hơn mà to, hoà thành một khối liền
+            // khung vẽ sẵn (2026-11-19): khói đen là cụm khói vẽ sẵn nhuộm than đậm, ít mà to (35–40 % số cụm, cao 2,2 bán kính cũ), trong 0,88, chạy
+            // chậm (khung vỡ mảnh ~1 s sau khi sinh) và mỏng dần 0,5 s cuối: đối thủ hiện mờ dần sau khói như người dùng dặn 2026-11-18
+            bool khoiFb = HasFb("khoi");
             Every(L + 0.1f, L + 0.62f, 40 * m, x =>
             {
                 float a = -Mathf.PI * U(-0.15f, 1.15f);
                 var u = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
-                ToKhoi(C0 + u * U(0, 0.3f) * tH, u * U(50, 150) * sc * mo + new Vector2(0, -U(10, 50) * sc), U(1.7f, 2.3f), 20 * sc,
-                    U(46, 66) * sc * mo, U(0, 1) < 0.75f ? Front : Back, U(0, 1) < 0.3f);
+                var c = C0 + u * U(0, 0.3f) * tH;
+                var v = u * U(50, 150) * sc * mo + new Vector2(0, -U(10, 50) * sc);
+                float r1 = U(46, 66) * sc * mo, song = U(1.7f, 2.3f);
+                int g = U(0, 1) < 0.75f ? Front : Back;
+                if (!khoiFb) ToKhoi(c, v, song, 20 * sc, r1, g, U(0, 1) < 0.3f);
+                else if (U(0, 1) < 0.35f) FbBui(c + new Vector2(0, 0.45f * 2.2f * r1), v * 0.6f, 2.2f * r1, g, TtKhoiDenC, 0.6f, 0.88f, 4, 32, 0.75f * song, 0.5f);
             });
             Every(L + 0.15f, L + 0.5f, 16 * m, x =>
             {
                 float d = U(0, 1) < 0.5f ? -1 : 1;
-                ToKhoi(new Vector2(C0.x + d * U(0, 40) * sc, foeFeet.y - U(10, 30) * sc), new Vector2(d * U(120, 220), -U(10, 40)) * sc * mo,
-                    U(1.4f, 1.9f), 16 * sc, U(36, 50) * sc * mo, Front, false);
+                var c = new Vector2(C0.x + d * U(0, 40) * sc, foeFeet.y - U(10, 30) * sc);
+                var v = new Vector2(d * U(120, 220), -U(10, 40)) * sc * mo;
+                float r1 = U(36, 50) * sc * mo, song = U(1.4f, 1.9f);
+                if (!khoiFb) ToKhoi(c, v, song, 16 * sc, r1, Front, false);
+                else if (U(0, 1) < 0.4f) FbBui(c + new Vector2(0, 0.3f * 2.2f * r1), v * 0.6f, 2.2f * r1, Front, TtKhoiDenC, 0.7f, 0.88f, 4, 32, 0.75f * song, 0.5f);
             });
 
             // 7. đáp đất

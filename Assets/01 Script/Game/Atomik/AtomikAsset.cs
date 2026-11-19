@@ -136,7 +136,8 @@ namespace PokiClash.Game
         // slot này riêng một ảnh, hiện không qua viền giấy. Rỗng = như cũ, mọi thứ chung một ảnh có viền.
         public string[] plain;
         // khung vẽ của tướng trên sân tính bằng số lần chiều cao khai (AolaSticker); 0 = mặc định 3,4. Rig có đòn vươn xa hơn ±1,7 chiều cao
-        // quanh chân (Viêm Đao bổ đao, liên hoàn chém) khai lớn hơn để hình không bị mép khung cắt dọc (2026-11-14)
+        // quanh chân (Viêm Đao bổ đao, liên hoàn chém) khai lớn hơn để hình không bị mép khung cắt dọc (2026-11-14). Từ 2026-11-19 không
+        // cần khai nữa: camera bám xương move, clip vươn xa tự nới khung theo AtomikAsset.fit; số khai vẫn là khung nền (cỡ RenderTexture).
         public float span;
     }
 
@@ -151,6 +152,11 @@ namespace PokiClash.Game
         public AtomikClip[] anims;
         public AtomikMask[] masks;      // bản 3; rig cũ: null hoặc rỗng
         public AtomikGame game;
+        // Khung bao hình từng clip, AtomikImporter đo lúc nhập (không có trong file .atomik): mỗi clip 3 số [|x| lớn nhất, đỉnh, đáy]
+        // theo chiều cao dáng đứng, gốc ở chân, đã trừ chỗ xương move (ngang trọn, dọc chỉ phần lên) vì AolaSticker cho camera bám
+        // xương đó. AolaSticker nới khung camera cho clip vươn xa hơn khung mặc định (2026-11-19: tướng biến mất giữa chiêu vì thân lao
+        // ra ngoài khung ảnh). null: nhập trước khi có số đo.
+        public float[] fit;
         public Texture2D atlas;
         public Material material;
 

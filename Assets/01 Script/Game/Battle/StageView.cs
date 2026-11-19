@@ -55,8 +55,31 @@ namespace PokiClash
         void FoePulse(float k)
         {
             var v = actors[nuocTarget];
-            if (v != null) v.flash = Mathf.Max(v.flash, 0.05f + 0.09f * k);
+            if (v != null)
+            {
+                v.flash = Mathf.Max(v.flash, 0.05f + 0.09f * k);
+                NhunTrung(v, 0.03f + 0.045f * k, 0.42f + 0.38f * k);
+            }
             Bump(nuocTarget, 2f + 3.5f * k);
+        }
+
+        // GAME JUICE lúc trúng đòn (người dùng 2026-11-19: "khi tướng bị ăn đòn thêm splash trắng và hơi nhún nhẹ (không phải anim nhún mà là
+        // nhún bằng code, animation chạy bình thường)"): bóp cả gốc tướng (bè ngang, lùn xuống rồi nảy lại, tắt dần ~0,25 s) và một bông toé
+        // trắng vẽ sẵn (khung "trung_trang") ở thân, lệch về phía kẻ đánh. Nhịp dội liên tục (tia, sóng) không phát bông quá 7 lần / giây.
+        void NhunTrung(Actor a, float bienDo, float coToe)
+        {
+            if (a == null || a.dead > 0) return;
+            float now = Time.unscaledTime;
+            float conLai = a.nhunA * Mathf.Exp(-(now - a.nhunLuc) / 0.085f);
+            a.nhunA = Mathf.Max(conLai, bienDo);
+            a.nhunLuc = now;
+            var hat = Hat;
+            if (hat == null || coToe <= 0 || now - a.toeLuc < 0.14f) return;
+            a.toeLuc = now;
+            var than = Body(a.side);
+            var veKeDanh = (Pos[1 - a.side] - Pos[a.side]).normalized;
+            var cho = than + veKeDanh * (0.16f * a.H) + new Vector2(UnityEngine.Random.Range(-0.08f, 0.08f), UnityEngine.Random.Range(-0.1f, 0.05f)) * a.H;
+            hat.Fb("trung_trang", cho, coToe * a.H, HatLua.Front, 60, 1.7f, UnityEngine.Random.Range(-35f, 35f), UnityEngine.Random.value < 0.5f);
         }
 
         HatLua Hat
@@ -135,6 +158,7 @@ namespace PokiClash
             { "phong_linh", "n_hat_nga" }, // Lâm Tượng (HatVoi.cs): bụi lúc chân sau đạp, lá tuột lại lúc bay, nện + hất ngà
             { "thanh_long", "n_rong_dam" }, // suất này nay là rồng trúc bốn cánh, boss cuối đảo Mộc (2026-11-13, HatRong.cs): dậm hai chân trước, địa chấn chạy tới, sét giáng vào đầu đối thủ
             { "moc_tinh", "n_giac_dam" }, // suất này nay là Giác Mộc, thú cổ thụ một sừng (2026-11-13, HatGiac.cs): co chân trước dậm xuống, đất nứt chạy tới đối thủ
+            { "gio_loc", "n_mo_dam" }, // Linh Điểu (HatChim.cs): lao tới đâm mỏ: bụi bật, gió và lá tuột lại, chớp toé chỗ mỏ chạm
         };
 
         // bộ Mộc (2026-11-12, HatMoc.cs; mã cũng bắt đầu bằng "n_" nên đi chung đường với bộ Thủy): chiêu mana, chiêu cuối theo dạng.
@@ -146,7 +170,7 @@ namespace PokiClash
             { "gac_da", ("n_da_va", new[] { "n_cau_la", "n_cau_la" }) }, // Gạc Đá (HatDa.cs): hai tảng tay bay tới nện, đá vụn văng; chiêu cuối tụ cầu năng lượng (gió, lá bị hút vào) rồi ném
             { "phong_linh", ("n_voi_phun", new[] { "n_dam_rung1", "n_dam_rung" }) }, // Lâm Tượng (HatVoi.cs): vòi phụt hạt cây + lá; chiêu cuối dậm chân, sóng đất, rễ và cột lá trồi
             { "bom_la", ("n_cau_tia", new[] { "n_cau_mom1", "n_cau_mom" }) }, // Lộc Phong (HatLoc.cs): tụ cầu nhỏ giữa hai gạc rồi bắn tia; chiêu cuối dựng người há mồm tụ cầu to rồi gật đầu nện
-            { "gio_loc", ("n_re_troi", new[] { "n_tru_giang1", "n_tru_giang" }) }, // suất này nay là Cổ Vương, tượng vua cổ rễ quấn cầm cột (2026-11-17, HatCoVuong.cs): cắm cột / nện tay, rễ trồi dọc đất tới đối thủ rồi quấn (3 nhát); chiêu cuối cột (mảnh của rig, xương fly_cot) giáng xuống đối thủ: dạng 1 cột nhỏ, dạng 2 cột khổng lồ rồi bay về tay
+            { "gio_loc", ("n_la_gam", new[] { "n_thach_roi1", "n_thach_roi" }) }, // Linh Điểu (HatChim.cs): quạt cánh, lá cánh bay găm vào đối thủ rồi về cánh (lá là mảnh của rig, xương fly_*); chiêu cuối gọi tảng đá rơi từ trời xuống đầu đối thủ (dạng 1 tảng nhỏ hơn). 2026-11-17 suất bị Cổ Vương đè nhầm, trả lại 2026-11-19
             { "long_vuot", ("n_gai_va", new[] { "n_la_va", "n_la_va" }) }, // suất này nay là dòng người cây đầm lầy (2026-11-12): giơ tay gọi dây gai quật rồi trói (dây gai là mảnh của rig, xương far): gai gãy văng lúc quật trúng; chiêu cuối tụ quả cầu dây leo (mảnh của rig) rồi nhảy tới nện: lá vỡ tung lúc chạm
             { "thanh_long", ("n_rong_gam", new[] { "n_rong_van", "n_rong_van", "n_rong_van" }) }, // rồng trúc bốn cánh (HatRong.cs): gầm, các đợt sóng âm lao tới, rung màn; chiêu cuối Vạn Diệp: kén cánh bung, bão lá chém, rừng măng trúc đâm lên, sét kết liễu
             { "moc_tinh", ("n_giac_tia", new[] { "n_giac_tim", "n_giac_tim" }) }, // Giác Mộc (HatGiac.cs): ngẩng lên tụ cầu ở đỉnh sừng rồi cúi xuống bắn tia; chiêu cuối mở vỏ ngực, quả tim rực sáng bắn tia lớn
@@ -198,6 +222,7 @@ namespace PokiClash
             { "cao_da", (new[] { "n_thiem_phun", "n_thiem_phun2" }, new[] { "n_thiem_lan", "n_thiem_bo2" }) }, // Tê Thiềm Nhi (thu_da_1) / Tê Thiềm (thu_da_2): há hàm hút đá, phun tảng đá; chiêu cuối cuộn tròn lăn nện / nhảy tới bổ khối pha lê (cả hai rig khai lunge cho skill)
             { "ho_khoan", (new[] { "n_long_luoi1", "n_long_luoi" }, new[] { "n_long_cot1", "n_long_cot" }) }, // Sa Long Nhi (rong_cat_non) / Sa Long (rong_cat_1): hai / ba lưỡi cát trăng khuyết; chiêu cuối nện đất, vết nứt, hai / ba cột sa thạch
             { "phu_van", (new[] { "n_vien_chan" }, new[] { "n_vien_tang" }) }, // Sơn Viên (rig quy_nui_1, cả hai dạng): nện đất, sóng chấn gai đá; chiêu cuối tụ tảng đá khổng lồ trên tay phụ, bốn tay ném
+            { "hat_de", (new[] { "n_re_troi" }, new[] { "n_tru_giang1", "n_tru_giang" }) }, // suất này nay là Cổ Vương, tượng vua cổ rễ quấn cầm cột (2026-11-17, tướng 6 đảo Thổ; ghép nhầm vào gio_loc đảo Mộc, chuyển về đây 2026-11-19; HatCoVuong.cs, màu WThemes "hat_de"): cắm cột / nện tay, rễ trồi dọc đất tới đối thủ rồi quấn; chiêu cuối cột (mảnh của rig, xương fly_cot) giáng xuống đối thủ: dạng 1 cột nhỏ, dạng 2 cột khổng lồ rồi bay về tay
             { "rua_nui", (new[] { "n_trung_gai" }, new[] { "n_trung_mieng" }) }, // Sa Trùng (rig sau_dat_1, ải 40; dạng 1 tạm cùng rig): giáng đầu, ba gai đá đầu ngạnh; chiêu cuối lặn, gò đất chạy ngầm, trồi ngoạm
             { "ho_kim_cuong", (new[] { "n_bun_troi" }, new[] { "n_bun_ngoam" }) }, // suất này nay là Bùn Ngoạm, quái bùn (2026-11-17, rig quai_bun_1, ải 50, HatBun.cs): cắm tay xuống bùn, nắm đấm bùn khổng lồ của rig trồi dưới đối thủ; chiêu cuối lao ngoạm NUỐT đối thủ (StageViewNuot.cs giấu nó), thành quả bóng, 22 gai đâm xuyên, NHỔ nó bay về chỗ. Một dạng (thêm dạng 1 thì thêm mã vào mảng)
             { "cu_phu", (new[] { "n_thach_xoay1", "n_thach_xoay" }, new[] { "n_thach_cau1", "n_thach_cau" }) }, // suất này nay là Thiên Thạch Thú (HatThach.cs): Thiên Thạch Thú Non (rig tinh_hach_non, ba thiên thạch, quả cầu nhỏ) / Thiên Thạch Thú (tinh_hach_1, năm thiên thạch)
@@ -212,6 +237,7 @@ namespace PokiClash
             { "cao_da", new[] { "n_thiem_giang", "n_thiem_dam2" } }, // Tê Thiềm: chồm giáng sừng / lao đâm mũi khối pha lê
             { "ho_khoan", new[] { "n_long_vuot1", "n_long_vuot" } }, // Sa Long: lao chém vuốt: ba vệt vuốt, dăm cát (dạng 1 nhẹ hơn)
             { "phu_van", new[] { "n_vien_dam" } }, // Sơn Viên: lao tới liên hoàn ba đấm, cú cuối có vòng bụi
+            { "hat_de", new[] { "n_vuong_huc", "n_tru_dap" } }, // Cổ Vương Nhi / Cổ Vương (HatCoVuong.cs): lao húc chóp vương miện / lao tới đập cột xuống đầu đối thủ
             { "rua_nui", new[] { "n_trung_dop" } }, // Sa Trùng: đớp nghiền: vết cắn lớn, dăm đá, hai nhịp nghiến
             { "ho_kim_cuong", new[] { "n_bun_danh" } }, // Bùn Ngoạm (rig khai stay + far): tay bùn co giãn tới đấm đối thủ: giọt bùn rơi theo tay, toé bùn
             { "cu_phu", new[] { "n_thach_vo" } }, // Thiên Thạch Thú (HatThach.cs; phiên assets-3c)
@@ -224,7 +250,6 @@ namespace PokiClash
             { "thiet_phu", new[] { "n_robot_ban1", "n_robot_ban" } }, // Thần Cơ (HatRobot.cs): đứng giơ tay phải tụ cầu năng lượng ở ổ nắm đấm rồi bắn, tay giật lùi
             { "ung_thep", new[] { "n_phao_ban1", "n_phao_ban" } }, // Pháo Giáp (HatPhao.cs): đứng nâng nòng bắn một quả đạn sắt vòng cung, nổ lửa
             { "kim_nghe", new[] { "n_vua_an1", "n_vua_an" } }, // Nhật Vương (HatVua.cs): "Nhật Ấn", đứng vụt trượng nện đất, đường lửa chạy tới đối thủ, ấn + cột năng lượng
-            { "gio_loc", new[] { "n_vuong_huc", "n_tru_dap" } }, // Cổ Vương Nhi / Cổ Vương (HatCoVuong.cs): lao húc chóp vương miện / lao tới đập cột xuống đầu đối thủ
         };
 
         // form: dạng đang ra trận (0 là dạng đầu); chỉ tướng có trong AtkDang chọn theo dạng
@@ -455,6 +480,7 @@ namespace PokiClash
             public float impactAt = -1; // cảm giác trúng dời tới giờ sân này (chiêu nước còn bay)
             public string impactClip;
             public float recoil = -1, push; // bật lùi do cú trúng có impact: giây sân đã qua (-1 = không), quãng theo chiều cao
+            public float nhunLuc = -9, nhunA, toeLuc = -9; // nhún bằng code + bông toé trắng lúc trúng đòn (game juice 2026-11-19): giờ thật, biên độ
             public bool loop = true;
             public ClipHandle handle;
             public Action onHit;
@@ -707,6 +733,8 @@ namespace PokiClash
             if (a == null || a.dead > 0) return;
             a.flash = 0.16f;
             float pw = Power(1 - side);
+            if (dot) NhunTrung(a, 0.03f, 0);
+            else NhunTrung(a, big ? Mathf.Lerp(0.085f, 0.12f, pw) : Mathf.Lerp(0.055f, 0.08f, pw), big ? 0.95f : 0.7f);
             if (dot) Bump(side, 2.5f);
             else
             {
@@ -1641,6 +1669,9 @@ namespace PokiClash
             if (nuot == 2) NhoDat(a, nk, ntf, x, y, ref ox, ref oy, ref rot); // bị nhổ: bay theo cung từ miệng kẻ đánh về chỗ, nảy
             TinhDat(a, ref ox, ref oy, ref alpha); // bị Thổ Tinh đánh: co vào vỏ đá, bẹp, giật theo lưỡi trăng (StageViewThoTinh.cs)
             a.rt.anchoredPosition = P(x + ox, y + oy);
+            // nhún bằng code lúc trúng đòn (NhunTrung): dao động tắt dần, gốc ở chân; animation của rig chạy bình thường bên trong
+            float tn = Time.unscaledTime - a.nhunLuc, nh = tn < 0.4f ? a.nhunA * Mathf.Exp(-tn / 0.085f) * Mathf.Cos(tn * 37f) : 0;
+            a.rt.localScale = new Vector3(1 + nh, 1 - 0.9f * nh, 1);
             a.rt.localEulerAngles = new Vector3(0, 0, -rot * Mathf.Rad2Deg);
 
             if (a.aola != null)

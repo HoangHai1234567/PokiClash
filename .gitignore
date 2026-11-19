@@ -48,7 +48,14 @@ ArtGen/Spine/inbox/*/parts/
 # Trang so sánh hiệu ứng từng tướng: ảnh chụp trong game (rig gốc của game khác, aola), chỉ xem trên máy; sinh lại bằng xay_trang.py
 /ArtGen/XemVfx/anh/
 /ArtGen/XemVfx/data.json
+/ArtGen/XemVfx/chup/
+
+# Ảnh mẫu style VFX người dùng gửi (4 gói vector stock của bên thứ ba, 2026-11-19): chỉ để đối chiếu trên máy
+/ArtGen/StyleRefs/vfx_mau/
 
 # Epic Toon FX (Asset Store, bản quyền theo người mua): chỉ để học cách làm hiệu ứng, không commit, không tham chiếu từ prefab của game
 /Assets/Epic Toon FX/
 /Assets/Epic Toon FX.meta
+# VFX gen: GIF xem thử và bản tách ô cờ (sinh lại bằng ArtGen/Spine/vfx_gen/cat_khung.py)
+/ArtGen/Spine/vfx_gen/xem/
+/ArtGen/Spine/vfx_gen/trong/*_sach.png

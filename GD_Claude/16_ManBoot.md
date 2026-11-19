@@ -80,6 +80,52 @@ Người dùng dặn: cải thiện giao diện các màn, giữ nguyên ảnh �
 - Dựng lại bằng menu `PokiClash/Prefab/Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo` (`Editor/UiRefreshMenu.cs`, chạy lại không nhân đôi).
 - Chụp mọi màn để soi: đang Play thì chạy menu `PokiClash/Thử/Chụp mọi màn để soi giao diện (đang Play)`. Ảnh ra `Temp/PokiShots/ui/`.
 
+## Màn tải chuyến tàu, bến tàu sảnh ↔ Nhà (2026-11-19, thay màn sa bàn)
+
+Người dùng dặn: sảnh có bến tàu cạnh đảo Thủy, đậu một con tàu. Ấn về Nhà thì tàu đi lên, đi tới đâu mây toả ra rồi khép lại tới đó, tới bến ở mép dưới đảo Nhà; về đảo thì đi ngược lại. Màn tải là con tàu đi trên biển lên trên, tải xong thì tàu cập bến chỗ các đảo luôn (không chạm để vào).
+
+- **Ảnh** (`ArtGen/Islands/sanh_moi/ben_tau/`):
+  - bến: GPT sửa vùng góc đông nam đảo Thủy (`ben_tau_vung.txt`, `ben_tau_vung_1.png`). `ghep_ben.py` dò khớp rồi chỉ dán phần đổi (bến, thùng, đèn, chỗ bỏ hòn đá và san hô). Ra `concept_I_ben_tau.png`, `build_sanh.py` đọc ảnh này.
+  - tàu: một tờ GPT ba hướng cùng một tàu (`tau_3_huong.txt`, `tau_3_huong_1.png`). `cat_tau.py` cắt ra `Assets/03 Art/Ship/tau_len|tau_xuong|tau_ngang.png`, gốc (0,5; 0,25) ở mớn nước. Script cũng ra nét sóng `tau_song_*` cắt từ tranh, bọt `tau_bot_*`, mặt biển lát `tau_bien.png` (màu biển bản đồ, vân chì −38°).
+  - mây che đảo Thủy chừa vùng chỗ đậu (`AVOID` trong `build_sanh.py`): người mới chơi vẫn thấy tàu cập bến.
+  - vành mây vẽ liền của bản đồ bị thay bằng biển (`open_sea` trong `build_sanh.py`, người dùng: "mây xung quanh đảo chính cứ tách riêng ra để khi đi thì nó tách luôn"). Ảnh nới thêm biển 90 px trên, 170 px dưới, nên bến khỏi sát mép.
+  - Tách từng đảo (người dùng: "tách từng đảo 1 ra rồi xếp chúng lại", "drag ra rìa vẫn phải thấy mây và nước", "sao mây che luôn cả các đảo"), làm bằng `tach_dao.py`, `build_sanh.py` gọi.
+    - Mỗi hệ một ảnh trong suốt (`Assets/03 Art/Islands/sanh_dao_<hệ>.png`, khoá `islands`). Ảnh giữ viền bọt ven bờ, mép bờ mềm; mép cắt giữa hai đảo chồng 2 px. Vật nhỏ trên biển theo đảo gần nhất.
+    - Biển là lớp lát riêng (`sanh_bien.png`: mặt biển chuyến tàu + nét sóng), tràn 2400 ra ngoài.
+    - Mây vành (237 đám, khoá `ring`) chỉ đặt trên biển, cách bờ, càng xa càng dày, có cả ngoài mép.
+    - HubPan kéo được quá mép đảo 300 / 220, nên rìa luôn thấy biển và mây.
+  - Theo giờ: mây vành và mây che đảo gán vào DayNight.clouds (CloudTint); biển lát là seaDark.
+  - tàu đậu ở mặt nam cầu, mớn nước thấp hơn chân cọc để thân tàu đè lên mép trước cầu.
+  - Bến trên (người dùng: "thêm 1 bến đỗ nữa ở phần trên các đảo"): cầu gỗ ở khe giữa đảo Hỏa và Kim chĩa lên bắc (GPT, `bo_dao/ben_tren.txt`, dán vào `bo_dao/sua_bo_dao_1.png`).
+    - Đây là chỗ đậu mặc định; chuyến về Nhà và từ Nhà về đi thẳng từ đây lên mây, không vòng đảo.
+    - Tàu từ màn tải cập bến dưới, người chơi tương tác ngay. Tàu tự chạy nhanh (×2,4) vòng biển phía đông, ngoài rìa đảo Thổ và Kim, lên bến trên (`PierShip.SetupDock2`, `Transfer`).
+  - Nước rẽ sóng: sóng mũi 6 khung (`tau_mui_*`), bọt rẽ từ mũi trôi dọc mạn, vệt chữ V 10 khung động (`tau_vet_*`, đổi khung theo tốc độ).
+  - Mây dạt ngang hai bên đường tàu, mở trước mũi, khép lại đúng chỗ (`ShipVoyage.Side`, dùng cho cả CloudRing).
+  - Tàu 3D (người dùng: "làm thẳng tàu thành model 3d ... để nó xoay cho mượt"): mô hình Tripo do người dùng gen từ ảnh tàu đã duyệt (bản không nước), ở `tau3d/goc/tau.glb`.
+    - `render_32.py` (Blender 5.3 chạy nền) render 32 hướng: camera trực giao nhìn chếch 42° từ phía nam, màu gốc không ánh sáng, viền mực bằng vỏ lộn ngược. Kèm vị trí gốc, mũi, đèn lồng, đường mớn nước của từng khung.
+    - `hau_ky.py` cắt phần chìm dưới mép trước đường mớn nước, vẽ đường bọt, phủ vân chì nhẹ. Ra `Assets/03 Art/Ship/3d/tau_hd_*.png` và `tau_hd.json`.
+    - ShipLook chọn khung theo hướng (đổi ngay, xoay nhẹ phần lệch). ShipBuild tự dùng bộ 3D nếu có, không thì dùng 3 ảnh vẽ tay cũ.
+  - Nhà: camera chỉ lướt lên Nhà chính ở lần đầu tàu tới (phiên Nhà, cờ `HomeState.dockIntro`); từ lần sau tàu cập bến xong thì người chơi tự kéo.
+- **Code:**
+  - `App/ShipLook.cs`: hình tàu theo hướng (lên nhìn đuôi, xuống nhìn mũi, ngang nhìn hông, lật khi sang trái), bóp ngang khi quay đầu, nghiêng, nhấp nhô, bọt chữ V sau đuôi, bọt vỗ mạn khi đậu.
+  - `App/Scenes/PierShip.cs`: tàu ở bến trong màn; đường ra khơi bắc / nam (Catmull-Rom), Depart / Arrive. Màn gán `Frame` (đặt camera), `Glide` (lướt camera tới tàu), `OnTap`. Ở sảnh chạm tàu là về Nhà.
+  - `App/ShipVoyage.cs`: lớp phủ trên canvas riêng (thứ tự 9, dưới thanh trên; màn tải 15). Người dùng dặn chuyển cảnh "nối nhau như trong cùng 1 thế giới, không fade", nên mọi thứ nằm trên một dải thế giới dọc theo hướng đi, camera bám tàu: [ảnh chụp màn cũ] → [dải mây trên biển] → [ảnh chụp màn mới].
+    - Chụp màn bằng camera UI, bỏ thanh trên, lớp tàu, giao diện cố định của màn (`SceneRoot.Chrome`) và tàu của màn.
+    - Mây toả quanh tàu, lệch về trước mũi, mở nhanh (người dùng: thấy rõ thuyền, không lấp ló), khép chậm sau đuôi. Mép dải mây so le.
+    - Lúc tới: ảnh màn mới đặt sau dải mây; tàu đi đường cong vào đúng hướng đường vào; camera dừng đúng lúc ảnh vào chỗ. Mây phủ mép màn mới chỉ dạt ra sau khi camera dừng, trên màn thật.
+    - Mây vành rời của màn (`CloudRing`) được mang sang dải đúng chỗ, đúng độ toả, lúc tới trả lại.
+    - Màn tải: logo, giấy ghi có thanh tải, mẹo; tối thiểu 2,4 giây; tải xong dải mây hiện ra trước mặt, bản đồ sảnh trồi vào sau mây.
+  - `App/Scenes/CloudRing.cs`: mây vành rời quanh bản đồ, trôi nhẹ, toả quanh tàu của màn (đậu: toả hẹp quanh thân).
+  - `SceneRouter`: màn che chung giao diện `ISceneCover`. Sảnh ↔ Nhà và màn tải dùng `ShipVoyage.Takes`, còn lại vẫn mây hai bên (`CloudCover`).
+  - `App`: tạo lớp tàu từ `App.voyagePrefab`. Mở thẳng vào sảnh thì `BeginBoot`, không còn `BootTitle`; giữ code sa bàn, có thể bỏ khi người dùng chốt. `App.Booting` gồm cả màn tải.
+  - `HubPan`: kéo dư trên (thanh trên) / dưới (hàng nút đáy) để bến sát mép dưới ra khỏi hàng nút; `FrameAt` đặt ngay camera.
+- **Dựng:**
+  - chạy menu `PokiClash/Prefab/Sảnh bản đồ thế giới (mây, điểm bấm)` trước (mây che đọc lại `hub_map.json`);
+  - rồi menu `PokiClash/Prefab/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải`. Menu dựng `Screens/ChuyenTau.prefab`, gán vào App, đặt tàu ở bến sảnh (trên lớp mây che);
+  - chạy lại menu sảnh thì phải chạy lại menu bến tàu.
+- **Màn Nhà:** phiên Nhà vẽ bến ở mép dưới đảo, gọi `ShipBuild.Pier(world, dock, dockFace, south, null, scale)` và gán `Frame` / `Glide` / `OnTap`. Chưa có bến thì tàu chạy khuất khi mây tan.
+- **Chụp thử:** menu `PokiClash/Thử/Bến tàu: sảnh → Nhà → sảnh, màn tải (đang Play)`, ảnh ra `Temp/PokiShots/ben_tau/`.
+
 ## Còn có thể làm thêm
 
 - Logo đang là ảnh chụp từ chữ SVG của bản web; nên gen logo vẽ tay thật (cùng nét của game).

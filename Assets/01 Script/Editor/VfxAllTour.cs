@@ -1,5 +1,6 @@
 // Menu thử (đang Play): MỌI tướng lần lượt ra trận ở sao cuối, mỗi tướng chụp đòn thường, chiêu mana, chiêu cuối. Dùng cho trang so sánh
-// hiệu ứng trước / sau một đợt sửa (ArtGen/XemVfx). Ảnh vào Temp/PokiShots/vfx_all/<đợt>/<tướng>/<danh|mana|ult>_<n>.jpg, kèm
+// hiệu ứng trước / sau một đợt sửa (ArtGen/XemVfx). Ảnh vào ArtGen/XemVfx/chup/<đợt>/<tướng>/<danh|mana|ult>_<n>.jpg (không để ở Temp:
+// Unity xoá Temp khi tắt, ngày 2026-11-18 mất bản TRƯỚC vì vậy; thư mục chup/ đã .gitignore), kèm
 // <đợt>/ds.json (tướng, hệ, số ảnh mỗi đòn). Xong trả lại bản lưu như trước. Chạy 57 tướng mất khoảng 12 phút.
 using System.Collections;
 using System.Collections.Generic;
@@ -15,13 +16,40 @@ namespace PokiClash.EditorTools
     {
         static string dot = "truoc";
         static string[] only;
-        static string Root => Path.Combine(PlayTour.ShotDir, "vfx_all", dot);
+        static string Root => Path.GetFullPath(Path.Combine(Application.dataPath, "../ArtGen/XemVfx/chup", dot));
 
         [MenuItem("PokiClash/Thử/Hiệu ứng mọi tướng: chụp bản TRƯỚC (đang Play)", priority = 140)]
         static void Truoc() => Start("truoc", null);
 
         [MenuItem("PokiClash/Thử/Hiệu ứng mọi tướng: chụp bản SAU (đang Play)", priority = 140)]
         static void Sau() => Start("sau", null);
+
+        // chụp lại riêng ba tướng có sóng âm (Rồng Trúc, Bạch Viêm Hổ, Thổ Tinh) vào đợt SAU, giữ ảnh các tướng khác (2026-11-19: sóng âm vẽ chì)
+        [MenuItem("PokiClash/Thử/Hiệu ứng mọi tướng: chụp lại 3 tướng sóng âm vào bản SAU (đang Play)", priority = 141)]
+        static void SauSongAm() => Start("sau", "thanh_long", "hoa_tinh", "giap_nham");
+
+        // chụp lại riêng các tướng có lốc / cầu lửa / tia sửa sau góp ý 2026-11-19 (lốc trùm, tia Thôn Kình, khói Hỏa Sơn Long, cầu lửa mới) vào đợt SAU
+        [MenuItem("PokiClash/Thử/Hiệu ứng mọi tướng: chụp lại tướng có lốc, cầu lửa, tia vào bản SAU (đang Play)", priority = 142)]
+        static void SauLoc() => Start("sau", "hai_long", "han_ngac", "hoa_nhan", "lung_vuong", "lien_kinh", "lan_hoa", "nguu_quyen", "su_tu_lua", "hong_lien");
+
+        // chụp lại các tướng có gai / cột đất / dung nham vừa đưa lên lớp trước (người dùng 2026-11-19: "gai đất, nổ đang bị lỗi layer hiện đằng sau tướng địch")
+        [MenuItem("PokiClash/Thử/Hiệu ứng mọi tướng: chụp lại tướng có gai đất, nổ vào bản SAU (đang Play)", priority = 143)]
+        static void SauGai() => Start("sau", "tien_la", "long_vuot", "thanh_long", "phong_linh", "bo_cap", "bo_ngua", "cao_da", "ho_khoan", "phu_van",
+            "rua_nui", "cu_phu", "lan_hoa");
+
+        // chụp lại các tướng ghi trong ArtGen/XemVfx/chup_lai.txt (mỗi dòng / cách nhau dấu phẩy hoặc khoảng trắng một id) vào đợt SAU
+        [MenuItem("PokiClash/Thử/Hiệu ứng mọi tướng: chụp lại tướng trong chup_lai.txt vào bản SAU (đang Play)", priority = 144)]
+        static void SauDanhSach()
+        {
+            var f = Path.GetFullPath(Path.Combine(Application.dataPath, "../ArtGen/XemVfx/chup_lai.txt"));
+            if (!File.Exists(f))
+            {
+                Debug.LogError("[Thử] Không có " + f);
+                return;
+            }
+            var ids = File.ReadAllText(f).Split(new[] { ',', ' ', '\n', '\r', '\t' }, System.StringSplitOptions.RemoveEmptyEntries);
+            Start("sau", ids);
+        }
 
         // gọi từ code khác (vd. chụp lại vài tướng): VfxAllTour.Start("sau", "hoa_nhan", "kim_su")
         public static void Start(string d, params string[] ids)

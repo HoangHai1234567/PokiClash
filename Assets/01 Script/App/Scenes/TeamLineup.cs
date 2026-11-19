@@ -310,9 +310,9 @@ namespace PokiClash
             var hp = s.Hero(id);
             var stats = HeroStats.Compute(d.Cfg, h, s.level, hp.star, false, Potential.Mods(s, d, h)); // như hộp chi tiết
             // tên · độ hiếm (màu sẫm của độ hiếm) · bậc sao (màu sẫm của bậc: Đồng, Bạc, Vàng, Kim Cương)
-            int tier = StarTier.Tier(hp.star);
+            int tier = StarTier.TierOf(d.Cfg, h, hp.star); // bậc theo dạng của tướng (2026-11-19)
             string tierHex = ColorUtility.ToHtmlStringRGB(Color.Lerp(UiStars.TierColor(tier), Theme.Ink, 0.4f));
-            p.focusName.text = $"{h.name} · {Theme.RarityRich(h.rarity)} · <color=#{tierHex}>{StarTier.Name(tier)} {StarTier.InTier(hp.star)} sao</color>";
+            p.focusName.text = $"{h.name} · {Theme.RarityRich(h.rarity)} · <color=#{tierHex}>{StarTier.Label(d.Cfg, h, hp.star)}</color>";
             double[] v = { stats.hp, stats.atk, stats.def };
             if (p.stats.Length == 4) Ui.DropLastCell(System.Array.ConvertAll(p.stats, x => (RectTransform)x.transform.parent)); // bỏ ô Tốc
             for (int i = 0; i < p.stats.Length && i < v.Length; i++) p.stats[i].text = NumFmt.Short(v[i]);

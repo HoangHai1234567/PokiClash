@@ -56,5 +56,9 @@ namespace PokiClash
 
         // Dữ liệu lưu đổi (thả bi, nhận AFK...): làm mới phần hiển thị.
         public virtual void Refresh() { }
+
+        // Giao diện cố định của màn (hàng nút, cột thẻ, bảng): chuyến tàu qua mây (ShipVoyage) ẩn đi trước khi chụp màn làm nền
+        // trôi (thế giới liền, giao diện không trôi theo) và hiện lại khi tàu cập bến. fade: mờ dần 0,25 giây.
+        public virtual void Chrome(bool on, bool fade) { }
     }
 }

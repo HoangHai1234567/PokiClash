@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace PokiClash
 {
-    public sealed class CloudCover : MonoBehaviour
+    public sealed class CloudCover : MonoBehaviour, ISceneCover
     {
         public const float Duration = 0.38f;
 
@@ -72,6 +72,14 @@ namespace PokiClash
                 SetT(1 - k * k * (3 - 2 * k));
                 yield return null;
             }
+            SetT(0);
+            Closed = false;
+            Block(false);
+        }
+
+        // mở ngay (màn tải chuyến tàu che thay)
+        public void OpenNow()
+        {
             SetT(0);
             Closed = false;
             Block(false);

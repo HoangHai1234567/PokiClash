@@ -35,8 +35,8 @@ namespace PokiClash.EditorTools
             App.Modals.CloseAll();
 
             // đội 3 tướng: mở đủ ô đội (cấp người chơi tới mốc ô cuối, Progress.SlotLevels)
-            foreach (var h in new[] { "ti_tach", "vo_su", "thach_giai" }) Progress.UnlockHero(s, h);
-            s.team = new List<string> { "ti_tach", "vo_su", "thach_giai" };
+            foreach (var h in new[] { "ti_tach", "cao_da", "thach_giai" }) Progress.UnlockHero(s, h);
+            s.team = new List<string> { "ti_tach", "cao_da", "thach_giai" };
             s.level = Mathf.Max(s.level, Progress.SlotLevels[Progress.TeamSlotMax - 1]);
             App.Save.Save();
 
