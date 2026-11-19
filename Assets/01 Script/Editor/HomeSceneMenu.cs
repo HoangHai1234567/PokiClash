@@ -731,8 +731,16 @@ namespace PokiClash.EditorTools
             s.home = null; // bản lưu thử: dựng lại Nhà theo số liệu hiện tại (khoảnh đầu, đường đất)
             if (s.home == null && s.level < 10) s.level = 10;
             App.Router.Go(SceneIds.Home);
-            yield return new WaitForSecondsRealtime(4f);
-            var home = Object.FindFirstObjectByType<HomeScene>();
+            // từ sảnh sang Nhà đi bằng chuyến tàu qua mây (vài giây): chờ màn Nhà thành màn hiện tại rồi chờ tàu cập bến
+            HomeScene home = null;
+            for (float t = 0; t < 25 && !(home && App.Router.CurrentRoot == home); t += 0.25f)
+            {
+                yield return new WaitForSecondsRealtime(0.25f);
+                home = Object.FindFirstObjectByType<HomeScene>();
+            }
+            for (float t = 0; t < 10 && PierShip.Active && PierShip.Active.Busy; t += 0.25f) yield return new WaitForSecondsRealtime(0.25f);
+            yield return new WaitForSecondsRealtime(2.5f);
+            if (!home) Debug.LogWarning("[Nhà] Tour: không vào được màn Nhà");
             void Shot(string n)
             {
                 ScreenCapture.CaptureScreenshot(Path.Combine(dir, $"home_{n}.png"));
