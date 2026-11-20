@@ -1,5 +1,6 @@
 // Viền sticker cho tướng aola (bản dev): ảnh tướng render ra RenderTexture, shader lấy mẫu độ phủ 8 hướng để vẽ
 // viền trắng rồi viền mực bên ngoài (thay cho drop-shadow của canvas web). _Flash: nháy trắng khi trúng đòn; _Gray: gục.
+// _Lift: sáng thêm (nhân 1 + _Lift), mặc định 0; màn Nhà ban đêm cho tướng sáng hơn cảnh đã nhuộm tối (người dùng 2026-11-20).
 Shader "PokiClash/StickerOutline"
 {
     Properties
@@ -11,6 +12,7 @@ Shader "PokiClash/StickerOutline"
         _Flash ("Nháy trắng", Range(0,1)) = 0
         _Gray ("Xám", Range(0,1)) = 0
         _Plain ("Không viền (hạt lá...)", Float) = 0
+        _Lift ("Sáng thêm", Float) = 0
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -54,7 +56,7 @@ Shader "PokiClash/StickerOutline"
             sampler2D _MainTex;
             float4 _MainTex_TexelSize;
             fixed4 _Color;
-            float _White, _Ink, _Flash, _Gray, _Plain;
+            float _White, _Ink, _Flash, _Gray, _Plain, _Lift;
             float4 _ClipRect;
             fixed4 _PokiInk;
 
@@ -93,7 +95,7 @@ Shader "PokiClash/StickerOutline"
                 art = lerp(art, float3(1, 1, 1), _Flash);
                 if (_Plain > 0.5) // ảnh hạt (AolaSticker.MakeFxLayer): giữ hình, không viền giấy
                 {
-                    fixed4 p = fixed4(art, c.a) * i.color;
+                    fixed4 p = fixed4(art * (1 + _Lift), c.a) * i.color;
                     #ifdef UNITY_UI_CLIP_RECT
                     p.a *= UnityGet2DClipping(i.wpos.xy, _ClipRect);
                     #endif
@@ -104,7 +106,7 @@ Shader "PokiClash/StickerOutline"
                 float3 col = lerp(_PokiInk.rgb, float3(1, 1, 1), aw);
                 col = lerp(col, art, c.a);
                 float a = max(max(ai, aw), c.a);
-                fixed4 o = fixed4(col, a) * i.color;
+                fixed4 o = fixed4(col * (1 + _Lift), a) * i.color;
                 #ifdef UNITY_UI_CLIP_RECT
                 o.a *= UnityGet2DClipping(i.wpos.xy, _ClipRect);
                 #endif

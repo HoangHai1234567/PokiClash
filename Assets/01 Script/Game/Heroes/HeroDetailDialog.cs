@@ -66,10 +66,12 @@ namespace PokiClash
         }
 
         // nút thứ 5 "Mana" (menu "PokiClash/Prefab/Hộp chi tiết tướng: hạt lửa + nút Mana"): clip bắn + chiêu mana bằng hạt;
-        // nút 6, 7 "Ra sân", "Chết" (menu "PokiClash/Prefab/Hộp chi tiết tướng: nút Ra sân + Chết"): chỉ hiện khi dạng có clip đó
+        // nút 6, 7, 8 "Ra sân", "Chết", "Đi" (menu "PokiClash/Prefab/Hộp chi tiết tướng: nút Đi, Ra sân, Chết + xếp hàng nút clip"):
+        // chỉ hiện khi dạng có clip đó. Thứ tự trên hàng theo thứ tự con trong prefab (nút Đi đứng ngay sau nút Đứng)
         static readonly string[] ClipIds =
         {
             HeroViewer.Idle, HeroViewer.Attack, HeroViewer.Skill, HeroViewer.Hit, HeroViewer.Cast, HeroViewer.Appear, HeroViewer.Die,
+            HeroViewer.Walk,
         };
         const int FirstOptional = 5; // từ nút này trở đi: ẩn nếu dạng không có clip
 

@@ -1,0 +1,56 @@
+# rig gà chọi lửa (quái lính đảo Hỏa) — sinh bởi ArtGen/Spine/quai_hoa_rig.py
+bone.add move parent=root x=0.0 y=0.0 rot=0.00 len=0.0 world=true
+bone.add hip parent=move x=15.0 y=200.0 rot=90.00 len=40.0 world=true
+bone.add than parent=hip x=15.0 y=220.0 rot=67.83 len=291.5 world=true
+bone.add dau parent=than x=105.0 y=460.0 rot=14.53 len=278.9 world=true
+bone.add mieng parent=dau x=375.0 y=508.0 rot=0.00 len=50.0 world=true
+bone.add m_vong parent=mieng x=390.0 y=508.0 rot=0.00 len=40.0 world=true
+bone.add phun_e parent=mieng x=395.0 y=508.0 rot=-90.00 len=40.0 world=true
+bone.add mo_duoi parent=dau x=265.0 y=505.0 rot=-3.64 len=110.2 world=true
+bone.add m1a parent=dau x=45.0 y=670.0 rot=142.59 len=107.0 world=true
+bone.add m1b parent=m1a x=-40.0 y=735.0 rot=147.26 len=83.2 world=true
+bone.add m2a parent=dau x=115.0 y=685.0 rot=128.99 len=135.1 world=true
+bone.add m2b parent=m2a x=30.0 y=790.0 rot=125.19 len=95.4 world=true
+bone.add m3a parent=dau x=225.0 y=690.0 rot=105.07 len=134.6 world=true
+bone.add m3b parent=m3a x=190.0 y=820.0 rot=120.96 len=116.6 world=true
+bone.add canh_xa parent=than x=-45.0 y=510.0 rot=136.97 len=205.2 world=true
+bone.add canh_gan parent=than x=-10.0 y=460.0 rot=-145.41 len=176.1 world=true
+bone.add canh_gan2 parent=canh_gan x=-155.0 y=360.0 rot=-162.90 len=136.0 world=true
+bone.add duoi parent=than x=-245.0 y=360.0 rot=168.69 len=51.0 world=true
+bone.add d1a parent=duoi x=-270.0 y=415.0 rot=103.09 len=220.7 world=true
+bone.add d1b parent=d1a x=-320.0 y=630.0 rot=128.66 len=160.1 world=true
+bone.add d2a parent=duoi x=-285.0 y=385.0 rot=129.09 len=206.2 world=true
+bone.add d2b parent=d2a x=-415.0 y=545.0 rot=141.04 len=147.9 world=true
+bone.add d3a parent=duoi x=-290.0 y=350.0 rot=151.26 len=176.8 world=true
+bone.add d3b parent=d3a x=-445.0 y=435.0 rot=167.01 len=133.4 world=true
+bone.add d4a parent=duoi x=-285.0 y=305.0 rot=-166.61 len=107.9 world=true
+bone.add d4b parent=d4a x=-390.0 y=280.0 rot=153.65 len=117.2 world=true
+bone.add chan_t parent=move x=-172.0 y=175.0 rot=-113.27 len=108.9 world=true
+bone.add ban_t parent=chan_t x=-215.0 y=75.0 rot=-128.66 len=64.0 world=true
+bone.add chan_p parent=move x=175.0 y=170.0 rot=-75.26 len=98.2 world=true
+bone.add ban_p parent=chan_p x=200.0 y=75.0 rot=-37.57 len=82.0 world=true
+bone.add fx_da1 parent=move x=360.0 y=270.0 rot=0.00 len=30.0 world=true
+bone.add fx_da1v parent=move x=360.0 y=270.0 rot=0.00 len=30.0 world=true
+bone.add fx_da2 parent=move x=360.0 y=270.0 rot=0.00 len=30.0 world=true
+bone.add fx_da2v parent=move x=360.0 y=270.0 rot=0.00 len=30.0 world=true
+bone.add dat_vong parent=root x=0.0 y=0.0 rot=0.00 len=40.0 world=true
+part.add canh_xa path=images/canh_xa.png at=534,292 canvas=1536,1024 origin=775,960 bone=canh_xa mesh=false
+part.add duoi path=images/duoi.png at=191,189 canvas=1536,1024 origin=775,960 bone=duoi mesh=true
+att.weights duoi duoi bones=duoi,d1a,d1b,d2a,d2b,d3a,d3b,d4a,d4b
+part.add chan_trai path=images/chan_trai.png at=432,750 canvas=1536,1024 origin=775,960 bone=chan_t mesh=true
+att.weights chan_trai chan_trai bones=chan_t,ban_t
+part.add chan_phai path=images/chan_phai.png at=855,756 canvas=1536,1024 origin=775,960 bone=chan_p mesh=true
+att.weights chan_phai chan_phai bones=chan_p,ban_p
+part.add than path=images/than.png at=548,413 canvas=1536,1024 origin=775,960 bone=than mesh=false
+part.add mao path=images/mao.png at=650,28 canvas=1536,1024 origin=775,960 bone=m2a mesh=true
+att.weights mao mao bones=m1a,m1b,m2a,m2b,m3a,m3b
+part.add dau path=images/dau.png at=758,235 canvas=1536,1024 origin=775,960 bone=dau mesh=false
+part.add mo_duoi path=images/mo_duoi.png at=1030,428 canvas=1536,1024 origin=775,960 bone=mo_duoi mesh=false
+part.add canh_gan path=images/canh_gan.png at=456,440 canvas=1536,1024 origin=775,960 bone=canh_gan mesh=true
+att.weights canh_gan canh_gan bones=canh_gan,canh_gan2
+part.add chan_phai_truoc path=images/chan_phai.png at=855,756 canvas=1536,1024 origin=775,960 bone=chan_p mesh=true
+att.weights chan_phai_truoc chan_phai_truoc bones=chan_p,ban_p
+slot.order chan_phai_truoc to=after:than
+att.set chan_phai_truoc chan_phai_truoc image=chan_phai
+image.del chan_phai_truoc
+slot.set chan_phai_truoc att=-

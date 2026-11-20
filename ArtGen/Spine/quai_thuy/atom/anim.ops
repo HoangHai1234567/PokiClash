@@ -1,0 +1,194 @@
+# clip + hiệu ứng tôm tít đấm bốc (quái đảo Thủy) — sinh bởi ArtGen/Spine/quai_thuy_anim.py
+vfx.art giot kind=droplet palette=water size=64 seed=3
+vfx.art bot kind=splash palette=water size=96 seed=5
+vfx.art vong kind=shockwave palette=water size=192 seed=2
+vfx.art cham kind=impact palette=water size=160 seed=4
+anim.add idle dur=2.0 loop=true
+anim.bob idle bone=hip amp=4 period=1.0
+key idle than.scale 0.000:1.00,1.00 1.000:1.02,0.98:easeInOut 2.000:1.00,1.00:easeInOut
+anim.wave idle bones=than prop=rotate amp=1.5 period=2
+anim.wave idle bones=dau prop=rotate amp=2 period=2 phase=0.12
+key idle cg_vai.rotate 0.000:-2.85 0.033:-2.60 0.067:-2.23 0.100:-1.76 0.133:-1.22 0.167:-0.62 0.200:0.00 0.233:0.62 0.267:1.22 0.300:1.76 0.333:2.23 0.367:2.60 0.400:2.85 0.433:2.98 0.467:2.98 0.500:2.85 0.533:2.60 0.567:2.23 0.600:1.76 0.633:1.22 0.667:0.62 0.700:0.00 0.733:-0.62 0.767:-1.22 0.800:-1.76 0.833:-2.23 0.867:-2.60 0.900:-2.85 0.933:-2.98 0.967:-2.98 1.000:-2.85 1.033:-2.60 1.067:-2.23 1.100:-1.76 1.133:-1.22 1.167:-0.62 1.200:-0.00 1.233:0.62 1.267:12.22 1.300:23.76 1.333:24.17 1.367:17.56 1.400:2.85 1.433:10.30 1.467:20.88 1.500:20.51 1.533:14.47 1.567:3.41 1.600:1.76 1.633:1.22 1.667:0.62 1.700:0.00 1.733:-0.62 1.767:-1.22 1.800:-1.76 1.833:-2.23 1.867:-2.60 1.900:-2.85 1.933:-2.98 1.967:-2.98 2.000:-2.85
+key idle cg_co.rotate 0.000:-1.90 0.033:-1.99 0.067:-1.99 0.100:-1.90 0.133:-1.73 0.167:-1.49 0.200:-1.18 0.233:-0.81 0.267:-0.42 0.300:0.00 0.333:0.42 0.367:0.81 0.400:1.18 0.433:1.49 0.467:1.73 0.500:1.90 0.533:1.99 0.567:1.99 0.600:1.90 0.633:1.73 0.667:1.49 0.700:1.18 0.733:0.81 0.767:0.42 0.800:0.00 0.833:-0.42 0.867:-0.81 0.900:-1.18 0.933:-1.49 0.967:-1.73 1.000:-1.90 1.033:-1.99 1.067:-1.99 1.100:-1.90 1.133:-1.73 1.167:-1.49 1.200:-1.18 1.233:-0.81 1.267:-9.42 1.300:-18.00 1.333:-17.53 1.367:-11.43 1.400:1.18 1.433:-4.21 1.467:-12.19 1.500:-11.83 1.533:-7.24 1.567:1.07 1.600:1.90 1.633:1.73 1.667:1.49 1.700:1.18 1.733:0.81 1.767:0.42 1.800:0.00 1.833:-0.42 1.867:-0.81 1.900:-1.18 1.933:-1.49 1.967:-1.73 2.000:-1.90
+key idle cx_bap.rotate 0.000:2.43 0.033:2.01 0.067:1.50 0.100:0.93 0.133:0.31 0.167:-0.31 0.200:-0.93 0.233:-1.50 0.267:-2.01 0.300:-2.43 0.333:-2.74 0.367:-2.93 0.400:-3.00 0.433:-2.93 0.467:-2.74 0.500:-2.43 0.533:-2.01 0.567:-1.50 0.600:-0.93 0.633:-0.31 0.667:0.31 0.700:0.93 0.733:1.50 0.767:2.01 0.800:2.43 0.833:2.74 0.867:2.93 0.900:3.00 0.933:2.93 0.967:2.74 1.000:2.43 1.033:2.01 1.067:1.50 1.100:0.93 1.133:0.31 1.167:-0.31 1.200:-0.93 1.233:-1.50 1.267:-4.12 1.300:-7.26 1.333:-7.74 1.367:-7.93 1.400:-8.00 1.433:-7.60 1.467:-5.89 1.500:-3.21 1.533:-2.01 1.567:-1.50 1.600:-0.93 1.633:-0.31 1.667:0.31 1.700:0.93 1.733:1.50 1.767:2.01 1.800:2.43 1.833:2.74 1.867:2.93 1.900:3.00 1.933:2.93 1.967:2.74 2.000:2.43
+key idle cx_cang.rotate 0.000:3.00 0.033:2.93 0.067:2.74 0.100:2.43 0.133:2.01 0.167:1.50 0.200:0.93 0.233:0.31 0.267:-0.31 0.300:-0.93 0.333:-1.50 0.367:-2.01 0.400:-2.43 0.433:-2.74 0.467:-2.93 0.500:-3.00 0.533:-2.93 0.567:-2.74 0.600:-2.43 0.633:-2.01 0.667:-1.50 0.700:-0.93 0.733:-0.31 0.767:0.31 0.800:0.93 0.833:1.50 0.867:2.01 0.900:2.43 0.933:2.74 0.967:2.93 1.000:3.00 1.033:2.93 1.067:2.74 1.100:2.43 1.133:2.01 1.167:1.50 1.200:0.93 1.233:0.31 1.267:-0.31 1.300:-0.93 1.333:-1.50 1.367:-2.01 1.400:-2.43 1.433:-2.74 1.467:-2.93 1.500:-3.00 1.533:-2.93 1.567:-2.74 1.600:-2.43 1.633:-2.01 1.667:-1.50 1.700:-0.93 1.733:-0.31 1.767:0.31 1.800:0.93 1.833:1.50 1.867:2.01 1.900:2.43 1.933:2.74 1.967:2.93 2.000:3.00
+anim.wave idle bones=rt1,rt2,rt3 prop=rotate amp=4.0 period=2.000 lag=0.12 growth=1.35
+anim.wave idle bones=rs1,rs2,rs3 prop=rotate amp=4.0 period=2.000 lag=0.12 phase=0.3 growth=1.35
+anim.wave idle bones=vay_l prop=rotate amp=6.0 period=1.000 phase=0.1
+anim.wave idle bones=vay_r prop=rotate amp=6.0 period=1.000 phase=0.45
+anim.wave idle bones=mat_s prop=rotate amp=4.0 period=1.000 phase=0.15
+anim.wave idle bones=mat_t prop=rotate amp=4.0 period=1.000 phase=0.4
+anim.wave idle bones=duoi1,duoi2,quat prop=rotate amp=2.5 period=2.000 lag=0.15 growth=1.4
+anim.loopfix idle
+anim.add walk dur=2.0 loop=true
+anim.bob walk bone=hip amp=5 period=0.5
+anim.wave walk bones=chan1 prop=rotate amp=14 period=1 phase=0.0
+anim.wave walk bones=chan3 prop=rotate amp=14 period=1 phase=0.0
+anim.wave walk bones=chan2 prop=rotate amp=14 period=1 phase=0.5
+anim.wave walk bones=chan4 prop=rotate amp=14 period=1 phase=0.5
+anim.wave walk bones=than prop=rotate amp=2 period=1
+anim.wave walk bones=dau prop=rotate amp=2.5 period=1 phase=0.1
+anim.wave walk bones=cg_vai prop=rotate amp=5 period=1 phase=0.25
+anim.wave walk bones=cx_bap prop=rotate amp=5 period=1 phase=0.75
+anim.wave walk bones=rt1,rt2,rt3 prop=rotate amp=5.2 period=1.000 lag=0.12 growth=1.35
+anim.wave walk bones=rs1,rs2,rs3 prop=rotate amp=5.2 period=1.000 lag=0.12 phase=0.3 growth=1.35
+anim.wave walk bones=vay_l prop=rotate amp=7.8 period=0.500 phase=0.1
+anim.wave walk bones=vay_r prop=rotate amp=7.8 period=0.500 phase=0.45
+anim.wave walk bones=mat_s prop=rotate amp=5.2 period=0.500 phase=0.15
+anim.wave walk bones=mat_t prop=rotate amp=5.2 period=0.500 phase=0.4
+anim.wave walk bones=duoi1,duoi2,quat prop=rotate amp=3.2 period=1.000 lag=0.15 growth=1.4
+anim.loopfix walk
+anim.add attack dur=0.9
+key attack hip.translate 0.000:0.00,0.00 0.240:-12.00,-2.00:easeOut 0.360:-12.00,-2.00 0.410:18.00,0.00 0.550:16.00,0.00 0.900:0.00,0.00:easeInOut
+key attack than.rotate 0.000:0.00 0.240:8.00:easeOut 0.360:8.00 0.410:-12.00 0.550:-10.00 0.900:0.00:easeInOut
+key attack dau.rotate 0.000:0.00 0.280:6.00:easeOut 0.400:6.00 0.450:-8.00 0.600:-6.00 0.900:0.00:easeInOut
+key attack cg_vai.rotate 0.000:0.00 0.240:-16.00:easeOut 0.360:-18.00:snap 0.410:80.00 0.550:76.00 0.900:0.00:easeInOut
+key attack cg_co.rotate 0.000:0.00 0.240:14.00:easeOut 0.360:16.00:snap 0.410:-66.00 0.550:-62.00 0.900:0.00:easeInOut
+key attack cg_co.scale 0.000:1.00,1.00 0.360:1.00,1.00 0.410:1.16,0.93 0.480:1.00,1.00:easeOut 0.900:1.00,1.00
+key attack cx_bap.rotate 0.000:0.00 0.240:-8.00:easeOut 0.410:14.00 0.550:12.00 0.900:0.00:easeInOut
+key attack cx_cang.rotate 0.000:0.00 0.280:-6.00:easeOut 0.450:10.00 0.600:8.00 0.900:0.00:easeInOut
+event attack 0.41 hit
+anim.spring attack bones=rt1,rt2,rt3
+anim.spring attack bones=rs1,rs2,rs3
+anim.spring attack bones=duoi1,duoi2,quat
+key attack mat_s.rotate 0.000:0.00 0.240:7.00:easeOut 0.410:-12.00 0.510:7.00:easeOut 0.650:-3.00 0.900:0.00:easeInOut
+key attack mat_t.rotate 0.000:0.00 0.240:8.75:easeOut 0.410:-15.00 0.510:8.75:easeOut 0.650:-3.75 0.900:0.00:easeInOut
+vfx.ring attack image=cham slot=attack_cham bone=cg_vong t=0.410 dur=0.220 from=0.3 to=0.90 fade=0.15
+vfx.ring attack image=vong slot=attack_vong bone=cg_vong t=0.430 dur=0.420 from=0.15 to=1.40 fade=0.3
+vfx.burst attack image=giot prefix=attack_g bone=cg_mui count=8 t=0.410 dur=0.500 speed=300 spread=150 gravity=500 fade=0.45 scale=0.9 scaleEnd=0.4 seed=7
+anim.add cast dur=1.0
+key cast hip.translate 0.000:0.00,0.00 0.400:-16.00,0.00:easeOut 0.460:-16.00,0.00 0.500:14.00,2.00 0.750:12.00,0.00 1.000:0.00,0.00:easeInOut
+key cast than.rotate 0.000:0.00 0.400:12.00:easeOut 0.460:12.00 0.500:-10.00 0.750:-8.00 1.000:0.00:easeInOut
+key cast dau.rotate 0.000:0.00 0.420:8.00:easeOut 0.520:-6.00 0.780:-4.00 1.000:0.00:easeInOut
+key cast cg_vai.rotate 0.000:0.00 0.400:-16.00:easeOut 0.460:-18.00:snap 0.500:88.00 0.750:83.60 1.000:0.00:easeInOut
+key cast cg_co.rotate 0.000:0.00 0.400:14.00:easeOut 0.460:16.00:snap 0.500:-72.60 0.750:-68.20 1.000:0.00:easeInOut
+key cast cg_co.scale 0.000:1.00,1.00 0.460:1.00,1.00 0.500:1.16,0.93 0.570:1.00,1.00:easeOut 1.000:1.00,1.00
+key cast cx_bap.rotate 0.000:0.00 0.400:-10.00:easeOut 0.500:12.00 0.750:10.00 1.000:0.00:easeInOut
+event cast 0.5 phun
+anim.spring cast bones=rt1,rt2,rt3
+anim.spring cast bones=rs1,rs2,rs3
+anim.spring cast bones=duoi1,duoi2,quat
+key cast mat_s.rotate 0.000:0.00 0.400:7.00:easeOut 0.500:-12.00 0.600:7.00:easeOut 0.740:-3.00 1.000:0.00:easeInOut
+key cast mat_t.rotate 0.000:0.00 0.400:8.75:easeOut 0.500:-15.00 0.600:8.75:easeOut 0.740:-3.75 1.000:0.00:easeInOut
+vfx.ring cast image=vong slot=cast_vong bone=cg_vong t=0.5 dur=0.4 from=0.2 to=1.3 fade=0.3
+vfx.ring cast image=cham slot=cast_cham bone=cg_vong t=0.5 dur=0.2 from=0.3 to=0.8 fade=0.15
+anim.add skill dur=1.8
+key skill hip.translate 0.000:0.00,0.00 0.033:-0.62,0.00 0.067:-2.27,0.00 0.100:-4.67,0.00 0.133:-7.51,0.00 0.167:-10.49,0.00 0.200:-13.33,0.00 0.233:-15.73,0.00 0.267:-17.38,0.00 0.300:-18.00,0.00 0.333:-18.22,0.00 0.367:-18.44,0.00 0.400:-18.67,0.00 0.433:-18.89,0.00 0.467:-19.11,0.00 0.500:-19.33,0.00 0.533:-19.56,0.00 0.567:-19.78,0.00 0.600:-20.00,0.00 0.633:4.44,0.00 0.667:23.94,0.00 0.700:23.67,0.00 0.733:23.39,0.00 0.767:23.11,0.00 0.800:22.83,0.00 0.833:22.56,0.00 0.867:22.28,0.00 0.900:22.00,0.00 0.933:27.33,0.00 0.967:29.90,0.00 1.000:29.71,0.00 1.033:29.52,0.00 1.067:29.33,0.00 1.100:29.14,0.00 1.133:28.95,0.00 1.167:28.76,0.00 1.200:28.57,0.00 1.233:28.38,0.00 1.267:28.19,0.00 1.300:28.00,0.00 1.333:27.64,0.00 1.367:26.64,0.00 1.400:25.09,0.00 1.433:23.09,0.00 1.467:20.74,0.00 1.500:18.14,0.00 1.533:15.40,0.00 1.567:12.60,0.00 1.600:9.86,0.00 1.633:7.26,0.00 1.667:4.91,0.00 1.700:2.91,0.00 1.733:1.36,0.00 1.767:0.36,0.00 1.800:0.00,0.00
+key skill than.rotate 0.000:0.00 0.033:1.56 0.067:3.11 0.100:4.67 0.133:6.22 0.167:7.78 0.200:9.33 0.233:10.89 0.267:12.44 0.300:14.00 0.333:14.00 0.367:16.50 0.400:11.50 0.433:16.50 0.467:11.50 0.500:16.50 0.533:11.50 0.567:16.50 0.600:11.50 0.633:-12.00 0.667:-12.00 0.700:-12.00 0.733:-12.00 0.767:-12.00 0.800:-12.00 0.833:-12.00 0.867:-12.00 0.900:-12.00 0.933:-10.00 0.967:-10.00 1.000:-10.00 1.033:-10.00 1.067:-10.00 1.100:-10.00 1.133:-10.00 1.167:-10.00 1.200:-10.00 1.233:-10.00 1.267:-10.00 1.300:-10.00 1.333:-9.96 1.367:-9.82 1.400:-9.60 1.433:-9.29 1.467:-8.89 1.500:-8.40 1.533:-7.82 1.567:-7.16 1.600:-6.40 1.633:-5.56 1.667:-4.62 1.700:-3.60 1.733:-2.49 1.767:-1.29 1.800:0.00
+key skill dau.rotate 0.000:0.00 0.320:8.00:easeOut 0.620:8.00 0.700:-10.00 0.980:-6.00 1.020:-10.00 1.300:-8.00 1.800:0.00:easeInOut
+key skill cx_bap.rotate 0.000:0.00 0.320:28.00:easeOut 0.620:30.00:snap 0.680:-16.00 0.850:-14.00 1.300:-12.00 1.800:0.00:easeInOut
+key skill cx_cang.rotate 0.000:0.00 0.320:30.00:easeOut 0.620:32.00:snap 0.680:-26.00 0.850:-24.00 1.300:-22.00 1.800:0.00:easeInOut
+key skill cx_cang.scale 0.000:1.00,1.00 0.620:1.00,1.00 0.680:1.18,0.92 0.750:1.00,1.00:easeOut 1.800:1.00,1.00
+key skill cg_vai.rotate 0.000:0.00:easeInOut 0.300:-14.00:easeOut 0.900:-16.00:snap 0.980:82.00 1.300:78.00 1.800:0.00:easeInOut
+key skill cg_co.rotate 0.000:0.00 0.300:12.00:easeOut 0.900:14.00:snap 0.980:-58.00 1.300:-55.00 1.800:0.00:easeInOut
+key skill cg_co.scale 0.000:1.00,1.00 0.900:1.00,1.00 0.980:1.18,0.92 1.050:1.00,1.00:easeOut 1.800:1.00,1.00
+event skill 0.68 hit
+event skill 0.98 hit
+anim.spring skill bones=rt1,rt2,rt3
+anim.spring skill bones=rs1,rs2,rs3
+anim.spring skill bones=duoi1,duoi2,quat
+key skill mat_s.rotate 0.000:0.00 0.320:9.10:easeOut 0.680:-15.60 0.780:9.10:easeOut 0.920:-3.90 1.800:0.00:easeInOut
+key skill mat_t.rotate 0.000:0.00 0.320:11.38:easeOut 0.680:-19.50 0.780:11.38:easeOut 0.920:-4.88 1.800:0.00:easeInOut
+vfx.ring skill image=cham slot=skill_chama bone=cx_vong t=0.680 dur=0.297 from=0.3 to=1.22 fade=0.15
+vfx.ring skill image=vong slot=skill_vonga bone=cx_vong t=0.700 dur=0.567 from=0.15 to=1.89 fade=0.3
+vfx.burst skill image=giot prefix=skill_ga bone=cx_mui count=8 t=0.680 dur=0.675 speed=405 spread=150 gravity=500 fade=0.45 scale=0.9 scaleEnd=0.4 seed=8
+vfx.burst skill image=bot prefix=skill_ba bone=cx_mui count=3 t=0.690 dur=0.55 speed=180 spread=200 gravity=200 fade=0.4 scale=0.8 scaleEnd=0.3 seed=11
+vfx.ring skill image=cham slot=skill_chamb bone=cg_vong t=0.980 dur=0.297 from=0.3 to=1.22 fade=0.15
+vfx.ring skill image=vong slot=skill_vongb bone=cg_vong t=1.000 dur=0.567 from=0.15 to=1.89 fade=0.3
+vfx.burst skill image=giot prefix=skill_gb bone=cg_mui count=8 t=0.980 dur=0.675 speed=405 spread=150 gravity=500 fade=0.45 scale=0.9 scaleEnd=0.4 seed=8
+vfx.burst skill image=bot prefix=skill_bb bone=cg_mui count=3 t=0.990 dur=0.55 speed=180 spread=200 gravity=200 fade=0.4 scale=0.8 scaleEnd=0.3 seed=11
+vfx.shake skill bone=move t=0.68 dur=0.22 amp=7
+vfx.shake skill bone=move t=0.98 dur=0.2 amp=6 seed=2
+anim.add hit dur=0.6
+key hit hip.translate 0.000:0.00,0.00 0.070:-16.00,3.00:easeOut 0.250:-10.00,0.00 0.600:0.00,0.00:easeInOut
+key hit than.rotate 0.000:0.00 0.070:14.00:easeOut 0.300:8.00 0.600:0.00:easeInOut
+key hit dau.rotate 0.000:0.00 0.100:12.00:easeOut 0.300:4.00 0.600:0.00:easeInOut
+key hit cg_vai.rotate 0.000:0.00 0.070:-22.00:easeOut 0.300:-10.00 0.600:0.00:easeInOut
+key hit cg_co.rotate 0.000:0.00 0.090:16.00:easeOut 0.300:6.00 0.600:0.00:easeInOut
+key hit cx_bap.rotate 0.000:0.00 0.070:20.00:easeOut 0.300:8.00 0.600:0.00:easeInOut
+key hit cx_cang.rotate 0.000:0.00 0.100:18.00:easeOut 0.300:6.00 0.600:0.00:easeInOut
+anim.spring hit bones=rt1,rt2,rt3 stiffness=0.2 damping=0.5
+anim.spring hit bones=rs1,rs2,rs3 stiffness=0.2 damping=0.5
+anim.spring hit bones=mat_s stiffness=0.2
+anim.spring hit bones=mat_t stiffness=0.2
+anim.spring hit bones=duoi1,duoi2,quat
+vfx.shake hit bone=than t=0.0 dur=0.18 amp=4 freq=30
+anim.reduce hit tol=0.4
+anim.add die dur=1.4
+key die hip.translate 0.000:0.00,0.00 0.070:-14.00,2.00:easeOut 0.300:-6.00,0.00 0.500:-4.00,0.00 0.880:6.00,-30.00:easeIn 0.950:6.00,-34.00 1.050:6.00,-30.00:easeOut 1.400:6.00,-31.00
+key die than.rotate 0.000:0.00 0.033:8.16 0.067:11.97 0.100:9.38 0.133:1.79 0.167:1.80 0.200:3.46 0.233:3.99 0.267:3.21 0.300:1.37 0.333:-0.92 0.367:-2.91 0.400:-3.94 0.433:-3.67 0.467:-2.20 0.500:-0.00 0.533:-0.20 0.567:-0.80 0.600:-1.80 0.633:-3.20 0.667:-5.00 0.700:-7.20 0.733:-9.80 0.767:-12.80 0.800:-16.20 0.833:-20.01 0.867:-24.21 0.900:-24.56 0.933:-24.04 0.967:-25.23 1.000:-26.51 1.033:-26.87 1.067:-26.43 1.100:-25.84 1.133:-25.62 1.167:-25.78 1.200:-26.04 1.233:-26.16 1.267:-26.11 1.300:-26.00 1.333:-25.93 1.367:-25.95 1.400:-25.99
+key die than.scale 0.000:1.00,1.00 0.880:1.00,1.00 0.930:1.06,0.92:easeOut 1.100:1.00,1.00:easeInOut 1.400:1.00,1.00
+key die dau.rotate 0.000:0.00 0.100:12.00 0.300:-6.00 0.450:4.00 0.880:-16.00:easeIn 0.950:-12.00 1.400:-14.00
+key die mat_s.rotate 0.000:0.00 0.120:20.00 0.350:-28.00 0.600:-22.00 0.900:-40.00 1.400:-38.00
+key die mat_t.rotate 0.000:0.00 0.120:18.00 0.350:-34.00 0.600:-26.00 0.900:-46.00 1.400:-44.00
+key die cg_vai.rotate 0.000:0.00 0.070:-20.00 0.400:-10.00:easeOut 0.880:26.00:easeIn 0.950:20.00 1.400:22.00
+key die cg_co.rotate 0.000:0.00 0.100:20.00 0.500:24.00 0.880:6.00 1.400:8.00
+key die cx_bap.rotate 0.000:0.00 0.070:20.00 0.400:-20.00:easeOut 0.880:-58.00:easeIn 0.950:-52.00 1.400:-54.00
+key die cx_cang.rotate 0.000:0.00 0.400:-20.00 0.880:-40.00 1.400:-38.00
+key die chan1.rotate 0.000:0.00 0.500:0.00 0.900:-22.00:easeIn 1.000:-18.70 1.400:-19.80
+key die chan2.rotate 0.000:0.00 0.500:0.00 0.900:-10.00:easeIn 1.000:-8.50 1.400:-9.00
+key die chan3.rotate 0.000:0.00 0.500:0.00 0.900:10.00:easeIn 1.000:8.50 1.400:9.00
+key die chan4.rotate 0.000:0.00 0.500:0.00 0.900:22.00:easeIn 1.000:18.70 1.400:19.80
+anim.spring die bones=rt1,rt2,rt3 stiffness=0.15 damping=0.5
+anim.spring die bones=rs1,rs2,rs3 stiffness=0.15 damping=0.5
+anim.settle die bones=duoi1,duoi2,quat at=0.9 cycles=2
+key die rau_sau.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die rau_truoc.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die vay_trai.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die vay_phai.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die cang_xa_bap.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die cang_xa_cang.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die cang_xa_chuy.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die quat.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die duoi2.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die duoi1.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die chan3.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die chan4.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die chan1.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die chan2.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die than.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die dau.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die mat_sau.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die mat_truoc.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die cang_gan_vai.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die cang_gan_co.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+key die cang_gan_chuy.alpha 0.000:1.00 1.050:1.00 1.400:0.00
+anim.add appear dur=0.8
+key appear rau_sau.alpha 0.000:0.00 0.040:1.00
+key appear rau_truoc.alpha 0.000:0.00 0.040:1.00
+key appear vay_trai.alpha 0.000:0.00 0.040:1.00
+key appear vay_phai.alpha 0.000:0.00 0.040:1.00
+key appear cang_xa_bap.alpha 0.000:0.00 0.040:1.00
+key appear cang_xa_cang.alpha 0.000:0.00 0.040:1.00
+key appear cang_xa_chuy.alpha 0.000:0.00 0.040:1.00
+key appear quat.alpha 0.000:0.00 0.040:1.00
+key appear duoi2.alpha 0.000:0.00 0.040:1.00
+key appear duoi1.alpha 0.000:0.00 0.040:1.00
+key appear chan3.alpha 0.000:0.00 0.040:1.00
+key appear chan4.alpha 0.000:0.00 0.040:1.00
+key appear chan1.alpha 0.000:0.00 0.040:1.00
+key appear chan2.alpha 0.000:0.00 0.040:1.00
+key appear than.alpha 0.000:0.00 0.040:1.00
+key appear dau.alpha 0.000:0.00 0.040:1.00
+key appear mat_sau.alpha 0.000:0.00 0.040:1.00
+key appear mat_truoc.alpha 0.000:0.00 0.040:1.00
+key appear cang_gan_vai.alpha 0.000:0.00 0.040:1.00
+key appear cang_gan_co.alpha 0.000:0.00 0.040:1.00
+key appear cang_gan_chuy.alpha 0.000:0.00 0.040:1.00
+key appear move.translate 0.000:0.00,240.00 0.320:0.00,0.00:easeIn 0.800:0.00,0.00
+key appear than.scale 0.000:1.06,0.95 0.320:1.06,0.95 0.360:0.86,1.10 0.470:1.05,0.97:easeOut 0.600:1.00,1.00:easeInOut 0.800:1.00,1.00
+key appear hip.translate 0.000:0.00,0.00 0.320:0.00,0.00 0.360:0.00,-10.00 0.500:0.00,2.00:easeOut 0.620:0.00,0.00 0.800:0.00,0.00
+key appear cg_vai.rotate 0.000:18.00 0.320:18.00 0.380:-8.00 0.550:30.00:easeOut 0.640:6.00 0.800:0.00:easeInOut
+key appear cg_co.rotate 0.000:-10.00 0.320:-10.00 0.380:8.00 0.550:-26.00:easeOut 0.640:-4.00 0.800:0.00:easeInOut
+key appear cx_bap.rotate 0.000:22.00 0.320:22.00 0.380:-12.00 0.600:4.00:easeOut 0.800:0.00:easeInOut
+key appear mat_s.rotate 0.000:10.00 0.320:10.00 0.400:-12.00 0.550:4.00 0.800:0.00
+key appear mat_t.rotate 0.000:10.00 0.320:10.00 0.400:-14.00 0.550:5.00 0.800:0.00
+key appear chan1.rotate 0.000:-12.00 0.320:-12.00 0.380:7.20 0.550:0.00:easeOut 0.800:0.00
+key appear chan2.rotate 0.000:-6.00 0.320:-6.00 0.380:3.60 0.550:0.00:easeOut 0.800:0.00
+key appear chan3.rotate 0.000:6.00 0.320:6.00 0.380:-3.60 0.550:0.00:easeOut 0.800:0.00
+key appear chan4.rotate 0.000:12.00 0.320:12.00 0.380:-7.20 0.550:0.00:easeOut 0.800:0.00
+anim.spring appear bones=rt1,rt2,rt3
+anim.spring appear bones=rs1,rs2,rs3
+anim.spring appear bones=duoi1,duoi2,quat
+vfx.burst appear image=bot prefix=appear_b bone=move count=8 t=0.32 dur=0.45 speed=200 spread=160 gravity=420 fade=0.4 scale=0.8 scaleEnd=0.4 seed=5
+vfx.ring appear image=vong slot=appear_vong bone=dat_vong t=0.32 dur=0.4 from=0.2 to=1.6 fade=0.3

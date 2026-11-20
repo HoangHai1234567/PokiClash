@@ -9,7 +9,10 @@
 #   pk_g_doc     gradient dọc: trắng ở đáy, trong suốt ở đỉnh (sáng ô, ánh trên thanh)
 #   pk_g_led     một chấm LED mềm, ô 32 px để lát (Image.Type.Tiled) phủ màn bảng số
 #   pk_g_sao     lấp lánh bốn cánh mềm (chớp trên chữ số, trên rương)
-# Chạy: py -3 -I ArtGen/Pachinko/sinh_anh_sang.py  (ghi Assets/03 Art/Pachinko/pk_g_*.png)
+#   pk_g_chum    chùm tia sáng toả lên từ một điểm ở đáy (rương mở, theo ảnh mẫu người dùng gửi 2026-11-21: tia dài ngắn, rộng hẹp
+#                xen nhau, sáng ở gốc tắt dần ra ngọn, nền quạt mờ); gốc ở (0,5; 0,03) tính từ đáy
+#   pk_g_loe     loé ngang ở gốc chùm tia: lõi tròn sáng + vệt ngang mảnh
+# Chạy: py -3 -I ArtGen/Pachinko/sinh_anh_sang.py  (ghi Assets/03 Art/Pachinko/pk_g_*.png); thêm --moi: chỉ ghi pk_g_chum, pk_g_loe
 import sys
 from pathlib import Path
 
@@ -103,8 +106,48 @@ def sparkle(n=192):
     return np.clip(arm + np.exp(-(r / 0.16) ** 2), 0, 1)
 
 
+def fan(n=512, count=17, seed=11):
+    """Chùm tia toả lên: gốc ở giữa đáy, tia trong ±74° quanh trục đứng."""
+    rng = np.random.default_rng(seed)
+    y, x = np.mgrid[0:n, 0:n].astype(np.float32)
+    ox, oy, R = n / 2, n * 0.97, n * 0.94
+    dx, dy = x + 0.5 - ox, oy - (y + 0.5)  # dy dương: lên trên
+    r = np.sqrt(dx * dx + dy * dy) / R
+    phi = np.arctan2(dx, np.maximum(dy, 1e-3))  # 0 = thẳng lên
+    angs = np.linspace(-74, 74, count) + rng.uniform(-4, 4, count)
+    keep = 1.0
+    for i, a in enumerate(angs):
+        wide = i % 3 == 0
+        sig = np.radians(rng.uniform(3.2, 5.0) if wide else rng.uniform(1.1, 2.2))
+        length = rng.uniform(0.78, 1.0) if wide else rng.uniform(0.45, 0.9)
+        length *= 1 - 0.25 * (abs(a) / 74) ** 2  # tia hai bên ngắn hơn tia giữa
+        inten = rng.uniform(0.55, 0.8) if wide else rng.uniform(0.7, 1.0)
+        across = np.exp(-((phi - np.radians(a)) / sig) ** 2)
+        along = (1 - smooth(r / length)) ** 1.4
+        keep = keep * (1 - inten * across * along)  # chồng kiểu screen: không cháy trắng chỗ tia gặp nhau
+    beams = 1 - keep
+    haze = 0.22 * np.exp(-(phi / 1.05) ** 2) * (1 - smooth(r / 0.75)) ** 1.6
+    core = np.exp(-(r / 0.07) ** 2)
+    a = 1 - (1 - beams) * (1 - haze) * (1 - core)
+    a *= smooth((dy / R + 0.02) / 0.04)  # dưới gốc tắt nhanh
+    return a * (1 - smooth((r - 0.96) / 0.04))
+
+
+def flare(w=512, h=128):
+    x, y = grid(w, h)
+    xs, ys = x, y * h / w  # toạ độ cùng tỉ lệ theo bề ngang
+    r = np.sqrt(xs * xs + ys * ys)
+    streak = np.exp(-(np.abs(y) / 0.16) ** 2) * (1 - smooth(np.abs(x))) ** 2.2
+    core = np.exp(-(r / 0.05) ** 2) + 0.5 * np.exp(-(r / 0.1) ** 2)  # mép trên / dưới ảnh ở r 0,25: lõi đã tắt hẳn
+    return np.clip(np.maximum(streak, core), 0, 1) * (1 - smooth((np.abs(y) - 0.8) / 0.2))
+
+
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
+    save(fan(), "pk_g_chum")
+    save(flare(), "pk_g_loe")
+    if "--moi" in sys.argv:
+        return
     save(glow(), "pk_g_quang")
     save(ring(), "pk_g_vong")
     save(rays(), "pk_g_tia")

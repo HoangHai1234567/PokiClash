@@ -22,7 +22,10 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng", priority = 57)]
         public static string Attach()
         {
-            var heroes = (List<object>)((Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(HeroesJson)))["heroes"];
+            var data = (Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(HeroesJson));
+            var heroes = new List<object>((List<object>)data["heroes"]);
+            // lính (minions) dạng .atomik cũng có prefab Assets/04 Prefabs/Heroes/<id>.prefab (quái lính 5 đảo, 2026-11-20)
+            if (data.TryGetValue("minions", out var mn) && mn is List<object> ml) heroes.AddRange(ml);
             var log = new List<string>();
             var lib = AssetDatabase.LoadAssetAtPath<HeroModels>(AolaImport.LibraryPath);
             foreach (Dictionary<string, object> h in heroes)

@@ -23,6 +23,7 @@ namespace PokiClash
             public ScrollRect scroll;
             public SketchButton sound, hints;
             public SketchButton haptics; // dòng "Rung" (thêm bằng menu PokiClash/Prefab/Sổ tay: thêm dòng Rung)
+            public SketchButton lowFlash; // dòng "Giảm nhấp nháy" (menu PokiClash/Prefab/Sổ tay: thêm dòng Giảm nhấp nháy)
             public GameObject packs; // mục "Gói hỗ trợ" (ẩn khi chưa có cửa hàng và chưa có gói)
             public Transform packNote; // dòng "Không bán bi..." trong mục gói: thẻ gói chèn ngay trước
             public GameObject packDevNote; // "Bản thử: cửa hàng giả lập..." (chỉ bản dev)
@@ -65,6 +66,7 @@ namespace PokiClash
             Toggle(p.hints, st.hints, x => st.hints = x);
             // bật rung thì rung thử một cú để người chơi biết máy có rung
             if (p.haptics) Toggle(p.haptics, st.haptics, x => st.haptics = x, x => { if (x) Haptics.Play(Haptic.OpenSilver); });
+            if (p.lowFlash) Toggle(p.lowFlash, st.lowFlash, x => st.lowFlash = x);
 
             Packs();
             p.version.text = $"PokiClash · bản lưu v{App.Data.Cfg.saveVersion} · {Application.version}";

@@ -4570,10 +4570,10 @@
   {
    "id": "linh_cua_skill",
    "owner": "linh_cua",
-   "name": "Kẹp Kìm",
+   "name": "Đấm Bọt",
    "rarity": "common",
    "kind": "skill",
-   "icon": "claw",
+   "icon": "bubble",
    "effects": [
     {
      "k": "dmg",
@@ -4587,10 +4587,10 @@
   {
    "id": "linh_cua_ult",
    "owner": "linh_cua",
-   "name": "Kìm Sắt",
+   "name": "Liên Hoàn Quyền",
    "rarity": "common",
    "kind": "ult",
-   "icon": "claw",
+   "icon": "fist2",
    "effects": [
     {
      "k": "dmg",
@@ -4605,7 +4605,7 @@
   {
    "id": "linh_cua_pas",
    "owner": "linh_cua",
-   "name": "Mai Cứng",
+   "name": "Vỏ Cứng",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -4639,10 +4639,10 @@
   {
    "id": "linh_cua2_ult",
    "owner": "linh_cua2",
-   "name": "Pháo Kép",
+   "name": "Song Quyền Nổ",
    "rarity": "common",
    "kind": "ult",
-   "icon": "bubble",
+   "icon": "fist2",
    "effects": [
     {
      "k": "dmg",
@@ -4658,7 +4658,7 @@
   {
    "id": "linh_cua2_pas",
    "owner": "linh_cua2",
-   "name": "Mai Thép",
+   "name": "Vỏ Thép",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -4896,10 +4896,10 @@
   {
    "id": "linh_bo_skill",
    "owner": "linh_bo",
-   "name": "Húc Sừng",
+   "name": "Phi Lá",
    "rarity": "common",
    "kind": "skill",
-   "icon": "claw",
+   "icon": "seed",
    "effects": [
     {
      "k": "dmg",
@@ -4913,10 +4913,10 @@
   {
    "id": "linh_bo_ult",
    "owner": "linh_bo",
-   "name": "Sừng Cứng",
+   "name": "Quật Đuôi Lá",
    "rarity": "common",
    "kind": "ult",
-   "icon": "claw",
+   "icon": "wind",
    "effects": [
     {
      "k": "dmg",
@@ -4931,7 +4931,7 @@
   {
    "id": "linh_bo_pas",
    "owner": "linh_bo",
-   "name": "Vỏ Gỗ",
+   "name": "Mũ Dẻ Gai",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -4948,7 +4948,7 @@
   {
    "id": "linh_bo2_skill",
    "owner": "linh_bo2",
-   "name": "Đạn Hạt",
+   "name": "Ném Hạt Dẻ",
    "rarity": "common",
    "kind": "skill",
    "icon": "seed",
@@ -4965,10 +4965,10 @@
   {
    "id": "linh_bo2_ult",
    "owner": "linh_bo2",
-   "name": "Húc Kép",
+   "name": "Bão Lá",
    "rarity": "common",
    "kind": "ult",
-   "icon": "crack",
+   "icon": "wind",
    "effects": [
     {
      "k": "dmg",
@@ -4984,7 +4984,7 @@
   {
    "id": "linh_bo2_pas",
    "owner": "linh_bo2",
-   "name": "Vỏ Gỗ Thép",
+   "name": "Mũ Gai Cứng",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5222,7 +5222,7 @@
   {
    "id": "linh_lo_skill",
    "owner": "linh_lo",
-   "name": "Than Hồng",
+   "name": "Phun Lửa",
    "rarity": "common",
    "kind": "skill",
    "icon": "flame",
@@ -5239,10 +5239,10 @@
   {
    "id": "linh_lo_ult",
    "owner": "linh_lo",
-   "name": "Lò Phụt",
+   "name": "Cựa Lửa Liên Hoàn",
    "rarity": "common",
    "kind": "ult",
-   "icon": "flame",
+   "icon": "claw",
    "effects": [
     {
      "k": "dmg",
@@ -5257,7 +5257,7 @@
   {
    "id": "linh_lo_pas",
    "owner": "linh_lo",
-   "name": "Vỏ Gang",
+   "name": "Lông Lửa",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5274,7 +5274,7 @@
   {
    "id": "linh_lo2_skill",
    "owner": "linh_lo2",
-   "name": "Than Bắn",
+   "name": "Cầu Lửa",
    "rarity": "common",
    "kind": "skill",
    "icon": "torch",
@@ -5291,10 +5291,10 @@
   {
    "id": "linh_lo2_ult",
    "owner": "linh_lo2",
-   "name": "Phun Lửa Kép",
+   "name": "Song Cựa Lửa",
    "rarity": "common",
    "kind": "ult",
-   "icon": "flame",
+   "icon": "claw",
    "effects": [
     {
      "k": "dmg",
@@ -5310,7 +5310,7 @@
   {
    "id": "linh_lo2_pas",
    "owner": "linh_lo2",
-   "name": "Vỏ Thép Nung",
+   "name": "Mào Bất Bại",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5548,10 +5548,10 @@
   {
    "id": "linh_giap_skill",
    "owner": "linh_giap",
-   "name": "Đấm Sắt",
+   "name": "Phóng Lông Thép",
    "rarity": "common",
    "kind": "skill",
-   "icon": "fist",
+   "icon": "bolt",
    "effects": [
     {
      "k": "dmg",
@@ -5565,10 +5565,10 @@
   {
    "id": "linh_giap_ult",
    "owner": "linh_giap",
-   "name": "Búa Máy",
+   "name": "Cào Lốc Thép",
    "rarity": "common",
    "kind": "ult",
-   "icon": "hammer",
+   "icon": "claw",
    "effects": [
     {
      "k": "dmg",
@@ -5583,7 +5583,7 @@
   {
    "id": "linh_giap_pas",
    "owner": "linh_giap",
-   "name": "Giáp Gác",
+   "name": "Lông Lưỡi Thép",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5600,7 +5600,7 @@
   {
    "id": "linh_giap2_skill",
    "owner": "linh_giap2",
-   "name": "Pháo Vai",
+   "name": "Mưa Lông Thép",
    "rarity": "common",
    "kind": "skill",
    "icon": "bolt",
@@ -5617,10 +5617,10 @@
   {
    "id": "linh_giap2_ult",
    "owner": "linh_giap2",
-   "name": "Đấm Kép",
+   "name": "Bão Lưỡi Thép",
    "rarity": "common",
    "kind": "ult",
-   "icon": "fist2",
+   "icon": "wind",
    "effects": [
     {
      "k": "dmg",
@@ -5636,7 +5636,7 @@
   {
    "id": "linh_giap2_pas",
    "owner": "linh_giap2",
-   "name": "Giáp Tím",
+   "name": "Giáp Gai",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5874,7 +5874,7 @@
   {
    "id": "linh_khoan_skill",
    "owner": "linh_khoan",
-   "name": "Khoan Đất",
+   "name": "Dậm Đá",
    "rarity": "common",
    "kind": "skill",
    "icon": "crack",
@@ -5891,10 +5891,10 @@
   {
    "id": "linh_khoan_ult",
    "owner": "linh_khoan",
-   "name": "Khoan Xoáy",
+   "name": "Húc Núi",
    "rarity": "common",
    "kind": "ult",
-   "icon": "wind",
+   "icon": "crack",
    "cost": {
     "rage": 100,
     "mana": 30
@@ -5909,7 +5909,7 @@
   {
    "id": "linh_khoan_pas",
    "owner": "linh_khoan",
-   "name": "Giáp Đất",
+   "name": "Lông Đá",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",
@@ -5926,10 +5926,10 @@
   {
    "id": "linh_khoan2_skill",
    "owner": "linh_khoan2",
-   "name": "Mũi Khoan Thép",
+   "name": "Gai Đá Trồi",
    "rarity": "common",
    "kind": "skill",
-   "icon": "bolt",
+   "icon": "crack",
    "cost": {
     "mana": 30
    },
@@ -5943,7 +5943,7 @@
   {
    "id": "linh_khoan2_ult",
    "owner": "linh_khoan2",
-   "name": "Khoan Kép",
+   "name": "Song Húc",
    "rarity": "common",
    "kind": "ult",
    "icon": "fist2",
@@ -5962,7 +5962,7 @@
   {
    "id": "linh_khoan2_pas",
    "owner": "linh_khoan2",
-   "name": "Giáp Nặng",
+   "name": "Giáp Đá Nặng",
    "rarity": "common",
    "kind": "passive",
    "icon": "shield",

@@ -114,6 +114,11 @@ namespace PokiClash
 #if UNITY_EDITOR
             Application.runInBackground = true; // để Play mode chạy tiếp khi Editor không có tiêu điểm (thử qua MCP)
 #endif
+            // ngưỡng thành kéo theo mật độ điểm ảnh (~2,5 mm), không dưới 10 px của prefab: màn nét 10 px chỉ là ngón rung nhẹ, chạm / giữ
+            // thành kéo nên bản đồ trôi và chạm bị huỷ (người dùng 2026-11-20: "khi hold vào các tướng hay tap cam toàn bị move")
+            var es = UnityEngine.EventSystems.EventSystem.current ? UnityEngine.EventSystems.EventSystem.current
+                : GetComponentInChildren<UnityEngine.EventSystems.EventSystem>(true);
+            if (es) es.pixelDragThreshold = Mathf.Max(10, Mathf.RoundToInt((Screen.dpi > 0 ? Screen.dpi : 160) * 0.1f));
 
             GameDb.Build(heroDb, cardDb, zoneDb, balance);
             Theme.Init(uiAssets);

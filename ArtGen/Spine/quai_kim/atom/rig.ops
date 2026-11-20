@@ -1,0 +1,34 @@
+# rig nhím thép (quái đảo Kim) — sinh bởi ArtGen/Spine/quai_kim_rig.py
+bone.add move parent=root x=0.0 y=0.0 rot=0.00 len=0.0 world=true
+bone.add hip parent=move x=15.0 y=127.0 rot=90.00 len=40.0 world=true
+bone.add xoay parent=hip x=30.0 y=322.0 rot=0.00 len=40.0 world=true
+bone.add than parent=xoay x=15.0 y=122.0 rot=85.68 len=265.8 world=true
+bone.add dau parent=than x=35.0 y=377.0 rot=75.26 len=294.7 world=true
+bone.add tai_x parent=dau x=235.0 y=637.0 rot=63.43 len=78.3 world=true
+bone.add bom_d parent=than x=-170.0 y=202.0 rot=-173.42 len=261.7 world=true
+bone.add bom_g parent=than x=-160.0 y=402.0 rot=169.70 len=335.4 world=true
+bone.add bom_t parent=than x=-40.0 y=572.0 rot=132.27 len=297.3 world=true
+bone.add tx parent=than x=-120.0 y=350.0 rot=130.97 len=221.2 world=true
+bone.add tg parent=than x=225.0 y=345.0 rot=-16.93 len=120.2 world=true
+bone.add tg_vuot parent=tg x=340.0 y=314.0 rot=-0.85 len=135.0 world=true
+bone.add tg_mui parent=tg_vuot x=475.0 y=297.0 rot=0.00 len=40.0 world=true
+bone.add tg_vong parent=tg_vuot x=455.0 y=302.0 rot=0.00 len=40.0 world=true
+bone.add ban parent=hip x=80.0 y=747.0 rot=-90.00 len=0.0 world=true
+bone.add ban_vong parent=hip x=80.0 y=747.0 rot=0.00 len=40.0 world=true
+bone.add than_tam parent=hip x=30.0 y=352.0 rot=-90.00 len=0.0 world=true
+bone.add than_vong parent=hip x=30.0 y=352.0 rot=0.00 len=40.0 world=true
+bone.add dat_vong parent=root x=0.0 y=0.0 rot=0.00 len=40.0 world=true
+bone.add chan_x parent=move x=-175.0 y=157.0 rot=-93.95 len=145.3 world=true
+bone.add chan_g parent=move x=185.0 y=154.0 rot=-83.97 len=142.8 world=true
+part.add bom_duoi path=images/bom_duoi.png at=309,608 canvas=1536,1024 origin=760,962 bone=bom_d mesh=false
+part.add bom_giua path=images/bom_giua.png at=239,344 canvas=1536,1024 origin=760,962 bone=bom_g mesh=false
+part.add bom_tren path=images/bom_tren.png at=303,36 canvas=1536,1024 origin=760,962 bone=bom_t mesh=false
+part.add chan_xa path=images/chan_xa.png at=457,799 canvas=1536,1024 origin=760,962 bone=chan_x mesh=false
+part.add tay_xa path=images/tay_xa.png at=415,363 canvas=1536,1024 origin=760,962 bone=tx mesh=false
+part.add tai_xa path=images/tai_xa.png at=950,234 canvas=1536,1024 origin=760,962 bone=tai_x mesh=false
+part.add tay_gan path=images/tay_gan.png at=911,547 canvas=1536,1024 origin=760,962 bone=tg mesh=false
+part.add vuot_gan path=images/vuot_gan.png at=1090,549 canvas=1536,1024 origin=760,962 bone=tg_vuot mesh=false
+part.add chan_gan path=images/chan_gan.png at=841,799 canvas=1536,1024 origin=760,962 bone=chan_g mesh=false
+part.add than path=images/than.png at=531,243 canvas=1536,1024 origin=760,962 bone=than mesh=true
+att.weights than than bones=than,dau
+part.add mat path=images/mat.png at=710,347 canvas=1536,1024 origin=760,962 bone=dau mesh=false

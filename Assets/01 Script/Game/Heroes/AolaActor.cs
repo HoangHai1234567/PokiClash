@@ -102,6 +102,8 @@ namespace PokiClash.Game
         Vector2?[] flyFrom = new Vector2?[0]; // chỗ xuất phát suy ra của từng mảnh bay (đơn vị rig)
         int[] atkFly = new int[0];     // xương "fly*": đạn bay từ thân tới far
         int atkAura = -1;              // clip lặp "aura" (mây bay vòng quanh Thanh Long...): phủ lên mọi clip theo đồng hồ liên tục
+        // đồng hồ thay cho Time.time của clip aura (null: như thường). Công cụ quét Editor quay pha aura (2026-11-20, HeroFrameScan).
+        public static float? AuraClock;
         MeshRenderer atkRenderer;
         Mesh atkMesh;
         // hạt vẽ không viền sticker (game.plain: hạt lá bay, lá văng; người dùng dặn bỏ viền trắng ở hạt lá, 2026-11-09). Khi nơi hiện
@@ -121,6 +123,40 @@ namespace PokiClash.Game
 
         // Khung bao hình của clip (AtomikAsset.fit, đo lúc nhập): |x| lớn nhất, đỉnh, đáy theo chiều cao dáng đứng, gốc ở chân, đã trừ
         // chỗ xương move như Follow. false: dạng aola, hoặc rig nhập trước khi có số đo.
+        // dạng đang nạp là rig .atomik (false: hình aola)
+        public bool IsAtomik => atk != null;
+
+        // Khung bao các đỉnh vừa vẽ của rig .atomik (đơn vị thế giới, gốc ở chân, đã lật; gồm lớp hạt không viền), tính ngay lúc dựng
+        // hình. AolaSticker nới khung camera theo đó mỗi khung để hình và viền giấy không bị mép ảnh cắt: hiệu ứng ở chỗ đối thủ, clip
+        // aura phủ lên, cú đâm nhanh lọt giữa hai mẫu đo của fit (2026-11-20, HeroFrameScan). false: dạng aola hoặc chưa vẽ gì.
+        public bool Drawn(out Vector2 min, out Vector2 max)
+        {
+            min = drawnMin;
+            max = drawnMax;
+            return atk != null && drawnMax.x >= drawnMin.x;
+        }
+        Vector2 drawnMin = new(1, 1), drawnMax = new(-1, -1);
+
+        void ClearDrawn()
+        {
+            drawnMin = new Vector2(float.MaxValue, float.MaxValue);
+            drawnMax = new Vector2(float.MinValue, float.MinValue);
+        }
+
+        // đỉnh [0, n) của av vừa dựng; đỉnh mờ hẳn (slot tắt, bóng ẩn) bỏ qua như AtomikImporter.MeasureFit
+        void GrowDrawn(int n)
+        {
+            for (int i = 0; i < n; i++)
+            {
+                if (ac[i].a < 8) continue;
+                var p = av[i];
+                if (p.x < drawnMin.x) drawnMin.x = p.x;
+                if (p.x > drawnMax.x) drawnMax.x = p.x;
+                if (p.y < drawnMin.y) drawnMin.y = p.y;
+                if (p.y > drawnMax.y) drawnMax.y = p.y;
+            }
+        }
+
         public bool Extent(string clip, out float mx, out float top, out float bot)
         {
             mx = top = bot = 0;
@@ -355,7 +391,8 @@ namespace PokiClash.Game
             int ci = AtkClip(current);
             float t = ci >= 0 ? Mathf.Min(time, atk.anims[ci].dur) : 0;
             // clip lặp "aura" chạy theo giờ game (không theo clip): mây bay liền qua các lần đổi clip, kể cả khi clip chính đứng khung
-            float ta = atkAura >= 0 ? Mathf.Repeat(Application.isPlaying ? Time.time : 0f, Mathf.Max(1e-3f, atk.anims[atkAura].dur)) : 0f;
+            float clock = AuraClock ?? (Application.isPlaying ? Time.time : 0f);
+            float ta = atkAura >= 0 ? Mathf.Repeat(clock, Mathf.Max(1e-3f, atk.anims[atkAura].dur)) : 0f;
             if (shown >= 0 && Mathf.Abs(t - shownTime) < 1e-4f && Mathf.Abs(ta - shownAura) < 1e-4f) return;
             shown = 1;
             shownTime = t;
@@ -370,6 +407,8 @@ namespace PokiClash.Game
             bool split = SplitFx && atkPlain != null;
             int hs = hideShadow ? atkShadow : -1;
             int nv = apose.Skin(passMain, split ? atkPlain : null, false, av, au, ac, unit, flip, hs, out bool trisChanged);
+            ClearDrawn();
+            GrowDrawn(nv);
             FillMesh(atkMesh, nv, trisChanged, passMain.Tris);
             block.SetTexture("_MainTex", atlas);
             block.SetColor("_Add", Color.clear);
@@ -387,6 +426,7 @@ namespace PokiClash.Game
                     atkFxRenderer = go.AddComponent<MeshRenderer>();
                 }
                 int nf = apose.Skin(passFx, atkPlain, true, av, au, ac, unit, flip, -1, out bool fxChanged);
+                GrowDrawn(nf); // lớp hạt: camera thứ hai cùng khung (đặt cao FxLift), đỉnh cùng hệ toạ độ
                 FillMesh(atkFxMesh, nf, fxChanged, passFx.Tris);
                 ShowMesh(atkFxRenderer);
             }

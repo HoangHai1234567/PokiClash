@@ -1077,9 +1077,9 @@ MonoBehaviour:
     minion: 0
   minions:
   - id: linh_cua
-    name: "Cua K\xECm"
-    title: "L\xEDnh g\xE1c b\xE3i c\xE1t"
-    aola: goc_1313
+    name: "T\xF4m \u0110\u1EA5m"
+    title: "T\xF4m t\xEDt \u0111\u1EA5m b\u1ED1c"
+    aola: quai_thuy
     elem: 2
     rarity: 0
     stats: 2c0000003700000021000000370000002100000016000000
@@ -1090,14 +1090,14 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.58
     forms:
-    - name: "Cua K\xECm"
-      aola: goc_1313
+    - name: "T\xF4m \u0110\u1EA5m"
+      aola: quai_thuy
       size: 0.58
     minion: 1
   - id: linh_cua2
-    name: "Cua Ph\xE1o"
-    title: "C\xE0ng to b\u1EAFn b\u1ECDt"
-    aola: goc_1314
+    name: "T\xF4m Quy\u1EC1n"
+    title: "C\xFA \u0111\u1EA5m n\u1ED5 b\u1ECDt"
+    aola: quai_thuy
     elem: 2
     rarity: 0
     stats: 420000004d000000370000004d000000370000002c000000
@@ -1108,8 +1108,8 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.83
     forms:
-    - name: "Cua Ph\xE1o"
-      aola: goc_1314
+    - name: "T\xF4m Quy\u1EC1n"
+      aola: quai_thuy
       size: 0.83
     minion: 1
   - id: linh_noc
@@ -1185,9 +1185,9 @@ MonoBehaviour:
       size: 1.06
     minion: 1
   - id: linh_bo
-    name: "B\u1ECD S\u1EEBng"
-    title: "Gi\xE1p g\u1ED7 c\u1EE9ng \u0111\u1EA7u"
-    aola: goc_40
+    name: "S\xF3c D\u1EBB Gai"
+    title: "M\u0169 gai n\u1EAFm \u0111\u1EA5m nh\u1ECF"
+    aola: quai_moc
     elem: 1
     rarity: 0
     stats: 370000002d0000004000000044000000370000001f000000
@@ -1198,14 +1198,14 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.62
     forms:
-    - name: "B\u1ECD S\u1EEBng"
-      aola: goc_40
+    - name: "S\xF3c D\u1EBB Gai"
+      aola: quai_moc
       size: 0.62
     minion: 1
   - id: linh_bo2
-    name: "B\u1ECD S\u1EEBng G\u1ED7"
-    title: "S\u1EEBng g\u1ED7 h\xFAc tung"
-    aola: goc_41
+    name: "S\xF3c D\u1EBB Chi\u1EBFn"
+    title: "\u0110u\xF4i l\xE1 qu\u1EADt gi\xF3"
+    aola: quai_moc
     elem: 1
     rarity: 0
     stats: 4b000000370000005500000059000000410000002d000000
@@ -1216,8 +1216,8 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.79
     forms:
-    - name: "B\u1ECD S\u1EEBng G\u1ED7"
-      aola: goc_41
+    - name: "S\xF3c D\u1EBB Chi\u1EBFn"
+      aola: quai_moc
       size: 0.79
     minion: 1
   - id: linh_ran
@@ -1293,9 +1293,9 @@ MonoBehaviour:
       size: 1.02
     minion: 1
   - id: linh_lo
-    name: "L\xF2 L\u1EEDa"
-    title: "B\u1EE5ng l\xF2 r\u1EF1c than"
-    aola: goc_64
+    name: "G\xE0 Ch\u1ECDi L\u1EEDa"
+    title: "C\u1EF1a l\u1EEDa \u0111\xE1 li\xEAn ho\xE0n"
+    aola: quai_hoa
     elem: 3
     rarity: 0
     stats: 2d000000280000003200000046000000280000001e000000
@@ -1306,14 +1306,14 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.69
     forms:
-    - name: "L\xF2 L\u1EEDa"
-      aola: goc_64
+    - name: "G\xE0 Ch\u1ECDi L\u1EEDa"
+      aola: quai_hoa
       size: 0.69
     minion: 1
   - id: linh_lo2
-    name: "L\xF2 Qu\xE1i"
-    title: "Mi\u1EC7ng l\xF2 phun l\u1EEDa"
-    aola: goc_65
+    name: "G\xE0 Chi\u1EBFn L\u1EEDa"
+    title: "M\xE0o l\u1EEDa b\u1EA5t b\u1EA1i"
+    aola: quai_hoa
     elem: 3
     rarity: 0
     stats: 3c0000003700000050000000640000003c00000032000000
@@ -1324,8 +1324,8 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 1.05
     forms:
-    - name: "L\xF2 Qu\xE1i"
-      aola: goc_65
+    - name: "G\xE0 Chi\u1EBFn L\u1EEDa"
+      aola: quai_hoa
       size: 1.05
     minion: 1
   - id: linh_nam
@@ -1401,9 +1401,9 @@ MonoBehaviour:
       size: 0.92
     minion: 1
   - id: linh_giap
-    name: "Gi\xE1p V\u1EC7"
-    title: "Ng\u01B0\u1EDDi m\xE1y g\xE1c c\u1ED5ng"
-    aola: goc_121
+    name: "Nh\xEDm Th\xE9p"
+    title: "L\xF4ng l\u01B0\u1EE1i th\xE9p"
+    aola: quai_kim
     elem: 0
     rarity: 0
     stats: 28000000460000003c000000140000001400000041000000
@@ -1414,14 +1414,14 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.68
     forms:
-    - name: "Gi\xE1p V\u1EC7"
-      aola: goc_121
+    - name: "Nh\xEDm Th\xE9p"
+      aola: quai_kim
       size: 0.68
     minion: 1
   - id: linh_giap2
-    name: "Chi\u1EBFn Gi\xE1p"
-    title: "N\u1EAFm \u0111\u1EA5m th\xE9p t\xEDm"
-    aola: goc_122
+    name: "Nh\xEDm Ki\u1EBFm"
+    title: "B\xE3o l\u01B0\u1EE1i th\xE9p"
+    aola: quai_kim
     elem: 0
     rarity: 0
     stats: 3c000000640000005000000023000000230000005a000000
@@ -1432,8 +1432,8 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 1.07
     forms:
-    - name: "Chi\u1EBFn Gi\xE1p"
-      aola: goc_122
+    - name: "Nh\xEDm Ki\u1EBFm"
+      aola: quai_kim
       size: 1.07
     minion: 1
   - id: linh_khien
@@ -1509,9 +1509,9 @@ MonoBehaviour:
       size: 0.95
     minion: 1
   - id: linh_khoan
-    name: "Chu\u1ED9t Khoan"
-    title: "\u0110\xE0o h\u1EA7m m\u0169i khoan"
-    aola: goc_1041
+    name: "D\xEA \u0110\xE1"
+    title: "S\u1EEBng \u0111\xE1 h\xFAc tung"
+    aola: quai_tho
     elem: 4
     rarity: 0
     stats: 320000001e0000005a0000001e0000005a00000014000000
@@ -1522,14 +1522,14 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 0.84
     forms:
-    - name: "Chu\u1ED9t Khoan"
-      aola: goc_1041
+    - name: "D\xEA \u0110\xE1"
+      aola: quai_tho
       size: 0.84
     minion: 1
   - id: linh_khoan2
-    name: "Khoan Gi\xE1p"
-    title: "Gi\xE1p n\u1EB7ng m\u0169i khoan th\xE9p"
-    aola: goc_1042
+    name: "D\xEA N\xFAi \u0110\xE1"
+    title: "H\xFAc v\u1EE1 n\xFAi"
+    aola: quai_tho
     elem: 4
     rarity: 0
     stats: 640000004600000096000000460000008200000028000000
@@ -1540,8 +1540,8 @@ MonoBehaviour:
     line: "L\xEDnh"
     size: 1
     forms:
-    - name: "Khoan Gi\xE1p"
-      aola: goc_1042
+    - name: "D\xEA N\xFAi \u0110\xE1"
+      aola: quai_tho
       size: 1
     minion: 1
   - id: linh_da

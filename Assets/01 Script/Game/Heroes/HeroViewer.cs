@@ -22,6 +22,7 @@ namespace PokiClash
         public const string Cast = StageView.Cast; // nút Mana: clip bắn + chiêu mana bằng hạt (tướng Hỏa)
         public const string Evolve = Game.AolaActor.Evolve;
         public const string Appear = Game.AolaActor.Appear, Die = Game.AolaActor.Die; // nút Ra sân, Chết (chỉ rig có clip này)
+        public const string Walk = AolaSticker.Walk; // nút Đi: clip đi bộ của rig .atomik (chỉ dạng có clip này), lặp như Đứng
 
         // dạng đang hiện có clip này không (nút Ra sân, Chết ẩn khi không có)
         public bool Has(string c) => aola != null && aola.HasClip(c);
@@ -274,15 +275,15 @@ namespace PokiClash
                 fxFired = true;
                 FireFx(clip);
             }
-            // clip tiến hóa giữ khung cuối tới khi dạng mới dựng xong
-            if (clip != Idle && !evolving && t >= (aola != null ? aola.Duration(clip) : Len(clip)))
+            // clip tiến hóa giữ khung cuối tới khi dạng mới dựng xong; Đứng và Đi lặp liên tục, clip khác chạy hết thì về Đứng
+            if (clip != Idle && clip != Walk && !evolving && t >= (aola != null ? aola.Duration(clip) : Len(clip)))
             {
                 clip = Idle;
                 t = 0;
             }
-            bool idle = clip == Idle;
-            // vị trí neo như bản web: đứng giữa, chân ở 94%; đánh và chiêu neo 32% chiều ngang, chân ở 80%; tiến hóa đứng giữa
-            bool centre = idle || clip == Hit || clip == Evolve || clip == Appear || clip == Die;
+            bool idle = clip == Idle, loops = idle || clip == Walk;
+            // vị trí neo như bản web: đứng giữa, chân ở 94%; đánh và chiêu neo 32% chiều ngang, chân ở 80%; tiến hóa, đi đứng giữa
+            bool centre = loops || clip == Hit || clip == Evolve || clip == Appear || clip == Die;
             float ax = centre ? 0.5f : 0.32f, ay = centre ? 0.06f : 0.2f;
             float sc = centre ? 1f : 0.6f / 0.7f;
             Vector2 pos = new Vector2((ax - 0.5f) * size, ay * size);
@@ -295,7 +296,7 @@ namespace PokiClash
                 // hiệu ứng ở xa của đòn bắn (đạn, vụ nổ ở chỗ đối thủ của trận gốc): hiện trước mặt trong khung
                 if (clip == Attack || clip == Skill || clip == Cast) aola.FarAhead(clip, 1.3f);
                 else aola.Far(clip, null, false);
-                aola.Show(clip, t, idle, 1, silhouette, 0);
+                aola.Show(clip, t, loops, 1, silhouette, 0);
                 return;
             }
             // hình giữ chỗ: hoạt cảnh giả cho từng clip

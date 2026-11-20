@@ -1,0 +1,164 @@
+project.set name=ruong_bac fps=30 ppu=100
+bone.add chest parent=root x=0 y=0
+bone.add nap parent=chest x=0 y=121
+bone.add glow parent=chest x=0 y=129
+part.add than at=0,123 canvas=320,320 bone=chest
+image.add glow path=images/glow.png
+slot.add glow bone=glow att=glow color=FFF0B8FF at=front
+image.add tia path=images/tia.png
+bone.add tia1 parent=glow x=0 y=6 rot=15.0
+slot.add tia1 bone=tia1 color=FFF4C8FF at=front
+att.region tia1 tia image=tia x=95 y=0
+bone.add tia2 parent=glow x=0 y=6 rot=65.0
+slot.add tia2 bone=tia2 color=FFF4C8FF at=front
+att.region tia2 tia image=tia x=95 y=0
+bone.add tia3 parent=glow x=0 y=6 rot=115.0
+slot.add tia3 bone=tia3 color=FFF4C8FF at=front
+att.region tia3 tia image=tia x=95 y=0
+bone.add tia4 parent=glow x=0 y=6 rot=165.0
+slot.add tia4 bone=tia4 color=FFF4C8FF at=front
+att.region tia4 tia image=tia x=95 y=0
+part.add nap at=0,52 canvas=320,320 bone=nap
+bone.add khe parent=chest x=0 y=125
+slot.add khe bone=khe color=FFF0B8FF at=front
+att.region khe khe image=glow sx=1.05 sy=0.32
+part.add mo at=0,10 canvas=320,320 bone=chest
+image.add lap path=images/lap.png
+slot.order tia1 to=before:mo
+slot.order tia2 to=before:mo
+slot.order tia3 to=before:mo
+slot.order tia4 to=before:mo
+bone.add lap1 parent=glow x=-60 y=0
+slot.add lap1 bone=lap1 at=front
+att.region lap1 lap image=lap sx=0.42 sy=0.42
+bone.add lap2 parent=glow x=8 y=14
+slot.add lap2 bone=lap2 at=front
+att.region lap2 lap image=lap sx=0.42 sy=0.42
+bone.add lap3 parent=glow x=64 y=4
+slot.add lap3 bone=lap3 at=front
+att.region lap3 lap image=lap sx=0.42 sy=0.42
+slot.set glow att=-
+slot.set khe att=-
+slot.set mo att=-
+slot.set tia1 att=-
+slot.set tia2 att=-
+slot.set tia3 att=-
+slot.set tia4 att=-
+slot.set lap1 att=-
+slot.set lap2 att=-
+slot.set lap3 att=-
+anim.add cho dur=2.4 loop=true
+key cho chest.scale 0:1,1:ease 1.2:1.012,0.988:ease 2.4:1,1
+key cho nap.translate 0:0,0:ease 1.2:0,1.5:ease 2.4:0,0
+anim.add nhac dur=3.2 loop=true
+key nhac chest.scale 0:1,1 0.12:1.06,0.92:easeOut 0.26:0.95,1.07:easeOut 0.42:1,1:ease 1.7:1,1 1.76:1.05,0.94:easeOut 1.9:1,1:ease 3.2:1,1
+key nhac chest.translate 0:0,0 0.26:0,0:easeOut 0.37:0,14:easeIn 0.48:0,0 3.2:0,0
+key nhac chest.rotate 0:0 0.48:0:ease 0.58:-5:ease 0.7:4:ease 0.82:-2:ease 0.92:0 3.2:0
+key nhac nap.translate 0:0,0 0.95:0,0:easeOut 1.05:0,9:easeIn 1.18:0,0 1.3:0,0:easeOut 1.43:0,17 1.62:0,16:easeIn 1.7:0,0 3.2:0,0
+key nhac nap.rotate 0:0 0.95:0:easeOut 1.05:-3:easeIn 1.18:0 1.3:0:easeOut 1.43:4 1.62:3:easeIn 1.7:0 3.2:0
+key nhac glow.alpha 0:0 0.95:0:easeOut 1.05:0.75 1.18:0.12 1.3:0.12:easeOut 1.43:1 1.62:0.9:easeIn 1.72:0 3.2:0
+key nhac khe.alpha 0:0 0.95:0:easeOut 1.05:0.6 1.18:0 1.3:0:easeOut 1.43:0.9 1.62:0.75:easeIn 1.72:0 3.2:0
+key nhac khe.translate 0:0,0 0.95:0,0:easeOut 1.05:0,4 1.18:0,0 1.3:0,0:easeOut 1.43:0,8 1.7:0,0 3.2:0,0
+key nhac glow.attachment 0:glow
+key nhac tia1.attachment 0:tia
+key nhac tia2.attachment 0:tia
+key nhac tia3.attachment 0:tia
+key nhac tia4.attachment 0:tia
+key nhac khe.attachment 0:khe
+key nhac tia1.alpha 0:0 0.95:0:easeOut 1.05:0.7 1.18:0 1.3:0:easeOut 1.43:1 1.62:0.85:easeIn 1.72:0 3.2:0
+key nhac tia2.alpha 0:0 0.95:0:easeOut 1.05:0.7 1.18:0 1.3:0:easeOut 1.43:1 1.62:0.85:easeIn 1.72:0 3.2:0
+key nhac tia3.alpha 0:0 0.95:0:easeOut 1.05:0.7 1.18:0 1.3:0:easeOut 1.43:1 1.62:0.85:easeIn 1.72:0 3.2:0
+key nhac tia4.alpha 0:0 0.95:0:easeOut 1.05:0.7 1.18:0 1.3:0:easeOut 1.43:1 1.62:0.85:easeIn 1.72:0 3.2:0
+key nhac tia1.scale 0:0.4,0.6 0.95:0.4,0.6:easeOut 1.05:0.9,0.9 1.18:0.4,0.6 1.3:0.4,0.6:easeOut 1.43:1.15,1 1.62:1.1,1:easeIn 1.72:0.4,0.6 3.2:0.4,0.6
+key nhac tia2.scale 0:0.4,0.6 0.95:0.4,0.6:easeOut 1.05:0.9,0.9 1.18:0.4,0.6 1.3:0.4,0.6:easeOut 1.43:1.15,1 1.62:1.1,1:easeIn 1.72:0.4,0.6 3.2:0.4,0.6
+key nhac tia3.scale 0:0.4,0.6 0.95:0.4,0.6:easeOut 1.05:0.9,0.9 1.18:0.4,0.6 1.3:0.4,0.6:easeOut 1.43:1.15,1 1.62:1.1,1:easeIn 1.72:0.4,0.6 3.2:0.4,0.6
+key nhac tia4.scale 0:0.4,0.6 0.95:0.4,0.6:easeOut 1.05:0.9,0.9 1.18:0.4,0.6 1.3:0.4,0.6:easeOut 1.43:1.15,1 1.62:1.1,1:easeIn 1.72:0.4,0.6 3.2:0.4,0.6
+key nhac lap1.attachment 0:- 1.42:lap 1.92:-
+key nhac lap1.translate 0:0,0 1.42:0,0:easeOut 1.92:-26,64 3.2:0,0
+key nhac lap1.scale 0:0.4,0.4 1.42:0.4,0.4:easeOut 1.60:1,1:easeIn 1.92:0.3,0.3 3.2:0.4,0.4
+key nhac lap1.rotate 0:0 1.42:0 1.92:90 3.2:0
+key nhac lap2.attachment 0:- 1.48:lap 1.98:-
+key nhac lap2.translate 0:0,0 1.48:0,0:easeOut 1.98:4,64 3.2:0,0
+key nhac lap2.scale 0:0.4,0.4 1.48:0.4,0.4:easeOut 1.66:1,1:easeIn 1.98:0.3,0.3 3.2:0.4,0.4
+key nhac lap2.rotate 0:0 1.48:0 1.98:90 3.2:0
+key nhac lap3.attachment 0:- 1.54:lap 2.04:-
+key nhac lap3.translate 0:0,0 1.54:0,0:easeOut 2.04:30,64 3.2:0,0
+key nhac lap3.scale 0:0.4,0.4 1.54:0.4,0.4:easeOut 1.72:1,1:easeIn 2.04:0.3,0.3 3.2:0.4,0.4
+key nhac lap3.rotate 0:0 1.54:0 2.04:90 3.2:0
+anim.add gong dur=0.6
+key gong chest.rotate 0:0 0.05:2 0.10:-3 0.15:3 0.20:-4 0.25:4 0.30:-5 0.35:5 0.40:-6 0.45:6 0.50:-7 0.55:7 0.6:0
+key gong chest.scale 0:1,1:easeIn 0.6:1.06,0.9
+key gong nap.translate 0:0,0 0.05:0,5 0.10:0,0 0.15:0,7 0.20:0,0 0.25:0,9 0.30:0,0 0.35:0,11 0.40:0,0 0.45:0,13 0.50:0,0 0.55:0,15 0.6:0,14
+key gong glow.alpha 0:0.15:easeIn 0.6:1
+key gong khe.alpha 0:0.2:easeIn 0.6:1
+key gong khe.translate 0:0,0 0.6:0,7
+key gong glow.attachment 0:glow
+key gong tia1.attachment 0:tia
+key gong tia2.attachment 0:tia
+key gong tia3.attachment 0:tia
+key gong tia4.attachment 0:tia
+key gong khe.attachment 0:khe
+key gong tia1.alpha 0:0.2:easeIn 0.6:1
+key gong tia2.alpha 0:0.2:easeIn 0.6:1
+key gong tia3.alpha 0:0.2:easeIn 0.6:1
+key gong tia4.alpha 0:0.2:easeIn 0.6:1
+key gong tia1.scale 0:0.5,0.6:easeIn 0.6:1.2,1
+key gong tia2.scale 0:0.5,0.6:easeIn 0.6:1.2,1
+key gong tia3.scale 0:0.5,0.6:easeIn 0.6:1.2,1
+key gong tia4.scale 0:0.5,0.6:easeIn 0.6:1.2,1
+anim.add bat dur=0.45
+key bat nap.translate 0:0,14:easeOut 0.06:0,44
+key bat nap.rotate 0:0:easeOut 0.06:-22
+key bat than.attachment 0:than 0.07:-
+key bat nap.attachment 0:nap 0.07:-
+key bat mo.attachment 0:- 0.07:mo
+key bat chest.scale 0:1.06,0.9 0.07:1.25,0.8:easeOut 0.17:0.9,1.15:ease 0.3:1,1
+key bat glow.translate 0:0,0 0.07:0,94
+key bat glow.alpha 0:1 0.45:0.85
+key.order bat t=0 order=than,glow,nap,khe,tia1,tia2,tia3,tia4,mo,lap1,lap2,lap3
+key.order bat t=0.07 order=than,nap,khe,mo,glow,tia1,tia2,tia3,tia4,lap1,lap2,lap3
+key bat khe.alpha 0:1 0.07:0
+event bat 0.07 open
+key bat glow.attachment 0:glow
+key bat tia1.attachment 0:tia
+key bat tia2.attachment 0:tia
+key bat tia3.attachment 0:tia
+key bat tia4.attachment 0:tia
+key bat khe.attachment 0:khe
+key bat tia1.rotate 0.07:0:easeOut 0.2:40.0
+key bat tia2.rotate 0.07:0:easeOut 0.2:13.3
+key bat tia3.rotate 0.07:0:easeOut 0.2:-13.3
+key bat tia4.rotate 0.07:0:easeOut 0.2:-40.0
+key bat tia1.alpha 0:1 0.2:1:ease 0.45:0.55
+key bat tia2.alpha 0:1 0.2:1:ease 0.45:0.55
+key bat tia3.alpha 0:1 0.2:1:ease 0.45:0.55
+key bat tia4.alpha 0:1 0.2:1:ease 0.45:0.55
+key bat tia1.scale 0:1.2,1:easeOut 0.12:1.5,1.1:ease 0.45:1.1,1
+key bat tia2.scale 0:1.2,1:easeOut 0.12:1.5,1.1:ease 0.45:1.1,1
+key bat tia3.scale 0:1.2,1:easeOut 0.12:1.5,1.1:ease 0.45:1.1,1
+key bat tia4.scale 0:1.2,1:easeOut 0.12:1.5,1.1:ease 0.45:1.1,1
+anim.add mo dur=1.6 loop=true
+key mo than.attachment 0:-
+key mo nap.attachment 0:-
+key mo mo.attachment 0:mo
+key mo glow.translate 0:0,94
+key mo glow.alpha 0:0.65:ease 0.8:0.95:ease 1.6:0.65
+key mo glow.rotate 0:-4:ease 0.8:4:ease 1.6:-4
+key.order mo t=0 order=than,nap,khe,mo,glow,tia1,tia2,tia3,tia4,lap1,lap2,lap3
+key mo glow.attachment 0:glow
+key mo tia1.attachment 0:tia
+key mo tia2.attachment 0:tia
+key mo tia3.attachment 0:tia
+key mo tia4.attachment 0:tia
+key mo tia1.rotate 0:40.0
+key mo tia2.rotate 0:13.3
+key mo tia3.rotate 0:-13.3
+key mo tia4.rotate 0:-40.0
+key mo tia1.alpha 0:0.4:ease 0.8:0.6:ease 1.6:0.4
+key mo tia2.alpha 0:0.4:ease 0.8:0.6:ease 1.6:0.4
+key mo tia3.alpha 0:0.4:ease 0.8:0.6:ease 1.6:0.4
+key mo tia4.alpha 0:0.4:ease 0.8:0.6:ease 1.6:0.4
+key mo tia1.scale 0:1,1:ease 0.8:1.12,1:ease 1.6:1,1
+key mo tia2.scale 0:1,1:ease 0.8:1.12,1:ease 1.6:1,1
+key mo tia3.scale 0:1,1:ease 0.8:1.12,1:ease 1.6:1,1
+key mo tia4.scale 0:1,1:ease 0.8:1.12,1:ease 1.6:1,1

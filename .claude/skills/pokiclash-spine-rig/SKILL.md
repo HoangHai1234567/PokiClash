@@ -18,6 +18,49 @@ Làm 2026-11-07 để đo khả năng rig tự động. **Không thay quy trình
 Hình tướng). Mọi thứ ở đây là thử nghiệm cho tới khi người dùng chốt khác. Ngoại lệ người dùng yêu cầu 2026-11-08: Rồng Giọt
 (dạng 1 dòng Giọt Sương) vào game bằng .atomik, xem mục 10.
 
+## 000. Nhân vật có viền: gen KHÔNG viền → rig + animation → chốt → vẽ viền SAU CÙNG bằng Paint của AtomSpine (người dùng dặn 2026-11-21, bắt buộc)
+
+Người dùng: "phần outline gen và cắt khá nhem nhuốc và sai nhiều ... đầu tiên cứ làm nhân vật gen ảnh không có outline rồi ghép
+animation xong hết, chốt final rồi vẽ thêm outline bằng paint mode trong atomspine, như thế sẽ vẽ được outline đúng chỗ cần thiết
+thôi, không phải chỗ nào cũng có outline và không bị tình trạng cắt nhem nhuốc hình nữa".
+
+Vì sao: viền mực gen sẵn rồi cắt mảnh thì mép nào cũng thành viền. Ở chỗ nối lộ nét đôi, vạch cắt ngang thân, viền đứt hoặc răng cưa
+chỗ phần bị che được vẽ bù. Vá bằng mã (xoá viền đầu khúc, kẻ lại mép) vẫn nhem, mỗi con một kiểu lỗi. Đã gặp: nhím Kim (2026-11-21, 3
+comment chân tay khuyết, lem), rồng vây, rắn sừng, sò đột biến (các mục dưới). Viền vẽ sau cùng lên hình đã chốt thì chỉ nằm ở chỗ
+nhìn thấy được.
+
+Áp cho mọi nhân vật .atomik làm mới (tướng, quái, lính, boss) có nét viền. Con đã vào game thì không tự làm lại, trừ khi người dùng bảo.
+
+1. **Gen không viền.** Ảnh đem rig (concept, ảnh liền, tờ mảnh, mảnh "đúng chỗ" của mục 00) đều không có nét viền bao. Dán câu
+   này vào prompt (thay câu dặn viền mực):
+   ```
+   NO OUTLINES: do not draw any ink contour line around the character or around any of its parts; separate the areas only by
+   flat colour with coloured-pencil and wax-crayon texture. Keep only small interior marks that are not outlines (pupils, eye
+   shine, nostrils, a thin mouth line). Plain flat background in one colour that the character does not use.
+   ```
+   Nhân vật có mảng trắng hoặc kem thì xin nền một màu nó không dùng (xanh lá #3AE03A, hồng #FF3AD0) hoặc nền trong suốt, để tách
+   nền sạch. Concept đã duyệt mà có viền thì gen thêm bản "giống hệt image 1, bỏ toàn bộ nét viền, giữ màu và vân", lấy bản đó rig.
+2. **Cắt và rig không viền.** Mảnh tách theo màu và alpha (không còn mực chia ô). Phần bị che vẫn gen "đúng chỗ, đúng cỡ" như mục 00,
+   cũng không viền. Hai mảnh chồng nhau mà cùng màu thì chỗ nối liền, không có vạch.
+3. **Làm xong mọi clip** (idle, attack, cast, skill, hit, die, appear, walk, aura, evolve nếu có) trên hình không viền. Đưa người dùng
+   xem bằng Studio hoặc GIF, sửa theo comment cho tới khi người dùng **chốt animation**. Chưa chốt thì chưa vẽ viền.
+4. **Vẽ viền sau cùng, trong Paint của AtomSpine**, trên layer riêng `vien` của từng ảnh mảnh (`paint.layer add <ảnh> name=vien`),
+   để sửa lại được; xuất thì flatten.
+   - **Chỉ vẽ ở mép nhìn thấy được:** viền ngoài của cả con, và mép của mảnh nằm trước đè lên mảnh sau (tay trước thân, tai trước
+     đầu). Không vẽ ở chỗ nối của hai mảnh cùng một khối (khớp vai, hông, gốc đuôi, chỗ chồng cùng màu), không vẽ ở mép luôn bị mảnh
+     trước che.
+   - **Soát qua mọi clip:** mép nào lúc khuất lúc lộ (chi duỗi ra khỏi thân) thì vẽ viền đoạn đó. Viền nằm dưới mảnh trước nên lúc
+     khuất không thấy. Soi dáng duỗi xa nhất của từng clip.
+   - **Bề dày đều trên màn:** tính theo tỉ lệ hiện trong game (độ dày px ảnh = độ dày mong muốn trên màn / tỉ lệ mảnh); mảnh phóng
+     to, thu nhỏ khác nhau thì độ dày px khác nhau. Màu mực #2B2118 (hoặc màu viền người dùng chọn), nét hơi rung như bút.
+   - Người dùng vẽ tay: Studio, chọn mảnh, bấm Paint, dùng cọ (B), Eraser (E), rồi Close outline để nối chỗ đứt. Agent: `paint.stroke`
+     theo đường mép (tính từ alpha của mảnh, bỏ đoạn khớp) trên layer `vien`, rồi `paint.outline.close`, kiểm bằng `atom render`
+     ở các dáng gắt và `paint.diff`.
+   - **Công cụ còn thiếu (AtomSpine 0.2.3):** chưa có lệnh tự vẽ viền theo mép hình chỉ ở mép thấy được (tính từ rig qua mọi clip).
+     Làm nhiều con thì thêm lệnh đó vào AtomSpine trước (`paint.outline.add`, chọn mép bằng rig), đừng viết công cụ ngoài.
+5. Viền giấy trắng quanh tướng vẫn do shader game vẽ (CLAUDE.md); không vẽ vào ảnh.
+6. Vẽ viền xong mới xuất `.atomik`, đưa vào game, soi trong runtime thật ở clip gắt nhất.
+
 ## 00. Có file Spine gốc làm mẫu thì PHẢI dịch ngược xem họ tách bộ phận thế nào (người dùng dặn 2026-11-11, bắt buộc)
 
 Khi tướng làm theo một con gốc mà ta **có file Spine của nó** (`.skel` / `.json` + `.atlas` + ảnh; kho đã rút:

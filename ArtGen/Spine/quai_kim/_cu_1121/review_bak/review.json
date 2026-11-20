@@ -1,0 +1,71 @@
+{
+  "seq": 3,
+  "notes": [
+    {
+      "id": "1",
+      "anim": "walk",
+      "t": 0.7666666666666667,
+      "anchor": {
+        "space": "att",
+        "ref": "than",
+        "x": -232.4223119905723,
+        "y": -459.5424917731557,
+        "w": 347.18789135405837,
+        "h": 925.1157685881657
+      },
+      "text": "chân bị khuyết 1 mảnh",
+      "author": "user",
+      "status": "open",
+      "replies": [],
+      "createdAt": "2026-11-20T17:37:22.206Z",
+      "rig": "quai_kim",
+      "frame": 23,
+      "fps": 30,
+      "image": ".atomspine/review/1.png"
+    },
+    {
+      "id": "2",
+      "anim": "attack",
+      "t": 0.36666666666666664,
+      "anchor": {
+        "space": "att",
+        "ref": "chan_gan",
+        "x": -292.5602173416935,
+        "y": -234.78962742322602,
+        "w": 555.3269036585134,
+        "h": 649.9750335394099
+      },
+      "text": "tay và chân đều lỗi, bị khuyết mảnh và nhem nhuốc quá",
+      "author": "user",
+      "status": "open",
+      "replies": [],
+      "createdAt": "2026-11-20T17:38:01.059Z",
+      "rig": "quai_kim",
+      "frame": 11,
+      "fps": 30,
+      "image": ".atomspine/review/2.png"
+    },
+    {
+      "id": "3",
+      "anim": "cast",
+      "t": 0.5333333333333333,
+      "anchor": {
+        "space": "att",
+        "ref": "chan_xa",
+        "x": -87.3271346702555,
+        "y": -222.58484189707045,
+        "w": 294.7053587641865,
+        "h": 414.97139315831487
+      },
+      "text": "vẫn lỗi gen thừa và khuyết mảnh",
+      "author": "user",
+      "status": "open",
+      "replies": [],
+      "createdAt": "2026-11-20T17:38:23.037Z",
+      "rig": "quai_kim",
+      "frame": 16,
+      "fps": 30,
+      "image": ".atomspine/review/3.png"
+    }
+  ]
+}

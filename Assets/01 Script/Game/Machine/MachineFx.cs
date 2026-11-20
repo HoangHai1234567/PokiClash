@@ -355,5 +355,25 @@ namespace PokiClash
             new Burst { sprite = "pk_fx_cham", count = 2, life = 0.1f, lifeMax = 0.3f, size = 0.05f, sizeMax = 0.15f, speed = 1, speedMax = 5, dir = -90, arc = 19, radius = 0.13f,
                 curve = new[] { 0, 1f, 1, 0 }, from = C("#ffed8f"), to = C("#ff8600") },
         };
+
+        // bi ra miệng ống (rời làn sang bàn, GD_Claude/23): quầng nhỏ phồng, vòng dày lan, vài chấm toả theo hướng vòm. unit = UnitBall
+        public static readonly Burst[] TubeOut =
+        {
+            new Burst { sprite = "pk_g_quang", life = 0.18f, size = 1.1f, curve = new[] { 0, 0.6f, 1, 1.15f }, from = C("#fff2b0", 0.85f), to = C("#ffb347", 0f) },
+            new Burst { sprite = "pk_fx_vong_day", life = 0.16f, size = 0.55f, curve = new[] { 0, 0.3f, 1, 1 }, from = C("#fff2b0"), to = C("#ffd36a"), fadeAt = 0 },
+            new Burst { sprite = "pk_fx_cham", count = 5, life = 0.15f, lifeMax = 0.3f, size = 0.05f, sizeMax = 0.1f, speed = 1, speedMax = 4, dir = 141, arc = 50, radius = 0.1f,
+                curve = new[] { 0, 1f, 1, 0 }, from = C("#fff2c0"), to = C("#ffb347") },
+        };
+
+        // vòi xu phun từ ô rương vàng (jackpot, GD_Claude/23): xu thẳng, xu nghiêng bắn lên quạt hẹp, xoay, rơi; thêm lấp lánh. unit = UnitBall
+        public static readonly Burst[] Coins =
+        {
+            new Burst { sprite = "pk_xu", count = 9, life = 1.1f, lifeMax = 1.5f, size = 0.26f, sizeMax = 0.34f, speed = 4, speedMax = 6.2f, dir = 90, arc = 70,
+                grav = 0.8f, spin = true, rotSpeed = 360, curve = new[] { 0, 0.5f, 0.1f, 1, 1, 0.9f }, fadeAt = 0.8f },
+            new Burst { sprite = "pk_xu_nghieng", count = 7, delay = 0.06f, life = 1.0f, lifeMax = 1.4f, size = 0.24f, sizeMax = 0.3f, speed = 3.5f, speedMax = 5.6f, dir = 90,
+                arc = 80, grav = 0.8f, spin = true, rotSpeed = 420, curve = new[] { 0, 0.5f, 0.1f, 1, 1, 0.9f }, fadeAt = 0.8f },
+            new Burst { sprite = "fx_sparkle", count = 8, life = 0.5f, lifeMax = 0.8f, size = 0.16f, sizeMax = 0.26f, speed = 1.5f, speedMax = 4, dir = 90, arc = 100,
+                grav = 0.3f, spin = true, curve = new[] { 0, 0.4f, 0.15f, 1, 1, 0.3f }, from = Color.white, to = C("#ffe08f") },
+        };
     }
 }

@@ -1,0 +1,812 @@
+{
+  "format": 1,
+  "name": "ruong_bac",
+  "fps": 30,
+  "ppu": 100,
+  "bones": [
+    {"name": "root", "parent": null, "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "chest", "parent": "root", "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "nap", "parent": "chest", "x": 0, "y": 121, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "glow", "parent": "chest", "x": 0, "y": 129, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "tia1", "parent": "glow", "x": 0, "y": 6, "rot": 15, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "tia2", "parent": "glow", "x": 0, "y": 6, "rot": 65, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "tia3", "parent": "glow", "x": 0, "y": 6, "rot": 115, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "tia4", "parent": "glow", "x": 0, "y": 6, "rot": 165, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "khe", "parent": "chest", "x": 0, "y": 125, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "lap1", "parent": "glow", "x": -60, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "lap2", "parent": "glow", "x": 8, "y": 14, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "lap3", "parent": "glow", "x": 64, "y": 4, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"}
+  ],
+  "slots": [
+    {"name": "than", "bone": "chest", "att": "than", "color": "FFFFFFFF"},
+    {"name": "glow", "bone": "glow", "att": null, "color": "FFF0B8FF"},
+    {"name": "nap", "bone": "nap", "att": "nap", "color": "FFFFFFFF"},
+    {"name": "khe", "bone": "khe", "att": null, "color": "FFF0B8FF"},
+    {"name": "tia1", "bone": "tia1", "att": null, "color": "FFF4C8FF"},
+    {"name": "tia2", "bone": "tia2", "att": null, "color": "FFF4C8FF"},
+    {"name": "tia3", "bone": "tia3", "att": null, "color": "FFF4C8FF"},
+    {"name": "tia4", "bone": "tia4", "att": null, "color": "FFF4C8FF"},
+    {"name": "mo", "bone": "chest", "att": null, "color": "FFFFFFFF"},
+    {"name": "lap1", "bone": "lap1", "att": null, "color": "FFFFFFFF"},
+    {"name": "lap2", "bone": "lap2", "att": null, "color": "FFFFFFFF"},
+    {"name": "lap3", "bone": "lap3", "att": null, "color": "FFFFFFFF"}
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "atts": [
+        {"type": "region", "slot": "than", "name": "than", "image": "than", "x": 0, "y": 98.5, "rot": 0, "sx": 1, "sy": 1, "w": 320, "h": 197},
+        {"type": "region", "slot": "glow", "name": "glow", "image": "glow", "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "w": 300, "h": 130},
+        {"type": "region", "slot": "tia1", "name": "tia", "image": "tia", "x": 95, "y": 0, "rot": 0, "sx": 1, "sy": 1, "w": 190, "h": 46},
+        {"type": "region", "slot": "tia2", "name": "tia", "image": "tia", "x": 95, "y": 0, "rot": 0, "sx": 1, "sy": 1, "w": 190, "h": 46},
+        {"type": "region", "slot": "tia3", "name": "tia", "image": "tia", "x": 95, "y": 0, "rot": 0, "sx": 1, "sy": 1, "w": 190, "h": 46},
+        {"type": "region", "slot": "tia4", "name": "tia", "image": "tia", "x": 95, "y": 0, "rot": 0, "sx": 1, "sy": 1, "w": 190, "h": 46},
+        {"type": "region", "slot": "nap", "name": "nap", "image": "nap", "x": 0, "y": 73.5, "rot": 0, "sx": 1, "sy": 1, "w": 320, "h": 147},
+        {"type": "region", "slot": "khe", "name": "khe", "image": "glow", "x": 0, "y": 0, "rot": 0, "sx": 1.05, "sy": 0.32, "w": 300, "h": 130},
+        {"type": "region", "slot": "mo", "name": "mo", "image": "mo", "x": 0, "y": 155, "rot": 0, "sx": 1, "sy": 1, "w": 320, "h": 310},
+        {"type": "region", "slot": "lap1", "name": "lap", "image": "lap", "x": 0, "y": 0, "rot": 0, "sx": 0.42, "sy": 0.42, "w": 256, "h": 256},
+        {"type": "region", "slot": "lap2", "name": "lap", "image": "lap", "x": 0, "y": 0, "rot": 0, "sx": 0.42, "sy": 0.42, "w": 256, "h": 256},
+        {"type": "region", "slot": "lap3", "name": "lap", "image": "lap", "x": 0, "y": 0, "rot": 0, "sx": 0.42, "sy": 0.42, "w": 256, "h": 256}
+      ]
+    }
+  ],
+  "images": [
+    {"name": "than", "path": "images/than.png", "w": 320, "h": 197},
+    {"name": "glow", "path": "images/glow.png", "w": 300, "h": 130},
+    {"name": "tia", "path": "images/tia.png", "w": 190, "h": 46},
+    {"name": "nap", "path": "images/nap.png", "w": 320, "h": 147},
+    {"name": "mo", "path": "images/mo.png", "w": 320, "h": 310},
+    {"name": "lap", "path": "images/lap.png", "w": 256, "h": 256}
+  ],
+  "ik": [],
+  "events": ["open"],
+  "anims": [
+    {
+      "name": "cho",
+      "dur": 2.4,
+      "loop": true,
+      "bones": {
+        "chest": {
+          "scale": [
+            {"t": 0, "x": 1, "y": 1, "c": "ease"},
+            {"t": 1.2, "x": 1.012, "y": 0.988, "c": "ease"},
+            {"t": 2.4, "x": 1, "y": 1}
+          ]
+        },
+        "nap": {
+          "translate": [
+            {"t": 0, "x": 0, "y": 0, "c": "ease"},
+            {"t": 1.2, "x": 0, "y": 1.5, "c": "ease"},
+            {"t": 2.4, "x": 0, "y": 0}
+          ]
+        }
+      },
+      "slots": {},
+      "events": []
+    },
+    {
+      "name": "nhac",
+      "dur": 3.2,
+      "loop": true,
+      "bones": {
+        "chest": {
+          "rotate": [
+            {"t": 0, "v": 0},
+            {"t": 0.48, "v": 0, "c": "ease"},
+            {"t": 0.58, "v": -5, "c": "ease"},
+            {"t": 0.7, "v": 4, "c": "ease"},
+            {"t": 0.82, "v": -2, "c": "ease"},
+            {"t": 0.92, "v": 0},
+            {"t": 3.2, "v": 0}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 0.26, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 0.37, "x": 0, "y": 14, "c": "easeIn"},
+            {"t": 0.48, "x": 0, "y": 0},
+            {"t": 3.2, "x": 0, "y": 0}
+          ],
+          "scale": [
+            {"t": 0, "x": 1, "y": 1},
+            {"t": 0.12, "x": 1.06, "y": 0.92, "c": "easeOut"},
+            {"t": 0.26, "x": 0.95, "y": 1.07, "c": "easeOut"},
+            {"t": 0.42, "x": 1, "y": 1, "c": "ease"},
+            {"t": 1.7, "x": 1, "y": 1},
+            {"t": 1.76, "x": 1.05, "y": 0.94, "c": "easeOut"},
+            {"t": 1.9, "x": 1, "y": 1, "c": "ease"},
+            {"t": 3.2, "x": 1, "y": 1}
+          ]
+        },
+        "nap": {
+          "rotate": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": -3, "c": "easeIn"},
+            {"t": 1.18, "v": 0},
+            {"t": 1.3, "v": 0, "c": "easeOut"},
+            {"t": 1.43, "v": 4},
+            {"t": 1.62, "v": 3, "c": "easeIn"},
+            {"t": 1.7, "v": 0},
+            {"t": 3.2, "v": 0}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 0.95, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 1.05, "x": 0, "y": 9, "c": "easeIn"},
+            {"t": 1.18, "x": 0, "y": 0},
+            {"t": 1.3, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 1.43, "x": 0, "y": 17},
+            {"t": 1.62, "x": 0, "y": 16, "c": "easeIn"},
+            {"t": 1.7, "x": 0, "y": 0},
+            {"t": 3.2, "x": 0, "y": 0}
+          ]
+        },
+        "tia1": {
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.6},
+            {"t": 0.95, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.05, "x": 0.9, "y": 0.9},
+            {"t": 1.18, "x": 0.4, "y": 0.6},
+            {"t": 1.3, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.43, "x": 1.15, "y": 1},
+            {"t": 1.62, "x": 1.1, "y": 1, "c": "easeIn"},
+            {"t": 1.72, "x": 0.4, "y": 0.6},
+            {"t": 3.2, "x": 0.4, "y": 0.6}
+          ]
+        },
+        "tia2": {
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.6},
+            {"t": 0.95, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.05, "x": 0.9, "y": 0.9},
+            {"t": 1.18, "x": 0.4, "y": 0.6},
+            {"t": 1.3, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.43, "x": 1.15, "y": 1},
+            {"t": 1.62, "x": 1.1, "y": 1, "c": "easeIn"},
+            {"t": 1.72, "x": 0.4, "y": 0.6},
+            {"t": 3.2, "x": 0.4, "y": 0.6}
+          ]
+        },
+        "tia3": {
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.6},
+            {"t": 0.95, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.05, "x": 0.9, "y": 0.9},
+            {"t": 1.18, "x": 0.4, "y": 0.6},
+            {"t": 1.3, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.43, "x": 1.15, "y": 1},
+            {"t": 1.62, "x": 1.1, "y": 1, "c": "easeIn"},
+            {"t": 1.72, "x": 0.4, "y": 0.6},
+            {"t": 3.2, "x": 0.4, "y": 0.6}
+          ]
+        },
+        "tia4": {
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.6},
+            {"t": 0.95, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.05, "x": 0.9, "y": 0.9},
+            {"t": 1.18, "x": 0.4, "y": 0.6},
+            {"t": 1.3, "x": 0.4, "y": 0.6, "c": "easeOut"},
+            {"t": 1.43, "x": 1.15, "y": 1},
+            {"t": 1.62, "x": 1.1, "y": 1, "c": "easeIn"},
+            {"t": 1.72, "x": 0.4, "y": 0.6},
+            {"t": 3.2, "x": 0.4, "y": 0.6}
+          ]
+        },
+        "khe": {
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 0.95, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 1.05, "x": 0, "y": 4},
+            {"t": 1.18, "x": 0, "y": 0},
+            {"t": 1.3, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 1.43, "x": 0, "y": 8},
+            {"t": 1.7, "x": 0, "y": 0},
+            {"t": 3.2, "x": 0, "y": 0}
+          ]
+        },
+        "lap1": {
+          "rotate": [
+            {"t": 0, "v": 0},
+            {"t": 1.42, "v": 0},
+            {"t": 1.92, "v": 90},
+            {"t": 3.2, "v": 0}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 1.42, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 1.92, "x": -26, "y": 64},
+            {"t": 3.2, "x": 0, "y": 0}
+          ],
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.4},
+            {"t": 1.42, "x": 0.4, "y": 0.4, "c": "easeOut"},
+            {"t": 1.6, "x": 1, "y": 1, "c": "easeIn"},
+            {"t": 1.92, "x": 0.3, "y": 0.3},
+            {"t": 3.2, "x": 0.4, "y": 0.4}
+          ]
+        },
+        "lap2": {
+          "rotate": [
+            {"t": 0, "v": 0},
+            {"t": 1.48, "v": 0},
+            {"t": 1.98, "v": 90},
+            {"t": 3.2, "v": 0}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 1.48, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 1.98, "x": 4, "y": 64},
+            {"t": 3.2, "x": 0, "y": 0}
+          ],
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.4},
+            {"t": 1.48, "x": 0.4, "y": 0.4, "c": "easeOut"},
+            {"t": 1.66, "x": 1, "y": 1, "c": "easeIn"},
+            {"t": 1.98, "x": 0.3, "y": 0.3},
+            {"t": 3.2, "x": 0.4, "y": 0.4}
+          ]
+        },
+        "lap3": {
+          "rotate": [
+            {"t": 0, "v": 0},
+            {"t": 1.54, "v": 0},
+            {"t": 2.04, "v": 90},
+            {"t": 3.2, "v": 0}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 1.54, "x": 0, "y": 0, "c": "easeOut"},
+            {"t": 2.04, "x": 30, "y": 64},
+            {"t": 3.2, "x": 0, "y": 0}
+          ],
+          "scale": [
+            {"t": 0, "x": 0.4, "y": 0.4},
+            {"t": 1.54, "x": 0.4, "y": 0.4, "c": "easeOut"},
+            {"t": 1.72, "x": 1, "y": 1, "c": "easeIn"},
+            {"t": 2.04, "x": 0.3, "y": 0.3},
+            {"t": 3.2, "x": 0.4, "y": 0.4}
+          ]
+        }
+      },
+      "slots": {
+        "glow": {
+          "attachment": [
+            {"t": 0, "name": "glow"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": 0.75},
+            {"t": 1.18, "v": 0.12},
+            {"t": 1.3, "v": 0.12, "c": "easeOut"},
+            {"t": 1.43, "v": 1},
+            {"t": 1.62, "v": 0.9, "c": "easeIn"},
+            {"t": 1.72, "v": 0},
+            {"t": 3.2, "v": 0}
+          ]
+        },
+        "khe": {
+          "attachment": [
+            {"t": 0, "name": "khe"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": 0.6},
+            {"t": 1.18, "v": 0},
+            {"t": 1.3, "v": 0, "c": "easeOut"},
+            {"t": 1.43, "v": 0.9},
+            {"t": 1.62, "v": 0.75, "c": "easeIn"},
+            {"t": 1.72, "v": 0},
+            {"t": 3.2, "v": 0}
+          ]
+        },
+        "tia1": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": 0.7},
+            {"t": 1.18, "v": 0},
+            {"t": 1.3, "v": 0, "c": "easeOut"},
+            {"t": 1.43, "v": 1},
+            {"t": 1.62, "v": 0.85, "c": "easeIn"},
+            {"t": 1.72, "v": 0},
+            {"t": 3.2, "v": 0}
+          ]
+        },
+        "tia2": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": 0.7},
+            {"t": 1.18, "v": 0},
+            {"t": 1.3, "v": 0, "c": "easeOut"},
+            {"t": 1.43, "v": 1},
+            {"t": 1.62, "v": 0.85, "c": "easeIn"},
+            {"t": 1.72, "v": 0},
+            {"t": 3.2, "v": 0}
+          ]
+        },
+        "tia3": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": 0.7},
+            {"t": 1.18, "v": 0},
+            {"t": 1.3, "v": 0, "c": "easeOut"},
+            {"t": 1.43, "v": 1},
+            {"t": 1.62, "v": 0.85, "c": "easeIn"},
+            {"t": 1.72, "v": 0},
+            {"t": 3.2, "v": 0}
+          ]
+        },
+        "tia4": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0},
+            {"t": 0.95, "v": 0, "c": "easeOut"},
+            {"t": 1.05, "v": 0.7},
+            {"t": 1.18, "v": 0},
+            {"t": 1.3, "v": 0, "c": "easeOut"},
+            {"t": 1.43, "v": 1},
+            {"t": 1.62, "v": 0.85, "c": "easeIn"},
+            {"t": 1.72, "v": 0},
+            {"t": 3.2, "v": 0}
+          ]
+        },
+        "lap1": {
+          "attachment": [
+            {"t": 0, "name": null},
+            {"t": 1.42, "name": "lap"},
+            {"t": 1.92, "name": null}
+          ]
+        },
+        "lap2": {
+          "attachment": [
+            {"t": 0, "name": null},
+            {"t": 1.48, "name": "lap"},
+            {"t": 1.98, "name": null}
+          ]
+        },
+        "lap3": {
+          "attachment": [
+            {"t": 0, "name": null},
+            {"t": 1.54, "name": "lap"},
+            {"t": 2.04, "name": null}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "gong",
+      "dur": 0.6,
+      "bones": {
+        "chest": {
+          "rotate": [
+            {"t": 0, "v": 0},
+            {"t": 0.05, "v": 2},
+            {"t": 0.1, "v": -3},
+            {"t": 0.15, "v": 3},
+            {"t": 0.2, "v": -4},
+            {"t": 0.25, "v": 4},
+            {"t": 0.3, "v": -5},
+            {"t": 0.35, "v": 5},
+            {"t": 0.4, "v": -6},
+            {"t": 0.45, "v": 6},
+            {"t": 0.5, "v": -7},
+            {"t": 0.55, "v": 7},
+            {"t": 0.6, "v": 0}
+          ],
+          "scale": [
+            {"t": 0, "x": 1, "y": 1, "c": "easeIn"},
+            {"t": 0.6, "x": 1.06, "y": 0.9}
+          ]
+        },
+        "nap": {
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 0.05, "x": 0, "y": 5},
+            {"t": 0.1, "x": 0, "y": 0},
+            {"t": 0.15, "x": 0, "y": 7},
+            {"t": 0.2, "x": 0, "y": 0},
+            {"t": 0.25, "x": 0, "y": 9},
+            {"t": 0.3, "x": 0, "y": 0},
+            {"t": 0.35, "x": 0, "y": 11},
+            {"t": 0.4, "x": 0, "y": 0},
+            {"t": 0.45, "x": 0, "y": 13},
+            {"t": 0.5, "x": 0, "y": 0},
+            {"t": 0.55, "x": 0, "y": 15},
+            {"t": 0.6, "x": 0, "y": 14}
+          ]
+        },
+        "tia1": {
+          "scale": [
+            {"t": 0, "x": 0.5, "y": 0.6, "c": "easeIn"},
+            {"t": 0.6, "x": 1.2, "y": 1}
+          ]
+        },
+        "tia2": {
+          "scale": [
+            {"t": 0, "x": 0.5, "y": 0.6, "c": "easeIn"},
+            {"t": 0.6, "x": 1.2, "y": 1}
+          ]
+        },
+        "tia3": {
+          "scale": [
+            {"t": 0, "x": 0.5, "y": 0.6, "c": "easeIn"},
+            {"t": 0.6, "x": 1.2, "y": 1}
+          ]
+        },
+        "tia4": {
+          "scale": [
+            {"t": 0, "x": 0.5, "y": 0.6, "c": "easeIn"},
+            {"t": 0.6, "x": 1.2, "y": 1}
+          ]
+        },
+        "khe": {
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 0.6, "x": 0, "y": 7}
+          ]
+        }
+      },
+      "slots": {
+        "glow": {
+          "attachment": [
+            {"t": 0, "name": "glow"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.15, "c": "easeIn"},
+            {"t": 0.6, "v": 1}
+          ]
+        },
+        "khe": {
+          "attachment": [
+            {"t": 0, "name": "khe"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.2, "c": "easeIn"},
+            {"t": 0.6, "v": 1}
+          ]
+        },
+        "tia1": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.2, "c": "easeIn"},
+            {"t": 0.6, "v": 1}
+          ]
+        },
+        "tia2": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.2, "c": "easeIn"},
+            {"t": 0.6, "v": 1}
+          ]
+        },
+        "tia3": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.2, "c": "easeIn"},
+            {"t": 0.6, "v": 1}
+          ]
+        },
+        "tia4": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.2, "c": "easeIn"},
+            {"t": 0.6, "v": 1}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "bat",
+      "dur": 0.45,
+      "bones": {
+        "chest": {
+          "scale": [
+            {"t": 0, "x": 1.06, "y": 0.9},
+            {"t": 0.07, "x": 1.25, "y": 0.8, "c": "easeOut"},
+            {"t": 0.17, "x": 0.9, "y": 1.15, "c": "ease"},
+            {"t": 0.3, "x": 1, "y": 1}
+          ]
+        },
+        "nap": {
+          "rotate": [
+            {"t": 0, "v": 0, "c": "easeOut"},
+            {"t": 0.06, "v": -22}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 14, "c": "easeOut"},
+            {"t": 0.06, "x": 0, "y": 44}
+          ]
+        },
+        "glow": {
+          "translate": [
+            {"t": 0, "x": 0, "y": 0},
+            {"t": 0.07, "x": 0, "y": 94}
+          ]
+        },
+        "tia1": {
+          "rotate": [
+            {"t": 0.07, "v": 0, "c": "easeOut"},
+            {"t": 0.2, "v": 40}
+          ],
+          "scale": [
+            {"t": 0, "x": 1.2, "y": 1, "c": "easeOut"},
+            {"t": 0.12, "x": 1.5, "y": 1.1, "c": "ease"},
+            {"t": 0.45, "x": 1.1, "y": 1}
+          ]
+        },
+        "tia2": {
+          "rotate": [
+            {"t": 0.07, "v": 0, "c": "easeOut"},
+            {"t": 0.2, "v": 13.3}
+          ],
+          "scale": [
+            {"t": 0, "x": 1.2, "y": 1, "c": "easeOut"},
+            {"t": 0.12, "x": 1.5, "y": 1.1, "c": "ease"},
+            {"t": 0.45, "x": 1.1, "y": 1}
+          ]
+        },
+        "tia3": {
+          "rotate": [
+            {"t": 0.07, "v": 0, "c": "easeOut"},
+            {"t": 0.2, "v": -13.3}
+          ],
+          "scale": [
+            {"t": 0, "x": 1.2, "y": 1, "c": "easeOut"},
+            {"t": 0.12, "x": 1.5, "y": 1.1, "c": "ease"},
+            {"t": 0.45, "x": 1.1, "y": 1}
+          ]
+        },
+        "tia4": {
+          "rotate": [
+            {"t": 0.07, "v": 0, "c": "easeOut"},
+            {"t": 0.2, "v": -40}
+          ],
+          "scale": [
+            {"t": 0, "x": 1.2, "y": 1, "c": "easeOut"},
+            {"t": 0.12, "x": 1.5, "y": 1.1, "c": "ease"},
+            {"t": 0.45, "x": 1.1, "y": 1}
+          ]
+        }
+      },
+      "slots": {
+        "than": {
+          "attachment": [
+            {"t": 0, "name": "than"},
+            {"t": 0.07, "name": null}
+          ]
+        },
+        "glow": {
+          "attachment": [
+            {"t": 0, "name": "glow"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 1},
+            {"t": 0.45, "v": 0.85}
+          ]
+        },
+        "nap": {
+          "attachment": [
+            {"t": 0, "name": "nap"},
+            {"t": 0.07, "name": null}
+          ]
+        },
+        "khe": {
+          "attachment": [
+            {"t": 0, "name": "khe"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 1},
+            {"t": 0.07, "v": 0}
+          ]
+        },
+        "tia1": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 1},
+            {"t": 0.2, "v": 1, "c": "ease"},
+            {"t": 0.45, "v": 0.55}
+          ]
+        },
+        "tia2": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 1},
+            {"t": 0.2, "v": 1, "c": "ease"},
+            {"t": 0.45, "v": 0.55}
+          ]
+        },
+        "tia3": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 1},
+            {"t": 0.2, "v": 1, "c": "ease"},
+            {"t": 0.45, "v": 0.55}
+          ]
+        },
+        "tia4": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 1},
+            {"t": 0.2, "v": 1, "c": "ease"},
+            {"t": 0.45, "v": 0.55}
+          ]
+        },
+        "mo": {
+          "attachment": [
+            {"t": 0, "name": null},
+            {"t": 0.07, "name": "mo"}
+          ]
+        }
+      },
+      "drawOrder": [
+        {"t": 0, "order": ["than", "glow", "nap", "khe", "tia1", "tia2", "tia3", "tia4", "mo", "lap1", "lap2", "lap3"]},
+        {"t": 0.07, "order": ["than", "nap", "khe", "mo", "glow", "tia1", "tia2", "tia3", "tia4", "lap1", "lap2", "lap3"]}
+      ],
+      "events": [
+        {"t": 0.07, "name": "open"}
+      ]
+    },
+    {
+      "name": "mo",
+      "dur": 1.6,
+      "loop": true,
+      "bones": {
+        "glow": {
+          "rotate": [
+            {"t": 0, "v": -4, "c": "ease"},
+            {"t": 0.8, "v": 4, "c": "ease"},
+            {"t": 1.6, "v": -4}
+          ],
+          "translate": [
+            {"t": 0, "x": 0, "y": 94}
+          ]
+        },
+        "tia1": {
+          "rotate": [
+            {"t": 0, "v": 40}
+          ],
+          "scale": [
+            {"t": 0, "x": 1, "y": 1, "c": "ease"},
+            {"t": 0.8, "x": 1.12, "y": 1, "c": "ease"},
+            {"t": 1.6, "x": 1, "y": 1}
+          ]
+        },
+        "tia2": {
+          "rotate": [
+            {"t": 0, "v": 13.3}
+          ],
+          "scale": [
+            {"t": 0, "x": 1, "y": 1, "c": "ease"},
+            {"t": 0.8, "x": 1.12, "y": 1, "c": "ease"},
+            {"t": 1.6, "x": 1, "y": 1}
+          ]
+        },
+        "tia3": {
+          "rotate": [
+            {"t": 0, "v": -13.3}
+          ],
+          "scale": [
+            {"t": 0, "x": 1, "y": 1, "c": "ease"},
+            {"t": 0.8, "x": 1.12, "y": 1, "c": "ease"},
+            {"t": 1.6, "x": 1, "y": 1}
+          ]
+        },
+        "tia4": {
+          "rotate": [
+            {"t": 0, "v": -40}
+          ],
+          "scale": [
+            {"t": 0, "x": 1, "y": 1, "c": "ease"},
+            {"t": 0.8, "x": 1.12, "y": 1, "c": "ease"},
+            {"t": 1.6, "x": 1, "y": 1}
+          ]
+        }
+      },
+      "slots": {
+        "than": {
+          "attachment": [
+            {"t": 0, "name": null}
+          ]
+        },
+        "glow": {
+          "attachment": [
+            {"t": 0, "name": "glow"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.65, "c": "ease"},
+            {"t": 0.8, "v": 0.95, "c": "ease"},
+            {"t": 1.6, "v": 0.65}
+          ]
+        },
+        "nap": {
+          "attachment": [
+            {"t": 0, "name": null}
+          ]
+        },
+        "tia1": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.4, "c": "ease"},
+            {"t": 0.8, "v": 0.6, "c": "ease"},
+            {"t": 1.6, "v": 0.4}
+          ]
+        },
+        "tia2": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.4, "c": "ease"},
+            {"t": 0.8, "v": 0.6, "c": "ease"},
+            {"t": 1.6, "v": 0.4}
+          ]
+        },
+        "tia3": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.4, "c": "ease"},
+            {"t": 0.8, "v": 0.6, "c": "ease"},
+            {"t": 1.6, "v": 0.4}
+          ]
+        },
+        "tia4": {
+          "attachment": [
+            {"t": 0, "name": "tia"}
+          ],
+          "alpha": [
+            {"t": 0, "v": 0.4, "c": "ease"},
+            {"t": 0.8, "v": 0.6, "c": "ease"},
+            {"t": 1.6, "v": 0.4}
+          ]
+        },
+        "mo": {
+          "attachment": [
+            {"t": 0, "name": "mo"}
+          ]
+        }
+      },
+      "drawOrder": [
+        {"t": 0, "order": ["than", "nap", "khe", "mo", "glow", "tia1", "tia2", "tia3", "tia4", "lap1", "lap2", "lap3"]}
+      ],
+      "events": []
+    }
+  ]
+}

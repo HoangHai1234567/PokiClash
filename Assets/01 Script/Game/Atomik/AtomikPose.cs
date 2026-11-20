@@ -63,16 +63,32 @@ namespace PokiClash.Game
                 }
                 mpx = new float[mv]; mpy = new float[mv];
                 if (4 * (mv + 8) > clipA.Length) { clipA = new float[4 * (mv + 8)]; clipB = new float[4 * (mv + 8)]; }
-                // tam giác bị mép cắt xén sinh thêm đỉnh: chừa chỗ theo số tam giác nằm trong vùng cắt (thường chỉ vài chục cái bị xén)
-                int clipTris = 0;
+                // Tam giác bị mép cắt xén sinh đỉnh mới: tối đa 3 + số đỉnh mặt nạ mỗi tam giác (Sutherland–Hodgman), mỗi slot chỉ hiện một
+                // hình. Rig ít tam giác trong vùng cắt: chừa đủ chắc. Rig nhiều: chỉ một phần bị xén, chừa 3 đỉnh mỗi tam giác như cũ (quét
+                // 2026-11-20 mọi clip không mất tam giác nào), sàn SafeCap, trần 12000 (tổng đỉnh dưới 65535: lưới chỉ số 16 bit).
+                // Bản cũ chừa 3 đỉnh mỗi tam giác cho mọi rig: tam_kiem (8 tam giác, mặt nạ 4 đỉnh) mất gần hết mảnh trong vùng cắt.
+                int clipTris = 0, safe = 0;
+                var maxT = new int[ns];
                 foreach (var att in a.atts)
-                    if (att.slot >= 0 && att.slot < ns && slotMask[att.slot] >= 0) clipTris += att.tris.Length / 3;
-                extraVerts = Mathf.Min(clipTris * 3, 12000);
+                {
+                    if (att.slot < 0 || att.slot >= ns || slotMask[att.slot] < 0) continue;
+                    clipTris += att.tris.Length / 3;
+                    maxT[att.slot] = Mathf.Max(maxT[att.slot], att.tris.Length / 3);
+                }
+                for (int s = 0; s < ns; s++)
+                    if (maxT[s] > 0) safe += maxT[s] * (3 + masks[slotMask[s]].verts.Length / 2);
+                extraVerts = Mathf.Min(Mathf.Max(clipTris * 3, Mathf.Min(safe, SafeCap)), 12000);
                 maxVerts += extraVerts;
             }
         }
 
         readonly AtomikAtt[] attsRef;
+
+        // số tam giác bị bỏ vì hết chỗ chừa cho đỉnh mới của mặt nạ cắt (cộng dồn mọi pose; công cụ quét Editor đọc, đặt lại về 0).
+        // Khác 0 là có mảnh biến mất trên màn (2026-11-20, HeroFrameScan).
+        public static int Dropped;
+
+        const int SafeCap = 4096; // chỗ chừa đủ chắc cho mặt nạ cắt tới mức này thì chừa đủ (xem hàm dựng)
 
         // rig vừa được nhập lại (sửa file .atomik lúc Editor đang Play): mảng xương, slot, đỉnh đã đổi, nơi dùng phải dựng lại
         public bool Stale => !asset || !ReferenceEquals(asset.atts, attsRef) || asset.bones.Length != lx.Length ||
@@ -353,7 +369,8 @@ namespace PokiClash.Game
                         n = ClipEdge(src, n, dst, mpx[e], mpy[e], (mpx[f] - mpx[e]) * orient, (mpy[f] - mpy[e]) * orient);
                         var sw = src; src = dst; dst = sw;
                     }
-                    if (n < 3 || nv + n > verts.Length || ti + (n - 2) * 3 > tris.Length) continue;
+                    if (n < 3) continue; // mép cắt xén hết tam giác: bỏ là đúng
+                    if (nv + n > verts.Length || ti + (n - 2) * 3 > tris.Length) { Dropped++; continue; } // hết chỗ chừa: mất mảnh
                     int bs = nv;
                     var col = cols[i0];
                     for (int k = 0; k < n; k++)

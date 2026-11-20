@@ -1,0 +1,11 @@
+{
+ "hit": {"attack": 0.45, "cast": 0.5, "skill": 1.15},
+ "lunge": ["skill"],
+ "stay": [],
+ "muzzle_bone": "ban",
+ "beam": 0.8,
+ "impact": {"attack": [0.06, 0.3, 0.08, ""], "cast": [0.05, 0.2, 0.05, ""], "skill": [0.1, 0.6, 0.1, ""]},
+ "lv": {"linh_giap": ["Nhím Thép", "Lông lưỡi thép"], "linh_giap2": ["Nhím Kiếm", "Bão lưỡi thép"]},
+ "the": {"linh_giap_skill": ["Phóng Lông Thép", "bolt"], "linh_giap_ult": ["Cào Lốc Thép", "claw"], "linh_giap_pas": ["Lông Lưỡi Thép", "shield"],
+         "linh_giap2_skill": ["Mưa Lông Thép", "bolt"], "linh_giap2_ult": ["Bão Lưỡi Thép", "wind"], "linh_giap2_pas": ["Giáp Gai", "shield"]}
+}

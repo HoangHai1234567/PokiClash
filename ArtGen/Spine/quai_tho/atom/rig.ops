@@ -1,0 +1,51 @@
+# rig dê đá húc (quái đảo Thổ) — sinh bởi ArtGen/Spine/quai_tho_rig.py
+bone.add move parent=root x=0.0 y=0.0 rot=0.00 len=0.0 world=true
+bone.add hip parent=move x=-185.0 y=310.0 rot=3.58 len=320.6 world=true
+bone.add nguc parent=hip x=135.0 y=330.0 rot=0.00 len=120.0 world=true
+bone.add dau parent=nguc x=210.0 y=315.0 rot=-11.93 len=362.8 world=true
+bone.add mui parent=dau x=570.0 y=315.0 rot=0.00 len=40.0 world=true
+bone.add vong_dau parent=dau x=570.0 y=315.0 rot=0.00 len=40.0 world=true
+bone.add sung_g parent=dau x=175.0 y=450.0 rot=-141.34 len=128.1 world=true
+bone.add sung_x parent=dau x=385.0 y=490.0 rot=39.47 len=220.2 world=true
+bone.add tai_x parent=dau x=525.0 y=425.0 rot=49.76 len=85.1 world=true
+bone.add duoi parent=hip x=-350.0 y=425.0 rot=161.57 len=110.7 world=true
+bone.add da1 parent=hip x=-240.0 y=552.0 rot=133.88 len=108.2 world=true
+bone.add da2 parent=hip x=-120.0 y=630.0 rot=127.41 len=107.0 world=true
+bone.add da3 parent=nguc x=30.0 y=690.0 rot=93.18 len=90.1 world=true
+bone.add gs_tren parent=hip x=-290.0 y=195.0 rot=-102.00 len=81.8 world=true
+bone.add gs_duoi parent=gs_tren x=-307.0 y=115.0 rot=-99.83 len=76.1 world=true
+bone.add xs_tren parent=hip x=-133.0 y=145.0 rot=-98.28 len=55.6 world=true
+bone.add xs_duoi parent=xs_tren x=-141.0 y=90.0 rot=-104.04 len=49.5 world=true
+bone.add gt_tren parent=nguc x=15.0 y=170.0 rot=-90.00 len=80.0 world=true
+bone.add gt_duoi parent=gt_tren x=15.0 y=90.0 rot=-82.09 len=72.7 world=true
+bone.add xt_tren parent=nguc x=260.0 y=150.0 rot=-68.96 len=55.7 world=true
+bone.add xt_duoi parent=xt_tren x=280.0 y=98.0 rot=-67.67 len=60.5 world=true
+bone.add ik_gs parent=move x=-320.0 y=40.0 rot=0.00 len=0.0 world=true
+bone.add ik_xs parent=move x=-153.0 y=42.0 rot=0.00 len=0.0 world=true
+bone.add ik_gt parent=move x=25.0 y=18.0 rot=0.00 len=0.0 world=true
+bone.add ik_xt parent=move x=303.0 y=42.0 rot=0.00 len=0.0 world=true
+bone.add dat_truoc parent=move x=165.0 y=5.0 rot=0.00 len=40.0 world=true
+bone.add dat_vong parent=root x=0.0 y=0.0 rot=0.00 len=40.0 world=true
+part.add bom path=images/bom.png at=875,275 canvas=1536,1024 origin=625,930 bone=nguc mesh=false
+part.add sung_xa path=images/sung_xa.png at=980,191 canvas=1536,1024 origin=625,930 bone=sung_x mesh=false
+part.add chan_xa_sau path=images/chan_xa_sau.png at=424,732 canvas=1536,1024 origin=625,930 bone=xs_tren mesh=true
+att.weights chan_xa_sau chan_xa_sau bones=xs_tren,xs_duoi
+part.add chan_xa_truoc path=images/chan_xa_truoc.png at=839,706 canvas=1536,1024 origin=625,930 bone=xt_tren mesh=true
+att.weights chan_xa_truoc chan_xa_truoc bones=xt_tren,xt_duoi
+part.add da1 path=images/da1.png at=285,284 canvas=1536,1024 origin=625,930 bone=da1 mesh=false
+part.add da2 path=images/da2.png at=394,197 canvas=1536,1024 origin=625,930 bone=da2 mesh=false
+part.add da3 path=images/da3.png at=542,131 canvas=1536,1024 origin=625,930 bone=da3 mesh=false
+part.add duoi path=images/duoi.png at=145,407 canvas=1536,1024 origin=625,930 bone=duoi mesh=false
+part.add chan_gan_sau path=images/chan_gan_sau.png at=224,673 canvas=1536,1024 origin=625,930 bone=gs_tren mesh=true
+att.weights chan_gan_sau chan_gan_sau bones=gs_tren,gs_duoi
+part.add chan_gan_truoc path=images/chan_gan_truoc.png at=555,696 canvas=1536,1024 origin=625,930 bone=gt_tren mesh=true
+att.weights chan_gan_truoc chan_gan_truoc bones=gt_tren,gt_duoi
+part.add than path=images/than.png at=217,166 canvas=1536,1024 origin=625,930 bone=hip mesh=true
+att.weights than than bones=hip,nguc
+part.add tai_xa path=images/tai_xa.png at=1120,419 canvas=1536,1024 origin=625,930 bone=tai_x mesh=false
+part.add dau path=images/dau.png at=731,434 canvas=1536,1024 origin=625,930 bone=dau mesh=false
+part.add sung_gan path=images/sung_gan.png at=519,221 canvas=1536,1024 origin=625,930 bone=sung_g mesh=false
+ik.add chan_gs bones=gs_tren,gs_duoi target=ik_gs bend=-
+ik.add chan_xs bones=xs_tren,xs_duoi target=ik_xs bend=-
+ik.add chan_gt bones=gt_tren,gt_duoi target=ik_gt bend=+
+ik.add chan_xt bones=xt_tren,xt_duoi target=ik_xt bend=+

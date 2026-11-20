@@ -276,6 +276,18 @@ Magnific; kinh nghiệm nhận được phải toả ra, trễ một chút rồi
 - Cắt bằng `py -3 -I ArtGen/Pachinko/cat_magnific.py`: xoá nền trắng loang từ mép (nét được nong 2 px để khỏi rò vào ruột hình),
   gán mảng hình vào ô theo tâm. Ghi vào `Assets/03 Art/Pachinko`, rồi chạy menu `PokiClash/Dựng lại danh mục ảnh`.
 
+## Khoá thao tác lúc đang thả (2026-11-20)
+
+Chủ dự án dặn: trong lúc đang thả bi, không cho người chơi tương tác.
+- Khoá từ bi đầu của đợt tới khi đợt xong hẳn: bi rơi hết, bảng số đổ EXP, mở rương, hộp Huyền thoại, Lên cấp. Mở rương từ khay
+  cũng khoá như vậy.
+- Chỉ nút Thả bi và Thả liền còn nhận chạm (giữ để thả tiếp tới đủ lượt của đợt).
+- Bị khoá: bảng tỉ lệ, viên cược, khay rương, thanh mốc quà, nút quay lại trên thanh trên và phím Back.
+  - Nút khoá mờ cả nút, chạm vào không có phản hồi: không tiếng, không lún, không lắc (`SketchButton.Locked`).
+  - Thanh mốc quà chỉ thôi nhận chạm, không mờ, vì vẫn chạy theo từng bi.
+  - Hộp đang mở (Huyền thoại, Lên cấp) vẫn đóng được bằng phím Back.
+- Bỏ các thông báo "chờ bi rơi hết" khi chạm cược hay khay giữa đợt.
+
 ## Việc còn lại (ghi 2026-11-04)
 
 Thanh kinh nghiệm, số theo cược, thân máy, bộ phận, hiệu ứng, rương vẽ tay đã vào game (Unity), 96/96 test EditMode qua.

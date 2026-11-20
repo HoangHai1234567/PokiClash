@@ -41,6 +41,31 @@ namespace PokiClash
         static readonly float[] PlusScale = { 0, 0, 0.1f, 1.51f, 0.167f, 0.75f, 0.233f, 0.89f };
         public const float BulbCycle = 2.7f, CollectFlash = 0.65f;
 
+        // bản 2 (GD_Claude/23, concept 2, 2026-11-20): khung pk_bang_so_v2 (ArtGen/Pachinko/v2/cat_v2.py, refs/v2_do.json) đặt đúng tỉ lệ
+        // 1024 x 316 (bản casino 2026-11-20), màn tối theo ScreenUvV2, 26 bóng vẽ sẵn (tắt) phủ lớp sáng fx2_den_* theo BulbsV2 (u, v tâm theo tỉ lệ ảnh, r theo
+        // chiều cao), số vẽ bằng hình pk_so_0..9. Nhịp đèn theo bảng số máy tham khảo (bản đục 2026-11-20): rảnh chu kỳ 2,22 giây (cả
+        // bảng sáng 0,36 → nhóm A 0,75 → tắt hết 0,36 → nhóm B 0,75), đang cộng 0,83 giây (mỗi nhóm 0,415).
+        public static readonly Vector4 ScreenUvV2 = new Vector4(0.0566f, 0.1835f, 0.9434f, 0.8133f);
+        public const float BulbCoreV2 = 0.597f; // lõi bóng trong ảnh fx2_den_vang (phần còn lại là quầng)
+        static readonly Vector3[] BulbsV2 =
+        {
+            new Vector3(0.0274f, 0.3519f, 0.0333f), new Vector3(0.1152f, 0.0885f, 0.0331f), new Vector3(0.1918f, 0.0885f, 0.0334f),
+            new Vector3(0.2689f, 0.0884f, 0.0334f), new Vector3(0.3458f, 0.0885f, 0.0334f), new Vector3(0.4224f, 0.0885f, 0.0333f),
+            new Vector3(0.4995f, 0.0884f, 0.0332f), new Vector3(0.5763f, 0.0884f, 0.0332f), new Vector3(0.6528f, 0.0884f, 0.0332f),
+            new Vector3(0.7302f, 0.0883f, 0.0333f), new Vector3(0.8068f, 0.0884f, 0.0334f), new Vector3(0.8836f, 0.0886f, 0.0333f),
+            new Vector3(0.9716f, 0.3518f, 0.033f), new Vector3(0.9717f, 0.6392f, 0.0329f), new Vector3(0.8836f, 0.9049f, 0.0334f),
+            new Vector3(0.8068f, 0.9051f, 0.0334f), new Vector3(0.7303f, 0.9049f, 0.0333f), new Vector3(0.6528f, 0.905f, 0.0334f),
+            new Vector3(0.5764f, 0.905f, 0.0334f), new Vector3(0.4995f, 0.9051f, 0.0333f), new Vector3(0.4225f, 0.905f, 0.0334f),
+            new Vector3(0.3458f, 0.905f, 0.0334f), new Vector3(0.2689f, 0.905f, 0.0335f), new Vector3(0.1919f, 0.9051f, 0.0334f),
+            new Vector3(0.1152f, 0.905f, 0.0332f), new Vector3(0.0274f, 0.6391f, 0.033f),
+        };
+        public const float IdleCycleV2 = 2.22f, BusyCycleV2 = 0.83f;
+        bool v2;
+        RectTransform digitBox;
+        readonly List<Image> digits = new List<Image>();
+        readonly Sprite[] digitSprites = new Sprite[10];
+        float digitH;
+
         public int Value => target;
         public bool Busy => incoming > 0 || Mathf.RoundToInt(shown) != target;
         public RectTransform Rect => rt;
@@ -66,6 +91,11 @@ namespace PokiClash
 
         void Make(TextMeshProUGUI font)
         {
+            if (MachineGlow.Sprite("pk_bang_so_v2"))
+            {
+                MakeV2(font);
+                return;
+            }
             var size = rt.rect.size;
             frame = Child<Image>("khung", rt);
             frame.rectTransform.Stretch();
@@ -158,6 +188,123 @@ namespace PokiClash
             }
         }
 
+        void MakeV2(TextMeshProUGUI font)
+        {
+            v2 = true;
+            var size = rt.rect.size;
+            frame = Child<Image>("khung", rt);
+            frame.rectTransform.Stretch();
+            frame.raycastTarget = false;
+            frame.sprite = MachineGlow.Sprite("pk_bang_so_v2");
+            frame.type = Image.Type.Simple;
+            float bl = size.x * ScreenUvV2.x, bt = size.y * ScreenUvV2.y;
+            float br = size.x * (1 - ScreenUvV2.z), bb = size.y * (1 - ScreenUvV2.w);
+            screen = MachineGlow.NewMask("man", rt);
+            screen.Stretch(bl, bt, br, bb);
+            float sw = size.x - bl - br, sh = size.y - bt - bb;
+            var led = MachineGlow.Make("led", screen, MachineGlow.Led, MachineGlow.Hex("#ffcf6a", 0.1f));
+            if (led)
+            {
+                led.type = Image.Type.Tiled;
+                led.pixelsPerUnitMultiplier = led.sprite.rect.height / 9f;
+                led.rectTransform.Stretch();
+            }
+            // quầng sau số (ảnh sáng vẽ tay fx2_quang, gỡ nền đen), thở nhẹ, bừng khi cộng
+            glow = MachineGlow.Make("quang", screen, MachineGlow.Sprite("fx2_quang") ? "fx2_quang" : MachineGlow.Glow, MachineGlow.Hex("#ffd468", 0.25f));
+            float iconX = -sw / 2 + sh * 0.62f;
+            float numX = (iconX + sh * 0.45f + sw / 2) / 2; // giữa phần màn bên phải icon
+            if (glow) glow.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(numX, 0), new Vector2(sh * 3.6f, sh * 1.7f));
+
+            icon = Child<Image>("keo", screen);
+            icon.sprite = Candy;
+            icon.preserveAspect = true;
+            icon.raycastTarget = false;
+            icon.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(iconX, 0), new Vector2(sh * 0.9f, sh * 0.78f));
+
+            // chữ số TMP giữ làm dự phòng (thiếu hình số) và cho chỗ đặt; có hình thì ẩn chữ
+            num = Ui.Spawn(font, screen);
+            num.name = "so";
+            num.text = "0";
+            num.alignment = TextAlignmentOptions.Center;
+            num.fontSize = sh * 0.78f;
+            num.fontStyle = FontStyles.Bold;
+            num.color = Theme.Hex("#fff3c4");
+            num.textWrappingMode = TextWrappingModes.NoWrap;
+            num.raycastTarget = false;
+            num.outlineWidth = 0.18f;
+            num.outlineColor = Theme.Hex("#2B2118");
+            num.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(numX, 0), new Vector2(sw - sh * 1.2f, sh), new Vector2(0.5f, 0.5f));
+            bool all = true;
+            for (int i = 0; i < 10; i++) all &= digitSprites[i] = MachineGlow.Sprite("pk_so_" + i);
+            if (all)
+            {
+                digitBox = Child<RectTransform>("so_hinh", screen);
+                digitBox.Place(new Vector2(0.5f, 0.5f), new Vector2(numX, 0), new Vector2(sw - sh * 1.2f, sh), new Vector2(0.5f, 0.5f));
+                digitH = sh * 0.72f;  // hình chữ số cắt sát (chữ cao ~94 % hình, cùng đáy) từ 2026-11-21
+                num.alpha = 0;
+                SetNumber(0);
+            }
+
+            var sw2 = MachineGlow.Make("lia", screen, MachineGlow.Sweep, MachineGlow.A(Color.white, 0.4f));
+            if (sw2)
+            {
+                sweep = sw2.rectTransform;
+                sweep.sizeDelta = new Vector2(sh * 0.9f, sh * 2.2f);
+                sweep.localEulerAngles = new Vector3(0, 0, -22);
+                sweep.gameObject.SetActive(false);
+            }
+
+            // lớp sáng phủ đúng các bóng vẽ sẵn trên khung (bóng tắt là hình vẽ, không cần ảnh tắt)
+            bulbOff = null;
+            bulbOn = MachineGlow.Sprite("fx2_den_vang");
+            bulbPink = MachineGlow.Sprite("fx2_den_hong") ?? bulbOn;
+            if (!bulbOn) return;
+            foreach (var b in BulbsV2)
+            {
+                var img = Child<Image>("den", rt);
+                img.sprite = bulbOn;
+                img.raycastTarget = false;
+                img.color = new Color(1, 1, 1, 0);
+                float d = 2 * b.z * size.y / BulbCoreV2;
+                img.rectTransform.Place(new Vector2(0, 1), new Vector2(b.x * size.x, -b.y * size.y), Vector2.one * d, new Vector2(0.5f, 0.5f));
+                bulbs.Add(img);
+            }
+        }
+
+        // số bằng hình: mỗi chữ một ảnh pk_so_*, cao digitH, sát nhau (chồng 6 %), canh giữa hộp số
+        void SetNumber(int v)
+        {
+            if (num) num.text = v.ToString();
+            if (!digitBox) return;
+            string s = Mathf.Max(0, v).ToString();
+            while (digits.Count < s.Length)
+            {
+                var img = Child<Image>("chu", digitBox);
+                img.raycastTarget = false;
+                digits.Add(img);
+            }
+            float total = 0;
+            for (int i = 0; i < s.Length; i++)
+            {
+                var sp = digitSprites[s[i] - '0'];
+                total += digitH * sp.rect.width / sp.rect.height * (i == 0 ? 1 : 0.94f);
+            }
+            float x = -total / 2;
+            for (int i = 0; i < digits.Count; i++)
+            {
+                var img = digits[i];
+                bool on = i < s.Length;
+                if (img.gameObject.activeSelf != on) img.gameObject.SetActive(on);
+                if (!on) continue;
+                var sp = digitSprites[s[i] - '0'];
+                float w = digitH * sp.rect.width / sp.rect.height;
+                if (i > 0) x -= w * 0.06f;
+                img.sprite = sp;
+                img.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(x + w / 2, 0), new Vector2(w, digitH), new Vector2(0.5f, 0.5f));
+                x += w;
+            }
+        }
+
         static T Child<T>(string name, Transform parent) where T : Component
         {
             if (typeof(T) == typeof(RectTransform)) return MachineGlow.NewRect(name, parent) as T;
@@ -240,7 +387,7 @@ namespace PokiClash
             target = 0;
             shown = 0;
             incoming = 0;
-            if (num) num.text = "0";
+            SetNumber(0);
         }
 
         void Update()
@@ -250,7 +397,7 @@ namespace PokiClash
             {
                 float step = Mathf.Max(1, Mathf.Abs(target - shown) * CountRate * dt);
                 shown = Mathf.MoveTowards(shown, target, step);
-                num.text = Mathf.RoundToInt(shown).ToString();
+                SetNumber(Mathf.RoundToInt(shown));
             }
             if (punchT >= 0)
             {
@@ -258,6 +405,7 @@ namespace PokiClash
                 float end = Punch[Punch.Length - 2];
                 float s = punchT >= end ? 1 : MachineFx.Curve(Punch, punchT);
                 num.rectTransform.localScale = Vector3.one * s;
+                if (digitBox) digitBox.localScale = Vector3.one * s;
                 if (icon) icon.rectTransform.localScale = Vector3.one * (1 + (s - 1) * 0.6f);
                 if (punchT >= end) punchT = -1;
             }
@@ -311,7 +459,29 @@ namespace PokiClash
                     if (k >= 1) sweepT = 0;
                 }
             }
-            if (bulbs.Count > 0)
+            if (bulbs.Count > 0 && v2)
+            {
+                // bản 2: hai nhóm xen kẽ (chẵn A, lẻ B), lớp sáng bật/tắt; thu số: cả bảng sáng ở ba đỉnh như bản cũ
+                bool all = collectT >= 0 && Mathf.Abs(Mathf.Repeat(collectT - 0.167f + 0.09f, 0.183f) - 0.09f) < 0.05f;
+                float t = Time.unscaledTime;
+                int ph; // 0 cả bảng, 1 nhóm A, 2 tắt hết, 3 nhóm B
+                if (flashT > 0 || Busy) ph = t % BusyCycleV2 < BusyCycleV2 / 2 ? 1 : 3;
+                else
+                {
+                    float c = t % IdleCycleV2;
+                    ph = c < 0.36f ? 0 : c < 1.11f ? 1 : c < 1.47f ? 2 : 3;
+                }
+                for (int i = 0; i < bulbs.Count; i++)
+                {
+                    bool on = all || ph == 0 || ph == 1 && i % 2 == 0 || ph == 3 && i % 2 == 1;
+                    var b = bulbs[i];
+                    var s = i % 5 == 2 ? bulbPink : bulbOn;
+                    if (b.sprite != s) b.sprite = s;
+                    float a = on ? 1 : 0;
+                    if (b.color.a != a) b.color = new Color(1, 1, 1, a);
+                }
+            }
+            else if (bulbs.Count > 0)
             {
                 bulbStep += dt * (flashT > 0 || Busy ? 3 : 1) / (BulbCycle / 2);
                 int step = (int)bulbStep;

@@ -1724,9 +1724,9 @@
  "minions": [
   {
    "id": "linh_cua",
-   "name": "Cua Kìm",
-   "title": "Lính gác bãi cát",
-   "aola": "goc_1313",
+   "name": "Tôm Đấm",
+   "title": "Tôm tít đấm bốc",
+   "aola": "quai_thuy",
    "elem": "thuy",
    "rarity": "common",
    "stats": [
@@ -1745,8 +1745,8 @@
    "size": 0.58,
    "forms": [
     {
-     "name": "Cua Kìm",
-     "aola": "goc_1313",
+     "name": "Tôm Đấm",
+     "aola": "quai_thuy",
      "size": 0.58
     }
    ],
@@ -1756,9 +1756,9 @@
   },
   {
    "id": "linh_cua2",
-   "name": "Cua Pháo",
-   "title": "Càng to bắn bọt",
-   "aola": "goc_1314",
+   "name": "Tôm Quyền",
+   "title": "Cú đấm nổ bọt",
+   "aola": "quai_thuy",
    "elem": "thuy",
    "rarity": "common",
    "stats": [
@@ -1777,8 +1777,8 @@
    "size": 0.83,
    "forms": [
     {
-     "name": "Cua Pháo",
-     "aola": "goc_1314",
+     "name": "Tôm Quyền",
+     "aola": "quai_thuy",
      "size": 0.83
     }
    ],
@@ -1916,9 +1916,9 @@
   },
   {
    "id": "linh_bo",
-   "name": "Bọ Sừng",
-   "title": "Giáp gỗ cứng đầu",
-   "aola": "goc_40",
+   "name": "Sóc Dẻ Gai",
+   "title": "Mũ gai nắm đấm nhỏ",
+   "aola": "quai_moc",
    "elem": "moc",
    "rarity": "common",
    "stats": [
@@ -1937,8 +1937,8 @@
    "size": 0.62,
    "forms": [
     {
-     "name": "Bọ Sừng",
-     "aola": "goc_40",
+     "name": "Sóc Dẻ Gai",
+     "aola": "quai_moc",
      "size": 0.62
     }
    ],
@@ -1948,9 +1948,9 @@
   },
   {
    "id": "linh_bo2",
-   "name": "Bọ Sừng Gỗ",
-   "title": "Sừng gỗ húc tung",
-   "aola": "goc_41",
+   "name": "Sóc Dẻ Chiến",
+   "title": "Đuôi lá quật gió",
+   "aola": "quai_moc",
    "elem": "moc",
    "rarity": "common",
    "stats": [
@@ -1969,8 +1969,8 @@
    "size": 0.79,
    "forms": [
     {
-     "name": "Bọ Sừng Gỗ",
-     "aola": "goc_41",
+     "name": "Sóc Dẻ Chiến",
+     "aola": "quai_moc",
      "size": 0.79
     }
    ],
@@ -2108,9 +2108,9 @@
   },
   {
    "id": "linh_lo",
-   "name": "Lò Lửa",
-   "title": "Bụng lò rực than",
-   "aola": "goc_64",
+   "name": "Gà Chọi Lửa",
+   "title": "Cựa lửa đá liên hoàn",
+   "aola": "quai_hoa",
    "elem": "hoa",
    "rarity": "common",
    "stats": [
@@ -2129,8 +2129,8 @@
    "size": 0.69,
    "forms": [
     {
-     "name": "Lò Lửa",
-     "aola": "goc_64",
+     "name": "Gà Chọi Lửa",
+     "aola": "quai_hoa",
      "size": 0.69
     }
    ],
@@ -2140,9 +2140,9 @@
   },
   {
    "id": "linh_lo2",
-   "name": "Lò Quái",
-   "title": "Miệng lò phun lửa",
-   "aola": "goc_65",
+   "name": "Gà Chiến Lửa",
+   "title": "Mào lửa bất bại",
+   "aola": "quai_hoa",
    "elem": "hoa",
    "rarity": "common",
    "stats": [
@@ -2161,8 +2161,8 @@
    "size": 1.05,
    "forms": [
     {
-     "name": "Lò Quái",
-     "aola": "goc_65",
+     "name": "Gà Chiến Lửa",
+     "aola": "quai_hoa",
      "size": 1.05
     }
    ],
@@ -2300,9 +2300,9 @@
   },
   {
    "id": "linh_giap",
-   "name": "Giáp Vệ",
-   "title": "Người máy gác cổng",
-   "aola": "goc_121",
+   "name": "Nhím Thép",
+   "title": "Lông lưỡi thép",
+   "aola": "quai_kim",
    "elem": "kim",
    "rarity": "common",
    "stats": [
@@ -2321,8 +2321,8 @@
    "size": 0.68,
    "forms": [
     {
-     "name": "Giáp Vệ",
-     "aola": "goc_121",
+     "name": "Nhím Thép",
+     "aola": "quai_kim",
      "size": 0.68
     }
    ],
@@ -2332,9 +2332,9 @@
   },
   {
    "id": "linh_giap2",
-   "name": "Chiến Giáp",
-   "title": "Nắm đấm thép tím",
-   "aola": "goc_122",
+   "name": "Nhím Kiếm",
+   "title": "Bão lưỡi thép",
+   "aola": "quai_kim",
    "elem": "kim",
    "rarity": "common",
    "stats": [
@@ -2353,8 +2353,8 @@
    "size": 1.07,
    "forms": [
     {
-     "name": "Chiến Giáp",
-     "aola": "goc_122",
+     "name": "Nhím Kiếm",
+     "aola": "quai_kim",
      "size": 1.07
     }
    ],
@@ -2492,9 +2492,9 @@
   },
   {
    "id": "linh_khoan",
-   "name": "Chuột Khoan",
-   "title": "Đào hầm mũi khoan",
-   "aola": "goc_1041",
+   "name": "Dê Đá",
+   "title": "Sừng đá húc tung",
+   "aola": "quai_tho",
    "elem": "tho",
    "rarity": "common",
    "stats": [
@@ -2513,8 +2513,8 @@
    "size": 0.84,
    "forms": [
     {
-     "name": "Chuột Khoan",
-     "aola": "goc_1041",
+     "name": "Dê Đá",
+     "aola": "quai_tho",
      "size": 0.84
     }
    ],
@@ -2524,9 +2524,9 @@
   },
   {
    "id": "linh_khoan2",
-   "name": "Khoan Giáp",
-   "title": "Giáp nặng mũi khoan thép",
-   "aola": "goc_1042",
+   "name": "Dê Núi Đá",
+   "title": "Húc vỡ núi",
+   "aola": "quai_tho",
    "elem": "tho",
    "rarity": "common",
    "stats": [
@@ -2545,8 +2545,8 @@
    "size": 1,
    "forms": [
     {
-     "name": "Khoan Giáp",
-     "aola": "goc_1042",
+     "name": "Dê Núi Đá",
+     "aola": "quai_tho",
      "size": 1
     }
    ],

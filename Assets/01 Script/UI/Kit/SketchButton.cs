@@ -28,7 +28,7 @@ namespace PokiClash.UI
         [Tooltip("Tắt hiệu ứng lún, nảy, lắc, nét bung (nút tự vẽ hoạt cảnh riêng)")]
         [SerializeField] bool noMotion;
 
-        bool down, interactable = true;
+        bool down, interactable = true, locked;
         Action onClick;
         UiMotion motion;
         UiMotion Motion => motion ? motion : (motion = UiMotion.Of(this));
@@ -150,6 +150,32 @@ namespace PokiClash.UI
             }
         }
 
+        // khoá tạm (máy bi lúc đang thả): cả nút mờ (mọi hình, chữ con), chạm không phản hồi (không lún, không lắc, không tiếng).
+        // Mờ bằng alpha của CanvasRenderer, không đụng màu Graphic, nên mở khoá là về y như cũ.
+        public const float LockAlpha = 0.45f;
+
+        public bool Locked
+        {
+            get => locked;
+            set
+            {
+                if (locked == value) return;
+                locked = value;
+                if (value) Release();
+                FadeLock();
+            }
+        }
+
+        void FadeLock()
+        {
+            foreach (var g in GetComponentsInChildren<Graphic>(true)) g.canvasRenderer.SetAlpha(locked ? LockAlpha : 1);
+        }
+
+        void OnEnable()
+        {
+            if (locked) FadeLock(); // nút bật lại trong lúc khoá (khay rương hiện thêm loại)
+        }
+
         // màu nền riêng (không theo vai trò)
         public void SetColor(Color c)
         {
@@ -163,7 +189,7 @@ namespace PokiClash.UI
 
         public void OnPointerDown(PointerEventData e)
         {
-            if (!interactable) return;
+            if (!interactable || locked) return;
             down = true;
             bg.sprite = pressed;
             if (!noMotion) Motion.Press(true);
@@ -185,6 +211,7 @@ namespace PokiClash.UI
 
         public void OnPointerClick(PointerEventData e)
         {
+            if (locked) return;
             if (!interactable)
             {
                 Sound?.Invoke("error");

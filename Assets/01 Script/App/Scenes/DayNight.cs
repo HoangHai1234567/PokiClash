@@ -9,7 +9,8 @@
 // - den: đèn ban đêm đọc khoá "lights" của island_anim.json theo đảo: glow (quầng đèn ấm phập phồng), beam (đèn hải đăng quét vòng);
 //   hiện dần khi trời tối.
 // - clouds: mây của màn (sảnh: vành mây may_vien và mây trôi, cùng hình mây vẽ tay của đảo vùng đất) nhân DayCycle.CloudTint: chiều
-//   xỉn, đêm ngả xanh xám như mây đảo vùng đất (IslandAnim), đồng bộ giữa các màn (người dùng dặn 2026-11-18).
+//   xỉn, đêm ngả xanh xám như mây đảo vùng đất (IslandAnim), đồng bộ giữa các màn (người dùng dặn 2026-11-18); cloudsAbove: mây nằm
+//   trên lớp nhuộm (sảnh: mây che đảo, trên đèn đêm các đảo) nhân thêm màu nhuộm cho tối như mây dưới lớp nhuộm.
 // Ảnh nhuom, nang tắt hẳn khi không có tác dụng (giữa trưa không nhuộm, đêm không nắng) để đỡ vẽ cả màn.
 using System;
 using System.Collections.Generic;
@@ -36,6 +37,9 @@ namespace PokiClash
         [SerializeField] Graphic[] seaOutside;
         [Tooltip("Mây của màn (sảnh: may_vien, mây trôi): nhân DayCycle.CloudTint như mây đảo vùng đất; menu PokiClash/Sáng tối/Mây sảnh")]
         [SerializeField] Graphic[] clouds;
+        [Tooltip("Mây nằm TRÊN lớp nhuộm (sảnh: mây che đảo suong_mu, đặt trên đèn đêm các đảo): nhân CloudTint x màu nhuộm cho tối như mây " +
+                 "dưới lớp nhuộm; giữ alpha (HubFog chỉ đổi alpha). Menu Sảnh: đèn đêm các đảo")]
+        [SerializeField] Graphic[] cloudsAbove;
         Color[] seaBase, outsideBase;
 
         struct Lamp
@@ -133,6 +137,12 @@ namespace PokiClash
             {
                 var ct = DayCycle.CloudTint(h);
                 foreach (var g in clouds)
+                    if (g) g.color = new Color(ct.r, ct.g, ct.b, g.color.a);
+            }
+            if (cloudsAbove != null && cloudsAbove.Length > 0)
+            {
+                var ct = DayCycle.CloudTint(h) * tintC;
+                foreach (var g in cloudsAbove)
                     if (g) g.color = new Color(ct.r, ct.g, ct.b, g.color.a);
             }
             if (tint)

@@ -1,0 +1,29 @@
+image 1 = D:\PokiClash\ArtGen\Islands\refs\world_style.png: drawing style (hand-drawn ink + coloured pencil + crayon)
+image 2 = D:\PokiClash\ArtGen\Home\icons\refs\buildings_A.png: the buildings as they look on the game map, numbered in the same order as the icons (cell 16 is empty: design it)
+image 3 = D:\PokiClash\ArtGen\Home\icons\refs\grid_4x4.png: numbered 4 x 4 grid, one icon per cell
+SAVE: D:\PokiClash\ArtGen\Home\icons\tai_ve\icons_A.png (if the name exists add _2, _3...; do not edit, move or delete any other file)
+Magnific: gpt-2-6, 1k, quality high, 1:1
+
+A 1024 x 1024 sheet of 16 game icons for the buildings of a cozy island base-building mobile game, laid out exactly on the
+4 x 4 grid of image 3 (left to right, top to bottom), one icon per cell. Each icon must be the SAME DESIGN as the numbered
+building in image 2 (same shapes, colours and details, simplified a little so it reads at small size), not a new design.
+Each icon: ONE object only, seen from the same 3/4 isometric angle as the reference buildings, centred in its cell, filling about 80 % of the cell, chunky simple shape that reads clearly at 64 px, a small patch of its own grass or ground under it is fine, nothing crossing the cell. Drawn like image 1: thick wobbly dark-brown ink outline (#2B2118), flat coloured-pencil and wax-crayon colour (one flat colour per area, pencil hatching only as texture), cheerful and cozy. No glossy highlights, no glow, no gradients, no 3D render. No text, no numbers, no letters, no grid lines, no creatures, no people. Background: plain flat pure white everywhere around and between the icons.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the object or on the ground or background. Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+
+ICONS in grid order:
+1. the main house: cozy two-storey wooden cottage, red tiled roof, chimney, flower boxes, small flag
+2. fenced vegetable field: dark soil with carrots, cabbages and a pumpkin, low wooden rails, little gate
+3. apple orchard: small apple trees with red apples inside low wooden rails, a ladder, baskets of apples
+4. sawmill: small open timber shed with a slanted blue plank roof, a round saw blade, stacked logs
+5. fishing pond: round pond with a stone rim, blue water, lily pads, reeds, a tiny wooden jetty
+6. mine: grey rock hill with coloured crystals poking out, a timber-framed mine entrance with a minecart, a lantern post
+7. forge: stone forge with a chimney under a small timber roof, an anvil, bellows, orange coals drawn flat
+8. kitchen: small thatched-roof cottage with an open stone oven with a fire and a pot, a chimney, barrels
+9. storage barn: small red wooden barn with a big double door, crates and sacks in front
+10. stone well with a little wooden roof, a crank and a bucket
+11. water wheel mill: small timber mill house with a big wooden water wheel on its side
+12. hot spring: round stone pool with pale blue water and drawn steam curls, bamboo fence behind
+13. ball tree: small round tree whose fruits are white balls with one grey stripe
+14. wooden park bench
+15. rope swing hanging from a wooden A-frame
+16. a short section of wooden picket fence (three or four pickets with two rails)

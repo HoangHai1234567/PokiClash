@@ -1,0 +1,11 @@
+{
+ "hit": {"attack": 0.45, "cast": 0.5, "skill": 1.15},
+ "lunge": ["skill"],
+ "stay": [],
+ "muzzle_bone": "phong",
+ "beam": 0.8,
+ "impact": {"attack": [0.06, 0.3, 0.08, ""], "cast": [0.05, 0.2, 0.05, ""], "skill": [0.1, 0.6, 0.1, ""]},
+ "lv": {"linh_bo": ["Sóc Dẻ Gai", "Mũ gai nắm đấm nhỏ"], "linh_bo2": ["Sóc Dẻ Chiến", "Đuôi lá quật gió"]},
+ "the": {"linh_bo_skill": ["Phi Lá", "seed"], "linh_bo_ult": ["Quật Đuôi Lá", "wind"], "linh_bo_pas": ["Mũ Dẻ Gai", "shield"],
+         "linh_bo2_skill": ["Ném Hạt Dẻ", "seed"], "linh_bo2_ult": ["Bão Lá", "wind"], "linh_bo2_pas": ["Mũ Gai Cứng", "shield"]}
+}

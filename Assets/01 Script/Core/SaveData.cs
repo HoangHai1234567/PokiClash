@@ -35,6 +35,7 @@ namespace PokiClash.Core
         public bool sound = true;
         public bool hints = true; // bong bóng gợi ý trong trận
         public bool haptics = true; // rung (máy bi, mở rương, lên cấp)
+        public bool lowFlash; // giảm nhấp nháy (máy bi: jackpot không chớp mạnh, không phóng to, đèn dịu; GD_Claude/23)
     }
 
     public sealed class SaveStats
@@ -536,6 +537,7 @@ namespace PokiClash.Core
                 s.settings.sound = J.Bool(st, "sound", true);
                 s.settings.hints = J.Bool(st, "hints", true);
                 s.settings.haptics = J.Bool(st, "haptics", true);
+                s.settings.lowFlash = J.Bool(st, "lowFlash", false);
             }
             var stats = J.Obj(o, "stats");
             s.stats.battles = J.Int(stats, "battles");
@@ -755,7 +757,7 @@ namespace PokiClash.Core
                 ["settings"] = new Dictionary<string, object>
                 {
                     ["boil"] = s.settings.boil, ["sound"] = s.settings.sound, ["hints"] = s.settings.hints,
-                    ["haptics"] = s.settings.haptics,
+                    ["haptics"] = s.settings.haptics, ["lowFlash"] = s.settings.lowFlash,
                 },
                 ["stats"] = new Dictionary<string, object>
                 {

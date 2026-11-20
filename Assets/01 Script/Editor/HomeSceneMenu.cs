@@ -33,6 +33,14 @@ namespace PokiClash.EditorTools
         const string TreePath = "Assets/04 Prefabs/Items/NhaCay.prefab";
         const string WaterMatPath = "Assets/03 Art/Home/home_water.mat";
         const string DistPath = "Assets/03 Art/Baked/Home/home_dist.png";
+        // biển kiểu Clash of Critters (GD_Claude/22 mục 4): shader PokiClash/UIHomeSea, ảnh sinh bằng ArtGen/Home/sea/make_home_sea.py
+        const string SeaMatPath = "Assets/03 Art/Home/home_sea.mat";
+        const string SeaMaskPath = "Assets/03 Art/Baked/Home/home_sea.png";
+        const string SeaFlowPath = "Assets/03 Art/Baked/Home/home_sea_flow.png";
+        const string SeaCausticPath = "Assets/03 Art/Baked/Home/home_sea_caustic.png";
+        const string RiverPath = "Assets/03 Art/Baked/Home/home_river.png"; // thác, suối: vệt nước chảy
+        // mặt nạ tự sáng của công trình (home_e_<def>.png, ArtGen/Home/night/home_emit.py), shader PokiClash/UIIslandEmit của đèn đêm sảnh
+        const string EmitMatPath = "Assets/03 Art/Home/home_emit.mat";
         const string GlowItemPath = "Assets/04 Prefabs/Items/HinhDong.prefab";
         const string ArtDir = "Assets/03 Art/Home/";
         const string ScenePath = "Assets/00 Scenes/Home.unity";
@@ -73,16 +81,29 @@ namespace PokiClash.EditorTools
                 var sp = ImportSprite(ArtDir + kv.Key + ".png", 1024);
                 if (!sp) continue;
                 var piv = J.Arr(m, "pivot");
-                arts.Add(new HomeScene.ArtMeta
+                var meta0 = new HomeScene.ArtMeta
                 {
                     id = kv.Key, sprite = sp, pivot = piv.Count >= 2 ? new Vector2((float)(double)piv[0], (float)(double)piv[1]) : new Vector2(0.5f, 0),
                     foot = (float)J.Num(m, "foot", sp.rect.width), cells = J.Int(m, "cells"),
-                });
+                };
+                arts.Add(meta0);
+                // mặt nạ tự sáng cùng khung ảnh công trình: home_b_<def> → home_e_<def>
+                if (kv.Key.StartsWith("home_b_"))
+                {
+                    var esp = ImportSprite(ArtDir + "home_e_" + kv.Key.Substring(7) + ".png", 1024);
+                    if (esp)
+                    {
+                        var em = meta0;
+                        em.id = "home_e_" + kv.Key.Substring(7);
+                        em.sprite = esp;
+                        arts.Add(em);
+                    }
+                }
             }
             var tileSprite = TileSprite();
             var trees = TreeSprites();
             var tileArt = TileArt();
-            var water = WaterMat();
+            var water = SeaMat() ?? WaterMat();
             var glowSprite = AssetDatabase.LoadAssetAtPath<Sprite>("Assets/03 Art/Islands/Anim/anim_glow.png");
 
             var obj = BuildObj();
@@ -228,6 +249,80 @@ namespace PokiClash.EditorTools
             }
             mat.shader = shader;
             mat.SetTexture("_DistTex", AssetDatabase.LoadAssetAtPath<Texture2D>(DistPath));
+            EditorUtility.SetDirty(mat);
+            return mat;
+        }
+
+        // ảnh dữ liệu (không sRGB, không mip, không nén): mặt nạ bờ kẹp mép; nhiễu, vân lặp
+        static Texture2D DataTex(string path, bool repeat, int max)
+        {
+            if (!File.Exists(path)) return null;
+            AssetDatabase.ImportAsset(path);
+            var ti = (TextureImporter)AssetImporter.GetAtPath(path);
+            var wrap = repeat ? TextureWrapMode.Repeat : TextureWrapMode.Clamp;
+            if (ti.sRGBTexture || ti.mipmapEnabled || ti.textureCompression != TextureImporterCompression.Uncompressed ||
+                ti.textureType != TextureImporterType.Default || ti.wrapMode != wrap || ti.maxTextureSize != max)
+            {
+                ti.textureType = TextureImporterType.Default;
+                ti.sRGBTexture = false;
+                ti.mipmapEnabled = false;
+                ti.alphaSource = TextureImporterAlphaSource.FromInput;
+                ti.wrapMode = wrap;
+                ti.filterMode = FilterMode.Bilinear;
+                ti.textureCompression = TextureImporterCompression.Uncompressed;
+                ti.maxTextureSize = max;
+                ti.SaveAndReimport();
+            }
+            return AssetDatabase.LoadAssetAtPath<Texture2D>(path);
+        }
+
+        // biển kiểu Clash of Critters (GD_Claude/22 mục 4) trên ảnh nền: thiếu shader hoặc ảnh thì về sóng mực cũ (UIInkWater)
+        static Material SeaMat()
+        {
+            var shader = Shader.Find("PokiClash/UIHomeSea");
+            var mask = DataTex(SeaMaskPath, false, 2048);
+            var flow = DataTex(SeaFlowPath, true, 256);
+            var caustic = DataTex(SeaCausticPath, true, 512);
+            if (!shader || !mask || !flow || !caustic)
+            {
+                Debug.LogWarning("[Nhà] Chưa có shader PokiClash/UIHomeSea hoặc ảnh biển (ArtGen/Home/sea/make_home_sea.py): dùng sóng mực cũ.");
+                return null;
+            }
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(SeaMatPath);
+            if (!mat)
+            {
+                mat = new Material(shader);
+                AssetDatabase.CreateAsset(mat, SeaMatPath);
+            }
+            mat.shader = shader;
+            mat.SetTexture("_SeaTex", mask);
+            mat.SetTexture("_FlowTex", flow);
+            mat.SetTexture("_CausticTex", caustic);
+            var river = DataTex(RiverPath, false, 2048);
+            if (river) mat.SetTexture("_RiverTex", river);
+            else Debug.LogWarning("[Nhà] Thiếu " + RiverPath + ": thác, suối chưa chảy.");
+            EditorUtility.SetDirty(mat);
+            return mat;
+        }
+
+        // mặt nạ tự sáng công trình: dùng shader đèn đêm của sảnh, sáng thêm ít hơn (cửa sổ nhỏ, đứng gần)
+        static Material EmitMat()
+        {
+            var shader = Shader.Find("PokiClash/UIIslandEmit");
+            if (!shader)
+            {
+                Debug.LogWarning("[Nhà] Chưa có shader PokiClash/UIIslandEmit: công trình chưa sáng đèn ban đêm.");
+                return null;
+            }
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(EmitMatPath);
+            if (!mat)
+            {
+                mat = new Material(shader);
+                mat.SetFloat("_Boost", 0.45f);
+                mat.SetFloat("_Shimmer", 0.3f);
+                AssetDatabase.CreateAsset(mat, EmitMatPath);
+            }
+            mat.shader = shader;
             EditorUtility.SetDirty(mat);
             return mat;
         }
@@ -437,8 +532,16 @@ namespace PokiClash.EditorTools
                 gridImg.material = GridMat();
                 gridImg.enabled = false;
                 if (!gridImg.material) Debug.LogWarning("[Nhà] Chưa có shader PokiClash/UIHomeGrid: chế độ xây chưa có lưới sáng.");
+                // lớp môi trường kiểu Critters (bảng HomeScene.Layers): đồ ven biển, cỏ rải, vách cao nguyên, môi cỏ (GD_Claude/22 mốc A5); cây rìa
+                var catLayer = Fill(Node(world, "cat"));
+                Fill(Node(world, "co_rai"));
+                var wallLayer = Fill(Node(world, "vach"));
+                Fill(Node(world, "moi_co"));
+                float terraceH = BuildKit(wallLayer, catLayer);
+                var rim = Fill(Node(world, "rung_nen"));
                 var objs = Fill(Node(world, "vat"));
                 var fxLayer = Fill(Node(world, "hat")); // hạt của quái (bụi, tim, tia lửa), cùng khung với lớp vật
+                BuildWind(fxLayer);
                 var clouds = Fill(Node(world, "may", typeof(CanvasGroup)));
                 // mây che rìa: từng đám rời (người dùng 2026-11-19: mây tách riêng, tàu đi qua thì toả ra, thấy rõ thuyền; mây Nhà cùng loại mây
                 // đảo), CloudRing của phiên sảnh lo trôi, toả quanh tàu; chuyến tàu qua mây mang theo lúc chụp màn. Nằm dưới lớp sáng tối
@@ -448,7 +551,7 @@ namespace PokiClash.EditorTools
                 cloudGroup.interactable = false;
                 var cloudImgs = BuildClouds(clouds, worldSize, gridTop.x); // gridTop.x: mũi trên và mũi dưới (bến) cùng hoành độ
                 clouds.gameObject.AddComponent<CloudRing>().Setup(cloudImgs, 290);
-                // sáng tối dùng chung với các đảo (DayNight, DayCycle theo giờ máy): nhuộm, tia nắng; đèn công trình ở lớp "den"
+                // sáng tối dùng chung với các đảo (DayNight, DayCycle theo giờ máy): nhuộm, tia nắng; mặt nạ tự sáng công trình ở lớp "tu_sang"
                 var dayRoot = Fill(Node(world, "sang_toi"));
                 var mul = AssetDatabase.LoadAssetAtPath<Material>("Assets/03 Art/Islands/day_multiply.mat");
                 var raysMat = AssetDatabase.LoadAssetAtPath<Material>("Assets/03 Art/Islands/day_rays.mat");
@@ -470,7 +573,7 @@ namespace PokiClash.EditorTools
                 for (int i = 0; i < cloudImgs.Length; i++) cArr.GetArrayElementAtIndex(i).objectReferenceValue = cloudImgs[i];
                 dso.ApplyModifiedPropertiesWithoutUndo();
                 if (!mul || !raysMat) Debug.LogWarning("[Nhà] Chưa có day_multiply.mat / day_rays.mat (menu PokiClash/Sáng tối của các đảo): Nhà chưa nhuộm theo giờ.");
-                var lights = Fill(Node(world, "den"));
+                var lights = Fill(Node(world, "tu_sang")); // mặt nạ tự sáng công trình (đêm), trên lớp nhuộm
 
                 // kéo, phóng to thu nhỏ nhẹ: LandView của màn Đảo (bỏ HubPan cũ)
                 var oldPan = khung.GetComponent<HubPan>();
@@ -495,8 +598,9 @@ namespace PokiClash.EditorTools
                 Vector2 L(Vector2 m) => new Vector2(m.x, -m.y);
                 var pier = ShipBuild.Pier(world, L(tip + new Vector2(205, 240)), Vector2.up,
                     new[] { L(tip + new Vector2(215, 470)), L(tip + new Vector2(240, 800)) }, null, 1f, 520);
-                pier.transform.SetSiblingIndex(dayRoot.GetSiblingIndex()); // trên lớp mây, dưới lớp sáng tối
                 scene.SetupPier(pier);
+                scene.SetupEnv(rim, EmitMat(), terraceH);
+                OrderLayers(world); // tàu trên lớp mây, dưới lớp sáng tối: theo bảng queue
 
                 BuildUi(assets, scene, safe);
                 PrefabUtility.SaveAsPrefabAsset(root, ScreenPath);
@@ -506,6 +610,82 @@ namespace PokiClash.EditorTools
             {
                 PrefabUtility.UnloadPrefabContents(root);
             }
+        }
+
+        // bộ mảnh môi trường (GD_Claude/22 mốc A5): vách cao nguyên dọc hai cạnh trên đảo (giữa các khối đồi vẽ sẵn) và đồ ven biển trên dải
+        // cát; ảnh, điểm neo, chỗ đặt (px bản đồ, gốc trên trái) tính sẵn bằng ArtGen/Home/kit/import_kit.py vào home_kit.json. Trả chiều cao
+        // vách (bậc cao: cây rìa đứng trên đó), 0 nếu chưa có bộ mảnh.
+        static float BuildKit(RectTransform wallLayer, RectTransform catLayer)
+        {
+            var path = ArtDir + "home_kit.json";
+            if (!File.Exists(path))
+            {
+                Debug.LogWarning("[Nhà] Chưa có home_kit.json (ArtGen/Home/kit/import_kit.py): chưa có vách, đồ ven biển.");
+                return 0;
+            }
+            var kit = J.Obj(MiniJson.Parse(File.ReadAllText(path)));
+            var pieces = J.Obj(kit, "pieces");
+            var sprites = new Dictionary<string, Sprite>();
+            int n = 0;
+            foreach (var (layerName, layer) in new[] { ("vach", wallLayer), ("cat", catLayer) })
+            {
+                foreach (var o in J.Arr(kit, layerName))
+                {
+                    var e = J.Obj(o);
+                    var id = J.Str(e, "id");
+                    if (id == null) continue;
+                    if (!sprites.TryGetValue(id, out var sp)) sprites[id] = sp = ImportSprite(ArtDir + id + ".png", 1024);
+                    if (!sp) continue;
+                    var piv = J.Arr(J.Obj(pieces, id), "pivot");
+                    float sc = (float)J.Num(e, "scale", 1);
+                    var img = Img(layer, id + "_" + n++, sp, Color.white);
+                    var rt = img.rectTransform;
+                    rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
+                    rt.pivot = new Vector2((float)(double)piv[0], (float)(double)piv[1]);
+                    rt.sizeDelta = sp.rect.size * sc;
+                    rt.anchoredPosition = new Vector2((float)J.Num(e, "x"), -(float)J.Num(e, "y"));
+                    if (J.Bool(e, "flip")) rt.localScale = new Vector3(-1, 1, 1); // cạnh "/" dùng bản lật ngang
+                }
+            }
+            return (float)J.Num(kit, "H", 0);
+        }
+
+        // lá, cánh hoa bay theo gió (GD_Claude/22 mốc A4; ảnh ArtGen/Home/wind/make_leaves.py): Image dựng sẵn, HomeWind dời lúc chạy
+        static void BuildWind(RectTransform fxLayer)
+        {
+            var look = Enumerable.Range(1, 4).Select(i => ImportSprite(ArtDir + "home_leaf_" + i + ".png", 64)).Where(s => s).ToArray();
+            if (look.Length == 0)
+            {
+                Debug.LogWarning("[Nhà] Thiếu home_leaf_*.png (ArtGen/Home/wind/make_leaves.py): chưa có lá bay.");
+                return;
+            }
+            var gio = Fill(Node(fxLayer, "gio"));
+            var imgs = new List<Image>();
+            var rnd = new System.Random(3);
+            // 120 lá trên bản đồ 7000 x 4200 px: khoảng 6 lá mỗi màn (Critters giữ vài trăm hạt gió cùng lúc trên cả map)
+            for (int i = 0; i < 120; i++)
+            {
+                var sp = look[i % look.Length];
+                var img = Img(gio, "la_" + i, sp, Color.white);
+                var rt = img.rectTransform;
+                rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
+                rt.pivot = new Vector2(0.5f, 0.5f);
+                float k = 1.7f + (float)rnd.NextDouble() * 0.8f;
+                rt.sizeDelta = sp.rect.size * k;
+                imgs.Add(img);
+            }
+            gio.gameObject.AddComponent<HomeWind>().Setup(imgs.ToArray());
+        }
+
+        // xếp các lớp con của lớp kéo theo render queue (HomeScene.Layers, học Clash of Critters): uGUI vẽ theo thứ tự anh em; nút lạ
+        // (không có trong bảng) giữ nguyên ở cuối và báo
+        static void OrderLayers(RectTransform world)
+        {
+            var q = HomeScene.Layers.ToDictionary(l => l.name, l => l.queue);
+            var kids = world.Cast<Transform>().ToList();
+            foreach (var k in kids.Where(k => !q.ContainsKey(k.name))) Debug.LogWarning("[Nhà] Lớp " + k.name + " không có trong bảng queue HomeScene.Layers.");
+            var sorted = kids.OrderBy(k => q.TryGetValue(k.name, out var v) ? v : int.MaxValue).ThenBy(k => k.GetSiblingIndex()).ToList();
+            for (int i = 0; i < sorted.Count; i++) sorted[i].SetSiblingIndex(i);
         }
 
         // vành mây theo bốn mép bản đồ: mỗi đám một ảnh neo giữa lớp mây (CloudRing đặt anchoredPosition mỗi khung). Hình mây vẽ tay của
@@ -647,6 +827,7 @@ namespace PokiClash.EditorTools
             panel.gameObject.SetActive(false);
 
             scene.SetupUi(res, hint, bBuild, bPaint, bHarvest, bSail, tray, assets.prefabs.buttonSmall, panel.rectTransform, title, body, a, b, c, dBtn);
+            scene.SetupTrayIcon(HomeTrayMenu.TrayItem()); // khay Xây: nút có icon công trình (2026-11-20)
             scene.SetupChrome(ui.GetComponent<CanvasGroup>());
         }
 
@@ -752,7 +933,9 @@ namespace PokiClash.EditorTools
             {
                 var so = new SerializedObject(home);
                 (so.FindProperty("btnBuild").objectReferenceValue as SketchButton)?.SimulateClick();
-                yield return new WaitForSecondsRealtime(0.8f);
+                yield return new WaitForSecondsRealtime(0.25f);
+                Shot("2a_luoi_lan"); // lưới đang lan ra từ giữa khung nhìn (GD_Claude/22 mốc A4)
+                yield return new WaitForSecondsRealtime(0.55f);
                 Shot("2_khay_xay");
                 yield return new WaitForSecondsRealtime(1f);
                 // dời công trình: ở chế độ xây chạm kho để nhấc lên, chạm đất thấp hơn 6 ô để đổi chỗ, chụp, rồi Đặt
@@ -951,6 +1134,43 @@ namespace PokiClash.EditorTools
                         Debug.Log($"[Nhà] Kéo đất trống: trước {before} | sau {view.Describe()}");
                     }
                     else Debug.LogWarning("[Nhà] Tour giữ kéo: thiếu tap / kho / EventSystem / LandView");
+                }
+                // đêm: mặt nạ tự sáng cửa sổ Nhà chính, không quầng (GD_Claude/22 mốc A3); biển đêm ven bến
+                {
+                    var lv = so.FindProperty("landView").objectReferenceValue as LandView;
+                    var ct = home.GetType().GetMethod("CellTop", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                    var mainB = Home.Main(App.Save.Data.home);
+                    if (lv && ct != null && mainB != null)
+                    {
+                        // bộ mảnh A5 ban trưa: vách cao nguyên cạnh trên phải, thác nước chảy (hai ảnh cách 0,6 giây). Bản lưu thử: mở hết ô
+                        // rừng cho cây khỏi che (cuối tour trả bản lưu thật)
+                        var hs = App.Save.Data.home;
+                        int nl = Home.LotsPerSide(App.Data.Cfg.home);
+                        for (int lot = 0; lot < nl * nl; lot++)
+                            if (!hs.lots.Contains(lot)) hs.lots.Add(lot);
+                        home.Refresh();
+                        DayCycle.Override = 12f;
+                        lv.Show((Vector2)ct.Invoke(home, new object[] { 40f, 4f }), 0.8f, 0);
+                        yield return new WaitForSecondsRealtime(0.8f);
+                        Shot("16_vach");
+                        yield return new WaitForSecondsRealtime(0.4f);
+                        var fallAt = new Vector2(3555, 760); // thác vẽ trên ảnh nền (px bản đồ)
+                        lv.Show(fallAt, 1.25f, 0);
+                        yield return new WaitForSecondsRealtime(0.8f);
+                        Shot("17_thac_a");
+                        yield return new WaitForSecondsRealtime(0.6f);
+                        Shot("17_thac_b");
+                        yield return new WaitForSecondsRealtime(0.4f);
+                        DayCycle.Override = 21f;
+                        lv.Show((Vector2)ct.Invoke(home, new object[] { mainB.gx + 3f, mainB.gy + 3f }), 1.25f, 0);
+                        yield return new WaitForSecondsRealtime(1.2f);
+                        Shot("14_dem_nha");
+                        yield return new WaitForSecondsRealtime(0.4f);
+                        lv.Show((Vector2)ct.Invoke(home, new object[] { 66f, 66f }), 1f, 0);
+                        yield return new WaitForSecondsRealtime(0.8f);
+                        Shot("15_dem_bien");
+                        yield return new WaitForSecondsRealtime(0.4f);
+                    }
                 }
                 DayCycle.Override = null;
             }

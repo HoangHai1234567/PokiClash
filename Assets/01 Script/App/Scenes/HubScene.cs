@@ -52,7 +52,7 @@ namespace PokiClash
         [SerializeField] HubPan pan;
         [Tooltip("Tàu ở bến cạnh đảo Thủy (menu PokiClash/Prefab/Bến tàu: ...)")]
         [SerializeField] PierShip pier;
-        [Tooltip("Ảnh từng đảo trên bản đồ: quầng sáng màu hệ, bấm theo hình đảo, nhún (HubIslandArt)")]
+        [Tooltip("Ảnh từng đảo trên bản đồ: bấm theo hình đảo, nhún, đèn đêm của đảo (HubIslandArt)")]
         [SerializeField] HubIslandArt[] islandArts = new HubIslandArt[0];
         [Tooltip("Giao diện cố định (hàng nút đáy, cột thẻ công trình): ẩn lúc chuyến tàu qua mây")]
         [SerializeField] CanvasGroup[] chrome = new CanvasGroup[0];
@@ -299,6 +299,9 @@ namespace PokiClash
                 if (last != null) yield return last;
             }
             HubIslands.SetShown(App.Save.Data, HubIslands.Shown(App.Save.Data) | fresh);
+            // lưu ngay (người dùng 2026-11-20: "mây chỉ che toàn bộ đảo lần đầu tiên thôi, từ các lần sau boot vào là mây không che nữa"):
+            // trước đây chờ lần lưu kế tiếp, tắt game trước đó thì lần boot sau mây che lại, diễn tan lại
+            App.Save.Save();
             if (cover) cover.Block(false);
             reveal = null;
         }

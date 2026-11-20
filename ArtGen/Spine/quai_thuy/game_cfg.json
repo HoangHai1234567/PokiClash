@@ -1,0 +1,69 @@
+{
+ "hit": {
+  "attack": 0.41,
+  "cast": 0.5,
+  "skill": 0.98
+ },
+ "lunge": [
+  "skill"
+ ],
+ "stay": [],
+ "impact": {
+  "attack": [
+   0.06,
+   0.3,
+   0.08,
+   ""
+  ],
+  "cast": [
+   0.05,
+   0.2,
+   0.05,
+   ""
+  ],
+  "skill": [
+   0.1,
+   0.6,
+   0.1,
+   ""
+  ]
+ },
+ "lv": {
+  "linh_cua": [
+   "Tôm Đấm",
+   "Tôm tít đấm bốc"
+  ],
+  "linh_cua2": [
+   "Tôm Quyền",
+   "Cú đấm nổ bọt"
+  ]
+ },
+ "the": {
+  "linh_cua_skill": [
+   "Đấm Bọt",
+   "bubble"
+  ],
+  "linh_cua_ult": [
+   "Liên Hoàn Quyền",
+   "fist2"
+  ],
+  "linh_cua_pas": [
+   "Vỏ Cứng",
+   "shield"
+  ],
+  "linh_cua2_skill": [
+   "Pháo Bọt",
+   "bubble"
+  ],
+  "linh_cua2_ult": [
+   "Song Quyền Nổ",
+   "fist2"
+  ],
+  "linh_cua2_pas": [
+   "Vỏ Thép",
+   "shield"
+  ]
+ },
+ "muzzle_bone": "cg_mui",
+ "beam": 0.8
+}

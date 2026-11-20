@@ -7,6 +7,7 @@
 // Lava đâm giáo): camera bám xương move của rig (AolaActor.Follow), ảnh dời ngược lại đúng chừng đó nên trên màn không đổi gì; clip vươn
 // xa hơn khung (AtomikAsset.fit) thì camera lùi ra trong lúc clip chạy, viền giấy chia lại cho dày như cũ. Rect là khung ngoài cho nơi
 // gọi đặt chỗ, đổi tỉ lệ, bật tắt; ảnh là con của nó, sticker tự dời.
+using System.Collections.Generic;
 using PokiClash.Core;
 using PokiClash.Game;
 using PokiClash.UI;
@@ -27,7 +28,18 @@ namespace PokiClash
         float curSpan = DefSpan;  // khung camera đang dùng (Span hoặc nới cho clip)
         float uiHeight;           // chiều cao dáng đứng trên UI
         int px;                   // cạnh RenderTexture
-        Vector2 farShift, follow; // dời khung camera (đơn vị = chiều cao dáng đứng, +y lên): theo đích hiệu ứng ở xa, theo thân
+        Vector2 follow;           // chỗ xương move (AolaActor.Follow), đơn vị = chiều cao dáng đứng, +y lên
+        Vector2 farShift;         // hình aola: khung dời theo đích ở xa (Far), cùng đơn vị
+        Vector2 win;              // dời khung camera (cùng đơn vị): tâm ngang, chân khung ở win.y − FootV·cỡ khung (Fit)
+        // Khung tự nới theo hình vẽ thật (2026-11-20, quét HeroFrameScan: 161 clip ở 58 dạng bị mép ảnh cắt: hiệu ứng ở chỗ đối thủ,
+        // khung dời theo đích làm lọt phía sau, clip aura phủ lên, cú đâm nhanh lọt giữa hai mẫu đo của fit, dạng aola lao xa). Ảnh
+        // trên UI có cỡ theo khung và dời ngược đúng chừng camera dời nên đổi khung không làm tướng xê dịch hay to nhỏ trên màn, chỉ đổi
+        // độ nét: ưu tiên dời khung; chỉ nới cỡ khi hình rộng hoặc cao hơn khung, nới thì giữ tới hết lần hiện clip đó và nhớ theo clip để
+        // lần sau mở sẵn (độ nét không nhảy giữa chừng).
+        float winSpan;            // cỡ khung của lần hiện clip đang chạy
+        string winClip;           // clip của lần hiện đó
+        float winT = -1;          // giờ clip lần gọi trước (lùi lại: clip chạy lại)
+        readonly Dictionary<string, float> clipSpan = new(); // cỡ khung lớn nhất mỗi clip đã cần
         static int count, builtFrame = -1;
 
         // Dựng sticker tốn (prefab, hàng chục hình, RenderTexture có depth): giao diện (hộp chi tiết, đội hình) mỗi khung dựng tối đa
@@ -53,10 +65,13 @@ namespace PokiClash
         int seenVersion = -1, lastShot = -1000; // AolaActor.Version lúc chụp gần nhất, khung (Time.frameCount) chụp gần nhất
         bool camDirty = true; // khung camera vừa dời: chụp lại
 
+        // clip đi bộ của rig .atomik (màn Nhà: tướng đi lại; dạng chưa có clip này thì nơi gọi dùng dáng đứng)
+        public const string Walk = "walk";
+
         static string ClipName(string c) =>
             c == StageView.Attack ? AolaActor.Attack : c == StageView.Skill ? AolaActor.Skill : c == StageView.Cast ? AolaActor.Cast :
             c == StageView.Hit ? AolaActor.Hit : c == AolaActor.Evolve ? AolaActor.Evolve :
-            c == AolaActor.Appear || c == AolaActor.Die ? c : AolaActor.Idle;
+            c == AolaActor.Appear || c == AolaActor.Die || c == Walk ? c : AolaActor.Idle;
 
         // dạng có clip này không (clip tiến hóa: chỉ dạng .atomik có, HeroViewer phát trước khi đổi dạng)
         public bool HasClip(string clip) => actor.HasClip(ClipName(clip));
@@ -308,42 +323,79 @@ namespace PokiClash
         }
 
         // Hiệu ứng ở xa của clip (đạn bay, vụ nổ ở chỗ đối thủ của trận gốc, AolaActor.FarTarget): to = đối thủ so với chân
-        // (đơn vị sân, y xuống); null hoặc clip không có: như bản gốc. shift: khung camera dịch về phía đối thủ nửa quãng (thân
-        // vẫn trong khung), ảnh dịch ngược lại để thân đứng yên trên sân (sân đấu; nơi tự đặt chỗ ảnh thì không dịch).
+        // (đơn vị sân, y xuống); null hoặc clip không có: như bản gốc. Rig .atomik: khung camera tự dời / nới cho hiệu ứng ở đích (Fit).
+        // Hình aola (giữ như cũ, người dùng 2026-11-20 chỉ sửa .atomik): shift = khung dời về phía đối thủ nửa quãng, ảnh dời ngược lại
+        // để thân đứng yên trên sân (sân đấu; nơi tự đặt chỗ ảnh thì không dịch).
         public void Far(string clip, Vector2? to, bool shift = true)
         {
             var name = ClipName(clip);
             if (to == null || !actor.HasFar(name))
             {
                 actor.SetFarTarget(null);
-                if (shift) Shift(Vector2.zero);
+                if (shift) farShift = Vector2.zero;
                 return;
             }
             float h = Mathf.Max(1, stageHeight);
             var d = to.Value;
             actor.SetFarTarget(new Vector2((flip ? -d.x : d.x) / h, -d.y / h));
-            // Khung camera dời theo đích để mảnh bay còn trong ảnh. Đích ở TRÊN (khung sẵn có 2,7 chiều cao phía trên chân): chỉ dời lên khi
-            // đích cao quá 1,9 chiều cao, vì dời lên là mất phần dưới chân (đuôi Linh Điểu thõng dưới chân bị cắt ngang lúc ra chiêu mana).
+            // Đích ở TRÊN (khung sẵn có 2,7 chiều cao phía trên chân): chỉ dời lên khi đích cao quá 1,9 chiều cao, vì dời lên là mất phần
+            // dưới chân (đuôi Linh Điểu thõng dưới chân bị cắt ngang lúc ra chiêu mana).
             float up = -d.y / h;
-            if (shift) Shift(new Vector2(Mathf.Clamp(d.x / h * 0.5f, -1.1f, 1.1f), up > 0 ? Mathf.Clamp(up - 1.9f, 0, 0.8f) : Mathf.Max(up * 0.5f, -0.8f)));
+            if (shift) farShift = new Vector2(Mathf.Clamp(d.x / h * 0.5f, -1.1f, 1.1f), up > 0 ? Mathf.Clamp(up - 1.9f, 0, 0.8f) : Mathf.Max(up * 0.5f, -0.8f));
         }
 
         // khung xem tướng (không có đối thủ): hiệu ứng ở xa hiện trước mặt, cách chân heights lần chiều cao, trong khung camera
         public void FarAhead(string clip, float heights) =>
             Far(clip, new Vector2((flip ? -1 : 1) * heights * stageHeight, -0.4f * stageHeight), false);
 
-        // dịch khung camera theo đích hiệu ứng ở xa (đơn vị thế giới = chiều cao dáng đứng; +y lên)
-        void Shift(Vector2 w)
+        // Khung camera cho tư thế vừa dựng: khung nền (khung của tướng nới theo fit đo lúc nhập, hoặc cỡ lần hiện trước của clip này) đặt
+        // ngang theo thân, chân ở FootV; hình vẽ thật (AolaActor.Drawn) cộng lề viền giấy lọt ra thì dời khung vừa đủ, rộng / cao hơn khung
+        // thì nới cỡ (trần MaxSpan; quá trần thì giữ thân trong khung).
+        void Fit(string clip, float t)
         {
-            farShift = w;
-            Frame();
+            if (!actor.IsAtomik) // hình aola: như cũ (khung của tướng, dời theo đích ở xa nửa quãng)
+            {
+                SetSpan(SpanFor(clip));
+                win = farShift + follow;
+                return;
+            }
+            if (clip != winClip || t < winT - 1e-3f)
+            {
+                winClip = clip;
+                winSpan = SpanFor(clip);
+                if (clipSpan.TryGetValue(clip, out float prev)) winSpan = Mathf.Max(winSpan, prev);
+            }
+            winT = t;
+            float cap = Mathf.Max(Span, MaxSpan);
+            float cx = follow.x, cy = follow.y + (0.5f - FootV) * winSpan; // tâm khung nền
+            if (actor.Drawn(out var lo, out var hi))
+            {
+                lo -= new Vector2(FitMargin, FitMargin);
+                hi += new Vector2(FitMargin, FitMargin);
+                float need = Mathf.Min(Mathf.Max(hi.x - lo.x, hi.y - lo.y), cap);
+                if (need > winSpan)
+                {
+                    winSpan = need;
+                    clipSpan[clip] = clipSpan.TryGetValue(clip, out float had) ? Mathf.Max(had, need) : need;
+                    cy = follow.y + (0.5f - FootV) * winSpan;
+                }
+                cx = Contain(cx, lo.x, hi.x, winSpan);
+                cy = Contain(cy, lo.y, hi.y, winSpan);
+            }
+            SetSpan(winSpan);
+            win = new Vector2(cx, cy - (0.5f - FootV) * winSpan);
         }
 
-        // đặt khung camera = dời theo đích + bám thân, ảnh dời ngược lại cùng chừng đó: thân đứng đúng chỗ trên màn
+        // tâm khung cạnh s gần c nhất mà khung chứa đoạn [lo, hi]; đoạn dài hơn khung (quá trần): giữ c (thân). Dung sai: khung vừa
+        // nới đúng bằng đoạn, so ngặt thì sai số làm tròn (Mono tính hiệu ở độ chính xác cao hơn float) đẩy sang nhánh "dài hơn".
+        static float Contain(float c, float lo, float hi, float s) =>
+            hi - lo > s + 1e-3f ? c : Mathf.Clamp(c, hi - s / 2, lo + s / 2);
+
+        // đặt khung camera theo Fit, ảnh dời ngược lại cùng chừng đó: thân đứng đúng chỗ trên màn
         void Frame()
         {
             if (!cam) return;
-            var w = farShift + follow;
+            var w = win;
             var lp = new Vector3(w.x, curSpan * (0.5f - FootV) + w.y, -10);
             if (cam.transform.localPosition != lp)
             {
@@ -409,6 +461,9 @@ namespace PokiClash
         // nhân màu hình (1: nguyên màu; đảo vùng đất: tướng ở vùng boss chưa mở tô tối, ZoneSceneLand)
         public float Tint = 1;
 
+        // sáng thêm (shader _Lift: nhân 1 + Lift; màn Nhà ban đêm cho tướng sáng hơn cảnh đã nhuộm tối)
+        public float Lift;
+
         public void Show(string clip, float t, bool loop, float alpha, bool gray, float flash)
         {
             // hình aola theo khung (floor t·fps), rig .atomik theo thời gian liên tục (AolaActor.ShowTime)
@@ -416,8 +471,8 @@ namespace PokiClash
             string shown = clip == StageView.Skill && !loop && Jumps && t >= SkillLen ? AolaActor.SkillLand : ClipName(clip);
             if (shown == AolaActor.SkillLand) actor.ShowTime(shown, t - SkillLen, false);
             else actor.ShowTime(shown, t, loop);
-            SetSpan(SpanFor(actor.HasClip(shown) ? shown : AolaActor.Idle));
             follow = actor.Follow;
+            Fit(actor.HasClip(shown) ? shown : AolaActor.Idle, t);
             Frame();
             SyncCamera();
             img.color = new Color(Tint, Tint, Tint, alpha);
@@ -425,11 +480,16 @@ namespace PokiClash
             {
                 mat.SetFloat("_Gray", gray ? 1 : 0);
                 mat.SetFloat("_Flash", Mathf.Min(1, flash * 5) * 0.65f);
+                mat.SetFloat("_Lift", Lift);
             }
             if (fxImg)
             {
                 fxImg.color = new Color(Tint, Tint, Tint, alpha);
-                if (fxMat) fxMat.SetFloat("_Gray", gray ? 1 : 0);
+                if (fxMat)
+                {
+                    fxMat.SetFloat("_Gray", gray ? 1 : 0);
+                    fxMat.SetFloat("_Lift", Lift);
+                }
             }
         }
 

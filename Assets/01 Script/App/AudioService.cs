@@ -54,7 +54,8 @@ namespace PokiClash
 
         // speed: tốc độ bi lúc chạm (đơn vị máy/giây), to dần theo tốc độ tới PegMaxVolume; tối đa 10 tiếng mỗi giây.
         // Trả về false nếu bị hãm (để rung chạm đinh đi cùng nhịp với tiếng).
-        public bool Peg(float speed)
+        // combo: lần chạm thứ mấy của chính bi đó: cao dần 2,5 % mỗi lần, tối đa 30 % (bi càng nảy nhiều càng réo rắt, GD_Claude/23)
+        public bool Peg(float speed, int combo = 0)
         {
             float now = Time.unscaledTime;
             if (lastPeg >= 0 && now - lastPeg < PegGap) return false;
@@ -63,7 +64,8 @@ namespace PokiClash
             if (lastPegVariant >= 0 && v >= lastPegVariant) v++;
             lastPegVariant = v;
             float vol = Mathf.Min(1f, speed / 540f) * PegMaxVolume * (1 + (Random.value - 0.5f) * 0.14f);
-            Play("peg", vol, PegPitch[v] * (1 + (Random.value - 0.5f) * 0.1f));
+            float rise = 1 + Mathf.Min(0.3f, Mathf.Max(0, combo - 1) * 0.025f);
+            Play("peg", vol, PegPitch[v] * rise * (1 + (Random.value - 0.5f) * 0.1f));
             return true;
         }
     }

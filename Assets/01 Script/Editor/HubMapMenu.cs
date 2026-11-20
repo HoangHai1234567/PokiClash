@@ -137,8 +137,7 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Prefab/Sảnh bản đồ thế giới (mây, điểm bấm)", priority = 63)]
         static void Build()
         {
-            foreach (var n in new[] { "sanh_bien", "sanh_dao_thuy", "sanh_dao_hoa", "sanh_dao_kim", "sanh_dao_moc", "sanh_dao_tho",
-                         "sanh_sang_thuy", "sanh_sang_hoa", "sanh_sang_kim", "sanh_sang_moc", "sanh_sang_tho" })
+            foreach (var n in new[] { "sanh_bien", "sanh_dao_thuy", "sanh_dao_hoa", "sanh_dao_kim", "sanh_dao_moc", "sanh_dao_tho" })
                 AssetDatabase.ImportAsset(ArtDir + n + ".png", ImportAssetOptions.ForceUpdate);
             AssetDatabase.ImportAsset(MapJson, ImportAssetOptions.ForceUpdate);
             AssetDatabase.ImportAsset(AnimJson, ImportAssetOptions.ForceUpdate);
@@ -212,7 +211,8 @@ namespace PokiClash.EditorTools
                     float u1 = System.Convert.ToSingle(rc[2]), v1 = System.Convert.ToSingle(rc[3]);
                     string sprName = J.Str(it, "sprite");
                     var spr = AssetDatabase.LoadAssetAtPath<Sprite>(ArtDir + sprName + ".png");
-                    // gốc "dao_<hệ>": phủ khung ảnh đảo, gốc ở chân đảo (nhún quanh chân); con "sang" (quầng sáng, sau) và "hinh" (ảnh đảo)
+                    // gốc "dao_<hệ>": phủ khung ảnh đảo, gốc ở chân đảo (nhún quanh chân); con "hinh" (ảnh đảo). Quầng sáng thở cả ngày
+                    // (2026-11-19) đã bỏ (người dùng 2026-11-20): đèn đêm (đuốc, chỗ phát sáng) dựng ở lớp den_dao (HubNightMenu)
                     var box = new GameObject("dao_" + J.Str(it, "zone"), typeof(RectTransform)).GetComponent<RectTransform>();
                     box.SetParent(dao, false);
                     box.anchorMin = new Vector2(u0, 1 - v1);
@@ -221,27 +221,6 @@ namespace PokiClash.EditorTools
                     box.pivot = new Vector2(0.5f, 0.18f);
                     box.offsetMin = box.offsetMax = Vector2.zero;
                     box.SetSiblingIndex(1 + isl++);
-                    Image glowImg = null;
-                    var gr = J.Arr(it, "glowRect");
-                    // chi tiết chính của đảo phát sáng (cây thần, mặt trời, miệng núi lửa, đền mặt trời, cổng rồng): quầng quanh viền chi tiết
-                    // (người dùng: không sáng loang cả đảo vì "màu nó mờ đi"; "chọn 1 chi tiết chính của đảo làm sáng lên")
-                    var glowSpr = AssetDatabase.LoadAssetAtPath<Sprite>(ArtDir + J.Str(it, "glow", "") + ".png");
-                    if (glowSpr && gr.Count == 4)
-                    {
-                        float g0 = System.Convert.ToSingle(gr[0]), h0 = System.Convert.ToSingle(gr[1]);
-                        float g1 = System.Convert.ToSingle(gr[2]), h1 = System.Convert.ToSingle(gr[3]);
-                        var gg = new GameObject("sang", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
-                        var grt = (RectTransform)gg.transform;
-                        grt.SetParent(box, false);
-                        grt.anchorMin = new Vector2((g0 - u0) / (u1 - u0), ((1 - h1) - (1 - v1)) / (v1 - v0));
-                        grt.anchorMax = new Vector2((g1 - u0) / (u1 - u0), ((1 - h0) - (1 - v1)) / (v1 - v0));
-                        grt.offsetMin = grt.offsetMax = Vector2.zero;
-                        glowImg = gg.GetComponent<Image>();
-                        glowImg.sprite = glowSpr;
-                        glowImg.raycastTarget = false;
-                        glowImg.color = new Color(1, 1, 1, 0);
-                        glowImg.enabled = false;
-                    }
                     var go = new GameObject("hinh", typeof(RectTransform), typeof(CanvasRenderer), typeof(Image));
                     var rt = (RectTransform)go.transform;
                     rt.SetParent(box, false);
@@ -271,14 +250,8 @@ namespace PokiClash.EditorTools
                             }
                         Object.DestroyImmediate(tex);
                     }
-                    // quầng sáng chi tiết chính: vẽ TRÊN ảnh đảo, cộng sáng màu hệ
-                    if (glowImg)
-                    {
-                        glowImg.transform.SetAsLastSibling();
-                        glowImg.material = AssetDatabase.LoadAssetAtPath<Material>("Assets/Resources/UIAdditive.mat");
-                    }
                     var art = go.AddComponent<HubIslandArt>();
-                    art.Setup(Keys.ToElem(J.Str(it, "zone")), box, glowImg, mw, mh, bits);
+                    art.Setup(Keys.ToElem(J.Str(it, "zone")), box, mw, mh, bits);
                     arts.Add(art);
                 }
                 scene.SetupIslands(arts.ToArray());
@@ -352,8 +325,9 @@ namespace PokiClash.EditorTools
                 }
 
                 // mây che từng đảo
-                var oldFog = dao.Find("suong_mu");
-                if (oldFog) Object.DestroyImmediate(oldFog.gameObject);
+                // (HubNightMenu chuyển mây che lên lớp bang_dao trên đèn đêm: xoá cả ở đó)
+                foreach (var oldFog in new[] { dao.Find("suong_mu"), dao.parent ? dao.parent.Find("bang_dao/suong_mu") : null })
+                    if (oldFog) Object.DestroyImmediate(oldFog.gameObject);
                 var fogRt = new GameObject("suong_mu", typeof(RectTransform)).GetComponent<RectTransform>();
                 fogRt.SetParent(dao, false);
                 fogRt.anchorMin = Vector2.zero;
@@ -467,6 +441,8 @@ namespace PokiClash.EditorTools
                 so.FindProperty("fog").objectReferenceValue = fog;
                 so.FindProperty("pan").objectReferenceValue = pan;
                 so.ApplyModifiedPropertiesWithoutUndo();
+                // đèn đêm các đảo (đuốc, chỗ phát sáng) trên lớp nhuộm: gắn lại vào ảnh đảo vừa dựng
+                HubNightMenu.Apply(contents);
                 PrefabUtility.SaveAsPrefabAsset(contents, HubPath);
                 Debug.Log($"[Sảnh] Đã dựng bản đồ thế giới {vw}x{vh}, {groups.Count} đảo, {total} đám mây che, {ringImgs.Count} mây vành rời, {bs.arraySize} công trình ra cột thẻ bên phải.");
             }

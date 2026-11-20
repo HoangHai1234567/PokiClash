@@ -1,0 +1,420 @@
+{
+ "H": 200,
+ "pieces": {
+  "home_k_vach_1": {
+   "pivot": [
+    0.03537735849056604,
+    0.5012019230769231
+   ],
+   "w": 424,
+   "h": 416
+  },
+  "home_k_vach_2": {
+   "pivot": [
+    0.03537735849056604,
+    0.49759615384615385
+   ],
+   "w": 424,
+   "h": 416
+  },
+  "home_k_vach_3": {
+   "pivot": [
+    0.03836317135549872,
+    0.3804347826086957
+   ],
+   "w": 391,
+   "h": 345
+  },
+  "home_k_vach_4": {
+   "pivot": [
+    0.9797752808988764,
+    0.03415300546448086
+   ],
+   "w": 445,
+   "h": 366
+  },
+  "home_k_bien_1": {
+   "pivot": [
+    0.5,
+    0.09999999999999998
+   ],
+   "w": 277,
+   "h": 211
+  },
+  "home_k_bien_2": {
+   "pivot": [
+    0.5,
+    0.09999999999999998
+   ],
+   "w": 201,
+   "h": 101
+  },
+  "home_k_bien_3": {
+   "pivot": [
+    0.5,
+    0.44999999999999996
+   ],
+   "w": 285,
+   "h": 200
+  },
+  "home_k_bien_4": {
+   "pivot": [
+    0.5,
+    0.09999999999999998
+   ],
+   "w": 325,
+   "h": 264
+  },
+  "home_k_bien_5": {
+   "pivot": [
+    0.5,
+    0.44999999999999996
+   ],
+   "w": 318,
+   "h": 210
+  },
+  "home_k_bien_6": {
+   "pivot": [
+    0.5,
+    0.09999999999999998
+   ],
+   "w": 270,
+   "h": 232
+  }
+ },
+ "vach": [
+  {
+   "id": "home_k_vach_1",
+   "x": 4632.6,
+   "y": 761.9,
+   "flip": false
+  },
+  {
+   "id": "home_k_vach_1",
+   "x": 2342.6,
+   "y": 761.9,
+   "flip": true
+  },
+  {
+   "id": "home_k_vach_2",
+   "x": 4968.1,
+   "y": 929.6,
+   "flip": false
+  },
+  {
+   "id": "home_k_vach_2",
+   "x": 2002.4,
+   "y": 932.0,
+   "flip": true
+  },
+  {
+   "id": "home_k_vach_1",
+   "x": 5303.6,
+   "y": 1097.4,
+   "flip": false
+  },
+  {
+   "id": "home_k_vach_1",
+   "x": 1662.2,
+   "y": 1102.1,
+   "flip": true
+  },
+  {
+   "id": "home_k_vach_2",
+   "x": 5639.1,
+   "y": 1265.1,
+   "flip": false
+  },
+  {
+   "id": "home_k_vach_2",
+   "x": 1322.0,
+   "y": 1272.2,
+   "flip": true
+  },
+  {
+   "id": "home_k_vach_1",
+   "x": 5974.6,
+   "y": 1432.9,
+   "flip": false
+  },
+  {
+   "id": "home_k_vach_1",
+   "x": 981.8,
+   "y": 1442.3,
+   "flip": true
+  },
+  {
+   "id": "home_k_vach_2",
+   "x": 641.6,
+   "y": 1612.4,
+   "flip": true
+  },
+  {
+   "id": "home_k_vach_3",
+   "x": 253.6,
+   "y": 1806.4,
+   "flip": true
+  }
+ ],
+ "cat": [
+  {
+   "id": "home_k_bien_1",
+   "x": 221.3,
+   "y": 2066.7,
+   "flip": true,
+   "scale": 0.49
+  },
+  {
+   "id": "home_k_bien_3",
+   "x": 6748.9,
+   "y": 2070.0,
+   "flip": false,
+   "scale": 0.405
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 349.2,
+   "y": 2121.7,
+   "flip": false,
+   "scale": 0.463
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 6589.0,
+   "y": 2140.1,
+   "flip": false,
+   "scale": 0.548
+  },
+  {
+   "id": "home_k_bien_3",
+   "x": 464.5,
+   "y": 2181.7,
+   "flip": true,
+   "scale": 0.45
+  },
+  {
+   "id": "home_k_bien_4",
+   "x": 6455.5,
+   "y": 2214.2,
+   "flip": true,
+   "scale": 0.531
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 6283.8,
+   "y": 2308.6,
+   "flip": false,
+   "scale": 0.525
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 6121.8,
+   "y": 2380.5,
+   "flip": false,
+   "scale": 0.539
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 1024.6,
+   "y": 2459.6,
+   "flip": true,
+   "scale": 0.541
+  },
+  {
+   "id": "home_k_bien_5",
+   "x": 5952.5,
+   "y": 2463.6,
+   "flip": true,
+   "scale": 0.505
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 1164.5,
+   "y": 2533.8,
+   "flip": false,
+   "scale": 0.487
+  },
+  {
+   "id": "home_k_bien_1",
+   "x": 5804.0,
+   "y": 2536.8,
+   "flip": false,
+   "scale": 0.538
+  },
+  {
+   "id": "home_k_bien_5",
+   "x": 1338.7,
+   "y": 2626.8,
+   "flip": true,
+   "scale": 0.493
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 5605.1,
+   "y": 2638.7,
+   "flip": true,
+   "scale": 0.52
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 1453.1,
+   "y": 2680.4,
+   "flip": true,
+   "scale": 0.537
+  },
+  {
+   "id": "home_k_bien_3",
+   "x": 5420.5,
+   "y": 2729.6,
+   "flip": true,
+   "scale": 0.448
+  },
+  {
+   "id": "home_k_bien_3",
+   "x": 1600.2,
+   "y": 2762.8,
+   "flip": true,
+   "scale": 0.461
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 5314.3,
+   "y": 2786.0,
+   "flip": true,
+   "scale": 0.5
+  },
+  {
+   "id": "home_k_bien_1",
+   "x": 1736.1,
+   "y": 2826.6,
+   "flip": true,
+   "scale": 0.528
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 5193.5,
+   "y": 2848.8,
+   "flip": true,
+   "scale": 0.534
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 1948.1,
+   "y": 2919.7,
+   "flip": true,
+   "scale": 0.544
+  },
+  {
+   "id": "home_k_bien_5",
+   "x": 5019.6,
+   "y": 2936.8,
+   "flip": true,
+   "scale": 0.519
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 2070.4,
+   "y": 2983.6,
+   "flip": false,
+   "scale": 0.465
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 4899.8,
+   "y": 2994.3,
+   "flip": true,
+   "scale": 0.525
+  },
+  {
+   "id": "home_k_bien_3",
+   "x": 4741.5,
+   "y": 3067.7,
+   "flip": false,
+   "scale": 0.434
+  },
+  {
+   "id": "home_k_bien_4",
+   "x": 2249.3,
+   "y": 3075.5,
+   "flip": true,
+   "scale": 0.509
+  },
+  {
+   "id": "home_k_bien_1",
+   "x": 4632.7,
+   "y": 3121.9,
+   "flip": false,
+   "scale": 0.534
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 2348.5,
+   "y": 3135.9,
+   "flip": true,
+   "scale": 0.478
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 4513.7,
+   "y": 3180.5,
+   "flip": false,
+   "scale": 0.515
+  },
+  {
+   "id": "home_k_bien_3",
+   "x": 2462.5,
+   "y": 3191.7,
+   "flip": false,
+   "scale": 0.383
+  },
+  {
+   "id": "home_k_bien_5",
+   "x": 2604.9,
+   "y": 3252.5,
+   "flip": false,
+   "scale": 0.512
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 4384.8,
+   "y": 3258.1,
+   "flip": false,
+   "scale": 0.512
+  },
+  {
+   "id": "home_k_bien_2",
+   "x": 2708.9,
+   "y": 3311.2,
+   "flip": true,
+   "scale": 0.462
+  },
+  {
+   "id": "home_k_bien_4",
+   "x": 4211.0,
+   "y": 3337.9,
+   "flip": false,
+   "scale": 0.514
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 2829.3,
+   "y": 3359.6,
+   "flip": true,
+   "scale": 0.451
+  },
+  {
+   "id": "home_k_bien_6",
+   "x": 4018.4,
+   "y": 3426.3,
+   "flip": true,
+   "scale": 0.53
+  },
+  {
+   "id": "home_k_bien_1",
+   "x": 2968.1,
+   "y": 3447.7,
+   "flip": false,
+   "scale": 0.565
+  }
+ ]
+}

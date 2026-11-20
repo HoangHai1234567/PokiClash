@@ -758,6 +758,286 @@ namespace PokiClash
             Lit("pk_coc_sang", Local(c.x, c.y - c.h / 2 + c.h * 0.6), new Vector2(cw, cw * 56f / 96f) * K, 0.8f);
         }
 
+        // ---------- đèn làn, loé miệng ống, đèn chạy qua ô, chữ JACKPOT, vòi xu (GD_Claude/23 giai đoạn 2, 3) ----------
+
+        const int LaneDots = 9;
+        const string LaneCol = "#ff9d2e";
+        bool bulbSprite; // đèn làn dùng ảnh bóng đèn pk_den_sang (thiếu thì quầng mềm tô cam)
+        Image[] laneDots; // đèn dọc làn phóng (ảnh sáng mềm cộng sáng pk_g_quang), dựng một lần lúc cần
+        float[] laneDotDist, laneDotA;
+        bool laneTried;
+        float laneT, laneRetry;
+        readonly Dictionary<int, bool> onLane = new Dictionary<int, bool>(); // bi id → đang trên làn (để biết lúc bi ra miệng ống)
+        int rollSlot = -1; // ô đang sáng của đèn chạy qua ô (-1: không chạy)
+        float rollStep, rollWait;
+        public bool LowFlash { get; set; } // tuỳ chọn "Giảm nhấp nháy" (Sổ tay): đèn dịu, không chớp mạnh
+
+        // điểm trên làn ở quãng d (toạ độ máy)
+        (double x, double y) LanePoint(double d)
+        {
+            var lane = Board.lane;
+            double acc = 0;
+            for (int i = 1; i < lane.Count; i++)
+            {
+                double dx = lane[i].x - lane[i - 1].x, dy = lane[i].y - lane[i - 1].y, len = System.Math.Sqrt(dx * dx + dy * dy);
+                if (acc + len >= d && len > 1e-6)
+                {
+                    double u = (d - acc) / len;
+                    return (lane[i - 1].x + dx * u, lane[i - 1].y + dy * u);
+                }
+                acc += len;
+            }
+            return lane.Count > 0 ? lane[lane.Count - 1] : (0, 0);
+        }
+
+        // bản 3 (GD_Claude/23, ống phóng như máy tham khảo): mũi tên sáng fx2_mui_ten phủ đúng mũi tên kem vẽ trên rãnh tối của mặt bàn
+        // (ArtGen/Pachinko/v2/ghep_ban_v2.py: tâm x của làn, từ chân lên 18 đơn vị rồi cứ 24 đơn vị một mũi, tới cách đầu đoạn dọc 14)
+        bool chevMode;
+        const float ChevCycle = 2.35f, ChevRise = 1.8f, ChevLag = 1.1f, ChevIn = 0.417f, ChevOut = 0.217f;
+        float chevPrompt;
+
+        bool BuildChevrons()
+        {
+            if (!MachineGlow.Sprite("fx2_mui_ten") || Board == null || Board.lane.Count < 2) return false;
+            var lane = Board.lane;
+            double vx = lane[0].x, y0 = lane[0].y, top = lane[1].y, lw = Board.LaneHalf * Board.U;
+            var pos = new List<double>();
+            for (double yy = y0 - 18; yy > top + 14; yy -= 24) pos.Add(yy);
+            if (pos.Count == 0) return false;
+            int n = pos.Count;
+            var dots = new Image[n];
+            laneDotDist = new float[n];
+            laneDotA = new float[n];
+            double cw = lw * 0.62, ch = lw * 0.5;
+            var size = new Vector2((float)(cw * 2 * 2.2), (float)(ch * 1.6 * 3.0)) * K;
+            for (int i = 0; i < n; i++)
+            {
+                var img = MachineGlow.Make("mui_ten", p.fxLayer, "fx2_mui_ten", new Color(1, 1, 1, 0), true); // cộng sáng trên rãnh tối
+                if (!img) return false;
+                img.raycastTarget = false;
+                img.rectTransform.Place(new Vector2(0, 1), Local(vx, pos[i] - ch * 0.2), size, new Vector2(0.5f, 0.5f));
+                img.rectTransform.SetAsFirstSibling();
+                dots[i] = img;
+                laneDotDist[i] = (float)(y0 - pos[i]); // quãng trên làn tính từ chân (đoạn dọc)
+            }
+            laneDots = dots;
+            laneWant = new float[n];
+            chevMode = true;
+            return true;
+        }
+
+        void BuildLaneDots()
+        {
+            laneTried = true;
+            if (BuildChevrons()) return;
+            if (Board == null || Board.lane.Count < 2) return;
+            double total = Board.LaneLength;
+            var dots = new Image[LaneDots];
+            laneDotDist = new float[LaneDots];
+            laneDotA = new float[LaneDots];
+            for (int i = 0; i < LaneDots; i++)
+            {
+                double d = total * (0.08 + 0.8 * i / (LaneDots - 1));
+                var (x, y) = LanePoint(d);
+                // bóng đèn vẽ tay sáng (cùng kiểu đèn vòm tủ), trộn thường: làn màu kem nên quầng mềm cộng sáng hoà mất
+                var img = MachineGlow.Make("den_lan", p.fxLayer, "pk_den_sang", new Color(1, 1, 1, 0), false)
+                          ?? MachineGlow.Make("den_lan", p.fxLayer, MachineGlow.Glow, MachineGlow.Hex(LaneCol, 0), false);
+                if (!img) return;
+                img.raycastTarget = false;
+                img.preserveAspect = true;
+                bulbSprite = img.sprite && img.sprite.name.StartsWith("pk_den");
+                float sz = (float)Board.BallR * 2 * (bulbSprite ? 1.5f : 2.6f) * K;
+                img.rectTransform.Place(new Vector2(0, 1), Local(x, y), Vector2.one * sz, new Vector2(0.5f, 0.5f));
+                img.rectTransform.SetAsFirstSibling();
+                dots[i] = img;
+                laneDotDist[i] = (float)d;
+            }
+            laneDots = dots;
+        }
+
+        // đèn làn: bi đang chạy trên làn thì các đèn sau lưng bi sáng thành vệt bám theo bi; máy sẵn sàng (có bi chờ, làn trống) thì
+        // đèn chạy lên dọc làn như mũi tên chỉ đường; còn lại tắt dần
+        void UpdateLane(float dt, bool ready)
+        {
+            if (laneDots == null)
+            {
+                // chưa dựng được (bàn, ảnh hay prefab chưa sẵn lúc vào màn): thử lại mỗi giây
+                laneRetry -= dt;
+                if (!laneTried || laneRetry <= 0)
+                {
+                    laneRetry = 1;
+                    BuildLaneDots();
+                }
+                if (laneDots == null) return;
+            }
+            laneT += dt;
+            bool any = false;
+            int nd = laneDots.Length;
+            for (int i = 0; i < nd; i++) laneWant[i] = 0;
+            foreach (var b in Board.balls)
+            {
+                if (b.lane < 0) continue;
+                any = true;
+                for (int i = 0; i < nd; i++)
+                {
+                    double gap = b.lane - laneDotDist[i]; // dương: đèn ở sau lưng bi
+                    if (gap >= -6 && gap < 70) laneWant[i] = Mathf.Max(laneWant[i], 1 - (float)System.Math.Max(0, gap) / 70f);
+                }
+            }
+            if (chevMode)
+            {
+                // mũi tên leo sáng (shader FlashTex của máy tham khảo): dải sáng ±0,12 làn, mép mềm tới 0,25, leo hết làn trong 1,8 giây,
+                // nghỉ 0,5 giây, chu kỳ 2,35 giây; hai lớp lệch 1,1 giây. Chỉ hiện khi mời thả (sẵn sàng, làn trống): hiện dần 0,417 giây,
+                // tắt 0,217 giây
+                chevPrompt = Mathf.MoveTowards(chevPrompt, !any && ready ? 1 : 0, dt / (!any && ready ? ChevIn : ChevOut));
+                if (chevPrompt > 0)
+                    for (int L = 0; L < 2; L++)
+                    {
+                        float t = Mathf.Repeat(laneT - L * ChevLag, ChevCycle);
+                        if (t >= ChevRise) continue;
+                        float head = Mathf.Lerp(-0.25f, 1.25f, t / ChevRise);
+                        for (int i = 0; i < nd; i++)
+                        {
+                            float u = nd > 1 ? i / (float)(nd - 1) : 0;
+                            float k = 1 - Mathf.SmoothStep(0, 1, Mathf.InverseLerp(0.12f, 0.25f, Mathf.Abs(u - head)));
+                            laneWant[i] = Mathf.Max(laneWant[i], k * chevPrompt);
+                        }
+                    }
+            }
+            else if (!any && ready)
+            {
+                float head = laneT * 6.5f % (LaneDots + 4);
+                for (int i = 0; i < LaneDots; i++)
+                {
+                    float g = head - i;
+                    if (g >= 0 && g < 3) laneWant[i] = Mathf.Max(laneWant[i], (1 - g / 3f) * 0.75f);
+                }
+            }
+            float maxA = LowFlash ? 0.55f : 0.95f;
+            for (int i = 0; i < nd; i++)
+            {
+                var img = laneDots[i];
+                if (!img) continue;
+                laneDotA[i] = chevMode ? laneWant[i] : Mathf.MoveTowards(laneDotA[i], laneWant[i], dt * (laneWant[i] > laneDotA[i] ? 14 : 4));
+                bool on = laneDotA[i] > 0.01f;
+                if (img.enabled != on) img.enabled = on;
+                if (on) img.color = chevMode || bulbSprite ? new Color(1, 1, 1, laneDotA[i] * maxA) : MachineGlow.Hex(LaneCol, laneDotA[i] * maxA);
+            }
+        }
+
+        float[] laneWant = new float[LaneDots];
+
+        // bi vừa ra miệng ống (rời làn sang bàn): vòng loé, chấm toả theo hướng vòm
+        void TubeOut()
+        {
+            var lane = Board.lane;
+            if (lane.Count == 0) return;
+            var (x, y) = lane[lane.Count - 1];
+            fx.Emit(MachineFx.TubeOut, Local(x, y), MachineFx.UnitBall);
+        }
+
+        // đèn chạy qua các ô: sáng lần lượt từng ô, chậm dần; khi bi rơi vào ô thật thì StopRoll rồi Glow ô đó như cũ (kết quả thật,
+        // không làm "suýt trúng")
+        public void StartRoll()
+        {
+            if (Board.slots.Count == 0) return;
+            rollSlot = UnityEngine.Random.Range(0, Board.slots.Count);
+            rollStep = 0.07f;
+            rollWait = 0;
+        }
+
+        public void StopRoll() => rollSlot = -1;
+
+        void UpdateRoll(float dt)
+        {
+            if (rollSlot < 0) return;
+            rollWait -= dt;
+            if (rollWait > 0) return;
+            rollSlot = (rollSlot + 1) % Board.slots.Count;
+            Blip(rollSlot, LowFlash ? 0.3f : 0.22f);
+            rollStep = Mathf.Min(0.2f, rollStep * 1.12f);
+            rollWait = rollStep;
+        }
+
+        // sáng ô ngắn (đèn chạy qua ô)
+        void Blip(int slot, float life)
+        {
+            if (slot < 0 || slot >= glow.Length || !glow[slot]) return;
+            if (glowT[slot] > life) return; // ô đang sáng thật (vừa có bi rơi vào) thì để yên
+            glowT[slot] = glowMax[slot] = life;
+            glow[slot].gameObject.SetActive(true);
+        }
+
+        // chữ lớn nảy từng chữ giữa máy (jackpot): rơi xuống trễ dần, nảy, lượn sóng nhẹ, rồi phóng to mờ đi
+        public void Banner(string text, Color color, float size = 74)
+        {
+            if (!p.floatText) return;
+            var t = Ui.Spawn(p.floatText, p.fxLayer);
+            t.name = "chu_lon";
+            t.text = text;
+            t.fontSize = size * K;
+            t.fontStyle = FontStyles.Bold;
+            t.color = color;
+            t.outlineWidth = 0.28f;
+            t.outlineColor = Theme.Hex("#7a2e00");
+            t.alignment = TextAlignmentOptions.Center;
+            t.enableWordWrapping = false;
+            t.raycastTarget = false;
+            t.rectTransform.sizeDelta = new Vector2((float)Board.BW * K, size * K * 1.6f);
+            t.rectTransform.anchoredPosition = Local(Board.BW / 2, Board.BH * 0.36);
+            t.rectTransform.SetAsLastSibling();
+            StartCoroutine(BannerRun(t));
+        }
+
+        System.Collections.IEnumerator BannerRun(TextMeshProUGUI t)
+        {
+            const float Drop = 0.34f, Stagger = 0.055f, Hold = 1.5f, Out = 0.3f;
+            t.ForceMeshUpdate();
+            var info = t.textInfo;
+            int n = info.characterCount;
+            var baseV = new Vector3[info.meshInfo.Length][];
+            for (int m = 0; m < info.meshInfo.Length; m++) baseV[m] = (Vector3[])info.meshInfo[m].vertices.Clone();
+            float total = Drop + Stagger * n + Hold + Out, h = t.fontSize;
+            for (float a = 0; a < total && t; a += Time.unscaledDeltaTime)
+            {
+                float outK = Mathf.Clamp01((a - (total - Out)) / Out);
+                for (int c = 0; c < n; c++)
+                {
+                    var ch = info.characterInfo[c];
+                    if (!ch.isVisible) continue;
+                    float u = Mathf.Clamp01((a - c * Stagger) / Drop);
+                    // rơi từ trên xuống, vượt đà rồi về (easeOutBack), bẹt nhẹ lúc chạm
+                    float back = 1 + 2.2f * Mathf.Pow(u - 1, 3) + 1.2f * Mathf.Pow(u - 1, 2);
+                    float y = (1 - back) * h * 1.6f + Mathf.Sin((a - c * 0.12f) * 6) * h * 0.04f * Mathf.Clamp01(a - Drop - c * Stagger);
+                    float sx = u < 1 ? Mathf.Lerp(0.6f, 1, u) : 1, sy = u < 1 ? Mathf.Lerp(1.4f, 1, u) : 1;
+                    float s = 1 + outK * 0.35f;
+                    int mi = ch.materialReferenceIndex, vi = ch.vertexIndex;
+                    var src = baseV[mi];
+                    var dst = info.meshInfo[mi].vertices;
+                    var mid = (src[vi] + src[vi + 2]) / 2;
+                    for (int k = 0; k < 4; k++)
+                    {
+                        var v = src[vi + k] - mid;
+                        dst[vi + k] = mid * s + new Vector3(v.x * sx * s, v.y * sy * s, 0) + new Vector3(0, y, 0);
+                    }
+                    var col = info.meshInfo[mi].colors32;
+                    byte al = (byte)(255 * (u > 0 ? 1 - outK : 0));
+                    for (int k = 0; k < 4; k++) col[vi + k].a = al;
+                }
+                t.UpdateVertexData(TMP_VertexDataUpdateFlags.Vertices | TMP_VertexDataUpdateFlags.Colors32);
+                yield return null;
+            }
+            if (t) Destroy(t.gameObject);
+        }
+
+        // vòi xu phun từ ô (jackpot)
+        public void CoinFountain(int slot)
+        {
+            if (slot < 0 || slot >= Board.slots.Count) return;
+            var sl = Board.slots[slot];
+            fx.Emit(MachineFx.Coins, Local((sl.x0 + sl.x1) / 2, sl.y0), MachineFx.UnitBall);
+        }
+
         // phóng bi: bi chờ ở chân làn co giãn như cần phóng của máy tham khảo, khói và chớp ở chân làn
         public void Launch()
         {
@@ -796,8 +1076,15 @@ namespace PokiClash
                 var b = list[i];
                 bi.color = BallColor(b.mult);
                 bi.rectTransform.anchoredPosition = BallAt(b);
+                // bi vừa rời làn sang bàn: loé miệng ống
+                bool lane = b.lane >= 0;
+                if (onLane.TryGetValue(b.id, out var was) && was && !lane) TubeOut();
+                onLane[b.id] = lane;
             }
+            if (list.Count == 0 && onLane.Count > 0) onLane.Clear();
             SyncTrails();
+            UpdateLane(dt, mult > 0);
+            UpdateRoll(simDt);
             fx.Update(simDt);
 
             for (int i = 0; i < bumpers.Length; i++)

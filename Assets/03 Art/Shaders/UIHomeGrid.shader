@@ -3,7 +3,7 @@
 // - nét lưới theo ô (gx, gy) tính từ toạ độ ảnh: lõi sáng mảnh (theo px màn, zoom nào cũng mảnh như nhau) + quầng mềm cộng sáng;
 // - chỉ trên ô rừng đã mở (_Lots, 1 = mở), mờ dần ra xa chỗ đang đặt (_Ghost) để mắt tập trung;
 // - chân thoi công trình đang đặt: phủ màu (xanh đặt được / đỏ không), viền chân thoi sáng, nhịp phập phồng;
-// - _Fade: hiện / ẩn dần khi vào, ra chế độ xây.
+// - _Fade: hiện / ẩn dần khi vào, ra chế độ xây; _Spread: lan ra từ một ô lúc vào chế độ xây như Clash of Critters (GD_Claude/22 mục 3).
 // Trộn premultiplied: nét, quầng cộng sáng (alpha 0), phủ chân thoi trộn thường.
 Shader "PokiClash/UIHomeGrid"
 {
@@ -22,6 +22,7 @@ Shader "PokiClash/UIHomeGrid"
         _LotsSide ("Số ô rừng mỗi cạnh", Float) = 6
         _Ghost ("Chân thoi đang đặt: gx, gy, cạnh, bật", Vector) = (0,0,0,0)
         _Fade ("Hiện", Range(0,1)) = 1
+        _Spread ("Lan ra: gx, gy tâm, bán kính (ô)", Vector) = (0,0,1000,0)
 
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
@@ -91,7 +92,7 @@ Shader "PokiClash/UIHomeGrid"
             };
 
             fixed4 _Color, _LineCol, _GlowCol, _GhostCol;
-            float4 _ClipRect, _GridTop, _Cell, _Size, _Ghost;
+            float4 _ClipRect, _GridTop, _Cell, _Size, _Ghost, _Spread;
             float _Grid, _Lot, _LotsSide, _Fade;
             float _Lots[64]; // ô rừng đã mở (i * cạnh + j), tối đa 8 x 8
 
@@ -142,8 +143,15 @@ Shader "PokiClash/UIHomeGrid"
                 float near = saturate(1.0 - (dist - n * 0.5 - 2.0) / 7.0);
                 float focus = on ? lerp(0.14, 1.0, near * near) : 0.45;
 
-                float k = open * focus * _Fade;
+                // lan ra từ một ô khi vào chế độ xây (Critters: IsometricGridRenderer spreadSpeed 100 ô/giây): lưới hiện trong vòng bán kính
+                // _Spread.z, mép vòng có vệt nét sáng chạy ra
+                float sd = length(g - _Spread.xy);
+                float reveal = 1.0 - smoothstep(_Spread.z - 2.0, _Spread.z, sd);
+                float front = exp(-abs(sd - _Spread.z) * 0.9) * step(_Spread.z, 500.0);
+
+                float k = open * focus * _Fade * reveal;
                 float3 add = (_LineCol.rgb * core * _LineCol.a + _GlowCol.rgb * halo * _GlowCol.a * (on ? near : 0.3)) * k;
+                add += _LineCol.rgb * core * front * open * _Fade;
                 // chân thoi: nét, quầng theo màu xanh / đỏ, viền sáng phập phồng, phủ trộn thường
                 float3 gc = _GhostCol.rgb;
                 add = lerp(add, (gc * core + gc * halo * 0.45) * _Fade, inside);

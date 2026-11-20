@@ -371,9 +371,12 @@ namespace PokiClash
             Arrive(n);
         }
 
+        public event System.Action LeveledUp; // thanh vừa qua cấp (màn máy bi cho đèn vòm dồn vào giữa, GD_Claude/23)
+
         void LevelPop()
         {
             popT = 0;
+            LeveledUp?.Invoke();
             if (badge) fx.Emit(LevelUp, Anch(badge.position), 40);
             App.Audio.Play("level", 0.7f);
             Haptics.Play(Haptic.LevelUp);

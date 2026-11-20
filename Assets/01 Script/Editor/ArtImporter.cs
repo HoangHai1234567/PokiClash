@@ -25,7 +25,8 @@ namespace PokiClash.EditorTools
                     var p = mi.GetPlatformTextureSettings(platform);
                     p.overridden = true;
                     p.maxTextureSize = 2048;
-                    p.format = TextureImporterFormat.ASTC_6x6;
+                    // mặt bàn bản casino (v2/ghep_ban_v2.py): lưới vàng mảnh, vân chì nhẹ, người dùng muốn thật nét: 4x4
+                    p.format = assetPath.EndsWith("/may_tinh_v2.png") ? TextureImporterFormat.ASTC_4x4 : TextureImporterFormat.ASTC_6x6;
                     mi.SetPlatformTextureSettings(p);
                 }
                 return;
@@ -45,6 +46,7 @@ namespace PokiClash.EditorTools
             // thân máy bi (ArtGen/Pachinko/build.py --duyet) cao 1394 px: nhập ở 2048 để giữ nét
             bool big = assetPath.Contains("/Fallback/") && !assetPath.Contains("/Icons/") || assetPath.Contains("/Islands/") || assetPath.Contains("/BattleBG/")
                 || assetPath.Contains("/Pachinko/pk_than_may")
+                || assetPath.Contains("/Pachinko/pk_nen_phong") // nền phòng màn máy bi bản 2 (1024 x 1536, phủ cả màn)
                 || assetPath.Contains("/Boot/boot_ban_do") // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
                 || assetPath.Contains("/Home/home_base"); // nền đảo Nhà (GD_Claude/21)
             ti.maxTextureSize = big ? 2048 : 1024;
@@ -62,6 +64,18 @@ namespace PokiClash.EditorTools
             bool face = assetPath.Contains("/BattleIntro/Resources/HeroFaces/");
             if (face) ti.maxTextureSize = 512;
             var astc = face ? TextureImporterFormat.ASTC_8x8 : TextureImporterFormat.ASTC_6x6;
+            // màn máy bi bản 2 (ArtGen/Pachinko/v2, GD_Claude/23): vân chì sáp mảnh bị ASTC 6x6 làm bết (người dùng chê mờ, vỡ 2026-11-20):
+            // thân máy, bảng số, chữ số, nút, món nén 4x4; nền phòng phủ cả màn nén 5x5 cho nhẹ hơn
+            string file = System.IO.Path.GetFileName(assetPath);
+            if (assetPath.Contains("/Pachinko/") && (file.StartsWith("pk_than_may_v2") || file.StartsWith("pk_bang_so_v2") || file.StartsWith("pk_so_")
+                    || file.StartsWith("pk_push_") || file.StartsWith("pk_v2_") || file.StartsWith("fx2_") || file.StartsWith("pk_sao_bang")
+                    || file.StartsWith("pk_bumper") || file.StartsWith("pk_nam_dinh") || file.StartsWith("pk_u_loi_sang") || file.StartsWith("pk_dinh_sang")))
+                astc = TextureImporterFormat.ASTC_4x4;
+            if (assetPath.Contains("/Pachinko/pk_nen_phong"))
+            {
+                astc = TextureImporterFormat.ASTC_5x5;
+                ti.maxTextureSize = 4096; // 1600 x 2400: phủ màn 1080 x 1920–2340, máy 1440 gần 1:1 (người dùng: nét, nặng cũng được)
+            }
             // hình gói vào Sprite Atlas đảo (AtlasMenu): nguồn không nén, atlas nén một lần (nguồn nén sẵn thì gói lại mờ, Unity báo lỗi)
             if (AtlasMenu.InAtlas(assetPath))
             {

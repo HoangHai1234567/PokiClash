@@ -3633,10 +3633,10 @@ MonoBehaviour:
     effectsJson: '[{"k":"rage","v":6},{"k":"shield","pct":0.05}]'
   minions:
   - id: linh_cua_skill
-    name: "K\u1EB9p K\xECm"
+    name: "\u0110\u1EA5m B\u1ECDt"
     rarity: 0
     kind: 1
-    icon: claw
+    icon: bubble
     costMana: 30
     costRage: 0
     trigger: 0
@@ -3649,10 +3649,10 @@ MonoBehaviour:
     owner: linh_cua
     effectsJson: '[{"k":"dmg","mult":1}]'
   - id: linh_cua_ult
-    name: "K\xECm S\u1EAFt"
+    name: "Li\xEAn Ho\xE0n Quy\u1EC1n"
     rarity: 0
     kind: 2
-    icon: claw
+    icon: fist2
     costMana: 30
     costRage: 100
     trigger: 0
@@ -3665,7 +3665,7 @@ MonoBehaviour:
     owner: linh_cua
     effectsJson: '[{"k":"dmg","mult":1.6}]'
   - id: linh_cua_pas
-    name: "Mai C\u1EE9ng"
+    name: "V\u1ECF C\u1EE9ng"
     rarity: 0
     kind: 3
     icon: shield
@@ -3697,10 +3697,10 @@ MonoBehaviour:
     owner: linh_cua2
     effectsJson: '[{"k":"dmg","mult":1.2}]'
   - id: linh_cua2_ult
-    name: "Ph\xE1o K\xE9p"
+    name: "Song Quy\u1EC1n N\u1ED5"
     rarity: 0
     kind: 2
-    icon: bubble
+    icon: fist2
     costMana: 35
     costRage: 100
     trigger: 0
@@ -3713,7 +3713,7 @@ MonoBehaviour:
     owner: linh_cua2
     effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
   - id: linh_cua2_pas
-    name: "Mai Th\xE9p"
+    name: "V\u1ECF Th\xE9p"
     rarity: 0
     kind: 3
     icon: shield
@@ -3921,10 +3921,10 @@ MonoBehaviour:
     owner: linh_ngu2
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
   - id: linh_bo_skill
-    name: "H\xFAc S\u1EEBng"
+    name: "Phi L\xE1"
     rarity: 0
     kind: 1
-    icon: claw
+    icon: seed
     costMana: 30
     costRage: 0
     trigger: 0
@@ -3937,10 +3937,10 @@ MonoBehaviour:
     owner: linh_bo
     effectsJson: '[{"k":"dmg","mult":1}]'
   - id: linh_bo_ult
-    name: "S\u1EEBng C\u1EE9ng"
+    name: "Qu\u1EADt \u0110u\xF4i L\xE1"
     rarity: 0
     kind: 2
-    icon: claw
+    icon: wind
     costMana: 30
     costRage: 100
     trigger: 0
@@ -3953,7 +3953,7 @@ MonoBehaviour:
     owner: linh_bo
     effectsJson: '[{"k":"dmg","mult":1.6}]'
   - id: linh_bo_pas
-    name: "V\u1ECF G\u1ED7"
+    name: "M\u0169 D\u1EBB Gai"
     rarity: 0
     kind: 3
     icon: shield
@@ -3969,7 +3969,7 @@ MonoBehaviour:
     owner: linh_bo
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.15,"turns":99}]'
   - id: linh_bo2_skill
-    name: "\u0110\u1EA1n H\u1EA1t"
+    name: "N\xE9m H\u1EA1t D\u1EBB"
     rarity: 0
     kind: 1
     icon: seed
@@ -3985,10 +3985,10 @@ MonoBehaviour:
     owner: linh_bo2
     effectsJson: '[{"k":"dmg","mult":1.2}]'
   - id: linh_bo2_ult
-    name: "H\xFAc K\xE9p"
+    name: "B\xE3o L\xE1"
     rarity: 0
     kind: 2
-    icon: crack
+    icon: wind
     costMana: 35
     costRage: 100
     trigger: 0
@@ -4001,7 +4001,7 @@ MonoBehaviour:
     owner: linh_bo2
     effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
   - id: linh_bo2_pas
-    name: "V\u1ECF G\u1ED7 Th\xE9p"
+    name: "M\u0169 Gai C\u1EE9ng"
     rarity: 0
     kind: 3
     icon: shield
@@ -4209,7 +4209,7 @@ MonoBehaviour:
     owner: linh_chim2
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
   - id: linh_lo_skill
-    name: "Than H\u1ED3ng"
+    name: "Phun L\u1EEDa"
     rarity: 0
     kind: 1
     icon: flame
@@ -4225,10 +4225,10 @@ MonoBehaviour:
     owner: linh_lo
     effectsJson: '[{"k":"dmg","mult":1}]'
   - id: linh_lo_ult
-    name: "L\xF2 Ph\u1EE5t"
+    name: "C\u1EF1a L\u1EEDa Li\xEAn Ho\xE0n"
     rarity: 0
     kind: 2
-    icon: flame
+    icon: claw
     costMana: 30
     costRage: 100
     trigger: 0
@@ -4241,7 +4241,7 @@ MonoBehaviour:
     owner: linh_lo
     effectsJson: '[{"k":"dmg","mult":1.6}]'
   - id: linh_lo_pas
-    name: "V\u1ECF Gang"
+    name: "L\xF4ng L\u1EEDa"
     rarity: 0
     kind: 3
     icon: shield
@@ -4257,7 +4257,7 @@ MonoBehaviour:
     owner: linh_lo
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.15,"turns":99}]'
   - id: linh_lo2_skill
-    name: "Than B\u1EAFn"
+    name: "C\u1EA7u L\u1EEDa"
     rarity: 0
     kind: 1
     icon: torch
@@ -4273,10 +4273,10 @@ MonoBehaviour:
     owner: linh_lo2
     effectsJson: '[{"k":"dmg","mult":1.2}]'
   - id: linh_lo2_ult
-    name: "Phun L\u1EEDa K\xE9p"
+    name: "Song C\u1EF1a L\u1EEDa"
     rarity: 0
     kind: 2
-    icon: flame
+    icon: claw
     costMana: 35
     costRage: 100
     trigger: 0
@@ -4289,7 +4289,7 @@ MonoBehaviour:
     owner: linh_lo2
     effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
   - id: linh_lo2_pas
-    name: "V\u1ECF Th\xE9p Nung"
+    name: "M\xE0o B\u1EA5t B\u1EA1i"
     rarity: 0
     kind: 3
     icon: shield
@@ -4497,10 +4497,10 @@ MonoBehaviour:
     owner: linh_khi2
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
   - id: linh_giap_skill
-    name: "\u0110\u1EA5m S\u1EAFt"
+    name: "Ph\xF3ng L\xF4ng Th\xE9p"
     rarity: 0
     kind: 1
-    icon: fist
+    icon: bolt
     costMana: 30
     costRage: 0
     trigger: 0
@@ -4513,10 +4513,10 @@ MonoBehaviour:
     owner: linh_giap
     effectsJson: '[{"k":"dmg","mult":1}]'
   - id: linh_giap_ult
-    name: "B\xFAa M\xE1y"
+    name: "C\xE0o L\u1ED1c Th\xE9p"
     rarity: 0
     kind: 2
-    icon: hammer
+    icon: claw
     costMana: 30
     costRage: 100
     trigger: 0
@@ -4529,7 +4529,7 @@ MonoBehaviour:
     owner: linh_giap
     effectsJson: '[{"k":"dmg","mult":1.6}]'
   - id: linh_giap_pas
-    name: "Gi\xE1p G\xE1c"
+    name: "L\xF4ng L\u01B0\u1EE1i Th\xE9p"
     rarity: 0
     kind: 3
     icon: shield
@@ -4545,7 +4545,7 @@ MonoBehaviour:
     owner: linh_giap
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.15,"turns":99}]'
   - id: linh_giap2_skill
-    name: "Ph\xE1o Vai"
+    name: "M\u01B0a L\xF4ng Th\xE9p"
     rarity: 0
     kind: 1
     icon: bolt
@@ -4561,10 +4561,10 @@ MonoBehaviour:
     owner: linh_giap2
     effectsJson: '[{"k":"dmg","mult":1.2}]'
   - id: linh_giap2_ult
-    name: "\u0110\u1EA5m K\xE9p"
+    name: "B\xE3o L\u01B0\u1EE1i Th\xE9p"
     rarity: 0
     kind: 2
-    icon: fist2
+    icon: wind
     costMana: 35
     costRage: 100
     trigger: 0
@@ -4577,7 +4577,7 @@ MonoBehaviour:
     owner: linh_giap2
     effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
   - id: linh_giap2_pas
-    name: "Gi\xE1p T\xEDm"
+    name: "Gi\xE1p Gai"
     rarity: 0
     kind: 3
     icon: shield
@@ -4785,7 +4785,7 @@ MonoBehaviour:
     owner: linh_may2
     effectsJson: '[{"k":"buff","stat":"dodge","v":0.15,"turns":99}]'
   - id: linh_khoan_skill
-    name: "Khoan \u0110\u1EA5t"
+    name: "D\u1EADm \u0110\xE1"
     rarity: 0
     kind: 1
     icon: crack
@@ -4801,10 +4801,10 @@ MonoBehaviour:
     owner: linh_khoan
     effectsJson: '[{"k":"dmg","mult":1}]'
   - id: linh_khoan_ult
-    name: "Khoan Xo\xE1y"
+    name: "H\xFAc N\xFAi"
     rarity: 0
     kind: 2
-    icon: wind
+    icon: crack
     costMana: 30
     costRage: 100
     trigger: 0
@@ -4817,7 +4817,7 @@ MonoBehaviour:
     owner: linh_khoan
     effectsJson: '[{"k":"dmg","mult":1.6}]'
   - id: linh_khoan_pas
-    name: "Gi\xE1p \u0110\u1EA5t"
+    name: "L\xF4ng \u0110\xE1"
     rarity: 0
     kind: 3
     icon: shield
@@ -4833,10 +4833,10 @@ MonoBehaviour:
     owner: linh_khoan
     effectsJson: '[{"k":"buff","stat":"dmgTaken","v":-0.15,"turns":99}]'
   - id: linh_khoan2_skill
-    name: "M\u0169i Khoan Th\xE9p"
+    name: "Gai \u0110\xE1 Tr\u1ED3i"
     rarity: 0
     kind: 1
-    icon: bolt
+    icon: crack
     costMana: 30
     costRage: 0
     trigger: 0
@@ -4849,7 +4849,7 @@ MonoBehaviour:
     owner: linh_khoan2
     effectsJson: '[{"k":"dmg","mult":1.2}]'
   - id: linh_khoan2_ult
-    name: "Khoan K\xE9p"
+    name: "Song H\xFAc"
     rarity: 0
     kind: 2
     icon: fist2
@@ -4865,7 +4865,7 @@ MonoBehaviour:
     owner: linh_khoan2
     effectsJson: '[{"k":"dmg","mult":0.9,"hits":2}]'
   - id: linh_khoan2_pas
-    name: "Gi\xE1p N\u1EB7ng"
+    name: "Gi\xE1p \u0110\xE1 N\u1EB7ng"
     rarity: 0
     kind: 3
     icon: shield

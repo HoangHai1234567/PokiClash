@@ -10,6 +10,14 @@
 // - Đi (Walk): nhảy lò cò tới một điểm rồi vào trạng thái đích (đổi chỗ, về ổ rơm, ra bãi cỏ).
 // Toạ độ: localPosition trong lớp thú (FarmScene.PetLayer) là điểm chân; lớp hạt trùng khung với lớp thú.
 // Cảnh chủ là IFarmPetHost: Trang trại (FarmScene) hoặc màn Nhà (HomeScene, quái đi lang thang trên đất đã mở, kéo vào công trình).
+// Màn Nhà bật UseRig (người dùng 2026-11-20: "để các tướng chạy bằng animation walk/idle luôn, buổi đêm làm chúng phát sáng nhẹ"):
+// - hình là rig .atomik qua AolaSticker thay chân dung tĩnh: đi thì clip walk, đứng / làm / hết sức thì idle (tư thế code vẫn chồng lên),
+//   ngủ vẫn chân dung nằm; dạng chưa có clip walk thì đi bằng dáng đứng, nhún nhẹ (người dùng: "làm tạm idle di chuyển", walk bổ sung
+//   sau). Không nhảy lò cò, không thở bằng code (rig tự thở). Chỉ con trong khung nhìn mới chụp rig (mỗi con một camera), dựng mỗi khung
+//   tối đa một con (AolaSticker.CanBuildNow); cỡ theo HeroForm.size như trên sân (rồng to, lính nhỏ), nén giãn / lò xo / quay mặt bằng
+//   code còn 30% (người dùng 2026-11-20: "tỉ lệ không đúng và bị vỡ"; nét vỡ do atlas thu nhỏ nhiều: PetPart lấy mẫu nhiều điểm);
+// - đêm (chạng vạng sáng dần theo DayCycle): tướng sáng hơn cảnh đã nhuộm (sticker _Lift) và vầng sáng màu hệ thật nhạt sau lưng (aura,
+//   cộng sáng, cùng lớp với tướng nên khuất sau công trình như tướng).
 using System;
 using PokiClash.Core;
 using PokiClash.UI;
@@ -47,6 +55,7 @@ namespace PokiClash
             public HeroPortrait portrait;
             public Image shadow, tool, emote;
             public TextMeshProUGUI tag;
+            public Image aura; // con của body, sau lat: vầng sáng đêm (màn Nhà), cộng sáng
         }
 
         public const float Height = 150, SleepHeight = 128;
@@ -61,6 +70,9 @@ namespace PokiClash
         public Mode State { get; private set; }
         public int Spot { get; private set; } = -1;
         public Vector2 Pos => pos;
+        // đang kéo: chỗ ngón (toạ độ lớp thú) và đã cầm bao lâu (cảnh chủ cho bản đồ trôi khi ngón tới mép)
+        public Vector2 Finger => pos - dragOffset;
+        public float DragTime { get; private set; }
 
         IFarmPetHost scene;
         UnityEngine.Object sceneObj; // để biết cảnh chủ đã huỷ chưa (interface không so được với null của Unity)
@@ -72,6 +84,28 @@ namespace PokiClash
         float wait, hopT = -1, lift, squash, squashV, phase, speed, nextProduct, tagLeft, emoteT = -1, zT;
         float breathe; // chu kỳ thở riêng mỗi con
         Color toolColor = Color.white;
+
+        // rig .atomik (màn Nhà)
+        const float StandK = 0.62f;   // dáng đứng ≈ 62% khung chân dung (như ZoneSceneLand)
+        const float NightLift = 0.45f; // đêm: sticker sáng thêm 45% (cảnh nhuộm còn ~66–93%)
+        // nén giãn, lò xo, quay mặt bằng code còn 30% khi rig chạy: rig tự diễn, đè nguyên mức của chân dung giấy làm hình méo
+        // (người dùng 2026-11-20: "tỉ lệ không đúng")
+        const float RigSquash = 0.3f;
+        // hệ số cỡ của dạng (HeroForm.size, 0,48–1,56, như trên sân đấu): màn Nhà (rig) theo cỡ này để các tướng đúng tỉ lệ với nhau;
+        // Trang trại (chân dung) giữ mọi con cùng cỡ như cũ
+        float sizeK = 1;
+        float H => Height * sizeK;
+        float SleepH => SleepHeight * sizeK;
+        // đỉnh hình đang hiện: rig cao bằng dáng đứng (H x StandK), chân dung cao H. Nhãn, biểu cảm, hạt nổi bám theo đây (người dùng
+        // 2026-11-21: chữ "Hết sức" lơ lửng cao, không thấy tướng bên dưới)
+        float TopH => RigOn ? H * StandK * 1.08f : H;
+        public float ViewHeight => TopH; // khung hình để cảnh chủ xếp thứ tự vẽ (HomeScene.SortObjectsAndPets)
+        bool rig, rigFailed, hasWalk;
+        AolaSticker sticker;
+        string clipShown;
+        float clipT;
+        Color auraColor = Color.white;
+        Canvas rootCanvas;
 
         RectTransform Rt => (RectTransform)transform;
 
@@ -89,7 +123,39 @@ namespace PokiClash
             p.emote.gameObject.SetActive(false);
             p.tag.gameObject.SetActive(false);
             p.tool.gameObject.SetActive(false);
+            auraColor = Color.Lerp(Theme.Of(h.elem), Color.white, 0.5f);
+            if (p.aura) p.aura.gameObject.SetActive(false);
         }
+
+        // màn Nhà: hình là rig chạy walk / idle, đêm sáng nhẹ (chú thích đầu file)
+        public void UseRig(bool on)
+        {
+            rig = on;
+            var h = App.Data.Hero(Hero);
+            float k = on && h != null ? Mathf.Clamp((float)HeroArt.FormOf(h).size, 0.4f, 1.8f) : 1;
+            if (!Mathf.Approximately(k, sizeK))
+            {
+                sizeK = k;
+                DropRig(); // dựng lại theo cỡ mới
+                if (h != null) p.portrait.Bind(h, State == Mode.Sleep ? SleepH : H);
+                if (p.aura) // vầng sáng đêm nướng theo Height (HomePetMenu): theo cỡ dạng
+                {
+                    p.aura.rectTransform.anchoredPosition = new Vector2(0, H * 0.42f);
+                    p.aura.rectTransform.localScale = Vector3.one * sizeK;
+                }
+            }
+            if (!on) DropRig();
+        }
+
+        void DropRig()
+        {
+            sticker?.Destroy();
+            sticker = null;
+            clipShown = null;
+            if (p.portrait) p.portrait.gameObject.SetActive(true);
+        }
+
+        void OnDestroy() => sticker?.Destroy();
 
         // đặt thẳng vào trạng thái (lần đầu vào cảnh)
         public void Place(Mode mode, Vector2 at, int spot, string spotKind)
@@ -125,7 +191,7 @@ namespace PokiClash
             kind = spotKind;
             wait = Random.Range(0.4f, 2.5f);
             nextProduct = Random.Range(3f, 6f);
-            p.portrait.Bind(App.Data.Hero(Hero), mode == Mode.Sleep ? SleepHeight : Height);
+            p.portrait.Bind(App.Data.Hero(Hero), mode == Mode.Sleep ? SleepH : H);
             ToolFor(mode);
             p.tag.gameObject.SetActive(false);
             p.emote.gameObject.SetActive(false);
@@ -176,7 +242,7 @@ namespace PokiClash
                 Emote(scene.Prop(FarmProp.Heart));
                 ShowTag(App.Data.Hero(Hero).name, 1.6f, Theme.Paper);
                 App.Audio.Play("pick");
-                scene.Fx(scene.Prop(FarmProp.Heart), Color.white, pos + new Vector2(Random.Range(-30f, 30f), Height * 0.9f), new Vector2(Random.Range(-40f, 40f), 160), 0, 1.1f, 34, 26, 0, true);
+                scene.Fx(scene.Prop(FarmProp.Heart), Color.white, pos + new Vector2(Random.Range(-30f, 30f), TopH * 0.9f), new Vector2(Random.Range(-40f, 40f), 160), 0, 1.1f, 34, 26, 0, true);
                 return;
             }
             Kick(0.14f);
@@ -199,6 +265,7 @@ namespace PokiClash
                 return;
             }
             State = Mode.Drag;
+            DragTime = 0;
             hopT = -1;
             dragEvent = e;
             p.tag.gameObject.SetActive(false);
@@ -275,6 +342,7 @@ namespace PokiClash
             float t = Time.unscaledTime;
             float rot = 0, extraLift = 0;
             float breath = Mathf.Sin((t + phase * 3) * Mathf.PI * 2 / breathe);
+            if (RigOn) breath = 0; // rig tự thở trong clip idle
             float sy = 1 + 0.035f * breath, sx = 1 - 0.02f * breath;
 
             switch (State)
@@ -292,6 +360,7 @@ namespace PokiClash
                     Hop(dt);
                     break;
                 case Mode.Drag:
+                    DragTime += dt;
                     if (dragEvent != null) FollowFinger(dragEvent);
                     extraLift = 26 + Mathf.Sin(t * 14) * 4;
                     rot = Mathf.Sin(t * 9) * 7;
@@ -313,7 +382,7 @@ namespace PokiClash
                     if ((zT -= dt) <= 0)
                     {
                         zT = Random.Range(1.4f, 2.2f);
-                        scene.Fx(scene.Prop(FarmProp.Zzz), Theme.Ink2, pos + new Vector2(24, SleepHeight * 0.8f), new Vector2(26, 50), 0, 2f, 22, 40, 20);
+                        scene.Fx(scene.Prop(FarmProp.Zzz), Theme.Ink2, pos + new Vector2(24, SleepH * 0.8f), new Vector2(26, 50), 0, 2f, 22, 40, 20);
                     }
                     break;
             }
@@ -339,13 +408,18 @@ namespace PokiClash
             float l = lift + extraLift;
             if (l > 1) sy *= 1.05f; // đang bay: dãn ra
 
-            faceShown = Mathf.MoveTowards(faceShown, face, dt * 10);
+            if (RigOn)
+            {
+                sx = 1 + (sx - 1) * RigSquash;
+                sy = 1 + (sy - 1) * RigSquash;
+            }
+            faceShown = RigOn ? face : Mathf.MoveTowards(faceShown, face, dt * 10); // rig: quay mặt ngay, không bóp dẹt qua 0
             p.flip.localScale = new Vector3(faceShown, 1, 1);
             p.body.anchoredPosition = new Vector2(0, l);
             p.body.localScale = new Vector3(sx, sy, 1);
             p.body.localEulerAngles = new Vector3(0, 0, rot);
             float shadow = Mathf.Clamp01(1 - l / 160);
-            p.shadow.rectTransform.localScale = new Vector3(shadow * (State == Mode.Sleep ? 1.25f : 1), shadow, 1);
+            p.shadow.rectTransform.localScale = new Vector3(shadow * sizeK * (State == Mode.Sleep ? 1.25f : 1), shadow * sizeK, 1);
 
             // cảm xúc nổi trên đầu
             if (emoteT >= 0)
@@ -354,7 +428,7 @@ namespace PokiClash
                 float k = emoteT < 0.15f ? emoteT / 0.15f * 1.25f : emoteT < 0.3f ? Mathf.Lerp(1.25f, 1, (emoteT - 0.15f) / 0.15f) : 1;
                 var er = p.emote.rectTransform;
                 er.localScale = Vector3.one * k;
-                er.anchoredPosition = new Vector2(46, Height + 10 + emoteT * 30 + l);
+                er.anchoredPosition = new Vector2(46, TopH + 10 + emoteT * 30 + l);
                 var c = p.emote.color;
                 c.a = emoteT > 1.1f ? Mathf.Clamp01(1 - (emoteT - 1.1f) / 0.4f) : 1;
                 p.emote.color = c;
@@ -365,14 +439,86 @@ namespace PokiClash
                 }
             }
             if (tagLeft > 0 && (tagLeft -= dt) <= 0) p.tag.gameObject.SetActive(false);
-            p.tag.rectTransform.anchoredPosition = new Vector2(0, (State == Mode.Sleep ? SleepHeight : Height) + 18 + l);
+            p.tag.rectTransform.anchoredPosition = new Vector2(0, (State == Mode.Sleep ? SleepH : TopH) + 18 + l);
+            RigTick(dt, t);
+        }
+
+        // rig đang hiện thay chân dung (màn Nhà, không ngủ, đã dựng xong)
+        bool RigOn => rig && sticker != null && State != Mode.Sleep;
+
+        void RigTick(float dt, float t)
+        {
+            // độ đêm: chạng vạng sáng dần, đủ sớm hơn lúc trời tối hẳn
+            float k = 0;
+            if (rig)
+            {
+                k = Mathf.Clamp01(DayCycle.Night(DayCycle.Hour) * 1.6f);
+                k = k * k * (3 - 2 * k);
+            }
+            if (p.aura)
+            {
+                bool on = k > 0.01f;
+                if (p.aura.gameObject.activeSelf != on) p.aura.gameObject.SetActive(on);
+                if (on) p.aura.color = new Color(auraColor.r, auraColor.g, auraColor.b, k * (0.3f + 0.07f * Mathf.Sin(t * 1.7f + phase * 6)));
+            }
+            if (!rig) return;
+            bool want = State != Mode.Sleep;
+            bool vis = OnScreen();
+            if (want && sticker == null && !rigFailed && vis && AolaSticker.CanBuildNow) BuildRig();
+            if (sticker == null) return;
+            if (sticker.Rect.gameObject.activeSelf != want) sticker.Rect.gameObject.SetActive(want);
+            if (p.portrait.gameObject.activeSelf == want) p.portrait.gameObject.SetActive(!want);
+            if (!want || !vis)
+            {
+                sticker.Hold();
+                return;
+            }
+            string clip = State == Mode.Walk && hasWalk ? AolaSticker.Walk : StageView.Idle;
+            if (clip != clipShown)
+            {
+                clipShown = clip;
+                clipT = 0;
+            }
+            clipT += dt * speed;
+            sticker.Lift = NightLift * k;
+            sticker.Show(clip, clipT, true, 1, false, 0);
+        }
+
+        void BuildRig()
+        {
+            var h = App.Data.Hero(Hero);
+            string form = h != null ? HeroArt.FormOf(h).aola : null;
+            sticker = string.IsNullOrEmpty(form) ? null : AolaSticker.TryCreate(p.flip, h, form, H * StandK, false);
+            if (sticker == null)
+            {
+                rigFailed = true; // dạng chưa nhập rig: giữ chân dung
+                return;
+            }
+            sticker.HideShadow(); // bóng dưới chân là của thú (p.shadow)
+            sticker.Rect.SetSiblingIndex(p.portrait.transform.GetSiblingIndex()); // đồ nghề cầm tay vẫn ở trước
+            hasWalk = sticker.HasClip(AolaSticker.Walk);
+            clipShown = null;
+        }
+
+        // trong khung nhìn (nới mép): ngoài khung thì rig không chụp, không dựng
+        bool OnScreen()
+        {
+            if (!rootCanvas) rootCanvas = GetComponentInParent<Canvas>()?.rootCanvas;
+            Camera cam = null;
+            if (rootCanvas && rootCanvas.renderMode != RenderMode.ScreenSpaceOverlay) cam = rootCanvas.worldCamera ? rootCanvas.worldCamera : Camera.main;
+            var sp = RectTransformUtility.WorldToScreenPoint(cam, transform.position);
+            float mx = Screen.width * 0.15f, my = Screen.height * 0.1f;
+            return sp.x > -mx && sp.x < Screen.width + mx && sp.y > -my && sp.y < Screen.height + my * 2;
         }
 
         void Hop(float dt)
         {
             if (hopT < 0) hopT = 0;
             hopT += dt / HopTime;
-            lift = Mathf.Sin(Mathf.Clamp01(hopT) * Mathf.PI) * HopHeight;
+            // rig (màn Nhà): clip walk tự bước nên không nhảy; dạng chưa có walk đi bằng dáng đứng, nhún nhẹ theo bước
+            bool rigWalk = RigOn;
+            float hopH = !rigWalk ? HopHeight : hasWalk ? 0 : 6;
+            lift = Mathf.Sin(Mathf.Clamp01(hopT) * Mathf.PI) * hopH;
             var d = walkTo - pos;
             float step = WalkSpeed * dt;
             if (d.magnitude <= step) pos = walkTo;
@@ -380,7 +526,7 @@ namespace PokiClash
             Rt.localPosition = pos;
             if (hopT >= 1)
             {
-                Kick(0.12f);
+                if (!rigWalk) Kick(0.12f);
                 if (pos == walkTo)
                 {
                     hopT = -1;
@@ -450,7 +596,7 @@ namespace PokiClash
                     if (prev < 0.02f && c >= 0.02f) Kick(-0.16f);
                     if (prev < 0.45f && c >= 0.45f) Kick(0.18f);
                     if (prev < 0.22f && c >= 0.22f)
-                        scene.Fx(scene.Prop(FarmProp.Apple), Color.white, pos + new Vector2(face * 20, Height + 40), new Vector2(face * 110, 120), 700, 0.6f, 40, 36, 180, true);
+                        scene.Fx(scene.Prop(FarmProp.Apple), Color.white, pos + new Vector2(face * 20, TopH + 40), new Vector2(face * 110, 120), 700, 0.6f, 40, 36, 180, true);
                     break;
                 }
                 case "bakery":
@@ -470,7 +616,7 @@ namespace PokiClash
             if ((nextProduct -= dt) <= 0)
             {
                 nextProduct = Random.Range(4f, 7f);
-                scene.Fx(scene.ProductOf(kind), Color.white, pos + new Vector2(0, Height + 10), new Vector2(0, 90), 0, 1.3f, 46, 46, 0, true, 1.5f);
+                scene.Fx(scene.ProductOf(kind), Color.white, pos + new Vector2(0, TopH + 10), new Vector2(0, 90), 0, 1.3f, 46, 46, 0, true, 1.5f);
             }
         }
 

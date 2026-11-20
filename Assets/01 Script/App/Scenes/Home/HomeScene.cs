@@ -3,14 +3,16 @@
 // - Bản đồ: ảnh nền đảo (home_base: đồng cỏ hình thoi, cao nguyên, hồ, suối, mạch quặng, bãi cát, biển, rừng rìa trên) kéo, phóng to thu nhỏ nhẹ (LandView của màn Đảo, chế độ phủ kín màn);
 //   lưới thoi 72 x 72 (người dùng dặn 2026-11-19: đảo to cho quái đi khắp nơi, máy không cần thấy hết đảo), ô 96 x 48 px; gốc lưới
 //   (góc trên ô 0,0) đo trên ảnh nền (home_art.json, ảnh ghép bằng ArtGen/Home/base/compose_base72.py).
-// - Quái (FarmPet của Trang trại, cảnh chủ là màn này): tướng rảnh đi lang thang trên đất đã mở (tối đa MaxRoam con), tướng đang làm
+// - Quái (FarmPet của Trang trại, cảnh chủ là màn này; bật UseRig: rig .atomik chạy walk / idle, đêm sáng nhẹ, người dùng 2026-11-20):
+//   tướng rảnh đi lang thang trên đất đã mở (tối đa MaxRoam con), tướng đang làm
 //   đứng trước công trình cử động theo việc, tướng đang nghỉ ngủ cạnh Nhà chính. Quái chỉ vào làm khi người chơi kéo thả nó vào công
 //   trình hoặc chọn trong bảng công trình (hộp chọn tướng); không có Tự xếp.
 // - Bến tàu ở mũi dưới (PierShip, dựng bằng ShipBuild.Pier của phiên sảnh): chuyến tàu qua mây sảnh ↔ Nhà cập bến / rời bến ở đây; tàu
 //   cập bến xong thì máy lướt lên Nhà chính; chạm tàu là về đảo.
-// - Lớp: ô lát (đất, cát, đường đá, nước) → vật (khối rừng trên ô chưa mở, công trình, trang trí; vẽ xa trước gần sau theo góc dưới
-//   chân thoi) → sáng tối (DayNight dùng chung với các đảo: nhuộm theo giờ máy, tia nắng; đèn công trình bật khi tối) → mây che rìa
-//   (từng đám rời dựng sẵn trong prefab, CloudRing toả quanh tàu).
+// - Lớp theo render queue kiểu Clash of Critters (bảng Layers, GD_Claude/22_Critters_Home.md): nền + biển (shader UIHomeSea) → cát →
+//   cỏ rải → ô lát → lưới → vách → môi cỏ → cây rìa → vật (cây ô chưa mở, công trình, trang trí, quái; vẽ xa trước gần sau theo góc dưới
+//   chân thoi) → hạt → mây che rìa (từng đám rời dựng sẵn trong prefab, CloudRing toả quanh tàu) → tàu → sáng tối (DayNight dùng chung
+//   với các đảo: nhuộm theo giờ máy, tia nắng) → tự sáng (mặt nạ cửa sổ, lò của công trình khi tối, không quầng).
 // - Chạm: công trình → bảng (thu, giao/rút tướng, nâng cấp); ô rừng → dọn; chế độ xây: khay công trình, chạm đất để dời bóng ma, Đặt;
 //   chế độ lát: chọn loại ô, chạm đất để lát.
 // - Chế độ xây hiện lưới thoi phát sáng trên đất đã mở (người dùng dặn 2026-11-19; shader PokiClash/UIHomeGrid trên ảnh "luoi" nằm trên
@@ -34,6 +36,27 @@ namespace PokiClash
         const float CW = 96, CH = 48; // một ô lưới: ngang, dọc (px)
         const float TreeScale = 192f / 150f * 0.85f; // cây rời: chân cỏ 150 px ở ảnh gen = 2 ô lưới; thu 0,85 cho cân với nhà
         const float TopInset = SceneRoot.BarHeight + 70, BottomInset = 230; // khung trên (thanh, dòng tài nguyên), dưới (hàng nút, gợi ý)
+
+        // Lớp của bản đồ Nhà theo render queue kiểu Clash of Critters (GD_Claude/22_Critters_Home.md mục 6): bộ dựng prefab tạo các nút con
+        // của lớp kéo đúng thứ tự số này (uGUI: thứ tự anh em là thứ tự vẽ); code chạy chỉ đặt vật vào đúng nút, không đổi thứ tự lớp.
+        // Môi trường (cát, cỏ rải, vách, cây rìa) cố định theo queue, không xếp mỗi khung; chỉ lớp "vat" xếp theo chân.
+        public static readonly (string name, int queue)[] Layers =
+        {
+            ("nen", 100),       // ảnh nền + biển (shader UIHomeSea)
+            ("cat", 200),       // bãi cát, đồ ven biển
+            ("co_rai", 300),    // cụm cỏ, hoa rải lặp
+            ("o_lat", 400),     // ô lát
+            ("luoi", 500),      // lưới sáng khi xây
+            ("vach", 600),      // vách cao nguyên
+            ("moi_co", 650),    // môi cỏ phủ mép vách
+            ("rung_nen", 700),  // cây rìa (không mở được)
+            ("vat", 800),       // công trình, cây ô rừng chưa mở, quái
+            ("hat", 850),       // hạt quái, gió
+            ("may", 900),       // mây rìa
+            ("ben_tau", 950),   // tàu ở bến (ShipBuild.Pier)
+            ("sang_toi", 1000), // nhuộm theo giờ, tia nắng
+            ("tu_sang", 1100),  // mặt nạ tự sáng của công trình (đêm), không quầng
+        };
 
         enum Mode { Normal, Build, Paint }
 
@@ -77,6 +100,9 @@ namespace PokiClash
         [SerializeField] Image treePrefab;
         [SerializeField] TreeArt[] treeArt;
         [SerializeField] NamedSprite[] tileArt; // fill_<loại>, lip_<loại>_<mép>, cor_<loại>_<góc>, bank_<mép> (ArtGen/Home/tiles/make_tiles.py)
+        [SerializeField] RectTransform rimLayer; // lớp "rung_nen": cây rìa, vẽ dưới lớp vật, không xếp mỗi khung
+        [SerializeField] Material emitMat; // mặt nạ tự sáng của công trình (shader PokiClash/UIIslandEmit, tự đọc _PokiNight)
+        [SerializeField] float terraceH; // vách cao nguyên dọc hai cạnh trên (px): cây rìa đứng trên bậc cao, nâng lên chừng ấy
 
         [Header("Quái")]
         [SerializeField] RectTransform fxLayer; // lớp hạt, cùng khung với lớp vật
@@ -97,6 +123,7 @@ namespace PokiClash
         [SerializeField] SketchButton btnBuild, btnPaint, btnHarvest, btnSail;
         [SerializeField] RectTransform tray;
         [SerializeField] SketchButton trayPrefab;
+        [SerializeField] HomeTrayItem trayIconPrefab; // khay Xây: nút có icon công trình (Items/NutKhayNha); trống thì nút chữ như cũ
         [SerializeField] RectTransform panel;
         [SerializeField] TextMeshProUGUI panelTitle, panelBody;
         [SerializeField] SketchButton panelA, panelB, panelC, panelD;
@@ -181,6 +208,9 @@ namespace PokiClash
             panelC = c;
         }
 
+        // Dùng khi nướng prefab (Editor): nút khay Xây có icon công trình (HomeTrayMenu)
+        public void SetupTrayIcon(HomeTrayItem item) => trayIconPrefab = item;
+
         // Dùng khi nướng prefab (Editor).
         public void SetupPets(RectTransform fx, FarmPet pet, FarmFx fxItem, Sprite[] propSprites, FarmPickerDialog picker)
         {
@@ -193,6 +223,14 @@ namespace PokiClash
 
         // Dùng khi nướng prefab (Editor).
         public void SetupPier(PierShip p) => pier = p;
+
+        // Dùng khi nướng prefab (Editor): lớp cây rìa, vật liệu mặt nạ tự sáng, chiều cao vách cao nguyên (bộ mảnh home_kit.json).
+        public void SetupEnv(RectTransform rim, Material emit, float terrace)
+        {
+            rimLayer = rim;
+            emitMat = emit;
+            terraceH = terrace;
+        }
 
         // Dùng khi nướng prefab (Editor).
         public void SetupGrid(Image grid) => gridImg = grid;
@@ -215,6 +253,8 @@ namespace PokiClash
             gridMat.SetFloat("_LotsSide", Home.LotsPerSide(C));
             gridFade = 0;
             gridMat.SetFloat("_Fade", 0);
+            spreadR = 1000;
+            gridMat.SetVector("_Spread", new Vector4(0, 0, 1000, 0));
             gridImg.enabled = false;
             gridImg.raycastTarget = false;
         }
@@ -243,9 +283,28 @@ namespace PokiClash
             gridMat.SetColor("_GhostCol", ok ? new Color(0.35f, 1f, 0.45f, 1) : new Color(1f, 0.32f, 0.28f, 1));
         }
 
+        // lưới lan ra từ ô giữa khung nhìn khi vào chế độ xây (học Critters: IsometricGridRenderer.spreadSpeed); 1000 = đã lan hết, tắt vệt sáng
+        float spreadR = 1000;
+        Vector2 spreadC;
+
+        void StartSpread()
+        {
+            if (!gridMat || !world) return;
+            var vrt = landView ? (RectTransform)landView.transform : null;
+            var lp = vrt ? (Vector2)world.InverseTransformPoint(vrt.TransformPoint(vrt.rect.center)) : Vector2.zero;
+            spreadC = CellF(new Vector2(lp.x, -lp.y)); // lớp kéo neo trên trái: y local âm đi xuống
+            spreadR = 0;
+        }
+
         void FadeGrid(float dt)
         {
             if (!gridMat) return;
+            if (spreadR < 1000)
+            {
+                // 36 ô/giây: khung nhìn rộng khoảng 20 ô nên lan qua màn trong khoảng nửa giây (Critters 100 ô/giây nhưng máy họ chỉ thấy vài ô)
+                spreadR = spreadR > C.grid * 1.5f ? 1000 : spreadR + dt * 36f;
+                gridMat.SetVector("_Spread", new Vector4(spreadC.x, spreadC.y, spreadR, 0));
+            }
             float want = mode == Mode.Build ? 1 : 0;
             if (Mathf.Approximately(gridFade, want) && gridImg.enabled == want > 0) return;
             gridFade = Mathf.MoveTowards(gridFade, want, dt * 5);
@@ -616,7 +675,8 @@ namespace PokiClash
 
         const int RimKey = -1000; // khoá của rìa rừng trong forestTrees (ô rừng là 0..35)
 
-        // rìa rừng ngoài hai cạnh trên của lưới: một dải cây rời sâu 6 ô nối ô rừng với rừng vẽ sẵn trên ảnh nền, không mở được
+        // rìa rừng ngoài hai cạnh trên của lưới: một dải cây rời sâu 6 ô nối ô rừng với rừng vẽ sẵn trên ảnh nền, không mở được.
+        // Nằm ở lớp "rung_nen" (queue 700, như cây nền queue 2998 của Critters): xếp xa trước gần sau một lần lúc dựng, không xếp lại mỗi khung
         void SpawnRim()
         {
             var c = C;
@@ -629,6 +689,7 @@ namespace PokiClash
             float R(float lo, float hi) => lo + (float)rnd.NextDouble() * (hi - lo);
             const int Depth = 6;
             var size = world.rect.size;
+            var parent = rimLayer ? rimLayer : objLayer;
             for (float gx = -Depth + 1; gx < c.grid; gx += 2.2f)
             for (float gy = -Depth + 1; gy < c.grid; gy += 2.2f)
             {
@@ -636,15 +697,24 @@ namespace PokiClash
                 float x = gx + R(-0.7f, 0.7f), y = gy + R(-0.7f, 0.7f);
                 var p = CellTop(x, y);
                 if (p.x < -80 || p.x > size.x + 80 || p.y < 30) continue;
-                AddTree(tall[rnd.Next(tall.Length)], x, y, R(0.9f, 1.15f), rnd.Next(2) == 0, list);
+                AddTree(tall[rnd.Next(tall.Length)], x, y, R(0.9f, 1.15f), rnd.Next(2) == 0, list, parent);
             }
+            // bậc cao sau vách (bộ mảnh A5): cây đứng trên mặt bậc, cao hơn đồng cỏ terraceH px
+            if (terraceH > 0)
+                foreach (var (img, _) in list)
+                    img.rectTransform.anchoredPosition += new Vector2(0, terraceH);
             foreach (var (img, _) in list) img.color = LockedTint;
+            if (rimLayer)
+            {
+                var sorted = list.OrderBy(e => e.Item2).ToList();
+                for (int i = 0; i < sorted.Count; i++) sorted[i].Item1.transform.SetSiblingIndex(i);
+            }
         }
 
-        void AddTree(TreeArt t, float gx, float gy, float sc, bool flip, List<(Image, float)> list)
+        void AddTree(TreeArt t, float gx, float gy, float sc, bool flip, List<(Image, float)> list, RectTransform parent = null)
         {
             if (gx > C.grid - 4 && gy > C.grid - 4) return; // bến ở mũi dưới: không cho cây mọc đè
-            var img = Ui.Spawn(treePrefab, objLayer);
+            var img = Ui.Spawn(treePrefab, parent ? parent : objLayer);
             Theme.SetSprite(img, t.sprite);
             img.raycastTarget = false;
             var p = CellTop(gx, gy);
@@ -699,33 +769,108 @@ namespace PokiClash
         void SortAll()
         {
             order.Clear();
-            foreach (var o in objs.Values) order.Add((o.transform, o.Depth));
+            SortObjectsAndPets();
             foreach (var kv in forestTrees)
+            {
+                if (kv.Key == RimKey && rimLayer) continue; // cây rìa ở lớp riêng, đã xếp lúc dựng
                 foreach (var (img, d) in kv.Value) order.Add((img.transform, d));
+            }
             foreach (var m in forests.Values) order.Add((m.transform, float.MaxValue / 2));
-            foreach (var p in pets.Values) order.Add((p.transform, PetDepth(p)));
             if (ghost) order.Add((ghost.transform, float.MaxValue));
             order.Sort((a, b) => a.d.CompareTo(b.d));
             for (int i = 0; i < order.Count; i++)
                 if (i >= objLayer.childCount || objLayer.GetChild(i) != order[i].t) order[i].t.SetSiblingIndex(i);
         }
 
-        // y chân quái; đứng trước mặt tường của công trình (ngoài cạnh gx + n hoặc gy + n) mà chồng lên hình thì vẽ sau công trình
-        float PetDepth(FarmPet p)
+        // Công trình và quái (người dùng 2026-11-20: "vẽ lỗi, lúc ở trên lúc ở dưới"). Y góc dưới chỉ đúng khi hai vật cùng cỡ: cây bi 2x2
+        // đứng trước tường nhà 6x6 có y góc dưới nhỏ hơn nhà nên bị nhà đè; mẹo cũ đẩy quái lên sau công trình theo một dải ngang bật tắt
+        // khi quái đi, kéo theo quái nhảy cả lên trước cây đứng trước nó. Luật mới: hai vật mà hình chồng nhau, vật nằm hẳn phía trước vật
+        // kia theo một trục lưới (x0 >= x1 hoặc y0 >= y1 của vật kia, phía kia không như vậy) vẽ sau; không phân được thì theo y góc dưới.
+        // Khoá vẽ = y góc dưới, chỉ nâng tới khi mọi cặp đã phân đúng, nên cây rừng (giữ y góc dưới) gần như không bị xáo.
+        struct SortItem
         {
-            if (p.State == FarmPet.Mode.Drag) return float.MaxValue / 4;
-            var m = ToMap(p.Pos);
-            float d = m.y;
-            var cell = CellF(m);
-            foreach (var b in S.home.buildings)
+            public Transform t;
+            public Rect box;  // ô lưới (x, y, rộng, sâu); quái: một điểm
+            public Rect view; // hình trên bản đồ (px, y xuống)
+            public float key;
+        }
+
+        readonly List<SortItem> sortItems = new List<SortItem>();
+        readonly Dictionary<int, HomeBuilding> sortBuildings = new Dictionary<int, HomeBuilding>();
+
+        void SortObjectsAndPets()
+        {
+            sortItems.Clear();
+            sortBuildings.Clear();
+            if (S.home != null)
+                foreach (var b in S.home.buildings) sortBuildings[b.id] = b;
+            foreach (var kv in objs)
             {
-                if (!objs.TryGetValue(b.id, out var o) || !o.gameObject.activeSelf || d >= o.Depth) continue;
+                var o = kv.Value;
+                if (!sortBuildings.TryGetValue(kv.Key, out var b) || !o.gameObject.activeSelf)
+                {
+                    order.Add((o.transform, o.Depth));
+                    continue;
+                }
                 int n = Home.Def(D.Cfg, b.def).size;
-                if (cell.x < b.gx + n && cell.y < b.gy + n) continue; // sau lưng công trình
-                float x0 = CellTop(b.gx, b.gy + n).x - 40, x1 = CellTop(b.gx + n, b.gy).x + 40;
-                if (m.x > x0 && m.x < x1) d = Mathf.Max(d, o.Depth + 0.5f);
+                sortItems.Add(new SortItem { t = o.transform, box = new Rect(b.gx, b.gy, n, n), view = ViewRect(o.Rt), key = o.Depth });
             }
-            return d;
+            foreach (var p in pets.Values)
+            {
+                if (p.State == FarmPet.Mode.Drag)
+                {
+                    order.Add((p.transform, float.MaxValue / 4));
+                    continue;
+                }
+                var m = ToMap(p.Pos);
+                var c = CellF(m);
+                float hh = p.ViewHeight, hw = hh * 0.6f;
+                sortItems.Add(new SortItem { t = p.transform, box = new Rect(c.x, c.y, 0, 0), view = new Rect(m.x - hw, m.y - hh, 2 * hw, hh + 8), key = m.y });
+            }
+            int cnt = sortItems.Count;
+            for (int pass = 0; pass < cnt; pass++)
+            {
+                bool moved = false;
+                for (int i = 0; i < cnt; i++)
+                for (int j = 0; j < cnt; j++)
+                {
+                    if (i == j) continue;
+                    var a = sortItems[i];
+                    var f = sortItems[j];
+                    if (f.key > a.key || !a.view.Overlaps(f.view) || !DrawAfter(f.box, a.box)) continue;
+                    f.key = a.key + 0.01f;
+                    sortItems[j] = f;
+                    moved = true;
+                }
+                if (!moved) break;
+            }
+            foreach (var it in sortItems) order.Add((it.t, it.key));
+        }
+
+        // a nằm trước mặt tường nhìn thấy được của b (mặt gx = x1 hoặc gy = y1: gần người xem)
+        static bool InFront(Rect a, Rect b) => a.x >= b.xMax - 1e-3f || a.y >= b.yMax - 1e-3f;
+
+        static bool IsPoint(Rect r) => r.width <= 0 && r.height <= 0;
+
+        // f phải vẽ sau a? Quái (điểm) với công trình: quái ở trước một mặt tường nhìn thấy được thì vẽ sau, không thì vẽ trước (đứng trong
+        // chân công trình lúc đi xuyên: không phân, theo y). Hai công trình: một cái trước mặt tường cái kia mà điều ngược lại không đúng.
+        // Hai quái: theo y chân.
+        static bool DrawAfter(Rect f, Rect a)
+        {
+            bool fp = IsPoint(f), ap = IsPoint(a);
+            if (fp && ap) return false;
+            if (fp) return InFront(f, a);
+            if (ap) return !InFront(a, f) && !a.Overlaps(f);
+            return InFront(f, a) && !InFront(a, f);
+        }
+
+        // khung hình của vật trên bản đồ (px, y xuống): neo góc trên trái lớp, pivot ở góc dưới chân thoi
+        static Rect ViewRect(RectTransform rt)
+        {
+            var s = rt.sizeDelta;
+            var pv = rt.pivot;
+            var a = rt.anchoredPosition;
+            return new Rect(a.x - pv.x * s.x, -a.y - (1 - pv.y) * s.y, s.x, s.y);
         }
 
         // nhãn trên đầu: đang xây / nâng cấp (giờ còn), đồ đầy kho; ô rừng đang dọn
@@ -768,20 +913,15 @@ namespace PokiClash
         // Từng đám mây rời dựng sẵn trong prefab (menu dựng màn, lớp "may"), CloudRing của phiên sảnh lo trôi nhẹ và toả quanh tàu
         // (PierShip.Active); chuyến tàu qua mây mang các đám này sang dải mây lúc chụp màn. Màn không dời mây nữa.
 
-        // đèn công trình khi trời tối (DayCycle dùng chung với các đảo): quầng ấm ở cửa sổ, lò
-        static readonly Dictionary<string, Vector2> LampAt = new Dictionary<string, Vector2>
-        {
-            ["main"] = new Vector2(0.0f, 0.45f), ["kitchen"] = new Vector2(-0.1f, 0.35f), ["forge"] = new Vector2(-0.1f, 0.3f),
-            ["storage"] = new Vector2(0.15f, 0.35f), ["waterwheel"] = new Vector2(0.1f, 0.4f), ["mine"] = new Vector2(-0.12f, 0.28f),
-        };
-
+        // đèn công trình khi trời tối, theo cách Critters (GD_Claude/22 mục 5) nhưng không quầng (người dùng 2026-11-20): mỗi công trình có
+        // mặt nạ tự sáng home_e_<def> cùng khung ảnh công trình (cửa sổ kính đổi màu đèn, lò, đèn lồng, pha lê: ArtGen/Home/night/home_emit.py),
+        // vẽ ở lớp "tu_sang" trên lớp nhuộm nên không bị tối; shader UIIslandEmit tự đọc độ đêm _PokiNight (ban ngày tắt hẳn) và chập chờn.
         void NightLights()
         {
-            if (!glowPrefab || !glowSprite || S.home == null) return;
-            float night = DayCycle.Night(DayCycle.Hour);
+            if (!glowPrefab || !emitMat || S.home == null) return;
             var h = S.home;
-            // khớp số đèn với công trình có đèn
-            var want = h.buildings.Where(b => LampAt.ContainsKey(b.def) && b.job != 1 && objs.ContainsKey(b.id)).ToList();
+            // khớp đèn với công trình có mặt nạ (đang xây thì chưa sáng)
+            var want = h.buildings.Where(b => b.job != 1 && objs.ContainsKey(b.id) && Meta("home_e_" + b.def).sprite).ToList();
             if (want.Count != lights.Count || want.Where((b, i) => lights[i].id != b.id).Any())
             {
                 foreach (var l in lights) Destroy(l.img.gameObject);
@@ -789,8 +929,11 @@ namespace PokiClash
                 foreach (var b in want)
                 {
                     var img = Ui.Spawn(glowPrefab, lightLayer);
-                    Theme.SetSprite(img, glowSprite);
+                    Theme.SetSprite(img, Meta("home_e_" + b.def).sprite);
+                    img.material = emitMat;
+                    img.preserveAspect = false;
                     img.raycastTarget = false;
+                    img.color = new Color(1f, 0.86f, 0.58f, 1f); // màu sáng cộng thêm (UIIslandEmit)
                     lights.Add((img, b.id));
                 }
             }
@@ -798,18 +941,14 @@ namespace PokiClash
             {
                 var (img, id) = lights[i];
                 var o = objs[id];
-                var b = want[i];
-                var off = LampAt[b.def];
                 var rt = img.rectTransform;
                 var ort = o.Rt;
-                float w = ort.sizeDelta.x;
-                rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
-                rt.pivot = new Vector2(0.5f, 0.5f);
-                rt.sizeDelta = new Vector2(w * 0.5f, w * 0.5f);
-                rt.anchoredPosition = ort.anchoredPosition + new Vector2(off.x * w, off.y * ort.sizeDelta.y);
-                float a = night * (0.7f + 0.3f * Mathf.Sin(clock * 3.1f + id));
-                img.enabled = a > 0.02f;
-                img.color = new Color(1, 0.85f, 0.5f, a);
+                rt.anchorMin = ort.anchorMin;
+                rt.anchorMax = ort.anchorMax;
+                rt.pivot = ort.pivot;
+                rt.sizeDelta = ort.sizeDelta;
+                rt.anchoredPosition = ort.anchoredPosition;
+                img.enabled = o.gameObject.activeSelf; // đang dời: công trình ẩn, đèn ẩn theo
             }
         }
 
@@ -817,6 +956,7 @@ namespace PokiClash
 
         void SetMode(Mode m)
         {
+            if (m == Mode.Build && mode != Mode.Build) StartSpread();
             mode = m;
             if (m != Mode.Build) EndGhost();
             selBuilding = selLot = -1;
@@ -841,7 +981,14 @@ namespace PokiClash
                     if (e == HomeErr.NotFound) continue;
                     if (df.reward && e == HomeErr.Locked) continue; // trang trí thưởng chưa có
                     var (w, o, _, _) = Home.BuildCost(df);
-                    var btn = Ui.Spawn(trayPrefab, tray);
+                    SketchButton btn;
+                    if (trayIconPrefab)
+                    {
+                        var it = Ui.Spawn(trayIconPrefab, tray);
+                        it.SetIcon(Icon("home_" + df.id), e == HomeErr.Ok); // icon_home_<mã> (ArtGen/Home/icons)
+                        btn = it.Button;
+                    }
+                    else btn = Ui.Spawn(trayPrefab, tray);
                     string cost = (w > 0 ? $"{w} gỗ" : "") + (o > 0 ? $" {o} quặng" : "");
                     btn.SetText($"{df.name}\n{(e == HomeErr.Ok ? cost : Why(e, df))}");
                     btn.Interactable = e == HomeErr.Ok;
@@ -1116,7 +1263,7 @@ namespace PokiClash
                 return;
             }
             int lot = Home.LotOfCell(C, cell.x, cell.y);
-            if (!s.home.lots.Contains(lot) && Home.LotKind(C, lot) != "hill")
+            if (!s.home.lots.Contains(lot) && Home.LotKind(C, lot) != "hill" && LotTappable(lot))
             {
                 selLot = lot;
                 selBuilding = -1;
@@ -1126,6 +1273,16 @@ namespace PokiClash
             }
             selBuilding = selLot = -1;
             panel.gameObject.SetActive(false);
+        }
+
+        // ô rừng chạm vào có hiện bảng không (người dùng 2026-11-20: "click vào mấy ô rừng chưa mở được thì đừng hiện gì"): đang dọn, dọn
+        // được, hoặc chỉ thiếu gỗ / quặng / thợ rảnh thì hiện; còn khoá (chưa liền đất đã mở, thiếu cấp Nhà, cấp người chơi, quá số ô) thì
+        // không hiện gì, chạm như đất trống
+        bool LotTappable(int lot)
+        {
+            if (S.home.clearing.ContainsKey(lot)) return true;
+            var e = Home.CanClear(S, D, lot);
+            return e == HomeErr.Ok || e == HomeErr.Cost || e == HomeErr.Builder;
         }
 
         void RefreshPanel()
@@ -1423,6 +1580,7 @@ namespace PokiClash
                 {
                     pet = Ui.Spawn(petPrefab, objLayer);
                     pet.Bind(this, d.Hero(kv.Key));
+                    pet.UseRig(true); // rig chạy walk / idle, đêm sáng nhẹ (người dùng 2026-11-20)
                     pets[kv.Key] = pet;
                     if (mode == FarmPet.Mode.Roam) pet.Place(mode, RoamStart(), -1, null);
                     else if (!petsPlaced || mode == FarmPet.Mode.Sleep) pet.Place(mode, at, spot, kind);
@@ -1523,16 +1681,19 @@ namespace PokiClash
                     Haptics.Play(Haptic.Peg, 0.4f);
                 }
             }
-            // tới mép khung thì bản đồ trôi theo
-            if (!landView || !landView.On) return;
-            var v = landView.ToView(ToMap(pt));
+            // ngón tới sát mép khung nhìn thì bản đồ trôi theo (người dùng 2026-11-20: cầm tướng là máy trôi): tính theo NGÓN (không theo
+            // chân tướng, thấp hơn ngón), dải mép hẹp, chỉ sau khi đã cầm 0,3 giây; trước đây dải trên ~330 px, dưới 230 px, tính theo chân
+            if (!landView || !landView.On || pet.DragTime < 0.3f) return;
+            var v = landView.ToView(ToMap(pet.Finger));
             var size = landView.ViewSize;
-            float edge = 110, sp = 900 * Time.unscaledDeltaTime;
+            const float edge = 70;
+            float sp = 700 * Time.unscaledDeltaTime;
+            float top = TopInset, bottom = size.y - BottomInset + 40;
             var dlt = Vector2.zero;
-            if (v.x < edge) dlt.x = sp * (1 - v.x / edge);
-            else if (v.x > size.x - edge) dlt.x = -sp * (1 - (size.x - v.x) / edge);
-            if (v.y < TopInset + edge) dlt.y = sp * (1 - (v.y - TopInset) / edge);
-            else if (v.y > size.y - BottomInset) dlt.y = -sp * (1 - (size.y - v.y) / BottomInset);
+            if (v.x < edge) dlt.x = sp * Mathf.Clamp01(1 - v.x / edge);
+            else if (v.x > size.x - edge) dlt.x = -sp * Mathf.Clamp01(1 - (size.x - v.x) / edge);
+            if (v.y < top + edge) dlt.y = sp * Mathf.Clamp01(1 - (v.y - top) / edge);
+            else if (v.y > bottom - edge) dlt.y = -sp * Mathf.Clamp01(1 - (bottom - v.y) / edge);
             landView.Nudge(dlt);
         }
 

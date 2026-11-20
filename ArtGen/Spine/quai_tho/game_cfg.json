@@ -1,0 +1,11 @@
+{
+ "hit": {"attack": 0.5, "cast": 0.55, "skill": 1.25},
+ "lunge": ["skill"],
+ "stay": [],
+ "muzzle_bone": "mui",
+ "beam": 0.8,
+ "impact": {"attack": [0.07, 0.35, 0.1, ""], "cast": [0.06, 0.4, 0.05, ""], "skill": [0.12, 0.7, 0.12, ""]},
+ "lv": {"linh_khoan": ["Dê Đá", "Sừng đá húc tung"], "linh_khoan2": ["Dê Núi Đá", "Húc vỡ núi"]},
+ "the": {"linh_khoan_skill": ["Dậm Đá", "crack"], "linh_khoan_ult": ["Húc Núi", "crack"], "linh_khoan_pas": ["Lông Đá", "shield"],
+         "linh_khoan2_skill": ["Gai Đá Trồi", "crack"], "linh_khoan2_ult": ["Song Húc", "fist2"], "linh_khoan2_pas": ["Giáp Đá Nặng", "shield"]}
+}

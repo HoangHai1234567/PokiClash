@@ -24,7 +24,19 @@ namespace PokiClash.EditorTools
                 Debug.LogWarning("[Thử] Soi phóng bi, mở rương: cần đang Play");
                 return;
             }
-            App.I.StartCoroutine(Run());
+            App.I.StartCoroutine(Run(true));
+        }
+
+        // chỉ mở 3 rương (không thả bi), chụp dày lúc chờ chạm 3,6 giây (rương nhắc mở: lắc, hé nắp có sáng; lấp lánh) — 2026-11-21
+        [MenuItem("PokiClash/Thử/Máy bi: soi mở 3 rương (đang Play)", priority = 118)]
+        static void TryChests()
+        {
+            if (!EditorApplication.isPlaying || App.I == null)
+            {
+                Debug.LogWarning("[Thử] Soi mở 3 rương: cần đang Play");
+                return;
+            }
+            App.I.StartCoroutine(Run(false));
         }
 
         static IEnumerator Shot(string name)
@@ -41,7 +53,7 @@ namespace PokiClash.EditorTools
             for (float t = 0; t < s; t += Time.unscaledDeltaTime) yield return null;
         }
 
-        static IEnumerator Run()
+        static IEnumerator Run(bool drop)
         {
             shot = 500;
             var path = App.Save.FilePath;
@@ -61,23 +73,26 @@ namespace PokiClash.EditorTools
                 yield break;
             }
 
-            // 1. thả một bi: chụp mỗi 0,06 giây trong 1,6 giây (làn, miệng ống, dọc vòm, gờ đỉnh)
-            var drop = typeof(MachineScene).GetMethod("DropOne", BindingFlags.NonPublic | BindingFlags.Instance);
-            drop?.Invoke(m, null);
-            for (int i = 0; i < 27; i++)
+            if (drop)
             {
-                yield return Shot($"phong_{i:00}");
-                yield return Wait(0.06f);
-            }
-            // chờ bi rơi xong
-            t0 = Time.realtimeSinceStartup;
-            var view = Object.FindAnyObjectByType<MachineBoard>();
-            while (view && view.Board.balls.Count > 0 && Time.realtimeSinceStartup - t0 < 15) yield return null;
-            yield return Wait(2.5f); // kẹo bay hết, bảng thu
-            while (App.Modals.Count > 0)
-            {
-                App.Modals.Back();
-                yield return Wait(0.4f);
+                // 1. thả một bi: chụp mỗi 0,06 giây trong 1,6 giây (làn, miệng ống, dọc vòm, gờ đỉnh)
+                var dropOne = typeof(MachineScene).GetMethod("DropOne", BindingFlags.NonPublic | BindingFlags.Instance);
+                dropOne?.Invoke(m, null);
+                for (int i = 0; i < 27; i++)
+                {
+                    yield return Shot($"phong_{i:00}");
+                    yield return Wait(0.06f);
+                }
+                // chờ bi rơi xong
+                t0 = Time.realtimeSinceStartup;
+                var view = Object.FindAnyObjectByType<MachineBoard>();
+                while (view && view.Board.balls.Count > 0 && Time.realtimeSinceStartup - t0 < 15) yield return null;
+                yield return Wait(2.5f); // kẹo bay hết, bảng thu
+                while (App.Modals.Count > 0)
+                {
+                    App.Modals.Back();
+                    yield return Wait(0.4f);
+                }
             }
 
             // 2. mở 3 rương
@@ -89,6 +104,12 @@ namespace PokiClash.EditorTools
             yield return Shot("ruong_bay_vao");
             yield return Wait(0.9f);
             yield return Shot("ruong_cho");
+            if (!drop)
+                for (int i = 0; i < 24; i++)
+                {
+                    yield return Wait(0.15f);
+                    yield return Shot($"cho_{i:00}");
+                }
             var open = Object.FindAnyObjectByType<MachineChestOpen>();
             var chests = open ? open.GetComponentsInChildren<UnityEngine.UI.Button>().Where(b => b.name == "than_ruong").ToList() : null;
             if (chests != null && chests.Count > 0)

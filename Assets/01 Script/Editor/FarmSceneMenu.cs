@@ -305,6 +305,7 @@ namespace PokiClash.EditorTools
             At(p.shadow.rectTransform, bottom, new Vector2(0, 2), new Vector2(118, 28), new Vector2(0.5f, 0.5f));
 
             p.body = At(Node(root, "than"), bottom, Vector2.zero, new Vector2(160, 180), bottom);
+            p.aura = HomePetMenu.MakeAura(p.body); // vầng sáng đêm (màn Nhà), sau lưng tướng
             p.flip = At(Node(p.body, "lat"), bottom, Vector2.zero, new Vector2(160, 180), bottom);
             p.portrait = ((GameObject)PrefabUtility.InstantiatePrefab(kit.portrait.gameObject, p.flip)).GetComponent<HeroPortrait>();
             p.portrait.name = "chan_dung";

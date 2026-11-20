@@ -1,0 +1,59 @@
+# rig sóc dẻ gai (quái đảo Mộc) — sinh bởi ArtGen/Spine/quai_moc_rig.py
+bone.add move parent=root x=0.0 y=0.0 rot=0.00 len=0.0 world=true
+bone.add hip parent=move x=-5.0 y=115.0 rot=90.00 len=40.0 world=true
+bone.add than_duoi parent=hip x=-5.0 y=40.0 rot=90.00 len=115.0 world=true
+bone.add than parent=than_duoi x=-5.0 y=155.0 rot=79.56 len=193.2 world=true
+bone.add dau parent=than x=60.0 y=330.0 rot=81.25 len=197.3 world=true
+bone.add mu parent=dau x=70.0 y=615.0 rot=84.29 len=201.0 world=true
+bone.add tai_l parent=dau x=-25.0 y=623.0 rot=99.46 len=91.2 world=true
+bone.add tai_r parent=dau x=250.0 y=619.0 rot=79.38 len=65.1 world=true
+bone.add tay_gan parent=than x=-122.0 y=320.0 rot=-11.09 len=103.9 world=true
+bone.add tay_xa parent=than x=215.0 y=315.0 rot=-39.47 len=110.1 world=true
+bone.add nam_xa parent=tay_xa x=345.0 y=330.0 rot=66.80 len=76.2 world=true
+bone.add duoi1 parent=hip x=-178.0 y=175.0 rot=110.04 len=181.0 world=true
+bone.add duoi2 parent=duoi1 x=-240.0 y=345.0 rot=90.60 len=190.0 world=true
+bone.add duoi3 parent=duoi2 x=-242.0 y=535.0 rot=126.98 len=212.8 world=true
+bone.add chan_gan parent=move x=-178.0 y=79.0 rot=-125.10 len=90.4 world=true
+bone.add chan_xa parent=move x=155.0 y=125.0 rot=-64.44 len=127.5 world=true
+bone.add mu_mui parent=mu x=320.0 y=615.0 rot=0.00 len=40.0 world=true
+bone.add mu_vong parent=mu x=320.0 y=615.0 rot=0.00 len=40.0 world=true
+bone.add mu_vong2 parent=mu x=320.0 y=615.0 rot=0.00 len=40.0 world=true
+bone.add tg_vong parent=tay_gan x=15.0 y=305.0 rot=0.00 len=40.0 world=true
+bone.add tx_vong parent=nam_xa x=370.0 y=380.0 rot=0.00 len=40.0 world=true
+bone.add tx_mui parent=nam_xa x=370.0 y=380.0 rot=0.00 len=40.0 world=true
+bone.add phong parent=move x=395.0 y=445.0 rot=-90.00 len=50.0 world=true
+bone.add phong_vong parent=move x=395.0 y=445.0 rot=0.00 len=40.0 world=true
+bone.add phong_vong2 parent=move x=395.0 y=445.0 rot=0.00 len=40.0 world=true
+bone.add dat_truoc parent=move x=390.0 y=5.0 rot=0.00 len=40.0 world=true
+bone.add dat_truoc2 parent=move x=390.0 y=5.0 rot=0.00 len=40.0 world=true
+bone.add dat_truoc_mui parent=move x=390.0 y=15.0 rot=90.00 len=40.0 world=true
+bone.add dat_vong parent=root x=0.0 y=0.0 rot=0.00 len=40.0 world=true
+part.add duoi3 path=images/duoi3.png at=277,137 canvas=1536,1024 origin=790,945 bone=duoi3 mesh=false
+part.add duoi2 path=images/duoi2.png at=237,325 canvas=1536,1024 origin=790,945 bone=duoi2 mesh=false
+part.add duoi1 path=images/duoi1.png at=244,561 canvas=1536,1024 origin=790,945 bone=duoi1 mesh=false
+part.add tay_xa path=images/tay_xa.png at=978,554 canvas=1536,1024 origin=790,945 bone=tay_xa mesh=false
+part.add nam_xa path=images/nam_xa.png at=1087,504 canvas=1536,1024 origin=790,945 bone=nam_xa mesh=false
+part.add chan_xa path=images/chan_xa.png at=872,790 canvas=1536,1024 origin=790,945 bone=chan_xa mesh=false
+part.add than path=images/than.png at=521,567 canvas=1536,1024 origin=790,945 bone=than_duoi mesh=true
+att.weights than than bones=than_duoi,than
+part.add chan_gan path=images/chan_gan.png at=489,856 canvas=1536,1024 origin=790,945 bone=chan_gan mesh=false
+part.add dau path=images/dau.png at=644,320 canvas=1536,1024 origin=790,945 bone=dau mesh=false
+part.add tay_gan path=images/tay_gan.png at=622,573 canvas=1536,1024 origin=790,945 bone=tay_gan mesh=false
+part.add mu path=images/mu.png at=552,76 canvas=1536,1024 origin=790,945 bone=mu mesh=false
+part.add tai_trai path=images/tai_trai.png at=700,215 canvas=1536,1024 origin=790,945 bone=tai_l mesh=false
+part.add tai_phai path=images/tai_phai.png at=989,244 canvas=1536,1024 origin=790,945 bone=tai_r mesh=false
+part.add duoi3_tr path=images/duoi3.png at=277,137 canvas=1536,1024 origin=790,945 bone=duoi3 mesh=false
+slot.order duoi3_tr to=before:dau
+att.set duoi3_tr duoi3_tr image=duoi3
+image.del duoi3_tr
+slot.set duoi3_tr att=-
+part.add duoi2_tr path=images/duoi2.png at=237,325 canvas=1536,1024 origin=790,945 bone=duoi2 mesh=false
+slot.order duoi2_tr to=before:dau
+att.set duoi2_tr duoi2_tr image=duoi2
+image.del duoi2_tr
+slot.set duoi2_tr att=-
+part.add duoi1_tr path=images/duoi1.png at=244,561 canvas=1536,1024 origin=790,945 bone=duoi1 mesh=false
+slot.order duoi1_tr to=before:dau
+att.set duoi1_tr duoi1_tr image=duoi1
+image.del duoi1_tr
+slot.set duoi1_tr att=-

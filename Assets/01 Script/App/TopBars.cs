@@ -53,8 +53,12 @@ namespace PokiClash
             hud.gameObject.SetActive(kind == TopBar.Hud);
             back.gameObject.SetActive(kind == TopBar.Back);
             backTitle.text = title ?? "";
+            backBtn.Locked = false;
             Refresh();
         }
+
+        // khoá nút quay lại (máy bi lúc đang thả: mờ, chạm im lặng); đổi màn thì Show tự mở lại
+        public void LockBack(bool on) => backBtn.Locked = on;
 
         public void SetTitle(string title) => backTitle.text = title;
 
