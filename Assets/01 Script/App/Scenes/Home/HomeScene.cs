@@ -13,8 +13,14 @@
 //   cỏ rải → ô lát → lưới → vách → môi cỏ → cây rìa → vật (cây ô chưa mở, công trình, trang trí, quái; vẽ xa trước gần sau theo góc dưới
 //   chân thoi) → hạt → mây che rìa (từng đám rời dựng sẵn trong prefab, CloudRing toả quanh tàu) → tàu → sáng tối (DayNight dùng chung
 //   với các đảo: nhuộm theo giờ máy, tia nắng) → tự sáng (mặt nạ cửa sổ, lò của công trình khi tối, không quầng).
-// - Chạm: công trình → bảng (thu, giao/rút tướng, nâng cấp); ô rừng → dọn; chế độ xây: khay công trình, chạm đất để dời bóng ma, Đặt;
-//   chế độ lát: chọn loại ô, chạm đất để lát.
+// - Chạm: công trình → vòng nút quanh nó (HomeRing, kiểu Clash of Critters 2026-11-22: Thu, Giao tướng, Lên cấp + giá, Dời, Chi tiết;
+//   nhãn tên + trạng thái dưới chân); ô rừng → Dọn; bong bóng trên công trình (vòng tiến độ kho) chạm là thu. Chế độ xây: tấm dưới có
+//   tab lọc + khay cuộn thẻ icon, chạm / kéo đất để dời bóng ma, nút ✓ ✗ cạnh bóng ma; chế độ lát: chọn loại ô, chạm đất để lát.
+//   Hàng nút dưới: nút tròn icon có chữ (Xây, Lát ô, Thu hết có chấm đỏ khi có đồ chờ thu, Ra đảo).
+// - Vật vừa chọn (người dùng 2026-11-22): nhún (HomeObject.Bounce) và sáng nhẹ bằng shader PokiClash/UIHomeSelect (vật liệu selectMat,
+//   độ sáng _HomeSel toàn cục: loé lúc chọn rồi thở nhẹ khi bảng còn mở); ô rừng thì cây trong ô nhún lần lượt, sáng cùng.
+// - Cây bi (bi chung với Cây bi trên sảnh, Core/Trees): bong bóng trên đầu ghi số bi cây đang có (kiểu Clash of Critters); chạm một cây
+//   là hái hết mọi cây, bi bay từ từng cây lên chip bi của thanh trên (hạt FarmFx.Fly trên lớp giao diện cố định), chip đếm chạy.
 // - Chế độ xây hiện lưới thoi phát sáng trên đất đã mở (người dùng dặn 2026-11-19; shader PokiClash/UIHomeGrid trên ảnh "luoi" nằm trên
 //   ô lát, dưới công trình): mờ dần ra xa chỗ đang đặt, chân thoi công trình đang đặt sáng xanh (đặt được) / đỏ (không), viền phập phồng.
 using System;
@@ -31,7 +37,7 @@ namespace PokiClash
 {
     public sealed class HomeScene : SceneRoot, IFarmPetHost
     {
-        public override string Title => "Nhà";
+        public override string Title => Loc.T("Nhà");
 
         const float CW = 96, CH = 48; // một ô lưới: ngang, dọc (px)
         const float TreeScale = 192f / 150f * 0.85f; // cây rời: chân cỏ 150 px ở ảnh gen = 2 ô lưới; thu 0,85 cho cân với nhà
@@ -103,6 +109,7 @@ namespace PokiClash
         [SerializeField] RectTransform rimLayer; // lớp "rung_nen": cây rìa, vẽ dưới lớp vật, không xếp mỗi khung
         [SerializeField] Material emitMat; // mặt nạ tự sáng của công trình (shader PokiClash/UIIslandEmit, tự đọc _PokiNight)
         [SerializeField] float terraceH; // vách cao nguyên dọc hai cạnh trên (px): cây rìa đứng trên bậc cao, nâng lên chừng ấy
+        [SerializeField] Material selectMat; // vật đang chọn sáng nhẹ (shader PokiClash/UIHomeSelect, home_select.mat); trống thì chỉ nhún
 
         [Header("Quái")]
         [SerializeField] RectTransform fxLayer; // lớp hạt, cùng khung với lớp vật
@@ -124,9 +131,19 @@ namespace PokiClash
         [SerializeField] RectTransform tray;
         [SerializeField] SketchButton trayPrefab;
         [SerializeField] HomeTrayItem trayIconPrefab; // khay Xây: nút có icon công trình (Items/NutKhayNha); trống thì nút chữ như cũ
-        [SerializeField] RectTransform panel;
+        [SerializeField] RectTransform panel; // bảng chữ cũ: chỉ dùng khi prefab chưa có vòng nút (ring)
         [SerializeField] TextMeshProUGUI panelTitle, panelBody;
         [SerializeField] SketchButton panelA, panelB, panelC, panelD;
+
+        // Giao diện kiểu Clash of Critters (người dùng 2026-11-22, GD_Claude/22_Critters_Home.md mục 7): vòng nút quanh vật đang chọn thay
+        // bảng chữ, hàng nút dưới là nút tròn icon có chữ dưới (chấm đỏ khi có đồ chờ thu), chế độ xây là tấm dưới có tab lọc và khay cuộn
+        // thẻ icon, đặt / dời bằng nút ✓ ✗ bên cạnh bóng ma. Menu "PokiClash/Prefab/Nhà: giao diện kiểu Critters".
+        [SerializeField] HomeRing ring;
+        [SerializeField] HomeRingButton hudBuild, hudPaint, hudHarvest, hudSail;
+        [SerializeField] RectTransform sheet; // tấm xây: nền, tab, khay cuộn (khay là nội dung cuộn bên trong)
+        [SerializeField] SketchButton[] tabs; // Tất cả, Sản xuất, Hỗ trợ, Trang trí
+        int tab;
+        bool selPop; // vật vừa chọn: vòng nút nảy ra (đếm giờ mỗi giây thì không)
 
         readonly Dictionary<int, HomeObject> objs = new Dictionary<int, HomeObject>(); // id công trình → vật
         readonly Dictionary<int, HomeObject> forests = new Dictionary<int, HomeObject>(); // ô rừng → mốc (nhãn "Dọn …")
@@ -186,6 +203,19 @@ namespace PokiClash
             glowSprite = glowSp;
         }
 
+        // Dùng khi nướng prefab (Editor): phần giao diện kiểu Critters
+        public void SetupCritters(HomeRing ringComp, HomeRingButton build, HomeRingButton paint, HomeRingButton harvest, HomeRingButton sail,
+            RectTransform sheetRt, SketchButton[] tabButtons)
+        {
+            ring = ringComp;
+            hudBuild = build;
+            hudPaint = paint;
+            hudHarvest = harvest;
+            hudSail = sail;
+            sheet = sheetRt;
+            tabs = tabButtons;
+        }
+
         // Dùng khi nướng prefab (Editor).
         public void SetupUi(TextMeshProUGUI resText, TextMeshProUGUI hintText, SketchButton build, SketchButton paint, SketchButton harvest,
             SketchButton sail, RectTransform trayRt, SketchButton trayItem, RectTransform panelRt, TextMeshProUGUI title, TextMeshProUGUI body,
@@ -234,6 +264,214 @@ namespace PokiClash
 
         // Dùng khi nướng prefab (Editor).
         public void SetupGrid(Image grid) => gridImg = grid;
+
+        // Dùng khi nướng prefab (Editor): vật liệu sáng nhẹ của vật đang chọn
+        public void SetupSelect(Material m) => selectMat = m;
+
+        // ---------- vật đang chọn: nhún + sáng nhẹ ----------
+
+        static readonly int HomeSelId = Shader.PropertyToID("_HomeSel");
+        HomeObject selObj; // vật đang sáng (công trình, cây bi vừa hái)
+        int selTreesLot = -1; // ô rừng đang sáng (cây trong ô)
+        readonly List<(Image img, float sx, float delay)> selTrees = new List<(Image, float, float)>();
+        bool selHold; // giữ sáng tới khi bảng đóng; không giữ (cây bi vừa hái) thì loé rồi tắt
+        float selT;
+        const float SelFlash = 0.08f;
+
+        // chọn vật o (null = bỏ): sáng + nhún; chạm lại vật đang chọn thì nhún lại. hold: giữ sáng theo bảng
+        void Pick(HomeObject o, bool hold)
+        {
+            ClearTreeSel();
+            if (selObj != o)
+            {
+                if (selObj) selObj.Select(null);
+                selObj = o;
+                if (o) o.Select(selectMat);
+            }
+            selHold = hold;
+            selT = 0;
+            if (!o) return;
+            o.Bounce();
+            Haptics.Play(Haptic.Peg);
+        }
+
+        // chọn ô rừng: cây trong ô sáng cùng vật liệu, nhún lần lượt từ gần tâm ra
+        void PickLot(int lot)
+        {
+            if (selObj) selObj.Select(null);
+            selObj = null;
+            if (selTreesLot != lot)
+            {
+                ClearTreeSel();
+                selTreesLot = lot;
+                if (forestTrees.TryGetValue(lot, out var list) && list.Count > 0)
+                {
+                    var c = C;
+                    var (i, j) = Home.LotIJ(c, lot);
+                    var mid = CellTop(i * c.lot + c.lot / 2f, j * c.lot + c.lot / 2f);
+                    foreach (var (img, _) in list)
+                    {
+                        if (!img) continue;
+                        var p = img.rectTransform.anchoredPosition;
+                        float dist = (new Vector2(p.x, -p.y) - mid).magnitude;
+                        if (selectMat) img.material = selectMat;
+                        selTrees.Add((img, img.rectTransform.localScale.x, Mathf.Min(0.25f, dist / 2400f)));
+                    }
+                }
+            }
+            selHold = true;
+            selT = 0;
+            Haptics.Play(Haptic.Peg);
+        }
+
+        void ClearTreeSel()
+        {
+            foreach (var (img, sx, _) in selTrees)
+            {
+                if (!img) continue;
+                Theme.SetSprite(img, img.sprite); // trả vật liệu thường
+                img.rectTransform.localScale = new Vector3(sx, 1, 1);
+            }
+            selTrees.Clear();
+            selTreesLot = -1;
+        }
+
+        // mỗi khung: hết chọn (bảng đóng, đổi chế độ, vật bị dời / xoá) thì trả về thường; đặt độ sáng toàn cục, nhún cây ô rừng
+        void SyncSelect(float dt)
+        {
+            bool panelOn = SelOn && mode == Mode.Normal;
+            if (selObj)
+            {
+                bool keep = selObj.gameObject.activeInHierarchy && (selHold ? panelOn && selBuilding == selObj.Id : selT < 0.6f);
+                if (!keep)
+                {
+                    selObj.Select(null);
+                    selObj = null;
+                }
+            }
+            if (selTreesLot >= 0 && !(panelOn && selLot == selTreesLot)) ClearTreeSel();
+            float g = 0;
+            if (selObj || selTreesLot >= 0)
+            {
+                selT += dt;
+                // loé lên trong SelFlash giây rồi lặn; còn giữ thì thở quanh 0,5 (0,36–0,64) cho thấy rõ vật đang chọn
+                float flash = selT < SelFlash ? selT / SelFlash : Mathf.Exp(-(selT - SelFlash) * 5f);
+                float steady = selHold ? Mathf.Clamp01(selT / SelFlash) * (0.5f + 0.14f * Mathf.Sin((selT - SelFlash) * 3.4f)) : 0;
+                g = Mathf.Max(flash, steady);
+                for (int i = 0; i < selTrees.Count; i++)
+                {
+                    var (img, sx, delay) = selTrees[i];
+                    if (!img) continue;
+                    float t = selT - delay;
+                    var sq = t > 0 && t < 0.8f ? HomeObject.Squash(t, 0.7f) : Vector3.one;
+                    img.rectTransform.localScale = new Vector3(sx * sq.x, sq.y, 1);
+                }
+            }
+            Shader.SetGlobalFloat(HomeSelId, g);
+        }
+
+        // ---------- Cây bi: số bi trên đầu, chạm là hái hết, bi bay lên chip ----------
+
+        readonly List<FarmFx> flyPool = new List<FarmFx>();
+
+        // bi đang có (phần nguyên) của cây b; st = Trees.Of(...).stock đã tính tới giờ
+        static int TreeBalls(HomeBuilding b, List<double> st) => b.tree >= 0 && b.tree < st.Count ? (int)Math.Floor(st[b.tree] + 1e-9) : 0;
+
+        bool IsTree(HomeBuilding b) => Home.Def(D.Cfg, b.def)?.kind == "tree";
+
+        // hái mọi cây (Trees.Harvest như nút Hái của hộp Cây bi sảnh); cây vừa chạm loé + nhún, cây khác nhún nhẹ, bi bay từ từng cây
+        void HarvestTrees(HomeBuilding tapped)
+        {
+            var s = S;
+            var cfg = D.Cfg;
+            double now = Now;
+            Trees.Tick(s, cfg, now);
+            var st = Trees.Of(s, now).stock;
+            var from = new List<(HomeObject o, Vector3 at, int n)>();
+            foreach (var tb in s.home.buildings)
+            {
+                if (!IsTree(tb) || !objs.TryGetValue(tb.id, out var o)) continue;
+                int k = TreeBalls(tb, st);
+                if (k > 0) from.Add((o, o.BubbleWorld(), k));
+            }
+            int n = Trees.Harvest(s, cfg, now);
+            if (n <= 0) return;
+            if (App.Bars) App.Bars.HoldBalls(n); // chip giữ số cũ tới khi bi bay tới (lưu xong thanh trên tự làm mới)
+            App.Save.Save();
+            selBuilding = selLot = -1;
+            HideSel();
+            objs.TryGetValue(tapped.id, out var hit);
+            Pick(hit, false);
+            // cây chưa có chỗ trong nhà (hết chỗ đặt) vẫn được hái: bi của nó bay ra từ cây vừa chạm
+            int rest = n - from.Sum(f => f.n);
+            if (rest > 0 && hit) from.Add((hit, hit.BubbleWorld(), rest));
+            foreach (var f in from)
+            {
+                f.o.PopBubble();
+                if (f.o != hit) f.o.Bounce(0.6f);
+            }
+            App.Audio.Play("coin");
+            FlyBalls(from, n);
+            Labels();
+        }
+
+        // bi bay từ các cây lên chip bi: mỗi cây 3–6 viên (theo số bi, tổng tối đa 24), các cây bật cùng lúc, trên lớp bay của thanh trên
+        // (trên mọi thứ của màn, không mờ theo giao diện cố định); mỗi viên tới thì chip đếm thêm phần của nó (HoldBalls / ReleaseBalls)
+        // và nảy nhẹ
+        void FlyBalls(List<(HomeObject o, Vector3 at, int n)> from, int total)
+        {
+            var bars = App.Bars;
+            var chip = bars ? bars.BallChip : null;
+            var parent = bars ? bars.FlyLayer : null;
+            var sp = Icon("ball");
+            if (!chip || !parent || !fxPrefab || !sp || from.Count == 0)
+            {
+                if (bars) bars.ReleaseBalls(total);
+                return;
+            }
+            // số viên mỗi cây: 3–6 theo số bi, tổng tối đa 24 (nhiều cây thì mỗi cây bớt, ít nhất 2)
+            var ks = from.Select(f => Mathf.Clamp(Mathf.CeilToInt(f.n / 5f), 3, 6)).ToArray();
+            int sum = ks.Sum();
+            if (sum > 24)
+                for (int t = 0; t < ks.Length; t++)
+                    ks[t] = Mathf.Max(2, Mathf.RoundToInt(ks[t] * 24f / sum));
+            int count = ks.Sum(), maxK = ks.Max();
+            float step = Mathf.Min(0.06f, 0.6f / maxK); // các cây bật cùng lúc, mỗi cây bật lần lượt: cả loạt bật trong khoảng 0,7 giây
+            int every = Mathf.Max(1, count / 10); // tiếng "pick": nhiều viên thì cách viên mới kêu, khỏi dồn tiếng
+            int left = total, landed = 0;
+            var cam = PokiCanvas.UiCamera;
+            Vector2 Local(Vector3 world)
+            {
+                var scr = RectTransformUtility.WorldToScreenPoint(cam, world);
+                RectTransformUtility.ScreenPointToLocalPointInRectangle(parent, scr, cam, out var l);
+                return l;
+            }
+            var to = Local(chip.TransformPoint(chip.rect.center));
+            for (int t = 0; t < from.Count; t++)
+            {
+                var a = Local(from[t].at);
+                for (int i = 0; i < ks[t]; i++)
+                {
+                    var fx = flyPool.Find(x => x && !x.Busy);
+                    if (!fx)
+                    {
+                        fx = Ui.Spawn(fxPrefab, parent);
+                        flyPool.Add(fx);
+                    }
+                    float delay = i * step + t * 0.03f;
+                    fx.Fly(sp, a + UnityEngine.Random.insideUnitCircle * 14f, to, delay, UnityEngine.Random.Range(0.62f, 0.74f), 54, () =>
+                    {
+                        // phần của viên này (viên cuối nhả nốt phần lẻ)
+                        int part = ++landed >= count ? left : Mathf.Min(left, Mathf.CeilToInt(total / (float)count));
+                        left -= part;
+                        if (!bars) return;
+                        bars.ReleaseBalls(part);
+                        bars.PunchBalls();
+                        if ((landed - 1) % every == 0) App.Audio.Play("pick", 0.45f, 1.05f + Mathf.Min(landed / every, 12) * 0.04f);
+                    });
+                }
+            }
+        }
 
         // ---------- lưới phát sáng (chế độ xây) ----------
 
@@ -385,6 +623,17 @@ namespace PokiClash
             btnPaint.SetOnClick(() => SetMode(mode == Mode.Paint ? Mode.Normal : Mode.Paint));
             btnHarvest.SetOnClick(HarvestAll);
             btnSail.SetOnClick(() => App.Router.Go(SceneIds.Hub));
+            if (ring) ring.Insets(TopInset, BottomInset);
+            if (tabs != null)
+                for (int i = 0; i < tabs.Length; i++)
+                {
+                    int k = i;
+                    if (tabs[i]) tabs[i].SetOnClick(() =>
+                    {
+                        tab = k;
+                        BuildTray();
+                    });
+                }
             tap.OnTap = OnTap;
             tap.OnPress = OnPress;
             tap.OnHold = OnHold;
@@ -434,6 +683,13 @@ namespace PokiClash
         public override void Exit()
         {
             if (landView) landView.End();
+            Pick(null, false);
+            Shader.SetGlobalFloat(HomeSelId, 0);
+            // bi bay nằm ở lớp bay của thanh trên (khung app, không gỡ theo màn): dọn đi, viên đang bay báo tới nơi (nhả số bi đang giữ)
+            foreach (var fx in flyPool)
+                if (fx)
+                    Destroy(fx.gameObject);
+            flyPool.Clear();
         }
 
         public override void Refresh() => Render();
@@ -451,6 +707,7 @@ namespace PokiClash
             float dt = Mathf.Min(Time.unscaledDeltaTime, 0.1f);
             clock += dt;
             FadeGrid(dt);
+            SyncSelect(dt);
             if (shipArriving && pier)
             {
                 if (pier.Busy)
@@ -511,8 +768,8 @@ namespace PokiClash
             Render();
             App.Bars.Refresh();
             App.Audio.Play("coin");
-            string what = n > 1 ? $"Đã dọn {n} ô rừng" : "Đã dọn rừng";
-            App.Toasts.Show(balls > 0 ? $"{what}: +{balls} bi để thả" : what, Icon("ball"));
+            string what = n > 1 ? Loc.F("Đã dọn {0} ô rừng", n) : Loc.T("Đã dọn rừng");
+            App.Toasts.Show(balls > 0 ? Loc.F("{0}: +{1} bi để thả", what, balls) : what, Icon("ball"));
         }
 
         // ---------- dựng ----------
@@ -522,8 +779,8 @@ namespace PokiClash
             var s = S;
             var d = D;
             var h = Home.Of(s, d, Now);
-            res.text = $"Gỗ {Mathf.FloorToInt((float)h.wood)}/{Home.WoodCap(h, d.Cfg):0}   Quặng {Mathf.FloorToInt((float)h.ore)}/{Home.OreCap(h, d.Cfg):0}   " +
-                       $"Bánh {h.bread}   Nhà cấp {Home.Level(h)}   Tướng {Home.UsedSlots(h)}/{Home.TotalSlots(h, C)}";
+            res.text = Loc.F("Gỗ {0}/{1:0}   Quặng {2}/{3:0}   ", Mathf.FloorToInt((float)h.wood), Home.WoodCap(h, d.Cfg), Mathf.FloorToInt((float)h.ore), Home.OreCap(h, d.Cfg)) +
+                       Loc.F("Bánh {0}   Nhà cấp {1}   Tướng {2}/{3}", h.bread, Home.Level(h), Home.UsedSlots(h), Home.TotalSlots(h, C));
             RenderTiles(h);
             RenderForests(h);
             RenderBuildings(h);
@@ -743,6 +1000,7 @@ namespace PokiClash
                 {
                     o = Ui.Spawn(objPrefab, objLayer);
                     o.Id = b.id;
+                    o.BubbleTapped = OnBubble;
                     objs[b.id] = o;
                 }
                 PlaceObject(o, df, m, b.gx, b.gy);
@@ -880,16 +1138,63 @@ namespace PokiClash
             var h = s.home;
             if (h == null) return;
             double now = Now;
+            Trees.Tick(s, D.Cfg, now);
+            var st = Trees.Of(s, now).stock;
+            bool any = false; // có đồ chờ thu: chấm đỏ trên nút Thu hết
             foreach (var b in h.buildings)
             {
                 if (!objs.TryGetValue(b.id, out var o)) continue;
-                string text = b.job != 0 ? $"{(b.job == 1 ? "Xây" : "Lên cấp")} {Clock((b.until - now) / 60000)}" : null;
+                string text = b.job != 0 ? $"{(b.job == 1 ? Loc.T("Xây") : Loc.T("Lên cấp"))} {Clock((b.until - now) / 60000)}" : null;
                 o.Label(text);
-                o.Bubble(Home.Stock(b) > 0 ? Icon(OutIcon(Home.Def(D.Cfg, b.def).output)) : null);
+                if (IsTree(b))
+                {
+                    // Cây bi: bong bóng ghi số bi đang có (từ 1 bi), chạm cây là hái
+                    int k = TreeBalls(b, st);
+                    o.Bubble(k > 0 ? Icon("ball") : null, k > 0 ? TopBars.Fmt(k) : null);
+                    o.Fill(-1);
+                    continue;
+                }
+                // công trình làm ra: bong bóng icon sản phẩm, vòng xanh chạy theo lượng chờ thu so với sức chứa, đầy thì cam + phập phồng
+                var df = Home.Def(D.Cfg, b.def);
+                bool has = Home.Stock(b) > 0;
+                any |= has;
+                o.Bubble(has ? Icon(OutIcon(df.output)) : null);
+                o.Fill(has ? StockFill(b, df) : -1);
             }
+            if (hudHarvest) hudHarvest.Dot(any);
             foreach (var kv in forests)
-                kv.Value.Label(h.clearing.TryGetValue(kv.Key, out var until) ? "Dọn " + Clock((until - now) / 60000) : null);
+                kv.Value.Label(h.clearing.TryGetValue(kv.Key, out var until) ? Loc.T("Dọn ") + Clock((until - now) / 60000) : null);
+            if (ghost) return; // đang đặt / dời: vòng ✓ ✗ do UpdateGhost lo
             if (selBuilding >= 0 || selLot >= 0) RefreshPanel();
+        }
+
+        // phần kho đã đầy: tổng đồ chờ thu / tổng sức chứa của các ô có tướng (tướng rút hết mà còn đồ thì coi là đầy)
+        float StockFill(HomeBuilding b, HomeBuildingDef df)
+        {
+            double have = 0, cap = 0, capH = Home.CapHours(D.Cfg, df, b.level);
+            foreach (var sl in b.slots)
+            {
+                have += sl.stock;
+                if (sl.hero != null) cap += Home.Rate(S, D, sl.hero, b) * capH;
+            }
+            return cap <= 0 ? 1 : Mathf.Clamp01((float)(have / cap));
+        }
+
+        // chạm bong bóng (kiểu Critters): Cây bi thì hái hết, công trình thì thu luôn
+        void OnBubble(HomeObject o)
+        {
+            if (mode != Mode.Normal || !o) return;
+            var b = Home.Find(S.home, o.Id);
+            if (b == null) return;
+            if (IsTree(b))
+            {
+                HarvestTrees(b);
+                return;
+            }
+            if (Home.Stock(b) <= 0) return;
+            o.PopBubble();
+            Harvest(b.id);
+            o.Bounce(0.6f);
         }
 
         static string OutIcon(string output) => output switch
@@ -948,6 +1253,7 @@ namespace PokiClash
                 rt.pivot = ort.pivot;
                 rt.sizeDelta = ort.sizeDelta;
                 rt.anchoredPosition = ort.anchoredPosition;
+                rt.localScale = ort.localScale; // công trình đang nhún (vừa chọn): đèn nhún theo
                 img.enabled = o.gameObject.activeSelf; // đang dời: công trình ẩn, đèn ẩn theo
             }
         }
@@ -960,22 +1266,68 @@ namespace PokiClash
             mode = m;
             if (m != Mode.Build) EndGhost();
             selBuilding = selLot = -1;
-            panel.gameObject.SetActive(false);
-            btnBuild.SetText(m == Mode.Build ? "Xong" : "Xây");
-            btnPaint.SetText(m == Mode.Paint ? "Xong" : "Lát ô");
-            hint.text = m == Mode.Build ? "Chọn công trình ở khay để xây, hoặc chạm / nhấn giữ công trình trên đảo để dời; kéo hoặc chạm đất để đổi chỗ, rồi bấm Đặt."
-                : m == Mode.Paint ? "Chọn loại ô, chạm đất để lát. Cỏ để xoá."
-                : "Kéo quái đang dạo thả vào công trình để giao việc, hoặc chạm công trình để chọn tướng. Nhấn giữ công trình để dời.";
+            HideSel();
+            if (hudBuild)
+            {
+                // hàng nút icon: đang xây / lát thì nút đó thành "Xong" (tích), các nút khác ẩn như chế độ xây của Critters
+                hudBuild.SetCaption(m == Mode.Build ? Loc.T("Xong") : Loc.T("Xây"));
+                hudBuild.SetIcon(Icon(m == Mode.Build ? "check" : "hammer"));
+                hudBuild.gameObject.SetActive(m != Mode.Paint);
+                if (hudPaint)
+                {
+                    hudPaint.SetCaption(m == Mode.Paint ? Loc.T("Xong") : Loc.T("Lát ô"));
+                    hudPaint.SetIcon(Icon(m == Mode.Paint ? "check" : "pencil"));
+                    hudPaint.gameObject.SetActive(m != Mode.Build);
+                }
+                if (hudHarvest) hudHarvest.gameObject.SetActive(m == Mode.Normal);
+                if (hudSail) hudSail.gameObject.SetActive(m == Mode.Normal);
+            }
+            else
+            {
+                btnBuild.SetText(m == Mode.Build ? "Xong" : Loc.T("Xây"));
+                btnPaint.SetText(m == Mode.Paint ? "Xong" : Loc.T("Lát ô"));
+            }
+            // gợi ý chỉ còn một dòng ngắn khi xây / lát; chế độ thường không gợi ý (người dùng 2026-11-22: bỏ dòng gợi ý dài)
+            hint.text = m == Mode.Build ? Loc.T("Chọn thẻ để xây · chạm công trình để dời")
+                : m == Mode.Paint ? Loc.T("Chọn loại ô rồi chạm đất · Cỏ để xoá")
+                : "";
+            if (ring && hint.transform.parent) hint.transform.parent.gameObject.SetActive(m != Mode.Normal);
             BuildTray();
         }
+
+        // tấm xây (khay + tab) bật / tắt; prefab cũ chỉ có khay
+        void SheetOn(bool on)
+        {
+            if (sheet) sheet.gameObject.SetActive(on);
+            else if (tray) tray.gameObject.SetActive(on);
+            if (ring && hint && hint.transform.parent) hint.transform.parent.gameObject.SetActive(on);
+        }
+
+        // bỏ chọn: tắt vòng nút (và bảng cũ nếu prefab chưa có vòng)
+        void HideSel()
+        {
+            if (ring) ring.Hide();
+            if (panel) panel.gameObject.SetActive(false);
+        }
+
+        bool SelOn => ring ? ring.On : panel && panel.gameObject.activeSelf;
 
         void BuildTray()
         {
             for (int i = tray.childCount - 1; i >= 0; i--) Destroy(tray.GetChild(i).gameObject);
-            tray.gameObject.SetActive(mode != Mode.Normal);
+            SheetOn(mode != Mode.Normal);
+            // tab lọc (chỉ chế độ xây): Tất cả, Sản xuất, Hỗ trợ, Trang trí; tab đang chọn tô xanh
+            if (tabs != null)
+                for (int i = 0; i < tabs.Length; i++)
+                {
+                    if (!tabs[i]) continue;
+                    tabs[i].gameObject.SetActive(mode == Mode.Build);
+                    tabs[i].SetRole(i == tab ? BtnColor.Green : BtnColor.Paper);
+                }
+            if (sheet) tray.anchoredPosition = new Vector2(0, tray.anchoredPosition.y); // khay là nội dung cuộn ngang: về đầu
             if (mode == Mode.Build)
             {
-                foreach (var df in C.buildings.Where(b => b.kind != "main" && b.kind != "tree"))
+                foreach (var df in C.buildings.Where(b => b.kind != "main" && b.kind != "tree" && InTab(b)))
                 {
                     var e = Home.CanBuild(S, D, df.id);
                     if (e == HomeErr.NotFound) continue;
@@ -989,8 +1341,8 @@ namespace PokiClash
                         btn = it.Button;
                     }
                     else btn = Ui.Spawn(trayPrefab, tray);
-                    string cost = (w > 0 ? $"{w} gỗ" : "") + (o > 0 ? $" {o} quặng" : "");
-                    btn.SetText($"{df.name}\n{(e == HomeErr.Ok ? cost : Why(e, df))}");
+                    string cost = (w > 0 ? Loc.F("{0} gỗ", w) : "") + (o > 0 ? Loc.F(" {0} quặng", o) : "");
+                    btn.SetText($"{df.Name}\n{(e == HomeErr.Ok ? cost : Why(e, df))}");
                     btn.Interactable = e == HomeErr.Ok;
                     var id = df.id;
                     btn.SetOnClick(() => StartGhost(id));
@@ -1001,7 +1353,7 @@ namespace PokiClash
                 foreach (var t in new[] { new HomeTileDef { id = "grass", name = "Cỏ" } }.Concat(C.tiles))
                 {
                     var btn = Ui.Spawn(trayPrefab, tray);
-                    btn.SetText($"{t.name}{(t.id == paintTile ? " ✓" : "")}\n{(t.wood > 0 ? t.wood + " gỗ" : "")}{(t.ore > 0 ? $" {t.ore} quặng" : "")}");
+                    btn.SetText($"{t.Name}{(t.id == paintTile ? " ✓" : "")}\n{(t.wood > 0 ? t.wood + Loc.T(" gỗ") : "")}{(t.ore > 0 ? Loc.F(" {0} quặng", t.ore) : "")}");
                     var id = t.id;
                     btn.SetOnClick(() =>
                     {
@@ -1012,13 +1364,21 @@ namespace PokiClash
             }
         }
 
+        bool InTab(HomeBuildingDef df) => tabs == null || tabs.Length == 0 || tab switch
+        {
+            1 => df.kind == "prod",
+            2 => df.kind == "support",
+            3 => Home.IsDeco(df),
+            _ => true,
+        };
+
         static string Why(HomeErr e, HomeBuildingDef df) => e switch
         {
-            HomeErr.HomeLevel => $"Nhà cấp {df.home}",
-            HomeErr.Count => "Đủ số",
-            HomeErr.Cost => "Thiếu gỗ",
-            HomeErr.Builder => "Thợ bận",
-            HomeErr.Locked => "Chưa có",
+            HomeErr.HomeLevel => Loc.F("Nhà cấp {0}", df.home),
+            HomeErr.Count => Loc.T("Đủ số"),
+            HomeErr.Cost => Loc.T("Thiếu gỗ"),
+            HomeErr.Builder => Loc.T("Thợ bận"),
+            HomeErr.Locked => Loc.T("Chưa có"),
             _ => "",
         };
 
@@ -1027,7 +1387,7 @@ namespace PokiClash
             var pos = Home.FindSpot(S, D, def);
             if (pos == null)
             {
-                App.Toasts.Show("Hết chỗ trống: dọn thêm rừng", Icon("lock"));
+                App.Toasts.Show(Loc.T("Hết chỗ trống: dọn thêm rừng"), Icon("lock"));
                 return;
             }
             EndGhost();
@@ -1035,11 +1395,41 @@ namespace PokiClash
             ghostDef = def;
             ghostAt = new Vector2Int(pos.Value.gx, pos.Value.gy);
             UpdateGhost();
+            ghost.Bounce();
             var df = Home.Def(D.Cfg, def);
-            tray.gameObject.SetActive(false);
+            SheetOn(false);
             KeepVisible(CellTop(ghostAt.x + df.size / 2f, ghostAt.y + df.size / 2f));
-            ShowPanel(df.name, BuildText(df), ("Đặt", PlaceGhost), ("Thôi", CancelGhost), (null, null));
+            selPop = true;
+            GhostRing();
         }
+
+        // bóng ma đang đặt / dời: hai nút cạnh bóng ma như Critters (✗ Thôi, ✓ Đặt kèm giá); chỗ chưa đặt được thì ✓ khoá, nhãn ghi lý do
+        void GhostRing()
+        {
+            if (!ghost) return;
+            var df = Home.Def(D.Cfg, ghostDef);
+            var e = Home.CanPlace(S, D, ghostDef, ghostAt.x, ghostAt.y, moveId);
+            var (w, o, _, _) = Home.BuildCost(df);
+            string cost = moveId >= 0 ? null : Cost(w, o);
+            string title = moveId >= 0 ? Loc.F("Dời {0}", df.Name) : df.Name;
+            string sub = e == HomeErr.Ok ? (moveId >= 0 ? Loc.T("Kéo hoặc chạm đất để đổi chỗ") : Loc.F("Cỡ {0}x{1} · kéo để đổi chỗ", df.size, df.size))
+                : ErrText(e);
+            if (!ring)
+            {
+                ShowPanel(title, sub, (Loc.T("Đặt"), PlaceGhost), (Loc.T("Thôi"), CancelGhost), (null, null));
+                return;
+            }
+            var items = new List<RingItem>
+            {
+                new RingItem(Icon("close"), Loc.T("Thôi"), BtnColor.Red, CancelGhost),
+                new RingItem(Icon("check"), Loc.T("Đặt"), BtnColor.Green, PlaceGhost, cost, e == HomeErr.Ok, () => App.Toasts.Show(ErrText(e), Icon("lock"))),
+            };
+            ring.Show(ghost.Rt, title, sub, items, selPop);
+            selPop = false;
+        }
+
+        static string Cost(int wood, int ore) => wood <= 0 && ore <= 0 ? null
+            : (wood > 0 ? Loc.F("{0} gỗ", wood) : "") + (wood > 0 && ore > 0 ? " · " : "") + (ore > 0 ? Loc.F("{0} quặng", ore) : "");
 
         // dời công trình (người dùng dặn 2026-11-18, như Clash of Critters): ở chế độ xây chạm công trình để nhấc lên; bóng ma xanh / đỏ thay
         // chỗ nó, chạm đất để đổi chỗ, Đặt thì dời (không tốn gì, tướng, đồ tích, giờ xây vẫn giữ), Thôi thì về chỗ cũ
@@ -1053,11 +1443,13 @@ namespace PokiClash
             ghostDef = b.def;
             ghostAt = new Vector2Int(b.gx, b.gy);
             UpdateGhost();
+            ghost.Bounce(); // nhấc lên: nhún
             var df = Home.Def(D.Cfg, b.def);
-            tray.gameObject.SetActive(false); // khay che nửa màn: ẩn khi đang dời
+            SheetOn(false); // khay che nửa màn: ẩn khi đang dời
             if (pan) KeepVisible(CellTop(b.gx + df.size / 2f, b.gy + df.size / 2f));
             App.Audio.Play("click");
-            ShowPanel($"Dời {df.name}", MoveText, ("Đặt", PlaceGhost), ("Thôi", CancelGhost), (null, null));
+            selPop = true;
+            GhostRing();
         }
 
         // điểm bản đồ đang bị bảng chọn (nửa dưới) hoặc thanh trên che thì kéo máy cho nó ra giữa khung
@@ -1066,7 +1458,9 @@ namespace PokiClash
             if (!landView || !landView.On) return;
             var v = landView.ToView(mapPt);
             var size = landView.ViewSize;
-            if (v.y > size.y * 0.58f || v.y < TopInset + 80 || v.x < 60 || v.x > size.x - 60) landView.Show(mapPt, landView.Zoom, 0.3f);
+            // vòng nút: trên đầu vật cần chỗ cho quạt nút (~300 px), dưới chỉ có hàng nút; prefab cũ: bảng chữ che nửa dưới
+            float low = ring ? size.y - BottomInset - 140 : size.y * 0.58f, high = TopInset + (ring ? 300 : 80);
+            if (v.y > low || v.y < high || v.x < 60 || v.x > size.x - 60) landView.Show(mapPt, landView.Zoom, 0.3f);
         }
 
         const string MoveText = "Nhấn giữ rồi kéo công trình, hoặc chạm đất để chọn chỗ mới (xanh là đặt được), rồi bấm Đặt.";
@@ -1113,15 +1507,14 @@ namespace PokiClash
         void OnGrabEnd(Vector2 p)
         {
             if (!ghost) return;
-            UpdateGhost(); // hạ xuống
-            var e = Home.CanPlace(S, D, ghostDef, ghostAt.x, ghostAt.y, moveId);
-            panelBody.text = (moveId >= 0 ? MoveText : BuildText(Home.Def(D.Cfg, ghostDef))) + (e == HomeErr.Ok ? "" : $"\nChỗ này chưa đặt được: {ErrText(e)}.");
+            UpdateGhost(); // hạ xuống (UpdateGhost dựng lại vòng ✓ ✗ theo chỗ mới)
+            ghost.Bounce(0.6f);
         }
 
         void CancelGhost()
         {
             EndGhost();
-            panel.gameObject.SetActive(false);
+            HideSel();
         }
 
         // bỏ bóng ma; đang dời thì hiện lại công trình ở chỗ cũ
@@ -1133,33 +1526,33 @@ namespace PokiClash
             GridGhost(false);
             if (moveId >= 0 && objs.TryGetValue(moveId, out var o) && o) o.gameObject.SetActive(true);
             moveId = -1;
-            if (tray) tray.gameObject.SetActive(mode != Mode.Normal);
+            if (tray) SheetOn(mode != Mode.Normal);
         }
 
         string BuildText(HomeBuildingDef df)
         {
             var (w, o, _, min) = Home.BuildCost(df);
-            string what = df.kind == "prod" ? $"Làm ra: {OutName(df.output)}. Hợp hệ {Elements.Name(df.elem)}." : df.kind == "support" ? Support(df) : $"Điểm đẹp +{df.beauty}.";
-            return $"{what}\nGiá: {w} gỗ{(o > 0 ? $", {o} quặng" : "")}{(min > 0 ? $", {Clock(min)}" : "")}. Cỡ {df.size}x{df.size}.";
+            string what = df.kind == "prod" ? Loc.F("Làm ra: {0}. Hợp hệ {1}.", OutName(df.output), Elements.Name(df.elem)) : df.kind == "support" ? Support(df) : Loc.F("Điểm đẹp +{0}.", df.beauty);
+            return Loc.F("{0}\nGiá: {1} gỗ{2}{3}. Cỡ {4}x{5}.", what, w, (o > 0 ? Loc.F(", {0} quặng", o) : ""), (min > 0 ? $", {Clock(min)}" : ""), df.size, df.size);
         }
 
         static string Support(HomeBuildingDef df) => df.id switch
         {
-            "storage" => "Thêm sức chứa gỗ, quặng.",
-            "well" => "Tưới ruộng, vườn quanh giếng.",
-            "waterwheel" => "Tưới rộng; phải sát suối.",
-            "hotspring" => "Tướng nghỉ nhanh hơn.",
+            "storage" => Loc.T("Thêm sức chứa gỗ, quặng."),
+            "well" => Loc.T("Tưới ruộng, vườn quanh giếng."),
+            "waterwheel" => Loc.T("Tưới rộng; phải sát suối."),
+            "hotspring" => Loc.T("Tướng nghỉ nhanh hơn."),
             _ => "",
         };
 
         static string OutName(string o) => o switch
         {
             "balls" => "bi",
-            "wood" => "gỗ",
-            "ore" => "quặng, ít đá tiến hóa",
-            "fish" => "câu cá: bi, thẻ, cúp",
-            "stones" => "đá tiềm năng (ăn quặng)",
-            "bread" => "bánh (tướng ăn thì hết nghỉ)",
+            "wood" => Loc.T("gỗ"),
+            "ore" => Loc.T("quặng, ít đá tiến hóa"),
+            "fish" => Loc.T("câu cá: bi, thẻ, cúp"),
+            "stones" => Loc.T("đá tiềm năng (ăn quặng)"),
+            "bread" => Loc.T("bánh (tướng ăn thì hết nghỉ)"),
             _ => o,
         };
 
@@ -1176,6 +1569,7 @@ namespace PokiClash
             ghost.Bubble(null);
             if (tap && tap.Grabbing) ghost.Rt.anchoredPosition += new Vector2(0, 18); // đang cầm: nhấc lên một chút
             Sort();
+            GhostRing(); // ✓ khoá / mở, lý do theo chỗ mới
         }
 
         void PlaceGhost()
@@ -1188,32 +1582,36 @@ namespace PokiClash
                 return;
             }
             App.Audio.Play("click");
+            var at = ghostAt;
             EndGhost();
-            panel.gameObject.SetActive(false);
+            HideSel();
             App.Save.Save();
             Render();
             BuildTray();
+            // đặt xuống: công trình nhún một cái
+            var placed = Home.At(S.home, D.Cfg, at.x, at.y);
+            if (placed != null && objs.TryGetValue(placed.id, out var po)) po.Bounce(0.8f);
         }
 
         static string ErrText(HomeErr e) => e switch
         {
-            HomeErr.Overlap => "Chồng lên công trình khác",
-            HomeErr.Locked => "Ô rừng chưa dọn",
-            HomeErr.Blocked => "Chỗ này không xây được",
-            HomeErr.NeedOre => "Mỏ phải đặt trên mạch quặng",
-            HomeErr.NeedStream => "Cối nước phải sát suối",
-            HomeErr.OutOfMap => "Ra ngoài đảo",
-            HomeErr.Cost => "Thiếu gỗ hoặc quặng",
-            HomeErr.Builder => "Đội thợ đang bận",
-            HomeErr.HomeLevel => "Cần nâng Nhà chính",
-            HomeErr.PlayerLevel => "Cần lên cấp",
-            HomeErr.Count => "Đã đủ số công trình loại này",
-            HomeErr.MaxLevel => "Đã tối đa",
-            HomeErr.NotAdjacent => "Phải kề đất đã mở",
-            HomeErr.Busy => "Đang bận",
-            HomeErr.TotalSlots => "Hết chỗ tướng (nâng Nhà chính)",
-            HomeErr.BallSlots => "Hết chỗ ra bi (lên cấp)",
-            HomeErr.HeroBusy => "Tướng đang bận",
+            HomeErr.Overlap => Loc.T("Chồng lên công trình khác"),
+            HomeErr.Locked => Loc.T("Ô rừng chưa dọn"),
+            HomeErr.Blocked => Loc.T("Chỗ này không xây được"),
+            HomeErr.NeedOre => Loc.T("Mỏ phải đặt trên mạch quặng"),
+            HomeErr.NeedStream => Loc.T("Cối nước phải sát suối"),
+            HomeErr.OutOfMap => Loc.T("Ra ngoài đảo"),
+            HomeErr.Cost => Loc.T("Thiếu gỗ hoặc quặng"),
+            HomeErr.Builder => Loc.T("Đội thợ đang bận"),
+            HomeErr.HomeLevel => Loc.T("Cần nâng Nhà chính"),
+            HomeErr.PlayerLevel => Loc.T("Cần lên cấp"),
+            HomeErr.Count => Loc.T("Đã đủ số công trình loại này"),
+            HomeErr.MaxLevel => Loc.T("Đã tối đa"),
+            HomeErr.NotAdjacent => Loc.T("Phải kề đất đã mở"),
+            HomeErr.Busy => Loc.T("Đang bận"),
+            HomeErr.TotalSlots => Loc.T("Hết chỗ tướng (nâng Nhà chính)"),
+            HomeErr.BallSlots => Loc.T("Hết chỗ ra bi (lên cấp)"),
+            HomeErr.HeroBusy => Loc.T("Tướng đang bận"),
             _ => e.ToString(),
         };
 
@@ -1250,15 +1648,23 @@ namespace PokiClash
             }
             if (!Home.InMap(C, cell.x, cell.y))
             {
-                panel.gameObject.SetActive(false);
+                HideSel();
                 return;
             }
             var b = Home.At(s.home, d.Cfg, cell.x, cell.y);
             if (b != null)
             {
+                // Cây bi có bi: chạm là hái hết mọi cây (không mở bảng)
+                if (IsTree(b) && Trees.Stock(s, d.Cfg, Now) > 0)
+                {
+                    HarvestTrees(b);
+                    return;
+                }
                 selBuilding = b.id;
                 selLot = -1;
                 App.Audio.Play("click");
+                selPop = true;
+                Pick(objs.TryGetValue(b.id, out var bo) ? bo : null, true);
                 RefreshPanel();
                 return;
             }
@@ -1268,11 +1674,13 @@ namespace PokiClash
                 selLot = lot;
                 selBuilding = -1;
                 App.Audio.Play("click");
+                selPop = true;
+                PickLot(lot);
                 RefreshPanel();
                 return;
             }
             selBuilding = selLot = -1;
-            panel.gameObject.SetActive(false);
+            HideSel();
         }
 
         // ô rừng chạm vào có hiện bảng không (người dùng 2026-11-20: "click vào mấy ô rừng chưa mở được thì đừng hiện gì"): đang dọn, dọn
@@ -1285,6 +1693,8 @@ namespace PokiClash
             return e == HomeErr.Ok || e == HomeErr.Cost || e == HomeErr.Builder;
         }
 
+        // vật đang chọn → vòng nút quanh nó (Critters): nhãn tên + một dòng trạng thái dưới chân, nút tròn icon trên đầu; chữ dài (sản lượng
+        // từng ô tướng, điều kiện lên cấp) vào nút "Chi tiết". Gọi lại mỗi giây (đếm giờ) thì chỉ thay chữ, không nảy lại.
         void RefreshPanel()
         {
             var s = S;
@@ -1293,62 +1703,132 @@ namespace PokiClash
             double now = Now;
             if (selLot >= 0)
             {
+                forests.TryGetValue(selLot, out var mk);
                 if (h.clearing.TryGetValue(selLot, out var until))
                 {
-                    ShowPanel("Đang dọn rừng", $"Còn {Clock((until - now) / 60000)}.", ("Rút 30 phút", () => SpeedUp(-1, selLot)), (null, null), (null, null));
+                    int lotC = selLot;
+                    ShowSel(mk, Loc.T("Đang dọn rừng"), Loc.F("Còn {0}", Clock((until - now) / 60000)), null,
+                        new RingItem(Icon("tv"), Loc.T("Nhanh 30'"), BtnColor.Purple, () => SpeedUp(-1, lotC)));
                     return;
                 }
                 var e = Home.CanClear(s, d, selLot);
                 var (w, o, min) = Home.ClearCost(h, C, selLot);
                 var ring = Home.RingOf(C, selLot);
-                string need = ring == null ? "" : $"Cần Nhà cấp {ring.home}{(ring.player > 0 ? $", cấp {ring.player}" : "")}. ";
-                ShowPanel("Ô rừng", $"{need}Giá {w} gỗ{(o > 0 ? $", {o} quặng" : "")}, {Clock(min)}. Dọn xong rơi {ring?.reward ?? 0} gỗ." +
-                                    (e == HomeErr.Ok ? "" : $"\n{ErrText(e)}."),
-                    (e == HomeErr.Ok ? "Dọn" : null, () => ClearLot(selLot)), (null, null), (null, null));
+                string need = ring == null ? "" : Loc.F("Cần Nhà cấp {0}{1}. ", ring.home, (ring.player > 0 ? Loc.F(", cấp {0}", ring.player) : ""));
+                string detail = Loc.F("{0}Giá {1} gỗ{2}, {3}. Dọn xong rơi {4} gỗ.", need, w, (o > 0 ? Loc.F(", {0} quặng", o) : ""), Clock(min), ring?.reward ?? 0) +
+                                (e == HomeErr.Ok ? "" : $"\n{ErrText(e)}.");
+                int lot = selLot;
+                ShowSel(mk, Loc.T("Ô rừng"), e == HomeErr.Ok ? Loc.F("Dọn mất {0} · rơi {1} gỗ", Clock(min), ring?.reward ?? 0) : ErrText(e), detail,
+                    new RingItem(Icon("hammer"), Loc.T("Dọn"), BtnColor.Green, () => ClearLot(lot), Cost(w, o), e == HomeErr.Ok,
+                        () => App.Toasts.Show(ErrText(e), Icon("lock"))));
                 return;
             }
             var b = Home.Find(h, selBuilding);
             if (b == null)
             {
-                panel.gameObject.SetActive(false);
+                HideSel();
                 return;
             }
             var df = Home.Def(d.Cfg, b.def);
-            string title = $"{df.name}{(Home.IsDeco(df) ? "" : $" cấp {b.level}")}";
+            string title = $"{df.Name}{(Home.IsDeco(df) ? "" : Loc.F(" cấp {0}", b.level))}";
             var lines = new List<string>();
-            if (b.job != 0) lines.Add($"{(b.job == 1 ? "Đang xây" : "Đang lên cấp")}: còn {Clock((b.until - now) / 60000)}.");
+            string sub = null;
+            if (b.job != 0)
+            {
+                lines.Add(Loc.F("{0}: còn {1}.", (b.job == 1 ? Loc.T("Đang xây") : Loc.T("Đang lên cấp")), Clock((b.until - now) / 60000)));
+                sub = Loc.F("{0} · còn {1}", (b.job == 1 ? Loc.T("Đang xây") : Loc.T("Đang lên cấp")), Clock((b.until - now) / 60000));
+            }
+            int stock = Home.Stock(b);
             if (df.kind == "prod")
             {
-                lines.Add($"Làm ra {OutName(df.output)}. Có {Home.Stock(b)} chờ thu.");
+                lines.Add(Loc.F("Làm ra {0}. Có {1} chờ thu.", OutName(df.output), stock));
+                int working = 0;
                 for (int i = 0; i < b.slots.Count; i++)
                 {
                     var sl = b.slots[i];
-                    lines.Add(sl.hero == null ? $"Ô {i + 1}: trống"
-                        : $"Ô {i + 1}: {d.Hero(sl.hero)?.name}, {Home.Rate(s, d, sl.hero, b):0.#}/giờ, còn {Clock(sl.energy * 60)}");
+                    if (sl.hero != null) working++;
+                    lines.Add(sl.hero == null ? Loc.F("Ô {0}: trống", i + 1)
+                        : Loc.F("Ô {0}: {1}, {2:0.#}/giờ, còn {3}", i + 1, d.Hero(sl.hero)?.name, Home.Rate(s, d, sl.hero, b), Clock(sl.energy * 60)));
+                }
+                sub ??= stock > 0 ? Loc.F("Có {0} chờ thu · {1}/{2} tướng", stock, working, b.slots.Count)
+                    : Loc.F("{0}/{1} tướng đang làm", working, b.slots.Count);
+            }
+            else if (df.kind == "support")
+            {
+                lines.Add(Support(df));
+                sub ??= Support(df);
+            }
+            else if (df.kind == "tree")
+            {
+                // chạm cây có bi thì hái luôn, nên vòng chỉ hiện khi cây chưa có bi nào chín
+                var cfg = d.Cfg;
+                double cap = Trees.Cap(s, cfg, now), rate = Trees.Rate(s, cfg, now);
+                var st = Trees.Of(s, now).stock;
+                double have = b.tree >= 0 && b.tree < st.Count ? st[b.tree] : 0;
+                lines.Add(Loc.F("Mỗi cây {0} bi mỗi giờ, chứa tối đa {1:0} bi; đầy thì ngừng.", FarmScene.Dec(rate), cap));
+                if (have < cap && rate > 0)
+                {
+                    string next = Clock((Math.Floor(have) + 1 - have) / rate * 60);
+                    lines.Add(Loc.F("Bi kế tiếp sau {0}. Có bi thì chạm cây để hái hết.", next));
+                    sub ??= Loc.F("Bi kế tiếp sau {0}", next);
                 }
             }
-            else if (df.kind == "support") lines.Add(Support(df));
-            else if (df.kind == "tree") lines.Add("Cây bi ra bi theo giờ.");
-            else if (df.kind == "main") lines.Add($"Gỗ {h.wood:0}/{Home.WoodCap(h, d.Cfg):0}, quặng {h.ore:0}/{Home.OreCap(h, d.Cfg):0}. Thợ {Home.Busy(h)}/{Home.Builders(h, C)}.");
+            else if (df.kind == "main")
+            {
+                lines.Add(Loc.F("Gỗ {0:0}/{1:0}, quặng {2:0}/{3:0}. Thợ {4}/{5}.", h.wood, Home.WoodCap(h, d.Cfg), h.ore, Home.OreCap(h, d.Cfg), Home.Busy(h), Home.Builders(h, C)));
+                sub ??= Loc.F("Thợ {0}/{1}", Home.Busy(h), Home.Builders(h, C));
+            }
+            else if (Home.IsDeco(df)) sub ??= Loc.F("Điểm đẹp +{0}", df.beauty);
             var up = Home.UpgradeCost(d.Cfg, b);
             var ue = Home.CanUpgrade(s, d, b.id);
-            string upLabel = up == null ? null : $"Lên cấp {up.Value.wood} gỗ{(up.Value.ore > 0 ? $" {up.Value.ore} quặng" : "")}";
-            if (up != null && ue != HomeErr.Ok && ue != HomeErr.Cost) lines.Add($"Lên cấp: {ErrText(ue)}.");
+            if (up != null && ue != HomeErr.Ok) lines.Add(Loc.F("Lên cấp: {0}.", ErrText(ue)));
             bool prod = df.kind == "prod" && b.job != 1;
-            // chỗ trống thì chọn tướng vào chỗ đó; đủ người thì đổi ca ô mệt nhất (hộp chọn tướng có nút rút ra)
-            int empty = b.slots.FindIndex(sl => sl.hero == null);
-            int tired = b.slots.Count == 0 ? -1 : b.slots.Select((sl, i) => (sl, i)).OrderBy(x => x.sl.energy).First().i;
-            (string, Action) heroBtn = !prod ? (null, null)
-                : empty >= 0 ? ("Giao tướng", () => Picker(b.id, empty))
-                : tired >= 0 ? ("Đổi ca", () => Picker(b.id, tired)) : (null, null);
-            (string, Action) third = b.job != 0 ? ("Rút 30 phút", () => SpeedUp(b.id, -1))
-                : Home.IsDeco(df) ? ("Cất", () => StoreDeco(b.id)) : (upLabel, () => Upgrade(b.id));
-            var bid = b.id;
-            ShowPanel(title, string.Join("\n", lines), (prod ? "Thu" : null, () => Harvest(b.id)), heroBtn, third, ("Dời", () =>
+            int bid = b.id;
+            var items = new List<RingItem>();
+            // thu (có đồ chờ thu), giao tướng / đổi ca, nhanh 30' (đang xây) hoặc lên cấp / cất, dời, chi tiết
+            if (prod && stock > 0) items.Add(new RingItem(Icon(OutIcon(df.output)), Loc.T("Thu"), BtnColor.Orange, () => Harvest(bid)));
+            if (prod)
+            {
+                // chỗ trống thì chọn tướng vào chỗ đó; đủ người thì đổi ca ô mệt nhất (hộp chọn tướng có nút rút ra)
+                int empty = b.slots.FindIndex(sl => sl.hero == null);
+                int tired = b.slots.Count == 0 ? -1 : b.slots.Select((sl, i) => (sl, i)).OrderBy(x => x.sl.energy).First().i;
+                if (empty >= 0) items.Add(new RingItem(Icon("team"), Loc.T("Giao tướng"), BtnColor.Blue, () => Picker(bid, empty)));
+                else if (tired >= 0) items.Add(new RingItem(Icon("team"), Loc.T("Đổi ca"), BtnColor.Blue, () => Picker(bid, tired)));
+            }
+            if (b.job != 0) items.Add(new RingItem(Icon("tv"), Loc.T("Nhanh 30'"), BtnColor.Purple, () => SpeedUp(bid, -1)));
+            else if (Home.IsDeco(df)) items.Add(new RingItem(Icon("down"), Loc.T("Cất"), BtnColor.Yellow, () => StoreDeco(bid)));
+            else if (up != null)
+            {
+                var upErr = ue;
+                items.Add(new RingItem(Icon("up"), Loc.T("Lên cấp"), BtnColor.Green, () => Upgrade(bid), Cost(up.Value.wood, up.Value.ore),
+                    ue == HomeErr.Ok, () => App.Toasts.Show(ErrText(upErr), Icon("lock"))));
+            }
+            items.Add(new RingItem(Icon("swap"), Loc.T("Dời"), BtnColor.Yellow, () =>
             {
                 var mb = Home.Find(S.home, bid);
                 if (mb != null) StartMove(mb);
             }));
+            objs.TryGetValue(b.id, out var target);
+            ShowSel(target, title, sub, string.Join("\n", lines), items.ToArray());
+        }
+
+        // hiện vòng nút quanh target; detail khác rỗng thì thêm nút "Chi tiết" (hộp chữ đầy đủ). Prefab chưa có vòng thì về bảng chữ cũ.
+        void ShowSel(Component target, string title, string sub, string detail, params RingItem[] items)
+        {
+            var list = new List<RingItem>(items);
+            if (!string.IsNullOrEmpty(detail))
+            {
+                string t = title, body = detail;
+                list.Add(new RingItem(Icon("info"), Loc.T("Chi tiết"), BtnColor.Paper, () => App.Modals.Alert(t, body, "OK", null, false)));
+            }
+            if (!ring || !target)
+            {
+                (string, Action) At(int i) => i < list.Count ? (list[i].label, list[i].act) : (null, null);
+                ShowPanel(title, string.IsNullOrEmpty(detail) ? sub : detail, At(0), At(1), At(2), At(3));
+                return;
+            }
+            ring.Show((RectTransform)target.transform, title, sub, list, selPop);
+            selPop = false;
         }
 
         void ShowPanel(string title, string body, (string label, Action act) a, (string label, Action act) b, (string label, Action act) c,
@@ -1392,7 +1872,7 @@ namespace PokiClash
         {
             if (!Home.Store(S, D, id)) return;
             selBuilding = -1;
-            panel.gameObject.SetActive(false);
+            HideSel();
             Done(HomeErr.Ok);
         }
 
@@ -1425,18 +1905,18 @@ namespace PokiClash
         {
             if (!y.Any)
             {
-                App.Toasts.Show("Chưa có gì để thu", Icon("info"));
+                App.Toasts.Show(Loc.T("Chưa có gì để thu"), Icon("info"));
                 return;
             }
             var parts = new List<string>();
-            if (y.balls > 0) parts.Add($"+{y.balls} bi");
-            if (y.wood > 0) parts.Add($"+{y.wood} gỗ");
-            if (y.ore > 0) parts.Add($"+{y.ore} quặng");
-            if (y.evo > 0) parts.Add($"+{y.evo} đá tiến hóa");
-            if (y.stones > 0) parts.Add($"+{y.stones} đá tiềm năng");
-            if (y.bread > 0) parts.Add($"+{y.bread} bánh");
-            if (y.other.Count > 0) parts.Add($"+{y.other.Count} thưởng câu");
-            if (y.deco.Count > 0) parts.Add("+cúp câu cá");
+            if (y.balls > 0) parts.Add(Loc.F("+{0} bi", y.balls));
+            if (y.wood > 0) parts.Add(Loc.F("+{0} gỗ", y.wood));
+            if (y.ore > 0) parts.Add(Loc.F("+{0} quặng", y.ore));
+            if (y.evo > 0) parts.Add(Loc.F("+{0} đá tiến hóa", y.evo));
+            if (y.stones > 0) parts.Add(Loc.F("+{0} đá tiềm năng", y.stones));
+            if (y.bread > 0) parts.Add(Loc.F("+{0} bánh", y.bread));
+            if (y.other.Count > 0) parts.Add(Loc.F("+{0} thưởng câu", y.other.Count));
+            if (y.deco.Count > 0) parts.Add(Loc.T("+cúp câu cá"));
             App.Audio.Play("coin");
             App.Toasts.Show(string.Join(", ", parts), Icon("ball"));
             App.Save.Save();
@@ -1626,20 +2106,24 @@ namespace PokiClash
                 string id = pet.Hero;
                 double left = Home.RestLeft(h, id, Now) / 60000;
                 selBuilding = selLot = -1;
-                ShowPanel($"{hd.name} đang nghỉ", $"Còn {Math.Ceiling(left):0} phút. Có {h.bread} bánh (Bếp làm ra): cho ăn thì hết nghỉ ngay.",
-                    (h.bread > 0 ? "Cho ăn bánh" : null, () =>
+                selPop = true;
+                ShowSel(pet, Loc.F("{0} đang nghỉ", hd.name), Loc.F("Còn {0:0} phút · có {1} bánh", Math.Ceiling(left), h.bread),
+                    Loc.F("Còn {0:0} phút. Có {1} bánh (Bếp làm ra): cho ăn thì hết nghỉ ngay.", Math.Ceiling(left), h.bread),
+                    new RingItem(Icon("bun"), Loc.T("Cho ăn"), BtnColor.Orange, () =>
                     {
                         var e = Home.Feed(S, D, Now, id);
-                        panel.gameObject.SetActive(false);
-                        if (e == HomeErr.Ok) App.Toasts.Show($"{hd.name} hết nghỉ", Icon("flame"));
+                        HideSel();
+                        if (e == HomeErr.Ok) App.Toasts.Show(Loc.F("{0} hết nghỉ", hd.name), Icon("flame"));
                         Done(e);
-                    }), (null, null), (null, null));
+                    }, null, h.bread > 0, () => App.Toasts.Show(Loc.T("Chưa có bánh: Bếp làm ra bánh"), Icon("bun"))));
                 return;
             }
             if (pet.Spot < 0) return;
             selBuilding = pet.Spot / 8;
             selLot = -1;
+            selPop = true;
             RefreshPanel();
+            if (objs.TryGetValue(selBuilding, out var wo)) Pick(wo, true); // công trình tướng đang làm sáng lên
         }
 
         // công trình dưới chân quái đang kéo (theo ô chân, rộng thêm một ô quanh chân thoi cho dễ trúng)
@@ -1712,7 +2196,7 @@ namespace PokiClash
             int slot = b.slots.FindIndex(sl => sl.hero == null);
             if (slot < 0)
             {
-                App.Toasts.Show($"{df.name} đủ người: chạm công trình để đổi ca", Icon("team"));
+                App.Toasts.Show(Loc.F("{0} đủ người: chạm công trình để đổi ca", df.Name), Icon("team"));
                 return false;
             }
             var e = Home.Place(s, d, now, b.id, slot, pet.Hero);
@@ -1725,7 +2209,7 @@ namespace PokiClash
             App.Save.Save();
             App.Audio.Play("buff");
             bool match = df.hasElem && hd.elem == df.elem;
-            App.Toasts.Show($"{hd.name} vào {df.name}: {FarmScene.Dec(Home.Rate(s, d, pet.Hero, b))} {FarmHeroRow.Unit(df.output)}/giờ{(match ? " (hợp hệ)" : "")}", Icon(OutIcon(df.output)));
+            App.Toasts.Show(Loc.F("{0} vào {1}: {2} {3}/giờ{4}", hd.name, df.Name, FarmScene.Dec(Home.Rate(s, d, pet.Hero, b)), FarmHeroRow.Unit(df.output), (match ? Loc.T(" (hợp hệ)") : "")), Icon(OutIcon(df.output)));
             pet.Place(FarmPet.Mode.Work, ToLocal(SlotMap(b, slot)), SpotOf(b.id, slot), WorkKind(b));
             Render();
             return true;

@@ -24,7 +24,7 @@ namespace PokiClash
 {
     public sealed class HeroesScene : SceneRoot
     {
-        public override string Title => "Tướng";
+        public override string Title => Loc.T("Tướng");
 
         [SerializeField] RectTransform grid;
         [SerializeField] HeroTile tilePrefab;
@@ -126,6 +126,13 @@ namespace PokiClash
                     App.Audio.Play("click");
                     HeroDetail.Open(id, Refresh);
                 });
+                // hướng dẫn người mới (C9): chạm tướng đồng hành để nâng Chiêu bằng 2 bản sao của rương đầu
+                if (id == s.starter)
+                {
+                    Guide.Mark("heroes.starter", tile);
+                    if (!Tutorial.Done(s, Tutorial.UpCard) && Progress.CanUpCard(s, d.Cfg, id, CardSlot.Skill))
+                        Guide.Force(Tutorial.HeroTile, "heroes.starter", Loc.F("Chạm {0}.", d.Hero(id).name), null, true);
+                }
                 if (popIn && i < 24) PokiClash.UI.UiMotion.Of(tile).Spawn(popFirst + i * popStep);
             }
             // lưới ngắn lại (lọc hệ): ẩn ô thừa, giữ để dùng lại
@@ -135,8 +142,8 @@ namespace PokiClash
                 emptyText.gameObject.SetActive(list.Count == 0);
                 if (list.Count == 0)
                     emptyText.text = filter >= 0
-                        ? $"Chưa có tướng hệ {Elements.Name(FilterOrder[filter])}\n<size=75%>gom mảnh ở ải đảo, máy bi</size>"
-                        : "Chưa có tướng";
+                        ? Loc.F("Chưa có tướng hệ {0}\n<size=75%>gom mảnh ở ải đảo, máy bi</size>", Elements.Name(FilterOrder[filter]))
+                        : Loc.T("Chưa có tướng");
             }
             PaintFilters();
         }
@@ -266,7 +273,7 @@ namespace PokiClash
                 filterElems[i].SetColor(on ? Theme.Of(FilterOrder[i]) : Theme.Paper2);
                 if (i < filterIcons.Length && filterIcons[i]) filterIcons[i].color = new Color(1, 1, 1, on || filter < 0 ? 1 : 0.45f);
             }
-            sortButton.SetText(SortNames[(int)sort]);
+            sortButton.SetText(Loc.T(SortNames[(int)sort]));
             sortButton.FitWidth();
             if (dirIcon)
             {

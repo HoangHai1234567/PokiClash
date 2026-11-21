@@ -168,7 +168,7 @@ namespace PokiClash
                     string pct = $"{(e.v > 0 ? "+" : "−")}{CardText.Pct(Math.Abs(e.v))}";
                     // chặn hồi máu: nhãn riêng cho rõ ("Chặn hồi máu" khi mất hết, không thì "Hồi máu nhận −50%"); sát thương nhận, hồi máu
                     // nhận, phản đòn ghi tên trước số; còn lại số trước tên
-                    string v = e.stat == Stat.HealTaken && e.v <= -1 ? "Chặn hồi máu"
+                    string v = e.stat == Stat.HealTaken && e.v <= -1 ? Loc.T("Chặn hồi máu")
                         : e.stat == Stat.DmgTaken || e.stat == Stat.HealTaken || e.stat == Stat.Thorns ? $"{CardText.StatLabel(e.stat)} {pct}"
                         : $"{pct} {CardText.StatLabel(e.stat)}";
                     string hex = e.stat == Stat.Thorns && up ? ThornsHex : e.stat == Stat.HealTaken && !up ? "#c79bff" : up ? "#9be36a" : "#ff8a7a";
@@ -184,13 +184,13 @@ namespace PokiClash
                     yield return W(260);
                     break;
                 case EvType.MaxHp:
-                    st.Text(e.side, $"+{NumFmt.Short(e.amount)} máu tối đa", "#7be36a", 21);
+                    st.Text(e.side, Loc.F("+{0} máu tối đa", NumFmt.Short(e.amount)), "#7be36a", 21);
                     st.Ring(e.side, "#f7c948");
                     sfx.Play("heal");
                     yield return W(260);
                     break;
                 case EvType.Shield:
-                    st.Text(e.side, $"+{NumFmt.Short(e.amount)} khiên", "#8ec5ff", 22);
+                    st.Text(e.side, Loc.F("+{0} khiên", NumFmt.Short(e.amount)), "#8ec5ff", 22);
                     st.Ring(e.side, "#4a90d9");
                     sfx.Play("shield");
                     yield return W(260);
@@ -200,7 +200,7 @@ namespace PokiClash
                     yield return W(160);
                     break;
                 case EvType.Rage:
-                    st.Text(e.side, $"{(e.v > 0 ? "+" : "")}{e.v} nộ", "#ffb070", 19);
+                    st.Text(e.side, Loc.F("{0}{1} nộ", (e.v > 0 ? "+" : ""), e.v), "#ffb070", 19);
                     yield return W(160);
                     break;
                 case EvType.Status:
@@ -216,20 +216,20 @@ namespace PokiClash
                     break;
                 }
                 case EvType.Resist:
-                    st.Text(e.side, "Trượt hiệu ứng", "#dddddd", 20);
+                    st.Text(e.side, Loc.T("Trượt hiệu ứng"), "#dddddd", 20);
                     yield return W(200);
                     break;
                 case EvType.Cleanse:
-                    st.Text(e.side, "Sạch hiệu ứng xấu", "#bfe8ff", 21);
+                    st.Text(e.side, Loc.T("Sạch hiệu ứng xấu"), "#bfe8ff", 21);
                     st.Ring(e.side, "#bfe8ff");
                     yield return W(240);
                     break;
                 case EvType.Double:
-                    st.Text(e.side, "Thẻ sau ×2!", "#ffe14a", 24);
+                    st.Text(e.side, Loc.T("Thẻ sau ×2!"), "#ffe14a", 24);
                     yield return W(240);
                     break;
                 case EvType.Stunned:
-                    st.Text(e.side, "Choáng: mất lượt", "#ffe14a", 20);
+                    st.Text(e.side, Loc.T("Choáng: mất lượt"), "#ffe14a", 20);
                     sfx.Play("debuff");
                     yield return W(700);
                     break;
@@ -265,7 +265,7 @@ namespace PokiClash
                     sfx.Play("ult");
                     st.Flash("#fff3c4");
                     if (UltCut != null) yield return UltCut(e.side, c);
-                    else if (Banner != null) host.StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {b.ActiveOf(e.side).Name}", true));
+                    else if (Banner != null) host.StartCoroutine(Banner(c.name, Loc.F("Tuyệt kỹ của {0}", b.ActiveOf(e.side).Name), true));
                     yield return PlayUlt(e.side);
                     break;
                 }
@@ -288,7 +288,7 @@ namespace PokiClash
                     if (e.dodged)
                     {
                         st.Dodge(e.to);
-                        st.Text(e.to, "Né!", "#e3c4ff", 30);
+                        st.Text(e.to, Loc.T("Né!"), "#e3c4ff", 30);
                         sfx.Play("miss");
                         yield return W(260);
                         break;
@@ -297,7 +297,7 @@ namespace PokiClash
                     {
                         st.Number(e.to, e.amount, Theme.Hex(PoisonHex));
                         int stk = Stacks(e.snap, e.to, StatusId.Poison);
-                        st.Text(e.to, stk > 0 ? $"Độc ×{stk}" : "Độc", PoisonHex, 18);
+                        st.Text(e.to, stk > 0 ? Loc.F("Độc ×{0}", stk) : Loc.T("Độc"), PoisonHex, 18);
                         st.Hurt(e.to, false, true);
                         sfx.Hit(false);
                         if (ko)
@@ -312,9 +312,9 @@ namespace PokiClash
                     if (e.dmgKind == DmgKind.Thorns) // phản đòn: số hiện trên KẺ ĐÁNH (e.to), tím gai, chữ "Phản đòn", tia gai văng
                     {
                         st.Number(e.to, e.amount, Theme.Hex(ThornsHex));
-                        st.Text(e.to, "Phản đòn!", ThornsHex, 20);
+                        st.Text(e.to, Loc.T("Phản đòn!"), ThornsHex, 20);
                         st.Spark(e.to, Theme.Hex(ThornsHex), 7, 0.9f);
-                        if (e.blocked > 0) st.Text(e.to, $"Khiên đỡ {NumFmt.Short(e.blocked)}", "#8ec5ff", 18);
+                        if (e.blocked > 0) st.Text(e.to, Loc.F("Khiên đỡ {0}", NumFmt.Short(e.blocked)), "#8ec5ff", 18);
                         st.Hurt(e.to, false);
                         sfx.Hit(false);
                         if (ko)
@@ -348,12 +348,12 @@ namespace PokiClash
                     st.Number(e.to, e.amount, e.crit ? Theme.Hex("#ffe14a") : Theme.Hex("#ff6a5a"), big);
                     if (e.crit)
                     {
-                        st.Text(e.to, "CHÍ MẠNG!", "#ffe14a", 28 * (1 + 0.15f * pw));
+                        st.Text(e.to, Loc.T("CHÍ MẠNG!"), "#ffe14a", 28 * (1 + 0.15f * pw));
                         st.Flash(new Color(1, 0.96f, 0.78f, Mathf.Lerp(0.12f, 0.22f, pw))); // chớp kem nhạt (≤ 0,15 alpha sau nhân)
                     }
-                    if (e.elem > 1) st.Text(e.to, "Khắc hệ ×1,5", "#9be36a", 18);
-                    if (e.elem < 1) st.Text(e.to, "Bị khắc ×0,75", "#c9c0b0", 18);
-                    if (e.blocked > 0) st.Text(e.to, $"Khiên đỡ {e.blocked}", "#8ec5ff", 18);
+                    if (e.elem > 1) st.Text(e.to, Loc.T("Khắc hệ ×1,5"), "#9be36a", 18);
+                    if (e.elem < 1) st.Text(e.to, Loc.T("Bị khắc ×0,75"), "#c9c0b0", 18);
+                    if (e.blocked > 0) st.Text(e.to, Loc.F("Khiên đỡ {0}", e.blocked), "#8ec5ff", 18);
                     sfx.Hit(big, pw);
                     // cú hạ gục: thêm nhịp khựng, rung; con cuối của phe đó (hết trận) mạnh nhất; tướng ngã ngay (clip chết)
                     if (ko)
@@ -372,7 +372,7 @@ namespace PokiClash
                     // của kẻ đánh xong (chiêu cuối dài thì clip chết đã hết): hai bên diễn song song
                     yield return st.Revive(e.side, () =>
                     {
-                        st.Text(e.side, "Hồi sinh!", "#ffe08a", 30);
+                        st.Text(e.side, Loc.T("Hồi sinh!"), "#ffe08a", 30);
                         sfx.Play("level");
                         Haptics.Play(Haptic.HitBig);
                         view.FillHp(e.side, e.snap, 0.6f);
@@ -404,7 +404,7 @@ namespace PokiClash
                     yield return WaitPending();
                     st.KnockDown(e.side); // thường đã ngã từ cú hạ gục; gục vì nguyên nhân khác thì ngã từ đây
                     st.HoldPace(2); // chữ, hạt theo nhịp ×1 cùng clip chết
-                    st.Text(e.side, "Gục!", "#c9c0b0", 34);
+                    st.Text(e.side, Loc.T("Gục!"), "#c9c0b0", 34);
                     // địch gục là tin vui: tiếng nện "stamp" chắc tay; tướng mình gục mới dùng thang đi xuống
                     if (e.side == 1) sfx.Play("stamp", 1, 0.85f);
                     else sfx.Play("lose");
@@ -425,7 +425,7 @@ namespace PokiClash
                     var f = b.sides[e.side].fighters[e.to];
                     st.SetActor(e.side, f.hero, f.boss, true, Teams.LookStar(b.Data.Cfg, f));
                     view.FillPlate(e.side);
-                    st.Text(e.side, e.side == 0 ? $"{f.hero.name}, ra sân!" : $"{f.hero.name} ra sân", "#fff6c8", 22);
+                    st.Text(e.side, e.side == 0 ? Loc.F("{0}, ra sân!", f.hero.name) : Loc.F("{0} ra sân", f.hero.name), "#fff6c8", 22);
                     yield return W(300);
                     break;
                 }

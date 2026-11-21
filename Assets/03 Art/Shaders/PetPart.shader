@@ -64,20 +64,25 @@ Shader "PokiClash/PetPart"
                 float2 sz = float2(w, h);
                 float fp = max(length(dx * sz), length(dy * sz)); // điểm atlas trên một điểm ảnh
                 int n = (int)clamp(ceil(fp / 1.4), 1, 4);
-                if (n == 1) return _MainTex.SampleLevel(sampler_MainTex, uv, 0);
-                float4 acc = 0;
-                float inv = 1.0 / n;
-                [loop] for (int a = 0; a < n; a++)
+                // một lối ra (return sớm trước vòng lặp làm trình dịch HLSL báo "biến có thể chưa khởi tạo", 2026-11-21)
+                float4 r = _MainTex.SampleLevel(sampler_MainTex, uv, 0);
+                if (n > 1)
                 {
-                    [loop] for (int b = 0; b < n; b++)
+                    float4 acc = 0;
+                    float inv = 1.0 / n;
+                    [loop] for (int a = 0; a < n; a++)
                     {
-                        float2 o = ((a + 0.5) * inv - 0.5) * dx + ((b + 0.5) * inv - 0.5) * dy;
-                        float4 t = _MainTex.SampleLevel(sampler_MainTex, uv + o, 0);
-                        acc += float4(t.rgb * t.a, t.a);
+                        [loop] for (int b = 0; b < n; b++)
+                        {
+                            float2 o = ((a + 0.5) * inv - 0.5) * dx + ((b + 0.5) * inv - 0.5) * dy;
+                            float4 t = _MainTex.SampleLevel(sampler_MainTex, uv + o, 0);
+                            acc += float4(t.rgb * t.a, t.a);
+                        }
                     }
+                    acc *= inv * inv;
+                    r = float4(acc.a > 1e-4 ? acc.rgb / acc.a : 0, acc.a);
                 }
-                acc *= inv * inv;
-                return fixed4(acc.a > 1e-4 ? acc.rgb / acc.a : 0, acc.a);
+                return r;
             }
 
             v2f vert(appdata v)

@@ -34,17 +34,17 @@ namespace PokiClash
             name = "goi_" + pr.id;
             card.color = owned ? Theme.Hex("#e6f7d9") : Theme.Paper;
             icon.sprite = App.Art.Icon(pass ? "clock" : "tv"); // giữ material mặc định như code cũ (material = null)
-            title.text = pr.name;
-            desc.text = pr.desc;
+            title.text = pr.Name;
+            desc.text = pr.Desc;
             status.text = pass
-                ? owned ? $"Còn {Math.Ceiling((s.ent.passUntil - now) / 86400000)} ngày" : "Chưa có"
-                : owned ? "Đã mua" : "Chưa có";
+                ? owned ? Loc.F("Còn {0} ngày", Math.Ceiling((s.ent.passUntil - now) / 86400000)) : Loc.T("Chưa có")
+                : owned ? Loc.T("Đã mua") : Loc.T("Chưa có");
             status.color = owned ? Theme.GreenD : Theme.Ink3;
             bool show = storeReady && (pass || !owned);
             buy.name = "mua_" + pr.id;
             buy.gameObject.SetActive(show);
             if (!show) return;
-            buy.SetText(pass && owned ? "Gia hạn" : "Mua");
+            buy.SetText(pass && owned ? Loc.T("Gia hạn") : Loc.T("Mua"));
             buy.SetOnClick(onBuy);
         }
     }

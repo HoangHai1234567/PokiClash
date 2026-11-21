@@ -262,12 +262,18 @@ namespace PokiClash
                 yield return null;
             }
             backdrop.color = new Color(0, 0, 0, Dim);
-            StartCoroutine(Title(slots.Count > 1 ? $"Mở {slots.Count} rương" : "Mở rương"));
+            StartCoroutine(Title(slots.Count > 1 ? Loc.F("Mở {0} rương", slots.Count) : Loc.T("Mở rương")));
             // rương bay vào từ khay
             var start = (Vector2)root.InverseTransformPoint(from);
             for (int i = 0; i < slots.Count; i++) StartCoroutine(FlyIn(slots[i], start, i * 0.08f));
             yield return new WaitForSecondsRealtime(0.4f + slots.Count * 0.08f);
             if (slots.Count > 1) openAll = MakeButton("Mở tất cả", new Vector2(0, -560 * k * 0.95f), Theme.Yellow, OpenAll);
+            // hướng dẫn người mới (GD_Claude/25_FTUE.md bước C5): rương đầu tiên, chạm để mở
+            if (slots.Count > 0)
+            {
+                Guide.Mark("chest.open", slots[0].chest);
+                Guide.Force(Tutorial.Chest + "t", "chest.open", Loc.T("Rương! Chạm để mở."));
+            }
             // chờ mở hết
             while (slots.Any(q => !q.opened)) yield return null;
             if (openAll) openAll.gameObject.SetActive(false);
@@ -415,7 +421,7 @@ namespace PokiClash
             }
             s.chest.localEulerAngles = Vector3.zero;
             s.chest.anchoredPosition = new Vector2(0, -w * 0.4f);
-            App.Audio.Play("chest");
+            App.Audio.Play("chestOpen");
             Haptics.Play(gold ? Haptic.OpenGold : tier == 1 ? Haptic.OpenSilver : Haptic.OpenWood);
             // 2. bật nắp: có ảnh rương mở sạch thì đổi ảnh và bóp giãn; thiếu thì nắp, thân bay ra như capsule (bản cũ)
             var openS = S($"pk_ruong_{Key(s.item.kind)}_mo_sach");
@@ -872,7 +878,8 @@ namespace PokiClash
                 StartCoroutine(PopTile(grid, rt, rar, i * 0.09f));
             }
             yield return new WaitForSecondsRealtime(0.667f + tiles.Count * 0.09f);
-            confirm = MakeButton(left > 0 ? $"Mở tiếp ({left})" : "Nhận", new Vector2(0, -560 * k * 0.95f), Theme.Yellow, () => done = true);
+            confirm = MakeButton(left > 0 ? $"Mở tiếp ({left})" : "Nhận", new Vector2(0, -560 * k * 0.95f), Theme.Yellow, () => done = true,
+                left > 0 ? Loc.F("Mở tiếp ({0})", left) : Loc.T("Nhận"));
         }
 
         IEnumerator Shrink(RectTransform rt)
@@ -951,7 +958,8 @@ namespace PokiClash
             }
         }
 
-        SketchButton MakeButton(string text, Vector2 at, Color color, Action click)
+        // text: chữ tiếng Việt, cũng là tên vật "nut_<text>" (tour tìm theo tên); shown: chữ hiện ra (mặc định Loc.T(text))
+        SketchButton MakeButton(string text, Vector2 at, Color color, Action click, string shown = null)
         {
             var prefab = Theme.Prefabs ? Theme.Prefabs.buttonBig : null;
             if (!prefab) return null;
@@ -961,7 +969,7 @@ namespace PokiClash
             rt.anchorMin = rt.anchorMax = new Vector2(0.5f, 0.5f);
             rt.pivot = new Vector2(0.5f, 0.5f);
             rt.anchoredPosition = at;
-            b.SetText(text);
+            b.SetText(shown ?? Loc.T(text));
             // chữ nút to tràn sát mép nút (người dùng 2026-11-21): chữ cao ~36 % nút, nút rộng theo chữ
             var lb = b.Label;
             if (lb)

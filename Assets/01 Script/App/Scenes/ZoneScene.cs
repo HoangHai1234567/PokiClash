@@ -38,6 +38,9 @@ namespace PokiClash
     {
         public static Elem LastZone = Elem.Thuy;
 
+        // nhạc theo hệ của đảo: dao_kim, dao_moc, dao_thuy, dao_hoa, dao_tho (BakedArt.music)
+        public override string Music => "dao_" + LastZone.ToString().ToLowerInvariant();
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)] // Play không reload domain
         static void ResetStatics() => LastZone = Elem.Thuy;
         // bản đồ phóng to và cuộn dọc, để ải ở hai đầu không bị khung trên dưới che; đảo 70 ải chưa có bản đồ dài thì phóng to hơn
@@ -100,7 +103,7 @@ namespace PokiClash
         readonly Dictionary<int, Vector2> afkAt = new Dictionary<int, Vector2>(); // chỗ nhãn AFK của từng ải (id) trên bản đồ
         RectTransform afkTag;
 
-        public override string Title => App.Data.Zone(zone)?.name ?? "Đảo";
+        public override string Title => App.Data.Zone(zone)?.name ?? Loc.T("Đảo");
 
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
@@ -480,10 +483,10 @@ namespace PokiClash
             var at = Islands.Chests(z.id);
             p.elem.Set(z.id);
             int next = Progress.NextLevel(s, App.Data, z.id);
-            p.level.text = next > 0 ? $"Ải kế cấp {next} · boss cấp {z.levelMax}" : $"Boss cấp {z.levelMax}";
+            p.level.text = next > 0 ? Loc.F("Ải kế cấp {0} · boss cấp {1}", next, z.levelMax) : Loc.F("Boss cấp {0}", z.levelMax);
             p.diff.Set(Progress.DifficultyOf(s, App.Data, z));
             FitLevelLine();
-            p.count.text = $"{prog}/{size} ải";
+            p.count.text = Loc.F("{0}/{1} ải", prog, size);
             p.bar.Set(Theme.Of(z.id), prog / (float)size);
             // rương mốc đặt theo tỉ lệ số ải trên thanh; rương cuối (vàng, to) ở cuối thanh; rương thừa trong prefab thì ẩn
             int canClaim = Progress.ZoneChestReady(s, z.id);
@@ -502,7 +505,7 @@ namespace PokiClash
                 c.wobble.enabled = can;
                 if (!can) c.image.rectTransform.localEulerAngles = Vector3.zero;
             }
-            p.desc.text = $"{z.sub}. Địch hệ {Elements.Name(z.id)}: dùng tướng hệ {Elements.Name(Progress.CounterOf(z.id))} để khắc.";
+            p.desc.text = Loc.F("{0}. Địch hệ {1}: dùng tướng hệ {2} để khắc.", z.sub, Elements.Name(z.id), Elements.Name(Progress.CounterOf(z.id)));
         }
 
         // nhãn độ khó đứng ngay sau dòng cấp (đặt cứng thì cấp 3 chữ số như "boss cấp 190" chui xuống dưới nhãn); dòng dài quá chỗ
@@ -537,7 +540,7 @@ namespace PokiClash
             if (Progress.ZoneChestReady(s, zone) != n)
             {
                 App.Audio.Play("error");
-                App.Toasts.Show(s.zoneChests[(int)zone] > n ? "Đã nhận rương này" : $"Qua {Islands.Chests(zone)[n]} ải của đảo để mở", Icon("chest"));
+                App.Toasts.Show(s.zoneChests[(int)zone] > n ? Loc.T("Đã nhận rương này") : Loc.F("Qua {0} ải của đảo để mở", Islands.Chests(zone)[n]), Icon("chest"));
                 return;
             }
             var r = Progress.ClaimZoneChest(s, d, zone, new Rng(Rng.RandomSeed()));
@@ -559,12 +562,12 @@ namespace PokiClash
             Clear(p.enemies);
             if (next == null)
             {
-                p.doneTitle.text = $"Đã chinh phục {z.name}!";
+                p.doneTitle.text = Loc.F("Đã chinh phục {0}!", z.name);
                 return;
             }
             // đảo 70 ải: kèm kiểu ải (Tướng mới, Bầy lính, Cửa ải…)
             string tag = next.tag != StageTag.None ? $" · {ZoneChapterRow.TagText(next)}" : "";
-            p.nextTitle.text = $"Ải {next.idx}/{Islands.Size(zone)} · {next.name}{tag}";
+            p.nextTitle.text = Loc.F("Ải {0}/{1} · {2}{3}", next.idx, Islands.Size(zone), next.name, tag);
             // địch xếp từ mép trái chữ tên ải, mỗi con rộng bằng nhãn của nó
             float x = p.nextTitle.rectTransform.offsetMin.x;
             for (int i = 0; i < next.enemies.Count; i++)
@@ -578,10 +581,20 @@ namespace PokiClash
             }
             var gift = next.drops.FirstOrDefault(x => x.gift);
             var shards = next.drops.Where(x => !x.gift).Select(x => d.Hero(x.hero).name).Distinct().ToList();
-            string extra = gift != null ? $" · {d.Hero(gift.HeroFor(s)).name} gia nhập đội!" : shards.Count > 0 ? $" · rơi mảnh {string.Join(", ", shards)}" : "";
-            p.reward.text = $"+{Progress.StageBalls(d, next, true)} bi{extra}";
+            string extra = gift != null ? Loc.F(" · {0} gia nhập đội!", d.Hero(gift.HeroFor(s)).name) : shards.Count > 0 ? Loc.F(" · rơi mảnh {0}", string.Join(", ", shards)) : "";
+            p.reward.text = Loc.F("+{0} bi", Progress.StageBalls(d, next, true)) + extra;
             int id = next.id;
             p.fight.SetOnClick(() => StagePrep.Open(id));
+            // hướng dẫn người mới: ải 1 đảo của tướng đồng hành (A8), ải 1 đảo mình khắc (trận 2)
+            Guide.Mark("zone.fight", p.fight);
+            if (next.idx == 1 && s.starter != null)
+            {
+                var h = d.Hero(s.starter);
+                if (Progress.TotalCleared(s) == 0 && zone == h.elem)
+                    Guide.Force(Tutorial.Fight, "zone.fight", Loc.T("Ải 1. Chạm để xem đối thủ."), null, true);
+                else if (Tutorial.Done(s, Tutorial.Isles) && !Tutorial.Done(s, Tutorial.CounterGo) && zone == Tutorial.CounterIsland(s, d))
+                    Guide.Force(Tutorial.CounterIsle + "z", "zone.fight", Loc.F("Ải 1: {0}. Chạm để xem đối thủ.", d.Hero(next.enemies[0].hero).name), null, true);
+            }
         }
     }
 }

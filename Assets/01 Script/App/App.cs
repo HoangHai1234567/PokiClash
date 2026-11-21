@@ -38,6 +38,9 @@ namespace PokiClash
         // màn mở game / màn tải đang che sảnh: hộp giới thiệu, nút Back chờ nó xong
         public static bool Booting => BootTitle.Current != null || ShipVoyage.Booting;
 
+        // mây chuyển scene đang che hoặc đang chặn chạm (lớp phủ hướng dẫn chờ)
+        public static bool Covered => I && I.cloud && (I.cloud.Closed || I.cloud.Blocking);
+
 #if UNITY_EDITOR
         // menu "PokiClash/Thử/Bỏ màn mở game": Play vào thẳng sảnh
         public const string SkipBootPref = "PokiClash.SkipBoot";
@@ -120,9 +123,11 @@ namespace PokiClash
                 : GetComponentInChildren<UnityEngine.EventSystems.EventSystem>(true);
             if (es) es.pixelDragThreshold = Mathf.Max(10, Mathf.RoundToInt((Screen.dpi > 0 ? Screen.dpi : 160) * 0.1f));
 
+            LocService.Init(); // ngôn ngữ trước dữ liệu: GameDb.Build dịch tên tướng, thẻ, đảo, ải
             GameDb.Build(heroDb, cardDb, zoneDb, balance);
             Theme.Init(uiAssets);
             ArtLibrary.Current = artLibrary;
+            LocService.Tree(gameObject);
 
             // camera vẽ mọi canvas: gắn lại các canvas của App (Awake của chúng có thể chạy trước)
             PokiCanvas.UiCamera = cam;
@@ -130,17 +135,24 @@ namespace PokiClash
 
             Audio = audioService;
             Audio.Init();
-            SketchButton.Sound = n => Audio.Play(n);
+            SketchButton.Sound = n =>
+            {
+                Audio.Play(n);
+                // bấm nút một tích rất nhẹ, công tắc tích rõ hơn; "error" (nút khoá) do AudioService.Play rung
+                if (n != "error") Haptics.Play(n == "toggle" ? Haptic.UiToggle : Haptic.UiTap);
+            };
 
             Bars = bars;
             Modals = modals;
             Toasts = toasts;
             cloud.CloseNow();
             Router = router;
+            Router.Entered += r => Audio.SceneMusic = AudioService.MusicFor(Router.Current, r, Audio.SceneMusic); // nhạc theo scene
             if (voyagePrefab)
             {
                 var v = Instantiate(voyagePrefab);
                 v.name = voyagePrefab.name;
+                LocService.Tree(v);
                 DontDestroyOnLoad(v.gameObject);
                 Router.SetVoyage(v);
             }
@@ -155,7 +167,7 @@ namespace PokiClash
             if (!ok)
             {
                 // báo trước khi làm mới (bản cũ đã giữ thành .bak)
-                Modals.Alert("Bản lưu", Save.Notice, "Bắt đầu lại", () =>
+                Modals.Alert(Loc.T("Bản lưu"), Save.Notice, Loc.T("Bắt đầu lại"), () =>
                 {
                     Save.CreateNew();
                     Go();
@@ -168,6 +180,18 @@ namespace PokiClash
         }
 
         CloudCover CloudOf() => cloud;
+
+        // Sổ tay: đổi ngôn ngữ lúc chạy (2026-11-21). Dựng lại dữ liệu (tên đã dịch), dịch lại khung app và màn tải, nạp lại scene đang mở.
+        public static void SetLanguage(string lang)
+        {
+            if (I == null || lang == Loc.Lang) return;
+            LocService.Set(lang);
+            GameDb.Build(I.heroDb, I.cardDb, I.zoneDb, I.balance);
+            LocService.Tree(I.gameObject);
+            if (ShipVoyage.I) LocService.Tree(ShipVoyage.I);
+            Bars.Refresh();
+            Router.Go(string.IsNullOrEmpty(Router.Current) ? SceneIds.Hub : Router.Current);
+        }
 
         void Go()
         {
@@ -217,6 +241,7 @@ namespace PokiClash
         public static IEnumerator CoverThen(Action mid)
         {
             Audio?.Play("whoosh");
+            Haptics.Play(Haptic.Transition);
             yield return I.cloud.Close();
             mid?.Invoke();
             yield return new WaitForSecondsRealtime(0.06f);

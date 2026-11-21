@@ -93,6 +93,7 @@ namespace PokiClash
             if (Current || !prefab) return;
             var b = Instantiate(prefab);
             b.name = prefab.name;
+            PokiClash.Game.LocService.Tree(b);
             DontDestroyOnLoad(b.gameObject);
         }
 
@@ -311,7 +312,7 @@ namespace PokiClash
 
         void ShowTip()
         {
-            p.tip.text = $"<color=#b8382a><b>Mẹo:</b></color> {Tips[tipIdx % Tips.Length]}";
+            p.tip.text = Loc.F("<color=#b8382a><b>Mẹo:</b></color> {0}", Loc.T(Tips[tipIdx % Tips.Length]));
             tipIdx++;
         }
 

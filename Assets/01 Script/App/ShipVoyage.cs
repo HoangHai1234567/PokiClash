@@ -467,8 +467,42 @@ namespace PokiClash
         void ShowTip()
         {
             if (!tip) return;
-            tip.text = $"<color=#b8382a><b>Mẹo:</b></color> {Tips[tipIdx % Tips.Length]}";
+            tip.text = Loc.F("<color=#b8382a><b>Mẹo:</b></color> {0}", Loc.T(NextTip()));
             tipIdx++;
+        }
+
+        // người mới chỉ thấy câu về vòng chơi; các câu khác hiện khi đã học tới phần đó (GD_Claude/25_FTUE.md bước A1, mục 6)
+        string NextTip()
+        {
+            var s = App.Save?.Data;
+            if (s == null || Tutorial.IsLegacy(s)) return Tips[tipIdx % Tips.Length];
+            if (!Tutorial.CoreDone(s)) return "Thắng ải lấy bi, thả bi vào máy để mạnh lên.";
+            for (int k = 0; k < Tips.Length; k++)
+            {
+                int i = (tipIdx + k) % Tips.Length;
+                if (TipOpen(s, i))
+                {
+                    tipIdx += k;
+                    return Tips[i];
+                }
+            }
+            return "Thắng ải lấy bi, thả bi vào máy để mạnh lên.";
+        }
+
+        // thứ tự như Tips: khắc hệ ×2, lượt đánh, chiêu và tuyệt kỹ, AFK, cấp chung, tàu về Nhà
+        static bool TipOpen(SaveData s, int i)
+        {
+            switch (i)
+            {
+                case 0:
+                case 1: return Tutorial.Done(s, Tutorial.Counter);
+                case 2: return Tutorial.Done(s, Tutorial.RunQueue);
+                case 3: return Tutorial.Done(s, Tutorial.Ult);
+                case 4: return Tutorial.Done(s, Tutorial.AfkBtn);
+                case 5: return Tutorial.Done(s, Tutorial.Exp);
+                case 6: return Home.Open(s, GameData.Current.Cfg);
+                default: return true;
+            }
         }
 
         // ---------- mỗi khung ----------

@@ -2,14 +2,16 @@
 // Nút Back của Android mở hộp tạm dừng.
 // Prefab màn hình Assets/04 Prefabs/Screens/Battle: gốc mang BattleScene, BattleController, BattleView; giao diện trận dựng sẵn trong khung.
 using UnityEngine;
+using PokiClash.Core;
 
 namespace PokiClash
 {
     public sealed class BattleScene : SceneRoot
     {
         public override TopBar Bar => TopBar.None;
-        public override string Title => "Trận";
+        public override string Title => Loc.T("Trận");
         public override string BackTo => SceneIds.Zone;
+        public override string Music => ctl && ctl.IsBoss ? "boss" : "tran"; // ải có boss (mỗi ải thứ 10, Hang, Đền) dùng nhạc boss
 
         [SerializeField] BattleController ctl;
         bool started;

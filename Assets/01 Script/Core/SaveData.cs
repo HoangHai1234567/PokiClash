@@ -113,6 +113,7 @@ namespace PokiClash.Core
             s.afk.lastTick = now;
             foreach (var h in data.Heroes) s.heroes[h.id] = new HeroProg();
             if (starter != null) s.ChooseStarter(starter);
+            else Tutorial.Begin(s); // người chơi mới thật (game tạo, chưa chọn tướng): chạy hướng dẫn (GD_Claude/25_FTUE.md)
             return s;
         }
 

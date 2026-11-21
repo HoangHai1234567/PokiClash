@@ -136,7 +136,7 @@ namespace PokiClash
             int bi = land.habs[k - 1].stage;
             var st = landStages[Mathf.Clamp(bi - 1, 0, landStages.Count - 1)];
             var boss = App.Data != null ? App.Data.Hero(Teams.StageLead(st, App.Data).hero) : null;
-            return $"Hạ {(boss != null ? boss.name : "boss")} ở ải {bi} để mở vùng này";
+            return Loc.F("Hạ {0} ở ải {1} để mở vùng này", (boss != null ? boss.name : "boss"), bi);
         }
 
         // ---------- dựng: dưới mây (ghi chú, rương), trên mây (hiệu ứng rò qua mây, mắt boss) ----------
@@ -148,7 +148,8 @@ namespace PokiClash
             {
                 var c = land.secs[k];
                 bool locked = k >= landOpened;
-                var noteArt = Egg(c.note);
+                // ghi chú bút chì là ảnh có chữ: bản dịch là ảnh <tên>_<ngôn ngữ> (ArtGen/Islands/ve_trung_en.py), thiếu thì dùng bản Việt
+                var noteArt = (Loc.Lang != Loc.Vi && c.note != null ? Egg(c.note + "_" + Loc.Lang) : null) ?? Egg(c.note);
                 if (locked && noteArt)
                     eggNotes.Add((EggItem(secPrefab, noteArt, "ghi_chu_" + k, new Vector2((float)c.nx * mapW, (float)c.ny * mapH), (float)c.nw * mapW, false, OverParent), k));
                 var chestArt = Egg(ChestArt);
@@ -438,7 +439,7 @@ namespace PokiClash
             if (ch.sec >= landOpened)
             {
                 App.Audio?.Play("pick");
-                App.Toasts.Show("Rương bí ẩn: mở vùng này để nhận", Icon("chest"));
+                App.Toasts.Show(Loc.T("Rương bí ẩn: mở vùng này để nhận"), Icon("chest"));
                 StartCoroutine(Wobble(ch.img.rectTransform));
                 return;
             }
@@ -447,7 +448,7 @@ namespace PokiClash
             App.Audio?.Play("chest");
             s.balls += ch.gift;
             LandBits.Add(s, GiftKey, zone, ch.sec);
-            App.Toasts.Show($"Rương bí ẩn: +{ch.gift} bi", Icon("chest"));
+            App.Toasts.Show(Loc.F("Rương bí ẩn: +{0} bi", ch.gift), Icon("chest"));
             App.Save.Save(); // màn dựng lại, rương biến mất
         }
 
@@ -544,7 +545,7 @@ namespace PokiClash
         IEnumerator Sneeze(int k, Vector2 at)
         {
             App.Audio?.Play("whoosh");
-            App.Toasts.Show("Hắt xì!", Icon("lock"));
+            App.Toasts.Show(Loc.T("Hắt xì!"), Icon("lock"));
             var list = PushClouds(at, 720, 300, 0.3f, k);
             Kick(at, 720, 1400, 0.8f, k);
             yield return new WaitForSecondsRealtime(1.0f);
@@ -556,7 +557,7 @@ namespace PokiClash
                 s.balls += PokeGift;
                 LandBits.Add(s, PokeKey, zone, k);
                 App.Audio?.Play("coin");
-                App.Toasts.Show($"Boss hắt xì rơi ra +{PokeGift} bi", Icon("chest"));
+                App.Toasts.Show(Loc.F("Boss hắt xì rơi ra +{0} bi", PokeGift), Icon("chest"));
                 App.Save.Save();
             }
         }
@@ -631,26 +632,26 @@ namespace PokiClash
             {
                 case "ult":
                     var h = landHeroes.FirstOrDefault(x => x.locked && land.SectionOf(x.st.idx) == k && x.sticker != null);
-                    if (h == null) return "không có tướng khoá đã dựng ở vùng " + k;
-                    if (!h.sticker.HasClip(StageView.Skill)) return "tướng ải " + h.st.idx + " không có clip tuyệt kỹ";
+                    if (h == null) return Loc.T("không có tướng khoá đã dựng ở vùng ") + k;
+                    if (!h.sticker.HasClip(StageView.Skill)) return Loc.T("tướng ải ") + h.st.idx + Loc.T(" không có clip tuyệt kỹ");
                     if (ultCo != null) StopCoroutine(ultCo);
                     ultCo = StartCoroutine(Ult(h));
-                    return "tuyệt kỹ ải " + h.st.idx;
+                    return Loc.T("tuyệt kỹ ải ") + h.st.idx;
                 case "poke":
                     var sc = eggClouds.FirstOrDefault(c => c.sec == k && c.img);
-                    if (sc == null) return "không có mây vùng " + k;
+                    if (sc == null) return Loc.T("không có mây vùng ") + k;
                     for (int i = 0; i < PokeSneeze; i++) PokeCloud(sc);
-                    return "chọc vùng " + k;
+                    return Loc.T("chọc vùng ") + k;
                 case "poke1": // một lần chạm (thử chạm liên tục)
                     var s1 = eggClouds.Where(c => c.sec == k && c.img).OrderBy(c => c.pos.y).Skip(eggClouds.Count(c => c.sec == k) / 2).FirstOrDefault();
-                    if (s1 == null) return "không có mây vùng " + k;
+                    if (s1 == null) return Loc.T("không có mây vùng ") + k;
                     PokeCloud(s1);
-                    return "chạm vùng " + k;
+                    return Loc.T("chạm vùng ") + k;
                 case "chest":
                     var ch = eggChests.FirstOrDefault(c => c.sec == k);
-                    if (ch == null) return "không có rương vùng " + k;
+                    if (ch == null) return Loc.T("không có rương vùng ") + k;
                     TapChest(ch);
-                    return "chạm rương vùng " + k;
+                    return Loc.T("chạm rương vùng ") + k;
             }
             return "?";
         }

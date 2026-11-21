@@ -41,7 +41,7 @@ namespace PokiClash
             p.bubbleClick.OnClick = onHarvest;
             p.lockIcon.gameObject.SetActive(!open);
             p.lockText.gameObject.SetActive(!open);
-            p.lockText.text = open ? "" : $"Cấp {Farm.SpotLevel(d.Cfg, i)}";
+            p.lockText.text = open ? "" : Loc.F("Cấp {0}", Farm.SpotLevel(d.Cfg, i));
             p.plus.gameObject.SetActive(open && empty);
             p.ground.color = open ? new Color(1, 1, 1, empty ? 0.85f : 0.45f) : new Color(0.3f, 0.24f, 0.18f, 0.35f);
 
@@ -56,7 +56,7 @@ namespace PokiClash
                 double hours = Farm.Hours(s, d, sp.hero);
                 p.ring.color = working ? Theme.Green : Theme.Paper3;
                 p.ring.fillAmount = working ? Mathf.Clamp01((float)(sp.energy / hours)) : 1;
-                p.ringText.text = working ? FarmScene.Clock(sp.energy) : "hết";
+                p.ringText.text = working ? FarmScene.Clock(sp.energy) : Loc.T("hết");
                 p.ringText.color = working ? Theme.Ink : Theme.RedD;
             }
         }

@@ -10,6 +10,7 @@
 // "PokiClash/Prefab/Đảo sảnh: ghép ảnh, kéo, mây viền".
 using System;
 using System.Collections;
+using System.Linq;
 using PokiClash.Core;
 using PokiClash.UI;
 using TMPro;
@@ -21,15 +22,16 @@ namespace PokiClash
     public sealed class HubScene : SceneRoot
     {
         public override TopBar Bar => TopBar.Hud;
-        public override string Title => "Sảnh";
+        public override string Title => Loc.T("Sảnh");
 
         // công trình side meta theo thứ tự đặt trên sảnh: tên, icon, điều kiện mở, lệch so với làng (toạ độ ảnh)
-        public static readonly (string name, string icon, string need, float dx, float dy)[] Buildings =
+        // (dựng mỗi lần đọc để chữ theo ngôn ngữ đang dùng)
+        public static (string name, string icon, string need, float dx, float dy)[] Buildings => new[]
         {
-            ("Nhà", "seed", "Có 3 tướng để mở Nhà", -0.27f, 0.035f), // Nhà thay Trang trại (2026-11-18), icon giữ "seed"
-            ("Đền Huy Hiệu", "crown", "Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu", 0.27f, 0.035f),
-            ("Hang Tiềm Năng", "rock", $"Đạt cấp {Progress.CaveLevel} để mở Hang Tiềm Năng", 0f, 0.155f),
-            ("Cây bi", "leaf", "Qua ải 1 để có cây bi đầu tiên", -0.27f, 0.155f),
+            (Loc.T("Nhà"), "seed", Loc.T("Có 3 tướng để mở Nhà"), -0.27f, 0.035f), // Nhà thay Trang trại (2026-11-18), icon giữ "seed"
+            (Loc.T("Đền Huy Hiệu"), "crown", Loc.T("Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu"), 0.27f, 0.035f),
+            (Loc.T("Hang Tiềm Năng"), "rock", Loc.F("Đạt cấp {0} để mở Hang Tiềm Năng", Progress.CaveLevel), 0f, 0.155f),
+            (Loc.T("Cây bi"), "leaf", Loc.T("Qua ải 1 để có cây bi đầu tiên"), -0.27f, 0.155f),
         };
 
         // một nút tròn ở hàng đáy; chấm đỏ số (nếu có) bật theo dữ liệu
@@ -138,7 +140,7 @@ namespace PokiClash
                 {
                     App.Audio.Play("error");
                     var farm = System.Array.Find(Buildings, b => b.icon == "seed");
-                    App.Toasts.Show(farm.need ?? "Nhà chưa mở", Icon("lock"));
+                    App.Toasts.Show(farm.need ?? Loc.T("Nhà chưa mở"), Icon("lock"));
                 }
             };
         }
@@ -153,6 +155,7 @@ namespace PokiClash
 
         public override void Enter(object args)
         {
+            softTip = false;
             HookPier();
             Chrome(true, false);
             Render();
@@ -163,7 +166,8 @@ namespace PokiClash
 
         public override void Refresh() => Render();
 
-        // người chơi mới: màn giới thiệu, rồi chọn tướng khởi đầu (bản lưu chưa có starter thì mở hộp chọn mỗi lần vào sảnh)
+        // người chơi mới: lời mở đầu (GD_Claude/25_FTUE.md bước A2, thay hộp giới thiệu 4 khung), rồi chọn tướng khởi đầu (bản lưu
+        // chưa có starter thì mở hộp chọn mỗi lần vào sảnh). Chưa dựng lớp phủ hướng dẫn thì dùng hộp giới thiệu cũ.
         IEnumerator IntroLater()
         {
             while (App.Booting) yield return null; // màn mở game còn che sảnh
@@ -172,9 +176,145 @@ namespace PokiClash
             {
                 if (App.Save.Data.starter == null) Dialogs.Starter(_ => Render());
             }
-            if (!App.Save.Data.intro) Dialogs.Intro(PickStarter);
-            else PickStarter();
+            void Seen()
+            {
+                App.Save.Data.intro = true;
+                App.Save.Save();
+                PickStarter();
+            }
+            if (App.Save.Data.intro) PickStarter();
+            else if (!Guide.Show(Tutorial.Intro, Guide.Mode.Say, null,
+                         Loc.T("<b>Sổ Tay Phiêu Lưu</b>\nNăm hòn đảo, năm hệ. Chọn một người bạn để lên đường."), Seen, true))
+                Dialogs.Intro(PickStarter);
         }
+
+        // ---------- hướng dẫn người mới trên sảnh (GD_Claude/25_FTUE.md) ----------
+
+        Coroutine tutor;
+
+        // chọn bước hướng dẫn kế tiếp theo trạng thái bản lưu (tắt game giữa chừng thì vào lại đúng bước), chờ sảnh rảnh rồi mới hiện
+        void TutorNext()
+        {
+            if (tutor != null || !isActiveAndEnabled) return;
+            tutor = StartCoroutine(TutorLater());
+        }
+
+        IEnumerator TutorLater()
+        {
+            yield return new WaitForSecondsRealtime(0.4f);
+            // App chưa sẵn (script nạp lại giữa Play làm mất các dịch vụ tĩnh): thôi
+            if (App.Router == null || App.Modals == null || App.Save == null)
+            {
+                tutor = null;
+                yield break;
+            }
+            while (App.Booting || App.Router.Busy || reveal != null || App.Modals.Count > 0 || !Guide.Idle) yield return null;
+            tutor = null;
+            var s = App.Save.Data;
+            if (!s.intro || string.IsNullOrEmpty(s.starter) || Tutorial.Off) yield break;
+            TutorStep(s, App.Data);
+        }
+
+        void TutorStep(SaveData s, GameData d)
+        {
+            var h = Tutorial.Starter(s, d);
+            if (h == null) return;
+            var cfg = d.Cfg;
+            // A6–A7: vào đảo của tướng đồng hành, đánh ải 1 (trận gương)
+            if (Progress.TotalCleared(s) == 0)
+            {
+                if (!Tutorial.Done(s, Tutorial.Home1))
+                    Guide.Say(Tutorial.Home1, Loc.F("{0} là nhà mình. Đi nào!", d.Zone(h.elem)?.name ?? Elements.Name(h.elem)), TutorNext);
+                else
+                {
+                    if (pan && fog && fog.Center(h.elem) && !Guide.Pending(Tutorial.Island)) pan.GlideTo(fog.Center(h.elem));
+                    Guide.Force(Tutorial.Island, "hub.zone." + h.elem, Loc.T("Chạm đảo để vào."), null, true);
+                }
+                return;
+            }
+            // B8, C7: thả hết bi trong Máy Bi (lần đầu có kết quả viết sẵn)
+            if (!Tutorial.Done(s, Tutorial.NoBalls))
+            {
+                if (s.balls > 0 || s.chests.Count > 0)
+                {
+                    Guide.Force(Tutorial.Balls, "hub.machine",
+                        Tutorial.Done(s, Tutorial.Drop) ? Loc.T("Thả hết bi trong Máy Bi nhé.") : Loc.T("Bi! Thả bi vào Máy Bi để lên cấp."), null, true);
+                    return;
+                }
+                Guide.Skip(Tutorial.Balls, Tutorial.NoBalls);
+            }
+            // C8: nâng Chiêu bằng 2 bản sao của rương đầu
+            if (!Tutorial.Done(s, Tutorial.UpCard))
+            {
+                if (Progress.CanUpCard(s, cfg, h.id, CardSlot.Skill))
+                {
+                    Guide.Force(Tutorial.Heroes, "hub.heroes", Loc.F("Nâng cấp Chiêu cho {0}.", h.name), null, true);
+                    return;
+                }
+                Guide.Skip(Tutorial.Heroes, Tutorial.HeroTile, Tutorial.UpCard);
+                Render(); // 4 đảo còn lại tan mây
+                return;
+            }
+            // C11–C12: 4 đảo còn lại, rồi trận 2 ở đảo mình khắc
+            if (!Tutorial.Done(s, Tutorial.Isles))
+            {
+                Guide.Say(Tutorial.Isles, Loc.T("Bốn đảo nữa! Mỗi đảo có một bạn đang chờ."), TutorNext);
+                return;
+            }
+            var ce = Tutorial.CounterIsland(s, d);
+            if (!Tutorial.Done(s, Tutorial.CounterIsle))
+            {
+                if (s.zones[(int)ce] == 0)
+                {
+                    // đảo cần khoanh có thể nằm ngoài khung nhìn (sau khi 4 đảo tan mây), mà nền tối chặn kéo bản đồ: lướt camera tới trước
+                    if (pan && fog && fog.Center(ce)) pan.GlideTo(fog.Center(ce));
+                    Guide.Force(Tutorial.CounterIsle, "hub.zone." + ce,
+                        Loc.F("{0}: {1} khắc {2}, đòn của bạn ×1,5.", d.Zone(ce)?.name ?? Elements.Name(ce), Elements.Name(h.elem), Elements.Name(ce)), null, true);
+                    return;
+                }
+                Guide.Skip(Tutorial.CounterIsle, Tutorial.CounterGo, Tutorial.Counter);
+            }
+            // C17 (trận 2 đã thắng mà chưa nghe lời chào, vd. tắt game ở hộp kết quả)
+            if (!Tutorial.CoreDone(s))
+            {
+                if (s.zones[(int)ce] > 0)
+                {
+                    Guide.Skip(Tutorial.Shards);
+                    Guide.Say(Tutorial.Free, Loc.T("Giờ bạn tự đi nhé. Quên luật thì mở Sổ tay, mục Cách chơi."), Render);
+                }
+                return;
+            }
+            // sau chuỗi bắt buộc: khoảnh khắc mở tính năng (xếp hàng), rồi gợi ý theo lúc, mỗi lần vào sảnh một cái
+            double now = PokiClash.Game.SaveService.Now();
+            var u = Tutorial.NextUnlock(s, d);
+            if (u != null)
+            {
+                Guide.Show(u.id, Guide.Mode.Say, null, $"<b>{u.title}</b>\n{u.text}", () =>
+                {
+                    Render();
+                    if (u.id != "g1") return;
+                    if (pan && pier && pier.transform is RectTransform shipRt) pan.GlideTo(shipRt); // con tàu ở bến có thể ngoài khung nhìn
+                    Guide.Force("g2", "hub.ship", Loc.T("Chạm con tàu để về Nhà."));
+                }, false, s.starter);
+                return;
+            }
+            if (softTip) return;
+            softTip = true;
+            if (Tutorial.Shows(s, d, Tutorial.HubPart.Afk, now) && Guide.Hint(Tutorial.AfkBtn, "bar.afk",
+                    Loc.F("Lúc bạn vắng, {0} vẫn đánh ải đã qua: ra mảnh và rương.", h.name)))
+                return;
+            if (Trees.Open(s, cfg) > 0 && s.balls < 3 && Trees.Stock(s, cfg, now) >= 1 &&
+                Guide.Hint(Tutorial.Tree, "hub.tree", Loc.T("Cây bi ra 5 bi mỗi giờ, chứa được 50. Hái đi!")))
+                return;
+            if (Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now) && Guide.Hint(Tutorial.CardsBook, "hub.cards", Loc.T("Xem mọi thẻ trong Sổ thẻ.")))
+                return;
+            if (s.heroes.Any(kv => kv.Value.owned && Progress.CanStarUp(s, d, kv.Key)) &&
+                Guide.Hint(Tutorial.StarUp, "hub.heroes", Loc.T("Mảnh dư dùng để lên sao: mạnh thêm.")))
+                return;
+            softTip = false; // không có gì để gợi ý: lần làm mới sau xét lại
+        }
+
+        bool softTip; // đã hiện một gợi ý mềm trong lần vào sảnh này
 
         static Sprite Icon(string n) => App.Art ? App.Art.Icon(n) : null;
 
@@ -192,6 +332,7 @@ namespace PokiClash
                 if (z == null) continue;
                 int prog = s.zones[(int)z.id];
                 item.Bind(z, prog, Progress.NextLevel(s, d, z.id), Progress.DifficultyOf(s, d, z), z == recoZone && open != 0);
+                Guide.Mark("hub.zone." + z.id, item);
                 Action go = () =>
                 {
                     App.Audio.Play("click");
@@ -206,7 +347,7 @@ namespace PokiClash
                         art.SetOpen((open & HubIslands.Bit(z.id)) != 0);
                     }
             }
-            if (villageBalls) villageBalls.text = $"{s.balls} bi đang có";
+            if (villageBalls) villageBalls.text = Loc.F("{0} bi đang có", s.balls);
             if (village)
                 village.OnClick = () =>
                 {
@@ -216,6 +357,8 @@ namespace PokiClash
             SideMeta(s);
             BottomRow(s, recoZone);
             Fog(s, d, open);
+            if (pier) Guide.Mark("hub.ship", pier);
+            TutorNext();
         }
 
         // đảo nên đánh: chưa mở hết thì là đảo đã mở (đảo của tướng khởi đầu)
@@ -259,8 +402,9 @@ namespace PokiClash
             App.Audio.Play("error");
             var s = App.Save.Data;
             string msg = string.IsNullOrEmpty(s.starter)
-                ? "Chọn bạn đồng hành để mở đảo đầu tiên"
-                : $"{App.Data.Zone(e)?.name ?? "Đảo"}: hoàn thành trận đầu tiên để mở";
+                ? Loc.T("Chọn bạn đồng hành để mở đảo đầu tiên")
+                : Progress.TotalCleared(s) > 0 ? Loc.F("{0}: sắp mở, làm theo hướng dẫn nhé", App.Data.Zone(e)?.name ?? Loc.T("Đảo"))
+                : Loc.F("{0}: hoàn thành trận đầu tiên để mở", App.Data.Zone(e)?.name ?? Loc.T("Đảo"));
             App.Toasts.Show(msg, Icon("lock"));
         }
 
@@ -304,6 +448,7 @@ namespace PokiClash
             App.Save.Save();
             if (cover) cover.Block(false);
             reveal = null;
+            TutorNext();
         }
 
         void OnDisable()
@@ -325,6 +470,10 @@ namespace PokiClash
                 bool temple = item.icon == "crown", cave = item.icon == "rock", farm = item.icon == "seed", tree = item.icon == "leaf";
                 bool open = farm ? Home.Open(s, d.Cfg) : temple ? Progress.BadgesOpen(s) : cave ? Progress.CaveOpen(s) : tree && Trees.Open(s, d.Cfg) > 0;
                 double now = PokiClash.Game.SaveService.Now();
+                // người mới: công trình chỉ hiện khi tới gần lúc mở (GD_Claude/25_FTUE.md mục 5)
+                var part = farm ? Tutorial.HubPart.Home : temple ? Tutorial.HubPart.Temple : cave ? Tutorial.HubPart.Cave : Tutorial.HubPart.Trees;
+                buildings[i].gameObject.SetActive(Tutorial.Shows(s, d, part, now));
+                if (tree) Guide.Mark("hub.tree", buildings[i]);
                 // chấm báo: có dãy huy hiệu vừa mở, chưa đánh trận nào; Nhà cần chăm; cây bi đầy
                 bool alert = (temple && open && Badges.HasNew(s, d)) || (farm && open && Home.Alert(s, d, now)) || (tree && open && Trees.Full(s, d.Cfg, now));
                 buildings[i].Bind(item.name, open, alert, () =>
@@ -342,7 +491,7 @@ namespace PokiClash
                         return;
                     }
                     App.Audio.Play(open ? "click" : "error");
-                    App.Toasts.Show(open ? $"{item.name}: sắp có ở bản sau" : item.need, Icon(open ? "info" : "lock"));
+                    App.Toasts.Show(open ? Loc.F("{0}: sắp có ở bản sau", item.name) : item.need, Icon(open ? "info" : "lock"));
                 });
             }
         }
@@ -351,17 +500,29 @@ namespace PokiClash
         void BottomRow(SaveData s, ZoneDef recoZone)
         {
             var d = App.Data;
-            MainButton(0, () => App.Router.Go(SceneIds.Heroes), Progress.HeroAlerts(s, d));
-            MainButton(1, () => App.Router.Go(SceneIds.Cards));
-            MainButton(2, () => App.Router.Go(SceneIds.Machine), s.balls);
-            MainButton(3, () => App.Router.Go(SceneIds.Zone, recoZone.id));
-            MainButton(4, () => App.Router.Go(SceneIds.Notebook));
+            double now = PokiClash.Game.SaveService.Now();
+            // người mới: nút hiện dần theo hướng dẫn (Máy Bi sau trận thắng đầu, Tướng sau máy bi, Đánh tiếp sau chuỗi bắt buộc…)
+            MainButton(0, () => App.Router.Go(SceneIds.Heroes), Progress.HeroAlerts(s, d), "hub.heroes", Tutorial.Shows(s, d, Tutorial.HubPart.Heroes, now));
+            MainButton(1, () => App.Router.Go(SceneIds.Cards), 0, "hub.cards", Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now));
+            MainButton(2, () => App.Router.Go(SceneIds.Machine), s.balls, "hub.machine", Tutorial.Shows(s, d, Tutorial.HubPart.Machine, now));
+            MainButton(3, () => App.Router.Go(SceneIds.Zone, recoZone.id), 0, "hub.next", Tutorial.Shows(s, d, Tutorial.HubPart.Next, now));
+            MainButton(4, () => App.Router.Go(SceneIds.Notebook), 0, "hub.notebook");
         }
 
-        void MainButton(int i, Action go, int dot = 0)
+        void MainButton(int i, Action go, int dot = 0, string key = null, bool show = true)
         {
             if (bottom == null || i >= bottom.Length) return;
             var b = bottom[i];
+            // ẩn cả ô (nút, băng keo, chấm số) và băng chữ đi kèm (Máy Bi có băng chữ "bang_keo_Máy Bi" nằm ngoài ô)
+            var slot = b.button.transform.parent;
+            if (slot && (slot.name.StartsWith("o_") || slot.name.StartsWith("nut_")))
+            {
+                slot.gameObject.SetActive(show);
+                var tape = slot.parent ? slot.parent.Find("bang_keo_" + slot.name.Substring(slot.name.IndexOf('_') + 1)) : null;
+                if (tape) tape.gameObject.SetActive(show);
+            }
+            else b.button.gameObject.SetActive(show);
+            Guide.Mark(key, b.button);
             b.button.SetOnClick(go);
             if (!b.badge) return;
             b.badge.gameObject.SetActive(dot > 0);
@@ -371,8 +532,16 @@ namespace PokiClash
             b.badgeText.text = txt;
         }
 
+        float tutorPoll;
+
         void Update()
         {
+            // hướng dẫn: bước bị bỏ (chỗ cần khoanh chưa sẵn) thì vài giây xét lại một lần
+            if ((tutorPoll += Time.unscaledDeltaTime) > 2.5f)
+            {
+                tutorPoll = 0;
+                if (App.I && Guide.Idle) TutorNext();
+            }
             if (clouds == null) return;
             // mây trôi
             float w = PokiCanvas.RefW + 520;

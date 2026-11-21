@@ -33,7 +33,8 @@ namespace PokiClash
         // lúc theo hình quạt quanh điểm đi, hãm dần trong SprayOut giây (nảy cỡ 0,3 → 1,18 → 1); khựng lơ lửng SprayHold giây, viên
         // sau khựng lâu hơn SprayGap giây nên rời chùm lần lượt; rồi bay về đích theo đường cong nhẹ, nhanh dần rồi chậm lại (ease
         // in-out bậc ba) trong SprayFly giây, nhỏ dần còn 0,72, tới nơi mới cộng
-        public const float SprayOut = 0.28f, SprayHold = 0.14f, SprayGap = 0.055f, SprayFly = 0.52f, SprayFlyJitter = 0.08f;
+        // 2026-11-21: phụt lâu hơn (0,34), lấy đà WindUp trước khi phóng, phóng 0,46 giây nhanh dần (tới nơi còn đà)
+        public const float SprayOut = 0.34f, SprayHold = 0.12f, SprayGap = 0.05f, SprayFly = 0.46f, SprayFlyJitter = 0.08f, WindUp = 0.07f;
         // thanh chạy tới số mới: phần còn thiếu × FillRate mỗi giây, ít nhất FillMin thanh mỗi giây (thanh đầy dần, chữ số đếm lên);
         // lên cấp thì chạy đầy, nhún vòng cấp, về 0 rồi chạy tiếp
         public const float FillRate = 7f, FillMin = 0.9f;
@@ -206,7 +207,7 @@ namespace PokiClash
             int need = Progress.ExpToNext(dispLv, Cfg);
             bool max = dispLv >= Cfg.maxLevel;
             int shown = Mathf.Min(need, Mathf.RoundToInt(dispExp));
-            bar.Set(max ? need : dispExp, need, 0, max ? "Tối đa" : $"{shown}/{need}", true);
+            bar.Set(max ? need : dispExp, need, 0, max ? Loc.T("Tối đa") : $"{shown}/{need}", true);
             if (arc) arc.fillAmount = max ? 1 : Mathf.Clamp01(dispExp / Mathf.Max(1, need));
             if (lvText) lvText.text = dispLv.ToString();
         }
@@ -229,8 +230,9 @@ namespace PokiClash
             Paint();
         }
 
-        // số viên của một chùm EXP n: 3..7 (thêm một viên mỗi 10 EXP)
-        public static int SprayCount(int n) => Mathf.Clamp(2 + Mathf.CeilToInt(n / 10f), 3, 7);
+        // số viên của một chùm EXP n: 7..16 (người dùng 2026-11-21 "làm nhiều kinh nghiệm toả ra hơn"; trước 3..7). Viên nhiều hơn
+        // EXP thì vài viên mang 0 (vẫn bay, tới nơi không cộng)
+        public static int SprayCount(int n) => Mathf.Clamp(Mathf.RoundToInt(n * 1.1f) + 2, 7, 16);
 
         // chia n cho k phần gần đều (phần đầu nhận dư)
         public static int Part(int n, int k, int i) => n / k + (i < n % k ? 1 : 0);
@@ -254,20 +256,48 @@ namespace PokiClash
                 for (int i = 0; i < count; i++) arrive?.Invoke(i);
                 return;
             }
-            float a0 = Random.Range(0f, 360f);
+            // 2026-11-21 (người dùng: "toả ra tween lên chưa đã, chưa rõ"): phụt như vòi nước theo quạt hướng lên (±105° quanh trục
+            // đứng), loé mềm ở điểm đi; thứ tự rời chùm xáo trộn (không quét trái sang phải); chùm đông thì rời dày hơn
+            radius *= Mathf.Lerp(1f, 1.35f, (count - 7) / 9f); // chùm đông toả rộng hơn cho kẹo khỏi chụm một cục
+            StartCoroutine(PopAt(from, delay, radius));
+            float gap = Mathf.Min(SprayGap, 0.6f / count);
+            var order = new int[count];
+            for (int i = 0; i < count; i++) order[i] = i;
+            for (int i = count - 1; i > 0; i--)
+            {
+                int j = Random.Range(0, i + 1);
+                (order[i], order[j]) = (order[j], order[i]);
+            }
             for (int i = 0; i < count; i++)
             {
                 flying++;
-                // quạt đều quanh điểm đi, lệch ngẫu nhiên; viên sau rời chùm sau
-                float ang = a0 + 360f * i / count + Random.Range(-20f, 20f);
-                StartCoroutine(SprayOne(sprite, from, to, ang, radius * Random.Range(0.62f, 1f), delay + i * 0.012f,
-                    SprayHold + i * SprayGap, i, arrive, size));
+                float ang = 90 + Mathf.Lerp(-105, 105, (i + 0.5f) / count) + Random.Range(-10f, 10f);
+                StartCoroutine(SprayOne(sprite, from, to, ang, radius * Random.Range(0.6f, 1f), delay + i * 0.008f,
+                    SprayHold + order[i] * gap, i, arrive, size));
             }
+        }
+
+        // loé mềm, vòng sáng và kim tuyến ở điểm đi lúc chùm phụt ra
+        IEnumerator PopAt(Vector3 from, float delay, float radius)
+        {
+            for (float w = 0; w < delay; w += Time.unscaledDeltaTime) yield return null;
+            if (fx != null) fx.Emit(SprayPop, Anch(from), radius * 0.5f);
         }
 
         IEnumerator SprayOne(Sprite sprite, Vector3 from, System.Func<Vector3> to, float ang, float rad, float delay, float hold, int index,
             System.Action<int> arrive, float size)
         {
+            // quầng sáng mềm cộng sáng sau kẹo (kẹo tím trên mặt bàn tím khó thấy, người dùng 2026-11-21 "chưa rõ")
+            var halo = fx.Take(flyLayer);
+            stars.Add(halo);
+            halo.sprite = fx.Sprite(MachineGlow.Glow);
+            halo.material = MachineGlow.Add;
+            halo.preserveAspect = true;
+            halo.enabled = false;
+            var hrt = halo.rectTransform;
+            hrt.sizeDelta = Vector2.one * size * 2.1f;
+            hrt.localEulerAngles = Vector3.zero;
+            hrt.localScale = Vector3.one;
             var img = fx.Take(flyLayer);
             stars.Add(img);
             img.sprite = sprite;
@@ -280,54 +310,87 @@ namespace PokiClash
             rt.localScale = Vector3.zero;
             for (float w = 0; w < delay; w += Time.unscaledDeltaTime) yield return null;
             img.enabled = true;
+            halo.enabled = halo.sprite;
+            void Glow(Vector2 at, float a, float s)
+            {
+                hrt.anchoredPosition = at;
+                hrt.localScale = Vector3.one * s;
+                halo.color = new Color(1f, 0.88f, 1f, a);
+            }
 
-            // 1. toả: hãm dần (ease-out bậc ba), hơi dồn lên trên; cỡ nảy 0,3 → 1,18 → 1; xoay đầu rồi chậm lại
+            // 1. phụt lên như vòi nước: ra nhanh, hãm dần (ease-out bậc ba) theo đường vồng lên; cỡ nảy 0,2 → 1,3 → 1; xoay rồi chậm lại
             var a = Anch(from);
             var dir = new Vector2(Mathf.Cos(ang * Mathf.Deg2Rad), Mathf.Sin(ang * Mathf.Deg2Rad));
-            var p1 = a + new Vector2(dir.x, dir.y * 0.75f + 0.3f) * rad;
-            float rot = Random.Range(-30f, 30f), spin = Random.Range(-1f, 1f) * 260;
+            var p1 = a + new Vector2(dir.x, dir.y * 0.85f + 0.25f) * rad;
+            float rot = Random.Range(-30f, 30f), spin = Random.Range(-1f, 1f) * 320;
             for (float t = 0; t < SprayOut; t += Time.unscaledDeltaTime)
             {
                 float u = t / SprayOut, e = 1 - (1 - u) * (1 - u) * (1 - u);
-                rt.anchoredPosition = Vector2.LerpUnclamped(a, p1, e);
-                rt.localScale = Vector3.one * (u < 0.45f ? Mathf.Lerp(0.3f, 1.18f, u / 0.45f) : Mathf.Lerp(1.18f, 1, (u - 0.45f) / 0.55f));
+                var p = Vector2.LerpUnclamped(a, p1, e) + new Vector2(0, Mathf.Sin(Mathf.Min(1, u * 1.15f) * Mathf.PI) * rad * 0.2f);
+                rt.anchoredPosition = p;
+                float s = u < 0.35f ? Mathf.Lerp(0.2f, 1.3f, u / 0.35f) : Mathf.Lerp(1.3f, 1, (u - 0.35f) / 0.65f);
+                rt.localScale = Vector3.one * s;
                 rot += spin * (1 - u) * Time.unscaledDeltaTime;
                 rt.localEulerAngles = new Vector3(0, 0, rot);
+                Glow(p, 0.8f * Mathf.Min(1, u * 3), s);
+                hrt.SetAsLastSibling();
                 rt.SetAsLastSibling();
                 yield return null;
             }
-            // 2. khựng: lơ lửng nhấp nhô nhẹ, xoay dần về thẳng
+            // 2. khựng: lơ lửng nhấp nhô, quầng thở, xoay dần về thẳng
             float ph = Random.Range(0f, 6.28f), rot0 = rot;
             for (float t = 0; t < hold; t += Time.unscaledDeltaTime)
             {
-                rt.anchoredPosition = p1 + new Vector2(0, Mathf.Sin(t * 10 + ph) * 3.5f);
-                rt.localScale = Vector3.one * (1 + 0.04f * Mathf.Sin(t * 14 + ph));
+                var p = p1 + new Vector2(0, Mathf.Sin(t * 10 + ph) * 4f);
+                rt.anchoredPosition = p;
+                float s = 1 + 0.05f * Mathf.Sin(t * 14 + ph);
+                rt.localScale = Vector3.one * s;
                 rot = Mathf.Lerp(rot0, 0, Mathf.Clamp01(t / 0.25f));
                 rt.localEulerAngles = new Vector3(0, 0, rot);
+                Glow(p, 0.62f + 0.18f * Mathf.Sin(t * 9 + ph), s);
                 yield return null;
             }
-            // 3. bay mượt về đích: ease in-out bậc ba, đường cong lệch về phía đã toả, nhỏ dần 1 → 0,72, vệt lấp lánh
+            // 3. phóng về đích: lấy đà (lùi nhẹ khỏi đích, phồng 1,15) rồi tăng tốc theo đường cong lệch về phía đã toả, nhỏ dần
+            // 1,15 → 0,8; vệt sáng mềm dày và lấp lánh rắc theo
             var p2 = rt.anchoredPosition;
-            float dur = SprayFly + Random.Range(0, SprayFlyJitter), trail = 0, rotS = rot;
+            float dur = SprayFly + Random.Range(0, SprayFlyJitter), trail = 0, spark = 0, rotS = rot;
             float side = dir.x >= 0 ? 1 : -1;
             var b = Anch(to());
+            var back = (p2 - b).normalized * 14;
+            for (float t = 0; t < WindUp; t += Time.unscaledDeltaTime)
+            {
+                float u = t / WindUp, e = Mathf.Sin(u * Mathf.PI * 0.5f);
+                var p = p2 + back * e;
+                rt.anchoredPosition = p;
+                rt.localScale = Vector3.one * Mathf.Lerp(1, 1.15f, e);
+                Glow(p, Mathf.Lerp(0.7f, 0.95f, e), 1.1f);
+                yield return null;
+            }
+            p2 += back;
             for (float t = 0; t < dur; t += Time.unscaledDeltaTime)
             {
-                float u = t / dur, e = u < 0.5f ? 4 * u * u * u : 1 - Mathf.Pow(-2 * u + 2, 3) / 2;
+                float u = t / dur, e = u * u * (2.2f - 1.2f * u); // ra nhanh dần, tới nơi vẫn còn đà
                 b = Anch(to());
                 var d = b - p2;
-                var c = (p2 + b) * 0.5f + new Vector2(-d.y, d.x).normalized * side * Mathf.Min(140, d.magnitude * 0.22f);
+                var c = (p2 + b) * 0.5f + new Vector2(-d.y, d.x).normalized * side * Mathf.Min(150, d.magnitude * 0.24f);
                 var p = (1 - e) * (1 - e) * p2 + 2 * (1 - e) * e * c + e * e * b;
                 rt.anchoredPosition = p;
-                rt.localScale = Vector3.one * Mathf.Lerp(1, 0.72f, e);
+                rt.localScale = Vector3.one * Mathf.Lerp(1.15f, 0.8f, e);
                 rt.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(rotS, 0, e) + Mathf.Sin(u * Mathf.PI) * 14 * side);
-                if ((trail += Time.unscaledDeltaTime) > 0.04f && u > 0.12f)
+                Glow(p, 0.95f, Mathf.Lerp(1.1f, 0.85f, e));
+                if ((trail += Time.unscaledDeltaTime) > 0.02f)
                 {
                     trail = 0;
-                    fx.Emit(Trail, p, size * 0.7f);
+                    fx.Emit(Trail, p, size * 0.5f);
+                }
+                if ((spark += Time.unscaledDeltaTime) > 0.07f && u > 0.1f)
+                {
+                    spark = 0;
+                    fx.Emit(TrailSpark, p, size * 0.5f);
                 }
                 yield return null;
             }
+            Return(halo);
             Return(img);
             flying--;
             fx.Emit(Hit, b, 34);
@@ -378,7 +441,7 @@ namespace PokiClash
             popT = 0;
             LeveledUp?.Invoke();
             if (badge) fx.Emit(LevelUp, Anch(badge.position), 40);
-            App.Audio.Play("level", 0.7f);
+            App.Audio.Play("machineLevel", 0.8f);
             Haptics.Play(Haptic.LevelUp);
         }
 
@@ -464,19 +527,38 @@ namespace PokiClash
             return c;
         }
 
-        // vệt sau sao bay: chấm tím nhạt mờ nhanh
+        // ánh sáng mềm cộng sáng (pk_g_*, 2026-11-21): vệt sau kẹo bay là chấm sáng mềm dày (trắng hồng → tím), mờ nhanh
         static readonly MachineFx.Burst[] Trail =
         {
-            new MachineFx.Burst { sprite = "fx_sparkle", life = 0.22f, lifeMax = 0.32f, size = 0.35f, sizeMax = 0.55f, speed = 0, speedMax = 0.4f, arc = 360, spin = true,
-                curve = new[] { 0, 1f, 1, 0.2f }, from = C("#f3e6ff"), to = C("#c18cf0", 0.8f), fadeAt = 0.4f },
+            new MachineFx.Burst { sprite = MachineGlow.Glow, life = 0.18f, lifeMax = 0.24f, size = 1.1f, sizeMax = 1.3f, curve = new[] { 0, 1f, 1, 0.35f },
+                from = C("#fff0ff", 0.75f), to = C("#b77cf0", 0.25f), fadeAt = 0.3f },
         };
 
-        // sao tới thanh: quầng tím co, vòng mảnh lan, 4 lấp lánh văng
+        // lấp lánh bốn cánh rắc theo vệt, trôi chậm
+        static readonly MachineFx.Burst[] TrailSpark =
+        {
+            new MachineFx.Burst { sprite = MachineGlow.Spark, life = 0.3f, lifeMax = 0.45f, size = 0.5f, sizeMax = 0.8f, speed = 0.3f, speedMax = 1.2f, arc = 360, radius = 0.4f,
+                rotSpeed = 120, curve = new[] { 0, 0.2f, 0.3f, 1, 1, 0 }, from = Color.white, to = C("#e2c4ff") },
+        };
+
+        // chùm phụt ra: loé mềm, vòng sáng lan, kim tuyến và lấp lánh văng (unit = nửa tầm toả)
+        static readonly MachineFx.Burst[] SprayPop =
+        {
+            new MachineFx.Burst { sprite = MachineGlow.Glow, life = 0.26f, size = 2.6f, curve = new[] { 0, 0.4f, 0.25f, 1.1f, 1, 1.25f }, from = C("#fff2ff", 0.9f), to = C("#c99bff", 0.5f), fadeAt = 0.3f },
+            new MachineFx.Burst { sprite = MachineGlow.Ring, life = 0.32f, size = 2.4f, curve = new[] { 0, 0.2f, 1, 1 }, from = C("#ffffff", 0.9f), to = C("#c18cf0", 0.6f), fadeAt = 0.35f },
+            new MachineFx.Burst { sprite = MachineGlow.Glow, count = 14, life = 0.45f, lifeMax = 0.8f, size = 0.07f, sizeMax = 0.13f, speed = 2.5f, speedMax = 5f, dir = 90, arc = 220,
+                radius = 0.1f, grav = 0.6f, dampen = 0.12f, curve = new[] { 0, 1f, 1, 0.4f }, from = C("#fff6ff"), to = C("#d2a8ff"), fadeAt = 0.55f },
+            new MachineFx.Burst { sprite = MachineGlow.Spark, count = 5, life = 0.35f, lifeMax = 0.6f, size = 0.35f, sizeMax = 0.55f, speed = 1.5f, speedMax = 3.5f, dir = 90, arc = 200,
+                dampen = 0.2f, rotSpeed = 120, curve = new[] { 0, 0.2f, 0.25f, 1.1f, 1, 0 }, from = Color.white, to = C("#e2c4ff") },
+        };
+
+        // kẹo tới (bảng số, thanh): loé mềm co, vòng sáng lan, lấp lánh lớn giữa, 4 lấp lánh văng
         static readonly MachineFx.Burst[] Hit =
         {
-            new MachineFx.Burst { life = 0.18f, size = 2.2f, curve = new[] { 0, 0.4f, 0.3f, 1.1f, 1, 0.7f }, from = C("#efdcff", 0.95f), to = C("#b783e6", 0.8f), fadeAt = 0.4f },
-            new MachineFx.Burst { sprite = "fx_ring", life = 0.22f, size = 1.8f, curve = new[] { 0, 0.2f, 1, 1 }, from = Color.white, to = C("#c18cf0"), fadeIn = 0.15f, fadeAt = 0.5f },
-            new MachineFx.Burst { sprite = "fx_sparkle", count = 4, life = 0.25f, lifeMax = 0.4f, size = 0.3f, sizeMax = 0.5f, speed = 2, speedMax = 5, arc = 360, dampen = 0.3f, spin = true,
+            new MachineFx.Burst { sprite = MachineGlow.Glow, life = 0.2f, size = 2.6f, curve = new[] { 0, 0.5f, 0.3f, 1.15f, 1, 0.8f }, from = C("#fff2ff", 0.95f), to = C("#c18cf0", 0.6f), fadeAt = 0.35f },
+            new MachineFx.Burst { sprite = MachineGlow.Ring, life = 0.24f, size = 2.0f, curve = new[] { 0, 0.2f, 1, 1 }, from = Color.white, to = C("#c18cf0"), fadeAt = 0.4f },
+            new MachineFx.Burst { sprite = MachineGlow.Spark, life = 0.22f, size = 1.6f, curve = new[] { 0, 0.3f, 0.3f, 1.1f, 1, 0.4f }, from = Color.white, to = C("#e9d2ff"), fadeAt = 0.4f, rotRange = 10 },
+            new MachineFx.Burst { sprite = MachineGlow.Spark, count = 4, life = 0.25f, lifeMax = 0.4f, size = 0.4f, sizeMax = 0.6f, speed = 2, speedMax = 5, arc = 360, dampen = 0.3f, rotSpeed = 160,
                 curve = new[] { 0, 0.4f, 0.25f, 1, 1, 0.2f }, from = Color.white, to = C("#d9b8ff") },
         };
 

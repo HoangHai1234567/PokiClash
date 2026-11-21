@@ -83,9 +83,9 @@ namespace PokiClash
             team = current.Take(slots).ToList();
             foe = leadEnemy;
             var locked = Enumerable.Range(slots, Progress.TeamSlotMax - slots)
-                .Select(i => $"ô {i + 1} mở khi {Progress.SlotNeed(i)}").ToList();
-            hint.text = (foe != null ? $"Mũi tên xanh: khắc {Elements.Name(foe.elem)} của {foe.name}. Mũi tên đỏ: bị khắc." : "")
-                        + (locked.Count > 0 ? $"\nĐang mở {slots}/{Progress.TeamSlotMax} ô đội; {string.Join(", ", locked)}." : "");
+                .Select(i => Loc.F("ô {0} mở khi {1}", i + 1, Progress.SlotNeed(i))).ToList();
+            hint.text = (foe != null ? Loc.F("Mũi tên xanh: khắc {0} của {1}. Mũi tên đỏ: bị khắc.", Elements.Name(foe.elem), foe.name) : "")
+                        + (locked.Count > 0 ? Loc.F("\nĐang mở {0}/{1} ô đội; {2}.", slots, Progress.TeamSlotMax, string.Join(", ", locked)) : "");
             done.SetOnClick(() =>
             {
                 if (team.Count == 0) return;
@@ -177,7 +177,7 @@ namespace PokiClash
                 if (i < filterIcons.Length && filterIcons[i]) filterIcons[i].color = new Color(1, 1, 1, on || filter < 0 ? 1 : 0.45f);
             }
             if (filterCounter) filterCounter.SetColor(counterOnly ? Theme.Green : Theme.Paper3);
-            sortButton.SetText(SortNames[(int)sort]);
+            sortButton.SetText(Loc.T(SortNames[(int)sort]));
             sortButton.FitWidth();
         }
 
@@ -229,7 +229,7 @@ namespace PokiClash
 
         void Draw()
         {
-            title.text = $"Chọn đội · {team.Count}/{slots}";
+            title.text = Loc.F("Chọn đội · {0}/{1}", team.Count, slots);
             foreach (var (cell, h) in cells)
             {
                 var hero = h;
@@ -251,7 +251,7 @@ namespace PokiClash
             else if (slots == 1) team[0] = hero.id; // một ô: đổi luôn
             else
             {
-                App.Toasts.Show(slots < Progress.TeamSlotMax ? $"Đang mở {slots} ô đội: ô {slots + 1} mở khi {Progress.SlotNeed(slots)}" : $"Đội tối đa {slots} tướng",
+                App.Toasts.Show(slots < Progress.TeamSlotMax ? Loc.F("Đang mở {0} ô đội: ô {1} mở khi {2}", slots, slots + 1, Progress.SlotNeed(slots)) : Loc.F("Đội tối đa {0} tướng", slots),
                     Icon("team"));
                 return;
             }

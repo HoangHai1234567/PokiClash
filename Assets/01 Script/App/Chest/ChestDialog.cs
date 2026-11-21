@@ -47,8 +47,8 @@ namespace PokiClash
             int stones = rewards.Where(q => q.k == RewardKind.Stones).Sum(q => q.n);
             int evo = rewards.Where(q => q.k == RewardKind.EvoStones).Sum(q => q.n);
             if (exp > 0) Tile().Item(App.Art.Icon("exp"), $"×{exp}", "XP");
-            if (balls > 0) Tile().Item(App.Art.Icon("ball"), $"×{balls}", "Bi");
-            if (stones > 0) Tile().Item(App.Art.Icon("rock"), $"×{stones}", "Đá tiềm năng", Rarity.Epic);
+            if (balls > 0) Tile().Item(App.Art.Icon("ball"), $"×{balls}", Loc.T("Bi"));
+            if (stones > 0) Tile().Item(App.Art.Icon("rock"), $"×{stones}", Loc.T("Đá tiềm năng"), Rarity.Epic);
             if (evo > 0) Tile().EvoStones(evo);
             var cards = rewards.Where(q => q.k == RewardKind.Card)
                 .GroupBy(q => (q.drop.hero, q.drop.slot))
@@ -63,8 +63,8 @@ namespace PokiClash
             {
                 var res = r.res;
                 var t = Tile().Hero(d.Hero(res.hero), $"×{res.n}");
-                if (res.unlocked) t.Tag("MỞ KHÓA!", Theme.Red);
-                else if (res.converted > 0) t.Tag($"→ {res.converted} thẻ", Theme.Paper2);
+                if (res.unlocked) t.Tag(Loc.T("MỞ KHÓA!"), Theme.Red);
+                else if (res.converted > 0) t.Tag(Loc.F("→ {0} thẻ", res.converted), Theme.Paper2);
                 else
                 {
                     // tiến độ mảnh: mở khoá (chưa có) hoặc lên sao kế (đã có; 2026-11-17 mảnh dồn để lên sao)

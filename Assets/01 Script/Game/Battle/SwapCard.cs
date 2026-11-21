@@ -33,7 +33,7 @@ namespace PokiClash
             hp.text = $"{NumFmt.Short(f.hp)}/{NumFmt.Short(f.maxHp)}";
             double em = Battle.ElemMult(f, foe), bad = Battle.ElemMult(foe, f);
             tip.gameObject.SetActive(em > 1 || bad > 1);
-            tip.text = em > 1 ? "Khắc địch" : "Bị khắc";
+            tip.text = em > 1 ? Loc.T("Khắc địch") : Loc.T("Bị khắc");
             tip.color = em > 1 ? Theme.GreenD : Theme.Red;
         }
     }

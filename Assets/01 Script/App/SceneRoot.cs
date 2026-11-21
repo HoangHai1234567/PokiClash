@@ -14,6 +14,8 @@ namespace PokiClash
         public virtual TopBar Bar => TopBar.Back;
         public virtual string Title => name;
         public virtual string BackTo => SceneIds.Hub;
+        // khoá nhạc nền riêng của scene (đọc sau Enter); null = theo bảng AudioService.MusicFor
+        public virtual string Music => null;
 
         [SerializeField] PokiCanvas view;
         [SerializeField] RectTransform content;

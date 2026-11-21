@@ -11,18 +11,19 @@ namespace PokiClash.Game
 
         public static GameData Build(HeroDb heroes, CardDb cards, ZoneDb zones, BalanceConfigAsset balance)
         {
+            // tên theo ngôn ngữ đang dùng (LocService.Init chạy trước): tiếng Việt dùng thẳng đối tượng của asset, ngôn ngữ khác dùng bản sao đã dịch
             var d = new GameData
             {
-                Heroes = new List<HeroDef>(heroes.heroes),
-                Minions = new List<HeroDef>(heroes.minions),
+                Heroes = LocData.All(heroes.heroes, LocData.Hero),
+                Minions = LocData.All(heroes.minions, LocData.Hero),
                 Starters = new List<string>(heroes.starters),
                 LegendMilestoneHero = heroes.legendMilestoneHero,
-                Pool = new List<CardDef>(cards.pool),
-                Innate = new List<CardDef>(cards.innate),
-                MinionCards = new List<CardDef>(cards.minions),
-                Traits = new List<CardDef>(cards.traits),
-                Zones = new List<ZoneDef>(zones.zones),
-                Stages = new List<StageDef>(zones.stages),
+                Pool = LocData.All(cards.pool, LocData.Card),
+                Innate = LocData.All(cards.innate, LocData.Card),
+                MinionCards = LocData.All(cards.minions, LocData.Card),
+                Traits = LocData.All(cards.traits, LocData.Card),
+                Zones = LocData.All(zones.zones, LocData.Zone),
+                Stages = LocData.All(zones.stages, LocData.Stage),
                 Village = zones.village,
                 Cfg = balance.cfg.Clone(),
             }.Index();

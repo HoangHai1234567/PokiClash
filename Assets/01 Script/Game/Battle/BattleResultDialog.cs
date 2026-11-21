@@ -35,7 +35,7 @@ namespace PokiClash
         // titleSize: 40 (ải thường), 38 (Hang, Đền). Sau đó gọi Reward / Tips / Button theo thứ tự hiện.
         public void Show(bool win, string titleText, float titleSize, string statsText)
         {
-            stamp.Set(win ? "Thắng!" : "Thua rồi", win ? Theme.Red : Theme.Hex("#6f6a7a"));
+            stamp.Set(win ? Loc.T("Thắng!") : Loc.T("Thua rồi"), win ? Theme.Red : Theme.Hex("#6f6a7a"));
             title.text = titleText;
             title.fontSize = titleSize;
             stats.text = statsText;
@@ -61,10 +61,10 @@ namespace PokiClash
             tips.text = text;
         }
 
-        // nút cỡ nhỏ, bề rộng cố định; bấm thì đóng hộp rồi gọi onClick
-        public void Button(string label, BtnColor color, float width, Action onClick)
+        // nút cỡ nhỏ, bề rộng cố định; bấm thì đóng hộp rồi gọi onClick. Trả về nút (hướng dẫn người mới khoanh nút này), hết chỗ thì null
+        public SketchButton Button(string label, BtnColor color, float width, Action onClick)
         {
-            if (used >= buttons.Length) return;
+            if (used >= buttons.Length) return null;
             var b = buttons[used++];
             b.gameObject.SetActive(true);
             b.name = "nut_" + label;
@@ -78,6 +78,7 @@ namespace PokiClash
                 Close();
                 onClick?.Invoke();
             });
+            return b;
         }
     }
 }

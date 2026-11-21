@@ -27,6 +27,7 @@ namespace PokiClash.Core
     public class HomeBuildingDef
     {
         public string id, name;
+        public string Name => Loc.T(name); // tên theo ngôn ngữ
         public string kind; // main, prod (cần tướng), support, tree (Cây bi), deco, road
         public int size; // cạnh chân thoi, ô
         public bool hasElem;
@@ -86,6 +87,7 @@ namespace PokiClash.Core
     public class HomeTileDef
     {
         public string id, name;
+        public string Name => Loc.T(name);
         public int wood, ore;
         public bool block;
     }

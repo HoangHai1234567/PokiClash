@@ -70,7 +70,7 @@ namespace PokiClash
             p.stars.gameObject.SetActive(owned);
             if (owned) p.stars.SetTiered(App.Data.Cfg, hero, hp.star); // bậc theo dạng của tướng (2026-11-19)
             p.shards.gameObject.SetActive(!owned);
-            if (!owned) p.shards.Set(hp.shards, hero.shards, 0, $"{hp.shards}/{hero.shards} mảnh", true);
+            if (!owned) p.shards.Set(hp.shards, hero.shards, 0, Loc.F("{0}/{1} mảnh", hp.shards, hero.shards), true);
 
             if (p.power)
             {
@@ -80,7 +80,7 @@ namespace PokiClash
 
             p.alert.gameObject.SetActive(owned && Progress.HeroAlerts(s, d, hero.id) > 0);
             p.team.SetActive(inTeam);
-            if (inTeam) p.teamText.text = $"TRONG ĐỘI {order + 1}";
+            if (inTeam) p.teamText.text = Loc.F("TRONG ĐỘI {0}", order + 1);
         }
 
         // khung, nhãn, vương miện theo độ hiếm; fill: màu giấy theo trạng thái (kem, vàng trong đội, xám chưa có)

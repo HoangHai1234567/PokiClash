@@ -83,7 +83,7 @@ namespace PokiClash
             if (note)
             {
                 note.gameObject.SetActive(tiers == 1);
-                note.text = "Dòng 1 dạng: không tiến hóa, lên sao bằng mảnh";
+                note.text = Loc.T("Dòng 1 dạng: không tiến hóa, lên sao bằng mảnh");
             }
             ShowEvolve(-1, "", false, false, null);
         }
@@ -107,7 +107,7 @@ namespace PokiClash
             rt.anchorMin = new Vector2(x, rt.anchorMin.y);
             rt.anchorMax = new Vector2(x, rt.anchorMax.y);
             if (!pulse) rt.localScale = Vector3.one;
-            evolve.SetText("Tiến hóa");
+            evolve.SetText(Loc.T("Tiến hóa"));
             evolve.Interactable = ready;
             evolve.SetOnClick(onClick);
             evoTier = toTier;

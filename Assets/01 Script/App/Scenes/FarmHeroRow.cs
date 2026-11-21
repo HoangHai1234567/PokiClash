@@ -43,7 +43,7 @@ namespace PokiClash
             portrait.Bind(h, 92, false);
             heroName.text = h.name;
             heroName.color = free ? Theme.Ink : Theme.Ink3;
-            stats.text = $"{FarmScene.Dec(Home.Rate(s, d, id, b))} {Unit(df.output)}/giờ · {FarmScene.Dec(Home.Hours(s, d, id))} giờ" + (match ? $" · Hợp hệ ×{FarmScene.Num(d.Cfg.farm.match)}" : "");
+            stats.text = Loc.F("{0} {1}/giờ · {2} giờ", FarmScene.Dec(Home.Rate(s, d, id, b)), Unit(df.output), FarmScene.Dec(Home.Hours(s, d, id))) + (match ? Loc.F(" · Hợp hệ ×{0}", FarmScene.Num(d.Cfg.farm.match)) : "");
             stats.color = match ? Theme.GreenD : Theme.Ink2;
             place.gameObject.SetActive(free);
             why.gameObject.SetActive(!free);
@@ -52,17 +52,17 @@ namespace PokiClash
                 place.name = "dat_" + id;
                 place.SetOnClick(onPlace);
             }
-            else why.text = at >= 0 ? $"Đang làm ở {Home.Def(d.Cfg, Home.Find(hs, at).def).name}" : $"Nghỉ còn {Math.Ceiling(rest / 60000)} phút";
+            else why.text = at >= 0 ? Loc.F("Đang làm ở {0}", Home.Def(d.Cfg, Home.Find(hs, at).def).Name) : Loc.F("Nghỉ còn {0} phút", Math.Ceiling(rest / 60000));
         }
 
         public static string Unit(string output) => output switch
         {
             "balls" => "bi",
-            "wood" => "gỗ",
-            "ore" => "quặng",
-            "fish" => "lần câu",
-            "stones" => "đá",
-            "bread" => "bánh",
+            "wood" => Loc.T("gỗ"),
+            "ore" => Loc.T("quặng"),
+            "fish" => Loc.T("lần câu"),
+            "stones" => Loc.T("đá"),
+            "bread" => Loc.T("bánh"),
             _ => "",
         };
 
@@ -79,7 +79,7 @@ namespace PokiClash
             portrait.Bind(h, 92, false);
             heroName.text = h.name;
             heroName.color = free ? Theme.Ink : Theme.Ink3;
-            stats.text = $"{FarmScene.Dec(Farm.Rate(s, d, id, spot))} bi/giờ · {FarmScene.Dec(Farm.Hours(s, d, id))} giờ" + (match ? $" · Hợp hệ ×{FarmScene.Num(d.Cfg.farm.match)}" : "");
+            stats.text = Loc.F("{0} bi/giờ · {1} giờ", FarmScene.Dec(Farm.Rate(s, d, id, spot)), FarmScene.Dec(Farm.Hours(s, d, id))) + (match ? Loc.F(" · Hợp hệ ×{0}", FarmScene.Num(d.Cfg.farm.match)) : "");
             stats.color = match ? Theme.GreenD : Theme.Ink2;
             place.gameObject.SetActive(free);
             why.gameObject.SetActive(!free);
@@ -88,7 +88,7 @@ namespace PokiClash
                 place.name = "dat_" + id;
                 place.SetOnClick(onPlace);
             }
-            else why.text = at >= 0 ? $"Đang làm ở {d.Cfg.farm.spots[at].name}" : $"Nghỉ còn {Math.Ceiling(rest / 60000)} phút";
+            else why.text = at >= 0 ? Loc.F("Đang làm ở {0}", d.Cfg.farm.spots[at].Name) : Loc.F("Nghỉ còn {0} phút", Math.Ceiling(rest / 60000));
         }
     }
 }

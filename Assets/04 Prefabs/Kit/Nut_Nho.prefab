@@ -35,7 +35,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -3, y: 5}
-  m_SizeDelta: {x: -22, y: -18}
+  m_SizeDelta: {x: -44, y: -18}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1380125295922710142
 CanvasRenderer:
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 18
+  m_fontSizeMin: 14
   m_fontSizeMax: 30
   m_fontStyle: 0
   m_HorizontalAlignment: 2
@@ -236,6 +236,8 @@ MonoBehaviour:
   labelOutlined: {fileID: 2100000, guid: ce438c0d275110d42bb7f81e4e6163c3, type: 2}
   labelPlain: {fileID: -403860505186162647, guid: 34a30102f5c4af54a98e37ab2da58de9, type: 2}
   baseColor: {r: 0.96862745, g: 0.7882353, b: 0.28235295, a: 1}
+  core: {fileID: 0}
+  noMotion: 0
   ClickSound: click
 --- !u!114 &8712367845228246431
 MonoBehaviour:

@@ -41,7 +41,7 @@ namespace PokiClash
         {
             if (Left(placement) <= 0)
             {
-                App.Toasts.Show("Hết lượt hôm nay", App.Art.Icon("tv"));
+                App.Toasts.Show(Loc.T("Hết lượt hôm nay"), App.Art.Icon("tv"));
                 done?.Invoke(false);
                 return;
             }
@@ -81,7 +81,7 @@ namespace PokiClash
                 t.textWrappingMode = TMPro.TextWrappingModes.NoWrap;
                 t.enableAutoSizing = true;
             }
-            b.SetText(left <= 0 ? "Hết lượt hôm nay" : left >= AdGate.Unlimited ? label : $"{label} ({left})");
+            b.SetText(left <= 0 ? Loc.T("Hết lượt hôm nay") : left >= AdGate.Unlimited ? label : $"{label} ({left})");
             b.Interactable = left > 0 && can;
             var tv = b.transform.Find("tv"); // hết lượt: không còn quảng cáo để xem, bỏ hình TV cho chữ đủ chỗ
             if (tv) tv.gameObject.SetActive(left > 0);

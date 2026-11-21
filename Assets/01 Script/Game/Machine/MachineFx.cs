@@ -228,10 +228,33 @@ namespace PokiClash
             new Burst { sprite = "pk_g_quang", life = 0.12f, size = 3.2f, curve = new[] { 0, 1.1f, 1, 0.6f }, from = C("#fff2b0", 0.85f), to = C("#ffb347", 0f) }, // quầng cộng sáng sau đinh
             new Burst { sprite = "pk_fx_loe", life = 0.067f, size = 1.3f, curve = new[] { 0, 1.10f, 1, 0.68f }, from = C("#fff3b0"), to = C("#ffd968"), fadeAt = 0.7f, spin = true },
         };
+        // 2026-11-21 (người dùng "cải thiện fx cho máy pinball"): lấp lánh bốn cánh mềm cộng sáng thay chấm phẳng, thêm hai chấm sáng văng
         public static readonly Burst[] PegSpark =
         {
-            new Burst { sprite = "fx_sparkle", count = 2, life = 0.18f, lifeMax = 0.3f, size = 0.09f, sizeMax = 0.14f, speed = 0.6f, speedMax = 1.6f, arc = 360,
-                curve = new[] { 0, 0.4f, 0.25f, 1, 1, 0.2f }, from = C("#fff2a8"), to = C("#ffc94a"), fadeAt = 0.5f, spin = true },
+            new Burst { sprite = "pk_g_sao", count = 2, life = 0.2f, lifeMax = 0.32f, size = 0.16f, sizeMax = 0.26f, speed = 0.6f, speedMax = 1.6f, arc = 360, rotSpeed = 160,
+                curve = new[] { 0, 0.3f, 0.25f, 1, 1, 0 }, from = C("#fffbe0"), to = C("#ffc94a"), fadeAt = 0.5f },
+            new Burst { sprite = "pk_g_quang", count = 2, life = 0.2f, lifeMax = 0.3f, size = 0.05f, sizeMax = 0.08f, speed = 1.2f, speedMax = 2.4f, arc = 360, dampen = 0.2f,
+                curve = new[] { 0, 1f, 1, 0.4f }, from = C("#fff2b0"), to = C("#ffb347"), fadeAt = 0.4f },
+        };
+
+        // nấm bị chạm thêm (theo màu phỉnh casino vàng trắng): lấp lánh văng và kim tuyến vàng
+        public static readonly Burst[] BumperSpark =
+        {
+            new Burst { sprite = "pk_g_sao", count = 4, life = 0.25f, lifeMax = 0.4f, size = 0.28f, sizeMax = 0.42f, speed = 2.5f, speedMax = 4.5f, arc = 360, dampen = 0.25f, rotSpeed = 200,
+                curve = new[] { 0, 0.3f, 0.25f, 1.1f, 1, 0 }, from = C("#ffffff"), to = C("#ffd24a"), fadeAt = 0.5f },
+            new Burst { sprite = "pk_g_quang", count = 8, life = 0.3f, lifeMax = 0.5f, size = 0.05f, sizeMax = 0.09f, speed = 3f, speedMax = 6f, arc = 360, dampen = 0.15f, grav = 0.3f,
+                curve = new[] { 0, 1f, 1, 0.4f }, from = C("#fff6c8"), to = C("#ffb000"), fadeAt = 0.5f },
+        };
+
+        // bi rơi vào ô EXP (thay chùm kẹo phụt lên rồi rơi, dễ lẫn với kẹo thật bay lên bảng): cột sáng tím trắng dâng lên từ miệng ô,
+        // lấp lánh và chấm sáng bay lên. Phát ở điểm giữa cột (MachineBoard.ExpPop), unit = UnitBall
+        public static readonly Burst[] ExpSlotLight =
+        {
+            new Burst { sprite = "pk_g_cot", life = 0.6f, size = 1.3f, aspect = 4.2f, curve = new[] { 0, 0.3f, 0.18f, 1.1f, 1, 1.2f }, from = C("#fff2ff", 0.85f), to = C("#b77cf0", 0f), fadeAt = 0.25f },
+            new Burst { sprite = "pk_g_sao", count = 6, life = 0.5f, lifeMax = 0.85f, size = 0.18f, sizeMax = 0.32f, speed = 1.5f, speedMax = 3.2f, dir = 90, arc = 40, radius = 0.6f,
+                dampen = 0.08f, rotSpeed = 140, curve = new[] { 0, 0.2f, 0.25f, 1.1f, 1, 0 }, from = Color.white, to = C("#e2c4ff") },
+            new Burst { sprite = "pk_g_quang", count = 10, life = 0.6f, lifeMax = 1f, size = 0.05f, sizeMax = 0.09f, speed = 1.2f, speedMax = 3f, dir = 90, arc = 50, radius = 0.8f,
+                dampen = 0.06f, curve = new[] { 0, 1f, 1, 0.4f }, from = C("#fff6ff"), to = C("#c99bff"), fadeAt = 0.5f },
         };
 
         // nấm bị chạm: loé 3 (co 1 → 0,16 trong 0,15 giây), vòng dày 1,62 lan 0,16 → 1 trong 0,19 giây, vòng đứt 1,75 lan 0,32 → 1.

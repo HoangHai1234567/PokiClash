@@ -175,7 +175,7 @@ namespace PokiClash
             return hpBars[side];
         }
 
-        static string HpText(double v, FSnap f) => $"{NumFmt.Short(v)}/{NumFmt.Short(f.maxHp)}{(f.shield > 0 ? $" +{NumFmt.Short(f.shield)} khiên" : "")}";
+        static string HpText(double v, FSnap f) => $"{NumFmt.Short(v)}/{NumFmt.Short(f.maxHp)}{(f.shield > 0 ? Loc.F(" +{0} khiên", NumFmt.Short(f.shield)) : "")}";
 
         public void FillHp(int side, Snap to, float dur, float from = 0)
         {
@@ -244,13 +244,13 @@ namespace PokiClash
 
         public void SetRound(int r)
         {
-            p.roundLbl.text = $"Hiệp {r}";
+            p.roundLbl.text = Loc.F("Hiệp {0}", r);
             Bump(p.roundLbl.rectTransform, 2);
         }
 
         public void SetTurn(int side)
         {
-            p.turnLbl.text = side == 0 ? "Lượt bạn" : "Lượt địch";
+            p.turnLbl.text = side == 0 ? Loc.T("Lượt bạn") : Loc.T("Lượt địch");
             p.turnChip.color = side == 0 ? Theme.Green : Theme.Red;
             Bump(p.turnChip.rectTransform, 3); // đổi lượt: nhãn nảy một cái (trước chỉ đổi chữ, dễ lỡ)
         }
@@ -275,7 +275,7 @@ namespace PokiClash
 
         public void SetAuto(bool on)
         {
-            AutoBtn.SetText(on ? "Đang tự chơi" : "Tự chơi");
+            AutoBtn.SetText(on ? Loc.T("Đang tự chơi") : Loc.T("Tự chơi"));
             AutoBtn.SetColor(on ? Theme.Green : Theme.Paper);
             AutoBtn.Label.color = on ? Color.white : Theme.Ink;
         }
@@ -291,8 +291,8 @@ namespace PokiClash
             bool mine = t.side == 0;
             p.qHead.gameObject.SetActive(true);
             p.qIcon.sprite = Icon(mine ? "cards" : "skull");
-            p.qTitle.text = mine ? "Hàng thẻ của bạn" : $"Hàng thẻ của {b.ActiveOf(1).Name}";
-            p.qCount.text = picking ? $"Chọn {t.picksTotal - t.picksLeft + 1}/{t.picksTotal}" : "Ra đòn!";
+            p.qTitle.text = mine ? Loc.T("Hàng thẻ của bạn") : Loc.F("Hàng thẻ của {0}", b.ActiveOf(1).Name);
+            p.qCount.text = picking ? Loc.F("Chọn {0}/{1}", t.picksTotal - t.picksLeft + 1, t.picksTotal) : Loc.T("Ra đòn!");
 
             if (execIdx >= 0) landing.Clear(); // đã ra đòn: không còn ô nào chờ thẻ bay
             NowTile = null;
@@ -330,7 +330,7 @@ namespace PokiClash
             var ult = t.ult != null ? d.Card(t.ult.card) : null;
             var fin = p.finTile;
             fin.gameObject.SetActive(true);
-            fin.Bind(Icon(ult != null ? ult.icon : t.stunned ? "bolt" : "fist"), ult != null ? ult.name : t.stunned ? CardText.StatusLabel(StatusId.Stun) : "Đánh thường",
+            fin.Bind(Icon(ult != null ? ult.icon : t.stunned ? "bolt" : "fist"), ult != null ? ult.name : t.stunned ? CardText.StatusLabel(StatusId.Stun) : Loc.T("Đánh thường"),
                 Theme.Paper3, ult != null ? Theme.Hex("#ffd3e6") : Theme.Hex("#ffe3d8"), false, 128);
             fin.transform.SetAsLastSibling();
             if (execIdx >= t.queue.Count) Now(fin);
@@ -596,7 +596,7 @@ namespace PokiClash
             {
                 if (b.phase == Phase.Over) return;
                 string who = b.ActiveOf(t.side).Name;
-                OfferLabel(t.side == 0 ? $"{who} ra đòn!" : $"{who} (địch) ra đòn!", -120, 70);
+                OfferLabel(t.side == 0 ? Loc.F("{0} ra đòn!", who) : Loc.F("{0} (địch) ra đòn!", who), -120, 70);
                 return;
             }
             float x0 = -(3 * UiCard.NormalSize.x + 2 * 24) / 2 + UiCard.NormalSize.x / 2;
@@ -681,7 +681,7 @@ namespace PokiClash
             }
             ClearOffer();
             BackCards.Clear();
-            OfferLabel(b.phase == Phase.Picking ? $"{b.ActiveOf(1).Name} đang chọn thẻ..." : "Địch ra đòn!", -16, 64);
+            OfferLabel(b.phase == Phase.Picking ? Loc.F("{0} đang chọn thẻ...", b.ActiveOf(1).Name) : Loc.T("Địch ra đòn!"), -16, 64);
             if (b.phase != Phase.Picking) return;
             for (int i = 0; i < t.offer.Count; i++)
             {
@@ -738,7 +738,7 @@ namespace PokiClash
             foreach (var which in new[] { InnateKind.Skill, InnateKind.Ult })
             {
                 var (card, lv) = b.InnateCard(me, which);
-                string why = t.side == 0 ? b.InnateBlock(which) : "Lượt địch";
+                string why = t.side == 0 ? b.InnateBlock(which) : Loc.T("Lượt địch");
                 bool used = which == InnateKind.Skill ? t.side == 0 && t.skillUsed : t.side == 0 && t.ult != null;
                 bool ready = why == "" && myTurn;
                 var btn = which == InnateKind.Ult ? p.ult : p.skill;

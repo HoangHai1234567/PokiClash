@@ -83,11 +83,25 @@ namespace PokiClash.EditorTools
                     yield return Shot($"phong_{i:00}");
                     yield return Wait(0.06f);
                 }
-                // chờ bi rơi xong
+                // chờ bi rơi xong; chụp mỗi 0,1 giây lúc bi xuống ô, kẹo toả, bay lên bảng số (2026-11-21), tối đa 70 ảnh
                 t0 = Time.realtimeSinceStartup;
                 var view = Object.FindAnyObjectByType<MachineBoard>();
-                while (view && view.Board.balls.Count > 0 && Time.realtimeSinceStartup - t0 < 15) yield return null;
-                yield return Wait(2.5f); // kẹo bay hết, bảng thu
+                int roi = 0;
+                float after = -1;
+                while (Time.realtimeSinceStartup - t0 < 15 && roi < 70)
+                {
+                    bool falling = view && view.Board.balls.Count > 0;
+                    if (!falling && after < 0) after = Time.realtimeSinceStartup;
+                    if (after >= 0 && Time.realtimeSinceStartup - after > 2.4f) break;
+                    yield return Shot($"roi_{roi++:00}");
+                    yield return Wait(0.1f);
+                }
+                // kẹo bay hết, bảng số đổ kẹo lên thanh EXP: chụp tiếp mỗi 0,1 giây (2026-11-21)
+                for (int i = 0; i < 30; i++)
+                {
+                    yield return Shot($"thu_{i:00}");
+                    yield return Wait(0.1f);
+                }
                 while (App.Modals.Count > 0)
                 {
                     App.Modals.Back();

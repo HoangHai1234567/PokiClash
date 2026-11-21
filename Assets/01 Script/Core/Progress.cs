@@ -323,7 +323,7 @@ namespace PokiClash.Core
         }
 
         public static string DifficultyText(Difficulty d) =>
-            d == Difficulty.Done ? "Đã chinh phục" : d == Difficulty.Easy ? "Dễ" : d == Difficulty.Fit ? "Vừa sức" : d == Difficulty.Hard ? "Khó" : "Quá mạnh!";
+            d == Difficulty.Done ? Loc.T("Đã chinh phục") : d == Difficulty.Easy ? Loc.T("Dễ") : d == Difficulty.Fit ? Loc.T("Vừa sức") : d == Difficulty.Hard ? Loc.T("Khó") : Loc.T("Quá mạnh!");
 
         // xong đảo: qua hết ải (70 hoặc 8, Islands.Size)
         public static bool ZoneDone(SaveData s, Elem z) => s.zones[(int)z] >= Islands.Size(z);
@@ -343,7 +343,7 @@ namespace PokiClash.Core
         public static int SlotsAt(int level) => SlotLevels.Count(lv => level >= lv);
 
         // điều kiện mở ô đội i (0..2), hiện ở ô đang khoá: "mở khi …"
-        public static string SlotNeed(int i) => i <= 0 || i >= SlotLevels.Length ? "" : $"đạt cấp {SlotLevels[i]}";
+        public static string SlotNeed(int i) => i <= 0 || i >= SlotLevels.Length ? "" : Loc.F("đạt cấp {0}", SlotLevels[i]);
 
         // đảo nên đánh: 5 đảo chơi song song, nên gợi ý đảo chưa xong có ải kế tiếp cấp thấp nhất (bằng nhau thì theo thứ tự đảo)
         public static ZoneDef RecommendedZone(SaveData s, GameData d)

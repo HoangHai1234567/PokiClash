@@ -15,8 +15,9 @@ namespace PokiClash.Core
 
         public static int Bit(Elem e) => 1 << (int)e;
 
-        // xong trận hướng dẫn (tạm: đã thắng ít nhất một ải ở bất kỳ đảo nào)
-        public static bool TutorialDone(SaveData s) => s?.zones != null && s.zones.Any(z => z > 0);
+        // xong trận hướng dẫn: đã thắng ít nhất một ải, và người mới đã đi hết máy bi, nâng Chiêu (Tutorial.IslesOpen, GD_Claude/25_FTUE.md
+        // bước C11) để mỗi lần vào sảnh chỉ một việc. Bản lưu cũ coi như đã xong hướng dẫn.
+        public static bool TutorialDone(SaveData s) => s?.zones != null && s.zones.Any(z => z > 0) && Tutorial.IslesOpen(s);
 
         // các đảo đã tan mây (bit = Elem)
         public static int Open(SaveData s, GameData d)

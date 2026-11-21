@@ -71,10 +71,10 @@ namespace PokiClash
         {
             var st = Afk.Stage(S, D);
             var pool = Afk.Pool(st);
-            p.rate.text = st == null ? "" : $"Đang AFK: {D.Zone(st.zone).name} · Ải {st.idx}";
+            p.rate.text = st == null ? "" : Loc.F("Đang AFK: {0} · Ải {1}", D.Zone(st.zone).name, st.idx);
             p.shardNote.text = pool.Count > 0
-                ? $"Mỗi giờ {D.Cfg.afk.shardChance * 100:0}% ra 1 mảnh: {string.Join(", ", pool.Select(x => D.Hero(x.hero).name))}"
-                : "Ải này không rơi mảnh tướng, chỉ ra rương";
+                ? Loc.F("Mỗi giờ {0:0}% ra 1 mảnh: {1}", D.Cfg.afk.shardChance * 100, string.Join(", ", pool.Select(x => D.Hero(x.hero).name)))
+                : Loc.T("Ải này không rơi mảnh tướng, chỉ ra rương");
             if (p.change)
             {
                 p.change.gameObject.SetActive(App.Router.Current != SceneIds.Zone);
@@ -100,7 +100,7 @@ namespace PokiClash
             p.claim.SetOnClick(Claim);
             p.adsNote.gameObject.SetActive(Ads.Ready);
             if (Ads.Ready)
-                p.adsNote.text = Ads.NoAds ? "Đã mua Bỏ quảng cáo: nút có hình TV nhận thưởng ngay." : "Nút có hình TV: xem một quảng cáo ngắn để nhận thưởng.";
+                p.adsNote.text = Ads.NoAds ? Loc.T("Đã mua Bỏ quảng cáo: nút có hình TV nhận thưởng ngay.") : Loc.T("Nút có hình TV: xem một quảng cáo ngắn để nhận thưởng.");
         }
 
         // ---------- làm mới ----------
@@ -121,26 +121,26 @@ namespace PokiClash
             var cfg = D.Cfg;
             double now = Now;
             var pd = Afk.Pending(s, cfg, now);
-            p.bar.Set((float)pd.hours, (float)cfg.afkCapH, 0, $"{Dec(pd.hours)} / {cfg.afkCapH:0} giờ");
+            p.bar.Set((float)pd.hours, (float)cfg.afkCapH, 0, Loc.F("{0} / {1:0} giờ", Dec(pd.hours), cfg.afkCapH));
 
             var times = Afk.ChestTimes(s, cfg, now);
             for (int i = 0; i < slots.Length; i++)
             {
                 bool has = i < times.Count;
                 bool ready = has && times[i].ready <= now;
-                slots[i].Set(has, ready, !has ? "" : ready ? "Mở được" : times[i].start <= now ? Clock(times[i].ready - now) : "Chờ");
+                slots[i].Set(has, ready, !has ? "" : ready ? Loc.T("Mở được") : times[i].start <= now ? Clock(times[i].ready - now) : Loc.T("Chờ"));
             }
-            p.trayNote.text = s.afk.chests.Count >= Afk.Slots(s, cfg, now) ? "Khay đầy, mở bớt rương"
-                : $"Cứ {cfg.afk.chestEveryH:0} giờ AFK ra 1 rương; rương tiếp: {Dec(s.afk.chestAcc)} / {cfg.afk.chestEveryH:0} giờ. Rương đếm {Afk.OpenH(s, cfg, now):0} giờ rồi mở được.";
+            p.trayNote.text = s.afk.chests.Count >= Afk.Slots(s, cfg, now) ? Loc.T("Khay đầy, mở bớt rương")
+                : Loc.F("Cứ {0:0} giờ AFK ra 1 rương; rương tiếp: {1} / {2:0} giờ. Rương đếm {3:0} giờ rồi mở được.", cfg.afk.chestEveryH, Dec(s.afk.chestAcc), cfg.afk.chestEveryH, Afk.OpenH(s, cfg, now));
 
             bool counting = times.Count > 0 && times[0].ready > now;
             p.openNow.gameObject.SetActive(counting && Ads.Ready);
-            Ads.Bind(p.openNow, "Mở ngay", Ads.AfkChestOpen);
+            Ads.Bind(p.openNow, Loc.T("Mở ngay"), Ads.AfkChestOpen);
             bool boosting = Afk.Boosting(s, now);
             p.boost.gameObject.SetActive(!boosting && Ads.Ready);
             p.boostText.gameObject.SetActive(boosting);
-            Ads.Bind(p.boost, "Tăng tốc ×2", Ads.AfkBoost, !pd.full); // đầy giờ thì AFK dừng, tăng tốc vô ích: nhận trước
-            if (boosting) p.boostText.text = $"Tăng tốc ×2: còn {Clock(s.afk.boostUntil - now)}";
+            Ads.Bind(p.boost, Loc.T("Tăng tốc ×2"), Ads.AfkBoost, !pd.full); // đầy giờ thì AFK dừng, tăng tốc vô ích: nhận trước
+            if (boosting) p.boostText.text = Loc.F("Tăng tốc ×2: còn {0}", Clock(s.afk.boostUntil - now));
 
             p.claim.Interactable = pd.hours >= 1;
         }
@@ -162,9 +162,10 @@ namespace PokiClash
             int shards = 0;
             foreach (var x in r.shards) shards += x.n;
             App.Audio.Play(shards > 0 ? "coin" : "click");
-            App.Toasts.Show(shards > 0 ? $"Nhặt {shards} mảnh tướng" : "Lần này chưa nhặt được mảnh tướng", App.Art.Icon("shard"));
+            Haptics.Play(shards > 0 ? Haptic.Reward : Haptic.UiTap);
+            App.Toasts.Show(shards > 0 ? Loc.F("Nhặt {0} mảnh tướng", shards) : Loc.T("Lần này chưa nhặt được mảnh tướng"), App.Art.Icon("shard"));
             foreach (var x in r.shards)
-                if (x.unlocked) App.Toasts.Show($"Mở khóa {D.Hero(x.hero).name}!", App.Art.Icon("star"));
+                if (x.unlocked) App.Toasts.Show(Loc.F("Mở khóa {0}!", D.Hero(x.hero).name), App.Art.Icon("star"));
             Close();
         }
 
@@ -173,7 +174,7 @@ namespace PokiClash
         {
             var st = Afk.Stage(S, D);
             Close();
-            App.Toasts.Show("Chạm ải đã thắng, bấm \"AFK ải này\"", App.Art.Icon("clock"));
+            App.Toasts.Show(Loc.T("Chạm ải đã thắng, bấm \"AFK ải này\""), App.Art.Icon("clock"));
             App.Router.Go(SceneIds.Zone, st != null ? st.zone : ZoneScene.LastZone);
         }
 
@@ -189,7 +190,7 @@ namespace PokiClash
                 return;
             }
             App.Audio.Play("error");
-            App.Toasts.Show(i == 0 ? $"Còn {Clock(times[0].ready - now)} nữa mới mở được" : "Rương mở lần lượt, mở rương đầu khay trước", App.Art.Icon("clock"));
+            App.Toasts.Show(i == 0 ? Loc.F("Còn {0} nữa mới mở được", Clock(times[0].ready - now)) : Loc.T("Rương mở lần lượt, mở rương đầu khay trước"), App.Art.Icon("clock"));
         }
 
         void OpenNow()
@@ -215,7 +216,7 @@ namespace PokiClash
         IEnumerator ShowChest(System.Collections.Generic.List<Reward> rs, int lv)
         {
             busy = true;
-            yield return ChestBox.Show("Rương AFK", SlotKind.ChestWood, ChestColor, rs, "Nhận");
+            yield return ChestBox.Show(Loc.T("Rương AFK"), SlotKind.ChestWood, ChestColor, rs, Loc.T("Nhận"));
             busy = false;
             if (S.level > lv) Dialogs.LevelUp(lv, S.level);
             if (this) Refresh();
@@ -225,7 +226,7 @@ namespace PokiClash
         {
             if (Afk.Pending(S, D.Cfg, Now).full)
             {
-                App.Toasts.Show("Đã đầy giờ AFK: nhận bi trước rồi hãy tăng tốc", App.Art.Icon("clock"));
+                App.Toasts.Show(Loc.T("Đã đầy giờ AFK: nhận bi trước rồi hãy tăng tốc"), App.Art.Icon("clock"));
                 return;
             }
             busy = true;
@@ -235,7 +236,7 @@ namespace PokiClash
                 if (ok && Afk.Boost(S, D.Cfg, Now))
                 {
                     App.Save.Save();
-                    App.Toasts.Show($"Tăng tốc ×2 trong {D.Cfg.afk.boostH:0} giờ", App.Art.Icon("clock"));
+                    App.Toasts.Show(Loc.F("Tăng tốc ×2 trong {0:0} giờ", D.Cfg.afk.boostH), App.Art.Icon("clock"));
                 }
                 Refresh();
             });

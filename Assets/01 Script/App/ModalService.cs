@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using PokiClash.Core;
 using PokiClash.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,6 +31,8 @@ namespace PokiClash
 
         RectTransform Layer => (RectTransform)transform;
         public int Count => stack.Count;
+        // gốc hộp trên cùng (null = không có hộp): lớp phủ hướng dẫn chỉ khoanh chỗ nằm trong hộp này khi đang có hộp
+        public RectTransform TopRoot => stack.Count > 0 ? stack[stack.Count - 1].Root : null;
 
         // Hộp riêng: bản sao của biến thể tờ giấy (bề rộng, bắt buộc chỉnh trên prefab). Gán dữ liệu bằng hàm Show của hộp.
         // mandatory: ghi đè cờ bắt buộc của prefab cho lần mở này.
@@ -54,11 +57,14 @@ namespace PokiClash
                 if (!m.Mandatory) Close(m);
             };
             view.Close.SetOnClick(() => Close(m));
+            view.Close.ClickSound = null; // tiếng đóng do Close phát
             m.Root = view.Root;
             m.Sheet = view.Sheet;
             m.Body = view.Sheet;
             stack.Add(m);
             StartCoroutine(SlideIn(view.Sheet, view.Dim));
+            App.Audio?.Play("open", 0.7f);
+            Haptics.Play(Haptic.UiOpen);
             return m;
         }
 
@@ -71,16 +77,22 @@ namespace PokiClash
         }
 
         // Hộp xác nhận hai nút (prefab Dialogs/XacNhan).
-        public Modal Confirm(string title, string text, string yes, Action onYes, string no = "Thôi", BtnColor yesColor = BtnColor.Red)
+        public Modal Confirm(string title, string text, string yes, Action onYes, string no = null, BtnColor yesColor = BtnColor.Red)
         {
             var d = Open<ConfirmDialog>();
-            d.Show(title, text, yes, onYes, no, yesColor);
+            d.Show(title, text, yes, onYes, no ?? Loc.T("Thôi"), yesColor);
             return d.Modal;
         }
 
-        public void Close(Modal m)
+        // quiet: không phát tiếng đóng (đóng hết lúc chuyển scene)
+        public void Close(Modal m, bool quiet = false)
         {
             if (!m.IsOpen) return;
+            if (!quiet)
+            {
+                App.Audio?.Play("close", 0.7f);
+                Haptics.Play(Haptic.UiTap);
+            }
             stack.Remove(m);
             var view = m.View;
             m.Root = null;
@@ -91,7 +103,7 @@ namespace PokiClash
 
         public void CloseAll()
         {
-            for (int i = stack.Count - 1; i >= 0; i--) Close(stack[i]);
+            for (int i = stack.Count - 1; i >= 0; i--) Close(stack[i], true);
         }
 
         // nút Back của Android: đóng hộp trên cùng nếu không bắt buộc. Trả true nếu đã xử lý.

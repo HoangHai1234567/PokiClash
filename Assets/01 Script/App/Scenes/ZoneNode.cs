@@ -135,7 +135,7 @@ namespace PokiClash
 
             p.heroName.text = hero.Form(App.Data.Cfg.formStars, formStar).name;
             p.heroName.color = open ? Theme.Ink : Theme.Ink3;
-            p.level.text = st.kind == StageKind.Boss ? $"Boss · Cấp {level}" : st.kind == StageKind.Mini ? $"Mini boss · Cấp {level}" : $"Cấp {level}";
+            p.level.text = st.kind == StageKind.Boss ? Loc.F("Boss · Cấp {0}", level) : st.kind == StageKind.Mini ? Loc.F("Mini boss · Cấp {0}", level) : Loc.F("Cấp {0}", level);
             p.level.color = open ? Theme.Ink2 : Theme.Ink3;
             float tx = Badge - 4;
             p.heroName.rectTransform.Place(new Vector2(0, 1), new Vector2(tx, -8), new Vector2(PlateW - tx - 12, 38), new Vector2(0, 1));

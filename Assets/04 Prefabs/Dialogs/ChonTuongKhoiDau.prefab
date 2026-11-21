@@ -889,6 +889,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1328139217671458495, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1328139217671458495, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: ce438c0d275110d42bb7f81e4e6163c3, type: 2}
@@ -903,6 +907,14 @@ PrefabInstance:
     - target: {fileID: 1620119664382048392, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
       propertyPath: m_Color.r
       value: 0.42352942
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020386173694211074, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -68
+      objectReference: {fileID: 0}
+    - target: {fileID: 2020386173694211074, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5139564999522168595, guid: 916f51d48b9ff794d880d75a0d413cd0, type: 3}
       propertyPath: m_Name

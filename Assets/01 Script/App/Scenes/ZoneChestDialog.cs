@@ -36,11 +36,11 @@ namespace PokiClash
         public void Show(Progress.ZoneChest r, SaveData s, GameData d)
         {
             var at = Islands.Chests(r.zone);
-            title.text = r.big ? "Rương chinh phục!" : at.Length > 2 ? $"Rương ải {at[r.n]}" : "Rương nửa đảo";
+            title.text = r.big ? Loc.T("Rương chinh phục!") : at.Length > 2 ? Loc.F("Rương ải {0}", at[r.n]) : Loc.T("Rương nửa đảo");
             chest.color = r.big ? Color.white : Theme.Hex("#d6dee8");
             balls.gameObject.SetActive(false);
             for (int i = cards.childCount - 1; i >= 0; i--) Destroy(cards.GetChild(i).gameObject);
-            Ui.Spawn(tilePrefab, cards).Item(Icon("ball"), $"×{r.balls}", "Bi");
+            Ui.Spawn(tilePrefab, cards).Item(Icon("ball"), $"×{r.balls}", Loc.T("Bi"));
             if (r.evoStones > 0) Ui.Spawn(tilePrefab, cards).EvoStones(r.evoStones); // đá tiến hóa (2026-11-17)
             foreach (var c in r.cards)
             {

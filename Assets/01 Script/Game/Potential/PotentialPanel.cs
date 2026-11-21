@@ -21,7 +21,7 @@ namespace PokiClash
         public static readonly Color CrystalTint = new Color32(0x4f, 0xd8, 0xe8, 0xff);
 
         // ô thưởng đá tinh
-        public static RewardTile CrystalTile(RewardTile t, int n) => t.Item(Icon("rock"), $"×{n}", "Đá tinh", Rarity.Rare, CrystalTint);
+        public static RewardTile CrystalTile(RewardTile t, int n) => t.Item(Icon("rock"), $"×{n}", Loc.T("Đá tinh"), Rarity.Rare, CrystalTint);
 
         public static string LineText(BalanceConfig cfg, PotLine x) => Potential.Text(x.k, Potential.Value(cfg, x));
 
@@ -30,7 +30,7 @@ namespace PokiClash
         {
             var t = Potential.Final(cfg, lines);
             var parts = Potential.Kinds.Where(k => t[(int)k] > 0).Select(k => Potential.Text(k, t[(int)k])).ToList();
-            return parts.Count > 0 ? string.Join(", ", parts) : "chưa có";
+            return parts.Count > 0 ? string.Join(", ", parts) : Loc.T("chưa có");
         }
 
         // dòng bộ: "Cuồng Chiến 3/3: Công +4% · Kiên Thành 1/3"; bộ chưa có dòng nào thì bỏ
@@ -43,26 +43,26 @@ namespace PokiClash
                 if (n == 0) continue;
                 int need = lv < set.need.Length ? set.need[lv] : set.need[set.need.Length - 1];
                 var bonus = string.Join(", ", Potential.SetBonusOf(set, lv).Select(b => Potential.Text(b.k, b.v)));
-                parts.Add($"{set.name} {n}/{need}" + (lv > 0 ? $": {bonus}" : ""));
+                parts.Add($"{set.Name} {n}/{need}" + (lv > 0 ? $": {bonus}" : ""));
             }
-            return parts.Count > 0 ? "Bộ: " + string.Join(" · ", parts) : "Bộ: chưa có (3 dòng cùng nhóm thì có thưởng bộ)";
+            return parts.Count > 0 ? Loc.T("Bộ: ") + string.Join(" · ", parts) : Loc.T("Bộ: chưa có (3 dòng cùng nhóm thì có thưởng bộ)");
         }
 
         // nhóm bộ của một loại dòng ("Cuồng Chiến") hoặc rỗng
         public static string SetOf(BalanceConfig cfg, PotKind k) =>
-            cfg.potential.sets.FirstOrDefault(s => Array.IndexOf(s.kinds, Potential.Key(k)) >= 0)?.name ?? "";
+            cfg.potential.sets.FirstOrDefault(s => Array.IndexOf(s.kinds, Potential.Key(k)) >= 0)?.Name ?? "";
 
         // luật bộ, một dòng mỗi bộ: "Cuồng Chiến (Công, Chí mạng, Nộ): 3 dòng Công +4%; 5 dòng Công +8%, Chí mạng +4%"
         public static string SetRules(BalanceConfig cfg) =>
             string.Join("\n", cfg.potential.sets.Select(set =>
-                $"{set.name} ({string.Join(", ", set.kinds.Where(Potential.IsKey).Select(k => Potential.ShortName(Potential.FromKey(k))))}): " +
+                $"{set.Name} ({string.Join(", ", set.kinds.Where(Potential.IsKey).Select(k => Potential.ShortName(Potential.FromKey(k))))}): " +
                 string.Join("; ", Enumerable.Range(1, set.need.Length).Select(lv =>
-                    $"{set.need[lv - 1]} dòng " + string.Join(", ", Potential.SetBonusOf(set, lv).Select(b => Potential.Text(b.k, b.v)))))));
+                    Loc.F("{0} dòng ", set.need[lv - 1]) + string.Join(", ", Potential.SetBonusOf(set, lv).Select(b => Potential.Text(b.k, b.v)))))));
 
         // chữ trong ô nhỏ: "Mở ở Bạc 1 sao", "Trống" hoặc "Máu\n+13%"
         public static string CellText(BalanceConfig cfg, PotLine x, bool on, int slot, HeroDef hero = null) =>
             !on ? Potential.SlotNeed(cfg, slot, hero)
-            : x == null ? "Trống"
+            : x == null ? Loc.T("Trống")
             : $"{Potential.ShortName(x.k)}\n{Potential.Amount(x.k, Potential.Value(cfg, x))}";
 
         // ---------- hộp tiềm năng ----------

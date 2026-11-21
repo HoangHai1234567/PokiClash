@@ -40,7 +40,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 4
     repeat: 0
     flavor: "G\u1ED7 th\xF4ng, h\u01A1i th\u01A1m."
     owner: 
@@ -88,7 +88,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 2
     repeat: 1
     flavor: 
     owner: 
@@ -136,7 +136,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 3
     repeat: 0
     flavor: 
     owner: 
@@ -168,7 +168,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 3
     repeat: 0
     flavor: "Nhai ch\u1EADm th\xEC no l\xE2u."
     owner: 
@@ -184,7 +184,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 4
     repeat: 1
     flavor: 
     owner: 
@@ -200,7 +200,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 5
     repeat: 0
     flavor: "\u0102n xong th\u1EA5y m\xECnh to ra."
     owner: 
@@ -216,7 +216,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 9
     repeat: 0
     flavor: 
     owner: 
@@ -232,7 +232,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 2
     repeat: 1
     flavor: 
     owner: 
@@ -248,7 +248,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 6
     repeat: 1
     flavor: 
     owner: 
@@ -264,7 +264,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 4
     repeat: 1
     flavor: 
     owner: 
@@ -280,7 +280,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 6
     repeat: 0
     flavor: "Ch\u01A1i h\u01A1i b\u1EA9n, nh\u01B0ng hi\u1EC7u qu\u1EA3."
     owner: 
@@ -328,7 +328,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 10
     repeat: 0
     flavor: "B\u1ECF th\u1EE7, d\u1ED3n h\u1EBFt v\xE0o m\u1ED9t c\xFA."
     owner: 
@@ -344,7 +344,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 10
     repeat: 0
     flavor: 
     owner: 
@@ -584,7 +584,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 5
     repeat: 1
     flavor: "M\u1ED9t m\u0169i m\u1ED9t l\u1EDBp, \u0111\u1EE7 n\u0103m m\u0169i
       th\xEC bi\u1EBFt tay."
@@ -601,7 +601,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 8
     repeat: 0
     flavor: "\xD4m th\u1EED xem n\xE0o."
     owner: 
@@ -617,7 +617,7 @@ MonoBehaviour:
     hasChance: 0
     chance: 0
     below: 0.3
-    unlock: 1
+    unlock: 8
     repeat: 1
     flavor: "C\xE0ng \u0111au c\xE0ng h\u0103ng."
     owner: 

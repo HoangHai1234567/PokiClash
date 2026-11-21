@@ -132,7 +132,8 @@ namespace PokiClash.UI
         // công cụ thử bấm hộ (như người chơi chạm)
         public void SimulateClick() => OnPointerClick(null);
 
-        static Color Dimmed(Color c) => Color.Lerp(c, Theme.Paper3, 0.75f) * new Color(1, 1, 1, 0.75f);
+        // nút khoá: ngả màu giấy nhưng nền vẫn đặc (bản cũ alpha 0,75: nút khoá trên bản đồ màn Nhà nhìn xuyên thấu, khó đọc; 2026-11-21)
+        static Color Dimmed(Color c) => Color.Lerp(c, Theme.Paper3, 0.7f);
 
         public bool Interactable
         {

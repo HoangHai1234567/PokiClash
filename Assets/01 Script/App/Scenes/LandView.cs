@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using PokiClash.Core;
 
 namespace PokiClash
 {
@@ -170,7 +171,7 @@ namespace PokiClash
 
         // tour thử: trạng thái để ghi log
         public string Describe() =>
-            $"zoom {zoom:0.###} (min {MinZoom:0.###}, max {maxZoom:0.###}) pos {pos} view {ViewSize} tween {tween} kéo {dragging} ngón {fingers.Count}";
+            Loc.F("zoom {0:0.###} (min {1:0.###}, max {2:0.###}) pos {3} view {4} tween {5} kéo {6} ngón {7}", zoom, MinZoom, maxZoom, pos, ViewSize, tween, dragging, fingers.Count);
 
         Vector2 Local(PointerEventData e)
         {

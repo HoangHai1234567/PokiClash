@@ -21,7 +21,9 @@ namespace PokiClash.UI
                 return go.GetComponent<T>();
             }
 #endif
-            return Object.Instantiate(prefab, parent, false);
+            var c = Object.Instantiate(prefab, parent, false);
+            PokiClash.Game.LocService.Tree(c); // chữ có sẵn trong prefab theo ngôn ngữ (Bind gán chữ của code sau đó)
+            return c;
         }
 
         public static RectTransform Stretch(this RectTransform rt, float left = 0, float top = 0, float right = 0, float bottom = 0)

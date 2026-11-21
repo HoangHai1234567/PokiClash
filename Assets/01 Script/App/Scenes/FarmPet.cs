@@ -196,7 +196,7 @@ namespace PokiClash
             p.tag.gameObject.SetActive(false);
             p.emote.gameObject.SetActive(false);
             emoteT = -1;
-            if (mode == Mode.Tired) ShowTag("Hết sức", 0, Theme.Hex("#ffd6c8"));
+            if (mode == Mode.Tired) ShowTag(Loc.T("Hết sức"), 0, Theme.Hex("#ffd6c8"));
             if (mode == Mode.Sleep) face = 1;
             if (mode == Mode.Work || mode == Mode.Tired) face = scene.SpotFace(spot);
             Kick(0.12f);
@@ -299,6 +299,7 @@ namespace PokiClash
             State = Mode.Roam;
             lift = 0;
             Kick(0.2f);
+            App.Audio.Play("drop", 0.8f);
             if (!scene.PetDropped(this, pos)) WalkTo(scene.ClampMeadow(pos), Mode.Roam, -1, null);
         }
 

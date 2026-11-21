@@ -26,6 +26,9 @@ namespace PokiClash
             Block(false);
         }
 
+        // đang chặn chạm (diễn tan mây đảo sảnh, mở vùng mới): lớp phủ hướng dẫn chờ
+        public bool Blocking => blocker && blocker.gameObject.activeSelf;
+
         public void Block(bool on)
         {
             blocker.raycastTarget = on;

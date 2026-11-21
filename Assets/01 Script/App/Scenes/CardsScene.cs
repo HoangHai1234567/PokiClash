@@ -12,7 +12,7 @@ namespace PokiClash
 {
     public sealed class CardsScene : SceneRoot
     {
-        public override string Title => "Sổ thẻ";
+        public override string Title => Loc.T("Sổ thẻ");
 
         [SerializeField] RectTransform grid;
         [SerializeField] LayoutElement gridLayout;
@@ -42,11 +42,11 @@ namespace PokiClash
             foreach (var c in d.Pool.OrderBy(x => x.rarity).ThenBy(x => x.unlock))
             {
                 var card = c;
-                string locked = c.unlock > save.level ? $"Mở ở cấp {c.unlock}" : null;
+                string locked = c.unlock > save.level ? Loc.F("Mở ở cấp {0}", c.unlock) : null;
                 UiCard.Create(grid, c, 1, false, App.Art.Icon(c.icon), locked, () => App.Modals.Open(detailPrefab).Show(card));
             }
         }
 
-        public static string LegendText(GameData d, Rarity r) => $"{Elements.RarityName(r)} · nặng {d.Cfg.PoolWeight(r)}";
+        public static string LegendText(GameData d, Rarity r) => Loc.F("{0} · nặng {1}", Elements.RarityName(r), d.Cfg.PoolWeight(r));
     }
 }

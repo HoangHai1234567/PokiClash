@@ -108,3 +108,13 @@ duyệt kế hoạch ("làm đi") với các lựa chọn Claude đề xuất. N
   - rig rương "nhac" (nhún, lắc, nắp hé có sáng và tia lọt khe) trước đây không chạy: rig trong prefab tắt playOnEnable nên bật holder
     là rig đứng im dáng gốc; `FlyIn` chạy lại "nhac" sau khi rương hiện.
   - menu thử mới "PokiClash/Thử/Máy bi: soi mở 3 rương (đang Play)" (không thả bi, chụp dày lúc chờ chạm).
+- 2026-11-21 (sau): **kẹo EXP toả ra rõ, đã hơn** (người dùng: "kinh nghiệm toả ra tween lên chưa đã, chưa rõ, làm nhiều hơn và cải
+  thiện fx máy pinball"):
+  - số viên `MachineExpBar.SprayCount` 7..16 (trước 3..7; ô +5 ra 8 viên, ô +10 ra 13); bảng đổ lên thanh 8..18 viên (trước 4..10).
+  - mỗi viên to hơn (76 px lên bảng, 66 px lên thanh) và có quầng sáng mềm cộng sáng đi theo (kẹo tím trên mặt bàn tím mới đọc được);
+    phụt như vòi nước theo quạt hướng lên, đường vồng, nảy 0,2 → 1,3 → 1; lơ lửng; lấy đà lùi nhẹ rồi phóng nhanh dần về đích, vệt
+    chấm sáng mềm dày + lấp lánh; tới nơi loé mềm, vòng sáng, lấp lánh lớn. Thứ tự rời chùm xáo trộn; chùm đông toả rộng hơn.
+  - điểm đi có loé + vòng + kim tuyến (`SprayPop`); bảng số bật "+N" một lần cho cả chùm (chữ to hơn), tiếng tách cao dần theo viên.
+  - ô EXP: cột sáng tím trắng dâng lên + lấp lánh bay lên (`MachineFx.ExpSlotLight`) thay chùm kẹo phụt rồi rơi; chùm kẹo thật ra
+    sau 0,1 giây (trước 0,3).
+  - đinh: lấp lánh mềm + chấm sáng văng; nấm (phỉnh): thêm lấp lánh, kim tuyến vàng (`BumperSpark`).

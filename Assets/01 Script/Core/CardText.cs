@@ -201,7 +201,7 @@ namespace PokiClash.Core
             return false;
         }
 
-        public static string GroupName(CardGroup g) => g == CardGroup.Atk ? "đánh" : g == CardGroup.Def ? "thủ" : "hồi máu";
+        public static string GroupName(CardGroup g) => Loc.IsEn ? CardTextEn.GroupName(g) : g == CardGroup.Atk ? "đánh" : g == CardGroup.Def ? "thủ" : "hồi máu";
 
         static void CollectKinds(List<Effect> list, HashSet<EffectKind> kinds, HashSet<StatusId> st, HashSet<Stat> stats, HashSet<CardGroup> groups)
         {
@@ -225,6 +225,7 @@ namespace PokiClash.Core
             var stats = new HashSet<Stat>();
             var groups = new HashSet<CardGroup>();
             CollectKinds(c.Effects, kinds, st, stats, groups);
+            if (Loc.IsEn) return CardTextEn.Note(kinds, st, stats, groups);
             var l = new List<string>();
             foreach (var g in groups)
                 l.Add(g == CardGroup.Atk ? "Thẻ đánh: thẻ gây sát thương (kể cả đánh thêm, kết liễu, kích nổ độc, đập khiên)."
@@ -249,6 +250,7 @@ namespace PokiClash.Core
         // tên chỉ số viết hoa đầu (chữ nổi khi có buff)
         public static string StatLabel(Stat s)
         {
+            if (Loc.IsEn) return CardTextEn.StatLabel(s);
             switch (s)
             {
                 case Stat.Atk: return "Công";
@@ -270,6 +272,7 @@ namespace PokiClash.Core
         // nhãn ngắn trên chip trạng thái
         public static string StatusLabel(StatusId id)
         {
+            if (Loc.IsEn) return CardTextEn.StatusLabel(id);
             switch (id)
             {
                 case StatusId.Burn: return "Bỏng";
@@ -283,6 +286,7 @@ namespace PokiClash.Core
         // chữ nổi khi dính trạng thái
         public static string StatusFloat(StatusId id)
         {
+            if (Loc.IsEn) return CardTextEn.StatusFloat(id);
             switch (id)
             {
                 case StatusId.Burn: return "Bỏng!";
@@ -297,6 +301,7 @@ namespace PokiClash.Core
         public static string EvoRuleShort(CardDef evo)
         {
             double heal = evo != null && evo.Effects.Count > 0 && evo.Effects[0].K == EffectKind.Evolve ? evo.Effects[0].Pct : 1;
+            if (Loc.IsEn) return CardTextEn.EvoRuleShort(heal);
             return $"gục thì tiến hóa, dạng sau vào trận {(heal >= 1 ? "đầy máu" : $"với {Pct(heal)} máu")}";
         }
 
@@ -336,6 +341,7 @@ namespace PokiClash.Core
 
         public static string EffectText(Effect e)
         {
+            if (Loc.IsEn) return CardTextEn.EffectText(e);
             switch (e.K)
             {
                 case EffectKind.Buff:
@@ -436,6 +442,7 @@ namespace PokiClash.Core
 
         public static string Text(CardDef c, int lv, double cardLvStep)
         {
+            if (Loc.IsEn) return CardTextEn.Text(c, lv, cardLvStep);
             string body = string.Join(". ", ScaleEffects(c.Effects, lv, cardLvStep).Select(EffectText));
             if (c.kind != CardKind.Passive) return body + ".";
             string low = LowFirst(body);
@@ -466,6 +473,7 @@ namespace PokiClash.Core
 
         public static string CostText(CardDef c)
         {
+            if (Loc.IsEn) return CardTextEn.CostText(c);
             var parts = new List<string>();
             if (c.costRage > 0) parts.Add($"{c.costRage} nộ");
             if (c.costMana > 0) parts.Add($"{c.costMana} mana");

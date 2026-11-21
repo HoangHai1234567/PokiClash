@@ -62,12 +62,12 @@ namespace PokiClash
             title.color = Theme.Of(zone);
             var parts = new List<string>
             {
-                $"{n} trận · {Badges.TierStars(s, cfg, zone, tier)}/{3 * n} sao",
-                $"Xong bậc: hệ {Elements.Name(zone)} +{Badges.Bonus(cfg, tier) * 100:0}% · {Pachinko.ChestName(Pachinko.FromKey(cfg.badges.chest[Mathf.Min(tier, cfg.badges.chest.Count) - 1]))}" +
-                (tier <= cfg.badges.evo.Length && cfg.badges.evo[tier - 1] > 0 ? $" · {cfg.badges.evo[tier - 1]} đá tiến hóa" : "") +
-                (tier <= cfg.badges.crystal.Length && cfg.badges.crystal[tier - 1] > 0 ? $" · {cfg.badges.crystal[tier - 1]} đá tinh" : ""),
+                Loc.F("{0} trận · {1}/{2} sao", n, Badges.TierStars(s, cfg, zone, tier), 3 * n),
+                Loc.F("Xong bậc: hệ {0} +{1:0}% · {2}", Elements.Name(zone), Badges.Bonus(cfg, tier) * 100, Pachinko.ChestName(Pachinko.FromKey(cfg.badges.chest[Mathf.Min(tier, cfg.badges.chest.Count) - 1]))) +
+                (tier <= cfg.badges.evo.Length && cfg.badges.evo[tier - 1] > 0 ? Loc.F(" · {0} đá tiến hóa", cfg.badges.evo[tier - 1]) : "") +
+                (tier <= cfg.badges.crystal.Length && cfg.badges.crystal[tier - 1] > 0 ? Loc.F(" · {0} đá tinh", cfg.badges.crystal[tier - 1]) : ""),
             };
-            if (cfg.badges.traitTiers.Contains(tier)) parts.Add((Badges.TraitLevel(cfg, tier) == 1 ? "Mở " : "Nâng ") + Badges.TraitText(cfg, zone, Badges.TraitLevel(cfg, tier)));
+            if (cfg.badges.traitTiers.Contains(tier)) parts.Add((Badges.TraitLevel(cfg, tier) == 1 ? Loc.T("Mở ") : Loc.T("Nâng ")) + Badges.TraitText(cfg, zone, Badges.TraitLevel(cfg, tier)));
             sub.text = string.Join("\n", parts);
             if (prev) prev.Interactable = tier > 1;
             if (next) next.Interactable = tier < top;

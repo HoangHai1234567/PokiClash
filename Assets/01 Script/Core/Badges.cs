@@ -43,7 +43,7 @@ namespace PokiClash.Core
         public static int Tier(SaveData s, Elem z) => s.badges[(int)z].tier;
         public static int MaxTier(BalanceConfig cfg) => cfg.badges.counts.Length;
         public static int Count(BalanceConfig cfg, int tier) => cfg.badges.counts[tier - 1];
-        public static string TierName(BalanceConfig cfg, int tier) => cfg.badges.tiers[Math.Max(1, Math.Min(tier, cfg.badges.tiers.Count)) - 1];
+        public static string TierName(BalanceConfig cfg, int tier) => Loc.T(cfg.badges.tiers[Math.Max(1, Math.Min(tier, cfg.badges.tiers.Count)) - 1]);
         public static double Bonus(BalanceConfig cfg, int tier) => tier > 0 ? cfg.badges.bonus[Math.Min(tier, cfg.badges.bonus.Length) - 1] : 0;
 
         // phần cộng cho mọi tướng của một dãy ở bậc tier

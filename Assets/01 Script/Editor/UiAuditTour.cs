@@ -97,6 +97,53 @@ namespace PokiClash.EditorTools
             yield return new WaitForSecondsRealtime(0.8f);
             yield return Shot("15_len_cap");
             App.Modals.CloseAll();
+
+            // màn Nhà (2026-11-21): thường, khay Xây, khay Lát ô
+            yield return Go(SceneIds.Home);
+            yield return new WaitForSecondsRealtime(4f); // chuyến tàu cập bến, máy lướt lên Nhà chính
+            yield return Shot("16_nha");
+            var homeBtns = Object.FindObjectsByType<PokiClash.UI.SketchButton>(FindObjectsSortMode.None);
+            foreach (var (label, shot) in new[] { ("XÂY", "17_nha_xay"), ("LÁT Ô", "18_nha_lat") })
+            {
+                var b = System.Array.Find(homeBtns, x => x.Label && x.Label.text.Trim().ToUpperInvariant() == label);
+                if (!b) continue;
+                b.SimulateClick();
+                yield return new WaitForSecondsRealtime(0.8f);
+                yield return Shot(shot);
+                b.SimulateClick();
+                yield return new WaitForSecondsRealtime(0.4f);
+            }
+
+            // hộp thoại chung (2026-11-21); hộp nào lỗi (chưa có trong UiKit...) thì bỏ qua, chụp tiếp
+            yield return Go(SceneIds.Hub);
+            var boxes = new List<(string, System.Action)>
+            {
+                ("19_xac_nhan", () => App.Modals.Open<ConfirmDialog>().Show("Thoát trận?", "Thoát giữa trận sẽ mất lượt đánh này. Bạn chắc chứ?", "Thoát", null, "Ở lại", PokiClash.UI.BtnColor.Red)),
+                ("20_thong_bao", () => App.Modals.Open<AlertDialog>().Show("Hết chỗ", "Đội đã đủ 4 tướng. Bỏ bớt một tướng để thêm tướng mới.", "Đã hiểu", null)),
+                ("21_cay_bi", TreePanel.Open),
+                ("22_khoi_dau", () => Dialogs.Starter()),
+                ("23_tiem_nang", () => App.Modals.Open<PotentialDialog>().Show(starter)),
+                ("24_ket_qua_thang", () => App.Modals.Open<BattleResultDialog>().Show(true, "Chiến thắng!", 64, "Hiệp: 5\nSát thương: 1.240\nThưởng: 120 bi, 30 EXP")),
+                ("25_ket_qua_thua", () => App.Modals.Open<BattleResultDialog>().Show(false, "Thua rồi", 64, "Hiệp: 7\nSát thương: 860")),
+                ("26_tam_dung", () => App.Modals.Open<BattlePauseDialog>().Show("Đảo Thủy · Ải 1", null)),
+                ("27_gioi_thieu", () => Dialogs.Intro()),
+            };
+            foreach (var (shot, open) in boxes)
+            {
+                bool ok;
+                try
+                {
+                    open();
+                    ok = true;
+                }
+                catch (System.Exception e)
+                {
+                    Debug.LogWarning($"[Soi giao diện] {shot}: {e.Message}");
+                    App.Modals.CloseAll();
+                    ok = false;
+                }
+                if (ok) yield return Modal(shot);
+            }
             Debug.Log($"[Soi giao diện] Chụp xong: {Dir}");
         }
 
@@ -119,6 +166,15 @@ namespace PokiClash.EditorTools
             yield return null;
             while ((App.Router.Busy || App.Router.Current != scene) && Time.realtimeSinceStartup - t0 < 30) yield return null;
             yield return new WaitForSecondsRealtime(0.8f);
+        }
+
+        // hộp vừa mở: chờ hiện hết, chụp, đóng
+        static IEnumerator Modal(string name)
+        {
+            yield return new WaitForSecondsRealtime(0.8f);
+            yield return Shot(name);
+            App.Modals.CloseAll();
+            yield return new WaitForSecondsRealtime(0.4f);
         }
 
         static IEnumerator Shot(string name)

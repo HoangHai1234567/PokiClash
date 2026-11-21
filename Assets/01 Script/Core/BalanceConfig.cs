@@ -80,6 +80,7 @@ namespace PokiClash.Core
     public class PotSet
     {
         public string key, name;
+        public string Name => Loc.T(name); // tên theo ngôn ngữ
         public string[] kinds = new string[0];
         public int[] need = new int[0];
         public string[] bonusKind = new string[0];
@@ -91,6 +92,7 @@ namespace PokiClash.Core
     public class CaveTier
     {
         public string name;
+        public string Name => Loc.T(name);
         public int level, stones;
         public int firstStones, firstCrystals, firstEvo;
         public double buff;
@@ -127,6 +129,8 @@ namespace PokiClash.Core
     public class ProductDef
     {
         public string id, name, desc;
+        public string Name => Loc.T(name);
+        public string Desc => Loc.T(desc);
     }
 
     [Serializable]
@@ -152,6 +156,7 @@ namespace PokiClash.Core
     public class FarmSpotDef
     {
         public string id, kind, name;
+        public string Name => Loc.T(name);
         public Elem elem;
         public double x, y; // toạ độ 0..1 trên ảnh đảo trang trại
     }

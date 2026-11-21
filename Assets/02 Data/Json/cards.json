@@ -24,7 +24,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "shield",
-   "unlock": 1,
+   "unlock": 4,
    "effects": [
     {
      "k": "buff",
@@ -72,7 +72,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "flame",
-   "unlock": 1,
+   "unlock": 2,
    "repeat": true,
    "effects": [
     {
@@ -119,7 +119,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "feather",
-   "unlock": 1,
+   "unlock": 3,
    "effects": [
     {
      "k": "buff",
@@ -151,7 +151,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "seed",
-   "unlock": 1,
+   "unlock": 3,
    "effects": [
     {
      "k": "status",
@@ -169,7 +169,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "potion",
-   "unlock": 1,
+   "unlock": 4,
    "repeat": true,
    "effects": [
     {
@@ -184,7 +184,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "bun",
-   "unlock": 1,
+   "unlock": 5,
    "effects": [
     {
      "k": "maxhp",
@@ -199,7 +199,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "skull",
-   "unlock": 1,
+   "unlock": 9,
    "effects": [
     {
      "k": "selfdmg",
@@ -219,7 +219,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "bubble",
-   "unlock": 1,
+   "unlock": 2,
    "repeat": true,
    "effects": [
     {
@@ -234,7 +234,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "lotus",
-   "unlock": 1,
+   "unlock": 6,
    "repeat": true,
    "effects": [
     {
@@ -249,7 +249,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "wing",
-   "unlock": 1,
+   "unlock": 4,
    "repeat": true,
    "effects": [
     {
@@ -265,7 +265,7 @@
    "rarity": "uncommon",
    "kind": "pool",
    "icon": "wind",
-   "unlock": 1,
+   "unlock": 6,
    "effects": [
     {
      "k": "buff",
@@ -314,7 +314,7 @@
    "rarity": "rare",
    "kind": "pool",
    "icon": "rage",
-   "unlock": 1,
+   "unlock": 10,
    "effects": [
     {
      "k": "buff",
@@ -338,7 +338,7 @@
    "rarity": "rare",
    "kind": "pool",
    "icon": "crack",
-   "unlock": 1,
+   "unlock": 10,
    "effects": [
     {
      "k": "buff",
@@ -613,7 +613,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "leaf",
-   "unlock": 1,
+   "unlock": 5,
    "repeat": true,
    "effects": [
     {
@@ -632,7 +632,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "sun",
-   "unlock": 1,
+   "unlock": 8,
    "effects": [
     {
      "k": "buff",
@@ -650,7 +650,7 @@
    "rarity": "common",
    "kind": "pool",
    "icon": "fist",
-   "unlock": 1,
+   "unlock": 8,
    "repeat": true,
    "effects": [
     {

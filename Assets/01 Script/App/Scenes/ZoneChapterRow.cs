@@ -47,7 +47,7 @@ namespace PokiClash
 
         // tên kiểu ải: boss, mini boss theo loại ải, còn lại theo kiểu (Islands.TagName)
         public static string TagText(StageDef st) =>
-            st.kind == StageKind.Boss ? "Boss đảo" : st.kind == StageKind.Mini ? "Mini boss" : Islands.TagName(st.tag);
+            st.kind == StageKind.Boss ? Loc.T("Boss đảo") : st.kind == StageKind.Mini ? "Mini boss" : Islands.TagName(st.tag);
 
         public void Bind(StageDef st, GameData d, bool open, bool cleared, bool current, int balls, Action onClick)
         {
@@ -56,7 +56,7 @@ namespace PokiClash
             p.idx.text = st.idx.ToString();
             p.tag.text = TagText(st);
             p.tag.color = st.kind != StageKind.Normal || st.tag == StageTag.Gate || st.tag == StageTag.Elite ? Theme.Red : Theme.Ink;
-            p.balls.text = $"+{balls} bi";
+            p.balls.text = Loc.F("+{0} bi", balls);
             for (int i = 0; i < p.foes.Length; i++)
             {
                 var f = p.foes[i];

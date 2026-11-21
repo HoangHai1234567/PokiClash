@@ -155,7 +155,7 @@ namespace PokiClash
             LayoutGlowRays();
             // chữ gợi ý "chạm hoặc giữ để thả bi" (nướng ở mép trên khung cũ): dời xuống trong vòm, ngay dưới nấm đỉnh
             foreach (var t in GetComponentsInChildren<TextMeshProUGUI>(true))
-                if (t.text.Contains("để thả bi"))
+                if (t.text.Contains("để thả bi") || t.text == Loc.T("chạm hoặc giữ để thả bi")) // bản dịch: chữ đã đổi lúc nạp scene
                 {
                     var rt = t.rectTransform;
                     rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
@@ -589,6 +589,7 @@ namespace PokiClash
                 var lit = pg.kind == PegKind.Top ? topLit : bumperLit;
                 if (lit) bumpers[peg].sprite = lit;
                 fx.Emit(MachineFx.BumperHit, Local(pg.x, pg.y), (float)pg.r * 2 * K / 1.1f);
+                fx.Emit(MachineFx.BumperSpark, Local(pg.x, pg.y), (float)pg.r * 2 * K / 1.1f);
                 return;
             }
             fx.Emit(MachineFx.PegHit, Local(pg.x, pg.y), (float)pg.r * 2 * K);
@@ -698,7 +699,9 @@ namespace PokiClash
                 var sl = Board.slots[slot];
                 at = Local((sl.x0 + sl.x1) / 2, sl.y0 - 4);
             }
-            if (MachineGlow.Sprite("pk_keo_exp")) fx.Emit(MachineFx.CandyBurst("pk_keo_exp"), at, MachineFx.UnitBall);
+            // cột sáng dâng lên từ miệng ô (2026-11-21, thay chùm kẹo phụt rồi rơi: kẹo thật phụt ra và bay lên bảng số ngay sau)
+            float colH = 1.3f * 4.2f * MachineFx.UnitBall;
+            fx.Emit(MachineFx.ExpSlotLight, at + new Vector2(0, colH * 0.42f), MachineFx.UnitBall);
             if (!p.particle || !p.floatText) return;
             var box = Make("cong_exp", p.fxLayer);
             box.sprite = null;

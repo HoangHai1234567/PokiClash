@@ -31,10 +31,30 @@ namespace PokiClash.EditorTools
             "Assets/03 Art/Fallback/Icons/crownSm.png", "Assets/03 Art/Fallback/Icons/boss.png",
         };
 
-        // hình thuộc atlas đảo: trong thư mục Co, Anim; danh sách Files; mây, chim, thuyền cắt từ ảnh nền đảo vùng đất
+        // Atlas ảnh hạt hiệu ứng (người dùng 2026-11-21: bớt dung lượng mà không đổi chất lượng hình). 1247 ảnh hạt có 36% diện tích là
+        // viền trong suốt; gói vào atlas (gói chữ nhật, không gói sát) thì Unity cắt viền đó, Image tự bù phần cắt (DataUtility.GetPadding)
+        // nên hạt vẫn đúng chỗ, đúng cỡ, cùng điểm ảnh, cùng mức nén ASTC 6x6 nén một lần. Lề 8 (hơn ô nén 6 điểm: không ô nào dính hai
+        // hình), tô lấn màu mép ra lề (mép hạt không ám màu lề khi lọc song tuyến). Ảnh vẽ kiểu Filled (cắt nửa theo chiều dọc: vòng cung
+        // arc_/arcs_, sblob_, kr_khoi_ ở HatLua, HatRobot) giữ nguyên khung (FullRect, không cắt viền): Filled tính nửa theo phần còn lại
+        // sau khi cắt, cắt lệch thì đường cắt dời. van_chi là ô vân lặp đọc dạng Texture2D (HatMang), không thuộc atlas.
+        public const string HatDir = "Assets/03 Art/Fx/Hat";
+        const string HatAtlasPath = "Assets/03 Art/Fx/hat.spriteatlasv2";
+        static readonly string[] HatFullRectPrefixes = { "hat_arc_", "hat_arcs_", "hat_sblob_", "hat_kr_khoi_" };
+
+        public static bool InHatAtlas(string path)
+        {
+            path = path.Replace('\\', '/');
+            return path.StartsWith(HatDir + "/") && path.EndsWith(".png") && path.IndexOf('/', HatDir.Length + 1) < 0
+                   && Path.GetFileName(path).StartsWith("hat_");
+        }
+
+        public static bool HatFullRect(string path) => InHatAtlas(path) && HatFullRectPrefixes.Any(Path.GetFileName(path).StartsWith);
+
+        // hình thuộc atlas đảo: trong thư mục Co, Anim; danh sách Files; mây, chim, thuyền cắt từ ảnh nền đảo vùng đất; ảnh hạt hiệu ứng
         public static bool InAtlas(string path)
         {
             path = path.Replace('\\', '/');
+            if (InHatAtlas(path)) return true;
             if (Folders.Any(f => path.StartsWith(f + "/")) || Files.Contains(path)) return true;
             if (!path.StartsWith(IslandDir + "/land_") || !path.EndsWith(".png") || path.IndexOf('/', IslandDir.Length + 1) >= 0) return false;
             var n = Path.GetFileNameWithoutExtension(path);
@@ -102,8 +122,52 @@ namespace PokiClash.EditorTools
             }
         }
 
+        [MenuItem("PokiClash/Build/Sprite Atlas hạt hiệu ứng (dựng lại)", priority = 40)]
+        public static void BuildHat()
+        {
+            if (EditorSettings.spritePackerMode != SpritePackerMode.SpriteAtlasV2)
+            {
+                EditorSettings.spritePackerMode = SpritePackerMode.SpriteAtlasV2;
+                Debug.Log("[Atlas] Bật Sprite Atlas V2 cho project");
+            }
+            // nguồn chưa theo luật mới (còn nén, hoặc sai kiểu khung) thì nhập lại trước khi gói
+            var srcs = AssetDatabase.FindAssets("t:Texture2D", new[] { HatDir }).Select(AssetDatabase.GUIDToAssetPath).Where(InHatAtlas)
+                .Where(x =>
+                {
+                    if (!(AssetImporter.GetAtPath(x) is TextureImporter t)) return false;
+                    var s = new TextureImporterSettings();
+                    t.ReadTextureSettings(s);
+                    var want = HatFullRect(x) ? SpriteMeshType.FullRect : SpriteMeshType.Tight;
+                    return t.textureCompression != TextureImporterCompression.Uncompressed || s.spriteMeshType != want
+                           || t.GetPlatformTextureSettings("Android").overridden;
+                })
+                .ToList();
+            AssetDatabase.StartAssetEditing();
+            try
+            {
+                foreach (var x in srcs) AssetDatabase.ImportAsset(x, ImportAssetOptions.ForceUpdate);
+            }
+            finally
+            {
+                AssetDatabase.StopAssetEditing();
+            }
+            if (srcs.Count > 0) Debug.Log($"[Atlas] Nhập lại {srcs.Count} ảnh hạt nguồn không nén");
+            var folder = AssetDatabase.LoadAssetAtPath<DefaultAsset>(HatDir);
+            if (!folder)
+            {
+                Debug.LogError("[Atlas] Thiếu thư mục " + HatDir);
+                return;
+            }
+            // cả thư mục: ảnh hạt mới thêm sau tự vào atlas lúc build (van_chi nhỏ, nằm thừa một bản trong atlas cũng không sao)
+            string path = Pack(HatAtlasPath, new List<Object> { folder }, 8, true);
+            if (path == null) return;
+            SpriteAtlasUtility.PackAtlases(new[] { AssetDatabase.LoadAssetAtPath<SpriteAtlas>(path) }, EditorUserBuildSettings.activeBuildTarget);
+            var packed = AssetDatabase.LoadAssetAtPath<SpriteAtlas>(path);
+            Debug.Log($"[Atlas] Đã dựng {path}: {(packed ? packed.spriteCount : 0)} hình. Soát: PokiClash/Build/Soát atlas hạt");
+        }
+
         // dựng lại một atlas (xoá bản cũ), trả đường dẫn; gói sau
-        static string Pack(string path, List<Object> objs)
+        static string Pack(string path, List<Object> objs, int padding = 4, bool dilate = false)
         {
             if (AssetDatabase.LoadMainAssetAtPath(path)) AssetDatabase.DeleteAsset(path);
             var atlas = new SpriteAtlasAsset();
@@ -121,7 +185,8 @@ namespace PokiClash.EditorTools
             {
                 enableRotation = false, // UI không vẽ hình xoay trong atlas
                 enableTightPacking = false, // Image vẽ cả khung chữ nhật: gói sát làm lẹm hình bên cạnh
-                padding = 4,
+                padding = padding,
+                enableAlphaDilation = dilate,
             };
             imp.textureSettings = new SpriteAtlasTextureSettings
             {

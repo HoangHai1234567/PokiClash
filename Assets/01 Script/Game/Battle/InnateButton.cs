@@ -38,7 +38,7 @@ namespace PokiClash
             click.OnClick = onClick;
             icon.sprite = iconSprite;
             cardName.text = card.name;
-            cost.text = used ? "Đã xếp" : CardText.CostText(card);
+            cost.text = used ? Loc.T("Đã xếp") : CardText.CostText(card);
             if (meterFill) meterFill.anchorMax = new Vector2(Mathf.Min(1, (float)rage / 100f), 1);
             group.alpha = used ? 0.45f : why != "" ? 0.6f : 1;
             glow.gameObject.SetActive(ready);

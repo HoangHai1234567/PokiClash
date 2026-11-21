@@ -910,7 +910,7 @@ namespace PokiClash
         {
             var b = Body(side);
             var words = big ? WordsBig : WordsHit;
-            word ??= words[Random.Range(0, words.Length)];
+            word ??= Loc.T(words[Random.Range(0, words.Length)]);
             var item = Take(burstFx);
             item.Image.color = big ? Theme.Hex("#ffd24a") : Theme.Hex("#fff6c8");
             var rt = item.Rect;

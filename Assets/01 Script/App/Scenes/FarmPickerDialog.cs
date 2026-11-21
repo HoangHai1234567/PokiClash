@@ -55,14 +55,14 @@ namespace PokiClash
             }
             var df = Home.Def(d.Cfg, b.def);
             var sl = b.slots[slot];
-            title.text = $"{df.name} · ô {slot + 1}" + (df.hasElem ? $" · hợp hệ {Elements.Name(df.elem)}" : "");
+            title.text = Loc.F("{0} · ô {1}", df.Name, slot + 1) + (df.hasElem ? Loc.F(" · hợp hệ {0}", Elements.Name(df.elem)) : "");
             current.SetActive(sl.hero != null);
             if (sl.hero != null)
             {
                 var hd = d.Hero(sl.hero);
                 currentPortrait.Bind(hd, 110);
-                currentText.text = sl.energy > 0 ? $"{hd.name}: còn {FarmScene.Clock(sl.energy)} giờ làm" : $"{hd.name}: hết sức";
-                currentRest.text = $"Rút ra thì nghỉ {Home.RestMin(s, d, sl.hero):0} phút";
+                currentText.text = sl.energy > 0 ? Loc.F("{0}: còn {1} giờ làm", hd.name, FarmScene.Clock(sl.energy)) : Loc.F("{0}: hết sức", hd.name);
+                currentRest.text = Loc.F("Rút ra thì nghỉ {0:0} phút", Home.RestMin(s, d, sl.hero));
                 remove.SetOnClick(() =>
                 {
                     Home.Remove(s, d, SaveService.Now(), id, slot);
@@ -83,7 +83,7 @@ namespace PokiClash
                     if (b.slots[slot].hero != null) Home.Remove(s, d, t, id, slot);
                     var e = Home.Place(s, d, t, id, slot, hid);
                     if (e == HomeErr.Ok) App.Audio.Play("buff");
-                    else App.Toasts.Show(e == HomeErr.TotalSlots ? "Hết chỗ tướng: nâng Nhà chính" : e == HomeErr.BallSlots ? "Hết chỗ ra bi: lên cấp để thêm" : "Chưa giao được", App.Art ? App.Art.Icon("lock") : null);
+                    else App.Toasts.Show(e == HomeErr.TotalSlots ? Loc.T("Hết chỗ tướng: nâng Nhà chính") : e == HomeErr.BallSlots ? Loc.T("Hết chỗ ra bi: lên cấp để thêm") : Loc.T("Chưa giao được"), App.Art ? App.Art.Icon("lock") : null);
                     App.Save.Save();
                     Close();
                     changed(false);
@@ -101,14 +101,14 @@ namespace PokiClash
             var f = Farm.Of(s, d.Cfg, now);
             var def = d.Cfg.farm.spots[i];
             var sp = f.spots[i];
-            title.text = $"{def.name} · hợp hệ {Elements.Name(def.elem)}";
+            title.text = Loc.F("{0} · hợp hệ {1}", def.Name, Elements.Name(def.elem));
             current.SetActive(sp.hero != null);
             if (sp.hero != null)
             {
                 var h = d.Hero(sp.hero);
                 currentPortrait.Bind(h, 110);
-                currentText.text = sp.energy > 0 ? $"{h.name}: còn {FarmScene.Clock(sp.energy)} giờ làm" : $"{h.name}: hết sức";
-                currentRest.text = $"Rút ra thì nghỉ {Farm.RestMin(s, d, sp.hero):0} phút";
+                currentText.text = sp.energy > 0 ? Loc.F("{0}: còn {1} giờ làm", h.name, FarmScene.Clock(sp.energy)) : Loc.F("{0}: hết sức", h.name);
+                currentRest.text = Loc.F("Rút ra thì nghỉ {0:0} phút", Farm.RestMin(s, d, sp.hero));
                 remove.SetOnClick(() =>
                 {
                     Farm.Remove(s, d, SaveService.Now(), i);

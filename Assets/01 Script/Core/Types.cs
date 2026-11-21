@@ -91,6 +91,7 @@ namespace PokiClash.Core
         public List<Effect> Effects => effects ??= EffectJson.ParseList(MiniJson.Parse(effectsJson ?? "[]"));
         public double? Chance => hasChance ? chance : (double?)null;
         public bool HasCost => costMana > 0 || costRage > 0;
+        public CardDef Copy() => (CardDef)MemberwiseClone(); // bản dịch tên (LocData)
     }
 
     // Một dạng trong dòng tiến hóa của tướng: lên sao thì đổi dạng (mốc ở BalanceConfig.formStars).
@@ -100,6 +101,8 @@ namespace PokiClash.Core
         public string name;
         public string aola; // thư mục trong reskin (chỉ bản dev)
         public double size = 1; // hệ số cỡ trên sân
+
+        public HeroForm Copy() => (HeroForm)MemberwiseClone();
     }
 
     [Serializable]
@@ -120,6 +123,8 @@ namespace PokiClash.Core
         public double size = 1; // = forms[0].size
         public HeroForm[] forms = new HeroForm[0]; // 1–3 dạng, dạng 1 trước
         public bool minion; // lính của ải (GameData.Minions): chỉ làm địch, không thu phục, không rơi mảnh
+
+        public HeroDef Copy() => (HeroDef)MemberwiseClone(); // bản dịch tên (LocData)
 
         // dạng ở sao này (chép formIndex của Web/src/core/progression.ts): đủ mốc formStars[i] thì sang dạng i + 2
         public int FormIndex(int[] formStars, int star)
@@ -181,6 +186,8 @@ namespace PokiClash.Core
         public int chapter; // đảo 70 ải: chặng (0..9), từ ải tướng tới trước ải tướng sau
         public List<StageEnemy> enemies = new List<StageEnemy>();
         public List<StageDrop> drops = new List<StageDrop>();
+
+        public StageDef Copy() => (StageDef)MemberwiseClone();
     }
 
     [Serializable]
@@ -207,6 +214,8 @@ namespace PokiClash.Core
         public Pt world; // vị trí vùng trên ảnh đảo lớn
         // đảo kiểu vùng đất (Land.cs, GD_Claude/18): có thì màn đảo vẽ vùng đất kéo hai chiều thay bản đồ dọc
         public LandDef land = new LandDef();
+
+        public ZoneDef Copy() => (ZoneDef)MemberwiseClone();
     }
 
     // hiệu ứng đầu trận của tiềm năng (và đặc tính hệ của huy hiệu, bộ tiềm năng): mana, nộ cộng lúc dựng tướng; chí mạng, hút máu

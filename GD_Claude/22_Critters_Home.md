@@ -132,6 +132,32 @@ Màn Nhà là uGUI: trong một Canvas, thứ tự anh em chính là thứ tự 
 2. **Biển mềm như họ nhưng giữ vân chì**: màu biển do shader, nhân với độ sáng tối của biển vẽ tay (`_Grain`), nên vẫn thấy nét chì. Có số `_Steps` để chia bậc phẳng nếu người dùng muốn giống nét vẽ tay hơn.
 3. **Chưa thay ảnh nền ở A1–A4**: đồng cỏ, hồ, suối, mạch quặng, bậc cao vẫn là ảnh vẽ liền hiện tại; A5 mới đặt mảnh vách, cát, cỏ rải lên trên và vẽ lại phần rìa.
 
+## 7. Nút và điều khiển của home Critters, áp vào Nhà
+
+Người dùng 2026-11-22: "phần home các button / điều khiển chức năng vẫn chưa rõ ràng, cải thiện đi, đục sâu vào Clash of Critters". Mổ bằng `D:/CrittersRipper/analysis_ui/dump_ui.py` và `compose_ui.py` (ảnh dựng, tấm sprite ở `D:/CrittersRipper/analysis_ui/home_ui/`, chỉ xem trên máy).
+
+### Họ làm thế nào
+
+| Prefab | Là gì | Ghi chú |
+|---|---|---|
+| `Res/Prefabs/homestead/pbui_buildi_operationbar_item` | thanh thao tác khi chọn công trình | **vòng nút tròn quanh công trình** (`CircleLayoutGroup`), lót đĩa tối mờ 371 px; mỗi nút 80 px (nền `txui_button_circle_bg` + icon 55 px), **không chữ**; nút: xác nhận (kèm giá: icon gạch vàng + số trong viên đen), xác nhận xám (không đủ tiền), lật, cất kho, đóng, máy bi, chi tiết (chữ i); bấm có hoạt cảnh nảy (`ClickScale`, `anfx_btn_click_bite`) |
+| `Res/Prefabs/homestead/Bubble/pbsc_homestead_*_bubble` | bong bóng chức năng trên công trình | bong bóng tròn trắng có đuôi (`txui_common_circle_bubble`), **vòng tiến độ xanh** (`mtui_circular_progress_bar`) quanh icon sản phẩm; đầy thì hiện chữ "Thu hoạch"; chạm bong bóng là thu |
+| `Res/UI/Prefabs/MainCity/buildmode/pbui_build_mode_view` | chế độ xây | tấm dưới bo tròn 438 px kéo lên / xuống được (mũi tên), lưới thẻ cuộn (`LoopGridView`), nút lọc, ô trống; dưới cùng hàng tab lọc (`pbui_build_bottom_btns`: Tất cả, Lớn, Vừa, Nhỏ, Cây, Ô đất, Hàng rào) và nút X đóng; bên phải hai nút nổi có icon + chữ dưới (Sổ công trình, Thu hồi hàng loạt) |
+| `pbui_build_item` (trong build_mode_view) | thẻ công trình | 170 × 210: nền thẻ, **icon to 180 px, không tên**, số "0/50" trong viên đen góc dưới phải, bản xám khi không xây được, dấu chọn góc trên |
+| `MainView/MainButton/*` | nút màn chính | nút vuông bo (`txui_mainview_button_bg_s`), icon trên, **chữ dưới**, chấm đỏ (`UIReddot`) |
+
+Ngôn ngữ chung: nút tròn tối có chấm vân, icon một màu rõ nghĩa (tích xanh, X đỏ, mũi tên lật, khay cất, chữ i), chữ rất ít, giá luôn đi kèm icon tiền tệ trong viên đen, nút không đủ điều kiện thì xám chứ không ẩn.
+
+### Áp vào Nhà (người dùng chốt 2026-11-22: làm hết bốn phần, dùng icon có sẵn trước)
+
+- **Vòng nút quanh vật đang chọn** (`HomeRing`, `HomeRingButton`, prefab `Items/NutVongNha` biến thể `Kit/Nut_Tron`): thay bảng chữ to ở đáy. Nút tròn sticker lõi màu 112 px, icon có sẵn của game, **có chữ ngắn dưới mỗi nút** (khác Critters: người dùng thấy không rõ chức năng nên giữ chữ), dòng giá trong viên tối dưới chữ. Xếp hình quạt trên đầu vật, bám theo khi kéo / phóng bản đồ, cỡ không đổi theo phóng; vật sát thanh trên thì quạt lật xuống dưới chân. Nhãn tên + cấp + một dòng trạng thái (đang xây còn bao lâu, có bao nhiêu chờ thu, mấy tướng) dưới chân vật. Chữ dài (sản lượng từng ô tướng, điều kiện lên cấp) vào nút "Chi tiết" (hộp báo). Nút: Thu (icon sản phẩm), Giao tướng / Đổi ca, Nhanh 30' (quảng cáo, khi đang xây), Lên cấp + giá (khoá thì mờ, chạm báo lý do) hoặc Cất (trang trí), Dời, Chi tiết. Ô rừng: Dọn + giá; quái đang nghỉ: Cho ăn.
+- **Đặt / dời công trình**: bỏ bảng Đặt / Thôi, thay cặp nút ✗ Thôi / ✓ Đặt (kèm giá xây) cạnh bóng ma; chỗ không đặt được thì ✓ khoá và nhãn ghi lý do.
+- **Bong bóng có vòng tiến độ**: vòng xanh chạy theo đồ chờ thu so với sức chứa (tổng tồn / tổng tốc × giờ chứa của các ô có tướng), đầy thì cam và phập phồng; chạm bong bóng là thu (Cây bi: hái hết). Ảnh vành khuyên `Assets/03 Art/Home/vong_tien_do.png` do bộ dựng vẽ.
+- **Chế độ xây**: tấm dưới có hàng tab (Tất cả, Sản xuất, Hỗ trợ, Trang trí) và khay cuộn ngang 2 hàng thẻ `Items/TheXayNha` (icon to trên, tên + giá hoặc lý do khoá dưới; Critters không ghi tên, mình giữ tên).
+- **Hàng nút dưới**: Xây (búa), Lát ô (bút chì), Thu hết (hạt, chấm đỏ khi có đồ chờ thu), Ra đảo (bản đồ) thành nút tròn icon có chữ dưới; đang xây / lát thì nút đó thành "Xong", các nút khác ẩn. Bỏ dòng gợi ý dài; khi xây / lát chỉ còn một dòng ngắn trên tấm xây.
+- Prefab vá bằng menu "PokiClash/Prefab/Nhà: giao diện kiểu Critters" (`Editor/HomeCrittersMenu.cs`), bộ dựng cả màn ("Nhà: dựng màn") gọi cùng hàm.
+- Chưa làm: tấm xây kéo lên / xuống, nút nổi Sổ công trình, thu hồi hàng loạt; icon riêng cho Dời, Cất, Thu hết (đang mượn swap, down, seed) nếu người dùng muốn thì gen sau.
+
 ## Tiến độ
 
 - 2026-11-20: mổ xong, viết file này, chép script và ảnh soi.
@@ -151,3 +177,7 @@ Màn Nhà là uGUI: trong một Canvas, thứ tự anh em chính là thứ tự 
   - thác, suối chảy bằng shader thay thác 4 khung của Critters: `home_river.png` (vùng nước trong đảo, hướng chảy, tốc; lòng hồ đứng) sinh cùng `make_home_sea.py`, `UIHomeSea` vẽ vệt bọt trôi theo hướng.
   - Tour thêm ảnh `16_vach`, `17_thac_a`, `17_thac_b` (mở hết ô rừng trên bản lưu thử cho cây khỏi che).
 - Khác Critters, cố ý: phía nam không làm vách tụt xuống bãi cát (dải cát vẽ sẵn chỉ rộng khoảng 100 px, vách 200 px sẽ lấp hết cát), giữ bãi thoải có đồ ven biển; không dừa trên dải cát ngoài lưới (cây cao ở lớp `cat` sẽ vẽ dưới công trình sát mép; ô rừng ven biển đã có dừa); lớp `co_rai`, `moi_co` để trống (đồng cỏ vẽ tay đã có cỏ, hoa; môi cỏ vẽ liền trong mảnh vách).
+- 2026-11-22: **polish chọn vật + Cây bi** (người dùng: "chọn vật chưa thể hiện kĩ là vừa chọn, nhún nhẹ, sáng nhẹ bằng shader; số bóng trên đầu cây như Critters, tap một cây thu hoạch hết, bóng tween lên chỗ bóng"):
+  - chọn công trình / trang trí / cây bi (chạm, hoặc chạm tướng đang làm ở đó): vật nhún (nén 0,9 rồi giãn ~1,04 quanh chân, tắt dần 0,8 giây, `HomeObject.Bounce`, đèn đêm nhún theo) và đổi vật liệu `Assets/03 Art/Home/home_select.mat` (shader `PokiClash/UIHomeSelect`: kéo màu về trắng ấm theo `_HomeSel` toàn cục, vùng tô sáng hơn nét mực, không viền, không quầng). Độ sáng loé lên 1 trong 0,08 giây rồi lặn về thở nhẹ 0,32–0,52 khi bảng còn mở; đóng bảng thì trả vật liệu thường. Chọn ô rừng: cây trong ô sáng cùng, nhún lần lượt từ tâm ra. Bóng ma xây / dời nhún khi nhấc, khi thả; công trình vừa Đặt nhún một cái;
+  - Cây bi: bong bóng trên đầu ghi số bi cây đang có (viên dài: icon bi + số; công trình khác vẫn bong bóng tròn chỉ icon), hiện thì nảy ra, lơ lửng lên xuống; chạm một cây có bi là hái hết mọi cây (`Trees.Harvest`, chung bi với hộp Cây bi sảnh), bong bóng các cây nảy rồi tắt, 3–6 viên bi mỗi cây (tổng tối đa 24, các cây bật cùng lúc) bay theo đường cong lên chip bi thanh trên (`FarmFx.Fly` trên lớp giao diện cố định), viên đầu tới thì chip đếm chạy, mỗi viên tới chip nảy nhẹ + tiếng "pick" cao dần. Cây chưa có bi thì mở bảng (tốc độ, sức chứa, giờ ra bi kế);
+  - prefab vá bằng menu "PokiClash/Prefab/Nhà: chọn vật sáng + số bi Cây bi" (chữ `so` trong bong bóng `Items/NhaVat`, `selectMat` của `Screens/Home`); bộ dựng màn đã có hai thứ này. Thử: menu "PokiClash/Thử/Nhà: chọn vật + hái Cây bi (đang Play)" (`Editor/HomeSelectShots.cs`), ảnh `Temp/PokiShots/nha_chon/`, xong trả bi và cây như trước.

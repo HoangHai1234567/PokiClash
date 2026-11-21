@@ -40,7 +40,9 @@ namespace PokiClash.Core
             return m < 1 && attPartner || m > 1 && defPartner ? 1 : m;
         }
 
-        public static string Name(Elem e)
+        public static string Name(Elem e) => Loc.T(NameVi(e)); // tên theo ngôn ngữ (Loc)
+
+        public static string NameVi(Elem e)
         {
             switch (e)
             {
@@ -64,7 +66,9 @@ namespace PokiClash.Core
             }
         }
 
-        public static string RarityName(Rarity r)
+        public static string RarityName(Rarity r) => Loc.T(RarityNameVi(r)); // tên theo ngôn ngữ (Loc)
+
+        public static string RarityNameVi(Rarity r)
         {
             switch (r)
             {
@@ -88,7 +92,9 @@ namespace PokiClash.Core
             }
         }
 
-        public static string KindName(CardKind k)
+        public static string KindName(CardKind k) => Loc.T(KindNameVi(k)); // tên theo ngôn ngữ (Loc)
+
+        public static string KindNameVi(CardKind k)
         {
             switch (k)
             {

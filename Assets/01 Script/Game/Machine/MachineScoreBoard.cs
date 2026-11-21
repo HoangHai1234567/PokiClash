@@ -311,31 +311,44 @@ namespace PokiClash
             return MachineGlow.NewImage(name, parent) as T;
         }
 
-        // kẹo EXP từ một điểm thế giới lên bảng: chùm kẹo toả ra, khựng, rồi lần lượt bay mượt về icon kẹo của bảng
-        // (MachineExpBar.Spray, 3..7 viên); viên nào tới thì bảng cộng phần của viên đó
+        // kẹo EXP từ một điểm thế giới lên bảng: chùm kẹo phụt ra, khựng, rồi lần lượt phóng về icon kẹo của bảng
+        // (MachineExpBar.Spray, 7..16 viên, kẹo 76 px, toả 125 px từ 2026-11-21); viên nào tới thì bảng cộng phần của viên đó, chữ
+        // "+N" của cả chùm bật một lần ở viên tới đầu tiên, tiếng tách cao dần theo từng viên
         public void Receive(MachineExpBar bar, Vector3 from, int n, float delay = 0)
         {
             if (n <= 0) return;
             bar.Held += n;
             int k = MachineExpBar.SprayCount(n);
             incoming += k;
+            int got = 0;
             bar.Spray(Candy, from, () => IconWorld, k, delay, i =>
             {
                 incoming--;
-                Add(MachineExpBar.Part(n, k, i));
-            }, 60, 92);
+                Add(MachineExpBar.Part(n, k, i), got == 0 ? n : 0);
+                float now = Time.unscaledTime;
+                if (now - lastTick >= 0.05f)
+                {
+                    lastTick = now;
+                    App.Audio.Play("counter", 0.4f, 1f + Mathf.Min(got, 12) * 0.035f);
+                }
+                got++;
+            }, 76, 125);
         }
 
-        // cộng lên bảng: số chạy tới, nhún, quầng loé, đèn viền nháy, vệt sáng lia qua
-        public void Add(int n)
+        float lastTick = -1;
+
+        // cộng lên bảng: số chạy tới, nhún, quầng loé, đèn viền nháy, vệt sáng lia qua; label > 0: bật chữ "+label"
+        public void Add(int n, int label)
         {
             target += n;
             joltT = 0;
-            Plus(n);
+            if (label > 0) Plus(label);
             punchT = 0;
             flashT = 0.35f;
             if (sweep && !sweep.gameObject.activeSelf) sweepT = SweepEvery;
         }
+
+        public void Add(int n) => Add(n, n);
 
         // đổ số trên bảng lên thanh: kẹo bay từ bảng tới đầu thanh, số đếm lùi; chờ thanh nhận hết
         public IEnumerator Collect(MachineExpBar bar)
@@ -346,7 +359,7 @@ namespace PokiClash
             collectT = 0;
             yield return new WaitForSecondsRealtime(CollectFlash);
             // cả chùm phụt khỏi bảng một lần (số trên bảng đếm lùi về 0), khựng, rồi lần lượt bay mượt lên đầu thanh
-            int total = target, k = Mathf.Clamp(Mathf.CeilToInt(total / 15f), 4, 10);
+            int total = target, k = Mathf.Clamp(Mathf.CeilToInt(total / 6f) + 4, 8, 18); // 2026-11-21: đông hơn (trước 4..10)
             target = 0;
             punchT = 0;
             joltT = 0;
@@ -354,7 +367,7 @@ namespace PokiClash
             bar.Spray(Candy, IconWorld, () => bar.TipWorld, k, 0, i =>
             {
                 bar.Deposit(MachineExpBar.Part(total, k, i));
-            }, 54, 130);
+            }, 66, 150);
             for (float t = 0; bar.Busy && t < 4; t += Time.unscaledDeltaTime) yield return null;
         }
 
@@ -366,7 +379,7 @@ namespace PokiClash
             t.name = "cong";
             t.text = "+" + n;
             t.alignment = TextAlignmentOptions.Center;
-            t.fontSize = num.fontSize * 0.55f;
+            t.fontSize = num.fontSize * 0.7f; // 2026-11-21: to hơn (0,55) cho rõ
             t.fontStyle = FontStyles.Bold;
             t.color = Theme.Hex("#ffe27a");
             t.outlineWidth = 0.22f;

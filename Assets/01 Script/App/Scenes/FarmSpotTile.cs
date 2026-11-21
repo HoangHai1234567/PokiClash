@@ -43,7 +43,7 @@ namespace PokiClash
             p.click.OnClick = open ? onClick : null;
             p.kind.sprite = App.Art ? App.Art.Icon(FarmScene.KindIcon(def.kind)) : null;
             p.kind.color = open ? Color.white : new Color(1, 1, 1, 0.5f);
-            p.name.text = def.name;
+            p.name.text = def.Name;
             p.name.color = open ? Theme.Ink : Theme.Ink3;
             p.elemTag.Set(def.elem);
 
@@ -54,7 +54,7 @@ namespace PokiClash
             SetHero(false);
             if (!open)
             {
-                p.lockText.text = $"Mở ở cấp {Farm.SpotLevel(d.Cfg, i)}";
+                p.lockText.text = Loc.F("Mở ở cấp {0}", Farm.SpotLevel(d.Cfg, i));
                 return;
             }
             if (sp.stock >= 0.05)
@@ -78,9 +78,9 @@ namespace PokiClash
             double hours = Farm.Hours(s, d, sp.hero);
             p.ring.color = working ? Theme.Green : Theme.Paper3;
             p.ring.fillAmount = working ? Mathf.Clamp01((float)(sp.energy / hours)) : 1;
-            p.ringText.text = working ? FarmScene.Clock(sp.energy) : "hết";
+            p.ringText.text = working ? FarmScene.Clock(sp.energy) : Loc.T("hết");
             p.ringText.color = working ? Theme.Ink : Theme.Ink3;
-            p.info.text = working ? $"{h.name}\n{FarmScene.Dec(Farm.Rate(s, d, sp.hero, i))} bi/giờ" : $"{h.name}\nHết sức: đổi ca";
+            p.info.text = working ? Loc.F("{0}\n{1} bi/giờ", h.name, FarmScene.Dec(Farm.Rate(s, d, sp.hero, i))) : Loc.F("{0}\nHết sức: đổi ca", h.name);
             p.info.color = working ? Theme.Ink : Theme.RedD;
         }
 

@@ -16,7 +16,7 @@ namespace PokiClash
 {
     public sealed class BadgesScene : SceneRoot
     {
-        public override string Title => "Đền Huy Hiệu";
+        public override string Title => Loc.T("Đền Huy Hiệu");
 
         [SerializeField] RectTransform list; // cột dọc trong khung cuộn: khung giới thiệu rồi các bệ
         [SerializeField] BadgePedestal pedestalPrefab;
@@ -75,17 +75,17 @@ namespace PokiClash
                 var g = Badges.GiftOf(cfg, next);
                 var parts = new List<string>();
                 if (!string.IsNullOrEmpty(g.chest)) parts.Add(Pachinko.ChestName(Pachinko.FromKey(g.chest)));
-                if (g.evo > 0) parts.Add($"{g.evo} đá tiến hóa");
-                if (g.crystal > 0) parts.Add($"{g.crystal} đá tinh");
-                if (g.stones > 0) parts.Add($"{g.stones} đá tiềm năng");
-                gift = $"Mốc kế {Badges.GiftAt(cfg, next)} sao: {string.Join(", ", parts)}.";
+                if (g.evo > 0) parts.Add(Loc.F("{0} đá tiến hóa", g.evo));
+                if (g.crystal > 0) parts.Add(Loc.F("{0} đá tinh", g.crystal));
+                if (g.stones > 0) parts.Add(Loc.F("{0} đá tiềm năng", g.stones));
+                gift = Loc.F("Mốc kế {0} sao: {1}.", Badges.GiftAt(cfg, next), string.Join(", ", parts));
             }
-            else gift = "Đã nhận hết mốc sao.";
+            else gift = Loc.T("Đã nhận hết mốc sao.");
             if (intro)
             {
                 // ngắn để vừa khung (bản dài tràn mất dòng đầu, 2026-11-17); luật sao chi tiết nằm ở hộp danh sách trận
-                intro.text = $"Sao đền: {total}/{Badges.MaxStars(cfg)}. {gift}\n" +
-                             $"Mỗi trận 3 sao: thắng · không ai gục · thắng trong {cfg.badges.starRounds} hiệp mỗi địch. Đánh lại để lấy thêm sao.";
+                intro.text = Loc.F("Sao đền: {0}/{1}. {2}\n", total, Badges.MaxStars(cfg), gift) +
+                             Loc.F("Mỗi trận 3 sao: thắng · không ai gục · thắng trong {0} hiệp mỗi địch. Đánh lại để lấy thêm sao.", cfg.badges.starRounds);
                 if (!intro.enableAutoSizing) // chữ quá dài thì co lại (không lớn hơn cỡ gốc), không tràn khỏi khung
                 {
                     intro.fontSizeMax = intro.fontSize;

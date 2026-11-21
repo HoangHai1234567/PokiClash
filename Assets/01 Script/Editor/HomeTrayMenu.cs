@@ -31,16 +31,17 @@ namespace PokiClash.EditorTools
                 ir.SetParent(go.transform, false);
                 ir.anchorMin = ir.anchorMax = ir.pivot = new Vector2(0, 0.5f);
                 ir.anchoredPosition = new Vector2(10, 3);
-                ir.sizeDelta = new Vector2(80, 80);
+                ir.sizeDelta = new Vector2(68, 68);
                 icon.preserveAspect = true;
                 icon.raycastTarget = false;
                 icon.enabled = false;
                 var label = btn.Label;
                 var lr = label.rectTransform;
-                lr.offsetMin = new Vector2(94, lr.offsetMin.y);
+                lr.offsetMin = new Vector2(80, lr.offsetMin.y);
                 label.enableAutoSizing = true;
-                label.fontSizeMax = label.fontSize;
-                label.fontSizeMin = 14;
+                label.enableWordWrapping = true; // tên dài xuống dòng, cỡ chữ đều giữa các nút (2026-11-21)
+                label.fontSizeMax = 20;
+                label.fontSizeMin = 12;
                 go.AddComponent<HomeTrayItem>().Setup(btn, icon);
                 return PrefabUtility.SaveAsPrefabAsset(go, ItemPath).GetComponent<HomeTrayItem>();
             }

@@ -24,7 +24,7 @@ namespace PokiClash.Core
 
         public static TeamSetup Player(SaveData s, IEnumerable<string> team = null, GameData d = null)
         {
-            var t = new TeamSetup { name = "Đội bạn", ai = false };
+            var t = new TeamSetup { name = Loc.T("Đội bạn"), ai = false };
             foreach (var h in team ?? s.team)
             {
                 var p = s.Hero(h);

@@ -3851,6 +3851,8 @@ MonoBehaviour:
   rubber: 0.35
   spring: 10
   decay: 4
+  padTop: 0
+  padBottom: 0
 --- !u!1 &9023195825367539595
 GameObject:
   m_ObjectHideFlags: 0
@@ -4786,6 +4788,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 286767125694718439, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 22
+      objectReference: {fileID: 0}
+    - target: {fileID: 286767125694718439, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2100000, guid: ce438c0d275110d42bb7f81e4e6163c3, type: 2}
@@ -4807,11 +4813,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1457716449733171724, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
       propertyPath: m_SizeDelta.x
-      value: -68
+      value: -96
       objectReference: {fileID: 0}
     - target: {fileID: 1457716449733171724, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20
+      value: 26
       objectReference: {fileID: 0}
     - target: {fileID: 4631084481923408653, guid: 0d698fbe597f6f04789bca47090518ec, type: 3}
       propertyPath: m_Pivot.x

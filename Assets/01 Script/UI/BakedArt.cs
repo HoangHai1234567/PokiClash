@@ -38,6 +38,7 @@ namespace PokiClash.UI
         public Texture2D noise;
         public List<OutlineItem> outlines = new List<OutlineItem>();
         public List<ClipItem> sfx = new List<ClipItem>();
+        public List<ClipItem> music = new List<ClipItem>(); // nhạc nền theo khoá (AudioService.MusicFor), menu "PokiClash/Âm thanh/Nạp nhạc và tiếng"
 
         public static BakedArt Current;
 
@@ -72,7 +73,7 @@ namespace PokiClash.UI
                     bestDiff = diff;
                 }
             }
-            if (bestDiff != 0) Warn($"viền {font?.name} {key}");
+            if (bestDiff != 0) Warn(Loc.F("viền {0} {1}", font?.name, key));
             return best;
         }
 

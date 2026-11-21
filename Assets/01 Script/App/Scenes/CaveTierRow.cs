@@ -40,23 +40,23 @@ namespace PokiClash
             var ct = cfg.cave.tiers[tier];
             bool unlocked = Potential.CaveUnlocked(s, cfg, tier), first = Potential.CaveFirst(s, tier);
             name = "tang_" + tier;
-            title.text = $"Tầng {tier + 1}: {ct.name}" + (!first ? " · Đã qua" : "");
+            title.text = Loc.F("Tầng {0}: {1}", tier + 1, ct.Name) + (!first ? Loc.T(" · Đã qua") : "");
             title.color = unlocked ? Theme.Hex(TierColors[Mathf.Min(tier, TierColors.Length - 1)]) : Theme.Ink3;
             bool low = s.level < ct.level - 2;
-            level.text = !unlocked ? $"Qua tầng {tier} để mở · cấp {ct.level}" : $"Cấp đề nghị {ct.level}" + (low ? $" (bạn cấp {s.level})" : "");
+            level.text = !unlocked ? Loc.F("Qua tầng {0} để mở · cấp {1}", tier, ct.level) : Loc.F("Cấp đề nghị {0}", ct.level) + (low ? Loc.F(" (bạn cấp {0})", s.level) : "");
             level.color = !unlocked ? Theme.Ink3 : low ? Theme.RedD : Theme.Ink2;
 
             // tối đa 2 dòng ngắn (khung chữ tự co, không xuống dòng): đá mỗi lượt, rồi thưởng lần đầu
-            string line1 = $"Thắng: +{ct.stones} đá tiềm năng" +
-                           (tier + 1 >= cfg.cave.crystalFloor && cfg.cave.crystalDaily > 0 ? $", lượt đầu ngày +{cfg.cave.crystalDaily} đá tinh" : "");
+            string line1 = Loc.F("Thắng: +{0} đá tiềm năng", ct.stones) +
+                           (tier + 1 >= cfg.cave.crystalFloor && cfg.cave.crystalDaily > 0 ? Loc.F(", lượt đầu ngày +{0} đá tinh", cfg.cave.crystalDaily) : "");
             var fp = new List<string>();
             if (first)
             {
-                if (ct.firstStones > 0) fp.Add($"{ct.firstStones} đá");
-                if (ct.firstCrystals > 0) fp.Add($"{ct.firstCrystals} đá tinh");
-                if (ct.firstEvo > 0) fp.Add($"{ct.firstEvo} đá tiến hóa");
+                if (ct.firstStones > 0) fp.Add(Loc.F("{0} đá", ct.firstStones));
+                if (ct.firstCrystals > 0) fp.Add(Loc.F("{0} đá tinh", ct.firstCrystals));
+                if (ct.firstEvo > 0) fp.Add(Loc.F("{0} đá tiến hóa", ct.firstEvo));
             }
-            reward.text = fp.Count > 0 ? line1 + "\nLần đầu: " + string.Join(", ", fp) : line1;
+            reward.text = fp.Count > 0 ? line1 + Loc.T("\nLần đầu: ") + string.Join(", ", fp) : line1;
 
             var st = elem is Elem z && unlocked ? Potential.CaveStage(d, z, tier) : null;
             for (int i = 0; i < enemies.Length; i++)
@@ -72,7 +72,7 @@ namespace PokiClash
             }
 
             go.name = "vao_tang_" + tier;
-            go.SetText(!unlocked ? "Khoá" : first ? "Vượt" : "Vào");
+            go.SetText(!unlocked ? Loc.T("Khoá") : first ? Loc.T("Vượt") : Loc.T("Vào"));
             go.SetOnClick(onGo);
             go.Interactable = can;
         }

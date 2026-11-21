@@ -25,7 +25,7 @@ namespace PokiClash
 
     public sealed class FarmScene : SceneRoot, IFarmPetHost
     {
-        public override string Title => "Trang trại";
+        public override string Title => Loc.T("Trang trại");
 
         const int MaxRoam = 10, MaxSleep = 4;
         const float DropRadius = 150;
@@ -120,15 +120,15 @@ namespace PokiClash
             int stock = f.spots.Sum(sp => (int)Math.Floor(sp.stock));
             bool anyWorking = f.spots.Any(sp => sp.hero != null);
             info.text = anyWorking
-                ? $"Đúng hệ của khu ×{Num(cfg.farm.match)} bi. Hết sức thì chạm để đổi ca."
-                : "Kéo một bạn trên bãi cỏ thả vào khu để giao việc, hoặc chạm vào khu.";
-            harvest.SetText($"Thu hoạch ({stock})");
+                ? Loc.F("Đúng hệ của khu ×{0} bi. Hết sức thì chạm để đổi ca.", Num(cfg.farm.match))
+                : Loc.T("Kéo một bạn trên bãi cỏ thả vào khu để giao việc, hoặc chạm vào khu.");
+            harvest.SetText(Loc.F("Thu hoạch ({0})", stock));
             harvest.Interactable = stock > 0;
             bool boosting = Farm.Boosting(f, now);
             boostLeft.gameObject.SetActive(boosting);
-            if (boosting) boostLeft.text = $"Năng suất ×2: còn {Clock((f.boostUntil - now) / 3600000)}";
+            if (boosting) boostLeft.text = Loc.F("Năng suất ×2: còn {0}", Clock((f.boostUntil - now) / 3600000));
             boost.gameObject.SetActive(!boosting && Ads.Ready);
-            if (!boosting && Ads.Ready) Ads.Bind(boost, "×2 năng suất", Ads.FarmBoost);
+            if (!boosting && Ads.Ready) Ads.Bind(boost, Loc.T("×2 năng suất"), Ads.FarmBoost);
 
             int open = Farm.SpotsOpen(cfg, s.level);
             for (int i = 0; i < slots.Length && i < f.spots.Count; i++)
@@ -246,7 +246,7 @@ namespace PokiClash
             if (pet.State == FarmPet.Mode.Sleep)
             {
                 double left = Farm.RestLeft(Farm.Of(S, D.Cfg, Now), pet.Hero, Now) / 60000;
-                App.Toasts.Show($"{D.Hero(pet.Hero).name} đang ngủ, còn {Math.Ceiling(left):0} phút", Icon("moon"));
+                App.Toasts.Show(Loc.F("{0} đang ngủ, còn {1:0} phút", D.Hero(pet.Hero).name, Math.Ceiling(left)), Icon("moon"));
                 return;
             }
             if (pet.Spot >= 0) Picker(pet.Spot);
@@ -290,19 +290,19 @@ namespace PokiClash
             var def = d.Cfg.farm.spots[i];
             if (i >= Farm.SpotsOpen(d.Cfg, s.level))
             {
-                App.Toasts.Show($"{def.name} mở ở cấp {Farm.SpotLevel(d.Cfg, i)}", Icon("lock"));
+                App.Toasts.Show(Loc.F("{0} mở ở cấp {1}", def.Name, Farm.SpotLevel(d.Cfg, i)), Icon("lock"));
                 return false;
             }
             if (f.spots[i].hero != null)
             {
-                App.Toasts.Show($"{def.name} đã có {d.Hero(f.spots[i].hero).name}: chạm vào khu để đổi ca", Icon("team"));
+                App.Toasts.Show(Loc.F("{0} đã có {1}: chạm vào khu để đổi ca", def.Name, d.Hero(f.spots[i].hero).name), Icon("team"));
                 return false;
             }
             if (!Farm.Place(s, d, now, i, pet.Hero)) return false;
             App.Save.Save();
             App.Audio.Play("buff");
             bool match = d.Hero(pet.Hero).elem == def.elem;
-            App.Toasts.Show($"{d.Hero(pet.Hero).name} vào {def.name}: {Dec(Farm.Rate(s, d, pet.Hero, i))} bi/giờ{(match ? " (đúng hệ)" : "")}", Icon(KindIcon(def.kind)));
+            App.Toasts.Show(Loc.F("{0} vào {1}: {2} bi/giờ{3}", d.Hero(pet.Hero).name, def.Name, Dec(Farm.Rate(s, d, pet.Hero, i)), (match ? Loc.T(" (đúng hệ)") : "")), Icon(KindIcon(def.kind)));
             pet.Place(FarmPet.Mode.Work, SlotPos(i), i, def.kind);
             Build();
             return true;
@@ -379,11 +379,12 @@ namespace PokiClash
             if (n <= 0) return;
             App.Save.Save();
             App.Audio.Play("coin");
+            Haptics.Play(Haptic.Reward);
             var ball = Prop(FarmProp.Ball);
             foreach (var (at, k) in from)
                 for (int j = 0; j < Mathf.Min(k, 6); j++)
                     Fx(ball, Color.white, at, new Vector2(Random.Range(-140f, 140f), Random.Range(280f, 480f)), 900, 0.9f, 44, 36, 0, true);
-            App.Toasts.Show($"Thu hoạch {n} bi", Icon("ball"));
+            App.Toasts.Show(Loc.F("Thu hoạch {0} bi", n), Icon("ball"));
             Build();
         }
 
@@ -391,7 +392,7 @@ namespace PokiClash
         {
             var done = Farm.Auto(S, D, Now);
             App.Save.Save();
-            App.Toasts.Show(done.Count > 0 ? $"Đã xếp {done.Count} tướng" : "Không còn tướng rảnh hoặc chỗ trống", Icon("team"));
+            App.Toasts.Show(done.Count > 0 ? Loc.F("Đã xếp {0} tướng", done.Count) : Loc.T("Không còn tướng rảnh hoặc chỗ trống"), Icon("team"));
             Build();
         }
 
@@ -404,7 +405,7 @@ namespace PokiClash
                 if (ok && Farm.Boost(S, D, Now))
                 {
                     App.Save.Save();
-                    App.Toasts.Show("Năng suất ×2 trong 1 giờ", Icon("seed"));
+                    App.Toasts.Show(Loc.T("Năng suất ×2 trong 1 giờ"), Icon("seed"));
                 }
                 Build();
             });

@@ -65,17 +65,17 @@ namespace PokiClash
             int stock = Trees.Stock(s, cfg, now);
             double cap = Trees.Cap(s, cfg, now);
             bool pass = AdGate.PassActive(s, now);
-            info.text = $"Mỗi cây {Dec(Trees.Rate(s, cfg, now))} bi mỗi giờ, chứa tối đa {cap:0} bi; đầy thì ngừng." + (pass ? " Đang có Thẻ Phiêu Lưu (×1,5)." : "");
+            info.text = Loc.F("Mỗi cây {0} bi mỗi giờ, chứa tối đa {1:0} bi; đầy thì ngừng.", Dec(Trees.Rate(s, cfg, now)), cap) + (pass ? Loc.T(" Đang có Thẻ Phiêu Lưu (×1,5).") : "");
             var st = Trees.Of(s, now).stock;
             for (int i = 0; i < trees.Length; i++)
             {
                 if (i < st.Count) trees[i].SetOpen(st[i], cap);
-                else trees[i].SetLocked(i == 0 ? "Qua ải 1" : $"Đạt\ncấp {cfg.trees.unlockLevels[i - 1]}");
+                else trees[i].SetLocked(i == 0 ? Loc.T("Qua ải 1") : Loc.F("Đạt\ncấp {0}", cfg.trees.unlockLevels[i - 1]));
             }
-            harvestBtn.SetText(stock > 0 ? $"Hái +{stock}" : "Hái");
+            harvestBtn.SetText(stock > 0 ? Loc.F("Hái +{0}", stock) : Loc.T("Hái"));
             harvestBtn.Interactable = stock > 0;
             doubleBtn.gameObject.SetActive(Ads.Ready);
-            Ads.Bind(doubleBtn, "Hái ×2", Ads.TreeDouble, stock > 0);
+            Ads.Bind(doubleBtn, Loc.T("Hái ×2"), Ads.TreeDouble, stock > 0);
         }
 
         void Update()
@@ -92,7 +92,8 @@ namespace PokiClash
             if (n <= 0) return;
             App.Save.Save();
             App.Audio.Play("coin");
-            App.Toasts.Show($"Hái {n} bi" + (mult > 1 ? " (×2)" : ""), App.Art.Icon("ball"));
+            Haptics.Play(Haptic.Reward);
+            App.Toasts.Show(Loc.F("Hái {0} bi", n) + (mult > 1 ? " (×2)" : ""), App.Art.Icon("ball"));
             App.Bars.Refresh();
             if (App.Router.CurrentRoot) App.Router.CurrentRoot.Refresh();
             Refresh();

@@ -44,7 +44,7 @@ namespace PokiClash
             p.wobble.enabled = tier > 0;
             if (tier <= 0) p.badge.Rect.localEulerAngles = Vector3.zero;
 
-            p.title.text = $"Hệ {Elements.Name(z)}" + (tier > 0 ? $" · {Badges.TierName(cfg, tier)}" : "");
+            p.title.text = Loc.F("Hệ {0}", Elements.Name(z)) + (tier > 0 ? $" · {Badges.TierName(cfg, tier)}" : "");
             p.title.color = Theme.Of(z);
 
             p.lockIcon.SetActive(!open);
@@ -56,17 +56,17 @@ namespace PokiClash
             p.go.gameObject.SetActive(false);
             if (!open)
             {
-                p.need.text = Badges.TempleOpen(s) ? $"Thắng mini boss {zone.name} (ải {Islands.MiniAt(z)}) để mở" : "Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu";
+                p.need.text = Badges.TempleOpen(s) ? Loc.F("Thắng mini boss {0} (ải {1}) để mở", zone.name, Islands.MiniAt(z)) : Loc.T("Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu");
                 return;
             }
 
             var bonus = Badges.Bonus(cfg, tier);
             int lv = Badges.TraitLevel(cfg, tier), nextTrait = Badges.NextTraitTier(cfg, tier);
             string trait = lv > 0 ? Badges.TraitText(cfg, z, lv)
-                : nextTrait > 0 ? $"Bậc {Badges.TierName(cfg, nextTrait)} mở đặc tính {Badges.TraitName(cfg, z)}" : "";
+                : nextTrait > 0 ? Loc.F("Bậc {0} mở đặc tính {1}", Badges.TierName(cfg, nextTrait), Badges.TraitName(cfg, z)) : "";
             double team = Badges.TeamBonusOf(cfg, tier);
-            p.bonus.text = (bonus > 0 ? $"Hệ {Elements.Name(z)} +{bonus * 100:0}% Máu, Công, Thủ" : $"Bậc Đồng: hệ {Elements.Name(z)} +{Badges.Bonus(cfg, 1) * 100:0}% Máu, Công, Thủ")
-                + (team > 0 ? $" · mọi tướng +{team * 100:0.#}%" : "") + (trait.Length > 0 ? "\n" + trait : "");
+            p.bonus.text = (bonus > 0 ? Loc.F("Hệ {0} +{1:0}% Máu, Công, Thủ", Elements.Name(z), bonus * 100) : Loc.F("Bậc Đồng: hệ {0} +{1:0}% Máu, Công, Thủ", Elements.Name(z), Badges.Bonus(cfg, 1) * 100))
+                + (team > 0 ? Loc.F(" · mọi tướng +{0:0.#}%", team * 100) : "") + (trait.Length > 0 ? "\n" + trait : "");
 
             int stars = Badges.LineStars(s, cfg, z), maxStars = 3 * Badges.FightsTotal(cfg);
             var cur = Badges.Current(s, cfg, z);
@@ -76,8 +76,8 @@ namespace PokiClash
             if (cur == null)
             {
                 p.done.gameObject.SetActive(true);
-                p.done.text = $"Bậc cao nhất · {stars}/{maxStars} sao";
-                p.go.SetText("Lấy sao");
+                p.done.text = Loc.F("Bậc cao nhất · {0}/{1} sao", stars, maxStars);
+                p.go.SetText(Loc.T("Lấy sao"));
                 return;
             }
             var (ct, ci) = cur.Value;
@@ -86,7 +86,7 @@ namespace PokiClash
             p.progress.text = $"{Badges.TierName(cfg, ct)} {ci - 1}/{n} · {stars}/{maxStars} sao";
             p.bar.gameObject.SetActive(true);
             p.bar.Set(ci - 1, n, 0, null, true);
-            p.go.SetText("Thử thách");
+            p.go.SetText(Loc.T("Thử thách"));
         }
     }
 }

@@ -283,13 +283,13 @@ namespace PokiClash
             bool named = !string.IsNullOrEmpty(formName);
             if (TitleSpots(side, ts, 25, out var tw, out var nw))
             {
-                Title("TIẾN HÓA!", Theme.Hex("#ffe08a"), ts, Vector2.zero, 0, 1.5f, tw);
+                Title(Loc.T("TIẾN HÓA!"), Theme.Hex("#ffe08a"), ts, Vector2.zero, 0, 1.5f, tw);
                 if (named) Title(formName, Theme.Hex("#fff6c8"), 25, Vector2.zero, 0.14f, 1.36f, nw);
             }
             else
             {
                 var at = new Vector2(SW * 0.5f, 60);
-                Title("TIẾN HÓA!", Theme.Hex("#ffe08a"), ts, at, 0, 1.5f);
+                Title(Loc.T("TIẾN HÓA!"), Theme.Hex("#ffe08a"), ts, at, 0, 1.5f);
                 if (named) Title(formName, Theme.Hex("#fff6c8"), 25, at + new Vector2(0, 38), 0.14f, 1.36f);
             }
             Motes(side, col, Mathf.RoundToInt(Mathf.Lerp(8, 14, pw)), 0.9f);

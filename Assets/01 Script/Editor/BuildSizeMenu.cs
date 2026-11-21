@@ -19,14 +19,29 @@ namespace PokiClash.EditorTools
     {
         static BuildLz4HC() => BuildPlayerWindow.RegisterBuildPlayerHandler(Build);
 
+        // Như bộ build PokiBuild (2026-11-21): bỏ scene không phải màn chơi và thư mục thừa trong Resources (BuildExclude), xong ghi
+        // báo cáo dung lượng (BuildSizeReport, Build/BaoCao). Các cài đặt khác giữ theo cửa sổ Build Profiles.
         static void Build(BuildPlayerOptions o)
         {
-            if (o.target == BuildTarget.Android) o.options |= BuildOptions.CompressWithLz4HC;
+            if (o.target == BuildTarget.Android || o.target == BuildTarget.iOS) o.options |= BuildOptions.CompressWithLz4HC;
             BuildCodeSize.Apply();
             // bản thử không cần logo Unity lúc mở (Unity 6 Personal cho tắt; ProjectSettings cũng đã tắt, phòng bản cũ ghi đè)
             if (PlayerSettings.SplashScreen.show) PlayerSettings.SplashScreen.show = false;
-            try { BuildPlayerWindow.DefaultBuildMethods.BuildPlayer(o); }
-            finally { FontBuildRestore.Restore(); }
+            o.scenes = PokiBuild.Scenes(o.scenes);
+            List<BuildExclude.Item> excluded = null;
+            try
+            {
+                excluded = BuildExclude.Plan(o.scenes);
+                BuildExclude.Apply(excluded);
+                BuildPlayerWindow.DefaultBuildMethods.BuildPlayer(o);
+            }
+            finally
+            {
+                BuildExclude.Restore();
+                try { FontBuildRestore.Restore(); }
+                catch (IOException e) { Debug.LogWarning("[Build] Chép lại phông: " + e.Message); }
+            }
+            BuildSizeReport.Write(UnityEditor.Build.Reporting.BuildReport.GetLatestReport(), excluded, "nút Build");
         }
     }
 
@@ -77,21 +92,56 @@ namespace PokiClash.EditorTools
         [InitializeOnLoadMethod]
         static void OnLoad() => EditorApplication.delayCall += Restore;
 
+        static int retries;
+
+        // Ngay sau build Unity còn giữ file phông đã nạp (ánh xạ bộ nhớ: chép đè báo "user-mapped section open", 2026-11-21): nhả file
+        // trước khi chép; file nào vẫn lỗi thì giữ bản chép, thử lại sau 3 giây (tối đa 5 lần), còn lại thì lần nạp code sau.
         public static void Restore()
         {
             if (!Directory.Exists(Backup) || BuildPipeline.isBuildingPlayer) return;
+            AssetDatabase.ReleaseCachedFileHandles();
             var files = Directory.GetFiles(Backup, "*.asset");
             var paths = new List<string>();
+            int failed = 0;
             foreach (var f in files)
             {
                 var dst = FontDir + "/" + Path.GetFileName(f);
-                if (!File.Exists(dst)) continue;
-                File.Copy(f, dst, true);
-                paths.Add(dst);
+                if (!File.Exists(dst))
+                {
+                    File.Delete(f);
+                    continue;
+                }
+                try
+                {
+                    File.Copy(f, dst, true);
+                    File.Delete(f);
+                    paths.Add(dst);
+                }
+                catch (IOException e)
+                {
+                    failed++;
+                    Debug.LogWarning($"[Dung lượng] Chưa chép lại được phông {dst} ({e.Message}); thử lại sau.");
+                }
             }
-            Directory.Delete(Backup, true);
             foreach (var p in paths) AssetDatabase.ImportAsset(p, ImportAssetOptions.ForceUpdate);
             if (paths.Count > 0) Debug.Log($"[Dung lượng] Chép lại {paths.Count} phông sau build (TMP đã xoá chữ của chúng trước build).");
+            if (failed == 0)
+            {
+                Directory.Delete(Backup, true);
+                retries = 0;
+            }
+            else if (retries++ < 5)
+            {
+                double at = EditorApplication.timeSinceStartup + 3;
+                EditorApplication.CallbackFunction wait = null;
+                wait = () =>
+                {
+                    if (EditorApplication.timeSinceStartup < at) return;
+                    EditorApplication.update -= wait;
+                    Restore();
+                };
+                EditorApplication.update += wait;
+            }
         }
     }
 

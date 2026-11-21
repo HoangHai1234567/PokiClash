@@ -24,7 +24,7 @@ namespace PokiClash
 
         void Awake() => ok.SetOnClick(Close);
 
-        public static string Line(int milestone) => $"Thả đủ {milestone} bi: chắc chắn nhận tướng Huyền thoại đầu tiên.";
+        public static string Line(int milestone) => Loc.F("Thả đủ {0} bi: chắc chắn nhận tướng Huyền thoại đầu tiên.", milestone);
 
         public void Show(HeroDef h, int milestone)
         {

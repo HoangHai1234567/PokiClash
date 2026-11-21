@@ -26,7 +26,7 @@ namespace PokiClash
 {
     public sealed class MachineScene : SceneRoot
     {
-        public override string Title => "Máy bi";
+        public override string Title => Loc.T("Máy bi");
 
         public const float MachineTop = 100; // mép trên máy trong khối giữa
         public const float BlockH = 1530;
@@ -176,6 +176,46 @@ namespace PokiClash
             RefreshUi();
             view.SetMult(x, false);
             RebuildTray();
+            TutorEnter();
+        }
+
+        // ---------- hướng dẫn người mới (GD_Claude/25_FTUE.md bước C1–C7, F4–F6) ----------
+
+        void TutorEnter()
+        {
+            Guide.Mark("machine.drop", p.drop);
+            Guide.Mark("machine.exp", p.expBar);
+            Guide.Mark("machine.legend", p.legendBar);
+            Guide.Mark("machine.bet", p.betCycle ? p.betCycle : p.bets != null && p.bets.Length > 1 ? p.bets[1] : null);
+            // máy bi lần đầu: 6 bi đầu có kết quả viết sẵn (lên cấp 2 ở bi thứ 5, rồi rương bạc), đường bi vẫn là vật lý thật
+            if (!Tutorial.Done(S, Tutorial.Drop) && Tutorial.Starter(S, D) != null)
+            {
+                board.forced.Clear();
+                foreach (var o in Tutorial.MachineOutcomes) board.forced.Enqueue(o);
+                Guide.Force(Tutorial.Drop, "machine.drop", Loc.T("Chạm để thả một bi."));
+                return;
+            }
+            TutorIdle(); // vào lại máy khi đã hết bi
+            if (!Tutorial.CoreDone(S)) return;
+            if (!S.legendDone && Guide.Hint(Tutorial.Legend, "machine.legend",
+                    Loc.F("Thả đủ {0} bi: nhận {1}, tướng Huyền thoại!", D.Cfg.legendMilestone, D.Hero(D.LegendMilestoneHero).name)))
+                return;
+            if (S.balls >= 40) Guide.Hint(Tutorial.Bet, "machine.bet", Loc.T("Cược ×2: tốn 2 bi mỗi lần, thưởng ×2. Nhanh hơn, không lời hơn."));
+        }
+
+        // bi đầu rơi: kinh nghiệm (C2), rồi giữ để thả liền (C3)
+        void TutorLand()
+        {
+            if (Tutorial.Done(S, Tutorial.Exp) || !Tutorial.Done(S, Tutorial.Drop)) return;
+            Guide.Note(Tutorial.Exp, "machine.exp", Loc.T("Kinh nghiệm! Cấp của bạn là cấp của mọi tướng."), 3.6f);
+            Guide.Hint(Tutorial.Hold, "machine.drop", Loc.T("Giữ nút để thả liền."), 6);
+        }
+
+        // hết đợt thả: hết bi thì chỉ đường về (C7)
+        void TutorIdle()
+        {
+            if (!Tutorial.Done(S, Tutorial.Drop) || Tutorial.Done(S, Tutorial.NoBalls) || Busy || S.chests.Count > 0) return;
+            if (S.balls < x) Guide.Force(Tutorial.NoBalls, "bar.back", Loc.T("Hết bi. Thắng ải để có thêm."));
         }
 
         // bảng số (chép bảng LED của máy tham khảo): chiếm chỗ thanh kinh nghiệm ở đầu máy (vòng cấp + rãnh), cao tới mép trên mặt
@@ -236,7 +276,7 @@ namespace PokiClash
                 b.name = "cuoc_x" + bx;
                 b.SetText("×" + bx);
                 b.SetOnClick(() => PickX(bx, need));
-                p.betLocks[i].text = $"{need} bi";
+                p.betLocks[i].text = Loc.F("{0} bi", need);
                 xBtns.Add((b, p.betLocks[i], bx));
             }
         }
@@ -258,7 +298,7 @@ namespace PokiClash
             if (!allowed.Contains(x) && idle)
             {
                 int nx = Progress.XBest(s, D.Cfg, x);
-                App.Toasts.Show($"Còn {s.balls} bi, cược về ×{nx} (×{x} cần có {Need(x)} bi)", App.Art.Icon("ball"));
+                App.Toasts.Show(Loc.F("Còn {0} bi, cược về ×{1} (×{2} cần có {3} bi)", s.balls, nx, x, Need(x)), App.Art.Icon("ball"));
                 x = lastX = nx;
             }
             // có đủ bi mở thêm mức: báo và nhún nút mới (như bảng "mốc tiếp theo" của máy tham khảo)
@@ -267,7 +307,7 @@ namespace PokiClash
                 int top = Progress.XBest(s, D.Cfg, int.MaxValue);
                 if (top > maxX)
                 {
-                    App.Toasts.Show($"Có {s.balls} bi: mở cược ×{top}, thả nhanh hơn", App.Art.Icon("ball"));
+                    App.Toasts.Show(Loc.F("Có {0} bi: mở cược ×{1}, thả nhanh hơn", s.balls, top), App.Art.Icon("ball"));
                     App.Audio.Play("pick", 0.7f, 1.2f);
                     var nb = p.betCycle ? p.betCycle : xBtns.Find(q => q.x == top).b;
                     if (nb) StartCoroutine(PopRect(nb.Rect, !p.betCycle && top == x ? 1.08f : 1f));
@@ -311,8 +351,8 @@ namespace PokiClash
                 if (p.betCycleArt) SetSprite(p.betCycleArt, "pk_v2_cuoc");
             }
             // thanh đếm bản 2 có icon bi ở đầu: chỉ số; bản cũ: câu đủ
-            p.counter.text = V2 ? (session > 0 ? $"{session}/{max}" : $"{s.balls}") : session > 0 ? $"Đợt này: {session}/{max}" : $"{s.balls} bi · tốn {x}/lần";
-            p.auto.SetText(V2 ? $"Liền ×{max}" : p.autoDome ? $"Thả liền\n{max}" : $"Thả liền {max}"); // bản 2: chú thích dưới nút
+            p.counter.text = V2 ? (session > 0 ? $"{session}/{max}" : $"{s.balls}") : session > 0 ? Loc.F("Đợt này: {0}/{1}", session, max) : Loc.F("{0} bi · tốn {1}/lần", s.balls, x);
+            p.auto.SetText(V2 ? Loc.F("Liền ×{0}", max) : p.autoDome ? Loc.F("Thả liền\n{0}", max) : Loc.F("Thả liền {0}", max)); // bản 2: chú thích dưới nút
             if (p.dropDome) p.drop.SetColor(Clear);
             else p.drop.SetColor(CanDrop() ? Theme.Red : Color.Lerp(Theme.Red, Theme.Paper3, 0.6f));
             if (p.autoDome) p.auto.SetColor(Clear);
@@ -557,7 +597,7 @@ namespace PokiClash
                 {
                     tickT = 0.085f;
                     tickPitch = Mathf.Min(2f, tickPitch + 0.07f);
-                    App.Audio.Play("pick", 0.5f, tickPitch);
+                    App.Audio.Play("counter", 0.5f, tickPitch);
                 }
             }
             UpdateZoom(dt);
@@ -616,15 +656,15 @@ namespace PokiClash
             if (legend)
             {
                 int need = cfg.legendMilestone;
-                p.legendBar.Set(Mathf.Min(s.ballsSpent, need), need, 0, V2 ? $"{Mathf.Min(s.ballsSpent, need)}/{need} bi" : $"Huyền thoại: {Mathf.Min(s.ballsSpent, need)}/{need} bi");
+                p.legendBar.Set(Mathf.Min(s.ballsSpent, need), need, 0, V2 ? Loc.F("{0}/{1} bi", Mathf.Min(s.ballsSpent, need), need) : Loc.F("Huyền thoại: {0}/{1} bi", Mathf.Min(s.ballsSpent, need), need));
                 ShowGift("legend", null);
             }
             else if (gifts)
             {
-                if (giftBusy > 0) p.legendBar.Set(1, 1, 0, "Nhận quà!");
+                if (giftBusy > 0) p.legendBar.Set(1, 1, 0, Loc.T("Nhận quà!"));
                 else
                 {
-                    p.legendBar.Set(s.gift, g.n, 0, V2 ? $"{s.gift}/{g.n} bi" : $"{Pachinko.GiftName(g)}: {s.gift}/{g.n} bi"); // bản 2: thanh hẹp, quà đã vẽ ở ô quà
+                    p.legendBar.Set(s.gift, g.n, 0, V2 ? Loc.F("{0}/{1} bi", s.gift, g.n) : Loc.F("{0}: {1}/{2} bi", Pachinko.GiftName(g), s.gift, g.n)); // bản 2: thanh hẹp, quà đã vẽ ở ô quà
                     ShowGift(g.k + s.giftTier, g);
                 }
             }
@@ -664,7 +704,7 @@ namespace PokiClash
             var cfg = D.Cfg;
             if (!s.legendDone)
             {
-                App.Toasts.Show($"Thả thêm {Mathf.Max(0, cfg.legendMilestone - s.ballsSpent)} bi: chắc chắn ra tướng Huyền thoại. Sau đó là các mốc quà.", App.Art.Icon("star"));
+                App.Toasts.Show(Loc.F("Thả thêm {0} bi: chắc chắn ra tướng Huyền thoại. Sau đó là các mốc quà.", Mathf.Max(0, cfg.legendMilestone - s.ballsSpent)), App.Art.Icon("star"));
                 return;
             }
             if (cfg.gifts.Count == 0) return;
@@ -674,9 +714,9 @@ namespace PokiClash
             {
                 var g = Pachinko.GiftAt(s, cfg, i);
                 left += i == 0 ? g.n - s.gift : g.n;
-                parts.Add($"{Pachinko.GiftName(g)} sau {left} bi");
+                parts.Add(Loc.F("{0} sau {1} bi", Pachinko.GiftName(g), left));
             }
-            App.Toasts.Show("Mốc quà: " + string.Join(" · ", parts), App.Art.Icon("chest"));
+            App.Toasts.Show(Loc.T("Mốc quà: ") + string.Join(" · ", parts), App.Art.Icon("chest"));
         }
 
         static readonly float[] GiftPop = { 0, 1, 0.08f, 1.35f, 0.25f, 0.92f, 0.4f, 1 };
@@ -691,7 +731,7 @@ namespace PokiClash
             if (rt) rt.localScale = Vector3.one * rest;
         }
 
-        public static string LegendDoneText(GameData d) => $"Đã nhận {d.Hero(d.LegendMilestoneHero).name}. Từ giờ Huyền thoại rất hiếm.";
+        public static string LegendDoneText(GameData d) => Loc.F("Đã nhận {0}. Từ giờ Huyền thoại rất hiếm.", d.Hero(d.LegendMilestoneHero).name);
 
         // viên cược bản 2: bấm thì sang mức mở kế tiếp (hết thì về ×1); viên nhún như nút cược máy tham khảo (cao 0,9 → 1,1 → 1 trong
         // 0,167 giây). Còn mức chưa đủ bi: lúc quay về ×1 báo mức kế cần bao nhiêu bi.
@@ -712,7 +752,7 @@ namespace PokiClash
             if (next < 0)
             {
                 var locked = steps.Find(q => !allowed.Contains(q.x));
-                if (locked != null) App.Toasts.Show($"Có {locked.balls} bi để mở ×{locked.x} (đang có {S.balls})", App.Art.Icon("ball"));
+                if (locked != null) App.Toasts.Show(Loc.F("Có {0} bi để mở ×{1} (đang có {2})", locked.balls, locked.x, S.balls), App.Art.Icon("ball"));
                 next = 0;
             }
             PickX(steps[next].x, steps[next].balls);
@@ -736,8 +776,8 @@ namespace PokiClash
             if (Busy) return; // nút đã khoá, chặn thêm cho công cụ bấm hộ
             if (!Progress.XAllowed(S, D.Cfg).Contains(bx))
             {
-                App.Audio.Play("error");
-                App.Toasts.Show($"Cần có {need} bi để mở ×{bx} (đang có {S.balls})", App.Art.Icon("ball"));
+                App.Audio.Play("machineDeny");
+                App.Toasts.Show(Loc.F("Cần có {0} bi để mở ×{1} (đang có {2})", need, bx, S.balls), App.Art.Icon("ball"));
                 return;
             }
             bool changed = bx != x;
@@ -747,7 +787,7 @@ namespace PokiClash
             RefreshUi();
             if (!changed) return;
             view.Float(Board.BW / 2, Board.BH * 0.4, "×" + x, Theme.Hex("#f39a2d"), 64);
-            App.Audio.Play("pick", 0.7f, 0.9f + Mathf.Min(x, 10) * 0.03f);
+            App.Audio.Play("bet", 0.8f, 0.9f + Mathf.Min(x, 10) * 0.03f);
         }
 
         // khay "Rương chờ": đếm theo loại, vàng trên cùng; chạm để mở. Nút loại không có rương ẩn, nút còn lại xếp từ trên xuống.
@@ -825,7 +865,8 @@ namespace PokiClash
             view.Launch();
             session++;
             dirty = true;
-            App.Audio.Play("click");
+            // tiếng phóng dài (lò xo + bi lăn): giữ nút thả 0,16 giây một bi thì cách nhau 0,25 giây cho khỏi chồng
+            App.Audio.PlayGap("launch", 0.25f, 0.7f, Random.Range(0.97f, 1.03f));
             Haptics.Play(Haptic.Drop);
             RefreshUi();
             return true;
@@ -847,10 +888,10 @@ namespace PokiClash
         void DenyDrop()
         {
             if (ending || opening) return;
-            App.Audio.Play("error");
+            App.Audio.Play("machineDeny");
             int max = D.Cfg.MaxPerDrop(S.level);
-            string msg = session >= max ? $"Tối đa {max} bi một đợt, chờ bi rơi hết"
-                : S.balls <= 0 ? "Hết bi rồi! Thắng ải để có thêm bi" : $"Cần {x} bi cho mỗi lần thả ×{x}";
+            string msg = session >= max ? Loc.F("Tối đa {0} bi một đợt, chờ bi rơi hết", max)
+                : S.balls <= 0 ? Loc.T("Hết bi rồi! Thắng ải để có thêm bi") : Loc.F("Cần {0} bi cho mỗi lần thả ×{1}", x, x);
             App.Toasts.Show(msg, App.Art.Icon("ball"));
         }
 
@@ -905,6 +946,9 @@ namespace PokiClash
                 }
             }
             WatchBalls(dt);
+            // tiếng bi lăn: to dần theo số bi trên máy (tối đa 0,5), hết bi thì nhỏ dần
+            int rolling = board.balls.Count;
+            App.Audio.Loop("roll", rolling > 0 ? Mathf.Min(0.5f, 0.2f + 0.1f * rolling) : 0);
             view.Blend = Mathf.Clamp01((float)(acc / Tick));
             // rảnh tay (không chạy chậm): thử sẵn vài đường bi cho các ô còn thiếu trong kho
             if (slowT <= 0) board.Warm(2);
@@ -975,8 +1019,11 @@ namespace PokiClash
         {
             var got = Pachinko.RingHit(S, D.Cfg, ring, mult);
             var pg = board.pegs[board.ringPeg[ring]];
+            App.Audio.PlayGap("giftPeg", 0.12f, 0.55f);
             if (got.Count > 0) view.RingFull(ring);
             view.SetRing(ring, RingFill(ring));
+            if (Tutorial.CoreDone(S) && RingFill(ring) >= 0.5f)
+                Guide.Note(Tutorial.Rings, null, Loc.T("Bi chạm nấm 25 lần: nấm trái ra rương bạc, nấm phải ra 5 bi."), 3.6f);
             dirty = true;
             foreach (var g in got)
             {
@@ -986,21 +1033,21 @@ namespace PokiClash
                     case RewardKind.Chest:
                         S.chests.Add(new PendingChest { kind = Pachinko.Key(g.chest), x = 1 });
                         view.Float(pg.x, pg.y - pg.r - 8, Pachinko.ChestName(g.chest) + "!", MachineBoard.ChestColor(g.chest), 28);
-                        App.Audio.Play("chest", 0.9f, 1.1f);
+                        App.Audio.Play("prize", 0.9f);
                         Haptics.Play(Haptic.LandSilver);
                         StartCoroutine(FlyChest(g.chest, from));
                         SaveNow();
                         break;
                     case RewardKind.Balls:
-                        view.Float(pg.x, pg.y - pg.r - 8, $"+{g.n} bi", MachineBoard.BallPink, 28);
-                        App.Audio.Play("coin", 0.9f, 1.15f);
+                        view.Float(pg.x, pg.y - pg.r - 8, Loc.F("+{0} bi", g.n), MachineBoard.BallPink, 28);
+                        App.Audio.Play("balls", 0.9f, 1.05f);
                         Haptics.Play(Haptic.LandSmall);
                         FlyBalls(from, g.n);
                         break;
                     case RewardKind.Exp:
                         view.Float(pg.x, pg.y - pg.r - 8, $"+{g.n} XP", MachineBoard.XpColor, 28);
                         GainExp(from, g.n);
-                        App.Audio.Play("land");
+                        App.Audio.Play("xp");
                         break;
                 }
             }
@@ -1012,6 +1059,7 @@ namespace PokiClash
         {
             var r = Pachinko.SlotReward(S, D.Cfg, kind, mult);
             bool gold = kind == SlotKind.ChestGold;
+            TutorLand();
             view.StopRoll(); // đèn chạy qua ô dừng ở ô thật
             // đèn vòm diễn một lần theo giá trị: ô thường quét, rương gỗ / bạc toả từ giữa (jackpot nháy riêng trong Jackpot)
             if (!gold) Show(r.k == RewardKind.Chest ? BulbShow.Center : BulbShow.Sweep);
@@ -1024,17 +1072,18 @@ namespace PokiClash
             switch (r.k)
             {
                 case RewardKind.Exp:
-                    // ô EXP: kẹo phụt, cụm "kẹo + số" bật ở miệng ô; kẹo bay về bảng số khi cụm vừa bật xong (0,3 giây)
+                    // ô EXP: cột sáng dâng, cụm "kẹo + số" bật ở miệng ô; chùm kẹo phụt ra từ ô ngay sau (0,1 giây, trước 0,3) rồi bay
+                    // về bảng số (2026-11-21)
                     if (slot >= 0) view.ExpPop(slot, bx, by, r.n);
                     else view.Float(bx, by - 20, $"+{r.n} XP", MachineBoard.XpColor);
-                    GainExp(view.World(bx, by - 24), r.n, slot >= 0 ? 0.3f : 0);
-                    App.Audio.Play("land");
+                    GainExp(view.World(bx, by - 24), r.n, slot >= 0 ? 0.1f : 0);
+                    App.Audio.Play("xp");
                     Haptics.Play(Haptic.LandSmall);
                     dirty = true;
                     break;
                 case RewardKind.Balls:
-                    view.Float(bx, by - 20, $"+{r.n} bi", MachineBoard.BallPink);
-                    App.Audio.Play("coin");
+                    view.Float(bx, by - 20, Loc.F("+{0} bi", r.n), MachineBoard.BallPink);
+                    App.Audio.Play("balls");
                     Haptics.Play(Haptic.LandSmall);
                     dirty = true;
                     break;
@@ -1044,7 +1093,7 @@ namespace PokiClash
                     view.Burst(bx, by - 10, col);
                     view.ChestFx(bx, by - 10, gold ? 3 : 2);
                     view.Float(bx, by - 30, Pachinko.ChestName(kind) + "!", col, gold ? 36 : 30);
-                    App.Audio.Play("chest");
+                    App.Audio.Play(gold ? "jackpot" : "prize"); // jackpot đã có chuông + xu đổ, không cần ba tiếng xu cũ
                     if (gold) Jackpot(bx, by - 10, col, slot);
                     else Haptics.Play(kind == SlotKind.ChestSilver ? Haptic.LandSilver : Haptic.LandWood);
                     SaveNow();
@@ -1061,7 +1110,7 @@ namespace PokiClash
             else p.expBar.Fly(from, n);
         }
 
-        // rương vàng: chạy chậm, rung mặt máy, vòng loé thứ hai to hơn, ba tiếng xu lên cao dần
+        // rương vàng: chạy chậm, rung mặt máy, vòng loé thứ hai to hơn (tiếng "jackpot" phát ở OnLand)
         void Jackpot(double bx, double by, Color col, int slot = -1)
         {
             bool low = S.settings.lowFlash;
@@ -1072,7 +1121,6 @@ namespace PokiClash
             partyT = low ? 1.6f : 1.8f;
             show = BulbShow.None;
             Haptics.Play(Haptic.LandGold);
-            StartCoroutine(Jingle());
             // GD_Claude/23 giai đoạn 3: chữ "JACKPOT!" nảy từng chữ giữa máy, vòi xu phun từ ô, khối máy về cỡ cũ sau khi mừng
             view.Banner("JACKPOT!", Theme.Hex("#ffd84a"));
             if (slot >= 0) view.CoinFountain(slot);
@@ -1083,15 +1131,6 @@ namespace PokiClash
         {
             yield return new WaitForSecondsRealtime(after);
             if (!leaving) ZoomTo(-1, 1);
-        }
-
-        IEnumerator Jingle()
-        {
-            for (int i = 0; i < 3 && !leaving; i++)
-            {
-                yield return new WaitForSecondsRealtime(0.09f);
-                App.Audio.Play("coin", 0.8f, 1 + i * 0.12f);
-            }
         }
 
         // rương bay từ chỗ rơi vào khay (bản sao prefab kit Kit/Ruong, xoá khi tới nơi)
@@ -1126,7 +1165,7 @@ namespace PokiClash
             giftPopT = 0;
             giftPunchT = 0;
             if (p.expBar) p.expBar.Burst(from, true);
-            App.Audio.Play(g.k == RewardKind.Chest ? "chest" : "coin", 0.9f, 1.1f);
+            App.Audio.Play(g.k == RewardKind.Chest ? "prize" : g.k == RewardKind.Balls ? "balls" : "xp", 0.9f);
             Haptics.Play(Haptic.LandSilver);
             yield return new WaitForSecondsRealtime(0.3f);
             if (!leaving)
@@ -1158,7 +1197,7 @@ namespace PokiClash
                 System.Action arrive = () =>
                 {
                     counterPopT = 0;
-                    App.Audio.Play("pick", 0.5f, pitch);
+                    App.Audio.Play("counter", 0.5f, pitch);
                 };
                 if (p.expBar) p.expBar.FlyIcon(App.Art.Icon("ball"), from, to, i * 0.05f, arrive);
                 else arrive();
@@ -1187,6 +1226,7 @@ namespace PokiClash
             if (!leaving) LevelUp();
             ending = false;
             RefreshUi();
+            TutorIdle();
         }
 
         void LevelUp()
@@ -1233,7 +1273,9 @@ namespace PokiClash
                     S.chests.Remove(c);
                     var kind = Pachinko.FromKey(c.kind);
                     int cx = Mathf.Max(1, c.x);
-                    items.Add(new MachineChestOpen.Item { kind = kind, x = cx, rewards = Pachinko.OpenChest(S, D, kind, cx, rng) });
+                    // rương đầu của người mới: 2 bản sao thẻ Chiêu của tướng đồng hành (nâng Chiêu ngay, GD_Claude/25_FTUE.md C5–C10)
+                    var rewards = Tutorial.FirstChest(S, D) ?? Pachinko.OpenChest(S, D, kind, cx, rng);
+                    items.Add(new MachineChestOpen.Item { kind = kind, x = cx, rewards = rewards });
                 }
                 SaveNow();
                 RebuildTray();
@@ -1245,7 +1287,7 @@ namespace PokiClash
                     yield return MachineChestOpen.Play(Frame, items, left, TrayPoint(), view.FloatTextPrefab, view.ParticlePrefab);
                 else
                     foreach (var it in items)
-                        yield return ChestBox.Show(Pachinko.ChestName(it.kind) + (it.x > 1 ? $" ×{it.x}" : ""), it.kind, null, it.rewards, "Nhận");
+                        yield return ChestBox.Show(Pachinko.ChestName(it.kind) + (it.x > 1 ? $" ×{it.x}" : ""), it.kind, null, it.rewards, Loc.T("Nhận"));
                 if (p.expBar && chestExp > 0)
                 {
                     int k = MachineExpBar.SprayCount(chestExp), total = chestExp;
@@ -1258,6 +1300,8 @@ namespace PokiClash
             opening = false;
             RebuildTray();
             RefreshUi();
+            if (Tutorial.Done(S, Tutorial.Chest))
+                Guide.Note(Tutorial.Copies, null, Loc.T("Bản sao thẻ: nâng cấp Chiêu ở mục Tướng."), 3.6f);
         }
 
         // ---------- mốc Huyền thoại ----------
@@ -1267,7 +1311,7 @@ namespace PokiClash
             var h = D.Hero(r.hero);
             if (r.k == RewardKind.LegendCopies)
             {
-                App.Toasts.Show($"Mốc {D.Cfg.legendMilestone} bi: +{r.n} bản sao thẻ Huyền thoại của {h.name}", App.Art.Icon("star"));
+                App.Toasts.Show(Loc.F("Mốc {0} bi: +{1} bản sao thẻ Huyền thoại của {2}", D.Cfg.legendMilestone, r.n, h.name), App.Art.Icon("star"));
                 yield break;
             }
             bool closed = false;
@@ -1296,6 +1340,7 @@ namespace PokiClash
         public override void Exit()
         {
             leaving = true;
+            App.Audio.Loop("roll", 0);
             holding = false;
             autoLeft = 0;
             partyT = 0;
@@ -1329,10 +1374,10 @@ namespace PokiClash
             if (bigReward != null)
             {
                 var h = D.Hero(bigReward.hero);
-                App.Toasts.Show(bigReward.k == RewardKind.Hero ? $"Mốc {D.Cfg.legendMilestone} bi: nhận {h.name}!" : $"+{bigReward.n} bản sao thẻ Huyền thoại của {h.name}", App.Art.Icon("star"));
+                App.Toasts.Show(bigReward.k == RewardKind.Hero ? Loc.F("Mốc {0} bi: nhận {1}!", D.Cfg.legendMilestone, h.name) : Loc.F("+{0} bản sao thẻ Huyền thoại của {1}", bigReward.n, h.name), App.Art.Icon("star"));
                 bigReward = null;
             }
-            if (lvFrom >= 0 && s.level > lvFrom) App.Toasts.Show($"Lên cấp {s.level}!", App.Art.Icon("exp"));
+            if (lvFrom >= 0 && s.level > lvFrom) App.Toasts.Show(Loc.F("Lên cấp {0}!", s.level), App.Art.Icon("exp"));
             lvFrom = -1;
             SaveNow();
         }

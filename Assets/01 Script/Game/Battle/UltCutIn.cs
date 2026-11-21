@@ -88,7 +88,7 @@ namespace PokiClash
             }
             else HeroArt.FitHead(portrait, h, star, new Vector2(FaceSize, Height - 2 * BattleIntro.Border));
             textBox.anchoredPosition = new Vector2(-s * TextInset, 0);
-            caption.text = $"Tuyệt kỹ · {heroName}";
+            caption.text = Loc.F("Tuyệt kỹ · {0}", heroName);
             skill.text = skillName;
 
             // trượt vào từ phía phe ra chiêu, giữ, trượt tiếp sang phía kia

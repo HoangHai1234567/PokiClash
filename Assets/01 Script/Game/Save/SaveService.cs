@@ -64,8 +64,8 @@ namespace PokiClash.Game
                 }
                 Backup(FilePath, Path.Combine(Dir, $"save_v{Version}.bak"));
                 Notice = st == LoadStatus.Corrupt
-                    ? "Bản lưu bị hỏng, không đọc được. Đã giữ bản cũ thành file dự phòng, game sẽ bắt đầu lại."
-                    : "Bản lưu của phiên bản khác, không dùng được. Đã giữ bản cũ thành file dự phòng, game sẽ bắt đầu lại.";
+                    ? Loc.T("Bản lưu bị hỏng, không đọc được. Đã giữ bản cũ thành file dự phòng, game sẽ bắt đầu lại.")
+                    : Loc.T("Bản lưu của phiên bản khác, không dùng được. Đã giữ bản cũ thành file dự phòng, game sẽ bắt đầu lại.");
                 return false;
             }
 
@@ -86,7 +86,7 @@ namespace PokiClash.Game
                     Save();
                     return true;
                 }
-                Notice = "Dữ liệu bản thử cũ không dùng được, sẽ bắt đầu lại.";
+                Notice = Loc.T("Dữ liệu bản thử cũ không dùng được, sẽ bắt đầu lại.");
                 return false;
             }
 

@@ -62,8 +62,8 @@ namespace PokiClash.Core
         // tên ngắn cho ô nhỏ
         static readonly string[] ShortNames = { "Công", "Thủ", "Máu", "Tốc", "Chí mạng", "Hút máu", "Mana", "Nộ", "Khiên", "Giảm ST", "Né" };
 
-        public static string Name(PotKind k) => Names[(int)k];
-        public static string ShortName(PotKind k) => ShortNames[(int)k];
+        public static string Name(PotKind k) => Loc.T(Names[(int)k]);
+        public static string ShortName(PotKind k) => Loc.T(ShortNames[(int)k]);
 
         public static double Value(BalanceConfig cfg, PotLine x) => cfg.potential.Val((int)x.k, x.r);
 
@@ -147,9 +147,9 @@ namespace PokiClash.Core
         public static string SlotNeed(BalanceConfig cfg, int slot, HeroDef h = null)
         {
             int st = SlotStar(cfg, slot);
-            if (st <= 0) return "Chưa có";
-            if (h != null) return "Mở ở " + StarTier.Label(cfg, h, StarTier.NextStop(cfg, h, st - 1));
-            return $"Mở ở {StarTier.Name(StarTier.Tier(st))} {StarTier.InTier(st)} sao";
+            if (st <= 0) return Loc.T("Chưa có");
+            if (h != null) return Loc.T("Mở ở ") + StarTier.Label(cfg, h, StarTier.NextStop(cfg, h, st - 1));
+            return Loc.F("Mở ở {0} {1} sao", StarTier.Name(StarTier.Tier(st)), StarTier.InTier(st));
         }
 
         // số ô khoá thật (ô đã mở và đang có dòng)
@@ -285,7 +285,7 @@ namespace PokiClash.Core
         {
             var t = d.Cfg.cave.tiers[tier];
             var hs = d.Heroes.Where(h => h.elem == z).ToList();
-            var st = new StageDef { id = 2000 + d.Zone(z).order * 10 + tier, zone = z, idx = tier + 1, name = $"Hang {t.name}", kind = StageKind.Boss };
+            var st = new StageDef { id = 2000 + d.Zone(z).order * 10 + tier, zone = z, idx = tier + 1, name = Loc.F("Hang {0}", t.Name), kind = StageKind.Boss };
             string boss = hs[tier % hs.Count].id, mate = hs[(tier + 1) % hs.Count].id;
             st.enemies.Add(new StageEnemy { hero = boss, level = t.level, boss = true, buff = Badges.NormBuff(d, boss, t.buff) });
             st.enemies.Add(new StageEnemy { hero = mate, level = Math.Max(1, t.level - 2), boss = false, buff = Badges.NormBuff(d, mate, t.buff) });

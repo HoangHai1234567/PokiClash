@@ -3,6 +3,7 @@
 using PokiClash.UI;
 using TMPro;
 using UnityEngine;
+using PokiClash.Core;
 
 namespace PokiClash
 {
@@ -24,7 +25,7 @@ namespace PokiClash
 
         public void Show(int to, string unlockX, string cards)
         {
-            level.text = $"Cấp {to}";
+            level.text = Loc.F("Cấp {0}", to);
             newX.gameObject.SetActive(!string.IsNullOrEmpty(unlockX));
             newX.text = unlockX;
             newCards.gameObject.SetActive(!string.IsNullOrEmpty(cards));

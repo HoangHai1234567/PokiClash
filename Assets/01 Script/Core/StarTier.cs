@@ -20,7 +20,7 @@ namespace PokiClash.Core
         // sao trong bậc 1..PerTier
         public static int InTier(int star) => star < 1 ? 0 : (star - 1) % PerTier + 1;
 
-        public static string Name(int tier) => Names[System.Math.Max(0, System.Math.Min(Count - 1, tier))];
+        public static string Name(int tier) => Loc.T(Names[System.Math.Max(0, System.Math.Min(Count - 1, tier))]);
 
         // sao tổng của (bậc, sao trong bậc)
         public static int Star(int tier, int inTier) => tier * PerTier + inTier;
@@ -29,7 +29,7 @@ namespace PokiClash.Core
         public static bool AtEvolveGate(int star) => star < MaxStar && star % PerTier == 0;
 
         // "Bạc 3 sao" (chữ hiện trong game: phông Baloo2, Pangolin không có ký tự ★)
-        public static string Label(int star) => $"{Name(Tier(star))} {InTier(star)} sao";
+        public static string Label(int star) => Loc.F("{0} {1} sao", Name(Tier(star)), InTier(star));
 
         // sao cũ 1..5 (trước 2026-11-17) đổi sang sao tổng khi đọc bản lưu v11 (SaveCodec, bước v11 -> v12): giữ dạng đang có
         // (dạng 2 ở sao cũ 3 = Bạc 1★, dạng 3 ở sao cũ 5 = Vàng 1★)
@@ -102,7 +102,7 @@ namespace PokiClash.Core
         public static int InTierOf(BalanceConfig cfg, HeroDef h, int star) => star < 1 ? 0 : StopIndex(cfg, h, star) % PerTier + 1;
 
         // "Bạc 3 sao" theo bậc của tướng
-        public static string Label(BalanceConfig cfg, HeroDef h, int star) => $"{Name(TierOf(cfg, h, star))} {InTierOf(cfg, h, star)} sao";
+        public static string Label(BalanceConfig cfg, HeroDef h, int star) => Loc.F("{0} {1} sao", Name(TierOf(cfg, h, star)), InTierOf(cfg, h, star));
 
         // sao tổng của điểm dừng kế (bước lên sao hoặc tiến hóa tới đây); MaxStar nếu đã tối đa
         public static int NextStop(BalanceConfig cfg, HeroDef h, int star)

@@ -125,13 +125,13 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: fe9b8ef16abdcd0418d6180e20c26e21, type: 2}
   sfx:
   - name: click
-    clip: {fileID: 8300000, guid: 00cbf11426a1cbf43bdae4c5981e44d7, type: 3}
+    clip: {fileID: 8300000, guid: 157352ea97543a54a9dac9d9b857575e, type: 3}
   - name: pick
-    clip: {fileID: 8300000, guid: 42af636ca799c2348a5e17f8991d2f72, type: 3}
+    clip: {fileID: 8300000, guid: f5cc95a91e8f61e439703433e6bd38aa, type: 3}
   - name: deal
     clip: {fileID: 8300000, guid: 1d1563b9ff335cc428053ba150067cee, type: 3}
   - name: card
-    clip: {fileID: 8300000, guid: 8e2228d5856cc584f9b98ed9faf843ae, type: 3}
+    clip: {fileID: 8300000, guid: b6c5c7040ffa0d14285c2e1fe32b73e6, type: 3}
   - name: hit
     clip: {fileID: 8300000, guid: 84321e0c669bbab48a533d5c2dbe5451, type: 3}
   - name: hitCrit
@@ -141,7 +141,7 @@ MonoBehaviour:
   - name: heal
     clip: {fileID: 8300000, guid: b3d6d6d406932d34c9d8260559bff97f, type: 3}
   - name: buff
-    clip: {fileID: 8300000, guid: 3e460b66ce703b943b40281d530b30f6, type: 3}
+    clip: {fileID: 8300000, guid: 1d70968c6d256e24a8baf251fea843df, type: 3}
   - name: debuff
     clip: {fileID: 8300000, guid: 4e867340039294e43bb3126c99de1763, type: 3}
   - name: shield
@@ -151,7 +151,7 @@ MonoBehaviour:
   - name: coin
     clip: {fileID: 8300000, guid: 2a745aaa8ee34894db06bb2b50fb1bd0, type: 3}
   - name: peg
-    clip: {fileID: 8300000, guid: 09be196b6a007df429285772fa6037e4, type: 3}
+    clip: {fileID: 8300000, guid: a917c7c97e6d32c4480fcc283dd5c8f5, type: 3}
   - name: land
     clip: {fileID: 8300000, guid: 2c7ab6a8d68d01c4584e1bebdb72fc90, type: 3}
   - name: chest
@@ -167,6 +167,59 @@ MonoBehaviour:
   - name: swap
     clip: {fileID: 8300000, guid: 9d69f7a7c12c693429105a4b14aae617, type: 3}
   - name: error
-    clip: {fileID: 8300000, guid: 27e48bc6ddeb3e249b532f92e87716d1, type: 3}
+    clip: {fileID: 8300000, guid: b10aa480d98ed304788fb874612c4520, type: 3}
   - name: stamp
     clip: {fileID: 8300000, guid: 6898637837708784f93ca4ce749d4eec, type: 3}
+  - name: open
+    clip: {fileID: 8300000, guid: e8da0a77295a46e4094cca49b60f1a23, type: 3}
+  - name: close
+    clip: {fileID: 8300000, guid: e1baa7cfcfc0e294faab3c4e7d0bcb00, type: 3}
+  - name: toggle
+    clip: {fileID: 8300000, guid: 2d26bc356b746f449b197561bd62fa8a, type: 3}
+  - name: drop
+    clip: {fileID: 8300000, guid: 744ece0b107dda543bff702b3e503753, type: 3}
+  - name: launch
+    clip: {fileID: 8300000, guid: 4093baf3daa12794498aa0e3b18b3850, type: 3}
+  - name: xp
+    clip: {fileID: 8300000, guid: a734560c3504aba4fa0e4d4f18f30a1a, type: 3}
+  - name: balls
+    clip: {fileID: 8300000, guid: 4aaca2ad1cd39d141bdfafcdd4f5c9e4, type: 3}
+  - name: giftPeg
+    clip: {fileID: 8300000, guid: f42bc813a3705c3438d6e80cb3292e01, type: 3}
+  - name: prize
+    clip: {fileID: 8300000, guid: 5e217c53a389cc54b8f60d8d335e6d52, type: 3}
+  - name: jackpot
+    clip: {fileID: 8300000, guid: f0b1abc4e2ea2864eb8b7d5b69e3eb1e, type: 3}
+  - name: bet
+    clip: {fileID: 8300000, guid: 845b4f365bc83a04493a76bd85995ae8, type: 3}
+  - name: counter
+    clip: {fileID: 8300000, guid: a948257dbe592c549813ab899a22c807, type: 3}
+  - name: machineLevel
+    clip: {fileID: 8300000, guid: 4c0390202667999449ab40bd9233a527, type: 3}
+  - name: machineDeny
+    clip: {fileID: 8300000, guid: 73c75dbb832faa845968df6b324da86d, type: 3}
+  - name: chestOpen
+    clip: {fileID: 8300000, guid: 99a68b6226ccd2349b50ffcac1843086, type: 3}
+  - name: roll
+    clip: {fileID: 8300000, guid: 439d45c8f08457e4ea1c1fff861137c8, type: 3}
+  music:
+  - name: chude
+    clip: {fileID: 8300000, guid: 277ae208646531048a97dea61d0aa06f, type: 3}
+  - name: sanh
+    clip: {fileID: 8300000, guid: 2086b0e5b73736d449fbf6ff88f437a5, type: 3}
+  - name: dao_thuy
+    clip: {fileID: 8300000, guid: 77109f7f834978148b85ef14c74b019d, type: 3}
+  - name: dao_hoa
+    clip: {fileID: 8300000, guid: 7889431a83d06554b8f18997b5d4da15, type: 3}
+  - name: dao_moc
+    clip: {fileID: 8300000, guid: d093dcb59c40e074c9891e03c0c93bfa, type: 3}
+  - name: dao_kim
+    clip: {fileID: 8300000, guid: bce04ec0f26835f40a413d6e02dac58d, type: 3}
+  - name: dao_tho
+    clip: {fileID: 8300000, guid: 2957cac25484fe44aac5ee3ce025f587, type: 3}
+  - name: tran
+    clip: {fileID: 8300000, guid: 5262f4ca720742d40aedf5741aa3bc5e, type: 3}
+  - name: boss
+    clip: {fileID: 8300000, guid: 255097c5f6b338542b11883e6e969316, type: 3}
+  - name: maybi
+    clip: {fileID: 8300000, guid: e2bb46541a703674ab340a37e900a987, type: 3}

@@ -15,7 +15,7 @@ namespace PokiClash
 {
     public sealed class NotebookScene : SceneRoot
     {
-        public override string Title => "Sổ tay";
+        public override string Title => Loc.T("Sổ tay");
 
         [Serializable]
         public struct Parts
@@ -24,6 +24,8 @@ namespace PokiClash
             public SketchButton sound, hints;
             public SketchButton haptics; // dòng "Rung" (thêm bằng menu PokiClash/Prefab/Sổ tay: thêm dòng Rung)
             public SketchButton lowFlash; // dòng "Giảm nhấp nháy" (menu PokiClash/Prefab/Sổ tay: thêm dòng Giảm nhấp nháy)
+            public SketchButton language; // dòng "Ngôn ngữ" (menu PokiClash/Prefab/Sổ tay: thêm dòng Ngôn ngữ), 2026-11-21
+            public SketchButton howTo; // dòng "Cách chơi" (menu PokiClash/Prefab/Hướng dẫn: hộp Cách chơi, dòng Sổ tay), 2026-11-22
             public GameObject packs; // mục "Gói hỗ trợ" (ẩn khi chưa có cửa hàng và chưa có gói)
             public Transform packNote; // dòng "Không bán bi..." trong mục gói: thẻ gói chèn ngay trước
             public GameObject packDevNote; // "Bản thử: cửa hàng giả lập..." (chỉ bản dev)
@@ -48,7 +50,7 @@ namespace PokiClash
         public override void Enter(object args)
         {
             p.reset.SetOnClick(() =>
-                App.Modals.Confirm("Xoá dữ liệu?", "Mọi tiến trình mất hết: về cấp 1, 10 bi, chọn lại tướng khởi đầu.", "Xoá", () =>
+                App.Modals.Confirm(Loc.T("Xoá dữ liệu?"), Loc.T("Mọi tiến trình mất hết: về cấp 1, 10 bi, chọn lại tướng khởi đầu."), Loc.T("Xoá"), () =>
                 {
                     App.Save.Reset();
                     App.Router.Go(SceneIds.Hub);
@@ -67,9 +69,16 @@ namespace PokiClash
             // bật rung thì rung thử một cú để người chơi biết máy có rung
             if (p.haptics) Toggle(p.haptics, st.haptics, x => st.haptics = x, x => { if (x) Haptics.Play(Haptic.OpenSilver); });
             if (p.lowFlash) Toggle(p.lowFlash, st.lowFlash, x => st.lowFlash = x);
+            if (p.language) Language(p.language);
+            if (p.howTo)
+                p.howTo.SetOnClick(() =>
+                {
+                    App.Audio.Play("click");
+                    HowToDialog.Open();
+                });
 
             Packs();
-            p.version.text = $"PokiClash · bản lưu v{App.Data.Cfg.saveVersion} · {Application.version}";
+            p.version.text = Loc.F("PokiClash · bản lưu v{0} · {1}", App.Data.Cfg.saveVersion, Application.version);
 
 #if UNITY_EDITOR || DEVELOPMENT_BUILD
             p.dev.gameObject.SetActive(true);
@@ -109,7 +118,7 @@ namespace PokiClash
                 packCards[i].Bind(pr, s, now, Store.Ready, () =>
                     Store.Buy(pr.id, ok =>
                     {
-                        if (ok) App.Toasts.Show("Đã mua " + pr.name, App.Art.Icon("star"));
+                        if (ok) App.Toasts.Show(Loc.T("Đã mua ") + pr.Name, App.Art.Icon("star"));
                         Render();
                     }));
             }
@@ -118,10 +127,10 @@ namespace PokiClash
         // after: gọi sau khi đã lưu và áp cài đặt (giá trị mới)
         void Toggle(SketchButton b, bool value, Action<bool> set, Action<bool> after = null)
         {
-            string label = value ? "Bật" : "Tắt";
-            b.name = "nut_" + label;
-            b.SetText(label);
+            b.name = "nut_" + (value ? "Bật" : "Tắt"); // tên vật giữ tiếng Việt (tour thử tìm theo tên)
+            b.SetText(value ? Loc.T("Bật") : Loc.T("Tắt"));
             b.SetRole(value ? BtnColor.Green : BtnColor.Paper);
+            b.ClickSound = "toggle";
             b.SetOnClick(() =>
             {
                 set(!value);
@@ -130,5 +139,19 @@ namespace PokiClash
                 Render();
             });
         }
+
+        // Ngôn ngữ (2026-11-21): nút ghi tên ngôn ngữ đang dùng bằng chính ngôn ngữ đó, bấm thì đổi sang ngôn ngữ kế tiếp
+        // (App.SetLanguage dựng lại dữ liệu và nạp lại màn này). Chữ "Ngôn ngữ" của dòng dịch theo bảng như mọi chữ prefab.
+        void Language(SketchButton b)
+        {
+            int i = Array.IndexOf(LocService.Langs, Loc.Lang);
+            string next = LocService.Langs[(i + 1) % LocService.Langs.Length];
+            b.name = "nut_NgonNgu";
+            b.SetText(LangName(Loc.Lang));
+            b.SetRole(BtnColor.Blue);
+            b.SetOnClick(() => App.SetLanguage(next));
+        }
+
+        static string LangName(string lang) => lang == Loc.En ? "English" : "Tiếng Việt";
     }
 }

@@ -104,7 +104,7 @@ namespace PokiClash
                 sp.click.OnClick = () => Tap(k);
                 if (!filled)
                 {
-                    sp.emptyText.text = locked ? $"Khoá\n<size=70%>{Progress.SlotNeed(i)}</size>" : "<size=220%>+</size>\nThêm tướng";
+                    sp.emptyText.text = locked ? Loc.F("Khoá\n<size=70%>{0}</size>", Progress.SlotNeed(i)) : Loc.T("<size=220%>+</size>\nThêm tướng");
                     continue;
                 }
                 var h = d.Hero(ids[i]);
@@ -277,7 +277,7 @@ namespace PokiClash
                 if (locked)
                 {
                     App.Audio.Play("error");
-                    App.Toasts.Show($"Ô đội {i + 1} mở khi {Progress.SlotNeed(i)}", Icon("lock"));
+                    App.Toasts.Show(Loc.F("Ô đội {0} mở khi {1}", i + 1, Progress.SlotNeed(i)), Icon("lock"));
                     return;
                 }
                 App.Audio.Play("click");
@@ -301,7 +301,7 @@ namespace PokiClash
             foreach (var st in p.stats) st.transform.parent.gameObject.SetActive(id != null);
             if (id == null)
             {
-                p.focusName.text = c >= Progress.TeamSlots(App.Save.Data) ? "Ô đội đang khoá" : "Ô đội trống";
+                p.focusName.text = c >= Progress.TeamSlots(App.Save.Data) ? Loc.T("Ô đội đang khoá") : Loc.T("Ô đội trống");
                 return;
             }
             var d = App.Data;

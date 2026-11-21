@@ -30,6 +30,7 @@ namespace PokiClash.EditorTools
             var path = App.Save.FilePath;
             string backup = File.Exists(path) ? File.ReadAllText(path) : null;
             var d = App.Data;
+            Tutorial.Off = true; // không lớp phủ hướng dẫn người mới trong tour này
             App.Modals.CloseAll();
 
             // người chơi mới: hộp chọn tướng (bỏ qua màn giới thiệu)

@@ -53,7 +53,7 @@ namespace PokiClash
                 Cell(rows[i].newBg, rows[i].newText, n, cfg, !same);
                 rows[i].arrow.text = same ? "=" : "»";
             }
-            totals.text = "Cũ: " + PotentialPanel.TotalsText(cfg, p.potential) + "\nMới: " + PotentialPanel.TotalsText(cfg, p.potentialNew);
+            totals.text = Loc.T("Cũ: ") + PotentialPanel.TotalsText(cfg, p.potential) + Loc.T("\nMới: ") + PotentialPanel.TotalsText(cfg, p.potentialNew);
             keepOld.SetOnClick(() => Choose(false));
             keepNew.SetOnClick(() => Choose(true));
 
@@ -70,7 +70,7 @@ namespace PokiClash
         static void Cell(Image bg, TextMeshProUGUI t, PotLine x, BalanceConfig cfg, bool changed)
         {
             bg.color = x != null ? Color.Lerp(PotentialPanel.RarityColor(x.r), Color.white, 0.65f) : Color.white;
-            t.text = x == null ? "Trống" : $"{PotentialPanel.LineText(cfg, x)} · {PotentialPanel.RarityName(x.r)}";
+            t.text = x == null ? Loc.T("Trống") : $"{PotentialPanel.LineText(cfg, x)} · {PotentialPanel.RarityName(x.r)}";
             t.color = changed ? Theme.Ink : Theme.Ink2;
         }
     }

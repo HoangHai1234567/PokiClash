@@ -4,12 +4,16 @@
 // nên chỉ dùng cho bậc rương vàng. Bật tắt bằng nút "Rung" trong Sổ tay (settings.haptics, App.ApplySettings).
 // Trận (2026-11-16, theo GameFeel mục 9): chạm thẻ một tích rất nhẹ, thẻ vào hàng một tích, trúng đòn nhẹ, chí mạng/tuyệt kỹ hai nhịp,
 // gục và thắng mạnh nhất; gain nhân biên độ theo độ khó trận (ải sau, boss mạnh hơn), không rung từng hạt.
+// UI (2026-11-22): bấm nút một tích rất nhẹ (hook SketchButton.Sound ở App), công tắc tích rõ hơn, mở hộp thoại một tích, đóng hộp
+// như bấm nút, lỗi hai nhịp ngắn (AudioService.Play khi phát "error"/"machineDeny"), nhận thưởng hai nhịp lên, đóng dấu kết quả một
+// cú chắc, thua một nhịp dài mềm, chuyển màn (mây khép) một nhịp rất mềm; lên cấp, mở rương, thắng dùng lại bậc cũ.
 using UnityEngine;
 
 namespace PokiClash
 {
     public enum Haptic { Peg, Drop, LandSmall, LandWood, LandSilver, LandGold, OpenWood, OpenSilver, OpenGold, LevelUp,
-        CardTap, CardLand, Hit, HitBig, UltHit, Ko, Win }
+        CardTap, CardLand, Hit, HitBig, UltHit, Ko, Win,
+        UiTap, UiToggle, UiOpen, UiError, Reward, Stamp, Lose, Transition }
 
     public static class Haptics
     {
@@ -35,9 +39,18 @@ namespace PokiClash
             new[] { (0, 22, 190), (60, 30, 255) }, // UltHit: tuyệt kỹ trúng
             new[] { (0, 30, 170), (90, 45, 255) }, // Ko: gục
             new[] { (0, 20, 120), (160, 20, 170), (320, 40, 255) }, // Win
+            new[] { (0, 5, 30) }, // UiTap: bấm nút
+            new[] { (0, 8, 70) }, // UiToggle: công tắc
+            new[] { (0, 8, 50) }, // UiOpen: mở hộp thoại
+            new[] { (0, 12, 100), (70, 12, 100) }, // UiError: không được
+            new[] { (0, 10, 70), (45, 14, 130) }, // Reward: nhận bi, mảnh, quà
+            new[] { (0, 18, 170) }, // Stamp: đóng dấu kết quả
+            new[] { (0, 60, 70), (120, 80, 45) }, // Lose: thua
+            new[] { (0, 18, 35) }, // Transition: mây khép chuyển màn
         };
         // khoảng chặn tối thiểu giữa hai lần cùng bậc (giây)
-        static readonly float[] Gap = { 0.1f, 0.05f, 0.06f, 0.08f, 0.08f, 0.2f, 0.2f, 0.2f, 0.2f, 0.3f, 0.05f, 0.05f, 0.07f, 0.1f, 0.15f, 0.3f, 0.5f };
+        static readonly float[] Gap = { 0.1f, 0.05f, 0.06f, 0.08f, 0.08f, 0.2f, 0.2f, 0.2f, 0.2f, 0.3f, 0.05f, 0.05f, 0.07f, 0.1f, 0.15f, 0.3f, 0.5f,
+            0.04f, 0.05f, 0.1f, 0.2f, 0.12f, 0.2f, 0.5f, 0.3f };
         static readonly float[] last = new float[Gap.Length];
 
         // gain: nhân biên độ (0,6–1,4; trận khó hơn rung mạnh hơn), chặn ở 255

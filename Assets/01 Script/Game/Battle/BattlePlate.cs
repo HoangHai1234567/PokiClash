@@ -60,7 +60,7 @@ namespace PokiClash
         public void Apply(Snap s, int side, BalanceConfig cfg)
         {
             var f = s.f[side][s.active[side]];
-            hp.Set((float)f.hp, (float)f.maxHp, (float)f.shield, $"{NumFmt.Short(f.hp)}/{NumFmt.Short(f.maxHp)}{(f.shield > 0 ? $" +{NumFmt.Short(f.shield)} khiên" : "")}");
+            hp.Set((float)f.hp, (float)f.maxHp, (float)f.shield, $"{NumFmt.Short(f.hp)}/{NumFmt.Short(f.maxHp)}{(f.shield > 0 ? Loc.F(" +{0} khiên", NumFmt.Short(f.shield)) : "")}");
             mana.Set((float)f.mana, cfg.maxMana);
             rage.Set((float)f.rage, cfg.maxRage);
             int n = 0;

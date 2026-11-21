@@ -32,7 +32,17 @@ namespace PokiClash.Core
         public int winner = -1;
         public int turns;
         public double[] dmgDealt = { 0, 0 };
+        // trận hướng dẫn người mới (Tutorial.BattleFor): thẻ rút sẵn cho phe 0, máu phe 0 không xuống dưới script.floor. null = trận thường
+        public BattleScript script;
         readonly List<BattleEvent> events = new List<BattleEvent>();
+
+        // phần máu thật sự trừ: trận hướng dẫn giữ máu phe người chơi từ script.floor trở lên (khoá thua ngầm)
+        double Floored(Fighter f, double toHp)
+        {
+            if (script == null || f.side != 0 || script.floor <= 0) return toHp;
+            double keep = Math.Ceiling(f.maxHp * script.floor);
+            return Math.Max(0, Math.Min(toHp, f.hp - keep));
+        }
 
         Battle(GameData data)
         {
@@ -213,7 +223,7 @@ namespace PokiClash.Core
                 {
                     // bỏng: phần máu tối đa; độc: số máu định sẵn lúc tẩm (theo Công kẻ tẩm)
                     double d = Math.Max(1, Js.Round(st.id == StatusId.Burn ? f.maxHp * st.v : st.v));
-                    double toHp = Math.Min(f.hp, d);
+                    double toHp = Floored(f, Math.Min(f.hp, d));
                     f.hp -= toHp;
                     Emit(new BattleEvent
                     {
@@ -268,6 +278,11 @@ namespace PokiClash.Core
         // trừ thẻ có cờ repeat (người dùng dặn 2026-11-04)
         public List<string> DrawOffer(int s)
         {
+            if (script != null && s == 0)
+            {
+                var forced = script.NextOffer(Data);
+                if (forced != null) return forced;
+            }
             int unlock = sides[s].unlock;
             var picked = turn.side == s ? turn.queue.Select(q => q.card).ToList() : new List<string>();
             var pool = Data.Pool.Where(c => c.unlock <= unlock && (c.repeat || !picked.Contains(c.id))).ToList();
@@ -363,14 +378,14 @@ namespace PokiClash.Core
         public string InnateBlock(InnateKind which)
         {
             var t = turn;
-            if (phase != Phase.Picking) return "Hết lúc chọn";
-            if (t.stunned) return "Đang choáng";
+            if (phase != Phase.Picking) return Loc.T("Hết lúc chọn");
+            if (t.stunned) return Loc.T("Đang choáng");
             var f = ActiveOf(t.side);
             var card = InnateCard(f, which).card;
-            if (which == InnateKind.Skill && t.skillUsed) return "Đã dùng lượt này";
-            if (which == InnateKind.Ult && t.ult != null) return "Đã bật";
-            if (card.costRage > f.rage) return "Chưa đủ nộ";
-            if (card.costMana > f.mana) return "Chưa đủ mana";
+            if (which == InnateKind.Skill && t.skillUsed) return Loc.T("Đã dùng lượt này");
+            if (which == InnateKind.Ult && t.ult != null) return Loc.T("Đã bật");
+            if (card.costRage > f.rage) return Loc.T("Chưa đủ nộ");
+            if (card.costMana > f.mana) return Loc.T("Chưa đủ mana");
             return "";
         }
 
@@ -506,7 +521,7 @@ namespace PokiClash.Core
             double dmg = Math.Max(1, Js.Round(raw));
             double blocked = Math.Min(D.shield, dmg);
             D.shield -= blocked;
-            double toHp = Math.Min(D.hp, dmg - blocked);
+            double toHp = Floored(D, Math.Min(D.hp, dmg - blocked));
             // boss còn dạng sau: đòn hạ gục đưa máu về 0 (sát thương thừa bỏ), Kill cho tiến hóa (2026-11-17; trước chừa 1 máu rồi
             // tiến hóa ở CheckLow)
             D.hp -= toHp;
@@ -910,7 +925,7 @@ namespace PokiClash.Core
             if (D.dead || amount <= 0) return;
             double blocked = Math.Min(D.shield, amount);
             D.shield -= blocked;
-            double toHp = Math.Min(D.hp, amount - blocked);
+            double toHp = Floored(D, Math.Min(D.hp, amount - blocked));
             D.hp -= toHp;
             D.rage = Math.Min(Cfg.maxRage, D.rage + Js.Round((toHp / D.maxHp) * Cfg.rageOnHit));
             dmgDealt[s] += toHp;
@@ -929,7 +944,7 @@ namespace PokiClash.Core
         // sát thương độc ngay lúc kích nổ: như độc mỗi lượt (bỏ qua khiên, không tính vào sát thương gây ra)
         void DotHit(Fighter f, double amount)
         {
-            double toHp = Math.Min(f.hp, amount);
+            double toHp = Floored(f, Math.Min(f.hp, amount));
             f.hp -= toHp;
             Emit(new BattleEvent
             {
@@ -947,7 +962,7 @@ namespace PokiClash.Core
             if (amount <= 0 || att.dead) return;
             double blocked = Math.Min(att.shield, amount);
             att.shield -= blocked;
-            double toHp = Math.Min(att.hp, amount - blocked);
+            double toHp = Floored(att, Math.Min(att.hp, amount - blocked));
             att.hp -= toHp;
             dmgDealt[def.side] += toHp;
             Emit(new BattleEvent

@@ -6,6 +6,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using PokiClash.Core;
 
 namespace PokiClash
 {
@@ -62,7 +63,11 @@ namespace PokiClash
             ISceneCover tr = voyage && voyage.Takes(Current, scene) ? voyage : cover;
             if (!tr.Closed)
             {
-                if (tr == (ISceneCover)cover) App.Audio?.Play("whoosh");
+                if (tr == (ISceneCover)cover)
+                {
+                    App.Audio?.Play("whoosh");
+                    Haptics.Play(Haptic.Transition);
+                }
                 yield return tr.Close();
             }
             else tr.Block(true);
@@ -91,7 +96,7 @@ namespace PokiClash
             if (op == null)
             {
                 Debug.LogError($"[Scene] Không nạp được scene '{scene}' (chưa có trong Build Settings?)");
-                App.Toasts?.Show($"Chưa có scene {scene}");
+                App.Toasts?.Show(Loc.F("Chưa có scene {0}", scene));
                 if (scene != SceneIds.Hub)
                 {
                     busy = false;
@@ -111,8 +116,8 @@ namespace PokiClash
             SceneRoot root = null;
             foreach (var go in loaded.GetRootGameObjects())
             {
-                root = go.GetComponentInChildren<SceneRoot>(true);
-                if (root) break;
+                PokiClash.Game.LocService.Tree(go); // chữ có sẵn trong scene, trước khi Enter gán chữ của code
+                if (!root) root = go.GetComponentInChildren<SceneRoot>(true);
             }
             Current = scene;
             CurrentRoot = root;

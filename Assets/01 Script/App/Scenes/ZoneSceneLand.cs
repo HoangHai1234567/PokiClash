@@ -405,7 +405,7 @@ namespace PokiClash
                 int bi = land.habs[k - 1].stage;
                 var bst = stages[Mathf.Clamp(bi - 1, 0, stages.Count - 1)];
                 var boss = d.Hero(Teams.StageLead(bst, d).hero);
-                return $"Hạ {(boss != null ? boss.name : "boss")} ở ải {bi} để mở vùng này";
+                return Loc.F("Hạ {0} ở ải {1} để mở vùng này", (boss != null ? boss.name : "boss"), bi);
             }
             for (int i = 0; i < stages.Count; i++)
             {
@@ -618,7 +618,7 @@ namespace PokiClash
         }
 
         // tour thử: trạng thái camera vùng đất
-        public string LandDebug() => landView ? landView.Describe() : "không có LandView";
+        public string LandDebug() => landView ? landView.Describe() : Loc.T("không có LandView");
 
         // tour thử: nhìn toàn đảo (zoom nhỏ nhất)
         public bool LandOverview()

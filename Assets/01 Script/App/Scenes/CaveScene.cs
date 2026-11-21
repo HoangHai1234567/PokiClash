@@ -16,7 +16,7 @@ namespace PokiClash
 {
     public sealed class CaveScene : SceneRoot
     {
-        public override string Title => "Hang Tiềm Năng";
+        public override string Title => Loc.T("Hang Tiềm Năng");
 
         static readonly string[] DayNames = { "Chủ nhật", "Thứ Hai", "Thứ Ba", "Thứ Tư", "Thứ Năm", "Thứ Sáu", "Thứ Bảy" };
 
@@ -67,7 +67,7 @@ namespace PokiClash
             bool choose = cfg.cave.Weekday(wd) == null;
             head.preferredHeight = choose ? 380 : 300;
             float y = choose ? -180 : -100; // dòng lượt dưới hàng chọn hệ (nếu có)
-            headTitle.text = $"{DayNames[wd]}: " + (elem is Elem e ? $"boss hệ {Elements.Name(e)}" : "chọn hệ boss");
+            headTitle.text = Loc.T(DayNames[wd]) + ": " + (elem is Elem e ? Loc.F("boss hệ {0}", Elements.Name(e)) : Loc.T("chọn hệ boss"));
             headTitle.color = elem is Elem e2 ? Theme.Of(e2) : Theme.Ink;
             stones.text = S.potentialStones.ToString();
             pickRow.SetActive(choose);
@@ -95,12 +95,12 @@ namespace PokiClash
             }
             int leftWins = Potential.CaveLeft(S, cfg, day);
             int total = cfg.cave.winsPerDay + AdGate.Used(S, day, AdGate.CaveExtra) * cfg.cave.adExtra;
-            left.text = leftWins > 0 ? $"Lượt thắng còn hôm nay: {leftWins}/{total} · thua không mất lượt" : "Hết lượt hôm nay";
+            left.text = leftWins > 0 ? Loc.F("Lượt thắng còn hôm nay: {0}/{1} · thua không mất lượt", leftWins, total) : Loc.T("Hết lượt hôm nay");
             left.color = leftWins > 0 ? Theme.Ink : Theme.RedD;
             left.rectTransform.anchoredPosition = new Vector2(left.rectTransform.anchoredPosition.x, y);
             info.rectTransform.anchoredPosition = new Vector2(info.rectTransform.anchoredPosition.x, y - 60);
-            info.text = $"Đã qua {S.caveFloor}/{cfg.cave.tiers.Count} tầng · có {S.potentialCrystals} đá tinh. Tầng sau mở khi qua tầng trước; " +
-                        "lần đầu qua một tầng có thưởng thêm và không cần lượt.";
+            info.text = Loc.F("Đã qua {0}/{1} tầng · có {2} đá tinh. Tầng sau mở khi qua tầng trước; ", S.caveFloor, cfg.cave.tiers.Count, S.potentialCrystals) +
+                        Loc.T("lần đầu qua một tầng có thưởng thêm và không cần lượt.");
             bool showAd = leftWins <= 0 && Ads.Ready && Ads.Left(Ads.CaveExtra) > 0;
             ad.gameObject.SetActive(showAd);
             if (showAd)
@@ -110,7 +110,7 @@ namespace PokiClash
                         if (ok)
                         {
                             App.Save.Save();
-                            App.Toasts.Show("+1 lượt Hang hôm nay", Icon("rock"));
+                            App.Toasts.Show(Loc.T("+1 lượt Hang hôm nay"), Icon("rock"));
                         }
                         Render();
                     }));

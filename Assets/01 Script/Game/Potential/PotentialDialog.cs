@@ -76,7 +76,7 @@ namespace PokiClash
             var p = s.Hero(id);
             int open = Potential.OpenSlots(cfg, p.star);
 
-            title.text = $"Tiềm năng · {hero.name}";
+            title.text = Loc.F("Tiềm năng · {0}", hero.name);
             stones.text = s.potentialStones.ToString();
             if (crystals) crystals.text = s.potentialCrystals.ToString();
             for (int i = 0; i < rows.Length; i++)
@@ -86,7 +86,7 @@ namespace PokiClash
                 bool on = i < open;
                 r.bg.color = on && x != null ? Color.Lerp(PotentialPanel.RarityColor(x.r), Color.white, 0.7f) : on ? Color.white : Theme.Paper2;
                 string set = x != null ? PotentialPanel.SetOf(cfg, x.k) : "";
-                r.text.text = !on ? Potential.SlotNeed(cfg, i, hero) : x == null ? "Trống: khai phá để có dòng"
+                r.text.text = !on ? Potential.SlotNeed(cfg, i, hero) : x == null ? Loc.T("Trống: khai phá để có dòng")
                     : PotentialPanel.LineText(cfg, x) + (set.Length > 0 ? $" <size=70%><color=#7a6f62>· {set}</color></size>" : "");
                 r.text.color = on ? Theme.Ink : Theme.Ink3;
                 bool line = on && x != null;
@@ -100,24 +100,24 @@ namespace PokiClash
                 r.lockButtonIcon.color = locks[i] ? Color.white : new Color(1, 1, 1, 0.45f);
             }
 
-            totals.text = "Tổng: " + PotentialPanel.TotalsText(cfg, p.potential);
+            totals.text = Loc.T("Tổng: ") + PotentialPanel.TotalsText(cfg, p.potential);
             if (sets) sets.text = PotentialPanel.SetsText(cfg, p.potential);
             int cost = Potential.SpinCost(s, cfg, id, locks);
             int lk = Potential.LockCount(s, cfg, id, locks);
             bool canSpin = open - lk > 0 && s.potentialStones >= cost;
-            spin.SetText(canSpin ? $"Khai phá ({cost} đá)" : open - lk <= 0 ? "Không còn ô để quay" : $"Cần {cost} đá");
+            spin.SetText(canSpin ? Loc.F("Khai phá ({0} đá)", cost) : open - lk <= 0 ? Loc.T("Không còn ô để quay") : Loc.F("Cần {0} đá", cost));
             spin.Interactable = canSpin;
             if (spinCrystal)
             {
                 int cc = Potential.SpinCost(s, cfg, id, locks, true);
                 bool canC = open - lk > 0 && s.potentialCrystals >= Potential.CrystalCost && s.potentialStones >= cc;
                 spinCrystal.gameObject.SetActive(s.potentialCrystals > 0 || canC);
-                spinCrystal.SetText(cc > 0 ? $"Đá tinh (1 + {cc} đá)" : "Đá tinh (1)");
+                spinCrystal.SetText(cc > 0 ? Loc.F("Đá tinh (1 + {0} đá)", cc) : Loc.T("Đá tinh (1)"));
                 spinCrystal.Interactable = canC;
             }
-            note.text = $"Mỗi ô quay 1 đá, mỗi ô khoá thêm {cfg.potential.lockCost} đá, khoá tối đa {cfg.potential.maxLocks} ô. " +
-                        "Đá tinh: 1 đá tinh thay đá của các ô quay, mọi ô ra từ Hiếm trở lên. " +
-                        "Đá có từ rương máy bi, rương AFK, Hang Tiềm Năng; đá tinh từ Hang, Đền Huy Hiệu.";
+            note.text = Loc.F("Mỗi ô quay 1 đá, mỗi ô khoá thêm {0} đá, khoá tối đa {1} ô. ", cfg.potential.lockCost, cfg.potential.maxLocks) +
+                        Loc.T("Đá tinh: 1 đá tinh thay đá của các ô quay, mọi ô ra từ Hiếm trở lên. ") +
+                        Loc.T("Đá có từ rương máy bi, rương AFK, Hang Tiềm Năng; đá tinh từ Hang, Đền Huy Hiệu.");
         }
 
         void ToggleLock(int k)
@@ -127,7 +127,7 @@ namespace PokiClash
             int open = Potential.OpenSlots(cfg, p.star);
             if (!locks[k] && locks.Where((l, j) => l && Potential.LineAt(p.potential, j) != null && j < open).Count() >= cfg.potential.maxLocks)
             {
-                App.Toasts.Show($"Khoá tối đa {cfg.potential.maxLocks} ô", PotentialPanel.Icon("lock"));
+                App.Toasts.Show(Loc.F("Khoá tối đa {0} ô", cfg.potential.maxLocks), PotentialPanel.Icon("lock"));
                 return;
             }
             locks[k] = !locks[k];
@@ -141,6 +141,7 @@ namespace PokiClash
             if (res == null) return;
             App.Save.Save();
             App.Audio.Play("chest");
+            Haptics.Play(Haptic.Reward);
             Render();
             Compare();
         }

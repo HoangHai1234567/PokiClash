@@ -45,6 +45,8 @@ namespace PokiClash
             afkBtn.SetOnClick(() => App.OpenAfk?.Invoke());
             notebookBtn.SetOnClick(() => App.Router.Go(SceneIds.Notebook));
             backBtn.SetOnClick(App.Back);
+            Guide.Mark("bar.back", backBtn);
+            Guide.Mark("bar.afk", afkBtn);
             Show(TopBar.None, "");
         }
 
@@ -54,6 +56,7 @@ namespace PokiClash
             back.gameObject.SetActive(kind == TopBar.Back);
             backTitle.text = title ?? "";
             backBtn.Locked = false;
+            ballsHeld = 0;
             Refresh();
         }
 
@@ -64,6 +67,38 @@ namespace PokiClash
 
         public static string Fmt(int n) => n >= 10000 ? (n / 1000f).ToString("0.#") + "k" : n.ToString();
 
+        // chip bi đang hiện (thanh sảnh hoặc thanh màn con): đồ bay về đây (bi Cây bi ở Nhà); null nếu thanh đang ẩn
+        public RectTransform BallChip
+        {
+            get
+            {
+                var t = back && back.gameObject.activeInHierarchy ? backBalls : hud && hud.gameObject.activeInHierarchy ? ballsText : null;
+                return t ? (RectTransform)(t.transform.parent ? t.transform.parent : t.transform) : null;
+            }
+        }
+
+        // bi vừa bay tới chip: chip nảy nhẹ (số đếm chạy do Refresh)
+        public void PunchBalls(float k = 0.35f)
+        {
+            var chip = BallChip;
+            if (chip) UiMotion.Of(chip).Punch(k);
+        }
+
+        // lớp cho đồ bay về chip (phủ cả màn, trên canvas của màn): vẽ trên mọi thứ của màn và trên chip lúc tới
+        public RectTransform FlyLayer => transform as RectTransform;
+
+        // bi đã cộng vào bản lưu nhưng còn đang bay: chip chưa đếm phần này (lưu xong Refresh vẫn hiện số cũ); mỗi viên tới thì nhả
+        // phần của nó, chip đếm chạy lên. Đổi màn thì nhả hết.
+        int ballsHeld;
+
+        public void HoldBalls(int n) => ballsHeld = Mathf.Max(0, ballsHeld + n);
+
+        public void ReleaseBalls(int n)
+        {
+            ballsHeld = Mathf.Max(0, ballsHeld - n);
+            Refresh();
+        }
+
         public void Refresh()
         {
             var s = App.Save?.Data;
@@ -72,10 +107,13 @@ namespace PokiClash
             float p = s.level >= cfg.maxLevel ? 1 : (float)s.exp / Mathf.Max(1, Progress.ExpToNext(s.level, cfg));
             expArc.fillAmount = Mathf.Clamp01(p);
             lvText.text = s.level.ToString();
-            // số bi đổi thì đếm chạy rồi chip nảy (bộ UI Sa Bàn)
-            NumberTicker.Set(ballsText, s.balls, v => Fmt((int)v));
-            NumberTicker.Set(backBalls, s.balls, v => Fmt((int)v));
-            backLv.text = $"Cấp {s.level}";
+            // số bi đổi thì đếm chạy rồi chip nảy (bộ UI Sa Bàn); trừ phần bi còn đang bay tới chip
+            int balls = Mathf.Max(0, s.balls - ballsHeld);
+            NumberTicker.Set(ballsText, balls, v => Fmt((int)v));
+            NumberTicker.Set(backBalls, balls, v => Fmt((int)v));
+            backLv.text = Loc.F("Cấp {0}", s.level);
+            // người mới: nút AFK ẩn tới khi AFK đã có mảnh hoặc rương (GD_Claude/25_FTUE.md bước F1)
+            afkBtn.gameObject.SetActive(Tutorial.Shows(s, GameData.Current, Tutorial.HubPart.Afk, PokiClash.Game.SaveService.Now()));
             // nút đồng hồ: chưa qua ải nào thì ghi "AFK"; có bi trên cây thì ghi số bi, không thì số giờ AFK đã dồn
             if (Progress.TotalCleared(s) == 0)
             {

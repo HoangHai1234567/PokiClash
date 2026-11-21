@@ -76,9 +76,18 @@ namespace PokiClash.EditorTools
                 astc = TextureImporterFormat.ASTC_5x5;
                 ti.maxTextureSize = 4096; // 1600 x 2400: phủ màn 1080 x 1920–2340, máy 1440 gần 1:1 (người dùng: nét, nặng cũng được)
             }
-            // hình gói vào Sprite Atlas đảo (AtlasMenu): nguồn không nén, atlas nén một lần (nguồn nén sẵn thì gói lại mờ, Unity báo lỗi)
+            // hình gói vào Sprite Atlas (AtlasMenu: đảo, hạt hiệu ứng): nguồn không nén, atlas nén một lần (nguồn nén sẵn thì gói lại mờ,
+            // Unity báo lỗi)
             if (AtlasMenu.InAtlas(assetPath))
             {
+                // ảnh hạt: khung gọn (atlas cắt viền trong suốt), trừ ảnh vẽ kiểu Filled giữ cả khung (AtlasMenu.HatFullRect)
+                if (AtlasMenu.InHatAtlas(assetPath))
+                {
+                    var st = new TextureImporterSettings();
+                    ti.ReadTextureSettings(st);
+                    st.spriteMeshType = AtlasMenu.HatFullRect(assetPath) ? SpriteMeshType.FullRect : SpriteMeshType.Tight;
+                    ti.SetTextureSettings(st);
+                }
                 ti.textureCompression = TextureImporterCompression.Uncompressed;
                 foreach (var pf in new[] { "Android", "iPhone" })
                 {

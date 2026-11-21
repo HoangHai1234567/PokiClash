@@ -69,7 +69,7 @@ namespace PokiClash.UI
             p.icon.color = icon != null ? Color.white : Theme.Ink3;
             p.desc.text = CardText.Text(c, lv);
             p.desc.color = Theme.Ink;
-            string rar = (showKind || c.kind != CardKind.Pool ? Elements.KindName(c.kind) + " · " : "") + Elements.RarityName(c.rarity) + (lv > 1 ? $" · cấp {lv}" : "");
+            string rar = (showKind || c.kind != CardKind.Pool ? Elements.KindName(c.kind) + " · " : "") + Elements.RarityName(c.rarity) + (lv > 1 ? Loc.F(" · cấp {0}", lv) : "");
             p.rarity.text = "<color=#" + ColorUtility.ToHtmlStringRGB(rc) + ">•</color> " + rar.ToUpperInvariant();
             p.rarity.color = Theme.Ink2;
 

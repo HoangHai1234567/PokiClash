@@ -114,23 +114,23 @@ namespace PokiClash
             locked = badge == null && cave == null && !Progress.StageOpen(s, st);
             badgeReplay = badge != null && Badges.Won(s, d.Cfg, badge.zone, badge.tier, badge.i);
 
-            p.title.text = cave != null ? $"Tầng {cave.tier + 1}: {d.Cfg.cave.tiers[cave.tier].name}" : badge != null ? $"Đền Huy Hiệu · {Elements.Name(z.id)}" : $"{z.name} · Ải {st.idx}";
+            p.title.text = cave != null ? Loc.F("Tầng {0}: {1}", cave.tier + 1, d.Cfg.cave.tiers[cave.tier].Name) : badge != null ? Loc.F("Đền Huy Hiệu · {0}", Elements.Name(z.id)) : Loc.F("{0} · Ải {1}", z.name, st.idx);
             // nhãn: boss, mini boss; đảo 70 ải còn ghi kiểu ải (Tướng mới, Bầy lính, Cửa ải…)
             p.tag.SetActive(st.kind != StageKind.Normal || st.tag != StageTag.None);
-            p.tagText.text = cave != null ? "HANG" : badge != null ? "THỬ THÁCH" : st.kind == StageKind.Boss ? "BOSS ĐẢO" : st.kind == StageKind.Mini ? "MINI BOSS"
+            p.tagText.text = cave != null ? Loc.T("HANG") : badge != null ? Loc.T("THỬ THÁCH") : st.kind == StageKind.Boss ? Loc.T("BOSS ĐẢO") : st.kind == StageKind.Mini ? "MINI BOSS"
                 : ZoneChapterRow.TagText(st).ToUpperInvariant();
             // ải 1 mỗi đảo là tướng khởi đầu cùng hệ: trùng tướng người chơi đã chọn thì đấu với bóng của nó (15_TuongKhoiDau.md)
             bool mirror = cave == null && badge == null && st.idx == 1 && st.enemies.Count == 1 && st.enemies[0].hero == s.starter;
             string mirrorName = mirror ? d.Hero(st.enemies[0].hero).name : null;
-            p.sub.text = cave != null ? $"Boss hệ {Elements.Name(cave.zone)} · thắng mới trừ lượt"
-                : badge != null ? $"Huy hiệu {Badges.TierName(d.Cfg, badge.tier)} · Trận {badge.i}/{Badges.Count(d.Cfg, badge.tier)}" + (badgeReplay ? " · đánh lại lấy sao" : "")
-                : mirror ? st.zone == Elem.Thuy ? $"{st.name} · Mặt nước in bóng {mirrorName} của bạn!" : $"{st.name} · Bóng của {mirrorName} chặn đường!"
+            p.sub.text = cave != null ? Loc.F("Boss hệ {0} · thắng mới trừ lượt", Elements.Name(cave.zone))
+                : badge != null ? Loc.F("Huy hiệu {0} · Trận {1}/{2}", Badges.TierName(d.Cfg, badge.tier), badge.i, Badges.Count(d.Cfg, badge.tier)) + (badgeReplay ? Loc.T(" · đánh lại lấy sao") : "")
+                : mirror ? st.zone == Elem.Thuy ? Loc.F("{0} · Mặt nước in bóng {1} của bạn!", st.name, mirrorName) : Loc.F("{0} · Bóng của {1} chặn đường!", st.name, mirrorName)
                 : st.name;
 
             // cấp địch là cấp người chơi cần có (thang cấp 200, 2026-11-04): thiếu 3 cấp thì cửa ải còn khoảng 1/4 trận thắng,
             // thiếu 6 cấp thì ải khó gần như không qua
             p.warn.SetActive(!locked && s.level < maxLv - 2);
-            p.warnText.text = $"Địch cấp {maxLv}, bạn cấp {s.level}: nên lên thêm cấp";
+            p.warnText.text = Loc.F("Địch cấp {0}, bạn cấp {1}: nên lên thêm cấp", maxLv, s.level);
 
             // đối thủ, mỗi con kèm chỉ số khi vào trận; tướng tiến hóa trong trận (ải tướng, boss) chỉ hiện dạng đầu, lực chiến tính cả
             // dòng (như số "Địch" ở dòng lực chiến)
@@ -157,7 +157,7 @@ namespace PokiClash
             if (foeTitle)
             {
                 // boss tiến hóa khi gục (luật 2026-11-17 của trận, không còn ngưỡng máu): chữ luật lấy từ CardText cho khớp hộp chi tiết thẻ
-                string head = evo ? $"Đối thủ · {CardText.EvoRuleShort(d.Card(Battle.BossEvoCard))}" : "Đối thủ";
+                string head = evo ? Loc.F("Đối thủ · {0}", CardText.EvoRuleShort(d.Card(Battle.BossEvoCard))) : Loc.T("Đối thủ");
                 int ti = st.enemies.FindIndex(e => !string.IsNullOrEmpty(e.trait));
                 if (ti >= 0 && d.Card(st.enemies[ti].trait) is CardDef tc)
                     head += $"\n<size=85%><color=#{ColorUtility.ToHtmlStringRGB(Theme.Red)}>{tc.name}:</color> " +
@@ -173,11 +173,56 @@ namespace PokiClash
             }
 
             Rewards(d, s);
-            p.hint.text = $"Mũi tên xanh: khắc {Elements.Name(leadEnemy.elem)} của {leadEnemy.name}. Mũi tên đỏ: bị khắc.";
+            p.hint.text = Loc.F("Mũi tên xanh: khắc {0} của {1}. Mũi tên đỏ: bị khắc.", Elements.Name(leadEnemy.elem), leadEnemy.name);
             p.go.SetOnClick(Go);
             if (afkBtn) afkBtn.SetOnClick(PickAfk);
             DrawTeam();
             ShowAfk();
+            TutorTips(d, s, maxLv, evo);
+        }
+
+        // hướng dẫn người mới (GD_Claude/25_FTUE.md): mỗi lần mở hộp nhiều nhất một bước
+        void TutorTips(GameData d, SaveData s, int maxLv, bool evo)
+        {
+            Guide.Mark("prep.go", p.go);
+            Guide.Mark("prep.foes", p.foes);
+            Guide.Mark("prep.warn", p.warn ? p.warn.transform : null);
+            Guide.Mark("prep.afk", afkBtn);
+            if (p.slots != null && p.slots.Length > 0) Guide.Mark("prep.slot0", p.slots[0].click);
+            if (badge != null || cave != null || locked) return;
+            var h = Tutorial.Starter(s, d);
+            if (h == null) return;
+            // A9: trận gương; C13: trận 2 ở đảo mình khắc
+            if (st.idx == 1 && st.zone == h.elem && Progress.TotalCleared(s) == 0)
+            {
+                Guide.Force(Tutorial.Go, "prep.go", Loc.F("Mặt nước in bóng {0}. Đánh bại bóng của chính mình!", h.name), null, true);
+                return;
+            }
+            if (st.idx == 1 && Tutorial.Done(s, Tutorial.Isles) && !Tutorial.Done(s, Tutorial.CounterGo) && st.zone == Tutorial.CounterIsland(s, d) &&
+                s.zones[(int)st.zone] == 0)
+            {
+                Guide.Force(Tutorial.CounterGo, "prep.go", Loc.F("{0} khắc {1}: đòn của bạn ×1,5. Xuất trận!", Elements.Name(h.elem), Elements.Name(st.zone)), null, true);
+                return;
+            }
+            if (!Tutorial.CoreDone(s)) return;
+            // F8: đội 1 ô mà tướng trong đội không khắc địch, trong kho có tướng khắc: đổi
+            var lead = leadEnemy;
+            if (team.Count > 0 && Progress.TeamSlots(s) == 1 && Elements.Beats(d.Hero(team[0]).elem) != lead.elem)
+            {
+                var better = s.heroes.Where(kv => kv.Value.owned && d.Hero(kv.Key) is HeroDef hd && Elements.Beats(hd.elem) == lead.elem)
+                    .Select(kv => d.Hero(kv.Key)).FirstOrDefault();
+                if (better != null && Guide.Force(Tutorial.Swap, "prep.slot0",
+                        Loc.F("Địch hệ {0}. {1} hệ {2} khắc {0}: chạm ô đội để đổi.", Elements.Name(lead.elem), better.name, Elements.Name(better.elem))))
+                    return;
+            }
+            if (p.warn && p.warn.activeSelf && Guide.Hint(Tutorial.Underlevel, "prep.warn", Loc.T("Lên cấp ở Máy Bi, hoặc đánh ải dễ ở đảo khác.")))
+                return;
+            if (evo && Guide.Note(Tutorial.EvoFoe, "prep.foes", Loc.T("Địch này tiến hóa khi gục: đánh tiếp tới dạng cuối."), 4.5f))
+                return;
+            if (st.enemies.Count >= 2 && Guide.Note(Tutorial.MultiFoe, "prep.foes", Loc.F("Đối thủ có {0} con, ra sân từng con. Hạ hết mới thắng.", st.enemies.Count), 4.5f))
+                return;
+            if (afkBtn && afkBtn.gameObject.activeInHierarchy && st.drops.Any(x => !x.gift))
+                Guide.Hint(Tutorial.AfkStage, "prep.afk", Loc.T("Cho AFK ở ải rơi mảnh tướng bạn muốn."));
         }
 
         // nút AFK: chỉ ải đảo đã thắng; ải người chơi đã chọn cho đội AFK ghi "Đang AFK"
@@ -189,7 +234,7 @@ namespace PokiClash
             afkBtn.gameObject.SetActive(can);
             if (!can) return;
             bool on = Afk.Picked(s, st);
-            afkBtn.SetText(on ? "Đang AFK" : "AFK ải này");
+            afkBtn.SetText(on ? Loc.T("Đang AFK") : Loc.T("AFK ải này"));
             afkBtn.SetRole(on ? BtnColor.Paper : BtnColor.Blue);
         }
 
@@ -207,12 +252,13 @@ namespace PokiClash
             if (r == null) return;
             App.Save.Save();
             App.Audio.Play("coin");
+            Haptics.Play(Haptic.Reward);
             var pool = Afk.Pool(st);
-            App.Toasts.Show(pool.Count > 0 ? $"Đội AFK ải {st.idx}: rơi mảnh {string.Join(", ", pool.Select(x => d.Hero(x.hero).name))}" : $"Đội AFK ải {st.idx}: ải này chỉ ra rương AFK", Icon("clock"));
+            App.Toasts.Show(pool.Count > 0 ? Loc.F("Đội AFK ải {0}: rơi mảnh {1}", st.idx, string.Join(", ", pool.Select(x => d.Hero(x.hero).name))) : Loc.F("Đội AFK ải {0}: ải này chỉ ra rương AFK", st.idx), Icon("clock"));
             int n = r.shards.Sum(x => x.n);
-            if (n > 0) App.Toasts.Show($"Ải cũ: nhặt {n} mảnh tướng", Icon("shard"));
+            if (n > 0) App.Toasts.Show(Loc.F("Ải cũ: nhặt {0} mảnh tướng", n), Icon("shard"));
             foreach (var x in r.shards)
-                if (x.unlocked) App.Toasts.Show($"Mở khóa {d.Hero(x.hero).name}!", Icon("star"));
+                if (x.unlocked) App.Toasts.Show(Loc.F("Mở khóa {0}!", d.Hero(x.hero).name), Icon("star"));
             ShowAfk();
             if (App.Router.CurrentRoot is ZoneScene zs) zs.PlaceAfkTag();
         }
@@ -229,26 +275,26 @@ namespace PokiClash
             Clear(p.rewards);
             var cfg = d.Cfg;
             int n = 0;
-            if (rewardTitle) rewardTitle.text = badgeReplay ? "Sao trận" : "Phần thưởng";
+            if (rewardTitle) rewardTitle.text = badgeReplay ? Loc.T("Sao trận") : Loc.T("Phần thưởng");
             if (badgeReplay)
             {
                 // đánh lại (Badges.Win chỉ ghi sao cao hơn): sao đã có, mỗi điều kiện đạt thêm 1 sao (Badges.StarChecks)
                 n += 4;
                 int have = Badges.Stars(s, cfg, badge.zone, badge.tier, badge.i);
-                Tile().Item(Icon("star"), $"{have}/3", "Sao đã có").Tag("Đánh lại", Theme.Yellow);
-                Tile().Item(Icon("check"), "+1", "Thắng");
-                Tile().Item(Icon("shield"), "+1", "Không ai gục");
-                Tile().Item(Icon("clock"), "+1", $"Thắng trong {Badges.StarRounds(cfg, st.enemies.Count)} hiệp");
+                Tile().Item(Icon("star"), $"{have}/3", Loc.T("Sao đã có")).Tag(Loc.T("Đánh lại"), Theme.Yellow);
+                Tile().Item(Icon("check"), "+1", Loc.T("Thắng"));
+                Tile().Item(Icon("shield"), "+1", Loc.T("Không ai gục"));
+                Tile().Item(Icon("clock"), "+1", Loc.F("Thắng trong {0} hiệp", Badges.StarRounds(cfg, st.enemies.Count)));
             }
             else if (badge != null)
             {
                 n++;
-                Tile().Item(Icon("ball"), $"×{cfg.badges.ballsBase + cfg.badges.ballsPerTier * badge.tier}", "Bi");
+                Tile().Item(Icon("ball"), $"×{cfg.badges.ballsBase + cfg.badges.ballsPerTier * badge.tier}", Loc.T("Bi"));
                 if (badge.i == Badges.Count(cfg, badge.tier))
                 {
                     n += 2;
                     var chest = Pachinko.FromKey(cfg.badges.chest[Mathf.Min(badge.tier, cfg.badges.chest.Count) - 1]); // như Badges.Win
-                    Tile().Item(Icon("crown"), "", $"Huy hiệu {Badges.TierName(cfg, badge.tier)}", Rarity.Epic, Theme.Of(badge.zone));
+                    Tile().Item(Icon("crown"), "", Loc.F("Huy hiệu {0}", Badges.TierName(cfg, badge.tier)), Rarity.Epic, Theme.Of(badge.zone));
                     Tile().Item(Icon("chest"), "×1", Pachinko.ChestName(chest), ChestRarity(chest));
                     // đá tiến hóa, đá tinh khi xong bậc (như Badges.Win)
                     int evo = badge.tier <= cfg.badges.evo.Length ? cfg.badges.evo[badge.tier - 1] : 0;
@@ -261,13 +307,13 @@ namespace PokiClash
             {
                 n++;
                 var ct = cfg.cave.tiers[cave.tier];
-                Tile().Item(Icon("rock"), $"×{ct.stones}", "Đá tiềm năng", Rarity.Epic);
+                Tile().Item(Icon("rock"), $"×{ct.stones}", Loc.T("Đá tiềm năng"), Rarity.Epic);
                 // thưởng lần đầu qua tầng (Potential.WinCave), không cần lượt
                 if (Potential.CaveFirst(s, cave.tier))
                 {
-                    if (ct.firstStones > 0) { n++; Tile().Item(Icon("rock"), $"×{ct.firstStones}", "Đá tiềm năng", Rarity.Epic).Tag("Lần đầu", Theme.Yellow); }
-                    if (ct.firstCrystals > 0) { n++; PotentialPanel.CrystalTile(Tile(), ct.firstCrystals).Tag("Lần đầu", Theme.Yellow); }
-                    if (ct.firstEvo > 0) { n++; Tile().EvoStones(ct.firstEvo).Tag("Lần đầu", Theme.Yellow); }
+                    if (ct.firstStones > 0) { n++; Tile().Item(Icon("rock"), $"×{ct.firstStones}", Loc.T("Đá tiềm năng"), Rarity.Epic).Tag(Loc.T("Lần đầu"), Theme.Yellow); }
+                    if (ct.firstCrystals > 0) { n++; PotentialPanel.CrystalTile(Tile(), ct.firstCrystals).Tag(Loc.T("Lần đầu"), Theme.Yellow); }
+                    if (ct.firstEvo > 0) { n++; Tile().EvoStones(ct.firstEvo).Tag(Loc.T("Lần đầu"), Theme.Yellow); }
                 }
             }
             else
@@ -275,7 +321,7 @@ namespace PokiClash
                 bool first = !Progress.StageCleared(s, st);
                 n++;
                 var balls = Tile().Item(Icon("ball"), $"×{Progress.StageBalls(d, st, first)}", "Bi");
-                if (first) balls.Tag("Lần đầu", Theme.Yellow);
+                if (first) balls.Tag(Loc.T("Lần đầu"), Theme.Yellow);
                 foreach (var dr in st.drops)
                 {
                     var h = d.Hero(dr.HeroFor(s));
@@ -283,7 +329,7 @@ namespace PokiClash
                     {
                         if (!first) continue;
                         n++;
-                        Tile().Hero(h, "", false).Tag("MỚI!", Theme.Red);
+                        Tile().Hero(h, "", false).Tag(Loc.T("MỚI!"), Theme.Red);
                         continue;
                     }
                     n++;
@@ -313,7 +359,7 @@ namespace PokiClash
             power.foe.text = NumFmt.Short(foePower);
             power.mine.text = NumFmt.Short(mine);
             double r = foePower > 0 ? mine / (double)foePower : 9;
-            var (label, color) = r >= 1.25 ? ("Dễ", Theme.Green) : r >= 0.95 ? ("Vừa", Theme.Yellow) : r >= 0.75 ? ("Khó", Theme.Orange) : ("Rất khó", Theme.Red);
+            var (label, color) = r >= 1.25 ? (Loc.T("Dễ"), Theme.Green) : r >= 0.95 ? (Loc.T("Vừa"), Theme.Yellow) : r >= 0.75 ? (Loc.T("Khó"), Theme.Orange) : (Loc.T("Rất khó"), Theme.Red);
             power.verdict.text = label;
             power.verdictBg.color = color;
             power.mine.color = r >= 0.95 ? Theme.GreenD : Theme.RedD;
@@ -325,8 +371,8 @@ namespace PokiClash
             var d = App.Data;
             var s = App.Save.Data;
             int open = Progress.TeamSlots(s);
-            if (teamTitle) teamTitle.text = $"Đội của bạn ({open}/{p.slots.Length})";
-            if (teamHint) teamHint.text = "chạm ô để đổi";
+            if (teamTitle) teamTitle.text = Loc.F("Đội của bạn ({0}/{1})", open, p.slots.Length);
+            if (teamHint) teamHint.text = Loc.T("chạm ô để đổi");
             for (int i = 0; i < p.slots.Length; i++)
             {
                 string hid = i < team.Count ? team[i] : null;
@@ -341,10 +387,10 @@ namespace PokiClash
                 if (slot.level)
                 {
                     slot.level.gameObject.SetActive(filled);
-                    slot.level.Value.text = $"Cấp {s.level}";
+                    slot.level.Value.text = Loc.F("Cấp {0}", s.level);
                 }
                 var emptyText = slot.empty.GetComponentInChildren<TextMeshProUGUI>(true);
-                if (emptyText) emptyText.text = locked ? $"Khoá\n<size=70%>{Progress.SlotNeed(i)}</size>" : "Trống\n<size=70%>chạm để chọn</size>";
+                if (emptyText) emptyText.text = locked ? Loc.F("Khoá\n<size=70%>{0}</size>", Progress.SlotNeed(i)) : Loc.T("Trống\n<size=70%>chạm để chọn</size>");
                 slot.click.enabled = true;
                 int k = i;
                 slot.click.OnClick = () =>
@@ -352,7 +398,7 @@ namespace PokiClash
                     if (k >= Progress.TeamSlots(App.Save.Data))
                     {
                         App.Audio.Play("error");
-                        App.Toasts.Show($"Ô đội {k + 1} mở khi {Progress.SlotNeed(k)}", Icon("lock"));
+                        App.Toasts.Show(Loc.F("Ô đội {0} mở khi {1}", k + 1, Progress.SlotNeed(k)), Icon("lock"));
                         return;
                     }
                     App.Audio.Play("click");
@@ -362,13 +408,13 @@ namespace PokiClash
                 var h = d.Hero(hid);
                 PaintRarity(slot, h.rarity);
                 slot.portrait.Bind(h, 165);
-                slot.name.text = (i == 0 ? "Ra trước · " : "") + h.name;
+                slot.name.text = (i == 0 ? Loc.T("Ra trước · ") : "") + h.name;
             }
 
             // lưới kho tướng cũ trong hộp: thay bằng bể tướng
             p.roster.gameObject.SetActive(false);
             p.hint.gameObject.SetActive(false);
-            p.go.SetText(locked ? "Chưa mở" : "Xuất trận!");
+            p.go.SetText(locked ? Loc.T("Chưa mở") : Loc.T("Xuất trận!"));
             p.go.Interactable = team.Count > 0 && !locked;
             PokiClash.UI.UiMotion.Of(p.go).breath = p.go.Interactable; // bộ UI Sa Bàn: nút Xuất trận thở mời bấm
             ShowPower();

@@ -45,6 +45,7 @@ namespace PokiClash.EditorTools
         const string ArtDir = "Assets/03 Art/Home/";
         const string ScenePath = "Assets/00 Scenes/Home.unity";
         const string GridMatPath = "Assets/03 Art/Home/home_grid.mat"; // lưới phát sáng chế độ xây (shader PokiClash/UIHomeGrid)
+        const string SelectMatPath = "Assets/03 Art/Home/home_select.mat"; // vật đang chọn sáng nhẹ (shader PokiClash/UIHomeSelect)
         // quái đi lại trên bản đồ: dùng lại thú, hạt, hộp chọn tướng của Trang trại (menu "PokiClash/Prefab/Trang trại: cảnh thật")
         const string PetPath = "Assets/04 Prefabs/Items/ThuTrangTrai.prefab";
         const string FxPath = "Assets/04 Prefabs/Items/HatTrangTrai.prefab";
@@ -126,10 +127,10 @@ namespace PokiClash.EditorTools
 
         // ---------- ảnh ----------
 
-        static T Load<T>() where T : Object =>
+        internal static T Load<T>() where T : Object =>
             AssetDatabase.LoadAssetAtPath<T>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:" + typeof(T).Name)[0]));
 
-        static Sprite ImportSprite(string path, int max)
+        internal static Sprite ImportSprite(string path, int max)
         {
             if (!File.Exists(path)) return null;
             AssetDatabase.ImportAsset(path);
@@ -342,9 +343,81 @@ namespace PokiClash.EditorTools
             return mat;
         }
 
+        static Material SelectMat()
+        {
+            var shader = Shader.Find("PokiClash/UIHomeSelect");
+            if (!shader)
+            {
+                Debug.LogWarning("[Nhà] Chưa có shader PokiClash/UIHomeSelect: vật đang chọn chỉ nhún, không sáng.");
+                return null;
+            }
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(SelectMatPath);
+            if (!mat)
+            {
+                mat = new Material(shader);
+                AssetDatabase.CreateAsset(mat, SelectMatPath);
+            }
+            mat.shader = shader;
+            EditorUtility.SetDirty(mat);
+            return mat;
+        }
+
+        // số trong bong bóng của vật (Cây bi: số bi đang có), con của "bong"; HomeObject tự xếp icon trái, số phải
+        static TextMeshProUGUI BubbleCount(Transform bubble)
+        {
+            var t = Text(bubble, "so", 40, Theme.Ink, TextAlignmentOptions.MidlineLeft);
+            t.textWrappingMode = TextWrappingModes.NoWrap;
+            At(t.rectTransform, new Vector2(0, 0.5f), new Vector2(70, 2), new Vector2(80, 64), new Vector2(0, 0.5f));
+            t.gameObject.SetActive(false);
+            return t;
+        }
+
+        // Vá prefab có sẵn, không dựng lại cả màn (người dùng 2026-11-22: chọn vật nhún + sáng nhẹ, số bi trên đầu Cây bi):
+        // tạo home_select.mat, thêm chữ số vào bong bóng Items/NhaVat, gắn vật liệu chọn vào Screens/Home. Chạy lại được.
+        [MenuItem("PokiClash/Prefab/Nhà: chọn vật sáng + số bi Cây bi", priority = 65)]
+        public static void PatchSelect()
+        {
+            Theme.Init(Load<UiAssets>());
+            var mat = SelectMat();
+            var obj = PrefabUtility.LoadPrefabContents(ObjPath);
+            try
+            {
+                var ho = obj.GetComponent<HomeObject>();
+                var bong = obj.transform.Find("bong");
+                if (!ho || !bong) Debug.LogError("[Nhà] " + ObjPath + " thiếu HomeObject hoặc nút \"bong\".");
+                else
+                {
+                    var so = bong.Find("so")?.GetComponent<TextMeshProUGUI>() ?? BubbleCount(bong);
+                    ho.SetupCount(so);
+                    PrefabUtility.SaveAsPrefabAsset(obj, ObjPath);
+                }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(obj);
+            }
+            var screen = PrefabUtility.LoadPrefabContents(ScreenPath);
+            try
+            {
+                var scene = screen.GetComponentInChildren<HomeScene>(true);
+                if (!scene) Debug.LogError("[Nhà] " + ScreenPath + " thiếu HomeScene.");
+                else
+                {
+                    scene.SetupSelect(mat);
+                    PrefabUtility.SaveAsPrefabAsset(screen, ScreenPath);
+                }
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(screen);
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[Nhà] Đã vá {ObjPath} (số trong bong bóng), {ScreenPath} (vật liệu chọn {(mat ? SelectMatPath : "trống")}).");
+        }
+
         // ---------- dựng nút ----------
 
-        static RectTransform Node(Transform parent, string name, params System.Type[] types)
+        internal static RectTransform Node(Transform parent, string name, params System.Type[] types)
         {
             var go = new GameObject(name, new[] { typeof(RectTransform) }.Concat(types).ToArray());
             go.layer = LayerMask.NameToLayer("UI");
@@ -353,7 +426,7 @@ namespace PokiClash.EditorTools
             return rt;
         }
 
-        static RectTransform Fill(RectTransform rt)
+        internal static RectTransform Fill(RectTransform rt)
         {
             rt.anchorMin = Vector2.zero;
             rt.anchorMax = Vector2.one;
@@ -362,7 +435,7 @@ namespace PokiClash.EditorTools
             return rt;
         }
 
-        static RectTransform At(RectTransform rt, Vector2 anchor, Vector2 pos, Vector2 size, Vector2 pivot)
+        internal static RectTransform At(RectTransform rt, Vector2 anchor, Vector2 pos, Vector2 size, Vector2 pivot)
         {
             rt.anchorMin = rt.anchorMax = anchor;
             rt.pivot = pivot;
@@ -371,7 +444,7 @@ namespace PokiClash.EditorTools
             return rt;
         }
 
-        static Image Img(Transform parent, string name, Sprite s, Color c, bool raycast = false, bool sliced = false)
+        internal static Image Img(Transform parent, string name, Sprite s, Color c, bool raycast = false, bool sliced = false)
         {
             var img = Node(parent, name, typeof(CanvasRenderer), typeof(Image)).GetComponent<Image>();
             Theme.SetSprite(img, s);
@@ -381,7 +454,7 @@ namespace PokiClash.EditorTools
             return img;
         }
 
-        static TextMeshProUGUI Text(Transform parent, string name, float size, Color color, TextAlignmentOptions align = TextAlignmentOptions.Center)
+        internal static TextMeshProUGUI Text(Transform parent, string name, float size, Color color, TextAlignmentOptions align = TextAlignmentOptions.Center)
         {
             var t = Node(parent, name, typeof(CanvasRenderer), typeof(TextMeshProUGUI)).GetComponent<TextMeshProUGUI>();
             t.font = Theme.Bold;
@@ -407,7 +480,7 @@ namespace PokiClash.EditorTools
             }
         }
 
-        static SketchButton Button(UiAssets assets, Transform parent, string name, string label, BtnColor color, Vector2 size)
+        internal static SketchButton Button(UiAssets assets, Transform parent, string name, string label, BtnColor color, Vector2 size)
         {
             var b = ((GameObject)PrefabUtility.InstantiatePrefab(assets.prefabs.buttonSmall.gameObject, parent)).GetComponent<SketchButton>();
             b.name = name;
@@ -438,8 +511,11 @@ namespace PokiClash.EditorTools
             icon.preserveAspect = true;
             Fill(icon.rectTransform).offsetMin = new Vector2(14, 14);
             icon.rectTransform.offsetMax = new Vector2(-14, -14);
+            var count = BubbleCount(bubble.transform);
             bubble.gameObject.SetActive(false);
             root.GetComponent<HomeObject>().Setup(img, label, bubble, icon);
+            root.GetComponent<HomeObject>().SetupCount(count);
+            HomeCrittersMenu.AddBubbleRing(bubble.transform, root.GetComponent<HomeObject>()); // vòng tiến độ, chạm để thu
             return Save<HomeObject>(root.gameObject, ObjPath);
         }
 
@@ -600,6 +676,7 @@ namespace PokiClash.EditorTools
                     new[] { L(tip + new Vector2(215, 470)), L(tip + new Vector2(240, 800)) }, null, 1f, 520);
                 scene.SetupPier(pier);
                 scene.SetupEnv(rim, EmitMat(), terraceH);
+                scene.SetupSelect(SelectMat());
                 OrderLayers(world); // tàu trên lớp mây, dưới lớp sáng tối: theo bảng queue
 
                 BuildUi(assets, scene, safe);
@@ -743,93 +820,8 @@ namespace PokiClash.EditorTools
             return list.ToArray();
         }
 
-        static void BuildUi(UiAssets assets, HomeScene scene, RectTransform safe)
-        {
-            foreach (var n in new[] { "hang_nut", "nha_ui", "cuon", "trang" })
-            {
-                var old = safe.Find(n);
-                if (!old) continue;
-                if (n == "hang_nut" || n == "nha_ui") Object.DestroyImmediate(old.gameObject);
-                else old.gameObject.SetActive(false);
-            }
-            var ui = Fill(Node(safe, "nha_ui", typeof(CanvasGroup))); // CanvasGroup: chuyến tàu qua mây ẩn / hiện giao diện (HomeScene.Chrome)
-            ui.SetAsLastSibling();
-            var paper = new Color(1f, 0.98f, 0.92f, 0.95f);
-
-            // dòng tài nguyên dưới thanh trên
-            var resBg = Img(ui, "tai_nguyen", Sketch.Pill, paper, false, true);
-            At(resBg.rectTransform, new Vector2(0.5f, 1), new Vector2(0, -SceneRoot.BarHeight - 4), new Vector2(1020, 60), new Vector2(0.5f, 1)); // dưới thanh trên
-            var res = Text(resBg.transform, "chu", 26, Theme.Ink);
-            Fill(res.rectTransform).offsetMin = new Vector2(16, 0);
-            res.rectTransform.offsetMax = new Vector2(-16, 0);
-            res.enableAutoSizing = true;
-            res.fontSizeMin = 18;
-            res.fontSizeMax = 26;
-
-            // hàng nút ở đáy
-            var bar = Node(ui, "hang_nut_nha", typeof(HorizontalLayoutGroup));
-            At(bar, new Vector2(0.5f, 0), new Vector2(0, 24), new Vector2(1040, 120), new Vector2(0.5f, 0));
-            var hl = bar.GetComponent<HorizontalLayoutGroup>();
-            hl.spacing = 10;
-            hl.childAlignment = TextAnchor.MiddleCenter;
-            hl.childControlWidth = hl.childControlHeight = false;
-            hl.childForceExpandWidth = hl.childForceExpandHeight = false;
-            var sz = new Vector2(196, 110);
-            var bBuild = Button(assets, bar, "xay", "Xây", BtnColor.Green, sz);
-            var bPaint = Button(assets, bar, "lat", "Lát ô", BtnColor.Yellow, sz);
-            var bHarvest = Button(assets, bar, "thu", "Thu hết", BtnColor.Orange, sz);
-            var bSail = Button(assets, bar, "ra_dao", "Ra đảo", BtnColor.Red, sz);
-
-            // gợi ý trên hàng nút
-            var hintBg = Img(ui, "goi_y", Sketch.PanelThin, paper, false, true);
-            At(hintBg.rectTransform, new Vector2(0.5f, 0), new Vector2(0, 154), new Vector2(1020, 64), new Vector2(0.5f, 0));
-            var hint = Text(hintBg.transform, "chu", 24, Theme.Ink);
-            Fill(hint.rectTransform).offsetMin = new Vector2(16, 4);
-            hint.rectTransform.offsetMax = new Vector2(-16, -4);
-            hint.enableAutoSizing = true;
-            hint.fontSizeMin = 16;
-            hint.fontSizeMax = 24;
-
-            // khay (chế độ xây, lát): lưới nút nhỏ
-            var tray = Node(ui, "khay", typeof(GridLayoutGroup));
-            At(tray, new Vector2(0.5f, 0), new Vector2(0, 228), new Vector2(1040, 250), new Vector2(0.5f, 0));
-            var gl = tray.GetComponent<GridLayoutGroup>();
-            gl.cellSize = new Vector2(200, 112);
-            gl.spacing = new Vector2(8, 8);
-            gl.childAlignment = TextAnchor.LowerCenter;
-            gl.startCorner = GridLayoutGroup.Corner.LowerLeft;
-            gl.constraint = GridLayoutGroup.Constraint.FixedColumnCount;
-            gl.constraintCount = 5;
-            tray.gameObject.SetActive(false);
-
-            // bảng chọn (công trình, ô rừng, bóng ma)
-            var panel = Img(ui, "bang", Sketch.Panel, paper, true, true);
-            At(panel.rectTransform, new Vector2(0.5f, 0), new Vector2(0, 228), new Vector2(1020, 420), new Vector2(0.5f, 0));
-            var title = Text(panel.transform, "tieu_de", 36, Theme.Ink, TextAlignmentOptions.Left);
-            At(title.rectTransform, new Vector2(0, 1), new Vector2(32, -20), new Vector2(950, 50), new Vector2(0, 1));
-            var body = Text(panel.transform, "noi_dung", 26, Theme.Ink2, TextAlignmentOptions.TopLeft);
-            At(body.rectTransform, new Vector2(0, 1), new Vector2(32, -78), new Vector2(950, 200), new Vector2(0, 1));
-            body.enableAutoSizing = true;
-            body.fontSizeMin = 18;
-            body.fontSizeMax = 26;
-            var row = Node(panel.transform, "nut", typeof(HorizontalLayoutGroup));
-            At(row, new Vector2(0.5f, 0), new Vector2(0, 22), new Vector2(980, 110), new Vector2(0.5f, 0));
-            var rl = row.GetComponent<HorizontalLayoutGroup>();
-            rl.spacing = 14;
-            rl.childAlignment = TextAnchor.MiddleCenter;
-            rl.childControlWidth = rl.childControlHeight = false;
-            rl.childForceExpandWidth = rl.childForceExpandHeight = false;
-            var bsz = new Vector2(230, 100); // bốn nút: Thu, Giao tướng, Lên cấp, Dời
-            var a = Button(assets, row, "a", "Thu", BtnColor.Orange, bsz);
-            var b = Button(assets, row, "b", "Giao tướng", BtnColor.Blue, bsz);
-            var c = Button(assets, row, "c", "Lên cấp", BtnColor.Green, bsz);
-            var dBtn = Button(assets, row, "d", "Dời", BtnColor.Purple, bsz);
-            panel.gameObject.SetActive(false);
-
-            scene.SetupUi(res, hint, bBuild, bPaint, bHarvest, bSail, tray, assets.prefabs.buttonSmall, panel.rectTransform, title, body, a, b, c, dBtn);
-            scene.SetupTrayIcon(HomeTrayMenu.TrayItem()); // khay Xây: nút có icon công trình (2026-11-20)
-            scene.SetupChrome(ui.GetComponent<CanvasGroup>());
-        }
+        // lớp giao diện nha_ui: kiểu Clash of Critters (vòng nút, hàng nút icon, tấm xây có tab), dựng ở HomeCrittersMenu (2026-11-22)
+        static void BuildUi(UiAssets assets, HomeScene scene, RectTransform safe) => HomeCrittersMenu.BuildUi(assets, scene, safe);
 
         // ---------- scene, Build Settings ----------
 

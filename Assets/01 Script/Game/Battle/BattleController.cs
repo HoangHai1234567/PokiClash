@@ -58,8 +58,8 @@ namespace PokiClash
         bool auto, busy, alive = true, waitingPick;
         bool usedAuto; // có lượt người chơi nào để máy tự chơi (ghi trận)
         float startedAt;
-        readonly HashSet<string> hinted = new HashSet<string>();
         public Battle Battle => b;
+        public bool IsBoss => stage != null && stage.enemies.Any(e => e.boss); // nhạc boss (BattleScene.Music)
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(BattleView battleView, BattleResultDialog result, BattlePauseDialog pause, BattleSwapDialog swap, BadgeWinDialog badgeWin)
@@ -85,11 +85,18 @@ namespace PokiClash
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
             uint seed = badge != null ? Badges.Seed(d, badge.zone, badge.tier, badge.i) : Rng.RandomSeed();
             b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
+            // trận hướng dẫn người mới (trận gương, trận 2 ở đảo mình khắc): thẻ rút sẵn, khoá thua ngầm (GD_Claude/25_FTUE.md)
+            if (badge == null && cave == null) b.script = Tutorial.BattleFor(save, d, stage);
             view.Init(b, zone, badge == null && cave == null ? stage : null);
             view.Stage.speed = Pace;
             view.Stage.Epic = EpicOf();
             FastForward(1);
             view.AutoBtn.SetOnClick(ToggleAuto);
+            view.AutoBtn.gameObject.SetActive(Tutorial.CoreDone(save)); // người mới: Tự chơi hiện sau chuỗi hướng dẫn
+            Guide.Mark("battle.offer", view.Offer);
+            Guide.Mark("battle.queue", view.QRow);
+            Guide.Mark("battle.auto", view.AutoBtn);
+            Guide.Mark("battle.stage", view.Stage);
             view.PauseBtn.SetOnClick(Menu);
             view.OnPickCard = (i, rt) => { if (!busy) StartCoroutine(OnPick(i, rt)); };
             view.OnInnate = (w, rt) => { if (!busy) StartCoroutine(OnInnate(w, rt)); };
@@ -97,10 +104,14 @@ namespace PokiClash
             player = new BattlePlayer(this, b, view)
             {
                 Alive = () => alive,
-                OnRound = r => Banner($"Hiệp {r}", "Bạn đi trước", false),
+                OnRound = r => Banner(Loc.F("Hiệp {0}", r), Loc.T("Bạn đi trước"), false),
                 Banner = Banner,
                 UltCut = UltCut,
-                OnTurnFoe = _ => view.RenderFoeThinking(),
+                OnTurnFoe = _ =>
+                {
+                    view.RenderFoeThinking();
+                    Guide.Note(Tutorial.FoeTurn, "battle.stage", Loc.T("Lượt địch"), 1.6f);
+                },
             };
             StartCoroutine(Run());
         }
@@ -235,7 +246,7 @@ namespace PokiClash
             var d = b.Data;
             int foePower = TeamPower.Of(d.Cfg, d, Teams.Enemy(stage, d));
             int minePower = TeamPower.Of(d.Cfg, d, Teams.Player(App.Save.Data, team, d));
-            yield return view.Intro.Play($"{zone.name} · Ải {stage.idx}", stage.name, Members(0), Members(1), minePower, foePower);
+            yield return view.Intro.Play(Loc.F("{0} · Ải {1}", zone.name, stage.idx), stage.name, Members(0), Members(1), minePower, foePower);
         }
 
         // tướng một phe cho màn VS (dạng theo sao như trên sân)
@@ -250,7 +261,7 @@ namespace PokiClash
             var f = b.ActiveOf(side);
             if (view.UltCut)
                 yield return view.UltCut.Play(f.hero, f.Name, Teams.LookStar(b.Data.Cfg, f), c.name, side == 0, (RectTransform)view.Stage.transform);
-            else StartCoroutine(Banner(c.name, $"Tuyệt kỹ của {f.Name}", true));
+            else StartCoroutine(Banner(c.name, Loc.F("Tuyệt kỹ của {0}", f.Name), true));
         }
 
         // băng rôn giữa sân (hiệp mới, tuyệt kỹ)
@@ -291,7 +302,7 @@ namespace PokiClash
             view.RenderQueue(-1, true);
             view.RenderOffer(auto);
             view.RenderBottom(auto);
-            Hint("pick", null);
+            TutorTurn();
             while (alive && waitingPick)
             {
                 // bật tự chơi giữa lúc chiêu đang chiếu (hoặc thẻ còn đang bay vào hàng) thì chờ xong
@@ -323,6 +334,9 @@ namespace PokiClash
             view.RenderQueue(-1, b.phase == Phase.Picking);
             view.RenderOffer(auto);
             view.RenderBottom(auto);
+            // hướng dẫn: thẻ đầu xếp vào hàng (B2), đủ 5 lần chọn thì hàng chạy cuối lượt (B3)
+            if (b.phase == Phase.Ready) Guide.Note(Tutorial.RunQueue, "battle.queue", Loc.F("Hàng thẻ chạy lần lượt, rồi {0} đánh thường.", b.ActiveOf(0).Name), 3.2f);
+            else Guide.Note(Tutorial.Queue, "battle.queue", Loc.T("Thẻ xếp vào hàng. Mỗi lượt chọn 5 lần."), 3.2f);
             if (clone) yield return view.FlyToSlot(clone, qIdx, fallback, pickNo);
             if (b.phase == Phase.Ready && waitingPick)
             {
@@ -351,7 +365,7 @@ namespace PokiClash
             if (which == InnateKind.Ult)
             {
                 App.Audio.Play("ult");
-                view.Stage.Text(0, "Tuyệt kỹ sẵn sàng!", "#ff8fb3", 22);
+                view.Stage.Text(0, Loc.T("Tuyệt kỹ sẵn sàng!"), "#ff8fb3", 22);
             }
             yield return player.PlayAll(evs);
             busy = false;
@@ -364,6 +378,7 @@ namespace PokiClash
                 view.RenderOffer(auto);
                 waitingPick = false;
             }
+            else if (which == InnateKind.Skill) Guide.Note(Tutorial.PickMore, "battle.offer", Loc.T("Chọn tiếp nhé."), 2.4f);
         }
 
         IEnumerator OnSwap(int idx)
@@ -374,7 +389,7 @@ namespace PokiClash
             {
                 App.Audio.Play("error");
                 var f = b.sides[0].fighters[idx];
-                App.Toasts.Show(f.dead ? $"{f.hero.name} đã gục" : "Chỉ đổi tướng đầu lượt, trước khi chọn thẻ", App.Art.Icon("info"));
+                App.Toasts.Show(f.dead ? Loc.F("{0} đã gục", f.hero.name) : Loc.T("Chỉ đổi tướng đầu lượt, trước khi chọn thẻ"), App.Art.Icon("info"));
                 yield break;
             }
             busy = true;
@@ -416,7 +431,7 @@ namespace PokiClash
                     var evs = b.UseInnate(inn.Value);
                     App.Audio.Play("buff");
                     view.RenderBottom(auto);
-                    if (inn == InnateKind.Ult) view.Stage.Text(side, $"Tuyệt kỹ: {c.name}", "#ff8fb3", 20);
+                    if (inn == InnateKind.Ult) view.Stage.Text(side, Loc.F("Tuyệt kỹ: {0}", c.name), "#ff8fb3", 20);
                     // chiêu: tên chiêu và đòn ra ngay trong lúc chiếu sự kiện
                     yield return player.PlayAll(evs);
                     view.RenderQueue(-1, b.phase == Phase.Picking);
@@ -470,39 +485,72 @@ namespace PokiClash
             }
         }
 
-        // ---------- gợi ý 2 trận đầu ----------
+        // ---------- hướng dẫn người mới (GD_Claude/25_FTUE.md chặng B, C, D) ----------
 
-        void Hint(string key, RectTransform anchor)
+        // đầu mỗi lượt chọn của người chơi
+        void TutorTurn()
         {
             var s = App.Save.Data;
-            if (!s.settings.hints || hinted.Contains(key) || s.stats.battles > 1) return;
-            hinted.Add(key);
-            string text = key == "pick" ? "Chọn 1 trong 3 thẻ, 5 lần. Thẻ chạy lần lượt rồi tướng đánh thường."
-                : key == "skill" ? "Đủ mana: bấm Chiêu để ra đòn ngay rồi chọn thẻ tiếp. Không tốn lần chọn!"
-                : "Đủ nộ: bật Tuyệt kỹ, nó thay cú đánh thường cuối lượt.";
-            var hint = Ui.Spawn(Theme.Prefabs.hint, view.Overlay);
-            hint.name = "goi_y";
-            hint.Set(text, 620);
-            var bubble = hint.Rect;
-            bubble.anchorMin = bubble.anchorMax = new Vector2(0.5f, 0);
-            bubble.pivot = new Vector2(0.5f, 0);
-            // gợi ý chọn thẻ nằm trên mép bảng dưới (không che thẻ), gợi ý Chiêu/Tuyệt kỹ nằm trên hàng nút
-            bubble.anchoredPosition = anchor ? new Vector2(0, 190) : new Vector2(-210, BattleView.PanelH + 240);
-            StartCoroutine(Remove(bubble.gameObject, 4.2f));
+            var d = App.Data;
+            // B1: trận gương, lượt đầu: ép chọn một thẻ
+            if (b.script != null) Guide.Force(Tutorial.PickCard, "battle.offer", Loc.T("Lượt của bạn! Chọn 1 trong 3 thẻ."));
+            // C14: trận 2 ở đảo mình khắc
+            if (b.script != null && Tutorial.Done(s, Tutorial.Isles) && Battle.ElemMult(b.ActiveOf(0), b.ActiveOf(1)) > 1)
+                Guide.Note(Tutorial.Counter, "battle.stage", Loc.F("{0} khắc {1}: đòn của bạn ×1,5!", Elements.Name(b.ActiveOf(0).hero.elem), Elements.Name(b.ActiveOf(1).hero.elem)), 3.6f);
+            if (!Tutorial.CoreDone(s)) return;
+            // D6: Tự chơi; D7: thẻ hiếm lần đầu
+            if (s.stats.battles >= 2 && Guide.Hint(Tutorial.Auto, "battle.auto", Loc.T("Tự chơi: máy đánh thay bạn, tắt lúc nào cũng được.")))
+                return;
+            if (b.turn.offer.Any(id => d.Card(id)?.rarity >= Rarity.Rare))
+                Guide.Note(Tutorial.RareCard, "battle.offer", Loc.T("Thẻ hiếm (viền màu đậm) mạnh hơn thẻ thường."), 3.2f);
         }
 
-        static IEnumerator Remove(GameObject go, float s)
-        {
-            yield return new WaitForSecondsRealtime(s);
-            if (go) Destroy(go);
-        }
+        int seenForm = -1;
 
         void LateUpdate()
         {
-            // gợi ý Chiêu, Tuyệt kỹ khi lần đầu dùng được
-            if (b == null || b.phase != Phase.Picking || b.turn.side != 0 || auto) return;
-            if (b.InnateBlock(InnateKind.Skill) == "") Hint("skill", view.SkillBtn);
-            if (b.InnateBlock(InnateKind.Ult) == "") Hint("ult", view.UltBtn);
+            if (b == null || App.Save?.Data == null) return;
+            var s = App.Save.Data;
+            if (view.SkillBtn) Guide.Mark("battle.skill", view.SkillBtn);
+            if (view.UltBtn) Guide.Mark("battle.ult", view.UltBtn);
+            // lượt chọn của người chơi đã vẽ xong (hàng thẻ, thẻ mời của lượt mới), không lúc chiêu đang chiếu hay thẻ đang bay
+            bool myPick = WaitingPlayer && b.phase == Phase.Picking && b.turn.side == 0 && !auto;
+            // B5, C15: Chiêu, Tuyệt kỹ lần đầu dùng được: ép bấm
+            if (myPick && b.InnateBlock(InnateKind.Skill) == "")
+                Guide.Force(Tutorial.Skill, "battle.skill", Loc.T("Đủ mana! Chiêu ra đòn ngay, không tốn lần chọn."));
+            if (myPick && b.InnateBlock(InnateKind.Ult) == "")
+                Guide.Force(Tutorial.Ult, "battle.ult", Loc.T("Nộ đầy! Tuyệt kỹ thay cú đánh thường cuối lượt."));
+            if (!Tutorial.CoreDone(s) || b.phase == Phase.Over) return;
+            // D2: hiệu ứng mới lần đầu (trên tướng hai bên); D3: bị choáng
+            for (int side = 0; side < 2; side++)
+            {
+                var f = b.ActiveOf(side);
+                foreach (var st in f.statuses)
+                    if (!Tutorial.Done(s, Tutorial.StatusTip(st.id)))
+                        Guide.Note(Tutorial.StatusTip(st.id), "battle.stage", StatusText(st.id), 3.6f);
+            }
+            if (b.turn.side == 0 && b.turn.stunned) Guide.Note(Tutorial.Stun, "battle.stage", Loc.T("Bị choáng: mất trọn lượt này."), 3f);
+            // D5: địch tiến hóa giữa trận
+            var foe = b.ActiveOf(1);
+            if (foe.evo)
+            {
+                if (seenForm >= 0 && foe.form > seenForm)
+                    Guide.Note(Tutorial.EvoNow, "battle.stage", Loc.T("Tiến hóa! Hạ tiếp tới dạng cuối."), 3f);
+                seenForm = foe.form;
+            }
+        }
+
+        static string StatusText(StatusId id)
+        {
+            switch (id)
+            {
+                case StatusId.Burn: return Loc.T("Bỏng: mất máu đầu mỗi lượt.");
+                case StatusId.Poison: return Loc.T("Độc: mất máu đầu mỗi lượt, cộng dồn.");
+                case StatusId.Stun: return Loc.T("Choáng: mất trọn lượt sau.");
+                case StatusId.Regen: return Loc.T("Hồi phục: hồi máu đầu mỗi lượt.");
+                case StatusId.Evade: return Loc.T("Né: tránh cú đánh thường kế tiếp.");
+                default: return "";
+            }
         }
 
         // ---------- nút trên ----------
@@ -518,7 +566,7 @@ namespace PokiClash
         public void Menu()
         {
             var dlg = App.Modals.Open(pausePrefab);
-            dlg.Show($"{zone.name} · Ải {stage.idx}: {stage.name}", () =>
+            dlg.Show(Loc.F("{0} · Ải {1}: {2}", zone.name, stage.idx, stage.name), () =>
             {
                 Stop();
                 LogBattle("bo");
@@ -563,27 +611,39 @@ namespace PokiClash
             var s = App.Save.Data;
             var d = App.Data;
             int before = s.level;
+            // trận hướng dẫn: trận gương (B8: hộp kết quả chỉ chừa nút Máy bi), trận 2 ở đảo mình khắc (C16: khoanh ô mảnh)
+            bool tutFirst = win && b.script != null && !Tutorial.Done(s, Tutorial.Balls);
+            bool tutCounter = win && b.script != null && !tutFirst && stage.zone == Tutorial.CounterIsland(s, d) && !Tutorial.Done(s, Tutorial.Shards);
+            bool firstLoss = !win && !Tutorial.Done(s, Tutorial.FirstLoss);
             StageReward rw = null;
             if (win) rw = Progress.WinStage(s, d, stage.id, new Rng(Rng.RandomSeed()));
             else s.stats.battles++;
+            if (win) Tutorial.SeedTree(s, d.Cfg, PokiClash.Game.SaveService.Now()); // cây bi đầu tiên có sẵn 10 bi
+            if (tutCounter) Tutorial.MarkAll(s, Tutorial.CounterIsle, Tutorial.CounterGo, Tutorial.Counter);
+            if (firstLoss) Tutorial.Mark(s, Tutorial.FirstLoss);
             App.Save.Save();
             App.Audio.Play(win ? "win" : "lose");
-            if (win) Haptics.Play(Haptic.Win);
+            Haptics.Play(win ? Haptic.Win : Haptic.Lose);
 
             var next = d.ZoneStages(stage.zone).FirstOrDefault(x => x.idx == stage.idx + 1);
             var m = App.Modals.Open(resultPrefab, mandatory: true);
-            m.Show(win, $"{zone.name} · Ải {stage.idx} · {stage.name}", 40, $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
+            m.Show(win, Loc.F("{0} · Ải {1} · {2}", zone.name, stage.idx, stage.name), 40, Loc.F("{0} hiệp · gây {1} sát thương", b.round, b.dmgDealt[0]));
             if (rw != null)
             {
-                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", "Bi").Tag(rw.first ? "Lần đầu" : "", Theme.Yellow);
+                m.Reward().Item(App.Art.Icon("ball"), $"×{rw.balls}", Loc.T("Bi")).Tag(rw.first ? Loc.T("Lần đầu") : "", Theme.Yellow);
                 foreach (var sh in rw.shards)
                 {
                     var hero = d.Hero(sh.hero);
                     // nhãn: mở khoá, mảnh đổi thành bản sao thẻ (tướng 20 sao), hoặc tiến độ mảnh (chưa có: tới mở khoá; đã có: tới sao kế)
                     var goal = Progress.ShardGoal(s, d, sh.hero);
-                    m.Reward().Hero(hero, $"×{sh.n}").Tag(sh.unlocked ? "MỞ KHÓA!" : sh.converted > 0 ? $"→ {sh.converted} thẻ"
+                    var tile = m.Reward().Hero(hero, $"×{sh.n}").Tag(sh.unlocked ? Loc.T("MỞ KHÓA!") : sh.converted > 0 ? Loc.F("→ {0} thẻ", sh.converted)
                         : goal.need > 0 ? $"{goal.have}/{goal.need}" : $"{goal.have}", sh.unlocked ? Theme.Red : Theme.Paper2);
                     if (sh.unlocked) App.Audio.Play("chest");
+                    if (tutCounter && sh.hero != s.starter && goal.need > 0)
+                    {
+                        Guide.Mark("result.shard", tile);
+                        Guide.Note(Tutorial.Shards, "result.shard", Loc.F("Gom đủ {0} mảnh để thu phục {1}.", goal.need, hero.name), 4.5f);
+                    }
                 }
                 if (rw.evoStones > 0) m.Reward().EvoStones(rw.evoStones);
             }
@@ -591,18 +651,33 @@ namespace PokiClash
             {
                 var foeElem = d.Hero(stage.enemies[0].hero).elem;
                 var strong = Elements.All.First(x => Elements.Beats(x) == foeElem);
-                m.Tips("• Thả bi ở Máy bi để lên cấp: mọi tướng mạnh lên.\n• Nâng thẻ và tiến hóa ở mục Tướng.\n" +
-                       $"• Chọn tướng khắc hệ địch ({Elements.Name(foeElem)} bị {Elements.Name(strong)} khắc).");
+                // lần thua đầu (E2): nói rõ thua không mất gì, rồi cách mạnh hơn (hàng nút bên dưới đi thẳng tới đó)
+                m.Tips((firstLoss ? Loc.T("Thua không mất gì! Mạnh hơn bằng:\n") : "") +
+                       Loc.T("• Thả bi ở Máy bi để lên cấp: mọi tướng mạnh lên.\n• Nâng thẻ và tiến hóa ở mục Tướng.\n") +
+                       Loc.F("• Chọn tướng khắc hệ địch ({0} bị {1} khắc), hoặc đánh ải dễ hơn ở đảo khác.", Elements.Name(foeElem), Elements.Name(strong)));
             }
-            if (win && s.balls > 0)
-                m.Button($"Máy bi ({s.balls})", BtnColor.Orange, 250, () => App.Router.Go(SceneIds.Machine));
-            if (win && next != null && Progress.StageOpen(s, next))
-                // về đảo và mở luôn hộp chuẩn bị của ải kế
-                m.Button("Ải tiếp »", BtnColor.Green, 210, () => App.Router.Go(SceneIds.Zone, new ZoneArgs { zone = stage.zone, prep = next.id }));
-            m.Button("Đánh lại", BtnColor.Paper, 200, () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team }));
-            m.Button(zone.name, BtnColor.Paper, 200, () => App.Router.Go(SceneIds.Zone, stage.zone));
+            if (tutFirst)
+            {
+                // B8: chỉ một đường đi tiếp, tới Máy Bi
+                var mb = m.Button(Loc.F("Máy bi ({0})", s.balls), BtnColor.Orange, 250, () => App.Router.Go(SceneIds.Machine));
+                Guide.Mark("result.machine", mb);
+                Guide.Force(Tutorial.Balls, "result.machine", Loc.T("Bi! Thả bi vào Máy Bi để lên cấp."));
+            }
+            else
+            {
+                if (s.balls > 0)
+                    m.Button(Loc.F("Máy bi ({0})", s.balls), BtnColor.Orange, 250, () => App.Router.Go(SceneIds.Machine));
+                if (!win && Tutorial.Shows(s, d, Tutorial.HubPart.Heroes, PokiClash.Game.SaveService.Now()))
+                    m.Button(Loc.T("Tướng"), BtnColor.Green, 200, () => App.Router.Go(SceneIds.Heroes));
+                if (win && next != null && Progress.StageOpen(s, next))
+                    // về đảo và mở luôn hộp chuẩn bị của ải kế
+                    m.Button(Loc.T("Ải tiếp »"), BtnColor.Green, 210, () => App.Router.Go(SceneIds.Zone, new ZoneArgs { zone = stage.zone, prep = next.id }));
+                m.Button(Loc.T("Đánh lại"), BtnColor.Paper, 200, () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team }));
+                m.Button(zone.name, BtnColor.Paper, 200, () => App.Router.Go(SceneIds.Zone, stage.zone));
+            }
             yield return new WaitForSecondsRealtime(0.12f);
             App.Audio.Play("stamp");
+            Haptics.Play(Haptic.Stamp);
             if (s.level > before) Dialogs.LevelUp(before, s.level);
         }
 

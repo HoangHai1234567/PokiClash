@@ -23,7 +23,7 @@ namespace PokiClash.Core
         public const double LevelNorm = 0.8;
 
         static readonly string[] TagNames = { "", "Tướng mới", "Bầy lính", "Cường hóa", "Tướng và lính", "Hai tướng", "Lính tinh nhuệ", "Cửa ải" };
-        public static string TagName(StageTag t) => TagNames[(int)t];
+        public static string TagName(StageTag t) => Loc.T(TagNames[(int)t]);
 
         static readonly int[] OldChests = { 4, 8 };
         static int[] size = { 8, 8, 8, 8, 8 };

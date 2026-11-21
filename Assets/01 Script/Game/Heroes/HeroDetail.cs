@@ -23,12 +23,12 @@ namespace PokiClash
             var parts = new List<string>();
             foreach (var z in d.Zones)
             {
-                var idx = d.ZoneStages(z.id).Where(st => st.drops.Any(x => x.hero == hero.id)).Select(st => $"ải {st.idx}").ToList();
+                var idx = d.ZoneStages(z.id).Where(st => st.drops.Any(x => x.hero == hero.id)).Select(st => Loc.F("ải {0}", st.idx)).ToList();
                 if (idx.Count > 0) parts.Add($"{z.name} {string.Join(", ", idx)}");
             }
-            string legend = hero.id == d.LegendMilestoneHero ? $" Thả đủ {d.Cfg.legendMilestone} bi ở máy bi để nhận chắc chắn lần đầu." : "";
-            if (parts.Count == 0) return (legend != "" ? legend.Trim() : "Mảnh rơi trong rương máy bi.");
-            return $"Mảnh rơi ở {string.Join("; ", parts)}; ải boss đã qua còn rơi khi AFK, và đôi khi trong rương máy bi.{legend}";
+            string legend = hero.id == d.LegendMilestoneHero ? Loc.F(" Thả đủ {0} bi ở máy bi để nhận chắc chắn lần đầu.", d.Cfg.legendMilestone) : "";
+            if (parts.Count == 0) return (legend != "" ? legend.Trim() : Loc.T("Mảnh rơi trong rương máy bi."));
+            return Loc.F("Mảnh rơi ở {0}; ải boss đã qua còn rơi khi AFK, và đôi khi trong rương máy bi.{1}", string.Join("; ", parts), legend);
         }
     }
 }

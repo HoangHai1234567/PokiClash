@@ -44,7 +44,7 @@ namespace PokiClash
             layout.preferredHeight = n > 5 ? 104 : 124;
             portrait.Bind(d.Hero(st.enemies[0].hero), n > 5 ? 86 : 104, !won && !now, Teams.EnemyStar(st.enemies[0].level));
             var names = string.Join(", ", st.enemies.Select(e => d.Hero(e.hero).name));
-            text.text = $"Trận {i} · Lv{st.enemies[0].level} · {names}" + (i == n ? " · BOSS" : "") + (won && !stars ? $" · {star}/3 sao" : "");
+            text.text = Loc.F("Trận {0} · Lv{1} · {2}", i, st.enemies[0].level, names) + (i == n ? " · BOSS" : "") + (won && !stars ? $" · {star}/3 sao" : "");
             text.color = now || won ? Theme.Ink : Theme.Ink3;
             if (stars)
             {
@@ -53,7 +53,7 @@ namespace PokiClash
             }
             bool replay = won && star < 3;
             fight.gameObject.SetActive(now || replay);
-            fight.SetText(now ? "Đánh" : "Đánh lại");
+            fight.SetText(now ? Loc.T("Đánh") : Loc.T("Đánh lại"));
             fight.SetRole(now ? BtnColor.Green : BtnColor.Paper);
             fight.SetOnClick(onFight);
             wonMark.SetActive(!now && won && !replay);

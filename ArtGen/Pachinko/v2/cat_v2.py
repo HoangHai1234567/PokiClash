@@ -200,19 +200,25 @@ def scoreboard(do):
 
 
 def digits():
+    # Tách theo thành phần liền trên cả tờ (2026-11-22): GPT vẽ chữ số tràn qua lưới 6x2 đều (số 0 rộng tới x 282 trong ô 256),
+    # cắt theo lưới làm 9/12 hình mất mép trái/phải. 12 hình trên tờ không dính nhau; bỏ đốm nhỏ theo diện tích, xếp theo hàng
+    # (y tâm) rồi theo x để ứng đúng tên 0-9, cộng, nhân.
     im = load("chu_so_v2.png")
-    cs = cells(im, 6, 2)
+    a = np.array(im)
+    m = (a[:, :, 3] > 8).astype(np.uint8)
+    n, lab, st, _ = cv2.connectedComponentsWithStats(m, 8)
+    big = [i for i in range(1, n) if st[i][cv2.CC_STAT_AREA] > 2000 * (im.width / 1536) ** 2]
     names = [f"pk_so_{i}" for i in range(10)] + ["pk_so_cong", "pk_so_nhan"]
-    boxes = []
-    for i, c in enumerate(cs):
-        a = np.array(c)
-        m = (a[:, :, 3] > 8).astype(np.uint8)
-        n, lab, st, _ = cv2.connectedComponentsWithStats(m, 8)
-        keep = 1 + int(np.argmax(st[1:, cv2.CC_STAT_AREA]))
-        a[:, :, 3][lab != keep] = 0
-        cs[i] = c = Image.fromarray(a, "RGBA")
-        _, b = trim(c, 0)
-        boxes.append(b)
+    assert len(big) == len(names), f"tờ chữ số: thấy {len(big)} hình liền, cần {len(names)}"
+    mid = im.height / 2
+    big.sort(key=lambda i: (st[i][1] + st[i][3] / 2 > mid, st[i][0]))
+    cs, boxes = [], []
+    for i in big:
+        x, y, w, h, _ = st[i]
+        c = a.copy()
+        c[:, :, 3][lab != i] = 0
+        cs.append(Image.fromarray(c, "RGBA"))
+        boxes.append((x, y, x + w, y + h))
     # cao chung = chữ số cao nhất; mỗi chữ số canh theo đáy của chính nó. Hai hàng ô trên tờ GPT vẽ chữ ở độ cao khác nhau:
     # lấy trên / dưới chung cả tờ làm 6-9 nằm cao hơn 0-5 khoảng 40 / 168 (số lệch, người dùng 2026-11-21).
     # Dấu cộng / nhân canh giữa khung. crop ngoài ảnh thì PIL độn trong suốt, nên mọi hình cùng tỉ lệ phóng.

@@ -52,36 +52,47 @@ namespace PokiClash
             }
             var h = d.Hero(sel);
             info.text = Describe(d, h);
-            pick.SetText($"Chọn {h.name}");
+            pick.SetText(Loc.F("Chọn {0}", h.name));
+        }
+
+        // người mới chưa biết thẻ là gì (GD_Claude/25_FTUE.md bước A3–A4): chỉ tên, hệ, danh hiệu và một chữ vai. Hệ khắc, 3 thẻ xem ở
+        // hộp chi tiết tướng sau. Bản cũ (hệ khắc, 3 thẻ ở cấp 1) giữ ở DescribeFull.
+        public static string Describe(GameData d, HeroDef h)
+        {
+            string role = Tutorial.Role(h.id);
+            return Loc.F("<b>{0}</b> · hệ {1}\n", h.name, Elements.Name(h.elem)) +
+                   (string.IsNullOrEmpty(role) ? "" : Loc.F("<size=120%><b>{0}</b></size>\n", role)) +
+                   $"<i>{h.title}</i>";
         }
 
         // hệ, khắc và bị khắc, 3 thẻ ở cấp 1
-        public static string Describe(GameData d, HeroDef h)
+        public static string DescribeFull(GameData d, HeroDef h)
         {
             string Card(string id)
             {
                 var c = d.Card(id);
                 return $"<b>{Elements.KindName(c.kind)} · {c.name}:</b> {CardText.Text(c, 1, d.Cfg.cardLvStep)}";
             }
-            return $"<b>{h.name}</b> · hệ {Elements.Name(h.elem)} · {h.title}\n" +
-                   $"Khắc {Elements.Name(Elements.Beats(h.elem))}, bị {Elements.Name(Progress.CounterOf(h.elem))} khắc " +
-                   "(bạn đồng hành không sợ bị khắc)\n" +
+            return Loc.F("<b>{0}</b> · hệ {1} · {2}\n", h.name, Elements.Name(h.elem), h.title) +
+                   Loc.F("Khắc {0}, bị {1} khắc ", Elements.Name(Elements.Beats(h.elem)), Elements.Name(Progress.CounterOf(h.elem))) +
+                   Loc.T("(bạn đồng hành không sợ bị khắc)\n") +
                    $"{Card(h.skill)}\n{Card(h.ult)}\n{Card(h.passive)}";
         }
 
         void Confirm()
         {
             var h = App.Data.Hero(sel);
-            App.Modals.Confirm($"Chọn {h.name}?",
-                $"{h.name} sẽ là bạn đồng hành suốt chuyến phiêu lưu, không đổi lại được. 4 tướng kia đứng ở ải 1 các đảo khác, thu phục sau.",
-                "Chọn", () =>
+            App.Modals.Confirm(Loc.F("Đi cùng {0} nhé?", h.name),
+                Loc.T("Không đổi lại được. Bạn sẽ gặp lại 4 bạn kia trên các đảo."),
+                Loc.T("Đi thôi!"), () =>
                 {
                     App.Save.Data.ChooseStarter(sel);
                     App.Save.Save();
                     App.Audio.Play("chest");
+                    Haptics.Play(Haptic.Reward);
                     Close();
                     onPicked?.Invoke(sel);
-                }, "Xem lại", BtnColor.Green);
+                }, Loc.T("Xem lại"), BtnColor.Green);
         }
     }
 }

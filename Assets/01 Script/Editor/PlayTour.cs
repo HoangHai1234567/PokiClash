@@ -1352,6 +1352,7 @@ namespace PokiClash.EditorTools
         {
             shot = 80;
             var d = App.Data;
+            Tutorial.Off = true; // tour cũ: hộp giới thiệu, không lớp phủ hướng dẫn người mới (tour mới: GuideMenu)
             App.Save.Reset();
             yield return Go(SceneIds.Hub);
             yield return Until(() => App.Modals.Count > 0, 3);

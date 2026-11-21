@@ -28,12 +28,12 @@ namespace PokiClash
             flavor.text = $"<i>{c.flavor}</i>";
             bool locked = c.unlock > App.Save.Data.level;
             unlock.gameObject.SetActive(locked);
-            unlock.text = $"Vào bộ rút khi người chơi lên cấp {c.unlock}.";
+            unlock.text = Loc.F("Vào bộ rút khi người chơi lên cấp {0}.", c.unlock);
             if (note)
             {
                 note.text = c.kind == CardKind.Pool
-                    ? c.repeat ? "Thẻ chung không lên cấp, ra lại được trong lượt." : "Thẻ chung không lên cấp, mỗi lượt chọn một lần."
-                    : $"Thẻ riêng của tướng, cấp {lv}/{App.Data.Cfg.cardMax}: đủ bản sao thì lên cấp ở hộp chi tiết tướng.";
+                    ? c.repeat ? Loc.T("Thẻ chung không lên cấp, ra lại được trong lượt.") : Loc.T("Thẻ chung không lên cấp, mỗi lượt chọn một lần.")
+                    : Loc.F("Thẻ riêng của tướng, cấp {0}/{1}: đủ bản sao thì lên cấp ở hộp chi tiết tướng.", lv, App.Data.Cfg.cardMax);
                 // luật của cơ chế mới (độc, phản đòn, combo, kết liễu, cường hóa, cộng hưởng; 2026-11-17)
                 string rule = CardText.Note(c);
                 if (rule.Length > 0) note.text += $"\n<size=85%>{rule}</size>";

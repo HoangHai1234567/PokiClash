@@ -40,7 +40,7 @@ namespace PokiClash
         {
             var head = stages[0];
             title.text = head.name;
-            sub.text = $"Ải {head.idx}–{stages[stages.Count - 1].idx} · ra mắt {d.Hero(head.enemies[0].hero).name}";
+            sub.text = Loc.F("Ải {0}–{1} · ra mắt {2}", head.idx, stages[stages.Count - 1].idx, d.Hero(head.enemies[0].hero).name);
             for (int i = list.childCount - 1; i >= 0; i--) Destroy(list.GetChild(i).gameObject);
             int now = -1;
             for (int i = 0; i < stages.Count; i++)
@@ -53,7 +53,7 @@ namespace PokiClash
                     if (!Progress.StageOpen(App.Save.Data, st))
                     {
                         App.Audio.Play("error");
-                        App.Toasts.Show($"Qua ải {st.idx - 1} trước đã", Icon("lock"));
+                        App.Toasts.Show(Loc.F("Qua ải {0} trước đã", st.idx - 1), Icon("lock"));
                         return;
                     }
                     App.Audio.Play("click");

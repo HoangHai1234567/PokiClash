@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using PokiClash.Core;
 
 namespace PokiClash
 {
@@ -56,10 +57,10 @@ namespace PokiClash
             if (artMap.TryGetValue(name, out var s)) return s;
             if (fallbackMap.TryGetValue(name, out s))
             {
-                Warn(name, "dùng ảnh thay thế");
+                Warn(name, Loc.T("dùng ảnh thay thế"));
                 return s;
             }
-            Warn(name, "không có cả ảnh thay thế");
+            Warn(name, Loc.T("không có cả ảnh thay thế"));
             return null;
         }
 
@@ -70,7 +71,7 @@ namespace PokiClash
             if (string.IsNullOrEmpty(name)) return null;
             if (artMap.TryGetValue("icon_" + name, out var s)) return s;
             if (iconMap.TryGetValue(name, out s)) return s;
-            Warn("icon_" + name, "không có icon");
+            Warn("icon_" + name, Loc.T("không có icon"));
             return iconMap.TryGetValue("star", out s) ? s : null;
         }
 

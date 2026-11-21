@@ -21,8 +21,8 @@ namespace PokiClash
         public static string StarLine(BalanceConfig cfg, Battle b)
         {
             var (win, safe, fast) = Badges.StarChecks(cfg, b);
-            string Mark(bool ok) => ok ? "có" : "chưa";
-            return $"Sao 1 thắng: {Mark(win)} · Sao 2 không tướng nào gục: {Mark(safe)} · Sao 3 thắng trong {Badges.StarRounds(cfg, b.sides[1].fighters.Count)} hiệp: {Mark(fast)}";
+            string Mark(bool ok) => ok ? Loc.T("có") : Loc.T("chưa");
+            return Loc.F("Sao 1 thắng: {0} · Sao 2 không tướng nào gục: {1} · Sao 3 thắng trong {2} hiệp: {3}", Mark(win), Mark(safe), Badges.StarRounds(cfg, b.sides[1].fighters.Count), Mark(fast));
         }
 
         public static IEnumerator Run(Battle b, BadgeRef badge, StageDef stage, List<string> team, BattleResultDialog resultPrefab, BadgeWinDialog badgePrefab)
@@ -42,44 +42,46 @@ namespace PokiClash
             }
             App.Save.Save();
             App.Audio.Play(win ? "win" : "lose");
+            Haptics.Play(win ? Haptic.Win : Haptic.Lose);
 
             int n = Badges.Count(cfg, badge.tier);
             var m = App.Modals.Open(resultPrefab, mandatory: true);
-            m.Show(win, $"Đền · {Elements.Name(badge.zone)} · {Badges.TierName(cfg, badge.tier)} {badge.i}/{n}", 38,
-                $"{b.round} hiệp · gây {b.dmgDealt[0]} sát thương");
+            m.Show(win, Loc.F("Đền · {0} · {1} {2}/{3}", Elements.Name(badge.zone), Badges.TierName(cfg, badge.tier), badge.i, n), 38,
+                Loc.F("{0} hiệp · gây {1} sát thương", b.round, b.dmgDealt[0]));
             if (rw != null)
             {
                 bool better = rw.stars > rw.oldStars;
-                m.Reward().Item(Icon("star"), $"×{rw.stars}", "Sao trận", rw.stars >= 3 ? Rarity.Legend : rw.stars == 2 ? Rarity.Epic : Rarity.Rare)
-                    .Tag(rw.replay ? (better ? "Mới!" : $"Cũ {rw.oldStars}") : "", Theme.Yellow);
-                if (rw.balls > 0) m.Reward().Item(Icon("ball"), $"×{rw.balls}", "Bi").Tag(rw.tierDone > 0 ? "Xong bậc!" : $"{badge.i}/{n}", Theme.Yellow);
+                m.Reward().Item(Icon("star"), $"×{rw.stars}", Loc.T("Sao trận"), rw.stars >= 3 ? Rarity.Legend : rw.stars == 2 ? Rarity.Epic : Rarity.Rare)
+                    .Tag(rw.replay ? (better ? Loc.T("Mới!") : Loc.F("Cũ {0}", rw.oldStars)) : "", Theme.Yellow);
+                if (rw.balls > 0) m.Reward().Item(Icon("ball"), $"×{rw.balls}", Loc.T("Bi")).Tag(rw.tierDone > 0 ? Loc.T("Xong bậc!") : $"{badge.i}/{n}", Theme.Yellow);
                 if (rw.evo > 0) m.Reward().EvoStones(rw.evo);
                 if (rw.crystal > 0) PotentialPanel.CrystalTile(m.Reward(), rw.crystal);
                 int gEvo = rw.gifts.Sum(g => g.gift.evo), gCry = rw.gifts.Sum(g => g.gift.crystal), gSt = rw.gifts.Sum(g => g.gift.stones);
-                if (gEvo > 0) m.Reward().EvoStones(gEvo).Tag("Mốc sao", Theme.Yellow);
-                if (gCry > 0) PotentialPanel.CrystalTile(m.Reward(), gCry).Tag("Mốc sao", Theme.Yellow);
-                if (gSt > 0) m.Reward().Item(Icon("rock"), $"×{gSt}", "Đá tiềm năng", Rarity.Epic).Tag("Mốc sao", Theme.Yellow);
+                if (gEvo > 0) m.Reward().EvoStones(gEvo).Tag(Loc.T("Mốc sao"), Theme.Yellow);
+                if (gCry > 0) PotentialPanel.CrystalTile(m.Reward(), gCry).Tag(Loc.T("Mốc sao"), Theme.Yellow);
+                if (gSt > 0) m.Reward().Item(Icon("rock"), $"×{gSt}", Loc.T("Đá tiềm năng"), Rarity.Epic).Tag(Loc.T("Mốc sao"), Theme.Yellow);
                 int total = Badges.TotalStars(s, cfg), next = Badges.NextGift(s, cfg);
-                m.Tips(StarLine(cfg, b) + $"\nSao đền: {total}" + (next > 0 ? $" · mốc kế {Badges.GiftAt(cfg, next)} sao" : " · đã nhận hết mốc"));
+                m.Tips(StarLine(cfg, b) + Loc.F("\nSao đền: {0}", total) + (next > 0 ? Loc.F(" · mốc kế {0} sao", Badges.GiftAt(cfg, next)) : Loc.T(" · đã nhận hết mốc")));
             }
             else
-                m.Tips("Thua thì đánh lại trận này, tiến độ vẫn giữ. Chọn tướng khắc hệ " + Elements.Name(badge.zone) +
-                       ", nâng thẻ, tiến hóa và khai phá tiềm năng để mạnh hơn.");
+                m.Tips(Loc.T("Thua thì đánh lại trận này, tiến độ vẫn giữ. Chọn tướng khắc hệ ") + Elements.Name(badge.zone) +
+                       Loc.T(", nâng thẻ, tiến hóa và khai phá tiềm năng để mạnh hơn."));
 
             var cur = Badges.Current(s, cfg, badge.zone);
             bool sameAsCur = cur != null && cur.Value.tier == badge.tier && cur.Value.i == badge.i;
             if (win && cur != null && !sameAsCur && (rw == null || rw.tierDone == 0))
             {
                 var nextRef = new BadgeRef { zone = badge.zone, tier = cur.Value.tier, i = cur.Value.i };
-                m.Button("Trận tiếp »", BtnColor.Green, 240,
+                m.Button(Loc.T("Trận tiếp »"), BtnColor.Green, 240,
                     () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = Badges.StageId(d, nextRef.zone, nextRef.tier, nextRef.i), team = team, badge = nextRef }));
             }
             if (!win || Badges.Stars(s, cfg, badge.zone, badge.tier, badge.i) < 3)
-                m.Button("Đánh lại", win ? BtnColor.Paper : BtnColor.Green, 220,
+                m.Button(Loc.T("Đánh lại"), win ? BtnColor.Paper : BtnColor.Green, 220,
                     () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team, badge = badge }));
-            m.Button("Về Đền", BtnColor.Paper, 220, () => App.Router.Go(SceneIds.Badges, badge.zone));
+            m.Button(Loc.T("Về Đền"), BtnColor.Paper, 220, () => App.Router.Go(SceneIds.Badges, badge.zone));
             yield return new WaitForSecondsRealtime(0.12f);
             App.Audio.Play("stamp");
+            Haptics.Play(Haptic.Stamp);
 
             if (rw != null && rw.tierDone > 0)
             {
@@ -87,27 +89,28 @@ namespace PokiClash
                 yield return new WaitForSecondsRealtime(0.5f);
                 bool closed = false;
                 App.Audio.Play("level");
+                Haptics.Play(Haptic.LevelUp);
                 var bm = App.Modals.Open(badgePrefab, () => closed = true);
-                bm.Show(badge.zone, rw.tierDone, $"Huy hiệu {Elements.Name(badge.zone)} · {Badges.TierName(cfg, rw.tierDone)}", TierBody(cfg, badge.zone, rw.tierDone),
-                    $"Mở {Pachinko.ChestName(rw.chest)}");
+                bm.Show(badge.zone, rw.tierDone, Loc.F("Huy hiệu {0} · {1}", Elements.Name(badge.zone), Badges.TierName(cfg, rw.tierDone)), TierBody(cfg, badge.zone, rw.tierDone),
+                    Loc.F("Mở {0}", Pachinko.ChestName(rw.chest)));
                 while (!closed) yield return null;
-                yield return ChestBox.Show(Pachinko.ChestName(rw.chest), rw.chest, null, rw.rewards, "Nhận");
+                yield return ChestBox.Show(Pachinko.ChestName(rw.chest), rw.chest, null, rw.rewards, Loc.T("Nhận"));
             }
             if (rw != null)
                 foreach (var g in rw.gifts.Where(g => !string.IsNullOrEmpty(g.gift.chest)))
-                    yield return ChestBox.Show($"Mốc {g.at} sao · {Pachinko.ChestName(g.chest)}", g.chest, null, g.rewards, "Nhận");
+                    yield return ChestBox.Show(Loc.F("Mốc {0} sao · {1}", g.at, Pachinko.ChestName(g.chest)), g.chest, null, g.rewards, Loc.T("Nhận"));
             if (s.level > before) Dialogs.LevelUp(before, s.level);
         }
 
         // chữ hộp huy hiệu: phần cộng, đặc tính hệ (nếu bậc này mở hoặc nâng), phần cộng cả đội
         public static string TierBody(BalanceConfig cfg, Elem z, int tier)
         {
-            var lines = new List<string> { $"Tướng hệ {Elements.Name(z)} +{Badges.Bonus(cfg, tier) * 100:0}% Máu, Công, Thủ (bậc cao nhất, không cộng dồn)." };
+            var lines = new List<string> { Loc.F("Tướng hệ {0} +{1:0}% Máu, Công, Thủ (bậc cao nhất, không cộng dồn).", Elements.Name(z), Badges.Bonus(cfg, tier) * 100) };
             int lv = Badges.TraitLevel(cfg, tier);
             if (lv > 0 && cfg.badges.traitTiers.Contains(tier))
-                lines.Add((lv == 1 ? "Mở đặc tính " : "Nâng đặc tính ") + Badges.TraitText(cfg, z, lv) + $" cho tướng hệ {Elements.Name(z)}.");
+                lines.Add((lv == 1 ? Loc.T("Mở đặc tính ") : Loc.T("Nâng đặc tính ")) + Badges.TraitText(cfg, z, lv) + Loc.F(" cho tướng hệ {0}.", Elements.Name(z)));
             double team = Badges.TeamBonusOf(cfg, tier);
-            if (team > 0) lines.Add($"Mọi tướng +{team * 100:0.#}% Máu, Công, Thủ (cộng với các dãy khác).");
+            if (team > 0) lines.Add(Loc.F("Mọi tướng +{0:0.#}% Máu, Công, Thủ (cộng với các dãy khác).", team * 100));
             return string.Join("\n", lines);
         }
     }

@@ -390,8 +390,16 @@ namespace PokiClash.Core
             return false;
         }
 
+        // kết quả ép cho những bi kế tiếp (máy bi lần đầu của người mới, Tutorial.MachineOutcomes); hết hàng thì theo bảng tỉ lệ
+        public readonly Queue<int> forced = new Queue<int>();
+
         int PickOutcome()
         {
+            while (forced.Count > 0)
+            {
+                int f = forced.Dequeue();
+                if (f >= 0 && f < odds.Length) return f;
+            }
             double sum = 0;
             foreach (var p in odds) sum += p;
             double r = rng.Next() * sum;
@@ -695,7 +703,7 @@ namespace PokiClash.Core
         public static bool IsChest(SlotKind k) => k == SlotKind.ChestWood || k == SlotKind.ChestSilver || k == SlotKind.ChestGold;
         public static int Exp(SlotKind k) => k == SlotKind.Exp5 ? 5 : k == SlotKind.Exp10 ? 10 : k == SlotKind.Exp15 ? 15 : 0;
 
-        public static string ChestName(SlotKind k) => k == SlotKind.ChestWood ? "Rương Gỗ" : k == SlotKind.ChestSilver ? "Rương Bạc" : "Rương Vàng";
+        public static string ChestName(SlotKind k) => k == SlotKind.ChestWood ? Loc.T("Rương Gỗ") : k == SlotKind.ChestSilver ? Loc.T("Rương Bạc") : Loc.T("Rương Vàng");
 
         // ô đáy: thưởng ngay (rương thì đưa vào hàng chờ mở)
         public static Reward SlotReward(SaveData s, BalanceConfig cfg, SlotKind kind, int x)
@@ -843,6 +851,6 @@ namespace PokiClash.Core
 
         // "Rương Bạc", "+10 bi", "+120 XP"
         public static string GiftName(GiftStep g) =>
-            g.k == "balls" ? $"+{g.v} bi" : g.k == "exp" ? $"+{g.v} XP" : ChestName(FromKey(g.k));
+            g.k == "balls" ? Loc.F("+{0} bi", g.v) : g.k == "exp" ? $"+{g.v} XP" : ChestName(FromKey(g.k));
     }
 }
