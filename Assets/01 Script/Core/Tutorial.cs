@@ -34,8 +34,8 @@ namespace PokiClash.Core
         public static bool Off;
 
         // ---------- mã bước (GD_Claude/25_FTUE.md mục 4) ----------
-        // A: mở game
-        public const string Intro = "a2", Home1 = "a6", Island = "a7", Fight = "a8", Go = "a9";
+        // A: mở game (a0: đoạn cốt truyện trước màn tải, mục 11)
+        public const string Story = "a0", Intro = "a2", Home1 = "a6", Island = "a7", Fight = "a8", Go = "a9";
         // B: trận 1
         public const string PickCard = "b1", Queue = "b2", RunQueue = "b3", FoeTurn = "b4", Skill = "b5", PickMore = "b6", Balls = "b8";
         // C: vòng lõi đầu
@@ -95,6 +95,9 @@ namespace PokiClash.Core
 
         // chuỗi bắt buộc (chặng A–C) xong
         public static bool CoreDone(SaveData s) => Done(s, Free);
+
+        // đoạn cốt truyện mở đầu: chỉ bản lưu mới chưa chọn tướng đồng hành, chưa xem lần nào (bản lưu cũ "*" coi như đã xem)
+        public static bool StoryNeeded(SaveData s) => s != null && string.IsNullOrEmpty(s.starter) && !Done(s, Story);
 
         // bước thuộc chuỗi bắt buộc: không tắt bằng công tắc "Gợi ý" của Sổ tay
         public static bool IsCore(string id) => id.Length > 0 && (id[0] == 'a' || id[0] == 'b' || id[0] == 'c');

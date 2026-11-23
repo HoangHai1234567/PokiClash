@@ -69,6 +69,13 @@ namespace PokiClash
             return Show(id, Mode.Say, null, text, done, repeat, s?.starter);
         }
 
+        // người nói là nhân vật chính (cậu bé thuần thú sư của cốt truyện mở đầu, App/StoryIntro): chân dung bên trái ghi chú, tướng
+        // đồng hành (nếu đã chọn) ló bên phải. Chưa có ảnh chân dung (Assets/03 Art/Story/nhan_vat.png) thì như Say.
+        public const string Me = "@nhan_vat";
+
+        public static bool SayMe(string id, string text, Action done = null, bool repeat = false) =>
+            Show(id, Mode.Say, null, text, done, repeat, Me);
+
         // đang hiện hoặc đang chờ hiện bước id
         public static bool Pending(string id) => GuideOverlay.I && GuideOverlay.I.Has(id);
 

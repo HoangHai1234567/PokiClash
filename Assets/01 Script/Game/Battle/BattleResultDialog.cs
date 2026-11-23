@@ -78,7 +78,36 @@ namespace PokiClash
                 Close();
                 onClick?.Invoke();
             });
+            if (want == null || want.Length != buttons.Length) want = new float[buttons.Length];
+            want[used - 1] = width;
+            FitButtons();
             return b;
+        }
+
+        float[] want; // bề rộng xin của từng nút đang bật
+
+        // hàng nút vừa tờ giấy: đủ bốn nút (Máy bi, Ải tiếp, Đánh lại, tên đảo) rộng hơn hàng thì co đều theo bề rộng xin
+        // (soát UI 2026-11-23: hai nút ngoài lòi khỏi tờ)
+        void FitButtons()
+        {
+            var row = used > 0 ? buttons[0].Rect.parent as RectTransform : null;
+            if (!row) return;
+            var hl = row.GetComponent<HorizontalOrVerticalLayoutGroup>();
+            float gap = hl ? hl.spacing : 0, pad = hl ? hl.padding.horizontal : 0;
+            // hàng tự co theo nút (ContentSizeFitter) nên lấy bề ngang tờ giấy, chừa lề 30 mỗi bên
+            var paper = row.parent as RectTransform;
+            float rowW = paper ? paper.rect.width - 60 : row.rect.width;
+            float avail = rowW - pad - gap * (used - 1), total = 0;
+            for (int i = 0; i < used; i++) total += want[i];
+            float k = total > avail && total > 0 ? avail / total : 1;
+            for (int i = 0; i < used; i++)
+            {
+                var b = buttons[i];
+                float w = want[i] * k;
+                b.Rect.sizeDelta = new Vector2(w, b.Rect.sizeDelta.y);
+                var le = b.GetComponent<LayoutElement>();
+                if (le) le.preferredWidth = w;
+            }
         }
     }
 }

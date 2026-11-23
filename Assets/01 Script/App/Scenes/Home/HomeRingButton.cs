@@ -49,6 +49,7 @@ namespace PokiClash
             SetCaption(text);
             if (costBg) costBg.gameObject.SetActive(!string.IsNullOrEmpty(costText));
             if (cost) cost.text = costText ?? "";
+            PlaceCost();
             button.SetRole(color);
             button.Interactable = on;
             button.SetOnClick(act);
@@ -62,6 +63,17 @@ namespace PokiClash
             var holder = caption.transform.parent != transform ? caption.transform.parent.gameObject : caption.gameObject;
             holder.SetActive(!string.IsNullOrEmpty(text));
             caption.text = text ?? "";
+        }
+
+        // dòng giá ngay dưới viên chữ: viên chữ tự co theo chữ nên cao thấp khác nhau (giá đặt cứng từng đè lên chữ "Lên cấp", soát UI
+        // 2026-11-23)
+        void PlaceCost()
+        {
+            if (!costBg || !costBg.gameObject.activeSelf || !caption) return;
+            var holder = caption.transform.parent != transform ? caption.transform.parent as RectTransform : null;
+            if (!holder || !holder.gameObject.activeSelf) return;
+            LayoutRebuilder.ForceRebuildLayoutImmediate(holder);
+            costBg.anchoredPosition = new Vector2(costBg.anchoredPosition.x, holder.anchoredPosition.y - holder.rect.height - 4);
         }
 
         public void SetIcon(Sprite s)

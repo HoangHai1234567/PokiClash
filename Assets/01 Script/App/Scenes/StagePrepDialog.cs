@@ -388,6 +388,7 @@ namespace PokiClash
                 {
                     slot.level.gameObject.SetActive(filled);
                     slot.level.Value.text = Loc.F("Cấp {0}", s.level);
+                    FitChip(slot.level);
                 }
                 var emptyText = slot.empty.GetComponentInChildren<TextMeshProUGUI>(true);
                 if (emptyText) emptyText.text = locked ? Loc.F("Khoá\n<size=70%>{0}</size>", Progress.SlotNeed(i)) : Loc.T("Trống\n<size=70%>chạm để chọn</size>");
@@ -408,7 +409,8 @@ namespace PokiClash
                 var h = d.Hero(hid);
                 PaintRarity(slot, h.rarity);
                 slot.portrait.Bind(h, 165);
-                slot.name.text = (i == 0 ? Loc.T("Ra trước · ") : "") + h.name;
+                slot.name.text = i == 0 ? $"{Loc.T("Ra trước · ").TrimEnd(' ', '·')}\n{h.name}" : h.name;
+                FitName(slot.name);
             }
 
             // lưới kho tướng cũ trong hộp: thay bằng bể tướng
@@ -418,6 +420,32 @@ namespace PokiClash
             p.go.Interactable = team.Count > 0 && !locked;
             PokiClash.UI.UiMotion.Of(p.go).breath = p.go.Interactable; // bộ UI Sa Bàn: nút Xuất trận thở mời bấm
             ShowPower();
+        }
+
+        // chip cấp góc ô đội giãn vừa chữ ("Cấp 200" tràn khỏi viên giấy, soát UI 2026-11-23)
+        static void FitChip(UiChip c)
+        {
+            var v = c.Value;
+            float pad = c.Rect.rect.width - v.rectTransform.rect.width; // phần chừa icon và lề
+            float need = v.GetPreferredValues(v.text).x + pad + 6;
+            if (need > c.Rect.rect.width + 0.5f) c.Rect.sizeDelta += new Vector2(need - c.Rect.rect.width, 0);
+        }
+
+        // tên trong ô đội hai dòng ("Ra trước" / tên tướng) ở đáy ô, chữ không dưới 16 (một dòng co còn 15 px, soát UI 2026-11-23)
+        static void FitName(TextMeshProUGUI t)
+        {
+            t.textWrappingMode = TextWrappingModes.Normal;
+            t.enableAutoSizing = true;
+            t.fontSizeMax = 24;
+            t.fontSizeMin = 16;
+            t.lineSpacing = -18;
+            t.alignment = TextAlignmentOptions.Bottom;
+            var r = t.rectTransform;
+            r.anchorMin = new Vector2(0, 0);
+            r.anchorMax = new Vector2(1, 0);
+            r.pivot = new Vector2(0.5f, 0);
+            r.sizeDelta = new Vector2(-52, 58);
+            r.anchoredPosition = new Vector2(0, 20); // trên viền dưới của khung màu độ hiếm
         }
 
         // ô đội có tướng: khung màu độ hiếm, giấy lót xanh nhạt (màu ô có tướng cũ) lùi vào, vương miện Huyền thoại

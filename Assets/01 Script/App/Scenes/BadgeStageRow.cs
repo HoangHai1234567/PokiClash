@@ -46,6 +46,7 @@ namespace PokiClash
             var names = string.Join(", ", st.enemies.Select(e => d.Hero(e.hero).name));
             text.text = Loc.F("Trận {0} · Lv{1} · {2}", i, st.enemies[0].level, names) + (i == n ? " · BOSS" : "") + (won && !stars ? $" · {star}/3 sao" : "");
             text.color = now || won ? Theme.Ink : Theme.Ink3;
+            text.textWrappingMode = TextWrappingModes.Normal; // trận nhiều địch xuống hai dòng (một dòng co còn 18, soát UI 2026-11-23)
             if (stars)
             {
                 stars.gameObject.SetActive(won);

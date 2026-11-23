@@ -13,18 +13,25 @@ namespace PokiClash
     {
         [SerializeField] TextMeshProUGUI body;
         [SerializeField] ScrollRect scroll;
+        [SerializeField] PokiClash.UI.SketchButton story; // "Xem lại cốt truyện" (App/StoryIntro, vẽ trên hộp thoại)
 
         // Dùng khi dựng prefab (Editor).
-        public void Setup(TextMeshProUGUI text, ScrollRect sc)
+        public void Setup(TextMeshProUGUI text, ScrollRect sc, PokiClash.UI.SketchButton storyButton)
         {
             body = text;
             scroll = sc;
+            story = storyButton;
         }
 
         public static void Open() => App.Modals.Open<HowToDialog>().Show();
 
         public void Show()
         {
+            if (story)
+            {
+                story.gameObject.SetActive(App.I && App.I.storyPrefab);
+                story.SetOnClick(() => StoryIntro.Replay());
+            }
             var s = App.Save.Data;
             var sb = new StringBuilder();
             int open = 0, all = 0;

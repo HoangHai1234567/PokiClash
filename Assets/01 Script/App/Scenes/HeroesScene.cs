@@ -102,6 +102,11 @@ namespace PokiClash
                 for (int i = grid.childCount - 1; i >= 0; i--) Destroy(grid.GetChild(i).gameObject);
             var d = App.Data;
             var s = App.Save.Data;
+            // hướng dẫn C9 còn chờ: bỏ lọc hệ để ô tướng đồng hành chắc chắn hiện (lọc cũ nhớ trong PlayerPrefs có thể giấu nó, tour
+            // thử 2026-11-23 kẹt ở màn này vì lọc Kim còn sót)
+            if (HasFilters && filter >= 0 && !string.IsNullOrEmpty(s.starter) && !Tutorial.Done(s, Tutorial.UpCard) &&
+                Progress.CanUpCard(s, d.Cfg, s.starter, CardSlot.Skill))
+                filter = -1;
             var list = HasFilters ? Sorted(d, s, filter, sort, desc) : Sorted(d, s, -1, SortKey.Power, true);
             for (int i = 0; i < list.Count; i++)
             {

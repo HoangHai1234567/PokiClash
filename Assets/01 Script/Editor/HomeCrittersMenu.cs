@@ -29,7 +29,7 @@ namespace PokiClash.EditorTools
         const string RingSpritePath = "Assets/03 Art/Home/vong_tien_do.png";
 
         // cỡ (px, khung rộng 1080): nút tròn, icon trong nút, nút hàng dưới phóng thêm, tấm xây (cao, đáy), thẻ khay
-        const float BtnSize = 112, IconSize = 64, HudScale = 1.12f, SheetH = 520, SheetY = 196, HudY = 62;
+        const float BtnSize = 112, IconSize = 64, HudScale = 1.12f, SheetH = 520, SheetY = 234, HudY = 100; // HudY 62 → 100, SheetY 196 → 234: chữ dưới nút bị cắt ở đáy màn (soát UI 2026-11-23)
         static readonly Vector2 CardSize = new Vector2(176, 195);
 
         [MenuItem("PokiClash/Prefab/Nhà: giao diện kiểu Critters", priority = 66)]

@@ -1,8 +1,9 @@
 // Thanh mốc tiến hóa dưới ô xem tướng trong hộp chi tiết (prefab Dialogs/ChiTietTuong, dựng bằng menu
 // "PokiClash/Prefab/Thêm thanh tiến hóa vào ChiTietTuong"). Bậc theo dạng (người dùng dặn 2026-11-19, StarTier.Stops): tướng có bao
-// nhiêu hình thì bấy nhiêu mốc (dòng 2 dạng: Đồng, Bạc; dòng 1 dạng: một mốc, không tiến hóa). Thanh là các sao hiện của tướng (bậc × 5),
-// mốc đặt ở sao 1 của bậc, có chân dung dạng của bậc đó, 5 sao tô màu bậc (bậc đã qua đủ 5, bậc đang ở theo sao trong bậc, bậc chưa
-// tới trống) và tên bậc; bậc chưa tới (hoặc tướng chưa có) là bóng sẫm.
+// nhiêu hình thì bấy nhiêu mốc (dòng 2 dạng: Đồng, Bạc; dòng 1 dạng: một mốc, không tiến hóa). Mốc dàn đều trên thanh, dạng đầu ở đầu,
+// dạng cuối ở cuối (2026-11-23); đoạn giữa hai mốc đầy dần theo sao trong bậc, tiến hóa thì tới mốc kế. Mỗi mốc có chân dung dạng của
+// bậc đó, 5 sao tô màu bậc (bậc đã qua đủ 5, bậc đang ở theo sao trong bậc, bậc chưa tới trống) và tên bậc; bậc chưa tới (hoặc tướng
+// chưa có) là bóng sẫm.
 // Nút Tiến hóa (xanh lá) nằm trên thanh giữa mốc đang ở và mốc kế, dòng giá ngay dưới; hộp chi tiết gọi ShowEvolve. Lên sao (mảnh) ở
 // hàng nút dưới của hộp, tách hẳn khỏi tiến hóa (đá, đổi hình).
 // Mọi phần có sẵn trong prefab, Bind chỉ bật tắt và gán.
@@ -52,8 +53,19 @@ namespace PokiClash
             evolvePulse = pulse;
         }
 
-        // vị trí điểm dừng thứ i trên thanh (0..1)
-        float Pos(int i) => stops.Length <= 1 ? 0 : Mathf.Clamp01(i / (float)(stops.Length - 1));
+        // mốc dạng thứ i trên thanh (0..1): dàn đều, dạng đầu ở đầu thanh, dạng cuối ở cuối thanh (người dùng 2026-11-23: "sao dạng
+        // cuối lại chưa phải đứng cuối"; bản cũ đặt mốc ở sao 1 của bậc trên thanh bậc × 5 sao nên dạng cuối chỉ tới ~70% thanh)
+        float NodePos(int i) => shown <= 1 ? 0 : Mathf.Clamp01(i / (float)(shown - 1));
+
+        // phần thanh đã tô ở điểm dừng idx: đoạn giữa mốc bậc và mốc kế đầy dần theo sao trong bậc (sao 1 ở mốc, sao 5 được 4/5 đoạn),
+        // tiến hóa thì tới mốc kế; đã ở dạng cuối thì đầy thanh (5 sao của bậc cuối xem ở hàng sao dưới mốc)
+        float Fill(int idx)
+        {
+            if (shown <= 1 || idx < 0) return 0;
+            int tier = idx / StarTier.PerTier, inTier = idx % StarTier.PerTier;
+            if (tier >= shown - 1) return 1;
+            return (tier + inTier / (float)StarTier.PerTier) / (shown - 1);
+        }
 
         public void Bind(HeroDef hero, int star, bool owned, BalanceConfig cfg)
         {
@@ -62,14 +74,15 @@ namespace PokiClash
             shown = Mathf.Min(tiers, nodes.Length);
             int idx = owned ? StarTier.StopIndex(cfg, hero, star) : -1;
             int cur = owned ? idx / StarTier.PerTier : -1;
-            bar.Set(owned ? Pos(idx) * 100 : 0, 100, 0, "", true);
+            bar.Set(owned ? Fill(idx) * 100 : 0, 100, 0, "", true);
+            bar.gameObject.SetActive(shown > 1); // dòng 1 dạng: không có chặng nào để chạy, chỉ mốc + dòng chú thích (soát UI 2026-11-23)
             for (int i = 0; i < nodes.Length; i++)
             {
                 var n = nodes[i];
                 n.root.gameObject.SetActive(i < shown);
                 if (i >= shown) continue;
                 int first = i * StarTier.PerTier;
-                float x = Pos(first);
+                float x = NodePos(i);
                 n.root.anchorMin = new Vector2(x, n.root.anchorMin.y);
                 n.root.anchorMax = new Vector2(x, n.root.anchorMax.y);
                 bool reached = owned && i <= cur;
@@ -102,7 +115,7 @@ namespace PokiClash
                 evoTier = -1;
                 return;
             }
-            float x = (Pos((toTier - 1) * StarTier.PerTier) + Pos(toTier * StarTier.PerTier)) / 2;
+            float x = (NodePos(toTier - 1) + NodePos(toTier)) / 2;
             var rt = evolve.Rect;
             rt.anchorMin = new Vector2(x, rt.anchorMin.y);
             rt.anchorMax = new Vector2(x, rt.anchorMax.y);
@@ -137,7 +150,7 @@ namespace PokiClash
             float w = rail.rect.width;
             if (w <= 1 || Mathf.Approximately(w, railWidth)) return;
             railWidth = w;
-            float span = (Pos(evoTier * StarTier.PerTier) - Pos((evoTier - 1) * StarTier.PerTier)) * w;
+            float span = (NodePos(evoTier) - NodePos(evoTier - 1)) * w;
             evolve.FitWidth();
             var rt = evolve.Rect;
             rt.sizeDelta = new Vector2(Mathf.Clamp(span - 120, 150, rt.sizeDelta.x), rt.sizeDelta.y);

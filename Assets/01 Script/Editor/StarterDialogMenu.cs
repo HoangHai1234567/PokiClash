@@ -1,5 +1,5 @@
 // Dựng hộp chọn tướng khởi đầu Dialogs/ChonTuongKhoiDau (biến thể tờ giấy gốc HopThoai, StarterDialog, GD_Claude/15_TuongKhoiDau.md):
-// tiêu đề, dòng giới thiệu, hàng 5 ô tướng (Items/OKho của hộp chọn đội), khung chữ hệ và 3 thẻ của tướng đang chọn, nút "Chọn …".
+// tiêu đề, dòng giới thiệu, hàng 5 ô tướng (Items/OKho của hộp chọn đội), 3 dòng tên · hệ, vai, danh hiệu của tướng đang chọn, nút "Chọn …".
 // Chữ chép từ hộp Chuẩn bị trận. Thêm vào danh sách hộp của UiKit (App.Modals.Open<StarterDialog>). Chạy lại thì dựng lại.
 using System.Linq;
 using PokiClash.UI;
@@ -62,8 +62,9 @@ namespace PokiClash.EditorTools
                 grid.childAlignment = TextAnchor.UpperCenter;
                 gridGo.GetComponent<LayoutElement>().preferredHeight = 170;
 
-                var info = Text(hintTpl, content, "thong_tin", 440);
-                info.alignment = TextAlignmentOptions.TopLeft;
+                // mô tả chỉ còn 3 dòng: tên · hệ, vai, danh hiệu (GD_Claude/25_FTUE.md A3–A4); cao 440 cũ để trống lớn trên nút
+                var info = Text(hintTpl, content, "thong_tin", 190);
+                info.alignment = TextAlignmentOptions.Top;
                 info.textWrappingMode = TextWrappingModes.Normal;
                 info.richText = true;
                 info.enableAutoSizing = false;

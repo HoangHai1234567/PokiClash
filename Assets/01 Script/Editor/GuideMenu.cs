@@ -77,12 +77,21 @@ namespace PokiClash.EditorTools
                 face.name = "ban_dong_hanh";
                 face.Rect.sizeDelta = new Vector2(220, 220);
 
+                // chân dung nhân vật chính (lời Guide.SayMe); chưa có ảnh thì để trống, lớp phủ không hiện
+                var me = Img(area, "nhan_vat_chinh", StoryIntroMenu.HeroSprite(), Color.white);
+                me.preserveAspect = true;
+                me.rectTransform.sizeDelta = new Vector2(270, 270);
+
                 var tap = Object.Instantiate(note.Label.gameObject, area, false).GetComponent<TextMeshProUGUI>();
                 tap.name = "cham_tiep";
                 foreach (var c in tap.GetComponents<ContentSizeFitter>()) Object.DestroyImmediate(c);
                 foreach (var c in tap.GetComponents<LayoutElement>()) Object.DestroyImmediate(c);
                 tap.text = "Chạm để tiếp tục";
                 tap.color = Theme.Paper;
+                // viền mực (material nướng sẵn theo phông): chữ màu giấy đọc được cả khi nằm trên bảng tên đảo sáng (soi c11 2026-11-23)
+                var tapMat = AssetDatabase.LoadAssetAtPath<Material>($"Assets/03 Art/Baked/Fonts/{tap.font.name} vien 25.mat");
+                if (tapMat) tap.fontSharedMaterial = tapMat;
+                else Debug.LogWarning($"[Hướng dẫn] Không thấy material viền cho phông {tap.font.name}: chữ chạm để tiếp không viền");
                 tap.fontSize = 36;
                 tap.alignment = TextAlignmentOptions.Center;
                 tap.rectTransform.Place(new Vector2(0.5f, 0.5f), new Vector2(0, -200), new Vector2(720, 64));
@@ -92,7 +101,7 @@ namespace PokiClash.EditorTools
                     gr.raycastTarget = blockers.Contains(gr as Image);
 
                 var ov = root.AddComponent<GuideOverlay>();
-                ov.Setup(area, cg, blockers, ring, ringUnder, pencil.rectTransform, note, face, tap);
+                ov.Setup(area, cg, blockers, ring, ringUnder, pencil.rectTransform, note, face, me, tap);
                 PrefabUtility.SaveAsPrefabAsset(root, OverlayPath);
             }
             finally
@@ -208,7 +217,25 @@ namespace PokiClash.EditorTools
                 body.lineSpacing = 6;
                 body.text = "Vòng chơi";
 
-                root.AddComponent<HowToDialog>().Setup(body, scroll);
+                // xem lại đoạn cốt truyện mở đầu (App/StoryIntro)
+                // ô giữ chỗ trong hàng dọc, nút giữ cỡ gốc ở giữa ô
+                var storyRow = new GameObject("o_cot_truyen", typeof(RectTransform), typeof(LayoutElement));
+                storyRow.layer = LayerMask.NameToLayer("UI");
+                storyRow.transform.SetParent(content, false);
+                var storyBtn = Ui.Spawn(kit.buttonNormal, storyRow.transform);
+                storyBtn.name = "nut_cot_truyen";
+                storyBtn.SetRole(BtnColor.Blue);
+                storyBtn.SetText("Xem lại cốt truyện");
+                var brt = (RectTransform)storyBtn.transform;
+                brt.anchorMin = brt.anchorMax = brt.pivot = new Vector2(0.5f, 0.5f);
+                brt.anchoredPosition = Vector2.zero;
+                brt.sizeDelta = new Vector2(Mathf.Max(brt.sizeDelta.x, 520), brt.sizeDelta.y);
+                storyRow.GetComponent<LayoutElement>().preferredHeight = brt.sizeDelta.y + 10;
+                // khung cuộn nhường chỗ cho hàng nút: tổng cao giữ như trước khi có nút (chữ cuộn không chạy xuống dưới nút, phiên soát
+                // UI báo 2026-11-23)
+                scrollGo.GetComponent<LayoutElement>().preferredHeight = 1180 - (brt.sizeDelta.y + 10) - vl.spacing;
+
+                root.AddComponent<HowToDialog>().Setup(body, scroll, storyBtn);
                 var dlg = PrefabUtility.SaveAsPrefabAsset(root, HowToPath).GetComponent<HowToDialog>();
                 if (!kit.dialogs.Any(x => x is HowToDialog))
                 {

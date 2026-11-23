@@ -36,11 +36,63 @@ namespace PokiClash
         // đảo vùng đất zoom xa: bảng tên phóng to (huy hiệu, tên, cấp đi theo), lùi ra ngoài cho khỏi đè tướng
         Vector2 plateBase;
         int plateSide = 1;
-        public void SetPlateZoom(float k)
+        RectTransform plateHost; // lớp nút khi bảng tên đã tách khỏi bệ (DetachPlate)
+        float plateK = 1;
+
+        // bảng tên đã tách đang bật: khung trong lớp nút (để tránh hai bảng chồng nhau)
+        public bool PlateRect(out Rect r)
         {
             var pr = p.plate.rectTransform;
+            r = default;
+            if (!plateHost || pr.parent != plateHost || !pr.gameObject.activeSelf) return false;
+            var size = Vector2.Scale(pr.rect.size, pr.localScale);
+            r = new Rect((Vector2)pr.localPosition - size * 0.5f, size);
+            return true;
+        }
+
+        // đổi bên bảng tên (trái ↔ phải của bệ)
+        public void FlipPlate()
+        {
+            plateSide = -plateSide;
+            plateBase.x = -plateBase.x;
+            SetPlateZoom(plateK);
+        }
+
+        public void SetPlateZoom(float k)
+        {
+            plateK = k;
+            var pr = p.plate.rectTransform;
+            var local = plateBase + new Vector2(plateSide * (k - 1) * PlateW * 0.5f, 0);
+            if (plateHost && pr.parent == plateHost)
+            {
+                // bảng đã tách: cỡ bảng không dưới bệ thường (bệ mini boss, boss thu nhỏ hơn làm chữ cấp còn 13 px), mép trong bảng sát mép bệ
+                var s = Rect.localScale;
+                float ps = Mathf.Max(s.x, MinLandPlate), w = Rect.sizeDelta.x;
+                pr.localScale = new Vector3(k * ps, k * ps, 1);
+                float x = plateSide * ((w * 0.5f - 18) * s.x + k * ps * PlateW * 0.5f);
+                pr.localPosition = Rect.localPosition + new Vector3(x, plateBase.y * s.y, 0);
+                return;
+            }
             pr.localScale = new Vector3(k, k, 1);
-            pr.anchoredPosition = plateBase + new Vector2(plateSide * (k - 1) * PlateW * 0.5f, 0);
+            pr.anchoredPosition = local;
+        }
+
+        // đảo vùng đất: bảng tên tách khỏi bệ sang lớp nút, làm con cuối để vẽ trên mọi cờ, rương, tướng (cờ chân thấp vẽ sau từng đè
+        // lên bảng tên của bệ phía trên, soát UI 2026-11-23). Bảng vẫn bám bệ (SetPlateZoom tính lại từ bệ), xoá lớp nút là xoá theo.
+        public void DetachPlate(RectTransform layer)
+        {
+            var pr = p.plate.rectTransform;
+            if (!layer) return;
+            if (pr.parent == layer)
+            {
+                pr.SetAsLastSibling();
+                return;
+            }
+            plateHost = layer;
+            pr.SetParent(layer, false);
+            pr.anchorMin = pr.anchorMax = new Vector2(0.5f, 0.5f);
+            pr.SetAsLastSibling();
+            SetPlateZoom(1);
         }
 
         // đảo vùng đất: bệ ở vùng boss còn mây phủ ẩn bảng tên (huy hiệu, tên, cấp đi theo) và vầng sáng cho đỡ lệnh vẽ
@@ -56,7 +108,9 @@ namespace PokiClash
         // bề ngang bệ, chiều cao tướng trên bệ
         public static float Width(StageKind k) => k == StageKind.Boss ? 210 : k == StageKind.Mini ? 165 : 136;
         public static float HeroHeight(StageKind k) => k == StageKind.Boss ? 290 : k == StageKind.Mini ? 230 : 190; // khung chân dung có lề, thân tướng chiếm khoảng 60%
-        const float PlateW = 250, PlateH = 86, Badge = 66;
+        // bảng 250 → 270, chữ to hơn (soát UI 2026-11-23: "Mini boss · Cấp 67" trên đảo vùng đất còn 13 px)
+        const float PlateW = 270, PlateH = 86, Badge = 66;
+        const float MinLandPlate = 1.8f; // đảo vùng đất: cỡ bảng tên nhỏ nhất (bệ thường 360 / 190 ≈ 1,9)
 
         // bảng tên vươn ra bao xa so với tâm bệ (để chọn bên cho khỏi lòi ra ngoài màn)
         public static float PlateReach(StageKind k) => Width(k) * 0.5f + PlateW - 18;
@@ -140,6 +194,10 @@ namespace PokiClash
             float tx = Badge - 4;
             p.heroName.rectTransform.Place(new Vector2(0, 1), new Vector2(tx, -8), new Vector2(PlateW - tx - 12, 38), new Vector2(0, 1));
             p.level.rectTransform.Place(new Vector2(0, 0), new Vector2(tx, 10), new Vector2(PlateW - tx - 12, 30), new Vector2(0, 0));
+            p.heroName.fontSizeMax = 30;
+            p.heroName.fontSizeMin = 18;
+            p.level.fontSizeMax = 25;
+            p.level.fontSizeMin = 16;
         }
     }
 }

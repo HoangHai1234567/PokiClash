@@ -467,3 +467,91 @@ Người dùng bảo "ok làm đi": làm theo đề xuất của câu 1–8; câ
   - ép bấm Chiêu chỉ khi lượt chọn đã vẽ xong;
   - camera sảnh lướt tới đảo cần khoanh (C12), tới con tàu (G2);
   - bảng tên đảo có gốc cỡ 0 thì khoanh theo khung bao các con.
+
+## 11. Cốt truyện mở đầu (2026-11-23, đã làm, có tranh)
+
+Người dùng: "lần đầu vào có thể làm thêm 1 chút hình ảnh cốt truyện như kingdom rush rồi mới vào boot". Đã chốt:
+- truyện: lạc vào thế giới lạ có sinh vật kỳ bí, rồi đi chinh phục;
+- 1–2 trang, chạm hiện từng khung tranh;
+- ít chữ;
+- tranh do GPT vẽ theo file prompt.
+
+### Kịch bản (2 trang × 3 khung)
+
+| Khung | Cỡ | Tranh | Chữ (game in, không vẽ) |
+|---|---|---|---|
+| 1 | ngang 1536×1024 | đêm bão, thuyền buồm nhỏ bị cuốn vào xoáy mây năm màu | Một đêm giông bão... |
+| 2 | dọc 1024×1536 | tỉnh dậy trên bãi cát đảo lạ, dấu chân ba ngón to dẫn vào rừng | Tỉnh dậy ở một thế giới lạ. |
+| 3 | dọc | rừng sương, mắt sinh vật lấp ló sau lá | (không chữ) |
+| 4 | dọc | năm tướng đồng hành ra gặp nhà thám hiểm | Những người bạn mới. |
+| 5 | dọc | trên vách đá nhìn bóng chúa tể núi lửa (dáng nui_lua) | Mỗi đảo một chúa tể. |
+| 6 | ngang | toàn cảnh năm đảo, thuyền ra khơi | Đi chinh phục thôi! |
+
+Nhân vật chính (người chơi, người dùng chốt 2026-11-23): cậu bé thuần thú sư khoảng 11 tuổi, cầm sổ phép (bìa da nâu, góc đồng, sao năm màu hệ) và bút chì phép to cỡ cẳng tay dùng như đũa phép; thuần phục sinh vật bằng cách vẽ chúng vào sổ. Tóc nâu hạt dẻ có chỏm dựng, băng cá nhân trên má, áo choàng ngắn có mũ màu xanh mòng két, khăn đỏ, dây chéo ngực cài 5 bút chì 5 màu hệ. Không mũ, không ba lô. Phép thuật vẽ bằng nét chì màu, không phát sáng.
+
+Cậu cũng nói lời dẫn trong hướng dẫn (`Guide.SayMe`): câu chào đầu game (a2, "Sổ phép đưa mình tới đây... Năm hòn đảo, năm hệ. Phải tìm một bạn đồng hành đã!") và câu mở các đảo (c11, "Bốn đảo nữa!..."). Chân dung cậu nằm bên trái ghi chú, tướng đồng hành (nếu đã chọn) nhỏ hơn bên phải. Chưa có ảnh `Assets/03 Art/Story/nhan_vat.png` thì lớp phủ hiện như cũ.
+
+### Chạy thế nào
+
+- Lần đầu vào game, khi bản lưu mới chưa chọn tướng và chưa có cờ `a0`, `App.Go` mở cốt truyện trước màn tải con tàu. Mây khép sẵn dưới nó.
+- Xem xong hoặc bấm Bỏ qua (Back cũng là bỏ qua): ghi cờ `a0`, lưu, rồi vào màn tải như thường. Bản lưu cũ (`*`) không thấy.
+- Màn: bàn gỗ, một tờ sổ.
+  - Mỗi chạm hiện một khung: khung đập xuống nghiêng nhẹ, rồi chữ chạy dần trên băng giấy.
+  - Tranh đã hiện thì trôi chậm (phóng 5%, lia nhẹ).
+  - Chạm lúc khung đang hiện thì hiện xong ngay.
+  - Hết khung 3 thì lật trang. Chạm sau khung 6 thì mờ dần, xong.
+  - Sau 1,4 giây không chạm thì hiện "Chạm để tiếp tục".
+- Nhạc chủ đề (`chude`) như màn tải.
+- Xem lại: Sổ tay → Cách chơi → nút "Xem lại cốt truyện".
+
+### Code, prefab
+
+- `App/StoryIntro.cs`.
+- `Editor/StoryIntroMenu.cs`:
+  - menu `PokiClash/Prefab/Cốt truyện mở đầu (CotTruyen)` dựng `Assets/04 Prefabs/Screens/CotTruyen.prefab` (canvas thứ tự 25) và gán `App.storyPrefab`;
+  - menu thử `PokiClash/Thử/Cốt truyện mở đầu: xem lại` và `…: chạm hết và chụp từng khung` (ảnh ở `Temp/PokiShots/cot_truyen/`).
+- `Core/Tutorial.cs`: `Story = "a0"`, `StoryNeeded`.
+- `App/App.cs`: `storyPrefab`, nhánh trong `Go()`, `Booting` tính cả cốt truyện, Back = bỏ qua.
+- `App/AudioService.cs`: nhạc chủ đề khi cốt truyện mở.
+- `App/HowToDialog.cs` và `Editor/GuideMenu.cs`: nút xem lại.
+- 6 chuỗi mới nối vào `Resources/Loc/en/ui.json`.
+
+### Tranh
+
+- Gói GPT dựng bằng `ArtGen/Story/build_story.py`, ra thư mục `ArtGen/Story/gui_gpt/`. Mỗi lượt một file prompt, kèm `HUONG_DAN.md`.
+- Các lượt:
+  - lượt 0: tờ thiết kế nhân vật chính;
+  - lượt 1 (sau `--duyet nv`): chân dung bán thân nền trong suốt và khung 2;
+  - lượt 2: khung 1 và 3;
+  - lượt 3: khung 4, 5, 6.
+- Lượt 2 và 3 chỉ dựng sau khi duyệt khung 2 (`--duyet 2`).
+- `--nhap` cũng chép chân dung (cắt sát, cạnh dài 512) vào `Assets/03 Art/Story/nhan_vat.png`; rồi chạy menu `PokiClash/Prefab/Hướng dẫn người mới (lớp phủ)`.
+- `--nhap` thu ảnh về cạnh dài 1024 rồi ghi vào `Assets/03 Art/Story/khung_k.png`. Sau đó chạy lại menu dựng prefab.
+- Khung chưa có tranh thì tạm dùng nền trận hoặc bản đồ có sẵn.
+
+### Kiểm (2026-11-23)
+
+- EditMode 151/152. Test đỏ vẫn là `PrefabOnlyTests`, hỏng từ trước.
+- Thử như người mới: tạm cất bản lưu, Play. Luồng chạy: cốt truyện, màn tải, sảnh, lời chào a2, hộp chọn tướng. Xong thì trả bản lưu cũ.
+- Ảnh soi từng khung ở `Temp/PokiShots/cot_truyen/`.
+- Sửa sau khi soi:
+  - khung nghiêng làm tranh tràn mép, vì RectMask2D cắt theo hộp thẳng; đổi sang Mask;
+  - tranh chừa 12% để trôi;
+  - cả cụm khung hạ 45 cho cân trang.
+- Hộp chọn tướng: ô mô tả cao 440 để trống lớn trên nút (phiên soát UI báo), hạ còn 190 và căn giữa.
+
+### Tranh và kiểm lần 2 (2026-11-23 đêm)
+
+- Người dùng cho Claude tự gen và tự duyệt. Gen bằng Codex (`ArtGen/Spine/gen.py`).
+- Đã có, duyệt ở `ArtGen/Story/duyet/`, nhập vào `Assets/03 Art/Story/`:
+  - tờ nhân vật;
+  - chân dung nền trong suốt;
+  - 6 khung.
+- Lệch nhỏ đã chấp nhận:
+  - tờ nhân vật chỉ thấy 4 bút chì trên dây chéo;
+  - khung 5 vẽ chúa tể màu sẫm chứ không phải bóng đen.
+- Cách nhập ảnh do `ArtPostprocessor` đặt (sprite, không mipmap, ASTC 6x6, 1024). Menu cốt truyện không tự đặt nữa.
+- Thử như người mới (cất bản lưu, Play): cốt truyện 6 khung, màn tải, câu chào a2 có chân dung cậu bé, tour đi hết A2 → C17. Câu c11: cậu bé bên trái, tướng đồng hành bên phải.
+- Sửa thêm: màn Tướng bỏ lọc hệ khi bước C9 còn chờ. Lọc Kim còn nhớ trong PlayerPrefs đã giấu mất ô tướng đồng hành và làm tour kẹt.
+- Chữ "Chạm để tiếp tục" của lời dẫn mờ khi nằm đè lên bảng tên đảo (c11): thêm viền mực (material nướng sẵn `vien 25` theo phông).
+- Hộp Cách chơi: khung cuộn hạ thấp bằng chiều cao hàng nút, chữ không còn chạy xuống dưới nút "Xem lại cốt truyện" (phiên soát UI báo).

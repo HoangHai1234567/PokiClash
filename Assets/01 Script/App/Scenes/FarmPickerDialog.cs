@@ -117,7 +117,8 @@ namespace PokiClash
                     changed(true);
                 });
             }
-            var heroes = d.Heroes.Where(h => s.Hero(h.id).owned).OrderByDescending(h => Farm.Rate(s, d, h.id, i)).ToList();
+            // hộp chưa cuộn được: năng suất cao nhất trước, tối đa MaxHomeRows dòng như Nhà (đủ 50 tướng thì hộp cao quá màn, soát UI 2026-11-23)
+            var heroes = d.Heroes.Where(h => s.Hero(h.id).owned).OrderByDescending(h => Farm.Rate(s, d, h.id, i)).Take(MaxHomeRows).ToList();
             foreach (var h in heroes)
             {
                 string id = h.id;

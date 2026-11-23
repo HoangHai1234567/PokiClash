@@ -24,7 +24,8 @@ namespace PokiClash.UI
             ring.color = color;
             label.color = color;
             label.text = text.ToUpperInvariant();
-            Rect.sizeDelta = new Vector2(Mathf.Max(360, text.Length * 84 + 80), 190);
+            // 84 → 72 mỗi chữ: dấu nghiêng rộng quá thì góc dưới phải cắt dòng tên ải bên dưới (soát UI 2026-11-23)
+            Rect.sizeDelta = new Vector2(Mathf.Max(360, text.Length * 72 + 80), 190);
         }
     }
 }

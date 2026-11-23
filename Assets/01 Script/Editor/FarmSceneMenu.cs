@@ -38,7 +38,7 @@ namespace PokiClash.EditorTools
             ("orchard", "Vườn cây", "apple", "e_moc", 275, 425),
             ("veg", "Ruộng rau", "carrot", "e_tho", 290, 1272),
             ("bakery", "Lò bánh", "bread", "e_hoa", 625, 1150),
-            ("smithy", "Xưởng nông cụ", "hammer", "e_kim", 870, 728),
+            ("smithy", "Xưởng nông cụ", "hammer", "e_kim", 790, 728), // 870 → 790: bảng cắt mép phải (soát UI 2026-11-23)
         };
 
         // bãi cỏ (bầu dục nội tiếp) và ổ rơm: x0, y0, x1, y1 trên ảnh

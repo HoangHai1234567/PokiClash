@@ -1353,7 +1353,8 @@ namespace PokiClash
                 foreach (var t in new[] { new HomeTileDef { id = "grass", name = "Cỏ" } }.Concat(C.tiles))
                 {
                     var btn = Ui.Spawn(trayPrefab, tray);
-                    btn.SetText($"{t.Name}{(t.id == paintTile ? " ✓" : "")}\n{(t.wood > 0 ? t.wood + Loc.T(" gỗ") : "")}{(t.ore > 0 ? Loc.F(" {0} quặng", t.ore) : "")}");
+                    btn.SetText($"{t.Name}\n{(t.wood > 0 ? t.wood + Loc.T(" gỗ") : "")}{(t.ore > 0 ? Loc.F(" {0} quặng", t.ore) : "")}");
+                    if (t.id == paintTile) btn.SetRole(BtnColor.Green); // ô đang chọn tô xanh (phông không có dấu ✓, soát UI 2026-11-23)
                     var id = t.id;
                     btn.SetOnClick(() =>
                     {

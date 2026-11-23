@@ -338,12 +338,19 @@ namespace PokiClash.EditorTools
             stars.transform.localScale = Vector3.one * 0.82f;
             Remove(card, "luc_chien");
             var num = IconNumber(card, "luc_chien", "sword", 30, 30, Theme.RedD, null, out var row);
-            row.anchorMin = row.anchorMax = new Vector2(0.5f, 0);
-            row.pivot = new Vector2(0.5f, 0);
-            row.anchoredPosition = new Vector2(76, 28);
-            row.sizeDelta = new Vector2(130, 40);
+            TilePowerRow(row);
             so.FindProperty("p.power").objectReferenceValue = num;
             so.ApplyModifiedPropertiesWithoutUndo();
+        }
+
+        // dòng lực chiến của thẻ tướng neo mép phải, tự giãn sang trái (bản cũ neo tâm cách giữa 76 px, giãn hai bên: số "566k" lấn ra
+        // khung màu độ hiếm, soát ảnh 2026-11-23)
+        static void TilePowerRow(RectTransform row)
+        {
+            row.anchorMin = row.anchorMax = new Vector2(1, 0);
+            row.pivot = new Vector2(1, 0);
+            row.anchoredPosition = new Vector2(-46, 28); // khung độ hiếm lùi vào ~30 px trong mép thẻ
+            row.sizeDelta = new Vector2(130, 40);
         }
 
         // ---------- màn Tướng: đội hình ----------
@@ -425,6 +432,86 @@ namespace PokiClash.EditorTools
             SetRef(root.GetComponent<HeroesScene>(), "lineup", lineup.GetComponent<TeamLineup>());
         }
 
+        // bảng tên đội hình (người dùng 2026-11-23: "lực chiến và tên bị nhỏ quá và cố dồn vào 1 ô"): tên một dòng to trên dải màu độ hiếm
+        // riêng, lực chiến là viên riêng (icon kiếm + số to) dưới dải tên, số thứ tự to ở góc trên trái dải; tướng đứng cao lên cho khỏi đè
+        // dải tên 58–114, viên lực chiến 0–52, chân tướng 128: chừa khe 14 px (chân sticker lố xuống dưới gốc vài px, soát ảnh 2026-11-23)
+        const float LineupBodyY = 128, PlateY = 58, PlateH = 56, PlateW = 300, PowerH = 52;
+
+        // xếp lại bảng tên của một ô (dựng mới hoặc vá prefab cũ): trả chữ lực chiến mới (viên riêng, con của ô)
+        static TextMeshProUGUI LineupPlate(RectTransform root, Image plate, TextMeshProUGUI name, TextMeshProUGUI order, RectTransform body, Image shadow)
+        {
+            plate.rectTransform.Place(new Vector2(0.5f, 0), new Vector2(0, PlateY), new Vector2(PlateW, PlateH), new Vector2(0.5f, 0));
+            var badge = (RectTransform)order.transform.parent;
+            // giữa mép trái dải tên (nhô lên trên thì chạm chân tướng)
+            badge.Place(new Vector2(0, 0.5f), new Vector2(-22, 0), new Vector2(58, 58), new Vector2(0, 0.5f));
+            order.fontSize = 32;
+            var nr = name.rectTransform;
+            nr.anchorMin = Vector2.zero;
+            nr.anchorMax = Vector2.one;
+            nr.pivot = new Vector2(0.5f, 0.5f);
+            nr.offsetMin = new Vector2(36, 3);
+            nr.offsetMax = new Vector2(-16, -3);
+            name.alignment = TextAlignmentOptions.Center;
+            name.textWrappingMode = TextWrappingModes.NoWrap;
+            name.enableAutoSizing = true;
+            name.fontSizeMin = 22;
+            name.fontSizeMax = 34;
+            Remove(plate.transform, "luc_chien"); // bản cũ: lực chiến nằm trong bảng tên
+            Remove(root, "luc_chien");
+            var power = IconNumber(root, "luc_chien", "sword", 44, 44, Theme.RedD, Sketch.Pill, out var row);
+            row.anchorMin = row.anchorMax = new Vector2(0.5f, 0);
+            row.pivot = new Vector2(0.5f, 0);
+            row.anchoredPosition = Vector2.zero;
+            row.sizeDelta = new Vector2(200, PowerH);
+            row.GetComponent<ContentSizeFitter>().verticalFit = ContentSizeFitter.FitMode.Unconstrained;
+            if (body) body.anchoredPosition = new Vector2(body.anchoredPosition.x, LineupBodyY);
+            if (shadow) shadow.rectTransform.anchoredPosition = new Vector2(shadow.rectTransform.anchoredPosition.x, LineupBodyY);
+            return power;
+        }
+
+        // vá bảng tên 3 ô đội hình của Screens/Heroes có sẵn (không dựng lại cả khung; giữ khung màu độ hiếm, giấy lót, vương miện)
+        [MenuItem("PokiClash/Prefab/Màn Tướng: bảng tên + lực chiến tách riêng", priority = 67)] // kèm neo phải lực chiến thẻ tướng
+        static void PatchLineupPlates()
+        {
+            var assets = Load<UiAssets>();
+            art = Load<ArtLibrary>();
+            Theme.Init(assets);
+            Edit(HeroesPath, root =>
+            {
+                var lineup = root.GetComponentInChildren<TeamLineup>(true);
+                if (!lineup)
+                {
+                    Debug.LogError("[Tướng] Heroes chưa có khung đội hình (chạy menu Popup gọn trước).");
+                    return;
+                }
+                var so = new SerializedObject(lineup);
+                var spots = so.FindProperty("p.spots");
+                for (int i = 0; i < spots.arraySize; i++)
+                {
+                    var sp = spots.GetArrayElementAtIndex(i);
+                    var spotRoot = (RectTransform)sp.FindPropertyRelative("root").objectReferenceValue;
+                    var plate = (Image)sp.FindPropertyRelative("plate").objectReferenceValue;
+                    var name = (TextMeshProUGUI)sp.FindPropertyRelative("name").objectReferenceValue;
+                    var order = (TextMeshProUGUI)sp.FindPropertyRelative("order").objectReferenceValue;
+                    if (!spotRoot || !plate || !name || !order) continue;
+                    var body = (RectTransform)sp.FindPropertyRelative("body").objectReferenceValue;
+                    var shadow = (Image)sp.FindPropertyRelative("shadow").objectReferenceValue;
+                    sp.FindPropertyRelative("power").objectReferenceValue = LineupPlate(spotRoot, plate, name, order, body, shadow);
+                }
+                so.ApplyModifiedPropertiesWithoutUndo();
+            });
+            // thẻ tướng của lưới: dòng lực chiến neo mép phải
+            Edit(HeroTilePath, root =>
+            {
+                var tile = root.GetComponent<HeroTile>();
+                var power = tile ? new SerializedObject(tile).FindProperty("p.power").objectReferenceValue as TextMeshProUGUI : null;
+                if (power && power.transform.parent is RectTransform row) TilePowerRow(row);
+                else Debug.LogWarning("[Tướng] " + HeroTilePath + " chưa có dòng lực chiến (chạy menu Popup gọn).");
+            });
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[Tướng] Đã tách bảng tên và lực chiến ở đội hình {HeroesPath}, neo phải lực chiến thẻ tướng {HeroTilePath}");
+        }
+
         // một ô đội: vùng chạm, bóng dưới chân, chỗ đứng (tướng aola / chân dung), bảng tên (số thứ tự, tên, lực chiến), ô trống
         static TeamLineup.Spot Spot(UiKit kit, RectTransform stage, int i)
         {
@@ -433,30 +520,20 @@ namespace PokiClash.EditorTools
             Hit(root.gameObject);
             var shadow = Img(root, "bong", Sketch.InkDot, new Color(Theme.Ink.r, Theme.Ink.g, Theme.Ink.b, 0.16f));
             shadow.preserveAspect = false;
-            shadow.rectTransform.Place(new Vector2(0.5f, 0), new Vector2(0, 112), new Vector2(230, 46), new Vector2(0.5f, 0.5f));
+            shadow.rectTransform.Place(new Vector2(0.5f, 0), new Vector2(0, LineupBodyY), new Vector2(230, 46), new Vector2(0.5f, 0.5f));
             var body = Node(root, "dung");
-            body.Place(new Vector2(0.5f, 0), new Vector2(0, 112), new Vector2(300, 360), new Vector2(0.5f, 0));
+            body.Place(new Vector2(0.5f, 0), new Vector2(0, LineupBodyY), new Vector2(300, 360), new Vector2(0.5f, 0));
             var portrait = Portrait(kit, body, "chan_dung");
             portrait.Rect.anchorMin = portrait.Rect.anchorMax = new Vector2(0.5f, 0);
             portrait.Rect.anchoredPosition = Vector2.zero;
 
             var plate = Img(root, "bang_ten", Sketch.PanelThin, Theme.CardFill, true);
-            plate.rectTransform.Place(new Vector2(0.5f, 0), Vector2.zero, new Vector2(270, 104), new Vector2(0.5f, 0));
             var badge = Img(plate.transform, "thu_tu", Sketch.InkDot, Theme.Yellow);
-            badge.rectTransform.Place(new Vector2(0, 1), new Vector2(-14, 18), new Vector2(50, 50), new Vector2(0, 1));
             var order = Text(badge.transform, "chu", Theme.Title, 30, Theme.Ink, TextAlignmentOptions.Center);
             order.rectTransform.Stretch(0, 0, 0, 2);
             order.text = (i + 1).ToString();
             var name = Text(plate.transform, "ten", Theme.Title, 28, Theme.Ink, TextAlignmentOptions.Center);
-            name.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(8, -6), new Vector2(220, 38), new Vector2(0.5f, 1));
-            name.enableAutoSizing = true;
-            name.fontSizeMin = 18;
-            name.fontSizeMax = 28;
-            var power = IconNumber(plate.transform, "luc_chien", "sword", 40, 40, Theme.RedD, null, out var row);
-            row.anchorMin = row.anchorMax = new Vector2(0.5f, 0);
-            row.pivot = new Vector2(0.5f, 0);
-            row.anchoredPosition = new Vector2(0, 6);
-            row.sizeDelta = new Vector2(200, 52);
+            var power = LineupPlate(root, plate, name, order, body, shadow);
 
             var empty = Img(root, "trong", Sketch.PanelThin, new Color(1, 1, 1, 0.55f), true);
             empty.rectTransform.Place(new Vector2(0.5f, 0), new Vector2(0, 70), new Vector2(220, 270), new Vector2(0.5f, 0));

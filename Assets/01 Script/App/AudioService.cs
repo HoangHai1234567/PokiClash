@@ -160,7 +160,7 @@ namespace PokiClash
         void UpdateMusic(float dt)
         {
             if (musicSources == null || musicSources.Length < 2) return;
-            string want = Enabled ? (ShipVoyage.Booting ? "chude" : SceneMusic) : null;
+            string want = Enabled ? (ShipVoyage.Booting || StoryIntro.Current ? "chude" : SceneMusic) : null; // màn tải, cốt truyện: nhạc chủ đề
             if (want != null && !music.ContainsKey(want)) want = curKey; // bài chưa nạp: giữ bài cũ
             if (want != curKey)
             {

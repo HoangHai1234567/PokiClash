@@ -472,6 +472,10 @@ namespace PokiClash
             // easter egg dưới mây (ghi chú bút chì, rương bí ẩn), rồi mây phủ các vùng chưa mở (trên cờ, tướng, bảng tên; một hình mây cho
             // mọi đám, gộp lệnh vẽ; chạm được: chọc mây), rồi easter egg trên mây (cảnh rò qua mây, mắt boss)
             if (secs) SpawnEggsUnder(s);
+            // bảng tên lên trên mọi cờ, rương bí ẩn, tướng (dưới mây phủ dựng sau), soát UI 2026-11-23
+            foreach (var h in landHeroes)
+                if (h.node) h.node.DetachPlate(p.nodeLayer);
+            UnstackPlates();
             secClouds = secs ? new List<Image>[land.secs.Count] : null;
             var cloudArt = secs && App.Art ? App.Art.Get(string.IsNullOrEmpty(land.cloud) ? "land_thuy_may_2" : land.cloud) : null;
             if (secs && secPrefab && cloudArt)
@@ -514,6 +518,37 @@ namespace PokiClash
             var ch = land.habs.FirstOrDefault(x => x.stage == cur + 1);
             if (ch != null) focus += new Vector2(0, LandHeroH(ch.size) * 0.3f); // ải tướng: đưa cả thân tướng vào giữa
             return focus;
+        }
+
+        // hai bảng tên bệ gần nhau chồng lên nhau (đảo Mộc ải 15 / 20, soát UI 2026-11-23): thử đổi bên một bảng, giữ cách ít chồng hơn
+        void UnstackPlates()
+        {
+            var nodes = landHeroes.Where(h => h.node).Select(h => h.node).ToList();
+            float Overlap()
+            {
+                float sum = 0;
+                var rs = new Rect?[nodes.Count];
+                for (int i = 0; i < nodes.Count; i++)
+                    if (nodes[i].PlateRect(out var r)) rs[i] = r;
+                for (int i = 0; i < nodes.Count; i++)
+                for (int j = i + 1; j < nodes.Count; j++)
+                {
+                    if (rs[i] == null || rs[j] == null) continue;
+                    Rect a = rs[i].Value, b = rs[j].Value;
+                    float w = Mathf.Min(a.xMax, b.xMax) - Mathf.Max(a.xMin, b.xMin), hgt = Mathf.Min(a.yMax, b.yMax) - Mathf.Max(a.yMin, b.yMin);
+                    if (w > 0 && hgt > 0) sum += w * hgt;
+                }
+                return sum;
+            }
+            float cur = Overlap();
+            for (int pass = 0; pass < 2 && cur > 0; pass++)
+                for (int i = 0; i < nodes.Count && cur > 0; i++)
+                {
+                    nodes[i].FlipPlate();
+                    float next = Overlap();
+                    if (next < cur - 1) cur = next;
+                    else nodes[i].FlipPlate(); // không đỡ hơn: trả lại bên cũ
+                }
         }
 
         // cờ và habitat xếp lớp theo chân (y âm xuống): chân thấp hơn (gần người xem) vẽ sau, cờ dưới habitat đè lên tướng,
@@ -852,13 +887,15 @@ namespace PokiClash
             float z = landView.Zoom;
             if (Mathf.Abs(z - appliedZoom) < 0.005f) return;
             appliedZoom = z;
-            float kp = Mathf.Clamp(0.5f / z, 1, 1.8f), kn = Mathf.Clamp(0.45f / z, 1, 2f);
+            // kn 0,45 → 0,5 / z, trần 2 → 2,2: bảng tên to thêm ~10% (chữ cấp dưới 16 px, soát UI 2026-11-23)
+            float kp = Mathf.Clamp(0.5f / z, 1, 1.8f), kn = Mathf.Clamp(0.5f / z, 1, 2.2f);
             foreach (var pip in landPips)
                 if (pip) pip.transform.localScale = Vector3.one * kp;
             foreach (var f in landFlags)
                 if (f) f.transform.localScale = Vector3.one * kp; // phóng quanh chân cờ
             foreach (var h in landHeroes)
                 if (h.node) h.node.SetPlateZoom(kn);
+            UnstackPlates();
         }
 
         // ---------- tướng trên habitat ----------

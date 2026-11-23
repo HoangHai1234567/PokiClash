@@ -38,14 +38,16 @@ namespace PokiClash
         [SerializeField] RectTransform pencil;
         [SerializeField] UiHint note;
         [SerializeField] HeroPortrait face;
+        [SerializeField] Image me; // chân dung nhân vật chính (Guide.SayMe); ảnh trống thì không hiện
         [SerializeField] TextMeshProUGUI tapText;
 
         public static GuideOverlay I { get; private set; }
 
         // Dùng khi dựng prefab (Editor).
         public void Setup(RectTransform areaRt, CanvasGroup cg, Image[] blockImgs, InkPath ringPath, InkPath ringLine, RectTransform pencilRt,
-            UiHint noteView, HeroPortrait faceView, TextMeshProUGUI tap)
+            UiHint noteView, HeroPortrait faceView, Image meView, TextMeshProUGUI tap)
         {
+            me = meView;
             area = areaRt;
             group = cg;
             blockers = blockImgs;
@@ -149,6 +151,7 @@ namespace PokiClash
             if (pencil) pencil.gameObject.SetActive(false);
             if (note) note.gameObject.SetActive(false);
             if (face) face.gameObject.SetActive(false);
+            if (me) me.gameObject.SetActive(false);
             if (tapText) tapText.gameObject.SetActive(false);
         }
 
@@ -266,9 +269,14 @@ namespace PokiClash
             pencil.gameObject.SetActive(r.mode == Guide.Mode.Force || r.mode == Guide.Mode.Hint);
             note.gameObject.SetActive(!string.IsNullOrEmpty(r.text));
             note.Set(r.text, NoteW);
-            var hero = r.mode == Guide.Mode.Say && !string.IsNullOrEmpty(r.hero) ? App.Data.Hero(r.hero) : null;
+            // lời nhân vật chính: chân dung cậu bé bên trái, tướng đồng hành (nếu đã chọn) nhỏ hơn bên phải
+            bool byMe = r.mode == Guide.Mode.Say && r.hero == Guide.Me;
+            bool meOn = byMe && me && me.sprite;
+            string heroId = byMe ? App.Save?.Data?.starter : r.hero;
+            var hero = r.mode == Guide.Mode.Say && !string.IsNullOrEmpty(heroId) ? App.Data.Hero(heroId) : null;
+            if (me) me.gameObject.SetActive(meOn);
             face.gameObject.SetActive(hero != null);
-            if (hero != null) face.Bind(hero, 220);
+            if (hero != null) face.Bind(hero, meOn ? 170 : 220);
             tapText.gameObject.SetActive(r.mode == Guide.Mode.Say);
             App.Audio?.Play("open", 0.5f);
         }
@@ -369,7 +377,8 @@ namespace PokiClash
                 Vector2 pos;
                 // nửa dưới: đặt dưới lỗ nếu còn chỗ (không đè thứ ngay trên nút, vd. hàng ô thưởng trên nút Máy bi), không thì trên lỗ
                 bool roomBelow = hole.yMin - 60 - h > B + Margin + 40;
-                if (hole.width <= 0) pos = new Vector2(face.gameObject.activeSelf ? 80 : 0, 40);
+                bool meOn = me && me.gameObject.activeSelf, faceOn = face.gameObject.activeSelf;
+                if (hole.width <= 0) pos = new Vector2(meOn && faceOn ? 0 : meOn || faceOn ? 80 : 0, 40);
                 else if (hole.center.y < 0 && roomBelow && hole.height < full.height * 0.25f) pos = new Vector2(hole.center.x, hole.yMin - 50 - h / 2);
                 else if (hole.center.y < 0) pos = new Vector2(hole.center.x, hole.yMax + 60 + h / 2);
                 else pos = new Vector2(hole.center.x, hole.yMin - 60 - h / 2);
@@ -377,10 +386,16 @@ namespace PokiClash
                 pos.y = Mathf.Clamp(pos.y, B + Margin + h / 2, T - Margin - h / 2);
                 nr.anchorMin = nr.anchorMax = nr.pivot = new Vector2(0.5f, 0.5f);
                 nr.anchoredPosition = pos;
-                if (face.gameObject.activeSelf)
+                if (meOn)
+                {
+                    var mr = me.rectTransform;
+                    mr.anchorMin = mr.anchorMax = mr.pivot = new Vector2(0.5f, 0.5f);
+                    mr.anchoredPosition = new Vector2(pos.x - w / 2 - 50, pos.y + 40);
+                }
+                if (faceOn)
                 {
                     face.Rect.anchorMin = face.Rect.anchorMax = new Vector2(0.5f, 0.5f);
-                    face.Rect.anchoredPosition = new Vector2(pos.x - w / 2 - 40, pos.y + 20);
+                    face.Rect.anchoredPosition = meOn ? new Vector2(pos.x + w / 2 + 30, pos.y + 10) : new Vector2(pos.x - w / 2 - 40, pos.y + 20);
                 }
                 if (tapText.gameObject.activeSelf)
                 {

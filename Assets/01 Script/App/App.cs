@@ -31,12 +31,15 @@ namespace PokiClash
         [Header("Chuyến tàu qua mây: sảnh ↔ Nhà, màn tải (menu PokiClash/Prefab/Bến tàu: ...)")]
         public ShipVoyage voyagePrefab;
 
+        [Header("Cốt truyện mở đầu, lần đầu vào game (menu PokiClash/Prefab/Cốt truyện mở đầu)")]
+        public StoryIntro storyPrefab;
+
         [Header("Thử trong Editor")]
         [Tooltip("Scene mở đầu tiên (để trống là Hub)")]
         public string firstScene = SceneIds.Hub;
 
         // màn mở game / màn tải đang che sảnh: hộp giới thiệu, nút Back chờ nó xong
-        public static bool Booting => BootTitle.Current != null || ShipVoyage.Booting;
+        public static bool Booting => BootTitle.Current != null || ShipVoyage.Booting || StoryIntro.Current != null;
 
         // mây chuyển scene đang che hoặc đang chặn chạm (lớp phủ hướng dẫn chờ)
         public static bool Covered => I && I.cloud && (I.cloud.Closed || I.cloud.Blocking);
@@ -201,6 +204,21 @@ namespace PokiClash
             // sa bàn BootTitle), nạp xong thì tàu đi qua mây cập bến sảnh
             if (string.IsNullOrEmpty(PendingFirst) && first == SceneIds.Hub && !SkipBoot)
             {
+                // lần đầu vào game: đoạn cốt truyện trước màn tải (mây còn khép che dưới nó), xem xong ghi cờ rồi vào màn tải như thường
+                if (storyPrefab && StoryIntro.Needed(Save.Data))
+                {
+                    var st = Instantiate(storyPrefab);
+                    st.name = storyPrefab.name;
+                    LocService.Tree(st.gameObject);
+                    st.Play(() =>
+                    {
+                        Tutorial.Mark(Save.Data, Tutorial.Story);
+                        Save.Save();
+                        Destroy(st.gameObject);
+                        Go();
+                    });
+                    return;
+                }
                 if (ShipVoyage.I)
                 {
                     cloud.OpenNow();
@@ -251,6 +269,11 @@ namespace PokiClash
         // nút Back của Android / phím Esc: đóng hộp thoại trên cùng, không có thì quay lại
         public static void Back()
         {
+            if (StoryIntro.Current)
+            {
+                StoryIntro.Current.Finish(); // Back trên cốt truyện = Bỏ qua
+                return;
+            }
             if (Router.Busy || Booting) return;
             if (Modals.Back()) return;
             Router.Back();

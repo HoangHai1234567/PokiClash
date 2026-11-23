@@ -183,8 +183,9 @@ namespace PokiClash
                 PickStarter();
             }
             if (App.Save.Data.intro) PickStarter();
+            // lời chào do nhân vật chính của cốt truyện nói (cậu bé thuần thú sư cầm sổ phép, GD_Claude/25_FTUE.md mục 11)
             else if (!Guide.Show(Tutorial.Intro, Guide.Mode.Say, null,
-                         Loc.T("<b>Sổ Tay Phiêu Lưu</b>\nNăm hòn đảo, năm hệ. Chọn một người bạn để lên đường."), Seen, true))
+                         Loc.T("Sổ phép đưa mình tới đây... Năm hòn đảo, năm hệ. Phải tìm một bạn đồng hành đã!"), Seen, true, Guide.Me))
                 Dialogs.Intro(PickStarter);
         }
 
@@ -258,7 +259,7 @@ namespace PokiClash
             // C11–C12: 4 đảo còn lại, rồi trận 2 ở đảo mình khắc
             if (!Tutorial.Done(s, Tutorial.Isles))
             {
-                Guide.Say(Tutorial.Isles, Loc.T("Bốn đảo nữa! Mỗi đảo có một bạn đang chờ."), TutorNext);
+                Guide.SayMe(Tutorial.Isles, Loc.T("Bốn đảo nữa! Mỗi đảo có một bạn đang chờ."), TutorNext);
                 return;
             }
             var ce = Tutorial.CounterIsland(s, d);
@@ -552,6 +553,52 @@ namespace PokiClash
                 float k = Mathf.Repeat(Time.unscaledTime / period + i * 0.33f, 1f);
                 clouds[i].anchoredPosition = new Vector2(-260 + k * w, -(260 + i * 500));
             }
+        }
+
+        // bảng tên đảo né cột thẻ công trình, hàng nút đáy và mép màn khi kéo bản đồ (soát UI 2026-11-23); giao diện ẩn (chuyến tàu)
+        // thì chỉ né mép màn
+        void LateUpdate()
+        {
+            if (zones == null || zones.Length == 0) return;
+            float k = Screen.width / PokiCanvas.RefW, edge = 14 * k;
+            float bottomY = edge, topY = Screen.height - (SceneRoot.BarHeight + 10) * k;
+            var block = new Rect();
+            bool chromeOn = chrome.Length == 0 || !chrome[0] || chrome[0].alpha > 0.5f;
+            if (chromeOn)
+            {
+                if (bottom != null)
+                    foreach (var b in bottom)
+                    {
+                        if (b.button && b.button.gameObject.activeInHierarchy) bottomY = Mathf.Max(bottomY, ScreenRect(b.button.Rect).yMax + 8 * k);
+                        if (b.badge && b.badge.gameObject.activeInHierarchy) bottomY = Mathf.Max(bottomY, ScreenRect(b.badge).yMax + 6 * k);
+                    }
+                bool any = false;
+                if (buildings != null)
+                    foreach (var hb in buildings)
+                    {
+                        if (!hb || !hb.gameObject.activeInHierarchy) continue;
+                        var r = ScreenRect((RectTransform)hb.transform);
+                        block = any ? Rect.MinMaxRect(Mathf.Min(block.xMin, r.xMin), Mathf.Min(block.yMin, r.yMin), Mathf.Max(block.xMax, r.xMax), Mathf.Max(block.yMax, r.yMax)) : r;
+                        any = true;
+                    }
+                if (any) block = Rect.MinMaxRect(block.xMin - 10 * k, block.yMin - 10 * k, Screen.width, block.yMax + 10 * k);
+            }
+            var safe = Rect.MinMaxRect(edge, bottomY, Screen.width - edge, topY);
+            foreach (var z in zones)
+                if (z && z.gameObject.activeInHierarchy) z.KeepInView(safe, block, 300 * k, Time.unscaledDeltaTime);
+        }
+
+        static readonly Vector3[] screenCorners = new Vector3[4];
+
+        // khung trên màn (điểm ảnh) của một phần giao diện, theo camera canvas chứa nó
+        static Rect ScreenRect(RectTransform rt)
+        {
+            var cv = rt.GetComponentInParent<Canvas>();
+            var root = cv ? cv.rootCanvas : null;
+            var cam = root && root.renderMode != RenderMode.ScreenSpaceOverlay ? root.worldCamera : null;
+            rt.GetWorldCorners(screenCorners);
+            Vector2 a = RectTransformUtility.WorldToScreenPoint(cam, screenCorners[0]), b = RectTransformUtility.WorldToScreenPoint(cam, screenCorners[2]);
+            return Rect.MinMaxRect(Mathf.Min(a.x, b.x), Mathf.Min(a.y, b.y), Mathf.Max(a.x, b.x), Mathf.Max(a.y, b.y));
         }
     }
 }
