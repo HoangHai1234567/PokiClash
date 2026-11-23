@@ -14,22 +14,22 @@ namespace PokiClash.EditorTools
         const string Flag = "HeroUnlockReplay"; // bậc cần xem (-1: ngẫu nhiên), -2: không có lệnh chờ
         const int None = -2;
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: xem (ngẫu nhiên)", priority = 147)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: xem (ngẫu nhiên)", priority = 147)]
         static void Any() => Show(-1);
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: Thường", priority = 148)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: Thường", priority = 148)]
         static void Common() => Show((int)Rarity.Common);
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: Khá", priority = 148)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: Khá", priority = 148)]
         static void Uncommon() => Show((int)Rarity.Uncommon);
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: Hiếm", priority = 148)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: Hiếm", priority = 148)]
         static void Rare() => Show((int)Rarity.Rare);
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: Sử thi", priority = 148)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: Sử thi", priority = 148)]
         static void Epic() => Show((int)Rarity.Epic);
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: Huyền thoại", priority = 148)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: Huyền thoại", priority = 148)]
         static void Legend() => Show((int)Rarity.Legend);
 
         static void Show(int rarity)

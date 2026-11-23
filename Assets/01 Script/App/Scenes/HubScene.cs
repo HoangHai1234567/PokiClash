@@ -7,7 +7,7 @@
 // Rìa làng có chỗ cho công trình side meta (phác chì khi chưa mở). Hàng nút tròn ở đáy. Lần đầu hiện màn giới thiệu.
 // Prefab màn hình Assets/04 Prefabs/Screens/Hub: vùng đảo (Items/BangVung) và công trình (Items/CongTrinh) đặt sẵn theo toạ độ ảnh.
 // Ảnh đảo ghép từ đảo gen rời (ArtGen/Islands/compose_islands.py), kéo được (HubPan), ra rìa là vành mây; dựng bằng menu
-// "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo sảnh: ghép ảnh, kéo, mây viền".
+// "PokiClash/Prefab/Sảnh và đảo/Đảo sảnh: ghép ảnh, kéo, mây viền".
 using System;
 using System.Collections;
 using System.Linq;

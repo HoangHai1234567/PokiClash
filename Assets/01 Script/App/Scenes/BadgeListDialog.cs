@@ -1,7 +1,7 @@
 // Hộp danh sách trận của một bậc ở Đền Huy Hiệu (prefab Assets/04 Prefabs/Dialogs/DanhSachTranHuyHieu): đầu hộp (huy hiệu,
 // "Hệ · Bậc", số trận, sao của bậc, phần thưởng xong bậc, đặc tính hệ mở ở bậc này), mỗi trận là một bản sao prefab Items/TranHuyHieu
 // (BadgeStageRow). 2026-11-17: nút "‹" / "›" (bac_truoc, bac_sau) xem bậc đã qua để đánh lại lấy sao; nút do menu
-// "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Đền Huy Hiệu: sao trận, chọn bậc, mốc sao" dựng (prefab cũ không có nút thì chỉ xem bậc mở hộp).
+// "PokiClash/Prefab/Nhà và side meta/Đền Huy Hiệu: sao trận, chọn bậc, mốc sao" dựng (prefab cũ không có nút thì chỉ xem bậc mở hộp).
 using System;
 using System.Collections.Generic;
 using System.Linq;

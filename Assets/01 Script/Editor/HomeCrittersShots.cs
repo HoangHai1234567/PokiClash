@@ -19,7 +19,7 @@ namespace PokiClash.EditorTools
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "nha_critters");
         const BindingFlags Inst = BindingFlags.Instance | BindingFlags.NonPublic;
 
-        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: vòng nút + chế độ xây kiểu Critters (đang Play)", priority = 145)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà: vòng nút + chế độ xây kiểu Critters (đang Play)", priority = 145)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -117,7 +117,7 @@ namespace PokiClash.EditorTools
             var hud = Field<HomeRingButton>(home, "hudBuild");
             if (!hud)
             {
-                Debug.LogWarning("[Thử] Prefab chưa có hàng nút icon: chạy menu \"PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters\"");
+                Debug.LogWarning("[Thử] Prefab chưa có hàng nút icon: chạy menu \"PokiClash/Prefab/Nhà và side meta/Nhà: giao diện kiểu Critters\"");
                 DayCycle.Override = null;
                 yield break;
             }

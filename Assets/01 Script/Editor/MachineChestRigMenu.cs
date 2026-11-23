@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
         const string ChestPath = "Assets/04 Prefabs/Kit/Ruong.prefab";
         const string RigDir = "Assets/03 Art/Pachinko/Rig/";
 
-        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕rig rương (AtomSpine)", priority = 76)]
+        [MenuItem("PokiClash/Prefab/Máy bi/rig rương (AtomSpine)", priority = 76)]
         public static void Build()
         {
             var go = AssetDatabase.LoadAssetAtPath<TextAsset>(RigDir + "ruong_go.bytes");

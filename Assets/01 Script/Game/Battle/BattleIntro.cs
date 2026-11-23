@@ -4,7 +4,7 @@
 // Nền trong khung là một ảnh vẽ tay dùng chung cho mọi trận (Resources/BattleIntro/vs_nen, tô màu theo phe); chưa có ảnh thì tia
 // tập trung vẽ bằng code. Chữ VS là ảnh vẽ tay Resources/BattleIntro/vs_no nếu có, không thì hình nổ của bộ giấy và chữ. Ảnh gen ở
 // ArtGen/BattleIntro. Khung, khe và chỗ đặt tính lúc chạy theo cỡ màn.
-// Dựng bằng menu "PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh" (trong lớp phủ của prefab Screens/Battle, tắt sẵn). BattleController gọi
+// Dựng bằng menu "PokiClash/Prefab/Trận/Trận: màn VS truyện tranh" (trong lớp phủ của prefab Screens/Battle, tắt sẵn). BattleController gọi
 // Play: khung trượt vào theo đường chéo, mặt bật ra, dấu VS đóng xuống rung màn, giữ một lúc rồi hai khung tách lên xuống. Chạm để bỏ qua.
 using System;
 using System.Collections;

@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(PlayTour.ShotDir, "ui");
 
-        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Chụp mọi màn để soi giao diện (đang Play)", priority = 121)]
+        [MenuItem("PokiClash/Thử/Giao diện/Chụp mọi màn để soi giao diện (đang Play)", priority = 121)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

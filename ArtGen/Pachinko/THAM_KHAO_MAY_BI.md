@@ -99,7 +99,7 @@ Số: đời (giây), số hạt, tốc (u/giây; bi máy đó 0,162 u), trọng
 
 1. Ba tờ đã duyệt (`build_bo_moi.py --duyet nut|trang_thai|hieu_ung_2`, 36 ảnh `pk_*` trong `Assets/03 Art/Pachinko`). Bóng đèn vòm
    dò bằng `build_bo_moi.py --den` (15 bóng, `refs/den_vom.json`).
-2. Màn Máy bi (menu `PokiClash/Prefab/Khác/Máy bi∕nút tròn, viên cược, đèn vòm`, code `MachineScene.cs`):
+2. Màn Máy bi (menu `PokiClash/Prefab/Máy bi/nút tròn, viên cược, đèn vòm`, code `MachineScene.cs`):
    - nút vòm to giữa dưới máy: sẵn sàng, lún khi giữ (chữ dời theo nắp, vòng đứt nhịp quanh nút), xám khi hết bi, vàng sao khi cược ×5 trở lên;
    - nút thả liền vòm nhỏ (xanh ngọc khi đang thả liền);
    - viên cược tròn: thường, đang chọn, khoá có ổ khoá, mức cao nhất tím;
@@ -109,7 +109,7 @@ Số: đời (giây), số hạt, tốc (u/giây; bi máy đó 0,162 u), trọng
    mây nháy mắt khi thả, tròn mắt khi trúng két.
 4. `MachineFx.cs`: lớp quầng thay bằng loé, vòng dày, vòng đứt, tia toả, chấm. Cỡ còn khoảng một nửa cỡ quầng cũ, tô màu nhạt: hình viền
    mực hiện đủ cỡ nên to bằng quầng mềm là quá to. Rương vàng thêm mảnh tam giác, jackpot thêm dây giấy.
-5. Kiểm bằng `PokiClash/Thử/Khác/Máy bi∕soi hiệu ứng (đang Play)` (thêm khung màn rảnh, đang giữ nút, tia sáng ô, két sáng, mây tròn mắt).
+5. Kiểm bằng `PokiClash/Thử/Máy bi/soi hiệu ứng (đang Play)` (thêm khung màn rảnh, đang giữ nút, tia sáng ô, két sáng, mây tròn mắt).
 
 Chưa làm: bảng nút `pk_bang_nut` (hốc không khớp bố cục nút giữa, ảnh nhỏ), bàn tay chỉ `pk_tay_chi` (chưa có bước hướng dẫn),
 hiệu ứng mở mức cược mới (hút vào nút rồi nổ), rương bay vào khay, mở rương theo bậc trong hộp mở rương, sao xoáy.

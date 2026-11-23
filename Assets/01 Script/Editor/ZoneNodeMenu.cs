@@ -15,7 +15,7 @@ namespace PokiClash.EditorTools
         const string NodePath = "Assets/04 Prefabs/Items/BeAi.prefab";
         const string GlowPath = "Assets/03 Art/Islands/be_glow.png";
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bệ ải (BeAi)", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Bệ ải (BeAi)", priority = 63)]
         static void Build()
         {
             var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));

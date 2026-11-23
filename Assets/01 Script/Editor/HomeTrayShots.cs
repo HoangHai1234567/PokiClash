@@ -1,5 +1,5 @@
 // Thử màn Nhà (đang Play, 2026-11-20): tướng đúng tỉ lệ theo HeroForm.size, nét rig không vỡ (PetPart lọc thu nhỏ), khay Xây có icon
-// công trình. Menu "PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: cỡ tướng + khay Xây có icon (đang Play)": sang Nhà, 12h, chụp toàn màn, kéo máy tới từng tướng
+// công trình. Menu "PokiClash/Thử/Nhà và side meta/Nhà: cỡ tướng + khay Xây có icon (đang Play)": sang Nhà, 12h, chụp toàn màn, kéo máy tới từng tướng
 // to nhất / nhỏ nhất đang hiện rig chụp gần (1x, zoom đang có), rồi bấm Xây chụp khay. Ảnh vào Temp/PokiShots/nha_khay/. Không đổi bản lưu.
 using System.Collections;
 using System.IO;
@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "nha_khay");
 
-        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: cỡ tướng + khay Xây có icon (đang Play)", priority = 143)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà: cỡ tướng + khay Xây có icon (đang Play)", priority = 143)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

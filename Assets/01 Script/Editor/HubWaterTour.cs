@@ -1,4 +1,4 @@
-// Tour chụp nước chảy và easter egg bản đồ sảnh (đang Play): "PokiClash/Thử/Khác/Đảo và sảnh∕Sảnh: nước chảy, easter egg (chụp, đang Play)".
+// Tour chụp nước chảy và easter egg bản đồ sảnh (đang Play): "PokiClash/Thử/Đảo và sảnh/Sảnh: nước chảy, easter egg (chụp, đang Play)".
 // Vào sảnh, chụp toàn cảnh; rồi phóng lớp kéo (keo) lên từng chỗ (thác Mộc trên, hẻm núi, thác Mộc dưới, thác Thủy, mặt biển) và chụp
 // chuỗi khung liền (ghép GIF soi chuyển động: ArtGen/Islands/sanh_moi/nuoc_dong/ghep_gif.py). Ảnh vào Temp/PokiShots/nuoc/; xong trả
 // lớp kéo về như cũ. Chạm bí mật có ghi bản lưu (bi, cờ hubEgg): tour sao lưu trước, xong trả lại.
@@ -27,7 +27,7 @@ namespace PokiClash.EditorTools
         public static int Frames = 10, Super = 1; // superSize > 1 làm canvas đổi cỡ, ảnh hỏng (2026-11-23): phóng lớp kéo thay vào
         public static bool Water = true, Eggs = true;
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Sảnh: nước chảy, easter egg (chụp, đang Play)", priority = 141)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Sảnh: nước chảy, easter egg (chụp, đang Play)", priority = 141)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

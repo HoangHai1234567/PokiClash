@@ -45,7 +45,7 @@ namespace PokiClash
         [SerializeField] DayNight dayNight;
         [Tooltip("Cờ ải xen giữa của đảo vùng đất (Items/CoAi; menu PokiClash/Đảo vùng đất/Dựng cờ ải)")]
         [SerializeField] LandFlag flagPrefab;
-        [Tooltip("Hình rời của vùng boss (mây phủ, bút chì): Items/HinhDong; menu PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo vùng đất: Dựng cờ ải, vùng boss")]
+        [Tooltip("Hình rời của vùng boss (mây phủ, bút chì): Items/HinhDong; menu PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Dựng cờ ải, vùng boss")]
         [SerializeField] Image secPrefab;
         [Tooltip("Phác chì vùng boss chưa mở: con đầu của ảnh bản đồ (dưới hiệu ứng), material shader PokiClash/UILandSketch")]
         [SerializeField] Image landSketch;

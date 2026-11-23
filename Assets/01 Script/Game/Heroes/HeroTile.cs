@@ -2,7 +2,7 @@
 // nhãn hệ, huy hiệu hệ, độ hiếm, sao hoặc thanh mảnh, nhãn "TRONG ĐỘI" (thẻ tô vàng), chấm đỏ khi có thẻ nâng được hoặc tiến hóa được.
 // Tướng đã có: lực chiến (icon kiếm + số gọn 57.6k) cạnh hàng sao bậc (Đồng, Bạc, Vàng, Kim Cương) ở đáy thẻ (menu "PokiClash/Prefab/Popup
 // gọn (ô thưởng, đội hình, lực chiến)" thêm).
-// Độ hiếm (người dùng dặn 2026-11-17, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: độ hiếm, lọc và xếp" thêm): thẻ là khung ngoài tô màu độ hiếm,
+// Độ hiếm (người dùng dặn 2026-11-17, menu "PokiClash/Prefab/Hộp thoại và màn/Màn Tướng: độ hiếm, lọc và xếp" thêm): thẻ là khung ngoài tô màu độ hiếm,
 // giấy lót "giay" lùi vào Theme.RarityInset px mang màu trạng thái (kem, vàng khi trong đội, xám khi chưa có); nhãn độ hiếm là viên màu
 // chữ trắng; Sử thi, Huyền thoại khung gạch sáp; Huyền thoại khung dày nhất, vương miện thay băng keo. Prefab chưa chạy menu thì như cũ.
 using System;

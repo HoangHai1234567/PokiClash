@@ -1,4 +1,4 @@
-// Dựng prefab màn cửa hàng toàn màn hình (ShopPage) và màn nở trứng (EggHatchView), gọi từ menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"
+// Dựng prefab màn cửa hàng toàn màn hình (ShopPage) và màn nở trứng (EggHatchView), gọi từ menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"
 // (ShopMenu.BuildAll). GD_Claude/26 mục 13. Prefab:
 // - Items/MucCuaHang (ShopSection): ruy băng đỏ máy bi (pk_ruy_bang) ghi tên mục, đồng hồ bên phải;
 // - Items/LuoiCuaHang (ShopGrid): GridLayoutGroup, cột / cỡ ô đặt lúc chạy;

@@ -4,8 +4,8 @@
 // khung lời dẫn do StoryIntro.Layout tính lúc chạy theo cỡ màn; prefab chỉ giữ các vật.
 // Tranh lấy ở Assets/03 Art/Story/khung_1..6.png (gói GPT ArtGen/Story/build_story.py --nhap; cách nhập do ArtPostprocessor); ô nào chưa có tranh thì gắn tạm
 // một nền trận / bản đồ có sẵn. Có tranh mới thì chạy lại menu.
-// Dòng "Cốt truyện mở đầu" ở Sổ tay: menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Cốt truyện" (dựng prefab cũng gọi). Xem trong Editor:
-// "PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: xem lại" (chưa Play thì tự vào Play từ Boot.unity rồi mở).
+// Dòng "Cốt truyện mở đầu" ở Sổ tay: menu "PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Cốt truyện" (dựng prefab cũng gọi). Xem trong Editor:
+// "PokiClash/Thử/Người chơi mới/Cốt truyện mở đầu: xem lại" (chưa Play thì tự vào Play từ Boot.unity rồi mở).
 using System.IO;
 using System.Linq;
 using PokiClash.UI;
@@ -37,7 +37,7 @@ namespace PokiClash.EditorTools
 
         static UiKit Kit => AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));
 
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Cốt truyện mở đầu (CotTruyen)", priority = 68)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Cốt truyện mở đầu (CotTruyen)", priority = 68)]
         public static void Build()
         {
             var kit = Kit;
@@ -208,7 +208,7 @@ namespace PokiClash.EditorTools
 
         // nhân bản dòng Cách chơi (không có thì Ngôn ngữ / Giảm nhấp nháy / Âm thanh) ngay dưới nó, nút ghi "Xem", gán NotebookScene.p.story.
         // Đã có thì không làm gì. Dựng prefab cốt truyện cũng gọi.
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Cốt truyện", priority = 69)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Cốt truyện", priority = 69)]
         public static void AddNotebookRow()
         {
             var contents = PrefabUtility.LoadPrefabContents(NotebookPath);
@@ -264,7 +264,7 @@ namespace PokiClash.EditorTools
         // chưa Play thì mở Boot.unity, vào Play, tắt màn mở game, chờ màn tải xong rồi mở cốt truyện (bản lưu mới thì App tự mở)
         const string ReplayFlag = "StoryReplay";
 
-        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: xem lại", priority = 145)]
+        [MenuItem("PokiClash/Thử/Người chơi mới/Cốt truyện mở đầu: xem lại", priority = 145)]
         static void Replay()
         {
             if (Application.isPlaying)
@@ -308,7 +308,7 @@ namespace PokiClash.EditorTools
             if (!StoryIntro.Replay()) Debug.LogWarning("[Cốt truyện] Không mở được (App.storyPrefab trống?).");
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: chạm hết và chụp từng khung (đang Play)", priority = 146)]
+        [MenuItem("PokiClash/Thử/Người chơi mới/Cốt truyện mở đầu: chạm hết và chụp từng khung (đang Play)", priority = 146)]
         static void Tour()
         {
             if (!Application.isPlaying || !App.I)

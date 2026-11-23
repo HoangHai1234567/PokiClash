@@ -1,5 +1,5 @@
 // Giao diện màn Nhà kiểu Clash of Critters (người dùng 2026-11-22: "các button / điều khiển chức năng chưa rõ ràng, đục sâu vào Clash
-// of Critters"; mổ ở GD_Claude/22_Critters_Home.md mục 7). Menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters" vá prefab có sẵn, không
+// of Critters"; mổ ở GD_Claude/22_Critters_Home.md mục 7). Menu "PokiClash/Prefab/Nhà và side meta/Nhà: giao diện kiểu Critters" vá prefab có sẵn, không
 // dựng lại bản đồ:
 // - Items/NutVongNha: nút tròn icon (biến thể Kit/Nut_Tron) có chữ dưới, dòng giá, chấm đỏ (HomeRingButton).
 // - Items/TheXayNha: thẻ khay xây (biến thể Kit/Nut_Vua) icon to trên, tên + giá dưới (HomeTrayItem).
@@ -32,7 +32,7 @@ namespace PokiClash.EditorTools
         const float BtnSize = 112, IconSize = 64, HudScale = 1.12f, SheetH = 520, SheetY = 234, HudY = 100; // HudY 62 → 100, SheetY 196 → 234: chữ dưới nút bị cắt ở đáy màn (soát UI 2026-11-23)
         static readonly Vector2 CardSize = new Vector2(176, 195);
 
-        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters", priority = 66)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà: giao diện kiểu Critters", priority = 66)]
         public static void Patch()
         {
             var assets = M.Load<UiAssets>();

@@ -1,4 +1,4 @@
-// Màn Nhà (GD_Claude/21_Nha_Home.md, mốc H2). Menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn" (chạy lại được, dựng lại các lớp):
+// Màn Nhà (GD_Claude/21_Nha_Home.md, mốc H2). Menu "PokiClash/Prefab/Nhà và side meta/Nhà: dựng màn" (chạy lại được, dựng lại các lớp):
 // - nhập ảnh Assets/03 Art/Home (đưa vào bằng ArtGen/Home/import_home.py, có home_art.json: điểm neo, bề ngang chân thoi), tạo ảnh ô lát
 //   home_tile.png (chân thoi trắng, viền mực);
 // - prefab mục Items/NhaVat (HomeObject), Items/NhaOLat, Items/NhaMay;
@@ -46,14 +46,14 @@ namespace PokiClash.EditorTools
         const string ScenePath = "Assets/00 Scenes/Home.unity";
         const string GridMatPath = "Assets/03 Art/Home/home_grid.mat"; // lưới phát sáng chế độ xây (shader PokiClash/UIHomeGrid)
         const string SelectMatPath = "Assets/03 Art/Home/home_select.mat"; // vật đang chọn sáng nhẹ (shader PokiClash/UIHomeSelect)
-        // quái đi lại trên bản đồ: dùng lại thú, hạt, hộp chọn tướng của Trang trại (menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Trang trại: cảnh thật")
+        // quái đi lại trên bản đồ: dùng lại thú, hạt, hộp chọn tướng của Trang trại (menu "PokiClash/Prefab/Nhà và side meta/Trang trại: cảnh thật")
         const string PetPath = "Assets/04 Prefabs/Items/ThuTrangTrai.prefab";
         const string FxPath = "Assets/04 Prefabs/Items/HatTrangTrai.prefab";
         const string PickerPath = "Assets/04 Prefabs/Dialogs/ChonTuongTrangTrai.prefab";
         static readonly string[] PropNames = { "hoe", "can", "basket", "bread", "hammer", "sack", "apple", "carrot", "dust", "spark", "smoke", "heart" };
         const float CW = 96;
 
-        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà: dựng màn", priority = 64)]
         public static void Build()
         {
             // số liệu Nhà (khối "home" của balance.json) vào BalanceConfig.asset: lúc chạy game đọc asset này, không đọc JSON
@@ -374,7 +374,7 @@ namespace PokiClash.EditorTools
 
         // Vá prefab có sẵn, không dựng lại cả màn (người dùng 2026-11-22: chọn vật nhún + sáng nhẹ, số bi trên đầu Cây bi):
         // tạo home_select.mat, thêm chữ số vào bong bóng Items/NhaVat, gắn vật liệu chọn vào Screens/Home. Chạy lại được.
-        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: chọn vật sáng + số bi Cây bi", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà: chọn vật sáng + số bi Cây bi", priority = 65)]
         public static void PatchSelect()
         {
             Theme.Init(Load<UiAssets>());

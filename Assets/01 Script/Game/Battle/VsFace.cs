@@ -1,4 +1,4 @@
-// Ô mặt một tướng trong màn VS (prefab Items/TranVsMat, dựng bằng menu "PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh"): khung giấy viền
+// Ô mặt một tướng trong màn VS (prefab Items/TranVsMat, dựng bằng menu "PokiClash/Prefab/Trận/Trận: màn VS truyện tranh"): khung giấy viền
 // mực tô màu phe, mặt tướng (ảnh mặt vẽ tay HeroArt.Face; chưa có thì chân dung phóng cho đầu lấp ô, HeroArt.FitHead), nhãn BOSS góc trên trái,
 // ô tên và cấp đè mép dưới khung. Dựng sẵn ở cỡ Size; màn VS đổi cỡ bằng localScale, lật hình (không lật chữ) cho phe mình.
 using PokiClash.Core;

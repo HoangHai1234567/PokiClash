@@ -13,7 +13,7 @@ namespace PokiClash.EditorTools
         const string NotebookPath = "Assets/04 Prefabs/Screens/Notebook.prefab";
         public const string RowName = "hang_GiamNhapNhay", Label = "Giảm nhấp nháy";
 
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Giảm nhấp nháy", priority = 62)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Giảm nhấp nháy", priority = 62)]
         public static void Add()
         {
             var contents = PrefabUtility.LoadPrefabContents(NotebookPath);

@@ -1,5 +1,5 @@
 // Màn Nhà (GD_Claude/21_Nha_Home.md, mốc H2), thay Trang trại. Luật ở Core/Home. Prefab Assets/04 Prefabs/Screens/Home dựng bằng menu
-// "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn" (Editor/HomeSceneMenu.cs).
+// "PokiClash/Prefab/Nhà và side meta/Nhà: dựng màn" (Editor/HomeSceneMenu.cs).
 // - Bản đồ: ảnh nền đảo (home_base: đồng cỏ hình thoi, cao nguyên, hồ, suối, mạch quặng, bãi cát, biển, rừng rìa trên) kéo, phóng to thu nhỏ nhẹ (LandView của màn Đảo, chế độ phủ kín màn);
 //   lưới thoi 72 x 72 (người dùng dặn 2026-11-19: đảo to cho quái đi khắp nơi, máy không cần thấy hết đảo), ô 96 x 48 px; gốc lưới
 //   (góc trên ô 0,0) đo trên ảnh nền (home_art.json, ảnh ghép bằng ArtGen/Home/base/compose_base72.py).
@@ -140,7 +140,7 @@ namespace PokiClash
 
         // Giao diện kiểu Clash of Critters (người dùng 2026-11-22, GD_Claude/22_Critters_Home.md mục 7): vòng nút quanh vật đang chọn thay
         // bảng chữ, hàng nút dưới là nút tròn icon có chữ dưới (chấm đỏ khi có đồ chờ thu), chế độ xây là tấm dưới có tab lọc và khay cuộn
-        // thẻ icon, đặt / dời bằng nút ✓ ✗ bên cạnh bóng ma. Menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters".
+        // thẻ icon, đặt / dời bằng nút ✓ ✗ bên cạnh bóng ma. Menu "PokiClash/Prefab/Nhà và side meta/Nhà: giao diện kiểu Critters".
         [SerializeField] HomeRing ring;
         [SerializeField] HomeRingButton hudBuild, hudPaint, hudHarvest, hudSail;
         [SerializeField] RectTransform sheet; // tấm xây: nền, tab, khay cuộn (khay là nội dung cuộn bên trong)

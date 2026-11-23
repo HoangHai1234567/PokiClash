@@ -6,7 +6,7 @@
 //   mép trên, icon to, nhãn chữ mực in trên thẻ; là SketchButton (lún, nảy, nét mực bung như mọi nút);
 // - Máy Bi: nút tròn sticker cũ, phóng to, nhô lên khỏi mép bàn, vẫn thở; nhãn là mảnh băng keo vàng đè dưới;
 // - chấm số đỏ: góc trên phải mỗi nút.
-// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)" chạy lại được: giữ nút Máy Bi và chấm số của HubScene.bottom, icon thẻ lấy
+// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)" chạy lại được: giữ nút Máy Bi và chấm số của HubScene.bottom, icon thẻ lấy
 // theo tên trong Fallback/Icons (shop, house vẽ cùng nét bộ icon web, 2026-11-23), rồi dựng lại.
 using System.Collections.Generic;
 using System.Linq;
@@ -43,7 +43,7 @@ namespace PokiClash.EditorTools
             Build();
         };
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)", priority = 64)]
         public static void Build()
         {
             var assets = AssetDatabase.LoadAssetAtPath<UiAssets>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiAssets")[0]));

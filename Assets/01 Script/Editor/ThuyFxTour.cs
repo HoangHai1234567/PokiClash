@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
         static readonly string[] Heroes = { "ti_tach", "thach_giai", "ca_den", "ha_ba", "so_ngoc", "giong_bao", "lien_kinh", "uyen_xa", "han_ngac", "hai_long" };
         static string[] only;
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thủy∕hạt nước chiêu mana, chiêu cuối từng dạng (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thủy/hạt nước chiêu mana, chiêu cuối từng dạng (đang Play)", priority = 126)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -26,7 +26,7 @@ namespace PokiClash.EditorTools
         }
 
         // hộp chi tiết tướng: mở từng tướng Thủy (sao cuối), bấm Chiêu rồi Mana trên ô xem
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thủy∕hạt nước trong hộp chi tiết tướng (đang Play)", priority = 127)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thủy/hạt nước trong hộp chi tiết tướng (đang Play)", priority = 127)]
         static void TryViewer()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

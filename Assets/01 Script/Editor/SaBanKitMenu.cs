@@ -30,7 +30,7 @@ namespace PokiClash.EditorTools
         static readonly Color TapePink = new Color(1f, 0.77f, 0.84f, 0.94f);
         static readonly Vector2 C = new Vector2(0.5f, 0.5f);
 
-        [MenuItem("PokiClash/Prefab/Giao diện chung/Giao diện chung∕Bộ UI Sa Bàn: hiệu ứng, nút sticker, chỉ khâu", priority = 70)]
+        [MenuItem("PokiClash/Prefab/Giao diện chung/Bộ UI Sa Bàn: hiệu ứng, nút sticker, chỉ khâu", priority = 70)]
         static void Build()
         {
             var assets = Load<UiAssets>();

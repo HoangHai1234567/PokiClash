@@ -7,7 +7,7 @@
 //     mũi tên khắc, vòng "Xuất phát!", đế, tấm dựng tướng, cờ hệ. Toạ độ chép từ Web/src/view/boot/sceneTable.ts, nhân 2;
 // - gán App.bootTitle trong prefab App.
 // Ảnh ở Assets/03 Art/Boot, xuất từ bản web: node Web/scripts/export_boot_art.mjs (cần npm run dev).
-// Thêm: công tắc "PokiClash/Thử/Bỏ màn mở game" và vòng chụp "PokiClash/Thử/Khác/Người chơi mới∕Màn mở game: chụp từng nhịp (đang Play)".
+// Thêm: công tắc "PokiClash/Thử/Bỏ màn mở game" và vòng chụp "PokiClash/Thử/Người chơi mới/Màn mở game: chụp từng nhịp (đang Play)".
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +27,7 @@ namespace PokiClash.EditorTools
         const string AppPath = "Assets/04 Prefabs/App/App.prefab";
         const string ArtDir = "Assets/03 Art/Boot/";
         const string IslandPath = "Assets/03 Art/Islands/world.png";
-        const string SkipMenu = "PokiClash/Thử/Khác/Người chơi mới∕Bỏ màn mở game (Play vào thẳng sảnh)";
+        const string SkipMenu = "PokiClash/Thử/Người chơi mới/Bỏ màn mở game (Play vào thẳng sảnh)";
 
         // tấm bản đồ trên web: 480 × 690, gốc trên trái; chỗ đứng của tướng (POS trong sceneTable.ts)
         const float SheetW = 480, SheetH = 690;
@@ -53,7 +53,7 @@ namespace PokiClash.EditorTools
 
         static ArtLibrary art;
 
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn mở game: sa bàn (BootTitle)", priority = 68)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Màn mở game: sa bàn (BootTitle)", priority = 68)]
         static void Build()
         {
             var assets = Load<UiAssets>();
@@ -419,7 +419,7 @@ namespace PokiClash.EditorTools
         }
 
         // diễn lại màn mở game trên sảnh, chụp từng nhịp vào Temp/PokiShots/boot_*.png, chạm, chụp đoạn lao vào đảo
-        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Màn mở game: chụp từng nhịp (đang Play)", priority = 120)]
+        [MenuItem("PokiClash/Thử/Người chơi mới/Màn mở game: chụp từng nhịp (đang Play)", priority = 120)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

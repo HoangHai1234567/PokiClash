@@ -8,10 +8,10 @@
 // Hàng dưới cùng bên phải là thanh mốc: mốc Huyền thoại (một lần), xong thì các mốc quà vòng lại (cfg.gifts): tiêu đủ n bi thì
 // ô quà ở đầu thanh nhún, quà bay ra (rương vào khay, sao EXP lên thanh, bi về dòng đếm) rồi ô quà đổi sang quà kế.
 // Prefab màn hình Assets/04 Prefabs/Screens/Machine (mặt máy, cột cược, khay rương 3 nút dựng sẵn, nút thả); hộp Dialogs/TiLeMayBi, Dialogs/HuyenThoai.
-// Ô quà dựng bằng menu "PokiClash/Prefab/Khác/Máy bi∕mốc quà".
+// Ô quà dựng bằng menu "PokiClash/Prefab/Máy bi/mốc quà".
 // Trên đầu máy là thanh kinh nghiệm (MachineExpBar): EXP rơi vào ô bay lên thanh. Số trên ô đổi theo mức cược (MachineBoard.SetMult).
 // Nút vẽ tay (2026-11-06, học máy tham khảo, gói ArtGen/Pachinko/gui_gpt/bo_moi): nút thả là nút vòm to giữa dưới máy (4 trạng thái),
-// nút thả liền vòm nhỏ, viên cược tròn, đèn vòm chạy; dựng bằng menu "PokiClash/Prefab/Khác/Máy bi∕nút tròn, viên cược, đèn vòm".
+// nút thả liền vòm nhỏ, viên cược tròn, đèn vòm chạy; dựng bằng menu "PokiClash/Prefab/Máy bi/nút tròn, viên cược, đèn vòm".
 // Đang thả (từ bi đầu tới khi đợt xong hẳn: bi rơi hết, bảng số đổ EXP, mở rương, Lên cấp) thì khoá mọi nút trừ Thả bi / Thả liền
 // (2026-11-20): bảng tỉ lệ, cược, khay rương, thanh mốc quà, nút quay lại và phím Back. Nút khoá mờ, chạm im lặng (SketchButton.Locked).
 using System.Collections;
@@ -55,14 +55,14 @@ namespace PokiClash
             public UiBar legendBar;
             public MachineRatesDialog ratesDialog;
             public LegendMilestoneDialog legendDialog;
-            public MachineExpBar expBar; // thanh kinh nghiệm trên đầu máy (menu "PokiClash/Prefab/Khác/Máy bi∕thanh kinh nghiệm")
-            // ô quà ở đầu thanh mốc (menu "PokiClash/Prefab/Khác/Máy bi∕mốc quà"): rương kit, hoặc icon bi/XP/sao kèm số
+            public MachineExpBar expBar; // thanh kinh nghiệm trên đầu máy (menu "PokiClash/Prefab/Máy bi/thanh kinh nghiệm")
+            // ô quà ở đầu thanh mốc (menu "PokiClash/Prefab/Máy bi/mốc quà"): rương kit, hoặc icon bi/XP/sao kèm số
             public RectTransform giftBadge;
             public ChestIcon giftChest;
             public UnityEngine.UI.Image giftIcon;
             public TextMeshProUGUI giftCount;
             public UnityEngine.UI.Button giftButton; // chạm thanh hoặc ô quà: báo các mốc kế
-            // nút tròn vẽ tay (menu "PokiClash/Prefab/Khác/Máy bi∕nút tròn, viên cược, đèn vòm"; học nút vòm của máy tham khảo): ảnh vòm
+            // nút tròn vẽ tay (menu "PokiClash/Prefab/Máy bi/nút tròn, viên cược, đèn vòm"; học nút vòm của máy tham khảo): ảnh vòm
             // của nút thả và nút thả liền (nền SketchButton để trong suốt), vòng đứt nhịp quanh nút thả khi giữ, ảnh viên cược theo
             // thứ tự bets, bóng đèn rời đặt khít bóng vẽ trên vòm tủ (chạy vòng, nhanh hơn khi đang thả, cả dãy nháy khi trúng két)
             public UnityEngine.UI.Image dropDome, autoDome, holdRing;

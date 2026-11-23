@@ -1,5 +1,5 @@
 // Tour thử phần rừng màn Nhà (người dùng 2026-11-23): bong bóng bi trên ô rừng, bảng Dọn, cây bay lên trời từng khung, gió lay cây,
-// cây lắc, bướm / ong / đàn chim. Menu "PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: rừng bay, gió, chim bướm (chụp)" hoặc cờ Temp/home_forest_tour.flag (Unity
+// cây lắc, bướm / ong / đàn chim. Menu "PokiClash/Thử/Nhà và side meta/Nhà: rừng bay, gió, chim bướm (chụp)" hoặc cờ Temp/home_forest_tour.flag (Unity
 // đang không Play). Bản lưu thử (Nhà dựng lại, cấp 30, ban ngày), xong trả lại Nhà, cấp, bi, tướng đã có rồi Stop.
 // Ảnh: Temp/PokiShots/forest/rung_*.png; log "[Rừng]".
 using System.Collections;
@@ -19,7 +19,7 @@ namespace PokiClash.EditorTools
         static double nextPoll, tourStart;
         static string Flag => Path.GetFullPath(Path.Combine(Application.dataPath, "../Temp/home_forest_tour.flag"));
 
-        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: rừng bay, gió, chim bướm (chụp)", priority = 210)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà: rừng bay, gió, chim bướm (chụp)", priority = 210)]
         static void Run()
         {
             if (EditorApplication.isPlaying)

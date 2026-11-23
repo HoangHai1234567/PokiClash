@@ -2,7 +2,7 @@
 // - "PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (5 đảo)": ghi lại các ải của mọi đảo có kế hoạch (IslandGen.All) trong stages.json
 //   (đánh lại id toàn cục), rồi chạy "Nhập dữ liệu". Sửa kế hoạch đảo (tướng, tên chặng, lính, đỉnh cấp, cường hóa) trong IslandGen.cs
 //   rồi chạy menu này. Cấp đảo trong zones.json ([1, đỉnh]) sửa tay cho khớp levelMax của kế hoạch.
-// - "PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden islands, roster, cardtext, zones": ghi 4 golden phụ thuộc dữ liệu ải, tướng, thẻ từ code hiện tại.
+// - "PokiClash/Thử/Golden và tự chạy/Tính lại golden islands, roster, cardtext, zones": ghi 4 golden phụ thuộc dữ liệu ải, tướng, thẻ từ code hiện tại.
 //   sim.json và battles.json tính lại bằng menu "Tính lại golden sim, tướng trên nút ải" (GoldenRecalcMenu).
 using System.Collections.Generic;
 using System.IO;
@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
         static GameData Load() =>
             GameData.FromJson(R("Json/heroes.json"), R("Json/cards.json"), R("Json/zones.json"), R("Json/stages.json"), R("Json/balance.json"));
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải: sinh lại (5 đảo) (stages.json)", priority = 11)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Đảo 70 ải: sinh lại (5 đảo) (stages.json)", priority = 11)]
         static void Regen()
         {
             var d = Load();
@@ -32,7 +32,7 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Đảo] Đã sinh lại {IslandGen.All.Length} đảo 70 ải và nhập dữ liệu");
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden islands, roster, cardtext, zones", priority = 301)]
+        [MenuItem("PokiClash/Thử/Golden và tự chạy/Tính lại golden islands, roster, cardtext, zones", priority = 301)]
         static void Goldens()
         {
             var d = Load();
@@ -48,7 +48,7 @@ namespace PokiClash.EditorTools
         // (như ProgressionTests), badges.json "stages" (đội địch đền huy hiệu, BadgeTests) và "fights" (5 trận thật, từ 2026-11-11),
         // potential.json "caveStages" (PotentialTests).
         // Giữ danh sách ô cần so của golden cũ, chỉ tính lại số; các mục khác giữ nguyên.
-        [MenuItem("PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden theo danh sách tướng (progression, badges, potential)", priority = 302)]
+        [MenuItem("PokiClash/Thử/Golden và tự chạy/Tính lại golden theo danh sách tướng (progression, badges, potential)", priority = 302)]
         static void HeroGoldens()
         {
             var d = Load();

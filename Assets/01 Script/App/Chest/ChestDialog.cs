@@ -1,5 +1,5 @@
 // Hộp mở rương (prefab Assets/04 Prefabs/Dialogs/MoRuong): tiêu đề, rương lắc rồi bật, thưởng hiện sau khi bật thành lưới ô hình
-// (Items/OThuong, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá tiềm năng / đá tiến hóa, thẻ gộp
+// (Items/OThuong, menu "PokiClash/Prefab/Hộp thoại và màn/Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá tiềm năng / đá tiến hóa, thẻ gộp
 // bản sao "×n", mảnh tướng.
 using System;
 using System.Collections;

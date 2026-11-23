@@ -1,4 +1,4 @@
-// Bến tàu, chuyến tàu qua mây, màn tải (người dùng 2026-11-19). Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải"
+// Bến tàu, chuyến tàu qua mây, màn tải (người dùng 2026-11-19). Menu "PokiClash/Prefab/Sảnh và đảo/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải"
 // (chạy lại thì dựng lại):
 // 1. Assets/04 Prefabs/Screens/ChuyenTau.prefab: ShipVoyage trên canvas riêng (thứ tự 9 khi đi tàu, 15 lúc màn tải; ShipVoyage đặt):
 //    lớp chặn chạm, biển lát (tau_bien), 18 nét sóng, ảnh chụp màn cũ / mới (RawImage), tàu + vệt chữ V + 18 cụm bọt, 96 đám mây
@@ -44,7 +44,7 @@ namespace PokiClash.EditorTools
         // từ chỗ đậu ra phía nam: lùi theo mặt nam cầu tàu, ra mép mây dưới (màn tải: tàu từ đây vào bến)
         static readonly Vector2[] HubSouth = { new Vector2(735, 1476), new Vector2(690, 1486), new Vector2(648, 1492) };
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải", priority = 64)]
         static void Build()
         {
             var assets = AssetDatabase.LoadAssetAtPath<UiAssets>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiAssets")[0]));

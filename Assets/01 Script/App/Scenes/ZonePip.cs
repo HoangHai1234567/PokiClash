@@ -1,5 +1,5 @@
 // Chấm ải xen giữa trên đường mòn của đảo 70 ải (prefab Assets/04 Prefabs/Items/ChamAi, dựng bằng menu
-// "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải (ChamAi, DongChang, BangChang)"): nút tròn kit nhỏ (vàng: đã qua, cam: đang đánh, xám: chưa mở),
+// "PokiClash/Prefab/Sảnh và đảo/Đảo 70 ải (ChamAi, DongChang, BangChang)"): nút tròn kit nhỏ (vàng: đã qua, cam: đang đánh, xám: chưa mở),
 // vùng chạm rộng hơn chấm, nhịp ở ải đang đánh. Chạm mở bảng chặng.
 using System;
 using PokiClash.Core;

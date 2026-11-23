@@ -23,7 +23,7 @@ namespace PokiClash.EditorTools
         const string ChapterPath = "Assets/04 Prefabs/Dialogs/BangChang.prefab";
         const int Chests = 7;
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải (ChamAi, DongChang, BangChang)", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Đảo 70 ải (ChamAi, DongChang, BangChang)", priority = 65)]
         static void Build()
         {
             var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));

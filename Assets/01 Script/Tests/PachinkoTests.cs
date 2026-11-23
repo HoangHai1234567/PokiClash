@@ -364,7 +364,7 @@ namespace PokiClash.Tests
             var path = System.IO.Path.Combine(TestData.DataDir, "..", "..", "ArtGen", "Pachinko", "refs", "mat_may.json");
             Assert.IsTrue(System.IO.File.Exists(path), "thiếu " + path);
             string want = new Board(1).GeometryJson().Replace("\r\n", "\n"), got = System.IO.File.ReadAllText(path).Replace("\r\n", "\n");
-            Assert.AreEqual(want, got, "đổi bàn thì chạy menu \"PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy\" rồi ghep_ban.py");
+            Assert.AreEqual(want, got, "đổi bàn thì chạy menu \"PokiClash/Prefab/Máy bi/xuất hình học mặt máy\" rồi ghep_ban.py");
         }
 
         [Test]

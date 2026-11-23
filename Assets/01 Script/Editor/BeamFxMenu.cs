@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
         const string ArtDir = "Assets/03 Art/Fx/";
         const string BattlePath = "Assets/04 Prefabs/Screens/Battle.prefab";
 
-        [MenuItem("PokiClash/Prefab/Khác/Trận∕Sàn đấu: tia nước của chiêu bắn", priority = 62)]
+        [MenuItem("PokiClash/Prefab/Trận/Sàn đấu: tia nước của chiêu bắn", priority = 62)]
         static void Build()
         {
             var beamArt = Art("tia_nuoc");

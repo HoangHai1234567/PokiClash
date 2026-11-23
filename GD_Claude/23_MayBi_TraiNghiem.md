@@ -42,17 +42,17 @@ duyệt kế hoạch ("làm đi") với các lựa chọn Claude đề xuất. N
   - clip: `cho`, `nhac` (3,2 giây lặp: nhún, lắc, nắp hé nhỏ rồi hé to; khe phát sáng, tia lọt khe toả hai bên, lấp lánh bay lên;
     sập lại), `gong` (0,6 giây), `bat` (sự kiện `open` ở 0,07 giây đổi sang rương mở, đổi thứ tự vẽ cho quầng, tia đè lên lòng
     rương), `mo` (lòng sáng phập phồng, tia gom lên).
-  - `Kit/Ruong` có con `rig` (`AtomikGraphic`, tắt sẵn) và ba file rig (menu `PokiClash/Prefab/Khác/Máy bi∕rig rương (AtomSpine)`,
+  - `Kit/Ruong` có con `rig` (`AtomikGraphic`, tắt sẵn) và ba file rig (menu `PokiClash/Prefab/Máy bi/rig rương (AtomSpine)`,
     `Editor/MachineChestRigMenu.cs`). `ChestIcon.PlayRig/StopRig`; rig nạp một lần mỗi bậc (`AtomikFile.Load`), icon nhỏ trên mặt
     máy vẫn là ảnh tĩnh.
   - khay "Rương chờ": máy rảnh thì `nhac`, lệch nhịp 1,07 giây giữa các nút; đang thả, đang mở thì `cho` (`MachineScene.TrayRigs`).
     Icon khay nướng sẵn trong prefab nên gán bậc một lần lúc chạy (`ChestIcon.Bound`).
   - màn mở rương nhóm: rương chờ chạm chạy `nhac`; gồng chạy `gong` theo thời gian gồng của bậc (code lắc nửa biên độ, không nén);
     bật chạy `bat` rồi `mo`, bỏ đổi ảnh và bóp giãn của code; hạt, loé, giấy màu, xu như cũ.
-  - Lượt soi `PokiClash/Thử/Khác/Máy bi∕rig rương nhắc mở (đang Play)` (`Editor/MachineRigTour.cs`), ảnh `Temp/PokiShots/7xx_*.png`.
+  - Lượt soi `PokiClash/Thử/Máy bi/rig rương nhắc mở (đang Play)` (`Editor/MachineRigTour.cs`), ảnh `Temp/PokiShots/7xx_*.png`.
 - 2026-11-20: **giai đoạn 2–3 (đèn, cần phóng, jackpot)** viết xong code: đèn làn, đèn chạy qua ô khi một bi, báo trước jackpot
   (đèn dồn, tích tắc, phóng nhẹ), chữ JACKPOT nảy từng chữ, vòi xu, loé miệng ống, tiếng đinh cao dần, tuỳ chọn "Giảm nhấp nháy"
-  trong Sổ tay (`Settings.lowFlash`). Lượt soi `PokiClash/Thử/Khác/Máy bi∕đèn, phóng, jackpot (đang Play)`, ảnh `8xx_*.png`.
+  trong Sổ tay (`Settings.lowFlash`). Lượt soi `PokiClash/Thử/Máy bi/đèn, phóng, jackpot (đang Play)`, ảnh `8xx_*.png`.
 - 2026-11-20: **màn máy bi bản 2** (người dùng: "UI và máy bắn bóng chưa đủ đẹp, chưa đủ ấn tượng", chọn concept 2 + cờ của concept 1):
   - bố cục, số đèn, nhịp đo từ bản đục máy bi Clash of Critters (`D:\CrittersRipper\analysis_ui\BAO_CAO_MAY_BI_UI.md`): vòm 87 bóng
     hai nhóm luân phiên (rảnh 1,43 giây, đang thả 0,5 giây), bảng số 26 bóng (rảnh 2,22 giây, đang cộng 0,83 giây), nút PUSH nhảy ở
@@ -61,7 +61,7 @@ duyệt kế hoạch ("làm đi") với các lựa chọn Claude đề xuất. N
     bảng số 30 bóng; chữ số 0–9; nút PUSH 4 trạng thái chung đế; 6 món (viên cược, khay, thanh đếm, nút liền); 12 hình sáng (nền đen,
     gỡ nền thành quầng trong suốt); nền phòng gỗ. Khung bố cục `make_parts_refs.py`, cắt `cat_v2.py` (ra `Assets/03 Art/Pachinko`
     và `Baked/Machine/may_tinh_v2.png`: góc cam ngoài vòm trong suốt), số đo `v2/refs/bo_cuc_v2.json`, `v2_do.json`.
-  - Unity: menu `PokiClash/Prefab/Khác/Máy bi∕bố cục bản 2 (concept 2)` (`Editor/MachineV2Menu.cs`); thân máy nằm sau bàn, bàn thu 0,92;
+  - Unity: menu `PokiClash/Prefab/Máy bi/bố cục bản 2 (concept 2)` (`Editor/MachineV2Menu.cs`); thân máy nằm sau bàn, bàn thu 0,92;
     lớp sáng `fx2_den_*` phủ bóng vẽ sẵn (`p.bulbs`); bảng số trên đỉnh vòm (`p.scoreSlot`, `MachineScoreBoard.MakeV2`, chữ số hình);
     viên cược bấm đổi mức (`p.betCycle`); khung khay chỉ hiện rương bậc cao nhất + tổng số (`p.trayFrame`); thanh đếm bi; ngôi sao
     huy hiệu vòm bỏ đi vì nấm đỉnh của bàn nằm đúng chỗ (thành viên ngọc giữa hai cuộn xanh).
@@ -107,7 +107,7 @@ duyệt kế hoạch ("làm đi") với các lựa chọn Claude đề xuất. N
     `pk_g_sao`, `pk_g_vong`; quầng ô tổng kết mềm theo độ hiếm (Thường nhạt). Màu ánh sáng mọi bậc đều ấm (`TierLight`).
   - rig rương "nhac" (nhún, lắc, nắp hé có sáng và tia lọt khe) trước đây không chạy: rig trong prefab tắt playOnEnable nên bật holder
     là rig đứng im dáng gốc; `FlyIn` chạy lại "nhac" sau khi rương hiện.
-  - menu thử mới "PokiClash/Thử/Khác/Máy bi∕soi mở 3 rương (đang Play)" (không thả bi, chụp dày lúc chờ chạm).
+  - menu thử mới "PokiClash/Thử/Máy bi/soi mở 3 rương (đang Play)" (không thả bi, chụp dày lúc chờ chạm).
 - 2026-11-21 (sau): **kẹo EXP toả ra rõ, đã hơn** (người dùng: "kinh nghiệm toả ra tween lên chưa đã, chưa rõ, làm nhiều hơn và cải
   thiện fx máy pinball"):
   - số viên `MachineExpBar.SprayCount` 7..16 (trước 3..7; ô +5 ra 8 viên, ô +10 ra 13); bảng đổ lên thanh 8..18 viên (trước 4..10).

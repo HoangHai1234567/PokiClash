@@ -29,7 +29,7 @@ namespace PokiClash.EditorTools
             File.AppendAllText(LogPath, s + System.Environment.NewLine);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Trận∕Trình diễn trận: boss tiến hóa (chết, biến hình, ra sân), tướng gục, tướng kế ra sân (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Trận/Trình diễn trận: boss tiến hóa (chết, biến hình, ra sân), tướng gục, tướng kế ra sân (đang Play)", priority = 125)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -40,19 +40,19 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(Run(7));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Trận∕Trình diễn trận: chỉ boss tiến hóa (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Trận/Trình diễn trận: chỉ boss tiến hóa (đang Play)", priority = 126)]
         static void TryEvo()
         {
             if (EditorApplication.isPlaying && App.I != null) App.I.StartCoroutine(Run(1));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Trận∕Trình diễn trận: độc, phản đòn (đang Play)", priority = 128)]
+        [MenuItem("PokiClash/Thử/Trận/Trình diễn trận: độc, phản đòn (đang Play)", priority = 128)]
         static void TryPoison()
         {
             if (EditorApplication.isPlaying && App.I != null) App.I.StartCoroutine(Run(4));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Trận∕Trình diễn trận: chỉ tướng gục, tướng kế ra sân (đang Play)", priority = 127)]
+        [MenuItem("PokiClash/Thử/Trận/Trình diễn trận: chỉ tướng gục, tướng kế ra sân (đang Play)", priority = 127)]
         static void TryKo()
         {
             if (EditorApplication.isPlaying && App.I != null) App.I.StartCoroutine(Run(2));

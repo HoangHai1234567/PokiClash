@@ -1,6 +1,6 @@
 // Hộp phần có hình (alpha) của từng chân dung aola, 0..1 theo khung ảnh, gốc dưới trái: hình to nhỏ trong khung khác nhau (lính nhỏ,
 // boss to), màn VS và dải tuyệt kỹ cần biết đầu nằm đâu để phóng (HeroArt.FitHead). Đo sẵn trong Editor bằng menu
-// "PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh" (ảnh chân dung không đọc được lúc chạy), lưu ở Resources/BattleIntro/khung_chan_dung;
+// "PokiClash/Prefab/Trận/Trận: màn VS truyện tranh" (ảnh chân dung không đọc được lúc chạy), lưu ở Resources/BattleIntro/khung_chan_dung;
 // nhập thêm tướng thì chạy lại menu. Chưa đo thì cả khung.
 using System;
 using System.Collections.Generic;

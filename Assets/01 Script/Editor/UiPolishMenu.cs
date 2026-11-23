@@ -23,7 +23,7 @@ namespace PokiClash.EditorTools
             "Assets/04 Prefabs/Dialogs/ChonTuongKhoiDau.prefab",
         };
 
-        [MenuItem("PokiClash/Prefab/Giao diện chung/Giao diện chung∕Soi giao diện: ghi cấu trúc chữ, băng dính (Logs)", priority = 90)]
+        [MenuItem("PokiClash/Prefab/Giao diện chung/Soi giao diện: ghi cấu trúc chữ, băng dính (Logs)", priority = 90)]
         static void Dump()
         {
             var sb = new StringBuilder();
@@ -58,7 +58,7 @@ namespace PokiClash.EditorTools
         }
 
         // Sửa một lượt theo ảnh soi 2026-11-21 (chỉ cỡ, lề, màu, hình; không đổi chữ nên bảng dịch tiếng Anh không lệch). Chạy lại không sao.
-        [MenuItem("PokiClash/Prefab/Giao diện chung/Giao diện chung∕Sửa giao diện một lượt (2026-11-21)", priority = 91)]
+        [MenuItem("PokiClash/Prefab/Giao diện chung/Sửa giao diện một lượt (2026-11-21)", priority = 91)]
         static void Apply()
         {
             // 1. nút kit: lề nhãn rộng hơn (chữ không chạm viền vẽ tay), co chữ được tới ~42% khi nhãn dài (bản cũ 60%: chữ dài vẫn tràn)

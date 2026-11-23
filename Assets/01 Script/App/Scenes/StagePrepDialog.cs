@@ -3,7 +3,7 @@
 // Items/DoiThuGon; tướng tiến hóa trong trận chỉ hiện dạng đầu, đầu mục ghi luật tiến hóa), dòng so lực chiến địch / đội bạn và mức
 // khó, thưởng là ô hình (Items/OThuong: cái gì, bao nhiêu, độ hiếm), 3 ô đội hình dựng sẵn, "Xuất trận!".
 // Ải đảo chưa mở cũng mở được để xem địch (chạm chấm hay bệ ải trên màn Đảo): nút Xuất trận khoá, ghi ải cần qua trước.
-// Dòng lực chiến, ô thưởng dựng bằng menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)". Lực chiến ghi gọn (57.6k).
+// Dòng lực chiến, ô thưởng dựng bằng menu "PokiClash/Prefab/Hộp thoại và màn/Popup gọn (ô thưởng, đội hình, lực chiến)". Lực chiến ghi gọn (57.6k).
 // Ô đội có tướng: khung tô màu độ hiếm, giấy lót bên trong, vương miện cho Huyền thoại (menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc
 // và xếp", 2026-11-17).
 // Ô đội mở theo tiến trình (Progress.TeamSlots): ô chưa mở hiện khoá và điều kiện; chạm ô đã mở thì mở bể tướng (TeamPickerDialog,
@@ -65,7 +65,7 @@ namespace PokiClash
         [SerializeField] SketchButton afkBtn;
         [Tooltip("Chữ đầu mục \"Đối thủ\" (menu PokiClash/Prefab/Hộp chuẩn bị: chỉ số địch)")]
         [SerializeField] TextMeshProUGUI foeTitle;
-        [Tooltip("Chữ đầu mục \"Phần thưởng\" (menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: độ hiếm, lọc và xếp gán); trống thì giữ chữ của prefab")]
+        [Tooltip("Chữ đầu mục \"Phần thưởng\" (menu PokiClash/Prefab/Hộp thoại và màn/Màn Tướng: độ hiếm, lọc và xếp gán); trống thì giữ chữ của prefab")]
         [SerializeField] TextMeshProUGUI rewardTitle;
 
         // dòng so lực chiến: số của địch, số của đội đang chọn, nhãn mức khó (Dễ / Vừa / Khó / Rất khó)

@@ -34,7 +34,7 @@ Câu sửa nhanh (gửi kèm đường dẫn file prompt):
 
 Xong thì nhắn Claude "duyệt thân máy". Tự làm cũng được:
 1. `py -3 -I E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\build.py --duyet`: lọc mép, cắt sát, thu về đúng cỡ hiện trên màn, ghi `E:\ProjectAtomik\PokiWar\Assets\03 Art\Pachinko\pk_than_may.png`; đo rãnh thanh, hai hốc tròn, mặt chơi, ghi `E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\refs\than_may_da_duyet.json`;
-2. trong Unity, menu `PokiClash/Prefab/Khác/Máy bi∕thân máy vẽ tay`: đặt thân máy sau mặt máy, tắt khung giấy tạm, dời thanh kinh nghiệm vào rãnh, nút tỉ lệ thành chữ "i" trong hốc tròn bên phải, nhích cột cược và khay rương khỏi viền tủ.
+2. trong Unity, menu `PokiClash/Prefab/Máy bi/thân máy vẽ tay`: đặt thân máy sau mặt máy, tắt khung giấy tạm, dời thanh kinh nghiệm vào rãnh, nút tỉ lệ thành chữ "i" trong hốc tròn bên phải, nhích cột cược và khay rương khỏi viền tủ.
 
 ## Lượt 2: bộ phận mặt máy
 
@@ -60,7 +60,7 @@ Câu sửa nhanh (gửi kèm đường dẫn file prompt):
 - `Same sheet, but the ball only white and light grey, no colour.`
 - `Same sheet, but each part fully inside the grey box of its cell, not touching the cell edge.`
 
-Xong thì nhắn Claude "duyệt bộ phận". Tự làm: `py -3 -I E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\build.py --duyet bo_phan` (cắt ô, ghép mặt máy tĩnh `Baked/Machine/may_tinh.png` theo đúng toạ độ vật lý, ghi `pk_bumper`, `pk_may_tha`, `pk_bi`), rồi trong Unity chạy menu `PokiClash/Dựng lại danh mục ảnh` và `PokiClash/Prefab/Khác/Máy bi∕ảnh bộ phận`.
+Xong thì nhắn Claude "duyệt bộ phận". Tự làm: `py -3 -I E:\ProjectAtomik\PokiWar\ArtGen\Pachinko\build.py --duyet bo_phan` (cắt ô, ghép mặt máy tĩnh `Baked/Machine/may_tinh.png` theo đúng toạ độ vật lý, ghi `pk_bumper`, `pk_may_tha`, `pk_bi`), rồi trong Unity chạy menu `PokiClash/Dựng lại danh mục ảnh` và `PokiClash/Prefab/Máy bi/ảnh bộ phận`.
 
 ## Lượt 3: hiệu ứng
 

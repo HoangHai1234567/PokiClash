@@ -1,5 +1,5 @@
 // Màn cửa hàng toàn màn hình (người dùng 2026-11-23: "bố cục shop nhìn xấu quá, học tập clash of critters"; GD_Claude/26 mục 13). Prefab
-// Assets/04 Prefabs/Dialogs/CuaHangLon (biến thể tờ giấy gốc HopThoai trải kín màn, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết").
+// Assets/04 Prefabs/Dialogs/CuaHangLon (biến thể tờ giấy gốc HopThoai trải kín màn, menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết").
 // Một trang cuộn dài chia mục như cửa hàng của Clash of Critters, hàng nút mục trên cùng nhảy tới mục (chấm đỏ khi có quà chờ):
 //   Ưu đãi (thẻ ngang to: ưu đãi hẹn giờ, Chuỗi Quà, Lọ Bi) · Miễn phí (quà hôm nay, quà thẻ / gói theo ngày, bi và trứng xem quảng cáo,
 //   mốc quảng cáo) · Trứng (túi trứng chờ nở, lưới trứng theo bậc, gói ×10, gói tướng tuần, vé, tỉ lệ) · Bi (lưới 6 gói bi có hình

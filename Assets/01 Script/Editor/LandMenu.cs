@@ -1,5 +1,5 @@
 // Đảo kiểu vùng đất (GD_Claude/18_DaoVungDat_Habitat.md, M1 2026-11-18).
-// - "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo vùng đất: Dựng nước, ảnh (mọi đảo)": với mỗi đảo có ảnh khoảng cách tới bờ Baked/Islands/land_<đảo>_dist.png (thủy,
+// - "PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Dựng nước, ảnh (mọi đảo)": với mỗi đảo có ảnh khoảng cách tới bờ Baked/Islands/land_<đảo>_dist.png (thủy,
 //   mộc…; ghi bằng ArtGen/Islands/land_<đảo>/m0/build_land.py --xuat): đặt cách nhập (không sRGB, không nén, không mipmap), nhập lại
 //   ảnh nền land_<đảo> (4096, luật trong ArtImporter), tạo hoặc cập nhật material sóng Assets/03 Art/Islands/land_water_<đảo>.mat
 //   (shader PokiClash/UIInkWater); gán vào Screens/Zone (ZoneScene.landWaters, landWater = của Thủy), dựng lại danh mục ảnh. Chạy lại
@@ -7,7 +7,7 @@
 // - "PokiClash/Thử/Đảo Thủy vùng đất: …" (đang Play): đặt tiến độ đảo Thủy 0, 23, 69 ải, vào đảo, đưa từng habitat vào giữa, chụp
 //   liên tục (idle, đòn đánh định kỳ) vào Temp/PokiShots/land/; xong trả lại bản lưu như trước. Chụp bằng ScreenCapture (không gán
 //   targetTexture cho camera: canvas tính lại cỡ, UI lệch).
-// - "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo vùng đất: Dựng cờ ải, vùng boss": prefab Items/CoAi (LandFlag: vùng chạm trong suốt, than có nhịp phồng, ô đá,
+// - "PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Dựng cờ ải, vùng boss": prefab Items/CoAi (LandFlag: vùng chạm trong suốt, than có nhịp phồng, ô đá,
 //   vải, cán; khung vải Assets/03 Art/Islands/Co/co_vai_*, vẽ bằng ArtGen/Islands/land_thuy/m0/ve_co.py), gán ZoneScene.flagPrefab;
 //   vùng boss chưa mở: gán ZoneScene.secPrefab (Items/HinhDong: mây phủ, bút chì), pencilArt (Islands/Co/but_chi.png); đặt cách nhập
 //   ảnh trường vùng Baked/Islands/land_<đảo>_vung.png của mọi đảo (không sRGB, không nén, không mipmap; build_land.py --xuat ghi),
@@ -110,7 +110,7 @@ namespace PokiClash.EditorTools
             for (int i = 0; i < mats.Count; i++) a.GetArrayElementAtIndex(i).objectReferenceValue = mats[i];
         }
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo vùng đất: Dựng cờ ải, vùng boss", priority = 71)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Dựng cờ ải, vùng boss", priority = 71)]
         static void BuildFlag()
         {
             Sprite S(string n) => AssetDatabase.LoadAssetAtPath<Sprite>($"{FlagArt}/{n}.png");
@@ -260,7 +260,7 @@ namespace PokiClash.EditorTools
                       + string.Join(", ", sketches.Select(m => m.name)) + $", bút chì, {eggArt.Count} hình easter egg");
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Thủy vùng đất: cờ ải chia đều, nổi bật (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Thủy vùng đất: cờ ải chia đều, nổi bật (đang Play)", priority = 126)]
         static void FlagTour()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -327,7 +327,7 @@ namespace PokiClash.EditorTools
             App.Router.Go(SceneIds.Hub);
         }
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo vùng đất: Dựng nước, ảnh (mọi đảo)", priority = 70)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Dựng nước, ảnh (mọi đảo)", priority = 70)]
         static void Build()
         {
             var dists = Islands("_dist");
@@ -378,7 +378,7 @@ namespace PokiClash.EditorTools
                       + string.Join(", ", arts));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Thủy vùng đất: habitat, tướng idle và đánh, chấm ải, sóng (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Thủy vùng đất: habitat, tướng idle và đánh, chấm ải, sóng (đang Play)", priority = 125)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -511,7 +511,7 @@ namespace PokiClash.EditorTools
             App.Router.Go(SceneIds.Hub);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Thủy vùng đất: vùng boss, cờ trên đường, khoá đảo (đang Play)", priority = 127)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Thủy vùng đất: vùng boss, cờ trên đường, khoá đảo (đang Play)", priority = 127)]
         static void SectionTour()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -536,16 +536,16 @@ namespace PokiClash.EditorTools
             yield return WaitRouter(SceneIds.Zone);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Mộc vùng đất: toàn đảo, vùng boss, easter egg (đang Play)", priority = 130)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Mộc vùng đất: toàn đảo, vùng boss, easter egg (đang Play)", priority = 130)]
         static void MocTour() => IslandTour(Elem.Moc, "moc");
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Hỏa vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 131)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Hỏa vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 131)]
         static void HoaTour() => IslandTour(Elem.Hoa, "hoa");
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Kim vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 132)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Kim vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 132)]
         static void KimTour() => IslandTour(Elem.Kim, "kim");
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Thổ vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 133)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Thổ vùng đất: toàn đảo, khói, vùng boss, easter egg (đang Play)", priority = 133)]
         static void ThoTour() => IslandTour(Elem.Tho, "tho");
 
         static void IslandTour(Elem e, string tag)
@@ -734,7 +734,7 @@ namespace PokiClash.EditorTools
             App.Router.Go(SceneIds.Hub);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Thủy vùng đất: easter egg vùng khoá (đang Play)", priority = 128)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Thủy vùng đất: easter egg vùng khoá (đang Play)", priority = 128)]
         static void EggTour()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -831,7 +831,7 @@ namespace PokiClash.EditorTools
             App.Router.Go(SceneIds.Hub);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đo hiệu năng đảo vùng đất (đang Play)", priority = 129)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đo hiệu năng đảo vùng đất (đang Play)", priority = 129)]
         static void PerfProbe()
         {
             if (!EditorApplication.isPlaying || App.I == null)

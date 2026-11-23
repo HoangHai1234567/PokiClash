@@ -14,7 +14,7 @@ namespace PokiClash
         [SerializeField] Image bodyImg, emblem, flash;
         [SerializeField] RectTransform status;
         [SerializeField] RectTransform stun, burn, regen, evade; // nhóm dấu của từng trạng thái, tắt khi không có
-        // độc (2026-11-17): bọt độc xanh, dựng bằng menu "PokiClash/Prefab/Khác/Trận∕Sàn đấu: dấu trạng thái độc" (StatusPoisonMenu); chưa dựng thì
+        // độc (2026-11-17): bọt độc xanh, dựng bằng menu "PokiClash/Prefab/Trận/Sàn đấu: dấu trạng thái độc" (StatusPoisonMenu); chưa dựng thì
         // null: sân bỏ qua dấu này (bảng vẫn có chip "Độc")
         [SerializeField] RectTransform poison;
 

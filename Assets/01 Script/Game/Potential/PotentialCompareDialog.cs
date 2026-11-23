@@ -1,6 +1,6 @@
 // Hộp kết quả khai phá, bắt buộc chọn (prefab Assets/04 Prefabs/Dialogs/TiemNangSoSanh): cột Cũ / Mới, các dòng ô (dòng của ô
 // chưa mở ẩn), mũi tên "»" khi đổi hoặc "=" khi giữ nguyên, tổng hai bên (gồm bộ), nút "giu_cu" / "giu_moi".
-// 2026-11-17: 6 ô (dòng 5, 6 do menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Tiềm năng: 6 ô, bộ, đá tinh" dựng; prefab cũ 4 dòng vẫn chạy).
+// 2026-11-17: 6 ô (dòng 5, 6 do menu "PokiClash/Prefab/Nhà và side meta/Tiềm năng: 6 ô, bộ, đá tinh" dựng; prefab cũ 4 dòng vẫn chạy).
 using System;
 using PokiClash.Core;
 using PokiClash.UI;

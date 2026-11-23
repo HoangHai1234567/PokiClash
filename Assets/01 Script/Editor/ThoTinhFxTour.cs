@@ -18,16 +18,16 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(PlayTour.ShotDir, "tho_fx");
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Tiểu Thổ Tinh (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Tiểu Thổ Tinh (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryTa1() => Start(false, 1);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Thổ Tinh (sao 6, dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Thổ Tinh (sao 6, dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryTa2() => Start(false, 2);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕Tiểu Thổ Tinh ở PHE ĐỊCH (ải 70, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/Tiểu Thổ Tinh ở PHE ĐỊCH (ải 70, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryDich1() => Start(true, 1);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕Thổ Tinh ở PHE ĐỊCH (ải 70, boss dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/Thổ Tinh ở PHE ĐỊCH (ải 70, boss dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryDich2() => Start(true, 2);
 
         static void Start(bool dich, int dang)

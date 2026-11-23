@@ -22,11 +22,11 @@ namespace PokiClash
         {
             public ScrollRect scroll;
             public SketchButton sound, hints;
-            public SketchButton haptics; // dòng "Rung" (thêm bằng menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Rung)
-            public SketchButton lowFlash; // dòng "Giảm nhấp nháy" (menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Giảm nhấp nháy)
-            public SketchButton language; // dòng "Ngôn ngữ" (menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Ngôn ngữ), 2026-11-21
-            public SketchButton howTo; // dòng "Cách chơi" (menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn: hộp Cách chơi, dòng Sổ tay), 2026-11-22
-            public SketchButton story; // dòng "Cốt truyện mở đầu" (menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Cốt truyện), 2026-11-23
+            public SketchButton haptics; // dòng "Rung" (thêm bằng menu PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Rung)
+            public SketchButton lowFlash; // dòng "Giảm nhấp nháy" (menu PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Giảm nhấp nháy)
+            public SketchButton language; // dòng "Ngôn ngữ" (menu PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Ngôn ngữ), 2026-11-21
+            public SketchButton howTo; // dòng "Cách chơi" (menu PokiClash/Prefab/Hộp thoại và màn/Hướng dẫn: hộp Cách chơi, dòng Sổ tay), 2026-11-22
+            public SketchButton story; // dòng "Cốt truyện mở đầu" (menu PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Cốt truyện), 2026-11-23
             public GameObject packs; // mục "Gói hỗ trợ" (ẩn khi chưa có cửa hàng và chưa có gói)
             public Transform packNote; // dòng "Không bán bi..." trong mục gói: thẻ gói chèn ngay trước
             public GameObject packDevNote; // "Bản thử: cửa hàng giả lập..." (chỉ bản dev)

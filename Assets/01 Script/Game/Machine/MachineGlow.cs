@@ -2,7 +2,7 @@
 // Resources/UIAdditive (shader PokiClash/UIAdditive) và ảnh mềm pk_g_* (ArtGen/Pachinko/sinh_anh_sang.py). Các lớp quầng, tia,
 // cột sáng, vệt lia của máy bi, bảng số, màn mở rương đều lấy từ đây. Chưa có ảnh mềm thì không vẽ lớp sáng (trả null).
 // Không dựng GameObject lúc chạy (PrefabOnlyTests): ảnh, khung chứa, khung cắt, nút sinh bằng Ui.Spawn từ bộ prefab nhỏ trong Items
-// (menu "PokiClash/Prefab/Khác/Máy bi∕prefab ánh sáng, bảng số, mở rương"); MachineBoard gắn bộ này vào Prefabs lúc Bind.
+// (menu "PokiClash/Prefab/Máy bi/prefab ánh sáng, bảng số, mở rương"); MachineBoard gắn bộ này vào Prefabs lúc Bind.
 using PokiClash.UI;
 using UnityEngine;
 using UnityEngine.UI;

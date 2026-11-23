@@ -1,4 +1,4 @@
-// Một ải trên bản đồ đảo hệ (prefab Assets/04 Prefabs/Items/BeAi, dựng bằng menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bệ ải (BeAi)"):
+// Một ải trên bản đồ đảo hệ (prefab Assets/04 Prefabs/Items/BeAi, dựng bằng menu "PokiClash/Prefab/Sảnh và đảo/Bệ ải (BeAi)"):
 // - bệ đất theo đảo (Islands/be_<hệ>, boss: be_<hệ>_boss), tướng chính của ải đứng trên bệ (chưa mở: bóng sẫm);
 // - bảng tên bên cạnh: huy hiệu số ải (khoá khi chưa mở, dấu qua khi đã qua, cam là mini boss, đỏ là boss, vương miện trên
 //   huy hiệu ải đặc biệt), tên tướng, cấp;

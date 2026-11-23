@@ -372,7 +372,7 @@ namespace PokiClash.EditorTools
         const string ScenePath = Dir + "/AtomikMan.unity";
         static readonly Color Paper = new Color(0.98f, 0.965f, 0.925f);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Atomik: dựng scene con mận (idle, nhảy, chém)")]
+        [MenuItem("PokiClash/Thử/Tướng/Atomik: dựng scene con mận (idle, nhảy, chém)")]
         public static void BuildScene()
         {
             var rig = AssetDatabase.LoadAssetAtPath<AtomikAsset>(RigPath);

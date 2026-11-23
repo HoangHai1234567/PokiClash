@@ -325,7 +325,7 @@ Người dùng: "các con đầu tiên có vài con to quá, các final boss l�
 
 - Cỡ trên sân = 150 (phía địch) hoặc 176 (phía mình) × `size` của dạng × 1,18 nếu boss; rig tự co theo chiều cao dáng đứng, nên `size` tính từ hình thật chứ không đặt chung một số.
 - Độ to M = V^0,6 × cao^0,4 (V: căn diện tích hình, điểm sân phía địch). Dạng cuối ở ải ra mắt (ải 1, 5, 10, 15, 20, 30, 40, 50, 60, 70) theo bậc 132, 138, 144, 150, 162, 170, 178, 186, 196, 222; dạng nhỏ 78% (dòng 3 dạng: 72%, 86%); pháp sư (Viêm Sư, Giông Bão) ×0,92; trần cao 255 điểm phía địch. Lính bậc 1 M 100, bậc 2 M 128.
-- Đo và ghi bằng menu Unity "PokiClash/Thử/Khác/Tướng∕Cỡ tướng: đo và chụp hàng tướng từng đảo (đang Play)" rồi `ArtGen/CoTuong/co_tuong.py do | tinh | ghi` (chỉnh tay ở `ArtGen/CoTuong/chinh_tay.json`: Tiểu Quỷ Lava 0,48/0,54/0,66 vì lửa quanh người, Bùn Ngoạm 1,08 vì khối bùn đặc). Thêm tướng mới thì chạy lại.
+- Đo và ghi bằng menu Unity "PokiClash/Thử/Tướng/Cỡ tướng: đo và chụp hàng tướng từng đảo (đang Play)" rồi `ArtGen/CoTuong/co_tuong.py do | tinh | ghi` (chỉnh tay ở `ArtGen/CoTuong/chinh_tay.json`: Tiểu Quỷ Lava 0,48/0,54/0,66 vì lửa quanh người, Bùn Ngoạm 1,08 vì khối bùn đặc). Thêm tướng mới thì chạy lại.
 
 ## Việc còn lại (chưa làm)
 

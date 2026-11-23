@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
         const BindingFlags Any = BindingFlags.Instance | BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public;
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: hướng dẫn đặt Cây bi, chạm tán lá (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà: hướng dẫn đặt Cây bi, chạm tán lá (đang Play)", priority = 125)]
         static void Run()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

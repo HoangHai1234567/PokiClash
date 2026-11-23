@@ -1,11 +1,11 @@
 // Hộp chọn đội (prefab Assets/04 Prefabs/Dialogs/ChonDoi, biến thể tờ giấy gốc HopThoai, dựng bằng menu
-// "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội (ChonDoi)", ô tướng và khung cuộn ở menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội: ô tướng, khung cuộn"):
+// "PokiClash/Prefab/Hộp thoại và màn/Hộp chọn đội (ChonDoi)", ô tướng và khung cuộn ở menu "PokiClash/Prefab/Hộp thoại và màn/Hộp chọn đội: ô tướng, khung cuộn"):
 // mở khi chạm ô đội trong hộp Chuẩn bị trận hoặc nút Đổi đội ở màn Tướng.
 // Kho tướng đã có (Items/OChonDoi: dải hệ, chân dung, sao, tên, lực chiến) trong khung cuộn 5 cột: tiêu đề, dòng gợi ý và nút "Xong" luôn
 // trên màn dù có bao nhiêu tướng. Xếp một lần lúc mở: tướng đang trong đội trước (theo thứ tự ra trận), rồi lực chiến giảm dần; chạm không
 // xếp lại (ô không chạy dưới ngón tay). Chạm để chọn hoặc bỏ, tròn xanh góc ô là thứ tự ra trận; mới mở một ô đội thì chạm tướng khác là
 // đổi luôn. Mũi tên khắc hệ theo tướng chính của địch; dòng cuối báo ô đội nào còn khoá. "Xong" trả đội về.
-// Hàng lọc trên lưới (menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội: lọc theo hệ, xếp"; người dùng nhờ 2026-11-06): nút tròn Tất cả, 5 hệ,
+// Hàng lọc trên lưới (menu "PokiClash/Prefab/Hộp thoại và màn/Hộp chọn đội: lọc theo hệ, xếp"; người dùng nhờ 2026-11-06): nút tròn Tất cả, 5 hệ,
 // Khắc (chỉ tướng khắc tướng chính của địch, ẩn khi không có địch) và nút xếp đổi vòng Lực chiến → Độ hiếm → Sao → Hệ. Tướng đang trong
 // đội luôn đứng đầu và luôn hiện. Chọn lọc/xếp thì ô xếp lại và nảy ra; lựa chọn giữ cho lần mở sau trong phiên chơi.
 // Ô tướng: khung màu độ hiếm, sao theo bậc, lực chiến số gọn (2026-11-17, PrepRosterCell).

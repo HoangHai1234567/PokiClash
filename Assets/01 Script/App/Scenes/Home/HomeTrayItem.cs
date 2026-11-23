@@ -1,6 +1,6 @@
 // Nút khay chế độ Xây của màn Nhà có icon công trình (người dùng 2026-11-20: "gen thêm icon các building"): biến thể prefab của nút
 // nhỏ kit (Kit/Nut_Nho) thêm ảnh "icon" bên trái, chữ dời sang phải; prefab Items/NutKhayNha dựng bằng menu
-// "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: nút khay có icon công trình" (Editor/HomeTrayMenu). Icon: icon_home_<mã công trình> (ArtGen/Home/icons).
+// "PokiClash/Prefab/Nhà và side meta/Nhà: nút khay có icon công trình" (Editor/HomeTrayMenu). Icon: icon_home_<mã công trình> (ArtGen/Home/icons).
 using PokiClash.UI;
 using UnityEngine;
 using UnityEngine.UI;

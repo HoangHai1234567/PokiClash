@@ -308,7 +308,7 @@ Mình làm:
 **Khoảnh đầu sửa (2026-11-18)**: ghép thử cho thấy 2 x 2 ô rừng quá chật, bến bị rừng tách khỏi làng. Khoảnh đầu nay là 7 ô rừng (thêm 3 ô ven biển tới bến), có đường đất lát sẵn từ bến lên Nhà chính (`startTiles`); `maxLots` cộng thêm 3.
 
 **H2: cảnh Nhà trong Unity (2026-11-18)**:
-- Code chạy trong game: `App/Scenes/Home/HomeScene.cs`, `HomeObject.cs`, `HomeTap.cs`. Editor: `Editor/HomeSceneMenu.cs`, menu `PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn`; menu này nhập dữ liệu rồi dựng `Screens/Home.prefab` (chép từ Farm), `Items/NhaVat`, `NhaOLat`, `NhaMay`, scene `Home.unity`, Build Settings. Chạy được bằng cờ `Temp/home_build.flag`; tour chụp ảnh bằng `Temp/home_tour.flag`.
+- Code chạy trong game: `App/Scenes/Home/HomeScene.cs`, `HomeObject.cs`, `HomeTap.cs`. Editor: `Editor/HomeSceneMenu.cs`, menu `PokiClash/Prefab/Nhà và side meta/Nhà: dựng màn`; menu này nhập dữ liệu rồi dựng `Screens/Home.prefab` (chép từ Farm), `Items/NhaVat`, `NhaOLat`, `NhaMay`, scene `Home.unity`, Build Settings. Chạy được bằng cờ `Temp/home_build.flag`; tour chụp ảnh bằng `Temp/home_tour.flag`.
 - `SceneIds.Home`. Sảnh: công trình Trang trại đổi thành Nhà (vào scene Home, chấm báo `Home.Alert`). `HubPan.SetOffset`, `AdGate.HomeSpeed`.
 - Có: kéo bản đồ; ô lát; khối rừng trên ô chưa mở; công trình theo ảnh; bảng chọn (thu, giao hoặc rút tướng, nâng cấp, rút giờ bằng quảng cáo, cất trang trí); chế độ xây (khay, bóng ma xanh hoặc đỏ, chạm để dời, Đặt); chế độ lát ô; Tự xếp; Thu hết; Ra đảo; mây rìa; sáng tối; đèn đêm.
 - Chưa có: thú đi lại, làm việc (H3); tan mây khi mở đất; hiệu ứng dọn rừng; hình công trình đổi theo cấp.
@@ -334,7 +334,7 @@ Mình làm:
   - gió: cây trong khung nhìn nghiêng quanh gốc 0–2,4 độ, ngả theo chiều lá bay; cơn gió là sóng chạy ngang bản đồ. Cứ 1,6–4,2 giây một cây to lắc mạnh rồi êm (0,9 giây), rụng 1–3 lá, 30% có chim vụt ra. Làm bằng xoay transform (mã chạy không được tạo vật liệu nên không dùng shader cần thêm kênh UV);
   - 5 bướm lượn quanh đất đã mở, đôi khi đậu; 4 ong bay số 8 quanh ruộng, vườn, bồn hoa, Cây bi; đàn 2–5 chim bay ngang khung mỗi 10–22 giây. Chỉ quanh khung nhìn, đêm thì tan. Ảnh vẽ bằng `ArtGen/Home/life/make_life.py` (tô phẳng, viền mực như lá gió) ở `Assets/Resources/HomeLife/`;
   - giá mở giữ nguyên (gỗ, quặng, thời gian, thợ); quảng cáo `home_speed` rút 30 phút, 3 lần mỗi ngày dùng chung với xây, nâng cấp (người dùng: dùng quảng cáo như vậy là ổn);
-  - tour chụp: menu "PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: rừng bay, gió, chim bướm (chụp)" (`Editor/HomeForestTour.cs`), ảnh ở `Temp/PokiShots/forest/`.
+  - tour chụp: menu "PokiClash/Thử/Nhà và side meta/Nhà: rừng bay, gió, chim bướm (chụp)" (`Editor/HomeForestTour.cs`), ảnh ở `Temp/PokiShots/forest/`.
 - **Bỏ thoi cỏ có viền dưới chân cây và công trình** cho hình hoà vào đất (`ArtGen/Home/foot_strip.py`, dùng ở `trees/pack_trees.py` và `import_home.py`; người dùng nhắc lại vì công trình vẫn còn viền):
   - đo thoi bằng cách dò từ mũi dưới lên: bề ngang tăng đều cho tới mũi trái, phải. Thoi vẽ tay cao khoảng 0,54 tới 0,59 bề ngang, không đúng 2:1;
   - loang từ nền thoi qua màu nền (nền sáng, nét chì xanh của nền) để xoá nền. Không lọc thẳng theo màu được, vì nét chì nền trùng màu rêu, lá;

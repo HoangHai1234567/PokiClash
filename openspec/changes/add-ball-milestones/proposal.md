@@ -49,7 +49,7 @@ Chủ dự án (2026-11-05), xem màn Máy bi trên điện thoại:
 - **Unity, code:**
   - `Core/BalanceConfig.cs` (`XStep.balls`, `GiftStep`, `gifts`), `Core/Progress.cs` (`XAllowed` theo bi, `XBest`), `Core/Pachinko.cs` (`GiftNow`, `GiftAt`, `GiftCredit`, `GiftAdd`, `GiftName`), `Core/SaveData.cs`, `Core/ProgressSim.cs`;
   - `App/Scenes/MachineScene.cs`, `App/Scenes/MachineRatesDialog.cs`, `App/Dialogs.cs`, `Game/Machine/MachineExpBar.cs`;
-  - `Editor/MachineCabinetMenu.cs` (`khung_thanh`), `Editor/MachineGiftMenu.cs` (mới, menu "PokiClash/Prefab/Khác/Máy bi∕mốc quà"), `Editor/PlayTour.cs` (tour "Máy bi: mốc quà, cược theo số bi"), `Tests/PachinkoTests.cs`.
+  - `Editor/MachineCabinetMenu.cs` (`khung_thanh`), `Editor/MachineGiftMenu.cs` (mới, menu "PokiClash/Prefab/Máy bi/mốc quà"), `Editor/PlayTour.cs` (tour "Máy bi: mốc quà, cược theo số bi"), `Tests/PachinkoTests.cs`.
 - **Dữ liệu:** `Json/balance.json` (khối `progression.xSteps`, `pachinko.gifts`) → `BalanceConfig.asset` qua "PokiClash/Nhập dữ liệu". Golden không đổi.
 - **Prefab:** `Screens/Machine` (`khung_thanh`, `o_qua`, thanh mốc gốc giữa có nút).
 - **Ảnh:** `Assets/03 Art/Pachinko/pk_ranh_exp.png` (585 × 55, cắt từ thân máy), `ArtGen/Pachinko/refs/ranh_exp.json`.

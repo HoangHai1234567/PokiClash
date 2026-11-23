@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
     {
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Khác/Máy bi∕soi hiệu ứng (đang Play)", priority = 113)]
+        [MenuItem("PokiClash/Thử/Máy bi/soi hiệu ứng (đang Play)", priority = 113)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -22,7 +22,7 @@ namespace PokiClash.EditorTools
         }
 
         // hộp "Tỉ lệ của máy": vào máy bi, bấm nút "i" (nut_ti_le), chụp, đóng
-        [MenuItem("PokiClash/Thử/Khác/Máy bi∕hộp tỉ lệ (đang Play)", priority = 114)]
+        [MenuItem("PokiClash/Thử/Máy bi/hộp tỉ lệ (đang Play)", priority = 114)]
         static void TryRates()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

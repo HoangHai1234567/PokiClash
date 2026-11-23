@@ -31,7 +31,7 @@ namespace PokiClash
         [SerializeField] HeroPortrait portrait;
         [SerializeField] Image flash;
         // hạt chồng lớp (HatLua, bộ Hỏa 2026-11-10): lớp chứa trong khung cắt, neo giữa đáy ô; gán bằng menu
-        // "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chi tiết tướng: hạt lửa + nút Mana". Tướng Hỏa: Chiêu nổ tuyệt kỹ hạt, Mana bắn chiêu mana hạt,
+        // "PokiClash/Prefab/Hộp thoại và màn/Hộp chi tiết tướng: hạt lửa + nút Mana". Tướng Hỏa: Chiêu nổ tuyệt kỹ hạt, Mana bắn chiêu mana hạt,
         // vào một điểm đích ảo trước mặt (bảng chiêu ở StageView.FireFx)
         [SerializeField] Image hatPrefab;
         [SerializeField] RectTransform hatFloor, hatBack, hatFront;

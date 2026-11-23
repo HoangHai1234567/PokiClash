@@ -18,7 +18,7 @@
 // mây nhân CloudTint × màu cảnh như mây sảnh; tàu nhân màu cảnh, đêm thắp đèn lồng.
 // Canvas riêng thứ tự 9 (dưới thanh trên 10: thanh trên đứng yên như giao diện, thế giới trôi); màn tải 15 (che thanh trên).
 // SceneRouter dùng lớp này thay màn mây CloudCover khi Takes(cũ, mới) đúng. Không sinh GameObject lúc chạy: mây, sóng, bọt là ảnh dựng
-// sẵn trong prefab (menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải", Editor/ShipBuild.cs).
+// sẵn trong prefab (menu "PokiClash/Prefab/Sảnh và đảo/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải", Editor/ShipBuild.cs).
 using System.Collections;
 using System.Collections.Generic;
 using PokiClash.Core;

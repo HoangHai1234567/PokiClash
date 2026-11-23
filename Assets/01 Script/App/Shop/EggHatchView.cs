@@ -1,5 +1,5 @@
 // Màn nở trứng capsule (người dùng 2026-11-23, GD_Claude/26 mục 13): prefab Assets/04 Prefabs/Items/NoTrung (UiKit.eggHatch, menu
-// "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"), mở chồng trên mọi hộp (canvas riêng). Một quả: trứng rơi vào giữa, tia sáng màu bậc xoay sau
+// "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"), mở chồng trên mọi hộp (canvas riêng). Một quả: trứng rơi vào giữa, tia sáng màu bậc xoay sau
 // lưng, lắc ba nhịp mạnh dần (nở lên bậc trên thì nhịp hai chớp trắng, đổi sang trứng bậc mới, chữ "NÂNG BẬC!"), vòm bật lên theo đường
 // nối capsule, thân rơi xuống, chớp trắng + vòng toả + sao bắn, ô mảnh tướng nảy ra giữa, tên tướng và bậc; chạm để sang quả kế.
 // Nhiều quả (tới 10): mỗi quả chạy nhanh không chờ chạm, xong hiện bảng tổng (gộp theo tướng) và nút Nhận; "Bỏ qua" nhảy tới bảng tổng.

@@ -1,7 +1,7 @@
 // Nước chảy bản đồ sảnh (ArtGen/Islands/sanh_moi/nuoc_dong.py; người dùng 2026-11-23 "nước suối vẫn hơi tĩnh, học Kingdom Rush 5").
 // - Cách nhập trường dòng chảy Baked/Islands/Resources/sanh_nuoc_<đảo>_hc.png: số, không sRGB, không nén, không mipmap, bilinear, kẹp
 //   mép (ArtPostprocessor bỏ qua thư mục Baked).
-// - Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: nước chảy (material, danh mục ảnh)": mỗi trường một material Islands/Resources/sanh_nuoc_<đảo>.mat (shader
+// - Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh: nước chảy (material, danh mục ảnh)": mỗi trường một material Islands/Resources/sanh_nuoc_<đảo>.mat (shader
 //   PokiClash/UIFlowWater, _FlowTex), dựng lại danh mục ảnh (ảnh phủ sanh_nuoc_<đảo>, bọt anim_bot_*, vòng gợn, lấp lánh). IslandAnim
 //   (khoá world_map, "flows") nạp material bằng Resources.Load khi vào sảnh: không phải sửa prefab.
 // Chạy lại sau mỗi lần chạy nuoc_dong.py.
@@ -48,7 +48,7 @@ namespace PokiClash.EditorTools
             return path.StartsWith(FlowDir + "/sanh_nuoc_") && path.EndsWith("_hc.png");
         }
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: nước chảy (material, danh mục ảnh)", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh: nước chảy (material, danh mục ảnh)", priority = 64)]
         public static void Build()
         {
             var shader = Shader.Find("PokiClash/UIFlowWater");

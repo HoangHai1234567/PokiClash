@@ -278,7 +278,7 @@ Cây bi trong Nhà (người dùng 2026-11-23: gộp thẻ Cây bi của sảnh 
 - G3a–G3c lặp: bấm Thôi hay Xong giữa chừng thì lần sau dẫn lại; xong hẳn khi đã đặt cây (cờ `g3t`). G3d cờ `g3h`. Thuộc nhóm gợi ý, tắt được bằng công tắc "Gợi ý".
 - Chạm cây trúng cả tán lá, không chỉ ô dưới chân (`HomeScene.HitAt`).
 - Code: `HomeScene.Tutor`, `TreeTrayItem`, `HitAt`.
-- Thử: menu `PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: hướng dẫn đặt Cây bi, chạm tán lá (đang Play)` (`Editor/HomeTreeTour.cs`). Tour giả người chơi mới vừa mở Nhà, đi G3a → G3d, chụp `Temp/PokiShots/30x_cay_*.png`, chạm một điểm trên tán lá ngoài các ô dưới chân và kiểm số bi tăng, xong trả lại bản lưu.
+- Thử: menu `PokiClash/Thử/Nhà và side meta/Nhà: hướng dẫn đặt Cây bi, chạm tán lá (đang Play)` (`Editor/HomeTreeTour.cs`). Tour giả người chơi mới vừa mở Nhà, đi G3a → G3d, chụp `Temp/PokiShots/30x_cay_*.png`, chạm một điểm trên tán lá ngoài các ô dưới chân và kiểm số bi tăng, xong trả lại bản lưu.
 
 ### Chặng H: Mở dần (ngày 3 trở đi)
 
@@ -446,7 +446,7 @@ Người dùng bảo "ok làm đi": làm theo đề xuất của câu 1–8; câ
   - `ZoneScene`, `StagePrepDialog`, `BattleController`, `BattleResultDialog`, `MachineScene`, `MachineChestOpen`, `HeroesScene`, `HeroDetailDialog`, `TopBars` (nút AFK ẩn tới F1).
   - `Dialogs.LevelUp`: dòng thứ hai ghi "Mọi tướng mạnh hơn x%" và tính năng vừa mở.
   - `ShipVoyage`: mẹo màn tải lọc theo trang đã mở.
-- **Cách chơi:** `App/HowToDialog.cs`, prefab `Dialogs/CachChoi`, dòng "Cách chơi" ở Sổ tay (menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn: hộp Cách chơi, dòng Sổ tay`).
+- **Cách chơi:** `App/HowToDialog.cs`, prefab `Dialogs/CachChoi`, dòng "Cách chơi" ở Sổ tay (menu `PokiClash/Prefab/Hộp thoại và màn/Hướng dẫn: hộp Cách chơi, dòng Sổ tay`).
 - **Dữ liệu (câu 3):**
   - `cards.json`: cấp 1 còn 6 thẻ (Ném Đá, Cắn Xé, Mài Vuốt, Đứng Tấn, Băng Gạc, Hít Thở);
   - 16 thẻ dời sang cấp 2–10: Gầm Gừ, Thủ Thế 2; Hạt Dẻ, Nhảy Lùi 3; Phóng Lông, Bình Thuốc, Giáp Gỗ 4; Kim Độc, Bánh Bao Thịt 5; Tung Cát, Tĩnh Tâm 6; Gai Nhọn, Vùng Dậy 8; Liều Mạng 9; Cuồng Nộ, Phá Giáp 10.
@@ -519,16 +519,16 @@ Cậu cũng nói lời dẫn trong hướng dẫn (`Guide.SayMe`): câu chào đ
   - Hết ô 3 thì trang 2 trượt vào từ phải, giữa hai trang lộ nền mực. Chạm sau ô 6 thì mờ dần, xong.
   - Sau 1,4 giây không chạm thì hiện "Chạm để tiếp tục" (chữ giấy viền mực, giữa đáy).
 - Nhạc chủ đề (`chude`) như màn tải.
-- Xem lại: Sổ tay → dòng "Cốt truyện mở đầu" → nút "Xem" (thêm 2026-11-23, menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Cốt truyện`), hoặc Sổ tay → Cách chơi → nút "Xem lại cốt truyện".
-- Trong Editor: menu `PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: xem lại`. Chưa Play thì tự mở `Boot.unity`, vào Play, bỏ màn mở game, chờ màn tải xong rồi mở cốt truyện; bản lưu không đổi.
+- Xem lại: Sổ tay → dòng "Cốt truyện mở đầu" → nút "Xem" (thêm 2026-11-23, menu `PokiClash/Prefab/Hộp thoại và màn/Sổ tay: thêm dòng Cốt truyện`), hoặc Sổ tay → Cách chơi → nút "Xem lại cốt truyện".
+- Trong Editor: menu `PokiClash/Thử/Người chơi mới/Cốt truyện mở đầu: xem lại`. Chưa Play thì tự mở `Boot.unity`, vào Play, bỏ màn mở game, chờ màn tải xong rồi mở cốt truyện; bản lưu không đổi.
 
 ### Code, prefab
 
 - `App/StoryIntro.cs`: bố cục ô (`Quad`, `Divider`, `Focus`), tính lúc chạy theo cỡ màn (`Layout`).
 - `App/ComicPanel.cs`: Graphic vẽ tranh trong tứ giác, phủ kín khung bao, có điểm lấy nét, trôi trong ô.
 - `Editor/StoryIntroMenu.cs`:
-  - menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Cốt truyện mở đầu (CotTruyen)` dựng `Assets/04 Prefabs/Screens/CotTruyen.prefab` (canvas thứ tự 25) và gán `App.storyPrefab`;
-  - menu thử `PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: xem lại` và `…: chạm hết và chụp từng khung` (ảnh ở `Temp/PokiShots/cot_truyen/`).
+  - menu `PokiClash/Prefab/Hộp thoại và màn/Cốt truyện mở đầu (CotTruyen)` dựng `Assets/04 Prefabs/Screens/CotTruyen.prefab` (canvas thứ tự 25) và gán `App.storyPrefab`;
+  - menu thử `PokiClash/Thử/Người chơi mới/Cốt truyện mở đầu: xem lại` và `…: chạm hết và chụp từng khung` (ảnh ở `Temp/PokiShots/cot_truyen/`).
 - `Core/Tutorial.cs`: `Story = "a0"`, `StoryNeeded`.
 - `App/App.cs`: `storyPrefab`, nhánh trong `Go()`, `Booting` tính cả cốt truyện, Back = bỏ qua.
 - `App/AudioService.cs`: nhạc chủ đề khi cốt truyện mở.
@@ -544,7 +544,7 @@ Cậu cũng nói lời dẫn trong hướng dẫn (`Guide.SayMe`): câu chào đ
   - lượt 2: khung 1 và 3;
   - lượt 3: khung 4, 5, 6.
 - Lượt 2 và 3 chỉ dựng sau khi duyệt khung 2 (`--duyet 2`).
-- `--nhap` cũng chép chân dung (cắt sát, cạnh dài 512) vào `Assets/03 Art/Story/nhan_vat.png`; rồi chạy menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn người mới (lớp phủ)`.
+- `--nhap` cũng chép chân dung (cắt sát, cạnh dài 512) vào `Assets/03 Art/Story/nhan_vat.png`; rồi chạy menu `PokiClash/Prefab/Hộp thoại và màn/Hướng dẫn người mới (lớp phủ)`.
 - `--nhap` thu ảnh về cạnh dài 1024 rồi ghi vào `Assets/03 Art/Story/khung_k.png`. Sau đó chạy lại menu dựng prefab.
 - Khung chưa có tranh thì tạm dùng nền trận hoặc bản đồ có sẵn.
 

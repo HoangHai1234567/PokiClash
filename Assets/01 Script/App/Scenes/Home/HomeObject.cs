@@ -1,4 +1,4 @@
-// Một vật trên bản đồ Nhà (prefab Items/NhaVat, dựng bằng menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn"): công trình, trang trí, khối rừng,
+// Một vật trên bản đồ Nhà (prefab Items/NhaVat, dựng bằng menu "PokiClash/Prefab/Nhà và side meta/Nhà: dựng màn"): công trình, trang trí, khối rừng,
 // bóng ma lúc xây. Ảnh neo ở góc dưới chân thoi (pivot lấy từ home_art.json); nhãn nổi trên đầu (tên, cấp, giờ còn lại); bong bóng
 // báo có đồ để thu (Cây bi: bong bóng có số bi đang có, kiểu Clash of Critters). HomeScene đặt vị trí, cỡ và thứ tự vẽ.
 // - Chọn (người dùng 2026-11-22): nhún (Bounce: nén rồi giãn quanh chân, tắt dần) và đổi vật liệu sáng nhẹ PokiClash/UIHomeSelect

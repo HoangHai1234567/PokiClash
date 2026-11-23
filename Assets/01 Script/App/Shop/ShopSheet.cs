@@ -1,4 +1,4 @@
-// Tờ popup ưu đãi (prefab Assets/04 Prefabs/Dialogs/CuaHang, biến thể tờ giấy gốc HopThoai; menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"):
+// Tờ popup ưu đãi (prefab Assets/04 Prefabs/Dialogs/CuaHang, biến thể tờ giấy gốc HopThoai; menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"):
 // mọi popup (ưu đãi hẹn giờ, Hết bi, Lọ Bi, Chuỗi Quà, quà hôm nay, Quà Trở Lại, giới thiệu thẻ / quỹ) và các trang con (quỹ, chuỗi,
 // chọn tướng bằng vé): tiêu đề, dòng phụ, danh sách ô gói cuộn dọc (Items/OGoi), ô "Hôm nay không hiện nữa" (popup bán).
 // Cửa hàng chính là màn toàn màn hình ShopPage (2026-11-23); hàng tab của tờ này không dùng nữa. GD_Claude/26 mục 5–7, 13.

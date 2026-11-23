@@ -19,7 +19,7 @@ namespace PokiClash.EditorTools
         // khung nhìn theo pixel rig (tâm x, tâm y, rộng, cao), trùng với tờ khung Spine để so từng khung
         static readonly Vector4 View = new Vector4(-20, 470, 1900, 1500);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Atomik: dựng scene Hải Long (7 clip) và chụp khung")]
+        [MenuItem("PokiClash/Thử/Tướng/Atomik: dựng scene Hải Long (7 clip) và chụp khung")]
         public static void BuildScene()
         {
             var rig = AssetDatabase.LoadAssetAtPath<AtomikAsset>(RigPath);

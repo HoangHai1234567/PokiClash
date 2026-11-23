@@ -1,5 +1,5 @@
 // Bản đồ thế giới ở sảnh (người dùng 2026-11-19; ArtGen/Islands/sanh_moi/build_sanh.py ghi world_map.png, hub_map.json và khoá
-// world_map của island_anim.json). Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh bản đồ thế giới (mây, điểm bấm)" sửa Screens/Hub:
+// world_map của island_anim.json). Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh bản đồ thế giới (mây, điểm bấm)" sửa Screens/Hub:
 // - ảnh "dao" thành world_map, cỡ hub_map.view (rộng hơn khung 1080 x 1920 cả hai chiều), giữa khung; HubPan kéo được 4 hướng tới mép
 //   ảnh; nền ngoài ảnh (biển, hai bên) thành màu giấy như vành mây vẽ sẵn của ảnh; tắt vành mây cũ "may_vien";
 // - phần động "dong" (IslandAnim) và đèn đêm (DayNight) đọc khoá world_map;
@@ -134,7 +134,7 @@ namespace PokiClash.EditorTools
             rt.offsetMin = rt.offsetMax = Vector2.zero;
         }
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh bản đồ thế giới (mây, điểm bấm)", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh bản đồ thế giới (mây, điểm bấm)", priority = 63)]
         static void Build()
         {
             foreach (var n in new[] { "sanh_bien", "sanh_dao_thuy", "sanh_dao_hoa", "sanh_dao_kim", "sanh_dao_moc", "sanh_dao_tho" })

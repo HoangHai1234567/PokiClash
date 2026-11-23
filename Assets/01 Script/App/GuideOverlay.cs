@@ -1,5 +1,5 @@
 // Lớp phủ hướng dẫn người mới (GD_Claude/25_FTUE.md). Prefab Assets/04 Prefabs/Kit/HuongDan nằm trong App.prefab trên canvas riêng
-// (thứ tự 30: trên thanh trên, hộp thoại và mây), dựng bằng menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn người mới (lớp phủ)".
+// (thứ tự 30: trên thanh trên, hộp thoại và mây), dựng bằng menu "PokiClash/Prefab/Hộp thoại và màn/Hướng dẫn người mới (lớp phủ)".
 // - Ép (Force): 4 dải tối quanh lỗ khoét đúng chỗ cần chạm; chạm lọt qua lỗ xuống nút thật (canvas này không có gì ở lỗ), chạm
 //   ra ngoài bị dải nuốt. Nhả tay trong lỗ là xong bước.
 // - Khoanh (Hint): vòng bút chì và ghi chú, không chặn chạm; xong khi chạm trong vòng hoặc hết giờ.

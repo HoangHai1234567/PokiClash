@@ -1,5 +1,5 @@
 // Thử chống thông báo dồn (ToastService, người dùng báo 2026-11-04: bấm liên tục ở máy bi khi hết bi thì thông báo chồng thành cột).
-// Menu "PokiClash/Thử/Khác/Giao diện∕Thông báo dồn (đang Play)": gọi 8 lần cùng một thông báo rồi 5 thông báo khác nhau, đếm số thông báo đang hiện
+// Menu "PokiClash/Thử/Giao diện/Thông báo dồn (đang Play)": gọi 8 lần cùng một thông báo rồi 5 thông báo khác nhau, đếm số thông báo đang hiện
 // (đúng: 1 sau loạt trùng; tối đa ToastService.MaxShown sau loạt khác nhau) và chụp màn vào Temp/PokiShots/x_thong_bao_don_*.png.
 using System.Collections;
 using System.IO;
@@ -10,7 +10,7 @@ namespace PokiClash.EditorTools
 {
     public static class ToastCheckMenu
     {
-        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Thông báo dồn (đang Play)", priority = 301)]
+        [MenuItem("PokiClash/Thử/Giao diện/Thông báo dồn (đang Play)", priority = 301)]
         static void Run()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

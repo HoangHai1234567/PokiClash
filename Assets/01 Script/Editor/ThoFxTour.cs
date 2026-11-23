@@ -18,14 +18,14 @@ namespace PokiClash.EditorTools
         static readonly string[] Nam = { "thach_nhan", "lung_vuong", "cao_da", "ho_khoan", "phu_van" };
         static readonly string[] HaiRig = { "thach_nhan", "lung_vuong", "cao_da", "ho_khoan" };
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕DẠNG 2 của 4 tướng (sao 6) lần lượt, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/DẠNG 2 của 4 tướng (sao 6) lần lượt, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryDang2()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(RunAll(HaiRig, 6));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕TIẾN HOÁ 4 tướng (hộp chi tiết, nút hack, clip evolve) (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/TIẾN HOÁ 4 tướng (hộp chi tiết, nút hack, clip evolve) (đang Play)", priority = 125)]
         static void TryTienHoa()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -37,7 +37,7 @@ namespace PokiClash.EditorTools
         // Chỉ sửa dữ liệu trong bộ nhớ lúc Play (không ghi file), trả lại cấp cũ khi xong. Ảnh tho_fx/dich_<tướng>_<dạng>_<đòn>_<n>.jpg
         static readonly (string hero, int stage)[] AiMoDau = { ("thach_nhan", 281), ("lung_vuong", 285), ("cao_da", 290), ("ho_khoan", 295) };
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕4 tướng dạng 2 ở PHE ĐỊCH (trên sân), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/4 tướng dạng 2 ở PHE ĐỊCH (trên sân), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryPheDich()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -174,7 +174,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong tiến hoá đảo Thổ: " + thu);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕cả 5 tướng đầu lần lượt, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/cả 5 tướng đầu lần lượt, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryCaNam()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -182,42 +182,42 @@ namespace PokiClash.EditorTools
         }
 
         // Thạch Giáp (tatu mai đá hổ phách, suất thach_nhan ải 1, rig cong_da_1)
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Thạch Giáp, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Thạch Giáp, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryThachGiap() => Try("thach_nhan", 1);
 
         // Sa Tích (thằn lằn áo choàng đất nung, suất lung_vuong ải 5, rig than_lan_cat_1)
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Sa Tích, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Sa Tích, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySaTich() => Try("lung_vuong", 1);
 
         // Tê Thiềm (cóc tê giác đất nung, suất cao_da ải 10, rig thu_da_1)
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Tê Thiềm, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Tê Thiềm, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryTeThiem() => Try("cao_da", 1);
 
         // Sa Long (rồng giáp sa thạch, suất ho_khoan ải 15, rig rong_cat_1)
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Sa Long, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Sa Long, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySaLong() => Try("ho_khoan", 1);
 
         // Sơn Viên (vượn núi đá bốn tay, suất phu_van ải 20, rig quy_nui_1)
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Sơn Viên, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Sơn Viên, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySonVien() => Try("phu_van", 1);
 
         // Cổ Vương (tượng vua cổ rễ quấn cầm cột, suất hat_de ải 30, rig tuong_cot_1; dạng 1 Cổ Vương Nhi rig tuong_cot_non; 2026-11-19 chuyển
         // từ suất gio_loc đảo Mộc về đây): sao 1 = dạng 1, sao 6 = dạng 2
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Cổ Vương Nhi (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Cổ Vương Nhi (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryCoVuongNhi() => Try("hat_de", 1);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Cổ Vương (sao 6), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Cổ Vương (sao 6), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryCoVuong() => Try("hat_de", 6);
 
         // Sa Trùng (sâu cát khổng lồ, suất rua_nui ải 40, rig sau_dat_1; 2026-11-17): sao 6 = dạng 2
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Sa Trùng (sao 6), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Sa Trùng (sao 6), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySaTrung() => Try("rua_nui", 6);
 
         // Sa Trùng Nhi (dạng 1, rig sau_dat_non cùng rig dạng 2, concept B 2026-11-17): sao 1
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Sa Trùng Nhi (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Sa Trùng Nhi (sao 1, dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySaTrungNhi() => Try("rua_nui", 1);
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕TIẾN HOÁ Sa Trùng (hộp chi tiết, nút hack, clip evolve) (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/TIẾN HOÁ Sa Trùng (hộp chi tiết, nút hack, clip evolve) (đang Play)", priority = 125)]
         static void TryTienHoaSaTrung()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -225,7 +225,7 @@ namespace PokiClash.EditorTools
         }
 
         // Sa Trùng ở PHE ĐỊCH (ải 40 đảo Thổ = ải 320, cấp 35): sâu lặn sang trồi dưới chân đội mình, soi mặt nạ đất và tràn mép
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕Sa Trùng ở PHE ĐỊCH (trên sân), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/Sa Trùng ở PHE ĐỊCH (trên sân), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TrySaTrungDich()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -236,21 +236,21 @@ namespace PokiClash.EditorTools
         // ra sân (dựng lại tướng cho clip appear chạy), đòn thường, chiêu mana, chiêu cuối 4,3 s (chụp 5 s). Bản "hạ gục" gọi Hurt + Number +
         // KnockDown đối thủ ở khung trúng (như BattlePlayer khi cú này hạ gục): đối thủ phải ẩn trong bụng, bị nhổ, đáp rồi mới chết.
         // Ảnh tho_fx/bun_<ta|dich>_<ra|danh|mana|ult|guc>_<n>.jpg
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Bùn Ngoạm (ải 50), ra sân, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/riêng Bùn Ngoạm (ải 50), ra sân, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryBunNgoam()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(RunBun(false, false));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕Bùn Ngoạm ở PHE ĐỊCH (ải 50, boss), ra sân, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/Bùn Ngoạm ở PHE ĐỊCH (ải 50, boss), ra sân, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryBunNgoamDich()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(RunBun(true, false));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕Bùn Ngoạm, chiêu cuối HẠ GỤC đối thủ (chết sau khi bị nhổ, đáp) (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Thổ/Bùn Ngoạm, chiêu cuối HẠ GỤC đối thủ (chết sau khi bị nhổ, đáp) (đang Play)", priority = 125)]
         static void TryBunNgoamGuc()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

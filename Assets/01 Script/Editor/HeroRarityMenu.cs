@@ -1,5 +1,5 @@
 // Màn Tướng: độ hiếm rõ, lọc và xếp (người dùng dặn 2026-11-17, GD_Claude/20_TangDayNoiDung.md, dòng E). Menu
-// "PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: độ hiếm, lọc và xếp" sửa prefab (chạy lại thì dựng lại, không nhân đôi):
+// "PokiClash/Prefab/Hộp thoại và màn/Màn Tướng: độ hiếm, lọc và xếp" sửa prefab (chạy lại thì dựng lại, không nhân đôi):
 // - Items/TheTuong (HeroTile): giấy lót "giay" trong thẻ (thẻ thành khung ngoài tô màu độ hiếm, HeroTile lùi giấy vào Theme.RarityInset px),
 //   đường chỉ khâu chuyển vào giấy; chữ độ hiếm thành viên "nhan_hiem" (màu độ hiếm, chữ trắng viền mực); vương miện "vuong_mien" ở mép
 //   trên (Huyền thoại, thở nhẹ; băng keo ẩn); dải hệ, tên thu vào trong giấy;
@@ -37,7 +37,7 @@ namespace PokiClash.EditorTools
 
         static Sprite Icon(string n) => art ? art.Icon(n) : null;
 
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: độ hiếm, lọc và xếp", priority = 67)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Màn Tướng: độ hiếm, lọc và xếp", priority = 67)]
         static void Build()
         {
             var assets = Load<UiAssets>();

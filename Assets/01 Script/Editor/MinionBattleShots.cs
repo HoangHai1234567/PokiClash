@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => PlayTour.ShotDir;
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Quái lính: trận có lính mỗi đảo, chụp khung (đang Play)", priority = 129)]
+        [MenuItem("PokiClash/Thử/Tướng/Quái lính: trận có lính mỗi đảo, chụp khung (đang Play)", priority = 129)]
         static void Run()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

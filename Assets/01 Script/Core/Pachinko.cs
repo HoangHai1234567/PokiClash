@@ -313,7 +313,7 @@ namespace PokiClash.Core
         public int OutcomeOf(PEvent e) => e.cup ? slots.Count + cups.FindIndex(c => c.reward == e.reward) : e.slot;
 
         // hình học bàn (toạ độ máy) cho script ghép ảnh mặt máy tĩnh ArtGen/Pachinko/ghep_ban.py, ghi ở ArtGen/Pachinko/refs/mat_may.json
-        // (menu "PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy"; test MatMay_AnhGhepKhopHinhHoc báo khi file lệch code)
+        // (menu "PokiClash/Prefab/Máy bi/xuất hình học mặt máy"; test MatMay_AnhGhepKhopHinhHoc báo khi file lệch code)
         public string GeometryJson()
         {
             string F(double v) => v.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture);

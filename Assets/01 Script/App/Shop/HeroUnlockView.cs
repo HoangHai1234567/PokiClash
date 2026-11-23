@@ -1,6 +1,6 @@
 // Màn mở khoá tướng mới (người dùng 2026-11-23: "khi unlock được 1 tướng làm phần hoạt ảnh như trong brawl star khi unlock tướng"; học
 // nhịp từ bản mổ D:/Ripper/BrawlStar/Analysis/unlock/BAO_CAO.md, chỉ lấy nhịp và cấu trúc, hình vẽ tay phẳng của PokiClash, không quầng
-// sáng). Prefab Assets/04 Prefabs/Items/MoKhoaTuong (UiKit.heroUnlock, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"), canvas riêng trên mọi hộp.
+// sáng). Prefab Assets/04 Prefabs/Items/MoKhoaTuong (UiKit.heroUnlock, menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"), canvas riêng trên mọi hộp.
 // Vũ đạo một kiểu cho mọi bậc (60 khung/giây, khoá tuyến tính, nảy nhờ khoá vượt rồi về):
 //   1. Tụ lực 0 → 1,0 s: nền mực xanh thẫm, vệt tốc độ dọc lặp 0,18 s, tướng là bóng đặc phóng 0,1 → 1,0 và trôi xuống 90, sao tụ vào;
 //   2. Lấy đà 2 khung: co 1,0 → 0,83;

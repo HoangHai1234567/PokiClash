@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "nha_dem");
 
-        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: tướng chạy rig, đêm sáng nhẹ (12h, 21h) (đang Play)", priority = 142)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà: tướng chạy rig, đêm sáng nhẹ (12h, 21h) (đang Play)", priority = 142)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

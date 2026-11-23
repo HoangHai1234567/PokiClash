@@ -1,4 +1,4 @@
-// Một ô gói trong tờ cửa hàng / popup ưu đãi (prefab Assets/04 Prefabs/Items/OGoi, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"): tờ giấy,
+// Một ô gói trong tờ cửa hàng / popup ưu đãi (prefab Assets/04 Prefabs/Items/OGoi, menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"): tờ giấy,
 // tên, mô tả, hàng món (ô thưởng Items/OThuong thu nhỏ, xuống hàng khi nhiều), nhãn "giá trị ×N" (sticker đỏ), đồng hồ bút chì đếm ngược,
 // nút chính (giá / Nhận / Mở) và nút phụ (×2 quảng cáo, Mở 10), dòng ghi chú, dấu "Đã mua" che ô.
 using System;

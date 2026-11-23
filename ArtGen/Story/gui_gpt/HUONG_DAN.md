@@ -77,4 +77,4 @@
 - Duyệt tờ nhân vật: `py -3 -I ArtGen/Story/build_story.py --duyet nv` → lượt 1 được dựng.
 - Duyệt chân dung: `--duyet cd`. Duyệt khung k: `--duyet k` (lấy ảnh mới nhất trong `tai_ve/`).
 - Duyệt khung 2 thì lượt 2, 3 được dựng.
-- Có ảnh duyệt: `py -3 -I ArtGen/Story/build_story.py --nhap`, rồi menu Unity `PokiClash/Prefab/Khác/Hộp thoại và màn∕Cốt truyện mở đầu (CotTruyen)` (khung) và `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn người mới (lớp phủ)` (chân dung).
+- Có ảnh duyệt: `py -3 -I ArtGen/Story/build_story.py --nhap`, rồi menu Unity `PokiClash/Prefab/Hộp thoại và màn/Cốt truyện mở đầu (CotTruyen)` (khung) và `PokiClash/Prefab/Hộp thoại và màn/Hướng dẫn người mới (lớp phủ)` (chân dung).

@@ -4,7 +4,7 @@
 // Dãy chưa mở ghi điều kiện. Trận mở hộp chuẩn bị dùng chung với đảo.
 // Prefab màn hình Assets/04 Prefabs/Screens/Badges (nền, khung cuộn, khung giới thiệu gioi_thieu/chu); mỗi bệ là bản sao prefab
 // Items/BenHuyHieu (BadgePedestal), sinh một lần rồi gán lại khi làm mới; danh sách trận là hộp Dialogs/DanhSachTranHuyHieu (BadgeListDialog).
-// 2026-11-17: thanh mốc sao (thanh_moc_sao) do menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Đền Huy Hiệu: sao trận, chọn bậc, mốc sao" dựng; chưa có thì chỉ chữ.
+// 2026-11-17: thanh mốc sao (thanh_moc_sao) do menu "PokiClash/Prefab/Nhà và side meta/Đền Huy Hiệu: sao trận, chọn bậc, mốc sao" dựng; chưa có thì chỉ chữ.
 using System.Collections.Generic;
 using System.Linq;
 using PokiClash.Core;

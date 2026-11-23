@@ -254,7 +254,7 @@ chỉ mang `q × far` (game tính phần quãng = x / x của far); `la_k` mang 
 - **Lỗi đã gặp**: lúc ra chiêu mana chân và đuôi chim bị cắt ngang. `AolaSticker.Far` dời khung camera nửa quãng về phía đích; đích ở
   trên thì khung dời lên, mất phần dưới chân (khung chỉ có 0,68 chiều cao dưới chân; đuôi chim thõng dưới chân lúc đứng dọc). Sửa (dùng
   chung): đích ở trên chỉ dời lên khi cao quá 1,9 chiều cao (khung sẵn có 2,7 chiều cao phía trên chân); đích ở dưới như cũ.
-- **Soi**: menu "PokiClash/Thử/Khác/Tướng∕Đảo Mộc∕lá găm và thiên thạch đá Linh Điểu, chiêu mana và chiêu cuối từng dạng (đang Play)"
+- **Soi**: menu "PokiClash/Thử/Tướng/Đảo Mộc/lá găm và thiên thạch đá Linh Điểu, chiêu mana và chiêu cuối từng dạng (đang Play)"
   (`MocFxTour.TryChim`), ảnh `Temp/PokiShots/thuy_fx/gio_loc_*`; tờ tổng `inbox/chim_la_1/trong_tran.jpg`. Đã xem (người chơi đánh
   đối thủ phía trên trái, ải 3): tên, thẻ, đâm mỏ, lá bay tới ĐÚNG đối thủ rồi về cánh, thiên thạch hai dạng. CHƯA xem: chim là địch
   (đánh xuống phía người chơi), appear, die, evolve và hộp chi tiết tướng trong game.

@@ -648,7 +648,7 @@ Khi bấm thả mà không đủ bi cho mức cược:
   - **nâng rương** (`chest_upgrade`): khác mục 8.1, màn mở rương tung thưởng trước khi diễn nên không đổi bậc giữa chừng được; thay bằng
     hộp hỏi "xem quảng cáo nâng 1 Rương Gỗ thành Bạc?" một lần mỗi lần vào máy, khi nhóm sắp mở có Rương Gỗ;
   - Sổ tay: mục "Gói hỗ trợ" mua qua `ShopService` (Thẻ Phiêu Lưu, Bỏ quảng cáo nhận cả quà của gói).
-- Menu: `PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết` (`Editor/ShopMenu.cs`); thử (đang Play): `PokiClash/Thử/Cửa hàng: mở`, `popup Hết bi`,
+- Menu: `PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết` (`Editor/ShopMenu.cs`); thử (đang Play): `PokiClash/Thử/Cửa hàng: mở`, `popup Hết bi`,
   `popup Ưu Đãi Bất Ngờ`, `popup Gói Tiếp Sức`, `popup Quà Nhập Môn`, `popup Lọ Bi đầy`, `popup Chuỗi Quà`, `popup Quà hôm nay`,
   `vào game lại`, `đặt lại trạng thái cửa hàng`, `tour chụp` (ảnh ở `Temp/PokiShots/cua_hang/`).
 
@@ -736,7 +736,7 @@ animation gì đó (ulti hoặc appear rồi idle), nhìn hình hơi vỡ, backg
 - Bật ở: nở trứng (ngay sau ô mảnh; nở nhiều thì sau bảng tổng), hộp nhận quà của cửa hàng (vé, gói mảnh), kết quả trận (trừ trận hướng dẫn).
 - Gói tải sau (GD_Claude/27): rig của tướng ngoài 5 dòng khởi đầu nằm trong gói; màn gọi `AolaActor.Ready(form)` lúc mở để xin gói, pha tụ
   lực tạm dùng bóng chân dung, tới lúc bùng mà gói đã về thì đổi sang rig, chưa về thì chân dung.
-- Xem thử: menu `PokiClash/Thử/Khác/Cửa hàng∕Màn mở khoá tướng: xem (ngẫu nhiên)` và theo bậc (Thường … Huyền thoại), `Editor/HeroUnlockMenu.cs`: chưa
+- Xem thử: menu `PokiClash/Thử/Cửa hàng/Màn mở khoá tướng: xem (ngẫu nhiên)` và theo bậc (Thường … Huyền thoại), `Editor/HeroUnlockMenu.cs`: chưa
   Play thì tự mở Boot, vào Play, tắt màn mở game; chọn ngẫu nhiên tướng đúng bậc có rig, chờ gói tối đa 10 giây; không ghi bản lưu.
 
 ### Kiểm

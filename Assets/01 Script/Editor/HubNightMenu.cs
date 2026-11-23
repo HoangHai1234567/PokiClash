@@ -1,6 +1,6 @@
 // Đèn đêm các đảo trên bản đồ sảnh (người dùng 2026-11-20: "buổi đêm các đảo sáng lên và người chơi cần phải biết là click được vào đảo,
 // ban ngày thì không cần sáng, chiều tối thì cần; không dùng mũi tên"; chọn cách 3 + 4: mặt nạ phát sáng + đuốc thắp bằng shader).
-// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: đèn đêm các đảo (đuốc, chỗ phát sáng)" sửa Screens/Hub (HubMapMenu cũng gọi Apply khi dựng lại bản đồ):
+// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh: đèn đêm các đảo (đuốc, chỗ phát sáng)" sửa Screens/Hub (HubMapMenu cũng gọi Apply khi dựng lại bản đồ):
 // - lớp "den_dao" phủ đúng ảnh bản đồ "dao", nằm NGAY TRÊN lớp nhuộm "sang_toi" (nên lửa, chỗ phát sáng không bị nhuộm tối), dưới lop_tren;
 // - mỗi đảo một nhóm "dem_<hệ>" trùng khung ảnh đảo (gốc ở chân đảo như "dao_<hệ>"), HubIslandArt nhún nhóm cùng đảo và ẩn khi đảo chưa mở;
 //   trong nhóm: "phat" (sanh_phat_<hệ>, shader UIIslandEmit, màu Image = màu hệ pha trắng: phần sáng thêm), "duoc_<i>" / "den_<i>" (Image
@@ -37,7 +37,7 @@ namespace PokiClash.EditorTools
         // độ sáng thêm của chỗ phát sáng theo đảo (nhân màu hệ); thân cây thần Mộc rộng, sáng đủ thì chói
         static readonly Dictionary<Elem, float> EmitBoost = new Dictionary<Elem, float> { { Elem.Moc, 0.45f } };
 
-        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: đèn đêm các đảo (đuốc, chỗ phát sáng)", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh: đèn đêm các đảo (đuốc, chỗ phát sáng)", priority = 64)]
         static void Build()
         {
             var contents = PrefabUtility.LoadPrefabContents(HubPath);

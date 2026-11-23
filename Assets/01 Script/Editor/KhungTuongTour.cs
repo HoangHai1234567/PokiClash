@@ -6,7 +6,7 @@ namespace PokiClash.EditorTools
 {
     public static class KhungTuongTour
     {
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Khung tướng: chiêu có cú lao lớn, 5 tướng (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Tướng/Khung tướng: chiêu có cú lao lớn, 5 tướng (đang Play)", priority = 126)]
         static void Try() => HoaFxTour.TryOnly("su_tu_lua", "tho_hoang", "ha_ba", "huyen_viem", "bo_cap");
     }
 }

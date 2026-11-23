@@ -1,6 +1,6 @@
 // Nút tròn icon của màn Nhà (kiểu nút thao tác của Clash of Critters, GD_Claude/22_Critters_Home.md mục 7): biến thể prefab của
 // Kit/Nut_Tron (nút sticker lõi màu), thêm icon giữa nút, chữ ngắn dưới nút (trắng viền mực cho đọc được trên bản đồ), dòng giá
-// dưới chữ và chấm đỏ góc trên. Prefab Items/NutVongNha dựng bằng menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters"
+// dưới chữ và chấm đỏ góc trên. Prefab Items/NutVongNha dựng bằng menu "PokiClash/Prefab/Nhà và side meta/Nhà: giao diện kiểu Critters"
 // (Editor/HomeSceneMenu.cs). Dùng cho vòng nút quanh vật đang chọn (HomeRing) và hàng nút dưới màn Nhà.
 // Nút khoá (thiếu gỗ, thợ bận...): mờ, chạm thì lắc + kêu lỗi (SketchButton) và gọi denied (báo lý do).
 using System;

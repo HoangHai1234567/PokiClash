@@ -512,11 +512,11 @@ Từ 2026-11-03 làm ở Unity, bản web chỉ làm khi người dùng yêu c�
 | `Core/Progress.cs`, `Badges.cs`, `Trees.cs` | Bi ải 70, rương 7 cái, xong đảo theo cỡ đảo, đền và dãy huy hiệu theo cỡ đảo và mini boss đầu |
 | `Core/Battle/Teams.cs` | `Enemy(st, d)` gắn phần cộng của địch |
 | `App/Scenes/ZoneScene.cs` | Đường mòn, chấm ải, rương theo tỉ lệ. Chạm chấm hay bệ mở hộp chuẩn bị của đúng ải đó, ải khoá cũng xem được (bảng chặng bỏ 2026-11-03). Bản đồ dài (2026-11-03, `ZoneDef.path`, `stops`, `plates`): bản đồ rộng 1,27 màn, đường mòn theo con đường cát của ảnh, bệ ải tướng cỡ thật ở bãi của ảnh, bảng tên ngược phía địa danh. Đảo chưa có bản đồ dài: bản đồ ×3, bệ thu nhỏ 0,75 |
-| `ZonePip`, `ZoneChapterRow`, `ZoneChapterDialog` | Prefab `Items/ChamAi`, `Items/DongChang`, `Dialogs/BangChang`, dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải (ChamAi, DongChang, BangChang)`. Bảng chặng không mở nữa từ 2026-11-03 |
+| `ZonePip`, `ZoneChapterRow`, `ZoneChapterDialog` | Prefab `Items/ChamAi`, `Items/DongChang`, `Dialogs/BangChang`, dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Đảo 70 ải (ChamAi, DongChang, BangChang)`. Bảng chặng không mở nữa từ 2026-11-03 |
 | `StagePrepDialog`, `PrepFoe`, `ZoneEnemy` | Nhãn kiểu ải, dòng "Mặt nước in bóng…", "Cường hóa +x%", "Yếu hơn x%", "Lính, không thu phục", máu boss tính cả phần cộng. Từ 2026-11-03: lực chiến từng đối thủ, dòng so lực chiến địch / đội bạn, thưởng là ô hình (`RewardTile`), ải khoá chỉ xem |
 | `Tests/IslandTests.cs` | So từng ải với golden: kiểu ải, chặng, bi, đội địch, phần cộng khớp từng bit |
 | `Editor/PlayTour.cs` | Menu `PokiClash/Thử/Đảo 70 ải: …` chụp màn đảo, hộp chuẩn bị (chạm chấm), trận có lính |
-| `Editor/IslandGen.cs`, `IslandGenMenu.cs` (2026-11-05) | Bộ sinh 70 ải chép từ `islands.ts`, với % cường hóa đảo Thủy hiện tại; kế hoạch đảo Thủy, Hỏa, Mộc (`IslandGen.Thuy`, `Hoa`, `Moc`); menu `PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc)`, menu `PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden islands, roster, cardtext, zones` |
+| `Editor/IslandGen.cs`, `IslandGenMenu.cs` (2026-11-05) | Bộ sinh 70 ải chép từ `islands.ts`, với % cường hóa đảo Thủy hiện tại; kế hoạch đảo Thủy, Hỏa, Mộc (`IslandGen.Thuy`, `Hoa`, `Moc`); menu `PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (Thủy, Hỏa, Mộc)`, menu `PokiClash/Thử/Golden và tự chạy/Tính lại golden islands, roster, cardtext, zones` |
 
 Hình 6 lính đã nhập thành prefab (`Assets/04 Prefabs/Heroes/linh_*.prefab`, nén ASTC). Toàn bộ test EditMode qua (86).
 

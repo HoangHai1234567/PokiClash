@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
         const string ActorPath = "Assets/04 Prefabs/Items/TranTuong.prefab";
         const string BubblePath = "Assets/03 Art/Fallback/Icons/bubble.png";
 
-        [MenuItem("PokiClash/Prefab/Khác/Trận∕Sàn đấu: dấu trạng thái độc", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Trận/Sàn đấu: dấu trạng thái độc", priority = 64)]
         public static void Build()
         {
             var root = PrefabUtility.LoadPrefabContents(ActorPath);

@@ -27,7 +27,7 @@ namespace PokiClash.EditorTools
         static int shot;
         static readonly List<string> log = new List<string>();
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕trận (Nhận ×2, Tiếp sức), máy bi (hạ cược, Hết bi, nâng rương) (đang Play)", priority = 161)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/trận (Nhận ×2, Tiếp sức), máy bi (hạ cược, Hết bi, nâng rương) (đang Play)", priority = 161)]
         static void Run()
         {
             if (!EditorApplication.isPlaying || App.I == null)

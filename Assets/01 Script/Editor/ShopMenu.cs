@@ -1,4 +1,4 @@
-// Cửa hàng (GD_Claude/26_CuaHang_IAP_QuangCao.md), menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết" (chạy lại được):
+// Cửa hàng (GD_Claude/26_CuaHang_IAP_QuangCao.md), menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết" (chạy lại được):
 // - Items/OGoi: ô gói (PackCell): tờ giấy mỏng, cột trái tên / mô tả / lưới món (ô thưởng Items/OThuong thu nhỏ) / ghi chú, góc phải nhãn
 //   giá trị (dấu đỏ kit), đồng hồ, hai nút (kit), dấu "Đã mua";
 // - Dialogs/CuaHang: tờ cửa hàng / popup (ShopSheet, biến thể tờ giấy gốc HopThoai dính mép trên): tiêu đề, dòng phụ, hàng 4 tab có chấm
@@ -34,7 +34,7 @@ namespace PokiClash.EditorTools
 
         internal static UiKit Kit => AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));
 
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết", priority = 71)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết", priority = 71)]
         public static void BuildAll()
         {
             // sprite giấy / mực (Sketch.*) tra bảng BakedArt, lúc chạy App gán; dựng trong Editor thì gán tạm từ asset
@@ -465,7 +465,7 @@ namespace PokiClash.EditorTools
             Offers.EnsureStarter(S, D, Now);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕mở (đang Play)", priority = 150)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/mở (đang Play)", priority = 150)]
         static void OpenShop()
         {
             if (!Playing()) return;
@@ -480,10 +480,10 @@ namespace PokiClash.EditorTools
             OfferHost.Push(p);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Hết bi (đang Play)", priority = 151)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Hết bi (đang Play)", priority = 151)]
         static void PopRefill() => Pop(new Popup { kind = "refill", free = true });
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Ưu Đãi Bất Ngờ (đang Play)", priority = 152)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Ưu Đãi Bất Ngờ (đang Play)", priority = 152)]
         static void PopFlash()
         {
             if (!Playing()) return;
@@ -493,7 +493,7 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "offer", id = o.uid, key = "flash" });
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Gói Tiếp Sức (đang Play)", priority = 153)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Gói Tiếp Sức (đang Play)", priority = 153)]
         static void PopRelief()
         {
             if (!Playing()) return;
@@ -503,7 +503,7 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "offer", id = o.uid, key = "relief" });
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Quà Nhập Môn (đang Play)", priority = 154)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Quà Nhập Môn (đang Play)", priority = 154)]
         static void PopStarter()
         {
             if (!Playing()) return;
@@ -517,7 +517,7 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "offer", id = o.uid, key = "starter3" });
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Lọ Bi đầy (đang Play)", priority = 155)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Lọ Bi đầy (đang Play)", priority = 155)]
         static void PopPiggy()
         {
             if (!Playing()) return;
@@ -527,7 +527,7 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "piggy", key = "piggy" });
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Chuỗi Quà (đang Play)", priority = 156)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Chuỗi Quà (đang Play)", priority = 156)]
         static void PopChain()
         {
             if (!Playing()) return;
@@ -537,7 +537,7 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "chain", key = "chain" });
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕popup Quà hôm nay (đang Play)", priority = 157)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/popup Quà hôm nay (đang Play)", priority = 157)]
         static void PopClaims()
         {
             if (!Playing()) return;
@@ -547,7 +547,7 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "claims", free = true });
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕vào game lại (hàng popup lúc vào) (đang Play)", priority = 158)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/vào game lại (hàng popup lúc vào) (đang Play)", priority = 158)]
         static void ReOpen()
         {
             if (!Playing()) return;
@@ -558,7 +558,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Cửa hàng] Hàng popup lúc vào game: " + (list.Count == 0 ? "(trống: hết trần hoặc chưa tới mốc)" : string.Join(", ", list)));
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕đặt lại trạng thái cửa hàng (đang Play)", priority = 159)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/đặt lại trạng thái cửa hàng (đang Play)", priority = 159)]
         static void ResetShop()
         {
             if (!Playing()) return;
@@ -568,7 +568,7 @@ namespace PokiClash.EditorTools
         }
 
         // màn mở khoá tướng: mỗi bậc một tướng, chụp các pha (tụ lực, bùng, lộ diện, bảng tin) vào Temp/PokiShots/mo_khoa/
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕màn mở khoá tướng, 5 bậc (đang Play)", priority = 161)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/màn mở khoá tướng, 5 bậc (đang Play)", priority = 161)]
         static void UnlockTour()
         {
             if (!Playing()) return;
@@ -605,7 +605,7 @@ namespace PokiClash.EditorTools
         }
 
         // tour chụp: 4 tab, mua một gói bi (cửa hàng giả lập), mở Rương Tướng, các popup; xong trả trạng thái cửa hàng cũ
-        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕tour chụp (đang Play)", priority = 160)]
+        [MenuItem("PokiClash/Thử/Cửa hàng/tour chụp (đang Play)", priority = 160)]
         static void Tour()
         {
             if (!Playing()) return;

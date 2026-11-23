@@ -85,7 +85,7 @@ Chốt thêm khi trả lời câu hỏi còn mở (2026-10-31, lượt 2):
 Chạy thử trong Unity:
 1. Lần đầu (hoặc sau khi đổi dữ liệu web): menu `PokiClash/Cài đặt/1. Nhập TMP Essentials`, rồi `PokiClash/Cài đặt/2. Dựng tất cả`.
 2. Mở `Assets/00 Scenes/Boot.unity`, chọn Game view `PokiClash 1080x1920`, bấm Play.
-3. Đi thử tự động: `PokiClash/Thử/Khác/Golden và tự chạy∕Đi một vòng các scene (đang Play)`; chụp 3 khung: `PokiClash/Thử/Khác/Giao diện∕Chụp 3 khung màn hình (đang Play)` (ảnh ở `Temp/PokiShots`).
+3. Đi thử tự động: `PokiClash/Thử/Golden và tự chạy/Đi một vòng các scene (đang Play)`; chụp 3 khung: `PokiClash/Thử/Giao diện/Chụp 3 khung màn hình (đang Play)` (ảnh ở `Temp/PokiShots`).
 
 Mã nguồn:
 - `Assets/01 Script/Core`: logic thuần chép từ web, không dùng UnityEngine.
@@ -166,7 +166,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - Máy vẽ trên uGUI (design ghi camera riêng): khung giấy viền mực; đinh, nấm, cốc, ô vẽ một lần vào texture; bi và hiệu ứng nằm trên canvas con.
 - Cột cược ×1…×10 khoá theo cấp; "Thả bi" (chạm hoặc giữ); "Thả liền 20/30"; khay "Rương chờ" (lưu trong bản lưu); thanh mốc 300 bi; bảng "Tỉ lệ" đọc số đo mô phỏng do `export_data.ts` ghi vào `balance.json`.
 - Đổi ở web: `maxPerDrop` 20, từ cấp 15 là 30; mốc Huyền thoại khi đã có Đại Sư Cà Sa thì cho 15 bản sao thẻ Huyền thoại.
-- Thử: menu `PokiClash/Thử/Khác/Máy bi∕thả ×1 và ×3, mở rương (đang Play)`. Còn đo FPS trên máy Android thật.
+- Thử: menu `PokiClash/Thử/Máy bi/thả ×1 và ×3, mở rương (đang Play)`. Còn đo FPS trên máy Android thật.
 
 **Mốc 5 `add-afk-rewards`: xong (2026-10-31).** 11/11 việc, 45 EditMode test đạt (golden AFK 42 bước khớp web từng giá trị).
 - Logic viết ở web trước (`Web/src/core/afk.ts`, hộp AFK web cũng có rương và tăng tốc), chép sang `Core/Afk.cs`. Bản lưu thêm khoá `afk` (bản lưu cũ tính tiếp từ `afkSince`).
@@ -203,15 +203,15 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - 8 chỗ, mỗi chỗ hợp một hệ (×1,25); mở khi có 3 tướng, lúc mở 3 chỗ, chỗ 4–8 mở ở cấp 8, 11, 14, 17, 20. Năng suất theo độ hiếm, cấp, sao; giờ làm 2–5 giờ; rút ra nghỉ 15–60 phút; kho mỗi chỗ giữ tối đa 12 giờ sản lượng. Sức làm tách khỏi trận.
 - Scene `Farm` (đã thêm vào Build Settings): lưới 8 chỗ (chưa có ảnh đảo), Thu hoạch, Tự xếp, ×2 năng suất 1 giờ (quảng cáo); danh sách chọn tướng có bi/giờ, giờ làm, hợp hệ, nghỉ còn bao lâu. Sảnh: công trình tô màu khi mở, chấm đỏ khi có tướng hết sức hoặc kho đầy.
 - Đo: trang trại 19–55 bi/ngày đầu game, 93–230 giữa game, 252–515 cuối game (vào 2–8 lần mỗi ngày), so với AFK 201–850. 30 ngày người chơi "vừa": trang trại 10.952 bi, AFK 51.050, ải 5.822.
-- Thử: menu `PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Trang trại: tự xếp, tua giờ, thu hoạch, đổi ca (đang Play)`; Sổ tay bản dev có "Tua trang trại 2 giờ".
-- **Cảnh trang trại thật (2026-11-10, người dùng dặn):** thay lưới 8 ô bằng cảnh vẽ tay kéo được (`Assets/03 Art/Farm/farm_bg.png`, gói `ArtGen/SideMeta/build_farm.py`, nhập bằng `import_farm.py`). 5 khu (ao vịt, ruộng rau, vườn cây, lò bánh, xưởng nông cụ) có bảng tên, 8 chỗ đứng; bãi cỏ giữa cho tướng rảnh đi lang thang (tối đa 10: trong đội trước), chạm thì nhún nhảy thả tim, kéo thả vào khu là giao việc; tướng làm cử động theo việc (cuốc, rắc thóc, hái táo, nhào bột, rèn) kèm đồ nghề và hạt; hết sức ngồi nghiêng; vừa rút ra thì ngủ trên ổ rơm. Code: `FarmScene`, `FarmPet`, `FarmSlot`, `FarmFx`; prefab dựng bằng menu `PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Trang trại: cảnh thật`. Luật `Core/Farm` không đổi.
+- Thử: menu `PokiClash/Thử/Nhà và side meta/Trang trại: tự xếp, tua giờ, thu hoạch, đổi ca (đang Play)`; Sổ tay bản dev có "Tua trang trại 2 giờ".
+- **Cảnh trang trại thật (2026-11-10, người dùng dặn):** thay lưới 8 ô bằng cảnh vẽ tay kéo được (`Assets/03 Art/Farm/farm_bg.png`, gói `ArtGen/SideMeta/build_farm.py`, nhập bằng `import_farm.py`). 5 khu (ao vịt, ruộng rau, vườn cây, lò bánh, xưởng nông cụ) có bảng tên, 8 chỗ đứng; bãi cỏ giữa cho tướng rảnh đi lang thang (tối đa 10: trong đội trước), chạm thì nhún nhảy thả tim, kéo thả vào khu là giao việc; tướng làm cử động theo việc (cuốc, rắc thóc, hái táo, nhào bột, rèn) kèm đồ nghề và hạt; hết sức ngồi nghiêng; vừa rút ra thì ngủ trên ổ rơm. Code: `FarmScene`, `FarmPet`, `FarmSlot`, `FarmFx`; prefab dựng bằng menu `PokiClash/Prefab/Nhà và side meta/Trang trại: cảnh thật`. Luật `Core/Farm` không đổi.
 
 **Mốc 10 `add-monetization-hooks`: xong phần code (2026-10-31).** 11/12 việc (còn gắn SDK thật), 68 EditMode test đạt.
 - Logic viết ở web trước (`src/core/ads.ts`, `data/ads.ts`), chép sang `Core/AdGate.cs`. Mọi quảng cáo đi qua `Ads.Show(chỗ đặt)`: giới hạn mỗi ngày theo spec (Nhận ×2 không giới hạn; Mở ngay 4; Tăng tốc AFK 3; ×2 trang trại 3; +1 lượt Hang 1), xem xong mới trừ lượt, bỏ ngang không trừ, lùi giờ máy không mở lại lượt. Bộ đếm riêng của AFK, trang trại, Hang bỏ đi.
 - Bản lưu lên v3 (web và Unity), có bước di chuyển: bộ đếm quảng cáo cũ dồn về `ads`; file `save_v2.json` của bạn sẽ tự chuyển lên v3 khi mở game, bản cũ giữ thành `.bak`.
 - Sổ tay có mục "Gói hỗ trợ": Thẻ Phiêu Lưu 30 ngày (bi AFK ×1,5, khay 5 ô, rương mở 1 giờ; mua tiếp thì cộng dồn hạn) và Bỏ quảng cáo (nhận thưởng ngay, vẫn theo giới hạn mỗi ngày). Không bán bi, đá, lượt quay; test rà danh sách gói.
 - Quảng cáo giả lập và cửa hàng giả lập chuyển vào `App/Dev` (chỉ Editor và bản Development). Bản phát hành chưa gắn SDK thì nút quảng cáo và mục gói ẩn.
-- Thử: menu `PokiClash/Thử/Khác/Cửa hàng∕Gói hỗ trợ: Thẻ Phiêu Lưu, hết lượt quảng cáo, Bỏ quảng cáo (đang Play)`; Sổ tay bản dev có "Đặt lại lượt QC", "Bỏ gói đã mua".
+- Thử: menu `PokiClash/Thử/Cửa hàng/Gói hỗ trợ: Thẻ Phiêu Lưu, hết lượt quảng cáo, Bỏ quảng cáo (đang Play)`; Sổ tay bản dev có "Đặt lại lượt QC", "Bỏ gói đã mua".
 
 **Sau mốc 10: chốt câu hỏi, change `add-ball-trees` (2026-10-31).** 70 EditMode test đạt.
 - Choáng mất trọn lượt; golden trận xuất lại, Unity khớp web.
@@ -229,7 +229,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 
 - Đường cong cấp vào cấu hình (`expBase` 40, `expPow` 1,35, chưa đổi số). Menu mới `PokiClash/Cân bằng nhanh/Quét nhịp: EXP lên cấp, cây bi, trang trại`.
 - **Nhịp chưa đạt mục tiêu:** người chơi "vừa" vẫn xong 5 đảo ở ngày 6, dù bi thụ động 30 ngày giảm từ 62.002 xuống 37.329. Xem câu hỏi 1.
-- Thử: menu `PokiClash/Thử/Nhà và side meta/Nhà và side meta∕AFK và cây bi: tua giờ, hái, mảnh, rương, tăng tốc (đang Play)`.
+- Thử: menu `PokiClash/Thử/Nhà và side meta/AFK và cây bi: tua giờ, hái, mảnh, rương, tăng tốc (đang Play)`.
 
 **Mốc 12 `convert-to-prefabs`: xong (2026-11-02).** Chủ dự án: mọi thứ trong game là prefab, kể cả UI, runtime không sinh gì. Đã nướng một lần bằng chính code dựng cũ, code runtime chỉ gán dữ liệu vào tham chiếu kéo thả, rồi xoá code dựng: prefab giờ là nguồn gốc, chỉnh trong Editor.
 - Tài nguyên vẽ bằng code đã thành asset ở `Assets/03 Art/Baked`:
@@ -260,8 +260,8 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 **Sau mốc 12: thanh mốc tiến hóa (2026-11-02).** Người dùng: lấy đủ các dạng tiến hóa; nhận hoặc thu phục tướng thì ở dạng thấp nhất; hộp chi tiết tướng có một thanh dưới tướng thể hiện các mốc tiến hóa.
 - Hình: xuất đủ 83 dạng aola (xem `13_DanhSachTuong.md` mục 6).
 - Nhận tướng: tướng chưa có luôn ở sao 1 nên mở khóa (khởi đầu, tặng, đủ mảnh, mốc Huyền thoại) là dạng 1; test `RosterTests.TuongMoiNhan_ODangThapNhat` chặn.
-- Hộp chi tiết: `EvolutionStrip` (hàng `thanh_tien_hoa` dưới hàng ô xem của `ChiTietTuong`, dựng bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Thêm thanh tiến hóa vào ChiTietTuong`): mỗi dạng một mốc, chia đều trên thanh (mốc cuối ở cuối thanh: dòng 2 dạng có mốc 2 ở cuối, người dùng chốt), dưới mốc ghi sao bắt đầu (1, 3, 5), chân dung, tên dạng; thanh là tiến độ tới dạng cuối (`EvolutionStrip.Fill`, test `ThanhTienHoa_MocCuoiOCuoiThanh`); dạng chưa tới là bóng sẫm; dòng 1 dạng có dòng ghi chú. Nằm dưới sân khấu của bố cục mới. Chỉ làm ở Unity, bản web chưa có.
-- Kiểm: menu `PokiClash/Thử/Khác/Tướng∕Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)` chụp `Temp/PokiShots/evo_*.png` (Giọt Sương sao 1, 3, 5; Tiểu Y sao 4; Kiếm Linh; Huyền Vũ chưa có; lưới Tướng), đã soi đủ; EditMode 82/82 đạt.
+- Hộp chi tiết: `EvolutionStrip` (hàng `thanh_tien_hoa` dưới hàng ô xem của `ChiTietTuong`, dựng bằng menu `PokiClash/Prefab/Hộp thoại và màn/Thêm thanh tiến hóa vào ChiTietTuong`): mỗi dạng một mốc, chia đều trên thanh (mốc cuối ở cuối thanh: dòng 2 dạng có mốc 2 ở cuối, người dùng chốt), dưới mốc ghi sao bắt đầu (1, 3, 5), chân dung, tên dạng; thanh là tiến độ tới dạng cuối (`EvolutionStrip.Fill`, test `ThanhTienHoa_MocCuoiOCuoiThanh`); dạng chưa tới là bóng sẫm; dòng 1 dạng có dòng ghi chú. Nằm dưới sân khấu của bố cục mới. Chỉ làm ở Unity, bản web chưa có.
+- Kiểm: menu `PokiClash/Thử/Tướng/Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)` chụp `Temp/PokiShots/evo_*.png` (Giọt Sương sao 1, 3, 5; Tiểu Y sao 4; Kiếm Linh; Huyền Vũ chưa có; lưới Tướng), đã soi đủ; EditMode 82/82 đạt.
 - Vào Play không reload domain (người dùng, 2026-11-02; menu `PokiClash/Cài đặt/3. Play không reload domain`, có trong "Dựng tất cả"): bớt khoảng 4,5–5 giây mỗi lần Play, vẫn reload scene. Static runtime có thể đổi được trả về trong `ResetStatics` ([RuntimeInitializeOnLoadMethod(SubsystemRegistration)]) của App, MachineScene, ZoneScene, NotebookDev, SafeArea; thêm static mới thì trả về cùng cách.
 - Chụp qua MCP khi Editor không được focus: Unity chỉ chạy khung hình khi có yêu cầu MCP, nên phải gọi đều (ví dụ đọc `editor/state` mỗi giây) trong lúc chờ; `WaitForEndOfFrame` không tới, menu này tự render camera thay vì chụp màn hình.
 
@@ -281,14 +281,14 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 **Sau mốc 12: sảnh và đảo hệ vẽ tay (2026-11-02).** Người dùng gen ảnh đảo bằng GPT theo `ArtGen/Islands/PROMPTS.md` (nét bút chì trên giấy như UI).
 - **Sảnh:**
   - `ArtGen/Islands/compose_islands.py` ghép 6 đảo gen rời thành một đảo lớn liền khối, bờ tự nhiên (thêm vùng mới: gen một đảo, thêm một dòng);
-  - menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo sảnh: ghép ảnh, kéo, mây viền` đưa vào `Screens/Hub`;
+  - menu `PokiClash/Prefab/Sảnh và đảo/Đảo sảnh: ghép ảnh, kéo, mây viền` đưa vào `Screens/Hub`;
   - sảnh kéo được (`HubPan`, quá giới hạn thì bật về), ra rìa là vành mây che chỗ cho các đảo sau.
 - **Đảo hệ:**
   - bản đồ dọc GPT gen, đảo kín bề ngang màn, cuộn dọc;
   - script dò vòng tròn ải trên ảnh làm `ZONES[].nodes` (đã chép vào bản web, xuất, nhập); biển lặp cuộn theo bản đồ;
   - bản web vẫn vẽ khung 9:16 nên đường ải trên web dồn vào giữa.
 - **Bệ ải** (học ảnh màn ải của một game pet người dùng gửi):
-  - mỗi ải là `Items/BeAi` (ZoneNode, dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bệ ải (BeAi)`), thay nút tròn `Items/NutAi` (đã xoá);
+  - mỗi ải là `Items/BeAi` (ZoneNode, dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Bệ ải (BeAi)`), thay nút tròn `Items/NutAi` (đã xoá);
   - bệ đất theo đảo (boss: bệ to, viền đá, vòng vàng; ảnh vẽ bằng script);
   - tướng chính của ải đứng to trên bệ, ải chưa mở là bóng sẫm;
   - bảng tên phía ngoài khúc cua: số ải, khoá, dấu qua, vương miện, tên tướng, cấp;
@@ -307,7 +307,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - **Vào trận** chỉ mang đủ số ô đã mở (web `battleScreen`, Unity `BattleController`), nên bản lưu cũ có 3 tướng vẫn đúng luật. Nút "Cho vào đội" ở màn Tướng cũng giới hạn theo số ô.
 - **Hộp Chuẩn bị trận (Unity):**
   - ô chưa mở hiện "Khoá · xong n đảo", chạm thì báo điều kiện;
-  - chạm ô đã mở thì bật bể tướng `Dialogs/ChonDoi` (TeamPickerDialog, dựng bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội (ChonDoi)`): chọn một lần đủ đội, số trước tên là thứ tự ra trận, có mũi tên khắc hệ, "Xong" trả đội về;
+  - chạm ô đã mở thì bật bể tướng `Dialogs/ChonDoi` (TeamPickerDialog, dựng bằng menu `PokiClash/Prefab/Hộp thoại và màn/Hộp chọn đội (ChonDoi)`): chọn một lần đủ đội, số trước tên là thứ tự ra trận, có mũi tên khắc hệ, "Xong" trả đội về;
   - lưới kho tướng cũ trong hộp để ẩn.
 - **Bản web:** ô khoá và giới hạn chọn theo số ô; vẫn chọn ngay trong hộp, chưa có bể tướng.
 - **Chưa tính:** mô phỏng cân bằng (sim.ts, ProgressSim, cửa sổ Cân bằng) vẫn cho đội 3 tướng, chưa mô phỏng giai đoạn đầu chỉ 1 tướng. Người chơi mới đi Đảo Thủy bằng 1 tướng: cần xem lại độ khó Đảo Thủy (nhất là boss 3 dạng ải 8).
@@ -359,13 +359,13 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - Lực chiến (chỉ để hiện, trận không dùng): `HeroStats.Power` = 2·√(máu × (defK + thủ)/defK × công); boss tiến hóa tính máu cả dòng. Hiện ở thẻ tướng, đội hình, từng đối thủ, dòng so "địch / mức khó / đội bạn" trong hộp chuẩn bị (Dễ ≥ 1,25 lần, Vừa ≥ 0,95, Khó ≥ 0,75, còn lại Rất khó).
 - Màn Tướng: khung "Đội hình" (`TeamLineup`): 3 ô đội, tướng aola đứng động, vuốt hay chạm con bên cạnh để xoay, chạm con giữa mở chi tiết; lực chiến đội, nút Đổi đội (hộp ChonDoi), 4 chỉ số có icon của con giữa. Lưới tướng chỉ hiện tướng đã có (xếp theo lực chiến) và tướng chưa mở mà đã có mảnh (bóng sẫm, thanh mảnh); tướng chưa có mảnh nào thì ẩn. Tướng trong đội (tính theo số ô đã mở) tô vàng.
 - Ô thưởng dùng chung `Items/OThuong` (`RewardTile`) ở hộp chuẩn bị, mở rương, rương mốc đảo, kết quả trận. Đã xoá 6 prefab dòng thưởng cũ (`ThuongTran`, `ThuongChip`, `ThuongManh`, `ThuongThe`, `TheRuongDao`, `TranThuong`) và class của chúng.
-- Dựng prefab bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)`; thử bằng `PokiClash/Thử/Khác/Giao diện∕Popup gọn: đội hình, chạm ải, ô thưởng (đang Play)` (ảnh `Temp/PokiShots/p_*.png`). EditMode 86/86 đạt.
+- Dựng prefab bằng menu `PokiClash/Prefab/Hộp thoại và màn/Popup gọn (ô thưởng, đội hình, lực chiến)`; thử bằng `PokiClash/Thử/Giao diện/Popup gọn: đội hình, chạm ải, ô thưởng (đang Play)` (ảnh `Temp/PokiShots/p_*.png`). EditMode 86/86 đạt.
 
 **Màn VS truyện tranh, dải tuyệt kỹ (Unity, 2026-11-03).** Người dùng: vào trận hiện mặt các tướng hai bên trên dưới, ngăn bằng vạch chéo kiểu showdown, như khung truyện tranh; một nền dùng chung, tướng nào có thì gen thêm ảnh mặt; dùng lại khung đó khi ra tuyệt kỹ, cắt thành hình bình hành ngang màn.
 - Màn VS (`BattleIntro`, trong lớp phủ `Screens/Battle`): trang giấy, khung trên đội địch (đỏ), khung dưới đội bạn (xanh), khe chéo viền mực; mỗi tướng một ô mặt `Items/TranVsMat` (`VsFace`: tên, cấp, nhãn BOSS; mặt địch quay trái, phe mình lật quay phải); lực chiến cả đội (như hộp chuẩn bị); khung lời dẫn vàng ghi đảo, ải, tên ải; dấu VS đóng xuống giữa khe, rung. Khung trượt vào theo đường chéo, giữ 1,5 s, tách lên xuống; chạm để bỏ qua. Hình khung tính lúc chạy theo cỡ màn (`PolyGraphic`, `RayGraphic`).
 - Tuyệt kỹ (`UltCutIn`): dải hình bình hành ngang giữa sân, cùng kiểu khung; mặt tướng ra chiêu to về phía phe nó, khung "Tuyệt kỹ · tên tướng", tên chiêu chữ to. Trượt vào từ phía phe ra chiêu, giữ 0,6 s, rồi mới phát clip tuyệt kỹ (thay băng rôn tuyệt kỹ cũ).
 - Ảnh: nền khung (`vs_nen`, một ảnh tô màu theo phe), dấu VS (`vs_no`), mặt từng dạng tướng (`mat_<aola>`, 384 × 384, nhập ASTC 8x8 cho nhẹ APK) ở `Assets/03 Art/BattleIntro/Resources`, game nạp khi cần, chưa có thì vẽ tạm: tia bằng code, hình nổ của bộ giấy, chân dung phóng cho đầu lấp ô (hộp hình chân dung đo sẵn: `PortraitBoxes`). Gói gửi GPT: `ArtGen/BattleIntro/build.py` (lượt nền, lượt VS, mỗi dòng tiến hóa một file mặt; `--duyet` cắt nền trắng, chép vào Unity).
-- Dựng bằng menu `PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh` (nhập thêm tướng thì chạy lại để đo hộp hình); thử bằng `PokiClash/Thử/Khác/Trận∕Màn VS truyện tranh, dải tuyệt kỹ (đang Play)` (ảnh `Temp/PokiShots/vs_*.png`).
+- Dựng bằng menu `PokiClash/Prefab/Trận/Trận: màn VS truyện tranh` (nhập thêm tướng thì chạy lại để đo hộp hình); thử bằng `PokiClash/Thử/Trận/Màn VS truyện tranh, dải tuyệt kỹ (đang Play)` (ảnh `Temp/PokiShots/vs_*.png`).
 
 **AFK theo ải (Unity, 2026-11-03).** Người dùng hỏi sao ải đã thắng không có nút AFK, rồi chọn AFK theo ải (web giữ AFK chung).
 - Ải đảo đã thắng có nút "AFK ải này" cạnh Xuất trận ở hộp chuẩn bị trận. Ải đang AFK ghi "Đang AFK", chạm thì mở hộp AFK.
@@ -375,7 +375,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 - Đổi ải: mảnh của các giờ tròn đã dồn tính theo ải cũ và nhận luôn, phần giờ lẻ giữ lại.
 - Hộp AFK ghi ải đang AFK và tướng rơi mảnh, thêm nút "Đổi ải" (sang đảo của ải đó). Bản đồ đảo có nhãn AFK dưới ải đang AFK.
 - Golden `afk.json` tính lại bên Unity: 3 bước nhận đổi mảnh, thêm 6 bước đổi ải. EditMode 95/95 đạt.
-- Dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕AFK theo ải (nút, nhãn trên đảo)`; thử bằng `PokiClash/Thử/Khác/Đảo và sảnh∕AFK theo ải: nút ở ải đã thắng, nhãn trên đảo (đang Play)` (ảnh `Temp/PokiShots/afk_*.png`).
+- Dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/AFK theo ải (nút, nhãn trên đảo)`; thử bằng `PokiClash/Thử/Đảo và sảnh/AFK theo ải: nút ở ải đã thắng, nhãn trên đảo (đang Play)` (ảnh `Temp/PokiShots/afk_*.png`).
 
 **Chậm lúc ra đòn, bỏ nấc tốc độ (Unity, 2026-11-04).** Người dùng: tướng ra đòn, bắn chiêu thì giảm tốc độ game để nhìn rõ animation; bỏ nấc ×2, ×3.
 - Trận một nhịp: sân chạy ×3 tốc độ gốc aola như nấc ×1 cũ. Đã bỏ nút ×1/×2/×3 ở thanh trên trận, hàng tốc độ ở Sổ tay và khoá `settings.speed` của bản lưu.
@@ -425,13 +425,13 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 **Hộp Chuẩn bị: đối thủ trái phải, cấp rõ; chân dung nét hơn; tai thỏ (Unity, 2026-11-04).** Người dùng: chân dung bị nén mờ (nhất là bóng sẫm); tướng bên trái, chỉ số bên phải, phóng to tên, hệ…; cấp tướng, địch rõ hơn; thanh trên tránh camera, dải tai thỏ trong suốt hoặc cùng màu UI.
 - Mỗi đối thủ một hàng. Ải một địch dùng hàng to `Items/DoiThu`, cao 340: chân dung trái; bên phải là tên, nhãn hệ và lực chiến, dòng ghi chú, 3 hàng Máu, Công, Thủ có chữ. Ải 2–3 địch dùng hàng gọn `Items/DoiThuGon`, cao 180: ghi chú chung hàng với nhãn hệ, chỉ số xếp ngang. Chân dung phóng cho phần có hình (`PortraitBoxes`) vừa ô, nên lính nhỏ không bé tí.
 - Chip "Cấp N" cùng kiểu chip cấp trên thanh trên, đặt ở góc chân dung. Chữ đỏ khi địch hơn người chơi quá 2 cấp. Ô đội của hộp cũng có chip cấp.
-- Dựng bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chuẩn bị: ô đối thủ trái phải` (`PrepStatsMenu`). `Popup gọn` không còn đụng `DoiThu`.
+- Dựng bằng menu `PokiClash/Prefab/Hộp thoại và màn/Hộp chuẩn bị: ô đối thủ trái phải` (`PrepStatsMenu`). `Popup gọn` không còn đụng `DoiThu`.
 - Chân dung tướng ASTC 8x8 → **5x5** (`AolaImportPostprocessor.PortraitFormat`). Mỗi ảnh 87 → 226 KB, 107 ảnh, bản build nặng thêm khoảng 15 MB; atlas giữ 8x8. Ở cỡ 100–250 điểm game lấy mipmap nửa, khối 8x8 phủ 16x16 điểm ảnh gốc nên vỡ khối.
   - Đổi mức thì sửa hằng số rồi chạy menu `PokiClash/Tướng/Nhập lại chân dung tướng (mức nén chân dung)`; không tăng `GetVersion` (tăng thì nhập lại mọi ảnh tướng).
   - Mức nén ghi vào .meta, nên máy kia kéo git về sẽ tự nhập lại.
   - So trong game: menu `Chân dung: thay thử mức nén trên màn đang mở`, ảnh ở `Temp/PokiShots/nen`.
 - Tai thỏ: các màn đã nằm trong vùng an toàn và lộ nền dưới camera. Riêng màn trận có dải nâu sẫm, nay nền giấy của thanh trên trận (`Thanh tren tran/nen`) kéo cao thêm 300 để phủ dải đó.
-- Thử: menu `PokiClash/Thử/Khác/Giao diện∕Hộp chuẩn bị: ô đối thủ, cấp, tai thỏ (đang Play)`, ảnh `Temp/PokiShots/cb_*.png`. Vòng này chụp hộp 1, 2, 3 địch; đảo lúc mới qua 2 ải (bóng sẫm); và 6 màn ở khung 1080 × 2400 với tai thỏ giả (`SafeArea.Simulated`).
+- Thử: menu `PokiClash/Thử/Giao diện/Hộp chuẩn bị: ô đối thủ, cấp, tai thỏ (đang Play)`, ảnh `Temp/PokiShots/cb_*.png`. Vòng này chụp hộp 1, 2, 3 địch; đảo lúc mới qua 2 ải (bóng sẫm); và 6 màn ở khung 1080 × 2400 với tai thỏ giả (`SafeArea.Simulated`).
 - Nền trận: gói `ArtGen/BattleBG/gui_gpt/troi` dựng lại cho máy ổ D (`build_troi.py`).
   - 2026-11-05: c02–c09 đã ghép (`--duyet`, đường nối nằm trong vùng trời) và xuất vào game (`build_thuy.py --xuat`), nên đủ 9 chặng. Sau đó m20, m40, m50, m60, b70a cũng vào game.
   - m30 hỏng ở cả hai bản GPT: vẽ lặp mảng rêu và vách ngay trên mép cũ, nên gãy ngang qua vách và hai thác. Ảnh ghép đổi tên thành `troi/m30_hong_noi_gay.png` để game giữ nền cũ. Prompt `11_m30.txt` đã thêm đoạn dặn chỗ nối, chờ gen lại.

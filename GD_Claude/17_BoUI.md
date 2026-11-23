@@ -67,7 +67,7 @@ Màn mẫu:
 - **Tướng:** ô tướng nhún nhẹ. Lúc vào màn thì nảy ra lần lượt từ dưới lên; làm mới sau đó thì không nảy lại (`HeroesScene`).
 - **Hộp chuẩn bị:** nút Xuất trận thở khi bấm được (`StagePrepDialog`).
 
-**Prefab:** menu `PokiClash/Prefab/Giao diện chung/Giao diện chung∕Bộ UI Sa Bàn: hiệu ứng, nút sticker, chỉ khâu` (`Editor/SaBanKitMenu.cs`, chạy lại được) làm các việc sau.
+**Prefab:** menu `PokiClash/Prefab/Giao diện chung/Bộ UI Sa Bàn: hiệu ứng, nút sticker, chỉ khâu` (`Editor/SaBanKitMenu.cs`, chạy lại được) làm các việc sau.
 - Dựng `Kit/NetBung`.
 - `Kit/Nut_Tron` thành nút tròn sticker: thêm lõi `loi`. Hàng nút dưới sảnh, nút quay lại, nút đóng đổi theo.
 - Đường chỉ khâu `chi_khau` (`Assets/03 Art/Kit/ui_chi_khau.png`, 9-slice lát lặp):
@@ -79,7 +79,7 @@ Màn mẫu:
 - Bảng tên 5 vùng ở sảnh nhún tại chỗ.
 - Thông báo (`Dialogs/ThongBao`) thành giấy nhớ vàng có băng keo hồng.
 
-**Bể tướng (hộp chọn đội, 2026-11-06):** hàng lọc giữa tiêu đề và khung cuộn, dựng bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội: lọc theo hệ, xếp` (`Editor/TeamPickerFilterMenu.cs`).
+**Bể tướng (hộp chọn đội, 2026-11-06):** hàng lọc giữa tiêu đề và khung cuộn, dựng bằng menu `PokiClash/Prefab/Hộp thoại và màn/Hộp chọn đội: lọc theo hệ, xếp` (`Editor/TeamPickerFilterMenu.cs`).
 - 7 nút tròn sticker: Tất cả, Thủy, Hỏa, Kim, Mộc, Thổ, Khắc (chỉ tướng khắc tướng chính của địch; ẩn khi không có địch).
 - Nút viên xếp đổi vòng Lực chiến → Sao → Hệ.
 - Tướng trong đội luôn đứng đầu và luôn hiện.
@@ -87,7 +87,7 @@ Màn mẫu:
 
 **Chưa đụng:** nút thả bi, thả liền, nút cược ở Máy bi. pokiwar-9a đang vẽ lại các nút đó với hoạt cảnh riêng.
 
-**Đã kiểm trong Play:** bảng tên vùng nhún (dịch ~5 đơn vị, nghiêng ±1°), chấm đỏ thở (scale 1 → 1,12), nút Máy Bi thở, thẻ trên tay nhún. Chụp mọi màn bằng menu `PokiClash/Thử/Khác/Giao diện∕Chụp mọi màn để soi giao diện (đang Play)`.
+**Đã kiểm trong Play:** bảng tên vùng nhún (dịch ~5 đơn vị, nghiêng ±1°), chấm đỏ thở (scale 1 → 1,12), nút Máy Bi thở, thẻ trên tay nhún. Chụp mọi màn bằng menu `PokiClash/Thử/Giao diện/Chụp mọi màn để soi giao diện (đang Play)`.
 
 ## Ghi chú chuyển từ web
 
@@ -107,7 +107,7 @@ Người dùng: "thiết kế lại bộ UI này, hơi xấu" (5 nút tròn trô
 - kệ gỗ (boot_ban_go xoay ngang) chạy suốt đáy màn, viền mực trên;
 - 4 nút phụ là thẻ giấy ghi chú (boot_giay_ghi, 9 mảnh) nghiêng so le, băng keo màu mép trên, icon to, nhãn chữ mực trên thẻ;
 - Máy Bi: nút tròn sticker phóng to, nhô lên khỏi mép bàn, vẫn thở, tên trên băng keo vàng; chấm số đỏ ở góc trên phải mỗi nút.
-Dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)` (`Editor/HubDockMenu.cs`), chạy lại được.
+Dựng bằng menu `PokiClash/Prefab/Sảnh và đảo/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)` (`Editor/HubDockMenu.cs`), chạy lại được.
 
 Đổi thứ tự nút (người dùng 2026-11-23): từ trái sang phải là **Cửa hàng, Tướng, Máy Bi (giữa), Sổ thẻ, Nhà**.
 - Bỏ Đánh tiếp và Sổ tay. Sổ tay vẫn mở bằng nút bánh răng trên thanh trên.

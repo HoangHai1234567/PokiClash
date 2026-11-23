@@ -19,7 +19,7 @@ namespace PokiClash.EditorTools
         const string HatPrefab = "Assets/04 Prefabs/Items/HatLua.prefab";
         const string BattlePath = "Assets/04 Prefabs/Screens/Battle.prefab";
 
-        [MenuItem("PokiClash/Prefab/Khác/Trận∕Sàn đấu: hạt lửa (bộ Hỏa)", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Trận/Sàn đấu: hạt lửa (bộ Hỏa)", priority = 63)]
         public static void Build()
         {
             var sprites = ImportSprites();
@@ -80,7 +80,7 @@ namespace PokiClash.EditorTools
 
         // hộp chi tiết tướng: lớp hạt trong khung cắt ô xem (HatDat, HatSau đầu, HatTruoc cuối; neo giữa đáy ô, HeroViewer co theo
         // cỡ ô) và nút thứ 5 "Mana" (chép nút Chiêu, đặt sau nó; HeroDetailDialog.ClipIds[4] = Cast). Chạy lại không tạo trùng.
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chi tiết tướng: hạt lửa + nút Mana", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Hộp chi tiết tướng: hạt lửa + nút Mana", priority = 64)]
         public static void BuildDetail()
         {
             var sprites = ImportSprites();

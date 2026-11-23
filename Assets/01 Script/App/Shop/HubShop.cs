@@ -1,6 +1,6 @@
 // Cửa hàng ở sảnh (GD_Claude/26_CuaHang_IAP_QuangCao.md mục 5.1): nút Cửa hàng nằm ở hàng nút đáy (HubScene, phiên khác làm); đây là nút Lọ
 // Bi (thanh bi dâng dần) và cột bong bóng ưu đãi đang mở (tối đa 3, đồng hồ bút chì; chạm là mở popup của gói). Không hiện trước khi xong
-// chuỗi hướng dẫn bắt buộc. Gắn vào Screens/Hub bằng menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"; tự cập nhật, HubScene không phải gọi.
+// chuỗi hướng dẫn bắt buộc. Gắn vào Screens/Hub bằng menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"; tự cập nhật, HubScene không phải gọi.
 using System;
 using System.Linq;
 using PokiClash.Core;

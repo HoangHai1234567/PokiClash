@@ -1,6 +1,6 @@
 // Một ô kho tướng: khung (vàng khi trong đội), chân dung, tên, mũi tên khắc hệ (xanh khắc, đỏ bị khắc). Tên "kho_<id>" để vòng thử bấm.
 // - Items/OKho (hộp chọn tướng khởi đầu): ô gọn, số thứ tự ra trận ghi trước tên.
-// - Items/OChonDoi (hộp chọn đội, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội: ô tướng, khung cuộn"): thêm dải màu hệ sau chân dung, hàng sao,
+// - Items/OChonDoi (hộp chọn đội, menu "PokiClash/Prefab/Hộp thoại và màn/Hộp chọn đội: ô tướng, khung cuộn"): thêm dải màu hệ sau chân dung, hàng sao,
 //   lực chiến, số thứ tự ra trận trong tròn xanh ở góc trên trái; mũi tên nằm trong góc trên phải.
 //   Sao theo bậc (UiStars.SetTiered), lực chiến số gọn (57.6k). Độ hiếm (2026-11-17, menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc và
 //   xếp"): khung ngoài tô màu độ hiếm, giấy lót "giay" lùi vào mang màu trạng thái (vàng khi trong đội); Huyền thoại có vương miện.

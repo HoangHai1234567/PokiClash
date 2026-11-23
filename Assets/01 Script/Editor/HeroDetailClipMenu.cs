@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
         const int First = 5, WalkSlot = 2; // Labels[WalkSlot] = nút Đi: đứng sau nút Đứng thay vì cuối hàng
         const float Margin = 12, Spacing = 6; // lề hai bên hàng trong ô nền, khoảng giữa hai nút
 
-        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chi tiết tướng: nút Đi, Ra sân, Chết + xếp hàng nút clip", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Hộp chi tiết tướng: nút Đi, Ra sân, Chết + xếp hàng nút clip", priority = 64)]
         public static void Build()
         {
             var root = PrefabUtility.LoadPrefabContents(DetailPath);
@@ -115,7 +115,7 @@ namespace PokiClash.EditorTools
 
         // Thử nút ĐI (đang Play): mở hộp chi tiết từng tướng trong Temp/PokiShots/di_ids.txt, bấm nút nut_Di như người chơi, chụp 6 khung trong 3 giây (walk phải lặp, không về
         // đứng) vào Temp/PokiShots/di_<tướng>_s<sao>_<i>.png. Tướng không có walk thì ghi nút đang ẩn. Chỉ sửa bản lưu tạm, cuối đọc lại.
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Hộp chi tiết tướng: bấm nút Đi và chụp (đang Play)", priority = 111)]
+        [MenuItem("PokiClash/Thử/Tướng/Hộp chi tiết tướng: bấm nút Đi và chụp (đang Play)", priority = 111)]
         static void TryWalk()
         {
             if (!EditorApplication.isPlaying || App.I == null)

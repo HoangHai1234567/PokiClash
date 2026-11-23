@@ -1,4 +1,4 @@
-// Máy hiện popup ưu đãi (GD_Claude/26_CuaHang_IAP_QuangCao.md mục 7): gắn trong App.prefab (menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết").
+// Máy hiện popup ưu đãi (GD_Claude/26_CuaHang_IAP_QuangCao.md mục 7): gắn trong App.prefab (menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết").
 // Lần vào sảnh đầu sau khi mở game, hoặc quay lại game sau reopenMin phút, gọi Offers.Open (hàng popup lúc vào game). Màn khác báo sự
 // kiện qua Raise (thua, thắng boss, hết bi, bi ít, jackpot, rương Huyền thoại). Popup chỉ hiện khi màn rảnh: không trận, không lúc đang
 // thả bi, không chuyển cảnh, không có hộp thoại hay bước hướng dẫn, không màn tải / cốt truyện. Hiện bằng tờ cửa hàng (ShopSheet).

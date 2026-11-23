@@ -2,7 +2,7 @@
 // Bi rơi vào ô EXP thì sao EXP bay từ ô lên đầu phần đầy của thanh; tới nơi thanh mới cộng, loé tím, và cả khung thanh
 // (rãnh vẽ tay cắt từ thân máy + thanh + chữ) nhún như thanh năng lượng của máy tham khảo. Thanh hiện chậm hơn bản lưu trong
 // lúc sao còn bay (bản lưu cộng ngay lúc bi rơi). Lên cấp: thanh đầy rồi về 0, vòng cấp nhún, loé to.
-// Prefab: phần "thanh_kinh_nghiem" của Screens/Machine, dựng bằng menu "PokiClash/Prefab/Khác/Máy bi∕thanh kinh nghiệm";
+// Prefab: phần "thanh_kinh_nghiem" của Screens/Machine, dựng bằng menu "PokiClash/Prefab/Máy bi/thanh kinh nghiệm";
 // nhóm "khung_thanh" (rãnh + thanh) do menu "Máy bi: thân máy vẽ tay" dựng theo số đo rãnh.
 // Sao và hạt là bản sao Items/HatMayBi trên lớp bay "lop_bay" phủ cả khối máy.
 using System.Collections;

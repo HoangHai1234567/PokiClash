@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
     {
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Khác/Máy bi∕đèn, phóng, jackpot (đang Play)", priority = 119)]
+        [MenuItem("PokiClash/Thử/Máy bi/đèn, phóng, jackpot (đang Play)", priority = 119)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

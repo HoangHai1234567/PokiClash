@@ -23,7 +23,7 @@ namespace PokiClash.EditorTools
             File.AppendAllText(Path.Combine(Dir, "nhat_ky.txt"), s + System.Environment.NewLine);
         }
 
-        [MenuItem("PokiClash/Thử/Khác/Trận∕Cảm giác trận: chọn thẻ nhanh và đòn trúng ở ải đầu, ải cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Trận/Cảm giác trận: chọn thẻ nhanh và đòn trúng ở ải đầu, ải cuối (đang Play)", priority = 124)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

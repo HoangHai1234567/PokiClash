@@ -1,5 +1,5 @@
 // Lớp sáng tối trên ảnh đảo (sảnh: trên ảnh đảo lớn; màn đảo: trên ảnh bản đồ, dưới đường, chấm ải, tướng), menu
-// "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Dựng lớp sáng tối (Zone, Hub)". Theo giờ máy (DayCycle):
+// "PokiClash/Prefab/Sảnh và đảo/Sáng tối: Dựng lớp sáng tối (Zone, Hub)". Theo giờ máy (DayCycle):
 // - nhuom: nhân màu cả cảnh (shader PokiClash/UIMultiply): chạng vạng ấm cam, đêm ngả xanh nhẹ (đảo còn sáng); biển tối thêm: sảnh
 //   qua seaDark, đảo vùng đất qua shader sóng (_PokiNight, càng xa bờ càng tối) và tấm biển lặp quanh đảo;
 //   nhuom tràn rộng ra ngoài ảnh (bleed của menu) để kéo, zoom tới rìa vẫn kín màu: chỉ phủ khung cắt nên nền ngoài khung (sảnh:

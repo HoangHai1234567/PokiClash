@@ -1,5 +1,5 @@
 // Lá, cánh hoa bay theo gió trên bản đồ Nhà (GD_Claude/22_Critters_Home.md mốc A4; học hạt gió pbvx_camp_wind của Clash of Critters:
-// hạt sống 9–12 giây, bay chậm khắp map). Các Image dựng sẵn trong prefab (menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn", nút "hat/gio"), component
+// hạt sống 9–12 giây, bay chậm khắp map). Các Image dựng sẵn trong prefab (menu "PokiClash/Prefab/Nhà và side meta/Nhà: dựng màn", nút "hat/gio"), component
 // này chỉ dời: trôi theo gió, lắc lư, lật (co giãn ngang theo sin), ra khỏi bản đồ thì vào lại ở mép đối diện; mờ dần ở mép. Lớp "hat"
 // nằm dưới lớp nhuộm nên đêm lá tối theo cảnh.
 using UnityEngine;

@@ -19,7 +19,7 @@ namespace PokiClash.EditorTools
         static string Dir => Path.Combine(PlayTour.ShotDir, "co_tuong");
         const float Gap = 0.25f, RowGap = 0.35f, Ppu = 180f;
 
-        [MenuItem("PokiClash/Thử/Khác/Tướng∕Cỡ tướng: đo và chụp hàng tướng từng đảo (đang Play)", priority = 140)]
+        [MenuItem("PokiClash/Thử/Tướng/Cỡ tướng: đo và chụp hàng tướng từng đảo (đang Play)", priority = 140)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.Data == null) return;

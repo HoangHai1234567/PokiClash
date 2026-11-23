@@ -1,5 +1,5 @@
 // Hộp chọn bạn đồng hành (prefab Assets/04 Prefabs/Dialogs/ChonTuongKhoiDau, biến thể tờ giấy gốc HopThoai, dựng bằng menu
-// "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn tướng khởi đầu (ChonTuongKhoiDau)"): người chơi mới chọn 1 trong 5 tướng khởi đầu, mỗi hệ một con
+// "PokiClash/Prefab/Hộp thoại và màn/Hộp chọn tướng khởi đầu (ChonTuongKhoiDau)"): người chơi mới chọn 1 trong 5 tướng khởi đầu, mỗi hệ một con
 // (GD_Claude/15_TuongKhoiDau.md). Chạm ô để xem hệ và 3 thẻ; "Chọn …" hỏi lại rồi nhận tướng (đội chỉ có tướng đó). Bắt buộc.
 using System;
 using PokiClash.Core;

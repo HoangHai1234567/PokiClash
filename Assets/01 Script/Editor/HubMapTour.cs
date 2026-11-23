@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "sanh");
 
-        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Sảnh bản đồ thế giới: mây che, mở đảo, kéo 4 hướng (đang Play)", priority = 140)]
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Sảnh bản đồ thế giới: mây che, mở đảo, kéo 4 hướng (đang Play)", priority = 140)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

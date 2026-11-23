@@ -240,7 +240,7 @@ Số đã nén trong file `.aab`; cỡ tải về Play tính lại khi tải lê
   1. Chờ `Editor.log` có dòng `[Gói] Ảnh hạt: dời …`.
   2. Refresh để Unity biên dịch bản sửa.
   3. Chạy lại `Gán gói ảnh hạt` (bỏ qua ảnh đã đúng chỗ, dựng atlas `hat_<hệ>`, bỏ ảnh đã dời khỏi mảng `hatSprites`).
-  4. Chạy test `ContentPackTests`, tour thử, rồi một tour hiệu ứng có trận (vd. `PokiClash/Thử/Đảo Hỏa…`) để soát hạt không mất.
+  4. Chạy test `ContentPackTests`, tour thử, rồi một tour hiệu ứng có trận (vd. `PokiClash/Thử/Tướng/Đảo Hỏa/…`) để soát hạt không mất.
   5. Build AAB đo lại.
 
 **Còn lại:**

@@ -117,7 +117,7 @@ Chủ dự án gửi ảnh chụp máy bi Critters, dặn "copy lại y hệt, k
 - Kinh tế mỗi bi ×1, so với bàn cũ: EXP 9,14 → 8,78; bi hoàn 0,325 → 0,340; thẻ 0,088 → 0,089. Mô phỏng 10 ngày gần như không đổi (người chơi chăm cấp 61, 96 ải; người chơi ít cấp 20 → 19).
 
 **Hình** (`Game/Machine/MachineBoard.cs`):
-- Ảnh tĩnh `Baked/Machine/may_tinh.png` ghép bằng `ArtGen/Pachinko/ghep_ban.py` theo `refs/mat_may.json`. File này xuất từ code bằng menu `PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy`; test `MatMay_AnhGhepKhopHinhHoc` báo khi file lệch code.
+- Ảnh tĩnh `Baked/Machine/may_tinh.png` ghép bằng `ArtGen/Pachinko/ghep_ban.py` theo `refs/mat_may.json`. File này xuất từ code bằng menu `PokiClash/Prefab/Máy bi/xuất hình học mặt máy`; test `MatMay_AnhGhepKhopHinhHoc` báo khi file lệch code.
 - Đinh, cọc vách, thanh mái, núm, cốc lấy từ tờ bộ phận GPT cũ (`tai_ve/bo_phan.png`).
 - Phần ngoài vòm, viền vòm, làn và mũi tên do script vẽ theo cùng nét.
 - Hình động: nấm đỉnh (`pk_nam_dinh`, sáng `pk_u_loi_sang`), hai nấm lớn (`pk_bumper`) có vòng tiến độ (`pk_vong_nam`, phần đầy tô vàng), hình quà trên đĩa kem (`pk_dia_nam`). Bi chờ ở chân làn.
@@ -185,7 +185,7 @@ Chủ dự án dặn (2026-11-04): máy phải có thanh kinh nghiệm ở trên
 - Tủ máy đứng có đỉnh vòm viền bóng đèn và bảng điểm trên đầu.
 
 **Ở đây:**
-- **Thanh kinh nghiệm trên đầu máy** (`MachineExpBar`, phần `thanh_kinh_nghiem` của `Screens/Machine`, dựng bằng menu `PokiClash/Prefab/Khác/Máy bi∕thanh kinh nghiệm`). Có vòng cấp (chép vòng cấp của thanh trên) và thanh kit `Thanh` loại EXP ghi "số/số", chừa nút Tỉ lệ bên phải.
+- **Thanh kinh nghiệm trên đầu máy** (`MachineExpBar`, phần `thanh_kinh_nghiem` của `Screens/Machine`, dựng bằng menu `PokiClash/Prefab/Máy bi/thanh kinh nghiệm`). Có vòng cấp (chép vòng cấp của thanh trên) và thanh kit `Thanh` loại EXP ghi "số/số", chừa nút Tỉ lệ bên phải.
 - **Sao EXP bay lên thanh:**
   - bi vào ô EXP thì hiện chữ "+N XP" như cũ, kèm 1–4 sao EXP (10 EXP một sao);
   - sao văng sang một bên rồi lao về đầu phần đầy trong 0,55–0,67 giây, sao sau trễ 0,06 giây, có vệt lấp lánh tím;
@@ -197,12 +197,12 @@ Chủ dự án dặn (2026-11-04): máy phải có thanh kinh nghiệm ở trên
   - rương ở ô, cốc, két có nhãn "×cược" khi cược trên 1;
   - đổi cược thì các số nhún 1,4 → 1 trong 0,25 giây, chữ "×N" cam nổi giữa máy.
 - **Thân máy vẽ tay:** gói prompt `ArtGen/Pachinko/gui_gpt/than_may/` (sinh bằng `ArtGen/Pachinko/build.py`). Tủ đỉnh vòm có bóng đèn, đầu máy có rãnh cho thanh kinh nghiệm, hốc vòng cấp, hốc nút tỉ lệ, mặt chơi trống đúng cỡ bàn.
-  - Ảnh đã vào game (2026-11-04): `Assets/03 Art/Pachinko/pk_than_may.png` (851 × 1401, đúng cỡ hiện trên màn). Nhập bằng `build.py --duyet`, rồi chạy menu `PokiClash/Prefab/Khác/Máy bi∕thân máy vẽ tay`.
+  - Ảnh đã vào game (2026-11-04): `Assets/03 Art/Pachinko/pk_than_may.png` (851 × 1401, đúng cỡ hiện trên màn). Nhập bằng `build.py --duyet`, rồi chạy menu `PokiClash/Prefab/Máy bi/thân máy vẽ tay`.
   - Thân máy nằm sau mặt máy và thay khung giấy tạm. Thanh kinh nghiệm nằm trong rãnh. Nút tỉ lệ thành chữ "i" trong hốc tròn bên phải.
   - Cột cược và khay rương sát mép màn, thu nhỏ cho khỏi đè viền tủ.
 - **Bộ phận, hiệu ứng, rương vẽ tay** (vào game 2026-11-04, gói `ArtGen/Pachinko/gui_gpt/than_may/` lượt 2–4):
   - **Mặt máy tĩnh** `Baked/Machine/may_tinh.png` ghép từ 12 bộ phận GPT bằng `build.py --duyet bo_phan`. Chỗ đặt theo hình học `Board.Build`, có bản chép trong `build.py`: đổi mặt máy thì đổi cả hai.
-  - **Nấm, máng mây, bi** là hình động: `pk_bumper` (thay hình tạm cùng tên), `pk_may_tha`, `pk_bi` (trắng xám, game tô màu theo cược). Gắn bằng menu `PokiClash/Prefab/Khác/Máy bi∕ảnh bộ phận`.
+  - **Nấm, máng mây, bi** là hình động: `pk_bumper` (thay hình tạm cùng tên), `pk_may_tha`, `pk_bi` (trắng xám, game tô màu theo cược). Gắn bằng menu `PokiClash/Prefab/Máy bi/ảnh bộ phận`.
   - **Hiệu ứng** `fx_glow`, `fx_sparkle`, `fx_ring`, `fx_star`, `fx_streak`, `fx_puff` trong `Assets/03 Art/Pachinko` thay hình tạm cùng tên ở mọi chỗ (menu `PokiClash/Dựng lại danh mục ảnh`).
   - **Rương** `pk_ruong_go`, `pk_ruong_bac`, `pk_ruong_vang` (bản mở thêm `_mo`): `ChestIcon` tự dùng khi có. Hộp mở rương đổi sang bản mở lúc bật nắp. Rương AFK có màu riêng nên giữ hình vẽ tạm.
 
@@ -224,7 +224,7 @@ Chủ dự án dặn: thanh kinh nghiệm phải nhún cả viền; học mốc 
   - Thanh mốc nằm chỗ thanh Huyền thoại cũ, có ô quà tròn ở đầu thanh. Nhận quà thì ô nhún, quà bay ra (rương vào khay, sao EXP lên thanh, bi về dòng đếm), rồi ô đổi sang món kế.
   - Chạm thanh hoặc ô quà thì báo ba mốc kế.
 - **Thanh kinh nghiệm nhún cả viền:** rãnh vẽ tay cắt khỏi thân máy (`ArtGen/Pachinko/cat_ranh.py` → `pk_ranh_exp.png`), đặt trùng khít lên rãnh, gom với thanh thành `khung_thanh`. Cả nhóm nhún theo dáng Critters (ngang 3 %, dọc 18 %, chữ thêm 12 %), không nhỏ hơn cỡ gốc.
-- **Menu:** `PokiClash/Prefab/Khác/Máy bi∕thân máy vẽ tay` (dựng `khung_thanh`), `PokiClash/Prefab/Khác/Máy bi∕mốc quà` (ô quà). Tour thử: `PokiClash/Thử/Máy bi: mốc quà, cược theo số bi`.
+- **Menu:** `PokiClash/Prefab/Máy bi/thân máy vẽ tay` (dựng `khung_thanh`), `PokiClash/Prefab/Máy bi/mốc quà` (ô quà). Tour thử: `PokiClash/Thử/Máy bi: mốc quà, cược theo số bi`.
 - Duyệt lại thân máy (`build.py --duyet`) thì chạy lại `cat_ranh.py` rồi menu thân máy.
 
 ## Quét lại bản đục, EXP toả ra, mở rương, ảnh Magnific (2026-11-19)
@@ -314,6 +314,6 @@ Thanh kinh nghiệm, số theo cược, thân máy, bộ phận, hiệu ứng, r
 
 **Lưu ý:**
 - File prompt ghi đường dẫn tuyệt đối của máy đang chạy. Sang máy khác thì chạy `py -3 -I ArtGen/Pachinko/build.py` trước để dựng lại đường dẫn, rồi mới gửi GPT.
-- Đổi bố cục mặt máy trong `Pachinko.cs` thì chạy menu `PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy` rồi `py -3 -I ArtGen/Pachinko/ghep_ban.py` (từ 2026-11-09; `board_geometry` trong `build.py` là bàn cũ).
+- Đổi bố cục mặt máy trong `Pachinko.cs` thì chạy menu `PokiClash/Prefab/Máy bi/xuất hình học mặt máy` rồi `py -3 -I ArtGen/Pachinko/ghep_ban.py` (từ 2026-11-09; `board_geometry` trong `build.py` là bàn cũ).
 - Không chạy `Web/scripts/draw_machine.py`: script đó ghi đè mặt máy vẽ tay bằng bản vẽ code.
 - Gen lại tờ nào thì làm theo `ArtGen/Pachinko/gui_gpt/than_may/HUONG_DAN.md`: `build.py --duyet <tờ>`, rồi chạy các menu Unity ghi ở đó.

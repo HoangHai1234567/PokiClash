@@ -1,5 +1,5 @@
 // Hộp kết quả trận (prefab Assets/04 Prefabs/Dialogs/TranKetQua, bắt buộc): con dấu Thắng/Thua, tên ải, số hiệp và sát thương,
-// hàng ô thưởng (Items/OThuong trong hàng "thuong", menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)" dựng) hoặc
+// hàng ô thưởng (Items/OThuong trong hàng "thuong", menu "PokiClash/Prefab/Hộp thoại và màn/Popup gọn (ô thưởng, đội hình, lực chiến)" dựng) hoặc
 // lời khuyên khi thua, tối đa 4 nút (dựng sẵn, bật theo trận: ải thường, Hang, Đền Huy Hiệu).
 using System;
 using PokiClash.Core;
@@ -17,7 +17,7 @@ namespace PokiClash
         [SerializeField] SketchButton[] buttons;
         [SerializeField] RewardTile tilePrefab;
         [SerializeField] RectTransform tileRow;
-        [SerializeField] SketchButton adButton; // nút quảng cáo riêng dưới lời khuyên (Tiếp sức / Nhận ×2, GD_Claude/26 mục 8.1), menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"
+        [SerializeField] SketchButton adButton; // nút quảng cáo riêng dưới lời khuyên (Tiếp sức / Nhận ×2, GD_Claude/26 mục 8.1), menu "PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: dựng hết"
         int used;
 
         // Dùng khi nướng prefab (Editor).
