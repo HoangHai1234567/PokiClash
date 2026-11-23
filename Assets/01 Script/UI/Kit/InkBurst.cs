@@ -1,5 +1,5 @@
 // Nét bung khi nhấn (bộ UI Sa Bàn): 5 gạch mực ngắn toả ra từ chỗ chạm rồi tan trong 0,38 giây. Prefab Assets/04 Prefabs/Kit/NetBung
-// (menu "PokiClash/Prefab/Bộ UI Sa Bàn: hiệu ứng, nút sticker, chỉ khâu"), UiKit.burst trỏ tới. SketchButton gọi At khi nhả nút.
+// (menu "PokiClash/Prefab/Giao diện chung/Giao diện chung∕Bộ UI Sa Bàn: hiệu ứng, nút sticker, chỉ khâu"), UiKit.burst trỏ tới. SketchButton gọi At khi nhả nút.
 using UnityEngine;
 using UnityEngine.EventSystems;
 

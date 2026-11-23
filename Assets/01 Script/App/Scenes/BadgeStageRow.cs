@@ -1,7 +1,7 @@
 // Một trận trong danh sách của Đền Huy Hiệu (prefab Assets/04 Prefabs/Items/TranHuyHieu): nền theo trạng thái (đang đánh vàng,
 // đã thắng xanh, chưa tới xám), chân dung boss (bóng sẫm nếu chưa tới), "Trận i · Lv · tên địch", hàng sao (0–3 sao cao nhất), nút "Đánh"
 // (trận đang đánh) hoặc "Đánh lại" (trận đã thắng chưa đủ 3 sao; tên danh_tran), dấu tích (đủ 3 sao) / ổ khoá (chưa tới).
-// 2026-11-17: sao từng trận, đánh lại lấy sao. Hàng sao do menu "PokiClash/Prefab/Đền Huy Hiệu: sao trận, chọn bậc, mốc sao" dựng
+// 2026-11-17: sao từng trận, đánh lại lấy sao. Hàng sao do menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Đền Huy Hiệu: sao trận, chọn bậc, mốc sao" dựng
 // (Editor/SideMetaUiMenu.cs); prefab chưa dựng lại thì sao ghi vào dòng chữ.
 using System;
 using System.Linq;

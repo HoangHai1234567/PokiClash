@@ -1,5 +1,5 @@
 // Thử màn Nhà (đang Play, 2026-11-22): vật vừa chọn nhún + sáng nhẹ (shader PokiClash/UIHomeSelect), bong bóng số bi trên đầu Cây bi,
-// chạm một cây là hái hết, bi bay lên chip bi. Menu "PokiClash/Thử/Nhà: chọn vật + hái Cây bi (đang Play)": sang Nhà, 12h, cho cây
+// chạm một cây là hái hết, bi bay lên chip bi. Menu "PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: chọn vật + hái Cây bi (đang Play)": sang Nhà, 12h, cho cây
 // chín 6 giờ, kéo máy tới cây chụp bong bóng, chạm cây (qua OnTap như ngón thật) chụp các khung bi bay; chạm Nhà chính chụp trước /
 // loé / nhún / thở; chạm một ô rừng. Ảnh vào Temp/PokiShots/nha_chon/. Xong thì trả bi, cây về như trước (không đổi bản lưu).
 using System.Collections;
@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "nha_chon");
 
-        [MenuItem("PokiClash/Thử/Nhà: chọn vật + hái Cây bi (đang Play)", priority = 144)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: chọn vật + hái Cây bi (đang Play)", priority = 144)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

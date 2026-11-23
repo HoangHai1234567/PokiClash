@@ -1,4 +1,4 @@
-// Màn VS đầu trận kiểu trang truyện tranh (người dùng chốt 2026-11-03). Menu "PokiClash/Prefab/Trận: màn VS truyện tranh" dựng
+// Màn VS đầu trận kiểu trang truyện tranh (người dùng chốt 2026-11-03). Menu "PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh" dựng
 // (chạy lại thì dựng lại):
 // - Items/TranVsMat (VsFace): ô mặt 300 × 300: khung giấy viền mực, mặt hoặc chân dung trong ô có mặt nạ, nhãn BOSS, ô tên đè mép dưới;
 // - Screens/Battle: dựng lại con của nút VS (BattleIntro, trong lớp phủ, tắt sẵn): nền giấy (khe giữa hai khung, nhận chạm bỏ qua),
@@ -25,7 +25,7 @@ namespace PokiClash.EditorTools
 
         static ArtLibrary art;
 
-        [MenuItem("PokiClash/Prefab/Trận: màn VS truyện tranh", priority = 67)]
+        [MenuItem("PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh", priority = 67)]
         static void Build()
         {
             var assets = Load<UiAssets>();

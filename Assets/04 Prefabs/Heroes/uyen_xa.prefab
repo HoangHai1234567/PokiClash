@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 6fe5748d8fd3a6740a8f62538af323e8, type: 2}
-  - {fileID: 11400000, guid: 6e3ce420172ad31428ebccf53038aaf1, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - uyen_xa_1
+  - uyen_xa_2
+  pack: thuy
   SplitFx: 0
   Manual: 0

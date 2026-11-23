@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 1228fa88f30a9744ea77367decc878d4, type: 2}
-  - {fileID: 11400000, guid: fbe46690cf512be4aa6c5eb60ff38f63, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - hoa_nhan_1
+  - hoa_nhan_2
+  pack: hoa
   SplitFx: 0
   Manual: 0

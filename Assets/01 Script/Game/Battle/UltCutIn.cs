@@ -3,7 +3,7 @@
 // phía phe nó (phe mình bên trái quay phải, địch bên phải quay trái; mặt vẽ tay HeroArt.Face, chưa có thì chân dung phóng cho đầu lấp dải); phía
 // kia là khung lời dẫn "Tuyệt kỹ · <tên tướng>" và tên tuyệt kỹ chữ to viền mực.
 // Dải trượt vào từ phía phe ra chiêu, mặt trượt chậm hơn dải (có chiều sâu), chữ bật ra, giữ một lúc rồi trượt tiếp sang phía kia.
-// Dựng bằng menu "PokiClash/Prefab/Trận: màn VS truyện tranh" (trong lớp phủ của prefab Screens/Battle, tắt sẵn). BattlePlayer chờ dải
+// Dựng bằng menu "PokiClash/Prefab/Khác/Trận∕Trận: màn VS truyện tranh" (trong lớp phủ của prefab Screens/Battle, tắt sẵn). BattlePlayer chờ dải
 // chạy xong mới phát clip tuyệt kỹ.
 using System.Collections;
 using PokiClash.Core;

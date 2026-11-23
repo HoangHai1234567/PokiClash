@@ -62,7 +62,7 @@ namespace PokiClash
             m.Sheet = view.Sheet;
             m.Body = view.Sheet;
             stack.Add(m);
-            StartCoroutine(SlideIn(view.Sheet, view.Dim));
+            StartCoroutine(SlideIn(view.Sheet, view.Dim, view.Flat));
             App.Audio?.Play("open", 0.7f);
             Haptics.Play(Haptic.UiOpen);
             return m;
@@ -115,7 +115,7 @@ namespace PokiClash
             return true;
         }
 
-        IEnumerator SlideIn(RectTransform sheet, Image dim)
+        IEnumerator SlideIn(RectTransform sheet, Image dim, bool flat = false)
         {
             var target = sheet.anchoredPosition;
             var dimColor = dim.color;
@@ -127,7 +127,7 @@ namespace PokiClash
                 // web: translateY(60px) rotate(4deg) scale(0.9), nảy (0.2, 1.5, 0.4, 1)
                 float e = 1 - Mathf.Pow(1 - k, 3) + Mathf.Sin(k * Mathf.PI) * 0.12f;
                 sheet.anchoredPosition = target + new Vector2(0, -120 * (1 - e));
-                sheet.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(4, -0.6f, e));
+                sheet.localEulerAngles = flat ? Vector3.zero : new Vector3(0, 0, Mathf.Lerp(4, -0.6f, e));
                 float s = Mathf.Lerp(0.9f, 1, e);
                 sheet.localScale = new Vector3(s, s, 1);
                 dim.color = new Color(dimColor.r, dimColor.g, dimColor.b, dimColor.a * Mathf.Clamp01(k * 1.8f));
@@ -135,7 +135,7 @@ namespace PokiClash
             }
             if (!sheet) yield break;
             sheet.anchoredPosition = target;
-            sheet.localEulerAngles = new Vector3(0, 0, -0.6f);
+            sheet.localEulerAngles = flat ? Vector3.zero : new Vector3(0, 0, -0.6f);
             sheet.localScale = Vector3.one;
             dim.color = dimColor;
         }

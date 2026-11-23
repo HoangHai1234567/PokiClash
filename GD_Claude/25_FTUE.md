@@ -93,7 +93,7 @@ Chặng A–C là chuỗi bắt buộc của phiên đầu. Từ D trở đi là
 | Tự chơi | trận thứ 3 | D6 |
 | Rương mốc đảo, Sổ thẻ | lần đầu tới ải 10; lần đầu có thẻ mới | D8–D9 |
 | Địch hơn cấp, lần thua đầu | lần đầu mỗi thứ | E1–E2 |
-| Cây bi | lần đầu sắp hết bi | E3 |
+| Cây bi (từ 2026-11-23 đến cùng Nhà) | vào Nhà lần đầu | G3a–G3d |
 | AFK | phiên 2 | F1–F3 |
 | Mốc Huyền thoại, nấm tiến độ, cược | máy bi lần 2 trở đi | F4–F7 |
 | Chọn tướng theo hệ địch (1 ô đội) | lần đầu có tướng khắc ải kế | F8 |
@@ -221,12 +221,12 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
 |---|---|---|---|---|
 | E1 | mở hộp Chuẩn bị ải có địch hơn mình từ 3 cấp | dòng cảnh báo (đã có), thêm 3 nút nhỏ | "Địch cấp {x}, bạn cấp {y}. Lên cấp ở Máy Bi, hoặc đánh ải dễ ở đảo khác." Nút: Máy Bi, Đảo dễ nhất, Tướng | Gợi ý |
 | E2 | thua lần đầu | hộp thua | con dấu "Thua rồi", rồi "Thua không mất gì. Mạnh hơn bằng:" và 3 nút lớn: Máy Bi (n), Tướng, Ải dễ hơn | — |
-| E3 | ở sảnh còn dưới 3 bi, cây bi có ít nhất 1 bi | Cây bi | "Cây bi ra 5 bi mỗi giờ, chứa được 50. Hái đi!" | Gợi ý |
+| ~~E3~~ | bỏ 2026-11-23: cây bi dời vào Nhà, hướng dẫn hái chuyển thành G3d | — | — | — |
 | E4 | sau lần hái đầu | — | "Hết bi thì sang đảo khác, hoặc lát nữa quay lại hái." | Chú thích |
 
 - E1: "Đảo dễ nhất" là đảo có ải kế cấp thấp nhất (`RecommendedZone`). Trong phiên đầu, đó thường là ải 1 của một đảo chưa đánh (cấp 1): vừa có bi, vừa có mảnh một tướng khởi đầu khác.
 - E2 thay dòng mẹo của hộp thua (V8).
-- E3: cây bi mở sau ải đầu, nên tới lúc này thường mới có vài bi. Đề xuất lần đầu cây có sẵn 10 bi để lần hái đầu đã tay (câu 8).
+- Cây bi lần đầu có sẵn 10 bi để lần hái đầu đã tay (câu 8). Từ 2026-11-23 cây mở cùng Nhà, nên bơm 10 bi lúc vào Nhà (G3d).
 
 ### Chặng F: Phiên 2 (quay lại) và ngày 1–2
 
@@ -256,6 +256,10 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
 | G1 | có tướng thứ 3 | hộp "Mở khoá: Nhà" (bản phác tô màu dần) | "Nhà đã mở! Tướng làm việc ra bi và gỗ cả khi bạn vắng." Nút: Về Nhà | — |
 | G2 | sau G1 | con tàu ở bến | "Chạm con tàu để về Nhà." | Ép |
 | G3 | tàu cập bến Nhà lần đầu | camera lướt tới Nhà chính (có sẵn, cờ `dockIntro`) | "Nhà của chúng ta!" | — |
+| G3a | có cây bi chờ đặt, chế độ thường | nút Xây | "Cây bi đã về Nhà! Bấm Xây để đặt cây." | Ép, lặp tới khi đặt xong |
+| G3b | đang xây, chưa chọn gì | thẻ Cây bi đầu khay ("Miễn phí") | "Chọn Cây bi. Đặt cây không tốn gì." | Ép, lặp |
+| G3c | bóng ma Cây bi | bóng ma (nút Đặt cạnh nó) | "Kéo cây tới chỗ bạn thích, rồi bấm Đặt." | Gợi ý 30 giây, lặp |
+| G3d | đặt xong (tự về chế độ thường), cây có bi | Cây bi | "Chạm cây để hái bi. Mỗi cây ra 5 bi mỗi giờ, chứa được 50." | Ép |
 | G4 | sau G3 | Ruộng rau, ô thẻ tướng | "Giao một tướng làm Ruộng rau: ra bi." | Ép |
 | G5 | sau G4 | Xưởng gỗ | "Xưởng gỗ ra gỗ để xây và nâng cấp." | Gợi ý |
 | G6 | lần đầu có đồ chờ thu | bong bóng trên công trình | "Chạm bong bóng để thu." | Gợi ý |
@@ -265,6 +269,16 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
 | G10 | lần đầu tàu về sảnh | con tàu | "Chạm tàu để ra đảo đánh tiếp." | Gợi ý |
 
 Trang trí, điểm đẹp, ô lát: không gợi ý, để người chơi tự khám; có ghi trong trang "Nhà" của Cách chơi.
+
+Cây bi trong Nhà (người dùng 2026-11-23: gộp thẻ Cây bi của sảnh với cây bi ở Nhà làm một, thêm hướng dẫn đặt cây):
+- Cây bi mở cùng Nhà (`Trees.Open` cần `Home.Open`); thẻ Cây bi ở cột sảnh bỏ.
+- Cây đã mở mà chưa có chỗ nằm đầu khay Xây, đặt miễn phí, xong ngay (`Home.TreesWaiting`). Có cây chờ đặt thì nút Nhà ở sảnh hiện "!".
+- Bản lưu cũ (đã có cây ở sảnh) mở Nhà lần đầu thì cây được đặt sẵn như trước; người chơi mới tự đặt theo G3a–G3d.
+- Cây 2–5 (cấp 30, 50, 80, 110) không tự đặt, không dẫn: báo "Thêm một cây bi!" ở sảnh kèm "Về Nhà, bấm Xây để đặt cây mới."
+- G3a–G3c lặp: bấm Thôi hay Xong giữa chừng thì lần sau dẫn lại; xong hẳn khi đã đặt cây (cờ `g3t`). G3d cờ `g3h`. Thuộc nhóm gợi ý, tắt được bằng công tắc "Gợi ý".
+- Chạm cây trúng cả tán lá, không chỉ ô dưới chân (`HomeScene.HitAt`).
+- Code: `HomeScene.Tutor`, `TreeTrayItem`, `HitAt`.
+- Thử: menu `PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: hướng dẫn đặt Cây bi, chạm tán lá (đang Play)` (`Editor/HomeTreeTour.cs`). Tour giả người chơi mới vừa mở Nhà, đi G3a → G3d, chụp `Temp/PokiShots/30x_cay_*.png`, chạm một điểm trên tán lá ngoài các ô dưới chân và kiểm số bi tăng, xong trả lại bản lưu.
 
 ### Chặng H: Mở dần (ngày 3 trở đi)
 
@@ -291,14 +305,14 @@ Mỗi dòng là một khoảnh khắc mở: hộp nhỏ, hình công trình hay 
 | Chỗ | Lúc đầu | Hiện khi |
 |---|---|---|
 | Vòng cấp, chip bi | hiện | — |
-| Sổ tay (nút đáy) | hiện | — (có cài đặt) |
+| Sổ tay (nút bánh răng trên thanh trên) | hiện | — (có cài đặt) |
 | Máy Bi (nút đáy) | ẩn | B8 (nhún, hiện ra) |
 | Tướng (nút đáy) | ẩn | C8 |
-| Đánh tiếp (nút đáy) | ẩn | C17 |
+| Cửa hàng (nút đáy, 2026-11-23 thay Đánh tiếp) | ẩn | C17 |
 | Sổ thẻ (nút đáy) | ẩn | D9 (lần đầu có thẻ mới), muộn nhất cấp 3 |
 | Nút AFK (thanh trên) | ẩn | F1 |
-| Cây bi | ẩn | thắng ải đầu (đúng luật mở hiện tại), gợi ý ở E3 |
-| Nhà (công trình, lời mời chạm tàu) | ẩn | có 2 tướng: hiện bản phác "Cần 3 tướng"; có 3 tướng: G1 |
+| Cây bi | bỏ khỏi sảnh 2026-11-23 | đến cùng Nhà, đặt ở Nhà (G3a–G3d) |
+| Nhà (nút đáy từ 2026-11-23, lời mời chạm tàu) | ẩn | có 2 tướng: nút hiện, chạm báo "Có 3 tướng để mở Nhà"; có 3 tướng: G1 |
 | Hang | ẩn | cấp 20: bản phác "Cấp 30"; cấp 30: mở |
 | Đền | ẩn | qua ải 10 một đảo: bản phác "Thắng ải 20"; thắng ải 20: mở |
 | Mây che đảo | đã đúng | — |
@@ -329,7 +343,7 @@ Thêm mục "Cách chơi" vào Sổ tay.
 | Tướng | F10 | Mảnh: thu phục, rồi lên sao. Bản sao thẻ: nâng chiêu, tuyệt kỹ, nội tại. Đá tiến hóa và cấp: tiến hóa, đổi dạng. |
 | Đội hình | F8 | Đội 1 ô; cấp 60 thêm ô 2, cấp 200 thêm ô 3. Chọn tướng khắc hệ địch. Có từ 2 ô thì đổi tướng được ở đầu lượt. |
 | AFK | F1 | Ải đã qua tự đánh lúc bạn vắng, tối đa 12 giờ: ra mảnh và rương. Chọn ải AFK ở hộp Chuẩn bị. |
-| Cây bi | E3 | Mỗi cây 5 bi mỗi giờ, chứa 50. Thêm cây ở cấp 30, 50, 80, 110. |
+| Cây bi | G3a–G3c (đặt xong cây đầu) | Cây bi ở Nhà: mỗi cây 5 bi mỗi giờ, chứa 50, chạm cây để hái. Thêm cây ở cấp 30, 50, 80, 110: đặt bằng nút Xây. |
 | Nhà | G4 | Tướng làm việc ra bi, gỗ, quặng. Gỗ và quặng dùng để xây, nâng cấp, dọn rừng. |
 | Tiềm năng | H | Đá tiềm năng mở thêm dòng chỉ số. Hang Tiềm Năng ra đá. |
 | Đền Huy Hiệu | H | Thắng chuỗi trận boss theo hệ: tướng cùng hệ mạnh thêm. |
@@ -432,7 +446,7 @@ Người dùng bảo "ok làm đi": làm theo đề xuất của câu 1–8; câ
   - `ZoneScene`, `StagePrepDialog`, `BattleController`, `BattleResultDialog`, `MachineScene`, `MachineChestOpen`, `HeroesScene`, `HeroDetailDialog`, `TopBars` (nút AFK ẩn tới F1).
   - `Dialogs.LevelUp`: dòng thứ hai ghi "Mọi tướng mạnh hơn x%" và tính năng vừa mở.
   - `ShipVoyage`: mẹo màn tải lọc theo trang đã mở.
-- **Cách chơi:** `App/HowToDialog.cs`, prefab `Dialogs/CachChoi`, dòng "Cách chơi" ở Sổ tay (menu `PokiClash/Prefab/Hướng dẫn: hộp Cách chơi, dòng Sổ tay`).
+- **Cách chơi:** `App/HowToDialog.cs`, prefab `Dialogs/CachChoi`, dòng "Cách chơi" ở Sổ tay (menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn: hộp Cách chơi, dòng Sổ tay`).
 - **Dữ liệu (câu 3):**
   - `cards.json`: cấp 1 còn 6 thẻ (Ném Đá, Cắn Xé, Mài Vuốt, Đứng Tấn, Băng Gạc, Hít Thở);
   - 16 thẻ dời sang cấp 2–10: Gầm Gừ, Thủ Thế 2; Hạt Dẻ, Nhảy Lùi 3; Phóng Lông, Bình Thuốc, Giáp Gỗ 4; Kim Độc, Bánh Bao Thịt 5; Tung Cát, Tĩnh Tâm 6; Gai Nhọn, Vùng Dậy 8; Liều Mạng 9; Cuồng Nộ, Phá Giáp 10.
@@ -495,21 +509,26 @@ Cậu cũng nói lời dẫn trong hướng dẫn (`Guide.SayMe`): câu chào đ
 
 - Lần đầu vào game, khi bản lưu mới chưa chọn tướng và chưa có cờ `a0`, `App.Go` mở cốt truyện trước màn tải con tàu. Mây khép sẵn dưới nó.
 - Xem xong hoặc bấm Bỏ qua (Back cũng là bỏ qua): ghi cờ `a0`, lưu, rồi vào màn tải như thường. Bản lưu cũ (`*`) không thấy.
-- Màn: bàn gỗ, một tờ sổ.
-  - Mỗi chạm hiện một khung: khung đập xuống nghiêng nhẹ, rồi chữ chạy dần trên băng giấy.
-  - Tranh đã hiện thì trôi chậm (phóng 5%, lia nhẹ).
-  - Chạm lúc khung đang hiện thì hiện xong ngay.
-  - Hết khung 3 thì lật trang. Chạm sau khung 6 thì mờ dần, xong.
-  - Sau 1,4 giây không chạm thì hiện "Chạm để tiếp tục".
+- Màn: trang truyện tranh tràn màn hình (người dùng đổi 2026-11-23: "full screen, cấu trúc như comic panel", bỏ kiểu ảnh dán băng keo trên bàn gỗ).
+  - Mỗi trang 3 ô tứ giác ghép kín trang, vách chia xiên, khe giấy 26 px, lề ngoài 22 px, viền mực 7 px. Trang 1: ô ngang trên, hai ô dọc dưới; trang 2: hai ô dọc trên, ô ngang dưới.
+  - Vách ngang đặt theo cỡ màn để ô ngang (3:2) và ô dọc (2:3) bị cắt bớt bề ngang như nhau. Mỗi tranh có điểm lấy nét để giữ cậu bé và các tướng khi bị cắt.
+  - Trên màn dài 9:19,5 mỗi ô vẫn mất khoảng 30% bề ngang. Ô 4 mất một phần các tướng ở hai mép. Muốn khỏi mất thì vẽ nới tranh lên trên và xuống dưới cho khớp ô.
+  - Mỗi chạm hiện một ô: ô nảy ra từ tâm, rồi chữ chạy dần trong khung lời dẫn vàng nhạt viền mực ở góc ô.
+  - Tranh đã hiện thì trôi chậm trong ô (phóng 3%, lia 10), mép ô đứng yên.
+  - Chạm lúc ô đang hiện thì hiện xong ngay.
+  - Hết ô 3 thì trang 2 trượt vào từ phải, giữa hai trang lộ nền mực. Chạm sau ô 6 thì mờ dần, xong.
+  - Sau 1,4 giây không chạm thì hiện "Chạm để tiếp tục" (chữ giấy viền mực, giữa đáy).
 - Nhạc chủ đề (`chude`) như màn tải.
-- Xem lại: Sổ tay → Cách chơi → nút "Xem lại cốt truyện".
+- Xem lại: Sổ tay → dòng "Cốt truyện mở đầu" → nút "Xem" (thêm 2026-11-23, menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Cốt truyện`), hoặc Sổ tay → Cách chơi → nút "Xem lại cốt truyện".
+- Trong Editor: menu `PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: xem lại`. Chưa Play thì tự mở `Boot.unity`, vào Play, bỏ màn mở game, chờ màn tải xong rồi mở cốt truyện; bản lưu không đổi.
 
 ### Code, prefab
 
-- `App/StoryIntro.cs`.
+- `App/StoryIntro.cs`: bố cục ô (`Quad`, `Divider`, `Focus`), tính lúc chạy theo cỡ màn (`Layout`).
+- `App/ComicPanel.cs`: Graphic vẽ tranh trong tứ giác, phủ kín khung bao, có điểm lấy nét, trôi trong ô.
 - `Editor/StoryIntroMenu.cs`:
-  - menu `PokiClash/Prefab/Cốt truyện mở đầu (CotTruyen)` dựng `Assets/04 Prefabs/Screens/CotTruyen.prefab` (canvas thứ tự 25) và gán `App.storyPrefab`;
-  - menu thử `PokiClash/Thử/Cốt truyện mở đầu: xem lại` và `…: chạm hết và chụp từng khung` (ảnh ở `Temp/PokiShots/cot_truyen/`).
+  - menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Cốt truyện mở đầu (CotTruyen)` dựng `Assets/04 Prefabs/Screens/CotTruyen.prefab` (canvas thứ tự 25) và gán `App.storyPrefab`;
+  - menu thử `PokiClash/Thử/Khác/Người chơi mới∕Cốt truyện mở đầu: xem lại` và `…: chạm hết và chụp từng khung` (ảnh ở `Temp/PokiShots/cot_truyen/`).
 - `Core/Tutorial.cs`: `Story = "a0"`, `StoryNeeded`.
 - `App/App.cs`: `storyPrefab`, nhánh trong `Go()`, `Booting` tính cả cốt truyện, Back = bỏ qua.
 - `App/AudioService.cs`: nhạc chủ đề khi cốt truyện mở.
@@ -525,7 +544,7 @@ Cậu cũng nói lời dẫn trong hướng dẫn (`Guide.SayMe`): câu chào đ
   - lượt 2: khung 1 và 3;
   - lượt 3: khung 4, 5, 6.
 - Lượt 2 và 3 chỉ dựng sau khi duyệt khung 2 (`--duyet 2`).
-- `--nhap` cũng chép chân dung (cắt sát, cạnh dài 512) vào `Assets/03 Art/Story/nhan_vat.png`; rồi chạy menu `PokiClash/Prefab/Hướng dẫn người mới (lớp phủ)`.
+- `--nhap` cũng chép chân dung (cắt sát, cạnh dài 512) vào `Assets/03 Art/Story/nhan_vat.png`; rồi chạy menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn người mới (lớp phủ)`.
 - `--nhap` thu ảnh về cạnh dài 1024 rồi ghi vào `Assets/03 Art/Story/khung_k.png`. Sau đó chạy lại menu dựng prefab.
 - Khung chưa có tranh thì tạm dùng nền trận hoặc bản đồ có sẵn.
 

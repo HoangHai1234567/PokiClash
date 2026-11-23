@@ -16,6 +16,7 @@ namespace PokiClash.Tests
             var g = J.Obj(MiniJson.Parse(TestData.Read("Golden/trees.json")));
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, 0);
+            OpenHome(s, d); // cây bi mở cùng Nhà (2026-11-23); bản web chưa có Nhà
             int i = 0;
             foreach (var x in J.Arr(g, "steps"))
             {
@@ -59,6 +60,7 @@ namespace PokiClash.Tests
         {
             var d = TestData.Load();
             var s = SaveData.New(d, 0);
+            OpenHome(s, d);
             Assert.AreEqual(0, Trees.Open(s, d.Cfg), "chưa qua ải nào: chưa có cây");
             s.zones[(int)Elem.Thuy] = 1;
             s.level = d.Cfg.trees.unlockLevels[1];
@@ -74,6 +76,27 @@ namespace PokiClash.Tests
             CollectionAssert.AreEqual(s.trees.stock, back.trees.stock);
             Assert.AreEqual(150, Trees.Harvest(back, d.Cfg, 20 * H));
             Assert.AreEqual(0, Trees.Stock(back, d.Cfg, 20 * H));
+        }
+
+        [Test]
+        public void CayBi_MoCungNha()
+        {
+            var d = TestData.Load();
+            var s = SaveData.New(d, 0);
+            s.zones[(int)Elem.Thuy] = 1;
+            Assert.AreEqual(0, Trees.Open(s, d.Cfg), "qua ải 1 mà chưa mở Nhà: chưa có cây (cây bi ở trong Nhà)");
+            OpenHome(s, d);
+            Assert.AreEqual(1, Trees.Open(s, d.Cfg), "mở Nhà: có cây đầu");
+        }
+
+        // cây bi mở cùng Nhà (2026-11-23): cho bản lưu đủ tướng để mở Nhà (Farm.Open)
+        internal static void OpenHome(SaveData s, GameData d)
+        {
+            foreach (var h in d.Heroes)
+            {
+                if (Home.Open(s, d.Cfg)) break;
+                s.Hero(h.id).owned = true;
+            }
         }
     }
 }

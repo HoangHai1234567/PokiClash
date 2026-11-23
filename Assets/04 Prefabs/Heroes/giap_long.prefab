@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 43163225792d52f41a77a96a478ac26a, type: 2}
-  - {fileID: 11400000, guid: a49c4ceb1a6bd4e4d82f7f97036dc33a, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - quy_dao_non
+  - quy_dao_1
+  pack: hoa
   SplitFx: 0
   Manual: 0

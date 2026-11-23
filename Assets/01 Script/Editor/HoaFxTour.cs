@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
         static string[] only;
         static int sao; // > 0: số sao của tướng trong tour trận (mặc định sao cuối); dùng xong tự về 0
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: hạt lửa chiêu mana, chiêu cuối 9 tướng (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕hạt lửa chiêu mana, chiêu cuối 9 tướng (đang Play)", priority = 124)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -26,12 +26,12 @@ namespace PokiClash.EditorTools
         }
 
         // riêng Nham Thần (golem lõi lửa, 2026-11-13): phun lửa từ họng, chiêu cuối cuộn thành cầu lửa lăn tông (AolaSticker.Rams)
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryNhamThan() => TryOnly("nham_than");
 
         // TRẬN THẬT ải 15 đảo Hỏa (ải 85 "Sườn Núi Khói": địch là Nham Thần có tiến hóa): đội mình một Nham Thần sao cuối, tự đánh ở nhịp
         // thường; chụp liên tục từ lúc ra sân tới hết trận vào hoa_fx/tran_<n>.jpg (golem phía địch, ra sân, tiến hóa, chết)
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: trận thật ải 15, Nham Thần hai phía (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕trận thật ải 15, Nham Thần hai phía (đang Play)", priority = 124)]
         static void TryNhamThanTran()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -100,14 +100,14 @@ namespace PokiClash.EditorTools
         }
 
         // dạng 1 (Nham Con): cùng tour nhưng tướng ở 1 sao
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Nham Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Nham Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryNhamCon()
         {
             sao = 1;
             TryOnly("nham_than");
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Nham Thần trong hộp chi tiết tướng (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Nham Thần trong hộp chi tiết tướng (đang Play)", priority = 125)]
         static void TryNhamThanViewer()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -116,16 +116,16 @@ namespace PokiClash.EditorTools
         }
 
         // riêng Hỏa Cung (quỷ lửa bắn cung, suất kim_su, 2026-11-13): thêm đòn thường (một mũi tên của rig bay tới đối thủ) trước chiêu mana
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Cung, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Cung, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaCung() => TryOnly("kim_su");
 
         // riêng Hỏa Quy (rùa golem lửa, suất nguu_quyen, 2026-11-13): đòn thường bò tới húc sừng, chiêu mana há mồm bắn cầu lửa, chiêu cuối hút
         // lửa trên lưng về sừng rồi hất sừng phóng cầu
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Quy, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Quy, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaQuy() => TryOnly("nguu_quyen");
 
         // dạng 1 (Hỏa Quy Con, rùa non chibi): cùng tour nhưng tướng ở 1 sao
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Quy Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Quy Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaQuyCon()
         {
             sao = 1;
@@ -134,16 +134,16 @@ namespace PokiClash.EditorTools
 
         // riêng Viêm Đao (quỷ lửa cầm đao, suất giap_long, 2026-11-13): đòn thường bổ đao cối xay, chiêu mana bổ đao cắm đất (dung nham trào dưới
         // chân địch), chiêu cuối lao tới liên hoàn chém rồi nhảy bổ
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đao, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Đao, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemDao() => TryOnly("giap_long");
 
         // riêng Viêm Sư (pháp sư lửa, suất hong_lien, 2026-11-14): đòn thường bàn tay tan rồi hiện ra cào đối thủ, chiêu mana giơ trượng gọi kim lửa rồi
         // vụt trượng phóng kim, chiêu cuối cầu lửa rời trượng bay lên phình to rồi lao vào đối thủ
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Sư, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Sư, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemSu() => TryOnly("hong_lien");
 
         // dạng 1 (2026-11-14): Viêm Đao Nhi (quỷ lửa con vác đao) và Viêm Đồng (pháp sư lửa con): cùng tour nhưng tướng ở 1 sao
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đao Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Đao Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemDaoNhi()
         {
             sao = 1;
@@ -151,27 +151,27 @@ namespace PokiClash.EditorTools
         }
 
         // Hỏa Sơn Long (2026-11-15): khủng long núi lửa, suất lan_hoa; dạng 1 Hỏa Sơn Nhi ở 1 sao
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Long, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Sơn Long, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaSonLong() => TryOnly("lan_hoa");
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Thú (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Sơn Thú (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaSonThu()
         {
             sao = App.Data.Cfg.formStars[0]; // sao bắt đầu dạng 2 (formStars, Bạc 1★ từ 2026-11-17)
             TryOnly("lan_hoa");
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Hỏa Sơn Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Sơn Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryHoaSonNhi()
         {
             sao = 1;
             TryOnly("lan_hoa");
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Bạch Viêm Hổ, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Bạch Viêm Hổ, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryBachViemHo() => TryOnly("hoa_tinh");
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Hổ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Hổ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemHoNhi()
         {
             sao = 1;
@@ -179,17 +179,17 @@ namespace PokiClash.EditorTools
         }
 
         // Viêm Dũng (2026-11-14): chiến binh đất nung lõi dung nham, suất huyen_viem; dạng 1 Viêm Dũng Nhi ở 1 sao
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Dũng, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Dũng, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemDung() => TryOnly("huyen_viem");
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Dũng Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Dũng Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemDungNhi()
         {
             sao = 1;
             TryOnly("huyen_viem");
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: riêng Viêm Đồng (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Viêm Đồng (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryViemDong()
         {
             sao = 1;
@@ -197,7 +197,7 @@ namespace PokiClash.EditorTools
         }
 
         // hộp chi tiết tướng: mở từng tướng Hỏa (sao cuối), bấm Chiêu rồi Mana trên ô xem, chụp vào hoa_fx/xem_<tướng>_<clip>_<n>.jpg
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: hạt lửa trong hộp chi tiết tướng (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕hạt lửa trong hộp chi tiết tướng (đang Play)", priority = 125)]
         static void TryViewer()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

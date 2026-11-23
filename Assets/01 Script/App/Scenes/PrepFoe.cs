@@ -1,5 +1,5 @@
 // Một đối thủ trong hộp Chuẩn bị trận, mỗi đối thủ một hàng (người dùng dặn 2026-11-04: tướng bên trái, thông tin bên phải, chữ to,
-// cấp rõ). Hai prefab cùng component, dựng bằng menu "PokiClash/Prefab/Hộp chuẩn bị: ô đối thủ trái phải":
+// cấp rõ). Hai prefab cùng component, dựng bằng menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chuẩn bị: ô đối thủ trái phải":
 // - Items/DoiThu: hàng to cho ải một địch: chân dung trái; phải là tên, nhãn hệ và lực chiến, dòng ghi chú, 3 hàng Máu, Công, Thủ;
 // - Items/DoiThuGon: hàng gọn cho ải 2–3 địch: ghi chú chung hàng với nhãn hệ, Máu, Công, Thủ xếp ngang.
 // Chip cấp ("Cấp 20", cùng kiểu chip cấp người chơi trên thanh trên) ở góc trên trái chân dung, chữ đỏ khi địch hơn người chơi quá

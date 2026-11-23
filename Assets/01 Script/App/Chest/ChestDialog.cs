@@ -1,5 +1,5 @@
 // Hộp mở rương (prefab Assets/04 Prefabs/Dialogs/MoRuong): tiêu đề, rương lắc rồi bật, thưởng hiện sau khi bật thành lưới ô hình
-// (Items/OThuong, menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá tiềm năng / đá tiến hóa, thẻ gộp
+// (Items/OThuong, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)" gán): XP / bi / đá tiềm năng / đá tiến hóa, thẻ gộp
 // bản sao "×n", mảnh tướng.
 using System;
 using System.Collections;
@@ -50,6 +50,21 @@ namespace PokiClash
             if (balls > 0) Tile().Item(App.Art.Icon("ball"), $"×{balls}", Loc.T("Bi"));
             if (stones > 0) Tile().Item(App.Art.Icon("rock"), $"×{stones}", Loc.T("Đá tiềm năng"), Rarity.Epic);
             if (evo > 0) Tile().EvoStones(evo);
+            // cửa hàng (Shop, 2026-11-23): đá tinh, trứng vào túi, vé chọn tướng, quyền lợi
+            int crystal = rewards.Where(q => q.k == RewardKind.Crystal).Sum(q => q.n);
+            if (crystal > 0) ShopUi.Tile(Tile(), new ShopItem { k = "crystal", n = crystal });
+            // trứng vào túi: ô màu bậc, nhãn "nở mảnh"
+            foreach (var g in rewards.Where(q => q.k == RewardKind.Egg).GroupBy(q => q.id))
+                ShopUi.Tile(Tile(), new ShopItem { k = Shop.Egg, r = Eggs.TierOf(g.Key), n = g.Sum(q => q.n) });
+            foreach (var g in rewards.Where(q => q.k == RewardKind.HeroChest || q.k == RewardKind.GoldChest || q.k == RewardKind.Ticket || q.k == RewardKind.Perk)
+                         .GroupBy(q => (q.k, q.id)))
+            {
+                var r = g.First();
+                string k = r.k == RewardKind.HeroChest ? Shop.HeroChest : r.k == RewardKind.GoldChest ? Shop.GoldChest
+                    : r.k == RewardKind.Ticket ? r.id ?? Shop.Ticket : r.id == "week" ? "week_card" : r.id == "month" ? "month_card" : r.id ?? "no_ads";
+                if (r.k == RewardKind.Perk && r.id == "fund") Tile().Item(App.Art.Icon("crown"), "", Loc.T("Quỹ Phiêu Lưu"), Rarity.Epic);
+                else ShopUi.Tile(Tile(), new ShopItem { k = k, n = g.Sum(q => q.n) });
+            }
             var cards = rewards.Where(q => q.k == RewardKind.Card)
                 .GroupBy(q => (q.drop.hero, q.drop.slot))
                 .Select(g => (drop: g.First().drop, n: g.Count()))

@@ -21,7 +21,7 @@ namespace PokiClash.EditorTools
     {
         const double H = 3600000;
 
-        [MenuItem("PokiClash/Thử/AFK theo ải: nút ở ải đã thắng, nhãn trên đảo (đang Play)", priority = 115)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕AFK theo ải: nút ở ải đã thắng, nhãn trên đảo (đang Play)", priority = 115)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

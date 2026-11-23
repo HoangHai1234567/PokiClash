@@ -1,4 +1,4 @@
-// Kéo bản đồ sảnh (đặt trên khung_anh của Screens/Hub, dựng bằng menu "PokiClash/Prefab/Đảo sảnh: ghép ảnh, kéo, mây viền"):
+// Kéo bản đồ sảnh (đặt trên khung_anh của Screens/Hub, dựng bằng menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo sảnh: ghép ảnh, kéo, mây viền"):
 // kéo dời lớp ảnh (anh_nen_world: biển, đảo, mây viền, bảng vùng) trong giới hạn lề của ảnh đảo; quá giới hạn thì kéo nặng tay
 // (dây chun) rồi bật về; thả tay thì trôi theo đà. Ra rìa là gặp vành mây che chỗ cho các đảo sau.
 // Chạm (không kéo) vẫn tới bảng vùng, công trình bên dưới: kéo quá ngưỡng của EventSystem thì mới thành kéo.

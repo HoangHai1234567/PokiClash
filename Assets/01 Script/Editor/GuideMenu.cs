@@ -1,7 +1,7 @@
 // Hướng dẫn người mới (GD_Claude/25_FTUE.md):
-// - "PokiClash/Prefab/Hướng dẫn người mới (lớp phủ)": dựng Kit/HuongDan (GuideOverlay: canvas thứ tự 30, 4 dải chắn, vòng khoanh InkPath,
+// - "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn người mới (lớp phủ)": dựng Kit/HuongDan (GuideOverlay: canvas thứ tự 30, 4 dải chắn, vòng khoanh InkPath,
 //   bút chì, ghi chú Kit/GoiY, chân dung tướng, chữ "Chạm để tiếp tục") và gắn vào App.prefab. Chạy lại thì dựng lại.
-// - "PokiClash/Prefab/Hướng dẫn: hộp Cách chơi, dòng Sổ tay": hộp Dialogs/CachChoi (HowToDialog, biến thể HopThoai, chữ cuộn dọc), thêm
+// - "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn: hộp Cách chơi, dòng Sổ tay": hộp Dialogs/CachChoi (HowToDialog, biến thể HopThoai, chữ cuộn dọc), thêm
 //   vào UiKit; thêm dòng "Cách chơi" vào Screens/Notebook (nhân bản dòng Ngôn ngữ như NotebookLanguageMenu), gán NotebookScene.p.howTo.
 // - Menu thử (đang Play): chơi lại hướng dẫn từ đầu (xoá bản lưu!), bỏ qua hết, và tour người chơi mới: xoá bản lưu, đi hết chuỗi bắt
 //   buộc bằng chạm giả, chụp từng bước vào Temp/PokiShots/huong_dan/, xong trả lại bản lưu cũ.
@@ -31,7 +31,7 @@ namespace PokiClash.EditorTools
 
         // ---------- lớp phủ ----------
 
-        [MenuItem("PokiClash/Prefab/Hướng dẫn người mới (lớp phủ)", priority = 66)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn người mới (lớp phủ)", priority = 66)]
         public static void BuildOverlay()
         {
             var kit = Kit;
@@ -143,7 +143,7 @@ namespace PokiClash.EditorTools
 
         // ---------- hộp Cách chơi, dòng Sổ tay ----------
 
-        [MenuItem("PokiClash/Prefab/Hướng dẫn: hộp Cách chơi, dòng Sổ tay", priority = 67)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn: hộp Cách chơi, dòng Sổ tay", priority = 67)]
         public static void BuildHowTo()
         {
             var kit = Kit;
@@ -326,7 +326,7 @@ namespace PokiClash.EditorTools
             return false;
         }
 
-        [MenuItem("PokiClash/Thử/Hướng dẫn: chơi lại từ đầu, xoá bản lưu (đang Play)", priority = 140)]
+        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Hướng dẫn: chơi lại từ đầu, xoá bản lưu (đang Play)", priority = 140)]
         static void Restart()
         {
             var path = App.Save != null ? App.Save.FilePath : null;
@@ -341,7 +341,7 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Hướng dẫn] Đã chép bản lưu cũ ra {path}.bak_ftue; muốn lấy lại thì đổi tên về {Path.GetFileName(path)} khi không Play.");
         }
 
-        [MenuItem("PokiClash/Thử/Hướng dẫn: bỏ qua hết (đang Play)", priority = 141)]
+        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Hướng dẫn: bỏ qua hết (đang Play)", priority = 141)]
         static void SkipAll()
         {
             if (!Playing()) return;
@@ -355,7 +355,7 @@ namespace PokiClash.EditorTools
         static string Dir => Path.Combine(PlayTour.ShotDir, "huong_dan");
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Hướng dẫn: người chơi mới, đi hết chuỗi và chụp (đang Play)", priority = 142)]
+        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Hướng dẫn: người chơi mới, đi hết chuỗi và chụp (đang Play)", priority = 142)]
         static void Tour()
         {
             if (!Playing()) return;

@@ -33,7 +33,7 @@ Mỗi scene chức năng SHALL có một prefab màn hình chứa canvas, gốc 
 Sau khi chuyển, luật, số liệu, bản lưu, thứ tự chuyển scene, hộp thoại, âm thanh và hoạt cảnh MUST như trước. Các menu thử `PokiClash/Thử/...` MUST chạy được và cho ảnh chụp tương đương ảnh trước khi chuyển.
 
 #### Scenario: Đi một vòng
-- **WHEN** chạy `PokiClash/Thử/Đi một vòng các scene (đang Play)` sau khi chuyển
+- **WHEN** chạy `PokiClash/Thử/Khác/Golden và tự chạy∕Đi một vòng các scene (đang Play)` sau khi chuyển
 - **THEN** console không lỗi, 10 ảnh chụp có cùng bố cục với 10 ảnh chụp trước khi chuyển
 
 ### Requirement: Công cụ không ghi đè công chỉnh tay

@@ -22,6 +22,10 @@ namespace PokiClash
         public GameObject pass; // LandView
 
         PointerEventData down; // ngón đang nhấn (EventSystem cập nhật vị trí mỗi khung)
+        // camera của cú nhấn, lưu lúc nhấn: ngoài hàm sự kiện down.pressEventCamera có thể là null (InputSystemUIInputModule dùng chung
+        // một PointerEventData cho ba nút chuột; khung ngón rung, xử lý xong nút giữa thì trạng thái nhấn là của nút giữa), Update đổi
+        // chỗ giữ ra ô sai, nhấc nhầm công trình
+        Camera downCam;
         float downT;
         bool grab, grabDrag, held, noClick, panned;
 
@@ -39,6 +43,7 @@ namespace PokiClash
         {
             if (down != null) return; // ngón thứ hai: để LandView chụm
             down = e;
+            downCam = e.pressEventCamera;
             downT = Time.unscaledTime;
             held = panned = grabDrag = false;
             noClick = false;
@@ -51,7 +56,7 @@ namespace PokiClash
             if (down == null || grab || held || panned) return;
             if (Time.unscaledTime - downT < HoldTime) return;
             held = true;
-            if (OnHold != null && OnHold(Map(down.position, down.pressEventCamera)))
+            if (OnHold != null && OnHold(Map(down.position, downCam)))
             {
                 grab = true;
                 noClick = true;

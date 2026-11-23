@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 3f8ee885e4d95e045bfc6ba994ed4609, type: 2}
-  - {fileID: 11400000, guid: 3f8ee885e4d95e045bfc6ba994ed4609, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - cua_xich_1
+  - cua_xich_1
+  pack: kim
   SplitFx: 0
   Manual: 0

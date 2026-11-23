@@ -24,7 +24,7 @@ namespace PokiClash.EditorTools
         static string Dir => Path.Combine(PlayTour.ShotDir, "muot");
         static readonly List<string> lines = new List<string>();
 
-        [MenuItem("PokiClash/Thử/Đo độ mượt màn Tướng: tiến hóa, lên cấp, đổi đội (đang Play)", priority = 117)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Đo độ mượt màn Tướng: tiến hóa, lên cấp, đổi đội (đang Play)", priority = 117)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

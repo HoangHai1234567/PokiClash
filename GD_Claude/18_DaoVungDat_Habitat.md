@@ -372,7 +372,7 @@ Người dùng: "đảo nhiều chi tiết nhưng tất cả còn tĩnh, mây, t
 - Chạm habitat thì zoom vào tối thiểu 0,7, lướt tới rồi mở hộp chuẩn bị.
 - Zoom xa thì cờ ải (trước là chấm) phóng bù tới 1,8 lần, bảng tên tới 2 lần, để còn đọc được và chạm được.
 
-**Sáng tối** (`DayCycle.cs`, `DayNight.cs`, shader `UIMultiply`, `UISunRays`; menu `PokiClash/Sáng tối/Dựng lớp sáng tối (Zone, Hub)`):
+**Sáng tối** (`DayCycle.cs`, `DayNight.cs`, shader `UIMultiply`, `UISunRays`; menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Dựng lớp sáng tối (Zone, Hub)`):
 - Theo giờ máy:
   - đêm đủ tối từ 20h tới 4h30;
   - chạng vạng tối dần 17h30 → 20h, sáng dần 4h30 → 6h30;
@@ -395,7 +395,7 @@ Người dùng: "đảo nhiều chi tiết nhưng tất cả còn tĩnh, mây, t
 - **Mây sảnh đồng bộ** (người dùng 2026-11-18: "mây ở phần đảo chính của game cũng phải đổi đồng bộ"):
   - vành mây `may_vien` và 3 đám mây trôi của sảnh đổi từ `sk_CloudPuff` (mây nướng mã hoá kênh) sang hình mây vẽ tay của đảo Thủy (`land_thuy_may_1/2`, xen kẽ);
   - mây sảnh nằm trong `DayNight.clouds`, nhân `CloudTint` như mây đảo;
-  - menu `PokiClash/Sáng tối/Mây sảnh đồng bộ đảo vùng đất`; `HubWorldMenu` dựng lại cũng dùng hình mới;
+  - menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Mây sảnh đồng bộ đảo vùng đất`; `HubWorldMenu` dựng lại cũng dùng hình mới;
   - mây, chim cắt từ ảnh nền (`vat_dong.py`) được khử viền xanh biển dính mép và phóng gấp 4 có làm nét (trước gấp 2), cho mây to ở sảnh không nhòe. Cỡ hiện trên đảo không đổi.
 
 ### Cờ ải thay chấm (2026-11-18)
@@ -441,7 +441,7 @@ Người dùng: "phân section cho đảo, đánh xong 1 boss thì unlock sectio
   - vào đảo thấy vùng đã mở mà chưa diễn thì diễn vùng mới nhất (vùng cũ hơn mở ngay);
   - lần đầu vào đảo diễn vùng 0 (bến, ải 1, tướng Tí Tách);
   - ghi vào bộ nhớ khi diễn xong; lần lưu kế tiếp ghi xuống file (gọi Save ngay làm màn dựng lại).
-- Menu `PokiClash/Đảo vùng đất/Dựng cờ ải, vùng boss`. Tour `PokiClash/Thử/Đảo Thủy vùng đất: vùng boss, cờ trên đường, khoá đảo`: tiến độ 0, 23, ranh vùng, lần đầu vào đảo (ghi lớp chắn chạm), mở vùng 21–30, cờ khúc 50–60 và 46, thử nút SRDebugger.
+- Menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo vùng đất: Dựng cờ ải, vùng boss`. Tour `PokiClash/Thử/Đảo Thủy vùng đất: vùng boss, cờ trên đường, khoá đảo`: tiến độ 0, 23, ranh vùng, lần đầu vào đảo (ghi lớp chắn chạm), mở vùng 21–30, cờ khúc 50–60 và 46, thử nút SRDebugger.
 - **SRDebugger, mục "Khoá đảo"** (`StompyRobot/SROptions/SROptions.KhoaDao.cs`, người dùng 2026-11-18: "thêm option lock lại các đảo"):
   - nút "Khoá lại hết đảo" đưa cả 5 đảo về 0 ải đã qua;
   - ô số "Đảo <hệ>: ải đã qua" cho từng đảo;
@@ -476,7 +476,7 @@ Người dùng: "tris nhiều quá, batches cũng nhiều so với game 2D". Men
 - **Canvas con:** `lop_may_vung` (mây phủ tĩnh), `lop_tren_may` (easter egg, bút chì), cho canvas chính khỏi phải gộp lại hàng trăm đám mây mỗi khung.
 - **Ẩn thứ nằm dưới mây:** ảnh tướng, ảnh hiệu ứng, bảng tên của bệ vùng còn mây phủ ẩn hẳn (mỗi tướng 1–2 RenderTexture riêng, mỗi bảng tên 3–4 lệnh vẽ); hiện khi tung tuyệt kỹ hay khi mây tan.
 - **Vùng chạm trong suốt** (cờ, bệ): `cullTransparentMesh`.
-- **Sprite Atlas** (menu `PokiClash/Tối ưu/Sprite Atlas đảo (dựng lại)`, bật Sprite Atlas V2 cho project):
+- **Sprite Atlas** (menu `PokiClash/Build/Sprite Atlas đảo (dựng lại)`, bật Sprite Atlas V2 cho project):
   - `Islands/dao_hinh_roi.spriteatlasv2` gồm cờ, easter egg, bút chì, hiệu ứng đảo `anim_*`, rương, icon bảng tên bệ;
   - mỗi đảo vùng đất một atlas `dao_hinh_roi_<đảo>` cho mây, chim, thuyền cắt từ ảnh nền (mỗi lúc chỉ mở một đảo);
   - atlas 2048, không xoay, không gói sát. Chưa gom cả 75 icon (cần texture 4096);

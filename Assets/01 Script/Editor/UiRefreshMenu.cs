@@ -1,5 +1,5 @@
 // Đợt cải thiện giao diện 2026-11-06 (người dùng: "cải thiện UI cùng các màn trong game, các đảo vẫn giữ nguyên"), cùng nét với màn
-// mở game "sa bàn". Menu "PokiClash/Prefab/Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo" (chạy lại được, không nhân đôi):
+// mở game "sa bàn". Menu "PokiClash/Prefab/Giao diện chung/Giao diện chung∕Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo" (chạy lại được, không nhân đôi):
 // - màn con Tướng, Sổ thẻ, Sổ tay, Đền Huy Hiệu, Hang, Trang trại: nền là mặt bàn gỗ (ảnh boot_ban_go của màn mở game), trên đó
 //   một trang giấy kẻ ô có viền mực và lề đỏ, nằm ngay dưới thanh trên (An toan/Khung/trang, con đầu tiên, sau nội dung);
 // - Máy bi: nền mặt bàn gỗ (máy đứng trên bàn), không có trang giấy;
@@ -28,7 +28,7 @@ namespace PokiClash.EditorTools
         static readonly Color Margin = new Color(0.91f, 0.33f, 0.25f, 0.42f); // lề đỏ của vở
         static readonly Color TapeColor = new Color(1f, 0.93f, 0.67f, 0.96f);
 
-        [MenuItem("PokiClash/Prefab/Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo", priority = 69)]
+        [MenuItem("PokiClash/Prefab/Giao diện chung/Giao diện chung∕Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo", priority = 69)]
         static void Build()
         {
             var assets = Load<UiAssets>();

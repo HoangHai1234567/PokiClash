@@ -9,7 +9,9 @@
 // - Xây, nâng cấp, dọn rừng tốn thời gian và một đội thợ; xong thì tự xong ở lần tính kế. Trang trí đặt ngay.
 // - Đồng hồ theo đoạn như Trang trại: giờ máy lùi thì bỏ qua đoạn đó.
 // - Bản lưu cũ: lần đầu mở Nhà (Of) gộp Trang trại sang (bi tích về túi, tướng đang làm sang công trình cùng việc, nghỉ giữ nguyên) và
-//   đặt Cây bi đã mở vào nhà; Trees vẫn tính bi của cây. Bản lưu của lưới khác (đảo 48 x 48 cũ) thì dời theo tỉ lệ (Regrid).
+//   đặt sẵn Cây bi đã mở vào nhà; Trees vẫn tính bi của cây. Bản lưu của lưới khác (đảo 48 x 48 cũ) thì dời theo tỉ lệ (Regrid).
+// - Cây bi (người dùng 2026-11-23): mở cùng Nhà (Trees.Open), người chơi tự đặt. Cây đã mở mà chưa có chỗ nằm đầu khay Xây
+//   (TreesWaiting), đặt miễn phí, xong ngay. Chỉ bản lưu cũ (đã có cây ở sảnh) được đặt sẵn lúc mở Nhà lần đầu.
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -155,7 +157,7 @@ namespace PokiClash.Core
             }
             s.home = Fresh(d, now);
             FromFarm(s, d, now);
-            SyncTrees(s, d);
+            if (Tutorial.IsLegacy(s)) SyncTrees(s, d); // bản lưu cũ đã hái cây ở sảnh: đặt sẵn; người chơi mới tự đặt theo hướng dẫn
             return s.home;
         }
 
@@ -254,7 +256,25 @@ namespace PokiClash.Core
             }
         }
 
-        // Cây bi đã mở (Trees.Open) mà chưa có chỗ trong nhà: đặt vào ô trống gần Nhà chính
+        // số Cây bi đã mở (Trees.Open) mà chưa có chỗ trong nhà: chờ người chơi đặt từ khay Xây
+        public static int TreesWaiting(SaveData s, GameData d)
+        {
+            if (s.home == null) return 0;
+            int n = Trees.Open(s, d.Cfg), k = 0;
+            for (int i = 0; i < n; i++)
+                if (!s.home.buildings.Any(b => b.def == "tree" && b.tree == i)) k++;
+            return k;
+        }
+
+        // cây đã mở đầu tiên chưa có chỗ (-1: không có)
+        static int NextTree(HomeState h, int open)
+        {
+            for (int i = 0; i < open; i++)
+                if (!h.buildings.Any(b => b.def == "tree" && b.tree == i)) return i;
+            return -1;
+        }
+
+        // bản lưu cũ: đặt mọi Cây bi đã mở mà chưa có chỗ vào ô trống gần Nhà chính
         public static void SyncTrees(SaveData s, GameData d)
         {
             var h = s.home;
@@ -450,7 +470,9 @@ namespace PokiClash.Core
         {
             var h = s.home;
             var df = Def(d.Cfg, def);
-            if (df == null || df.kind == "main" || df.kind == "tree") return HomeErr.NotFound;
+            if (df == null || df.kind == "main") return HomeErr.NotFound;
+            // Cây bi không mua được: chỉ đặt cây đã mở mà chưa có chỗ, miễn phí, không cần thợ
+            if (df.kind == "tree") return TreesWaiting(s, d) > 0 ? HomeErr.Ok : HomeErr.NotFound;
             bool fromBag = h.bag.TryGetValue(def, out var nb) && nb > 0;
             if (IsDeco(df))
             {
@@ -479,6 +501,13 @@ namespace PokiClash.Core
             e = CanPlace(s, d, def, gx, gy);
             if (e != HomeErr.Ok) return e;
             var df = Def(d.Cfg, def);
+            if (df.kind == "tree")
+            {
+                int ti = NextTree(h, Trees.Open(s, d.Cfg));
+                built = Add(d.Cfg, h, def, gx, gy);
+                built.tree = ti;
+                return HomeErr.Ok;
+            }
             if (h.bag.TryGetValue(def, out var nb) && nb > 0)
             {
                 if (nb == 1) h.bag.Remove(def);
@@ -766,7 +795,6 @@ namespace PokiClash.Core
             FinishJobs(s, d, now);
             foreach (var k in h.rest.Where(kv => kv.Value <= now).Select(kv => kv.Key).ToList()) h.rest.Remove(k);
             h.lastTick = now;
-            SyncTrees(s, d);
             return true;
         }
 
@@ -1000,6 +1028,7 @@ namespace PokiClash.Core
             if (!Open(s, d.Cfg)) return false;
             if (s.home == null) return true;
             Tick(s, d, now);
+            if (TreesWaiting(s, d) > 0) return true; // Cây bi chờ đặt
             foreach (var b in s.home.buildings)
             {
                 var df = Def(d.Cfg, b.def);

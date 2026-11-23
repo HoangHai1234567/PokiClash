@@ -25,7 +25,7 @@ namespace PokiClash.EditorTools
         const float TrackY = Top + PortraitH * (1 - HeroArt.FootY) + 4 + BarH / 2; // tâm thanh, tính từ mép trên
         const float StarsY = TrackY + BarH / 2 + 6 + 13, NameY = StarsY + 13 + 4 + 17, Height = NameY + 17 + 10;
 
-        [MenuItem("PokiClash/Prefab/Thêm thanh tiến hóa vào ChiTietTuong", priority = 60)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Thêm thanh tiến hóa vào ChiTietTuong", priority = 60)]
         static void Build()
         {
             var kitGuids = AssetDatabase.FindAssets("t:UiKit");
@@ -150,7 +150,7 @@ namespace PokiClash.EditorTools
 
         // Nút hack tiến hóa (HeroDetailDialog.HackStar): nút kit Tiny màu tím ở góc trái sân khấu (nền ô xem), ngay trên hàng nút
         // clip, chỉ hiện trong Editor. Chạy lại thì dựng lại nút.
-        [MenuItem("PokiClash/Prefab/Thêm nút hack tiến hóa vào ChiTietTuong", priority = 61)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Thêm nút hack tiến hóa vào ChiTietTuong", priority = 61)]
         static void BuildHack()
         {
             var kitGuids = AssetDatabase.FindAssets("t:UiKit");
@@ -196,7 +196,7 @@ namespace PokiClash.EditorTools
         // Nhãn bậc sao + thanh mảnh / đá (HeroDetailDialog.Parts.tierLabel, evolveBar, evolveIcon): nhãn chép từ nhãn độ hiếm, đặt ngay
         // sau hàng sao (cùng hàng ngang); một hàng mới (LayoutElement cao 46) ngay trên khối chứa dòng điều kiện tiến hóa trong cột dọc của
         // hộp: icon 40×40 bên trái, thanh kit (loại Exp) giãn ngang. Chạy lại thì dựng lại.
-        [MenuItem("PokiClash/Prefab/Hộp chi tiết tướng: nhãn bậc sao + thanh mảnh, đá", priority = 62)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chi tiết tướng: nhãn bậc sao + thanh mảnh, đá", priority = 62)]
         static void BuildStarStep()
         {
             var kitGuids = AssetDatabase.FindAssets("t:UiKit");
@@ -283,7 +283,7 @@ namespace PokiClash.EditorTools
             }
         }
 
-        [MenuItem("PokiClash/Thử/Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)", priority = 109)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Thanh tiến hóa: chụp hộp chi tiết ở các mốc (đang Play)", priority = 109)]
         static void TryStrip()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -336,7 +336,7 @@ namespace PokiClash.EditorTools
 
         // Menu thử nút hack (đang Play): mở hộp chi tiết Mầm Ú (dòng 3 dạng), chụp, bấm nút hack, lặp 20 lần (đủ một vòng sao) vào
         // Temp/PokiShots/hack_*.png. Nút hack ghi bản lưu: chép bản lưu ra trước khi thử nếu cần giữ.
-        [MenuItem("PokiClash/Thử/Nút hack tiến hóa: bấm thử và chụp (đang Play)", priority = 110)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Nút hack tiến hóa: bấm thử và chụp (đang Play)", priority = 110)]
         static void TryHack()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -359,7 +359,7 @@ namespace PokiClash.EditorTools
                 var go = GameObject.Find("nut_hack_tien_hoa");
                 if (!go)
                 {
-                    Debug.LogError("[Tiến hóa] Không thấy nút hack (menu PokiClash/Prefab/Thêm nút hack tiến hóa vào ChiTietTuong).");
+                    Debug.LogError("[Tiến hóa] Không thấy nút hack (menu PokiClash/Prefab/Khác/Hộp thoại và màn∕Thêm nút hack tiến hóa vào ChiTietTuong).");
                     yield break;
                 }
                 go.GetComponent<SketchButton>().SimulateClick();
@@ -371,7 +371,7 @@ namespace PokiClash.EditorTools
 
         // Menu thử clip đánh (đang Play): mở hộp chi tiết Mầm Ú ở sao 1, 6, 11 (3 dạng; đặt tạm trong bộ nhớ, không ghi bản lưu), cho ô
         // xem chạy clip đánh, chụp 6 thời điểm vào Temp/PokiShots/danh_sao<n>_<i>.png, rồi nạp lại bản lưu từ đĩa.
-        [MenuItem("PokiClash/Thử/Clip đánh Mầm Ú: chụp các dạng (đang Play)", priority = 111)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Clip đánh Mầm Ú: chụp các dạng (đang Play)", priority = 111)]
         static void TryAttack()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

@@ -313,7 +313,7 @@ namespace PokiClash.Core
         public int OutcomeOf(PEvent e) => e.cup ? slots.Count + cups.FindIndex(c => c.reward == e.reward) : e.slot;
 
         // hình học bàn (toạ độ máy) cho script ghép ảnh mặt máy tĩnh ArtGen/Pachinko/ghep_ban.py, ghi ở ArtGen/Pachinko/refs/mat_may.json
-        // (menu "PokiClash/Prefab/Máy bi: xuất hình học mặt máy"; test MatMay_AnhGhepKhopHinhHoc báo khi file lệch code)
+        // (menu "PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy"; test MatMay_AnhGhepKhopHinhHoc báo khi file lệch code)
         public string GeometryJson()
         {
             string F(double v) => v.ToString("0.###", System.Globalization.CultureInfo.InvariantCulture);
@@ -676,10 +676,14 @@ namespace PokiClash.Core
 
     // ---------- thưởng ----------
 
-    public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones } // Stones: đá tiềm năng; EvoStones: đá tiến hóa (khoá "evo" trong bảng rương)
+    // Stones: đá tiềm năng; EvoStones: đá tiến hóa (khoá "evo" trong bảng rương). Cửa hàng (Shop, 2026-11-23): Crystal đá tinh, HeroChest /
+    // GoldChest Rương Tướng cũ (không còn trao), Ticket vé chọn tướng, Perk quyền lợi (id: week, month, no_ads, fund), Egg trứng capsule vào túi
+    // (id: egg_<bậc>, 2026-11-23)
+    public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones, Crystal, HeroChest, GoldChest, Ticket, Perk, Egg }
 
     public sealed class Reward
     {
+        public string id; // Ticket: ticket / ticket_week; Perk: week, month, no_ads, fund
         public RewardKind k;
         public int n;
         public int ups; // số cấp vừa lên (EXP)
@@ -740,6 +744,13 @@ namespace PokiClash.Core
                 case "evo":
                     s.evoStones += n;
                     return new List<Reward> { new Reward { k = RewardKind.EvoStones, n = n } };
+                case "egg":
+                {
+                    // trứng capsule vào túi cửa hàng, nở ở mục Trứng (người dùng 2026-11-23: "cho rương máy bi rơi trứng đi")
+                    string key = Eggs.Key(roll.tier);
+                    Shop.Of(s).AddItem(key, n);
+                    return new List<Reward> { new Reward { k = RewardKind.Egg, n = n, id = key } };
+                }
                 case "cards":
                 {
                     var outL = new List<Reward>();

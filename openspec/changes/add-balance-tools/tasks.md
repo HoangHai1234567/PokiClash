@@ -23,6 +23,6 @@
 
 ## 5. Kiểm tra
 
-- [x] 5.1 Bước kiểm tra trước build: mọi file `App/Dev/*.cs` phải bọc kín; test EditMode cùng điều kiện; menu `PokiClash/Biên dịch thử bản phát hành` (đã chạy: đạt)
+- [x] 5.1 Bước kiểm tra trước build: mọi file `App/Dev/*.cs` phải bọc kín; test EditMode cùng điều kiện; menu `PokiClash/Build/Biên dịch thử bản phát hành` (đã chạy: đạt)
 - [x] 5.2 Chạy trọn bảng 40 ải và so với `npm run sim -- battle`: 50 trận mỗi ô, 200/200 ô trùng; test EditMode so golden 6 trận mỗi ô
 - [ ] 5.3 Phần cộng side meta thật (huy hiệu, đá tiềm năng, trang trại) vào tab Trận và Tiến độ khi các change đó xong

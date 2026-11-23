@@ -45,8 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: ea121bdbf80dcb04eb2846b3cba0cc0f, type: 2}
-  - {fileID: 11400000, guid: 5d9d0a987a10d8f45a3cfd19ad2e949e, type: 2}
-  - {fileID: 11400000, guid: e92e112cf06269e44a8d49d993daca72, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - hai_long_1
+  - hai_long_2
+  - hai_long_3
+  pack: thuy
   SplitFx: 0
   Manual: 0

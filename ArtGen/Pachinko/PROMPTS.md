@@ -15,9 +15,9 @@ Thân máy giờ là tủ đỉnh vòm có bóng đèn, đầu máy có rãnh ch
 
 - Gói sinh bằng `build.py` vào `gui_gpt/than_may/`: `luot_1_than_may.txt` (file gửi GPT) và `HUONG_DAN.md` (ảnh mẫu, chỗ lưu, cách soi, câu sửa nhanh).
 - Ảnh bố cục `refs/bo_cuc_than_may.png` vẽ đúng khung máy trong game. Toạ độ từng phần (px ảnh và px khối máy) ghi ở `refs/bo_cuc_than_may.json`.
-- GPT lưu vào `tai_ve/than_may.png`. Duyệt bằng `build.py --duyet`, rồi chạy menu Unity `PokiClash/Prefab/Máy bi: thân máy vẽ tay`. Ảnh đầu đã vào game ngày 2026-11-04.
+- GPT lưu vào `tai_ve/than_may.png`. Duyệt bằng `build.py --duyet`, rồi chạy menu Unity `PokiClash/Prefab/Khác/Máy bi∕thân máy vẽ tay`. Ảnh đầu đã vào game ngày 2026-11-04.
 
-P2–P4 dưới đây đã thành file prompt trong cùng gói (2026-11-04), lấy thân máy đã duyệt làm ảnh mẫu nét: `luot_2_bo_phan.txt` (12 bộ phận mặt máy), `luot_3_hieu_ung.txt` (P4 rút còn 6 hình game đang dùng), `luot_4_ruong.txt` (6 rương đóng và mở). Các mục P2–P4 bên dưới giữ để biết lịch sử. Ba tờ đã vào game ngày 2026-11-04. Duyệt lại bằng `build.py --duyet bo_phan|hieu_ung|ruong`, rồi trong Unity chạy `PokiClash/Dựng lại danh mục ảnh` và `PokiClash/Prefab/Máy bi: ảnh bộ phận`.
+P2–P4 dưới đây đã thành file prompt trong cùng gói (2026-11-04), lấy thân máy đã duyệt làm ảnh mẫu nét: `luot_2_bo_phan.txt` (12 bộ phận mặt máy), `luot_3_hieu_ung.txt` (P4 rút còn 6 hình game đang dùng), `luot_4_ruong.txt` (6 rương đóng và mở). Các mục P2–P4 bên dưới giữ để biết lịch sử. Ba tờ đã vào game ngày 2026-11-04. Duyệt lại bằng `build.py --duyet bo_phan|hieu_ung|ruong`, rồi trong Unity chạy `PokiClash/Dựng lại danh mục ảnh` và `PokiClash/Prefab/Khác/Máy bi∕ảnh bộ phận`.
 
 ## Bộ mới: nút, trạng thái sáng, hạt hiệu ứng (2026-11-06)
 

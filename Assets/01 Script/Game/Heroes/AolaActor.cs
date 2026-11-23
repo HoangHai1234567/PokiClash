@@ -79,6 +79,10 @@ namespace PokiClash.Game
         static Material material, additive;
 
         [SerializeField] AolaAnim[] forms = new AolaAnim[0]; // các dạng theo thứ tự tiến hóa (HeroDef.forms)
+        // Tải sau (GD_Claude/27): tên các dạng theo thứ tự, và hệ của gói chứa chúng. Tướng trong gói thì forms để trống (bản cài không
+        // kéo theo hình), dạng lấy từ ContentPacks khi gói đã nạp. pack rỗng: dạng nằm trong bản cài (dòng tướng khởi đầu).
+        [SerializeField] string[] formKeys = new string[0];
+        [SerializeField] string pack = "";
 
         AolaAnim anim;
         Texture2D atlas;
@@ -176,7 +180,30 @@ namespace PokiClash.Game
         Vector2[] au;
         Color32[] ac;
 
-        public AolaAnim[] Forms => forms;
+        public AolaAnim[] Forms
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(pack)) return forms;
+                var r = new AolaAnim[FormCount];
+                for (int i = 0; i < r.Length; i++) r[i] = Form(i);
+                return r;
+            }
+        }
+
+        public string Pack => pack;
+        public int FormCount => Mathf.Max(forms.Length, formKeys.Length);
+
+        // tên dạng thứ i (HeroForm.aola)
+        public string FormKey(int i) =>
+            i >= 0 && i < formKeys.Length && !string.IsNullOrEmpty(formKeys[i]) ? formKeys[i] : i >= 0 && i < forms.Length && forms[i] ? forms[i].name : null;
+
+        // asset dạng thứ i: bản cài, hoặc từ gói tải sau đã nạp (chưa nạp: null)
+        public AolaAnim Form(int i)
+        {
+            if (i >= 0 && i < forms.Length && forms[i]) return forms[i];
+            return string.IsNullOrEmpty(pack) ? null : ContentPacks.Get<AolaAnim>(FormKey(i));
+        }
 
         // không vẽ bóng dưới chân (màn boot: luật UI không vẽ bóng); đổi thì vẽ lại khung
         bool hideShadow;
@@ -195,7 +222,20 @@ namespace PokiClash.Game
         public float Duration(string clip) => HasClip(clip) ? FrameCount(clip) / fps : 0.3f;
 
         // Dùng khi nhập (Editor).
-        public void Setup(AolaAnim[] heroForms) => forms = heroForms;
+        public void Setup(AolaAnim[] heroForms)
+        {
+            forms = heroForms;
+            formKeys = System.Array.ConvertAll(heroForms, f => f ? f.name : "");
+            pack = "";
+        }
+
+        // Dùng khi gán gói (Editor, ContentPackSetup): bỏ trỏ thẳng, giữ tên dạng
+        public void SetupPack(string[] keys, string elem)
+        {
+            formKeys = keys;
+            forms = new AolaAnim[keys.Length];
+            pack = elem ?? "";
+        }
 
         // Prefab tướng có dạng tên form (HeroForm.aola), tra trong UiAssets.heroes. Chưa nhập: false.
         public static bool Find(string form, out AolaActor prefab, out int formIndex)
@@ -208,11 +248,25 @@ namespace PokiClash.Game
 
         // Chân dung tĩnh của dạng (tools/portrait_png.py của AolaRipper): khung 4:5 như HeroArt, chân ở giữa và cách đáy
         // HeroArt.FootY. Chưa nhập: null.
-        public static Sprite Portrait(string form) => Find(form, out var p, out int i) && p.forms[i] ? p.forms[i].LoadPortrait() : null;
+        // Chân dung luôn nằm trong bản cài (Resources/<dạng>/<dạng>_portrait), kể cả tướng trong gói tải sau chưa nạp.
+        public static Sprite Portrait(string form)
+        {
+            if (!Find(form, out var p, out int i)) return null;
+            var a = p.Form(i);
+            return a ? a.LoadPortrait() : Resources.Load<Sprite>($"{form}/{form}_portrait");
+        }
 
         // Nạp dạng thứ i của prefab. height = chiều cao dáng đứng (đơn vị thế giới); flip = lật ngang
         public bool LoadForm(int i, float height, bool flipX, int sorting) =>
-            i >= 0 && i < forms.Length && Load(forms[i], height, flipX, sorting);
+            i >= 0 && i < FormCount && Load(FormOrRequest(i), height, flipX, sorting);
+
+        // dạng chưa nạp (gói tải sau): xin nạp gói để lần sau có (lần này nơi gọi rơi về chân dung)
+        AolaAnim FormOrRequest(int i)
+        {
+            var a = Form(i);
+            if (!a && !string.IsNullOrEmpty(pack)) ContentPacks.Request(pack, true);
+            return a;
+        }
 
         public bool Load(AolaAnim a, float height, bool flipX, int sorting)
         {
@@ -554,8 +608,16 @@ namespace PokiClash.Game
             return d;
         }
 
-        static AolaAnim FormAsset(string form) =>
-            Find(form, out var p, out int i) && i >= 0 && i < p.forms.Length && p.forms[i] ? p.forms[i] : null;
+        static AolaAnim FormAsset(string form) => Find(form, out var p, out int i) ? p.Form(i) : null;
+
+        // Dạng nằm trong gói tải sau chưa nạp: xin nạp (đẩy lên đầu hàng), trả true nếu đang chờ gói. Gói lỗi (mất mạng): false, nơi
+        // gọi giữ chân dung tĩnh.
+        static bool WaitingPack(string form)
+        {
+            if (!Find(form, out var p, out int i) || p.Form(i) || string.IsNullOrEmpty(p.pack)) return false;
+            ContentPacks.Request(p.pack, true);
+            return ContentPacks.StateOf(p.pack) != ContentPacks.State.Failed;
+        }
 
         static bool Parsed(AolaAnim a) => Cache.TryGetValue(a, out var d) && d.source == a.source;
 
@@ -564,6 +626,7 @@ namespace PokiClash.Game
         // vừa chọn. Đã đọc hoặc chưa nhập: bỏ qua.
         public static void Prewarm(string form)
         {
+            if (WaitingPack(form)) return;
             var a = FormAsset(form);
             if (!a || !a.anim || Parsed(a) || Pending.ContainsKey(a)) return;
             var bytes = a.anim.bytes;
@@ -586,6 +649,7 @@ namespace PokiClash.Game
         // trước (Prewarm) và trả false: nơi gọi hiện chân dung tĩnh, hỏi lại mỗi khung. Dạng chưa nhập: true (TryCreate trả null ngay).
         public static bool Ready(string form)
         {
+            if (WaitingPack(form)) return false;
             var a = FormAsset(form);
             if (!a || !a.anim) return true;
             if (!Parsed(a))

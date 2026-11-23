@@ -23,9 +23,7 @@ namespace PokiClash.Tests
             using (var gz = new GZipStream(ms, CompressionMode.Decompress))
             using (var br = new BinaryReader(gz))
                 json = Encoding.UTF8.GetString(br.ReadBytes(br.ReadInt32()));
-            var a = ScriptableObject.CreateInstance<AtomikAsset>();
-            JsonUtility.FromJsonOverwrite(json, a);
-            return a;
+            return AtomikAsset.FromJson(json);
         }
 
         static IEnumerable<string> Files() =>
@@ -152,6 +150,169 @@ namespace PokiClash.Tests
             TestContext.WriteLine($"{n} atlas trong trần {EditorTools.AtomikImporter.AtlasCap}; ASTC 8x8 tổng {after / 1048576f:0.0} MB");
         }
 
+        // Khối gọn AtomikPack (2026-11-23): ghi rồi giải mọi file .atomik, cấu trúc giữ nguyên (số phần tử, tên, chỉ số), số thực lệch
+        // không quá nửa bước lượng tử (cộng sai số làm tròn float), số ghi nguyên (khoá cũ, điểm điều khiển, giờ sự kiện) trùng từng bit.
+        [Test]
+        public void PackRoundTripWithinQuantum()
+        {
+            int files = 0;
+            long raw = 0, packedBytes = 0;
+            foreach (var path in Files())
+            {
+                var a = Read(path);
+                AtomikPose.PackAll(a);
+                var blob = AtomikPack.Write(a.atts, a.anims);
+                AtomikPack.Read(blob, out var atts, out var anims);
+                files++;
+                packedBytes += blob.Length;
+                Assert.AreEqual(a.atts.Length, atts.Length, path);
+                for (int i = 0; i < atts.Length; i++)
+                {
+                    var o = a.atts[i];
+                    var n = atts[i];
+                    string at = $"{path} hình {o.name}";
+                    Assert.AreEqual(o.slot, n.slot, at);
+                    Assert.AreEqual(o.name ?? "", n.name, at);
+                    Near(o.uvs, n.uvs, AtomikPack.QUv, at + " uv");
+                    CollectionAssert.AreEqual(o.tris ?? new int[0], n.tris, at + " tam giác");
+                    Assert.AreEqual(o.wInfo?.Length ?? 0, n.wInfo.Length, at + " trọng số");
+                    for (int k = 0; k < n.wInfo.Length; k++)
+                        Assert.AreEqual(o.wInfo[k], n.wInfo[k], 0.5 / AtomikPack.QPos + System.Math.Abs(o.wInfo[k]) * 1.2e-7, at + $" trọng số [{k}]");
+                    raw += 4L * ((o.uvs?.Length ?? 0) + (o.tris?.Length ?? 0) + (o.wInfo?.Length ?? 0));
+                }
+                Assert.AreEqual(a.anims.Length, anims.Length, path);
+                for (int ci = 0; ci < anims.Length; ci++)
+                {
+                    var o = a.anims[ci];
+                    var n = anims[ci];
+                    string at = $"{path} clip {o.name}";
+                    Assert.AreEqual(o.name ?? "", n.name, at);
+                    Assert.AreEqual(o.dur, n.dur, at);
+                    Assert.AreEqual(o.tls?.Length ?? 0, n.tls.Length, at);
+                    for (int ti = 0; ti < n.tls.Length; ti++)
+                    {
+                        var ot = o.tls[ti];
+                        var nt = n.tls[ti];
+                        Assert.AreEqual(ot.bone, nt.bone, at);
+                        Assert.AreEqual(ot.type, nt.type, at);
+                        CollectionAssert.AreEqual(ot.keys ?? new float[0], nt.keys, at + " khoá cũ");
+                        double q = ot.type == 0 ? AtomikPack.QRot : ot.type == 1 ? AtomikPack.QPos : AtomikPack.QScale;
+                        CurveNear(ot.c, nt.c, q, at + $" xương {ot.bone} kiểu {ot.type}");
+                        raw += 4L * ((ot.c?.t?.Length ?? 0) + (ot.c?.v?.Length ?? 0));
+                    }
+                    Assert.AreEqual(o.sk?.Length ?? 0, n.sk.Length, at);
+                    for (int si = 0; si < n.sk.Length; si++)
+                    {
+                        Assert.AreEqual(o.sk[si].slot, n.sk[si].slot, at);
+                        Near(o.sk[si].times, n.sk[si].times, AtomikPack.QTime, at + " giờ đổi hình");
+                        CollectionAssert.AreEqual(o.sk[si].atts ?? new int[0], n.sk[si].atts, at + " đổi hình");
+                    }
+                    Assert.AreEqual(o.sa?.Length ?? 0, n.sa.Length, at);
+                    for (int si = 0; si < n.sa.Length; si++)
+                    {
+                        Assert.AreEqual(o.sa[si].slot, n.sa[si].slot, at);
+                        CurveNear(o.sa[si].c, n.sa[si].c, AtomikPack.QAlpha, at + " độ đậm");
+                    }
+                    Assert.AreEqual(o.ev?.Length ?? 0, n.ev.Length, at);
+                    for (int ei = 0; ei < n.ev.Length; ei++)
+                    {
+                        Assert.AreEqual(o.ev[ei].t, n.ev[ei].t, at);
+                        Assert.AreEqual(o.ev[ei].name ?? "", n.ev[ei].name, at);
+                        Assert.AreEqual(o.ev[ei].s ?? "", n.ev[ei].s, at);
+                    }
+                }
+                Object.DestroyImmediate(a);
+            }
+            Assert.Greater(files, 0, "không thấy file .atomik nào");
+            TestContext.WriteLine($"{files} file: float thô {raw / 1048576f:0.0} MB → khối gọn {packedBytes / 1048576f:0.0} MB");
+        }
+
+        // Lưới dựng từ asset đã nhập (giải khối gọn) và từ JSON gốc của file: mọi clip, 5 khung/giây (15 khung/giây chạy quá 3 phút),
+        // đỉnh lệch nhau dưới 0,05 px rig
+        // (tướng trên sân cao ~300 điểm màn cho rig cao 600-1200 px: lệch thật dưới 1/40 điểm màn), UV dưới 1/100 texel, màu lệch tối
+        // đa 1/255. Clip có cánh tay đòn rất dài (nham_than_1 appear: xương dời 19000 px, phóng x18) là ca khó nhất cho lượng tử góc.
+        [Test, Timeout(300000)]
+        public void ImportedPoseMatchesJson()
+        {
+            int files = 0;
+            long verts = 0;
+            double worstPos = 0, worstUv = 0;
+            string worstAt = "";
+            foreach (var path in Files())
+            {
+                var rig = AssetDatabase.LoadAssetAtPath<AtomikAsset>(path);
+                if (!rig) continue;
+                var src = Read(path);
+                AtomikPose.PackAll(src);
+                // so lưới trước mặt nạ cắt: đỉnh sát mép cắt dời 1/1000 px đã đủ đổi số tam giác bị xén (code cắt không đổi). Bản sao
+                // của asset đã nhập còn kiểm luôn đường tuần tự Unity (ghi khối → đọc lại).
+                var copy = Object.Instantiate(rig);
+                src.masks = null;
+                copy.masks = null;
+                var pa = new AtomikPose(src);
+                var pb = new AtomikPose(copy);
+                Assert.AreEqual(pa.maxVerts, pb.maxVerts, path);
+                int m = pa.maxVerts;
+                var va = new Vector3[m]; var vb = new Vector3[m];
+                var ua = new Vector2[m]; var ub = new Vector2[m];
+                var ca = new Color32[m]; var cb = new Color32[m];
+                float tex = rig.atlas ? Mathf.Max(rig.atlas.width, rig.atlas.height) : 2048;
+                for (int ci = -1; ci < src.anims.Length; ci++)
+                {
+                    float dur = ci < 0 ? 0 : src.anims[ci].dur;
+                    for (float t = 0; t <= dur + 1e-4f; t += 1 / 5f)
+                    {
+                        pa.Sample(ci, t); pa.World();
+                        pb.Sample(ci, t); pb.World();
+                        int na = pa.Skin(va, ua, ca, 1, false, -1, out _);
+                        int nb = pb.Skin(vb, ub, cb, 1, false, -1, out _);
+                        string at = $"{path} clip {(ci < 0 ? "gốc" : src.anims[ci].name)} t={t:0.000}";
+                        Assert.AreEqual(na, nb, at + ": số đỉnh");
+                        CollectionAssert.AreEqual(pa.Tris, pb.Tris, at + ": tam giác");
+                        for (int i = 0; i < na; i++)
+                        {
+                            double dp = (va[i] - vb[i]).magnitude, du = (ua[i] - ub[i]).magnitude * tex;
+                            if (dp > worstPos) { worstPos = dp; worstAt = at + $" đỉnh {i}"; }
+                            worstUv = System.Math.Max(worstUv, du);
+                            // độ đậm lượng tử 1/65536 có khi rơi đúng ngưỡng làm tròn byte: cho lệch 1 bậc (1/255)
+                            if (System.Math.Abs(ca[i].r - cb[i].r) > 1 || System.Math.Abs(ca[i].g - cb[i].g) > 1 ||
+                                System.Math.Abs(ca[i].b - cb[i].b) > 1 || System.Math.Abs(ca[i].a - cb[i].a) > 1)
+                                Assert.Fail($"{at}: màu đỉnh {i} {ca[i]} khác {cb[i]}");
+                        }
+                        verts += na;
+                        if (ci < 0) break;
+                    }
+                }
+                Object.DestroyImmediate(src);
+                Object.DestroyImmediate(copy);
+                files++;
+            }
+            Assert.Greater(files, 0, "không thấy asset .atomik nào");
+            TestContext.WriteLine($"{files} rig, {verts} đỉnh: lệch lớn nhất {worstPos:0.0000} px rig ({worstAt}), UV {worstUv:0.0000} texel");
+            Assert.Less(worstPos, 0.05, $"đỉnh lệch {worstPos:0.0000} px ở {worstAt}");
+            Assert.Less(worstUv, 0.01, "UV lệch");
+        }
+
+        // lệch không quá nửa bước lượng tử cộng sai số làm tròn float của chính giá trị
+        static void Near(float[] o, float[] n, double q, string at)
+        {
+            o ??= new float[0];
+            Assert.AreEqual(o.Length, n.Length, at + " số phần tử");
+            for (int i = 0; i < o.Length; i++)
+            {
+                double tol = 0.5 / q + System.Math.Abs(o[i]) * 1.2e-7;
+                if (System.Math.Abs(o[i] - n[i]) > tol) Assert.Fail($"{at} [{i}]: {o[i]} → {n[i]} lệch quá {tol}");
+            }
+        }
+
+        static void CurveNear(AtomikCurve o, AtomikCurve n, double q, string at)
+        {
+            Near(o?.t, n.t, AtomikPack.QTime, at + " giờ");
+            Near(o?.v, n.v, q, at + " giá trị");
+            CollectionAssert.AreEqual(o?.ck ?? new int[0], n.ck, at + " ck");
+            CollectionAssert.AreEqual(o?.cp ?? new float[0], n.cp, at + " cp");
+        }
+
         [Test]
         public void ImportedRigsArePackedWithoutIcon()
         {
@@ -160,6 +321,8 @@ namespace PokiClash.Tests
                 var all = AssetDatabase.LoadAllAssetsAtPath(path);
                 var rig = all.OfType<AtomikAsset>().FirstOrDefault();
                 Assert.IsNotNull(rig, $"{path}: chưa nhập");
+                Assert.Greater(rig.PackedBytes, 0, $"{path}: chưa ghi khối gọn (nhập lại)");
+                Assert.IsTrue(rig.atts != null && rig.atts.Length > 0 && rig.anims != null && rig.anims.Length > 0, $"{path}: giải khối gọn ra rỗng");
                 Assert.IsFalse(all.OfType<Texture2D>().Any(t => t.name.EndsWith("_icon")), $"{path}: còn icon trong asset");
                 foreach (var c in rig.anims)
                 {

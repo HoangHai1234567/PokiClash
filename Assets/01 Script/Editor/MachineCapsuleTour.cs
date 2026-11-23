@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
     {
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Máy bi: bảng số và mở rương nhóm (đang Play)", priority = 115)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕bảng số và mở rương nhóm (đang Play)", priority = 115)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -25,7 +25,7 @@ namespace PokiClash.EditorTools
 
         // bi rơi vào ô EXP (gọi thẳng OnLand cho một ô EXP 10): chụp liền 16 khung để soi kẹo bóp giãn, cụm "kẹo + số", kẹo
         // phụt, vệt bay về bảng số. Ảnh 450 trở đi.
-        [MenuItem("PokiClash/Thử/Máy bi: soi kẹo ô EXP (đang Play)", priority = 116)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕soi kẹo ô EXP (đang Play)", priority = 116)]
         static void TrySlot()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

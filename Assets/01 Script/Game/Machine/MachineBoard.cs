@@ -38,13 +38,13 @@ namespace PokiClash
             public Image[] glow; // sáng ô, theo thứ tự ô đáy của bàn mặc định
             [Header("Prefab mục")]
             public Image ball, pegFlash, burst;
-            public Image particle; // Items/HatMayBi: hạt hiệu ứng, nấm (menu "PokiClash/Prefab/Máy bi: hạt hiệu ứng")
+            public Image particle; // Items/HatMayBi: hạt hiệu ứng, nấm (menu "PokiClash/Prefab/Khác/Máy bi∕hạt hiệu ứng")
             public TrailGraphic trail; // Items/VetBiDai: vệt đuôi một bi (cùng menu)
             public TextMeshProUGUI floatText;
         }
 
         [SerializeField] Parts p;
-        // bộ prefab ánh sáng, bảng số, màn mở rương nhóm (menu "PokiClash/Prefab/Máy bi: prefab ánh sáng, bảng số, mở rương")
+        // bộ prefab ánh sáng, bảng số, màn mở rương nhóm (menu "PokiClash/Prefab/Khác/Máy bi∕prefab ánh sáng, bảng số, mở rương")
         [SerializeField] MachineGlow.Kit kit;
 
         public Board Board { get; private set; }

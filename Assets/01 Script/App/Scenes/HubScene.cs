@@ -7,7 +7,7 @@
 // Rìa làng có chỗ cho công trình side meta (phác chì khi chưa mở). Hàng nút tròn ở đáy. Lần đầu hiện màn giới thiệu.
 // Prefab màn hình Assets/04 Prefabs/Screens/Hub: vùng đảo (Items/BangVung) và công trình (Items/CongTrinh) đặt sẵn theo toạ độ ảnh.
 // Ảnh đảo ghép từ đảo gen rời (ArtGen/Islands/compose_islands.py), kéo được (HubPan), ra rìa là vành mây; dựng bằng menu
-// "PokiClash/Prefab/Đảo sảnh: ghép ảnh, kéo, mây viền".
+// "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo sảnh: ghép ảnh, kéo, mây viền".
 using System;
 using System.Collections;
 using System.Linq;
@@ -31,6 +31,7 @@ namespace PokiClash
             (Loc.T("Nhà"), "seed", Loc.T("Có 3 tướng để mở Nhà"), -0.27f, 0.035f), // Nhà thay Trang trại (2026-11-18), icon giữ "seed"
             (Loc.T("Đền Huy Hiệu"), "crown", Loc.T("Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu"), 0.27f, 0.035f),
             (Loc.T("Hang Tiềm Năng"), "rock", Loc.F("Đạt cấp {0} để mở Hang Tiềm Năng", Progress.CaveLevel), 0f, 0.155f),
+            // Cây bi dời vào Nhà (2026-11-23): thẻ ở cột ẩn hẳn, giữ chỗ trong mảng cho khớp HubScene.buildings của prefab
             (Loc.T("Cây bi"), "leaf", Loc.T("Qua ải 1 để có cây bi đầu tiên"), -0.27f, 0.155f),
         };
 
@@ -48,7 +49,7 @@ namespace PokiClash
         [SerializeField] ClickCatcher village;
         [SerializeField] TextMeshProUGUI villageBalls;
         [SerializeField] HubBuilding[] buildings; // theo thứ tự Buildings
-        [SerializeField] BottomButton[] bottom; // Tướng, Sổ thẻ, Máy Bi, Đánh tiếp, Sổ tay
+        [SerializeField] BottomButton[] bottom; // Cửa hàng, Tướng, Máy Bi, Sổ thẻ, Nhà (người dùng 2026-11-23)
         [Tooltip("Mây che từng đảo của bản đồ thế giới (menu PokiClash/Prefab/Sảnh bản đồ thế giới)")]
         [SerializeField] HubFog fog;
         [SerializeField] HubPan pan;
@@ -128,21 +129,22 @@ namespace PokiClash
                 if (pan) pan.FrameAt(p, w);
             };
             pier.Glide = GlideTo;
-            pier.OnTap = () =>
+            pier.OnTap = () => GoHome(true);
+        }
+
+        // về Nhà (nút Nhà ở hàng đáy, con tàu ở bến); chưa mở thì báo điều kiện. click: tự kêu "click" (nút SketchButton đã tự kêu)
+        void GoHome(bool click)
+        {
+            var s = App.Save.Data;
+            if (Home.Open(s, App.Data.Cfg))
             {
-                var s = App.Save.Data;
-                if (Home.Open(s, App.Data.Cfg))
-                {
-                    App.Audio.Play("click");
-                    App.Router.Go(SceneIds.Home);
-                }
-                else
-                {
-                    App.Audio.Play("error");
-                    var farm = System.Array.Find(Buildings, b => b.icon == "seed");
-                    App.Toasts.Show(farm.need ?? Loc.T("Nhà chưa mở"), Icon("lock"));
-                }
-            };
+                if (click) App.Audio.Play("click");
+                App.Router.Go(SceneIds.Home);
+                return;
+            }
+            App.Audio.Play("error");
+            var farm = System.Array.Find(Buildings, b => b.icon == "seed");
+            App.Toasts.Show(farm.need ?? Loc.T("Nhà chưa mở"), Icon("lock"));
         }
 
         IEnumerator GlideTo(RectTransform p)
@@ -304,9 +306,7 @@ namespace PokiClash
             if (Tutorial.Shows(s, d, Tutorial.HubPart.Afk, now) && Guide.Hint(Tutorial.AfkBtn, "bar.afk",
                     Loc.F("Lúc bạn vắng, {0} vẫn đánh ải đã qua: ra mảnh và rương.", h.name)))
                 return;
-            if (Trees.Open(s, cfg) > 0 && s.balls < 3 && Trees.Stock(s, cfg, now) >= 1 &&
-                Guide.Hint(Tutorial.Tree, "hub.tree", Loc.T("Cây bi ra 5 bi mỗi giờ, chứa được 50. Hái đi!")))
-                return;
+            // E3 (hái cây bi) dời vào Nhà cùng Cây bi (2026-11-23): HomeScene.Tutor
             if (Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now) && Guide.Hint(Tutorial.CardsBook, "hub.cards", Loc.T("Xem mọi thẻ trong Sổ thẻ.")))
                 return;
             if (s.heroes.Any(kv => kv.Value.owned && Progress.CanStarUp(s, d, kv.Key)) &&
@@ -356,7 +356,7 @@ namespace PokiClash
                     App.Router.Go(SceneIds.Machine);
                 };
             SideMeta(s);
-            BottomRow(s, recoZone);
+            BottomRow(s);
             Fog(s, d, open);
             if (pier) Guide.Mark("hub.ship", pier);
             TutorNext();
@@ -473,7 +473,8 @@ namespace PokiClash
                 double now = PokiClash.Game.SaveService.Now();
                 // người mới: công trình chỉ hiện khi tới gần lúc mở (GD_Claude/25_FTUE.md mục 5)
                 var part = farm ? Tutorial.HubPart.Home : temple ? Tutorial.HubPart.Temple : cave ? Tutorial.HubPart.Cave : Tutorial.HubPart.Trees;
-                buildings[i].gameObject.SetActive(Tutorial.Shows(s, d, part, now));
+                // Nhà dời xuống hàng nút đáy, Cây bi dời vào Nhà (2026-11-23): hai thẻ đó ở cột ẩn hẳn
+                buildings[i].gameObject.SetActive(!farm && !tree && Tutorial.Shows(s, d, part, now));
                 if (tree) Guide.Mark("hub.tree", buildings[i]);
                 // chấm báo: có dãy huy hiệu vừa mở, chưa đánh trận nào; Nhà cần chăm; cây bi đầy
                 bool alert = (temple && open && Badges.HasNew(s, d)) || (farm && open && Home.Alert(s, d, now)) || (tree && open && Trees.Full(s, d.Cfg, now));
@@ -495,22 +496,56 @@ namespace PokiClash
                     App.Toasts.Show(open ? Loc.F("{0}: sắp có ở bản sau", item.name) : item.need, Icon(open ? "info" : "lock"));
                 });
             }
+            StackSide();
         }
 
-        // hàng nút tròn: Tướng (số việc chờ), Sổ thẻ, Máy Bi (to, số bi), Đánh tiếp, Sổ tay
-        void BottomRow(SaveData s, ZoneDef recoZone)
+        float[] sideY, sideTilt; // chỗ và góc nghiêng gốc (prefab) của từng thẻ trong cột công trình
+
+        // xếp các thẻ đang hiện liền nhau từ chỗ thẻ đầu, không chừa chỗ của thẻ ẩn (Nhà đã dời xuống hàng đáy, thẻ chưa tới lúc hiện)
+        void StackSide()
+        {
+            if (sideY == null)
+            {
+                sideY = new float[buildings.Length];
+                sideTilt = new float[buildings.Length];
+                for (int i = 0; i < buildings.Length; i++)
+                    if (buildings[i])
+                    {
+                        sideY[i] = ((RectTransform)buildings[i].transform).anchoredPosition.y;
+                        sideTilt[i] = buildings[i].transform.localEulerAngles.z;
+                    }
+            }
+            int k = 0;
+            for (int i = 0; i < buildings.Length; i++)
+            {
+                if (!buildings[i] || !buildings[i].gameObject.activeSelf) continue;
+                var rt = (RectTransform)buildings[i].transform;
+                rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, sideY[k]);
+                rt.localEulerAngles = new Vector3(0, 0, sideTilt[k]);
+                k++;
+            }
+        }
+
+        // hàng nút đáy (người dùng 2026-11-23): Cửa hàng, Tướng (số việc chờ), Máy Bi (to, số bi), Sổ thẻ, Nhà (chấm "!" khi Nhà cần chăm).
+        // Đã bỏ Đánh tiếp và Sổ tay (Sổ tay mở bằng nút bánh răng trên thanh trên); Nhà dời từ cột công trình xuống đây.
+        void BottomRow(SaveData s)
         {
             var d = App.Data;
             double now = PokiClash.Game.SaveService.Now();
-            // người mới: nút hiện dần theo hướng dẫn (Máy Bi sau trận thắng đầu, Tướng sau máy bi, Đánh tiếp sau chuỗi bắt buộc…)
-            MainButton(0, () => App.Router.Go(SceneIds.Heroes), Progress.HeroAlerts(s, d), "hub.heroes", Tutorial.Shows(s, d, Tutorial.HubPart.Heroes, now));
-            MainButton(1, () => App.Router.Go(SceneIds.Cards), 0, "hub.cards", Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now));
+            // người mới: nút hiện dần theo hướng dẫn (Máy Bi sau trận thắng đầu, Tướng sau máy bi, Cửa hàng sau chuỗi bắt buộc, Nhà khi có 2 tướng…)
+            MainButton(0, Shop, PokiClash.Core.Offers.AnyClaim(s, d, now) ? 1 : 0, "hub.shop", Tutorial.Shows(s, d, Tutorial.HubPart.Shop, now));
+            MainButton(1, () => App.Router.Go(SceneIds.Heroes), Progress.HeroAlerts(s, d), "hub.heroes", Tutorial.Shows(s, d, Tutorial.HubPart.Heroes, now));
             MainButton(2, () => App.Router.Go(SceneIds.Machine), s.balls, "hub.machine", Tutorial.Shows(s, d, Tutorial.HubPart.Machine, now));
-            MainButton(3, () => App.Router.Go(SceneIds.Zone, recoZone.id), 0, "hub.next", Tutorial.Shows(s, d, Tutorial.HubPart.Next, now));
-            MainButton(4, () => App.Router.Go(SceneIds.Notebook), 0, "hub.notebook");
+            MainButton(3, () => App.Router.Go(SceneIds.Cards), 0, "hub.cards", Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now));
+            bool homeOpen = Home.Open(s, d.Cfg);
+            MainButton(4, () => GoHome(false), homeOpen && Home.Alert(s, d, now) ? 1 : 0, "hub.home", Tutorial.Shows(s, d, Tutorial.HubPart.Home, now), "!");
         }
 
-        void MainButton(int i, Action go, int dot = 0, string key = null, bool show = true)
+        // Cửa hàng (GD_Claude/26_CuaHang_IAP_QuangCao.md, phiên cửa hàng 2026-11-23); chấm đỏ khi có quà miễn phí chờ nhận
+        static void Shop() => ShopSheet.OpenShop();
+
+        // mark: chữ trên chấm đỏ thay cho số (Nhà: "!")
+        void MainButton(int i, Action go, int dot = 0, string key = null, bool show = true, string mark = null)
         {
             if (bottom == null || i >= bottom.Length) return;
             var b = bottom[i];
@@ -528,7 +563,7 @@ namespace PokiClash
             if (!b.badge) return;
             b.badge.gameObject.SetActive(dot > 0);
             if (dot <= 0) return;
-            string txt = dot > 99 ? "99+" : dot.ToString();
+            string txt = mark ?? (dot > 99 ? "99+" : dot.ToString());
             b.badge.sizeDelta = new Vector2(Mathf.Max(52, 22 * txt.Length + 26), 50);
             b.badgeText.text = txt;
         }

@@ -61,6 +61,7 @@ namespace PokiClash.Tests
             var g = Golden();
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, 0);
+            TreesTests.OpenHome(s, d); // cây bi mở cùng Nhà (2026-11-23)
             s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
             s.level = d.Cfg.trees.unlockLevels[0]; // cây 2 mở theo cấp (2026-11-05)
             s.afk.lastTick = t0;

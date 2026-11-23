@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 17b2c7e9f4627424eb0f089f8cb630a7, type: 2}
-  - {fileID: 11400000, guid: 7d1a99fbf71e2fd418e18e0ae0452bee, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - quang_sat_1
+  - quang_sat_2
+  pack: kim
   SplitFx: 0
   Manual: 0

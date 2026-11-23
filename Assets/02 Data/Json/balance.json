@@ -163,9 +163,10 @@
     },
     {
      "w": 4.6,
-     "k": "shards",
+     "k": "egg",
+     "tier": 0,
      "min": 1,
-     "max": 2
+     "max": 1
     },
     {
      "w": 8,
@@ -207,9 +208,10 @@
     },
     {
      "w": 8.8,
-     "k": "shards",
-     "min": 2,
-     "max": 4
+     "k": "egg",
+     "tier": 1,
+     "min": 1,
+     "max": 1
     },
     {
      "w": 12,
@@ -979,7 +981,13 @@
    "afk_boost": 3,
    "farm_boost": 3,
    "cave_extra": 1,
-   "home_speed": 3
+   "home_speed": 3,
+   "free_balls": 5,
+   "free_egg": 1,
+   "battle_retry": 3,
+   "win_double": 5,
+   "chest_upgrade": 3,
+   "daily_gift": 1
   },
   "pass": {
    "days": 30,
@@ -1301,5 +1309,560 @@
    {"id": "statue_moc", "name": "Tượng boss Đảo Mộc", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "moc"},
    {"id": "statue_tho", "name": "Tượng boss Đảo Thổ", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "tho"}
   ]
+ },
+ "shop": {
+  "valuePerUsd": 101.0101,
+  "value": {
+   "balls": 1,
+   "shard_common": 8,
+   "shard_uncommon": 10,
+   "shard_rare": 15,
+   "shard_epic": 25,
+   "shard_legend": 45,
+   "egg_0": 110,
+   "egg_1": 140,
+   "egg_2": 210,
+   "egg_3": 350,
+   "egg_4": 630,
+   "ticket": 300,
+   "ticket_week": 400,
+   "evo": 150,
+   "stones": 25,
+   "crystal": 100,
+   "copies": 20
+  },
+  "bands": [{"lv": 1, "m": 1}, {"lv": 20, "m": 1.5}, {"lv": 50, "m": 2}, {"lv": 90, "m": 2.5}, {"lv": 130, "m": 3}],
+  "ladder": [0.99, 1.99, 4.99, 9.99, 19.99, 49.99],
+  "ownedBias": 0.6,
+  "featuredMult": 3,
+  "featuredCount": 2,
+  "ticketShards": 20,
+  "ticketChoices": 6,
+  "adBalls": 30,
+  "retryBoost": 0.15,
+  "eggs": [
+   {"tier": 0, "name": "Trứng Thường", "min": 12, "max": 16, "up": 0.12},
+   {"tier": 1, "name": "Trứng Khá", "min": 12, "max": 16, "up": 0.1},
+   {"tier": 2, "name": "Trứng Hiếm", "min": 12, "max": 16, "up": 0.08},
+   {"tier": 3, "name": "Trứng Sử Thi", "min": 12, "max": 16, "up": 0.05},
+   {"tier": 4, "name": "Trứng Huyền Thoại", "min": 12, "max": 16, "up": 0}
+  ],
+  "packs": [
+   {
+    "id": "starter3",
+    "name": "Quà Nhập Môn",
+    "desc": "Mua một lần, nhận 3 ngày liền. Vào game mỗi ngày để nhận.",
+    "tab": "offers",
+    "kind": "days",
+    "price": 0.99,
+    "limit": 1,
+    "hours": 72,
+    "scale": true,
+    "sort": 1,
+    "days": [
+     [{"k": "balls", "n": 300}, {"k": "egg", "n": 1, "r": 2}],
+     [{"k": "ticket", "n": 1, "r": 2}],
+     [{"k": "egg", "n": 1, "r": 3}]
+    ]
+   },
+   {
+    "id": "launch",
+    "name": "Gói Khởi Hành",
+    "desc": "Bi, trứng tướng và đá tiến hóa cho chặng đầu.",
+    "tab": "offers",
+    "price": 4.99,
+    "limit": 1,
+    "hours": 48,
+    "scale": true,
+    "sort": 2,
+    "items": [{"k": "balls", "n": 1200}, {"k": "egg", "n": 2, "r": 2}, {"k": "egg", "n": 1, "r": 3}, {"k": "evo", "n": 2}]
+   },
+   {
+    "id": "balls_1",
+    "name": "Nắm bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 0.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 10,
+    "items": [{"k": "balls", "n": 100}]
+   },
+   {
+    "id": "balls_2",
+    "name": "Túi bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 4.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 11,
+    "items": [{"k": "balls", "n": 550}]
+   },
+   {
+    "id": "balls_3",
+    "name": "Rổ bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 9.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 12,
+    "items": [{"k": "balls", "n": 1200}]
+   },
+   {
+    "id": "balls_4",
+    "name": "Thùng bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 19.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 13,
+    "items": [{"k": "balls", "n": 2600}]
+   },
+   {
+    "id": "balls_5",
+    "name": "Rương bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 49.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 14,
+    "items": [{"k": "balls", "n": 7000}]
+   },
+   {
+    "id": "balls_6",
+    "name": "Xe bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 99.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 15,
+    "items": [{"k": "balls", "n": 15000}]
+   },
+   {
+    "id": "refill_1",
+    "name": "Bổ sung bi nhỏ",
+    "desc": "",
+    "tab": "",
+    "price": 1.99,
+    "scale": true,
+    "sort": 20,
+    "items": [{"k": "balls", "n": 260}]
+   },
+   {
+    "id": "refill_2",
+    "name": "Bổ sung bi vừa",
+    "desc": "",
+    "tab": "",
+    "price": 4.99,
+    "scale": true,
+    "sort": 21,
+    "items": [{"k": "balls", "n": 700}]
+   },
+   {
+    "id": "refill_3",
+    "name": "Bổ sung bi lớn",
+    "desc": "",
+    "tab": "",
+    "price": 9.99,
+    "scale": true,
+    "sort": 22,
+    "items": [{"k": "balls", "n": 1500}]
+   },
+   {
+    "id": "egg_daily",
+    "name": "Trứng Hiếm hôm nay",
+    "desc": "Mỗi ngày mua được 1 lần.",
+    "tab": "eggs",
+    "price": 0.99,
+    "limit": 1,
+    "daily": true,
+    "sort": 29,
+    "items": [{"k": "egg", "n": 1, "r": 2}]
+   },
+   {
+    "id": "egg_1",
+    "name": "Trứng Khá",
+    "desc": "",
+    "tab": "eggs",
+    "price": 0.99,
+    "sort": 30,
+    "items": [{"k": "egg", "n": 1, "r": 1}]
+   },
+   {
+    "id": "egg_2",
+    "name": "Trứng Hiếm",
+    "desc": "",
+    "tab": "eggs",
+    "price": 1.49,
+    "sort": 31,
+    "items": [{"k": "egg", "n": 1, "r": 2}]
+   },
+   {
+    "id": "egg_3",
+    "name": "Trứng Sử Thi",
+    "desc": "",
+    "tab": "eggs",
+    "price": 2.49,
+    "sort": 32,
+    "items": [{"k": "egg", "n": 1, "r": 3}]
+   },
+   {
+    "id": "egg_4",
+    "name": "Trứng Huyền Thoại",
+    "desc": "",
+    "tab": "eggs",
+    "price": 4.49,
+    "sort": 33,
+    "items": [{"k": "egg", "n": 1, "r": 4}]
+   },
+   {
+    "id": "egg_2x10",
+    "name": "10 Trứng Hiếm",
+    "desc": "",
+    "tab": "eggs",
+    "price": 9.99,
+    "sort": 34,
+    "items": [{"k": "egg", "n": 10, "r": 2}]
+   },
+   {
+    "id": "egg_3x10",
+    "name": "10 Trứng Sử Thi",
+    "desc": "",
+    "tab": "eggs",
+    "price": 19.99,
+    "sort": 35,
+    "items": [{"k": "egg", "n": 10, "r": 3}]
+   },
+   {
+    "id": "egg_4x10",
+    "name": "10 Trứng Huyền Thoại",
+    "desc": "",
+    "tab": "eggs",
+    "price": 39.99,
+    "sort": 36,
+    "items": [{"k": "egg", "n": 10, "r": 4}]
+   },
+   {
+    "id": "weekly_hero",
+    "name": "Gói Tướng Tuần",
+    "desc": "Vé chọn 1 trong 2 tướng tuần và 4 Trứng Hiếm.",
+    "tab": "eggs",
+    "price": 4.99,
+    "limit": 1,
+    "weekly": true,
+    "sort": 34,
+    "items": [{"k": "ticket_week", "n": 1}, {"k": "egg", "n": 4, "r": 2}]
+   },
+   {
+    "id": "week_card",
+    "name": "Thẻ Tuần",
+    "desc": "Nhận ngay 300 bi; mỗi ngày 100 bi trong 7 ngày; cây bi chứa ×1,5.",
+    "tab": "perks",
+    "kind": "card",
+    "price": 1.99,
+    "scale": true,
+    "sort": 40,
+    "items": [{"k": "week_card", "n": 1}, {"k": "balls", "n": 300}]
+   },
+   {
+    "id": "adventure_pass",
+    "name": "Thẻ Phiêu Lưu 30 ngày",
+    "desc": "Cây bi ×1,5; khay rương AFK 5 ô, rương mở trong 1 giờ; nhận ngay 1 Trứng Sử Thi; mỗi ngày 150 bi và 1 lượt quảng cáo không cần xem.",
+    "tab": "perks",
+    "kind": "card",
+    "price": 4.99,
+    "scale": true,
+    "sort": 41,
+    "items": [{"k": "month_card", "n": 1}, {"k": "egg", "n": 1, "r": 3}]
+   },
+   {
+    "id": "fund",
+    "name": "Quỹ Phiêu Lưu",
+    "desc": "Mua một lần, nhận thưởng lớn ở mỗi mốc cấp 10 tới 60.",
+    "tab": "perks",
+    "kind": "fund",
+    "price": 9.99,
+    "limit": 1,
+    "sort": 42
+   },
+   {
+    "id": "no_ads",
+    "name": "Bỏ quảng cáo",
+    "desc": "Mọi chỗ quảng cáo thưởng trao ngay, không cần xem (vẫn theo giới hạn mỗi ngày).",
+    "tab": "perks",
+    "kind": "noads",
+    "price": 4.99,
+    "limit": 1,
+    "sort": 43,
+    "items": [{"k": "no_ads", "n": 1}]
+   },
+   {
+    "id": "piggy",
+    "name": "Lọ Bi",
+    "desc": "Mỗi bi bạn thả bỏ 1 bi vào lọ. Đập lọ để lấy hết.",
+    "tab": "offers",
+    "kind": "piggy",
+    "price": 4.99,
+    "sort": 3
+   }
+  ],
+  "offers": [
+   {"id": "flash", "name": "Ưu Đãi Bất Ngờ", "hours": 2, "value": 4},
+   {"id": "hot", "name": "Ưu Đãi Nóng", "hours": 0.1667, "value": 4},
+   {"id": "relief", "name": "Gói Tiếp Sức", "hours": 2, "value": 4},
+   {"id": "companion", "name": "Gói Đồng Hành", "hours": 24, "value": 4, "price": 2.99},
+   {"id": "nearstar", "name": "Gói Sắp Lên Sao", "hours": 3, "value": 4, "price": 1.99},
+   {"id": "newisle", "name": "Gói Đảo Mới", "hours": 48, "value": 4, "price": 4.99},
+   {
+    "id": "comeback",
+    "name": "Gói Trở Lại",
+    "hours": 48,
+    "value": 0,
+    "price": 1.99,
+    "items": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}]
+   },
+   {"id": "refill", "name": "Bổ Sung Bi", "hours": 0, "value": 0}
+  ],
+  "caps": {
+   "perOpen": 2,
+   "perDay": 4,
+   "firstDay": 1,
+   "gapMin": 3,
+   "afterBuyMin": 10,
+   "afterAdSec": 5,
+   "dismissH": 24,
+   "dismiss3H": 72,
+   "flashGapH": 6,
+   "flashChance": 0.25,
+   "flashChancePayer": 0.35,
+   "lowChance": 0.3,
+   "hotChance": 0.3,
+   "lowPct": 0.2,
+   "flashPerDay": 2,
+   "reliefLosses": 3,
+   "reliefGapH": 24,
+   "refillGapMin": 20,
+   "comebackDays": 3,
+   "ladderDownDays": 7,
+   "bigBuy": 19.99,
+   "nearStarPct": 0.8,
+   "reopenMin": 30
+  },
+  "piggy": {"cap": 2000, "minPct": 0.4, "grow": 0.2, "maxMult": 2, "price": 4.99},
+  "chainHours": 72,
+  "chainEveryDays": 14,
+  "chains": [
+   {
+    "id": "chain_bi",
+    "name": "Chuỗi Bi",
+    "steps": [
+     {
+      "price": 0,
+      "items": [{"k": "balls", "n": 50}]
+     },
+     {
+      "price": 0.99,
+      "items": [{"k": "balls", "n": 400}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "balls", "n": 80}]
+     },
+     {
+      "price": 1.99,
+      "items": [{"k": "balls", "n": 800}, {"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 2.99,
+      "items": [{"k": "balls", "n": 1200}, {"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "balls", "n": 150}]
+     },
+     {
+      "price": 4.99,
+      "items": [{"k": "balls", "n": 2000}, {"k": "egg", "n": 1, "r": 3}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 3}, {"k": "balls", "n": 300}]
+     }
+    ]
+   },
+   {
+    "id": "chain_tuong",
+    "name": "Chuỗi Tướng",
+    "steps": [
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 0.99,
+      "items": [{"k": "shards", "n": 10, "h": "*feat"}, {"k": "egg", "n": 2, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 1.99,
+      "items": [{"k": "shards", "n": 20, "h": "*feat"}, {"k": "egg", "n": 3, "r": 1}]
+     },
+     {
+      "price": 2.99,
+      "items": [{"k": "ticket_week", "n": 1}, {"k": "egg", "n": 3, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 4.99,
+      "items": [{"k": "egg", "n": 3, "r": 3}, {"k": "shards", "n": 30, "h": "*feat"}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 3}]
+     }
+    ]
+   },
+   {
+    "id": "chain_tienhoa",
+    "name": "Chuỗi Tiến Hóa",
+    "steps": [
+     {
+      "price": 0,
+      "items": [{"k": "evo", "n": 1}]
+     },
+     {
+      "price": 0.99,
+      "items": [{"k": "evo", "n": 3}, {"k": "balls", "n": 200}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "stones", "n": 3}]
+     },
+     {
+      "price": 1.99,
+      "items": [{"k": "evo", "n": 6}, {"k": "balls", "n": 300}]
+     },
+     {
+      "price": 2.99,
+      "items": [{"k": "evo", "n": 8}, {"k": "egg", "n": 2, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "evo", "n": 1}]
+     },
+     {
+      "price": 4.99,
+      "items": [{"k": "evo", "n": 15}, {"k": "egg", "n": 1, "r": 3}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "evo", "n": 3}, {"k": "crystal", "n": 1}]
+     }
+    ]
+   }
+  ],
+  "fundPrice": 9.99,
+  "fund": [
+   {
+    "lv": 10,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 15,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 20,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "evo", "n": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 25,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 30,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "ticket", "n": 1, "r": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 35,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 40,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "evo", "n": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 45,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "ticket", "n": 1, "r": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 50,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 55,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 60,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "ticket", "n": 1, "r": 3}, {"k": "egg", "n": 2, "r": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   }
+  ],
+  "cards": [
+   {
+    "id": "week",
+    "name": "Thẻ Tuần",
+    "days": 7,
+    "now": [{"k": "balls", "n": 300}],
+    "daily": [{"k": "balls", "n": 100}],
+    "treeCap": 1.5
+   },
+   {
+    "id": "month",
+    "name": "Thẻ Phiêu Lưu",
+    "days": 30,
+    "now": [{"k": "egg", "n": 1, "r": 3}],
+    "daily": [{"k": "balls", "n": 150}],
+    "adSkips": 1
+   }
+  ],
+  "adMilestones": [
+   {
+    "n": 3,
+    "items": [{"k": "balls", "n": 50}]
+   },
+   {
+    "n": 6,
+    "items": [{"k": "egg", "n": 1, "r": 1}]
+   },
+   {
+    "n": 10,
+    "items": [{"k": "egg", "n": 1, "r": 1}, {"k": "evo", "n": 1}]
+   }
+  ],
+  "dailyGift": [{"k": "balls", "n": 40}],
+  "comebackGift": [{"k": "balls", "n": 200}]
  }
 }

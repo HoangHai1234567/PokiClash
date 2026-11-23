@@ -16,6 +16,8 @@ namespace PokiClash
         {
             public string name;
             public Sprite sprite;
+            // hệ của gói tải sau chứa ảnh (GD_Claude/27): sprite để trống, nạp qua ContentPacks theo tên; rỗng = ảnh bản cài
+            public string pack;
         }
 
         public List<Entry> art = new List<Entry>(); // ảnh gen (đã xử lý từ ArtGen/*/inbox)
@@ -23,6 +25,7 @@ namespace PokiClash
         public List<Entry> icons = new List<Entry>(); // icon thay thế (Fallback/Icons)
 
         Dictionary<string, Sprite> artMap, fallbackMap, iconMap;
+        Dictionary<string, string> packMap; // tên ảnh trong gói tải sau → hệ
         readonly HashSet<string> warned = new HashSet<string>();
 
         public static ArtLibrary Current;
@@ -33,6 +36,16 @@ namespace PokiClash
             artMap = Map(art);
             fallbackMap = Map(fallback);
             iconMap = Map(icons);
+            packMap = new Dictionary<string, string>();
+            foreach (var e in art)
+                if (!string.IsNullOrEmpty(e.pack) && !string.IsNullOrEmpty(e.name)) packMap[e.name] = e.pack;
+        }
+
+        // hệ của gói tải sau chứa ảnh, null nếu ảnh nằm trong bản cài (hoặc không có)
+        public string PackOf(string name)
+        {
+            Index();
+            return name != null && packMap.TryGetValue(name, out var e) ? e : null;
         }
 
         static Dictionary<string, Sprite> Map(List<Entry> list)
@@ -47,7 +60,7 @@ namespace PokiClash
         public bool HasArt(string name)
         {
             Index();
-            return artMap.ContainsKey(name);
+            return artMap.ContainsKey(name) || packMap.ContainsKey(name);
         }
 
         // Ảnh nền, đảo, khung...: ảnh gen nếu có, không thì ảnh thay thế.
@@ -55,6 +68,15 @@ namespace PokiClash
         {
             Index();
             if (artMap.TryGetValue(name, out var s)) return s;
+            // ảnh trong gói tải sau: lấy từ gói đã nạp; chưa nạp thì xin nạp và tạm dùng ảnh thay thế (nơi gọi nên ContentPacks.Request
+            // trước khi dựng màn, như ZoneScene, StageView)
+            if (packMap.TryGetValue(name, out var elem))
+            {
+                s = PokiClash.Game.ContentPacks.Get<Sprite>(name);
+                if (s) return s;
+                PokiClash.Game.ContentPacks.Request(elem);
+                return fallbackMap.TryGetValue(name, out s) ? s : null;
+            }
             if (fallbackMap.TryGetValue(name, out s))
             {
                 Warn(name, Loc.T("dùng ảnh thay thế"));

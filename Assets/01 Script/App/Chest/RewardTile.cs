@@ -1,4 +1,4 @@
-// Ô thưởng dùng chung (prefab Assets/04 Prefabs/Items/OThuong, dựng bằng menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)"):
+// Ô thưởng dùng chung (prefab Assets/04 Prefabs/Items/OThuong, dựng bằng menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)"):
 // khung giấy tô màu độ hiếm, dải độ hiếm trên đầu (tên độ hiếm viết hoa), hình to ở giữa (icon, chân dung tướng hoặc hình thẻ),
 // tướng chủ thẻ thu nhỏ góc dưới trái, biểu tượng nhỏ góc trên phải (mảnh), số lượng "×n" góc dưới phải, nhãn góc trên trái
 // (tỉ lệ rơi, "Lần đầu", "MỚI!"), một dòng tên dưới khung. Ít chữ: cái gì, bao nhiêu, độ hiếm nhìn hình và màu là ra.
@@ -73,6 +73,14 @@ namespace PokiClash
         }
 
         // nhãn góc trên trái (tỉ lệ rơi, "Lần đầu", "MỚI!")
+        // dòng tên dưới khung: màu khác (nền tối) hoặc ẩn
+        public RewardTile Caption(Color c, bool show = true)
+        {
+            p.caption.color = c;
+            p.caption.gameObject.SetActive(show);
+            return this;
+        }
+
         public RewardTile Tag(string text, Color fill)
         {
             bool on = !string.IsNullOrEmpty(text);

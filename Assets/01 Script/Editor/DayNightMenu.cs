@@ -1,9 +1,9 @@
 // Sáng tối theo giờ máy (người dùng dặn 2026-11-18: mọi đảo và sảnh lấy thời gian sáng, tối).
-// - "PokiClash/Sáng tối/Dựng lớp sáng tối (Zone, Hub)": tạo material nhân màu (UIMultiply), tia nắng (UISunRays); dựng lớp "sang_toi"
+// - "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Dựng lớp sáng tối (Zone, Hub)": tạo material nhân màu (UIMultiply), tia nắng (UISunRays); dựng lớp "sang_toi"
 //   (DayNight: nhuom, nang, den) trong Screens/Zone ngay sau lớp phần động của ảnh bản đồ (dưới đường, chấm ải, tướng; gán
 //   ZoneScene.dayNight) và trong Screens/Hub trên biển, đảo, mây của anh_nen_world, dưới lop_tren (autoKey world). Chạy lại thì dựng lại.
 //   Cả hai màn: lớp nhuộm, nắng tràn 20000 ra ngoài ảnh (khung cắt RectMask2D cắt lại), đèn trùng khung ảnh.
-// - "PokiClash/Sáng tối/Mây sảnh đồng bộ đảo vùng đất": mây sảnh (vành mây may_vien, mây trôi may_0..) đổi sang hình mây vẽ tay của đảo
+// - "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Mây sảnh đồng bộ đảo vùng đất": mây sảnh (vành mây may_vien, mây trôi may_0..) đổi sang hình mây vẽ tay của đảo
 //   vùng đất (land_thuy_may_1/2, xen kẽ; giữ bề ngang, cao theo tỉ lệ hình, bỏ material của mây nướng cũ) và gán vào DayNight.clouds
 //   để xỉn theo giờ như mây đảo (người dùng dặn 2026-11-18: "mây ở phần đảo chính cũng phải đổi đồng bộ"). Dựng lại lớp sáng tối
 //   cũng gán lại mây.
@@ -27,7 +27,7 @@ namespace PokiClash.EditorTools
         const string JsonPath = "Assets/03 Art/Islands/island_anim.json";
         static readonly string[] CloudArt = { "Assets/03 Art/Islands/land_thuy_may_1.png", "Assets/03 Art/Islands/land_thuy_may_2.png" };
 
-        [MenuItem("PokiClash/Sáng tối/Mây sảnh đồng bộ đảo vùng đất", priority = 72)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Mây sảnh đồng bộ đảo vùng đất", priority = 72)]
         static void HubCloudsMenu()
         {
             var art = CloudArt.Select(AssetDatabase.LoadAssetAtPath<Sprite>).ToArray();
@@ -85,7 +85,7 @@ namespace PokiClash.EditorTools
             so.ApplyModifiedPropertiesWithoutUndo();
         }
 
-        [MenuItem("PokiClash/Sáng tối/Dựng lớp sáng tối (Zone, Hub)", priority = 71)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Dựng lớp sáng tối (Zone, Hub)", priority = 71)]
         static void Build()
         {
             var mul = Mat(MulPath, "PokiClash/UIMultiply");
@@ -241,19 +241,19 @@ namespace PokiClash.EditorTools
             return dn;
         }
 
-        [MenuItem("PokiClash/Thử/Giờ trong game: 10h sáng (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Giờ trong game: 10h sáng (đang Play)", priority = 126)]
         static void Morning() => DayCycle.Override = 10f;
 
-        [MenuItem("PokiClash/Thử/Giờ trong game: 18h20 hoàng hôn (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Giờ trong game: 18h20 hoàng hôn (đang Play)", priority = 126)]
         static void Dusk() => DayCycle.Override = 18.33f;
 
-        [MenuItem("PokiClash/Thử/Giờ trong game: 22h đêm (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Giờ trong game: 22h đêm (đang Play)", priority = 126)]
         static void Night() => DayCycle.Override = 22f;
 
-        [MenuItem("PokiClash/Thử/Giờ trong game: theo giờ máy (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Giờ trong game: theo giờ máy (đang Play)", priority = 126)]
         static void Real() => DayCycle.Override = null;
 
-        [MenuItem("PokiClash/Thử/Sáng tối: chụp mép bản đồ sảnh (đang Play)", priority = 127)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Sáng tối: chụp mép bản đồ sảnh (đang Play)", priority = 127)]
         static void HubEdges()
         {
             if (!EditorApplication.isPlaying || App.I == null)

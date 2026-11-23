@@ -228,7 +228,19 @@ namespace PokiClash
 
         public bool Ready => prefab && groups[0] && groups[1] && groups[2] && art.Count > 0;
 
-        Sprite S(string name) => art.TryGetValue("hat_" + name, out var s) ? s : null;
+        // Ảnh hạt: trong mảng của bản cài, không có thì lấy từ gói tải sau đã nạp (GD_Claude/27: ảnh chỉ một hệ dùng nằm trong gói của hệ
+        // đó). Used (Editor, ContentPack HatScanTour): ghi tên ảnh được dùng để chia gói.
+        public static Action<string> Used;
+
+        Sprite S(string name)
+        {
+            string k = "hat_" + name;
+            Used?.Invoke(k);
+            if (art.TryGetValue(k, out var s)) return s;
+            s = PokiClash.Game.ContentPacks.Get<Sprite>(k);
+            if (s) art[k] = s;
+            return s;
+        }
 
         public float U(float a, float b) => a + (float)rng.NextDouble() * (b - a);
         static float U(System.Random r, float a, float b) => a + (float)r.NextDouble() * (b - a);

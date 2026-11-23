@@ -111,7 +111,7 @@ Clip của họ: `idle_01` 6,67 s; `run_01` 0,67 s; `skill_01` 1,0 s (rút tên,
   lại đích (`GIU_DICH`, `TRE_TRUNG` trong `cung_lua_rig.py`). Ghi vào skill `pokiclash-spine-rig` (mục vật bay).
 - **Đã chạy trong Unity**: Nhập dữ liệu, Gắn dạng .atomik (prefab `04 Prefabs/Heroes/kim_su.prefab`), tính lại golden islands / roster /
   cardtext / zones, EditMode 102 / 103 (hỏng `PrefabOnlyTests.MaRuntime_KhongSinhDoVat` ở `UI/Kit/NumberTicker.cs`, `UiMotion.cs`, không
-  thuộc việc này). Tour thử: menu "PokiClash/Thử/Đảo Hỏa: riêng Hỏa Cung, đòn thường, chiêu mana, chiêu cuối (đang Play)"
+  thuộc việc này). Tour thử: menu "PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Hỏa Cung, đòn thường, chiêu mana, chiêu cuối (đang Play)"
   (`Editor/HoaFxTour.cs`), ảnh ở `Temp/PokiShots/hoa_fx`; tờ đã soi: `inbox/cung_lua_1/trong_game/*.jpg`.
 - Lúc nhảy ở chiêu cuối, đỉnh đầu chui sau bảng máu đối thủ (tướng đứng bên người chơi): chưa chỉnh, chờ người dùng xem.
 
@@ -152,9 +152,9 @@ Clip của họ: `idle_01` 6,67 s; `run_01` 0,67 s; `skill_01` 1,0 s (rút tên,
 - Cảnh báo của `vao_game.py --kiem`: `game.shadow 'shadow' không có slot đó` (rig không mang slot bóng của con gốc; game tự vẽ bóng). Vô hại.
 - Unity: Nhập dữ liệu, Gắn dạng (prefab `kim_su` trỏ `kim_su_1`, `kim_su_2`), golden tính lại, EditMode 102 / 103 (chỉ hỏng `PrefabOnlyTests`).
 - **Thử trong Play** (menu mới ở `Editor/GiotSuongCombatTour.cs`):
-  - "PokiClash/Thử/Đảo Hỏa: Hỏa Cung ra trận ở 2 dạng (đang Play)" → `Temp/PokiShots/hoa_cung_combat` (sao 1 và sao 5: đánh, bắn, chiêu cuối,
+  - "PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕Hỏa Cung ra trận ở 2 dạng (đang Play)" → `Temp/PokiShots/hoa_cung_combat` (sao 1 và sao 5: đánh, bắn, chiêu cuối,
     địch đánh, địch bắn). Dạng 1 chạy đủ, tên bay tới đối thủ, mũi tên lửa ở chiêu cuối.
-  - "PokiClash/Thử/Hỏa Cung tiến hóa: clip evolve của dạng .atomik (đang Play)" → `Temp/PokiShots/hoa_cung_tien_hoa` (2 sao → 3 sao:
+  - "PokiClash/Thử/Khác/Tướng∕Hỏa Cung tiến hóa: clip evolve của dạng .atomik (đang Play)" → `Temp/PokiShots/hoa_cung_tien_hoa` (2 sao → 3 sao:
     `kim_su_1` → `kim_su_2`, clip evolve chạy trong hộp chi tiết, hết clip là dạng 2 đứng nghỉ).
   - Tờ đã soi: `inbox/cung_lua_1/trong_game/dang_1_ra_tran.jpg`, `tien_hoa_trong_game.jpg` (ảnh nhỏ 223 × 397 vì cửa sổ Game đang nhỏ).
 - Chưa commit (người dùng chưa bảo).

@@ -17,7 +17,7 @@ Phần dữ liệu, code, test, golden không cần Unity đã làm xong; phần
 - **`Editor/IslandGen.cs`**: `Plan Thuy` (`Intro(ải, tướng, tên ải, trait, buff)`), `firstIsPlayer = true` (ải 1 là bóng tướng
   khởi đầu, buff −20 %, rơi chắc 2–4 mảnh), ải xen giữa lấy tướng theo chặng (H, P, Q). Ải tướng có `evo` khi tướng có > 1 dạng
   (boss tiến hóa trong trận theo số dạng). Menu ở `Editor/IslandGenMenu.cs`: "PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (5 đảo)"
-  (ghi `stages.json` + Nhập dữ liệu), "PokiClash/Thử/Tính lại golden islands, roster, cardtext, zones", "PokiClash/Thử/Tính lại
+  (ghi `stages.json` + Nhập dữ liệu), "PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden islands, roster, cardtext, zones", "PokiClash/Thử/Tính lại
   golden theo danh sách tướng (progression, badges, potential)"; `Editor/GoldenRecalcMenu.cs`: "PokiClash/Thử/Tính lại golden sim,
   tướng trên nút ải (Temp/GoldenRecalc.json)" (chỉ ghi ra Temp, phải ghép vào golden bằng script).
 - **`stages.json`** (LF): 350 ải, đảo Thủy id 1–70; địch `{hero, level, boss, evo, buff, trait}`, rơi `{hero, chance, min, max,
@@ -98,13 +98,13 @@ Trước hết nhắn session khác đang dùng Unity, chắc Editor không Play
 
 1. Refresh để biên dịch (6 file C# đổi: GameData, SaveData, IslandGen, IslandGenMenu, HatNuoc, StageView, 11 test). Xem console.
 2. Menu **"PokiClash/Nhập dữ liệu"** (JSON → HeroDb, CardDb, StageDb, BalanceConfig asset).
-   (Tuỳ chọn, để chắc: "PokiClash/Dữ liệu/Đảo 70 ải: sinh lại (5 đảo) (stages.json)" — phải không đổi `stages.json`; `git diff`
+   (Tuỳ chọn, để chắc: "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải: sinh lại (5 đảo) (stages.json)" — phải không đổi `stages.json`; `git diff`
    trống ở file đó.)
-3. Menu **"PokiClash/Thử/Tính lại golden islands, roster, cardtext, zones"** → `islands.json`, `roster.json`, `cardtext.json`,
+3. Menu **"PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden islands, roster, cardtext, zones"** → `islands.json`, `roster.json`, `cardtext.json`,
    `zones.json`.
-4. Menu **"PokiClash/Thử/Tính lại golden theo danh sách tướng (progression, badges, potential)"** → `progression.json` (stats, shards,
+4. Menu **"PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden theo danh sách tướng (progression, badges, potential)"** → `progression.json` (stats, shards,
    shardEnd), `badges.json` (stages, fights), `potential.json` (caveStages).
-5. Menu **"PokiClash/Thử/Tính lại golden sim, tướng trên nút ải (Temp/GoldenRecalc.json)"**, rồi ngoài Unity
+5. Menu **"PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden sim, tướng trên nút ải (Temp∕GoldenRecalc.json)"**, rồi ngoài Unity
    `py -3 -I ArtGen/Spine/quai/golden_thuy.py ghep_sim` → `sim.json` (bản thử: 4 ải Thủy).
 6. Chạy **EditMode test** (cả bộ). Mong đợi qua hết. Nếu lệch: test golden nào hỏng thì so với danh sách mục 5.
 7. Rig: khi một dòng đạt, thêm vào `da_nhan.json` mảng `nhan` (mẫu `_vi_du`), chạy `py -3 -I ArtGen/Spine/quai/vao_game.py --kiem`

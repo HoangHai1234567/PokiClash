@@ -29,9 +29,11 @@ namespace PokiClash.Game
                 foreach (var h in heroes)
                 {
                     if (!h) continue;
-                    var fs = h.Forms;
-                    for (int i = 0; i < fs.Length; i++)
-                        if (fs[i]) index[fs[i].name] = (h, i);
+                    for (int i = 0; i < h.FormCount; i++)
+                    {
+                        string k = h.FormKey(i);
+                        if (!string.IsNullOrEmpty(k)) index[k] = (h, i);
+                    }
                 }
             }
             if (!index.TryGetValue(form, out var hit)) return false;
@@ -39,7 +41,7 @@ namespace PokiClash.Game
             return prefab;
         }
 
-        public AolaAnim Anim(string form) => Find(form, out var p, out int i) ? p.Forms[i] : null;
+        public AolaAnim Anim(string form) => Find(form, out var p, out int i) ? p.Form(i) : null;
 
         void OnValidate() => index = null;
     }

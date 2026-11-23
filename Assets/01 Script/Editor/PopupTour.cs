@@ -15,7 +15,7 @@ namespace PokiClash.EditorTools
 {
     public static class PopupTour
     {
-        [MenuItem("PokiClash/Thử/Popup gọn: đội hình, chạm ải, ô thưởng (đang Play)", priority = 114)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Popup gọn: đội hình, chạm ải, ô thưởng (đang Play)", priority = 114)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

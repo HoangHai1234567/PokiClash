@@ -1,4 +1,4 @@
-// Menu "PokiClash/Thử/Tính lại golden theo tướng mẫu của test (rương, AFK, trang trại, tiềm năng, đền)": tính lại các golden mà test dựng
+// Menu "PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden theo tướng mẫu của test (rương, AFK, trang trại, tiềm năng, đền)": tính lại các golden mà test dựng
 // bản lưu bằng vài tướng mẫu cố định. Viết 2026-11-16 khi bỏ 31 tướng cũ không còn suất đảo (SaveCodec.BoTuongCu): tướng mẫu đổi sang
 // tướng thay cùng hệ, nên các kết quả rơi thẻ, mảnh, năng suất... đổi theo. Giữ đầu vào của golden cũ (thao tác, thời điểm, hạt giống,
 // ô khoá, giữ mới / giữ cũ...), tướng cũ trong đầu vào đổi theo bảng trên, rồi tính lại kết quả bằng code Unity đúng như test chạy:
@@ -48,7 +48,7 @@ namespace PokiClash.EditorTools
 
         static double N(object x) => Convert.ToDouble(x);
 
-        [MenuItem("PokiClash/Thử/Tính lại golden theo tướng mẫu của test (rương, AFK, trang trại, tiềm năng, đền)", priority = 303)]
+        [MenuItem("PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden theo tướng mẫu của test (rương, AFK, trang trại, tiềm năng, đền)", priority = 303)]
         public static void Run()
         {
             var d = GameData.FromJson(File.ReadAllText(Data("Json/heroes.json")), File.ReadAllText(Data("Json/cards.json")),
@@ -69,7 +69,7 @@ namespace PokiClash.EditorTools
             new List<object> { c.hero, SlotKey[(int)c.slot], c.card, Keys.Of(c.rarity) };
 
         // thưởng rương như golden web: ["card", tướng, ô, thẻ, độ hiếm], ["shards", tướng, n, mở, đổi], ["exp", n, lên cấp], ["stones"], ["balls", n],
-        // ["evo", n] (đá tiến hóa, 2026-11-17)
+        // ["evo", n] (đá tiến hóa, 2026-11-17), ["egg", khoá túi, n] (trứng capsule, 2026-11-23)
         static object RewardTree(Reward g)
         {
             switch (g.k)
@@ -86,6 +86,8 @@ namespace PokiClash.EditorTools
                     return new List<object> { "balls", (double)g.n };
                 case RewardKind.EvoStones:
                     return new List<object> { "evo", (double)g.n };
+                case RewardKind.Egg:
+                    return new List<object> { "egg", g.id, (double)g.n };
                 default:
                     throw new InvalidOperationException("Loại thưởng chưa có trong golden: " + g.k);
             }

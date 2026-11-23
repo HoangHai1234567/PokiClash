@@ -46,7 +46,7 @@ Viết 2026-11-06. Người dùng muốn màn mở game **đẹp, độc đáo, 
 
 ## Unity (ý tưởng A, làm 2026-11-06)
 
-- **Prefab** `Assets/04 Prefabs/Screens/BootTitle.prefab`, dựng bằng menu `PokiClash/Prefab/Màn mở game: sa bàn (BootTitle)`. Menu cũng gán `App.bootTitle` trong `App.prefab`. Chạy lại menu thì dựng lại từ đầu.
+- **Prefab** `Assets/04 Prefabs/Screens/BootTitle.prefab`, dựng bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn mở game: sa bàn (BootTitle)`. Menu cũng gán `App.bootTitle` trong `App.prefab`. Chạy lại menu thì dựng lại từ đầu.
 - **Code:**
   - `App/BootTitle.cs`: diễn cảnh, camera sa bàn, tướng, chạm;
   - `UI/Kit/InkPath.cs`: nét mực vẽ dần, liền hoặc đứt, đầu tròn (mũi tên, vòng khoanh);
@@ -62,8 +62,8 @@ Viết 2026-11-06. Người dùng muốn màn mở game **đẹp, độc đáo, 
 - **Khi nào hiện:** game chạy thẳng vào sảnh. Không hiện khi bấm Play ở scene khác trong Editor.
   - Scene nào được mở sau lần vào sảnh đầu tiên (tour thử gọi `Router.Go`) thì màn tự tắt.
   - Hộp giới thiệu và chọn tướng khởi đầu chờ màn tắt mới hiện (`App.Booting`). Nút Back không làm gì khi màn đang hiện.
-  - Bỏ hẳn khi thử trong Editor: menu `PokiClash/Thử/Bỏ màn mở game (Play vào thẳng sảnh)`.
-- **Chụp thử:** đang Play thì chạy menu `PokiClash/Thử/Màn mở game: chụp từng nhịp (đang Play)`. Ảnh ra `Temp/PokiShots/boot_*.png`.
+  - Bỏ hẳn khi thử trong Editor: menu `PokiClash/Thử/Khác/Người chơi mới∕Bỏ màn mở game (Play vào thẳng sảnh)`.
+- **Chụp thử:** đang Play thì chạy menu `PokiClash/Thử/Khác/Người chơi mới∕Màn mở game: chụp từng nhịp (đang Play)`. Ảnh ra `Temp/PokiShots/boot_*.png`.
 
 ## Giao diện các màn theo nét màn mở game (2026-11-06)
 
@@ -77,8 +77,8 @@ Người dùng dặn: cải thiện giao diện các màn, giữ nguyên ảnh �
   - Máy bi: máy đứng thẳng trên bàn gỗ.
   - Nền cũ chỉ bị tắt, không xoá.
 - **Thanh trên:** ô tên màn thành mảnh băng keo giấy hơi nghiêng (`Assets/03 Art/Kit/ui_bang_keo_ten.png`, 9-slice ngang).
-- Dựng lại bằng menu `PokiClash/Prefab/Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo` (`Editor/UiRefreshMenu.cs`, chạy lại không nhân đôi).
-- Chụp mọi màn để soi: đang Play thì chạy menu `PokiClash/Thử/Chụp mọi màn để soi giao diện (đang Play)`. Ảnh ra `Temp/PokiShots/ui/`.
+- Dựng lại bằng menu `PokiClash/Prefab/Giao diện chung/Giao diện chung∕Giao diện: bàn gỗ, trang sổ, tiêu đề băng keo` (`Editor/UiRefreshMenu.cs`, chạy lại không nhân đôi).
+- Chụp mọi màn để soi: đang Play thì chạy menu `PokiClash/Thử/Khác/Giao diện∕Chụp mọi màn để soi giao diện (đang Play)`. Ảnh ra `Temp/PokiShots/ui/`.
 
 ## Màn tải chuyến tàu, bến tàu sảnh ↔ Nhà (2026-11-19, thay màn sa bàn)
 
@@ -120,11 +120,53 @@ Người dùng dặn: sảnh có bến tàu cạnh đảo Thủy, đậu một c
   - `App`: tạo lớp tàu từ `App.voyagePrefab`. Mở thẳng vào sảnh thì `BeginBoot`, không còn `BootTitle`; giữ code sa bàn, có thể bỏ khi người dùng chốt. `App.Booting` gồm cả màn tải.
   - `HubPan`: kéo dư trên (thanh trên) / dưới (hàng nút đáy) để bến sát mép dưới ra khỏi hàng nút; `FrameAt` đặt ngay camera.
 - **Dựng:**
-  - chạy menu `PokiClash/Prefab/Sảnh bản đồ thế giới (mây, điểm bấm)` trước (mây che đọc lại `hub_map.json`);
-  - rồi menu `PokiClash/Prefab/Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải`. Menu dựng `Screens/ChuyenTau.prefab`, gán vào App, đặt tàu ở bến sảnh (trên lớp mây che);
+  - chạy menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh bản đồ thế giới (mây, điểm bấm)` trước (mây che đọc lại `hub_map.json`);
+  - rồi menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Bến tàu: tàu sảnh, chuyến tàu qua mây, màn tải`. Menu dựng `Screens/ChuyenTau.prefab`, gán vào App, đặt tàu ở bến sảnh (trên lớp mây che);
   - chạy lại menu sảnh thì phải chạy lại menu bến tàu.
 - **Màn Nhà:** phiên Nhà vẽ bến ở mép dưới đảo, gọi `ShipBuild.Pier(world, dock, dockFace, south, null, scale)` và gán `Frame` / `Glide` / `OnTap`. Chưa có bến thì tàu chạy khuất khi mây tan.
-- **Chụp thử:** menu `PokiClash/Thử/Bến tàu: sảnh → Nhà → sảnh, màn tải (đang Play)`, ảnh ra `Temp/PokiShots/ben_tau/`.
+- **Chụp thử:** menu `PokiClash/Thử/Khác/Đảo và sảnh∕Bến tàu: sảnh → Nhà → sảnh, màn tải (đang Play)`, ảnh ra `Temp/PokiShots/ben_tau/`.
+
+## Nước chảy và easter egg trên bản đồ sảnh (2026-11-23)
+
+Người dùng: "các phần nước suối này vẫn hơi tĩnh, bạn học hỏi Kingdom Rush 5 … làm nước động hơn chút. Nhìn chung bố cục scene các đảo này vẫn hơi tĩnh … thêm các easter egg vào để người chơi khám phá".
+
+- **KR5 làm nước thế nào** (dựng lại khung từ `D:\Ripper\KingdomRush5\map_viewer\scene.json`):
+  - sông (`WavesRiver`): tới 225 nét bọt trắng nhỏ mỗi khung, xoay theo dòng, trôi xuôi, phình 0,42 → 0,54, hiện rồi tan trong 1,3 s, lệch pha;
+  - thác (màn 1, 2, 4): tấm nước 9 khung có vệt sáng trôi xuống; chân thác có cụm bọt cuộn 20 khung và vòng gợn 16 khung toả ra;
+  - đá giữa nước (`RockRipples`): vòng cung nở ra rồi mờ; mặt biển (`WaterSparks`): cụm đốm lấp lánh đổi hình mỗi 6 khung;
+  - không viền mực, mép là màu đậm hơn của chính nó.
+- **Thác, suối** (`ArtGen/Islands/sanh_moi/nuoc_dong.py`, shader `PokiClash/UIFlowWater`):
+  - không vẽ lại thác: ảnh phủ `Islands/sanh_nuoc_<đảo>` (A = mặt nạ nước dò theo màu trong vùng `REGIONS`, ô thác `FALLS`) nằm đè đúng chỗ trên ảnh đảo, là con của gốc đảo nên nhún cùng đảo;
+  - trường dòng chảy `Baked/Islands/Resources/sanh_nuoc_<đảo>_hc.png`: pha khoảng cách đi theo lòng nước từ đầu nguồn (Dijkstra), mã hoá cos / sin để lấy mẫu không gãy; B = thác;
+  - shader giữ nguyên nét vẽ nền, chỉ vẽ nét bọt chồng lên: sông có dải bọt ngang dòng trôi xuôi, đứt khúc, hiện rồi tan; thác có vệt dọc trắng và lam đậm trôi xuống;
+  - bản đầu cuộn chính ảnh theo hai pha làm thác nhoà, mất vệt lam sắc, nên đã bỏ;
+  - vách băng đảo Kim là băng nên để yên.
+- **Chân thác, mặt biển** (kiểu mới của `IslandAnim`, file `IslandAnimNuoc.cs`):
+  - `splash`: múi bọt cuộn nối nhau, giữ đục rồi tan bằng co lại (mờ dần cả đời trông như bong bóng xà phòng); thay 4 bọt hình dán cũ;
+  - `rings`: vòng gợn nhạt toả ra;
+  - `glint`: đốm lấp lánh đổi hình.
+  - Hình `anim_bot_*`, `anim_vong`, `anim_lap_*` vẽ bằng code, phẳng, viền lam, không viền mực.
+- **Easter egg** (`IslandAnimTrung.cs`, chỗ đặt ở `trung_sanh/trung_sanh.py`):
+  - hình sinh vật vẽ cùng nét bản đồ: `trung_sanh/to_sinh_vat_1.png` (Magnific GPT 2.6, ảnh mẫu cắt từ bản đồ), `cat_to.py` cắt ra `anim_ca`, `ca_vang`, `cua`, `ca_voi`, `duoi_ca_voi`, `voi_phun`, `chai`, `da_lua`, `rua`.
+  - Cảnh sống tự chạy:
+    - núi lửa phun đá dung nham mỗi 40–70 s;
+    - cá nhảy rải rác;
+    - cá voi nổi, phun nước, vẫy đuôi mỗi 30–45 s;
+    - rùa bơi vòng;
+    - lão cua thỉnh thoảng ló khỏi xác tàu;
+    - 3 hải âu lượn.
+  - 8 bí mật chạm vào mới lộ: núi lửa (chạm miệng núi), hải đăng (đèn quét), lão cua (bò ra bãi vẫy càng), thư trong chai (chạm xoáy nước nhả chai, chạm chai đọc thư), đàn cá san hô, cá voi (chạm lúc đang nổi), cá vàng (12 % lượt nhảy, cách nhau ít nhất 40 s), rùa lặn.
+  - Lần đầu mỗi bí mật: +5 bi (cá vàng +10), báo "Bí mật bản đồ n/8". Lưu ở `SaveData.extra["hubEgg"]` (bit theo thứ tự trên).
+  - Thư trong chai gợi ý các bí mật khác (7 thư).
+  - Điểm chạm là Image trong suốt trên lớp phần động. `IslandAnim` nhận cú chạm nổi lên rồi tra bảng (không `AddComponent` lúc chạy, theo PrefabOnlyTests). Chạm không trúng thì chuyển tiếp lên lớp cha.
+  - Sinh vật đặt trong dải biển cách bờ 18–70 px: mây vành phủ biển xa bờ, mây trong game to hơn hình elip ước lượng nên soát với elip phóng 1,35 lần.
+- **Dựng lại:**
+  - chạy `nuoc_dong.py` (hoặc `trung_sanh.py` khi chỉ đổi chỗ easter egg), rồi menu `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: nước chảy (material, danh mục ảnh)`. Không phải sửa prefab: material nạp bằng `Resources.Load`;
+  - `build_sanh.py` giữ phần nước và easter egg khi dựng lại bản đồ.
+- **Chụp thử:**
+  - menu `PokiClash/Thử/Khác/Đảo và sảnh∕Sảnh: nước chảy, easter egg (chụp, đang Play)`, ảnh ra `Temp/PokiShots/nuoc/`;
+  - tour phóng lớp kéo lên từng chỗ, chạm từng bí mật (núi lửa, hải đăng chạm thật qua raycast);
+  - tour tự sao lưu và trả bản lưu.
 
 ## Còn có thể làm thêm
 

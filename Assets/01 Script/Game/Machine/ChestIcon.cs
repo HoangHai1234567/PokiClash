@@ -3,7 +3,7 @@
 // vẽ tạm; không thì vẽ tạm như cũ (thân giấy tô màu + khoá tròn, vật liệu UIKit). Rương có màu riêng (fill, rương AFK) giữ hình
 // vẽ tạm cho khỏi mất màu. Open(): đổi sang ảnh rương mở, giữ bề rộng và mép đáy (bản mở cao hơn vì có nắp lật và sao).
 // Rig AtomSpine (GD_Claude/23_MayBi_TraiNghiem.md, ArtGen/Pachinko/ruong_rig/build_rig.py): con "rig" (AtomSpine.AtomikGraphic, tắt
-// sẵn) và ba file ruong_<bậc>.bytes, menu "PokiClash/Prefab/Máy bi: rig rương (AtomSpine)". PlayRig bật rig thay ảnh tĩnh: cho (đứng
+// sẵn) và ba file ruong_<bậc>.bytes, menu "PokiClash/Prefab/Khác/Máy bi∕rig rương (AtomSpine)". PlayRig bật rig thay ảnh tĩnh: cho (đứng
 // thở), nhac (nhắc mở: nhún, lắc, nắp hé có sáng ấm và tia lọt khe), gong (gồng), bat (nắp bật, sự kiện "open"), mo (mở rồi, lòng
 // sáng). Mặc định tắt: icon nhỏ trên mặt máy, bảng tỉ lệ vẫn là ảnh tĩnh, chỉ chỗ nào gọi PlayRig mới chạy rig.
 using System.Collections.Generic;

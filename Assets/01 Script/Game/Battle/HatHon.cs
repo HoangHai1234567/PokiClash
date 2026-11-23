@@ -77,7 +77,8 @@ namespace PokiClash
         {
             const string key = "ky_nguyen_2_tt_hon";
             if (knAnh.TryGetValue(key, out var s) && s) return s;
-            s = Resources.Load<Sprite>("ky_nguyen_2/" + key);
+            s = PokiClash.Game.ContentPacks.Get<Sprite>(key); // tướng trong gói tải sau (GD_Claude/27)
+            if (!s) s = Resources.Load<Sprite>("ky_nguyen_2/" + key);
             knAnh[key] = s;
             return s;
         }

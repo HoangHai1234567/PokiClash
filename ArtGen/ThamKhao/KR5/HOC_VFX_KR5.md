@@ -142,6 +142,23 @@ Tờ khung: `to_khung\nuoc__*.jpg`.
 - **Đuôi đạn nước:** 14 hạt/giây; mỗi hạt 9 khung là chùm giọt có quầng mềm, nhỏ dần thành chấm. Hạt quay theo hướng đạn (`track_rotation`).
 - **Bong bóng:** hệ hạt 1–4 hạt/giây, bay lên chậm 3–11 đơn vị/giây, cỡ 0,5–1,4. Hạt "vỡ" bằng cách co về 0,05 trong đời hạt.
 
+### Nước trên map và trong màn (soi 2026-11-23, cho sảnh PokiClash)
+
+Dựng lại khung exo từ `map_viewer/scene.json`. Nền sông, thác vẽ tĩnh; phần động là lớp chồng lên.
+
+| Món | Cách làm | Số đo |
+|---|---|---|
+| Sóng sông `WavesRiver` | nét bọt trắng hình lưỡi liềm (2 hình), xoay theo dòng, dẹt (sx 0,42, sy 0,28), trôi xuôi, mỗi nét vẽ chồng 3 lần (alpha 1 + 0,25 + 0,25) | 156–225 nét / khung; đời 40 khung (1,3 s): alpha 0 → 1 → 0, cỡ 0,42 → 0,54, trôi ~10 đơn vị / giây |
+| Gợn quanh đá `RockRipples` | vòng cung quanh đá phía xuôi dòng, nở ra rồi mờ, có bóng đá tĩnh | 66 khung; cỡ 1,25 → 1,45, alpha 0,05 → 1 → 0, lệch pha |
+| Sóng biển ven bờ `Sea` | nét sóng (2 hình) chạy chậm về bờ, nở, mờ | 56 khung; cỡ 0,71 → 0,91, alpha 0 → 0,8 → 0 |
+| Lấp lánh `WaterSparks` | cụm đốm mềm (8 hình, cặp tối / sáng) đổi hình tại chỗ | đổi mỗi 6 khung (5 lần / giây) |
+| Thác (màn 1, 2, 4) | tấm nước vẽ 9 khung, vệt sáng trôi xuống; chân thác: cụm bọt cuộn 20 khung + vòng gợn 16 khung | 9 khung ở 30 khung / giây: vòng 0,3 s |
+
+Áp vào sảnh PokiClash (`ArtGen/Islands/sanh_moi/nuoc_dong.py`, `GD_Claude/16_ManBoot.md`):
+- không vẽ lại thác: shader vẽ nét bọt chồng lên nét vẽ nền, theo trường dòng chảy;
+- bản cuộn chính ảnh theo hai pha làm thác nhoà, mất vệt sắc, nên đã bỏ;
+- bọt chân thác giữ đục rồi co lại mà tan; mờ dần cả đời thì trông như bong bóng xà phòng.
+
 ## 8. Khói và bụi
 
 Tờ khung: `to_khung\khoi__*.jpg`.

@@ -1,11 +1,13 @@
 // Hàng nút đáy sảnh làm lại (người dùng 2026-11-10: "thiết kế lại bộ UI này, hơi xấu"). Trước: 5 nút tròn trôi trên biển, nhãn chữ trắng.
 // Nay theo bộ UI "Sa Bàn" (GD_Claude/17_BoUI.md), chỉ dùng ảnh kit đã duyệt:
 // - kệ gỗ: mép bàn gỗ (boot_ban_go xoay ngang) chạy suốt đáy màn, viền mực trên, tràn xuống quá mép an toàn;
-// - 4 nút phụ (Tướng, Sổ thẻ, Đánh tiếp, Sổ tay): thẻ giấy ghi chú (boot_giay_ghi, 9 mảnh) nghiêng nhẹ so le, băng keo màu dán
+// - 4 nút phụ (Cửa hàng, Tướng, Sổ thẻ, Nhà; trước 2026-11-23 là Tướng, Sổ thẻ, Đánh tiếp, Sổ tay): thẻ giấy ghi chú (boot_giay_ghi,
+//   9 mảnh) nghiêng nhẹ so le, băng keo màu dán
 //   mép trên, icon to, nhãn chữ mực in trên thẻ; là SketchButton (lún, nảy, nét mực bung như mọi nút);
 // - Máy Bi: nút tròn sticker cũ, phóng to, nhô lên khỏi mép bàn, vẫn thở; nhãn là mảnh băng keo vàng đè dưới;
 // - chấm số đỏ: góc trên phải mỗi nút.
-// Menu "PokiClash/Prefab/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)" chạy lại được: lấy icon và chấm số từ HubScene.bottom rồi dựng lại.
+// Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)" chạy lại được: giữ nút Máy Bi và chấm số của HubScene.bottom, icon thẻ lấy
+// theo tên trong Fallback/Icons (shop, house vẽ cùng nét bộ icon web, 2026-11-23), rồi dựng lại.
 using System.Collections.Generic;
 using System.Linq;
 using PokiClash.UI;
@@ -24,7 +26,9 @@ namespace PokiClash.EditorTools
         const string TapePath = UiRefreshMenu.TapePath; // băng keo trắng gạch chéo, tô màu được
 
         const float WoodH = 196, Bleed = 160, Card = 176, Big = 236;
-        static readonly string[] Names = { "Tướng", "Sổ thẻ", "Máy Bi", "Đánh tiếp", "Sổ tay" };
+        static readonly string[] Names = { "Cửa hàng", "Tướng", "Máy Bi", "Sổ thẻ", "Nhà" };
+        static readonly string[] IconNames = { "shop", "team", null, "cards", "house" }; // Assets/03 Art/Fallback/Icons/<tên>.png
+        const string IconDir = "Assets/03 Art/Fallback/Icons/";
         static readonly float[] X = { -412, -214, 0, 214, 412 };
         static readonly float[] Tilt = { 3f, -2f, 0, 2f, -3f };
 
@@ -39,7 +43,7 @@ namespace PokiClash.EditorTools
             Build();
         };
 
-        [MenuItem("PokiClash/Prefab/Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sảnh: hàng nút đáy (kệ gỗ, thẻ giấy)", priority = 64)]
         public static void Build()
         {
             var assets = AssetDatabase.LoadAssetAtPath<UiAssets>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiAssets")[0]));
@@ -81,8 +85,8 @@ namespace PokiClash.EditorTools
                     var b = (SketchButton)e.FindPropertyRelative("button").objectReferenceValue;
                     badges[i] = (RectTransform)e.FindPropertyRelative("badge").objectReferenceValue;
                     badgeTexts[i] = (TextMeshProUGUI)e.FindPropertyRelative("badgeText").objectReferenceValue;
-                    var ic = b ? b.GetComponentsInChildren<Image>(true).FirstOrDefault(x => x.name == "icon") : null;
-                    icons[i] = ic ? ic.sprite : null;
+                    icons[i] = IconNames[i] != null ? AssetDatabase.LoadAssetAtPath<Sprite>(IconDir + IconNames[i] + ".png") : null;
+                    if (IconNames[i] != null && !icons[i]) Debug.LogWarning($"[Sảnh] Thiếu icon {IconDir}{IconNames[i]}.png");
                     if (badges[i]) badges[i].SetParent(keep, false);
                     if (i == 2)
                     {
@@ -101,7 +105,7 @@ namespace PokiClash.EditorTools
                 row.sizeDelta = new Vector2(0, WoodH + 90);
 
                 Shelf(row, wood);
-                var tapes = new[] { Theme.TapeBlue, Theme.TapePink, Theme.TapeYellow, Theme.TapeGreen, Theme.TapeYellow };
+                var tapes = new[] { Theme.TapeGreen, Theme.TapeBlue, Theme.TapeYellow, Theme.TapePink, Theme.TapeYellow };
                 for (int i = 0; i < 5; i++)
                 {
                     SketchButton btn;

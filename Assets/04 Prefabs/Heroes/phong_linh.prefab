@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 1ec8e54c6e724c74b98039afab845d6c, type: 2}
-  - {fileID: 11400000, guid: 0a8f629a51cc6c04692541133ac5016f, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - phong_linh_1
+  - phong_linh_2
+  pack: moc
   SplitFx: 0
   Manual: 0

@@ -1,0 +1,228 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: noi_dung_kim
+  m_EditorClassIdentifier: 
+  m_GroupName: noi_dung_kim
+  m_GUID: 35b13bd354d595240aaabb03cc77d740
+  m_SerializeEntries:
+  - m_GUID: 00d730cffa230b947960ae4ee24dbd02
+    m_Address: be_kim
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0303fce6a324ad7429571a6bad98cf2c
+    m_Address: zone_kim
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 036a303055e08bb4c92f7d3eb2eeed03
+    m_Address: goc_1061_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0be7facb34efdf247bf1ca2eaa2f84fc
+    m_Address: chien_sat_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0fa72bdf55181154f854be3928172986
+    m_Address: quy_xich_2_tt_xich_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 12a4a26e1dea7cf43b372f87d76050fb
+    m_Address: goc_950_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 17b2c7e9f4627424eb0f089f8cb630a7
+    m_Address: quang_sat_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3474279779e41c548a6ebf056f9a29cf
+    m_Address: thu_phao_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 34cd2daa679b7c04eac451e662d8ef85
+    m_Address: land_kim_bien
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 37883a5ecfcae05449e7ed7cfde36bff
+    m_Address: robot_co_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3f8ee885e4d95e045bfc6ba994ed4609
+    m_Address: cua_xich_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 470f3e5e4b0fc884ca738dcd561c35df
+    m_Address: vua_may_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 576c4d1ba7b00324e93c5a9a6d580a64
+    m_Address: soi_giap_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5bdea682205d80e4da7c27d952115612
+    m_Address: goc_1061
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5c955ac1d722a084199a9418ffb5a8f1
+    m_Address: ky_nguyen_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ed0cc73251eefd489af66dc898606e1
+    m_Address: goc_949
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 70606718fc5fa6143947c9746df25b7d
+    m_Address: soi_giap_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7785be5bad9871c4389d07dc89defa9f
+    m_Address: quy_xich_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7d1a99fbf71e2fd418e18e0ae0452bee
+    m_Address: quang_sat_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8c057652a673bea46a1e82a35e7036f0
+    m_Address: ky_nguyen_2_tt_hon
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8dbb65df4e8ef974dbe1aaf1832f6e33
+    m_Address: goc_949_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 8ddd60ea0954d5f41978c3e6a9453565
+    m_Address: ky_nguyen_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 918b79804e5d6284eb36bdb84f4b60b7
+    m_Address: quy_xich_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 93c942b34b82e7241b72a78a0dc126d1
+    m_Address: vua_may_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: aa953f0f01044f6428e7e91b8fbaf7f7
+    m_Address: be_kim_boss
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: b62d905302c6bc54995c450d068d2552
+    m_Address: goc_950
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: baae2b911d558c646ac2cfbee98c62f6
+    m_Address: thu_phao_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cad18813c3fcba24db810d929866721c
+    m_Address: quy_xich_2_tt_xich_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cc93ca300f10155488a2cdb10817636e
+    m_Address: land_kim
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ccaf53411a37d3c439ac0ac610622421
+    m_Address: chien_sat_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d0122b95e4ed4a045bc3bcb21f9ad63b
+    m_Address: quai_kim
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: db2927bed46f2a842a33d306a53f60f2
+    m_Address: goc_1062
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e1f0e0b007a97554782f5af6c76a3ee3
+    m_Address: goc_1062_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f7c6019af922b38459b690538b8c6918
+    m_Address: robot_co_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_kim
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f6fbad8915aafc9449026cbe4e44d4b0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 135306307f2ddd145833273d645eef2c, type: 2}
+    - {fileID: 11400000, guid: 82712236884b11f4f8f10cc8aa1a767c, type: 2}
+    - {fileID: 11400000, guid: 1c96a0d067a178f4887b12c52eefca0a, type: 2}

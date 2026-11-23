@@ -161,6 +161,16 @@ namespace PokiClash.Tests
                 Need(p.name, "gói " + p.id, miss);
                 Need(p.desc, "gói " + p.id, miss);
             }
+            // cửa hàng (GD_Claude/26): gói, trứng, mẫu ưu đãi, thẻ, chuỗi
+            foreach (var p in cfg.shop.packs)
+            {
+                Need(p.name, "gói cửa hàng " + p.id, miss);
+                if (!string.IsNullOrEmpty(p.desc)) Need(p.desc, "gói cửa hàng " + p.id, miss);
+            }
+            foreach (var e in cfg.shop.eggs) Need(e.name, "trứng " + e.tier, miss);
+            foreach (var o in cfg.shop.offers) Need(o.name, "ưu đãi " + o.id, miss);
+            foreach (var c in cfg.shop.cards) Need(c.name, "thẻ " + c.id, miss);
+            foreach (var c in cfg.shop.chains) Need(c.name, "chuỗi " + c.id, miss);
             Assert.IsEmpty(miss, $"{miss.Count} tên chưa dịch:\n" + string.Join("\n", miss.Take(40)));
         }
 

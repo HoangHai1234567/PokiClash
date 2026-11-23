@@ -180,6 +180,9 @@ namespace PokiClash.Tests
             var s = Fresh();
             s.zones[(int)Elem.Thuy] = 1;
             Tutorial.SeedTree(s, D.Cfg, 1000);
+            Assert.AreEqual(0, Trees.Stock(s, D.Cfg, 1000), "chưa mở Nhà: chưa có cây");
+            TreesTests.OpenHome(s, D); // cây bi mở cùng Nhà (2026-11-23)
+            Tutorial.SeedTree(s, D.Cfg, 1000);
             Assert.AreEqual(Tutorial.TreeSeedBalls, Trees.Stock(s, D.Cfg, 1000));
             Trees.Harvest(s, D.Cfg, 1000);
             Tutorial.SeedTree(s, D.Cfg, 1000);
@@ -191,12 +194,16 @@ namespace PokiClash.Tests
         {
             var s = Fresh();
             s.level = 30;
-            s.zones[(int)Elem.Thuy] = 1; // cây bi 1 mở khi qua ải đầu, cây 2 ở cấp 30
+            s.zones[(int)Elem.Thuy] = 1; // cây 2 mở ở cấp 30; cây bi mở cùng Nhà (2026-11-23)
             Assert.IsNull(Tutorial.NextUnlock(s, D), "chưa xong chuỗi bắt buộc thì chưa báo");
             Tutorial.Mark(s, Tutorial.Free);
             var u = Tutorial.NextUnlock(s, D);
             Assert.AreEqual("h_cave", u.id, "cấp 30: Hang trước");
             Tutorial.Mark(s, u.id);
+            Assert.IsNull(Tutorial.NextUnlock(s, D), "chưa có Nhà thì chưa có cây bi");
+            TreesTests.OpenHome(s, D);
+            Assert.AreEqual("g1", Tutorial.NextUnlock(s, D)?.id, "mở Nhà (cây bi đến cùng Nhà)");
+            Tutorial.Mark(s, "g1");
             Assert.AreEqual("h_tree2", Tutorial.NextUnlock(s, D)?.id, "rồi cây bi thứ 2, mỗi lần vào sảnh một cái");
             Tutorial.Mark(s, "h_tree2");
             Assert.IsNull(Tutorial.NextUnlock(s, D));

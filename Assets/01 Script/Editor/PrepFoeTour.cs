@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
     {
         const float TopInset = 130; // tai thỏ trên máy 1080×2400 (điểm ảnh)
 
-        [MenuItem("PokiClash/Thử/Hộp chuẩn bị: ô đối thủ, cấp, tai thỏ (đang Play)", priority = 123)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Hộp chuẩn bị: ô đối thủ, cấp, tai thỏ (đang Play)", priority = 123)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -108,7 +108,7 @@ namespace PokiClash.EditorTools
 
         // Một trận (ải 25, nền chặng có trời vẽ dư) ở 4 cỡ máy: 9:16, 20:9, 21:9, máy tính bảng 3:4. Người dùng dặn 2026-11-05: phần dưới
         // (bảng thẻ, sân, tướng) giữ nguyên trên mọi máy cho khỏi dính vào nhau, phần trên (trời) co giãn. Ảnh "cb_tran_<rộng>x<cao>.png".
-        [MenuItem("PokiClash/Thử/Trận ở 4 cỡ máy: phần dưới cố định, trời co giãn (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Trận ở 4 cỡ máy: phần dưới cố định, trời co giãn (đang Play)", priority = 124)]
         static void TryFrames()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

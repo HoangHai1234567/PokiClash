@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
     {
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Máy bi: soi phóng bi và mở rương (đang Play)", priority = 117)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕soi phóng bi và mở rương (đang Play)", priority = 117)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -28,7 +28,7 @@ namespace PokiClash.EditorTools
         }
 
         // chỉ mở 3 rương (không thả bi), chụp dày lúc chờ chạm 3,6 giây (rương nhắc mở: lắc, hé nắp có sáng; lấp lánh) — 2026-11-21
-        [MenuItem("PokiClash/Thử/Máy bi: soi mở 3 rương (đang Play)", priority = 118)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕soi mở 3 rương (đang Play)", priority = 118)]
         static void TryChests()
         {
             if (!EditorApplication.isPlaying || App.I == null)

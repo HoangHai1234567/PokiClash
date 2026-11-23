@@ -18,7 +18,7 @@ namespace PokiClash
         [SerializeField] CanvasGroup group;
         [SerializeField] Image[] tinted; // ảnh con (trừ khung), trả về màu gốc trước khi làm xám
         [SerializeField] Color[] baseColors;
-        [SerializeField] GameObject cross; // dấu X đỏ khi gục (menu "PokiClash/Prefab/Trận: mặt địch góc trên, dấu X tướng gục")
+        [SerializeField] GameObject cross; // dấu X đỏ khi gục (menu "PokiClash/Prefab/Khác/Trận∕Trận: mặt địch góc trên, dấu X tướng gục")
 
         public RectTransform Rect => (RectTransform)transform;
 

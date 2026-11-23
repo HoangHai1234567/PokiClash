@@ -1,5 +1,5 @@
 // Thanh mốc tiến hóa dưới ô xem tướng trong hộp chi tiết (prefab Dialogs/ChiTietTuong, dựng bằng menu
-// "PokiClash/Prefab/Thêm thanh tiến hóa vào ChiTietTuong"). Bậc theo dạng (người dùng dặn 2026-11-19, StarTier.Stops): tướng có bao
+// "PokiClash/Prefab/Khác/Hộp thoại và màn∕Thêm thanh tiến hóa vào ChiTietTuong"). Bậc theo dạng (người dùng dặn 2026-11-19, StarTier.Stops): tướng có bao
 // nhiêu hình thì bấy nhiêu mốc (dòng 2 dạng: Đồng, Bạc; dòng 1 dạng: một mốc, không tiến hóa). Mốc dàn đều trên thanh, dạng đầu ở đầu,
 // dạng cuối ở cuối (2026-11-23); đoạn giữa hai mốc đầy dần theo sao trong bậc, tiến hóa thì tới mốc kế. Mỗi mốc có chân dung dạng của
 // bậc đó, 5 sao tô màu bậc (bậc đã qua đủ 5, bậc đang ở theo sao trong bậc, bậc chưa tới trống) và tên bậc; bậc chưa tới (hoặc tướng

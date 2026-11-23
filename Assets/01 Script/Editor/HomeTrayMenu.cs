@@ -51,7 +51,7 @@ namespace PokiClash.EditorTools
             }
         }
 
-        [MenuItem("PokiClash/Prefab/Nhà: nút khay có icon công trình", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: nút khay có icon công trình", priority = 64)]
         static void Patch()
         {
             var item = TrayItem(true);

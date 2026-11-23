@@ -1,5 +1,5 @@
 // Màn Nhà (GD_Claude/21_Nha_Home.md, mốc H2), thay Trang trại. Luật ở Core/Home. Prefab Assets/04 Prefabs/Screens/Home dựng bằng menu
-// "PokiClash/Prefab/Nhà: dựng màn" (Editor/HomeSceneMenu.cs).
+// "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn" (Editor/HomeSceneMenu.cs).
 // - Bản đồ: ảnh nền đảo (home_base: đồng cỏ hình thoi, cao nguyên, hồ, suối, mạch quặng, bãi cát, biển, rừng rìa trên) kéo, phóng to thu nhỏ nhẹ (LandView của màn Đảo, chế độ phủ kín màn);
 //   lưới thoi 72 x 72 (người dùng dặn 2026-11-19: đảo to cho quái đi khắp nơi, máy không cần thấy hết đảo), ô 96 x 48 px; gốc lưới
 //   (góc trên ô 0,0) đo trên ảnh nền (home_art.json, ảnh ghép bằng ArtGen/Home/base/compose_base72.py).
@@ -19,8 +19,10 @@
 //   Hàng nút dưới: nút tròn icon có chữ (Xây, Lát ô, Thu hết có chấm đỏ khi có đồ chờ thu, Ra đảo).
 // - Vật vừa chọn (người dùng 2026-11-22): nhún (HomeObject.Bounce) và sáng nhẹ bằng shader PokiClash/UIHomeSelect (vật liệu selectMat,
 //   độ sáng _HomeSel toàn cục: loé lúc chọn rồi thở nhẹ khi bảng còn mở); ô rừng thì cây trong ô nhún lần lượt, sáng cùng.
-// - Cây bi (bi chung với Cây bi trên sảnh, Core/Trees): bong bóng trên đầu ghi số bi cây đang có (kiểu Clash of Critters); chạm một cây
-//   là hái hết mọi cây, bi bay từ từng cây lên chip bi của thanh trên (hạt FarmFx.Fly trên lớp giao diện cố định), chip đếm chạy.
+// - Cây bi (Core/Trees; từ 2026-11-23 chỉ còn ở Nhà, mở cùng Nhà): bong bóng trên đầu ghi số bi cây đang có (kiểu Clash of Critters);
+//   chạm một cây (thân hay tán lá, HitAt) là hái hết mọi cây, bi bay từ từng cây lên chip bi của thanh trên (hạt FarmFx.Fly trên lớp
+//   giao diện cố định), chip đếm chạy. Cây đã mở mà chưa có chỗ nằm đầu khay Xây, đặt miễn phí; lần đầu có hướng dẫn (Tutor): Xây →
+//   chọn Cây bi → kéo, Đặt → chạm cây hái bi.
 // - Chế độ xây hiện lưới thoi phát sáng trên đất đã mở (người dùng dặn 2026-11-19; shader PokiClash/UIHomeGrid trên ảnh "luoi" nằm trên
 //   ô lát, dưới công trình): mờ dần ra xa chỗ đang đặt, chân thoi công trình đang đặt sáng xanh (đặt được) / đỏ (không), viền phập phồng.
 using System;
@@ -35,7 +37,8 @@ using UnityEngine.UI;
 
 namespace PokiClash
 {
-    public sealed class HomeScene : SceneRoot, IFarmPetHost
+    // phần rừng (bong bóng bi, cây bay khi dọn xong, gió) ở HomeScene.Forest.cs; chim, bướm, ong ở HomeScene.Life.cs
+    public sealed partial class HomeScene : SceneRoot, IFarmPetHost
     {
         public override string Title => Loc.T("Nhà");
 
@@ -137,7 +140,7 @@ namespace PokiClash
 
         // Giao diện kiểu Clash of Critters (người dùng 2026-11-22, GD_Claude/22_Critters_Home.md mục 7): vòng nút quanh vật đang chọn thay
         // bảng chữ, hàng nút dưới là nút tròn icon có chữ dưới (chấm đỏ khi có đồ chờ thu), chế độ xây là tấm dưới có tab lọc và khay cuộn
-        // thẻ icon, đặt / dời bằng nút ✓ ✗ bên cạnh bóng ma. Menu "PokiClash/Prefab/Nhà: giao diện kiểu Critters".
+        // thẻ icon, đặt / dời bằng nút ✓ ✗ bên cạnh bóng ma. Menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters".
         [SerializeField] HomeRing ring;
         [SerializeField] HomeRingButton hudBuild, hudPaint, hudHarvest, hudSail;
         [SerializeField] RectTransform sheet; // tấm xây: nền, tab, khay cuộn (khay là nội dung cuộn bên trong)
@@ -379,6 +382,32 @@ namespace PokiClash
 
         bool IsTree(HomeBuilding b) => Home.Def(D.Cfg, b.def)?.kind == "tree";
 
+        // khung bắt chạm của hình cây (px bản đồ, y xuống): khung ảnh bỏ bớt lề trong suốt hai bên và trên
+        static Rect TreeRect(HomeObject o)
+        {
+            var r = ViewRect(o.Rt);
+            float mx = r.width * 0.12f, my = r.height * 0.06f;
+            return Rect.MinMaxRect(r.xMin + mx, r.yMin + my, r.xMax - mx, r.yMax);
+        }
+
+        // công trình ở điểm chạm p (px bản đồ), cell = ô của p: Cây bi bắt chạm theo hình, cả tán lá (người dùng 2026-11-23: chạm thân
+        // mới hái được, chạm lá thì không); công trình khác theo ô dưới chân; trùng nhau thì cái vẽ sau (gần người xem) thắng
+        HomeBuilding HitAt(Vector2 p, Vector2Int cell)
+        {
+            var foot = Home.InMap(C, cell.x, cell.y) ? Home.At(S.home, D.Cfg, cell.x, cell.y) : null;
+            HomeBuilding tree = null;
+            float treeDepth = float.MinValue;
+            foreach (var b in S.home.buildings)
+            {
+                if (b.id == moveId || !IsTree(b) || !objs.TryGetValue(b.id, out var o) || !o || !o.gameObject.activeSelf) continue;
+                if (!TreeRect(o).Contains(p) || o.Depth < treeDepth) continue;
+                tree = b;
+                treeDepth = o.Depth;
+            }
+            if (tree == null || foot == null || foot == tree) return tree ?? foot;
+            return objs.TryGetValue(foot.id, out var fo) && fo && fo.Depth > treeDepth ? foot : tree;
+        }
+
         // hái mọi cây (Trees.Harvest như nút Hái của hộp Cây bi sảnh); cây vừa chạm loé + nhún, cây khác nhún nhẹ, bi bay từ từng cây
         void HarvestTrees(HomeBuilding tapped)
         {
@@ -618,11 +647,13 @@ namespace PokiClash
             InitGrid();
             var s = S;
             Home.Tick(s, D, Now);
+            Tutorial.SeedTree(s, D.Cfg, Now); // cây bi đầu có sẵn 10 bi (cây mở cùng Nhà)
             App.Save.Save();
             btnBuild.SetOnClick(() => SetMode(mode == Mode.Build ? Mode.Normal : Mode.Build));
             btnPaint.SetOnClick(() => SetMode(mode == Mode.Paint ? Mode.Normal : Mode.Paint));
             btnHarvest.SetOnClick(HarvestAll);
             btnSail.SetOnClick(() => App.Router.Go(SceneIds.Hub));
+            Guide.Mark("home.build", hudBuild ? (Component)hudBuild : btnBuild);
             if (ring) ring.Insets(TopInset, BottomInset);
             if (tabs != null)
                 for (int i = 0; i < tabs.Length; i++)
@@ -646,6 +677,7 @@ namespace PokiClash
             if (s.home.cleared.Count > 0) ReportCleared(); // dọn xong lúc vắng
             // phủ kín màn (vành nhỏ để LandView dùng chế độ phủ kín): zoom ra nhẹ tới khi bản đồ vừa phủ màn, vào tối đa maxZoom
             if (landView) landView.Begin(world, world.rect.size, TopInset, BottomInset, new Vector4(2, 2, 2, 2));
+            LifeEnter(); // chim, bướm, ong (HomeScene.Life.cs)
             FocusOn(Home.Main(s.home));
             focusWait = 3;
             focusView = Vector2.zero;
@@ -685,6 +717,7 @@ namespace PokiClash
             if (landView) landView.End();
             Pick(null, false);
             Shader.SetGlobalFloat(HomeSelId, 0);
+            LifeExit(); // cây đang bay, chim, bướm, ong
             // bi bay nằm ở lớp bay của thanh trên (khung app, không gỡ theo màn): dọn đi, viên đang bay báo tới nơi (nhả số bi đang giữ)
             foreach (var fx in flyPool)
                 if (fx)
@@ -708,6 +741,12 @@ namespace PokiClash
             clock += dt;
             FadeGrid(dt);
             SyncSelect(dt);
+            LifeTick(dt); // gió lay cây, cây bay khi dọn xong, chim, bướm, ong
+            if ((tutorT += dt) > 0.5f)
+            {
+                tutorT = 0;
+                Tutor();
+            }
             if (shipArriving && pier)
             {
                 if (pier.Busy)
@@ -757,17 +796,29 @@ namespace PokiClash
             SyncPets(S.home); // hết ca, hết nghỉ
         }
 
-        // ô rừng dọn xong (lúc đang xem hoặc lúc vắng): cây biến mất, báo bi để thả (bi, gỗ đã cộng trong bản lưu)
+        // ô rừng dọn xong (lúc đang xem hoặc lúc vắng): cây bay lên trời (RenderForests → LaunchForest), bi thưởng bay từ trên đầu ô rừng
+        // lên chip bi như Cây bi (ô đang trong khung nhìn), báo bi để thả (bi, gỗ đã cộng trong bản lưu). Phải chạy TRƯỚC lần lưu đầu sau khi
+        // dọn xong (lưu là thanh trên làm mới số bi): SpeedUp, ClearLot gọi thẳng vào đây
         void ReportCleared()
         {
             var h = S.home;
-            int balls = h.cleared.Sum(lot => Home.RingOf(C, lot)?.balls ?? 0);
-            int n = h.cleared.Count;
+            var lots = h.cleared.ToList();
+            int balls = lots.Sum(lot => Home.RingOf(C, lot)?.balls ?? 0);
+            int n = lots.Count;
             h.cleared.Clear();
+            var from = ClearedRewardFrom(lots); // chỗ bi bay ra: lấy trước Render (Render gỡ mốc ô rừng)
+            int fly = from.Sum(f => f.n);
+            if (fly > 0 && App.Bars) App.Bars.HoldBalls(fly);
+            if (selLot >= 0 && lots.Contains(selLot))
+            {
+                selLot = -1;
+                HideSel();
+            }
             App.Save.Save();
             Render();
             App.Bars.Refresh();
-            App.Audio.Play("coin");
+            if (fly > 0) FlyBalls(from, fly);
+            else App.Audio.Play("coin");
             string what = n > 1 ? Loc.F("Đã dọn {0} ô rừng", n) : Loc.T("Đã dọn rừng");
             App.Toasts.Show(balls > 0 ? Loc.F("{0}: +{1} bi để thả", what, balls) : what, Icon("ball"));
         }
@@ -873,7 +924,8 @@ namespace PokiClash
                 {
                     if (forestTrees.TryGetValue(lot, out var old))
                     {
-                        foreach (var (img, _) in old) Destroy(img.gameObject);
+                        if (selTreesLot == lot) ClearTreeSel(); // trả vật liệu, cỡ của cây đang sáng
+                        LaunchForest(lot, old); // vừa dọn xong: cây trong khung nhìn bay lên trời, cây ngoài khung gỡ luôn
                         forestTrees.Remove(lot);
                     }
                     if (forests.TryGetValue(lot, out var mk))
@@ -913,6 +965,7 @@ namespace PokiClash
             mk.Id = -2 - lot;
             mk.Place(null, new Vector2(1, 1), new Vector2(0.5f, 0), CellTop(i * L + L / 2f, j * L + L / 2f));
             mk.Img.enabled = false;
+            mk.BubbleTapped = _ => TapLot(lot); // chạm bong bóng bi = chạm ô rừng
             forests[lot] = mk;
             if (tall.Length == 0) return;
             // lưới cây cách 2 ô (ô rừng 12 x 12: 6 x 6 cây) lệch ngẫu nhiên, thêm đồ nhỏ theo diện tích
@@ -928,6 +981,7 @@ namespace PokiClash
             int smallN = Mathf.RoundToInt(3f * L * L / 64f);
             for (int k = 0; k < smallN && small.Length > 0; k++)
                 AddTree(small[rnd.Next(small.Length)], i * L + R(0.6f, L - 0.6f), j * L + R(0.6f, L - 0.6f), R(0.85f, 1.1f), rnd.Next(2) == 0, list);
+            FitMarker(lot); // mốc cao tới ngọn cây giữa ô: bong bóng bi nổi trên tán
         }
 
         const int RimKey = -1000; // khoá của rìa rừng trong forestTrees (ô rừng là 0..35)
@@ -1162,8 +1216,7 @@ namespace PokiClash
                 o.Fill(has ? StockFill(b, df) : -1);
             }
             if (hudHarvest) hudHarvest.Dot(any);
-            foreach (var kv in forests)
-                kv.Value.Label(h.clearing.TryGetValue(kv.Key, out var until) ? Loc.T("Dọn ") + Clock((until - now) / 60000) : null);
+            ForestBubbles(now); // đang dọn: giờ còn; dọn được: bong bóng bi thưởng (HomeScene.Forest.cs)
             if (ghost) return; // đang đặt / dời: vòng ✓ ✗ do UpdateGhost lo
             if (selBuilding >= 0 || selLot >= 0) RefreshPanel();
         }
@@ -1258,6 +1311,38 @@ namespace PokiClash
             }
         }
 
+        // ---------- hướng dẫn đặt Cây bi (GD_Claude/25_FTUE.md chặng G, G3a–G3d) ----------
+
+        float tutorT;
+
+        // Cây bi đến cùng Nhà, người chơi tự đặt (người dùng 2026-11-23). Lần đầu: Xây → chọn Cây bi trong khay → kéo bóng ma, Đặt
+        // (ba bước lặp: bấm Thôi / Xong giữa chừng thì lần sau dẫn lại; xong hẳn khi đã đặt cây, cờ TreePlaced), rồi chạm cây hái 10 bi
+        // có sẵn (TreeTap). Cây sau (cấp 30, 50...) không dẫn: thẻ đầu khay, chấm "!" trên nút Nhà của sảnh. Update gọi nửa giây một lần.
+        void Tutor()
+        {
+            var s = S;
+            if (s?.home == null || shipArriving || (pier && pier.Busy) || App.Router == null || App.Router.Busy || !Guide.Idle) return;
+            if (App.Modals != null && App.Modals.Count > 0) return;
+            if (!Tutorial.Done(s, Tutorial.TreePlaced))
+            {
+                if (Home.TreesWaiting(s, D) <= 0)
+                {
+                    if (Home.CountOf(s.home, "tree") > 0) Guide.Skip(Tutorial.TreePlaced); // cây đã có chỗ (đặt sẵn, hoặc tự đặt)
+                    return;
+                }
+                if (mode == Mode.Normal) Guide.Force(Tutorial.TreeBuild, "home.build", Loc.T("Cây bi đã về Nhà! Bấm Xây để đặt cây."), null, true);
+                else if (mode == Mode.Build && !ghost) Guide.Force(Tutorial.TreeTray, "home.tray.tree", Loc.T("Chọn Cây bi. Đặt cây không tốn gì."), null, true);
+                else if (ghost && ghostDef == "tree" && moveId < 0 && !(tap && tap.Grabbing))
+                    Guide.Show(Tutorial.TreeSpot, Guide.Mode.Hint, "home.ghost", Loc.T("Kéo cây tới chỗ bạn thích, rồi bấm Đặt."), null, true, null, 30);
+                return;
+            }
+            if (Tutorial.Done(s, Tutorial.TreeTap) || mode != Mode.Normal || ghost || Trees.Stock(s, D.Cfg, Now) <= 0) return;
+            var tb = s.home.buildings.FirstOrDefault(IsTree);
+            if (tb == null || !objs.TryGetValue(tb.id, out var o) || !o) return;
+            Guide.Mark("home.tree", o);
+            Guide.Force(Tutorial.TreeTap, "home.tree", Loc.T("Chạm cây để hái bi. Mỗi cây ra 5 bi mỗi giờ, chứa được 50."));
+        }
+
         // ---------- chế độ ----------
 
         void SetMode(Mode m)
@@ -1327,6 +1412,7 @@ namespace PokiClash
             if (sheet) tray.anchoredPosition = new Vector2(0, tray.anchoredPosition.y); // khay là nội dung cuộn ngang: về đầu
             if (mode == Mode.Build)
             {
+                TreeTrayItem();
                 foreach (var df in C.buildings.Where(b => b.kind != "main" && b.kind != "tree" && InTab(b)))
                 {
                     var e = Home.CanBuild(S, D, df.id);
@@ -1365,6 +1451,25 @@ namespace PokiClash
             }
         }
 
+        // Cây bi chờ đặt (mở cùng Nhà, 2026-11-23): thẻ đầu khay ở mọi tab, ghi số cây chờ, đặt miễn phí
+        void TreeTrayItem()
+        {
+            int n = Home.TreesWaiting(S, D);
+            if (n <= 0) return;
+            var df = Home.Def(D.Cfg, "tree");
+            SketchButton btn;
+            if (trayIconPrefab)
+            {
+                var it = Ui.Spawn(trayIconPrefab, tray);
+                it.SetIcon(Icon("home_tree"), true);
+                btn = it.Button;
+            }
+            else btn = Ui.Spawn(trayPrefab, tray);
+            btn.SetText($"{df.Name}{(n > 1 ? $" ×{n}" : "")}\n{Loc.T("Miễn phí")}");
+            btn.SetOnClick(() => StartGhost("tree"));
+            Guide.Mark("home.tray.tree", btn);
+        }
+
         bool InTab(HomeBuildingDef df) => tabs == null || tabs.Length == 0 || tab switch
         {
             1 => df.kind == "prod",
@@ -1397,6 +1502,7 @@ namespace PokiClash
             ghostAt = new Vector2Int(pos.Value.gx, pos.Value.gy);
             UpdateGhost();
             ghost.Bounce();
+            Guide.Mark("home.ghost", ghost);
             var df = Home.Def(D.Cfg, def);
             SheetOn(false);
             KeepVisible(CellTop(ghostAt.x + df.size / 2f, ghostAt.y + df.size / 2f));
@@ -1474,7 +1580,9 @@ namespace PokiClash
             if (!ghost || mode != Mode.Build) return false;
             var cell = CellAt(p);
             int n = Home.Def(D.Cfg, ghostDef).size;
-            if (cell.x < ghostAt.x || cell.y < ghostAt.y || cell.x >= ghostAt.x + n || cell.y >= ghostAt.y + n) return false;
+            bool foot = cell.x >= ghostAt.x && cell.y >= ghostAt.y && cell.x < ghostAt.x + n && cell.y < ghostAt.y + n;
+            // bóng ma Cây bi: nhấn trúng tán lá cũng cầm được
+            if (!foot && !(ghostDef == "tree" && TreeRect(ghost).Contains(p))) return false;
             grabOffset = cell - ghostAt;
             UpdateGhost();
             return true;
@@ -1485,8 +1593,7 @@ namespace PokiClash
         {
             if (mode == Mode.Paint) return false;
             var cell = CellAt(p);
-            if (!Home.InMap(C, cell.x, cell.y)) return false;
-            var b = Home.At(S.home, D.Cfg, cell.x, cell.y);
+            var b = HitAt(p, cell);
             if (b == null || b.id == moveId) return false;
             StartMove(b, false);
             grabOffset = cell - new Vector2Int(b.gx, b.gy);
@@ -1524,6 +1631,7 @@ namespace PokiClash
             if (ghost) Destroy(ghost.gameObject);
             ghost = null;
             ghostDef = null;
+            Guide.Mark("home.ghost", null);
             GridGhost(false);
             if (moveId >= 0 && objs.TryGetValue(moveId, out var o) && o) o.gameObject.SetActive(true);
             moveId = -1;
@@ -1584,9 +1692,13 @@ namespace PokiClash
             }
             App.Audio.Play("click");
             var at = ghostAt;
+            // cây bi đầu tiên đặt xong: hướng dẫn đặt cây xong, về chế độ thường để chạm cây hái bi (bước TreeTap)
+            bool firstTree = moveId < 0 && ghostDef == "tree" && !Tutorial.Done(S, Tutorial.TreePlaced);
+            if (moveId < 0 && ghostDef == "tree") Guide.Skip(Tutorial.TreePlaced, Tutorial.TreeBuild, Tutorial.TreeTray, Tutorial.TreeSpot);
             EndGhost();
             HideSel();
             App.Save.Save();
+            if (firstTree) SetMode(Mode.Normal);
             Render();
             BuildTray();
             // đặt xuống: công trình nhún một cái
@@ -1627,7 +1739,7 @@ namespace PokiClash
             {
                 if (!ghost)
                 {
-                    var hit = Home.InMap(C, cell.x, cell.y) ? Home.At(s.home, d.Cfg, cell.x, cell.y) : null;
+                    var hit = HitAt(p, cell);
                     if (hit != null) StartMove(hit);
                     return;
                 }
@@ -1647,12 +1759,13 @@ namespace PokiClash
                 else if (e != HomeErr.Busy) App.Toasts.Show(ErrText(e), Icon("lock"));
                 return;
             }
-            if (!Home.InMap(C, cell.x, cell.y))
+            // chạm trúng tán lá cây bi cũng tính (HitAt), không chỉ ô dưới chân (người dùng 2026-11-23)
+            var b = HitAt(p, cell);
+            if (b == null && !Home.InMap(C, cell.x, cell.y))
             {
                 HideSel();
                 return;
             }
-            var b = Home.At(s.home, d.Cfg, cell.x, cell.y);
             if (b != null)
             {
                 // Cây bi có bi: chạm là hái hết mọi cây (không mở bảng)
@@ -1866,7 +1979,12 @@ namespace PokiClash
             Render();
         }
 
-        void ClearLot(int lot) => Done(Home.ClearLot(S, D, Now, lot));
+        void ClearLot(int lot)
+        {
+            var e = Home.ClearLot(S, D, Now, lot);
+            if (e == HomeErr.Ok && S.home.cleared.Count > 0) ReportCleared(); // dọn tức thì (0 phút): cây bay, bi bay trước lần lưu
+            else Done(e);
+        }
         void Upgrade(int id) => Done(Home.Upgrade(S, D, Now, id));
 
         void StoreDeco(int id)
@@ -1883,7 +2001,13 @@ namespace PokiClash
             {
                 if (!ok) return;
                 Home.SpeedUp(S, D, Now, id, lot);
-                Done(HomeErr.Ok);
+                // quảng cáo rút giờ làm ô rừng xong ngay: cây bay, bi bay (ReportCleared phải chạy trước lần lưu)
+                if (S.home.cleared.Count > 0)
+                {
+                    App.Audio.Play("click");
+                    ReportCleared();
+                }
+                else Done(HomeErr.Ok);
             });
         }
 
@@ -2062,6 +2186,7 @@ namespace PokiClash
                     pet = Ui.Spawn(petPrefab, objLayer);
                     pet.Bind(this, d.Hero(kv.Key));
                     pet.UseRig(true); // rig chạy walk / idle, đêm sáng nhẹ (người dùng 2026-11-20)
+                    pet.PassPan = false; // kéo trên tướng đang làm / nghỉ không dời máy (FarmPet.OnBeginDrag)
                     pets[kv.Key] = pet;
                     if (mode == FarmPet.Mode.Roam) pet.Place(mode, RoamStart(), -1, null);
                     else if (!petsPlaced || mode == FarmPet.Mode.Sleep) pet.Place(mode, at, spot, kind);
@@ -2166,20 +2291,9 @@ namespace PokiClash
                     Haptics.Play(Haptic.Peg, 0.4f);
                 }
             }
-            // ngón tới sát mép khung nhìn thì bản đồ trôi theo (người dùng 2026-11-20: cầm tướng là máy trôi): tính theo NGÓN (không theo
-            // chân tướng, thấp hơn ngón), dải mép hẹp, chỉ sau khi đã cầm 0,3 giây; trước đây dải trên ~330 px, dưới 230 px, tính theo chân
-            if (!landView || !landView.On || pet.DragTime < 0.3f) return;
-            var v = landView.ToView(ToMap(pet.Finger));
-            var size = landView.ViewSize;
-            const float edge = 70;
-            float sp = 700 * Time.unscaledDeltaTime;
-            float top = TopInset, bottom = size.y - BottomInset + 40;
-            var dlt = Vector2.zero;
-            if (v.x < edge) dlt.x = sp * Mathf.Clamp01(1 - v.x / edge);
-            else if (v.x > size.x - edge) dlt.x = -sp * Mathf.Clamp01(1 - (size.x - v.x) / edge);
-            if (v.y < top + edge) dlt.y = sp * Mathf.Clamp01(1 - (v.y - top) / edge);
-            else if (v.y > bottom - edge) dlt.y = -sp * Mathf.Clamp01(1 - (bottom - v.y) / edge);
-            landView.Nudge(dlt);
+            // cầm tướng thì máy đứng yên (người dùng 2026-11-20 và 2026-11-23: "tap và hold tướng thì cam tự di chuyển"): bỏ hẳn tự trôi khi
+            // ngón tới mép (dải mép nằm sát thanh trên, hàng nút dưới nên cầm tướng gần đó là máy chạy). Công trình ngoài khung: ngón thứ hai
+            // kéo đất (HomeTap chuyển cho LandView), tướng vẫn bám ngón đang cầm (FarmPet.Update đặt lại theo ngón mỗi khung)
         }
 
         public bool PetDropped(FarmPet pet, Vector2 pt)
@@ -2255,7 +2369,7 @@ namespace PokiClash
             var fx = fxPool.Find(x => !x.Busy);
             if (!fx)
             {
-                if (fxPool.Count >= 60) return;
+                if (fxPool.Count >= 120) return; // ô rừng dọn xong: mỗi cây bay lên một cụm bụi (HomeScene.Forest.cs)
                 fx = Ui.Spawn(fxPrefab, fxLayer);
                 fxPool.Add(fx);
             }

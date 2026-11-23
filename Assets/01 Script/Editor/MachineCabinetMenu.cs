@@ -53,7 +53,7 @@ namespace PokiClash.EditorTools
             return best;
         }
 
-        [MenuItem("PokiClash/Prefab/Máy bi: thân máy vẽ tay", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕thân máy vẽ tay", priority = 64)]
         public static void Build()
         {
             if (!File.Exists(JsonPath))

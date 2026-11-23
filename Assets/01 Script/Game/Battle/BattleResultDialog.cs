@@ -1,5 +1,5 @@
 // Hộp kết quả trận (prefab Assets/04 Prefabs/Dialogs/TranKetQua, bắt buộc): con dấu Thắng/Thua, tên ải, số hiệp và sát thương,
-// hàng ô thưởng (Items/OThuong trong hàng "thuong", menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" dựng) hoặc
+// hàng ô thưởng (Items/OThuong trong hàng "thuong", menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)" dựng) hoặc
 // lời khuyên khi thua, tối đa 4 nút (dựng sẵn, bật theo trận: ải thường, Hang, Đền Huy Hiệu).
 using System;
 using PokiClash.Core;
@@ -17,6 +17,7 @@ namespace PokiClash
         [SerializeField] SketchButton[] buttons;
         [SerializeField] RewardTile tilePrefab;
         [SerializeField] RectTransform tileRow;
+        [SerializeField] SketchButton adButton; // nút quảng cáo riêng dưới lời khuyên (Tiếp sức / Nhận ×2, GD_Claude/26 mục 8.1), menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Cửa hàng: dựng hết"
         int used;
 
         // Dùng khi nướng prefab (Editor).
@@ -44,6 +45,25 @@ namespace PokiClash
             tileRow.gameObject.SetActive(false);
             used = 0;
             foreach (var b in buttons) b.gameObject.SetActive(false);
+            if (adButton) adButton.gameObject.SetActive(false);
+        }
+
+        // nút quảng cáo thưởng (ghi lượt còn); xem xong thì onOk (hộp vẫn mở nếu keep, không thì đóng rồi gọi)
+        public SketchButton AdButton(string label, string placement, bool keep, Action onOk)
+        {
+            if (!adButton || !Ads.Ready || Ads.Left(placement) <= 0) return null;
+            adButton.gameObject.SetActive(true);
+            adButton.name = "nut_qc_" + placement;
+            adButton.SetRole(BtnColor.Blue);
+            Ads.Bind(adButton, label, placement);
+            adButton.SetOnClick(() => Ads.Show(placement, ok =>
+            {
+                if (!ok) return;
+                if (keep) adButton.gameObject.SetActive(false);
+                else Close();
+                onOk?.Invoke();
+            }));
+            return adButton;
         }
 
         // một ô thưởng trong hàng thưởng (trước dòng lời khuyên và hàng nút); người gọi gán nội dung (Item / Hero / Tag)

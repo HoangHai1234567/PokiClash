@@ -140,7 +140,7 @@ namespace PokiClash.EditorTools
             ti.SaveAndReimport();
         }
 
-        [MenuItem("PokiClash/Prefab/Máy bi: bố cục bản 2 (concept 2)", priority = 66)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕bố cục bản 2 (concept 2)", priority = 66)]
         public static void Build()
         {
             string layPath = Path.Combine(RefDir, "bo_cuc_v2.json"), doPath = Path.Combine(RefDir, "v2_do.json");

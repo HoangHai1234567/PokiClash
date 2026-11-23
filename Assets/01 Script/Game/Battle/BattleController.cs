@@ -20,6 +20,7 @@ namespace PokiClash
         public List<string> team; // null = đội trong bản lưu
         public BadgeRef badge; // trận thử thách của Đền Huy Hiệu (null = ải thường)
         public CaveRef cave; // trận Hang Tiềm Năng
+        public double boost; // Tiếp sức (quảng cáo battle_retry, GD_Claude/26 mục 7.3): + phần trăm công và máu cả đội ta trong trận này
     }
 
     // tầng tier của Hang Tiềm Năng, boss hệ zone, ngày day (theo giờ máy)
@@ -84,7 +85,15 @@ namespace PokiClash
             int unlock = save.level;
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
             uint seed = badge != null ? Badges.Seed(d, badge.zone, badge.tier, badge.i) : Rng.RandomSeed();
-            b = Battle.Create(d, Teams.Player(save, team, d), Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
+            var mine = Teams.Player(save, team, d);
+            if (args.boost > 0)
+                foreach (var mb in mine.members)
+                {
+                    var o = mb.mods;
+                    mb.mods = new StatMods { hpPct = (o?.hpPct ?? 0) + args.boost, atkPct = (o?.atkPct ?? 0) + args.boost, defPct = o?.defPct ?? 0, spd = o?.spd ?? 0 };
+                }
+            b = Battle.Create(d, mine, Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
+            if (args.boost > 0) App.Toasts.Show(Loc.F("Tiếp sức: +{0}% công và máu", Math.Round(args.boost * 100)), App.Art.Icon("fist"));
             // trận hướng dẫn người mới (trận gương, trận 2 ở đảo mình khắc): thẻ rút sẵn, khoá thua ngầm (GD_Claude/25_FTUE.md)
             if (badge == null && cave == null) b.script = Tutorial.BattleFor(save, d, stage);
             view.Init(b, zone, badge == null && cave == null ? stage : null);
@@ -625,6 +634,14 @@ namespace PokiClash
             App.Audio.Play(win ? "win" : "lose");
             Haptics.Play(win ? Haptic.Win : Haptic.Lose);
 
+            // cửa hàng (GD_Claude/26 mục 7.3): báo thua / thắng cho bộ máy ưu đãi; trận có kịch bản hướng dẫn thì không
+            bool scripted = b.script != null;
+            string freeFix = !win ? Offers.FreeFix(s, d, team) : null;
+            if (!scripted)
+                OfferHost.Raise(win ? new OfferCtx { e = OfferEvent.BattleWon, stage = stage.id, boss = stage.enemies.Any(e => e.boss) }
+                    : new OfferCtx { e = OfferEvent.BattleLost, stage = stage.id, freeFix = freeFix != null });
+            int lossStreak = !win && s.shop != null && s.shop.offers.lossStage == stage.id ? s.shop.offers.lossStreak : 0;
+
             var next = d.ZoneStages(stage.zone).FirstOrDefault(x => x.idx == stage.idx + 1);
             var m = App.Modals.Open(resultPrefab, mandatory: true);
             m.Show(win, Loc.F("{0} · Ải {1} · {2}", zone.name, stage.idx, stage.name), 40, Loc.F("{0} hiệp · gây {1} sát thương", b.round, b.dmgDealt[0]));
@@ -646,15 +663,46 @@ namespace PokiClash
                     }
                 }
                 if (rw.evoStones > 0) m.Reward().EvoStones(rw.evoStones);
+                // Nhận ×2 bằng quảng cáo (win_double): trao thêm đúng chừng ấy bi, mảnh, đá tiến hóa
+                if (!scripted)
+                {
+                    var won = rw;
+                    m.AdButton(Loc.T("Nhận ×2"), Ads.WinDouble, true, () =>
+                    {
+                        var rng2 = new Rng(Rng.RandomSeed());
+                        var extra = new List<Reward>();
+                        if (won.balls > 0)
+                        {
+                            s.balls += won.balls;
+                            extra.Add(new Reward { k = RewardKind.Balls, n = won.balls });
+                        }
+                        foreach (var sh in won.shards)
+                            extra.Add(new Reward { k = RewardKind.Shards, n = sh.n, hero = sh.hero, res = Progress.AddShards(s, d, sh.hero, sh.n, rng2) });
+                        if (won.evoStones > 0)
+                        {
+                            s.evoStones += won.evoStones;
+                            extra.Add(new Reward { k = RewardKind.EvoStones, n = won.evoStones });
+                        }
+                        App.Save.Save();
+                        ShopService.Show(Loc.T("Thưởng ×2"), extra);
+                    });
+                }
             }
             else
             {
                 var foeElem = d.Hero(stage.enemies[0].hero).elem;
                 var strong = Elements.All.First(x => Elements.Beats(x) == foeElem);
                 // lần thua đầu (E2): nói rõ thua không mất gì, rồi cách mạnh hơn (hàng nút bên dưới đi thẳng tới đó)
-                m.Tips((firstLoss ? Loc.T("Thua không mất gì! Mạnh hơn bằng:\n") : "") +
+                // thua từ lần 2 liền ở ải này: nói rõ cách miễn phí đang làm được ngay, rồi mới tới nút Tiếp sức (quảng cáo)
+                string streakLine = lossStreak >= 2
+                    ? Loc.F("Thua {0} lần liền ở ải này. ", lossStreak) + (freeFix != null ? Loc.F("Làm ngay được: {0}.\n", freeFix) : Loc.T("Thử đánh ải dễ hơn, hoặc nhận AFK rồi quay lại.\n"))
+                    : "";
+                m.Tips((firstLoss ? Loc.T("Thua không mất gì! Mạnh hơn bằng:\n") : "") + streakLine +
                        Loc.T("• Thả bi ở Máy bi để lên cấp: mọi tướng mạnh lên.\n• Nâng thẻ và tiến hóa ở mục Tướng.\n") +
                        Loc.F("• Chọn tướng khắc hệ địch ({0} bị {1} khắc), hoặc đánh ải dễ hơn ở đảo khác.", Elements.Name(foeElem), Elements.Name(strong)));
+                if (lossStreak >= 2 && !scripted)
+                    m.AdButton(Loc.F("Tiếp sức +{0}%", Math.Round(d.Cfg.shop.retryBoost * 100)), Ads.BattleRetry, false,
+                        () => App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team, boost = d.Cfg.shop.retryBoost }));
             }
             if (tutFirst)
             {
@@ -678,6 +726,16 @@ namespace PokiClash
             yield return new WaitForSecondsRealtime(0.12f);
             App.Audio.Play("stamp");
             Haptics.Play(Haptic.Stamp);
+            // tướng mới mở khoá nhờ mảnh của trận: màn mở khoá (App/Shop/HeroUnlockView) đè lên hộp kết quả; trận hướng dẫn thì thôi
+            // (mũi tên chỉ dẫn đang khoá chạm vào hộp kết quả)
+            var fresh = rw != null && !scripted ? rw.shards.Where(x => x.unlocked).Select(x => x.hero).ToList() : new List<string>();
+            if (fresh.Count > 0)
+            {
+                yield return new WaitForSecondsRealtime(0.5f);
+                bool fin = false;
+                HeroUnlockView.Play(fresh, () => fin = true);
+                while (!fin) yield return null;
+            }
             if (s.level > before) Dialogs.LevelUp(before, s.level);
         }
 

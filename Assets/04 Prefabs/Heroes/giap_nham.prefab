@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: ede7b0bedf7067444a2998c5fb858981, type: 2}
-  - {fileID: 11400000, guid: 0088644dd1574104c8614bf0b3a655fa, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - thach_de_non
+  - thach_de_1
+  pack: tho
   SplitFx: 0
   Manual: 0

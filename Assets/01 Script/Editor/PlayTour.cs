@@ -18,7 +18,7 @@ namespace PokiClash.EditorTools
         static int shot;
 
         // Chụp đứng hình: tắt nét rung đúng lúc chụp, để so ảnh trước và sau một thay đổi theo từng điểm ảnh.
-        const string StillMenu = "PokiClash/Thử/Chụp đứng hình (tắt nét rung khi chụp)";
+        const string StillMenu = "PokiClash/Thử/Khác/Giao diện∕Chụp đứng hình (tắt nét rung khi chụp)";
 
         static bool Still
         {
@@ -41,7 +41,7 @@ namespace PokiClash.EditorTools
         }
 
         // Chụp các hộp thoại mà các vòng thử chưa chụp tới (ảnh "x_<tên>.png" trong cùng thư mục, không đổi số thứ tự ảnh khác).
-        [MenuItem("PokiClash/Thử/Chụp hộp thoại phụ (đang Play)", priority = 99)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Chụp hộp thoại phụ (đang Play)", priority = 99)]
         static void TryExtra()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -81,7 +81,7 @@ namespace PokiClash.EditorTools
             if (still) App.ApplySettings();
         }
 
-        [MenuItem("PokiClash/Thử/Đi một vòng các scene (đang Play)", priority = 100)]
+        [MenuItem("PokiClash/Thử/Khác/Golden và tự chạy∕Đi một vòng các scene (đang Play)", priority = 100)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)
@@ -92,35 +92,35 @@ namespace PokiClash.EditorTools
             App.I.StartCoroutine(Run());
         }
 
-        [MenuItem("PokiClash/Thử/Chụp 3 khung màn hình (đang Play)", priority = 101)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Chụp 3 khung màn hình (đang Play)", priority = 101)]
         static void Frames()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(RunFrames());
         }
 
-        [MenuItem("PokiClash/Thử/Đánh thử ải 1 (đang Play)", priority = 102)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Đánh thử ải 1 (đang Play)", priority = 102)]
         static void TryBattle()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunBattle(1, false)));
         }
 
-        [MenuItem("PokiClash/Thử/Đánh thử boss Đảo Thủy (ải 70), đội 3 tướng (đang Play)", priority = 104)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Đánh thử boss Đảo Thủy (ải 70), đội 3 tướng (đang Play)", priority = 104)]
         static void TryBattle8()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunBattle(Islands.Size(Elem.Thuy), true)));
         }
 
-        [MenuItem("PokiClash/Thử/Đánh thử ải 7, đội 3 tướng (đang Play)", priority = 103)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Đánh thử ải 7, đội 3 tướng (đang Play)", priority = 103)]
         static void TryBattle7()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunBattle(7, true)));
         }
 
-        [MenuItem("PokiClash/Thử/Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải cuối (đang Play)", priority = 105)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Boss tiến hóa: đảo Thủy, hộp chuẩn bị, trận ải cuối (đang Play)", priority = 105)]
         static void TryBossEvo()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -184,7 +184,7 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Thử] Xong boss tiến hóa: ảnh trong {ShotDir}");
         }
 
-        [MenuItem("PokiClash/Thử/Sàn đấu đảo Thủy: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Sàn đấu đảo Thủy: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
         static void TryArenas()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -192,7 +192,7 @@ namespace PokiClash.EditorTools
         }
 
         // đảo Mộc dùng chung nền (ArtGen/BattleBG/build_moc.py): ải 5 mượn nền ải 1, ải 20 mượn nền chặng 21–29 kèm màu phủ
-        [MenuItem("PokiClash/Thử/Sàn đấu đảo Mộc: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Sàn đấu đảo Mộc: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
         static void TryArenasMoc()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -200,7 +200,7 @@ namespace PokiClash.EditorTools
         }
 
         // đảo Hỏa dùng chung nền như đảo Mộc (ArtGen/BattleBG/build_hoa.py)
-        [MenuItem("PokiClash/Thử/Sàn đấu đảo Hỏa: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Sàn đấu đảo Hỏa: chụp nền từng chặng, mini boss, boss (đang Play)", priority = 106)]
         static void TryArenasHoa()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -227,14 +227,14 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Thử] Xong sàn đấu đảo {zone}: ảnh trong {ShotDir}");
         }
 
-        [MenuItem("PokiClash/Thử/Trận nhiều địch: mặt địch góc trên, dấu X tướng gục (đang Play)", priority = 107)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Trận nhiều địch: mặt địch góc trên, dấu X tướng gục (đang Play)", priority = 107)]
         static void TryFoeRow()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunFoeRow()));
         }
 
-        [MenuItem("PokiClash/Thử/Sàn đấu boss ải 70: nền đổi theo dạng tiến hóa (đang Play)", priority = 108)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Sàn đấu boss ải 70: nền đổi theo dạng tiến hóa (đang Play)", priority = 108)]
         static void TryBossArena()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -322,7 +322,7 @@ namespace PokiClash.EditorTools
 
         // Chạy lần lượt mọi menu thử (trừ "Người chơi mới đi trọn Đảo Thủy" vì lâu), ảnh dồn vào một thư mục, đánh số liên tiếp.
         // Dùng để so ảnh trước và sau một thay đổi lớn (bật "Chụp đứng hình" trước).
-        [MenuItem("PokiClash/Thử/Chạy mọi menu thử, chụp ảnh (đang Play)", priority = 98)]
+        [MenuItem("PokiClash/Thử/Khác/Golden và tự chạy∕Chạy mọi menu thử, chụp ảnh (đang Play)", priority = 98)]
         static void TryAll()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -364,7 +364,7 @@ namespace PokiClash.EditorTools
             }
         }
 
-        [MenuItem("PokiClash/Thử/Tướng: nâng thẻ, tiến hóa (đang Play)", priority = 110)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Tướng: nâng thẻ, tiến hóa (đang Play)", priority = 110)]
         static void TryHeroes()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -437,14 +437,14 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong vòng Tướng.");
         }
 
-        [MenuItem("PokiClash/Thử/Máy bi: thả ×1 và ×3, mở rương (đang Play)", priority = 111)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕thả ×1 và ×3, mở rương (đang Play)", priority = 111)]
         static void TryMachine()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunMachine()));
         }
 
-        [MenuItem("PokiClash/Thử/Máy bi: mốc quà, cược theo số bi (đang Play)", priority = 112)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕mốc quà, cược theo số bi (đang Play)", priority = 112)]
         static void TryMachineGifts()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -476,7 +476,7 @@ namespace PokiClash.EditorTools
                 Debug.LogError("[Thử] Không thấy MachineScene");
                 yield break;
             }
-            if (!GameObject.Find("o_qua")) Debug.LogError("[Thử] Màn Máy bi chưa có ô quà mốc (menu PokiClash/Prefab/Máy bi: mốc quà)");
+            if (!GameObject.Find("o_qua")) Debug.LogError("[Thử] Màn Máy bi chưa có ô quà mốc (menu PokiClash/Prefab/Khác/Máy bi∕mốc quà)");
             yield return new WaitForSecondsRealtime(0.5f);
             yield return Shot("moc_qua_dau");
             // ×3 khi chưa đủ bi: báo cần bao nhiêu bi
@@ -616,7 +616,7 @@ namespace PokiClash.EditorTools
                 yield return new WaitForSecondsRealtime(0.3f);
                 yield return Shot("tha_x1_sao_exp2");
             }
-            else Debug.LogError("[Thử] Màn Máy bi chưa có thanh kinh nghiệm (menu PokiClash/Prefab/Máy bi: thanh kinh nghiệm)");
+            else Debug.LogError("[Thử] Màn Máy bi chưa có thanh kinh nghiệm (menu PokiClash/Prefab/Khác/Máy bi∕thanh kinh nghiệm)");
             yield return Until(() => m.Session >= 20, 10);
             Debug.Log($"[Thử] ×1: thả {m.Session} bi, tốn {s.ballsSpent - spent}");
             yield return SettleMachine(m, "x1", 3);
@@ -660,7 +660,7 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Thử] Xong máy bi: ảnh trong {ShotDir}");
         }
 
-        [MenuItem("PokiClash/Thử/AFK và cây bi: tua giờ, hái, mảnh, rương, tăng tốc (đang Play)", priority = 112)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕AFK và cây bi: tua giờ, hái, mảnh, rương, tăng tốc (đang Play)", priority = 112)]
         static void TryAfk()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -784,7 +784,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong AFK.");
         }
 
-        [MenuItem("PokiClash/Thử/Sổ tay bản dev: chỉnh số, máy tự chơi, ghi trận (đang Play)", priority = 113)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Sổ tay bản dev: chỉnh số, máy tự chơi, ghi trận (đang Play)", priority = 113)]
         static void TryDevTools()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -839,7 +839,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong Sổ tay bản dev.");
         }
 
-        [MenuItem("PokiClash/Thử/Đền Huy Hiệu: đánh trọn bậc Đồng hệ Thủy (đang Play)", priority = 114)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Đền Huy Hiệu: đánh trọn bậc Đồng hệ Thủy (đang Play)", priority = 114)]
         static void TryBadges()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -920,7 +920,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong Đền Huy Hiệu.");
         }
 
-        [MenuItem("PokiClash/Thử/Tiềm năng: đá từ máy bi, khai phá, Hang (đang Play)", priority = 115)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Tiềm năng: đá từ máy bi, khai phá, Hang (đang Play)", priority = 115)]
         static void TryPotential()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -1035,7 +1035,7 @@ namespace PokiClash.EditorTools
 
         static bool shotStones;
 
-        [MenuItem("PokiClash/Thử/Trang trại: tự xếp, tua giờ, thu hoạch, đổi ca (đang Play)", priority = 116)]
+        [MenuItem("PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Trang trại: tự xếp, tua giờ, thu hoạch, đổi ca (đang Play)", priority = 116)]
         static void TryFarm()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -1108,7 +1108,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong trang trại.");
         }
 
-        [MenuItem("PokiClash/Thử/Gói hỗ trợ: Thẻ Phiêu Lưu, hết lượt quảng cáo, Bỏ quảng cáo (đang Play)", priority = 117)]
+        [MenuItem("PokiClash/Thử/Khác/Cửa hàng∕Gói hỗ trợ: Thẻ Phiêu Lưu, hết lượt quảng cáo, Bỏ quảng cáo (đang Play)", priority = 117)]
         static void TryPacks()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
@@ -1214,49 +1214,49 @@ namespace PokiClash.EditorTools
             Debug.Log("[Thử] Xong gói hỗ trợ.");
         }
 
-        [MenuItem("PokiClash/Thử/Người chơi mới đi trọn Đảo Thủy (đang Play)", priority = 120)]
+        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Người chơi mới đi trọn Đảo Thủy (đang Play)", priority = 120)]
         static void TryThuy()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunThuy()));
         }
 
-        [MenuItem("PokiClash/Thử/Chụp sảnh và đảo với tiến độ giả (đang Play)", priority = 121)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Chụp sảnh và đảo với tiến độ giả (đang Play)", priority = 121)]
         static void TryMapShots()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunMapShots()));
         }
 
-        [MenuItem("PokiClash/Thử/Đảo 70 ải: đường mòn, bảng chặng, hộp chuẩn bị, trận có lính (đang Play)", priority = 122)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo 70 ải: đường mòn, bảng chặng, hộp chuẩn bị, trận có lính (đang Play)", priority = 122)]
         static void TryIslandLong()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Thuy, 300)));
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Mộc 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 123)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Mộc 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 123)]
         static void TryIslandLongMoc()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Moc, 340)));
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Hỏa 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Hỏa 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 124)]
         static void TryIslandLongHoa()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Hoa, 380)));
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Kim 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Kim 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 125)]
         static void TryIslandLongKim()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             App.I.StartCoroutine(WithSaveBackup(RunIslandLong(Elem.Kim, 420)));
         }
 
-        [MenuItem("PokiClash/Thử/Đảo Thổ 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 126)]
+        [MenuItem("PokiClash/Thử/Khác/Đảo và sảnh∕Đảo Thổ 70 ải: đường mòn, hộp chuẩn bị, trận có lính (đang Play)", priority = 126)]
         static void TryIslandLongTho()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

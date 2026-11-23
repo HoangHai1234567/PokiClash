@@ -8,7 +8,7 @@
 // - NGOAI_MAN: nút hoặc chữ lòi ra ngoài màn quá 4 px (trừ thứ nằm trong khung cuộn, bản đồ kéo);
 // - MAT_HINH: ảnh tên icon / hinh / anh / chan_dung đang bật mà không có sprite (ô trắng);
 // - LECH: icon trong nút chỉ có icon (không chữ) lệch tâm nút quá 12 % cỡ nút.
-// Menu "PokiClash/Thử/Soát UI: quét màn đang mở (đang Play)" ghi Temp/PokiShots/lint/<tên>.txt; tour UiFullAudit gọi Scan sau mỗi ảnh.
+// Menu "PokiClash/Thử/Khác/Giao diện∕Soát UI: quét màn đang mở (đang Play)" ghi Temp/PokiShots/lint/<tên>.txt; tour UiFullAudit gọi Scan sau mỗi ảnh.
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -28,7 +28,7 @@ namespace PokiClash.EditorTools
 
         public static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "lint");
 
-        [MenuItem("PokiClash/Thử/Soát UI: quét màn đang mở (đang Play)", priority = 147)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Soát UI: quét màn đang mở (đang Play)", priority = 147)]
         static void ScanNow()
         {
             if (!EditorApplication.isPlaying)

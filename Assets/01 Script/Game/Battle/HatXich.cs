@@ -104,7 +104,8 @@ namespace PokiClash
         {
             string key = "quy_xich_2_tt_xich_" + i;
             if (xqAnh.TryGetValue(key, out var s) && s) return s;
-            s = Resources.Load<Sprite>("quy_xich_2/" + key);
+            s = PokiClash.Game.ContentPacks.Get<Sprite>(key); // tướng trong gói tải sau (GD_Claude/27)
+            if (!s) s = Resources.Load<Sprite>("quy_xich_2/" + key);
             xqAnh[key] = s;
             return s;
         }

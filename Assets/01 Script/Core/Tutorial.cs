@@ -46,6 +46,9 @@ namespace PokiClash.Core
         public const string MultiFoe = "d1", Stun = "d3", EvoFoe = "d4", EvoNow = "d5", Auto = "d6", RareCard = "d7", ZoneChest = "d8",
             CardsBook = "d9", Underlevel = "e1", FirstLoss = "e2", Tree = "e3", TreeSeed = "e0", AfkBtn = "f1", AfkStage = "f3",
             Legend = "f4", Rings = "f5", Bet = "f6", Swap = "f8", StarUp = "f10";
+        // G: Nhà. Cây bi đến cùng Nhà, người chơi tự đặt (người dùng 2026-11-23): Xây → chọn Cây bi → kéo, Đặt (ba bước lặp tới khi đặt
+        // xong, cờ TreePlaced), rồi chạm cây hái bi (TreeTap)
+        public const string TreePlaced = "g3t", TreeBuild = "g3t1", TreeTray = "g3t2", TreeSpot = "g3t3", TreeTap = "g3h";
         // trạng thái: "d2_<id>" mỗi loại một lần (StatusTip)
 
         // ---------- cờ ----------
@@ -176,7 +179,7 @@ namespace PokiClash.Core
             return outL;
         }
 
-        // cây bi đầu tiên có sẵn 10 bi để lần hái đầu đã tay (câu 8 của 25_FTUE.md); gọi sau trận thắng
+        // cây bi đầu tiên có sẵn 10 bi để lần hái đầu đã tay (câu 8 của 25_FTUE.md); gọi khi vào Nhà (cây mở cùng Nhà) và sau trận thắng
         public const int TreeSeedBalls = 10;
 
         public static void SeedTree(SaveData s, BalanceConfig cfg, double now)
@@ -190,7 +193,8 @@ namespace PokiClash.Core
 
         // ---------- sảnh hiện dần (mục 5) ----------
 
-        public enum HubPart { Heroes, Cards, Machine, Next, Trees, Home, Temple, Cave, Afk }
+        // Next: nút Đánh tiếp cũ (bỏ khỏi sảnh 2026-11-23, giữ cho test); Shop: nút Cửa hàng ở hàng đáy
+        public enum HubPart { Heroes, Cards, Machine, Next, Trees, Home, Temple, Cave, Afk, Shop }
 
         public static bool Shows(SaveData s, GameData d, HubPart part, double now)
         {
@@ -200,7 +204,8 @@ namespace PokiClash.Core
             {
                 case HubPart.Machine: return Done(s, Balls) || s.ballsSpent > 0;
                 case HubPart.Heroes: return Done(s, NoBalls) || core;
-                case HubPart.Next: return core;
+                case HubPart.Next:
+                case HubPart.Shop: return core;
                 case HubPart.Cards: return core && (s.level >= 3 || Done(s, CardsBook));
                 case HubPart.Trees: return core && Trees.Open(s, d.Cfg) > 0;
                 case HubPart.Home: return core && (Home.Open(s, d.Cfg) || s.heroes.Values.Count(h => h.owned) >= 2);
@@ -229,13 +234,13 @@ namespace PokiClash.Core
             var cfg = d.Cfg;
             Unlock U(string id, string title, string text, string icon) => Done(s, id) ? null : new Unlock { id = id, title = title, text = text, icon = icon };
             Unlock u = null;
-            if (Home.Open(s, cfg)) u = U("g1", Loc.T("Nhà đã mở!"), Loc.T("Tướng làm việc ra bi và gỗ cả khi bạn vắng. Chạm con tàu ở bến để về Nhà."), "seed");
+            if (Home.Open(s, cfg)) u = U("g1", Loc.T("Nhà đã mở!"), Loc.T("Tướng làm việc ra bi và gỗ cả khi bạn vắng. Cây bi cũng ở đó, chờ bạn đặt. Chạm con tàu ở bến để về Nhà."), "seed");
             if (u == null && s.potentialStones > 0)
                 u = U("h_stone", Loc.T("Đá tiềm năng"), Loc.T("Mở thêm dòng chỉ số cho tướng: nút Tiềm năng trong chi tiết tướng."), "rock");
             if (u == null && Progress.CaveOpen(s))
                 u = U("h_cave", Loc.T("Hang Tiềm Năng"), Loc.T("Đánh boss lấy đá tiềm năng, 3 lượt mỗi ngày."), "rock");
             int trees = Trees.Open(s, cfg);
-            for (int k = 2; u == null && k <= trees; k++) u = U("h_tree" + k, Loc.T("Thêm một cây bi!"), Loc.F("Giờ có {0} cây, mỗi cây 5 bi mỗi giờ.", k), "leaf");
+            for (int k = 2; u == null && k <= trees; k++) u = U("h_tree" + k, Loc.T("Thêm một cây bi!"), Loc.F("Giờ có {0} cây, mỗi cây 5 bi mỗi giờ. Về Nhà, bấm Xây để đặt cây mới.", k), "leaf");
             if (u == null && s.heroes.Any(kv => kv.Value.owned && Progress.CanEvolve(s, d, kv.Key)))
             {
                 var id = s.heroes.First(kv => kv.Value.owned && Progress.CanEvolve(s, d, kv.Key)).Key;
@@ -272,7 +277,7 @@ namespace PokiClash.Core
             P(Shards, Loc.T("Tướng"), Loc.T("Mảnh: thu phục, rồi lên sao. Bản sao thẻ: nâng chiêu, tuyệt kỹ, nội tại. Đá tiến hóa và cấp: tiến hóa, đổi dạng.")),
             P(Swap, Loc.T("Đội hình"), Loc.T("Đội 1 ô; cấp 60 thêm ô 2, cấp 200 thêm ô 3. Chọn tướng khắc hệ địch. Có từ 2 ô thì đổi tướng được ở đầu lượt.")),
             P(AfkBtn, Loc.T("AFK"), Loc.T("Ải đã qua tự đánh lúc bạn vắng, tối đa 12 giờ: ra mảnh và rương. Chọn ải AFK ở hộp Chuẩn bị.")),
-            P(Tree, Loc.T("Cây bi"), Loc.T("Mỗi cây 5 bi mỗi giờ, chứa 50. Thêm cây ở cấp 30, 50, 80, 110.")),
+            P(TreePlaced, Loc.T("Cây bi"), Loc.T("Cây bi ở Nhà: mỗi cây 5 bi mỗi giờ, chứa 50, chạm cây để hái. Thêm cây ở cấp 30, 50, 80, 110: đặt bằng nút Xây.")),
             P("g1", Loc.T("Nhà"), Loc.T("Tướng làm việc ra bi, gỗ, quặng. Gỗ và quặng dùng để xây, nâng cấp, dọn rừng.")),
             P("h_stone", Loc.T("Tiềm năng"), Loc.T("Đá tiềm năng mở thêm dòng chỉ số. Hang Tiềm Năng ra đá.")),
             P("h_temple", Loc.T("Đền Huy Hiệu"), Loc.T("Thắng chuỗi trận boss theo hệ: tướng cùng hệ mạnh thêm.")),

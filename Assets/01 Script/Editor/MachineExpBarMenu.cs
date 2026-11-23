@@ -22,7 +22,7 @@ namespace PokiClash.EditorTools
         static readonly Vector2 Pos = new Vector2(144, -4), Size = new Vector2(696, 92);
         const float BadgeScale = 0.78f, BarX = 62, BarH = 50;
 
-        [MenuItem("PokiClash/Prefab/Máy bi: thanh kinh nghiệm", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕thanh kinh nghiệm", priority = 63)]
         public static void Build()
         {
             var item = AssetDatabase.LoadAssetAtPath<GameObject>(ItemPath);

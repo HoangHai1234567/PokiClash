@@ -1,6 +1,6 @@
 // Hộp Chuẩn bị trận: mỗi đối thủ một hàng, tướng bên trái, thông tin bên phải (người dùng dặn 2026-11-04: phóng to hết thông tin, tên,
 // hệ…; cấp của tướng, địch rõ; trước đó: chỉ số địch rõ, không so với tướng người chơi).
-// Menu "PokiClash/Prefab/Hộp chuẩn bị: ô đối thủ trái phải" dựng lại từ đầu (chạy lại thì dựng lại):
+// Menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chuẩn bị: ô đối thủ trái phải" dựng lại từ đầu (chạy lại thì dựng lại):
 // - Items/DoiThu (PrepFoe, hàng to cho ải một địch, cao Big.H): ô chân dung trái; phải là tên, [nhãn hệ][viên lực chiến], dòng ghi
 //   chú, 3 hàng [icon][Máu/Công/Thủ][số];
 // - Items/DoiThuGon (hàng gọn cho ải 2–3 địch, cao Row.H, nền giấy nhạt): tên, [nhãn hệ][lực chiến][ghi chú], Máu Công Thủ xếp ngang;
@@ -62,7 +62,7 @@ namespace PokiClash.EditorTools
         static ArtLibrary art;
         static UiKit kit;
 
-        [MenuItem("PokiClash/Prefab/Hộp chuẩn bị: ô đối thủ trái phải", priority = 67)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chuẩn bị: ô đối thủ trái phải", priority = 67)]
         static void Build()
         {
             var assets = Load<UiAssets>();

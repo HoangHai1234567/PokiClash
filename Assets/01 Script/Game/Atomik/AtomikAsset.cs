@@ -141,7 +141,10 @@ namespace PokiClash.Game
         public float span;
     }
 
-    public sealed class AtomikAsset : ScriptableObject
+    // Nội dung JSON trong file .atomik (AtomikAsset.FromJson): atts, anims của AtomikAsset không qua bộ tuần tự của Unity nên
+    // JsonUtility không điền được, phải đọc qua lớp này.
+    [Serializable]
+    sealed class AtomikJson
     {
         public string rigName;
         public int version;
@@ -150,6 +153,22 @@ namespace PokiClash.Game
         public AtomikSlot[] slots;
         public AtomikAtt[] atts;
         public AtomikClip[] anims;
+        public AtomikMask[] masks;
+        public AtomikGame game;
+    }
+
+    public sealed class AtomikAsset : ScriptableObject, ISerializationCallbackReceiver
+    {
+        public string rigName;
+        public int version;
+        public float ppu = 100;
+        public AtomikBone[] bones;
+        public AtomikSlot[] slots;
+        // Hình lưới và animation: Unity không lưu thẳng (mảng float chiếm phần lớn dung lượng tướng trong bản build) mà lưu khối gọn
+        // packed (AtomikPack, 2026-11-23); nạp asset thì giải ra hai mảng này, mọi nơi dùng như trước.
+        [NonSerialized] public AtomikAtt[] atts;
+        [NonSerialized] public AtomikClip[] anims;
+        [SerializeField, HideInInspector] byte[] packed;
         public AtomikMask[] masks;      // bản 3; rig cũ: null hoặc rỗng
         public AtomikGame game;
         // Khung bao hình từng clip, AtomikImporter đo lúc nhập (không có trong file .atomik): mỗi clip 3 số [|x| lớn nhất, đỉnh, đáy]
@@ -159,6 +178,46 @@ namespace PokiClash.Game
         public float[] fit;
         public Texture2D atlas;
         public Material material;
+
+        // Đọc JSON của file .atomik (AtomikImporter, test). Chưa ghi gọn: gọi Pack() trước khi Unity lưu asset.
+        public static AtomikAsset FromJson(string json)
+        {
+            var j = JsonUtility.FromJson<AtomikJson>(json);
+            var a = CreateInstance<AtomikAsset>();
+            a.rigName = j.rigName;
+            a.version = j.version;
+            a.ppu = j.ppu;
+            a.bones = j.bones;
+            a.slots = j.slots;
+            a.atts = j.atts;
+            a.anims = j.anims;
+            a.masks = j.masks;
+            a.game = j.game;
+            return a;
+        }
+
+        // ghi atts, anims hiện có vào khối gọn (Unity lưu khối này)
+        public void Pack() => packed = AtomikPack.Write(atts, anims);
+
+        public int PackedBytes => packed?.Length ?? 0;
+
+        void ISerializationCallbackReceiver.OnBeforeSerialize() { }
+
+        // có thể chạy ở luồng nạp nền: chỉ code C# thuần
+        void ISerializationCallbackReceiver.OnAfterDeserialize()
+        {
+            if (packed == null || packed.Length == 0) return;
+            try
+            {
+                AtomikPack.Read(packed, out atts, out anims);
+            }
+            catch (Exception e)
+            {
+                atts = new AtomikAtt[0];
+                anims = new AtomikClip[0];
+                Debug.LogError($"[Atomik] {rigName}: không giải được khối hình + animation ({e.Message}); nhập lại file .atomik.");
+            }
+        }
 
         public int FindClip(string clip)
         {

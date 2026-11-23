@@ -11,7 +11,7 @@ namespace PokiClash.EditorTools
         const string BattlePath = "Assets/04 Prefabs/Screens/Battle.prefab";
         const string ItemPath = "Assets/04 Prefabs/Items/HinhDong.prefab";
 
-        [MenuItem("PokiClash/Prefab/Sàn đấu: lớp phần động (Screens/Battle)", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Khác/Trận∕Sàn đấu: lớp phần động (Screens∕Battle)", priority = 63)]
         public static void Build()
         {
             var item = AssetDatabase.LoadAssetAtPath<GameObject>(ItemPath);

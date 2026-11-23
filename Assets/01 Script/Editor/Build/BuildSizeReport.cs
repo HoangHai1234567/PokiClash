@@ -103,6 +103,13 @@ namespace PokiClash.EditorTools
             var prev = Previous(snap.platform, name);
             var sb = new StringBuilder();
             sb.AppendLine($"{name} ({snap.platform}, {how}) lúc {snap.time}, build {s.totalTime.TotalMinutes:0.0} phút");
+            // kiểu nén gói dữ liệu: LZ4 thường to hơn LZ4HC ~5% (bản 0.5.1 nút Build bị LZ4, 2026-11-23)
+            // có cờ LZ4 là Unity nén LZ4 thường, kể cả khi có thêm cờ LZ4HC (đo trên khối của data.unity3d bản 0.5.1)
+            bool hc = (s.options & BuildOptions.CompressWithLz4HC) != 0 && (s.options & BuildOptions.CompressWithLz4) == 0;
+            var comp = hc ? "LZ4HC" : (s.options & BuildOptions.CompressWithLz4) != 0 ? "LZ4 (chưa phải LZ4HC!)" : "không nén";
+            sb.AppendLine($"Nén gói dữ liệu: {comp}");
+            if (!hc && (s.platform == BuildTarget.Android || s.platform == BuildTarget.iOS))
+                Debug.LogWarning($"[Build] {name}: gói dữ liệu nén {comp}, không phải LZ4HC (to hơn vài MB). Build qua menu PokiClash/Build.");
             sb.AppendLine($"Gói ra: {MB(snap.output)}  {outPath}" + (prev != null ? $"  (lần trước {prev.name}: {MB(prev.output)}, {Signed(snap.output - prev.output)})" : ""));
             bool android = s.platform == BuildTarget.Android;
             if (android && snap.output > AndroidBudgetMB * 1048576)
@@ -113,6 +120,22 @@ namespace PokiClash.EditorTools
                 using var zip = ZipFile.OpenRead(outPath);
                 foreach (var e in zip.Entries.OrderByDescending(e => e.CompressedLength).Take(10))
                     sb.AppendLine($"  {MB(e.CompressedLength),10}  (giải nén {MB(e.Length)})  {e.FullName}");
+                // AAB: mỗi module / asset pack là một thư mục gốc. Bản cài = base + gói install-time; gói tải sau (GD_Claude/27) tính riêng.
+                // Cỡ đã nén trong file .aab, gần với cỡ tải về Play tính (Play nén lại khi giao).
+                if (outPath.EndsWith(".aab"))
+                {
+                    sb.AppendLine("Theo module (đã nén trong .aab):");
+                    foreach (var g in zip.Entries.GroupBy(e => e.FullName.Split('/')[0]).OrderByDescending(g => g.Sum(e => e.CompressedLength)))
+                    {
+                        string kindName = g.Key == "base" ? "bản cài" : g.Key.StartsWith("noi_dung_") ? "tải sau (fast-follow)" :
+                            g.Key.StartsWith("Unity") || g.Key == "AddressablesAssetPack" ? "bản cài (install-time)" : "";
+                        sb.AppendLine($"  {MB(g.Sum(e => e.CompressedLength)),10}  {g.Key}  {kindName}");
+                    }
+                    long install = zip.Entries.Where(e => { var k = e.FullName.Split('/')[0]; return !k.StartsWith("noi_dung_") && k != "BUNDLE-METADATA" && k != "META-INF"; })
+                        .Sum(e => e.CompressedLength);
+                    long later = zip.Entries.Where(e => e.FullName.StartsWith("noi_dung_")).Sum(e => e.CompressedLength);
+                    sb.AppendLine($"Bản cài ~{MB(install)}, 5 gói tải sau {MB(later)}");
+                }
             }
             if (excluded != null && excluded.Count > 0)
             {

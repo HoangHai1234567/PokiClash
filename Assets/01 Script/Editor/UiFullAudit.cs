@@ -3,7 +3,7 @@
 // tiết tướng có / chưa có / 3 dạng, tiềm năng, so sánh tiềm năng, chi tiết thẻ, tỉ lệ máy bi, mốc huyền thoại, lên cấp, xác nhận, báo, Cây
 // bi, chọn bạn đồng hành, giới thiệu, cách chơi, kết quả thắng / thua, tạm dừng, danh sách trận Đền, thắng Đền, quảng cáo giả, chọn tướng
 // trang trại, rương đảo, mở rương). Mỗi ảnh chụp xong chạy UiLint.Scan (Temp/PokiShots/lint/<tên>.txt). Ảnh vào Temp/PokiShots/soat/.
-// Menu "PokiClash/Thử/Soát UI: chụp + quét mọi màn, mọi hộp (đang Play)". Không lưu bản lưu (không bấm nút làm đổi dữ liệu).
+// Menu "PokiClash/Thử/Khác/Giao diện∕Soát UI: chụp + quét mọi màn, mọi hộp (đang Play)". Không lưu bản lưu (không bấm nút làm đổi dữ liệu).
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace PokiClash.EditorTools
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "soat");
         static readonly List<string> summary = new List<string>();
 
-        [MenuItem("PokiClash/Thử/Soát UI: chụp + quét mọi màn, mọi hộp (đang Play)", priority = 148)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Soát UI: chụp + quét mọi màn, mọi hộp (đang Play)", priority = 148)]
         static void Tour()
         {
             if (!EditorApplication.isPlaying || App.I == null)

@@ -1,4 +1,4 @@
-// AFK theo ải (người dùng chọn 2026-11-03: ải đã thắng có nút AFK). Menu "PokiClash/Prefab/AFK theo ải (nút, nhãn trên đảo)"
+// AFK theo ải (người dùng chọn 2026-11-03: ải đã thắng có nút AFK). Menu "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕AFK theo ải (nút, nhãn trên đảo)"
 // dựng (chạy lại thì dựng lại):
 // - Items/NhanAfk: nhãn trên bản đồ đảo dưới ải đội đang AFK: viên giấy màu rương AFK, đồng hồ, chữ "AFK", nhịp nhẹ;
 //   gán vào Screens/Zone (ZoneScene.afkTagPrefab);
@@ -25,7 +25,7 @@ namespace PokiClash.EditorTools
         static readonly Vector2 TagSize = new Vector2(128, 52);
         const float PrepAfkW = 340;
 
-        [MenuItem("PokiClash/Prefab/AFK theo ải (nút, nhãn trên đảo)", priority = 67)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕AFK theo ải (nút, nhãn trên đảo)", priority = 67)]
         static void Build()
         {
             var assets = Load<UiAssets>();

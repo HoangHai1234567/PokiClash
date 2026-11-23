@@ -13,7 +13,7 @@ namespace PokiClash.EditorTools
         const string NotebookPath = "Assets/04 Prefabs/Screens/Notebook.prefab";
         public const string RowName = "hang_NgonNgu", Label = "Ngôn ngữ";
 
-        [MenuItem("PokiClash/Prefab/Sổ tay: thêm dòng Ngôn ngữ", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Ngôn ngữ", priority = 63)]
         public static void Add()
         {
             var contents = PrefabUtility.LoadPrefabContents(NotebookPath);

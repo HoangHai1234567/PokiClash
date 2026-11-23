@@ -76,8 +76,9 @@ namespace PokiClash
         // dạng có clip này không (clip tiến hóa: chỉ dạng .atomik có, HeroViewer phát trước khi đổi dạng)
         public bool HasClip(string clip) => actor.HasClip(ClipName(clip));
 
-        // aola: tên dạng cần hiện (HeroDef.Form theo sao)
-        public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip)
+        // aola: tên dạng cần hiện (HeroDef.Form theo sao). maxPx: cạnh RenderTexture tối đa (mặc định 1024; màn mở khoá tướng hiện tướng
+        // to giữa màn thì 2048, đỡ nhoè)
+        public static AolaSticker TryCreate(RectTransform parent, HeroDef hero, string aola, float uiHeight, bool flip, int maxPx = 1024)
         {
             if (!AolaActor.Find(aola, out var prefab, out int form)) return null;
             builtFrame = Time.frameCount;
@@ -98,8 +99,8 @@ namespace PokiClash
             };
             // khung rộng hơn mặc định: ảnh không cần luỹ thừa 2, trần 1536 (2048 thì mỗi tướng 24 MB kể depth) để giữ độ nét trên sân
             int px = s.px = span > DefSpan
-                ? Mathf.Clamp(Mathf.CeilToInt(uiHeight * span / 64f) * 64, 256, 1536)
-                : Mathf.Clamp(Mathf.NextPowerOfTwo((int)(uiHeight * span)), 256, 1024);
+                ? Mathf.Clamp(Mathf.CeilToInt(uiHeight * span / 64f) * 64, 256, Mathf.Max(1536, maxPx))
+                : Mathf.Clamp(Mathf.NextPowerOfTwo((int)(uiHeight * span)), 256, maxPx);
             // URP render graph báo lỗi mỗi khung nếu RenderTexture đích của camera không có depth buffer
             s.rt = new RenderTexture(px, px, 16, RenderTextureFormat.ARGB32) { name = "aola_" + hero.id };
             var camGo = new GameObject("cam");

@@ -93,6 +93,7 @@ namespace PokiClash.Core
         public AdState ads; // lượt quảng cáo đã dùng trong ngày theo chỗ đặt
         public TreeState trees; // cây bi (null = chưa tính lần nào)
         public Entitlements ent; // quyền lợi gói đã mua
+        public ShopState shop; // cửa hàng, ưu đãi, Lọ Bi, thẻ, túi Rương Tướng (Shop.cs, 2026-11-23; null = chưa dùng)
         public BadgeProg[] badges = { new BadgeProg(), new BadgeProg(), new BadgeProg(), new BadgeProg(), new BadgeProg() }; // chỉ số theo Elem
         public Settings settings = new Settings();
         public SaveStats stats = new SaveStats();
@@ -428,6 +429,7 @@ namespace PokiClash.Core
         {
             "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "rings", "heroes", "team", "zones", "zoneChests", "clears",
             "afkSince", "afk", "badges", "potentialStones", "evoStones", "potentialCrystals", "caveFloor", "badgeGifts", "cave", "farm", "home", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
+            "shop",
         };
 
         public static int VersionOf(string json)
@@ -589,6 +591,7 @@ namespace PokiClash.Core
             }
             var eo = J.Obj(o, "ent");
             if (eo != null) s.ent = new Entitlements { passUntil = J.Num(eo, "passUntil"), noAds = J.Bool(eo, "noAds") };
+            s.shop = Shop.Read(J.Obj(o, "shop"));
             var bd = J.Obj(o, "badges");
             for (int i = 0; i < 5; i++)
             {
@@ -773,6 +776,7 @@ namespace PokiClash.Core
                 o["ads"] = new Dictionary<string, object> { ["day"] = s.ads.day, ["used"] = s.ads.used.ToDictionary(kv => kv.Key, kv => (object)kv.Value) };
             if (s.ent != null)
                 o["ent"] = new Dictionary<string, object> { ["passUntil"] = s.ent.passUntil, ["noAds"] = s.ent.noAds };
+            if (s.shop != null) o["shop"] = Shop.Write(s.shop);
             if (s.farm != null)
                 o["farm"] = new Dictionary<string, object>
                 {

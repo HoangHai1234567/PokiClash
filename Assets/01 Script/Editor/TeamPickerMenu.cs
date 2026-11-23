@@ -27,7 +27,7 @@ namespace PokiClash.EditorTools
         // dải màu hệ sau chân dung: lề trong, cao
         const float BandPad = 7, BandH = 124;
 
-        [MenuItem("PokiClash/Prefab/Hộp chọn đội (ChonDoi)", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội (ChonDoi)", priority = 64)]
         static void Build()
         {
             var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));
@@ -118,7 +118,7 @@ namespace PokiClash.EditorTools
 
         // ---------- ô tướng, khung cuộn ----------
 
-        [MenuItem("PokiClash/Prefab/Hộp chọn đội: ô tướng, khung cuộn", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội: ô tướng, khung cuộn", priority = 65)]
         static void BuildScroll()
         {
             var assets = Load<UiAssets>();
@@ -277,7 +277,7 @@ namespace PokiClash.EditorTools
 
         // mở hộp chọn đội với địch hệ Hỏa (có mũi tên), chụp đầu và cuối khung cuộn; mở lại với 3 ô, chọn thêm 2 con, chụp.
         // Không bấm Xong nên đội trong bản lưu giữ nguyên. Ảnh Temp/PokiShots/chon_doi_*.png (không xoá ảnh khác).
-        [MenuItem("PokiClash/Thử/Hộp chọn đội: chụp ô tướng, khung cuộn (đang Play)", priority = 116)]
+        [MenuItem("PokiClash/Thử/Khác/Giao diện∕Hộp chọn đội: chụp ô tướng, khung cuộn (đang Play)", priority = 116)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

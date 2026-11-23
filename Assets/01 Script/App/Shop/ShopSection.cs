@@ -1,0 +1,49 @@
+// Mục của màn cửa hàng (prefab Items/MucCuaHang): dải ruy băng tên mục, đồng hồ bên phải (mục hẹn giờ). ShopPage, GD_Claude/26 mục 13.
+using System;
+using System.Collections.Generic;
+using PokiClash.Core;
+using PokiClash.Game;
+using PokiClash.UI;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+namespace PokiClash
+{
+    public sealed class ShopSection : MonoBehaviour
+    {
+        [SerializeField] TextMeshProUGUI title, timer;
+        [SerializeField] GameObject timerBox; // nền viên thuốc của đồng hồ (chữ là con)
+        double until;
+        float next;
+
+        public void Setup(TextMeshProUGUI titleText, TextMeshProUGUI timerText, GameObject timerBg)
+        {
+            title = titleText;
+            timer = timerText;
+            timerBox = timerBg;
+        }
+
+        public ShopSection Set(string text, double untilMs = 0)
+        {
+            title.text = text;
+            until = untilMs;
+            (timerBox ? timerBox : timer.gameObject).SetActive(untilMs > 0);
+            Tick();
+            return this;
+        }
+
+        void Tick()
+        {
+            if (until <= 0) return;
+            timer.text = ShopUi.Clock(until - SaveService.Now());
+        }
+
+        void Update()
+        {
+            if (until <= 0 || Time.unscaledTime < next) return;
+            next = Time.unscaledTime + 0.5f;
+            Tick();
+        }
+    }
+}

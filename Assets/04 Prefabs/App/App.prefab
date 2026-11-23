@@ -541,6 +541,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1701852658271098037}
   - component: {fileID: 59007291087585449}
+  - component: {fileID: 2634431582403428690}
   m_Layer: 0
   m_Name: App
   m_TagString: Untagged
@@ -599,6 +600,18 @@ MonoBehaviour:
   toasts: {fileID: 3371120602325996611}
   cloud: {fileID: 7129919846463306564}
   router: {fileID: 3308417598440603538}
+--- !u!114 &2634431582403428690
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272456051531050110}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4338dfcddf410c94cb173fed57f211a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1545976065430595190
 GameObject:
   m_ObjectHideFlags: 0

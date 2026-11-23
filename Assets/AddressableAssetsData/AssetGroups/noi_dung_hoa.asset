@@ -1,0 +1,264 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: noi_dung_hoa
+  m_EditorClassIdentifier: 
+  m_GroupName: noi_dung_hoa
+  m_GUID: 1a53f90f64631f64db5017ffbc9a2d62
+  m_SerializeEntries:
+  - m_GUID: 03e2c4a532ac5614aa8395fa6a41f52d
+    m_Address: rua_lua_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 0525b3a872a5e6a46bc7855dbcac338f
+    m_Address: goc_292
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1228fa88f30a9744ea77367decc878d4
+    m_Address: hoa_nhan_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 160da67859ca88b41b11286d30466920
+    m_Address: nham_than_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1bcb87edb4a1825488de5e9cf5bff115
+    m_Address: dat_nung_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2661b1bd995923b40ac884715cf3af6f
+    m_Address: nham_than_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 290e0d3ea6c90bc45bbfebff9d781cc7
+    m_Address: goc_292_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 33b4d71548e8b5146a497605c0cab411
+    m_Address: goc_13_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 366a5f3ac7737ff42a944144c93d1191
+    m_Address: battle_hoa_c08
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3e6ff3dc3d61d8245bf37ab10e5f0a5f
+    m_Address: be_hoa_boss
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 41b1e08c1a025d94bad25651ae2f6a01
+    m_Address: goc_291
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 43163225792d52f41a77a96a478ac26a
+    m_Address: quy_dao_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4393f9b5a7662084c92b88a762c1bbe5
+    m_Address: phap_lua_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 55e3882f9b322cc47a55d9f3ae9c7470
+    m_Address: battle_hoa_c06
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 60a67d766655c314a8d11af9cf8d2f79
+    m_Address: goc_14
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 62c031b9e141e204daac5fbd35ee3e91
+    m_Address: battle_hoa_c03
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 64bf82aad997be94f91c884ec939fe16
+    m_Address: be_hoa
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 672a61e7efc430a42a62c0d8ec7da9aa
+    m_Address: goc_291_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6e57de06c04fc6c48a8cc3c67cf56598
+    m_Address: land_hoa
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 71031e6f3f194bc428a54ab686327e6d
+    m_Address: battle_hoa_c05
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7c35576809510214f845a3b5b2a7ec34
+    m_Address: nui_lua_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 86b536e34da55e349aca3754ecc86b0d
+    m_Address: hoa_ho_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 88f5e45b39dd63e4f9a6f03e44133f15
+    m_Address: battle_hoa_c07
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9dc4fa86b31fdea41889472c62ffe540
+    m_Address: nui_lua_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a49c4ceb1a6bd4e4d82f7f97036dc33a
+    m_Address: quy_dao_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad5db786b9278b24e9e42ed0c50401ab
+    m_Address: phap_lua_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ba6b3849bb4f5c74b90287e7b491733b
+    m_Address: kim_su_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c23b3d02f2937894aba30f06ddfa1391
+    m_Address: kim_su_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c299578a21783384a8427a3803c95b04
+    m_Address: battle_hoa_s70
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c44c9eea013241a40852e451a91a309d
+    m_Address: battle_hoa_c09
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: cb08edc5508cefc438a670ac4e84be6b
+    m_Address: rua_lua_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d322e1a619529df4592fc50d0e3eb51c
+    m_Address: goc_13
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e02bf3a9d580eb14db68539dee0af5fc
+    m_Address: land_hoa_bien
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e20cfddad39eeed43ab4678a6bc82ecf
+    m_Address: zone_hoa
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e279e9cb1b087e045861c97b036d7076
+    m_Address: dat_nung_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e344647c8a053354baace24e6855ff5b
+    m_Address: nui_lua_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e5bd29c03ae5a6f4da1e0dd76a2b7dbf
+    m_Address: goc_14_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e67fe40bab34844458ccbc8291303f9d
+    m_Address: quai_hoa
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fbe46690cf512be4aa6c5eb60ff38f63
+    m_Address: hoa_nhan_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe028aec5c3bbcd4a99eb1f2cb718d18
+    m_Address: hoa_ho_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_hoa
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f6fbad8915aafc9449026cbe4e44d4b0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: d5a0ebf0d5f130841aedf3532c571ec9, type: 2}
+    - {fileID: 11400000, guid: 3cce0400e1d16ab45b1606b854660030, type: 2}
+    - {fileID: 11400000, guid: c3fe21b4917c6064891be664f3a94c69, type: 2}

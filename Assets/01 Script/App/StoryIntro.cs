@@ -1,17 +1,17 @@
 // Đoạn cốt truyện mở đầu (GD_Claude/25_FTUE.md mục 11): chạy lần đầu vào game, trước màn tải con tàu; học trang truyện tranh mở đầu
-// Kingdom Rush. Hai trang sổ, mỗi trang 3 khung tranh: chạm một lần hiện một khung (khung đập xuống nghiêng nhẹ, tranh trôi chậm), một
-// dòng chữ ngắn chạy dần trên băng giấy; hết trang 1 thì lật sang trang 2; chạm sau khung cuối là xong. Nút "Bỏ qua" ở góc. Chạm lúc
-// khung đang hiện thì hiện xong ngay. Xem lại ở Sổ tay, hộp Cách chơi.
+// Kingdom Rush. Trang truyện tràn màn hình (người dùng 2026-11-23: "full screen, cấu trúc như comic panel"): mỗi trang 3 ô tranh tứ giác
+// ghép kín trang, vách chia xiên, khe giấy giữa các ô, viền mực quanh ô (ComicPanel + InkPath). Chạm một lần hiện một ô (ô nảy ra từ tâm,
+// tranh trôi chậm trong ô), khung lời dẫn ở góc ô chạy chữ dần; hết trang 1 thì trang 2 trượt vào; chạm sau ô cuối là xong. Nút "Bỏ qua"
+// ở góc. Chạm lúc ô đang hiện thì hiện xong ngay. Xem lại ở Sổ tay: dòng "Cốt truyện mở đầu", hoặc nút trong hộp Cách chơi.
 // Prefab Assets/04 Prefabs/Screens/CotTruyen (canvas riêng thứ tự 25: trên mây và hộp thoại), dựng bằng menu "PokiClash/Prefab/Cốt
-// truyện mở đầu (CotTruyen)", gán App.storyPrefab. Ảnh khung ở Assets/03 Art/Story/khung_1..6.png (gói GPT ArtGen/Story/build_story.py);
-// chưa có thì menu tạm gắn ảnh đảo có sẵn.
+// truyện mở đầu (CotTruyen)", gán App.storyPrefab. Ảnh ô ở Assets/03 Art/Story/khung_1..6.png (gói GPT ArtGen/Story/build_story.py);
+// chưa có thì menu tạm gắn ảnh đảo có sẵn. Hình ô tính lúc chạy theo cỡ màn (Layout), nên máy dài, máy tính bảng đều kín trang.
 using System;
 using System.Collections;
 using PokiClash.Core;
 using PokiClash.UI;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace PokiClash
 {
@@ -20,16 +20,15 @@ namespace PokiClash
         [Serializable]
         public struct Panel
         {
-            public RectTransform frame; // khung giấy viền mực (đập xuống lúc hiện)
-            public RectTransform window; // vùng cắt tranh (Mask, chịu được khung nghiêng)
-            public Image art; // tranh (phủ kín vùng cắt, trôi chậm)
-            public RectTransform caption; // băng giấy chữ (ẩn nếu khung không có chữ)
+            public RectTransform frame; // ô (phủ cả trang, có CanvasGroup; pivot dời về tâm ô lúc chạy để nảy quanh tâm)
+            public ComicPanel art; // tranh trong tứ giác
+            public InkPath border; // viền mực quanh ô (pivot góc dưới trái)
+            public RectTransform caption; // khung lời dẫn (ẩn nếu ô không có chữ)
+            public InkPath captionBorder;
             public TextMeshProUGUI captionText;
-            public float tilt; // độ nghiêng cuối
         }
 
         [SerializeField] CanvasGroup group;
-        [SerializeField] RectTransform book; // chứa hai trang, co lại vừa màn thấp
         [SerializeField] RectTransform[] pages = new RectTransform[2];
         [SerializeField] Panel[] panels = new Panel[6];
         [SerializeField] ClickCatcher tap;
@@ -37,8 +36,132 @@ namespace PokiClash
         [SerializeField] TextMeshProUGUI hint;
 
         public const int PerPage = 3;
+        public const float Margin = 22, Gutter = 26, BorderWidth = 7, CaptionPadX = 26, CaptionPadY = 16;
 
-        // chữ từng khung (ít chữ; rỗng = khung không có chữ). Khoá là chuỗi Việt, bảng tiếng Anh Resources/Loc/en/ui.json
+        // ---------- bố cục trang ----------
+
+        struct Line
+        {
+            public Vector2 a, b;
+            public Line(float ax, float ay, float bx, float by)
+            {
+                a = new Vector2(ax, ay);
+                b = new Vector2(bx, by);
+            }
+        }
+
+        // đường theo tỉ lệ trang (0..1, y lên trên). 0 trên, 1 phải, 2 dưới, 3 trái là mép trang (lùi Margin); 4 vách ngang, 5 vách dọc là
+        // vách chia xiên của từng trang (lùi nửa Gutter mỗi bên). Trang 1: ô ngang trên, hai ô dọc dưới; trang 2: hai ô dọc trên, ô ngang dưới.
+        static readonly Line[] PageEdges = { new Line(0, 1, 1, 1), new Line(1, 0, 1, 1), new Line(0, 0, 1, 0), new Line(0, 0, 0, 1) };
+
+        // tỉ lệ tranh: ô ngang 3:2, ô dọc 2:3 (gói GPT ArtGen/Story)
+        const float WideAspect = 1.5f, TallAspect = 2f / 3f;
+
+        // vách ngang đặt theo cỡ màn sao cho ô ngang và hai ô dọc bị cắt bớt bề ngang như nhau (màn dài 9:19,5 thì không tránh được cắt,
+        // chia đều để không ô nào mất quá nhiều); vách dọc nối từ mép trang tới vách ngang
+        static Line Divider(int page, int which, Vector2 size)
+        {
+            float wl = size.x - 2 * Margin, wp = (wl - Gutter) * 0.5f, usable = size.y - 2 * Margin - Gutter;
+            float hl = Mathf.Clamp(usable / (1 + wp * WideAspect / (wl * TallAspect)), usable * 0.3f, usable * 0.6f);
+            float cut = (Margin + hl + Gutter * 0.5f) / size.y; // từ mép có ô ngang tới giữa vách ngang
+            if (page == 0)
+            {
+                float y = 1 - cut;
+                return which == 0 ? new Line(0, y - 0.025f, 1, y + 0.025f) : new Line(0.56f, 0, 0.48f, y);
+            }
+            return which == 0 ? new Line(0, cut + 0.02f, 1, cut - 0.02f) : new Line(0.44f, 1, 0.53f, cut);
+        }
+
+        // điểm lấy nét của từng tranh (tỉ lệ ảnh, gốc dưới trái): giữ cậu bé, các tướng khi tranh bị cắt
+        static readonly Vector2[] Focus =
+        {
+            new Vector2(0.52f, 0.5f), new Vector2(0.45f, 0.45f), new Vector2(0.42f, 0.4f),
+            new Vector2(0.5f, 0.45f), new Vector2(0.5f, 0.4f), new Vector2(0.45f, 0.4f),
+        };
+        // mỗi ô là 4 đường đi vòng quanh; góc k nằm giữa đường k và đường k+1
+        static readonly int[][] Edges =
+        {
+            new[] { 0, 1, 4, 3 }, new[] { 4, 5, 2, 3 }, new[] { 4, 1, 2, 5 },
+            new[] { 0, 5, 4, 3 }, new[] { 0, 1, 4, 5 }, new[] { 4, 1, 2, 3 },
+        };
+        // góc đặt khung lời dẫn (chỉ số góc của ô): tránh nút Bỏ qua (trên phải) và dòng nhắc chạm (giữa đáy)
+        static readonly int[] CaptionCorner = { 3, 3, 3, 3, 1, 0 };
+
+        // góc ô i (đơn vị UI, gốc dưới trái trang) trên trang cỡ size
+        public static Vector2[] Quad(int i, Vector2 size)
+        {
+            var e = Edges[i];
+            var a = new Vector2[4];
+            var b = new Vector2[4];
+            var d = new float[4];
+            for (int k = 0; k < 4; k++)
+            {
+                var ln = e[k] < 4 ? PageEdges[e[k]] : Divider(i / PerPage, e[k] - 4, size);
+                a[k] = Vector2.Scale(ln.a, size);
+                b[k] = Vector2.Scale(ln.b, size);
+                d[k] = e[k] < 4 ? Margin : Gutter * 0.5f;
+            }
+            var c = Vector2.zero;
+            for (int k = 0; k < 4; k++) c += Intersect(a[k], b[k], a[(k + 1) % 4], b[(k + 1) % 4]) * 0.25f;
+            for (int k = 0; k < 4; k++)
+            {
+                var dir = (b[k] - a[k]).normalized;
+                var n = new Vector2(-dir.y, dir.x);
+                if (Vector2.Dot(c - a[k], n) < 0) n = -n;
+                a[k] += n * d[k];
+                b[k] += n * d[k];
+            }
+            var q = new Vector2[4];
+            for (int k = 0; k < 4; k++) q[k] = Intersect(a[k], b[k], a[(k + 1) % 4], b[(k + 1) % 4]);
+            return q;
+        }
+
+        static Vector2 Intersect(Vector2 a1, Vector2 b1, Vector2 a2, Vector2 b2)
+        {
+            Vector2 r = b1 - a1, s = b2 - a2;
+            float den = r.x * s.y - r.y * s.x;
+            if (Mathf.Abs(den) < 1e-6f) return a1;
+            float t = ((a2.x - a1.x) * s.y - (a2.y - a1.y) * s.x) / den;
+            return a1 + r * t;
+        }
+
+        static Vector2 Center(Vector2[] q) => (q[0] + q[1] + q[2] + q[3]) * 0.25f;
+
+        // hộp (tâm pos, cỡ box) nằm trong tứ giác lồi, cách mép ít nhất pad
+        static bool Inside(Vector2[] q, Vector2 pos, Vector2 box, float pad)
+        {
+            var c = Center(q);
+            for (int k = 0; k < 4; k++)
+            {
+                Vector2 a = q[k], dir = (q[(k + 1) % 4] - a).normalized;
+                var n = new Vector2(-dir.y, dir.x);
+                if (Vector2.Dot(c - a, n) < 0) n = -n;
+                for (int s = 0; s < 4; s++)
+                {
+                    var p = pos + new Vector2((s & 1) == 0 ? -box.x : box.x, (s & 2) == 0 ? -box.y : box.y) * 0.5f;
+                    if (Vector2.Dot(p - a, n) < pad) return false;
+                }
+            }
+            return true;
+        }
+
+        // nét mực vòng quanh đa giác: góc và điểm giữa mỗi cạnh lệch nhẹ (vẻ vẽ tay), cố định theo seed
+        static Vector2[] InkLoop(Vector2[] q, int seed)
+        {
+            var rnd = new System.Random(seed * 7919 + 17);
+            float J() => (float)(rnd.NextDouble() * 2 - 1) * 1.8f;
+            var pts = new Vector2[q.Length * 2];
+            for (int k = 0; k < q.Length; k++)
+            {
+                pts[k * 2] = q[k];
+                pts[k * 2 + 1] = (q[k] + q[(k + 1) % q.Length]) * 0.5f + new Vector2(J(), J());
+            }
+            return pts;
+        }
+
+        // ---------- chữ ----------
+
+        // chữ từng ô (ít chữ; rỗng = ô không có chữ). Khoá là chuỗi Việt, bảng tiếng Anh Resources/Loc/en/ui.json
         public static string Caption(int i)
         {
             switch (i)
@@ -55,11 +178,10 @@ namespace PokiClash
         public static StoryIntro Current { get; private set; }
 
         // Dùng khi dựng prefab (Editor).
-        public void Setup(CanvasGroup cg, RectTransform bookRt, RectTransform[] pageRts, Panel[] panelParts, ClickCatcher tapCatcher,
-            SketchButton skipButton, TextMeshProUGUI hintText)
+        public void Setup(CanvasGroup cg, RectTransform[] pageRts, Panel[] panelParts, ClickCatcher tapCatcher, SketchButton skipButton,
+            TextMeshProUGUI hintText)
         {
             group = cg;
-            book = bookRt;
             pages = pageRts;
             panels = panelParts;
             tap = tapCatcher;
@@ -86,10 +208,11 @@ namespace PokiClash
         }
 
         Action onDone;
-        int shown; // số khung đã hiện
+        int shown; // số ô đã hiện
         bool finishing, tapped;
         readonly float[] revealAt = new float[6];
         Coroutine run;
+        Vector2 laidOut;
 
         void Awake()
         {
@@ -114,27 +237,71 @@ namespace PokiClash
 
         public bool Done => finishing;
 
+        // cỡ trang = vùng phủ kín màn (cha của các trang, luôn bật)
+        Vector2 PageSize => ((RectTransform)pages[0].parent).rect.size;
+
+        // hình ô, viền, chỗ khung lời dẫn theo cỡ màn hiện tại
+        void Layout()
+        {
+            var size = PageSize;
+            if (size.x < 1 || size.y < 1) return;
+            laidOut = size;
+            for (int i = 0; i < panels.Length; i++)
+            {
+                var pn = panels[i];
+                var q = Quad(i, size);
+                pn.art.SetQuad(q);
+                pn.art.Focus = Focus[i];
+                pn.border.Setup(InkLoop(q, i), BorderWidth, 0, 0, true);
+                var c = Center(q);
+                pn.frame.pivot = new Vector2(c.x / size.x, c.y / size.y); // ô phủ kín trang: dời pivot không dời ô
+                if (pn.caption) PlaceCaption(pn, q, CaptionCorner[i], Caption(i));
+            }
+        }
+
+        // khung lời dẫn: bề rộng theo chữ (tối đa 620 và hẹp hơn ô), đặt sát góc ô rồi dời dần vào tâm cho tới khi nằm gọn trong ô
+        void PlaceCaption(Panel pn, Vector2[] q, int corner, string text)
+        {
+            if (string.IsNullOrEmpty(text)) return;
+            var t = pn.captionText;
+            t.text = text;
+            Vector2 min = q[0], max = q[0];
+            foreach (var p in q)
+            {
+                min = Vector2.Min(min, p);
+                max = Vector2.Max(max, p);
+            }
+            float maxW = Mathf.Min(620, max.x - min.x - 80);
+            var pref = t.GetPreferredValues(text, maxW - CaptionPadX * 2, 0);
+            var box = new Vector2(Mathf.Min(pref.x, maxW - CaptionPadX * 2) + CaptionPadX * 2, pref.y + CaptionPadY * 2);
+            var rt = pn.caption;
+            rt.anchorMin = rt.anchorMax = Vector2.zero;
+            rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = box;
+            var c = Center(q);
+            var at = q[corner];
+            var pos = at + new Vector2(Mathf.Sign(c.x - at.x) * (box.x * 0.5f + 22), Mathf.Sign(c.y - at.y) * (box.y * 0.5f + 22));
+            for (int k = 0; k < 60 && !Inside(q, pos, box, 18); k++) pos += (c - pos).normalized * 6;
+            rt.anchoredPosition = pos;
+            if (pn.captionBorder)
+                pn.captionBorder.Setup(new[] { Vector2.zero, new Vector2(box.x, 0), box, new Vector2(0, box.y) }, 4, 0, 0, true);
+        }
+
         IEnumerator Run()
         {
             shown = 0;
             group.alpha = 0;
             yield return null; // chờ bố cục canvas để đo
-            var area = book.parent as RectTransform;
-            if (area)
-            {
-                float k = Mathf.Min(1f, area.rect.height / (book.sizeDelta.y + 90), area.rect.width / (book.sizeDelta.x + 40));
-                book.localScale = new Vector3(k, k, 1);
-            }
+            Layout();
             for (int p = 0; p < pages.Length; p++)
             {
                 pages[p].gameObject.SetActive(p == 0);
                 pages[p].anchoredPosition = Vector2.zero;
-                pages[p].localEulerAngles = Vector3.zero;
             }
             for (int i = 0; i < panels.Length; i++)
             {
                 panels[i].frame.gameObject.SetActive(false);
-                Cover(panels[i]);
+                panels[i].art.SetDrift(1, Vector2.zero);
             }
             hint.gameObject.SetActive(false);
             for (float t = 0; t < 0.45f; t += Time.unscaledDeltaTime)
@@ -167,7 +334,7 @@ namespace PokiClash
             hint.gameObject.SetActive(false);
         }
 
-        // khung đập xuống: từ to và nghiêng về đúng chỗ, nảy nhẹ; rồi chữ chạy dần. Chạm giữa chừng thì hiện xong ngay.
+        // ô nảy ra từ tâm (to hơn rồi về, vượt nhẹ), hiện dần; rồi chữ lời dẫn chạy dần. Chạm giữa chừng thì hiện xong ngay.
         IEnumerator Reveal(int i)
         {
             var pn = panels[i];
@@ -181,19 +348,16 @@ namespace PokiClash
             bool hasText = !string.IsNullOrEmpty(text);
             if (pn.caption) pn.caption.gameObject.SetActive(false);
             tapped = false;
-            float startTilt = pn.tilt + (i % 2 == 0 ? -7 : 7);
-            for (float t = 0; t < 0.38f && !tapped; t += Time.unscaledDeltaTime)
+            for (float t = 0; t < 0.32f && !tapped; t += Time.unscaledDeltaTime)
             {
-                float k = t / 0.38f;
-                float e = 1 - Mathf.Pow(1 - k, 3) + Mathf.Sin(k * Mathf.PI) * 0.08f; // vượt nhẹ rồi về
-                float s = Mathf.Lerp(1.22f, 1f, e);
+                float k = t / 0.32f;
+                float e = 1 - Mathf.Pow(1 - k, 3) + Mathf.Sin(k * Mathf.PI) * 0.06f;
+                float s = Mathf.Lerp(1.14f, 1f, e);
                 pn.frame.localScale = new Vector3(s, s, 1);
-                pn.frame.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(startTilt, pn.tilt, e));
-                if (cg) cg.alpha = Mathf.Clamp01(k * 2.5f);
+                if (cg) cg.alpha = Mathf.Clamp01(k * 3f);
                 yield return null;
             }
             pn.frame.localScale = Vector3.one;
-            pn.frame.localEulerAngles = new Vector3(0, 0, pn.tilt);
             if (cg) cg.alpha = 1;
             if (hasText && pn.caption)
             {
@@ -213,62 +377,36 @@ namespace PokiClash
             tapped = false;
         }
 
-        // lật trang: trang cũ trượt sang trái và nghiêng, trang mới trượt vào từ phải
+        // sang trang: trang cũ trượt sang trái, trang mới trượt vào từ phải (giữa hai trang lộ nền mực)
         IEnumerator TurnPage(int p)
         {
             var oldP = pages[p - 1];
             var newP = pages[p];
             newP.gameObject.SetActive(true);
             App.Audio?.Play("whoosh", 0.7f);
-            float w = 1300;
+            float w = PageSize.x + 60;
             for (float t = 0; t < 0.5f; t += Time.unscaledDeltaTime)
             {
                 float k = t / 0.5f;
                 float e = k * k * (3 - 2 * k);
-                oldP.anchoredPosition = new Vector2(-w * e, 40 * Mathf.Sin(e * Mathf.PI));
-                oldP.localEulerAngles = new Vector3(0, 0, 8 * e);
+                oldP.anchoredPosition = new Vector2(-w * e, 0);
                 newP.anchoredPosition = new Vector2(w * (1 - e), 0);
-                newP.localEulerAngles = new Vector3(0, 0, -6 * (1 - e));
                 yield return null;
             }
             oldP.gameObject.SetActive(false);
             newP.anchoredPosition = Vector2.zero;
-            newP.localEulerAngles = Vector3.zero;
-        }
-
-        // tranh phủ kín vùng cắt (giữ tỉ lệ ảnh), chừa 12% để trôi (phóng 5% và lia 14 không lộ mép)
-        static void Cover(Panel pn)
-        {
-            if (!pn.art || !pn.window) return;
-            var sp = pn.art.sprite;
-            var size = pn.window.rect.size;
-            if (size.x < 1 || size.y < 1) size = pn.window.sizeDelta;
-            float aspect = sp ? sp.rect.width / Mathf.Max(1, sp.rect.height) : size.x / Mathf.Max(1, size.y);
-            var rt = pn.art.rectTransform;
-            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
-            float w = Mathf.Max(size.x, size.y * aspect), h = w / aspect;
-            if (h < size.y)
-            {
-                h = size.y;
-                w = h * aspect;
-            }
-            rt.sizeDelta = new Vector2(w, h) * 1.12f;
-            rt.anchoredPosition = Vector2.zero;
         }
 
         void Update()
         {
-            // tranh đã hiện trôi chậm (phóng nhẹ và lia), mỗi khung một hướng
+            if (laidOut != Vector2.zero && PageSize != laidOut) Layout(); // đổi cỡ màn (cửa sổ Editor, xoay máy)
+            // tranh đã hiện trôi chậm trong ô (phóng nhẹ và lia), mỗi ô một hướng
             for (int i = 0; i < shown && i < panels.Length; i++)
             {
-                var art = panels[i].art;
-                if (!art) continue;
                 float t = Mathf.Clamp01((Time.unscaledTime - revealAt[i]) / 9f);
                 float e = t * t * (3 - 2 * t);
-                float s = 1 + 0.05f * e;
-                art.rectTransform.localScale = new Vector3(s, s, 1);
                 var dir = new Vector2(i % 2 == 0 ? -1 : 1, i % 3 == 0 ? 0.6f : -0.4f);
-                art.rectTransform.anchoredPosition = dir * (14 * e);
+                panels[i].art.SetDrift(1 + 0.03f * e, dir * (10 * e));
             }
         }
 

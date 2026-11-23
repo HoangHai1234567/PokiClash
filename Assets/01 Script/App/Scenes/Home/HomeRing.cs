@@ -3,7 +3,7 @@
 // (HomeRingButton) xếp hình quạt trên đầu vật, nhãn tên + một dòng trạng thái nằm dưới chân vật; cả cụm bám theo vật khi kéo, phóng bản đồ
 // (đổi toạ độ qua camera mỗi khung, không nằm trong lớp kéo nên cỡ nút không đổi theo phóng). Vật sát mép trên thì quạt lật xuống dưới chân.
 // Hiện thì từng nút nảy ra lần lượt (như hoạt cảnh anfx_btn_click_bite của Critters). Prefab: nút "vong" trong nha_ui của Screens/Home
-// (menu "PokiClash/Prefab/Nhà: giao diện kiểu Critters").
+// (menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: giao diện kiểu Critters").
 using System;
 using System.Collections.Generic;
 using PokiClash.UI;

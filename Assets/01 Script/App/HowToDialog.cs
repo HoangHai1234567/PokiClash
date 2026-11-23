@@ -1,6 +1,6 @@
 // Hộp "Cách chơi" (Sổ tay, GD_Claude/25_FTUE.md mục 6): luật ngắn từng phần, mỗi trang mở khi người chơi đã học tới phần đó
 // (Core/Tutorial.Pages), trang chưa mở hiện "???". Prefab Assets/04 Prefabs/Dialogs/CachChoi (biến thể tờ giấy gốc HopThoai), dựng
-// bằng menu "PokiClash/Prefab/Hướng dẫn: hộp Cách chơi, dòng Sổ tay".
+// bằng menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hướng dẫn: hộp Cách chơi, dòng Sổ tay".
 using System.Text;
 using PokiClash.Core;
 using TMPro;

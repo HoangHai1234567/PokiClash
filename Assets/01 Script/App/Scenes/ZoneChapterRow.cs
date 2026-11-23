@@ -1,5 +1,5 @@
 // Một ải trong bảng chặng của đảo 70 ải (prefab Assets/04 Prefabs/Items/DongChang, dựng bằng menu
-// "PokiClash/Prefab/Đảo 70 ải (ChamAi, DongChang, BangChang)"): số ải, kiểu ải, bi, tối đa 3 địch (chân dung, nhãn cấp, BOSS,
+// "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải (ChamAi, DongChang, BangChang)"): số ải, kiểu ải, bi, tối đa 3 địch (chân dung, nhãn cấp, BOSS,
 // cường hóa ±%), dấu qua / chơi / khoá. Nền vàng là ải đang đánh, xanh là đã qua, xám là chưa mở. Chạm mở hộp Chuẩn bị trận.
 using System;
 using PokiClash.Core;

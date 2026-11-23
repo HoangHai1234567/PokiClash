@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 0be7facb34efdf247bf1ca2eaa2f84fc, type: 2}
-  - {fileID: 11400000, guid: ccaf53411a37d3c439ac0ac610622421, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - chien_sat_1
+  - chien_sat_2
+  pack: kim
   SplitFx: 0
   Manual: 0

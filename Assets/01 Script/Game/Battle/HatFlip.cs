@@ -97,7 +97,7 @@ namespace PokiClash
                     }
                 }
             }
-            fbArt[fx] = a;
+            if (a != null) fbArt[fx] = a; // thiếu khung (gói tải sau chưa nạp): không nhớ, lần sau tìm lại
             return a;
         }
 

@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
         const string PrepPath = "Assets/04 Prefabs/Dialogs/ChuanBiTran.prefab";
         const string OutPath = "Assets/04 Prefabs/Dialogs/ChonTuongKhoiDau.prefab";
 
-        [MenuItem("PokiClash/Prefab/Hộp chọn tướng khởi đầu (ChonTuongKhoiDau)", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn tướng khởi đầu (ChonTuongKhoiDau)", priority = 65)]
         static void Build()
         {
             var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));

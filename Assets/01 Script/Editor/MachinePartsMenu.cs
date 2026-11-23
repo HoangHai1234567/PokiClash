@@ -18,7 +18,7 @@ namespace PokiClash.EditorTools
 
         // hình học bàn (Core Board.GeometryJson) cho ArtGen/Pachinko/ghep_ban.py: đổi bàn trong Pachinko.cs thì chạy menu này rồi
         // "py -3 -I ArtGen/Pachinko/ghep_ban.py" để ghép lại ảnh mặt máy tĩnh
-        [MenuItem("PokiClash/Prefab/Máy bi: xuất hình học mặt máy", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy", priority = 64)]
         public static void ExportGeometry()
         {
             var path = System.IO.Path.Combine(Application.dataPath, "..", "ArtGen", "Pachinko", "refs", "mat_may.json");
@@ -26,7 +26,7 @@ namespace PokiClash.EditorTools
             Debug.Log("[Máy bi] Ghi hình học mặt máy vào " + System.IO.Path.GetFullPath(path) + "; chạy py -3 -I ArtGen/Pachinko/ghep_ban.py để ghép ảnh");
         }
 
-        [MenuItem("PokiClash/Prefab/Máy bi: ảnh bộ phận", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕ảnh bộ phận", priority = 65)]
         public static void Build()
         {
             var cloud = Load("pk_may_tha");
@@ -84,7 +84,7 @@ namespace PokiClash.EditorTools
             public float outer_d, sprite_fill;
         }
 
-        [MenuItem("PokiClash/Prefab/Máy bi: nút tròn, viên cược, đèn vòm", priority = 66)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕nút tròn, viên cược, đèn vòm", priority = 66)]
         public static void BuildControls()
         {
             var dome = Load("pk_nut_tha");

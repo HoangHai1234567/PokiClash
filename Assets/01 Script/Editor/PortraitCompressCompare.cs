@@ -15,7 +15,7 @@ namespace PokiClash.EditorTools
         static readonly (string tag, TextureFormat fmt)[] Levels =
             { ("8x8", TextureFormat.ASTC_8x8), ("6x6", TextureFormat.ASTC_6x6), ("5x5", TextureFormat.ASTC_5x5), ("4x4", TextureFormat.ASTC_4x4) };
 
-        [MenuItem("PokiClash/Thử/Chân dung: so mức nén ASTC (Temp/PokiShots/nen)", priority = 302)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Chân dung: so mức nén ASTC (Temp∕PokiShots∕nen)", priority = 302)]
         static void Run()
         {
             var dir = Path.Combine(PlayTour.ShotDir, "nen");
@@ -57,7 +57,7 @@ namespace PokiClash.EditorTools
         // Đang Play: dựng hai cảnh (đảo Thủy mới qua 2 ải: tướng trên bệ ải chưa mở là bóng sẫm; hộp chuẩn bị ải 3 địch), thay tạm ảnh
         // mọi chân dung đang hiện bằng bản nén thử (đủ mipmap như lúc nhập, giải nén lại từng mức trên CPU nên card nào cũng vẽ được),
         // chụp từng mức vào Temp/PokiShots/nen/<cảnh>_<mức>.png, trả ảnh cũ và bản lưu cũ.
-        [MenuItem("PokiClash/Thử/Chân dung: thay thử mức nén trên màn đang mở (đang Play)", priority = 303)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Chân dung: thay thử mức nén trên màn đang mở (đang Play)", priority = 303)]
         static void InGame()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

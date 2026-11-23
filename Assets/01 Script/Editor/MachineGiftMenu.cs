@@ -21,7 +21,7 @@ namespace PokiClash.EditorTools
         // chỗ của thanh mốc cũ (neo trên phải khối máy): mép phải cách 60, đỉnh y 1453,6, dài 560, cao 54
         const float Right = 60, Top = 1453.6f, Len = 560, BarH = 54, Badge = 96, ChestW = 70, IconW = 58;
 
-        [MenuItem("PokiClash/Prefab/Máy bi: mốc quà", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕mốc quà", priority = 65)]
         public static void Build()
         {
             var chestPrefab = AssetDatabase.LoadAssetAtPath<GameObject>(ChestPath);

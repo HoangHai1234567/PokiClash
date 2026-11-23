@@ -72,6 +72,40 @@ namespace PokiClash
             }
             else tr.Block(true);
 
+            // gói tải sau màn mới cần (GD_Claude/27): chờ nạp xong trước khi rời màn cũ; gói lỗi (mất mạng, chưa tải) thì ở lại và báo
+            var need = ContentGate.PacksFor(scene, args);
+            if (need.Count > 0)
+            {
+                foreach (var e in need) PokiClash.Game.ContentPacks.Request(e, true);
+                bool told = false;
+                while (true)
+                {
+                    string failed = null;
+                    bool wait = false;
+                    foreach (var e in need)
+                    {
+                        var st = PokiClash.Game.ContentPacks.StateOf(e);
+                        if (st == PokiClash.Game.ContentPacks.State.Failed) failed = e;
+                        else if (st != PokiClash.Game.ContentPacks.State.Ready) wait = true;
+                    }
+                    if (failed != null)
+                    {
+                        App.Toasts?.Show(ContentGate.FailText(failed));
+                        yield return tr.Open();
+                        busy = false;
+                        pending = null;
+                        yield break;
+                    }
+                    if (!wait) break;
+                    if (!told && need.Exists(e => !PokiClash.Game.ContentPacks.Downloaded(e)))
+                    {
+                        told = true;
+                        App.Toasts?.Show(ContentGate.WaitText(need));
+                    }
+                    yield return null;
+                }
+            }
+
             App.Modals?.CloseAll();
             if (CurrentRoot)
             {

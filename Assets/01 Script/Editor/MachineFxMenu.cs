@@ -15,7 +15,7 @@ namespace PokiClash.EditorTools
         const string TrailPath = "Assets/04 Prefabs/Items/VetBiDai.prefab";
         const string SpritePath = "Assets/03 Art/Fallback/fx_glow.png";
 
-        [MenuItem("PokiClash/Prefab/Máy bi: hạt hiệu ứng", priority = 62)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕hạt hiệu ứng", priority = 62)]
         public static void Build()
         {
             var item = AssetDatabase.LoadAssetAtPath<GameObject>(ItemPath);

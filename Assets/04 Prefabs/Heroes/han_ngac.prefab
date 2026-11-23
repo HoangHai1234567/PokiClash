@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 6a753b15f8f8318459007332078dfdb9, type: 2}
-  - {fileID: 11400000, guid: 95d1117181e79b444b6d9a7bc9c2af78, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - han_ngac_1
+  - han_ngac_2
+  pack: thuy
   SplitFx: 0
   Manual: 0

@@ -99,12 +99,12 @@ Boss tiến hóa thì đổi nền `b70a` → `b70b` → `b70c` trong lúc chớ
 ### Sau khi có ảnh (đã làm 2026-11-03)
 
 1. Nhắn Claude "duyệt <mã>": `py -3 -I ArtGen/BattleBG/build_thuy.py --duyet <mã>` lưu `thuy/<mã>.png`, vẽ ảnh soi khung `thuy/soi_<mã>.png`, dựng file prompt các lượt đã đủ ảnh mẫu.
-2. `py -3 -I ArtGen/BattleBG/build_thuy.py --xuat`: cắt khúc khung game khỏi mỗi nền đã duyệt (`CROP` chung; `CROP_FIX` cho nền mini boss, boss vì mặt bệ nổi thấp hơn), thu về 1080 × 928, lưu `Assets/03 Art/BattleBG/battle_thuy_<khoá>.png` (khoá `c01`..`c09` theo chặng, `s20`..`s70` theo ải, dạng boss sau `s70_2`, `s70_3`); cắt `fxm` thành `BattleBG/Anim/fx_<tên>.png`; ghi phần động và màu trời từng nền vào `BattleBG/Resources/arena_fx.json` (bảng `FX` trong script, toạ độ ảnh GPT). Rồi trong Unity: refresh, menu `PokiClash/Dựng lại danh mục ảnh`; lần đầu thêm menu `PokiClash/Prefab/Sàn đấu: lớp phần động (Screens/Battle)` (dựng lớp `PhanDong` trong prefab màn trận).
+2. `py -3 -I ArtGen/BattleBG/build_thuy.py --xuat`: cắt khúc khung game khỏi mỗi nền đã duyệt (`CROP` chung; `CROP_FIX` cho nền mini boss, boss vì mặt bệ nổi thấp hơn), thu về 1080 × 928, lưu `Assets/03 Art/BattleBG/battle_thuy_<khoá>.png` (khoá `c01`..`c09` theo chặng, `s20`..`s70` theo ải, dạng boss sau `s70_2`, `s70_3`); cắt `fxm` thành `BattleBG/Anim/fx_<tên>.png`; ghi phần động và màu trời từng nền vào `BattleBG/Resources/arena_fx.json` (bảng `FX` trong script, toạ độ ảnh GPT). Rồi trong Unity: refresh, menu `PokiClash/Dựng lại danh mục ảnh`; lần đầu thêm menu `PokiClash/Prefab/Khác/Trận∕Sàn đấu: lớp phần động (Screens∕Battle)` (dựng lớp `PhanDong` trong prefab màn trận).
 3. Code:
    - `StageView.Init(zone, stage)` chọn nền theo ải: `battle_<đảo>_s<ải>`, rồi `battle_<đảo>_c<chặng>`, không có thì `battle_<đảo>`; thử thách huy hiệu và hang dùng nền hệ. Màu trời phần dôi (máy dài) lấy từ json.
    - `ArenaAnim` (lớp ngay trên ảnh nền, dưới tướng) chạy phần động theo json; chiêu và Tuyệt kỹ làm quầng sáng, phù văn, tia đèn bừng lên, xoáy quay nhanh.
    - Boss tiến hóa: `StageView.SetPhase` đổi sang nền `…_s70_2`, `…_s70_3` nếu có (trong lúc chớp trắng).
-   - Thử: menu `PokiClash/Thử/Sàn đấu đảo Thủy: chụp nền từng chặng, mini boss, boss (đang Play)`.
+   - Thử: menu `PokiClash/Thử/Khác/Trận∕Sàn đấu đảo Thủy: chụp nền từng chặng, mini boss, boss (đang Play)`.
 4. Đã đủ 19 ảnh (2026-11-03). Boss 70: ba nền dạng 1, 2, 3 đổi theo tiến hóa; sheet `fxb` cắt thành `san_whirlpool`, `san_trident`, `san_bolt`, `san_cloud`, `san_spout`, `san_wave` (dạng 2 thêm mưa, mây bão, vòi rồng; dạng 3 thêm sét). Còn chưa làm: bóng tướng dưới hồ gương (`m50`); nạp nền sàn đấu theo trận (hiện cả 17 nền nằm trong danh mục ảnh, khoảng 7,7 MB, nạp từ lúc mở game).
 
 ## Đảo Mộc 70 ải: 8 nền dùng chung, khổ dọc có trời dư (2026-11-05)

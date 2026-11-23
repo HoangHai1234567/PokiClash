@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
     {
         static int shot;
 
-        [MenuItem("PokiClash/Thử/Máy bi: rig rương nhắc mở (đang Play)", priority = 118)]
+        [MenuItem("PokiClash/Thử/Khác/Máy bi∕rig rương nhắc mở (đang Play)", priority = 118)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

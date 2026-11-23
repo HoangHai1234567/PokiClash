@@ -4,7 +4,8 @@
 # Ra:
 #   Assets/03 Art/Islands/world_map.png  : ảnh bản đồ phóng 2 lần (2048 x 3072) có làm nét
 #   Assets/03 Art/Islands/hub_map.json   : cỡ hiện trên sảnh (view), từng đảo: điểm bấm (mốc lớn), mây che (u, v, w, lật)
-#   khoá "world_map" trong Assets/03 Art/Islands/island_anim.json: khói núi lửa, xoáy nước, bọt thác, lấp lánh mặt trời, đèn đêm
+#   khoá "world_map" trong Assets/03 Art/Islands/island_anim.json: khói núi lửa, xoáy nước, lấp lánh mặt trời, đèn đêm; nước chảy, bọt
+#   chân thác (nuoc_dong.py) và easter egg (trung_sanh/trung_sanh.py) được giữ lại khi chạy lại script này
 #   sanh_moi/xem_suong.png               : tờ soi vùng, điểm bấm, mây
 # Vành mây (người dùng 2026-11-19: "mây xung quanh đảo chính cứ tách riêng ra để khi đi thì nó tách luôn chứ không để liền mảng
 # trắng"): vành mây vẽ liền trong tranh được thay bằng biển (open_sea), ảnh nới thêm biển TOP / BOT; mây vành là từng đám rời
@@ -25,6 +26,9 @@ sys.stdout.reconfigure(encoding="utf-8")
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import tach_dao  # noqa: E402
+import nuoc_dong  # noqa: E402
+sys.path.insert(0, os.path.join(HERE, "trung_sanh"))
+import trung_sanh  # noqa: E402
 ROOT = os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 ART = os.path.join(ROOT, "Assets", "03 Art", "Islands")
 SRC = os.path.join(HERE, "concept_I_ben_tau.png")  # concept_I_bo_pha_le_1.png + bến tàu (ben_tau/ghep_ben.py)
@@ -51,7 +55,6 @@ AVOID = [(700, 1305, 915, 1478), (560, -170, 720, 110)]  # bến dưới (đảo
 ANIM = [
     ("plume", (387, 98), 46, {"c": "#8f8580", "v": 1, "n": 8, "l": 4.4}),  # miệng núi lửa
     ("swirl", (700, 1098), 170, None),  # xoáy nước
-    ("foam", (192, 972), 30, None), ("foam", (232, 980), 26, None), ("foam", (690, 1300), 30, None), ("foam", (498, 965), 24, None),
     ("ripple", (150, 1380), 30, None), ("ripple", (912, 1402), 30, None), ("ripple", (150, 1135), 28, None), ("ripple", (885, 1240), 28, None),
     ("sparkle", (790, 190), 30, None), ("sparkle", (772, 535), 30, None), ("sparkle", (505, 1110), 22, None),
     ("wave", (130, 1060), 70, None), ("wave", (900, 1110), 70, None), ("wave", (620, 1490), 70, None), ("wave", (120, 1470), 60, None),
@@ -274,6 +277,10 @@ def main():
     nl = "\r\n" if b"\r\n" in raw else "\n"
     anim = json.loads(raw.decode("utf-8"))
     anim["world_map"] = {"items": items, "rivers": [], "lights": lights}
+    # nước chảy (thác, suối) và easter egg: giữ khi dựng lại bản đồ (chạy lại nuoc_dong.py nếu đổi ảnh bản đồ)
+    old = json.loads(raw.decode("utf-8")).get("world_map", {})
+    nuoc_dong.apply(anim["world_map"], old.get("flows", []))
+    trung_sanh.apply(anim["world_map"])
     open(anim_path, "w", encoding="utf-8", newline=nl).write(json.dumps(anim, ensure_ascii=False, indent=1))
     print("đã ghi world_map.png", up.size, "hub_map.json view", VIEW_W, view_h, ", khoá world_map")
 

@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: fa7704653079e334db7e4e3b4d6299c8, type: 2}
-  - {fileID: 11400000, guid: 68297c5e47bdccb48a76fea04ab397d7, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - giong_bao_1
+  - giong_bao_2
+  pack: thuy
   SplitFx: 0
   Manual: 0

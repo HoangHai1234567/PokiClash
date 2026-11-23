@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
                 const float Size = 88, Gap = 10, Margin = 20;
         static readonly Color Red = new Color32(0xe8, 0x55, 0x3f, 0xff), Ink = new Color32(0x2b, 0x21, 0x18, 0xff);
 
-        [MenuItem("PokiClash/Prefab/Trận: mặt địch góc trên, dấu X tướng gục", priority = 65)]
+        [MenuItem("PokiClash/Prefab/Khác/Trận∕Trận: mặt địch góc trên, dấu X tướng gục", priority = 65)]
         public static void Build()
         {
             var kit = AssetDatabase.LoadAssetAtPath<UiKit>(AssetDatabase.GUIDToAssetPath(AssetDatabase.FindAssets("t:UiKit")[0]));

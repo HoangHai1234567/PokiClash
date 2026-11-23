@@ -209,25 +209,25 @@ namespace PokiClash.EditorTools
         // ---------- nhập ----------
 
         [MenuItem("PokiClash/Tướng/Nhập hình tướng aola thành prefab", priority = 50)]
-        static void MenuImport() => ImportAll(false);
+        static void MenuImport() => ContentPackSetup.Around(() => ImportAll(false));
 
         [MenuItem("PokiClash/Tướng/Nhập lại hết hình tướng aola", priority = 51)]
-        static void MenuReimport() => ImportAll(true);
+        static void MenuReimport() => ContentPackSetup.Around(() => ImportAll(true));
 
         [MenuItem("PokiClash/Tướng/Nhập dạng aola có nguồn mới hơn bản trong project", priority = 52)]
-        static void MenuImportNewer() => ImportAll(false, true);
+        static void MenuImportNewer() => ContentPackSetup.Around(() => ImportAll(false, true));
 
         // dạng có bản xuất kèm hình khung con (subframes.py): nhập lại hết, kể cả khi nguồn không đổi (cách thu nhỏ khung con đổi)
         [MenuItem("PokiClash/Tướng/Nhập lại dạng aola có hình khung con (mảnh tự chạy)", priority = 53)]
-        static void MenuImportSub() => ImportAll(false, subOnly: true);
+        static void MenuImportSub() => ContentPackSetup.Around(() => ImportAll(false, subOnly: true));
 
         [MenuItem("PokiClash/Tướng/Xếp lại atlas tướng đã nhập (không đọc nguồn)", priority = 54)]
-        static void MenuRepack() => Repack();
+        static void MenuRepack() => ContentPackSetup.Around(() => Repack());
 
         // áp BriefRule cho dạng đã nhập trước khi có luật (AolaAnim.brief nhỏ hơn): cắt hình từ atlas trong project, thu hình ít khung,
         // xếp lại. Không cần nguồn AolaRipper, không thu hai lần (đánh dấu brief).
         [MenuItem("PokiClash/Tướng/Thu nhỏ hình ít khung trong atlas đã nhập (dung lượng)", priority = 54)]
-        static void MenuRepackBrief() => Repack(true);
+        static void MenuRepackBrief() => ContentPackSetup.Around(() => Repack(true));
 
         // Nhập lại mọi chân dung theo AolaImportPostprocessor.PortraitFormat, không đụng atlas (không tăng GetVersion: tăng thì nhập lại
         // mọi ảnh tướng). Ghi mức nén vào .meta của từng chân dung nên máy kia kéo git về cũng tự nhập lại chân dung.
@@ -390,7 +390,7 @@ namespace PokiClash.EditorTools
             var reskin = FindDir();
             if (string.IsNullOrEmpty(reskin) || !Directory.Exists(reskin))
             {
-                Debug.LogError("[Tướng aola] Không tìm thấy thư mục reskin của AolaRipper (menu PokiClash/Tự tìm thư mục aola).");
+                Debug.LogError("[Tướng aola] Không tìm thấy thư mục reskin của AolaRipper (menu PokiClash/Tướng/Tự tìm thư mục aola).");
                 return "không có thư mục reskin";
             }
             MoveIntoResources();

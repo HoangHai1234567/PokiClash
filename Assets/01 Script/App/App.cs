@@ -163,6 +163,9 @@ namespace PokiClash
 
         void Start()
         {
+            // gói tải sau (GD_Claude/27): xin tải trước mọi gói chưa có trên máy, theo thứ tự đảo (fast-follow thường đã tự tải từ lúc cài)
+            if (Data != null)
+                PokiClash.Game.ContentPacks.Prefetch(System.Linq.Enumerable.Select(Data.Zones, z => PokiClash.Core.Keys.Of(z.id)));
             // máy thật: ghi file lưu ở luồng phụ (mỗi lần chạm đều lưu); Editor ghi ngay vì tour ghi đè file lưu rồi Load
             Save = new SaveService(Data) { WriteInBackground = !Application.isEditor };
             Save.Changed += OnSaveChanged;
@@ -281,6 +284,7 @@ namespace PokiClash
 
         void Update()
         {
+            PokiClash.Game.ContentPacks.Tick(); // hàng chờ gói tải sau (GD_Claude/27)
             var kb = Keyboard.current;
             if (kb != null && kb.escapeKey.wasPressedThisFrame) Back();
         }

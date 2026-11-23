@@ -41,7 +41,7 @@ namespace PokiClash.EditorTools
             var src = AolaImport.FindDir();
             if (string.IsNullOrEmpty(src) || !Directory.Exists(src))
             {
-                Debug.LogWarning("[Tướng aola] Không tìm thấy thư mục reskin (menu PokiClash/Tự tìm thư mục aola): bản build không có tướng.");
+                Debug.LogWarning("[Tướng aola] Không tìm thấy thư mục reskin (menu PokiClash/Tướng/Tự tìm thư mục aola): bản build không có tướng.");
                 return;
             }
             var files = Collect(src, out int heroes, out var missing);

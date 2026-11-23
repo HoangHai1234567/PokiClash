@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 470f3e5e4b0fc884ca738dcd561c35df, type: 2}
-  - {fileID: 11400000, guid: 93c942b34b82e7241b72a78a0dc126d1, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - vua_may_1
+  - vua_may_2
+  pack: kim
   SplitFx: 0
   Manual: 0

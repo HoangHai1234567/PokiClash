@@ -65,8 +65,8 @@ namespace PokiClash
             public Image evolveIcon;
         }
 
-        // nút thứ 5 "Mana" (menu "PokiClash/Prefab/Hộp chi tiết tướng: hạt lửa + nút Mana"): clip bắn + chiêu mana bằng hạt;
-        // nút 6, 7, 8 "Ra sân", "Chết", "Đi" (menu "PokiClash/Prefab/Hộp chi tiết tướng: nút Đi, Ra sân, Chết + xếp hàng nút clip"):
+        // nút thứ 5 "Mana" (menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chi tiết tướng: hạt lửa + nút Mana"): clip bắn + chiêu mana bằng hạt;
+        // nút 6, 7, 8 "Ra sân", "Chết", "Đi" (menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chi tiết tướng: nút Đi, Ra sân, Chết + xếp hàng nút clip"):
         // chỉ hiện khi dạng có clip đó. Thứ tự trên hàng theo thứ tự con trong prefab (nút Đi đứng ngay sau nút Đứng)
         static readonly string[] ClipIds =
         {

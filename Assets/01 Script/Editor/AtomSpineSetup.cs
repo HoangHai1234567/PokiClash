@@ -13,7 +13,7 @@ namespace PokiClash.EditorTools
         const string Define = "ATOMSPINE_DISABLE_IMPORTER";
         static readonly NamedBuildTarget[] Targets = { NamedBuildTarget.Standalone, NamedBuildTarget.Android, NamedBuildTarget.iOS };
 
-        [MenuItem("PokiClash/AtomSpine: bật define tắt importer của gói", priority = 300)]
+        [MenuItem("PokiClash/Cài đặt/AtomSpine: bật define tắt importer của gói", priority = 300)]
         public static void AddDefine()
         {
             foreach (var t in Targets)

@@ -4,7 +4,7 @@
 // Chạm thẻ mở hộp chi tiết. Prefab màn hình Assets/04 Prefabs/Screens/Heroes.
 // Làm mới (lên cấp, tiến hóa, đổi đội: mỗi lần lưu gọi Refresh, hộp chi tiết gọi thêm lần nữa) giữ các ô đã dựng và gán lại dữ liệu,
 // chỉ dựng thêm ô khi lưới dài ra: phá đi dựng lại cả lưới mỗi lần bấm làm máy giật (người dùng báo 2026-11-07).
-// Lọc và xếp (người dùng dặn 2026-11-17; hàng "loc_xep" giữa đội hình và lưới, menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc và xếp"):
+// Lọc và xếp (người dùng dặn 2026-11-17; hàng "loc_xep" giữa đội hình và lưới, menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: độ hiếm, lọc và xếp"):
 // - nút tròn Tất cả và 5 hệ (Thủy, Hỏa, Kim, Mộc, Thổ; chạm lại hệ đang chọn là về Tất cả);
 // - nút viên xếp đổi vòng Lực chiến (mặc định) → Độ hiếm → Sao (sao tổng 1..20) → Cấp thẻ (tổng cấp 3 thẻ) → Hệ; trùng thì lực chiến;
 // - nút tròn mũi tên đảo chiều giảm / tăng dần.

@@ -1,5 +1,5 @@
 // Popup gọn (người dùng dặn 2026-11-03: popup ít chữ, nhiều hình; thưởng rõ cái gì, bao nhiêu, độ hiếm; lực chiến từng tướng rõ;
-// màn Tướng có đội hình 3 con ở trên). Menu "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)" dựng (chạy lại thì dựng lại):
+// màn Tướng có đội hình 3 con ở trên). Menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)" dựng (chạy lại thì dựng lại):
 // - Items/OThuong (RewardTile): ô thưởng 150 × 190: khung giấy, dải độ hiếm, hình, góc, số lượng, nhãn, tên;
 // - Items/DoiThu: nay dựng ở menu "Hộp chuẩn bị: ô đối thủ trái phải" (PrepStatsMenu), menu này không đụng;
 // - Dialogs/ChuanBiTran: dòng "luc_chien" sau khung đối thủ (địch / mức khó / đội bạn), gán ô thưởng;
@@ -35,7 +35,7 @@ namespace PokiClash.EditorTools
 
         static Sprite Icon(string n) => art ? art.Icon(n) : null;
 
-        [MenuItem("PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)", priority = 66)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)", priority = 66)]
         static void Build()
         {
             var assets = Load<UiAssets>();
@@ -470,7 +470,7 @@ namespace PokiClash.EditorTools
         }
 
         // vá bảng tên 3 ô đội hình của Screens/Heroes có sẵn (không dựng lại cả khung; giữ khung màu độ hiếm, giấy lót, vương miện)
-        [MenuItem("PokiClash/Prefab/Màn Tướng: bảng tên + lực chiến tách riêng", priority = 67)] // kèm neo phải lực chiến thẻ tướng
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: bảng tên + lực chiến tách riêng", priority = 67)] // kèm neo phải lực chiến thẻ tướng
         static void PatchLineupPlates()
         {
             var assets = Load<UiAssets>();
@@ -557,7 +557,7 @@ namespace PokiClash.EditorTools
             "Assets/04 Prefabs/Kit/ChanDung.prefab", "Assets/04 Prefabs/Kit/KhungMong.prefab", "Assets/04 Prefabs/Kit/Chip.prefab",
         };
 
-        [MenuItem("PokiClash/Prefab/In cây prefab popup (Temp/PopupDump.txt)", priority = 200)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕In cây prefab popup (Temp∕PopupDump.txt)", priority = 200)]
         static void Dump()
         {
             var sb = new StringBuilder();

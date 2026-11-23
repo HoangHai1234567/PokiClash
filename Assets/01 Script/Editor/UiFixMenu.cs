@@ -1,6 +1,6 @@
 // Sửa căn chỉnh sau đợt soát UI tự động 2026-11-23 (người dùng: "kiểm tra tất cả mọi màn / popup / panel... căn chỉnh text / button /
 // UI còn lỗi không, icon nào bị lệch, không căn giữa, bị khuyết mất thì sửa hết"; tour UiFullAudit + UiLint, ảnh Temp/PokiShots/soat).
-// Menu "PokiClash/Prefab/Soát UI 11-23: sửa căn chỉnh prefab" vá thẳng các prefab (chạy lại được, giá trị đặt tuyệt đối):
+// Menu "PokiClash/Prefab/Giao diện chung/Giao diện chung∕Soát UI 11-23: sửa căn chỉnh prefab" vá thẳng các prefab (chạy lại được, giá trị đặt tuyệt đối):
 // 1. sảnh: nhãn thẻ công trình bên phải hai dòng, chữ không dưới 16 ("Đền Huy Hiệu", "Hang Tiềm Năng" một dòng co còn 15 px);
 // 2. Nhà: hàng nút dưới nhấc lên (chữ dưới nút bị cắt ở đáy màn), tấm xây và dòng gợi ý nhấc theo;
 // 3. hộp chọn đội: ô tướng cao thêm, lực chiến nhấc khỏi viền khung độ hiếm (số bị viền dưới cắt);
@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
     {
         const string P = "Assets/04 Prefabs/";
 
-        [MenuItem("PokiClash/Prefab/Soát UI 11-23: sửa căn chỉnh prefab", priority = 160)]
+        [MenuItem("PokiClash/Prefab/Giao diện chung/Giao diện chung∕Soát UI 11-23: sửa căn chỉnh prefab", priority = 160)]
         static void Run()
         {
             int n = 0;

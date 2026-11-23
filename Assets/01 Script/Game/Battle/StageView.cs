@@ -36,7 +36,7 @@ namespace PokiClash
         [SerializeField] RectTransform root, actorLayer, fxLayer, plateLayer;
         [SerializeField] StageActor actorPrefab;
         [SerializeField] StageFx textFx, burstFx, ringFx, sparkFx;
-        [SerializeField] StageFx beamFx; // tia nước của chiêu bắn (Items/TiaNuoc, menu "PokiClash/Prefab/Sàn đấu: tia nước của chiêu bắn")
+        [SerializeField] StageFx beamFx; // tia nước của chiêu bắn (Items/TiaNuoc, menu "PokiClash/Prefab/Khác/Trận∕Sàn đấu: tia nước của chiêu bắn")
         [SerializeField] StageFx imageFx; // ảnh hiệu ứng rời, đổi ảnh lúc dùng (Items/AnhHieuUng, cùng menu)
         [SerializeField] Sprite beamSplash, beamDrops, beamRipple, beamSparkle; // nổ nước, giọt, vòng sóng, lấp lánh (Assets/03 Art/Fx)
         // tia riêng của 3 boss cuối đảo Thủy (người dùng dặn 2026-11-07): ảnh thân tia theo tên (anim.json "cast.tia": tia_bang,

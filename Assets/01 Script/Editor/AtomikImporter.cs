@@ -21,7 +21,9 @@ namespace PokiClash.EditorTools
     // là asset con (chỉ làm hình trong cửa sổ Project; trước đó mỗi dạng mang thêm 64 KB RGBA32 vào bản build).
     // 5 (2026-11-13): atlas thu về trần độ nét AtlasCap.
     // 6 (2026-11-19): đo khung bao hình từng clip (AtomikAsset.fit, MeasureFit) cho AolaSticker nới khung camera.
-    [ScriptedImporter(6, "atomik")]
+    // 7 (2026-11-23, dung lượng build): hình lưới + animation lưu thành khối gọn AtomikPack (~42 MB float thô → ~9 MB), giải lúc nạp.
+    // 8 (2026-11-23): khối gọn bản 2 (góc, tỉ lệ lượng tử mịn hơn; bước lượng tử ghi trong khối).
+    [ScriptedImporter(8, "atomik")]
     public sealed class AtomikImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
@@ -41,10 +43,10 @@ namespace PokiClash.EditorTools
                 json = Encoding.UTF8.GetString(br.ReadBytes(br.ReadInt32()));
                 png = br.ReadBytes(br.ReadInt32());
             }
-            var asset = ScriptableObject.CreateInstance<AtomikAsset>();
-            JsonUtility.FromJsonOverwrite(json, asset);
+            var asset = AtomikAsset.FromJson(json);
             AtomikPose.PackAll(asset);
             asset.fit = MeasureFit(asset);
+            asset.Pack();
             string nm = string.IsNullOrEmpty(asset.rigName) ? Path.GetFileNameWithoutExtension(ctx.assetPath) : asset.rigName;
             asset.name = nm;
             var tex = new Texture2D(2, 2, TextureFormat.RGBA32, false) { name = nm + "_atlas" };
@@ -370,7 +372,7 @@ namespace PokiClash.EditorTools
         const string ScenePath = Dir + "/AtomikMan.unity";
         static readonly Color Paper = new Color(0.98f, 0.965f, 0.925f);
 
-        [MenuItem("PokiClash/Thử/Atomik: dựng scene con mận (idle, nhảy, chém)")]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Atomik: dựng scene con mận (idle, nhảy, chém)")]
         public static void BuildScene()
         {
             var rig = AssetDatabase.LoadAssetAtPath<AtomikAsset>(RigPath);

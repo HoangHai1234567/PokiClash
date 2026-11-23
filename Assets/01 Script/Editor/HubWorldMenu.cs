@@ -20,7 +20,7 @@ namespace PokiClash.EditorTools
         const string ZonePath = "Assets/04 Prefabs/Screens/Zone.prefab";
         const string ArtDir = "Assets/03 Art/Islands/";
         // mây viền: hình mây vẽ tay của đảo vùng đất (đồng bộ với đảo, người dùng dặn 2026-11-18; trước là sk_CloudPuff nướng);
-        // xỉn theo giờ qua DayNight.clouds (menu PokiClash/Sáng tối/Mây sảnh đồng bộ đảo vùng đất gán lại sau khi dựng)
+        // xỉn theo giờ qua DayNight.clouds (menu PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Sáng tối: Mây sảnh đồng bộ đảo vùng đất gán lại sau khi dựng)
         const string CloudPath = "Assets/03 Art/Islands/land_thuy_may_2.png";
         const string AnimJson = ArtDir + "island_anim.json";
         const string AnimItemPath = "Assets/04 Prefabs/Items/HinhDong.prefab";
@@ -29,7 +29,7 @@ namespace PokiClash.EditorTools
         // vùng có đất trong khung (gồm phần lấn ra lề): mây đặt ngoài vùng này
         const float LandL = -160, LandR = 1240, LandT = -70;
 
-        [MenuItem("PokiClash/Prefab/Đảo sảnh: ghép ảnh, kéo, mây viền", priority = 62)]
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo sảnh: ghép ảnh, kéo, mây viền", priority = 62)]
         static void Build()
         {
             foreach (var f in Directory.GetFiles(ArtDir, "*.png", SearchOption.AllDirectories))

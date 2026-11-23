@@ -28,7 +28,7 @@ namespace PokiClash.EditorTools
         static Queue<Action> queue;
         static int wait;
 
-        [MenuItem("PokiClash/Thử/AtomSpine Viewer: mở và chụp", priority = 112)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕AtomSpine Viewer: mở và chụp", priority = 112)]
         static void Run()
         {
             var type = FindType("AtomSpine.Editor.AtomikViewerWindow");
@@ -95,7 +95,7 @@ namespace PokiClash.EditorTools
 
         // Nhấp đúp: đóng mọi Viewer đang mở, gọi AssetDatabase.OpenAsset như khi nhấp đúp trong Project, chụp Viewer (phải là tab
         // cạnh Scene) và cửa sổ Project đang mở thư mục tướng (mỗi dòng .atomik có nút ▶).
-        [MenuItem("PokiClash/Thử/AtomSpine Viewer: thử nhấp đúp + nút trên dòng", priority = 113)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕AtomSpine Viewer: thử nhấp đúp + nút trên dòng", priority = 113)]
         static void RunOpen()
         {
             var type = FindType("AtomSpine.Editor.AtomikViewerWindow");

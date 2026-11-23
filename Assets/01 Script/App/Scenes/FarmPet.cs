@@ -70,13 +70,18 @@ namespace PokiClash
         public Mode State { get; private set; }
         public int Spot { get; private set; } = -1;
         public Vector2 Pos => pos;
-        // đang kéo: chỗ ngón (toạ độ lớp thú) và đã cầm bao lâu (cảnh chủ cho bản đồ trôi khi ngón tới mép)
-        public Vector2 Finger => pos - dragOffset;
-        public float DragTime { get; private set; }
+        // kéo trên con không kéo được (đang làm, nghỉ, đi tới chỗ làm) thì chuyển cú kéo cho bản đồ: Trang trại bật; màn Nhà tắt để chạm, giữ
+        // tướng không bao giờ dời máy (người dùng 2026-11-23), thả tay vẫn là chạm (mở bảng công trình)
+        public bool PassPan = true;
 
         IFarmPetHost scene;
         UnityEngine.Object sceneObj; // để biết cảnh chủ đã huỷ chưa (interface không so được với null của Unity)
-        PointerEventData dragEvent; // ngón đang kéo: mỗi khung đặt lại theo ngón (bản đồ có thể tự trôi khi kéo tới mép)
+        PointerEventData dragEvent; // ngón đang kéo: mỗi khung đặt lại theo ngón (ngón thứ hai có thể kéo bản đồ trong lúc cầm)
+        // camera của cú chạm, lưu lúc bắt đầu kéo: ngoài hàm sự kiện, dragEvent.pressEventCamera có thể là null. InputSystemUIInputModule
+        // dùng chung một PointerEventData cho chuột trái / phải / giữa: khung nào ngón di chuyển, xử lý xong nút giữa thì trạng thái nhấn
+        // trong đó là của nút giữa (không có raycast). Update tính chỗ ngón bằng camera null thì sai toạ độ, tướng văng khỏi màn
+        // (người dùng 2026-11-23: "hold tướng rồi drag đi thì hình tướng bị mất")
+        Camera dragCam;
         string kind;
         Vector2 pos, walkTo, dragOffset;
         Mode after; // trạng thái khi đi tới nơi
@@ -258,6 +263,7 @@ namespace PokiClash
         {
             if (!CanDrag)
             {
+                if (!PassPan) return; // màn Nhà: nuốt cú kéo, thả tay trên tướng vẫn là chạm
                 // không kéo được thì chuyển cú kéo cho bản đồ (HubPan ở cha)
                 var pan = ExecuteEvents.GetEventHandler<IBeginDragHandler>(transform.parent.gameObject);
                 e.pointerDrag = pan;
@@ -265,9 +271,9 @@ namespace PokiClash
                 return;
             }
             State = Mode.Drag;
-            DragTime = 0;
             hopT = -1;
             dragEvent = e;
+            dragCam = e.pressEventCamera; // trong hàm sự kiện: đúng camera của nút trái
             p.tag.gameObject.SetActive(false);
             dragOffset = pos - Local(e);
             Kick(-0.18f);
@@ -305,7 +311,7 @@ namespace PokiClash
 
         Vector2 Local(PointerEventData e)
         {
-            RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform.parent, e.position, e.pressEventCamera, out var lp);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle((RectTransform)transform.parent, e.position, dragCam, out var lp);
             return lp;
         }
 
@@ -361,7 +367,6 @@ namespace PokiClash
                     Hop(dt);
                     break;
                 case Mode.Drag:
-                    DragTime += dt;
                     if (dragEvent != null) FollowFinger(dragEvent);
                     extraLift = 26 + Mathf.Sin(t * 14) * 4;
                     rot = Mathf.Sin(t * 9) * 7;

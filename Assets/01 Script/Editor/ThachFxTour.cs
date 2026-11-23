@@ -8,10 +8,10 @@ namespace PokiClash.EditorTools
 {
     public static class ThachFxTour
     {
-        [MenuItem("PokiClash/Thử/Đảo Thổ: riêng Thiên Thạch Thú (sao 1, dạng 1 Non), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Thiên Thạch Thú (sao 1, dạng 1 Non), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryThienThach() => ThoFxTour.Try("cu_phu", 1);
 
-        [MenuItem("PokiClash/Thử/Đảo Thổ: riêng Thiên Thạch Thú (sao 6, dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thổ∕riêng Thiên Thạch Thú (sao 6, dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 125)]
         static void TryThienThach6() => ThoFxTour.Try("cu_phu", 6);
     }
 }

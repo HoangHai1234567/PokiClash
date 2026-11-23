@@ -135,6 +135,11 @@ namespace PokiClash.Tests
                             Assert.AreEqual(RewardKind.EvoStones, g.k, at);
                             Assert.AreEqual((double)w[1], g.n, at);
                             break;
+                        case "egg": // trứng capsule vào túi (2026-11-23)
+                            Assert.AreEqual(RewardKind.Egg, g.k, at);
+                            Assert.AreEqual((string)w[1], g.id, at);
+                            Assert.AreEqual((double)w[2], g.n, at);
+                            break;
                         default:
                             Assert.Fail(at + ": loại thưởng lạ " + w[0]);
                             break;
@@ -145,6 +150,28 @@ namespace PokiClash.Tests
             Assert.AreEqual(J.Int(save, "level"), s.level);
             Assert.AreEqual(J.Int(save, "exp"), s.exp);
             Assert.AreEqual(J.Int(save, "balls"), s.balls);
+        }
+
+        // trứng capsule (2026-11-23): rương bạc rơi Trứng Thường, rương vàng rơi Trứng Khá (thay dòng mảnh), rương gỗ không; trứng vào túi
+        [Test]
+        public void RuongBacVang_RoiTrung_VaoTui()
+        {
+            var d = TestData.Load();
+            var r = new Rng(9);
+            var s = SaveData.New(d, 0);
+            s.zones[(int)Elem.Thuy] = Islands.Size(Elem.Thuy);
+            int[] got = new int[Eggs.Tiers];
+            foreach (var kind in new[] { SlotKind.ChestWood, SlotKind.ChestSilver, SlotKind.ChestGold })
+                for (int i = 0; i < 3000; i++)
+                    foreach (var w in Pachinko.OpenChest(s, d, kind, 1, r))
+                        if (w.k == RewardKind.Egg)
+                        {
+                            Assert.AreNotEqual(SlotKind.ChestWood, kind, "rương gỗ không có trứng");
+                            got[Eggs.TierOf(w.id)] += w.n;
+                        }
+            Assert.Greater(got[0], 0, "rương bạc có Trứng Thường");
+            Assert.Greater(got[1], 0, "rương vàng có Trứng Khá");
+            for (int t = 0; t < Eggs.Tiers; t++) Assert.AreEqual(got[t], s.shop?.Item(Eggs.Key(t)) ?? 0, "trứng vào túi bậc " + t);
         }
 
         // đá tiến hóa (2026-11-17): rương bạc ít, rương vàng nhiều hơn, rương gỗ không có; đá cộng vào bản lưu; mảnh của tướng đã có
@@ -337,7 +364,7 @@ namespace PokiClash.Tests
             var path = System.IO.Path.Combine(TestData.DataDir, "..", "..", "ArtGen", "Pachinko", "refs", "mat_may.json");
             Assert.IsTrue(System.IO.File.Exists(path), "thiếu " + path);
             string want = new Board(1).GeometryJson().Replace("\r\n", "\n"), got = System.IO.File.ReadAllText(path).Replace("\r\n", "\n");
-            Assert.AreEqual(want, got, "đổi bàn thì chạy menu \"PokiClash/Prefab/Máy bi: xuất hình học mặt máy\" rồi ghep_ban.py");
+            Assert.AreEqual(want, got, "đổi bàn thì chạy menu \"PokiClash/Prefab/Khác/Máy bi∕xuất hình học mặt máy\" rồi ghep_ban.py");
         }
 
         [Test]

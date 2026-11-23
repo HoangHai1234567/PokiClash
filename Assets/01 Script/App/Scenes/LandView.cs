@@ -98,6 +98,9 @@ namespace PokiClash
         // điểm khung → điểm bản đồ
         Vector2 ToMap(Vector2 v, float z, Vector2 p) => new Vector2((v.x - p.x) / z, (v.y + p.y) / z);
 
+        // điểm khung → điểm bản đồ theo chỗ máy hiện tại (màn Nhà: thả bướm, ong, chim trong khung nhìn)
+        public Vector2 ViewToMap(Vector2 v) => ToMap(v, zoom, pos);
+
         // chỗ lớp nội dung để điểm m nằm giữa phần khung không bị che
         Vector2 PosFor(Vector2 m, float z)
         {
@@ -156,16 +159,6 @@ namespace PokiClash
             tween = false;
             vel = Vector2.zero;
             pos = Clamp(pos + (Vector2)View.InverseTransformVector(d), zoom);
-            Apply();
-        }
-
-        // dời bản đồ d px khung (y xuống), giữ trong mép: màn Nhà kéo quái tới mép khung thì bản đồ tự trôi theo
-        public void Nudge(Vector2 d)
-        {
-            if (!On || d == Vector2.zero) return;
-            tween = false;
-            vel = Vector2.zero;
-            pos = Clamp(new Vector2(pos.x + d.x, pos.y - d.y), zoom);
             Apply();
         }
 

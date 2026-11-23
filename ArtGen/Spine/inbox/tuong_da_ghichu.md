@@ -192,7 +192,7 @@ Sau khi phiên tinh linh đổi mam_u xong ([7], saveVersion 8), tới lượt G
 - **Lỗi đã gặp**: hai tảng tay chỉ bay nửa đường. StageView chỉ đặt đích bay (AolaSticker.Far) cho clip Attack và Skill; thêm
    (AolaSticker.Far tự bỏ qua clip không khai far; lúc sửa chỉ gac_da_1, gac_da_2 khai cast trong game.far).
 - Lần chạy đầu cầu nhỏ (0,19 chiều cao) và lá thưa: tăng cầu 0,25, lá 70 / giây cỡ 6–10,5, sợi gió dài hơn.
-- Soi: menu "PokiClash/Thử/Đảo Mộc: đá và cầu năng lượng Gạc Đá, chiêu mana và chiêu cuối từng dạng (đang Play)" (MocFxTour.TryDa),
+- Soi: menu "PokiClash/Thử/Khác/Tướng∕Đảo Mộc∕đá và cầu năng lượng Gạc Đá, chiêu mana và chiêu cuối từng dạng (đang Play)" (MocFxTour.TryDa),
   ảnh Temp/PokiShots/thuy_fx/gac_da_*; tờ cắt cận inbox/tuong_da_2/trong_tran.jpg. Đã xem: tên Gạc Đá, thẻ Quyền Đá Bay / Cầu Tim Rừng,
   tảng tay tới đúng đối thủ, cầu tụ – ném – nổ. CHƯA xem: appear, die, evolve, hộp chi tiết tướng trong game; sợi gió còn hơi thô.
 
@@ -218,7 +218,7 @@ Sau khi phiên tinh linh đổi mam_u xong ([7], saveVersion 8), tới lượt G
 - **Lỗi đã gặp**: hai tảng tay chỉ bay nửa đường. StageView chỉ đặt đích bay (`AolaSticker.Far`) cho clip Attack và Skill; thêm
   `|| a.clip == Cast` (`AolaSticker.Far` tự bỏ qua clip không khai far; lúc sửa chỉ gac_da_1, gac_da_2 khai cast trong `game.far`).
 - Lần chạy đầu cầu nhỏ (0,19 chiều cao) và lá thưa: tăng cầu 0,25, lá 70 / giây cỡ 6–10,5, sợi gió dài hơn.
-- Soi: menu "PokiClash/Thử/Đảo Mộc: đá và cầu năng lượng Gạc Đá, chiêu mana và chiêu cuối từng dạng (đang Play)" (`MocFxTour.TryDa`),
+- Soi: menu "PokiClash/Thử/Khác/Tướng∕Đảo Mộc∕đá và cầu năng lượng Gạc Đá, chiêu mana và chiêu cuối từng dạng (đang Play)" (`MocFxTour.TryDa`),
   ảnh `Temp/PokiShots/thuy_fx/gac_da_*`; tờ cắt cận `inbox/tuong_da_2/trong_tran.jpg`. Đã xem: tên Gạc Đá, thẻ Quyền Đá Bay / Cầu Tim
   Rừng, tảng tay tới đúng đối thủ, cầu tụ – ném – nổ. CHƯA xem trong game: appear, die, evolve, hộp chi tiết tướng; sợi gió còn hơi thô.
 

@@ -299,6 +299,36 @@ namespace PokiClash.Tests
             Assert.IsNull(Home.ClaimBeauty(s, d), "mỗi mốc nhận một lần");
         }
 
+        // Cây bi mở cùng Nhà, người chơi mới tự đặt từ khay (2026-11-23); cây sau cũng không tự đặt
+        [Test]
+        public void CayBi_NguoiChoiMoiTuDat_MienPhi()
+        {
+            var d = TestData.Load();
+            var s = SaveData.New(d, 0, null); // người chơi mới thật: có cờ hướng dẫn, không phải bản lưu cũ
+            s.ChooseStarter(TestData.OldStarter);
+            foreach (var id in new[] { "cao_da", "tien_la", "so_ngoc" })
+                if (s.Hero(id) != null) s.Hero(id).owned = true;
+            s.zones[0] = 1;
+            var h = Home.Of(s, d, 0);
+            Assert.AreEqual(0, Home.CountOf(h, "tree"), "người chơi mới: cây chưa đặt sẵn");
+            Assert.AreEqual(1, Home.TreesWaiting(s, d), "cây chờ trong khay");
+            Assert.IsTrue(Home.Alert(s, d, 0), "nút Nhà báo có cây chờ đặt");
+            Assert.AreEqual(HomeErr.Ok, Home.CanBuild(s, d, "tree"));
+            var spot = Home.FindSpot(s, d, "tree").Value;
+            double wood = h.wood, ore = h.ore;
+            Assert.AreEqual(HomeErr.Ok, Home.Build(s, d, 0, "tree", spot.gx, spot.gy));
+            Assert.AreEqual(0, B(s, "tree").tree);
+            Assert.AreEqual(0, B(s, "tree").job, "đặt xong ngay");
+            Assert.AreEqual(wood, h.wood, "không tốn gỗ");
+            Assert.AreEqual(ore, h.ore, "không tốn quặng");
+            Assert.AreEqual(0, Home.TreesWaiting(s, d));
+            Assert.AreEqual(HomeErr.NotFound, Home.CanBuild(s, d, "tree"), "hết cây chờ thì không đặt thêm");
+            s.level = d.Cfg.trees.unlockLevels[0];
+            Home.Tick(s, d, 1000);
+            Assert.AreEqual(1, Home.CountOf(h, "tree"), "cây 2 không tự đặt");
+            Assert.AreEqual(1, Home.TreesWaiting(s, d), "cây 2 chờ trong khay");
+        }
+
         [Test]
         public void GopTrangTraiCu_VaCayBi()
         {

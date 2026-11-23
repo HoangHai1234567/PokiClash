@@ -35,8 +35,9 @@ namespace PokiClash.Core
     public class ChestRoll
     {
         public double w;
-        public string k;
+        public string k; // balls, exp, cards, stones, evo, shards, egg (trứng capsule bậc tier vào túi, 2026-11-23)
         public int min, max;
+        public int tier; // egg: bậc trứng 0..4
         public List<RarityWeight> rar = new List<RarityWeight>();
     }
 
@@ -317,6 +318,7 @@ namespace PokiClash.Core
         public AdsConfig ads = new AdsConfig();
         public TreesConfig trees = new TreesConfig();
         public HomeConfig home = new HomeConfig(); // Nhà (2026-11-18, HomeConfig.cs)
+        public ShopConfig shop = new ShopConfig(); // cửa hàng, ưu đãi (2026-11-23, ShopConfig.cs)
 
         public SimTeam SimTeamOf(Elem z) => simTeams.Find(t => t.zone == z);
 
@@ -616,6 +618,7 @@ namespace PokiClash.Core
                     chest = new ChestTable { kind = "chest_afk", rolls = Rolls(J.Arr(af, "chest")) },
                 };
             c.home = HomeConfig.Parse(J.Obj(root, "home"), Rolls);
+            c.shop = ShopConfig.FromJson(J.Obj(root, "shop"));
             return c;
         }
 
@@ -625,7 +628,7 @@ namespace PokiClash.Core
             foreach (var x in rows)
             {
                 var ro = J.Obj(x);
-                var roll = new ChestRoll { w = J.Num(ro, "w"), k = J.Str(ro, "k"), min = J.Int(ro, "min"), max = J.Int(ro, "max") };
+                var roll = new ChestRoll { w = J.Num(ro, "w"), k = J.Str(ro, "k"), min = J.Int(ro, "min"), max = J.Int(ro, "max"), tier = J.Int(ro, "tier") };
                 var rar = J.Obj(ro, "rar");
                 if (rar != null)
                     foreach (var rv in rar) roll.rar.Add(new RarityWeight { rarity = Keys.ToRarity(rv.Key), w = (double)rv.Value });

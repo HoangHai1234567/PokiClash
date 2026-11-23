@@ -22,6 +22,7 @@ namespace PokiClash.EditorTools
         [MenuItem("PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng", priority = 57)]
         public static string Attach()
         {
+            ContentPackSetup.RestoreHeroes(); // dạng về Resources như cũ; cuối hàm gán gói lại (GD_Claude/27)
             var data = (Dictionary<string, object>)MiniJson.Parse(File.ReadAllText(HeroesJson));
             var heroes = new List<object>((List<object>)data["heroes"]);
             // lính (minions) dạng .atomik cũng có prefab Assets/04 Prefabs/Heroes/<id>.prefab (quái lính 5 đảo, 2026-11-20)
@@ -96,6 +97,7 @@ namespace PokiClash.EditorTools
                 EditorUtility.SetDirty(lib);
             }
             AssetDatabase.SaveAssets();
+            ContentPackSetup.ApplyHeroes();
             var msg = "[Atomik] " + (log.Count == 0 ? "không có dạng .atomik nào trong heroes.json" : string.Join("\n", log));
             Debug.Log(msg);
             return msg;

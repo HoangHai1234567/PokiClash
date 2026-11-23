@@ -7,7 +7,12 @@
         "Unity.TextMeshPro",
         "Unity.TextMeshPro.Editor",
         "UnityEngine.UI",
-        "AtomSpine.Runtime"
+        "AtomSpine.Runtime",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "Unity.Addressables.Editor",
+        "Unity.Addressables.Android",
+        "Unity.Addressables.Android.Editor"
     ],
     "includePlatforms": [
         "Editor"

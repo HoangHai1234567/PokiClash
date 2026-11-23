@@ -77,6 +77,12 @@ namespace PokiClash.EditorTools
             string path = kind == Kind.AndroidTest ? Path.Combine(OutDir, name + ".apk")
                 : kind == Kind.AndroidRelease ? Path.Combine(OutDir, name + ".aab")
                 : Path.Combine(OutDir, "iOS_" + name);
+            // hai bản build trong cùng một giờ: thêm _2, _3 thay vì ghi đè bản trước (2026-11-23)
+            for (int i = 2; File.Exists(path) || Directory.Exists(path); i++)
+            {
+                string ext = Path.GetExtension(path), stem = kind == Kind.IOS ? "iOS_" + name : name;
+                path = Path.Combine(OutDir, $"{stem}_{i}{(kind == Kind.IOS ? "" : ext)}");
+            }
             Directory.CreateDirectory(OutDir);
             var opts = new BuildPlayerOptions
             {
@@ -143,6 +149,9 @@ namespace PokiClash.EditorTools
                 bool aab = kind == Kind.AndroidRelease;
                 Set(() => EditorUserBuildSettings.buildAppBundle, v => EditorUserBuildSettings.buildAppBundle = v, aab);
                 if (aab) Set(() => PlayerSettings.Android.minifyRelease, v => PlayerSettings.Android.minifyRelease = v, true);
+                // Gói tải sau (GD_Claude/27): AAB bật Split Application Binary thì Addressables for Android tách 5 nhóm noi_dung_<hệ> thành
+                // asset pack fast-follow; APK thử phải tắt (bật trên APK sinh file OBB), khi đó gói nằm sẵn trong APK (bản đủ).
+                Set(() => PlayerSettings.Android.splitApplicationBinary, v => PlayerSettings.Android.splitApplicationBinary = v, aab);
             }
             // build ghi ProjectSettings xuống đĩa lúc đang mang giá trị tạm: trả xong thì ghi lại ngay
             return () =>

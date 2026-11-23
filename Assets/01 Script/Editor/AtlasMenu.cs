@@ -1,7 +1,7 @@
 // Gộp lệnh vẽ (batches) bằng Sprite Atlas (người dùng 2026-11-18: "tris nhiều quá, batches cũng nhiều so với game 2D", "làm nốt tối
 // ưu batches đi"). Đo trên màn đảo vùng đất: hình lẻ mỗi thứ một texture xen kẽ nhau làm vỡ lệnh vẽ (cờ ải 8 hình: ô đá, cán, 6 khung
 // vải; hiệu ứng đảo anim_*; mây, chim, thuyền; easter egg, rương, bút chì).
-// - "PokiClash/Tối ưu/Sprite Atlas đảo (dựng lại)": bật Sprite Atlas V2 cho project (EditorSettings), dựng
+// - "PokiClash/Build/Sprite Atlas đảo (dựng lại)": bật Sprite Atlas V2 cho project (EditorSettings), dựng
 //   Assets/03 Art/Islands/dao_hinh_roi.spriteatlasv2 gồm thư mục Islands/Co, Islands/Anim, rương
 //   Pachinko/pk_ruong_go, icon bảng tên bệ (khoá, dấu qua, vương miện, boss; cả 75 icon thì cần texture 4096, không gom); không xoay, không gói sát (Image vẽ cả khung chữ nhật của hình), lề 4, không mipmap, 2048, điện thoại ASTC 6x6;
 //   mỗi đảo vùng đất một atlas riêng dao_hinh_roi_<đảo>.spriteatlasv2 cho mây, chim, thuyền cắt từ ảnh nền (land_<đảo>_may_*, chim_*,
@@ -61,7 +61,7 @@ namespace PokiClash.EditorTools
             return n.Contains("_may_") || n.Contains("_chim_") || n.EndsWith("_thuyen");
         }
 
-        [MenuItem("PokiClash/Tối ưu/Sprite Atlas đảo (dựng lại)", priority = 200)]
+        [MenuItem("PokiClash/Build/Sprite Atlas đảo (dựng lại)", priority = 200)]
         static void Build()
         {
             if (EditorSettings.spritePackerMode != SpritePackerMode.SpriteAtlasV2)
@@ -167,7 +167,8 @@ namespace PokiClash.EditorTools
         }
 
         // dựng lại một atlas (xoá bản cũ), trả đường dẫn; gói sau
-        static string Pack(string path, List<Object> objs, int padding = 4, bool dilate = false)
+        // includeInBuild = false: atlas nằm trong gói tải sau (GD_Claude/27, ContentPackSetup.ApplyHat), Addressables giữ
+        internal static string Pack(string path, List<Object> objs, int padding = 4, bool dilate = false, bool includeInBuild = true)
         {
             if (AssetDatabase.LoadMainAssetAtPath(path)) AssetDatabase.DeleteAsset(path);
             var atlas = new SpriteAtlasAsset();
@@ -180,7 +181,7 @@ namespace PokiClash.EditorTools
                 Debug.LogError("[Atlas] Không đọc được importer của " + path);
                 return null;
             }
-            imp.includeInBuild = true;
+            imp.includeInBuild = includeInBuild;
             imp.packingSettings = new SpriteAtlasPackingSettings
             {
                 enableRotation = false, // UI không vẽ hình xoay trong atlas

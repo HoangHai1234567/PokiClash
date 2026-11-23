@@ -20,7 +20,13 @@ namespace PokiClash.Game
         // vẫn giữ res cho chân dung. Gắn bằng menu PokiClash/Tướng/Gắn dạng .atomik vào prefab tướng (Editor/AtomikForms).
         public AtomikAsset atomik;
 
-        public Texture2D LoadAtlas() => string.IsNullOrEmpty(res) ? null : Resources.Load<Texture2D>(res + "_atlas");
+        // dạng trong gói tải sau (GD_Claude/27): atlas là asset của gói ("<dạng>_atlas"), không còn trong Resources
+        public Texture2D LoadAtlas()
+        {
+            if (string.IsNullOrEmpty(res)) return null;
+            var t = ContentPacks.Get<Texture2D>(System.IO.Path.GetFileName(res) + "_atlas");
+            return t ? t : Resources.Load<Texture2D>(res + "_atlas");
+        }
 
         // khung 4:5 như HeroArt, gốc ở chân
         public Sprite LoadPortrait() => string.IsNullOrEmpty(res) ? null : Resources.Load<Sprite>(res + "_portrait");

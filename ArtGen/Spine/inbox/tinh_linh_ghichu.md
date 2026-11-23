@@ -213,7 +213,7 @@ thay rig. Chép tay (KHÔNG chạy `quai/vao_game.py` trên máy này: nó chép
   attack 14, cast 14, skill 22 (25 khung/giây); attack và skill có lao, cast đứng yên; dạng 1, 2 có `evolve`.
 - **Bộ hạt Mộc đầu tiên trong game** (đảo Mộc chưa có bộ hạt nên trước đó chiêu mana bắn tia cũ):
   - Ảnh hạt lá: `ArtGen/Spine/la.py` → `Assets/03 Art/Fx/Hat/hat_leaf_<0..3>.png` (xám có gân, nhuộm), `hat_leafs_<i>.png` (trắng đặc làm
-    mực). Chạy lại hai menu `PokiClash/Prefab/Sàn đấu: hạt lửa (bộ Hỏa)` và `…Hộp chi tiết tướng: hạt lửa + nút Mana` (134 ảnh).
+    mực). Chạy lại hai menu `PokiClash/Prefab/Khác/Trận∕Sàn đấu: hạt lửa (bộ Hỏa)` và `…Hộp chi tiết tướng: hạt lửa + nút Mana` (134 ảnh).
   - `Assets/01 Script/Game/Battle/HatMoc.cs` (phần `partial` của `HatLua`): `Leaf` / `DrawLeaf` (lá xoay, lật nghiêng), `NLa` = **phun lá**
     (lúc hít lá nhỏ bị hút vào mồm; từ khung nhả 72 lá/giây bắn tới thân đối thủ trong 0,9 s, mỗi lá tự lái về một điểm trong thân,
     lượn; chạm thì vỡ mẩu lá + phấn; hết luồng nổ chùm lá), `NLaVa` = **cú húc bụng** (lá vỡ tung, sao vàng văng, bụi dưới chân).

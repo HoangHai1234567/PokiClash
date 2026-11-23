@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: fabf6a07c7c1f2a489f24711b0068602, type: 2}
+  - {fileID: 0}
+  formKeys:
+  - quai_bun_1
+  pack: tho
   SplitFx: 0
   Manual: 0

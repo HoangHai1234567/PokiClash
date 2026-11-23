@@ -1,5 +1,5 @@
 // Dung lượng build (người dùng 2026-11-03: bản Android phải khoảng 60-70 MB, ảnh gen xong là tối ưu luôn):
-// menu "PokiClash/Dung lượng: ảnh nặng trong build" liệt kê ảnh trong Assets/03 Art theo cỡ lưu thật ở nền đang chọn (định dạng
+// menu "PokiClash/Build/Dung lượng: ảnh nặng trong build" liệt kê ảnh trong Assets/03 Art theo cỡ lưu thật ở nền đang chọn (định dạng
 // đã nhập, cả mipmap), cộng theo thư mục, đánh dấu ảnh không nén; ghi Temp/PokiShots/dung_luong.txt.
 using System.Collections.Generic;
 using System.IO;
@@ -23,10 +23,16 @@ namespace PokiClash.EditorTools
         // báo cáo dung lượng (BuildSizeReport, Build/BaoCao). Các cài đặt khác giữ theo cửa sổ Build Profiles.
         static void Build(BuildPlayerOptions o)
         {
-            if (o.target == BuildTarget.Android || o.target == BuildTarget.iOS) o.options |= BuildOptions.CompressWithLz4HC;
+            // Build Profiles của Unity 6 tự gắn cờ CompressWithLz4 (nén "Default"); có cả hai cờ thì Unity nén LZ4 thường: bản 0.5.1
+            // (2026-11-23) nén LZ4, cùng ảnh mà gói dữ liệu to hơn bản LZ4HC ~7 MB. Gỡ cờ LZ4 trước khi thêm LZ4HC.
+            if (o.target == BuildTarget.Android || o.target == BuildTarget.iOS)
+                o.options = (o.options & ~BuildOptions.CompressWithLz4) | BuildOptions.CompressWithLz4HC;
             BuildCodeSize.Apply();
             // bản thử không cần logo Unity lúc mở (Unity 6 Personal cho tắt; ProjectSettings cũng đã tắt, phòng bản cũ ghi đè)
             if (PlayerSettings.SplashScreen.show) PlayerSettings.SplashScreen.show = false;
+            // màn chờ tắt mà còn bật "logo Unity" thì ảnh logo (1,2 MB trước nén) vẫn vào gói: tắt trong lúc build rồi trả lại như PokiBuild
+            bool logo = PlayerSettings.SplashScreen.showUnityLogo;
+            if (logo && !PlayerSettings.SplashScreen.show) PlayerSettings.SplashScreen.showUnityLogo = false;
             o.scenes = PokiBuild.Scenes(o.scenes);
             List<BuildExclude.Item> excluded = null;
             try
@@ -37,6 +43,11 @@ namespace PokiClash.EditorTools
             }
             finally
             {
+                if (PlayerSettings.SplashScreen.showUnityLogo != logo)
+                {
+                    PlayerSettings.SplashScreen.showUnityLogo = logo;
+                    AssetDatabase.SaveAssets();
+                }
                 BuildExclude.Restore();
                 try { FontBuildRestore.Restore(); }
                 catch (IOException e) { Debug.LogWarning("[Build] Chép lại phông: " + e.Message); }
@@ -147,7 +158,7 @@ namespace PokiClash.EditorTools
 
     public static class BuildSizeMenu
     {
-        [MenuItem("PokiClash/Dung lượng: ảnh nặng trong build", priority = 90)]
+        [MenuItem("PokiClash/Build/Dung lượng: ảnh nặng trong build", priority = 90)]
         static void Report()
         {
             var util = typeof(Editor).Assembly.GetType("UnityEditor.TextureUtil");

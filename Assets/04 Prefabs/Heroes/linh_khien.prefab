@@ -45,5 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 5bdea682205d80e4da7c27d952115612, type: 2}
+  - {fileID: 0}
+  formKeys:
+  - goc_1061
+  pack: kim
+  SplitFx: 0
   Manual: 0

@@ -362,6 +362,15 @@ namespace PokiClash.EditorTools
                 // ảnh trong Resources (mặt tướng, nền màn VS: ArtGen/BattleIntro) nạp khi cần, không vào danh mục
                 if (!sprite || path.StartsWith(BakedDir + "/") || path.StartsWith(AolaImport.ArtDir + "/") || path.Contains("/Resources/")) continue;
                 var e = new ArtLibrary.Entry { name = Path.GetFileNameWithoutExtension(path), sprite = sprite };
+                // ảnh đảo, nền trận của gói tải sau (GD_Claude/27): danh mục không trỏ thẳng (bản cài không mang), Addressables giữ
+                string pack = path.Contains("/Fallback/") ? null : ContentPackSetup.ArtPack(path);
+                if (pack != null)
+                {
+                    e.sprite = null;
+                    e.pack = pack;
+                    ContentPackSetup.Mark(path, pack, e.name);
+                }
+                else ContentPackSetup.Unmark(path);
                 if (path.Contains("/Fallback/Icons/")) lib.icons.Add(e);
                 else if (path.Contains("/Fallback/")) lib.fallback.Add(e);
                 else if (!path.Contains("/Fonts/")) lib.art.Add(e);

@@ -32,6 +32,8 @@ MonoBehaviour:
   badge: {fileID: 3220491444615095796, guid: 4673794ce5edf0f4dba4f8ff99dbe5e8, type: 3}
   chest: {fileID: 5779641360657747468, guid: a08f9c1462c633a4888f8dec3c28e948, type: 3}
   burst: {fileID: 2830136966903211876, guid: 2df2cfbe8f3f65e4e9af6aaf21f83e0f, type: 3}
+  eggHatch: {fileID: 2095602879894478714, guid: c378cc441e626414ba6bbf108f4c69c7, type: 3}
+  heroUnlock: {fileID: 9002587633221293271, guid: 24e0c8a63068de246b5ade93b111b610, type: 3}
   canvas: {fileID: 3549858131936861955, guid: 21f593f94a0558045b08fa8e061be0ca, type: 3}
   dialogs:
   - {fileID: 2391382701405292984, guid: 5eb8445e393ae9346b4024b69ee79b43, type: 3}
@@ -47,3 +49,5 @@ MonoBehaviour:
   - {fileID: 8661844558714425364, guid: e7a25fc26a9ee0e4c82407f6431cda43, type: 3}
   - {fileID: 4181431317046723881, guid: 1041e02df52ea5b44819d204d78dc81e, type: 3}
   - {fileID: 5182632433543279384, guid: 2664b48b52e3c1c45806ce037ab59ab7, type: 3}
+  - {fileID: 6999458027183441633, guid: 9de39e3136d148042975f39f2a0ca0f5, type: 3}
+  - {fileID: 2249368400363652203, guid: b5401cefe4bcaca41be03df8a705ad04, type: 3}

@@ -37,16 +37,16 @@ namespace PokiClash.EditorTools
             new Sample { path = "Assets/03 Art/BattleBG/battle_hoa_c01.png", variants = new[] { V("ASTC 8x8", TextureFormat.ASTC_8x8) } },
             new Sample { path = "Assets/03 Art/Home/home_base.png", variants = new[] { V("ASTC 8x8", TextureFormat.ASTC_8x8) } },
             new Sample { path = "Assets/03 Art/Baked/Islands/land_thuy_dist.png", variants = new[] { V("EAC RG", TextureFormat.EAC_RG) } },
-            new Sample
-            {
-                path = "Assets/03 Art/Fx/Hat/hat_arc_0.png",
-                variants = new[] { V("ASTC 8x8", TextureFormat.ASTC_8x8), V("ASTC 6x6 cạnh 256", TextureFormat.ASTC_6x6, 256) },
-            },
+            // khung hiệu ứng vẽ sẵn (atlas hat.spriteatlasv2 đang nén ASTC 6x6): cột trái là ảnh gốc chưa nén, rồi 6x6 như bản build, 8x8
+            new Sample { path = "Assets/03 Art/Fx/Hat/hat_fb_no_10.png", variants = new[] { V("ASTC 6x6 (đang)", TextureFormat.ASTC_6x6), V("ASTC 8x8", TextureFormat.ASTC_8x8) } },
+            new Sample { path = "Assets/03 Art/Fx/Hat/hat_fb_khoi_10.png", variants = new[] { V("ASTC 6x6 (đang)", TextureFormat.ASTC_6x6), V("ASTC 8x8", TextureFormat.ASTC_8x8) } },
+            new Sample { path = "Assets/03 Art/Fx/Hat/hat_fb_trung_lua_10.png", variants = new[] { V("ASTC 6x6 (đang)", TextureFormat.ASTC_6x6), V("ASTC 8x8", TextureFormat.ASTC_8x8) } },
+            new Sample { path = "Assets/03 Art/Fx/Hat/hat_fb_loc_nuoc_bao_10.png", variants = new[] { V("ASTC 6x6 (đang)", TextureFormat.ASTC_6x6), V("ASTC 8x8", TextureFormat.ASTC_8x8) } },
         };
 
         static string OutDir => Path.Combine(PlayTour.ShotDir, "nen_thu");
 
-        [MenuItem("PokiClash/Dung lượng: nén thử nền to + hạt (ảnh so, không đổi gì)", priority = 91)]
+        [MenuItem("PokiClash/Build/Dung lượng: nén thử nền to + hạt (ảnh so, không đổi gì)", priority = 91)]
         static void Run()
         {
             Directory.CreateDirectory(OutDir);
@@ -66,10 +66,8 @@ namespace PokiClash.EditorTools
                 TextureFormat.ASTC_8x8, 0);
             Estimate(sb, "Ảnh khoảng cách _dist (Baked/Islands) RG16 → EAC RG",
                 p => p.StartsWith("Assets/03 Art/Baked/Islands/") && p.EndsWith("_dist.png"), t => t.format == TextureFormat.RG16, TextureFormat.EAC_RG, 0);
-            Estimate(sb, "Hạt hiệu ứng Fx/Hat → ASTC 8x8", p => p.StartsWith("Assets/03 Art/Fx/Hat/"), t => t.format == TextureFormat.ASTC_6x6,
-                TextureFormat.ASTC_8x8, 0);
-            Estimate(sb, "Hạt hiệu ứng Fx/Hat → ASTC 6x6, cạnh tối đa 256", p => p.StartsWith("Assets/03 Art/Fx/Hat/"),
-                t => t.format == TextureFormat.ASTC_6x6 && Mathf.Max(t.width, t.height) > 256, TextureFormat.ASTC_6x6, 256);
+            // ảnh hạt nằm trong atlas (Estimate bỏ qua ảnh trong atlas): ASTC 6x6 → 8x8 bớt 1 - 36/64 = 43,75% trang atlas
+            sb.AppendLine("  Atlas hạt Fx/hat.spriteatlasv2 ASTC 6x6 → 8x8: bớt 43,75% (bản build 2026-11-23: 32,3 MB → khoảng 18,2 MB)");
             File.WriteAllText(Path.Combine(OutDir, "bao_cao.txt"), sb.ToString());
             Debug.Log("[Nén thử] " + Path.Combine(OutDir, "bao_cao.txt") + "\n" + sb);
         }

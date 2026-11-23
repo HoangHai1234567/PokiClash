@@ -1,4 +1,4 @@
-// Trang trại thành cảnh thật (người dùng dặn 2026-11-10). Menu "PokiClash/Prefab/Trang trại: cảnh thật" (chạy lại được, dựng lại các lớp):
+// Trang trại thành cảnh thật (người dùng dặn 2026-11-10). Menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Trang trại: cảnh thật" (chạy lại được, dựng lại các lớp):
 // - nhập ảnh Assets/03 Art/Farm (farm_bg.png và props/farm_*.png, đưa vào bằng ArtGen/SideMeta/import_farm.py) thành sprite;
 // - prefab mục Items/ThuTrangTrai (FarmPet), Items/ChoLamTrangTrai (FarmSlot), Items/HatTrangTrai (FarmFx);
 // - Screens/Farm: Canvas/Nen: tắt mặt bàn gỗ, bật khung_anh; anh_nen_farm_bg là ảnh nền (bọc lớp kéo "keo", HubPan trên khung_anh);
@@ -48,7 +48,7 @@ namespace PokiClash.EditorTools
         static ArtLibrary art;
         static Sprite Icon(string n) => art ? art.Icon(n) : null;
 
-        [MenuItem("PokiClash/Prefab/Trang trại: cảnh thật", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Trang trại: cảnh thật", priority = 63)]
         static void Build()
         {
             var assets = Load<UiAssets>();
@@ -70,7 +70,7 @@ namespace PokiClash.EditorTools
         // ---------- chạy không cần bấm menu (Unity dùng chung nhiều session) ----------
         // Temp/farm_build.flag: biên dịch xong và không Play thì dựng prefab một lần rồi xoá cờ.
         // Temp/farm_tour.flag: vào Play, chạy tour "Trang trại" của PlayTour (ảnh Temp/PokiShots 180+), xong tour thì Stop.
-        const string TourMenu = "PokiClash/Thử/Trang trại: tự xếp, tua giờ, thu hoạch, đổi ca (đang Play)";
+        const string TourMenu = "PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Trang trại: tự xếp, tua giờ, thu hoạch, đổi ca (đang Play)";
         static double nextPoll, tourStart; // tourStart: lúc gọi tour (quá 150 giây chưa xong thì Stop)
 
         static string Flag(string n) => Path.GetFullPath(Path.Combine(Application.dataPath, "../Temp/" + n));

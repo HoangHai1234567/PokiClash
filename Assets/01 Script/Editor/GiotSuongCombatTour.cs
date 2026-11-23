@@ -19,23 +19,23 @@ namespace PokiClash.EditorTools
         static int[] stars = { 1, 5 };
 
         // Tí Tách (tướng khởi đầu hệ Thủy, ải 1 đảo Thủy, 2 dạng); ảnh vào ti_tach_combat/
-        [MenuItem("PokiClash/Thử/Đảo Thủy: Tí Tách ra trận ở 2 dạng (đang Play)", priority = 112)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Thủy∕Tí Tách ra trận ở 2 dạng (đang Play)", priority = 112)]
         static void Try() => Start("ti_tach", "ti_tach_combat", 1, 11); // sao tổng (bậc sao 2026-11-17): dạng 2 từ 6
 
         // Thanh Long (boss cuối đảo Mộc, 2026-11-09, skill pokiclash-hero-fx): idle có lá bay, mây trôi; đòn có vệt cầu, vòng bật, lá văng;
         // chiêu ba sét; lúc trúng sân khựng, màn rung, đối thủ bật lùi (AtomikGame.impact*); ảnh vào thanh_long_combat/
-        [MenuItem("PokiClash/Thử/Đảo Mộc: Thanh Long ra trận ở 3 dạng (đang Play)", priority = 122)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Mộc∕Thanh Long ra trận ở 3 dạng (đang Play)", priority = 122)]
         static void TryThanhLong() => Start("thanh_long", "thanh_long_combat", 1, 6, 11);
 
         // Cầu Gai (suất tien_la, ải 1 đảo Mộc, 2026-11-12): cắn, gồng bung gai, chiêu cuối lăn tông thẳng (AolaSticker.Rams)
-        [MenuItem("PokiClash/Thử/Đảo Mộc: Cầu Gai ra trận ở 2 dạng (đang Play)", priority = 122)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Mộc∕Cầu Gai ra trận ở 2 dạng (đang Play)", priority = 122)]
         static void TryCauGai() => Start("tien_la", "cau_gai_combat", 1, 11);
 
         // Hỏa Cung (suất kim_su, ải 10 đảo Hỏa, 2026-11-13): quỷ lửa bắn cung, tên là mảnh của rig do game lái tới đối thủ (far / fly_*)
-        [MenuItem("PokiClash/Thử/Đảo Hỏa: Hỏa Cung ra trận ở 2 dạng (đang Play)", priority = 122)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕Hỏa Cung ra trận ở 2 dạng (đang Play)", priority = 122)]
         static void TryHoaCung() => Start("kim_su", "hoa_cung_combat", 1, 11);
 
-        [MenuItem("PokiClash/Thử/Hỏa Cung tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Hỏa Cung tiến hóa: clip evolve của dạng .atomik (đang Play)", priority = 123)]
         static void TryEvolveHoaCung()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;

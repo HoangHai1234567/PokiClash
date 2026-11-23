@@ -15,7 +15,7 @@ namespace PokiClash.EditorTools
 {
     public static class VsIntroTour
     {
-        [MenuItem("PokiClash/Thử/Màn VS truyện tranh, dải tuyệt kỹ (đang Play)", priority = 115)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Màn VS truyện tranh, dải tuyệt kỹ (đang Play)", priority = 115)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

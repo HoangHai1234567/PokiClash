@@ -71,6 +71,6 @@
 - [x] 8.1 EditMode test: `Rng`, `CardText` khớp golden của bản web
   - 18 test: Rng, mô tả thẻ, dữ liệu, bản lưu (mới, ghi đọc, file tạm, v1, hỏng), âm thanh, phông, Build Settings, aola, asset dữ liệu, cắt sheet.
 - [x] 8.2 Play từ Boot: đi Hub → mọi scene con → quay lại, màn mây chạy, không lỗi console
-  - Menu `PokiClash/Thử/Đi một vòng các scene (đang Play)`, có thử xếp hàng chuyển scene.
+  - Menu `PokiClash/Thử/Khác/Golden và tự chạy∕Đi một vòng các scene (đang Play)`, có thử xếp hàng chuyển scene.
 - [x] 8.3 Chụp màn hình Game view 3 khung (1080×1920, 1080×2400, 1536×2048) để soi bố cục và vùng an toàn
-  - Menu `PokiClash/Thử/Chụp 3 khung màn hình (đang Play)`, ảnh ở `Temp/PokiShots`.
+  - Menu `PokiClash/Thử/Khác/Giao diện∕Chụp 3 khung màn hình (đang Play)`, ảnh ở `Temp/PokiShots`.

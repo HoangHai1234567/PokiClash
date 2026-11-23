@@ -50,7 +50,7 @@ Script [compose_islands.py](compose_islands.py) (chạy `py -3 -I ArtGen/Islands
   - toạ độ 8 ải ghi ra `../guides/zone_nodes.json`, đã chép vào `ZONES[].nodes` ở `Web/src/core/data/stages.ts`;
   - bản web vẫn vẽ màn đảo theo khung 9:16 nên đường ải trên web dồn vào giữa.
 
-Đưa vào prefab bằng menu Unity `PokiClash/Prefab/Đảo sảnh: ghép ảnh, kéo, mây viền` ([HubWorldMenu.cs](../../Assets/01%20Script/Editor/HubWorldMenu.cs)):
+Đưa vào prefab bằng menu Unity `PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo sảnh: ghép ảnh, kéo, mây viền` ([HubWorldMenu.cs](../../Assets/01%20Script/Editor/HubWorldMenu.cs)):
 - **Sảnh:**
   - lớp `keo` kéo được (`HubPan`: kéo trong giới hạn 340 mỗi phía, quá thì nặng tay rồi bật về, thả thì trôi theo đà);
   - biển lặp rộng, ảnh đảo có lề;

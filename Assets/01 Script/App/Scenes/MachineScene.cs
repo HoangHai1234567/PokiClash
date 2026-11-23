@@ -8,10 +8,10 @@
 // Hàng dưới cùng bên phải là thanh mốc: mốc Huyền thoại (một lần), xong thì các mốc quà vòng lại (cfg.gifts): tiêu đủ n bi thì
 // ô quà ở đầu thanh nhún, quà bay ra (rương vào khay, sao EXP lên thanh, bi về dòng đếm) rồi ô quà đổi sang quà kế.
 // Prefab màn hình Assets/04 Prefabs/Screens/Machine (mặt máy, cột cược, khay rương 3 nút dựng sẵn, nút thả); hộp Dialogs/TiLeMayBi, Dialogs/HuyenThoai.
-// Ô quà dựng bằng menu "PokiClash/Prefab/Máy bi: mốc quà".
+// Ô quà dựng bằng menu "PokiClash/Prefab/Khác/Máy bi∕mốc quà".
 // Trên đầu máy là thanh kinh nghiệm (MachineExpBar): EXP rơi vào ô bay lên thanh. Số trên ô đổi theo mức cược (MachineBoard.SetMult).
 // Nút vẽ tay (2026-11-06, học máy tham khảo, gói ArtGen/Pachinko/gui_gpt/bo_moi): nút thả là nút vòm to giữa dưới máy (4 trạng thái),
-// nút thả liền vòm nhỏ, viên cược tròn, đèn vòm chạy; dựng bằng menu "PokiClash/Prefab/Máy bi: nút tròn, viên cược, đèn vòm".
+// nút thả liền vòm nhỏ, viên cược tròn, đèn vòm chạy; dựng bằng menu "PokiClash/Prefab/Khác/Máy bi∕nút tròn, viên cược, đèn vòm".
 // Đang thả (từ bi đầu tới khi đợt xong hẳn: bi rơi hết, bảng số đổ EXP, mở rương, Lên cấp) thì khoá mọi nút trừ Thả bi / Thả liền
 // (2026-11-20): bảng tỉ lệ, cược, khay rương, thanh mốc quà, nút quay lại và phím Back. Nút khoá mờ, chạm im lặng (SketchButton.Locked).
 using System.Collections;
@@ -55,14 +55,14 @@ namespace PokiClash
             public UiBar legendBar;
             public MachineRatesDialog ratesDialog;
             public LegendMilestoneDialog legendDialog;
-            public MachineExpBar expBar; // thanh kinh nghiệm trên đầu máy (menu "PokiClash/Prefab/Máy bi: thanh kinh nghiệm")
-            // ô quà ở đầu thanh mốc (menu "PokiClash/Prefab/Máy bi: mốc quà"): rương kit, hoặc icon bi/XP/sao kèm số
+            public MachineExpBar expBar; // thanh kinh nghiệm trên đầu máy (menu "PokiClash/Prefab/Khác/Máy bi∕thanh kinh nghiệm")
+            // ô quà ở đầu thanh mốc (menu "PokiClash/Prefab/Khác/Máy bi∕mốc quà"): rương kit, hoặc icon bi/XP/sao kèm số
             public RectTransform giftBadge;
             public ChestIcon giftChest;
             public UnityEngine.UI.Image giftIcon;
             public TextMeshProUGUI giftCount;
             public UnityEngine.UI.Button giftButton; // chạm thanh hoặc ô quà: báo các mốc kế
-            // nút tròn vẽ tay (menu "PokiClash/Prefab/Máy bi: nút tròn, viên cược, đèn vòm"; học nút vòm của máy tham khảo): ảnh vòm
+            // nút tròn vẽ tay (menu "PokiClash/Prefab/Khác/Máy bi∕nút tròn, viên cược, đèn vòm"; học nút vòm của máy tham khảo): ảnh vòm
             // của nút thả và nút thả liền (nền SketchButton để trong suốt), vòng đứt nhịp quanh nút thả khi giữ, ảnh viên cược theo
             // thứ tự bets, bóng đèn rời đặt khít bóng vẽ trên vòm tủ (chạy vòng, nhanh hơn khi đang thả, cả dãy nháy khi trúng két)
             public UnityEngine.UI.Image dropDome, autoDome, holdRing;
@@ -87,6 +87,7 @@ namespace PokiClash
         readonly List<(SketchButton b, TextMeshProUGUI lockText, int x)> xBtns = new List<(SketchButton, TextMeshProUGUI, int)>();
 
         int x = 1;
+        bool upgradeAsked; // đã hỏi nâng rương bằng quảng cáo trong lần vào máy này
         bool holding;
         float holdTimer, time, saveTimer;
         double acc;
@@ -771,6 +772,18 @@ namespace PokiClash
             r.localScale = Vector3.one;
         }
 
+        // hạ cược về mức cao nhất còn đủ bi cho một lần thả; false nếu đang ở ×1
+        bool LowerBet()
+        {
+            var steps = D.Cfg.xSteps;
+            var allowed = Progress.XAllowed(S, D.Cfg);
+            var pick = steps.Where(q => q.x < x && q.x <= S.balls && allowed.Contains(q.x)).OrderByDescending(q => q.x).FirstOrDefault();
+            if (pick == null) return false;
+            PickX(pick.x, pick.balls);
+            App.Toasts.Show(Loc.F("Đã hạ cược ×{0}", pick.x), App.Art.Icon("ball"));
+            return true;
+        }
+
         void PickX(int bx, int need)
         {
             if (Busy) return; // nút đã khoá, chặn thêm cho công cụ bấm hộ
@@ -853,6 +866,7 @@ namespace PokiClash
             if (session == 0) lvFrom = S.level;
             var r = Pachinko.SpendBall(S, D, x);
             if (r != null) bigReward = r;
+            Shop.PiggyAdd(S, D.Cfg.shop, x); // Lọ Bi (cửa hàng, GD_Claude/26 mục 6.7)
             int credit = Pachinko.GiftCredit(S, D.Cfg, x, r);
             if (credit > 0) giftPunchT = 0;
             foreach (var g in Pachinko.GiftAdd(S, D, credit))
@@ -890,6 +904,17 @@ namespace PokiClash
             if (ending || opening) return;
             App.Audio.Play("machineDeny");
             int max = D.Cfg.MaxPerDrop(S.level);
+            // cửa hàng (GD_Claude/26 mục 7.4): còn bi mà thiếu cho mức cược thì hạ về mức cao nhất đủ bi; hết hẳn thì popup Hết bi
+            if (session < max && S.balls < x)
+            {
+                if (S.balls > 0 && LowerBet()) return;
+                if (S.balls <= 0 && Tutorial.Done(S, Tutorial.NoBalls))
+                {
+                    int before = OfferHost.Pending;
+                    OfferHost.Raise(new OfferCtx { e = OfferEvent.OutOfBalls });
+                    if (OfferHost.Pending > before) return;
+                }
+            }
             string msg = session >= max ? Loc.F("Tối đa {0} bi một đợt, chờ bi rơi hết", max)
                 : S.balls <= 0 ? Loc.T("Hết bi rồi! Thắng ải để có thêm bi") : Loc.F("Cần {0} bi cho mỗi lần thả ×{1}", x, x);
             App.Toasts.Show(msg, App.Art.Icon("ball"));
@@ -1094,7 +1119,11 @@ namespace PokiClash
                     view.ChestFx(bx, by - 10, gold ? 3 : 2);
                     view.Float(bx, by - 30, Pachinko.ChestName(kind) + "!", col, gold ? 36 : 30);
                     App.Audio.Play(gold ? "jackpot" : "prize"); // jackpot đã có chuông + xu đổ, không cần ba tiếng xu cũ
-                    if (gold) Jackpot(bx, by - 10, col, slot);
+                    if (gold)
+                    {
+                        Jackpot(bx, by - 10, col, slot);
+                        OfferHost.Raise(new OfferCtx { e = OfferEvent.Jackpot }); // Ưu Đãi Nóng 10 phút (hiện khi máy rảnh)
+                    }
                     else Haptics.Play(kind == SlotKind.ChestSilver ? Haptic.LandSilver : Haptic.LandWood);
                     SaveNow();
                     StartCoroutine(FlyChest(kind, view.World(bx, by)));
@@ -1267,6 +1296,25 @@ namespace PokiClash
             {
                 // mở theo nhóm tối đa 5 rương như màn mở capsule của máy tham khảo; rương quý trước, cùng loại theo thứ tự rơi vào
                 var group = S.chests.OrderBy(q => Rank(q.kind)).Take(5).ToList();
+                var wood = group.FirstOrDefault(q => q.kind == "chest_wood");
+                if (wood != null && !upgradeAsked && Tutorial.CoreDone(S) && Ads.Ready && Ads.Left(Ads.ChestUpgrade) > 0)
+                {
+                    upgradeAsked = true;
+                    bool decided = false;
+                    App.Modals.Confirm(Loc.T("Nâng rương?"), Loc.T("Xem quảng cáo để nâng 1 Rương Gỗ thành Rương Bạc."), Loc.T("Nâng"), () =>
+                        Ads.Show(Ads.ChestUpgrade, ok =>
+                        {
+                            if (ok) wood.kind = "chest_silver";
+                            decided = true;
+                        }), Loc.T("Thôi"), BtnColor.Blue).OnClose += () => App.I.StartCoroutine(DecideLater());
+                    IEnumerator DecideLater()
+                    {
+                        yield return new WaitForSecondsRealtime(0.2f);
+                        if (App.Modals.Count == 0) decided = true;
+                    }
+                    while (!decided && !leaving) yield return null;
+                    group = S.chests.OrderBy(q => Rank(q.kind)).Take(5).ToList();
+                }
                 var items = new List<MachineChestOpen.Item>();
                 foreach (var c in group)
                 {
@@ -1288,6 +1336,9 @@ namespace PokiClash
                 else
                     foreach (var it in items)
                         yield return ChestBox.Show(Pachinko.ChestName(it.kind) + (it.x > 1 ? $" ×{it.x}" : ""), it.kind, null, it.rewards, Loc.T("Nhận"));
+                // rương ra trứng capsule (2026-11-23): trứng vào túi, nở ở mục Trứng của cửa hàng
+                if (items.Any(it => it.rewards != null && it.rewards.Any(r => r.k == RewardKind.Egg)))
+                    App.Toasts.Show(Loc.T("Trứng vào túi: nở ở Cửa hàng"), App.Art.Icon("shop"));
                 if (p.expBar && chestExp > 0)
                 {
                     int k = MachineExpBar.SprayCount(chestExp), total = chestExp;

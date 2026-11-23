@@ -9,7 +9,7 @@
 // (khoá "a" là tên ảnh trong danh mục): drift mây trôi ngang vòng lại, glide hải âu lượn vòng elip, boat thuyền dập dềnh chòng chành
 // trôi qua lại; rain mưa rơi xiên dưới mây giông; swirl xoáy nước không kèm đinh ba. "v": tốc trôi (bề ngang ảnh / giây) hoặc bán
 // kính lượn (lần bề ngang hình). plume: cột khói / hơi nước nhiều múi (đảo Hỏa vùng đất): "c" màu đáy, "n" số múi, "l" đời múi
-// (giây), "v" chiều gió (-1 trái, 1 phải).
+// (giây), "v" chiều gió (-1 trái, 1 phải). Nước chảy sảnh (flows, splash, rings, glint): IslandAnimNuoc.cs.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -19,7 +19,7 @@ using UnityEngine.UI;
 
 namespace PokiClash
 {
-    public sealed class IslandAnim : MonoBehaviour
+    public sealed partial class IslandAnim : MonoBehaviour
     {
         [SerializeField] TextAsset data; // Assets/03 Art/Islands/island_anim.json
         [SerializeField] Image itemPrefab; // Items/HinhDong: Image không nhận chạm, neo góc dưới trái
@@ -65,6 +65,8 @@ namespace PokiClash
         public void Bind(string key)
         {
             foreach (Transform c in transform) Destroy(c.gameObject);
+            ClearFlows();
+            taps.Clear(); // điểm chạm easter egg (IslandAnimTrung.cs): dọn trước khi dựng món, BindFlows không đụng tới
             fx.Clear();
             spots.Clear();
             off.Clear();
@@ -98,6 +100,7 @@ namespace PokiClash
                 float rw = (float)J.Num(rv, "w", lava ? 0.01 : 0.02);
                 fx.Add(new Flow { host = this, path = pts, lava = lava, width = rw, items = NewImages(lava ? "embers" : "ripple", lava ? 7 : 6) });
             }
+            BindFlows(entry); // ảnh phủ nước chảy (sảnh, IslandAnimNuoc.cs)
             // vành mây quanh mép ảnh (đảo vùng đất): che biển ngoài ảnh lệch tông, xỉn màu khi chiều tối (góp ý 2026-11-18)
             var frame = J.Obj(entry, "frame");
             if (frame != null) fx.Add(NewFrame(frame));
@@ -138,6 +141,7 @@ namespace PokiClash
                 case "drift": fx.Add(new Drift { host = this, at = p, size = s, img = NewArt(J.Str(it, "a")), speed = (float)J.Num(it, "v", 0.003), seed = seed }); break;
                 case "glide": fx.Add(new Glide { host = this, at = p, size = s, img = NewArt(J.Str(it, "a")), radius = (float)J.Num(it, "v", 2), seed = seed }); break;
                 case "boat": fx.Add(new Boat { host = this, at = p, size = s, img = NewArt(J.Str(it, "a")), seed = seed }); break;
+                default: AddMore(k, p, s, seed, it); break; // bọt chân thác, vòng gợn, lấp lánh (IslandAnimNuoc.cs), easter egg sảnh (IslandAnimTrung.cs)
             }
         }
 

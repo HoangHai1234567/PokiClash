@@ -35,7 +35,7 @@ namespace PokiClash.EditorTools
             return img;
         }
 
-        [MenuItem("PokiClash/Prefab/Nhà: vầng sáng đêm cho thú (ThuTrangTrai)", priority = 64)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: vầng sáng đêm cho thú (ThuTrangTrai)", priority = 64)]
         static void Patch()
         {
             var root = PrefabUtility.LoadPrefabContents(PetPath);

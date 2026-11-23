@@ -8,6 +8,8 @@
 //     vẫn vào bản build qua tham chiếu, dời cũng vô ích);
 //  3. tên không xuất hiện trong code chạy (Resources.Load theo chuỗi, như HatHon nạp "ky_nguyen_2/...").
 // Lần đầu (2026-11-21): 27 dạng cũ của các suất đã đổi tướng (bo_cap_*, hong_lien_*, huyen_viem_*, lan_hoa_*, tam_kiem_*...).
+// Thêm (2026-11-23): thư mục cố định trong UnusedDirs (phông mẫu LiberationSans của TextMesh Pro, ~1 MB: phông mặc định của TMP đã là
+// Pangolin, game không gọi phông theo tên), cùng hai điều kiện 2 và 3 ở trên.
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -29,15 +31,30 @@ namespace PokiClash.EditorTools
         const string Hold = "Assets/_PokiBuildTam";
         static string Journal => Path.GetFullPath(Path.Combine(Application.dataPath, "../Library/PokiBuild/doi_tam.txt"));
 
+        // thư mục trong Resources chắc không dùng (tên thư mục phải khác mọi thư mục dạng tướng: cùng chỗ tạm dời Hold); chữ để soát code
+        static readonly (string dir, string word, string why)[] UnusedDirs =
+        {
+            ("Assets/TextMesh Pro/Resources/Fonts & Materials", "LiberationSans", "phông mẫu LiberationSans của TextMesh Pro"),
+        };
+
         // Danh sách sẽ bỏ, không dời gì. scenes: scene sẽ vào bản build.
         public static List<Item> Plan(IEnumerable<string> scenes)
         {
             var res = new List<Item>();
             var cands = new List<string>();
+            var why = new Dictionary<string, (string word, string why)>();
             foreach (var name in AolaImport.StaleForms())
             {
                 string dir = AolaImport.ResDir + "/" + name;
-                if (AssetDatabase.LoadAssetAtPath<AolaAnim>($"{dir}/{name}.asset")) cands.Add(dir);
+                if (!AssetDatabase.LoadAssetAtPath<AolaAnim>($"{dir}/{name}.asset")) continue;
+                cands.Add(dir);
+                why[dir] = (name, "dạng tướng không còn tướng/lính nào dùng");
+            }
+            foreach (var u in UnusedDirs)
+            {
+                if (!AssetDatabase.IsValidFolder(u.dir)) continue;
+                cands.Add(u.dir);
+                why[u.dir] = (u.word, u.why);
             }
             if (cands.Count == 0) return res;
 
@@ -54,20 +71,20 @@ namespace PokiClash.EditorTools
             string code = RuntimeCode();
             foreach (var dir in cands)
             {
-                string name = Path.GetFileName(dir);
+                var (name, reason) = why[dir];
                 var files = AssetDatabase.FindAssets("", new[] { dir }).Select(AssetDatabase.GUIDToAssetPath);
                 string hit = files.FirstOrDefault(used.Contains);
                 if (hit != null)
                 {
-                    Debug.Log($"[Build] Giữ {dir}: không còn trong heroes.json nhưng {hit} vẫn được trỏ tới.");
+                    Debug.Log($"[Build] Giữ {dir}: {hit} vẫn được trỏ tới.");
                     continue;
                 }
-                if (code.Contains("\"" + name))
+                if (code.Contains("\"" + name) || code.Contains(name + "\""))
                 {
                     Debug.Log($"[Build] Giữ {dir}: code chạy có nhắc \"{name}\".");
                     continue;
                 }
-                res.Add(new Item { path = dir, why = "dạng tướng không còn tướng/lính nào dùng" });
+                res.Add(new Item { path = dir, why = reason });
             }
             return res;
         }

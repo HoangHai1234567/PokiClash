@@ -14,70 +14,70 @@ namespace PokiClash.EditorTools
         static string Dir => Path.Combine(PlayTour.ShotDir, "kim_fx");
 
         // Thiết Tinh (2026-11-16): tinh linh tinh thể sắt, suất bo_cap; dạng 1 Thiết Tinh Nhi ở 1 sao, dạng 2 từ 3 sao (formStars)
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Tinh (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Tinh (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietTinh() => Try("bo_cap", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Tinh Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Tinh Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietTinhNhi() => Try("bo_cap", 1);
 
         // Thiết Vệ (2026-11-16): chiến binh sắt khiên giáo, suất doc_giac (HatGiao.cs); dạng 1 Thiết Vệ Nhi ở 1 sao, dạng 2 Thiết Vệ ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Vệ (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Vệ (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietVe() => Try("doc_giac", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Vệ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Vệ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietVeNhi() => Try("doc_giac", 1);
 
         // Thiết Khoáng (2026-11-16): tinh linh quặng sắt chui đất, suất bo_ngua (rig quang_sat_<k>); dạng 1 Thiết Khoáng Nhi ở 1 sao, dạng 2 ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Khoáng (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Khoáng (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietKhoang() => Try("bo_ngua", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Khoáng Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Khoáng Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietKhoangNhi() => Try("bo_ngua", 1);
 
         // Quỷ Xích (2026-11-16): quỷ béo móc xích, suất khien_bac (HatXich.cs); dạng 1 Quỷ Xích Nhi ở 1 sao, dạng 2 Quỷ Xích ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Quỷ Xích (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Quỷ Xích (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryQuyXich() => Try("khien_bac", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Quỷ Xích Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Quỷ Xích Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryQuyXichNhi() => Try("khien_bac", 1);
 
         // Thiết Cưa (2026-11-16): tinh linh đuôi máy cưa, suất phi_thuong (rig cua_xich_1, cả hai dạng chung một rig, chưa có VFX riêng)
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thiết Cưa, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thiết Cưa, đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThietCua() => Try("phi_thuong", 1);
 
         // Vong Kỵ (2026-11-16): kỵ sĩ cổ đại bị nguyền, suất tam_kiem (rig ky_nguyen_<k>, HatHon.cs); dạng 1 Vong Kỵ Nhi ở 1 sao, dạng 2 Vong Kỵ ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Vong Kỵ (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Vong Kỵ (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryVongKy() => Try("tam_kiem", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Vong Kỵ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Vong Kỵ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryVongKyNhi() => Try("tam_kiem", 1);
 
         // Sói Giáp (2026-11-16): sói chiến binh khiên búa, suất chien_than (rig soi_giap_<k>, HatSoi.cs); dạng 1 Sói Giáp Con ở 1 sao, dạng 2 Sói Giáp ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Sói Giáp (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Sói Giáp (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TrySoiGiap() => Try("chien_than", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Sói Giáp Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Sói Giáp Con (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TrySoiGiapCon() => Try("chien_than", 1);
 
         // Thần Cơ (2026-11-16): robot hủy diệt cổ đại, suất thiet_phu (rig robot_co_<k>, HatRobot.cs); dạng 1 Thần Cơ Nhi ở 1 sao, dạng 2 Thần Cơ ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thần Cơ (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thần Cơ (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThanCo() => Try("thiet_phu", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Thần Cơ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Thần Cơ Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryThanCoNhi() => Try("thiet_phu", 1);
 
         // Pháo Giáp (2026-11-17): thú giáp pháo, suất ung_thep (rig thu_phao_<k>, HatPhao.cs); dạng 1 Pháo Giáp Nhi ở 1 sao, dạng 2 Pháo Giáp ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Pháo Giáp (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Pháo Giáp (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryPhaoGiap() => Try("ung_thep", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Pháo Giáp Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Pháo Giáp Nhi (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryPhaoGiapNhi() => Try("ung_thep", 1);
 
         // Nhật Vương (2026-11-17): vua robot quyền trượng Mặt Trời, suất kim_nghe boss ải 70 (rig vua_may_<k>, HatVua.cs); dạng 1 Nhật Hoàng Tử ở 1 sao, dạng 2 Nhật Vương ở 5 sao
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Nhật Vương (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Nhật Vương (dạng 2), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryNhatVuong() => Try("kim_nghe", 5);
 
-        [MenuItem("PokiClash/Thử/Đảo Kim: riêng Nhật Hoàng Tử (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
+        [MenuItem("PokiClash/Thử/Khác/Tướng∕Đảo Kim∕riêng Nhật Hoàng Tử (dạng 1), đòn thường, chiêu mana, chiêu cuối (đang Play)", priority = 124)]
         static void TryNhatHoangTu() => Try("kim_nghe", 1);
 
         public static void Try(string hero, int star)

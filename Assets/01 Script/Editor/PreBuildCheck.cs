@@ -39,7 +39,7 @@ namespace PokiClash.EditorTools
                 throw new BuildFailedException("Kiểm tra trước build không đạt:\n- " + string.Join("\n- ", errors));
         }
 
-        [MenuItem("PokiClash/Kiểm tra trước build", priority = 30)]
+        [MenuItem("PokiClash/Build/Kiểm tra trước build", priority = 30)]
         static void Menu()
         {
             var errors = Scan(out var warnings);
@@ -50,7 +50,7 @@ namespace PokiClash.EditorTools
         }
 
         // biên dịch thử script của người chơi như bản phát hành (không Development): công cụ dev bị bỏ mà code vẫn phải biên dịch được
-        [MenuItem("PokiClash/Biên dịch thử bản phát hành", priority = 31)]
+        [MenuItem("PokiClash/Build/Biên dịch thử bản phát hành", priority = 31)]
         static void CompileRelease()
         {
             var target = EditorUserBuildSettings.activeBuildTarget;

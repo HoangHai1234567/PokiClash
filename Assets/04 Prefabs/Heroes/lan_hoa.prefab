@@ -45,8 +45,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 9dc4fa86b31fdea41889472c62ffe540, type: 2}
-  - {fileID: 11400000, guid: 7c35576809510214f845a3b5b2a7ec34, type: 2}
-  - {fileID: 11400000, guid: e344647c8a053354baace24e6855ff5b, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - nui_lua_non
+  - nui_lua_2
+  - nui_lua_1
+  pack: hoa
   SplitFx: 0
   Manual: 0

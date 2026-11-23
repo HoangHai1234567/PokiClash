@@ -1,6 +1,7 @@
 // Cổng quảng cáo thưởng (chép Web/src/core/ads.ts): đếm lượt theo chỗ đặt trong ngày theo giờ máy, ngày mới thì đặt lại,
 // giờ máy lùi về ngày trước thì giữ nguyên số đã dùng (không mở lại lượt). Quyền lợi gói: Thẻ Phiêu Lưu (hạn), Bỏ quảng cáo (cờ).
-// Nguyên tắc: không bán bi, đá tiềm năng hay lượt quay máy bi.
+// Nguyên tắc cũ "không bán bi" đã đổi 2026-11-23 (người dùng duyệt GD_Claude/26): cửa hàng bán bi và Rương Tướng (Shop.cs); đá tiềm năng,
+// đá tinh vẫn không bán lẻ. Chỗ đặt mới 2026-11-23: free_balls, free_egg (trứng miễn phí, trước là hero_chest), battle_retry, win_double, chest_upgrade, daily_gift.
 using System;
 using System.Collections.Generic;
 
@@ -22,7 +23,9 @@ namespace PokiClash.Core
     {
         public const int Unlimited = 999;
         public const string TreeDouble = "tree_double", AfkChestOpen = "afk_chest_open", AfkBoost = "afk_boost", FarmBoost = "farm_boost", CaveExtra = "cave_extra",
-            HomeSpeed = "home_speed"; // Nhà: rút 30 phút việc xây, nâng cấp, dọn rừng
+            HomeSpeed = "home_speed", // Nhà: rút 30 phút việc xây, nâng cấp, dọn rừng
+            FreeBalls = "free_balls", FreeEgg = "free_egg", BattleRetry = "battle_retry", WinDouble = "win_double", ChestUpgrade = "chest_upgrade",
+            DailyGift = "daily_gift"; // cửa hàng (GD_Claude/26 mục 8.1)
 
         public static AdState Of(SaveData s) => s.ads ?? (s.ads = new AdState());
 

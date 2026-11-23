@@ -26,7 +26,9 @@ namespace PokiClash
     {
         // chỗ đặt quảng cáo
         public const string TreeDouble = AdGate.TreeDouble, AfkChestOpen = AdGate.AfkChestOpen, AfkBoost = AdGate.AfkBoost,
-            CaveExtra = AdGate.CaveExtra, FarmBoost = AdGate.FarmBoost;
+            CaveExtra = AdGate.CaveExtra, FarmBoost = AdGate.FarmBoost,
+            FreeBalls = AdGate.FreeBalls, FreeEgg = AdGate.FreeEgg, BattleRetry = AdGate.BattleRetry, WinDouble = AdGate.WinDouble,
+            ChestUpgrade = AdGate.ChestUpgrade, DailyGiftAd = AdGate.DailyGift; // cửa hàng (GD_Claude/26 mục 8.1)
 
         public static IRewardAds Current;
 
@@ -45,7 +47,8 @@ namespace PokiClash
                 done?.Invoke(false);
                 return;
             }
-            if (NoAds)
+            // Bỏ quảng cáo; Thẻ Phiêu Lưu: 1 lượt trao ngay mỗi ngày (GD_Claude/26 mục 6.8)
+            if (NoAds || Shop.UseAdSkip(S, App.Data.Cfg.shop, SaveService.Now()))
             {
                 Grant();
                 return;
@@ -64,6 +67,8 @@ namespace PokiClash
             void Grant()
             {
                 bool ok = AdGate.Use(S, App.Data.Cfg, Today, placement);
+                if (ok) Shop.OnAd(S, SaveService.Now()); // bảng mốc quảng cáo hôm nay, chặn popup bán 5 giây
+                ShopLog.Event(ok ? "ad_done" : "ad_fail", placement, 0);
                 App.Save.Save();
                 done?.Invoke(ok);
             }
@@ -91,8 +96,21 @@ namespace PokiClash
     public static class Store
     {
         public static IStore Current;
+        public static Func<string, string> PriceText; // SDK cửa hàng trả giá đã bản địa hoá theo mã sản phẩm (chưa có: ShopService.Price tự ghi)
 
         public static bool Ready => Current != null;
+
+        // trả tiền một mã sản phẩm, không trao gì (ShopService trao bằng lõi Shop sau khi done(true))
+        public static void Pay(string product, Action<bool> done)
+        {
+            if (Current == null)
+            {
+                App.Toasts.Show(Loc.T("Cửa hàng chưa sẵn sàng"), App.Art.Icon("lock"));
+                done?.Invoke(false);
+                return;
+            }
+            Current.Buy(product, ok => done?.Invoke(ok));
+        }
 
         // mua xong thì ghi quyền lợi ngay (AdGate.Buy) và lưu
         public static void Buy(string product, Action<bool> done)

@@ -3,7 +3,7 @@
 // - roster.json "leads": tướng và sao (dạng) đứng trên nút ải, đúng cách RosterTests.TuongTrenNutAi_KhopBanWeb tính;
 // - battles.json, battle_events.json: 200 trận cố định hạt giống chạy lại như BattleGoldenTests (kết quả, chuỗi sự kiện, ảnh chụp cuối;
 //   các trận chi tiết so từng sự kiện).
-// Menu "PokiClash/Thử/Tính lại golden sim, tướng trên nút ải (Temp/GoldenRecalc.json)" ghi số mới ra Temp/GoldenRecalc.json; ghép
+// Menu "PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden sim, tướng trên nút ải (Temp∕GoldenRecalc.json)" ghi số mới ra Temp/GoldenRecalc.json; ghép
 // vào golden bằng script (chỉ đổi ô khác, giữ định dạng file), rồi chạy lại test. Dùng lần đầu 2026-11-04 khi bật tiến hóa ở ải tướng.
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +17,7 @@ namespace PokiClash.EditorTools
     {
         static string DataDir => Path.Combine(Application.dataPath, "02 Data");
 
-        [MenuItem("PokiClash/Thử/Tính lại golden sim, tướng trên nút ải (Temp/GoldenRecalc.json)", priority = 300)]
+        [MenuItem("PokiClash/Thử/Khác/Golden và tự chạy∕Tính lại golden sim, tướng trên nút ải (Temp∕GoldenRecalc.json)", priority = 300)]
         static void Run()
         {
             string R(string f) => File.ReadAllText(Path.Combine(DataDir, f));

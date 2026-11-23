@@ -18,6 +18,8 @@ namespace PokiClash
         [SerializeField] bool mandatory;
         [Tooltip("Dính mép trên (cách 140) thay vì giữa màn")]
         [SerializeField] bool top;
+        [Tooltip("Tờ trải kín màn (cửa hàng): trượt vào không nghiêng, nằm thẳng")]
+        [SerializeField] bool flat;
 
         public RectTransform Root => (RectTransform)transform;
         public Image Dim => dim;
@@ -26,6 +28,10 @@ namespace PokiClash
         public SketchButton Close => close;
         public CanvasGroup Group => group;
         public bool Mandatory => mandatory;
+        public bool Flat => flat;
+
+        // Dùng khi nướng prefab (Editor): tờ trải kín màn
+        public void SetFlat(bool on) => flat = on;
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(Image dimImg, ClickCatcher click, RectTransform sheetRt, SketchButton closeBtn, CanvasGroup cg)

@@ -196,7 +196,7 @@ namespace PokiClash.EditorTools
 
         // ---------- Tiềm năng ----------
 
-        [MenuItem("PokiClash/Prefab/Tiềm năng: 6 ô, bộ, đá tinh", priority = 61)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Tiềm năng: 6 ô, bộ, đá tinh", priority = 61)]
         static void BuildPotential()
         {
             var contents = PrefabUtility.LoadPrefabContents(PotPath);
@@ -270,7 +270,7 @@ namespace PokiClash.EditorTools
 
         // ---------- Đền Huy Hiệu ----------
 
-        [MenuItem("PokiClash/Prefab/Đền Huy Hiệu: sao trận, chọn bậc, mốc sao", priority = 62)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Đền Huy Hiệu: sao trận, chọn bậc, mốc sao", priority = 62)]
         static void BuildTemple()
         {
             var kit = Kit();
@@ -448,7 +448,7 @@ namespace PokiClash.EditorTools
         // ---------- Hang Tiềm Năng ----------
 
         // hàng tầng (1000 × 250): chữ ở cột trái rộng 460 (chân dung boss từ x 496, chân dung phụ, nút "Vào" bên phải)
-        [MenuItem("PokiClash/Prefab/Hang Tiềm Năng: hàng tầng gọn", priority = 63)]
+        [MenuItem("PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Hang Tiềm Năng: hàng tầng gọn", priority = 63)]
         static void BuildCaveRow()
         {
             var contents = PrefabUtility.LoadPrefabContents(CaveRowPath);

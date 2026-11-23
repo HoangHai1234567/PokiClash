@@ -1,5 +1,5 @@
 // Bảng chặng của đảo 70 ải (prefab Assets/04 Prefabs/Dialogs/BangChang, biến thể tờ giấy gốc HopThoai, dựng bằng menu
-// "PokiClash/Prefab/Đảo 70 ải (ChamAi, DongChang, BangChang)"): chặng là các ải từ một ải tướng tới trước ải tướng sau.
+// "PokiClash/Prefab/Sảnh và đảo/Sảnh và đảo∕Đảo 70 ải (ChamAi, DongChang, BangChang)"): chặng là các ải từ một ải tướng tới trước ải tướng sau.
 // Tên chặng, dòng "Ải a–b · ra mắt <tướng>", danh sách ải cuộn dọc (Items/DongChang), nút Đóng. Chạm ải đã mở thì đóng bảng và mở
 // hộp Chuẩn bị trận; ải chưa mở thì báo. Mở từ màn Đảo (ZoneScene) khi chạm mốc hoặc chấm ải.
 using System;

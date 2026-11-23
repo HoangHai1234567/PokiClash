@@ -120,7 +120,8 @@ namespace PokiClash
             double tot = tb.rolls.Sum(q => q.w);
             var parts = tb.rolls.Select(q =>
             {
-                string what = q.k == "balls" ? "bi" : q.k == "exp" ? "EXP" : q.k == "cards" ? Loc.T("thẻ") : q.k == "stones" ? Loc.T("đá tiềm năng") : Loc.T("mảnh tướng");
+                string what = q.k == "balls" ? "bi" : q.k == "exp" ? "EXP" : q.k == "cards" ? Loc.T("thẻ") : q.k == "stones" ? Loc.T("đá tiềm năng") :
+                    q.k == "evo" ? Loc.T("Đá tiến hóa") : q.k == "egg" ? ShopUi.EggName(q.tier) : Loc.T("mảnh tướng");
                 string range = q.max > q.min ? $"{q.min}–{q.max}" : q.min.ToString();
                 string rar = q.rar.Count > 0
                     ? " (" + string.Join(", ", q.rar.Select(rw => $"{Elements.RarityName(rw.rarity)} {rw.w.ToString("0.##").Replace('.', ',')}")) + ")"

@@ -7,7 +7,7 @@ namespace PokiClash.EditorTools
 {
     public static class AolaMenu
     {
-        [MenuItem("PokiClash/Đặt thư mục aola...", priority = 40)]
+        [MenuItem("PokiClash/Tướng/Đặt thư mục aola...", priority = 40)]
         static void SetDir()
         {
             var cur = EditorPrefs.GetString(AolaImport.PrefKey, "");
@@ -18,7 +18,7 @@ namespace PokiClash.EditorTools
             Debug.Log($"[Aola] Thư mục reskin: {dir}. Nhập hình vào project: menu PokiClash/Tướng/Nhập hình tướng aola thành prefab.");
         }
 
-        [MenuItem("PokiClash/Tự tìm thư mục aola", priority = 41)]
+        [MenuItem("PokiClash/Tướng/Tự tìm thư mục aola", priority = 41)]
         static void FindDir()
         {
             EditorPrefs.DeleteKey(AolaImport.PrefKey);

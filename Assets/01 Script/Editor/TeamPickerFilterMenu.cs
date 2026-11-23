@@ -16,7 +16,7 @@ namespace PokiClash.EditorTools
         const float ChipSize = 64, IconSize = 40, RowH = 72;
         static readonly string[] ElemIcons = { "e_thuy", "e_hoa", "e_kim", "e_moc", "e_tho" };
 
-        [MenuItem("PokiClash/Prefab/Hộp chọn đội: lọc theo hệ, xếp", priority = 66)]
+        [MenuItem("PokiClash/Prefab/Khác/Hộp thoại và màn∕Hộp chọn đội: lọc theo hệ, xếp", priority = 66)]
         static void Build()
         {
             var assets = Load<UiAssets>();

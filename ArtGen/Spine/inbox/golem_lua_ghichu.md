@@ -198,13 +198,13 @@ Dòng "CHƯA làm: code game cho chiêu cuối" ở mục 5b hết hiệu lực.
   → golden islands / roster / cardtext / zones (chỉ roster đổi: số dạng nham_than 3 → 2, sao dạng cuối 2 → 1) → golden theo danh sách
   tướng (không đổi) → golden sim + `golden_ghep.py` (sim: 1 ải đổi, hoa 85 = ải 15 đảo Hỏa; leads, battles không đổi).
 - EditMode 102/103 (chỉ hỏng PrefabOnlyTests.MaRuntime_KhongSinhDoVat có từ trước: UI/Kit NumberTicker, UiMotion).
-- `Editor/HoaFxTour.cs`: thêm menu "PokiClash/Thử/Đảo Hỏa: riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)".
+- `Editor/HoaFxTour.cs`: thêm menu "PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)".
 - Bản sao lưu trước khi đổi (golden, HeroDb, prefab, thư mục nham_than_3): scratchpad của phiên assets-f6, `sao_luu/`; nham_than_3 còn
   trong git.
 
 ### 6b. Soi trong trận và sửa (2026-11-13, phiên assets-f6)
 
-Tour "PokiClash/Thử/Đảo Hỏa: riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)" (ảnh `Temp/PokiShots/hoa_fx/nham_than_*`; bản trước khi
+Tour "PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Nham Thần, chiêu mana, chiêu cuối (đang Play)" (ảnh `Temp/PokiShots/hoa_fx/nham_than_*`; bản trước khi
 sửa: `Temp/PokiShots/hoa_fx_nham_than`). Chạy đúng cơ chế: cast đứng tại chỗ phun lửa ("phun") từ xương `mieng`; chiêu cuối cuộn thành cầu,
 code cho bay tới thân đối thủ, nổ lớn ("no_lon"), bật về, bung người, đáp.
 - **Bung người văng ra ngoài màn** (sửa ở rig): đoạn skill_03 0,63–1,0 tay, lưng, lửa vươn ra SAU tới 295 đơn vị (0,54 × chiều cao) so với dáng
@@ -270,14 +270,14 @@ Lượt 1 ra cả ba (85–112 s mỗi ảnh): `golem_lua_non/tai_ve/L1_moi_lua.
   sinh lửa ngay trong nửa sau quả cầu. Một lần lỗi biên dịch do tự chèn chú thích cuối dòng giữa lời gọi nhiều dòng (đã sửa).
 - EditMode 102/103 (như trước). Công thức ghi ở skill pokiclash-fx-congthuc mục 5e.
 - CHƯA: xem trong hộp chi tiết tướng (HeroViewer); phía địch (golem đứng trên trái, lăn xuống phải) chưa chụp; chưa thử Android.
-- Hộp chi tiết tướng: thêm menu "PokiClash/Thử/Đảo Hỏa: riêng Nham Thần trong hộp chi tiết tướng (đang Play)" (ảnh `hoa_fx/xem_nham_than_*`):
+- Hộp chi tiết tướng: thêm menu "PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕riêng Nham Thần trong hộp chi tiết tướng (đang Play)" (ảnh `hoa_fx/xem_nham_than_*`):
   phun lửa ra đúng họng; chiêu cuối đủ bụi, vệt lửa, chớp nổ ở đích ảo, vòng bụi lúc đáp (trong ô xem tướng không bay nên vệt lửa nằm trong
   quả cầu). Phía địch vẫn chưa chụp.
 
 ## 9. Trận thật ải 15 đảo Hỏa (người dùng 2026-11-13: "cho vào game đi")
 
 Bản trong `Resources/nham_than_1`, `nham_than_2` trùng mã băm bản xuất mới nhất (dạng 1 có evolve, dạng 2 đã sửa bung người). Menu mới
-"PokiClash/Thử/Đảo Hỏa: trận thật ải 15, Nham Thần hai phía (đang Play)" (`HoaFxTour.RunTran`: ải 85 "Sườn Núi Khói", đội mình một Nham Thần
+"PokiClash/Thử/Khác/Tướng∕Đảo Hỏa∕trận thật ải 15, Nham Thần hai phía (đang Play)" (`HoaFxTour.RunTran`: ải 85 "Sườn Núi Khói", đội mình một Nham Thần
 sao cuối cấp 55, tự đánh nhịp thường, chụp `hoa_fx/tran_<n>.jpg` tới khi hộp kết quả hiện). Chạy hai lượt (thua / thắng, 2 hiệp):
 - Màn VS và bảng tên địch: chân dung và tên **Nham Con Lv52** (dạng 1); địch đứng trên trái, nhìn phải, nhỏ hơn dạng 2 của mình.
 - **Tiến hóa trong trận**: địch tụt máu tới ngưỡng → "Tiến Hóa", mờ chéo sang Nham Thần, bảng tên đổi thành Nham Thần, máu đầy lại.

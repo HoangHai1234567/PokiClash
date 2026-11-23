@@ -6,7 +6,7 @@
 //   kéo thả vào một chỗ làm còn trống là giao việc;
 // - tướng vừa rút ra (đang nghỉ, tối đa MaxSleep con) ngủ trên ổ rơm.
 // Chạm chỗ làm mở danh sách chọn tướng (FarmPickerDialog, đổi ca, rút ra); chạm bong bóng bi hoặc "Thu hoạch" để lấy bi. Luật ở Core/Farm.
-// Prefab Assets/04 Prefabs/Screens/Farm dựng bằng menu "PokiClash/Prefab/Trang trại: cảnh thật" (Editor/FarmSceneMenu.cs): nền, lớp kéo,
+// Prefab Assets/04 Prefabs/Screens/Farm dựng bằng menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Trang trại: cảnh thật" (Editor/FarmSceneMenu.cs): nền, lớp kéo,
 // chỗ làm, bảng khu, bãi cỏ, ổ rơm, lớp thú, lớp hạt, hàng nút ở đáy. Thú và hạt là prefab mục Items/ThuTrangTrai, Items/HatTrangTrai.
 using System;
 using System.Collections.Generic;

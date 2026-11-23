@@ -1,7 +1,7 @@
 // Hộp tiềm năng của một tướng (prefab Assets/04 Prefabs/Dialogs/TiemNang): tiêu đề, chip đá, chip đá tinh, các dòng ô (số ô, dòng tiềm
 // năng, độ hiếm, nút khoá "khoa_i" hoặc ổ khoá khi ô chưa mở), tổng, dòng bộ, nút "khai_pha" và "khai_pha_tinh" (đá tinh: mọi ô từ Hiếm),
 // ghi chú giá. Khai phá xong mở hộp so sánh (Dialogs/TiemNangSoSanh). Mọi phần có sẵn trong prefab, Render bật tắt và gán chữ, màu.
-// 2026-11-17: 6 ô, đá tinh, bộ. Ô 5, 6, chip đá tinh, nút đá tinh, dòng bộ do menu "PokiClash/Prefab/Tiềm năng: 6 ô, bộ, đá tinh"
+// 2026-11-17: 6 ô, đá tinh, bộ. Ô 5, 6, chip đá tinh, nút đá tinh, dòng bộ do menu "PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Tiềm năng: 6 ô, bộ, đá tinh"
 // (Editor/SideMetaUiMenu.cs) dựng; prefab chưa dựng lại thì hộp chạy với số ô có sẵn và ẩn phần mới.
 using System;
 using System.Collections.Generic;

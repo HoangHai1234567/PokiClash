@@ -75,7 +75,7 @@ Số lấy từ prefab hiệu ứng của máy tham khảo: số hạt, đời, 
 - **Vệt bi** là `TrailGraphic`: một dải lưới tự dựng (ba làn, mép mờ) qua các điểm mẫu mỗi 0,03 giây. Lúc đầu ghép bằng các đoạn ảnh rời thì bị lên sọc ở chỗ chồng nhau.
 - **Nấm thành ảnh động** (`pk_bumper`), ảnh tĩnh mặt máy không vẽ nấm nữa, để nấm phồng xẹp được.
 - **Hạt chạy theo giờ máy:** lúc rương vàng làm máy chạy chậm, bộ jackpot cũng chậm theo.
-- **Prefab mục mới:** `Items/HatMayBi` (Image) và `Items/VetBiDai` (TrailGraphic), dựng bằng menu `PokiClash/Prefab/Máy bi: hạt hiệu ứng`, nên runtime không sinh đồ vật.
+- **Prefab mục mới:** `Items/HatMayBi` (Image) và `Items/VetBiDai` (TrailGraphic), dựng bằng menu `PokiClash/Prefab/Khác/Máy bi∕hạt hiệu ứng`, nên runtime không sinh đồ vật.
 
 ### Két vàng và ô khuất
 
@@ -148,7 +148,7 @@ Lúc chạy chậm, máng thả ngừng (học "chặn phóng" của ô hiếm),
 Rung (`App/Haptics.cs`):
 - Android 8+ dùng `VibrationEffect.createWaveform` có biên độ, mỗi bậc có khoảng chặn riêng.
 - Android cũ và iOS chỉ có `Handheld.Vibrate` (một cú dài), nên chỉ dùng ở bậc rương vàng. Rung iOS có cường độ cần plugin native, để sau.
-- Bật tắt bằng nút **Rung** trong Sổ tay (`settings.haptics`, mặc định bật, bản lưu cũ thiếu trường này đọc ra bật). Bật lên thì rung thử một cú. Dòng nút thêm vào prefab bằng menu `PokiClash/Prefab/Sổ tay: thêm dòng Rung`: nhân bản dòng "Âm thanh", nút dựng lại từ đúng prefab kit với cùng chỉnh sửa (giữ liên kết kit), gán `NotebookScene.p.haptics`.
+- Bật tắt bằng nút **Rung** trong Sổ tay (`settings.haptics`, mặc định bật, bản lưu cũ thiếu trường này đọc ra bật). Bật lên thì rung thử một cú. Dòng nút thêm vào prefab bằng menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Rung`: nhân bản dòng "Âm thanh", nút dựng lại từ đúng prefab kit với cùng chỉnh sửa (giữ liên kết kit), gán `NotebookScene.p.haptics`.
 
 ## Risks / Trade-offs
 

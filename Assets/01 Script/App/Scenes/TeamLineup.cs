@@ -1,8 +1,8 @@
 // Đội hình đầu màn Tướng (khung "doi_hinh" trong prefab Screens/Heroes, dựng bằng menu
-// "PokiClash/Prefab/Popup gọn (ô thưởng, đội hình, lực chiến)"): 3 ô đội đứng thành hàng, con giữa to và đứng cao hơn, hai con hai bên
+// "PokiClash/Prefab/Khác/Hộp thoại và màn∕Popup gọn (ô thưởng, đội hình, lực chiến)"): 3 ô đội đứng thành hàng, con giữa to và đứng cao hơn, hai con hai bên
 // lùi ra sau và đứng thấp xuống. Vuốt ngang xoay vòng (con bên trái / phải vào giữa); chạm con bên cạnh cũng xoay tới nó, chạm con
 // giữa mở hộp chi tiết. Dưới mỗi tướng: dải tên màu độ hiếm (số thứ tự ở góc), viên lực chiến riêng bên dưới (tách ra 2026-11-23,
-// menu "PokiClash/Prefab/Màn Tướng: bảng tên + lực chiến tách riêng"). Dưới hàng: 4 chỉ số của con giữa (icon + số), chấm vị trí.
+// menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: bảng tên + lực chiến tách riêng"). Dưới hàng: 4 chỉ số của con giữa (icon + số), chấm vị trí.
 // Số từ 1000 trở lên ghi gọn (NumFmt.Short: 3.3k, 57.6k). Bảng tên tô khung màu độ hiếm (2026-11-17); dòng tên con giữa ghi độ hiếm, bậc sao.
 // Đầu khung: lực chiến cả đội, nút Đổi đội (hộp chọn đội ChonDoi). Ô trống: dấu + mở hộp chọn đội; ô khoá: điều kiện mở.
 // Tướng có hình aola thì đứng động (AolaSticker, clip Đứng), không thì chân dung tĩnh. Bind lại (sau mỗi lần lưu) giữ sticker của tướng
@@ -35,7 +35,7 @@ namespace PokiClash
             public TextMeshProUGUI order, name, power;
             public GameObject empty;
             public TextMeshProUGUI emptyText;
-            // độ hiếm (menu "PokiClash/Prefab/Màn Tướng: độ hiếm, lọc và xếp"): bảng tên thành khung màu độ hiếm, giấy lót bên trong;
+            // độ hiếm (menu "PokiClash/Prefab/Khác/Hộp thoại và màn∕Màn Tướng: độ hiếm, lọc và xếp"): bảng tên thành khung màu độ hiếm, giấy lót bên trong;
             // Huyền thoại đội vương miện góc trên phải bảng tên
             public Image paper;
             public GameObject crown;

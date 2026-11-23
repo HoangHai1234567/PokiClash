@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
 {
     public static class StarterTour
     {
-        [MenuItem("PokiClash/Thử/Chọn tướng khởi đầu: hộp chọn, ải 1 từng tướng, ô đội 2 (đang Play)", priority = 119)]
+        [MenuItem("PokiClash/Thử/Khác/Người chơi mới∕Chọn tướng khởi đầu: hộp chọn, ải 1 từng tướng, ô đội 2 (đang Play)", priority = 119)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

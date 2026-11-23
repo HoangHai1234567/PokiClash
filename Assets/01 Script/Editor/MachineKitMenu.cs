@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
         const string MachinePath = "Assets/04 Prefabs/Screens/Machine.prefab";
         const string BoardArt = "Assets/03 Art/Pachinko/pk_bang_so.png";
 
-        [MenuItem("PokiClash/Prefab/Máy bi: prefab ánh sáng, bảng số, mở rương", priority = 67)]
+        [MenuItem("PokiClash/Prefab/Khác/Máy bi∕prefab ánh sáng, bảng số, mở rương", priority = 67)]
         public static void Build()
         {
             var image = Save("AnhMayBi", go =>

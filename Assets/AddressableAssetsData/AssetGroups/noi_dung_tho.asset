@@ -1,0 +1,204 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: noi_dung_tho
+  m_EditorClassIdentifier: 
+  m_GroupName: noi_dung_tho
+  m_GUID: 4356e3b79e1fe274b896f9ead0d4b833
+  m_SerializeEntries:
+  - m_GUID: 0088644dd1574104c8614bf0b3a655fa
+    m_Address: thach_de_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 03fb0ea97d4b95545b50d297304fb7b2
+    m_Address: tinh_hach_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1320de81108355c44a5209b8f9adcf40
+    m_Address: goc_832
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 14a5a363db6fe264aad361e4337e8a66
+    m_Address: tinh_hach_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 155cec96fce9a6c4782a22def0e2b77e
+    m_Address: sau_dat_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 1da4a9a09a3d8f54d8678667862a307a
+    m_Address: thu_da_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2e45df61baac332489639745fd52d353
+    m_Address: hat_de_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3227475870da67045a8642ca25870de9
+    m_Address: sau_dat_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 3a658fee0a84c6e42997f1da7816e2a6
+    m_Address: than_lan_cat_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 48e0404a28bba4d469326ddeac0fc0e1
+    m_Address: goc_298
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4c8f172dd47e99f43a8c7caabb505639
+    m_Address: be_tho_boss
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e31e174d5f55194c8b037b95a57925d
+    m_Address: goc_833
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 567102a602350ee48bbb06881b8fd9c3
+    m_Address: goc_297_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 634fbbd426f40be49a36d7f71dc763ba
+    m_Address: hat_de_2
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6648775f3d86d1c4eb7fe34fa317e2c1
+    m_Address: goc_298_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6ef85396e54e81448b2ab810dc8569df
+    m_Address: goc_297
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 79b3f8a0421071445b45c4354fc91a6b
+    m_Address: zone_tho
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7b154012c3b94904e906c05c2090ac0e
+    m_Address: rong_cat_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7bd76e470fbcf0d44948c125079d5de6
+    m_Address: quy_nui_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 7fdbf22221b458b4d94ef931d78b87cb
+    m_Address: quai_tho
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 829b6e669a017034f822ce17a1104a4c
+    m_Address: goc_832_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 9cb2aad29f24fc44ba9512726166296c
+    m_Address: be_tho
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a03870e1bf4ea42429d97c676bc24eb4
+    m_Address: rong_cat_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ad6fb6e5ca40e2c4480afcac24ddd691
+    m_Address: than_lan_cat_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8341f47a8c88f544b3f8b3d8c86f8ec
+    m_Address: thu_da_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d24b325615cd2224eb87ac7f1416dcc1
+    m_Address: goc_833_atlas
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: dc67036a90ee9df47965d06cbf45cd4d
+    m_Address: land_tho_bien
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e4de2020e63915e4fa48a3bf312f9390
+    m_Address: land_tho
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ede7b0bedf7067444a2998c5fb858981
+    m_Address: thach_de_non
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fabf6a07c7c1f2a489f24711b0068602
+    m_Address: quai_bun_1
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - pack_tho
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: f6fbad8915aafc9449026cbe4e44d4b0, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 313ecf243eddfd44ca200660096acab2, type: 2}
+    - {fileID: 11400000, guid: 91d61e42325874742b5ed402514b59f8, type: 2}
+    - {fileID: 11400000, guid: 0af7cc655d3e5a846bd50e59b280f724, type: 2}

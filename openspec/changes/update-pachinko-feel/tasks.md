@@ -31,7 +31,7 @@
 - [x] 4.4 `App/Haptics.cs`: rung chia bậc (Android 8+ có biên độ; máy cũ và iOS chỉ bậc rương vàng). Biên dịch được cả nhánh Android (định nghĩa `UNITY_ANDROID`, bỏ `UNITY_EDITOR`).
 - [x] 4.5 Hộp mở rương: lắc gỗ 0,65 / bạc 0,85 / vàng 1,1 giây (vàng mạnh dần), rung khi bật theo loại.
 - [ ] 4.6 Thử trên máy Android thật: rung từng bậc rõ mà không tê tay khi 30 bi cùng lăn; FPS.
-- [x] 4.7 Nút **Rung** trong Sổ tay: `settings.haptics` (lưu, đọc, mặc định bật), `App.ApplySettings`, `NotebookScene` (bật thì rung thử); menu `PokiClash/Prefab/Sổ tay: thêm dòng Rung` đã chạy, prefab có dòng `hang_Rung` (nút kit giữ liên kết). Ảnh `Temp/PokiShots/130_so_tay_dau`: dòng Rung dưới Âm thanh.
+- [x] 4.7 Nút **Rung** trong Sổ tay: `settings.haptics` (lưu, đọc, mặc định bật), `App.ApplySettings`, `NotebookScene` (bật thì rung thử); menu `PokiClash/Prefab/Khác/Hộp thoại và màn∕Sổ tay: thêm dòng Rung` đã chạy, prefab có dòng `hang_Rung` (nút kit giữ liên kết). Ảnh `Temp/PokiShots/130_so_tay_dau`: dòng Rung dưới Âm thanh.
 
 ## 5. Ảnh
 
@@ -56,7 +56,7 @@
   - vệt dải `TrailGraphic` 0,3 giây; đinh loé 0,067 giây;
   - nấm động phồng xẹp 0,23 giây; mây co giãn khi thả; số nhảy ra;
   - hạt theo giờ máy.
-- [x] 6.7 `MachineScene` gọi hiệu ứng thả, ô, cốc, rương, jackpot. Prefab `Items/HatMayBi` và `Items/VetBiDai` dựng bằng menu `PokiClash/Prefab/Máy bi: hạt hiệu ứng`.
+- [x] 6.7 `MachineScene` gọi hiệu ứng thả, ô, cốc, rương, jackpot. Prefab `Items/HatMayBi` và `Items/VetBiDai` dựng bằng menu `PokiClash/Prefab/Khác/Máy bi∕hạt hiệu ứng`.
 - [x] 6.8 Unity:
   - lượt thử `PokiClash/Thử/Máy bi: soi hiệu ứng` dừng máy và tua giờ hạt để chụp từng mốc (ảnh `Temp/PokiShots/200–216`);
   - EditMode 82/83: test hỏng duy nhất là `IslandAnim.cs` của phiên Islands (luật prefab), không thuộc change này.

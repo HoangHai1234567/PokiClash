@@ -14,7 +14,7 @@ namespace PokiClash.EditorTools
     {
         static string Dir => Path.Combine(PlayTour.ShotDir, "chieu_ngay");
 
-        [MenuItem("PokiClash/Thử/Chiêu ra đòn ngay rồi chọn tiếp (đang Play)", priority = 113)]
+        [MenuItem("PokiClash/Thử/Khác/Trận∕Chiêu ra đòn ngay rồi chọn tiếp (đang Play)", priority = 113)]
         static void Try()
         {
             if (!EditorApplication.isPlaying || App.I == null)

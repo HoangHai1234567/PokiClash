@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forms:
-  - {fileID: 11400000, guid: 70606718fc5fa6143947c9746df25b7d, type: 2}
-  - {fileID: 11400000, guid: 576c4d1ba7b00324e93c5a9a6d580a64, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  formKeys:
+  - soi_giap_1
+  - soi_giap_2
+  pack: kim
   SplitFx: 0
   Manual: 0

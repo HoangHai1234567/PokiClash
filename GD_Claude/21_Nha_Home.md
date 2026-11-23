@@ -125,7 +125,7 @@ Năm hệ đều có việc. Năm khu của Trang trại cũ khớp sẵn: ao v�
 | Giếng (tưới tiêu) | 2x2 | Ruộng, vườn trong bán kính 4 ô +10% năng suất | 2 |
 | Cối nước (tưới tiêu) | 4x4, cạnh suối | Bán kính 8 ô +20% | 5 |
 | Suối nước nóng | 4x4 | Tướng nghỉ nhanh hơn 25%, cấp 2 là 50% | 4 |
-| Cây bi | 2x2 | Dời từ sảnh vào nhà như Critters, luật giữ nguyên (5 bi mỗi giờ, chứa 50, cây mới mở ở cấp 30, 50, 80, 110) | khi qua ải 1 |
+| Cây bi | 2x2 | Dời từ sảnh vào nhà như Critters, luật giữ nguyên (5 bi mỗi giờ, chứa 50, cây mới mở ở cấp 30, 50, 80, 110). Từ 2026-11-23 thẻ ở sảnh bỏ hẳn; người chơi tự đặt cây từ khay Xây (miễn phí), lần đầu có hướng dẫn (25_FTUE.md, G3a–G3d) | cùng lúc mở Nhà (trước 2026-11-23: khi qua ải 1) |
 | Bến thuyền | cố định | Nút "Ra đảo" về sảnh | có sẵn |
 
 Tưới tiêu là chỗ xếp đặt có tính toán: đặt ruộng, vườn quanh giếng và cối nước thì ra nhiều hơn. Bán kính hiện bằng vòng ô xanh khi nhấc công trình lên.
@@ -308,7 +308,7 @@ Mình làm:
 **Khoảnh đầu sửa (2026-11-18)**: ghép thử cho thấy 2 x 2 ô rừng quá chật, bến bị rừng tách khỏi làng. Khoảnh đầu nay là 7 ô rừng (thêm 3 ô ven biển tới bến), có đường đất lát sẵn từ bến lên Nhà chính (`startTiles`); `maxLots` cộng thêm 3.
 
 **H2: cảnh Nhà trong Unity (2026-11-18)**:
-- Code chạy trong game: `App/Scenes/Home/HomeScene.cs`, `HomeObject.cs`, `HomeTap.cs`. Editor: `Editor/HomeSceneMenu.cs`, menu `PokiClash/Prefab/Nhà: dựng màn`; menu này nhập dữ liệu rồi dựng `Screens/Home.prefab` (chép từ Farm), `Items/NhaVat`, `NhaOLat`, `NhaMay`, scene `Home.unity`, Build Settings. Chạy được bằng cờ `Temp/home_build.flag`; tour chụp ảnh bằng `Temp/home_tour.flag`.
+- Code chạy trong game: `App/Scenes/Home/HomeScene.cs`, `HomeObject.cs`, `HomeTap.cs`. Editor: `Editor/HomeSceneMenu.cs`, menu `PokiClash/Prefab/Nhà và side meta/Nhà và side meta∕Nhà: dựng màn`; menu này nhập dữ liệu rồi dựng `Screens/Home.prefab` (chép từ Farm), `Items/NhaVat`, `NhaOLat`, `NhaMay`, scene `Home.unity`, Build Settings. Chạy được bằng cờ `Temp/home_build.flag`; tour chụp ảnh bằng `Temp/home_tour.flag`.
 - `SceneIds.Home`. Sảnh: công trình Trang trại đổi thành Nhà (vào scene Home, chấm báo `Home.Alert`). `HubPan.SetOffset`, `AdGate.HomeSpeed`.
 - Có: kéo bản đồ; ô lát; khối rừng trên ô chưa mở; công trình theo ảnh; bảng chọn (thu, giao hoặc rút tướng, nâng cấp, rút giờ bằng quảng cáo, cất trang trí); chế độ xây (khay, bóng ma xanh hoặc đỏ, chạm để dời, Đặt); chế độ lát ô; Tự xếp; Thu hết; Ra đảo; mây rìa; sáng tối; đèn đêm.
 - Chưa có: thú đi lại, làm việc (H3); tan mây khi mở đất; hiệu ứng dọn rừng; hình công trình đổi theo cấp.
@@ -328,6 +328,13 @@ Mình làm:
 **Rừng chưa mở, thưởng dọn rừng (người dùng dặn 2026-11-18)**:
 - Cây ở ô chưa mở tô tối nhẹ (nhân màu 0,8 / 0,82 / 0,78), đang dọn thì mờ thêm (`HomeScene.LockedTint`).
 - Dọn xong ô rừng được **bi để thả** (bi máy bi) ngoài gỗ: vòng 1 được 15 bi, vòng 2 được 40, vòng 3 được 80 (`home.rings[].balls`). Dọn xong lúc vắng thì vào màn mới báo. Màn Nhà báo bằng toast "Đã dọn rừng: +N bi để thả" kèm tiếng, thanh trên cập nhật số bi (`HomeState.cleared`, không lưu). Test `DonRung_KeDat_KhoaCap_ThuongGo`.
+- **Bong bóng bi, cây bay, gió, chim bướm (người dùng dặn 2026-11-23)**, học `pbsc_homestead_expand_bubble` và `pbfx_camp_expand_3x3` của Critters (`App/Scenes/Home/HomeScene.Forest.cs`, `HomeScene.Life.cs`):
+  - ô rừng dọn được hoặc chỉ thiếu gỗ, quặng, thợ có bong bóng "icon bi +N" trên tán cây giữa ô (Critters: icon 3 viên bi + số bi thưởng); chạm bong bóng như chạm ô. Đang dọn chỉ hiện nhãn giờ còn;
+  - dọn xong (hết giờ, hoặc xem quảng cáo rút giờ): cây trong khung nhìn bay lên trời lần lượt từ giữa ô ra. Mỗi cây nén xuống 0,13 giây, bật giãn dài 0,09 giây, vọt lên nhanh dần, nghiêng nhẹ, mờ hết sau ~0,85 giây. Gốc bung cụm khói kem + bụi đất (ảnh `farm_smoke`, `farm_dust`), cây to văng lá. Bi bay từ trên đầu ô lên chip bi như Cây bi. `ReportCleared` phải chạy trước lần lưu đầu sau khi dọn xong, nên nút quảng cáo và Dọn gọi thẳng vào nó;
+  - gió: cây trong khung nhìn nghiêng quanh gốc 0–2,4 độ, ngả theo chiều lá bay; cơn gió là sóng chạy ngang bản đồ. Cứ 1,6–4,2 giây một cây to lắc mạnh rồi êm (0,9 giây), rụng 1–3 lá, 30% có chim vụt ra. Làm bằng xoay transform (mã chạy không được tạo vật liệu nên không dùng shader cần thêm kênh UV);
+  - 5 bướm lượn quanh đất đã mở, đôi khi đậu; 4 ong bay số 8 quanh ruộng, vườn, bồn hoa, Cây bi; đàn 2–5 chim bay ngang khung mỗi 10–22 giây. Chỉ quanh khung nhìn, đêm thì tan. Ảnh vẽ bằng `ArtGen/Home/life/make_life.py` (tô phẳng, viền mực như lá gió) ở `Assets/Resources/HomeLife/`;
+  - giá mở giữ nguyên (gỗ, quặng, thời gian, thợ); quảng cáo `home_speed` rút 30 phút, 3 lần mỗi ngày dùng chung với xây, nâng cấp (người dùng: dùng quảng cáo như vậy là ổn);
+  - tour chụp: menu "PokiClash/Thử/Nhà và side meta/Nhà và side meta∕Nhà: rừng bay, gió, chim bướm (chụp)" (`Editor/HomeForestTour.cs`), ảnh ở `Temp/PokiShots/forest/`.
 - **Bỏ thoi cỏ có viền dưới chân cây và công trình** cho hình hoà vào đất (`ArtGen/Home/foot_strip.py`, dùng ở `trees/pack_trees.py` và `import_home.py`; người dùng nhắc lại vì công trình vẫn còn viền):
   - đo thoi bằng cách dò từ mũi dưới lên: bề ngang tăng đều cho tới mũi trái, phải. Thoi vẽ tay cao khoảng 0,54 tới 0,59 bề ngang, không đúng 2:1;
   - loang từ nền thoi qua màu nền (nền sáng, nét chì xanh của nền) để xoá nền. Không lọc thẳng theo màu được, vì nét chì nền trùng màu rêu, lá;
@@ -378,7 +385,7 @@ Mình làm:
   - tướng đang làm đứng trước công trình (ô 1 ngoài mặt trái, ô 2 ngoài mặt phải, ô 3 ở mũi), cử động theo việc: ruộng cuốc, vườn hái, ao rắc, bếp nhào, xưởng gỗ, mỏ, lò rèn đập búa. Hết sức thì ngồi nghiêng;
   - tướng vừa rút ra ngủ dọc mặt trái Nhà chính. Chạm thì hiện còn nghỉ bao lâu, có bánh thì có nút "Cho ăn bánh".
 - **Chỉ giao việc khi người chơi làm**, bỏ nút Tự xếp:
-  - kéo quái đang dạo thả vào công trình làm ra đồ (sáng xanh: nhận được, đỏ: không). Kéo tới mép khung thì bản đồ tự trôi (`LandView.Nudge`);
+  - kéo quái đang dạo thả vào công trình làm ra đồ (sáng xanh: nhận được, đỏ: không). Cầm tướng thì máy đứng yên, không tự trôi ở mép (người dùng 2026-11-23 báo lỗi "tap và hold tướng thì cam tự di chuyển"); công trình ngoài khung thì ngón thứ hai kéo bản đồ. Kéo trên tướng đang làm, nghỉ cũng không dời máy (`FarmPet.PassPan` tắt ở màn Nhà), thả tay là chạm;
   - hoặc chạm công trình, bấm "Giao tướng" (ô trống) hoặc "Đổi ca" (đủ người: ô mệt nhất) để mở hộp chọn tướng. Hộp này dùng lại `FarmPickerDialog.ShowHome`, có nút rút ra.
 - Thứ tự vẽ: chỉ dời con nào lệch chỗ (lớp vật có hơn nghìn cây). Quái đứng trước mặt tường công trình thì vẽ sau công trình.
 - Tour chụp thêm `11_quai_dao`, `12_tha_quai`, `13_chon_tuong`.
