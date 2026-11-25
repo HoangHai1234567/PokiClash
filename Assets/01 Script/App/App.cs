@@ -107,6 +107,20 @@ namespace PokiClash
             router = sceneRouter;
         }
 
+        // mã nước 2 chữ theo cài đặt vùng của máy (tạm, tới khi có Remote Config / giờ mạng); không đọc được thì rỗng (không chặn)
+        static string DeviceRegion()
+        {
+            try
+            {
+                var r = System.Globalization.RegionInfo.CurrentRegion;
+                return r != null && r.TwoLetterISORegionName.Length == 2 ? r.TwoLetterISORegionName : "";
+            }
+            catch (Exception)
+            {
+                return "";
+            }
+        }
+
         void Awake()
         {
             if (I != null)
@@ -127,6 +141,7 @@ namespace PokiClash
             if (es) es.pixelDragThreshold = Mathf.Max(10, Mathf.RoundToInt((Screen.dpi > 0 ? Screen.dpi : 160) * 0.1f));
 
             LocService.Init(); // ngôn ngữ trước dữ liệu: GameDb.Build dịch tên tướng, thẻ, đảo, ải
+            Casino.Region = DeviceRegion(); // đảo Casino: vùng tắt lều may rủi (casino.tablesBlock)
             GameDb.Build(heroDb, cardDb, zoneDb, balance);
             Theme.Init(uiAssets);
             ArtLibrary.Current = artLibrary;

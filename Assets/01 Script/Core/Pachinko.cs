@@ -679,7 +679,7 @@ namespace PokiClash.Core
     // Stones: đá tiềm năng; EvoStones: đá tiến hóa (khoá "evo" trong bảng rương). Cửa hàng (Shop, 2026-11-23): Crystal đá tinh, HeroChest /
     // GoldChest Rương Tướng cũ (không còn trao), Ticket vé chọn tướng, Perk quyền lợi (id: week, month, no_ads, fund), Egg trứng capsule vào túi
     // (id: egg_<bậc>, 2026-11-23)
-    public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones, Crystal, HeroChest, GoldChest, Ticket, Perk, Egg, Bait }
+    public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones, Crystal, HeroChest, GoldChest, Ticket, Perk, Egg, Bait, Deco } // Deco: trang trí Nhà vào túi (id = mã công trình; Chợ đen đảo Casino)
 
     public sealed class Reward
     {

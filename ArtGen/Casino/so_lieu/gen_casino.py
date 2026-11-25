@@ -2,7 +2,8 @@
 import json, sys, os, random
 
 sys.stdout.reconfigure(encoding="utf-8")
-PROJ = r"C:\Atomik\PokiWar"
+# thư mục project tính từ chỗ đặt script (hai máy khác ổ); đặt POKI_PROJ để chỉ chỗ khác
+PROJ = os.environ.get("POKI_PROJ") or os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 heroes = json.load(open(os.path.join(PROJ, "Assets", "02 Data", "Json", "heroes.json"), encoding="utf-8"))["heroes"]
 H = {h["id"]: h for h in heroes}
 RAR = ["common", "uncommon", "rare", "epic", "legend"]
@@ -117,6 +118,7 @@ if os.path.exists(_cal):
 block = {
     "openLevel": 8,
     "anchor": "2026-11-23",
+    "tablesBlock": ["BE"],  # vùng tắt ba lều may rủi (mục 8); Remote Config sau này đè
     "unlocks": [
         {"id": "fishing", "level": 8}, {"id": "inn", "level": 8}, {"id": "race", "level": 15, "heroes": 4},
         {"id": "booths", "level": 20}, {"id": "market", "level": 25}, {"id": "underground", "level": 35},
@@ -183,6 +185,8 @@ block = {
             {"kind": "crystal", "n": 1, "w": 8, "mark": 1.8},
             {"kind": "bait", "n": 5, "w": 12, "price": 30},
             {"kind": "mystery", "w": 12, "price": 120},
+            # Đồ Nhà (mục 6.4): trang trí bày ở Nhà, vào túi đồ; chỉ ra khi đã mở Nhà; giá cố định × bậc cấp
+            {"kind": "home", "n": 1, "w": 10, "price": 120, "defs": ["swing", "shell_lamp", "bronze_bell", "stone_jar", "bench", "lantern"]},
             {"kind": "shards", "n": 5, "w": 10, "mark": 1.6, "rar": "epic", "night": True},
             {"kind": "evo", "n": 2, "w": 5, "mark": 1.7, "night": True},
         ],

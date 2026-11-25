@@ -1936,6 +1936,7 @@
  "casino": {
   "openLevel": 8,
   "anchor": "2026-11-23",
+  "tablesBlock": ["BE"],
   "unlocks": [
    {"id": "fishing", "level": 8},
    {"id": "inn", "level": 8},
@@ -2167,6 +2168,7 @@
     {"kind": "crystal", "n": 1, "w": 8, "mark": 1.8},
     {"kind": "bait", "n": 5, "w": 12, "price": 30},
     {"kind": "mystery", "w": 12, "price": 120},
+    {"kind": "home", "n": 1, "w": 10, "price": 120, "defs": ["swing", "shell_lamp", "bronze_bell", "stone_jar", "bench", "lantern"]},
     {"kind": "shards", "n": 5, "w": 10, "mark": 1.6, "rar": "epic", "night": true},
     {"kind": "evo", "n": 2, "w": 5, "mark": 1.7, "night": true}
    ],

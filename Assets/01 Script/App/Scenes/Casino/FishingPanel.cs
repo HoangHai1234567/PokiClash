@@ -480,6 +480,7 @@ namespace PokiClash
                 {
                     case RewardKind.Balls: parts.Add(Loc.F("+{0} bi", r.n)); break;
                     case RewardKind.Bait: parts.Add(Loc.F("+{0} mồi", r.n)); break;
+                    case RewardKind.Deco: parts.Add(Loc.F("+{0} {1} (vào túi Nhà)", r.n, d.Cfg.home.Def(r.id)?.Name ?? r.id)); break;
                     case RewardKind.Shards:
                         string h = r.res?.hero ?? r.hero;
                         parts.Add(Loc.F("+{0} mảnh {1}", r.res?.n ?? r.n, h != null ? d.Hero(h)?.name : "")); break;
@@ -491,6 +492,30 @@ namespace PokiClash
                     case RewardKind.Exp: parts.Add(Loc.F("+{0} EXP", r.n)); break;
                     default: parts.Add("+" + r.n); break;
                 }
+            return string.Join(" · ", parts);
+        }
+
+        // chữ món thưởng của đảo trước khi nhận (bi nhân bậc cấp như Casino.Grant)
+        public static string Items(IEnumerable<CasinoItem> items)
+        {
+            var s = App.Save.Data;
+            var d = App.Data;
+            var parts = new List<string>();
+            foreach (var it in items)
+            {
+                if (it == null) continue;
+                switch (it.k)
+                {
+                    case "balls": parts.Add(Loc.F("+{0} bi", Shop.RoundBalls(it.n * Casino.Band(s, d)))); break;
+                    case Casino.Bait: parts.Add(Loc.F("+{0} mồi", it.n)); break;
+                    case "stones": parts.Add(Loc.F("+{0} đá tiềm năng", it.n)); break;
+                    case "evo": parts.Add(Loc.F("+{0} đá tiến hóa", it.n)); break;
+                    case "crystal": parts.Add(Loc.F("+{0} đá tinh", it.n)); break;
+                    case "shards": parts.Add(Loc.F("+{0} mảnh tướng", it.n)); break;
+                    case "copies": parts.Add(Loc.F("+{0} bản sao thẻ", it.n)); break;
+                    default: parts.Add("+" + it.n + " " + it.k); break;
+                }
+            }
             return string.Join(" · ", parts);
         }
     }

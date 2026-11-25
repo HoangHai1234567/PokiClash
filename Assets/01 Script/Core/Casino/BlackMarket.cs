@@ -19,6 +19,7 @@ namespace PokiClash.Core
         public int price;
         public bool bought;
         public bool night;
+        public string deco; // home: mã trang trí Nhà
     }
 
     public static class BlackMarket
@@ -104,10 +105,19 @@ namespace PokiClash.Core
                 case Casino.Bait:
                 case "mystery":
                     break;
+                case "home":
+                {
+                    // trang trí Nhà (mục 6.4 "Đồ Nhà"): chỉ khi đã mở Nhà; mỗi lượt hàng một món trong danh sách
+                    if (s.home == null || !Home.Open(s, d.Cfg)) return null;
+                    var defs = o.defs.Where(x => d.Cfg.home.Def(x) != null).ToList();
+                    if (defs.Count == 0) return null;
+                    sl.deco = rng.Pick(defs);
+                    break;
+                }
                 default:
                     return null;
             }
-            sl.price = o.kind == Casino.Bait ? Shop.RoundBalls(Math.Max(1, o.price) * Casino.Band(s, d)) : PriceOf(s, d, o, sl.items);
+            sl.price = o.kind == Casino.Bait || o.kind == "home" ? Shop.RoundBalls(Math.Max(1, o.price) * Casino.Band(s, d)) : PriceOf(s, d, o, sl.items);
             return sl;
         }
 
@@ -126,7 +136,7 @@ namespace PokiClash.Core
                 while (outL.Count < n && left.Count > 0 && guard++ < 50)
                 {
                     var o = rng.Weighted(left, x => x.w);
-                    if (o.kind == "evo" || o.kind == "crystal" || o.kind == "mystery" || o.kind == Casino.Bait) left.Remove(o); // tối đa 1 ô mỗi loại này
+                    if (o.kind == "evo" || o.kind == "crystal" || o.kind == "mystery" || o.kind == Casino.Bait || o.kind == "home") left.Remove(o); // tối đa 1 ô mỗi loại này
                     var sl = Make(s, d, o, outL.Count, rng);
                     if (sl == null) { left.Remove(o); continue; }
                     outL.Add(sl);
@@ -170,9 +180,35 @@ namespace PokiClash.Core
             Casino.Track(s, d, "market_buy", 1, now);
             if (sl.offer.kind == Casino.Bait)
                 return Casino.Grant(s, d, new List<CasinoItem> { new CasinoItem { k = Casino.Bait, n = sl.offer.n } }, now, rng);
-            if (sl.offer.kind == "mystery")
-                return Pachinko.RollChest(s, d, new ChestTable { kind = "casino_mystery", rolls = C(d).mystery }, 1, rng);
+            if (sl.offer.kind == "mystery") return OpenMystery(s, d, rng);
+            if (sl.offer.kind == "home")
+            {
+                Home.Bag(s.home, sl.deco, Math.Max(1, sl.offer.n));
+                return new List<Reward> { new Reward { k = RewardKind.Deco, n = Math.Max(1, sl.offer.n), id = sl.deco } };
+            }
             return Shop.Grant(s, d, sl.items, now, rng);
+        }
+
+        // mở Túi hàng lậu: giá túi nhân bậc cấp nên bi trong túi cũng nhân bậc cấp (không thì càng lên cấp túi càng lỗ)
+        public static List<Reward> OpenMystery(SaveData s, GameData d, Rng rng)
+        {
+            var r = Pachinko.RollChest(s, d, new ChestTable { kind = "casino_mystery", rolls = C(d).mystery }, 1, rng);
+            double band = Casino.Band(s, d);
+            foreach (var x in r)
+            {
+                if (x.k != RewardKind.Balls || band <= 1) continue;
+                int extra = Shop.RoundBalls(x.n * band) - x.n;
+                if (extra <= 0) continue;
+                s.balls += extra;
+                x.n += extra;
+            }
+            return r;
+        }
+
+        public static int MysteryPrice(SaveData s, GameData d)
+        {
+            var o = C(d).offers.Find(x => x.kind == "mystery");
+            return o == null ? 0 : Shop.RoundBalls(Math.Max(1, o.price) * Casino.Band(s, d));
         }
 
         // ---------- thu mua ----------

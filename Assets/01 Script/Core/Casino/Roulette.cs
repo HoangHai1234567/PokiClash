@@ -68,16 +68,40 @@ namespace PokiClash.Core
 
         // ---------- trên bản lưu ----------
 
-        public static string Check(SaveData s, GameData d, IList<RlBet> bets, int tier, double now)
+        public static string Check(SaveData s, GameData d, IList<RlBet> bets, int tier, double now, bool paid = true)
         {
             var c = Casino.C(d).roulette;
             if (!Casino.BoothOpen(s, d, Casino.Roulette, now)) return Loc.T("Lều Vòng Xoay chưa mở");
             if (!Casino.BetOpen(s, c, tier)) return Loc.F("Mở ở cấp {0}", Casino.BetLevel(c, tier));
             if (bets.Count == 0) return Loc.T("Đặt ít nhất một chip");
             if (bets.Count > c.chips) return Loc.F("Tối đa {0} chip mỗi vòng", c.chips);
+            if (!paid) return null;
             if (Casino.PlaysLeft(s, d, Casino.Roulette, now) <= 0) return Loc.T("Hết vòng hôm nay");
-            if (s.balls < bets.Sum(b => b.amount)) return Loc.T("Không đủ bi");
+            if (s.balls < bets.Count * Casino.Bet(s, d, c, tier)) return Loc.T("Không đủ bi");
             return null;
+        }
+
+        // quay theo chế độ (Casino.ModeOf): ván đầu miễn phí ở bậc 1 (thắng nhận phần lời), ván tập (không cược, không thưởng)
+        public static RlSpin PlayAs(SaveData s, GameData d, IList<RlBet> bets, int tier, TableMode mode, double now, Rng rng, out JarResult jar,
+            out List<Reward> extra, out string why)
+        {
+            if (mode == TableMode.Paid) return Play(s, d, bets, tier, now, rng, out jar, out extra, out why);
+            jar = new JarResult();
+            extra = new List<Reward>();
+            if (mode == TableMode.Free) tier = 0;
+            why = Check(s, d, bets, tier, now, false);
+            if (why != null) return null;
+            var c = Casino.C(d).roulette;
+            int bet = Casino.Bet(s, d, c, tier);
+            foreach (var b in bets) b.amount = bet;
+            var r = Spin(c, bets, tier, rng);
+            if (mode == TableMode.Free)
+            {
+                Casino.MarkSeen(s, "free:" + Casino.Roulette);
+                Casino.Track(s, d, "table", 1, now);
+                Casino.Win(s, d, Casino.FreeWin(r.payout, r.staked), now);
+            }
+            return r;
         }
 
         // quay có cược: trả cược, quay, trả thắng, mảnh Sao Vàng, đổ hũ; null nếu không quay được (why)

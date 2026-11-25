@@ -125,6 +125,44 @@ namespace PokiClash.EditorTools
             return art;
         }
 
+        // mây không che công trình (người dùng 2026-11-25: "mây che mất cả các building rồi"): đám mây nào đè khung một công trình (nới 24 px)
+        // thì đẩy ra xa tâm đảo từng 20 px tới khi hết đè; đẩy quá 900 px vẫn đè thì bỏ đám đó. Vết mây tính 78% khung ảnh (ảnh mây có viền trong).
+        static Image[] KeepClear(Image[] clouds, Art art)
+        {
+            var blocks = art.rects.Values.Select(r => new Rect(r.x - 24, r.y - 24, r.z - r.x + 48, r.w - r.y + 48)).ToList();
+            var center = new Vector2(art.w / 2f, art.h / 2f);
+            var kept = new List<Image>();
+            int moved = 0, dropped = 0;
+            foreach (var c in clouds)
+            {
+                var rt = c.rectTransform;
+                var a = rt.anchoredPosition;
+                var p = new Vector2(a.x + art.w / 2f, art.h / 2f - a.y); // px ảnh, gốc trên trái
+                var size = rt.sizeDelta * 0.78f;
+                var dir = p - center;
+                dir = dir.sqrMagnitude < 1 ? Vector2.down : dir.normalized;
+                bool Hit(Vector2 q) => blocks.Any(b => b.Overlaps(new Rect(q - size / 2, size)));
+                int step = 0;
+                while (Hit(p) && step < 45)
+                {
+                    p += dir * 20;
+                    step++;
+                }
+                if (Hit(p))
+                {
+                    Object.DestroyImmediate(c.gameObject);
+                    dropped++;
+                    continue;
+                }
+                if (step > 0) moved++;
+                rt.anchoredPosition = new Vector2(p.x - art.w / 2f, art.h / 2f - p.y);
+                kept.Add(c);
+            }
+            for (int i = 0; i < kept.Count; i++) kept[i].name = "may_" + i;
+            Debug.Log($"[Đảo Casino] Mây: giữ {kept.Count}, đẩy ra {moved}, bỏ {dropped} đám đè công trình.");
+            return kept.ToArray();
+        }
+
         static void Anchor(RectTransform rt, Art art, Vector4 r)
         {
             rt.anchorMin = new Vector2(r.x / art.w, 1 - r.w / art.h);
@@ -290,12 +328,17 @@ namespace PokiClash.EditorTools
                     if (!art.sprites.TryGetValue(kv.Key, out var sp)) continue;
                     var img = HomeSceneMenu.Img(layerArt, "ct_" + kv.Key, sp, Color.white);
                     Anchor(img.rectTransform, art, kv.Value);
+                    img.rectTransform.pivot = new Vector2(0.5f, 0.06f); // neo giãn nên pivot không dời ảnh; nhún (CasinoBob) quanh chân
                     img.gameObject.AddComponent<CasinoBuilding>().Setup(kv.Key, img); // mỗi công trình một vật riêng, đổi hình riêng
                     img.gameObject.SetActive(!kv.Key.StartsWith("leu_"));
                     images[kv.Key] = img;
                 }
                 Image Pick(string k) => images.TryGetValue(k, out var i) ? i : null;
                 scene.SetupBooths(Pads.Select(Pick).ToArray(), Tents.Select(Pick).ToArray());
+                // nhún công trình định kỳ và khi chạm (người dùng 2026-11-25)
+                var bob = layerArt.gameObject.AddComponent<CasinoBob>();
+                bob.Setup(images.Values.Select(i => i.GetComponent<CasinoBuilding>()).ToArray());
+                scene.SetupBob(bob);
 
                 // mây vành rời quanh đảo (dùng chung với Nhà): chuyến tàu qua mây mang theo, toả quanh tàu; chừa lối ở bến tàu
                 var clouds = HomeSceneMenu.Fill(HomeSceneMenu.Node(frame, "may", typeof(CanvasGroup)));
@@ -303,7 +346,7 @@ namespace PokiClash.EditorTools
                 cg.blocksRaycasts = false;
                 cg.interactable = false;
                 Vector2 L(Vector2 px) => new Vector2(px.x - art.w / 2, art.h / 2 - px.y);
-                var cloudImgs = HomeSceneMenu.BuildClouds(clouds, new Vector2(art.w, art.h), DockPx.x);
+                var cloudImgs = KeepClear(HomeSceneMenu.BuildClouds(clouds, new Vector2(art.w, art.h), DockPx.x), art);
                 clouds.gameObject.AddComponent<CloudRing>().Setup(cloudImgs, 290);
 
                 // bến tàu: con tàu của game (ShipBuild.Pier), trên lớp mây, dưới lớp sáng tối
@@ -519,6 +562,18 @@ namespace PokiClash.EditorTools
                 Object.FindAnyObjectByType<CasinoScene>()?.Refresh();
                 yield return new WaitForSecondsRealtime(0.6f);
                 yield return Shot("2_dao_giua");
+                // nhún công trình (CasinoBob): chụp 3 khung trong nhịp nhún của Tháp Máy Bi
+                var bob = Object.FindAnyObjectByType<CasinoBob>();
+                if (bob)
+                {
+                    bob.Bounce("thap", 1.6f);
+                    yield return new WaitForSecondsRealtime(0.07f);
+                    yield return Shot("2b_nhun_0");
+                    yield return new WaitForSecondsRealtime(0.1f);
+                    yield return Shot("2b_nhun_1");
+                    yield return new WaitForSecondsRealtime(0.1f);
+                    yield return Shot("2b_nhun_2");
+                }
                 var pan = Object.FindAnyObjectByType<HubPan>();
                 if (pan)
                 {

@@ -888,6 +888,7 @@ namespace PokiClash
             var r = Pachinko.SpendBall(S, D, x);
             if (r != null) bigReward = r;
             Shop.PiggyAdd(S, D.Cfg.shop, x); // Lọ Bi (cửa hàng, GD_Claude/26 mục 6.7)
+            Casino.Track(S, D, "drop", x, Game.SaveService.Now()); // nhiệm vụ Quán trọ "Thả {0} bi ở Tháp Máy Bi" (đảo Casino)
             int credit = Pachinko.GiftCredit(S, D.Cfg, x, r);
             if (credit > 0) giftPunchT = 0;
             foreach (var g in Pachinko.GiftAdd(S, D, credit))

@@ -1,7 +1,8 @@
 # Liệt kê chuỗi chưa dịch của phần Casino (code: Loc.T / Loc.F; dữ liệu: tên trong khối casino). Dùng: loc_missing.py [file.cs ...]
 import re, json, glob, sys, os
 sys.stdout.reconfigure(encoding="utf-8")
-PROJ = r"C:\Atomik\PokiWar"
+# thư mục project tính từ chỗ đặt script (hai máy khác ổ)
+PROJ = os.environ.get("POKI_PROJ") or os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "..", ".."))
 en = {}
 for f in glob.glob(os.path.join(PROJ, "Assets", "Resources", "Loc", "en", "*.json")):
     en.update(json.load(open(f, encoding="utf-8-sig")))

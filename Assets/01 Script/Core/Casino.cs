@@ -134,6 +134,9 @@ namespace PokiClash.Core
         public string Key => ev.id + "#" + occ;
     }
 
+    // chế độ một ván ở bàn may rủi: có cược; ván đầu miễn phí (không trả cược, thắng nhận phần lời); ván tập (hết lượt có thưởng)
+    public enum TableMode { Paid, Free, Practice }
+
     public sealed class JarResult
     {
         public bool full;
@@ -379,8 +382,28 @@ namespace PokiClash.Core
 
         public static CasinoSpan Booth(GameData d, string booth, double now) => Active(d, now).FirstOrDefault(sp => sp.ev.booth == booth);
 
-        // lều may rủi đang mở cho người chơi này (đã mở mục lều theo cấp)
-        public static bool BoothOpen(SaveData s, GameData d, string booth, double now) => Unlocked(s, d, Booths) && Booth(d, booth, now) != null;
+        // lều may rủi đang mở cho người chơi này (đã mở mục lều theo cấp, vùng không tắt lều)
+        public static bool BoothOpen(SaveData s, GameData d, string booth, double now) =>
+            Unlocked(s, d, Booths) && TablesAllowed(d) && Booth(d, booth, now) != null;
+
+        // ---------- vùng, chế độ bàn ----------
+
+        // mã nước 2 chữ của máy (App đặt lúc mở game theo cài đặt vùng; rỗng: không biết, không chặn)
+        public static string Region = "";
+
+        // lều may rủi được mở ở vùng này (casino.tablesBlock)
+        public static bool TablesAllowed(GameData d) =>
+            string.IsNullOrEmpty(Region) || Array.IndexOf(C(d).tablesBlock, Region.Trim().ToUpperInvariant()) < 0;
+
+        // ván đầu ở mỗi bàn may rủi không mất bi (mục 12): chưa chơi ván miễn phí của bàn này
+        public static bool FreeFirst(SaveData s, string game) => !Of(s).seen.Contains("free:" + game);
+
+        // chế độ ván kế: ván đầu miễn phí, hết lượt có thưởng thì ván tập (không cược, không thưởng, mục 6 / câu 8), còn lại có cược
+        public static TableMode ModeOf(SaveData s, GameData d, string game, double now) =>
+            FreeFirst(s, game) ? TableMode.Free : PlaysLeft(s, d, game, now) <= 0 ? TableMode.Practice : TableMode.Paid;
+
+        // ván miễn phí thắng thì nhận phần lời (không hoàn cược vì không trả cược), thua không mất gì
+        public static int FreeWin(int payout, int staked) => Math.Max(0, payout - staked);
 
         // mili giây còn lại tới hết ngày cuối của lần mở
         public static double Left(CasinoSpan sp, double now)
@@ -476,7 +499,9 @@ namespace PokiClash.Core
         {
             var st = Of(s);
             var inn = C(d).inn;
-            var pool = inn.quests.Where(q => string.IsNullOrEmpty(q.need) || Unlocked(s, d, q.need)).ToList();
+            // việc ở lều lữ khách chỉ ra vào ngày có lều may rủi đang mở (ngày nghỉ của lịch không làm được)
+            bool tables = TablesAllowed(d) && Active(d, day).Any(sp => C(d).Table(sp.ev.booth) != null);
+            var pool = inn.quests.Where(q => (string.IsNullOrEmpty(q.need) || Unlocked(s, d, q.need)) && (q.kind != "table" || tables)).ToList();
             var rng = new Rng((uint)(day * 40503 + 11));
             while (st.inn.Count < inn.count && pool.Count > 0)
             {

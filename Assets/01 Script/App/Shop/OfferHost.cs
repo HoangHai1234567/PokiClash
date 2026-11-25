@@ -99,6 +99,7 @@ namespace PokiClash
             if (!Guide.Idle || StoryIntro.Current != null || EggHatchView.Playing || HeroUnlockView.Playing || Time.unscaledTime - enteredAt < 0.8f) return false;
             string cur = App.Router.Current;
             if (cur == SceneIds.Battle) return false;
+            if (CasinoGames.IsTable(cur)) return false; // bàn may rủi đảo Casino: không gạ mua bi (GD_Claude/29 mục 8); để dành tới màn sau
             if (cur == SceneIds.Machine && !(App.Router.CurrentRoot is MachineScene m && m.Idle)) return false;
             return true;
         }

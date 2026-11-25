@@ -448,6 +448,138 @@ namespace PokiClash.Tests
         }
 
         [Test]
+        public void QuanTro_ViecLeu_ChiRaNgayCoLeu()
+        {
+            // vòng 14 ngày từ mốc 2026-11-23: ngày 4 và 8 nghỉ, ngày 12–14 Lễ Hội Đua (không phải bàn may rủi)
+            foreach (var day in new[] { 26, 30 })
+            {
+                double now = Noon(2026, 11, day);
+                Assert.IsFalse(Casino.Active(D, now).Any(sp => C.Table(sp.ev.booth) != null), "ngày " + day + " không có lều bàn");
+                var qs = Casino.InnToday(Save(60), D, now);
+                Assert.AreEqual(C.inn.count, qs.Count);
+                CollectionAssert.DoesNotContain(qs.Select(q => q.kind).ToList(), "table", "ngày " + day);
+            }
+            // ngày có lều bàn: việc lều vào bể (cấp 60 mở hết trò, đủ 8 việc trong bể)
+            var pool = C.inn.quests.Where(q => q.kind == "table").ToList();
+            Assert.IsNotEmpty(pool);
+            bool seen = false;
+            for (int day = 23; day <= 25 && !seen; day++)
+                for (int k = 0; k < 14 && !seen; k++)
+                    seen = Casino.InnToday(Save(60), D, Noon(2026, 11, day) + k * 14 * Casino.Day).Any(q => q.kind == "table");
+            Assert.IsTrue(seen, "việc lều có ra vào ngày Đêm Bài");
+        }
+
+        [Test]
+        public void Ban_VanDauMienPhi_VanTap_VungTatLeu()
+        {
+            double now = Noon(2026, 11, 23); // Đêm Bài (ngày 1 của vòng)
+            var s = Save(40);
+            Assert.AreEqual(TableMode.Free, Casino.ModeOf(s, D, Casino.Blackjack, now));
+            int b0 = s.balls;
+            var g = Blackjack.StartAs(s, D, 2, TableMode.Free, now, new Rng(3), out var why);
+            Assert.IsNotNull(g, why);
+            Assert.AreEqual(0, g.tier, "ván miễn phí ở bậc 1");
+            Assert.AreEqual(b0, s.balls, "không trả cược");
+            while (g.phase == BjPhase.Player) Assert.IsTrue(Blackjack.ActPaid(s, D, g, Blackjack.Advice(g), now));
+            Assert.AreEqual(b0, s.balls, "gấp đôi / tách cũng miễn phí");
+            Blackjack.Finish(s, D, g, g.tier, now, new Rng(3));
+            Assert.AreEqual(b0 + Casino.FreeWin(g.payout, g.Staked), s.balls, "thắng nhận phần lời, thua không mất");
+            Assert.AreEqual(TableMode.Paid, Casino.ModeOf(s, D, Casino.Blackjack, now), "chỉ một ván miễn phí");
+            Assert.AreEqual(C.blackjack.daily, Casino.PlaysLeft(s, D, Casino.Blackjack, now), "ván miễn phí không tính lượt");
+            // hết lượt có thưởng: ván tập
+            Casino.Roll(s, D, now).plays[Casino.Blackjack] = C.blackjack.daily;
+            Assert.AreEqual(TableMode.Practice, Casino.ModeOf(s, D, Casino.Blackjack, now));
+            for (uint seed = 1; seed < 30; seed++)
+            {
+                b0 = s.balls;
+                var p = Blackjack.StartAs(s, D, 0, TableMode.Practice, now, new Rng(seed), out why);
+                Assert.IsNotNull(p, why);
+                while (p.phase == BjPhase.Player) Blackjack.ActPaid(s, D, p, Blackjack.Advice(p), now);
+                Blackjack.Finish(s, D, p, p.tier, now, new Rng(seed));
+                Assert.AreEqual(b0, s.balls, "ván tập không mất, không được");
+            }
+            // vòng xoay, máy quả: ván đầu miễn phí không trả cược
+            double rlDay = Noon(2026, 11, 27), slDay = Noon(2026, 12, 1);
+            b0 = s.balls;
+            var r = Roulette.PlayAs(s, D, new List<RlBet> { new RlBet { kind = RlKind.Elem, v = 0 } }, 1, Casino.ModeOf(s, D, Casino.Roulette, rlDay), rlDay,
+                new Rng(5), out _, out _, out why);
+            Assert.IsNotNull(r, why);
+            Assert.AreEqual(b0 + Casino.FreeWin(r.payout, r.staked), s.balls);
+            b0 = s.balls;
+            var sr = Slots.PlayAs(s, D, 1, Casino.ModeOf(s, D, Casino.Slot, slDay), slDay, new Rng(6), out _, out _, out why);
+            Assert.IsNotNull(sr, why);
+            Assert.AreEqual(b0 + Casino.FreeWin(sr.Payout, sr.bet), s.balls);
+            Assert.AreEqual(TableMode.Paid, Casino.ModeOf(s, D, Casino.Slot, slDay));
+            // vùng tắt lều may rủi (casino.tablesBlock)
+            Casino.Region = "be";
+            try
+            {
+                Assert.IsFalse(Casino.TablesAllowed(D));
+                Assert.IsFalse(Casino.BoothOpen(s, D, Casino.Blackjack, now));
+                Assert.IsNull(Blackjack.StartAs(s, D, 0, TableMode.Practice, now, new Rng(1), out _));
+            }
+            finally
+            {
+                Casino.Region = "";
+            }
+            Assert.IsTrue(Casino.BoothOpen(s, D, Casino.Blackjack, now));
+        }
+
+        [Test]
+        public void ChoDen_DoNha_ChiKhiMoNha_VaoTui()
+        {
+            var home = C.market.offers.Find(o => o.kind == "home");
+            Assert.IsNotNull(home, "dữ liệu có hàng Đồ Nhà");
+            // chưa mở Nhà: không bày Đồ Nhà (thử nhiều lượt hàng)
+            var s = Save(60);
+            for (int k = 0; k < 40; k++)
+            {
+                s.casino = null;
+                double t = Noon(2026, 11, 1) + k * Casino.Day;
+                Assert.IsFalse(BlackMarket.Stock(s, D, t).Any(x => x.offer.kind == "home"), "chưa mở Nhà");
+            }
+            // mở Nhà: có lượt hàng bày Đồ Nhà; mua thì vào túi Nhà
+            for (int z = 0; z < s.zones.Length; z++) s.zones[z] = 2;
+            Home.Of(s, D, 0);
+            Assert.IsTrue(Home.Open(s, D.Cfg));
+            MkSlot sl = null;
+            double when = 0;
+            for (int k = 0; k < 120 && sl == null; k++)
+            {
+                s.casino = null;
+                when = Noon(2026, 11, 1) + k * Casino.Day;
+                sl = BlackMarket.Stock(s, D, when).FirstOrDefault(x => x.offer.kind == "home");
+            }
+            Assert.IsNotNull(sl, "có lượt hàng bày Đồ Nhà");
+            CollectionAssert.Contains(home.defs, sl.deco);
+            int had = s.home.bag.TryGetValue(sl.deco, out var n0) ? n0 : 0;
+            var r = BlackMarket.Buy(s, D, sl.idx, when, new Rng(2), out var why);
+            Assert.IsNotNull(r, why);
+            Assert.AreEqual(RewardKind.Deco, r[0].k);
+            Assert.AreEqual(had + home.n, s.home.bag[sl.deco]);
+        }
+
+        [Test]
+        public void ChoDen_TuiLau_BiNhanBacCap()
+        {
+            var lo = Save(1);
+            var hi = Save(150);
+            Assert.Greater(Casino.Band(hi, D), 1.0);
+            Assert.AreEqual(Shop.RoundBalls(C.market.offers.Find(o => o.kind == "mystery").price * Casino.Band(hi, D)), BlackMarket.MysteryPrice(hi, D));
+            // cùng hạt giống: túi ra bi thì cấp cao nhận bi nhân bậc cấp
+            for (uint seed = 1; seed < 200; seed++)
+            {
+                int b0 = lo.balls, b1 = hi.balls;
+                var r0 = BlackMarket.OpenMystery(lo, D, new Rng(seed));
+                var r1 = BlackMarket.OpenMystery(hi, D, new Rng(seed));
+                if (r0[0].k != RewardKind.Balls) continue;
+                Assert.AreEqual(Shop.RoundBalls(r0[0].n * Casino.Band(hi, D)), r1[0].n, "seed " + seed);
+                Assert.AreEqual(r0[0].n, lo.balls - b0);
+                Assert.AreEqual(r1[0].n, hi.balls - b1);
+            }
+        }
+
+        [Test]
         public void BanLuu_DocGhi_Casino()
         {
             var s = Save(60);

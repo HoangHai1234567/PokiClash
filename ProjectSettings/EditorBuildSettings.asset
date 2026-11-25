@@ -53,6 +53,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00 Scenes/CasinoRace.unity
     guid: bc8ab995d3f4a084981f63a37e146277
+  - enabled: 1
+    path: Assets/00 Scenes/CasinoMarket.unity
+    guid: 6bad4ed1c502b7b498144bf92b22e1a1
+  - enabled: 1
+    path: Assets/00 Scenes/CasinoBlackjack.unity
+    guid: 5d97d9063ca43a14390d2a91d5a8642e
+  - enabled: 1
+    path: Assets/00 Scenes/CasinoRoulette.unity
+    guid: 5ef1728fafba4084bb0b697ad6e222c9
+  - enabled: 1
+    path: Assets/00 Scenes/CasinoSlot.unity
+    guid: d7cfd6d7e0ccb32458e0efa837916aef
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 58293e095eb985441816269aceb0385f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

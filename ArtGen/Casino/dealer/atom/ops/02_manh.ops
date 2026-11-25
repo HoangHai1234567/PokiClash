@@ -1,0 +1,86 @@
+part.add than path=images/than.png at=227,44 canvas=1024,1536 origin=512,1460 bone=hip_d
+part.add mat_01 path=images/mat_01.png at=414,314 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_02 path=images/mat_02.png at=413,316 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_03 path=images/mat_03.png at=406,330 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_04 path=images/mat_04.png at=416,308 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_05 path=images/mat_05.png at=414,306 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_06 path=images/mat_06.png at=412,344 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_07 path=images/mat_07.png at=408,331 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_08 path=images/mat_08.png at=412,314 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_09 path=images/mat_09.png at=405,324 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mat_10 path=images/mat_10.png at=409,324 canvas=1024,1536 origin=512,1460 bone=mat slot=mat
+part.add mieng_01 path=images/mieng_01.png at=420,418 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_02 path=images/mieng_02.png at=428,396 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_03 path=images/mieng_03.png at=482,414 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_04 path=images/mieng_04.png at=448,381 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_05 path=images/mieng_05.png at=414,421 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_06 path=images/mieng_06.png at=430,434 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_07 path=images/mieng_07.png at=429,404 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_08 path=images/mieng_08.png at=437,436 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_09 path=images/mieng_09.png at=454,420 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add mieng_10 path=images/mieng_10.png at=450,434 canvas=1024,1536 origin=512,1460 bone=mieng slot=mieng
+part.add luoi_trai path=images/luoi_trai.png at=297,139 canvas=1024,1536 origin=512,1460 bone=luoi
+part.add tay_trai path=images/tay_trai.png at=208,537 canvas=1024,1536 origin=512,1460 bone=tay_t1d
+part.add tay_phai path=images/tay_phai.png at=563,537 canvas=1024,1536 origin=512,1460 bone=tay_p1d
+image.add nit_trai path=images/nit_trai.png
+slot.add nit_trai bone=tay_t4d
+att.region nit_trai nit_trai image=nit_trai x=9.9 y=1.7 rot=119.94
+image.add nit_phai path=images/nit_phai.png
+slot.add nit_phai bone=tay_p4d
+att.region nit_phai nit_phai image=nit_phai x=9.8 y=-0.3 rot=60.36
+part.add no path=images/no.png at=412,522 canvas=1024,1536 origin=512,1460 bone=no
+image.add tay_01 path=images/tay_01.png
+image.add tay_02 path=images/tay_02.png
+image.add tay_03 path=images/tay_03.png
+image.add tay_04 path=images/tay_04.png
+image.add tay_05 path=images/tay_05.png
+image.add tay_06 path=images/tay_06.png
+image.add tay_07 path=images/tay_07.png
+image.add tay_08 path=images/tay_08.png
+image.add tay_09 path=images/tay_09.png
+image.add tay_10 path=images/tay_10.png
+image.add tay_11 path=images/tay_11.png
+image.add tay_12 path=images/tay_12.png
+slot.add ban_tay_trai bone=tay_tb
+att.region ban_tay_trai tay_01_t image=tay_01 x=106.0 y=-4.1 rot=-84.72 sx=1 use=true
+att.region ban_tay_trai tay_02_t image=tay_02 x=84.8 y=-6.8 rot=16.61 sx=1 use=false
+att.region ban_tay_trai tay_03_t image=tay_03 x=89.1 y=4.1 rot=-33.96 sx=1 use=false
+att.region ban_tay_trai tay_04_t image=tay_04 x=104.8 y=-4.6 rot=-17.35 sx=1 use=false
+att.region ban_tay_trai tay_05_t image=tay_05 x=97.2 y=4.2 rot=-28.08 sx=1 use=false
+att.region ban_tay_trai tay_06_t image=tay_06 x=116.9 y=-6.0 rot=-49.63 sx=1 use=false
+att.region ban_tay_trai tay_07_t image=tay_07 x=96.7 y=3.1 rot=-38.27 sx=1 use=false
+att.region ban_tay_trai tay_08_t image=tay_08 x=100.1 y=11.8 rot=-42.86 sx=1 use=false
+att.region ban_tay_trai tay_09_t image=tay_09 x=104.5 y=-4.2 rot=-2.28 sx=1 use=false
+att.region ban_tay_trai tay_10_t image=tay_10 x=97.8 y=8.2 rot=-22.55 sx=1 use=false
+att.region ban_tay_trai tay_11_t image=tay_11 x=109.0 y=15.1 rot=0.00 sx=1 use=false
+att.region ban_tay_trai tay_12_t image=tay_12 x=83.5 y=16.5 rot=0.00 sx=1 use=false
+slot.add ban_tay_phai bone=tay_pb
+att.region ban_tay_phai tay_01_p image=tay_01 x=106.0 y=4.1 rot=-95.28 sx=-1 use=true
+att.region ban_tay_phai tay_02_p image=tay_02 x=84.8 y=6.8 rot=163.39 sx=-1 use=false
+att.region ban_tay_phai tay_03_p image=tay_03 x=89.1 y=-4.1 rot=-146.04 sx=-1 use=false
+att.region ban_tay_phai tay_04_p image=tay_04 x=104.8 y=4.6 rot=-162.65 sx=-1 use=false
+att.region ban_tay_phai tay_05_p image=tay_05 x=97.2 y=-4.2 rot=-151.92 sx=-1 use=false
+att.region ban_tay_phai tay_06_p image=tay_06 x=116.9 y=6.0 rot=-130.37 sx=-1 use=false
+att.region ban_tay_phai tay_07_p image=tay_07 x=96.7 y=-3.1 rot=-141.73 sx=-1 use=false
+att.region ban_tay_phai tay_08_p image=tay_08 x=100.1 y=-11.8 rot=-137.14 sx=-1 use=false
+att.region ban_tay_phai tay_09_p image=tay_09 x=104.5 y=4.2 rot=-177.72 sx=-1 use=false
+att.region ban_tay_phai tay_10_p image=tay_10 x=97.8 y=-8.2 rot=-157.45 sx=-1 use=false
+att.region ban_tay_phai tay_11_p image=tay_11 x=109.0 y=-15.1 rot=180.00 sx=-1 use=false
+att.region ban_tay_phai tay_12_p image=tay_12 x=83.5 y=-16.5 rot=180.00 sx=-1 use=false
+att.mesh than than from=than edge=16 inner=30 maxVerts=1500
+att.mesh tay_trai tay_trai from=tay_trai edge=9 inner=13
+att.mesh tay_phai tay_phai from=tay_phai edge=9 inner=13
+att.mesh no no from=no edge=10 inner=18
+att.mesh luoi_trai luoi_trai from=luoi_trai edge=16 inner=30
+slot.order mieng to=front
+slot.order mat to=front
+slot.order luoi_trai to=front
+slot.order tay_trai to=front
+slot.order tay_phai to=front
+slot.order nit_trai to=front
+slot.order nit_phai to=front
+slot.order no to=front
+slot.order ban_tay_trai to=front
+slot.order ban_tay_phai to=front
+slot.set mat att=mat_02
+slot.set mieng att=mieng_01

@@ -146,14 +146,37 @@ namespace PokiClash.Core
 
         // ---------- trên bản lưu ----------
 
-        public static string Check(SaveData s, GameData d, int tier, double now)
+        public static string Check(SaveData s, GameData d, int tier, double now, bool paid = true)
         {
             var c = Casino.C(d).slots;
             if (!Casino.BoothOpen(s, d, Casino.Slot, now)) return Loc.T("Lều Máy Quả chưa mở");
             if (!Casino.BetOpen(s, c, tier)) return Loc.F("Mở ở cấp {0}", Casino.BetLevel(c, tier));
+            if (!paid) return null;
             if (Casino.PlaysLeft(s, d, Casino.Slot, now) <= 0) return Loc.T("Hết lượt hôm nay");
             if (s.balls < Casino.Bet(s, d, c, tier)) return Loc.T("Không đủ bi");
             return null;
+        }
+
+        // quay theo chế độ (Casino.ModeOf): ván đầu miễn phí ở bậc 1 (thắng nhận phần lời), ván tập (không cược, không thưởng)
+        public static SlotRound PlayAs(SaveData s, GameData d, int tier, TableMode mode, double now, Rng rng, out JarResult jar, out List<Reward> extra,
+            out string why)
+        {
+            if (mode == TableMode.Paid) return Play(s, d, tier, now, rng, out jar, out extra, out why);
+            jar = new JarResult();
+            extra = new List<Reward>();
+            if (mode == TableMode.Free) tier = 0;
+            why = Check(s, d, tier, now, false);
+            if (why != null) return null;
+            var c = Casino.C(d).slots;
+            int bet = Casino.Bet(s, d, c, tier);
+            var round = Round(c, bet, tier, rng);
+            if (mode == TableMode.Free)
+            {
+                Casino.MarkSeen(s, "free:" + Casino.Slot);
+                Casino.Track(s, d, "table", 1, now);
+                Casino.Win(s, d, Casino.FreeWin(round.Payout, bet), now);
+            }
+            return round;
         }
 
         // quay có cược: trả cược, quay (gồm lượt miễn phí), trả thắng, mảnh huy hiệu, đổ hũ

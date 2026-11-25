@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lão Mực concept</title>
+<style>
+  :root { --paper: #f6efe1; --card: #fffaf0; --ink: #2b2018; --ink2: #6b5a4a; --line: #d9ccb4; --accent: #b5413a; --green: #3f7a4a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, "Segoe UI", sans-serif; line-height: 1.55; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 26px; margin: 4px 0 2px; }
+  h2 { font-size: 20px; margin: 34px 0 8px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+  p.sub { color: var(--ink2); margin: 0 0 14px; }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  ul { margin: 6px 0; padding-left: 20px; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 6px; cursor: zoom-in; }
+  figcaption { font-size: 14px; margin-top: 6px; }
+  figcaption b { display: block; font-size: 15px; }
+  .tag { display: inline-block; background: var(--green); color: #fff; font-size: 12px; border-radius: 99px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
+  .two { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #efe5d2; }
+  .demo { display: grid; grid-template-columns: minmax(0, 360px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 760px) { .demo { grid-template-columns: 1fr; } }
+  svg#stage { width: 100%; max-width: 360px; background: #fff; border: 1px solid var(--line); border-radius: 10px; display: block; }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  button { font: inherit; font-size: 15px; padding: 8px 14px; border-radius: 8px; border: 2px solid var(--ink); background: #fff6d8; cursor: pointer; }
+  button:hover { background: #ffe9a8; }
+  label { font-size: 14px; color: var(--ink2); }
+  .zoom { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; z-index: 9; }
+  .zoom img { max-width: 96vw; max-height: 96vh; cursor: zoom-out; }
+  ol li { margin: 4px 0; }
+  .note { font-size: 13px; color: var(--ink2); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Lão Mực: dealer của Bến Lữ Khách</h1>
+  <p class="sub">Concept chờ duyệt, 2026-11-25. Kế hoạch chi tiết: <code>GD_Claude/31_LaoMuc_Dealer.md</code>. Bấm ảnh để phóng to.</p>
+
+  <div class="box">
+    <b>Tôi hiểu ý bạn thế này</b>
+    <ul>
+      <li>Một nhân vật <b>người mực đen vẽ tay, mắt vàng, gian xảo nhưng duyên</b>, đứng <b>sau bàn</b>, bàn ở phía người chơi (góc nhìn từ ghế ngồi).</li>
+      <li>Ông ta <b>dẫn người chơi qua đảo</b>: đón ở bến lần đầu, giới thiệu sơ qua từng trò (FTUE); luật đầy đủ để người chơi tự đọc.</li>
+      <li>Mỗi cảnh một bộ động tác: <b>chia bài, quay bánh xe, kéo cần máy quả</b>; đặt cược thì chip trượt lên bàn; nhà cái thắng thì <b>hai tay vơ chip</b>; biểu cảm thắng / thua là trọng tâm.</li>
+      <li>Kiểu diễn <b>tay chân ống cao su</b> của hoạt hình đầu những năm 1930 (cách Cuphead dựng lại): tay không khớp vươn rất dài, nén giãn, lấy đà to, khung nhòe, đứng không bao giờ im.</li>
+      <li><b>Học cách diễn, không chép nhân vật</b>: thiết kế riêng cho game, vẽ bằng nét bút mực + chì màu của PokiClash, tô phẳng, không bóng, không quầng sáng quanh mắt.</li>
+    </ul>
+  </div>
+
+  <h2>Mới nhất: D2 bản 4, sửa hướng bàn tay (2026-11-26)</h2>
+  <div class="box" style="margin-bottom:12px">
+    <b>Sửa theo góp ý bản 3</b> (ống tay giữ nguyên bản 3; chỉ sửa bàn tay):
+    <ul>
+      <li><b>Tay úp trên bàn (đứng chờ và mọi clip có dáng này)</b>: ngón cái (ngón ngắn nhất) giờ ở phía gần người, ngón út ở phía
+        người chơi. Hình bàn tay úp gốc vẽ ngón cái ở mép dưới nên đã lật lại ngay từ khâu cắt mảnh. Dáng tay rũ lúc "thắng lớn" cũng
+        đổi sang tay úp chĩa vào giữa.</li>
+      <li><b>Cáu</b>: nện bằng nắm tay dựng nghiêng, ngón cái ở trên, lòng bàn tay quay vào trong, cạnh ngón út chạm bàn; từ ghế người
+        chơi thấy mu nắm tay (hình nắm tay nghiêng mới).</li>
+      <li><b>Trả chip</b>: bỏ kiểu một ngón chỉ xuống đẩy. Bàn tay dựng đứng (ngón cái ở trên, lòng tay quay vào trong) tì mép ngón út
+        xuống bàn ngay sau chồng chip rồi gạt cả chồng tới ô cược (hình bàn tay mở dựng đứng mới).</li>
+      <li><b>Vơ chip</b>: hai bàn tay dựng đứng, ngón cái ở trên, lòng tay quay vào trong, đầu ngón chụm nhau thành mái nhà khép kín
+        quây lấy chồng chip rồi kéo cả mái về khay. Đầu ngón chụm ở phía người chơi, cổ tay ở phía Lão Mực (nhìn từ phía Lão Mực là
+        mái nhà; trên màn hình thành chữ V ôm chồng chip).</li>
+    </ul>
+    <span class="note">Hai hình bàn tay nhìn nghiêng là hình mới (tờ <code>rig/L4_tay_nghieng.png</code>, không viền, cùng nét găng trắng kem).
+      Nhịp các clip và giờ sự kiện giữ như bản 3. Mặt bàn, khay, chồng chip chỉ để xem. Hình chưa có nét viền.
+      Rig AtomSpine 65 xương, 12 clip, xuất <code>atom/export/lao_muc.atomik</code>. Tư liệu nghiên cứu (không dùng trong game, không đăng):
+      <a href="ref/soi_chu_ky_nhun.png">tờ soi một chu kỳ nhún</a>, <a href="ref/soi_doi_tay.png">tờ soi một cú đổi tay</a>.</span>
+  </div>
+  <div class="grid3">
+    <figure><img src="d2/idle.gif?v=b4" alt="Đứng chờ (lặp 4 s)"><figcaption><b>Đứng chờ (lặp 4 s)</b>hai tay úp tì mép bàn, ngón cái phía gần người; nhún theo phách kiểu dập, giữ, bật vượt, trôi; khuỷu bạnh ra mỗi lần dập; bụng rung trễ, đầu lắc ngược pha thân; liếc trái, liếc phải, chớp mắt, tay phải gõ bàn ba cái</figcaption></figure>
+    <figure><img src="d2/greet.gif?v=b4" alt="Chào khách"><figcaption><b>Chào khách</b>nhún lấy đà, bật lên, tay vòng một cung kẹp vành lưỡi trai, nháy mắt cúi chào, vẫy nhẹ rồi về</figcaption></figure>
+    <figure><img src="d2/talk.gif?v=b4" alt="Nói (lặp 2 s)"><figcaption><b>Nói (lặp 2 s)</b>khẩu hình đổi 12 hình / giây, đầu gật theo âm tiết; tay phải giơ có khuỷu, khua bằng cẳng tay và cổ tay, đổi xoè / chỉ</figcaption></figure>
+    <figure><img src="d2/bet_watch.gif?v=b4" alt="Người chơi đặt cược"><figcaption><b>Người chơi đặt cược</b>giật mình vươn lên nhìn, chồm xuống ngó chip, hai tay xoa nhau, liếm mép</figcaption></figure>
+    <figure><img src="d2/take.gif?v=b4" alt="Nhà cái thắng: vơ chip"><figcaption><b>Nhà cái thắng: vơ chip</b>nhún vai cuộn tay chữ W, hai tay vươn thành cung, hai bàn tay dựng đứng chụm đầu ngón thành mái nhà quây chồng chip, kéo cả mái về khay, phủi tay</figcaption></figure>
+    <figure><img src="d2/pay.gif?v=b4" alt="Trả chip"><figcaption><b>Trả chip</b>tiếc: ngả người né, mắt xị, môi run; tay vòng một cung ra ngoài, bàn tay dựng đứng tì sau chồng chip ở khay rồi gạt tới ô cược, khựng hai lần, hất cái cuối, thu tay, thở dài</figcaption></figure>
+    <figure><img src="d2/react_win_small.gif?v=b4" alt="Người chơi thắng nhỏ"><figcaption><b>Người chơi thắng nhỏ</b>giật nhẹ, chống nạnh, quay mặt lườm, chép miệng hai cái</figcaption></figure>
+    <figure><img src="d2/react_win_big.gif?v=b4" alt="Người chơi thắng lớn"><figcaption><b>Người chơi thắng lớn</b>nén 2 khung rồi bật: đầu giãn dài, mắt lồi, rớt hàm, tay tung lên, lưỡi trai bay khỏi đầu rồi rơi lại; run; xìu xuống, hai tay thả phịch xuống bàn; gượng lại</figcaption></figure>
+    <figure><img src="d2/react_lose.gif?v=b4" alt="Người chơi thua"><figcaption><b>Người chơi thua</b>khom lấy đà rồi ngửa người cười, hai tay ôm bụng, bụng và vai rung theo nhịp ha ha</figcaption></figure>
+    <figure><img src="d2/react_push.gif?v=b4" alt="Hoà"><figcaption><b>Hoà</b>nhún vai (vai dựng lên, đầu thụt), ngửa hai bàn tay, chu miệng, liếc ngang, thả xuống</figcaption></figure>
+    <figure><img src="d2/grumpy.gif?v=b4" alt="Cáu (thua liên tiếp)"><figcaption><b>Cáu (thua liên tiếp)</b>giơ hai nắm tay lên cao, run, xoay cổ tay rồi nện cạnh nắm tay xuống mép bàn (ngón cái ở trên): thân bẹp, lưỡi trai nảy, nắm tay nảy lại; gồng run, dằn thêm một cái, xả hơi</figcaption></figure>
+    <figure><img src="d2/sulk.gif?v=b4" alt="Xị mặt (hết lượt)"><figcaption><b>Xị mặt (hết lượt)</b>rũ người, đầu nghiêng, lưỡi trai lệch (vẫn bám đầu), thở dài, vẫy cổ tay uể oải 'mai ghé'</figcaption></figure>
+  </div>
+
+  <h2>Mới: D1, bộ hình để rig (chốt hướng A, tên Lão Mực)</h2>
+  <div class="box" style="margin-bottom:12px">
+    Theo luật rig của dự án: hình đem rig <b>không nét viền</b> (viền vẽ sau cùng khi đã chốt animation), nền một màu để tách sạch; thân một lưới liền;
+    biểu cảm làm bằng <b>đổi bộ mắt, miệng</b> trên mặt để trống (không uốn lưới). Tay ống cao su sẽ là dải lưới đen nhiều xương, bàn tay đổi hình theo dáng.
+  </div>
+  <div class="grid3">
+    <figure><img src="rig/L1_goc_rig.png" alt="Ảnh gốc rig"><figcaption><b>Ảnh gốc rig</b>Toàn thân chính diện, tay buông tách khỏi thân, bàn tay mở, mặt để trống, không viền.</figcaption></figure>
+    <figure><img src="rig/L2_mat_mieng.png" alt="Mắt và miệng"><figcaption><b>10 cặp mắt + 10 miệng</b>Theo tờ biểu cảm: nhếch mép, âm mưu, ngạc nhiên, sốc, cười, xị, nháy mắt, cáu, liếc; miệng cười răng vàng, há cười, chữ O, rớt hàm, nghiến răng, méo, lè lưỡi, mím, hai khẩu hình nói.</figcaption></figure>
+    <figure><img src="rig/L3_ban_tay.png" alt="Bàn tay" style="background:#c9d6c5"><figcaption><b>10 dáng bàn tay</b> (bản 4 thêm 2 dáng nhìn nghiêng: tờ <code>rig/L4_tay_nghieng.png</code>) Xoè, nghiêng, nắm, chỉ, kẹp góc bài, búng, vốc chip, giơ ngón cái, úp đẩy chip, nắm cần gạt (nền trong suốt).</figcaption></figure>
+  </div>
+  <figure style="margin-top:14px"><img src="rig/soi/D1_ghep_thu.png" alt="Ghép thử biểu cảm"><figcaption><b>Ghép thử</b>Một thân, đổi bộ mắt + miệng: nhếch mép, cười đắc thắng, sốc, cáu, nháy mắt, xị mặt. Lúc diễn thật đầu còn nén giãn, lưỡi trai bay theo cảm xúc.</figcaption></figure>
+
+  <h2>1. Ba hướng nhân vật</h2>
+  <div class="grid3">
+    <figure><img src="huong_A_dealer_co_dien.png" alt="Hướng A"><figcaption><b>A. Dealer cổ điển <span class="tag">đề xuất</span></b>Thân quả lê, chỏm mực xoăn, lưỡi trai xanh của dealer, nơ đỏ, gi lê đỏ rượu, găng trắng, răng vàng. Đứng sau bàn rõ vai dealer nhất, mặt to dễ đọc biểu cảm.</figcaption></figure>
+    <figure><img src="huong_B_bong_cao.png" alt="Hướng B"><figcaption><b>B. Ảo thuật gia cao gầy</b>Mũ chóp tím cài lá bài, ngón tay đen dài như nhện, áo đuôi tôm. Rất "sân khấu", nhưng quá cao để đứng sau bàn và tay đen khó đọc trên nền tối.</figcaption></figure>
+    <figure><img src="huong_C_muc_tron.png" alt="Hướng C"><figcaption><b>C. Chủ sòng tròn</b>Tròn như giọt mực, chỏm như sừng nhỏ, kính một mắt, mũ fez. Rất hợp cảnh ôm chip tham lam; thân tròn ít dáng tay hơn.</figcaption></figure>
+  </div>
+
+  <h2>2. Biểu cảm (hướng A)</h2>
+  <div class="two">
+    <figure><img src="A_bieu_cam.png" alt="Tờ biểu cảm"></figure>
+    <div class="box">
+      <table>
+        <tr><th>Mặt</th><th>Dùng khi</th></tr>
+        <tr><td>1. Nhếch mép, mí nặng</td><td>đứng chờ (idle)</td></tr>
+        <tr><td>2. Xoa tay âm mưu</td><td>người chơi đặt cược, đặt cược to</td></tr>
+        <tr><td>3. Liếc trộm lá úp</td><td>Blackjack: lá ngửa là A hoặc 10</td></tr>
+        <tr><td>4. Cười đắc thắng</td><td>người chơi thua, nhà cái vơ chip</td></tr>
+        <tr><td>5. Nháy mắt lè lưỡi</td><td>trêu khi người chơi thua sát nút</td></tr>
+        <tr><td>6. Sốc rớt hàm, lưỡi trai bay</td><td>người chơi thắng lớn (blackjack, Sao Vàng, huy hiệu)</td></tr>
+        <tr><td>7. Cáu xì khói</td><td>người chơi thắng 3 ván liền</td></tr>
+        <tr><td>8. Xị mặt, lưỡi trai lệch</td><td>dealer quá 21; hết ván có thưởng ("mai ghé nhé")</td></tr>
+        <tr><td>9. Chạm lưỡi trai chào</td><td>đón khách, hướng dẫn (FTUE)</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <h2>3. Dáng hoạt ảnh (hướng A)</h2>
+  <div class="two">
+    <figure><img src="A_dang_hoat_anh.png" alt="Tờ dáng hoạt ảnh"></figure>
+    <div class="box">
+      <ol>
+        <li><b>Tráo bài</b>: bộ bài vòng cung giữa hai tay dang rộng như phong cầm (đầu phiên).</li>
+        <li><b>Chia bài</b>: tay vươn rất dài, búng lá bài xoay tới đúng ô người chơi, có khung nhòe.</li>
+        <li><b>Quay bánh xe</b>: xoắn người như lò xo rồi quất tay quay, búng viên bi.</li>
+        <li><b>Vơ chip</b>: hai tay vòng quanh đống chip như thòng lọng, kéo về khay.</li>
+        <li><b>Đập bàn</b>: cáu, thân bẹp ngang, xì khói.</li>
+        <li><b>Ngửa cười</b>: thân vươn cao, tay ôm bụng.</li>
+      </ol>
+      <p class="note">Khi làm thật: thân và tay là rig AtomSpine (tay là chuỗi 8–10 xương co giãn tới 2,5 lần, đích tay đặt lúc chạy đúng vị trí lá bài / chồng chip); mặt và bàn tay là bộ hình vẽ tay thay theo khung; động tác nhanh có 1–2 khung nhòe vẽ riêng.</p>
+    </div>
+  </div>
+
+  <h2>4. Cảnh bàn bài nhìn từ ghế người chơi</h2>
+  <div class="two">
+    <figure><img src="A_canh_ban_bai.png" alt="Cảnh bàn bài"></figure>
+    <div class="box">
+      <ul>
+        <li>Lão Mực đứng sau bàn ở <b>nửa trên màn</b> (từ thắt lưng trở lên), giữa lều sọc xanh.</li>
+        <li>Mặt bàn nỉ xanh ở <b>nửa dưới, gần người xem</b>; khay chip và bài của dealer ở mép xa; bài và ô cược của người chơi ở mép gần.</li>
+        <li>Tay ống cao su <b>vươn qua bàn tới tận chỗ người chơi</b> để chia bài, vơ chip, đẩy chip trả.</li>
+        <li>Dải dưới cùng để trống cho hàng nút (Rút, Dằn, Gấp đôi, Tách…). Các thông tin hiện nay (bậc cược, Hũ bàn) thu gọn lên thanh trên.</li>
+        <li>Vòng Xoay: bánh xe nằm trên bàn trước mặt dealer. Máy Quả: máy đứng cạnh, Lão Mực vươn tay kéo cần.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>5. Thử chuyển động (vẽ đơn giản, chỉ để duyệt nhịp)</h2>
+  <div class="demo">
+    <svg id="stage" viewBox="0 0 360 440" aria-label="Thử chuyển động dealer">
+      <defs>
+        <pattern id="stripe" width="40" height="40" patternUnits="userSpaceOnUse"><rect width="20" height="40" fill="#3f7a4a"/><rect x="20" width="20" height="40" fill="#efe5d2"/></pattern>
+      </defs>
+      <rect width="360" height="440" fill="url(#stripe)"/>
+      <g id="dealer">
+        <g id="body">
+          <path id="torso" d="" fill="#1e1a17" stroke="#3a2a1e" stroke-width="3"/>
+          <path d="M150 170 L210 170 L216 250 L144 250 Z" fill="#7a2833" stroke="#3a2a1e" stroke-width="3"/>
+          <circle cx="180" cy="200" r="4" fill="#e3b23c"/><circle cx="180" cy="222" r="4" fill="#e3b23c"/>
+          <path d="M166 160 L180 168 L194 160 L194 176 L180 168 L166 176 Z" fill="#c8402f" stroke="#3a2a1e" stroke-width="2.5"/>
+          <g id="head">
+            <path id="curl" d="M184 72 C 200 52, 226 64, 214 80 C 206 90, 196 80, 204 74" fill="none" stroke="#1e1a17" stroke-width="10" stroke-linecap="round"/>
+            <circle id="skull" cx="180" cy="112" r="46" fill="#1e1a17" stroke="#3a2a1e" stroke-width="3"/>
+            <g id="eyes"></g>
+            <path id="mouth" d="" stroke="#3a2a1e" stroke-width="2.5"/>
+            <g id="visor"><path d="M136 92 Q180 58 224 92 L226 100 Q180 80 134 100 Z" fill="#5fa25a" stroke="#3a2a1e" stroke-width="2.5"/><rect x="140" y="88" width="80" height="7" rx="3" fill="#efe5d2" stroke="#3a2a1e" stroke-width="2"/></g>
+          </g>
+        </g>
+      </g>
+      <path d="M0 250 Q180 228 360 250 L360 440 L0 440 Z" fill="#2f6b4a" stroke="#6b4423" stroke-width="8"/>
+      <rect x="140" y="256" width="80" height="16" rx="4" fill="#8a5a33" stroke="#3a2a1e" stroke-width="2"/>
+      <g id="wheel" transform="translate(292 300)" opacity="0">
+        <circle r="34" fill="#8a5a33" stroke="#3a2a1e" stroke-width="3"/>
+        <g id="wheelSpokes"></g>
+        <circle r="6" fill="#e3b23c" stroke="#3a2a1e" stroke-width="2"/>
+      </g>
+      <g id="chips"></g>
+      <g id="cards"></g>
+      <path id="armL" d="" fill="none" stroke="#1e1a17" stroke-width="15" stroke-linecap="round"/>
+      <path id="armR" d="" fill="none" stroke="#1e1a17" stroke-width="15" stroke-linecap="round"/>
+      <g id="handL"><circle r="15" fill="#fffaf0" stroke="#3a2a1e" stroke-width="3"/><path d="M-6 -3 L-6 6 M0 -4 L0 7 M6 -3 L6 6" stroke="#c9bba3" stroke-width="2"/></g>
+      <g id="handR"><circle r="15" fill="#fffaf0" stroke="#3a2a1e" stroke-width="3"/><path d="M-6 -3 L-6 6 M0 -4 L0 7 M6 -3 L6 6" stroke="#c9bba3" stroke-width="2"/></g>
+      <text id="say" x="180" y="24" text-anchor="middle" font-size="15" fill="#2b2018" font-weight="700"></text>
+    </svg>
+    <div>
+      <div class="btns">
+        <button data-a="deal">Chia bài</button>
+        <button data-a="take">Nhà cái thắng: vơ chip</button>
+        <button data-a="shock">Người chơi thắng lớn</button>
+        <button data-a="laugh">Người chơi thua: cười</button>
+        <button data-a="spin">Quay bánh xe</button>
+        <button data-a="bet">Đặt cược</button>
+      </div>
+      <label><input type="checkbox" id="slow"> Chậm 3 lần (soi từng nhịp)</label>
+      <div class="box" style="margin-top:10px">
+        <b>Đang thử gì</b>
+        <ul>
+          <li><b>Tay ống cao su</b>: không khớp, cong theo khoảng cách, vươn dài khi với xa, co về thì nảy quá đà rồi lắc.</li>
+          <li><b>Lấy đà</b>: trước khi chia, tay rút về sau; trước khi quay bánh xe, người xoắn lại.</li>
+          <li><b>Nén giãn</b>: cười thì vươn cao, sốc thì giật người, lưỡi trai bay lên.</li>
+          <li><b>Đứng không bao giờ im</b>: nhún hai phách, mắt liếc.</li>
+          <li><b>Mắt dõi theo thứ quan trọng</b>: lá bài, chồng chip, bánh xe.</li>
+        </ul>
+        <p class="note">Hình ở đây là hình khối tạm vẽ bằng code. Bản thật dùng hình vẽ tay của tờ concept, rig AtomSpine, mặt thay theo tờ biểu cảm, thêm khung nhòe.</p>
+      </div>
+    </div>
+  </div>
+
+  <h2>6. Các bước làm</h2>
+  <div class="box">
+    <table>
+      <tr><th>Mốc</th><th>Việc</th><th>Duyệt bằng</th></tr>
+      <tr><td>D0</td><td>Concept (trang này)</td><td>bạn chọn hướng</td></tr>
+      <tr><td>D1</td><td>Chốt hướng, tên; tờ thiết kế chuẩn đứng sau bàn; tờ 12 biểu cảm, tờ 8 bàn tay</td><td>tờ soi</td></tr>
+      <tr><td>D2</td><td>Tách mảnh, rig AtomSpine (tay chuỗi co giãn, mặt và bàn tay thay hình); clip chung: đứng chờ, chào, nói, phản ứng, vơ chip, trả chip (bản 2: làm lại kiểu ống cao su; bản 3: tay là ống chắc; bản 4: sửa hướng bàn tay)</td><td>ảnh động từng clip</td></tr>
+      <tr><td>D3</td><td>Đêm Bài: nền lều nhìn từ ghế, lá bài bay, tráo, chia, liếc trộm, lật bài, quá 21; nối sự kiện game</td><td>chạy thử, quay màn</td></tr>
+      <tr><td>D4</td><td>Vòng Xoay: bánh xe vẽ xoay thật, quay, dõi bi, chỉ ô, vơ / trả chip</td><td>chạy thử</td></tr>
+      <tr><td>D5</td><td>Máy Quả: máy vẽ, cuộn trượt, kéo cần, phản ứng</td><td>chạy thử</td></tr>
+      <tr><td>D6</td><td>FTUE: đón ở bến, lời dẫn từng trò, câu thắng / thua, hết lượt</td><td>chạy từ bản lưu mới</td></tr>
+      <tr><td>D7</td><td>Lão Mực trồi góc màn hướng dẫn ở Bến câu, Trường đua, Chợ đen, Hầm đấu, Quán trọ</td><td>chạy thử</td></tr>
+      <tr><td>D8</td><td>Âm thanh, tối ưu, máy thật</td><td>quay màn máy thật</td></tr>
+    </table>
+  </div>
+
+  <h2>7. Cần bạn chốt</h2>
+  <div class="box">
+    <ol>
+      <li><b>Hướng</b>: A (đề xuất), B, C, hay trộn (ví dụ thân A + kính một mắt của C)?</li>
+      <li><b>Tên</b>: "Lão Mực" (đề xuất), "Ông Bóng", hay tên khác?</li>
+      <li><b>Một gương mặt cho cả đảo</b>: bỏ 6 chủ quán riêng, Lão Mực dẫn mọi trò (đề xuất)?</li>
+      <li><b>Mức "quỷ"</b>: giữ duyên dáng như concept, hay thêm nét quỷ nhẹ (chỏm như sừng nhỏ của C)?</li>
+      <li><b>Diễn gian, luật công bằng</b> (đề xuất): chỉ liếc bài, nháy mắt; tỉ lệ thắng không đổi?</li>
+      <li><b>Máy quả</b>: Lão Mực kéo cần hộ (đề xuất) hay người chơi tự kéo?</li>
+      <li><b>Tiếng nói</b>: chữ + tiếng lầm bầm vô nghĩa (đề xuất), hay lồng tiếng thật?</li>
+    </ol>
+  </div>
+</main>
+<div class="zoom" id="z"><img id="zi" alt=""></div>
+
+<script>
+// phóng ảnh
+const z = document.getElementById('z'), zi = document.getElementById('zi');
+document.querySelectorAll('figure img').forEach(i => i.onclick = () => { zi.src = i.src; z.style.display = 'flex'; });
+z.onclick = () => z.style.display = 'none';
+
+// ---------- thử chuyển động ----------
+const $ = id => document.getElementById(id);
+const S = { // trạng thái vẽ
+  hL: {x: 122, y: 252}, hR: {x: 238, y: 252}, shL: {x: 142, y: 182}, shR: {x: 218, y: 182},
+  sx: 1, sy: 1, lean: 0, twist: 0, bob: 0,
+  eye: 'sly', gazeX: 0, gazeY: 0, mouth: 'grin', visorY: 0, visorR: 0,
+  wobL: 0, wobR: 0, say: ''
+};
+const REST_L = {x: 122, y: 252}, REST_R = {x: 238, y: 252};
+let busy = false;
+const slow = () => $('slow').checked ? 3 : 1;
+const ease = {
+  out: t => 1 - Math.pow(1 - t, 3),
+  inOut: t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
+  back: t => { const c = 2.2; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); },
+};
+const lerp = (a, b, t) => a + (b - a) * t;
+const lp = (a, b, t) => ({x: lerp(a.x, b.x, t), y: lerp(a.y, b.y, t)});
+function tween(ms, fn) {
+  ms *= slow();
+  return new Promise(res => {
+    const t0 = performance.now();
+    function step(now) { const t = Math.min(1, (now - t0) / ms); fn(t); if (t < 1) requestAnimationFrame(step); else res(); }
+    requestAnimationFrame(step);
+  });
+}
+const wait = ms => new Promise(r => setTimeout(r, ms * slow()));
+
+// tay: đường cong từ vai tới bàn tay; càng gần càng cong (mì ống), cộng lắc sau động tác
+function arm(sh, h, side, wob) {
+  const dx = h.x - sh.x, dy = h.y - sh.y, d = Math.hypot(dx, dy) || 1;
+  const bend = Math.max(10, 70 - d * 0.35) * side + wob;
+  const nx = -dy / d, ny = dx / d;
+  const c1 = {x: sh.x + dx * .3 + nx * bend, y: sh.y + dy * .3 + ny * bend};
+  const c2 = {x: sh.x + dx * .72 - nx * bend * .4, y: sh.y + dy * .72 - ny * bend * .4};
+  return `M${sh.x} ${sh.y} C${c1.x} ${c1.y} ${c2.x} ${c2.y} ${h.x} ${h.y}`;
+}
+const EYES = {
+  sly:   {s: 1, lid: .45, closed: false}, scheme: {s: .95, lid: .6, closed: false}, wide: {s: 1.15, lid: .1, closed: false},
+  shock: {s: 1.6, lid: 0, closed: false}, laugh: {s: 1, lid: 0, closed: true}, greedy: {s: 1, lid: .55, closed: false},
+};
+function eyesSvg() {
+  const e = EYES[S.eye] || EYES.sly;
+  let out = '';
+  for (const cx of [162, 198]) {
+    const cy = 112, rx = 13 * e.s, ry = 15 * e.s;
+    if (e.closed) { out += `<path d="M${cx - 12} ${cy + 2} Q${cx} ${cy - 10} ${cx + 12} ${cy + 2}" fill="none" stroke="#e3b23c" stroke-width="5" stroke-linecap="round"/>`; continue; }
+    out += `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="#f2c230" stroke="#3a2a1e" stroke-width="2.5"/>`;
+    out += `<circle cx="${cx + S.gazeX * rx * .45}" cy="${cy + S.gazeY * ry * .4}" r="${4.5 * (e.s > 1.3 ? .8 : 1)}" fill="#1e1a17"/>`;
+    if (e.lid > 0) out += `<path d="M${cx - rx - 2} ${cy - ry - 2} L${cx + rx + 2} ${cy - ry - 2} L${cx + rx + 2} ${cy - ry + ry * 2 * e.lid} Q${cx} ${cy - ry + ry * 2 * e.lid + (cx < 180 ? 4 : -4)} ${cx - rx - 2} ${cy - ry + ry * 2 * e.lid} Z" fill="#1e1a17"/>`;
+  }
+  return out;
+}
+function mouthD() {
+  switch (S.mouth) {
+    case 'O': return 'M168 142 Q180 128 192 142 Q180 168 168 142 Z';
+    case 'laugh': return 'M154 132 Q180 128 206 132 Q200 170 180 170 Q160 170 154 132 Z';
+    case 'grr': return 'M158 140 L202 140 L202 152 L158 152 Z';
+    default: return 'M150 130 Q180 142 210 128 Q204 154 180 156 Q158 156 150 130 Z';
+  }
+}
+function draw(now) {
+  const bob = S.bob ? 0 : Math.sin(now / 1000 * Math.PI * 2 / 1.0) * 2.5; // nhún 2 phách / 2 giây
+  const body = $('body');
+  body.setAttribute('transform', `translate(180 250) rotate(${S.lean + S.twist}) scale(${S.sx} ${S.sy}) translate(-180 ${-250 + bob})`);
+  $('torso').setAttribute('d', 'M128 250 C120 196 140 160 180 160 C220 160 240 196 232 250 Z');
+  $('eyes').innerHTML = eyesSvg();
+  $('mouth').setAttribute('d', mouthD());
+  $('mouth').setAttribute('fill', S.mouth === 'laugh' || S.mouth === 'O' ? '#7a2833' : '#fffaf0');
+  $('visor').setAttribute('transform', `translate(0 ${S.visorY}) rotate(${S.visorR} 180 90)`);
+  // vai theo thân (gần đúng)
+  const k = S.sy, tw = (S.lean + S.twist) * Math.PI / 180;
+  const sh = (p) => { const x = 180 + (p.x - 180) * S.sx, y = 250 + (p.y - 250) * k + bob; return {x: 180 + (x - 180) * Math.cos(tw) - (y - 250) * Math.sin(tw), y: 250 + (x - 180) * Math.sin(tw) + (y - 250) * Math.cos(tw)}; };
+  const sL = sh(S.shL), sR = sh(S.shR);
+  $('armL').setAttribute('d', arm(sL, S.hL, -1, S.wobL));
+  $('armR').setAttribute('d', arm(sR, S.hR, 1, S.wobR));
+  $('handL').setAttribute('transform', `translate(${S.hL.x} ${S.hL.y})`);
+  $('handR').setAttribute('transform', `translate(${S.hR.x} ${S.hR.y})`);
+  $('say').textContent = S.say;
+  // mắt liếc khi rảnh
+  if (!busy) { S.gazeX = Math.sin(now / 1700) > .6 ? 1 : Math.sin(now / 1700) < -.6 ? -1 : 0; S.gazeY = 0; }
+  requestAnimationFrame(draw);
+}
+requestAnimationFrame(draw);
+
+// đồ trên bàn
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, parent) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); parent.appendChild(e); return e; }
+function card(x, y, face) {
+  const g = el('g', {}, $('cards'));
+  el('rect', {x: -14, y: -19, width: 28, height: 38, rx: 3, fill: face ? '#fffaf0' : '#b5413a', stroke: '#3a2a1e', 'stroke-width': 2}, g);
+  if (face) el('path', {d: 'M0 -7 C6 -14 13 -4 0 8 C-13 -4 -6 -14 0 -7 Z', fill: '#c8402f'}, g);
+  else el('rect', {x: -8, y: -12, width: 16, height: 24, rx: 2, fill: 'none', stroke: '#efe5d2', 'stroke-width': 2}, g);
+  g.setAttribute('transform', `translate(${x} ${y})`);
+  return g;
+}
+function chipStack(x, y, n, color) {
+  const g = el('g', {}, $('chips'));
+  for (let i = 0; i < n; i++) el('ellipse', {cx: 0, cy: -i * 5, rx: 13, ry: 6, fill: color, stroke: '#3a2a1e', 'stroke-width': 2}, g);
+  g.setAttribute('transform', `translate(${x} ${y})`);
+  return g;
+}
+function clearTable() { $('cards').innerHTML = ''; $('chips').innerHTML = ''; $('wheel').setAttribute('opacity', 0); }
+async function springBack(which, from) {
+  const rest = which === 'L' ? REST_L : REST_R, key = which === 'L' ? 'hL' : 'hR', w = which === 'L' ? 'wobL' : 'wobR';
+  await tween(380, t => { S[key] = lp(from, rest, ease.back(t)); S[w] = Math.sin(t * Math.PI * 4) * 22 * (1 - t); });
+  S[w] = 0;
+}
+async function resetPose() {
+  const a = {...S.hL}, b = {...S.hR}, sx = S.sx, sy = S.sy, ln = S.lean, tw = S.twist, vy = S.visorY, vr = S.visorR;
+  await tween(260, t => { const e = ease.out(t); S.hL = lp(a, REST_L, e); S.hR = lp(b, REST_R, e); S.sx = lerp(sx, 1, e); S.sy = lerp(sy, 1, e); S.lean = lerp(ln, 0, e); S.twist = lerp(tw, 0, e); S.visorY = lerp(vy, 0, e); S.visorR = lerp(vr, 0, e); });
+  S.eye = 'sly'; S.mouth = 'grin'; S.say = '';
+}
+
+const ACTIONS = {
+  async deal() {
+    clearTable();
+    S.say = 'Một lá cho khách...';
+    const targets = [{x: 156, y: 362}, {x: 204, y: 362}];
+    for (const tg of targets) {
+      S.eye = 'scheme';
+      const r0 = {...S.hR};
+      // lấy đà: tay rút lên sau vai, thân nén nhẹ
+      await tween(140, t => { S.hR = lp(r0, {x: 250, y: 150}, ease.out(t)); S.sy = lerp(1, .95, t); });
+      // búng: tay vươn dài tới ô người chơi, lá bay theo
+      const c = card(250, 150, false);
+      S.eye = 'wide'; S.gazeY = 1;
+      await tween(110, t => { const e = ease.out(t); S.hR = lp({x: 250, y: 150}, {x: tg.x + 10, y: tg.y - 30}, e); S.sy = lerp(.95, 1.04, e); });
+      const p0 = {x: tg.x + 10, y: tg.y - 30};
+      tween(240, t => { const e = ease.out(t); const x = lerp(p0.x, tg.x, e), y = lerp(p0.y, tg.y, e) - Math.sin(t * Math.PI) * 18; c.setAttribute('transform', `translate(${x} ${y}) rotate(${(1 - e) * 540})`); })
+        .then(() => { c.remove(); card(tg.x, tg.y, true); });
+      await springBack('R', {...S.hR});
+      S.sy = 1; S.eye = 'sly';
+      await wait(120);
+    }
+    S.say = 'Hai mươi... hay quá? Khè khè.';
+    await wait(900);
+    await resetPose();
+  },
+  async take() {
+    clearTable();
+    const pile = [chipStack(166, 392, 3, '#c8402f'), chipStack(190, 396, 4, '#3a7bc8'), chipStack(210, 388, 2, '#e3b23c')];
+    S.say = 'Của ta hết!';
+    S.eye = 'greedy';
+    const a = {...S.hL}, b = {...S.hR};
+    // lấy đà: hai tay dang rộng
+    await tween(200, t => { const e = ease.out(t); S.hL = lp(a, {x: 70, y: 330}, e); S.hR = lp(b, {x: 290, y: 330}, e); S.sx = lerp(1, 1.08, e); S.sy = lerp(1, .94, e); });
+    // vòng quanh đống chip như thòng lọng
+    await tween(160, t => { const e = ease.out(t); S.hL = lp({x: 70, y: 330}, {x: 140, y: 412}, e); S.hR = lp({x: 290, y: 330}, {x: 232, y: 412}, e); S.wobL = 18 * (1 - t); S.wobR = -18 * (1 - t); });
+    // kéo về khay: chip theo tay
+    S.mouth = 'laugh';
+    const from = pile.map(g => ({g, x: +g.getAttribute('transform').match(/translate\(([-\d.]+)/)[1], y: +g.getAttribute('transform').match(/ ([-\d.]+)\)/)[1]}));
+    await tween(420, t => {
+      const e = ease.inOut(t);
+      S.hL = lp({x: 140, y: 412}, {x: 160, y: 272}, e); S.hR = lp({x: 232, y: 412}, {x: 200, y: 272}, e);
+      for (const f of from) f.g.setAttribute('transform', `translate(${lerp(f.x, 180 + (f.x - 188) * .4, e)} ${lerp(f.y, 270, e)})`);
+      S.sx = lerp(1.08, .96, e); S.sy = lerp(.94, 1.06, e);
+    });
+    S.wobL = S.wobR = 0;
+    await wait(500);
+    await resetPose();
+    clearTable();
+  },
+  async shock() {
+    S.say = 'BLACKJACK?!';
+    S.eye = 'shock'; S.mouth = 'O';
+    const a = {...S.hL}, b = {...S.hR};
+    await tween(120, t => { const e = ease.out(t); S.sy = lerp(1, 1.22, e); S.sx = lerp(1, .88, e); S.visorY = lerp(0, -70, e); S.visorR = lerp(0, -25, e); S.hL = lp(a, {x: 100, y: 160}, e); S.hR = lp(b, {x: 260, y: 160}, e); });
+    await tween(420, t => { const e = ease.back(t); S.sy = lerp(1.22, 1.0, e); S.sx = lerp(.88, 1, e); S.visorY = lerp(-70, 0, ease.out(t)); S.visorR = lerp(-25, 8, ease.out(t)); });
+    S.say = 'Hừ... hên thôi!';
+    S.eye = 'scheme'; S.mouth = 'grr';
+    await wait(900);
+    await resetPose();
+  },
+  async laugh() {
+    S.say = 'Khè khè khè!';
+    S.eye = 'laugh'; S.mouth = 'laugh';
+    const a = {...S.hL}, b = {...S.hR};
+    await tween(160, t => { const e = ease.out(t); S.lean = lerp(0, -10, e); S.sy = lerp(1, 1.12, e); S.hL = lp(a, {x: 158, y: 232}, e); S.hR = lp(b, {x: 202, y: 232}, e); });
+    await tween(1100, t => { S.sy = 1.12 + Math.sin(t * Math.PI * 10) * .03; S.lean = -10 + Math.sin(t * Math.PI * 10) * 2; });
+    await resetPose();
+  },
+  async spin() {
+    clearTable();
+    $('wheel').setAttribute('opacity', 1);
+    const sp = $('wheelSpokes'); sp.innerHTML = '';
+    const cols = ['#9aa3ad', '#5fa25a', '#3a7bc8', '#c8402f', '#e3b23c'];
+    for (let i = 0; i < 10; i++) { const a = i * Math.PI / 5; el('line', {x1: 0, y1: 0, x2: Math.cos(a) * 30, y2: Math.sin(a) * 30, stroke: cols[i % 5], 'stroke-width': 7}, sp); }
+    S.say = 'Hết đặt cửa!';
+    S.eye = 'scheme';
+    const b = {...S.hR};
+    // lấy đà: xoắn người như lò xo, tay vòng ra sau
+    await tween(300, t => { const e = ease.out(t); S.twist = lerp(0, -14, e); S.hR = lp(b, {x: 120, y: 200}, e); S.sy = lerp(1, .93, e); });
+    // quất tay qua bánh xe
+    await tween(140, t => { const e = ease.out(t); S.twist = lerp(-14, 10, e); S.hR = lp({x: 120, y: 200}, {x: 300, y: 285}, e); S.sy = lerp(.93, 1.05, e); });
+    springBack('R', {...S.hR});
+    S.eye = 'wide';
+    let ang = 0;
+    await tween(2200, t => { ang += (1 - t) * 26; sp.setAttribute('transform', `rotate(${ang})`); S.gazeX = .9; S.gazeY = .6; S.twist = lerp(10, 4, t); });
+    S.say = 'Ô Mộc 3!';
+    await wait(700);
+    await resetPose();
+  },
+  async bet() {
+    clearTable();
+    S.say = 'Ồ, chơi lớn hả?';
+    S.eye = 'scheme';
+    const c = chipStack(180, 470, 1, '#3a7bc8');
+    await tween(380, t => { const e = ease.out(t); c.setAttribute('transform', `translate(180 ${lerp(470, 392, e) - Math.sin(t * Math.PI) * 30})`); S.gazeY = e; S.gazeX = 0; });
+    // xoa tay
+    const a = {...S.hL}, b = {...S.hR};
+    await tween(160, t => { const e = ease.out(t); S.hL = lp(a, {x: 168, y: 205}, e); S.hR = lp(b, {x: 192, y: 205}, e); });
+    await tween(700, t => { const o = Math.sin(t * Math.PI * 8) * 6; S.hL = {x: 168 + o, y: 205}; S.hR = {x: 192 - o, y: 205}; });
+    await resetPose();
+  },
+};
+document.querySelectorAll('button[data-a]').forEach(bt => bt.onclick = async () => {
+  if (busy) return;
+  busy = true; S.bob = 0;
+  try { await ACTIONS[bt.dataset.a](); } finally { busy = false; }
+});
+</script>
+</body>
+</html>

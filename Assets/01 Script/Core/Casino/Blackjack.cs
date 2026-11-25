@@ -47,6 +47,8 @@ namespace PokiClash.Core
         public int payout; // tổng bi trả lại (gồm cả cược) khi xong
         public int[] results = new int[0]; // từng tay: 2 blackjack, 1 thắng, 0 hoà, −1 thua
         public Rng rng;
+        public TableMode mode; // có cược / ván đầu miễn phí / ván tập
+        public int tier;
 
         public BjHand Hand => active < hands.Count ? hands[active] : null;
         public int Staked => hands.Sum(h => h.bet);
@@ -246,7 +248,29 @@ namespace PokiClash.Core
             if (!Casino.Stake(s, d, bet, now)) { why = Loc.T("Không đủ bi"); return null; }
             Casino.UsePlay(s, d, Casino.Blackjack, now);
             Casino.Track(s, d, "table", 1, now);
-            return Deal(bet, rng, c);
+            var g = Deal(bet, rng, c);
+            g.tier = tier;
+            return g;
+        }
+
+        // bắt đầu ván theo chế độ (Casino.ModeOf): ván đầu miễn phí ở bậc 1 không trả cược; ván tập không cược, không thưởng
+        public static BjGame StartAs(SaveData s, GameData d, int tier, TableMode mode, double now, Rng rng, out string why)
+        {
+            if (mode == TableMode.Paid) return Start(s, d, tier, now, rng, out why);
+            var c = Casino.C(d).blackjack;
+            why = null;
+            if (mode == TableMode.Free) tier = 0;
+            if (!Casino.BoothOpen(s, d, Casino.Blackjack, now)) { why = Loc.T("Lều Đêm Bài chưa mở"); return null; }
+            if (!Casino.BetOpen(s, c, tier)) { why = Loc.F("Mở ở cấp {0}", Casino.BetLevel(c, tier)); return null; }
+            if (mode == TableMode.Free)
+            {
+                Casino.MarkSeen(s, "free:" + Casino.Blackjack);
+                Casino.Track(s, d, "table", 1, now);
+            }
+            var g = Deal(Casino.Bet(s, d, c, tier), rng, c);
+            g.mode = mode;
+            g.tier = tier;
+            return g;
         }
 
         // gấp đôi / tách trên bản lưu: trả thêm cược gốc của tay rồi làm
@@ -254,7 +278,7 @@ namespace PokiClash.Core
         {
             var c = Casino.C(d).blackjack;
             if (!Can(g, a)) return false;
-            if (a == BjAct.Double || a == BjAct.Split)
+            if ((a == BjAct.Double || a == BjAct.Split) && g.mode == TableMode.Paid)
                 if (!Casino.Stake(s, d, g.Hand.bet, now)) return false;
             Act(g, a, c);
             return true;
@@ -263,7 +287,12 @@ namespace PokiClash.Core
         // ván xong: trả tiền thắng, đổ hũ (theo tổng đã cược của ván)
         public static JarResult Finish(SaveData s, GameData d, BjGame g, int tier, double now, Rng rng)
         {
-            if (g.phase != BjPhase.Done) return new JarResult();
+            if (g.phase != BjPhase.Done || g.mode == TableMode.Practice) return new JarResult();
+            if (g.mode == TableMode.Free)
+            {
+                Casino.Win(s, d, Casino.FreeWin(g.payout, g.Staked), now);
+                return new JarResult();
+            }
             Casino.Win(s, d, g.payout, now);
             return Casino.Pour(s, d, Casino.Blackjack, tier, g.Staked, now, rng);
         }

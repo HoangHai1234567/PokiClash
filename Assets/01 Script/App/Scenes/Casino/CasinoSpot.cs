@@ -18,6 +18,7 @@ namespace PokiClash
 
         public string Id => id;
         public RectTransform Rt => (RectTransform)transform;
+        public Action OnTapFx; // hiệu ứng khi chạm (CasinoScene: nhún công trình bên dưới), chạy trước thao tác
 
         // Dùng khi dựng prefab (Editor).
         public void Setup(ClickCatcher hitArea, Image plateImg, Image lockImg, Image dotImg, TextMeshProUGUI titleText, TextMeshProUGUI subText)
@@ -49,6 +50,7 @@ namespace PokiClash
                 hit.OnClick = () =>
                 {
                     App.Audio.Play("click");
+                    OnTapFx?.Invoke();
                     onClick?.Invoke();
                 };
         }

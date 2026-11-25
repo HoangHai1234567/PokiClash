@@ -5,7 +5,8 @@
 import os, sys, shutil, subprocess, glob
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-PROJ = r"C:\Atomik\PokiWar"
+# thư mục project tính từ chỗ đặt script (hai máy khác ổ); đặt POKI_PROJ để chỉ chỗ khác
+PROJ = os.environ.get("POKI_PROJ") or os.path.abspath(os.path.join(HERE, "..", "..", ".."))
 U = r"C:\Program Files\Unity\Hub\Editor\6000.0.73f1\Editor\Data"
 DOTNET = os.path.join(U, "NetCoreRuntime", "dotnet.exe")
 CSC = os.path.join(U, "DotNetSdkRoslyn", "csc.dll")

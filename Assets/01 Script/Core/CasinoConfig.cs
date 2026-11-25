@@ -193,6 +193,7 @@ namespace PokiClash.Core
         public int price; // giá cố định (bait, mystery)
         public bool night; // chỉ ban đêm
         public Rarity rar = Rarity.Rare; // shards: độ hiếm tối thiểu của tướng
+        public string[] defs = new string[0]; // home: trang trí Nhà có thể bày (mã công trình kind deco); cần đã mở Nhà
     }
 
     [Serializable]
@@ -287,6 +288,8 @@ namespace PokiClash.Core
     {
         public int openLevel = 8;
         public string anchor = "2026-11-23"; // ngày mốc của vòng sự kiện và vòng đội ngầm (thứ Hai)
+        // vùng (mã nước 2 chữ) tắt ba lều may rủi (mục 8: nước coi hộp may rủi trả tiền là cờ bạc); Remote Config sau này đè
+        public string[] tablesBlock = { "BE" };
         public List<CasinoUnlock> unlocks = new List<CasinoUnlock>();
         public List<CasinoEvent> events = new List<CasinoEvent>();
         public BlackjackConfig blackjack = new BlackjackConfig();
@@ -337,6 +340,9 @@ namespace PokiClash.Core
                 if (f.min <= 0 || f.max < f.min) err.Add($"casino.fishing.{f.id}: cỡ sai");
             if (fishing.fish.Select(f => f.id).Distinct().Count() != fishing.fish.Count) err.Add("casino.fishing: trùng id cá");
             if (market.offers.Count == 0) err.Add("casino.market.offers: rỗng");
+            foreach (var o in market.offers.Where(o => o.kind == "home"))
+                foreach (var id in o.defs)
+                    if (d.Cfg.home.Def(id) == null || !Home.IsDeco(d.Cfg.home.Def(id))) err.Add($"casino.market: '{id}' không phải trang trí Nhà");
             if (underground.rotation.Count == 0) err.Add("casino.underground.rotation: rỗng");
             int normal = underground.tiers.Count(t => !t.weekly);
             foreach (var day in underground.rotation.Concat(underground.dates))
@@ -432,6 +438,8 @@ namespace PokiClash.Core
             if (o == null) return c;
             c.openLevel = J.Int(o, "openLevel", c.openLevel);
             c.anchor = J.Str(o, "anchor", c.anchor);
+            if (o.ContainsKey("tablesBlock"))
+                c.tablesBlock = J.Arr(o, "tablesBlock").OfType<string>().Select(x => x.Trim().ToUpperInvariant()).Where(x => x.Length > 0).ToArray();
             foreach (var x in J.Arr(o, "unlocks"))
             {
                 var u = J.Obj(x);
@@ -575,6 +583,7 @@ namespace PokiClash.Core
                     {
                         kind = J.Str(of, "kind"), n = J.Int(of, "n", 1), w = J.Num(of, "w", 1), mark = J.Num(of, "mark", 1.5), price = J.Int(of, "price"),
                         night = J.Bool(of, "night"), rar = Keys.ToRarity(J.Str(of, "rar", "rare")),
+                        defs = J.Arr(of, "defs").OfType<string>().ToArray(),
                     });
                 }
                 m.mystery = rolls(J.Arr(mo, "mystery"));

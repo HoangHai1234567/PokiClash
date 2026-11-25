@@ -2,7 +2,7 @@
 PATCHES = [
     ("Core/Pachinko.cs",
      "public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones, Crystal, HeroChest, GoldChest, Ticket, Perk, Egg }",
-     "public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones, Crystal, HeroChest, GoldChest, Ticket, Perk, Egg, Bait }"),
+     "public enum RewardKind { Exp, Balls, Card, Shards, Hero, LegendCopies, Chest, Stones, EvoStones, Crystal, HeroChest, GoldChest, Ticket, Perk, Egg, Bait, Deco }"),
     ("Core/SaveData.cs",
      "        public ShopState shop; // cửa hàng, ưu đãi, Lọ Bi, thẻ, túi Rương Tướng (Shop.cs, 2026-11-23; null = chưa dùng)\n",
      "        public ShopState shop; // cửa hàng, ưu đãi, Lọ Bi, thẻ, túi Rương Tướng (Shop.cs, 2026-11-23; null = chưa dùng)\n"

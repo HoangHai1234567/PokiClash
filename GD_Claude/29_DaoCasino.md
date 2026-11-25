@@ -603,27 +603,104 @@ Người dùng chọn hướng B, rồi dặn "gen đảo trống rồi gen riê
   Kết quả có bảng xếp hạng cả đoàn (húc trúng, bị choáng). Rời màn giữa cuộc đua đã trả lệ phí thì chạy nốt và tính thưởng.
 - Lượt chụp chụp thêm chuỗi khung ngay sau cú húc đầu (`2b_danh_0..3`).
 
+### C6 xong bản đầu (2026-11-25 đêm): Chợ đen (scene riêng) + Quán trọ (hộp trên đảo)
+
+- **Chợ đen**: scene `CasinoMarket` (`MarketScene`, `Screens/CasinoMarket`, menu `PokiClash/Prefab/Đảo Casino/Chợ đen: dựng scene`,
+  `Editor/CasinoMarketMenu.cs`); `CasinoGames.SceneOf` trỏ trò `market` sang đây, quay lại về đảo.
+  - Tờ lái buôn: hình chợ cắt từ đảo (`casino_ct_cho.png`), lời lái buôn (đổi theo lượt hàng; câu riêng ban đêm, khi hết hàng, khi có đồ để
+    thu mua), đồng hồ đổi hàng, số lần làm mới hôm nay.
+  - Kệ 8 ô dựng sẵn: 6 ô ngày (2 hàng × 3), hàng thứ ba 2 ô đêm (19 giờ tới 5 giờ, nhãn "Hàng đêm", nền xanh tím); ban ngày hàng thứ ba là
+    bảng báo hàng đêm. Mỗi ô: ô thưởng `Items/OThuong` (mảnh tướng là chân dung tướng), ghi chú loại hàng ("Biết trước, không may rủi"…), nút
+    giá (xanh khi đủ bi). Mua thì hỏi lại; Túi hàng lậu mở bằng hộp rương chung (`ChestBox`); mua xong dấu "Đã mua", ô tô xanh.
+    Sang mốc hàng (0, 8, 16 giờ) hoặc đổi ngày / đêm thì kệ tự bày lại.
+  - Làm mới sớm (giá tăng dần, hết lượt thì khoá), Tỉ lệ túi lậu (công bố tỉ lệ, số bi theo bậc cấp).
+  - Thu mua: bán cả giỏ cá, bán bản sao thẻ thừa của thẻ đã tối đa cấp (hỏi lại).
+- **Quán trọ**: hộp `Dialogs/QuanTro` (`InnDialog`, menu `Quán trọ: dựng hộp`, `Editor/CasinoInnMenu.cs`, đăng ký kit) thay hộp chữ tạm của C2.
+  Hình quán trọ cắt từ đảo, lời bà chủ quán, đồng hồ việc mới (0 giờ); mỗi việc một dòng: tên, thanh tiến độ, quà (bi đã nhân bậc cấp), nút
+  **Nhận** / **Đã nhận** / **Đi làm** (đóng hộp, mở trò của việc: Bến câu, Trường đua, Chợ đen, Hầm đấu, lều đang mở; việc thả bi vào máy bi,
+  quay lại về đảo); dòng quà xong cả ngày.
+- **Sửa lõi**:
+  - Việc "Thả {0} bi ở Tháp Máy Bi" trước đây không bao giờ đếm (không chỗ nào gọi `Track("drop")`): `MachineScene.DropOne` giờ ghi.
+  - Túi hàng lậu: giá nhân bậc cấp mà bi trong túi thì không, nên càng lên cấp càng lỗ. `BlackMarket.OpenMystery` nhân bậc cấp cho phần bi.
+  - Việc "Chơi {0} ván ở lều lữ khách" không ra vào ngày không có lều bàn (ngày nghỉ 4, 8 và Lễ Hội Đua của vòng lịch), vì hôm đó không làm được.
+- **Test**: thêm `QuanTro_ViecLeu_ChiRaNgayCoLeu`, `ChoDen_TuiLau_BiNhanBacCap`; trong Unity `CasinoTests` (24), `LocTests`,
+  `FontAndBuildTests` đạt 35/35 (`PrefabOnlyTests` còn đỏ ở file của phần khác như trước). Bản dịch tiếng Anh 53 chuỗi (`loc_add.py`, có 4 chữ nút
+  in hoa trong prefab). Script `ArtGen/Casino/so_lieu/*.py` tính thư mục project từ chỗ đặt script (trước ghi cứng ổ máy kia).
+- Lượt chụp: cờ `Temp/casino_market_tour.flag` (Quán trọ: xong một việc rồi nhận; Chợ đen: kệ, mua mảnh, mở túi lậu, tỉ lệ), ảnh
+  `Temp/PokiShots/casino_cho/`; cờ dựng `Temp/casino_market_build.flag` dựng cả hộp Quán trọ và scene Chợ đen. Đã soi ảnh: ô cao 340 cho dòng
+  ghi chú không bị nút giá đè. Chưa có icon cá / mồi (`fish` không có, rơi về ngôi sao, cả ở Bến câu): ô mồi tạm dùng icon `seed`.
+
+### C7 xong bản đầu (2026-11-25 đêm): ba lều lữ khách (mỗi lều một scene)
+
+Người dùng: "ok cứ làm tiếp cho hết đủ tính năng, giao diện sẽ được chỉnh sửa và bổ sung animation sau".
+
+- **Phần chung** `CasinoTableScene` (lớp nền của ba scene): hàng 4 bậc cược (bậc chưa tới cấp khoá; ván miễn phí sáng bậc 1), tờ tin (sự kiện
+  còn bao lâu, tướng khách mời, "Hôm nay đã cược / đã thắng / còn N ván có thưởng", dòng chế độ), Hũ bàn (thanh đầy + rương bậc kế), Cách chơi
+  (tự mở lần đầu vào lều). Hũ đầy mở hộp rương chung. Thiếu bi chỉ báo và mời sang Bến câu / Trường đua, không gạ mua.
+- **Lõi thêm** (`Casino.TableMode`, `ModeOf`, `FreeFirst`, `FreeWin`; `Blackjack.StartAs`, `Roulette.PlayAs`, `Slots.PlayAs`):
+  - **ván đầu miễn phí** mỗi bàn (mục 12): ở bậc 1, không trả cược, thắng nhận phần lời, không tính lượt, không đổ hũ;
+  - **ván tập** khi hết lượt có thưởng (câu 8): không cược, không thưởng, không ghi việc Quán trọ.
+- **Đêm Bài** `CasinoBlackjack` (`BlackjackScene`): bài dealer (lá úp tới khi xong), 2 tay (tay 2 khi Tách), tổng / mềm / quá 21, kết quả
+  từng tay, Chia bài / Rút / Dằn / Gấp đôi / Tách, gợi ý chiến thuật cơ bản ("Nên: Rút", bật / tắt nhớ trong bản lưu). Rời lều giữa ván:
+  máy chơi nốt theo chiến thuật cơ bản rồi tính (không mất cược oan). Lá bài là ô giấy + hạng + icon hệ.
+- **Vòng Xoay Ngũ Hành** `CasinoRoulette` (`RouletteScene`): bánh xe 26 ô xếp vòng (chạm ô là đặt chip Ô đơn), viên bi chạy chậm dần rồi
+  dừng đúng ô ra, cửa Hệ / Số / Sao Vàng, tối đa 5 chip, Bỏ chip, Quay; cửa trúng sáng vàng.
+- **Hội Máy Quả** `CasinoSlot` (`SlotScene`): 3 × 3, cuộn chạy hình của dải thật rồi dừng lần lượt, ô đường thắng / Rương sáng, dòng kể
+  đường thắng, lượt miễn phí tự nối tiếp, Quay nhanh (không tự quay), Bảng trả (hoàn trả tính chính xác 95,5%).
+- **Chơi có trách nhiệm** (mục 8): `OfferHost` không bật popup ưu đãi / bán bi khi đang ở scene bàn (popup để dành tới màn sau).
+- **Cờ tắt lều theo vùng**: `casino.tablesBlock` (mặc định `["BE"]`), `Casino.Region` lấy từ cài đặt vùng của máy lúc mở game (`App.DeviceRegion`,
+  tạm tới khi có Remote Config). Vùng bị tắt: lều không dựng, bãi trống không báo đoàn ghé, Quán trọ không ra việc ở lều.
+- `CasinoGames.SceneOf` trỏ ba lều sang ba scene; menu `PokiClash/Prefab/Đảo Casino/Lều lữ khách: dựng 3 scene` (`Editor/CasinoTablesMenu.cs`).
+- **Kiểm**: test `Ban_VanDauMienPhi_VanTap_VungTatLeu` (25 test Casino đạt ngoài Unity); bản dịch thêm 108 chuỗi. Lượt chụp cờ
+  `Temp/casino_tables_tour.flag` (ép ba lều mở hôm nay trong bộ nhớ, chơi mỗi lều), ảnh `Temp/PokiShots/casino_leu/`: đã soi Blackjack
+  (ván miễn phí, ván cược thắng 240), Vòng Xoay (trúng 2 cửa +390), Máy Quả (đường chéo + 2 Rương, bảng trả).
+- Chưa làm (hình / diễn, người dùng để sau): chia bài bay, lật bài, bánh xe xoay thật, cuộn trượt dọc, chip đồ hoạ, nền lều, âm thanh riêng.
+- **Bổ sung cùng đợt**:
+  - Chợ đen có hàng **Đồ Nhà** (mục 6.4): loại `home` với danh sách trang trí (`defs`: xích đu, đèn vỏ sò, chuông đồng, chum đá, ghế gỗ,
+    đèn lồng), chỉ bày khi đã mở Nhà, giá 120 × bậc cấp, mua xong vào túi đồ của Nhà (`Home.Bag`, thưởng `RewardKind.Deco`); `Validate` kiểm
+    mã trang trí. Test `ChoDen_DoNha_ChiKhiMoNha_VaoTui` (26 test Casino đạt).
+  - Lịch lữ khách thêm dòng thống kê "Ở lều lữ khách từ trước tới nay: đã cược / đã thắng" (mục 9) và báo khi vùng tắt lều.
+  - Dữ liệu sinh bằng `gen_casino.py` (đã kiểm khối sinh khớp `balance.json` trước khi áp; chỉ thêm `tablesBlock` và hàng Đồ Nhà).
+  - Trong Unity: EditMode Casino, Loc, FontAndBuild, Save, Home, Shop đạt 83/83.
+
+### Sửa màn đảo (2026-11-25 đêm): mây không che công trình, công trình nhún
+
+Người dùng: "mây che mất cả các building rồi, thêm kiểu hoạt ảnh gì đó (ánh sáng hoặc anim) hoặc thi thoảng nhún nhún các building để người chơi
+biết là ấn được".
+- Mây vành (`HomeSceneMenu.BuildClouds` dùng chung với Nhà) rải theo mép ảnh nên hàng mây trên đè tháp, hầm đấu, trường đua. Menu dựng màn giờ
+  chạy `KeepClear`: đám nào đè khung công trình (nới 24 px) thì đẩy ra xa tâm đảo từng 20 px tới khi hết đè, đẩy quá 900 px thì bỏ.
+- `CasinoBob` (gắn ở lớp `cong_trinh`): cứ 2,5–3,5 giây nhún nén giãn quanh chân một công trình đang mở (chỗ có chấm đỏ được chọn nhiều hơn, chỗ
+  khoá và bãi trống không nhún); chạm điểm chạm thì công trình đó nhún ngay, mạnh hơn (`CasinoSpot.OnTapFx`). Không dùng quầng sáng (luật VFX).
+  Không nhún khi đang có hộp thoại hay chuyến tàu. Pivot công trình đặt sát chân (neo giãn nên không dời ảnh).
+
+### Dealer Lão Mực (2026-11-25 đêm): kế hoạch riêng
+
+Người dùng muốn làm kỹ hơn từng phần quanh một nhân vật dealer (người mực đen mắt vàng gian xảo, tay ống cao su kiểu hoạt hình 1930, đứng sau bàn,
+dẫn FTUE từng trò). Kế hoạch chi tiết và concept: **`31_LaoMuc_Dealer.md`**, `ArtGen/Casino/dealer/xem.html`. Ba lều C7 và FTUE đảo sẽ làm lại
+theo kế hoạch đó (D3–D7) sau khi người dùng chọn hướng nhân vật.
+
 ## Việc còn lại (cập nhật 2026-11-25 tối)
 
-Đã chạy được: đảo (hình lớp, công trình rời, bến tàu, mây, ngày đêm, biển nối liền sảnh), chuyến tàu sảnh ↔ đảo, Bến câu, Hầm đấu, Trường đua
-3–5 tướng; lõi + test của mọi trò (gồm Blackjack, Roulette, Slot, Chợ đen, Quán trọ).
+Đã chạy được (đủ tính năng mọi trò, 2026-11-25 đêm): đảo (hình lớp, công trình rời, bến tàu, mây, ngày đêm, biển nối liền sảnh), chuyến tàu
+sảnh ↔ đảo, Bến câu, Hầm đấu, Trường đua 3–5 tướng, Chợ đen (scene, có Đồ Nhà), Quán trọ (bảng việc), ba lều Blackjack / Vòng Xoay / Máy Quả
+(scene riêng, ván đầu miễn phí, ván tập, Hũ bàn), chặn popup bán bi ở bàn, cờ tắt lều theo vùng. Còn lại chủ yếu là hình, diễn, âm thanh, cân bằng.
+
+Chưa làm (tính năng nhỏ, ghi lại): chấm sự kiện trên nút giữa thanh dưới sảnh (nút đang hiện số bi, cần chọn cách hiện cả hai); bước gợi ý FTUE
+cho đảo (`25_FTUE.md`); Remote Config / giờ mạng cho lịch sự kiện và cờ vùng (cùng mốc S5 cửa hàng).
 
 **C5 Trường đua** (chờ người dùng xem bản 3–5 tướng)
 - [ ] Người dùng duyệt luật và nhịp (độ dày đánh nhau, tỉ lệ về nhất, độ dài ~22 giây).
 - [ ] Âm thanh riêng cho húc trúng / vấp / né (đang dùng tiếng có sẵn `stamp`, `buff`).
 
-**C6 Chợ đen + Quán trọ** (lõi `BlackMarket.cs`, `Casino.InnToday / Track / ClaimQuest / ClaimInnAll` đã có)
-- [ ] Chợ đen thành scene riêng: kệ hàng của lái buôn đổi theo giờ, giá bằng bi / mảnh, đồng hồ đổi hàng, hết hàng, mua xong cập nhật kệ. Hiện
-      chạm Chợ đen chỉ báo "Trò này đang được dựng".
-- [ ] Quán trọ: bảng nhiệm vụ ngày (tiến độ từng việc, nhận từng việc, quà nhận hết). Hiện chỉ có hộp chữ tạm và nhận hết bằng một chạm.
-- [ ] Bản dịch, lượt chụp (cờ `Temp/casino_*_tour.flag`), test.
+**C6 Chợ đen + Quán trọ** (bản đầu xong, chờ người dùng xem)
+- [x] Chợ đen thành scene riêng; Quán trọ thành hộp bảng việc; bản dịch, lượt chụp, test.
+- [ ] Người dùng duyệt bố cục kệ, giá, lời lái buôn / bà chủ quán.
+- [ ] Hình lái buôn, bà chủ quán (chủ quán, C8); nền chợ thật (đang màu gỗ tạm).
 
-**C7 Lều lữ khách: Blackjack, Roulette, Slot** (lõi + test hoàn trả xong; mỗi trò một scene; chỉ mở theo lịch sự kiện)
-- [ ] Blackjack: bàn, chia bài, Rút / Dằn / Gấp đôi / Tách, gợi ý chiến thuật, đặt cược theo bậc, Hũ bàn.
-- [ ] Roulette (Vòng Xoay Ngũ Hành): bàn đặt chip, vòng quay 26 ô, bảng trả.
-- [ ] Slot (Hội Máy Quả): 3×3, 5 đường, cuộn quay dừng lần lượt, ô thắng sáng.
-- [ ] Bảng lịch lữ khách đầy đủ, chặn popup bán bi khi đang ở bàn, cờ tắt theo nước.
-- [ ] Còn chờ chốt câu 1 (tuổi store, mục 8) trước khi phát hành ba bàn này.
+**C7 Lều lữ khách: Blackjack, Roulette, Slot** (bản đầu xong, đủ tính năng; giao diện, diễn chỉnh sau)
+- [x] Blackjack, Roulette, Slot mỗi trò một scene; ván đầu miễn phí, ván tập; Hũ bàn; chặn popup bán bi ở bàn; cờ tắt theo vùng.
+- [ ] Diễn: chia / lật bài, bánh xe xoay, cuộn trượt; hình bàn, chip, nền lều (C8).
+- [ ] Khai tuổi store đúng mục 8 khi phát hành (câu 1 đã chốt: làm, chỉ mở theo lịch sự kiện).
 
 **C8 Hình thật còn thiếu**
 - [ ] Đèn đêm cho công trình (mặt nạ tự sáng như màn Nhà).

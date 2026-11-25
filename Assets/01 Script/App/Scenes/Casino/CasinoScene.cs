@@ -35,6 +35,8 @@ namespace PokiClash
         [SerializeField] HubPan pan;
         [Tooltip("Giao diện cố định (dòng tin, hàng nút): chuyến tàu ẩn đi trước khi chụp màn làm nền trôi")]
         [SerializeField] CanvasGroup chrome;
+        [Tooltip("Nhún công trình định kỳ và khi chạm (người dùng 2026-11-25: cho biết công trình bấm được)")]
+        [SerializeField] CasinoBob bob;
         Coroutine chromeFade;
 
         public static readonly string[] Booths = { Casino.Blackjack, Casino.Roulette, Casino.Slot };
@@ -71,6 +73,42 @@ namespace PokiClash
             pier = ship;
             pan = mapPan;
             chrome = ui;
+        }
+
+        // Dùng khi dựng prefab (Editor).
+        public void SetupBob(CasinoBob b) => bob = b;
+
+        // ảnh công trình dưới mỗi điểm chạm (bãi lều: lều nếu đang dựng, không thì cọc)
+        string ArtOf(string spotId)
+        {
+            switch (spotId)
+            {
+                case "tower": return "thap";
+                case "fishing": return "ben_cau";
+                case "race": return "dua";
+                case "market": return "cho";
+                case "underground": return "hang";
+                case "inn": return "quan_tro";
+                case "board": return "ben_tau";
+            }
+            string booth = BoothOf(spotId);
+            int i = booth == null ? -1 : System.Array.IndexOf(Booths, booth);
+            if (i < 0) return null;
+            bool tent = tents != null && i < tents.Length && tents[i] && tents[i].gameObject.activeSelf;
+            var img = tent ? tents[i] : pads != null && i < pads.Length ? pads[i] : null;
+            return img ? img.GetComponent<CasinoBuilding>()?.Id : null;
+        }
+
+        void HookBob()
+        {
+            if (!bob) return;
+            bob.Allowed = () => (!chrome || chrome.alpha > 0.99f) && App.Modals.Count == 0 && !App.Router.Busy;
+            foreach (var sp in spots)
+            {
+                if (!sp) continue;
+                var id = sp.Id;
+                sp.OnTapFx = () => bob.Bounce(ArtOf(id), 1.6f);
+            }
         }
 
         // bến tàu: camera cho chuyến tàu qua mây (đặt ngay / lướt tới tàu), chạm tàu là về sảnh
@@ -128,11 +166,17 @@ namespace PokiClash
         public override void Enter(object args)
         {
             HookPier();
+            HookBob();
             Chrome(true, false);
             // hộp các trò mở trên đảo (trò có scene riêng đi qua CasinoGames.SceneOf)
             CasinoGames.Register(Casino.Underground, close =>
             {
                 App.Modals.Open<UndergroundDialog>(close).Show();
+                return true;
+            });
+            CasinoGames.Register(Casino.Inn, close =>
+            {
+                App.Modals.Open<InnDialog>(close).Show(GoTask);
                 return true;
             });
             Render();
@@ -263,7 +307,8 @@ namespace PokiClash
                         var qs = open ? Casino.InnToday(s, d, now) : null;
                         int done = qs?.Count(q => st.innClaimed.Contains(q.id)) ?? 0;
                         bool ready = open && (qs.Any(q => Casino.QuestDone(s, q) && !st.innClaimed.Contains(q.id)) || Casino.InnAllReady(s, d, now));
-                        sp.Bind(NameOf(id), open ? Loc.F("Nhiệm vụ {0}/{1}", done, qs.Count) : Casino.Need(s, d, Casino.Inn), !open, ready, Inn);
+                        sp.Bind(NameOf(id), open ? Loc.F("Nhiệm vụ {0}/{1}", done, qs.Count) : Casino.Need(s, d, Casino.Inn), !open, ready,
+                            () => Open(Casino.Inn));
                         break;
                     }
                     case "board":
@@ -278,7 +323,8 @@ namespace PokiClash
                         string booth = BoothOf(id);
                         if (booth == null) break;
                         bool open = Casino.Unlocked(s, d, Casino.Booths);
-                        var span = Casino.Booth(d, booth, now);
+                        bool allowed = Casino.TablesAllowed(d); // vùng tắt lều may rủi: bãi luôn trống, không báo đoàn ghé
+                        var span = allowed ? Casino.Booth(d, booth, now) : null;
                         ShowBooth(booth, open && span != null);
                         if (!open)
                             sp.Bind(Loc.T("Bãi lều"), Casino.Need(s, d, Casino.Booths), true, false, () => Open(Casino.Booths));
@@ -287,7 +333,7 @@ namespace PokiClash
                                 () => OpenBooth(booth, span));
                         else
                         {
-                            var next = d.Cfg.casino.events.Where(e => e.booth == booth).Select(e => Casino.NextSpan(d, e, Casino.Today(now)))
+                            var next = !allowed ? null : d.Cfg.casino.events.Where(e => e.booth == booth).Select(e => Casino.NextSpan(d, e, Casino.Today(now)))
                                 .Where(x => x != null).OrderBy(x => x.startDay).FirstOrDefault();
                             string sub = next != null ? Loc.F("{0} ghé sau {1} ngày", next.ev.Name, next.startDay - Casino.Today(now)) : "";
                             sp.Bind(Loc.T("Bãi lều trống"), sub, false, false, () => App.Toasts.Show(sub, Icon("flag")));
@@ -296,6 +342,7 @@ namespace PokiClash
                     }
                 }
             }
+            if (bob) bob.SetCandidates(BobCandidates(s, d, now, st));
             var lk = Casino.LuckyActive(s, now);
             if (info)
                 info.text = lk is Elem e
@@ -317,6 +364,34 @@ namespace PokiClash
                 home.SetText(Loc.T("Về sảnh"));
                 home.SetOnClick(() => App.Router.Go(SceneIds.Hub));
             }
+        }
+
+        // công trình nhún định kỳ: chỗ đang mở; chỗ có việc (chấm đỏ) trọng số cao; chỗ khoá, bãi lều trống không nhún
+        System.Collections.Generic.IEnumerable<(string, float)> BobCandidates(SaveData s, GameData d, double now, CasinoState st)
+        {
+            yield return ("thap", 1f);
+            yield return ("ben_tau", 0.5f);
+            if (Casino.Unlocked(s, d, Casino.Fishing)) yield return ("ben_cau", Fishing.FreeLeft(s, d, now) > 0 ? 3f : 1f);
+            if (Casino.Unlocked(s, d, Casino.Race)) yield return ("dua", Casino.RaceMult(d, now) > 1 ? 2.5f : 1f);
+            if (Casino.Unlocked(s, d, Casino.Market)) yield return ("cho", 1f);
+            if (Casino.Unlocked(s, d, Casino.Underground))
+            {
+                var tiers = Underground.TiersToday(d, now);
+                bool todo = tiers.Any(t => Underground.TierOpen(s, d, t) && !Underground.WonToday(s, d, t, now));
+                yield return ("hang", todo ? 2f : 1f);
+            }
+            if (Casino.Unlocked(s, d, Casino.Inn))
+            {
+                var qs = Casino.InnToday(s, d, now);
+                bool ready = qs.Any(q => Casino.QuestDone(s, q) && !st.innClaimed.Contains(q.id)) || Casino.InnAllReady(s, d, now);
+                yield return ("quan_tro", ready ? 3f : 1f);
+            }
+            if (Casino.Unlocked(s, d, Casino.Booths) && Casino.TablesAllowed(d))
+                foreach (var booth in Booths)
+                {
+                    var span = Casino.Booth(d, booth, now);
+                    if (span != null) yield return ("leu_" + booth, st.seen.Contains("ev:" + span.Key) ? 1.5f : 3f);
+                }
         }
 
         // ---------- thao tác ----------
@@ -378,41 +453,21 @@ namespace PokiClash
                 foreach (var u in up) sb.AppendLine(Loc.F("{0}: sau {1} ngày", u.ev.Name, u.startDay - Casino.Today(now)));
             }
             if (!Casino.Unlocked(s, d, Casino.Booths)) sb.AppendLine().Append(Casino.Need(s, d, Casino.Booths));
+            else if (!Casino.TablesAllowed(d)) sb.AppendLine().Append(Loc.T("Lều lữ khách không mở ở khu vực của bạn."));
+            var st = Casino.Of(s);
+            if (st.betAll > 0)
+                sb.AppendLine().AppendLine().Append(Loc.F("Ở lều lữ khách từ trước tới nay: đã cược {0} bi · đã thắng {1} bi",
+                    NumFmt.Short((long)st.betAll), NumFmt.Short((long)st.wonAll)));
             App.Save.Save();
             App.Modals.Alert(Loc.T("Lịch lữ khách"), sb.ToString().TrimEnd(), Loc.T("Đóng"));
             Render();
         }
 
-        // quán trọ (bản tạm của mốc C2): danh sách nhiệm vụ hôm nay; nhận hết phần đã xong
-        void Inn()
+        // nút "Đi làm" của Quán trọ: mở trò của việc (việc thả bi thì vào máy bi, quay lại về đảo)
+        void GoTask(string game)
         {
-            var s = S;
-            var d = D;
-            double now = Now;
-            if (!Casino.Unlocked(s, d, Casino.Inn))
-            {
-                App.Toasts.Show(Casino.Need(s, d, Casino.Inn), Icon("lock"));
-                return;
-            }
-            if (CasinoGames.Open(Casino.Inn, Render)) return;
-            var st = Casino.Roll(s, d, now);
-            var qs = Casino.InnToday(s, d, now);
-            var sb = new System.Text.StringBuilder();
-            foreach (var q in qs)
-                sb.AppendLine((st.innClaimed.Contains(q.id) ? "✓ " : Casino.QuestDone(s, q) ? "★ " : "· ") + q.Text +
-                              $" ({Casino.InnProg(s, q.id)}/{q.n})");
-            bool any = qs.Any(q => Casino.QuestDone(s, q) && !st.innClaimed.Contains(q.id)) || Casino.InnAllReady(s, d, now);
-            App.Modals.Alert(Loc.T("Quán trọ"), sb.ToString().TrimEnd(), any ? Loc.T("Nhận thưởng") : Loc.T("Đóng"), () =>
-            {
-                if (!any) return;
-                var rng = new Rng(Rng.RandomSeed());
-                int n = 0;
-                foreach (var q in qs) n += Casino.ClaimQuest(s, d, q.id, now, rng).Count;
-                n += Casino.ClaimInnAll(s, d, now, rng).Count;
-                App.Save.Save();
-                if (n > 0) App.Toasts.Show(Loc.T("Đã nhận thưởng nhiệm vụ"), Icon("star"));
-                Render();
-            });
+            if (game == SceneIds.Machine) App.Router.Go(SceneIds.Machine, SceneIds.Casino);
+            else Open(game);
         }
     }
 
@@ -428,8 +483,23 @@ namespace PokiClash
         public static void Register(string game, Func<Action, bool> open) => openers[game] = open;
 
         // scene của trò (null: trò chưa có scene, hoặc mở bằng hộp trên đảo)
-        public static string SceneOf(string game) =>
-            game == Casino.Fishing ? SceneIds.CasinoFishing : game == Casino.Race ? SceneIds.CasinoRace : null;
+        public static string SceneOf(string game)
+        {
+            switch (game)
+            {
+                case Casino.Fishing: return SceneIds.CasinoFishing;
+                case Casino.Race: return SceneIds.CasinoRace;
+                case Casino.Market: return SceneIds.CasinoMarket;
+                case Casino.Blackjack: return SceneIds.CasinoBlackjack;
+                case Casino.Roulette: return SceneIds.CasinoRoulette;
+                case Casino.Slot: return SceneIds.CasinoSlot;
+                default: return null;
+            }
+        }
+
+        // scene bàn may rủi: không bật popup bán bi / ưu đãi (mục 8, chơi có trách nhiệm)
+        public static bool IsTable(string scene) =>
+            scene == SceneIds.CasinoBlackjack || scene == SceneIds.CasinoRoulette || scene == SceneIds.CasinoSlot;
 
         public static bool Open(string game, Action onClose)
         {
