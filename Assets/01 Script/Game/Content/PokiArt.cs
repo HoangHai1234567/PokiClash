@@ -59,6 +59,9 @@ namespace PokiClash.Game
             return req?.asset as TextAsset; // đọc .asset buộc hoàn tất nếu chưa xong
         }
 
+        // Dựng Texture2D từ blob mã hoá nằm sẵn trong asset (atlas .atomik, AtomikAsset.Atlas). null nếu blob hỏng.
+        public static Texture2D TextureFromEncrypted(byte[] enc, string key) => enc == null ? null : BuildTexture(enc, key);
+
         // Dựng Texture2D từ gói đã mã hoá; dùng chung cho atlas và nền sprite.
         static Texture2D BuildTexture(byte[] enc, string key)
         {

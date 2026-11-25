@@ -304,7 +304,7 @@ namespace PokiClash.Game
             if (rig.bones == null || rig.bones.Length == 0 || rig.FindClip("idle") < 0) return false;
             anim = a;
             atk = rig;
-            atlas = rig.atlas;
+            atlas = rig.Atlas; // rig nhập bản 9: giải atlas mã hoá (một lần mỗi rig)
             data = null;
             clips = NoClips;
             shadowSprite = -1;

@@ -15,9 +15,10 @@ Bắt đầu 2026-11-25. Mục tiêu: đối thủ có APK cũng khó "đục" (
 | Lớp | Việc | Trạng thái |
 |---|---|---|
 | Lõi | PokiCrypt (AES+HMAC) | ✅ xong, test pass |
-| **4** | Mã hoá + ký **save** (chống sửa coin/gem) | ✅ xong, Unity compile sạch |
+| **4** | Mã hoá + ký **save** (chống sửa coin/gem) | ✅ xong; 11-25 vá cửa hậu JSON thô (bản phát hành chỉ nhận bản mã hoá) |
 | **3** | Mã hoá **chỉ số balance** | ✅ xong + **đã bật** (`bal.enc` đã sinh) |
-| **1** | Mã hoá **ảnh hero** (giữ ASTC) | ✅ cơ chế xác nhận trọn 183 ảnh; strip **đang TẮT** |
+| **1a** | Mã hoá **ảnh hero dạng aola** (chân dung + atlas aola, giữ ASTC) | ✅ cơ chế xác nhận trọn 183 ảnh; strip **đang TẮT** |
+| **1b** | Mã hoá **atlas tướng .atomik** (135 dạng tự vẽ) | ✅ 11-25: AtomikImporter bản 9, luôn bật (cả Editor) |
 | **2** | Che **code / tên hàm** (global-metadata + chuỗi) | ⬜ cần tool Obfuz + cấu hình |
 | **5** | Chống **repack** (kiểm chữ ký APK) | ⬜ cần keystore phát hành |
 
@@ -31,7 +32,10 @@ Bắt đầu 2026-11-25. Mục tiêu: đối thủ có APK cũng khó "đục" (
 - `Core/Security/SaveCrypt.cs`: `Protect`/`Unprotect` ở ranh giới file (dấu `PKS1:` + Base64). Bản lưu cũ (JSON thô) đọc thẳng; lần lưu sau tự mã hoá.
 - Móc trong `Game/Save/SaveService.cs`: `ReadSave()` (giải mã khi đọc), `Protect` khi Save (trên luồng chính). **Không đụng `SaveCodec`** → test không vỡ, tour sao lưu nguyên văn vẫn chạy.
 - `SaveCrypt.Context` = ràng buộc theo máy, **mặc định null** (tránh khoá nhầm người chơi khi cài lại). Chỉ bật khi có hệ tài khoản.
+- **Vá cửa hậu (2026-11-25):** bản đầu nhận JSON thô mãi (để đọc bản lưu cũ) → ai cũng ghi đè `save_v*.json` bằng JSON thô sửa coin/gem mà khỏi phá mã hoá. Giờ `SaveService.AcceptPlain` = `Application.isEditor || Debug.isDebugBuild`: Editor, test, tour, development build vẫn nhận thô; **bản phát hành coi JSON thô là bản lưu hỏng** (giữ `.bak`, báo người chơi). Giả định: chưa có người chơi thật giữ bản lưu thô; máy thử cài bản phát hành cũ sẽ phải chơi lại.
+- Test: `SaveTests.BanLuu_GhiRaBanMaHoa`, `BanMaHoa_SuaMotKyTu_BiTuChoi`, `BanPhatHanh_TuChoiJsonTho`.
 - **Kiểm:** chơi → thoát → mở file `persistentDataPath/save_v*.json`: phải thấy `PKS1:...` (không còn số thô). Sửa tay vài ký tự → mở lại game phải báo bản lưu hỏng (không nhận).
+- Còn hở (cần server mới chặn được): chép đè bản lưu mã hoá cũ (lùi về lúc còn nhiều gem) vẫn được.
 
 ### Lớp 3 — Chỉ số balance
 - `BalanceConfigAsset` thêm `byte[] enc` + `Resolve()` (ưu tiên enc). `GameDb.Build` dùng `Resolve()`. `DataImporter` sinh enc khi chạy **`PokiClash/Nhập dữ liệu`**.
@@ -43,6 +47,17 @@ Bắt đầu 2026-11-25. Mục tiêu: đối thủ có APK cũng khó "đục" (
 - `Game/Content/PokiArt.cs`: `LoadTexture/LoadSprite(key)` ưu tiên blob `Resources/enc/<key>.bytes`; không có thì lùi về `Resources.Load`. Đã swap: `AolaAnim.LoadAtlas/LoadPortrait`, `HeroArt.Face`.
 - `Editor/Build/ArtEncryptStrip.cs`: bước build sinh blob + dời ảnh gốc ra ngoài Resources (theo khuôn `BuildExclude`: journal + tự khôi phục khi crash; verify từng ảnh giải được trước khi dời; bỏ qua ảnh còn bị GUID tham chiếu). **Mặc định TẮT.**
 - **Đã kiểm (session assets-3e, Unity thật):** menu `Bảo mật/Thử mã hoá toàn bộ ảnh hero` → **183 ĐẠT / 0 LỖI**, format `ASTC_5x5×168 + ASTC_8x8×15` (**giữ ASTC**), raw 13.3 MB → blob 13.3 MB (không phình).
+- 183 ảnh này chỉ là dạng **aola** (chân dung `*_portrait` + atlas aola `*_atlas` dưới `Heroes/Resources`). Atlas aola nằm trong gói Addressables (`ContentPacks`) thì strip Resources không phủ — xem lại khi bật strip.
+
+### Lớp 1b — Atlas tướng .atomik (2026-11-25)
+- Trước: atlas là `Texture2D` con của file `.atomik` (sub-asset của `AtomikImporter`) → vào bản build/gói Addressables nguyên, AssetStudio rip thẳng 135 dạng tướng tự vẽ.
+- Giờ (`AtomikImporter` **bản 9**): nén atlas như cũ (ASTC 8x8 mobile / DXT5 PC) → bóc raw → `TexBlob` → `PokiCrypt` nhãn `texture` → lưu vào `AtomikAsset.encAtlas`; **không còn Texture2D con**; material con không gắn texture. `atlasSize` ghi cỡ để test/công cụ khỏi giải.
+- Lúc chạy: `AtomikAsset.Atlas` giải một lần rồi giữ (huỷ khi asset bị gỡ, `OnDisable`); `AtomikAsset.Material` gắn Atlas vào material con. Nơi dùng đã đổi: `AolaActor` (`rig.Atlas`), `AtomikPlayer` (`asset.Material`), menu Hải Long. Rig nhập trước bản 9 (còn `atlas`) vẫn chạy.
+- Luôn bật, cả Editor (Editor và bản build chạy cùng một đường, ngày nào cũng được thử). Không có bước build riêng, không dời file.
+- Test: `AtomikKeysTests.ImportedRigsArePackedWithoutIcon` kiểm không còn Texture2D trong asset + blob giải được, đúng cỡ.
+- Giá: mỗi rig đang dùng giữ thêm blob (~cỡ atlas ASTC, vài trăm KB) trong bộ nhớ; giải AES ~1 ms mỗi atlas lúc nạp dạng.
+- **Đã kiểm (2026-11-25, máy DESKTOP-8AQQGSU):** biên dịch sạch; nhập lại đủ 135 file; `SaveTests` + `AtomikKeysTests` 18/18 đạt; menu `Tướng/Chụp thử dạng .atomik (mọi clip)` (đi qua AolaActor như game) chụp 11 dạng đúng hình, không lỗi giải mã. **Còn:** xem trên máy Android thật (ASTC chạy GPU thật) ở lần build tới; mở APK/gói bằng AssetStudio → không còn atlas tướng .atomik.
+- Máy kia: kéo code về, Unity tự nhập lại 135 file .atomik (importer bản 9), mất vài phút.
 
 ---
 
@@ -73,6 +88,10 @@ Android đã IL2CPP (C# → native, không decompile thẳng). Chỗ còn hở: 
 
 ### D. (Tuỳ) Mở rộng Lớp 3 sang chỉ số khác
 `HeroDb`/`CardDb`/`ZoneDb` (chỉ số tướng, thẻ, ải) vẫn đọc được bằng AssetStudio. Mã hoá được theo đúng cách balance, nhưng là refactor boot path (đang đọc list typed, phải chuyển sang giải mã JSON → FromJson) nên cần làm cẩn thận + test. Chưa làm.
+
+### E. Hai lỗi nhỏ đã thấy khi soát (2026-11-25, chưa sửa — chờ người dùng chọn)
+1. **Lớp 3 lệch Editor:** `Resolve()` ưu tiên `enc` cả trong Editor → nút "Ghi số lần chạm nấm vào asset BalanceConfig" (`BalanceWindow.WriteRingHits`) ghi `cfg` nhưng game không dùng (im lặng). Mỗi lần "Nhập dữ liệu" `enc` đổi (IV ngẫu nhiên) → diff git. Hướng sửa: Editor dùng `cfg`; `enc` sinh lúc build từ chính `cfg` (JsonUtility), kiểm khớp rồi strip, build xong xoá.
+2. **`ArtEncryptStrip.Restore`:** điều kiện "chưa kịp dời" dùng `&&` (thư mục giữ tạm còn mà file chưa dời → `MoveAsset` lỗi, nhật ký giữ lại, mỗi lần nạp code báo lỗi). Sửa: chỉ cần `!File.Exists(<file giữ tạm>)`.
 
 ---
 

@@ -189,6 +189,54 @@ namespace PokiClash.Tests
             Assert.IsTrue(File.Exists(Path.Combine(dir, $"save_v{v}.bak")));
         }
 
+        // Lớp 4 bảo mật (GD_Claude/30): file lưu là bản mã hoá, không lộ số
+        [Test]
+        public void BanLuu_GhiRaBanMaHoa()
+        {
+            var svc = new SaveService(TestData.Load(), dir);
+            svc.Load();
+            svc.Data.balls = 4321;
+            svc.Save();
+            string raw = File.ReadAllText(svc.FilePath);
+            Assert.IsTrue(SaveCrypt.IsProtected(raw), "file lưu phải mở đầu PKS1:");
+            Assert.IsFalse(raw.Contains("balls") || raw.Contains("4321"), "không còn số thô trong file");
+        }
+
+        // sửa tay một ký tự trong bản mã hoá: hỏng chữ ký, không nhận (giữ .bak, báo)
+        [Test]
+        public void BanMaHoa_SuaMotKyTu_BiTuChoi()
+        {
+            var svc = new SaveService(TestData.Load(), dir);
+            svc.Load();
+            svc.Save();
+            var chars = File.ReadAllText(svc.FilePath).ToCharArray();
+            int k = chars.Length / 2;
+            chars[k] = chars[k] == 'A' ? 'B' : 'A';
+            File.WriteAllText(svc.FilePath, new string(chars));
+            var again = new SaveService(TestData.Load(), dir);
+            Assert.IsFalse(again.Load());
+            Assert.IsNotNull(again.Notice);
+        }
+
+        // cửa hậu đã vá: bản phát hành (AcceptPlain = false) không nhận JSON thô ghi đè vào file lưu
+        [Test]
+        public void BanPhatHanh_TuChoiJsonTho()
+        {
+            var d = TestData.Load();
+            var cheat = SaveData.New(d, 0);
+            cheat.balls = 999999;
+            File.WriteAllText(Path.Combine(dir, $"save_v{d.Cfg.saveVersion}.json"), SaveCodec.Write(cheat));
+            var svc = new SaveService(d, dir) { AcceptPlain = false };
+            Assert.IsFalse(svc.Load());
+            Assert.IsNotNull(svc.Notice);
+            Assert.IsTrue(File.Exists(Path.Combine(dir, $"save_v{d.Cfg.saveVersion}.bak")));
+            // Editor / development build vẫn nhận (tour, máy thử)
+            File.WriteAllText(Path.Combine(dir, $"save_v{d.Cfg.saveVersion}.json"), SaveCodec.Write(cheat));
+            var dev = new SaveService(d, dir) { AcceptPlain = true };
+            Assert.IsTrue(dev.Load());
+            Assert.AreEqual(999999, dev.Data.balls);
+        }
+
         [Test]
         public void Sfx_SinhDuMauChoMoiTieng()
         {

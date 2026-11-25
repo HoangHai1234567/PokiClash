@@ -29,10 +29,14 @@ namespace PokiClash.Game
 
         public static long Now() => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
-        // Đọc nội dung file lưu và mở mã hoá (bản cũ chưa mã hoá đọc thẳng). null nếu file hỏng/bị sửa (SaveCodec coi là Corrupt).
-        static string ReadSave(string path)
+        // Nhận bản lưu JSON thô (chưa mã hoá) không. Mặc định chỉ ở Editor + development build (test, tour ghi file thô, máy thử còn bản
+        // cũ); bản phát hành coi JSON thô là bản lưu hỏng, không thì ghi đè file bằng JSON thô là sửa được coin/gem (SaveCrypt).
+        public bool AcceptPlain { get; set; } = Application.isEditor || Debug.isDebugBuild;
+
+        // Đọc nội dung file lưu và mở mã hoá. null nếu file hỏng/bị sửa, hoặc là JSON thô khi không AcceptPlain (SaveCodec coi là Corrupt).
+        string ReadSave(string path)
         {
-            try { return SaveCrypt.Unprotect(File.ReadAllText(path, Encoding.UTF8)); }
+            try { return SaveCrypt.Unprotect(File.ReadAllText(path, Encoding.UTF8), AcceptPlain); }
             catch { return null; }
         }
 

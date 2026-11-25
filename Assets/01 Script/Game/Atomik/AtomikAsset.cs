@@ -176,8 +176,64 @@ namespace PokiClash.Game
         // xương đó. AolaSticker nới khung camera cho clip vươn xa hơn khung mặc định (2026-11-19: tướng biến mất giữa chiêu vì thân lao
         // ra ngoài khung ảnh). null: nhập trước khi có số đo.
         public float[] fit;
+        // Bảo mật ảnh (Lớp 1 cho .atomik, GD_Claude/30, 2026-11-25): từ bản nhập 9 atlas không còn là Texture2D con của asset (AssetStudio
+        // rip được) mà là blob mã hoá encAtlas (TexBlob giữ nguyên format ASTC/DXT, PokiCrypt nhãn "texture"); lúc chạy Atlas giải ra
+        // Texture2D một lần rồi giữ. atlas (Texture2D thẳng) chỉ còn ở rig nhập trước bản 9; nơi dùng đọc Atlas / Material, không đọc
+        // thẳng atlas / material.
         public Texture2D atlas;
-        public Material material;
+        public Material material;      // material con, không gắn texture (Material gắn Atlas lúc chạy)
+        public Vector2Int atlasSize;   // cỡ atlas (test, công cụ đọc khỏi phải giải mã)
+        [SerializeField, HideInInspector] byte[] encAtlas;
+        [NonSerialized] Texture2D runtimeAtlas;
+
+        public bool HasEncryptedAtlas => encAtlas != null && encAtlas.Length > 0;
+        public int EncryptedAtlasBytes => encAtlas?.Length ?? 0;
+        public byte[] EncryptedAtlas => encAtlas; // test kiểm giải được; đừng sửa mảng
+
+        // Atlas để vẽ: rig cũ dùng atlas; rig mới giải encAtlas (một lần, giữ tới khi asset bị gỡ). Chỉ gọi trên luồng chính.
+        public Texture2D Atlas
+        {
+            get
+            {
+                if (atlas) return atlas;
+                if (runtimeAtlas) return runtimeAtlas;
+                if (!HasEncryptedAtlas) return null;
+                runtimeAtlas = PokiArt.TextureFromEncrypted(encAtlas, (string.IsNullOrEmpty(rigName) ? name : rigName) + "_atlas");
+                if (runtimeAtlas) runtimeAtlas.hideFlags = HideFlags.DontSave;
+                return runtimeAtlas;
+            }
+        }
+
+        // Material để vẽ (AtomikPlayer): gắn Atlas vào material con nếu chưa có texture (rig mới nhập không mang texture).
+        public Material Material
+        {
+            get
+            {
+                if (material && !material.mainTexture)
+                {
+                    var t = Atlas;
+                    if (t) material.mainTexture = t;
+                }
+                return material;
+            }
+        }
+
+        // AtomikImporter: gắn atlas đã mã hoá
+        public void SetEncryptedAtlas(byte[] enc, int w, int h)
+        {
+            encAtlas = enc;
+            atlasSize = new Vector2Int(w, h);
+        }
+
+        // asset bị gỡ (hoặc nạp lại code): huỷ texture dựng lúc chạy, lần sau Atlas giải lại
+        void OnDisable()
+        {
+            if (!runtimeAtlas) return;
+            if (material && material.mainTexture == runtimeAtlas) material.mainTexture = null;
+            if (Application.isPlaying) Destroy(runtimeAtlas);
+            else DestroyImmediate(runtimeAtlas);
+            runtimeAtlas = null;
+        }
 
         // Đọc JSON của file .atomik (AtomikImporter, test). Chưa ghi gọn: gọi Pack() trước khi Unity lưu asset.
         public static AtomikAsset FromJson(string json)

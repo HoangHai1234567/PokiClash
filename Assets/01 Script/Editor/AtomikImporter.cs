@@ -6,6 +6,7 @@ using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using PokiClash.Game;
+using PokiClash.Security;
 using UnityEditor;
 using UnityEditor.AssetImporters;
 using UnityEditor.SceneManagement;
@@ -23,7 +24,10 @@ namespace PokiClash.EditorTools
     // 6 (2026-11-19): đo khung bao hình từng clip (AtomikAsset.fit, MeasureFit) cho AolaSticker nới khung camera.
     // 7 (2026-11-23, dung lượng build): hình lưới + animation lưu thành khối gọn AtomikPack (~42 MB float thô → ~9 MB), giải lúc nạp.
     // 8 (2026-11-23): khối gọn bản 2 (góc, tỉ lệ lượng tử mịn hơn; bước lượng tử ghi trong khối).
-    [ScriptedImporter(8, "atomik")]
+    // 9 (2026-11-25, bảo mật ảnh Lớp 1, GD_Claude/30): atlas không còn là Texture2D con (AssetStudio rip thẳng từ bản build) mà là blob
+    // mã hoá trong AtomikAsset (TexBlob giữ format đã nén + PokiCrypt "texture"); material con không gắn texture, lúc chạy
+    // AtomikAsset.Atlas / Material giải ra và gắn.
+    [ScriptedImporter(9, "atomik")]
     public sealed class AtomikImporter : ScriptedImporter
     {
         public override void OnImportAsset(AssetImportContext ctx)
@@ -63,12 +67,20 @@ namespace PokiClash.EditorTools
             bool mobile = target == BuildTarget.Android || target == BuildTarget.iOS;
             if (mobile) EditorUtility.CompressTexture(tex, TextureFormat.ASTC_8x8, TextureCompressionQuality.Best);
             else if (tex.width % 4 == 0 && tex.height % 4 == 0) EditorUtility.CompressTexture(tex, TextureFormat.DXT5, TextureCompressionQuality.Best);
-            tex.Apply(false, true);
+            // bản 9: mã hoá bytes đã nén (bóc raw trước khi bỏ bản CPU), không đưa Texture2D vào asset
+            var blob = new TexBlob
+            {
+                kind = TexBlob.KindTexture,
+                format = (int)tex.format, width = tex.width, height = tex.height, mipCount = tex.mipmapCount,
+                filterMode = (byte)tex.filterMode, wrapMode = (byte)tex.wrapMode, linear = 0, // atlas sRGB (Texture2D mặc định)
+                raw = tex.GetRawTextureData(),
+            };
+            asset.SetEncryptedAtlas(PokiCrypt.Encrypt(blob.Pack(), "texture"), tex.width, tex.height);
+            Object.DestroyImmediate(tex);
             // Sprites/Default nhân alpha trong shader: hợp atlas alpha thường (không nhân trước)
-            var mat = new Material(Shader.Find("Sprites/Default")) { name = nm + "_mat", mainTexture = tex };
-            asset.atlas = tex;
+            var mat = new Material(Shader.Find("Sprites/Default")) { name = nm + "_mat" };
+            asset.atlas = null;
             asset.material = mat;
-            ctx.AddObjectToAsset("atlas", tex);
             ctx.AddObjectToAsset("material", mat);
             ctx.AddObjectToAsset("rig", asset, icon);
             ctx.SetMainObject(asset);

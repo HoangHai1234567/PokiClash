@@ -41,7 +41,7 @@ namespace PokiClash.EditorTools
             var go = new GameObject("HaiLong");
             go.transform.SetParent(root.transform, false);
             go.AddComponent<MeshFilter>();
-            go.AddComponent<MeshRenderer>().sharedMaterial = rig.material;
+            go.AddComponent<MeshRenderer>().sharedMaterial = rig.Material;
             var p = go.AddComponent<AtomikPlayer>();
             p.asset = rig;
             p.clip = "dung";

@@ -1,7 +1,8 @@
 // Bọc/mở bản lưu ở ranh giới file (SaveService gọi): mã hoá AES + ký HMAC (PokiCrypt nhãn "save") rồi Base64 để vẫn là chuỗi văn
 // bản ghi ra file. Sửa tay một byte là hỏng HMAC -> Unprotect trả null -> SaveService coi như hỏng (giữ .bak, báo người chơi).
 // SaveCodec vẫn sinh/đọc JSON thô (test không đụng tới, IV ngẫu nhiên không phá assert "ghi lại y nguyên").
-// Tương thích ngược: bản lưu cũ (JSON thô, mở đầu '{') đọc thẳng, lần Save sau tự chuyển sang bản mã hoá.
+// Tương thích ngược: bản lưu cũ (JSON thô, mở đầu '{') chỉ đọc thẳng khi chỗ gọi cho phép (Editor, development build); lần Save
+// sau tự chuyển sang bản mã hoá. Bản phát hành coi JSON thô là bản lưu hỏng.
 // Ràng buộc theo máy (Context) để trống mặc định: khoá app đã đủ chặn sửa; buộc theo id máy dễ khoá nhầm người chơi khi cài lại/đổi
 // máy nên chỉ bật khi có hệ tài khoản (App.cs tiêm vào lúc khởi động nếu cần, giữ Core thuần không đụng UnityEngine).
 using System;
@@ -28,11 +29,13 @@ namespace PokiClash.Core
             return Tag + Convert.ToBase64String(blob);
         }
 
-        // Nội dung file -> JSON thô. Bản cũ (chưa mã hoá) trả nguyên. Bản mã hoá hỏng/bị sửa/sai máy trả null.
-        public static string Unprotect(string stored)
+        // Nội dung file -> JSON thô. Bản mã hoá hỏng/bị sửa/sai máy trả null. Bản chưa mã hoá (JSON thô) chỉ nhận khi allowPlain:
+        // nhận mãi thì ai cũng ghi đè file bằng JSON thô sửa coin/gem mà khỏi phá mã hoá (cửa hậu, vá 2026-11-25). SaveService cho phép
+        // ở Editor + development build (test, tour, máy thử), bản phát hành thì không (chưa có người chơi thật giữ bản lưu thô).
+        public static string Unprotect(string stored, bool allowPlain = true)
         {
             if (stored == null) return null;
-            if (!IsProtected(stored)) return stored; // bản lưu cũ chưa mã hoá
+            if (!IsProtected(stored)) return allowPlain ? stored : null; // bản lưu thô (cũ, hoặc bị ghi đè tay)
             try
             {
                 byte[] blob = Convert.FromBase64String(stored.Substring(Tag.Length));

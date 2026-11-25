@@ -141,7 +141,8 @@ namespace PokiClash.Game
             }
             GetComponent<MeshFilter>().sharedMesh = mesh;
             var r = GetComponent<MeshRenderer>();
-            if (asset.material != null && r.sharedMaterial != asset.material) r.sharedMaterial = asset.material;
+            var mat = asset.Material; // gắn atlas giải mã vào material con nếu chưa có
+            if (mat != null && r.sharedMaterial != mat) r.sharedMaterial = mat;
             built = asset;
             cur = -1;
             aura = asset.FindClip("aura");

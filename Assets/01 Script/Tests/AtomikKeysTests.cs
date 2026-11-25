@@ -141,11 +141,12 @@ namespace PokiClash.Tests
             foreach (var path in Files())
             {
                 var rig = AssetDatabase.LoadAssetAtPath<AtomikAsset>(path);
-                if (!rig || !rig.atlas) continue;
-                float s = EditorTools.AtomikImporter.AtlasScale(rig, rig.atlas.width, rig.atlas.height);
-                Assert.Greater(s, 0.95f, $"{path}: atlas {rig.atlas.width}x{rig.atlas.height} còn quá trần (hệ số {s:0.00})");
+                if (!rig || rig.atlasSize.x <= 0) continue; // cỡ atlas ghi lúc nhập (atlas mã hoá, khỏi giải)
+                int aw = rig.atlasSize.x, ah = rig.atlasSize.y;
+                float s = EditorTools.AtomikImporter.AtlasScale(rig, aw, ah);
+                Assert.Greater(s, 0.95f, $"{path}: atlas {aw}x{ah} còn quá trần (hệ số {s:0.00})");
                 n++;
-                after += (long)((rig.atlas.width + 7) / 8) * ((rig.atlas.height + 7) / 8) * 16;
+                after += (long)((aw + 7) / 8) * ((ah + 7) / 8) * 16;
             }
             TestContext.WriteLine($"{n} atlas trong trần {EditorTools.AtomikImporter.AtlasCap}; ASTC 8x8 tổng {after / 1048576f:0.0} MB");
         }
@@ -256,7 +257,7 @@ namespace PokiClash.Tests
                 var va = new Vector3[m]; var vb = new Vector3[m];
                 var ua = new Vector2[m]; var ub = new Vector2[m];
                 var ca = new Color32[m]; var cb = new Color32[m];
-                float tex = rig.atlas ? Mathf.Max(rig.atlas.width, rig.atlas.height) : 2048;
+                float tex = rig.atlasSize.x > 0 ? Mathf.Max(rig.atlasSize.x, rig.atlasSize.y) : 2048;
                 for (int ci = -1; ci < src.anims.Length; ci++)
                 {
                     float dur = ci < 0 ? 0 : src.anims[ci].dur;
@@ -324,6 +325,15 @@ namespace PokiClash.Tests
                 Assert.Greater(rig.PackedBytes, 0, $"{path}: chưa ghi khối gọn (nhập lại)");
                 Assert.IsTrue(rig.atts != null && rig.atts.Length > 0 && rig.anims != null && rig.anims.Length > 0, $"{path}: giải khối gọn ra rỗng");
                 Assert.IsFalse(all.OfType<Texture2D>().Any(t => t.name.EndsWith("_icon")), $"{path}: còn icon trong asset");
+                // bảo mật ảnh (bản nhập 9, GD_Claude/30): không còn Texture2D thô trong asset, atlas là blob mã hoá giải ra được
+                Assert.IsFalse(all.OfType<Texture2D>().Any(), $"{path}: còn atlas thô (Texture2D) trong asset");
+                Assert.IsTrue(rig.HasEncryptedAtlas, $"{path}: chưa có atlas mã hoá (nhập lại)");
+                var plain = PokiClash.Security.PokiCrypt.TryDecrypt(rig.EncryptedAtlas, "texture");
+                var tb = plain == null ? null : PokiClash.Security.TexBlob.Unpack(plain);
+                Assert.IsNotNull(tb, $"{path}: atlas mã hoá không giải được");
+                Assert.AreEqual(rig.atlasSize.x, tb.width, path);
+                Assert.AreEqual(rig.atlasSize.y, tb.height, path);
+                Assert.Greater(tb.raw.Length, 0, path);
                 foreach (var c in rig.anims)
                 {
                     Assert.IsTrue(c.tls == null || c.tls.All(tl => tl.keys == null || tl.keys.Length == 0), $"{path} clip {c.name}: còn khoá cũ");
