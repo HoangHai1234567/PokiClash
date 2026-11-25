@@ -30,6 +30,8 @@ namespace PokiClash.Core
                 var p = s.Hero(h);
                 if (p != null && p.owned) t.members.Add(MemberOf(s, h, d));
             }
+            var cfg = (d ?? GameData.Current)?.Cfg;
+            if (cfg != null) t.rules = SoPhep.Rules(s, cfg); // luật Sổ Phép (null nếu chưa vẽ ô nào)
             return t;
         }
 

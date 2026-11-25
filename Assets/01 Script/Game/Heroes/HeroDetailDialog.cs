@@ -271,12 +271,14 @@ namespace PokiClash
                 }
                 c.up.gameObject.SetActive(canUp);
                 if (!canUp) continue;
-                // hướng dẫn người mới (C10): nâng Chiêu của tướng đồng hành
+                // hướng dẫn người mới (C10): nâng Chiêu của tướng đồng hành. Bước ghi xong ngay trong hàm bấm, không chờ lớp phủ thấy cú
+                // chạm: nút và lớp phủ cùng nhận một cú chạm mà không có thứ tự chạy cố định, nút chạy trước thì nút ẩn (hết bản sao), lớp
+                // phủ coi như không thấy chỗ khoanh và bỏ bước không đánh dấu (lỗi 2026-11-23: thoát ra vẫn bị ép vào nâng tiếp)
+                bool tutUp = slot == CardSlot.Skill && id == s.starter && !Tutorial.Done(s, Tutorial.UpCard);
                 if (slot == CardSlot.Skill && id == s.starter)
                 {
                     Guide.Mark("hero.up.skill", c.up);
-                    Guide.Force(Tutorial.UpCard, "hero.up.skill", Loc.F("{0} cấp {1}: mạnh thêm 15%.", card.name, cp.lv + 1),
-                        () => Guide.Force(Tutorial.UpCard + "b", "bar.back", Loc.T("Về sảnh xem có gì mới!")));
+                    if (tutUp) Guide.Force(Tutorial.UpCard, "hero.up.skill", Loc.F("{0} cấp {1}: mạnh thêm 15%.", card.name, cp.lv + 1));
                 }
                 string label = Loc.F("Lên cấp {0}", cp.lv + 1);
                 c.up.name = "nut_" + label;
@@ -284,6 +286,11 @@ namespace PokiClash
                 c.up.SetOnClick(() =>
                 {
                     if (!Progress.UpCard(s, cfg, id, slot)) return;
+                    if (tutUp)
+                    {
+                        Guide.Skip(Tutorial.Heroes, Tutorial.HeroTile, Tutorial.UpCard);
+                        Guide.Force(Tutorial.UpCard + "b", "bar.back", Loc.T("Về sảnh xem có gì mới!"));
+                    }
                     App.Audio.Play("level");
                     Haptics.Play(Haptic.LevelUp);
                     App.Toasts.Show(Loc.F("{0} lên cấp!", card.name), Icon("up"));

@@ -105,7 +105,11 @@ namespace PokiClash
                 var w = q.stops;
                 int g = q.group, sd = q.seed;
                 var kc = S("kr_cau_" + sd);
-                if (kc != null)
+                // kiểu ENERGY BALL vẽ sẵn bằng Blender (2026-11-24, người dùng chọn): thân múi + gân sáng lộ qua khe thay bốn múi, lõi chanh, tâm
+                // kem và hai vòng xoắn; bán kính thấy 1,12 r như lớp kr_cau cũ (2,3 r). Bảng hổ phách (Giác Mộc) dùng bộ vàng. Lá bay vòng giữ.
+                bool nl = VeCauNl(buf, w[2].r > w[2].g ? "cau_vang" : "cau_moc", q.pos, 1.12f * r, g, 21, age + sd * 0.37f, ang, st);
+                if (nl) { /* thân cầu đã vẽ bằng khung */ }
+                else if (kc != null)
                 {
                     float rot = age * 50;
                     Put(buf, g, 20, S("kr_caus_" + sd) ?? kc, Ink, q.pos, 2.3f * r + 5, st, ang + rot);
@@ -123,13 +127,16 @@ namespace PokiClash
                     }
                     Put(buf, g, 21.5f, S("blob_" + ((sd + 1) & 3)), w[2], q.pos, 1.62f * r, st, ang);
                 }
-                Put(buf, g, 22, S("blob_" + ((sd + 2) & 3)), MocChanh, q.pos + new Vector2(-r * 0.06f, -r * 0.08f), 1.18f * r, 1, ang);
-                Put(buf, g, 23, S("blob_" + ((sd + 3) & 3)), MocKem, q.pos + new Vector2(-r * 0.12f, -r * 0.16f), 0.62f * r, 1, ang);
-                for (int j = 0; j < 2; j++)
+                if (!nl)
                 {
-                    float a = age * 8 + j * Mathf.PI;
-                    Put(buf, g, 24, S("curl_" + j), j == 0 ? MocKem : w[2], q.pos + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.75f) * r * 0.3f, r * 0.72f, 1,
-                        -a * Mathf.Rad2Deg);
+                    Put(buf, g, 22, S("blob_" + ((sd + 2) & 3)), MocChanh, q.pos + new Vector2(-r * 0.06f, -r * 0.08f), 1.18f * r, 1, ang);
+                    Put(buf, g, 23, S("blob_" + ((sd + 3) & 3)), MocKem, q.pos + new Vector2(-r * 0.12f, -r * 0.16f), 0.62f * r, 1, ang);
+                    for (int j = 0; j < 2; j++)
+                    {
+                        float a = age * 8 + j * Mathf.PI;
+                        Put(buf, g, 24, S("curl_" + j), j == 0 ? MocKem : w[2], q.pos + new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.75f) * r * 0.3f, r * 0.72f,
+                            1, -a * Mathf.Rad2Deg);
+                    }
                 }
                 if (r < 9) return;
                 for (int j = 0; j < 3; j++)

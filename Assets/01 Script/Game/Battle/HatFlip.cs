@@ -19,11 +19,14 @@ namespace PokiClash
         public sealed class FbDef
         {
             public readonly int n;
-            public readonly float aspect, px, py, fps;
+            public readonly float aspect, px, py, fps, k, cy;
             public readonly bool loop;
 
             // w, h: cỡ khung (điểm ảnh); px, py: điểm neo trong khung (0..1, py tính từ ĐÁY lên)
-            public FbDef(int n, int w, int h, float px, float py, bool loop, float fps = 24)
+            // k (2026-11-24, bộ lửa Blender): khung vẽ cao k × h mà hàm gọi truyền — khung mới lấp đầy khung hơn khung cũ (cầu tròn không đuôi,
+            //   nổ tròn) nên thu lại cho đúng cỡ cũ mà không phải sửa từng chỗ gọi
+            // cy: tâm cụm (khói) cao hơn điểm neo bao nhiêu phần h, cho vệt khói đuôi đặt tâm cụm lên đường bay
+            public FbDef(int n, int w, int h, float px, float py, bool loop, float fps = 24, float k = 1, float cy = 0.42f)
             {
                 this.n = n;
                 aspect = w / (float)h;
@@ -31,18 +34,25 @@ namespace PokiClash
                 this.py = py;
                 this.loop = loop;
                 this.fps = fps;
+                this.k = k;
+                this.cy = cy;
             }
         }
 
         // khung_chi/ds.json (cat_khung.py) + tâm đo trên khung (cầu lửa: đầu cầu ở 73 % bề ngang, đuôi về trái)
         public static readonly Dictionary<string, FbDef> Fbs = new Dictionary<string, FbDef>
         {
-            { "no", new FbDef(24, 262, 244, 0.5f, 0.01f, false) },          // nổ: phồng, chớp, nấm, nguội, khói, mảnh khuyết
+            // BỘ LỬA BLENDER (2026-11-24, người dùng: "thay các fx vừa làm vào game"; ArtGen/Spine/vfx_lua_toon/xuat_game.py, skill vfx-petclash
+            // blender_anime_fx.md mục 9–11): nổ, khói, lửa cháy, cầu lửa, lốc lửa thay khung GPT cũ cùng tên; phun, kim_lua, duoi_lua là tên mới
+            { "no", new FbDef(26, 296, 300, 0.582f, 0.141f, false, 24, 0.75f) }, // nổ tròn: sao chớp → khối lửa phồng → thủng lỗ → mảnh đỏ sẫm; neo ĐÁY quả nổ
             { "trung_lua", new FbDef(24, 260, 244, 0.545f, 0.49f, false) }, // lửa trúng đích: đòn tới từ TRÁI (lật khi đòn tới từ phải)
-            { "lua_lap", new FbDef(24, 198, 260, 0.5f, 0.01f, true) },      // cụm lửa cháy lặp
-            { "cau_lua", new FbDef(24, 270, 170, 0.73f, 0.46f, true) },     // cầu lửa bay sang PHẢI, đuôi lửa sau
+            { "lua_lap", new FbDef(24, 206, 277, 0.515f, 0.029f, true) },   // lửa cháy lặp 1 s (shader Voronoi bài Blender Box): chân vàng, thân cam đốm đỏ, ngọn vệt trắng
+            { "cau_lua", new FbDef(24, 177, 179, 0.497f, 0.497f, true, 24, 0.6f) }, // cầu lửa TRÒN không đuôi (đuôi = vệt "duoi_lua"), neo tâm; k: cầu cao nửa h như khung cũ
             { "nham", new FbDef(24, 282, 232, 0.5f, 0.01f, false) },        // dung nham phun từ đất, đổ thành vũng, nguội
-            { "khoi", new FbDef(24, 248, 245, 0.5f, 0.01f, false) },        // cụm khói phồng, bay lên, tan thành mảnh
+            { "khoi", new FbDef(25, 272, 280, 0.499f, 0.044f, false, 24, 1, 0.28f) }, // cụm khói nâu xám hai tông phồng, bay lên, vỡ mảnh; neo đáy cụm
+            { "phun", new FbDef(47, 512, 295, 0.024f, 0.425f, false) },    // phun lửa: mép đầu vươn từ miệng (0,75 s), giữ, đứt khỏi miệng 1,27 s, vỡ mảnh; neo miệng, phun sang PHẢI
+            { "kim_lua", new FbDef(12, 298, 54, 0.691f, 0.5f, true) },     // kim lửa xoắn (lặp), mũi về +x
+            { "duoi_lua", new FbDef(27, 228, 240, 0.5f, 0.31f, false, 24, 1, 0) }, // hạt vệt đuôi cầu lửa: cụm lửa đậm → khói; neo tâm cụm lúc sinh
             { "nuoc_toe", new FbDef(24, 272, 226, 0.5f, 0.01f, false) },    // vương miện nước toé từ đất
             { "song_nuoc", new FbDef(24, 248, 205, 0.5f, 0.01f, false) },   // sóng dâng, cuộn, đổ sang PHẢI
             { "trung_nuoc", new FbDef(24, 256, 274, 0.525f, 0.47f, false) },// nước trúng đích: tia tới từ TRÁI
@@ -53,7 +63,7 @@ namespace PokiClash
             { "gai_sat", new FbDef(24, 238, 216, 0.5f, 0.01f, false) },     // gai sắt xám thép đâm lên, vỡ mảnh (nhuộm được)
             // lốc xoáy LẶP (2026-11-19, người dùng chê vòi rồng mảng cũ "màu hơi trầm và chưa hợp"): phễu hẹp ở đất, nở lên trên, dải xoắn
             { "loc_nuoc", new FbDef(24, 238, 251, 0.5f, 0.01f, true) },     // lốc nước: lam, ngọc lam, bọt trắng
-            { "loc_lua", new FbDef(24, 240, 251, 0.5f, 0.01f, true) },      // lốc lửa: đỏ đậm, đỏ, cam, vàng
+            { "loc_lua", new FbDef(48, 420, 292, 0.5f, 0.03f, false) },    // lốc lửa MỘT LƯỢT 2 s (Blender, từ file mẫu Tornado đã mua): mọc, xoắn, gió cuốn, tàn, ép về trục
             { "loc_cat", new FbDef(24, 242, 250, 0.5f, 0.01f, true) },      // lốc cát: kem, vàng cát, nâu
             // cầu lửa mới (2026-11-19, người dùng chê cầu lửa Hỏa Quy "tĩnh"): lửa cuộn xoáy quanh lõi, LẶP
             { "cau_tu", new FbDef(24, 254, 264, 0.5f, 0.5f, true) },        // cầu lửa đang tụ: phồng to rồi co (cỡ đổi trong vòng lặp), lưỡi lửa cuộn
@@ -76,7 +86,26 @@ namespace PokiClash
             { "tia_vang_doan", new FbDef(24, 260, 142, 0.5f, 0.5f, true) },
             { "tia_vang_nong", new FbDef(24, 276, 256, 0.5f, 0.5f, true) },
             { "tia_vang_trung", new FbDef(24, 260, 268, 0.441f, 0.493f, true) },
+            // CẦU NĂNG LƯỢNG kiểu "Energy Ball" (CodyWinch, 2026-11-24, người dùng chọn cho cầu năng lượng Mộc / Kim / Thổ): thân nhiều múi màu
+            // phẳng, gân sáng lộ qua khe, xoay một vòng / 1,5 s (ArtGen/Spine/vfx_blender/cau_nl_bl.py → vfx_lua_toon/cat_nl.py → xuat_game.py).
+            // Neo tâm, LẶP 36 khung; k 0,6 như cau_lua: quả cầu cao ~0,855 khung → bán kính thấy 0,257 h (vẽ bằng VeCauNl)
+            { "cau_moc", new FbDef(36, 248, 256, 0.518f, 0.511f, true, 24, 0.6f) },  // lục ngọc + gân chanh: CauLa (Gạc Đá, Lộc Phong), đầu nòng DaTiaMoc
+            { "cau_vang", new FbDef(36, 248, 256, 0.518f, 0.511f, true, 24, 0.6f) }, // cam vàng + gân kem: RbCau (Thần Cơ, Pháo Giáp), đầu nòng DaTiaVang
+            { "cau_troi", new FbDef(36, 248, 256, 0.518f, 0.511f, true, 24, 0.6f) }, // cam đỏ + gân vàng: Mặt Trời của Thổ Tinh (TtMatTroi)
         };
+
+        // vẽ CẦU NĂNG LƯỢNG kiểu Energy Ball (khung "cau_moc" / "cau_vang" / "cau_troi") tâm c, bán kính THẤY r (đơn vị sân); t: giây (đổi
+        // khung, mỗi cầu nên lệch pha riêng); ang, st: góc (độ, ngược kim đồng hồ trên màn hình) và độ giãn dọc góc đó (cầu bay kéo dài theo
+        // hướng bay). Trả false nếu chưa nhập khung (hàm gọi tự vẽ cầu hạt cũ)
+        const float CauNlH = 3.9f;   // cao khung / bán kính thấy (k 0,6 × quả cầu 0,855 khung: r = 0,257 h)
+        bool VeCauNl(List<Item> buf, string fx, Vector2 c, float r, int g, float layer, float t, float ang = 0, float st = 1, float a = 1)
+        {
+            var art = FbArt(fx);
+            if (art == null) return false;
+            var d = Fbs[fx];
+            DrawFb(buf, art, d, t * d.fps, c, CauNlH * r, g, layer, ang, false, Color.white, a, st);
+            return true;
+        }
 
         readonly Dictionary<string, Sprite[]> fbArt = new Dictionary<string, Sprite[]>();
 
@@ -161,9 +190,56 @@ namespace PokiClash
                     onHit(q);
                 };
             Add(p);
+            // cầu lửa tròn (2026-11-24) không còn đuôi vẽ sẵn: luôn kéo vệt "duoi_lua" (lửa đậm → khói) thay vệt khói
+            if (fx == "cau_lua" && DuoiLua(p, 0.5f * h * d.k) != null) return p;
             if (khoi > 0) FbKhoiDuoi(p, khoi, -dir * (0.5f * h));
             return p;
         }
+
+        // VỆT ĐUÔI CẦU LỬA (2026-11-24, người dùng: "đuôi lửa đậm và khói làm thành 1 trail gắn vào cầu"): cứ vật đi được ~0,45 bán kính thì thả
+        // một hạt khung "duoi_lua" ngay sau nó (cụm lửa đậm nguội dần thành khói, nở ra, trôi ngược hướng bay + bốc lên). r: bán kính quả cầu (đơn
+        // vị sân). Soi ảnh chụp trong trận: hạt cao 5 r, sống 0,9 s thành cột khói xám to phủ cả sân sau cú nổ và che tướng mình → hạt 3,6 r, sống
+        // ~0,75 s, MẶC ĐỊNH lớp sau tướng (Back: không che hai con, giữa sân vẫn thấy). where(): tâm cầu; alive(): cầu còn bay.
+        //   buoc: quãng giữa hai hạt (phần r; tối thiểu 6 đơn vị sân để cầu nhỏ bay xa không đẻ quá nhiều hạt); speed: tốc độ khung (đời ≈ 1,1 / speed s)
+        public P DuoiLua(Func<Vector2> where, Func<bool> alive, float r, int group = Back, float layer = 26, float speed = 1.5f, float buoc = 0.45f)
+        {
+            if (!HasFb("duoi_lua") || where == null || r < 1) return null;
+            r = Mathf.Min(r, 30); // cầu chiêu cuối rất to (Hỏa Quy): không chặn thì cụm khói đuôi phủ kín cả đối thủ
+            var last = where();
+            float con = 0, step = Mathf.Max(6, buoc * r), h = 3.6f * r;
+            var e = new P { life = 8, group = group };
+            e.upd = (q, dt, s) =>
+            {
+                if (alive != null && !alive())
+                {
+                    q.dead = true;
+                    return;
+                }
+                var cur = where();
+                var seg = cur - last;
+                float len = seg.magnitude;
+                var u = len > 1e-4f ? seg / len : Vector2.zero;
+                float x = step - con;
+                while (x <= len)
+                {
+                    var pnt = last + seg * (x / Mathf.Max(1e-4f, len)) + U2(-0.08f, 0.08f) * r;
+                    var f = Fb("duoi_lua", pnt, h * U(0.9f, 1.1f), group, layer + U(0, 0.5f), speed * U(0.92f, 1.08f), U(-12, 12), U(0, 1) < 0.5f);
+                    if (f != null)
+                    {
+                        f.vel = -u * U(0.4f, 0.7f) * r + new Vector2(U(-0.2f, 0.2f) * r, -U(0.8f, 1.4f) * r);
+                        f.drag = 0.8f;
+                    }
+                    x += step;
+                }
+                con = len - (x - step);
+                last = cur;
+            };
+            return Add(e);
+        }
+
+        // vệt đuôi theo một hạt bay (tâm cầu = p.pos); thôi thả khi hạt chết / hết tuổi
+        public P DuoiLua(P host, float r, int group = Back, float layer = 26) =>
+            host == null ? null : DuoiLua(() => host.pos, () => !host.dead && host.age < host.life, r, group, layer);
 
         // VỆT KHÓI ĐUÔI cho vật bay (người dùng 2026-11-19: "fireball, tên lửa,... nên thêm trail smoke vào"): cụm khói khung "khoi" nhỏ nhả
         // đều sau vật bay, rải trên cả đoạn vừa bay qua (bay nhanh vẫn liền), chạy nhanh (speed) nên tan sau ~0,5 s, bỏ mấy khung đầu (múi
@@ -189,8 +265,8 @@ namespace PokiClash
                 {
                     acc -= 1;
                     float hh = h * U(0.8f, 1.2f);
-                    // neo "chân" của khung khói: dời xuống ~0,38 cao để tâm cụm nằm trên đường bay
-                    var pnt = Vector2.Lerp(last, cur, U(0, 1)) + new Vector2(U(-0.1f, 0.1f) * h, 0.38f * hh);
+                    // neo "chân" của khung khói: dời xuống cy cao (khung cũ 0,38; khói Blender 0,28) để tâm cụm nằm trên đường bay
+                    var pnt = Vector2.Lerp(last, cur, U(0, 1)) + new Vector2(U(-0.1f, 0.1f) * h, Fbs["khoi"].cy * hh);
                     Fb("khoi", pnt, hh, group, layer + U(0, 0.5f), speed * U(0.9f, 1.15f), U(-14, 14), U(0, 1) < 0.5f, tint, 0.92f, -1, 3);
                 }
                 last = cur;
@@ -208,10 +284,12 @@ namespace PokiClash
         }
 
         // vẽ khung f (số thực): khung floor(f) đặc, khung kế chồng lên với alpha = phần lẻ (mượt giữa hai khung 24 khung/giây)
+        //   sx (2026-11-24): giãn dọc trục ngang của khung (trước khi xoay) — phun lửa giãn cho đủ dài tới đích mà không dày thêm
         void DrawFb(List<Item> buf, Sprite[] art, FbDef d, float f, Vector2 pos, float h, int g, float layer, float ang, bool flip,
-            Color col, float a)
+            Color col, float a, float sx = 1)
         {
             if (a < 0.02f) return;
+            h *= d.k;
             int n = d.n;
             int i;
             float u;
@@ -235,17 +313,17 @@ namespace PokiClash
                     u = Mathf.Clamp01(f - i);
                 }
             }
-            float w = h * d.aspect;
+            float asp = d.aspect * sx, w = h * asp;
             // điểm neo -> tâm khung (Image xoay quanh tâm): lệch trong khung (y lên), lật, xoay, rồi đổi sang toạ độ sân (y xuống)
             float ox = (0.5f - d.px) * w, oy = (0.5f - d.py) * h;
             if (flip) ox = -ox;
             float r = ang * Mathf.Deg2Rad, c = Mathf.Cos(r), s = Mathf.Sin(r);
             var center = pos + new Vector2(ox * c - oy * s, -(ox * s + oy * c));
-            Put(buf, g, layer, art[i], col, center, h, d.aspect, ang, a, 0, flip);
+            Put(buf, g, layer, art[i], col, center, h, asp, ang, a, 0, flip);
             if (u > 0.02f)
             {
                 int j = d.loop ? (i + 1) % n : Mathf.Min(n - 1, i + 1);
-                Put(buf, g, layer + 0.001f, art[j], col, center, h, d.aspect, ang, a * u, 0, flip);
+                Put(buf, g, layer + 0.001f, art[j], col, center, h, asp, ang, a * u, 0, flip);
             }
         }
     }

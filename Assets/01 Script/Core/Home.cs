@@ -78,7 +78,9 @@ namespace PokiClash.Core
 
         // ---------- tra cứu ----------
 
-        public static bool Open(SaveData s, BalanceConfig cfg) => Farm.Open(s, cfg);
+        // Nhà mở sau ải thứ 2 (người dùng 2026-11-24: hướng dẫn giới thiệu Nhà ngay sau trận 2, bỏ điều kiện 3 tướng của trang trại cũ)
+        public const int OpenStages = 2;
+        public static bool Open(SaveData s, BalanceConfig cfg) => Progress.TotalCleared(s) >= OpenStages || Farm.Open(s, cfg);
         public static HomeBuildingDef Def(BalanceConfig cfg, string id) => cfg.home.Def(id);
         public static int LotsPerSide(HomeConfig c) => c.grid / c.lot;
         public static int LotIndex(HomeConfig c, int i, int j) => i * LotsPerSide(c) + j;

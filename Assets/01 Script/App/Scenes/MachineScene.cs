@@ -196,7 +196,7 @@ namespace PokiClash
                 Guide.Force(Tutorial.Drop, "machine.drop", Loc.T("Chạm để thả một bi."));
                 return;
             }
-            TutorIdle(); // vào lại máy khi đã hết bi
+            TutorIdle(); // vào lại máy sau rương đầu mà chưa về sảnh
             if (!Tutorial.CoreDone(S)) return;
             if (!S.legendDone && Guide.Hint(Tutorial.Legend, "machine.legend",
                     Loc.F("Thả đủ {0} bi: nhận {1}, tướng Huyền thoại!", D.Cfg.legendMilestone, D.Hero(D.LegendMilestoneHero).name)))
@@ -212,11 +212,16 @@ namespace PokiClash
             Guide.Hint(Tutorial.Hold, "machine.drop", Loc.T("Giữ nút để thả liền."), 6);
         }
 
-        // hết đợt thả: hết bi thì chỉ đường về (C7)
+        // hết đợt thả, đã mở rương đầu (bi thứ 6): xong đoạn Máy Bi, chỉ đường về sảnh nâng Chiêu (C7). Gợi ý không chặn, không ép thả
+        // hết bi (người dùng 2026-11-23): còn bi thì thả tiếp tuỳ ý, về sảnh lúc nào thì sảnh dẫn vào màn Tướng
         void TutorIdle()
         {
-            if (!Tutorial.Done(S, Tutorial.Drop) || Tutorial.Done(S, Tutorial.NoBalls) || Busy || S.chests.Count > 0) return;
-            if (S.balls < x) Guide.Force(Tutorial.NoBalls, "bar.back", Loc.T("Hết bi. Thắng ải để có thêm."));
+            if (!Tutorial.Done(S, Tutorial.Chest) || Tutorial.Done(S, Tutorial.NoBalls) || Busy || S.chests.Count > 0) return;
+            var h = Tutorial.Starter(S, D);
+            if (h == null) return;
+            Guide.Hint(Tutorial.NoBalls, "bar.back", S.balls >= x
+                ? Loc.F("Về sảnh nâng Chiêu cho {0}. Bi còn lại thả lúc nào cũng được.", h.name)
+                : Loc.F("Về sảnh nâng Chiêu cho {0}.", h.name), 8);
         }
 
         // bảng số (chép bảng LED của máy tham khảo): chiếm chỗ thanh kinh nghiệm ở đầu máy (vòng cấp + rãnh), cao tới mép trên mặt

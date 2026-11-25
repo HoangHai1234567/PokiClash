@@ -1,0 +1,40 @@
+image.add phun_bl_00 path=images/phun_bl_00.png
+image.add phun_bl_01 path=images/phun_bl_01.png
+image.add phun_bl_02 path=images/phun_bl_02.png
+image.add phun_bl_03 path=images/phun_bl_03.png
+image.add phun_bl_04 path=images/phun_bl_04.png
+image.add phun_bl_05 path=images/phun_bl_05.png
+image.add phun_bl_06 path=images/phun_bl_06.png
+image.add phun_bl_07 path=images/phun_bl_07.png
+image.add phun_bl_08 path=images/phun_bl_08.png
+image.add phun_bl_09 path=images/phun_bl_09.png
+image.add phun_bl_10 path=images/phun_bl_10.png
+image.add phun_bl_11 path=images/phun_bl_11.png
+image.add phun_bl_12 path=images/phun_bl_12.png
+image.add phun_bl_13 path=images/phun_bl_13.png
+image.add phun_bl_14 path=images/phun_bl_14.png
+image.add phun_bl_15 path=images/phun_bl_15.png
+image.add phun_bl_16 path=images/phun_bl_16.png
+image.add phun_bl_17 path=images/phun_bl_17.png
+image.add phun_bl_18 path=images/phun_bl_18.png
+image.add phun_bl_19 path=images/phun_bl_19.png
+image.add phun_bl_20 path=images/phun_bl_20.png
+image.add phun_bl_21 path=images/phun_bl_21.png
+image.add phun_bl_22 path=images/phun_bl_22.png
+image.add phun_bl_23 path=images/phun_bl_23.png
+image.add phun_bl_24 path=images/phun_bl_24.png
+image.add phun_bl_25 path=images/phun_bl_25.png
+image.add phun_bl_26 path=images/phun_bl_26.png
+image.add phun_bl_27 path=images/phun_bl_27.png
+image.add phun_bl_28 path=images/phun_bl_28.png
+image.add phun_bl_29 path=images/phun_bl_29.png
+image.add phun_bl_30 path=images/phun_bl_30.png
+image.add phun_bl_31 path=images/phun_bl_31.png
+image.add phun_bl_32 path=images/phun_bl_32.png
+image.add phun_bl_33 path=images/phun_bl_33.png
+slot.add phun_bl bone=mieng
+att.region phun_bl phun_bl image=phun_bl_00 x=265.5 y=10.5 use=false
+att.seq phun_bl phun_bl prefix=phun_bl_ count=34 setup=0
+anim.add phun_bl dur=1.517
+key phun_bl phun_bl.attachment 0:phun_bl 1.417:-
+key phun_bl phun_bl.seq 0:once,0,0.04167

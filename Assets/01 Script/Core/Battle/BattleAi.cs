@@ -250,6 +250,12 @@ namespace PokiClash.Core
                     outL.AddRange(b.UseInnate(inn.Value));
                     continue;
                 }
+                // Sổ Phép "Lật Trang": máy đổi bộ khi cả bộ toàn thẻ Thường (đội máy không có sổ nên không bao giờ vào đây)
+                if (b.CanReroll() && b.turn.offer.TrueForAll(id => b.Data.Card(id)?.rarity == Rarity.Common))
+                {
+                    outL.AddRange(b.Reroll());
+                    continue;
+                }
                 outL.AddRange(b.Pick(PickIndex(b, noise)));
             }
             return outL;

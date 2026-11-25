@@ -964,7 +964,7 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.15f * m);
                 var p = new P { pos = sun, life = (TtSkNo + 0.72f - TtSkGoi) * k, group = Back };
-                p.draw = (q, kk, buf) => TtMatTroi(q.pos, RSun(Tr()), Tr(), dir);
+                p.draw = (q, kk, buf) => TtMatTroi(buf, q.pos, RSun(Tr()), Tr(), dir);
                 Add(p);
             });
             Every((TtSkGoi + 0.1f) * k, (TtSkNo + 0.4f) * k, 5, x => TtHoiNong(sun + new Vector2(U(-30, 30), 20) * sc, 30 * sc));
@@ -986,6 +986,9 @@ namespace PokiClash
                 float tVuon = Mathf.Clamp((toi0 - tu0).magnitude / 2600f, 0.07f, 0.14f);
                 // cầu đầu nòng nhỏ hơn mặt trời (cao ~65 đơn vị sân theo cỡ mặt trời; mặc định 2,3 × bề dày ≈ 110 đè mặt trời lúc tụ): nongK ~0,6
                 float dayTia = 0.28f * casterH, nongK = Mathf.Clamp(65 * sc * mo / (DaTiaLua.nongCo * dayTia), 0.35f, 1f);
+                // 2026-11-24: Mặt Trời là cầu năng lượng Energy Ball (TtMatTroi, khung cau_troi) thì BỎ cầu lửa xoáy đầu nòng (cao 65 vẫn che
+                // kín Mặt Trời bán kính 25 suốt lúc tụ + bắn): tia ra thẳng từ đáy Mặt Trời, Mặt Trời tự phình lúc bắn (RSun) thay pha tụ
+                if (HasFb("cau_troi")) nongK = 0;
                 At(Mathf.Max(0, TtSkTia * k - tVuon - tTuTia), () => TiaFb(DaTiaLua, TiaTu, TiaToi, dayTia, tTuTia, 0.32f * k, Front, 36, null, nongK));
                 At(TtSkTia * k, () => Shake?.Invoke(0.35f * m));
             }
@@ -1143,11 +1146,27 @@ namespace PokiClash
             return L;
         }
 
-        // mặt trời: đĩa phẳng bốn lớp (cam đỏ, cam, vàng, kem) viền mực + 12 lưỡi lửa tam giác dài ngắn xen kẽ, phập phồng, quay
-        void TtMatTroi(Vector2 c, float r, float t, float dir)
+        // mặt trời: đĩa phẳng bốn lớp (cam đỏ, cam, vàng, kem) viền mực + 12 lưỡi lửa tam giác dài ngắn xen kẽ, phập phồng, quay.
+        // 2026-11-24 (người dùng chọn kiểu Energy Ball cho cầu năng lượng Mộc / Kim / Thổ): có khung "cau_troi" thì thân là cầu năng lượng vẽ sẵn
+        // (múi cam đỏ, gân vàng lộ qua khe, bán kính thấy r) thay đĩa bốn lớp, 12 lưỡi lửa tô phẳng KHÔNG viền mực (kiểu năng lượng không viền)
+        void TtMatTroi(List<Item> buf, Vector2 c, float r, float t, float dir)
         {
             if (r < 1) return;
             float rot = t * 1.4f;
+            if (VeCauNl(buf, "cau_troi", c, r, Back, 22, t))
+            {
+                for (int j = 0; j < 12; j++)
+                {
+                    float a = rot + 2 * Mathf.PI * j / 12, lg = r * (0.55f + 0.18f * (j % 2) + 0.08f * Mathf.Sin(t * 9 + j * 1.7f));
+                    const float w = 0.22f;
+                    int s0 = mp.Count;
+                    mp.Add(c + TtLat(new Vector2(Mathf.Cos(a - w), Mathf.Sin(a - w)) * (0.85f * r), dir));
+                    mp.Add(c + TtLat(new Vector2(Mathf.Cos(a + 0.1f), Mathf.Sin(a + 0.1f)) * (r + lg), dir));
+                    mp.Add(c + TtLat(new Vector2(Mathf.Cos(a + w), Mathf.Sin(a + w)) * (0.85f * r), dir));
+                    MFill(Back, 20 + j * 0.001f, s0, 3, TtLua[(j & 1) == 1 ? 1 : 0], 1, false);
+                }
+                return;
+            }
             for (int j = 0; j < 12; j++)
             {
                 float a = rot + 2 * Mathf.PI * j / 12, lg = r * (0.55f + 0.18f * (j % 2) + 0.08f * Mathf.Sin(t * 9 + j * 1.7f));

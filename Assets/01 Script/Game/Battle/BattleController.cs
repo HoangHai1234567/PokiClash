@@ -110,6 +110,14 @@ namespace PokiClash
             view.OnPickCard = (i, rt) => { if (!busy) StartCoroutine(OnPick(i, rt)); };
             view.OnInnate = (w, rt) => { if (!busy) StartCoroutine(OnInnate(w, rt)); };
             view.OnSwap = i => { if (!busy) StartCoroutine(OnSwap(i)); };
+            view.OnReroll = () =>
+            {
+                // Sổ Phép "Lật Trang": đổi cả bộ thẻ đang chọn
+                if (busy || auto || b.phase != Phase.Picking || b.turn.side != 0 || !b.CanReroll()) return;
+                b.Reroll();
+                Haptics.Play(Haptic.UiTap);
+                view.RenderOffer(auto);
+            };
             player = new BattlePlayer(this, b, view)
             {
                 Alive = () => alive,

@@ -171,6 +171,13 @@ namespace PokiClash.Tests
             foreach (var o in cfg.shop.offers) Need(o.name, "ưu đãi " + o.id, miss);
             foreach (var c in cfg.shop.cards) Need(c.name, "thẻ " + c.id, miss);
             foreach (var c in cfg.shop.chains) Need(c.name, "chuỗi " + c.id, miss);
+            // Sổ Phép (GD_Claude/28): tên chương, tên ô, tên mặt
+            foreach (var ch in cfg.sophep.chapters) Need(ch.name, "chương Sổ Phép", miss);
+            foreach (var n in cfg.sophep.nodes)
+            {
+                Need(n.name, "ô Sổ Phép " + n.id, miss);
+                foreach (var f in n.faces) Need(f, "mặt " + n.id, miss);
+            }
             Assert.IsEmpty(miss, $"{miss.Count} tên chưa dịch:\n" + string.Join("\n", miss.Take(40)));
         }
 

@@ -1,0 +1,46 @@
+image.add phun_video3_00 path=images/phun_video3_00.png
+image.add phun_video3_01 path=images/phun_video3_01.png
+image.add phun_video3_02 path=images/phun_video3_02.png
+image.add phun_video3_03 path=images/phun_video3_03.png
+image.add phun_video3_04 path=images/phun_video3_04.png
+image.add phun_video3_05 path=images/phun_video3_05.png
+image.add phun_video3_06 path=images/phun_video3_06.png
+image.add phun_video3_07 path=images/phun_video3_07.png
+image.add phun_video3_08 path=images/phun_video3_08.png
+image.add phun_video3_09 path=images/phun_video3_09.png
+image.add phun_video3_10 path=images/phun_video3_10.png
+image.add phun_video3_11 path=images/phun_video3_11.png
+image.add phun_video3_12 path=images/phun_video3_12.png
+image.add phun_video3_13 path=images/phun_video3_13.png
+image.add phun_video3_14 path=images/phun_video3_14.png
+image.add phun_video3_15 path=images/phun_video3_15.png
+image.add phun_video3_16 path=images/phun_video3_16.png
+image.add phun_video3_17 path=images/phun_video3_17.png
+image.add phun_video3_18 path=images/phun_video3_18.png
+image.add phun_video3_19 path=images/phun_video3_19.png
+image.add phun_video3_20 path=images/phun_video3_20.png
+image.add phun_video3_21 path=images/phun_video3_21.png
+image.add phun_video3_22 path=images/phun_video3_22.png
+image.add phun_video3_23 path=images/phun_video3_23.png
+image.add phun_video3_24 path=images/phun_video3_24.png
+image.add phun_video3_25 path=images/phun_video3_25.png
+image.add phun_video3_26 path=images/phun_video3_26.png
+image.add phun_video3_27 path=images/phun_video3_27.png
+image.add phun_video3_28 path=images/phun_video3_28.png
+image.add phun_video3_29 path=images/phun_video3_29.png
+image.add phun_video3_30 path=images/phun_video3_30.png
+image.add phun_video3_31 path=images/phun_video3_31.png
+image.add phun_video3_32 path=images/phun_video3_32.png
+image.add phun_video3_33 path=images/phun_video3_33.png
+image.add phun_video3_34 path=images/phun_video3_34.png
+image.add phun_video3_35 path=images/phun_video3_35.png
+image.add phun_video3_36 path=images/phun_video3_36.png
+image.add phun_video3_37 path=images/phun_video3_37.png
+image.add phun_video3_38 path=images/phun_video3_38.png
+slot.add phun_video3 bone=mieng
+att.region phun_video3 phun_video3 image=phun_video3_00 x=353.0 y=16.5 use=false
+att.seq phun_video3 phun_video3 prefix=phun_video3_ count=39 setup=0
+anim.add phun_video3 dur=1.725
+key phun_video3 phun_video3.attachment 0:phun_video3 1.625:-
+key phun_video3 phun_video3.seq 0:once,0,0.04167
+key phun_video3 mieng.scale 0:0.12,0.12:easeOut 0.17:1,1

@@ -48,6 +48,7 @@ namespace PokiClash
         // Tốc 1,3: một lượt ~0,7 s, đỉnh bông toé ở ~0,2 s rồi vỡ thành giọt, tan
         P TrungNuoc(Vector2 c, float h, Vector2? dir, int group = Front, float layer = 44, float speed = 1.3f, float alpha = 0.94f, float maxAng = 35)
         {
+            if (NS) return NTrung(c, h, dir, group); // bộ nước shader (2026-11-24)
             bool flip;
             float ang = 0;
             if (dir.HasValue) ang = FbAngThuy(dir.Value, maxAng, out flip);
@@ -59,6 +60,7 @@ namespace PokiClash
         // khung đầu còn bé tí cho cú toé bật ngay
         P ToeNuoc(Vector2 feet, float h, float speed = 1.5f, int group = Front, float layer = 34, float alpha = 1)
         {
+            if (NS) return NToe(feet, h, group); // bộ nước shader (2026-11-24)
             const float st = 2;
             var p = Fb("nuoc_toe", feet, h, group, layer, speed, 0, U(0, 1) < 0.5f, FbNuocTint(), alpha, -1, st);
             if (p == null) return null;
@@ -225,11 +227,14 @@ namespace PokiClash
             float start = T;
             Func<float, Vector2> gocT = goc ?? (t => src);
             if (!ngay) Gather(gocT, 0, tTu - 0.03f, 62 * Mathf.Sqrt(day / 19), 70);
-            if (goc != null) TiaFb(DaTiaNuoc, () => goc(T - start), () => hitP, day, tTu, tBan, Front, 36, null, nongK, trungK);
+            if (NS) // bộ nước shader, bản 3 (2026-11-25, HatNuocGoi.cs): tia kiểu Water Laser của gói mẫu, cùng hợp đồng giờ (bản 2: NTiaShader)
+                NLaser(goc != null ? (Func<Vector2>)(() => goc(T - start)) : () => src, () => hitP, day, tTu, tBan, Front, nongK, trungK, casterGround,
+                    foeFeet.y);
+            else if (goc != null) TiaFb(DaTiaNuoc, () => goc(T - start), () => hitP, day, tTu, tBan, Front, 36, null, nongK, trungK);
             else TiaFb(DaTiaNuoc, src, hitP, day, tTu, tBan, Front, 36, null, nongK, trungK);
             AtW(tTu, () => Shake?.Invoke(0.2f));
-            // giọt rơi khỏi mép dòng: chùm hai giọt lệch cỡ
-            EveryW(tTu + 0.05f, T1, 6, x =>
+            // giọt rơi khỏi mép dòng: chùm hai giọt lệch cỡ (bản 3 shader: tia Water Laser tự bắn giọt + toé, bỏ các lớp cũ trùng việc)
+            if (!NS) EveryW(tTu + 0.05f, T1, 6, x =>
             {
                 float sd = U(0, 1) < 0.5f ? -1 : 1, xx = dist * U(0.15f, 0.85f);
                 float gy = casterGround + (foeFeet.y - casterGround) * (xx / dist) + U(0, 24);
@@ -238,13 +243,13 @@ namespace PokiClash
                         U(2, 3.4f) * (i == 0 ? 1.1f : 0.75f), 900, Front, gy);
             });
             // chỗ trúng: khối nước tạt ngang theo thân, chùm giọt bắn ngược về phía người bắn
-            EveryW(tHit, tCut, 4, x =>
+            if (!NS) EveryW(tHit, tCut, 4, x =>
             {
                 float sd = U(0, 1) < 0.5f ? -1 : 1;
                 Khoi(hitP + nrm * sd * U(0.2f, 0.5f) * day, nrm * sd * U(170, 290) + back * U(30, 120) + new Vector2(0, -U(20, 90)), U(0.3f, 0.38f),
                     U(5, 7.5f));
             });
-            EveryW(tHit, tCut, 4, x =>
+            if (!NS) EveryW(tHit, tCut, 4, x =>
             {
                 float a = Mathf.Atan2(back.y, back.x) + U(-1.1f, 1.1f);
                 int m = U(0, 1) < 0.4f ? 3 : 2;

@@ -143,6 +143,26 @@ namespace PokiClash.Tests
             Assert.IsNull(Tutorial.FirstChest(s, D), "chỉ rương đầu");
         }
 
+        // lỗi 2026-11-23: lớp phủ lỡ cú chạm nút Lên cấp thì cờ C10 không có, sảnh ép vào màn Tướng mãi khi còn đủ bản sao
+        [Test]
+        public void NangChieu_DaLenCapMaThieuCo_KhongEpNua()
+        {
+            var cfg = D.Cfg;
+            var s = Fresh("ti_tach");
+            s.zones[(int)Elem.Thuy] = 1;
+            Assert.IsFalse(Tutorial.UpCardDue(s, D), "chưa có bản sao: không ép");
+            var c = s.Hero("ti_tach").Card(CardSlot.Skill);
+            c.copies = 2;
+            Assert.IsTrue(Tutorial.UpCardDue(s, D), "đủ 2 bản sao, Chiêu cấp 1: ép nâng");
+            c.copies = 2 + Progress.CardReq(cfg, 2);
+            Assert.IsTrue(Progress.UpCard(s, cfg, "ti_tach", CardSlot.Skill));
+            Assert.IsTrue(Progress.CanUpCard(s, cfg, "ti_tach", CardSlot.Skill), "còn đủ bản sao nâng tiếp");
+            Assert.IsFalse(Tutorial.Done(s, Tutorial.UpCard), "giả lập lớp phủ lỡ cú chạm: chưa có cờ");
+            Assert.IsFalse(Tutorial.UpCardDue(s, D), "Chiêu đã cấp 2: không ép vào màn Tướng nữa");
+            Tutorial.Off = true;
+            Assert.IsFalse(Tutorial.UpCardDue(s, D), "tắt hướng dẫn: không ép");
+        }
+
         [Test]
         public void DaoTanMay_TheoBuoc()
         {
@@ -204,10 +224,44 @@ namespace PokiClash.Tests
             TreesTests.OpenHome(s, D);
             Assert.AreEqual("g1", Tutorial.NextUnlock(s, D)?.id, "mở Nhà (cây bi đến cùng Nhà)");
             Tutorial.Mark(s, "g1");
-            Assert.AreEqual("h_tree2", Tutorial.NextUnlock(s, D)?.id, "rồi cây bi thứ 2, mỗi lần vào sảnh một cái");
-            Tutorial.Mark(s, "h_tree2");
+            // cây bi 2, 3... đã mở theo cấp (balance.json trees.unlockLevels), mỗi lần vào sảnh báo một cái
+            for (int k = 2; k <= Trees.Open(s, D.Cfg); k++)
+            {
+                Assert.AreEqual("h_tree" + k, Tutorial.NextUnlock(s, D)?.id, $"rồi cây bi thứ {k}");
+                Tutorial.Mark(s, "h_tree" + k);
+            }
             Assert.IsNull(Tutorial.NextUnlock(s, D));
-            Assert.IsTrue(Tutorial.Pages().All(p => !string.IsNullOrEmpty(p.title) && !string.IsNullOrEmpty(p.text)));
+            Assert.IsTrue(Tutorial.Pages(D.Cfg).All(p => !string.IsNullOrEmpty(p.title) && !string.IsNullOrEmpty(p.text)));
+        }
+
+        // sau trận 2 (người dùng 2026-11-24): Sổ thẻ hiện ngay; Nhà mở sau 2 ải (không cần 3 tướng), nút Nhà hiện từ lúc báo "Nhà đã mở";
+        // Cửa hàng hiện khi đã đi hết Nhà (giới thiệu công trình, hái Cây bi đầu); đặt Cây bi thuộc chuỗi bắt buộc
+        [Test]
+        public void SauTran2_SoThe_Nha_CuaHang_TheoThuTu()
+        {
+            var s = Fresh();
+            s.zones[(int)Tutorial.Starter(s, D).elem] = 1; // trận 1
+            Assert.IsFalse(Home.Open(s, D.Cfg), "1 ải: Nhà chưa mở");
+            Assert.IsFalse(Tutorial.Shows(s, D, Tutorial.HubPart.Cards, 0));
+            s.zones[(int)Tutorial.CounterIsland(s, D)] = 1; // trận 2
+            Assert.IsTrue(Tutorial.Battle2Won(s, D));
+            Assert.AreEqual(1, s.heroes.Values.Count(h => h.owned), "chỉ tướng đồng hành");
+            Assert.IsTrue(Home.Open(s, D.Cfg), "2 ải: Nhà mở dù mới 1 tướng");
+            Assert.IsTrue(Trees.Open(s, D.Cfg) > 0, "cây bi đến cùng Nhà");
+            Assert.IsTrue(Tutorial.Shows(s, D, Tutorial.HubPart.Cards, 0), "Sổ thẻ ngay sau trận 2");
+            Assert.IsFalse(Tutorial.Shows(s, D, Tutorial.HubPart.Home, 0), "nút Nhà chờ lời báo");
+            Assert.IsFalse(Tutorial.Shows(s, D, Tutorial.HubPart.Shop, 0));
+            Tutorial.MarkAll(s, Tutorial.CardsGo, Tutorial.HomeNews, Tutorial.HomeGo);
+            Assert.IsTrue(Tutorial.Shows(s, D, Tutorial.HubPart.Home, 0));
+            Assert.IsFalse(Tutorial.Shows(s, D, Tutorial.HubPart.Shop, 0), "chưa đi hết Nhà");
+            Tutorial.MarkAll(s, Tutorial.HomeMain, Tutorial.HomeFarm, Tutorial.HomeWood);
+            Assert.IsFalse(Tutorial.HomeToured(s), "còn hái Cây bi");
+            Tutorial.MarkAll(s, Tutorial.TreePlaced, Tutorial.TreeTap);
+            Assert.IsTrue(Tutorial.HomeToured(s));
+            Assert.IsTrue(Tutorial.Shows(s, D, Tutorial.HubPart.Shop, 0));
+            Assert.IsFalse(Tutorial.CoreDone(s), "còn báo Cửa hàng, lời chào cuối");
+            Assert.IsTrue(Tutorial.IsCore(Tutorial.TreeBuild) && Tutorial.IsCore(Tutorial.TreeTap), "đặt Cây bi không tắt theo công tắc Gợi ý");
+            Assert.IsFalse(Tutorial.IsCore(Tutorial.AfkBtn));
         }
     }
 }

@@ -1,0 +1,61 @@
+image.add phun_video2_00 path=images/phun_video2_00.png
+image.add phun_video2_01 path=images/phun_video2_01.png
+image.add phun_video2_02 path=images/phun_video2_02.png
+image.add phun_video2_03 path=images/phun_video2_03.png
+image.add phun_video2_04 path=images/phun_video2_04.png
+image.add phun_video2_05 path=images/phun_video2_05.png
+image.add phun_video2_06 path=images/phun_video2_06.png
+image.add phun_video2_07 path=images/phun_video2_07.png
+image.add phun_video2_08 path=images/phun_video2_08.png
+image.add phun_video2_09 path=images/phun_video2_09.png
+image.add phun_video2_10 path=images/phun_video2_10.png
+image.add phun_video2_11 path=images/phun_video2_11.png
+image.add phun_video2_12 path=images/phun_video2_12.png
+image.add phun_video2_13 path=images/phun_video2_13.png
+image.add phun_video2_14 path=images/phun_video2_14.png
+image.add phun_video2_15 path=images/phun_video2_15.png
+image.add phun_video2_16 path=images/phun_video2_16.png
+image.add phun_video2_17 path=images/phun_video2_17.png
+image.add phun_video2_18 path=images/phun_video2_18.png
+image.add phun_video2_19 path=images/phun_video2_19.png
+image.add phun_video2_20 path=images/phun_video2_20.png
+image.add phun_video2_21 path=images/phun_video2_21.png
+image.add phun_video2_22 path=images/phun_video2_22.png
+image.add phun_video2_23 path=images/phun_video2_23.png
+image.add phun_video2_24 path=images/phun_video2_24.png
+image.add phun_video2_25 path=images/phun_video2_25.png
+image.add phun_video2_26 path=images/phun_video2_26.png
+image.add phun_video2_27 path=images/phun_video2_27.png
+image.add phun_video2_28 path=images/phun_video2_28.png
+image.add phun_video2_29 path=images/phun_video2_29.png
+image.add phun_video2_30 path=images/phun_video2_30.png
+image.add phun_video2_31 path=images/phun_video2_31.png
+image.add phun_video2_32 path=images/phun_video2_32.png
+image.add phun_video2_33 path=images/phun_video2_33.png
+image.add phun_video2_34 path=images/phun_video2_34.png
+image.add phun_video2_35 path=images/phun_video2_35.png
+image.add phun_video2_36 path=images/phun_video2_36.png
+image.add phun_video2_37 path=images/phun_video2_37.png
+image.add phun_video2_38 path=images/phun_video2_38.png
+image.add phun_video2_39 path=images/phun_video2_39.png
+image.add phun_video2_40 path=images/phun_video2_40.png
+image.add phun_video2_41 path=images/phun_video2_41.png
+image.add phun_video2_42 path=images/phun_video2_42.png
+image.add phun_video2_43 path=images/phun_video2_43.png
+image.add phun_video2_44 path=images/phun_video2_44.png
+image.add phun_video2_45 path=images/phun_video2_45.png
+image.add phun_video2_46 path=images/phun_video2_46.png
+image.add phun_video2_47 path=images/phun_video2_47.png
+image.add phun_video2_48 path=images/phun_video2_48.png
+image.add phun_video2_49 path=images/phun_video2_49.png
+image.add phun_video2_50 path=images/phun_video2_50.png
+image.add phun_video2_51 path=images/phun_video2_51.png
+image.add phun_video2_52 path=images/phun_video2_52.png
+image.add phun_video2_53 path=images/phun_video2_53.png
+slot.add phun_video2 bone=mieng
+att.region phun_video2 phun_video2 image=phun_video2_00 x=353.0 y=-0.5 use=false
+att.seq phun_video2 phun_video2 prefix=phun_video2_ count=54 setup=0
+anim.add phun_video2 dur=2.350
+key phun_video2 phun_video2.attachment 0:phun_video2 2.250:-
+key phun_video2 phun_video2.seq 0:once,0,0.04167
+key phun_video2 mieng.scale 0:0.12,0.12:easeOut 0.17:1,1

@@ -78,7 +78,7 @@ namespace PokiClash
         {
             if (!HasFb("khoi")) return null;
             float h = 3f * r;
-            var p = Fb("khoi", pos + new Vector2(0, 0.42f * h), h, group, 11, Mathf.Clamp(FbDur("khoi") / Mathf.Max(0.3f, life), 0.7f, 1.6f), U(-6, 6),
+            var p = Fb("khoi", pos + new Vector2(0, Fbs["khoi"].cy * h), h, group, 11, Mathf.Clamp(FbDur("khoi") / Mathf.Max(0.3f, life), 0.7f, 1.6f), U(-6, 6),
                 rng.Next(2) == 0, hon ? KmKhoiHonFb : (Color?)null);
             p.vel = vel * 0.5f;
             p.drag = 2;
@@ -194,6 +194,7 @@ namespace PokiClash
             };
             p.draw = (q, k, buf) => DrawFb(buf, art, d, ph + q.age * d.fps, q.pos, h, q.group, 24, ang, lat, Color.white, Mathf.Clamp01(q.age / 0.04f));
             Add(p);
+            DuoiLua(() => p.pos, () => !p.dead && p.age < p.life, 0.25f * h, Back, 20); // cầu tròn Blender (2026-11-24): vệt đuôi lửa → khói
             return true;
         }
 

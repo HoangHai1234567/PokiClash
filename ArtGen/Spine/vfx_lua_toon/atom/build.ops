@@ -1,0 +1,189 @@
+project.set name=lua_toon fps=24
+image.add cau_lua_00 path=images/cau_lua_00.png
+image.add cau_lua_01 path=images/cau_lua_01.png
+image.add cau_lua_02 path=images/cau_lua_02.png
+image.add cau_lua_03 path=images/cau_lua_03.png
+image.add cau_lua_04 path=images/cau_lua_04.png
+image.add cau_lua_05 path=images/cau_lua_05.png
+image.add cau_lua_06 path=images/cau_lua_06.png
+image.add cau_lua_07 path=images/cau_lua_07.png
+image.add cau_lua_08 path=images/cau_lua_08.png
+image.add cau_lua_09 path=images/cau_lua_09.png
+image.add cau_lua_10 path=images/cau_lua_10.png
+image.add cau_lua_11 path=images/cau_lua_11.png
+image.add no_trung_00 path=images/no_trung_00.png
+image.add no_trung_01 path=images/no_trung_01.png
+image.add no_trung_02 path=images/no_trung_02.png
+image.add no_trung_03 path=images/no_trung_03.png
+image.add no_trung_04 path=images/no_trung_04.png
+image.add no_trung_05 path=images/no_trung_05.png
+image.add no_trung_06 path=images/no_trung_06.png
+image.add no_trung_07 path=images/no_trung_07.png
+image.add no_trung_08 path=images/no_trung_08.png
+image.add no_trung_09 path=images/no_trung_09.png
+image.add no_trung_10 path=images/no_trung_10.png
+image.add no_trung_11 path=images/no_trung_11.png
+image.add no_trung_12 path=images/no_trung_12.png
+image.add no_trung_13 path=images/no_trung_13.png
+image.add no_trung_14 path=images/no_trung_14.png
+image.add no_trung_15 path=images/no_trung_15.png
+image.add no_trung_16 path=images/no_trung_16.png
+image.add no_trung_17 path=images/no_trung_17.png
+image.add phun_lua_00 path=images/phun_lua_00.png
+image.add phun_lua_01 path=images/phun_lua_01.png
+image.add phun_lua_02 path=images/phun_lua_02.png
+image.add phun_lua_03 path=images/phun_lua_03.png
+image.add phun_lua_04 path=images/phun_lua_04.png
+image.add phun_lua_05 path=images/phun_lua_05.png
+image.add phun_lua_06 path=images/phun_lua_06.png
+image.add phun_lua_07 path=images/phun_lua_07.png
+image.add phun_lua_08 path=images/phun_lua_08.png
+image.add phun_lua_09 path=images/phun_lua_09.png
+image.add phun_lua_10 path=images/phun_lua_10.png
+image.add phun_lua_11 path=images/phun_lua_11.png
+image.add phun_lua_12 path=images/phun_lua_12.png
+image.add phun_lua_13 path=images/phun_lua_13.png
+image.add phun_lua_14 path=images/phun_lua_14.png
+image.add phun_lua_15 path=images/phun_lua_15.png
+image.add phun_lua_16 path=images/phun_lua_16.png
+image.add phun_lua_17 path=images/phun_lua_17.png
+image.add phun_lua_18 path=images/phun_lua_18.png
+image.add phun_lua_19 path=images/phun_lua_19.png
+image.add phun_lua_20 path=images/phun_lua_20.png
+image.add phun_lua_21 path=images/phun_lua_21.png
+image.add phun_lua_22 path=images/phun_lua_22.png
+image.add phun_lua_23 path=images/phun_lua_23.png
+image.add phun_lua_24 path=images/phun_lua_24.png
+image.add phun_lua_25 path=images/phun_lua_25.png
+image.add phun_lua_26 path=images/phun_lua_26.png
+image.add phun_lua_27 path=images/phun_lua_27.png
+image.add phun_lua_28 path=images/phun_lua_28.png
+image.add phun_lua_29 path=images/phun_lua_29.png
+image.add phun_lua_30 path=images/phun_lua_30.png
+image.add phun_lua_31 path=images/phun_lua_31.png
+image.add phun_lua_32 path=images/phun_lua_32.png
+image.add phun_lua_33 path=images/phun_lua_33.png
+image.add phun_lua_34 path=images/phun_lua_34.png
+image.add phun_lua_35 path=images/phun_lua_35.png
+image.add phun_lua_36 path=images/phun_lua_36.png
+image.add phun_lua_37 path=images/phun_lua_37.png
+image.add phun_nho_00 path=images/phun_nho_00.png
+image.add phun_nho_01 path=images/phun_nho_01.png
+image.add phun_nho_02 path=images/phun_nho_02.png
+image.add phun_nho_03 path=images/phun_nho_03.png
+image.add phun_nho_04 path=images/phun_nho_04.png
+image.add phun_nho_05 path=images/phun_nho_05.png
+image.add phun_nho_06 path=images/phun_nho_06.png
+image.add phun_nho_07 path=images/phun_nho_07.png
+image.add phun_nho_08 path=images/phun_nho_08.png
+image.add phun_nho_09 path=images/phun_nho_09.png
+image.add phun_nho_10 path=images/phun_nho_10.png
+image.add phun_nho_11 path=images/phun_nho_11.png
+image.add muiten_00 path=images/muiten_00.png
+image.add muiten_01 path=images/muiten_01.png
+image.add muiten_02 path=images/muiten_02.png
+image.add muiten_03 path=images/muiten_03.png
+image.add muiten_04 path=images/muiten_04.png
+image.add muiten_05 path=images/muiten_05.png
+image.add muiten_06 path=images/muiten_06.png
+image.add muiten_07 path=images/muiten_07.png
+image.add muiten_08 path=images/muiten_08.png
+image.add muiten_09 path=images/muiten_09.png
+image.add muiten_10 path=images/muiten_10.png
+image.add muiten_11 path=images/muiten_11.png
+image.add no_nam_00 path=images/no_nam_00.png
+image.add no_nam_01 path=images/no_nam_01.png
+image.add no_nam_02 path=images/no_nam_02.png
+image.add no_nam_03 path=images/no_nam_03.png
+image.add no_nam_04 path=images/no_nam_04.png
+image.add no_nam_05 path=images/no_nam_05.png
+image.add no_nam_06 path=images/no_nam_06.png
+image.add no_nam_07 path=images/no_nam_07.png
+image.add no_nam_08 path=images/no_nam_08.png
+image.add no_nam_09 path=images/no_nam_09.png
+image.add no_nam_10 path=images/no_nam_10.png
+image.add no_nam_11 path=images/no_nam_11.png
+image.add no_nam_12 path=images/no_nam_12.png
+image.add no_nam_13 path=images/no_nam_13.png
+image.add no_nam_14 path=images/no_nam_14.png
+image.add no_nam_15 path=images/no_nam_15.png
+image.add no_nam_16 path=images/no_nam_16.png
+image.add no_nam_17 path=images/no_nam_17.png
+image.add no_nam_18 path=images/no_nam_18.png
+image.add no_nam_19 path=images/no_nam_19.png
+image.add no_nam_20 path=images/no_nam_20.png
+image.add no_nam_21 path=images/no_nam_21.png
+image.add no_nam_22 path=images/no_nam_22.png
+image.add no_nam_23 path=images/no_nam_23.png
+image.add no_nam_24 path=images/no_nam_24.png
+image.add no_nam_25 path=images/no_nam_25.png
+image.add no_nam_26 path=images/no_nam_26.png
+image.add no_nam_27 path=images/no_nam_27.png
+image.add no_nam_28 path=images/no_nam_28.png
+image.add no_nam_29 path=images/no_nam_29.png
+image.add no_nam_30 path=images/no_nam_30.png
+image.add no_nam_31 path=images/no_nam_31.png
+image.add no_nam_32 path=images/no_nam_32.png
+image.add no_nam_33 path=images/no_nam_33.png
+image.add no_nam_34 path=images/no_nam_34.png
+image.add no_nam_35 path=images/no_nam_35.png
+image.add no_nam_36 path=images/no_nam_36.png
+image.add no_nam_37 path=images/no_nam_37.png
+image.add no_nam_38 path=images/no_nam_38.png
+image.add no_nam_39 path=images/no_nam_39.png
+image.add no_nam_40 path=images/no_nam_40.png
+image.add no_nam_41 path=images/no_nam_41.png
+bone.add mieng parent=root x=-300 y=130
+bone.add dan parent=root x=-300 y=130
+bone.add dich parent=root x=290 y=95
+bone.add nam parent=root x=290 y=0
+bone.add mieng_tia parent=mieng x=60 y=0 rot=-90
+vfx.art than kind=spark palette=fire size=22 seed=3
+slot.add phun bone=mieng
+att.region phun phun_lua image=phun_lua_00 x=294.0 y=25.0 use=false
+att.seq phun phun_lua prefix=phun_lua_ count=38 setup=0
+slot.add nho bone=mieng
+att.region nho phun_nho image=phun_nho_00 x=140.0 y=6.0 use=false
+att.seq nho phun_nho prefix=phun_nho_ count=12 setup=0
+slot.add cau bone=dan
+att.region cau cau_lua image=cau_lua_00 x=-62.0 y=3.0 use=false
+att.seq cau cau_lua prefix=cau_lua_ count=12 setup=0
+slot.add ten bone=dan
+att.region ten muiten image=muiten_00 x=-148.0 y=0.0 use=false
+att.seq ten muiten prefix=muiten_ count=12 setup=0
+slot.add no bone=dich
+att.region no no_trung image=no_trung_00 x=0.0 y=10.0 use=false
+att.seq no no_trung prefix=no_trung_ count=18 setup=0
+slot.add nam bone=nam
+att.region nam no_nam image=no_nam_00 x=0.0 y=190.0 use=false
+att.seq nam no_nam prefix=no_nam_ count=42 setup=0
+anim.add phun_lua dur=1.683
+key phun_lua phun.attachment 0.000:phun_lua 1.583:-
+key phun_lua phun.seq 0.000:once,0,0.04167
+vfx.burst phun_lua image=than bone=mieng_tia count=14 t=0.08 dur=0.7 speed=520 spread=40 gravity=-60 spin=180 seed=5
+anim.add phun_nho dur=1.0 loop=true
+key phun_nho nho.attachment 0.000:phun_nho
+key phun_nho nho.seq 0.000:loop,0,0.04167
+anim.add cau_lua dur=1.350
+key cau_lua cau.attachment 0.000:cau_lua 0.550:-
+key cau_lua cau.seq 0.000:loop,0,0.04167
+key cau_lua dan.translate 0:0,0:easeIn 0.550:590,-35
+key cau_lua dan.scale 0:0.35,0.35:backOut 0.12:1,1 0.550:1.1,1.1
+key cau_lua no.attachment 0.550:no_trung 1.300:-
+key cau_lua no.seq 0.550:once,0,0.04167
+vfx.shake cau_lua bone=dich t=0.550 dur=0.25 amp=5 freq=30 seed=2
+anim.add mui_ten dur=1.120
+key mui_ten ten.attachment 0.000:muiten 0.320:-
+key mui_ten ten.seq 0.000:loop,0,0.04167
+key mui_ten dan.translate 0:-40,0:easeIn 0.320:590,-35
+key mui_ten dan.scale 0:0.6,0.6:easeOut 0.06:1,1
+key mui_ten no.attachment 0.320:no_trung 1.070:-
+key mui_ten no.seq 0.320:once,0,0.04167
+key mui_ten dich.scale 0:1,1 0.320:0.7,0.7 1.070:0.7,0.7
+anim.add no_trung dur=0.850
+key no_trung no.attachment 0.000:no_trung 0.750:-
+key no_trung no.seq 0.000:once,0,0.04167
+anim.add no_nam dur=1.850
+key no_nam nam.attachment 0.000:no_nam 1.750:-
+key no_nam nam.seq 0.000:once,0,0.04167
+vfx.shake no_nam bone=root t=0.04 dur=0.5 amp=8 freq=28 seed=4

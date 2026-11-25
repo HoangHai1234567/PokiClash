@@ -35,7 +35,7 @@ namespace PokiClash
             var s = App.Save.Data;
             var sb = new StringBuilder();
             int open = 0, all = 0;
-            foreach (var p in Tutorial.Pages())
+            foreach (var p in Tutorial.Pages(App.Data.Cfg))
             {
                 all++;
                 if (Tutorial.PageOpen(s, p))

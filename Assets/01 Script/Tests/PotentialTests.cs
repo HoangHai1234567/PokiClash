@@ -349,5 +349,33 @@ namespace PokiClash.Tests
             Assert.AreEqual(-st.guard, Battle.BuffSum(f, Stat.DmgTaken), 1e-12, "giảm sát thương nhận");
             Assert.AreEqual(st.dodge, Battle.BuffSum(f, Stat.Dodge), 1e-12, "né đòn");
         }
+
+        // câu 14 (GD_Claude/12): màn Tướng (HeroDetailDialog, TeamLineup) và trận phải ra cùng chỉ số khi tướng có huy hiệu, tiềm năng,
+        // bộ. Hai nơi cùng gọi HeroStats.Compute(..., Potential.Mods); báo "lệch" cũ là do menu thử so tướng không cộng với tướng đầu đội.
+        [Test]
+        public void ChiSoManTuong_KhopTrongTran_KhiCoHuyHieuTiemNang()
+        {
+            var d = TestData.Load();
+            var cfg = d.Cfg;
+            var s = SaveData.New(d, 0, TestData.OldStarter);
+            s.level = 120;
+            var p = s.Hero("ti_tach");
+            p.star = 8;
+            var set = cfg.potential.sets.First(x => x.key == "cong");
+            p.potential = set.kinds.Take(set.need[0]).Select(k => new PotLine { k = Potential.FromKey(k), r = 3 })
+                .Concat(new[] { new PotLine { k = PotKind.Hp, r = 4 } }).ToArray();
+            var h = d.Hero("ti_tach");
+            s.badges[(int)h.elem].tier = 6;
+            s.badges[((int)h.elem + 1) % 5].tier = 3; // dãy khác hệ: chỉ cộng phần cả đội
+            var ui = HeroStats.Compute(cfg, h, s.level, p.star, false, Potential.Mods(s, d, h));
+            var raw = HeroStats.Compute(cfg, h, s.level, p.star);
+            Assert.Greater(ui.hp, raw.hp, "có huy hiệu, tiềm năng thì chỉ số màn Tướng phải cao hơn chỉ số gốc");
+            var b = Battle.Create(d, Teams.Player(s, new[] { "ti_tach" }, d), Teams.Enemy(d.Stage(1), d), 1);
+            var f = b.ActiveOf(0);
+            Assert.AreEqual("ti_tach", f.hero.id);
+            Assert.AreEqual(ui.hp, f.maxHp, "máu");
+            Assert.AreEqual(ui.atk, f.atk, "công");
+            Assert.AreEqual(ui.def, f.def, "thủ");
+        }
     }
 }

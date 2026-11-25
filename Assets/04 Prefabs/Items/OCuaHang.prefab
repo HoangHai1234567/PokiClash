@@ -462,7 +462,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1 &5012961490333699400
+--- !u!1 &5434000948750803815
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -470,9 +470,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2063533500924426122}
-  - component: {fileID: 8142582600840771358}
-  - component: {fileID: 8134345452749304358}
+  - component: {fileID: 1562362518691125457}
+  - component: {fileID: 6343620513223878402}
+  - component: {fileID: 5790042174548408548}
   m_Layer: 5
   m_Name: nhan
   m_TagString: Untagged
@@ -480,13 +480,13 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &2063533500924426122
+--- !u!224 &1562362518691125457
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5012961490333699400}
+  m_GameObject: {fileID: 5434000948750803815}
   m_LocalRotation: {x: 0, y: 0, z: 0.043619387, w: 0.99904823}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -500,21 +500,21 @@ RectTransform:
   m_AnchoredPosition: {x: 4, y: -6}
   m_SizeDelta: {x: 190, y: 46}
   m_Pivot: {x: 0, y: 1}
---- !u!222 &8142582600840771358
+--- !u!222 &6343620513223878402
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5012961490333699400}
+  m_GameObject: {fileID: 5434000948750803815}
   m_CullTransparentMesh: 1
---- !u!114 &8134345452749304358
+--- !u!114 &5790042174548408548
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5012961490333699400}
+  m_GameObject: {fileID: 5434000948750803815}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -568,7 +568,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2063533500924426122}
+  m_Father: {fileID: 1562362518691125457}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -849,7 +849,7 @@ RectTransform:
   - {fileID: 8657368640163096886}
   - {fileID: 2998210465423694405}
   - {fileID: 3663055295930063528}
-  - {fileID: 2063533500924426122}
+  - {fileID: 1562362518691125457}
   - {fileID: 8329060343488989300}
   - {fileID: 8436098928284026393}
   - {fileID: 3685368377914668447}
@@ -913,7 +913,7 @@ MonoBehaviour:
   p:
     bg: {fileID: 8799122883635910376}
     art: {fileID: 3419159300368779089}
-    ribbon: {fileID: 8134345452749304358}
+    ribbon: {fileID: 5790042174548408548}
     dot: {fileID: 2866832751684739865}
     stack:
     - {fileID: 1266662494549609724}

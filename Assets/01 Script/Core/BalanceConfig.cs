@@ -152,6 +152,14 @@ namespace PokiClash.Core
         public List<int> unlockLevels = new List<int>();
     }
 
+    // bi thắng ải (Progress.StageBalls, đưa vào cấu hình 2026-11-24 để cân bằng): ải 1 của đảo @base bi, cứ step ải thêm 1 bi
+    // (thang 70 ải); lần đầu qua ải boss, mini boss, ải tướng thêm boss, mini, hero bi
+    [Serializable]
+    public class StageBallsConfig
+    {
+        public int @base = 1, step = 14, boss = 8, mini = 4, hero = 2;
+    }
+
     // Trang trại (Web/src/core/data/farm.ts)
     [Serializable]
     public class FarmSpotDef
@@ -317,6 +325,8 @@ namespace PokiClash.Core
         public FarmConfig farm = new FarmConfig();
         public AdsConfig ads = new AdsConfig();
         public TreesConfig trees = new TreesConfig();
+        public StageBallsConfig stageBalls = new StageBallsConfig();
+        public SoPhepConfig sophep = new SoPhepConfig(); // Sổ Phép (Core/SoPhep.cs, GD_Claude/28_SoPhep.md)
         public HomeConfig home = new HomeConfig(); // Nhà (2026-11-18, HomeConfig.cs)
         public ShopConfig shop = new ShopConfig(); // cửa hàng, ưu đãi (2026-11-23, ShopConfig.cs)
 
@@ -462,6 +472,14 @@ namespace PokiClash.Core
                 c.trees = new TreesConfig { perHour = J.Num(tr, "perHour"), cap = J.Num(tr, "cap") };
                 foreach (var lv in J.Arr(tr, "unlockLevels")) c.trees.unlockLevels.Add((int)(double)lv);
             }
+            var sb = J.Obj(root, "stageBalls");
+            if (sb != null)
+                c.stageBalls = new StageBallsConfig
+                {
+                    @base = J.Int(sb, "base"), step = Math.Max(1, J.Int(sb, "step")), boss = J.Int(sb, "boss"), mini = J.Int(sb, "mini"),
+                    hero = J.Int(sb, "hero"),
+                };
+            if (J.Obj(root, "sophep") is Dictionary<string, object> spo) c.sophep = SoPhepConfig.Parse(spo);
             var adc = J.Obj(root, "ads");
             if (adc != null)
             {

@@ -58,6 +58,22 @@ namespace PokiClash.Tests
         public void TheoPhieuLuu_KhopBanWeb()
         {
             var d = TestData.Load();
+            // golden chụp ở bản web với cây 5 bi mỗi giờ, chứa 50, cây sau ở cấp 30/50/80/110: chạy trên đúng số đó (balance.json đổi
+            // số 2026-11-24), xong trả lại
+            var keep = d.Cfg.trees;
+            d.Cfg.trees = new TreesConfig { perHour = 5, cap = 50, unlockLevels = new System.Collections.Generic.List<int> { 30, 50, 80, 110 } };
+            try
+            {
+                PassReplay(d);
+            }
+            finally
+            {
+                d.Cfg.trees = keep;
+            }
+        }
+
+        static void PassReplay(GameData d)
+        {
             var g = Golden();
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, 0);

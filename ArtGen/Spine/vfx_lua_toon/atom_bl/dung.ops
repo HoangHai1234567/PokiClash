@@ -1,0 +1,1154 @@
+project.set name=lua_blender fps=24
+vfx.art than kind=spark palette=fire size=22 seed=3
+image.add phun_bl2_00 path=images/phun_bl2_00.png
+image.add phun_bl2_01 path=images/phun_bl2_01.png
+image.add phun_bl2_02 path=images/phun_bl2_02.png
+image.add phun_bl2_03 path=images/phun_bl2_03.png
+image.add phun_bl2_04 path=images/phun_bl2_04.png
+image.add phun_bl2_05 path=images/phun_bl2_05.png
+image.add phun_bl2_06 path=images/phun_bl2_06.png
+image.add phun_bl2_07 path=images/phun_bl2_07.png
+image.add phun_bl2_08 path=images/phun_bl2_08.png
+image.add phun_bl2_09 path=images/phun_bl2_09.png
+image.add phun_bl2_10 path=images/phun_bl2_10.png
+image.add phun_bl2_11 path=images/phun_bl2_11.png
+image.add phun_bl2_12 path=images/phun_bl2_12.png
+image.add phun_bl2_13 path=images/phun_bl2_13.png
+image.add phun_bl2_14 path=images/phun_bl2_14.png
+image.add phun_bl2_15 path=images/phun_bl2_15.png
+image.add phun_bl2_16 path=images/phun_bl2_16.png
+image.add phun_bl2_17 path=images/phun_bl2_17.png
+image.add phun_bl2_18 path=images/phun_bl2_18.png
+image.add phun_bl2_19 path=images/phun_bl2_19.png
+image.add phun_bl2_20 path=images/phun_bl2_20.png
+image.add phun_bl2_21 path=images/phun_bl2_21.png
+image.add phun_bl2_22 path=images/phun_bl2_22.png
+image.add phun_bl2_23 path=images/phun_bl2_23.png
+image.add phun_bl2_24 path=images/phun_bl2_24.png
+image.add phun_bl2_25 path=images/phun_bl2_25.png
+image.add phun_bl2_26 path=images/phun_bl2_26.png
+image.add phun_bl2_27 path=images/phun_bl2_27.png
+image.add phun_bl2_28 path=images/phun_bl2_28.png
+image.add phun_bl2_29 path=images/phun_bl2_29.png
+image.add phun_bl2_30 path=images/phun_bl2_30.png
+image.add phun_bl2_31 path=images/phun_bl2_31.png
+image.add phun_bl2_32 path=images/phun_bl2_32.png
+image.add phun_bl2_33 path=images/phun_bl2_33.png
+image.add phun_bl2_34 path=images/phun_bl2_34.png
+image.add phun_bl2_35 path=images/phun_bl2_35.png
+image.add phun_bl2_36 path=images/phun_bl2_36.png
+image.add phun_bl2_37 path=images/phun_bl2_37.png
+image.add phun_bl2_38 path=images/phun_bl2_38.png
+image.add phun_bl2_39 path=images/phun_bl2_39.png
+image.add phun_bl2_40 path=images/phun_bl2_40.png
+image.add phun_bl2_41 path=images/phun_bl2_41.png
+image.add phun_bl2_42 path=images/phun_bl2_42.png
+image.add phun_bl2_43 path=images/phun_bl2_43.png
+image.add phun_bl2_44 path=images/phun_bl2_44.png
+image.add phun_bl2_45 path=images/phun_bl2_45.png
+image.add phun_bl2_46 path=images/phun_bl2_46.png
+image.add cau_bl_00 path=images/cau_bl_00.png
+image.add cau_bl_01 path=images/cau_bl_01.png
+image.add cau_bl_02 path=images/cau_bl_02.png
+image.add cau_bl_03 path=images/cau_bl_03.png
+image.add cau_bl_04 path=images/cau_bl_04.png
+image.add cau_bl_05 path=images/cau_bl_05.png
+image.add cau_bl_06 path=images/cau_bl_06.png
+image.add cau_bl_07 path=images/cau_bl_07.png
+image.add cau_bl_08 path=images/cau_bl_08.png
+image.add cau_bl_09 path=images/cau_bl_09.png
+image.add cau_bl_10 path=images/cau_bl_10.png
+image.add cau_bl_11 path=images/cau_bl_11.png
+image.add cau_bl_12 path=images/cau_bl_12.png
+image.add cau_bl_13 path=images/cau_bl_13.png
+image.add cau_bl_14 path=images/cau_bl_14.png
+image.add cau_bl_15 path=images/cau_bl_15.png
+image.add no_bl_00 path=images/no_bl_00.png
+image.add no_bl_01 path=images/no_bl_01.png
+image.add no_bl_02 path=images/no_bl_02.png
+image.add no_bl_03 path=images/no_bl_03.png
+image.add no_bl_04 path=images/no_bl_04.png
+image.add no_bl_05 path=images/no_bl_05.png
+image.add no_bl_06 path=images/no_bl_06.png
+image.add no_bl_07 path=images/no_bl_07.png
+image.add no_bl_08 path=images/no_bl_08.png
+image.add no_bl_09 path=images/no_bl_09.png
+image.add no_bl_10 path=images/no_bl_10.png
+image.add no_bl_11 path=images/no_bl_11.png
+image.add no_bl_12 path=images/no_bl_12.png
+image.add no_bl_13 path=images/no_bl_13.png
+image.add no_bl_14 path=images/no_bl_14.png
+image.add no_bl_15 path=images/no_bl_15.png
+image.add no_bl_16 path=images/no_bl_16.png
+image.add no_bl_17 path=images/no_bl_17.png
+image.add no_bl_18 path=images/no_bl_18.png
+image.add no_bl_19 path=images/no_bl_19.png
+image.add no_bl_20 path=images/no_bl_20.png
+image.add no_bl_21 path=images/no_bl_21.png
+image.add no_bl_22 path=images/no_bl_22.png
+image.add no_bl_23 path=images/no_bl_23.png
+image.add no_bl_24 path=images/no_bl_24.png
+image.add no_bl_25 path=images/no_bl_25.png
+image.add kim_bl_00 path=images/kim_bl_00.png
+image.add kim_bl_01 path=images/kim_bl_01.png
+image.add kim_bl_02 path=images/kim_bl_02.png
+image.add kim_bl_03 path=images/kim_bl_03.png
+image.add kim_bl_04 path=images/kim_bl_04.png
+image.add kim_bl_05 path=images/kim_bl_05.png
+image.add kim_bl_06 path=images/kim_bl_06.png
+image.add kim_bl_07 path=images/kim_bl_07.png
+image.add kim_bl_08 path=images/kim_bl_08.png
+image.add kim_bl_09 path=images/kim_bl_09.png
+image.add kim_bl_10 path=images/kim_bl_10.png
+image.add kim_bl_11 path=images/kim_bl_11.png
+image.add loc_bl_00 path=images/loc_bl_00.png
+image.add loc_bl_01 path=images/loc_bl_01.png
+image.add loc_bl_02 path=images/loc_bl_02.png
+image.add loc_bl_03 path=images/loc_bl_03.png
+image.add loc_bl_04 path=images/loc_bl_04.png
+image.add loc_bl_05 path=images/loc_bl_05.png
+image.add loc_bl_06 path=images/loc_bl_06.png
+image.add loc_bl_07 path=images/loc_bl_07.png
+image.add loc_bl_08 path=images/loc_bl_08.png
+image.add loc_bl_09 path=images/loc_bl_09.png
+image.add loc_bl_10 path=images/loc_bl_10.png
+image.add loc_bl_11 path=images/loc_bl_11.png
+image.add loc_bl_12 path=images/loc_bl_12.png
+image.add loc_bl_13 path=images/loc_bl_13.png
+image.add loc_bl_14 path=images/loc_bl_14.png
+image.add loc_bl_15 path=images/loc_bl_15.png
+image.add loc_bl_16 path=images/loc_bl_16.png
+image.add loc_bl_17 path=images/loc_bl_17.png
+image.add loc_bl_18 path=images/loc_bl_18.png
+image.add loc_bl_19 path=images/loc_bl_19.png
+image.add loc_bl_20 path=images/loc_bl_20.png
+image.add loc_bl_21 path=images/loc_bl_21.png
+image.add loc_bl_22 path=images/loc_bl_22.png
+image.add loc_bl_23 path=images/loc_bl_23.png
+image.add loc_bl_24 path=images/loc_bl_24.png
+image.add loc_bl_25 path=images/loc_bl_25.png
+image.add loc_bl_26 path=images/loc_bl_26.png
+image.add loc_bl_27 path=images/loc_bl_27.png
+image.add loc_bl_28 path=images/loc_bl_28.png
+image.add loc_bl_29 path=images/loc_bl_29.png
+image.add loc_bl_30 path=images/loc_bl_30.png
+image.add loc_bl_31 path=images/loc_bl_31.png
+image.add loc_bl_32 path=images/loc_bl_32.png
+image.add loc_bl_33 path=images/loc_bl_33.png
+image.add loc_bl_34 path=images/loc_bl_34.png
+image.add loc_bl_35 path=images/loc_bl_35.png
+image.add loc_bl_36 path=images/loc_bl_36.png
+image.add loc_bl_37 path=images/loc_bl_37.png
+image.add loc_bl_38 path=images/loc_bl_38.png
+image.add loc_bl_39 path=images/loc_bl_39.png
+image.add loc_bl_40 path=images/loc_bl_40.png
+image.add loc_bl_41 path=images/loc_bl_41.png
+image.add loc_bl_42 path=images/loc_bl_42.png
+image.add loc_bl_43 path=images/loc_bl_43.png
+image.add loc_bl_44 path=images/loc_bl_44.png
+image.add loc_bl_45 path=images/loc_bl_45.png
+image.add loc_bl_46 path=images/loc_bl_46.png
+image.add loc_bl_47 path=images/loc_bl_47.png
+image.add lua_bl_00 path=images/lua_bl_00.png
+image.add lua_bl_01 path=images/lua_bl_01.png
+image.add lua_bl_02 path=images/lua_bl_02.png
+image.add lua_bl_03 path=images/lua_bl_03.png
+image.add lua_bl_04 path=images/lua_bl_04.png
+image.add lua_bl_05 path=images/lua_bl_05.png
+image.add lua_bl_06 path=images/lua_bl_06.png
+image.add lua_bl_07 path=images/lua_bl_07.png
+image.add lua_bl_08 path=images/lua_bl_08.png
+image.add lua_bl_09 path=images/lua_bl_09.png
+image.add lua_bl_10 path=images/lua_bl_10.png
+image.add lua_bl_11 path=images/lua_bl_11.png
+image.add lua_bl_12 path=images/lua_bl_12.png
+image.add lua_bl_13 path=images/lua_bl_13.png
+image.add lua_bl_14 path=images/lua_bl_14.png
+image.add lua_bl_15 path=images/lua_bl_15.png
+image.add khoi_bl_00 path=images/khoi_bl_00.png
+image.add khoi_bl_01 path=images/khoi_bl_01.png
+image.add khoi_bl_02 path=images/khoi_bl_02.png
+image.add khoi_bl_03 path=images/khoi_bl_03.png
+image.add khoi_bl_04 path=images/khoi_bl_04.png
+image.add khoi_bl_05 path=images/khoi_bl_05.png
+image.add khoi_bl_06 path=images/khoi_bl_06.png
+image.add khoi_bl_07 path=images/khoi_bl_07.png
+image.add khoi_bl_08 path=images/khoi_bl_08.png
+image.add khoi_bl_09 path=images/khoi_bl_09.png
+image.add khoi_bl_10 path=images/khoi_bl_10.png
+image.add khoi_bl_11 path=images/khoi_bl_11.png
+image.add khoi_bl_12 path=images/khoi_bl_12.png
+image.add khoi_bl_13 path=images/khoi_bl_13.png
+image.add khoi_bl_14 path=images/khoi_bl_14.png
+image.add khoi_bl_15 path=images/khoi_bl_15.png
+image.add khoi_bl_16 path=images/khoi_bl_16.png
+image.add khoi_bl_17 path=images/khoi_bl_17.png
+image.add khoi_bl_18 path=images/khoi_bl_18.png
+image.add khoi_bl_19 path=images/khoi_bl_19.png
+image.add khoi_bl_20 path=images/khoi_bl_20.png
+image.add khoi_bl_21 path=images/khoi_bl_21.png
+image.add khoi_bl_22 path=images/khoi_bl_22.png
+image.add khoi_bl_23 path=images/khoi_bl_23.png
+image.add khoi_bl_24 path=images/khoi_bl_24.png
+image.add duoi_bl_00 path=images/duoi_bl_00.png
+image.add duoi_bl_01 path=images/duoi_bl_01.png
+image.add duoi_bl_02 path=images/duoi_bl_02.png
+image.add duoi_bl_03 path=images/duoi_bl_03.png
+image.add duoi_bl_04 path=images/duoi_bl_04.png
+image.add duoi_bl_05 path=images/duoi_bl_05.png
+image.add duoi_bl_06 path=images/duoi_bl_06.png
+image.add duoi_bl_07 path=images/duoi_bl_07.png
+image.add duoi_bl_08 path=images/duoi_bl_08.png
+image.add duoi_bl_09 path=images/duoi_bl_09.png
+image.add duoi_bl_10 path=images/duoi_bl_10.png
+image.add duoi_bl_11 path=images/duoi_bl_11.png
+image.add duoi_bl_12 path=images/duoi_bl_12.png
+image.add duoi_bl_13 path=images/duoi_bl_13.png
+image.add duoi_bl_14 path=images/duoi_bl_14.png
+image.add duoi_bl_15 path=images/duoi_bl_15.png
+image.add duoi_bl_16 path=images/duoi_bl_16.png
+image.add duoi_bl_17 path=images/duoi_bl_17.png
+image.add duoi_bl_18 path=images/duoi_bl_18.png
+image.add duoi_bl_19 path=images/duoi_bl_19.png
+image.add duoi_bl_20 path=images/duoi_bl_20.png
+image.add duoi_bl_21 path=images/duoi_bl_21.png
+image.add duoi_bl_22 path=images/duoi_bl_22.png
+image.add duoi_bl_23 path=images/duoi_bl_23.png
+image.add duoi_bl_24 path=images/duoi_bl_24.png
+image.add duoi_bl_25 path=images/duoi_bl_25.png
+image.add duoi_bl_26 path=images/duoi_bl_26.png
+bone.add b_mieng parent=root x=-300.0 y=130.0 sx=1.000 sy=1.000 rot=0.00
+bone.add b_tia parent=root x=-240.0 y=130.0 sx=1.000 sy=1.000 rot=-90.00
+slot.add s_phun bone=b_mieng
+att.region s_phun phun_bl2 image=phun_bl2_00 x=259.0 y=23.5 use=false
+att.seq s_phun phun_bl2 prefix=phun_bl2_ count=47 setup=0
+anim.add phun_lua dur=2.458
+key phun_lua s_phun.attachment 0.000:phun_bl2 1.958:-
+key phun_lua s_phun.seq 0.000:once,0,0.04167
+vfx.burst phun_lua image=than prefix=tph bone=b_tia count=12 t=0.3 dur=1.0 speed=430 spread=55 gravity=-50 spin=140 seed=11
+bone.add kb1 parent=root x=10.0 y=215.0 sx=0.550 sy=0.550 rot=0.00
+slot.add ks1 bone=kb1 at=back
+att.region ks1 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks1 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key phun_lua ks1.attachment 0:- 1.020:khoi_bl 2.062:-
+key phun_lua ks1.seq 1.020:once,0,0.04167
+key phun_lua kb1.translate 1.020:0,0:easeOut 2.062:13,103
+bone.add kb2 parent=root x=60.0 y=230.0 sx=0.650 sy=0.650 rot=0.00
+slot.add ks2 bone=kb2 at=back
+att.region ks2 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks2 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key phun_lua ks2.attachment 0:- 1.100:khoi_bl 2.142:-
+key phun_lua ks2.seq 1.100:once,0,0.04167
+key phun_lua kb2.translate 1.100:0,0:easeOut 2.142:11,116
+bone.add kb3 parent=root x=35.0 y=200.0 sx=0.600 sy=0.600 rot=0.00
+slot.add ks3 bone=kb3 at=back
+att.region ks3 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks3 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key phun_lua ks3.attachment 0:- 1.180:khoi_bl 2.222:-
+key phun_lua ks3.seq 1.180:once,0,0.04167
+key phun_lua kb3.translate 1.180:0,0:easeOut 2.222:17,111
+bone.add kb4 parent=root x=95.0 y=225.0 sx=0.620 sy=0.620 rot=0.00
+slot.add ks4 bone=kb4 at=back
+att.region ks4 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks4 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key phun_lua ks4.attachment 0:- 1.280:khoi_bl 2.322:-
+key phun_lua ks4.seq 1.280:once,0,0.04167
+key phun_lua kb4.translate 1.280:0,0:easeOut 2.322:20,92
+bone.add kb5 parent=root x=50.0 y=210.0 sx=0.550 sy=0.550 rot=0.00
+slot.add ks5 bone=kb5 at=back
+att.region ks5 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks5 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key phun_lua ks5.attachment 0:- 1.400:khoi_bl 2.442:-
+key phun_lua ks5.seq 1.400:once,0,0.04167
+key phun_lua kb5.translate 1.400:0,0:easeOut 2.442:19,91
+bone.add b_cau parent=root x=-300.0 y=130.0 sx=0.420 sy=0.420 rot=0.00
+bone.add b_no parent=root x=290.0 y=95.0 sx=0.620 sy=0.620 rot=0.00
+slot.add s_cau bone=b_cau
+att.region s_cau cau_bl image=cau_bl_00 x=0.0 y=0.5 use=false
+att.seq s_cau cau_bl prefix=cau_bl_ count=16 setup=0
+slot.add s_no bone=b_no
+att.region s_no no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_no no_bl prefix=no_bl_ count=26 setup=0
+anim.add cau_lua dur=2.233
+key cau_lua s_cau.attachment 0.000:cau_bl 0.550:-
+key cau_lua s_cau.seq 0.000:loop,0,0.04167
+key cau_lua b_cau.translate 0.000:0.0,-0.0 0.055:5.9,-0.4 0.110:23.6,-1.4 0.165:53.1,-3.1 0.220:94.4,-5.6 0.275:147.5,-8.8 0.330:212.4,-12.6 0.385:289.1,-17.2 0.440:377.6,-22.4 0.495:477.9,-28.3 0.550:590.0,-35.0
+key cau_lua b_cau.scale 0:0.3,0.3:backOut 0.12:1,1
+key cau_lua s_no.attachment 0:- 0.550:no_bl 1.633:-
+key cau_lua s_no.seq 0.550:once,0,0.04167
+vfx.shake cau_lua bone=b_no t=0.550 dur=0.25 amp=4 freq=30 seed=3
+bone.add kb6 parent=root x=-300.6 y=126.6 sx=0.542 sy=0.542 rot=0.00
+slot.add ks6 bone=kb6 at=back
+att.region ks6 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks6 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks6.attachment 0:- 0.072:duoi_bl 1.197:-
+key cau_lua ks6.seq 0.072:once,0,0.04167
+key cau_lua kb6.translate 0.072:0,0:easeOut 1.197:-25,51
+bone.add kb7 parent=root x=-284.3 y=126.7 sx=0.564 sy=0.564 rot=0.00
+slot.add ks7 bone=kb7 at=back
+att.region ks7 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks7 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks7.attachment 0:- 0.115:duoi_bl 1.240:-
+key cau_lua ks7.seq 0.115:once,0,0.04167
+key cau_lua kb7.translate 0.115:0,0:easeOut 1.240:-25,54
+bone.add kb8 parent=root x=-265.6 y=127.2 sx=0.602 sy=0.602 rot=0.00
+slot.add ks8 bone=kb8 at=back
+att.region ks8 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks8 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks8.attachment 0:- 0.147:duoi_bl 1.272:-
+key cau_lua ks8.seq 0.147:once,0,0.04167
+key cau_lua kb8.translate 0.147:0,0:easeOut 1.272:-25,31
+bone.add kb9 parent=root x=-247.9 y=125.4 sx=0.511 sy=0.511 rot=0.00
+slot.add ks9 bone=kb9 at=back
+att.region ks9 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks9 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks9.attachment 0:- 0.172:duoi_bl 1.297:-
+key cau_lua ks9.seq 0.172:once,0,0.04167
+key cau_lua kb9.translate 0.172:0,0:easeOut 1.297:-25,33
+bone.add kb10 parent=root x=-235.3 y=128.6 sx=0.515 sy=0.515 rot=0.00
+slot.add ks10 bone=kb10 at=back
+att.region ks10 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks10 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks10.attachment 0:- 0.195:duoi_bl 1.320:-
+key cau_lua ks10.seq 0.195:once,0,0.04167
+key cau_lua kb10.translate 0.195:0,0:easeOut 1.320:-25,45
+bone.add kb11 parent=root x=-217.3 y=124.1 sx=0.555 sy=0.555 rot=0.00
+slot.add ks11 bone=kb11 at=back
+att.region ks11 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks11 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks11.attachment 0:- 0.215:duoi_bl 1.340:-
+key cau_lua ks11.seq 0.215:once,0,0.04167
+key cau_lua kb11.translate 0.215:0,0:easeOut 1.340:-25,32
+bone.add kb12 parent=root x=-204.8 y=121.8 sx=0.570 sy=0.570 rot=0.00
+slot.add ks12 bone=kb12 at=back
+att.region ks12 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks12 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks12.attachment 0:- 0.233:duoi_bl 1.358:-
+key cau_lua ks12.seq 0.233:once,0,0.04167
+key cau_lua kb12.translate 0.233:0,0:easeOut 1.358:-25,41
+bone.add kb13 parent=root x=-187.3 y=123.9 sx=0.545 sy=0.545 rot=0.00
+slot.add ks13 bone=kb13 at=back
+att.region ks13 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks13 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks13.attachment 0:- 0.250:duoi_bl 1.375:-
+key cau_lua ks13.seq 0.250:once,0,0.04167
+key cau_lua kb13.translate 0.250:0,0:easeOut 1.375:-25,37
+bone.add kb14 parent=root x=-168.5 y=123.9 sx=0.522 sy=0.522 rot=0.00
+slot.add ks14 bone=kb14 at=back
+att.region ks14 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks14 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks14.attachment 0:- 0.266:duoi_bl 1.391:-
+key cau_lua ks14.seq 0.266:once,0,0.04167
+key cau_lua kb14.translate 0.266:0,0:easeOut 1.391:-25,44
+bone.add kb15 parent=root x=-154.1 y=124.4 sx=0.575 sy=0.575 rot=0.00
+slot.add ks15 bone=kb15 at=back
+att.region ks15 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks15 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks15.attachment 0:- 0.281:duoi_bl 1.406:-
+key cau_lua ks15.seq 0.281:once,0,0.04167
+key cau_lua kb15.translate 0.281:0,0:easeOut 1.406:-25,37
+bone.add kb16 parent=root x=-135.4 y=117.4 sx=0.541 sy=0.541 rot=0.00
+slot.add ks16 bone=kb16 at=back
+att.region ks16 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks16 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks16.attachment 0:- 0.295:duoi_bl 1.420:-
+key cau_lua ks16.seq 0.295:once,0,0.04167
+key cau_lua kb16.translate 0.295:0,0:easeOut 1.420:-25,49
+bone.add kb17 parent=root x=-124.4 y=119.4 sx=0.499 sy=0.499 rot=0.00
+slot.add ks17 bone=kb17 at=back
+att.region ks17 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks17 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks17.attachment 0:- 0.309:duoi_bl 1.434:-
+key cau_lua ks17.seq 0.309:once,0,0.04167
+key cau_lua kb17.translate 0.309:0,0:easeOut 1.434:-25,47
+bone.add kb18 parent=root x=-104.8 y=119.1 sx=0.591 sy=0.591 rot=0.00
+slot.add ks18 bone=kb18 at=back
+att.region ks18 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks18 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks18.attachment 0:- 0.322:duoi_bl 1.447:-
+key cau_lua ks18.seq 0.322:once,0,0.04167
+key cau_lua kb18.translate 0.322:0,0:easeOut 1.447:-25,38
+bone.add kb19 parent=root x=-89.2 y=118.3 sx=0.559 sy=0.559 rot=0.00
+slot.add ks19 bone=kb19 at=back
+att.region ks19 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks19 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks19.attachment 0:- 0.334:duoi_bl 1.459:-
+key cau_lua ks19.seq 0.334:once,0,0.04167
+key cau_lua kb19.translate 0.334:0,0:easeOut 1.459:-25,41
+bone.add kb20 parent=root x=-72.4 y=120.2 sx=0.547 sy=0.547 rot=0.00
+slot.add ks20 bone=kb20 at=back
+att.region ks20 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks20 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks20.attachment 0:- 0.346:duoi_bl 1.471:-
+key cau_lua ks20.seq 0.346:once,0,0.04167
+key cau_lua kb20.translate 0.346:0,0:easeOut 1.471:-25,47
+bone.add kb21 parent=root x=-61.1 y=117.3 sx=0.566 sy=0.566 rot=0.00
+slot.add ks21 bone=kb21 at=back
+att.region ks21 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks21 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks21.attachment 0:- 0.358:duoi_bl 1.483:-
+key cau_lua ks21.seq 0.358:once,0,0.04167
+key cau_lua kb21.translate 0.358:0,0:easeOut 1.483:-25,55
+bone.add kb22 parent=root x=-40.5 y=113.0 sx=0.537 sy=0.537 rot=0.00
+slot.add ks22 bone=kb22 at=back
+att.region ks22 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks22 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks22.attachment 0:- 0.369:duoi_bl 1.494:-
+key cau_lua ks22.seq 0.369:once,0,0.04167
+key cau_lua kb22.translate 0.369:0,0:easeOut 1.494:-25,47
+bone.add kb23 parent=root x=-29.3 y=113.5 sx=0.513 sy=0.513 rot=0.00
+slot.add ks23 bone=kb23 at=back
+att.region ks23 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks23 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks23.attachment 0:- 0.380:duoi_bl 1.505:-
+key cau_lua ks23.seq 0.380:once,0,0.04167
+key cau_lua kb23.translate 0.380:0,0:easeOut 1.505:-25,33
+bone.add kb24 parent=root x=-13.2 y=115.0 sx=0.509 sy=0.509 rot=0.00
+slot.add ks24 bone=kb24 at=back
+att.region ks24 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks24 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks24.attachment 0:- 0.391:duoi_bl 1.516:-
+key cau_lua ks24.seq 0.391:once,0,0.04167
+key cau_lua kb24.translate 0.391:0,0:easeOut 1.516:-25,36
+bone.add kb25 parent=root x=4.8 y=114.9 sx=0.504 sy=0.504 rot=0.00
+slot.add ks25 bone=kb25 at=back
+att.region ks25 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks25 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks25.attachment 0:- 0.401:duoi_bl 1.526:-
+key cau_lua ks25.seq 0.401:once,0,0.04167
+key cau_lua kb25.translate 0.401:0,0:easeOut 1.526:-25,41
+bone.add kb26 parent=root x=21.7 y=114.0 sx=0.585 sy=0.585 rot=0.00
+slot.add ks26 bone=kb26 at=back
+att.region ks26 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks26 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks26.attachment 0:- 0.411:duoi_bl 1.536:-
+key cau_lua ks26.seq 0.411:once,0,0.04167
+key cau_lua kb26.translate 0.411:0,0:easeOut 1.536:-25,52
+bone.add kb27 parent=root x=36.1 y=109.3 sx=0.534 sy=0.534 rot=0.00
+slot.add ks27 bone=kb27 at=back
+att.region ks27 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks27 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks27.attachment 0:- 0.421:duoi_bl 1.546:-
+key cau_lua ks27.seq 0.421:once,0,0.04167
+key cau_lua kb27.translate 0.421:0,0:easeOut 1.546:-25,52
+bone.add kb28 parent=root x=56.1 y=106.2 sx=0.514 sy=0.514 rot=0.00
+slot.add ks28 bone=kb28 at=back
+att.region ks28 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks28 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks28.attachment 0:- 0.430:duoi_bl 1.555:-
+key cau_lua ks28.seq 0.430:once,0,0.04167
+key cau_lua kb28.translate 0.430:0,0:easeOut 1.555:-25,36
+bone.add kb29 parent=root x=67.8 y=108.0 sx=0.560 sy=0.560 rot=0.00
+slot.add ks29 bone=kb29 at=back
+att.region ks29 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks29 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks29.attachment 0:- 0.440:duoi_bl 1.565:-
+key cau_lua ks29.seq 0.440:once,0,0.04167
+key cau_lua kb29.translate 0.440:0,0:easeOut 1.565:-25,37
+bone.add kb30 parent=root x=82.3 y=106.5 sx=0.536 sy=0.536 rot=0.00
+slot.add ks30 bone=kb30 at=back
+att.region ks30 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks30 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks30.attachment 0:- 0.449:duoi_bl 1.574:-
+key cau_lua ks30.seq 0.449:once,0,0.04167
+key cau_lua kb30.translate 0.449:0,0:easeOut 1.574:-25,44
+bone.add kb31 parent=root x=104.0 y=107.7 sx=0.552 sy=0.552 rot=0.00
+slot.add ks31 bone=kb31 at=back
+att.region ks31 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks31 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks31.attachment 0:- 0.458:duoi_bl 1.583:-
+key cau_lua ks31.seq 0.458:once,0,0.04167
+key cau_lua kb31.translate 0.458:0,0:easeOut 1.583:-25,45
+bone.add kb32 parent=root x=118.3 y=101.7 sx=0.594 sy=0.594 rot=0.00
+slot.add ks32 bone=kb32 at=back
+att.region ks32 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks32 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks32.attachment 0:- 0.467:duoi_bl 1.592:-
+key cau_lua ks32.seq 0.467:once,0,0.04167
+key cau_lua kb32.translate 0.467:0,0:easeOut 1.592:-25,49
+bone.add kb33 parent=root x=135.5 y=106.7 sx=0.538 sy=0.538 rot=0.00
+slot.add ks33 bone=kb33 at=back
+att.region ks33 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks33 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks33.attachment 0:- 0.476:duoi_bl 1.601:-
+key cau_lua ks33.seq 0.476:once,0,0.04167
+key cau_lua kb33.translate 0.476:0,0:easeOut 1.601:-25,40
+bone.add kb34 parent=root x=146.8 y=104.4 sx=0.502 sy=0.502 rot=0.00
+slot.add ks34 bone=kb34 at=back
+att.region ks34 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks34 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks34.attachment 0:- 0.484:duoi_bl 1.609:-
+key cau_lua ks34.seq 0.484:once,0,0.04167
+key cau_lua kb34.translate 0.484:0,0:easeOut 1.609:-25,32
+bone.add kb35 parent=root x=163.4 y=99.7 sx=0.532 sy=0.532 rot=0.00
+slot.add ks35 bone=kb35 at=back
+att.region ks35 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks35 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks35.attachment 0:- 0.493:duoi_bl 1.618:-
+key cau_lua ks35.seq 0.493:once,0,0.04167
+key cau_lua kb35.translate 0.493:0,0:easeOut 1.618:-25,31
+bone.add kb36 parent=root x=178.2 y=98.7 sx=0.506 sy=0.506 rot=0.00
+slot.add ks36 bone=kb36 at=back
+att.region ks36 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks36 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks36.attachment 0:- 0.501:duoi_bl 1.626:-
+key cau_lua ks36.seq 0.501:once,0,0.04167
+key cau_lua kb36.translate 0.501:0,0:easeOut 1.626:-25,39
+bone.add kb37 parent=root x=194.3 y=103.5 sx=0.563 sy=0.563 rot=0.00
+slot.add ks37 bone=kb37 at=back
+att.region ks37 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks37 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks37.attachment 0:- 0.509:duoi_bl 1.634:-
+key cau_lua ks37.seq 0.509:once,0,0.04167
+key cau_lua kb37.translate 0.509:0,0:easeOut 1.634:-25,34
+bone.add kb38 parent=root x=211.6 y=98.3 sx=0.535 sy=0.535 rot=0.00
+slot.add ks38 bone=kb38 at=back
+att.region ks38 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks38 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks38.attachment 0:- 0.517:duoi_bl 1.642:-
+key cau_lua ks38.seq 0.517:once,0,0.04167
+key cau_lua kb38.translate 0.517:0,0:easeOut 1.642:-25,33
+bone.add kb39 parent=root x=231.2 y=102.6 sx=0.546 sy=0.546 rot=0.00
+slot.add ks39 bone=kb39 at=back
+att.region ks39 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks39 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks39.attachment 0:- 0.525:duoi_bl 1.650:-
+key cau_lua ks39.seq 0.525:once,0,0.04167
+key cau_lua kb39.translate 0.525:0,0:easeOut 1.650:-25,42
+bone.add kb40 parent=root x=242.6 y=94.5 sx=0.533 sy=0.533 rot=0.00
+slot.add ks40 bone=kb40 at=back
+att.region ks40 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks40 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks40.attachment 0:- 0.532:duoi_bl 1.657:-
+key cau_lua ks40.seq 0.532:once,0,0.04167
+key cau_lua kb40.translate 0.532:0,0:easeOut 1.657:-25,37
+bone.add kb41 parent=root x=263.0 y=94.0 sx=0.498 sy=0.498 rot=0.00
+slot.add ks41 bone=kb41 at=back
+att.region ks41 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks41 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks41.attachment 0:- 0.540:duoi_bl 1.665:-
+key cau_lua ks41.seq 0.540:once,0,0.04167
+key cau_lua kb41.translate 0.540:0,0:easeOut 1.665:-25,54
+bone.add kb42 parent=root x=277.2 y=92.9 sx=0.555 sy=0.555 rot=0.00
+slot.add ks42 bone=kb42 at=back
+att.region ks42 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks42 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key cau_lua ks42.attachment 0:- 0.548:duoi_bl 1.673:-
+key cau_lua ks42.seq 0.548:once,0,0.04167
+key cau_lua kb42.translate 0.548:0,0:easeOut 1.673:-25,31
+bone.add kb43 parent=root x=307.4 y=107.6 sx=0.683 sy=0.683 rot=0.00
+slot.add ks43 bone=kb43 at=back
+att.region ks43 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks43 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key cau_lua ks43.attachment 0:- 0.839:khoi_bl 1.881:-
+key cau_lua ks43.seq 0.839:once,0,0.04167
+key cau_lua kb43.translate 0.839:0,0:easeOut 1.881:19,89
+bone.add kb44 parent=root x=293.3 y=115.9 sx=0.532 sy=0.532 rot=0.00
+slot.add ks44 bone=kb44 at=back
+att.region ks44 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks44 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key cau_lua ks44.attachment 0:- 0.875:khoi_bl 1.916:-
+key cau_lua ks44.seq 0.875:once,0,0.04167
+key cau_lua kb44.translate 0.875:0,0:easeOut 1.916:4,91
+bone.add kb45 parent=root x=272.6 y=107.2 sx=0.568 sy=0.568 rot=0.00
+slot.add ks45 bone=kb45 at=back
+att.region ks45 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks45 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key cau_lua ks45.attachment 0:- 0.951:khoi_bl 1.993:-
+key cau_lua ks45.seq 0.951:once,0,0.04167
+key cau_lua kb45.translate 0.951:0,0:easeOut 1.993:-19,75
+bone.add kb46 parent=root x=294.3 y=99.0 sx=0.681 sy=0.681 rot=0.00
+slot.add ks46 bone=kb46 at=back
+att.region ks46 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks46 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key cau_lua ks46.attachment 0:- 1.019:khoi_bl 2.061:-
+key cau_lua ks46.seq 1.019:once,0,0.04167
+key cau_lua kb46.translate 1.019:0,0:easeOut 2.061:5,92
+anim.add no_lua dur=1.883
+key no_lua s_no.attachment 0.000:no_bl 1.083:-
+key no_lua s_no.seq 0.000:once,0,0.04167
+key no_lua b_no.scale 0:1.3,1.3
+bone.add kb47 parent=root x=313.0 y=115.0 sx=0.747 sy=0.747 rot=0.00
+slot.add ks47 bone=kb47 at=back
+att.region ks47 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks47 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key no_lua ks47.attachment 0:- 0.280:khoi_bl 1.321:-
+key no_lua ks47.seq 0.280:once,0,0.04167
+key no_lua kb47.translate 0.280:0,0:easeOut 1.321:25,109
+bone.add kb48 parent=root x=299.9 y=122.8 sx=0.688 sy=0.688 rot=0.00
+slot.add ks48 bone=kb48 at=back
+att.region ks48 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks48 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key no_lua ks48.attachment 0:- 0.311:khoi_bl 1.353:-
+key no_lua ks48.seq 0.311:once,0,0.04167
+key no_lua kb48.translate 0.311:0,0:easeOut 1.353:11,102
+bone.add kb49 parent=root x=273.8 y=120.7 sx=0.965 sy=0.965 rot=0.00
+slot.add ks49 bone=kb49 at=back
+att.region ks49 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks49 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key no_lua ks49.attachment 0:- 0.398:khoi_bl 1.439:-
+key no_lua ks49.seq 0.398:once,0,0.04167
+key no_lua kb49.translate 0.398:0,0:easeOut 1.439:-17,107
+bone.add kb50 parent=root x=276.7 y=102.1 sx=0.964 sy=0.964 rot=0.00
+slot.add ks50 bone=kb50 at=back
+att.region ks50 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks50 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key no_lua ks50.attachment 0:- 0.470:khoi_bl 1.511:-
+key no_lua ks50.seq 0.470:once,0,0.04167
+key no_lua kb50.translate 0.470:0,0:easeOut 1.511:-14,104
+bone.add kb51 parent=root x=292.2 y=100.1 sx=0.739 sy=0.739 rot=0.00
+slot.add ks51 bone=kb51 at=back
+att.region ks51 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks51 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key no_lua ks51.attachment 0:- 0.499:khoi_bl 1.541:-
+key no_lua ks51.seq 0.499:once,0,0.04167
+key no_lua kb51.translate 0.499:0,0:easeOut 1.541:2,100
+anim.add kim_lua dur=2.083
+bone.add b_kim0 parent=root x=-300.0 y=152.0 sx=0.500 sy=0.500 rot=-3.10
+bone.add b_nk0 parent=root x=280.0 y=120.0 sx=0.300 sy=0.300 rot=0.00
+slot.add s_kim0 bone=b_kim0
+att.region s_kim0 kim_bl image=kim_bl_00 x=-57.0 y=0.0 use=false
+att.seq s_kim0 kim_bl prefix=kim_bl_ count=12 setup=0
+slot.add s_nk0 bone=b_nk0
+att.region s_nk0 no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_nk0 no_bl prefix=no_bl_ count=26 setup=0
+key kim_lua s_kim0.attachment 0.000:kim_bl 0.300:-
+key kim_lua s_kim0.seq 0.000:loop,0,0.04167
+key kim_lua b_kim0.translate 0.000:0,0:easeIn 0.300:590,-32
+key kim_lua b_kim0.scale 0.000:0.4,1:easeOut 0.080:1,1
+key kim_lua s_nk0.attachment 0:- 0.300:no_bl 1.383:-
+key kim_lua s_nk0.seq 0.300:once,0,0.04167
+bone.add kb52 parent=root x=-279.9 y=155.1 sx=0.134 sy=0.134 rot=0.00
+slot.add ks52 bone=kb52 at=back
+att.region ks52 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks52 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks52.attachment 0:- 0.050:khoi_bl 1.092:-
+key kim_lua ks52.seq 0.050:once,0,0.04167
+key kim_lua kb52.translate 0.050:0,0:easeOut 1.092:-17,24
+bone.add kb53 parent=root x=-225.5 y=144.3 sx=0.126 sy=0.126 rot=0.00
+slot.add ks53 bone=kb53 at=back
+att.region ks53 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks53 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks53.attachment 0:- 0.100:khoi_bl 1.142:-
+key kim_lua ks53.seq 0.100:once,0,0.04167
+key kim_lua kb53.translate 0.100:0,0:easeOut 1.142:-14,29
+bone.add kb54 parent=root x=-145.0 y=143.8 sx=0.107 sy=0.107 rot=0.00
+slot.add ks54 bone=kb54 at=back
+att.region ks54 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks54 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks54.attachment 0:- 0.150:khoi_bl 1.192:-
+key kim_lua ks54.seq 0.150:once,0,0.04167
+key kim_lua kb54.translate 0.150:0,0:easeOut 1.192:-23,27
+bone.add kb55 parent=root x=-28.8 y=142.5 sx=0.116 sy=0.116 rot=0.00
+slot.add ks55 bone=kb55 at=back
+att.region ks55 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks55 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks55.attachment 0:- 0.200:khoi_bl 1.242:-
+key kim_lua ks55.seq 0.200:once,0,0.04167
+key kim_lua kb55.translate 0.200:0,0:easeOut 1.242:-11,23
+bone.add kb56 parent=root x=116.5 y=126.5 sx=0.105 sy=0.105 rot=0.00
+slot.add ks56 bone=kb56 at=back
+att.region ks56 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks56 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks56.attachment 0:- 0.250:khoi_bl 1.292:-
+key kim_lua ks56.seq 0.250:once,0,0.04167
+key kim_lua kb56.translate 0.250:0,0:easeOut 1.292:-12,20
+bone.add kb57 parent=root x=290.0 y=130.0 sx=0.320 sy=0.320 rot=0.00
+slot.add ks57 bone=kb57 at=back
+att.region ks57 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks57 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks57.attachment 0:- 0.500:khoi_bl 1.542:-
+key kim_lua ks57.seq 0.500:once,0,0.04167
+key kim_lua kb57.translate 0.500:0,0:easeOut 1.542:10,70
+bone.add b_kim1 parent=root x=-300.0 y=130.0 sx=0.500 sy=0.500 rot=-3.69
+bone.add b_nk1 parent=root x=292.0 y=92.0 sx=0.300 sy=0.300 rot=0.00
+slot.add s_kim1 bone=b_kim1
+att.region s_kim1 kim_bl image=kim_bl_00 x=-57.0 y=0.0 use=false
+att.seq s_kim1 kim_bl prefix=kim_bl_ count=12 setup=0
+slot.add s_nk1 bone=b_nk1
+att.region s_nk1 no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_nk1 no_bl prefix=no_bl_ count=26 setup=0
+key kim_lua s_kim1.attachment 0:- 0.100:kim_bl 0.400:-
+key kim_lua s_kim1.seq 0.100:loop,0,0.04167
+key kim_lua b_kim1.translate 0.100:0,0:easeIn 0.400:590,-38
+key kim_lua b_kim1.scale 0.100:0.4,1:easeOut 0.180:1,1
+key kim_lua s_nk1.attachment 0:- 0.400:no_bl 1.483:-
+key kim_lua s_nk1.seq 0.400:once,0,0.04167
+bone.add kb58 parent=root x=-274.4 y=125.4 sx=0.133 sy=0.133 rot=0.00
+slot.add ks58 bone=kb58 at=back
+att.region ks58 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks58 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks58.attachment 0:- 0.150:khoi_bl 1.192:-
+key kim_lua ks58.seq 0.150:once,0,0.04167
+key kim_lua kb58.translate 0.150:0,0:easeOut 1.192:-17,30
+bone.add kb59 parent=root x=-238.9 y=126.3 sx=0.105 sy=0.105 rot=0.00
+slot.add ks59 bone=kb59 at=back
+att.region ks59 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks59 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks59.attachment 0:- 0.200:khoi_bl 1.242:-
+key kim_lua ks59.seq 0.200:once,0,0.04167
+key kim_lua kb59.translate 0.200:0,0:easeOut 1.242:-11,18
+bone.add kb60 parent=root x=-148.0 y=120.8 sx=0.137 sy=0.137 rot=0.00
+slot.add ks60 bone=kb60 at=back
+att.region ks60 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks60 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks60.attachment 0:- 0.250:khoi_bl 1.292:-
+key kim_lua ks60.seq 0.250:once,0,0.04167
+key kim_lua kb60.translate 0.250:0,0:easeOut 1.292:-13,23
+bone.add kb61 parent=root x=-28.0 y=110.2 sx=0.110 sy=0.110 rot=0.00
+slot.add ks61 bone=kb61 at=back
+att.region ks61 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks61 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks61.attachment 0:- 0.300:khoi_bl 1.342:-
+key kim_lua ks61.seq 0.300:once,0,0.04167
+key kim_lua kb61.translate 0.300:0,0:easeOut 1.342:-25,22
+bone.add kb62 parent=root x=112.3 y=101.2 sx=0.117 sy=0.117 rot=0.00
+slot.add ks62 bone=kb62 at=back
+att.region ks62 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks62 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks62.attachment 0:- 0.350:khoi_bl 1.392:-
+key kim_lua ks62.seq 0.350:once,0,0.04167
+key kim_lua kb62.translate 0.350:0,0:easeOut 1.392:-12,20
+bone.add kb63 parent=root x=290.0 y=102.0 sx=0.320 sy=0.320 rot=0.00
+slot.add ks63 bone=kb63 at=back
+att.region ks63 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks63 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks63.attachment 0:- 0.600:khoi_bl 1.642:-
+key kim_lua ks63.seq 0.600:once,0,0.04167
+key kim_lua kb63.translate 0.600:0,0:easeOut 1.642:10,70
+bone.add b_kim2 parent=root x=-300.0 y=108.0 sx=0.500 sy=0.500 rot=-4.07
+bone.add b_nk2 parent=root x=304.0 y=66.0 sx=0.300 sy=0.300 rot=0.00
+slot.add s_kim2 bone=b_kim2
+att.region s_kim2 kim_bl image=kim_bl_00 x=-57.0 y=0.0 use=false
+att.seq s_kim2 kim_bl prefix=kim_bl_ count=12 setup=0
+slot.add s_nk2 bone=b_nk2
+att.region s_nk2 no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_nk2 no_bl prefix=no_bl_ count=26 setup=0
+key kim_lua s_kim2.attachment 0:- 0.200:kim_bl 0.500:-
+key kim_lua s_kim2.seq 0.200:loop,0,0.04167
+key kim_lua b_kim2.translate 0.200:0,0:easeIn 0.500:590,-42
+key kim_lua b_kim2.scale 0.200:0.4,1:easeOut 0.280:1,1
+key kim_lua s_nk2.attachment 0:- 0.500:no_bl 1.583:-
+key kim_lua s_nk2.seq 0.500:once,0,0.04167
+bone.add kb64 parent=root x=-288.0 y=106.4 sx=0.123 sy=0.123 rot=0.00
+slot.add ks64 bone=kb64 at=back
+att.region ks64 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks64 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks64.attachment 0:- 0.250:khoi_bl 1.292:-
+key kim_lua ks64.seq 0.250:once,0,0.04167
+key kim_lua kb64.translate 0.250:0,0:easeOut 1.292:-22,29
+bone.add kb65 parent=root x=-221.9 y=103.3 sx=0.121 sy=0.121 rot=0.00
+slot.add ks65 bone=kb65 at=back
+att.region ks65 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks65 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks65.attachment 0:- 0.300:khoi_bl 1.342:-
+key kim_lua ks65.seq 0.300:once,0,0.04167
+key kim_lua kb65.translate 0.300:0,0:easeOut 1.342:-30,24
+bone.add kb66 parent=root x=-154.3 y=94.3 sx=0.100 sy=0.100 rot=0.00
+slot.add ks66 bone=kb66 at=back
+att.region ks66 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks66 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks66.attachment 0:- 0.350:khoi_bl 1.392:-
+key kim_lua ks66.seq 0.350:once,0,0.04167
+key kim_lua kb66.translate 0.350:0,0:easeOut 1.392:-27,28
+bone.add kb67 parent=root x=-38.6 y=91.6 sx=0.122 sy=0.122 rot=0.00
+slot.add ks67 bone=kb67 at=back
+att.region ks67 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks67 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks67.attachment 0:- 0.400:khoi_bl 1.442:-
+key kim_lua ks67.seq 0.400:once,0,0.04167
+key kim_lua kb67.translate 0.400:0,0:easeOut 1.442:-20,22
+bone.add kb68 parent=root x=111.4 y=81.7 sx=0.104 sy=0.104 rot=0.00
+slot.add ks68 bone=kb68 at=back
+att.region ks68 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks68 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks68.attachment 0:- 0.450:khoi_bl 1.492:-
+key kim_lua ks68.seq 0.450:once,0,0.04167
+key kim_lua kb68.translate 0.450:0,0:easeOut 1.492:-25,25
+bone.add kb69 parent=root x=290.0 y=76.0 sx=0.320 sy=0.320 rot=0.00
+slot.add ks69 bone=kb69 at=back
+att.region ks69 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks69 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key kim_lua ks69.attachment 0:- 0.700:khoi_bl 1.742:-
+key kim_lua ks69.seq 0.700:once,0,0.04167
+key kim_lua kb69.translate 0.700:0,0:easeOut 1.742:10,70
+bone.add b_loc parent=root x=290.0 y=0.0 sx=0.800 sy=0.800 rot=0.00
+slot.add s_loc bone=b_loc
+att.region s_loc loc_bl image=loc_bl_00 x=0.0 y=157.0 use=false
+att.seq s_loc loc_bl prefix=loc_bl_ count=48 setup=0
+anim.add loc_lua dur=3.100
+key loc_lua s_loc.attachment 0.000:loc_bl 2.000:-
+key loc_lua s_loc.seq 0.000:once,0,0.04167
+key loc_lua b_loc.scale 0:0.55,0.08:backOut 0.28:1,1
+bone.add kb70 parent=root x=263.2 y=249.3 sx=0.552 sy=0.552 rot=0.00
+slot.add ks70 bone=kb70 at=back
+att.region ks70 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks70 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key loc_lua ks70.attachment 0:- 0.300:khoi_bl 1.342:-
+key loc_lua ks70.seq 0.300:once,0,0.04167
+key loc_lua kb70.translate 0.300:0,0:easeOut 1.342:16,122
+bone.add kb71 parent=root x=339.5 y=241.1 sx=0.573 sy=0.573 rot=0.00
+slot.add ks71 bone=kb71 at=back
+att.region ks71 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks71 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key loc_lua ks71.attachment 0:- 0.500:khoi_bl 1.542:-
+key loc_lua ks71.seq 0.500:once,0,0.04167
+key loc_lua kb71.translate 0.500:0,0:easeOut 1.542:1,120
+bone.add kb72 parent=root x=313.1 y=241.3 sx=0.557 sy=0.557 rot=0.00
+slot.add ks72 bone=kb72 at=back
+att.region ks72 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks72 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key loc_lua ks72.attachment 0:- 0.700:khoi_bl 1.742:-
+key loc_lua ks72.seq 0.700:once,0,0.04167
+key loc_lua kb72.translate 0.700:0,0:easeOut 1.742:26,119
+bone.add kb73 parent=root x=313.9 y=251.9 sx=0.638 sy=0.638 rot=0.00
+slot.add ks73 bone=kb73 at=back
+att.region ks73 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks73 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key loc_lua ks73.attachment 0:- 0.900:khoi_bl 1.942:-
+key loc_lua ks73.seq 0.900:once,0,0.04167
+key loc_lua kb73.translate 0.900:0,0:easeOut 1.942:4,110
+bone.add kb74 parent=root x=343.2 y=251.0 sx=0.477 sy=0.477 rot=0.00
+slot.add ks74 bone=kb74 at=back
+att.region ks74 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks74 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key loc_lua ks74.attachment 0:- 1.100:khoi_bl 2.142:-
+key loc_lua ks74.seq 1.100:once,0,0.04167
+key loc_lua kb74.translate 1.100:0,0:easeOut 2.142:-3,105
+bone.add kb75 parent=root x=238.7 y=236.0 sx=0.465 sy=0.465 rot=0.00
+slot.add ks75 bone=kb75 at=back
+att.region ks75 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks75 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key loc_lua ks75.attachment 0:- 1.300:khoi_bl 2.342:-
+key loc_lua ks75.seq 1.300:once,0,0.04167
+key loc_lua kb75.translate 1.300:0,0:easeOut 2.342:17,127
+bone.add b_lua parent=root x=290.0 y=0.0 sx=0.550 sy=0.550 rot=0.00
+slot.add s_lua bone=b_lua
+att.region s_lua lua_bl image=lua_bl_00 x=0.5 y=130.5 use=false
+att.seq s_lua lua_bl prefix=lua_bl_ count=16 setup=0
+anim.add lua_chay dur=1.333 loop=true
+key lua_chay s_lua.attachment 0.000:lua_bl
+key lua_chay s_lua.seq 0.000:loop,0,0.04167
+bone.add kb76 parent=root x=280.0 y=120.0 sx=0.170 sy=0.170 rot=0.00
+slot.add ks76 bone=kb76 at=back
+att.region ks76 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks76 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key lua_chay ks76.attachment 0.000:khoi_bl 1.042:-
+key lua_chay ks76.seq 0.000:once,0,0.04167
+key lua_chay kb76.translate 0.000:0,0:easeOut 1.042:10,95
+bone.add kb77 parent=root x=298.0 y=120.0 sx=0.170 sy=0.170 rot=0.00
+slot.add ks77 bone=kb77 at=back
+att.region ks77 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks77 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key lua_chay ks77.attachment 0:khoi_bl 0.042:- 0.333:khoi_bl
+key lua_chay ks77.seq 0:once,24,0.04167 0.333:once,0,0.04167
+key lua_chay kb77.translate 0:-8,91 0.042:-8,95 0.333:0,0:easeOut 1.333:-8,91
+bone.add kb78 parent=root x=287.0 y=120.0 sx=0.170 sy=0.170 rot=0.00
+slot.add ks78 bone=kb78 at=back
+att.region ks78 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks78 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key lua_chay ks78.attachment 0:khoi_bl 0.375:- 0.667:khoi_bl
+key lua_chay ks78.seq 0:once,16,0.04167 0.667:once,0,0.04167
+key lua_chay kb78.translate 0:9,61 0.375:14,95 0.667:0,0:easeOut 1.333:9,61
+bone.add kb79 parent=root x=302.0 y=120.0 sx=0.170 sy=0.170 rot=0.00
+slot.add ks79 bone=kb79 at=back
+att.region ks79 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks79 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key lua_chay ks79.attachment 0:khoi_bl 0.708:- 1.000:khoi_bl
+key lua_chay ks79.seq 0:once,8,0.04167 1.000:once,0,0.04167
+key lua_chay kb79.translate 0:-2,30 0.708:-5,95 1.000:0,0:easeOut 1.333:-2,30
+bone.add b_tt parent=root x=-40.0 y=560.0 sx=0.620 sy=0.620 rot=0.00
+bone.add b_ntt parent=root x=290.0 y=40.0 sx=1.150 sy=1.150 rot=0.00
+slot.add s_tt bone=b_tt
+att.region s_tt cau_bl image=cau_bl_00 x=0.0 y=0.5 use=false
+att.seq s_tt cau_bl prefix=cau_bl_ count=16 setup=0
+slot.add s_ntt bone=b_ntt
+att.region s_ntt no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_ntt no_bl prefix=no_bl_ count=26 setup=0
+anim.add thien_thach dur=2.483
+key thien_thach s_tt.attachment 0.000:cau_bl 0.600:-
+key thien_thach s_tt.seq 0.000:loop,0,0.04167
+key thien_thach b_tt.translate 0.000:0.0,-0.0 0.060:3.3,-5.3 0.120:13.2,-21.2 0.180:29.7,-47.7 0.240:52.8,-84.8 0.300:82.5,-132.5 0.360:118.8,-190.8 0.420:161.7,-259.7 0.480:211.2,-339.2 0.540:267.3,-429.3 0.600:330.0,-530.0
+key thien_thach s_ntt.attachment 0:- 0.600:no_bl 1.683:-
+key thien_thach s_ntt.seq 0.600:once,0,0.04167
+vfx.shake thien_thach bone=root t=0.600 dur=0.45 amp=9 freq=26 seed=5
+bone.add kb80 parent=root x=-36.6 y=555.5 sx=0.835 sy=0.835 rot=0.00
+slot.add ks80 bone=kb80 at=back
+att.region ks80 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks80 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks80.attachment 0:- 0.076:duoi_bl 1.201:-
+key thien_thach ks80.seq 0.076:once,0,0.04167
+key thien_thach kb80.translate 0.076:0,0:easeOut 1.201:-13,47
+bone.add kb81 parent=root x=-31.6 y=546.1 sx=0.875 sy=0.875 rot=0.00
+slot.add ks81 bone=kb81 at=back
+att.region ks81 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks81 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks81.attachment 0:- 0.127:duoi_bl 1.252:-
+key thien_thach ks81.seq 0.127:once,0,0.04167
+key thien_thach kb81.translate 0.127:0,0:easeOut 1.252:-13,35
+bone.add kb82 parent=root x=-17.2 y=526.9 sx=0.798 sy=0.798 rot=0.00
+slot.add ks82 bone=kb82 at=back
+att.region ks82 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks82 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks82.attachment 0:- 0.163:duoi_bl 1.288:-
+key thien_thach ks82.seq 0.163:once,0,0.04167
+key thien_thach kb82.translate 0.163:0,0:easeOut 1.288:-13,55
+bone.add kb83 parent=root x=-8.4 y=509.8 sx=0.789 sy=0.789 rot=0.00
+slot.add ks83 bone=kb83 at=back
+att.region ks83 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks83 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks83.attachment 0:- 0.192:duoi_bl 1.317:-
+key thien_thach ks83.seq 0.192:once,0,0.04167
+key thien_thach kb83.translate 0.192:0,0:easeOut 1.317:-13,43
+bone.add kb84 parent=root x=-1.9 y=494.7 sx=0.771 sy=0.771 rot=0.00
+slot.add ks84 bone=kb84 at=back
+att.region ks84 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks84 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks84.attachment 0:- 0.217:duoi_bl 1.342:-
+key thien_thach ks84.seq 0.217:once,0,0.04167
+key thien_thach kb84.translate 0.217:0,0:easeOut 1.342:-13,48
+bone.add kb85 parent=root x=5.7 y=482.3 sx=0.790 sy=0.790 rot=0.00
+slot.add ks85 bone=kb85 at=back
+att.region ks85 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks85 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks85.attachment 0:- 0.240:duoi_bl 1.365:-
+key thien_thach ks85.seq 0.240:once,0,0.04167
+key thien_thach kb85.translate 0.240:0,0:easeOut 1.365:-13,30
+bone.add kb86 parent=root x=17.1 y=467.6 sx=0.802 sy=0.802 rot=0.00
+slot.add ks86 bone=kb86 at=back
+att.region ks86 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks86 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks86.attachment 0:- 0.261:duoi_bl 1.386:-
+key thien_thach ks86.seq 0.261:once,0,0.04167
+key thien_thach kb86.translate 0.261:0,0:easeOut 1.386:-13,32
+bone.add kb87 parent=root x=30.6 y=453.6 sx=0.875 sy=0.875 rot=0.00
+slot.add ks87 bone=kb87 at=back
+att.region ks87 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks87 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks87.attachment 0:- 0.280:duoi_bl 1.405:-
+key thien_thach ks87.seq 0.280:once,0,0.04167
+key thien_thach kb87.translate 0.280:0,0:easeOut 1.405:-13,33
+bone.add kb88 parent=root x=35.8 y=432.4 sx=0.845 sy=0.845 rot=0.00
+slot.add ks88 bone=kb88 at=back
+att.region ks88 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks88 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks88.attachment 0:- 0.298:duoi_bl 1.423:-
+key thien_thach ks88.seq 0.298:once,0,0.04167
+key thien_thach kb88.translate 0.298:0,0:easeOut 1.423:-13,37
+bone.add kb89 parent=root x=44.5 y=420.2 sx=0.866 sy=0.866 rot=0.00
+slot.add ks89 bone=kb89 at=back
+att.region ks89 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks89 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks89.attachment 0:- 0.315:duoi_bl 1.440:-
+key thien_thach ks89.seq 0.315:once,0,0.04167
+key thien_thach kb89.translate 0.315:0,0:easeOut 1.440:-13,50
+bone.add kb90 parent=root x=54.7 y=402.7 sx=0.867 sy=0.867 rot=0.00
+slot.add ks90 bone=kb90 at=back
+att.region ks90 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks90 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks90.attachment 0:- 0.331:duoi_bl 1.456:-
+key thien_thach ks90.seq 0.331:once,0,0.04167
+key thien_thach kb90.translate 0.331:0,0:easeOut 1.456:-13,44
+bone.add kb91 parent=root x=66.9 y=386.9 sx=0.729 sy=0.729 rot=0.00
+slot.add ks91 bone=kb91 at=back
+att.region ks91 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks91 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks91.attachment 0:- 0.346:duoi_bl 1.471:-
+key thien_thach ks91.seq 0.346:once,0,0.04167
+key thien_thach kb91.translate 0.346:0,0:easeOut 1.471:-13,47
+bone.add kb92 parent=root x=74.8 y=371.5 sx=0.870 sy=0.870 rot=0.00
+slot.add ks92 bone=kb92 at=back
+att.region ks92 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks92 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks92.attachment 0:- 0.361:duoi_bl 1.486:-
+key thien_thach ks92.seq 0.361:once,0,0.04167
+key thien_thach kb92.translate 0.361:0,0:easeOut 1.486:-13,46
+bone.add kb93 parent=root x=86.5 y=356.3 sx=0.857 sy=0.857 rot=0.00
+slot.add ks93 bone=kb93 at=back
+att.region ks93 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks93 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks93.attachment 0:- 0.375:duoi_bl 1.500:-
+key thien_thach ks93.seq 0.375:once,0,0.04167
+key thien_thach kb93.translate 0.375:0,0:easeOut 1.500:-13,32
+bone.add kb94 parent=root x=96.4 y=344.0 sx=0.774 sy=0.774 rot=0.00
+slot.add ks94 bone=kb94 at=back
+att.region ks94 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks94 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks94.attachment 0:- 0.389:duoi_bl 1.514:-
+key thien_thach ks94.seq 0.389:once,0,0.04167
+key thien_thach kb94.translate 0.389:0,0:easeOut 1.514:-13,44
+bone.add kb95 parent=root x=106.3 y=327.2 sx=0.741 sy=0.741 rot=0.00
+slot.add ks95 bone=kb95 at=back
+att.region ks95 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks95 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks95.attachment 0:- 0.402:duoi_bl 1.527:-
+key thien_thach ks95.seq 0.402:once,0,0.04167
+key thien_thach kb95.translate 0.402:0,0:easeOut 1.527:-13,43
+bone.add kb96 parent=root x=111.7 y=310.7 sx=0.746 sy=0.746 rot=0.00
+slot.add ks96 bone=kb96 at=back
+att.region ks96 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks96 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks96.attachment 0:- 0.415:duoi_bl 1.540:-
+key thien_thach ks96.seq 0.415:once,0,0.04167
+key thien_thach kb96.translate 0.415:0,0:easeOut 1.540:-13,31
+bone.add kb97 parent=root x=121.0 y=297.0 sx=0.769 sy=0.769 rot=0.00
+slot.add ks97 bone=kb97 at=back
+att.region ks97 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks97 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks97.attachment 0:- 0.427:duoi_bl 1.552:-
+key thien_thach ks97.seq 0.427:once,0,0.04167
+key thien_thach kb97.translate 0.427:0,0:easeOut 1.552:-13,49
+bone.add kb98 parent=root x=131.0 y=283.3 sx=0.748 sy=0.748 rot=0.00
+slot.add ks98 bone=kb98 at=back
+att.region ks98 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks98 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks98.attachment 0:- 0.439:duoi_bl 1.564:-
+key thien_thach ks98.seq 0.439:once,0,0.04167
+key thien_thach kb98.translate 0.439:0,0:easeOut 1.564:-13,39
+bone.add kb99 parent=root x=138.9 y=266.0 sx=0.722 sy=0.722 rot=0.00
+slot.add ks99 bone=kb99 at=back
+att.region ks99 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks99 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks99.attachment 0:- 0.451:duoi_bl 1.576:-
+key thien_thach ks99.seq 0.451:once,0,0.04167
+key thien_thach kb99.translate 0.451:0,0:easeOut 1.576:-13,48
+bone.add kb100 parent=root x=151.6 y=250.2 sx=0.796 sy=0.796 rot=0.00
+slot.add ks100 bone=kb100 at=back
+att.region ks100 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks100 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks100.attachment 0:- 0.462:duoi_bl 1.587:-
+key thien_thach ks100.seq 0.462:once,0,0.04167
+key thien_thach kb100.translate 0.462:0,0:easeOut 1.587:-13,53
+bone.add kb101 parent=root x=158.5 y=240.0 sx=0.789 sy=0.789 rot=0.00
+slot.add ks101 bone=kb101 at=back
+att.region ks101 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks101 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks101.attachment 0:- 0.473:duoi_bl 1.598:-
+key thien_thach ks101.seq 0.473:once,0,0.04167
+key thien_thach kb101.translate 0.473:0,0:easeOut 1.598:-13,42
+bone.add kb102 parent=root x=172.4 y=221.3 sx=0.801 sy=0.801 rot=0.00
+slot.add ks102 bone=kb102 at=back
+att.region ks102 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks102 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks102.attachment 0:- 0.484:duoi_bl 1.609:-
+key thien_thach ks102.seq 0.484:once,0,0.04167
+key thien_thach kb102.translate 0.484:0,0:easeOut 1.609:-13,47
+bone.add kb103 parent=root x=182.8 y=205.6 sx=0.853 sy=0.853 rot=0.00
+slot.add ks103 bone=kb103 at=back
+att.region ks103 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks103 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks103.attachment 0:- 0.494:duoi_bl 1.619:-
+key thien_thach ks103.seq 0.494:once,0,0.04167
+key thien_thach kb103.translate 0.494:0,0:easeOut 1.619:-13,48
+bone.add kb104 parent=root x=190.2 y=190.8 sx=0.776 sy=0.776 rot=0.00
+slot.add ks104 bone=kb104 at=back
+att.region ks104 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks104 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks104.attachment 0:- 0.505:duoi_bl 1.630:-
+key thien_thach ks104.seq 0.505:once,0,0.04167
+key thien_thach kb104.translate 0.505:0,0:easeOut 1.630:-13,31
+bone.add kb105 parent=root x=196.7 y=172.9 sx=0.839 sy=0.839 rot=0.00
+slot.add ks105 bone=kb105 at=back
+att.region ks105 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks105 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks105.attachment 0:- 0.515:duoi_bl 1.640:-
+key thien_thach ks105.seq 0.515:once,0,0.04167
+key thien_thach kb105.translate 0.515:0,0:easeOut 1.640:-13,36
+bone.add kb106 parent=root x=206.4 y=157.7 sx=0.855 sy=0.855 rot=0.00
+slot.add ks106 bone=kb106 at=back
+att.region ks106 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks106 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks106.attachment 0:- 0.525:duoi_bl 1.650:-
+key thien_thach ks106.seq 0.525:once,0,0.04167
+key thien_thach kb106.translate 0.525:0,0:easeOut 1.650:-13,52
+bone.add kb107 parent=root x=219.0 y=144.0 sx=0.759 sy=0.759 rot=0.00
+slot.add ks107 bone=kb107 at=back
+att.region ks107 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks107 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks107.attachment 0:- 0.535:duoi_bl 1.660:-
+key thien_thach ks107.seq 0.535:once,0,0.04167
+key thien_thach kb107.translate 0.535:0,0:easeOut 1.660:-13,37
+bone.add kb108 parent=root x=227.2 y=127.7 sx=0.791 sy=0.791 rot=0.00
+slot.add ks108 bone=kb108 at=back
+att.region ks108 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks108 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks108.attachment 0:- 0.544:duoi_bl 1.669:-
+key thien_thach ks108.seq 0.544:once,0,0.04167
+key thien_thach kb108.translate 0.544:0,0:easeOut 1.669:-13,37
+bone.add kb109 parent=root x=239.7 y=119.0 sx=0.808 sy=0.808 rot=0.00
+slot.add ks109 bone=kb109 at=back
+att.region ks109 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks109 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks109.attachment 0:- 0.554:duoi_bl 1.679:-
+key thien_thach ks109.seq 0.554:once,0,0.04167
+key thien_thach kb109.translate 0.554:0,0:easeOut 1.679:-13,36
+bone.add kb110 parent=root x=249.3 y=98.4 sx=0.777 sy=0.777 rot=0.00
+slot.add ks110 bone=kb110 at=back
+att.region ks110 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks110 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks110.attachment 0:- 0.563:duoi_bl 1.688:-
+key thien_thach ks110.seq 0.563:once,0,0.04167
+key thien_thach kb110.translate 0.563:0,0:easeOut 1.688:-13,30
+bone.add kb111 parent=root x=255.3 y=84.4 sx=0.800 sy=0.800 rot=0.00
+slot.add ks111 bone=kb111 at=back
+att.region ks111 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks111 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks111.attachment 0:- 0.572:duoi_bl 1.697:-
+key thien_thach ks111.seq 0.572:once,0,0.04167
+key thien_thach kb111.translate 0.572:0,0:easeOut 1.697:-13,35
+bone.add kb112 parent=root x=265.5 y=65.4 sx=0.762 sy=0.762 rot=0.00
+slot.add ks112 bone=kb112 at=back
+att.region ks112 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks112 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks112.attachment 0:- 0.581:duoi_bl 1.706:-
+key thien_thach ks112.seq 0.581:once,0,0.04167
+key thien_thach kb112.translate 0.581:0,0:easeOut 1.706:-13,32
+bone.add kb113 parent=root x=274.4 y=50.4 sx=0.724 sy=0.724 rot=0.00
+slot.add ks113 bone=kb113 at=back
+att.region ks113 duoi_bl image=duoi_bl_00 x=0.0 y=57.5 use=false
+att.seq ks113 duoi_bl prefix=duoi_bl_ count=27 setup=0
+key thien_thach ks113.attachment 0:- 0.590:duoi_bl 1.715:-
+key thien_thach ks113.seq 0.590:once,0,0.04167
+key thien_thach kb113.translate 0.590:0,0:easeOut 1.715:-13,38
+bone.add kb114 parent=root x=318.7 y=57.9 sx=1.034 sy=1.034 rot=0.00
+slot.add ks114 bone=kb114 at=back
+att.region ks114 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks114 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key thien_thach ks114.attachment 0:- 0.873:khoi_bl 1.915:-
+key thien_thach ks114.seq 0.873:once,0,0.04167
+key thien_thach kb114.translate 0.873:0,0:easeOut 1.915:31,138
+bone.add kb115 parent=root x=301.4 y=74.6 sx=1.163 sy=1.163 rot=0.00
+slot.add ks115 bone=kb115 at=back
+att.region ks115 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks115 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key thien_thach ks115.attachment 0:- 0.939:khoi_bl 1.980:-
+key thien_thach ks115.seq 0.939:once,0,0.04167
+key thien_thach kb115.translate 0.939:0,0:easeOut 1.980:12,127
+bone.add kb116 parent=root x=279.0 y=74.6 sx=0.895 sy=0.895 rot=0.00
+slot.add ks116 bone=kb116 at=back
+att.region ks116 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks116 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key thien_thach ks116.attachment 0:- 1.009:khoi_bl 2.051:-
+key thien_thach ks116.seq 1.009:once,0,0.04167
+key thien_thach kb116.translate 1.009:0,0:easeOut 2.051:-12,137
+bone.add kb117 parent=root x=260.8 y=59.3 sx=1.147 sy=1.147 rot=0.00
+slot.add ks117 bone=kb117 at=back
+att.region ks117 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks117 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key thien_thach ks117.attachment 0:- 1.032:khoi_bl 2.073:-
+key thien_thach ks117.seq 1.032:once,0,0.04167
+key thien_thach kb117.translate 1.032:0,0:easeOut 2.073:-31,142
+bone.add kb118 parent=root x=278.0 y=47.6 sx=1.138 sy=1.138 rot=0.00
+slot.add ks118 bone=kb118 at=back
+att.region ks118 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks118 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key thien_thach ks118.attachment 0:- 1.119:khoi_bl 2.161:-
+key thien_thach ks118.seq 1.119:once,0,0.04167
+key thien_thach kb118.translate 1.119:0,0:easeOut 2.161:-13,120
+bone.add kb119 parent=root x=305.2 y=48.4 sx=1.147 sy=1.147 rot=0.00
+slot.add ks119 bone=kb119 at=back
+att.region ks119 khoi_bl image=khoi_bl_00 x=0.5 y=75.5 use=false
+att.seq ks119 khoi_bl prefix=khoi_bl_ count=25 setup=0
+key thien_thach ks119.attachment 0:- 1.170:khoi_bl 2.212:-
+key thien_thach ks119.seq 1.170:once,0,0.04167
+key thien_thach kb119.translate 1.170:0,0:easeOut 2.212:16,140

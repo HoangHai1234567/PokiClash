@@ -461,6 +461,11 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
    - giảm tiếp bi thụ động;
    - hay nhận nhịp nhanh hơn và thêm ải, tướng sau?
    - **2026-11-04:** người dùng chốt thang cấp 1–200 kiểu Clash of Critters: cấp địch là cấp cần đạt, mỗi đảo khoảng 40 cấp, đảo Thủy 5–7 ngày, cấp 200 sau ít nhất 30–45 ngày. EXP lên cấp 45 × cấp. Theo máy: người chơi "chăm" xong Thủy ngày 5 và đạt cấp 200 ngày 42; "vừa" xong Thủy ngày 8 và đạt cấp 200 ngày 57 (`14_HeThongAi.md`, mục "Thang cấp 1–200").
+   - **2026-11-24 (cân bằng phần thả bi, người dùng duyệt hướng "dời bi từ cây sang trận"):** mục tiêu: "vừa" cấp 200 khoảng ngày 45, bi thắng ải ít nhất 25% tổng bi, "ít" ít nhất cấp 80 ở ngày 30. Đo bằng menu `PokiClash/Cân bằng nhanh/Quét nhịp: bi thắng ải, cây bi, EXP` (60 ngày, phương án trong `BalanceWindow.PaceVariants`).
+     - Trước: cây 5 bi/giờ chứa 50 (đầy sau 10 giờ), cây sau ở cấp 30/50/80/110, bi ải 1 + 1 mỗi 14 ải (khoảng 2–4 bi/trận thắng). "Vừa" cấp 200 ngày 59, Cây bi 78% tổng bi, bi ải 2%; "ít" cấp 51 ở ngày 30 (đã tính Nhà mở sau ải 2).
+     - Chốt: cây 4 bi/giờ chứa 96 (đủ 24 giờ, người vào 1 lần/ngày không phí), cây sau ở cấp 10/25/45/70; bi ải đưa vào `balance.json` khối `stageBalls`: 1 + 1 mỗi ải sâu hơn (ải 70: 70 bi), lần đầu mini boss +12, boss +24, ải tướng +2 (ải 1 vẫn 3 bi, khớp 13 bi đầu viết sẵn của hướng dẫn).
+     - Kết quả: "chăm" cấp 200 ngày 33, "vừa" ngày 46 (bi ải 26%, khoảng 46 bi/trận thắng), "ít" cấp 87 ở ngày 30. Mô phỏng vẫn dùng mô hình trang trại cũ cho bi của ruộng vườn ở Nhà (gần đúng).
+     - Golden `islands.json`, `zones.json` tính lại; golden cây bi và Thẻ Phiêu Lưu chạy trên số cũ của bản web (test tự đặt rồi trả lại).
 2. **Trang trại** có ra thêm EXP không?
 3. **Kiếm tiền:** chọn SDK nào (quảng cáo, IAP)? Giá hai gói?
 4. **Kỹ thuật:** chốt Unity 6 bản vá nào? Có cần Addressables cho ảnh đảo không?
@@ -486,7 +491,7 @@ Dữ liệu ở `Assets/02 Data` (JSON xuất từ web và ScriptableObject). �
 11. **Đã chốt 2026-11-02: nhập hình vào project thành prefab tướng.** **Prefab, hình aola bản dev** (`convert-to-prefabs`): `AolaActor` và `AolaSticker` đọc PNG và json từ thư mục aola ngoài project lúc chạy, tạo quad, material, RenderTexture. Giữ ngoại lệ này (chỉ bản dev, test chặn bỏ qua), hay nhập hình vào project thành asset (loại khỏi bản phát hành)?
 12. **Prefab, scene thử cũ `BanThu`:** không chuyển sang prefab (đã bỏ hướng xếp khối). Để nguyên hay xoá?
 13. **Prefab, cấu trúc (đã chuyển hết theo cách này):** mỗi hộp thoại là biến thể (prefab variant) của tờ giấy gốc `Dialogs/HopThoai`; mỗi màn là `Screens/<Scene>.prefab`; phần lặp theo dữ liệu là `Items/*.prefab`; tên GameObject giữ tiếng Việt không dấu như cũ. Code nướng đã xoá nên sửa giao diện là sửa prefab. Phần có số lượng theo dữ liệu nhưng dựng sẵn cố định trong prefab (5 đảo ở sảnh, 5 nút cược máy bi, 5 nút chọn hệ ở Hang, 3 ô đội hình) phải thêm tay nếu dữ liệu tăng. Ổn chưa?
-14. **Menu thử Tướng** báo "Lệch chỉ số: màn Tướng 1039/471/119, trận 1191/357/95" (có từ trước khi đổi sang prefab): màn Tướng và trận tính chỉ số khác nhau khi tướng có huy hiệu, tiềm năng. Cần xem lại phần nào đúng.
+14. **Menu thử Tướng** báo "Lệch chỉ số: màn Tướng 1039/471/119, trận 1191/357/95" (có từ trước khi đổi sang prefab): màn Tướng và trận tính chỉ số khác nhau khi tướng có huy hiệu, tiềm năng. Cần xem lại phần nào đúng. **Đã xem 2026-11-24:** game khớp (màn Tướng và trận cùng gọi `HeroStats.Compute(..., Potential.Mods)`); báo lệch là do chính menu thử so chỉ số gốc của Tí Tách với tướng đứng đầu đội. Đã sửa đoạn kiểm trong `Editor/PlayTour.cs`, thêm test `PotentialTests.ChiSoManTuong_KhopTrongTran_KhiCoHuyHieuTiemNang`.
 
 Hệ thống 70 ải mỗi đảo (2026-11-02, bản thử đảo Thủy trên web, `14_HeThongAi.md`):
 

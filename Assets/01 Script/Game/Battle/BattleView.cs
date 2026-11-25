@@ -41,6 +41,8 @@ namespace PokiClash
             // thẻ chọn: dòng chữ (dựng sẵn), lá úp của địch (prefab mục)
             public TextMeshProUGUI offerLabel;
             public RectTransform backPrefab;
+            // Sổ Phép "Lật Trang": nút đổi cả bộ thẻ ở đầu hàng thẻ, cạnh chip "Chọn" (menu Editor SoPhepMenu vá vào Screens/Battle)
+            public SketchButton reroll;
             // hàng dưới: ô đồng đội (prefab mục), Chiêu, Tuyệt kỹ (dựng sẵn)
             public TeamSlot slotPrefab;
             public InnateButton skill, ult;
@@ -66,6 +68,7 @@ namespace PokiClash
         public Action<int, RectTransform> OnPickCard; // chỉ số thẻ, hình thẻ
         public Action<InnateKind, RectTransform> OnInnate;
         public Action<int> OnSwap;
+        public Action OnReroll;
 
         readonly List<QueueTile> tiles = new List<QueueTile>();
         readonly List<RectTransform> empties = new List<RectTransform>();
@@ -104,6 +107,11 @@ namespace PokiClash
             foeStar = new int[en.Count];
             for (int i = 0; i < en.Count; i++) foeStar[i] = Teams.LookStar(d.Cfg, en[i]);
             RenderFoes(null);
+            if (p.reroll)
+            {
+                p.reroll.SetOnClick(() => OnReroll?.Invoke());
+                p.reroll.gameObject.SetActive(false);
+            }
         }
 
         // hàng mặt địch theo ảnh chụp của sự kiện (gục thì có dấu X đúng lúc màn diễn); null: đầu trận
@@ -576,6 +584,7 @@ namespace PokiClash
             dealt.Clear();
             foreach (var bk in backs) bk.gameObject.SetActive(false);
             p.offerLabel.gameObject.SetActive(false);
+            if (p.reroll) p.reroll.gameObject.SetActive(false);
         }
 
         void OfferLabel(string text, float y, float h)
@@ -599,7 +608,17 @@ namespace PokiClash
                 OfferLabel(t.side == 0 ? Loc.F("{0} ra đòn!", who) : Loc.F("{0} (địch) ra đòn!", who), -120, 70);
                 return;
             }
-            float x0 = -(3 * UiCard.NormalSize.x + 2 * 24) / 2 + UiCard.NormalSize.x / 2;
+            // số thẻ đổi theo Sổ Phép (2–6): quá bề ngang thì thu nhỏ cả hàng (3 thẻ giữ nguyên chỗ cũ)
+            int n = t.offer.Count;
+            float w = UiCard.NormalSize.x, gap = 24;
+            float sc = Mathf.Min(1, 1010f / Mathf.Max(1, n * w + (n - 1) * gap));
+            float step = (w + gap) * sc, x0 = -(n - 1) * step / 2;
+            if (p.reroll)
+            {
+                bool can = !auto && b.CanReroll();
+                p.reroll.gameObject.SetActive(can);
+                if (can) p.reroll.SetText(Loc.F("Lật trang ×{0}", b.RerollsLeft(0)));
+            }
             for (int i = 0; i < t.offer.Count; i++)
             {
                 int idx = i;
@@ -615,23 +634,23 @@ namespace PokiClash
                 card.ClickSound = null;
                 card.PressHaptic = !auto;
                 var rt = (RectTransform)card.transform;
-                rt.Place(new Vector2(0.5f, 1), new Vector2(x0 + i * (UiCard.NormalSize.x + 24), -12), UiCard.NormalSize, new Vector2(0.5f, 1));
+                rt.Place(new Vector2(0.5f, 1), new Vector2(x0 + i * step, -12), UiCard.NormalSize, new Vector2(0.5f, 1));
                 OfferCards.Add(card);
                 dealt.Add(card);
-                StartDeal(rt, i * 0.05f);
+                StartDeal(rt, i * 0.05f, sc);
             }
             App.Audio.Play("deal");
         }
 
-        void StartDeal(RectTransform rt, float delay)
+        void StartDeal(RectTransform rt, float delay, float fin = 1)
         {
             if (dealing.TryGetValue(rt, out var co) && co != null) StopCoroutine(co);
-            dealing[rt] = StartCoroutine(Deal(rt, delay));
+            dealing[rt] = StartCoroutine(Deal(rt, delay, fin));
         }
 
         // chia bài (bộ UI Sa Bàn, như deal của Web/src/uikit/fx.ts): bay từ chồng bài dưới giữa lên chỗ, xoay, quá đà rồi đứng;
         // xong thì thẻ nhún tại chỗ, mỗi lá một nhịp (UiMotion.idle)
-        IEnumerator Deal(RectTransform rt, float delay)
+        IEnumerator Deal(RectTransform rt, float delay, float fin = 1)
         {
             var target = rt.anchoredPosition;
             var from = new Vector2(-target.x * 0.6f, -520);
@@ -647,13 +666,13 @@ namespace PokiClash
                 float b = k < 0.7f ? 0 : 1 - Mathf.Pow(1 - (k - 0.7f) / 0.3f, 3);
                 var over = target + new Vector2(0, 28);
                 rt.anchoredPosition = Vector2.Lerp(Vector2.LerpUnclamped(target + from, over, a), target, b);
-                float sc = Mathf.Lerp(Mathf.Lerp(0.55f, 1.06f, a), 1, b);
+                float sc = Mathf.Lerp(Mathf.Lerp(0.55f, 1.06f, a), 1, b) * fin;
                 rt.localScale = new Vector3(sc, sc, 1);
                 rt.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(Mathf.Lerp(-24, 3, a), 0, b));
                 yield return null;
             }
             if (!rt) yield break;
-            rt.localScale = Vector3.one;
+            rt.localScale = new Vector3(fin, fin, 1);
             rt.anchoredPosition = target;
             rt.localEulerAngles = Vector3.zero;
             dealing.Remove(rt);

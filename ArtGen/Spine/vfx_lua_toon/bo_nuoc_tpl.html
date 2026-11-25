@@ -1,0 +1,197 @@
+<title>Bộ nước PokiClash</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Bố cục: một cột; hàng chip chọn hiệu ứng, ô chiếu, thanh điều khiển gọn ngón cái, mô tả chiêu */
+  :root {
+    --bg: #eef4f7; --panel: #ffffff; --fg: #17303d; --muted: #5a7480; --line: #d3e2e9;
+    --accent: #2f8fe8; --accent-ink: #ffffff; --chip: #e2eef4;
+    --f-head: "Baloo 2", "Segoe UI", system-ui, sans-serif;
+    --f-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #0f1a21; --panel: #16242d; --fg: #e3f0f6; --muted: #8fa9b5; --line: #243742; --accent: #58b4ff; --accent-ink: #06202f; --chip: #1d313c; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --bg: #0f1a21; --panel: #16242d; --fg: #e3f0f6; --muted: #8fa9b5; --line: #243742; --accent: #58b4ff; --accent-ink: #06202f; --chip: #1d313c; color-scheme: dark; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--f-body); }
+  .wrap { max-width: 860px; margin: 0 auto; padding-block: 18px 40px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 12px; }
+  h1 { font-family: var(--f-head); font-size: 1.6rem; line-height: 1.1; margin: 0; text-wrap: balance; }
+  .sub { color: var(--muted); margin: 2px 0 0; font-size: 0.92rem; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .stage { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--panel); display: grid; place-items: center; }
+  canvas { display: block; max-width: 100%; max-height: 62vh; width: auto; height: auto; touch-action: manipulation; }
+  .hud { position: absolute; left: 10px; top: 8px; font: 600 12px/1.2 var(--f-body); font-variant-numeric: tabular-nums; color: #fff; background: rgba(10, 30, 45, 0.55); padding: 4px 8px; border-radius: 8px; }
+  .controls { display: grid; gap: 10px; background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .lbl { font-size: 0.78rem; letter-spacing: 0.04em; text-transform: uppercase; color: var(--muted); min-width: 64px; }
+  button { font: 600 0.95rem var(--f-body); border: 1px solid var(--line); background: var(--chip); color: var(--fg); border-radius: 10px; padding: 9px 14px; cursor: pointer; min-height: 42px; }
+  button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  button.main { min-width: 96px; background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+  input[type="range"] { flex: 1 1 200px; min-width: 0; accent-color: var(--accent); height: 32px; }
+  .desc { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; line-height: 1.5; }
+  .desc h2 { font-family: var(--f-head); font-size: 1.05rem; margin: 0 0 4px; }
+  .desc p { margin: 0; color: var(--fg); }
+  .note { color: var(--muted); font-size: 0.85rem; margin: 0; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Be+Vietnam+Pro:wght@400;600&display=swap">
+
+<div class="wrap">
+  <header>
+    <h1>Bộ nước</h1>
+    <p class="sub">Hiệu ứng hệ Thủy dựng bằng Blender, cùng bảng màu xanh dương của tia nước. 24 khung/giây, nền trong suốt.</p>
+  </header>
+
+  <div class="chips" id="chips" role="group" aria-label="Hiệu ứng"></div>
+
+  <div class="stage">
+    <canvas id="cv" width="400" height="200" aria-label="Hoạt ảnh hiệu ứng nước"></canvas>
+    <div class="hud" id="hud">khung 1</div>
+  </div>
+
+  <div class="controls">
+    <div class="row">
+      <button class="main" id="play">Dừng</button>
+      <button id="prev" aria-label="Khung trước">◀ Khung</button>
+      <button id="next" aria-label="Khung sau">Khung ▶</button>
+      <input id="seek" type="range" min="0" max="35" step="1" value="0" aria-label="Tua khung">
+    </div>
+    <div class="row" role="group" aria-label="Phần" id="modeRow"></div>
+    <div class="row" role="group" aria-label="Tốc độ">
+      <span class="lbl">Tốc độ</span>
+      <button data-speed="0.25">¼×</button>
+      <button data-speed="0.5">½×</button>
+      <button data-speed="1" aria-pressed="true">1×</button>
+    </div>
+    <div class="row" role="group" aria-label="Nền">
+      <span class="lbl">Nền</span>
+      <button data-bg="san" aria-pressed="true">Sân cát</button>
+      <button data-bg="troi">Trời biển</button>
+      <button data-bg="toi">Tối</button>
+      <button data-bg="co">Ô cờ</button>
+    </div>
+  </div>
+
+  <section class="desc">
+    <h2 id="dTitle">Tia nước</h2>
+    <p id="dText"></p>
+  </section>
+
+  <p class="note">Màu đo từ clip tia gốc: lam sáng, lam chính, lam giữa, lam đậm và bọt trắng, tô phẳng, không phát sáng. Tan theo ngưỡng × mặt nạ mềm (học repo water_vfx). Vũng đặt dưới chân đích (ở đây giả định điểm trúng cao hơn đất 70 px). Chưa đưa vào game.</p>
+</div>
+
+<script>
+(() => {
+  const CFG = /*CFG*/[];
+  const FPS = 24, HOLD = 0.4;
+  const cv = document.getElementById("cv"), cx = cv.getContext("2d");
+  const hud = document.getElementById("hud"), seek = document.getElementById("seek"), playBtn = document.getElementById("play");
+  const modeRow = document.getElementById("modeRow");
+  const cache = {};
+  let fx = CFG[0], playing = true, speed = 1, bg = "san", mode = "ghep", f = 0, acc = 0, last = 0, rest = 0;
+
+  function sheet(set) {               // mỗi bộ là một tờ khung lưới (cols cột), cắt ô theo số khung
+    if (cache[set.sheet]) return cache[set.sheet];
+    const im = new Image();
+    im.onload = () => draw();
+    im.src = "frames/" + set.sheet;
+    return (cache[set.sheet] = im);
+  }
+  let checker = null;
+  function checkerPattern() {
+    if (checker) return checker;
+    const c = document.createElement("canvas"); c.width = c.height = 24;
+    const g = c.getContext("2d");
+    g.fillStyle = "#cfd6db"; g.fillRect(0, 0, 24, 24);
+    g.fillStyle = "#eef1f3"; g.fillRect(0, 0, 12, 12); g.fillRect(12, 12, 12, 12);
+    return (checker = cx.createPattern(c, "repeat"));
+  }
+  function paintBg() {
+    const w = cv.width, h = cv.height;
+    if (bg === "co") { cx.fillStyle = checkerPattern(); cx.fillRect(0, 0, w, h); return; }
+    if (bg === "toi") { cx.fillStyle = "#1c2630"; cx.fillRect(0, 0, w, h); return; }
+    if (bg === "troi") { cx.fillStyle = "#9fdcf3"; cx.fillRect(0, 0, w, h * 0.55); cx.fillStyle = "#4fb9de"; cx.fillRect(0, h * 0.55, w, h * 0.45); return; }
+    cx.fillStyle = "#bfe6f5"; cx.fillRect(0, 0, w, h * 0.38);
+    cx.fillStyle = "#f3dfa6"; cx.fillRect(0, h * 0.38, w, h * 0.62);
+  }
+  function blit(set, x, y, d) {
+    const k = f - (d || 0);
+    if (k < 0) return;                 // bộ trễ (vd. vũng hiện khi tia chạm)
+    const im = sheet(set), i = Math.min(k, set.n - 1);
+    if (im.complete && im.naturalWidth) cx.drawImage(im, (i % set.cols) * set.w, Math.floor(i / set.cols) * set.h, set.w, set.h, x, y, set.w, set.h);
+  }
+  function draw() {
+    paintBg();
+    // mục nhiều bộ: "Ghép" vẽ mọi bộ đúng chỗ (lệch, trễ); chọn một phần thì vẽ riêng phần đó ở giữa, không trễ
+    if (mode === "ghep") fx.sets.forEach(t => blit(t, t.px, t.py, t.d));
+    else { const t = fx.sets[+mode]; blit(t, Math.round((cv.width - t.w) / 2), Math.round((cv.height - t.h) / 2), 0); }
+    hud.textContent = "khung " + (f + 1) + "/" + fx.n + " · " + (f / FPS).toFixed(2).replace(".", ",") + " s" + (fx.loop ? " · lặp" : "");
+    seek.value = f;
+  }
+  function choose(next) {
+    fx = next; f = 0; acc = 0; rest = 0;
+    cv.width = fx.canvas.w; cv.height = fx.canvas.h;
+    seek.max = fx.n - 1;
+    mode = "ghep";
+    modeRow.hidden = fx.sets.length < 2;
+    modeRow.innerHTML = '<span class="lbl">Phần</span>';
+    [["ghep", "Ghép"]].concat(fx.sets.map((t, i) => [String(i), t.label])).forEach(([m, lab]) => {
+      const b = document.createElement("button");
+      b.dataset.mode = m; b.textContent = lab; b.setAttribute("aria-pressed", m === mode ? "true" : "false");
+      b.addEventListener("click", () => {
+        mode = m;
+        modeRow.querySelectorAll("button").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+        draw();
+      });
+      modeRow.appendChild(b);
+    });
+    document.getElementById("dTitle").textContent = fx.label;
+    document.getElementById("dText").textContent = fx.desc;
+    document.querySelectorAll("#chips button").forEach(b => b.setAttribute("aria-pressed", b.dataset.code === fx.code ? "true" : "false"));
+    fx.sets.forEach(sheet);
+    draw();
+  }
+  function tick(ts) {
+    const dt = last ? Math.min(0.1, (ts - last) / 1000) : 0;
+    last = ts;
+    if (playing) {
+      if (rest > 0) { rest -= dt * speed; if (rest <= 0) { f = 0; draw(); } }
+      else {
+        acc += dt * speed * FPS;
+        while (acc >= 1) {
+          acc -= 1;
+          if (f < fx.n - 1) f++;
+          else if (fx.loop) f = 0;
+          else { rest = HOLD; acc = 0; break; }
+        }
+        draw();
+      }
+    }
+    requestAnimationFrame(tick);
+  }
+  const chips = document.getElementById("chips");
+  CFG.forEach(c => {
+    const b = document.createElement("button");
+    b.textContent = c.label; b.dataset.code = c.code;
+    b.addEventListener("click", () => choose(c));
+    chips.appendChild(b);
+  });
+  function setPlaying(p) { playing = p; playBtn.textContent = p ? "Dừng" : "Chạy"; }
+  playBtn.addEventListener("click", () => setPlaying(!playing));
+  document.getElementById("prev").addEventListener("click", () => { setPlaying(false); f = (f + fx.n - 1) % fx.n; draw(); });
+  document.getElementById("next").addEventListener("click", () => { setPlaying(false); f = (f + 1) % fx.n; draw(); });
+  seek.addEventListener("input", () => { setPlaying(false); f = +seek.value; draw(); });
+  cv.addEventListener("click", () => setPlaying(!playing));
+  document.querySelectorAll("[data-speed]").forEach(b => b.addEventListener("click", () => {
+    speed = +b.dataset.speed;
+    document.querySelectorAll("[data-speed]").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+  }));
+  document.querySelectorAll("[data-bg]").forEach(b => b.addEventListener("click", () => {
+    bg = b.dataset.bg;
+    document.querySelectorAll("[data-bg]").forEach(x => x.setAttribute("aria-pressed", x === b ? "true" : "false"));
+    draw();
+  }));
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) setPlaying(false);
+  choose(CFG[0]);
+  requestAnimationFrame(tick);
+})();
+</script>

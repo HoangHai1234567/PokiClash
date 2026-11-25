@@ -147,13 +147,30 @@ namespace PokiClash.Core
             {
                 var side = new Side { name = teams[s].name, ai = teams[s].ai, unlock = unlock[s] };
                 for (int i = 0; i < teams[s].members.Count; i++) side.fighters.Add(b.MakeFighter(teams[s].members[i], s, i));
+                side.rules = teams[s].rules;
                 b.sides[s] = side;
+            }
+            // Sổ Phép: lượt đổi bộ thẻ (thêm nếu bên kia có boss / mini boss), lượt giữ thẻ, lượt đổi tướng giữa lượt
+            for (int s = 0; s < 2; s++)
+            {
+                var r = b.sides[s].rules;
+                if (r == null) continue;
+                var rs = b.sides[s].rs;
+                rs.rerolls = r.rerolls + (b.sides[Other(s)].fighters.Exists(f => f.boss) ? r.bossRerolls : 0);
+                rs.holds = r.holds;
+                rs.midSwaps = r.midSwaps;
             }
             b.turn = b.EmptyTurn(0);
             return b;
         }
 
-        Turn EmptyTurn(int side) => new Turn { side = side, picksTotal = Cfg.picks, picksLeft = Cfg.picks };
+        Turn EmptyTurn(int side)
+        {
+            int n = sides[side].rules?.picks > 0 ? sides[side].rules.picks : Cfg.picks;
+            return new Turn { side = side, picksTotal = n, picksLeft = n };
+        }
+
+        double BenchMana(int s) => Cfg.benchMana + (sides[s].rules?.benchMana ?? 0);
 
         // bị động "vào trận" của mọi tướng, rồi vào hiệp đầu
         public List<BattleEvent> StartBattle()
@@ -259,16 +276,25 @@ namespace PokiClash.Core
             RunPassive(f, PassiveTrigger.TurnStart);
             AddMana(f, Cfg.manaPerTurn, false);
             foreach (var o in sides[s].fighters)
-                if (o != f && !o.dead) o.mana = Math.Min(Cfg.maxMana, o.mana + Cfg.benchMana);
+                if (o != f && !o.dead) o.mana = Math.Min(Cfg.maxMana, o.mana + BenchMana(s));
             if (f.Has(StatusId.Stun))
             {
                 // choáng: mất trọn lượt (không chọn thẻ, không đổi tướng, không đánh); mana đầu lượt vẫn nhận
                 f.statuses = f.statuses.Where(x => x.id != StatusId.Stun).ToList();
+                if (sides[s].rules?.stunGuard > 0) f.stunImmune = sides[s].rules.stunGuard + 1; // Tỉnh Táo: tính cả lượt đang mất
                 turn.stunned = true;
                 turn.picksTotal = turn.picksLeft = 0;
                 Emit(new BattleEvent { t = EvType.Stunned, side = s });
                 EndTurn(s);
                 return;
+            }
+            // Sổ Phép "Nét Kép": thẻ chọn đầu tiên của trận chạy hai lần
+            var rr = sides[s].rules;
+            if (rr != null && rr.doubleFirst && !sides[s].rs.doubleUsed)
+            {
+                sides[s].rs.doubleUsed = true;
+                turn.doubleNext = true;
+                Emit(new BattleEvent { t = EvType.Double, side = s });
             }
             turn.offer = DrawOffer(s);
             phase = Phase.Picking;
@@ -276,7 +302,9 @@ namespace PokiClash.Core
 
         // rút 3 thẻ khác nhau từ thẻ chung đã mở theo cấp, nặng theo độ hiếm. Thẻ đã chọn trong lượt không ra lại,
         // trừ thẻ có cờ repeat (người dùng dặn 2026-11-04)
-        public List<string> DrawOffer(int s)
+        // Sổ Phép: avoid (khi đổi bộ) là bộ đang hiện, tránh ra lại nếu đủ thẻ khác; số thẻ theo OfferSize; Mắt Tinh, Dồn Tay đổi trọng số;
+        // thẻ giữ (Giữ Nét) thêm vào lần chọn đầu lượt. Không có sổ thì như cũ từng bước (golden).
+        public List<string> DrawOffer(int s, List<string> avoid = null)
         {
             if (script != null && s == 0)
             {
@@ -286,13 +314,57 @@ namespace PokiClash.Core
             int unlock = sides[s].unlock;
             var picked = turn.side == s ? turn.queue.Select(q => q.card).ToList() : new List<string>();
             var pool = Data.Pool.Where(c => c.unlock <= unlock && (c.repeat || !picked.Contains(c.id))).ToList();
+            var r = sides[s].rules;
+            var rs = sides[s].rs;
+            int n = OfferSize(s);
+            if (avoid != null)
+            {
+                var fresh = pool.Where(c => !avoid.Contains(c.id)).ToList();
+                if (fresh.Count >= n) pool = fresh;
+            }
             var outL = new List<CardDef>();
-            while (outL.Count < Cfg.offer && outL.Count < pool.Count)
+            while (outL.Count < n && outL.Count < pool.Count)
             {
                 var left = pool.Where(c => !outL.Contains(c)).ToList();
-                outL.Add(rng.Weighted(left, c => Cfg.PoolWeight(c.rarity)));
+                if (r == null) outL.Add(rng.Weighted(left, c => Cfg.PoolWeight(c.rarity)));
+                else
+                    outL.Add(rng.Weighted(left, c => Cfg.PoolWeight(c.rarity) *
+                                                     (r.rareWeight > 0 && c.rarity >= Rarity.Rare ? r.rareWeight : 1) *
+                                                     (r.groupWeight > 0 && rs.hasLastGroup && CardText.InGroup(c, rs.lastGroup) ? r.groupWeight : 1)));
             }
-            return outL.Select(c => c.id).ToList();
+            var ids = outL.Select(c => c.id).ToList();
+            if (rs.held != null && turn.side == s && picked.Count == 0)
+            {
+                if (!ids.Contains(rs.held)) ids.Add(rs.held);
+                rs.held = null;
+            }
+            return ids;
+        }
+
+        // số thẻ mỗi lần chọn: cấu hình; Sổ Phép: Chốt 1, Rộng Tay (lần đầu lượt), Năm Bút Chì (địch đúng hệ), Trang Cuối (lần cuối lượt)
+        int OfferSize(int s)
+        {
+            var r = sides[s].rules;
+            if (r == null) return Cfg.offer;
+            int n = r.offer > 0 ? r.offer : Cfg.offer;
+            bool mine = turn != null && turn.side == s;
+            if (mine && turn.picksLeft == turn.picksTotal) n += r.firstOfferAdd;
+            if (r.elemExtra >= 0 && (int)ActiveOf(Other(s)).hero.elem == r.elemExtra) n += r.elemExtraN;
+            if (mine && turn.picksLeft == 1 && r.lastOffer > n) n = r.lastOffer;
+            return n;
+        }
+
+        // Sổ Phép "Lật Trang": đổi cả bộ thẻ đang chọn (không ra lại bộ cũ nếu đủ thẻ)
+        public int RerollsLeft(int s) => sides[s].rs.rerolls;
+
+        public bool CanReroll() => phase == Phase.Picking && !turn.stunned && sides[turn.side].rs.rerolls > 0 && (script == null || turn.side != 0);
+
+        public List<BattleEvent> Reroll()
+        {
+            if (!CanReroll()) return new List<BattleEvent>();
+            sides[turn.side].rs.rerolls--;
+            turn.offer = DrawOffer(turn.side, turn.offer);
+            return Flush();
         }
 
         // ---------- hành động của người chơi (máy cũng gọi các hàm này) ----------
@@ -301,7 +373,8 @@ namespace PokiClash.Core
         {
             var t = turn;
             var side = sides[t.side];
-            if (phase != Phase.Picking || t.firstPick || t.swapped) return false;
+            if (phase != Phase.Picking || t.swapped) return false;
+            if (t.firstPick && side.rs.midSwaps <= 0) return false; // Sổ Phép "Đổi Vai": đổi được cả khi đã chọn thẻ
             if (idx < 0 || idx >= side.fighters.Count) return false;
             var f = side.fighters[idx];
             return !f.dead && idx != side.active;
@@ -310,10 +383,11 @@ namespace PokiClash.Core
         public List<BattleEvent> Swap(int idx)
         {
             if (!CanSwap(idx)) return new List<BattleEvent>();
+            if (turn.firstPick) sides[turn.side].rs.midSwaps--;
             DoSwap(turn.side, idx, false);
             turn.swapped = true;
             // tướng vào sân đầu lượt nhận đủ mana của lượt (lúc ở dự bị mới được phần nhỏ)
-            AddMana(ActiveOf(turn.side), Cfg.manaPerTurn - Cfg.benchMana, false);
+            AddMana(ActiveOf(turn.side), Cfg.manaPerTurn - BenchMana(turn.side), false);
             return Flush();
         }
 
@@ -332,9 +406,35 @@ namespace PokiClash.Core
         {
             var side = sides[s];
             int from = side.active;
+            var r = side.rules;
+            var outF = side.fighters[from];
+            var inF = side.fighters[idx];
+            // Sổ Phép khi tự đổi tướng: Rút Lui hồi tướng ra (trước khi đổi, sự kiện hồi còn của tướng đang ra sân), Tiếp Sức chuyền mana
+            if (r != null && !forced && !outF.dead)
+            {
+                if (r.swapOutHeal > 0) Heal(outF, r.swapOutHeal);
+                if (r.manaCarry > 0)
+                {
+                    double m = Js.Round(outF.mana * r.manaCarry);
+                    outF.mana -= m;
+                    inF.mana = Math.Min(Cfg.maxMana, inF.mana + m);
+                }
+            }
             side.active = idx;
             side.needSwap = false;
             Emit(new BattleEvent { t = EvType.Swap, side = s, from = from, to = idx, forced = forced });
+            if (r != null)
+            {
+                // Vào Sân: tướng vào có khiên; Tiếp Nối: tướng ra thay tướng vừa gục có sẵn nộ
+                if (r.swapInShield > 0)
+                {
+                    double cap = Js.Round(inF.maxHp * Cfg.shieldCap);
+                    double add = Math.Max(0, Math.Min(cap - inF.shield, Js.Round(inF.maxHp * r.swapInShield)));
+                    inF.shield += add;
+                    if (add > 0) Emit(new BattleEvent { t = EvType.Shield, side = s, amount = add });
+                }
+                if (forced && r.koRage > 0) AddRage(inF, r.koRage);
+            }
             // độc lan từ tướng vừa gục: gộp vào độc đang có (chặn ở PoisonMax lớp), lấy số lượt dài hơn
             if (side.spread != null && forced)
             {
@@ -357,11 +457,46 @@ namespace PokiClash.Core
             var t = turn;
             if (phase != Phase.Picking || i < 0 || i >= t.offer.Count) return new List<BattleEvent>();
             t.queue.Add(new QueueItem { card = t.offer[i], lv = 1 });
+            var r = sides[t.side].rules;
+            var rs = sides[t.side].rs;
+            if (r != null && r.groupWeight > 0)
+            {
+                var pc = Data.Card(t.offer[i]);
+                rs.hasLastGroup = false;
+                foreach (var g in new[] { CardGroup.Atk, CardGroup.Def, CardGroup.Heal })
+                    if (CardText.InGroup(pc, g))
+                    {
+                        rs.lastGroup = g;
+                        rs.hasLastGroup = true;
+                        break;
+                    }
+            }
             t.firstPick = true;
             t.picksLeft--;
             if (t.picksLeft > 0) t.offer = DrawOffer(t.side);
             else
             {
+                // Giữ Nét: thẻ hiếm nhất chưa chọn của lần chọn cuối chờ sang lần chọn đầu lượt sau
+                if (r != null && rs.holds > 0)
+                {
+                    string best = null;
+                    var bestR = Rarity.Common;
+                    for (int k = 0; k < t.offer.Count; k++)
+                    {
+                        if (k == i) continue;
+                        var c = Data.Card(t.offer[k]);
+                        if (c != null && (best == null || c.rarity > bestR))
+                        {
+                            best = c.id;
+                            bestR = c.rarity;
+                        }
+                    }
+                    if (best != null)
+                    {
+                        rs.held = best;
+                        rs.holds--;
+                    }
+                }
                 t.offer = new List<string>();
                 phase = Phase.Ready;
             }
@@ -384,7 +519,7 @@ namespace PokiClash.Core
             var card = InnateCard(f, which).card;
             if (which == InnateKind.Skill && t.skillUsed) return Loc.T("Đã dùng lượt này");
             if (which == InnateKind.Ult && t.ult != null) return Loc.T("Đã bật");
-            if (card.costRage > f.rage) return Loc.T("Chưa đủ nộ");
+            if (UltRage(f, card, which) > f.rage) return Loc.T("Chưa đủ nộ");
             if (card.costMana > f.mana) return Loc.T("Chưa đủ mana");
             return "";
         }
@@ -396,7 +531,9 @@ namespace PokiClash.Core
             var f = ActiveOf(t.side);
             var (card, lv) = InnateCard(f, which);
             f.mana -= card.costMana;
-            f.rage -= card.costRage;
+            double rc = UltRage(f, card, which);
+            if (rc < card.costRage) sides[t.side].rs.freeUltUsed = true; // Sổ Phép "Chữ Ký": Tuyệt kỹ đầu tiên bớt nộ
+            f.rage -= rc;
             t.firstPick = true; // đã ra quyết định: hết lúc đổi tướng
             if (which == InnateKind.Skill) t.skillUsed = true;
             else t.ult = new UltItem { card = card.id, lv = lv };
@@ -416,6 +553,14 @@ namespace PokiClash.Core
         }
 
         List<Effect> Scaled(CardDef c, int lv) => CardText.ScaleEffects(c.Effects, lv, Cfg.cardLvStep);
+
+        // nộ cần cho chiêu / Tuyệt kỹ (Sổ Phép "Chữ Ký": Tuyệt kỹ đầu tiên mỗi trận bớt phần nộ ultDiscount)
+        public double UltRage(Fighter f, CardDef card, InnateKind which)
+        {
+            var r = sides[f.side].rules;
+            if (which != InnateKind.Ult || r == null || r.ultDiscount <= 0 || sides[f.side].rs.freeUltUsed) return card.costRage;
+            return Js.Round(card.costRage * (1 - r.ultDiscount));
+        }
 
         // chạy hết hàng thẻ, đánh, kết thúc lượt
         public List<BattleEvent> Execute()
@@ -454,6 +599,14 @@ namespace PokiClash.Core
                 {
                     Emit(new BattleEvent { t = EvType.Ult, side = s, card = t.ult.card });
                     ApplyEffects(s, Scaled(Data.Card(t.ult.card), t.ult.lv), DmgKind.Ult);
+                    // Sổ Phép "Hợp Lực": tướng dự bị còn sống đánh phụ
+                    var ra = sides[s].rules;
+                    if (ra != null && ra.assist > 0)
+                        foreach (var o in sides[s].fighters)
+                        {
+                            if (winner >= 0 || ActiveOf(Other(s)).dead || ActiveOf(s).dead) break;
+                            if (o != ActiveOf(s) && !o.dead) FlatHit(s, Js.Round(o.atk * ra.assist), DmgKind.Extra);
+                        }
                 }
                 else
                 {
@@ -468,6 +621,8 @@ namespace PokiClash.Core
 
         void EndTurn(int s)
         {
+            var me = ActiveOf(s);
+            if (me.stunImmune > 0) me.stunImmune--;
             TickBuffs(s, Until.End);
             step++;
             phase = Phase.Idle;
@@ -513,6 +668,12 @@ namespace PokiClash.Core
                 m *= turn.trueStrike;
             }
             double em = ElemMult(A, D);
+            var ra = sides[s].rules;
+            if (ra != null)
+            {
+                if (em > 1) em += ra.advAdd; // Mũi Nhọn
+                else if (em < 1) em += ra.disAdd; // Lá Chắn
+            }
             bool crit = rng.Chance(Cfg.critBase + BuffSum(A, Stat.Crit));
             double taken = Math.Max(0.1, 1 + BuffSum(D, Stat.DmgTaken));
             double k = Cfg.defK * HeroStats.LevelMult(Cfg, A.level);
@@ -543,6 +704,9 @@ namespace PokiClash.Core
                 CheckLow(D);
             }
             if (refl > 0 && !D.dead && winner < 0) Reflect(D, A, refl);
+            // Sổ Phép "Nét Kết": địch không phải boss xuống dưới ngưỡng thì kết liễu
+            if (ra != null && ra.executeBelow > 0 && winner < 0 && !A.dead && !D.dead && !D.boss && D.hp / D.maxHp < ra.executeBelow)
+                FlatHit(s, D.hp + D.shield, kind);
             return dmg;
         }
 
@@ -569,6 +733,19 @@ namespace PokiClash.Core
                     Emit(new BattleEvent { t = EvType.Revive, side = f.side, idx = f.idx, hp = f.hp });
                     return;
                 }
+            }
+            // Sổ Phép "Vẽ Lại": một lần mỗi trận, tướng gục sống lại (boss không)
+            var fr = sides[f.side].rules;
+            if (fr != null && fr.revivePct > 0 && !sides[f.side].rs.reviveUsed && !f.boss)
+            {
+                sides[f.side].rs.reviveUsed = true;
+                f.hp = Math.Max(1, Js.Round(f.maxHp * fr.revivePct));
+                f.statuses = f.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
+                Emit(new BattleEvent { t = EvType.Revive, side = f.side, idx = f.idx, hp = f.hp });
+                // vẽ lại cần thời gian: mất lượt kế của tướng đó (choáng 1 lượt, không tính miễn choáng)
+                f.statuses.Add(new StatusInst { id = StatusId.Stun, left = 1 });
+                Emit(new BattleEvent { t = EvType.Status, side = f.side, status = StatusId.Stun, turns = 1 });
+                return;
             }
             f.dead = true;
             f.hp = 0;
@@ -686,6 +863,23 @@ namespace PokiClash.Core
                 Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = t.id });
                 ApplyEffectsTo(f, Scaled(t, f.cardPassive), DmgKind.Card);
             }
+            // Sổ Phép: Nét Cứu (hồi một lần mỗi trận), Phản Nét (phản đòn tới hết trận)
+            var r = sides[f.side].rules;
+            if (r != null && !f.dead)
+            {
+                var rs = sides[f.side].rs;
+                if (r.lowHeal > 0 && !rs.lowHealUsed && f.hp / f.maxHp < r.lowAt)
+                {
+                    rs.lowHealUsed = true;
+                    Heal(f, r.lowHeal);
+                }
+                if (r.thorns > 0 && !rs.thornsUsed && f.hp / f.maxHp < r.thornsAt)
+                {
+                    rs.thornsUsed = true;
+                    f.buffs.Add(new Buff { stat = Stat.Thorns, v = r.thorns, left = 99, until = Until.End });
+                    Emit(new BattleEvent { t = EvType.Buff, side = f.side, stat = Stat.Thorns, v = r.thorns, turns = 99 });
+                }
+            }
         }
 
         // bị động của tướng, rồi bị động boss của ải (nếu có; cùng cấp thẻ với bị động của tướng)
@@ -791,6 +985,11 @@ namespace PokiClash.Core
                     {
                         var tgt = e.On == Target.Foe ? foe : self;
                         if (tgt.dead) break;
+                        if (e.Status == StatusId.Stun && tgt.stunImmune > 0)
+                        {
+                            Emit(new BattleEvent { t = EvType.Resist, side = tgt.side }); // Sổ Phép "Tỉnh Táo"
+                            break;
+                        }
                         if (e.Chance.HasValue && !rng.Chance(e.Chance.Value))
                         {
                             Emit(new BattleEvent { t = EvType.Resist, side = tgt.side });

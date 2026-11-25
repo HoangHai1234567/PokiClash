@@ -364,6 +364,7 @@ namespace PokiClash
             items.Clear();
             mp.Clear();
             ms.Clear();
+            BeginNuocFx(); // bộ nước shader (HatNuocShader.cs): hạt vẽ hình nước trong lúc draw
             foreach (var p in ps)
                 p.draw?.Invoke(p, Mathf.Min(0.999f, p.age / p.life), items);
             // xếp ổn định theo (nhóm, lớp): List.Sort không ổn định nên thêm chỉ số làm khoá phụ
@@ -415,6 +416,7 @@ namespace PokiClash
             }
             for (int g = 0; g < 3; g++) HideFrom(g, n[g]);
             FlushMang();
+            EndNuocFx();
         }
 
         // ---------- mảng nước liền (HatMang, con đầu của mỗi lớp hạt): hạt gọi MFill / MBand / MRibbon lúc vẽ (HatNuoc.cs) ----------
@@ -473,6 +475,7 @@ namespace PokiClash
                 m.Begin();
                 m.End();
             }
+            ClearNuocFx();
         }
 
         void HideFrom(int g, int k)
@@ -1021,9 +1024,11 @@ namespace PokiClash
                 // khung vẽ sẵn (2026-11-19): cụm khói "khoi" (phồng, bay lên, tan thành mảnh khuyết, một tông nâu xám, nét chì trong) thay khối múi
                 // kr_khoi / sblob + ba cụm con. Khung cao 2,3 R (cụm rộng ≈ 0,95 khung), neo chân dưới tâm cụm; chạy hết 24 khung trong đúng `life`
                 // (bỏ 2 khung đầu gần như trống); trôi chậm hơn bản hạt vì khung tự bốc lên
+                // 2026-11-24 khói Blender: tâm cụm cao cy (0,28) h trên neo (khung GPT cũ 0,45), số khung lấy theo bảng
+                var kd = Fbs["khoi"];
                 float L = life > 0 ? life : U(1.0f, 1.3f), h = 2.3f * R;
-                var f = Fb("khoi", pos + U2(-3, 3) + new Vector2(0, 0.45f * h), h, group, 12, 22f / (24 * Mathf.Max(0.2f, L)), U(-8, 8), U(0, 1) < 0.5f,
-                    null, 1, -1, 2);
+                var f = Fb("khoi", pos + U2(-3, 3) + new Vector2(0, (kd.cy + 0.04f) * h), h, group, 12, (kd.n - 2f) / (kd.fps * Mathf.Max(0.2f, L)), U(-8, 8),
+                    U(0, 1) < 0.5f, null, 1, -1, 2);
                 if (f != null)
                 {
                     f.vel = (vel ?? new Vector2(U(-22, 22), U(-62, -36))) * 0.6f;
@@ -1578,6 +1583,7 @@ namespace PokiClash
 
         public float Breath(Vector2 mouth, Vector2 target, float tH, bool swirl)
         {
+            if (HasFb("phun")) return BreathFb(mouth, target, tH, swirl); // bộ lửa Blender 2026-11-24 (HatFbHoa.cs); dưới đây là bản hạt cũ
             // người dùng 2026-11-10: lửa phun phải hợp nét tranh tướng -> lưỡi lửa vẽ tay; 2026-11-18: lưỡi chữ S (krl), luồng dừng ở MẶT TRƯỚC thân
             // đối thủ và toé dạt quanh thân (bông va chạm), khói thành cụm
             string style = "krl", pal = Th.pal;
@@ -1728,6 +1734,7 @@ namespace PokiClash
         void KimLua(Vector2 home, Vector2 aim, int span, float launch, float speed, Color[] cols, float[] fr, float[] ext, float LEN, float khoi = 0)
         {
             var q = new P { pos = home, life = 3, seed = 0, home = home, aim = aim, span = span, launch = launch };
+            bool fbKim = HasFb("kim_lua"); // kim xoắn vẽ sẵn đã có lửa: bỏ lưỡi lửa nhỏ quanh kim lúc chờ và sau đuôi lúc bay (soi ảnh chụp 2026-11-24: rối)
             for (int k = 0; k < 2; k++)
                 HoaLuoi(Flame(home + U2(-6, 6), new Vector2(U(-30, 30), U(-70, -30)), 0.22f, 5, 11, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0, 0), 1, 0.6f, 0);
             HoaTan(home, new Vector2(0, -70), 0, 2);
@@ -1737,7 +1744,7 @@ namespace PokiClash
                 {
                     z.pos = z.home + new Vector2(0, 3.5f * Mathf.Sin(z.age * 7 + z.span));
                     z.vel = (z.aim - z.pos) * 0.001f;
-                    if (s.U(0, 1) < 0.12f)
+                    if (!fbKim && s.U(0, 1) < 0.12f)
                         s.Flame(z.pos + s.U2(-8, 8), new Vector2(s.U(-15, 15), s.U(-80, -40)), 0.25f, 4, 9, "nhon", Th.pal, Front, 1.8f, -320, 1.7f, 0, 0);
                     if (s.T >= z.launch)
                     {
@@ -1751,7 +1758,7 @@ namespace PokiClash
                 {
                     if (s.U(0, 1) < 0.35f)
                         s.Spark(z.pos - Unit(z.vel) * 22, -Unit(z.vel) + s.U2(-0.15f, 0.15f), s.U(250, 380), 0.14f, 11, 0, Front, 6);
-                    if (s.U(0, 1) < 0.12f)
+                    if (!fbKim && s.U(0, 1) < 0.12f)
                         s.Flame(z.pos - Unit(z.vel) * 24, -Unit(z.vel) * 40, 0.12f, 6, 9, "tron", Th.pal, Front, 1.8f, -320, 1.6f, 0, 0);
                     if (Vector2.Dot(z.aim - z.pos, z.vel) <= 0)
                     {
@@ -1760,6 +1767,24 @@ namespace PokiClash
                     }
                 }
             };
+            // kim xoắn vẽ sẵn "kim_lua" (bộ lửa Blender 2026-11-24, như "Twisting Effect" người dùng đưa): mũi về +x, lặp; dài ≈ 1,5 LEN (gồm đuôi lửa
+            // xoắn), lúc bay giãn dài 1,3; chưa nhập thì năm lớp ảnh kim cũ
+            var kimArt = FbArt("kim_lua");
+            if (kimArt != null)
+            {
+                var kd = Fbs["kim_lua"];
+                float ph = U(0, kd.n);
+                q.draw = (z, k, buf) =>
+                {
+                    float age = z.age;
+                    float sc = age < 0.08f ? 1.25f * EaseOut(age / 0.08f) : 1.25f - 0.25f * Mathf.Min(1, (age - 0.08f) / 0.06f);
+                    FbHuong(z.fly ? Unit(z.vel) : Unit(z.aim - z.pos), out float a, out bool lat);
+                    DrawFb(buf, kimArt, kd, ph + age * kd.fps, z.pos, 1.5f * LEN * sc / kd.aspect, Front, 22, a, lat, Color.white, Mathf.Min(1, age / 0.05f),
+                        z.fly ? 1.3f : 1);
+                };
+                Add(q);
+                return;
+            }
             q.draw = (z, k, buf) =>
             {
                 float age = z.age;
@@ -1901,6 +1926,7 @@ namespace PokiClash
 
         public float Meteor(Vector2 foeFeet, float tH, float fromSide)
         {
+            if (HasFb("cau_lua") && HasFb("no") && HasFb("duoi_lua")) return MeteorFb(foeFeet, tH, fromSide); // bộ lửa Blender 2026-11-24 (HatFbHoa.cs)
             var imp = foeFeet + new Vector2(0, -6);
             var s0 = foeFeet + new Vector2(fromSide * 310, -480);
             const float TI = 0.75f;
@@ -2121,8 +2147,9 @@ namespace PokiClash
                         q.ang * Mathf.Rad2Deg);
                     Add(p);
                 });
-                Every(0.5f, T1 - 0.1f, 6, x => HoaKhoi(Cc + new Vector2(U(-0.3f, 0.3f) * tH, -1.22f * tH + U(0, 16)), U(0.14f, 0.18f) * tH, Back,
-                    new Vector2(U(-30, 30), -U(40, 80)), U(0.8f, 1f), false));
+                // khói bốc từ miệng phễu: lốc Blender (2026-11-24) cao 1,8 thân, miệng ở ≈ 1,6 thân, cụm to hơn (như dự án AtomSpine atom_bl)
+                Every(0.4f, T1 - 0.2f, 5, x => HoaKhoi(Cc + new Vector2(U(-0.35f, 0.35f) * tH, -1.6f * tH + U(0, 16)), U(0.2f, 0.27f) * tH, Back,
+                    new Vector2(U(-30, 30), -U(50, 90)), U(0.9f, 1.1f), false));
                 Every(0.35f, T1, 4, x => Extra(Cc + new Vector2(U(-R1, R1) * 0.7f, -U(0.2f, 1.0f) * HT), 1, 160, U(0, 1) < 0.5f ? Front : Back));
                 At(0.3f, () => Shake?.Invoke(0.35f));
                 return 0.35f;

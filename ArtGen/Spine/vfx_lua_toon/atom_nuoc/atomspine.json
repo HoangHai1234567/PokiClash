@@ -1,0 +1,1423 @@
+{
+  "format": 1,
+  "name": "tia_nuoc",
+  "fps": 24,
+  "ppu": 100,
+  "bones": [
+    {"name": "root", "parent": null, "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_mieng", "parent": "root", "x": -320, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_cham", "parent": "root", "x": 168, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_cham_rieng", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_cau_nuoc", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_no_nuoc", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_thuong_nuoc", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_song_nuoc", "parent": "root", "x": -200, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_song_cuon", "parent": "root", "x": -120, "y": -40, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_toe_nuoc", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_vung_nuoc", "parent": "root", "x": 0, "y": -60, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_cau_vo", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_cau_nem", "parent": "root", "x": 0, "y": 160, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_toe_dat", "parent": "root", "x": 0, "y": -80, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_tia_ong", "parent": "root", "x": -320, "y": 60, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_roi_nuoc", "parent": "root", "x": -320, "y": 60, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_tia_nuoc2", "parent": "root", "x": -320, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_thuong_nuoc2", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_mach_phun2", "parent": "root", "x": 0, "y": -100, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_toe_nuoc2", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_cau_vo2", "parent": "root", "x": 0, "y": 120, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_loc_nuoc", "parent": "root", "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"},
+    {"name": "b_mach_phun", "parent": "root", "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"}
+  ],
+  "slots": [
+    {"name": "s_tia", "bone": "b_mieng", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_cham", "bone": "b_cham", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_cham_rieng", "bone": "b_cham_rieng", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_cau_nuoc", "bone": "b_cau_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_no_nuoc", "bone": "b_no_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_thuong_nuoc", "bone": "b_thuong_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_song_nuoc", "bone": "b_song_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_song_cuon", "bone": "b_song_cuon", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_toe_nuoc", "bone": "b_toe_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_vung_nuoc", "bone": "b_vung_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_cau_vo", "bone": "b_cau_vo", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_cau_nem", "bone": "b_cau_nem", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_toe_dat", "bone": "b_toe_dat", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_tia_ong", "bone": "b_tia_ong", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_roi_nuoc", "bone": "b_roi_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_tia_nuoc2", "bone": "b_tia_nuoc2", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_thuong_nuoc2", "bone": "b_thuong_nuoc2", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_mach_phun2", "bone": "b_mach_phun2", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_toe_nuoc2", "bone": "b_toe_nuoc2", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_cau_vo2", "bone": "b_cau_vo2", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_loc_nuoc", "bone": "b_loc_nuoc", "att": null, "color": "FFFFFFFF"},
+    {"name": "s_mach_phun", "bone": "b_mach_phun", "att": null, "color": "FFFFFFFF"}
+  ],
+  "skins": [
+    {
+      "name": "default",
+      "atts": [
+        {
+          "type": "region",
+          "slot": "s_tia",
+          "name": "nuoc_tia",
+          "image": "nuoc_tia_00",
+          "x": 239.5,
+          "y": -31.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 589,
+          "h": 247,
+          "seq": {
+            "frames": ["nuoc_tia_00", "nuoc_tia_01", "nuoc_tia_02", "nuoc_tia_03", "nuoc_tia_04", "nuoc_tia_05", "nuoc_tia_06", "nuoc_tia_07", "nuoc_tia_08", "nuoc_tia_09", "nuoc_tia_10", "nuoc_tia_11", "nuoc_tia_12", "nuoc_tia_13", "nuoc_tia_14", "nuoc_tia_15", "nuoc_tia_16", "nuoc_tia_17", "nuoc_tia_18", "nuoc_tia_19", "nuoc_tia_20", "nuoc_tia_21", "nuoc_tia_22", "nuoc_tia_23", "nuoc_tia_24", "nuoc_tia_25", "nuoc_tia_26", "nuoc_tia_27", "nuoc_tia_28", "nuoc_tia_29", "nuoc_tia_30", "nuoc_tia_31", "nuoc_tia_32", "nuoc_tia_33", "nuoc_tia_34", "nuoc_tia_35"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_cham",
+          "name": "nuoc_trung",
+          "image": "nuoc_trung_00",
+          "x": 1,
+          "y": -27,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 346,
+          "h": 276,
+          "seq": {
+            "frames": ["nuoc_trung_00", "nuoc_trung_01", "nuoc_trung_02", "nuoc_trung_03", "nuoc_trung_04", "nuoc_trung_05", "nuoc_trung_06", "nuoc_trung_07", "nuoc_trung_08", "nuoc_trung_09", "nuoc_trung_10", "nuoc_trung_11", "nuoc_trung_12", "nuoc_trung_13", "nuoc_trung_14", "nuoc_trung_15", "nuoc_trung_16", "nuoc_trung_17", "nuoc_trung_18", "nuoc_trung_19", "nuoc_trung_20", "nuoc_trung_21", "nuoc_trung_22", "nuoc_trung_23", "nuoc_trung_24", "nuoc_trung_25", "nuoc_trung_26", "nuoc_trung_27", "nuoc_trung_28", "nuoc_trung_29", "nuoc_trung_30", "nuoc_trung_31", "nuoc_trung_32", "nuoc_trung_33", "nuoc_trung_34", "nuoc_trung_35"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_cham_rieng",
+          "name": "nuoc_trung",
+          "image": "nuoc_trung_00",
+          "x": 1,
+          "y": -27,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 346,
+          "h": 276,
+          "seq": {
+            "frames": ["nuoc_trung_00", "nuoc_trung_01", "nuoc_trung_02", "nuoc_trung_03", "nuoc_trung_04", "nuoc_trung_05", "nuoc_trung_06", "nuoc_trung_07", "nuoc_trung_08", "nuoc_trung_09", "nuoc_trung_10", "nuoc_trung_11", "nuoc_trung_12", "nuoc_trung_13", "nuoc_trung_14", "nuoc_trung_15", "nuoc_trung_16", "nuoc_trung_17", "nuoc_trung_18", "nuoc_trung_19", "nuoc_trung_20", "nuoc_trung_21", "nuoc_trung_22", "nuoc_trung_23", "nuoc_trung_24", "nuoc_trung_25", "nuoc_trung_26", "nuoc_trung_27", "nuoc_trung_28", "nuoc_trung_29", "nuoc_trung_30", "nuoc_trung_31", "nuoc_trung_32", "nuoc_trung_33", "nuoc_trung_34", "nuoc_trung_35"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_cau_nuoc",
+          "name": "cau_nuoc",
+          "image": "cau_nuoc_00",
+          "x": -31.5,
+          "y": -3.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 237,
+          "h": 179,
+          "seq": {
+            "frames": ["cau_nuoc_00", "cau_nuoc_01", "cau_nuoc_02", "cau_nuoc_03", "cau_nuoc_04", "cau_nuoc_05", "cau_nuoc_06", "cau_nuoc_07", "cau_nuoc_08", "cau_nuoc_09", "cau_nuoc_10", "cau_nuoc_11", "cau_nuoc_12", "cau_nuoc_13", "cau_nuoc_14", "cau_nuoc_15", "cau_nuoc_16", "cau_nuoc_17", "cau_nuoc_18", "cau_nuoc_19", "cau_nuoc_20", "cau_nuoc_21", "cau_nuoc_22", "cau_nuoc_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_no_nuoc",
+          "name": "no_nuoc",
+          "image": "no_nuoc_00",
+          "x": 15.5,
+          "y": -28,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 317,
+          "h": 320,
+          "seq": {
+            "frames": ["no_nuoc_00", "no_nuoc_01", "no_nuoc_02", "no_nuoc_03", "no_nuoc_04", "no_nuoc_05", "no_nuoc_06", "no_nuoc_07", "no_nuoc_08", "no_nuoc_09", "no_nuoc_10", "no_nuoc_11", "no_nuoc_12", "no_nuoc_13", "no_nuoc_14", "no_nuoc_15", "no_nuoc_16", "no_nuoc_17", "no_nuoc_18", "no_nuoc_19", "no_nuoc_20", "no_nuoc_21"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_thuong_nuoc",
+          "name": "thuong_nuoc",
+          "image": "thuong_nuoc_00",
+          "x": -37,
+          "y": 13,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 220,
+          "h": 66,
+          "seq": {
+            "frames": ["thuong_nuoc_00", "thuong_nuoc_01", "thuong_nuoc_02", "thuong_nuoc_03", "thuong_nuoc_04", "thuong_nuoc_05", "thuong_nuoc_06", "thuong_nuoc_07", "thuong_nuoc_08", "thuong_nuoc_09", "thuong_nuoc_10", "thuong_nuoc_11"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_song_nuoc",
+          "name": "song_nuoc",
+          "image": "song_nuoc_00",
+          "x": 162.5,
+          "y": 54,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 421,
+          "h": 176,
+          "seq": {
+            "frames": ["song_nuoc_00", "song_nuoc_01", "song_nuoc_02", "song_nuoc_03", "song_nuoc_04", "song_nuoc_05", "song_nuoc_06", "song_nuoc_07", "song_nuoc_08", "song_nuoc_09", "song_nuoc_10", "song_nuoc_11", "song_nuoc_12", "song_nuoc_13", "song_nuoc_14", "song_nuoc_15", "song_nuoc_16", "song_nuoc_17", "song_nuoc_18", "song_nuoc_19", "song_nuoc_20", "song_nuoc_21", "song_nuoc_22", "song_nuoc_23", "song_nuoc_24", "song_nuoc_25", "song_nuoc_26", "song_nuoc_27", "song_nuoc_28", "song_nuoc_29", "song_nuoc_30", "song_nuoc_31", "song_nuoc_32", "song_nuoc_33", "song_nuoc_34", "song_nuoc_35"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_song_cuon",
+          "name": "song_cuon",
+          "image": "song_cuon_00",
+          "x": -69,
+          "y": 73,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 230,
+          "h": 170,
+          "seq": {
+            "frames": ["song_cuon_00", "song_cuon_01", "song_cuon_02", "song_cuon_03", "song_cuon_04", "song_cuon_05", "song_cuon_06", "song_cuon_07", "song_cuon_08", "song_cuon_09", "song_cuon_10", "song_cuon_11", "song_cuon_12", "song_cuon_13", "song_cuon_14", "song_cuon_15", "song_cuon_16", "song_cuon_17", "song_cuon_18", "song_cuon_19", "song_cuon_20", "song_cuon_21", "song_cuon_22", "song_cuon_23", "song_cuon_24", "song_cuon_25", "song_cuon_26"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_toe_nuoc",
+          "name": "toe_nuoc",
+          "image": "toe_nuoc_00",
+          "x": -55,
+          "y": 23,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 222,
+          "h": 194,
+          "seq": {
+            "frames": ["toe_nuoc_00", "toe_nuoc_01", "toe_nuoc_02", "toe_nuoc_03", "toe_nuoc_04", "toe_nuoc_05", "toe_nuoc_06", "toe_nuoc_07", "toe_nuoc_08", "toe_nuoc_09", "toe_nuoc_10", "toe_nuoc_11", "toe_nuoc_12", "toe_nuoc_13", "toe_nuoc_14", "toe_nuoc_15", "toe_nuoc_16", "toe_nuoc_17", "toe_nuoc_18", "toe_nuoc_19", "toe_nuoc_20", "toe_nuoc_21", "toe_nuoc_22", "toe_nuoc_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_vung_nuoc",
+          "name": "vung_nuoc",
+          "image": "vung_nuoc_00",
+          "x": 29,
+          "y": 0,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 192,
+          "h": 46,
+          "seq": {
+            "frames": ["vung_nuoc_00", "vung_nuoc_01", "vung_nuoc_02", "vung_nuoc_03", "vung_nuoc_04", "vung_nuoc_05", "vung_nuoc_06", "vung_nuoc_07", "vung_nuoc_08", "vung_nuoc_09", "vung_nuoc_10", "vung_nuoc_11", "vung_nuoc_12", "vung_nuoc_13", "vung_nuoc_14", "vung_nuoc_15", "vung_nuoc_16", "vung_nuoc_17", "vung_nuoc_18", "vung_nuoc_19", "vung_nuoc_20", "vung_nuoc_21", "vung_nuoc_22", "vung_nuoc_23", "vung_nuoc_24", "vung_nuoc_25", "vung_nuoc_26", "vung_nuoc_27", "vung_nuoc_28"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_cau_vo",
+          "name": "cau_vo",
+          "image": "cau_vo_00",
+          "x": -55,
+          "y": 23,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 222,
+          "h": 194,
+          "seq": {
+            "frames": ["cau_vo_00", "cau_vo_01", "cau_vo_02", "cau_vo_03", "cau_vo_04", "cau_vo_05", "cau_vo_06", "cau_vo_07", "cau_vo_08", "cau_vo_09", "cau_vo_10", "cau_vo_11", "cau_vo_12", "cau_vo_13", "cau_vo_14", "cau_vo_15", "cau_vo_16", "cau_vo_17", "cau_vo_18", "cau_vo_19", "cau_vo_20", "cau_vo_21", "cau_vo_22", "cau_vo_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_cau_nem",
+          "name": "cau_nem",
+          "image": "cau_nem_00",
+          "x": -72.5,
+          "y": -17,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 253,
+          "h": 142,
+          "seq": {
+            "frames": ["cau_nem_00", "cau_nem_01", "cau_nem_02", "cau_nem_03", "cau_nem_04", "cau_nem_05", "cau_nem_06", "cau_nem_07", "cau_nem_08", "cau_nem_09", "cau_nem_10", "cau_nem_11", "cau_nem_12", "cau_nem_13", "cau_nem_14", "cau_nem_15", "cau_nem_16", "cau_nem_17", "cau_nem_18", "cau_nem_19", "cau_nem_20", "cau_nem_21", "cau_nem_22", "cau_nem_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_toe_dat",
+          "name": "toe_dat",
+          "image": "toe_dat_00",
+          "x": 11.5,
+          "y": 23.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 223,
+          "h": 139,
+          "seq": {
+            "frames": ["toe_dat_00", "toe_dat_01", "toe_dat_02", "toe_dat_03", "toe_dat_04", "toe_dat_05", "toe_dat_06", "toe_dat_07", "toe_dat_08", "toe_dat_09", "toe_dat_10", "toe_dat_11", "toe_dat_12", "toe_dat_13", "toe_dat_14", "toe_dat_15", "toe_dat_16", "toe_dat_17", "toe_dat_18", "toe_dat_19", "toe_dat_20", "toe_dat_21", "toe_dat_22", "toe_dat_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_tia_ong",
+          "name": "tia_ong",
+          "image": "tia_ong_00",
+          "x": 262.5,
+          "y": 39.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 563,
+          "h": 203,
+          "seq": {
+            "frames": ["tia_ong_00", "tia_ong_01", "tia_ong_02", "tia_ong_03", "tia_ong_04", "tia_ong_05", "tia_ong_06", "tia_ong_07", "tia_ong_08", "tia_ong_09", "tia_ong_10", "tia_ong_11", "tia_ong_12", "tia_ong_13", "tia_ong_14", "tia_ong_15", "tia_ong_16", "tia_ong_17", "tia_ong_18", "tia_ong_19", "tia_ong_20", "tia_ong_21", "tia_ong_22", "tia_ong_23", "tia_ong_24", "tia_ong_25", "tia_ong_26", "tia_ong_27", "tia_ong_28", "tia_ong_29", "tia_ong_30", "tia_ong_31", "tia_ong_32", "tia_ong_33", "tia_ong_34", "tia_ong_35", "tia_ong_36", "tia_ong_37"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_roi_nuoc",
+          "name": "roi_nuoc",
+          "image": "roi_nuoc_00",
+          "x": 263.5,
+          "y": 38.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 565,
+          "h": 201,
+          "seq": {
+            "frames": ["roi_nuoc_00", "roi_nuoc_01", "roi_nuoc_02", "roi_nuoc_03", "roi_nuoc_04", "roi_nuoc_05", "roi_nuoc_06", "roi_nuoc_07", "roi_nuoc_08", "roi_nuoc_09", "roi_nuoc_10", "roi_nuoc_11", "roi_nuoc_12", "roi_nuoc_13", "roi_nuoc_14", "roi_nuoc_15", "roi_nuoc_16", "roi_nuoc_17", "roi_nuoc_18", "roi_nuoc_19", "roi_nuoc_20", "roi_nuoc_21", "roi_nuoc_22", "roi_nuoc_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_tia_nuoc2",
+          "name": "tia_nuoc2",
+          "image": "tia_nuoc2_00",
+          "x": 258,
+          "y": 29,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 550,
+          "h": 212,
+          "seq": {
+            "frames": ["tia_nuoc2_00", "tia_nuoc2_01", "tia_nuoc2_02", "tia_nuoc2_03", "tia_nuoc2_04", "tia_nuoc2_05", "tia_nuoc2_06", "tia_nuoc2_07", "tia_nuoc2_08", "tia_nuoc2_09", "tia_nuoc2_10", "tia_nuoc2_11", "tia_nuoc2_12", "tia_nuoc2_13", "tia_nuoc2_14", "tia_nuoc2_15", "tia_nuoc2_16", "tia_nuoc2_17", "tia_nuoc2_18", "tia_nuoc2_19", "tia_nuoc2_20", "tia_nuoc2_21", "tia_nuoc2_22", "tia_nuoc2_23", "tia_nuoc2_24", "tia_nuoc2_25", "tia_nuoc2_26", "tia_nuoc2_27", "tia_nuoc2_28", "tia_nuoc2_29", "tia_nuoc2_30", "tia_nuoc2_31", "tia_nuoc2_32", "tia_nuoc2_33", "tia_nuoc2_34", "tia_nuoc2_35", "tia_nuoc2_36", "tia_nuoc2_37"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_thuong_nuoc2",
+          "name": "thuong_nuoc2",
+          "image": "thuong_nuoc2_00",
+          "x": -9,
+          "y": -13,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 334,
+          "h": 70,
+          "seq": {
+            "frames": ["thuong_nuoc2_00", "thuong_nuoc2_01", "thuong_nuoc2_02", "thuong_nuoc2_03", "thuong_nuoc2_04", "thuong_nuoc2_05", "thuong_nuoc2_06", "thuong_nuoc2_07", "thuong_nuoc2_08", "thuong_nuoc2_09", "thuong_nuoc2_10", "thuong_nuoc2_11"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_mach_phun2",
+          "name": "mach_phun2",
+          "image": "mach_phun2_00",
+          "x": -5.5,
+          "y": 156,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 185,
+          "h": 346,
+          "seq": {
+            "frames": ["mach_phun2_00", "mach_phun2_01", "mach_phun2_02", "mach_phun2_03", "mach_phun2_04", "mach_phun2_05", "mach_phun2_06", "mach_phun2_07", "mach_phun2_08", "mach_phun2_09", "mach_phun2_10", "mach_phun2_11", "mach_phun2_12", "mach_phun2_13", "mach_phun2_14", "mach_phun2_15", "mach_phun2_16", "mach_phun2_17", "mach_phun2_18", "mach_phun2_19", "mach_phun2_20", "mach_phun2_21", "mach_phun2_22", "mach_phun2_23", "mach_phun2_24", "mach_phun2_25", "mach_phun2_26", "mach_phun2_27", "mach_phun2_28", "mach_phun2_29", "mach_phun2_30", "mach_phun2_31", "mach_phun2_32", "mach_phun2_33", "mach_phun2_34", "mach_phun2_35", "mach_phun2_36", "mach_phun2_37"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_toe_nuoc2",
+          "name": "toe_nuoc2",
+          "image": "toe_nuoc2_00",
+          "x": -57.5,
+          "y": 33.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 213,
+          "h": 191,
+          "seq": {
+            "frames": ["toe_nuoc2_00", "toe_nuoc2_01", "toe_nuoc2_02", "toe_nuoc2_03", "toe_nuoc2_04", "toe_nuoc2_05", "toe_nuoc2_06", "toe_nuoc2_07", "toe_nuoc2_08", "toe_nuoc2_09", "toe_nuoc2_10", "toe_nuoc2_11", "toe_nuoc2_12", "toe_nuoc2_13", "toe_nuoc2_14", "toe_nuoc2_15", "toe_nuoc2_16", "toe_nuoc2_17", "toe_nuoc2_18", "toe_nuoc2_19", "toe_nuoc2_20", "toe_nuoc2_21", "toe_nuoc2_22", "toe_nuoc2_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_cau_vo2",
+          "name": "cau_vo2",
+          "image": "cau_vo2_00",
+          "x": -57.5,
+          "y": 33.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 213,
+          "h": 191,
+          "seq": {
+            "frames": ["cau_vo2_00", "cau_vo2_01", "cau_vo2_02", "cau_vo2_03", "cau_vo2_04", "cau_vo2_05", "cau_vo2_06", "cau_vo2_07", "cau_vo2_08", "cau_vo2_09", "cau_vo2_10", "cau_vo2_11", "cau_vo2_12", "cau_vo2_13", "cau_vo2_14", "cau_vo2_15", "cau_vo2_16", "cau_vo2_17", "cau_vo2_18", "cau_vo2_19", "cau_vo2_20", "cau_vo2_21", "cau_vo2_22", "cau_vo2_23"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_loc_nuoc",
+          "name": "loc_nuoc",
+          "image": "loc_nuoc_00",
+          "x": 0,
+          "y": 157,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 480,
+          "h": 334,
+          "seq": {
+            "frames": ["loc_nuoc_00", "loc_nuoc_01", "loc_nuoc_02", "loc_nuoc_03", "loc_nuoc_04", "loc_nuoc_05", "loc_nuoc_06", "loc_nuoc_07", "loc_nuoc_08", "loc_nuoc_09", "loc_nuoc_10", "loc_nuoc_11", "loc_nuoc_12", "loc_nuoc_13", "loc_nuoc_14", "loc_nuoc_15", "loc_nuoc_16", "loc_nuoc_17", "loc_nuoc_18", "loc_nuoc_19", "loc_nuoc_20", "loc_nuoc_21", "loc_nuoc_22", "loc_nuoc_23", "loc_nuoc_24", "loc_nuoc_25", "loc_nuoc_26", "loc_nuoc_27", "loc_nuoc_28", "loc_nuoc_29", "loc_nuoc_30", "loc_nuoc_31", "loc_nuoc_32", "loc_nuoc_33", "loc_nuoc_34", "loc_nuoc_35", "loc_nuoc_36", "loc_nuoc_37", "loc_nuoc_38", "loc_nuoc_39", "loc_nuoc_40", "loc_nuoc_41", "loc_nuoc_42", "loc_nuoc_43", "loc_nuoc_44", "loc_nuoc_45", "loc_nuoc_46", "loc_nuoc_47"]
+          }
+        },
+        {
+          "type": "region",
+          "slot": "s_mach_phun",
+          "name": "mach_phun",
+          "image": "mach_phun_00",
+          "x": -4.5,
+          "y": 141.5,
+          "rot": 0,
+          "sx": 1,
+          "sy": 1,
+          "w": 217,
+          "h": 341,
+          "seq": {
+            "frames": ["mach_phun_00", "mach_phun_01", "mach_phun_02", "mach_phun_03", "mach_phun_04", "mach_phun_05", "mach_phun_06", "mach_phun_07", "mach_phun_08", "mach_phun_09", "mach_phun_10", "mach_phun_11", "mach_phun_12", "mach_phun_13", "mach_phun_14", "mach_phun_15", "mach_phun_16", "mach_phun_17", "mach_phun_18", "mach_phun_19", "mach_phun_20", "mach_phun_21", "mach_phun_22", "mach_phun_23", "mach_phun_24", "mach_phun_25", "mach_phun_26", "mach_phun_27", "mach_phun_28", "mach_phun_29", "mach_phun_30", "mach_phun_31", "mach_phun_32", "mach_phun_33", "mach_phun_34", "mach_phun_35", "mach_phun_36", "mach_phun_37"]
+          }
+        }
+      ]
+    }
+  ],
+  "images": [
+    {"name": "nuoc_tia_00", "path": "images/nuoc_tia_00.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_01", "path": "images/nuoc_tia_01.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_02", "path": "images/nuoc_tia_02.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_03", "path": "images/nuoc_tia_03.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_04", "path": "images/nuoc_tia_04.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_05", "path": "images/nuoc_tia_05.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_06", "path": "images/nuoc_tia_06.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_07", "path": "images/nuoc_tia_07.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_08", "path": "images/nuoc_tia_08.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_09", "path": "images/nuoc_tia_09.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_10", "path": "images/nuoc_tia_10.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_11", "path": "images/nuoc_tia_11.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_12", "path": "images/nuoc_tia_12.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_13", "path": "images/nuoc_tia_13.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_14", "path": "images/nuoc_tia_14.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_15", "path": "images/nuoc_tia_15.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_16", "path": "images/nuoc_tia_16.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_17", "path": "images/nuoc_tia_17.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_18", "path": "images/nuoc_tia_18.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_19", "path": "images/nuoc_tia_19.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_20", "path": "images/nuoc_tia_20.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_21", "path": "images/nuoc_tia_21.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_22", "path": "images/nuoc_tia_22.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_23", "path": "images/nuoc_tia_23.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_24", "path": "images/nuoc_tia_24.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_25", "path": "images/nuoc_tia_25.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_26", "path": "images/nuoc_tia_26.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_27", "path": "images/nuoc_tia_27.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_28", "path": "images/nuoc_tia_28.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_29", "path": "images/nuoc_tia_29.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_30", "path": "images/nuoc_tia_30.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_31", "path": "images/nuoc_tia_31.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_32", "path": "images/nuoc_tia_32.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_33", "path": "images/nuoc_tia_33.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_34", "path": "images/nuoc_tia_34.png", "w": 589, "h": 247},
+    {"name": "nuoc_tia_35", "path": "images/nuoc_tia_35.png", "w": 589, "h": 247},
+    {"name": "nuoc_trung_00", "path": "images/nuoc_trung_00.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_01", "path": "images/nuoc_trung_01.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_02", "path": "images/nuoc_trung_02.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_03", "path": "images/nuoc_trung_03.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_04", "path": "images/nuoc_trung_04.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_05", "path": "images/nuoc_trung_05.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_06", "path": "images/nuoc_trung_06.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_07", "path": "images/nuoc_trung_07.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_08", "path": "images/nuoc_trung_08.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_09", "path": "images/nuoc_trung_09.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_10", "path": "images/nuoc_trung_10.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_11", "path": "images/nuoc_trung_11.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_12", "path": "images/nuoc_trung_12.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_13", "path": "images/nuoc_trung_13.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_14", "path": "images/nuoc_trung_14.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_15", "path": "images/nuoc_trung_15.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_16", "path": "images/nuoc_trung_16.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_17", "path": "images/nuoc_trung_17.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_18", "path": "images/nuoc_trung_18.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_19", "path": "images/nuoc_trung_19.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_20", "path": "images/nuoc_trung_20.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_21", "path": "images/nuoc_trung_21.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_22", "path": "images/nuoc_trung_22.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_23", "path": "images/nuoc_trung_23.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_24", "path": "images/nuoc_trung_24.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_25", "path": "images/nuoc_trung_25.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_26", "path": "images/nuoc_trung_26.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_27", "path": "images/nuoc_trung_27.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_28", "path": "images/nuoc_trung_28.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_29", "path": "images/nuoc_trung_29.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_30", "path": "images/nuoc_trung_30.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_31", "path": "images/nuoc_trung_31.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_32", "path": "images/nuoc_trung_32.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_33", "path": "images/nuoc_trung_33.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_34", "path": "images/nuoc_trung_34.png", "w": 346, "h": 276},
+    {"name": "nuoc_trung_35", "path": "images/nuoc_trung_35.png", "w": 346, "h": 276},
+    {"name": "cau_nuoc_00", "path": "images/cau_nuoc_00.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_01", "path": "images/cau_nuoc_01.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_02", "path": "images/cau_nuoc_02.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_03", "path": "images/cau_nuoc_03.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_04", "path": "images/cau_nuoc_04.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_05", "path": "images/cau_nuoc_05.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_06", "path": "images/cau_nuoc_06.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_07", "path": "images/cau_nuoc_07.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_08", "path": "images/cau_nuoc_08.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_09", "path": "images/cau_nuoc_09.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_10", "path": "images/cau_nuoc_10.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_11", "path": "images/cau_nuoc_11.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_12", "path": "images/cau_nuoc_12.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_13", "path": "images/cau_nuoc_13.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_14", "path": "images/cau_nuoc_14.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_15", "path": "images/cau_nuoc_15.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_16", "path": "images/cau_nuoc_16.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_17", "path": "images/cau_nuoc_17.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_18", "path": "images/cau_nuoc_18.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_19", "path": "images/cau_nuoc_19.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_20", "path": "images/cau_nuoc_20.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_21", "path": "images/cau_nuoc_21.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_22", "path": "images/cau_nuoc_22.png", "w": 237, "h": 179},
+    {"name": "cau_nuoc_23", "path": "images/cau_nuoc_23.png", "w": 237, "h": 179},
+    {"name": "no_nuoc_00", "path": "images/no_nuoc_00.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_01", "path": "images/no_nuoc_01.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_02", "path": "images/no_nuoc_02.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_03", "path": "images/no_nuoc_03.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_04", "path": "images/no_nuoc_04.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_05", "path": "images/no_nuoc_05.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_06", "path": "images/no_nuoc_06.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_07", "path": "images/no_nuoc_07.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_08", "path": "images/no_nuoc_08.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_09", "path": "images/no_nuoc_09.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_10", "path": "images/no_nuoc_10.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_11", "path": "images/no_nuoc_11.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_12", "path": "images/no_nuoc_12.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_13", "path": "images/no_nuoc_13.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_14", "path": "images/no_nuoc_14.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_15", "path": "images/no_nuoc_15.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_16", "path": "images/no_nuoc_16.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_17", "path": "images/no_nuoc_17.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_18", "path": "images/no_nuoc_18.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_19", "path": "images/no_nuoc_19.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_20", "path": "images/no_nuoc_20.png", "w": 317, "h": 320},
+    {"name": "no_nuoc_21", "path": "images/no_nuoc_21.png", "w": 317, "h": 320},
+    {"name": "thuong_nuoc_00", "path": "images/thuong_nuoc_00.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_01", "path": "images/thuong_nuoc_01.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_02", "path": "images/thuong_nuoc_02.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_03", "path": "images/thuong_nuoc_03.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_04", "path": "images/thuong_nuoc_04.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_05", "path": "images/thuong_nuoc_05.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_06", "path": "images/thuong_nuoc_06.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_07", "path": "images/thuong_nuoc_07.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_08", "path": "images/thuong_nuoc_08.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_09", "path": "images/thuong_nuoc_09.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_10", "path": "images/thuong_nuoc_10.png", "w": 220, "h": 66},
+    {"name": "thuong_nuoc_11", "path": "images/thuong_nuoc_11.png", "w": 220, "h": 66},
+    {"name": "song_nuoc_00", "path": "images/song_nuoc_00.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_01", "path": "images/song_nuoc_01.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_02", "path": "images/song_nuoc_02.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_03", "path": "images/song_nuoc_03.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_04", "path": "images/song_nuoc_04.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_05", "path": "images/song_nuoc_05.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_06", "path": "images/song_nuoc_06.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_07", "path": "images/song_nuoc_07.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_08", "path": "images/song_nuoc_08.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_09", "path": "images/song_nuoc_09.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_10", "path": "images/song_nuoc_10.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_11", "path": "images/song_nuoc_11.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_12", "path": "images/song_nuoc_12.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_13", "path": "images/song_nuoc_13.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_14", "path": "images/song_nuoc_14.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_15", "path": "images/song_nuoc_15.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_16", "path": "images/song_nuoc_16.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_17", "path": "images/song_nuoc_17.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_18", "path": "images/song_nuoc_18.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_19", "path": "images/song_nuoc_19.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_20", "path": "images/song_nuoc_20.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_21", "path": "images/song_nuoc_21.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_22", "path": "images/song_nuoc_22.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_23", "path": "images/song_nuoc_23.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_24", "path": "images/song_nuoc_24.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_25", "path": "images/song_nuoc_25.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_26", "path": "images/song_nuoc_26.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_27", "path": "images/song_nuoc_27.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_28", "path": "images/song_nuoc_28.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_29", "path": "images/song_nuoc_29.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_30", "path": "images/song_nuoc_30.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_31", "path": "images/song_nuoc_31.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_32", "path": "images/song_nuoc_32.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_33", "path": "images/song_nuoc_33.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_34", "path": "images/song_nuoc_34.png", "w": 421, "h": 176},
+    {"name": "song_nuoc_35", "path": "images/song_nuoc_35.png", "w": 421, "h": 176},
+    {"name": "song_cuon_00", "path": "images/song_cuon_00.png", "w": 230, "h": 170},
+    {"name": "song_cuon_01", "path": "images/song_cuon_01.png", "w": 230, "h": 170},
+    {"name": "song_cuon_02", "path": "images/song_cuon_02.png", "w": 230, "h": 170},
+    {"name": "song_cuon_03", "path": "images/song_cuon_03.png", "w": 230, "h": 170},
+    {"name": "song_cuon_04", "path": "images/song_cuon_04.png", "w": 230, "h": 170},
+    {"name": "song_cuon_05", "path": "images/song_cuon_05.png", "w": 230, "h": 170},
+    {"name": "song_cuon_06", "path": "images/song_cuon_06.png", "w": 230, "h": 170},
+    {"name": "song_cuon_07", "path": "images/song_cuon_07.png", "w": 230, "h": 170},
+    {"name": "song_cuon_08", "path": "images/song_cuon_08.png", "w": 230, "h": 170},
+    {"name": "song_cuon_09", "path": "images/song_cuon_09.png", "w": 230, "h": 170},
+    {"name": "song_cuon_10", "path": "images/song_cuon_10.png", "w": 230, "h": 170},
+    {"name": "song_cuon_11", "path": "images/song_cuon_11.png", "w": 230, "h": 170},
+    {"name": "song_cuon_12", "path": "images/song_cuon_12.png", "w": 230, "h": 170},
+    {"name": "song_cuon_13", "path": "images/song_cuon_13.png", "w": 230, "h": 170},
+    {"name": "song_cuon_14", "path": "images/song_cuon_14.png", "w": 230, "h": 170},
+    {"name": "song_cuon_15", "path": "images/song_cuon_15.png", "w": 230, "h": 170},
+    {"name": "song_cuon_16", "path": "images/song_cuon_16.png", "w": 230, "h": 170},
+    {"name": "song_cuon_17", "path": "images/song_cuon_17.png", "w": 230, "h": 170},
+    {"name": "song_cuon_18", "path": "images/song_cuon_18.png", "w": 230, "h": 170},
+    {"name": "song_cuon_19", "path": "images/song_cuon_19.png", "w": 230, "h": 170},
+    {"name": "song_cuon_20", "path": "images/song_cuon_20.png", "w": 230, "h": 170},
+    {"name": "song_cuon_21", "path": "images/song_cuon_21.png", "w": 230, "h": 170},
+    {"name": "song_cuon_22", "path": "images/song_cuon_22.png", "w": 230, "h": 170},
+    {"name": "song_cuon_23", "path": "images/song_cuon_23.png", "w": 230, "h": 170},
+    {"name": "song_cuon_24", "path": "images/song_cuon_24.png", "w": 230, "h": 170},
+    {"name": "song_cuon_25", "path": "images/song_cuon_25.png", "w": 230, "h": 170},
+    {"name": "song_cuon_26", "path": "images/song_cuon_26.png", "w": 230, "h": 170},
+    {"name": "toe_nuoc_00", "path": "images/toe_nuoc_00.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_01", "path": "images/toe_nuoc_01.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_02", "path": "images/toe_nuoc_02.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_03", "path": "images/toe_nuoc_03.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_04", "path": "images/toe_nuoc_04.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_05", "path": "images/toe_nuoc_05.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_06", "path": "images/toe_nuoc_06.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_07", "path": "images/toe_nuoc_07.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_08", "path": "images/toe_nuoc_08.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_09", "path": "images/toe_nuoc_09.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_10", "path": "images/toe_nuoc_10.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_11", "path": "images/toe_nuoc_11.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_12", "path": "images/toe_nuoc_12.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_13", "path": "images/toe_nuoc_13.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_14", "path": "images/toe_nuoc_14.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_15", "path": "images/toe_nuoc_15.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_16", "path": "images/toe_nuoc_16.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_17", "path": "images/toe_nuoc_17.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_18", "path": "images/toe_nuoc_18.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_19", "path": "images/toe_nuoc_19.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_20", "path": "images/toe_nuoc_20.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_21", "path": "images/toe_nuoc_21.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_22", "path": "images/toe_nuoc_22.png", "w": 222, "h": 194},
+    {"name": "toe_nuoc_23", "path": "images/toe_nuoc_23.png", "w": 222, "h": 194},
+    {"name": "vung_nuoc_00", "path": "images/vung_nuoc_00.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_01", "path": "images/vung_nuoc_01.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_02", "path": "images/vung_nuoc_02.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_03", "path": "images/vung_nuoc_03.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_04", "path": "images/vung_nuoc_04.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_05", "path": "images/vung_nuoc_05.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_06", "path": "images/vung_nuoc_06.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_07", "path": "images/vung_nuoc_07.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_08", "path": "images/vung_nuoc_08.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_09", "path": "images/vung_nuoc_09.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_10", "path": "images/vung_nuoc_10.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_11", "path": "images/vung_nuoc_11.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_12", "path": "images/vung_nuoc_12.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_13", "path": "images/vung_nuoc_13.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_14", "path": "images/vung_nuoc_14.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_15", "path": "images/vung_nuoc_15.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_16", "path": "images/vung_nuoc_16.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_17", "path": "images/vung_nuoc_17.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_18", "path": "images/vung_nuoc_18.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_19", "path": "images/vung_nuoc_19.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_20", "path": "images/vung_nuoc_20.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_21", "path": "images/vung_nuoc_21.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_22", "path": "images/vung_nuoc_22.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_23", "path": "images/vung_nuoc_23.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_24", "path": "images/vung_nuoc_24.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_25", "path": "images/vung_nuoc_25.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_26", "path": "images/vung_nuoc_26.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_27", "path": "images/vung_nuoc_27.png", "w": 192, "h": 46},
+    {"name": "vung_nuoc_28", "path": "images/vung_nuoc_28.png", "w": 192, "h": 46},
+    {"name": "cau_vo_00", "path": "images/cau_vo_00.png", "w": 222, "h": 194},
+    {"name": "cau_vo_01", "path": "images/cau_vo_01.png", "w": 222, "h": 194},
+    {"name": "cau_vo_02", "path": "images/cau_vo_02.png", "w": 222, "h": 194},
+    {"name": "cau_vo_03", "path": "images/cau_vo_03.png", "w": 222, "h": 194},
+    {"name": "cau_vo_04", "path": "images/cau_vo_04.png", "w": 222, "h": 194},
+    {"name": "cau_vo_05", "path": "images/cau_vo_05.png", "w": 222, "h": 194},
+    {"name": "cau_vo_06", "path": "images/cau_vo_06.png", "w": 222, "h": 194},
+    {"name": "cau_vo_07", "path": "images/cau_vo_07.png", "w": 222, "h": 194},
+    {"name": "cau_vo_08", "path": "images/cau_vo_08.png", "w": 222, "h": 194},
+    {"name": "cau_vo_09", "path": "images/cau_vo_09.png", "w": 222, "h": 194},
+    {"name": "cau_vo_10", "path": "images/cau_vo_10.png", "w": 222, "h": 194},
+    {"name": "cau_vo_11", "path": "images/cau_vo_11.png", "w": 222, "h": 194},
+    {"name": "cau_vo_12", "path": "images/cau_vo_12.png", "w": 222, "h": 194},
+    {"name": "cau_vo_13", "path": "images/cau_vo_13.png", "w": 222, "h": 194},
+    {"name": "cau_vo_14", "path": "images/cau_vo_14.png", "w": 222, "h": 194},
+    {"name": "cau_vo_15", "path": "images/cau_vo_15.png", "w": 222, "h": 194},
+    {"name": "cau_vo_16", "path": "images/cau_vo_16.png", "w": 222, "h": 194},
+    {"name": "cau_vo_17", "path": "images/cau_vo_17.png", "w": 222, "h": 194},
+    {"name": "cau_vo_18", "path": "images/cau_vo_18.png", "w": 222, "h": 194},
+    {"name": "cau_vo_19", "path": "images/cau_vo_19.png", "w": 222, "h": 194},
+    {"name": "cau_vo_20", "path": "images/cau_vo_20.png", "w": 222, "h": 194},
+    {"name": "cau_vo_21", "path": "images/cau_vo_21.png", "w": 222, "h": 194},
+    {"name": "cau_vo_22", "path": "images/cau_vo_22.png", "w": 222, "h": 194},
+    {"name": "cau_vo_23", "path": "images/cau_vo_23.png", "w": 222, "h": 194},
+    {"name": "cau_nem_00", "path": "images/cau_nem_00.png", "w": 253, "h": 142},
+    {"name": "cau_nem_01", "path": "images/cau_nem_01.png", "w": 253, "h": 142},
+    {"name": "cau_nem_02", "path": "images/cau_nem_02.png", "w": 253, "h": 142},
+    {"name": "cau_nem_03", "path": "images/cau_nem_03.png", "w": 253, "h": 142},
+    {"name": "cau_nem_04", "path": "images/cau_nem_04.png", "w": 253, "h": 142},
+    {"name": "cau_nem_05", "path": "images/cau_nem_05.png", "w": 253, "h": 142},
+    {"name": "cau_nem_06", "path": "images/cau_nem_06.png", "w": 253, "h": 142},
+    {"name": "cau_nem_07", "path": "images/cau_nem_07.png", "w": 253, "h": 142},
+    {"name": "cau_nem_08", "path": "images/cau_nem_08.png", "w": 253, "h": 142},
+    {"name": "cau_nem_09", "path": "images/cau_nem_09.png", "w": 253, "h": 142},
+    {"name": "cau_nem_10", "path": "images/cau_nem_10.png", "w": 253, "h": 142},
+    {"name": "cau_nem_11", "path": "images/cau_nem_11.png", "w": 253, "h": 142},
+    {"name": "cau_nem_12", "path": "images/cau_nem_12.png", "w": 253, "h": 142},
+    {"name": "cau_nem_13", "path": "images/cau_nem_13.png", "w": 253, "h": 142},
+    {"name": "cau_nem_14", "path": "images/cau_nem_14.png", "w": 253, "h": 142},
+    {"name": "cau_nem_15", "path": "images/cau_nem_15.png", "w": 253, "h": 142},
+    {"name": "cau_nem_16", "path": "images/cau_nem_16.png", "w": 253, "h": 142},
+    {"name": "cau_nem_17", "path": "images/cau_nem_17.png", "w": 253, "h": 142},
+    {"name": "cau_nem_18", "path": "images/cau_nem_18.png", "w": 253, "h": 142},
+    {"name": "cau_nem_19", "path": "images/cau_nem_19.png", "w": 253, "h": 142},
+    {"name": "cau_nem_20", "path": "images/cau_nem_20.png", "w": 253, "h": 142},
+    {"name": "cau_nem_21", "path": "images/cau_nem_21.png", "w": 253, "h": 142},
+    {"name": "cau_nem_22", "path": "images/cau_nem_22.png", "w": 253, "h": 142},
+    {"name": "cau_nem_23", "path": "images/cau_nem_23.png", "w": 253, "h": 142},
+    {"name": "toe_dat_00", "path": "images/toe_dat_00.png", "w": 223, "h": 139},
+    {"name": "toe_dat_01", "path": "images/toe_dat_01.png", "w": 223, "h": 139},
+    {"name": "toe_dat_02", "path": "images/toe_dat_02.png", "w": 223, "h": 139},
+    {"name": "toe_dat_03", "path": "images/toe_dat_03.png", "w": 223, "h": 139},
+    {"name": "toe_dat_04", "path": "images/toe_dat_04.png", "w": 223, "h": 139},
+    {"name": "toe_dat_05", "path": "images/toe_dat_05.png", "w": 223, "h": 139},
+    {"name": "toe_dat_06", "path": "images/toe_dat_06.png", "w": 223, "h": 139},
+    {"name": "toe_dat_07", "path": "images/toe_dat_07.png", "w": 223, "h": 139},
+    {"name": "toe_dat_08", "path": "images/toe_dat_08.png", "w": 223, "h": 139},
+    {"name": "toe_dat_09", "path": "images/toe_dat_09.png", "w": 223, "h": 139},
+    {"name": "toe_dat_10", "path": "images/toe_dat_10.png", "w": 223, "h": 139},
+    {"name": "toe_dat_11", "path": "images/toe_dat_11.png", "w": 223, "h": 139},
+    {"name": "toe_dat_12", "path": "images/toe_dat_12.png", "w": 223, "h": 139},
+    {"name": "toe_dat_13", "path": "images/toe_dat_13.png", "w": 223, "h": 139},
+    {"name": "toe_dat_14", "path": "images/toe_dat_14.png", "w": 223, "h": 139},
+    {"name": "toe_dat_15", "path": "images/toe_dat_15.png", "w": 223, "h": 139},
+    {"name": "toe_dat_16", "path": "images/toe_dat_16.png", "w": 223, "h": 139},
+    {"name": "toe_dat_17", "path": "images/toe_dat_17.png", "w": 223, "h": 139},
+    {"name": "toe_dat_18", "path": "images/toe_dat_18.png", "w": 223, "h": 139},
+    {"name": "toe_dat_19", "path": "images/toe_dat_19.png", "w": 223, "h": 139},
+    {"name": "toe_dat_20", "path": "images/toe_dat_20.png", "w": 223, "h": 139},
+    {"name": "toe_dat_21", "path": "images/toe_dat_21.png", "w": 223, "h": 139},
+    {"name": "toe_dat_22", "path": "images/toe_dat_22.png", "w": 223, "h": 139},
+    {"name": "toe_dat_23", "path": "images/toe_dat_23.png", "w": 223, "h": 139},
+    {"name": "tia_ong_00", "path": "images/tia_ong_00.png", "w": 563, "h": 203},
+    {"name": "tia_ong_01", "path": "images/tia_ong_01.png", "w": 563, "h": 203},
+    {"name": "tia_ong_02", "path": "images/tia_ong_02.png", "w": 563, "h": 203},
+    {"name": "tia_ong_03", "path": "images/tia_ong_03.png", "w": 563, "h": 203},
+    {"name": "tia_ong_04", "path": "images/tia_ong_04.png", "w": 563, "h": 203},
+    {"name": "tia_ong_05", "path": "images/tia_ong_05.png", "w": 563, "h": 203},
+    {"name": "tia_ong_06", "path": "images/tia_ong_06.png", "w": 563, "h": 203},
+    {"name": "tia_ong_07", "path": "images/tia_ong_07.png", "w": 563, "h": 203},
+    {"name": "tia_ong_08", "path": "images/tia_ong_08.png", "w": 563, "h": 203},
+    {"name": "tia_ong_09", "path": "images/tia_ong_09.png", "w": 563, "h": 203},
+    {"name": "tia_ong_10", "path": "images/tia_ong_10.png", "w": 563, "h": 203},
+    {"name": "tia_ong_11", "path": "images/tia_ong_11.png", "w": 563, "h": 203},
+    {"name": "tia_ong_12", "path": "images/tia_ong_12.png", "w": 563, "h": 203},
+    {"name": "tia_ong_13", "path": "images/tia_ong_13.png", "w": 563, "h": 203},
+    {"name": "tia_ong_14", "path": "images/tia_ong_14.png", "w": 563, "h": 203},
+    {"name": "tia_ong_15", "path": "images/tia_ong_15.png", "w": 563, "h": 203},
+    {"name": "tia_ong_16", "path": "images/tia_ong_16.png", "w": 563, "h": 203},
+    {"name": "tia_ong_17", "path": "images/tia_ong_17.png", "w": 563, "h": 203},
+    {"name": "tia_ong_18", "path": "images/tia_ong_18.png", "w": 563, "h": 203},
+    {"name": "tia_ong_19", "path": "images/tia_ong_19.png", "w": 563, "h": 203},
+    {"name": "tia_ong_20", "path": "images/tia_ong_20.png", "w": 563, "h": 203},
+    {"name": "tia_ong_21", "path": "images/tia_ong_21.png", "w": 563, "h": 203},
+    {"name": "tia_ong_22", "path": "images/tia_ong_22.png", "w": 563, "h": 203},
+    {"name": "tia_ong_23", "path": "images/tia_ong_23.png", "w": 563, "h": 203},
+    {"name": "tia_ong_24", "path": "images/tia_ong_24.png", "w": 563, "h": 203},
+    {"name": "tia_ong_25", "path": "images/tia_ong_25.png", "w": 563, "h": 203},
+    {"name": "tia_ong_26", "path": "images/tia_ong_26.png", "w": 563, "h": 203},
+    {"name": "tia_ong_27", "path": "images/tia_ong_27.png", "w": 563, "h": 203},
+    {"name": "tia_ong_28", "path": "images/tia_ong_28.png", "w": 563, "h": 203},
+    {"name": "tia_ong_29", "path": "images/tia_ong_29.png", "w": 563, "h": 203},
+    {"name": "tia_ong_30", "path": "images/tia_ong_30.png", "w": 563, "h": 203},
+    {"name": "tia_ong_31", "path": "images/tia_ong_31.png", "w": 563, "h": 203},
+    {"name": "tia_ong_32", "path": "images/tia_ong_32.png", "w": 563, "h": 203},
+    {"name": "tia_ong_33", "path": "images/tia_ong_33.png", "w": 563, "h": 203},
+    {"name": "tia_ong_34", "path": "images/tia_ong_34.png", "w": 563, "h": 203},
+    {"name": "tia_ong_35", "path": "images/tia_ong_35.png", "w": 563, "h": 203},
+    {"name": "tia_ong_36", "path": "images/tia_ong_36.png", "w": 563, "h": 203},
+    {"name": "tia_ong_37", "path": "images/tia_ong_37.png", "w": 563, "h": 203},
+    {"name": "roi_nuoc_00", "path": "images/roi_nuoc_00.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_01", "path": "images/roi_nuoc_01.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_02", "path": "images/roi_nuoc_02.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_03", "path": "images/roi_nuoc_03.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_04", "path": "images/roi_nuoc_04.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_05", "path": "images/roi_nuoc_05.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_06", "path": "images/roi_nuoc_06.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_07", "path": "images/roi_nuoc_07.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_08", "path": "images/roi_nuoc_08.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_09", "path": "images/roi_nuoc_09.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_10", "path": "images/roi_nuoc_10.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_11", "path": "images/roi_nuoc_11.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_12", "path": "images/roi_nuoc_12.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_13", "path": "images/roi_nuoc_13.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_14", "path": "images/roi_nuoc_14.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_15", "path": "images/roi_nuoc_15.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_16", "path": "images/roi_nuoc_16.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_17", "path": "images/roi_nuoc_17.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_18", "path": "images/roi_nuoc_18.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_19", "path": "images/roi_nuoc_19.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_20", "path": "images/roi_nuoc_20.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_21", "path": "images/roi_nuoc_21.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_22", "path": "images/roi_nuoc_22.png", "w": 565, "h": 201},
+    {"name": "roi_nuoc_23", "path": "images/roi_nuoc_23.png", "w": 565, "h": 201},
+    {"name": "tia_nuoc2_00", "path": "images/tia_nuoc2_00.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_01", "path": "images/tia_nuoc2_01.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_02", "path": "images/tia_nuoc2_02.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_03", "path": "images/tia_nuoc2_03.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_04", "path": "images/tia_nuoc2_04.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_05", "path": "images/tia_nuoc2_05.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_06", "path": "images/tia_nuoc2_06.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_07", "path": "images/tia_nuoc2_07.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_08", "path": "images/tia_nuoc2_08.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_09", "path": "images/tia_nuoc2_09.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_10", "path": "images/tia_nuoc2_10.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_11", "path": "images/tia_nuoc2_11.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_12", "path": "images/tia_nuoc2_12.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_13", "path": "images/tia_nuoc2_13.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_14", "path": "images/tia_nuoc2_14.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_15", "path": "images/tia_nuoc2_15.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_16", "path": "images/tia_nuoc2_16.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_17", "path": "images/tia_nuoc2_17.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_18", "path": "images/tia_nuoc2_18.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_19", "path": "images/tia_nuoc2_19.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_20", "path": "images/tia_nuoc2_20.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_21", "path": "images/tia_nuoc2_21.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_22", "path": "images/tia_nuoc2_22.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_23", "path": "images/tia_nuoc2_23.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_24", "path": "images/tia_nuoc2_24.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_25", "path": "images/tia_nuoc2_25.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_26", "path": "images/tia_nuoc2_26.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_27", "path": "images/tia_nuoc2_27.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_28", "path": "images/tia_nuoc2_28.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_29", "path": "images/tia_nuoc2_29.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_30", "path": "images/tia_nuoc2_30.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_31", "path": "images/tia_nuoc2_31.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_32", "path": "images/tia_nuoc2_32.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_33", "path": "images/tia_nuoc2_33.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_34", "path": "images/tia_nuoc2_34.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_35", "path": "images/tia_nuoc2_35.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_36", "path": "images/tia_nuoc2_36.png", "w": 550, "h": 212},
+    {"name": "tia_nuoc2_37", "path": "images/tia_nuoc2_37.png", "w": 550, "h": 212},
+    {"name": "thuong_nuoc2_00", "path": "images/thuong_nuoc2_00.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_01", "path": "images/thuong_nuoc2_01.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_02", "path": "images/thuong_nuoc2_02.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_03", "path": "images/thuong_nuoc2_03.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_04", "path": "images/thuong_nuoc2_04.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_05", "path": "images/thuong_nuoc2_05.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_06", "path": "images/thuong_nuoc2_06.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_07", "path": "images/thuong_nuoc2_07.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_08", "path": "images/thuong_nuoc2_08.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_09", "path": "images/thuong_nuoc2_09.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_10", "path": "images/thuong_nuoc2_10.png", "w": 334, "h": 70},
+    {"name": "thuong_nuoc2_11", "path": "images/thuong_nuoc2_11.png", "w": 334, "h": 70},
+    {"name": "mach_phun2_00", "path": "images/mach_phun2_00.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_01", "path": "images/mach_phun2_01.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_02", "path": "images/mach_phun2_02.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_03", "path": "images/mach_phun2_03.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_04", "path": "images/mach_phun2_04.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_05", "path": "images/mach_phun2_05.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_06", "path": "images/mach_phun2_06.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_07", "path": "images/mach_phun2_07.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_08", "path": "images/mach_phun2_08.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_09", "path": "images/mach_phun2_09.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_10", "path": "images/mach_phun2_10.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_11", "path": "images/mach_phun2_11.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_12", "path": "images/mach_phun2_12.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_13", "path": "images/mach_phun2_13.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_14", "path": "images/mach_phun2_14.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_15", "path": "images/mach_phun2_15.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_16", "path": "images/mach_phun2_16.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_17", "path": "images/mach_phun2_17.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_18", "path": "images/mach_phun2_18.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_19", "path": "images/mach_phun2_19.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_20", "path": "images/mach_phun2_20.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_21", "path": "images/mach_phun2_21.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_22", "path": "images/mach_phun2_22.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_23", "path": "images/mach_phun2_23.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_24", "path": "images/mach_phun2_24.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_25", "path": "images/mach_phun2_25.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_26", "path": "images/mach_phun2_26.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_27", "path": "images/mach_phun2_27.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_28", "path": "images/mach_phun2_28.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_29", "path": "images/mach_phun2_29.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_30", "path": "images/mach_phun2_30.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_31", "path": "images/mach_phun2_31.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_32", "path": "images/mach_phun2_32.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_33", "path": "images/mach_phun2_33.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_34", "path": "images/mach_phun2_34.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_35", "path": "images/mach_phun2_35.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_36", "path": "images/mach_phun2_36.png", "w": 185, "h": 346},
+    {"name": "mach_phun2_37", "path": "images/mach_phun2_37.png", "w": 185, "h": 346},
+    {"name": "toe_nuoc2_00", "path": "images/toe_nuoc2_00.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_01", "path": "images/toe_nuoc2_01.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_02", "path": "images/toe_nuoc2_02.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_03", "path": "images/toe_nuoc2_03.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_04", "path": "images/toe_nuoc2_04.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_05", "path": "images/toe_nuoc2_05.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_06", "path": "images/toe_nuoc2_06.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_07", "path": "images/toe_nuoc2_07.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_08", "path": "images/toe_nuoc2_08.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_09", "path": "images/toe_nuoc2_09.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_10", "path": "images/toe_nuoc2_10.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_11", "path": "images/toe_nuoc2_11.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_12", "path": "images/toe_nuoc2_12.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_13", "path": "images/toe_nuoc2_13.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_14", "path": "images/toe_nuoc2_14.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_15", "path": "images/toe_nuoc2_15.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_16", "path": "images/toe_nuoc2_16.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_17", "path": "images/toe_nuoc2_17.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_18", "path": "images/toe_nuoc2_18.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_19", "path": "images/toe_nuoc2_19.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_20", "path": "images/toe_nuoc2_20.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_21", "path": "images/toe_nuoc2_21.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_22", "path": "images/toe_nuoc2_22.png", "w": 213, "h": 191},
+    {"name": "toe_nuoc2_23", "path": "images/toe_nuoc2_23.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_00", "path": "images/cau_vo2_00.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_01", "path": "images/cau_vo2_01.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_02", "path": "images/cau_vo2_02.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_03", "path": "images/cau_vo2_03.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_04", "path": "images/cau_vo2_04.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_05", "path": "images/cau_vo2_05.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_06", "path": "images/cau_vo2_06.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_07", "path": "images/cau_vo2_07.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_08", "path": "images/cau_vo2_08.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_09", "path": "images/cau_vo2_09.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_10", "path": "images/cau_vo2_10.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_11", "path": "images/cau_vo2_11.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_12", "path": "images/cau_vo2_12.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_13", "path": "images/cau_vo2_13.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_14", "path": "images/cau_vo2_14.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_15", "path": "images/cau_vo2_15.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_16", "path": "images/cau_vo2_16.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_17", "path": "images/cau_vo2_17.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_18", "path": "images/cau_vo2_18.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_19", "path": "images/cau_vo2_19.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_20", "path": "images/cau_vo2_20.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_21", "path": "images/cau_vo2_21.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_22", "path": "images/cau_vo2_22.png", "w": 213, "h": 191},
+    {"name": "cau_vo2_23", "path": "images/cau_vo2_23.png", "w": 213, "h": 191},
+    {"name": "loc_nuoc_00", "path": "images/loc_nuoc_00.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_01", "path": "images/loc_nuoc_01.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_02", "path": "images/loc_nuoc_02.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_03", "path": "images/loc_nuoc_03.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_04", "path": "images/loc_nuoc_04.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_05", "path": "images/loc_nuoc_05.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_06", "path": "images/loc_nuoc_06.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_07", "path": "images/loc_nuoc_07.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_08", "path": "images/loc_nuoc_08.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_09", "path": "images/loc_nuoc_09.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_10", "path": "images/loc_nuoc_10.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_11", "path": "images/loc_nuoc_11.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_12", "path": "images/loc_nuoc_12.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_13", "path": "images/loc_nuoc_13.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_14", "path": "images/loc_nuoc_14.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_15", "path": "images/loc_nuoc_15.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_16", "path": "images/loc_nuoc_16.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_17", "path": "images/loc_nuoc_17.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_18", "path": "images/loc_nuoc_18.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_19", "path": "images/loc_nuoc_19.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_20", "path": "images/loc_nuoc_20.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_21", "path": "images/loc_nuoc_21.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_22", "path": "images/loc_nuoc_22.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_23", "path": "images/loc_nuoc_23.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_24", "path": "images/loc_nuoc_24.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_25", "path": "images/loc_nuoc_25.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_26", "path": "images/loc_nuoc_26.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_27", "path": "images/loc_nuoc_27.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_28", "path": "images/loc_nuoc_28.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_29", "path": "images/loc_nuoc_29.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_30", "path": "images/loc_nuoc_30.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_31", "path": "images/loc_nuoc_31.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_32", "path": "images/loc_nuoc_32.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_33", "path": "images/loc_nuoc_33.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_34", "path": "images/loc_nuoc_34.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_35", "path": "images/loc_nuoc_35.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_36", "path": "images/loc_nuoc_36.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_37", "path": "images/loc_nuoc_37.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_38", "path": "images/loc_nuoc_38.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_39", "path": "images/loc_nuoc_39.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_40", "path": "images/loc_nuoc_40.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_41", "path": "images/loc_nuoc_41.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_42", "path": "images/loc_nuoc_42.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_43", "path": "images/loc_nuoc_43.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_44", "path": "images/loc_nuoc_44.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_45", "path": "images/loc_nuoc_45.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_46", "path": "images/loc_nuoc_46.png", "w": 480, "h": 334},
+    {"name": "loc_nuoc_47", "path": "images/loc_nuoc_47.png", "w": 480, "h": 334},
+    {"name": "mach_phun_00", "path": "images/mach_phun_00.png", "w": 217, "h": 341},
+    {"name": "mach_phun_01", "path": "images/mach_phun_01.png", "w": 217, "h": 341},
+    {"name": "mach_phun_02", "path": "images/mach_phun_02.png", "w": 217, "h": 341},
+    {"name": "mach_phun_03", "path": "images/mach_phun_03.png", "w": 217, "h": 341},
+    {"name": "mach_phun_04", "path": "images/mach_phun_04.png", "w": 217, "h": 341},
+    {"name": "mach_phun_05", "path": "images/mach_phun_05.png", "w": 217, "h": 341},
+    {"name": "mach_phun_06", "path": "images/mach_phun_06.png", "w": 217, "h": 341},
+    {"name": "mach_phun_07", "path": "images/mach_phun_07.png", "w": 217, "h": 341},
+    {"name": "mach_phun_08", "path": "images/mach_phun_08.png", "w": 217, "h": 341},
+    {"name": "mach_phun_09", "path": "images/mach_phun_09.png", "w": 217, "h": 341},
+    {"name": "mach_phun_10", "path": "images/mach_phun_10.png", "w": 217, "h": 341},
+    {"name": "mach_phun_11", "path": "images/mach_phun_11.png", "w": 217, "h": 341},
+    {"name": "mach_phun_12", "path": "images/mach_phun_12.png", "w": 217, "h": 341},
+    {"name": "mach_phun_13", "path": "images/mach_phun_13.png", "w": 217, "h": 341},
+    {"name": "mach_phun_14", "path": "images/mach_phun_14.png", "w": 217, "h": 341},
+    {"name": "mach_phun_15", "path": "images/mach_phun_15.png", "w": 217, "h": 341},
+    {"name": "mach_phun_16", "path": "images/mach_phun_16.png", "w": 217, "h": 341},
+    {"name": "mach_phun_17", "path": "images/mach_phun_17.png", "w": 217, "h": 341},
+    {"name": "mach_phun_18", "path": "images/mach_phun_18.png", "w": 217, "h": 341},
+    {"name": "mach_phun_19", "path": "images/mach_phun_19.png", "w": 217, "h": 341},
+    {"name": "mach_phun_20", "path": "images/mach_phun_20.png", "w": 217, "h": 341},
+    {"name": "mach_phun_21", "path": "images/mach_phun_21.png", "w": 217, "h": 341},
+    {"name": "mach_phun_22", "path": "images/mach_phun_22.png", "w": 217, "h": 341},
+    {"name": "mach_phun_23", "path": "images/mach_phun_23.png", "w": 217, "h": 341},
+    {"name": "mach_phun_24", "path": "images/mach_phun_24.png", "w": 217, "h": 341},
+    {"name": "mach_phun_25", "path": "images/mach_phun_25.png", "w": 217, "h": 341},
+    {"name": "mach_phun_26", "path": "images/mach_phun_26.png", "w": 217, "h": 341},
+    {"name": "mach_phun_27", "path": "images/mach_phun_27.png", "w": 217, "h": 341},
+    {"name": "mach_phun_28", "path": "images/mach_phun_28.png", "w": 217, "h": 341},
+    {"name": "mach_phun_29", "path": "images/mach_phun_29.png", "w": 217, "h": 341},
+    {"name": "mach_phun_30", "path": "images/mach_phun_30.png", "w": 217, "h": 341},
+    {"name": "mach_phun_31", "path": "images/mach_phun_31.png", "w": 217, "h": 341},
+    {"name": "mach_phun_32", "path": "images/mach_phun_32.png", "w": 217, "h": 341},
+    {"name": "mach_phun_33", "path": "images/mach_phun_33.png", "w": 217, "h": 341},
+    {"name": "mach_phun_34", "path": "images/mach_phun_34.png", "w": 217, "h": 341},
+    {"name": "mach_phun_35", "path": "images/mach_phun_35.png", "w": 217, "h": 341},
+    {"name": "mach_phun_36", "path": "images/mach_phun_36.png", "w": 217, "h": 341},
+    {"name": "mach_phun_37", "path": "images/mach_phun_37.png", "w": 217, "h": 341}
+  ],
+  "ik": [],
+  "events": [],
+  "anims": [
+    {
+      "name": "tia_nuoc",
+      "dur": 1.9,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_tia": {
+          "attachment": [
+            {"t": 0, "name": "nuoc_tia"},
+            {"t": 1.5, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        },
+        "s_cham": {
+          "attachment": [
+            {"t": 0, "name": "nuoc_trung"},
+            {"t": 1.5, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "tia_rieng",
+      "dur": 1.9,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_tia": {
+          "attachment": [
+            {"t": 0, "name": "nuoc_tia"},
+            {"t": 1.5, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "va_cham",
+      "dur": 1.9,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_cham_rieng": {
+          "attachment": [
+            {"t": 0, "name": "nuoc_trung"},
+            {"t": 1.5, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "cau_nuoc",
+      "dur": 2,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_cau_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "cau_nuoc"}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "loop", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "no_nuoc",
+      "dur": 1.317,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_no_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "no_nuoc"},
+            {"t": 0.917, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "thuong_nuoc",
+      "dur": 1,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_thuong_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "thuong_nuoc"}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "loop", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "song_nuoc",
+      "dur": 1.9,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_song_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "song_nuoc"},
+            {"t": 1.5, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "song_cuon",
+      "dur": 1.525,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_song_cuon": {
+          "attachment": [
+            {"t": 0, "name": "song_cuon"},
+            {"t": 1.125, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "toe_nuoc",
+      "dur": 1.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_toe_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "toe_nuoc"},
+            {"t": 1, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "vung_nuoc",
+      "dur": 1.608,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_vung_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "vung_nuoc"},
+            {"t": 1.208, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "cau_vo",
+      "dur": 1.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_cau_vo": {
+          "attachment": [
+            {"t": 0, "name": "cau_vo"},
+            {"t": 1, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "cau_nem",
+      "dur": 2,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_cau_nem": {
+          "attachment": [
+            {"t": 0, "name": "cau_nem"}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "loop", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "toe_dat",
+      "dur": 1.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_toe_dat": {
+          "attachment": [
+            {"t": 0, "name": "toe_dat"},
+            {"t": 1, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "tia_ong",
+      "dur": 1.983,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_tia_ong": {
+          "attachment": [
+            {"t": 0, "name": "tia_ong"},
+            {"t": 1.583, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "roi_nuoc",
+      "dur": 1.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_roi_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "roi_nuoc"},
+            {"t": 1, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "tia_nuoc2",
+      "dur": 1.983,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_tia_nuoc2": {
+          "attachment": [
+            {"t": 0, "name": "tia_nuoc2"},
+            {"t": 1.583, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "thuong_nuoc2",
+      "dur": 1,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_thuong_nuoc2": {
+          "attachment": [
+            {"t": 0, "name": "thuong_nuoc2"}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "loop", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "mach_phun2",
+      "dur": 1.983,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_mach_phun2": {
+          "attachment": [
+            {"t": 0, "name": "mach_phun2"},
+            {"t": 1.583, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "toe_nuoc2",
+      "dur": 1.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_toe_nuoc2": {
+          "attachment": [
+            {"t": 0, "name": "toe_nuoc2"},
+            {"t": 1, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "cau_vo2",
+      "dur": 1.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_cau_vo2": {
+          "attachment": [
+            {"t": 0, "name": "cau_vo2"},
+            {"t": 1, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "loc_nuoc",
+      "dur": 2.4,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_loc_nuoc": {
+          "attachment": [
+            {"t": 0, "name": "loc_nuoc"},
+            {"t": 2, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    },
+    {
+      "name": "mach_phun",
+      "dur": 1.983,
+      "loop": true,
+      "bones": {},
+      "slots": {
+        "s_mach_phun": {
+          "attachment": [
+            {"t": 0, "name": "mach_phun"},
+            {"t": 1.583, "name": null}
+          ],
+          "sequence": [
+            {"t": 0, "mode": "once", "index": 0, "delay": 0.0417}
+          ]
+        }
+      },
+      "events": []
+    }
+  ]
+}

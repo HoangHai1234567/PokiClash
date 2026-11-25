@@ -119,21 +119,24 @@ namespace PokiClash.Tests
         public void ThuongAi_CongThuc()
         {
             var d = TestData.Load();
-            // như nhau ở mọi đảo (đảo song song): 1 + (ải − 1)/14 bi, lần đầu ải tướng +2, mini boss +4, boss +8
+            // như nhau ở mọi đảo (đảo song song): base + (ải − 1)/step bi, lần đầu ải tướng, mini boss, boss thêm bi (balance.json, stageBalls)
+            var c = d.Cfg.stageBalls;
+            int At(int idx) => c.@base + (idx - 1) / c.step;
             var boss = d.Stages.Find(x => x.zone == Elem.Thuy && x.kind == StageKind.Boss);
             Assert.AreEqual(70, boss.idx);
-            Assert.AreEqual(5 + 8, Progress.StageBalls(d, boss, true), "boss Thủy ải 70, lần đầu");
-            Assert.AreEqual(5, Progress.StageBalls(d, boss, false), "đánh lại boss Thủy");
-            Assert.AreEqual(1 + 2, Progress.StageBalls(d, d.Stage(1), true), "ải 1: ải tướng");
-            Assert.AreEqual(1, Progress.StageBalls(d, d.Stage(3), true), "ải 3: ải lính");
+            Assert.AreEqual(At(70) + c.boss, Progress.StageBalls(d, boss, true), "boss Thủy ải 70, lần đầu");
+            Assert.AreEqual(At(70), Progress.StageBalls(d, boss, false), "đánh lại boss Thủy");
+            Assert.AreEqual(At(1) + c.hero, Progress.StageBalls(d, d.Stage(1), true), "ải 1: ải tướng");
+            Assert.AreEqual(At(3), Progress.StageBalls(d, d.Stage(3), true), "ải 3: ải lính");
+            Assert.Less(Progress.StageBalls(d, d.Stage(3), true), Progress.StageBalls(d, boss, false), "ải sâu nhiều bi hơn");
             var moc = d.ZoneStages(Elem.Moc).ToList();
             Assert.AreEqual(Progress.StageBalls(d, boss, true), Progress.StageBalls(d, moc[69], true), "boss Mộc bằng boss Thủy");
-            Assert.AreEqual(2 + 4, Progress.StageBalls(d, moc[19], true), "mini boss Mộc ải 20");
+            Assert.AreEqual(At(20) + c.mini, Progress.StageBalls(d, moc[19], true), "mini boss Mộc ải 20");
             // đảo Thổ 70 ải (2026-11-06; trước là đảo 8 ải tạm, ải 8 quy như ải 70)
             var thoBoss = d.ZoneStages(Elem.Tho).Last();
             Assert.AreEqual(70, thoBoss.idx);
-            Assert.AreEqual(5 + 8, Progress.StageBalls(d, thoBoss, true));
-            Assert.AreEqual(5, Progress.StageBalls(d, thoBoss, false), "đánh lại boss Thổ");
+            Assert.AreEqual(At(70) + c.boss, Progress.StageBalls(d, thoBoss, true));
+            Assert.AreEqual(At(70), Progress.StageBalls(d, thoBoss, false), "đánh lại boss Thổ");
             Assert.AreEqual(Progress.StageBalls(d, boss, true), Progress.StageBalls(d, d.ZoneStages(Elem.Kim).Last(), true), "boss Kim bằng boss Thủy");
         }
 

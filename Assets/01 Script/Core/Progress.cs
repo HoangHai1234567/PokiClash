@@ -39,7 +39,12 @@ namespace PokiClash.Core
                 s.level++;
                 ups++;
             }
-            if (s.level >= cfg.maxLevel) s.exp = Math.Min(s.exp, ExpToNext(s.level, cfg));
+            if (s.level >= cfg.maxLevel)
+            {
+                int cap = ExpToNext(s.level, cfg);
+                if (s.exp > cap) SoPhep.Bank(s, cfg, s.exp - cap); // EXP thừa sau cấp tối đa: góp nét Sổ Phép (tối đa 7 nét)
+                s.exp = Math.Min(s.exp, cap);
+            }
             return ups;
         }
 
@@ -291,16 +296,15 @@ namespace PokiClash.Core
             d.ZoneStages(z).FirstOrDefault(st => st.idx == s.zones[(int)z] + 1);
 
         // bi mỗi ải theo độ sâu trong đảo, như nhau ở mọi đảo (5 đảo chơi song song, người dùng sửa 2026-11-05; trước đó đảo sau cho
-        // thêm bi theo thứ tự đảo): đảo 70 ải BallsBase bi ở ải 1, cứ BallsStep ải thêm 1 bi; đảo 8 ải (tạm) quy số ải về thang 70 ải.
-        // Lần đầu qua ải tướng +2, mini boss +4, boss +8.
-        public const int BallsBase = 1, BallsStep = 14;
-
+        // thêm bi theo thứ tự đảo): đảo 70 ải base bi ở ải 1, cứ step ải thêm 1 bi; đảo 8 ải (tạm) quy số ải về thang 70 ải.
+        // Lần đầu qua ải tướng, mini boss, boss thêm bi. Số ở balance.json, khối stageBalls (cfg.stageBalls, từ 2026-11-24)
         public static int StageBalls(GameData d, StageDef st, bool first)
         {
+            var c = d.Cfg.stageBalls;
             int n = Math.Max(2, Islands.Size(st.zone));
             int depth = (st.idx - 1) * 69 / (n - 1); // 0..69
-            int b = BallsBase + depth / BallsStep;
-            return b + (first ? (st.kind == StageKind.Boss ? 8 : st.kind == StageKind.Mini ? 4 : st.tag == StageTag.Hero ? 2 : 0) : 0);
+            int b = c.@base + depth / Math.Max(1, c.step);
+            return b + (first ? (st.kind == StageKind.Boss ? c.boss : st.kind == StageKind.Mini ? c.mini : st.tag == StageTag.Hero ? c.hero : 0) : 0);
         }
 
         // ---------- độ khó, đảo gợi ý ----------

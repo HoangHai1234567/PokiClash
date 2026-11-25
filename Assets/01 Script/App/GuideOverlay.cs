@@ -259,7 +259,11 @@ namespace PokiClash
             group.alpha = 1;
             group.blocksRaycasts = block;
             foreach (var b in blockers) b.gameObject.SetActive(block);
-            ring.gameObject.SetActive(r.mode == Guide.Mode.Force || r.mode == Guide.Mode.Hint);
+            // Say có chỗ khoanh (Guide.SayAt): vẽ vòng, và vòng (khung chữ nhật đúng bằng lỗ) chặn chạm để cú chạm "để qua" không bấm
+            // xuống công trình, nút bên dưới; Force, Hint để chạm lọt qua lỗ
+            bool sayAt = r.mode == Guide.Mode.Say && !string.IsNullOrEmpty(r.key);
+            ring.gameObject.SetActive(r.mode == Guide.Mode.Force || r.mode == Guide.Mode.Hint || sayAt);
+            ring.raycastTarget = sayAt;
             ring.Reveal = 0;
             if (ringUnder)
             {

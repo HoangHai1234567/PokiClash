@@ -27,6 +27,13 @@ namespace PokiClash
         // dạng đang hiện có clip này không (nút Ra sân, Chết ẩn khi không có)
         public bool Has(string c) => aola != null && aola.HasClip(c);
 
+        // mọi clip đứng giữa, cùng cỡ dáng đứng (vòng chọn tướng khởi đầu, 2026-11-24): không dời sang trái lúc đánh, tung chiêu
+        // như hộp chi tiết, để tướng trên vòng không giật chỗ
+        public bool Centred;
+
+        // nhân màu hình tướng (1: nguyên màu; vòng chọn tướng tô tối con ở xa trên nền đen, AolaSticker.Tint)
+        public float Tint = 1;
+
         [SerializeField] RectTransform box;
         [SerializeField] HeroPortrait portrait;
         [SerializeField] Image flash;
@@ -52,7 +59,7 @@ namespace PokiClash
         }
 
         // tỉ lệ lớp hạt: tướng chuẩn FxH đơn vị sân cao bằng tướng đang hiện lúc ra đòn (60% cạnh ô)
-        float FxScale => size * 0.6f / (StageView.K * FxH);
+        float FxScale => size * (Centred ? 0.7f : 0.6f) / (StageView.K * FxH);
 
         // lúc trúng của clip Chiêu / Mana: phát hạt tại chỗ (toạ độ sân, gốc ở giữa đáy ô, y xuống)
         // dạng đang hiện của tướng (0 là dạng đầu)
@@ -73,7 +80,7 @@ namespace PokiClash
         {
             float u = StageView.K * FxScale; // px ô cho 1 đơn vị sân
             foreach (var g in new[] { hatFloor, hatBack, hatFront }) g.localScale = new Vector3(FxScale, FxScale, 1);
-            feet = new Vector2(-0.18f * size, -0.2f * size) / u;
+            feet = (Centred ? new Vector2(0, -0.06f * size) : new Vector2(-0.18f * size, -0.2f * size)) / u;
             float half = box.rect.width * 0.5f / u;
             foe = new Vector2(Mathf.Min(feet.x + 210, half - 90), feet.y - 12); // đủ chỗ cho lốc, thiên thạch trong khung cắt
             foeBody = foe + new Vector2(0, -0.45f * FxH);
@@ -283,7 +290,7 @@ namespace PokiClash
             }
             bool idle = clip == Idle, loops = idle || clip == Walk;
             // vị trí neo như bản web: đứng giữa, chân ở 94%; đánh và chiêu neo 32% chiều ngang, chân ở 80%; tiến hóa, đi đứng giữa
-            bool centre = loops || clip == Hit || clip == Evolve || clip == Appear || clip == Die;
+            bool centre = Centred || loops || clip == Hit || clip == Evolve || clip == Appear || clip == Die;
             float ax = centre ? 0.5f : 0.32f, ay = centre ? 0.06f : 0.2f;
             float sc = centre ? 1f : 0.6f / 0.7f;
             Vector2 pos = new Vector2((ax - 0.5f) * size, ay * size);
@@ -296,6 +303,7 @@ namespace PokiClash
                 // hiệu ứng ở xa của đòn bắn (đạn, vụ nổ ở chỗ đối thủ của trận gốc): hiện trước mặt trong khung
                 if (clip == Attack || clip == Skill || clip == Cast) aola.FarAhead(clip, 1.3f);
                 else aola.Far(clip, null, false);
+                aola.Tint = Tint;
                 aola.Show(clip, t, loops, 1, silhouette, 0);
                 return;
             }

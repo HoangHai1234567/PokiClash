@@ -170,5 +170,5 @@ Người dùng: "các phần nước suối này vẫn hơi tĩnh, bạn học h
 
 ## Còn có thể làm thêm
 
-- Logo đang là ảnh chụp từ chữ SVG của bản web; nên gen logo vẽ tay thật (cùng nét của game).
+- ~~Logo đang là ảnh chụp từ chữ SVG của bản web; nên gen logo vẽ tay thật (cùng nét của game).~~ 2026-11-24: đã gen logo vẽ tay (Magnific, 3 phương án ở `ArtGen/UI/logo/`), dùng phương án 3 thay `Assets/03 Art/Boot/boot_logo.png` (cùng tỉ lệ, không sửa khung prefab).
 - Hiện nét bút của mũi tên và vòng khoanh chưa khử răng cưa riêng (RenderTexture có MSAA 2x).

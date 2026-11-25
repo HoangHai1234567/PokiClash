@@ -648,12 +648,14 @@ namespace PokiClash
             var s = S;
             Home.Tick(s, D, Now);
             Tutorial.SeedTree(s, D.Cfg, Now); // cây bi đầu có sẵn 10 bi (cây mở cùng Nhà)
+            if (!Tutorial.CoreDone(s)) Tutorial.Mark(s, Tutorial.HomeGo); // hướng dẫn C21 (ép chạm tàu ở sảnh) xong khi đã về tới Nhà
             App.Save.Save();
             btnBuild.SetOnClick(() => SetMode(mode == Mode.Build ? Mode.Normal : Mode.Build));
             btnPaint.SetOnClick(() => SetMode(mode == Mode.Paint ? Mode.Normal : Mode.Paint));
             btnHarvest.SetOnClick(HarvestAll);
             btnSail.SetOnClick(() => App.Router.Go(SceneIds.Hub));
             Guide.Mark("home.build", hudBuild ? (Component)hudBuild : btnBuild);
+            Guide.Mark("home.sail", hudSail ? (Component)hudSail : btnSail);
             if (ring) ring.Insets(TopInset, BottomInset);
             if (tabs != null)
                 for (int i = 0; i < tabs.Length; i++)
@@ -727,11 +729,11 @@ namespace PokiClash
 
         public override void Refresh() => Render();
 
-        void FocusOn(HomeBuilding b)
+        void FocusOn(HomeBuilding b, float dur = 0)
         {
             if (b == null || !landView) return;
             var n = Home.Def(D.Cfg, b.def).size;
-            landView.Show(CellTop(b.gx + n / 2f, b.gy + n / 2f), 1f, 0);
+            landView.Show(CellTop(b.gx + n / 2f, b.gy + n / 2f), 1f, dur);
         }
 
         void Update()
@@ -1323,6 +1325,20 @@ namespace PokiClash
             var s = S;
             if (s?.home == null || shipArriving || (pier && pier.Busy) || App.Router == null || App.Router.Busy || !Guide.Idle) return;
             if (App.Modals != null && App.Modals.Count > 0) return;
+            // C22–C24 (người dùng 2026-11-24): lần đầu về Nhà trong chuỗi bắt buộc, giới thiệu qua (không chi tiết) Nhà chính, ruộng
+            // vườn, xưởng gỗ và kho, rồi mới tới Cây bi. Bản lưu đã xong chuỗi thì bỏ qua cả ba
+            if (!Tutorial.Done(s, Tutorial.HomeWood))
+            {
+                if (Tutorial.CoreDone(s)) Guide.Skip(Tutorial.HomeMain, Tutorial.HomeFarm, Tutorial.HomeWood);
+                else
+                {
+                    if (mode != Mode.Normal || ghost) return;
+                    if (Intro(Tutorial.HomeMain, Loc.T("Đây là Nhà của bạn. Tướng làm việc ở đây, cả khi bạn vắng."), "main") ||
+                        Intro(Tutorial.HomeFarm, Loc.T("Ruộng và vườn: tướng làm ở đây ra bi."), "field", "orchard") ||
+                        Intro(Tutorial.HomeWood, Loc.T("Xưởng gỗ ra gỗ, Kho giữ gỗ. Gỗ dùng để xây và nâng cấp."), "sawmill", "storage"))
+                        return;
+                }
+            }
             if (!Tutorial.Done(s, Tutorial.TreePlaced))
             {
                 if (Home.TreesWaiting(s, D) <= 0)
@@ -1336,11 +1352,46 @@ namespace PokiClash
                     Guide.Show(Tutorial.TreeSpot, Guide.Mode.Hint, "home.ghost", Loc.T("Kéo cây tới chỗ bạn thích, rồi bấm Đặt."), null, true, null, 30);
                 return;
             }
-            if (Tutorial.Done(s, Tutorial.TreeTap) || mode != Mode.Normal || ghost || Trees.Stock(s, D.Cfg, Now) <= 0) return;
-            var tb = s.home.buildings.FirstOrDefault(IsTree);
-            if (tb == null || !objs.TryGetValue(tb.id, out var o) || !o) return;
-            Guide.Mark("home.tree", o);
-            Guide.Force(Tutorial.TreeTap, "home.tree", Loc.T("Chạm cây để hái bi. Mỗi cây ra 5 bi mỗi giờ, chứa được 50."));
+            if (mode != Mode.Normal || ghost) return;
+            if (!Tutorial.Done(s, Tutorial.TreeTap))
+            {
+                // cây đã hái hết trước khi kịp dẫn (10 bi có sẵn đã lấy): coi như xong, không để chuỗi bắt buộc chờ mãi
+                if (Trees.Stock(s, D.Cfg, Now) <= 0)
+                {
+                    if (Tutorial.Done(s, Tutorial.TreeSeed)) Guide.Skip(Tutorial.TreeTap);
+                    return;
+                }
+                var tb = s.home.buildings.FirstOrDefault(IsTree);
+                if (tb == null || !objs.TryGetValue(tb.id, out var o) || !o) return;
+                Guide.Mark("home.tree", o);
+                Guide.Force(Tutorial.TreeTap, "home.tree", Loc.F("Chạm cây để hái bi. Mỗi cây ra {0} bi mỗi giờ, chứa được {1}.",
+                    D.Cfg.trees.perHour.ToString("0.#"), D.Cfg.trees.cap.ToString("0")));
+                return;
+            }
+            // C25: đi hết Nhà trong chuỗi bắt buộc thì gợi ý về sảnh (Cửa hàng mở ở đó), không chặn
+            if (!Tutorial.CoreDone(s)) Guide.Hint(Tutorial.HomeBack, "home.sail", Loc.T("Về sảnh xem có gì mới!"), 10);
+        }
+
+        // giới thiệu qua một công trình (C22–C24): lướt máy tới, khoanh sáng, lời tướng đồng hành, chạm đâu cũng qua (Guide.SayAt).
+        // Nhà chưa có công trình nào trong defs thì bỏ bước. true = đã xin hiện
+        bool Intro(string id, string text, params string[] defs)
+        {
+            var s = S;
+            if (Tutorial.Done(s, id)) return false;
+            HomeBuilding b = null;
+            foreach (var df in defs)
+            {
+                b = s.home.buildings.FirstOrDefault(x => x.def == df && objs.TryGetValue(x.id, out var ob) && ob);
+                if (b != null) break;
+            }
+            if (b == null)
+            {
+                Guide.Skip(id);
+                return false;
+            }
+            FocusOn(b, 0.45f);
+            Guide.Mark("home.intro", objs[b.id]);
+            return Guide.SayAt(id, "home.intro", text);
         }
 
         // ---------- chế độ ----------

@@ -13,8 +13,9 @@ sys.stdout.reconfigure(encoding='utf-8')
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.normpath(os.path.join(HERE, '..', '..', '..'))
 OUT = os.path.join(ROOT, 'Assets', '03 Art', 'Fx', 'Hat')
-NAMES = ['no', 'trung_lua', 'lua_lap', 'cau_lua', 'nham', 'khoi', 'nuoc_toe', 'song_nuoc', 'trung_nuoc', 'cau_nuoc', 'loc',
-         'gai_la', 'gai_bang', 'gai_sat', 'loc_nuoc', 'loc_lua', 'loc_cat', 'cau_tu', 'cau_bay', 'loc_nuoc_bao', 'loc_lua_bao', 'loc_cat_bao',
+# 2026-11-24: no, lua_lap, cau_lua, khoi, loc_lua đã thay bằng bộ lửa Blender (ArtGen/Spine/vfx_lua_toon/xuat_game.py) — KHÔNG xuất lại ở đây
+NAMES = ['trung_lua', 'nham', 'nuoc_toe', 'song_nuoc', 'trung_nuoc', 'cau_nuoc', 'loc',
+         'gai_la', 'gai_bang', 'gai_sat', 'loc_nuoc', 'loc_cat', 'cau_tu', 'cau_bay', 'loc_nuoc_bao', 'loc_lua_bao', 'loc_cat_bao',
          'tia_moc_doan', 'tia_moc_nong', 'tia_moc_trung', 'tia_nuoc_doan', 'tia_nuoc_trung',
          'tia_lua_doan', 'tia_lua_nong', 'tia_lua_trung', 'tia_vang_doan', 'tia_vang_nong', 'tia_vang_trung',
          'long_la', 'quat_dat', 'chem_kg', 'trung_trang', 'set_danh']

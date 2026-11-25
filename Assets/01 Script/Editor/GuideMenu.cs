@@ -377,6 +377,20 @@ namespace PokiClash.EditorTools
             Object.Destroy(tex);
         }
 
+        const System.Reflection.BindingFlags AnyMember = System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Static |
+                                                         System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public;
+
+        // chạm tán lá Cây bi đầu như người chơi (cách của HomeTreeTour): điểm ở 30% chiều cao khung cây, qua HomeScene.OnTap
+        static void TapTree(HomeScene home)
+        {
+            var s = App.Save.Data;
+            var tree = s.home?.buildings.Find(b => b.def == "tree");
+            var objs = home.GetType().GetField("objs", AnyMember)?.GetValue(home) as System.Collections.Generic.Dictionary<int, HomeObject>;
+            if (tree == null || objs == null || !objs.TryGetValue(tree.id, out var o) || !o) return;
+            var r = (Rect)home.GetType().GetMethod("ViewRect", AnyMember).Invoke(null, new object[] { o.Rt });
+            home.GetType().GetMethod("OnTap", AnyMember).Invoke(home, new object[] { new Vector2(r.center.x, r.yMin + r.height * 0.3f) });
+        }
+
         static IEnumerator RunTour()
         {
             var path = App.Save.FilePath;
@@ -424,6 +438,22 @@ namespace PokiClash.EditorTools
                             log.AppendLine($"{id} ({ov.ShownMode}) ở {App.Router.Current}");
                             lastId = id;
                         }
+                        // Nhà (2026-11-24): bóng ma Cây bi thì bấm Đặt như người chơi; chạm cây thì chạm đúng tán lá (OnTap), rồi mới xong bước
+                        var homeScene = App.Router.CurrentRoot as HomeScene;
+                        if (homeScene && id == Tutorial.TreeSpot)
+                        {
+                            typeof(HomeScene).GetMethod("PlaceGhost", AnyMember).Invoke(homeScene, null);
+                            log.AppendLine($"  đặt Cây bi: cây trong Nhà {Home.CountOf(App.Save.Data.home, "tree")}");
+                            yield return new WaitForSecondsRealtime(0.6f);
+                            continue;
+                        }
+                        if (homeScene && id == Tutorial.TreeTap)
+                        {
+                            int before = App.Save.Data.balls;
+                            TapTree(homeScene);
+                            yield return new WaitForSecondsRealtime(1.2f); // bi bay lên chip
+                            log.AppendLine($"  hái Cây bi: bi {before} → {App.Save.Data.balls}");
+                        }
                         ov.DebugTap();
                         continue;
                     }
@@ -444,7 +474,10 @@ namespace PokiClash.EditorTools
                         continue;
                     }
                     var machine = App.Router.CurrentRoot as MachineScene;
-                    if (machine && Guide.Idle && App.Save.Data.balls > 0 && !Tutorial.Done(App.Save.Data, Tutorial.NoBalls))
+                    // thả tới khi rương đầu rơi vào khay rồi thôi, chừa bi còn lại như người chơi thật: hướng dẫn không ép thả hết bi
+                    // (2026-11-23), tour phải đi được tiếp khi còn bi
+                    var sv = App.Save.Data;
+                    if (machine && Guide.Idle && sv.balls > 0 && !Tutorial.Done(sv, Tutorial.Chest) && sv.chests.Count == 0)
                     {
                         // giữ nút thả: thả từng bi qua đúng nút
                         var drop = Guide.Target("machine.drop");
@@ -498,10 +531,21 @@ namespace PokiClash.EditorTools
                             did = btn.name;
                         }
                         else if (!result && App.Modals.Count > 0 && !Guide.Idle && App.Modals.Back()) did = "đóng hộp che bước kế";
-                        else if (App.Router.Current == SceneIds.Zone && Guide.Idle && s.zones[(int)Tutorial.CounterIsland(s, App.Data)] > 0)
+                        else if (App.Router.Current == SceneIds.Zone && Guide.Idle && Tutorial.Battle2Won(s, App.Data))
                         {
-                            App.Back(); // trận 2 xong: về sảnh nghe lời chào cuối
+                            App.Back(); // trận 2 xong: về sảnh (Sổ thẻ, Nhà, Cửa hàng, lời chào cuối)
                             did = "về sảnh";
+                        }
+                        // gợi ý về sảnh ở Sổ thẻ, ở Nhà đã tự tắt mà chưa bấm: về như người chơi
+                        else if (App.Router.Current == SceneIds.Cards && Guide.Idle)
+                        {
+                            App.Back();
+                            did = "rời Sổ thẻ về sảnh";
+                        }
+                        else if (App.Router.Current == SceneIds.Home && Guide.Idle && Tutorial.HomeToured(s))
+                        {
+                            App.Router.Go(SceneIds.Hub);
+                            did = "rời Nhà về sảnh";
                         }
                         if (did != null) log.AppendLine($"tự đi tiếp ở {App.Router.Current} ({did})");
                     }

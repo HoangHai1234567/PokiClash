@@ -64,6 +64,7 @@ namespace PokiClash
         void DrawFbW(List<Item> buf, Sprite[] art, FbDef d, float f, Vector2 pos, float h, float sx, int g, float layer, bool flip, Color col, float a)
         {
             if (a < 0.02f) return;
+            h *= d.k;
             int n = d.n, i;
             float u;
             if (d.loop)
@@ -114,7 +115,8 @@ namespace PokiClash
             {
                 float h = Mathf.Clamp(0.45f + 0.85f * sc, 1.1f, 2.1f) * H;
                 var chan = (dat.HasValue ? dat.Value + new Vector2(0, 1) : c + new Vector2(0, 0.45f * h)) + new Vector2(-huong * NoLech * H, 0);
-                Fb("no", chan, h, NoNhom, 30, 1.15f, 0, huong < 0 || (huong == 0 && U(0, 1) < 0.5f), null, 1, -1, 2.5f);
+                // nổ Blender (2026-11-24): khung 0 là sao chớp nhỏ, khối lửa phồng từ khung 1 → chỉ bỏ nửa khung đầu (khung GPT cũ bỏ 2,5)
+                Fb("no", chan, h, NoNhom, 30, 1.15f, 0, huong < 0 || (huong == 0 && U(0, 1) < 0.5f), null, 1, -1, 0.5f);
                 if (dat.HasValue && sc >= 0.8f) HoaVetChay(dat.Value + new Vector2(0, 2), 0.55f * H * sc);
             }
             else if (sc >= 0.45f) At(0.12f, () => HoaKhoi(c + new Vector2(0, -0.04f * H), (0.06f + 0.1f * sc) * H, Back, null, U(0.8f, 1f), false)); // khói đọng 0,25–0,3 thân
@@ -134,10 +136,10 @@ namespace PokiClash
         P HoaFbCau(Func<float, Vector2> tam, Func<float, float> rt, float life, int group = Front, bool bay = true, float huong = 0, float khoi = 0,
             Color? khoiTint = null, float khoiSpeed = 1.9f)
         {
-            // 2026-11-19 đêm: cầu BAY dùng khung mới "cau_bay" (lửa cuộn quanh đầu, đuôi dài quẫy; đầu cầu ở 0,78; 0,48, quả cầu cao ≈ 0,52 khung nên
-            // khung cao 3,8 bán kính) khi đã nhập; chưa có thì "cau_lua" (khung cao 4 bán kính)
-            string fx = bay && HasFb("cau_bay") ? "cau_bay" : "cau_lua";
-            float hk = fx == "cau_bay" ? 3.8f : 4f;
+            // 2026-11-24 (bộ lửa Blender): cả cầu bay lẫn cầu đứng là "cau_lua" TRÒN (quả cầu cao nửa h nhờ FbDef.k → h = 4 bán kính); đuôi là vệt
+            // "duoi_lua" thả theo quãng bay (DuoiLua). Bỏ "cau_bay" (đuôi dài vẽ sẵn, khung GPT 2026-11-19).
+            const string fx = "cau_lua";
+            const float hk = 4f;
             var art = FbArt(fx);
             if (art == null) return null;
             var d = Fbs[fx];
@@ -164,6 +166,7 @@ namespace PokiClash
                 DrawFb(buf, art, d, q.ph + q.age * d.fps, q.pos, hk * r, q.group, 34, ang, flip, Color.white, Mathf.Min(1, q.age / 0.05f));
             };
             Add(p);
+            if (bay && DuoiLua(() => p.pos, () => !p.dead && p.age < p.life, rt(T)) != null) return p;
             if (bay && khoi > 0) FbKhoiDuoi(() => p.pos - p.aim * (2f * rt(T)), () => !p.dead && p.age < p.life, khoi, 26, khoiTint, group, 27, khoiSpeed);
             return p;
         }
@@ -198,7 +201,7 @@ namespace PokiClash
                     while (x <= len)
                     {
                         float hh = h * U(0.92f, 1.08f);
-                        var pnt = last + seg * (x / Mathf.Max(1e-4f, len)) + new Vector2(U(-0.05f, 0.05f) * h, 0.38f * hh); // neo chân: tâm cụm trên đường bay
+                        var pnt = last + seg * (x / Mathf.Max(1e-4f, len)) + new Vector2(U(-0.05f, 0.05f) * h, Fbs["khoi"].cy * hh); // neo chân: tâm cụm trên đường bay (cy: khung cũ 0,38, khói Blender 0,28)
                         var f = FbH("khoi", pnt, k => hh * (1 + 0.15f * k), group, layer + U(0, 0.5f), song * U(0.92f, 1.08f), speed, 3, U(0, 1) < 0.5f,
                             U(-14, 14), 0.01f, 0.06f, alpha, 1, tint);
                         if (f != null)
@@ -216,22 +219,16 @@ namespace PokiClash
             return Add(e);
         }
 
-        // bán kính tương đương (căn diện tích phủ / π, phần chiều cao khung) của từng khung "cau_tu": khung tự phồng (khung 0 nhỏ, khung 12 to nhất)
-        // trong vòng lặp 1 s; chia cho số này để cỡ cầu do mã điều khiển (lớn dần theo pha tụ, phập phồng nhanh), không theo nhịp 1 Hz của khung
-        static readonly float[] CauTuR =
-        {
-            0.256f, 0.268f, 0.281f, 0.298f, 0.309f, 0.316f, 0.326f, 0.336f, 0.343f, 0.353f, 0.365f, 0.377f,
-            0.379f, 0.375f, 0.362f, 0.348f, 0.341f, 0.334f, 0.327f, 0.309f, 0.303f, 0.286f, 0.274f, 0.268f,
-        };
-
         // CẦU LỬA ĐANG TỤ vẽ sẵn "cau_tu" (2026-11-19 đêm; người dùng chê cầu "cau_lua" đứng yên "xấu ... nhìn hơi tĩnh", muốn "làm lại 1 quả cầu
         // lửa mới"): lửa cuộn xoáy quanh lõi, bám điểm chạy tam(giờ sân), bán kính rt(giờ sân) (đã gồm phập phồng ~7 Hz và cú nén của HoaTuCau /
         // HoaNhip). Bù cỡ từng khung theo CauTuR (quả cầu nhìn bằng 2,3 rt), xoay chậm 35–55 độ/giây (chiều ngẫu nhiên), hiện dần 0,06 s.
+        // 2026-11-24 (bộ lửa Blender): cầu đang tụ cũng là quả cầu tròn "cau_lua" (cùng hình với cầu bay, khỏi đổi kiểu lúc nhả), quả cầu nhìn bằng
+        // 2,3 rt (h = 4,6 rt vì quả cầu cao nửa h), xoay chậm; khung "cau_tu" cũ (cỡ đổi trong vòng lặp, bù bằng CauTuR) không dùng nữa
         P HoaFbCauTu(Func<float, Vector2> tam, Func<float, float> rt, float life, int group = Front)
         {
-            var art = FbArt("cau_tu");
+            var art = FbArt("cau_lua");
             if (art == null) return null;
-            var d = Fbs["cau_tu"];
+            var d = Fbs["cau_lua"];
             float quay = (U(0, 1) < 0.5f ? -1 : 1) * U(35, 55), a0 = U(0, 360);
             var p = new P { pos = tam(T), life = Mathf.Max(0.05f, life), group = group, ph = U(0, d.n) };
             p.upd = (q, dt, s) =>
@@ -243,11 +240,7 @@ namespace PokiClash
             {
                 float r = rt(T);
                 if (r < 1.5f) return;
-                float f = (q.ph + q.age * d.fps) % d.n, a = Mathf.Min(1, q.age / 0.06f), ang = a0 + quay * q.age;
-                int i = (int)f, j = (i + 1) % d.n;
-                float u = f - i;
-                Put(buf, q.group, 34, art[i], Color.white, q.pos, 1.15f * r / CauTuR[i], d.aspect, ang, a);
-                if (u > 0.02f) Put(buf, q.group, 34.001f, art[j], Color.white, q.pos, 1.15f * r / CauTuR[j], d.aspect, ang, a * u);
+                DrawFb(buf, art, d, q.ph + q.age * d.fps, q.pos, 4.6f * r, q.group, 34, a0 + quay * q.age, false, Color.white, Mathf.Min(1, q.age / 0.06f));
             };
             return Add(p);
         }
@@ -292,6 +285,20 @@ namespace PokiClash
             float sxBao = 1.2f)
         {
             string fx = "loc_lua";
+            // 2026-11-24 (bộ lửa Blender): "loc_lua" là MỘT LƯỢT 2 s (tự mọc từ đất, xoắn, gió cuốn, tàn bay vòng, ép về trục) → phát co giãn
+            // đúng t0..t1, không lặp, không tự phóng to; phễu mảnh (cổ ≈ 0,3 khung cao, miệng ≈ 0,6) nên cao 1,8 thân (lấy theo hBao nếu có), giãn
+            // ngang 1,45 → ngang giữa ≈ 0,8 thân, miệng ≈ 1,6 thân; lớp trước cùng khung, cùng pha, mờ `mo` (lật thì dải xoắn bắt chéo nhau)
+            if (HasFb(fx) && !Fbs[fx].loop)
+            {
+                float lf = Mathf.Max(0.3f, t1 - t0), hh = 1.06f * Mathf.Max(h, hBao);
+                float sp = FbDur(fx) / lf;
+                At(Mathf.Max(0, t0), () =>
+                {
+                    FbH(fx, chan, _ => hh, Back, 26, lf, sp, 0, false, 0, 0.04f, 0.12f, 1, 1.45f);
+                    if (boc) FbH(fx, chan + new Vector2(0, 2), _ => hh, Front, 26, lf, sp, 0, false, 0, 0.04f, 0.12f, mo, 1.45f);
+                });
+                return true;
+            }
             if (hBao > 0 && HasFb("loc_lua_bao"))
             {
                 fx = "loc_lua_bao";
@@ -316,6 +323,140 @@ namespace PokiClash
             float k0 = Mathf.Clamp01(len / Mathf.Max(0.05f, life));
             return FbH("lua_lap", chan, k => hMax * (k0 > 0 ? EaseOut(k / k0) : 1) * (1 - ha * SmoothStep(0.5f, 1, k)), group, layer, life, speed,
                 U(0, 24), U(0, 1) < 0.5f, 0, 0.03f, Mathf.Min(0.18f, 0.3f * life));
+        }
+
+        // PHUN LỬA vẽ sẵn "phun" (bộ lửa Blender 2026-11-24; người dùng duyệt nhịp 2026-11-24: "ngọn lửa phải bùng từ từ lên mới to dần và tan biến",
+        // khói "thêm vào phần zone gần cuối chứ không phải cuối"): một khung dài neo ở miệng, xoay theo hướng miệng → đích, giãn dọc (sx) cho mép đầu
+        // lúc dài nhất (0,93 bề ngang khung) tới mặt trước thân đối thủ mà không dày quá ~1 thân. Nhịp khung gốc: mép đầu vươn 0–0,75 s, giữ, đứt khỏi
+        // miệng ở 1,27 s, vỡ mảnh tới 1,92 s → bắt đầu ở 0,1 s (sau nhịp lấy hơi), chạy nhanh hơn chút để đứt đúng lúc tướng thôi giữ dáng (BreathHold).
+        // Khói: 5 cụm "khoi" ở mép trên, 62–78 % chiều dài, 1,02–1,4 s khung gốc (như dự án AtomSpine atom_bl). Giữ: lấy hơi xoắn vào miệng, tia văng
+        // dọc luồng, chớp + rung + đối thủ chớp lúc chạm, mây xoắn (swirl). Trả giờ chạm.
+        float BreathFb(Vector2 mouth, Vector2 target, float tH, bool swirl)
+        {
+            var art = FbArt("phun");
+            var d = Fbs["phun"];
+            string pal = Th.pal;
+            var dd = target - mouth;
+            float dist = dd.magnitude;
+            var u = dd / Mathf.Max(1, dist);
+            var nrm = new Vector2(-u.y, u.x);
+            var up = nrm.y < 0 ? nrm : -nrm;
+            float Hit = Mathf.Max(34, 0.26f * tH);
+            var cham = mouth + u * (dist - Hit);
+            float L = Mathf.Max(60, dist - 0.35f * Hit);                // mép đầu lúc dài nhất
+            float hNat = L / (0.932f * d.aspect), hT = Mathf.Min(hNat, 0.95f * tH), sx = hNat / hT;
+            const float tS = 0.1f, TachGoc = 1.27f;                  // giờ bắt đầu; giờ (khung gốc) luồng đứt khỏi miệng
+            float sp = TachGoc / Mathf.Max(0.5f, BreathHold - tS - 0.02f);
+            float G(float tg) => tS + tg / sp;                         // giờ khung gốc → giờ từ lúc gọi
+            float tHit = G(0.58f), tEnd = G(TachGoc);
+            float chieu = U(0, 1) < 0.5f ? 1 : -1;
+            Every(0, 0.22f, 36, x =>
+            {
+                float a = U(0, 6.28f);
+                HoaHut(t => mouth, t => 7, mouth + new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(50, 82), U(0.18f, 0.24f), Pal[pal][U(0, 1) < 0.5f ? 1 : 2], chieu,
+                    T + 0.3f);
+            });
+            FbHuong(u, out float ang, out bool flip);
+            float dur = d.n / (d.fps * sp);
+            At(tS, () =>
+            {
+                var p = new P { pos = mouth, group = Front, life = dur };
+                p.draw = (q, k, buf) => DrawFb(buf, art, d, q.age * d.fps * sp, mouth, hT, Front, 36, ang, flip, Color.white, 1, sx);
+                Add(p);
+            });
+            // khói vùng gần cuối luồng: (giờ khung gốc, phần chiều dài, cao trên trục theo px khung gốc 313, cỡ khung khói / khung lửa)
+            float px = hT / 313f;
+            foreach (var (tg, fl, dy, sc) in new[] { (1.02f, 0.61f, 85f, 0.55f), (1.1f, 0.71f, 100f, 0.65f), (1.18f, 0.66f, 70f, 0.6f), (1.28f, 0.78f, 95f, 0.62f),
+                         (1.4f, 0.69f, 80f, 0.55f) })
+            {
+                float f = fl, y = dy, s = sc;
+                At(G(tg), () =>
+                {
+                    float hk = 361f * s * px;
+                    var c = mouth + u * (L * f) + up * (y * px);
+                    var k = Fb("khoi", c + new Vector2(0, Fbs["khoi"].cy * hk), hk, Back, 12, 1, U(-8, 8), U(0, 1) < 0.5f);
+                    if (k != null)
+                    {
+                        k.vel = new Vector2(U(10, 30) * px * (u.x >= 0 ? 1 : -1), -U(90, 130) * px);
+                        k.drag = 0.4f;
+                    }
+                });
+            }
+            // tia văng dọc luồng (thay chùm đốm than vfx.burst của bản AtomSpine)
+            Every(G(0.3f), tEnd, 8, x =>
+            {
+                float f = U(0.25f, 0.8f), sd = U(0, 1) < 0.5f ? -1 : 1;
+                Spark(mouth + u * L * f + nrm * sd * U(0.1f, 0.3f) * hT, u * U(0.5f, 1) + nrm * sd * U(0.4f, 0.9f) + new Vector2(0, -0.3f), U(260, 420), 0, 7);
+            });
+            if (swirl || Th.extra == "may") // Lân Hỏa, Ngưu Quyền: mây xoắn vàng bay dọc luồng
+                Every(G(0.4f), tEnd, 10, x => Extra(mouth + u * L * U(0.3f, 0.9f) + up * U(10, 30), 1, 120));
+            At(tHit, () =>
+            {
+                Shake?.Invoke(0.25f);
+                HoaChop(cham, 0.36f * tH, 0.09f);
+                for (int i = 0; i < 4; i++)
+                {
+                    float a = Mathf.Atan2(-u.y, -u.x) + U(-1.4f, 1.4f);
+                    Spark(target + U2(-10, 10), new Vector2(Mathf.Cos(a), Mathf.Sin(a) - 0.5f), U(250, 460), 0, 7);
+                }
+                Extra(target, 3, 300);
+            });
+            Every(tHit, tEnd, 5, x => HoaTrung?.Invoke(target, 0.3f));
+            At(tEnd + 0.1f, () =>
+            {
+                for (int i = 0; i < 4; i++) Ash(target + U2(-30, 30));
+            });
+            return tHit;
+        }
+
+        // THIÊN THẠCH vẽ sẵn (bộ lửa Blender 2026-11-24, như clip thien_thach của dự án AtomSpine atom_bl): quả cầu lửa tròn "cau_lua" lao chéo xuống
+        // (đường cong nhanh dần như bản cũ) kéo vệt "duoi_lua" dày, chạm đất thì nổ "no" lớn + "trung_lua" (HoaNoFb), cụm khói "khoi" toả quanh, vòng
+        // sóng, đá văng, vết nứt. Thay hòn đá + chuỗi lưỡi lửa + khói hạt + vành lưỡi lửa của bản cũ. Giờ trúng như cũ (0,75 s).
+        float MeteorFb(Vector2 foeFeet, float tH, float fromSide)
+        {
+            var imp = foeFeet + new Vector2(0, -6);
+            var s0 = foeFeet + new Vector2(fromSide * 310, -480);
+            const float TI = 0.75f;
+            float t0 = T;
+            Vector2 Path(float t) => s0 + (imp - s0) * Mathf.Pow(Mathf.Clamp01(t / TI), 1.6f);
+            var dv = Unit(imp - s0);
+            var shadow = new P { pos = foeFeet, life = TI, group = Floor };
+            shadow.draw = (q, k, buf) => Put(buf, Floor, 1, S("ell"), C(40, 24, 20), q.pos, 0.3f * tH * (0.25f + 0.75f * k), 3, 0, 0.2f + 0.3f * k);
+            Add(shadow);
+            float r = Mathf.Max(26, 0.17f * tH);
+            HoaFbCau(t => Path(t - t0), t => r * (1 + 0.05f * Mathf.Sin(t * 38)), TI, Front, true);
+            Every(0.05f, TI, 18, x => Spark(Path(T - t0), -dv + U2(-0.6f, 0.6f), U(150, 300)));
+            At(TI, () =>
+            {
+                Shake?.Invoke(0.9f);
+                FlashScreen?.Invoke(new Color(1, 0.96f, 0.84f, 0.45f));
+                HoaNoFb(foeFeet + new Vector2(0, -0.4f * tH), 1.6f, tH, foeFeet, Front, -fromSide);
+                Ring(foeFeet + new Vector2(0, 2), 0.4f, 0.2f * tH, 1.6f * tH, Th.ring);
+                At(0.1f, () => Ring(foeFeet + new Vector2(0, 2), 0.35f, 0.1f * tH, 1.2f * tH, Th.ring2));
+                for (int i = 0; i < 8; i++)
+                {
+                    float a = (-90 + U(-70, 70)) * Mathf.Deg2Rad;
+                    Rock(imp, new Vector2(Mathf.Cos(a), Mathf.Sin(a)) * U(350, 650), foeFeet.y + U(-15, 25));
+                }
+                for (int i = 0; i < 12; i++) Spark(imp + U2(-12, 12), new Vector2(U(-1, 1), -U(0.3f, 1)), U(300, 560));
+                // cụm khói toả quanh chỗ nổ, muộn một nhịp (boom_smoke của atom_bl: 6 cụm quanh tâm, bay lên, toả ra)
+                At(0.25f, () =>
+                {
+                    for (int i = 0; i < 6; i++)
+                    {
+                        float a = i / 6f * 6.28f + U(-0.4f, 0.4f);
+                        var o = new Vector2(Mathf.Cos(a), 0.5f * Mathf.Sin(a));
+                        HoaKhoi(imp + o * 0.35f * tH + new Vector2(0, -0.45f * tH), U(0.17f, 0.24f) * tH, Back, o * U(30, 60) + new Vector2(0, -U(60, 100)),
+                            U(1.1f, 1.4f), false);
+                    }
+                });
+                for (int i = 0; i < 10; i++) Ash(imp + U2(-40, 40), new Vector2(U(-80, 80), -U(80, 160)));
+                Extra(imp + new Vector2(0, -20), 8, 420);
+                var cr = new P { pos = foeFeet + new Vector2(0, 2), life = 1.5f, group = Floor, sz = tH };
+                cr.draw = (q, k, buf) => Put(buf, Floor, 1, S("crack_1"), Color.white, q.pos, 1.6f * q.sz * 0.42f, 1 / 0.42f, 0, Mathf.Min(1, (1 - k) / 0.3f));
+                Add(cr);
+            });
+            return TI;
         }
     }
 }

@@ -8,11 +8,12 @@
 // - n_vua_an1 / n_vua_an (đòn thường "Nhật Ấn"): Mặt Trời hút năng lượng; cú vụt kéo lưỡi lửa; đầu trượng nện đất (chớp, bụi, đá, vòng đất);
 //   một đường lửa sáng chạy dọc đất tới đối thủ; ấn nở dưới chân đối thủ (vòng, tia); trúng: chớp, cột năng lượng phụt lên, tia lửa, than.
 // - n_vua_tia1 / n_vua_tia (chiêu mana "Tam Tinh Quang Pháo"): Mặt Trời trên trượng hút năng lượng; ba hành tinh xếp cột trên đầu đối thủ (chớp
-//   nhỏ từng hành tinh); Mặt Trời lên đỉnh cột (chớp, tụ); TIA giáng thẳng xuống: lõi lửa năng lượng dọc cột, dày dần sau mỗi hành tinh, tia
-//   lửa văng hai bên, chớp màn; trúng: nổ mặt trời lớn, vòng sóng đất, bụi, tia, than, khói.
+//   nhỏ từng hành tinh); Mặt Trời lên đỉnh cột (chớp, tụ); TIA giáng thẳng xuống là tia của RIG (lớp này không vẽ tia từ 2026-11-25), rung +
+//   nhịp trúng theo tia, chớp màn; trúng: nổ mặt trời lớn, vòng sóng đất, bụi, tia, than, khói.
 // - n_vua_nhat1 / n_vua_nhat (chiêu cuối "Nhật Thực Thiên Giáng"): vỗ cánh bay lên (gió bụi); ba vệt quỹ đạo lấp lánh quanh vua; Mặt Trời
-//   hút năng lượng; NHẬT THỰC: màn tối ~1 s, vành nhật hoa trắng nháy, tia trắng; ba thiên thạch (rig vẽ) kéo đuôi lửa hạt, nện lần lượt: nổ
-//   lửa đỏ cam, mỗi cú một nhịp rung, cú cuối (Trái Đất) nổ rất lớn, chớp màn, nứt đất, đá văng, cột lửa; Mặt Trời sáng lại.
+//   hút năng lượng; NHẬT THỰC: màn tối ~1 s, vành nhật hoa trắng nháy, tia trắng; ba thiên thạch (rig vẽ) kéo đuôi lửa hạt, nện lần lượt. Nổ
+//   chỉ MỘT LOẠI là khung Blender "no" (VmNo, 2026-11-25): hai cú đầu một quả vừa, cú cuối (Trái Đất) một quả rất to + bốn quả dây chuyền
+//   hai bên, báo trước bằng vết nứt, chớp màn, nứt đất, đá văng; Mặt Trời sáng lại.
 using UnityEngine;
 
 namespace PokiClash
@@ -111,16 +112,18 @@ namespace PokiClash
                 KmDomCum(body + new Vector2(U(-0.25f, 0.25f) * tH, -U(0.1f, 0.45f) * tH), new Vector2(U(-50, 50), -U(80, 150)), VmVang[2 + (i & 1)]);
         }
 
-        // nổ lửa đỏ cam (thiên thạch nện), kiểu KR5; sc: cỡ; huong: phía đá văng
-        void VmNoLua(Vector2 tgt, Vector2 feet, float tH, float sc, int nDa, float huong)
+        // MỘT LOẠI NỔ cho chiêu cuối (2026-11-25, người dùng: "chọn 1 loại vụ nổ thôi, rồi spawn nhiều hoặc scale to lên"): khung nổ Blender
+        // "no" (sao chớp → khối lửa phồng → thủng lỗ → mảnh đỏ sẫm), neo ĐÁY quả nổ ở đất `dat`, cao h, vẽ TRƯỚC tướng; lật xen kẽ cho các quả
+        // nổ chồng nhau khỏi thành bóng đôi. Chưa nhập khung thì về nổ hạt KmNo lửa đỏ cam. Khung "no" chỉ phủ ~0,45 h (k 0,75 × lửa chiếm
+        // 0,5–0,7 khung): muốn quả nổ trông cao N thân thì truyền h ≈ 2,2 N thân. `lop` xếp quả gần (dưới sân) đè lên quả xa
+        bool vmNoLat;
+        void VmNo(Vector2 dat, float h, float tH, float huong, float lop = 30)
         {
+            vmNoLat = !vmNoLat;
+            if (Fb("no", dat + new Vector2(0, 2), h, Front, lop, 1, 0, vmNoLat) != null) return;
             var th0 = Th;
             Th = VmLuaTh;
-            KmNo(tgt, feet, tH, sc, "luat", huong);
-            KmCung(feet + new Vector2(0, 2), 0.14f * tH, 0.95f * tH * sc, 0.42f, KmLua[4], 0.3f, Floor, 30.6f, 0.8f);
-            BuiDap(feet, tH, 1.1f * sc, 8);
-            for (int i = 0; i < nDa / 2; i++)
-                Rock(feet + new Vector2(U(-0.3f, 0.3f) * tH, -6), new Vector2(U(-300, 300), -U(300, 560)), feet.y + U(-4, 8), U(8, 14) * sc);
+            KmNo(dat + new Vector2(0, -0.3f * h), dat, tH, h / Mathf.Max(1, tH), "luat", huong);
             Th = th0;
         }
 
@@ -237,71 +240,31 @@ namespace PokiClash
                 RbTia(dinh, R, 7, 140, 260, 40);
             });
             VmTu(_ => dinh, tDinh, tBan, 1.2f * R, manh);
-            // 4. TIA giáng xuống (2026-11-18: người dùng chê "đầu tia cụt lủn, không có va chạm với địch", "màu hơi tối"): TIA LIỀN KHỐI (mảng
-            // liền, không còn ghép lưỡi lửa rời) năm lớp tươi: mực mảnh, dải cam đỏ sát viền, cam, vàng, lõi kem rộng; dày dần sau mỗi hành tinh;
-            // vẽ SAU tướng nên đi xuyên qua các hành tinh của rig; đầu tia tới tận đỉnh đầu đối thủ và đứng đó, BÔNG VA CHẠM liên tục ở chỗ chạm
-            // (toé, tia kim loại bắn rồi khựng, vòng va chạm, rung nhỏ dồn dập); hết tia thì đuôi rút vào chỗ chạm và bông vỡ to, không cắt phụt
-            var cham = foeBody + new Vector2(0, -0.28f * tH);   // chỗ chạm: phần trên thân (tia đi SAU thân nên đoạn dưới khuất, không hở)
+            // 4. TIA giáng xuống: cột tia là của RIG (đoạn tia + hành tinh xếp cột). 2026-11-25 (người dùng xem hộp chi tiết: "dư nhiều fx ...
+            // cột năng lượng và vụ nổ ở dưới là đủ rồi, cần gì cái impact kia"; rồi "vẫn thấy 2 tia lao xuống, lấy tia bên phải, bỏ tia bên
+            // trái"): lớp hạt KHÔNG vẽ tia nữa — bỏ tia vẽ sẵn TiaFb (cột vàng xoắn + cầu đầu nòng + bông va chạm, lệch khỏi cột của rig trong ô
+            // xem nên thành hai tia), tia hạt KmTia + bông KmCham cũ, tia kim loại bắn ra ở chỗ chạm, tia lửa văng hai bên. Giữ giờ cũ: đầu tia
+            // vươn từ đỉnh tới đỉnh đầu đối thủ trong `lao` giây, chạm tBan + lao, tắt tTat; rung + nhịp trúng theo tia, chớp ở hành tinh, nổ dưới
+            // chân. Bản tia hạt / TiaFb cũ: xem git trước 2026-11-25
+            var cham = foeBody + new Vector2(0, -0.42f * tH);   // đỉnh đầu đối thủ
             float daiCham = Mathf.Max(1, cham.y - dinh.y);
-            float hw = 0.09f * casterH * manh;   // lõi kem rộng (người dùng 2026-11-18)
-            float tTat = L0 + 0.32f * k, rut = 0.14f;
+            float tTat = L0 + 0.32f * k;
             float[] fh = new float[hanh.Length];
             for (int i = 0; i < hanh.Length; i++) fh[i] = Mathf.Clamp01((Cot(hanh[i]).y - dinh.y) / daiCham);
-            float Rong(float f)
+            float tCham = tBan + lao, tVuon = lao, tMoc = tCham - tVuon;
+            // nhịp trúng theo tia: đầu tia chạm 0,02 s trước cú trúng chính của StageView nên bỏ nhịp đầu; rung nhỏ dồn dập, nhịp mạnh lúc tắt
+            Every(tCham, tTat, 7, x =>
             {
-                float w = 0.55f;
-                foreach (var h in fh) w += 0.2f * SmoothStep(h - 0.03f, h + 0.05f, f);   // qua mỗi hành tinh tia dày thêm
-                return w;
-            }
-            // TIA VẼ SẴN (2026-11-19, người dùng: "tia năng lượng ... nhìn vẫn chưa đã": ống thẳng đặc, chỗ trúng nhỏ): có bộ DaTiaVang thì
-            // TiaFb (HatTiaFb.cs): đoạn năng lượng Mặt Trời vàng tươi xoắn có sao trôi liên tục từ Mặt Trời đỉnh cột xuống, cầu đầu nòng lớn dần
-            // từ lúc Mặt Trời lên đỉnh (tDinh), bông va chạm lặp; vẽ TRƯỚC tướng (thấy rõ chỗ trúng; tia đè lên đoạn tia tối màu của rig), dày
-            // 0,22 thân người ra chiêu, chỗ trúng ở đỉnh đầu đối thủ (tia không xuyên mặt). Giữ giờ chạm (tBan + lao), giờ tắt (tTat), nhịp
-            // NuocPulse + rung theo nhịp tia, chớp ở hành tinh, tia lửa văng hai bên; bỏ thân tia liền khối và bông va chạm cũ. Chưa nhập ảnh:
-            // đường cũ
-            bool tiaFb = HasTia(DaTiaVang);
-            float tCham = tBan + lao, dayTia = 0.22f * casterH * manh, tVuon = lao;
-            if (tiaFb)
-            {
-                cham = foeBody + new Vector2(0, -0.42f * tH);
-                daiCham = Mathf.Max(1, cham.y - dinh.y);
-                for (int i = 0; i < hanh.Length; i++) fh[i] = Mathf.Clamp01((Cot(hanh[i]).y - dinh.y) / daiCham);
-                tVuon =Mathf.Clamp((cham - dinh).magnitude / 2600f, 0.07f, 0.14f);   // như TiaFb: đầu tia vươn tới đích
-                float tTuTia = Mathf.Max(0.05f, tCham - tDinh - tVuon), tBanTia = Mathf.Max(0.2f, tTat - tCham);
-                At(tDinh, () => TiaFb(DaTiaVang, dinh, cham, dayTia, tTuTia, tBanTia));
-                // nhịp trúng theo tia (thay KmCham): đầu tia chạm 0,02 s trước cú trúng chính của StageView nên bỏ nhịp đầu; rung nhỏ dồn dập, tia
-                // kim loại bắn ngược rồi khựng (ít hơn: bông khung đã lớn), nhịp mạnh lúc tắt
-                Every(tCham, tTat, 7, x =>
-                {
-                    Shake?.Invoke(0.05f * manh);
-                    KmNhip(0.4f);
-                });
-                Every(tCham, tTat, 16, x =>
-                {
-                    float sd = rng.Next(2) == 0 ? -1 : 1;
-                    KmTiaLua(cham, new Vector2(sd * U(0.5f, 1.2f), -U(0.2f, 0.9f)), U(380, 720), U(5, 8), KmNang[3 + rng.Next(2)]);
-                });
-                At(tTat, () => KmNhip(0.6f));
-            }
+                Shake?.Invoke(0.05f * manh);
+                KmNhip(0.4f);
+            });
+            At(tTat, () => KmNhip(0.6f));
             At(tBan, () =>
             {
                 Shake?.Invoke(0.2f * manh);
                 FlashScreen?.Invoke(VmFlash);
                 KmChop(dinh, 2.4f * R, 0.07f, KmNang);
                 KmVong(_ => dinh, 0.24f, R, 3.4f * R, VmVang[3], 1, 0.85f);
-                if (!tiaFb) KmTia(dinh, cham, tTat - tBan, hw, KmNang, Back, daiCham / Mathf.Max(0.04f, lao), rut).sizeFn = (z, f) => Rong(f);
-            });
-            // va chạm liên tục + đối thủ chớp, giật theo nhịp tia (NuocPulse); đầu tia chạm 0,02 s trước cú trúng chính của StageView nên bỏ nhịp đầu
-            if (!tiaFb) KmCham(cham, new Vector2(0, 1), tBan + lao, tTat + 0.5f * rut, 1.15f * hw, KmNang, manh, 0);
-            // tia lửa văng hai bên thân tia (tia vẽ sẵn: theo bề dày khung, đầu tia vươn từ tCham − tVuon)
-            float tMoc = tCham - tVuon;
-            Every(tMoc + 0.03f, tTat, 22, x =>
-            {
-                float v = U(0.1f, 0.95f) * Mathf.Clamp01((T - T0 - tMoc) / tVuon);
-                var p = Vector2.Lerp(dinh, cham, v);
-                float sd = U(0, 1) < 0.5f ? -1 : 1;
-                KmTiaLua(p + new Vector2(sd * (tiaFb ? 0.5f * dayTia : hw * Rong(v)), 0), new Vector2(sd, U(-0.4f, 0.3f)), U(260, 460), U(5, 7),
-                    VmVang[2 + rng.Next(2)]);
             });
             for (int i = 0; i < hanh.Length; i++)
             {
@@ -408,7 +371,7 @@ namespace PokiClash
             {
                 int jj = j;
                 float th = VmSMHien[j] * k, tn = VmSNo[j] * k;
-                float sc = (j == 2 ? 1.5f : 0.85f) * manh;
+                float sc = (j == 2 ? 1.5f : 0.85f) * manh;   // cỡ lửa bọc + đuôi thiên thạch (cỡ nổ đặt riêng ở VmNo bên dưới)
                 // đuôi thiên thạch (2026-11-18): lưỡi lửa + KHÓI CỤM LIỀN chia theo quãng bay (KR5), không còn chuỗi lưỡi lửa rời theo giờ
                 float tDuoi = Mathf.Min(tn, VmSMTat[j] * k + 0.03f) - th;
                 int demD = 0;
@@ -438,28 +401,55 @@ namespace PokiClash
                             if (U(0, 1) < 0.2f) KmTiaLua(pt, -ud + U2(-0.4f, 0.4f), U(260, 420), U(5, 7), KmLua[4]);
                         });
                     });
+                // NỔ (2026-11-25, người dùng: "chiêu cuối bạn chọn 1 loại vụ nổ thôi, rồi spawn nhiều hoặc scale to lên"): MỘT LOẠI NỔ duy nhất là
+                // khung nổ Blender "no" (VmNo). Bản C (người dùng chọn 2026-11-25 sau khi xem tour: nổ trông chỉ cỡ 1 thân): hai thiên thạch đầu
+                // nổ trông cao ~1,6–1,8 thân; cú cuối (Trái Đất) quả nổ chính trông cao ~3 thân + SÁU quả nổ dây chuyền hai vòng gần / xa, mỗi quả
+                // ~1,5–1,9 thân, lệch nhịp. Bỏ các lớp khác (vòng cung đất, cột lửa, lửa cháy trên đất, cột khói, đốm lửa, tro, bụi, tia lửa);
+                // chỉ giữ rung, chớp màn, vết nứt đất, đá văng
                 At(tn, () =>
                 {
-                    var tgt = foeBody + new Vector2(-dir * 0.04f * tH, -0.05f * tH);
-                    Shake?.Invoke(jj == 2 ? 1.0f * manh : (0.32f + 0.08f * jj) * manh);
+                    Shake?.Invoke(jj == 2 ? 1.0f * manh : (0.4f + 0.1f * jj) * manh);
                     if (jj < 2) KmNhip(jj == 0 ? 1 : 0.5f);   // thiên thạch thứ ba là cú trúng chính (StageView)
-                    VmNoLua(tgt, foeFeet, tH, sc, jj == 2 ? 10 : 4, dir);
+                    var dat = foeFeet + new Vector2(-dir * 0.2f * tH, 0);   // neo dời 0,2 thân về phía người ra chiêu (đỡ che mặt đối thủ)
+                    VmNo(dat, (jj == 2 ? 6.4f : jj == 1 ? 4.0f : 3.6f) * tH * manh, tH, dir);   // h ≈ 2,2 × cao trông thấy (xem VmNo)
                     if (jj == 2)
                     {
                         FlashScreen?.Invoke(FlashSet);
-                        RbNut(foeFeet + new Vector2(0, 2), 1.3f * tH * manh);
-                        RbCot(foeFeet, tH, 0.45f, 1.1f * manh);
+                        RbNut(foeFeet + new Vector2(0, 2), 2.3f * tH * manh, 2.0f);
+                        for (int i = 0; i < 6; i++)
+                        {
+                            float sd = i % 2 == 0 ? -1 : 1;
+                            Rock(foeFeet + new Vector2(sd * U(0.05f, 0.3f) * tH, -8), new Vector2(sd * U(260, 520), -U(420, 700)), foeFeet.y + U(-4, 10),
+                                U(12, 18) * manh);
+                        }
                     }
                 });
                 if (j == 2)
-                    At(tn + 0.1f, () =>   // cú cuối: đợt nổ thứ hai sau lưng (lửa đỏ cam), thay cầu lửa CauNo trùm kín đối thủ
+                {
+                    // báo trước 0,3 s (đòn nện xuống đất báo trên đất): đất nứt mảnh dưới chân đối thủ, rung nhẹ
+                    At(Mathf.Max(0, tn - 0.3f), () =>
                     {
-                        var th0 = Th;
-                        Th = VmLuaTh;
-                        KmNhip(0.4f);
-                        KmNo(foeBody + new Vector2(dir * 0.08f * tH, -0.12f * tH), foeFeet, tH, 1.1f * manh, "luat", dir);
-                        Th = th0;
+                        Shake?.Invoke(0.1f * manh);
+                        RbNut(foeFeet + new Vector2(0, 2), 0.7f * tH * manh, 0.45f);
                     });
+                    // sáu quả nổ dây chuyền (cùng khung "no", nhỏ hơn quả chính), hai vòng: vòng gần ±0,9 thân + hai quả ló trước chân, vòng xa
+                    // ±1,75 thân lùi sau; lệch nhịp ~0,07 s, mỗi quả một nhịp rung. Quả gần (y dương = dưới sân) xếp lớp trên quả xa
+                    float[] xs = { -0.9f, 0.95f, -0.35f, -1.75f, 1.8f, 0.45f };
+                    float[] ys = { 0.05f, 0f, 0.16f, -0.08f, -0.06f, 0.18f };
+                    float[] ts = { 0.10f, 0.17f, 0.24f, 0.30f, 0.37f, 0.44f };
+                    float[] hs = { 3.9f, 3.7f, 3.4f, 4.2f, 3.9f, 3.3f };
+                    float[] rs = { 0.45f, 0.42f, 0.38f, 0.36f, 0.33f, 0.3f };
+                    for (int c2 = 0; c2 < xs.Length; c2++)
+                    {
+                        float x2 = xs[c2] * dir, y2 = ys[c2], h2 = hs[c2], r2 = rs[c2];
+                        At(tn + ts[c2], () =>
+                        {
+                            Shake?.Invoke(r2 * manh);
+                            VmNo(foeFeet + new Vector2(x2 * tH, y2 * tH + U(-3, 3)), U(0.94f, 1.06f) * h2 * tH * manh, tH, x2 >= 0 ? 1 : -1,
+                                30 + y2);
+                        });
+                    }
+                }
             }
             // 7. Mặt Trời sáng lại: chớp vàng, tia
             At(tSang, () =>
@@ -468,20 +458,6 @@ namespace PokiClash
                 KmChop(c, 2.2f * R, 0.07f, KmNang);
                 RbVong(c, 0.3f, R, 3.4f * R, VmVang[2]);
                 RbTia(c, R, 8, 150, 280, 60);
-            });
-            At(L0 + 0.15f, () =>
-            {
-                Shake?.Invoke(0.4f * manh);
-                KmCung(foeFeet + new Vector2(0, 2), 0.3f * tH, 1.9f * tH * manh, 0.55f, KmLua[4], 0.3f, Floor, 30.6f, 0.75f);
-            });
-            Every(L0, L0 + 0.7f, 5, x => KmDomCum(foeFeet + new Vector2(U(-0.35f, 0.35f) * tH, -U(0, 0.7f) * tH), new Vector2(U(-40, 40), -U(90, 170)),
-                KmLua[3 + rng.Next(2)]));
-            At(L0 + 0.4f, () =>
-            {
-                for (int i = 0; i < 3; i++)
-                    KmKhoi(foeBody + new Vector2(U(-0.3f, 0.3f) * tH, -U(0.2f, 0.55f) * tH), new Vector2(U(-20, 20), -U(40, 70)), U(0.14f, 0.18f) * tH,
-                        U(1.0f, 1.4f), Back, 0, 2);
-                for (int i = 0; i < 5; i++) Ash(foeBody + U2(-32, 32));
             });
             return L0;
         }

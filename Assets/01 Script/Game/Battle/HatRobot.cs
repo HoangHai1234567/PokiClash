@@ -674,7 +674,10 @@ namespace PokiClash
                 if (r < 1) return;
                 float sp = z.aim.magnitude, st = 1 + Mathf.Min(0.55f, sp / 1500), va = sp > 40 ? VelAng(z.aim) : 0;
                 var cau = Km("kr_cau", z.seed);
-                if (cau != null)
+                // kiểu ENERGY BALL vẽ sẵn bằng Blender (2026-11-24, người dùng chọn): thân múi cam vàng + gân kem lộ qua khe thay viền mực và bốn
+                // lớp kr_cau; bán kính thấy = r như lớp ngoài cũ (2 r). Hai cung điện quay quanh giữ nguyên
+                if (VeCauNl(buf, "cau_vang", z.pos, r, z.group, 26, z.age + z.ph * 0.24f, va, st)) { /* thân cầu đã vẽ bằng khung */ }
+                else if (cau != null)
                 {
                     float quay = z.age * 150;
                     Put(buf, z.group, 26, Km("kr_caus", z.seed) ?? cau, RbMuc, z.pos, 2 * r + 5, st, va + quay);

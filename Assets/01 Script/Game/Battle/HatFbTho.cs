@@ -103,11 +103,15 @@ namespace PokiClash
             float ang = flip ? Mathf.Atan2(dv.y, -dv.x) * Mathf.Rad2Deg : Mathf.Atan2(-dv.y, dv.x) * Mathf.Rad2Deg;
             var p = Fb("cau_lua", pos(T), h, group, layer, 1, ang, flip, null, alpha, Mathf.Max(0.05f, life), U(0, 24), 0.06f);
             if (p != null)
+            {
                 p.upd = (q, dt, s) =>
                 {
                     q.pos = pos(s.T);
                     q.vel = Vector2.zero;
                 };
+                // cầu tròn Blender (2026-11-24) không còn đuôi vẽ sẵn: vệt "duoi_lua" sau cầu (quả cầu bán kính 0,25 h), lớp dưới cầu
+                DuoiLua(() => p.pos, () => !p.dead && p.age < p.life, 0.25f * h, group, layer - 6);
+            }
             return p;
         }
     }

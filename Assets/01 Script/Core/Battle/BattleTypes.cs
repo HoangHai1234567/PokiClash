@@ -53,6 +53,7 @@ namespace PokiClash.Core
         public string trait; // bị động boss của ải (Member.trait), chạy sau bị động của tướng; null = không có
         public bool traitLowUsed; // bị động boss kiểu "máu thấp" đã chạy (một lần mỗi trận, kể cả khi boss tiến hóa)
         public bool revived; // đã dùng lần hồi sinh
+        public int stunImmune; // Sổ Phép "Tỉnh Táo": số lượt của mình còn miễn choáng (giảm cuối mỗi lượt của mình)
         public bool dead;
 
         public double HpR => hp / maxHp;
@@ -69,6 +70,44 @@ namespace PokiClash.Core
         public int active;
         public bool needSwap;
         public StatusInst spread; // độc của tướng vừa gục, chờ lan sang tướng ra thay (null = không có)
+        public BattleRules rules; // luật thêm của Sổ Phép (null = không có, như mọi trận cũ và mọi đội máy)
+        public RuleState rs = new RuleState(); // lượt dùng còn lại của các luật một-lần-mỗi-trận
+    }
+
+    // Luật trận thêm từ Sổ Phép (Core/SoPhep.cs, GD_Claude/28_SoPhep.md, người dùng duyệt 2026-11-24). Số 0 / false = tắt.
+    public sealed class BattleRules
+    {
+        public int rerolls, bossRerolls; // Lật Trang, Sổ Tay Chúa Tể (trận có boss / mini boss): lượt đổi cả bộ thẻ đang chọn
+        public int firstOfferAdd; // Rộng Tay: lần chọn đầu mỗi lượt hiện thêm thẻ
+        public double groupWeight; // Dồn Tay: thẻ cùng nhóm (Công / Thủ / Hồi) với thẻ vừa chọn nặng thêm bấy nhiêu lần ở lần rút kế
+        public int holds; // Giữ Nét: số lần giữ thẻ tốt nhất chưa chọn của lần chọn cuối sang lần chọn đầu lượt sau
+        public double rareWeight; // Mắt Tinh: thẻ Hiếm trở lên nặng thêm bấy nhiêu lần
+        public int picks, offer; // Chốt 1: số lần chọn mỗi lượt, số thẻ mỗi lần (0 = theo cấu hình)
+        public double benchMana; // Mực Chờ: mana thêm mỗi lượt cho tướng dự bị
+        public double swapInShield, swapOutHeal; // Vào Sân (khiên, phần máu tối đa) | Rút Lui (hồi tướng vừa rút ra)
+        public double manaCarry; // Tiếp Sức: tự đổi tướng thì tướng vào nhận phần này mana của tướng ra
+        public double koRage; // Tiếp Nối: tướng gục thì tướng ra thay nhận bấy nhiêu nộ
+        public int midSwaps; // Chốt 2 Đổi Vai: số lần đổi tướng được cả khi đã chọn thẻ
+        public double assist; // Chốt 2 Hợp Lực: tướng dự bị còn sống đánh phụ (phần Công của nó) khi tướng chính tung Tuyệt kỹ
+        public double advAdd, disAdd; // Mũi Nhọn: đánh hệ mình khắc cộng thêm hệ số | Lá Chắn: đánh hệ khắc mình bớt thiệt
+        public double lowAt, lowHeal; // Nét Cứu: lần đầu một tướng xuống dưới lowAt máu mỗi trận thì hồi lowHeal máu tối đa
+        public int stunGuard; // Tỉnh Táo: hết choáng thì miễn choáng bấy nhiêu lượt của mình
+        public double revivePct; // Chốt 3 Vẽ Lại: một lần mỗi trận, tướng gục sống lại với phần máu này (không áp cho boss)
+        public double thornsAt, thorns; // Chốt 3 Phản Nét: lần đầu xuống dưới thornsAt máu, phản lại phần sát thương này tới hết trận
+        public int elemExtra = -1, elemExtraN; // Năm Bút Chì: đánh địch hệ này (Elem) thì mỗi lần chọn hiện thêm elemExtraN thẻ
+        public int lastOffer; // Trang Cuối: lần chọn cuối mỗi lượt hiện ít nhất bấy nhiêu thẻ
+        public double executeBelow; // Nét Kết: đòn của mình để địch (không phải boss) dưới ngưỡng này thì kết liễu
+        public double ultDiscount; // Chốt 4 Chữ Ký: Tuyệt kỹ đầu tiên mỗi trận bớt phần nộ này (0,5 = nửa nộ)
+        public bool doubleFirst; // Chốt 4 Nét Kép: thẻ chọn đầu tiên của trận chạy hai lần
+    }
+
+    public sealed class RuleState
+    {
+        public int rerolls, holds, midSwaps;
+        public string held; // thẻ đang giữ chờ lần chọn đầu lượt sau
+        public bool hasLastGroup;
+        public CardGroup lastGroup; // nhóm của thẻ vừa chọn (Dồn Tay)
+        public bool lowHealUsed, reviveUsed, thornsUsed, freeUltUsed, doubleUsed;
     }
 
     public sealed class QueueItem

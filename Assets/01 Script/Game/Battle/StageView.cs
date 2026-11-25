@@ -321,6 +321,7 @@ namespace PokiClash
             h.UseTheme(a.hero.id);
             nuocTarget = other;
             float t = h.PlayNuoc(kind, ult, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, lead);
+            SkillSound(a, kind, t);
             a.fxHitAt = Clock + t;
             a.holdAt = lead;
             a.holdUntil = Clock + lead + HatLua.HoldNuoc(kind, ult);
@@ -343,6 +344,20 @@ namespace PokiClash
             h.PlayNuoc(kind, false, Pos[side], a.H, Pos[side] + Muzzle(a, side, out _), Pos[other], Body(other), tH, a.aola.HitTime(Attack));
         }
 
+        // TIẾNG CHIÊU (2026-11-24, SkillSfx.cs): tiếng ra chiêu phát ngay, tiếng trúng hẹn theo giờ SÂN tới lúc trúng (HatLua.At: dừng / tua
+        // cùng trận); cao độ ±4 % cho đỡ nhàm. Không có lớp hạt thì tiếng trúng phát luôn.
+        void SkillSound(Actor a, string kind, float tHit)
+        {
+            var au = App.Audio;
+            if (a?.hero == null || au == null) return;
+            var (start, hit) = SkillSfx.For(kind, a.hero.elem);
+            if (start != null) au.Play(start, 0.85f, UnityEngine.Random.Range(0.96f, 1.04f));
+            if (hit == null) return;
+            var h = Hat;
+            if (tHit <= 0.02f || h == null) au.Play(hit, 0.9f, UnityEngine.Random.Range(0.96f, 1.04f));
+            else h.At(tHit, () => App.Audio?.Play(hit, 0.9f, UnityEngine.Random.Range(0.96f, 1.04f)));
+        }
+
         // chiêu cuối hệ Hỏa: gọi lúc trúng của clip CHIÊU; trả thời gian tới lúc hiệu ứng chạm đối thủ (giây sân), 0 nếu không có
         public float UltFx(int side)
         {
@@ -362,6 +377,7 @@ namespace PokiClash
                     if (!h.HasWater) return 0;
                     nuocTarget = other;
                     h.PlayNuoc(kind, true, Pos[side], a.H, Pos[side], feet, Body(other), tH, 0);
+                    SkillSound(a, kind, 0);
                     skillHold = Mathf.Max(skillHold, 1.2f);
                     return 0;
                 }
@@ -371,6 +387,7 @@ namespace PokiClash
             }
             nuocTarget = other;
             float t = h.PlayUlt(kind, feet, Body(other), tH, Mathf.Sign(Pos[side].x - feet.x));
+            SkillSound(a, kind, t);
             skillHold = Mathf.Max(skillHold, t + 0.8f);
             return t;
         }
@@ -393,6 +410,7 @@ namespace PokiClash
                     hh.UseTheme(a.hero.id);
                     nuocTarget = o;
                     hh.PlayNuoc(kind, false, Pos[side], a.H, Pos[side], Pos[o], Body(o), v != null ? v.H : Height[o], 0);
+                    SkillSound(a, kind, 0);
                     return 0;
                 }
                 if (a.fxHitAt < 0) return -1;
@@ -408,6 +426,7 @@ namespace PokiClash
             h.UseTheme(a.hero.id);
             nuocTarget = other;
             float t = h.PlayMana(kind, Pos[side], a.H, from, Pos[other], to, tH);
+            SkillSound(a, kind, t);
             // người dùng dặn 2026-11-10: tướng đứng phun cho hết luồng lửa mới về đứng; kim, cầu cũng giữ dáng tới lúc phóng
             a.holdAt = a.t;
             a.holdUntil = Clock + HatLua.HoldOf(kind);

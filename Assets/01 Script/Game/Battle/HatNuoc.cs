@@ -219,6 +219,7 @@ namespace PokiClash
         public P Wave(Vector2 pos, Vector2 vel, float life, float r0, float r1, int group = Front, float tip = 1, float up = 0.25f, float drag = 1,
             float accY = 0, float fade = 0.72f, float foamP = 0)
         {
+            if (NS) return NLuoiNuoc(pos, vel, life, r0, r1, group, drag, accY); // bộ nước shader: lưỡi nước thon
             var p = new P
             {
                 pos = pos, vel = vel, life = life, drag = drag, acc = new Vector2(0, accY), seed = rng.Next(4), r0 = r0, r1 = r1, group = group,
@@ -265,6 +266,7 @@ namespace PokiClash
         public P Drop(Vector2 pos, Vector2 vel, float life = 0, float r = 5, float grav = 900, int group = Front, float ground = float.NaN,
             float drag = 0.6f)
         {
+            if (NS) return NGiot(pos, vel, r * 0.8f, group, life > 0 ? life : 0.7f, grav, ground); // bộ nước shader: giọt tròn
             var p = new P
             {
                 pos = pos, vel = vel, life = life > 0 ? life : U(0.5f, 0.9f), drag = drag, acc = new Vector2(0, grav), seed = rng.Next(4), sz = r,
@@ -287,6 +289,7 @@ namespace PokiClash
         // vòng không viền mực (vòng mảnh có viền thì thành vòng đen)
         P RingN(Vector2 pos, float life, float R0, float R1, Color col, float squash = 0.3f, int group = Floor, float layer = 30)
         {
+            if (NS) return NRipple(pos, R0, R1, life); // bộ nước shader: vành gợn
             var p = new P { pos = pos, life = life, group = group, col = col, R0 = R0, R1 = R1, hgt = squash, ph = layer };
             p.draw = (q, k, buf) =>
             {
@@ -329,6 +332,11 @@ namespace PokiClash
         // Ảnh hat_kr_mao: chân giữa đáy khung vuông (đáy hình ở ~96% khung, hình rộng ~92% khung). Chưa nhập: vương miện cũ (CrownCu).
         void Crown(Vector2 feet, float wd, float life = 0.42f, int group = Front)
         {
+            if (NS)
+            {
+                NCrownDat(feet, wd, life, group);
+                return;
+            }
             // khung vẽ sẵn (2026-11-19): vương miện nước toé từ đất nuoc_toe (dâng, xoè ngọn, vỡ giọt, còn vũng mỏng) thay mão kr_mao + vành
             // giọt + giọt sụp. Bề ngang ngọn lúc xoè nhất ~ 1,05 × cao khung nên cao = 0,95 × wd; mão ngắn đời (mưa) thì chạy nhanh hơn. Lớp
             // trước tướng thì trong mờ 0,92 (mão lớn dưới chân che chân đối thủ)
@@ -440,6 +448,11 @@ namespace PokiClash
         // dir: hướng nước bay tới (khung vẽ sẵn trung_nuoc có hướng; null = lật ngẫu nhiên)
         void Splash(Vector2 c, float sc, float ground, float tH, int group = Front, Vector2? dir = null)
         {
+            if (NS) // bộ nước shader (2026-11-24, HatNuocShader.cs)
+            {
+                NSplash(c, sc, ground, tH, group, dir);
+                return;
+            }
             var feet = new Vector2(c.x, ground);
             // khung vẽ sẵn (2026-11-19): nước trúng đích trung_nuoc ở thân + vương miện nước nuoc_toe dưới chân (Crown) thay chớp sao kem, khối
             // nước văng có viền mực, cụm bọt viền mực. Giữ một chùm giọt bắn ra sau (chiều sâu), vòng sóng trên đất, họa tiết thêm của tướng.
@@ -547,6 +560,11 @@ namespace PokiClash
                 {
                     float sp = z.vel.magnitude;
                     if (sp < 1) return;
+                    if (NS) // bộ nước shader: vệt thon xoắn vào đầu nòng
+                    {
+                        NGatherVe(z, k, sp);
+                        return;
+                    }
                     float g = Mathf.Min(1, k / 0.25f); // hiện dần, không bật phụt
                     float th = z.sz * (0.55f + 0.45f * g), len = th * Mathf.Clamp(sp / 110, 1.8f, 5);
                     var w = z.stops;
@@ -666,6 +684,7 @@ namespace PokiClash
         // Chưa có ảnh mới: khối tròn bốn lớp + hai vòng xoắn như bản cũ.
         P CauNuoc(Func<float, Vector2> cFn, float tEnd, Func<float, float> rFn, float[] pulse = null, float tSqz = -1, int group = Front, float tail = 0)
         {
+            if (NS) return NCauShader(cFn, tEnd, rFn, pulse, tSqz, group); // bộ nước shader: đuôi liền thân theo đường bay
             // khung vẽ sẵn (2026-11-19): cầu nước cau_nuoc (khối nước 4 tông lam, dải bọt xoay quanh, lặp 24 khung) thay khối kr_khoinuoc + lõi
             // cuộn + đốm kem có viền mực. Giữ cỡ theo rFn (lớn dần theo nhịp, phồng khi vệt nhập, nén 2 khung trước lúc nhả), giãn theo hướng
             // bay; thân cầu chiếm ~0,78 cao khung nên cao khung = 2,56 r. Đuôi liền vẫn rải đốt, bỏ viền mực cho hợp khung (không viền)
@@ -751,6 +770,11 @@ namespace PokiClash
         // n khối nước văng đều quanh tâm (lệch ngẫu nhiên) → giọt → chấm. bias: vận tốc cộng thêm (toé lệch một phía)
         void KrHit(Vector2 c, float size, int group = Front, int n = 7, float speed = 1, Vector2? bias = null)
         {
+            if (NS) // bộ nước shader: toé nhỏ (hướng tới = ngược bias)
+            {
+                NTrung(c, size * 1.7f, bias.HasValue ? -bias.Value : (Vector2?)null, group);
+                return;
+            }
             var star = new P { pos = c, life = 0.1f, group = group, seed = rng.Next(4), sz = size, ang = U(0, 360), stops = W };
             star.draw = (q, k, buf) =>
             {
@@ -784,6 +808,7 @@ namespace PokiClash
         // theo hướng bay, 20% cuối là chấm nhỏ dần rồi mất (tan bằng vỡ nhỏ, không mờ phụt)
         P Khoi(Vector2 pos, Vector2 vel, float life, float r, int group = Front)
         {
+            if (NS) return NKhoi(pos, vel, life, r, group); // bộ nước shader: cục nước có khối
             var p = new P { pos = pos, vel = vel, life = life, drag = 5.5f, acc = new Vector2(0, 420), seed = rng.Next(4), sz = r, group = group, stops = W };
             p.draw = (q, k, buf) =>
             {
@@ -829,6 +854,7 @@ namespace PokiClash
         // hat_kr_khoinho; dự phòng bọt), không viền, trong mờ 0,62, bay lên
         P BotCum(Vector2 pos, Vector2? vel = null, float r = 9, int group = Front, float life = 0, bool hoi = false)
         {
+            if (NS) return NBotCum(pos, vel, r, group, life, hoi); // bộ nước shader: cụm bọt trắng
             var p = new P
             {
                 pos = pos, vel = vel ?? new Vector2(U(-20, 20), U(-40, -10)), life = life > 0 ? life : U(0.5f, 0.75f), drag = 2.5f,
@@ -949,6 +975,11 @@ namespace PokiClash
         // (không co); hai mảng phẳng trong mờ, không viền mực, vài chấm ướt quanh
         void Puddle(Vector2 pos, float R = 22, float life = 1.3f)
         {
+            if (NS)
+            {
+                NVung(pos, R, Mathf.Max(life, 1.2f));
+                return;
+            }
             life = Mathf.Max(life, 1.5f);
             var p = new P { pos = pos, life = life, group = Floor, sz = R, stops = W, seed = rng.Next(1 << 16) };
             p.draw = (q, k, buf) =>
@@ -1426,6 +1457,11 @@ namespace PokiClash
                     };
                     q.draw = (z, k, buf) =>
                     {
+                        if (NS) // bộ nước shader: mũi thương là một dải nước nhọn (HatNuocShader.cs)
+                        {
+                            NMuiThuong(z, LEN);
+                            return;
+                        }
                         float age = z.age;
                         float sc = age < 0.1f ? 1.25f * EaseOut(age / 0.1f) : 1.25f - 0.25f * Mathf.Min(1, (age - 0.1f) / 0.06f);
                         var d = z.fly ? Unit(z.vel) : Unit(z.aim - z.pos);
@@ -1641,6 +1677,11 @@ namespace PokiClash
                 float hg = (0.55f + 0.6f * pr) * tH * EaseOut(q.age / 0.22f) * fall;
                 float wd = (0.5f + 0.25f * pr) * tH * (1 + 0.6f * (1 - fall));
                 if (hg < 4) return;
+                if (NS) // bộ nước shader: thân sóng là dải theo mặt cắt + dải bọt mào (HatNuocShader.cs)
+                {
+                    NSongVe(c, hg, wd, sx, t, fall, 1.7f);
+                    return;
+                }
                 int Shape(Vector2[] ctrl, float wob)
                 {
                     ctl.Clear();
@@ -1671,6 +1712,7 @@ namespace PokiClash
                 }
             };
             At(T0 - TR, () => Add(body));
+            if (NS && NuocGoi) GSongThem(() => Now(out _), sx, tH, T0, TT); // bản 3: vệt trượt, sóng trượt, khói bọt, toé mưa của gói
             Every(T0, T0 + TT, 46, x =>
             {
                 var c = Now(out float pr);
@@ -1691,7 +1733,8 @@ namespace PokiClash
             // → vũng mỏng) đổ chồm qua đối thủ theo hướng sóng (khung vẽ đổ sang PHẢI, đổ sang trái thì lật), thay 18 lưỡi sóng cuộn có viền
             // mực bắn qua đầu và 5 cụm bọt viền mực tràn hai bên. Mào cuộn ở ~0,8 bề ngang khung nên neo lùi về phía người ra chiêu 0,36 cao
             // khung cho mào đổ trúng đối thủ; trong mờ 0,86 (khối nước lớn phủ lên con bị trúng). Phát sớm 0,08 s cho chồng lên lúc mảng sụp
-            bool fbS = FbNuoc("song_nuoc");
+            bool fbS = !NS && FbNuoc("song_nuoc");
+            if (NS) At(T0 + TT - 0.04f, () => NSongDo(foeFeet, tH, sx)); // bộ nước shader: sóng đổ tới đích
             if (fbS)
             {
                 float hs = 1.2f * tH;
@@ -1702,7 +1745,7 @@ namespace PokiClash
             {
                 Shake?.Invoke(0.75f);
                 FlashScreen?.Invoke(FlashW);
-                if (!fbS)
+                if (!fbS && !NS)
                     for (int i = 0; i < 18; i++) // nước chồm qua đầu rồi đổ xuống
                     {
                         bool fr = U(0, 1) < 0.25f;
@@ -1733,6 +1776,7 @@ namespace PokiClash
             if (top.y < 44) top.y = 44; // không vượt mép trên sân
             float T0 = Mathf.Max(0.35f, lead), T1 = T0 + dur;
             Gather(t => top, 0, T0, 70, 45);
+            if (NS && NuocGoi) GMuaDat(foeFeet, tH, T0, T1); // bản 3: vòng gợn + toé hạt mưa của gói
             for (int i = 0; i < 7; i++)
             {
                 bool mid = i >= 2 && i <= 4;
@@ -1794,6 +1838,7 @@ namespace PokiClash
         // xoáy nước rồi mạch phun: xoáy sát đất siết vào tâm dưới chân đối thủ trong lúc lấy đà, tới khung nhả cột nước vọt lên
         public float NXoay(Vector2 foeFeet, float tH, float lead)
         {
+            if (NS) return NXoayShader(foeFeet, tH, lead); // bộ nước shader: mạch phun (HatNuocShader.cs)
             var Cc = foeFeet + new Vector2(0, 4);
             float T1 = Mathf.Max(0.45f, lead + 0.08f);
             Every(0, T1 + 0.1f, 28, x =>

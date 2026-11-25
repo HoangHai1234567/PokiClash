@@ -19,17 +19,21 @@ namespace PokiClash
             public string doan, nong, trung;
             public float doanDay = 0.42f;  // bề dày thân tia / cao khung đoạn (đo trên khung)
             public float nongCo = 2.3f;    // cao khung đầu nòng / bề dày tia
+            // đầu nòng là CẦU NĂNG LƯỢNG kiểu Energy Ball (2026-11-24, người dùng chọn cho cầu Mộc / Kim / Thổ): khung "cau_moc" / "cau_vang"
+            // thay khung xoáy `nong` khi đã nhập (chưa nhập thì về `nong`); nlR: bán kính thấy / bề dày tia
+            public string nl;
+            public float nlR = 0.85f;
             public float trungCo = 2.9f;   // cao khung va chạm / bề dày tia
             public Color tint = Color.white;
         }
 
         // Lộc Phong: năng lượng lá xanh, lá phong đỏ cam cuốn theo; tia nước: lam / ngọc lam, sợi bọt xoắn (đầu nòng dùng cầu nước có sẵn)
-        public static readonly TiaSkin DaTiaMoc = new TiaSkin { doan = "tia_moc_doan", nong = "tia_moc_nong", trung = "tia_moc_trung", doanDay = 0.38f };
+        public static readonly TiaSkin DaTiaMoc = new TiaSkin { doan = "tia_moc_doan", nong = "tia_moc_nong", trung = "tia_moc_trung", doanDay = 0.38f, nl = "cau_moc" };
         public static readonly TiaSkin DaTiaNuoc = new TiaSkin { doan = "tia_nuoc_doan", nong = "cau_nuoc", trung = "tia_nuoc_trung", nongCo = 1.9f, doanDay = 0.53f };
         // lửa: đoạn lửa có sợi lửa xoắn, cầu lửa xoáy, lửa toé ngược (tia mắt Hỏa Nhãn, tia nhiệt Thổ Tinh...); vàng: năng lượng Mặt Trời, dải
         // vàng xoắn + sao (tia Mặt Trời Nhật Vương, tia năng lượng Thần Cơ, tia hổ phách Giác Mộc...)
         public static readonly TiaSkin DaTiaLua = new TiaSkin { doan = "tia_lua_doan", nong = "tia_lua_nong", trung = "tia_lua_trung", doanDay = 0.51f };
-        public static readonly TiaSkin DaTiaVang = new TiaSkin { doan = "tia_vang_doan", nong = "tia_vang_nong", trung = "tia_vang_trung", doanDay = 0.5f };
+        public static readonly TiaSkin DaTiaVang = new TiaSkin { doan = "tia_vang_doan", nong = "tia_vang_nong", trung = "tia_vang_trung", doanDay = 0.5f, nl = "cau_vang" };
 
         public bool HasTia(TiaSkin k) => k != null && HasFb(k.doan) && HasFb(k.nong) && HasFb(k.trung);
 
@@ -63,6 +67,8 @@ namespace PokiClash
             var aN = FbArt(k.nong);
             var dN = Fbs[k.nong];
             float hN = k.nongCo * day * nongK;
+            bool nl = k.nl != null && HasFb(k.nl);          // đầu nòng là cầu năng lượng Energy Ball (2026-11-24)
+            float rNl = k.nlR * day * nongK, phNl = U(0, 1.5f);
             var pn = new P { pos = tu(), group = group, life = tCham + tBan + 0.25f };
             pn.upd = (q, dt, L) => q.pos = tu();
             pn.draw = (q, kk, buf) =>
@@ -70,17 +76,23 @@ namespace PokiClash
                 float a = q.age;
                 float lon = a < tTu ? Mathf.Lerp(0.35f, 1f, EaseOut(a / Mathf.Max(0.01f, tTu))) : 1 + 0.07f * Mathf.Sin((a - tTu) * 50);
                 float al = Mathf.Clamp01(a / 0.06f) * Mathf.Clamp01((q.life - a) / 0.22f);
+                if (nl)
+                {
+                    VeCauNl(buf, k.nl, q.pos, rNl * lon, q.group, layer + 2, a * 1.2f + phNl, 0, 1, al);
+                    return;
+                }
                 var dir = Unit(toi() - q.pos);
                 bool flip = dir.x < 0;
                 float ang = flip ? Mathf.Atan2(dir.y, -dir.x) * Mathf.Rad2Deg : Mathf.Atan2(-dir.y, dir.x) * Mathf.Rad2Deg;
                 DrawFb(buf, aN, dN, a * dN.fps * 1.2f, q.pos, hN * lon, q.group, layer + 2, ang, flip, k.tint, al);
             };
-            Add(pn);
+            if (nongK > 0) Add(pn);   // nongK 0: không có cầu đầu nòng (vd. tia Thổ Tinh ra thẳng từ Mặt Trời)
 
             // bông trúng lặp ở đích suốt lúc tia dội
             At(tCham, () =>
             {
                 onCham?.Invoke();
+                if (trungK <= 0) return;   // trungK 0: không có bông va chạm (vd. tia Mặt Trời Nhật Vương: cột tia + vụ nổ dưới chân là đủ)
                 var aT = FbArt(k.trung);
                 var dT = Fbs[k.trung];
                 float hT = k.trungCo * day * trungK;

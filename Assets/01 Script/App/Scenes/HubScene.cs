@@ -28,11 +28,13 @@ namespace PokiClash
         // (dựng mỗi lần đọc để chữ theo ngôn ngữ đang dùng)
         public static (string name, string icon, string need, float dx, float dy)[] Buildings => new[]
         {
-            (Loc.T("Nhà"), "seed", Loc.T("Có 3 tướng để mở Nhà"), -0.27f, 0.035f), // Nhà thay Trang trại (2026-11-18), icon giữ "seed"
+            // Nhà thay Trang trại (2026-11-18), icon giữ "seed"; mở sau ải thứ 2 (2026-11-24, Home.OpenStages)
+            (Loc.T("Nhà"), "seed", Loc.T("Qua 2 ải để mở Nhà"), -0.27f, 0.035f),
             (Loc.T("Đền Huy Hiệu"), "crown", Loc.T("Thắng mini boss đầu tiên ở một đảo bất kỳ để mở Đền Huy Hiệu"), 0.27f, 0.035f),
             (Loc.T("Hang Tiềm Năng"), "rock", Loc.F("Đạt cấp {0} để mở Hang Tiềm Năng", Progress.CaveLevel), 0f, 0.155f),
-            // Cây bi dời vào Nhà (2026-11-23): thẻ ở cột ẩn hẳn, giữ chỗ trong mảng cho khớp HubScene.buildings của prefab
-            (Loc.T("Cây bi"), "leaf", Loc.T("Qua ải 1 để có cây bi đầu tiên"), -0.27f, 0.155f),
+            // ô thứ 4 (trước là Cây bi, dời vào Nhà 2026-11-23) giờ là Sổ Phép (2026-11-24, GD_Claude/28_SoPhep.md); icon "pencil" vá vào
+            // prefab bằng menu "PokiClash/Prefab/Hộp thoại và màn/Sổ Phép"
+            (Loc.T("Sổ Phép"), "pencil", Loc.F("Đạt cấp {0} để mở Sổ Phép", 50), -0.27f, 0.155f),
         };
 
         // một nút tròn ở hàng đáy; chấm đỏ số (nếu có) bật theo dữ liệu
@@ -147,6 +149,13 @@ namespace PokiClash
             App.Toasts.Show(farm.need ?? Loc.T("Nhà chưa mở"), Icon("lock"));
         }
 
+        // hướng dẫn C21: ép chạm con tàu ở bến về Nhà (cờ đánh ở HomeScene.Enter); tàu có thể ngoài khung nhìn: lướt tới trước
+        void ForceShip(string text)
+        {
+            if (pan && pier && pier.transform is RectTransform shipRt) pan.GlideTo(shipRt);
+            Guide.Force(Tutorial.HomeGo, "hub.ship", text, null, true);
+        }
+
         IEnumerator GlideTo(RectTransform p)
         {
             if (!pan) yield break;
@@ -222,7 +231,6 @@ namespace PokiClash
         {
             var h = Tutorial.Starter(s, d);
             if (h == null) return;
-            var cfg = d.Cfg;
             // A6–A7: vào đảo của tướng đồng hành, đánh ải 1 (trận gương)
             if (Progress.TotalCleared(s) == 0)
             {
@@ -235,13 +243,14 @@ namespace PokiClash
                 }
                 return;
             }
-            // B8, C7: thả hết bi trong Máy Bi (lần đầu có kết quả viết sẵn)
+            // B8–C5: thả bi tới khi mở rương đầu (6 bi đầu viết sẵn: lên cấp 2, rương bạc 2 bản sao Chiêu). Không ép thả hết bi
+            // (người dùng 2026-11-23): mở rương đầu xong là xong đoạn Máy Bi (C7), bi còn lại người chơi tự thả lúc nào cũng được
             if (!Tutorial.Done(s, Tutorial.NoBalls))
             {
-                if (s.balls > 0 || s.chests.Count > 0)
+                if (!Tutorial.Done(s, Tutorial.Chest) && (s.balls > 0 || s.chests.Count > 0))
                 {
                     Guide.Force(Tutorial.Balls, "hub.machine",
-                        Tutorial.Done(s, Tutorial.Drop) ? Loc.T("Thả hết bi trong Máy Bi nhé.") : Loc.T("Bi! Thả bi vào Máy Bi để lên cấp."), null, true);
+                        Tutorial.Done(s, Tutorial.Drop) ? Loc.T("Thả tiếp bi để mở rương.") : Loc.T("Bi! Thả bi vào Máy Bi để lên cấp."), null, true);
                     return;
                 }
                 Guide.Skip(Tutorial.Balls, Tutorial.NoBalls);
@@ -249,7 +258,7 @@ namespace PokiClash
             // C8: nâng Chiêu bằng 2 bản sao của rương đầu
             if (!Tutorial.Done(s, Tutorial.UpCard))
             {
-                if (Progress.CanUpCard(s, cfg, h.id, CardSlot.Skill))
+                if (Tutorial.UpCardDue(s, d))
                 {
                     Guide.Force(Tutorial.Heroes, "hub.heroes", Loc.F("Nâng cấp Chiêu cho {0}.", h.name), null, true);
                     return;
@@ -277,14 +286,41 @@ namespace PokiClash
                 }
                 Guide.Skip(Tutorial.CounterIsle, Tutorial.CounterGo, Tutorial.Counter);
             }
-            // C17 (trận 2 đã thắng mà chưa nghe lời chào, vd. tắt game ở hộp kết quả)
+            // sau trận 2 (người dùng 2026-11-24): Sổ thẻ → Nhà (giới thiệu ở HomeScene.Tutor) → Cửa hàng → C17 lời chào cuối
             if (!Tutorial.CoreDone(s))
             {
-                if (s.zones[(int)ce] > 0)
+                if (!Tutorial.Battle2Won(s, d)) return;
+                Guide.Skip(Tutorial.Shards);
+                // C18: ép chạm Sổ thẻ, chạm là đủ (cờ đánh ở CardsScene.Enter, không đua với lớp phủ)
+                if (!Tutorial.Done(s, Tutorial.CardsGo))
                 {
-                    Guide.Skip(Tutorial.Shards);
-                    Guide.Say(Tutorial.Free, Loc.T("Giờ bạn tự đi nhé. Quên luật thì mở Sổ tay, mục Cách chơi."), Render);
+                    Guide.Force(Tutorial.CardsGo, "hub.cards", Loc.T("Sổ thẻ: mọi thẻ của mọi tướng. Chạm để xem."), null, true);
+                    return;
                 }
+                // C20–C21: Nhà mở (Home.OpenStages), ép chạm tàu về Nhà; về sảnh giữa chừng thì dẫn về Nhà lại
+                if (Home.Open(s, d.Cfg) && !Tutorial.HomeToured(s))
+                {
+                    if (!Tutorial.Done(s, Tutorial.HomeNews))
+                    {
+                        Guide.Skip("g1", "g2"); // khoảnh khắc "Nhà đã mở" cũ (sau chuỗi) không báo lại
+                        Guide.Show(Tutorial.HomeNews, Guide.Mode.Say, null,
+                            $"<b>{Loc.T("Nhà đã mở!")}</b>\n{Loc.T("Tướng làm việc ở Nhà ra bi và gỗ, cả khi bạn vắng.")}", () =>
+                            {
+                                Render();
+                                ForceShip(Loc.T("Chạm con tàu để về Nhà."));
+                            }, false, s.starter);
+                        return;
+                    }
+                    ForceShip(Tutorial.Done(s, Tutorial.HomeGo) ? Loc.T("Về Nhà đặt Cây bi nhé.") : Loc.T("Chạm con tàu để về Nhà."));
+                    return;
+                }
+                // C26: Cửa hàng hiện (Tutorial.Shows), khoanh sáng nút một lần rồi lời chào cuối
+                if (!Tutorial.Done(s, Tutorial.ShopNews))
+                {
+                    Guide.SayAt(Tutorial.ShopNews, "hub.shop", $"<b>{Loc.T("Cửa hàng đã mở!")}</b>\n{Loc.T("Quà miễn phí mỗi ngày, bi và rương.")}", TutorNext);
+                    return;
+                }
+                Guide.Say(Tutorial.Free, Loc.T("Giờ bạn tự đi nhé. Quên luật thì mở Sổ tay, mục Cách chơi."), Render);
                 return;
             }
             // sau chuỗi bắt buộc: khoảnh khắc mở tính năng (xếp hàng), rồi gợi ý theo lúc, mỗi lần vào sảnh một cái
@@ -295,6 +331,7 @@ namespace PokiClash
                 Guide.Show(u.id, Guide.Mode.Say, null, $"<b>{u.title}</b>\n{u.text}", () =>
                 {
                     Render();
+                    if (u.id == "h_sophep") Guide.Force("h_sophep2", "hub.sophep", Loc.T("Chạm Sổ Phép để vẽ nét đầu tiên."), null, true);
                     if (u.id != "g1") return;
                     if (pan && pier && pier.transform is RectTransform shipRt) pan.GlideTo(shipRt); // con tàu ở bến có thể ngoài khung nhìn
                     Guide.Force("g2", "hub.ship", Loc.T("Chạm con tàu để về Nhà."));
@@ -307,8 +344,7 @@ namespace PokiClash
                     Loc.F("Lúc bạn vắng, {0} vẫn đánh ải đã qua: ra mảnh và rương.", h.name)))
                 return;
             // E3 (hái cây bi) dời vào Nhà cùng Cây bi (2026-11-23): HomeScene.Tutor
-            if (Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now) && Guide.Hint(Tutorial.CardsBook, "hub.cards", Loc.T("Xem mọi thẻ trong Sổ thẻ.")))
-                return;
+            // D9 (gợi ý "Xem mọi thẻ trong Sổ thẻ") bỏ 2026-11-23: người dùng không muốn hướng dẫn bắt xem sổ thẻ; nút Sổ thẻ cứ hiện từ cấp 3
             if (s.heroes.Any(kv => kv.Value.owned && Progress.CanStarUp(s, d, kv.Key)) &&
                 Guide.Hint(Tutorial.StarUp, "hub.heroes", Loc.T("Mảnh dư dùng để lên sao: mạnh thêm.")))
                 return;
@@ -468,22 +504,34 @@ namespace PokiClash
             for (int i = 0; i < buildings.Length && i < Buildings.Length; i++)
             {
                 var item = Buildings[i];
-                bool temple = item.icon == "crown", cave = item.icon == "rock", farm = item.icon == "seed", tree = item.icon == "leaf";
-                bool open = farm ? Home.Open(s, d.Cfg) : temple ? Progress.BadgesOpen(s) : cave ? Progress.CaveOpen(s) : tree && Trees.Open(s, d.Cfg) > 0;
+                bool temple = item.icon == "crown", cave = item.icon == "rock", farm = item.icon == "seed", tree = item.icon == "leaf",
+                    book = item.icon == "pencil";
+                bool open = farm ? Home.Open(s, d.Cfg) : temple ? Progress.BadgesOpen(s) : cave ? Progress.CaveOpen(s) : book ? SoPhep.Open(s, d.Cfg) :
+                    tree && Trees.Open(s, d.Cfg) > 0;
                 double now = PokiClash.Game.SaveService.Now();
                 // người mới: công trình chỉ hiện khi tới gần lúc mở (GD_Claude/25_FTUE.md mục 5)
-                var part = farm ? Tutorial.HubPart.Home : temple ? Tutorial.HubPart.Temple : cave ? Tutorial.HubPart.Cave : Tutorial.HubPart.Trees;
+                var part = farm ? Tutorial.HubPart.Home : temple ? Tutorial.HubPart.Temple : cave ? Tutorial.HubPart.Cave :
+                    book ? Tutorial.HubPart.SoPhep : Tutorial.HubPart.Trees;
                 // Nhà dời xuống hàng nút đáy, Cây bi dời vào Nhà (2026-11-23): hai thẻ đó ở cột ẩn hẳn
                 buildings[i].gameObject.SetActive(!farm && !tree && Tutorial.Shows(s, d, part, now));
                 if (tree) Guide.Mark("hub.tree", buildings[i]);
+                if (book) Guide.Mark("hub.sophep", buildings[i]);
                 // chấm báo: có dãy huy hiệu vừa mở, chưa đánh trận nào; Nhà cần chăm; cây bi đầy
-                bool alert = (temple && open && Badges.HasNew(s, d)) || (farm && open && Home.Alert(s, d, now)) || (tree && open && Trees.Full(s, d.Cfg, now));
+                bool alert = (temple && open && Badges.HasNew(s, d)) || (farm && open && Home.Alert(s, d, now)) || (tree && open && Trees.Full(s, d.Cfg, now)) ||
+                             (book && open && d.Cfg.sophep.nodes.Any(n => SoPhep.Block(s, d.Cfg, n.id) == ""));
                 buildings[i].Bind(item.name, open, alert, () =>
                 {
                     if (tree && open)
                     {
                         App.Audio.Play("click");
                         TreePanel.Open();
+                        return;
+                    }
+                    if (book && open)
+                    {
+                        App.Audio.Play("click");
+                        Guide.Skip("h_sophep2");
+                        SoPhepDialog.Open();
                         return;
                     }
                     if ((temple || cave || farm) && open)

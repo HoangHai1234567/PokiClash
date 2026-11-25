@@ -35,6 +35,9 @@ namespace PokiClash.EditorTools
             if (assetPath.StartsWith(ArtImporter.BakedDir + "/")) return;
             // hình tướng aola: AolaImportPostprocessor đặt cách nhập (atlas có mipmap, chân dung có gốc ở chân)
             if (assetPath.StartsWith(AolaImport.ArtDir + "/")) return;
+            // ảnh DỮ LIỆU của shader nước (nhiễu lặp + vân chì, atlas mặt nạ; 2026-11-24): không phải sprite — tuyến tính, lặp, có mipmap;
+            // cách nhập do NuocFxMenu đặt (ép Sprite + Clamp làm nhiễu không lặp, tia nước ra một màu phẳng)
+            if (assetPath.StartsWith(ArtImporter.ArtDir + "/Fx/Nuoc/")) return;
             var ti = (TextureImporter)assetImporter;
             ti.textureType = TextureImporterType.Sprite;
             ti.spriteImportMode = SpriteImportMode.Single;
@@ -48,7 +51,8 @@ namespace PokiClash.EditorTools
                 || assetPath.Contains("/Pachinko/pk_than_may")
                 || assetPath.Contains("/Pachinko/pk_nen_phong") // nền phòng màn máy bi bản 2 (1024 x 1536, phủ cả màn)
                 || assetPath.Contains("/Boot/boot_ban_do") // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
-                || assetPath.Contains("/Home/home_base"); // nền đảo Nhà (GD_Claude/21)
+                || assetPath.Contains("/Home/home_base") // nền đảo Nhà (GD_Claude/21)
+                || assetPath.Contains("/Kit/may_chuyen_"); // mây chuyển scene (ArtGen/UI/may_chuyen_scene, 2026-11-24): mỗi nửa phủ gần cả màn
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
             // bản đồ thế giới sảnh (ArtGen/Islands/sanh_moi/build_sanh.py): 2048 x 3072, hiện 1728 x 2592

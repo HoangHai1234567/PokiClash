@@ -1,0 +1,8795 @@
+{
+ "file": "D:\\PokiClash\\ArtGen\\Spine\\vfx_blender\\ref_codywinch\\loc_xoay\\Updated and Simplified Tornado 280.blend",
+ "version": [
+  2,
+  80,
+  57
+ ],
+ "scene": {
+  "name": "Scene",
+  "frames": [
+   1,
+   150
+  ],
+  "fps": 24,
+  "engine": "BLENDER_EEVEE",
+  "res": [
+   1920,
+   1080,
+   100
+  ],
+  "film_transparent": false,
+  "view_transform": "Standard",
+  "look": "None",
+  "camera": "<Object:Camera>",
+  "world": "<World:World>",
+  "world_color": [
+   0.0509,
+   0.0509,
+   0.0509
+  ],
+  "world_nodes": {
+   "nodes": [
+    {
+     "name": "World Output",
+     "type": "ShaderNodeOutputWorld",
+     "inputs": {}
+    },
+    {
+     "name": "Background",
+     "type": "ShaderNodeBackground",
+     "inputs": {
+      "Color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ],
+      "Strength": 1.0,
+      "Weight": 0.0
+     }
+    }
+   ],
+   "links": [
+    "Background.Background -> World Output.Surface"
+   ]
+  },
+  "anim": null
+ },
+ "objects": [
+  {
+   "name": "Blue Lightning",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Blue Lightning>",
+   "verts": 10242,
+   "vgroups": [
+    "Gradient",
+    "Lightning Texture"
+   ],
+   "materials": [
+    "<Material:Blue Lightning>"
+   ],
+   "modifiers": [
+    {
+     "name": "Lightning Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "vertex_group": "Lightning Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B3C20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Lightning Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Lightning Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Layering",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Layering>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Layering>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 500.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B3A20>",
+      "use_volume_preserve": false,
+      "vertex_group": "Gradient",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Lattice Lightning",
+     "type": "LATTICE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object": "<Object:Lattice Lightning>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Lightning Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Lightning Texture",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.7
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 0.5,
+      "iterations": 55,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Lightning Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": null,
+      "factor": 3.1416,
+      "angle": 3.1416,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Raise Up",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "object_from": "<Object:Raise From>",
+      "bone_from": "",
+      "object_to": "<Object:Raise To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B3820>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {},
+   "data_anim": null
+  },
+  {
+   "name": "Camera",
+   "type": "CAMERA",
+   "loc": [
+    -0.4253,
+    -25.405,
+    1.2042
+   ],
+   "rot": [
+    1.7766,
+    -0.0,
+    -0.0272
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Camera:Camera>",
+   "cam": {
+    "type": "PERSP",
+    "ortho": 6.0,
+    "lens": 24.0
+   },
+   "modifiers": [],
+   "anim": {
+    "action": "CameraAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        0.0,
+        -25.7855,
+        "BEZIER"
+       ],
+       [
+        151.0,
+        -14.0085,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Cube",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.9393
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube>",
+   "verts": 8,
+   "vgroups": [],
+   "materials": [
+    "<Material:Material>"
+   ],
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Highlight",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Highlight>",
+   "verts": 10242,
+   "vgroups": [
+    "Layer3",
+    "Gradient",
+    "Main Texture",
+    "Thin",
+    "Mask"
+   ],
+   "materials": [
+    "<Material:Highlight>"
+   ],
+   "modifiers": [
+    {
+     "name": "Main Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "vertex_group": "Main Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B3420>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Main Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Main Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Mask Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Mask",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B3020>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Mask Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Main Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Thin Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Thin",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2C20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Thin Tex>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Thin Tex>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Layering",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Layering>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Layering>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 500.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2A20>",
+      "use_volume_preserve": false,
+      "vertex_group": "Gradient",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Lattice Main",
+     "type": "LATTICE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object": "<Object:Lattice Main>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Main Displace1",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Main Texture",
+      "mid_level": 0.0,
+      "strength": 1.0,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Main Displace2",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group": "Main Texture",
+      "mid_level": 0.0,
+      "strength": 1.0,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Layer3 Threshold",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Layer3",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SUB",
+      "mix_set": "B",
+      "normalize": false,
+      "mask_constant": 0.45,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Main Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Layer Disp",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "",
+      "mid_level": 0.0,
+      "strength": 0.1,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 0.5,
+      "iterations": 55,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Main Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": null,
+      "factor": 12.5664,
+      "angle": 12.5664,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Thin Out",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "object_from": "<Object:Thin From>",
+      "bone_from": "",
+      "object_to": "<Object:Thin To>",
+      "bone_to": "",
+      "strength": 0.25,
+      "falloff_type": "SMOOTH",
+      "falloff_radius": 3.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2820>",
+      "use_volume_preserve": false,
+      "vertex_group": "Thin",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Raise Up",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 14,
+      "object_from": "<Object:Raise From>",
+      "bone_from": "",
+      "object_to": "<Object:Raise To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2620>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "action": "HighlightAction",
+    "fcurves": [
+     {
+      "path": "modifiers[\"Thin Out\"].falloff_radius",
+      "idx": 0,
+      "keys": [
+       [
+        96.0,
+        3.0,
+        "LINEAR"
+       ],
+       [
+        132.0,
+        75.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Lattice Lightning",
+   "type": "LATTICE",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.6857,
+    2.6857,
+    2.6857
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Lattice:Lattice.003>",
+   "modifiers": [
+    {
+     "name": "Overall Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "object_from": "<Object:Warp From Lattice Lightning>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Lightning>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2420>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Center Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Lattice Center Lightning>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Center Lightning>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.42,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2220>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Top Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object_from": "<Object:Warp From Lattice Top Lightning>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Top Lightning>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B2020>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Bottom Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Lattice Bottom Lightning>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Bottom Lightning>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1E20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object_from": "<Object:Warp From Lattice Lightning.001>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Lightning.001>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1C20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Lattice Main",
+   "type": "LATTICE",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.6857,
+    2.6857,
+    2.6857
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Lattice:Lattice>",
+   "modifiers": [
+    {
+     "name": "Overall Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "object_from": "<Object:Warp From Lattice Main>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Main>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1A20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Center Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Lattice Center Main>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Center Main>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.42,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1820>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Top Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object_from": "<Object:Warp From Lattice Top Main>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Top Main>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1620>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Bottom Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Lattice Bottom Main>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Bottom Main>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1420>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object_from": "<Object:Warp From Lattice Center Main.001>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Center Main.001>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 3.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1220>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Warp.001",
+     "type": "WARP",
+     "props": {
+      "show_viewport": false,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "object_from": "<Object:Thin From>",
+      "bone_from": "",
+      "object_to": "<Object:Thin To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B1020>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Lattice Smoke",
+   "type": "LATTICE",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.6857,
+    2.6857,
+    2.6857
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Lattice:Lattice.002>",
+   "modifiers": [
+    {
+     "name": "Overall Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "object_from": "<Object:Warp From Lattice Smoke>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Smoke>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0E20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Center Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Lattice Center Smoke>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Center Smoke>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.42,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0C20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Top Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object_from": "<Object:Warp From Lattice Top Smoke>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Top Smoke>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0A20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Bottom Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Lattice Bottom Smoke>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Bottom Smoke>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0820>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object_from": "<Object:Warp From Lattice Smoke.001>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Smoke.001>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0620>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Lattice Sparks",
+   "type": "LATTICE",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.6857,
+    2.6857,
+    2.6857
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Lattice:Lattice.001>",
+   "modifiers": [
+    {
+     "name": "Overall Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "object_from": "<Object:Warp From Lattice Sparks>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Sparks>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0420>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Center Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Lattice Center Sparks>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Center Sparks>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SHARP",
+      "falloff_radius": 5.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7B0220>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Top Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object_from": "<Object:Warp From Lattice Top Sparks>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Top Sparks>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SMOOTH",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A3E20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Bottom Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Lattice Bottom Sparks>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Bottom Sparks>",
+      "bone_to": "",
+      "strength": 2.0,
+      "falloff_type": "SMOOTH",
+      "falloff_radius": 2.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A3C20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Warp",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object_from": "<Object:Warp From Lattice Sparks.001>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Lattice Sparks.001>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A3A20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Layering Tex Space",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.5,
+    1.5,
+    1.5
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "PLAIN_AXES",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Lightning Texture Empty",
+   "type": "EMPTY",
+   "loc": [
+    -8.6873,
+    -0.0,
+    3.8841
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    0.5
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Lightning Texture EmptyAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        1.1841,
+        "LINEAR"
+       ],
+       [
+        10.0,
+        2.5341,
+        "LINEAR"
+       ],
+       [
+        120.0,
+        19.0341,
+        "BEZIER"
+       ],
+       [
+        144.0,
+        21.3203,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Main Texture Empty",
+   "type": "EMPTY",
+   "loc": [
+    -5.7365,
+    0.0,
+    -0.4123
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.5,
+    0.5,
+    0.5
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Main Texture EmptyAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        -2.4123,
+        "LINEAR"
+       ],
+       [
+        10.0,
+        -1.4123,
+        "LINEAR"
+       ],
+       [
+        120.0,
+        10.81,
+        "BEZIER"
+       ],
+       [
+        144.0,
+        12.7216,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Orange",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Orange>",
+   "verts": 10242,
+   "vgroups": [
+    "Layer2",
+    "Gradient",
+    "Main Texture",
+    "Thin",
+    "Mask"
+   ],
+   "materials": [
+    "<Material:Orange>"
+   ],
+   "modifiers": [
+    {
+     "name": "Main Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "vertex_group": "Main Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A3620>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Main Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Main Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Mask Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Mask",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A3220>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Mask Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Main Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Thin Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Thin",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2E20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Thin Tex>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Thin Tex>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Layering",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Layering>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Layering>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 500.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2C20>",
+      "use_volume_preserve": false,
+      "vertex_group": "Gradient",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Lattice Main",
+     "type": "LATTICE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object": "<Object:Lattice Main>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Main Displace1",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Main Texture",
+      "mid_level": 0.0,
+      "strength": 1.0,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Main Displace2",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group": "Main Texture",
+      "mid_level": 0.0,
+      "strength": 1.0,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Layer2 Threshold",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Layer2",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SUB",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 0.6,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Main Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 0.5,
+      "iterations": 55,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Main Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": null,
+      "factor": 12.5664,
+      "angle": 12.5664,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Thin Out",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "object_from": "<Object:Thin From>",
+      "bone_from": "",
+      "object_to": "<Object:Thin To>",
+      "bone_to": "",
+      "strength": 0.25,
+      "falloff_type": "SMOOTH",
+      "falloff_radius": 3.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2A20>",
+      "use_volume_preserve": false,
+      "vertex_group": "Thin",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Raise Up",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "object_from": "<Object:Raise From>",
+      "bone_from": "",
+      "object_to": "<Object:Raise To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2820>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "action": "OrangeAction",
+    "fcurves": [
+     {
+      "path": "modifiers[\"Thin Out\"].falloff_radius",
+      "idx": 0,
+      "keys": [
+       [
+        96.0,
+        3.0,
+        "LINEAR"
+       ],
+       [
+        132.0,
+        75.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Plane",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.2487
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    44.414,
+    44.414,
+    44.414
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Plane.001>",
+   "verts": 4,
+   "vgroups": [],
+   "materials": [
+    "<Material:Material.001>"
+   ],
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Point",
+   "type": "LIGHT",
+   "loc": [
+    -0.2287,
+    -1.9749,
+    3.554
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<PointLight:Point>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": {
+    "action": "PointAction",
+    "fcurves": [
+     {
+      "path": "energy",
+      "idx": 0,
+      "keys": [
+       [
+        98.0,
+        20.11,
+        "BEZIER"
+       ],
+       [
+        130.0,
+        0.0,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Point.001",
+   "type": "LIGHT",
+   "loc": [
+    -0.2287,
+    -1.9749,
+    7.782
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<PointLight:Point.001>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": {
+    "action": "Point.001Action",
+    "fcurves": [
+     {
+      "path": "energy",
+      "idx": 0,
+      "keys": [
+       [
+        98.0,
+        5.0,
+        "BEZIER"
+       ],
+       [
+        130.0,
+        0.0,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Point.002",
+   "type": "LIGHT",
+   "loc": [
+    -0.0006,
+    -1.9749,
+    0.7788
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<PointLight:Point.002>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": {
+    "action": "Point.002Action",
+    "fcurves": [
+     {
+      "path": "energy",
+      "idx": 0,
+      "keys": [
+       [
+        98.0,
+        35.0,
+        "BEZIER"
+       ],
+       [
+        130.0,
+        0.0,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Point.003",
+   "type": "LIGHT",
+   "loc": [
+    -0.0006,
+    -1.9749,
+    0.7788
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<PointLight:Point.003>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": {
+    "action": "Point.003Action",
+    "fcurves": [
+     {
+      "path": "energy",
+      "idx": 0,
+      "keys": [
+       [
+        98.0,
+        15.0,
+        "BEZIER"
+       ],
+       [
+        130.0,
+        0.0,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Raise From",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "PLAIN_AXES",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Raise To",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    5.2622
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": "<Object:Raise From>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "PLAIN_AXES",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Red Sparks",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Red Sparks>",
+   "verts": 10242,
+   "vgroups": [
+    "Gradient",
+    "Sparks Texture"
+   ],
+   "materials": [
+    "<Material:Red Sparks>"
+   ],
+   "modifiers": [
+    {
+     "name": "Sparks Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "vertex_group": "Sparks Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2420>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<VoronoiTexture:Sparks Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Sparks Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Layering",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Layering>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Layering>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 500.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2220>",
+      "use_volume_preserve": false,
+      "vertex_group": "Gradient",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Lattice Sparks",
+     "type": "LATTICE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object": "<Object:Lattice Sparks>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Sparks Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Sparks Texture",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.4
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 0.5,
+      "iterations": 55,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Sparks Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": null,
+      "factor": 3.1416,
+      "angle": 3.1416,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Raise Up",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "object_from": "<Object:Raise From>",
+      "bone_from": "",
+      "object_to": "<Object:Raise To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A2020>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {},
+   "data_anim": null
+  },
+  {
+   "name": "Shadow",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Shadow>",
+   "verts": 10242,
+   "vgroups": [
+    "Layer1",
+    "Gradient",
+    "Main Texture",
+    "Thin",
+    "Mask"
+   ],
+   "materials": [
+    "<Material:Shadow>"
+   ],
+   "modifiers": [
+    {
+     "name": "Main Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "vertex_group": "Main Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A1C20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Main Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Main Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Mask Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Mask",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A1820>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Mask Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Main Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Thin Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Thin",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A1420>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Thin Tex>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Thin Tex>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Layering",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "object_from": "<Object:Warp From Layering>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Layering>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 500.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A1220>",
+      "use_volume_preserve": false,
+      "vertex_group": "Gradient",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Lattice Main",
+     "type": "LATTICE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "object": "<Object:Lattice Main>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Main Displace1",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Main Texture",
+      "mid_level": 0.0,
+      "strength": 1.0,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Main Displace2",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group": "Main Texture",
+      "mid_level": 0.0,
+      "strength": 1.0,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Layer1 Threshold",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Layer1",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SUB",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Main Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Layer Disp",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "Layer1",
+      "mid_level": 0.0,
+      "strength": -0.1,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 0.5,
+      "iterations": 55,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Main Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": null,
+      "factor": 12.5664,
+      "angle": 12.5664,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Thin Out",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "object_from": "<Object:Thin From>",
+      "bone_from": "",
+      "object_to": "<Object:Thin To>",
+      "bone_to": "",
+      "strength": 0.25,
+      "falloff_type": "SMOOTH",
+      "falloff_radius": 3.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A1020>",
+      "use_volume_preserve": false,
+      "vertex_group": "Thin",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Raise Up",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 14,
+      "object_from": "<Object:Raise From>",
+      "bone_from": "",
+      "object_to": "<Object:Raise To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A0E20>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "action": "ShadowAction",
+    "fcurves": [
+     {
+      "path": "modifiers[\"Thin Out\"].falloff_radius",
+      "idx": 0,
+      "keys": [
+       [
+        96.0,
+        3.0,
+        "LINEAR"
+       ],
+       [
+        132.0,
+        75.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "modifiers[\"Layer1 Threshold\"].mask_constant",
+      "idx": 0,
+      "keys": [
+       [
+        96.0,
+        1.0,
+        "LINEAR"
+       ],
+       [
+        132.0,
+        0.7,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Smoke",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Smoke>",
+   "verts": 10242,
+   "vgroups": [
+    "Gradient",
+    "Smoke Texture"
+   ],
+   "materials": [
+    "<Material:Smoke>"
+   ],
+   "modifiers": [
+    {
+     "name": "Smoke Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "vertex_group": "Smoke Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A0A20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Smoke Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Smoke Texture Empty>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Layering",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "object_from": "<Object:Warp From Layering>",
+      "bone_from": "",
+      "object_to": "<Object:Warp To Layering>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 500.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A0820>",
+      "use_volume_preserve": false,
+      "vertex_group": "Gradient",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Lattice Smoke",
+     "type": "LATTICE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "object": "<Object:Lattice Smoke>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Smoke Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Smoke Texture",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.1
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 0.5,
+      "iterations": 55,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Smoke Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": null,
+      "factor": 3.8397,
+      "angle": 3.8397,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Raise Up",
+     "type": "WARP",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "object_from": "<Object:Raise From>",
+      "bone_from": "",
+      "object_to": "<Object:Raise To>",
+      "bone_to": "",
+      "strength": 1.0,
+      "falloff_type": "NONE",
+      "falloff_radius": 1.0,
+      "falloff_curve": "<bpy_struct, CurveMapping at 0x000001C73B7A0620>",
+      "use_volume_preserve": false,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {},
+   "data_anim": null
+  },
+  {
+   "name": "Smoke Texture Empty",
+   "type": "EMPTY",
+   "loc": [
+    -6.7497,
+    -0.0,
+    4.6231
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.2279,
+    0.2279,
+    1.2534
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Smoke Texture EmptyAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        1.1841,
+        "LINEAR"
+       ],
+       [
+        10.0,
+        2.9036,
+        "LINEAR"
+       ],
+       [
+        120.0,
+        23.9194,
+        "BEZIER"
+       ],
+       [
+        144.0,
+        27.1352,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Sparks Texture Empty",
+   "type": "EMPTY",
+   "loc": [
+    -4.7246,
+    -0.0,
+    3.6841
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.5,
+    0.5,
+    0.4
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Sparks Texture EmptyAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        1.1841,
+        "LINEAR"
+       ],
+       [
+        10.0,
+        2.4341,
+        "LINEAR"
+       ],
+       [
+        120.0,
+        17.7119,
+        "BEZIER"
+       ],
+       [
+        144.0,
+        19.9548,
+        "BEZIER"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Thin From",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -8.153
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "EmptyAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 0,
+      "keys": [
+       [
+        120.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        144.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        120.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        144.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        120.0,
+        -8.153,
+        "LINEAR"
+       ],
+       [
+        144.0,
+        -4.3697,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Thin Tex",
+   "type": "EMPTY",
+   "loc": [
+    -7.9898,
+    2.2272,
+    -14.3868
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.9233,
+    2.9233,
+    2.9233
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "PLAIN_AXES",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Empty.002Action",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        83.0,
+        -0.2366,
+        "LINEAR"
+       ],
+       [
+        107.0,
+        5.0697,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Thin To",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -8.153
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.0,
+    0.0,
+    1.0
+   ],
+   "parent": "<Object:Thin From>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "UV From",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -8.1492
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "PLAIN_AXES",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "UV To",
+   "type": "EMPTY",
+   "loc": [
+    -2.0,
+    0.0,
+    -8.1492
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": "<Object:UV From>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "PLAIN_AXES",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Bottom Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -5.6928
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Bottom Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -5.6928
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Bottom Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -5.6928
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Bottom Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -5.6928
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Center Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -2.318
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Center Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -2.318
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Center Main.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Center Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    1.164
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Center Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.7079
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Lightning.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -10.8608
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Smoke.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    -8.1585
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Sparks.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Top Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    5.6775
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Top Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    5.6775
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Top Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    5.6775
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Lattice Top Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    5.6775
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp From Layering",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Bottom Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.964,
+    1.964,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Bottom Lightning>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Bottom Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.964,
+    1.964,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Bottom Main>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Bottom Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.2473,
+    2.2473,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Bottom Smoke>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Bottom Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.2383,
+    2.2383,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Bottom Sparks>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Center Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Center Lightning>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Center Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.2281,
+    0.2281,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Center Main>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Center Main.001",
+   "type": "EMPTY",
+   "loc": [
+    0.27,
+    0.0329,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Center Main.001>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Warp To Lattice Center Main.001Action",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 0,
+      "keys": [
+       [
+        10.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": [
+       "NOISE"
+      ]
+     },
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        10.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": [
+       "NOISE"
+      ]
+     }
+    ]
+   }
+  },
+  {
+   "name": "Warp To Lattice Center Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.7775,
+    0.7775,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Center Smoke>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Center Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.1142,
+    1.1142,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Center Sparks>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.8037,
+    0.8037,
+    4.2294
+   ],
+   "parent": "<Object:Warp From Lattice Lightning>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Lightning.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.9124,
+    1.9124,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Lightning.001>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.8037,
+    0.8037,
+    4.2294
+   ],
+   "parent": "<Object:Warp From Lattice Main>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.8037,
+    0.8037,
+    4.2294
+   ],
+   "parent": "<Object:Warp From Lattice Smoke>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Smoke.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    4.2221,
+    4.2221,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Smoke.001>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.8037,
+    0.8037,
+    4.2294
+   ],
+   "parent": "<Object:Warp From Lattice Sparks>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Sparks.001",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.6362,
+    1.6362,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Sparks.001>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Top Lightning",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    3.2101,
+    3.2101,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Top Lightning>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Top Main",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    4.2941,
+    4.2941,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Top Main>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Top Smoke",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0192,
+    1.0192,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Top Smoke>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Lattice Top Sparks",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    2.4789,
+    2.4789,
+    1.0
+   ],
+   "parent": "<Object:Warp From Lattice Top Sparks>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Warp To Layering",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.6,
+    0.6,
+    1.0
+   ],
+   "parent": "<Object:Warp From Layering>",
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  }
+ ],
+ "textures": [
+  {
+   "name": "Lightning Texture",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Lightning Texture",
+    "id_type": "TEXTURE",
+    "session_uid": 310,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Lightning Texture>",
+    "users": 1,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001C73B351C30>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001C73B2F3920>",
+    "intensity": 0.0,
+    "contrast": 3.0,
+    "saturation": 2.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": "<bpy_struct, AnimData at 0x000001C73B5BDC20>",
+    "noise_scale": 1.0,
+    "noise_depth": 2,
+    "noise_basis": "VORONOI_F2_F1",
+    "noise_type": "HARD_NOISE",
+    "cloud_type": "",
+    "nabla": 0.025
+   },
+   "anim": {
+    "action": "Lightning TextureAction",
+    "fcurves": [
+     {
+      "path": "contrast",
+      "idx": 0,
+      "keys": [
+       [
+        108.0,
+        3.0,
+        "LINEAR"
+       ],
+       [
+        159.0,
+        1.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Main Texture",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Main Texture",
+    "id_type": "TEXTURE",
+    "session_uid": 311,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Main Texture>",
+    "users": 3,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001C73B351C80>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001C73B2F35A0>",
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": "<bpy_struct, AnimData at 0x000001C73B5BD620>",
+    "noise_scale": 2.0,
+    "noise_depth": 6,
+    "noise_basis": "VORONOI_F1",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "",
+    "nabla": 0.025
+   },
+   "anim": {}
+  },
+  {
+   "name": "Mask Texture",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Mask Texture",
+    "id_type": "TEXTURE",
+    "session_uid": 312,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Mask Texture>",
+    "users": 3,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001C73B351CD0>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001C73B2F3220>",
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": "<bpy_struct, AnimData at 0x000001C73B5BD020>",
+    "noise_scale": 2.0,
+    "noise_depth": 6,
+    "noise_basis": "VORONOI_F1",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "",
+    "nabla": 0.025
+   },
+   "anim": {
+    "action": "Mask TextureAction",
+    "fcurves": [
+     {
+      "path": "intensity",
+      "idx": 0,
+      "keys": [
+       [
+        96.0,
+        1.0,
+        "LINEAR"
+       ],
+       [
+        132.0,
+        0.4,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Smoke Texture",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Smoke Texture",
+    "id_type": "TEXTURE",
+    "session_uid": 313,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Smoke Texture>",
+    "users": 1,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001C73B351D20>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001C73B2F2EA0>",
+    "intensity": 1.0,
+    "contrast": 1.54,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": "<bpy_struct, AnimData at 0x000001C73B5BCA20>",
+    "noise_scale": 1.0,
+    "noise_depth": 0,
+    "noise_basis": "VORONOI_F2",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "",
+    "nabla": 0.025
+   },
+   "anim": {
+    "action": "Smoke TextureAction",
+    "fcurves": [
+     {
+      "path": "intensity",
+      "idx": 0,
+      "keys": [
+       [
+        108.0,
+        1.0,
+        "LINEAR"
+       ],
+       [
+        159.0,
+        0.5,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Sparks Texture",
+   "type": "VORONOI",
+   "props": {
+    "name_full": "Sparks Texture",
+    "id_type": "TEXTURE",
+    "session_uid": 314,
+    "is_evaluated": false,
+    "original": "<VoronoiTexture:Sparks Texture>",
+    "users": 1,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001C73B351D70>",
+    "use_clamp": true,
+    "use_color_ramp": true,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001C73B2F2B20>",
+    "intensity": 0.3,
+    "contrast": 3.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": "<bpy_struct, AnimData at 0x000001C73B5BC420>",
+    "weight_1": 1.0,
+    "weight_2": 0.0,
+    "weight_3": 0.0,
+    "weight_4": 0.0,
+    "minkovsky_exponent": 2.5,
+    "distance_metric": "DISTANCE",
+    "color_mode": "INTENSITY",
+    "noise_intensity": 2.0,
+    "noise_scale": 1.0,
+    "nabla": 0.025
+   },
+   "anim": {
+    "action": "Sparks TextureAction",
+    "fcurves": [
+     {
+      "path": "intensity",
+      "idx": 0,
+      "keys": [
+       [
+        108.0,
+        0.3,
+        "LINEAR"
+       ],
+       [
+        162.0,
+        2.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "contrast",
+      "idx": 0,
+      "keys": [
+       [
+        108.0,
+        3.0,
+        "LINEAR"
+       ],
+       [
+        162.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Thin Tex",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Thin Tex",
+    "id_type": "TEXTURE",
+    "session_uid": 315,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Thin Tex>",
+    "users": 3,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001C73B351DC0>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001C73B2F27A0>",
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": "<bpy_struct, AnimData at 0x000001C73B2D7D20>",
+    "noise_scale": 2.0,
+    "noise_depth": 6,
+    "noise_basis": "VORONOI_F1",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "",
+    "nabla": 0.025
+   },
+   "anim": {
+    "action": "Thin TexAction",
+    "fcurves": [
+     {
+      "path": "intensity",
+      "idx": 0,
+      "keys": [
+       [
+        96.0,
+        1.0,
+        "LINEAR"
+       ],
+       [
+        132.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  }
+ ],
+ "materials": [
+  {
+   "name": "Blue Lightning",
+   "diffuse": [
+    0.0728,
+    0.192,
+    0.8,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.0728,
+        0.192,
+        0.8,
+        1.0
+       ],
+       "Strength": 3.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Highlight",
+   "diffuse": [
+    1.0,
+    0.9799,
+    0.7027,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        1.0,
+        0.9799,
+        0.7027,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Material",
+   "diffuse": [
+    0.8,
+    0.8,
+    0.8,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Volume Absorption",
+      "type": "ShaderNodeVolumeAbsorption",
+      "inputs": {
+       "Color": [
+        0.8,
+        0.8,
+        0.8,
+        1.0
+       ],
+       "Density": 1.0,
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "Volume Scatter",
+      "type": "ShaderNodeVolumeScatter",
+      "inputs": {
+       "Color": [
+        0.8,
+        0.8,
+        0.8,
+        1.0
+       ],
+       "Density": 0.2,
+       "Anisotropy": 0.0,
+       "IOR": 1.33,
+       "Backscatter": 0.1,
+       "Alpha": 0.5,
+       "Diameter": 20.0,
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Noise Texture",
+      "type": "ShaderNodeTexNoise",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "W": 0.0,
+       "Scale": -5.4,
+       "Detail": 16.0,
+       "Roughness": 0.5,
+       "Lacunarity": 2.0,
+       "Offset": 0.0,
+       "Gain": 1.0,
+       "Distortion": 0.0
+      },
+      "noise_dimensions": "3D"
+     },
+     {
+      "name": "Bright/Contrast",
+      "type": "ShaderNodeBrightContrast",
+      "inputs": {
+       "Brightness": 0.0,
+       "Contrast": 1.0
+      }
+     },
+     {
+      "name": "ColorRamp",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.427,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.464,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Mapping",
+      "type": "ShaderNodeMapping",
+      "inputs": {
+       "Location": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Rotation": [
+        0.0,
+        1.5708,
+        0.0
+       ],
+       "Scale": [
+        1.0,
+        1.0,
+        1.0
+       ]
+      }
+     },
+     {
+      "name": "Gradient Texture",
+      "type": "ShaderNodeTexGradient",
+      "inputs": {}
+     },
+     {
+      "name": "Texture Coordinate",
+      "type": "ShaderNodeTexCoord",
+      "inputs": {}
+     },
+     {
+      "name": "Principled Volume",
+      "type": "ShaderNodeVolumePrincipled",
+      "inputs": {
+       "Color": [
+        0.5,
+        0.5,
+        0.5,
+        1.0
+       ],
+       "Color Attribute": "",
+       "Density Attribute": "density",
+       "Anisotropy": 0.0,
+       "Absorption Color": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ],
+       "Emission Strength": 0.0,
+       "Emission Color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Blackbody Intensity": 0.0,
+       "Blackbody Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Temperature": 1000.0,
+       "Temperature Attribute": "temperature",
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     }
+    ],
+    "links": [
+     "Noise Texture.Factor -> Bright/Contrast.Color",
+     "Bright/Contrast.Color -> ColorRamp.Factor",
+     "ColorRamp.Color -> Math.002.Value",
+     "Math.Value -> Principled Volume.Density",
+     "Mapping.Vector -> Gradient Texture.Vector",
+     "Texture Coordinate.Generated -> Mapping.Vector",
+     "Math.002.Value -> Math.Value",
+     "Gradient Texture.Factor -> Math.002.Value",
+     "Principled Volume.Volume -> Material Output.Volume"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Material.001",
+   "diffuse": [
+    0.8,
+    0.8,
+    0.8,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Image Texture",
+      "type": "ShaderNodeTexImage",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      }
+     },
+     {
+      "name": "Brick Texture",
+      "type": "ShaderNodeTexBrick",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Color1": [
+        0.8,
+        0.8,
+        0.8,
+        1.0
+       ],
+       "Color2": [
+        0.2,
+        0.2,
+        0.2,
+        1.0
+       ],
+       "Mortar": [
+        0.0,
+        0.0,
+        0.0,
+        1.0
+       ],
+       "Scale": 6.6,
+       "Mortar Size": 0.02,
+       "Mortar Smooth": 1.0,
+       "Bias": 0.0,
+       "Brick Width": 0.25,
+       "Row Height": 0.25
+      }
+     },
+     {
+      "name": "Principled BSDF",
+      "type": "ShaderNodeBsdfPrincipled",
+      "inputs": {
+       "Metallic": 0.0,
+       "Roughness": 0.5,
+       "IOR": 1.45,
+       "Alpha": 1.0,
+       "Thin Wall": false,
+       "Normal": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Weight": 0.0,
+       "Diffuse Roughness": 0.0,
+       "Subsurface Weight": 0.0,
+       "Subsurface Radius": [
+        1.0,
+        0.2,
+        0.1
+       ],
+       "Subsurface Scale": 0.05,
+       "Subsurface IOR": 1.4,
+       "Subsurface Anisotropy": 0.0,
+       "Specular IOR Level": 0.5,
+       "Specular Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Anisotropic": 0.0,
+       "Anisotropic Rotation": 0.0,
+       "Tangent": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Transmission Weight": 0.0,
+       "Coat Weight": 0.0,
+       "Coat Roughness": 0.03,
+       "Coat IOR": 1.5,
+       "Coat Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Coat Normal": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Sheen Weight": 0.0,
+       "Sheen Roughness": 0.5,
+       "Sheen Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Emission Color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Emission Strength": 0.0,
+       "Thin Film Thickness": 0.0,
+       "Thin Film IOR": 1.33
+      }
+     },
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Mix Shader",
+      "type": "ShaderNodeMixShader",
+      "inputs": {
+       "Factor": 0.3
+      }
+     },
+     {
+      "name": "Checker Texture",
+      "type": "ShaderNodeTexChecker",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Color1": [
+        0.0764,
+        0.0764,
+        0.0764,
+        1.0
+       ],
+       "Color2": [
+        0.0078,
+        0.0078,
+        0.0078,
+        1.0
+       ],
+       "Scale": 51.8
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Checker Texture.Color -> Principled BSDF.Base Color",
+     "Principled BSDF.BSDF -> Mix Shader.Shader",
+     "Mix Shader.Shader -> Material Output.Surface",
+     "Checker Texture.Color -> Emission.Color",
+     "Emission.Emission -> Mix Shader.Shader"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Orange",
+   "diffuse": [
+    0.8,
+    0.1282,
+    0.0161,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Layer Weight",
+      "type": "ShaderNodeLayerWeight",
+      "inputs": {
+       "Blend": 0.5,
+       "Normal": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Strength": 1.8,
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "ColorRamp",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "CONSTANT",
+       "els": [
+        [
+         0.0,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.45,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Mix",
+      "type": "ShaderNodeMix",
+      "inputs": {
+       "Factor": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "A": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "B": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      },
+      "blend_type": "ADD"
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface",
+     "Layer Weight.Facing -> ColorRamp.Factor",
+     "Mix.Result -> Emission.Color",
+     "ColorRamp.Color -> Mix.Factor"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Red Sparks",
+   "diffuse": [
+    0.8,
+    0.0305,
+    0.0067,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.8,
+        0.0305,
+        0.0067,
+        1.0
+       ],
+       "Strength": 4.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Shadow",
+   "diffuse": [
+    0.0211,
+    0.0066,
+    0.0022,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.0211,
+        0.0066,
+        0.0022,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Smoke",
+   "diffuse": [
+    0.5225,
+    0.5225,
+    0.5225,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.1706,
+        0.1706,
+        0.1706,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "Transparent BSDF",
+      "type": "ShaderNodeBsdfTransparent",
+      "inputs": {
+       "Color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "Mix Shader",
+      "type": "ShaderNodeMixShader",
+      "inputs": {
+       "Factor": 0.5
+      }
+     },
+     {
+      "name": "Add Shader",
+      "type": "ShaderNodeAddShader",
+      "inputs": {}
+     },
+     {
+      "name": "Transparent BSDF.001",
+      "type": "ShaderNodeBsdfTransparent",
+      "inputs": {
+       "Color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Mix Shader.Shader",
+     "Transparent BSDF.BSDF -> Mix Shader.Shader",
+     "Mix Shader.Shader -> Add Shader.Shader",
+     "Transparent BSDF.001.BSDF -> Add Shader.Shader",
+     "Add Shader.Shader -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  }
+ ],
+ "actions": [
+  "CameraAction",
+  "Empty.002Action",
+  "EmptyAction",
+  "HighlightAction",
+  "Lightning Texture EmptyAction",
+  "Lightning TextureAction",
+  "Main Texture EmptyAction",
+  "Mask TextureAction",
+  "OrangeAction",
+  "Point.001Action",
+  "Point.002Action",
+  "Point.003Action",
+  "PointAction",
+  "ShadowAction",
+  "Smoke Texture EmptyAction",
+  "Smoke TextureAction",
+  "Sparks Texture EmptyAction",
+  "Sparks TextureAction",
+  "Thin TexAction",
+  "Warp To Lattice Center Main.001Action"
+ ],
+ "node_groups": [
+  {
+   "name": "Camera Normals",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Combine XYZ",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {
+       "X": 0.5,
+       "Y": 0.5,
+       "Z": -1.0
+      }
+     },
+     {
+      "name": "Mix",
+      "type": "ShaderNodeMix",
+      "inputs": {
+       "Factor": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "A": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "B": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      },
+      "blend_type": "MULTIPLY"
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Vector Transform",
+      "type": "ShaderNodeVectorTransform",
+      "inputs": {}
+     },
+     {
+      "name": "Mix.001",
+      "type": "ShaderNodeMix",
+      "inputs": {
+       "Factor": [
+        0.5,
+        0.5,
+        0.5
+       ],
+       "A": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "B": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      },
+      "blend_type": "ADD"
+     },
+     {
+      "name": "Combine XYZ.001",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {
+       "X": 0.5,
+       "Y": 0.5,
+       "Z": 0.0
+      }
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     }
+    ],
+    "links": [
+     "Combine XYZ.001.Vector -> Mix.001.B",
+     "Combine XYZ.Vector -> Mix.B",
+     "Vector Transform.Vector -> Mix.A",
+     "Mix.Result -> Mix.001.A",
+     "Group Input.Normal -> Vector Transform.Vector",
+     "Mix.001.Result -> Group Output.Camera Normals"
+    ]
+   }
+  },
+  {
+   "name": "Compositing Nodetree",
+   "type": "CompositorNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Viewer",
+      "type": "CompositorNodeViewer",
+      "inputs": {}
+     },
+     {
+      "name": "Render Layers",
+      "type": "CompositorNodeRLayers",
+      "inputs": {}
+     },
+     {
+      "name": "Set Alpha",
+      "type": "CompositorNodeSetAlpha",
+      "inputs": {
+       "Alpha": 1.0,
+       "Type": "Replace Alpha"
+      }
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     }
+    ],
+    "links": [
+     "Render Layers.Image -> Set Alpha.Image",
+     "Set Alpha.Image -> Viewer.Image",
+     "Render Layers.Image -> Group Output.Image"
+    ]
+   }
+  },
+  {
+   "name": "Edge Node v 1.2.4",
+   "type": "CompositorNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Frame.005",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.001",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.002",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.006",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.003",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.003",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.005",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.004",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.006",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "ColorRamp.001",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.0,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.031,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.062,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.094,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.125,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.156,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.188,
+         [
+          1.0,
+          0.009,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.219,
+         [
+          0.0,
+          0.043,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.25,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.281,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.312,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.344,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.375,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.406,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.438,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.469,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.5,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.531,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.562,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.594,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.625,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.656,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.688,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.719,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.75,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.781,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.812,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.844,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.875,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.906,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.938,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         1.0,
+         [
+          0.0,
+          0.147,
+          0.891,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Math.004",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "LOGARITHM"
+     },
+     {
+      "name": "Math.003",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.028",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.027",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Filter",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Reroute.026",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Hue Saturation Value",
+      "type": "CompositorNodeHueSat",
+      "inputs": {
+       "Hue": 0.5,
+       "Saturation": 1.0,
+       "Value": 2.0,
+       "Factor": 1.0
+      }
+     },
+     {
+      "name": "Filter.001",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.002",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.003",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.005",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.004",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Hue Saturation Value.001",
+      "type": "CompositorNodeHueSat",
+      "inputs": {
+       "Hue": 0.5,
+       "Saturation": 1.0,
+       "Value": 2.0
+      }
+     },
+     {
+      "name": "Reroute.012",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.013",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.014",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.011",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.020",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.001",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.002",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "ColorRamp",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.25,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         1.0,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "ColorRamp.002",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.01,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         1.0,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Reroute.024",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.015",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Separate RGBA.002",
+      "type": "CompositorNodeSeparateColor",
+      "inputs": {}
+     },
+     {
+      "name": "Math.016",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.015",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.014",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.010",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.009",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.008",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.007",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.006",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Reroute.029",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.019",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Separate RGBA",
+      "type": "CompositorNodeSeparateColor",
+      "inputs": {}
+     },
+     {
+      "name": "Math.012",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.011",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Reroute.018",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.016",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.017",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.034",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.009",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.021",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.010",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.025",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.030",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Dilate/Erode.001",
+      "type": "CompositorNodeDilateErode",
+      "inputs": {
+       "Size": 2,
+       "Type": "Feather",
+       "Falloff Size": 0.0,
+       "Falloff": "Sphere"
+      }
+     },
+     {
+      "name": "ColorRamp.003",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.09,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.25,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Separate RGBA.001",
+      "type": "CompositorNodeSeparateColor",
+      "inputs": {}
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.005",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Vector Math",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.001",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.002",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.003",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.004",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.005",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.006",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.007",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.008",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     }
+    ],
+    "links": [
+     "Dilate/Erode.001.Mask -> Math.002.Value",
+     "Math.Value -> ColorRamp.Factor",
+     "Math.006.Value -> Math.007.Value",
+     "Filter.002.Image -> Reroute.013.Input",
+     "Filter.001.Image -> Reroute.012.Input",
+     "Filter.003.Image -> Reroute.014.Input",
+     "Math.003.Value -> Math.004.Value",
+     "Math.004.Value -> ColorRamp.001.Factor",
+     "Group Input.Z in -> Reroute.003.Input",
+     "ColorRamp.001.Color -> Filter.Image",
+     "Math.005.Value -> ColorRamp.002.Factor",
+     "Separate RGBA.Red -> Math.011.Value",
+     "Separate RGBA.Green -> Math.011.Value",
+     "Math.011.Value -> Math.012.Value",
+     "Separate RGBA.Blue -> Math.012.Value",
+     "Math.012.Value -> Math.005.Value",
+     "Filter.Image -> Reroute.Input",
+     "Group Input.Distance -> Reroute.004.Input",
+     "ColorRamp.001.Color -> Reroute.026.Input",
+     "Math.008.Value -> Math.009.Value",
+     "Math.007.Value -> Math.008.Value",
+     "Reroute.001.Output -> Filter.004.Image",
+     "Separate RGBA.001.Red -> Math.008.Value",
+     "Separate RGBA.001.Green -> Math.009.Value",
+     "Math.009.Value -> Math.010.Value",
+     "Separate RGBA.001.Blue -> Math.010.Value",
+     "Math.001.Value -> Reroute.024.Input",
+     "Reroute.Output -> Reroute.015.Input",
+     "Reroute.003.Output -> Reroute.028.Input",
+     "Reroute.009.Output -> Group Output.Distance Check",
+     "Reroute.026.Output -> Reroute.009.Input",
+     "Reroute.011.Output -> Reroute.019.Input",
+     "Reroute.012.Output -> Reroute.016.Input",
+     "Reroute.013.Output -> Reroute.017.Input",
+     "Reroute.014.Output -> Reroute.018.Input",
+     "Reroute.015.Output -> Separate RGBA.Image",
+     "Reroute.019.Output -> Separate RGBA.001.Image",
+     "Reroute.024.Output -> Reroute.025.Input",
+     "Reroute.025.Output -> ColorRamp.003.Factor",
+     "Reroute.027.Output -> Math.003.Value",
+     "Reroute.004.Output -> Reroute.027.Input",
+     "Reroute.027.Output -> Math.003.Value",
+     "Reroute.028.Output -> Math.004.Value",
+     "Group Input.Normal In -> Reroute.005.Input",
+     "Hue Saturation Value.Image -> Hue Saturation Value.001.Image",
+     "Reroute.005.Output -> Reroute.002.Input",
+     "Group Input.Normal Enhance -> Reroute.006.Input",
+     "Reroute.002.Output -> Hue Saturation Value.Image",
+     "Filter.004.Image -> Reroute.011.Input",
+     "Reroute.002.Output -> Reroute.001.Input",
+     "Hue Saturation Value.001.Image -> Filter.005.Image",
+     "Math.014.Value -> Math.015.Value",
+     "Separate RGBA.002.Red -> Math.014.Value",
+     "Separate RGBA.002.Green -> Math.015.Value",
+     "Math.015.Value -> Math.016.Value",
+     "Separate RGBA.002.Blue -> Math.016.Value",
+     "Math.010.Value -> Math.014.Value",
+     "Filter.005.Image -> Reroute.020.Input",
+     "Math.016.Value -> Math.Value",
+     "Reroute.029.Output -> Separate RGBA.002.Image",
+     "Reroute.006.Output -> Hue Saturation Value.001.Factor",
+     "Math.002.Value -> Reroute.030.Input",
+     "Reroute.020.Output -> Reroute.029.Input",
+     "Reroute.030.Output -> Reroute.034.Input",
+     "ColorRamp.002.Color -> Reroute.010.Input",
+     "ColorRamp.Color -> Reroute.021.Input",
+     "Reroute.010.Output -> Group Output.Detected Edges [Zdepth]",
+     "Reroute.021.Output -> Group Output.Detected Edges [Normal]",
+     "Reroute.034.Output -> Group Output.Edges Out",
+     "Reroute.001.Output -> Vector Math.Vector",
+     "Vector Math.Value -> Filter.001.Image",
+     "Reroute.001.Output -> Vector Math.001.Vector",
+     "Vector Math.001.Value -> Filter.002.Image",
+     "Reroute.001.Output -> Vector Math.002.Vector",
+     "Vector Math.002.Value -> Filter.003.Image",
+     "Reroute.018.Output -> Vector Math.003.Vector",
+     "Vector Math.003.Value -> Math.007.Value",
+     "Reroute.017.Output -> Vector Math.004.Vector",
+     "Vector Math.004.Value -> Math.006.Value",
+     "Reroute.016.Output -> Vector Math.005.Vector",
+     "Vector Math.005.Value -> Math.006.Value",
+     "ColorRamp.003.Color -> Vector Math.006.Vector",
+     "Vector Math.006.Value -> Dilate/Erode.001.Mask",
+     "ColorRamp.002.Color -> Vector Math.007.Vector",
+     "Vector Math.007.Value -> Math.001.Value",
+     "ColorRamp.Color -> Vector Math.008.Vector",
+     "Vector Math.008.Value -> Math.001.Value"
+    ]
+   }
+  },
+  {
+   "name": "Edge Wear",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Bevel",
+      "type": "ShaderNodeBevel",
+      "inputs": {
+       "Normal": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      }
+     },
+     {
+      "name": "Texture Coordinate",
+      "type": "ShaderNodeTexCoord",
+      "inputs": {}
+     },
+     {
+      "name": "Vector Math",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Vector Math.001",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "ABSOLUTE"
+     },
+     {
+      "name": "Vector Math.002",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     }
+    ],
+    "links": [
+     "Texture Coordinate.Normal -> Vector Math.Vector",
+     "Bevel.Normal -> Vector Math.Vector",
+     "Group Input.Radius -> Bevel.Radius",
+     "Group Input.Value -> Math.Value",
+     "Math.Value -> Group Output.Value",
+     "Vector Math.002.Value -> Math.Value",
+     "Vector Math.Vector -> Vector Math.001.Vector",
+     "Vector Math.001.Vector -> Vector Math.002.Vector"
+    ]
+   }
+  },
+  {
+   "name": "Principle Subsurface Scale",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Combine XYZ",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     }
+    ],
+    "links": [
+     "Math.Value -> Combine XYZ.X",
+     "Math.001.Value -> Combine XYZ.Y",
+     "Math.002.Value -> Combine XYZ.Z",
+     "Combine XYZ.Vector -> Group Output.Vector",
+     "Group Input.R -> Math.Value",
+     "Group Input.G -> Math.001.Value",
+     "Group Input.B -> Math.002.Value",
+     "Group Input.Scale -> Math.001.Value",
+     "Group Input.Scale -> Math.Value",
+     "Group Input.Scale -> Math.002.Value"
+    ]
+   }
+  },
+  {
+   "name": "Rotation X Mapping",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Frame.001",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.004",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.003",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.002",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ.001",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.002",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Math.003",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.006",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math.010",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.011",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.003",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Math.022",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.005",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.004",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "DIVIDE"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.015",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Math.016",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.019",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.014",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.013",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Reroute.001",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Separate XYZ",
+      "type": "ShaderNodeSeparateXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Math.021",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.012",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.018",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.020",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math.017",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.007",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Math.005",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.004",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.009",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.008",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     }
+    ],
+    "links": [
+     "Group Input.Degrees -> Math.Value",
+     "Math.Value -> Math.001.Value",
+     "Math.004.Value -> Math.009.Value",
+     "Math.002.Value -> Math.011.Value",
+     "Math.003.Value -> Math.010.Value",
+     "Math.005.Value -> Math.008.Value",
+     "Math.001.Value -> Reroute.Input",
+     "Group Input.Vector -> Separate XYZ.Vector",
+     "Math.008.Value -> Math.007.Value",
+     "Math.009.Value -> Math.007.Value",
+     "Math.010.Value -> Math.006.Value",
+     "Math.011.Value -> Math.006.Value",
+     "Combine XYZ.Vector -> Group Output.Point",
+     "Reroute.Output -> Math.002.Value",
+     "Reroute.Output -> Math.003.Value",
+     "Reroute.Output -> Math.004.Value",
+     "Reroute.Output -> Math.005.Value",
+     "Reroute.001.Output -> Math.011.Value",
+     "Reroute.001.Output -> Math.009.Value",
+     "Reroute.002.Output -> Math.008.Value",
+     "Reroute.002.Output -> Math.010.Value",
+     "Math.013.Value -> Math.019.Value",
+     "Math.012.Value -> Math.017.Value",
+     "Math.021.Value -> Math.018.Value",
+     "Math.014.Value -> Math.016.Value",
+     "Math.001.Value -> Math.022.Value",
+     "Math.016.Value -> Math.015.Value",
+     "Math.019.Value -> Math.015.Value",
+     "Math.018.Value -> Math.020.Value",
+     "Math.017.Value -> Math.020.Value",
+     "Reroute.003.Output -> Math.012.Value",
+     "Reroute.003.Output -> Math.021.Value",
+     "Reroute.003.Output -> Math.013.Value",
+     "Reroute.003.Output -> Math.014.Value",
+     "Reroute.005.Output -> Math.017.Value",
+     "Reroute.005.Output -> Math.019.Value",
+     "Reroute.004.Output -> Math.016.Value",
+     "Reroute.004.Output -> Math.018.Value",
+     "Combine XYZ.001.Vector -> Group Output.Texture",
+     "Math.022.Value -> Reroute.003.Input",
+     "Separate XYZ.X -> Combine XYZ.X",
+     "Separate XYZ.X -> Combine XYZ.001.X",
+     "Separate XYZ.Y -> Reroute.001.Input",
+     "Separate XYZ.Z -> Reroute.002.Input",
+     "Separate XYZ.Y -> Reroute.005.Input",
+     "Separate XYZ.Z -> Reroute.004.Input",
+     "Math.020.Value -> Combine XYZ.001.Y",
+     "Math.015.Value -> Combine XYZ.001.Z",
+     "Math.007.Value -> Combine XYZ.Z",
+     "Math.006.Value -> Combine XYZ.Y"
+    ]
+   }
+  },
+  {
+   "name": "Rotation Y Mapping",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Frame.004",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.001",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.002",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.003",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.003",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "DIVIDE"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.022",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.004",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Separate XYZ",
+      "type": "ShaderNodeSeparateXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Math.003",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.010",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.011",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.002",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.001",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Math.006",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Math.005",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.009",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.008",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.004",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.007",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math.021",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.012",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.018",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.017",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.020",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Math.016",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.019",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.014",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.013",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.015",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Reroute.005",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ.001",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     }
+    ],
+    "links": [
+     "Group Input.Degrees -> Math.Value",
+     "Math.Value -> Math.001.Value",
+     "Math.004.Value -> Math.009.Value",
+     "Math.002.Value -> Math.011.Value",
+     "Math.003.Value -> Math.010.Value",
+     "Math.005.Value -> Math.008.Value",
+     "Math.001.Value -> Reroute.Input",
+     "Group Input.Vector -> Separate XYZ.Vector",
+     "Math.009.Value -> Math.007.Value",
+     "Combine XYZ.Vector -> Group Output.Point",
+     "Reroute.Output -> Math.002.Value",
+     "Reroute.Output -> Math.003.Value",
+     "Reroute.Output -> Math.004.Value",
+     "Reroute.Output -> Math.005.Value",
+     "Reroute.001.Output -> Math.011.Value",
+     "Reroute.001.Output -> Math.009.Value",
+     "Reroute.002.Output -> Math.008.Value",
+     "Reroute.002.Output -> Math.010.Value",
+     "Math.013.Value -> Math.019.Value",
+     "Math.012.Value -> Math.017.Value",
+     "Math.021.Value -> Math.018.Value",
+     "Math.014.Value -> Math.016.Value",
+     "Math.001.Value -> Math.022.Value",
+     "Math.018.Value -> Math.020.Value",
+     "Math.017.Value -> Math.020.Value",
+     "Reroute.003.Output -> Math.012.Value",
+     "Reroute.003.Output -> Math.021.Value",
+     "Reroute.003.Output -> Math.013.Value",
+     "Reroute.003.Output -> Math.014.Value",
+     "Reroute.005.Output -> Math.017.Value",
+     "Reroute.005.Output -> Math.019.Value",
+     "Reroute.004.Output -> Math.016.Value",
+     "Reroute.004.Output -> Math.018.Value",
+     "Combine XYZ.001.Vector -> Group Output.Texture",
+     "Math.022.Value -> Reroute.003.Input",
+     "Separate XYZ.Y -> Combine XYZ.001.Y",
+     "Separate XYZ.Y -> Combine XYZ.Y",
+     "Separate XYZ.X -> Reroute.001.Input",
+     "Separate XYZ.Z -> Reroute.002.Input",
+     "Math.008.Value -> Math.007.Value",
+     "Math.010.Value -> Math.006.Value",
+     "Math.011.Value -> Math.006.Value",
+     "Math.006.Value -> Combine XYZ.X",
+     "Math.007.Value -> Combine XYZ.Z",
+     "Math.016.Value -> Math.015.Value",
+     "Math.019.Value -> Math.015.Value",
+     "Math.015.Value -> Combine XYZ.001.Z",
+     "Math.020.Value -> Combine XYZ.001.X",
+     "Separate XYZ.X -> Reroute.005.Input",
+     "Separate XYZ.Z -> Reroute.004.Input"
+    ]
+   }
+  },
+  {
+   "name": "Rotation Z Mapping",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Frame.001",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.004",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.003",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.002",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ.001",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.001",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.002",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.003",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Separate XYZ",
+      "type": "ShaderNodeSeparateXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Math.003",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.006",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math.010",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.011",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "DIVIDE"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.021",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.012",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.018",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.020",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SUBTRACT"
+     },
+     {
+      "name": "Math.017",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.015",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Math.016",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.019",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.014",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.013",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.007",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Math.005",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "COSINE"
+     },
+     {
+      "name": "Math.004",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "SINE"
+     },
+     {
+      "name": "Math.009",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.008",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.022",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.005",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.004",
+      "type": "NodeReroute",
+      "inputs": {}
+     }
+    ],
+    "links": [
+     "Group Input.Degrees -> Math.Value",
+     "Math.Value -> Math.001.Value",
+     "Math.004.Value -> Math.009.Value",
+     "Math.002.Value -> Math.011.Value",
+     "Math.003.Value -> Math.010.Value",
+     "Math.005.Value -> Math.008.Value",
+     "Math.001.Value -> Reroute.Input",
+     "Group Input.Vector -> Separate XYZ.Vector",
+     "Separate XYZ.X -> Reroute.001.Input",
+     "Separate XYZ.Y -> Reroute.002.Input",
+     "Math.008.Value -> Math.007.Value",
+     "Math.009.Value -> Math.007.Value",
+     "Math.010.Value -> Math.006.Value",
+     "Math.011.Value -> Math.006.Value",
+     "Combine XYZ.Vector -> Group Output.Point",
+     "Separate XYZ.Z -> Combine XYZ.Z",
+     "Math.006.Value -> Combine XYZ.X",
+     "Math.007.Value -> Combine XYZ.Y",
+     "Reroute.Output -> Math.002.Value",
+     "Reroute.Output -> Math.003.Value",
+     "Reroute.Output -> Math.004.Value",
+     "Reroute.Output -> Math.005.Value",
+     "Reroute.001.Output -> Math.011.Value",
+     "Reroute.001.Output -> Math.009.Value",
+     "Reroute.002.Output -> Math.008.Value",
+     "Reroute.002.Output -> Math.010.Value",
+     "Math.013.Value -> Math.019.Value",
+     "Math.012.Value -> Math.017.Value",
+     "Math.021.Value -> Math.018.Value",
+     "Math.014.Value -> Math.016.Value",
+     "Math.001.Value -> Math.022.Value",
+     "Separate XYZ.X -> Reroute.005.Input",
+     "Separate XYZ.Y -> Reroute.004.Input",
+     "Math.016.Value -> Math.015.Value",
+     "Math.019.Value -> Math.015.Value",
+     "Math.018.Value -> Math.020.Value",
+     "Math.017.Value -> Math.020.Value",
+     "Separate XYZ.Z -> Combine XYZ.001.Z",
+     "Math.020.Value -> Combine XYZ.001.X",
+     "Math.015.Value -> Combine XYZ.001.Y",
+     "Reroute.003.Output -> Math.012.Value",
+     "Reroute.003.Output -> Math.021.Value",
+     "Reroute.003.Output -> Math.013.Value",
+     "Reroute.003.Output -> Math.014.Value",
+     "Reroute.005.Output -> Math.017.Value",
+     "Reroute.005.Output -> Math.019.Value",
+     "Reroute.004.Output -> Math.016.Value",
+     "Reroute.004.Output -> Math.018.Value",
+     "Combine XYZ.001.Vector -> Group Output.Texture",
+     "Math.022.Value -> Reroute.003.Input"
+    ]
+   }
+  },
+  {
+   "name": "Scale Mapping",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Separate XYZ.001",
+      "type": "ShaderNodeSeparateXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Combine XYZ.001",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.003",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "DIVIDE"
+     },
+     {
+      "name": "Math.004",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "DIVIDE"
+     },
+     {
+      "name": "Combine XYZ.002",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Math.005",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "DIVIDE"
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     }
+    ],
+    "links": [
+     "Group Input.Vector -> Separate XYZ.001.Vector",
+     "Separate XYZ.001.X -> Math.Value",
+     "Separate XYZ.001.Y -> Math.001.Value",
+     "Separate XYZ.001.Z -> Math.002.Value",
+     "Math.Value -> Combine XYZ.001.X",
+     "Math.001.Value -> Combine XYZ.001.Y",
+     "Math.002.Value -> Combine XYZ.001.Z",
+     "Group Input.X -> Math.Value",
+     "Group Input.Y -> Math.001.Value",
+     "Group Input.Z -> Math.002.Value",
+     "Combine XYZ.001.Vector -> Group Output.Point",
+     "Separate XYZ.001.X -> Math.003.Value",
+     "Separate XYZ.001.Y -> Math.004.Value",
+     "Separate XYZ.001.Z -> Math.005.Value",
+     "Math.003.Value -> Combine XYZ.002.X",
+     "Math.004.Value -> Combine XYZ.002.Y",
+     "Math.005.Value -> Combine XYZ.002.Z",
+     "Group Input.X -> Math.003.Value",
+     "Group Input.Y -> Math.004.Value",
+     "Group Input.Z -> Math.005.Value",
+     "Combine XYZ.002.Vector -> Group Output.Texture"
+    ]
+   }
+  },
+  {
+   "name": "Translation Mapping",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Combine XYZ.001",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Vector Math",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "ADD"
+     },
+     {
+      "name": "Vector Math.001",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "SUBTRACT"
+     }
+    ],
+    "links": [
+     "Group Input.Y -> Combine XYZ.001.Y",
+     "Group Input.Z -> Combine XYZ.001.Z",
+     "Group Input.X -> Combine XYZ.001.X",
+     "Combine XYZ.001.Vector -> Vector Math.Vector",
+     "Group Input.Vector -> Vector Math.Vector",
+     "Vector Math.Vector -> Group Output.Point",
+     "Combine XYZ.001.Vector -> Vector Math.001.Vector",
+     "Group Input.Vector -> Vector Math.001.Vector",
+     "Vector Math.001.Vector -> Group Output.Texture"
+    ]
+   }
+  }
+ ],
+ "texts": []
+}

@@ -133,9 +133,9 @@ MonoBehaviour:
   - name: card
     clip: {fileID: 8300000, guid: b6c5c7040ffa0d14285c2e1fe32b73e6, type: 3}
   - name: hit
-    clip: {fileID: 8300000, guid: 84321e0c669bbab48a533d5c2dbe5451, type: 3}
+    clip: {fileID: 8300000, guid: ee11a64c4e2fec7459615fd67d28e1c2, type: 3}
   - name: hitCrit
-    clip: {fileID: 8300000, guid: 9d9ea2d9a40c4c34799d7a2f8bb398e8, type: 3}
+    clip: {fileID: 8300000, guid: 22785660c2459924490368a6cf605af5, type: 3}
   - name: whoosh
     clip: {fileID: 8300000, guid: 5e29b77428c7b20459f189ee4f3207f0, type: 3}
   - name: heal
@@ -163,7 +163,7 @@ MonoBehaviour:
   - name: lose
     clip: {fileID: 8300000, guid: 3876e0adaaf02c449a13f94abb6eae36, type: 3}
   - name: ult
-    clip: {fileID: 8300000, guid: e1f4f401fb0a84c4fb55c64d64d4ec21, type: 3}
+    clip: {fileID: 8300000, guid: 075e9a312adfd214ba4fd4d646293357, type: 3}
   - name: swap
     clip: {fileID: 8300000, guid: 9d69f7a7c12c693429105a4b14aae617, type: 3}
   - name: error
@@ -202,6 +202,48 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 99a68b6226ccd2349b50ffcac1843086, type: 3}
   - name: roll
     clip: {fileID: 8300000, guid: 439d45c8f08457e4ea1c1fff861137c8, type: 3}
+  - name: fx_tu
+    clip: {fileID: 8300000, guid: bdfffd5a82e03ce48a2738c99f6c21d1, type: 3}
+  - name: fx_nha_tia
+    clip: {fileID: 8300000, guid: 3e04dd6c0c9d2754fb104bc3697ee51f, type: 3}
+  - name: fx_no
+    clip: {fileID: 8300000, guid: db28cefe7d048f245972217e6b5a1915, type: 3}
+  - name: fx_no_nho
+    clip: {fileID: 8300000, guid: 9e46214997a6a2248b8bfe8c501847a7, type: 3}
+  - name: fx_no_lon
+    clip: {fileID: 8300000, guid: 29374d776fb0ab34cab1f314ee97c6ff, type: 3}
+  - name: fx_chem
+    clip: {fileID: 8300000, guid: 37991bb3aaaa0b644b2ca3a55c33685c, type: 3}
+  - name: fx_chem2
+    clip: {fileID: 8300000, guid: 2050bf5d941bfd646873671edfc36892, type: 3}
+  - name: fx_kim
+    clip: {fileID: 8300000, guid: bafde16f3203bf1478cc4fe66a6cd340, type: 3}
+  - name: fx_huc
+    clip: {fileID: 8300000, guid: 946d57cf72cc7cc45a485089eaa46543, type: 3}
+  - name: fx_lua_bay
+    clip: {fileID: 8300000, guid: 8150332baf930b443a8888663494665f, type: 3}
+  - name: fx_phun_lua
+    clip: {fileID: 8300000, guid: 2c7a071ff7a05984da9b0f4c1c4c77c6, type: 3}
+  - name: fx_nuoc
+    clip: {fileID: 8300000, guid: 73862f7eec4c62742ab9f5357083bd1f, type: 3}
+  - name: fx_nuoc_lon
+    clip: {fileID: 8300000, guid: 9680883dd4e1a2e45bb8e119fb317b2d, type: 3}
+  - name: fx_bong
+    clip: {fileID: 8300000, guid: b7b778433a1e98b4daf0b9d706ee5df1, type: 3}
+  - name: fx_tia_nuoc
+    clip: {fileID: 8300000, guid: 33d81fdd3baa04d46aca4f4e3e456f1e, type: 3}
+  - name: fx_song
+    clip: {fileID: 8300000, guid: 1057041d78fa51a4a88404721f9f4137, type: 3}
+  - name: fx_loc
+    clip: {fileID: 8300000, guid: 4c5051cb4c98a3d4f91d97d5e75f87f2, type: 3}
+  - name: fx_gam
+    clip: {fileID: 8300000, guid: 7cdaaf029cfe3294aacf3bf52cc58db3, type: 3}
+  - name: fx_da
+    clip: {fileID: 8300000, guid: a036df9c44102094891b04d8554ef295, type: 3}
+  - name: fx_phep
+    clip: {fileID: 8300000, guid: c88af822c8bebc44a9ed40501512c364, type: 3}
+  - name: pencil
+    clip: {fileID: 8300000, guid: 0ddcf52f1281bfa43b835d705b47627f, type: 3}
   music:
   - name: chude
     clip: {fileID: 8300000, guid: 277ae208646531048a97dea61d0aa06f, type: 3}

@@ -13,6 +13,22 @@ namespace PokiClash.Tests
         public void ChayLaiTungBuoc_KhopBanWeb()
         {
             var d = TestData.Load();
+            // golden chụp ở bản web với cây 5 bi mỗi giờ, chứa 50, cây sau ở cấp 30/50/80/110: chạy cơ chế trên đúng số đó
+            // (balance.json đổi số 2026-11-24), xong trả lại
+            var keep = d.Cfg.trees;
+            d.Cfg.trees = new TreesConfig { perHour = 5, cap = 50, unlockLevels = new System.Collections.Generic.List<int> { 30, 50, 80, 110 } };
+            try
+            {
+                Replay(d);
+            }
+            finally
+            {
+                d.Cfg.trees = keep;
+            }
+        }
+
+        static void Replay(GameData d)
+        {
             var g = J.Obj(MiniJson.Parse(TestData.Read("Golden/trees.json")));
             double t0 = J.Num(g, "t0");
             var s = SaveData.New(d, 0);
@@ -65,17 +81,20 @@ namespace PokiClash.Tests
             s.zones[(int)Elem.Thuy] = 1;
             s.level = d.Cfg.trees.unlockLevels[1];
             Assert.AreEqual(3, Trees.Open(s, d.Cfg), "qua ải 1, đủ cấp mở cây 3: 3 cây");
+            // số theo balance.json (2026-11-24: 4 bi mỗi giờ, chứa đủ 24 giờ)
+            double rate = d.Cfg.trees.perHour, cap = d.Cfg.trees.cap, full = cap / rate;
+            Assert.Less(5 * rate, cap, "5 giờ chưa đầy");
             Trees.Tick(s, d.Cfg, 0);
-            Assert.AreEqual(3 * 25, Trees.Stock(s, d.Cfg, 5 * H), "5 giờ: 25 bi mỗi cây");
-            Assert.AreEqual(3 * 50, Trees.Stock(s, d.Cfg, 10 * H), "10 giờ: đầy 50");
-            Assert.AreEqual(3 * 50, Trees.Stock(s, d.Cfg, 30 * H), "đầy thì ngừng");
-            Assert.IsTrue(Trees.Full(s, d.Cfg, 30 * H));
-            Assert.IsFalse(Trees.Tick(s, d.Cfg, 20 * H), "lùi giờ máy");
+            Assert.AreEqual(3 * (int)(5 * rate), Trees.Stock(s, d.Cfg, 5 * H), "5 giờ: 5 lần tốc độ mỗi cây");
+            Assert.AreEqual(3 * (int)cap, Trees.Stock(s, d.Cfg, full * H), "đủ giờ: đầy");
+            Assert.AreEqual(3 * (int)cap, Trees.Stock(s, d.Cfg, (full + 20) * H), "đầy thì ngừng");
+            Assert.IsTrue(Trees.Full(s, d.Cfg, (full + 20) * H));
+            Assert.IsFalse(Trees.Tick(s, d.Cfg, (full + 10) * H), "lùi giờ máy");
             Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(SaveCodec.Write(s), d, out var back));
             Assert.AreEqual(s.trees.lastTick, back.trees.lastTick);
             CollectionAssert.AreEqual(s.trees.stock, back.trees.stock);
-            Assert.AreEqual(150, Trees.Harvest(back, d.Cfg, 20 * H));
-            Assert.AreEqual(0, Trees.Stock(back, d.Cfg, 20 * H));
+            Assert.AreEqual(3 * (int)cap, Trees.Harvest(back, d.Cfg, (full + 10) * H));
+            Assert.AreEqual(0, Trees.Stock(back, d.Cfg, (full + 10) * H));
         }
 
         [Test]

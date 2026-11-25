@@ -1,0 +1,486 @@
+{
+ "cau_lua": {
+  "count": 12,
+  "w": 300,
+  "h": 170,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   212,
+   88
+  ]
+ },
+ "no_trung": {
+  "count": 18,
+  "w": 320,
+  "h": 320,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   160,
+   170
+  ]
+ },
+ "phun_lua": {
+  "count": 38,
+  "w": 640,
+  "h": 330,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   26,
+   190
+  ]
+ },
+ "phun_nho": {
+  "count": 12,
+  "w": 300,
+  "h": 120,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   10,
+   66
+  ]
+ },
+ "muiten": {
+  "count": 12,
+  "w": 340,
+  "h": 120,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   318,
+   60
+  ]
+ },
+ "no_nam": {
+  "count": 42,
+  "w": 420,
+  "h": 460,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   210,
+   420
+  ]
+ },
+ "phun_gptA": {
+  "count": 24,
+  "w": 524,
+  "h": 284,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   19,
+   162
+  ]
+ },
+ "phun_video": {
+  "count": 55,
+  "w": 720,
+  "h": 392,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   15,
+   237
+  ]
+ },
+ "phun_video2": {
+  "count": 54,
+  "w": 718,
+  "h": 407,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   6,
+   203
+  ]
+ },
+ "phun_video3": {
+  "count": 39,
+  "w": 718,
+  "h": 373,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   6,
+   203
+  ]
+ },
+ "phun_bl": {
+  "count": 34,
+  "w": 557,
+  "h": 319,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   13,
+   170
+  ]
+ },
+ "phun_bl2": {
+  "count": 47,
+  "w": 544,
+  "h": 313,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   13,
+   180
+  ]
+ },
+ "cau_bl": {
+  "count": 24,
+  "w": 177,
+  "h": 179,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   88,
+   90
+  ]
+ },
+ "no_bl": {
+  "count": 26,
+  "w": 385,
+  "h": 390,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   224,
+   218
+  ]
+ },
+ "kim_bl": {
+  "count": 12,
+  "w": 298,
+  "h": 54,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   206,
+   27
+  ]
+ },
+ "loc_bl": {
+  "count": 48,
+  "w": 480,
+  "h": 334,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   240,
+   324
+  ]
+ },
+ "lua_bl": {
+  "count": 24,
+  "w": 206,
+  "h": 277,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   106,
+   269
+  ]
+ },
+ "khoi_bl": {
+  "count": 25,
+  "w": 351,
+  "h": 361,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   175,
+   256
+  ]
+ },
+ "duoi_bl": {
+  "count": 27,
+  "w": 288,
+  "h": 303,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   144,
+   209
+  ]
+ },
+ "nuoc_bl": {
+  "count": 36,
+  "w": 716,
+  "h": 276,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   55,
+   111
+  ]
+ },
+ "nuoc_tia": {
+  "count": 36,
+  "w": 589,
+  "h": 247,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   55,
+   92
+  ]
+ },
+ "nuoc_trung": {
+  "count": 36,
+  "w": 346,
+  "h": 276,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   172,
+   111
+  ]
+ },
+ "cau_nuoc": {
+  "count": 24,
+  "w": 237,
+  "h": 179,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   150,
+   86
+  ]
+ },
+ "no_nuoc": {
+  "count": 22,
+  "w": 317,
+  "h": 320,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   143,
+   132
+  ]
+ },
+ "thuong_nuoc": {
+  "count": 12,
+  "w": 220,
+  "h": 66,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   147,
+   46
+  ]
+ },
+ "mach_phun": {
+  "count": 38,
+  "w": 217,
+  "h": 341,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   113,
+   312
+  ]
+ },
+ "song_nuoc": {
+  "count": 36,
+  "w": 421,
+  "h": 176,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   48,
+   142
+  ]
+ },
+ "loc_nuoc": {
+  "count": 48,
+  "w": 480,
+  "h": 334,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   240,
+   324
+  ]
+ },
+ "song_cuon": {
+  "count": 27,
+  "w": 230,
+  "h": 170,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   184,
+   158
+  ]
+ },
+ "toe_nuoc": {
+  "count": 24,
+  "w": 222,
+  "h": 194,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   166,
+   120
+  ]
+ },
+ "vung_nuoc": {
+  "count": 29,
+  "w": 192,
+  "h": 46,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   67,
+   23
+  ]
+ },
+ "cau_vo": {
+  "count": 24,
+  "w": 222,
+  "h": 194,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   166,
+   120
+  ]
+ },
+ "cau_nem": {
+  "count": 24,
+  "w": 253,
+  "h": 142,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   199,
+   54
+  ]
+ },
+ "toe_dat": {
+  "count": 24,
+  "w": 223,
+  "h": 139,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   100,
+   93
+  ]
+ },
+ "tia_ong": {
+  "count": 38,
+  "w": 563,
+  "h": 203,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   19,
+   141
+  ]
+ },
+ "roi_nuoc": {
+  "count": 24,
+  "w": 565,
+  "h": 201,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   19,
+   139
+  ]
+ },
+ "cau_nl_moc": {
+  "count": 36,
+  "w": 313,
+  "h": 323,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   162,
+   158
+  ]
+ },
+ "cau_nl_vang": {
+  "count": 36,
+  "w": 313,
+  "h": 323,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   162,
+   158
+  ]
+ },
+ "cau_nl_troi": {
+  "count": 36,
+  "w": 313,
+  "h": 323,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   162,
+   158
+  ]
+ },
+ "tia_nuoc2": {
+  "count": 38,
+  "w": 550,
+  "h": 212,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   17,
+   135
+  ]
+ },
+ "thuong_nuoc2": {
+  "count": 12,
+  "w": 334,
+  "h": 70,
+  "fps": 24,
+  "loop": true,
+  "anchor": [
+   176,
+   22
+  ]
+ },
+ "mach_phun2": {
+  "count": 38,
+  "w": 185,
+  "h": 346,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   98,
+   329
+  ]
+ },
+ "toe_nuoc2": {
+  "count": 24,
+  "w": 213,
+  "h": 191,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   164,
+   129
+  ]
+ },
+ "cau_vo2": {
+  "count": 24,
+  "w": 213,
+  "h": 191,
+  "fps": 24,
+  "loop": false,
+  "anchor": [
+   164,
+   129
+  ]
+ }
+}

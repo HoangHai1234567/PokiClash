@@ -5,7 +5,8 @@ description: >
   dự án (không quầng sáng, không gradient, không che con bị trúng), mười nguyên tắc thiết kế, nhịp ba pha và số đo, màu 5 lớp, hình
   theo hệ, bố cục và thang cỡ, khớp hiệu ứng với animation, kiến trúc hạt chồng lớp + mảng liền trên uGUI, hiệu năng điện thoại,
   quy trình, bảng kiểm, công thức mẫu, lỗi hay gặp, các nguồn tham khảo đã mổ (Kingdom Rush 5, Clash of Critters, Epic Toon FX,
-  pixelfx). Dùng TRƯỚC khi thiết kế, làm, sửa hay chấm bất kỳ hiệu ứng nào (chiêu mana, chiêu cuối, đòn thường, trạng thái, tiến
+  pixelfx, file mẫu Blender anime FX của CodyWinch), cách dựng VFX bằng Blender (modifier + lớp màu phẳng) rồi render ra khung 2D.
+  Dùng TRƯỚC khi thiết kế, làm, sửa hay chấm bất kỳ hiệu ứng nào (chiêu mana, chiêu cuối, đòn thường, trạng thái, tiến
   hóa, hệ mới), rồi mở skill con được chỉ tới. Animation tướng thuộc bộ `animation-petclash`.
 ---
 
@@ -20,6 +21,41 @@ description: >
 | Công thức từng hiệu ứng hạt (bộ Hỏa, Thủy, Mộc…), thêm hệ mới, chuyển vào game, mẫu nổ / lửa / nước / khói | `pokiclash-fx-congthuc` |
 | (bộ khác) Animation tướng, rig, clip | `animation-petclash` → `pokiclash-spine-rig` |
 
+> **LUẬT ĐẦU TIÊN (người dùng 2026-11-25): làm FX thì TRA THƯ VIỆN TEMPLATE TRƯỚC.** "Khi người chơi prompt làm fx dùng skill vfx
+> thì đầu tiên phải xem trong thư viện template có vfx tương tự không đã rồi hỏi người chơi, nếu không ưng mới phải làm cái khác."
+> Trước khi dựng bất kỳ hiệu ứng nào: tìm cái gần nhất trong thư viện (bảng dưới), đưa người dùng xem (đường dẫn, ảnh / trang xem),
+> hỏi dùng lại, chỉnh từ cái nào, hay làm mới. Chỉ dựng mới khi người dùng không ưng.
+>
+> | Thư viện | Có gì |
+> |---|---|
+> | AtomSpine `examples/vfx/*` | hit-spark, slash, fire-burst, water-splash, leaf-storm, explosion-flipbook, level-up-ring (ops sinh ảnh); water-ball, water-crown-splash, water-tube, water-whip (flipbook Blender) — tờ khung `<tên>_sheet.png` |
+> | AtomSpine `atom templates` (vfx) | emitter, beam, trail, flipbook |
+> | AtomSpine `refs/` | `blender_anime_fx/` (11 file CodyWinch: nổ, cầu năng lượng, xoáy, lốc), `water_vfx/` (bộ nước Blender + shader trong trận) |
+> | Bộ trong dự án (`ArtGen/Spine/vfx_blender/`) | lửa (lua_eevee, phun, cầu, nổ, khói, lốc lửa, kim lửa), nước (`nuoc_repo_bl.py`: cầu, cầu vỡ, tia, tia ống, roi, toé thân, toé đất, thương, mạch phun; `song_cuon_bl.py` sóng; lốc nước) — trang xem `vfx_lua_toon/xem/bo_nuoc/bo_nuoc.html` |
+> | Trong game | khung `Assets/03 Art/Fx/Hat/hat_fb_*` (bộ lửa, lốc nước), shader nước `PokiClash/UIWaterFx` (tia, cầu, toé, vương miện, vũng, thương, sóng, mạch phun) — ảnh tour `ArtGen/XemVfx/nuoc_shader/xem.html` |
+> | Gói nước mẫu trong Assets (2026-11-25) | SrRubfish "Water - Assets for VFX 02" (`Assets/SrRubfish_VFX_02`: 37 prefab, 72 flipbook) + NamuFX "Stylized Water Effect Pack" (`Assets/NamuFX`): ảnh động từng prefab `ArtGen/XemVfx/vfx_goi/xem.html`, mổ xẻ từng lớp `PHAN_TICH.md`; 40 flipbook đã đóng vào atlas game (`nuoc_fb.png`, bảng `NuocFbBang`) — mục "Bộ nước theo gói" bên dưới |
+
+### Bộ nước theo gói mẫu (bản 3, 2026-11-25)
+
+Người dùng: "làm lại vfx nước của game theo asset này, thêm texture vẽ tay nhẹ nhàng của mình vào, quét thật kĩ ... nó có gì mình cũng phải
+có như vậy"; "đặc biệt là tia nước ở water laser rất đẹp"; texture "dùng thẳng nhưng nên thay đổi đi chút".
+
+- **Mổ gói trước khi làm** (bắt buộc với gói mới): `Assets/01 Script/Editor/VfxPackShots.cs` chụp từng prefab trong Play (Time.captureFramerate,
+  đọc ảnh ở RenderPipelineManager.endContextRendering, lượt dò điểm ảnh rồi khung sát; bật tạm Application.runInBackground vì game tắt
+  Run In Background nên Unity nằm nền là Play đứng) + chụp scene demo; `ArtGen/XemVfx/vfx_goi/ghep.py` ra GIF / tờ 12 khung / xem.html;
+  YAML từng prefab → lớp, nhịp, đường cong (scratch: mo_goi_vfx.py, mo_duongcong.py, mo_shadergraph.py) → `PHAN_TICH.md`.
+- **Gói vẽ bằng một giá trị xám tô qua 2 màu** (LerpTransparencies) + Fresnel cho mesh + vân nhiễu trôi + tan smoothstep theo alpha hạt.
+  Game giữ dáng / nhịp / cách ghép lớp, đổi chất: `ArtGen/Spine/nuoc_goi/dong_goi.py` đóng flipbook thành atlas giá trị + alpha (2 flipbook
+  / ô: RG, BA; nguồn ghi ở `NGUON.md` để thay trước khi phát hành nếu gói chưa mua), shader `UIWaterFx` chế độ 6 tô dải cel 4 màu của game
+  (ranh run nét tay) + vân chì, mép cắt sắc, mờ = ngưỡng mép dâng; chế độ 7 là ống tia 4 lớp (vỏ rách, vỏ, lõi, vệt bọt trôi; vân
+  `WaterNoise_Sharp` kéo dài theo thân).
+- **Mã:** `HatNuocGoi.cs` — `NFbS` / `NFbPhat` (phát trọn flipbook theo đời hạt, như UV module 0→1), `NLaser` (tia kiểu Water Laser, cùng hợp
+  đồng giờ với tia cũ, gọi từ `NTiaKhung`), `GSplash` / `GTrung` / `GToe` / `GCrownDat` (khối dùng chung, `NuocGoi = true` bật thay khối
+  shader bản 2), `GCauThem` (cầu), `GSongThem` / `GSongDo` (sóng), `GCotPhun` (mạch phun), `GMuaDat` (mưa). Hướng gốc của từng flipbook
+  (toé ngang / trượt / gai về +x, khối cuộn `CauVong` về −x, `ToeTrung` chéo lên phải, `ToeNgangC` về −x) phải soi bằng tờ khung trước khi xoay.
+- Tour thử: menu "PokiClash/Thử/Tướng/Đảo Thủy/nước shader: tia Water Laser (...)" và "... 4 tướng tia, cầu ..." (+ Hàn Ngạc sóng / mưa);
+  bật trước "PokiClash/Thử/Play chạy cả khi Unity nằm nền".
+
 **Ranh giới với bộ Animation:**
 - **VFX:** tia, đạn, vụ nổ, hạt, mọi thứ bay ra khỏi thân tướng.
 - **Animation:** thân và phụ kiện dính thân. Rig chỉ để lại xương miệng / `muzzle` và sự kiện trong clip cho VFX bám vào.
@@ -32,6 +68,13 @@ Tài liệu đi kèm trong thư mục này:
 - `hoc_kr5_vfx.md`: học hiệu ứng nổ, lửa, nước, khói của Kingdom Rush 5 (vẽ phẳng 3–5 màu, không shader, gần luật dự án nhất):
   đỉnh ở khung 1–3, đòn ghép từ đạn → đuôi → trúng → decal → payload → mod, hạt chỉ "dập" hình tự tan. Nhịp "giữ 2 khung" của họ
   KHÔNG dùng nữa: người dùng muốn mượt (mục 1c).
+- `hoc_water_vfx_abitofgamedev.md`: mổ repo Unity water_vfx (cầu nước, cụm toé, tia ống, roi nước): một ngưỡng tan mỗi hạt ×
+  mặt nạ mềm vẽ tay × nhiễu lệch ngẫu nhiên; cụm toé 6 lớp có số nhịp; tia hai ngưỡng (hiện từ miệng, tan từ miệng); vũng đọng.
+- `blender_anime_fx.md`: làm VFX anime bằng **Blender** (modifier biến dạng + lớp vỏ Emission màu phẳng, núm điều khiển là Empty +
+  driver) rồi render ra khung 2D cho AtomSpine; học từ 11 file mẫu CodyWinch (2026-11-24, bản lưu ở repo AtomSpine
+  `refs/blender_anime_fx/`). Kèm bảng các cách đã thử cho phun lửa và bị chê (vẽ numpy, tờ GPT, video Kling, vỡ Voronoi).
+  Khối lửa / khói / nổ / cầu năng lượng lớn: đọc file này trước. Mục 13 = bộ nước: tan theo ngưỡng × mặt nạ mềm (`nuocbl.mask_mat`,
+  `mat_na_nuoc.py`), cụm toé 6 lớp + vũng decal, tia hai ngưỡng, sóng cuộn và bài học góc nhìn (mào cuộn úp lên mặt sóng đang thấy).
 
 Khi các quy tắc xung đột: **luật của dự án (mục 1) > đọc được trong trận > hiệu năng > đẹp > chi tiết.**
 
@@ -46,6 +89,7 @@ Kiến thức VFX ngoài kia phần lớn viết cho game có ánh sáng. Dự �
 | Đỉnh sáng trắng tuyệt đối ở điểm va chạm | Chớp nổ hình sao gai / nước toé màu kem trong 0,1–0,14 s, nhỏ hơn thân đối thủ |
 | Hiệu ứng làm bằng Spine (slot, sequence, clipping) | Ảnh hiệu ứng trong clip `.atomik` chỉ còn cho đòn đánh thường. Chiêu mana và chiêu cuối do **lớp hạt trên sân** vẽ (`HatLua`, `HatNuoc`, `HatMang`); clip chỉ còn động tác (`skill_nofx`, `cast_nofx`) |
 | ParticleSystem, VFX Graph, shader dissolve | Chưa dùng; muốn thêm phải hỏi người dùng. Hạt là Image trong hàng chờ, chạy theo đồng hồ sân |
+| Hiệu ứng dựng bằng lưới 3D / shader ăn mòn | Dựng **offline trong Blender** (modifier + lớp vỏ Emission phẳng, View Standard, nền trong, không bloom), render 24 khung/giây, vào game dạng tờ khung qua AtomSpine (`blender_anime_fx.md`, từ 2026-11-24) |
 | Hit flash bằng shader | `_Flash` của shader sticker (đã có), 1–3 khung |
 | Hiệu ứng che cả nhân vật ở đỉnh | **Không che con bị trúng.** Vụ nổ nhỏ hơn thân nó; khối nước lớn phủ lên thì làm trong mờ 0,8–0,86 |
 | Tránh hiệu ứng dạng ảnh tĩnh trượt | Từ 2026-11-10 chuẩn mốc là hạt chồng lớp phẳng (`ArtGen/Spine/chuan_fx`), không làm hiệu ứng bằng một ảnh tĩnh |
@@ -327,6 +371,8 @@ Nguồn và số ở `nghien_cuu_hieu_nang.md`. Chưa có số đo trên máy th
 
 ## 10. Quy trình làm một hiệu ứng hoặc một bộ hệ mới
 
+0. **Tra thư viện template** (bảng "Luật đầu tiên" ở đầu file): đưa người dùng xem cái gần nhất, hỏi dùng lại / chỉnh / làm mới;
+   chỉ đi tiếp các bước dưới khi người dùng muốn làm mới (2026-11-25).
 1. **Đọc hình tướng** sẽ dùng chiêu (màu, họa tiết, dáng) và động tác clip của từng dạng.
 2. **Tìm mẫu:** ảnh hiệu ứng đã duyệt của game, Epic Toon FX (`toonfx.md`, chỉ đọc số), Clash of Critters, Kingdom Rush 5 (trang
    xem có lọc theo hệ, soi từng khung; `hoc_kr5_vfx.md`), tài liệu trong thư mục này.
@@ -403,3 +449,4 @@ Lỗi của phần animation (rig, lưới, chuỗi xương, miệng): `animatio
 | **Clash of Critters** (đục 2026-11-09) | `pokiclash-hero-fx` mục 1b | mỗi cú trúng 3–4 lớp, lớp phụ trễ 0,15 s, 2 đợt hạt cách 0,1 s, cỡ bật 14% đời | quầng sáng, hình |
 | **Epic Toon FX** (Asset Store, `.gitignore`) | `pokiclash-hero-fx/toonfx.md` (công cụ đọc số `tools/ps_*.py`) | phân vị đời, tốc, cản; tờ khung ăn mòn; màu theo tuổi = nhiệt độ | ảnh, prefab |
 | **pixelfx** (MIT) | `pokiclash-hero-fx` mục 1, 6 | 12 kiểu hạt có vật lý, cách diễn quanh hiệu ứng | pixel art, lớp sáng cộng dồn |
+| **Anime Style FX Workflow** (CodyWinch, 11 file `.blend` + 4 file lốc xoáy, người dùng mua 2026-11-24) | `blender_anime_fx.md`; file ở repo AtomSpine `refs/blender_anime_fx/` (công cụ đọc / render thử trong `tools/`) | chuỗi texture → trọng số đỉnh → Displace + Mask + Smooth; lớp vỏ màu phẳng lột dần theo ngưỡng; núm Empty + driver; Warp, Curve, Lattice, Surface Deform, Simple Deform Twist | bloom Eevee, Filmic; phát hành lại file |

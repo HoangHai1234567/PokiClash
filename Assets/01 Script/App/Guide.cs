@@ -62,6 +62,10 @@ namespace PokiClash
 
         public static bool Note(string id, string key, string text, float secs = 3.4f) => Show(id, Mode.Note, key, text, null, false, null, secs);
 
+        // lời tướng đồng hành có khoanh sáng một chỗ (nền tối quanh, vòng mực): chạm đâu cũng qua; chạm trúng chỗ khoanh không bấm
+        // xuống vật bên dưới (vòng khoanh chặn chạm ở chế độ Say). Dùng để giới thiệu một thứ mà chưa bắt bấm (Nhà, Cửa hàng 2026-11-24)
+        public static bool SayAt(string id, string key, string text, Action done = null) => Show(id, Mode.Say, key, text, done, false, S?.starter);
+
         // lời tướng đồng hành (chân dung ló ra cạnh ghi chú), chạm để tiếp
         public static bool Say(string id, string text, Action done = null, bool repeat = false)
         {

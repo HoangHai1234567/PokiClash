@@ -248,5 +248,6 @@ namespace PokiClash.Core
         public string name;
         public bool ai;
         public List<Member> members = new List<Member>();
+        public BattleRules rules; // luật Sổ Phép của người chơi (null = không có)
     }
 }

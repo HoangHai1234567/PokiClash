@@ -1,7 +1,7 @@
 // Xem màn mở khoá tướng mới (App/Shop/HeroUnlockView, người dùng 2026-11-23: "tạo thêm menu cho tôi xem đoạn mở khóa tướng"):
 // menu "PokiClash/Thử/Màn mở khoá tướng: …" theo bậc hoặc ngẫu nhiên. Chưa Play thì mở Boot.unity, vào Play, tắt màn mở game, chờ màn
-// tải xong rồi diễn (như menu xem lại cốt truyện). Chọn ngẫu nhiên một tướng đúng bậc, ưu tiên tướng có rig (diễn xoay + ra sân); không
-// ghi gì vào bản lưu.
+// tải xong rồi diễn (như menu xem lại cốt truyện). Chọn ngẫu nhiên một tướng đúng bậc, ưu tiên tướng có rig (bút chì vẽ theo viền của
+// rig, bật ra diễn chiêu); không ghi gì vào bản lưu.
 using System.Linq;
 using PokiClash.Core;
 using UnityEditor;

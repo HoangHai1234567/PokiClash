@@ -164,7 +164,8 @@ namespace PokiClash
                 // 2026-11-19 khuya (người dùng chê dải liền màu than "tô đen"; soi ảnh chụp: nhả theo giây thành cụm rời cách quãng): vệt KHÓI THẬT =
                 // cụm "khoi" 0,23 thân nhả theo QUÃNG ĐƯỜNG (mỗi 0,33 cỡ cụm: chồng 2/3), sống 0,55 s, nở 15 % về cuối, trôi lên chậm, độ đặc 0,8;
                 // nhả từ 0,1 s tới 85 % quãng bay
-                if (vet > 0)
+                // cầu tròn Blender (2026-11-24): viên kéo khói kéo vệt "duoi_lua" (lửa đậm → khói) thưa (bước 0,7 r, tan nhanh: loạt 16 viên)
+                if (vet > 0 && DuoiLua(() => h.pos, () => !h.dead && h.age < h.life, h.r0, Back, 22, 1.9f, 0.7f) == null)
                     HoaKhoiDuoi(() => h.pos - h.aim * (2f * h.r0), () => !h.dead && h.age < h.life, () => h.age > 0.1f && h.age < 0.85f * h.life,
                         0.23f * vet, KhoiSam, 0.8f, 0.33f, 0.55f);
                 return;

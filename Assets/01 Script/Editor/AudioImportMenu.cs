@@ -26,6 +26,17 @@ namespace PokiClash.EditorTools
             ("giftPeg", "maybi_dinh_qua.mp3"), ("prize", "maybi_trung_ruong.mp3"), ("jackpot", "maybi_jackpot.mp3"),
             ("bet", "maybi_doi_cuoc.mp3"), ("counter", "maybi_dem_so.mp3"), ("machineLevel", "maybi_len_cap.mp3"),
             ("machineDeny", "maybi_bi_chan.mp3"), ("chestOpen", "maybi_mo_ruong.mp3"), ("roll", "maybi_bi_lan_loop.mp3"),
+            // tiếng đánh nhau (2026-11-24, ArtGen/Sfx/xuat_tieng_tran.py; dùng ở AudioService.Hit, BattlePlayer "ult", SkillSfx.cs): "hit",
+            // "hitCrit", "ult" thay tiếng tổng hợp cũ cùng tên
+            ("hit", "tran_hit.ogg"), ("hitCrit", "tran_hitCrit.ogg"), ("ult", "tran_ult.ogg"),
+            ("fx_tu", "tran_fx_tu.ogg"), ("fx_nha_tia", "tran_fx_nha_tia.ogg"), ("fx_no", "tran_fx_no.ogg"), ("fx_no_nho", "tran_fx_no_nho.ogg"),
+            ("fx_no_lon", "tran_fx_no_lon.ogg"), ("fx_chem", "tran_fx_chem.ogg"), ("fx_chem2", "tran_fx_chem2.ogg"), ("fx_kim", "tran_fx_kim.ogg"),
+            ("fx_huc", "tran_fx_huc.ogg"), ("fx_lua_bay", "tran_fx_lua_bay.ogg"), ("fx_phun_lua", "tran_fx_phun_lua.ogg"),
+            ("fx_nuoc", "tran_fx_nuoc.ogg"), ("fx_nuoc_lon", "tran_fx_nuoc_lon.ogg"), ("fx_bong", "tran_fx_bong.ogg"),
+            ("fx_tia_nuoc", "tran_fx_tia_nuoc.ogg"), ("fx_song", "tran_fx_song.ogg"), ("fx_loc", "tran_fx_loc.ogg"), ("fx_gam", "tran_fx_gam.ogg"),
+            ("fx_da", "tran_fx_da.ogg"), ("fx_phep", "tran_fx_phep.ogg"),
+            // bút chì sột soạt lặp liền 4 s (gen Magnific, ArtGen/Sfx/but_chi): màn mở khoá tướng, App.Audio.Loop("pencil", …) ở HeroUnlockView
+            ("pencil", "ui_but_chi.ogg"),
         };
 
         // khoá nhạc (AudioService.MusicFor, SceneRoot.Music) → Assets/03 Art/Audio/Music/bgm_<khoá>.mp3

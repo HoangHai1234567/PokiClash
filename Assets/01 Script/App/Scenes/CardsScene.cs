@@ -45,6 +45,20 @@ namespace PokiClash
                 string locked = c.unlock > save.level ? Loc.F("Mở ở cấp {0}", c.unlock) : null;
                 UiCard.Create(grid, c, 1, false, App.Art.Icon(c.icon), locked, () => App.Modals.Open(detailPrefab).Show(card));
             }
+            // hướng dẫn sau trận 2 (C18–C19, 2026-11-24): vào Sổ thẻ là xong bước ép chạm; để người chơi xem một lúc rồi gợi ý về sảnh
+            if (!Tutorial.CoreDone(save) && !Tutorial.Done(save, Tutorial.CardsGo))
+            {
+                Tutorial.Mark(save, Tutorial.CardsGo);
+                App.Save.Save();
+            }
+            if (!Tutorial.CoreDone(save) && !Tutorial.Done(save, Tutorial.CardsBack)) StartCoroutine(TutorBack());
+        }
+
+        System.Collections.IEnumerator TutorBack()
+        {
+            yield return new WaitForSecondsRealtime(2.5f);
+            while (App.Modals.Count > 0 || !Guide.Idle) yield return null; // đang xem chi tiết một thẻ
+            Guide.Hint(Tutorial.CardsBack, "bar.back", Loc.T("Xem xong thì về sảnh."), 8);
         }
 
         public static string LegendText(GameData d, Rarity r) => Loc.F("{0} · nặng {1}", Elements.RarityName(r), d.Cfg.PoolWeight(r));

@@ -1,0 +1,4395 @@
+{
+ "file": "D:\\PokiClash\\ArtGen\\Spine\\vfx_blender\\ref_codywinch\\Swirling Energy 2 8.blend",
+ "version": [
+  2,
+  80,
+  21
+ ],
+ "scene": {
+  "name": "Scene",
+  "frames": [
+   1,
+   60
+  ],
+  "fps": 24,
+  "engine": "BLENDER_EEVEE",
+  "res": [
+   1920,
+   1080,
+   100
+  ],
+  "film_transparent": false,
+  "view_transform": "Standard",
+  "look": "None",
+  "camera": "<Object:Camera>",
+  "world": "<World:World>",
+  "world_color": [
+   0.0509,
+   0.0509,
+   0.0509
+  ],
+  "world_nodes": {
+   "nodes": [
+    {
+     "name": "World Output",
+     "type": "ShaderNodeOutputWorld",
+     "inputs": {}
+    },
+    {
+     "name": "Background",
+     "type": "ShaderNodeBackground",
+     "inputs": {
+      "Color": [
+       0.0,
+       0.0,
+       0.0,
+       1.0
+      ],
+      "Strength": 1.0,
+      "Weight": 0.0
+     }
+    }
+   ],
+   "links": [
+    "Background.Background -> World Output.Surface"
+   ]
+  },
+  "anim": null
+ },
+ "objects": [
+  {
+   "name": "1",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.6947,
+    0.6947,
+    0.6947
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.005>",
+   "verts": 8,
+   "vgroups": [
+    "Group"
+   ],
+   "materials": [
+    "<Material:Black>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 5,
+      "render_levels": 5,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Surface Deform",
+     "type": "SURFACE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "target": "<Object:Master Deform>",
+      "falloff": 4.0,
+      "is_bound": true,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "use_sparse_bind": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Post Mask Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 45,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.002\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Twist\"].angle",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*.5",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Twist>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Curve Mov\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*10",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Curve Ctrl>",
+          "path": "",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "2",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.6947,
+    0.6947,
+    0.6947
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.003>",
+   "verts": 8,
+   "vgroups": [
+    "Group",
+    "Group.001"
+   ],
+   "materials": [
+    "<Material:Dark Purple>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 5,
+      "render_levels": 5,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FBB220>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 1.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Copy Texture Inverted",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group_a": "Group.001",
+      "vertex_group_b": "Group",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "DIF",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "VertexWeightEdit",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FBAE20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.325,
+       0.756
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Texture Add",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group": "Group.001",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FBAA20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<VoronoiTexture:Texture.000>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Voronoi>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.359,
+       0.625
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Subtract",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Group.001",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FBA620>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.155,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Surface Deform",
+     "type": "SURFACE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "target": "<Object:Master Deform>",
+      "falloff": 4.0,
+      "is_bound": true,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "use_sparse_bind": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Group.001",
+      "invert_vertex_group": false,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Post Mask Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 45,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Layer Disp",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "",
+      "mid_level": 0.5,
+      "strength": 0.1,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Subtract\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.25",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.002\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Twist\"].angle",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*.5",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Twist>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Curve Mov\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*10",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Curve Ctrl>",
+          "path": "",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "3",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.6947,
+    0.6947,
+    0.6947
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.001>",
+   "verts": 8,
+   "vgroups": [
+    "Group",
+    "Group.001"
+   ],
+   "materials": [
+    "<Material:Light Pink>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 5,
+      "render_levels": 5,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FBA220>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 1.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Copy Texture Inverted",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group_a": "Group.001",
+      "vertex_group_b": "Group",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "DIF",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "VertexWeightEdit",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB9E20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.325,
+       0.756
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Texture Add",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group": "Group.001",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB9A20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<VoronoiTexture:Texture.000>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Voronoi>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.359,
+       0.625
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Subtract",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Group.001",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB9620>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.405,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Surface Deform",
+     "type": "SURFACE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "target": "<Object:Master Deform>",
+      "falloff": 4.0,
+      "is_bound": true,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "use_sparse_bind": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Group.001",
+      "invert_vertex_group": false,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Post Mask Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 45,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Layer Disp",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "",
+      "mid_level": 0.5,
+      "strength": 0.25,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Subtract\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.002\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Twist\"].angle",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*.5",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Twist>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Curve Mov\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*10",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Curve Ctrl>",
+          "path": "",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "4",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.6947,
+    0.6947,
+    0.6947
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.000>",
+   "verts": 8,
+   "vgroups": [
+    "Group",
+    "Group.001"
+   ],
+   "materials": [
+    "<Material:Bright Pink>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 5,
+      "render_levels": 5,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB9220>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 1.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Copy Texture Inverted",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group_a": "Group.001",
+      "vertex_group_b": "Group",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "DIF",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "VertexWeightEdit",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB8E20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.325,
+       0.756
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Texture Add",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group": "Group.001",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB8A20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<VoronoiTexture:Texture.000>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Voronoi>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.359,
+       0.625
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Subtract",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Group.001",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB8620>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.455,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Surface Deform",
+     "type": "SURFACE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "target": "<Object:Master Deform>",
+      "falloff": 4.0,
+      "is_bound": true,
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "use_sparse_bind": false,
+      "strength": 1.0
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Group.001",
+      "invert_vertex_group": false,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Post Mask Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 45,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Layer Disp",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "",
+      "mid_level": 0.5,
+      "strength": 0.5,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Subtract\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var+.05",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.002\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Twist\"].angle",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*.5",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Twist>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Curve Mov\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*10",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Curve Ctrl>",
+          "path": "",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "BezierCircle",
+   "type": "CURVE",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.2004,
+    0.2004,
+    0.2004
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Curve:BezierCircle>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Camera",
+   "type": "CAMERA",
+   "loc": [
+    19.3648,
+    0.1555,
+    2.4683
+   ],
+   "rot": [
+    1.376,
+    -0.0,
+    1.5751
+   ],
+   "scale": [
+    0.1203,
+    0.1203,
+    0.1203
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Camera:Camera.001>",
+   "cam": {
+    "type": "PERSP",
+    "ortho": 7.314,
+    "lens": 35.0
+   },
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Curve Ctrl",
+   "type": "EMPTY",
+   "loc": [
+    0.2766,
+    5.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    5.0,
+    5.0,
+    5.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Curve CtrlAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 0,
+      "keys": [
+       [
+        0.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        50.0,
+        3.4569,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        0.0,
+        5.0,
+        "LINEAR"
+       ],
+       [
+        50.0,
+        5.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        0.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        50.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Disp Amount",
+   "type": "EMPTY",
+   "loc": [
+    -34.5889,
+    -6.7358,
+    5.9771
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    6.0697,
+    6.0697,
+    6.0697
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CONE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Floor",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    -4.203
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    16.5683,
+    16.5683,
+    16.5683
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Plane.001>",
+   "verts": 4,
+   "vgroups": [],
+   "materials": [
+    "<Material:Floor>"
+   ],
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Master Deform",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.6947,
+    0.6947,
+    0.6947
+   ],
+   "parent": null,
+   "hide_render": true,
+   "data": "<Mesh:Cube.002>",
+   "verts": 8,
+   "vgroups": [
+    "Group"
+   ],
+   "materials": [
+    "<Material:Black>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": true,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 5,
+      "render_levels": 5,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E149FB8220>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 1.0,
+      "remove_threshold": -0.0,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Displace",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Group",
+      "mid_level": 0.5,
+      "strength": 6.0697,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Displace.001",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Group",
+      "mid_level": 0.0,
+      "strength": 6.0697,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "VertexWeightEdit",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group": "Group",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x000001E14AE8FC20>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       0.0
+      ],
+      [
+       0.325,
+       0.756
+      ],
+      [
+       1.0,
+       1.0
+      ]
+     ]
+    },
+    {
+     "name": "Displace.002",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group": "Group",
+      "mid_level": 0.0,
+      "strength": 6.0697,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 25,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Twist",
+     "type": "SIMPLE_DEFORM",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "deform_method": "TWIST",
+      "vertex_group": "",
+      "deform_axis": "Z",
+      "origin": "<Object:Twist>",
+      "factor": 1.5113,
+      "angle": 1.5113,
+      "limits": [
+       0.0,
+       1.0
+      ],
+      "lock_x": false,
+      "lock_y": false,
+      "lock_z": false,
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "PreCurv Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 45,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Curve Mov",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "",
+      "mid_level": 0.0,
+      "strength": 2.7655,
+      "direction": "X",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Curve",
+     "type": "CURVE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "object": "<Object:BezierCircle>",
+      "vertex_group": "",
+      "invert_vertex_group": false,
+      "deform_axis": "POS_X"
+     }
+    },
+    {
+     "name": "Post Mask Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 45,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.002\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Twist\"].angle",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*.5",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Twist>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Curve Mov\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var*10",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Curve Ctrl>",
+          "path": "",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Melt Back",
+   "type": "EMPTY",
+   "loc": [
+    -6.318,
+    0.0,
+    0.405
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Melt BackAction",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 0,
+      "keys": [
+       [
+        1.0,
+        -6.318,
+        "LINEAR"
+       ],
+       [
+        30.0,
+        -6.318,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -6.318,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        1.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        30.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        0.3989,
+        "LINEAR"
+       ],
+       [
+        30.0,
+        0.4578,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.3989,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Overall Disp",
+   "type": "EMPTY",
+   "loc": [
+    -1.0358,
+    6.8463,
+    2.0856
+   ],
+   "rot": [
+    9.5019,
+    -0.0848,
+    -13.276
+   ],
+   "scale": [
+    0.4405,
+    0.4405,
+    0.4405
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Overall DispAction",
+    "fcurves": [
+     {
+      "path": "scale",
+      "idx": 0,
+      "keys": [
+       [
+        1.0,
+        0.4134,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.9469,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "scale",
+      "idx": 1,
+      "keys": [
+       [
+        1.0,
+        0.4134,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.9469,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "scale",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        0.4134,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.9469,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 0,
+      "keys": [
+       [
+        1.0,
+        -0.9378,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -2.8645,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        1.0,
+        6.8463,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        6.8463,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        2.0856,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        2.0856,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Sun",
+   "type": "LIGHT",
+   "loc": [
+    3.08,
+    8.0415,
+    14.8983
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<SunLight:Sun>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Twist",
+   "type": "EMPTY",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    -0.1476,
+    -0.3511,
+    -5.2909
+   ],
+   "scale": [
+    3.0227,
+    3.0227,
+    3.0227
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Voronoi",
+   "type": "EMPTY",
+   "loc": [
+    3.8333,
+    0.9862,
+    2.9232
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    4.0,
+    4.0,
+    4.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "ARROWS",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  }
+ ],
+ "textures": [
+  {
+   "name": "Texture.000",
+   "type": "VORONOI",
+   "props": {
+    "name_full": "Texture.000",
+    "id_type": "TEXTURE",
+    "session_uid": 235,
+    "is_evaluated": false,
+    "original": "<VoronoiTexture:Texture.000>",
+    "users": 3,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001E14AE524A0>",
+    "use_clamp": true,
+    "use_color_ramp": true,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001E14AD03920>",
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": null,
+    "weight_1": 1.0,
+    "weight_2": 0.0,
+    "weight_3": 0.0,
+    "weight_4": 0.0,
+    "minkovsky_exponent": 2.5,
+    "distance_metric": "DISTANCE",
+    "color_mode": "INTENSITY",
+    "noise_intensity": 1.0,
+    "noise_scale": 1.0,
+    "nabla": 0.025
+   },
+   "anim": null
+  },
+  {
+   "name": "Texture.001",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Texture.001",
+    "id_type": "TEXTURE",
+    "session_uid": 236,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Texture.001>",
+    "users": 4,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001E14AE52450>",
+    "use_clamp": true,
+    "use_color_ramp": true,
+    "color_ramp": "<bpy_struct, ColorRamp at 0x000001E14AD035A0>",
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": null,
+    "noise_scale": 0.25,
+    "noise_depth": 2,
+    "noise_basis": "BLENDER_ORIGINAL",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "GRAYSCALE",
+    "nabla": 0.025
+   },
+   "anim": null
+  },
+  {
+   "name": "Texture.014",
+   "type": "IMAGE",
+   "props": {
+    "name_full": "Texture.014",
+    "id_type": "TEXTURE",
+    "session_uid": 237,
+    "is_evaluated": false,
+    "original": "<ImageTexture:Texture.014>",
+    "users": 1,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x000001E14AE52400>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": null,
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": null,
+    "use_interpolation": true,
+    "use_flip_axis": false,
+    "use_alpha": true,
+    "use_calculate_alpha": false,
+    "invert_alpha": false,
+    "filter_size": 1.0,
+    "extension": "REPEAT",
+    "repeat_x": 1,
+    "repeat_y": 1,
+    "use_mirror_x": false,
+    "use_mirror_y": false,
+    "use_checker_odd": true,
+    "use_checker_even": false,
+    "checker_distance": 0.0,
+    "crop_min_x": 0.0,
+    "crop_min_y": 0.0,
+    "crop_max_x": 1.0,
+    "crop_max_y": 1.0,
+    "image": "<Image:Orb_ClayTubes_smooth.PSD>",
+    "image_user": "<bpy_struct, ImageUser at 0x000001E14ACEBF60>",
+    "use_normal_map": false
+   },
+   "anim": null
+  }
+ ],
+ "materials": [
+  {
+   "name": "Black",
+   "diffuse": [
+    0.0039,
+    0.0039,
+    0.0056,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.0039,
+        0.0039,
+        0.0056,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Bright Pink",
+   "diffuse": [
+    1.0,
+    0.5466,
+    0.9561,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        1.0,
+        0.6905,
+        0.9163,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Dark Purple",
+   "diffuse": [
+    0.0165,
+    0.0154,
+    0.0432,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.0068,
+        0.0064,
+        0.0153,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Floor",
+   "diffuse": [
+    0.8,
+    0.8,
+    0.8,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Principled BSDF",
+      "type": "ShaderNodeBsdfPrincipled",
+      "inputs": {
+       "Metallic": 0.0,
+       "Roughness": 0.5,
+       "IOR": 1.45,
+       "Alpha": 1.0,
+       "Thin Wall": false,
+       "Normal": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Weight": 0.0,
+       "Diffuse Roughness": 0.0,
+       "Subsurface Weight": 0.0,
+       "Subsurface Radius": [
+        1.0,
+        0.2,
+        0.1
+       ],
+       "Subsurface Scale": 0.05,
+       "Subsurface IOR": 1.4,
+       "Subsurface Anisotropy": 0.0,
+       "Specular IOR Level": 0.5,
+       "Specular Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Anisotropic": 0.0,
+       "Anisotropic Rotation": 0.0,
+       "Tangent": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Transmission Weight": 0.0,
+       "Coat Weight": 0.0,
+       "Coat Roughness": 0.03,
+       "Coat IOR": 1.5,
+       "Coat Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Coat Normal": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Sheen Weight": 0.0,
+       "Sheen Roughness": 0.5,
+       "Sheen Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Emission Color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Emission Strength": 0.0,
+       "Thin Film Thickness": 0.0,
+       "Thin Film IOR": 1.33
+      }
+     },
+     {
+      "name": "Checker Texture",
+      "type": "ShaderNodeTexChecker",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Color1": [
+        0.0502,
+        0.0502,
+        0.0502,
+        1.0
+       ],
+       "Color2": [
+        0.0002,
+        0.0002,
+        0.0002,
+        1.0
+       ],
+       "Scale": 15.0
+      }
+     }
+    ],
+    "links": [
+     "Principled BSDF.BSDF -> Material Output.Surface",
+     "Checker Texture.Color -> Principled BSDF.Base Color"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Light Pink",
+   "diffuse": [
+    0.3185,
+    0.2044,
+    0.2699,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.6038,
+        0.3835,
+        0.5097,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  }
+ ],
+ "actions": [
+  "Curve CtrlAction",
+  "Melt BackAction",
+  "Overall DispAction"
+ ],
+ "node_groups": [
+  {
+   "name": "Compositing Nodetree",
+   "type": "CompositorNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Render Layers",
+      "type": "CompositorNodeRLayers",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     }
+    ],
+    "links": [
+     "Render Layers.Image -> Group Output.Image"
+    ]
+   }
+  },
+  {
+   "name": "Edge Node v 1.2.4",
+   "type": "CompositorNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Frame.005",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.001",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.002",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.006",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Frame.003",
+      "type": "NodeFrame",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.003",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.005",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.004",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.006",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "ColorRamp.001",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.0,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.031,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.062,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.094,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.125,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.156,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.188,
+         [
+          1.0,
+          0.009,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.219,
+         [
+          0.0,
+          0.043,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.25,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.281,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.312,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.344,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.375,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.406,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.438,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.469,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.5,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.531,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.562,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.594,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.625,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.656,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.688,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.719,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.75,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.781,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.812,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.844,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.875,
+         [
+          0.0,
+          0.0,
+          1.0,
+          1.0
+         ]
+        ],
+        [
+         0.906,
+         [
+          0.0,
+          1.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.938,
+         [
+          1.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         1.0,
+         [
+          0.0,
+          0.147,
+          0.891,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Math.004",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "LOGARITHM"
+     },
+     {
+      "name": "Math.003",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Reroute.028",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.027",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Filter",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Reroute.026",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Hue Saturation Value",
+      "type": "CompositorNodeHueSat",
+      "inputs": {
+       "Hue": 0.5,
+       "Saturation": 1.0,
+       "Value": 2.0,
+       "Factor": 1.0
+      }
+     },
+     {
+      "name": "Filter.001",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.002",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.003",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.005",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Filter.004",
+      "type": "CompositorNodeFilter",
+      "inputs": {
+       "Factor": 1.0,
+       "Type": "Laplace"
+      }
+     },
+     {
+      "name": "Hue Saturation Value.001",
+      "type": "CompositorNodeHueSat",
+      "inputs": {
+       "Hue": 0.5,
+       "Saturation": 1.0,
+       "Value": 2.0
+      }
+     },
+     {
+      "name": "Reroute.012",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.013",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.014",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.011",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.020",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.001",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.002",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "ColorRamp",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.25,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         1.0,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "ColorRamp.002",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.01,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         1.0,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Reroute.024",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.015",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Separate RGBA.002",
+      "type": "CompositorNodeSeparateColor",
+      "inputs": {}
+     },
+     {
+      "name": "Math.016",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.015",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.014",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.010",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.009",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.008",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.007",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.006",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Reroute.029",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.019",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Separate RGBA",
+      "type": "CompositorNodeSeparateColor",
+      "inputs": {}
+     },
+     {
+      "name": "Math.012",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Math.011",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MAXIMUM"
+     },
+     {
+      "name": "Reroute.018",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.016",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.017",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.034",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.009",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.021",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.010",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.025",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Reroute.030",
+      "type": "NodeReroute",
+      "inputs": {}
+     },
+     {
+      "name": "Dilate/Erode.001",
+      "type": "CompositorNodeDilateErode",
+      "inputs": {
+       "Size": 1,
+       "Type": "Feather",
+       "Falloff Size": 0.0,
+       "Falloff": "Sphere"
+      }
+     },
+     {
+      "name": "ColorRamp.003",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.09,
+         [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+         ]
+        ],
+        [
+         0.25,
+         [
+          1.0,
+          1.0,
+          1.0,
+          1.0
+         ]
+        ]
+       ]
+      }
+     },
+     {
+      "name": "Separate RGBA.001",
+      "type": "CompositorNodeSeparateColor",
+      "inputs": {}
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.005",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Vector Math",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.001",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.002",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.003",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.004",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.005",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.006",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.007",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     },
+     {
+      "name": "Vector Math.008",
+      "type": "ShaderNodeVectorMath",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Scale": 1.0
+      },
+      "operation": "DOT_PRODUCT"
+     }
+    ],
+    "links": [
+     "Dilate/Erode.001.Mask -> Math.002.Value",
+     "Math.Value -> ColorRamp.Factor",
+     "Math.006.Value -> Math.007.Value",
+     "Filter.002.Image -> Reroute.013.Input",
+     "Filter.001.Image -> Reroute.012.Input",
+     "Filter.003.Image -> Reroute.014.Input",
+     "Math.003.Value -> Math.004.Value",
+     "Math.004.Value -> ColorRamp.001.Factor",
+     "Group Input.Z in -> Reroute.003.Input",
+     "ColorRamp.001.Color -> Filter.Image",
+     "Math.005.Value -> ColorRamp.002.Factor",
+     "Separate RGBA.Red -> Math.011.Value",
+     "Separate RGBA.Green -> Math.011.Value",
+     "Math.011.Value -> Math.012.Value",
+     "Separate RGBA.Blue -> Math.012.Value",
+     "Math.012.Value -> Math.005.Value",
+     "Filter.Image -> Reroute.Input",
+     "Group Input.Distance -> Reroute.004.Input",
+     "ColorRamp.001.Color -> Reroute.026.Input",
+     "Math.008.Value -> Math.009.Value",
+     "Math.007.Value -> Math.008.Value",
+     "Reroute.001.Output -> Filter.004.Image",
+     "Separate RGBA.001.Red -> Math.008.Value",
+     "Separate RGBA.001.Green -> Math.009.Value",
+     "Math.009.Value -> Math.010.Value",
+     "Separate RGBA.001.Blue -> Math.010.Value",
+     "Math.001.Value -> Reroute.024.Input",
+     "Reroute.Output -> Reroute.015.Input",
+     "Reroute.003.Output -> Reroute.028.Input",
+     "Reroute.009.Output -> Group Output.Distance Check",
+     "Reroute.026.Output -> Reroute.009.Input",
+     "Reroute.011.Output -> Reroute.019.Input",
+     "Reroute.012.Output -> Reroute.016.Input",
+     "Reroute.013.Output -> Reroute.017.Input",
+     "Reroute.014.Output -> Reroute.018.Input",
+     "Reroute.015.Output -> Separate RGBA.Image",
+     "Reroute.019.Output -> Separate RGBA.001.Image",
+     "Reroute.024.Output -> Reroute.025.Input",
+     "Reroute.025.Output -> ColorRamp.003.Factor",
+     "Reroute.027.Output -> Math.003.Value",
+     "Reroute.004.Output -> Reroute.027.Input",
+     "Reroute.027.Output -> Math.003.Value",
+     "Reroute.028.Output -> Math.004.Value",
+     "Group Input.Normal In -> Reroute.005.Input",
+     "Hue Saturation Value.Image -> Hue Saturation Value.001.Image",
+     "Reroute.005.Output -> Reroute.002.Input",
+     "Group Input.Normal Enhance -> Reroute.006.Input",
+     "Reroute.002.Output -> Hue Saturation Value.Image",
+     "Filter.004.Image -> Reroute.011.Input",
+     "Reroute.002.Output -> Reroute.001.Input",
+     "Hue Saturation Value.001.Image -> Filter.005.Image",
+     "Math.014.Value -> Math.015.Value",
+     "Separate RGBA.002.Red -> Math.014.Value",
+     "Separate RGBA.002.Green -> Math.015.Value",
+     "Math.015.Value -> Math.016.Value",
+     "Separate RGBA.002.Blue -> Math.016.Value",
+     "Math.010.Value -> Math.014.Value",
+     "Filter.005.Image -> Reroute.020.Input",
+     "Math.016.Value -> Math.Value",
+     "Reroute.029.Output -> Separate RGBA.002.Image",
+     "Reroute.006.Output -> Hue Saturation Value.001.Factor",
+     "Math.002.Value -> Reroute.030.Input",
+     "Reroute.020.Output -> Reroute.029.Input",
+     "Reroute.030.Output -> Reroute.034.Input",
+     "ColorRamp.002.Color -> Reroute.010.Input",
+     "ColorRamp.Color -> Reroute.021.Input",
+     "Reroute.010.Output -> Group Output.Detected Edges [Zdepth]",
+     "Reroute.021.Output -> Group Output.Detected Edges [Normal]",
+     "Reroute.034.Output -> Group Output.Edges Out",
+     "Reroute.001.Output -> Vector Math.Vector",
+     "Vector Math.Value -> Filter.001.Image",
+     "Reroute.001.Output -> Vector Math.001.Vector",
+     "Vector Math.001.Value -> Filter.002.Image",
+     "Reroute.001.Output -> Vector Math.002.Vector",
+     "Vector Math.002.Value -> Filter.003.Image",
+     "Reroute.018.Output -> Vector Math.003.Vector",
+     "Vector Math.003.Value -> Math.007.Value",
+     "Reroute.017.Output -> Vector Math.004.Vector",
+     "Vector Math.004.Value -> Math.006.Value",
+     "Reroute.016.Output -> Vector Math.005.Vector",
+     "Vector Math.005.Value -> Math.006.Value",
+     "ColorRamp.003.Color -> Vector Math.006.Vector",
+     "Vector Math.006.Value -> Dilate/Erode.001.Mask",
+     "ColorRamp.002.Color -> Vector Math.007.Vector",
+     "Vector Math.007.Value -> Math.001.Value",
+     "ColorRamp.Color -> Vector Math.008.Vector",
+     "Vector Math.008.Value -> Math.001.Value"
+    ]
+   }
+  },
+  {
+   "name": "Principle Subsurface Scale",
+   "type": "ShaderNodeTree",
+   "tree": {
+    "nodes": [
+     {
+      "name": "Math.001",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Math.002",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     },
+     {
+      "name": "Combine XYZ",
+      "type": "ShaderNodeCombineXYZ",
+      "inputs": {}
+     },
+     {
+      "name": "Group Output",
+      "type": "NodeGroupOutput",
+      "inputs": {}
+     },
+     {
+      "name": "Group Input",
+      "type": "NodeGroupInput",
+      "inputs": {}
+     },
+     {
+      "name": "Math",
+      "type": "ShaderNodeMath",
+      "inputs": {
+       "Value": 0.5
+      },
+      "operation": "MULTIPLY"
+     }
+    ],
+    "links": [
+     "Math.Value -> Combine XYZ.X",
+     "Math.001.Value -> Combine XYZ.Y",
+     "Math.002.Value -> Combine XYZ.Z",
+     "Combine XYZ.Vector -> Group Output.Vector",
+     "Group Input.R -> Math.Value",
+     "Group Input.G -> Math.001.Value",
+     "Group Input.B -> Math.002.Value",
+     "Group Input.Scale -> Math.001.Value",
+     "Group Input.Scale -> Math.Value",
+     "Group Input.Scale -> Math.002.Value"
+    ]
+   }
+  }
+ ],
+ "texts": []
+}

@@ -1,0 +1,3536 @@
+{
+ "file": "D:\\PokiClash\\ArtGen\\Spine\\vfx_blender\\ref_codywinch\\Cloudy Explosion 2 8.blend",
+ "version": [
+  2,
+  80,
+  21
+ ],
+ "scene": {
+  "name": "Scene",
+  "frames": [
+   1,
+   60
+  ],
+  "fps": 24,
+  "engine": "BLENDER_EEVEE",
+  "res": [
+   1920,
+   1080,
+   100
+  ],
+  "film_transparent": false,
+  "view_transform": "Filmic",
+  "look": "None",
+  "camera": "<Object:Camera>",
+  "world": "<World:World>",
+  "world_color": [
+   0.0002,
+   0.0002,
+   0.0002
+  ],
+  "world_nodes": {
+   "nodes": [
+    {
+     "name": "World Output",
+     "type": "ShaderNodeOutputWorld",
+     "inputs": {}
+    },
+    {
+     "name": "Background",
+     "type": "ShaderNodeBackground",
+     "inputs": {
+      "Color": [
+       0.0002,
+       0.0002,
+       0.0002,
+       1.0
+      ],
+      "Strength": 1.0,
+      "Weight": 0.0
+     }
+    }
+   ],
+   "links": [
+    "Background.Background -> World Output.Surface"
+   ]
+  },
+  "anim": null
+ },
+ "objects": [
+  {
+   "name": "Camera",
+   "type": "CAMERA",
+   "loc": [
+    0.732,
+    21.3263,
+    4.0402
+   ],
+   "rot": [
+    1.5175,
+    0.0013,
+    3.1248
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Camera:Camera>",
+   "cam": {
+    "type": "PERSP",
+    "ortho": 6.0,
+    "lens": 50.0
+   },
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Center",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    3.083
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.002>",
+   "verts": 8,
+   "vgroups": [
+    "Full Weight",
+    "No Weight",
+    "Mask",
+    "Disp",
+    "Texture",
+    "Edge Smooth",
+    "Fine Texture"
+   ],
+   "materials": [
+    "<Material:Highlight>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 6,
+      "render_levels": 5,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Cast",
+     "type": "CAST",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "cast_type": "SPHERE",
+      "object": null,
+      "invert_vertex_group": false,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "use_radius_as_size": true,
+      "use_transform": false,
+      "factor": 1.0,
+      "radius": 0.0,
+      "size": 0.0,
+      "vertex_group": ""
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF77820>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Fine Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Fine Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF77420>",
+      "use_add": true,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Fine Texture>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Disp Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group_a": "Disp",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Edge Smooth Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group_a": "Edge Smooth",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Fine Texture Add",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Fine Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "ADD",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "vertex_group": "Mask",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF77020>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.7711,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Edge Smooth Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "Edge Smooth",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF76C20>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.7211,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Displace",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 2.2743,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Subsurf.001",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 1,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 1,
+      "render_levels": 1,
+      "show_only_control_edges": false,
+      "use_creases": false,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Displace.001",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 1.1372,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": false,
+      "show_render": false,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 14,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 15,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 35,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Edge Smooth Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.05",
+      "vars": [
+       {
+        "name": "var",
+        "type": "SINGLE_PROP",
+        "targets": [
+         {
+          "id": "<Object:Center>",
+          "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var /2",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Disp Amount",
+   "type": "EMPTY",
+   "loc": [
+    7.2949,
+    4.2475,
+    8.093
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    -2.2743,
+    -2.2743,
+    -2.2743
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Overall DispAction.001",
+    "fcurves": [
+     {
+      "path": "scale",
+      "idx": 0,
+      "keys": [
+       [
+        1.0,
+        -0.4852,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -3.2631,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "scale",
+      "idx": 1,
+      "keys": [
+       [
+        1.0,
+        -0.4852,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -3.2631,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "scale",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        -0.4852,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -3.2631,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Fine Texture",
+   "type": "EMPTY",
+   "loc": [
+    5.4176,
+    4.0359,
+    9.184
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    0.1,
+    0.1,
+    0.1
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": null
+  },
+  {
+   "name": "Fire",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    3.083
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.005>",
+   "verts": 8,
+   "vgroups": [
+    "Full Weight",
+    "No Weight",
+    "Mask",
+    "Disp",
+    "Texture",
+    "Edge Smooth",
+    "Fine Texture"
+   ],
+   "materials": [
+    "<Material:Orange Black>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 6,
+      "render_levels": 6,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Cast",
+     "type": "CAST",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "cast_type": "SPHERE",
+      "object": null,
+      "invert_vertex_group": false,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "use_radius_as_size": true,
+      "use_transform": false,
+      "factor": 1.0,
+      "radius": 0.0,
+      "size": 0.0,
+      "vertex_group": ""
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF76820>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Fine Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Fine Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF76420>",
+      "use_add": true,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Fine Texture>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Disp Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group_a": "Disp",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Edge Smooth Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group_a": "Edge Smooth",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Fine Texture Add",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Fine Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "ADD",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 0.1,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "vertex_group": "Mask",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF76020>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.6711,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Edge Smooth Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "Edge Smooth",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF75C20>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.6211,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Displace",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 2.2743,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Subsurf.001",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 1,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 1,
+      "render_levels": 1,
+      "show_only_control_edges": false,
+      "use_creases": false,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Displace.001",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 1.1372,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 14,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 15,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 35,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Displace.002",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 16,
+      "vertex_group": "",
+      "mid_level": 0.5,
+      "strength": 0.2,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Edge Smooth Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.05",
+      "vars": [
+       {
+        "name": "var",
+        "type": "SINGLE_PROP",
+        "targets": [
+         {
+          "id": "<Object:Fire>",
+          "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.1",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var /2",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Fire Bloom",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    3.083
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.004>",
+   "verts": 8,
+   "vgroups": [
+    "Full Weight",
+    "No Weight",
+    "Mask",
+    "Disp",
+    "Texture",
+    "Edge Smooth",
+    "Fine Texture"
+   ],
+   "materials": [
+    "<Material:Black>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 6,
+      "render_levels": 6,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Cast",
+     "type": "CAST",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "cast_type": "SPHERE",
+      "object": null,
+      "invert_vertex_group": false,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "use_radius_as_size": true,
+      "use_transform": false,
+      "factor": 1.0,
+      "radius": 0.0,
+      "size": 0.0,
+      "vertex_group": ""
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF75820>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Fine Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Fine Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF75420>",
+      "use_add": true,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Fine Texture>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Disp Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group_a": "Disp",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Edge Smooth Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group_a": "Edge Smooth",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Fine Texture Add",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Fine Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "ADD",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 0.1,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "vertex_group": "Mask",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF75020>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.5711,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Edge Smooth Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "Edge Smooth",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF74C20>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.5211,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Displace",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 2.2743,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Subsurf.001",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 1,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 1,
+      "render_levels": 1,
+      "show_only_control_edges": false,
+      "use_creases": false,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Displace.001",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 1.1372,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 14,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 15,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 35,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Displace.002",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 16,
+      "vertex_group": "",
+      "mid_level": 0.5,
+      "strength": 0.3,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Edge Smooth Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.05",
+      "vars": [
+       {
+        "name": "var",
+        "type": "SINGLE_PROP",
+        "targets": [
+         {
+          "id": "<Object:Fire Bloom>",
+          "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.2",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var /2",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Floor",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    12.611,
+    12.611,
+    12.611
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Plane.001>",
+   "verts": 4,
+   "vgroups": [],
+   "materials": [
+    "<Material:Floor>"
+   ],
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  },
+  {
+   "name": "Melt Back",
+   "type": "EMPTY",
+   "loc": [
+    -8.0,
+    0.0,
+    0.7711
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "CUBE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Melt BackAction.001",
+    "fcurves": [
+     {
+      "path": "location",
+      "idx": 0,
+      "keys": [
+       [
+        1.0,
+        -8.0,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -8.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 1,
+      "keys": [
+       [
+        1.0,
+        0.0,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.0,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "location",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        0.5739,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        0.8801,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Overall Disp",
+   "type": "EMPTY",
+   "loc": [
+    -3.7363,
+    4.2475,
+    8.093
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    -4.3919,
+    -4.3919,
+    -4.3919
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": null,
+   "empty": [
+    "SPHERE",
+    1.0
+   ],
+   "modifiers": [],
+   "anim": {
+    "action": "Overall DispAction.002",
+    "fcurves": [
+     {
+      "path": "scale",
+      "idx": 0,
+      "keys": [
+       [
+        1.0,
+        -3.4546,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -4.9098,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "scale",
+      "idx": 1,
+      "keys": [
+       [
+        1.0,
+        -3.4546,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -4.9098,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     },
+     {
+      "path": "scale",
+      "idx": 2,
+      "keys": [
+       [
+        1.0,
+        -3.4546,
+        "LINEAR"
+       ],
+       [
+        60.0,
+        -4.9098,
+        "LINEAR"
+       ]
+      ],
+      "mods": []
+     }
+    ]
+   }
+  },
+  {
+   "name": "Smoke",
+   "type": "MESH",
+   "loc": [
+    0.0,
+    0.0,
+    3.083
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<Mesh:Cube.001>",
+   "verts": 8,
+   "vgroups": [
+    "Full Weight",
+    "No Weight",
+    "Mask",
+    "Disp",
+    "Texture",
+    "Edge Smooth",
+    "Fine Texture"
+   ],
+   "materials": [
+    "<Material:Orange>"
+   ],
+   "modifiers": [
+    {
+     "name": "Subsurf",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 1,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 3,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 6,
+      "render_levels": 6,
+      "show_only_control_edges": false,
+      "use_creases": true,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Cast",
+     "type": "CAST",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 2,
+      "cast_type": "SPHERE",
+      "object": null,
+      "invert_vertex_group": false,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "use_radius_as_size": true,
+      "use_transform": false,
+      "factor": 1.0,
+      "radius": 0.0,
+      "size": 0.0,
+      "vertex_group": ""
+     }
+    },
+    {
+     "name": "Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 3,
+      "vertex_group": "Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF74820>",
+      "use_add": false,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Fine Texture",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 4,
+      "vertex_group": "Fine Texture",
+      "falloff_type": "CURVE",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF74420>",
+      "use_add": true,
+      "use_remove": false,
+      "default_weight": 0.0,
+      "add_threshold": 0.0,
+      "remove_threshold": 0.01,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture.001>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Fine Texture>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Disp Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 5,
+      "vertex_group_a": "Disp",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 6,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Edge Smooth Copy",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 7,
+      "vertex_group_a": "Edge Smooth",
+      "vertex_group_b": "Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "SET",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Fine Texture Add",
+     "type": "VERTEX_WEIGHT_MIX",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 8,
+      "vertex_group_a": "Mask",
+      "vertex_group_b": "Fine Texture",
+      "invert_vertex_group_a": false,
+      "invert_vertex_group_b": false,
+      "default_weight_a": 0.0,
+      "default_weight_b": 0.0,
+      "mix_mode": "ADD",
+      "mix_set": "ALL",
+      "normalize": false,
+      "mask_constant": 0.1,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": null,
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "LOCAL",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": null,
+      "mask_tex_map_bone": ""
+     }
+    },
+    {
+     "name": "Mask Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 9,
+      "vertex_group": "Mask",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF57E20>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.7711,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Edge Smooth Threshold",
+     "type": "VERTEX_WEIGHT_EDIT",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 10,
+      "vertex_group": "Edge Smooth",
+      "falloff_type": "LINEAR",
+      "invert_falloff": false,
+      "normalize": false,
+      "map_curve": "<bpy_struct, CurveMapping at 0x00000205BAF57820>",
+      "use_add": false,
+      "use_remove": true,
+      "default_weight": 0.0,
+      "add_threshold": 0.01,
+      "remove_threshold": 0.7211,
+      "mask_constant": 1.0,
+      "mask_vertex_group": "",
+      "invert_mask_vertex_group": false,
+      "mask_texture": "<CloudsTexture:Texture>",
+      "mask_tex_use_channel": "INT",
+      "mask_tex_mapping": "OBJECT",
+      "mask_tex_uv_layer": "",
+      "mask_tex_map_object": "<Object:Overall Disp>",
+      "mask_tex_map_bone": ""
+     },
+     "map_curve": [
+      [
+       0.0,
+       1.0
+      ],
+      [
+       1.0,
+       0.0
+      ]
+     ]
+    },
+    {
+     "name": "Displace",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 11,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 2.2743,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Subsurf.001",
+     "type": "SUBSURF",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": true,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 12,
+      "uv_smooth": "PRESERVE_CORNERS",
+      "quality": 1,
+      "boundary_smooth": "ALL",
+      "subdivision_type": "CATMULL_CLARK",
+      "levels": 1,
+      "render_levels": 1,
+      "show_only_control_edges": false,
+      "use_creases": false,
+      "use_custom_normals": false,
+      "use_limit_surface": true,
+      "use_adaptive_subdivision": false,
+      "adaptive_space": "PIXEL",
+      "adaptive_pixel_size": 1.0,
+      "adaptive_object_edge_length": 0.01,
+      "open_adaptive_subdivision_panel": false,
+      "open_advanced_panel": false
+     }
+    },
+    {
+     "name": "Displace.001",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 13,
+      "vertex_group": "Disp",
+      "mid_level": 0.0,
+      "strength": 1.1372,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    },
+    {
+     "name": "Mask",
+     "type": "MASK",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 14,
+      "mode": "VERTEX_GROUP",
+      "armature": null,
+      "vertex_group": "Mask",
+      "invert_vertex_group": true,
+      "use_smooth": false,
+      "threshold": 0.0
+     }
+    },
+    {
+     "name": "Smooth",
+     "type": "SMOOTH",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 15,
+      "use_x": true,
+      "use_y": true,
+      "use_z": true,
+      "factor": 1.0,
+      "iterations": 35,
+      "vertex_group": "",
+      "invert_vertex_group": false
+     }
+    },
+    {
+     "name": "Displace.002",
+     "type": "DISPLACE",
+     "props": {
+      "show_viewport": true,
+      "show_render": true,
+      "show_in_editmode": false,
+      "show_on_cage": false,
+      "show_expanded": false,
+      "is_active": false,
+      "use_pin_to_last": false,
+      "is_override_data": false,
+      "use_apply_on_spline": false,
+      "execution_time": 0.0,
+      "persistent_uid": 16,
+      "vertex_group": "",
+      "mid_level": 0.5,
+      "strength": 0.1,
+      "direction": "NORMAL",
+      "space": "LOCAL",
+      "invert_vertex_group": false,
+      "texture": null,
+      "texture_coords": "LOCAL",
+      "uv_layer": "",
+      "texture_coords_object": null,
+      "texture_coords_bone": ""
+     }
+    }
+   ],
+   "anim": {
+    "drivers": [
+     {
+      "path": "modifiers[\"Edge Smooth Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var-.05",
+      "vars": [
+       {
+        "name": "var",
+        "type": "SINGLE_PROP",
+        "targets": [
+         {
+          "id": "<Object:Smoke>",
+          "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+          "ttype": "LOC_X",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Mask Threshold\"].remove_threshold",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Melt Back>",
+          "path": "",
+          "ttype": "LOC_Z",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace.001\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var /2",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "path": "modifiers[\"Displace\"].strength",
+      "idx": 0,
+      "type": "SCRIPTED",
+      "expr": "var",
+      "vars": [
+       {
+        "name": "var",
+        "type": "TRANSFORMS",
+        "targets": [
+         {
+          "id": "<Object:Disp Amount>",
+          "path": "",
+          "ttype": "SCALE_Y",
+          "space": "WORLD_SPACE"
+         }
+        ]
+       }
+      ]
+     }
+    ]
+   },
+   "data_anim": null
+  },
+  {
+   "name": "Sun",
+   "type": "LIGHT",
+   "loc": [
+    3.08,
+    8.0415,
+    14.8983
+   ],
+   "rot": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "scale": [
+    1.0,
+    1.0,
+    1.0
+   ],
+   "parent": null,
+   "hide_render": false,
+   "data": "<SunLight:Sun>",
+   "modifiers": [],
+   "anim": null,
+   "data_anim": null
+  }
+ ],
+ "textures": [
+  {
+   "name": "Texture",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Texture",
+    "id_type": "TEXTURE",
+    "session_uid": 205,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Texture>",
+    "users": 12,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x00000205BAF6E1D0>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": null,
+    "intensity": 1.0,
+    "contrast": 1.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": null,
+    "noise_scale": 0.25,
+    "noise_depth": 2,
+    "noise_basis": "BLENDER_ORIGINAL",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "GRAYSCALE",
+    "nabla": 0.025
+   },
+   "anim": null
+  },
+  {
+   "name": "Texture.001",
+   "type": "CLOUDS",
+   "props": {
+    "name_full": "Texture.001",
+    "id_type": "TEXTURE",
+    "session_uid": 206,
+    "is_evaluated": false,
+    "original": "<CloudsTexture:Texture.001>",
+    "users": 4,
+    "use_fake_user": false,
+    "use_extra_user": false,
+    "is_embedded_data": false,
+    "is_linked_packed": false,
+    "is_missing": false,
+    "is_runtime_data": false,
+    "is_editable": true,
+    "tag": false,
+    "is_library_indirect": false,
+    "library": null,
+    "library_weak_reference": null,
+    "asset_data": null,
+    "override_library": null,
+    "preview": "<bpy_struct, ImagePreview at 0x00000205BAF6E180>",
+    "use_clamp": true,
+    "use_color_ramp": false,
+    "color_ramp": null,
+    "intensity": 1.0,
+    "contrast": 3.0,
+    "saturation": 1.0,
+    "factor_red": 1.0,
+    "factor_green": 1.0,
+    "factor_blue": 1.0,
+    "use_preview_alpha": false,
+    "use_nodes": false,
+    "node_tree": null,
+    "animation_data": null,
+    "noise_scale": 0.1,
+    "noise_depth": 2,
+    "noise_basis": "VORONOI_F1",
+    "noise_type": "SOFT_NOISE",
+    "cloud_type": "GRAYSCALE",
+    "nabla": 0.025
+   },
+   "anim": null
+  }
+ ],
+ "materials": [
+  {
+   "name": "Black",
+   "diffuse": [
+    0.0002,
+    0.0002,
+    0.0002,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.0038,
+        0.0038,
+        0.0038,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Floor",
+   "diffuse": [
+    0.8,
+    0.8,
+    0.8,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Principled BSDF",
+      "type": "ShaderNodeBsdfPrincipled",
+      "inputs": {
+       "Metallic": 0.0,
+       "Roughness": 0.5,
+       "IOR": 1.45,
+       "Alpha": 1.0,
+       "Thin Wall": false,
+       "Normal": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Weight": 0.0,
+       "Diffuse Roughness": 0.0,
+       "Subsurface Weight": 0.0,
+       "Subsurface Radius": [
+        1.0,
+        0.2,
+        0.1
+       ],
+       "Subsurface Scale": 0.05,
+       "Subsurface IOR": 1.4,
+       "Subsurface Anisotropy": 0.0,
+       "Specular IOR Level": 0.5,
+       "Specular Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Anisotropic": 0.0,
+       "Anisotropic Rotation": 0.0,
+       "Tangent": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Transmission Weight": 0.0,
+       "Coat Weight": 0.0,
+       "Coat Roughness": 0.03,
+       "Coat IOR": 1.5,
+       "Coat Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Coat Normal": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Sheen Weight": 0.0,
+       "Sheen Roughness": 0.5,
+       "Sheen Tint": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Emission Color": [
+        1.0,
+        1.0,
+        1.0,
+        1.0
+       ],
+       "Emission Strength": 0.0,
+       "Thin Film Thickness": 0.0,
+       "Thin Film IOR": 1.33
+      }
+     },
+     {
+      "name": "Checker Texture",
+      "type": "ShaderNodeTexChecker",
+      "inputs": {
+       "Vector": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Color1": [
+        0.0502,
+        0.0502,
+        0.0502,
+        1.0
+       ],
+       "Color2": [
+        0.0002,
+        0.0002,
+        0.0002,
+        1.0
+       ],
+       "Scale": 15.0
+      }
+     }
+    ],
+    "links": [
+     "Principled BSDF.BSDF -> Material Output.Surface",
+     "Checker Texture.Color -> Principled BSDF.Base Color"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Highlight",
+   "diffuse": [
+    16.2917,
+    2.9122,
+    0.4353,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     },
+     {
+      "name": "Layer Weight",
+      "type": "ShaderNodeLayerWeight",
+      "inputs": {
+       "Blend": 0.5,
+       "Normal": [
+        0.0,
+        0.0,
+        0.0
+       ]
+      }
+     },
+     {
+      "name": "ColorRamp",
+      "type": "ShaderNodeValToRGB",
+      "inputs": {},
+      "ramp": {
+       "interp": "LINEAR",
+       "els": [
+        [
+         0.577,
+         [
+          0.203,
+          0.037,
+          0.004,
+          1.0
+         ]
+        ],
+        [
+         0.591,
+         [
+          16.292,
+          2.912,
+          0.435,
+          1.0
+         ]
+        ]
+       ]
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface",
+     "Layer Weight.Facing -> ColorRamp.Factor",
+     "ColorRamp.Color -> Emission.Color"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Orange",
+   "diffuse": [
+    0.5897,
+    0.1196,
+    0.0002,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.5897,
+        0.1196,
+        0.0002,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  },
+  {
+   "name": "Orange Black",
+   "diffuse": [
+    0.0182,
+    0.0047,
+    0.0022,
+    1.0
+   ],
+   "use_nodes": true,
+   "blend": "HASHED",
+   "shadow": null,
+   "tree": {
+    "nodes": [
+     {
+      "name": "Material Output",
+      "type": "ShaderNodeOutputMaterial",
+      "inputs": {
+       "Displacement": [
+        0.0,
+        0.0,
+        0.0
+       ],
+       "Thickness": 0.0
+      }
+     },
+     {
+      "name": "Emission",
+      "type": "ShaderNodeEmission",
+      "inputs": {
+       "Color": [
+        0.0182,
+        0.0025,
+        0.0008,
+        1.0
+       ],
+       "Strength": 1.0,
+       "Weight": 0.0
+      }
+     }
+    ],
+    "links": [
+     "Emission.Emission -> Material Output.Surface"
+    ]
+   },
+   "anim": null
+  }
+ ],
+ "actions": [
+  "Melt BackAction.001",
+  "Overall DispAction.001",
+  "Overall DispAction.002"
+ ],
+ "node_groups": [],
+ "texts": []
+}

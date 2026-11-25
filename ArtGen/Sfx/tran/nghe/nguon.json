@@ -1,0 +1,574 @@
+{
+ "no_01": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/explosionCrunch_000.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_02": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/explosionCrunch_001.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_03": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/explosionCrunch_002.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_04": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/explosionCrunch_003.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_05": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/explosionCrunch_004.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_06": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/lowFrequency_explosion_000.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_07": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/lowFrequency_explosion_001.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "no_08": {
+  "src": "tran/oga_fireball/fireball_01.wav",
+  "pack": "OGA Fireball"
+ },
+ "tu_01": {
+  "src": "tran/kenney_digital-audio/Audio/phaserUp1.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_02": {
+  "src": "tran/kenney_digital-audio/Audio/phaserUp3.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_03": {
+  "src": "tran/kenney_digital-audio/Audio/phaserUp5.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_04": {
+  "src": "tran/kenney_digital-audio/Audio/phaserUp7.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_05": {
+  "src": "tran/kenney_digital-audio/Audio/powerUp2.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_06": {
+  "src": "tran/kenney_digital-audio/Audio/powerUp4.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_07": {
+  "src": "tran/kenney_digital-audio/Audio/powerUp8.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_08": {
+  "src": "tran/kenney_digital-audio/Audio/powerUp11.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tu_09": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/forceField_000.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tu_10": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/forceField_002.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tu_11": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/forceField_004.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tu_12": {
+  "src": "tran/oga_phep/magical_1_0.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "tu_13": {
+  "src": "tran/oga_phep/magical_3.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "tu_14": {
+  "src": "tran/oga_phep/magical_5.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "tia_01": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/laserLarge_000.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tia_02": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/laserLarge_002.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tia_03": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/laserLarge_004.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tia_04": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/laserRetro_001.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tia_05": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/laserRetro_003.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "tia_06": {
+  "src": "tran/kenney_digital-audio/Audio/laser3.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tia_07": {
+  "src": "tran/kenney_digital-audio/Audio/laser6.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tia_08": {
+  "src": "tran/kenney_digital-audio/Audio/zap1.ogg",
+  "pack": "Kenney Digital"
+ },
+ "tia_09": {
+  "src": "tran/kenney_digital-audio/Audio/zapTwoTone.ogg",
+  "pack": "Kenney Digital"
+ },
+ "chem_01": {
+  "src": "tran/oga_kiem/sword - StarNinjas/sword.1.ogg",
+  "pack": "OGA 20 Sword"
+ },
+ "chem_02": {
+  "src": "tran/oga_kiem/sword - StarNinjas/sword.2.ogg",
+  "pack": "OGA 20 Sword"
+ },
+ "chem_03": {
+  "src": "tran/oga_kiem/sword - StarNinjas/sword.4.ogg",
+  "pack": "OGA 20 Sword"
+ },
+ "chem_04": {
+  "src": "tran/oga_kiem/sword - StarNinjas/sword.6.ogg",
+  "pack": "OGA 20 Sword"
+ },
+ "chem_05": {
+  "src": "tran/oga_kiem/sword - StarNinjas/sword.8.ogg",
+  "pack": "OGA 20 Sword"
+ },
+ "chem_06": {
+  "src": "tran/oga_kiem/sword - StarNinjas/sword.10.ogg",
+  "pack": "OGA 20 Sword"
+ },
+ "chem_07": {
+  "src": "tran/oga_rpg/blade_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "chem_08": {
+  "src": "tran/oga_rpg/blade_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "chem_09": {
+  "src": "tran/oga_rpg/blade_03.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "chem_10": {
+  "src": "tran/kenney_rpg-audio/Audio/knifeSlice.ogg",
+  "pack": "Kenney RPG"
+ },
+ "chem_11": {
+  "src": "tran/kenney_rpg-audio/Audio/knifeSlice2.ogg",
+  "pack": "Kenney RPG"
+ },
+ "chem_12": {
+  "src": "tran/kenney_rpg-audio/Audio/chop.ogg",
+  "pack": "Kenney RPG"
+ },
+ "kim_01": {
+  "src": "tran/oga_kiem_cham/sword_clash.1.ogg",
+  "pack": "OGA Sword Clash"
+ },
+ "kim_02": {
+  "src": "tran/oga_kiem_cham/sword_clash.3.ogg",
+  "pack": "OGA Sword Clash"
+ },
+ "kim_03": {
+  "src": "tran/oga_kiem_cham/sword_clash.5.ogg",
+  "pack": "OGA Sword Clash"
+ },
+ "kim_04": {
+  "src": "tran/oga_kiem_cham/sword_clash.7.ogg",
+  "pack": "OGA Sword Clash"
+ },
+ "kim_05": {
+  "src": "tran/oga_kiem_cham/sword_clash.9.ogg",
+  "pack": "OGA Sword Clash"
+ },
+ "kim_06": {
+  "src": "tran/oga_rpg/metal_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "kim_07": {
+  "src": "tran/oga_rpg/metal_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "kim_08": {
+  "src": "tran/oga_rpg/metal_03.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "kim_09": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/impactMetal_000.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "kim_10": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/impactMetal_002.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "huc_01": {
+  "src": "kenney/impact-sounds/Audio/impactPunch_heavy_000.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_02": {
+  "src": "kenney/impact-sounds/Audio/impactPunch_heavy_002.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_03": {
+  "src": "kenney/impact-sounds/Audio/impactPunch_heavy_004.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_04": {
+  "src": "kenney/impact-sounds/Audio/impactPunch_medium_001.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_05": {
+  "src": "kenney/impact-sounds/Audio/impactSoft_heavy_000.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_06": {
+  "src": "kenney/impact-sounds/Audio/impactSoft_heavy_003.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_07": {
+  "src": "kenney/impact-sounds/Audio/impactPlate_heavy_001.ogg",
+  "pack": "Kenney Impact"
+ },
+ "huc_08": {
+  "src": "kenney/impact-sounds/Audio/impactWood_heavy_002.ogg",
+  "pack": "Kenney Impact"
+ },
+ "lua_01": {
+  "src": "tran/oga_rpg/spell_fire_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_02": {
+  "src": "tran/oga_rpg/spell_fire_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_03": {
+  "src": "tran/oga_rpg/spell_fire_03.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_04": {
+  "src": "tran/oga_rpg/spell_fire_04.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_05": {
+  "src": "tran/oga_rpg/spell_fire_05.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_06": {
+  "src": "tran/oga_rpg/spell_fire_06.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_07": {
+  "src": "tran/oga_rpg/spell_fire_07.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "lua_08": {
+  "src": "tran/oga_lua_gay/LEGIT Audio_FIRE STAFF - FREE/Wavs/LEGIT_FIR_Fire_Staff 1-Audio.wav",
+  "pack": "OGA Fire Staff"
+ },
+ "lua_09": {
+  "src": "tran/oga_lua_gay/LEGIT Audio_FIRE STAFF - FREE/Wavs/LEGIT_FIR_Fire_Staff 10-Audio.wav",
+  "pack": "OGA Fire Staff"
+ },
+ "lua_10": {
+  "src": "tran/oga_lua_gay/LEGIT Audio_FIRE STAFF - FREE/Wavs/LEGIT_FIR_Fire_Staff 12-Audio.wav",
+  "pack": "OGA Fire Staff"
+ },
+ "lua_11": {
+  "src": "tran/oga_lua_gay/LEGIT Audio_FIRE STAFF - FREE/Wavs/LEGIT_FIR_Fire_Staff 13-Audio.wav",
+  "pack": "OGA Fire Staff"
+ },
+ "lua_12": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/thrusterFire_001.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "lua_13": {
+  "src": "tran/kenney_sci-fi-sounds/Audio/thrusterFire_003.ogg",
+  "pack": "Kenney Sci-Fi"
+ },
+ "nuoc_01": {
+  "src": "tran/oga_nuoc/splash_01.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_02": {
+  "src": "tran/oga_nuoc/splash_03.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_03": {
+  "src": "tran/oga_nuoc/splash_05.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_04": {
+  "src": "tran/oga_nuoc/splash_07.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_05": {
+  "src": "tran/oga_nuoc/splash_09.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_06": {
+  "src": "tran/oga_nuoc/splash_11.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_07": {
+  "src": "tran/oga_nuoc/splash_13.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_08": {
+  "src": "tran/oga_nuoc/splash_15.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_09": {
+  "src": "tran/oga_nuoc/bubble_01.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_10": {
+  "src": "tran/oga_nuoc/bubble_03.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_11": {
+  "src": "tran/oga_nuoc/loop_water_01.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_12": {
+  "src": "tran/oga_nuoc/slime_03.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "nuoc_13": {
+  "src": "tran/oga_nuoc/slime_07.ogg",
+  "pack": "OGA 40 Water"
+ },
+ "gam_01": {
+  "src": "tran/oga_quai/roar_01.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_02": {
+  "src": "tran/oga_quai/roar_02.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_03": {
+  "src": "tran/oga_quai/roar_03.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_04": {
+  "src": "tran/oga_quai/monster_01.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_05": {
+  "src": "tran/oga_quai/monster_03.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_06": {
+  "src": "tran/oga_quai/monster_05.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_07": {
+  "src": "tran/oga_quai/monster_07.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_08": {
+  "src": "tran/oga_quai/howl.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "gam_09": {
+  "src": "tran/oga_rpg/creature_roar_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "gam_10": {
+  "src": "tran/oga_rpg/creature_roar_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "gam_11": {
+  "src": "tran/oga_rpg/creature_roar_03.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "da_01": {
+  "src": "tran/oga_rpg/stones_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "da_02": {
+  "src": "tran/oga_rpg/stones_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "da_03": {
+  "src": "tran/oga_rpg/stones_03.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "da_04": {
+  "src": "tran/oga_rpg/stones_04.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "da_05": {
+  "src": "tran/oga_rpg/item_stone_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "da_06": {
+  "src": "kenney/impact-sounds/Audio/impactMining_000.ogg",
+  "pack": "Kenney Impact"
+ },
+ "da_07": {
+  "src": "kenney/impact-sounds/Audio/impactMining_003.ogg",
+  "pack": "Kenney Impact"
+ },
+ "da_08": {
+  "src": "kenney/impact-sounds/Audio/impactWood_heavy_000.ogg",
+  "pack": "Kenney Impact"
+ },
+ "phep_01": {
+  "src": "tran/oga_rpg/spell_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "phep_02": {
+  "src": "tran/oga_rpg/spell_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "phep_03": {
+  "src": "tran/oga_phep/magical_2.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "phep_04": {
+  "src": "tran/oga_phep/magical_4.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "phep_05": {
+  "src": "tran/oga_phep/magical_6_0.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "phep_06": {
+  "src": "tran/oga_phep/magical_7_0.ogg",
+  "pack": "OGA Magic Spell"
+ },
+ "dau_01": {
+  "src": "tran/oga_quai/hurt_01.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "dau_02": {
+  "src": "tran/oga_quai/hurt_02.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "dau_03": {
+  "src": "tran/oga_quai/hurt_03.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "dau_04": {
+  "src": "tran/oga_quai/hurt_04.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "dau_05": {
+  "src": "tran/oga_quai/grunt_01.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "dau_06": {
+  "src": "tran/oga_quai/grunt_03.ogg",
+  "pack": "OGA 80 Creature"
+ },
+ "dau_07": {
+  "src": "tran/oga_rpg/creature_hurt_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "dau_08": {
+  "src": "tran/oga_rpg/creature_hurt_02.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "dau_09": {
+  "src": "tran/oga_rpg/creature_die_01.ogg",
+  "pack": "OGA 80 RPG"
+ },
+ "khac_01": {
+  "src": "tran/oga_scifi/sfx_01a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_02": {
+  "src": "tran/oga_scifi/sfx_03a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_03": {
+  "src": "tran/oga_scifi/sfx_05a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_04": {
+  "src": "tran/oga_scifi/sfx_07a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_05": {
+  "src": "tran/oga_scifi/sfx_09a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_06": {
+  "src": "tran/oga_scifi/sfx_11a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_07": {
+  "src": "tran/oga_scifi/sfx_13a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_08": {
+  "src": "tran/oga_scifi/sfx_15a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_09": {
+  "src": "tran/oga_scifi/sfx_17a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "khac_10": {
+  "src": "tran/oga_scifi/sfx_19a.ogg",
+  "pack": "OGA 60 Sci-Fi"
+ },
+ "gen_01": {
+  "src": "tran/gen_1124/gio_loc_1.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_02": {
+  "src": "tran/gen_1124/gio_loc_2.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_03": {
+  "src": "tran/gen_1124/song_do_1.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_04": {
+  "src": "tran/gen_1124/song_do_2.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_05": {
+  "src": "tran/gen_1124/tia_nuoc_loop_1.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_06": {
+  "src": "tran/gen_1124/tia_nuoc_loop_2.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_07": {
+  "src": "tran/gen_1124/tu_nang_luong_1.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_08": {
+  "src": "tran/gen_1124/tu_nang_luong_2.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_09": {
+  "src": "tran/gen_1124/gam_lon_1.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_10": {
+  "src": "tran/gen_1124/gam_lon_2.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_11": {
+  "src": "tran/gen_1124/nha_tia_1.mp3",
+  "pack": "Magnific SFX"
+ },
+ "gen_12": {
+  "src": "tran/gen_1124/nha_tia_2.mp3",
+  "pack": "Magnific SFX"
+ }
+}

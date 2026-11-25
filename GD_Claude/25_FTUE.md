@@ -91,14 +91,17 @@ Chặng A–C là chuỗi bắt buộc của phiên đầu. Từ D trở đi là
 | Mảnh, thu phục | kết quả trận 2 | C16 |
 | Nhiều địch, hiệu ứng, choáng, địch tiến hóa | lần đầu mỗi thứ | D1–D5 |
 | Tự chơi | trận thứ 3 | D6 |
-| Rương mốc đảo, Sổ thẻ | lần đầu tới ải 10; lần đầu có thẻ mới | D8–D9 |
+| Sổ thẻ | về sảnh sau trận 2 (2026-11-24) | C18–C19 |
+| Nhà: Nhà chính, ruộng vườn, xưởng gỗ, kho | sau Sổ thẻ, mở sau ải thứ 2 (2026-11-24) | C20–C25 |
+| Cửa hàng | về sảnh sau khi đi hết Nhà (2026-11-24) | C26 |
+| Rương mốc đảo | lần đầu tới ải 10 | D8 (D9 Sổ thẻ bỏ 2026-11-23) |
 | Địch hơn cấp, lần thua đầu | lần đầu mỗi thứ | E1–E2 |
-| Cây bi (từ 2026-11-23 đến cùng Nhà) | vào Nhà lần đầu | G3a–G3d |
+| Cây bi (từ 2026-11-23 đến cùng Nhà) | vào Nhà lần đầu, trong chuỗi bắt buộc từ 2026-11-24 | G3a–G3d |
 | AFK | phiên 2 | F1–F3 |
 | Mốc Huyền thoại, nấm tiến độ, cược | máy bi lần 2 trở đi | F4–F7 |
 | Chọn tướng theo hệ địch (1 ô đội) | lần đầu có tướng khắc ải kế | F8 |
 | Thu phục bằng mảnh, lên sao | lần đầu đủ mảnh | F9–F10 |
-| Nhà | có 3 tướng | G1–G10 |
+| Nhà (phần còn lại) | sau chuỗi bắt buộc (G1–G2 đã dời vào C20–C21) | G4–G10 |
 | Tiềm năng, tiến hóa, Hang, cây bi 2–5, Đền, ô đội 2 và đổi tướng | theo điều kiện mở | H |
 
 ## 4. Kịch bản
@@ -172,7 +175,7 @@ Bảo đảm (chỉ ở trận này, khi cờ hướng dẫn chưa xong):
 | C4 | Hộp Lên cấp | đủ 45 EXP (bi thứ 5) | con dấu "Cấp 2" | "Mọi tướng mạnh hơn. Thẻ mới vào bộ: {thẻ}." | Tiếp | Ép |
 | C5 | Máy bi | bi rơi cốc thẻ (viết sẵn), rương bay vào khay | rương trong khay (đang lắc nhắc mở) | "Rương! Chạm để mở." | chạm, mở | Ép |
 | C6 | Mở rương | rương bật | 2 bản sao thẻ Chiêu | "Đủ 2 bản sao: nâng cấp được Chiêu." | Nhận | Ép |
-| C7 | Máy bi | hết bi | nút quay lại | "Hết bi. Thắng ải để có thêm." | quay lại | Ép |
+| C7 | Máy bi | hết đợt thả sau khi mở rương đầu (không ép thả hết bi, người dùng 2026-11-23) | nút quay lại | "Về sảnh nâng Chiêu cho {tuong}. Bi còn lại thả lúc nào cũng được." | quay lại hoặc thả tiếp | Gợi ý |
 | C8 | Sảnh | về sảnh | nút Tướng (hiện lần đầu, có số 1) | "Nâng cấp Chiêu cho {tuong}." | chạm Tướng | Ép |
 | C9 | Màn Tướng | vào | thẻ tướng đồng hành | — | chạm | Ép |
 | C10 | Chi tiết tướng | mở | thẻ Chiêu, nút "Lên cấp 2" | "Chiêu cấp 2: mạnh thêm 15%." | Lên cấp | Ép |
@@ -182,7 +185,17 @@ Bảo đảm (chỉ ở trận này, khi cờ hướng dẫn chưa xong):
 | C14 | Trận 2 | đòn đầu trúng | số sát thương kèm dấu "KHẮC!" | "Khắc hệ: ×1,5!" | — | Chú thích |
 | C15 | Trận 2 | lần đầu đủ nộ và mana | nút Tuyệt kỹ, thanh nộ | "Nộ đầy! Tuyệt kỹ thay cú đánh thường cuối lượt." | chạm | Ép |
 | C16 | Kết quả trận 2 | thắng | ô mảnh {tuong2} (vd. 3/15) | "Gom đủ 15 mảnh để thu phục {tuong2}." | — | Chú thích |
-| C17 | Kết quả trận 2 | sau C16 | các nút kết quả hiện đủ | "Giờ bạn tự đi nhé. Quên luật thì mở Sổ tay, mục Cách chơi." | — | — |
+| C18 | Sảnh | về sảnh sau trận 2 | nút Sổ thẻ (hiện ra lúc này) | "Sổ thẻ: mọi thẻ của mọi tướng. Chạm để xem." | chạm (cờ đánh ở `CardsScene.Enter`) | Ép |
+| C19 | Sổ thẻ | vào được 2,5 giây, không mở hộp thẻ | nút quay lại | "Xem xong thì về sảnh." | — | Gợi ý 8 giây |
+| C20 | Sảnh | sau C18 | giữa màn, chân dung tướng đồng hành | "**Nhà đã mở!** Tướng làm việc ở Nhà ra bi và gỗ, cả khi bạn vắng." | chạm | Lời |
+| C21 | Sảnh | sau C20 (máy lướt tới tàu) | con tàu ở bến | "Chạm con tàu để về Nhà." Về sảnh giữa chừng: "Về Nhà đặt Cây bi nhé." | chạm (cờ đánh ở `HomeScene.Enter`) | Ép |
+| C22 | Nhà | tàu cập bến, chế độ thường | Nhà chính, khoanh sáng | "Đây là Nhà của bạn. Tướng làm việc ở đây, cả khi bạn vắng." | chạm đâu cũng qua | Lời có khoanh |
+| C23 | Nhà | sau C22 | Ruộng rau (không có thì Vườn cây) | "Ruộng và vườn: tướng làm ở đây ra bi." | chạm | Lời có khoanh |
+| C24 | Nhà | sau C23 | Xưởng gỗ (không có thì Kho) | "Xưởng gỗ ra gỗ, Kho giữ gỗ. Gỗ dùng để xây và nâng cấp." | chạm | Lời có khoanh |
+| G3a–G3d | Nhà | sau C24 | Xây → Cây bi → Đặt → chạm cây | như chặng G | — | Ép |
+| C25 | Nhà | sau G3d | nút về sảnh (tàu) | "Về sảnh xem có gì mới!" | — | Gợi ý 10 giây |
+| C26 | Sảnh | đã đi hết Nhà | nút Cửa hàng (hiện ra lúc này), khoanh sáng | "**Cửa hàng đã mở!** Quà miễn phí mỗi ngày, bi và rương." | chạm đâu cũng qua | Lời có khoanh |
+| C17 | Sảnh | sau C26 | giữa màn | "Giờ bạn tự đi nhé. Quên luật thì mở Sổ tay, mục Cách chơi." | chạm | Lời |
 
 Bảo đảm:
 - **13 bi đầu** (10 bi có sẵn và 3 bi của ải 1) có kết quả viết sẵn: EXP 10, EXP 10, EXP 5, EXP 10, EXP 10 (lên cấp 2 ở bi thứ 5), rồi cốc thẻ (rương bạc). Các bi sau theo bảng tỉ lệ thường. Đường bi vẫn là vật lý thật, vì `Board.odds` vốn đã chọn ô trước rồi mới phát đường bi.
@@ -195,6 +208,12 @@ Bảo đảm:
 - **C15:** trận 2 rút sẵn Gầm Gừ (+15 nộ) ở lượt 2 và lượt 3 để nộ đầy trong trận. Chưa đầy thì C15 chạy ở trận sau. Đã học Tuyệt kỹ ở trận 1 thì bỏ bước này.
 - Trận 2 cũng khoá thua ngầm như trận 1.
 - Sau C17, chuỗi bắt buộc xong (cờ `ftue.core`). "Tự chơi" hiện từ trận 3.
+- **Sau trận 2 (người dùng 2026-11-24):** Sổ thẻ mở ngay, chỉ bắt chạm vào; rồi giới thiệu Nhà và các thứ trong Nhà qua loa (Nhà chính, ruộng vườn, xưởng gỗ, kho, Cây bi), rồi mới mở Cửa hàng. Lời chào C17 dời xuống cuối.
+  - Nhà mở sau ải thứ 2 (`Home.OpenStages`), bỏ điều kiện 3 tướng của trang trại cũ; nút Nhà ở sảnh hiện từ C20.
+  - "Lời có khoanh" (`Guide.SayAt`): nền tối quanh chỗ khoanh, vòng mực; chạm đâu cũng qua, chạm trúng chỗ khoanh không bấm xuống công trình hay nút (vòng khoanh chặn chạm ở chế độ này).
+  - Đặt Cây bi (G3a–G3d) thuộc chuỗi bắt buộc, không tắt bằng công tắc "Gợi ý" (`Tutorial.IsCore` gồm mã `g3*`). Cây đã hái hết trước khi kịp dẫn thì coi G3d là xong.
+  - Khoảnh khắc "Nhà đã mở" cũ sau chuỗi (`g1`, `g2`) bị bỏ qua khi C20 chạy.
+  - Code: `HubScene.TutorStep`, `CardsScene.Enter`, `HomeScene.Tutor` (`Intro`), `Tutorial.Shows` (Sổ thẻ sau trận 2, Nhà từ C20, Cửa hàng khi `HomeToured`).
 
 ### Chặng D: Trong trận và trên đảo, theo lúc (phiên 1 trở đi)
 
@@ -210,7 +229,7 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
 | D6 | bắt đầu trận thứ 3 | nút Tự chơi (hiện lần đầu) | "Tự chơi: máy đánh thay bạn, tắt lúc nào cũng được." | Gợi ý |
 | D7 | thẻ Hiếm trở lên hiện lần đầu | thẻ đó | "Thẻ viền tím: hiếm hơn, mạnh hơn." | Chú thích |
 | D8 | tới ải 10 một đảo | rương trên thanh tiến độ đảo | "Mỗi 10 ải có một rương mốc." | Gợi ý |
-| D9 | lên cấp có thẻ mới | nút Sổ thẻ (hiện lần đầu) | "Xem mọi thẻ trong Sổ thẻ." | Gợi ý |
+| D9 | ~~lên cấp có thẻ mới~~ | — | bỏ 2026-11-23: không bắt xem sổ thẻ; nút Sổ thẻ tự hiện từ cấp 3, không khoanh | — |
 | D10 | địch có bị động riêng (mốc 30–70) | dòng ghi chú đối thủ | tên bị động; chạm để xem | Chú thích |
 
 ### Chặng E: Bức tường cấp và lần thua đầu
@@ -249,17 +268,17 @@ Mỗi dòng chạy đúng một lần, khi điều kiện xảy ra lần đầu.
   - Trước cấp 60, đây là cách duy nhất người chơi học "đội 1 ô: chọn tướng theo hệ địch", nên ép một lần.
 - **F9:** cần kiểm game đã có hộp thu phục chưa. Chưa có thì làm, dùng lại hộp nhận tướng của mốc Huyền thoại.
 
-### Chặng G: Nhà (khi có 3 tướng)
+### Chặng G: Nhà (từ 2026-11-24 mở sau ải thứ 2, phần đầu nằm trong chuỗi bắt buộc C20–C25)
 
 | # | Khi | Chỗ | Lời | Kiểu |
 |---|---|---|---|---|
-| G1 | có tướng thứ 3 | hộp "Mở khoá: Nhà" (bản phác tô màu dần) | "Nhà đã mở! Tướng làm việc ra bi và gỗ cả khi bạn vắng." Nút: Về Nhà | — |
-| G2 | sau G1 | con tàu ở bến | "Chạm con tàu để về Nhà." | Ép |
-| G3 | tàu cập bến Nhà lần đầu | camera lướt tới Nhà chính (có sẵn, cờ `dockIntro`) | "Nhà của chúng ta!" | — |
+| ~~G1~~ | dời thành C20 (2026-11-24) | — | — | — |
+| ~~G2~~ | dời thành C21 | — | — | — |
+| G3 | tàu cập bến Nhà lần đầu | camera lướt tới Nhà chính (có sẵn, cờ `dockIntro`), rồi C22–C24 | — | — |
 | G3a | có cây bi chờ đặt, chế độ thường | nút Xây | "Cây bi đã về Nhà! Bấm Xây để đặt cây." | Ép, lặp tới khi đặt xong |
 | G3b | đang xây, chưa chọn gì | thẻ Cây bi đầu khay ("Miễn phí") | "Chọn Cây bi. Đặt cây không tốn gì." | Ép, lặp |
 | G3c | bóng ma Cây bi | bóng ma (nút Đặt cạnh nó) | "Kéo cây tới chỗ bạn thích, rồi bấm Đặt." | Gợi ý 30 giây, lặp |
-| G3d | đặt xong (tự về chế độ thường), cây có bi | Cây bi | "Chạm cây để hái bi. Mỗi cây ra 5 bi mỗi giờ, chứa được 50." | Ép |
+| G3d | đặt xong (tự về chế độ thường), cây có bi | Cây bi | "Chạm cây để hái bi. Mỗi cây ra {n} bi mỗi giờ, chứa được {cap}." (số lấy từ balance.json) | Ép |
 | G4 | sau G3 | Ruộng rau, ô thẻ tướng | "Giao một tướng làm Ruộng rau: ra bi." | Ép |
 | G5 | sau G4 | Xưởng gỗ | "Xưởng gỗ ra gỗ để xây và nâng cấp." | Gợi ý |
 | G6 | lần đầu có đồ chờ thu | bong bóng trên công trình | "Chạm bong bóng để thu." | Gợi ý |
@@ -275,7 +294,7 @@ Cây bi trong Nhà (người dùng 2026-11-23: gộp thẻ Cây bi của sảnh 
 - Cây đã mở mà chưa có chỗ nằm đầu khay Xây, đặt miễn phí, xong ngay (`Home.TreesWaiting`). Có cây chờ đặt thì nút Nhà ở sảnh hiện "!".
 - Bản lưu cũ (đã có cây ở sảnh) mở Nhà lần đầu thì cây được đặt sẵn như trước; người chơi mới tự đặt theo G3a–G3d.
 - Cây 2–5 (cấp 30, 50, 80, 110) không tự đặt, không dẫn: báo "Thêm một cây bi!" ở sảnh kèm "Về Nhà, bấm Xây để đặt cây mới."
-- G3a–G3c lặp: bấm Thôi hay Xong giữa chừng thì lần sau dẫn lại; xong hẳn khi đã đặt cây (cờ `g3t`). G3d cờ `g3h`. Thuộc nhóm gợi ý, tắt được bằng công tắc "Gợi ý".
+- G3a–G3c lặp: bấm Thôi hay Xong giữa chừng thì lần sau dẫn lại; xong hẳn khi đã đặt cây (cờ `g3t`). G3d cờ `g3h`. Từ 2026-11-24 thuộc chuỗi bắt buộc, không tắt bằng công tắc "Gợi ý".
 - Chạm cây trúng cả tán lá, không chỉ ô dưới chân (`HomeScene.HitAt`).
 - Code: `HomeScene.Tutor`, `TreeTrayItem`, `HitAt`.
 - Thử: menu `PokiClash/Thử/Nhà và side meta/Nhà: hướng dẫn đặt Cây bi, chạm tán lá (đang Play)` (`Editor/HomeTreeTour.cs`). Tour giả người chơi mới vừa mở Nhà, đi G3a → G3d, chụp `Temp/PokiShots/30x_cay_*.png`, chạm một điểm trên tán lá ngoài các ô dưới chân và kiểm số bi tăng, xong trả lại bản lưu.
@@ -307,19 +326,19 @@ Mỗi dòng là một khoảnh khắc mở: hộp nhỏ, hình công trình hay 
 | Vòng cấp, chip bi | hiện | — |
 | Sổ tay (nút bánh răng trên thanh trên) | hiện | — (có cài đặt) |
 | Máy Bi (nút đáy) | ẩn | B8 (nhún, hiện ra) |
-| Tướng (nút đáy) | ẩn | C8 |
-| Cửa hàng (nút đáy, 2026-11-23 thay Đánh tiếp) | ẩn | C17 |
-| Sổ thẻ (nút đáy) | ẩn | D9 (lần đầu có thẻ mới), muộn nhất cấp 3 |
+| Tướng (nút đáy) | ẩn | C7 (mở xong rương đầu) |
+| Cửa hàng (nút đáy, 2026-11-23 thay Đánh tiếp) | ẩn | đi hết Nhà, C26 (2026-11-24) |
+| Sổ thẻ (nút đáy) | ẩn | về sảnh sau trận 2, C18 (2026-11-24) |
 | Nút AFK (thanh trên) | ẩn | F1 |
 | Cây bi | bỏ khỏi sảnh 2026-11-23 | đến cùng Nhà, đặt ở Nhà (G3a–G3d) |
-| Nhà (nút đáy từ 2026-11-23, lời mời chạm tàu) | ẩn | có 2 tướng: nút hiện, chạm báo "Có 3 tướng để mở Nhà"; có 3 tướng: G1 |
+| Nhà (nút đáy từ 2026-11-23, lời mời chạm tàu) | ẩn | C20 (Nhà mở sau ải thứ 2, 2026-11-24) |
 | Hang | ẩn | cấp 20: bản phác "Cấp 30"; cấp 30: mở |
 | Đền | ẩn | qua ải 10 một đảo: bản phác "Thắng ải 20"; thắng ải 20: mở |
 | Mây che đảo | đã đúng | — |
 
 - Ẩn hẳn thay vì để mờ, để ở phút đầu người chơi chỉ thấy một thứ cần chạm.
 - Bản lưu cũ (đã có `starter` và đã đánh) coi các mốc là đã qua theo trạng thái (mục 7).
-- Tàu ở bến: chạm tàu là về Nhà. Trước khi Nhà mở, chạm tàu chỉ ra toast "Cần 3 tướng"; nên ẩn lời mời này tới khi có 2 tướng.
+- Tàu ở bến: chạm tàu là về Nhà. Trước khi Nhà mở (chưa qua 2 ải), chạm tàu chỉ ra toast "Qua 2 ải để mở Nhà".
 
 ## 6. Trang "Cách chơi" trong Sổ tay
 

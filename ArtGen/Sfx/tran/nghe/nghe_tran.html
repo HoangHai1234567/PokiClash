@@ -1,0 +1,128 @@
+<title>Tiếng đánh nhau</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+  /* Bố cục: một cột; thanh trên dính (số đã chọn, nút chép); mỗi nhóm đòn một thẻ, mỗi tiếng một hàng (nút nghe, tên, ô chọn) */
+  :root {
+    --bg: #f4f1ea; --panel: #fffdf8; --fg: #2b2118; --muted: #74655a; --line: #e2d8c8;
+    --accent: #d2602a; --accent-ink: #ffffff; --chip: #efe7da; --on: #2f8fe8;
+    --f-head: "Baloo 2", "Segoe UI", system-ui, sans-serif;
+    --f-body: "Be Vietnam Pro", "Segoe UI", system-ui, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) { --bg: #1b1713; --panel: #241f1a; --fg: #f1e8dc; --muted: #b3a493; --line: #3a3128; --accent: #f08a4f; --accent-ink: #1b1209; --chip: #2f2821; --on: #58b4ff; color-scheme: dark; }
+  }
+  :root[data-theme="dark"] { --bg: #1b1713; --panel: #241f1a; --fg: #f1e8dc; --muted: #b3a493; --line: #3a3128; --accent: #f08a4f; --accent-ink: #1b1209; --chip: #2f2821; --on: #58b4ff; color-scheme: dark; }
+  body { background: var(--bg); color: var(--fg); font-family: var(--f-body); }
+  body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+  .wrap { max-width: 820px; margin: 0 auto; padding-block: 0 48px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 14px; }
+  .bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg); padding-block: 12px 10px; border-bottom: 1px solid var(--line); display: grid; gap: 8px; }
+  h1 { font-family: var(--f-head); font-size: 1.5rem; line-height: 1.1; margin: 0; }
+  .sub { color: var(--muted); font-size: 0.88rem; margin: 0; }
+  .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .count { font-variant-numeric: tabular-nums; color: var(--muted); font-size: 0.9rem; }
+  button { font: 600 0.92rem var(--f-body); border: 1px solid var(--line); background: var(--chip); color: var(--fg); border-radius: 10px; padding: 8px 12px; cursor: pointer; min-height: 40px; }
+  button.main { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+  button:focus-visible, input:focus-visible { outline: 3px solid var(--on); outline-offset: 2px; }
+  textarea { width: 100%; box-sizing: border-box; min-height: 64px; font: 0.85rem/1.4 ui-monospace, Consolas, monospace; background: var(--panel); color: var(--fg); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+  .nhom { background: var(--panel); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .nhom h2 { font-family: var(--f-head); font-size: 1.15rem; margin: 0; }
+  .nhom p { margin: 2px 0 10px; color: var(--muted); font-size: 0.88rem; line-height: 1.45; }
+  .item { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; padding: 6px 0; border-top: 1px dashed var(--line); }
+  .item:first-of-type { border-top: 0; }
+  .play { width: 44px; height: 40px; padding: 0; font-size: 1rem; }
+  .play.on { background: var(--on); color: #fff; border-color: var(--on); }
+  .meta { min-width: 0; }
+  .meta b { font-variant-numeric: tabular-nums; }
+  .meta span { display: block; color: var(--muted); font-size: 0.8rem; overflow-wrap: anywhere; }
+  label.pick { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--muted); cursor: pointer; }
+  label.pick input { width: 22px; height: 22px; accent-color: var(--accent); }
+  .item.chon { background: color-mix(in srgb, var(--accent) 10%, transparent); border-radius: 8px; }
+  .note { color: var(--muted); font-size: 0.82rem; margin: 0; }
+</style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;700&family=Be+Vietnam+Pro:wght@400;600&display=swap">
+
+<div class="wrap">
+  <div class="bar">
+    <h1>Tiếng đánh nhau</h1>
+    <p class="sub">Ứng viên từ các gói CC0 (miễn phí, dùng thương mại, không cần ghi công). Bấm ▶ để nghe, tick tiếng ưng ý, rồi bấm "Chép danh sách" và dán lại cho Claude.</p>
+    <div class="row">
+      <span class="count" id="count">Đã chọn 0</span>
+      <button class="main" id="copy">Chép danh sách</button>
+      <button id="clear">Bỏ chọn hết</button>
+    </div>
+    <textarea id="out" readonly aria-label="Danh sách đã chọn" placeholder="Danh sách đã chọn hiện ở đây"></textarea>
+  </div>
+  <div id="list"></div>
+  <p class="note">Còn thiếu và sẽ gen nếu cần: gió / lốc xoáy, sóng lớn đổ ụp, tia nước phun dài. Chưa đưa vào game.</p>
+</div>
+
+<script>
+(() => {
+  const NHOM = [{"code": "no", "name": "Nổ", "note": "Quả nổ lửa lớn (no), cầu lửa / thiên thạch chạm đất, nổ trúng.", "items": [{"id": "no_01", "file": "am/no_01.ogg", "pack": "Kenney Sci-Fi", "name": "explosionCrunch_000"}, {"id": "no_02", "file": "am/no_02.ogg", "pack": "Kenney Sci-Fi", "name": "explosionCrunch_001"}, {"id": "no_03", "file": "am/no_03.ogg", "pack": "Kenney Sci-Fi", "name": "explosionCrunch_002"}, {"id": "no_04", "file": "am/no_04.ogg", "pack": "Kenney Sci-Fi", "name": "explosionCrunch_003"}, {"id": "no_05", "file": "am/no_05.ogg", "pack": "Kenney Sci-Fi", "name": "explosionCrunch_004"}, {"id": "no_06", "file": "am/no_06.ogg", "pack": "Kenney Sci-Fi", "name": "lowFrequency_explosion_000"}, {"id": "no_07", "file": "am/no_07.ogg", "pack": "Kenney Sci-Fi", "name": "lowFrequency_explosion_001"}, {"id": "no_08", "file": "am/no_08.wav", "pack": "OGA Fireball", "name": "fireball_01"}]}, {"code": "tu", "name": "Tụ năng lượng", "note": "Lấy đà chiêu: cầu đang tụ, tụ tia ở miệng / trượng, gồng chiêu cuối.", "items": [{"id": "tu_01", "file": "am/tu_01.ogg", "pack": "Kenney Digital", "name": "phaserUp1"}, {"id": "tu_02", "file": "am/tu_02.ogg", "pack": "Kenney Digital", "name": "phaserUp3"}, {"id": "tu_03", "file": "am/tu_03.ogg", "pack": "Kenney Digital", "name": "phaserUp5"}, {"id": "tu_04", "file": "am/tu_04.ogg", "pack": "Kenney Digital", "name": "phaserUp7"}, {"id": "tu_05", "file": "am/tu_05.ogg", "pack": "Kenney Digital", "name": "powerUp2"}, {"id": "tu_06", "file": "am/tu_06.ogg", "pack": "Kenney Digital", "name": "powerUp4"}, {"id": "tu_07", "file": "am/tu_07.ogg", "pack": "Kenney Digital", "name": "powerUp8"}, {"id": "tu_08", "file": "am/tu_08.ogg", "pack": "Kenney Digital", "name": "powerUp11"}, {"id": "tu_09", "file": "am/tu_09.ogg", "pack": "Kenney Sci-Fi", "name": "forceField_000"}, {"id": "tu_10", "file": "am/tu_10.ogg", "pack": "Kenney Sci-Fi", "name": "forceField_002"}, {"id": "tu_11", "file": "am/tu_11.ogg", "pack": "Kenney Sci-Fi", "name": "forceField_004"}, {"id": "tu_12", "file": "am/tu_12.ogg", "pack": "OGA Magic Spell", "name": "magical_1_0"}, {"id": "tu_13", "file": "am/tu_13.ogg", "pack": "OGA Magic Spell", "name": "magical_3"}, {"id": "tu_14", "file": "am/tu_14.ogg", "pack": "OGA Magic Spell", "name": "magical_5"}]}, {"code": "tia", "name": "Bắn tia năng lượng", "note": "Nhả tia (tia lửa / nước / vàng / lá), đạn năng lượng, kim bay.", "items": [{"id": "tia_01", "file": "am/tia_01.ogg", "pack": "Kenney Sci-Fi", "name": "laserLarge_000"}, {"id": "tia_02", "file": "am/tia_02.ogg", "pack": "Kenney Sci-Fi", "name": "laserLarge_002"}, {"id": "tia_03", "file": "am/tia_03.ogg", "pack": "Kenney Sci-Fi", "name": "laserLarge_004"}, {"id": "tia_04", "file": "am/tia_04.ogg", "pack": "Kenney Sci-Fi", "name": "laserRetro_001"}, {"id": "tia_05", "file": "am/tia_05.ogg", "pack": "Kenney Sci-Fi", "name": "laserRetro_003"}, {"id": "tia_06", "file": "am/tia_06.ogg", "pack": "Kenney Digital", "name": "laser3"}, {"id": "tia_07", "file": "am/tia_07.ogg", "pack": "Kenney Digital", "name": "laser6"}, {"id": "tia_08", "file": "am/tia_08.ogg", "pack": "Kenney Digital", "name": "zap1"}, {"id": "tia_09", "file": "am/tia_09.ogg", "pack": "Kenney Digital", "name": "zapTwoTone"}]}, {"code": "chem", "name": "Chém", "note": "Đao / kiếm / vuốt / đuôi quất chém, lướt chém.", "items": [{"id": "chem_01", "file": "am/chem_01.ogg", "pack": "OGA 20 Sword", "name": "sword.1"}, {"id": "chem_02", "file": "am/chem_02.ogg", "pack": "OGA 20 Sword", "name": "sword.2"}, {"id": "chem_03", "file": "am/chem_03.ogg", "pack": "OGA 20 Sword", "name": "sword.4"}, {"id": "chem_04", "file": "am/chem_04.ogg", "pack": "OGA 20 Sword", "name": "sword.6"}, {"id": "chem_05", "file": "am/chem_05.ogg", "pack": "OGA 20 Sword", "name": "sword.8"}, {"id": "chem_06", "file": "am/chem_06.ogg", "pack": "OGA 20 Sword", "name": "sword.10"}, {"id": "chem_07", "file": "am/chem_07.ogg", "pack": "OGA 80 RPG", "name": "blade_01"}, {"id": "chem_08", "file": "am/chem_08.ogg", "pack": "OGA 80 RPG", "name": "blade_02"}, {"id": "chem_09", "file": "am/chem_09.ogg", "pack": "OGA 80 RPG", "name": "blade_03"}, {"id": "chem_10", "file": "am/chem_10.ogg", "pack": "Kenney RPG", "name": "knifeSlice"}, {"id": "chem_11", "file": "am/chem_11.ogg", "pack": "Kenney RPG", "name": "knifeSlice2"}, {"id": "chem_12", "file": "am/chem_12.ogg", "pack": "Kenney RPG", "name": "chop"}]}, {"code": "kim", "name": "Va chạm kim loại", "note": "Đao chạm giáp, chặn đòn, khiên, tướng hệ Kim.", "items": [{"id": "kim_01", "file": "am/kim_01.ogg", "pack": "OGA Sword Clash", "name": "sword_clash.1"}, {"id": "kim_02", "file": "am/kim_02.ogg", "pack": "OGA Sword Clash", "name": "sword_clash.3"}, {"id": "kim_03", "file": "am/kim_03.ogg", "pack": "OGA Sword Clash", "name": "sword_clash.5"}, {"id": "kim_04", "file": "am/kim_04.ogg", "pack": "OGA Sword Clash", "name": "sword_clash.7"}, {"id": "kim_05", "file": "am/kim_05.ogg", "pack": "OGA Sword Clash", "name": "sword_clash.9"}, {"id": "kim_06", "file": "am/kim_06.ogg", "pack": "OGA 80 RPG", "name": "metal_01"}, {"id": "kim_07", "file": "am/kim_07.ogg", "pack": "OGA 80 RPG", "name": "metal_02"}, {"id": "kim_08", "file": "am/kim_08.ogg", "pack": "OGA 80 RPG", "name": "metal_03"}, {"id": "kim_09", "file": "am/kim_09.ogg", "pack": "Kenney Sci-Fi", "name": "impactMetal_000"}, {"id": "kim_10", "file": "am/kim_10.ogg", "pack": "Kenney Sci-Fi", "name": "impactMetal_002"}]}, {"code": "huc", "name": "Húc / đấm / quật", "note": "Lao tới húc, đấm, nện, đuôi quật, nhảy đè (đòn thường).", "items": [{"id": "huc_01", "file": "am/huc_01.ogg", "pack": "Kenney Impact", "name": "impactPunch_heavy_000"}, {"id": "huc_02", "file": "am/huc_02.ogg", "pack": "Kenney Impact", "name": "impactPunch_heavy_002"}, {"id": "huc_03", "file": "am/huc_03.ogg", "pack": "Kenney Impact", "name": "impactPunch_heavy_004"}, {"id": "huc_04", "file": "am/huc_04.ogg", "pack": "Kenney Impact", "name": "impactPunch_medium_001"}, {"id": "huc_05", "file": "am/huc_05.ogg", "pack": "Kenney Impact", "name": "impactSoft_heavy_000"}, {"id": "huc_06", "file": "am/huc_06.ogg", "pack": "Kenney Impact", "name": "impactSoft_heavy_003"}, {"id": "huc_07", "file": "am/huc_07.ogg", "pack": "Kenney Impact", "name": "impactPlate_heavy_001"}, {"id": "huc_08", "file": "am/huc_08.ogg", "pack": "Kenney Impact", "name": "impactWood_heavy_002"}]}, {"code": "lua", "name": "Lửa", "note": "Phun lửa, cầu lửa bay, lửa bùng / cháy, kim lửa.", "items": [{"id": "lua_01", "file": "am/lua_01.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_01"}, {"id": "lua_02", "file": "am/lua_02.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_02"}, {"id": "lua_03", "file": "am/lua_03.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_03"}, {"id": "lua_04", "file": "am/lua_04.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_04"}, {"id": "lua_05", "file": "am/lua_05.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_05"}, {"id": "lua_06", "file": "am/lua_06.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_06"}, {"id": "lua_07", "file": "am/lua_07.ogg", "pack": "OGA 80 RPG", "name": "spell_fire_07"}, {"id": "lua_08", "file": "am/lua_08.wav", "pack": "OGA Fire Staff", "name": "LEGIT_FIR_Fire_Staff 1-Audio"}, {"id": "lua_09", "file": "am/lua_09.wav", "pack": "OGA Fire Staff", "name": "LEGIT_FIR_Fire_Staff 10-Audio"}, {"id": "lua_10", "file": "am/lua_10.wav", "pack": "OGA Fire Staff", "name": "LEGIT_FIR_Fire_Staff 12-Audio"}, {"id": "lua_11", "file": "am/lua_11.wav", "pack": "OGA Fire Staff", "name": "LEGIT_FIR_Fire_Staff 13-Audio"}, {"id": "lua_12", "file": "am/lua_12.ogg", "pack": "Kenney Sci-Fi", "name": "thrusterFire_001"}, {"id": "lua_13", "file": "am/lua_13.ogg", "pack": "Kenney Sci-Fi", "name": "thrusterFire_003"}]}, {"code": "nuoc", "name": "Nước", "note": "Nước toé, cầu nước vỡ, tia nước (vòng lặp), bong bóng, bóng mực.", "items": [{"id": "nuoc_01", "file": "am/nuoc_01.ogg", "pack": "OGA 40 Water", "name": "splash_01"}, {"id": "nuoc_02", "file": "am/nuoc_02.ogg", "pack": "OGA 40 Water", "name": "splash_03"}, {"id": "nuoc_03", "file": "am/nuoc_03.ogg", "pack": "OGA 40 Water", "name": "splash_05"}, {"id": "nuoc_04", "file": "am/nuoc_04.ogg", "pack": "OGA 40 Water", "name": "splash_07"}, {"id": "nuoc_05", "file": "am/nuoc_05.ogg", "pack": "OGA 40 Water", "name": "splash_09"}, {"id": "nuoc_06", "file": "am/nuoc_06.ogg", "pack": "OGA 40 Water", "name": "splash_11"}, {"id": "nuoc_07", "file": "am/nuoc_07.ogg", "pack": "OGA 40 Water", "name": "splash_13"}, {"id": "nuoc_08", "file": "am/nuoc_08.ogg", "pack": "OGA 40 Water", "name": "splash_15"}, {"id": "nuoc_09", "file": "am/nuoc_09.ogg", "pack": "OGA 40 Water", "name": "bubble_01"}, {"id": "nuoc_10", "file": "am/nuoc_10.ogg", "pack": "OGA 40 Water", "name": "bubble_03"}, {"id": "nuoc_11", "file": "am/nuoc_11.ogg", "pack": "OGA 40 Water", "name": "loop_water_01"}, {"id": "nuoc_12", "file": "am/nuoc_12.ogg", "pack": "OGA 40 Water", "name": "slime_03"}, {"id": "nuoc_13", "file": "am/nuoc_13.ogg", "pack": "OGA 40 Water", "name": "slime_07"}]}, {"code": "gam", "name": "Gầm", "note": "Tướng thú gầm (sóng âm), boss xuất hiện, chiêu cuối.", "items": [{"id": "gam_01", "file": "am/gam_01.ogg", "pack": "OGA 80 Creature", "name": "roar_01"}, {"id": "gam_02", "file": "am/gam_02.ogg", "pack": "OGA 80 Creature", "name": "roar_02"}, {"id": "gam_03", "file": "am/gam_03.ogg", "pack": "OGA 80 Creature", "name": "roar_03"}, {"id": "gam_04", "file": "am/gam_04.ogg", "pack": "OGA 80 Creature", "name": "monster_01"}, {"id": "gam_05", "file": "am/gam_05.ogg", "pack": "OGA 80 Creature", "name": "monster_03"}, {"id": "gam_06", "file": "am/gam_06.ogg", "pack": "OGA 80 Creature", "name": "monster_05"}, {"id": "gam_07", "file": "am/gam_07.ogg", "pack": "OGA 80 Creature", "name": "monster_07"}, {"id": "gam_08", "file": "am/gam_08.ogg", "pack": "OGA 80 Creature", "name": "howl"}, {"id": "gam_09", "file": "am/gam_09.ogg", "pack": "OGA 80 RPG", "name": "creature_roar_01"}, {"id": "gam_10", "file": "am/gam_10.ogg", "pack": "OGA 80 RPG", "name": "creature_roar_02"}, {"id": "gam_11", "file": "am/gam_11.ogg", "pack": "OGA 80 RPG", "name": "creature_roar_03"}]}, {"code": "da", "name": "Đá / đất", "note": "Gai đất trồi, đá văng, đất nứt, nện xuống đất (hệ Thổ).", "items": [{"id": "da_01", "file": "am/da_01.ogg", "pack": "OGA 80 RPG", "name": "stones_01"}, {"id": "da_02", "file": "am/da_02.ogg", "pack": "OGA 80 RPG", "name": "stones_02"}, {"id": "da_03", "file": "am/da_03.ogg", "pack": "OGA 80 RPG", "name": "stones_03"}, {"id": "da_04", "file": "am/da_04.ogg", "pack": "OGA 80 RPG", "name": "stones_04"}, {"id": "da_05", "file": "am/da_05.ogg", "pack": "OGA 80 RPG", "name": "item_stone_01"}, {"id": "da_06", "file": "am/da_06.ogg", "pack": "Kenney Impact", "name": "impactMining_000"}, {"id": "da_07", "file": "am/da_07.ogg", "pack": "Kenney Impact", "name": "impactMining_003"}, {"id": "da_08", "file": "am/da_08.ogg", "pack": "Kenney Impact", "name": "impactWood_heavy_000"}]}, {"code": "phep", "name": "Phép / buff", "note": "Hồi máu, tăng sức, khiên, chiêu phép chung.", "items": [{"id": "phep_01", "file": "am/phep_01.ogg", "pack": "OGA 80 RPG", "name": "spell_01"}, {"id": "phep_02", "file": "am/phep_02.ogg", "pack": "OGA 80 RPG", "name": "spell_02"}, {"id": "phep_03", "file": "am/phep_03.ogg", "pack": "OGA Magic Spell", "name": "magical_2"}, {"id": "phep_04", "file": "am/phep_04.ogg", "pack": "OGA Magic Spell", "name": "magical_4"}, {"id": "phep_05", "file": "am/phep_05.ogg", "pack": "OGA Magic Spell", "name": "magical_6_0"}, {"id": "phep_06", "file": "am/phep_06.ogg", "pack": "OGA Magic Spell", "name": "magical_7_0"}]}, {"code": "dau", "name": "Trúng đòn (kêu đau)", "note": "Tướng bị đánh trúng, gục.", "items": [{"id": "dau_01", "file": "am/dau_01.ogg", "pack": "OGA 80 Creature", "name": "hurt_01"}, {"id": "dau_02", "file": "am/dau_02.ogg", "pack": "OGA 80 Creature", "name": "hurt_02"}, {"id": "dau_03", "file": "am/dau_03.ogg", "pack": "OGA 80 Creature", "name": "hurt_03"}, {"id": "dau_04", "file": "am/dau_04.ogg", "pack": "OGA 80 Creature", "name": "hurt_04"}, {"id": "dau_05", "file": "am/dau_05.ogg", "pack": "OGA 80 Creature", "name": "grunt_01"}, {"id": "dau_06", "file": "am/dau_06.ogg", "pack": "OGA 80 Creature", "name": "grunt_03"}, {"id": "dau_07", "file": "am/dau_07.ogg", "pack": "OGA 80 RPG", "name": "creature_hurt_01"}, {"id": "dau_08", "file": "am/dau_08.ogg", "pack": "OGA 80 RPG", "name": "creature_hurt_02"}, {"id": "dau_09", "file": "am/dau_09.ogg", "pack": "OGA 80 RPG", "name": "creature_die_01"}]}, {"code": "khac", "name": "Năng lượng khác (gói 60 Sci-Fi)", "note": "Tiếng điện tử lạ để thử cho tia, đạn, khiên, dịch chuyển.", "items": [{"id": "khac_01", "file": "am/khac_01.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_01a"}, {"id": "khac_02", "file": "am/khac_02.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_03a"}, {"id": "khac_03", "file": "am/khac_03.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_05a"}, {"id": "khac_04", "file": "am/khac_04.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_07a"}, {"id": "khac_05", "file": "am/khac_05.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_09a"}, {"id": "khac_06", "file": "am/khac_06.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_11a"}, {"id": "khac_07", "file": "am/khac_07.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_13a"}, {"id": "khac_08", "file": "am/khac_08.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_15a"}, {"id": "khac_09", "file": "am/khac_09.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_17a"}, {"id": "khac_10", "file": "am/khac_10.ogg", "pack": "OGA 60 Sci-Fi", "name": "sfx_19a"}]}, {"code": "gen", "name": "Gen thêm (Magnific)", "note": "Không có trong gói miễn phí nên gen: gió / lốc xoáy (gen_01–02), sóng lớn đổ ụp (gen_03–04), tia nước phun dài, lặp liền (gen_05–06); đợt 2: tụ năng lượng (gen_07–08), gầm lớn (gen_09–10), nhả tia (gen_11–12).", "items": [{"id": "gen_01", "file": "am/gen_01.mp3", "pack": "Magnific SFX", "name": "gio_loc_1"}, {"id": "gen_02", "file": "am/gen_02.mp3", "pack": "Magnific SFX", "name": "gio_loc_2"}, {"id": "gen_03", "file": "am/gen_03.mp3", "pack": "Magnific SFX", "name": "song_do_1"}, {"id": "gen_04", "file": "am/gen_04.mp3", "pack": "Magnific SFX", "name": "song_do_2"}, {"id": "gen_05", "file": "am/gen_05.mp3", "pack": "Magnific SFX", "name": "tia_nuoc_loop_1"}, {"id": "gen_06", "file": "am/gen_06.mp3", "pack": "Magnific SFX", "name": "tia_nuoc_loop_2"}, {"id": "gen_07", "file": "am/gen_07.mp3", "pack": "Magnific SFX", "name": "tu_nang_luong_1"}, {"id": "gen_08", "file": "am/gen_08.mp3", "pack": "Magnific SFX", "name": "tu_nang_luong_2"}, {"id": "gen_09", "file": "am/gen_09.mp3", "pack": "Magnific SFX", "name": "gam_lon_1"}, {"id": "gen_10", "file": "am/gen_10.mp3", "pack": "Magnific SFX", "name": "gam_lon_2"}, {"id": "gen_11", "file": "am/gen_11.mp3", "pack": "Magnific SFX", "name": "nha_tia_1"}, {"id": "gen_12", "file": "am/gen_12.mp3", "pack": "Magnific SFX", "name": "nha_tia_2"}]}];
+  const list = document.getElementById("list"), out = document.getElementById("out"), count = document.getElementById("count");
+  let cur = null, curBtn = null;
+  const picked = new Set();
+  try { (JSON.parse(localStorage.getItem("tran_chon") || "[]")).forEach(x => picked.add(x)); } catch (e) {}
+  function save() { try { localStorage.setItem("tran_chon", JSON.stringify([...picked])); } catch (e) {} }
+  function refresh() {
+    const byGroup = NHOM.map(g => {
+      const ids = g.items.filter(i => picked.has(i.id)).map(i => i.id);
+      return ids.length ? g.code + ": " + ids.join(" ") : null;
+    }).filter(Boolean);
+    out.value = byGroup.join("\n");
+    count.textContent = "Đã chọn " + picked.size;
+    document.querySelectorAll(".item").forEach(el => el.classList.toggle("chon", picked.has(el.dataset.id)));
+  }
+  function stop() {
+    if (cur) { cur.pause(); cur.currentTime = 0; }
+    if (curBtn) { curBtn.classList.remove("on"); curBtn.textContent = "▶"; }
+    cur = curBtn = null;
+  }
+  NHOM.forEach(g => {
+    const sec = document.createElement("section");
+    sec.className = "nhom";
+    sec.innerHTML = "<h2></h2><p></p>";
+    sec.querySelector("h2").textContent = g.name + " (" + g.items.length + ")";
+    sec.querySelector("p").textContent = g.note;
+    g.items.forEach(it => {
+      const row = document.createElement("div");
+      row.className = "item"; row.dataset.id = it.id;
+      const b = document.createElement("button");
+      b.className = "play"; b.textContent = "▶"; b.setAttribute("aria-label", "Nghe " + it.id);
+      const meta = document.createElement("div");
+      meta.className = "meta";
+      meta.innerHTML = "<b></b><span></span>";
+      meta.querySelector("b").textContent = it.id;
+      meta.querySelector("span").textContent = it.pack + " · " + it.name;
+      const lab = document.createElement("label");
+      lab.className = "pick";
+      const cb = document.createElement("input");
+      cb.type = "checkbox"; cb.id = "c_" + it.id; cb.checked = picked.has(it.id);
+      lab.append(cb, document.createTextNode("Chọn"));
+      cb.addEventListener("change", () => { cb.checked ? picked.add(it.id) : picked.delete(it.id); save(); refresh(); });
+      b.addEventListener("click", () => {
+        if (curBtn === b) { stop(); return; }
+        stop();
+        const a = new Audio(it.file);
+        cur = a; curBtn = b; b.classList.add("on"); b.textContent = "■";
+        a.addEventListener("ended", () => { if (curBtn === b) stop(); });
+        a.play().catch(() => stop());
+      });
+      row.append(b, meta, lab);
+      sec.appendChild(row);
+    });
+    list.appendChild(sec);
+  });
+  document.getElementById("copy").addEventListener("click", () => {
+    if (!out.value) return;
+    out.select();
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(out.value).catch(() => {});
+  });
+  document.getElementById("clear").addEventListener("click", () => {
+    picked.clear(); save();
+    document.querySelectorAll("label.pick input").forEach(c => c.checked = false);
+    refresh();
+  });
+  refresh();
+})();
+</script>

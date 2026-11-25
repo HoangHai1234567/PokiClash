@@ -785,9 +785,292 @@ MonoBehaviour:
           ngay, kh\xF4ng c\u1EA7n xem (v\u1EABn theo gi\u1EDBi h\u1EA1n m\u1ED7i
           ng\xE0y)."
     trees:
-      perHour: 5
-      cap: 50
-      unlockLevels: 1e00000032000000500000006e000000
+      perHour: 4
+      cap: 96
+      unlockLevels: 0a000000190000002d00000046000000
+    stageBalls:
+      base: 1
+      step: 1
+      boss: 24
+      mini: 12
+      hero: 2
+    sophep:
+      openLevel: 50
+      openPoints: 3
+      fromLevel: 53
+      toLevel: 198
+      expPerPoint: 27000
+      expPoints: 7
+      capNeed: 3
+      endDigits: 0300000008000000
+      chapters:
+      - name: "N\xE9t M\u1EDF \u0110\u1EA7u"
+        level: 50
+        spent: 0
+        lord: 0
+      - name: "N\xE9t \u0110\u1ED3ng H\xE0nh"
+        level: 60
+        spent: 4
+        lord: 0
+      - name: "N\xE9t Kh\u1EAFc Ch\u1EBF"
+        level: 100
+        spent: 12
+        lord: 0
+      - name: "N\xE9t Ch\xFAa T\u1EC3"
+        level: 0
+        spent: 22
+        lord: 1
+      nodes:
+      - id: lat_trang
+        name: "L\u1EADt Trang"
+        kind: lv
+        icon: dice
+        ch: 0
+        cost: 0100000002000000
+        stones: 0
+        faces: []
+        v:
+        - 1
+        - 2
+      - id: rong_don
+        name: "R\u1ED9ng Tay | D\u1ED3n Tay"
+        kind: pick
+        icon: cards
+        ch: 0
+        cost: 02000000
+        stones: 0
+        faces:
+        - "R\u1ED9ng Tay"
+        - "D\u1ED3n Tay"
+        v:
+        - 1
+        - 2
+      - id: giu_net
+        name: "Gi\u1EEF N\xE9t"
+        kind: one
+        icon: clock
+        ch: 0
+        cost: 01000000
+        stones: 0
+        faces: []
+        v:
+        - 1
+      - id: mat_tinh
+        name: "M\u1EAFt Tinh"
+        kind: one
+        icon: eye
+        ch: 0
+        cost: 01000000
+        stones: 0
+        faces: []
+        v:
+        - 1.2
+      - id: chot_1
+        name: "Th\xEAm L\xE1 | Th\xEAm L\u01B0\u1EE3t"
+        kind: cap
+        icon: star
+        ch: 0
+        cost: 02000000
+        stones: 0
+        faces:
+        - "Th\xEAm L\xE1"
+        - "Th\xEAm L\u01B0\u1EE3t"
+        v:
+        - 5
+        - 4
+        - 6
+        - 2
+      - id: muc_cho
+        name: "M\u1EF1c Ch\u1EDD"
+        kind: lv
+        icon: drop
+        ch: 1
+        cost: 0100000002000000
+        stones: 0
+        faces: []
+        v:
+        - 3
+        - 6
+      - id: vao_rut
+        name: "V\xE0o S\xE2n | R\xFAt Lui"
+        kind: pick
+        icon: shield
+        ch: 1
+        cost: 02000000
+        stones: 0
+        faces:
+        - "V\xE0o S\xE2n"
+        - "R\xFAt Lui"
+        v:
+        - 0.08
+        - 0.08
+      - id: tiep_suc
+        name: "Ti\u1EBFp S\u1EE9c"
+        kind: one
+        icon: bolt
+        ch: 1
+        cost: 01000000
+        stones: 0
+        faces: []
+        v:
+        - 0.5
+      - id: tiep_noi
+        name: "Ti\u1EBFp N\u1ED1i"
+        kind: one
+        icon: fist2
+        ch: 1
+        cost: 01000000
+        stones: 0
+        faces: []
+        v:
+        - 25
+      - id: chot_2
+        name: "\u0110\u1ED5i Vai | H\u1EE3p L\u1EF1c"
+        kind: cap
+        icon: swap
+        ch: 1
+        cost: 02000000
+        stones: 20
+        faces:
+        - "\u0110\u1ED5i Vai"
+        - "H\u1EE3p L\u1EF1c"
+        v:
+        - 1
+        - 0.15
+      - id: mui_la
+        name: "M\u0169i Nh\u1ECDn | L\xE1 Ch\u1EAFn"
+        kind: pick
+        icon: sword
+        ch: 2
+        cost: 02000000
+        stones: 0
+        faces:
+        - "M\u0169i Nh\u1ECDn"
+        - "L\xE1 Ch\u1EAFn"
+        v:
+        - 0.05
+        - 0.05
+      - id: chua_te
+        name: "S\u1ED5 Tay Ch\xFAa T\u1EC3"
+        kind: lv
+        icon: crown
+        ch: 2
+        cost: 0100000002000000
+        stones: 0
+        faces: []
+        v:
+        - 1
+        - 2
+      - id: net_cuu
+        name: "N\xE9t C\u1EE9u"
+        kind: one
+        icon: bandage
+        ch: 2
+        cost: 02000000
+        stones: 0
+        faces: []
+        v:
+        - 0.25
+        - 0.1
+      - id: tinh_tao
+        name: "T\u1EC9nh T\xE1o"
+        kind: one
+        icon: bell
+        ch: 2
+        cost: 01000000
+        stones: 0
+        faces: []
+        v:
+        - 1
+      - id: chot_3
+        name: "V\u1EBD L\u1EA1i | Ph\u1EA3n N\xE9t"
+        kind: cap
+        icon: phoenix
+        ch: 2
+        cost: 02000000
+        stones: 30
+        faces:
+        - "V\u1EBD L\u1EA1i"
+        - "Ph\u1EA3n N\xE9t"
+        v:
+        - 0.25
+        - 0.25
+        - 0.1
+      - id: but_chi
+        name: "N\u0103m B\xFAt Ch\xEC"
+        kind: elem
+        icon: pencil
+        ch: 3
+        cost: 03000000
+        stones: 0
+        faces: []
+        v:
+        - 1
+      - id: trang_cuoi
+        name: "Trang Cu\u1ED1i"
+        kind: one
+        icon: map
+        ch: 3
+        cost: 02000000
+        stones: 0
+        faces: []
+        v:
+        - 4
+      - id: net_ket
+        name: "N\xE9t K\u1EBFt"
+        kind: one
+        icon: skull
+        ch: 3
+        cost: 02000000
+        stones: 0
+        faces: []
+        v:
+        - 0.1
+      - id: bia_so
+        name: "B\xECa S\u1ED5"
+        kind: deco
+        icon: feather
+        ch: 3
+        cost: 01000000
+        stones: 0
+        faces: []
+        v: []
+      - id: chot_4
+        name: "Ch\u1EEF K\xFD | N\xE9t K\xE9p"
+        kind: cap
+        icon: sun
+        ch: 3
+        cost: 04000000
+        stones: 50
+        faces:
+        - "Ch\u1EEF K\xFD"
+        - "N\xE9t K\xE9p"
+        v:
+        - 0.5
+      path:
+      - lat_trang
+      - mat_tinh
+      - rong_don:0
+      - giu_net
+      - lat_trang
+      - chot_1:0
+      - muc_cho
+      - vao_rut:0
+      - tiep_suc
+      - tiep_noi
+      - muc_cho
+      - chot_2:1
+      - net_cuu
+      - mui_la:0
+      - chua_te
+      - tinh_tao
+      - chua_te
+      - chot_3:0
+      - trang_cuoi
+      - net_ket
+      - but_chi:0
+      - bia_so
+      - chot_4:1
     home:
       grid: 72
       lot: 12

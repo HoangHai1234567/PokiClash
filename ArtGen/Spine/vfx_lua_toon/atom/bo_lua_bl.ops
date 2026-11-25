@@ -1,0 +1,182 @@
+image.add cau_bl_00 path=images/cau_bl_00.png
+image.add cau_bl_01 path=images/cau_bl_01.png
+image.add cau_bl_02 path=images/cau_bl_02.png
+image.add cau_bl_03 path=images/cau_bl_03.png
+image.add cau_bl_04 path=images/cau_bl_04.png
+image.add cau_bl_05 path=images/cau_bl_05.png
+image.add cau_bl_06 path=images/cau_bl_06.png
+image.add cau_bl_07 path=images/cau_bl_07.png
+image.add cau_bl_08 path=images/cau_bl_08.png
+image.add cau_bl_09 path=images/cau_bl_09.png
+image.add cau_bl_10 path=images/cau_bl_10.png
+image.add cau_bl_11 path=images/cau_bl_11.png
+image.add cau_bl_12 path=images/cau_bl_12.png
+image.add cau_bl_13 path=images/cau_bl_13.png
+image.add cau_bl_14 path=images/cau_bl_14.png
+image.add cau_bl_15 path=images/cau_bl_15.png
+image.add no_bl_00 path=images/no_bl_00.png
+image.add no_bl_01 path=images/no_bl_01.png
+image.add no_bl_02 path=images/no_bl_02.png
+image.add no_bl_03 path=images/no_bl_03.png
+image.add no_bl_04 path=images/no_bl_04.png
+image.add no_bl_05 path=images/no_bl_05.png
+image.add no_bl_06 path=images/no_bl_06.png
+image.add no_bl_07 path=images/no_bl_07.png
+image.add no_bl_08 path=images/no_bl_08.png
+image.add no_bl_09 path=images/no_bl_09.png
+image.add no_bl_10 path=images/no_bl_10.png
+image.add no_bl_11 path=images/no_bl_11.png
+image.add no_bl_12 path=images/no_bl_12.png
+image.add no_bl_13 path=images/no_bl_13.png
+image.add no_bl_14 path=images/no_bl_14.png
+image.add no_bl_15 path=images/no_bl_15.png
+image.add no_bl_16 path=images/no_bl_16.png
+image.add no_bl_17 path=images/no_bl_17.png
+image.add no_bl_18 path=images/no_bl_18.png
+image.add no_bl_19 path=images/no_bl_19.png
+image.add no_bl_20 path=images/no_bl_20.png
+image.add no_bl_21 path=images/no_bl_21.png
+image.add no_bl_22 path=images/no_bl_22.png
+image.add no_bl_23 path=images/no_bl_23.png
+image.add no_bl_24 path=images/no_bl_24.png
+image.add no_bl_25 path=images/no_bl_25.png
+image.add kim_bl_00 path=images/kim_bl_00.png
+image.add kim_bl_01 path=images/kim_bl_01.png
+image.add kim_bl_02 path=images/kim_bl_02.png
+image.add kim_bl_03 path=images/kim_bl_03.png
+image.add kim_bl_04 path=images/kim_bl_04.png
+image.add kim_bl_05 path=images/kim_bl_05.png
+image.add kim_bl_06 path=images/kim_bl_06.png
+image.add kim_bl_07 path=images/kim_bl_07.png
+image.add kim_bl_08 path=images/kim_bl_08.png
+image.add kim_bl_09 path=images/kim_bl_09.png
+image.add kim_bl_10 path=images/kim_bl_10.png
+image.add kim_bl_11 path=images/kim_bl_11.png
+image.add loc_bl_00 path=images/loc_bl_00.png
+image.add loc_bl_01 path=images/loc_bl_01.png
+image.add loc_bl_02 path=images/loc_bl_02.png
+image.add loc_bl_03 path=images/loc_bl_03.png
+image.add loc_bl_04 path=images/loc_bl_04.png
+image.add loc_bl_05 path=images/loc_bl_05.png
+image.add loc_bl_06 path=images/loc_bl_06.png
+image.add loc_bl_07 path=images/loc_bl_07.png
+image.add loc_bl_08 path=images/loc_bl_08.png
+image.add loc_bl_09 path=images/loc_bl_09.png
+image.add loc_bl_10 path=images/loc_bl_10.png
+image.add loc_bl_11 path=images/loc_bl_11.png
+image.add loc_bl_12 path=images/loc_bl_12.png
+image.add loc_bl_13 path=images/loc_bl_13.png
+image.add loc_bl_14 path=images/loc_bl_14.png
+image.add loc_bl_15 path=images/loc_bl_15.png
+image.add lua_bl_00 path=images/lua_bl_00.png
+image.add lua_bl_01 path=images/lua_bl_01.png
+image.add lua_bl_02 path=images/lua_bl_02.png
+image.add lua_bl_03 path=images/lua_bl_03.png
+image.add lua_bl_04 path=images/lua_bl_04.png
+image.add lua_bl_05 path=images/lua_bl_05.png
+image.add lua_bl_06 path=images/lua_bl_06.png
+image.add lua_bl_07 path=images/lua_bl_07.png
+image.add lua_bl_08 path=images/lua_bl_08.png
+image.add lua_bl_09 path=images/lua_bl_09.png
+image.add lua_bl_10 path=images/lua_bl_10.png
+image.add lua_bl_11 path=images/lua_bl_11.png
+image.add lua_bl_12 path=images/lua_bl_12.png
+image.add lua_bl_13 path=images/lua_bl_13.png
+image.add lua_bl_14 path=images/lua_bl_14.png
+image.add lua_bl_15 path=images/lua_bl_15.png
+bone.add b_cau parent=root x=-300 y=130 sx=0.45 sy=0.45 rot=0.0
+bone.add b_no parent=root x=290 y=95 sx=0.62 sy=0.62 rot=0.0
+slot.add s_cau bone=b_cau
+att.region s_cau cau_bl image=cau_bl_00 x=-116.5 y=15.0 use=false
+att.seq s_cau cau_bl prefix=cau_bl_ count=16 setup=0
+slot.add s_no bone=b_no
+att.region s_no no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_no no_bl prefix=no_bl_ count=26 setup=0
+anim.add cau_lua_bl dur=1.683
+key cau_lua_bl s_cau.attachment 0.000:cau_bl 0.550:-
+key cau_lua_bl s_cau.seq 0.000:loop,0,0.04167
+key cau_lua_bl b_cau.translate 0:0,0:easeIn 0.550:590,-35
+key cau_lua_bl b_cau.scale 0:0.3,0.3:backOut 0.12:1,1
+key cau_lua_bl s_no.attachment 0.550:no_bl 1.633:-
+key cau_lua_bl s_no.seq 0.550:once,0,0.04167
+vfx.shake cau_lua_bl bone=b_no t=0.550 dur=0.25 amp=4 freq=30 seed=3
+anim.add no_lua_bl dur=1.183
+key no_lua_bl s_no.attachment 0.000:no_bl 1.083:-
+key no_lua_bl s_no.seq 0.000:once,0,0.04167
+key no_lua_bl b_no.scale 0:1.3,1.3
+anim.add kim_lua_bl dur=1.613
+bone.add b_kim0 parent=root x=-300 y=152 sx=0.42 sy=0.42 rot=-3.104525909264347
+bone.add b_nk0 parent=root x=280 y=120 sx=0.3 sy=0.3 rot=0.0
+slot.add s_kim0 bone=b_kim0
+att.region s_kim0 kim_bl image=kim_bl_00 x=-36.0 y=0.0 use=false
+att.seq s_kim0 kim_bl prefix=kim_bl_ count=12 setup=0
+slot.add s_nk0 bone=b_nk0
+att.region s_nk0 no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_nk0 no_bl prefix=no_bl_ count=26 setup=0
+key kim_lua_bl s_kim0.attachment 0.000:kim_bl 0.280:-
+key kim_lua_bl s_kim0.seq 0.000:loop,0,0.04167
+key kim_lua_bl b_kim0.translate 0.000:0,0:easeIn 0.280:590,-32
+key kim_lua_bl s_nk0.attachment 0.280:no_bl 1.363:-
+key kim_lua_bl s_nk0.seq 0.280:once,0,0.04167
+key kim_lua_bl s_nk0.attachment 0:- 0.280:no_bl 1.363:-
+bone.add b_kim1 parent=root x=-300 y=130 sx=0.42 sy=0.42 rot=-3.685146655155773
+bone.add b_nk1 parent=root x=292 y=92 sx=0.3 sy=0.3 rot=0.0
+slot.add s_kim1 bone=b_kim1
+att.region s_kim1 kim_bl image=kim_bl_00 x=-36.0 y=0.0 use=false
+att.seq s_kim1 kim_bl prefix=kim_bl_ count=12 setup=0
+slot.add s_nk1 bone=b_nk1
+att.region s_nk1 no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_nk1 no_bl prefix=no_bl_ count=26 setup=0
+key kim_lua_bl s_kim1.attachment 0.100:kim_bl 0.380:-
+key kim_lua_bl s_kim1.seq 0.100:loop,0,0.04167
+key kim_lua_bl s_kim1.attachment 0:-
+key kim_lua_bl b_kim1.translate 0.100:0,0:easeIn 0.380:590,-38
+key kim_lua_bl s_nk1.attachment 0.380:no_bl 1.463:-
+key kim_lua_bl s_nk1.seq 0.380:once,0,0.04167
+key kim_lua_bl s_nk1.attachment 0:- 0.380:no_bl 1.463:-
+bone.add b_kim2 parent=root x=-300 y=108 sx=0.42 sy=0.42 rot=-4.071813894307644
+bone.add b_nk2 parent=root x=304 y=66 sx=0.3 sy=0.3 rot=0.0
+slot.add s_kim2 bone=b_kim2
+att.region s_kim2 kim_bl image=kim_bl_00 x=-36.0 y=0.0 use=false
+att.seq s_kim2 kim_bl prefix=kim_bl_ count=12 setup=0
+slot.add s_nk2 bone=b_nk2
+att.region s_nk2 no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_nk2 no_bl prefix=no_bl_ count=26 setup=0
+key kim_lua_bl s_kim2.attachment 0.200:kim_bl 0.480:-
+key kim_lua_bl s_kim2.seq 0.200:loop,0,0.04167
+key kim_lua_bl s_kim2.attachment 0:-
+key kim_lua_bl b_kim2.translate 0.200:0,0:easeIn 0.480:590,-42
+key kim_lua_bl s_nk2.attachment 0.480:no_bl 1.563:-
+key kim_lua_bl s_nk2.seq 0.480:once,0,0.04167
+key kim_lua_bl s_nk2.attachment 0:- 0.480:no_bl 1.563:-
+bone.add b_loc parent=root x=290 y=0 sx=0.75 sy=0.75 rot=0.0
+slot.add s_loc bone=b_loc
+att.region s_loc loc_bl image=loc_bl_00 x=1.0 y=140.0 use=false
+att.seq s_loc loc_bl prefix=loc_bl_ count=16 setup=0
+anim.add loc_lua_bl dur=2.1
+key loc_lua_bl s_loc.attachment 0.000:loc_bl 2.050:-
+key loc_lua_bl s_loc.seq 0.000:loop,0,0.04167
+key loc_lua_bl b_loc.scale 0:0.15,0.05:backOut 0.32:1,1 1.7:1.05,1.08:easeIn 2.05:0.2,1.25
+key loc_lua_bl s_loc.alpha 0:1 1.8:1 2.05:0
+bone.add b_lua parent=root x=290 y=0 sx=0.5 sy=0.5 rot=0.0
+slot.add s_lua bone=b_lua
+att.region s_lua lua_bl image=lua_bl_00 x=-0.5 y=107.5 use=false
+att.seq s_lua lua_bl prefix=lua_bl_ count=16 setup=0
+anim.add lua_chay_bl dur=1.333 loop=true
+key lua_chay_bl s_lua.attachment 0.000:lua_bl
+key lua_chay_bl s_lua.seq 0.000:loop,0,0.04167
+bone.add b_tt parent=root x=-40 y=560 sx=0.6 sy=0.6 rot=-58.09189306434685
+bone.add b_ntt parent=root x=290 y=40 sx=1.15 sy=1.15 rot=0.0
+slot.add s_tt bone=b_tt
+att.region s_tt cau_bl image=cau_bl_00 x=-116.5 y=15.0 use=false
+att.seq s_tt cau_bl prefix=cau_bl_ count=16 setup=0
+slot.add s_ntt bone=b_ntt
+att.region s_ntt no_bl image=no_bl_00 x=-31.5 y=23.0 use=false
+att.seq s_ntt no_bl prefix=no_bl_ count=26 setup=0
+anim.add thien_thach_bl dur=1.733
+key thien_thach_bl s_tt.attachment 0.000:cau_bl 0.600:-
+key thien_thach_bl s_tt.seq 0.000:loop,0,0.04167
+key thien_thach_bl b_tt.translate 0:0,0:easeIn 0.600:330,-530
+key thien_thach_bl s_ntt.attachment 0.600:no_bl 1.683:-
+key thien_thach_bl s_ntt.seq 0.600:once,0,0.04167
+vfx.shake thien_thach_bl bone=root t=0.600 dur=0.45 amp=9 freq=26 seed=5

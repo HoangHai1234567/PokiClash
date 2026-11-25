@@ -418,9 +418,10 @@ namespace PokiClash.EditorTools
             yield return Shot("tuong_tien_hoa");
             var p = s.Hero("ti_tach");
             Debug.Log($"[Thử] Tí Tách: thẻ {p.skill.lv}/{p.ult.lv}/{p.passive.lv}, sao {p.star}, cấp người chơi {s.level}");
-            // chỉ số trong trận phải khớp màn Tướng
-            var st = HeroStats.Compute(d.Cfg, d.Hero("ti_tach"), s.level, p.star);
-            var b = Battle.Create(d, Teams.Player(s), Teams.Enemy(d.Stage(1), d), 1);
+            // chỉ số trong trận phải khớp màn Tướng (HeroDetailDialog: gồm huy hiệu, tiềm năng). Bản cũ so chỉ số gốc với tướng đứng đầu đội
+            // nên báo lệch sai (câu 14 GD_Claude/12, sửa 2026-11-24; test PotentialTests.ChiSoManTuong_KhopTrongTran_KhiCoHuyHieuTiemNang)
+            var st = HeroStats.Compute(d.Cfg, d.Hero("ti_tach"), s.level, p.star, false, Potential.Mods(s, d, d.Hero("ti_tach")));
+            var b = Battle.Create(d, Teams.Player(s, new[] { "ti_tach" }, d), Teams.Enemy(d.Stage(1), d), 1);
             var f = b.ActiveOf(0);
             bool same = f.maxHp == st.hp && f.atk == st.atk && f.def == st.def && f.spd == st.spd;
             if (same) Debug.Log($"[Thử] Chỉ số trong trận khớp màn Tướng: máu {st.hp}, công {st.atk}, thủ {st.def}, tốc {st.spd}");

@@ -27,6 +27,7 @@ namespace PokiClash
             public GameObject[] navDots;
             public ScrollRect scroll;
             public RectTransform content;
+            public RectTransform safe; // khung an_toan (SafeArea) chứa chữ và nút; tờ giấy trải kín màn (2026-11-24)
         }
 
         [SerializeField] Parts p;
@@ -67,6 +68,14 @@ namespace PokiClash
         void OnDestroy()
         {
             if (Current == this) Current = null;
+        }
+
+        // tờ trải kín màn: nút đóng (con của tờ giấy, ModalService gắn) dời xuống bằng phần tai thỏ mà khung an_toan đã chừa
+        void Start()
+        {
+            if (!p.safe || !(p.safe.parent is RectTransform page)) return;
+            var close = (RectTransform)GetComponent<ModalSheet>().Close.transform;
+            close.anchoredPosition += new Vector2(0, -(1 - p.safe.anchorMax.y) * page.rect.height);
         }
 
         // ---------- mở ----------

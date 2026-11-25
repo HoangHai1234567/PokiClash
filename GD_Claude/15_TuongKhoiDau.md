@@ -139,6 +139,14 @@ Người dùng chốt: thu phục ở ải 1 của đảo cùng hệ (đánh l�
 - Không đổi lại được. Sổ tay bản dev có nút "Chọn lại tướng khởi đầu" để thử.
 - Bản lưu cũ đã có Giọt Sương thì coi như đã chọn Giọt Sương, không hiện màn chọn.
 
+**Màn chọn mới (người dùng 2026-11-24):** thay lưới 5 ô trên tờ giấy.
+- Nền đen trải kín màn. Tiêu đề "Chọn bạn đồng hành", dòng "Vuốt để xoay, chạm để chọn".
+- 5 tướng xếp vòng tròn 3D theo độ sâu: con trước to nhất; con sau nhỏ dần (còn 55%), nằm cao hơn, tối dần trên nền đen, xếp lớp theo độ sâu. Không đế.
+- Vuốt ngang xoay vòng; thả thì trôi theo đà rồi dừng đúng một con (tối đa 2 con mỗi lần vuốt). Chạm con phía sau thì vòng xoay nó ra trước; chạm con đang đứng trước thì nó đánh một đòn.
+- Con đứng trước: biểu tượng hệ + tên, "Hệ … · vai", danh hiệu; Máu, Công, Thủ mỗi dòng có số và thanh 5 nấc tượng trưng (xếp theo 5 tướng khởi đầu: thấp nhất 2 nấc, cao nhất 5 nấc, nấc chạy đầy lại mỗi lần đổi con; người dùng 2026-11-24: nấc hình bình hành nền trắng viền mực, Máu xanh lá, Công đỏ, Thủ xanh dương, component `StatPips`, ảnh `03 Art/Kit/nac_binh_hanh*.png` sinh bằng `ArtGen/UI/nac_chi_so/nac_binh_hanh.py`); Lực chiến; nút "Chọn …".
+- Animation: cả 5 chạy dáng đứng; mỗi con 4–7 giây làm một trò (con trước đánh hoặc tung chiêu, hai con bên đánh hoặc nhún, hai con xa nhún); con vừa dừng ở trước nhún bật và tung chiêu. Chọn xong: con đó tung chiêu, 4 con kia nhún chào lệch nhịp, 1,3 giây sau mới đóng.
+- Code: `App/StarterDialog.cs`, `App/SwipeArea.cs`, `HeroViewer.Centred` (mọi clip đứng giữa, không dời trái như hộp chi tiết). Prefab dựng bằng menu `PokiClash/Prefab/Hộp thoại và màn/Hộp chọn tướng khởi đầu (ChonTuongKhoiDau)`. Chụp thử: `PokiClash/Thử/Người chơi mới/Màn chọn tướng: vòng 3D, chụp (đang Play)`, ảnh ra `Temp/PokiShots/chon_tuong/`.
+
 ## 3. Đo và tiêu chí đạt
 
 Thêm menu `PokiClash/Cân bằng nhanh/Tướng khởi đầu (ghi CSV vào Logs)`. Trước khi đo, sửa `ProgressSim.BestTeam`: lấy đúng số ô đã mở (`Progress.TeamSlots`), ưu tiên tướng khắc hệ đảo đang đánh.

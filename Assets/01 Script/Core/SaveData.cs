@@ -92,6 +92,7 @@ namespace PokiClash.Core
         public HomeState home; // Nhà (2026-11-18, thay Trang trại; null = chưa mở lần nào)
         public AdState ads; // lượt quảng cáo đã dùng trong ngày theo chỗ đặt
         public TreeState trees; // cây bi (null = chưa tính lần nào)
+        public SoPhepState sophep; // Sổ Phép (Core/SoPhep.cs; null = chưa đụng tới sổ)
         public Entitlements ent; // quyền lợi gói đã mua
         public ShopState shop; // cửa hàng, ưu đãi, Lọ Bi, thẻ, túi Rương Tướng (Shop.cs, 2026-11-23; null = chưa dùng)
         public BadgeProg[] badges = { new BadgeProg(), new BadgeProg(), new BadgeProg(), new BadgeProg(), new BadgeProg() }; // chỉ số theo Elem
@@ -429,7 +430,7 @@ namespace PokiClash.Core
         {
             "v", "level", "exp", "balls", "ballsSpent", "legendDone", "gift", "giftTier", "rings", "heroes", "team", "zones", "zoneChests", "clears",
             "afkSince", "afk", "badges", "potentialStones", "evoStones", "potentialCrystals", "caveFloor", "badgeGifts", "cave", "farm", "home", "trees", "ads", "ent", "settings", "stats", "intro", "starter", "chests",
-            "shop",
+            "shop", "sophep",
         };
 
         public static int VersionOf(string json)
@@ -592,6 +593,7 @@ namespace PokiClash.Core
             var eo = J.Obj(o, "ent");
             if (eo != null) s.ent = new Entitlements { passUntil = J.Num(eo, "passUntil"), noAds = J.Bool(eo, "noAds") };
             s.shop = Shop.Read(J.Obj(o, "shop"));
+            s.sophep = SoPhepState.Read(J.Obj(o, "sophep"));
             var bd = J.Obj(o, "badges");
             for (int i = 0; i < 5; i++)
             {
@@ -777,6 +779,7 @@ namespace PokiClash.Core
             if (s.ent != null)
                 o["ent"] = new Dictionary<string, object> { ["passUntil"] = s.ent.passUntil, ["noAds"] = s.ent.noAds };
             if (s.shop != null) o["shop"] = Shop.Write(s.shop);
+            if (s.sophep != null) o["sophep"] = s.sophep.Write();
             if (s.farm != null)
                 o["farm"] = new Dictionary<string, object>
                 {

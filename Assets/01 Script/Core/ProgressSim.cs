@@ -41,6 +41,9 @@ namespace PokiClash.Core
 
     public static class ProgressSim
     {
+        // Sổ Phép (2026-11-24): người chơi ảo vẽ theo đường gợi ý sau khi tiến hóa (tiến hóa được ưu tiên đá). Tắt để so nhịp có / không sổ
+        public static bool SoPhepOn = true;
+
         const double H = 3600000;
 
         // giá trị khởi điểm (design.md, câu hỏi còn mở)
@@ -111,8 +114,9 @@ namespace PokiClash.Core
                 while (s.afk.chests.Count > 0 && AdGate.Use(s, d.Cfg, day, AdGate.AfkChestOpen))
                     if (Afk.OpenChest(s, d, now, rng, true) != null) rep.afkChests++;
 
-            // 1b. trang trại: thu hoạch, rút tướng hết sức, tự xếp
-            if (Farm.Open(s, d.Cfg))
+            // 1b. trang trại: thu hoạch, rút tướng hết sức, tự xếp. Nhà thay trang trại (mô phỏng vẫn dùng mô hình trang trại cũ cho bi
+            // của ruộng vườn, gần đúng), mở cùng Nhà (Home.Open: sau ải thứ 2 từ 2026-11-24)
+            if (Home.Open(s, d.Cfg))
             {
                 rep.ballsFromFarm += Farm.Harvest(s, d, now);
                 var f = Farm.Of(s, d.Cfg, now);
@@ -209,6 +213,9 @@ namespace PokiClash.Core
                 }
             }
 
+            // 4b. Sổ Phép: vẽ theo đường gợi ý bằng nét đang có (đá còn lại sau tiến hóa)
+            if (SoPhepOn) SoPhep.AutoBuy(s, d.Cfg);
+
             // 5. tăng tốc AFK trước khi rời game
             if (p.ads && !Afk.Boosting(s, now) && !Afk.Pending(s, d.Cfg, now).full && AdGate.Use(s, d.Cfg, day, AdGate.AfkBoost)) Afk.Boost(s, d.Cfg, now);
         }
@@ -280,7 +287,7 @@ namespace PokiClash.Core
             {
                 var hp = s.Hero(h);
                 return $"{h}:{hp.star}:{hp.skill.lv}{hp.ult.lv}{hp.passive.lv}";
-            }));
+            })) + "|" + SoPhep.Key(s);
             if (!cache.TryGetValue(key, out var bot))
             {
                 bot = Sim.Stage(d, s, st, simN, 1000, team).WinRate;

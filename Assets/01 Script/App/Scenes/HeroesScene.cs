@@ -104,8 +104,7 @@ namespace PokiClash
             var s = App.Save.Data;
             // hướng dẫn C9 còn chờ: bỏ lọc hệ để ô tướng đồng hành chắc chắn hiện (lọc cũ nhớ trong PlayerPrefs có thể giấu nó, tour
             // thử 2026-11-23 kẹt ở màn này vì lọc Kim còn sót)
-            if (HasFilters && filter >= 0 && !string.IsNullOrEmpty(s.starter) && !Tutorial.Done(s, Tutorial.UpCard) &&
-                Progress.CanUpCard(s, d.Cfg, s.starter, CardSlot.Skill))
+            if (HasFilters && filter >= 0 && Tutorial.UpCardDue(s, d))
                 filter = -1;
             var list = HasFilters ? Sorted(d, s, filter, sort, desc) : Sorted(d, s, -1, SortKey.Power, true);
             for (int i = 0; i < list.Count; i++)
@@ -135,7 +134,7 @@ namespace PokiClash
                 if (id == s.starter)
                 {
                     Guide.Mark("heroes.starter", tile);
-                    if (!Tutorial.Done(s, Tutorial.UpCard) && Progress.CanUpCard(s, d.Cfg, id, CardSlot.Skill))
+                    if (Tutorial.UpCardDue(s, d))
                         Guide.Force(Tutorial.HeroTile, "heroes.starter", Loc.F("Chạm {0}.", d.Hero(id).name), null, true);
                 }
                 if (popIn && i < 24) PokiClash.UI.UiMotion.Of(tile).Spawn(popFirst + i * popStep);

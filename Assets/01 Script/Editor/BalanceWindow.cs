@@ -48,27 +48,38 @@ namespace PokiClash.EditorTools
             }
         }
 
-        // quét nhịp: 3 kiểu người chơi × 30 ngày với các tổ hợp EXP lên cấp, bi thụ động (cây, trang trại), lượt Hái ×2
-        [MenuItem("PokiClash/Cân bằng nhanh/Quét nhịp: EXP lên cấp, cây bi, trang trại (ghi Console)", priority = 26)]
+        // quét nhịp: 3 kiểu người chơi × PaceDays ngày với các tổ hợp bi thắng ải, cây bi (tốc độ, sức chứa), EXP lên cấp. Phương án
+        // đang thử sửa trong PaceVariants (lần quét 2026-11-24: dời bi từ cây sang trận, cây chứa đủ 24 giờ)
+        const int PaceDays = 60;
+
+        static void SetTrees(BalanceConfig c, double perHour, double hours, params int[] unlock)
+        {
+            c.trees.perHour = perHour;
+            c.trees.cap = perHour * hours;
+            if (unlock.Length > 0) c.trees.unlockLevels = new List<int>(unlock);
+        }
+
+        // ải tướng giữ +2 để ải 1 vẫn 3 bi (13 bi đầu của hướng dẫn viết sẵn kết quả); mini boss, boss nhân bonusMult
+        static void SetStageBalls(BalanceConfig c, int b, int step, int bonusMult)
+        {
+            c.stageBalls = new StageBallsConfig { @base = b, step = step, boss = 8 * bonusMult, mini = 4 * bonusMult, hero = 2 };
+        }
+
+        // lượt 1 (2026-11-24): gốc Vừa cấp 200 ngày 59, Ít cấp 51 ngày 30, bi ải 2%; cây 4/24 giờ + bi ải 2 + 1 mỗi 2 ải ×2: ngày 55, Ít 70,
+        // bi ải 15% (Cây bi có Hái ×2 quảng cáo vẫn áp đảo). Lượt 2: cây 5/24 giờ, mở cây sớm, bi ải tăng mạnh theo độ sâu
+        static (string name, Action<BalanceConfig> set)[] PaceVariants => new (string, Action<BalanceConfig>)[]
+        {
+            ("cây 5/24 giờ, cây mở 15/35/60/90, bi ải 1 + 1 mỗi 2 ải, thưởng ×2", c => { SetTrees(c, 5, 24, 15, 35, 60, 90); SetStageBalls(c, 1, 2, 2); }),
+            ("cây 5/24 giờ, cây mở 15/35/60/90, bi ải 1 + 1 mỗi ải, thưởng ×2", c => { SetTrees(c, 5, 24, 15, 35, 60, 90); SetStageBalls(c, 1, 1, 2); }),
+            ("cây 4/24 giờ, cây mở 15/35/60/90, bi ải 1 + 1 mỗi ải, thưởng ×2", c => { SetTrees(c, 4, 24, 15, 35, 60, 90); SetStageBalls(c, 1, 1, 2); }),
+            ("cây 5/24 giờ, cây mở 30/50/80/110, bi ải 1 + 1 mỗi ải, thưởng ×2", c => { SetTrees(c, 5, 24); SetStageBalls(c, 1, 1, 2); }),
+            ("cây 4/24 giờ, cây mở 10/25/45/70, bi ải 1 + 1 mỗi ải, thưởng ×3", c => { SetTrees(c, 4, 24, 10, 25, 45, 70); SetStageBalls(c, 1, 1, 3); }),
+        };
+
+        [MenuItem("PokiClash/Cân bằng nhanh/Quét nhịp: bi thắng ải, cây bi, EXP (ghi Console)", priority = 26)]
         static void QuickPace()
         {
-            void Passive(BalanceConfig c, double k)
-            {
-                c.trees.perHour *= k;
-                c.trees.cap *= k;
-                c.farm.@base *= k;
-            }
-            void TreeDouble(BalanceConfig c, int n) => c.ads.limits.Find(x => x.p == AdGate.TreeDouble).n = n;
-            var variants = new (string name, Action<BalanceConfig> set)[]
-            {
-                ("gốc", c => { }),
-                ("EXP ×2", c => c.expBase *= 2),
-                ("bi thụ động ×0,5", c => Passive(c, 0.5)),
-                ("EXP ×2, bi thụ động ×0,5", c => { c.expBase *= 2; Passive(c, 0.5); }),
-                ("EXP ×2, bi thụ động ×0,5, Hái ×2 1 lần/ngày", c => { c.expBase *= 2; Passive(c, 0.5); TreeDouble(c, 1); }),
-                ("EXP ×3, bi thụ động ×0,5, Hái ×2 1 lần/ngày", c => { c.expBase *= 3; Passive(c, 0.5); TreeDouble(c, 1); }),
-                ("EXP ×2, bi thụ động ×0,35, Hái ×2 1 lần/ngày", c => { c.expBase *= 2; Passive(c, 0.35); TreeDouble(c, 1); }),
-            };
+            var variants = PaceVariants;
             var cache = new Dictionary<string, double>();
             var sb = new StringBuilder();
             var t0 = DateTime.Now;
@@ -83,10 +94,13 @@ namespace PokiClash.EditorTools
                     {
                         if (EditorUtility.DisplayCancelableProgressBar("Quét nhịp", $"{variants[i].name}: {p.name}", i / (float)variants.Length))
                             throw new OperationCanceledException();
-                        var r = ProgressSim.Run(d, p, 30, 1, 8, cache);
-                        string Day(Elem z) => r.zoneDay[(int)z] < 0 ? "chưa" : "ngày " + r.zoneDay[(int)z];
-                        sb.Append($"  {p.name}: Thủy {Day(Elem.Thuy)}, Hỏa {Day(Elem.Hoa)}, Kim {Day(Elem.Kim)}, Mộc {Day(Elem.Moc)}, Thổ {Day(Elem.Tho)}; " +
-                                  $"cấp ngày 3/7/14/21/30 = {r.level[3]}/{r.level[7]}/{r.level[14]}/{r.level[21]}/{r.level[30]}; bi ải {r.ballsFromStages}, cây {r.ballsFromTrees}, trang trại {r.ballsFromFarm}, đã thả {r.ballsDropped}; tiến hóa {r.evolves}\n");
+                        var r = ProgressSim.Run(d, p, PaceDays, 1, 8, cache);
+                        int top = Array.FindIndex(r.level, l => l >= d.Cfg.maxLevel);
+                        int income = Math.Max(1, r.ballsFromStages + r.ballsFromTrees + r.ballsFromFarm);
+                        sb.Append($"  {p.name}: cấp ngày 1/3/7/14/30/45/60 = {r.level[1]}/{r.level[3]}/{r.level[7]}/{r.level[14]}/{r.level[30]}/{r.level[45]}/{r.level[60]}; " +
+                                  $"cấp {d.Cfg.maxLevel}: {(top < 0 ? "chưa" : "ngày " + top)}; bi ải {r.ballsFromStages} ({100 * r.ballsFromStages / income}%, " +
+                                  $"{(double)r.ballsFromStages / Math.Max(1, r.wins):0.0}/trận thắng), cây {r.ballsFromTrees} ({100 * r.ballsFromTrees / income}%), " +
+                                  $"trang trại {r.ballsFromFarm} ({100 * r.ballsFromFarm / income}%), đã thả {r.ballsDropped}; ải {r.cleared[PaceDays]}; tiến hóa {r.evolves}\n");
                     }
                 }
                 Debug.Log($"[Cân bằng] Quét nhịp trong {(DateTime.Now - t0).TotalSeconds:0} giây\n" + sb);

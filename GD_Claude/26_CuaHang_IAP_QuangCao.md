@@ -706,7 +706,9 @@ animation gì đó (ulti hoặc appear rồi idle), nhìn hình hơi vỡ, backg
 
 ### Màn cửa hàng toàn màn hình (học bố cục Critters)
 
-- `App/Shop/ShopPage.cs` (`Dialogs/CuaHangLon`, biến thể tờ giấy gốc trải kín màn, cờ `ModalSheet.flat`: trượt vào không nghiêng). Một
+- `App/Shop/ShopPage.cs` (`Dialogs/CuaHangLon`, biến thể tờ giấy gốc trải kín màn, cờ `ModalSheet.flat`: trượt vào không nghiêng; 2026-11-24
+  người dùng: "shop nên full màn": tờ giấy tràn quá mép màn 30 điểm để giấu viền, bỏ băng keo, bỏ khe 40 ở trên; chữ và nút trong khung
+  `an_toan` (SafeArea) vì lớp hộp thoại phủ cả tai thỏ; nút đóng của tờ giấy đặt góc phải hàng tiêu đề, `ShopPage.Start` dời xuống theo tai thỏ). Một
   trang cuộn dài, hàng 5 nút mục nhảy tới mục (chấm đỏ khi có quà chờ), số bi góc trên:
   Ưu đãi (thẻ ngang to) · Quà miễn phí (quà hôm nay, quà thẻ / gói ngày, bi và trứng xem quảng cáo, mốc quảng cáo) · Trứng tướng (túi trứng chờ
   nở, lưới 3 cột theo bậc, gói ×10 chồng 3 quả, gói tướng tuần, vé, tỉ lệ) · Bi (lưới 3 cột 6 gói có hình riêng, nhãn "Lần đầu ×2") ·
@@ -732,6 +734,41 @@ animation gì đó (ulti hoặc appear rồi idle), nhìn hình hơi vỡ, backg
   chớp 5 khung → lộ diện 0,3 s (kéo dọc / ép) và rig diễn clip ra sân (không có thì chiêu cuối nếu không nhảy đè, không nữa thì đánh) rồi
   đứng → tướng lên, bảng tin giấy trượt từ phải vào vượt 20 (TƯỚNG MỚI!, tên, bậc, hệ, danh hiệu, huy hiệu hệ), nút Xem tướng / Tiếp nảy nhắc.
   Lớp chồng theo bậc: Khá đĩa giấy, Hiếm tia xoay, Sử Thi thêm sao lấp lánh và lớp tia thứ hai, Huyền Thoại thêm sao băng.
+- **Làm lại 2026-11-24** (người dùng: "quét kĩ phần unlock tướng của brawlstar rồi copy y hệt, background màu trơn gradiant thôi"). Quét bản
+  dựng lại clip `gatcha_screen_hero_drop` ở `D:\ClashRoyalePrototype\GDD\RefBrawlStars` (dòng thời gian `composite/timeline.json`, ghi chú
+  `ThamKhao_BrawlStars_MoQua.md` mục 4; bản mổ `D:\Ripper\BrawlStar` ở máy kia). Chép đúng nhịp và dàn cảnh, hình vẫn của mình:
+  - khung 0–112 (1,87 s): cột sáng xanh dọc màn (nền lam, dải giữa, lõi, 9 vệt sáng dọc trôi lên), tướng là bóng tối **đủ cỡ, đứng yên
+    chỗ, quay đều 3 vòng**, dừng ở mặt trước. Bỏ phóng 0,1 → 1, sao tụ, lấy đà;
+  - khung 113: cắt cứng sang **nền gradient tròn màu bậc** (`Assets/03 Art/Shop/nen_gradient_tron.png`, ảnh xám nhân màu bậc; bản gốc là
+    tia màu bậc). Chớp trắng tắt dần khung 114–146. Tướng hiện màu thật, diễn clip ra sân rồi đứng; bỏ kéo dọc / ép;
+  - khung 134: tướng lên 260, bảng tin trượt từ phải vào trong 36 khung (vượt 30 rồi về), rồi huy hiệu hệ, nút;
+  - bảng tin có 3 dòng Máu, Công, Thủ như màn chọn tướng khởi đầu (người dùng 2026-11-24: "các tướng mới nhận cũng nên có như vậy"):
+    số là chỉ số lúc này (cấp người chơi, sao của tướng, như hộp chi tiết); 5 nấc theo thứ hạng trong các tướng cùng độ hiếm (xếp cả
+    dàn thì độ hiếm lấn hết: Thường toàn 1–2 nấc, Huyền thoại 5/5/5), nấc đầy dần khi bảng gần tới chỗ;
+  - bỏ mọi lớp chồng theo bậc (đĩa giấy, tia, sao lấp lánh, sao băng): mọi bậc một nền, chỉ khác màu.
+  - Bản gốc màn ngang (tướng trái, bảng phải), bảng chữ do code đặt nên bản dựng lại không có bố cục chữ; màn mình dọc nên bảng nằm dưới.
+  - Dựng riêng: menu `PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: chỉ màn mở khoá tướng (MoKhoaTuong)`.
+- **Làm lại lần 2, 2026-11-24 tối: bút chì vẽ lên trang sổ** (người dùng: "khi ăn unlock tướng là có bút chì vẽ lên trang giấy hình tướng
+  rồi tướng bật ra play 1 animation thì đấy, có fx sao trắng khi nó bật ra rồi hiện chỉ số ở dưới"; chọn: bút chì đi theo viền thật, cả
+  màn là trang sổ, thay hẳn màn cột sáng ở trên). Nhịp (~3 s tới lúc bật ra):
+  - 0–0,35 s: trang sổ phép (giấy viền mực, dòng kẻ, lề đỏ) trượt lên trên nền gradient màu bậc (lộ quanh mép trang). Trong lúc đó dựng
+    rig ẩn, đứng yên khung đầu dáng đứng, bỏ bóng chân; đọc độ phủ của ảnh rig bằng `AsyncGPUReadback` hai lượt (cả ảnh 128 tìm hộp, cắt
+    hộp 256) rồi lấy vòng viền ngoài (`Core/Contour.cs`: ngưỡng, đóng khe, tách mảng, bỏ mảng vụn, lần viền Moore, bớt điểm, bo góc,
+    ngược chiều kim đồng hồ từ đỉnh; tối đa 5 vòng, mảng lớn trước; test `ContourTests`);
+  - bút chì (`03 Art/Islands/Co/but_chi.png`, gốc ở ngòi) bay vào, lần từng vòng viền (0,75–1,3 s theo độ dài), nét chì `App/InkStroke.cs`
+    (Graphic tự dựng lưới, dày mỏng theo nhịp tay) hiện ngay sau ngòi; sang vòng khác thì nhấc bút (cung lên);
+  - gạch zích zắc 7 hàng từ trên xuống 0,7 s: tranh chì hiện dần (shader `03 Art/Shaders/UIPencilDraw.shader`, material `PencilDraw.mat`:
+    nét biên độ sáng + gạch chéo chỗ tối, cùng công thức hàng với bút chì; tham số theo màu đỉnh nên không cần bản sao material);
+  - sáp màu tô tràn chéo 0,5 s, bút quẹt theo mép tô rồi bay ra;
+  - bật ra: tranh và nét chì tắt, sticker thật nảy (0,8 → 1,14 → 0,95 → 1, nhích lên 70), diễn chiêu cuối tại chỗ (chiêu nhảy đè thì
+    đòn đánh; không dùng clip ra sân vì có con bay từ ngoài vào) rồi đứng; 8 sao trắng viền mực bắn ra + 12 lấp lánh nháy quanh tướng
+    (`03 Art/Shop/sao_trang.png`, `lap_lanh.png`, sinh bằng `ArtGen/UI/mo_khoa_tuong/sao.py`);
+  - ruy băng TƯỚNG MỚI! đóng xuống đầu trang, khối chữ dưới tướng nảy ra (tên, viên bậc + biểu tượng hệ "Hệ …", danh hiệu, 3 dòng chỉ
+    số, nút Xem tướng / Tiếp). Chạm màn trong lúc vẽ thì vẽ xong ngay và bật ra.
+  - Rig chưa tải về sau 0,8 s thì vẽ trên chân dung (cùng cách, nguồn là sprite chân dung); máy không có `AsyncGPUReadback` thì bỏ bước lần
+    viền, gạch và tô trong hộp ước theo khung rig.
+  - Tiếng: whoosh lúc mở trang; tiếng bút chì sột soạt lặp suốt lúc vẽ (khoá "pencil", Assets/03 Art/Audio/Sfx/ui_but_chi.ogg, gen Magnific
+    2026-11-24, nguồn ArtGen/Sfx/but_chi), tắt khi bật ra; chest + stamp lúc bật ra.
 - Rig qua `AolaSticker` (thêm tham số `maxPx`, màn này 2048 cho nét); dạng chưa có rig (gói tải sau) thì dùng chân dung.
 - Bật ở: nở trứng (ngay sau ô mảnh; nở nhiều thì sau bảng tổng), hộp nhận quà của cửa hàng (vé, gói mảnh), kết quả trận (trừ trận hướng dẫn).
 - Gói tải sau (GD_Claude/27): rig của tướng ngoài 5 dòng khởi đầu nằm trong gói; màn gọi `AolaActor.Ready(form)` lúc mở để xin gói, pha tụ
@@ -742,7 +779,7 @@ animation gì đó (ulti hoặc appear rồi idle), nhìn hình hơi vỡ, backg
 ### Kiểm
 
 - Tour `PokiClash/Thử/Cửa hàng: tour chụp` (20 ảnh, `Temp/PokiShots/cua_hang/`: 5 mục, mua bi, nở 1 trứng theo pha, nở 3 trứng, popup); tour
-  `Cửa hàng: màn mở khoá tướng, 5 bậc` (35 ảnh, `Temp/PokiShots/mo_khoa/`). Cả hai sao lưu và trả bản lưu.
+  `Cửa hàng: màn mở khoá tướng, 5 bậc` (45 ảnh, 9 mốc mỗi bậc, `Temp/PokiShots/mo_khoa/`). Cả hai sao lưu và trả bản lưu.
 - EditMode 182 test: 181 đạt; trượt 1 bài cũ `PrefabOnlyTests` (NumberTicker, UiMotion, HomeScene, không do phần này). Test mới:
   `Trung_NoDungBac_CoLucLenBac`, `Trung_NoTuTui_RaManh`, `Trung_RuongCuDoiThanhTrung`, `RuongBacVang_RoiTrung_VaoTui`.
 
