@@ -1644,8 +1644,9 @@ namespace PokiClash
         static readonly float[] SongChan = { -1.15f, -0.75f, -0.35f, 0.05f, 0.42f };
 
         // sóng thần: nước tụ dưới chân tướng lúc lấy đà, tới khung nhả một con sóng liền có mào cuộn lăn tới, đổ ập lên đối thủ
-        public float NSong(Vector2 casterFeet, float casterH, Vector2 foeFeet, float tH, float lead)
+        public float NSong(Vector2 casterFeet, float casterH, Vector2 foeFeet, float tH, float lead, float to = 1)
         {
+            float tS = tH * to; // to > 1: sóng thần (Thôn Kình, 2026-11-25): thân sóng, mào, toé đổ to theo
             float sx = foeFeet.x < casterFeet.x ? -1 : 1;
             var A = casterFeet + new Vector2(sx * 0.46f * casterH, -4);
             var B = foeFeet + new Vector2(0, 4);
@@ -1674,8 +1675,8 @@ namespace PokiClash
                 float t = T0 - TR + q.age;
                 var c = Front_(t, out float pr);
                 float fall = 1 - SmoothStep(T0 + TT, T0 + TT + TC, t);
-                float hg = (0.55f + 0.6f * pr) * tH * EaseOut(q.age / 0.22f) * fall;
-                float wd = (0.5f + 0.25f * pr) * tH * (1 + 0.6f * (1 - fall));
+                float hg = (0.55f + 0.6f * pr) * tS * EaseOut(q.age / 0.22f) * fall;
+                float wd = (0.5f + 0.25f * pr) * tS * (1 + 0.6f * (1 - fall));
                 if (hg < 4) return;
                 if (NS) // bộ nước shader: thân sóng là dải theo mặt cắt + dải bọt mào (HatNuocShader.cs)
                 {
@@ -1712,7 +1713,7 @@ namespace PokiClash
                 }
             };
             At(T0 - TR, () => Add(body));
-            if (NS && NuocGoi) GSongThem(() => Now(out _), sx, tH, T0, TT); // bản 3: vệt trượt, sóng trượt, khói bọt, toé mưa của gói
+            if (NS && NuocGoi) GSongThem(() => Now(out _), sx, tS, T0, TT); // bản 3: vệt trượt, sóng trượt, khói bọt, toé mưa của gói
             Every(T0, T0 + TT, 46, x =>
             {
                 var c = Now(out float pr);
@@ -1734,7 +1735,7 @@ namespace PokiClash
             // mực bắn qua đầu và 5 cụm bọt viền mực tràn hai bên. Mào cuộn ở ~0,8 bề ngang khung nên neo lùi về phía người ra chiêu 0,36 cao
             // khung cho mào đổ trúng đối thủ; trong mờ 0,86 (khối nước lớn phủ lên con bị trúng). Phát sớm 0,08 s cho chồng lên lúc mảng sụp
             bool fbS = !NS && FbNuoc("song_nuoc");
-            if (NS) At(T0 + TT - 0.04f, () => NSongDo(foeFeet, tH, sx)); // bộ nước shader: sóng đổ tới đích
+            if (NS) At(T0 + TT - 0.04f, () => NSongDo(foeFeet, tS, sx)); // bộ nước shader: sóng đổ tới đích
             if (fbS)
             {
                 float hs = 1.2f * tH;
@@ -1752,7 +1753,7 @@ namespace PokiClash
                         Wave(B + new Vector2(U(-50, 50), -10), new Vector2(U(-150, 150) + u.x * 120, -U(380, 640)), U(0.45f, 0.65f), 12,
                             U(20, 30) * (fr ? 0.6f : 1), fr ? Front : Back, 1, 0.4f, 1.5f, 1100, 0.72f, 0.6f);
                     }
-                Splash(foeFeet + new Vector2(0, -0.4f * tH), 1.1f, foeFeet.y, tH, Front, u);
+                Splash(foeFeet + new Vector2(0, -0.4f * tH), 1.1f * to, foeFeet.y, tH, Front, u);
                 if (!fbS)
                     for (int i = 0; i < 5; i++) // bọt tràn hai bên sát đất, thành cụm
                     {
@@ -2124,7 +2125,8 @@ namespace PokiClash
         public static bool IsNuoc(string kind) => kind != null && kind.StartsWith("n_");
 
         // chiêu chỉ phát ở khung trúng (không có pha tụ): cú va của chiêu lao tới
-        public static bool NuocAtHit(string kind) => kind == "n_va" || kind == "n_la_va" || kind == "n_gai_va" || kind == "n_sat_dap" || kind == "n_sat_dap1";
+        public static bool NuocAtHit(string kind) => kind == "n_va" || kind == "n_la_va" || kind == "n_gai_va" || kind == "n_sat_dap" || kind == "n_sat_dap1"
+            || kind == "n_xa_chem";
 
         // ult: chiêu cuối (tia dài hơn, mưa lâu hơn)
         public float PlayNuoc(string kind, bool ult, Vector2 casterFeet, float casterH, Vector2 mouth, Vector2 foeFeet, Vector2 foeBody, float tH,
@@ -2153,6 +2155,22 @@ namespace PokiClash
                 case "n_xoay": return NXoay(foeFeet, tH, lead);
                 case "n_voi": return NVoi(foeFeet, tH, lead);
                 case "n_loc": return NVoi(foeFeet, tH, lead, casterFeet + new Vector2(Mathf.Sign(foeFeet.x - casterFeet.x) * 0.85f * casterH, 0));
+                // chiêu nước mới theo gói mẫu (2026-11-25, HatNuocChieu.cs)
+                case "n_lien_dan": return NLienDan(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // Tí Tách: 5 viên đạn nước liên tiếp
+                case "n_bong_nay": return NBongNay(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // Thạch Giải: 3 bong bóng nảy
+                case "n_cau_nhot": return NCauNhot(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead); // Thạch Giải: cầu bọc đối thủ rồi vỡ
+                case "n_bom": return NBom(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);             // Hải Đăng: bom nước bay vồng nổ cột nước
+                case "n_cau_xoay": return NCauXoay(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);   // Giông Bão: cầu xoáy từ đầu trượng
+                case "n_mua_giong": return NMuaGiong(casterFeet, casterH, foeBody, foeFeet, tH, lead);        // Giông Bão: mưa giông, cột thác dội, sét
+                case "n_song_than": return NSongThan(casterFeet, casterH, mouth, foeFeet, tH, lead);          // Thôn Kình: luồng nước tuôn từ miệng thành sóng thần
+                case "n_dao_lien": return NDaoLien(casterFeet, foeBody, foeFeet, tH, lead); // Viêm Đao: chém lửa liên hoàn (Chém nước đổi bảng lửa), nổ lớn ở cú bổ
+                case "n_cau_ma": return NCauMa(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);      // Thôn Kình: triệu hồi cầu ma thủy ở thân đối thủ rồi nổ
+                case "n_thuy_xa": return NThuyXa(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);    // Uyên Xà: rắn nước trườn từ sừng tới ngoạm
+                case "n_xa_chem": return NXaChem(casterFeet, foeBody, foeFeet, tH);                          // Uyên Xà: ba nhát chém nước lúc đuôi quất trúng
+                case "n_bao_xoay": return NBaoXoay(foeFeet, tH, lead, false);                                 // Hàn Ngạc Vương: siêu bão xoáy
+                case "n_bao_xoay1": return NBaoXoay(foeFeet, tH, lead, true);                                 // Ngạc Nhi: bão xoáy nhẹ
+                case "n_loat_cau": return NLoatCau(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);  // Hải Long: mỗi đầu nhả một cầu nước
+                case "n_loat_tia": return NLoatTia(casterFeet, casterH, mouth, foeBody, foeFeet, tH, lead);  // Hải Long: mỗi đầu bắn một tia Water Laser (HatHaiLongTia.cs)
                 case "n_la": return NLa(mouth, foeBody, foeFeet, tH, lead); // bộ Mộc (HatMoc.cs): phun lá
                 case "n_la_va": return NLaVa(foeBody, foeFeet, tH); // cú húc: lá vỡ tung lúc chạm
                 case "n_gai": return HasGai ? NGai(casterFeet, casterH, foeFeet, foeBody, tH, lead) : NLa(mouth, foeBody, foeFeet, tH, lead); // gồng gai: gai trồi từ đất
@@ -2319,6 +2337,20 @@ namespace PokiClash
                 "n_xoay" => 0.4f,
                 "n_voi" => 1.2f,
                 "n_loc" => 0.3f,
+                "n_lien_dan" => 4 * 0.11f + 0.1f,
+                "n_bong_nay" => 2 * 0.13f + 0.12f,
+                "n_cau_nhot" => 0.12f,
+                "n_bom" => 0.14f,
+                "n_cau_xoay" => 0.16f,
+                "n_mua_giong" => 1.05f,
+                "n_song_than" => 0.45f,
+                "n_thuy_xa" => 0.2f,
+                "n_dao_lien" => 0.32f,
+                "n_cau_ma" => 0.6f,     // cầu prefab gốc giữ 0,5 s sau khung há rồi mới nổ
+                "n_bao_xoay" => 1.2f,
+                "n_bao_xoay1" => 1.2f,
+                "n_loat_cau" => 0.35f,
+                "n_loat_tia" => LoatTiaGiu,
                 "n_la" => LaDur + 0.04f,
                 "n_cau_tia" => 0.88f + 0.05f,
                 "n_giac_tia" => 0.88f + 0.05f,

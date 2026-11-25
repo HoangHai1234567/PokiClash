@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: UIVeTayRT_Moc
+  m_Shader: {fileID: 4800000, guid: 776c189d60db2a349b8b543a055902b3, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseTex:
+        m_Texture: {fileID: 2800000, guid: d2b56625d06fe9c4e81815fc8be03968, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _AlphaHi: 0.5
+    - _AlphaLo: 0.08
+    - _AlphaMax: 0.85
+    - _AlphaMid: 0.45
+    - _ColorMask: 15
+    - _DamSac: 1.3
+    - _DoiSac: -50
+    - _GiuGoc: 0.55
+    - _Hatch: 0.35
+    - _HatchPx: 110
+    - _Phang: 0.45
+    - _Quang: 1.1
+    - _Run: 0.05
+    - _RunCo: 260
+    - _SacSang: 0.9
+    - _Stencil: 0
+    - _StencilComp: 8
+    - _StencilOp: 0
+    - _StencilReadMask: 255
+    - _StencilWriteMask: 255
+    - _UseUIAlphaClip: 0
+    m_Colors:
+    - _Bands: {r: 0.16, g: 0.34, b: 0.62, a: 0}
+    - _ColBody: {r: 0.624, g: 0.89, b: 0.416, a: 1}
+    - _ColDeep: {r: 0.184, g: 0.718, b: 0.478, a: 1}
+    - _ColFoam: {r: 0.933, g: 0.984, b: 0.69, a: 1}
+    - _ColQuang: {r: 0.8, g: 1, b: 0.55, a: 1}
+    - _ColShade: {r: 0.094, g: 0.43, b: 0.29, a: 1}
+  m_BuildTextureStacks: []
+  m_AllowLocking: 1

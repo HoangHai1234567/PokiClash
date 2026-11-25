@@ -165,8 +165,9 @@ namespace PokiClash
                 return r * NenNha(t, L);
             };
             float goc = T;
-            // tia vẽ sẵn (2026-11-19, da vàng DaTiaVang gần màu hổ phách): cầu xoáy đầu nòng thay quả cầu CauLa, bám đỉnh sừng như cũ
-            bool fb = HasTia(DaTiaVang);
+            // tia vẽ sẵn (2026-11-19, da vàng DaTiaVang gần màu hổ phách): cầu xoáy đầu nòng thay quả cầu CauLa, bám đỉnh sừng như cũ;
+            // 2026-11-25: có lưới shader thì là tia năng lượng kiểu Water Laser bảng hổ phách (GiacTiaFb → ELaser)
+            bool fb = CoLaser || HasTia(DaTiaVang);
             At(tTu, () =>
             {
                 if (!fb) CauLa(cFn, L + dur - tTu, rFn, Front, L - tTu);
@@ -216,12 +217,21 @@ namespace PokiClash
             float tDuoi = dai / Mathf.Max(380, dai / 0.32f);          // đuôi bay nốt vào đích (tốc trôi đoạn của TiaFb)
             float tNgung = Mathf.Max(hit + 0.3f, tHet - tDuoi);       // ngừng nhả
             var w = W;
-            At(tNong, () => TiaFb(DaTiaVang, tu, () => cham, day, tPhong - tNong, tNgung - hit));
+            // 2026-11-25: tia năng lượng kiểu Water Laser (ELaser, bảng hổ phách, cầu cau_vang), cùng giờ chạm; tia vụn toé ngược thưa hơn vì
+            // chỗ trúng của ELaser đã tự bắn gai + tia vụn
+            bool laser = CoLaser;
+            At(tNong, () =>
+            {
+                if (laser) ELaser(LaserHoPhach, tu, () => cham, day, tPhong - tNong, tNgung - hit, Front, 1, manh > 1 ? 1.15f : 1, datY);
+                else TiaFb(DaTiaVang, tu, () => cham, day, tPhong - tNong, tNgung - hit);
+            });
+            // tia vụn / mảnh vỡ: tia Water Laser hổ phách thì cùng tông hổ phách (vàng chanh MocChanh lệch tông trên tia cam, ảnh chụp 2026-11-25)
+            Color cVun = laser ? LaserHoPhach.vun1 : MocChanh;
             At(hit, () =>
             {
                 Shake?.Invoke(0.3f * manh);
                 DanhTrung?.Invoke(cham, 0.7f);
-                TiaVunCum(cham, -u, 1.2f, 5, 520 * manh, 4.4f, Front, w[2], MocChanh);
+                TiaVunCum(cham, -u, 1.2f, 5, 520 * manh, 4.4f, Front, w[2], cVun);
             });
             int nv = Mathf.Max(1, Mathf.FloorToInt((tNgon - hit) / 0.12f));
             for (int i = 0; i < nv; i++)
@@ -236,8 +246,8 @@ namespace PokiClash
                         U(0, 1) < 0.6f ? Front : Back);
                 });
             }
-            Every(hit, tNgung, 7 * manh, x =>
-                TiaVunCum(cham + nrm * U(-0.4f, 0.4f) * day, -u, 1.3f, 3, U(300, 480) * manh, U(3f, 4.4f), U(0, 1) < 0.7f ? Front : Back, MocChanh, w[3]));
+            Every(hit, tNgung, (laser ? 3 : 7) * manh, x =>
+                TiaVunCum(cham + nrm * U(-0.4f, 0.4f) * day, -u, 1.3f, 3, U(300, 480) * manh, U(3f, 4.4f), U(0, 1) < 0.7f ? Front : Back, cVun, w[3]));
             bool kh = HasFb("khoi");
             Every(hit, tNgung, kh ? 2 : 3, x =>
             {
@@ -255,7 +265,7 @@ namespace PokiClash
                     {
                         pos = at, vel = u * U(260, 460) + nrm * U(-60, 60) + new Vector2(0, -U(10, 50)), life = U(0.32f, 0.5f), drag = 2.2f,
                         acc = new Vector2(0, 360), sz = day * U(0.18f, 0.3f), spin = U(-400, 400), ang = VelAng(u), group = Front,
-                        col = (jj & 1) == 0 ? MocChanh : w[3]
+                        col = (jj & 1) == 0 ? cVun : w[3]
                     };
                     p.draw = DrawMangVo;
                     Add(p);
@@ -335,8 +345,9 @@ namespace PokiClash
             float hw = 0.11f * Mathf.Max(casterH, tH);
             float datY = foeFeet.y;
             // tia vẽ sẵn (2026-11-19, da vàng DaTiaVang, GiacTiaFb): tim là quả cầu của rig nên cầu xoáy đầu nòng chỉ hiện ~0,3 s ngay trước lúc bắn
-            // (tim "rực sáng cực mạnh rồi bắn"), không che tim suốt pha tụ; bề dày 0,28 casterH; đuôi tia tới đích đúng lúc nổ cầu (tHet) như cũ
-            bool fb = HasTia(DaTiaVang);
+            // (tim "rực sáng cực mạnh rồi bắn"), không che tim suốt pha tụ; bề dày 0,28 casterH; đuôi tia tới đích đúng lúc nổ cầu (tHet) như cũ;
+            // 2026-11-25: có lưới shader thì là tia năng lượng kiểu Water Laser bảng hổ phách (ELaser)
+            bool fb = CoLaser || HasTia(DaTiaVang);
             float tPhong = L;
             if (fb) tPhong = GiacTiaFb(() => tim, tim, ChamThan(tim, foeBody, tH), Mathf.Max(tTu, hit - 0.42f), hit, L + dur + 0.02f, L + 0.96f, 0.28f * casterH, 1.4f, tH, datY);
             At(tPhong, () =>
@@ -349,7 +360,7 @@ namespace PokiClash
             });
             // gốc tia: tia vụn văng ngược theo cụm
             Every(L, L + dur - 0.1f, 8, x =>
-                TiaVunCum(tim + U2(-8, 8), new Vector2(-dir, U(-0.6f, 0.4f)), 0.8f, 3, U(260, 480), U(3f, 4.4f), Front, MocChanh, w[3]));
+                TiaVunCum(tim + U2(-8, 8), new Vector2(-dir, U(-0.6f, 0.4f)), 0.8f, 3, U(260, 480), U(3f, 4.4f), Front, CoLaser ? LaserHoPhach.vun1 : MocChanh, w[3]));
             // dọc đường tia: bụi cụm bốc từ đất, lá bị thổi dạt
             bool khTia = HasFb("khoi");
             Every(L + 0.03f, L + dur, 10, x =>

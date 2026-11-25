@@ -18,18 +18,18 @@ namespace PokiClash
         // ================= vẽ flipbook =================
         // tâm c (sân), cỡ w × h (sân; h ≤ 0 → theo tỉ lệ khung gốc), angUi: độ UI (y lên; NAng(hướng sân))
         void NFbS(int g, float layer, Vector2 c, float w, float h, float angUi, NFb fb, float frame, float cut, float a, float seed, float lift = 0,
-            int kind = 0, bool flip = false)
+            int kind = 0, bool flip = false, int pal = 0)
         {
             var f = nfx[g];
             if (!f || w < 0.5f || a <= 0.003f) return;
-            f.Fb(layer, StageView.P(c), w * NK, h > 0 ? h * NK : 0, angUi, fb, frame, cut, NA(a), T, seed, lift, kind, flip);
+            f.Fb(layer, StageView.P(c), w * NK, h > 0 ? h * NK : 0, angUi, fb, frame, cut, NA(a), T, seed, lift, kind, flip, pal);
         }
 
         // phát trọn một flipbook theo đời hạt (khung 0 → cuối, như UV module "frameOverTime 0→1" của gói); cỡ w0 → w1 (EaseOut), tỉ lệ cao /
         // rộng hk (0: theo khung gốc), xoay angUi + spin·tuổi; vật lý theo vel / grav / drag; at: hàm vị trí bám (null: theo vật lý)
         P NFbPhat(int g, float layer, Vector2 pos, Vector2 vel, float life, NFb fb, float w0, float w1, float angUi, float cut, float lift = 0,
             int kind = 0, bool flip = false, float grav = 0, float drag = 0, float spin = 0, float hk = 0, Func<float, Vector2> at = null,
-            float fade0 = 0.8f)
+            float fade0 = 0.8f, int pal = 0)
         {
             var d = NuocFbBang.Get(fb);
             float sd = NSeed();
@@ -39,7 +39,8 @@ namespace PokiClash
                 if (at != null) q.pos = at(q.age);
                 float w = Mathf.Lerp(w0, w1, EaseOut(k));
                 float a = k < fade0 ? 1 : 1 - (k - fade0) / Mathf.Max(0.01f, 1 - fade0);
-                NFbS(q.group, layer + k * 0.01f, q.pos, w, hk > 0 ? w * hk : 0, angUi + spin * q.age, fb, k * (d.frames - 1), cut, a, sd, lift, kind, flip);
+                NFbS(q.group, layer + k * 0.01f, q.pos, w, hk > 0 ? w * hk : 0, angUi + spin * q.age, fb, k * (d.frames - 1), cut, a, sd, lift, kind, flip,
+                    pal);
             };
             return Add(p);
         }
@@ -51,13 +52,13 @@ namespace PokiClash
             for (int i = 0; i < nPts.Count; i++) nUi.Add(StageView.P(nPts[i]));
         }
 
-        void NTube(int g, float layer, int kind, float wk, float scroll, float cut, float seed, float a = 1)
+        void NTube(int g, float layer, int kind, float wk, float scroll, float cut, float seed, float a = 1, int pal = 0)
         {
             var f = nfx[g];
             if (!f || nUi.Count < 2) return;
             nW.Clear();
             for (int i = 0; i < nHw.Count; i++) nW.Add(nHw[i] * NK * wk);
-            f.Tube(layer, nUi, nW, NA(a), kind, scroll, cut, T, seed, SangXY);
+            f.Tube(layer, nUi, nW, NA(a), kind, scroll, cut, T, seed, SangXY, pal);
         }
 
         // nhịp "thở" bề dày tia của gói (Size over lifetime của LaserCore / LaserNoise, hạt sinh lại mỗi 1 s): 0,6 → 1 → 0,85 → 0,91 → 0,76

@@ -105,7 +105,15 @@ namespace PokiClash.UI
             p.shine.rectTransform.anchoredPosition = new Vector2(Mathf.Lerp(-w * 0.4f, w * 1.4f, shineT), 0);
         }
 
-        // tắt bấm (thẻ không được chọn đang chìm xuống)
+        // gán / bỏ việc bấm sau khi tạo (thẻ chọn trong trận chỉ bấm được khi đã lật xong; null: không bấm được)
+        public void SetClick(Action click)
+        {
+            if (click == null) Release();
+            onClick = click;
+            p.frame.raycastTarget = click != null;
+        }
+
+        // tắt bấm (thẻ không được chọn đang về bộ bài)
         public void SetInteractable(bool on)
         {
             if (!on)

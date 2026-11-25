@@ -37,7 +37,7 @@ namespace PokiClash
             float hw0 = Mathf.Clamp(0.12f * tH, 18, 34);             // nửa bề ngang tia theo cỡ đối thủ
             // TIA VẼ SẴN (2026-11-19 khuya; người dùng: tia "nhìn vẫn chưa đã" — ống thẳng đặc, chỗ trúng nhỏ): có bộ da DaTiaLua thì thân tia,
             // cầu đầu nòng, bông trúng là khung vẽ sẵn (HatTiaFb.cs), giữ giờ chạm, nhịp HoaTrung / Shake và giờ trả về
-            if (HasTia(DaTiaLua))
+            if (CoLaser || HasTia(DaTiaLua))
             {
                 TiaMatFb(src, cham, target, u, nrm, tH, 0.22f * (casterH > 0 ? casterH : tH), T0, T1, tHit, mat);
                 return tHit;
@@ -152,7 +152,10 @@ namespace PokiClash
                 Shake?.Invoke(0.18f);
                 for (int i = 0; i < 4; i++) Spark(src + U2(-4, 4), -u * U(0.4f, 0.9f) + nrm * U(-0.9f, 0.9f), U(200, 340), 0, 6);
             });
-            TiaFb(DaTiaLua, src, cham, day, tTu, tBan);
+            // 2026-11-25 (người dùng chọn "tia lửa năng lượng" khi làm chiêu đổi màu cho hệ khác): có lưới shader thì thân tia, cầu đầu nòng, chỗ
+            // trúng là tia năng lượng kiểu Water Laser bảng lửa (ELaser LaserLua, HatTiaLaser.cs), cùng giờ chạm; không thì tia vẽ sẵn
+            if (CoLaser) ELaser(LaserLua, () => src, () => cham, day, tTu, tBan, Front, 0.9f, 1);
+            else TiaFb(DaTiaLua, src, cham, day, tTu, tBan);
             At(tHit, () =>
             {
                 Shake?.Invoke(0.28f);

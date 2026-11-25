@@ -85,11 +85,11 @@ namespace PokiClash
         float NSeed() => U(0, 64);
 
         void NBall(int g, float layer, Vector2 c, float r, float a = 1, float thr = 0, float wob = 0.07f, float spin = 0.22f, float seed = 0,
-            Vector2? dir = null, float sx = 1)
+            Vector2? dir = null, float sx = 1, int pal = 0)
         {
             var f = nfx[g];
             if (!f || r < 0.5f) return;
-            f.Ball(layer, StageView.P(c), r * NK, NA(a), thr, wob, spin, T, seed, dir.HasValue ? NAng(dir.Value) : 0, sx);
+            f.Ball(layer, StageView.P(c), r * NK, NA(a), thr, wob, spin, T, seed, dir.HasValue ? NAng(dir.Value) : 0, sx, pal);
         }
 
         void NSprite(int g, float layer, Vector2 c, float w, float h, float angField, int mask, float thr, float band, bool flat, float ns, float a,
@@ -115,7 +115,15 @@ namespace PokiClash
             f.Ring(layer, StageView.P(c), rx * NK, ry * NK, r0, mask, tiles, thr, half, NA(a), T, seed);
         }
 
-        void NDot(int g, float layer, Vector2 c, float r, int tone, float a = 1, Vector2? vel = null)
+        // quầng mềm (ngoại lệ cầu ma thủy; HatNuocFx.Glow): a = độ hiện tối đa ở tâm
+        void NQuang(int g, float layer, Vector2 c, float r, float a, float hard, int tone, float noise, float seed, int pal = 0, float sx = 1)
+        {
+            var f = nfx[g];
+            if (!f || r < 0.5f || a <= 0.003f) return;
+            f.Glow(layer, StageView.P(c), r * NK, hard, tone, noise, NA(a), T, seed, pal, sx);
+        }
+
+        void NDot(int g, float layer, Vector2 c, float r, int tone, float a = 1, Vector2? vel = null, int pal = 0)
         {
             var f = nfx[g];
             if (!f || r < 0.3f) return;
@@ -126,7 +134,7 @@ namespace PokiClash
                 sx = 1 + Mathf.Min(1.3f, sp / 500f);
                 if (sp > 1) ang = NAng(vel.Value);
             }
-            f.Dot(layer, StageView.P(c), r * NK, tone, NA(a), sx, ang);
+            f.Dot(layer, StageView.P(c), r * NK, tone, NA(a), sx, ang, pal);
         }
 
         // dải theo nPts (toạ độ sân) với nửa bề rộng nHw (đơn vị sân) đã điền; đổi sang UI tại chỗ
@@ -368,9 +376,13 @@ namespace PokiClash
         // cầu nước (thay khung cau_nuoc trong CauNuoc, cùng hợp đồng: cFn, rFn theo giây từ lúc gọi, pulse phồng, nén trước tSqz): vòm cầu giả
         // có vệt xoay, rung thạch, mép lam sâu; ĐUÔI LIỀN THÂN là dải theo chính đường bay đã qua (cFn lùi giờ 0,2 s) thon dần, chót rách
         // theo ngưỡng + nhỏ giọt; hết đời cầu vỡ lấm tấm (ngưỡng trên nhiễu mịn)
-        P NCauShader(Func<float, Vector2> cFn, float tEnd, Func<float, float> rFn, float[] pulse, float tSqz, int g)
+        // tDuoi0 (2026-11-25, cầu xoáy Giông Bão): đuôi chỉ lấy đường bay từ giây này (trước đó cầu bám đầu trượng đang vung: đuôi 0,2 s
+        // gồm cả cú vung thành dải gập khuỷu)
+        P NCauShader(Func<float, Vector2> cFn, float tEnd, Func<float, float> rFn, float[] pulse, float tSqz, int g, float tDuoi0 = 0)
         {
             float sd = NSeed();
+            // giờ của một mẫu QUÁ KHỨ cho đuôi / giọt: không lùi quá tDuoi0 (trước tDuoi0: không lùi, đuôi dài 0)
+            float Qk(float age, float t) => Mathf.Max(Mathf.Min(age, tDuoi0), t);
             var p = new P { pos = cFn(0), life = tEnd, group = g, seed = rng.Next(1000) };
             float lastDrop = 0;
             p.upd = (q, dt, s) =>
@@ -384,7 +396,7 @@ namespace PokiClash
                 if (sp > 60 && q.age - lastDrop > 0.05f)
                 {
                     lastDrop = q.age;
-                    var tp = cFn(Mathf.Max(0, q.age - 0.2f));
+                    var tp = cFn(Qk(q.age, Mathf.Max(0, q.age - 0.2f)));
                     s.NGiot(tp + s.U2(-3, 3), -q.drift.normalized * s.U(30, 90) + new Vector2(0, -s.U(0, 40)), s.U(1.6f, 2.8f), q.group, s.U(0.3f, 0.5f), 500);
                 }
             };
@@ -400,7 +412,7 @@ namespace PokiClash
                     sx = 1.14f;
                 }
                 var now = cFn(age);
-                var past = cFn(Mathf.Max(0, age - 0.2f));
+                var past = cFn(Qk(age, Mathf.Max(0, age - 0.2f)));
                 float len = (now - past).magnitude;
                 Vector2? dir = null;
                 if (len > 0.6f * r)
@@ -410,7 +422,7 @@ namespace PokiClash
                     const int M = 12;
                     for (int j = M; j >= 0; j--)
                     {
-                        nPts.Add(cFn(Mathf.Max(0, age - 0.2f * j / M)));
+                        nPts.Add(cFn(Qk(age, Mathf.Max(0, age - 0.2f * j / M))));
                         nHw.Add(r * 0.78f * Mathf.Pow(1 - j / (float)M, 0.9f) + 0.6f);
                     }
                     NStripFlush(q.group, 5.9f, 1.3f, 0.07f, sd);

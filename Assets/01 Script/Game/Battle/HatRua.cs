@@ -113,7 +113,10 @@ namespace PokiClash
             // khung vẽ sẵn (2026-11-19): cầu là "cau_lua" (HatFbHoa.cs: đứng yên thì đuôi lửa bốc lên, ngả về phía đối thủ) nên bỏ lưỡi lửa liếm quanh
             // cầu và chuỗi lưỡi đuôi lúc bay
             bool fb = HasFb("cau_lua");
-            HoaTuCau(TamT, R, tA - 0.02f, L, true, 0.35f, RtT, dir);
+            // 2026-11-25 (người dùng chọn "cầu ma màu lửa"): sân có CauMaRT thì quả cầu là prefab gốc MagicWater_OrbLoop tô dải đỏ cam (CauMaTheo,
+            // thành hình đúng lúc cầu đầy), pha tụ chỉ vẽ phần hút + vòng co; lưỡi lửa liếm quanh cầu và lưỡi đuôi lúc bay bật lại cho ra chất lửa
+            bool ma = CauMaHienTruoc() != null;
+            HoaTuCau(TamT, R, tA - 0.02f, L, !ma, 0.35f, RtT, dir);
             // từng ngọn lửa trên lưng (thứ tự, giờ như clip): nháy tia ở gốc, lưỡi lửa nhỏ co lại tại gốc, nhả VỆT lửa xoắn ốc nhanh dần vào cầu
             float chieu = dir;
             for (int i = 0; i < nguon.Length; i++)
@@ -134,8 +137,8 @@ namespace PokiClash
                     Th.pal, Front, 2, -200, 1.4f, 0, 0), 1, 0.7f, 0));
             }
             // lưỡi lửa liếm ra từ thân cầu
-            if (!fb)
-                Every(tA + 0.1f, L, x => 8 + 16 * x, x =>
+            if (!fb || ma)
+                Every(tA + 0.1f, L, x => (8 + 16 * x) * (ma ? 0.4f : 1), x =>
                 {
                     float r = RtT(T), a = U(0, 6.28f);
                     var o = new Vector2(Mathf.Cos(a), Mathf.Sin(a));
@@ -177,10 +180,10 @@ namespace PokiClash
                 for (int j = 0; j < 5; j++) Spark(from, -d0 + U2(-0.7f, 0.7f), U(220, 380), 0, 6);
                 System.Func<float, float> rb = t => R * (1 + 0.06f * Mathf.Sin(t * 40));
                 // vệt khói đuôi (2026-11-19 chiều): cụm 0,22–0,35 thân theo cỡ cầu
-                if (!fb || HoaFbCau(Bay, rb, CauSungBay + 0.01f, Front, true, 0, KhoiCo(R, tH)) == null) HoaCau(Bay, rb, CauSungBay + 0.01f);
+                if (!ma && (!fb || HoaFbCau(Bay, rb, CauSungBay + 0.01f, Front, true, 0, KhoiCo(R, tH)) == null)) HoaCau(Bay, rb, CauSungBay + 0.01f);
             });
-            if (!fb)
-                Every(L, L + CauSungBay, 50, x =>
+            if (!fb || ma)
+                Every(L, L + CauSungBay, ma ? 20 : 50, x =>
                 {
                     var q = Flame(Bay(T) - d0 * R * 0.3f + U2(-0.4f, 0.4f) * R, -d0 * U(60, 140) + new Vector2(-d0.y, d0.x) * U(-80, 80) + new Vector2(0, -20),
                         U(0.2f, 0.3f), R * 0.8f, R * 0.8f, "tron", Th.pal, Front, 3, -140, 1.4f, 0, 0);
@@ -192,9 +195,20 @@ namespace PokiClash
 
             // chạm: nổ lớn KR5, nổ phụ, khói cụm và tro
             float tNo = L + CauSungBay;
+            if (ma)
+            {
+                float tC = tA - 0.02f;
+                At(tC, () =>
+                {
+                    float g0 = T;
+                    CauMaTheo(CauMaHoa, a => g0 + a < goc + L ? TamT(g0 + a) : Bay(g0 + a),
+                        a => g0 + a < goc + L ? RtT(g0 + a) : R * (1 + 0.06f * Mathf.Sin((g0 + a) * 40)), tNo - tC, tDay - tC, 1.8f);
+                });
+            }
             At(tNo, () =>
             {
                 NuocPulse?.Invoke(non ? 0.8f : 1f);
+                if (ma) HoaCauMaNo(tgt, foeFeet, tH, non ? 0.8f : 1f); // cầu ma màu lửa vỡ (chớp quầng, vòng sóng, lưỡi liềm) trước nổ lửa
                 HoaCauNo(tgt, foeFeet, tH, dir, non ? 1.1f : 1.4f);
             });
             At(tNo + 0.13f, () =>

@@ -1,5 +1,5 @@
-// Vòng thử cảm giác trận (2026-11-16, bộ GameFeel): vào Thủy ải 3, Thủy ải 70 (boss), Thổ ải 70 (boss cuối), chạm 5 thẻ liên tiếp cách nhau
-// 0,12 giây (thẻ phải bay cùng lúc, không chạm nào bị nuốt), chụp từng khung lúc chọn và lúc ra đòn vào Temp/PokiShots/game_feel/,
+// Vòng thử cảm giác trận (2026-11-16, bộ GameFeel): vào Thủy ải 3, Thủy ải 70 (boss), Thổ ải 70 (boss cuối), chọn 5 thẻ (từ 2026-11-25
+// mỗi lần chờ bộ bài tráo, chia, lật xong rồi chạm ngay), chụp từng khung lúc chọn và lúc ra đòn vào Temp/PokiShots/game_feel/,
 // ghi nhật ký độ epic, số thẻ đang bay, và mỗi cú trúng: khựng, đẩy màn, rung (đọc trường riêng của StageView).
 using System.Collections;
 using System.Collections.Generic;
@@ -64,12 +64,20 @@ namespace PokiClash.EditorTools
                     string tag = "ai" + stageId;
                     Log($"{tag}: Epic {st.Epic:0.00}, Power phe mình {st.Power(0):0.00}, phe địch {st.Power(1):0.00}");
 
-                    // chạm 5 thẻ liên tiếp, cách 0,12 giây: thẻ trước còn bay thì thẻ sau vẫn nhận
+                    // chọn 5 thẻ: mỗi lần chờ bộ bài chia xong (thẻ đã lật) rồi chạm ngay
                     int picksBefore = ctl.Battle.turn.queue.Count;
-                    var watch = App.I.StartCoroutine(Shots(tag + "_chon", 1.6f));
+                    var watch = App.I.StartCoroutine(Shots(tag + "_chon", 7f));
                     int maxFly = 0;
+                    float pickStart = Time.realtimeSinceStartup;
                     for (int k = 0; k < 5; k++)
                     {
+                        float w0 = Time.realtimeSinceStartup;
+                        while (view.Dealing && Time.realtimeSinceStartup - w0 < 4)
+                        {
+                            maxFly = Mathf.Max(maxFly, view.Flying);
+                            if (stageId == 3) TraceFly(view);
+                            yield return null;
+                        }
                         ctl.TestPick(k % 3);
                         float w = Time.realtimeSinceStartup;
                         while (Time.realtimeSinceStartup - w < 0.12f)
@@ -79,6 +87,7 @@ namespace PokiClash.EditorTools
                             yield return null;
                         }
                     }
+                    Log($"{tag}: 5 lần chọn (chờ bộ bài chia mỗi lần) mất {Time.realtimeSinceStartup - pickStart:0.00} giây");
                     if (stageId == 3)
                     {
                         float w2 = Time.realtimeSinceStartup;
@@ -89,7 +98,7 @@ namespace PokiClash.EditorTools
                         }
                     }
                     int picked = ctl.Battle.turn.queue.Count - picksBefore;
-                    Log($"{tag}: 5 chạm trong 0,6 giây → nhận {picked} thẻ, tối đa {maxFly} thẻ bay cùng lúc");
+                    Log($"{tag}: 5 chạm → nhận {picked} thẻ, tối đa {maxFly} thẻ bay cùng lúc");
                     yield return watch;
 
                     // ra đòn: chụp và ghi khựng, đẩy màn, rung mỗi khung có thay đổi

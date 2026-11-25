@@ -54,6 +54,8 @@ namespace PokiClash
         const float TtGam0 = 0.32f, TtGam1 = 0.92f, TtTach0 = 0.30f, TtTachCach = 0.024f, TtBan0 = 0.98f, TtBay = 0.20f;
         const float TtSkBay0 = 0.36f, TtSkHut = 1.00f, TtSkEp0 = 2.15f, TtSkEp2 = 2.83f, TtSkGoi = 3.05f, TtSkTia = 3.40f, TtSkNo = 3.48f,
             TtSkDat = 4.15f;
+        const float TtSunK = 2.08f;     // Mặt Trời chiêu cuối to gấp bản đầu (2026-11-25: "mặt trời nhìn nhỏ quá"); tia nhiệt dày theo Mặt Trời
+        const float TtTiaGiu = 0.42f;   // tia nhiệt dội (giây rig) từ lúc chạm; 0,32 cũ: chỉ 0,08 s trước nổ, phần còn lại nằm dưới khối nổ
 
         // ---------- bộ số theo DẠNG (đo bằng ArtGen/Spine/thach_de_do_hat.py, 2026-11-18) ----------
         // nam1 / nam2: hai nắm đấm (bone96, bone102) so với xương move ở khung trúng đòn thường (sân nắn đỉnh cú lao vào 72 % quãng tới đối thủ);
@@ -949,9 +951,12 @@ namespace PokiClash
                 if (U(0, 1) < 0.5f) ToSoi(p, (u * U(80, 160) + new Vector2(0, -60)) * sc, U(1.8f, 3f) * sc, TtDa2, foeFeet.y + U(-4, 8) * sc);
             });
 
-            // 4. mặt trời trên đầu đối thủ (dưới mép sân): hiện bật ra, co lấy đà rồi phình khi bắn, tắt sau nổ
-            float rSun0 = 25 * sc * mo;
-            var sun = new Vector2(C0.x - dir * 6 * sc, Mathf.Max(C0.y - 0.71f * tH, 18 + 1.75f * rSun0));
+            // 4. mặt trời trên đầu đối thủ (dưới mép sân): hiện bật ra, co lấy đà rồi phình khi bắn, tắt sau nổ.
+            // 2026-11-25 (người dùng: "mặt trời nhìn nhỏ quá, tia năng lượng chưa đủ to, mặt trời hiện thẳng trên phần tướng rồi bắn tia năng
+            // lượng xuống"): bán kính × TtSunK (25 → 52), đặt THẲNG trên tâm vỏ đá và cao 1,45 thân đối thủ (trước 0,71: tia chỉ dài một
+            // gang, bị khối nổ phủ ngay) để cột tia dài, phần trên vẫn thấy khi nổ; vẫn tự hạ khi sát mép trên sân
+            float rSun0 = 25 * TtSunK * sc * mo;
+            var sun = new Vector2(C0.x, Mathf.Max(C0.y - 1.45f * tH, 18 + 1.75f * rSun0));
             float RSun(float tr)
             {
                 float u = (tr - TtSkGoi) / 0.28f;
@@ -967,7 +972,7 @@ namespace PokiClash
                 p.draw = (q, kk, buf) => TtMatTroi(buf, q.pos, RSun(Tr()), Tr(), dir);
                 Add(p);
             });
-            Every((TtSkGoi + 0.1f) * k, (TtSkNo + 0.4f) * k, 5, x => TtHoiNong(sun + new Vector2(U(-30, 30), 20) * sc, 30 * sc));
+            Every((TtSkGoi + 0.1f) * k, (TtSkNo + 0.4f) * k, 5, x => TtHoiNong(sun + new Vector2(U(-30, 30), 20) * (TtSunK * sc), 30 * TtSunK * sc));
 
             // 5. tia nhiệt từ đáy mặt trời xuống quả cầu đá; lửa toé ở chỗ tia đập vào vỏ
             // TIA VẼ SẴN (2026-11-19, HatTiaFb.cs; người dùng: "tia năng lượng ... nhìn vẫn chưa đã"): có bộ da DaTiaLua thì tia là các đoạn lửa vẽ
@@ -975,7 +980,10 @@ namespace PokiClash
             // toé lặp ở chỗ chạm; dày 0,28 casterH (chiêu cuối). Nối giờ như NTiaKhung (HatFbThuy.cs): gọi sớm tụ + vươn (quãng / 2600, kẹp
             // 0,07–0,14) để CHẠM đúng mốc tia cũ TtSkTia; dội 0,32 s rig (tới lúc tia cũ bắt đầu rút từ trên xuống), rồi đuôi tia bay nốt vào vỏ.
             // Bỏ thân tia mảng liền, lưỡi lửa liếm và ba bông va chạm cũ (khung bông trúng lo); giữ rung, vòng va chạm nhấp, giờ nổ, giờ trả về
-            bool tiaFb = HasTia(DaTiaLua);
+            // 2026-11-25: có lưới shader thì là tia năng lượng kiểu Water Laser bảng lửa nhiệt (ELaser, HatTiaLaser.cs), cùng giờ chạm; tia đập vào
+            // vỏ đá giữa không trung nên không có vòng gợn trên đất
+            bool laser = CoLaser;
+            bool tiaFb = laser || HasTia(DaTiaLua);
             if (tiaFb)
             {
                 Vector2 TiaTu() => new Vector2(sun.x, sun.y + 0.6f * RSun(Tr()));
@@ -985,11 +993,18 @@ namespace PokiClash
                 var toi0 = C0 + new Vector2(0, -RS0 * TtVo(TtSkTia) * 0.85f);
                 float tVuon = Mathf.Clamp((toi0 - tu0).magnitude / 2600f, 0.07f, 0.14f);
                 // cầu đầu nòng nhỏ hơn mặt trời (cao ~65 đơn vị sân theo cỡ mặt trời; mặc định 2,3 × bề dày ≈ 110 đè mặt trời lúc tụ): nongK ~0,6
-                float dayTia = 0.28f * casterH, nongK = Mathf.Clamp(65 * sc * mo / (DaTiaLua.nongCo * dayTia), 0.35f, 1f);
+                // 2026-11-25: tia dày theo Mặt Trời (1,85 bán kính: ống thấy rộng gần bằng thân Mặt Trời; thử 1,45 còn mảnh, ~nửa đường kính),
+                // trước 0,28 casterH nhìn mảnh như que; dội TtTiaGiu (0,42 s rig) để cột tia còn thấy phía trên khối nổ; chỗ trúng nhỏ lại (trungK
+                // 0,75) vì tia dày làm chớp to theo
+                float dayTia = 1.85f * rSun0, nongK = Mathf.Clamp(65 * TtSunK * sc * mo / (DaTiaLua.nongCo * dayTia), 0.35f, 1f);
                 // 2026-11-24: Mặt Trời là cầu năng lượng Energy Ball (TtMatTroi, khung cau_troi) thì BỎ cầu lửa xoáy đầu nòng (cao 65 vẫn che
                 // kín Mặt Trời bán kính 25 suốt lúc tụ + bắn): tia ra thẳng từ đáy Mặt Trời, Mặt Trời tự phình lúc bắn (RSun) thay pha tụ
                 if (HasFb("cau_troi")) nongK = 0;
-                At(Mathf.Max(0, TtSkTia * k - tVuon - tTuTia), () => TiaFb(DaTiaLua, TiaTu, TiaToi, dayTia, tTuTia, 0.32f * k, Front, 36, null, nongK));
+                At(Mathf.Max(0, TtSkTia * k - tVuon - tTuTia), () =>
+                {
+                    if (laser) ELaser(LaserLua, TiaTu, TiaToi, dayTia, tTuTia, TtTiaGiu * k, Front, nongK, 0.75f);
+                    else TiaFb(DaTiaLua, TiaTu, TiaToi, dayTia, tTuTia, TtTiaGiu * k, Front, 36, null, nongK, 0.75f);
+                });
                 At(TtSkTia * k, () => Shake?.Invoke(0.35f * m));
             }
             else
@@ -1000,7 +1015,7 @@ namespace PokiClash
                     p.draw = (q, kk, buf) =>
                     {
                         float tr = Tr();
-                        TtTia(sun, C0 + new Vector2(0, -RS0 * TtVo(tr) * 0.85f), sc * mo, tr, RSun(tr));   // chân tia đặt đúng mặt trên vỏ đá
+                        TtTia(sun, C0 + new Vector2(0, -RS0 * TtVo(tr) * 0.85f), TtSunK * sc * mo, tr, RSun(tr));   // chân tia đặt đúng mặt trên vỏ đá
                     };
                     Add(p);
                 });

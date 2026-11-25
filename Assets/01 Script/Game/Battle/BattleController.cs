@@ -133,10 +133,10 @@ namespace PokiClash
             StartCoroutine(Run());
         }
 
-        // cho công cụ thử (menu PokiClash/Thử): bấm thẻ thứ i, bật tự chơi, chạy nhanh
+        // cho công cụ thử (menu PokiClash/Thử): bấm thẻ thứ i (bộ bài đang chia thì bỏ qua, như ngón chạm lá chưa lật), bật tự chơi, chạy nhanh
         public void TestPick(int i)
         {
-            if (busy || i >= view.OfferCards.Count || !view.OfferCards[i]) return;
+            if (busy || view.Dealing || i >= view.OfferCards.Count || !view.OfferCards[i]) return;
             StartCoroutine(OnPick(i, (RectTransform)view.OfferCards[i].transform));
         }
 
@@ -159,7 +159,7 @@ namespace PokiClash
             return Mathf.Clamp01(e);
         }
 
-        public bool WaitingPlayer => waitingPick && !busy && view.Flying == 0;
+        public bool WaitingPlayer => waitingPick && !busy && view.Flying == 0 && !view.Dealing;
         // thời gian phát phần ra đòn mỗi lượt người chơi, quy về nhịp thường khi công cụ thử chạy nhanh (để đo nhịp trận)
         public readonly List<float> PlayerTurnSeconds = new List<float>();
         public bool Auto => auto;
@@ -333,9 +333,9 @@ namespace PokiClash
             }
         }
 
-        // Chọn thẻ (GameFeel 1.14, 2.4, 6.5; 2026-11-16): logic chạy ngay lúc chạm (Battle.Pick, chia lượt thẻ mới liền), hình đuổi theo
-        // (BattleView.FlyToSlot). Không khoá chọn trong lúc thẻ bay, nên chạm nhanh liên tiếp không bị nuốt; chọn đủ thì chờ mọi thẻ chạm
-        // hàng rồi mới ra đòn. Tiếng chọn leo cao độ theo lần chọn (ngũ cung), tiếng "land" khi thẻ cắm vào ô.
+        // Chọn thẻ (GameFeel 1.14, 2.4, 6.5; 2026-11-16): logic chạy ngay lúc chạm (Battle.Pick), hình đuổi theo (BattleView.FlyToSlot).
+        // Từ 2026-11-25 lượt thẻ mới ra sau khi hai lá còn lại về bộ bài, bộ tráo và chia lại (BattleView.Dealing); thẻ chỉ bấm được khi đã
+        // lật. Chọn đủ thì chờ mọi thẻ chạm hàng rồi mới ra đòn. Tiếng chọn leo cao độ theo lần chọn (ngũ cung), tiếng "land" khi thẻ cắm vào ô.
         IEnumerator OnPick(int i, RectTransform cardRt)
         {
             if (busy || b.phase != Phase.Picking || b.turn.side != 0 || auto) yield break;
@@ -455,6 +455,12 @@ namespace PokiClash
                     yield return W(380);
                     continue; // chiêu hạ đối thủ thì hết lúc chọn
                 }
+                // tự chơi: chờ bộ bài chia xong (thẻ đã lật) rồi mới chọn
+                if (side == 0)
+                {
+                    while (alive && view.Dealing) yield return null;
+                    if (!alive || b.phase != Phase.Picking) break;
+                }
                 // địch ở các ải đầu chọn kém hơn (nhiễu cao), về sau chọn kỹ
                 int i = BattleAi.PickIndex(b, side == 1 ? BattleAi.EnemyNoise(stage.id) : 0.12);
                 if (side == 0)
@@ -486,20 +492,22 @@ namespace PokiClash
                 }
                 else
                 {
-                    var back = i < view.BackCards.Count ? view.BackCards[i] : null;
-                    if (back)
-                    {
-                        back.anchoredPosition += new Vector2(0, 32);
-                        back.localEulerAngles = new Vector3(0, 0, 4);
-                        yield return W(200);
-                    }
+                    // địch (2026-11-25): bộ bài tráo xong vòng đang dở thì lá trên đỉnh bay vào hàng thẻ của địch, lật ra mặt giữa đường
+                    yield return view.DeckReady();
+                    if (!alive || b.phase != Phase.Picking) break;
+                    string id = b.turn.offer[i];
+                    int pickNo = b.turn.picksTotal - b.turn.picksLeft, qIdx = b.turn.queue.Count;
                     App.Audio.Play("deal");
                     b.Pick(i);
+                    view.HoldTile(qIdx);
                     view.RenderQueue(-1, b.phase == Phase.Picking);
                     view.RenderFoeThinking();
-                    yield return W(260);
+                    StartCoroutine(view.FoeDraw(id, qIdx, pickNo));
+                    yield return W(300);
                 }
             }
+            // lá cuối còn bay vào hàng: chờ chạm rồi mới ra đòn
+            while (alive && view.Flying > 0) yield return null;
         }
 
         // ---------- hướng dẫn người mới (GD_Claude/25_FTUE.md chặng B, C, D) ----------

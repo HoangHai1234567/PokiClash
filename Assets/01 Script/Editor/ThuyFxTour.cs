@@ -30,6 +30,7 @@ namespace PokiClash.EditorTools
         static void TryViewer()
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
+            only = null;
             App.I.StartCoroutine(RunViewer());
         }
 
@@ -37,7 +38,28 @@ namespace PokiClash.EditorTools
         {
             if (!EditorApplication.isPlaying || App.I == null) return;
             only = ids;
+            fast = 1;
             App.I.StartCoroutine(Run());
+        }
+
+        // chạy CHẬM (StageView.fast = k < 1: đồng hồ sân và clip tướng cùng chậm, thời gian chụp kéo dài theo) để soi hiệu ứng ngắn
+        // (vd. tia nhiệt Thổ Tinh ~0,3 s) mà ảnh chụp ~0,1 s / khung không bắt kịp
+        public static void TryOnlyCham(float k, params string[] ids)
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            only = ids;
+            fast = Mathf.Clamp(k, 0.1f, 1);
+            App.I.StartCoroutine(Run());
+        }
+
+        static float fast = 1;
+
+        // hộp chi tiết tướng cho danh sách tướng tuỳ chọn (vd. tia năng lượng Mộc / Thổ)
+        public static void TryViewerOnly(params string[] ids)
+        {
+            if (!EditorApplication.isPlaying || App.I == null) return;
+            only = ids;
+            App.I.StartCoroutine(RunViewer());
         }
 
         // sao nhỏ nhất cho ra dạng form (0 là dạng đầu)
@@ -83,6 +105,8 @@ namespace PokiClash.EditorTools
                         t0 = Time.realtimeSinceStartup;
                         while (!ctl.WaitingPlayer && Time.realtimeSinceStartup - t0 < 20) yield return null;
                         yield return new WaitForSecondsRealtime(0.6f);
+                        st.fast = fast;
+                        float kd = 1 / fast; // chạy chậm thì chụp lâu hơn tương ứng
                         float start;
                         int n;
                         // đòn đánh thường có hiệu ứng riêng (StageView.FireAtk): chụp trước chiêu
@@ -91,22 +115,23 @@ namespace PokiClash.EditorTools
                             st.Play(0, StageView.Attack);
                             start = Time.realtimeSinceStartup;
                             n = 0;
-                            while (Time.realtimeSinceStartup - start < 2.0f) yield return Shot($"{hero}_{form + 1}_atk_{n++:00}");
-                            yield return new WaitForSecondsRealtime(0.4f);
+                            while (Time.realtimeSinceStartup - start < 2.0f * kd) yield return Shot($"{hero}_{form + 1}_atk_{n++:00}");
+                            yield return new WaitForSecondsRealtime(0.4f * kd);
                         }
                         if (form == forms - 1)
                         {
                             st.Play(0, StageView.Cast, () => st.Beam(0));
                             start = Time.realtimeSinceStartup;
                             n = 0;
-                            while (Time.realtimeSinceStartup - start < 3.0f) yield return Shot($"{hero}_{form + 1}_mana_{n++:00}");
-                            yield return new WaitForSecondsRealtime(0.5f);
+                            while (Time.realtimeSinceStartup - start < 3.0f * kd) yield return Shot($"{hero}_{form + 1}_mana_{n++:00}");
+                            yield return new WaitForSecondsRealtime(0.5f * kd);
                         }
                         st.Play(0, StageView.Skill, () => st.UltFx(0));
                         start = Time.realtimeSinceStartup;
                         n = 0;
-                        while (Time.realtimeSinceStartup - start < 4.4f) yield return Shot($"{hero}_{form + 1}_ult_{n++:00}");
-                        yield return new WaitForSecondsRealtime(0.3f);
+                        while (Time.realtimeSinceStartup - start < 4.4f * kd) yield return Shot($"{hero}_{form + 1}_ult_{n++:00}");
+                        yield return new WaitForSecondsRealtime(0.3f * kd);
+                        st.fast = 1;
                         Debug.Log($"[Thử] {hero} dạng {form + 1}: xong");
                         App.Router.Go(SceneIds.Hub);
                         t0 = Time.realtimeSinceStartup;

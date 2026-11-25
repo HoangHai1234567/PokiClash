@@ -73,6 +73,11 @@ namespace PokiClash
             { "loc_nuoc_bao", new FbDef(24, 240, 249, 0.5f, 0.01f, true) },
             { "loc_lua_bao", new FbDef(24, 244, 246, 0.5f, 0.01f, true) },
             { "loc_cat_bao", new FbDef(24, 248, 252, 0.5f, 0.01f, true) },
+            // LỐC KHÍ (2026-11-25, chiêu cuối rồng trúc, HatFbMoc.MocLocKhi): prefab FX_AirTornado_Loop của gói "Game VFX - Tornado Collection"
+            // chụp tách nền (Editor/VfxPackShots.cs) → ArtGen/XemVfx/vfx_loc/xuat_loc_khi.py; ba bộ cùng khung cắt, neo chân lốc
+            { "loc_khi_moc", new FbDef(12, 270, 300, 0.503f, 0.189f, false) }, // mọc 0,5 s
+            { "loc_khi_lap", new FbDef(24, 270, 300, 0.503f, 0.189f, true) },  // thân lốc, lặp liền 1 s
+            { "loc_khi_tan", new FbDef(20, 270, 300, 0.503f, 0.189f, false) }, // tắt phát hạt, tan tự nhiên
             // tia vẽ sẵn (2026-11-19, người dùng: "các tia năng lượng/nước như này nhìn vẫn chưa đã"; HatTiaFb.cs): đoạn thân chảy sang PHẢI,
             // đầu nòng, va chạm (tia tới từ TRÁI). Tất cả LẶP
             { "tia_moc_doan", new FbDef(24, 260, 126, 0.5f, 0.5f, true) },

@@ -32,5 +32,12 @@ namespace PokiClash.EditorTools
 
         [MenuItem("PokiClash/Thử/Tướng/Đảo Mộc/tia sừng và tim cổ thụ Giác Mộc, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 136)]
         static void TryGiac() => ThuyFxTour.TryOnly("moc_tinh");
+
+        // Rồng Trúc (suất thanh_long, boss cuối đảo Mộc, HatRong.cs): gầm sóng âm; chiêu cuối Vạn Diệp có LỐC KHÍ mang lá lướt tới (2026-11-25)
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Mộc/gầm và Vạn Diệp (lốc khí + lá) Rồng Trúc, chiêu mana và chiêu cuối từng dạng (đang Play)", priority = 137)]
+        static void TryRong() => ThuyFxTour.TryOnly("thanh_long");
+
+        [MenuItem("PokiClash/Thử/Tướng/Đảo Mộc/Vạn Diệp Rồng Trúc chạy chậm 0,4× (đang Play)", priority = 138)]
+        static void TryRongCham() => ThuyFxTour.TryOnlyCham(0.4f, "thanh_long");
     }
 }

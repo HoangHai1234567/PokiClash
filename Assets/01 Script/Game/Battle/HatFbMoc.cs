@@ -90,6 +90,132 @@ namespace PokiClash
             return Add(p);
         }
 
+        // LỐC KHÍ (2026-11-25, người dùng chọn lốc "Khí" của gói Game VFX - Tornado Collection cho chiêu cuối rồng trúc). Khung chụp tách nền
+        // từ prefab FX_AirTornado_Loop (Editor/VfxPackShots.cs → ArtGen/XemVfx/vfx_loc/xuat_loc_khi.py), ba bộ cùng khung cắt, cùng neo chân:
+        // loc_khi_moc (mọc 0,5 s) → loc_khi_lap (thân, lặp liền) → loc_khi_tan (tắt phát hạt, tan tự nhiên); đổi đoạn hoà mờ 0,14 s.
+        // path(t): chân lốc theo giây kể từ lúc gọi; tTan: giây bắt đầu tan; trum(t) 0..1: lốc đang trùm đối thủ → lớp SAU đặc + lớp TRƯỚC mờ
+        // một nửa (đối thủ thấy trong lốc); không trùm: một lớp TRƯỚC. Trả null khi chưa nhập đủ ba bộ khung.
+        public const float LocKhiMoc = 0.5f;
+        // khung lốc trắng xám (cộng sáng của gói đã tách nền): nhân màu lục ngọc cho hợp hệ Mộc và NỔI trên nền sân cát sáng (bản đầu nhân lục
+        // rất nhạt 0,84 / 0,98 / 0,88: chụp trong trận lốc gần như tan vào nền)
+        static readonly Color MocKhiTint = new Color(0.62f, 0.9f, 0.72f);
+        // dáng khung lốc khí (đo ở xuat_loc_khi.py): phần đặc cao ~0,72 khung trên neo; lá quay quanh thân: cao 0,66, bán kính 0,11 → 0,29 khung
+        public const float LocKhiDinh = 0.72f;
+        bool HasLocKhi => HasFb("loc_khi_moc") && HasFb("loc_khi_lap") && HasFb("loc_khi_tan");
+
+        // khung cao lớn nhất để phần đặc của lốc đứng ở chân feetY không vượt mép trên sân (y 24)
+        static float LocKhiCaoMax(float feetY) => Mathf.Max(40, (feetY - 24) / LocKhiDinh);
+
+        P MocLocKhi(System.Func<float, Vector2> path, float h, float tTan, System.Func<float, float> trum, Color? tint = null, float alpha = 1,
+            float layer = 30) => MocLocKhi(path, _ => h, 1, tTan, trum, t => trum(t) > 0.001f ? Back : Front, tint, alpha, layer);
+
+        // hFn(t): khung cao theo giây (lốc gần rồng to, bay xa nhỏ dần theo chiều sâu); sx: giãn ngang (lốc béo hơn mà không cao thêm);
+        // lop(t): lớp chính, vẽ đặc (null = TRƯỚC); trum(t) > 0 thêm lớp còn lại mờ 0,5 × trum (lốc ở lớp SAU trùm đối thủ: đối thủ vẫn thấy trong
+        // lốc). Lốc chạy vòng quanh đối thủ: nửa trước vòng ở lớp TRƯỚC, nửa sau ở lớp SAU
+        P MocLocKhi(System.Func<float, Vector2> path, System.Func<float, float> hFn, float sx, float tTan, System.Func<float, float> trum,
+            System.Func<float, int> lop, Color? tint = null, float alpha = 1, float layer = 30)
+        {
+            var aM = FbArt("loc_khi_moc");
+            var aL = FbArt("loc_khi_lap");
+            var aT = FbArt("loc_khi_tan");
+            if (aM == null || aL == null || aT == null) return null;
+            var dM = Fbs["loc_khi_moc"];
+            var dL = Fbs["loc_khi_lap"];
+            var dT = Fbs["loc_khi_tan"];
+            float tMoc = dM.n / dM.fps;
+            tTan = Mathf.Max(tTan, tMoc);
+            const float X = 0.14f;
+            var col = tint ?? Color.white;
+            var p = new P { pos = path(0), group = Front, life = tTan + dT.n / dT.fps };
+            p.upd = (q, dt, s) => q.pos = path(q.age);
+            p.draw = (q, k, buf) =>
+            {
+                float t = q.age;
+                float tr = Mathf.Clamp01(trum(t));
+                float aEnd = alpha * Mathf.Clamp01((q.life - t) / 0.12f);
+                float h = hFn(t);
+                int g = lop != null ? lop(t) : Front;
+                void Ve(Sprite[] art, FbDef d, float f, float a)
+                {
+                    a *= aEnd;
+                    if (a < 0.02f) return;
+                    DrawFb(buf, art, d, f, q.pos, h, g, layer, 0, false, col, a, sx);
+                    if (tr > 0.001f) DrawFb(buf, art, d, f, q.pos, h, g == Front ? Back : Front, layer, 0, false, col, a * 0.5f * tr, sx); // trùm: thêm lớp kia mờ một nửa
+                }
+                float fl = (t - (tMoc - X)) * dL.fps; // khung của đoạn lặp (bắt đầu chạy từ lúc hoà với đoạn mọc)
+                if (t < tMoc)
+                {
+                    float w = Mathf.Clamp01((t - (tMoc - X)) / X);
+                    Ve(aM, dM, t * dM.fps, 1 - w);
+                    if (w > 0) Ve(aL, dL, fl, w);
+                }
+                else if (t < tTan) Ve(aL, dL, fl, 1);
+                else
+                {
+                    float w = Mathf.Clamp01((t - tTan) / X);
+                    if (w < 1) Ve(aL, dL, fl, 1 - w);
+                    Ve(aT, dT, (t - tTan) * dT.fps, w);
+                }
+            };
+            return Add(p);
+        }
+
+        // LÁ QUAY QUANH LỐC: n lá bám thân lốc (chân theo path, giây kể từ lúc gọi chiêu), mỗi lá một độ cao (rải đều 12–86 % thân lốc cao hThan),
+        // bán kính nở theo cao như phễu (rDay ở chân → rDinh ở đỉnh), góc chạy nhanh lệch tốc; lúc sinh cuốn từ ngoài vào trong 0,3 s. Nửa trước
+        // quỹ đạo (thấp hơn trên màn) ở lớp TRƯỚC, nửa sau ở lớp SAU. tNo: lá NỔ TUNG văng ra theo hướng bán kính (chếch lên), rơi, tắt dần.
+        void LaQuanhLoc(System.Func<float, Vector2> path, float hThan, float rDay, float rDinh, int n, float t0, float tNo, float sc = 1) =>
+            LaQuanhLoc(path, _ => hThan / 0.66f, 1, n, t0, tNo, sc, rDay / hThan * 0.66f, rDinh / hThan * 0.66f);
+
+        // hFn(t): khung cao của lốc theo giây chiêu (cùng gốc giờ với path), sx: giãn ngang của lốc; lá bám thân theo dáng khung lốc khí
+        void LaQuanhLoc(System.Func<float, Vector2> path, System.Func<float, float> hFn, float sx, int n, float t0, float tNo, float sc = 1,
+            float kDay = 0.11f, float kDinh = 0.29f, float laTo = 1)
+        {
+            var la = new System.Collections.Generic.List<P>(n);
+            for (int i = 0; i < n; i++)
+            {
+                int j = i;
+                float tSinh = t0 + 0.025f * i;
+                if (tSinh >= tNo - 0.05f) break;
+                At(tSinh, () =>
+                {
+                    float hf = 0.12f + 0.74f * (j + U(0.1f, 0.9f)) / n;
+                    var q = Leaf(path(tSinh), Vector2.zero, tNo - tSinh + 2f, U(5.5f, 8.5f) * laTo, 0, 0, Front);
+                    q.hgt = hf;
+                    q.r0 = kDay + (kDinh - kDay) * (hf * hf * 0.6f + hf * 0.4f); // bán kính theo phần khung cao, nở nhanh dần lên đỉnh
+                    q.R0 = U(0, 6.28f);                               // góc đầu
+                    q.R1 = U(6.5f, 9.5f) * ((j % 5 == 4) ? 0.8f : 1); // tốc góc (rad/giây)
+                    q.wd = tSinh;
+                    q.upd = (z, dt, s) =>
+                    {
+                        float tt = z.wd + z.age;
+                        float hh = hFn(tt);
+                        float a = z.R0 + z.R1 * z.age;
+                        float cuon = 1 + 0.7f * (1 - Mathf.Clamp01(z.age / 0.3f)); // cuốn từ ngoài vào
+                        float c = Mathf.Cos(a), sn = Mathf.Sin(a), r = z.r0 * hh;
+                        z.pos = path(tt) + new Vector2(c * r * sx * cuon, -z.hgt * 0.66f * hh + sn * r * 0.3f * cuon + Mathf.Sin(z.ph + z.age * 6) * 3);
+                        z.group = sn > 0 ? Front : Back;
+                        z.vel = Vector2.zero;
+                        z.r1 = r * sx;                                 // bán kính đang thấy (dùng lúc nổ)
+                    };
+                    la.Add(q);
+                });
+            }
+            At(tNo, () =>
+            {
+                foreach (var z in la)
+                {
+                    if (z.dead) continue;
+                    float a = z.R0 + z.R1 * z.age;
+                    var d = new Vector2(Mathf.Cos(a), Mathf.Sin(a) * 0.45f - 0.4f).normalized;
+                    z.upd = null;
+                    z.vel = d * U(380, 720) * sc + new Vector2(-Mathf.Sin(a), Mathf.Cos(a) * 0.3f) * z.R1 * z.r1 * 0.6f; // bung ra + quán tính quay
+                    z.acc = new Vector2(0, 620);
+                    z.drag = 2.2f;
+                    z.life = z.age + U(0.55f, 0.9f);
+                }
+            });
+        }
+
         // CỤM BỤI bằng khung khói: đáy cụm chạm đất ở feet, r ~ bán kính cụm BuiCum cũ (khung cao 2,4 r: ở khung to nhất cụm rộng ~2,3 r);
         // start: bỏ các khung cụm còn bé (cú dậm: cụm to ngay); vel: trôi theo hướng bị hất, hãm dần. Khung tự phồng, bay lên, tan thành mảnh.
         P MocKhoiFb(Vector2 feet, float r, Vector2 vel = default, int group = Back, float start = 4, float speed = 1.35f, float alpha = 0.92f,

@@ -80,7 +80,7 @@ namespace PokiClash.EditorTools
             while (Time.realtimeSinceStartup - t0 < 20)
             {
                 view = Object.FindAnyObjectByType<BattleView>();
-                if (!App.Router.Busy && view && view.OfferCards.Count > 0) break;
+                if (!App.Router.Busy && view && view.OfferCards.Count > 0 && !view.Dealing) break;
                 yield return null;
             }
             yield return Wait(1.0f);
@@ -89,7 +89,9 @@ namespace PokiClash.EditorTools
             if (btn)
             {
                 btn.SimulateClick();
-                yield return Wait(0.9f);
+                yield return Wait(0.3f);
+                for (float w = 0; view && view.Dealing && w < 4; w += Time.unscaledDeltaTime) yield return null; // bộ bài tráo, chia lại
+                yield return Wait(0.4f);
                 yield return Shot("4_lat_trang");
             }
             else Debug.LogWarning("[Sổ Phép] Không thấy nút Lật trang đang hiện trong trận");

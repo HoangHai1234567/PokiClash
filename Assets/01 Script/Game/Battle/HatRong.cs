@@ -93,6 +93,22 @@ namespace PokiClash
             }
         }
 
+        // SÉT PHỤ (2026-11-25, người dùng: "nhiều sét đánh hơn"): một tia từ trên trời (chặn trong sân, y ≥ 0) xuống điểm dat + một tia con lệch
+        // giờ, chớp nhỏ, vòng va chạm, vòng cung đất, tia vụn hai bên. Không chớp màn trừ khi flash (luật ≤ 3 chớp màn mỗi giây).
+        void SetPhu(Vector2 dat, float s, float manh = 1, bool flash = false, int group = Front)
+        {
+            var troi = new Vector2(dat.x + U(-0.35f, 0.35f) * s, Mathf.Min(dat.y - 1.9f * s, 4));
+            Set(troi, dat, 0.075f * s * manh, 0.2f * s, 0.24f, true, group).stops = SetTuoi;
+            At(0.06f, () => Set(troi + new Vector2(U(0.2f, 0.32f) * s, 0), dat + new Vector2(0.05f * s, 0.02f * s), 0.042f * s * manh, 0.15f * s, 0.15f, false, group).stops = SetTuoi);
+            if (flash) FlashScreen?.Invoke(FlashSet);
+            Shake?.Invoke(0.55f * manh);
+            Chop(dat, 0.3f * s * Mathf.Min(1.2f, manh), 0.07f);
+            VongVa(dat, 0.08f * s, 0.48f * s * manh, 0.26f, SetTuoi[0], group, 0.9f, 33);
+            CungDat(dat + new Vector2(0, 2), 0.1f * s, 0.55f * s * manh, 0.3f, CungC, 0.06f * s);
+            TiaVunCum(dat, new Vector2(-1, -0.7f), 0.6f, 3, 420 * manh, 3.8f, group, SetTuoi[0], SetTuoi[1]);
+            TiaVunCum(dat, new Vector2(1, -0.7f), 0.6f, 3, 420 * manh, 3.8f, group, SetTuoi[0], SetTuoi[1]);
+        }
+
         // một chỗ đất nứt bật lên trên đường địa chấn: vòng cung dẹt nhỏ, cụm bụi tách dần, đá vụn
         void DatNut(Vector2 dat, float tH, float sc)
         {
@@ -265,6 +281,13 @@ namespace PokiClash
                 Leaf(from, new Vector2(-Mathf.Sin(a) * 220, -U(240, 420)), U(0.45f, 0.72f), U(4.5f, 7.5f), -140, 1.1f, Mathf.Sin(a) < 0 ? Back : Front);
             });
             At(tGam, () => Shake?.Invoke(0.5f));
+            // SÉT lúc dựng cánh gầm (2026-11-25, "nhiều sét đánh hơn"): ba tia so le đánh xuống đất quanh rồng, tia đầu chớp màn
+            for (int i = 0; i < 3; i++)
+            {
+                int j = i;
+                var dat = casterFeet + new Vector2(dir * (0.3f + 0.24f * j) * casterH, (j == 1 ? -0.06f : 0.03f) * casterH); // phía trước rồng (về phía đối thủ): bản đầu lệch hai bên, tia ra ngoài màn
+                At(tGam + 0.04f + 0.13f * j, () => SetPhu(dat, 0.5f * casterH, 0.85f, j == 0, dat.y >= casterFeet.y ? Front : Back));
+            }
             // khép cánh thành kén: lá và vệt gió bị hút xoắn vào ngực, nhanh dần, nhập vào kén; vòng co lại; măng nhú quanh chân đối thủ (báo trước)
             At(tKen, () => GatherLa(t => nguc, 0, tBung - tKen - 0.04f, 0.95f * casterH, 60));
             At(tKen, () => CungDat(casterFeet + new Vector2(0, 2), 0.9f * casterH, 0.14f * casterH, 0.3f, W[3], 0.06f * casterH, 5));
@@ -315,6 +338,77 @@ namespace PokiClash
             const float V = 1150;
             float fly = dist / V;
             float tQuat = L - 0.06f;
+            // LỐC KHÍ (2026-11-25, người dùng: "lấy lốc xoáy này thêm vào chiêu cuối của final boss đảo mộc, thêm các mảnh lá cây quay quanh lốc
+            // xoáy, khi va chạm thì lá nổ tung ra"; bản 2 cùng ngày: "epic hơn, nhiều lốc hơn, lốc to hơn, nhiều sét đánh hơn"). Kén bung → BA lốc
+            // mọc giữa rồng và đối thủ (lốc chính giữa, hai lốc hai bên đường bay), lá cuốn vào quay quanh từng lốc → QUẠT CÁNH: ba lốc toả hình
+            // quạt rồi hội tụ vào đối thủ (lốc gần to, bay xa nhỏ dần theo chiều sâu; chặn mép trên sân; giãn ngang 1,3 cho béo) → mỗi lốc chạm:
+            // lá nổ tung + SÉT đánh xuống chỗ chạm; lốc chính trùm đối thủ, hai lốc kia chạy vòng quanh nó (nửa trước vòng lớp trước) tới lúc sập
+            // cánh rồi tan. Thay dòng bão lá tự lái. Chưa nhập khung lốc thì giữ bản cũ.
+            if (HasLocKhi)
+            {
+                const float SX = 1.3f, tBay = 0.42f;
+                var ab = foeFeet - casterFeet;
+                var ngang = Unit(new Vector2(-ab.y, ab.x));                    // vuông góc đường rồng → đối thủ
+                if (ngang.y < 0) ngang = -ngang;                                 // +ngang chếch xuống màn (gần người xem)
+                float hDich = Mathf.Min(2.4f * tH, LocKhiCaoMax(foeFeet.y));     // lốc ở chỗ đối thủ: to nhất mà không vượt mép trên
+                float rVong = 0.62f * tH;                                        // bán kính vòng chạy quanh đối thủ
+                var goc0 = Vector2.Lerp(casterFeet, foeFeet, 0.5f); // giữa đường: bản 0,36 mọc đè lên thân rồng (che kén bung)
+                float tSinh0 = tBung + 0.02f;
+                // (lệch ngang chỗ mọc theo thân rồng, trễ, phần quãng bay lúc chạm, góc vào vòng quanh đối thủ (rad; null = trùm giữa), cỡ)
+                var locs = new (float lech, float tre, float cham, float? vong, float co)[]
+                {
+                    (0f, 0f, 0.8f, null, 1f),
+                    (-0.3f, 0.07f, 0.86f, 3.6f, 0.78f), // lốc phía xa (trên màn): vào vòng ở góc sau
+                    (0.3f, 0.13f, 0.92f, 0.5f, 0.78f),  // lốc phía gần (dưới màn): vào vòng ở góc trước
+                };
+                float tChamChinh = tQuat + tBay * locs[0].cham;
+                for (int li = 0; li < locs.Length; li++)
+                {
+                    int k = li;
+                    var (lech, tre, cham, vong, co) = locs[k];
+                    bool chinh = !vong.HasValue;
+                    float vong0 = vong ?? 0;
+                    var goc = goc0 + ngang * lech * casterH;
+                    float hGoc = Mathf.Min(0.9f * casterH * co, LocKhiCaoMax(goc.y));
+                    float hD = hDich * (chinh ? 1f : 0.72f);
+                    var toi = chinh ? foeFeet + new Vector2(0, 3) : foeFeet + new Vector2(Mathf.Cos(vong0) * rVong, Mathf.Sin(vong0) * rVong * 0.35f);
+                    var giua = Vector2.Lerp(goc, toi, 0.5f) + ngang * lech * 0.9f * casterH; // toả hình quạt rồi hội tụ
+                    float t0 = tQuat + tre * 0.5f, tTo = t0 + tBay, tCh = t0 + tBay * cham, tS = tSinh0 + tre;
+                    System.Func<float, Vector2> chan = t =>
+                    {
+                        if (t <= t0) return goc + new Vector2(Mathf.Sin(t * 7 + k) * 0.02f * casterH, 0);
+                        if (t <= tTo)
+                        {
+                            float u = SmoothStep(0, 1, (t - t0) / tBay);
+                            return Vector2.Lerp(Vector2.Lerp(goc, giua, u), Vector2.Lerp(giua, toi, u), u);
+                        }
+                        if (chinh) return toi;
+                        float a = vong0 + 7.5f * (t - tTo);                                       // chạy vòng quanh đối thủ
+                        return foeFeet + new Vector2(Mathf.Cos(a) * rVong, Mathf.Sin(a) * rVong * 0.35f);
+                    };
+                    System.Func<float, float> cao = t => Mathf.Lerp(hGoc, hD, SmoothStep(0, 1, Mathf.Clamp01((t - t0) / tBay)));
+                    // lớp: chưa chạm thì SAU (lốc đứng xa hơn rồng theo chiều sâu; lớp trước thì che cánh, mặt rồng lúc kén bung); lốc chính chạm thì
+                    // trùm (trum); lốc vòng: nửa trước vòng TRƯỚC, nửa sau SAU
+                    System.Func<float, int> lop = t => chinh || t < tCh ? Back : Mathf.Sin(vong0 + 7.5f * Mathf.Max(0, t - tTo)) < 0 ? Back : Front;
+                    float tTan = tSapCanh + 0.12f + 0.05f * k;
+                    At(tS, () => MocLocKhi(t => chan(tS + t), t => cao(tS + t), SX, tTan - tS,
+                        t => chinh ? SmoothStep(tCh - 0.04f, tCh + 0.12f, tS + t) : 0f, t => lop(tS + t), MocKhiTint, 1, 30 + 0.1f * k));
+                    LaQuanhLoc(chan, cao, SX, chinh ? 16 : 9, tS + 0.12f, tCh + 0.02f, chinh ? 1.15f : 0.9f, 0.11f, 0.29f, chinh ? 1.25f : 1.05f);
+                    var cho = chinh ? foeBody + new Vector2(0, -0.2f * tH) : toi + new Vector2(0, -0.3f * hD);
+                    At(tCh, () =>
+                    {
+                        Shake?.Invoke(chinh ? 0.8f : 0.5f);
+                        if (chinh)
+                        {
+                            LaNo(foeBody, foeFeet, tH, 1.5f);
+                            WExtra(foeBody, 6, 340);
+                        }
+                        SetPhu(cho, tH, chinh ? 1.15f : 0.85f, chinh, chinh || toi.y >= foeFeet.y ? Front : Back);
+                    });
+                }
+                fly = tChamChinh - L;
+            }
+            else
             Every(tQuat, tQuat + 0.56f, x => 120 * (x < 0.2f ? 1.4f : 1), x =>
             {
                 float spd = V * U(0.85f, 1.15f);
@@ -403,6 +497,18 @@ namespace PokiClash
                 }
                 SetGiang(foeBody + new Vector2(0, -0.42f * tH), tH, 1.25f);
             });
+            // MƯA SÉT lúc sập cánh (2026-11-25, "nhiều sét đánh hơn"): năm tia so le đánh quanh chân đối thủ (không chớp màn: sét giáng đã chớp)
+            float[] muaSet = { 0.07f, 0.15f, 0.24f, 0.33f, 0.43f };
+            for (int i = 0; i < muaSet.Length; i++)
+            {
+                int j = i;
+                At(tSapCanh + muaSet[j], () =>
+                {
+                    float a = 6.28f * (j + U(0.1f, 0.9f)) / muaSet.Length;
+                    var dat = foeFeet + new Vector2(Mathf.Cos(a) * U(0.5f, 0.95f) * tH, Mathf.Sin(a) * U(0.12f, 0.28f) * tH);
+                    SetPhu(dat, tH, U(0.7f, 0.95f), false, dat.y >= foeFeet.y ? Front : Back);
+                });
+            }
             Every(tSapCanh, tSapCanh + 0.5f, x => (gaiFb ? 60 : 80) * (1 - 0.6f * x), x => // có rừng gai lá thì bớt lá phun (đỡ đông hạt)
                 Leaf(foeFeet + new Vector2(U(-0.3f, 0.3f) * tH, -U(0, 0.15f) * tH), new Vector2(U(-80, 80), -U(420, 720)), U(0.55f, 0.85f), U(4.5f, 7.5f), 980, 0.7f,
                     U(0, 1) < 0.72f ? Back : Front));

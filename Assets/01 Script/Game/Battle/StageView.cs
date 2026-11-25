@@ -107,9 +107,9 @@ namespace PokiClash
         static readonly Dictionary<string, (string mana, string ult)> FireFx = new Dictionary<string, (string, string)>
         {
             { "hoa_nhan", ("tia_mat", "quyen_xoay") }, { "nham_than", ("phun", "n_cau_lan") }, { "kim_su", ("ten", "no_lon") },
-            { "su_tu_lua", ("cau", "phun_nham") }, // Tiểu Quỷ Lava (2026-11-18): cầu lửa; chiêu cuối dung nham phun dưới chân đối thủ (trước chưa có dòng, chiêu cuối không có hạt nào)
+            { "su_tu_lua", ("tia_mat", "phun_nham") }, // Tiểu Quỷ Lava: chiêu mana chĩa giáo bắn tia lửa năng lượng (ELaser bảng lửa từ xương mieng ở mũi giáo; 2026-11-25, trước: "cau" cầu lửa, lệch clip); chiêu cuối dung nham phun dưới chân đối thủ (trước chưa có dòng, chiêu cuối không có hạt nào)
             { "hong_lien", ("n_kim_phap", "n_cau_phap") }, // suất này nay là pháp sư lửa (Viêm Sư, 2026-11-14; HatPhap.cs, đi đường "n_"): kim lửa quanh đầu trượng rồi phóng; chiêu cuối cầu lửa của rig phình to, mốc ban_cau cầu hạt lao tới đối thủ (trước: "kim", "loc_xoay")
-            { "giap_long", ("dat_trao", "no_lon") }, // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): chiêu mana bổ đao cắm đất, dung nham trào dưới chân địch; chiêu cuối lao tới liên hoàn chém, nổ lớn ở nhát bổ kết (trước: "phun", "phun_nham")
+            { "giap_long", ("dat_trao", "n_dao_lien") }, // suất này nay là quỷ lửa cầm đao (Viêm Đao, 2026-11-13): chiêu mana bổ đao cắm đất, dung nham trào dưới chân địch; chiêu cuối lao tới liên hoàn chém: mỗi nhát một lưỡi liềm lửa (n_dao_lien, HatChieuDoiMau.cs, 2026-11-25; trước: mã chung "no_lon"), nổ lớn ở nhát bổ kết (trước nữa: "phun", "phun_nham")
             { "huyen_viem", ("n_dat_dam", "no_lon") }, // suất này nay là Viêm Dũng, chiến binh đất nung lõi dung nham (2026-11-14; HatDat.cs, đi đường "n_"): lao tới đâm rồi chém liên hoàn, dung nham trào ở nhát bổ kết; chiêu cuối năm kiếm của rig bay tới, nổ lớn (trước: "kim", "loc_xoay")
             { "hoa_tinh", ("n_ho_gam", "n_ho_anh") }, // suất này nay là Bạch Viêm Hổ (2026-11-14; HatHo.cs, đi đường "n_"): gầm tạo sóng xung kích + sóng nhiệt; chiêu cuối tan biến, màn âm bản, lướt chém để lại sẹo lửa rồi nổ (trước: "cau", "no_lon")
             { "lan_hoa", ("n_nui_cau", "n_nui_ten") }, // suất này nay là Hỏa Sơn Long, khủng long núi lửa (2026-11-15; HatNuiLua.cs, đi đường "n_"): há mồm tụ cầu lửa rồi bắn; chiêu cuối bẻ các ống núi lửa, bắn đạn tầm nhiệt
@@ -133,16 +133,18 @@ namespace PokiClash
         {
             // lô 10 tướng mới đảo Thủy (2026-11-11): theo chiêu cast / skill từng dạng trong ArtGen/Spine/inbox/tm0*_ghichu.md (chiêu mana
             // một mã cho cả dòng: hai dạng khác kiểu thì lấy kiểu dạng 1). Bảng nháp cho bước VFX riêng, chưa xem trong trận
-            { "ti_tach", ("n_tia", new[] { "n_va", "n_va" }) },                // há miệng bắn tia nước; chiêu cuối nhảy đè: nước toé lúc chạm
-            { "thach_giai", ("n_tia", new[] { "n_cau", "n_cau" }) },           // suất này nay là dòng ếch xanh (2026-11-11): há miệng bắn tia nước; chiêu cuối ợ ra cầu nước
-            { "ca_den", ("n_tia", new[] { "n_tia", "n_tia" }) },              // Vòi Nước (há miệng bắn tia); Thủy Pháo (dậm chân gầm, tia to hơn) ở cả hai dạng
+            // 2026-11-25 (người dùng: "làm thêm các chiêu thức cho các tướng, không chỉ xoay quanh kiểu cầu/tia"; duyệt bảng): chiêu nước mới theo
+            // gói mẫu ở HatNuocChieu.cs, bám động tác clip có sẵn; không có lưới shader thì tự về chiêu cũ (tia / cầu)
+            { "ti_tach", ("n_lien_dan", new[] { "n_va", "n_va" }) },          // há miệng bắn 5 viên đạn nước liên tiếp; chiêu cuối nhảy đè: nước toé lúc chạm
+            { "thach_giai", ("n_bong_nay", new[] { "n_cau_nhot", "n_cau_nhot" }) }, // há miệng thổi 3 bong bóng nảy; chiêu cuối ợ cầu nước bọc lấy đối thủ rồi vỡ
+            { "ca_den", ("n_bom", new[] { "n_tia", "n_tia" }) },              // há miệng phụt bom nước bay vồng nổ cột nước; Thủy Pháo (dậm chân gầm, tia to) ở cả hai dạng
             { "ha_ba", ("n_ngoc", new[] { "n_va", "n_va" }) },                 // suất này nay là dòng sò đột biến (2026-11-11): phồng lên phụt viên ngọc trai; chiêu cuối lè lưỡi lao tới quật: nước toé lúc chạm
             { "so_ngoc", ("n_muc", new[] { "n_va", "n_va" }) },                // suất này nay là dòng bạch tuộc quái vật (2026-11-12): phồng người phụt một quả bóng mực đen; chiêu cuối gọi bạch tuộc con (nằm trong rig, xương fly*) bò tới nhảy bổ vào địch: mực toé lúc chạm
-            { "giong_bao", ("n_tia", new[] { "n_thuong", "n_thuong" }) },      // suất này nay là dòng pháp sư nước (2026-11-11): chĩa gậy bắn tia; chiêu cuối giơ gậy gọi kim nước, dậm gậy thì kim phóng đi
-            { "lien_kinh", ("n_va", new[] { "n_tia", "n_tia" }) },             // suất này nay là dòng cá voi biến dị (2026-11-11): chiêu mana xoay người quật đuôi (nước toé lúc chạm); chiêu cuối há to phun luồng nước
-            { "uyen_xa", ("n_tia", new[] { "n_va", "n_va" }) },                // suất này nay là dòng rắn nước có sừng (2026-11-11): há nhẹ miệng bắn tia nước; chiêu cuối lao tới, đuôi sừng quất chém liên tiếp: nước toé lúc chạm (vệt chém riêng chưa làm)
-            { "han_ngac", ("n_loc", new[] { "n_song", "n_mua" }) },            // suất này nay là dòng rồng vây (2026-11-12): quạt cánh tạo lốc xoáy nước lướt tới địch; chiêu cuối chưa chốt, giữ sóng / mưa
-            { "hai_long", ("n_tia", new[] { "n_song", "n_xoay", "n_voi" }) },  // phun nước từ các đầu; chiêu gầm ba dạng mạnh dần
+            { "giong_bao", ("n_cau_xoay", new[] { "n_mua_giong", "n_mua_giong" }) }, // dòng pháp sư nước: chĩa gậy phóng cầu xoáy (tụ theo đầu trượng); chiêu cuối giơ gậy gọi mây giông, dậm gậy: mưa trút, cột thác dội, sét (2026-11-25, trước: tia / kim nước)
+            { "lien_kinh", ("n_va", new[] { "n_cau_ma", "n_cau_ma" }) },       // suất này nay là dòng cá voi biến dị (2026-11-11): chiêu mana xoay người quật đuôi (nước toé lúc chạm); chiêu cuối há to triệu hồi cầu ma thủy xanh ngọc (gói MagicWater_OrbLoop) ngay ở thân đối thủ rồi nổ (2026-11-25, người dùng đổi từ sóng thần; trước nữa: tia to)
+            { "uyen_xa", ("n_thuy_xa", new[] { "n_xa_chem", "n_xa_chem" }) },  // suất này nay là dòng rắn nước có sừng (2026-11-11): nước tụ giữa hai sừng thành rắn nước trườn tới ngoạm; chiêu cuối lao tới, đuôi sừng quất: ba nhát chém nước (2026-11-25, trước: tia / toé)
+            { "han_ngac", ("n_loc", new[] { "n_bao_xoay1", "n_bao_xoay" }) },  // suất này nay là dòng rồng vây (2026-11-12): quạt cánh tạo lốc xoáy nước lướt tới địch; chiêu cuối siêu bão xoáy dưới chân đối thủ, mảnh băng bay vòng (2026-11-25, trước: sóng / mưa)
+            { "hai_long", ("n_loat_tia", new[] { "n_song", "n_xoay", "n_voi" }) }, // mỗi đầu bắn một tia Water Laser đúng lúc vươn ra (1 đầu 3 tia toả / 3 / 5 đầu theo dạng; HatHaiLongTia.cs, người dùng 2026-11-25: loạt cầu nước "nhìn yếu quá, làm nó bắn thành nhiều laser beam"); chiêu gầm ba dạng mạnh dần
         };
 
         // đòn đánh thường của tướng Thủy đứng yên bắn (rig khai "stay" cho clip attack): mã hạt nước của viên đạn. Tướng không có

@@ -54,13 +54,26 @@ namespace PokiClash
                     case "song": return ("fx_song", null);
                     case "mua": return (null, "fx_nuoc");
                     case "xoay": return ("fx_bong", "fx_nuoc_lon");
+                    case "lien_dan": return ("fx_bong", "fx_nuoc");
+                    case "bong_nay": return ("fx_bong", "fx_nuoc");
+                    case "cau_nhot": return ("fx_bong", "fx_nuoc_lon");
+                    case "bom": return ("fx_bong", "fx_nuoc_lon");
+                    case "cau_xoay": return ("fx_bong", "fx_nuoc_lon");
+                    case "mua_giong": return (null, "fx_nuoc_lon");
+                    case "song_than": return ("fx_song", "fx_nuoc_lon");
+                    case "thuy_xa": return ("fx_tia_nuoc", "fx_nuoc_lon");
+                    case "cau_ma": return ("fx_tu", "fx_nuoc_lon");
+                    case "xa_chem": return ("fx_chem", "fx_nuoc_lon");
+                    case "bao_xoay":
+                    case "bao_xoay1": return ("fx_loc", "fx_nuoc");
+                    case "loat_cau": return ("fx_bong", "fx_nuoc");
                 }
             if (Has(k, "gam")) return ("fx_gam", null);
             if (Has(k, "song")) return ("fx_song", null);
             if (Has(k, "loc", "voi", "xoay")) return ("fx_loc", ElemHit(elem));
             if (k == "phun_nham") return ("fx_da", "fx_no");
             if (Has(k, "phun")) return (elem == Elem.Hoa ? "fx_phun_lua" : "fx_tia_nuoc", ElemHit(elem));
-            if (k == "no_lon") return ("fx_tu", "fx_no_lon");
+            if (k == "no_lon" || k == "dao_lien") return ("fx_tu", "fx_no_lon");
             if (Has(k, "tia")) return ("fx_nha_tia", ElemHit(elem));
             if (Has(k, "cau")) return ("fx_tu", elem == Elem.Hoa ? "fx_no" : ElemHit(elem));
             if (Has(k, "ban", "dan")) return ("fx_nha_tia", ElemHit(elem));

@@ -1,6 +1,7 @@
 // Giao diện trận (chép bố cục Web/src/view/battle/battleScreen.ts + battle.css, khung 540 × 960 nhân 2):
 // thanh trên (tạm dừng, hiệp, nhãn lượt, Tự chơi), sân đấu, bảng thông tin hai bên, hàng mặt địch góc trên trái sân,
-// bảng dưới (hàng thẻ 5 ô + ô đòn kết, 3 thẻ để chọn, chân dung đội, nút Chiêu và Tuyệt kỹ), lớp phủ (băng rôn, VS, gợi ý).
+// bảng dưới (hàng thẻ 5 ô + ô đòn kết, bộ bài tráo và 3 thẻ để chọn, chân dung đội, nút Chiêu và Tuyệt kỹ), lớp phủ (băng rôn, VS, gợi ý).
+// Bộ bài (DraftDeck, 2026-11-25): tráo chờ lượt, tới lượt rút thì chia 3 lá bay ra lật mặt, chọn xong hai lá còn lại về bộ tráo lại.
 // Chỉ vẽ; BattleController quyết định khi nào vẽ lại và nối nút bấm.
 // Dựng sẵn trong prefab màn hình Screens/Battle; ô hàng thẻ, ô trống, lá úp, ô đồng đội, mặt địch, băng rôn là prefab mục (dùng lại, thừa thì tắt).
 using System;
@@ -38,7 +39,7 @@ namespace PokiClash
             // hàng thẻ: ô thẻ, ô trống (prefab mục), mũi tên và ô đòn kết (dựng sẵn, cuối hàng)
             public QueueTile tilePrefab, finTile;
             public RectTransform emptyPrefab, arrow;
-            // thẻ chọn: dòng chữ (dựng sẵn), lá úp của địch (prefab mục)
+            // thẻ chọn: dòng chữ (dựng sẵn), lá úp của bộ bài tráo (prefab mục)
             public TextMeshProUGUI offerLabel;
             public RectTransform backPrefab;
             // Sổ Phép "Lật Trang": nút đổi cả bộ thẻ ở đầu hàng thẻ, cạnh chip "Chọn" (menu Editor SoPhepMenu vá vào Screens/Battle)
@@ -72,14 +73,12 @@ namespace PokiClash
 
         readonly List<QueueTile> tiles = new List<QueueTile>();
         readonly List<RectTransform> empties = new List<RectTransform>();
-        readonly List<RectTransform> backs = new List<RectTransform>();
         readonly List<TeamSlot> slots = new List<TeamSlot>();
         readonly List<FoeFace> foes = new List<FoeFace>();
         int[] foeStar; // sao để vẽ mặt từng địch (boss tiến hóa đổi theo dạng đang hiện)
         readonly List<UiCard> dealt = new List<UiCard>(); // thẻ chọn đang hiện (bản sao kit, xoá khi vẽ lại)
         readonly List<QueueTile> flyIdle = new List<QueueTile>();
         readonly List<BattleBanner> bannerIdle = new List<BattleBanner>();
-        readonly Dictionary<RectTransform, Coroutine> dealing = new Dictionary<RectTransform, Coroutine>();
 
         // Dùng khi nướng prefab (Editor).
         public void Setup(Parts parts) => p = parts;
@@ -112,6 +111,22 @@ namespace PokiClash
                 p.reroll.SetOnClick(() => OnReroll?.Invoke());
                 p.reroll.gameObject.SetActive(false);
             }
+            // bộ bài: dựng lần đầu (lớp bộ, lớp viền độ hiếm, lớp lá bay trong ô thẻ chọn), trận mới thì về nguyên
+            deck = DraftDeck.Ensure(p.offer, p.backPrefab, DeckAt, p.qRow);
+            deck.ResetAll();
+            foreach (var c in dealt)
+                if (c)
+                    Destroy(c.gameObject);
+            dealt.Clear();
+            OfferCards.Clear();
+            revealed.Clear();
+            offerClick.Clear();
+            offerTurn = null;
+            offerSig = null;
+            p.offerLabel.gameObject.SetActive(false);
+            // trận trước bị thoát giữa lúc thẻ đang bay (coroutine bị dừng): không để đếm thẻ bay kẹt
+            Flying = 0;
+            landing.Clear();
         }
 
         // hàng mặt địch theo ảnh chụp của sự kiện (gục thì có dấu X đúng lúc màn diễn); null: đầu trận
@@ -425,9 +440,9 @@ namespace PokiClash
         }
 
         // ---------- thẻ được chọn bay vào hàng (GameFeel 2.4, 6.2, 6.5; 2026-11-16) ----------
-        // Logic chạy ngay lúc chạm (BattleController gọi Battle.Pick và chia lượt thẻ mới liền), hình đuổi theo: thẻ chọn nhấc lên lấy đà,
-        // bay theo cung vào ô của nó, ô bật lên lúc chạm; hai thẻ còn lại chìm xuống. Nhiều thẻ bay cùng lúc được, nên chạm nhanh liên
-        // tiếp không bị nuốt. Ô đang chờ thẻ bay tới ẩn tới lúc chạm (landing).
+        // Logic chạy ngay lúc chạm (BattleController gọi Battle.Pick liền), hình đuổi theo: thẻ chọn nhấc lên lấy đà, bay theo cung vào ô
+        // của nó, ô bật lên lúc chạm; hai thẻ còn lại lật úp bay về bộ bài (2026-11-25, trước đó chìm xuống), bộ tráo lại rồi chia lượt
+        // thẻ mới. Ô đang chờ thẻ bay tới ẩn tới lúc chạm (landing).
 
         readonly List<UiCard> flyCardIdle = new List<UiCard>();
         readonly HashSet<int> landing = new HashSet<int>();
@@ -437,93 +452,124 @@ namespace PokiClash
         public void HoldTile(int qIdx) => landing.Add(qIdx);
 
         // chọn thẻ chosen trong lượt thẻ đang hiện: trả về bản sao để bay (nằm trên cùng lớp phủ, gốc ở tâm, đúng chỗ và cỡ thẻ cũ);
-        // thẻ cũ tắt, hai thẻ kia chìm xuống rồi xoá
+        // thẻ cũ tắt (viền độ hiếm bung ra tại chỗ), hai thẻ kia lật úp bay về bộ bài
         public RectTransform PickOffer(UiCard chosen)
         {
             RectTransform clone = null;
             if (chosen)
             {
                 var from = (RectTransform)chosen.transform;
-                var c = chosen.Card;
-                UiCard fc = null;
-                while (flyCardIdle.Count > 0 && !fc)
-                {
-                    fc = flyCardIdle[flyCardIdle.Count - 1];
-                    flyCardIdle.RemoveAt(flyCardIdle.Count - 1);
-                }
-                if (fc)
-                {
-                    fc.gameObject.SetActive(true);
-                    fc.Bind(c, 1, Icon(c.icon));
-                }
-                else fc = UiCard.Create(p.overlay, c, 1, false, Icon(c.icon));
-                clone = (RectTransform)fc.transform;
-                clone.SetAsLastSibling();
-                clone.anchorMin = clone.anchorMax = clone.pivot = new Vector2(0.5f, 0.5f);
+                clone = (RectTransform)TakeFlyCard(chosen.Card).transform;
                 clone.sizeDelta = from.rect.size;
                 clone.position = from.TransformPoint(from.rect.center);
                 clone.localScale = from.localScale;
                 clone.localEulerAngles = from.localEulerAngles;
-                StopDeal(from);
+                if (deck) deck.Picked(chosen);
                 dealt.Remove(chosen);
                 OfferCards.Remove(chosen);
+                revealed.Remove(chosen);
+                offerClick.Remove(chosen);
                 Destroy(chosen.gameObject);
             }
-            // hai thẻ không được chọn: thôi bấm được ngay, chìm xuống (nhích lên một chút rồi rơi, co về 0)
-            for (int k = dealt.Count - 1; k >= 0; k--)
-            {
-                var other = dealt[k];
-                dealt.RemoveAt(k);
-                if (!other) continue;
-                OfferCards.Remove(other);
-                other.SetInteractable(false);
-                var rt = (RectTransform)other.transform;
-                StopDeal(rt);
-                if (other.TryGetComponent<UiMotion>(out var m)) m.enabled = false;
-                StartCoroutine(Discard(rt, k));
-            }
+            // hai thẻ không được chọn: thôi bấm được ngay, lật úp bay về bộ bài
+            ReturnOffer();
             return clone;
         }
 
-        void StopDeal(RectTransform rt)
+        // bản sao thẻ để bay (kho dùng lại), trên cùng lớp phủ, gốc ở tâm
+        UiCard TakeFlyCard(CardDef c)
         {
-            if (dealing.TryGetValue(rt, out var co) && co != null) StopCoroutine(co);
-            dealing.Remove(rt);
-        }
-
-        IEnumerator Discard(RectTransform rt, int i)
-        {
-            if (!rt) yield break;
-            var p0 = rt.anchoredPosition;
-            float s0 = rt.localScale.x, r0 = rt.localEulerAngles.z, dir = i % 2 == 0 ? -1 : 1;
-            const float len = 0.18f;
-            for (float t = 0; t < len; t += Time.unscaledDeltaTime)
+            UiCard fc = null;
+            while (flyCardIdle.Count > 0 && !fc)
             {
-                if (!rt) yield break;
-                float k = t / len;
-                // 0 → 30%: nhích lên, phồng 4%; 30% → hết: rơi xuống, co về 0 (ease-in), nghiêng ra ngoài
-                float up = k < 0.3f ? Mathf.Sin(k / 0.3f * Mathf.PI * 0.5f) : 1 - (k - 0.3f) / 0.7f;
-                float fall = k < 0.3f ? 0 : Mathf.Pow((k - 0.3f) / 0.7f, 2);
-                rt.anchoredPosition = p0 + new Vector2(0, 14 * up - 90 * fall);
-                float s = s0 * (k < 0.3f ? 1 + 0.04f * up : Mathf.Lerp(1.04f, 0, fall));
-                rt.localScale = new Vector3(s, s, 1);
-                rt.localEulerAngles = new Vector3(0, 0, r0 + dir * 8 * fall);
-                yield return null;
+                fc = flyCardIdle[flyCardIdle.Count - 1];
+                flyCardIdle.RemoveAt(flyCardIdle.Count - 1);
             }
-            if (rt) Destroy(rt.gameObject);
+            if (fc)
+            {
+                fc.gameObject.SetActive(true);
+                fc.Bind(c, 1, Icon(c.icon));
+            }
+            else fc = UiCard.Create(p.overlay, c, 1, false, Icon(c.icon));
+            var rt = (RectTransform)fc.transform;
+            rt.SetAsLastSibling();
+            rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+            rt.sizeDelta = UiCard.NormalSize;
+            rt.localEulerAngles = Vector3.zero;
+            return fc;
         }
 
-        // bay bản sao clone (từ PickOffer) vào ô qIdx của hàng thẻ: nhấc lên lấy đà 0,07 giây, bay theo cung 0,26 giây (vụt đi rồi chậm
-        // lại cắm vào ô), xoay nhẹ; chạm thì ô bật lên (0,8 → 1,22 → 1), tiếng "land" leo cao độ theo lần chọn, rung tay một tích.
+        // địch chọn (2026-11-25): lá trên đỉnh bộ bài nhấc lên dựng đứng, bay vào ô qIdx của hàng thẻ địch, lật ra mặt giữa đường
+        // (FlyToSlot có lá úp). Đếm vào Flying ngay từ lúc nhấc để lượt địch chờ lá cuối chạm hàng rồi mới ra đòn.
+        public IEnumerator FoeDraw(string cardId, int qIdx, int pickNo)
+        {
+            var c = d.Card(cardId);
+            if (c == null) yield break;
+            var clone = (RectTransform)TakeFlyCard(c).transform;
+            RectTransform back = null;
+            if (deck)
+            {
+                var top = deck.TopPose(true);
+                float s = top.scale / Mathf.Max(1e-4f, p.overlay.lossyScale.x);
+                clone.position = top.pos;
+                clone.localScale = new Vector3(0, s, 1);
+                back = deck.TakeBack(p.overlay);
+                back.position = top.pos;
+                back.rotation = top.q;
+                back.localScale = new Vector3(s, s, 1);
+                Flying++;
+                yield return deck.Lift(back, 0.12f);
+                Flying--;
+                if (!clone) yield break;
+                if (back)
+                {
+                    clone.position = back.position;
+                    clone.localScale = new Vector3(0, back.localScale.y, 1);
+                }
+            }
+            else
+            {
+                clone.position = p.offer.TransformPoint(p.offer.rect.center);
+                clone.localScale = new Vector3(0.6f, 0.6f, 1);
+            }
+            var fallback = EmptyTiles.Count > 0 && EmptyTiles[0] ? EmptyTiles[0].position : clone.position;
+            yield return FlyToSlot(clone, qIdx, fallback, pickNo, back, true);
+        }
+
+        // bay bản sao clone (từ PickOffer, FoeDraw) vào ô qIdx của hàng thẻ: nhấc lên lấy đà 0,07 giây, bay theo cung 0,26 giây (vụt đi
+        // rồi chậm lại cắm vào ô), xoay nhẹ; chạm thì ô bật lên (0,8 → 1,22 → 1), tiếng "land" leo cao độ theo lần chọn, rung tay một tích
+        // (trừ lá của địch). back: lá úp bay cùng, lật ra mặt thẻ trong 0,02 → 0,22 giây đầu (lá địch rút từ bộ bài).
         // fallback: chỗ bay tới khi hàng chưa có ô qIdx (thẻ tự chơi)
-        public IEnumerator FlyToSlot(RectTransform clone, int qIdx, Vector3 fallback, int pickNo)
+        public IEnumerator FlyToSlot(RectTransform clone, int qIdx, Vector3 fallback, int pickNo, RectTransform back = null, bool foe = false)
         {
             if (!clone) yield break;
             Flying++;
             var parent = (RectTransform)clone.parent;
             Vector2 a = parent.InverseTransformPoint(clone.position);
-            float s0 = clone.localScale.x, r0 = clone.localEulerAngles.z;
+            float s0 = clone.localScale.y, r0 = clone.localEulerAngles.z;
             if (r0 > 180) r0 -= 360;
+            float tt = 0; // thời gian từ lúc nhấc (cho lật)
+            // lật: nửa đầu lá úp co ngang về 0 (mặt thẻ ẩn), nửa sau mặt thẻ nở ra
+            float FlipX(float s)
+            {
+                if (!back && tt > 0.25f) return 1;
+                float f = Mathf.Clamp01((tt - 0.02f) / 0.2f);
+                if (f < 0.5f && back)
+                {
+                    back.localPosition = clone.localPosition;
+                    back.localEulerAngles = clone.localEulerAngles;
+                    back.localScale = new Vector3(s * Mathf.Cos(f * Mathf.PI), s, 1);
+                    return 0;
+                }
+                if (back)
+                {
+                    if (deck) deck.ReleaseBack(back);
+                    else back.gameObject.SetActive(false);
+                    back = null;
+                }
+                return f >= 1 ? 1 : -Mathf.Cos(f * Mathf.PI);
+            }
+            bool flips = back;
             // ô đích dời theo layout trong lúc bay: lấy chỗ của nó mỗi khung
             Vector2 Target()
             {
@@ -531,19 +577,20 @@ namespace PokiClash
                 return parent.InverseTransformPoint(w);
             }
             float endScale = 112f / Mathf.Max(1, clone.rect.width);
+            float liftTo = flips ? 0.9f : 1.1f; // lá rút từ bộ (nhỏ) nhấc tới cỡ vừa rồi lao vào ô
             const float lift = 0.07f, fly = 0.26f;
             var lifted = a + new Vector2(0, 34);
-            for (float t = 0; t < lift; t += Time.unscaledDeltaTime)
+            for (float t = 0; t < lift; t += Time.unscaledDeltaTime, tt += Time.unscaledDeltaTime)
             {
                 if (!clone) break;
                 float k = 1 - Mathf.Pow(1 - t / lift, 3);
                 clone.localPosition = Vector2.Lerp(a, lifted, k);
-                float s = Mathf.Lerp(s0, 1.1f, k);
-                clone.localScale = new Vector3(s, s, 1);
                 clone.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(r0, -5, k));
+                float s = Mathf.Lerp(s0, liftTo, k);
+                clone.localScale = new Vector3(s * (flips ? FlipX(s) : 1), s, 1);
                 yield return null;
             }
-            for (float t = 0; t < fly && clone; t += Time.unscaledDeltaTime)
+            for (float t = 0; t < fly && clone; t += Time.unscaledDeltaTime, tt += Time.unscaledDeltaTime)
             {
                 float k = t / fly;
                 float e = 1 - Mathf.Pow(1 - k, 2.5f); // ease-out: pha nhấc đã là lấy đà, bay vụt đi rồi chậm lại cắm vào ô
@@ -552,10 +599,15 @@ namespace PokiClash
                 var ctrl = (lifted + z) * 0.5f + new Vector2(0, 150);
                 float u = 1 - e;
                 clone.localPosition = u * u * lifted + 2 * u * e * ctrl + e * e * z;
-                float s = Mathf.Lerp(1.1f, endScale, e);
-                clone.localScale = new Vector3(s, s, 1);
                 clone.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(-5, 0, e) + Mathf.Sin(e * Mathf.PI) * 12);
+                float s = Mathf.Lerp(liftTo, endScale, e);
+                clone.localScale = new Vector3(s * (flips ? FlipX(s) : 1), s, 1);
                 yield return null;
+            }
+            if (back)
+            {
+                if (deck) deck.ReleaseBack(back);
+                else back.gameObject.SetActive(false);
             }
             if (clone)
             {
@@ -567,162 +619,175 @@ namespace PokiClash
             if (qIdx >= 0 && qIdx < tiles.Count && tiles[qIdx] && tiles[qIdx].gameObject.activeInHierarchy)
                 StartCoroutine(Pop(tiles[qIdx].Card, 0.8f, 1.22f, 1, 0.22f, 0, -8)); // từ cỡ bản sao lúc chạm (không chớp mất), nảy rồi đứng
             App.Audio.Play("land", 0.9f, BattlePlayer.Semitone(BattlePlayer.Pent(pickNo)));
-            Haptics.Play(Haptic.CardLand);
+            if (!foe) Haptics.Play(Haptic.CardLand);
             if (p.qCount) StartCoroutine(Pop(p.qCount.rectTransform, 1, 1.25f, 1, 0.2f, 0));
         }
 
-        // ---------- 3 thẻ chọn ----------
+        // ---------- bộ bài và thẻ chọn (DraftDeck, người dùng 2026-11-25) ----------
+        // Lượt thẻ mới (tên lượt, số lần chọn còn, số Lật trang còn, các thẻ) thì chia lại: thẻ cũ về bộ, bộ tráo, 3 lá bay ra lật mặt.
+        // Vẽ lại cùng lượt thẻ (đổi tướng đầu lượt, bật / tắt tự chơi) thì giữ thẻ, chỉ đổi bấm được. Thẻ bấm được khi đã lật xong.
 
         public readonly List<UiCard> OfferCards = new List<UiCard>();
+        readonly HashSet<UiCard> revealed = new HashSet<UiCard>();
+        readonly Dictionary<UiCard, Action> offerClick = new Dictionary<UiCard, Action>();
+        DraftDeck deck;
+        Turn offerTurn;
+        string offerSig;
+        bool offerAuto;
+        static readonly Vector2 DeckAt = new Vector2(0, -12 - 232); // giữa ô thẻ chọn (thẻ đặt ở y −12, cao 464): lá giữa che bộ bài
 
-        // xoá mọi thứ trong ô thẻ chọn (như xoá hết con của Offer)
-        void ClearOffer()
+        // bộ bài đang tráo / chia, thẻ chưa lật đủ (chưa chọn được)
+        public bool Dealing => deck && deck.Busy;
+
+        // nhịp bộ bài: địch, tự chơi nhanh hơn; công cụ thử chạy nhanh thì nhanh theo
+        float DeckSpeed(bool quick) => (quick ? 1.35f : 1f) * Mathf.Max(1, p.stage ? p.stage.fast : 1);
+
+        // thẻ đang hiện về bộ bài (lá đã lật thì lật úp giữa đường bay về, lá đang chia thì lá úp quay về)
+        void ReturnOffer()
         {
             foreach (var c in dealt)
                 if (c)
-                    Destroy(c.gameObject);
+                {
+                    if (deck) deck.Return(c);
+                    else Destroy(c.gameObject);
+                }
             dealt.Clear();
-            foreach (var bk in backs) bk.gameObject.SetActive(false);
-            p.offerLabel.gameObject.SetActive(false);
-            if (p.reroll) p.reroll.gameObject.SetActive(false);
+            OfferCards.Clear();
+            revealed.Clear();
+            offerClick.Clear();
         }
 
-        void OfferLabel(string text, float y, float h)
+        // dòng chữ ở đầu ô (bộ bài nằm giữa ô, dưới dòng chữ)
+        void OfferLabel(string text)
         {
             var lbl = p.offerLabel;
             lbl.gameObject.SetActive(true);
             lbl.text = text;
-            lbl.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0, y), new Vector2(1000, h), new Vector2(0.5f, 1));
+            lbl.rectTransform.Place(new Vector2(0.5f, 1), new Vector2(0, -16), new Vector2(1000, 64), new Vector2(0.5f, 1));
         }
 
         public void RenderOffer(bool auto)
         {
             var t = b.turn;
-            ClearOffer();
-            OfferCards.Clear();
-            BackCards.Clear();
+            offerAuto = auto;
             if (t.side != 0 || b.phase != Phase.Picking)
             {
-                if (b.phase == Phase.Over) return;
+                ReturnOffer();
+                offerTurn = null;
+                offerSig = null;
+                if (p.reroll) p.reroll.gameObject.SetActive(false);
+                if (b.phase == Phase.Over)
+                {
+                    p.offerLabel.gameObject.SetActive(false);
+                    if (deck)
+                    {
+                        deck.Loop(false);
+                        deck.Show(false);
+                    }
+                    return;
+                }
                 string who = b.ActiveOf(t.side).Name;
-                OfferLabel(t.side == 0 ? Loc.F("{0} ra đòn!", who) : Loc.F("{0} (địch) ra đòn!", who), -120, 70);
+                OfferLabel(t.side == 0 ? Loc.F("{0} ra đòn!", who) : Loc.F("{0} (địch) ra đòn!", who));
+                // hai bên ra đòn: bộ bài tráo chậm, không tiếng, chờ lượt rút sau
+                if (deck)
+                {
+                    deck.Speed = DeckSpeed(false);
+                    deck.Show(true);
+                    deck.Loop(true);
+                }
                 return;
             }
+            string sig = t.picksLeft + "|" + b.RerollsLeft(0) + "|" + string.Join(",", t.offer);
+            if (ReferenceEquals(t, offerTurn) && sig == offerSig && dealt.Count > 0)
+            {
+                foreach (var c in dealt)
+                    if (c && revealed.Contains(c) && offerClick.TryGetValue(c, out var click))
+                        c.SetClick(auto ? null : click);
+                ShowReroll();
+                return;
+            }
+            offerTurn = t;
+            offerSig = sig;
+            ReturnOffer();
+            p.offerLabel.gameObject.SetActive(false);
+            if (p.reroll) p.reroll.gameObject.SetActive(false);
             // số thẻ đổi theo Sổ Phép (2–6): quá bề ngang thì thu nhỏ cả hàng (3 thẻ giữ nguyên chỗ cũ)
             int n = t.offer.Count;
             float w = UiCard.NormalSize.x, gap = 24;
             float sc = Mathf.Min(1, 1010f / Mathf.Max(1, n * w + (n - 1) * gap));
             float step = (w + gap) * sc, x0 = -(n - 1) * step / 2;
-            if (p.reroll)
-            {
-                bool can = !auto && b.CanReroll();
-                p.reroll.gameObject.SetActive(can);
-                if (can) p.reroll.SetText(Loc.F("Lật trang ×{0}", b.RerollsLeft(0)));
-            }
-            for (int i = 0; i < t.offer.Count; i++)
+            for (int i = 0; i < n; i++)
             {
                 int idx = i;
-                UiCard card = null;
-                card = UiCard.Create(p.offer, d.Card(t.offer[i]), 1, false, Icon(d.Card(t.offer[i]).icon), null,
-                    auto ? (Action)null : () =>
-                    {
-                        // thôi nhún khi thẻ được chọn (thẻ bay vào hàng)
-                        if (card.TryGetComponent<UiMotion>(out var mm)) mm.idle = false;
-                        OnPickCard?.Invoke(idx, (RectTransform)card.transform);
-                    });
+                var cd = d.Card(t.offer[i]);
+                var card = UiCard.Create(p.offer, cd, 1, false, Icon(cd.icon));
                 // tiếng chọn do BattleController phát (leo cao độ theo lần chọn); đè ngón thì lún và rung một tích
                 card.ClickSound = null;
-                card.PressHaptic = !auto;
+                card.PressHaptic = true;
+                offerClick[card] = () =>
+                {
+                    if (card.TryGetComponent<UiMotion>(out var mm)) mm.idle = false; // thôi nhún khi thẻ được chọn (thẻ bay vào hàng)
+                    OnPickCard?.Invoke(idx, (RectTransform)card.transform);
+                };
                 var rt = (RectTransform)card.transform;
                 rt.Place(new Vector2(0.5f, 1), new Vector2(x0 + i * step, -12), UiCard.NormalSize, new Vector2(0.5f, 1));
+                rt.localScale = new Vector3(sc, sc, 1);
                 OfferCards.Add(card);
                 dealt.Add(card);
-                StartDeal(rt, i * 0.05f, sc);
             }
-            App.Audio.Play("deal");
-        }
-
-        void StartDeal(RectTransform rt, float delay, float fin = 1)
-        {
-            if (dealing.TryGetValue(rt, out var co) && co != null) StopCoroutine(co);
-            dealing[rt] = StartCoroutine(Deal(rt, delay, fin));
-        }
-
-        // chia bài (bộ UI Sa Bàn, như deal của Web/src/uikit/fx.ts): bay từ chồng bài dưới giữa lên chỗ, xoay, quá đà rồi đứng;
-        // xong thì thẻ nhún tại chỗ, mỗi lá một nhịp (UiMotion.idle)
-        IEnumerator Deal(RectTransform rt, float delay, float fin = 1)
-        {
-            var target = rt.anchoredPosition;
-            var from = new Vector2(-target.x * 0.6f, -520);
-            rt.localScale = Vector3.zero;
-            yield return new WaitForSecondsRealtime(delay);
-            const float len = 0.5f;
-            for (float t = 0; t < len; t += Time.unscaledDeltaTime)
+            if (deck)
             {
-                if (!rt) yield break;
-                float k = t / len;
-                // 0 → 70%: tới quá đà (cao hơn 28, xoay 3 độ, phóng 1,06); 70% → hết: về chỗ
-                float a = k < 0.7f ? 1 - Mathf.Pow(1 - k / 0.7f, 3) : 1;
-                float b = k < 0.7f ? 0 : 1 - Mathf.Pow(1 - (k - 0.7f) / 0.3f, 3);
-                var over = target + new Vector2(0, 28);
-                rt.anchoredPosition = Vector2.Lerp(Vector2.LerpUnclamped(target + from, over, a), target, b);
-                float sc = Mathf.Lerp(Mathf.Lerp(0.55f, 1.06f, a), 1, b) * fin;
-                rt.localScale = new Vector3(sc, sc, 1);
-                rt.localEulerAngles = new Vector3(0, 0, Mathf.Lerp(Mathf.Lerp(-24, 3, a), 0, b));
-                yield return null;
+                deck.Speed = DeckSpeed(auto);
+                deck.Deal(dealt, Revealed, ShowReroll);
             }
-            if (!rt) yield break;
-            rt.localScale = new Vector3(fin, fin, 1);
-            rt.anchoredPosition = target;
-            rt.localEulerAngles = Vector3.zero;
-            dealing.Remove(rt);
-            var m = PokiClash.UI.UiMotion.Of(rt);
+            else
+                foreach (var c in dealt)
+                    Revealed(c);
+        }
+
+        // một thẻ lật xong: bấm được (trừ lúc tự chơi), nhún tại chỗ, mỗi lá một nhịp (UiMotion.idle)
+        void Revealed(UiCard card)
+        {
+            if (!card) return;
+            revealed.Add(card);
+            if (!offerAuto && offerClick.TryGetValue(card, out var click)) card.SetClick(click);
+            var m = UiMotion.Of(card);
+            m.enabled = true;
             m.idleLift = 8;
             m.idleTilt = 1;
             m.idlePeriod = 3.4f;
             m.idle = true;
         }
 
-        // lượt địch: lá úp chia một lần mỗi lượt; các lần sau chỉ trả lá vừa chọn về chỗ
-        public readonly List<RectTransform> BackCards = new List<RectTransform>();
-
-        public void RenderFoeThinking()
+        // nút Lật trang (Sổ Phép) hiện khi thẻ đã lật đủ
+        void ShowReroll()
         {
-            var t = b.turn;
-            if (b.phase == Phase.Picking && BackCards.Count > 0 && BackCards[0])
-            {
-                foreach (var c in BackCards)
-                {
-                    c.anchoredPosition = new Vector2(c.anchoredPosition.x, -90);
-                    c.localEulerAngles = Vector3.zero;
-                }
-                return;
-            }
-            ClearOffer();
-            BackCards.Clear();
-            OfferLabel(b.phase == Phase.Picking ? Loc.F("{0} đang chọn thẻ...", b.ActiveOf(1).Name) : Loc.T("Địch ra đòn!"), -16, 64);
-            if (b.phase != Phase.Picking) return;
-            for (int i = 0; i < t.offer.Count; i++)
-            {
-                var rt = Back(i);
-                rt.SetAsLastSibling();
-                rt.localEulerAngles = Vector3.zero;
-                rt.Place(new Vector2(0.5f, 1), new Vector2((i - (t.offer.Count - 1) / 2f) * 248, -90), new Vector2(224, 312), new Vector2(0.5f, 1));
-                BackCards.Add(rt);
-                StartDeal(rt, i * 0.06f);
-            }
+            if (!p.reroll) return;
+            bool can = !offerAuto && !Dealing && b.phase == Phase.Picking && b.turn.side == 0 && b.CanReroll();
+            p.reroll.gameObject.SetActive(can);
+            if (can) p.reroll.SetText(Loc.F("Lật trang ×{0}", b.RerollsLeft(0)));
         }
 
-        RectTransform Back(int i)
+        // lượt địch: bộ bài tráo nhanh; mỗi lần địch chọn, lá trên đỉnh bay vào hàng thẻ của địch (FoeDraw)
+        public void RenderFoeThinking()
         {
-            if (i >= backs.Count)
-            {
-                var bk = Ui.Spawn(p.backPrefab, p.offer);
-                bk.name = "la_up";
-                backs.Add(bk);
-            }
-            backs[i].gameObject.SetActive(true);
-            return backs[i];
+            ReturnOffer();
+            offerTurn = null;
+            offerSig = null;
+            if (p.reroll) p.reroll.gameObject.SetActive(false);
+            bool picking = b.phase == Phase.Picking;
+            OfferLabel(picking ? Loc.F("{0} đang chọn thẻ...", b.ActiveOf(1).Name) : Loc.T("Địch ra đòn!"));
+            if (!deck) return;
+            deck.Speed = DeckSpeed(true);
+            deck.Show(true);
+            if (picking) deck.Loop(true, 0.75f, 0.08f);
+            else deck.Loop(true);
+        }
+
+        // chờ bộ bài tráo xong vòng đang dở (địch rút lá trên đỉnh lúc bộ đã vuông)
+        public IEnumerator DeckReady()
+        {
+            if (deck) yield return deck.WaitSquare(0.6f);
         }
 
         // ---------- hàng dưới: chân dung đội, Chiêu, Tuyệt kỹ ----------

@@ -30,6 +30,12 @@
 //              thr = tỉ lệ khung B; p3 = nâng giá trị (+ sáng hơn), p4 = kiểu (0 thường, 1 nền đất phẳng tối hơn, 2 toàn bọt trắng)
 //       7 ỐNG TIA uv.x = quãng dọc (UI / 100), uv.y = ngang [-1,1]; thr = ngưỡng tan (vỡ), p1 = tốc trôi vân, p2 = lớp (0 vỏ ngoài,
 //              1 lõi sáng, 2 vệt bọt trôi, 3 vỏ mỏng rách), p3 = quãng 0..1, p4 = phần sáng theo hướng ngang
+//       8 QUẦNG (NGOẠI LỆ luật không quầng sáng: người dùng 2026-11-25 cho riêng cầu ma thủy Thôn Kình "cho ngoại lệ quầng sáng, làm lại giống
+//              demo"): đĩa mềm uv ∈ [-1,1]², độ hiện giảm dần ra mép (mũ p1), p2 = tông (0 sáng: sáng → bọt / kem ở tâm; 1 tối: tối → sâu),
+//              p3 = nhiễu chập chờn mép; KHÔNG phủ vân chì (quầng trơn)
+// BẢNG MÀU theo hình (2026-11-25, người dùng: "dùng base đó làm tia năng lượng bắn ra và impact cho các tia năng lượng của các tướng đảo
+// mộc/kim/thổ"): TEXCOORD1.x = loại + 16 × bảng. Bảng 0 = nước (màu của material, như cũ); 1 Mộc lục ngọc (cầu cau_moc), 2 hổ phách
+// (cầu cau_vang), 3 lửa nhiệt, 4 Kim thép, 5 Thổ đất. Chỉ chế độ 6 (flipbook) và 7 (ống tia) đổi bảng; các hình nước 0–5 giữ màu nước.
 Shader "PokiClash/UIWaterFx"
 {
     Properties
@@ -127,7 +133,28 @@ Shader "PokiClash/UIWaterFx"
                 return o;
             }
 
+            // bảng màu theo hình (mảng tối, sâu, sáng, bọt / lõi kem); 0 = màu nước của material
+            void Pal(int p, out float3 cs, out float3 cd, out float3 cb, out float3 cf)
+            {
+                cs = _ColShade.rgb; cd = _ColDeep.rgb; cb = _ColBody.rgb; cf = _ColFoam.rgb;
+                if (p == 1)      { cs = float3(0.118, 0.561, 0.384); cd = float3(0.184, 0.718, 0.478); cb = float3(0.624, 0.890, 0.416); cf = float3(0.933, 0.984, 0.690); } // lục ngọc → chanh → kem chanh
+                else if (p == 2) { cs = float3(0.851, 0.400, 0.118); cd = float3(0.949, 0.549, 0.157); cb = float3(1.000, 0.769, 0.278); cf = float3(1.000, 0.941, 0.722); } // hổ phách: cam → vàng → kem
+                else if (p == 3) { cs = float3(0.918, 0.376, 0.157); cd = float3(0.973, 0.620, 0.204); cb = float3(0.988, 0.839, 0.361); cf = float3(1.000, 0.957, 0.808); } // lửa nhiệt: cam đỏ → cam → vàng → kem
+                else if (p == 4) { cs = float3(0.471, 0.549, 0.647); cd = float3(0.667, 0.745, 0.824); cb = float3(0.882, 0.918, 0.949); cf = float3(1.000, 0.980, 0.882); } // Kim: thép → bạc → kem
+                else if (p == 5) { cs = float3(0.659, 0.408, 0.196); cd = float3(0.831, 0.588, 0.314); cb = float3(0.941, 0.784, 0.471); cf = float3(1.000, 0.949, 0.824); } // Thổ: nâu đất → cát → kem
+                else if (p == 6) { cs = float3(0.059, 0.208, 0.471); cd = float3(0.094, 0.333, 0.678); cb = float3(0.216, 0.510, 0.860); cf = float3(0.800, 0.900, 1.000); } // nước cầu ma thủy (MagicWater_OrbLoop): xanh biển hơi sẫm (người dùng đổi từ xanh ngọc, 2026-11-25)
+                // số trên ghi theo sRGB (như ô màu của material); dự án chạy màu Linear: màu material Unity tự đổi, hằng số ở đây phải đổi tay
+                // (không đổi thì lên màn sáng bệch: lần chụp đầu 2026-11-25 tia lục / hổ phách ra kem nhạt)
+                #ifndef UNITY_COLORSPACE_GAMMA
+                if (p > 0)
+                {
+                    cs = GammaToLinearSpace(cs); cd = GammaToLinearSpace(cd); cb = GammaToLinearSpace(cb); cf = GammaToLinearSpace(cf);
+                }
+                #endif
+            }
             float3 Ramp(float f) { return f < _Stops.x ? _ColDeep.rgb : (f < _Stops.y ? _ColBody.rgb : _ColFoam.rgb); }
+            // Ramp theo bảng màu của hình (cầu / chấm dùng; bảng 0 ra đúng Ramp)
+            float3 RampP(float f, float3 cd, float3 cb, float3 cf) { return f < _Stops.x ? cd : (f < _Stops.y ? cb : cf); }
             float NR(float2 uv) { return saturate((tex2D(_MainTex, uv).r - 0.5) * _Contrast + 0.5); }
             float NG(float2 uv) { return tex2D(_MainTex, uv).g; }
             float NB(float2 uv) { return tex2D(_MainTex, uv).b; }
@@ -149,15 +176,27 @@ Shader "PokiClash/UIWaterFx"
                 col = d > _Hi ? _ColFoam.rgb : col;
                 return col;
             }
+            float3 CelP(float3 col, float d, float2 wob, float3 cs, float3 cf)
+            {
+                d += (NB(wob) - 0.5) * 0.16;
+                col = d < _Lo ? cs : col;
+                col = d > _Hi ? cf : col;
+                return col;
+            }
 
             fixed4 frag(v2f i) : SV_Target
             {
-                int mode = (int)round(i.uv1.x);
+                float mcode = round(i.uv1.x);
+                int pal = (int)floor((mcode + 0.5) / 16);
+                int mode = (int)round(mcode - pal * 16);
+                float3 cS, cD, cB, cF;
+                Pal(pal, cS, cD, cB, cF);
                 float thr = i.uv1.y, p1 = i.uv1.z, p2 = i.uv1.w;
                 float time = i.uv2.x, seed = i.uv2.y, p3 = i.uv2.z, p4 = i.uv2.w;
                 float3 col = _ColBody.rgb;
                 float a = 1;
                 float foamy = 0; // 1: vùng này là bọt → vân chì nhạt hơn
+                float chi = 1;   // 0: không phủ vân chì (quầng)
                 if (mode == 0) // ---------------- CẦU
                 {
                     float2 p = i.uv0.xy;
@@ -172,10 +211,10 @@ Shader "PokiClash/UIWaterFx"
                     float lat = asin(clamp(p.y, -1, 1)) / 3.1416;
                     float v = NR(float2(lon * 0.9, lat * 2.2 + seed * 0.37));
                     float d = dot(n, L3());
-                    col = Cel(Ramp(v + _VolK * d), d * 0.8, p * 1.3 + seed); // cầu: mảng sáng gọn thành lưỡi liềm trên trái (d × 0,8)
+                    col = CelP(RampP(v + _VolK * d, cD, cB, cF), d * 0.8, p * 1.3 + seed, cS, cF); // cầu: mảng sáng gọn thành lưỡi liềm trên trái (d × 0,8)
                     float2 hp = p - float2(-0.42, 0.44); // chấm sáng nhỏ trên trái
-                    col = dot(hp, hp) < 0.024 ? _ColFoam.rgb : col;
-                    col = rr > _Rim ? _ColDeep.rgb : col;
+                    col = dot(hp, hp) < 0.024 ? cF : col;
+                    col = rr > _Rim ? cD : col;
                     foamy = d * 0.8 > _Hi ? 1 : 0;
                     if (thr > 0.001) a *= Cover(NB(p * 1.7 + seed) - thr);
                 }
@@ -267,10 +306,10 @@ Shader "PokiClash/UIWaterFx"
                     float cut = p1 + (1 - i.color.a) * (0.95 - p1);
                     a = Cover(al - cut + (NB(sp) - 0.5) * 0.05);
                     float vv = v + p3 + (NB(sp * 1.7) - 0.5) * 0.09;
-                    col = vv < _FbStops.x ? _ColShade.rgb : (vv < _FbStops.y ? _ColDeep.rgb : (vv < _FbStops.z ? _ColBody.rgb : _ColFoam.rgb));
+                    col = vv < _FbStops.x ? cS : (vv < _FbStops.y ? cD : (vv < _FbStops.z ? cB : cF));
                     foamy = vv >= _FbStops.z ? 1 : 0;
-                    if (p4 > 1.5) { col = _ColFoam.rgb; foamy = 1; }
-                    else if (p4 > 0.5) col = vv >= _FbStops.z ? _ColBody.rgb : (vv < _FbStops.y ? _ColShade.rgb : _ColDeep.rgb); // nền đất: phẳng, tối hơn
+                    if (p4 > 1.5) { col = cF; foamy = 1; }
+                    else if (p4 > 0.5) col = vv >= _FbStops.z ? cB : (vv < _FbStops.y ? cS : cD); // nền đất: phẳng, tối hơn
                     a *= saturate(i.color.a * 3); // gần hết đời: tắt hẳn (không còn lõi lấm tấm)
                     i.color.a = 1; // độ hiện đã vào ngưỡng mép
                 }
@@ -287,41 +326,52 @@ Shader "PokiClash/UIWaterFx"
                     {
                         a = Cover(1 - abs(ac) - rag * 0.22);
                         float w = nz * 0.75 + (s - 0.5) * 0.35 + d * 0.2;                      // trụ: giữa sáng, hai mép lam sâu → tối
-                        col = w < 0.42 ? _ColShade.rgb : (w < 0.66 ? _ColDeep.rgb : _ColBody.rgb);
-                        col = abs(ac) > 0.84 - rag * 0.16 ? _ColShade.rgb : col;
+                        col = w < 0.42 ? cS : (w < 0.66 ? cD : cB);
+                        col = abs(ac) > 0.84 - rag * 0.16 ? cS : col;
                     }
                     else if (p2 < 1.5) // lõi sáng: lam sáng, sọc bọt theo vân trôi
                     {
                         a = Cover(1 - abs(ac) - rag * 0.12);
                         float w = nz * 0.5 + s2 * 0.55 + d * 0.15;
-                        col = w < 0.5 ? _ColDeep.rgb : (w < 0.82 ? _ColBody.rgb : _ColFoam.rgb);
+                        col = w < 0.5 ? cD : (w < 0.82 ? cB : cF);
                         foamy = w >= 0.82 ? 1 : 0;
                     }
                     else if (p2 < 2.5) // vệt bọt trôi (sọc trắng chạy dọc thân)
                     {
                         a = Cover(1 - abs(ac) - 0.15) * Cover(s2 - 0.68);
-                        col = _ColFoam.rgb;
+                        col = cF;
                         foamy = 1;
                     }
                     else // vỏ mỏng rách: mảng lam sâu loang lổ (lớp xoắn ngoài cùng)
                     {
                         a = Cover(1 - abs(ac) - rag * 0.3) * Cover(s - 0.3) * 0.85;
-                        col = s > 0.8 ? _ColBody.rgb : _ColDeep.rgb;
+                        col = s > 0.8 ? cB : cD;
                     }
                     if (thr > 0.001) a *= Cover(tex2D(_VetTex, float2(x * 0.5 + seed, ac * 0.5)).b - thr); // vỡ / tan
+                }
+                else if (mode == 8) // ---------------- QUẦNG (ngoại lệ cầu ma thủy): đĩa mềm, không vân chì
+                {
+                    float2 p = i.uv0.xy;
+                    float r = length(p);
+                    float n = (NB(p * 1.3 + seed + float2(time * 0.4, 0)) - 0.5) * p3;
+                    float f = saturate(1 - r);
+                    f = saturate(f + n * f);                                           // nhiễu nhân theo f: mép ô (r ≥ 1) luôn 0, không lộ viền vuông
+                    a = pow(f, max(0.2, p1));
+                    col = p2 < 0.5 ? lerp(cB, cF, saturate(f * 1.6)) : lerp(cD, cS, saturate(f * 1.4));
+                    chi = 0;
                 }
                 else // ---------------- CHẤM (giọt): nửa dưới phải tối, chấm sáng trên trái
                 {
                     float2 p = i.uv0.xy;
                     a = Cover(1 - length(p));
-                    col = p1 < 0.5 ? _ColDeep.rgb : (p1 < 1.5 ? _ColBody.rgb : _ColFoam.rgb);
+                    col = p1 < 0.5 ? cD : (p1 < 1.5 ? cB : cF);
                     float d = dot(float3(p, sqrt(saturate(1 - dot(p, p)))), L3());
-                    col = (p1 < 1.5 && d < 0.1) ? _ColShade.rgb : col;
-                    col = (p1 < 1.5 && d > 0.8) ? _ColFoam.rgb : col;
+                    col = (p1 < 1.5 && d < 0.1) ? cS : col;
+                    col = (p1 < 1.5 && d > 0.8) ? cF : col;
                 }
                 // VÂN CHÌ vẽ tay theo toạ độ màn hình (bọt nhạt hơn)
                 float h = tex2D(_MainTex, i.wpos.xy / _HatchPx).a;
-                col *= lerp(1, h, _Hatch * (1 - 0.6 * foamy));
+                col *= lerp(1, h, _Hatch * (1 - 0.6 * foamy) * chi);
                 fixed4 o = fixed4(col * i.color.rgb, a * i.color.a);
                 #ifdef UNITY_UI_CLIP_RECT
                 o.a *= UnityGet2DClipping(i.wpos.xy, _ClipRect);

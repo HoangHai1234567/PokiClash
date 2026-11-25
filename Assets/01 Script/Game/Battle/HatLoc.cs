@@ -22,7 +22,8 @@ namespace PokiClash
         // nhỏ ở chỗ chạm.
         public float NCauTia(Vector2 casterFeet, float casterH, Vector2 mouth, Vector2 foeBody, Vector2 foeFeet, float tH, float lead)
         {
-            if (HasTia(DaTiaMoc)) return NCauTiaFb(casterH, mouth, foeBody, foeFeet, tH, lead); // tia vẽ sẵn (2026-11-19); chưa đủ ảnh thì tia hạt cũ
+            // tia Water Laser năng lượng (2026-11-25, HatTiaLaser.cs) / tia vẽ sẵn (2026-11-19); không có cả hai thì tia hạt cũ
+            if (CoLaser || HasTia(DaTiaMoc)) return NCauTiaFb(casterH, mouth, foeBody, foeFeet, tH, lead);
             MocSang();
             float L = Mathf.Max(0.3f, lead);
             float tTu = Mathf.Max(0.02f, L - 0.62f);
@@ -88,9 +89,13 @@ namespace PokiClash
             float tDuoi = dai / Mathf.Max(380, dai / 0.32f);        // đuôi bay nốt vào đích (tốc trôi đoạn của TiaFb)
             float day = 0.22f * casterH;
             var w = W;
+            // 2026-11-25: có lưới shader thì thân tia, cầu đầu nòng, chỗ trúng là tia năng lượng kiểu Water Laser (ELaser, bảng lục ngọc, lá phong
+            // cuốn theo), cùng giờ chạm; tia vụn toé ngược ở chỗ trúng thưa hơn vì chỗ trúng của ELaser đã tự bắn gai + tia vụn
+            bool laser = CoLaser;
             At(tTu, () =>
             {
-                TiaFb(DaTiaMoc, () => mouth, () => cham, day, tPhong - tTu, tBan);
+                if (laser) ELaser(LaserMoc, () => mouth, () => cham, day, tPhong - tTu, tBan, Front, 1, 1, foeFeet.y);
+                else TiaFb(DaTiaMoc, () => mouth, () => cham, day, tPhong - tTu, tBan);
                 GatherLa(t => mouth, 0, tPhong - tTu - 0.04f, 0.6f * casterH, 24);
             });
             At(tPhong, () => // chớp nòng đúng lúc tia phóng
@@ -121,7 +126,7 @@ namespace PokiClash
                 });
             }
             // tia vụn toé ngược theo cụm suốt lúc dội (thưa hơn TiaMoc: bông trúng vẽ sẵn đã toé)
-            Every(hit, tNgung, 7, x =>
+            Every(hit, tNgung, laser ? 3 : 7, x =>
                 TiaVunCum(cham + nrm * U(-0.4f, 0.4f) * day, -u, 1.3f, 3, U(300, 480), U(3f, 4.4f), U(0, 1) < 0.7f ? Front : Back, MocChanh, w[3]));
             // bụi dưới chân đối thủ (cụm khói nhuộm đất; chưa nhập khung thì BuiCum)
             bool kh = HasFb("khoi");
@@ -189,7 +194,9 @@ namespace PokiClash
             };
             At(tTu, () =>
             {
-                CauLa(cFn, hit - tTu, rFn, Front, tNem - tTu);
+                // 2026-11-25 (người dùng chọn "cầu ma xanh lục" cho hệ Mộc): sân có CauMaRT thì quả cầu là prefab gốc MagicWater_OrbLoop tô dải lục
+                // (CauMaTheo, thành hình đúng lúc cầu đầy); không thì quả cầu lá cũ
+                if (!CauMaTheo(CauMaMoc, cFn, rFn, hit - tTu, tDay - tTu)) CauLa(cFn, hit - tTu, rFn, Front, tNem - tTu);
                 CungDat(casterFeet + new Vector2(0, 2), 0.15f * casterH, 0.7f * casterH, 0.5f, W[2], 0.07f * casterH);
                 GatherLa(cFn, 0, tNem - tTu - 0.04f, 1.25f * casterH, 60);
                 // bụi dưới chân bị cuốn lên (khung vẽ sẵn 2026-11-19: cụm khói nhuộm đất bay lên, thưa hơn vì mỗi cụm to và sống lâu hơn; chưa nhập

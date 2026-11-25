@@ -277,7 +277,9 @@ namespace PokiClash
             };
             At(tTu, () =>
             {
-                CauLa(cFn, hit - tTu, rFn, Front, tNem - tTu);
+                // 2026-11-25 (người dùng chọn "cầu ma xanh lục" cho hệ Mộc): sân có CauMaRT thì quả cầu là prefab gốc MagicWater_OrbLoop tô dải lục
+                // (CauMaTheo, thành hình đúng lúc cầu đầy); không thì quả cầu lá cũ
+                if (!CauMaTheo(CauMaMoc, cFn, rFn, hit - tTu, tDay - tTu)) CauLa(cFn, hit - tTu, rFn, Front, tNem - tTu);
                 CungDat(casterFeet + new Vector2(0, 2), 0.15f * casterH, 0.6f * casterH, 0.45f, W[2], 0.06f * casterH);
                 GatherLa(cFn, 0, tNem - tTu - 0.04f, 1.1f * casterH, 56);
                 // bụi và lá dưới chân bị cuốn lên: cụm nhỏ, bay lên rồi tách (khung vẽ sẵn 2026-11-19: cụm khói nhuộm đất, thưa hơn vì mỗi cụm to và

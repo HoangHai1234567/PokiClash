@@ -14,7 +14,9 @@ namespace PokiClash
     [RequireComponent(typeof(CanvasRenderer))]
     public sealed class HatNuocFx : MaskableGraphic
     {
-        public const float Ball_ = 0, Strip_ = 1, Mask_ = 2, Fan_ = 3, Ring_ = 4, Dot_ = 5, Fb_ = 6, Tube_ = 7;
+        public const float Ball_ = 0, Strip_ = 1, Mask_ = 2, Fan_ = 3, Ring_ = 4, Dot_ = 5, Fb_ = 6, Tube_ = 7, Glow_ = 8;
+        // bảng màu của flipbook / ống tia (shader: TEXCOORD1.x = loại + 16 × bảng; 2026-11-25 tia năng lượng Mộc / Kim / Thổ theo tia Water Laser)
+        public const int PalNuoc = 0, PalMoc = 1, PalHoPhach = 2, PalLua = 3, PalKim = 4, PalTho = 5, PalMa = 6; // 6: nước ma thuật xanh ngọc (cầu ma thủy)
         const float FbTexel = 0.5f / 2048; // co uv nửa điểm ảnh vào trong ô atlas (không lấy lẫn ô bên)
 
         [SerializeField] Texture2D noise; // nhiễu lặp (Assets/03 Art/Fx/Nuoc/nuoc_nhieu.png)
@@ -101,12 +103,13 @@ namespace PokiClash
         }
 
         // cầu bán kính r (UI); thr > 0 = tan lấm tấm; wob = độ rung mép; spin = tốc xoay vệt; sx: giãn theo hướng ang (bay)
-        public void Ball(float layer, Vector2 c, float r, Color32 col, float thr, float wob, float spin, float time, float seed, float ang = 0, float sx = 1)
+        public void Ball(float layer, Vector2 c, float r, Color32 col, float thr, float wob, float spin, float time, float seed, float ang = 0, float sx = 1,
+            int pal = 0)
         {
             var ux = Rot(ang);
             var uy = new Vector2(-ux.y, ux.x);
             float pad = 1 + wob + 0.04f;
-            Quad(layer, c, ux * r * sx * pad, uy * r * pad, new Vector2(-pad, -pad), new Vector2(pad, pad), new Vector4(Ball_, thr, wob, spin),
+            Quad(layer, c, ux * r * sx * pad, uy * r * pad, new Vector2(-pad, -pad), new Vector2(pad, pad), new Vector4(Ball_ + 16 * pal, thr, wob, spin),
                 new Vector4(time, seed, 0, 0), col);
         }
 
@@ -179,7 +182,7 @@ namespace PokiClash
         // frame: chỉ số khung thực (lẻ = chồng mờ sang khung sau); cut: ngưỡng mép (0,2–0,5); lift: nâng giá trị (+ sáng hơn);
         // kind 0 thường, 1 nền đất (phẳng, tối hơn), 2 toàn bọt trắng; flipX: lật ngang (hướng toé)
         public void Fb(float layer, Vector2 c, float w, float h, float ang, NFb fb, float frame, float cut, Color32 col, float time, float seed,
-            float lift = 0, int kind = 0, bool flipX = false)
+            float lift = 0, int kind = 0, bool flipX = false, int pal = 0)
         {
             var d = NuocFbBang.Get(fb);
             if (h <= 0) h = w / Mathf.Max(0.05f, d.aspect);
@@ -194,7 +197,7 @@ namespace PokiClash
             var uy = new Vector2(-ux.y, ux.x);
             var ax = ux * (w * 0.5f);
             var ay = uy * (h * 0.5f);
-            var u1 = new Vector4(Fb_, t, cut, d.pair);
+            var u1 = new Vector4(Fb_ + 16 * pal, t, cut, d.pair);
             var u2 = new Vector4(time, seed, lift, kind);
             float l = flipX ? 1 : 0, r = flipX ? 0 : 1;
             int i00 = raw.Count;
@@ -216,7 +219,7 @@ namespace PokiClash
         // ỐNG TIA kiểu Water Laser theo đường pts, nửa bề rộng hw[i]; kind 0 vỏ ngoài, 1 lõi sáng, 2 vệt bọt trôi, 3 vỏ mỏng rách;
         // scroll: tốc trôi vân (quãng / giây, theo hướng tia); cut: ngưỡng vỡ / tan (0 = liền)
         public void Tube(float layer, List<Vector2> pts, List<float> hw, Color32 col, int kind, float scroll, float cut, float time, float seed,
-            Vector2 lightXY)
+            Vector2 lightXY, int pal = 0)
         {
             int n = pts.Count;
             if (n < 2) return;
@@ -226,7 +229,7 @@ namespace PokiClash
             tot = Mathf.Max(tot, 1e-3f);
             float s = 0;
             int prev = -1;
-            var u1 = new Vector4(Tube_, cut, scroll, kind);
+            var u1 = new Vector4(Tube_ + 16 * pal, cut, scroll, kind);
             for (int i = 0; i < n; i++)
             {
                 if (i > 0) s += (pts[i] - pts[i - 1]).magnitude;
@@ -247,13 +250,24 @@ namespace PokiClash
             Close(layer, i0);
         }
 
+        // QUẦNG mềm (NGOẠI LỆ luật không quầng sáng, chỉ cầu ma thủy Thôn Kình — người dùng 2026-11-25): đĩa bán kính r, hard = mũ độ hiện (lớn:
+        // gọn tâm), tone 0 sáng / 1 tối, noise: mép chập chờn; sx giãn theo góc ang (quầng dẹt trên đất)
+        public void Glow(float layer, Vector2 c, float r, float hard, int tone, float noise, Color32 col, float time, float seed, int pal = 0, float sx = 1,
+            float ang = 0)
+        {
+            var ux = Rot(ang);
+            var uy = new Vector2(-ux.y, ux.x);
+            Quad(layer, c, ux * (r * sx), uy * r, new Vector2(-1, -1), new Vector2(1, 1), new Vector4(Glow_ + 16 * pal, 0, hard, tone),
+                new Vector4(time, seed, noise, 0), col);
+        }
+
         // giọt tròn bán kính r; tone 0 lam sâu, 1 lam sáng, 2 bọt
-        public void Dot(float layer, Vector2 c, float r, int tone, Color32 col, float sx = 1, float ang = 0)
+        public void Dot(float layer, Vector2 c, float r, int tone, Color32 col, float sx = 1, float ang = 0, int pal = 0)
         {
             var ux = Rot(ang);
             var uy = new Vector2(-ux.y, ux.x);
             Quad(layer, c, ux * (r * sx * 1.05f), uy * (r * 1.05f), new Vector2(-1.05f, -1.05f), new Vector2(1.05f, 1.05f),
-                new Vector4(Dot_, 0, tone, 0), Vector4.zero, col);
+                new Vector4(Dot_ + 16 * pal, 0, tone, 0), Vector4.zero, col);
         }
     }
 }

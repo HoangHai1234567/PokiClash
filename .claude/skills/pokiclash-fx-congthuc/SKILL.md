@@ -205,6 +205,9 @@ Người dùng chê bản "lửa mọc lên trên một hình tròn": vòng ph�
   - Cắt thành hai nửa elip: nửa trên ở `BACK`, nửa dưới ở `FRONT`.
 - **Phụ:** vệt `streak` bay vòng, đá bay vòng, khói `SMOKE_FIRE` thoát ở đỉnh.
 - **Chiều cao:** khoảng 1,2 H (đối thủ đứng ở y 236, cao hơn thì vượt mép trên).
+- **Nay trong game** lốc là khung vẽ sẵn, không còn dựng bằng hạt như trên: `loc_lua` (Blender), `loc_nuoc` / `loc_cat` (+ `_bao`), lốc khí
+  `loc_khi_*` có alpha chụp tách nền từ gói ParticleSystem (lá quay quanh, nổ lá lúc chạm, ba lốc + sét ở chiêu cuối Rồng Trúc). Bảng các
+  hướng, cách chụp tách nền và bài học: `vfx-petclash/SKILL.md` mục "Lốc xoáy (tornado)".
 
 ### Kim lửa `kim_lua` (2,2 s)
 

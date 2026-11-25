@@ -173,6 +173,9 @@ và `RG Simplicity 2018 Challenge Tornado` (cùng ý nhưng nhét vào một qu�
   đầu, cung 110–170°, **xoắn dốc lên** 1,5 đơn vị dọc cung, nghiêng ±15–28°, mỗi dải quay một tốc độ; vòng tròn nằm ngang đều bị đọc thành
   sọc trang trí → sai), **tàn lửa / tro bay vòng** bằng GN (Points + Random theo Index: bán kính, cao, góc, tốc độ; cao = (h0 + v·t) mod H,
   bán kính nở theo cao, Instance Ico Sphere; Map Range theo Scene Time thu nhỏ về 0 khi lốc tắt); khung rộng ortho 16, 480×440.
+- **Lốc vòng dẹt bằng shader dải (2026-11-25, BỊ BỎ)**: dựng lại `NS_Toon_BeltHurricane` của gói Unreal TornadoWindVFX (14 vành trụ hở bay
+  lên, shader Eevee vẽ dải răng tô phẳng 4 tông, đầu cung vuốt nhọn, mặt trong tối một tông, 4 màu nước / lửa / Mộc / cát). Người dùng xem
+  GIF: "không đẹp, thôi bỏ đi"; đã xoá script. Đừng dựng lại kiểu dải vành shader này; các lốc đã duyệt: `SKILL.md` mục "Lốc xoáy".
 
 ## 11. Lửa toon bằng shader: "Procedural Cartoon Flames in Blender" (Blender Box, youtube RDrswNZYiCo, người dùng đưa 2026-11-24)
 
@@ -227,3 +230,129 @@ chỉ; bản rải khói dọc thân lửa bị chê (che hết đầu luồng).
 - Kim lửa: `KimLua` vẽ khung "kim_lua" (dài 1,5 LEN, lúc bay giãn 1,3). Thiên thạch: `MeteorFb` (cầu tròn + vệt + "no" lớn + 6 cụm khói).
 - Sau khi xuất: menu "Sàn đấu: hạt lửa (bộ Hỏa)" và "Hộp chi tiết tướng: hạt lửa + nút Mana" (nhập lại ~1300 ảnh hạt, ~5 phút: chờ log
   `[Hạt lửa]` trong Editor.log, MCP báo timeout là bình thường).
+
+## 13. Bộ nước: tan theo NGƯỠNG × mặt nạ mềm, cụm toé, tia hai ngưỡng, vũng, sóng cuộn (2026-11-24, máy D)
+
+Học từ repo Unity `abitofgamedev/water_vfx` (mổ ở `hoc_water_vfx_abitofgamedev.md`) và clip "VFX Overview Water Wave" cùng tác giả.
+Thư viện: `ArtGen/Spine/vfx_blender/nuocbl.py`; xem cục bộ `vfx_lua_toon/xem/bo_nuoc/bo_nuoc.html` (xay_bo_nuoc.py).
+
+**Công thức lõi (dùng cho mọi hiệu ứng nước mới):**
+- `mat_na_nuoc.py` sinh mặt nạ MỀM 512² vào `vfx_blender/mat_na/` (tự sinh, không dùng ảnh repo — repo không có giấy phép):
+  `loang` mây loang dày đáy, `botmep` chuỗi cục bọt mép trên, `ngon` ngón vương miện (chân đặc, ngón dựng, đầu tròn), `dac` khối đặc
+  gợn nhẹ (thân cầu / cục nước), `cham` cụm chấm toé, `vung` vết loang. `loang/botmep/ngon/dac` lặp ngang (dán quanh vành, ống, cầu).
+- `W.mask_mat(name, mask, thr, key, rim=(dải, key), inner=(mức, key), back=key, tiling, noise_scale, nk, offset, alpha, extension)`:
+  v = mặt_nạ(uv·tiling) × (1 − nk + nk·nhiễu(uv + lệch)); hiện khi v > ngưỡng(t). `thr` = [(giờ, ngưỡng)] tăng dần (repo: 0,1 → 1
+  theo đời). `rim` tô viền khác tông chạy theo mép đang tan (bọt trắng quanh nước lam), `inner` tô lõi, `back` tô mặt sau (lòng vương
+  miện tối hơn), `offset` mỗi bản một hình từ cùng mặt nạ. Lưới phải có UV: `W.quad` (XZ sprite / XY decal), `W.ring_cone` (vành nón),
+  `W.uv_sphere`.
+- Mặt nạ phải mềm và hình phải có "ý": mây loang cho vương miện thì vỡ vụn thành mảnh → phải vẽ mặt nạ đúng hình (ngón vương miện).
+- Khoá giá trị MỖI KHUNG khi cần vòng lặp có pha (cục nhỏ giọt của cầu): chỗ quay vòng nằm giữa hai khung nên không lộ nội suy.
+
+**Hiệu ứng đã dựng:**
+- `toe_nuoc_bl.py --phan toe|vung|cau` (cụm toé 6 lớp theo Splash.prefab, đòn từ trái sang phải): chớp sao kem 0,13 s → vương miện
+  `ring_cone` trục chếch −x lên (ngửa về người đánh = "toé mão ngược"), nở đủ cỡ 0,22 s, mặt nạ `ngon` tan 0,02 → 0,95 (ngón mảnh rồi
+  đứt thành giọt), lòng tối `back`, viền bọt trắng; vương miện nhỏ lệch góc; 8 chấm toé (sprite `cham`, tan 0,14 → 1 trong 0,5 s);
+  10 vệt (lá thon đầu dày đi trước, bay ngược + trọng lực); 22 giọt. `vung` = decal nằm đất (2 vũng nở đủ 0,16 s rồi tan, 3 vệt loang
+  trượt theo hướng đòn), 1,2 s, neo tâm vũng — đặt ở CHÂN đích, tách bộ riêng vì độ cao điểm trúng mỗi tướng một khác. `cau` = toé +
+  thân cầu bẹp rồi vỡ lấm tấm (mask `dac`, nhiễu scale 40, ngưỡng 0 → 1 trong 0,2 s). Máy chếch 20°.
+- Tia nước (`nuoc_blender.py`): thêm HAI NGƯỠNG dọc trục trong `beam_mat`: m = x + (vân − 0,5)·1,6 (vân kéo theo trục → mép rách
+  thành sợi dọc dòng), hiện khi ngưỡng_đuôi < m < ngưỡng_đầu; ngưỡng đuôi = −0,9 lúc nhả rồi quét theo x đuôi khi rời miệng; thân dư
+  1 đơn vị sau đuôi để có chỗ cắt rách; nắp tròn đuôi bỏ khi đuôi rời miệng.
+- Cầu nước (`cau_nuoc_bl.py`): 5 cục nhỏ giọt rời đuôi (mask `dac`, tan lấm tấm), khoá mỗi khung, lặp liền.
+- Sóng cuộn (`song_cuon_bl.py`, theo clip): tấm lưới cong chân thon → vách → mào cuộn (θ = θmax·q³), nước trôi = nhiễu kéo dọc UV
+  trượt theo giờ, mặt nạ tan từ chân lên (răng giọt), bọt = dải mào (dày dần) + mép rách + vệt lấm tấm. BÀI HỌC GÓC NHÌN: mẫu nhìn
+  dọc hướng đi (người dùng: "nhìn không rõ"); nhìn chéo ngang thì mào phải cuộn úp lên CHÍNH mặt sóng đang thấy (người xem đọc mặt
+  có vệt là mặt trước) — bản cho mào đổ về trước, thấy lưng sóng, bị chê "bị ngược". Chốt ψ 140° (vách trái hơi lùi sâu, mặt lõm quay
+  về đích bên phải), máy 18°, neo chân sóng phía đích.
+- Trang xem: mục nhiều bộ khung (`dict(s, label, dx, dy, d)`: lệch neo và trễ khung), nút Phần sinh theo bộ; vũng ghép dưới điểm
+  trúng 70 px (giả định).
+
+### 13b. Làm THEO REPO, chất nước xanh của mình (2026-11-24, `nuoc_repo_bl.py`)
+
+Người dùng xem bản 13 (chỉ mượn kỹ thuật, giữ dáng cũ): "nhìn không khác mấy, làm lại vfx theo hướng repo", rồi "đổi texture
+trong suốt sang kiểu nước xanh như của mình". → lấy DÁNG + BỐ CỤC + NHỊP của repo, chất nước = `nuocbl.flow_color` (vệt lam 6 bậc)
+qua `water_mat` (màu đó + tan theo mặt nạ / dải hai ngưỡng dọc UV), không trong suốt, không khúc xạ / Fresnel.
+- `--phan cau` cầu ném lặp 1 s: cầu rung (Displace mây, toạ độ xoay vòng) + nảy dẹt; đuôi 10 cục cầu UV nhỏ dần 0,64 → 0,26, lùi
+  sau + rơi nhẹ, tan lấm tấm (`dac_*`, nhiễu 30, ngưỡng khoá MỖI KHUNG theo pha → lặp liền).
+- `--phan toe` toé đất 1 s (máy 28°): 2 vành `ring_cone` thấp trên đất, mặt nạ `loang` lặp 4,14 × 0,91 (số của repo), ngưỡng
+  0,11 → 1; 14 chấm toé, 10 vệt, 30 giọt, 2 vũng. Vật nằm ngửa phải TẮT vệt sáng theo pháp tuyến (`hi_th=2`), kẻo trắng bệch.
+- `--phan ong` tia ống 1,6 s: `arc_tube` vòng cung (L 10, cao 2,6, điểm chạm cách miệng 493 px), vệt chảy dọc UV, rung nhẹ
+  (0,06, nhiễu 1,8: rung mạnh làm mép sáng sọc li ti), dải hai ngưỡng: đầu 0 → 1,2 trong 0,3 s, đuôi giữ −0,3 tới 1,0 s rồi
+  → 1,2 lúc 1,38 s; đích toé lặp (3 vương miện + lượt nhỏ mỗi 0,15 s); vũng ghép trễ 7 khung.
+- `--phan roi` roi 1 s: cùng ống, đầu và đuôi chạy sát nhau (một đoạn nước), tới đích 0,34 s rồi toé.
+- Mẫu AtomSpine (người dùng: "các ví dụ trong repo kia cũng cập nhật vào mẫu trong atomspine"): `examples/vfx/water-ball`,
+  `water-crown-splash`, `water-tube`, `water-whip` = flipbook Blender (frames/ vẽ sẵn, commit; `build.ts` giữ frames/ và nhớ ảnh
+  nạp từ đĩa); script + mặt nạ ở `refs/water_vfx/tools/` (`make_examples.py` sinh .ops từ thư mục khung đã cắt). Repo gốc không
+  giấy phép → chỉ có bản tự dựng, không có file của họ.
+- Màu (người dùng: "màu không ổn, để màu xanh nhạt, có mix bọt trắng thôi"): bộ theo repo dùng `nuocbl.STOPS_NHAT` = lam nhạt
+  `#7ED9F6` → lam sáng `#93E8FF` → bọt trắng `#EAFBFF`; hạt nhỏ chỉ trắng / lam nhạt; không lam đậm / lam giữa. Vũng cũng lam nhạt.
+- BẪY sọc răng lược trên ống: khối KÍN có alpha (Eevee BLENDED) vẽ cả mặt trong đè lẫn mặt ngoài → sọc theo từng vòng lưới. Không
+  phải do rung hay vệt sáng (đã thử bỏ cả hai). Sửa: `material.use_backface_culling = True` (+ `use_transparency_overlap = False`)
+  cho ống, cục cầu, thân tia. Vật hở (vành nón) giữ hai mặt.
+
+### 13c. BỘ NƯỚC v2 — tự dựng theo shader repo (2026-11-24, `nuoc_repo_bl.py`; người dùng: "dựa theo shader của họ rồi tự build
+cầu nước, tia nước,... tất cả theo ý mình, lốc nước ok rồi")
+
+- **Chất nước chung** `WATER`: `flow_color` lam nhạt + bọt (STOPS_NHAT) + **khối cel** `vol=(lx, ly, lz, k)` (cộng k·(pháp tuyến ·
+  hướng sáng) vào vân trước ramp: mặt khuất ra lam sâu, mặt hướng sáng ra bọt; k 0,16 — k 0,3 thì trắng nửa cầu) + **mép lam sâu**
+  (`rim_key="nhat"`, rim_th 0,6) thay Fresnel sáng của repo; tắt vệt sáng theo pháp tuyến. Người dùng thấy cầu repo "rất 3D".
+- **Cầu / thương bằng METABALL** (người dùng: đuôi của mình "cứ kiểu bị tách ra", repo "đuôi không bị tách"): mọi cục cùng tiền tố tên
+  (`CauMB`, `CauMB.001`…) tự hoà thành một khối; đối tượng gốc mang vật liệu + `render_resolution` 0,04. Đuôi = 16 cục lệch pha sinh
+  trong lòng cầu, lùi sau, nhỏ dần (0,52 → 0,05), khoá mỗi khung → lặp liền; chót tự thắt thành giọt. Rung thạch = 4 cục nhỏ chạy vòng
+  sát mặt trong. Thương = cục thân kéo dài (scale 1,8 × 0,5) + 3 cục mũi vuốt nhọn + đuôi xoắn; vệt xoắn = `spin` quanh trục x.
+- **Tia thẳng** (`--phan tia`): `arc_tube` thẳng hơi gợn, phình bằng scale y/z của vật (0,3 → 1,2 → 1), dải hai ngưỡng (đầu 0,1 s,
+  đuôi 1,1–1,46 s), đích toé ngược mỗi 0,12 s + 4 vương miện. **Mạch phun** (`phun`): ống dựng đứng, ngưỡng đầu lên 0,3 s rồi HẠ về
+  0 lúc 1,0–1,45 s (cột sụp từ trên), vương miện ngửa lên ở đỉnh, vành + vũng ở chân. **Toé thân / cầu vỡ** (`than`, `vo`): 2 vương
+  miện ngửa ngược + `burst`; cầu vỡ = metaball + `water_mat(speck=...)` (tan lấm tấm trên nhiễu toạ độ, khối không UV).
+- BẪY `arc_tube`: khung quanh ống lấy tg × Z thì ống gần thẳng đứng LẬT 180° mỗi khi nghiêng đổi bên → UV quanh ống nhảy, vệt màu
+  cắt ngang thành vạch. Đã đổi sang khung truyền song song (chiếu hướng ngang vòng trước lên mặt vuông góc tiếp tuyến mới).
+- Sóng giữ dáng, đổi ramp sang lam nhạt + bọt. Lốc nước giữ nguyên. Trang xem: 11 mục theo bộ v2.
+
+## 14. Cầu năng lượng kiểu "Energy Ball" cho Mộc / Kim / Thổ (2026-11-24, người dùng chọn B trong hai kiểu)
+
+Hai kiểu đã đưa người dùng so (render đổi màu theo hệ): A = cầu lửa Blender Box (`cau_eevee.py`, 4 cầu lồng nhau thủng lỗ Voronoi)
+đổi màu; B = file mẫu **Energy Ball** của CodyWinch (thân múi đặc, gân sáng lộ qua khe). Người dùng chọn **B** cho mọi cầu năng
+lượng Mộc / Kim / Thổ.
+
+- Script `vfx_blender/cau_nl_bl.py` mở THẲNG file mẫu (`refs/blender_anime_fx/Energy Ball 2 8.blend`, asset đã mua), giữ nguyên chuỗi
+  modifier gốc; đổi màu vật liệu `Black` (thân) / `Energy` (gân) theo `--bo moc|vang|troi`; bỏ sàn, đèn; camera trực giao nhìn ngang.
+- **Lặp**: mẫu gốc gần như đứng yên, chỉ tăng ngưỡng một lượt. Núm `Disp Control` nằm cách tâm cầu ~6,8 đơn vị: xoay núm quanh
+  chính nó thì vân quét qua cầu rất gắt (mỗi khung một hình khác hẳn). Đúng: xoay CỨNG không gian texture quanh **tâm cầu**
+  (`matrix_world = T(off) · T(tâm) · R(θ, trục gần đứng) · T(−tâm) · M0`) một vòng trong N khung + dịch vòng nhỏ 0,35 cho múi biến
+  dạng; ngưỡng `Energy Threshold` khoá 0,53 và thở ±0,03 hai nhịp mỗi vòng. 36 khung (1,5 s một vòng; 24 khung thì 15°/khung, gắt).
+- **Ngưỡng** (thử trên bộ Mộc): 0,60 gân lấm tấm; 0,53 giống khung cuối mẫu; ≤ 0,45 gân lấn thành nền, thân thành đốm.
+- Màu (thân, gân): Mộc `#1E9E6E` / `#E6F77E`; vàng (Kim + đầu nòng tia vàng) `#F08A22` / `#FFF1A8`; Mặt Trời `#E8582A` / `#FFD94A`.
+- Render `--px 400` (ortho 7,4) → `vfx_lua_toon/cat_nl.py` → `xuat_game.py cau_moc cau_vang cau_troi` (cạnh 256 px; bản 180 px bị phóng
+  ~1,9 lần ở cầu to, mờ). Quả cầu cao ~0,86 khung; FbDef k 0,6 → bán kính thấy 0,257 h, hàm `HatLua.VeCauNl(buf, fx, tâm, r, …)`
+  vẽ khung cao 3,9 r.
+- Trong game: `CauLa` (Gạc Đá, Lộc Phong; bảng hổ phách thì bộ vàng), `RbCau` (Thần Cơ, Pháo Giáp; giữ hai cung điện), đầu nòng tia
+  (`TiaSkin.nl`: DaTiaMoc → cau_moc, DaTiaVang → cau_vang; Lộc Phong, Giác Mộc, Nhật Vương), Mặt Trời Thổ Tinh (`TtMatTroi`: thân
+  cau_troi, 12 lưỡi lửa tô phẳng không viền; bỏ cầu lửa xoáy đầu nòng của tia nhiệt vì nó che kín Mặt Trời, `nongK = 0`).
+  Chưa có khung thì các hàm tự về cầu hạt cũ.
+- Bẫy khi chạy tour qua MCP lúc phiên khác đang ghi `.cs`: vào Play là Unity nhặt thay đổi, biên dịch và nạp lại domain GIỮA Play →
+  `App.I` mất, menu tour thoát im lặng (không log). Nhờ phiên kia ngưng ghi, biên dịch ở chế độ sửa, rồi mới Play.
+
+## 14. Bộ nước chạy bằng SHADER trong trận (2026-11-24/25, người dùng chọn "c": "sao không dùng thẳng shader làm vfx")
+
+Khung vẽ sẵn chỉ là bản xem / nguồn duyệt hình; trong trận, bộ nước (trừ lốc) chạy bằng shader uGUI `PokiClash/UIWaterFx`
+(`Assets/03 Art/Shaders/UIWaterFx.shader`), một lưới `HatNuocFx` (MaskableGraphic) cho mỗi lớp hạt (con "NuocFx" sau "Mang"), hiệu
+ứng là phần `HatLua` trong `HatNuocShader.cs`. Lốc nước = khung Blender đã duyệt (`vfx_lua_toon/xuat_loc_nuoc.py`, khung 0–23 làm vòng
+lặp, cắt đúng tỉ lệ FbDef cũ, ghi đè cùng tên giữ GUID; ảnh cũ lưu `frames/_cu_hat_fb_loc_nuoc/`).
+- **Một shader, 6 loại hình theo đỉnh** (không tạo material lúc chạy — PrefabOnlyTests cấm `new Material`): TEXCOORD0 = toạ độ trong
+  hình, TEXCOORD1 = (loại, ngưỡng tan, p1, p2), TEXCOORD2 = (giờ sân, hạt giống, p3, p4); Canvas của lớp hạt phải bật kênh TexCoord1/2
+  (menu bật sẵn + `HatNuocFx.OnEnable` bật lúc chạy). Loại: CẦU (vòm giả, vệt xoay quanh thân, rung, tan lấm tấm), DẢI (tia / ống / đuôi
+  / mũi thương / sóng: trụ giả, vệt chảy dọc, hai ngưỡng đầu-đuôi, ngưỡng > 0,5 = dải bọt), MẶT NẠ (chấm toé, vũng), QUẠT (vương miện
+  ngón), VÀNH (loang trên đất, tách nửa trước / sau lớp tướng), CHẤM (giọt).
+- **Texture dữ liệu** `Assets/03 Art/Fx/Nuoc/` (`ArtGen/Spine/nuoc_shader/tao_texture.py`): nhiễu lặp RGB + **A = vân chì** gạch chéo
+  ~−38° đứt quãng; atlas 4×4 mặt nạ mềm. **Bẫy:** `ArtPostprocessor` ép mọi PNG trong `03 Art` thành Sprite + Clamp → nhiễu không lặp,
+  tia ra MỘT MÀU PHẲNG; đã thêm ngoại lệ `03 Art/Fx/Nuoc/` (nhập tuyến tính, lặp, mipmap do `NuocFxMenu` đặt).
+- **Nổi khối + vẽ tay** (người dùng: "cần nổi khối hơn chút và có chút texture kiểu vẽ tay"): cel theo pháp tuyến giả — mặt hướng sáng
+  (trên trái) thành mảng trắng, mặt khuất mảng lam sâu `_ColShade`, mép lam sâu, ranh run theo nhiễu mịn; cầu có chấm sáng nhỏ, mảng sáng
+  gọn (d × 0,8); vân chì nhân theo toạ độ màn hình (`_Hatch` 0,5, ô 110 px UI), bọt nhạt hơn; vân nước kéo tương phản (`_Contrast` 1,6).
+- **Móc ở KHỐI DÙNG CHUNG**, không ở `PlayNuoc`, để giữ chi tiết riêng từng tướng (gốc tia đo trên rig, bề dày theo thân, giờ trúng,
+  nhịp đập): thân tia trong `NTiaKhung` (thay `TiaFb DaTiaNuoc`), `Splash`, `Crown`, `Puddle`, `CauNuoc` (đuôi liền = dải theo chính
+  đường bay đã qua, lấy mẫu cFn lùi giờ), `Drop`, `TrungNuoc`, `ToeNuoc`, mũi thương, `NXoay` (mạch phun), `NSong` (thân sóng + đổ),
+  `Wave`, `BotCum`, `Khoi`, `KrHit`, `RingN`, nét `Gather`. Bật khi `NuocShader` + đủ 3 `HatNuocFx` + bảng nước lam (mực tím giữ hạt cũ);
+  thiếu thì tự về bản cũ. `Ripple` KHÔNG móc (hệ khác cũng gọi).
+- Thử: menu "PokiClash/Prefab/Trận/Sàn đấu: nước shader (bộ Thủy)" rồi tour "…nước shader: 4 tướng…" (Thạch Giải, Giông Bão, Tí Tách,
+  Hải Long), ghép ảnh động `ArtGen/XemVfx/nuoc_shader/ghep_gif.py` → `xem.html`.

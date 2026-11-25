@@ -15,10 +15,26 @@ namespace PokiClash.EditorTools
 {
     public static class VfxPackShots
     {
-        const string OutRoot = "Temp/PokiShots/vfx_goi";
+        const string OutWater = "Temp/PokiShots/vfx_goi";
         const int Fps = 24, W = 480, H = 300;
         static readonly Vector3 Origin = new Vector3(9000, 0, 0);
         static readonly string[] Dirs = { "Assets/SrRubfish_VFX_02/Prefabs", "Assets/NamuFX/StylizedWaterEffects/Prefabs" };
+        // gói lốc "Game VFX - Tornado Collection" (2026-11-25): khung dọc, bản một lượt dài tới ~5 s, ảnh ra vfx_loc/tor_<prefab>
+        const string OutTornado = "Temp/PokiShots/vfx_loc";
+        static readonly string[] DirsTornado = { "Assets/Game VFX - Tornado Collection/Prefab" };
+        static string OutRoot = OutWater;
+        static float maxDur = 3f;
+        static int pw = W, ph = H;
+        // CHỤP TÁCH NỀN (2026-11-25, lốc khí cho chiêu cuối rồng trúc): thêm camera nền TRẮNG chụp cùng khung với camera nền ĐEN trong
+        // cùng một lượt render → alpha = 1 − (trắng − đen), màu = đen / alpha (gói vẽ bằng cộng sáng + khói trắng: chụp một nền không ra
+        // được alpha). stopAt: giây tắt phát hạt (hạt còn lại tan tự nhiên → có đoạn tắt), durOverride: tổng giây chụp.
+        const string OutNen = "Temp/PokiShots/vfx_loc_nen";
+        static bool alphaMode, stopped;
+        static float stopAt = -1, durOverride = -1;
+        static int stopFrame = -1;
+        static Camera camW;
+        static RenderTexture rtW;
+        static Texture2D readW, outTex;
 
         static Queue<string> todo;
         static GameObject inst;
@@ -34,6 +50,13 @@ namespace PokiClash.EditorTools
 
         [MenuItem("PokiClash/Thử/VFX gói nước: chụp mọi prefab Rubfish + NamuFX (đang Play)")]
         static void All() => Begin(null);
+
+        [MenuItem("PokiClash/Thử/VFX gói lốc: chụp mọi prefab Tornado Collection (đang Play)")]
+        static void Tornado() => Begin(null, false, true);
+
+        // lốc khí lặp: mọc → thân đều → tắt phát hạt ở 2,5 s → tan; PNG nền trong ở Temp/PokiShots/vfx_loc_nen/tor_FX_AirTornado_Loop
+        [MenuItem("PokiClash/Thử/VFX gói lốc: chụp tách nền lốc khí AirTornado_Loop (đang Play)")]
+        static void TornadoAlpha() => Begin("AirTornado_Loop", false, true, true, 2.5f, 3.4f);
 
         [MenuItem("PokiClash/Thử/VFX gói nước: chụp riêng Water Laser (đang Play)")]
         static void Laser() => Begin("WaterLaser");
@@ -51,23 +74,31 @@ namespace PokiClash.EditorTools
             Debug.Log("[VfxPackShots] runInBackground = true (tới khi thoát Play)");
         }
 
-        public static void Begin(string filter, bool scenes = false)
+        public static void Begin(string filter, bool scenes = false, bool tornado = false, bool alpha = false, float stopSec = -1, float durSec = -1)
         {
             if (!EditorApplication.isPlaying)
             {
                 Debug.LogError("[VfxPackShots] cần đang Play");
                 return;
             }
+            alphaMode = alpha && !scenes;
+            stopAt = stopSec;
+            durOverride = durSec;
+            OutRoot = alphaMode ? OutNen : tornado ? OutTornado : OutWater;
+            maxDur = tornado ? 5f : 3f;
+            pw = tornado ? 360 : W;
+            ph = tornado ? 420 : H;
             var paths = scenes
                 ? AssetDatabase.FindAssets("t:Scene", new[] { "Assets/SrRubfish_VFX_02/DemoScene" }).Select(g => "scene:" + AssetDatabase.GUIDToAssetPath(g)).OrderBy(p => p).ToList()
-                : AssetDatabase.FindAssets("t:Prefab", Dirs.Where(AssetDatabase.IsValidFolder).ToArray())
+                : AssetDatabase.FindAssets("t:Prefab", (tornado ? DirsTornado : Dirs).Where(AssetDatabase.IsValidFolder).ToArray())
                 .Select(AssetDatabase.GUIDToAssetPath)
                 .Where(p => filter == null || p.Contains(filter))
-                .Where(p => !p.Contains("Viewer") && !p.Contains("--Env--"))
+                .Where(p => !p.Contains("Viewer") && !p.Contains("--Env--") && !p.Contains("/Prefab/Mesh/"))
                 .OrderBy(p => p).ToList();
+            Directory.CreateDirectory(OutRoot);
             sceneMode = scenes;
-            rw = scenes ? 640 : W;
-            rh = scenes ? 360 : H;
+            rw = scenes ? 640 : pw;
+            rh = scenes ? 360 : ph;
             todo = new Queue<string>(paths);
             done = 0;
             rt = new RenderTexture(rw, rh, 24, RenderTextureFormat.ARGB32) { antiAliasing = 4 };
@@ -82,6 +113,20 @@ namespace PokiClash.EditorTools
             cam.farClipPlane = 600;
             cam.targetTexture = rt;
             cam.enabled = true; // tự render mỗi khung; đọc ảnh ở endContextRendering
+            if (alphaMode)
+            {
+                cam.backgroundColor = Color.black;
+                var gw = new GameObject("vfx_goi_cam_trang") { hideFlags = HideFlags.DontSave };
+                Object.DontDestroyOnLoad(gw);
+                camW = gw.AddComponent<Camera>();
+                camW.CopyFrom(cam);
+                camW.backgroundColor = Color.white;
+                rtW = new RenderTexture(rw, rh, 24, RenderTextureFormat.ARGB32) { antiAliasing = 4 };
+                camW.targetTexture = rtW;
+                camW.enabled = true;
+                readW = new Texture2D(rw, rh, TextureFormat.RGB24, false);
+                outTex = new Texture2D(rw, rh, TextureFormat.RGBA32, false);
+            }
             Time.captureFramerate = Fps; // mỗi khung đúng 1/Fps giây game (hạt + _Time của shader)
             bgPrev = Application.runInBackground;
             Application.runInBackground = true; // game tắt Run In Background → Unity nằm nền là Play đứng; bật tạm, xong trả lại
@@ -98,6 +143,17 @@ namespace PokiClash.EditorTools
         // việc dựng prefab mới làm trong onBeforeRender (giữa vòng game), đọc ảnh ngay sau khi các camera render xong.
         static void OnBefore()
         {
+            if (camW && cam) // camera nền trắng bám đúng khung camera nền đen (Frame / Tighten chỉ dời cam)
+            {
+                camW.transform.SetPositionAndRotation(cam.transform.position, cam.transform.rotation);
+                camW.orthographicSize = cam.orthographicSize;
+            }
+            if (capturing && inst && stopFrame >= 0 && !stopped && frame >= stopFrame)
+            {
+                stopped = true; // tắt phát hạt: hạt đang sống tan tự nhiên → đoạn tắt của lốc
+                foreach (var ps in inst.GetComponentsInChildren<ParticleSystem>(true))
+                    ps.Stop(false, ParticleSystemStopBehavior.StopEmitting);
+            }
             if (waitScene != null)
             {
                 var sc = UnityEngine.SceneManagement.SceneManager.GetActiveScene();
@@ -123,11 +179,13 @@ namespace PokiClash.EditorTools
         static void OnEnd(ScriptableRenderContext ctx, List<Camera> cams)
         {
             if (!capturing || !inst && !sceneMode || !cam || !cams.Contains(cam)) return;
+            if (alphaMode && (!camW || !cams.Contains(camW))) return;
             RenderTexture.active = rt;
             read.ReadPixels(new Rect(0, 0, rw, rh), 0, 0);
             read.Apply();
             RenderTexture.active = null;
             if (probing) Probe();
+            else if (alphaMode) File.WriteAllBytes(Path.Combine(dir, $"f_{frame:000}.png"), TachNen());
             else File.WriteAllBytes(Path.Combine(dir, $"f_{frame:000}.png"), read.EncodeToPNG());
             frame++;
             if (frame >= total)
@@ -203,7 +261,39 @@ namespace PokiClash.EditorTools
             foreach (var ps in inst.GetComponentsInChildren<ParticleSystem>(true))
                 if (ps.main.playOnAwake && ps.gameObject.activeInHierarchy && !ps.isPlaying) ps.Play(false);
             frame = 0;
+            stopped = false;
             capturing = true;
+            if (alphaMode && !probing) // điểm neo: gốc prefab (chân lốc) trên ảnh, px từ trái / từ trên
+            {
+                var v = cam.WorldToViewportPoint(Origin);
+                File.AppendAllText(Path.Combine(dir, "info.txt"), $"anchor={v.x * rw:0.0},{(1 - v.y) * rh:0.0} size={rw}x{rh} stop={stopFrame}\n");
+            }
+        }
+
+        // ảnh nền trong từ hai ảnh cùng khung: nền đen (read) và nền trắng (readW)
+        static byte[] TachNen()
+        {
+            RenderTexture.active = rtW;
+            readW.ReadPixels(new Rect(0, 0, rw, rh), 0, 0);
+            readW.Apply();
+            RenderTexture.active = null;
+            var b = read.GetPixels32();
+            var w = readW.GetPixels32();
+            var o = new Color32[b.Length];
+            for (int i = 0; i < b.Length; i++)
+            {
+                float d = (w[i].r - b[i].r + w[i].g - b[i].g + w[i].b - b[i].b) / (3f * 255f);
+                float a = Mathf.Clamp01(1 - d);
+                if (a < 1f / 255f)
+                {
+                    o[i] = new Color32(0, 0, 0, 0);
+                    continue;
+                }
+                o[i] = new Color32((byte)Mathf.Min(255, b[i].r / a), (byte)Mathf.Min(255, b[i].g / a), (byte)Mathf.Min(255, b[i].b / a), (byte)(a * 255 + 0.5f));
+            }
+            outTex.SetPixels32(o);
+            outTex.Apply();
+            return outTex.EncodeToPNG();
         }
 
         static void OnMode(PlayModeStateChange m)
@@ -234,13 +324,14 @@ namespace PokiClash.EditorTools
                 }
                 var prefab = AssetDatabase.LoadAssetAtPath<GameObject>(p);
                 if (!prefab) continue;
-                string pack = p.Contains("NamuFX") ? "namu" : "rub";
+                string pack = p.Contains("Tornado Collection") ? "tor" : p.Contains("NamuFX") ? "namu" : "rub";
                 dir = Path.Combine(OutRoot, pack + "_" + prefab.name);
                 Directory.CreateDirectory(dir);
                 foreach (var f in Directory.GetFiles(dir, "f_*.png")) File.Delete(f);
                 var b = Measure(prefab);
                 Frame(b);
-                total = Mathf.CeilToInt(Dur(prefab) * Fps);
+                total = durOverride > 0 ? Mathf.CeilToInt(durOverride * Fps) : Mathf.CeilToInt(Dur(prefab) * Fps);
+                stopFrame = stopAt > 0 ? Mathf.RoundToInt(stopAt * Fps) : -1;
                 File.WriteAllText(Path.Combine(dir, "info.txt"), $"{p}\nframes={total} fps={Fps}\nbounds={b.center} {b.size}\n");
                 cur = prefab;
                 bx0 = by0 = int.MaxValue;
@@ -324,7 +415,7 @@ namespace PokiClash.EditorTools
             var an = prefab.GetComponentInChildren<Animator>(true);
             if (an && an.runtimeAnimatorController)
                 foreach (var c in an.runtimeAnimatorController.animationClips) d = Mathf.Max(d, c.length);
-            return Mathf.Clamp(loop ? Mathf.Max(d, 2.0f) : d + 0.15f, 0.6f, 3f);
+            return Mathf.Clamp(loop ? Mathf.Max(d, 2.0f) : d + 0.15f, 0.6f, maxDur);
         }
 
         static void Finish()
@@ -341,6 +432,17 @@ namespace PokiClash.EditorTools
                 Object.DestroyImmediate(rt);
             }
             if (read) Object.DestroyImmediate(read);
+            if (camW) Object.DestroyImmediate(camW.gameObject);
+            if (rtW)
+            {
+                rtW.Release();
+                Object.DestroyImmediate(rtW);
+            }
+            if (readW) Object.DestroyImmediate(readW);
+            if (outTex) Object.DestroyImmediate(outTex);
+            alphaMode = false;
+            stopAt = durOverride = -1;
+            stopFrame = -1;
             inst = null;
             File.WriteAllText(Path.Combine(OutRoot, "xong.txt"), $"{done}\n");
             Debug.Log($"[VfxPackShots] xong {done} prefab → {OutRoot}");

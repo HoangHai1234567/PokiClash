@@ -30,9 +30,11 @@ description: >
 > |---|---|
 > | AtomSpine `examples/vfx/*` | hit-spark, slash, fire-burst, water-splash, leaf-storm, explosion-flipbook, level-up-ring (ops sinh ảnh); water-ball, water-crown-splash, water-tube, water-whip (flipbook Blender) — tờ khung `<tên>_sheet.png` |
 > | AtomSpine `atom templates` (vfx) | emitter, beam, trail, flipbook |
-> | AtomSpine `refs/` | `blender_anime_fx/` (11 file CodyWinch: nổ, cầu năng lượng, xoáy, lốc), `water_vfx/` (bộ nước Blender + shader trong trận), `water_pack/` (bộ nước theo gói mẫu SrRubfish + NamuFX: công cụ chụp / mổ gói, phân tích từng prefab, đóng atlas, tia Water Laser, mã trong trận) |
+> | AtomSpine `refs/` | `blender_anime_fx/` (11 file CodyWinch: nổ, cầu năng lượng, xoáy, lốc), `water_vfx/` (bộ nước Blender + shader trong trận), `water_pack/` (bộ nước theo gói mẫu SrRubfish + NamuFX: công cụ chụp / mổ gói, phân tích từng prefab, đóng atlas, tia Water Laser, mã trong trận), `tornado_pack/` (lốc: chụp tách nền gói ParticleSystem, xuất khung lốc khí, mã MocLocKhi / LaQuanhLoc / Vạn Diệp, bộ đọc .uasset gói Unreal) |
 > | Bộ trong dự án (`ArtGen/Spine/vfx_blender/`) | lửa (lua_eevee, phun, cầu, nổ, khói, lốc lửa, kim lửa), nước (`nuoc_repo_bl.py`: cầu, cầu vỡ, tia, tia ống, roi, toé thân, toé đất, thương, mạch phun; `song_cuon_bl.py` sóng; lốc nước) — trang xem `vfx_lua_toon/xem/bo_nuoc/bo_nuoc.html` |
-> | Trong game | khung `Assets/03 Art/Fx/Hat/hat_fb_*` (bộ lửa, lốc nước), shader nước `PokiClash/UIWaterFx` (tia, cầu, toé, vương miện, vũng, thương, sóng, mạch phun) — ảnh tour `ArtGen/XemVfx/nuoc_shader/xem.html` |
+> | Trong game | khung `Assets/03 Art/Fx/Hat/hat_fb_*` (bộ lửa, lốc nước), shader nước `PokiClash/UIWaterFx` (tia, cầu, toé, vương miện, vũng, thương, sóng, mạch phun) — ảnh tour `ArtGen/XemVfx/nuoc_shader/xem.html`; tia năng lượng kiểu Water Laser theo bảng màu hệ (`ELaser`: lục ngọc, hổ phách, lửa nhiệt, Kim, Thổ) — `ArtGen/XemVfx/tia_nl/xem.html`; lốc khí có alpha `hat_fb_loc_khi_{moc,lap,tan}` (`MocLocKhi`, chiêu cuối Rồng Trúc) — `ArtGen/XemVfx/rong_van/xem.html`; loạt thủy tia Hải Long — `ArtGen/XemVfx/hai_long_tia/xem.html` (mục "Lốc xoáy", bảng chiêu nước) |
+> | Gói lốc Unreal **TornadoWindVFX** (2026-11-25, chỉ tham khảo, ngoài repo) | `D:\Ripper\TornadoWindVFX\xem.html`: 11 lốc Niagara (lốc vòng dẹt chồng tầng BeltHurricane / TopDown, phễu xoắn liền thân, phễu vệt lá, trúng gió), số liệu từng lớp, texture; `PHAN_TICH.md` = kỹ thuật + cách đem về (Blender → `hat_fb_*`) |
+> | Gói lốc Unity **Game VFX - Tornado Collection** (Eric Wang, nhập 2026-11-25) | `Assets/Game VFX - Tornado Collection`: 8 lốc ParticleSystem URP (khí, máu, tối, lửa, sáng, sét, cát, tuyết), mỗi loại một bản một lượt + một bản lặp (`Prefab/FX_*`), scene demo; shader cộng sáng `Eric/URP Particles/*`; ảnh động từng prefab `ArtGen/XemVfx/vfx_loc/xem.html`; lốc "Khí" đã chụp tách nền vào game (mục "Lốc xoáy") |
 > | Gói nước mẫu trong Assets (2026-11-25) | SrRubfish "Water - Assets for VFX 02" (`Assets/SrRubfish_VFX_02`: 37 prefab, 72 flipbook) + NamuFX "Stylized Water Effect Pack" (`Assets/NamuFX`): ảnh động từng prefab `ArtGen/XemVfx/vfx_goi/xem.html`, mổ xẻ từng lớp `PHAN_TICH.md`; 40 flipbook đã đóng vào atlas game (`nuoc_fb.png`, bảng `NuocFbBang`) — mục "Bộ nước theo gói" bên dưới |
 
 ### Bộ nước theo gói mẫu (bản 3, 2026-11-25)
@@ -55,6 +57,193 @@ có như vậy"; "đặc biệt là tia nước ở water laser rất đẹp"; t
   (toé ngang / trượt / gai về +x, khối cuộn `CauVong` về −x, `ToeTrung` chéo lên phải, `ToeNgangC` về −x) phải soi bằng tờ khung trước khi xoay.
 - Tour thử: menu "PokiClash/Thử/Tướng/Đảo Thủy/nước shader: tia Water Laser (...)" và "... 4 tướng tia, cầu ..." (+ Hàn Ngạc sóng / mưa);
   bật trước "PokiClash/Thử/Play chạy cả khi Unity nằm nền".
+
+### Chiêu nước mới theo bộ gói mẫu (2026-11-25)
+
+Người dùng: "dựa trên bộ fx các skill nước, làm thêm các chiêu thức cho các tướng, không chỉ xoay quanh kiểu cầu/tia ... projectiles, mưa,
+lốc xoáy nước, các kiểu cầu nước". Đã duyệt bảng đề xuất. Mỗi chiêu bám động tác clip có sẵn và mạnh dần theo ải. Mã ở `HatNuocChieu.cs`;
+bảng chiêu ở `StageView.WaterFx`. Không có lưới shader (NS false) thì tự về chiêu cũ.
+
+| Tướng | Mã | Chiêu |
+|---|---|---|
+| Tí Tách | `n_lien_dan` | 5 viên đạn nước (`NVienDan`: cầu giãn + đuôi dải + giọt), viên cuối toé lớn |
+| Thạch Giải | `n_bong_nay` / `n_cau_nhot` | 3 bong bóng `BongDon` nảy rồi vỡ; cầu ợ ra bọc đối thủ (vành `NRing`, ruột `NBall` alpha 0,26, vệt bọt `ChemVong` kiểu 2) rồi vỡ |
+| Hải Đăng | `n_bom` | cầu nặng bay vồng, vòng `ChamDat` co báo chỗ rơi, nổ `GToe` + `GCotPhun` + `GSplash` |
+| Giông Bão | `n_cau_xoay` / `n_mua_giong` | cầu tụ theo đầu trượng (`NCauShader` tDuoi0 = lúc phóng), 3 cầu vệ tinh; mây NMua + mưa xiên + 3 cột thác `ThacDoi` (cột giữa ở lớp SAU) + sét |
+| Thôn Kình | `n_va` / `n_cau_ma` | chiêu cuối: cầu ma thủy TRIỆU HỒI ngay ở thân đối thủ rồi nổ (prefab gốc của gói, mục kế dưới); `n_song_than` (sóng thần) còn trong mã |
+| Uyên Xà | `n_thuy_xa` / `n_xa_chem` | rắn nước (ống 4 lớp uốn sin, đầu `NBall` + hàm `ChemVong`) ngoạm; ba cung chém `ChemVong` 0 → 9 + `VetSang` (mã lúc chạm) |
+| Hàn Ngạc | `n_bao_xoay1` / `n_bao_xoay` | `NVoi` + vòng `XoayO` ba tầng + mắt bão + mảnh băng `GaiTrung` bảng Kim + nước hút + mưa ngang |
+| Hải Long | `n_loat_tia` (mana) | LOẠT THỦY TIA (`NLoatTia`, `HatHaiLongTia.cs`): mỗi đầu bắn một tia Water Laser (`NLaser`) đúng lúc vươn ra — dạng 3 năm tia, dạng 2 ba tia, dạng 1 một miệng bắn ba tia toả; tia đầu chính dày, điểm trúng lệch nhau trên thân, bắn / tắt so le; giữ dáng `LoatTiaGiu` 0,95. Thay `n_loat_cau` (mỗi đầu nhả một cầu; người dùng: "nhìn yếu quá, làm nó bắn thành nhiều laser beam đi"). Mốc miệng xương `mieng_*` đo bằng `atomik_dang.Pose` (`HlDau*`, `HlGio*`), dạng phân bằng game.muzzle |
+
+Bài học khi chụp:
+- Ruột khung `BongDon` có alpha thấp: lên shader thành vòng; ngưỡng mép 0,22.
+- Mặt nạ "đặc" của `NSprite` là ô vuông, đừng dùng làm ruột tròn.
+- Cột nước đặc rơi đúng chỗ đối thủ thì vẽ ở lớp sau.
+- Cầu bám rig đang vung cần `tDuoi0`, không thì đuôi gập khuỷu.
+- Dải `Chem` mảnh bị thân tướng lao sát che mất: dùng cung `ChemVong`.
+
+Thử bằng menu "PokiClash/Thử/Tướng/Đảo Thủy/chiêu nước mới ..." (thường, chậm 0,4×, hộp chi tiết). Trang GIF: `ArtGen/XemVfx/chieu_nuoc/ghep.py` → `xem.html`.
+Hải Long riêng: "PokiClash/Thử/Tướng/Đảo Thủy/loạt thủy tia Hải Long ..." (thường / chậm 0,4× / hộp chi tiết, `Editor/HaiLongFxTour.cs`); trang
+`ArtGen/XemVfx/hai_long_tia/xem.html`.
+
+### Dùng thẳng prefab ParticleSystem của gói (hướng A, cầu ma thủy Thôn Kình, 2026-11-25)
+
+Người dùng: "làm theo hướng A, dùng thẳng prefab của gói, nhưng nên sửa lại 1 chút để nó có chất vẽ tay hơn"; cho NGOẠI LỆ quầng sáng
+riêng chiêu này. Bản tự dựng lại bằng shader (cầu đặc tô dải) bị chê "không giống demo".
+
+- **Đường đi:**
+  - prefab rig `Assets/04 Prefabs/Fx/CauMaRig` (`CauMaRig.cs`): camera riêng FOV 30, cách 15, chếch 18°, xoá (0,0,0,0) vào
+    `Fx/CauMa/cau_ma_rt`; prefab gói lồng bên trong, đặt ở góc xa thế giới;
+  - hệ hạt đẩy tay bằng `ps.Simulate(dt, true, false, false)` theo giờ sân, nên chạy chậm / tua được;
+  - RawImage `CauMaRT` ở lớp hạt trước (`CauMaHien.cs`) hiện texture qua shader `PokiClash/UIVeTayRT`: độ sáng → 4 dải xanh ngọc, giữ
+    55 % sắc gốc, dồn bậc độ hiện 45 %, trần độ hiện 0,85 (vẫn thấy con bị trúng), vân chì, phần cộng sáng giữ làm quầng;
+  - dựng / gắn lại bằng menu "PokiClash/Prefab/Trận/Cầu ma thủy: dựng rig prefab gốc + gắn vào sân" (đặt luôn số chỉnh material);
+  - không có `CauMaRT` thì quay về bản shader tự vẽ.
+- **Ba lỗi đã gặp, soát khi dùng prefab khác:**
+  1. Dự án màu Linear: ảnh RT đọc ra là giá trị tuyến tính. Phải `LinearToGammaSpace` trước khi chia dải độ sáng, không thì vỏ xoáy
+     rơi hết vào dải tối thành mảng sẫm đặc.
+  2. **Ô vuông** trong RT có hai nguồn:
+     - lớp shader khúc xạ (RefractionShader / ShockWave), vì lớp này cần ảnh màn hình mà RT không có;
+     - lớp có ảnh **không có kênh alpha** (RadialImpact dùng `FX_TX_RadialBurst_03.psd`), vì cả tấm hạt có độ hiện.
+
+     Cả hai phải tắt trong rig. Muốn biết lớp nào gây ô vuông thì dựng rig trong Editor, `Simulate` tới giây lỗi, tắt dần từng lớp,
+     `cam.Render()`, đọc alpha ở góc ô. Đừng đoán: đặt lại kiểu trộn alpha bằng bản sao material đã thử và không ăn.
+  3. Prefab "loop" có màn tụ: cầu chỉ thành hình (lõi sáng, dải bay vòng) ở giây 0,8 của gói. Tua phần tụ cho giây 0,8 rơi đúng khung
+     há, giữ cầu đã thành hình 0,5 s, nén 1–2 khung rồi nổ (`MaNo`); tăng `HoldNuoc` tương ứng.
+     Nổ sớm hơn thì không bao giờ thấy dáng demo.
+- Thử: "PokiClash/Thử/Tướng/Đảo Thủy/Thôn Kình: cầu ma thủy (đang Play)" (thường / chậm 0,4×). Demo của gói mở cảnh demo thì Play
+  không vào game: dùng "PokiClash/Thử/Play từ cảnh Boot (giữ cảnh đang mở)".
+
+### Chiêu đổi màu cho hệ khác (2026-11-25)
+
+Người dùng: "giờ làm cho cả các hệ khác nữa nhé, phù hợp thì mới làm". Bạn ấy chọn bốn việc từ bảng đề xuất. Kim và Thổ không làm:
+mọi tướng đã có chiêu riêng theo rig, và cầu ma bạc / nâu thử màu ra xám, chìm vào nền.
+
+| Việc | Tướng | Cách làm |
+|---|---|---|
+| Cầu ma xanh lục | Gạc Đá, Lộc Phong (chiêu cuối) | `CauMaTheo(CauMaMoc, cFn, rFn, tEnd, tThanh)` thay `CauLa`; giữ gió lá hút, vòng sáng, đuôi lá, nổ |
+| Cầu ma màu lửa | Hỏa Quy (chiêu cuối, cả hai dạng) | như trên với `CauMaHoa`, phóng **1,8 lần** cầu cũ; `HoaTuCau(veCau: false)` chỉ vẽ phần hút + vòng co; lưỡi lửa liếm và lưỡi đuôi giảm còn ~40 %; lúc chạm `HoaCauMaNo` (vỡ cầu kiểu MaNo bảng lửa: quầng cam đỏ, chớp, vòng sóng, ba lưỡi liềm) rồi `HoaCauNo` |
+| Chém lửa | Viêm Đao (chiêu cuối, mã `n_dao_lien`, `HatChieuDoiMau.cs`) | mỗi nhát `chem` của clip một `ChemVong` + `VetSang` bảng lửa (`NFbDoan` có tham số `pal`); cú bổ ở lead: cung dọc to + `BigBurst` |
+| Tia lửa năng lượng | Hỏa Nhãn, Tiểu Quỷ Lava (chiêu mana `tia_mat`) | `TiaMatFb` dùng `ELaser(LaserLua)` khi `CoLaser`; Tiểu Quỷ Lava đổi "cau" → "tia_mat" (muzzle = xương `mieng` ở mũi giáo, khớp clip) |
+
+- **Cầu ma theo hệ:** mỗi hệ một material (`Fx/CauMa/UIVeTayRT_Moc`, `_Hoa`, menu dựng rig tạo), `CauMaHien.Bat(he)` chọn. Material
+  xoay sắc gốc (`_DoiSac`), đẩy đậm (`_DamSac`), đổi 4 dải và quầng. Lửa giữ ít sắc gốc hơn (0,35) và đặc hơn (trần 0,95), không thì
+  ra màu nước cam nhợt. `CauMaTheo` bám đường bay và bán kính của quả cầu cũ, tua cho giây 0,8 của gói (cầu thành hình) rơi đúng lúc
+  cầu đầy.
+- **Bài học:**
+  - Cầu cũ nhỏ (dưới ~36 px) thì cầu gói phải to hơn (k 1,8) mới đọc được giữa các lưỡi lửa.
+  - Cầu lửa bản đầu bị chê "nhìn hơi yếu" (vỏ xoáy nhợt màu đào, gần trong suốt).
+    - Material lửa giờ gần như chỉ dải phẳng: giữ 10 % sắc gốc, dồn bậc độ hiện 90 %, bậc mờ 0,85, trần 1.
+    - 4 dải đậm: đỏ sẫm `#9E140F` → đỏ cam → cam → vàng kem, quầng cam đậm.
+  - Cầu ma biến mất rồi chỉ nổ lửa thường bị chê "nổ không đúng": phải có vụ vỡ cầu cùng ngôn ngữ (vòng sóng, lưỡi liềm) trước nổ hệ.
+  - Quầng chớp của vụ vỡ dùng tông đậm (tone 1). Tông sáng thành đĩa nhợt trùm cả đối thủ.
+  - `NS` (shader nước) đòi bảng nước xanh, nên chiêu hệ khác phải chặn bằng `NuocShaderOn` rồi truyền `pal`.
+- Thử: "PokiClash/Thử/Tướng/Cầu ma đổi màu: ..." và "... Chiêu đổi màu Hỏa: ..." (thường / chậm 0,4×). Trang GIF:
+  `ArtGen/XemVfx/chieu_doi_mau/ghep.py` → `xem.html`.
+
+### Tia năng lượng theo tia Water Laser (2026-11-25)
+
+Người dùng: "quét tia water laser mới làm, sau đó dùng base đó làm tia năng lượng bắn ra và impact cho các tia năng lượng của các tướng
+đảo mộc/kim/thổ".
+
+- **Mã:** `HatTiaLaser.cs` — `ELaser(LaserHe, goc, dich, day, tTu, tBan, g, nongK, trungK, gyDich)`, cùng hợp đồng giờ với `TiaFb` (trả giờ
+  chạm). Giữ khung `NLaser`: ống 4 lớp thở nhịp, Cast mảnh có mũi gai rồi phình, lưỡi liềm ôm thân, xoắn dọc thân, chỗ trúng lặp 0,2 s
+  (chớp tròn, chớp hướng, gai sắc, toé sao `ToeNgangC`), tắt bằng đuôi rời miệng.
+- **Đổi so với tia nước:**
+  - màu theo **bảng shader** (`HatNuocFx.Pal*`; TEXCOORD1.x = loại + 16 × bảng, chỉ chế độ 6 flipbook và 7 ống tia);
+  - hạt chỉ hợp nước thay bằng hạt theo hệ: tia vụn không mực `LVun`, lá / lá phong, than lửa;
+  - đầu nòng là cầu Energy Ball `cau_moc` / `cau_vang`.
+- **Hằng màu bảng ghi theo sRGB, shader đổi `GammaToLinearSpace`** (dự án màu Linear). Lần chụp đầu quên đổi: tia ra kem bệch.
+- **Đang dùng:** Lộc Phong (`LaserMoc`), Giác Mộc mana + chiêu cuối (`LaserHoPhach`), tia nhiệt Thổ Tinh (`LaserLua`, không vòng gợn đất
+  vì đập vỏ đá giữa trời).
+  - Thổ Tinh, người dùng dặn 2026-11-25: "mặt trời nhìn nhỏ quá, tia năng lượng chưa đủ to, mặt trời hiện thẳng trên phần tướng rồi bắn
+    tia năng lượng xuống". Đã đổi: Mặt Trời × `TtSunK` 2,08, đặt thẳng trên tâm vỏ đá, cao 1,45 thân đối thủ; tia dày 1,85 bán kính Mặt
+    Trời; dội `TtTiaGiu` 0,42 s để cột tia còn thấy phía trên khối nổ.
+  - Nhật Vương không dùng: người dùng đã bỏ tia lớp hạt, cột tia là của rig.
+  - Không có lưới shader thì về `TiaFb`; tắt hẳn: `HatLua.TiaLaser = false`.
+- **Thử:** menu "PokiClash/Thử/Tướng/tia năng lượng kiểu Water Laser (...)", bản chạy chậm 0,4× (`ThuyFxTour.TryOnlyCham`, `StageView.fast`),
+  bản hộp chi tiết tướng; trang GIF `ArtGen/XemVfx/tia_nl/ghep.py` → `xem.html`.
+
+### Lốc xoáy (tornado): các hướng đã làm (2026-11-19 → 25)
+
+Làm lốc mới thì tra bảng này trước (luật đầu tiên), đưa người dùng xem bản gần nhất.
+
+| Hướng | Khung / mã | Dùng ở | Trạng thái |
+|---|---|---|---|
+| Khung GPT 24 khung (2026-11-19) | `loc_nuoc`, `loc_cat` (lặp) + bản TRÙM `_bao` (cột dày, gốc rộng bằng miệng) | `NVoi`, `LocNuocFb` (`HatFbThuy.cs`), lốc cát | đang dùng |
+| Blender rig CodyWinch (`blender_anime_fx.md` mục 10–12) | `loc_lua` một lượt 2 s (48 khung): mọc, xoắn, gió cuốn, tàn, ép về trục | `HoaFbLoc` (`HatFbHoa.cs`) | đã duyệt |
+| Gói Unity ParticleSystem chụp TÁCH NỀN (gói "Game VFX - Tornado Collection") | `loc_khi_moc` / `_lap` / `_tan` | Vạn Diệp Rồng Trúc (`HatRong.NRongVan`) | đã duyệt (bản 3 lốc) |
+| Prefab gói chạy thẳng qua RenderTexture (hướng A như cầu ma, mục trên) | chưa làm cho lốc | | dùng khi cần lốc giống y demo |
+| Gói Unreal TornadoWindVFX (`D:\Ripper\TornadoWindVFX`) | chỉ tham khảo | | lốc vòng dẹt dựng lại bằng Blender bị chê "không đẹp", bỏ |
+
+**Gói ParticleSystem → khung có alpha (cách làm lốc khí):**
+1. **Nhập gói `.unitypackage`:**
+   - quét trước: không DLL, file chạy, script; soát trùng GUID với project;
+   - dàn ra thư mục tạm rồi chuyển NGUYÊN thư mục vào Assets bằng một lần đổi tên (cùng ổ);
+   - chép từng file thì Unity tự sinh `.meta` giữa chừng → mất GUID gốc, prefab trỏ sai material (đã gặp, phải gỡ ra làm lại).
+2. **Mổ:** `Editor/VfxPackShots.cs` menu "VFX gói lốc: chụp mọi prefab Tornado Collection" (khung dọc 360×420, ≤ 5 s) →
+   `ArtGen/XemVfx/vfx_loc/ghep.py` → `xem.html`.
+3. **Chụp tách nền:** menu "... chụp tách nền lốc khí AirTornado_Loop".
+   - Camera nền ĐEN và camera nền TRẮNG cùng khung, đọc trong cùng một lượt render (`endContextRendering`) → alpha = 1 − (trắng − đen), màu = đen / alpha.
+   - Gói vẽ bằng cộng sáng + khói trắng: chụp một nền thì không ra được alpha.
+   - `stopAt` 2,5 s tắt phát hạt → hạt còn lại tan tự nhiên = đoạn tắt.
+   - `info.txt` ghi điểm neo (gốc prefab = chân lốc).
+4. **Xuất:** `ArtGen/XemVfx/vfx_loc/xuat_loc_khi.py` → `hat_fb_loc_khi_{moc,lap,tan}_NN` (12 / 24 / 20 khung, 270×300).
+   - Bỏ quầng của gói (tấm sáng vàng trên đỉnh, vầng mờ to quanh lốc: alpha ≤ 7/255) bằng dốc mềm từ 10/255; còn 98–99 % phần đặc.
+   - Đoạn lặp lấy 30 khung trước lúc tắt phát, 6 khung đầu hoà với 6 khung cuối (nhân alpha) → lặp liền.
+   - In dòng `FbDef` và dáng thân lốc (nửa rộng theo độ cao) để đặt quỹ đạo hạt bám thân.
+5. **Nạp:** dán `FbDef` vào `HatFlip.Fbs`, chạy "Sàn đấu: hạt lửa" + "Hộp chi tiết tướng: hạt lửa".
+
+**Phát trong trận (`HatFbMoc.cs`):**
+- `MocLocKhi(path, hFn, sx, tTan, trum, lop, tint)`:
+  - ba đoạn mọc → lặp → tan, đổi đoạn hoà mờ 0,14 s;
+  - `hFn`: cao theo giờ (gần con ra chiêu thì to, bay xa nhỏ dần theo chiều sâu); `sx`: giãn ngang (béo hơn mà không cao thêm);
+  - `LocKhiCaoMax(feetY)`: chặn phần đặc dưới mép trên sân (y 24).
+- **Lớp:**
+  - lốc chưa chạm ở lớp SAU: nó đứng xa hơn con ra chiêu, vẽ lớp trước thì che cánh, mặt rồng lúc kén bung;
+  - trùm đối thủ: lớp SAU đặc + lớp TRƯỚC mờ 0,5 × trum, vẽ liền (bản đổi lớp ngay lúc chạm làm độ đặc nhảy cụt);
+  - lốc chạy vòng quanh đối thủ: nửa trước vòng ở lớp TRƯỚC, nửa sau ở lớp SAU.
+- `LaQuanhLoc(path, hFn, sx, n, t0, tNo)`:
+  - lá bám thân theo dáng khung (cao 0,66, bán kính 0,11 → 0,29 khung), cuốn từ ngoài vào trong 0,3 s;
+  - đổi lớp theo nửa quỹ đạo (`P.group` đổi được mỗi khung);
+  - tới `tNo` thì nổ tung theo hướng bán kính + quán tính quay, rơi, tắt.
+- **Nhuộm:** khung trắng xám nhân lục ngọc (0,62 / 0,9 / 0,72) cho nổi trên sân cát sáng. Nhân lục rất nhạt thì lốc tan vào nền.
+
+**Vạn Diệp Rồng Trúc (bản chốt 2026-11-25):**
+- Người dùng: "lấy lốc xoáy này thêm vào chiêu cuối của final boss đảo mộc, thêm các mảnh lá cây quay quanh lốc xoáy, khi va chạm thì
+  lá nổ tung ra"; xem bản đầu thì "làm chiêu cuối tướng đấy epic hơn, nhiều lốc hơn, lốc to hơn, nhiều sét đánh hơn".
+- Nhịp:
+  - gồng cánh: 3 sét `SetPhu` so le đánh trước rồng (phía đối thủ), tia đầu chớp màn;
+  - kén bung: 3 lốc mọc giữa đường (lốc chính + 2 lốc lệch ±0,3 thân rồng), lá cuốn quanh từng lốc;
+  - quạt cánh: 3 lốc toả hình quạt (đường cong bậc hai) rồi hội tụ trong 0,42 s; mỗi lốc chạm = lá nổ + một sét;
+  - lốc chính trùm đối thủ, 2 lốc chạy vòng 7,5 rad/giây quanh nó;
+  - sập cánh: rừng gai lá + `SetGiang` + mưa 5 sét quanh chân đối thủ (không chớp màn thêm) → lốc tan.
+- Lá quay quanh lốc thay dòng bão lá tự lái cũ. Giờ trúng = lúc lốc chính chạm (thay giờ bão lá).
+- Lỗi đã gặp:
+  - lốc cao 1,8 thân đối thủ (đối thủ trên sân rất bé so với rồng) và nhuộm quá nhạt → gần như không thấy;
+  - lốc mọc ở 36 % đường, lớp trước → đè cánh rồng lúc kén bung;
+  - sét quanh rồng lệch hai bên → ra ngoài màn (rồng đứng sát mép phải).
+- Cả ba dạng cùng 3 lốc. Nếu cần dạng 1 < 2 < 3 thì bớt lốc ở dạng đầu.
+- Thử: "PokiClash/Thử/Tướng/Đảo Mộc/gầm và Vạn Diệp (lốc khí + lá) Rồng Trúc ..." (+ chậm 0,4×, `MocFxTour.cs`); trang
+  `ArtGen/XemVfx/rong_van/xem.html`.
+
+**Gói Unreal (Unity không nhập được):** công cụ ở `D:\Ripper\TornadoWindVFX\tools` (bản sao không kèm bộ giải Oodle ở AtomSpine
+`refs/tornado_pack/unreal/`):
+- `uasset_dump.py`: đọc `.uasset` bản editor UE5.0–5.2 (bảng tên, import, export, thuộc tính có tag, FNiagaraVariable, ExpressionInput);
+- `tornado_summary.py`: mỗi hiệu ứng ra lớp phát, renderer, mesh, material (MI → M gốc), số liệu module (rapid iteration params), đường cong;
+- `ooz_cs.exe`: giải Oodle Kraken, port C# từ ooz (**GPLv3**) dịch bằng csc + mono của Unity, nên không đưa vào AtomSpine (độc quyền). Cài wheel
+  `pyooz` từ PyPI bị chặn (chạy mã nhị phân lạ); máy không có Windows SDK nên MSVC không dịch được C++.
+
+### Chụp tour khi nhiều phiên dùng chung Unity (2026-11-25)
+
+- Nhắn phiên kia trước mỗi lần biên dịch / Play / chạy menu dựng prefab, và CHỜ họ trả lời. Tin tới muộn thì tour của nhau bị cắt.
+- Không lưu `.cs` khi có tour đang Play: Unity tự biên dịch lại giữa Play, tour bị cắt. Soạn rồi biên dịch thử ngoài Unity
+  (`kiem_bien_dich.py`, bộ nhớ "Biên dịch ngoài Unity"), chờ tour xong mới lưu.
+- Tour bị cắt giữa chừng thì `finally` trả bản lưu KHÔNG chạy: soát bản lưu (đội, sao) với bản `.bak`.
+- Tour hộp chi tiết xoá thư mục ảnh của tour trận: chép ảnh ra trước.
+- MCP `read_console` có lúc trả rỗng: đọc `Editor.log`.
+- Unity nằm nền thì Play đứng ở Hub: bật "Play chạy cả khi Unity nằm nền" ngay sau Play, chờ bằng `manage_scene get_active` (mỗi lần hỏi
+  cũng đánh thức Unity).
 
 **Ranh giới với bộ Animation:**
 - **VFX:** tia, đạn, vụ nổ, hạt, mọi thứ bay ra khỏi thân tướng.
@@ -450,3 +639,5 @@ Lỗi của phần animation (rig, lưới, chuỗi xương, miệng): `animatio
 | **Epic Toon FX** (Asset Store, `.gitignore`) | `pokiclash-hero-fx/toonfx.md` (công cụ đọc số `tools/ps_*.py`) | phân vị đời, tốc, cản; tờ khung ăn mòn; màu theo tuổi = nhiệt độ | ảnh, prefab |
 | **pixelfx** (MIT) | `pokiclash-hero-fx` mục 1, 6 | 12 kiểu hạt có vật lý, cách diễn quanh hiệu ứng | pixel art, lớp sáng cộng dồn |
 | **Anime Style FX Workflow** (CodyWinch, 11 file `.blend` + 4 file lốc xoáy, người dùng mua 2026-11-24) | `blender_anime_fx.md`; file ở repo AtomSpine `refs/blender_anime_fx/` (công cụ đọc / render thử trong `tools/`) | chuỗi texture → trọng số đỉnh → Displace + Mask + Smooth; lớp vỏ màu phẳng lột dần theo ngưỡng; núm Empty + driver; Warp, Curve, Lattice, Surface Deform, Simple Deform Twist | bloom Eevee, Filmic; phát hành lại file |
+| **Game VFX - Tornado Collection** (gói Unity, Eric Wang, nhập 2026-11-25) | `Assets/Game VFX - Tornado Collection`; ảnh động `ArtGen/XemVfx/vfx_loc/xem.html`; mục "Lốc xoáy" | dáng, nhịp lốc lặp / một lượt; lốc "Khí" chụp tách nền thành khung có alpha vào game | quầng / cộng sáng (lọc khi xuất) |
+| **TornadoWindVFX** (gói Unreal 5.2 tải qua Baidu, 2026-11-25) | `D:\Ripper\TornadoWindVFX\xem.html`, `PHAN_TICH.md`; AtomSpine `refs/tornado_pack/unreal/` | lốc vòng dẹt chồng tầng; phễu xoắn đẩy đỉnh + vân trôi hai tầng; phễu vệt; lớp phụ (decal xoáy đất, torus quét, hạt vortex / curl noise) | texture, mesh (gói trả phí); lốc vòng dẹt dựng lại bằng Blender bị chê |
