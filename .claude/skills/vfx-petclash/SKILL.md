@@ -30,7 +30,7 @@ description: >
 > |---|---|
 > | AtomSpine `examples/vfx/*` | hit-spark, slash, fire-burst, water-splash, leaf-storm, explosion-flipbook, level-up-ring (ops sinh ảnh); water-ball, water-crown-splash, water-tube, water-whip (flipbook Blender) — tờ khung `<tên>_sheet.png` |
 > | AtomSpine `atom templates` (vfx) | emitter, beam, trail, flipbook |
-> | AtomSpine `refs/` | `blender_anime_fx/` (11 file CodyWinch: nổ, cầu năng lượng, xoáy, lốc), `water_vfx/` (bộ nước Blender + shader trong trận) |
+> | AtomSpine `refs/` | `blender_anime_fx/` (11 file CodyWinch: nổ, cầu năng lượng, xoáy, lốc), `water_vfx/` (bộ nước Blender + shader trong trận), `water_pack/` (bộ nước theo gói mẫu SrRubfish + NamuFX: công cụ chụp / mổ gói, phân tích từng prefab, đóng atlas, tia Water Laser, mã trong trận) |
 > | Bộ trong dự án (`ArtGen/Spine/vfx_blender/`) | lửa (lua_eevee, phun, cầu, nổ, khói, lốc lửa, kim lửa), nước (`nuoc_repo_bl.py`: cầu, cầu vỡ, tia, tia ống, roi, toé thân, toé đất, thương, mạch phun; `song_cuon_bl.py` sóng; lốc nước) — trang xem `vfx_lua_toon/xem/bo_nuoc/bo_nuoc.html` |
 > | Trong game | khung `Assets/03 Art/Fx/Hat/hat_fb_*` (bộ lửa, lốc nước), shader nước `PokiClash/UIWaterFx` (tia, cầu, toé, vương miện, vũng, thương, sóng, mạch phun) — ảnh tour `ArtGen/XemVfx/nuoc_shader/xem.html` |
 > | Gói nước mẫu trong Assets (2026-11-25) | SrRubfish "Water - Assets for VFX 02" (`Assets/SrRubfish_VFX_02`: 37 prefab, 72 flipbook) + NamuFX "Stylized Water Effect Pack" (`Assets/NamuFX`): ảnh động từng prefab `ArtGen/XemVfx/vfx_goi/xem.html`, mổ xẻ từng lớp `PHAN_TICH.md`; 40 flipbook đã đóng vào atlas game (`nuoc_fb.png`, bảng `NuocFbBang`) — mục "Bộ nước theo gói" bên dưới |
