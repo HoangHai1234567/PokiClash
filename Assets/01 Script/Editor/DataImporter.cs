@@ -33,6 +33,7 @@ namespace PokiClash.EditorTools
             }
             var err = d.Validate();
             err.AddRange(d.Cfg.home.Validate()); // khối "home" của balance.json (Nhà, HomeConfig)
+            err.AddRange(d.Cfg.casino.Validate(d)); // khối "casino" (đảo Casino, CasinoConfig, GD_Claude/29_DaoCasino.md)
             foreach (var e in err) Debug.LogError("[Dữ liệu] " + e);
             if (err.Count > 0) return false;
 
@@ -58,6 +59,9 @@ namespace PokiClash.EditorTools
 
             var bal = LoadOrCreate<BalanceConfigAsset>("BalanceConfig");
             bal.cfg = d.Cfg;
+            // Bảo mật số (Lớp 3): mã hoá nguyên văn balance.json vào enc; bản ship sẽ dùng enc và strip cfg (PokiBuild).
+            bal.enc = PokiClash.Security.PokiCrypt.Encrypt(
+                System.Text.Encoding.UTF8.GetBytes(File.ReadAllText(Path.Combine(JsonDir, "balance.json"))), "balance");
             EditorUtility.SetDirty(bal);
 
             AssetDatabase.SaveAssets();

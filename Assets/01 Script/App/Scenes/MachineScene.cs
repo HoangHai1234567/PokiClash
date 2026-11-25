@@ -27,6 +27,12 @@ namespace PokiClash
     public sealed class MachineScene : SceneRoot
     {
         public override string Title => Loc.T("Máy bi");
+        // vào từ đảo Casino (args = SceneIds.Casino) thì nút quay lại về đảo (GD_Claude/29_DaoCasino.md mục 4)
+        public override string BackTo => from == SceneIds.Casino ? SceneIds.Casino : SceneIds.Hub;
+        string from;
+        [Tooltip("Nút Ra đảo: sang đảo Casino (menu PokiClash/Prefab/Đảo Casino/Máy bi: nút Ra đảo)")]
+        [SerializeField] SketchButton toIsland;
+        public void SetupIsland(SketchButton b) => toIsland = b;
 
         public const float MachineTop = 100; // mép trên máy trong khối giữa
         public const float BlockH = 1530;
@@ -141,6 +147,16 @@ namespace PokiClash
 
         public override void Enter(object args)
         {
+            from = args as string;
+            if (toIsland)
+            {
+                toIsland.gameObject.SetActive(Casino.Open(S, D));
+                toIsland.SetOnClick(() =>
+                {
+                    if (Busy) return;
+                    App.Router.Go(SceneIds.Casino);
+                });
+            }
             rng = new Rng(Rng.RandomSeed());
             board = new Board(Rng.RandomSeed()) { odds = D.Cfg.odds.Length > 0 ? D.Cfg.odds : null };
             view = p.machine;

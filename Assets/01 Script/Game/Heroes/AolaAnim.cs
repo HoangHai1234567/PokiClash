@@ -25,11 +25,11 @@ namespace PokiClash.Game
         {
             if (string.IsNullOrEmpty(res)) return null;
             var t = ContentPacks.Get<Texture2D>(System.IO.Path.GetFileName(res) + "_atlas");
-            return t ? t : Resources.Load<Texture2D>(res + "_atlas");
+            return t ? t : PokiArt.LoadTexture(res + "_atlas"); // blob mã hoá nếu có, không thì Resources.Load
         }
 
         // khung 4:5 như HeroArt, gốc ở chân
-        public Sprite LoadPortrait() => string.IsNullOrEmpty(res) ? null : Resources.Load<Sprite>(res + "_portrait");
+        public Sprite LoadPortrait() => string.IsNullOrEmpty(res) ? null : PokiArt.LoadSprite(res + "_portrait");
 
         // Dùng khi nhập (Editor).
         public void Setup(string resPath, TextAsset animData, Vector2[] spriteSizes, Rect[] spriteUvs, int shadowSprite, string stamp)

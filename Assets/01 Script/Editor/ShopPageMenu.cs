@@ -560,6 +560,23 @@ namespace PokiClash.EditorTools
             Debug.Log("[Cửa hàng] Đã dựng " + UnlockPath);
         }
 
+        // Temp/unlock_build.flag: biên dịch xong và không Play thì dựng màn mở khoá một lần rồi xoá cờ (Unity dùng chung nhiều phiên)
+        static double nextPoll;
+
+        [InitializeOnLoadMethod]
+        static void HookUnlockFlag() => EditorApplication.update += PollUnlockFlag;
+
+        static void PollUnlockFlag()
+        {
+            if (EditorApplication.timeSinceStartup < nextPoll) return;
+            nextPoll = EditorApplication.timeSinceStartup + 1;
+            if (EditorApplication.isCompiling || EditorApplication.isUpdating || EditorApplication.isPlayingOrWillChangePlaymode) return;
+            var flag = System.IO.Path.GetFullPath(System.IO.Path.Combine(Application.dataPath, "../Temp/unlock_build.flag"));
+            if (!System.IO.File.Exists(flag)) return;
+            System.IO.File.Delete(flag);
+            BuildUnlockOnly();
+        }
+
         // Màn mở khoá tướng kiểu bút chì vẽ lên trang sổ (người dùng 2026-11-24, thay màn cột sáng kiểu Brawl Stars): xem HeroUnlockView
         const string PencilMat = "Assets/03 Art/Shaders/PencilDraw.mat";
 
@@ -706,6 +723,23 @@ namespace PokiClash.EditorTools
             pencil.rectTransform.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(300, 257), new Vector2(0.105f, 0.143f));
             pencil.gameObject.SetActive(false);
 
+            // bút chì màu (2026-11-25: nhiều bút chì màu tô các vùng cùng lúc; ArtGen/UI/mo_khoa_tuong/but_mau.py tách từ bút chì trên):
+            // ảnh thân xám (nhuộm màu nhóm lúc chạy), con là vỏ chồng khít; cùng cỡ, cùng gốc ở ngòi như bút chì
+            var crayonBody = Art("Assets/03 Art/Shop/but_mau_than.png");
+            var crayonShell = Art("Assets/03 Art/Shop/but_mau_vo.png");
+            var crayons = new Image[crayonBody && crayonShell ? 6 : 0];
+            for (int i = 0; i < crayons.Length; i++)
+            {
+                var c = Img("but_mau_" + i, root.transform, crayonBody, Color.white);
+                c.preserveAspect = true;
+                c.rectTransform.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(300, 257), new Vector2(0.105f, 0.143f));
+                var shell = Img("vo", c.transform, crayonShell, Color.white);
+                shell.preserveAspect = true;
+                shell.rectTransform.Stretch();
+                c.gameObject.SetActive(false);
+                crayons[i] = c;
+            }
+
             foreach (var gr in root.GetComponentsInChildren<Graphic>(true))
                 if (gr != ci && !gr.transform.IsChildOf(view.transform) && !gr.transform.IsChildOf(next.transform)) gr.raycastTarget = false;
             root.AddComponent<HeroUnlockView>().Setup(new HeroUnlockView.Parts
@@ -713,6 +747,7 @@ namespace PokiClash.EditorTools
                 rarityBg = rarityBg, page = page, pencil = pencil, hero = hero, art = art, info = info, fx = fx, drawing = drawing, ink = ink,
                 stars = stars, bigStars = big, badgeIcon = badgeIcon, ribbon = ribbon, ribbonText = ribbonText, heroName = heroName,
                 rarity = rarity, title = title, elem = elem, rarityPill = pill, next = next, view = view, catcher = btn, stats = stats,
+                crayons = crayons,
             });
             var v = Save<HeroUnlockView>(root, UnlockPath);
             kit.heroUnlock = v;

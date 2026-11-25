@@ -76,6 +76,8 @@ namespace PokiClash
         public bool Closed { get; private set; }
 
         int dir = 1; // 1: đi lên (bắc), -1: đi xuống
+        int lateral; // dạt ngang lúc đi trong mây: −1 sang trái (sảnh → đảo Casino), +1 sang phải (về), 0 đi thẳng
+        const float Drift = 380; // độ dạt ngang (đơn vị màn) cho tuyến đi chếch
         // toạ độ dải thế giới: x ngang (như màn), q dọc theo hướng đi; màn hình y = dir * (q - qc)
         float qc, closedAt; // camera
         Vector2 sp, sv; // tàu (x, q), vận tốc
@@ -156,9 +158,23 @@ namespace PokiClash
         // chuyến này có đi tàu không (và hướng đi)
         public bool Takes(string from, string to)
         {
+            lateral = 0;
             if (booting && to == SceneIds.Hub)
             {
                 dir = 1;
+                return true;
+            }
+            // đảo Casino (GD_Claude/29_DaoCasino.md): đi lên chếch sang trái; về sảnh thì xuôi xuống chếch sang phải
+            if (from == SceneIds.Hub && to == SceneIds.Casino)
+            {
+                dir = 1;
+                lateral = -1;
+                return true;
+            }
+            if (from == SceneIds.Casino && to == SceneIds.Hub)
+            {
+                dir = -1;
+                lateral = 1;
                 return true;
             }
             if (from == SceneIds.Hub && to == SceneIds.Home)
@@ -283,6 +299,7 @@ namespace PokiClash
             look.Pos = Screen_(sp);
             look.Show(true);
             followX = sp.x; // giữ hướng ngang: đi thẳng dọc biển ngoài rìa đảo, không đè lên đảo của màn cũ
+            if (lateral != 0) followX = Mathf.Clamp(sp.x + lateral * Drift, -Size.x / 2 + 170, Size.x / 2 - 170); // tuyến đi chếch
             bandA = H / 2 - Overlap * H;
             kA = 0;
             follow = true;

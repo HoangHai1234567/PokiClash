@@ -406,8 +406,13 @@ namespace PokiClash
                 cam.enabled = true;
                 if (fxCam) fxCam.enabled = true;
             }
-            img.rectTransform.anchoredPosition = w * uiHeight;
+            // thân dời ngang theo xương move tối đa MaxFollowX (màn mở khoá tướng: cú lao tới dừng ở mép trang)
+            float fx = Mathf.Clamp(follow.x, -MaxFollowX, MaxFollowX);
+            img.rectTransform.anchoredPosition = new Vector2(w.x - (follow.x - fx), w.y) * uiHeight;
         }
+
+        // dời ngang tối đa của thân theo xương move (đơn vị chiều cao dáng đứng); mặc định không giới hạn
+        public float MaxFollowX = float.PositiveInfinity;
 
         // khung camera cho clip đang hiện: khung của tướng (Span), nới khi số đo của clip vươn xa hơn (AtomikAsset.fit)
         float SpanFor(string actorClip)
@@ -496,6 +501,10 @@ namespace PokiClash
 
         // bỏ bóng dưới chân (màn boot)
         public void HideShadow() => actor.HideShadow = true;
+
+        // khung bao của clip đo lúc nhập (AolaActor.Extent): |x| lớn nhất, đỉnh, đáy theo chiều cao dáng đứng, gốc ở chân; false: hình aola
+        // hoặc rig chưa có số đo. Màn mở khoá tướng dùng để chọn clip bật ra không tràn trang.
+        public bool Extent(string clip, out float mx, out float top, out float bot) => actor.Extent(ClipName(clip), out mx, out top, out bot);
 
         // Xoá cả ảnh trên UI, RT và material. Nơi dựng lại trong cùng khung (ô xem tướng khi tiến hóa, đội hình màn Tướng) mà để
         // sót ảnh cũ thì nó trỏ vào RT đã giải phóng: trên Android hiện thành ô đen đặc che sau tướng mới.

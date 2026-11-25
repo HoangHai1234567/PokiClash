@@ -90,6 +90,24 @@ Người dùng xem concept lần 1: rừng và môi trường được, nhưng *
 
 ### Mở ô rừng
 
+**Luật hiện hành (người dùng dặn 2026-11-25): mở ô miễn phí, chỉ khoá theo cấp người chơi, cấp 100 mở hết.** Thay cho luật cũ (khoá cấp Nhà, giá gỗ / quặng, thời gian, đội thợ, `maxLots`) ghi ở các dòng sau.
+
+- Mỗi ô rừng một mốc cấp (`home.lots[].player` trong `balance.json`); không tốn gỗ, quặng, không chờ, không chiếm đội thợ, không cần cấp Nhà.
+- Vẫn phải **kề đất đã mở**. Mốc xếp sao cho tới đúng cấp là mở được (kiểm ở `HomeConfig.Validate`).
+- Thưởng khi mở giữ theo vòng: vòng 1 được 30 gỗ + 15 bi để thả, vòng 2 được 80 gỗ + 40 bi (`home.rings`).
+- Màn Nhà: ô mở được có bong bóng "bi +N"; ô kế tiếp còn thiếu cấp (kề đất, mốc thấp nhất) có bong bóng "khoá Cấp N", chạm thì báo "Lên cấp N để mở ô rừng này". Ô khoá khác chạm không hiện gì.
+- Bản lưu cũ có ô đang dọn: mở luôn ở lần Tick sau.
+
+| Cấp | Ô (i, j) | Ghi chú |
+|---|---|---|
+| 3, 5, 7, 10 | (3,5), (4,5), (5,4), (5,5) | đất màu, dải ven biển tới bến |
+| 13, 16, 20, 24 | (1,3), (3,1), (2,5), (5,3) | suối; mạch quặng (2,5) có trước khi Mỏ mở (Nhà cấp 3, cấp 25) |
+| 28, 32, 36, 40 | (1,2), (1,4), (4,1), (2,1) | suối; mạch quặng thứ hai (4,1) |
+| 45, 50, 55, 60 | (5,2), (1,5), (5,1), (1,1) | cấp 60 xong vòng 1 (hồ ở (1,1)) |
+| 65, 70, 76, 82, 88, 94, 100 | (0,3), (3,0), (0,4), (2,0), (0,2), (4,0), (0,5) | vòng 2 sát mép trên; cấp 100 mở ô cuối (hồ ven biển) |
+
+Luật cũ (2026-11-18, đã bỏ):
+
 - **Hai khoá**: cấp người chơi và cấp Nhà chính (ví dụ "Nhà cấp 3 và cấp 25").
 - Chỉ mở được ô rừng **kề đất đã mở**, nên đất lan dần từ khoảnh đầu ra.
 - Chi phí: gỗ, sau này thêm quặng. Dọn rừng tốn thời gian như xây (đội thợ dùng chung).

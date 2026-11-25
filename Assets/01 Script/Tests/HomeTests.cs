@@ -109,7 +109,7 @@ namespace PokiClash.Tests
             Assert.AreEqual(40, h.wood);
             Assert.AreEqual(2, main.job);
             Assert.AreEqual(1, Home.Level(h), "đang nâng cấp vẫn là cấp cũ");
-            Assert.AreEqual(HomeErr.Builder, Home.CanClear(s, d, Home.LotIndex(d.Cfg.home, 1, 3)), "một đội thợ đang bận");
+            Assert.AreEqual(HomeErr.Ok, Home.CanClear(s, d, Home.LotIndex(d.Cfg.home, 3, 5)), "mở ô rừng không cần thợ rảnh");
             Home.Tick(s, d, 5 * M);
             Assert.AreEqual(2, Home.Level(h), "5 phút sau xong");
             Assert.AreEqual(0, main.job);
@@ -138,34 +138,62 @@ namespace PokiClash.Tests
         [Test]
         public void DonRung_KeDat_KhoaCap_ThuongGo()
         {
+            // người dùng dặn 2026-11-25: mở ô rừng miễn phí, mở ngay, chỉ khoá theo cấp người chơi của từng ô; cấp 100 mở hết
             var d = TestData.Load();
             var c = d.Cfg.home;
-            var s = NewSave(d);
+            var s = NewSave(d, 2);
             var h = Home.Of(s, d, 0);
-            int near = Home.LotIndex(c, 1, 3), far = Home.LotIndex(c, 0, 3), hill = Home.LotIndex(c, 0, 0);
+            int near = Home.LotIndex(c, 3, 5), far = Home.LotIndex(c, 0, 3), hill = Home.LotIndex(c, 0, 0), dock = Home.LotIndex(c, 5, 5);
             Assert.AreEqual(1, Home.Ring(c, near));
             Assert.AreEqual(2, Home.Ring(c, far));
+            Assert.AreEqual(3, Home.LotPlayer(c, near), "ô đầu tiên mở ở cấp 3");
             Assert.AreEqual(HomeErr.NotAdjacent, Home.CanClear(s, d, far));
             Assert.AreEqual(HomeErr.Locked, Home.CanClear(s, d, hill));
-            Assert.AreEqual(HomeErr.Cost, Home.CanClear(s, d, near));
-            h.wood = 200;
-            Assert.AreEqual(HomeErr.Ok, Home.ClearLot(s, d, 0, near));
-            Assert.AreEqual(160, h.wood, "vòng 1: 40 gỗ");
-            Assert.AreEqual(HomeErr.Builder, Home.CanClear(s, d, Home.LotIndex(c, 1, 2)));
+            Assert.AreEqual(HomeErr.PlayerLevel, Home.CanClear(s, d, near));
+            s.level = 3;
+            h.wood = 0;
+            h.ore = 0;
             int balls0 = s.balls;
-            Home.Tick(s, d, 10 * M);
-            Assert.IsTrue(h.lots.Contains(near));
-            Assert.AreEqual(190, h.wood, "dọn xong rơi 30 gỗ");
-            Assert.AreEqual(balls0 + 15, s.balls, "dọn xong được 15 bi để thả");
-            CollectionAssert.AreEqual(new[] { near }, h.cleared, "màn Nhà báo thưởng ô vừa dọn");
-            Assert.AreEqual((65, 0, 10.0), Home.ClearCost(h, c, Home.LotIndex(c, 1, 2)), "ô thứ hai của vòng 1 đắt thêm 25 gỗ");
-            Assert.AreEqual(HomeErr.HomeLevel, Home.CanClear(s, d, far), "vòng 2 cần Nhà cấp 3");
-            // Nhà cấp 1 chỉ mở tới 11 ô rừng (9 ô khoảnh đầu + 2)
-            h.wood = 1000;
-            Assert.AreEqual(HomeErr.Ok, Home.ClearLot(s, d, 10 * M, Home.LotIndex(c, 1, 2)));
-            Home.Tick(s, d, 30 * M);
-            Assert.AreEqual(11, h.lots.Count);
-            Assert.AreEqual(HomeErr.Count, Home.CanClear(s, d, Home.LotIndex(c, 1, 4)));
+            Assert.AreEqual(HomeErr.Ok, Home.ClearLot(s, d, 0, near), "không gỗ, không quặng vẫn mở được");
+            Assert.IsTrue(h.lots.Contains(near), "mở ngay, không chờ");
+            Assert.AreEqual(0, h.clearing.Count);
+            Assert.AreEqual(0, Home.Busy(h), "không chiếm đội thợ");
+            Assert.AreEqual(30, h.wood, "mở xong rơi 30 gỗ");
+            Assert.AreEqual(balls0 + 15, s.balls, "mở xong được 15 bi để thả");
+            CollectionAssert.AreEqual(new[] { near }, h.cleared, "màn Nhà báo thưởng ô vừa mở");
+            Assert.AreEqual(HomeErr.Busy, Home.CanClear(s, d, near));
+            Assert.AreEqual(HomeErr.PlayerLevel, Home.CanClear(s, d, Home.LotIndex(c, 4, 5)), "ô kế cần cấp 5");
+            Assert.AreEqual(HomeErr.NotAdjacent, Home.CanClear(s, d, dock));
+            // ô đang dọn của bản lưu cũ: mở luôn ở lần Tick sau
+            int old = Home.LotIndex(c, 1, 3);
+            h.clearing[old] = 99 * H;
+            Home.Tick(s, d, 1 * M);
+            Assert.IsTrue(h.lots.Contains(old));
+            Assert.AreEqual(0, h.clearing.Count);
+            // cấp 99 còn đúng ô cuối; cấp 100 mở hết (36 ô trừ 4 cao nguyên)
+            var t = NewSave(d, 99);
+            var th = Home.Of(t, d, 0);
+            int OpenAll()
+            {
+                int k = 0;
+                for (bool grew = true; grew;)
+                {
+                    grew = false;
+                    for (int l = 0; l < 36; l++)
+                        if (Home.ClearLot(t, d, 0, l) == HomeErr.Ok)
+                        {
+                            k++;
+                            grew = true;
+                        }
+                }
+                return k;
+            }
+            Assert.AreEqual(22, OpenAll());
+            Assert.AreEqual(31, th.lots.Count);
+            t.level = 100;
+            Assert.AreEqual(1, OpenAll());
+            Assert.AreEqual(32, th.lots.Count, "cấp 100 mở hết ô rừng");
+            Assert.AreEqual(100, Enumerable.Range(0, 36).Max(l => Home.LotPlayer(c, l)), "ô cuối mở ở cấp 100");
         }
 
         [Test]
@@ -453,8 +481,8 @@ namespace PokiClash.Tests
             h.bread = 2;
             Home.Place(s, d, 10 * H, B(s, "field").id, 0, "cao_da");
             Home.Bag(h, "cup_fish", 1);
-            h.clearing[Home.LotIndex(d.Cfg.home, 2, 3)] = 11 * H;
             Home.Tick(s, d, 10.5 * H);
+            h.clearing[Home.LotIndex(d.Cfg.home, 2, 3)] = 11 * H; // khoá ô đang dọn của bản lưu cũ vẫn đọc, ghi được (Tick mở luôn)
             var json = SaveCodec.Write(s);
             Assert.AreEqual(LoadStatus.Ok, SaveCodec.Read(json, d, out var r));
             Assert.AreEqual(json, SaveCodec.Write(r), "đọc rồi ghi lại y nguyên");

@@ -29,6 +29,13 @@ namespace PokiClash.Game
 
         public static long Now() => DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
+        // Đọc nội dung file lưu và mở mã hoá (bản cũ chưa mã hoá đọc thẳng). null nếu file hỏng/bị sửa (SaveCodec coi là Corrupt).
+        static string ReadSave(string path)
+        {
+            try { return SaveCrypt.Unprotect(File.ReadAllText(path, Encoding.UTF8)); }
+            catch { return null; }
+        }
+
         public SaveService(GameData data, string dir = null)
         {
             this.data = data;
@@ -45,7 +52,7 @@ namespace PokiClash.Game
             // bản tạm còn sót (tắt ngang giữa lúc đổi tên): dùng nếu bản chính mất
             if (!File.Exists(FilePath) && File.Exists(TmpPath))
             {
-                if (SaveCodec.Read(File.ReadAllText(TmpPath, Encoding.UTF8), data, out var fromTmp) != LoadStatus.Corrupt && fromTmp != null)
+                if (SaveCodec.Read(ReadSave(TmpPath), data, out var fromTmp) != LoadStatus.Corrupt && fromTmp != null)
                 {
                     Data = fromTmp;
                     Save();
@@ -56,7 +63,7 @@ namespace PokiClash.Game
 
             if (File.Exists(FilePath))
             {
-                var st = SaveCodec.Read(File.ReadAllText(FilePath, Encoding.UTF8), data, out var s);
+                var st = SaveCodec.Read(ReadSave(FilePath), data, out var s);
                 if (st == LoadStatus.Ok || st == LoadStatus.Migrated)
                 {
                     Data = s;
@@ -71,14 +78,14 @@ namespace PokiClash.Game
 
             // bản lưu phiên bản cũ (tên file khác): di chuyển nếu được, không thì giữ .bak và báo
             var old = Directory.GetFiles(Dir, "save_v*.json")
-                .Select(p => (p, v: SaveCodec.VersionOf(File.ReadAllText(p, Encoding.UTF8))))
+                .Select(p => (p, v: SaveCodec.VersionOf(ReadSave(p) ?? "")))
                 .Where(x => x.v >= 0 && x.v < Version)
                 .OrderByDescending(x => x.v)
                 .ToList();
             if (old.Count > 0)
             {
                 var (path, v) = old[0];
-                var st = SaveCodec.Read(File.ReadAllText(path, Encoding.UTF8), data, out var s);
+                var st = SaveCodec.Read(ReadSave(path), data, out var s);
                 foreach (var o in old) Backup(o.p, Path.ChangeExtension(o.p, ".bak"));
                 if (st == LoadStatus.Migrated || st == LoadStatus.Ok)
                 {
@@ -112,7 +119,8 @@ namespace PokiClash.Game
         public void Save()
         {
             if (Data == null) return;
-            string json = SaveCodec.Write(Data);
+            // Mã hoá ngay trên luồng chính (ảnh chụp đúng lúc bấm), luồng phụ chỉ ghi bytes.
+            string json = SaveCrypt.Protect(SaveCodec.Write(Data));
             if (WriteInBackground)
             {
                 lock (gate)

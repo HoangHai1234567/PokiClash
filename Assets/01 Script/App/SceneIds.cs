@@ -15,7 +15,10 @@ namespace PokiClash
         public const string Cave = "Cave";
         public const string Farm = "Farm";
         public const string Home = "Home"; // Nhà (2026-11-18), thay Trang trại trên sảnh
+        public const string Casino = "Casino"; // đảo Casino "Bến Lữ Khách" (2026-11-25, GD_Claude/29_DaoCasino.md)
+        public const string CasinoFishing = "CasinoFishing"; // Bến câu của đảo Casino (mỗi trò tương tác một scene riêng)
+        public const string CasinoRace = "CasinoRace"; // Trường đua của đảo Casino
 
-        public static readonly string[] Features = { Hub, Zone, Battle, Machine, Heroes, Cards, Notebook, Badges, Cave, Farm, Home };
+        public static readonly string[] Features = { Hub, Zone, Battle, Machine, Heroes, Cards, Notebook, Badges, Cave, Farm, Home, Casino, CasinoFishing, CasinoRace };
     }
 }

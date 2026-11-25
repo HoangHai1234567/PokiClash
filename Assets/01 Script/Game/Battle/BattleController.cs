@@ -20,7 +20,14 @@ namespace PokiClash
         public List<string> team; // null = đội trong bản lưu
         public BadgeRef badge; // trận thử thách của Đền Huy Hiệu (null = ải thường)
         public CaveRef cave; // trận Hang Tiềm Năng
+        public UgRef ug; // trận Đấu trường ngầm của đảo Casino (GD_Claude/29_DaoCasino.md mục 6.5)
         public double boost; // Tiếp sức (quảng cáo battle_retry, GD_Claude/26 mục 7.3): + phần trăm công và máu cả đội ta trong trận này
+    }
+
+    // bậc tier của Đấu trường ngầm, ngày day lúc bấm Đánh (đội địch, luật ngày theo ngày đó)
+    public sealed class UgRef
+    {
+        public int tier, day;
     }
 
     // tầng tier của Hang Tiềm Năng, boss hệ zone, ngày day (theo giờ máy)
@@ -51,6 +58,8 @@ namespace PokiClash
         List<string> team;
         BadgeRef badge;
         CaveRef cave;
+        UgRef ug;
+        UgEntry ugEntry;
         // nhịp trận (người dùng 2026-11-03: đánh và animation nhanh như lúc chạy thử, ×3 cũ). 2026-11-04 bỏ nấc tốc độ ×2, ×3: lúc ra
         // đòn sân tự chậm lại cho rõ animation (StageView), ngoài lúc đó chạy nhịp này. 2026-11-09: animation tướng về tốc độ gốc, nhịp này
         // chỉ còn tăng nhịp trận (chờ giữa các bước, chữ nổi, hiệu ứng, ra sân, rút lui, gục)
@@ -78,10 +87,16 @@ namespace PokiClash
             var save = App.Save.Data;
             badge = args.badge;
             cave = args.cave;
-            stage = cave != null ? Potential.CaveStage(d, cave.zone, cave.tier)
+            ug = args.ug;
+            ugEntry = ug != null ? Underground.EntryAt(d, ug.tier, ug.day) : null;
+            if (ug != null && ugEntry == null) ug = null; // dữ liệu đổi: đánh như ải thường
+            stage = ug != null ? Underground.Stage(d, ugEntry, ug.tier)
+                : cave != null ? Potential.CaveStage(d, cave.zone, cave.tier)
                 : badge != null ? Badges.Stage(d, badge.zone, badge.tier, badge.i) : d.Stage(args.stageId) ?? d.Stage(1);
             zone = d.Zone(stage.zone);
-            team = (args.team ?? save.team).Take(Progress.TeamSlots(save)).ToList(); // chỉ mang đủ số ô đội đã mở
+            int slots = Progress.TeamSlots(save);
+            if (ug != null) slots = Math.Min(slots, Underground.TeamLimit(ugEntry)); // luật ngày "mỗi bên một tướng"
+            team = (args.team ?? save.team).Take(slots).ToList(); // chỉ mang đủ số ô đội đã mở
             int unlock = save.level;
             // thử thách huy hiệu: hạt giống cố định theo (hệ, bậc, trận), thua đánh lại vẫn gặp cùng trận
             uint seed = badge != null ? Badges.Seed(d, badge.zone, badge.tier, badge.i) : Rng.RandomSeed();
@@ -92,11 +107,13 @@ namespace PokiClash
                     var o = mb.mods;
                     mb.mods = new StatMods { hpPct = (o?.hpPct ?? 0) + args.boost, atkPct = (o?.atkPct ?? 0) + args.boost, defPct = o?.defPct ?? 0, spd = o?.spd ?? 0 };
                 }
-            b = Battle.Create(d, mine, Teams.Enemy(stage, d), seed, unlock, Math.Max(unlock, stage.enemies[0].level));
+            if (ug != null) Underground.ApplyRule(d, ugEntry.rule, mine, false);
+            var foe = ug != null ? Underground.Enemy(d, ugEntry) : Teams.Enemy(stage, d);
+            b = Battle.Create(d, mine, foe, seed, unlock, Math.Max(unlock, stage.enemies[0].level));
             if (args.boost > 0) App.Toasts.Show(Loc.F("Tiếp sức: +{0}% công và máu", Math.Round(args.boost * 100)), App.Art.Icon("fist"));
             // trận hướng dẫn người mới (trận gương, trận 2 ở đảo mình khắc): thẻ rút sẵn, khoá thua ngầm (GD_Claude/25_FTUE.md)
-            if (badge == null && cave == null) b.script = Tutorial.BattleFor(save, d, stage);
-            view.Init(b, zone, badge == null && cave == null ? stage : null);
+            if (badge == null && cave == null && ug == null) b.script = Tutorial.BattleFor(save, d, stage);
+            view.Init(b, zone, badge == null && cave == null && ug == null ? stage : null);
             view.Stage.speed = Pace;
             view.Stage.Epic = EpicOf();
             FastForward(1);
@@ -146,6 +163,7 @@ namespace PokiClash
         float EpicOf()
         {
             var d = App.Data;
+            if (ug != null) return Mathf.Clamp01(0.35f + 0.13f * ug.tier);
             if (cave != null)
                 return Mathf.Clamp01(0.25f + 0.75f * cave.tier / Mathf.Max(1f, d.Cfg.cave.tiers.Count - 1));
             if (badge != null)
@@ -599,6 +617,7 @@ namespace PokiClash
                 App.Save.Save();
                 if (badge != null) App.Router.Go(SceneIds.Badges, badge.zone);
                 else if (cave != null) App.Router.Go(SceneIds.Cave);
+                else if (ug != null) App.Router.Go(SceneIds.Casino);
                 else App.Router.Go(SceneIds.Zone, stage.zone);
             });
         }
@@ -631,6 +650,11 @@ namespace PokiClash
             if (cave != null)
             {
                 yield return CaveFinish(win);
+                yield break;
+            }
+            if (ug != null)
+            {
+                yield return UndergroundResult.Run(b, ug, stage, team, resultPrefab);
                 yield break;
             }
             var s = App.Save.Data;

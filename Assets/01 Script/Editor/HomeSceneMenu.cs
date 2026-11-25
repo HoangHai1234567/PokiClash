@@ -771,7 +771,7 @@ namespace PokiClash.EditorTools
         // px bản đồ), hai hàng so le cho kín rìa; hàng trong ở mép dưới chừa chỗ cuối bến tàu (mũi dưới) cho khỏi che cầu.
         static readonly string[] CloudArt = { "Assets/03 Art/Islands/land_thuy_may_1.png", "Assets/03 Art/Islands/land_thuy_may_2.png" };
 
-        static Image[] BuildClouds(RectTransform layer, Vector2 size, float pierX)
+        internal static Image[] BuildClouds(RectTransform layer, Vector2 size, float pierX) // đảo Casino dùng lại (CasinoSceneMenu)
         {
             var look = CloudArt.Select(AssetDatabase.LoadAssetAtPath<Sprite>).Where(s => s).ToArray();
             var list = new List<Image>();

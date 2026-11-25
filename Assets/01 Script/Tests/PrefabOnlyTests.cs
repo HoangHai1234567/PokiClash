@@ -30,6 +30,8 @@ namespace PokiClash.Tests
             // hình aola (session hình tướng làm): diễn viên dựng từ atlas lúc chạy
             ["Game/Heroes/AolaActor.cs"] = "hình aola: dựng diễn viên từ atlas",
             ["Game/Heroes/AolaSticker.cs"] = "hình aola: ghép diễn viên vào sân",
+            // bảo mật (Lớp 1): nạp ảnh mã hoá buộc dựng Texture2D/Sprite từ blob lúc chạy, không có bản prefab thay thế
+            ["Game/Content/PokiArt.cs"] = "ảnh mã hoá: dựng Texture2D/Sprite từ blob giải mã lúc chạy",
         };
 
         static string Root => Path.Combine(Application.dataPath, "01 Script");

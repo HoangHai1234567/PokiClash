@@ -128,11 +128,9 @@ namespace PokiClash.EditorTools
                     Shot("2_bang_don");
                     yield return null;
                     yield return null;
-                    // dọn rồi cho xong ngay (như quảng cáo rút giờ): cây bay, bi bay
+                    // mở ô (miễn phí, xong ngay): cây bay, bi bay
                     var e = Home.ClearLot(s, d, SaveService.Now(), lot);
                     Debug.Log($"[Rừng] ClearLot {e}");
-                    hs.clearing[lot] = SaveService.Now() - 1;
-                    Home.Tick(s, d, SaveService.Now());
                     int ballsBefore = s.balls;
                     Call(home, "ReportCleared");
                     var fly = Get(home, "flyTrees") as IList;
@@ -194,6 +192,28 @@ namespace PokiClash.EditorTools
                 var shake = Get(home, "shakeImg") as UnityEngine.UI.Image;
                 Debug.Log($"[Rừng] cây lắc: {(shake ? shake.name + " góc " + shake.rectTransform.localEulerAngles.z.ToString("0.0") : "không")}");
                 yield return new WaitForSecondsRealtime(0.5f);
+                // ô kế tiếp còn thiếu cấp (2026-11-25: mở ô miễn phí theo cấp): bong bóng khoá "Cấp N", chạm thì báo cấp cần
+                int next = (int)Call(home, "NextLotLevel");
+                int goal = -1;
+                for (int l = 0; l < n * n && goal < 0; l++)
+                    if ((bool)Call(home, "IsGoalLot", l, next))
+                        goal = l;
+                Debug.Log($"[Rừng] ô kế tiếp: {goal}, cấp {next}");
+                if (goal >= 0)
+                {
+                    var (i3, j3) = Home.LotIJ(c, goal);
+                    // máy đặt cao hơn ô nhiều: bong bóng xuống nửa dưới khung, khỏi bị bảng quà đầu ngày của bản lưu mới che
+                    view.Show((Vector2)Call(home, "CellTop", i3 * c.lot + c.lot / 2f, j3 * c.lot + c.lot / 2f) - new Vector2(0, 760), 1f, 0);
+                    yield return new WaitForSecondsRealtime(1.6f);
+                    Shot("7_khoa_cap");
+                    yield return null;
+                    yield return null;
+                    Call(home, "TapLot", goal);
+                    yield return new WaitForSecondsRealtime(0.5f);
+                    Shot("8_bao_cap");
+                    yield return null;
+                    yield return null;
+                }
             }
             DayCycle.Override = null;
             s.home = keepHome;

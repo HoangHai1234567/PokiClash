@@ -23,6 +23,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _CoverTex:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -30,13 +34,20 @@ Material:
     m_Ints: []
     m_Floats:
     - _ColorMask: 15
+    - _DarkL: 0.27
     - _Rows: 7
     - _Stencil: 0
     - _StencilComp: 8
     - _StencilOp: 0
     - _StencilReadMask: 255
     - _StencilWriteMask: 255
+    - _UseCover: 0
     m_Colors:
+    - _Box: {r: 0, g: 0, b: 1, a: 1}
+    - _C0: {r: 0, g: 0, b: 0, a: 0}
+    - _C1: {r: 0, g: 0, b: 0, a: 0}
+    - _C2: {r: 0, g: 0, b: 0, a: 0}
+    - _C3: {r: 0, g: 0, b: 0, a: 0}
     - _Graphite: {r: 0.23999995, g: 0.19999996, b: 0.16999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

@@ -7,8 +7,13 @@
 //      ở khung đầu dáng đứng; rig chưa tải về thì chân dung), đọc độ phủ của hình (AsyncGPUReadback, hai lượt: cả ảnh tìm hộp, rồi cắt
 //      hộp 256) và lấy các vòng viền ngoài (Core/Contour).
 //   2. Bút chì bay vào, lần theo từng vòng viền (nét chì InkStroke hiện ngay sau ngòi; sang vòng khác thì nhấc bút).
+//      Hình to quá trang (người dùng 2026-11-25: "vài tướng bị tràn ra ngoài", vd. voi ma mút dài ngang) thì thu nhỏ khung hình theo
+//      hộp hình thật và canh giữa (FitPage).
 //   3. Bút chì gạch zích zắc từng hàng từ trên xuống: tranh chì hiện dần (shader UIPencilDraw, cùng công thức hàng với bút).
-//   4. Sáp màu tô tràn chéo từ trên trái xuống, bút chì quẹt theo mép tô rồi bay ra.
+//   4. Tô màu bằng nhiều bút chì màu cùng lúc (người dùng 2026-11-25: "phần tô màu nhìn hơi phèn và không thật, làm nhiều bút chì
+//      màu khác nhau tô các phần cùng lúc cho thật hơn"): chia màu của hình thành tối đa 4 nhóm, mỗi nhóm một hay hai bút thân nhuộm
+//      đúng màu nhóm (Core/CrayonPlan), các bút bay vào lệch nhịp và gạch zích zắc vùng của mình; vệt sáp chỉ ăn vào điểm ảnh cùng
+//      nhóm màu. Không có kế hoạch (không đọc được ảnh, prefab cũ chưa có bút màu): sáp màu tô tràn chéo như cũ, bút chì quẹt theo mép.
 //   5. Tướng bật ra: tranh và nét chì tắt, hình thật (sticker viền giấy) nảy lên, diễn chiêu cuối tại chỗ (chiêu nhảy đè
 //      thì đòn đánh) rồi đứng lặp; sao trắng viền mực bắn ra, lấp lánh quanh tướng.
 //   6. Ruy băng TƯỚNG MỚI! đóng xuống, khối chữ dưới tướng nảy ra: tên, bậc, hệ, danh hiệu, 3 dòng chỉ số (StatPips), nút Xem tướng /
@@ -43,6 +48,7 @@ namespace PokiClash
             public SketchButton next, view;
             public Button catcher;
             public StatPips[] stats; // Máu, Công, Thủ: số kèm 5 nấc bình hành (như màn chọn tướng khởi đầu)
+            public Image[] crayons; // bút chì màu: ảnh thân (nhuộm màu nhóm lúc chạy), con là vỏ (viền, gỗ, tẩy); gốc ở ngòi
         }
 
         [SerializeField] Parts p;
@@ -53,6 +59,11 @@ namespace PokiClash
         const float HeroH = 860; // chiều cao khung chân dung (tướng chiếm ~80%)
         const float PenIn = 0.22f, Travel = 0.1f, OutlineSpeed = 1900, OutlineMin = 0.75f, OutlineMax = 1.3f;
         const float HatchT = 0.7f, ColorT = 0.5f;
+        // bút chì màu: bay vào, gạch (mọi bút xong cùng lúc), cách nhịp giữa hai bút, lớp tô kín cuối; cỡ so với bút chì
+        const float CrayonIn = 0.2f, CrayonT = 1.35f, CrayonGap = 0.07f, FillT = 0.16f, CrayonScale = 0.85f;
+        // chỗ cho hình trên trang (khung hình, gốc ở chân): rộng, cao trên chân (dưới ruy băng), thõng dưới chân (trên tên), dời ngang tối đa
+        const float MaxW = 900, MaxUp = 800, MaxDown = 130, MaxShift = 220;
+        const float PageHalf = 490; // nửa bề ngang trang trừ viền: clip bật ra không vươn quá
         static readonly Queue<(string hero, Action done)> queue = new Queue<(string, Action)>();
         public static bool Playing { get; private set; }
 
@@ -68,6 +79,11 @@ namespace PokiClash
         float scribble = -1; // độ to tiếng bút chì lặp (khoá "pencil", ArtGen/Sfx/but_chi), gửi mỗi khung; 0 thì nhỏ dần rồi thôi gửi
         Rect box = new Rect(0, 0, 1, 1); // hộp quanh hình, theo uv 0–1 của khung nguồn
         List<Vector2[]> loopsUv; // các vòng viền, uv 0–1 của khung nguồn
+        CrayonPlan plan; // nhóm màu và đường các bút chì màu (lưới = hộp quanh hình)
+        Material drawMat; // bản sao material tranh chì (hộp, ảnh phủ, màu nhóm)
+        Texture2D coverTex; // ảnh phủ bút chì màu: mỗi kênh là chỗ bút của một nhóm đã gạch qua
+        byte[] cover;
+        Vector2 burstAt = new Vector2(0, RigH * 0.45f); // tâm hình trong khung tướng (sao bắn ra từ đây)
 
         public void Setup(Parts parts) => p = parts;
 
@@ -206,12 +222,18 @@ namespace PokiClash
                 box = new Rect(0.08f, 0.04f, 0.84f, 0.92f);
                 yield return null;
             }
-            if (tex) yield return Analyse(tex, uv);
+            if (tex) yield return Analyse(tex, uv, premul > 0.5f);
+            bool crayons = plan != null && p.crayons != null && p.crayons.Length > 0;
+#if UNITY_EDITOR
+            Debug.Log($"[Mở khoá tướng] {h.id}: hộp {box}, {(plan != null ? $"{plan.Colors.Count} nhóm màu, {plan.Pens.Count} bút" : "không có kế hoạch tô")}" +
+                      $", bút màu trong prefab {(p.crayons != null ? p.crayons.Length : 0)}");
+#endif
 
             // tranh chì và nét viền phủ đúng khung nguồn
             var penR = p.pencil.rectTransform;
             if (over)
             {
+                float fit = FitPage(over);
                 var dr = p.drawing.rectTransform;
                 dr.SetParent(over, false);
                 dr.anchorMin = box.min;
@@ -221,6 +243,7 @@ namespace PokiClash
                 p.drawing.texture = tex;
                 p.drawing.uvRect = new Rect(uv.x + box.x * uv.width, uv.y + box.y * uv.height, box.width * uv.width, box.height * uv.height);
                 p.drawing.color = new Color(0, 0, premul, 1);
+                SetupDrawMat(crayons);
                 p.drawing.gameObject.SetActive(true);
                 var ir = p.ink.rectTransform;
                 ir.SetParent(over, false);
@@ -238,20 +261,13 @@ namespace PokiClash
                         for (int k = 0; k < l.Length; k++) q[k] = Vector2.Scale(l[k], size);
                         loops.Add(q);
                     }
+                p.ink.width /= fit; // khung hình thu nhỏ: nét giữ dày như cũ trên màn
                 p.ink.SetLoops(loops);
                 // Sổ Phép "Bìa Sổ" (trang trí): nét viền mang màu hệ của tướng
                 if (save != null && SoPhep.HasCover(save, App.Data.Cfg)) p.ink.color = Color.Lerp(Theme.Of(h.elem), Theme.Ink, 0.3f);
                 p.ink.gameObject.SetActive(true);
             }
 
-            // điểm trên khung nguồn (toạ độ cục bộ của nét viền) → toạ độ của bút chì
-            var root = (RectTransform)transform;
-            Vector2 Pen(Vector2 inkLocal) => root.InverseTransformPoint(p.ink.rectTransform.TransformPoint(inkLocal));
-            Vector2 BoxPt(float x, float y)
-            {
-                var s = p.ink.rectTransform.rect.size;
-                return Vector2.Scale(new Vector2(box.x + x * box.width, box.y + y * box.height), s);
-            }
             void Wobble(float t)
             {
                 penR.localEulerAngles = new Vector3(0, 0, Mathf.Sin(t * 37) * 3);
@@ -317,20 +333,23 @@ namespace PokiClash
                     yield return null;
                 }
 
-                // 4. sáp màu tô tràn chéo, bút quẹt qua lại theo mép tô
-                for (float t = 0; t < ColorT && !tapped; t += Time.unscaledDeltaTime)
-                {
-                    float k = t / ColorT;
-                    p.drawing.color = new Color(1, k, premul, 1);
-                    float front = k * 1.3f - 0.1f, s = Mathf.PingPong(t * 7, 1);
-                    float y = Mathf.Clamp01(1 - (front - 0.35f * s) / 0.65f);
-                    penR.anchoredPosition = Pen(BoxPt(s, y));
-                    Wobble(t);
-                    yield return null;
-                }
+                // 4. tô màu: nhiều bút chì màu cùng lúc; không có kế hoạch thì sáp màu tô tràn chéo, bút quẹt qua lại theo mép tô
+                bool ranCrayons = crayons && !tapped;
+                if (ranCrayons) yield return Crayons(penR, premul); // bút chì bay ra ngay đầu bước này
+                else
+                    for (float t = 0; t < ColorT && !tapped; t += Time.unscaledDeltaTime)
+                    {
+                        float k = t / ColorT;
+                        p.drawing.color = new Color(1, k, premul, 1);
+                        float front = k * 1.3f - 0.1f, s = Mathf.PingPong(t * 7, 1);
+                        float y = Mathf.Clamp01(1 - (front - 0.35f * s) / 0.65f);
+                        penR.anchoredPosition = Pen(BoxPt(s, y));
+                        Wobble(t);
+                        yield return null;
+                    }
                 p.ink.Drawn = p.ink.Total;
                 p.drawing.color = new Color(1, 1, premul, 1);
-                StartCoroutine(PenOut(penR));
+                if (!ranCrayons) StartCoroutine(PenOut(penR));
             }
 
             // 5. tướng bật ra
@@ -351,7 +370,7 @@ namespace PokiClash
             {
                 rigAlpha = 1;
                 rigFrozen = false;
-                rigClip = !rig.Jumps ? StageView.Skill : StageView.Attack; // tại chỗ (clip ra sân có con bay từ ngoài vào, lệch khỏi trang)
+                rigClip = PickClip(); // tại chỗ (clip ra sân có con bay từ ngoài vào, lệch khỏi trang), không tràn trang
                 rigT = 0;
                 rigLoop = false;
             }
@@ -420,12 +439,200 @@ namespace PokiClash
             done?.Invoke();
         }
 
-        // đọc độ phủ: lượt 1 cả khung nguồn 128 x 128 tìm hộp quanh hình; lượt 2 cắt đúng hộp, cạnh dài 256, lấy vòng viền
-        IEnumerator Analyse(Texture tex, Rect uv)
+        // điểm trên khung nguồn (toạ độ cục bộ của nét viền) → toạ độ của bút chì
+        Vector2 Pen(Vector2 inkLocal) => transform.InverseTransformPoint(p.ink.rectTransform.TransformPoint(inkLocal));
+
+        // điểm theo phần của hộp quanh hình (0–1) → toạ độ cục bộ của nét viền
+        Vector2 BoxPt(float x, float y)
+        {
+            var s = p.ink.rectTransform.rect.size;
+            return Vector2.Scale(new Vector2(box.x + x * box.width, box.y + y * box.height), s);
+        }
+
+        // Thu hình cho vừa trang, canh giữa theo hộp hình thật: hộp (uv của khung nguồn) đổi ra toạ độ khung hình (gốc ở chân), thu nhỏ
+        // khung hình (không phóng to) cho hộp lọt MaxW x (MaxUp trên chân, MaxDown dưới chân), dời ngang cho hộp vào giữa. Trả tỉ lệ thu.
+        float FitPage(RectTransform over)
+        {
+            var r = over.rect;
+            Vector2 lo = p.art.InverseTransformPoint(over.TransformPoint(new Vector2(r.xMin + box.xMin * r.width, r.yMin + box.yMin * r.height)));
+            Vector2 hi = p.art.InverseTransformPoint(over.TransformPoint(new Vector2(r.xMin + box.xMax * r.width, r.yMin + box.yMax * r.height)));
+            float s = Mathf.Min(1, MaxW / Mathf.Max(1, hi.x - lo.x), MaxUp / Mathf.Max(1, hi.y));
+            if (lo.y < 0) s = Mathf.Min(s, MaxDown / -lo.y);
+            fitLo = lo;
+            fitHi = hi;
+            fitted = true;
+            SetArtScale(s);
+            return s;
+        }
+
+        bool fitted;
+        Vector2 fitLo, fitHi; // hộp hình (dáng đứng) trong toạ độ khung hình chưa thu
+        float artScale = 1, artShift;
+
+        void SetArtScale(float s)
+        {
+            float cx = (fitLo.x + fitHi.x) * 0.5f;
+            artScale = s;
+            artShift = Mathf.Clamp(-cx * s, -MaxShift, MaxShift);
+            p.art.localScale = new Vector3(s, s, 1);
+            p.art.anchoredPosition = new Vector2(artShift, 0);
+            burstAt = new Vector2(artShift + cx * s, (fitLo.y + fitHi.y) * 0.5f * s);
+        }
+
+        // Clip bật ra: chiêu cuối (chiêu nhảy đè thì đòn đánh), rồi đòn đánh, chiêu bắn. Khung bao clip đo lúc nhập (AolaSticker.Extent)
+        // mà tràn trang (người dùng 2026-11-25: vd. Mầm Ú phình to tràn mép phải) thì lấy clip kế; clip nào cũng tràn thì lấy clip tràn ít
+        // nhất và thu khung hình thêm ngay lúc bật ra (cú nảy che việc đổi cỡ). Hình aola không có số đo: chiêu cuối như cũ.
+        // Khung bao chỉ có |x| lớn nhất (đối xứng quanh chân) nên so phần clip vươn THÊM so với dáng đứng, cộng vào hộp hình dáng đứng đã
+        // đo đúng (con dài lệch một bên như voi ma mút không bị thu oan).
+        string PickClip()
+        {
+            var list = new List<string>();
+            if (!rig.Jumps && rig.HasClip(StageView.Skill)) list.Add(StageView.Skill);
+            if (rig.HasClip(StageView.Attack)) list.Add(StageView.Attack);
+            if (rig.HasCast) list.Add(StageView.Cast);
+            if (list.Count == 0) return !rig.Jumps ? StageView.Skill : StageView.Attack;
+            if (!fitted || !rig.Extent(Game.AolaActor.Idle, out float mx0, out float top0, out float bot0)) return list[0];
+            string best = list[0];
+            float bestR = float.MaxValue, bestW = 0;
+            float halfW = (fitHi.x - fitLo.x) * 0.5f, up = Mathf.Max(0, fitHi.y), down = Mathf.Max(0, -fitLo.y);
+            foreach (var c in list)
+            {
+                if (!rig.Extent(c, out float mx, out float top, out float bot)) return list[0];
+                // hộp dáng đứng nới thêm phần vươn của clip (đơn vị khung hình chưa thu), so với chỗ trên trang
+                float w = halfW + Mathf.Max(0, mx - mx0) * RigH, t = up + Mathf.Max(0, top - top0) * RigH;
+                float b = down + Mathf.Max(0, bot0 - bot) * RigH;
+                float r = Mathf.Max(w * artScale / PageHalf, t * artScale / (MaxUp + 40), b * artScale / (MaxDown + 40));
+                // khung bao đã trừ cú lao (xương move): thân chỉ được lao ngang trong phần trang còn trống
+                if (r <= 1)
+                {
+                    rig.MaxFollowX = Mathf.Max(0, PageHalf / artScale - w) / RigH;
+                    return c;
+                }
+                if (r < bestR)
+                {
+                    bestR = r;
+                    best = c;
+                    bestW = w;
+                }
+            }
+            if (portrait == null) SetArtScale(artScale / bestR);
+            rig.MaxFollowX = Mathf.Max(0, PageHalf / artScale - bestW) / RigH;
+            return best;
+        }
+
+        // bản sao material tranh chì: hộp quanh hình (hàng zích zắc, ảnh phủ trải đúng hộp); có bút chì màu thì ảnh phủ + màu nhóm
+        void SetupDrawMat(bool crayons)
+        {
+            if (!p.drawing.material) return;
+            drawMat = new Material(p.drawing.material) { name = "tranh_chi" };
+            var u = p.drawing.uvRect;
+            drawMat.SetVector("_Box", new Vector4(u.x, u.y, u.width, u.height));
+            drawMat.SetFloat("_DarkL", CrayonPlan.DarkL);
+            drawMat.SetFloat("_UseCover", crayons ? 1 : 0);
+            if (crayons)
+            {
+                int cw = (plan.W + 1) / 2, ch = (plan.H + 1) / 2; // nửa độ phân giải lưới: vệt sáp mềm, ranh vùng do màu từng điểm ảnh
+                coverTex = new Texture2D(cw, ch, TextureFormat.RGBA32, false, true)
+                    { name = "phu_but_mau", wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear };
+                cover = new byte[cw * ch * 4];
+                coverTex.SetPixelData(cover, 0);
+                coverTex.Apply(false);
+                drawMat.SetTexture("_CoverTex", coverTex);
+                for (int k = 0; k < 4; k++)
+                {
+                    var c = k < plan.Colors.Count ? plan.Colors[k] : null;
+                    drawMat.SetVector("_C" + k, c != null ? new Vector4(c[0], c[1], c[2], 1) : Vector4.zero);
+                }
+            }
+            p.drawing.material = drawMat;
+        }
+
+        // 4. Bút chì màu: mỗi bút một nhóm màu (thân nhuộm màu nhóm), bay vào lệch nhịp từ phía trên phải, gạch zích zắc các hàng của
+        // mình; vệt sáp ghi vào kênh của nhóm trên ảnh phủ (shader chỉ tô điểm ảnh cùng nhóm màu). Mọi bút xong cùng lúc, lớp tô kín
+        // phủ nốt chỗ sót trong lúc các bút bay ra. Chạm màn thì dừng ngay.
+        IEnumerator Crayons(RectTransform pencil, float premul)
+        {
+            StartCoroutine(PenOut(pencil));
+            int n = Mathf.Min(plan.Pens.Count, p.crayons.Length);
+            var rts = new RectTransform[n];
+            var enter = new Vector2[n];
+            var start = new Vector2[n];
+            var tilt = new float[n];
+            var done = new float[n];
+            int cw = coverTex.width, ch = coverTex.height;
+            float kx = cw / (float)plan.W, ky = ch / (float)plan.H, rad = plan.Brush * kx, step = plan.Brush * 0.3f;
+            Vector2 Grid(float x, float y) => Pen(BoxPt(x / plan.W, y / plan.H));
+            for (int i = 0; i < n; i++)
+            {
+                var pen = plan.Pens[i];
+                var c = plan.Colors[pen.Group];
+                var img = p.crayons[i];
+                img.color = new Color(c[0], c[1], c[2], 1);
+                rts[i] = img.rectTransform;
+                rts[i].SetAsLastSibling();
+                rts[i].localScale = Vector3.one * CrayonScale;
+                start[i] = Grid(pen.X[0], pen.Y[0]);
+                float ang = (25 + 50 * (i % 3) / 2f + 7 * i) * Mathf.Deg2Rad;
+                enter[i] = start[i] + new Vector2(Mathf.Cos(ang), Mathf.Sin(ang)) * 1300;
+                rts[i].anchoredPosition = enter[i];
+                tilt[i] = (i % 2 == 0 ? -1 : 1) * (3 + 4 * (i % 3));
+                img.gameObject.SetActive(true);
+            }
+            scribble = 1;
+            float end = (n - 1) * CrayonGap + CrayonIn + CrayonT;
+            for (float t = 0; t < end && !tapped; t += Time.unscaledDeltaTime)
+            {
+                bool dirty = false;
+                for (int i = 0; i < n; i++)
+                {
+                    float ti = t - i * CrayonGap;
+                    if (ti < 0) continue;
+                    var r = rts[i];
+                    if (ti < CrayonIn)
+                    {
+                        float k = 1 - (1 - ti / CrayonIn) * (1 - ti / CrayonIn);
+                        r.anchoredPosition = Vector2.Lerp(enter[i], start[i], k);
+                        r.localEulerAngles = new Vector3(0, 0, tilt[i] + 12 * (1 - k));
+                        continue;
+                    }
+                    var pen = plan.Pens[i];
+                    float d = Mathf.Min(1, (ti - CrayonIn) / CrayonT) * pen.Length;
+                    int chan = pen.Group, pi = i;
+                    pen.Strokes(done[i], d, step, (x, y, seg) =>
+                        CrayonPlan.Stamp(cover, cw, ch, chan, x * kx, y * ky, rad, 0.8f + 0.2f * Hash01(seg * 7 + pi * 131)));
+                    if (d > done[i]) dirty = true;
+                    done[i] = d;
+                    pen.At(d, out float px, out float py, out bool down, out _);
+                    r.anchoredPosition = Grid(px, py);
+                    r.localEulerAngles = new Vector3(0, 0, tilt[i] + Mathf.Sin(t * 41 + i * 1.7f) * 3);
+                    r.localScale = Vector3.one * (CrayonScale * (down ? 1 + 0.02f * Mathf.Sin(t * 53 + i) : 1.06f)); // nhấc bút: to hơn chút
+                }
+                if (dirty)
+                {
+                    coverTex.SetPixelData(cover, 0);
+                    coverTex.Apply(false);
+                }
+                yield return null;
+            }
+            for (int i = 0; i < n; i++)
+                if (tapped) rts[i].gameObject.SetActive(false);
+                else StartCoroutine(PenOut(rts[i], 0.03f * i));
+            for (float t = 0; t < FillT && !tapped; t += Time.unscaledDeltaTime)
+            {
+                p.drawing.color = new Color(1, t / FillT, premul, 1);
+                yield return null;
+            }
+        }
+
+        static float Hash01(int s) => Mathf.Repeat(Mathf.Sin(s * 12.9898f) * 43758.5453f, 1);
+
+        // đọc độ phủ: lượt 1 cả khung nguồn 128 x 128 tìm hộp quanh hình; lượt 2 cắt đúng hộp, cạnh dài 256, lấy vòng viền và lập kế hoạch
+        // bút chì màu (CrayonPlan) từ màu của lượt này
+        IEnumerator Analyse(Texture tex, Rect uv, bool premul)
         {
             if (!SystemInfo.supportsAsyncGPUReadback) yield break;
             byte[] a1 = null;
-            yield return ReadAlpha(tex, uv, 128, 128, r => a1 = r);
+            yield return ReadAlpha(tex, uv, 128, 128, r => a1 = Alpha(r));
             var b = a1 != null ? Contour.Bounds(a1, 128, 128) : null;
             if (b == null) yield break;
             box = Rect.MinMaxRect(Mathf.Max(0, b[0] - 2) / 128f, Mathf.Max(0, b[1] - 2) / 128f, Mathf.Min(128, b[2] + 3) / 128f,
@@ -434,9 +641,11 @@ namespace PokiClash
             int w2 = bw >= bh ? 256 : Mathf.Max(16, Mathf.RoundToInt(256 * bw / bh));
             int h2 = bh >= bw ? 256 : Mathf.Max(16, Mathf.RoundToInt(256 * bh / bw));
             var sub = new Rect(uv.x + box.x * uv.width, uv.y + box.y * uv.height, box.width * uv.width, box.height * uv.height);
-            byte[] a2 = null;
-            yield return ReadAlpha(tex, sub, w2, h2, r => a2 = r);
+            byte[] c2 = null;
+            yield return ReadAlpha(tex, sub, w2, h2, r => c2 = r);
+            var a2 = Alpha(c2);
             if (a2 == null) yield break;
+            plan = CrayonPlan.Make(c2, w2, h2, premul, QualitySettings.activeColorSpace == ColorSpace.Linear, tier + 1);
             loopsUv = new List<Vector2[]>();
             foreach (var l in Contour.Loops(a2, w2, h2))
             {
@@ -447,7 +656,17 @@ namespace PokiClash
             }
         }
 
-        // chép vùng uv của ảnh vào RenderTexture tạm w x h rồi đọc kênh alpha (hàng dưới trước); lỗi hoặc quá 1 s thì null
+        // kênh alpha của ảnh RGBA (null giữ null)
+        static byte[] Alpha(byte[] rgba)
+        {
+            if (rgba == null) return null;
+            var a = new byte[rgba.Length / 4];
+            for (int i = 0; i < a.Length; i++) a[i] = rgba[i * 4 + 3];
+            return a;
+        }
+
+        // chép vùng uv của ảnh vào RenderTexture tạm w x h rồi đọc RGBA (hàng dưới trước; byte theo gamma vì RenderTexture tạm là sRGB);
+        // lỗi hoặc quá 1 s thì null
         static IEnumerator ReadAlpha(Texture tex, Rect uv, int w, int h, Action<byte[]> got)
         {
             var rt = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGB32);
@@ -456,12 +675,7 @@ namespace PokiClash
             bool finished = false;
             AsyncGPUReadback.Request(rt, 0, TextureFormat.RGBA32, r =>
             {
-                if (!r.hasError)
-                {
-                    var d = r.GetData<byte>();
-                    res = new byte[w * h];
-                    for (int i = 0; i < res.Length; i++) res[i] = d[i * 4 + 3];
-                }
+                if (!r.hasError && r.GetData<byte>().Length >= w * h * 4) res = r.GetData<byte>().ToArray();
                 finished = true;
             });
             for (float t = 0; !finished && t < 1; t += Time.unscaledDeltaTime) yield return null;
@@ -470,15 +684,17 @@ namespace PokiClash
             got(res);
         }
 
-        // bút chì bay ra góc trên phải rồi tắt
-        IEnumerator PenOut(RectTransform pen)
+        // bút chì bay ra góc trên phải rồi tắt (sau delay giây)
+        IEnumerator PenOut(RectTransform pen, float delay = 0)
         {
+            for (float t = 0; t < delay; t += Time.unscaledDeltaTime) yield return null;
             Vector2 a = pen.anchoredPosition, b = a + new Vector2(700, 900);
+            float r0 = pen.localEulerAngles.z;
             for (float t = 0; t < 0.25f; t += Time.unscaledDeltaTime)
             {
                 float k = t / 0.25f;
                 pen.anchoredPosition = Vector2.Lerp(a, b, k * k);
-                pen.localEulerAngles = new Vector3(0, 0, -25 * k);
+                pen.localEulerAngles = new Vector3(0, 0, r0 - 25 * k);
                 yield return null;
             }
             pen.gameObject.SetActive(false);
@@ -488,7 +704,7 @@ namespace PokiClash
         IEnumerator Burst()
         {
             var fx = p.fx;
-            Vector2 c = (Vector2)fx.InverseTransformPoint(p.hero.TransformPoint(new Vector3(0, RigH * 0.45f, 0)));
+            Vector2 c = (Vector2)fx.InverseTransformPoint(p.hero.TransformPoint(burstAt));
             int n = p.stars.Length, big = Mathf.Min(p.bigStars, n);
             var pos = new Vector2[n];
             var vel = new Vector2[n];
@@ -569,6 +785,8 @@ namespace PokiClash
             if (scribble > 0 && App.Audio != null) App.Audio.Loop("pencil", 0);
             rig?.Destroy();
             rig = null;
+            if (drawMat) Destroy(drawMat);
+            if (coverTex) Destroy(coverTex);
         }
 
         static string ElemIcon(Elem e) => e == Elem.Hoa ? "e_hoa" : e == Elem.Thuy ? "e_thuy" : e == Elem.Moc ? "e_moc" : e == Elem.Kim ? "e_kim" : "e_tho";

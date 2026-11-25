@@ -587,9 +587,9 @@ namespace PokiClash.EditorTools
                 var h = D.Heroes.FirstOrDefault(x => (int)x.rarity == r);
                 if (h == null) continue;
                 HeroUnlockView.Play(new[] { h.id });
-                // nhịp bút chì vẽ (2026-11-24): trang 0–0,35 s, lần viền ~0,7–1,7 s, gạch chì ~1,7–2,4 s, tô màu ~2,4–2,9 s, bật ra + sao,
-                // chữ ~3,2 s, nút ~3,5 s
-                float[] at = { 0.6f, 1.0f, 1.4f, 1.9f, 2.3f, 2.7f, 3.05f, 3.4f, 4.8f };
+                // nhịp bút chì vẽ: trang 0–0,35 s, lần viền ~0,7–1,7 s, gạch chì ~1,7–2,4 s, bút chì màu tô ~2,4–4,1 s (2026-11-25),
+                // bật ra + sao ~4,2 s, chữ ~4,5 s, nút ~4,8 s. Chụp dày hơn: HeroUnlockShots (Temp/unlock_shots.flag)
+                float[] at = { 0.6f, 1.0f, 1.4f, 1.9f, 2.6f, 3.2f, 3.8f, 4.4f, 6.0f };
                 float t0 = Time.realtimeSinceStartup;
                 foreach (var a in at)
                 {

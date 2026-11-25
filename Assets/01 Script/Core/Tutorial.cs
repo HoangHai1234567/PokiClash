@@ -303,7 +303,7 @@ namespace PokiClash.Core
             P(AfkBtn, Loc.T("AFK"), Loc.T("Ải đã qua tự đánh lúc bạn vắng, tối đa 12 giờ: ra mảnh và rương. Chọn ải AFK ở hộp Chuẩn bị.")),
             P(TreePlaced, Loc.T("Cây bi"), Loc.F("Cây bi ở Nhà: mỗi cây {0} bi mỗi giờ, chứa {1}, chạm cây để hái. Thêm cây ở cấp {2}: đặt bằng nút Xây.",
                 cfg.trees.perHour.ToString("0.#"), cfg.trees.cap.ToString("0"), string.Join(", ", cfg.trees.unlockLevels))),
-            P("g1", Loc.T("Nhà"), Loc.T("Tướng làm việc ra bi, gỗ, quặng. Gỗ và quặng dùng để xây, nâng cấp, dọn rừng.")),
+            P("g1", Loc.T("Nhà"), Loc.T("Tướng làm việc ra bi, gỗ, quặng. Gỗ và quặng dùng để xây, nâng cấp. Lên cấp thì mở thêm ô rừng, miễn phí.")),
             P("h_stone", Loc.T("Tiềm năng"), Loc.T("Đá tiềm năng mở thêm dòng chỉ số. Hang Tiềm Năng ra đá.")),
             P("h_temple", Loc.T("Đền Huy Hiệu"), Loc.T("Thắng chuỗi trận boss theo hệ: tướng cùng hệ mạnh thêm.")),
         };

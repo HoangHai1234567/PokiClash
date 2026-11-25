@@ -2,8 +2,9 @@
 // các cây bay lên trời (squash and stretch) ... làm thêm gió thổi cho cây đung đưa nhẹ nhàng, thi thoảng cây lắc lắc"). Học Clash of
 // Critters: ô đất khoá có bong bóng trên đầu (pbsc_homestead_expand_bubble: icon 3 viên bi + số bi thưởng, ô xẻng giá mở); mở xong thì
 // bung bụi + lá (pbfx_camp_expand_3x3: 9 cụm khói sprite bay lên, đời 0,4–0,6 s; 3 lá to bắn 5–7 đv/s rơi theo trọng lực, 5 lá nhỏ lượn).
-// - Bong bóng bi (ForestBubbles, gọi mỗi giây từ Labels): ô rừng dọn được hoặc chỉ thiếu gỗ / quặng / thợ (LotTappable) hiện "icon bi
-//   +N" (N = home.rings[].balls của vòng) trên tán cây giữa ô; chạm bong bóng = chạm ô rừng. Đang dọn: chỉ nhãn giờ còn.
+// - Bong bóng bi (ForestBubbles, gọi mỗi giây từ Labels): ô rừng mở được (LotTappable; mở miễn phí theo cấp người chơi từ 2026-11-25)
+//   hiện "icon bi +N" (N = home.rings[].balls của vòng) trên tán cây giữa ô; chạm bong bóng = chạm ô rừng. Ô kế tiếp còn thiếu cấp
+//   (kề đất đã mở, mốc thấp nhất) có bong bóng "khoá Cấp N"; chạm thì báo cấp cần.
 // - Dọn xong (RenderForests → LaunchForest): cây trong khung nhìn bay lên trời lần lượt từ giữa ô ra, mỗi cây nén xuống (0,13 s) → bật
 //   giãn dài (0,09 s) → vọt lên nhanh dần, nghiêng nhẹ, mờ dần; gốc mỗi cây bung một cụm khói kem + bụi, cây to văng lá. Bi bay từ trên
 //   đầu ô lên chip bi (ReportCleared → FlyBalls). Không quầng, không cộng sáng.
@@ -45,6 +46,7 @@ namespace PokiClash
         void ForestBubbles(double now)
         {
             var h = S.home;
+            int next = NextLotLevel();
             foreach (var kv in forests)
             {
                 var mk = kv.Value;
@@ -62,13 +64,39 @@ namespace PokiClash
                     mk.Bubble(Icon("ball"), "+" + TopBars.Fmt(balls));
                     mk.Fill(-1);
                 }
+                else if (IsGoalLot(kv.Key, next))
+                {
+                    // ô kế tiếp (kề đất đã mở, mốc cấp thấp nhất còn khoá): bong bóng khoá "Cấp N" cho người chơi biết mục tiêu
+                    mk.Bubble(Icon("lock"), Loc.F("Cấp {0}", next));
+                    mk.Fill(-1);
+                }
                 else mk.Bubble(null);
             }
         }
 
-        // chạm bong bóng bi: như chạm ô rừng (OnTap)
+        // mốc cấp thấp nhất của các ô kề đất đã mở mà còn thiếu cấp người chơi (0 = không còn ô nào chờ cấp)
+        int NextLotLevel()
+        {
+            int best = 0;
+            foreach (var lot in forests.Keys)
+            {
+                if (Home.CanClear(S, D, lot) != HomeErr.PlayerLevel) continue;
+                int lv = Home.LotPlayer(C, lot);
+                if (best == 0 || lv < best) best = lv;
+            }
+            return best;
+        }
+
+        bool IsGoalLot(int lot, int next) => next > 0 && Home.LotPlayer(C, lot) == next && Home.CanClear(S, D, lot) == HomeErr.PlayerLevel;
+
+        // chạm bong bóng bi: như chạm ô rừng (OnTap); chạm bong bóng khoá của ô kế tiếp: chỉ báo cấp cần (không mở bảng)
         void TapLot(int lot)
         {
+            if (mode == Mode.Normal && IsGoalLot(lot, NextLotLevel()))
+            {
+                App.Toasts.Show(Loc.F("Lên cấp {0} để mở ô rừng này", Home.LotPlayer(C, lot)), Icon("lock"));
+                return;
+            }
             if (mode != Mode.Normal || S.home.lots.Contains(lot) || !LotTappable(lot)) return;
             selLot = lot;
             selBuilding = -1;

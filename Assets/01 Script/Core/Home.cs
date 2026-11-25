@@ -116,8 +116,6 @@ namespace PokiClash.Core
         public static int MaxCount(HomeBuildingDef df, int homeLevel) =>
             IsDeco(df) ? int.MaxValue : df.count == null || df.count.Length == 0 ? 1 : df.count[Math.Max(0, Math.Min(df.count.Length - 1, homeLevel - 1))];
         public static int CountOf(HomeState h, string def) => h.buildings.Count(b => b.def == def);
-        public static int MaxLots(HomeConfig c, int homeLevel) =>
-            c.maxLots.Length == 0 ? int.MaxValue : c.maxLots[Math.Max(0, Math.Min(c.maxLots.Length - 1, homeLevel - 1))];
 
         public static double WoodCap(HomeState h, BalanceConfig cfg) =>
             cfg.home.woodCap + h.buildings.Where(b => b.def == "storage" && b.job != 1).Sum(b => Lv(Def(cfg, b.def), b.level)?.cap ?? 0);
@@ -628,16 +626,15 @@ namespace PokiClash.Core
             return r <= 0 || c.rings.Count == 0 ? null : c.rings[Math.Min(c.rings.Count - 1, r - 1)];
         }
 
-        // giá dọn: gốc của vòng + bước × số ô đã mở (hoặc đang dọn) trong cùng vòng
-        public static (int wood, int ore, double minutes) ClearCost(HomeState h, HomeConfig c, int lot)
+        // cấp người chơi cần để mở ô rừng (home.lots[].player; 0 = khoảnh đầu hay ô không khai báo)
+        public static int LotPlayer(HomeConfig c, int lot)
         {
-            var r = RingOf(c, lot);
-            if (r == null) return (0, 0, 0);
-            int ring = Ring(c, lot);
-            int done = h.lots.Concat(h.clearing.Keys).Count(l => Ring(c, l) == ring);
-            return (r.wood + r.woodStep * done, r.ore + r.oreStep * done, r.minutes);
+            var (i, j) = LotIJ(c, lot);
+            return c.lots.Find(l => l.i == i && l.j == j)?.player ?? 0;
         }
 
+        // mở ô rừng (người dùng dặn 2026-11-25): miễn phí, mở ngay, không cần thợ hay cấp Nhà; chỉ cần đủ cấp người chơi của ô và kề đất
+        // đã mở. Cấp 100 mở hết.
         public static HomeErr CanClear(SaveData s, GameData d, int lot)
         {
             var c = d.Cfg.home;
@@ -645,16 +642,9 @@ namespace PokiClash.Core
             int n = LotsPerSide(c);
             if (lot < 0 || lot >= n * n) return HomeErr.NotFound;
             if (h.lots.Contains(lot) || h.clearing.ContainsKey(lot)) return HomeErr.Busy;
-            if (LotKind(c, lot) == "hill") return HomeErr.Locked;
+            if (LotKind(c, lot) == "hill" || RingOf(c, lot) == null) return HomeErr.Locked;
             if (!Adjacent(h, c, lot)) return HomeErr.NotAdjacent;
-            var r = RingOf(c, lot);
-            if (r == null) return HomeErr.Locked;
-            if (Level(h) < r.home) return HomeErr.HomeLevel;
-            if (s.level < r.player) return HomeErr.PlayerLevel;
-            if (h.lots.Count + h.clearing.Count >= MaxLots(c, Level(h))) return HomeErr.Count;
-            var (w, o, _) = ClearCost(h, c, lot);
-            if (!Afford(s, w, o, 0)) return HomeErr.Cost;
-            if (Busy(h) >= Builders(h, c)) return HomeErr.Builder;
+            if (s.level < LotPlayer(c, lot)) return HomeErr.PlayerLevel;
             return HomeErr.Ok;
         }
 
@@ -663,11 +653,20 @@ namespace PokiClash.Core
             Tick(s, d, now);
             var e = CanClear(s, d, lot);
             if (e != HomeErr.Ok) return e;
-            var (w, o, min) = ClearCost(s.home, d.Cfg.home, lot);
-            Pay(s, w, o, 0);
-            s.home.clearing[lot] = now + min * M;
-            if (min <= 0) FinishJobs(s, d, now);
+            OpenLot(s, d, lot);
             return HomeErr.Ok;
+        }
+
+        // ô vừa mở: rơi gỗ, bi để thả theo vòng; màn Nhà báo thưởng qua h.cleared
+        static void OpenLot(SaveData s, GameData d, int lot)
+        {
+            var h = s.home;
+            h.clearing.Remove(lot);
+            if (!h.lots.Contains(lot)) h.lots.Add(lot);
+            var ring = RingOf(d.Cfg.home, lot);
+            h.wood = Math.Min(Math.Max(h.wood, WoodCap(h, d.Cfg)), h.wood + (ring?.reward ?? 0));
+            s.balls += ring?.balls ?? 0; // dọn rừng được bi để thả (người dùng dặn 2026-11-18)
+            h.cleared.Add(lot);
         }
 
         // rút thời gian việc của công trình (id) hoặc ô rừng đang dọn (lot) đi speedMin phút, sau khi xem quảng cáo home_speed
@@ -687,18 +686,10 @@ namespace PokiClash.Core
         static void FinishJobs(SaveData s, GameData d, double now)
         {
             var h = s.home;
-            var c = d.Cfg.home;
             foreach (var b in h.buildings)
                 if (b.job != 0 && b.until <= now) Finish(d.Cfg, b);
-            foreach (var lot in h.clearing.Where(kv => kv.Value <= now).Select(kv => kv.Key).ToList())
-            {
-                h.clearing.Remove(lot);
-                h.lots.Add(lot);
-                var ring = RingOf(c, lot);
-                h.wood = Math.Min(Math.Max(h.wood, WoodCap(h, d.Cfg)), h.wood + (ring?.reward ?? 0));
-                s.balls += ring?.balls ?? 0; // dọn rừng được bi để thả (người dùng dặn 2026-11-18)
-                h.cleared.Add(lot);
-            }
+            // dọn rừng không còn thời gian (2026-11-25): ô đang dọn của bản lưu cũ xong luôn
+            foreach (var lot in h.clearing.Keys.ToList()) OpenLot(s, d, lot);
         }
 
         // ---------- năng suất, đồng hồ ----------

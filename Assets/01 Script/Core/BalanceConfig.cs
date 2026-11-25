@@ -329,6 +329,7 @@ namespace PokiClash.Core
         public SoPhepConfig sophep = new SoPhepConfig(); // Sổ Phép (Core/SoPhep.cs, GD_Claude/28_SoPhep.md)
         public HomeConfig home = new HomeConfig(); // Nhà (2026-11-18, HomeConfig.cs)
         public ShopConfig shop = new ShopConfig(); // cửa hàng, ưu đãi (2026-11-23, ShopConfig.cs)
+        public CasinoConfig casino = new CasinoConfig(); // đảo Casino (2026-11-25, CasinoConfig.cs, GD_Claude/29_DaoCasino.md)
 
         public SimTeam SimTeamOf(Elem z) => simTeams.Find(t => t.zone == z);
 
@@ -637,6 +638,7 @@ namespace PokiClash.Core
                 };
             c.home = HomeConfig.Parse(J.Obj(root, "home"), Rolls);
             c.shop = ShopConfig.FromJson(J.Obj(root, "shop"));
+            c.casino = CasinoConfig.Parse(J.Obj(root, "casino"), Rolls);
             return c;
         }
 

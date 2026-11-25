@@ -25,7 +25,7 @@ namespace PokiClash.Game
                 Zones = LocData.All(zones.zones, LocData.Zone),
                 Stages = LocData.All(zones.stages, LocData.Stage),
                 Village = zones.village,
-                Cfg = balance.cfg.Clone(),
+                Cfg = balance.Resolve().Clone(), // ưu tiên bản mã hoá (enc); bản thử chưa re-import thì vẫn là cfg
             }.Index();
             var err = d.Validate();
             foreach (var e in err) Debug.LogError("[Dữ liệu] " + e);

@@ -99,15 +99,23 @@ namespace PokiClash.EditorTools
 
             var undo = ApplySettings(kind);
             List<BuildExclude.Item> excluded = null;
+            SecureBuild.Token secBalance = null;
             BuildReport report = null;
             try
             {
                 excluded = BuildExclude.Plan(opts.scenes);
                 BuildExclude.Apply(excluded);
+                if (kind == Kind.AndroidRelease || kind == Kind.IOS)
+                {
+                    secBalance = SecureBuild.StripBalance();
+                    ArtEncryptStrip.StripForBuild(opts.scenes); // tự no-op nếu chưa bật (menu Bảo mật)
+                }
                 report = BuildPipeline.BuildPlayer(opts);
             }
             finally
             {
+                ArtEncryptStrip.Restore();
+                SecureBuild.Restore(secBalance);
                 BuildExclude.Restore();
                 undo();
                 try { FontBuildRestore.Restore(); }

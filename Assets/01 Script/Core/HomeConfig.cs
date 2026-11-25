@@ -44,19 +44,19 @@ namespace PokiClash.Core
         public string set; // bộ trang trí theo hệ
     }
 
-    // vòng ô rừng tính từ khoảnh đầu (1, 2, 3): khoá cấp Nhà, cấp người chơi, giá (tăng theo số ô đã mở trong vòng), thời gian, gỗ rơi
+    // vòng ô rừng tính từ khoảnh đầu (1, 2, 3): thưởng khi mở ô (mở ô miễn phí, chỉ khoá theo cấp người chơi của từng ô: HomeLotDef.player)
     [Serializable]
     public class HomeRing
     {
-        public int home, player, wood, woodStep, ore, oreStep, reward, balls; // reward: gỗ; balls: bi để thả máy bi khi dọn xong
-        public double minutes;
+        public int reward, balls; // reward: gỗ; balls: bi để thả máy bi khi dọn xong
     }
 
-    // ô rừng có kiểu riêng (mặc định "forest"; "hill": cao nguyên, không mở)
+    // ô rừng có kiểu riêng (mặc định "forest"; "hill": cao nguyên, không mở). player: cấp người chơi cần để mở ô (người dùng dặn
+    // 2026-11-25: mở ô miễn phí, mỗi ô một mốc cấp, cấp 100 mở hết)
     [Serializable]
     public class HomeLotDef
     {
-        public int i, j;
+        public int i, j, player;
         public string kind;
     }
 
@@ -97,7 +97,6 @@ namespace PokiClash.Core
     {
         public int grid = 72, lot = 12; // đảo 72 x 72 ô, 6 x 6 ô rừng 12 x 12 (người dùng dặn 2026-11-19: đảo to ra cho quái đi khắp nơi)
         public List<HomeLotDef> startLots = new List<HomeLotDef>();
-        public int[] maxLots = new int[0]; // tổng ô rừng đã mở tối đa theo cấp Nhà (kể cả khoảnh đầu)
         public List<HomeRing> rings = new List<HomeRing>();
         public List<HomeLotDef> lots = new List<HomeLotDef>();
         public List<HomeFeature> features = new List<HomeFeature>();
@@ -129,20 +128,15 @@ namespace PokiClash.Core
                 var a = J.Arr(x);
                 if (a.Count >= 2) c.startLots.Add(new HomeLotDef { i = (int)(double)a[0], j = (int)(double)a[1], kind = "start" });
             }
-            c.maxLots = Ints(J.Arr(o, "maxLots"));
             foreach (var x in J.Arr(o, "rings"))
             {
                 var r = J.Obj(x);
-                c.rings.Add(new HomeRing
-                {
-                    home = J.Int(r, "home"), player = J.Int(r, "player"), wood = J.Int(r, "wood"), woodStep = J.Int(r, "woodStep"),
-                    ore = J.Int(r, "ore"), oreStep = J.Int(r, "oreStep"), minutes = J.Num(r, "minutes"), reward = J.Int(r, "reward"), balls = J.Int(r, "balls"),
-                });
+                c.rings.Add(new HomeRing { reward = J.Int(r, "reward"), balls = J.Int(r, "balls") });
             }
             foreach (var x in J.Arr(o, "lots"))
             {
                 var l = J.Obj(x);
-                c.lots.Add(new HomeLotDef { i = J.Int(l, "i"), j = J.Int(l, "j"), kind = J.Str(l, "kind", "forest") });
+                c.lots.Add(new HomeLotDef { i = J.Int(l, "i"), j = J.Int(l, "j"), kind = J.Str(l, "kind", "forest"), player = J.Int(l, "player") });
             }
             foreach (var x in J.Arr(o, "features"))
             {
@@ -226,8 +220,8 @@ namespace PokiClash.Core
             int n = grid / Math.Max(1, lot);
             if (grid % lot != 0) err.Add($"Nhà: lưới {grid} không chia hết ô rừng {lot}");
             if (levels.Count == 0) err.Add("Nhà: thiếu cấp Nhà chính");
-            if (maxLots.Length < levels.Count) err.Add("Nhà: maxLots thiếu cấp");
             if (rings.Count < 3) err.Add("Nhà: thiếu vòng ô rừng");
+            err.AddRange(ValidateLots(n));
             if (Def("main") == null) err.Add("Nhà: thiếu công trình main");
             if (Def("tree") == null) err.Add("Nhà: thiếu công trình tree (Cây bi)");
             if (beautyGifts.Count < beautyTiers.Length) err.Add("Nhà: thiếu quà mốc điểm đẹp");
@@ -271,6 +265,45 @@ namespace PokiClash.Core
             }
             return err.Distinct().ToList();
         }
+
+        // ô rừng mở được (ngoài khoảnh đầu và cao nguyên) phải có mốc cấp; tới đúng mốc của nó phải mở được, tức có đường kề cạnh về
+        // khoảnh đầu đi qua các ô mốc không cao hơn (luật chỉ mở ô kề đất đã mở)
+        List<string> ValidateLots(int n)
+        {
+            var err = new List<string>();
+            var open = new HashSet<(int, int)>(startLots.Select(l => (l.i, l.j)));
+            var need = new Dictionary<(int, int), int>();
+            foreach (var g in lots.GroupBy(l => (l.i, l.j)).Where(g => g.Count() > 1)) err.Add($"Nhà: ô rừng ({g.Key.Item1},{g.Key.Item2}) khai báo trùng");
+            for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++)
+            {
+                if (open.Contains((i, j))) continue;
+                var l = lots.Find(x => x.i == i && x.j == j);
+                if (l?.kind == "hill") continue;
+                if (l == null || l.player < 1) err.Add($"Nhà: ô rừng ({i},{j}) thiếu mốc cấp người chơi");
+                else need[(i, j)] = l.player;
+            }
+            foreach (var v in need.Values.Distinct().OrderBy(v => v))
+            {
+                bool grew = true;
+                while (grew)
+                {
+                    grew = false;
+                    foreach (var kv in need)
+                        if (kv.Value <= v && !open.Contains(kv.Key) && Near(open, kv.Key))
+                        {
+                            open.Add(kv.Key);
+                            grew = true;
+                        }
+                }
+                foreach (var kv in need)
+                    if (kv.Value == v && !open.Contains(kv.Key)) err.Add($"Nhà: ô rừng ({kv.Key.Item1},{kv.Key.Item2}) mốc cấp {v} chưa kề đất mở được");
+            }
+            return err;
+        }
+
+        static bool Near(HashSet<(int, int)> open, (int i, int j) p) =>
+            open.Contains((p.i + 1, p.j)) || open.Contains((p.i - 1, p.j)) || open.Contains((p.i, p.j + 1)) || open.Contains((p.i, p.j - 1));
 
         static int[] Ints(List<object> l) => l.Select(x => x is double d ? (int)d : 0).ToArray();
     }

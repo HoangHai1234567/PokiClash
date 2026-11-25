@@ -1,6 +1,7 @@
 // Khung hình tướng: tỉ lệ 4:5, chân ở 6% đáy (chân dung aola dựng theo khung này, tools/portrait_png.py). Hình giữ chỗ vẽ tay
 // theo hệ đã bỏ (2026-11-02): không có hình aola thì ô tướng để trống.
 using PokiClash.Core;
+using PokiClash.Game;
 using PokiClash.UI;
 using UnityEngine;
 using UnityEngine.UI;
@@ -41,7 +42,7 @@ namespace PokiClash
         public static Sprite Face(HeroDef h, int star = 0)
         {
             var aola = FormOf(h, star).aola;
-            return string.IsNullOrEmpty(aola) ? null : Resources.Load<Sprite>("HeroFaces/mat_" + aola);
+            return string.IsNullOrEmpty(aola) ? null : PokiArt.LoadSprite("HeroFaces/mat_" + aola);
         }
 
         // Chân dung thay mặt trong ô cỡ box (prefab kit ChanDung, con của ô, gốc ở giữa ô): phóng sao cho phần trên của hình (đầu, ~62%

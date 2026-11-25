@@ -1848,14 +1848,13 @@ namespace PokiClash
             HideSel();
         }
 
-        // ô rừng chạm vào có hiện bảng không (người dùng 2026-11-20: "click vào mấy ô rừng chưa mở được thì đừng hiện gì"): đang dọn, dọn
-        // được, hoặc chỉ thiếu gỗ / quặng / thợ rảnh thì hiện; còn khoá (chưa liền đất đã mở, thiếu cấp Nhà, cấp người chơi, quá số ô) thì
-        // không hiện gì, chạm như đất trống
+        // ô rừng chạm vào có hiện bảng không (người dùng 2026-11-20: "click vào mấy ô rừng chưa mở được thì đừng hiện gì"): đang dọn hoặc
+        // mở được thì hiện; còn khoá (chưa liền đất đã mở, chưa đủ cấp người chơi) thì không hiện gì, chạm như đất trống. Mở ô miễn phí
+        // (2026-11-25) nên không còn trường hợp thiếu gỗ, thợ.
         bool LotTappable(int lot)
         {
             if (S.home.clearing.ContainsKey(lot)) return true;
-            var e = Home.CanClear(S, D, lot);
-            return e == HomeErr.Ok || e == HomeErr.Cost || e == HomeErr.Builder;
+            return Home.CanClear(S, D, lot) == HomeErr.Ok;
         }
 
         // vật đang chọn → vòng nút quanh nó (Critters): nhãn tên + một dòng trạng thái dưới chân, nút tròn icon trên đầu; chữ dài (sản lượng
@@ -1877,14 +1876,13 @@ namespace PokiClash
                     return;
                 }
                 var e = Home.CanClear(s, d, selLot);
-                var (w, o, min) = Home.ClearCost(h, C, selLot);
                 var ring = Home.RingOf(C, selLot);
-                string need = ring == null ? "" : Loc.F("Cần Nhà cấp {0}{1}. ", ring.home, (ring.player > 0 ? Loc.F(", cấp {0}", ring.player) : ""));
-                string detail = Loc.F("{0}Giá {1} gỗ{2}, {3}. Dọn xong rơi {4} gỗ.", need, w, (o > 0 ? Loc.F(", {0} quặng", o) : ""), Clock(min), ring?.reward ?? 0) +
+                int reward = ring?.reward ?? 0, balls = ring?.balls ?? 0;
+                string detail = Loc.F("Mở từ cấp {0}. Miễn phí, mở ngay. Mở xong rơi {1} gỗ, {2} bi để thả.", Home.LotPlayer(C, selLot), reward, balls) +
                                 (e == HomeErr.Ok ? "" : $"\n{ErrText(e)}.");
                 int lot = selLot;
-                ShowSel(mk, Loc.T("Ô rừng"), e == HomeErr.Ok ? Loc.F("Dọn mất {0} · rơi {1} gỗ", Clock(min), ring?.reward ?? 0) : ErrText(e), detail,
-                    new RingItem(Icon("hammer"), Loc.T("Dọn"), BtnColor.Green, () => ClearLot(lot), Cost(w, o), e == HomeErr.Ok,
+                ShowSel(mk, Loc.T("Ô rừng"), e == HomeErr.Ok ? Loc.F("Mở miễn phí · rơi {0} gỗ", reward) : ErrText(e), detail,
+                    new RingItem(Icon("hammer"), Loc.T("Dọn"), BtnColor.Green, () => ClearLot(lot), Loc.T("Miễn phí"), e == HomeErr.Ok,
                         () => App.Toasts.Show(ErrText(e), Icon("lock"))));
                 return;
             }

@@ -52,6 +52,7 @@ namespace PokiClash.EditorTools
                 || assetPath.Contains("/Pachinko/pk_nen_phong") // nền phòng màn máy bi bản 2 (1024 x 1536, phủ cả màn)
                 || assetPath.Contains("/Boot/boot_ban_do") // tấm bản đồ màn mở game 1080 x 1500, gần như phủ ngang màn
                 || assetPath.Contains("/Home/home_base") // nền đảo Nhà (GD_Claude/21)
+                || assetPath.Contains("/Casino/casino_dao") // nền đảo Casino trống (GD_Claude/29, C8): 2048 x 1360, hiện 1:1
                 || assetPath.Contains("/Kit/may_chuyen_"); // mây chuyển scene (ArtGen/UI/may_chuyen_scene, 2026-11-24): mỗi nửa phủ gần cả màn
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320
