@@ -1,0 +1,17 @@
+{
+  "format": 1,
+  "name": "lao_muc",
+  "fps": 30,
+  "ppu": 100,
+  "bones": [
+    {"name": "root", "parent": null, "x": 0, "y": 0, "rot": 0, "sx": 1, "sy": 1, "len": 0, "inherit": "normal"}
+  ],
+  "slots": [],
+  "skins": [
+    {"name": "default", "atts": []}
+  ],
+  "images": [],
+  "ik": [],
+  "events": [],
+  "anims": []
+}
