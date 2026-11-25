@@ -602,3 +602,43 @@ Người dùng chọn hướng B, rồi dặn "gen đảo trống rồi gen riê
   sang trái), số hạng khi về đích; vạch xuất phát, vạch đích ca rô; dòng tường thuật dưới sân; trước khi đua hiện 4 làn mẫu (đối thủ là bóng sẫm).
   Kết quả có bảng xếp hạng cả đoàn (húc trúng, bị choáng). Rời màn giữa cuộc đua đã trả lệ phí thì chạy nốt và tính thưởng.
 - Lượt chụp chụp thêm chuỗi khung ngay sau cú húc đầu (`2b_danh_0..3`).
+
+## Việc còn lại (cập nhật 2026-11-25 tối)
+
+Đã chạy được: đảo (hình lớp, công trình rời, bến tàu, mây, ngày đêm, biển nối liền sảnh), chuyến tàu sảnh ↔ đảo, Bến câu, Hầm đấu, Trường đua
+3–5 tướng; lõi + test của mọi trò (gồm Blackjack, Roulette, Slot, Chợ đen, Quán trọ).
+
+**C5 Trường đua** (chờ người dùng xem bản 3–5 tướng)
+- [ ] Người dùng duyệt luật và nhịp (độ dày đánh nhau, tỉ lệ về nhất, độ dài ~22 giây).
+- [ ] Âm thanh riêng cho húc trúng / vấp / né (đang dùng tiếng có sẵn `stamp`, `buff`).
+
+**C6 Chợ đen + Quán trọ** (lõi `BlackMarket.cs`, `Casino.InnToday / Track / ClaimQuest / ClaimInnAll` đã có)
+- [ ] Chợ đen thành scene riêng: kệ hàng của lái buôn đổi theo giờ, giá bằng bi / mảnh, đồng hồ đổi hàng, hết hàng, mua xong cập nhật kệ. Hiện
+      chạm Chợ đen chỉ báo "Trò này đang được dựng".
+- [ ] Quán trọ: bảng nhiệm vụ ngày (tiến độ từng việc, nhận từng việc, quà nhận hết). Hiện chỉ có hộp chữ tạm và nhận hết bằng một chạm.
+- [ ] Bản dịch, lượt chụp (cờ `Temp/casino_*_tour.flag`), test.
+
+**C7 Lều lữ khách: Blackjack, Roulette, Slot** (lõi + test hoàn trả xong; mỗi trò một scene; chỉ mở theo lịch sự kiện)
+- [ ] Blackjack: bàn, chia bài, Rút / Dằn / Gấp đôi / Tách, gợi ý chiến thuật, đặt cược theo bậc, Hũ bàn.
+- [ ] Roulette (Vòng Xoay Ngũ Hành): bàn đặt chip, vòng quay 26 ô, bảng trả.
+- [ ] Slot (Hội Máy Quả): 3×3, 5 đường, cuộn quay dừng lần lượt, ô thắng sáng.
+- [ ] Bảng lịch lữ khách đầy đủ, chặn popup bán bi khi đang ở bàn, cờ tắt theo nước.
+- [ ] Còn chờ chốt câu 1 (tuổi store, mục 8) trước khi phát hành ba bàn này.
+
+**C8 Hình thật còn thiếu**
+- [ ] Đèn đêm cho công trình (mặt nạ tự sáng như màn Nhà).
+- [ ] Đảo trên bản đồ sảnh (hình đảo nhỏ + mây), chạm đảo đi tàu như nút giữa thanh dưới.
+- [ ] Cảnh lùi camera từ mặt máy bi ra Tháp Máy Bi (nút "Ra đảo" trong máy).
+- [ ] Nền thật cho Bến câu (đang cắt tạm từ concept), Hầm đấu, Trường đua (đường đua theo hệ, bụi / lửa / nước khi chạy).
+- [ ] Icon 30 loài cá (đang là chấm màu hệ), cần câu, mồi.
+- [ ] Chủ quán từng trò (NPC, mục 2), lều sự kiện có người.
+- [ ] Clip chạy riêng cho tướng ở Trường đua (để sau, hiện là chân dung nhảy cóc).
+
+**C9 Cân bằng, máy thật**
+- [ ] Đo tổng bi vào / ra mỗi ngày của cả đảo bằng `ProgressSim` (mục 7), chỉnh trần lượt và lệ phí.
+- [ ] Thử máy Android: chữ đọc được, nhịp, hiệu năng màn đảo (ảnh 2048, mây, ngày đêm), dung lượng (gói tải sau, `27`).
+- [ ] Khai tuổi store theo mục 8 nếu giữ bàn may rủi.
+
+**Khác**
+- [ ] `PrefabOnlyTests.MaRuntime_KhongSinhDoVat` đang đỏ do file của phần khác (DraftDeck, HeroUnlockView, CardBend, UiMotion, NumberTicker,
+      HomeScene), không phải đảo Casino.
