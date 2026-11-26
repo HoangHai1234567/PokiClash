@@ -54,7 +54,14 @@ namespace PokiClash
         {
             goTo = go;
             Render();
+            // lần đầu: Lão Mực giới thiệu bảng việc, khoanh hàng việc (lớp phủ hiện trên hộp nhờ chỗ khoanh nằm trong hộp)
+            Guide.Mark(BoardKey, Board);
+            CasinoGuide.Inn(BoardKey);
         }
+
+        const string BoardKey = "casino_inn_board";
+
+        Component Board => rows != null && rows.Length > 0 && rows[0].root ? rows[0].root.transform.parent : null;
 
         void Update()
         {
@@ -175,6 +182,7 @@ namespace PokiClash
             Haptics.Play(Haptic.UiTap);
             App.Toasts.Show(CasinoUi.Rewards(r), Icon("star"));
             Render();
+            CasinoGuide.InnClaimed(BoardKey, false);
             int i = Casino.InnToday(S, D, Now).FindIndex(q => q.id == id);
             if (i >= 0 && i < rows.Length) StartCoroutine(ChestBox.Pop((RectTransform)rows[i].root.transform, 1.05f));
         }
@@ -188,6 +196,7 @@ namespace PokiClash
             Haptics.Play(Haptic.Win);
             App.Toasts.Show(Loc.T("Quà xong cả ngày: ") + CasinoUi.Rewards(r), Icon("star"));
             Render();
+            CasinoGuide.InnClaimed(BoardKey, true);
             StartCoroutine(ChestBox.Pop((RectTransform)allCard.transform, 1.06f));
         }
     }

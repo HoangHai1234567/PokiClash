@@ -54,6 +54,7 @@ namespace PokiClash.EditorTools
         static readonly Vector2[] SouthPx = { new Vector2(650, 1540), new Vector2(610, 2000) };
         const float ShipScale = 0.9f, ShipSpeed = 520;
         const string GlowItemPath = "Assets/04 Prefabs/Items/HinhDong.prefab";
+        const string EmitMatPath = "Assets/03 Art/Home/home_emit.mat"; // vật liệu tự sáng của đèn đêm Nhà (PokiClash/UIIslandEmit)
 
         // cọc bãi và lều theo thứ tự CasinoScene.Booths
         static readonly string[] Pads = { "bai_tren", "bai_phai", "bai_trai" };
@@ -381,6 +382,30 @@ namespace PokiClash.EditorTools
                 }
                 if (!mul || !raysMat) Debug.LogWarning("[Đảo Casino] Chưa có day_multiply.mat / day_rays.mat: đảo chưa nhuộm theo giờ.");
 
+                // đèn đêm công trình (C8, 2026-11-27): ảnh tự sáng casino_e_<mã> (đèn lồng, đuốc, kính tháp; ArtGen/Casino/night/casino_emit.py)
+                // ở lớp "tu_sang" ngay trên lớp nhuộm, cùng khung với công trình; shader PokiClash/UIIslandEmit của đèn đêm Nhà tự sáng theo
+                // giờ (_PokiNight). CasinoNightGlow bám công trình mỗi khung (bật / tắt lều sự kiện, nhún)
+                var glowLayer = HomeSceneMenu.Fill(HomeSceneMenu.Node(frame, "tu_sang"));
+                var emitMat = AssetDatabase.LoadAssetAtPath<Material>(EmitMatPath);
+                var glowSrc = new List<Image>();
+                var glowDst = new List<Image>();
+                if (emitMat)
+                    foreach (var kv in art.rects)
+                    {
+                        var esp = AssetDatabase.LoadAssetAtPath<Sprite>(ArtDir + "casino_e_" + kv.Key + ".png");
+                        if (!esp || !images.TryGetValue(kv.Key, out var bimg)) continue;
+                        var gi = HomeSceneMenu.Img(glowLayer, "sang_" + kv.Key, esp, Color.white);
+                        Anchor(gi.rectTransform, art, kv.Value);
+                        gi.rectTransform.pivot = bimg.rectTransform.pivot;
+                        gi.material = emitMat;
+                        gi.raycastTarget = false;
+                        gi.gameObject.SetActive(bimg.gameObject.activeSelf);
+                        glowSrc.Add(bimg);
+                        glowDst.Add(gi);
+                    }
+                else Debug.LogWarning("[Đảo Casino] Chưa có " + EmitMatPath + " (dựng màn Nhà trước): công trình chưa sáng đèn ban đêm.");
+                glowLayer.gameObject.AddComponent<CasinoNightGlow>().Setup(glowSrc.ToArray(), glowDst.ToArray());
+
                 // điểm chạm: khung = ảnh công trình (bãi lều: gộp khung cọc và khung lều)
                 var layer = HomeSceneMenu.Fill(HomeSceneMenu.Node(frame, "diem"));
                 layer.SetAsLastSibling();
@@ -559,6 +584,7 @@ namespace PokiClash.EditorTools
                 }
                 App.Modals.CloseAll();
                 Casino.Of(s).intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 Object.FindAnyObjectByType<CasinoScene>()?.Refresh();
                 yield return new WaitForSecondsRealtime(0.6f);
                 yield return Shot("2_dao_giua");
@@ -620,6 +646,7 @@ namespace PokiClash.EditorTools
                 var s = App.Save.Data;
                 s.level = Mathf.Max(s.level, 40);
                 Casino.Of(s).intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 if (App.Router.Current != SceneIds.Hub)
                 {
                     App.Router.Go(SceneIds.Hub);

@@ -26,6 +26,7 @@ namespace PokiClash.EditorTools
         const string ScenePath = "Assets/00 Scenes/CasinoMarket.unity";
         const string TilePath = "Assets/04 Prefabs/Items/OThuong.prefab";
         const string MarketArt = "Assets/03 Art/Casino/casino_ct_cho.png";
+        const string BgArt = "Assets/03 Art/Casino/Cho/cho_nen.jpg";
         const int Cols = 3, Slots = 8;
         const float ShelfW = 1040, Gap = 14, SlotH = 340, TopH = 170;
         static float SlotW => (ShelfW - Gap * (Cols - 1)) / Cols;
@@ -86,6 +87,19 @@ namespace PokiClash.EditorTools
                 if (!nen || !safe) { Debug.LogError("[Đảo Casino] Screens/CasinoMarket thiếu Canvas/Nen hoặc Canvas/An toan/Khung."); return; }
                 foreach (Transform c in nen) c.gameObject.SetActive(c.name == "nen_hai_ben");
                 if (nen.Find("nen_hai_ben")?.GetComponent<Image>() is Image si) { si.sprite = null; si.color = Theme.Hex("#8a6a4f"); }
+                // nền chợ thật (C8, 2026-11-27, ArtGen/Casino/cho_den): phủ kín màn, giữa là vách ván trống sau kệ; thiếu ảnh thì giữ màu gỗ
+                var oldBg = nen.Find("nen_cho");
+                if (oldBg) Object.DestroyImmediate(oldBg.gameObject);
+                var bgSp = AssetDatabase.LoadAssetAtPath<Sprite>(BgArt);
+                if (bgSp)
+                {
+                    var bg = Img(nen, "nen_cho", bgSp, Color.white);
+                    HomeSceneMenu.Fill(bg.rectTransform);
+                    var fit = bg.gameObject.AddComponent<AspectRatioFitter>();
+                    fit.aspectMode = AspectRatioFitter.AspectMode.EnvelopeParent;
+                    fit.aspectRatio = bgSp.rect.width / bgSp.rect.height;
+                }
+                else Debug.LogWarning("[Đảo Casino] Thiếu nền chợ " + BgArt + " (chạy ArtGen/Casino/cho_den/dua_vao_unity.py): giữ nền màu gỗ.");
                 foreach (Transform c in safe.Cast<Transform>().ToList()) if (c != content) Object.DestroyImmediate(c.gameObject);
                 if (content) foreach (Transform c in content.Cast<Transform>().ToList()) Object.DestroyImmediate(c.gameObject);
 
@@ -243,6 +257,7 @@ namespace PokiClash.EditorTools
                 foreach (var h in d.Heroes.Where(h => !h.minion).Take(8)) s.Hero(h.id).owned = true;
                 var st = Casino.Of(s);
                 st.intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 // giỏ có 3 con cá, một thẻ tối đa cấp có bản sao thừa: để tờ thu mua có việc
                 var fish = d.Cfg.casino.fishing.fish.Take(3).ToList();
                 foreach (var f in fish) st.creel.Add(new CaughtFish { id = f.id, size = f.max });

@@ -783,3 +783,40 @@ animation gì đó (ulti hoặc appear rồi idle), nhìn hình hơi vỡ, backg
 - EditMode 182 test: 181 đạt; trượt 1 bài cũ `PrefabOnlyTests` (NumberTicker, UiMotion, HomeScene, không do phần này). Test mới:
   `Trung_NoDungBac_CoLucLenBac`, `Trung_NoTuTui_RaManh`, `Trung_RuongCuDoiThanhTrung`, `RuongBacVang_RoiTrung_VaoTui`.
 
+
+## 14. Hình gói bản 2 và màn nhận quà hôm nay (2026-11-27)
+
+Người dùng dặn: "lên concept gen lại các pack iap cho đẹp, khi nhận quà hằng ngày không để thành cái pop up nữa ... nền đen thôi, phần quà hiện
+ra phải glowing đẹp hơn, nút x2 reward phải hiện trước to hơn, breath to nhỏ, rồi nút nhận thường hiện sau"; hướng hình để Claude tự chọn, học
+cách Clash of Critters vẽ.
+
+### Hình gói bản 2
+
+- Học Critters (atlas Shop, ImpulseGift, GiftBox trong `D:/CrittersRipper`, chỉ xem, không gửi hình họ lên Magnific): vật to khối, viền đậm,
+  ký hiệu đọc ngay (thẻ số 7, thẻ chữ M), thú thò đầu khỏi hộp quà, sticker viền trắng dày, nền sao nổ ô caro, quầng chấm tram.
+- Giữ nét game (bút mực nâu rung, chì sáp, tô phẳng, không bóng đổ, không bóng loáng), thêm: góc nhìn 3/4, vật chiếm ~85% ô, màu đậm (vàng,
+  đỏ, xanh ngọc, tím), viền sticker trắng ~14 px, bậc càng cao càng nhiều vàng, ngọc, lấp lánh 4 cánh phẳng.
+- Gen Magnific GPT 2.6, 1k high, nền trong, 4 tờ 2 × 3 (khoảng 475 credit, thêm 1 tờ bi thử đầu bị bỏ vì chép bố cục tờ cũ). Tờ nguồn và
+  script cắt `ArtGen/Shop/v2/cat_v2.py` (lọc nền mờ GPT, tách hình dính viền bằng watershed, dọn đáy trứng, đo đường nối trứng → `trung2.json`).
+- 24 hình `Assets/03 Art/Shop/v2/`: `goi2_bi_1..6` (lá, túi chấm bi, giỏ, thùng gỗ, rương tím vàng, xe vàng), `trung2_0..4` (trứng 5 bậc,
+  giữ vòm kính + dải nối ngang cho màn nở), `goi2_ve`, `goi2_nhap_mon` (hộp quà có thú thò đầu), `goi2_khoi_hanh_1..3` (ba lô, rương
+  hành lý, khinh khí cầu), `goi2_lo_bi`, `goi2_tuong_tuan`, `goi2_the_tuan` (lịch số 7), `goi2_the_phieu_luu` (sổ bìa tím vương miện, 30),
+  `goi2_quy` (bậc thang túi bi), `goi2_bo_qc` (TV ngủ), `goi2_da_nho`, `goi2_da_lon`. Hình bản đầu giữ nguyên (không ghi đè).
+- Code: `ShopUi.Art / Balls / PackArt / Egg / EggSeam` (PackCell.cs) chọn bản 2 khi danh mục ảnh có, không thì bản đầu; ShopPage dùng hình
+  riêng theo mã gói (ưu đãi Khởi Hành, Lọ Bi, đặc quyền, đá, vé), gói tướng (Vượt Mốc, Tiếp Sức, Gói Tướng Tuần) giữ mặt tướng. Trứng trên
+  bản đồ đảo (`ZoneSceneEggs`) vẫn dùng `trung_*` bản đầu.
+
+### Màn nhận quà hôm nay (DailyGiftView)
+
+- Prefab `Items/QuaNgay` (UiKit.dailyGift, menu `Cửa hàng: dựng hết` hoặc `Cửa hàng: chỉ màn quà ngày (QuaNgay)`), canvas riêng như màn
+  nở trứng. Mở từ hàng popup lúc vào game (thay tờ popup "claims"; chưa có prefab thì tờ cũ) và từ nút "Mở quà" trên thẻ Quà hôm nay.
+- Nhịp: nền đen hẳn (alpha 1; 0,93 / 0,98 vẫn thấy sảnh vì hoà Linear) · chữ "Quà hôm nay" rơi, nảy · loé trắng, vệt loé ngang, vòng toả, quầng vàng mềm bung rồi thở, hai lớp tia quay ngược
+  (ảnh sáng mềm `pk_g_*` cộng sáng như màn mở rương máy bi; ngoại lệ luật không quầng vì người dùng muốn glow ở màn này) · quà bật ra (kéo
+  dọc rồi ép, nảy), dập dềnh, sao vẽ tay bắn ra rồi lấp lánh quanh · số "+N", tên món · ~1,1 s nút **Nhận ×2** (to, cam, TV, quầng sau
+  nút) bật ra rồi thở 1,0 ↔ 1,1 mỗi 1,1 s · ~1,6 s sau nút **Nhận thường** (nhỏ, giấy) mờ hiện dưới.
+- Không có quảng cáo / hết lượt: không có ×2, nút Nhận xanh to hiện ngay. Quảng cáo hỏng: giữ màn, bấm lại được.
+- Bấm ×2 xem xong: dấu ×2 đập xuống, loé, số đếm lên gấp đôi; rồi quà bay lên chip bi góc trái trên, ánh sáng tắt, nền sáng lại; tướng mới mở khoá
+  (nếu có mảnh) thì màn mở khoá sau.
+- Quà Thẻ Tuần / Thẻ Phiêu Lưu / gói nhận theo ngày đang chờ được nhận cùng lúc (hàng nhỏ "Kèm quà thẻ"); ×2 chỉ nhân quà hôm nay.
+- Xem thử: menu `PokiClash/Thử/Cửa hàng/màn quà hôm nay: chụp (đang Play)` (17 ảnh `Temp/PokiShots/qua_ngay/`: có quảng cáo, bấm ×2,
+  không quảng cáo; sao lưu và trả bản lưu). Người dùng duyệt 2026-11-27, đã thay vào game.

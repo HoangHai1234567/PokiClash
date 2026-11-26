@@ -141,11 +141,14 @@ namespace PokiClash
             ClearTable();
             Draw();
             var mode = Mode;
+            if (Guiding) return; // lần đầu: Lão Mực đang dẫn (CasinoGuide), không chào riêng
             if (dealerRig) dealerRig.Play("greet");
             Say(mode == TableMode.Free ? Loc.T("Ván đầu ta khao, thua không mất gì.")
                 : mode == TableMode.Practice ? Loc.T("Hôm nay hết ván có thưởng rồi, chơi tập cho vui nhé.")
                 : Loc.T("Chào khách! Chọn mức cược rồi bấm Chia bài."), 3f);
         }
+
+        protected override DealerRig StageDealer => dealerRig;
 
         void OnDestroy()
         {
@@ -380,7 +383,11 @@ namespace PokiClash
             if (shownDealer == game.dealer.Count && holeOpen && Blackjack.Total(game.dealer, out _) > 21)
             {
                 Say(Loc.T("Hừ... quá 21."), 1.6f);
-                if (dealerRig && dealerRig.Has("bust_self")) yield return Clip("bust_self");
+                if (dealerRig && dealerRig.Has("bust_self"))
+                {
+                    App.Audio.Play("mucBoing");
+                    yield return Clip("bust_self");
+                }
             }
         }
 
@@ -782,6 +789,7 @@ namespace PokiClash
         {
             if (!bubble) return;
             if (bubbleCo != null) StopCoroutine(bubbleCo);
+            CasinoGuide.Mumble(); // Lão Mực lầm bầm
             bubbleCo = StartCoroutine(SayCo(text, secs));
         }
 

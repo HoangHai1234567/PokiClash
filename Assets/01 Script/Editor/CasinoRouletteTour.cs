@@ -71,6 +71,7 @@ namespace PokiClash.EditorTools
                 s.balls = Mathf.Max(s.balls, 20000);
                 var st = Casino.Of(s);
                 st.intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 Casino.MarkSeen(s, "howto:" + Casino.Roulette);
                 string today = DateTime.Now.ToString("yyyy-MM-dd");
                 added = new CasinoEvent { id = "tour_rl_dealer", name = "Vòng Xoay Ngũ Hành", booth = Casino.Roulette, start = today, end = today };

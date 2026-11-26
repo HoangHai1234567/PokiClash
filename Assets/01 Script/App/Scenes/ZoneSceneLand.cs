@@ -13,8 +13,11 @@
 //   tướng không play animation", rồi "kết hợp cả A và B, mây tan ra, có bút chì vào tô màu section mới"; phủ đen bị chê):
 //   vùng chưa mở vẽ phác chì chưa tô (landSketch: con đầu của ảnh bản đồ, shader PokiClash/UILandSketch đọc biến toàn cục
 //   _PokiLandOpened), hiệu ứng và đèn trong vùng tắt, cờ nét chưa tô, tướng xám đứng yên, mây vẽ tay (land.secs[k].clouds) phủ trên
-//   cùng; chạm vào báo phải hạ boss nào. Vừa mở vùng (thắng boss quay về): mây tản ra rồi tan, bút chì bay vào ngoáy dọc đường, màu loang
-//   theo nét bút (_PokiLandReveal), tô nốt, tướng boss diễn ra sân, cờ mọc lên lần lượt. Vùng đã mở mà chưa diễn (LandShown, lưu
+//   cùng; chạm vào báo phải hạ boss nào. Vừa mở vùng (thắng boss quay về): mây tản ra rồi tan, nhiều bút chì màu tô vùng như màn mở
+//   khoá tướng (người dùng 2026-11-27; HeroUnlockView bước 4): đọc màu vùng trên ảnh đảo, chia tối đa 4 nhóm màu (Core/CrayonPlan),
+//   mỗi bút thân nhuộm màu nhóm bay vào lệch nhịp, gạch zích zắc phần đất của nhóm mình trong vùng (ảnh phủ crayonCover, shader chỉ tô
+//   điểm ảnh cùng nhóm), tô kín nốt, tướng boss diễn ra sân, cờ mọc lên lần lượt. Máy không đọc được ảnh từ GPU: một bút chì ngoáy dọc
+//   đường, màu loang theo nét bút (_PokiLandReveal) như cũ. Vùng đã mở mà chưa diễn (LandShown, lưu
 //   trong bản lưu) thì vào đảo là diễn, kể cả vùng 0 lần đầu vào đảo; trong lúc diễn khoá mọi thao tác (CloudCover.Block), người chơi
 //   phải xem hết (người dùng 2026-11-18). Chốt này thay "ải chưa mở vẫn đủ màu" (2026-11-13) ở đảo vùng đất.
 // - Sóng đập bờ: material landWater (shader PokiClash/UIInkWater, ảnh khoảng cách tới bờ) đặt lên ảnh nền.
@@ -51,6 +54,12 @@ namespace PokiClash
         [SerializeField] Image landSketch;
         [Tooltip("Bút chì bay vào tô màu vùng boss vừa mở (Assets/03 Art/Islands/Co/but_chi.png)")]
         [SerializeField] Sprite pencilArt;
+        [Tooltip("Bút chì màu tô vùng boss vừa mở như màn mở khoá tướng (Items/ButMau: thân xám nhuộm màu nhóm, con là vỏ, gốc ở ngòi); " +
+                 "menu PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Bút chì màu tô vùng boss")]
+        [SerializeField] Image crayonPrefab;
+        [Tooltip("Ảnh phủ bút chì màu (Islands/Co/phu_but_mau.asset, RGBA32 đọc ghi được, không sRGB): mỗi kênh là chỗ bút của một nhóm " +
+                 "màu đã gạch qua; lúc chạy đổi cỡ theo vùng")]
+        [SerializeField] Texture2D crayonCover;
         // canvas con cùng khung toạ độ với lớp nút (anh em ngay sau nó): mây phủ tĩnh tách riêng cho canvas chính (cờ bay, hiệu ứng chạy
         // mỗi khung) khỏi gộp lại hàng trăm đám mây mỗi khung; lớp trên mây cho easter egg, bút chì, boss ló đầu (đo hiệu năng 2026-11-18)
         [Tooltip("Canvas con chứa mây phủ vùng boss (menu Dựng cờ ải, vùng boss)")]
@@ -95,6 +104,20 @@ namespace PokiClash
         const float FlagGap = 0.14f; // cờ mọc cách nhau (giây)
         static CloudCover inputCover;
         const float RevWait = 0.8f, CloudGone = 1.1f, PenTime = 2.6f, PenFill = 0.6f, PenRadius = 330, PenZig = 210, PencilScale = 1.4f;
+        // bút chì màu (như màn mở khoá tướng): bay vào, gạch (mọi bút xong cùng lúc), cách nhịp giữa hai bút, lớp tô kín cuối (giây); cỡ
+        // so với bút chì; quãng bay vào (điểm ảnh màn hình); cạnh dài lưới đọc màu vùng; lề khung vùng (tỉ lệ vùng đất)
+        const float CrayonIn = 0.25f, CrayonT = 2.1f, CrayonGap = 0.08f, CrayonFill = 0.3f, CrayonScale = 0.85f, CrayonFly = 1300;
+        const int CrayonGrid = 256, MaxCrayons = 6;
+        const float SecMargin = 0.02f;
+        static readonly int CoverId = Shader.PropertyToID("_PokiLandCover"), CoverBoxId = Shader.PropertyToID("_PokiLandCoverBox"),
+            UseCoverId = Shader.PropertyToID("_PokiLandUseCover"), DarkLId = Shader.PropertyToID("_PokiLandDarkL");
+        static readonly int[] GroupIds =
+        {
+            Shader.PropertyToID("_PokiLandC0"), Shader.PropertyToID("_PokiLandC1"), Shader.PropertyToID("_PokiLandC2"),
+            Shader.PropertyToID("_PokiLandC3"),
+        };
+        readonly List<Image> revealPens = new List<Image>(); // bút chì, bút chì màu đang trên bản đồ (dừng giữa chừng thì xoá)
+        bool scribbling; // đang phát tiếng bút chì lặp
         List<Image>[] secClouds;
         int landOpened = 99;
         float cloudHour = -1;
@@ -232,12 +255,7 @@ namespace PokiClash
 
         void ClearLandHeroes()
         {
-            if (reveal != null)
-            {
-                StopCoroutine(reveal);
-                LockInput(false);
-            }
-            reveal = null;
+            StopReveal();
             secClouds = null;
             ClearEggs();
             foreach (var layer in new[] { cloudLayer, overLayer })
@@ -390,12 +408,7 @@ namespace PokiClash
             int opened = secs ? land.OpenSections(prog) : 99;
             int shown = secs ? Mathf.Min(LandShown.Get(s, zone), opened) : opened;
             int revealK = secs && shown < opened ? opened - 1 : -1;
-            if (reveal != null)
-            {
-                StopCoroutine(reveal);
-                LockInput(false);
-            }
-            reveal = null;
+            StopReveal();
             SetLandOpened(revealK >= 0 ? revealK : opened);
             bool Locked(int idx) => secs && land.SectionOf(idx) >= landOpened;
             string LockMsg(int idx)
@@ -682,6 +695,7 @@ namespace PokiClash
             Shader.SetGlobalFloat(RevSecId, -1);
             Shader.SetGlobalFloat(RevNId, 0);
             Shader.SetGlobalFloat(RevFadeId, 0);
+            Shader.SetGlobalFloat(UseCoverId, 0);
             Func<Vector2, bool> hid = null;
             if (land != null && land.secs.Count > 0)
             {
@@ -713,6 +727,17 @@ namespace PokiClash
             // màn mây chuyển cảnh mở xong thì nhả lớp chắn (CloudCover.Open): chờ chuyển cảnh xong rồi mới khoá lại
             while (App.Router != null && App.Router.Busy) yield return null;
             LockInput(true);
+            // đọc màu vùng cho bút chì màu trong lúc camera lướt, mây tan
+            CrayonPlan plan = null;
+            Rect box = default, frac = default;
+            bool planned = false;
+            StartCoroutine(PlanSection(k, (pl, b, fr) =>
+            {
+                plan = pl;
+                box = b;
+                frac = fr;
+                planned = true;
+            }));
             yield return new WaitForSecondsRealtime(RevWait);
             var sec = land.secs[k];
             var center = new Vector2((float)(sec.x0 + sec.x1) * 0.5f * mapW, -(float)(sec.y0 + sec.y1) * 0.5f * mapH);
@@ -757,6 +782,226 @@ namespace PokiClash
                     if (h.sticker != null) h.sticker.Rect.gameObject.SetActive(true);
                     if (h.node) h.node.ShowPlate(true);
                 }
+            for (float w = 0; !planned && w < 2; w += Time.unscaledDeltaTime) yield return null;
+            if (plan != null) yield return CrayonSection(k, plan, box, frac);
+            else yield return PencilSection(k, lay);
+            SetLandOpened(k + 1);
+            // tướng boss của vùng diễn ra sân, cờ mọc lên lần lượt theo đường
+            foreach (var h in landHeroes)
+                if (h.locked && land.SectionOf(h.st.idx) == k)
+                {
+                    h.locked = false;
+                    h.next = landClock + Random.Range(3f, AtkMax);
+                    if (h.sticker != null && h.sticker.HasClip(Appear))
+                    {
+                        h.clip = Appear;
+                        h.t = 0;
+                    }
+                }
+            var flags = landFlags.Where(f => f && land.SectionOf(f.Idx) == k).OrderBy(f => f.Idx).ToList();
+            for (int i = 0; i < flags.Count; i++) flags[i].PopIn(0.25f + i * FlagGap);
+            yield return new WaitForSecondsRealtime(0.25f + flags.Count * FlagGap + LandFlag.PopTime);
+            if (App.Save?.Data != null) LandShown.Set(App.Save.Data, zone, k + 1);
+            LockInput(false);
+            reveal = null;
+        }
+
+        // dừng cảnh mở vùng đang diễn (rời màn, dựng lại màn): nhả khoá chạm, tắt tiếng bút chì, xoá bút còn trên bản đồ
+        void StopReveal()
+        {
+            if (reveal != null)
+            {
+                StopCoroutine(reveal);
+                LockInput(false);
+            }
+            reveal = null;
+            Scribble(false);
+            foreach (var pen in revealPens)
+                if (pen) Destroy(pen.gameObject);
+            revealPens.Clear();
+        }
+
+        // tiếng bút chì lặp (khoá "pencil", như màn mở khoá tướng); tắt thì nhỏ dần rồi dừng
+        void Scribble(bool on)
+        {
+            if (on == scribbling || App.Audio == null) return;
+            scribbling = on;
+            App.Audio.Loop("pencil", on ? 1 : 0);
+        }
+
+        // Đọc màu vùng k trên ảnh đảo (lưới cạnh dài CrayonGrid, hàng dưới trước, byte theo gamma) và trường vùng cùng khung, chỉ giữ đất
+        // của vùng k rồi lập kế hoạch bút chì màu (Core/CrayonPlan, như màn mở khoá tướng). got(kế hoạch, khung theo uv ảnh đảo (như
+        // shader phác chì đọc), khung theo tỉ lệ vùng đất (y từ trên)). Thiếu prefab, ảnh phủ, máy không đọc được ảnh từ GPU: kế hoạch null.
+        IEnumerator PlanSection(int k, Action<CrayonPlan, Rect, Rect> got)
+        {
+            CrayonPlan plan = null;
+            var sec = land.secs[k];
+            var frac = Rect.MinMaxRect(Mathf.Clamp01((float)sec.x0 - SecMargin), Mathf.Clamp01((float)sec.y0 - SecMargin),
+                Mathf.Clamp01((float)sec.x1 + SecMargin), Mathf.Clamp01((float)sec.y1 + SecMargin));
+            var box = default(Rect);
+            var sp = landSketch && landSketch.gameObject.activeSelf ? landSketch.sprite : null;
+            var field = sp && landSketch.material && landSketch.material.HasProperty("_SecTex") ? landSketch.material.GetTexture("_SecTex") : null;
+            if (sp && field && crayonPrefab && crayonCover && crayonCover.isReadable && SystemInfo.supportsAsyncGPUReadback
+                && frac.width > 0 && frac.height > 0)
+            {
+                var tex = sp.texture;
+                var tr = sp.textureRect;
+                var su = new Rect(tr.x / tex.width, tr.y / tex.height, tr.width / tex.width, tr.height / tex.height);
+                box = new Rect(su.x + frac.xMin * su.width, su.y + (1 - frac.yMax) * su.height, frac.width * su.width, frac.height * su.height);
+                float bw = frac.width * mapW, bh = frac.height * mapH;
+                int w = bw >= bh ? CrayonGrid : Mathf.Max(16, Mathf.RoundToInt(CrayonGrid * bw / bh));
+                int h = bh >= bw ? CrayonGrid : Mathf.Max(16, Mathf.RoundToInt(CrayonGrid * bh / bw));
+                byte[] col = null, fld = null;
+                yield return HeroUnlockView.ReadAlpha(tex, box, w, h, r => col = r);
+                yield return HeroUnlockView.ReadAlpha(field, box, w, h, r => fld = r, true);
+                if (col != null && fld != null)
+                {
+                    // trường vùng: R = vùng × 25 (làm mềm, lấy vùng gần nhất), G = đất
+                    for (int i = 0; i < w * h; i++)
+                        col[i * 4 + 3] = (byte)(fld[i * 4 + 1] > 127 && Mathf.Abs(fld[i * 4] / 25f - k) < 0.5f ? 255 : 0);
+                    plan = CrayonPlan.Make(col, w, h, false, QualitySettings.activeColorSpace == ColorSpace.Linear, k + 1);
+                }
+            }
+#if UNITY_EDITOR
+            Debug.Log($"[Mở vùng] {zone} vùng {k}: " + (plan != null ? $"{plan.Colors.Count} nhóm màu, {plan.Pens.Count} bút chì màu"
+                : "không có kế hoạch tô, dùng một bút chì loang tròn"));
+#endif
+            got(plan, box, frac);
+        }
+
+        // Bút chì màu tô vùng k (HeroUnlockView.Crayons): mỗi bút một nhóm màu (thân nhuộm màu nhóm), bay vào lệch nhịp từ phía trên phải,
+        // gạch zích zắc các hàng của mình; vệt sáp ghi vào kênh của nhóm trên ảnh phủ (shader phác chì chỉ tô điểm ảnh cùng nhóm màu).
+        // Mọi bút xong cùng lúc, lớp tô kín phủ nốt chỗ sót trong lúc các bút bay ra.
+        IEnumerator CrayonSection(int k, CrayonPlan plan, Rect box, Rect frac)
+        {
+            int cw = (plan.W + 1) / 2, ch = (plan.H + 1) / 2; // nửa độ phân giải lưới: vệt sáp mềm, ranh vùng do màu từng điểm ảnh
+            var cover = new byte[cw * ch * 4];
+            crayonCover.Reinitialize(cw, ch);
+            crayonCover.wrapMode = TextureWrapMode.Clamp;
+            crayonCover.filterMode = FilterMode.Bilinear;
+            crayonCover.SetPixelData(cover, 0);
+            crayonCover.Apply(false);
+            Shader.SetGlobalTexture(CoverId, crayonCover);
+            Shader.SetGlobalVector(CoverBoxId, new Vector4(box.x, box.y, box.width, box.height));
+            Shader.SetGlobalFloat(DarkLId, CrayonPlan.DarkL);
+            for (int g = 0; g < GroupIds.Length; g++)
+            {
+                var c = g < plan.Colors.Count ? plan.Colors[g] : null;
+                Shader.SetGlobalVector(GroupIds[g], c != null ? new Vector4(c[0], c[1], c[2], 1) : Vector4.zero);
+            }
+            Shader.SetGlobalFloat(RevNId, 0);
+            Shader.SetGlobalFloat(RevFadeId, 0);
+            Shader.SetGlobalFloat(RevSecId, k);
+            Shader.SetGlobalFloat(UseCoverId, 1);
+
+            // điểm lưới kế hoạch (điểm ảnh, y lên) → chỗ trên lớp trên mây (gốc trên trái, y âm xuống)
+            Vector2 Grid(float x, float y) =>
+                Flip(new Vector2((frac.xMin + x / plan.W * frac.width) * mapW, (frac.yMax - y / plan.H * frac.height) * mapH));
+            float zoom = landView && landView.On ? Mathf.Max(0.05f, landView.Zoom) : 1;
+            int n = Mathf.Min(plan.Pens.Count, MaxCrayons);
+            var rts = new RectTransform[n];
+            var enter = new Vector2[n];
+            var start = new Vector2[n];
+            var tilt = new float[n];
+            var done = new float[n];
+            float kx = cw / (float)plan.W, ky = ch / (float)plan.H, rad = plan.Brush * kx, step = plan.Brush * 0.3f;
+            for (int i = 0; i < n; i++)
+            {
+                var pen = plan.Pens[i];
+                var c = plan.Colors[pen.Group];
+                var img = Ui.Spawn(crayonPrefab, OverParent);
+                img.name = "but_mau_" + i;
+                img.color = new Color(c[0], c[1], c[2], 1);
+                revealPens.Add(img);
+                var r = rts[i] = img.rectTransform;
+                r.anchorMin = r.anchorMax = new Vector2(0, 1);
+                r.pivot = PencilPivot;
+                r.sizeDelta = crayonPrefab.rectTransform.sizeDelta * PencilScale;
+                r.localScale = Vector3.one * CrayonScale;
+                r.SetAsLastSibling();
+                start[i] = Grid(pen.X[0], pen.Y[0]);
+                float ang = (25 + 50 * (i % 3) / 2f + 7 * i) * Mathf.Deg2Rad;
+                enter[i] = start[i] + new Vector2(Mathf.Cos(ang), Mathf.Sin(ang)) * (CrayonFly / zoom);
+                r.anchoredPosition = enter[i];
+                tilt[i] = (i % 2 == 0 ? -1 : 1) * (3 + 4 * (i % 3));
+            }
+            Scribble(true);
+            float end = (n - 1) * CrayonGap + CrayonIn + CrayonT;
+            for (float t = 0; t < end; t += Time.unscaledDeltaTime)
+            {
+                bool dirty = false;
+                for (int i = 0; i < n; i++)
+                {
+                    float ti = t - i * CrayonGap;
+                    if (ti < 0) continue;
+                    var r = rts[i];
+                    if (ti < CrayonIn)
+                    {
+                        float e = 1 - (1 - ti / CrayonIn) * (1 - ti / CrayonIn);
+                        r.anchoredPosition = Vector2.Lerp(enter[i], start[i], e);
+                        r.localEulerAngles = new Vector3(0, 0, tilt[i] + 12 * (1 - e));
+                        continue;
+                    }
+                    var pen = plan.Pens[i];
+                    float d = Mathf.Min(1, (ti - CrayonIn) / CrayonT) * pen.Length;
+                    int chan = pen.Group, pi = i;
+                    pen.Strokes(done[i], d, step, (x, y, seg) =>
+                        CrayonPlan.Stamp(cover, cw, ch, chan, x * kx, y * ky, rad, 0.8f + 0.2f * Hash01(seg * 7 + pi * 131)));
+                    if (d > done[i]) dirty = true;
+                    done[i] = d;
+                    pen.At(d, out float px, out float py, out bool down, out _);
+                    r.anchoredPosition = Grid(px, py);
+                    r.localEulerAngles = new Vector3(0, 0, tilt[i] + Mathf.Sin(t * 41 + i * 1.7f) * 3);
+                    r.localScale = Vector3.one * (CrayonScale * (down ? 1 + 0.02f * Mathf.Sin(t * 53 + i) : 1.06f)); // nhấc bút: to hơn chút
+                }
+                if (dirty)
+                {
+                    crayonCover.SetPixelData(cover, 0);
+                    crayonCover.Apply(false);
+                }
+                yield return null;
+            }
+            // các bút bay ra góc trên phải, lớp tô kín phủ nốt chỗ sót
+            Scribble(false);
+            for (int i = 0; i < n; i++) StartCoroutine(CrayonOut(rts[i], 0.03f * i, zoom));
+            for (float t = 0; t < CrayonFill; t += Time.unscaledDeltaTime)
+            {
+                Shader.SetGlobalFloat(RevFadeId, t / CrayonFill);
+                yield return null;
+            }
+            Shader.SetGlobalFloat(RevFadeId, 1);
+            float outEnd = 0.03f * (n - 1) + 0.25f - CrayonFill;
+            if (outEnd > 0) yield return new WaitForSecondsRealtime(outEnd);
+            for (int i = 0; i < n; i++)
+                if (rts[i])
+                {
+                    revealPens.Remove(rts[i].GetComponent<Image>());
+                    Destroy(rts[i].gameObject);
+                }
+        }
+
+        static float Hash01(int s) => Mathf.Repeat(Mathf.Sin(s * 12.9898f) * 43758.5453f, 1);
+
+        // bút chì màu bay ra góc trên phải (sau delay giây) rồi tắt; quãng bay theo điểm ảnh màn hình
+        static IEnumerator CrayonOut(RectTransform pen, float delay, float zoom)
+        {
+            for (float t = 0; t < delay; t += Time.unscaledDeltaTime) yield return null;
+            if (!pen) yield break;
+            Vector2 a = pen.anchoredPosition, b = a + new Vector2(700, 900) / zoom;
+            float r0 = pen.localEulerAngles.z;
+            for (float t = 0; t < 0.25f && pen; t += Time.unscaledDeltaTime)
+            {
+                float k = t / 0.25f;
+                pen.anchoredPosition = Vector2.Lerp(a, b, k * k);
+                pen.localEulerAngles = new Vector3(0, 0, r0 - 25 * k);
+                yield return null;
+            }
+            if (pen) pen.gameObject.SetActive(false);
+        }
+
+        // Máy không đọc được ảnh từ GPU (không có kế hoạch bút chì màu): một bút chì ngoáy dọc đường của vùng, màu loang theo nét bút, tô nốt
+        IEnumerator PencilSection(int k, LandLay lay)
+        {
             // đường ngoáy của bút: dọc đường từ boss trước tới boss vùng này, lệch trái phải xen kẽ, kết thúc ở bệ boss
             int a = k > 0 ? land.habs[k - 1].stage : 1, b = land.habs[k].stage;
             float d0 = lay.at[Mathf.Clamp(a - 1, 0, lay.at.Length - 1)], d1 = lay.at[Mathf.Clamp(b - 1, 0, lay.at.Length - 1)];
@@ -787,6 +1032,7 @@ namespace PokiClash
                 prt.sizeDelta = pencilArt.rect.size * PencilScale;
                 prt.localScale = Vector3.one;
                 prt.SetAsLastSibling();
+                revealPens.Add(pen);
             }
             void Push(float fade)
             {
@@ -825,26 +1071,11 @@ namespace PokiClash
                 }
                 yield return null;
             }
-            if (pen) Destroy(pen.gameObject);
-            SetLandOpened(k + 1);
-            // tướng boss của vùng diễn ra sân, cờ mọc lên lần lượt theo đường
-            foreach (var h in landHeroes)
-                if (h.locked && land.SectionOf(h.st.idx) == k)
-                {
-                    h.locked = false;
-                    h.next = landClock + Random.Range(3f, AtkMax);
-                    if (h.sticker != null && h.sticker.HasClip(Appear))
-                    {
-                        h.clip = Appear;
-                        h.t = 0;
-                    }
-                }
-            var flags = landFlags.Where(f => f && land.SectionOf(f.Idx) == k).OrderBy(f => f.Idx).ToList();
-            for (int i = 0; i < flags.Count; i++) flags[i].PopIn(0.25f + i * FlagGap);
-            yield return new WaitForSecondsRealtime(0.25f + flags.Count * FlagGap + LandFlag.PopTime);
-            if (App.Save?.Data != null) LandShown.Set(App.Save.Data, zone, k + 1);
-            LockInput(false);
-            reveal = null;
+            if (pen)
+            {
+                revealPens.Remove(pen);
+                Destroy(pen.gameObject);
+            }
         }
 
         // khoá / mở mọi thao tác chạm (lớp chắn của màn mây chuyển cảnh, phủ trên mọi canvas)

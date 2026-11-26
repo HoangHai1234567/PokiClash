@@ -232,6 +232,7 @@ namespace PokiClash.EditorTools
                 s.level = Mathf.Max(s.level, 60);
                 s.balls = Mathf.Max(s.balls, 50000);
                 Casino.Of(s).intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 Casino.MarkSeen(s, "howto:" + Casino.Slot);
                 Casino.MarkSeen(s, "free:" + Casino.Slot);
                 string today = DateTime.Now.ToString("yyyy-MM-dd");

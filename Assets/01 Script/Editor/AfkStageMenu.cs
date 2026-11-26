@@ -4,7 +4,7 @@
 //   gán vào Screens/Zone (ZoneScene.afkTagPrefab);
 // - Dialogs/ChuanBiTran: nút "nut_afk" ("AFK ải này", cùng loại nút kit với Xuất trận, hẹp hơn) đứng trước Xuất trận trong hàng
 //   nút cuối; gán StagePrepDialog.afkBtn;
-// - Dialogs/Afk: nút "afk_doi_ai" ("Đổi ải", cùng loại nút kit với Nhận mảnh) sau nút Nhận mảnh; gán AfkPanel p.change.
+// Nút Đổi ải "afk_doi_ai" của Dialogs/Afk do menu dựng hộp AFK (AfkDialogMenu, 2026-11-27) dựng cùng hộp, menu này không vá hộp nữa.
 // Chữ nhãn chép phông và viền từ tiêu đề hộp Chuẩn bị trận.
 using PokiClash.UI;
 using TMPro;
@@ -19,7 +19,6 @@ namespace PokiClash.EditorTools
         const string TagPath = "Assets/04 Prefabs/Items/NhanAfk.prefab";
         const string ZonePath = "Assets/04 Prefabs/Screens/Zone.prefab";
         const string PrepPath = "Assets/04 Prefabs/Dialogs/ChuanBiTran.prefab";
-        const string AfkPath = "Assets/04 Prefabs/Dialogs/Afk.prefab";
 
         // cỡ nhãn trên bản đồ, cỡ nút AFK ở hộp chuẩn bị (Xuất trận 400 × 128)
         static readonly Vector2 TagSize = new Vector2(128, 52);
@@ -38,9 +37,8 @@ namespace PokiClash.EditorTools
             var tag = BuildTag(kit, art, titleTpl);
             Edit(ZonePath, root => SetRef(root.GetComponentInChildren<ZoneScene>(true), "afkTagPrefab", tag));
             Edit(PrepPath, root => PatchPrep(root, kit));
-            Edit(AfkPath, root => PatchAfk(root, kit));
             AssetDatabase.SaveAssets();
-            Debug.Log($"[AFK] Đã dựng {TagPath}; gán vào Zone; thêm nút AFK ải này (ChuanBiTran) và Đổi ải (Afk).");
+            Debug.Log($"[AFK] Đã dựng {TagPath}; gán vào Zone; thêm nút AFK ải này (ChuanBiTran).");
         }
 
         static T Load<T>() where T : Object =>
@@ -161,19 +159,6 @@ namespace PokiClash.EditorTools
             b.SetRole(BtnColor.Blue);
             b.gameObject.SetActive(false); // hộp bật khi ải đã thắng
             so.FindProperty("afkBtn").objectReferenceValue = b;
-            so.ApplyModifiedPropertiesWithoutUndo();
-        }
-
-        static void PatchAfk(GameObject root, UiKit kit)
-        {
-            var panel = root.GetComponent<AfkPanel>();
-            var so = new SerializedObject(panel);
-            var claim = (SketchButton)so.FindProperty("p.claim").objectReferenceValue;
-            var b = SiblingButton(kit, claim, "afk_doi_ai");
-            b.transform.SetSiblingIndex(claim.transform.GetSiblingIndex() + 1);
-            b.SetText("Đổi ải");
-            b.SetRole(BtnColor.Blue);
-            so.FindProperty("p.change").objectReferenceValue = b;
             so.ApplyModifiedPropertiesWithoutUndo();
         }
     }

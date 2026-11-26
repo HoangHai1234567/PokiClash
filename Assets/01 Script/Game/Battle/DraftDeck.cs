@@ -10,8 +10,10 @@
 //   ngẫu nhiên) rồi lật ra mặt. Sử thi, Huyền thoại khựng lại rung trước khi lật (viền độ hiếm hé ra sau lưng lá úp), lật thì viền bung.
 // - Chọn xong: lá chọn bay vào hàng thẻ (BattleView.FlyToSlot); các lá còn lại lật úp giữa đường, nằm dần xuống về đỉnh bộ, bộ cắt lại
 //   rồi chia. Địch rút: lá trên đỉnh nhấc lên dựng đứng (Lift) rồi bay vào hàng thẻ của địch, lật giữa đường (BattleView.FoeDraw).
-// Viền độ hiếm (shader PokiClash/UICardAura, material gốc Resources/the_aura) nằm ở lớp riêng sau mọi thẻ (ngay trước hàng thẻ) và bám
+// Viền độ hiếm (shader PokiClash/UICardAura, material the_aura_<độ hiếm>) nằm ở lớp riêng sau mọi thẻ (ngay trước hàng thẻ) và bám
 // theo thẻ mỗi khung, nên viền thẻ này không đè mặt thẻ bên cạnh hay ô hàng thẻ. Chỉ vẽ; BattleView quyết định khi nào chia, trả, rút.
+// Dựng sẵn (luật prefab, 2026-11-27): component này, ba lớp (bộ, viền, lá bay), khung viền (Items/VienHiemThe) và material viền theo độ
+// hiếm nằm trong Screens/Battle, do menu "PokiClash/Prefab/Trận/Bộ bài tráo: lớp + viền độ hiếm" (Editor/DraftDeckMenu.cs) vá vào.
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -31,6 +33,15 @@ namespace PokiClash
         const float Thick = 3.2f; // mỗi lá cao hơn lá dưới (px)
         const float AuraPad = 96; // viền tràn ra mỗi bên thẻ (px), đủ chỗ cho lưỡi lửa cao nhất của Huyền thoại
         static readonly Vector2 CardSize = new Vector2(320, 464); // UiCard.NormalSize
+        public static Vector2 AuraSize => CardSize + new Vector2(AuraPad, AuraPad) * 2; // khung viền (menu dựng material, prefab mục)
+
+        // dựng sẵn trong Screens/Battle: lớp bộ bài và lớp lá bay (con của ô thẻ chọn), lớp viền (ngay trước hàng thẻ), khung viền,
+        // material viền Hiếm / Sử thi / Huyền thoại
+        [SerializeField] RectTransform deckLayer, auraHost, flyHost;
+        [SerializeField] Image auraPrefab;
+        [SerializeField] Material[] auraMats = new Material[3];
+        public bool Baked => deckLayer && auraHost && flyHost && auraPrefab && auraMats != null && auraMats.Length == 3 &&
+                             auraMats[0] && auraMats[1] && auraMats[2];
 
         // nhịp (giây, ở Speed = 1)
         public const float CutQuick = 0.21f; // mỗi lần cắt giữa hai lần chọn (cắt 2 lần)
@@ -71,7 +82,12 @@ namespace PokiClash
         public static DraftDeck Ensure(RectTransform offer, RectTransform backPrefab, Vector2 center, RectTransform auraBehind = null)
         {
             var d = offer.GetComponent<DraftDeck>();
-            if (!d) d = offer.gameObject.AddComponent<DraftDeck>();
+            if (!d || !d.Baked || !backPrefab)
+            {
+                Debug.LogError("[Bộ bài] Screens/Battle chưa dựng sẵn bộ bài (DraftDeck, lớp, khung viền, material, lá úp): chạy menu " +
+                               "\"PokiClash/Prefab/Trận/Bộ bài tráo: lớp + viền độ hiếm\".");
+                return d;
+            }
             d.Build(offer, backPrefab, center, auraBehind);
             return d;
         }
@@ -81,28 +97,25 @@ namespace PokiClash
             if (deck) return;
             offer = o;
             backPrefab = back;
-            deck = NewRect("bo_bai", offer);
+            deck = deckLayer;
             deck.anchorMin = deck.anchorMax = new Vector2(0.5f, 1);
             deck.pivot = new Vector2(0.5f, 0.5f);
             deck.sizeDelta = CardSize;
             deck.anchoredPosition = center;
             deck.SetSiblingIndex(0);
-            if (auraBehind && auraBehind.parent)
+            auraLayer = auraHost;
+            auraLayer.anchorMin = Vector2.zero;
+            auraLayer.anchorMax = Vector2.one;
+            if (auraLayer.parent is RectTransform host) auraLayer.pivot = host.pivot;
+            auraLayer.offsetMin = auraLayer.offsetMax = Vector2.zero;
+            if (auraBehind && auraBehind.parent == auraLayer.parent)
             {
-                var host = (RectTransform)auraBehind.parent;
-                auraLayer = NewRect("vien_hiem_the", host);
-                auraLayer.anchorMin = Vector2.zero;
-                auraLayer.anchorMax = Vector2.one;
-                auraLayer.pivot = host.pivot;
-                auraLayer.offsetMin = auraLayer.offsetMax = Vector2.zero;
-                auraLayer.SetSiblingIndex(auraBehind.GetSiblingIndex());
+                // ngay trước hàng thẻ (dời từ sau ra trước thì chỗ đích lùi một)
+                int i = auraBehind.GetSiblingIndex();
+                auraLayer.SetSiblingIndex(auraLayer.GetSiblingIndex() < i ? i - 1 : i);
             }
-            else
-            {
-                auraLayer = Stretch(NewRect("vien_hiem", offer));
-                auraLayer.SetSiblingIndex(1);
-            }
-            flyLayer = Stretch(NewRect("la_bay", offer));
+            flyLayer = Stretch(flyHost);
+            flyLayer.SetAsLastSibling();
             var rnd = new System.Random(7);
             for (int k = 0; k <= Count; k++)
             {
@@ -120,15 +133,6 @@ namespace PokiClash
             deck.localScale = Vector3.zero;
         }
 
-        static RectTransform NewRect(string n, Transform parent)
-        {
-            var go = new GameObject(n, typeof(RectTransform));
-            go.layer = parent.gameObject.layer;
-            var rt = (RectTransform)go.transform;
-            rt.SetParent(parent, false);
-            return rt;
-        }
-
         RectTransform Stretch(RectTransform rt)
         {
             rt.anchorMin = Vector2.zero;
@@ -140,14 +144,7 @@ namespace PokiClash
 
         RectTransform NewBack(Transform parent)
         {
-            RectTransform b;
-            if (backPrefab) b = Ui.Spawn(backPrefab, parent);
-            else
-            {
-                b = NewRect("la_up", parent);
-                var img = b.gameObject.AddComponent<Image>();
-                img.color = Theme.Red;
-            }
+            var b = Ui.Spawn(backPrefab, parent); // Ensure đã chặn khi thiếu lá úp
             b.name = "la_up";
             b.anchorMin = b.anchorMax = b.pivot = new Vector2(0.5f, 0.5f);
             b.sizeDelta = CardSize;
@@ -1187,10 +1184,11 @@ namespace PokiClash
             }
             if (a == null || !a.rt)
             {
-                var rt = NewRect("vien", auraLayer);
-                rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
-                var img = rt.gameObject.AddComponent<Image>();
+                var img = Ui.Spawn(auraPrefab, auraLayer);
+                img.name = "vien";
                 img.raycastTarget = false;
+                var rt = img.rectTransform;
+                rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
                 a = new Aura { rt = rt, img = img };
             }
             a.rt.gameObject.SetActive(true);
@@ -1266,26 +1264,21 @@ namespace PokiClash
             }
         }
 
-        // ---------- material theo độ hiếm (một bản mỗi bậc, dùng chung) ----------
-
-        static Material baseMat;
-        static readonly Dictionary<Rarity, Material> mats = new Dictionary<Rarity, Material>();
+        // ---------- material theo độ hiếm (asset dựng sẵn, một bản mỗi bậc, dùng chung) ----------
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ClearStatics()
+        static void ClearStatics() => ForceStyle = -1;
+
+        Material Mat(Rarity r)
         {
-            mats.Clear();
-            baseMat = null;
-            ForceStyle = -1;
+            int i = (int)r - (int)Rarity.Rare;
+            return i >= 0 && auraMats != null && i < auraMats.Length ? auraMats[i] : null;
         }
 
-        static Material Mat(Rarity r)
+#if UNITY_EDITOR
+        // thông số viền từng bậc: menu DraftDeckMenu chép material gốc the_aura rồi gọi hàm này, lưu thành the_aura_<độ hiếm>.mat
+        public static void StyleAura(Material m, Rarity r)
         {
-            if (r < Rarity.Rare) return null;
-            if (mats.TryGetValue(r, out var m) && m) return m;
-            if (!baseMat) baseMat = Resources.Load<Material>("the_aura");
-            if (!baseMat) return null;
-            m = new Material(baseMat) { name = "the_aura_" + r };
             var c1 = Theme.Of(r);
             m.SetColor("_C1", c1);
             m.SetColor("_CInk", Color.Lerp(c1, Theme.Ink, 0.45f));
@@ -1331,9 +1324,8 @@ namespace PokiClash
                     m.SetFloat("_InkW", 3);
                     break;
             }
-            mats[r] = m;
-            return m;
         }
+#endif
 
         static float Out3(float k) => 1 - Mathf.Pow(1 - Mathf.Clamp01(k), 3);
 

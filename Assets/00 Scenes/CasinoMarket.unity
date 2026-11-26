@@ -167,6 +167,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2263119709799002046, guid: dcee60b9b0e700849b98a59713f0b31a, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263119709799002046, guid: dcee60b9b0e700849b98a59713f0b31a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2263119709799002046, guid: dcee60b9b0e700849b98a59713f0b31a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2733428091250605790, guid: dcee60b9b0e700849b98a59713f0b31a, type: 3}
       propertyPath: m_Name
       value: CasinoMarket

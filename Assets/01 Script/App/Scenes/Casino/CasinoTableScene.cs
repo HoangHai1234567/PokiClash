@@ -64,10 +64,19 @@ namespace PokiClash
             if (infoToggle) infoToggle.SetRole(open ? BtnColor.Yellow : BtnColor.Paper);
         }
 
+        // Lão Mực đứng sau bàn (lớp con trả rig): lời dẫn lần đầu (CasinoGuide.Table) do chính ông nói
+        protected virtual DealerRig StageDealer => null;
+
+        // lần vào này Lão Mực đang dẫn: lớp con bỏ câu chào riêng (câu dẫn đầu đã chào)
+        protected bool Guiding { get; private set; }
+
         public override void Enter(object args)
         {
             rng = new Rng(Rng.RandomSeed());
             var s = S;
+            Guide.MucActor = StageDealer;
+            bool howto = !Casino.Of(s).seen.Contains("howto:" + Game) && Casino.BoothOpen(s, D, Game, Now);
+            Guiding = howto && CasinoGuide.Table(Game, Mode == TableMode.Free);
             // bậc mặc định: bậc cao nhất đã mở mà còn đủ bi cho 5 ván, không thì bậc 1
             tier = Enumerable.Range(0, Table.bets.Length).LastOrDefault(i => Casino.BetOpen(s, Table, i) && s.balls >= 5 * Casino.Bet(s, D, Table, i));
             for (int i = 0; i < tiers.Length; i++)
@@ -93,7 +102,8 @@ namespace PokiClash
                 App.Toasts.Show(Loc.T("Lều này đã nhổ đi rồi, hẹn đoàn sau"), Icon("flag"));
                 return;
             }
-            if (!Casino.Of(s).seen.Contains("howto:" + Game))
+            // lần đầu mà Lão Mực không dẫn được (Gợi ý tắt): hộp Cách chơi như trước
+            if (howto && !Guiding)
             {
                 Casino.MarkSeen(s, "howto:" + Game);
                 App.Save.Save();

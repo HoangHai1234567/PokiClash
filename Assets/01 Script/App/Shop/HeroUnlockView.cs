@@ -665,11 +665,13 @@ namespace PokiClash
             return a;
         }
 
-        // chép vùng uv của ảnh vào RenderTexture tạm w x h rồi đọc RGBA (hàng dưới trước; byte theo gamma vì RenderTexture tạm là sRGB);
-        // lỗi hoặc quá 1 s thì null
-        static IEnumerator ReadAlpha(Texture tex, Rect uv, int w, int h, Action<byte[]> got)
+        // chép vùng uv của ảnh vào RenderTexture tạm w x h rồi đọc RGBA (hàng dưới trước; byte theo gamma vì RenderTexture tạm là sRGB;
+        // linear: RenderTexture tạm tuyến tính, đọc đúng số của ảnh số như trường vùng đảo); lỗi hoặc quá 1 s thì null. ZoneSceneLand dùng
+        // chung (tô vùng đảo bằng bút chì màu).
+        internal static IEnumerator ReadAlpha(Texture tex, Rect uv, int w, int h, Action<byte[]> got, bool linear = false)
         {
-            var rt = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGB32);
+            var rt = RenderTexture.GetTemporary(w, h, 0, RenderTextureFormat.ARGB32,
+                linear ? RenderTextureReadWrite.Linear : RenderTextureReadWrite.Default);
             Graphics.Blit(tex, rt, uv.size, uv.position);
             byte[] res = null;
             bool finished = false;

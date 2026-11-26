@@ -652,6 +652,38 @@ Chi tiết, script và thứ tự dựng lại: `ArtGen/Casino/may_qua/README.md
 - **Chưa làm**: máy Android thật; âm thanh riêng; clip "dõi cuộn" của Lão Mực (đang về idle rồi phản ứng `react_*`); màn 1:2 cắt vài px
   mép trái thân máy lúc bẹp.
 
+### D6 + D7 (2026-11-27): Lão Mực dẫn đường và bình phẩm khắp đảo
+
+Người dùng chọn làm tiếp "Lão Mực D6 + D7" (phiên máy DESKTOP-8AQQGSU). Giữ chốt 26/11: Lão Mực là gương mặt duy nhất của đảo, không vẽ
+lái buôn / bà chủ quán (người dùng xác nhận lại 2026-11-27).
+
+**Cách hiện**: đi qua lớp phủ hướng dẫn có sẵn (`Guide` + `GuideOverlay`, `25_FTUE.md`) thay vì một hệ bong bóng riêng: có hàng chờ, chạm để
+tiếp, khoanh sáng chỗ cần chỉ, theo công tắc "Gợi ý". Người nói thứ ba `Guide.Muc` cạnh tướng đồng hành và nhân vật chính:
+- màn có Lão Mực đứng sẵn (ba lều, Hầm đấu, Trường đua) đặt `Guide.MucActor` = rig của màn: chính ông nói (clip mở câu rồi `talk` lặp),
+  dải chắn trong suốt (không tối người đang nói), ghi chú thấp xuống phần ba dưới;
+- màn khác (bản đồ đảo, Bến câu, Chợ đen, Quán trọ) ông **trồi lên góc dưới màn** từ ngực trở lên: khung `lao_muc_goc` (RectMask2D
+  400 x 390, rig tỉ lệ 0,5, cắt ở y rig 720) trong `Kit/HuongDan`, trượt lên nảy nhẹ 0,3 giây, ghi chú cạnh đầu; câu nối liền không trồi /
+  chào lại. Menu `PokiClash/Prefab/Đảo Casino/Lão Mực: góc màn trong lớp hướng dẫn` (`Editor/GuideLaoMucMenu.cs`), `GuideMenu` dựng lại
+  lớp phủ cũng gọi.
+- `Guide.SayMuc` / `SayMucAt` (lời dẫn, chặn chạm), `Guide.Quip` (câu bình phẩm: ghi chú tự tắt, không chặn chạm, ngoài cờ và công tắc
+  Gợi ý, một câu một lúc).
+
+**Cờ đã nghe**: `howto:<trò>` trong bản lưu đảo (như hộp Cách chơi tự mở của ba lều trước đây), không theo cờ FTUE: `Tutorial.Done` coi bản
+lưu cũ là xong hết, dùng cờ FTUE thì người chơi đang có sẽ không bao giờ nghe. Đánh dấu ngay khi xếp được câu. Gợi ý tắt thì lùi về cách
+cũ (hộp chữ "Bến Lữ Khách", hộp Cách chơi). Tour Editor của đảo gọi `CasinoGuide.SkipAll` (lời dẫn chặn chạm).
+
+**Lời** (`App/Scenes/Casino/CasinoGuide.cs`, bản Anh trong `Resources/Loc/en/ui.json`; tên Anh tạm "Old Squid"):
+- đón ở bến (thay hộp chữ): chào, khoanh Tháp Máy Bi, khoanh Bến câu (mở cùng Quán trọ ở cấp 8), các trò mở theo cấp và lều lữ khách;
+- lần đầu mỗi trò: Bến câu 3 câu, Trường đua 2, Chợ đen 2, Hầm đấu 2, Quán trọ 1 (khoanh bảng việc trong hộp), ba lều 2–3 (câu ván đầu
+  miễn phí nếu còn; câu cuối chỉ nút Cách chơi trong bảng gập). Lần đầu thì màn bỏ câu chào riêng (`CasinoTableScene.Guiding`);
+- bình phẩm: Bến câu (Cá Vua, loài mới từ Hiếm, kỷ lục từ Sử thi, sổng Cá Vua / cá từ Sử thi), Chợ đen (mua hàng, 40%), Quán trọ (lĩnh
+  thưởng 50%, xong cả ngày). Chỉ diễn và nói, không gạ chơi thêm, không gạ nạp.
+
+**Tiếng** (D8 một phần, gen Magnific 2026-11-27, `ArtGen/Sfx/casino/`): Lão Mực lầm bầm 3 bản (`CasinoGuide.Mumble`, mọi bong bóng của
+ông ở lớp phủ và các màn), "boing" giật mình (`bust_self`, `react_win_big`).
+
+Tour: `PokiClash/Thử/Đảo Casino/Lão Mực dẫn: đón ở bến, các trò (chụp)` (`Editor/CasinoGuideTour.cs`, ảnh `Temp/PokiShots/casino_muc/`).
+
 ## Nguồn
 
 - Cuphead vẽ tay 24 hình/giây, nén giãn là hình vẽ lại: [Game Developer, Animating Cuphead](https://gamedeveloper.com/art/animating-i-cuphead-i-the-verve-of-the-1930s-with-the-tech-of-now),

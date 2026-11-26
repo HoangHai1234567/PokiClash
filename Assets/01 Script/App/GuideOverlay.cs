@@ -7,6 +7,8 @@
 // - Lời tướng (Say): nền tối kín, chân dung tướng đồng hành cạnh ghi chú, "Chạm để tiếp tục".
 // Vòng khoanh là nét mực vẽ dần (InkPath), bút chì nhún chỉ vào. Chỗ cần khoanh nằm dưới hộp thoại đang mở thì chờ hộp đóng; đang
 // chuyển scene, màn tải, mây chặn chạm thì chờ. Không tìm thấy chỗ cần khoanh quá lâu thì bỏ bước (không kẹt người chơi).
+// Lời Lão Mực (Guide.SayMuc / Quip, đảo Casino 2026-11-27): màn có ông đứng sẵn (Guide.MucActor) thì cho chính ông nói và không tối màn;
+// không thì ông trồi lên góc dưới màn (khung cắt ngang ngực, rig DealerRig dựng sẵn trong prefab, menu GuideLaoMucMenu), ghi chú cạnh đầu.
 using System;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -23,6 +25,7 @@ namespace PokiClash
         public sealed class Req
         {
             public string id, key, text, hero;
+            public string clip; // lời Lão Mực: clip mở câu (greet, react_*...), rồi "talk" lặp
             public string scene; // scene lúc xin hiện: sang scene khác thì bỏ (chỗ cần khoanh đã mất)
             public Guide.Mode mode;
             public Action done;
@@ -40,8 +43,19 @@ namespace PokiClash
         [SerializeField] HeroPortrait face;
         [SerializeField] Image me; // chân dung nhân vật chính (Guide.SayMe); ảnh trống thì không hiện
         [SerializeField] TextMeshProUGUI tapText;
+        // Lão Mực ở góc màn: khung cắt (RectMask2D, gốc giữa mép dưới), lớp trượt (trồi lên), rig
+        [SerializeField] RectTransform mucFrame, mucSlide;
+        [SerializeField] DealerRig muc;
 
         public static GuideOverlay I { get; private set; }
+
+        // Dùng khi dựng prefab (Editor).
+        public void SetupMuc(RectTransform frame, RectTransform slide, DealerRig rig)
+        {
+            mucFrame = frame;
+            mucSlide = slide;
+            muc = rig;
+        }
 
         // Dùng khi dựng prefab (Editor).
         public void Setup(RectTransform areaRt, CanvasGroup cg, Image[] blockImgs, InkPath ringPath, InkPath ringLine, RectTransform pencilRt,
@@ -60,6 +74,15 @@ namespace PokiClash
         }
 
         const float Pad = 14, MissingForce = 12, MissingSoft = 4, NoteW = 660, Margin = 36;
+        public const float MucW = 400, MucH = 390; // khung Lão Mực góc màn (menu dựng dùng chung)
+        const float MucNoteW = 560, MucPop = 0.3f;
+
+        DealerRig mucNow;   // Lão Mực đang nói (góc màn hoặc trên sân khấu)
+        bool mucCorner;     // đang hiện ở góc màn
+        float mucEnd = -10; // lúc câu Lão Mực trước tắt: câu nối liền thì không trồi lại, không chào lại
+        float mucPopT = 1;
+        Color dim;          // màu dải chắn (ông đứng trên sân khấu thì dải trong suốt)
+        bool dimKnown;
 
         readonly List<Req> queue = new List<Req>();
         Req cur;
@@ -153,6 +176,66 @@ namespace PokiClash
             if (face) face.gameObject.SetActive(false);
             if (me) me.gameObject.SetActive(false);
             if (tapText) tapText.gameObject.SetActive(false);
+            HideMuc();
+        }
+
+        void HideMuc()
+        {
+            if (mucNow)
+            {
+                mucEnd = Time.unscaledTime;
+                mucNow.Stop();
+            }
+            mucNow = null;
+            mucCorner = false;
+            if (mucFrame) mucFrame.gameObject.SetActive(false);
+            if (dimKnown)
+                foreach (var b in blockers)
+                    if (b)
+                        b.color = dim;
+        }
+
+        // lời Lão Mực: chọn ai nói (trên sân khấu / góc màn), clip mở câu rồi talk lặp
+        void OpenMuc(Req r)
+        {
+            if (r.hero != Guide.Muc) return;
+            var stage = Guide.MucActor;
+            if (stage && stage.isActiveAndEnabled && stage.Ready()) mucNow = stage;
+            else if (muc && mucFrame)
+            {
+                mucFrame.gameObject.SetActive(true);
+                if (muc.Ready())
+                {
+                    mucNow = muc;
+                    mucCorner = true;
+                }
+                else mucFrame.gameObject.SetActive(false);
+            }
+            if (!mucNow) return;
+            bool say = r.mode == Guide.Mode.Say;
+            // ông đứng trên sân khấu: dải chắn trong suốt (vẫn nuốt chạm) để không tối chính người đang nói
+            if (!mucCorner && say && string.IsNullOrEmpty(r.key) && blockers.Length > 0 && blockers[0])
+            {
+                if (!dimKnown)
+                {
+                    dim = blockers[0].color;
+                    dimKnown = true;
+                }
+                foreach (var b in blockers) b.color = new Color(dim.r, dim.g, dim.b, 0);
+            }
+            if (mucCorner) note.Set(r.text, MucNoteW);
+            bool chain = Time.unscaledTime - mucEnd < 0.35f;
+            mucPopT = mucCorner && !chain ? 0 : 1;
+            var a = mucNow;
+            string clip = string.IsNullOrEmpty(r.clip) && say && !chain ? "greet" : r.clip;
+            CasinoGuide.Mumble();
+            if (clip == "react_win_big") App.Audio?.Play("mucBoing");
+            if (!string.IsNullOrEmpty(clip) && a.Has(clip))
+                a.Play(clip, () =>
+                {
+                    if (say && visible && mucNow == a) a.Loop("talk");
+                });
+            else if (say) a.Loop("talk");
         }
 
         static bool Busy => App.Booting || App.Covered || (App.Router != null && App.Router.Busy);
@@ -276,12 +359,13 @@ namespace PokiClash
             // lời nhân vật chính: chân dung cậu bé bên trái, tướng đồng hành (nếu đã chọn) nhỏ hơn bên phải
             bool byMe = r.mode == Guide.Mode.Say && r.hero == Guide.Me;
             bool meOn = byMe && me && me.sprite;
-            string heroId = byMe ? App.Save?.Data?.starter : r.hero;
+            string heroId = byMe ? App.Save?.Data?.starter : r.hero == Guide.Muc ? null : r.hero;
             var hero = r.mode == Guide.Mode.Say && !string.IsNullOrEmpty(heroId) ? App.Data.Hero(heroId) : null;
             if (me) me.gameObject.SetActive(meOn);
             face.gameObject.SetActive(hero != null);
             if (hero != null) face.Bind(hero, meOn ? 170 : 220);
             tapText.gameObject.SetActive(r.mode == Guide.Mode.Say);
+            OpenMuc(r);
             App.Audio?.Play("open", 0.5f);
         }
 
@@ -372,17 +456,31 @@ namespace PokiClash
                 pencil.localScale = new Vector3(flip ? -1 : 1, 1, 1);
                 pencil.localEulerAngles = new Vector3(0, 0, flip ? -30 : 30);
             }
+            // Lão Mực góc màn: khung đứng trên mép dưới, bên trái (chỗ khoanh nằm dưới bên trái thì sang phải)
+            bool mucLeft = true;
+            if (mucCorner)
+            {
+                mucLeft = !(hole.width > 0 && hole.center.x < 0 && hole.yMin < B + MucH + 40);
+                mucFrame.anchorMin = mucFrame.anchorMax = new Vector2(0.5f, 0.5f);
+                mucFrame.pivot = new Vector2(0.5f, 0);
+                mucFrame.sizeDelta = new Vector2(MucW, MucH);
+                mucFrame.anchoredPosition = new Vector2(mucLeft ? L + MucW / 2 + 4 : R - MucW / 2 - 4, B);
+            }
             // ghi chú: trên lỗ nếu lỗ ở nửa dưới, dưới lỗ nếu ở nửa trên; không lỗ thì giữa màn (lời tướng: lệch phải chừa chỗ chân dung)
             if (note.gameObject.activeSelf)
             {
                 var nr = note.Rect;
                 float h = Mathf.Max(80, nr.rect.height);
-                float w = Mathf.Min(NoteW, full.width - Margin * 2);
+                float w = Mathf.Min(mucCorner ? MucNoteW : NoteW, full.width - Margin * 2);
                 Vector2 pos;
                 // nửa dưới: đặt dưới lỗ nếu còn chỗ (không đè thứ ngay trên nút, vd. hàng ô thưởng trên nút Máy bi), không thì trên lỗ
                 bool roomBelow = hole.yMin - 60 - h > B + Margin + 40;
                 bool meOn = me && me.gameObject.activeSelf, faceOn = face.gameObject.activeSelf;
-                if (hole.width <= 0) pos = new Vector2(meOn && faceOn ? 0 : meOn || faceOn ? 80 : 0, 40);
+                // Lão Mực: góc màn thì ghi chú cạnh đầu ông; trên sân khấu thì ghi chú thấp xuống (không che mặt ông)
+                if (hole.width <= 0 && mucCorner)
+                    pos = new Vector2(mucLeft ? L + MucW - 30 + w / 2 : R - MucW + 30 - w / 2, B + MucH * 0.72f);
+                else if (hole.width <= 0 && mucNow) pos = new Vector2(0, B + full.height * 0.27f);
+                else if (hole.width <= 0) pos = new Vector2(meOn && faceOn ? 0 : meOn || faceOn ? 80 : 0, 40);
                 else if (hole.center.y < 0 && roomBelow && hole.height < full.height * 0.25f) pos = new Vector2(hole.center.x, hole.yMin - 50 - h / 2);
                 else if (hole.center.y < 0) pos = new Vector2(hole.center.x, hole.yMax + 60 + h / 2);
                 else pos = new Vector2(hole.center.x, hole.yMin - 60 - h / 2);
@@ -426,6 +524,15 @@ namespace PokiClash
             float s = Mathf.Lerp(0.85f, 1, 1 - Mathf.Pow(1 - k, 3)) + Mathf.Sin(k * Mathf.PI) * 0.05f;
             note.Rect.localScale = new Vector3(s, s, 1);
             if (tapText.gameObject.activeSelf) tapText.alpha = 0.55f + 0.45f * Mathf.Sin(Time.unscaledTime * 3f);
+            // Lão Mực trồi lên từ mép dưới, nảy nhẹ
+            if (mucCorner && mucSlide)
+            {
+                mucPopT = Mathf.Min(1, mucPopT + Time.unscaledDeltaTime / MucPop);
+                const float c1 = 1.4f, c3 = c1 + 1;
+                float x = mucPopT - 1;
+                float e = 1 + c3 * x * x * x + c1 * x * x;
+                mucSlide.anchoredPosition = new Vector2(0, Mathf.LerpUnclamped(-MucH, 0, e));
+            }
         }
 
         void Check(Req r)

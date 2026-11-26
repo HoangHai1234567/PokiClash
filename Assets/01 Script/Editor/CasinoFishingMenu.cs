@@ -532,6 +532,7 @@ namespace PokiClash.EditorTools
                 s.balls = Mathf.Max(s.balls, 2000);
                 var st = Casino.Of(s);
                 st.intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 st.rod = 4; // mở cả ba chỗ câu
                 App.Router.Go(SceneIds.CasinoFishing, Casino.Fishing);
                 float t0 = Time.realtimeSinceStartup;

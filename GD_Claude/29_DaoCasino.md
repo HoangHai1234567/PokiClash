@@ -896,7 +896,12 @@ Người dùng muốn làm kỹ hơn từng phần quanh một nhân vật deale
 dẫn FTUE từng trò). Kế hoạch chi tiết và concept: **`31_LaoMuc_Dealer.md`**, `ArtGen/Casino/dealer/xem.html`. Ba lều C7 và FTUE đảo sẽ làm lại
 theo kế hoạch đó (D3–D7) sau khi người dùng chọn hướng nhân vật.
 
-## Việc còn lại (cập nhật 2026-11-25 tối)
+## Việc còn lại (cập nhật 2026-11-25 tối; soát lại 2026-11-27)
+
+Soát 2026-11-27 theo hai commit máy kia (a4a0bfd3, 2a77d759): lều C7 đã có diễn (Lão Mực D3 Đêm Bài, D4 Vòng Xoay, D5 Máy Quả Háu Ăn,
+`31_LaoMuc_Dealer.md`); Bến câu có nền thật (`ben_cau_nen.png` từ cảnh A, `32` mốc B1) và 35 hình cá; Hầm đấu có nền gen `hd_nen.jpg`;
+Trường đua đổi sang cược một trong năm con; số bi cả đảo đã đo và cân bằng bằng máy giả lập 300 người (`33_CanBangKinhTe.md` mục 0).
+Đang làm 2026-11-27 (người dùng chọn): test đỏ, Lão Mực D6 + D7, âm thanh, đèn đêm + đảo trên bản đồ sảnh, chủ quán + nền chợ.
 
 Đã chạy được (đủ tính năng mọi trò, 2026-11-25 đêm): đảo (hình lớp, công trình rời, bến tàu, mây, ngày đêm, biển nối liền sảnh), chuyến tàu
 sảnh ↔ đảo, Bến câu, Hầm đấu, Trường đua 3–5 tướng, Chợ đen (scene, có Đồ Nhà), Quán trọ (bảng việc), ba lều Blackjack / Vòng Xoay / Máy Quả
@@ -905,40 +910,51 @@ sảnh ↔ đảo, Bến câu, Hầm đấu, Trường đua 3–5 tướng, Ch�
 Chưa làm (tính năng nhỏ, ghi lại): chấm sự kiện trên nút giữa thanh dưới sảnh (nút đang hiện số bi, cần chọn cách hiện cả hai); bước gợi ý FTUE
 cho đảo (`25_FTUE.md`); Remote Config / giờ mạng cho lịch sự kiện và cờ vùng (cùng mốc S5 cửa hàng).
 
-**C5 Trường đua** (chờ người dùng xem bản 3–5 tướng)
-- [ ] Người dùng duyệt luật và nhịp (độ dày đánh nhau, tỉ lệ về nhất, độ dài ~22 giây).
-- [ ] Âm thanh riêng cho húc trúng / vấp / né (đang dùng tiếng có sẵn `stamp`, `buff`).
+**C5 Trường đua** (luật cược một trong năm con từ 2026-11-26, chờ người dùng xem)
+- [ ] Người dùng duyệt luật cược và nhịp đua (tỉ lệ `oddsLow` / `oddsHigh`, độ sát, cú vọt).
+- [x] Âm thanh riêng (2026-11-27, gen Magnific, `ArtGen/Sfx/casino/`, trang nghe `nghe_thu.html`): húc `raceBonk1/2` xen kẽ, bứt tốc
+      `raceDash`. Cùng lượt: bi Vòng Xoay `rlTick` / `rlDrop`, Máy Quả cần gạt `slLever` + ba tiếng dừng cuộn `slStop1–3`, guồng câu
+      `reelCrank`, Lão Mực lầm bầm `mucTalk1–3` + `mucBoing`. Chọn bản theo số đo, chưa nghe bằng tai.
 
 **C6 Chợ đen + Quán trọ** (bản đầu xong, chờ người dùng xem)
 - [x] Chợ đen thành scene riêng; Quán trọ thành hộp bảng việc; bản dịch, lượt chụp, test.
 - [ ] Người dùng duyệt bố cục kệ, giá, lời lái buôn / bà chủ quán.
-- [ ] Hình lái buôn, bà chủ quán (chủ quán, C8); nền chợ thật (đang màu gỗ tạm).
+- [x] ~~Hình lái buôn, bà chủ quán~~: không vẽ (người dùng 2026-11-27 giữ chốt 26/11 "Lão Mực là gương mặt duy nhất"; Lão Mực trồi lên
+      dẫn ở Chợ đen và Quán trọ, `31` D7). Nền chợ thật xong 2026-11-27: `Casino/Cho/cho_nen.jpg` (gen GPT 2.6 2k, `ArtGen/Casino/cho_den/`),
+      phủ kín màn sau kệ. Còn nghi: hộp Quán trọ vẫn ghi "Bà chủ quán: …" (chữ cũ của C6).
 
 **C4 Hầm đấu** (thành scene riêng 2026-11-26, chờ người dùng xem)
 - [x] Scene riêng, đồng hồ đổi đội, bỏ khoá bậc theo cấp.
 - [x] Lượt 2: sàn đấu có Lão Mực bình phẩm, đội ngầm là rig đứng idle, vuốt chọn bậc, nền hầm đấu gen bằng GPT.
 - [x] Lượt 3: cổng sắt mở đóng, khán giả nhún và reo, 10 bậc lực chiến tăng đều, trần 5 trận mỗi ngày.
-- [ ] Người dùng duyệt; âm thanh hầm (reo hò, tiếng Lão Mực); cân lại thưởng ngày (C9).
+- [x] Âm thanh hầm: reo hò, ồn khán giả (lượt 4, 2026-11-26). Cân lại thưởng ngày: xong ở `33` (thắng hoàn lệ phí, mảnh giảm nửa).
+- [ ] Người dùng duyệt; tiếng Lão Mực (D8).
 
 **C7 Lều lữ khách: Blackjack, Roulette, Slot** (bản đầu xong, đủ tính năng; giao diện, diễn chỉnh sau)
 - [x] Blackjack, Roulette, Slot mỗi trò một scene; ván đầu miễn phí, ván tập; Hũ bàn; chặn popup bán bi ở bàn; cờ tắt theo vùng.
-- [ ] Diễn: chia / lật bài, bánh xe xoay, cuộn trượt; hình bàn, chip, nền lều (C8).
+- [x] Diễn: chia / lật bài, bánh xe xoay, cuộn trượt; hình bàn, chip, nền lều (Lão Mực D3–D5, 2026-11-26). Còn: người dùng duyệt nhịp clip.
 - [ ] Khai tuổi store đúng mục 8 khi phát hành (câu 1 đã chốt: làm, chỉ mở theo lịch sự kiện).
 
 **C8 Hình thật còn thiếu**
-- [ ] Đèn đêm cho công trình (mặt nạ tự sáng như màn Nhà).
-- [ ] Đảo trên bản đồ sảnh (hình đảo nhỏ + mây), chạm đảo đi tàu như nút giữa thanh dưới.
+- [x] Đèn đêm cho công trình (2026-11-27): `casino_e_<mã>` (đèn lồng chợ + ba lều, đuốc hang, kính + bóng đèn tháp;
+      `ArtGen/Casino/night/casino_emit.py`, lọc đèn lồng theo hình để bỏ cờ vàng), lớp `tu_sang` trên lớp nhuộm, `CasinoNightGlow` bám công trình.
+- [x] Đảo trên bản đồ sảnh (2026-11-27, người dùng chọn thu nhỏ hình có sẵn): `Islands/sanh_dao_casino.png` (`ArtGen/Casino/hub/dao_sanh.py`),
+      góc dưới trái bản đồ, menu "PokiClash/Prefab/Sảnh: đảo Casino" (đẩy 19 đám mây vành ra khỏi đảo; dựng lại bản đồ thì chạy lại), chạm
+      như nút giữa thanh dưới, hiện cùng nút đó.
 - [ ] Cảnh lùi camera từ mặt máy bi ra Tháp Máy Bi (nút "Ra đảo" trong máy).
-- [ ] Nền thật cho Bến câu (đang cắt tạm từ concept), Hầm đấu. (Trường đua đã có sân vận động thật, 2026-11-26.)
-- [ ] Icon 30 loài cá (đang là chấm màu hệ), cần câu, mồi.
-- [ ] Chủ quán từng trò (NPC, mục 2), lều sự kiện có người.
+- [x] Nền thật cho Bến câu (`ben_cau_nen.png`, `32` B1), Hầm đấu (`hd_nen.jpg`), Trường đua (sân vận động), 2026-11-26.
+- [x] Hình 35 loài cá (`32`, Magnific 5 tờ, 2026-11-26). Còn: icon mồi (cần câu không cần nữa: đã bỏ nâng cần).
+- [x] ~~Chủ quán từng trò (NPC, mục 2)~~: bỏ, Lão Mực là gương mặt duy nhất (chốt 26/11, nhắc lại 27/11).
 - [x] Tướng ở Trường đua chạy bằng clip walk của rig (2026-11-26).
 
 **C9 Cân bằng, máy thật**
-- [ ] Đo tổng bi vào / ra mỗi ngày của cả đảo bằng `ProgressSim` (mục 7), chỉnh trần lượt và lệ phí.
+- [x] Đo tổng bi vào / ra mỗi ngày của cả đảo, chỉnh trần lượt và lệ phí: làm bằng máy giả lập 300 người `ArtGen/KinhTe/gia_lap`
+      (`33_CanBangKinhTe.md` mục 0, 2026-11-26).
 - [ ] Thử máy Android: chữ đọc được, nhịp, hiệu năng màn đảo (ảnh 2048, mây, ngày đêm), dung lượng (gói tải sau, `27`).
 - [ ] Khai tuổi store theo mục 8 nếu giữ bàn may rủi.
 
 **Khác**
-- [ ] `PrefabOnlyTests.MaRuntime_KhongSinhDoVat` đang đỏ do file của phần khác (DraftDeck, HeroUnlockView, CardBend, UiMotion, NumberTicker,
-      HomeScene), không phải đảo Casino.
+- [x] `PrefabOnlyTests` xanh (2026-11-27, người dùng chọn "sửa thật chỗ sinh hình, ngoại lệ phần còn lại"): DraftDeck dựng sẵn trong
+      Screens/Battle (menu "PokiClash/Prefab/Trận/Bộ bài tráo: lớp + viền độ hiếm", Items/VienHiemThe, material the_aura_Rare/Epic/Legend,
+      test `BoBaiTrao_DungSanTrongPrefabTran`, tour bộ bài chạy hết); UiMotion, NumberTicker, CardBend (gắn hành vi), FishingPanel,
+      HomeScene, HeroUnlockView (bản sao material, ảnh vệt bút màu) thành ngoại lệ theo file + luật, có trần số chỗ. LocTests xanh.

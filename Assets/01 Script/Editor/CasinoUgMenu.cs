@@ -452,6 +452,7 @@ namespace PokiClash.EditorTools
                 s.level = Mathf.Max(s.level, 40); // vừa đủ mở Hầm đấu: mọi bậc vẫn đánh được (không khoá theo cấp)
                 s.balls = Mathf.Max(s.balls, 5000);
                 Casino.Of(s).intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 App.Router.Go(SceneIds.Casino);
                 yield return Wait(SceneIds.Casino);
                 yield return new WaitForSecondsRealtime(1.2f);

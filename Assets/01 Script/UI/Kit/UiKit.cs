@@ -44,6 +44,7 @@ namespace PokiClash.UI
         public InkBurst burst; // nét bung khi nhả nút (Kit/NetBung)
         public EggHatchView eggHatch; // màn nở trứng capsule (Items/NoTrung, cửa hàng 2026-11-23)
         public HeroUnlockView heroUnlock; // màn mở khoá tướng mới (Items/MoKhoaTuong, 2026-11-23)
+        public DailyGiftView dailyGift; // màn nhận quà hôm nay, nền đen, nút ×2 thở (Items/QuaNgay, 2026-11-27)
 
         [Header("Canvas màn hình (Nen / An toan / Khung)")]
         public PokiCanvas canvas;

@@ -86,6 +86,13 @@ namespace PokiClash
 
         public void SetupIslands(HubIslandArt[] arts) => islandArts = arts;
 
+        // đảo Casino ở góc dưới trái bản đồ (GD_Claude/29 C8, menu "PokiClash/Prefab/Sảnh: đảo Casino"): chạm như nút giữa thanh dưới,
+        // hiện cùng lúc với nút đó (người mới: theo hướng dẫn)
+        [SerializeField] HubIslandArt casinoIsland;
+
+        // Dùng khi dựng prefab (Editor).
+        public void SetupCasino(HubIslandArt art) => casinoIsland = art;
+
         public void SetupPier(PierShip p, CanvasGroup[] chromeGroups)
         {
             pier = p;
@@ -585,8 +592,14 @@ namespace PokiClash
             MainButton(1, () => App.Router.Go(SceneIds.Heroes), Progress.HeroAlerts(s, d), "hub.heroes", Tutorial.Shows(s, d, Tutorial.HubPart.Heroes, now));
             // nút giữa (người dùng 2026-11-25): tàu đi chếch trái ra đảo Casino "Bến Lữ Khách", Tháp Máy Bi ở giữa đảo; đảo chưa mở thì vào
             // thẳng máy bi như cũ (hướng dẫn người mới)
-            MainButton(2, () => App.Router.Go(Casino.Open(s, d) ? SceneIds.Casino : SceneIds.Machine), s.balls, "hub.machine",
-                Tutorial.Shows(s, d, Tutorial.HubPart.Machine, now));
+            bool machineOn = Tutorial.Shows(s, d, Tutorial.HubPart.Machine, now);
+            MainButton(2, () => App.Router.Go(Casino.Open(s, d) ? SceneIds.Casino : SceneIds.Machine), s.balls, "hub.machine", machineOn);
+            if (casinoIsland)
+            {
+                casinoIsland.OnClick = () => App.Router.Go(Casino.Open(s, d) ? SceneIds.Casino : SceneIds.Machine);
+                var box = casinoIsland.transform.parent;
+                if (box && box.gameObject.activeSelf != machineOn) box.gameObject.SetActive(machineOn);
+            }
             MainButton(3, () => App.Router.Go(SceneIds.Cards), 0, "hub.cards", Tutorial.Shows(s, d, Tutorial.HubPart.Cards, now));
             bool homeOpen = Home.Open(s, d.Cfg);
             MainButton(4, () => GoHome(false), homeOpen && Home.Alert(s, d, now) ? 1 : 0, "hub.home", Tutorial.Shows(s, d, Tutorial.HubPart.Home, now), "!");

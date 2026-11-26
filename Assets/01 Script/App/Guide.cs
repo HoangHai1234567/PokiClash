@@ -20,6 +20,7 @@ namespace PokiClash
         {
             targets.Clear();
             Tutorial.Off = false;
+            MucActor = null;
         }
 
         static SaveData S => App.Save?.Data;
@@ -47,11 +48,11 @@ namespace PokiClash
         }
 
         public static bool Show(string id, Mode mode, string key, string text, Action done = null, bool repeat = false, string hero = null,
-            float secs = 0)
+            float secs = 0, string clip = null)
         {
             if (!Can(id, repeat)) return false;
             return GuideOverlay.I.Enqueue(new GuideOverlay.Req
-                { id = id, mode = mode, key = key, text = text, done = done, repeat = repeat, hero = hero, secs = secs });
+                { id = id, mode = mode, key = key, text = text, done = done, repeat = repeat, hero = hero, secs = secs, clip = clip });
         }
 
         public static bool Force(string id, string key, string text, Action done = null, bool repeat = false) =>
@@ -79,6 +80,29 @@ namespace PokiClash
 
         public static bool SayMe(string id, string text, Action done = null, bool repeat = false) =>
             Show(id, Mode.Say, null, text, done, repeat, Me);
+
+        // người nói là Lão Mực, dealer của đảo Casino (GD_Claude/31_LaoMuc_Dealer.md mục 4.5, 5; CasinoGuide): màn có Lão Mực đứng sẵn trên
+        // sân khấu (ba lều, Hầm đấu, Trường đua) đặt MucActor khi vào và trả null khi ra: lớp phủ cho chính ông nói, không tối màn. Màn khác:
+        // ông trồi lên góc dưới màn (từ ngực trở lên, rig trong Kit/HuongDan). clip: dáng mở câu (greet, react_*...), sau đó "talk" lặp.
+        public const string Muc = "@lao_muc";
+        public static DealerRig MucActor;
+
+        public static bool SayMuc(string id, string text, string clip = null, Action done = null, bool repeat = false) =>
+            Show(id, Mode.Say, null, text, done, repeat, Muc, 0, clip);
+
+        // như SayMuc, khoanh sáng một chỗ (key) mà chưa bắt bấm; chỗ nằm trong hộp thoại đang mở thì lớp phủ hiện trên hộp
+        public static bool SayMucAt(string id, string key, string text, string clip = null, Action done = null, bool repeat = false) =>
+            Show(id, Mode.Say, key, text, done, repeat, Muc, 0, clip);
+
+        // câu bình phẩm của Lão Mực: ghi chú tự tắt, không chặn chạm, không theo cờ hướng dẫn hay công tắc Gợi ý; một câu một lúc.
+        // key: hiện cạnh chỗ đó (bắt buộc khi đang mở hộp thoại, không thì chờ hộp đóng)
+        public static bool Quip(string text, string clip = null, string key = null, float secs = 2.8f)
+        {
+            const string id = "muc_quip";
+            if (S == null || Tutorial.Off || !GuideOverlay.I || GuideOverlay.I.Has(id)) return false;
+            return GuideOverlay.I.Enqueue(new GuideOverlay.Req
+                { id = id, mode = Mode.Note, key = key, text = text, repeat = true, hero = Muc, secs = secs, clip = clip });
+        }
 
         // đang hiện hoặc đang chờ hiện bước id
         public static bool Pending(string id) => GuideOverlay.I && GuideOverlay.I.Has(id);

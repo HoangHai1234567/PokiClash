@@ -207,6 +207,14 @@ namespace PokiClash
 
         void Intro()
         {
+            // Lão Mực đón ở bến (D6); Gợi ý tắt thì hộp chữ như trước
+            var st = Casino.Of(S);
+            if (CasinoGuide.Port(Announce))
+            {
+                st.intro = true;
+                App.Save.Save();
+                return;
+            }
             App.Modals.Alert(Loc.T("Bến Lữ Khách"),
                 Loc.T("Giữa năm đảo hệ có một bến nghỉ chân. Thám hiểm gia nào đi qua cũng ghé lại: sửa thuyền, đổi đồ, kể chuyện và thử vận ở Tháp Máy Bi giữa đảo.") + "\n\n" +
                 Loc.T("Quanh tháp có bến câu, trường đua, chợ đen, hầm đấu và quán trọ, mở dần theo cấp. Thỉnh thoảng có đoàn lữ khách ghé bến dựng lều chơi vài ngày rồi đi."),
@@ -246,6 +254,7 @@ namespace PokiClash
             {
                 if (!sp) continue;
                 string id = sp.Id;
+                Guide.Mark(CasinoGuide.SpotKey(id), sp); // chỗ Lão Mực khoanh khi đón ở bến
                 switch (id)
                 {
                     case "tower":

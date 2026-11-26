@@ -125,8 +125,13 @@ namespace PokiClash
                 machine.Fired += OnMachineEvent;
                 machine.Play("appear");
             }
-            if (dealer) dealer.Play("greet");
             var mode = Mode;
+            if (Guiding) // lần đầu: Lão Mực đang dẫn (CasinoGuide), không chào riêng
+            {
+                Draw();
+                return;
+            }
+            if (dealer) dealer.Play("greet");
             Say(mode == TableMode.Free ? Loc.T("Lượt đầu ta khao, trượt không mất gì.")
                 : mode == TableMode.Practice ? Loc.T("Hôm nay hết lượt có thưởng rồi, quay tập cho vui nhé.")
                 : Loc.T("Ba hình giống nhau trên một đường là trúng. Cái máy này thật thà hơn ta đấy."), 3.2f);
@@ -134,6 +139,8 @@ namespace PokiClash
         }
 
         protected override void OnTierChanged() => Draw();
+
+        protected override DealerRig StageDealer => dealer;
 
         void OnDisable()
         {
@@ -272,7 +279,7 @@ namespace PokiClash
                 if (!started && t >= t0)
                 {
                     started = true;
-                    App.Audio.Play("whoosh", 0.6f);
+                    App.Audio.Play("slLever", 0.9f); // cần gạt (gen Magnific, ArtGen/Sfx/casino)
                 }
                 if (!looped && t >= PullLen - 0.06f)
                 {
@@ -319,7 +326,7 @@ namespace PokiClash
                 {
                     if (done[r] || t < stopAt[r]) continue;
                     done[r] = true;
-                    App.Audio.Play("land", 0.5f + 0.2f * r);
+                    App.Audio.Play("slStop" + (r + 1), 0.6f + 0.2f * r); // mỗi cuộn một tiếng dừng
                     if (machine && (!quickSpin || r == 2))
                     {
                         machine.Play(r == 0 ? "stop_1" : r == 1 ? "stop_2" : "stop_3", null, 0.06f);
@@ -356,6 +363,7 @@ namespace PokiClash
             {
                 Haptics.Play(Haptic.Win);
                 if (dealer) dealer.Play("react_win_big");
+                App.Audio.Play("mucBoing");
                 Say(Pick(Loc.T("Trời đất, nổ hũ rồi!"), Loc.T("Cái máy phản chủ này!")), 2.4f);
             }
             else if (!quickSpin)
@@ -508,6 +516,7 @@ namespace PokiClash
         {
             if (!bubble || !isActiveAndEnabled) return;
             if (bubbleCo != null) StopCoroutine(bubbleCo);
+            CasinoGuide.Mumble(); // Lão Mực lầm bầm
             bubbleCo = StartCoroutine(SayCo(text, secs));
         }
 

@@ -39,6 +39,15 @@ namespace PokiClash.EditorTools
             ("pencil", "ui_but_chi.ogg"),
             // khán giả Hầm đấu (gen Magnific, ArtGen/Sfx/ham_dau): hai tiếng reo xen kẽ, ồn ào nền lặp liền 8 s (App.Audio.Loop ở UndergroundScene)
             ("pitCheer1", "ham_reo_1.mp3"), ("pitCheer2", "ham_reo_2.mp3"), ("pitCrowd", "ham_on_loop.mp3"),
+            // đảo Casino (gen Magnific 2026-11-27, ArtGen/Sfx/casino/dua_vao_unity.py): bi Vòng Xoay gõ phím / rơi ô, cần gạt và ba tiếng dừng
+            // cuộn Máy Quả, húc (2 bản xen kẽ) và vọt lên ở Trường đua, guồng câu, Lão Mực lầm bầm (3 bản) và "boing" giật mình
+            ("rlTick", "casino_rl_tick.mp3"), ("rlDrop", "casino_rl_roi.mp3"),
+            ("slLever", "casino_sl_can.mp3"), ("slStop1", "casino_sl_dung_1.mp3"), ("slStop2", "casino_sl_dung_2.mp3"),
+            ("slStop3", "casino_sl_dung_3.mp3"),
+            ("raceBonk1", "casino_dua_huc_1.mp3"), ("raceBonk2", "casino_dua_huc_2.mp3"), ("raceDash", "casino_dua_vot.mp3"),
+            ("reelCrank", "casino_cau_guong.mp3"),
+            ("mucTalk1", "casino_muc_noi_1.mp3"), ("mucTalk2", "casino_muc_noi_2.mp3"), ("mucTalk3", "casino_muc_noi_3.mp3"),
+            ("mucBoing", "casino_muc_boing.mp3"),
         };
 
         // khoá nhạc (AudioService.MusicFor, SceneRoot.Music) → Assets/03 Art/Audio/Music/bgm_<khoá>.mp3

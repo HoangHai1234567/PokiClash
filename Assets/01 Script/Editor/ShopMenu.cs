@@ -547,6 +547,77 @@ namespace PokiClash.EditorTools
             Pop(new Popup { kind = "claims", free = true });
         }
 
+        // màn quà hôm nay (DailyGiftView): lượt 1 có quảng cáo (chụp các nhịp, bấm ×2, quảng cáo giả 3 s, dấu ×2, quà bay), lượt 2 không có
+        // quảng cáo (nút Nhận hiện ngay). Ảnh ở Temp/PokiShots/qua_ngay/; sao lưu và trả bản lưu.
+        [MenuItem("PokiClash/Thử/Cửa hàng/màn quà hôm nay: chụp (đang Play)", priority = 157)]
+        static void GiftTour()
+        {
+            if (!Playing()) return;
+            App.I.StartCoroutine(RunGiftTour());
+        }
+
+        static IEnumerator RunGiftTour()
+        {
+            var dir = Path.Combine(PlayTour.ShotDir, "qua_ngay");
+            if (Directory.Exists(dir)) Directory.Delete(dir, true);
+            Directory.CreateDirectory(dir);
+            int n = 0;
+            var path = App.Save.FilePath;
+            string backup = File.Exists(path) ? File.ReadAllText(path) : null;
+            var ads = Ads.Current;
+            IEnumerator At(float t0, float a, string name)
+            {
+                while (Time.realtimeSinceStartup - t0 < a) yield return null;
+                yield return new WaitForEndOfFrame();
+                var tex = ScreenCapture.CaptureScreenshotAsTexture();
+                File.WriteAllBytes(Path.Combine(dir, $"{n++:00}_{name}_{a:0.0}s.jpg"), tex.EncodeToJPG(85));
+                Object.Destroy(tex);
+            }
+            SketchButton Btn(string name) => Object.FindAnyObjectByType<DailyGiftView>()?.GetComponentsInChildren<SketchButton>(true).FirstOrDefault(b => b.name == name);
+            try
+            {
+                App.Modals.CloseAll();
+                Prep();
+                Shop.Of(S).giftDay = -1;
+                if (!DailyGiftView.Open(null))
+                {
+                    Debug.LogWarning("[Cửa hàng] Không mở được màn quà hôm nay (chưa dựng prefab Items/QuaNgay?).");
+                    yield break;
+                }
+                float t = Time.realtimeSinceStartup;
+                foreach (var a in new[] { 0.15f, 0.45f, 0.7f, 1.0f, 1.3f, 1.8f, 2.6f, 3.4f }) yield return At(t, a, "co_qc");
+                Btn("nut_x2")?.SimulateClick();
+                t = Time.realtimeSinceStartup;
+                foreach (var a in new[] { 1.0f, 3.3f, 3.6f, 4.0f, 4.6f, 5.2f }) yield return At(t, a, "bam_x2");
+                while (DailyGiftView.Playing) yield return null;
+                yield return new WaitForSecondsRealtime(0.4f);
+
+                // không có quảng cáo: nút Nhận xanh hiện ngay
+                Ads.Current = null;
+                Shop.Of(S).giftDay = -1;
+                App.Modals.CloseAll();
+                DailyGiftView.Open(null);
+                t = Time.realtimeSinceStartup;
+                foreach (var a in new[] { 1.2f, 2.0f }) yield return At(t, a, "khong_qc");
+                Btn("nut_thuong")?.SimulateClick();
+                t = Time.realtimeSinceStartup;
+                yield return At(t, 0.3f, "khong_qc_nhan");
+                while (DailyGiftView.Playing) yield return null;
+                Debug.Log($"[Cửa hàng] Màn quà hôm nay: {n} ảnh ở {dir}");
+            }
+            finally
+            {
+                Ads.Current = ads;
+                foreach (var v in Object.FindObjectsByType<DailyGiftView>(FindObjectsSortMode.None)) Object.Destroy(v.gameObject);
+                App.Modals.CloseAll();
+                if (backup != null)
+                {
+                    File.WriteAllText(path, backup);
+                    App.Save.Load();
+                }
+            }
+        }
+
         [MenuItem("PokiClash/Thử/Cửa hàng/vào game lại (hàng popup lúc vào) (đang Play)", priority = 158)]
         static void ReOpen()
         {

@@ -97,6 +97,15 @@ namespace PokiClash
             return iconMap.TryGetValue("star", out s) ? s : null;
         }
 
+        // Tranh thẻ chung (ArtGen/Cards, GD_Claude/36): ảnh gen "tranh_<mã thẻ>" (03 Art/Cards) nếu có, không thì null để thẻ giữ ô tròn
+        // + icon (thẻ riêng tướng, boss, quái chưa có tranh). Không cảnh báo: thiếu tranh là chuyện thường.
+        public Sprite CardArt(string cardId)
+        {
+            Index();
+            if (string.IsNullOrEmpty(cardId)) return null;
+            return artMap.TryGetValue("tranh_" + cardId, out var s) ? s : null;
+        }
+
         void Warn(string name, string what)
         {
             if (warned.Add(name)) Debug.LogWarning($"[Ảnh] Chưa có ảnh '{name}': {what}.");

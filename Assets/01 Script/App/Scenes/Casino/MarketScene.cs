@@ -70,6 +70,7 @@ namespace PokiClash
             sellFish.SetOnClick(SellFish);
             sellSpare.SetOnClick(SellSpare);
             Render();
+            CasinoGuide.Market(); // lần đầu: Lão Mực trồi lên góc màn giới thiệu chợ
         }
 
         public override void Refresh() => Render();
@@ -261,7 +262,11 @@ namespace PokiClash
             Haptics.Play(Haptic.UiTap);
             Render();
             if (mystery) StartCoroutine(ChestBox.Show(Loc.T("Túi hàng lậu"), SlotKind.ChestSilver, null, r, Loc.T("Nhận")));
-            else App.Toasts.Show(CasinoUi.Rewards(r), Icon("shop"));
+            else
+            {
+                App.Toasts.Show(CasinoUi.Rewards(r), Icon("shop"));
+                CasinoGuide.Bought(); // Lão Mực bình phẩm (thỉnh thoảng)
+            }
             int k = UiOf(idx);
             if (k >= 0) StartCoroutine(ChestBox.Pop((RectTransform)slots[k].root.transform, 1.08f));
         }

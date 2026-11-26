@@ -6,6 +6,11 @@
 // Biến toàn cục (ZoneSceneLand đặt): _PokiLandOpened = số vùng đã mở. Bút chì tô màu vùng vừa mở: _PokiLandRevealSec (vùng k, -1: tắt),
 // _PokiLandRevealN, _PokiLandReveal[i] (xy: tâm vệt tô theo uv ảnh đảo, z: bán kính theo bề ngang ảnh), _PokiLandRevealFade (0..1: tô
 // nốt phần còn lại của vùng k). Project màu Linear: tính trên giá trị gamma rồi đổi lại (đúng như tờ xem trước).
+// Tô bằng bút chì màu như màn mở khoá tướng (người dùng 2026-11-27: "phần tô màu section đảo khi unlock làm giống với phần tô màu khi
+// unlock tướng", cùng công thức với UIPencilDraw): _PokiLandUseCover = 1 thì bỏ vệt tròn, _PokiLandCover là ảnh phủ trải trên khung
+// vùng _PokiLandCoverBox (uv ảnh đảo: x, y, rộng, cao), mỗi kênh RGBA là chỗ bút của một nhóm màu (_PokiLandC0.._C3, gamma, w = 1 nếu
+// có; Core/CrayonPlan) đã gạch qua. Mỗi điểm lấy kênh của nhóm có màu gần nhất nên màu không lem sang vùng khác; nét mực, mảng tối (dưới
+// _PokiLandDarkL) bút nào qua cũng tô. Vệt sáp có vân chéo và hạt giấy, lực nhẹ thì còn lộ bản phác.
 Shader "PokiClash/UILandSketch"
 {
     Properties
@@ -64,6 +69,9 @@ Shader "PokiClash/UILandSketch"
             float4 _ClipRect;
             float _PokiLandOpened, _PokiLandRevealSec, _PokiLandRevealN, _PokiLandRevealFade;
             float4 _PokiLandReveal[24];
+            sampler2D _PokiLandCover;
+            float4 _PokiLandCoverBox, _PokiLandC0, _PokiLandC1, _PokiLandC2, _PokiLandC3;
+            float _PokiLandUseCover, _PokiLandDarkL;
 
             v2f vert(appdata_t v)
             {
@@ -80,6 +88,24 @@ Shader "PokiClash/UILandSketch"
             float Lum(float2 uv) { return dot(LinearToGammaSpace(tex2D(_MainTex, uv).rgb), float3(0.3, 0.59, 0.11)); }
             float Hash(float2 p) { return frac(sin(dot(p, float2(12.9898, 78.233))) * 43758.5453); }
 
+            // nhiễu giá trị của vân sáp (cùng hàm với UIPencilDraw để vệt sáp trông như màn mở khoá tướng)
+            float HashW(float2 p)
+            {
+                p = frac(p * float2(123.34, 456.21));
+                p += dot(p, p + 45.32);
+                return frac(p.x * p.y);
+            }
+
+            float VNoise(float2 p)
+            {
+                float2 i = floor(p), f = frac(p);
+                f = f * f * (3 - 2 * f);
+                return lerp(lerp(HashW(i), HashW(i + float2(1, 0)), f.x), lerp(HashW(i + float2(0, 1)), HashW(i + 1), f.x), f.y);
+            }
+
+            // bình phương khoảng cách màu tới nhóm (nhóm không dùng: rất xa)
+            float D(float3 g, float4 c) { float3 d = g - c.rgb; return c.w > 0.5 ? dot(d, d) : 1e4; }
+
             fixed4 frag(v2f IN) : SV_Target
             {
                 float2 uv = IN.uv;
@@ -88,19 +114,43 @@ Shader "PokiClash/UILandSketch"
                 // vùng chỉ số >= số vùng đã mở thì khoá (trường làm mềm: mép phác / màu mềm)
                 float lk = smoothstep(_PokiLandOpened - 0.72, _PokiLandOpened - 0.28, v);
                 float2 px = uv * _MainTex_TexelSize.zw;
+                float2 pix = uv / max(fwidth(uv), 1e-7); // toạ độ điểm ảnh màn hình (vân sáp dày đều theo màn như bên tướng)
                 if (_PokiLandRevealSec >= 0)
                 {
                     float k = _PokiLandRevealSec;
                     float mk = 1 - smoothstep(k + 0.28, k + 0.72, v); // thuộc vùng k (vùng sau vẫn khoá)
-                    float asp = _MainTex_TexelSize.w / _MainTex_TexelSize.z;
-                    float wob = (sin(px.x * 0.031 + px.y * 0.017) + sin(px.x * 0.013 - px.y * 0.041)) * 0.0045; // mép tô như nét chì
                     float carve = _PokiLandRevealFade;
-                    for (int i = 0; i < 24; i++)
+                    if (_PokiLandUseCover > 0.5)
                     {
-                        if (i >= (int)_PokiLandRevealN) break;
-                        float4 r = _PokiLandReveal[i];
-                        float2 dd = (uv - r.xy) * float2(1, asp);
-                        carve = max(carve, 1 - smoothstep(r.z * 0.72, r.z, length(dd) + wob));
+                        // bút chì màu: kênh của nhóm màu gần nhất; nét mực, mảng tối lấy kênh lớn nhất
+                        float2 lu = (uv - _PokiLandCoverBox.xy) / max(_PokiLandCoverBox.zw, 1e-5);
+                        float inb = step(0, lu.x) * step(0, lu.y) * step(lu.x, 1) * step(lu.y, 1);
+                        float4 cv = tex2D(_PokiLandCover, saturate(lu)) * inb;
+                        float3 gm = LinearToGammaSpace(tex2D(_MainTex, uv).rgb);
+                        float4 d = float4(D(gm, _PokiLandC0), D(gm, _PokiLandC1), D(gm, _PokiLandC2), D(gm, _PokiLandC3));
+                        float m = min(min(d.x, d.y), min(d.z, d.w));
+                        float4 sel = step(d, m.xxxx);
+                        float own = max(max(cv.x * sel.x, cv.y * sel.y), max(cv.z * sel.z, cv.w * sel.w));
+                        float anyc = max(max(cv.x, cv.y), max(cv.z, cv.w));
+                        float kc = dot(gm, float3(0.299, 0.587, 0.114)) < _PokiLandDarkL ? anyc : own;
+                        // vân sáp: sợi chéo theo hướng gạch + hạt giấy; lực nhẹ, mép vệt thì còn lộ bản phác
+                        float2 q = float2(dot(pix, float2(0.82, 0.57)), dot(pix, float2(-0.57, 0.82)));
+                        float fiber = VNoise(float2(q.x / 7.0, q.y / 1.6));
+                        float tooth = VNoise(pix / 2.2 + 17.0);
+                        float lay = saturate((kc - fiber * 0.45) * 2.6);
+                        carve = max(carve, lay * (0.84 + 0.16 * tooth));
+                    }
+                    else
+                    {
+                        float asp = _MainTex_TexelSize.w / _MainTex_TexelSize.z;
+                        float wob = (sin(px.x * 0.031 + px.y * 0.017) + sin(px.x * 0.013 - px.y * 0.041)) * 0.0045; // mép tô như nét chì
+                        for (int i = 0; i < 24; i++)
+                        {
+                            if (i >= (int)_PokiLandRevealN) break;
+                            float4 r = _PokiLandReveal[i];
+                            float2 dd = (uv - r.xy) * float2(1, asp);
+                            carve = max(carve, 1 - smoothstep(r.z * 0.72, r.z, length(dd) + wob));
+                        }
                     }
                     lk *= 1 - mk * carve;
                 }

@@ -1,0 +1,20 @@
+REFERENCE IMAGES (in this order):
+image 1 = D:\PokiClash\ArtGen\Islands\refs\world_style.png : the game's drawing style reference (hand-drawn map: slightly wobbly dark brown ink lines, colored pencil and wax crayon fill).
+image 2 = D:\PokiClash\Assets\03 Art\Casino\casino_ct_cho.png : the Black Market building on the island seen from outside (purple and teal scalloped canvas awnings, round yellow paper lanterns, bunting, wooden stalls, crates, stone paving).
+image 3 = D:\PokiClash\Assets\03 Art\Casino\HamDau\hd_nen.jpg : another full-screen background of the same island (the underground fighting pit), showing how this game composes a portrait background behind its UI.
+
+SAVE: D:\PokiClash\ArtGen\Casino\cho_den\tai_ve\nen_cho.png (if the name exists, add _2, _3 ...). Do not edit, move or delete any other file.
+
+Draw a vertical full-screen mobile game background (portrait): the inside of that Black Market at dusk, standing in the stone-paved alley between the stalls and looking at the back wall of the main stall.
+
+Drawing technique exactly like image 1: hand-drawn on paper with a slightly wobbly dark brown ink outline, filled with colored pencil and wax crayon texture, one flat color per area (the pencil strokes are only texture), clean and pretty, not scribbly, not glossy digital painting.
+
+Same palette and props as image 2: purple and teal scalloped canvas awnings, round yellow paper lanterns, small triangle bunting, wooden posts and planks, wooden crates and barrels, rolled rugs, a few clay jars and curious trinkets hanging on hooks, grey stone paving.
+
+Layout (important: the game's shelf UI will cover the middle):
+- top 20% of the height: the awning edge with lanterns and bunting hanging down across the whole width;
+- left and right 12% of the width: stall posts, hanging curtains and stacked crates;
+- the big middle area (from 22% to 85% of the height, the central 76% of the width): a calm, mostly plain surface — the back wall of the stall made of wide vertical wooden planks with soft pencil grain; nothing drawn on it: no shelves, no goods, no signs there;
+- bottom 15%: stone paving with a couple of crates at the corners.
+
+No people, no characters, no animals, no faces. No text, no letters, no numbers, no logos, no prices, no UI elements. No cast shadows, no drop shadows, no dark gradients or vignette, no glowing halos or bloom around the lanterns (lanterns are simply flat bright yellow). Calm and readable.

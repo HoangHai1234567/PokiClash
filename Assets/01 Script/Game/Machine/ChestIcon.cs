@@ -1,7 +1,7 @@
 // Hình rương, prefab kit Kit/Ruong. Bind đặt loại, bề rộng, màu thân.
 // Có ảnh gen (ArtGen/Pachinko, "build.py --duyet ruong": pk_ruong_go / _bac / _vang, bản mở thêm "_mo") thì dùng ảnh đó, bỏ khoá
-// vẽ tạm; không thì vẽ tạm như cũ (thân giấy tô màu + khoá tròn, vật liệu UIKit). Rương có màu riêng (fill, rương AFK) giữ hình
-// vẽ tạm cho khỏi mất màu. Open(): đổi sang ảnh rương mở, giữ bề rộng và mép đáy (bản mở cao hơn vì có nắp lật và sao).
+// vẽ tạm; không thì vẽ tạm như cũ (thân giấy tô màu + khoá tròn, vật liệu UIKit). Rương có màu riêng (fill) giữ hình vẽ tạm cho
+// khỏi mất màu (rương AFK từ 2026-11-27 thôi tô màu riêng, dùng rương gỗ thật có rig). Open(): đổi sang ảnh rương mở, giữ bề rộng và mép đáy (bản mở cao hơn vì có nắp lật và sao).
 // Rig AtomSpine (GD_Claude/23_MayBi_TraiNghiem.md, ArtGen/Pachinko/ruong_rig/build_rig.py): con "rig" (AtomSpine.AtomikGraphic, tắt
 // sẵn) và ba file ruong_<bậc>.bytes, menu "PokiClash/Prefab/Máy bi/rig rương (AtomSpine)". PlayRig bật rig thay ảnh tĩnh: cho (đứng
 // thở), nhac (nhắc mở: nhún, lắc, nắp hé có sáng ấm và tia lọt khe), gong (gồng), bat (nắp bật, sự kiện "open"), mo (mở rồi, lòng

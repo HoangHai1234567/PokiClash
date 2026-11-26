@@ -208,11 +208,14 @@ namespace PokiClash
             PlaceWheel();
             Draw();
             var mode = Mode;
+            if (Guiding) return; // lần đầu: Lão Mực đang dẫn (CasinoGuide), không chào riêng
             if (dealerRig) dealerRig.Play("greet", () => { if (!spinning && bets.Count == 0 && dealerRig) dealerRig.Play("rl_invite"); });
             Say(mode == TableMode.Free ? Loc.T("Vòng đầu ta khao, trượt không mất gì.")
                 : mode == TableMode.Practice ? Loc.T("Hôm nay hết vòng có thưởng rồi, quay tập cho vui nhé.")
                 : Loc.T("Đặt chip vào hệ, vào số, hay liều một ô. Bi dừng đâu, ta trả đó."), 3.2f);
         }
+
+        protected override DealerRig StageDealer => dealerRig;
 
         static void Bind(Cell c, Action click)
         {
@@ -469,13 +472,14 @@ namespace PokiClash
         {
             switch (h.kind)
             {
-                case RlHitKind.Roll: App.Audio.Play("peg", 0.08f + 0.16f * h.power, 0.55f + 0.5f * h.power); break;
+                // tiếng bi ngà gõ phím kim loại, bi rơi vào ô (gen Magnific 2026-11-27, ArtGen/Sfx/casino)
+                case RlHitKind.Roll: App.Audio.Play("rlTick", 0.08f + 0.16f * h.power, 0.8f + 0.4f * h.power); break;
                 case RlHitKind.Diamond:
-                    App.Audio.Play("peg", 0.55f + 0.3f * h.power, 0.8f);
+                    App.Audio.Play("rlTick", 0.55f + 0.3f * h.power, 0.75f);
                     Haptics.Play(Haptic.UiTap);
                     break;
-                case RlHitKind.Fret: App.Audio.Play("peg", 0.3f + 0.4f * h.power, 1.35f + 0.3f * h.power); break;
-                case RlHitKind.Land: App.Audio.Play("deal", 0.15f + 0.3f * h.power); break;
+                case RlHitKind.Fret: App.Audio.Play("rlTick", 0.3f + 0.4f * h.power, 1.1f + 0.3f * h.power); break;
+                case RlHitKind.Land: App.Audio.Play("rlDrop", 0.35f + 0.4f * h.power); break;
                 case RlHitKind.Settle: App.Audio.Play("bet", 0.45f, 0.8f); break;
             }
         }
@@ -859,6 +863,7 @@ namespace PokiClash
         {
             if (!bubble) return;
             if (bubbleCo != null) StopCoroutine(bubbleCo);
+            CasinoGuide.Mumble(); // Lão Mực lầm bầm
             bubbleCo = StartCoroutine(SayCo(text, secs));
         }
 

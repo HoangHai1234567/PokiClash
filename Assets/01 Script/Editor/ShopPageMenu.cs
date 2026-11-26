@@ -10,6 +10,9 @@
 // - Items/MoKhoaTuong (HeroUnlockView): canvas riêng: nền gradient màu bậc, trang sổ (dòng kẻ, lề đỏ, ruy băng TƯỚNG MỚI!), chỗ
 //   tướng, tranh chì (material PencilDraw), nét viền (InkStroke), khối chữ (tên, viên bậc, hệ, danh hiệu, 3 dòng chỉ số, nút Xem
 //   tướng / Tiếp), sao trắng, bút chì (2026-11-24: bút chì vẽ tướng lên trang sổ rồi tướng bật ra); gán UiKit.heroUnlock.
+// - Items/QuaNgay (DailyGiftView, 2026-11-27): canvas riêng: nền đen, hai lớp tia + quầng + lõi quầng + vòng + vệt loé (ảnh sáng mềm pk_g_*
+//   cộng sáng, material Resources/UIAdditive), hình quà, dấu ×2, số, tên món, hàng quà kèm, sao vẽ tay, chớp trắng, chữ "Quà hôm nay",
+//   nút "Nhận ×2" to (TV, quầng sau nút) và nút "Nhận thường" nhỏ (nhóm mờ dần); gán UiKit.dailyGift.
 using System.Linq;
 using PokiClash.UI;
 using TMPro;
@@ -31,6 +34,7 @@ namespace PokiClash.EditorTools
         const string PagePath = "Assets/04 Prefabs/Dialogs/CuaHangLon.prefab";
         const string HatchPath = "Assets/04 Prefabs/Items/NoTrung.prefab";
         const string UnlockPath = "Assets/04 Prefabs/Items/MoKhoaTuong.prefab";
+        const string GiftPath = "Assets/04 Prefabs/Items/QuaNgay.prefab";
 
         public const float HeaderH = 118, NavH = 104;
 
@@ -46,6 +50,7 @@ namespace PokiClash.EditorTools
             BuildPage(section, grid, tile, card);
             BuildHatch();
             BuildUnlock();
+            BuildGift();
         }
 
         static GameObject NewRoot(string name, params System.Type[] comps) => Rt(name, null, comps).gameObject;
@@ -549,6 +554,136 @@ namespace PokiClash.EditorTools
             kit.eggHatch = view;
             EditorUtility.SetDirty(kit);
         }
+        // ---------- màn quà hôm nay ----------
+
+        // dựng riêng màn quà hôm nay (không dựng lại các prefab khác của cửa hàng)
+        [MenuItem("PokiClash/Prefab/Hộp thoại và màn/Cửa hàng: chỉ màn quà ngày (QuaNgay)", priority = 71)]
+        static void BuildGiftOnly()
+        {
+            BuildGift();
+            AssetDatabase.SaveAssets();
+            Debug.Log("[Cửa hàng] Đã dựng " + GiftPath);
+        }
+
+        static void BuildGift()
+        {
+            var kit = Kit;
+            var (titleTpl, hintTpl) = Templates();
+            var add = AssetDatabase.LoadAssetAtPath<Material>("Assets/Resources/UIAdditive.mat");
+            var root = NewRoot("QuaNgay", typeof(Canvas), typeof(GraphicRaycaster), typeof(CanvasGroup));
+            var rt = (RectTransform)root.transform;
+            rt.sizeDelta = new Vector2(1080, 1920);
+            var cv = root.GetComponent<Canvas>();
+            cv.overrideSorting = true;
+            cv.sortingOrder = 450;
+
+            // nền đen (người dùng: "nền đen thôi"); nhận chạm để chặn màn dưới
+            var dim = Img("nen_den", root.transform, null, new Color(0, 0, 0, 0));
+            dim.rectTransform.Stretch();
+            dim.raycastTarget = true;
+
+            var gold = new Color(1f, 0.8f, 0.4f, 0);
+            var cream = new Color(1f, 0.95f, 0.8f, 0);
+            var center = new Vector2(0, 150);
+            Image Glow(string n, string file, Vector2 size, Color c)
+            {
+                var img = Img(n, root.transform, Art($"Assets/03 Art/Pachinko/{file}.png"), c);
+                img.rectTransform.Place(new Vector2(0.5f, 0.5f), center, size);
+                if (add) img.material = add;
+                return img;
+            }
+            var rays = Glow("tia", "pk_g_tia", new Vector2(1250, 1250), gold);
+            var rays2 = Glow("tia_2", "pk_g_tia", new Vector2(820, 820), cream);
+            rays2.rectTransform.localEulerAngles = new Vector3(0, 0, 15);
+            var halo = Glow("quang", "pk_g_quang", new Vector2(860, 860), gold);
+            var core = Glow("loi_quang", "pk_g_quang", new Vector2(460, 460), cream);
+            var ring = Glow("vong", "pk_g_vong", new Vector2(380, 380), cream);
+            var flare = Glow("loe", "pk_g_loe", new Vector2(1200, 300), new Color(1f, 0.92f, 0.7f, 0));
+
+            // hình quà (con: ảnh giữ tỉ lệ, dấu ×2 góc phải trên)
+            var item = Rt("qua", root.transform);
+            item.Place(new Vector2(0.5f, 0.5f), center, new Vector2(470, 470));
+            var art = Img("hinh", item, null, Color.white);
+            art.rectTransform.Stretch();
+            art.preserveAspect = true;
+            var stamp = Ui.Spawn(kit.stamp, item);
+            stamp.name = "dau_x2";
+            var srt = (RectTransform)stamp.transform;
+            srt.anchorMin = srt.anchorMax = new Vector2(1, 1);
+            srt.anchoredPosition = new Vector2(-40, -50);
+            srt.localEulerAngles = new Vector3(0, 0, -12);
+            stamp.gameObject.SetActive(false);
+
+            var count = Text(titleTpl, root.transform, "so", 104, TextAlignmentOptions.Center, Color.white);
+            count.rectTransform.Place(new Vector2(0.5f, 0.5f), center + new Vector2(0, -320), new Vector2(700, 130));
+            Outline(count, 0.24f);
+            var itemName = Text(hintTpl, root.transform, "ten_mon", 40, TextAlignmentOptions.Center, Theme.Paper);
+            itemName.rectTransform.Place(new Vector2(0.5f, 0.5f), center + new Vector2(0, -405), new Vector2(800, 60));
+            var extrasTitle = Text(hintTpl, root.transform, "kem_tieu_de", 32, TextAlignmentOptions.Center, Theme.Paper);
+            extrasTitle.rectTransform.Place(new Vector2(0.5f, 0.5f), center + new Vector2(0, -480), new Vector2(800, 50));
+            var extras = Rt("kem", root.transform, typeof(HorizontalLayoutGroup));
+            extras.Place(new Vector2(0.5f, 0.5f), center + new Vector2(0, -620), new Vector2(5 * RewardTile.W + 4 * 18, RewardTile.H));
+            var hl = extras.GetComponent<HorizontalLayoutGroup>();
+            hl.spacing = 18;
+            hl.childAlignment = TextAnchor.MiddleCenter;
+            hl.childControlWidth = hl.childControlHeight = false;
+            hl.childForceExpandWidth = hl.childForceExpandHeight = false;
+
+            // sao vẽ tay (phẳng, không cộng sáng) bắn ra / lấp lánh quanh quà
+            var star = Art("Assets/03 Art/Pachinko/fx2_sao4.png");
+            var stars = new Image[10];
+            for (int i = 0; i < stars.Length; i++)
+            {
+                stars[i] = Img("sao_" + i, root.transform, star, Color.white);
+                stars[i].rectTransform.Place(new Vector2(0.5f, 0.5f), center, new Vector2(70, 70));
+                stars[i].gameObject.SetActive(false);
+            }
+
+            var flash = Img("chop", root.transform, null, new Color(1, 1, 1, 0));
+            flash.rectTransform.Stretch();
+
+            var title = Text(titleTpl, root.transform, "tieu_de", 86, TextAlignmentOptions.Center, Theme.Yellow);
+            title.rectTransform.Place(new Vector2(0.5f, 0.5f), center + new Vector2(0, 480), new Vector2(980, 120));
+            Outline(title, 0.28f);
+
+            // nút ×2 to (bọc trong khung thở, quầng sau nút) neo đáy; nút thường nhỏ bên dưới, nhóm mờ dần
+            var wrap = Rt("nut_x2_khung", root.transform);
+            wrap.Place(new Vector2(0.5f, 0), new Vector2(0, 440), new Vector2(640, 160));
+            var btnGlow = Img("quang_nut", wrap, Art("Assets/03 Art/Pachinko/pk_g_quang.png"), gold);
+            btnGlow.rectTransform.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(980, 420));
+            if (add) btnGlow.material = add;
+            var x2 = Ui.Spawn(kit.buttonBig, wrap);
+            x2.name = "nut_x2";
+            x2.Rect.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(600, Mathf.Max(x2.Rect.sizeDelta.y, 140)));
+            x2.SetRole(BtnColor.Orange);
+            x2.SetText("Nhận ×2");
+            var tv = Img("tv", x2.transform, Icon("tv"), Color.white);
+            tv.rectTransform.Place(new Vector2(0, 0.5f), new Vector2(86, 4), new Vector2(84, 84));
+            var lr = x2.Label.rectTransform;
+            lr.offsetMin = new Vector2(lr.offsetMin.x + 120, lr.offsetMin.y);
+
+            var plainGroup = Rt("nut_thuong_nhom", root.transform, typeof(CanvasGroup));
+            plainGroup.Place(new Vector2(0.5f, 0), new Vector2(0, 250), new Vector2(420, 120));
+            var plain = Ui.Spawn(kit.buttonSmall, plainGroup);
+            plain.name = "nut_thuong";
+            plain.Rect.Place(new Vector2(0.5f, 0.5f), Vector2.zero, new Vector2(360, plain.Rect.sizeDelta.y));
+            plain.SetRole(BtnColor.Paper);
+            plain.SetText("Nhận thường");
+
+            foreach (var gr in root.GetComponentsInChildren<Graphic>(true))
+                if (gr != dim && !gr.transform.IsChildOf(x2.transform) && !gr.transform.IsChildOf(plain.transform)) gr.raycastTarget = false;
+            tv.raycastTarget = false;
+            root.AddComponent<DailyGiftView>().Setup(new DailyGiftView.Parts
+            {
+                dim = dim, rays = rays, rays2 = rays2, halo = halo, haloCore = core, flare = flare, ring = ring, flash = flash, art = art, btnGlow = btnGlow,
+                item = item, x2Wrap = wrap, extras = extras, stars = stars, title = title, count = count, itemName = itemName, extrasTitle = extrasTitle,
+                stamp = stamp, x2 = x2, plain = plain, plainGroup = plainGroup.GetComponent<CanvasGroup>(),
+            }, TilePrefab);
+            var view = Save<DailyGiftView>(root, GiftPath);
+            kit.dailyGift = view;
+            EditorUtility.SetDirty(kit);
+        }
+
         // ---------- màn mở khoá tướng ----------
 
         // dựng riêng màn mở khoá (không dựng lại các prefab khác của cửa hàng)

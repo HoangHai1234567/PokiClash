@@ -225,8 +225,12 @@ namespace PokiClash
             lastPlace = -1;
             NewLineup();
             Render();
-            if (dealer) dealer.Play("greet");
+            // Lão Mực sau quầy cược: lần đầu ông dẫn luật cược (câu đầu đã chào), không thì chào như thường
+            Guide.MucActor = dealer;
+            if (!CasinoGuide.Race() && dealer) dealer.Play("greet");
         }
+
+        int bonk; // hai tiếng húc phát xen kẽ
 
         // lượt đua kế: 5 con mới, chưa chọn con nào; mức cược mặc định là chip thứ hai nếu đủ bi
         void NewLineup()
@@ -876,7 +880,7 @@ namespace PokiClash
                         Pop(e.b, Loc.T("Choáng!"), Theme.RedD);
                         talk.text = e.a >= 0 ? Loc.F("{0} húc {1} choáng váng!", NameOf(e.a), NameOf(e.b)) : Loc.F("{0} vấp ngã!", NameOf(e.b));
                         ax = e.b >= 0 && e.b < game.runners.Count ? stadium.ViewX(game.runners[e.b].pos) : ax;
-                        App.Audio.Play("stamp", 0.7f, 1.2f);
+                        App.Audio.Play(bonk++ % 2 == 0 ? "raceBonk1" : "raceBonk2", 0.85f); // húc (gen Magnific)
                         stadium.Pulse(ax, 300, 22);
                         if (e.b == me)
                         {
@@ -905,6 +909,7 @@ namespace PokiClash
                     case RaceEv.Gust:
                         Pop(e.a, Loc.T("Bứt tốc!"), Theme.GreenD);
                         talk.text = Loc.F("{0} bứt tốc vọt lên!", NameOf(e.a));
+                        App.Audio.Play("raceDash", e.a == me ? 0.9f : 0.5f); // vọt lên (gen Magnific)
                         stadium.Pulse(ax, 260, 16);
                         if (e.a == me) Haptics.Play(Haptic.UiTap);
                         break;

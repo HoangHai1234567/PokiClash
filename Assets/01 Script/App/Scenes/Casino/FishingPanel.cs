@@ -193,6 +193,7 @@ namespace PokiClash
             fishes[0].on = false;
             ToIdle();
             Render();
+            CasinoGuide.Fishing(); // lần đầu: Lão Mực trồi lên góc màn dẫn cách câu
         }
 
         public void Close() => gameObject.SetActive(false);
@@ -556,6 +557,7 @@ namespace PokiClash
                 flash = 1;
                 Haptics.Play(Haptic.UiTap);
                 App.Audio.Play("reel");
+                App.Audio.PlayGap("reelCrank", 0.9f, 0.7f); // guồng quay thật (gen Magnific, ArtGen/Sfx/casino)
                 Splash(bob, 5, 0.9f);
                 Ripple(bob, 0.9f);
                 bobV = 220f;   // giật một nhịp: phao bật lên
@@ -584,6 +586,7 @@ namespace PokiClash
         {
             reel.panel.gameObject.SetActive(false);
             Haptics.Play(Haptic.Lose);
+            if (bite?.fish != null) CasinoGuide.Escaped(bite.king, bite.fish.rar); // Lão Mực tiếc hộ (cá lớn, Cá Vua)
             Escape(bite.king ? Loc.T("Cá Vua thoát rồi!") : Loc.T("Cá sổng mất"));
         }
 
@@ -687,6 +690,7 @@ namespace PokiClash
             StepResult(0);
             Render();
             onRefresh?.Invoke();
+            CasinoGuide.Caught(c.king, c.first, c.record, c.fish.rar); // Lão Mực bình phẩm (Cá Vua, loài mới, kỷ lục)
         }
 
         // ---------- mỗi khung ----------

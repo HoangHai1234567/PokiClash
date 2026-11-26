@@ -96,7 +96,8 @@ namespace PokiClash
         bool CanShow()
         {
             if (!App.I || App.Booting || App.Covered || App.Modals.Count > 0 || App.Router == null || App.Router.Busy) return false;
-            if (!Guide.Idle || StoryIntro.Current != null || EggHatchView.Playing || HeroUnlockView.Playing || Time.unscaledTime - enteredAt < 0.8f) return false;
+            if (!Guide.Idle || StoryIntro.Current != null || EggHatchView.Playing || HeroUnlockView.Playing || DailyGiftView.Playing ||
+                Time.unscaledTime - enteredAt < 0.8f) return false;
             string cur = App.Router.Current;
             if (cur == SceneIds.Battle) return false;
             if (CasinoGames.IsTable(cur)) return false; // bàn may rủi đảo Casino: không gạ mua bi (GD_Claude/29 mục 8); để dành tới màn sau
@@ -135,6 +136,15 @@ namespace PokiClash
             App.Save.Save();
             ShopLog.Event("offer_shown", p.ToString(), 0);
             showing = true;
+            // quà hôm nay: màn riêng nền đen (DailyGiftView), không phải tờ popup (người dùng 2026-11-27); chưa dựng prefab thì tờ cũ
+            if (p.kind == "claims" && DailyGiftView.Open(() =>
+                {
+                    Offers.Closed(S, p, false, false, Now);
+                    App.Save.Save();
+                    ShopLog.Event("offer_closed", p.ToString(), 0);
+                    showing = false;
+                }))
+                return;
             ShopSheet.OpenPopup(p, (bought, mute) =>
             {
                 Offers.Closed(S, p, bought, mute, Now);

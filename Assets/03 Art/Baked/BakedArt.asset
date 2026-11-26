@@ -250,6 +250,34 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: 9852851a5cdd18649b45daed19ec829d, type: 3}
   - name: pitCrowd
     clip: {fileID: 8300000, guid: c803b52a00007f04c93989002b348bcf, type: 3}
+  - name: rlTick
+    clip: {fileID: 8300000, guid: 100b6bfd3b4905d4894ca659a279fae8, type: 3}
+  - name: rlDrop
+    clip: {fileID: 8300000, guid: 18c58e07e33c06c418f87082b5e0ea75, type: 3}
+  - name: slLever
+    clip: {fileID: 8300000, guid: 6cf035fb7cd08144ca157629fa21632b, type: 3}
+  - name: slStop1
+    clip: {fileID: 8300000, guid: 09a45ca2f1bb15c47b7e439fdf034928, type: 3}
+  - name: slStop2
+    clip: {fileID: 8300000, guid: ad48d6e592330d14cbfec17bc79bc89a, type: 3}
+  - name: slStop3
+    clip: {fileID: 8300000, guid: cd009a3e53d56574dba2d2e46e3079f8, type: 3}
+  - name: raceBonk1
+    clip: {fileID: 8300000, guid: 109d39d8c9c95a54ca1e4a4c2fdddd69, type: 3}
+  - name: raceBonk2
+    clip: {fileID: 8300000, guid: 18445d2ac5a406b439a008fc16c14347, type: 3}
+  - name: raceDash
+    clip: {fileID: 8300000, guid: 07982e64ba02708418bbf4bd8d689e9d, type: 3}
+  - name: reelCrank
+    clip: {fileID: 8300000, guid: 997cf0d77c2d96a4badc540a27404f0f, type: 3}
+  - name: mucTalk1
+    clip: {fileID: 8300000, guid: 3bcc02bf1b0823e4992a3ca2ee07ec4a, type: 3}
+  - name: mucTalk2
+    clip: {fileID: 8300000, guid: cada9ac648bb51f43b40b9eb14ad8663, type: 3}
+  - name: mucTalk3
+    clip: {fileID: 8300000, guid: 52622d5301e7d824fa18fcf2a4071667, type: 3}
+  - name: mucBoing
+    clip: {fileID: 8300000, guid: 0b6553c305aa821478f2e042490ba925, type: 3}
   music:
   - name: chude
     clip: {fileID: 8300000, guid: 277ae208646531048a97dea61d0aa06f, type: 3}

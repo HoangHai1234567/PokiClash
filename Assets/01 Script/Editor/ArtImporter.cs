@@ -57,6 +57,7 @@ namespace PokiClash.EditorTools
                 || assetPath.Contains("/Casino/Leu/rl_nen") || assetPath.Contains("/Casino/Leu/rl_ban") // lều Vòng Xoay có dealer (GD_Claude/31 D4): 1144 x 2048
                 || assetPath.Contains("/Casino/Leu/sl_nen") // lều Hội Máy Quả (GD_Claude/31 D5, ArtGen/Casino/may_qua/leu): 1144 x 2048, phủ cả màn
                 || assetPath.Contains("/Casino/HamDau/hd_") // nền Hầm đấu + lớp quầy (GD_Claude/29 mục 6.5, 2026-11-26): 1144 x 2048, phủ cả màn
+                || assetPath.Contains("/Casino/Cho/cho_nen") // nền Chợ đen (GD_Claude/29 C8, ArtGen/Casino/cho_den, 2026-11-27): 1152 x 2048, phủ cả màn
                 || assetPath.Contains("/Kit/may_chuyen_"); // mây chuyển scene (ArtGen/UI/may_chuyen_scene, 2026-11-24): mỗi nửa phủ gần cả màn
             ti.maxTextureSize = big ? 2048 : 1024;
             if (assetPath.EndsWith("/Islands/world.png")) ti.maxTextureSize = 4096; // đảo lớn sảnh có lề cho kéo: 1480 x 2320

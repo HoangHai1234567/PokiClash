@@ -795,6 +795,7 @@ namespace PokiClash.EditorTools
                 s.balls = Mathf.Max(s.balls, 3000);
                 foreach (var h in App.Data.Heroes.Where(h => !h.minion).Take(8)) s.Hero(h.id).owned = true;
                 Casino.Of(s).intro = true;
+                CasinoGuide.SkipAll(s); // tour: không hiện lời dẫn của Lão Mực (chặn chạm)
                 App.Router.Go(SceneIds.CasinoRace, Casino.Race);
                 float t0 = Time.realtimeSinceStartup;
                 while ((App.Router.Busy || App.Router.Current != SceneIds.CasinoRace) && Time.realtimeSinceStartup - t0 < 30) yield return null;

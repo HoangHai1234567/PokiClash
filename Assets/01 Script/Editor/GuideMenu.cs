@@ -102,6 +102,7 @@ namespace PokiClash.EditorTools
 
                 var ov = root.AddComponent<GuideOverlay>();
                 ov.Setup(area, cg, blockers, ring, ringUnder, pencil.rectTransform, note, face, me, tap);
+                GuideLaoMucMenu.Add(area, ov, note.transform); // Lão Mực góc màn (đảo Casino)
                 PrefabUtility.SaveAsPrefabAsset(root, OverlayPath);
             }
             finally

@@ -186,17 +186,21 @@ namespace PokiClash
         ShopTile Tile(ShopGrid g, string title, string sub, Color bg) => Ui.Spawn(tilePrefab, g.Rect).Set(title, sub, bg);
         ShopCard Card(string title, string desc, Color bg) => Ui.Spawn(cardPrefab, p.content).Set(title, desc, bg);
 
-        // hình to cho một gói: trứng bậc cao nhất trong gói, không có thì đống bi theo số, không nữa thì mặt tướng / icon
-        static Sprite ArtFor(List<ShopItem> items)
+        // hình to cho một gói: trứng bậc cao nhất trong gói, không có thì đống bi theo số, không nữa thì vé / đá / icon (hình bản 2 nếu có)
+        public static Sprite ArtFor(List<ShopItem> items)
         {
             var egg = items.Where(i => i.k == Shop.Egg).OrderByDescending(i => i.r).FirstOrDefault();
             if (egg != null) return ShopUi.Egg(egg.r);
             var balls = items.FirstOrDefault(i => i.k == "balls");
             if (balls != null) return BallArt(balls.n);
-            if (items.Any(i => i.k == Shop.Ticket || i.k == Shop.TicketWeek)) return App.Art.Icon("team");
-            if (items.Any(i => i.k == "evo")) return App.Art.Icon("potion");
+            if (items.Any(i => i.k == Shop.Ticket || i.k == Shop.TicketWeek)) return App.Art.HasArt("goi2_ve") ? App.Art.Get("goi2_ve") : App.Art.Icon("team");
+            var evo = items.FirstOrDefault(i => i.k == "evo");
+            if (evo != null) return App.Art.HasArt("goi2_da_nho") ? App.Art.Get(evo.n >= 10 ? "goi2_da_lon" : "goi2_da_nho") : App.Art.Icon("potion");
             return App.Art.Icon("star");
         }
+
+        // hình riêng của gói nếu có (Assets/03 Art/Shop/v2), không thì theo món
+        static Sprite ArtFor(ShopPack pk, List<ShopItem> items) => (pk != null ? ShopUi.PackArt(pk.id) : null) ?? ArtFor(items);
 
         // đống bi theo số bi (6 hình như 6 gói bi: nắm, túi, rổ, thùng, rương, xe); số bi gói nhân theo bậc cấp nên quy về bậc 1 trước
         public static Sprite BallArt(int n)
@@ -206,7 +210,7 @@ namespace PokiClash
             int k = 1;
             for (int i = 0; i < steps.Length; i++)
                 if (b >= steps[i]) k = i + 1;
-            return App.Art.Get("goi_bi_" + k);
+            return ShopUi.Balls(k);
         }
 
         static Color OfferColor(ActiveOffer o) =>
@@ -233,8 +237,11 @@ namespace PokiClash
             var items = Shop.OfferItems(S, D, o);
             string desc = pk != null && pk.kind == "days" ? Loc.T("Mua một lần, nhận 3 ngày liền (vào game mỗi ngày để nhận).") : pk?.Desc;
             var c = Card(ShopService.OfferName(o), desc, OfferColor(o)).Items(items).Value(Shop.OfferMult(S, D, o)).Timer(o.until);
+            // gói có hình riêng (Quà Nhập Môn, Khởi Hành...) dùng hình đó; gói tướng (Vượt Mốc, Tiếp Sức) giữ mặt tướng
             var hero = items.FirstOrDefault(i => i.k == "shards")?.h;
-            if (hero != null && D.Hero(hero) != null) c.Hero(D.Hero(hero));
+            var own = pk != null ? ShopUi.PackArt(pk.id) : null;
+            if (own) c.Art(own);
+            else if (hero != null && D.Hero(hero) != null) c.Hero(D.Hero(hero));
             else c.Art(ArtFor(items));
             if (o.bought) c.Done(Loc.T("Đã mua"));
             else c.Button(ShopService.Price(pk?.price ?? o.price), BtnColor.Orange, () => ShopService.BuyOffer(o.uid, ok => After(ok)));
@@ -258,7 +265,7 @@ namespace PokiClash
             double cap = Shop.PiggyCap(S, C);
             var pk = C.Pack("piggy");
             var c = Card(Loc.T("Lọ Bi"), Loc.F("Lọ đang có {0}/{1} bi. Mỗi bi bạn thả bỏ 1 bi vào lọ.", n, cap), Warm)
-                .Art(App.Art.Get("goi_bi_2")).Value(pk.price > 0 ? n / (pk.price * C.valuePerUsd) : 0);
+                .Art(ShopUi.PackArt("piggy") ?? ShopUi.Balls(2)).Value(pk.price > 0 ? n / (pk.price * C.valuePerUsd) : 0);
             if (Shop.PiggyCanBreak(S, C, Now)) c.Button(Loc.F("Đập lọ {0}", ShopService.Price(pk.price)), BtnColor.Orange, () => ShopService.BuyPack("piggy", ok => After(ok)));
             else if (Shop.PiggyWait(S, C, Now) > 0) c.Note(Loc.F("Lọ vừa đập. Đập lại được sau {0}.", ShopUi.Clock(Shop.PiggyWait(S, C, Now))));
             else c.Note(Loc.F("Đủ {0} bi mới đập được.", Math.Ceiling(cap * C.piggy.minPct)));
@@ -267,10 +274,12 @@ namespace PokiClash
         void DrawFree()
         {
             Section("free", Loc.T("Quà miễn phí"));
-            // quà hôm nay: thẻ ngang (Nhận / Nhận ×2 quảng cáo)
+            // quà hôm nay: thẻ ngang; bấm mở màn nhận quà nền đen (DailyGiftView: ×2 quảng cáo trước, nhận thường sau). Chưa dựng prefab
+            // màn đó thì hai nút Nhận / Nhận ×2 như cũ
             var gift = Shop.Resolve(S, D, C.dailyGift, true, null);
             var g = Card(Loc.T("Quà hôm nay"), Loc.T("Mỗi ngày một phần quà miễn phí."), Mint).Art(ArtFor(gift)).Items(gift);
             if (!Shop.GiftReady(S, Now)) g.Done(Loc.T("Đã nhận, mai quay lại"));
+            else if (Theme.Prefabs && Theme.Prefabs.dailyGift) g.Button(Loc.T("Mở quà"), BtnColor.Green, () => DailyGiftView.Open(Redraw));
             else
             {
                 g.Button(Loc.T("Nhận"), BtnColor.Green, () => ShopService.Gift(false, Redraw));
@@ -296,7 +305,7 @@ namespace PokiClash
                 }
             // bi, trứng xem quảng cáo, mốc quảng cáo hôm nay
             var grid = Grid(3, 430);
-            Tile(grid, Loc.F("+{0} bi", ShopService.FreeBallsN), Loc.T("Bi miễn phí"), Sky).Art(App.Art.Get("goi_bi_1"))
+            Tile(grid, Loc.F("+{0} bi", ShopService.FreeBallsN), Loc.T("Bi miễn phí"), Sky).Art(ShopUi.Balls(1))
                 .Ribbon(Loc.T("Miễn phí"), Theme.Green).AdButton(Loc.T("Xem"), Ads.FreeBalls, () => ShopService.FreeBalls(Redraw));
             Tile(grid, ShopUi.EggName(0), Loc.T("1 lần mỗi ngày"), ShopUi.EggBg(0)).Art(ShopUi.Egg(0))
                 .Ribbon(Loc.T("Miễn phí"), Theme.Green).AdButton(Loc.T("Nở"), Ads.FreeEgg, () => ShopService.FreeEgg(Redraw));
@@ -357,15 +366,17 @@ namespace PokiClash
                 string desc = pk.weekly && pk.items.Any(i => i.k == Shop.TicketWeek)
                     ? Loc.F("{0} Tướng tuần: {1}.", pk.Desc, string.Join(", ", feat.Select(h => D.Hero(h)?.name))) : pk.Desc;
                 var c = Card(pk.Name, desc, Lilac).Items(items).Value(Shop.PackMult(S, D, pk));
-                if (feat.Count > 0 && D.Hero(feat[0]) != null) c.Hero(D.Hero(feat[0]));
-                else c.Art(ArtFor(items));
+                // gói tướng tuần: mặt tướng tuần (cho biết tướng nào ra nhiều); gói đá, vé: hình riêng bản 2
+                bool weeklyHero = pk.weekly && pk.items.Any(i => i.k == Shop.TicketWeek);
+                if (weeklyHero && feat.Count > 0 && D.Hero(feat[0]) != null) c.Hero(D.Hero(feat[0]));
+                else c.Art(ArtFor(pk, items));
                 int left = Shop.Left(S, pk, Now);
                 if (left <= 0) c.Done(pk.weekly ? Loc.T("Tuần sau mua tiếp") : Loc.T("Đã mua"));
                 else c.Button(ShopService.Price(pk.price), BtnColor.Orange, () => ShopService.BuyPack(pk.id, ok => After(ok)));
             }
             if (st.tickets.Count > 0)
                 Card(Loc.T("Vé chọn tướng"), Loc.F("Bạn có {0} vé: chọn 1 trong 6 tướng gợi ý, nhận đủ mảnh mở khoá.", st.tickets.Count), Mint)
-                    .Art(App.Art.Icon("team")).Compact().Button(Loc.T("Dùng vé"), BtnColor.Green, () => ShopSheet.OpenTicket(false, 0));
+                    .Art(ShopUi.PackArt("ticket_rare") ?? App.Art.Icon("team")).Compact().Button(Loc.T("Dùng vé"), BtnColor.Green, () => ShopSheet.OpenTicket(false, 0));
             if (st.Item(Shop.TicketWeek) > 0)
                 Card(Loc.T("Vé tướng tuần"), Loc.F("Bạn có {0} vé: chọn 1 trong 2 tướng tuần.", st.Item(Shop.TicketWeek)), Mint)
                     .Art(App.Art.Icon("star")).Compact().Button(Loc.T("Dùng vé"), BtnColor.Green, () => ShopSheet.OpenTicket(true, 0));
@@ -385,7 +396,7 @@ namespace PokiClash
                 int n = items.Where(i => i.k == "balls").Sum(i => i.n);
                 bool first = Shop.FirstBonus(S, pk);
                 // hình theo thứ tự gói (nắm, túi, rổ, thùng, rương, xe: trùng tên gói)
-                var art = App.Art.Get("goi_bi_" + Math.Min(6, ++k));
+                var art = ShopUi.Balls(Math.Min(6, ++k));
                 var t = Tile(grid, Loc.F("{0} bi", NumFmt.Short(n)), pk.Name, Sky).Art(art).Value(Shop.PackMult(S, D, pk));
                 if (first) t.Ribbon(Loc.T("Lần đầu ×2"), Theme.Red);
                 PackButton(t, pk);
@@ -398,8 +409,11 @@ namespace PokiClash
             var grid = Grid(2, 470);
             foreach (var pk in C.packs.Where(x => x.tab == "perks").OrderBy(x => x.sort))
             {
+                // hình riêng bản 2 (lịch 7 ngày, sổ phiêu lưu, bậc quỹ, TV ngủ); chưa có thì icon cũ thu nhỏ
                 string icon = pk.kind == "card" ? (Shop.CardOf(C, pk)?.id == "month" ? "crown" : "clock") : pk.kind == "fund" ? "coin" : pk.kind == "noads" ? "tv" : "star";
-                var t = Tile(grid, pk.Name, Short(pk.Desc), pk.kind == "fund" ? Warm : pk.kind == "noads" ? Lilac : Sky).Art(App.Art.Icon(icon), null, 0.62f)
+                var own = ShopUi.PackArt(pk.id);
+                var t = Tile(grid, pk.Name, Short(pk.Desc), pk.kind == "fund" ? Warm : pk.kind == "noads" ? Lilac : Sky)
+                    .Art(own ? own : App.Art.Icon(icon), null, own ? 1f : 0.62f)
                     .Value(Shop.PackMult(S, D, pk));
                 if (pk.kind == "card")
                 {

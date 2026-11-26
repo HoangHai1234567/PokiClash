@@ -633,6 +633,9 @@ namespace PokiClash
             float t0 = Time.unscaledTime;
             while (App.Router.Busy && Time.unscaledTime - t0 < 10) yield return null;
             yield return new WaitForSecondsRealtime(0.25f);
+            // lần đầu xuống hầm: Lão Mực dẫn luật qua lớp hướng dẫn (chính ông nói, câu đầu đã chào), không chào riêng
+            Guide.MucActor = dealer;
+            if (back == null && CasinoGuide.Underground()) yield break;
             if (back == null && Underground.FightsLeft(S, D, Now) <= 0)
                 Say(Loc.T("Hôm nay khách đánh đủ rồi. Mai ghé, hầm có lứa đội mới."), "sulk", 3.2f);
             else if (back != null && back.won)
@@ -686,6 +689,7 @@ namespace PokiClash
         void Say(string text, string clip, float secs)
         {
             if (bubbleCo != null) StopCoroutine(bubbleCo);
+            CasinoGuide.Mumble(); // Lão Mực lầm bầm
             bubbleCo = StartCoroutine(SayCo(text, clip, secs));
         }
 

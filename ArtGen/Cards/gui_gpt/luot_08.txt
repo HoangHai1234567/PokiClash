@@ -1,0 +1,52 @@
+Read this whole file. Then open the reference images listed below from their full paths, draw ONE image and save it as described under SAVE. Do not reply with text only.
+
+REFERENCE IMAGES (open each file from its full path):
+image 1 = D:\PokiClash\ArtGen\Islands\refs\world_style.png (1024 x 1536): the game's approved hand-drawn map: copy its RENDERING only (wobbly dark-brown ink outlines, coloured-pencil hatching on cream paper, chunky cute doodles of objects such as the flames, rocks, bell and shells); ignore its content and layout
+image 2 = D:\PokiClash\ArtGen\Spine\inbox\dat_nung_1\tai_ve\L3_1.png (1536 x 1024): an approved creature of the same game: copy how its shapes are FILLED (each area one flat colour with a soft crayon grain, no light and dark modelling) and its ink outline weight; ignore the creature itself
+image 3 = D:\PokiClash\ArtGen\Cards\gui_gpt\bo_cuc_9.png (1536 x 1024): the layout of the image you draw now: 9 numbered picture rectangles; follow it exactly
+image 4 = D:\PokiClash\ArtGen\Cards\tai_ve\luot_01_2.png (1536 x 1024): the approved first sheet of this same card set: match its rendering, outline weight, colours, background treatment and borders EXACTLY so every card looks drawn by the same hand; ignore its subjects
+
+SAVE: save the finished image as a 1536 x 1024 PNG to
+D:\PokiClash\ArtGen\Cards\tai_ve\luot_08.png
+Create the folder if it is missing. If that file already exists, save it as luot_08_2.png, luot_08_3.png … in the same folder instead. Do not change, move or delete any other file.
+
+WHAT THIS IS: 9 small card illustrations for the cards of a vertical mobile monster-battle card game (sheet 8). Each picture sits in the art window of one card, above the card's name and rules text, and is shown only about 280 x 175 px on a phone, so it must read instantly at that small size.
+
+LAYOUT: a 1536 x 1024 image on a plain pure white (#FFFFFF) background. 9 picture rectangles exactly where image 3 shows them, each 464 x 290 px (16:10, landscape), with plain white gutters between them. Each picture fills its whole rectangle edge to edge and has a thin wobbly dark-brown ink border (about 4 px). Nothing crosses a rectangle's border or touches the white gutters. Picture 1 is the top-left rectangle, then left to right, row by row. Do not draw the numbers, the grey guide fill or any text.
+
+THE MOST IMPORTANT RULE: a player who glances at a picture must understand, or at least guess, what the card DOES (attack, heal, shield, gain mana, weaken the enemy...). Show the EFFECT, not a creature. Build every picture from the shared visual language below so the same idea always looks the same on every card.
+
+VISUAL LANGUAGE (use exactly these looks every time):
+- health = a red heart; healing = a green plus sign; a health bar = a short horizontal red bar in an ink frame (empty part cream);
+- mana = a blue water drop; rage = an orange flame;
+- attack = a steel sword; defense = a blue kite shield; a shield barrier = a light-blue bubble dome;
+- more / increase = a chunky green up-arrow; less / decrease = a chunky red down-arrow;
+- lasts several turns = a small hourglass; stun = yellow stars circling a head; poison = green bubbles and a small green skull-shaped bubble;
+- another card in hand = a small blank playing card (cream face, ink border, may carry one small symbol);
+- THE ENEMY = always the same cute straw training dummy: round burlap-sack head with two stitched dot eyes and a stitched frown, straw tufts at the neck and arms, standing on a wooden post. Anything done TO the enemy (hit, burned, poisoned, stunned, armour broken, mana stolen) is drawn ON this dummy. When the card only helps yourself, do not draw the dummy.
+
+EVERY PICTURE:
+- one big, clear idea in the middle, filling about 60-70% of the rectangle: chunky simple shapes with bold silhouettes, the effect symbols big enough to read at 280 x 175 px; a little action (motion lines, sparks, puffs, small flying pieces); nothing tiny or fussy.
+- background: cream paper (#FBF4E2) with one loose oval patch of light coloured-pencil hatching behind the subject, in a pale colour that contrasts with the subject; nothing else in the background, no scenery, no ground line unless the subject needs it.
+- NO animals and NO animal body parts (no paws, fur, claws, beast faces, legs, tails) unless the description names them; no people.
+- cute but fierce, like a kid's adventure notebook drawn by a professional illustrator.
+
+RENDERING: bold dark-brown ink outlines (#2B2118), about 6 px, slightly wobbly like a real pen, thinner (3 px) on small inner details. Fill every area with ONE flat colour with a soft colour-pencil and crayon grain, as in image 2; the grain is texture only, never light and dark modelling.
+NO SHADOWS: no drop shadow, no hard offset shadow, no cast shadow, no shadow under the feet or on the ground or background.
+Shade only with colour-pencil hatching inside the shapes; the game adds shadows itself where needed.
+No glow, no halo, no soft light, no gradient, no white shine spots, no glossy or 3D look. Energy (flames, lightning, magic, rays) is drawn as flat solid shapes with ink outlines.
+PALETTE: ink #2B2118, paper #FBF4E2, red #E8553F, orange #F39A2D, yellow #F7C948, green #6CBF4F, teal #3FB8A9, blue #4A90D9, purple #9A6AD6, pink #F07FA6, straw beige #D9B48A, stone grey #9A9A92.
+No text, no letters, no numbers, no runes, no readable symbols anywhere.
+
+THE 9 PICTURES (number = rectangle in image 3; the card's name and what it does in the game, then what to draw):
+1. "Blood Offering" (loses health for a big extra hit): a cracked red heart pouring red energy into a raised steel sword that strikes the enemy dummy with a big impact burst.
+2. "Heaven's Will" (boost that depends on the element matchup): a big golden star with five element symbols orbiting it (metal ingot, leaf, water drop, flame, mountain), a steel sword with a green up-arrow in front.
+3. "Myriad Venom" (heavy poison): a bubbling cauldron of green poison; three green skull-shaped bubbles fly out of it toward the enemy dummy.
+4. "Awakened Eye" (next card stronger and higher critical chance): a mystic eye opening wide above a playing card with a green up-arrow, a small bullseye target with an arrow in its centre.
+5. "Mirror Mail" (reflects most of the damage taken): a round silver mirror shield bouncing a big fireball straight back into the enemy dummy.
+6. "Venom Dragon" (poisons and reduces the enemy's healing): a cloud of green poison smoke shaped like a dragon coiling around the enemy dummy, green poison bubbles, a cracked green plus sign with a red down-arrow.
+7. "Chain Storm" (attack boost for each other attack card): lightning bolts striking down from a storm cloud onto a row of playing cards with sword symbols, a steel sword with a green up-arrow in front.
+8. "Nemesis" (this turn's attack ignores defense and hits much harder): the ring of five element symbols above a golden sword that pierces straight through the blue shield of the enemy dummy, flat ink-outlined rays.
+9. "Grim Scythe" (finishes off an enemy with low health): a huge scythe with a crescent-moon blade sweeping toward the enemy dummy, a low red health bar above the dummy, a pale crescent moon behind.
+
+Remember: save the image to D:\PokiClash\ArtGen\Cards\tai_ve\luot_08.png

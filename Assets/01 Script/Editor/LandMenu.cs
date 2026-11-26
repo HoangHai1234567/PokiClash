@@ -13,7 +13,11 @@
 //   ảnh trường vùng Baked/Islands/land_<đảo>_vung.png của mọi đảo (không sRGB, không nén, không mipmap; build_land.py --xuat ghi),
 //   tạo material Islands/land_sketch_<đảo>.mat (shader PokiClash/UILandSketch) gán vào ZoneScene.landSketches, dựng ảnh phác chì
 //   "phac_vung" làm con đầu của ảnh bản đồ (dưới hiệu ứng, sáng tối), gán ZoneScene.landSketch; prefab Items/TrungPhuc (Image + ClickCatcher: mây phủ chọc được, mắt boss, rương bí ẩn),
-//   gán ZoneScene.eggPrefab, eggArt (Islands/Co/trung_*, Pachinko/pk_ruong_go); dựng lại danh mục ảnh.
+//   gán ZoneScene.eggPrefab, eggArt (Islands/Co/trung_*, Pachinko/pk_ruong_go); dựng lại danh mục ảnh. Cuối cùng chạy luôn mục dưới.
+// - "PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Bút chì màu tô vùng boss" (người dùng 2026-11-27: tô vùng mở như màn mở khoá tướng):
+//   prefab Items/ButMau (thân xám Shop/but_mau_than.png nhuộm màu nhóm lúc chạy, con "vo" là vỏ Shop/but_mau_vo.png; cỡ ảnh, gốc ở
+//   ngòi như bút chì đảo) và ảnh phủ Islands/Co/phu_but_mau.asset (RGBA32 không sRGB, đọc ghi được; ZoneSceneLand đổi cỡ lúc chạy),
+//   gán ZoneScene.crayonPrefab, crayonCover.
 // - "PokiClash/Thử/Đảo Thủy vùng đất: easter egg vùng khoá …" (đang Play): tiến độ 23, chụp cảnh rò qua mây, boss tung tuyệt kỹ,
 //   chọc mây hắt xì, rương bí ẩn; xong trả bản lưu.
 // - "PokiClash/Thử/Đo hiệu năng đảo vùng đất …" (đang Play): đang ở màn đảo vùng đất, tắt lần lượt từng lớp, ghi batches, tris, SetPass
@@ -48,6 +52,10 @@ namespace PokiClash.EditorTools
         const string PencilPath = "Assets/03 Art/Islands/Co/but_chi.png";
         const string EggPath = "Assets/04 Prefabs/Items/TrungPhuc.prefab";
         const string ChestArtPath = "Assets/03 Art/Pachinko/pk_ruong_go.png";
+        const string CrayonPath = "Assets/04 Prefabs/Items/ButMau.prefab";
+        const string CrayonBodyArt = "Assets/03 Art/Shop/but_mau_than.png", CrayonShellArt = "Assets/03 Art/Shop/but_mau_vo.png";
+        const string CoverPath = "Assets/03 Art/Islands/Co/phu_but_mau.asset";
+        static readonly Vector2 CrayonPivot = new Vector2(0.1139f, 0.1477f); // ngòi, như bút chì đảo (ZoneSceneLand.PencilPivot)
         static string Dir => Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "land");
 
         // các đảo vùng đất có ảnh Baked/Islands/land_<đảo><đuôi>.png (đuôi _dist: khoảng cách tới bờ, _vung: trường vùng boss); Thủy đầu
@@ -258,6 +266,72 @@ namespace PokiClash.EditorTools
             AssetDatabase.SaveAssets();
             Debug.Log($"[Vùng đất] Đã dựng {FlagPath} ({frames.Count} khung vải), gán vào Zone cùng phác chì "
                       + string.Join(", ", sketches.Select(m => m.name)) + $", bút chì, {eggArt.Count} hình easter egg");
+            BuildCrayons();
+        }
+
+        [MenuItem("PokiClash/Prefab/Sảnh và đảo/Đảo vùng đất: Bút chì màu tô vùng boss", priority = 72)]
+        static void BuildCrayons()
+        {
+            var body = AssetDatabase.LoadAssetAtPath<Sprite>(CrayonBodyArt);
+            var shell = AssetDatabase.LoadAssetAtPath<Sprite>(CrayonShellArt);
+            if (!body || !shell)
+            {
+                Debug.LogError($"[Vùng đất] Thiếu {CrayonBodyArt} hoặc {CrayonShellArt} (ArtGen/UI/mo_khoa_tuong/but_mau.py)");
+                return;
+            }
+            Image crayon;
+            var root = new GameObject("but_mau", typeof(RectTransform), typeof(Image));
+            try
+            {
+                var bi = root.GetComponent<Image>();
+                bi.sprite = body;
+                bi.preserveAspect = true;
+                bi.raycastTarget = false;
+                var rt = (RectTransform)root.transform;
+                rt.anchorMin = rt.anchorMax = new Vector2(0, 1);
+                rt.pivot = CrayonPivot;
+                rt.sizeDelta = body.rect.size;
+                var vo = new GameObject("vo", typeof(RectTransform), typeof(Image));
+                vo.transform.SetParent(root.transform, false);
+                var si = vo.GetComponent<Image>();
+                si.sprite = shell;
+                si.preserveAspect = true;
+                si.raycastTarget = false;
+                var sr = (RectTransform)vo.transform;
+                sr.anchorMin = Vector2.zero;
+                sr.anchorMax = Vector2.one;
+                sr.offsetMin = sr.offsetMax = Vector2.zero;
+                crayon = PrefabUtility.SaveAsPrefabAsset(root, CrayonPath).GetComponent<Image>();
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+            // ảnh phủ: tạo một lần (đọc ghi được vì dựng bằng mã), lúc chạy ZoneSceneLand đổi cỡ theo vùng
+            var cover = AssetDatabase.LoadAssetAtPath<Texture2D>(CoverPath);
+            if (!cover)
+            {
+                cover = new Texture2D(64, 64, TextureFormat.RGBA32, false, true)
+                    { name = "phu_but_mau", wrapMode = TextureWrapMode.Clamp, filterMode = FilterMode.Bilinear };
+                cover.SetPixelData(new byte[64 * 64 * 4], 0);
+                cover.Apply(false, false);
+                AssetDatabase.CreateAsset(cover, CoverPath);
+            }
+            var zone = PrefabUtility.LoadPrefabContents(ZonePath);
+            try
+            {
+                var so = new SerializedObject(zone.GetComponentInChildren<ZoneScene>(true));
+                so.FindProperty("crayonPrefab").objectReferenceValue = crayon;
+                so.FindProperty("crayonCover").objectReferenceValue = cover;
+                so.ApplyModifiedPropertiesWithoutUndo();
+                PrefabUtility.SaveAsPrefabAsset(zone, ZonePath);
+            }
+            finally
+            {
+                PrefabUtility.UnloadPrefabContents(zone);
+            }
+            AssetDatabase.SaveAssets();
+            Debug.Log($"[Vùng đất] Đã dựng {CrayonPath}, {CoverPath} (đọc ghi được: {cover.isReadable}), gán vào Zone");
         }
 
         [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo Thủy vùng đất: cờ ải chia đều, nổi bật (đang Play)", priority = 126)]
@@ -883,6 +957,57 @@ namespace PokiClash.EditorTools
             }
             File.WriteAllText(Path.Combine(Application.dataPath, "..", "Temp", "PokiShots", "do_hieu_nang.txt"), sb.ToString());
             Debug.Log(sb.ToString());
+        }
+
+        // Bút chì màu tô vùng vừa mở (người dùng 2026-11-27): đảo Thủy, Mộc vừa hạ boss đầu (diễn mở vùng 1), chụp mỗi 0,3 s vào
+        // Temp/PokiShots/land/but_mau_<đảo>_<số>.jpg; xong trả bản lưu
+        [MenuItem("PokiClash/Thử/Đảo và sảnh/Đảo vùng đất: bút chì màu tô vùng vừa mở (đang Play)", priority = 134)]
+        static void CrayonTour()
+        {
+            if (!EditorApplication.isPlaying || App.I == null)
+            {
+                Debug.LogWarning("[Thử] Bấm Play trước");
+                return;
+            }
+            App.I.StartCoroutine(RunCrayonTour());
+        }
+
+        static IEnumerator RunCrayonTour()
+        {
+            var path = App.Save.FilePath;
+            string backup = File.Exists(path) ? File.ReadAllText(path) : null;
+            Directory.CreateDirectory(Dir);
+            foreach (var f in Directory.GetFiles(Dir, "but_mau_*.jpg")) File.Delete(f);
+            bool tutOff = Tutorial.Off;
+            Tutorial.Off = true; // không lớp phủ hướng dẫn người mới che cảnh
+            try
+            {
+                DayCycle.Override = 10f;
+                foreach (var (e, tag) in new[] { (Elem.Thuy, "thuy"), (Elem.Moc, "moc") })
+                {
+                    var land = App.Data.Zone(e)?.land;
+                    if (land == null || land.habs.Count < 2 || land.secs.Count < 2) continue;
+                    yield return EnterLand(e, land.habs[0].stage, 1);
+                    // chờ camera, mây tan (1,1 s), bút chì màu bay vào và tô (~2,7 s), tô kín, cờ mọc
+                    for (int k = 0; k < 24; k++)
+                    {
+                        yield return new WaitForSecondsRealtime(k == 0 ? 0.5f : 0.3f);
+                        yield return Shot($"but_mau_{tag}_{k:00}");
+                    }
+                }
+                Debug.Log("[Thử] Xong bút chì màu tô vùng: " + Path.GetFullPath(Dir));
+            }
+            finally
+            {
+                DayCycle.Override = null;
+                Tutorial.Off = tutOff;
+                if (backup != null)
+                {
+                    File.WriteAllText(path, backup);
+                    App.Save.Load();
+                }
+            }
+            App.Router.Go(SceneIds.Hub);
         }
 
         static IEnumerator Shot(string name)

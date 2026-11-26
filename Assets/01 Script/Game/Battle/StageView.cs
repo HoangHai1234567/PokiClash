@@ -576,6 +576,21 @@ namespace PokiClash
             return HasArena(c) ? c : z;
         }
 
+        /// <summary>Ảnh sàn đấu của ải st (như lúc vào trận, dạng 1) và màu phủ ảnh; null nếu chưa có ảnh. Hộp AFK dùng làm thẻ cảnh
+        /// "đội đang đánh ải này".</summary>
+        public static Sprite ArenaOf(StageDef st, out Color tint)
+        {
+            tint = Color.white;
+            var zone = st != null && App.Data != null ? App.Data.Zone(st.zone) : null;
+            if (zone == null || !App.Art) return null;
+            string key = ArenaArt(zone, st, 1).Substring("battle_".Length);
+            string use = ArenaAnim.Use(key);
+            string t = ArenaAnim.Tint(key);
+            if (t != null) tint = Theme.Hex(t);
+            string name = "battle_" + (use ?? key);
+            return App.Art.HasArt(name) ? App.Art.Get(name) : null;
+        }
+
         // nền có ảnh riêng, hoặc mượn ảnh nền khác: đảo Mộc dùng chung nền (ArtGen/BattleBG/build_moc.py), khoá trong arena_fx.json có
         // "use" (khoá nền có ảnh) và "tint" (màu phủ ảnh: ải mini boss, boss dạng 2, 3)
         static bool HasArena(string name) => App.Art.HasArt(name) || ArenaAnim.Use(name.Substring("battle_".Length)) != null;

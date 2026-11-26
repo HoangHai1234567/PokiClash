@@ -2,6 +2,8 @@
 // mô tả theo cấp thẻ, dòng độ hiếm, nhãn giá (mana xanh, nộ cam), khoá, vệt sáng chạy cho thẻ Huyền thoại.
 // Prefab Assets/04 Prefabs/Kit/The (320 × 464) và TheMini (200 × 292), web 160 × 232 và 100 × 146. Bind gán thẻ.
 // Thẻ bấm được: đè ngón thì lún ngay (phản hồi lúc chạm xuống, GameFeel 3.1), kéo ra ngoài hay nhả thì bật về; chọn lúc nhả.
+// Tranh thẻ (GD_Claude/36, 2026-11-27): thẻ có ảnh "tranh_<mã>" (ArtLibrary.CardArt, 75 thẻ chung vẽ bằng GPT) thì ô tròn + icon
+// nhường chỗ cho ô tranh 16:10 (o_tranh, 272 x 170; viền mực rung nằm sẵn trong ảnh); thẻ chưa có tranh giữ ô tròn như cũ.
 using System;
 using PokiClash.Core;
 using TMPro;
@@ -20,6 +22,7 @@ namespace PokiClash.UI
         public struct Parts
         {
             public Image frame, band, tape, art, icon, cost, shine, lockPanel;
+            public Image tranh; // ô tranh thẻ (o_tranh); null ở prefab chưa chạy menu "PokiClash/Thẻ: thêm ô tranh"
             public TextMeshProUGUI name, desc, rarity, costText, lockText;
             public RectMask2D mask;
         }
@@ -67,6 +70,18 @@ namespace PokiClash.UI
             p.art.color = new Color(rc.r, rc.g, rc.b, 0.35f);
             Theme.SetSprite(p.icon, icon != null ? icon : Sketch.InkDot);
             p.icon.color = icon != null ? Color.white : Theme.Ink3;
+            var tranh = ArtLibrary.Current ? ArtLibrary.Current.CardArt(c.id) : null;
+            bool coTranh = tranh && p.tranh;
+            p.art.gameObject.SetActive(!coTranh);
+            if (p.tranh)
+            {
+                p.tranh.gameObject.SetActive(coTranh);
+                if (coTranh)
+                {
+                    Theme.SetSprite(p.tranh, tranh);
+                    p.tranh.color = Color.white;
+                }
+            }
             p.desc.text = CardText.Text(c, lv);
             p.desc.color = Theme.Ink;
             string rar = (showKind || c.kind != CardKind.Pool ? Elements.KindName(c.kind) + " · " : "") + Elements.RarityName(c.rarity) + (lv > 1 ? Loc.F(" · cấp {0}", lv) : "");
@@ -90,8 +105,8 @@ namespace PokiClash.UI
 
             bool isLocked = !string.IsNullOrEmpty(locked);
             if (isLocked)
-                foreach (var g in new Graphic[] { p.band, p.tape, p.name, p.art, p.icon, p.desc, p.rarity, p.cost, p.costText, p.shine })
-                    g.color = new Color(g.color.r * 0.6f + 0.25f, g.color.g * 0.6f + 0.25f, g.color.b * 0.6f + 0.25f, g.color.a * 0.65f);
+                foreach (var g in new Graphic[] { p.band, p.tape, p.name, p.art, p.icon, p.tranh, p.desc, p.rarity, p.cost, p.costText, p.shine })
+                    if (g) g.color = new Color(g.color.r * 0.6f + 0.25f, g.color.g * 0.6f + 0.25f, g.color.b * 0.6f + 0.25f, g.color.a * 0.65f);
             p.lockPanel.gameObject.SetActive(isLocked);
             if (isLocked) p.lockText.text = locked;
         }
