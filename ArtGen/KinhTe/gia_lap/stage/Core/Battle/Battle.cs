@@ -1,0 +1,1196 @@
+// Trận theo lượt, luân phiên, gốc là Web/src/core/battle.ts (cùng hạt giống, cùng lựa chọn thì cùng chuỗi sự kiện).
+// Khác bản web từ 2026-11-03: chiêu ra ngay lúc bấm, không vào hàng thẻ. Từ 2026-11-04: 35 thẻ chung (web 23), thẻ đã chọn
+// không ra lại trong lượt trừ thẻ có cờ repeat. Từ 2026-11-17: 75 thẻ chung; cơ chế độc cộng dồn (lan khi gục, kích nổ), phản đòn,
+// kết liễu, combo theo nhóm thẻ, cộng hưởng hệ, khắc hệ, cường hóa thẻ kế tiếp, chặn hồi máu, liều theo máu đã mất, đập khiên;
+// boss tiến hóa khi gục (Evolve) thay vì dưới 25% máu.
+// Mỗi hiệp: người chơi (bên 0) đi trước. Mỗi lượt:
+//   1. đầu lượt (trước lần chọn đầu) được đổi tướng;
+//   2. chọn 5 lần, mỗi lần 1 trong 3 thẻ chung; chiêu và tuyệt kỹ dùng xen vào lúc chọn, không tốn lần chọn.
+//      Chiêu ra đòn ngay rồi chọn tiếp, tuyệt kỹ thay cú đánh thường cuối lượt;
+//   3. thẻ chạy lần lượt theo thứ tự xếp, rồi đánh thường (hoặc tuyệt kỹ nếu đã bật).
+// Mọi hàm hành động trả về danh sách sự kiện (kèm ảnh chụp số liệu) để màn trận chiếu lại.
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace PokiClash.Core
+{
+    public sealed class Battle
+    {
+        public readonly GameData Data;
+        BalanceConfig Cfg => Data.Cfg;
+
+        public Rng rng;
+        public uint seed;
+        public Side[] sides;
+        public int round;
+        public int[] order = { 0, 1 };
+        public int step = 2; // 0, 1 trong hiệp; 2 = hết hiệp
+        public Turn turn;
+        public Phase phase = Phase.Idle;
+        public bool resumeTurn; // hộp chọn tướng thay xong thì: false = tiến trận, true = chạy tiếp lượt
+        public int winner = -1;
+        public int turns;
+        public double[] dmgDealt = { 0, 0 };
+        // trận hướng dẫn người mới (Tutorial.BattleFor): thẻ rút sẵn cho phe 0, máu phe 0 không xuống dưới script.floor. null = trận thường
+        public BattleScript script;
+        readonly List<BattleEvent> events = new List<BattleEvent>();
+
+        // phần máu thật sự trừ: trận hướng dẫn giữ máu phe người chơi từ script.floor trở lên (khoá thua ngầm)
+        double Floored(Fighter f, double toHp)
+        {
+            if (script == null || f.side != 0 || script.floor <= 0) return toHp;
+            double keep = Math.Ceiling(f.maxHp * script.floor);
+            return Math.Max(0, Math.Min(toHp, f.hp - keep));
+        }
+
+        Battle(GameData data)
+        {
+            Data = data;
+        }
+
+        public static int Other(int s) => s == 0 ? 1 : 0;
+
+        public Fighter ActiveOf(int s) => sides[s].fighters[sides[s].active];
+
+        // ---------- chỉ số ----------
+
+        // chỉ số: HeroStats.Compute (một nguồn cho trận và màn Tướng)
+
+        // boss có thẻ Tiến Hóa: hệ số máu, Công của dạng i trong dòng n dạng (Cfg.bossEvoHp, bossEvoAtk). Dòng 1 dạng không tiến hóa
+        // nhưng vẫn gánh đủ máu của cả dòng.
+        // 2026-11-17: dạng chưa cuối tiến hóa khi gục (trước: khi máu dưới 25%, bỏ phí 25% máu mỗi dạng chưa cuối), nên máu các dạng
+        // chưa cuối nhân thêm bossEvoEarly (0,75) cho tổng máu phải đánh như cũ. Dòng 3 dạng: ×0,1875 / 0,375 / 0,75; dòng 2: ×0,375 / 1.
+        public static (double hp, double atk) EvoMult(BalanceConfig cfg, int n, int i) =>
+            (cfg.bossEvoHp * (i + 1) * 2 / (n * (n + 1)) * (i < n - 1 ? cfg.bossEvoEarly : 1), 1 - cfg.bossEvoAtk * (n - 1 - i));
+
+        Fighter MakeFighter(Member m, int side, int idx)
+        {
+            var hero = Data.Hero(m.heroId);
+            var s = HeroStats.Compute(Cfg, hero, m.level, m.star, m.boss, m.mods);
+            var st = m.start;
+            // boss có thẻ Tiến Hóa vào trận ở dạng 1, yếu nhất
+            var k = m.evo ? EvoMult(Cfg, Math.Max(1, hero.forms.Length), 0) : (hp: 1.0, atk: 1.0);
+            double hp = m.evo ? Js.Round(s.hp * k.hp) : s.hp;
+            var f = new Fighter
+            {
+                idx = idx, side = side, hero = hero, level = m.level, star = m.star,
+                cardSkill = m.cardSkill, cardUlt = m.cardUlt, cardPassive = m.cardPassive, boss = m.boss,
+                evo = m.evo, form = m.evo ? 0 : hero.FormIndex(Cfg.formStars, m.star), partner = m.partner, trait = m.trait,
+                maxHp = hp, hp = hp, atk = m.evo ? Js.Round(s.atk * k.atk) : s.atk, def = s.def, spd = s.spd,
+                mana = st != null ? Math.Min(Cfg.maxMana, st.mana) : 0, rage = st != null ? Math.Min(Cfg.maxRage, st.rage) : 0,
+            };
+            // tiềm năng chí mạng, hút máu: buff cả trận (left ≥ 99 không giảm)
+            if (st != null && st.crit != 0) f.buffs.Add(new Buff { stat = Stat.Crit, v = st.crit, left = 99, until = Until.End });
+            if (st != null && st.lifesteal != 0) f.buffs.Add(new Buff { stat = Stat.Lifesteal, v = st.lifesteal, left = 99, until = Until.End });
+            // tiềm năng / đặc tính hệ (agent B, 2026-11-17): khiên đầu trận, giảm sát thương nhận, né đòn đánh thường (buff cả trận)
+            if (st != null && st.shield != 0) f.shield = Math.Min(Js.Round(hp * Cfg.shieldCap), Js.Round(hp * st.shield));
+            if (st != null && st.guard != 0) f.buffs.Add(new Buff { stat = Stat.DmgTaken, v = -st.guard, left = 99, until = Until.End });
+            if (st != null && st.dodge != 0) f.buffs.Add(new Buff { stat = Stat.Dodge, v = st.dodge, left = 99, until = Until.End });
+            return f;
+        }
+
+        // khắc hệ giữa hai tướng trên sân (tướng đồng hành không chịu thiệt, Elements.Mult)
+        public static double ElemMult(Fighter a, Fighter d) => Elements.Mult(a.hero.elem, d.hero.elem, a.partner, d.partner);
+
+        public static double BuffSum(Fighter f, Stat stat)
+        {
+            double v = 0;
+            foreach (var x in f.buffs)
+                if (x.stat == stat) v += x.v;
+            return v;
+        }
+
+        Snap TakeSnap()
+        {
+            var sn = new Snap { active = new[] { sides[0].active, sides[1].active } };
+            for (int s = 0; s < 2; s++)
+                foreach (var f in sides[s].fighters)
+                {
+                    var fs = new FSnap
+                    {
+                        hp = f.hp, maxHp = f.maxHp, shield = f.shield, mana = f.mana, rage = f.rage, dead = f.dead,
+                        atkB = BuffSum(f, Stat.Atk), defB = BuffSum(f, Stat.Def),
+                    };
+                    foreach (var x in f.statuses)
+                    {
+                        fs.st.Add((x.id, x.left));
+                        fs.stk.Add(x.id == StatusId.Poison ? x.stacks : 0);
+                    }
+                    sn.f[s].Add(fs);
+                }
+            return sn;
+        }
+
+        void Emit(BattleEvent e)
+        {
+            e.snap = TakeSnap();
+            events.Add(e);
+        }
+
+        List<BattleEvent> Flush()
+        {
+            var l = new List<BattleEvent>(events);
+            events.Clear();
+            return l;
+        }
+
+        // ---------- tạo trận ----------
+
+        public static Battle Create(GameData data, TeamSetup t0, TeamSetup t1, uint seed, int unlock0 = 99, int unlock1 = 99)
+        {
+            var b = new Battle(data) { rng = new Rng(seed), seed = seed };
+            var teams = new[] { t0, t1 };
+            var unlock = new[] { unlock0, unlock1 };
+            b.sides = new Side[2];
+            for (int s = 0; s < 2; s++)
+            {
+                var side = new Side { name = teams[s].name, ai = teams[s].ai, unlock = unlock[s] };
+                for (int i = 0; i < teams[s].members.Count; i++) side.fighters.Add(b.MakeFighter(teams[s].members[i], s, i));
+                side.rules = teams[s].rules;
+                b.sides[s] = side;
+            }
+            // Sổ Phép: lượt đổi bộ thẻ (thêm nếu bên kia có boss / mini boss), lượt giữ thẻ, lượt đổi tướng giữa lượt
+            for (int s = 0; s < 2; s++)
+            {
+                var r = b.sides[s].rules;
+                if (r == null) continue;
+                var rs = b.sides[s].rs;
+                rs.rerolls = r.rerolls + (b.sides[Other(s)].fighters.Exists(f => f.boss) ? r.bossRerolls : 0);
+                rs.holds = r.holds;
+                rs.midSwaps = r.midSwaps;
+            }
+            b.turn = b.EmptyTurn(0);
+            return b;
+        }
+
+        Turn EmptyTurn(int side)
+        {
+            int n = sides[side].rules?.picks > 0 ? sides[side].rules.picks : Cfg.picks;
+            return new Turn { side = side, picksTotal = n, picksLeft = n };
+        }
+
+        double BenchMana(int s) => Cfg.benchMana + (sides[s].rules?.benchMana ?? 0);
+
+        // bị động "vào trận" của mọi tướng, rồi vào hiệp đầu
+        public List<BattleEvent> StartBattle()
+        {
+            Emit(new BattleEvent { t = EvType.Start });
+            for (int s = 0; s < 2; s++)
+                foreach (var f in sides[s].fighters.ToList()) RunPassive(f, PassiveTrigger.Start);
+            AdvanceInner();
+            return Flush();
+        }
+
+        // ---------- tiến trận ----------
+
+        public List<BattleEvent> Advance()
+        {
+            AdvanceInner();
+            return Flush();
+        }
+
+        void AdvanceInner()
+        {
+            if (phase == Phase.Over) return;
+            for (int s = 0; s < 2; s++)
+            {
+                var side = sides[s];
+                if (!side.needSwap) continue;
+                if (side.ai) DoSwap(s, AiForcedChoice(s), true);
+                else
+                {
+                    phase = Phase.ForceSwap;
+                    resumeTurn = false;
+                    turn = EmptyTurn(s);
+                    return;
+                }
+            }
+            if (step >= 2)
+            {
+                if (round >= Cfg.maxRounds)
+                {
+                    TimeOut();
+                    return;
+                }
+                round++;
+                // người chơi luôn đi trước mỗi hiệp (chốt 2026-10-31)
+                const int first = 0;
+                order = new[] { first, Other(first) };
+                step = 0;
+                Emit(new BattleEvent { t = EvType.Round, round = round, first = first });
+            }
+            BeginTurn(order[step]);
+        }
+
+        void BeginTurn(int s)
+        {
+            turn = EmptyTurn(s);
+            turns++;
+            Emit(new BattleEvent { t = EvType.Turn, side = s });
+            var f = ActiveOf(s);
+            // buff thủ (hết khi tới lượt chủ), né chưa dùng thì mất
+            TickBuffs(s, Until.Start);
+            f.statuses = f.statuses.Where(x => x.id != StatusId.Evade).ToList();
+            // bỏng, độc, hồi phục (về 0 máu thì thôi: không hồi máu cho tướng đã gục; boss còn dạng sau tiến hóa ở Kill ngay dưới)
+            foreach (var st in f.statuses.ToList())
+            {
+                if (f.hp <= 0) break;
+                if (st.id == StatusId.Burn || st.id == StatusId.Poison)
+                {
+                    // bỏng: phần máu tối đa; độc: số máu định sẵn lúc tẩm (theo Công kẻ tẩm)
+                    double d = Math.Max(1, Js.Round(st.id == StatusId.Burn ? f.maxHp * st.v : st.v));
+                    double toHp = Floored(f, Math.Min(f.hp, d));
+                    f.hp -= toHp;
+                    Emit(new BattleEvent
+                    {
+                        t = EvType.Dmg, from = Other(s), to = s, amount = d, toHp = toHp, blocked = 0, crit = false, elem = 1,
+                        dmgKind = st.id == StatusId.Burn ? DmgKind.Burn : DmgKind.Poison,
+                    });
+                }
+                else if (st.id == StatusId.Regen) Heal(f, st.v);
+                if (st.id == StatusId.Burn || st.id == StatusId.Regen || st.id == StatusId.Poison) st.left--;
+            }
+            f.statuses = f.statuses.Where(x => x.left > 0).ToList();
+            if (f.hp <= 0) Kill(f);
+            if (f.dead)
+            {
+                if (winner >= 0) return;
+                var side = sides[s];
+                if (side.ai) DoSwap(s, AiForcedChoice(s), true);
+                else
+                {
+                    phase = Phase.ForceSwap;
+                    resumeTurn = true;
+                    return;
+                }
+            }
+            ContinueTurn();
+        }
+
+        void ContinueTurn()
+        {
+            int s = turn.side;
+            var f = ActiveOf(s);
+            CheckLow(f);
+            RunPassive(f, PassiveTrigger.TurnStart);
+            AddMana(f, Cfg.manaPerTurn, false);
+            foreach (var o in sides[s].fighters)
+                if (o != f && !o.dead) o.mana = Math.Min(Cfg.maxMana, o.mana + BenchMana(s));
+            if (f.Has(StatusId.Stun))
+            {
+                // choáng: mất trọn lượt (không chọn thẻ, không đổi tướng, không đánh); mana đầu lượt vẫn nhận
+                f.statuses = f.statuses.Where(x => x.id != StatusId.Stun).ToList();
+                if (sides[s].rules?.stunGuard > 0) f.stunImmune = sides[s].rules.stunGuard + 1; // Tỉnh Táo: tính cả lượt đang mất
+                turn.stunned = true;
+                turn.picksTotal = turn.picksLeft = 0;
+                Emit(new BattleEvent { t = EvType.Stunned, side = s });
+                EndTurn(s);
+                return;
+            }
+            // Sổ Phép "Nét Kép": thẻ chọn đầu tiên của trận chạy hai lần
+            var rr = sides[s].rules;
+            if (rr != null && rr.doubleFirst && !sides[s].rs.doubleUsed)
+            {
+                sides[s].rs.doubleUsed = true;
+                turn.doubleNext = true;
+                Emit(new BattleEvent { t = EvType.Double, side = s });
+            }
+            turn.offer = DrawOffer(s);
+            phase = Phase.Picking;
+        }
+
+        // rút 3 thẻ khác nhau từ thẻ chung đã mở theo cấp, nặng theo độ hiếm. Thẻ đã chọn trong lượt không ra lại,
+        // trừ thẻ có cờ repeat (người dùng dặn 2026-11-04)
+        // Sổ Phép: avoid (khi đổi bộ) là bộ đang hiện, tránh ra lại nếu đủ thẻ khác; số thẻ theo OfferSize; Mắt Tinh, Dồn Tay đổi trọng số;
+        // thẻ giữ (Giữ Nét) thêm vào lần chọn đầu lượt. Không có sổ thì như cũ từng bước (golden).
+        public List<string> DrawOffer(int s, List<string> avoid = null)
+        {
+            if (script != null && s == 0)
+            {
+                var forced = script.NextOffer(Data);
+                if (forced != null) return forced;
+            }
+            int unlock = sides[s].unlock;
+            var picked = turn.side == s ? turn.queue.Select(q => q.card).ToList() : new List<string>();
+            var pool = Data.Pool.Where(c => c.unlock <= unlock && (c.repeat || !picked.Contains(c.id))).ToList();
+            var r = sides[s].rules;
+            var rs = sides[s].rs;
+            int n = OfferSize(s);
+            if (avoid != null)
+            {
+                var fresh = pool.Where(c => !avoid.Contains(c.id)).ToList();
+                if (fresh.Count >= n) pool = fresh;
+            }
+            var outL = new List<CardDef>();
+            while (outL.Count < n && outL.Count < pool.Count)
+            {
+                var left = pool.Where(c => !outL.Contains(c)).ToList();
+                if (r == null) outL.Add(rng.Weighted(left, c => Cfg.PoolWeight(c.rarity)));
+                else
+                    outL.Add(rng.Weighted(left, c => Cfg.PoolWeight(c.rarity) *
+                                                     (r.rareWeight > 0 && c.rarity >= Rarity.Rare ? r.rareWeight : 1) *
+                                                     (r.groupWeight > 0 && rs.hasLastGroup && CardText.InGroup(c, rs.lastGroup) ? r.groupWeight : 1)));
+            }
+            var ids = outL.Select(c => c.id).ToList();
+            if (rs.held != null && turn.side == s && picked.Count == 0)
+            {
+                if (!ids.Contains(rs.held)) ids.Add(rs.held);
+                rs.held = null;
+            }
+            return ids;
+        }
+
+        // số thẻ mỗi lần chọn: cấu hình; Sổ Phép: Chốt 1, Rộng Tay (lần đầu lượt), Năm Bút Chì (địch đúng hệ), Trang Cuối (lần cuối lượt)
+        int OfferSize(int s)
+        {
+            var r = sides[s].rules;
+            if (r == null) return Cfg.offer;
+            int n = r.offer > 0 ? r.offer : Cfg.offer;
+            bool mine = turn != null && turn.side == s;
+            if (mine && turn.picksLeft == turn.picksTotal) n += r.firstOfferAdd;
+            if (r.elemExtra >= 0 && (int)ActiveOf(Other(s)).hero.elem == r.elemExtra) n += r.elemExtraN;
+            if (mine && turn.picksLeft == 1 && r.lastOffer > n) n = r.lastOffer;
+            return n;
+        }
+
+        // Sổ Phép "Lật Trang": đổi cả bộ thẻ đang chọn (không ra lại bộ cũ nếu đủ thẻ)
+        public int RerollsLeft(int s) => sides[s].rs.rerolls;
+
+        public bool CanReroll() => phase == Phase.Picking && !turn.stunned && sides[turn.side].rs.rerolls > 0 && (script == null || turn.side != 0);
+
+        public List<BattleEvent> Reroll()
+        {
+            if (!CanReroll()) return new List<BattleEvent>();
+            sides[turn.side].rs.rerolls--;
+            turn.offer = DrawOffer(turn.side, turn.offer);
+            return Flush();
+        }
+
+        // ---------- hành động của người chơi (máy cũng gọi các hàm này) ----------
+
+        public bool CanSwap(int idx)
+        {
+            var t = turn;
+            var side = sides[t.side];
+            if (phase != Phase.Picking || t.swapped) return false;
+            if (t.firstPick && side.rs.midSwaps <= 0) return false; // Sổ Phép "Đổi Vai": đổi được cả khi đã chọn thẻ
+            if (idx < 0 || idx >= side.fighters.Count) return false;
+            var f = side.fighters[idx];
+            return !f.dead && idx != side.active;
+        }
+
+        public List<BattleEvent> Swap(int idx)
+        {
+            if (!CanSwap(idx)) return new List<BattleEvent>();
+            if (turn.firstPick) sides[turn.side].rs.midSwaps--;
+            DoSwap(turn.side, idx, false);
+            turn.swapped = true;
+            // tướng vào sân đầu lượt nhận đủ mana của lượt (lúc ở dự bị mới được phần nhỏ)
+            AddMana(ActiveOf(turn.side), Cfg.manaPerTurn - BenchMana(turn.side), false);
+            return Flush();
+        }
+
+        public List<BattleEvent> ForceSwap(int idx)
+        {
+            int s = turn.side;
+            var fs = sides[s].fighters;
+            if (phase != Phase.ForceSwap || idx < 0 || idx >= fs.Count || fs[idx].dead) return new List<BattleEvent>();
+            DoSwap(s, idx, true);
+            if (resumeTurn) ContinueTurn();
+            else AdvanceInner();
+            return Flush();
+        }
+
+        void DoSwap(int s, int idx, bool forced)
+        {
+            var side = sides[s];
+            int from = side.active;
+            var r = side.rules;
+            var outF = side.fighters[from];
+            var inF = side.fighters[idx];
+            // Sổ Phép khi tự đổi tướng: Rút Lui hồi tướng ra (trước khi đổi, sự kiện hồi còn của tướng đang ra sân), Tiếp Sức chuyền mana
+            if (r != null && !forced && !outF.dead)
+            {
+                if (r.swapOutHeal > 0) Heal(outF, r.swapOutHeal);
+                if (r.manaCarry > 0)
+                {
+                    double m = Js.Round(outF.mana * r.manaCarry);
+                    outF.mana -= m;
+                    inF.mana = Math.Min(Cfg.maxMana, inF.mana + m);
+                }
+            }
+            side.active = idx;
+            side.needSwap = false;
+            Emit(new BattleEvent { t = EvType.Swap, side = s, from = from, to = idx, forced = forced });
+            if (r != null)
+            {
+                // Vào Sân: tướng vào có khiên; Tiếp Nối: tướng ra thay tướng vừa gục có sẵn nộ
+                if (r.swapInShield > 0)
+                {
+                    double cap = Js.Round(inF.maxHp * Cfg.shieldCap);
+                    double add = Math.Max(0, Math.Min(cap - inF.shield, Js.Round(inF.maxHp * r.swapInShield)));
+                    inF.shield += add;
+                    if (add > 0) Emit(new BattleEvent { t = EvType.Shield, side = s, amount = add });
+                }
+                if (forced && r.koRage > 0) AddRage(inF, r.koRage);
+            }
+            // độc lan từ tướng vừa gục: gộp vào độc đang có (chặn ở PoisonMax lớp), lấy số lượt dài hơn
+            if (side.spread != null && forced)
+            {
+                var src = side.spread;
+                side.spread = null;
+                var f = side.fighters[idx];
+                var old = f.statuses.Find(x => x.id == StatusId.Poison);
+                if (old == null) f.statuses.Add(old = new StatusInst { id = StatusId.Poison });
+                int add = Math.Max(0, Math.Min(src.stacks, PoisonMax - old.stacks));
+                double per = src.stacks > 0 ? src.v / src.stacks : 0;
+                old.stacks += add;
+                old.v = Math.Round(old.v + add * per, 6);
+                old.left = Math.Max(old.left, src.left);
+                Emit(new BattleEvent { t = EvType.Status, side = s, status = StatusId.Poison, turns = old.left });
+            }
+        }
+
+        public List<BattleEvent> Pick(int i)
+        {
+            var t = turn;
+            if (phase != Phase.Picking || i < 0 || i >= t.offer.Count) return new List<BattleEvent>();
+            t.queue.Add(new QueueItem { card = t.offer[i], lv = 1 });
+            var r = sides[t.side].rules;
+            var rs = sides[t.side].rs;
+            if (r != null && r.groupWeight > 0)
+            {
+                var pc = Data.Card(t.offer[i]);
+                rs.hasLastGroup = false;
+                foreach (var g in new[] { CardGroup.Atk, CardGroup.Def, CardGroup.Heal })
+                    if (CardText.InGroup(pc, g))
+                    {
+                        rs.lastGroup = g;
+                        rs.hasLastGroup = true;
+                        break;
+                    }
+            }
+            t.firstPick = true;
+            t.picksLeft--;
+            if (t.picksLeft > 0) t.offer = DrawOffer(t.side);
+            else
+            {
+                // Giữ Nét: thẻ hiếm nhất chưa chọn của lần chọn cuối chờ sang lần chọn đầu lượt sau
+                if (r != null && rs.holds > 0)
+                {
+                    string best = null;
+                    var bestR = Rarity.Common;
+                    for (int k = 0; k < t.offer.Count; k++)
+                    {
+                        if (k == i) continue;
+                        var c = Data.Card(t.offer[k]);
+                        if (c != null && (best == null || c.rarity > bestR))
+                        {
+                            best = c.id;
+                            bestR = c.rarity;
+                        }
+                    }
+                    if (best != null)
+                    {
+                        rs.held = best;
+                        rs.holds--;
+                    }
+                }
+                t.offer = new List<string>();
+                phase = Phase.Ready;
+            }
+            return Flush();
+        }
+
+        public (CardDef card, int lv) InnateCard(Fighter f, InnateKind which)
+        {
+            var id = which == InnateKind.Skill ? f.hero.skill : f.hero.ult;
+            return (Data.Card(id), f.CardLv(which));
+        }
+
+        // lý do không dùng được (rỗng là dùng được)
+        public string InnateBlock(InnateKind which)
+        {
+            var t = turn;
+            if (phase != Phase.Picking) return Loc.T("Hết lúc chọn");
+            if (t.stunned) return Loc.T("Đang choáng");
+            var f = ActiveOf(t.side);
+            var card = InnateCard(f, which).card;
+            if (which == InnateKind.Skill && t.skillUsed) return Loc.T("Đã dùng lượt này");
+            if (which == InnateKind.Ult && t.ult != null) return Loc.T("Đã bật");
+            if (UltRage(f, card, which) > f.rage) return Loc.T("Chưa đủ nộ");
+            if (card.costMana > f.mana) return Loc.T("Chưa đủ mana");
+            return "";
+        }
+
+        public List<BattleEvent> UseInnate(InnateKind which)
+        {
+            if (InnateBlock(which) != "") return new List<BattleEvent>();
+            var t = turn;
+            var f = ActiveOf(t.side);
+            var (card, lv) = InnateCard(f, which);
+            f.mana -= card.costMana;
+            double rc = UltRage(f, card, which);
+            if (rc < card.costRage) sides[t.side].rs.freeUltUsed = true; // Sổ Phép "Chữ Ký": Tuyệt kỹ đầu tiên bớt nộ
+            f.rage -= rc;
+            t.firstPick = true; // đã ra quyết định: hết lúc đổi tướng
+            if (which == InnateKind.Skill) t.skillUsed = true;
+            else t.ult = new UltItem { card = card.id, lv = lv };
+            Emit(new BattleEvent { t = EvType.Innate, side = t.side, card = card.id, kind = which == InnateKind.Skill ? "skill" : "ult" });
+            if (which == InnateKind.Skill)
+            {
+                // chiêu ra đòn ngay (người dùng 2026-11-03), thẻ đã xếp vẫn chờ cuối lượt
+                ApplyEffects(t.side, Scaled(card, lv), DmgKind.Skill);
+                // chiêu hạ tướng đối thủ: hết lúc chọn, thẻ đã xếp chạy rồi hết lượt (gục hết đội thì trận đã xong)
+                if (winner < 0 && (ActiveOf(t.side).dead || ActiveOf(Other(t.side)).dead))
+                {
+                    t.offer = new List<string>();
+                    phase = Phase.Ready;
+                }
+            }
+            return Flush();
+        }
+
+        List<Effect> Scaled(CardDef c, int lv) => CardText.ScaleEffects(c.Effects, lv, Cfg.cardLvStep);
+
+        // nộ cần cho chiêu / Tuyệt kỹ (Sổ Phép "Chữ Ký": Tuyệt kỹ đầu tiên mỗi trận bớt phần nộ ultDiscount)
+        public double UltRage(Fighter f, CardDef card, InnateKind which)
+        {
+            var r = sides[f.side].rules;
+            if (which != InnateKind.Ult || r == null || r.ultDiscount <= 0 || sides[f.side].rs.freeUltUsed) return card.costRage;
+            return Js.Round(card.costRage * (1 - r.ultDiscount));
+        }
+
+        // chạy hết hàng thẻ, đánh, kết thúc lượt
+        public List<BattleEvent> Execute()
+        {
+            if (phase != Phase.Ready) return new List<BattleEvent>();
+            var t = turn;
+            int s = t.side;
+            for (int qi = 0; qi < t.queue.Count; qi++)
+            {
+                var item = t.queue[qi];
+                var card = Data.Card(item.card);
+                // thẻ "chạy 2 lần" (Gương Đôi), "mạnh thêm" (cường hóa) áp cho thẻ kế tiếp không cùng loại
+                int reps = t.doubleNext && !Has(card, EffectKind.Double) ? 2 : 1;
+                if (reps == 2) t.doubleNext = false;
+                double emp = 0;
+                if (t.empower > 0 && !Has(card, EffectKind.Empower) && !Has(card, EffectKind.Double))
+                {
+                    emp = t.empower;
+                    t.empower = 0;
+                }
+                execIdx = qi;
+                for (int r = 0; r < reps; r++)
+                {
+                    if (winner >= 0 || ActiveOf(s).dead) break;
+                    Emit(new BattleEvent { t = EvType.Card, side = s, card = item.card, kind = "pool", lv = item.lv, rep = r });
+                    var effs = Scaled(card, item.lv);
+                    ApplyEffects(s, emp > 0 ? CardText.ScaleBy(effs, 1 + emp) : effs, DmgKind.Card);
+                }
+                execIdx = -1;
+            }
+            var me = ActiveOf(s);
+            var foe = ActiveOf(Other(s));
+            if (winner < 0 && !me.dead && !foe.dead && !t.stunned)
+            {
+                if (t.ult != null)
+                {
+                    Emit(new BattleEvent { t = EvType.Ult, side = s, card = t.ult.card });
+                    ApplyEffects(s, Scaled(Data.Card(t.ult.card), t.ult.lv), DmgKind.Ult);
+                    // Sổ Phép "Hợp Lực": tướng dự bị còn sống đánh phụ
+                    var ra = sides[s].rules;
+                    if (ra != null && ra.assist > 0)
+                        foreach (var o in sides[s].fighters)
+                        {
+                            if (winner >= 0 || ActiveOf(Other(s)).dead || ActiveOf(s).dead) break;
+                            if (o != ActiveOf(s) && !o.dead) FlatHit(s, Js.Round(o.atk * ra.assist), DmgKind.Extra);
+                        }
+                }
+                else
+                {
+                    NormalAttack(s, 1, false);
+                    foreach (var m in t.extra)
+                        if (!ActiveOf(Other(s)).dead && !ActiveOf(s).dead && winner < 0) NormalAttack(s, m, true);
+                }
+            }
+            if (winner < 0) EndTurn(s);
+            return Flush();
+        }
+
+        void EndTurn(int s)
+        {
+            var me = ActiveOf(s);
+            if (me.stunImmune > 0) me.stunImmune--;
+            TickBuffs(s, Until.End);
+            step++;
+            phase = Phase.Idle;
+        }
+
+        // ---------- hiệu ứng ----------
+
+        void NormalAttack(int s, double mult, bool extra)
+        {
+            var me = ActiveOf(s);
+            Emit(new BattleEvent { t = EvType.Attack, side = s, extra = extra });
+            double d = DealDamage(s, mult, extra ? DmgKind.Extra : DmgKind.Attack, 0, 0);
+            if (d > 0 && !me.dead) AddRage(me, Cfg.rageOnAttack, false); // gục vì phản đòn thì thôi
+            if (d > 0) RunPassive(me, PassiveTrigger.OnAttack);
+        }
+
+        double DealDamage(int s, double mult, DmgKind kind, double pierce, double lifesteal)
+        {
+            var A = ActiveOf(s);
+            var D = ActiveOf(Other(s));
+            if (D.dead || A.dead) return 0;
+            bool isAttack = kind == DmgKind.Attack || kind == DmgKind.Extra;
+            if (isAttack)
+            {
+                var ev = D.statuses.Find(x => x.id == StatusId.Evade);
+                double dodge = BuffSum(D, Stat.Dodge);
+                if (ev != null || (dodge > 0 && rng.Chance(dodge)))
+                {
+                    if (ev != null) D.statuses.Remove(ev);
+                    Emit(new BattleEvent
+                    {
+                        t = EvType.Dmg, from = s, to = Other(s), amount = 0, toHp = 0, blocked = 0, crit = false, elem = 1, dmgKind = kind, dodged = true,
+                    });
+                    return 0;
+                }
+            }
+            double atk = A.atk * Math.Max(0.1, 1 + BuffSum(A, Stat.Atk));
+            double def = D.def * Math.Max(0, 1 + BuffSum(D, Stat.Def)) * (1 - pierce);
+            double m = mult;
+            if (kind == DmgKind.Attack && turn.trueStrike != 0)
+            {
+                def = 0;
+                m *= turn.trueStrike;
+            }
+            double em = ElemMult(A, D);
+            var ra = sides[s].rules;
+            if (ra != null)
+            {
+                if (em > 1) em += ra.advAdd; // Mũi Nhọn
+                else if (em < 1) em += ra.disAdd; // Lá Chắn
+            }
+            bool crit = rng.Chance(Cfg.critBase + BuffSum(A, Stat.Crit));
+            double taken = Math.Max(0.1, 1 + BuffSum(D, Stat.DmgTaken));
+            double k = Cfg.defK * HeroStats.LevelMult(Cfg, A.level);
+            double raw = atk * m * (k / (k + def)) * em * (crit ? Cfg.critMult : 1) * taken *
+                         rng.Range(1 - Cfg.dmgVar, 1 + Cfg.dmgVar);
+            double dmg = Math.Max(1, Js.Round(raw));
+            double blocked = Math.Min(D.shield, dmg);
+            D.shield -= blocked;
+            double toHp = Floored(D, Math.Min(D.hp, dmg - blocked));
+            // boss còn dạng sau: đòn hạ gục đưa máu về 0 (sát thương thừa bỏ), Kill cho tiến hóa (2026-11-17; trước chừa 1 máu rồi
+            // tiến hóa ở CheckLow)
+            D.hp -= toHp;
+            D.rage = Math.Min(Cfg.maxRage, D.rage + Js.Round((toHp / D.maxHp) * Cfg.rageOnHit));
+            dmgDealt[s] += toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = s, to = Other(s), amount = dmg, toHp = toHp, blocked = blocked, crit = crit, elem = em, dmgKind = kind,
+            });
+            double ls = BuffSum(A, Stat.Lifesteal) + lifesteal;
+            if (ls > 0 && toHp > 0) HealFlat(A, Js.Round(toHp * ls));
+            // phản đòn: phần sát thương trúng (cả phần khiên đỡ) dội lại kẻ đánh, sau khi xét gục; tướng phản đã gục thì thôi
+            double th = BuffSum(D, Stat.Thorns);
+            double refl = th > 0 && toHp + blocked > 0 ? Js.Round((toHp + blocked) * th) : 0;
+            if (D.hp <= 0) Kill(D);
+            else
+            {
+                RunPassive(D, PassiveTrigger.OnHit);
+                CheckLow(D);
+            }
+            if (refl > 0 && !D.dead && winner < 0) Reflect(D, A, refl);
+            // Sổ Phép "Nét Kết": địch không phải boss xuống dưới ngưỡng thì kết liễu
+            if (ra != null && ra.executeBelow > 0 && winner < 0 && !A.dead && !D.dead && !D.boss && D.hp / D.maxHp < ra.executeBelow)
+                FlatHit(s, D.hp + D.shield, kind);
+            return dmg;
+        }
+
+        void Kill(Fighter f)
+        {
+            if (f.dead) return;
+            // boss còn dạng sau thì tiến hóa thay vì gục
+            if (CanEvolve(f))
+            {
+                Evolve(f);
+                return;
+            }
+            // bị động hồi sinh: lần đầu gục thì sống lại ngay, giữ vị trí ra sân, xoá bỏng và choáng (boss không hồi sinh)
+            var pc = Data.Card(f.hero.passive);
+            if (pc.trigger == PassiveTrigger.Death && !f.revived && !f.boss)
+            {
+                var rv = Scaled(pc, f.cardPassive).FirstOrDefault(e => e.K == EffectKind.Revive);
+                if (rv != null)
+                {
+                    f.revived = true;
+                    f.hp = Math.Max(1, Js.Round(f.maxHp * rv.Pct));
+                    f.statuses = f.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
+                    Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = pc.id });
+                    Emit(new BattleEvent { t = EvType.Revive, side = f.side, idx = f.idx, hp = f.hp });
+                    return;
+                }
+            }
+            // Sổ Phép "Vẽ Lại": một lần mỗi trận, tướng gục sống lại (boss không)
+            var fr = sides[f.side].rules;
+            if (fr != null && fr.revivePct > 0 && !sides[f.side].rs.reviveUsed && !f.boss)
+            {
+                sides[f.side].rs.reviveUsed = true;
+                f.hp = Math.Max(1, Js.Round(f.maxHp * fr.revivePct));
+                f.statuses = f.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
+                Emit(new BattleEvent { t = EvType.Revive, side = f.side, idx = f.idx, hp = f.hp });
+                // vẽ lại cần thời gian: mất lượt kế của tướng đó (choáng 1 lượt, không tính miễn choáng)
+                f.statuses.Add(new StatusInst { id = StatusId.Stun, left = 1 });
+                Emit(new BattleEvent { t = EvType.Status, side = f.side, status = StatusId.Stun, turns = 1 });
+                return;
+            }
+            f.dead = true;
+            f.hp = 0;
+            f.shield = 0;
+            // độc lan (2026-11-17): độc trên tướng gục chuyển sang tướng ra thay (DoSwap bắt buộc), để độc không phí khi địch đông
+            var side = sides[f.side];
+            var pz = f.statuses.Find(x => x.id == StatusId.Poison);
+            if (pz != null)
+            {
+                f.statuses.Remove(pz);
+                side.spread = pz;
+            }
+            Emit(new BattleEvent { t = EvType.Death, side = f.side, idx = f.idx });
+            if (side.fighters.Exists(x => !x.dead)) side.needSwap = true;
+            else
+            {
+                winner = Other(f.side);
+                phase = Phase.Over;
+                Emit(new BattleEvent { t = EvType.End, winner = winner });
+            }
+        }
+
+        // quá số hiệp tối đa: bên có tổng phần trăm máu cao hơn thắng, hoà thì địch thắng
+        void TimeOut()
+        {
+            double Sum(int s)
+            {
+                double a = 0;
+                foreach (var f in sides[s].fighters) a += f.dead ? 0 : f.hp / f.maxHp;
+                return a;
+            }
+            winner = Sum(0) > Sum(1) ? 0 : 1;
+            phase = Phase.Over;
+            Emit(new BattleEvent { t = EvType.End, winner = winner });
+        }
+
+        void Heal(Fighter f, double pct) => HealFlat(f, Js.Round(f.maxHp * pct));
+
+        void HealFlat(Fighter f, double amount)
+        {
+            // chỉ số "máu được hồi" (âm là bị chặn hồi, −1 là không hồi được)
+            double ht = BuffSum(f, Stat.HealTaken);
+            if (ht != 0) amount = Js.Round(amount * Math.Max(0, 1 + ht));
+            double a = Math.Min(amount, f.maxHp - f.hp);
+            if (a <= 0 || f.dead) return;
+            f.hp += a;
+            Emit(new BattleEvent { t = EvType.Heal, side = f.side, amount = a });
+        }
+
+        void AddMana(Fighter f, double v, bool show = true)
+        {
+            double before = f.mana;
+            f.mana = Math.Max(0, Math.Min(Cfg.maxMana, f.mana + v));
+            if (show && f.mana != before) Emit(new BattleEvent { t = EvType.Mana, side = f.side, v = f.mana - before });
+        }
+
+        void AddRage(Fighter f, double v, bool show = true)
+        {
+            double before = f.rage;
+            f.rage = Math.Max(0, Math.Min(Cfg.maxRage, f.rage + v));
+            if (show && f.rage != before) Emit(new BattleEvent { t = EvType.Rage, side = f.side, v = f.rage - before });
+        }
+
+        void TickBuffs(int s, Until when)
+        {
+            foreach (var f in sides[s].fighters)
+            {
+                foreach (var x in f.buffs)
+                    if (x.until == when && x.left < 99) x.left--;
+                f.buffs = f.buffs.Where(x => x.left > 0).ToList();
+            }
+        }
+
+        public const string BossEvoCard = "boss_evo";
+
+        static bool CanEvolve(Fighter f) => f.evo && !f.dead && f.form < f.hero.forms.Length - 1;
+
+        // thẻ Tiến Hóa (luật 2026-11-17): dạng chưa cuối về 0 máu thì tiến hóa thay vì gục (Kill gọi). Chuỗi sự kiện cho màn trận:
+        //   1. sự kiện làm máu về 0 (Dmg; ảnh chụp: máu 0, chưa dead);
+        //   2. Passive thẻ boss_evo (ảnh chụp vẫn dạng cũ, máu 0): dạng cũ gục, chơi clip chết;
+        //   3. Evolve (form = dạng mới, hp = máu dạng mới; ảnh chụp dạng mới): biến hình, dạng mới ra sân.
+        // Dạng mới: máu tối đa và Công đổi theo hệ số của dạng (giữ phần cộng từ thẻ như Bánh Bao), vào trận đầy máu, xoá bỏng, choáng,
+        // độc; bị động "máu thấp" của tướng dùng lại được ở dạng mới
+        void Evolve(Fighter f)
+        {
+            var c = Data.Card(BossEvoCard);
+            Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
+            int n = f.hero.forms.Length;
+            var ko = EvoMult(Cfg, n, f.form);
+            var kn = EvoMult(Cfg, n, f.form + 1);
+            double heal = c.Effects.Count > 0 && c.Effects[0].K == EffectKind.Evolve ? c.Effects[0].Pct : 1;
+            f.form++;
+            f.maxHp = Js.Round(f.maxHp * (kn.hp / ko.hp));
+            f.atk = Js.Round(f.atk * (kn.atk / ko.atk));
+            f.hp = Math.Max(f.hp, Math.Max(1, Js.Round(f.maxHp * heal)));
+            f.statuses = f.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
+            f.lowHpUsed = false;
+            Emit(new BattleEvent { t = EvType.Evolve, side = f.side, idx = f.idx, form = f.form, hp = f.hp });
+        }
+
+        void CheckLow(Fighter f)
+        {
+            var c = Data.Card(f.hero.passive);
+            if (c.trigger == PassiveTrigger.LowHp && !f.lowHpUsed && !f.dead && f.hp / f.maxHp < c.below)
+            {
+                f.lowHpUsed = true;
+                Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
+                ApplyEffectsTo(f, Scaled(c, f.cardPassive), DmgKind.Card);
+            }
+            // bị động boss kiểu máu thấp: một lần mỗi trận (cờ riêng, không mở lại khi tiến hóa)
+            var t = string.IsNullOrEmpty(f.trait) ? null : Data.Card(f.trait);
+            if (t != null && t.trigger == PassiveTrigger.LowHp && !f.traitLowUsed && !f.dead && f.hp / f.maxHp < t.below)
+            {
+                f.traitLowUsed = true;
+                Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = t.id });
+                ApplyEffectsTo(f, Scaled(t, f.cardPassive), DmgKind.Card);
+            }
+            // Sổ Phép: Nét Cứu (hồi một lần mỗi trận), Phản Nét (phản đòn tới hết trận)
+            var r = sides[f.side].rules;
+            if (r != null && !f.dead)
+            {
+                var rs = sides[f.side].rs;
+                if (r.lowHeal > 0 && !rs.lowHealUsed && f.hp / f.maxHp < r.lowAt)
+                {
+                    rs.lowHealUsed = true;
+                    Heal(f, r.lowHeal);
+                }
+                if (r.thorns > 0 && !rs.thornsUsed && f.hp / f.maxHp < r.thornsAt)
+                {
+                    rs.thornsUsed = true;
+                    f.buffs.Add(new Buff { stat = Stat.Thorns, v = r.thorns, left = 99, until = Until.End });
+                    Emit(new BattleEvent { t = EvType.Buff, side = f.side, stat = Stat.Thorns, v = r.thorns, turns = 99 });
+                }
+            }
+        }
+
+        // bị động của tướng, rồi bị động boss của ải (nếu có; cùng cấp thẻ với bị động của tướng)
+        void RunPassive(Fighter f, PassiveTrigger trig)
+        {
+            RunPassiveCard(f, Data.Card(f.hero.passive), trig);
+            if (!string.IsNullOrEmpty(f.trait) && Data.Card(f.trait) is CardDef t) RunPassiveCard(f, t, trig);
+        }
+
+        void RunPassiveCard(Fighter f, CardDef c, PassiveTrigger trig)
+        {
+            if (c.trigger != trig || f.dead) return;
+            if (c.hasChance && !rng.Chance(Math.Min(1, c.chance * CardText.LvFactor(Cfg.cardLvStep, f.cardPassive)))) return;
+            Emit(new BattleEvent { t = EvType.Passive, side = f.side, idx = f.idx, card = c.id });
+            ApplyEffectsTo(f, Scaled(c, f.cardPassive), DmgKind.Card);
+        }
+
+        void ApplyEffects(int s, List<Effect> effects, DmgKind kind) => ApplyEffectsTo(ActiveOf(s), effects, kind);
+
+        // self = tướng làm hiệu ứng (có thể là tướng dự bị khi bị động "vào trận"); foe = tướng đang ra sân của bên kia
+        void ApplyEffectsTo(Fighter self, List<Effect> effects, DmgKind kind)
+        {
+            int s = self.side;
+            bool isActive = ActiveOf(s) == self;
+            foreach (var e in effects)
+            {
+                if (winner >= 0 || self.dead) return; // self gục giữa thẻ (phản đòn) thì phần sau thôi chạy
+                var foe = ActiveOf(Other(s));
+                switch (e.K)
+                {
+                    case EffectKind.Buff:
+                    {
+                        var tgt = e.On == Target.Foe ? foe : self;
+                        if (tgt.dead) break;
+                        var until = e.Until ?? CardText.DefaultUntil(e.Stat);
+                        tgt.buffs.Add(new Buff { stat = e.Stat, v = e.V, left = e.Turns, until = until });
+                        Emit(new BattleEvent { t = EvType.Buff, side = tgt.side, stat = e.Stat, v = e.V, turns = e.Turns });
+                        break;
+                    }
+                    case EffectKind.Heal:
+                        Heal(self, e.Pct);
+                        break;
+                    case EffectKind.MaxHp:
+                    {
+                        double inc = Js.Round(self.maxHp * e.Pct);
+                        self.maxHp += inc;
+                        self.hp += inc;
+                        Emit(new BattleEvent { t = EvType.MaxHp, side = s, amount = inc });
+                        break;
+                    }
+                    case EffectKind.SelfDmg:
+                    {
+                        double d = Math.Min(self.hp - 1, Js.Round(self.hp * e.PctCur));
+                        if (d <= 0) break;
+                        self.hp -= d;
+                        self.rage = Math.Min(Cfg.maxRage, self.rage + Js.Round((d / self.maxHp) * Cfg.rageOnHit * 0.5));
+                        Emit(new BattleEvent
+                        {
+                            t = EvType.Dmg, from = s, to = s, amount = d, toHp = d, blocked = 0, crit = false, elem = 1, dmgKind = DmgKind.Self,
+                        });
+                        CheckLow(self);
+                        break;
+                    }
+                    case EffectKind.Mana:
+                        if (e.On == Target.Foe)
+                        {
+                            double take = Math.Min(foe.mana, Math.Abs(e.V));
+                            AddMana(foe, -take);
+                            AddMana(self, take);
+                        }
+                        else AddMana(self, e.V);
+                        break;
+                    case EffectKind.Rage:
+                        if (e.On == Target.Foe)
+                        {
+                            double take = Math.Min(foe.rage, Math.Abs(e.V));
+                            AddRage(foe, -take);
+                            AddRage(self, take);
+                        }
+                        else AddRage(self, e.V);
+                        break;
+                    case EffectKind.Dmg:
+                    {
+                        if (!isActive) break;
+                        // liều: mạnh thêm theo phần máu đã mất của mình (tính một lần trước các cú)
+                        double mult = e.Missing.HasValue ? e.Mult * (1 + e.Missing.Value * (1 - self.hp / self.maxHp)) : e.Mult;
+                        for (int i = 0; i < (e.Hits ?? 1); i++)
+                        {
+                            if (ActiveOf(Other(s)).dead || self.dead || winner >= 0) break;
+                            DealDamage(s, mult, kind, e.Pierce ?? 0, e.Lifesteal ?? 0);
+                        }
+                        break;
+                    }
+                    case EffectKind.Shield:
+                    {
+                        double cap = Js.Round(self.maxHp * Cfg.shieldCap);
+                        double add = Math.Max(0, Math.Min(cap - self.shield, Js.Round(self.maxHp * e.Pct)));
+                        self.shield += add;
+                        if (add > 0) Emit(new BattleEvent { t = EvType.Shield, side = s, amount = add });
+                        break;
+                    }
+                    case EffectKind.Status:
+                    {
+                        var tgt = e.On == Target.Foe ? foe : self;
+                        if (tgt.dead) break;
+                        if (e.Status == StatusId.Stun && tgt.stunImmune > 0)
+                        {
+                            Emit(new BattleEvent { t = EvType.Resist, side = tgt.side }); // Sổ Phép "Tỉnh Táo"
+                            break;
+                        }
+                        if (e.Chance.HasValue && !rng.Chance(e.Chance.Value))
+                        {
+                            Emit(new BattleEvent { t = EvType.Resist, side = tgt.side });
+                            break;
+                        }
+                        var old = tgt.statuses.Find(x => x.id == e.Status);
+                        if (e.Status == StatusId.Poison)
+                        {
+                            // độc cộng dồn lớp (tối đa PoisonMax); mỗi lớp mỗi lượt mất e.V Công của kẻ tẩm (tính Thủ, khắc hệ lúc tẩm,
+                            // không chí mạng); tẩm thêm thì tính lại số lượt
+                            int have = old?.stacks ?? 0;
+                            int add = Math.Max(0, Math.Min(e.Stacks ?? 1, CardText.PoisonMax - have));
+                            if (old == null) tgt.statuses.Add(old = new StatusInst { id = StatusId.Poison });
+                            old.stacks = have + add;
+                            old.v += add * PoisonPerStack(self, tgt, e.V);
+                            old.left = Math.Max(old.left, e.Turns);
+                        }
+                        else if (old != null)
+                        {
+                            old.left = Math.Max(old.left, e.Turns);
+                            old.v = Math.Max(old.v, e.V);
+                        }
+                        else tgt.statuses.Add(new StatusInst { id = e.Status, left = e.Turns, v = e.V });
+                        Emit(new BattleEvent { t = EvType.Status, side = tgt.side, status = e.Status, turns = e.Turns });
+                        break;
+                    }
+                    case EffectKind.Cleanse:
+                        self.buffs = self.buffs.Where(x => x.stat == Stat.DmgTaken ? x.v <= 0 : x.v >= 0).ToList();
+                        self.statuses = self.statuses.Where(x => !CardText.StatusBad(x.id)).ToList();
+                        Emit(new BattleEvent { t = EvType.Cleanse, side = s });
+                        break;
+                    case EffectKind.Double:
+                        turn.doubleNext = true;
+                        Emit(new BattleEvent { t = EvType.Double, side = s });
+                        break;
+                    case EffectKind.Extra:
+                        turn.extra.Add(e.Mult);
+                        break;
+                    case EffectKind.TrueStrike:
+                        turn.trueStrike = Math.Max(turn.trueStrike, e.Mult);
+                        break;
+                    case EffectKind.IfLow:
+                        ApplyEffectsTo(self, self.hp / self.maxHp < e.Below ? e.Then : e.Else ?? new List<Effect>(), kind);
+                        break;
+                    // ----- cơ chế 2026-11-17 -----
+                    case EffectKind.Execute:
+                    {
+                        // kết liễu: địch dưới ngưỡng máu thì hạ gục luôn (boss: sát thương ×2), không thì đòn thường e.Mult
+                        if (!isActive || foe.dead) break;
+                        bool low = foe.hp / foe.maxHp < e.Below;
+                        if (low && !foe.boss) FlatHit(s, foe.hp + foe.shield, kind);
+                        else DealDamage(s, e.Mult * (low ? 2 : 1), kind, 0, 0);
+                        break;
+                    }
+                    case EffectKind.Combo:
+                    {
+                        int n = ComboCount(s, e.Group);
+                        if (n > 0) ApplyEffectsTo(self, CardText.ScaleBy(e.Then, n), kind);
+                        break;
+                    }
+                    case EffectKind.Resonance:
+                    {
+                        int n = ResonanceCount(sides[s], self);
+                        if (n > 0) ApplyEffectsTo(self, CardText.ScaleBy(e.Then, n), kind);
+                        break;
+                    }
+                    case EffectKind.IfBeat:
+                        ApplyEffectsTo(self, Elements.Beats(self.hero.elem) == foe.hero.elem ? e.Then : e.Else ?? new List<Effect>(), kind);
+                        break;
+                    case EffectKind.Empower:
+                        turn.empower += e.V;
+                        break;
+                    case EffectKind.Detonate:
+                    {
+                        // kích nổ độc: số máu độc còn lại (mỗi lượt × số lượt còn) × e.Mult, gây ngay, xoá độc
+                        if (!isActive || foe.dead) break;
+                        var p = foe.statuses.Find(x => x.id == StatusId.Poison);
+                        if (p == null) break;
+                        double amt = Math.Max(1, Js.Round(p.v * p.left * e.Mult));
+                        foe.statuses.Remove(p);
+                        DotHit(foe, amt);
+                        break;
+                    }
+                    case EffectKind.Bash:
+                    {
+                        // đập khiên: tiêu hết khiên của mình, gây sát thương bằng e.Mult lần số khiên (bỏ qua Thủ, không chí mạng)
+                        if (!isActive || foe.dead || self.shield <= 0) break;
+                        double amt = Js.Round(self.shield * e.Mult);
+                        self.shield = 0;
+                        FlatHit(s, amt, kind);
+                        break;
+                    }
+                }
+            }
+        }
+
+        public const int PoisonMax = CardText.PoisonMax;
+
+        // máu mỗi lượt của một lớp độc: v Công của a (cả buff Công) qua Thủ của d và khắc hệ, như đòn thường không chí mạng, không dao động
+        public double PoisonPerStack(Fighter a, Fighter d, double v)
+        {
+            double atk = a.atk * Math.Max(0.1, 1 + BuffSum(a, Stat.Atk));
+            double def = d.def * Math.Max(0, 1 + BuffSum(d, Stat.Def));
+            double k = Cfg.defK * HeroStats.LevelMult(Cfg, a.level);
+            return Math.Max(1, Js.Round(atk * v * (k / (k + def)) * ElemMult(a, d)));
+        }
+
+        // cộng hưởng: mình + đồng đội còn sống cùng hệ, không tính lính (bầy lính cùng hệ của đảo không cộng hưởng)
+        public static int ResonanceCount(Side side, Fighter self) =>
+            1 + side.fighters.Count(x => x != self && !x.dead && !x.hero.minion && x.hero.elem == self.hero.elem);
+
+        static bool Has(CardDef c, EffectKind k) => c != null && c.Effects.Exists(e => e.K == k);
+
+        // thẻ đang chạy trong hàng (để combo không đếm chính nó); -1 khi không chạy hàng thẻ
+        int execIdx = -1;
+
+        // combo: số thẻ khác cùng nhóm trong hàng thẻ lượt này của bên s
+        int ComboCount(int s, CardGroup g)
+        {
+            if (turn == null || turn.side != s) return 0;
+            int n = 0;
+            for (int i = 0; i < turn.queue.Count; i++)
+                if (i != execIdx && CardText.InGroup(Data.Card(turn.queue[i].card), g)) n++;
+            return n;
+        }
+
+        // sát thương định sẵn lên tướng đang ra sân của bên kia (kết liễu, đập khiên): khiên đỡ trước, không chí mạng, không né,
+        // không phản đòn; tính vào sát thương gây ra
+        void FlatHit(int s, double amount, DmgKind kind)
+        {
+            var D = ActiveOf(Other(s));
+            if (D.dead || amount <= 0) return;
+            double blocked = Math.Min(D.shield, amount);
+            D.shield -= blocked;
+            double toHp = Floored(D, Math.Min(D.hp, amount - blocked));
+            D.hp -= toHp;
+            D.rage = Math.Min(Cfg.maxRage, D.rage + Js.Round((toHp / D.maxHp) * Cfg.rageOnHit));
+            dmgDealt[s] += toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = s, to = Other(s), amount = amount, toHp = toHp, blocked = blocked, crit = false, elem = 1, dmgKind = kind,
+            });
+            if (D.hp <= 0) Kill(D);
+            else
+            {
+                RunPassive(D, PassiveTrigger.OnHit);
+                CheckLow(D);
+            }
+        }
+
+        // sát thương độc ngay lúc kích nổ: như độc mỗi lượt (bỏ qua khiên, không tính vào sát thương gây ra)
+        void DotHit(Fighter f, double amount)
+        {
+            double toHp = Floored(f, Math.Min(f.hp, amount));
+            f.hp -= toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = Other(f.side), to = f.side, amount = amount, toHp = toHp, blocked = 0, crit = false, elem = 1, dmgKind = DmgKind.Poison,
+            });
+            if (f.hp <= 0) Kill(f);
+            else CheckLow(f);
+        }
+
+        // phản đòn: def dội amount lại att (khiên đỡ trước), hạ gục được (boss còn dạng sau thì tiến hóa); không phản tiếp.
+        // Không gọi CheckLow ở đây (đang giữa đòn của att): bị động máu thấp của att xét ở lần CheckLow kế (đầu lượt hay khi trúng đòn).
+        // att gục giữa lượt của mình: hàng thẻ, đánh thêm dừng (Execute, ApplyEffectsTo xét self.dead), đổi tướng ở AdvanceInner
+        void Reflect(Fighter def, Fighter att, double amount)
+        {
+            if (amount <= 0 || att.dead) return;
+            double blocked = Math.Min(att.shield, amount);
+            att.shield -= blocked;
+            double toHp = Floored(att, Math.Min(att.hp, amount - blocked));
+            att.hp -= toHp;
+            dmgDealt[def.side] += toHp;
+            Emit(new BattleEvent
+            {
+                t = EvType.Dmg, from = def.side, to = att.side, amount = amount, toHp = toHp, blocked = blocked, crit = false, elem = 1, dmgKind = DmgKind.Thorns,
+            });
+            if (att.hp <= 0) Kill(att);
+        }
+
+        // ---------- máy chọn tướng thay khi tướng đang ra sân gục ----------
+
+        public int AiForcedChoice(int s)
+        {
+            var side = sides[s];
+            var foe = ActiveOf(Other(s));
+            int best = -1;
+            double bestScore = double.NegativeInfinity;
+            for (int i = 0; i < side.fighters.Count; i++)
+            {
+                var f = side.fighters[i];
+                if (f.dead) continue;
+                double sc = f.hp / f.maxHp + (ElemMult(f, foe) - 1) - (ElemMult(foe, f) - 1) * 0.6;
+                if (sc > bestScore)
+                {
+                    bestScore = sc;
+                    best = i;
+                }
+            }
+            return best;
+        }
+    }
+}

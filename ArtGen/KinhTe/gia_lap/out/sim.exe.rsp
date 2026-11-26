@@ -1,0 +1,7 @@
+-nologo -nostdlib -optimize+ -langversion:9.0 -nowarn:1701,1702,0414,0649,0169,0219,0162 -target:exe
+-out:"C:\Atomik\PokiWar\ArtGen\KinhTe\gia_lap\out\sim.exe"
+-r:"C:\Program Files\Unity\Hub\Editor\6000.0.73f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\mscorlib.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\6000.0.73f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.dll"
+-r:"C:\Program Files\Unity\Hub\Editor\6000.0.73f1\Editor\Data\MonoBleedingEdge\lib\mono\4.7.1-api\System.Core.dll"
+-r:"C:\Atomik\PokiWar\ArtGen\KinhTe\gia_lap\out\Core.dll"
+"C:\Atomik\PokiWar\ArtGen\KinhTe\gia_lap\runner\Program.cs"

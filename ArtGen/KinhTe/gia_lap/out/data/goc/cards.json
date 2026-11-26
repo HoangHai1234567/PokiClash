@@ -1,0 +1,6501 @@
+{
+ "pool": [
+  {
+   "id": "mai_vuot",
+   "name": "Mài Vuốt",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "claw",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.25,
+     "turns": 1
+    }
+   ],
+   "flavor": "Mài cho sắc rồi hẵng cào."
+  },
+  {
+   "id": "giap_go",
+   "name": "Giáp Gỗ",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "shield",
+   "unlock": 4,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.2,
+     "turns": 1,
+     "until": "start"
+    }
+   ],
+   "flavor": "Gỗ thông, hơi thơm."
+  },
+  {
+   "id": "bang_gac",
+   "name": "Băng Gạc",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "bandage",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.08
+    }
+   ]
+  },
+  {
+   "id": "hit_tho",
+   "name": "Hít Thở",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "drop",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "mana",
+     "v": 15
+    }
+   ]
+  },
+  {
+   "id": "gam_gu",
+   "name": "Gầm Gừ",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "flame",
+   "unlock": 2,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "rage",
+     "v": 15
+    }
+   ]
+  },
+  {
+   "id": "nem_da",
+   "name": "Ném Đá",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "rock",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.45
+    }
+   ],
+   "flavor": "Viên to nhất nhặt được."
+  },
+  {
+   "id": "can_xe",
+   "name": "Cắn Xé",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "fang",
+   "unlock": 1,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.3,
+     "lifesteal": 0.5
+    }
+   ]
+  },
+  {
+   "id": "nhay_lui",
+   "name": "Nhảy Lùi",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "feather",
+   "unlock": 3,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.25,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "dung_tan",
+   "name": "Đứng Tấn",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "helmet",
+   "unlock": 1,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.3,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "hat_de",
+   "name": "Hạt Dẻ",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "seed",
+   "unlock": 3,
+   "effects": [
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.03,
+     "on": "self"
+    }
+   ],
+   "flavor": "Nhai chậm thì no lâu."
+  },
+  {
+   "id": "binh_thuoc",
+   "name": "Bình Thuốc",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "potion",
+   "unlock": 4,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.18
+    }
+   ]
+  },
+  {
+   "id": "banh_bao",
+   "name": "Bánh Bao Thịt",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "bun",
+   "unlock": 5,
+   "effects": [
+    {
+     "k": "maxhp",
+     "pct": 0.12
+    }
+   ],
+   "flavor": "Ăn xong thấy mình to ra."
+  },
+  {
+   "id": "lieu_mang",
+   "name": "Liều Mạng",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "skull",
+   "unlock": 9,
+   "effects": [
+    {
+     "k": "selfdmg",
+     "pctCur": 0.25
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.5,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "thu_the",
+   "name": "Thủ Thế",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "bubble",
+   "unlock": 2,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "tinh_tam",
+   "name": "Tĩnh Tâm",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "lotus",
+   "unlock": 6,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "mana",
+     "v": 30
+    }
+   ]
+  },
+  {
+   "id": "phong_long",
+   "name": "Phóng Lông",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "wing",
+   "unlock": 4,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.2,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "tung_cat",
+   "name": "Tung Cát",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "wind",
+   "unlock": 6,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.2,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ],
+   "flavor": "Chơi hơi bẩn, nhưng hiệu quả."
+  },
+  {
+   "id": "dam_kep",
+   "name": "Đấm Kép",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "fist2",
+   "unlock": 7,
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.5
+    }
+   ]
+  },
+  {
+   "id": "trang_khuyet",
+   "name": "Trăng Khuyết",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "moon",
+   "unlock": 7,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "mana",
+     "v": -20,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "cuong_no",
+   "name": "Cuồng Nộ",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "rage",
+   "unlock": 10,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 1,
+     "turns": 1
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.3,
+     "turns": 2,
+     "until": "start"
+    }
+   ],
+   "flavor": "Bỏ thủ, dồn hết vào một cú."
+  },
+  {
+   "id": "pha_giap",
+   "name": "Phá Giáp",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "crack",
+   "unlock": 10,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.3,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "bua_ta",
+   "name": "Búa Tạ",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "hammer",
+   "unlock": 7,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "pierce": 0.5
+    }
+   ],
+   "flavor": "Khiên nào cũng có chỗ mỏng."
+  },
+  {
+   "id": "hut_mau",
+   "name": "Hút Máu",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "fang",
+   "unlock": 12,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "lifesteal",
+     "v": 0.5,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "dot_lua",
+   "name": "Đốt Lửa",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "torch",
+   "unlock": 12,
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "suoi_trong",
+   "name": "Suối Trong",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "wave",
+   "unlock": 12,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "heal",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "sam_ren",
+   "name": "Sấm Rền",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "bolt",
+   "unlock": 18,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.35,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "guong_doi",
+   "name": "Gương Đôi",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "mirror",
+   "unlock": 23,
+   "effects": [
+    {
+     "k": "double"
+    }
+   ],
+   "flavor": "Thẻ ngay sau nó chạy hai lần."
+  },
+  {
+   "id": "mat_ung",
+   "name": "Mắt Ưng",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "eye",
+   "unlock": 23,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.5,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "long_phuong",
+   "name": "Lông Phượng",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "phoenix",
+   "unlock": 29,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.15
+    },
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.05,
+     "on": "self"
+    }
+   ],
+   "flavor": "Còn ấm như vừa ra khỏi lửa."
+  },
+  {
+   "id": "bua_choang",
+   "name": "Bùa Choáng",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "bolt",
+   "unlock": 34,
+   "effects": [
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hoa_khi",
+   "name": "Hoà Khí",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "yinyang",
+   "unlock": 34,
+   "effects": [
+    {
+     "k": "mana",
+     "v": 30
+    },
+    {
+     "k": "rage",
+     "v": 30
+    }
+   ]
+  },
+  {
+   "id": "ao_choang",
+   "name": "Áo Choàng Ma",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "ghost",
+   "unlock": 34,
+   "effects": [
+    {
+     "k": "status",
+     "id": "evade",
+     "turns": 1,
+     "on": "self"
+    }
+   ]
+  },
+  {
+   "id": "don_suc",
+   "name": "Dồn Sức",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "sword",
+   "unlock": 40,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.4,
+     "turns": 2
+    },
+    {
+     "k": "rage",
+     "v": 20
+    }
+   ]
+  },
+  {
+   "id": "nghich_thien",
+   "name": "Nghịch Thiên",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "phoenix",
+   "unlock": 60,
+   "effects": [
+    {
+     "k": "ifLow",
+     "below": 0.5,
+     "then": [
+      {
+       "k": "heal",
+       "pct": 0.4
+      },
+      {
+       "k": "buff",
+       "stat": "atk",
+       "v": 0.6,
+       "turns": 1
+      }
+     ],
+     "else": [
+      {
+       "k": "buff",
+       "stat": "atk",
+       "v": 0.3,
+       "turns": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "thien_menh",
+   "name": "Thiên Mệnh",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "crown",
+   "unlock": 60,
+   "effects": [
+    {
+     "k": "trueStrike",
+     "mult": 1.5
+    }
+   ]
+  },
+  {
+   "id": "kim_doc",
+   "name": "Kim Độc",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "leaf",
+   "unlock": 5,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "status",
+     "id": "poison",
+     "turns": 3,
+     "v": 0.15,
+     "on": "foe"
+    }
+   ],
+   "flavor": "Một mũi một lớp, đủ năm mũi thì biết tay."
+  },
+  {
+   "id": "gai_nhon",
+   "name": "Gai Nhọn",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "sun",
+   "unlock": 8,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "thorns",
+     "v": 0.3,
+     "turns": 1,
+     "until": "start"
+    }
+   ],
+   "flavor": "Ôm thử xem nào."
+  },
+  {
+   "id": "vung_day",
+   "name": "Vùng Dậy",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "fist",
+   "unlock": 8,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.3,
+     "missing": 1
+    }
+   ],
+   "flavor": "Càng đau càng hăng."
+  },
+  {
+   "id": "mai_rua",
+   "name": "Mai Rùa",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "helmet",
+   "unlock": 2,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.06
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.15,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "chuoi_don",
+   "name": "Chuỗi Đòn",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "fist2",
+   "unlock": 3,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.15
+    },
+    {
+     "k": "combo",
+     "group": "atk",
+     "then": [
+      {
+       "k": "dmg",
+       "mult": 0.15
+      }
+     ]
+    }
+   ],
+   "flavor": "Một, hai, ba, bốn, năm!"
+  },
+  {
+   "id": "dong_long",
+   "name": "Đồng Lòng",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "team",
+   "unlock": 5,
+   "effects": [
+    {
+     "k": "resonance",
+     "then": [
+      {
+       "k": "buff",
+       "stat": "atk",
+       "v": 0.15,
+       "turns": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "tich_luc",
+   "name": "Tích Lực",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "incense",
+   "unlock": 6,
+   "effects": [
+    {
+     "k": "empower",
+     "v": 0.5
+    }
+   ],
+   "flavor": "Hít sâu, gồng chặt, chờ thời."
+  },
+  {
+   "id": "boi_bun",
+   "name": "Bôi Bùn",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "drop",
+   "unlock": 8,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.2
+    },
+    {
+     "k": "buff",
+     "stat": "healTaken",
+     "v": -0.5,
+     "turns": 2,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "khac_che",
+   "name": "Khắc Chế",
+   "rarity": "common",
+   "kind": "pool",
+   "icon": "wheel",
+   "unlock": 10,
+   "effects": [
+    {
+     "k": "ifBeat",
+     "then": [
+      {
+       "k": "dmg",
+       "mult": 0.7
+      }
+     ],
+     "else": [
+      {
+       "k": "dmg",
+       "mult": 0.3
+      }
+     ]
+    }
+   ],
+   "flavor": "Nước dập lửa, lửa nung kim."
+  },
+  {
+   "id": "cuop_lua",
+   "name": "Cướp Lửa",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "flame",
+   "unlock": 7,
+   "repeat": true,
+   "effects": [
+    {
+     "k": "rage",
+     "v": -15,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "nen_gian",
+   "name": "Nén Giận",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "rage",
+   "unlock": 9,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.08
+    },
+    {
+     "k": "rage",
+     "v": 15
+    }
+   ]
+  },
+  {
+   "id": "duong_sinh",
+   "name": "Dưỡng Sinh",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "lotus",
+   "unlock": 11,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "healTaken",
+     "v": 0.5,
+     "turns": 2
+    },
+    {
+     "k": "heal",
+     "pct": 0.06
+    }
+   ]
+  },
+  {
+   "id": "doc_tien",
+   "name": "Độc Tiễn",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "wing",
+   "unlock": 13,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.3
+    },
+    {
+     "k": "status",
+     "id": "poison",
+     "turns": 3,
+     "v": 0.15,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "ket_lieu",
+   "name": "Kết Liễu",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "sword",
+   "unlock": 16,
+   "effects": [
+    {
+     "k": "execute",
+     "below": 0.15,
+     "mult": 0.45
+    }
+   ],
+   "flavor": "Đòn cuối không cần đẹp, cần trúng."
+  },
+  {
+   "id": "khien_gai",
+   "name": "Khiên Gai",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "shield",
+   "unlock": 20,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.08
+    },
+    {
+     "k": "buff",
+     "stat": "thorns",
+     "v": 0.25,
+     "turns": 1,
+     "until": "start"
+    }
+   ]
+  },
+  {
+   "id": "tuong_thanh",
+   "name": "Tường Thành",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "bubble",
+   "unlock": 26,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.05
+    },
+    {
+     "k": "combo",
+     "group": "def",
+     "then": [
+      {
+       "k": "shield",
+       "pct": 0.05
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "xuyen_pha",
+   "name": "Xuyên Phá",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "crack",
+   "unlock": 30,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.35
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.15,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "mam_xanh",
+   "name": "Mầm Xanh",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "seed",
+   "unlock": 36,
+   "effects": [
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.04,
+     "on": "self"
+    },
+    {
+     "k": "shield",
+     "pct": 0.05
+    }
+   ]
+  },
+  {
+   "id": "tan_lua",
+   "name": "Tàn Lửa",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "torch",
+   "unlock": 44,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.2
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.04,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hut_linh",
+   "name": "Hút Linh",
+   "rarity": "uncommon",
+   "kind": "pool",
+   "icon": "potion",
+   "unlock": 52,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.3
+    },
+    {
+     "k": "mana",
+     "v": 15
+    }
+   ]
+  },
+  {
+   "id": "dap_khien",
+   "name": "Đập Khiên",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "hammer",
+   "unlock": 38,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.1
+    },
+    {
+     "k": "bash",
+     "mult": 1
+    }
+   ],
+   "flavor": "Khiên dày thì đập càng đau."
+  },
+  {
+   "id": "ngu_hanh_ho_the",
+   "name": "Ngũ Hành Hộ Thể",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "yinyang",
+   "unlock": 40,
+   "effects": [
+    {
+     "k": "resonance",
+     "then": [
+      {
+       "k": "shield",
+       "pct": 0.06
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "boc_doc",
+   "name": "Bộc Độc",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "skull",
+   "unlock": 45,
+   "effects": [
+    {
+     "k": "detonate",
+     "mult": 1.5
+    },
+    {
+     "k": "dmg",
+     "mult": 0.2
+    }
+   ],
+   "flavor": "Độc ngấm đủ rồi thì nổ."
+  },
+  {
+   "id": "hoi_lien_hoan",
+   "name": "Hồi Liên Hoàn",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "potion",
+   "unlock": 50,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.06
+    },
+    {
+     "k": "combo",
+     "group": "heal",
+     "then": [
+      {
+       "k": "heal",
+       "pct": 0.05
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "cat_mach",
+   "name": "Cắt Mạch",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "fang",
+   "unlock": 55,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.5
+    },
+    {
+     "k": "buff",
+     "stat": "healTaken",
+     "v": -1,
+     "turns": 1,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "boi_thuy",
+   "name": "Bối Thủy",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "wave",
+   "unlock": 62,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.5,
+     "missing": 1.5
+    }
+   ],
+   "flavor": "Lưng dựa sông, không còn đường lui."
+  },
+  {
+   "id": "bao_cat",
+   "name": "Bão Cát",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "wind",
+   "unlock": 68,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.2,
+     "hits": 2
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.15,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "phong_an",
+   "name": "Phong Ấn",
+   "rarity": "rare",
+   "kind": "pool",
+   "icon": "bell",
+   "unlock": 78,
+   "effects": [
+    {
+     "k": "mana",
+     "v": -25,
+     "on": "foe"
+    },
+    {
+     "k": "rage",
+     "v": -15,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "huyet_te",
+   "name": "Huyết Tế",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "heart",
+   "unlock": 75,
+   "effects": [
+    {
+     "k": "selfdmg",
+     "pctCur": 0.2
+    },
+    {
+     "k": "extra",
+     "mult": 1
+    }
+   ]
+  },
+  {
+   "id": "thuan_thien",
+   "name": "Thuận Thiên",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "star",
+   "unlock": 85,
+   "effects": [
+    {
+     "k": "ifBeat",
+     "then": [
+      {
+       "k": "buff",
+       "stat": "atk",
+       "v": 0.5,
+       "turns": 1
+      },
+      {
+       "k": "rage",
+       "v": 20
+      }
+     ],
+     "else": [
+      {
+       "k": "buff",
+       "stat": "dmgTaken",
+       "v": -0.3,
+       "turns": 1,
+       "until": "start"
+      },
+      {
+       "k": "rage",
+       "v": 20
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "van_doc",
+   "name": "Vạn Độc",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "leaf",
+   "unlock": 95,
+   "effects": [
+    {
+     "k": "status",
+     "id": "poison",
+     "turns": 4,
+     "v": 0.15,
+     "stacks": 3,
+     "on": "foe"
+    }
+   ],
+   "flavor": "Trăm loài độc thảo trong một giọt."
+  },
+  {
+   "id": "khai_nhan",
+   "name": "Khai Nhãn",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "eye",
+   "unlock": 100,
+   "effects": [
+    {
+     "k": "empower",
+     "v": 0.6
+    },
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.25,
+     "turns": 1
+    }
+   ]
+  },
+  {
+   "id": "giap_guong",
+   "name": "Giáp Gương",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "mirror",
+   "unlock": 110,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "thorns",
+     "v": 0.6,
+     "turns": 1,
+     "until": "start"
+    },
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.15,
+     "turns": 1,
+     "until": "start"
+    }
+   ]
+  },
+  {
+   "id": "doc_long",
+   "name": "Độc Long",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "e_moc",
+   "unlock": 120,
+   "effects": [
+    {
+     "k": "status",
+     "id": "poison",
+     "turns": 3,
+     "v": 0.15,
+     "stacks": 2,
+     "on": "foe"
+    },
+    {
+     "k": "buff",
+     "stat": "healTaken",
+     "v": -0.5,
+     "turns": 2,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "bao_lien_hoan",
+   "name": "Bão Liên Hoàn",
+   "rarity": "epic",
+   "kind": "pool",
+   "icon": "bolt",
+   "unlock": 130,
+   "effects": [
+    {
+     "k": "combo",
+     "group": "atk",
+     "then": [
+      {
+       "k": "buff",
+       "stat": "atk",
+       "v": 0.15,
+       "turns": 1
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "khac_tinh",
+   "name": "Khắc Tinh",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "crown",
+   "unlock": 140,
+   "effects": [
+    {
+     "k": "ifBeat",
+     "then": [
+      {
+       "k": "trueStrike",
+       "mult": 1.8
+      }
+     ],
+     "else": [
+      {
+       "k": "trueStrike",
+       "mult": 1.2
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "luoi_hai",
+   "name": "Lưỡi Hái",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "moon",
+   "unlock": 150,
+   "effects": [
+    {
+     "k": "execute",
+     "below": 0.3,
+     "mult": 1
+    }
+   ],
+   "flavor": "Trăng khuyết là lưỡi hái của trời."
+  },
+  {
+   "id": "ngu_hanh_quy_nhat",
+   "name": "Ngũ Hành Quy Nhất",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "yinyang",
+   "unlock": 160,
+   "effects": [
+    {
+     "k": "resonance",
+     "then": [
+      {
+       "k": "buff",
+       "stat": "atk",
+       "v": 0.2,
+       "turns": 1
+      },
+      {
+       "k": "heal",
+       "pct": 0.05
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "thien_ho",
+   "name": "Thiên Hộ",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "shield",
+   "unlock": 175,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "shield",
+     "pct": 0.25
+    },
+    {
+     "k": "buff",
+     "stat": "thorns",
+     "v": 0.5,
+     "turns": 1,
+     "until": "start"
+    }
+   ]
+  },
+  {
+   "id": "huyet_long",
+   "name": "Huyết Long",
+   "rarity": "legend",
+   "kind": "pool",
+   "icon": "fang",
+   "unlock": 190,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6,
+     "missing": 2,
+     "lifesteal": 0.5
+    }
+   ],
+   "flavor": "Máu chảy càng nhiều, rồng càng tỉnh."
+  }
+ ],
+ "innate": [
+  {
+   "id": "hai_long_skill",
+   "owner": "hai_long",
+   "name": "Hải Long Phun",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "wave",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.3,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hai_long_ult",
+   "owner": "hai_long",
+   "name": "Hải Long Gầm",
+   "rarity": "legend",
+   "kind": "ult",
+   "icon": "rage",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 3
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hai_long_pas",
+   "owner": "hai_long",
+   "name": "Vảy Ngọc",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.05
+    },
+    {
+     "k": "mana",
+     "v": 6
+    }
+   ]
+  },
+  {
+   "id": "thach_giai_skill",
+   "owner": "thach_giai",
+   "name": "Bọt Nước",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bubble",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.15,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "thach_giai_ult",
+   "owner": "thach_giai",
+   "name": "Đá Ngầm Trồi",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "rock",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "heal",
+     "pct": 0.15
+    }
+   ]
+  },
+  {
+   "id": "thach_giai_pas",
+   "owner": "thach_giai",
+   "name": "Vũng Triều",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "drop",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.04
+    }
+   ]
+  },
+  {
+   "id": "bo_cap_skill",
+   "owner": "bo_cap",
+   "name": "Mưa Tinh Thể",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.8
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.15,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "bo_cap_ult",
+   "owner": "bo_cap",
+   "name": "Thiết Tinh Dập",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "hammer",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.3,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "bo_cap_pas",
+   "owner": "bo_cap",
+   "name": "Giáp Tinh Thể",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "bo_ngua_skill",
+   "owner": "bo_ngua",
+   "name": "Song Quyền Quặng",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fist2",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "bo_ngua_ult",
+   "owner": "bo_ngua",
+   "name": "Độn Thổ Húc",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2,
+     "pierce": 0.25
+    }
+   ]
+  },
+  {
+   "id": "bo_ngua_pas",
+   "owner": "bo_ngua",
+   "name": "Mắt Dò Mạch",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "eye",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "doc_giac_skill",
+   "owner": "doc_giac",
+   "name": "Phóng Giáo",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "trident",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "rage",
+     "v": 10
+    }
+   ]
+  },
+  {
+   "id": "doc_giac_ult",
+   "owner": "doc_giac",
+   "name": "Vạn Kim Sắt",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "fang",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2,
+     "pierce": 0.2
+    }
+   ]
+  },
+  {
+   "id": "doc_giac_pas",
+   "owner": "doc_giac",
+   "name": "Khiên Thép",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "phi_thuong_skill",
+   "owner": "phi_thuong",
+   "name": "Quật Cưa",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "wheel",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.15,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "phi_thuong_ult",
+   "owner": "phi_thuong",
+   "name": "Cưa Liên Hồi",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.75,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "phi_thuong_pas",
+   "owner": "phi_thuong",
+   "name": "Mai Quặng",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "onHit",
+   "chance": 0.25,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.06
+    }
+   ]
+  },
+  {
+   "id": "khien_bac_skill",
+   "owner": "khien_bac",
+   "name": "Ném Móc Xích",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "claw",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    },
+    {
+     "k": "shield",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "khien_bac_ult",
+   "owner": "khien_bac",
+   "name": "Xích Lửa Thiêu",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "flame",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2
+    },
+    {
+     "k": "shield",
+     "pct": 0.2
+    }
+   ]
+  },
+  {
+   "id": "khien_bac_pas",
+   "owner": "khien_bac",
+   "name": "Bụng Thép",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "fist",
+   "trigger": "onHit",
+   "chance": 0.2,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.4
+    }
+   ]
+  },
+  {
+   "id": "chien_than_skill",
+   "owner": "chien_than",
+   "name": "Ném Búa Sắt",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "hammer",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.15,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "chien_than_ult",
+   "owner": "chien_than",
+   "name": "Khiên Xé Gió",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "shield",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5,
+     "pierce": 0.3
+    }
+   ]
+  },
+  {
+   "id": "chien_than_pas",
+   "owner": "chien_than",
+   "name": "Giáp Sắt",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "thiet_phu_skill",
+   "owner": "thiet_phu",
+   "name": "Thiên Cầu Giáng",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "sun",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "thiet_phu_ult",
+   "owner": "thiet_phu",
+   "name": "Hỏa Tiễn Liên Hoàn",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "flame",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.7
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.5,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "thiet_phu_pas",
+   "owner": "thiet_phu",
+   "name": "Giáp Thép Cổ",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "tam_kiem_skill",
+   "owner": "tam_kiem",
+   "name": "Hồn Binh Cổ Chiến",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "ghost",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.75,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "tam_kiem_ult",
+   "owner": "tam_kiem",
+   "name": "Kiếm Hồn Phục Sinh",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "sword",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.95,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "tam_kiem_pas",
+   "owner": "tam_kiem",
+   "name": "Bất Tử Nguyền",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "skull",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "ung_thep_skill",
+   "owner": "ung_thep",
+   "name": "Pháo Tán Hỏa Tiễn",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "crack",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4,
+     "pierce": 0.2
+    }
+   ]
+  },
+  {
+   "id": "ung_thep_ult",
+   "owner": "ung_thep",
+   "name": "Lôi Pháo Đại Cầu",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "bolt",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.7
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.25,
+     "turns": 2
+    }
+   ]
+  },
+  {
+   "id": "ung_thep_pas",
+   "owner": "ung_thep",
+   "name": "Giáp Hiệp Sĩ",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "kim_nghe_skill",
+   "owner": "kim_nghe",
+   "name": "Tam Tinh Quang Pháo",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "sun",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "kim_nghe_ult",
+   "owner": "kim_nghe",
+   "name": "Nhật Thực Thiên Giáng",
+   "rarity": "legend",
+   "kind": "ult",
+   "icon": "moon",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 3
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.08,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "kim_nghe_pas",
+   "owner": "kim_nghe",
+   "name": "Hào Quang Hộ Thể",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "crown",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "rage",
+     "v": 8
+    },
+    {
+     "k": "shield",
+     "pct": 0.04
+    }
+   ]
+  },
+  {
+   "id": "phong_linh_skill",
+   "owner": "phong_linh",
+   "name": "Vòi Phun",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "leaf",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.75,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "phong_linh_ult",
+   "owner": "phong_linh",
+   "name": "Dậm Rừng",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.4
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.3,
+     "turns": 2
+    }
+   ]
+  },
+  {
+   "id": "phong_linh_pas",
+   "owner": "phong_linh",
+   "name": "Áo Lá Dày",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.15,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "ca_den_skill",
+   "owner": "ca_den",
+   "name": "Vòi Nước",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "wave",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.15,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "ca_den_ult",
+   "owner": "ca_den",
+   "name": "Thủy Pháo",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "bubble",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "heal",
+     "pct": 0.15
+    }
+   ]
+  },
+  {
+   "id": "ca_den_pas",
+   "owner": "ca_den",
+   "name": "Vụng San Hô",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "drop",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.04
+    }
+   ]
+  },
+  {
+   "id": "ti_tach_skill",
+   "owner": "ti_tach",
+   "name": "Súng Nước",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "drop",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.15,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "ti_tach_ult",
+   "owner": "ti_tach",
+   "name": "Mưa Rào",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "wave",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "heal",
+     "pct": 0.15
+    }
+   ]
+  },
+  {
+   "id": "ti_tach_pas",
+   "owner": "ti_tach",
+   "name": "Mưa Đầu Mùa",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "drop",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.05
+    }
+   ]
+  },
+  {
+   "id": "han_ngac_skill",
+   "owner": "han_ngac",
+   "name": "Hàn Phong",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "wind",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "han_ngac_ult",
+   "owner": "han_ngac",
+   "name": "Cọc Băng",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5
+    },
+    {
+     "k": "heal",
+     "pct": 0.25
+    }
+   ]
+  },
+  {
+   "id": "han_ngac_pas",
+   "owner": "han_ngac",
+   "name": "Hàm Băng",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "fang",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 8
+    },
+    {
+     "k": "rage",
+     "v": 4
+    }
+   ]
+  },
+  {
+   "id": "ha_ba_skill",
+   "owner": "ha_ba",
+   "name": "Phụt Ngọc",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "drop",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.15,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "ha_ba_ult",
+   "owner": "ha_ba",
+   "name": "Lưỡi Quật",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "wave",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "heal",
+     "pct": 0.15
+    }
+   ]
+  },
+  {
+   "id": "ha_ba_pas",
+   "owner": "ha_ba",
+   "name": "Hồn Nước",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "drop",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.04
+    }
+   ]
+  },
+  {
+   "id": "so_ngoc_skill",
+   "owner": "so_ngoc",
+   "name": "Bóng Mực",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "bubble",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "so_ngoc_ult",
+   "owner": "so_ngoc",
+   "name": "Gọi Bầy",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "fang",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5
+    },
+    {
+     "k": "heal",
+     "pct": 0.25
+    }
+   ]
+  },
+  {
+   "id": "so_ngoc_pas",
+   "owner": "so_ngoc",
+   "name": "Túi Mực",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "moon",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 8
+    },
+    {
+     "k": "rage",
+     "v": 4
+    }
+   ]
+  },
+  {
+   "id": "giong_bao_skill",
+   "owner": "giong_bao",
+   "name": "Bầu Phun",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "drop",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "giong_bao_ult",
+   "owner": "giong_bao",
+   "name": "Cầu Mưa",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "wave",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5
+    },
+    {
+     "k": "heal",
+     "pct": 0.25
+    }
+   ]
+  },
+  {
+   "id": "giong_bao_pas",
+   "owner": "giong_bao",
+   "name": "Bầu Hứng Mưa",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "drop",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 8
+    },
+    {
+     "k": "rage",
+     "v": 4
+    }
+   ]
+  },
+  {
+   "id": "uyen_xa_skill",
+   "owner": "uyen_xa",
+   "name": "Thủy Thương",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "trident",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "uyen_xa_ult",
+   "owner": "uyen_xa",
+   "name": "Mưa Bọt",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "bubble",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5
+    },
+    {
+     "k": "heal",
+     "pct": 0.25
+    }
+   ]
+  },
+  {
+   "id": "uyen_xa_pas",
+   "owner": "uyen_xa",
+   "name": "Đèn Vực Sâu",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "torch",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 8
+    },
+    {
+     "k": "rage",
+     "v": 4
+    }
+   ]
+  },
+  {
+   "id": "lien_kinh_skill",
+   "owner": "lien_kinh",
+   "name": "Quật Đuôi Đá",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "lien_kinh_ult",
+   "owner": "lien_kinh",
+   "name": "Thôn Hải Pháo",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "wave",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5
+    },
+    {
+     "k": "heal",
+     "pct": 0.25
+    }
+   ]
+  },
+  {
+   "id": "lien_kinh_pas",
+   "owner": "lien_kinh",
+   "name": "Nuốt Đòn",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "fang",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 8
+    },
+    {
+     "k": "rage",
+     "v": 4
+    }
+   ]
+  },
+  {
+   "id": "su_tu_lua_skill",
+   "owner": "su_tu_lua",
+   "name": "Giáo Phun Lửa",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "torch",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "su_tu_lua_ult",
+   "owner": "su_tu_lua",
+   "name": "Giáo Nham Giáng Thế",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "sword",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.07,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "su_tu_lua_pas",
+   "owner": "su_tu_lua",
+   "name": "Khiên Than Hồng",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "onAttack",
+   "chance": 0.35,
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "thach_nhan_skill",
+   "owner": "thach_nhan",
+   "name": "Văng Sỏi",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    },
+    {
+     "k": "shield",
+     "pct": 0.1
+    }
+   ]
+  },
+  {
+   "id": "thach_nhan_ult",
+   "owner": "thach_nhan",
+   "name": "Mưa Hổ Phách",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "star",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "thach_nhan_pas",
+   "owner": "thach_nhan",
+   "name": "Mai Đá",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.08,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "boss_evo",
+   "name": "Tiến Hóa",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "phoenix",
+   "trigger": "death",
+   "effects": [
+    {
+     "k": "evolve",
+     "pct": 1
+    }
+   ],
+   "flavor": "Đây mới là dạng đầu thôi!"
+  },
+  {
+   "id": "tien_la_skill",
+   "owner": "tien_la",
+   "name": "Gồng Gai",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "sun",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.8
+    },
+    {
+     "k": "heal",
+     "pct": 0.08
+    }
+   ]
+  },
+  {
+   "id": "tien_la_ult",
+   "owner": "tien_la",
+   "name": "Lăn Gai",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "leaf",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.06,
+     "on": "self"
+    }
+   ]
+  },
+  {
+   "id": "tien_la_pas",
+   "owner": "tien_la",
+   "name": "Mọng Nước",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "seed",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.04
+    }
+   ]
+  },
+  {
+   "id": "mam_u_skill",
+   "owner": "mam_u",
+   "name": "Phun Lá",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "leaf",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.15,
+     "turns": 1,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "mam_u_ult",
+   "owner": "mam_u",
+   "name": "Húc Bụng",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "fist",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.8
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.5,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "mam_u_pas",
+   "owner": "mam_u",
+   "name": "Bụng Nảy",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "seed",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 6
+    },
+    {
+     "k": "rage",
+     "v": 4
+    }
+   ]
+  },
+  {
+   "id": "gac_da_skill",
+   "owner": "gac_da",
+   "name": "Quyền Đá Bay",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "crack",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    },
+    {
+     "k": "rage",
+     "v": 10
+    }
+   ]
+  },
+  {
+   "id": "gac_da_ult",
+   "owner": "gac_da",
+   "name": "Cầu Tim Rừng",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "hammer",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "gac_da_pas",
+   "owner": "gac_da",
+   "name": "Da Đá Rêu",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.15,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "bom_la_skill",
+   "owner": "bom_la",
+   "name": "Tia Gạc Phong",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "claw",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "bom_la_ult",
+   "owner": "bom_la",
+   "name": "Cầu Rừng Thu",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "rage",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "bom_la_pas",
+   "owner": "bom_la",
+   "name": "Bờm Dựng",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "rage",
+   "trigger": "lowHp",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.2,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "gio_loc_skill",
+   "owner": "gio_loc",
+   "name": "Lông Lá Găm",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "leaf",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.5,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "gio_loc_ult",
+   "owner": "gio_loc",
+   "name": "Thiên Thạch Giáng",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "rock",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5,
+     "pierce": 0.3
+    }
+   ]
+  },
+  {
+   "id": "gio_loc_pas",
+   "owner": "gio_loc",
+   "name": "Cánh Lá Nhẹ",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "wing",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "long_vuot_skill",
+   "owner": "long_vuot",
+   "name": "Trảo Long",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "claw",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5,
+     "lifesteal": 0.2
+    }
+   ]
+  },
+  {
+   "id": "long_vuot_ult",
+   "owner": "long_vuot",
+   "name": "Long Trảo Phá Giáp",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "fang",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.8
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.25,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "long_vuot_pas",
+   "owner": "long_vuot",
+   "name": "Vảy Rồng",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "tho_hoang_skill",
+   "owner": "tho_hoang",
+   "name": "Bạt Kiếm Trảm",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "sword",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.45,
+     "hits": 4
+    }
+   ]
+  },
+  {
+   "id": "tho_hoang_ult",
+   "owner": "tho_hoang",
+   "name": "Ảo Ảnh Loạn Trảm",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "wind",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.4
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "tho_hoang_pas",
+   "owner": "tho_hoang",
+   "name": "Tĩnh Tâm Kiếm",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "rage",
+     "v": 10
+    }
+   ]
+  },
+  {
+   "id": "moc_tinh_skill",
+   "owner": "moc_tinh",
+   "name": "Tia Sừng Hổ Phách",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "shield",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "moc_tinh_ult",
+   "owner": "moc_tinh",
+   "name": "Tim Cổ Thụ Khai Quang",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.6
+    },
+    {
+     "k": "shield",
+     "pct": 0.2
+    }
+   ]
+  },
+  {
+   "id": "moc_tinh_pas",
+   "owner": "moc_tinh",
+   "name": "Vỏ Cây Ngàn Năm",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "thanh_long_skill",
+   "owner": "thanh_long",
+   "name": "Long Phong",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "wind",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "status",
+     "id": "regen",
+     "turns": 3,
+     "v": 0.06,
+     "on": "self"
+    }
+   ]
+  },
+  {
+   "id": "thanh_long_ult",
+   "owner": "thanh_long",
+   "name": "Lôi Long Giáng Thế",
+   "rarity": "legend",
+   "kind": "ult",
+   "icon": "bolt",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 3
+    },
+    {
+     "k": "heal",
+     "pct": 0.2
+    }
+   ]
+  },
+  {
+   "id": "thanh_long_pas",
+   "owner": "thanh_long",
+   "name": "Mộc Long Hộ Thể",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "leaf",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.05
+    }
+   ]
+  },
+  {
+   "id": "hoa_nhan_skill",
+   "owner": "hoa_nhan",
+   "name": "Hỏa Nhãn Xạ",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fist",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hoa_nhan_ult",
+   "owner": "hoa_nhan",
+   "name": "Quyền Chong Chóng",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "hammer",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.15,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hoa_nhan_pas",
+   "owner": "hoa_nhan",
+   "name": "Giáp Nham",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "kim_su_skill",
+   "owner": "kim_su",
+   "name": "Tam Tiễn",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "claw",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "kim_su_ult",
+   "owner": "kim_su",
+   "name": "Hỏa Tiễn Phá Không",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "rage",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.2
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "kim_su_pas",
+   "owner": "kim_su",
+   "name": "Mắt Lửa",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "crown",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "nham_than_skill",
+   "owner": "nham_than",
+   "name": "Phun Nham",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "flame",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "nham_than_ult",
+   "owner": "nham_than",
+   "name": "Cầu Lửa Lăn",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.08,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "nham_than_pas",
+   "owner": "nham_than",
+   "name": "Thân Nham",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "rock",
+   "trigger": "onHit",
+   "chance": 0.3,
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hong_lien_skill",
+   "owner": "hong_lien",
+   "name": "Hỏa Châm",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "flame",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.5,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "hong_lien_ult",
+   "owner": "hong_lien",
+   "name": "Đại Hỏa Cầu",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "sun",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.4
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.08,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hong_lien_pas",
+   "owner": "hong_lien",
+   "name": "Thân Khói",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "ghost",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "giap_long_skill",
+   "owner": "giap_long",
+   "name": "Địa Hỏa Trảm",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "flame",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "giap_long_ult",
+   "owner": "giap_long",
+   "name": "Liên Hoàn Đao",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "sword",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.8,
+     "pierce": 0.3
+    }
+   ]
+  },
+  {
+   "id": "giap_long_pas",
+   "owner": "giap_long",
+   "name": "Giáp Vai Sắt",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "huyen_viem_skill",
+   "owner": "huyen_viem",
+   "name": "Xuyên Tâm Liên Trảm",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "crack",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.3,
+     "lifesteal": 0.2
+    }
+   ]
+  },
+  {
+   "id": "huyen_viem_ult",
+   "owner": "huyen_viem",
+   "name": "Ngũ Kiếm Tề Phi",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "sword",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.6
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.08,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "huyen_viem_pas",
+   "owner": "huyen_viem",
+   "name": "Lõi Nham Bùng Cháy",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "flame",
+   "trigger": "lowHp",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.2,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "hoa_tinh_skill",
+   "owner": "hoa_tinh",
+   "name": "Hổ Gầm Chấn Viêm",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "fang",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "hoa_tinh_ult",
+   "owner": "hoa_tinh",
+   "name": "Ảnh Trảo Liên Hoàn",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "claw",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.6
+    },
+    {
+     "k": "shield",
+     "pct": 0.2
+    }
+   ]
+  },
+  {
+   "id": "hoa_tinh_pas",
+   "owner": "hoa_tinh",
+   "name": "Mây Lửa Hộ Thân",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "lan_hoa_skill",
+   "owner": "lan_hoa",
+   "name": "Hỏa Cầu Phún Viêm",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "flame",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "lan_hoa_ult",
+   "owner": "lan_hoa",
+   "name": "Vạn Viêm Truy Kích",
+   "rarity": "legend",
+   "kind": "ult",
+   "icon": "sun",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 3
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.1,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "lan_hoa_pas",
+   "owner": "lan_hoa",
+   "name": "Lõi Dung Nham",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "torch",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.04
+    },
+    {
+     "k": "rage",
+     "v": 5
+    }
+   ]
+  },
+  {
+   "id": "nguu_quyen_skill",
+   "owner": "nguu_quyen",
+   "name": "Hỏa Cầu",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "flame",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6,
+     "hits": 2
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "nguu_quyen_ult",
+   "owner": "nguu_quyen",
+   "name": "Sừng Tụ Hỏa Cầu",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "sun",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.4
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.3,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "nguu_quyen_pas",
+   "owner": "nguu_quyen",
+   "name": "Mai Nung Đỏ",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "rage",
+   "trigger": "lowHp",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.25,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "lung_vuong_skill",
+   "owner": "lung_vuong",
+   "name": "Phiến Gốm Bay",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "feather",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9
+    },
+    {
+     "k": "rage",
+     "v": 10
+    }
+   ]
+  },
+  {
+   "id": "lung_vuong_ult",
+   "owner": "lung_vuong",
+   "name": "Lốc Cát",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "wind",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.65,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "lung_vuong_pas",
+   "owner": "lung_vuong",
+   "name": "Áo Phiến Gốm",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "cao_da_skill",
+   "owner": "cao_da",
+   "name": "Phun Đá",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.15,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "cao_da_ult",
+   "owner": "cao_da",
+   "name": "Lăn Nện",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "wheel",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.1
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.25,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "cao_da_pas",
+   "owner": "cao_da",
+   "name": "Sừng Đá",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "ho_khoan_skill",
+   "owner": "ho_khoan",
+   "name": "Lưỡi Cát",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "claw",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1,
+     "pierce": 0.25
+    }
+   ]
+  },
+  {
+   "id": "ho_khoan_ult",
+   "owner": "ho_khoan",
+   "name": "Cột Sa Thạch",
+   "rarity": "uncommon",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.75,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "ho_khoan_pas",
+   "owner": "ho_khoan",
+   "name": "Giáp Gai",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "mirror",
+   "trigger": "onHit",
+   "chance": 0.2,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.35
+    }
+   ]
+  },
+  {
+   "id": "phu_van_skill",
+   "owner": "phu_van",
+   "name": "Chấn Địa",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "fist",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    },
+    {
+     "k": "shield",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "phu_van_ult",
+   "owner": "phu_van",
+   "name": "Cự Thạch",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "rock",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.4
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.3,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "phu_van_pas",
+   "owner": "phu_van",
+   "name": "Da Đá Núi",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.1,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "hat_de_skill",
+   "owner": "hat_de",
+   "name": "Rễ Trói Đất",
+   "rarity": "uncommon",
+   "kind": "skill",
+   "icon": "seed",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.6,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "hat_de_ult",
+   "owner": "hat_de",
+   "name": "Thần Trụ Giáng Thế",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "rock",
+   "cost": {
+    "rage": 100,
+    "mana": 45
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.8,
+     "hits": 3
+    }
+   ]
+  },
+  {
+   "id": "hat_de_pas",
+   "owner": "hat_de",
+   "name": "Giáp Đá Cổ",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "onHit",
+   "chance": 0.25,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.07
+    }
+   ]
+  },
+  {
+   "id": "rua_nui_skill",
+   "owner": "rua_nui",
+   "name": "Gai Ngầm",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "crack",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.3
+    },
+    {
+     "k": "shield",
+     "pct": 0.12
+    }
+   ]
+  },
+  {
+   "id": "rua_nui_ult",
+   "owner": "rua_nui",
+   "name": "Miệng Sa Mạc",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "fang",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.5
+    },
+    {
+     "k": "shield",
+     "pct": 0.2
+    }
+   ]
+  },
+  {
+   "id": "rua_nui_pas",
+   "owner": "rua_nui",
+   "name": "Giáp Vòng Đốt",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.05
+    }
+   ]
+  },
+  {
+   "id": "ho_kim_cuong_skill",
+   "owner": "ho_kim_cuong",
+   "name": "Đấm Bùn Trồi",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "fist",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4,
+     "pierce": 0.2
+    }
+   ]
+  },
+  {
+   "id": "ho_kim_cuong_ult",
+   "owner": "ho_kim_cuong",
+   "name": "Nuốt Chửng",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "fang",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.7
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "ho_kim_cuong_pas",
+   "owner": "ho_kim_cuong",
+   "name": "Thân Bùn",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "cu_phu_skill",
+   "owner": "cu_phu",
+   "name": "Thiên Thạch Xoáy",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.06,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "cu_phu_ult",
+   "owner": "cu_phu",
+   "name": "Quả Cầu Thiên Thạch",
+   "rarity": "epic",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 2.8,
+     "pierce": 0.2
+    }
+   ]
+  },
+  {
+   "id": "cu_phu_pas",
+   "owner": "cu_phu",
+   "name": "Rừng Tinh Thể",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "star",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "crit",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "giap_nham_skill",
+   "owner": "giap_nham",
+   "name": "Nguyệt Nhận",
+   "rarity": "rare",
+   "kind": "skill",
+   "icon": "moon",
+   "cost": {
+    "mana": 40
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.4
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": -0.2,
+     "turns": 2,
+     "until": "end",
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "giap_nham_ult",
+   "owner": "giap_nham",
+   "name": "Hằng Tinh Diệt",
+   "rarity": "legend",
+   "kind": "ult",
+   "icon": "sun",
+   "cost": {
+    "rage": 100,
+    "mana": 50
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 3
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.5,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "giap_nham_pas",
+   "owner": "giap_nham",
+   "name": "Vệ Tinh Hộ Thể",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "turnStart",
+   "effects": [
+    {
+     "k": "rage",
+     "v": 6
+    },
+    {
+     "k": "shield",
+     "pct": 0.05
+    }
+   ]
+  }
+ ],
+ "minions": [
+  {
+   "id": "linh_cua_skill",
+   "owner": "linh_cua",
+   "name": "Đấm Bọt",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bubble",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_cua_ult",
+   "owner": "linh_cua",
+   "name": "Liên Hoàn Quyền",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "fist2",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.6
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_cua_pas",
+   "owner": "linh_cua",
+   "name": "Vỏ Cứng",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_cua2_skill",
+   "owner": "linh_cua2",
+   "name": "Pháo Bọt",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bubble",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_cua2_ult",
+   "owner": "linh_cua2",
+   "name": "Song Quyền Nổ",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "fist2",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_cua2_pas",
+   "owner": "linh_cua2",
+   "name": "Vỏ Thép",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.2,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_noc_skill",
+   "owner": "linh_noc",
+   "name": "Phồng Gai",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bubble",
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.15
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_noc_ult",
+   "owner": "linh_noc",
+   "name": "Nổ Gai",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_noc_pas",
+   "owner": "linh_noc",
+   "name": "Gai Độc",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.04,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.3
+  },
+  {
+   "id": "linh_noc2_skill",
+   "owner": "linh_noc2",
+   "name": "Điện Giật",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bolt",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.15,
+     "on": "foe"
+    }
+   ],
+   "cost": {
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_noc2_ult",
+   "owner": "linh_noc2",
+   "name": "Sấm Gai",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "bolt",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.8
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_noc2_pas",
+   "owner": "linh_noc2",
+   "name": "Gai Điện",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.35
+  },
+  {
+   "id": "linh_ngu_skill",
+   "owner": "linh_ngu",
+   "name": "Đớp Kép",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.6
+    }
+   ],
+   "cost": {
+    "mana": 25
+   }
+  },
+  {
+   "id": "linh_ngu_ult",
+   "owner": "linh_ngu",
+   "name": "Lượn Sóng",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wave",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_ngu_pas",
+   "owner": "linh_ngu",
+   "name": "Vảy Trơn",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_ngu2_skill",
+   "owner": "linh_ngu2",
+   "name": "Song Đớp",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.8
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_ngu2_ult",
+   "owner": "linh_ngu2",
+   "name": "Xoáy Đôi",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wave",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.85,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_ngu2_pas",
+   "owner": "linh_ngu2",
+   "name": "Vảy Bạc",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_bo_skill",
+   "owner": "linh_bo",
+   "name": "Phi Lá",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "seed",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_bo_ult",
+   "owner": "linh_bo",
+   "name": "Quật Đuôi Lá",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.6
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_bo_pas",
+   "owner": "linh_bo",
+   "name": "Mũ Dẻ Gai",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_bo2_skill",
+   "owner": "linh_bo2",
+   "name": "Ném Hạt Dẻ",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "seed",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_bo2_ult",
+   "owner": "linh_bo2",
+   "name": "Bão Lá",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_bo2_pas",
+   "owner": "linh_bo2",
+   "name": "Mũ Gai Cứng",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.2,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_ran_skill",
+   "owner": "linh_ran",
+   "name": "Cuộn Mình",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.15
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_ran_ult",
+   "owner": "linh_ran",
+   "name": "Phun Độc",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_ran_pas",
+   "owner": "linh_ran",
+   "name": "Nhớt Độc",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.04,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.3
+  },
+  {
+   "id": "linh_ran2_skill",
+   "owner": "linh_ran2",
+   "name": "Cắn Tê",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.15,
+     "on": "foe"
+    }
+   ],
+   "cost": {
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_ran2_ult",
+   "owner": "linh_ran2",
+   "name": "Quất Đuôi",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.8
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_ran2_pas",
+   "owner": "linh_ran2",
+   "name": "Vảy Độc",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.35
+  },
+  {
+   "id": "linh_chim_skill",
+   "owner": "linh_chim",
+   "name": "Mổ Kép",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.6
+    }
+   ],
+   "cost": {
+    "mana": 25
+   }
+  },
+  {
+   "id": "linh_chim_ult",
+   "owner": "linh_chim",
+   "name": "Lượn Gió",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_chim_pas",
+   "owner": "linh_chim",
+   "name": "Lông Trơn",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_chim2_skill",
+   "owner": "linh_chim2",
+   "name": "Song Mổ",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.8
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_chim2_ult",
+   "owner": "linh_chim2",
+   "name": "Xoáy Cánh",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wing",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.85,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_chim2_pas",
+   "owner": "linh_chim2",
+   "name": "Lông Ngọc",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_lo_skill",
+   "owner": "linh_lo",
+   "name": "Phun Lửa",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "flame",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_lo_ult",
+   "owner": "linh_lo",
+   "name": "Cựa Lửa Liên Hoàn",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "claw",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.6
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_lo_pas",
+   "owner": "linh_lo",
+   "name": "Lông Lửa",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_lo2_skill",
+   "owner": "linh_lo2",
+   "name": "Cầu Lửa",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "torch",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_lo2_ult",
+   "owner": "linh_lo2",
+   "name": "Song Cựa Lửa",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "claw",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_lo2_pas",
+   "owner": "linh_lo2",
+   "name": "Mào Bất Bại",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.2,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_nam_skill",
+   "owner": "linh_nam",
+   "name": "Mũ Nấm",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.15
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_nam_ult",
+   "owner": "linh_nam",
+   "name": "Nổ Bào Tử",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_nam_pas",
+   "owner": "linh_nam",
+   "name": "Bào Tử Cháy",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "flame",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.04,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.3
+  },
+  {
+   "id": "linh_nam2_skill",
+   "owner": "linh_nam2",
+   "name": "Đá Nung",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "rock",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.15,
+     "on": "foe"
+    }
+   ],
+   "cost": {
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_nam2_ult",
+   "owner": "linh_nam2",
+   "name": "Phun Nham",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.8
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_nam2_pas",
+   "owner": "linh_nam2",
+   "name": "Thân Nham Sôi",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "flame",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.35
+  },
+  {
+   "id": "linh_khi_skill",
+   "owner": "linh_khi",
+   "name": "Cào Kép",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "claw",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.6
+    }
+   ],
+   "cost": {
+    "mana": 25
+   }
+  },
+  {
+   "id": "linh_khi_ult",
+   "owner": "linh_khi",
+   "name": "Nhào Lộn",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_khi_pas",
+   "owner": "linh_khi",
+   "name": "Lanh Lẹ",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_khi2_skill",
+   "owner": "linh_khi2",
+   "name": "Song Trảo",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "claw",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.8
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_khi2_ult",
+   "owner": "linh_khi2",
+   "name": "Đuôi Lửa Xoáy",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "flame",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.85,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_khi2_pas",
+   "owner": "linh_khi2",
+   "name": "Thân Pháp",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_giap_skill",
+   "owner": "linh_giap",
+   "name": "Phóng Lông Thép",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bolt",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_giap_ult",
+   "owner": "linh_giap",
+   "name": "Cào Lốc Thép",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "claw",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.6
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_giap_pas",
+   "owner": "linh_giap",
+   "name": "Lông Lưỡi Thép",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_giap2_skill",
+   "owner": "linh_giap2",
+   "name": "Mưa Lông Thép",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bolt",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_giap2_ult",
+   "owner": "linh_giap2",
+   "name": "Bão Lưỡi Thép",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_giap2_pas",
+   "owner": "linh_giap2",
+   "name": "Giáp Gai",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.2,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_khien_skill",
+   "owner": "linh_khien",
+   "name": "Phồng Giáp",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bubble",
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.15
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_khien_ult",
+   "owner": "linh_khien",
+   "name": "Nổ Gai Sắt",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_khien_pas",
+   "owner": "linh_khien",
+   "name": "Gai Sắt",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.04,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.3
+  },
+  {
+   "id": "linh_khien2_skill",
+   "owner": "linh_khien2",
+   "name": "Khiên Dội",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "shield",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.15,
+     "on": "foe"
+    }
+   ],
+   "cost": {
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_khien2_ult",
+   "owner": "linh_khien2",
+   "name": "Bão Gai",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.8
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_khien2_pas",
+   "owner": "linh_khien2",
+   "name": "Gai Khiên",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "effects": [
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 2,
+     "v": 0.05,
+     "on": "foe"
+    }
+   ],
+   "trigger": "onHit",
+   "chance": 0.35
+  },
+  {
+   "id": "linh_may_skill",
+   "owner": "linh_may",
+   "name": "Bắn Kép",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bolt",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.6
+    }
+   ],
+   "cost": {
+    "mana": 25
+   }
+  },
+  {
+   "id": "linh_may_ult",
+   "owner": "linh_may",
+   "name": "Lượn Vòng",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_may_pas",
+   "owner": "linh_may",
+   "name": "Cánh Nhẹ",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_may2_skill",
+   "owner": "linh_may2",
+   "name": "Song Pháo",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "bolt",
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.8
+    }
+   ],
+   "cost": {
+    "mana": 30
+   }
+  },
+  {
+   "id": "linh_may2_ult",
+   "owner": "linh_may2",
+   "name": "Phản Lực Xoáy",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.85,
+     "hits": 2
+    }
+   ],
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   }
+  },
+  {
+   "id": "linh_may2_pas",
+   "owner": "linh_may2",
+   "name": "Thân Thoi",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.15,
+     "turns": 99
+    }
+   ],
+   "trigger": "start"
+  },
+  {
+   "id": "linh_khoan_skill",
+   "owner": "linh_khoan",
+   "name": "Dậm Đá",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "crack",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1
+    }
+   ]
+  },
+  {
+   "id": "linh_khoan_ult",
+   "owner": "linh_khoan",
+   "name": "Húc Núi",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.6
+    }
+   ]
+  },
+  {
+   "id": "linh_khoan_pas",
+   "owner": "linh_khoan",
+   "name": "Lông Đá",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.15,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "linh_khoan2_skill",
+   "owner": "linh_khoan2",
+   "name": "Gai Đá Trồi",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "crack",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.2
+    }
+   ]
+  },
+  {
+   "id": "linh_khoan2_ult",
+   "owner": "linh_khoan2",
+   "name": "Song Húc",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "fist2",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.9,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "linh_khoan2_pas",
+   "owner": "linh_khoan2",
+   "name": "Giáp Đá Nặng",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dmgTaken",
+     "v": -0.2,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "linh_da_skill",
+   "owner": "linh_da",
+   "name": "Thu Mình Đá",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "shield",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.15
+    }
+   ]
+  },
+  {
+   "id": "linh_da_ult",
+   "owner": "linh_da",
+   "name": "Lăn Đá",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "rock",
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.5
+    }
+   ]
+  },
+  {
+   "id": "linh_da_pas",
+   "owner": "linh_da",
+   "name": "Gai Đất",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "trigger": "onHit",
+   "chance": 0.3,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.25
+    }
+   ]
+  },
+  {
+   "id": "linh_da2_skill",
+   "owner": "linh_da2",
+   "name": "Xích Đá Dội",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "rock",
+   "cost": {
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.1
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "chance": 0.15,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "linh_da2_ult",
+   "owner": "linh_da2",
+   "name": "Bão Sỏi",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "crack",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 1.8
+    }
+   ]
+  },
+  {
+   "id": "linh_da2_pas",
+   "owner": "linh_da2",
+   "name": "Gai Đá",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "fang",
+   "trigger": "onHit",
+   "chance": 0.35,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.3
+    }
+   ]
+  },
+  {
+   "id": "linh_ngua_skill",
+   "owner": "linh_ngua",
+   "name": "Phi Nước Kiệu",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "wind",
+   "cost": {
+    "mana": 25
+   },
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.6
+    }
+   ]
+  },
+  {
+   "id": "linh_ngua_ult",
+   "owner": "linh_ngua",
+   "name": "Vó Cuốn",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "cost": {
+    "rage": 100,
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.7,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "linh_ngua_pas",
+   "owner": "linh_ngua",
+   "name": "Chân Nhẹ",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.12,
+     "turns": 99
+    }
+   ]
+  },
+  {
+   "id": "linh_ngua2_skill",
+   "owner": "linh_ngua2",
+   "name": "Phi Nước Đại",
+   "rarity": "common",
+   "kind": "skill",
+   "icon": "wind",
+   "cost": {
+    "mana": 30
+   },
+   "effects": [
+    {
+     "k": "extra",
+     "mult": 0.8
+    }
+   ]
+  },
+  {
+   "id": "linh_ngua2_ult",
+   "owner": "linh_ngua2",
+   "name": "Gió Cát Cuốn",
+   "rarity": "common",
+   "kind": "ult",
+   "icon": "wind",
+   "cost": {
+    "rage": 100,
+    "mana": 35
+   },
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.85,
+     "hits": 2
+    }
+   ]
+  },
+  {
+   "id": "linh_ngua2_pas",
+   "owner": "linh_ngua2",
+   "name": "Vằn Cát",
+   "rarity": "common",
+   "kind": "passive",
+   "icon": "feather",
+   "trigger": "start",
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "dodge",
+     "v": 0.15,
+     "turns": 99
+    }
+   ]
+  }
+ ],
+ "traits": [
+  {
+   "id": "lien_kinh_boss",
+   "owner": "lien_kinh",
+   "name": "Da Đá Hộ Thể",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "rock",
+   "trigger": "onHit",
+   "chance": 0.3,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.07
+    }
+   ]
+  },
+  {
+   "id": "han_ngac_boss",
+   "owner": "han_ngac",
+   "name": "Giáp Băng Hộ Thể",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.25
+    },
+    {
+     "k": "heal",
+     "pct": 0.1
+    }
+   ]
+  },
+  {
+   "id": "hai_long_boss",
+   "owner": "hai_long",
+   "name": "Long Uy Chấn",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "rage",
+   "trigger": "onHit",
+   "chance": 0.04,
+   "effects": [
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "gio_loc_boss",
+   "owner": "gio_loc",
+   "name": "Gió Cuốn",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "wind",
+   "trigger": "onHit",
+   "effects": [
+    {
+     "k": "mana",
+     "v": 2,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "tho_hoang_boss",
+   "owner": "tho_hoang",
+   "name": "Giáp Lá Hộ Thân",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "heal",
+     "pct": 0.1
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.2,
+     "turns": 2
+    }
+   ]
+  },
+  {
+   "id": "thanh_long_boss",
+   "owner": "thanh_long",
+   "name": "Long Lân Phản Đòn",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "claw",
+   "trigger": "onHit",
+   "chance": 0.15,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.5
+    }
+   ]
+  },
+  {
+   "id": "hong_lien_boss",
+   "owner": "hong_lien",
+   "name": "Nhen Lại Lửa Tàn",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "torch",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.15
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.25,
+     "turns": 2
+    }
+   ]
+  },
+  {
+   "id": "huyen_viem_boss",
+   "owner": "huyen_viem",
+   "name": "Giáp Nung Tự Liền",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "onHit",
+   "chance": 0.25,
+   "effects": [
+    {
+     "k": "heal",
+     "pct": 0.05
+    }
+   ]
+  },
+  {
+   "id": "lan_hoa_boss",
+   "owner": "lan_hoa",
+   "name": "Giáp Bazan",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "shield",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "shield",
+     "pct": 0.25
+    },
+    {
+     "k": "status",
+     "id": "burn",
+     "turns": 3,
+     "v": 0.08,
+     "on": "foe"
+    }
+   ]
+  },
+  {
+   "id": "chien_than_boss",
+   "owner": "chien_than",
+   "name": "Chiến Ý Bất Khuất",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "rage",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.3,
+     "turns": 2
+    },
+    {
+     "k": "shield",
+     "pct": 0.15
+    }
+   ]
+  },
+  {
+   "id": "tam_kiem_boss",
+   "owner": "tam_kiem",
+   "name": "Kiếm Nguyền Phản",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "sword",
+   "trigger": "onHit",
+   "chance": 0.2,
+   "effects": [
+    {
+     "k": "dmg",
+     "mult": 0.45
+    }
+   ]
+  },
+  {
+   "id": "kim_nghe_boss",
+   "owner": "kim_nghe",
+   "name": "Kim Thân Bất Hoại",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "helmet",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "shield",
+     "pct": 0.3
+    },
+    {
+     "k": "buff",
+     "stat": "def",
+     "v": 0.25,
+     "turns": 2
+    }
+   ]
+  },
+  {
+   "id": "hat_de_boss",
+   "owner": "hat_de",
+   "name": "Rễ Đá Hộ Thân",
+   "rarity": "rare",
+   "kind": "passive",
+   "icon": "rock",
+   "trigger": "onHit",
+   "chance": 0.3,
+   "effects": [
+    {
+     "k": "shield",
+     "pct": 0.06
+    }
+   ]
+  },
+  {
+   "id": "ho_kim_cuong_boss",
+   "owner": "ho_kim_cuong",
+   "name": "Bùn Tái Tạo",
+   "rarity": "epic",
+   "kind": "passive",
+   "icon": "crown",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "shield",
+     "pct": 0.2
+    },
+    {
+     "k": "buff",
+     "stat": "atk",
+     "v": 0.25,
+     "turns": 2
+    }
+   ]
+  },
+  {
+   "id": "giap_nham_boss",
+   "owner": "giap_nham",
+   "name": "Lõi Hành Tinh",
+   "rarity": "legend",
+   "kind": "passive",
+   "icon": "rock",
+   "trigger": "lowHp",
+   "below": 0.5,
+   "effects": [
+    {
+     "k": "cleanse"
+    },
+    {
+     "k": "shield",
+     "pct": 0.3
+    },
+    {
+     "k": "status",
+     "id": "stun",
+     "turns": 1,
+     "on": "foe"
+    }
+   ]
+  }
+ ]
+}

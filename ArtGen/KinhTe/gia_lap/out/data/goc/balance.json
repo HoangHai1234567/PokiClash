@@ -1,0 +1,3574 @@
+{
+ "cfg": {
+  "picks": 5,
+  "offer": 3,
+  "manaPerTurn": 20,
+  "benchMana": 10,
+  "maxMana": 100,
+  "maxRage": 100,
+  "rageOnAttack": 10,
+  "rageOnHit": 80,
+  "critBase": 0.05,
+  "critMult": 1.6,
+  "defK": 100,
+  "dmgVar": 0.08,
+  "shieldCap": 0.6,
+  "hpBase": 600,
+  "atkBase": 180,
+  "defBase": 55,
+  "lvStep": 0.03,
+  "starStep": 0.025,
+  "bossHp": 1.8,
+  "bossAtk": 1.1,
+  "bossEvoHp": 1.5,
+  "bossEvoAtk": 0.1,
+  "bossEvoEarly": 0.75,
+  "cardLvStep": 0.15,
+  "maxRounds": 60
+ },
+ "progression": {
+  "saveVersion": 13,
+  "maxLevel": 200,
+  "expBase": 45,
+  "expPow": 1.0,
+  "afkCapH": 12,
+  "legendMilestone": 300,
+  "cardMax": 5,
+  "maxStar": 20,
+  "xSteps": [
+   {
+    "x": 1,
+    "balls": 0
+   },
+   {
+    "x": 2,
+    "balls": 0
+   },
+   {
+    "x": 3,
+    "balls": 150
+   },
+   {
+    "x": 5,
+    "balls": 300
+   },
+   {
+    "x": 10,
+    "balls": 700
+   }
+  ],
+  "cardReq": [
+   0,
+   2,
+   4,
+   8,
+   15
+  ],
+  "formStars": [6, 11],
+  "tierPower": [1, 1.25, 1.55, 1.9],
+  "shardCost": [4, 6, 8, 12, 14, 18, 22, 26, 28, 34, 40, 48, 40, 50, 60, 70],
+  "shardRarity": [0.8, 1, 1.15, 1.3, 1.5],
+  "evoStones": [20, 55, 120],
+  "evoLevel": [30, 95, 150],
+  "evoFirst": [1, 3, 8],
+  "evoReplayMini": 0.1,
+  "evoReplayBoss": 0.25,
+  "evoChest": [2, 2, 3, 3, 4, 4, 10]
+ },
+ "poolWeight": {
+  "common": 50,
+  "uncommon": 30,
+  "rare": 14,
+  "epic": 5,
+  "legend": 1
+ },
+ "pachinko": {
+  "maxPerDrop": 20,
+  "maxPerDropHigh": 30,
+  "maxPerDropLevel": 104,
+  "legendCopies": 15,
+  "gifts": [
+   {
+    "n": 30,
+    "k": "chest_wood"
+   },
+   {
+    "n": 40,
+    "k": "balls",
+    "v": 8
+   },
+   {
+    "n": 50,
+    "k": "chest_silver"
+   },
+   {
+    "n": 60,
+    "k": "exp",
+    "v": 120
+   },
+   {
+    "n": 80,
+    "k": "chest_gold"
+   }
+  ],
+  "chests": {
+   "chest_wood": [
+    {
+     "w": 55,
+     "k": "balls",
+     "min": 2,
+     "max": 3
+    },
+    {
+     "w": 35,
+     "k": "exp",
+     "min": 15,
+     "max": 30
+    },
+    {
+     "w": 10,
+     "k": "cards",
+     "min": 1,
+     "max": 1,
+     "rar": {
+      "common": 70,
+      "uncommon": 30
+     }
+    }
+   ],
+   "chest_silver": [
+    {
+     "w": 27.6,
+     "k": "balls",
+     "min": 3,
+     "max": 6
+    },
+    {
+     "w": 27.6,
+     "k": "exp",
+     "min": 40,
+     "max": 70
+    },
+    {
+     "w": 32.2,
+     "k": "cards",
+     "min": 2,
+     "max": 2,
+     "rar": {
+      "common": 45,
+      "uncommon": 35,
+      "rare": 18,
+      "epic": 2
+     }
+    },
+    {
+     "w": 4.6,
+     "k": "egg",
+     "tier": 0,
+     "min": 1,
+     "max": 1
+    },
+    {
+     "w": 8,
+     "k": "stones",
+     "min": 1,
+     "max": 2
+    },
+    {
+     "w": 0.8,
+     "k": "evo",
+     "min": 1,
+     "max": 1
+    }
+   ],
+   "chest_gold": [
+    {
+     "w": 17.6,
+     "k": "balls",
+     "min": 8,
+     "max": 12
+    },
+    {
+     "w": 17.6,
+     "k": "exp",
+     "min": 100,
+     "max": 160
+    },
+    {
+     "w": 44,
+     "k": "cards",
+     "min": 3,
+     "max": 3,
+     "rar": {
+      "uncommon": 45,
+      "rare": 40,
+      "epic": 14.99,
+      "legend": 0.01
+     }
+    },
+    {
+     "w": 8.8,
+     "k": "egg",
+     "tier": 1,
+     "min": 1,
+     "max": 1
+    },
+    {
+     "w": 12,
+     "k": "stones",
+     "min": 2,
+     "max": 4
+    },
+    {
+     "w": 2,
+     "k": "evo",
+     "min": 1,
+     "max": 2
+    }
+   ]
+  },
+  "odds": [
+   25.3,
+   22,
+   1.7,
+   22,
+   25.7,
+   3.3
+  ],
+  "rings": [
+   {
+    "n": 25,
+    "k": "chest_silver"
+   },
+   {
+    "n": 25,
+    "k": "balls",
+    "v": 5
+   }
+  ],
+  "measured": {
+   "balls": 6000,
+   "ringHits": [
+    1.06,
+    1.07
+   ]
+  }
+ },
+ "afk": {
+  "shardChance": 0.4,
+  "chestEveryH": 3,
+  "chestSlots": 4,
+  "chestOpenH": 2,
+  "boostH": 2,
+  "boostMult": 2,
+  "chest": [
+   {
+    "w": 38,
+    "k": "balls",
+    "min": 4,
+    "max": 8
+   },
+   {
+    "w": 28.5,
+    "k": "exp",
+    "min": 30,
+    "max": 60
+   },
+   {
+    "w": 28.5,
+    "k": "cards",
+    "min": 1,
+    "max": 2,
+    "rar": {
+     "common": 60,
+     "uncommon": 30,
+     "rare": 9.5,
+     "epic": 0.5
+    }
+   },
+   {
+    "w": 5,
+    "k": "stones",
+    "min": 1,
+    "max": 1
+   },
+   {
+    "w": 3,
+    "k": "evo",
+    "min": 1,
+    "max": 1
+   }
+  ]
+ },
+ "simTeams": {
+  "thuy": {
+   "team": [
+    "ti_tach",
+    "cao_da",
+    "tien_la"
+   ],
+   "star": 1,
+   "card": 1
+  },
+  "hoa": {
+   "team": [
+    "so_ngoc",
+    "ti_tach",
+    "cao_da"
+   ],
+   "star": 3,
+   "card": 2
+  },
+  "kim": {
+   "team": [
+    "giap_long",
+    "nguu_quyen",
+    "so_ngoc"
+   ],
+   "star": 3,
+   "card": 2
+  },
+  "moc": {
+   "team": [
+    "thiet_phu",
+    "bo_cap",
+    "phi_thuong"
+   ],
+   "star": 6,
+   "card": 3
+  },
+  "tho": {
+   "team": [
+    "gac_da",
+    "tien_la",
+    "thiet_phu"
+   ],
+   "star": 6,
+   "card": 3
+  }
+ },
+ "badges": {
+  "tiers": [
+   "Đồng",
+   "Bạc",
+   "Vàng",
+   "Ngọc",
+   "Kim Cương",
+   "Hồng Ngọc",
+   "Lục Bảo",
+   "Tử Tinh",
+   "Nhật Nguyệt",
+   "Thần Thoại"
+  ],
+  "counts": [
+   5,
+   5,
+   6,
+   6,
+   8,
+   8,
+   8,
+   10,
+   10,
+   12
+  ],
+  "bonus": [
+   0.05,
+   0.06,
+   0.07,
+   0.08,
+   0.1,
+   0.11,
+   0.12,
+   0.13,
+   0.14,
+   0.16
+  ],
+  "teamBonus": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0.005,
+   0.005,
+   0.01,
+   0.01,
+   0.02
+  ],
+  "levelPerTier": 14,
+  "levelPerFight": 1,
+  "ballsBase": 5,
+  "ballsPerTier": 1,
+  "chest": [
+   "chest_silver",
+   "chest_silver",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold",
+   "chest_gold"
+  ],
+  "evo": [
+   0,
+   0,
+   1,
+   1,
+   1,
+   1,
+   2,
+   2,
+   2,
+   3
+  ],
+  "crystal": [
+   0,
+   0,
+   0,
+   0,
+   1,
+   0,
+   1,
+   0,
+   1,
+   2
+  ],
+  "foeBuff": 0.03,
+  "foeTierBuff": 0.03,
+  "foeLastBuff": 0.05,
+  "starRounds": 2,
+  "giftEvery": 30,
+  "gifts": [
+   {
+    "chest": "chest_silver",
+    "stones": 5
+   },
+   {
+    "chest": "chest_silver",
+    "evo": 1
+   },
+   {
+    "chest": "chest_gold",
+    "stones": 10
+   },
+   {
+    "chest": "chest_silver",
+    "crystal": 1,
+    "stones": 5
+   },
+   {
+    "chest": "chest_gold",
+    "evo": 1,
+    "stones": 10
+   },
+   {
+    "chest": "chest_gold",
+    "evo": 1,
+    "crystal": 1
+   }
+  ],
+  "traits": {
+   "tiers": [
+    4,
+    6,
+    8,
+    10
+   ],
+   "kim": {
+    "name": "Lưỡi Kim",
+    "kind": "crit",
+    "v": [
+     0.04,
+     0.06,
+     0.08,
+     0.1
+    ]
+   },
+   "moc": {
+    "name": "Nhựa Sống",
+    "kind": "lifesteal",
+    "v": [
+     0.03,
+     0.05,
+     0.07,
+     0.09
+    ]
+   },
+   "thuy": {
+    "name": "Màng Nước",
+    "kind": "shield",
+    "v": [
+     0.06,
+     0.09,
+     0.12,
+     0.15
+    ]
+   },
+   "hoa": {
+    "name": "Hỏa Nộ",
+    "kind": "rage",
+    "v": [
+     10,
+     15,
+     20,
+     30
+    ]
+   },
+   "tho": {
+    "name": "Giáp Đất",
+    "kind": "guard",
+    "v": [
+     0.04,
+     0.06,
+     0.08,
+     0.1
+    ]
+   }
+  }
+ },
+ "potential": {
+  "kinds": [
+   "atk",
+   "def",
+   "hp",
+   "spd",
+   "crit",
+   "lifesteal",
+   "mana",
+   "rage",
+   "shield",
+   "guard",
+   "dodge"
+  ],
+  "values": {
+   "atk": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.16
+   ],
+   "def": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.16
+   ],
+   "hp": [
+    0.03,
+    0.05,
+    0.08,
+    0.12,
+    0.16
+   ],
+   "spd": [
+    2,
+    4,
+    6,
+    9,
+    12
+   ],
+   "crit": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ],
+   "lifesteal": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ],
+   "mana": [
+    5,
+    10,
+    15,
+    20,
+    30
+   ],
+   "rage": [
+    5,
+    10,
+    15,
+    20,
+    30
+   ],
+   "shield": [
+    0.04,
+    0.06,
+    0.09,
+    0.13,
+    0.18
+   ],
+   "guard": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ],
+   "dodge": [
+    0.02,
+    0.03,
+    0.05,
+    0.07,
+    0.1
+   ]
+  },
+  "kindWeight": {
+   "spd": 0
+  },
+  "rarityWeight": [
+   55,
+   28,
+   12,
+   4.5,
+   0.5
+  ],
+  "crystalWeight": [
+   0,
+   0,
+   80,
+   18,
+   2
+  ],
+  "caps": {
+   "atk": 0.3,
+   "def": 0.3,
+   "hp": 0.3,
+   "spd": 30,
+   "crit": 0.25,
+   "lifesteal": 0.2,
+   "mana": 50,
+   "rage": 50,
+   "shield": 0.3,
+   "guard": 0.2,
+   "dodge": 0.2
+  },
+  "slotStar": [
+   1,
+   3,
+   6,
+   8,
+   11,
+   16
+  ],
+  "lockCost": 2,
+  "maxLocks": 3,
+  "sets": [
+   {
+    "key": "cong",
+    "name": "Cuồng Chiến",
+    "kinds": [
+     "atk",
+     "crit",
+     "rage"
+    ],
+    "need": [
+     3,
+     5
+    ],
+    "bonus": [
+     {
+      "k": "atk",
+      "v": [
+       0.04,
+       0.08
+      ]
+     },
+     {
+      "k": "crit",
+      "v": [
+       0,
+       0.04
+      ]
+     }
+    ]
+   },
+   {
+    "key": "thu",
+    "name": "Kiên Thành",
+    "kinds": [
+     "def",
+     "hp",
+     "shield",
+     "guard"
+    ],
+    "need": [
+     3,
+     5
+    ],
+    "bonus": [
+     {
+      "k": "hp",
+      "v": [
+       0.04,
+       0.08
+      ]
+     },
+     {
+      "k": "def",
+      "v": [
+       0,
+       0.08
+      ]
+     }
+    ]
+   },
+   {
+    "key": "linh",
+    "name": "Phong Ảnh",
+    "kinds": [
+     "lifesteal",
+     "mana",
+     "dodge"
+    ],
+    "need": [
+     3,
+     5
+    ],
+    "bonus": [
+     {
+      "k": "mana",
+      "v": [
+       10,
+       20
+      ]
+     },
+     {
+      "k": "dodge",
+      "v": [
+       0.03,
+       0.05
+      ]
+     },
+     {
+      "k": "lifesteal",
+      "v": [
+       0,
+       0.04
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "cave": {
+  "tiers": [
+   {
+    "name": "Cửa Hang",
+    "level": 29,
+    "stones": 2,
+    "firstStones": 5,
+    "firstCrystals": 1,
+    "firstEvo": 0,
+    "buff": -0.3
+   },
+   {
+    "name": "Hành Lang Rêu",
+    "level": 45,
+    "stones": 3,
+    "firstStones": 8,
+    "firstCrystals": 0,
+    "firstEvo": 0,
+    "buff": -0.25
+   },
+   {
+    "name": "Suối Ngầm",
+    "level": 62,
+    "stones": 4,
+    "firstStones": 10,
+    "firstCrystals": 1,
+    "firstEvo": 1,
+    "buff": 0.0
+   },
+   {
+    "name": "Vách Thạch Anh",
+    "level": 80,
+    "stones": 5,
+    "firstStones": 12,
+    "firstCrystals": 1,
+    "firstEvo": 0,
+    "buff": 0.05
+   },
+   {
+    "name": "Hồ Phát Sáng",
+    "level": 98,
+    "stones": 6,
+    "firstStones": 15,
+    "firstCrystals": 1,
+    "firstEvo": 1,
+    "buff": 0.1
+   },
+   {
+    "name": "Rừng Nhũ Đá",
+    "level": 116,
+    "stones": 7,
+    "firstStones": 18,
+    "firstCrystals": 2,
+    "firstEvo": 0,
+    "buff": 0.12
+   },
+   {
+    "name": "Mạch Dung Nham",
+    "level": 134,
+    "stones": 8,
+    "firstStones": 20,
+    "firstCrystals": 2,
+    "firstEvo": 2,
+    "buff": 0.14
+   },
+   {
+    "name": "Điện Pha Lê",
+    "level": 152,
+    "stones": 9,
+    "firstStones": 25,
+    "firstCrystals": 2,
+    "firstEvo": 0,
+    "buff": 0.16
+   },
+   {
+    "name": "Vực Tinh Thạch",
+    "level": 172,
+    "stones": 10,
+    "firstStones": 30,
+    "firstCrystals": 3,
+    "firstEvo": 2,
+    "buff": 0.18
+   },
+   {
+    "name": "Lõi Tiềm Năng",
+    "level": 195,
+    "stones": 12,
+    "firstStones": 40,
+    "firstCrystals": 4,
+    "firstEvo": 3,
+    "buff": 0.2
+   }
+  ],
+  "winsPerDay": 3,
+  "adExtra": 1,
+  "crystalFloor": 8,
+  "crystalDaily": 1,
+  "weekday": [
+   null,
+   "kim",
+   "moc",
+   "thuy",
+   "hoa",
+   "tho",
+   null
+  ]
+ },
+ "farm": {
+  "minHeroes": 3,
+  "base": 2,
+  "rarityPower": [
+   1,
+   1.1,
+   1.22,
+   1.36,
+   1.5
+  ],
+  "lvStep": 0,
+  "starStep": 0.1,
+  "match": 1.25,
+  "durBase": 8,
+  "durStar": 1,
+  "durRarity": 0,
+  "restPerHour": 15,
+  "restMin": 15,
+  "restMax": 60,
+  "capHours": 10,
+  "openSpots": 3,
+  "spotLevels": [
+   40,
+   70,
+   96,
+   120,
+   144
+  ],
+  "boostH": 1,
+  "boostMult": 2,
+  "spots": [
+   {
+    "id": "duck1",
+    "kind": "duck",
+    "name": "Ao vịt",
+    "elem": "thuy",
+    "x": 0.625,
+    "y": 0.456
+   },
+   {
+    "id": "veg1",
+    "kind": "veg",
+    "name": "Ruộng rau",
+    "elem": "tho",
+    "x": 0.195,
+    "y": 0.781
+   },
+   {
+    "id": "orchard1",
+    "kind": "orchard",
+    "name": "Vườn cây",
+    "elem": "moc",
+    "x": 0.186,
+    "y": 0.456
+   },
+   {
+    "id": "bakery",
+    "kind": "bakery",
+    "name": "Lò bánh",
+    "elem": "hoa",
+    "x": 0.781,
+    "y": 0.814
+   },
+   {
+    "id": "smithy",
+    "kind": "smithy",
+    "name": "Xưởng nông cụ",
+    "elem": "kim",
+    "x": 0.83,
+    "y": 0.625
+   },
+   {
+    "id": "duck2",
+    "kind": "duck",
+    "name": "Ao vịt",
+    "elem": "thuy",
+    "x": 0.801,
+    "y": 0.449
+   },
+   {
+    "id": "veg2",
+    "kind": "veg",
+    "name": "Ruộng rau",
+    "elem": "tho",
+    "x": 0.371,
+    "y": 0.781
+   },
+   {
+    "id": "orchard2",
+    "kind": "orchard",
+    "name": "Vườn cây",
+    "elem": "moc",
+    "x": 0.352,
+    "y": 0.456
+   }
+  ]
+ },
+ "trees": {
+  "perHour": 4,
+  "cap": 96,
+  "unlockLevels": [
+   10,
+   25,
+   45,
+   70
+  ]
+ },
+ "stageBalls": {
+  "base": 1,
+  "step": 1,
+  "boss": 24,
+  "mini": 12,
+  "hero": 2
+ },
+ "ads": {
+  "limits": {
+   "tree_double": 3,
+   "afk_chest_open": 4,
+   "afk_boost": 3,
+   "farm_boost": 3,
+   "cave_extra": 1,
+   "home_speed": 3,
+   "free_balls": 5,
+   "free_egg": 1,
+   "battle_retry": 3,
+   "win_double": 5,
+   "chest_upgrade": 3,
+   "daily_gift": 1
+  },
+  "pass": {
+   "days": 30,
+   "treeMult": 1.5,
+   "afkSlots": 5,
+   "afkOpenH": 1
+  },
+  "products": [
+   {
+    "id": "adventure_pass",
+    "name": "Thẻ Phiêu Lưu 30 ngày",
+    "desc": "Cây bi ra nhanh ×1,5 và chứa ×1,5; khay rương AFK 5 ô; rương AFK mở trong 1 giờ."
+   },
+   {
+    "id": "no_ads",
+    "name": "Bỏ quảng cáo",
+    "desc": "Mọi chỗ quảng cáo thưởng trao thưởng ngay, không cần xem (vẫn theo giới hạn mỗi ngày)."
+   }
+  ]
+ },
+ "home": {
+  "grid": 72,
+  "lot": 12,
+  "startLots": [[2, 2], [2, 3], [2, 4], [3, 2], [3, 3], [3, 4], [4, 2], [4, 3], [4, 4]],
+  "rings": [
+   {"reward": 30, "balls": 15},
+   {"reward": 80, "balls": 40},
+   {"reward": 160, "balls": 80}
+  ],
+  "lots": [
+   {"i": 0, "j": 0, "kind": "hill"},
+   {"i": 0, "j": 1, "kind": "hill"},
+   {"i": 1, "j": 0, "kind": "hill"},
+   {"i": 5, "j": 0, "kind": "hill"},
+   {"i": 3, "j": 5, "player": 3},
+   {"i": 4, "j": 5, "player": 5},
+   {"i": 5, "j": 4, "player": 7},
+   {"i": 5, "j": 5, "player": 10},
+   {"i": 1, "j": 3, "player": 13},
+   {"i": 3, "j": 1, "player": 16},
+   {"i": 2, "j": 5, "player": 20},
+   {"i": 5, "j": 3, "player": 24},
+   {"i": 1, "j": 2, "player": 28},
+   {"i": 1, "j": 4, "player": 32},
+   {"i": 4, "j": 1, "player": 36},
+   {"i": 2, "j": 1, "player": 40},
+   {"i": 5, "j": 2, "player": 45},
+   {"i": 1, "j": 5, "player": 50},
+   {"i": 5, "j": 1, "player": 55},
+   {"i": 1, "j": 1, "player": 60},
+   {"i": 0, "j": 3, "player": 65},
+   {"i": 3, "j": 0, "player": 70},
+   {"i": 0, "j": 4, "player": 76},
+   {"i": 2, "j": 0, "player": 82},
+   {"i": 0, "j": 2, "player": 88},
+   {"i": 4, "j": 0, "player": 94},
+   {"i": 0, "j": 5, "player": 100}
+  ],
+  "features": [
+   {"kind": "lake", "gx": 13, "gy": 12, "w": 7, "d": 9},
+   {"kind": "lake", "gx": 7, "gy": 65, "w": 4, "d": 5},
+   {"kind": "stream", "gx": 16, "gy": 21, "w": 1, "d": 51},
+   {"kind": "ore", "gx": 27, "gy": 63, "w": 6, "d": 6},
+   {"kind": "ore", "gx": 51, "gy": 15, "w": 6, "d": 6},
+   {"kind": "fertile", "gx": 38, "gy": 62, "w": 8, "d": 8}
+  ],
+  "levels": [
+   {"player": 0, "wood": 0, "ore": 0, "minutes": 0, "slots": 4, "builders": 1},
+   {"player": 10, "wood": 60, "ore": 0, "minutes": 5, "slots": 5, "builders": 1},
+   {"player": 25, "wood": 200, "ore": 0, "minutes": 30, "slots": 6, "builders": 1},
+   {"player": 40, "wood": 400, "ore": 80, "minutes": 120, "slots": 8, "builders": 2},
+   {"player": 60, "wood": 700, "ore": 200, "minutes": 240, "slots": 9, "builders": 2},
+   {"player": 80, "wood": 1000, "ore": 320, "minutes": 360, "slots": 10, "builders": 2},
+   {"player": 100, "wood": 1400, "ore": 480, "minutes": 480, "slots": 11, "builders": 2},
+   {"player": 125, "wood": 1900, "ore": 650, "minutes": 600, "slots": 12, "builders": 2},
+   {"player": 150, "wood": 2500, "ore": 850, "minutes": 720, "slots": 13, "builders": 2},
+   {"player": 175, "wood": 3200, "ore": 1100, "minutes": 720, "slots": 14, "builders": 2}
+  ],
+  "woodCap": 200,
+  "oreCap": 60,
+  "breadCap": 20,
+  "orePerStone": 5,
+  "evoPerOre": 0.008,
+  "fertileBonus": 0.1,
+  "restCutMax": 0.75,
+  "speedMin": 30,
+  "beautyTiers": [10, 30, 60, 100, 160],
+  "restPerTier": 0.05,
+  "beautyGifts": [{"wood": 50}, {"wood": 100, "ore": 20}, {"balls": 30, "ore": 40}, {"evo": 2}, {"stones": 10}],
+  "tile": 2,
+  "startTiles": [
+   {"b": "dirt", "gx": 22, "gy": 23},
+   {"b": "dirt", "gx": 23, "gy": 23},
+   {"b": "dirt", "gx": 23, "gy": 24},
+   {"b": "dirt", "gx": 24, "gy": 24},
+   {"b": "dirt", "gx": 24, "gy": 25},
+   {"b": "dirt", "gx": 25, "gy": 25},
+   {"b": "dirt", "gx": 25, "gy": 26},
+   {"b": "dirt", "gx": 26, "gy": 26},
+   {"b": "dirt", "gx": 26, "gy": 27},
+   {"b": "dirt", "gx": 27, "gy": 27},
+   {"b": "dirt", "gx": 27, "gy": 28},
+   {"b": "dirt", "gx": 28, "gy": 28},
+   {"b": "dirt", "gx": 28, "gy": 29},
+   {"b": "dirt", "gx": 29, "gy": 29}
+  ],
+  "tiles": [
+   {"id": "dirt", "name": "Đất", "wood": 1},
+   {"id": "sand", "name": "Cát", "wood": 1},
+   {"id": "stone", "name": "Đường đá", "wood": 2, "ore": 1},
+   {"id": "water", "name": "Nước", "wood": 3, "block": true}
+  ],
+  "fishDeco": "cup_fish",
+  "fish": [
+   {"w": 80, "k": "balls", "min": 1, "max": 2},
+   {"w": 18, "k": "cards", "min": 1, "max": 1, "rar": {"common": 70, "uncommon": 28, "rare": 2}},
+   {"w": 2, "k": "deco", "min": 1, "max": 1}
+  ],
+  "layout": [
+   {"b": "main", "gx": 39, "gy": 39},
+   {"b": "field", "gx": 32, "gy": 47},
+   {"b": "orchard", "gx": 32, "gy": 53},
+   {"b": "sawmill", "gx": 47, "gy": 35},
+   {"b": "storage", "gx": 49, "gy": 44}
+  ],
+  "buildings": [
+   {"id": "main", "name": "Nhà chính", "kind": "main", "size": 6, "home": 1},
+   {
+    "id": "field",
+    "name": "Ruộng rau",
+    "kind": "prod",
+    "size": 4,
+    "elem": "tho",
+    "output": "balls",
+    "rate": 2,
+    "irrigable": true,
+    "home": 1,
+    "count": [1, 1, 2, 2, 2, 3, 3, 3, 3, 3],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 20, "ore": 0, "minutes": 1, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 45, "ore": 0, "minutes": 10, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 90, "ore": 0, "minutes": 30, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 160, "ore": 20, "minutes": 60, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 270, "ore": 50, "minutes": 120, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 430, "ore": 100, "minutes": 240, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 650, "ore": 180, "minutes": 360, "capH": 13}
+    ]
+   },
+   {
+    "id": "orchard",
+    "name": "Vườn cây ăn quả",
+    "kind": "prod",
+    "size": 4,
+    "elem": "moc",
+    "output": "balls",
+    "rate": 2,
+    "irrigable": true,
+    "home": 1,
+    "count": [1, 1, 1, 2, 2, 2, 3, 3, 3, 3],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 20, "ore": 0, "minutes": 1, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 45, "ore": 0, "minutes": 10, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 90, "ore": 0, "minutes": 30, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 160, "ore": 20, "minutes": 60, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 270, "ore": 50, "minutes": 120, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 430, "ore": 100, "minutes": 240, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 650, "ore": 180, "minutes": 360, "capH": 13}
+    ]
+   },
+   {
+    "id": "sawmill",
+    "name": "Xưởng gỗ",
+    "kind": "prod",
+    "size": 4,
+    "elem": "moc",
+    "output": "wood",
+    "rate": 6,
+    "home": 1,
+    "count": [1, 1, 1, 1, 2, 2, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 15, "ore": 0, "minutes": 1},
+     {"slots": 1, "mult": 1.1, "wood": 40, "ore": 0, "minutes": 10},
+     {"slots": 1, "mult": 1.2, "wood": 80, "ore": 0, "minutes": 30},
+     {"slots": 2, "mult": 1.3, "wood": 150, "ore": 20, "minutes": 60},
+     {"slots": 2, "mult": 1.45, "wood": 260, "ore": 50, "minutes": 120},
+     {"slots": 2, "mult": 1.6, "wood": 420, "ore": 100, "minutes": 240},
+     {"slots": 2, "mult": 1.8, "wood": 640, "ore": 180, "minutes": 360}
+    ]
+   },
+   {
+    "id": "pond",
+    "name": "Ao cá",
+    "kind": "prod",
+    "size": 4,
+    "elem": "thuy",
+    "output": "fish",
+    "rate": 1.6,
+    "home": 2,
+    "count": [0, 1, 1, 1, 1, 2, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 40, "ore": 0, "minutes": 1, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 70, "ore": 0, "minutes": 10, "capH": 10},
+     {"slots": 1, "mult": 1, "wood": 120, "ore": 0, "minutes": 30, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 200, "ore": 20, "minutes": 60, "capH": 11},
+     {"slots": 2, "mult": 1, "wood": 320, "ore": 50, "minutes": 120, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 480, "ore": 100, "minutes": 240, "capH": 12},
+     {"slots": 2, "mult": 1, "wood": 700, "ore": 180, "minutes": 360, "capH": 13}
+    ]
+   },
+   {
+    "id": "mine",
+    "name": "Mỏ",
+    "kind": "prod",
+    "size": 6,
+    "elem": "tho",
+    "output": "ore",
+    "rate": 2.5,
+    "need": "ore",
+    "home": 3,
+    "count": [0, 0, 1, 1, 1, 1, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 120, "ore": 0, "minutes": 20},
+     {"slots": 1, "mult": 1.1, "wood": 180, "ore": 10, "minutes": 40},
+     {"slots": 2, "mult": 1.2, "wood": 260, "ore": 30, "minutes": 90},
+     {"slots": 2, "mult": 1.3, "wood": 380, "ore": 60, "minutes": 150},
+     {"slots": 2, "mult": 1.45, "wood": 540, "ore": 100, "minutes": 240},
+     {"slots": 3, "mult": 1.6, "wood": 760, "ore": 160, "minutes": 360},
+     {"slots": 3, "mult": 1.8, "wood": 1000, "ore": 240, "minutes": 480}
+    ]
+   },
+   {
+    "id": "forge",
+    "name": "Lò rèn",
+    "kind": "prod",
+    "size": 4,
+    "elem": "kim",
+    "output": "stones",
+    "rate": 0.4,
+    "home": 4,
+    "count": [0, 0, 0, 1, 1, 1, 1, 2, 2, 2],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 200, "ore": 40, "minutes": 30},
+     {"slots": 1, "mult": 1.1, "wood": 280, "ore": 60, "minutes": 60},
+     {"slots": 1, "mult": 1.2, "wood": 400, "ore": 90, "minutes": 120},
+     {"slots": 2, "mult": 1.3, "wood": 560, "ore": 130, "minutes": 180},
+     {"slots": 2, "mult": 1.45, "wood": 760, "ore": 180, "minutes": 270},
+     {"slots": 2, "mult": 1.6, "wood": 1000, "ore": 240, "minutes": 360},
+     {"slots": 2, "mult": 1.8, "wood": 1300, "ore": 320, "minutes": 480}
+    ]
+   },
+   {
+    "id": "kitchen",
+    "name": "Bếp",
+    "kind": "prod",
+    "size": 4,
+    "elem": "hoa",
+    "output": "bread",
+    "rate": 0.5,
+    "home": 4,
+    "count": [0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    "levels": [
+     {"slots": 1, "mult": 1, "wood": 180, "ore": 20, "minutes": 30},
+     {"slots": 1, "mult": 1.1, "wood": 250, "ore": 40, "minutes": 60},
+     {"slots": 1, "mult": 1.2, "wood": 360, "ore": 60, "minutes": 120},
+     {"slots": 2, "mult": 1.3, "wood": 500, "ore": 90, "minutes": 180},
+     {"slots": 2, "mult": 1.45, "wood": 680, "ore": 130, "minutes": 270},
+     {"slots": 2, "mult": 1.6, "wood": 900, "ore": 180, "minutes": 360},
+     {"slots": 2, "mult": 1.8, "wood": 1200, "ore": 240, "minutes": 480}
+    ]
+   },
+   {
+    "id": "storage",
+    "name": "Kho",
+    "kind": "support",
+    "size": 4,
+    "home": 1,
+    "count": [1, 1, 1, 1, 2, 2, 2, 2, 2, 2],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 30, "ore": 0, "minutes": 1, "cap": 300, "capOre": 100},
+     {"slots": 0, "mult": 1, "wood": 80, "ore": 10, "minutes": 15, "cap": 500, "capOre": 180},
+     {"slots": 0, "mult": 1, "wood": 160, "ore": 30, "minutes": 45, "cap": 800, "capOre": 300},
+     {"slots": 0, "mult": 1, "wood": 280, "ore": 60, "minutes": 90, "cap": 1200, "capOre": 450},
+     {"slots": 0, "mult": 1, "wood": 450, "ore": 100, "minutes": 180, "cap": 1800, "capOre": 650},
+     {"slots": 0, "mult": 1, "wood": 680, "ore": 160, "minutes": 300, "cap": 2600, "capOre": 900},
+     {"slots": 0, "mult": 1, "wood": 1000, "ore": 240, "minutes": 420, "cap": 3600, "capOre": 1200}
+    ]
+   },
+   {
+    "id": "well",
+    "name": "Giếng",
+    "kind": "support",
+    "size": 2,
+    "home": 2,
+    "count": [0, 1, 2, 2, 3, 3, 4, 4, 4, 4],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 25, "ore": 0, "minutes": 5, "radius": 4, "bonus": 0.1},
+     {"slots": 0, "mult": 1, "wood": 60, "ore": 10, "minutes": 30, "radius": 4, "bonus": 0.12},
+     {"slots": 0, "mult": 1, "wood": 120, "ore": 30, "minutes": 90, "radius": 5, "bonus": 0.15}
+    ]
+   },
+   {
+    "id": "waterwheel",
+    "name": "Cối nước",
+    "kind": "support",
+    "size": 4,
+    "need": "stream",
+    "home": 5,
+    "count": [0, 0, 0, 0, 1, 1, 1, 2, 2, 2],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 300, "ore": 60, "minutes": 120, "radius": 8, "bonus": 0.2},
+     {"slots": 0, "mult": 1, "wood": 450, "ore": 100, "minutes": 240, "radius": 8, "bonus": 0.23},
+     {"slots": 0, "mult": 1, "wood": 650, "ore": 160, "minutes": 360, "radius": 9, "bonus": 0.26}
+    ]
+   },
+   {
+    "id": "hotspring",
+    "name": "Suối nước nóng",
+    "kind": "support",
+    "size": 4,
+    "home": 4,
+    "count": [0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+    "levels": [
+     {"slots": 0, "mult": 1, "wood": 220, "ore": 40, "minutes": 60, "bonus": 0.25},
+     {"slots": 0, "mult": 1, "wood": 520, "ore": 140, "minutes": 240, "bonus": 0.5}
+    ]
+   },
+   {"id": "tree", "name": "Cây bi", "kind": "tree", "size": 2, "home": 1},
+   {"id": "fence_wood", "name": "Hàng rào gỗ", "kind": "deco", "size": 1, "beauty": 1, "wood": 4},
+   {"id": "flowerbed", "name": "Luống hoa", "kind": "deco", "size": 1, "beauty": 2, "wood": 8},
+   {"id": "lantern", "name": "Đèn lồng giấy", "kind": "deco", "size": 1, "beauty": 2, "wood": 10, "set": "hoa"},
+   {"id": "bench", "name": "Ghế gỗ", "kind": "deco", "size": 2, "beauty": 3, "wood": 20},
+   {"id": "shell_lamp", "name": "Đèn vỏ sò", "kind": "deco", "size": 1, "beauty": 3, "wood": 10, "ore": 4, "set": "thuy"},
+   {"id": "bamboo_fence", "name": "Rào tre", "kind": "deco", "size": 1, "beauty": 2, "wood": 6, "set": "moc"},
+   {"id": "bronze_bell", "name": "Chuông đồng", "kind": "deco", "size": 1, "beauty": 3, "wood": 6, "ore": 8, "set": "kim"},
+   {"id": "stone_jar", "name": "Chum đá", "kind": "deco", "size": 1, "beauty": 3, "ore": 10, "set": "tho"},
+   {"id": "swing", "name": "Xích đu", "kind": "deco", "size": 2, "beauty": 5, "wood": 60, "ore": 10},
+   {"id": "cup_fish", "name": "Cúp câu cá", "kind": "deco", "size": 1, "beauty": 4, "reward": true},
+   {"id": "statue_thuy", "name": "Tượng Hải Long", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "thuy"},
+   {"id": "statue_hoa", "name": "Tượng boss Đảo Hỏa", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "hoa"},
+   {"id": "statue_kim", "name": "Tượng boss Đảo Kim", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "kim"},
+   {"id": "statue_moc", "name": "Tượng boss Đảo Mộc", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "moc"},
+   {"id": "statue_tho", "name": "Tượng boss Đảo Thổ", "kind": "deco", "size": 2, "beauty": 10, "reward": true, "set": "tho"}
+  ]
+ },
+ "shop": {
+  "valuePerUsd": 101.0101,
+  "value": {
+   "balls": 1,
+   "shard_common": 8,
+   "shard_uncommon": 10,
+   "shard_rare": 15,
+   "shard_epic": 25,
+   "shard_legend": 45,
+   "egg_0": 110,
+   "egg_1": 140,
+   "egg_2": 210,
+   "egg_3": 350,
+   "egg_4": 630,
+   "ticket": 300,
+   "ticket_week": 400,
+   "evo": 150,
+   "stones": 25,
+   "crystal": 100,
+   "copies": 20
+  },
+  "bands": [{"lv": 1, "m": 1}, {"lv": 20, "m": 1.5}, {"lv": 50, "m": 2}, {"lv": 90, "m": 2.5}, {"lv": 130, "m": 3}],
+  "ladder": [0.99, 1.99, 4.99, 9.99, 19.99, 49.99],
+  "ownedBias": 0.6,
+  "featuredMult": 3,
+  "featuredCount": 2,
+  "ticketShards": 20,
+  "ticketChoices": 6,
+  "adBalls": 30,
+  "retryBoost": 0.15,
+  "eggs": [
+   {"tier": 0, "name": "Trứng Thường", "min": 12, "max": 16, "up": 0.12},
+   {"tier": 1, "name": "Trứng Khá", "min": 12, "max": 16, "up": 0.1},
+   {"tier": 2, "name": "Trứng Hiếm", "min": 12, "max": 16, "up": 0.08},
+   {"tier": 3, "name": "Trứng Sử Thi", "min": 12, "max": 16, "up": 0.05},
+   {"tier": 4, "name": "Trứng Huyền Thoại", "min": 12, "max": 16, "up": 0}
+  ],
+  "packs": [
+   {
+    "id": "starter3",
+    "name": "Quà Nhập Môn",
+    "desc": "Mua một lần, nhận 3 ngày liền. Vào game mỗi ngày để nhận.",
+    "tab": "offers",
+    "kind": "days",
+    "price": 0.99,
+    "limit": 1,
+    "hours": 72,
+    "scale": true,
+    "sort": 1,
+    "days": [
+     [{"k": "balls", "n": 300}, {"k": "egg", "n": 1, "r": 2}],
+     [{"k": "ticket", "n": 1, "r": 2}],
+     [{"k": "egg", "n": 1, "r": 3}]
+    ]
+   },
+   {
+    "id": "launch",
+    "name": "Gói Khởi Hành",
+    "desc": "Bi, trứng tướng và đá tiến hóa cho chặng đầu.",
+    "tab": "offers",
+    "price": 4.99,
+    "limit": 1,
+    "hours": 48,
+    "scale": true,
+    "sort": 2,
+    "items": [{"k": "balls", "n": 1200}, {"k": "egg", "n": 2, "r": 2}, {"k": "egg", "n": 1, "r": 3}, {"k": "evo", "n": 2}]
+   },
+   {
+    "id": "balls_1",
+    "name": "Nắm bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 0.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 10,
+    "items": [{"k": "balls", "n": 100}]
+   },
+   {
+    "id": "balls_2",
+    "name": "Túi bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 4.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 11,
+    "items": [{"k": "balls", "n": 550}]
+   },
+   {
+    "id": "balls_3",
+    "name": "Rổ bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 9.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 12,
+    "items": [{"k": "balls", "n": 1200}]
+   },
+   {
+    "id": "balls_4",
+    "name": "Thùng bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 19.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 13,
+    "items": [{"k": "balls", "n": 2600}]
+   },
+   {
+    "id": "balls_5",
+    "name": "Rương bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 49.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 14,
+    "items": [{"k": "balls", "n": 7000}]
+   },
+   {
+    "id": "balls_6",
+    "name": "Xe bi",
+    "desc": "Lần đầu mua tặng gấp đôi.",
+    "tab": "balls",
+    "price": 99.99,
+    "firstDouble": true,
+    "scale": true,
+    "sort": 15,
+    "items": [{"k": "balls", "n": 15000}]
+   },
+   {
+    "id": "refill_1",
+    "name": "Bổ sung bi nhỏ",
+    "desc": "",
+    "tab": "",
+    "price": 1.99,
+    "scale": true,
+    "sort": 20,
+    "items": [{"k": "balls", "n": 260}]
+   },
+   {
+    "id": "refill_2",
+    "name": "Bổ sung bi vừa",
+    "desc": "",
+    "tab": "",
+    "price": 4.99,
+    "scale": true,
+    "sort": 21,
+    "items": [{"k": "balls", "n": 700}]
+   },
+   {
+    "id": "refill_3",
+    "name": "Bổ sung bi lớn",
+    "desc": "",
+    "tab": "",
+    "price": 9.99,
+    "scale": true,
+    "sort": 22,
+    "items": [{"k": "balls", "n": 1500}]
+   },
+   {
+    "id": "egg_daily",
+    "name": "Trứng Hiếm hôm nay",
+    "desc": "Mỗi ngày mua được 1 lần.",
+    "tab": "eggs",
+    "price": 0.99,
+    "limit": 1,
+    "daily": true,
+    "sort": 29,
+    "items": [{"k": "egg", "n": 1, "r": 2}]
+   },
+   {
+    "id": "egg_1",
+    "name": "Trứng Khá",
+    "desc": "",
+    "tab": "eggs",
+    "price": 0.99,
+    "sort": 30,
+    "items": [{"k": "egg", "n": 1, "r": 1}]
+   },
+   {
+    "id": "egg_2",
+    "name": "Trứng Hiếm",
+    "desc": "",
+    "tab": "eggs",
+    "price": 1.49,
+    "sort": 31,
+    "items": [{"k": "egg", "n": 1, "r": 2}]
+   },
+   {
+    "id": "egg_3",
+    "name": "Trứng Sử Thi",
+    "desc": "",
+    "tab": "eggs",
+    "price": 2.49,
+    "sort": 32,
+    "items": [{"k": "egg", "n": 1, "r": 3}]
+   },
+   {
+    "id": "egg_4",
+    "name": "Trứng Huyền Thoại",
+    "desc": "",
+    "tab": "eggs",
+    "price": 4.49,
+    "sort": 33,
+    "items": [{"k": "egg", "n": 1, "r": 4}]
+   },
+   {
+    "id": "egg_2x10",
+    "name": "10 Trứng Hiếm",
+    "desc": "",
+    "tab": "eggs",
+    "price": 9.99,
+    "sort": 34,
+    "items": [{"k": "egg", "n": 10, "r": 2}]
+   },
+   {
+    "id": "egg_3x10",
+    "name": "10 Trứng Sử Thi",
+    "desc": "",
+    "tab": "eggs",
+    "price": 19.99,
+    "sort": 35,
+    "items": [{"k": "egg", "n": 10, "r": 3}]
+   },
+   {
+    "id": "egg_4x10",
+    "name": "10 Trứng Huyền Thoại",
+    "desc": "",
+    "tab": "eggs",
+    "price": 39.99,
+    "sort": 36,
+    "items": [{"k": "egg", "n": 10, "r": 4}]
+   },
+   {
+    "id": "weekly_hero",
+    "name": "Gói Tướng Tuần",
+    "desc": "Vé chọn 1 trong 2 tướng tuần và 4 Trứng Hiếm.",
+    "tab": "eggs",
+    "price": 4.99,
+    "limit": 1,
+    "weekly": true,
+    "sort": 34,
+    "items": [{"k": "ticket_week", "n": 1}, {"k": "egg", "n": 4, "r": 2}]
+   },
+   {
+    "id": "week_card",
+    "name": "Thẻ Tuần",
+    "desc": "Nhận ngay 300 bi; mỗi ngày 100 bi trong 7 ngày; cây bi chứa ×1,5.",
+    "tab": "perks",
+    "kind": "card",
+    "price": 1.99,
+    "scale": true,
+    "sort": 40,
+    "items": [{"k": "week_card", "n": 1}, {"k": "balls", "n": 300}]
+   },
+   {
+    "id": "adventure_pass",
+    "name": "Thẻ Phiêu Lưu 30 ngày",
+    "desc": "Cây bi ×1,5; khay rương AFK 5 ô, rương mở trong 1 giờ; nhận ngay 1 Trứng Sử Thi; mỗi ngày 150 bi và 1 lượt quảng cáo không cần xem.",
+    "tab": "perks",
+    "kind": "card",
+    "price": 4.99,
+    "scale": true,
+    "sort": 41,
+    "items": [{"k": "month_card", "n": 1}, {"k": "egg", "n": 1, "r": 3}]
+   },
+   {
+    "id": "fund",
+    "name": "Quỹ Phiêu Lưu",
+    "desc": "Mua một lần, nhận thưởng lớn ở mỗi mốc cấp 10 tới 60.",
+    "tab": "perks",
+    "kind": "fund",
+    "price": 9.99,
+    "limit": 1,
+    "sort": 42
+   },
+   {
+    "id": "no_ads",
+    "name": "Bỏ quảng cáo",
+    "desc": "Mọi chỗ quảng cáo thưởng trao ngay, không cần xem (vẫn theo giới hạn mỗi ngày).",
+    "tab": "perks",
+    "kind": "noads",
+    "price": 4.99,
+    "limit": 1,
+    "sort": 43,
+    "items": [{"k": "no_ads", "n": 1}]
+   },
+   {
+    "id": "piggy",
+    "name": "Lọ Bi",
+    "desc": "Mỗi bi bạn thả bỏ 1 bi vào lọ. Đập lọ để lấy hết.",
+    "tab": "offers",
+    "kind": "piggy",
+    "price": 4.99,
+    "sort": 3
+   }
+  ],
+  "offers": [
+   {"id": "flash", "name": "Ưu Đãi Bất Ngờ", "hours": 2, "value": 4},
+   {"id": "hot", "name": "Ưu Đãi Nóng", "hours": 0.1667, "value": 4},
+   {"id": "relief", "name": "Gói Tiếp Sức", "hours": 2, "value": 4},
+   {"id": "companion", "name": "Gói Đồng Hành", "hours": 24, "value": 4, "price": 2.99},
+   {"id": "nearstar", "name": "Gói Sắp Lên Sao", "hours": 3, "value": 4, "price": 1.99},
+   {"id": "newisle", "name": "Gói Đảo Mới", "hours": 48, "value": 4, "price": 4.99},
+   {
+    "id": "comeback",
+    "name": "Gói Trở Lại",
+    "hours": 48,
+    "value": 0,
+    "price": 1.99,
+    "items": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}]
+   },
+   {"id": "refill", "name": "Bổ Sung Bi", "hours": 0, "value": 0}
+  ],
+  "caps": {
+   "perOpen": 2,
+   "perDay": 4,
+   "firstDay": 1,
+   "gapMin": 3,
+   "afterBuyMin": 10,
+   "afterAdSec": 5,
+   "dismissH": 24,
+   "dismiss3H": 72,
+   "flashGapH": 6,
+   "flashChance": 0.25,
+   "flashChancePayer": 0.35,
+   "lowChance": 0.3,
+   "hotChance": 0.3,
+   "lowPct": 0.2,
+   "flashPerDay": 2,
+   "reliefLosses": 3,
+   "reliefGapH": 24,
+   "refillGapMin": 20,
+   "comebackDays": 3,
+   "ladderDownDays": 7,
+   "bigBuy": 19.99,
+   "nearStarPct": 0.8,
+   "reopenMin": 30
+  },
+  "piggy": {"cap": 2000, "minPct": 0.4, "grow": 0.2, "maxMult": 2, "price": 4.99},
+  "chainHours": 72,
+  "chainEveryDays": 14,
+  "chains": [
+   {
+    "id": "chain_bi",
+    "name": "Chuỗi Bi",
+    "steps": [
+     {
+      "price": 0,
+      "items": [{"k": "balls", "n": 50}]
+     },
+     {
+      "price": 0.99,
+      "items": [{"k": "balls", "n": 400}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "balls", "n": 80}]
+     },
+     {
+      "price": 1.99,
+      "items": [{"k": "balls", "n": 800}, {"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 2.99,
+      "items": [{"k": "balls", "n": 1200}, {"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "balls", "n": 150}]
+     },
+     {
+      "price": 4.99,
+      "items": [{"k": "balls", "n": 2000}, {"k": "egg", "n": 1, "r": 3}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 3}, {"k": "balls", "n": 300}]
+     }
+    ]
+   },
+   {
+    "id": "chain_tuong",
+    "name": "Chuỗi Tướng",
+    "steps": [
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 0.99,
+      "items": [{"k": "shards", "n": 10, "h": "*feat"}, {"k": "egg", "n": 2, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 1.99,
+      "items": [{"k": "shards", "n": 20, "h": "*feat"}, {"k": "egg", "n": 3, "r": 1}]
+     },
+     {
+      "price": 2.99,
+      "items": [{"k": "ticket_week", "n": 1}, {"k": "egg", "n": 3, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 1}]
+     },
+     {
+      "price": 4.99,
+      "items": [{"k": "egg", "n": 3, "r": 3}, {"k": "shards", "n": 30, "h": "*feat"}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "egg", "n": 1, "r": 3}]
+     }
+    ]
+   },
+   {
+    "id": "chain_tienhoa",
+    "name": "Chuỗi Tiến Hóa",
+    "steps": [
+     {
+      "price": 0,
+      "items": [{"k": "evo", "n": 1}]
+     },
+     {
+      "price": 0.99,
+      "items": [{"k": "evo", "n": 3}, {"k": "balls", "n": 200}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "stones", "n": 3}]
+     },
+     {
+      "price": 1.99,
+      "items": [{"k": "evo", "n": 6}, {"k": "balls", "n": 300}]
+     },
+     {
+      "price": 2.99,
+      "items": [{"k": "evo", "n": 8}, {"k": "egg", "n": 2, "r": 1}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "evo", "n": 1}]
+     },
+     {
+      "price": 4.99,
+      "items": [{"k": "evo", "n": 15}, {"k": "egg", "n": 1, "r": 3}]
+     },
+     {
+      "price": 0,
+      "items": [{"k": "evo", "n": 3}, {"k": "crystal", "n": 1}]
+     }
+    ]
+   }
+  ],
+  "fundPrice": 9.99,
+  "fund": [
+   {
+    "lv": 10,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 15,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 20,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "evo", "n": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 25,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 30,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "ticket", "n": 1, "r": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 35,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 40,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "evo", "n": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 45,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "ticket", "n": 1, "r": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 50,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 55,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}],
+    "free": [{"k": "balls", "n": 100}]
+   },
+   {
+    "lv": 60,
+    "paid": [{"k": "balls", "n": 600}, {"k": "egg", "n": 2, "r": 1}, {"k": "ticket", "n": 1, "r": 3}, {"k": "egg", "n": 2, "r": 3}],
+    "free": [{"k": "balls", "n": 100}]
+   }
+  ],
+  "cards": [
+   {
+    "id": "week",
+    "name": "Thẻ Tuần",
+    "days": 7,
+    "now": [{"k": "balls", "n": 300}],
+    "daily": [{"k": "balls", "n": 100}],
+    "treeCap": 1.5
+   },
+   {
+    "id": "month",
+    "name": "Thẻ Phiêu Lưu",
+    "days": 30,
+    "now": [{"k": "egg", "n": 1, "r": 3}],
+    "daily": [{"k": "balls", "n": 150}],
+    "adSkips": 1
+   }
+  ],
+  "adMilestones": [
+   {
+    "n": 3,
+    "items": [{"k": "balls", "n": 50}]
+   },
+   {
+    "n": 6,
+    "items": [{"k": "egg", "n": 1, "r": 1}]
+   },
+   {
+    "n": 10,
+    "items": [{"k": "egg", "n": 1, "r": 1}, {"k": "evo", "n": 1}]
+   }
+  ],
+  "dailyGift": [{"k": "balls", "n": 40}],
+  "comebackGift": [{"k": "balls", "n": 200}]
+ },
+ "sophep": {
+  "openLevel": 50,
+  "openPoints": 3,
+  "fromLevel": 53,
+  "toLevel": 198,
+  "endDigits": [3, 8],
+  "expPerPoint": 27000,
+  "expPoints": 7,
+  "capNeed": 3,
+  "chapters": [
+   {"name": "Nét Mở Đầu", "level": 50, "spent": 0},
+   {"name": "Nét Đồng Hành", "level": 60, "spent": 4},
+   {"name": "Nét Khắc Chế", "level": 100, "spent": 12},
+   {"name": "Nét Chúa Tể", "level": 0, "spent": 22, "lord": true}
+  ],
+  "nodes": [
+   {"id": "lat_trang", "icon": "dice", "name": "Lật Trang", "kind": "lv", "ch": 0, "cost": [1, 2], "v": [1, 2]},
+   {"id": "rong_don", "icon": "cards", "name": "Rộng Tay | Dồn Tay", "kind": "pick", "ch": 0, "cost": [2], "faces": ["Rộng Tay", "Dồn Tay"], "v": [1, 2]},
+   {"id": "giu_net", "icon": "clock", "name": "Giữ Nét", "kind": "one", "ch": 0, "cost": [1], "v": [1]},
+   {"id": "mat_tinh", "icon": "eye", "name": "Mắt Tinh", "kind": "one", "ch": 0, "cost": [1], "v": [1.2]},
+   {"id": "chot_1", "icon": "star", "name": "Thêm Lá | Thêm Lượt", "kind": "cap", "ch": 0, "cost": [2], "faces": ["Thêm Lá", "Thêm Lượt"], "v": [5, 4, 6, 2]},
+   {"id": "muc_cho", "icon": "drop", "name": "Mực Chờ", "kind": "lv", "ch": 1, "cost": [1, 2], "v": [3, 6]},
+   {"id": "vao_rut", "icon": "shield", "name": "Vào Sân | Rút Lui", "kind": "pick", "ch": 1, "cost": [2], "faces": ["Vào Sân", "Rút Lui"], "v": [0.08, 0.08]},
+   {"id": "tiep_suc", "icon": "bolt", "name": "Tiếp Sức", "kind": "one", "ch": 1, "cost": [1], "v": [0.5]},
+   {"id": "tiep_noi", "icon": "fist2", "name": "Tiếp Nối", "kind": "one", "ch": 1, "cost": [1], "v": [25]},
+   {"id": "chot_2", "icon": "swap", "name": "Đổi Vai | Hợp Lực", "kind": "cap", "ch": 1, "cost": [2], "stones": 20, "faces": ["Đổi Vai", "Hợp Lực"], "v": [1, 0.15]},
+   {"id": "mui_la", "icon": "sword", "name": "Mũi Nhọn | Lá Chắn", "kind": "pick", "ch": 2, "cost": [2], "faces": ["Mũi Nhọn", "Lá Chắn"], "v": [0.05, 0.05]},
+   {"id": "chua_te", "icon": "crown", "name": "Sổ Tay Chúa Tể", "kind": "lv", "ch": 2, "cost": [1, 2], "v": [1, 2]},
+   {"id": "net_cuu", "icon": "bandage", "name": "Nét Cứu", "kind": "one", "ch": 2, "cost": [2], "v": [0.25, 0.1]},
+   {"id": "tinh_tao", "icon": "bell", "name": "Tỉnh Táo", "kind": "one", "ch": 2, "cost": [1], "v": [1]},
+   {"id": "chot_3", "icon": "phoenix", "name": "Vẽ Lại | Phản Nét", "kind": "cap", "ch": 2, "cost": [2], "stones": 30, "faces": ["Vẽ Lại", "Phản Nét"], "v": [0.25, 0.25, 0.1]},
+   {"id": "but_chi", "icon": "pencil", "name": "Năm Bút Chì", "kind": "elem", "ch": 3, "cost": [3], "v": [1]},
+   {"id": "trang_cuoi", "icon": "map", "name": "Trang Cuối", "kind": "one", "ch": 3, "cost": [2], "v": [4]},
+   {"id": "net_ket", "icon": "skull", "name": "Nét Kết", "kind": "one", "ch": 3, "cost": [2], "v": [0.1]},
+   {"id": "bia_so", "icon": "feather", "name": "Bìa Sổ", "kind": "deco", "ch": 3, "cost": [1]},
+   {"id": "chot_4", "icon": "sun", "name": "Chữ Ký | Nét Kép", "kind": "cap", "ch": 3, "cost": [4], "stones": 50, "faces": ["Chữ Ký", "Nét Kép"], "v": [0.5]}
+  ],
+  "path": ["lat_trang", "mat_tinh", "rong_don:0", "giu_net", "lat_trang", "chot_1:0", "muc_cho", "vao_rut:0", "tiep_suc", "tiep_noi", "muc_cho", "chot_2:1", "net_cuu", "mui_la:0", "chua_te", "tinh_tao", "chua_te", "chot_3:0", "trang_cuoi", "net_ket", "but_chi:0", "bia_so", "chot_4:1"]
+ },
+ "casino": {
+  "openLevel": 8,
+  "anchor": "2026-11-23",
+  "tablesBlock": ["BE"],
+  "unlocks": [
+   {"id": "fishing", "level": 8},
+   {"id": "inn", "level": 8},
+   {"id": "race", "level": 15, "heroes": 4},
+   {"id": "booths", "level": 20},
+   {"id": "market", "level": 25},
+   {"id": "underground", "level": 35}
+  ],
+  "events": [
+   {"id": "dem_bai", "name": "Đêm Bài", "booth": "blackjack", "period": 14, "offset": 0, "length": 3},
+   {"id": "vong_xoay", "name": "Vòng Xoay Ngũ Hành", "booth": "roulette", "period": 14, "offset": 4, "length": 3},
+   {"id": "hoi_may_qua", "name": "Hội Máy Quả", "booth": "slot", "period": 14, "offset": 8, "length": 3},
+   {"id": "le_hoi_dua", "name": "Lễ Hội Đua", "booth": "race_fest", "period": 14, "offset": 11, "length": 3, "mult": 1.5}
+  ],
+  "blackjack": {
+   "bets": [5, 10, 20, 40],
+   "betLevel": [20, 20, 45, 70],
+   "daily": 30,
+   "jarBets": 30,
+   "bjPays": 1.5,
+   "jar": [
+    [{"k": "balls", "n": 6}],
+    [{"k": "balls", "n": 8}, {"k": "copies", "n": 1, "h": "*carry"}],
+    [{"k": "shards", "n": 2, "h": "*guest"}, {"k": "balls", "n": 10}],
+    [{"k": "shards", "n": 3, "h": "*guest"}, {"k": "evo", "n": 1, "chance": 0.2}]
+   ]
+  },
+  "roulette": {
+   "bets": [5, 10, 20, 40],
+   "betLevel": [20, 20, 45, 70],
+   "daily": 30,
+   "jarBets": 90,
+   "chips": 5,
+   "elemPays": 4,
+   "numPays": 4,
+   "singlePays": 24,
+   "starPays": 24,
+   "starTier": 2,
+   "starShards": 2,
+   "jar": [
+    [{"k": "balls", "n": 18}],
+    [{"k": "balls", "n": 24}, {"k": "copies", "n": 2, "h": "*carry"}],
+    [{"k": "shards", "n": 5, "h": "*guest"}, {"k": "balls", "n": 30}],
+    [{"k": "shards", "n": 8, "h": "*guest"}, {"k": "evo", "n": 1, "chance": 0.5}]
+   ]
+  },
+  "slots": {
+   "bets": [5, 10, 20, 40],
+   "betLevel": [20, 20, 45, 70],
+   "daily": 50,
+   "jarBets": 40,
+   "reels": [
+    [0, 1, 0, 4, 8, 7, 5, 3, 1, 6, 7, 4, 1, 2, 8, 5, 3, 5, 0, 2, 4, 2, 3],
+    [4, 2, 3, 4, 0, 8, 2, 3, 4, 1, 5, 8, 1, 5, 7, 2, 0, 6, 7, 0, 5, 1, 3],
+    [1, 3, 5, 0, 3, 7, 2, 3, 8, 4, 7, 1, 6, 5, 0, 2, 8, 4, 1, 5, 4, 0, 2]
+   ],
+   "pays": [
+    {"sym": 0, "pays": 8},
+    {"sym": 1, "pays": 8},
+    {"sym": 2, "pays": 8},
+    {"sym": 3, "pays": 8},
+    {"sym": 4, "pays": 8},
+    {"sym": 5, "pays": 15},
+    {"sym": 6, "pays": 80}
+   ],
+   "wildPays": 100,
+   "scatter2": 1,
+   "freeSpins": 5,
+   "badgeShards": [1, 1, 2, 3],
+   "jar": [
+    [{"k": "balls", "n": 8}],
+    [{"k": "balls", "n": 10}, {"k": "copies", "n": 1, "h": "*carry"}],
+    [{"k": "shards", "n": 2, "h": "*guest"}, {"k": "balls", "n": 12}],
+    [{"k": "shards", "n": 4, "h": "*guest"}, {"k": "evo", "n": 1, "chance": 0.25}]
+   ]
+  },
+  "race": {
+   "seg": 60,
+   "segs": 3,
+   "daily": 5,
+   "runners": 5,
+   "betMin": 10,
+   "betMax": 500,
+   "chips": [50, 100, 200, 500],
+   "pay": [3, 2, 1, 0, 0],
+   "oddsLow": [0.18, 0.2, 0.24],
+   "oddsHigh": [0.09, 0.13, 0.24],
+   "raceSec": 20,
+   "gapMin": 0.12,
+   "gapMax": 0.5,
+   "spread": 4.5,
+   "keyMin": 1.3,
+   "keyMax": 2.3,
+   "startSec": 0.8,
+   "endSec": 2.6,
+   "surge": 3.2,
+   "surgeSec": 0.9,
+   "stunDrop": 3.6,
+   "stunMax": 1.2,
+   "comeback": 0.55,
+   "tease": 0.6,
+   "points": [3, 2, 1, 0, 0],
+   "weekPts": 10,
+   "cups": [
+    {
+     "name": "Cúp Đồng",
+     "level": 15,
+     "oppLevel": 15,
+     "oppStar": 2,
+     "fee": 15,
+     "skill": 0.45,
+     "week": [{"k": "balls", "n": 120}, {"k": "stones", "n": 3}]
+    },
+    {
+     "name": "Cúp Bạc",
+     "level": 40,
+     "oppLevel": 45,
+     "oppStar": 5,
+     "fee": 25,
+     "skill": 0.55,
+     "week": [{"k": "balls", "n": 200}, {"k": "shards", "n": 3, "h": "*carry"}]
+    },
+    {
+     "name": "Cúp Vàng",
+     "level": 70,
+     "oppLevel": 80,
+     "oppStar": 7,
+     "fee": 40,
+     "skill": 0.65,
+     "week": [{"k": "balls", "n": 300}, {"k": "evo", "n": 1}]
+    },
+    {
+     "name": "Cúp Kim Cương",
+     "level": 100,
+     "oppLevel": 110,
+     "oppStar": 10,
+     "fee": 60,
+     "skill": 0.7,
+     "week": [{"k": "shards", "n": 6, "h": "*carry"}, {"k": "evo", "n": 1}]
+    },
+    {
+     "name": "Cúp Huyền Thoại",
+     "level": 140,
+     "oppLevel": 150,
+     "oppStar": 12,
+     "fee": 80,
+     "skill": 0.75,
+     "week": [{"k": "shards", "n": 10, "h": "*carry"}, {"k": "evo", "n": 2}, {"k": "crystal", "n": 1}]
+    }
+   ]
+  },
+  "fishing": {
+   "freeBait": 10,
+   "baitPack": 5,
+   "baitPrice": 30,
+   "farBonus": 1,
+   "biteWindow": 0.6,
+   "pull": [1, 1.5, 2.2, 3, 4],
+   "first": [10, 15, 25, 50, 100],
+   "price": [3, 6, 12, 30, 80],
+   "setShards": 5,
+   "kingChance": 0.15,
+   "kingAssist": 0.25,
+   "kingRod": 3,
+   "rods": [
+    {"cost": 0, "zone": 0.3, "spots": 1},
+    {"cost": 300, "zone": 0.33, "spots": 2},
+    {"cost": 900, "zone": 0.36, "spots": 2},
+    {"cost": 2000, "zone": 0.4, "spots": 3},
+    {"cost": 4000, "zone": 0.44, "spots": 3}
+   ],
+   "spots": [{"name": "Gần bờ", "rar": [70, 25, 5, 0, 0]}, {"name": "Xa bờ", "rar": [35, 35, 22, 7, 1]}, {"name": "Rạn đá", "rar": [10, 25, 30, 25, 10]}],
+   "fish": [
+    {"id": "ca_thiec", "name": "Cá Thiếc", "elem": "kim", "rar": "common", "night": false, "min": 7, "max": 16},
+    {"id": "ca_bon_sat", "name": "Cá Bơn Sắt", "elem": "kim", "rar": "common", "night": false, "min": 15, "max": 35},
+    {"id": "ca_hop_dong", "name": "Cá Hộp Đồng", "elem": "kim", "rar": "uncommon", "night": false, "min": 12, "max": 30},
+    {"id": "ca_ngua_banh_rang", "name": "Cá Ngựa Bánh Răng", "elem": "kim", "rar": "rare", "night": false, "min": 10, "max": 25},
+    {"id": "ca_map_thep", "name": "Cá Mập Thép", "elem": "kim", "rar": "epic", "night": true, "min": 120, "max": 260},
+    {"id": "ca_rong_vang", "name": "Cá Rồng Vàng", "elem": "kim", "rar": "legend", "night": false, "min": 70, "max": 150},
+    {"id": "ca_la_tre", "name": "Cá Lá Tre", "elem": "moc", "rar": "common", "night": false, "min": 6, "max": 14},
+    {"id": "ca_reu", "name": "Cá Rêu", "elem": "moc", "rar": "common", "night": false, "min": 9, "max": 22},
+    {"id": "ca_tre_re", "name": "Cá Trê Rễ Cây", "elem": "moc", "rar": "uncommon", "night": true, "min": 30, "max": 75},
+    {"id": "ca_hoa_sen", "name": "Cá Hoa Sen", "elem": "moc", "rar": "rare", "night": false, "min": 18, "max": 40},
+    {"id": "ca_tam_co_thu", "name": "Cá Tầm Cổ Thụ", "elem": "moc", "rar": "epic", "night": false, "min": 100, "max": 220},
+    {"id": "ca_linh_chi", "name": "Cá Linh Chi", "elem": "moc", "rar": "legend", "night": true, "min": 40, "max": 90},
+    {"id": "ca_moi_bac", "name": "Cá Mòi Bạc", "elem": "thuy", "rar": "common", "night": false, "min": 8, "max": 20},
+    {"id": "ca_bong_song", "name": "Cá Bống Sông", "elem": "thuy", "rar": "common", "night": false, "min": 6, "max": 15},
+    {"id": "ca_chep_lam", "name": "Cá Chép Lam", "elem": "thuy", "rar": "uncommon", "night": false, "min": 25, "max": 60},
+    {"id": "ca_noc_bong", "name": "Cá Nóc Bong Bóng", "elem": "thuy", "rar": "rare", "night": true, "min": 15, "max": 35},
+    {"id": "ca_duoi_song", "name": "Cá Đuối Sóng", "elem": "thuy", "rar": "epic", "night": false, "min": 60, "max": 140},
+    {"id": "ca_voi_ngoc", "name": "Cá Voi Ngọc", "elem": "thuy", "rar": "legend", "night": true, "min": 150, "max": 320},
+    {"id": "ca_ro_lua", "name": "Cá Rô Lửa", "elem": "hoa", "rar": "common", "night": false, "min": 8, "max": 18},
+    {"id": "ca_kim_than", "name": "Cá Kìm Than", "elem": "hoa", "rar": "common", "night": true, "min": 12, "max": 28},
+    {"id": "ca_mu_dung_nham", "name": "Cá Mú Dung Nham", "elem": "hoa", "rar": "uncommon", "night": false, "min": 30, "max": 70},
+    {"id": "ca_thoi_lua", "name": "Cá Thổi Lửa", "elem": "hoa", "rar": "rare", "night": true, "min": 20, "max": 45},
+    {"id": "ca_kiem_hoa", "name": "Cá Kiếm Hỏa", "elem": "hoa", "rar": "epic", "night": false, "min": 80, "max": 180},
+    {"id": "phuong_ngu", "name": "Phượng Ngư", "elem": "hoa", "rar": "legend", "night": false, "min": 90, "max": 200},
+    {"id": "ca_soi", "name": "Cá Sỏi", "elem": "tho", "rar": "common", "night": false, "min": 6, "max": 15},
+    {"id": "ca_loc_bun", "name": "Cá Lóc Bùn", "elem": "tho", "rar": "common", "night": false, "min": 20, "max": 50},
+    {"id": "ca_da_hoa_cuong", "name": "Cá Đá Hoa Cương", "elem": "tho", "rar": "uncommon", "night": false, "min": 25, "max": 55},
+    {"id": "ca_hoa_thach", "name": "Cá Hóa Thạch", "elem": "tho", "rar": "rare", "night": true, "min": 30, "max": 70},
+    {"id": "ca_nganh_nui", "name": "Cá Ngạnh Núi", "elem": "tho", "rar": "epic", "night": false, "min": 70, "max": 160},
+    {"id": "ca_ky_lan_dat", "name": "Cá Kỳ Lân Đất", "elem": "tho", "rar": "legend", "night": false, "min": 120, "max": 250}
+   ],
+   "kings": [
+    {"id": "vua_thuy", "name": "Thủy Quái Râu Dài", "elem": "thuy", "rar": "legend", "min": 300, "max": 600},
+    {"id": "vua_hoa", "name": "Hỏa Ngư Vương", "elem": "hoa", "rar": "legend", "min": 250, "max": 500},
+    {"id": "vua_kim", "name": "Kim Giáp Ngư Vương", "elem": "kim", "rar": "legend", "min": 280, "max": 560},
+    {"id": "vua_moc", "name": "Mộc Lão Ngư", "elem": "moc", "rar": "legend", "min": 260, "max": 520},
+    {"id": "vua_tho", "name": "Thạch Ngư Vương", "elem": "tho", "rar": "legend", "min": 320, "max": 640}
+   ],
+   "king": [{"k": "shards", "n": 5, "h": "*elem"}, {"k": "evo", "n": 1}, {"k": "balls", "n": 150}]
+  },
+  "market": {
+   "slots": 6,
+   "nightSlots": 2,
+   "periods": [0, 8, 16],
+   "refresh": [20, 40, 80, 120, 160],
+   "copySell": 6,
+   "offers": [
+    {"kind": "shards", "n": 5, "w": 30, "mark": 1.45, "rar": "uncommon"},
+    {"kind": "copies", "n": 3, "w": 15, "mark": 1.4},
+    {"kind": "stones", "n": 4, "w": 15, "mark": 1.5},
+    {"kind": "evo", "n": 1, "w": 8, "mark": 1.8},
+    {"kind": "crystal", "n": 1, "w": 8, "mark": 1.8},
+    {"kind": "bait", "n": 5, "w": 12, "price": 30},
+    {"kind": "mystery", "w": 12, "price": 120},
+    {"kind": "home", "n": 1, "w": 10, "price": 120, "defs": ["swing", "shell_lamp", "bronze_bell", "stone_jar", "bench", "lantern"]},
+    {"kind": "shards", "n": 5, "w": 10, "mark": 1.6, "rar": "epic", "night": true},
+    {"kind": "evo", "n": 2, "w": 5, "mark": 1.7, "night": true}
+   ],
+   "mystery": [
+    {"w": 45, "k": "balls", "min": 60, "max": 140},
+    {"w": 25, "k": "stones", "min": 2, "max": 4},
+    {"w": 5, "k": "evo", "min": 1, "max": 1},
+    {"w": 20, "k": "shards", "min": 3, "max": 5},
+    {"w": 5, "k": "egg", "min": 1, "max": 1, "tier": 0}
+   ]
+  },
+  "underground": {
+   "winMult": 2.5,
+   "rewinMult": 1,
+   "rewin": [{"k": "stones", "n": 1}],
+   "daily": 5,
+   "tiers": [
+    {"name": "Đá", "level": 35, "fee": 20, "shards": 1},
+    {"name": "Đồng", "level": 45, "fee": 30, "shards": 1},
+    {"name": "Bạc", "level": 55, "fee": 40, "shards": 2, "items": [{"k": "stones", "n": 1}]},
+    {"name": "Vàng", "level": 65, "fee": 55, "shards": 2, "items": [{"k": "stones", "n": 2}]},
+    {"name": "Bạch Kim", "level": 80, "fee": 75, "shards": 3, "items": [{"k": "stones", "n": 3}]},
+    {"name": "Lục Bảo", "level": 95, "fee": 100, "shards": 4, "items": [{"k": "evo", "n": 1}]},
+    {"name": "Kim Cương", "level": 110, "fee": 130, "shards": 5, "items": [{"k": "evo", "n": 1}]},
+    {"name": "Cao Thủ", "level": 120, "fee": 165, "shards": 6, "items": [{"k": "evo", "n": 1}, {"k": "stones", "n": 2}]},
+    {"name": "Đại Cao Thủ", "level": 130, "fee": 205, "shards": 7, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
+    {"name": "Huyền Thoại", "level": 140, "fee": 250, "shards": 8, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
+    {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 10, "weekly": true, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]}
+   ],
+   "rotation": [
+    {
+     "entries": [
+      {
+       "name": "Xưởng Thép: tân binh",
+       "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
+       "team": [{"hero": "phi_thuong", "level": 50, "star": 8, "card": 4}],
+       "lead": "phi_thuong"
+      },
+      {
+       "name": "Xưởng Thép: lính mới",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [{"hero": "bo_ngua", "level": 44, "star": 7, "card": 4}, {"hero": "bo_cap", "level": 44, "star": 7, "card": 4}],
+       "lead": "bo_ngua"
+      },
+      {
+       "name": "Xưởng Thép: đấu sĩ",
+       "rule": {},
+       "team": [
+        {"hero": "chien_than", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 51, "star": 7, "card": 4}
+       ],
+       "lead": "chien_than"
+      },
+      {
+       "name": "Xưởng Thép: cựu binh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "khien_bac", "level": 68, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 68, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 68, "star": 7, "card": 4}
+       ],
+       "lead": "khien_bac"
+      },
+      {
+       "name": "Xưởng Thép: tinh nhuệ",
+       "rule": {},
+       "team": [
+        {"hero": "tam_kiem", "level": 82, "star": 7, "card": 4},
+        {"hero": "khien_bac", "level": 82, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 82, "star": 7, "card": 4}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Xưởng Thép: đội trưởng",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thiet_phu", "level": 91, "star": 8, "card": 5},
+        {"hero": "tam_kiem", "level": 91, "star": 8, "card": 5},
+        {"hero": "chien_than", "level": 91, "star": 8, "card": 5}
+       ],
+       "lead": "thiet_phu"
+      },
+      {
+       "name": "Xưởng Thép: thủ lĩnh",
+       "rule": {"kind": "def", "elem": "kim", "p": 0.25},
+       "team": [
+        {"hero": "tam_kiem", "level": 111, "star": 9, "card": 5},
+        {"hero": "khien_bac", "level": 111, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 111, "star": 9, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Xưởng Thép: cao thủ",
+       "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
+       "team": [
+        {"hero": "ung_thep", "level": 125, "star": 10, "card": 5},
+        {"hero": "tam_kiem", "level": 125, "star": 10, "card": 5},
+        {"hero": "khien_bac", "level": 125, "star": 10, "card": 5}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: bá chủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "kim_nghe", "level": 135, "star": 10, "card": 5},
+        {"hero": "ung_thep", "level": 135, "star": 10, "card": 5},
+        {"hero": "tam_kiem", "level": 135, "star": 10, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Xưởng Thép: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "ung_thep", "level": 155, "star": 12, "card": 5},
+        {"hero": "thiet_phu", "level": 155, "star": 12, "card": 5},
+        {"hero": "tam_kiem", "level": 155, "star": 12, "card": 5}
+       ],
+       "lead": "ung_thep"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Rừng Gai: tân binh",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [{"hero": "bom_la", "level": 49, "star": 8, "card": 4}],
+       "lead": "bom_la"
+      },
+      {
+       "name": "Rừng Gai: lính mới",
+       "rule": {"kind": "def", "elem": "moc", "p": 0.25},
+       "team": [{"hero": "gac_da", "level": 48, "star": 7, "card": 4}, {"hero": "bom_la", "level": 48, "star": 7, "card": 4}],
+       "lead": "gac_da"
+      },
+      {
+       "name": "Rừng Gai: đấu sĩ",
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "team": [
+        {"hero": "phong_linh", "level": 48, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 48, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 48, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
+      },
+      {
+       "name": "Rừng Gai: cựu binh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "gio_loc", "level": 62, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 62, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 62, "star": 7, "card": 4}
+       ],
+       "lead": "gio_loc"
+      },
+      {
+       "name": "Rừng Gai: tinh nhuệ",
+       "rule": {},
+       "team": [
+        {"hero": "tho_hoang", "level": 83, "star": 7, "card": 4},
+        {"hero": "phong_linh", "level": 83, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 83, "star": 7, "card": 4}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: đội trưởng",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "long_vuot", "level": 98, "star": 8, "card": 5},
+        {"hero": "phong_linh", "level": 98, "star": 8, "card": 5},
+        {"hero": "gio_loc", "level": 98, "star": 8, "card": 5}
+       ],
+       "lead": "long_vuot"
+      },
+      {
+       "name": "Rừng Gai: thủ lĩnh",
+       "rule": {},
+       "team": [
+        {"hero": "tho_hoang", "level": 112, "star": 9, "card": 5},
+        {"hero": "moc_tinh", "level": 112, "star": 9, "card": 5},
+        {"hero": "phong_linh", "level": 112, "star": 9, "card": 5}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: cao thủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thanh_long", "level": 123, "star": 9, "card": 5},
+        {"hero": "phong_linh", "level": 123, "star": 9, "card": 5},
+        {"hero": "gio_loc", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "thanh_long"
+      },
+      {
+       "name": "Rừng Gai: bá chủ",
+       "rule": {"kind": "def", "elem": "moc", "p": 0.25},
+       "team": [
+        {"hero": "tho_hoang", "level": 139, "star": 10, "card": 5},
+        {"hero": "moc_tinh", "level": 139, "star": 10, "card": 5},
+        {"hero": "long_vuot", "level": 139, "star": 10, "card": 5}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: huyền thoại",
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "team": [
+        {"hero": "thanh_long", "level": 149, "star": 11, "card": 5},
+        {"hero": "moc_tinh", "level": 149, "star": 11, "card": 5},
+        {"hero": "long_vuot", "level": 149, "star": 11, "card": 5}
+       ],
+       "lead": "thanh_long"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Sóng Ngầm: tân binh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [{"hero": "ti_tach", "level": 54, "star": 8, "card": 4}],
+       "lead": "ti_tach"
+      },
+      {
+       "name": "Sóng Ngầm: lính mới",
+       "rule": {},
+       "team": [{"hero": "ha_ba", "level": 49, "star": 7, "card": 4}, {"hero": "ca_den", "level": 49, "star": 7, "card": 4}],
+       "lead": "ha_ba"
+      },
+      {
+       "name": "Sóng Ngầm: đấu sĩ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "giong_bao", "level": 46, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 46, "star": 7, "card": 4},
+        {"hero": "ha_ba", "level": 46, "star": 7, "card": 4}
+       ],
+       "lead": "giong_bao"
+      },
+      {
+       "name": "Sóng Ngầm: cựu binh",
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "so_ngoc", "level": 66, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 66, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 66, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
+      },
+      {
+       "name": "Sóng Ngầm: tinh nhuệ",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "han_ngac", "level": 80, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 80, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "han_ngac"
+      },
+      {
+       "name": "Sóng Ngầm: đội trưởng",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lien_kinh", "level": 91, "star": 8, "card": 5},
+        {"hero": "so_ngoc", "level": 91, "star": 8, "card": 5},
+        {"hero": "giong_bao", "level": 91, "star": 8, "card": 5}
+       ],
+       "lead": "lien_kinh"
+      },
+      {
+       "name": "Sóng Ngầm: thủ lĩnh",
+       "rule": {},
+       "team": [
+        {"hero": "uyen_xa", "level": 110, "star": 9, "card": 5},
+        {"hero": "lien_kinh", "level": 110, "star": 9, "card": 5},
+        {"hero": "han_ngac", "level": 110, "star": 9, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: cao thủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "hai_long", "level": 123, "star": 9, "card": 5},
+        {"hero": "lien_kinh", "level": 123, "star": 9, "card": 5},
+        {"hero": "han_ngac", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Sóng Ngầm: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "uyen_xa", "level": 140, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: huyền thoại",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "hai_long", "level": 147, "star": 11, "card": 5},
+        {"hero": "uyen_xa", "level": 147, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 147, "star": 11, "card": 5}
+       ],
+       "lead": "hai_long"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Lò Lửa: tân binh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [{"hero": "su_tu_lua", "level": 48, "star": 8, "card": 4}],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Lò Lửa: lính mới",
+       "rule": {},
+       "team": [{"hero": "nham_than", "level": 50, "star": 7, "card": 4}, {"hero": "hoa_nhan", "level": 50, "star": 7, "card": 4}],
+       "lead": "nham_than"
+      },
+      {
+       "name": "Lò Lửa: đấu sĩ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "nguu_quyen", "level": 50, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 50, "star": 7, "card": 4},
+        {"hero": "nham_than", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "nguu_quyen"
+      },
+      {
+       "name": "Lò Lửa: cựu binh",
+       "rule": {},
+       "team": [
+        {"hero": "hong_lien", "level": 68, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 68, "star": 7, "card": 4},
+        {"hero": "nham_than", "level": 68, "star": 7, "card": 4}
+       ],
+       "lead": "hong_lien"
+      },
+      {
+       "name": "Lò Lửa: tinh nhuệ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "huyen_viem", "level": 75, "star": 7, "card": 4},
+        {"hero": "giap_long", "level": 75, "star": 7, "card": 4},
+        {"hero": "nguu_quyen", "level": 75, "star": 7, "card": 4}
+       ],
+       "lead": "huyen_viem"
+      },
+      {
+       "name": "Lò Lửa: đội trưởng",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "hoa_tinh", "level": 94, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 94, "star": 8, "card": 5},
+        {"hero": "hong_lien", "level": 94, "star": 8, "card": 5}
+       ],
+       "lead": "hoa_tinh"
+      },
+      {
+       "name": "Lò Lửa: thủ lĩnh",
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
+       "team": [
+        {"hero": "giap_long", "level": 110, "star": 9, "card": 5},
+        {"hero": "nguu_quyen", "level": 110, "star": 9, "card": 5},
+        {"hero": "hong_lien", "level": 110, "star": 9, "card": 5}
+       ],
+       "lead": "giap_long"
+      },
+      {
+       "name": "Lò Lửa: cao thủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lan_hoa", "level": 119, "star": 9, "card": 5},
+        {"hero": "hoa_tinh", "level": 119, "star": 9, "card": 5},
+        {"hero": "giap_long", "level": 119, "star": 9, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Lò Lửa: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "huyen_viem", "level": 140, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "giap_long", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "huyen_viem"
+      },
+      {
+       "name": "Lò Lửa: huyền thoại",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "lan_hoa", "level": 153, "star": 11, "card": 5},
+        {"hero": "huyen_viem", "level": 153, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 153, "star": 11, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Mỏ Đá: tân binh",
+       "rule": {"kind": "def", "elem": "tho", "p": 0.25},
+       "team": [{"hero": "thach_nhan", "level": 52, "star": 8, "card": 4}],
+       "lead": "thach_nhan"
+      },
+      {
+       "name": "Mỏ Đá: lính mới",
+       "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
+       "team": [{"hero": "cao_da", "level": 48, "star": 7, "card": 4}, {"hero": "lung_vuong", "level": 48, "star": 7, "card": 4}],
+       "lead": "cao_da"
+      },
+      {
+       "name": "Mỏ Đá: đấu sĩ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "hat_de", "level": 45, "star": 7, "card": 4},
+        {"hero": "thach_nhan", "level": 45, "star": 7, "card": 4},
+        {"hero": "cao_da", "level": 45, "star": 7, "card": 4}
+       ],
+       "lead": "hat_de"
+      },
+      {
+       "name": "Mỏ Đá: cựu binh",
+       "rule": {},
+       "team": [
+        {"hero": "thach_nhan", "level": 69, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 69, "star": 7, "card": 4},
+        {"hero": "cao_da", "level": 69, "star": 7, "card": 4}
+       ],
+       "lead": "thach_nhan"
+      },
+      {
+       "name": "Mỏ Đá: tinh nhuệ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "rua_nui", "level": 79, "star": 7, "card": 4},
+        {"hero": "ho_kim_cuong", "level": 79, "star": 7, "card": 4},
+        {"hero": "hat_de", "level": 79, "star": 7, "card": 4}
+       ],
+       "lead": "rua_nui"
+      },
+      {
+       "name": "Mỏ Đá: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "cu_phu", "level": 97, "star": 8, "card": 5},
+        {"hero": "phu_van", "level": 97, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 97, "star": 8, "card": 5}
+       ],
+       "lead": "cu_phu"
+      },
+      {
+       "name": "Mỏ Đá: thủ lĩnh",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "rua_nui", "level": 108, "star": 9, "card": 5},
+        {"hero": "cu_phu", "level": 108, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 108, "star": 9, "card": 5}
+       ],
+       "lead": "rua_nui"
+      },
+      {
+       "name": "Mỏ Đá: cao thủ",
+       "rule": {"kind": "def", "elem": "tho", "p": 0.25},
+       "team": [
+        {"hero": "cu_phu", "level": 128, "star": 10, "card": 5},
+        {"hero": "phu_van", "level": 128, "star": 10, "card": 5},
+        {"hero": "hat_de", "level": 128, "star": 10, "card": 5}
+       ],
+       "lead": "cu_phu"
+      },
+      {
+       "name": "Mỏ Đá: bá chủ",
+       "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
+       "team": [
+        {"hero": "giap_nham", "level": 137, "star": 10, "card": 5},
+        {"hero": "rua_nui", "level": 137, "star": 10, "card": 5},
+        {"hero": "cu_phu", "level": 137, "star": 10, "card": 5}
+       ],
+       "lead": "giap_nham"
+      },
+      {
+       "name": "Mỏ Đá: huyền thoại",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "rua_nui", "level": 150, "star": 11, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 150, "star": 11, "card": 5},
+        {"hero": "cu_phu", "level": 150, "star": 11, "card": 5}
+       ],
+       "lead": "rua_nui"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "mam_u", "level": 57, "star": 8, "card": 4}], "lead": "mam_u"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [{"hero": "thach_nhan", "level": 44, "star": 7, "card": 4}, {"hero": "nham_than", "level": 44, "star": 7, "card": 4}],
+       "lead": "thach_nhan"
+      },
+      {
+       "name": "Liên Minh: đấu sĩ",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "so_ngoc", "level": 50, "star": 7, "card": 4},
+        {"hero": "phong_linh", "level": 50, "star": 7, "card": 4},
+        {"hero": "ha_ba", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
+      },
+      {
+       "name": "Liên Minh: cựu binh",
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
+       "team": [
+        {"hero": "su_tu_lua", "level": 68, "star": 7, "card": 4},
+        {"hero": "phi_thuong", "level": 68, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 68, "star": 7, "card": 4}
+       ],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "moc_tinh", "level": 79, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 79, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 79, "star": 7, "card": 4}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "thiet_phu", "level": 95, "star": 8, "card": 5},
+        {"hero": "cu_phu", "level": 95, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 95, "star": 8, "card": 5}
+       ],
+       "lead": "thiet_phu"
+      },
+      {
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "uyen_xa", "level": 111, "star": 9, "card": 5},
+        {"hero": "cu_phu", "level": 111, "star": 9, "card": 5},
+        {"hero": "hong_lien", "level": 111, "star": 9, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "lan_hoa", "level": 121, "star": 9, "card": 5},
+        {"hero": "giap_nham", "level": 121, "star": 9, "card": 5},
+        {"hero": "hoa_tinh", "level": 121, "star": 9, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "kim_nghe", "level": 133, "star": 10, "card": 5},
+        {"hero": "giap_nham", "level": 133, "star": 10, "card": 5},
+        {"hero": "huyen_viem", "level": 133, "star": 10, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "thanh_long", "level": 145, "star": 11, "card": 5},
+        {"hero": "lan_hoa", "level": 145, "star": 11, "card": 5},
+        {"hero": "hai_long", "level": 145, "star": 11, "card": 5}
+       ],
+       "lead": "thanh_long"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "bo_ngua", "level": 54, "star": 8, "card": 4}], "lead": "bo_ngua"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [{"hero": "phi_thuong", "level": 49, "star": 7, "card": 4}, {"hero": "ha_ba", "level": 49, "star": 7, "card": 4}],
+       "lead": "phi_thuong"
+      },
+      {
+       "name": "Liên Minh: đấu sĩ",
+       "rule": {},
+       "team": [
+        {"hero": "phong_linh", "level": 52, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 52, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 52, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
+      },
+      {
+       "name": "Liên Minh: cựu binh",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "hat_de", "level": 64, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 64, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 64, "star": 7, "card": 4}
+       ],
+       "lead": "hat_de"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "khien_bac", "level": 84, "star": 7, "card": 4},
+        {"hero": "hat_de", "level": 84, "star": 7, "card": 4},
+        {"hero": "thach_nhan", "level": 84, "star": 7, "card": 4}
+       ],
+       "lead": "khien_bac"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "tam_kiem", "level": 94, "star": 8, "card": 5},
+        {"hero": "rua_nui", "level": 94, "star": 8, "card": 5},
+        {"hero": "giong_bao", "level": 94, "star": 8, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lien_kinh", "level": 107, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 107, "star": 8, "card": 5},
+        {"hero": "chien_than", "level": 107, "star": 8, "card": 5}
+       ],
+       "lead": "lien_kinh"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "ho_kim_cuong", "level": 130, "star": 10, "card": 5},
+        {"hero": "hat_de", "level": 130, "star": 10, "card": 5},
+        {"hero": "chien_than", "level": 130, "star": 10, "card": 5}
+       ],
+       "lead": "ho_kim_cuong"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "lan_hoa", "level": 139, "star": 10, "card": 5},
+        {"hero": "giap_long", "level": 139, "star": 10, "card": 5},
+        {"hero": "cu_phu", "level": 139, "star": 10, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "giap_nham", "level": 152, "star": 11, "card": 5},
+        {"hero": "uyen_xa", "level": 152, "star": 11, "card": 5},
+        {"hero": "moc_tinh", "level": 152, "star": 11, "card": 5}
+       ],
+       "lead": "giap_nham"
+      },
+      {
+       "name": "Nhà Vô Địch: Thổ Tinh",
+       "rule": {"kind": "buff", "p": 0.1},
+       "team": [
+        {"hero": "giap_nham", "level": 157, "star": 12, "card": 5},
+        {"hero": "tho_hoang", "level": 157, "star": 12, "card": 5},
+        {"hero": "long_vuot", "level": 157, "star": 12, "card": 5}
+       ],
+       "lead": "giap_nham"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Xưởng Thép: tân binh",
+       "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
+       "team": [{"hero": "bo_cap", "level": 51, "star": 8, "card": 4}],
+       "lead": "bo_cap"
+      },
+      {
+       "name": "Xưởng Thép: lính mới",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [{"hero": "phi_thuong", "level": 43, "star": 7, "card": 4}, {"hero": "bo_ngua", "level": 43, "star": 7, "card": 4}],
+       "lead": "phi_thuong"
+      },
+      {
+       "name": "Xưởng Thép: đấu sĩ",
+       "rule": {},
+       "team": [
+        {"hero": "chien_than", "level": 51, "star": 7, "card": 4},
+        {"hero": "phi_thuong", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 51, "star": 7, "card": 4}
+       ],
+       "lead": "chien_than"
+      },
+      {
+       "name": "Xưởng Thép: cựu binh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "khien_bac", "level": 66, "star": 7, "card": 4},
+        {"hero": "chien_than", "level": 66, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 66, "star": 7, "card": 4}
+       ],
+       "lead": "khien_bac"
+      },
+      {
+       "name": "Xưởng Thép: tinh nhuệ",
+       "rule": {},
+       "team": [
+        {"hero": "ung_thep", "level": 80, "star": 7, "card": 4},
+        {"hero": "tam_kiem", "level": 80, "star": 7, "card": 4},
+        {"hero": "phi_thuong", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: đội trưởng",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thiet_phu", "level": 91, "star": 8, "card": 5},
+        {"hero": "tam_kiem", "level": 91, "star": 8, "card": 5},
+        {"hero": "chien_than", "level": 91, "star": 8, "card": 5}
+       ],
+       "lead": "thiet_phu"
+      },
+      {
+       "name": "Xưởng Thép: thủ lĩnh",
+       "rule": {"kind": "def", "elem": "kim", "p": 0.25},
+       "team": [
+        {"hero": "ung_thep", "level": 111, "star": 9, "card": 5},
+        {"hero": "khien_bac", "level": 111, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 111, "star": 9, "card": 5}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: cao thủ",
+       "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
+       "team": [
+        {"hero": "kim_nghe", "level": 123, "star": 9, "card": 5},
+        {"hero": "thiet_phu", "level": 123, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Xưởng Thép: bá chủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "ung_thep", "level": 138, "star": 10, "card": 5},
+        {"hero": "thiet_phu", "level": 138, "star": 10, "card": 5},
+        {"hero": "tam_kiem", "level": 138, "star": 10, "card": 5}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "kim_nghe", "level": 153, "star": 11, "card": 5},
+        {"hero": "thiet_phu", "level": 153, "star": 11, "card": 5},
+        {"hero": "tam_kiem", "level": 153, "star": 11, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Rừng Gai: tân binh",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [{"hero": "tien_la", "level": 49, "star": 8, "card": 4}],
+       "lead": "tien_la"
+      },
+      {
+       "name": "Rừng Gai: lính mới",
+       "rule": {"kind": "def", "elem": "moc", "p": 0.25},
+       "team": [{"hero": "bom_la", "level": 48, "star": 7, "card": 4}, {"hero": "mam_u", "level": 48, "star": 7, "card": 4}],
+       "lead": "bom_la"
+      },
+      {
+       "name": "Rừng Gai: đấu sĩ",
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "team": [
+        {"hero": "gio_loc", "level": 47, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 47, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 47, "star": 7, "card": 4}
+       ],
+       "lead": "gio_loc"
+      },
+      {
+       "name": "Rừng Gai: cựu binh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "phong_linh", "level": 63, "star": 7, "card": 4},
+        {"hero": "gio_loc", "level": 63, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 63, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
+      },
+      {
+       "name": "Rừng Gai: tinh nhuệ",
+       "rule": {},
+       "team": [
+        {"hero": "tho_hoang", "level": 84, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 84, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 84, "star": 7, "card": 4}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: đội trưởng",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "long_vuot", "level": 98, "star": 8, "card": 5},
+        {"hero": "phong_linh", "level": 98, "star": 8, "card": 5},
+        {"hero": "gio_loc", "level": 98, "star": 8, "card": 5}
+       ],
+       "lead": "long_vuot"
+      },
+      {
+       "name": "Rừng Gai: thủ lĩnh",
+       "rule": {},
+       "team": [
+        {"hero": "moc_tinh", "level": 114, "star": 9, "card": 5},
+        {"hero": "phong_linh", "level": 114, "star": 9, "card": 5},
+        {"hero": "gio_loc", "level": 114, "star": 9, "card": 5}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Rừng Gai: cao thủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "tho_hoang", "level": 123, "star": 9, "card": 5},
+        {"hero": "moc_tinh", "level": 123, "star": 9, "card": 5},
+        {"hero": "long_vuot", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: bá chủ",
+       "rule": {"kind": "def", "elem": "moc", "p": 0.25},
+       "team": [
+        {"hero": "thanh_long", "level": 138, "star": 10, "card": 5},
+        {"hero": "moc_tinh", "level": 138, "star": 10, "card": 5},
+        {"hero": "long_vuot", "level": 138, "star": 10, "card": 5}
+       ],
+       "lead": "thanh_long"
+      },
+      {
+       "name": "Rừng Gai: huyền thoại",
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "team": [
+        {"hero": "tho_hoang", "level": 153, "star": 11, "card": 5},
+        {"hero": "moc_tinh", "level": 153, "star": 11, "card": 5},
+        {"hero": "long_vuot", "level": 153, "star": 11, "card": 5}
+       ],
+       "lead": "tho_hoang"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Sóng Ngầm: tân binh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [{"hero": "ha_ba", "level": 55, "star": 8, "card": 4}],
+       "lead": "ha_ba"
+      },
+      {
+       "name": "Sóng Ngầm: lính mới",
+       "rule": {},
+       "team": [{"hero": "ca_den", "level": 51, "star": 7, "card": 4}, {"hero": "thach_giai", "level": 51, "star": 7, "card": 4}],
+       "lead": "ca_den"
+      },
+      {
+       "name": "Sóng Ngầm: đấu sĩ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "so_ngoc", "level": 46, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 46, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 46, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
+      },
+      {
+       "name": "Sóng Ngầm: cựu binh",
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "giong_bao", "level": 66, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 66, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 66, "star": 7, "card": 4}
+       ],
+       "lead": "giong_bao"
+      },
+      {
+       "name": "Sóng Ngầm: tinh nhuệ",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "lien_kinh", "level": 80, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 80, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "lien_kinh"
+      },
+      {
+       "name": "Sóng Ngầm: đội trưởng",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "uyen_xa", "level": 88, "star": 8, "card": 5},
+        {"hero": "lien_kinh", "level": 88, "star": 8, "card": 5},
+        {"hero": "han_ngac", "level": 88, "star": 8, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: thủ lĩnh",
+       "rule": {},
+       "team": [
+        {"hero": "lien_kinh", "level": 113, "star": 9, "card": 5},
+        {"hero": "so_ngoc", "level": 113, "star": 9, "card": 5},
+        {"hero": "giong_bao", "level": 113, "star": 9, "card": 5}
+       ],
+       "lead": "lien_kinh"
+      },
+      {
+       "name": "Sóng Ngầm: cao thủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "hai_long", "level": 124, "star": 9, "card": 5},
+        {"hero": "han_ngac", "level": 124, "star": 9, "card": 5},
+        {"hero": "so_ngoc", "level": 124, "star": 9, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Sóng Ngầm: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "uyen_xa", "level": 140, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: huyền thoại",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "hai_long", "level": 147, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 147, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 147, "star": 11, "card": 5}
+       ],
+       "lead": "hai_long"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Lò Lửa: tân binh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [{"hero": "kim_su", "level": 50, "star": 8, "card": 4}],
+       "lead": "kim_su"
+      },
+      {
+       "name": "Lò Lửa: lính mới",
+       "rule": {},
+       "team": [{"hero": "su_tu_lua", "level": 49, "star": 7, "card": 4}, {"hero": "kim_su", "level": 49, "star": 7, "card": 4}],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Lò Lửa: đấu sĩ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "nguu_quyen", "level": 50, "star": 7, "card": 4},
+        {"hero": "hong_lien", "level": 50, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "nguu_quyen"
+      },
+      {
+       "name": "Lò Lửa: cựu binh",
+       "rule": {},
+       "team": [
+        {"hero": "su_tu_lua", "level": 70, "star": 7, "card": 4},
+        {"hero": "nham_than", "level": 70, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 70, "star": 7, "card": 4}
+       ],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Lò Lửa: tinh nhuệ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "nguu_quyen", "level": 81, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 81, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 81, "star": 7, "card": 4}
+       ],
+       "lead": "nguu_quyen"
+      },
+      {
+       "name": "Lò Lửa: đội trưởng",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "huyen_viem", "level": 93, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 93, "star": 8, "card": 5},
+        {"hero": "hong_lien", "level": 93, "star": 8, "card": 5}
+       ],
+       "lead": "huyen_viem"
+      },
+      {
+       "name": "Lò Lửa: thủ lĩnh",
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
+       "team": [
+        {"hero": "hoa_tinh", "level": 110, "star": 9, "card": 5},
+        {"hero": "nguu_quyen", "level": 110, "star": 9, "card": 5},
+        {"hero": "hong_lien", "level": 110, "star": 9, "card": 5}
+       ],
+       "lead": "hoa_tinh"
+      },
+      {
+       "name": "Lò Lửa: cao thủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lan_hoa", "level": 119, "star": 9, "card": 5},
+        {"hero": "huyen_viem", "level": 119, "star": 9, "card": 5},
+        {"hero": "giap_long", "level": 119, "star": 9, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Lò Lửa: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "huyen_viem", "level": 140, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "giap_long", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "huyen_viem"
+      },
+      {
+       "name": "Lò Lửa: huyền thoại",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "lan_hoa", "level": 153, "star": 11, "card": 5},
+        {"hero": "huyen_viem", "level": 153, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 153, "star": 11, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {
+       "name": "Mỏ Đá: tân binh",
+       "rule": {"kind": "def", "elem": "tho", "p": 0.25},
+       "team": [{"hero": "lung_vuong", "level": 57, "star": 8, "card": 4}],
+       "lead": "lung_vuong"
+      },
+      {
+       "name": "Mỏ Đá: lính mới",
+       "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
+       "team": [{"hero": "cao_da", "level": 48, "star": 7, "card": 4}, {"hero": "lung_vuong", "level": 48, "star": 7, "card": 4}],
+       "lead": "cao_da"
+      },
+      {
+       "name": "Mỏ Đá: đấu sĩ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "phu_van", "level": 43, "star": 7, "card": 4},
+        {"hero": "hat_de", "level": 43, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 43, "star": 7, "card": 4}
+       ],
+       "lead": "phu_van"
+      },
+      {
+       "name": "Mỏ Đá: cựu binh",
+       "rule": {},
+       "team": [
+        {"hero": "thach_nhan", "level": 69, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 69, "star": 7, "card": 4},
+        {"hero": "cao_da", "level": 69, "star": 7, "card": 4}
+       ],
+       "lead": "thach_nhan"
+      },
+      {
+       "name": "Mỏ Đá: tinh nhuệ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "ho_kim_cuong", "level": 80, "star": 7, "card": 4},
+        {"hero": "cu_phu", "level": 80, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "ho_kim_cuong"
+      },
+      {
+       "name": "Mỏ Đá: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "rua_nui", "level": 95, "star": 8, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 95, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 95, "star": 8, "card": 5}
+       ],
+       "lead": "rua_nui"
+      },
+      {
+       "name": "Mỏ Đá: thủ lĩnh",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "ho_kim_cuong", "level": 108, "star": 9, "card": 5},
+        {"hero": "cu_phu", "level": 108, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 108, "star": 9, "card": 5}
+       ],
+       "lead": "ho_kim_cuong"
+      },
+      {
+       "name": "Mỏ Đá: cao thủ",
+       "rule": {"kind": "def", "elem": "tho", "p": 0.25},
+       "team": [
+        {"hero": "giap_nham", "level": 123, "star": 9, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 123, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "giap_nham"
+      },
+      {
+       "name": "Mỏ Đá: bá chủ",
+       "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
+       "team": [
+        {"hero": "rua_nui", "level": 139, "star": 10, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 139, "star": 10, "card": 5},
+        {"hero": "cu_phu", "level": 139, "star": 10, "card": 5}
+       ],
+       "lead": "rua_nui"
+      },
+      {
+       "name": "Mỏ Đá: huyền thoại",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "giap_nham", "level": 147, "star": 11, "card": 5},
+        {"hero": "rua_nui", "level": 147, "star": 11, "card": 5},
+        {"hero": "cu_phu", "level": 147, "star": 11, "card": 5}
+       ],
+       "lead": "giap_nham"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "doc_giac", "level": 58, "star": 8, "card": 4}], "lead": "doc_giac"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [{"hero": "cao_da", "level": 46, "star": 7, "card": 4}, {"hero": "mam_u", "level": 46, "star": 7, "card": 4}],
+       "lead": "cao_da"
+      },
+      {
+       "name": "Liên Minh: đấu sĩ",
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "phu_van", "level": 51, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 51, "star": 7, "card": 4}
+       ],
+       "lead": "phu_van"
+      },
+      {
+       "name": "Liên Minh: cựu binh",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "so_ngoc", "level": 64, "star": 7, "card": 4},
+        {"hero": "giong_bao", "level": 64, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 64, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "thiet_phu", "level": 77, "star": 7, "card": 4},
+        {"hero": "phong_linh", "level": 77, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 77, "star": 7, "card": 4}
+       ],
+       "lead": "thiet_phu"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "tam_kiem", "level": 97, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 97, "star": 8, "card": 5},
+        {"hero": "giong_bao", "level": 97, "star": 8, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "moc_tinh", "level": 112, "star": 9, "card": 5},
+        {"hero": "long_vuot", "level": 112, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 112, "star": 9, "card": 5}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "kim_nghe", "level": 124, "star": 9, "card": 5},
+        {"hero": "uyen_xa", "level": 124, "star": 9, "card": 5},
+        {"hero": "huyen_viem", "level": 124, "star": 9, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thanh_long", "level": 132, "star": 10, "card": 5},
+        {"hero": "hai_long", "level": 132, "star": 10, "card": 5},
+        {"hero": "huyen_viem", "level": 132, "star": 10, "card": 5}
+       ],
+       "lead": "thanh_long"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "moc_tinh", "level": 155, "star": 12, "card": 5},
+        {"hero": "hoa_tinh", "level": 155, "star": 12, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 155, "star": 12, "card": 5}
+       ],
+       "lead": "moc_tinh"
+      }
+     ]
+    },
+    {
+     "entries": [
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "ho_khoan", "level": 53, "star": 8, "card": 4}], "lead": "ho_khoan"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [{"hero": "ti_tach", "level": 50, "star": 7, "card": 4}, {"hero": "doc_giac", "level": 50, "star": 7, "card": 4}],
+       "lead": "ti_tach"
+      },
+      {
+       "name": "Liên Minh: đấu sĩ",
+       "rule": {},
+       "team": [
+        {"hero": "phong_linh", "level": 50, "star": 7, "card": 4},
+        {"hero": "hong_lien", "level": 50, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
+      },
+      {
+       "name": "Liên Minh: cựu binh",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "hong_lien", "level": 62, "star": 7, "card": 4},
+        {"hero": "gio_loc", "level": 62, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 62, "star": 7, "card": 4}
+       ],
+       "lead": "hong_lien"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "lien_kinh", "level": 80, "star": 7, "card": 4},
+        {"hero": "hoa_tinh", "level": 80, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "lien_kinh"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
+       "team": [
+        {"hero": "moc_tinh", "level": 94, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 94, "star": 8, "card": 5},
+        {"hero": "so_ngoc", "level": 94, "star": 8, "card": 5}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "tam_kiem", "level": 106, "star": 8, "card": 5},
+        {"hero": "huyen_viem", "level": 106, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 106, "star": 8, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "hai_long", "level": 124, "star": 9, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 124, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 124, "star": 9, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "moc_tinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "long_vuot", "level": 140, "star": 11, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "hai_long", "level": 152, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 152, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 152, "star": 11, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Nhà Vô Địch: Hải Long",
+       "rule": {"kind": "buff", "p": 0.1},
+       "team": [
+        {"hero": "hai_long", "level": 157, "star": 12, "card": 5},
+        {"hero": "lien_kinh", "level": 157, "star": 12, "card": 5},
+        {"hero": "giap_long", "level": 157, "star": 12, "card": 5}
+       ],
+       "lead": "hai_long"
+      }
+     ]
+    }
+   ],
+   "dates": []
+  },
+  "inn": {
+   "count": 3,
+   "quests": [
+    {"id": "fish5", "kind": "fish", "n": 5, "text": "Câu {0} con cá", "need": "fishing", "items": [{"k": "balls", "n": 30}]},
+    {
+     "id": "fish_rare",
+     "kind": "fish_rare",
+     "n": 1,
+     "text": "Câu {0} con cá Hiếm trở lên",
+     "need": "fishing",
+     "items": [{"k": "bait", "n": 3}, {"k": "balls", "n": 30}]
+    },
+    {"id": "drop30", "kind": "drop", "n": 30, "text": "Thả {0} bi ở Tháp Máy Bi", "items": [{"k": "balls", "n": 30}]},
+    {"id": "race2", "kind": "race", "n": 2, "text": "Đua {0} lần", "need": "race", "items": [{"k": "balls", "n": 40}]},
+    {"id": "race_top3", "kind": "race_top3", "n": 1, "text": "Về top 3 {0} lần ở Trường đua", "need": "race", "items": [{"k": "stones", "n": 2}]},
+    {"id": "table10", "kind": "table", "n": 10, "text": "Chơi {0} ván ở lều lữ khách", "need": "booths", "items": [{"k": "balls", "n": 40}]},
+    {"id": "market1", "kind": "market_buy", "n": 1, "text": "Mua {0} món ở Chợ đen", "need": "market", "items": [{"k": "balls", "n": 30}]},
+    {
+     "id": "ug1",
+     "kind": "ug_win",
+     "n": 1,
+     "text": "Thắng {0} trận ở Hầm đấu",
+     "need": "underground",
+     "items": [{"k": "stones", "n": 2}, {"k": "balls", "n": 40}]
+    }
+   ],
+   "all": [{"k": "bait", "n": 5}, {"k": "balls", "n": 60}]
+  }
+ }
+}
