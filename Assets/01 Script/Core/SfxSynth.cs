@@ -124,6 +124,11 @@ namespace PokiClash.Core
             ["swap"] = () => L(N(0.15, 0.08, 1500), T(380, 0.12, Wave.Triangle, 0.06, 380)),
             ["error"] = () => L(T(160, 0.15, Wave.Square, 0.05)),
             ["stamp"] = () => L(N(0.12, 0.3, 300, 0.6), T(90, 0.2, Wave.Sine, 0.25, -40)),
+            // Bến câu (GD_Claude/32): phao / cá rơi nước, cá rỉa, cá cắn, tiếng guồng mỗi nhịp kéo
+            ["splash"] = () => L(N(0.34, 0.22, 700, 0.6), N(0.2, 0.12, 2600, 1.0, 0.03), T(240, 0.12, Wave.Sine, 0.12, -140)),
+            ["plop"] = () => L(T(520, 0.08, Wave.Sine, 0.12, -320), N(0.05, 0.05, 1800, 1.2)),
+            ["bloop"] = () => L(T(300, 0.18, Wave.Sine, 0.18, -180), N(0.12, 0.1, 900, 0.8)),
+            ["reel"] = () => L(T(1800, 0.025, Wave.Square, 0.04), T(1700, 0.025, Wave.Square, 0.04, 0, 0.05), T(1800, 0.025, Wave.Square, 0.04, 0, 0.1)),
         };
 
         public static IEnumerable<string> Names => Recipes.Keys;

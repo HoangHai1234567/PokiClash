@@ -1,0 +1,10 @@
+part.add than path=images/than.png at=134,221 canvas=1024,1536 origin=498,1446 bone=hip_d
+att.mesh than than from=than edge=18 inner=34 maxVerts=1300
+part.add chan_t path=images/chan_t.png at=295,1052 canvas=1024,1536 origin=498,1446 bone=chan_t1
+att.mesh chan_t chan_t from=chan_t edge=10 inner=14
+part.add chan_p path=images/chan_p.png at=602,1052 canvas=1024,1536 origin=498,1446 bone=chan_p1
+att.mesh chan_p chan_p from=chan_p edge=10 inner=14
+part.add can path=images/can.png at=804,427 canvas=1024,1536 origin=498,1446 bone=can1
+att.mesh can can from=can edge=10 inner=16
+part.add lo_xo path=images/lo_xo.png at=467,157 canvas=1024,1536 origin=498,1446 bone=lx1
+att.mesh lo_xo lo_xo from=lo_xo edge=8 inner=12

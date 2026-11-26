@@ -1,9 +1,10 @@
-// Câu cá (Bến câu, GD_Claude/29_DaoCasino.md mục 6.2). Lõi chọn cá, mồi, Sổ Cá, Cá Vua, bán cá, cần câu; giao diện làm phần quăng
-// (lực 0..1), chờ phao, giật (biteWindow giây), kéo (thanh căng với vùng xanh Zone, cá vùng theo pull của độ hiếm).
+// Câu cá (Bến câu, GD_Claude/29_DaoCasino.md mục 6.2). Lõi chọn cá, mồi, Sổ Cá, Cá Vua, bán cá, cần câu; giao diện (kiểu Clash of
+// Critters từ 2026-11-26) làm phần quăng (lực 1), chờ phao, giật (biteWindow giây), kéo (thanh vùng vàng: Ticks nhịp trong ReelTime giây,
+// vùng vàng theo Zone, kim nhanh theo pull của độ hiếm).
 // - Mồi: freeBait mồi miễn phí mỗi ngày, rồi mồi mua / thưởng (CasinoState.bait). Không hồi theo giờ.
 // - Chỗ câu mở theo cấp cần câu; độ hiếm theo trọng số của chỗ, quăng càng xa càng nặng về hiếm; loài "night" chỉ cắn 19 giờ – 5 giờ;
 //   hệ may mắn hôm nay (Bói sao) nặng gấp đôi.
-// - Cá Vua: mỗi tuần một con (kings theo tuần), chỉ ở chỗ cuối, cần câu từ kingRod; gọi một tướng phụ kéo: tướng khắc hệ cá thì vùng xanh
+// - Cá Vua: mỗi tuần một con (kings theo tuần), chỉ ở chỗ cuối; gọi một tướng phụ kéo: tướng khắc hệ cá thì vùng xanh
 //   to thêm kingAssist.
 // - Bắt lần đầu một loài: bi first[độ hiếm]; đủ 6 loài một hệ: setShards mảnh tướng hệ đó + cúp câu cá cho Nhà.
 using System;
@@ -41,7 +42,8 @@ namespace PokiClash.Core
 
         public static FishRod Rod(SaveData s, GameData d) => C(d).rods[Math.Max(0, Math.Min(Casino.Of(s).rod, C(d).rods.Count) - 1)];
 
-        public static int Spots(SaveData s, GameData d) => Math.Min(C(d).spots.Count, Rod(s, d).spots);
+        // người dùng 2026-11-26 "bỏ phần nâng cấp cần": mọi chỗ câu mở sẵn (phao rơi ngẫu nhiên trên hồ, chỗ rơi là chỗ câu)
+        public static int Spots(SaveData s, GameData d) => C(d).spots.Count;
 
         // giá lên cấp cần câu kế (−1 nếu đã tối đa)
         public static int RodCost(SaveData s, GameData d)
@@ -74,7 +76,7 @@ namespace PokiClash.Core
         }
 
         public static bool KingAvailable(SaveData s, GameData d, int spot, double now) =>
-            KingOf(d, now) != null && spot == C(d).spots.Count - 1 && Casino.Of(s).rod >= C(d).kingRod
+            KingOf(d, now) != null && spot == C(d).spots.Count - 1
             && Casino.Of(s).kingWeek != Casino.Week(Casino.Today(now));
 
         // trọng số độ hiếm ở chỗ spot với lực quăng power (0..1)
@@ -121,6 +123,25 @@ namespace PokiClash.Core
 
         // cỡ: lệch về nhỏ (con to hiếm hơn)
         public static double Size(FishDef f, Rng rng) => Math.Round(f.min + (f.max - f.min) * Math.Pow(rng.Next(), 1.6), 1);
+
+        // ---------- màn chơi kiểu Clash of Critters (người dùng dặn 2026-11-26: chép thao tác và màn chơi, giữ logic) ----------
+        // Cá đã chọn sẵn lúc quăng (Cast); màn chơi chỉ quyết bắt được hay sổng: cá nhỏ (0 nhịp) chạm "giật" là lên, cá lớn phải chạm
+        // trúng vùng vàng đủ số nhịp trong ReelTime giây, mỗi lần trượt mất MissCost giây. Hạng cân chỉ để hiện và đặt số nhịp.
+
+        public const int MaxTicks = 8;
+        public const double ReelTime = 30, MissCost = 2;
+
+        // hạng cân theo vị trí cỡ trong khoảng min..max của loài: 0 Đồng, 1 Bạc, 2 Vàng, 3 Cầu vồng (cỡ lệch nhỏ: khoảng 56 / 24 / 14 / 6 %)
+        public static int SizeClass(FishDef f, double size)
+        {
+            if (f == null) return 0;
+            double t = f.max > f.min ? (size - f.min) / (f.max - f.min) : 0;
+            return t >= 0.9 ? 3 : t >= 0.7 ? 2 : t >= 0.4 ? 1 : 0;
+        }
+
+        // số nhịp phải chạm trúng: 2 × bậc độ hiếm, thêm 1 nếu hạng Vàng trở lên (Thường 0–1 … Huyền thoại 8); Cá Vua luôn 8
+        public static int Ticks(FishBite b) =>
+            b?.fish == null ? 0 : b.king ? MaxTicks : Math.Min(MaxTicks, 2 * (int)b.fish.rar + (SizeClass(b.fish, b.size) >= 2 ? 1 : 0));
 
         // vùng xanh (phần thanh): theo cần câu; Cá Vua có tướng phụ khắc hệ cá thì to thêm
         public static double Zone(SaveData s, GameData d, FishBite b, string assist)

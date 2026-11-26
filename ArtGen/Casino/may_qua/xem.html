@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Máy quả concept</title>
+<style>
+  :root { --paper: #f6efe1; --card: #fffaf0; --ink: #2b2018; --ink2: #6b5a4a; --line: #d9ccb4; --accent: #b5413a; --green: #3f7a4a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, "Segoe UI", sans-serif; line-height: 1.55; }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 26px; margin: 4px 0 2px; }
+  h2 { font-size: 20px; margin: 34px 0 8px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+  p.sub { color: var(--ink2); margin: 0 0 14px; }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  ul { margin: 6px 0; padding-left: 20px; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 14px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 6px; cursor: zoom-in; }
+  figcaption { font-size: 14px; margin-top: 6px; }
+  figcaption b { display: block; font-size: 15px; }
+  .tag { display: inline-block; background: var(--green); color: #fff; font-size: 12px; border-radius: 99px; padding: 1px 8px; margin-left: 6px; vertical-align: middle; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #efe5d2; }
+  .tw { overflow-x: auto; }
+  .demo { display: grid; grid-template-columns: minmax(0, 440px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 800px) { .demo { grid-template-columns: 1fr; } }
+  canvas#stage { width: 100%; max-width: 440px; aspect-ratio: 440 / 640; background: #fbf4e4; border: 1px solid var(--line); border-radius: 10px; display: block; }
+  .btns { display: flex; flex-wrap: wrap; gap: 8px; margin: 10px 0; }
+  button { font: inherit; font-size: 15px; padding: 8px 14px; border-radius: 8px; border: 2px solid var(--ink); background: #fff6d8; cursor: pointer; }
+  button:hover { background: #ffe9a8; }
+  button.on { background: var(--ink); color: #fff6d8; }
+  label { font-size: 14px; color: var(--ink2); margin-right: 14px; white-space: nowrap; }
+  #beat { font-weight: 700; min-height: 1.6em; }
+  .zoom { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; z-index: 9; }
+  .zoom img { max-width: 96vw; max-height: 96vh; cursor: zoom-out; }
+  .note { font-size: 13px; color: var(--ink2); }
+  .scene { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: 16px; align-items: start; }
+  @media (max-width: 800px) { .scene { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<main>
+  <h1>Hội Máy Quả: máy quả sống</h1>
+  <p class="sub">Concept chờ duyệt, 2026-11-26. Bấm ảnh để phóng to. Ảnh gen bằng Magnific GPT 2.6 (4 tờ, 380 credit).</p>
+
+  <div class="box">
+    <b>Tôi hiểu ý bạn thế này</b>
+    <ul>
+      <li>Lều Hội Máy Quả bỏ khung 9 ô giấy hiện nay, thay bằng <b>một cái máy quả vẽ riêng, rig xương</b>, là nhân vật chính của màn.</li>
+      <li>Máy <b>luôn động</b>: đứng thì nhún theo nhịp, lúc quay thì lắc hai bên, cuộn dừng thì giật, trúng thì nhảy, jackpot thì nhảy lên lắc giữa không trung.</li>
+      <li>Học cách diễn của hoạt hình ống cao su thập niên 1930 (kiểu Cuphead): chỉ học <b>nguyên tắc chuyển động</b>, hình là thiết kế riêng của mình.</li>
+    </ul>
+  </div>
+
+  <h2>1. Ba hướng thiết kế</h2>
+  <div class="grid3">
+    <figure><img src="concept/huong_A_chuong_vang.png" alt="Hướng A">
+      <figcaption><b>A. Chuông Vàng</b>Máy cổ điển thân quả lê, đỏ rượu + vàng (cùng màu gi lê Lão Mực). Không mặt. Điểm nhấn: chuông vàng trên lò xo, hai ống còi phì khói, rèm tua rua.</figcaption></figure>
+    <figure><img src="concept/huong_B_hau_an.png" alt="Hướng B">
+      <figcaption><b>B. Háu Ăn</b>Máy có mặt và hai chân ống cao su, xanh ngọc + đỏ cà chua. Điểm nhấn: mắt to, khay bi là cái miệng có răng vàng, sao trên lò xo.</figcaption></figure>
+    <figure><img src="concept/huong_C_hu_bi.png" alt="Hướng C">
+      <figcaption><b>C. Hũ Bi</b><span class="tag">đề xuất</span> Thân bụng tròn xanh lục + vàng, ba chân lò xo. Không mặt. Điểm nhấn: hũ kính đầy bi trên đầu (chính là Hũ bàn), loa kèn phun thưởng.</figcaption></figure>
+  </div>
+  <div class="box" style="margin-top:14px">
+    <b>Vì sao tôi nghiêng về C</b>
+    <ul>
+      <li><b>Chân lò xo</b> làm "nhún nhún" và "nhảy lên" có lý do vật lý, nhìn là hiểu; A phải nhún bằng cả thân, B nhún bằng đầu gối.</li>
+      <li><b>Hũ kính trên đầu là Hũ bàn</b> của lều: mức bi trong hũ hiện đúng số bi đang tích, jackpot thì nắp bật, bi phun ra. Một vật trang trí gánh luôn một phần giao diện.</li>
+      <li>Nhiều thứ đung đưa trễ nhịp nhất (cờ, nắp, bi trong hũ, loa kèn, cần, ba lò xo), đúng thứ làm rig trông "sống".</li>
+      <li>Không mặt nên <b>Lão Mực vẫn là gương mặt duy nhất của đảo</b>. Muốn máy có tính cách hơn thì ghép mắt của B vào C (nói tôi gen thêm).</li>
+      <li>Xanh lục + vàng nổi trên lều tím vàng của đảo; A đỏ rượu dễ chìm vào thảm và gi lê Lão Mực.</li>
+    </ul>
+  </div>
+
+  <h2>2. Cảnh thử (hướng C)</h2>
+  <div class="scene">
+    <figure><img src="concept/canh_thu_C.png" alt="Cảnh thử">
+      <figcaption>Ảnh dựng thử bố cục, chưa phải nền dùng trong game.</figcaption></figure>
+    <div class="box">
+      <b>Màn chơi sẽ dựng thế này</b>
+      <ul>
+        <li>Lều sọc tím vàng (đúng lều máy quả ngoài đảo), máy đứng trên bục gỗ giữa màn, chiếm khoảng 80% bề ngang; ô cuộn 3 × 3 nằm giữa, đủ to để đọc trên điện thoại.</li>
+        <li><b>Lão Mực</b> (rig có sẵn) đứng sau vai phải máy. Bấm Quay thì tay ống cao su của ông kéo cần; ông dõi từng cuộn, mỉa khi trượt, ngã ngửa khi jackpot.</li>
+        <li><b>Hình trên cuộn do game vẽ</b> (dải thật của lõi <code>Slots.cs</code>, trượt dọc, có mặt nạ cắt), bám theo xương thân máy nên máy méo thì ô cuộn méo theo. Ảnh máy đem rig để ô cuộn trống.</li>
+        <li>Phía trên: 4 bậc cược, tờ tin. Phía dưới (sàn gỗ để trống): nút Quay, Quay nhanh, Bảng trả. Dòng kể đường thắng hiện trên biển gỗ nhỏ, không phải chữ trôi.</li>
+        <li>Nền gen riêng không có máy, không có Lão Mực; rào dây, thùng bi, rương là nền tĩnh.</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>3. Thử nhịp chuyển động</h2>
+  <p class="sub">Bản thử nhịp: méo cả tấm hình concept theo từng lát ngang, chưa tách mảnh. Rig thật sẽ có xương riêng cho từng phần nên cờ, nắp, cần, loa kèn sẽ trễ riêng từng cái.</p>
+  <div class="demo">
+    <div>
+      <canvas id="stage" width="880" height="1280"></canvas>
+    </div>
+    <div>
+      <div class="btns" id="dirs">
+        <button data-dir="A">A. Chuông Vàng</button>
+        <button data-dir="B">B. Háu Ăn</button>
+        <button data-dir="C" class="on">C. Hũ Bi</button>
+      </div>
+      <div class="btns">
+        <button data-run="lose">Quay: trượt</button>
+        <button data-run="win">Quay: trúng một đường</button>
+        <button data-run="jackpot">Quay: JACKPOT</button>
+      </div>
+      <div>
+        <label><input type="checkbox" id="f24" checked> 24 khung/giây (nhịp vẽ tay)</label>
+        <label><input type="checkbox" id="slow"> chậm 3 lần</label>
+      </div>
+      <p id="beat">đứng chờ: nhún theo nhịp</p>
+      <div class="box">
+        <b>Học gì từ hoạt hình ống cao su</b>
+        <ul>
+          <li><b>Không bao giờ đứng im</b>: đứng chờ cũng nhún theo nhịp nhạc (2 nhịp mỗi giây), lâu lâu có một trò phá nhịp.</li>
+          <li><b>Lấy đà ngược chiều</b> trước mọi cú lớn: nghiêng ra xa cần trước khi bị giật, nén bẹp trước khi nhảy.</li>
+          <li><b>Nén giãn mạnh, giữ thể tích</b>: bẹp thì phình ngang, vọt lên thì dài và gầy.</li>
+          <li><b>Dáng giữ rồi bật</b>: vài khung giữ dáng, 1–2 khung chuyển; không trôi đều. Vẽ theo nhịp 24 khung/giây.</li>
+          <li><b>Rung bằng hai dáng đổi nhau</b> mỗi 2 khung (lúc gồng, lúc cuộn chạy), không dùng nhiễu.</li>
+          <li><b>Quá đà rồi mới về</b>, phần ngọn (cờ, nắp, chuông, cần) trễ sau thân và văng ngược chiều.</li>
+          <li><b>Treo giữa không trung</b>: lên tới đỉnh thì dừng lại lắc mấy cái rồi mới rơi.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h2>4. Bộ clip định làm</h2>
+  <div class="tw">
+  <table>
+    <tr><th>Clip</th><th>Lúc nào</th><th>Dài</th><th>Diễn</th></tr>
+    <tr><td><code>idle</code></td><td>chờ người chơi</td><td>2,0 s lặp</td><td>nhún 4 nhịp trên lò xo; cờ, cần, bi trong hũ lệch pha; phá nhịp: loa kèn "ợ" một viên bi lên rồi hứng lại</td></tr>
+    <tr><td><code>pull</code></td><td>bấm Quay</td><td>0,5 s</td><td>nghiêng ra xa cần (3 khung) → bị giật về phía cần, bẹp xuống → bật lại quá đà; cuộn giật lùi một chút rồi mới chạy</td></tr>
+    <tr><td><code>spin</code></td><td>cuộn đang chạy</td><td>0,5 s lặp</td><td>lắc hai bên 2 lần mỗi giây, thân rung hai dáng đổi nhau, bi trong hũ nhảy loạn, loa kèn phì hơi</td></tr>
+    <tr><td><code>stop_1..3</code></td><td>từng cuộn dừng</td><td>0,3 s</td><td>cú "cạch": giật về phía cuộn vừa dừng, bẹp 2 khung, nảy tắt dần; cuộn 3 mạnh nhất</td></tr>
+    <tr><td><code>tease</code></td><td>hai cuộn đầu đã khớp</td><td>0,6 s</td><td>nín thở: vươn cao dần, rung nhanh hơn, cuộn 3 chạy lâu hơn (chỉ khi hai cuộn đầu khớp thật, không giả suýt trúng)</td></tr>
+    <tr><td><code>lose</code></td><td>trượt</td><td>0,9 s</td><td>nhổm lên hy vọng 3 khung → xẹp, nghiêng rũ, loa kèn cụp → về</td></tr>
+    <tr><td><code>win</code></td><td>trúng đường</td><td>1,2 s</td><td>nén → nhảy hai cái (cái sau nhỏ hơn), khay nhả bi; ô đường thắng nháy</td></tr>
+    <tr><td><code>free</code></td><td>3 Rương</td><td>1,0 s</td><td>xoay một vòng trên một chân lò xo, nắp hũ nhấp nhổm; các lượt miễn phí sau dùng <code>spin</code> nhanh</td></tr>
+    <tr><td><code>jackpot</code></td><td>3 huy hiệu / thắng lớn</td><td>3,8 s</td><td>gồng bẹp run (0,5 s) → vọt lên dài gầy → treo trên không lắc 6 cái, nắp hũ bật, bi phun từ hũ và loa kèn → rơi bẹp rung màn → nảy → nhảy múa lắc hai bên → về</td></tr>
+    <tr><td><code>appear</code></td><td>vào lều</td><td>1,0 s</td><td>đang ngủ gật (xẹp, nghiêng) → giật mình bật thẳng, phất cờ chào</td></tr>
+  </table>
+  </div>
+  <p class="note">Bi phun, sao, tia nháy là lớp hiệu ứng của game, không vẽ trong rig; rig để xương ở miệng loa kèn, miệng hũ, khay và sự kiện trong clip.</p>
+
+  <h2>5. Tách mảnh và xương (hướng C)</h2>
+  <div class="tw">
+  <table>
+    <tr><th>Mảnh</th><th>Xương</th><th>Để làm gì</th></tr>
+    <tr><td>Thân bụng tròn (một lưới liền)</td><td>hông → bụng → vai, lưới có trọng số</td><td>nén giãn, uốn cong hai bên</td></tr>
+    <tr><td>Khung ô cuộn + ô cuộn trống</td><td>bám xương bụng</td><td>game vẽ hình cuộn vào đây</td></tr>
+    <tr><td>Ba chân lò xo, ba đế</td><td>mỗi chân 3 đốt, đế có IK bám đất</td><td>nhún, co, bật; đế đứng yên khi thân lắc</td></tr>
+    <tr><td>Hũ kính, lớp bi trong hũ (2–3 lớp), nắp, cờ</td><td>hũ 1 xương; bi mỗi lớp 1 xương; nắp 1; cờ 3 đốt</td><td>bi rung trễ, nắp bật, cờ phất; mức bi đổi theo Hũ bàn</td></tr>
+    <tr><td>Loa kèn</td><td>cổ 2 đốt + miệng</td><td>gật gù, phì hơi, phun bi (xương miệng cho hiệu ứng)</td></tr>
+    <tr><td>Cần + núm đỏ</td><td>bệ → 3 đốt → núm</td><td>kéo xuống, bật lại, rung dư; tay Lão Mực bám núm</td></tr>
+    <tr><td>Khay bi + bi trong khay</td><td>khay 1 xương, bi 1 xương</td><td>khay hất khi nhả thưởng</td></tr>
+    <tr><td>Đai vàng, đinh tán</td><td>dính lưới thân</td><td></td></tr>
+  </table>
+  </div>
+  <p class="note">Theo luật rig của dự án: ảnh đem rig gen <b>không viền</b>, tách mảnh trên nền xanh lơ; viền mực vẽ sau cùng khi bạn đã chốt animation.</p>
+
+  <h2>6. Cần bạn chốt</h2>
+  <div class="box">
+    <ol>
+      <li><b>Hướng nào</b>: A, B, C, hay ghép (ví dụ C + mắt của B, C + chuông của A)?</li>
+      <li><b>Hũ kính là Hũ bàn</b> (mức bi theo số đang tích): đồng ý không?</li>
+      <li><b>Ai kéo cần</b>: Lão Mực kéo khi bấm nút Quay (như kế hoạch D5), hay người chơi tự vuốt cần xuống?</li>
+    </ol>
+  </div>
+</main>
+<div class="zoom" id="zoom"><img alt=""></div>
+
+<script>
+// ---------- phóng to ảnh ----------
+const zoom = document.getElementById('zoom');
+document.querySelectorAll('figure img').forEach(im => im.addEventListener('click', () => { zoom.querySelector('img').src = im.src; zoom.style.display = 'flex'; }));
+zoom.addEventListener('click', () => zoom.style.display = 'none');
+
+// ---------- số đo từng hướng (px trên ảnh thu/may_X.png) ----------
+// cols: mép trái, phải lòng từng cuộn; rows: 4 mép ngang của 3 hàng; soft: [u0, u1, độ mềm] theo chiều cao (u = 0 ở đế, 1 ở đỉnh)
+const DIRS = {
+  A: { src: 'thu/may_A.png', w: 664, h: 1009, cols: [[142, 250], [260, 360], [370, 468]], rows: [502, 592, 684, 774],
+       soft: [[0, 0.07, 0.3], [0.07, 0.62, 1.3], [0.62, 0.8, 0.7], [0.8, 0.86, 3.2], [0.86, 1, 0.2]], tray: [0.5, 0.86], top: [0.47, 0.1] },
+  B: { src: 'thu/may_B.png', w: 696, h: 1013, cols: [[130, 242], [252, 360], [370, 486]], rows: [412, 500, 590, 676],
+       soft: [[0, 0.08, 0.2], [0.08, 0.18, 3.2], [0.18, 0.86, 1.0], [0.86, 0.92, 3.0], [0.92, 1, 0.2]], tray: [0.42, 0.78], top: [0.44, 0.1] },
+  C: { src: 'thu/may_C.png', w: 772, h: 1007, cols: [[264, 368], [380, 482], [494, 590]], rows: [454, 540, 622, 704],
+       soft: [[0, 0.08, 0.2], [0.08, 0.18, 4.0], [0.18, 0.66, 0.9], [0.66, 0.84, 0.45], [0.84, 1, 0.3]], tray: [0.55, 0.77], top: [0.55, 0.2] },
+};
+// ô đích (hàng trên, giữa, dưới của từng cuộn); mã ô = cuộn * 3 + hàng trên ảnh gốc
+const GRID = {
+  start: [[0, 1, 2], [3, 4, 5], [6, 7, 8]],
+  lose: [[1, 2, 0], [3, 4, 5], [8, 6, 7]],
+  win: [[1, 0, 2], [3, 0, 5], [6, 0, 8]],
+  jackpot: [[0, 8, 2], [3, 8, 4], [6, 8, 7]],
+};
+const T_PULL = 0.21; // giây: lúc cần bị giật, cuộn bắt đầu chạy
+const STOPS = { lose: [1.0, 1.45, 2.0], win: [1.0, 1.45, 2.0], jackpot: [1.0, 1.45, 2.65] };
+
+const cv = document.getElementById('stage'), cx = cv.getContext('2d');
+const off = document.createElement('canvas'), ox = off.getContext('2d');
+const beatEl = document.getElementById('beat');
+let dirKey = 'C', D = DIRS.C, img = new Image(), ready = false;
+let run = null;        // { kind, t0, cols: [{seq, p0, pEnd, v, stop}] }
+let shown = GRID.start; // lưới đang hiện khi không quay
+let parts = [];        // bi phun
+let hist = [];         // tư thế các khung gần đây (cho phần ngọn trễ)
+let clock = 0, lastReal = 0, fixed = null;
+
+function setDir(k) {
+  dirKey = k; D = DIRS[k]; ready = false; run = null; parts = []; hist = []; shown = GRID.start;
+  off.width = D.w; off.height = D.h;
+  // bảng độ mềm theo lát
+  D.N = Math.ceil(D.h / 2);
+  D.wt = new Float32Array(D.N);
+  let sum = 0;
+  for (let i = 0; i < D.N; i++) {
+    const u = 1 - (i + 0.5) / D.N;
+    let w = 1;
+    for (const [a, b, s] of D.soft) if (u >= a && u < b) w = s;
+    D.wt[i] = w; sum += w;
+  }
+  for (let i = 0; i < D.N; i++) D.wt[i] /= sum / D.N;
+  img = new Image();
+  img.onload = () => { ready = true; };
+  img.src = D.src;
+  document.querySelectorAll('#dirs button').forEach(b => b.classList.toggle('on', b.dataset.dir === k));
+}
+
+// ---------- tiện ích nhịp ----------
+const clamp = (x, a, b) => Math.max(a, Math.min(b, x));
+const ease = x => x * x * (3 - 2 * x);
+// track: [[t, v], ...] nội suy mềm giữa các khoá; ngoài khoảng thì giữ
+function kf(tr, t) {
+  if (t <= tr[0][0]) return tr[0][1];
+  for (let i = 1; i < tr.length; i++) if (t < tr[i][0]) {
+    const [t0, v0] = tr[i - 1], [t1, v1] = tr[i];
+    return v0 + (v1 - v0) * ease((t - t0) / (t1 - t0));
+  }
+  return tr[tr.length - 1][1];
+}
+const flip = (t, hz) => (Math.floor(t * hz) % 2 ? 1 : -1); // hai dáng đổi nhau
+
+// ---------- tư thế tại giờ t ----------
+// sy: giãn dọc; lean: độ lệch ngang của đỉnh (phần chiều cao); rot: độ; y: độ cao nhảy (px ảnh); shake: rung màn
+function idlePose(t) {
+  const p = (t % 0.5) / 0.5;
+  let sy = 1 - 0.05 * Math.exp(-(((p - 0.2) / 0.12) ** 2)) + 0.022 * Math.exp(-(((p - 0.52) / 0.16) ** 2));
+  let lean = 0.02 * Math.sin(2 * Math.PI * t / 2), y = 0;
+  const q = t % 4; // phá nhịp: nấc hai cái
+  if (q > 3.0 && q < 3.5) {
+    const e = (q - 3.0) / 0.5;
+    y = 26 * Math.abs(Math.sin(2 * Math.PI * e));
+    sy *= 1 + 0.07 * Math.sin(4 * Math.PI * e);
+  }
+  return { sy, lean, rot: 0, y, shake: 0 };
+}
+
+function thud(P, tau, a, dir) { // cú "cạch" khi cuộn dừng
+  if (tau < 0) return;
+  const k = tau < 0.083 ? 1 : Math.exp(-9 * (tau - 0.083)) * Math.cos(2 * Math.PI * 4.5 * (tau - 0.083));
+  P.sy *= 1 - 0.075 * a * k;
+  P.lean += dir * 0.05 * a * Math.exp(-7 * tau) * Math.cos(2 * Math.PI * 3.2 * tau);
+}
+
+function resultPose(P, kind, w) { // w = giờ tính từ lúc có kết quả
+  if (w < 0) return 0;
+  if (kind === 'lose') {
+    P.sy *= kf([[0, 1], [0.1, 1.035], [0.3, 0.93], [0.8, 0.94], [1.1, 1]], w);
+    P.lean += kf([[0, 0], [0.12, 0], [0.35, 0.04], [0.8, 0.045], [1.1, 0]], w);
+    return 1.1;
+  }
+  if (kind === 'win') {
+    for (const [s, a] of [[0, 1], [0.62, 0.6]]) {
+      const h = w - s;
+      if (h < 0 || h > 0.75) continue;
+      P.sy *= 1 + a * (kf([[0, 1], [0.12, 0.84], [0.17, 0.84], [0.21, 1.15], [0.37, 1.02], [0.5, 1.08], [0.54, 0.84], [0.6, 0.86], [0.68, 1.05], [0.75, 1]], h) - 1);
+      if (h > 0.19 && h < 0.52) P.y += a * 95 * Math.sin(Math.PI * (h - 0.19) / 0.33);
+    }
+    return 1.5;
+  }
+  // jackpot
+  P.sy *= kf([[0, 1], [0.1, 0.78], [0.5, 0.8], [0.56, 1.3], [0.85, 1.12], [1.3, 1.02], [1.47, 1.14], [1.5, 0.72], [1.62, 0.74], [1.72, 1.13], [1.95, 1.0], [2.0, 0.88], [2.1, 1.0]], w);
+  if (w < 0.5) { P.lean += 0.012 * flip(w, 12); P.rot += 0.8 * flip(w + 0.04, 12); } // gồng run
+  if (w > 0.52 && w < 1.5) P.y += kf([[0.52, 0], [0.85, 300], [1.05, 318], [1.3, 300], [1.5, 0]], w);
+  if (w > 0.82 && w < 1.34) { const s = flip(w, 8); P.lean += 0.1 * s; P.rot += 6 * s; } // treo trên không, lắc
+  if (w > 1.5 && w < 1.75) P.shake = 14 * (1 - (w - 1.5) / 0.25) * flip(w, 24);
+  if (w > 1.72 && w < 2.0) P.y += 60 * Math.sin(Math.PI * (w - 1.72) / 0.28);
+  if (w > 2.1 && w < 3.8) { // nhảy múa
+    const e = clamp((3.8 - w) / 0.5, 0, 1), d = w - 2.1;
+    P.lean += 0.09 * e * Math.sin(2 * Math.PI * 2 * d);
+    P.sy *= 1 - 0.06 * e * Math.abs(Math.sin(2 * Math.PI * 2 * d));
+    P.y += 30 * e * Math.abs(Math.sin(2 * Math.PI * 2 * d));
+  }
+  return 3.8;
+}
+
+function pose(t) {
+  const P = idlePose(t);
+  if (!run) return P;
+  const tau = t - run.t0, st = STOPS[run.kind], tr = st[2] + 0.3;
+  const Q = { sy: 1, lean: 0, rot: 0, y: 0, shake: 0 };
+  // kéo cần: nghiêng ra xa, bị giật, bật lại
+  Q.sy *= kf([[0, 1], [0.12, 1.05], [0.17, 0.83], [0.25, 0.85], [0.36, 1.09], [0.5, 1]], tau);
+  Q.lean += kf([[0, 0], [0.12, -0.055], [0.17, 0.11], [0.25, 0.1], [0.36, -0.05], [0.5, 0]], tau);
+  // cuộn chạy: lắc hai bên, rung hai dáng
+  if (tau > T_PULL + 0.2 && tau < st[2]) {
+    const d = tau - T_PULL - 0.2, tease = run.kind === 'jackpot' && tau > st[1] + 0.25;
+    Q.lean += 0.05 * Math.sin(2 * Math.PI * 2 * d);
+    Q.rot += (tease ? 1.8 : 1.1) * flip(tau, tease ? 24 : 12);
+    Q.sy *= 1 + 0.028 * Math.sin(2 * Math.PI * 4 * d);
+    if (tease) Q.sy *= 1 + 0.07 * clamp((tau - st[1] - 0.25) / (st[2] - st[1] - 0.25), 0, 1); // nín thở
+  }
+  thud(Q, tau - st[0], 0.8, -1); thud(Q, tau - st[1], 1.0, 1); thud(Q, tau - st[2], 1.5, -1);
+  const len = resultPose(Q, run.kind, tau - tr);
+  // hoà về idle ở cuối
+  const end = tr + len, k = clamp((tau - end + 0.25) / 0.25, 0, 1);
+  if (tau >= end) { shown = GRID[run.kind]; run = null; return P; }
+  return { sy: Q.sy * (1 + (P.sy - 1) * k), lean: Q.lean + P.lean * k, rot: Q.rot, y: Q.y + P.y * k, shake: Q.shake };
+}
+
+function beatName(t) {
+  if (!run) return 'đứng chờ: nhún theo nhịp, lâu lâu nấc hai cái';
+  const tau = t - run.t0, st = STOPS[run.kind], w = tau - st[2] - 0.3;
+  if (tau < 0.12) return 'lấy đà: nghiêng ra xa cần';
+  if (tau < 0.36) return 'cần bị giật: bẹp về phía cần rồi bật lại';
+  if (tau < st[0]) return 'cuộn chạy: lắc hai bên, rung hai dáng';
+  if (tau < st[1]) return 'cuộn 1 dừng: cạch';
+  if (tau < st[2]) return run.kind === 'jackpot' && tau > st[1] + 0.25 ? 'hai cuộn đã khớp: nín thở, vươn cao' : 'cuộn 2 dừng: cạch';
+  if (w < 0) return 'cuộn 3 dừng: cạch mạnh';
+  if (run.kind === 'lose') return 'trượt: nhổm lên hy vọng rồi xẹp';
+  if (run.kind === 'win') return 'trúng: nén rồi nhảy hai cái';
+  if (w < 0.5) return 'jackpot: gồng bẹp, run';
+  if (w < 0.85) return 'jackpot: vọt lên, dài và gầy';
+  if (w < 1.34) return 'jackpot: treo trên không, lắc lắc';
+  if (w < 1.75) return 'jackpot: rơi bẹp, rung màn';
+  return 'jackpot: nhảy múa lắc hai bên';
+}
+
+// ---------- cuộn ----------
+function startRun(kind, t) {
+  if (run || !ready) return;
+  const st = STOPS[kind], cols = [];
+  for (let c = 0; c < 3; c++) {
+    const pEnd = 60, p0 = pEnd - Math.round(13 * (st[c] - T_PULL)), seq = [];
+    for (let i = 0; i < pEnd + 4; i++) seq.push(Math.floor(Math.random() * 9));
+    for (let j = 0; j < 3; j++) { seq[p0 + j] = shown[c][2 - j]; seq[pEnd + j] = GRID[kind][c][2 - j]; }
+    cols.push({ seq, p0, pEnd, v: (pEnd - p0) / (st[c] - T_PULL), stop: st[c] });
+  }
+  run = { kind, t0: t, cols };
+}
+
+function reelPos(col, tau) { // vị trí cuộn (tính bằng ô) và tốc độ
+  if (tau < 0.1) return [col.p0, 0];
+  if (tau < T_PULL) return [col.p0 - 0.28 * ease((tau - 0.1) / (T_PULL - 0.1)), 0]; // giật lùi lấy đà
+  if (tau < col.stop) {
+    const p = col.pEnd - col.v * (col.stop - tau);
+    return [Math.max(p, col.p0 - 0.28), col.v];
+  }
+  const s = tau - col.stop; // quá đà rồi nảy về
+  return [col.pEnd + (s < 0.18 ? 0.24 * Math.sin(Math.PI * s / 0.18) * (1 - s / 0.18) : 0), 0];
+}
+
+function drawCell(id, x0, x1, y, hh) {
+  const c = Math.floor(id / 3), r = id % 3, [sx0, sx1] = D.cols[c];
+  ox.drawImage(img, sx0, D.rows[r], sx1 - sx0, D.rows[r + 1] - D.rows[r], x0, y, x1 - x0, hh);
+}
+
+function drawReels(t) {
+  ox.clearRect(0, 0, D.w, D.h);
+  ox.drawImage(img, 0, 0);
+  const tau = run ? t - run.t0 : -1, top = D.rows[0], bot = D.rows[3], hh = (bot - top) / 3;
+  for (let c = 0; c < 3; c++) {
+    const [x0, x1] = D.cols[c];
+    ox.save();
+    ox.beginPath(); ox.rect(x0, top, x1 - x0, bot - top); ox.clip();
+    ox.fillStyle = '#fbf0d9'; ox.fillRect(x0, top, x1 - x0, bot - top);
+    if (!run) for (let r = 0; r < 3; r++) drawCell(shown[c][r], x0, x1, top + r * hh, hh);
+    else {
+      const col = run.cols[c], [p, v] = reelPos(col, tau), base = Math.floor(p), fr = p - base;
+      const taps = v > 6 ? [-0.22, 0, 0.22] : [0];
+      ox.globalAlpha = v > 6 ? 0.5 : 1;
+      for (const dy of taps)
+        for (let j = -1; j < 4; j++) {
+          const id = col.seq[clamp(base + j, 0, col.seq.length - 1)];
+          drawCell(id, x0, x1, top + (2 - j + fr + dy) * hh, hh);
+        }
+      ox.globalAlpha = 1;
+    }
+    ox.restore();
+  }
+  // ô đường thắng nháy (đường giữa)
+  if (run && run.kind !== 'lose') {
+    const w = tau - STOPS[run.kind][2] - 0.3;
+    if (w > 0 && flip(w, 4) > 0) {
+      ox.lineWidth = 9; ox.strokeStyle = '#f2b619';
+      for (let c = 0; c < 3; c++) ox.strokeRect(D.cols[c][0] + 5, top + hh + 5, D.cols[c][1] - D.cols[c][0] - 10, hh - 10);
+    }
+  }
+}
+
+// ---------- bi phun (hiệu ứng thử, trong game là lớp VFX) ----------
+const MARBLE = ['#d94a3a', '#2e86c8', '#3f9a4a', '#e8b21e', '#8a4fa8', '#f1ece0'];
+function spawn(n, fx, fy, sp, up) {
+  for (let i = 0; i < n; i++) {
+    const a = -Math.PI / 2 + (Math.random() - 0.5) * 1.9;
+    parts.push({ x: fx, y: fy, vx: Math.cos(a) * sp * (0.4 + Math.random()), vy: Math.sin(a) * sp * (0.6 + Math.random() * 0.6) - up, r: 9 + Math.random() * 7, c: MARBLE[Math.floor(Math.random() * MARBLE.length)], life: 1.6 });
+  }
+}
+
+// ---------- vẽ ----------
+const GROUND = 1180, CX = 440;
+function frame(real) {
+  const dt = Math.min(0.05, (real - lastReal) / 1000 || 0);
+  lastReal = real;
+  const speed = document.getElementById('slow').checked ? 1 / 3 : 1;
+  if (fixed == null) clock += dt * speed;
+  let t = clock;
+  if (document.getElementById('f24').checked) t = Math.floor(t * 24) / 24;
+  cx.clearRect(0, 0, cv.width, cv.height);
+  if (ready) {
+    const P = pose(t);
+    hist.push({ t, lean: P.lean, rot: P.rot });
+    while (hist.length > 2 && hist[0].t < t - 0.4) hist.shift();
+    const lag = d => { // tư thế của d giây trước
+      for (let i = hist.length - 1; i >= 0; i--) if (hist[i].t <= t - d) return hist[i];
+      return hist[0];
+    };
+    drawReels(t);
+    const k = 760 / D.h; // tỉ lệ ảnh → sân khấu
+    // nền: bục gỗ phẳng
+    cx.fillStyle = '#c98a4e'; cx.fillRect(40, GROUND - 6, cv.width - 80, 26);
+    cx.strokeStyle = '#4a2f1c'; cx.lineWidth = 5; cx.strokeRect(40, GROUND - 6, cv.width - 80, 26);
+    cx.save();
+    cx.translate(CX + P.shake, GROUND - P.y * k + Math.abs(P.shake) * 0.5);
+    cx.rotate(P.rot * Math.PI / 180);
+    const g = 1 / P.sy - 1; // bẹp thì phình ngang
+    let y = 0; // tính từ đế đi lên
+    const sh = D.h / D.N;
+    for (let i = D.N - 1; i >= 0; i--) {
+      const u = 1 - (i + 0.5) / D.N;
+      const s = Math.max(0.2, 1 + (P.sy - 1) * D.wt[i]);
+      const dh = sh * s * k;
+      const L = lag(0.07 * u * u);
+      const dx = (L.lean * Math.pow(u, 1.4)) * D.h * k;
+      const bulge = 0.25 + 1.2 * Math.exp(-(((u - 0.42) / 0.3) ** 2));
+      const sxk = (1 + g * 0.75 * bulge) * k;
+      y += dh;
+      cx.drawImage(off, 0, i * sh, D.w, sh, dx - D.w * sxk / 2, -y, D.w * sxk, dh + 0.8);
+    }
+    cx.restore();
+    // bi phun lúc jackpot / trúng
+    if (run) {
+      const w = t - run.t0 - STOPS[run.kind][2] - 0.3, baseY = GROUND - P.y * k;
+      const tx = CX + (D.tray[0] - 0.5) * D.w * k, ty = baseY - (1 - D.tray[1]) * D.h * k;
+      const hx = CX + (D.top[0] - 0.5) * D.w * k, hy = baseY - (1 - D.top[1]) * D.h * k;
+      const due = rate => (Math.random() < rate * dt * speed ? 1 : 0); // số bi mỗi giây
+      if (run.kind === 'win' && ((w > 0.2 && w < 0.3) || (w > 0.82 && w < 0.9))) spawn(due(70), tx, ty, 420, 500);
+      if (run.kind === 'jackpot' && w > 0.54 && w < 1.4) { spawn(due(45), hx, hy, 620, 700); spawn(due(20), tx, ty, 520, 300); }
+    }
+    for (const p of parts) {
+      p.vy += 2600 * dt * speed; p.x += p.vx * dt * speed; p.y += p.vy * dt * speed; p.life -= dt * speed;
+      cx.beginPath(); cx.arc(p.x, p.y, p.r, 0, 7); cx.fillStyle = p.c; cx.fill();
+      cx.lineWidth = 4; cx.strokeStyle = '#4a2f1c'; cx.stroke();
+    }
+    parts = parts.filter(p => p.life > 0 && p.y < cv.height + 40);
+    beatEl.textContent = beatName(t);
+  }
+  if (fixed == null) requestAnimationFrame(frame);
+}
+
+document.querySelectorAll('#dirs button').forEach(b => b.addEventListener('click', () => setDir(b.dataset.dir)));
+document.querySelectorAll('button[data-run]').forEach(b => b.addEventListener('click', () => startRun(b.dataset.run, clock)));
+
+// ?dir=C&shot=jackpot,3.1 : vẽ một khung cố định (để chụp soi)
+const qs = new URLSearchParams(location.search);
+setDir(qs.get('dir') || 'C');
+if (qs.get('shot')) {
+  const [kind, at] = qs.get('shot').split(',');
+  fixed = parseFloat(at);
+  document.getElementById('f24').checked = false;
+  img.addEventListener('load', () => {
+    const steps = Math.ceil(fixed * 60);
+    clock = 1.0;
+    if (kind !== 'idle') startRun(kind, clock);
+    for (let i = 0; i <= steps; i++) { frame(lastReal + 1000 / 60); clock += 1 / 60; }
+    cv.style.cssText = 'position:fixed;left:0;top:0;width:440px;max-width:none;z-index:99';
+    document.title = 'xong';
+  });
+} else if (qs.get('sheet')) { // ?dir=C&sheet=jackpot : tờ khung 12 khung/giây (để soi nhịp)
+  const kind = qs.get('sheet'), dur = kind === 'idle' ? 4.2 : STOPS[kind][2] + 0.3 + { lose: 1.1, win: 1.5, jackpot: 3.8 }[kind] + 0.3;
+  fixed = 0;
+  document.getElementById('f24').checked = false;
+  img.addEventListener('load', () => {
+    const n = Math.ceil(dur * 12), cols = 12, cw = 176, ch = 256;
+    const sh = document.createElement('canvas'), sx = sh.getContext('2d');
+    sh.width = cols * cw; sh.height = Math.ceil(n / cols) * ch;
+    sh.style.cssText = 'position:fixed;left:0;top:0;z-index:99;background:#fff';
+    document.body.appendChild(sh);
+    clock = 1.0;
+    if (kind !== 'idle') startRun(kind, clock);
+    for (let i = 0; i < n * 5; i++) {
+      frame(lastReal + 1000 / 60);
+      if (i % 5 === 0) { const f = i / 5; sx.drawImage(cv, (f % cols) * cw, Math.floor(f / cols) * ch, cw, ch); sx.strokeStyle = '#999'; sx.strokeRect((f % cols) * cw, Math.floor(f / cols) * ch, cw, ch); }
+      clock += 1 / 60;
+    }
+    document.title = 'xong';
+  });
+} else requestAnimationFrame(frame);
+</script>
+</body>
+</html>

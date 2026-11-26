@@ -24,6 +24,8 @@ static class Program
         if (what == "all" || what == "race") RaceRates();
         if (what == "all" || what == "ug") Ug(args.Length > 1 ? int.Parse(args[1]) : 20);
         if (what == "ugcal") UgCal(args.Length > 1 ? int.Parse(args[1]) : 40);
+        if (what == "ugpow") UgPow(args.Length > 1 ? double.Parse(args[1]) : 6000, args.Length > 2 ? double.Parse(args[2]) : 600000,
+            args.Length > 3 ? double.Parse(args[3]) : 800000);
         if (what == "all" || what == "save") SaveRound();
         if (what == "all" || what == "ev") Events();
         if (what == "all" || what == "fish") Fish();
@@ -94,28 +96,41 @@ static class Program
     static void RaceRates()
     {
         var c = D.Cfg.casino.race;
-        var heroes = D.Heroes.Where(h => !h.minion).ToList();
-        foreach (var (tag, cheers) in new[] { ("không cổ vũ", new[] { 0, 0, 0 }), ("cổ vũ Tốt", new[] { 1, 1, 1 }), ("cổ vũ Tuyệt", new[] { 2, 2, 2 }) })
+        foreach (int bet in new[] { c.betMin, 50, 100, 200, 350, c.betMax })
         {
-            int n = 4000, win = 0, hits = 0, stunMe = 0;
-            double ev = 0, len = 0;
-            var byN = new Dictionary<int, (int races, int wins)>();
+            int n = 20000;
+            var cnt = new int[c.runners];
+            double back = 0, len = 0, surges = 0, hits = 0, leads = 0, gap = 0, close = 0;
             for (int i = 0; i < n; i++)
             {
-                var h = heroes[i % heroes.Count];
-                var g = Race.Setup(D, c, 2, h, c.cups[2].oppStar, c.cups[2].level, 20000 + i, (uint)(i * 7919 + 3), null);
-                Race.Run(c, g, cheers);
+                var lineup = Race.Lineup(D, c, (uint)(i * 31 + 7));
+                var g = Race.Setup(D, c, lineup, i % lineup.Count, bet, 20000 + i, (uint)(i * 7919 + 3));
+                int lead = -1;
+                double last = -1, worst = 0;
+                while (!g.done)
+                {
+                    Race.Step(c, g);
+                    if (g.runners.All(r => r.finishT < 0) && g.t > 2)
+                    {
+                        var by = g.runners.OrderByDescending(r => r.pos).ToList();
+                        worst = Math.Max(worst, by[0].pos - by[by.Count - 1].pos);
+                        int now = g.runners.IndexOf(by[0]);
+                        if (now != lead && g.t - last > 0.5) { leads++; lead = now; last = g.t; }
+                    }
+                }
                 int p = Race.PlaceOf(g);
-                if (p == 0) win++;
-                ev += Race.Payout(c, 100, p, g.runners.Count) / 100.0;
-                hits += g.events.Count(e => e.kind == RaceEv.Hit);
-                stunMe += g.Player.stuns;
+                cnt[p]++;
+                back += Race.Payout(c, bet, p);
                 len += g.t;
-                var cur = byN.TryGetValue(g.runners.Count, out var v) ? v : (0, 0);
-                byN[g.runners.Count] = (cur.Item1 + 1, cur.Item2 + (p == 0 ? 1 : 0));
+                gap += worst;
+                var fin = g.runners.Select(r => r.finishT).OrderBy(x => x).ToList();
+                close += fin[1] - fin[0];
+                surges += g.events.Count(e => e.kind == RaceEv.Gust);
+                hits += g.events.Count(e => e.kind == RaceEv.Hit);
             }
-            Console.WriteLine($"Đua {tag}: về nhất {win / (double)n:P0} | lời {ev / n:F2}× lệ phí | đánh trúng {hits / (double)n:F1} / cuộc | mình bị choáng {stunMe / (double)n:F1} | {len / n:F1} giây | " +
-                              string.Join(" ", byN.OrderBy(k => k.Key).Select(k => $"{k.Key} tướng: nhất {k.Value.wins / (double)k.Value.races:P0}")));
+            Console.WriteLine($"Đua cược {bet,3}: hạng " + string.Join(" / ", cnt.Select(x => (x / (double)n).ToString("P1"))) +
+                              $" | hoàn trả {back / (n * (double)bet):F3} (bảng {Race.Rtp(c, bet, c.runners):F3}) | dài {len / n:F1}s | bứt tốc {surges / n:F1}, húc {hits / n:F1}, " +
+                              $"đổi ngôi đầu {leads / n:F1} | đầu-cuối xa nhất {gap / n:F1} | nhất-nhì cách {close / n:F2}s");
         }
     }
 
@@ -143,6 +158,52 @@ static class Program
             if (b.winner == 0) win++;
         }
         return win / (double)n;
+    }
+
+    // dò cấp từng đội ngầm theo LỰC CHIẾN (người dùng 2026-11-26: bậc Vàng 68k sang Huyền Thoại 600k "gap lớn quá"): lực chiến đội ra
+    // sân (Underground.Power, đã tính luật ngày của địch) tăng theo cấp số nhân từ lo (bậc đầu) tới hi (bậc thường cuối), Nhà Vô Địch = champ.
+    // Sao theo cấp (Sim.StarAt) + extraStar của bậc. Ghi ug_levels.json (gen_casino.py đọc lại).
+    static void UgPow(double lo, double hi, double champ)
+    {
+        var c = D.Cfg.casino.underground;
+        int normal = c.tiers.Count(t => !t.weekly);
+        int[] extraStar = { 2, 1, 1 };
+        var outDays = new List<string>();
+        for (int day = 0; day < c.rotation.Count; day++)
+        {
+            var ud = c.rotation[day];
+            var lvs = new List<string>();
+            var line = new List<string>();
+            for (int k = 0; k < ud.entries.Count; k++)
+            {
+                var e = ud.entries[k];
+                double target = k >= normal ? champ : lo * Math.Pow(hi / lo, normal > 1 ? k / (double)(normal - 1) : 0);
+                int ex = k < extraStar.Length ? extraStar[k] : 0;
+                void Set(int lv)
+                {
+                    foreach (var m in e.team)
+                    {
+                        m.level = lv;
+                        m.star = Math.Max(1, Math.Min(20, Sim.StarAt(D.Cfg, lv) + ex));
+                    }
+                }
+                int best = 1;
+                double bestErr = double.MaxValue;
+                for (int lv = 1; lv <= 200; lv++)
+                {
+                    Set(lv);
+                    double err = Math.Abs(Math.Log(Underground.Power(D, e) / target));
+                    if (err < bestErr) { bestErr = err; best = lv; }
+                }
+                Set(best);
+                int pw = Underground.Power(D, e);
+                lvs.Add($"[{best}, {e.team[0].star}]");
+                line.Add($"{c.tiers[Math.Min(k, c.tiers.Count - 1)].name} {Underground.Count(e)}t cấp {best} sao {e.team[0].star}: {pw / 1000.0:0.#}k (đích {target / 1000:0.#}k)");
+            }
+            outDays.Add("[" + string.Join(", ", lvs) + "]");
+            Console.WriteLine($"Ngày {day}: " + string.Join(" | ", line));
+        }
+        File.WriteAllText(Path.Combine("..", "ug_levels.json"), "[" + string.Join(",\n", outDays) + "]");
     }
 
     // dò cấp đội địch cho từng đội để trúng tỉ lệ thắng mục tiêu của bậc (đội mẫu ở cấp mở bậc); ghi ug_levels.json
@@ -199,7 +260,7 @@ static class Program
             for (int k = 0; k < ud.entries.Count; k++)
             {
                 var e = ud.entries[k];
-                var tier = k < 5 ? c.tiers[k] : c.tiers[5];
+                var tier = c.tiers[Math.Min(k, c.tiers.Count - 1)];
                 int lv = tier.level;
                 int star = Math.Max(1, Math.Min(20, Sim.StarAt(D.Cfg, lv)));
                 // đội: 3 tướng Hiếm, ưu tiên khắc hệ của chủ lực địch

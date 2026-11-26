@@ -1,6 +1,7 @@
 // Một đảo trên bản đồ thế giới sảnh (ảnh đảo tách riêng, ArtGen/Islands/sanh_moi/tach_dao.py).
 // - Bấm theo đúng hình đảo: mặt nạ thô nướng sẵn lúc dựng prefab (không cần bật đọc ảnh); kéo bản đồ vẫn thông qua (HubPan ở cha).
-// - Bấm: đảo nhún (bẹp xuống, nảy lên, lắng lại quanh chân đảo); rồi gọi OnClick (sảnh: vào đảo như bấm bảng tên).
+// - Bấm: gọi OnClick (sảnh: vào đảo như bấm bảng tên). Bỏ nhún khi chạm (người dùng 2026-11-26: "bỏ phần tap nhún đảo khi tap vào đảo đi");
+//   Poke() vẫn nhún cho các lượt chụp cũ (HubMapTour, HubNightTour).
 // - Đèn đêm (người dùng 2026-11-20: "buổi đêm các đảo sáng lên, người chơi phải biết click được vào đảo; ban ngày không cần sáng, chiều tối
 //   thì cần; không dùng mũi tên"; bỏ quầng sáng thở cả ngày của 2026-11-19): nhóm "dem_<hệ>" trên lớp nhuộm đêm (đuốc thắp, chỗ phát
 //   sáng; shader tự sáng theo giờ qua _PokiNight) nhún cùng đảo, ẩn khi đảo chưa mở (mây che). Dựng: HubNightMenu.
@@ -62,7 +63,6 @@ namespace PokiClash
         public void OnPointerClick(PointerEventData e)
         {
             if (!open) return;
-            bounce = 0;
             OnClick?.Invoke();
         }
 

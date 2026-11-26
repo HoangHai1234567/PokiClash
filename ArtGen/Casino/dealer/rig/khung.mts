@@ -1,12 +1,15 @@
 // Kết xuất khung duyệt với KHUNG NHÌN CỐ ĐỊNH (như camera trong game) bằng lõi AtomSpine (renderFrame nhận hộp thế giới; lệnh
 // `atom sheet` thì tự co theo hình nên clip có tay vươn ra ngoài khung sẽ bị thu nhỏ). Chỉ dùng để xem, không sửa project.
-// Chạy (xem_d2.py gọi): node D:/AtomSpine/node_modules/tsx/dist/cli.mjs khung.mts <thư mục project> <thư mục ra> <fps>
+// Chạy (xem_d2.py gọi, đặt biến ATOMSPINE_DIR): node <AtomSpine>/node_modules/tsx/dist/cli.mjs khung.mts <thư mục project> <thư mục ra> <fps>
 //                        <minX,minY,maxX,maxY> <rộng> <cao> <cột> <clip,clip,...> [bg RRGGBB]
 // Ra: <thư mục ra>/<clip>_sheet.png (các khung xếp lưới, ô rộng x cao) + in "<clip> <số khung> <dur>".
 import { readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
-import { parseProject, renderFrame, encodePng } from 'file:///D:/AtomSpine/packages/core/src/index.ts';
-import { projectImages } from 'file:///D:/AtomSpine/packages/cli/src/images.ts';
+import { pathToFileURL } from 'node:url';
+
+const AS = process.env.ATOMSPINE_DIR ?? 'D:/AtomSpine';
+const { parseProject, renderFrame, encodePng } = await import(pathToFileURL(join(AS, 'packages/core/src/index.ts')).href);
+const { projectImages } = await import(pathToFileURL(join(AS, 'packages/cli/src/images.ts')).href);
 
 const [dir, out, fpsS, boxS, wS, hS, colsS, clipsS, bgS] = process.argv.slice(2);
 const fps = Number(fpsS);

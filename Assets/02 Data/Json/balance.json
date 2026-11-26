@@ -2016,32 +2016,28 @@
   "race": {
    "seg": 60,
    "segs": 3,
-   "spdBase": 10,
-   "spdK": 0.004,
-   "spdMid": 60,
-   "starK": 0.002,
-   "lvK": 0.001,
-   "lvClamp": 40,
-   "same": 1.06,
-   "weak": 0.96,
-   "noise": 0.08,
-   "cheer": [0, 0.06, 0.09],
-   "cheerSec": 1.5,
-   "lucky": 0.03,
-   "daily": 20,
-   "minRunners": 3,
-   "maxRunners": 5,
-   "fightRate": 0.55,
-   "fightRange": 9,
-   "fightCool": 2.6,
-   "hitChance": 0.72,
-   "stunSec": 1.3,
-   "trip": 0.6,
-   "guardSec": 0.9,
-   "gustRate": 0.25,
-   "gust": 0.3,
-   "gustSec": 1.0,
-   "placeK": [0.55, 0.3, 0.1, 0, 0],
+   "daily": 5,
+   "runners": 5,
+   "betMin": 10,
+   "betMax": 500,
+   "chips": [50, 100, 200, 500],
+   "pay": [3, 2, 1, 0, 0],
+   "oddsLow": [0.18, 0.2, 0.24],
+   "oddsHigh": [0.09, 0.13, 0.24],
+   "raceSec": 20,
+   "gapMin": 0.12,
+   "gapMax": 0.5,
+   "spread": 4.5,
+   "keyMin": 1.3,
+   "keyMax": 2.3,
+   "startSec": 0.8,
+   "endSec": 2.6,
+   "surge": 3.2,
+   "surgeSec": 0.9,
+   "stunDrop": 3.6,
+   "stunMax": 1.2,
+   "comeback": 0.55,
+   "tease": 0.6,
    "points": [3, 2, 1, 0, 0],
    "weekPts": 10,
    "cups": [
@@ -2184,11 +2180,17 @@
    "winMult": 2.5,
    "rewinMult": 1,
    "rewin": [{"k": "stones", "n": 1}],
+   "daily": 5,
    "tiers": [
     {"name": "Đá", "level": 35, "fee": 20, "shards": 1},
-    {"name": "Đồng", "level": 50, "fee": 40, "shards": 2},
-    {"name": "Bạc", "level": 80, "fee": 80, "shards": 3, "items": [{"k": "stones", "n": 2}]},
-    {"name": "Vàng", "level": 110, "fee": 150, "shards": 5, "items": [{"k": "evo", "n": 1}]},
+    {"name": "Đồng", "level": 45, "fee": 30, "shards": 1},
+    {"name": "Bạc", "level": 55, "fee": 40, "shards": 2, "items": [{"k": "stones", "n": 1}]},
+    {"name": "Vàng", "level": 65, "fee": 55, "shards": 2, "items": [{"k": "stones", "n": 2}]},
+    {"name": "Bạch Kim", "level": 80, "fee": 75, "shards": 3, "items": [{"k": "stones", "n": 3}]},
+    {"name": "Lục Bảo", "level": 95, "fee": 100, "shards": 4, "items": [{"k": "evo", "n": 1}]},
+    {"name": "Kim Cương", "level": 110, "fee": 130, "shards": 5, "items": [{"k": "evo", "n": 1}]},
+    {"name": "Cao Thủ", "level": 120, "fee": 165, "shards": 6, "items": [{"k": "evo", "n": 1}, {"k": "stones", "n": 2}]},
+    {"name": "Đại Cao Thủ", "level": 130, "fee": 205, "shards": 7, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
     {"name": "Huyền Thoại", "level": 140, "fee": 250, "shards": 8, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
     {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 10, "weekly": true, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]}
    ],
@@ -2198,44 +2200,94 @@
       {
        "name": "Xưởng Thép: tân binh",
        "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
-       "team": [{"hero": "phi_thuong", "level": 56, "star": 8, "card": 4}],
+       "team": [{"hero": "phi_thuong", "level": 50, "star": 8, "card": 4}],
        "lead": "phi_thuong"
       },
       {
-       "name": "Xưởng Thép: đấu sĩ",
+       "name": "Xưởng Thép: lính mới",
        "rule": {"kind": "buff", "p": 0.15},
-       "team": [{"hero": "khien_bac", "level": 61, "star": 8, "card": 4}, {"hero": "bo_cap", "level": 61, "star": 8, "card": 4}],
-       "lead": "khien_bac"
+       "team": [{"hero": "bo_ngua", "level": 44, "star": 7, "card": 4}, {"hero": "bo_cap", "level": 44, "star": 7, "card": 4}],
+       "lead": "bo_ngua"
+      },
+      {
+       "name": "Xưởng Thép: đấu sĩ",
+       "rule": {},
+       "team": [
+        {"hero": "chien_than", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 51, "star": 7, "card": 4}
+       ],
+       "lead": "chien_than"
       },
       {
        "name": "Xưởng Thép: cựu binh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "khien_bac", "level": 68, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 68, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 68, "star": 7, "card": 4}
+       ],
+       "lead": "khien_bac"
+      },
+      {
+       "name": "Xưởng Thép: tinh nhuệ",
        "rule": {},
        "team": [
-        {"hero": "tam_kiem", "level": 91, "star": 8, "card": 4},
-        {"hero": "khien_bac", "level": 91, "star": 8, "card": 4},
-        {"hero": "bo_cap", "level": 91, "star": 8, "card": 4}
+        {"hero": "tam_kiem", "level": 82, "star": 7, "card": 4},
+        {"hero": "khien_bac", "level": 82, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 82, "star": 7, "card": 4}
        ],
        "lead": "tam_kiem"
       },
       {
-       "name": "Xưởng Thép: thủ lĩnh",
-       "rule": {"kind": "picks", "n": 4},
+       "name": "Xưởng Thép: đội trưởng",
+       "rule": {"kind": "hp", "p": 0.3},
        "team": [
-        {"hero": "thiet_phu", "level": 118, "star": 9, "card": 5},
-        {"hero": "khien_bac", "level": 118, "star": 9, "card": 5},
-        {"hero": "chien_than", "level": 118, "star": 9, "card": 5}
+        {"hero": "thiet_phu", "level": 91, "star": 8, "card": 5},
+        {"hero": "tam_kiem", "level": 91, "star": 8, "card": 5},
+        {"hero": "chien_than", "level": 91, "star": 8, "card": 5}
        ],
        "lead": "thiet_phu"
       },
       {
-       "name": "Xưởng Thép: huyền thoại",
-       "rule": {"kind": "solo"},
+       "name": "Xưởng Thép: thủ lĩnh",
+       "rule": {"kind": "def", "elem": "kim", "p": 0.25},
        "team": [
-        {"hero": "kim_nghe", "level": 149, "star": 11, "card": 5},
-        {"hero": "thiet_phu", "level": 149, "star": 11, "card": 5},
-        {"hero": "tam_kiem", "level": 149, "star": 11, "card": 5}
+        {"hero": "tam_kiem", "level": 111, "star": 9, "card": 5},
+        {"hero": "khien_bac", "level": 111, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 111, "star": 9, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Xưởng Thép: cao thủ",
+       "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
+       "team": [
+        {"hero": "ung_thep", "level": 125, "star": 10, "card": 5},
+        {"hero": "tam_kiem", "level": 125, "star": 10, "card": 5},
+        {"hero": "khien_bac", "level": 125, "star": 10, "card": 5}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: bá chủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "kim_nghe", "level": 135, "star": 10, "card": 5},
+        {"hero": "ung_thep", "level": 135, "star": 10, "card": 5},
+        {"hero": "tam_kiem", "level": 135, "star": 10, "card": 5}
        ],
        "lead": "kim_nghe"
+      },
+      {
+       "name": "Xưởng Thép: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "ung_thep", "level": 155, "star": 12, "card": 5},
+        {"hero": "thiet_phu", "level": 155, "star": 12, "card": 5},
+        {"hero": "tam_kiem", "level": 155, "star": 12, "card": 5}
+       ],
+       "lead": "ung_thep"
       }
      ]
     },
@@ -2244,42 +2296,92 @@
       {
        "name": "Rừng Gai: tân binh",
        "rule": {"kind": "hp", "p": 0.3},
-       "team": [{"hero": "bom_la", "level": 59, "star": 8, "card": 4}],
+       "team": [{"hero": "bom_la", "level": 49, "star": 8, "card": 4}],
        "lead": "bom_la"
       },
       {
-       "name": "Rừng Gai: đấu sĩ",
+       "name": "Rừng Gai: lính mới",
        "rule": {"kind": "def", "elem": "moc", "p": 0.25},
-       "team": [{"hero": "gac_da", "level": 67, "star": 8, "card": 4}, {"hero": "bom_la", "level": 67, "star": 8, "card": 4}],
+       "team": [{"hero": "gac_da", "level": 48, "star": 7, "card": 4}, {"hero": "bom_la", "level": 48, "star": 7, "card": 4}],
        "lead": "gac_da"
       },
       {
-       "name": "Rừng Gai: cựu binh",
+       "name": "Rừng Gai: đấu sĩ",
        "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
        "team": [
-        {"hero": "tho_hoang", "level": 93, "star": 8, "card": 4},
-        {"hero": "tien_la", "level": 93, "star": 8, "card": 4},
-        {"hero": "gac_da", "level": 93, "star": 8, "card": 4}
+        {"hero": "phong_linh", "level": 48, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 48, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 48, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
+      },
+      {
+       "name": "Rừng Gai: cựu binh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "gio_loc", "level": 62, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 62, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 62, "star": 7, "card": 4}
+       ],
+       "lead": "gio_loc"
+      },
+      {
+       "name": "Rừng Gai: tinh nhuệ",
+       "rule": {},
+       "team": [
+        {"hero": "tho_hoang", "level": 83, "star": 7, "card": 4},
+        {"hero": "phong_linh", "level": 83, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 83, "star": 7, "card": 4}
        ],
        "lead": "tho_hoang"
       },
       {
-       "name": "Rừng Gai: thủ lĩnh",
-       "rule": {"kind": "buff", "p": 0.15},
+       "name": "Rừng Gai: đội trưởng",
+       "rule": {"kind": "picks", "n": 4},
        "team": [
-        {"hero": "tho_hoang", "level": 117, "star": 9, "card": 5},
-        {"hero": "moc_tinh", "level": 117, "star": 9, "card": 5},
-        {"hero": "phong_linh", "level": 117, "star": 9, "card": 5}
+        {"hero": "long_vuot", "level": 98, "star": 8, "card": 5},
+        {"hero": "phong_linh", "level": 98, "star": 8, "card": 5},
+        {"hero": "gio_loc", "level": 98, "star": 8, "card": 5}
+       ],
+       "lead": "long_vuot"
+      },
+      {
+       "name": "Rừng Gai: thủ lĩnh",
+       "rule": {},
+       "team": [
+        {"hero": "tho_hoang", "level": 112, "star": 9, "card": 5},
+        {"hero": "moc_tinh", "level": 112, "star": 9, "card": 5},
+        {"hero": "phong_linh", "level": 112, "star": 9, "card": 5}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: cao thủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thanh_long", "level": 123, "star": 9, "card": 5},
+        {"hero": "phong_linh", "level": 123, "star": 9, "card": 5},
+        {"hero": "gio_loc", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "thanh_long"
+      },
+      {
+       "name": "Rừng Gai: bá chủ",
+       "rule": {"kind": "def", "elem": "moc", "p": 0.25},
+       "team": [
+        {"hero": "tho_hoang", "level": 139, "star": 10, "card": 5},
+        {"hero": "moc_tinh", "level": 139, "star": 10, "card": 5},
+        {"hero": "long_vuot", "level": 139, "star": 10, "card": 5}
        ],
        "lead": "tho_hoang"
       },
       {
        "name": "Rừng Gai: huyền thoại",
-       "rule": {},
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
        "team": [
-        {"hero": "thanh_long", "level": 146, "star": 11, "card": 5},
-        {"hero": "tho_hoang", "level": 146, "star": 11, "card": 5},
-        {"hero": "long_vuot", "level": 146, "star": 11, "card": 5}
+        {"hero": "thanh_long", "level": 149, "star": 11, "card": 5},
+        {"hero": "moc_tinh", "level": 149, "star": 11, "card": 5},
+        {"hero": "long_vuot", "level": 149, "star": 11, "card": 5}
        ],
        "lead": "thanh_long"
       }
@@ -2290,42 +2392,92 @@
       {
        "name": "Sóng Ngầm: tân binh",
        "rule": {"kind": "picks", "n": 4},
-       "team": [{"hero": "ti_tach", "level": 59, "star": 8, "card": 4}],
+       "team": [{"hero": "ti_tach", "level": 54, "star": 8, "card": 4}],
        "lead": "ti_tach"
       },
       {
+       "name": "Sóng Ngầm: lính mới",
+       "rule": {},
+       "team": [{"hero": "ha_ba", "level": 49, "star": 7, "card": 4}, {"hero": "ca_den", "level": 49, "star": 7, "card": 4}],
+       "lead": "ha_ba"
+      },
+      {
        "name": "Sóng Ngầm: đấu sĩ",
-       "rule": {"kind": "solo"},
-       "team": [{"hero": "giong_bao", "level": 59, "star": 7, "card": 4}, {"hero": "ti_tach", "level": 59, "star": 7, "card": 4}],
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "giong_bao", "level": 46, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 46, "star": 7, "card": 4},
+        {"hero": "ha_ba", "level": 46, "star": 7, "card": 4}
+       ],
        "lead": "giong_bao"
       },
       {
        "name": "Sóng Ngầm: cựu binh",
-       "rule": {"kind": "hp", "p": 0.3},
-       "team": [
-        {"hero": "uyen_xa", "level": 88, "star": 8, "card": 4},
-        {"hero": "han_ngac", "level": 88, "star": 8, "card": 4},
-        {"hero": "ha_ba", "level": 88, "star": 8, "card": 4}
-       ],
-       "lead": "uyen_xa"
-      },
-      {
-       "name": "Sóng Ngầm: thủ lĩnh",
        "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
        "team": [
-        {"hero": "lien_kinh", "level": 116, "star": 9, "card": 5},
-        {"hero": "han_ngac", "level": 116, "star": 9, "card": 5},
-        {"hero": "giong_bao", "level": 116, "star": 9, "card": 5}
+        {"hero": "so_ngoc", "level": 66, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 66, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 66, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
+      },
+      {
+       "name": "Sóng Ngầm: tinh nhuệ",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "han_ngac", "level": 80, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 80, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "han_ngac"
+      },
+      {
+       "name": "Sóng Ngầm: đội trưởng",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lien_kinh", "level": 91, "star": 8, "card": 5},
+        {"hero": "so_ngoc", "level": 91, "star": 8, "card": 5},
+        {"hero": "giong_bao", "level": 91, "star": 8, "card": 5}
        ],
        "lead": "lien_kinh"
       },
       {
-       "name": "Sóng Ngầm: huyền thoại",
-       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "name": "Sóng Ngầm: thủ lĩnh",
+       "rule": {},
        "team": [
-        {"hero": "hai_long", "level": 146, "star": 11, "card": 5},
-        {"hero": "uyen_xa", "level": 146, "star": 11, "card": 5},
-        {"hero": "lien_kinh", "level": 146, "star": 11, "card": 5}
+        {"hero": "uyen_xa", "level": 110, "star": 9, "card": 5},
+        {"hero": "lien_kinh", "level": 110, "star": 9, "card": 5},
+        {"hero": "han_ngac", "level": 110, "star": 9, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: cao thủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "hai_long", "level": 123, "star": 9, "card": 5},
+        {"hero": "lien_kinh", "level": 123, "star": 9, "card": 5},
+        {"hero": "han_ngac", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Sóng Ngầm: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "uyen_xa", "level": 140, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: huyền thoại",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "hai_long", "level": 147, "star": 11, "card": 5},
+        {"hero": "uyen_xa", "level": 147, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 147, "star": 11, "card": 5}
        ],
        "lead": "hai_long"
       }
@@ -2336,44 +2488,94 @@
       {
        "name": "Lò Lửa: tân binh",
        "rule": {"kind": "buff", "p": 0.15},
-       "team": [{"hero": "su_tu_lua", "level": 62, "star": 9, "card": 4}],
+       "team": [{"hero": "su_tu_lua", "level": 48, "star": 8, "card": 4}],
        "lead": "su_tu_lua"
       },
       {
-       "name": "Lò Lửa: đấu sĩ",
+       "name": "Lò Lửa: lính mới",
        "rule": {},
-       "team": [{"hero": "nguu_quyen", "level": 68, "star": 8, "card": 4}, {"hero": "su_tu_lua", "level": 68, "star": 8, "card": 4}],
+       "team": [{"hero": "nham_than", "level": 50, "star": 7, "card": 4}, {"hero": "hoa_nhan", "level": 50, "star": 7, "card": 4}],
+       "lead": "nham_than"
+      },
+      {
+       "name": "Lò Lửa: đấu sĩ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "nguu_quyen", "level": 50, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 50, "star": 7, "card": 4},
+        {"hero": "nham_than", "level": 50, "star": 7, "card": 4}
+       ],
        "lead": "nguu_quyen"
       },
       {
        "name": "Lò Lửa: cựu binh",
-       "rule": {"kind": "picks", "n": 4},
+       "rule": {},
        "team": [
-        {"hero": "huyen_viem", "level": 91, "star": 8, "card": 4},
-        {"hero": "nguu_quyen", "level": 91, "star": 8, "card": 4},
-        {"hero": "su_tu_lua", "level": 91, "star": 8, "card": 4}
+        {"hero": "hong_lien", "level": 68, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 68, "star": 7, "card": 4},
+        {"hero": "nham_than", "level": 68, "star": 7, "card": 4}
+       ],
+       "lead": "hong_lien"
+      },
+      {
+       "name": "Lò Lửa: tinh nhuệ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "huyen_viem", "level": 75, "star": 7, "card": 4},
+        {"hero": "giap_long", "level": 75, "star": 7, "card": 4},
+        {"hero": "nguu_quyen", "level": 75, "star": 7, "card": 4}
        ],
        "lead": "huyen_viem"
       },
       {
-       "name": "Lò Lửa: thủ lĩnh",
-       "rule": {"kind": "solo"},
+       "name": "Lò Lửa: đội trưởng",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
        "team": [
-        {"hero": "huyen_viem", "level": 125, "star": 10, "card": 5},
-        {"hero": "hoa_tinh", "level": 125, "star": 10, "card": 5},
-        {"hero": "nguu_quyen", "level": 125, "star": 10, "card": 5}
+        {"hero": "hoa_tinh", "level": 94, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 94, "star": 8, "card": 5},
+        {"hero": "hong_lien", "level": 94, "star": 8, "card": 5}
+       ],
+       "lead": "hoa_tinh"
+      },
+      {
+       "name": "Lò Lửa: thủ lĩnh",
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
+       "team": [
+        {"hero": "giap_long", "level": 110, "star": 9, "card": 5},
+        {"hero": "nguu_quyen", "level": 110, "star": 9, "card": 5},
+        {"hero": "hong_lien", "level": 110, "star": 9, "card": 5}
+       ],
+       "lead": "giap_long"
+      },
+      {
+       "name": "Lò Lửa: cao thủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lan_hoa", "level": 119, "star": 9, "card": 5},
+        {"hero": "hoa_tinh", "level": 119, "star": 9, "card": 5},
+        {"hero": "giap_long", "level": 119, "star": 9, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Lò Lửa: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "huyen_viem", "level": 140, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "giap_long", "level": 140, "star": 11, "card": 5}
        ],
        "lead": "huyen_viem"
       },
       {
        "name": "Lò Lửa: huyền thoại",
-       "rule": {"kind": "hp", "p": 0.3},
+       "rule": {"kind": "picks", "n": 4},
        "team": [
-        {"hero": "huyen_viem", "level": 152, "star": 11, "card": 5},
-        {"hero": "hoa_tinh", "level": 152, "star": 11, "card": 5},
-        {"hero": "giap_long", "level": 152, "star": 11, "card": 5}
+        {"hero": "lan_hoa", "level": 153, "star": 11, "card": 5},
+        {"hero": "huyen_viem", "level": 153, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 153, "star": 11, "card": 5}
        ],
-       "lead": "huyen_viem"
+       "lead": "lan_hoa"
       }
      ]
     },
@@ -2382,42 +2584,92 @@
       {
        "name": "Mỏ Đá: tân binh",
        "rule": {"kind": "def", "elem": "tho", "p": 0.25},
-       "team": [{"hero": "thach_nhan", "level": 56, "star": 8, "card": 4}],
+       "team": [{"hero": "thach_nhan", "level": 52, "star": 8, "card": 4}],
        "lead": "thach_nhan"
       },
       {
-       "name": "Mỏ Đá: đấu sĩ",
+       "name": "Mỏ Đá: lính mới",
        "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
-       "team": [{"hero": "hat_de", "level": 64, "star": 8, "card": 4}, {"hero": "cao_da", "level": 64, "star": 8, "card": 4}],
+       "team": [{"hero": "cao_da", "level": 48, "star": 7, "card": 4}, {"hero": "lung_vuong", "level": 48, "star": 7, "card": 4}],
+       "lead": "cao_da"
+      },
+      {
+       "name": "Mỏ Đá: đấu sĩ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "hat_de", "level": 45, "star": 7, "card": 4},
+        {"hero": "thach_nhan", "level": 45, "star": 7, "card": 4},
+        {"hero": "cao_da", "level": 45, "star": 7, "card": 4}
+       ],
        "lead": "hat_de"
       },
       {
        "name": "Mỏ Đá: cựu binh",
-       "rule": {"kind": "buff", "p": 0.15},
+       "rule": {},
        "team": [
-        {"hero": "phu_van", "level": 88, "star": 8, "card": 4},
-        {"hero": "hat_de", "level": 88, "star": 8, "card": 4},
-        {"hero": "ho_khoan", "level": 88, "star": 8, "card": 4}
+        {"hero": "thach_nhan", "level": 69, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 69, "star": 7, "card": 4},
+        {"hero": "cao_da", "level": 69, "star": 7, "card": 4}
        ],
-       "lead": "phu_van"
+       "lead": "thach_nhan"
+      },
+      {
+       "name": "Mỏ Đá: tinh nhuệ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "rua_nui", "level": 79, "star": 7, "card": 4},
+        {"hero": "ho_kim_cuong", "level": 79, "star": 7, "card": 4},
+        {"hero": "hat_de", "level": 79, "star": 7, "card": 4}
+       ],
+       "lead": "rua_nui"
+      },
+      {
+       "name": "Mỏ Đá: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "cu_phu", "level": 97, "star": 8, "card": 5},
+        {"hero": "phu_van", "level": 97, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 97, "star": 8, "card": 5}
+       ],
+       "lead": "cu_phu"
       },
       {
        "name": "Mỏ Đá: thủ lĩnh",
-       "rule": {},
+       "rule": {"kind": "hp", "p": 0.3},
        "team": [
-        {"hero": "ho_kim_cuong", "level": 120, "star": 9, "card": 5},
-        {"hero": "cu_phu", "level": 120, "star": 9, "card": 5},
-        {"hero": "hat_de", "level": 120, "star": 9, "card": 5}
+        {"hero": "rua_nui", "level": 108, "star": 9, "card": 5},
+        {"hero": "cu_phu", "level": 108, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 108, "star": 9, "card": 5}
        ],
-       "lead": "ho_kim_cuong"
+       "lead": "rua_nui"
+      },
+      {
+       "name": "Mỏ Đá: cao thủ",
+       "rule": {"kind": "def", "elem": "tho", "p": 0.25},
+       "team": [
+        {"hero": "cu_phu", "level": 128, "star": 10, "card": 5},
+        {"hero": "phu_van", "level": 128, "star": 10, "card": 5},
+        {"hero": "hat_de", "level": 128, "star": 10, "card": 5}
+       ],
+       "lead": "cu_phu"
+      },
+      {
+       "name": "Mỏ Đá: bá chủ",
+       "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
+       "team": [
+        {"hero": "giap_nham", "level": 137, "star": 10, "card": 5},
+        {"hero": "rua_nui", "level": 137, "star": 10, "card": 5},
+        {"hero": "cu_phu", "level": 137, "star": 10, "card": 5}
+       ],
+       "lead": "giap_nham"
       },
       {
        "name": "Mỏ Đá: huyền thoại",
-       "rule": {"kind": "picks", "n": 4},
+       "rule": {"kind": "buff", "p": 0.15},
        "team": [
-        {"hero": "rua_nui", "level": 149, "star": 11, "card": 5},
-        {"hero": "ho_kim_cuong", "level": 149, "star": 11, "card": 5},
-        {"hero": "cu_phu", "level": 149, "star": 11, "card": 5}
+        {"hero": "rua_nui", "level": 150, "star": 11, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 150, "star": 11, "card": 5},
+        {"hero": "cu_phu", "level": 150, "star": 11, "card": 5}
        ],
        "lead": "rua_nui"
       }
@@ -2425,40 +2677,90 @@
     },
     {
      "entries": [
-      {"name": "Liên Minh: tân binh", "rule": {"kind": "solo"}, "team": [{"hero": "mam_u", "level": 37, "star": 8, "card": 4}], "lead": "mam_u"},
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "mam_u", "level": 57, "star": 8, "card": 4}], "lead": "mam_u"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [{"hero": "thach_nhan", "level": 44, "star": 7, "card": 4}, {"hero": "nham_than", "level": 44, "star": 7, "card": 4}],
+       "lead": "thach_nhan"
+      },
       {
        "name": "Liên Minh: đấu sĩ",
-       "rule": {"kind": "hp", "p": 0.3},
-       "team": [{"hero": "khien_bac", "level": 62, "star": 8, "card": 4}, {"hero": "phi_thuong", "level": 62, "star": 8, "card": 4}],
-       "lead": "khien_bac"
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "so_ngoc", "level": 50, "star": 7, "card": 4},
+        {"hero": "phong_linh", "level": 50, "star": 7, "card": 4},
+        {"hero": "ha_ba", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
       },
       {
        "name": "Liên Minh: cựu binh",
-       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
-       "team": [
-        {"hero": "long_vuot", "level": 84, "star": 7, "card": 4},
-        {"hero": "khien_bac", "level": 84, "star": 7, "card": 4},
-        {"hero": "ti_tach", "level": 84, "star": 7, "card": 4}
-       ],
-       "lead": "long_vuot"
-      },
-      {
-       "name": "Liên Minh: thủ lĩnh",
        "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
        "team": [
-        {"hero": "thiet_phu", "level": 113, "star": 9, "card": 5},
-        {"hero": "han_ngac", "level": 113, "star": 9, "card": 5},
-        {"hero": "phu_van", "level": 113, "star": 9, "card": 5}
+        {"hero": "su_tu_lua", "level": 68, "star": 7, "card": 4},
+        {"hero": "phi_thuong", "level": 68, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 68, "star": 7, "card": 4}
+       ],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "moc_tinh", "level": 79, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 79, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 79, "star": 7, "card": 4}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "thiet_phu", "level": 95, "star": 8, "card": 5},
+        {"hero": "cu_phu", "level": 95, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 95, "star": 8, "card": 5}
        ],
        "lead": "thiet_phu"
       },
       {
-       "name": "Liên Minh: huyền thoại",
-       "rule": {"kind": "buff", "p": 0.15},
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "picks", "n": 4},
        "team": [
-        {"hero": "thanh_long", "level": 139, "star": 10, "card": 5},
-        {"hero": "hai_long", "level": 139, "star": 10, "card": 5},
-        {"hero": "lien_kinh", "level": 139, "star": 10, "card": 5}
+        {"hero": "uyen_xa", "level": 111, "star": 9, "card": 5},
+        {"hero": "cu_phu", "level": 111, "star": 9, "card": 5},
+        {"hero": "hong_lien", "level": 111, "star": 9, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "lan_hoa", "level": 121, "star": 9, "card": 5},
+        {"hero": "giap_nham", "level": 121, "star": 9, "card": 5},
+        {"hero": "hoa_tinh", "level": 121, "star": 9, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "kim_nghe", "level": 133, "star": 10, "card": 5},
+        {"hero": "giap_nham", "level": 133, "star": 10, "card": 5},
+        {"hero": "huyen_viem", "level": 133, "star": 10, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "thanh_long", "level": 145, "star": 11, "card": 5},
+        {"hero": "lan_hoa", "level": 145, "star": 11, "card": 5},
+        {"hero": "hai_long", "level": 145, "star": 11, "card": 5}
        ],
        "lead": "thanh_long"
       }
@@ -2466,52 +2768,102 @@
     },
     {
      "entries": [
-      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "bo_ngua", "level": 65, "star": 9, "card": 4}], "lead": "bo_ngua"},
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "bo_ngua", "level": 54, "star": 8, "card": 4}], "lead": "bo_ngua"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [{"hero": "phi_thuong", "level": 49, "star": 7, "card": 4}, {"hero": "ha_ba", "level": 49, "star": 7, "card": 4}],
+       "lead": "phi_thuong"
+      },
       {
        "name": "Liên Minh: đấu sĩ",
-       "rule": {"kind": "picks", "n": 4},
-       "team": [{"hero": "gio_loc", "level": 58, "star": 7, "card": 4}, {"hero": "kim_su", "level": 58, "star": 7, "card": 4}],
-       "lead": "gio_loc"
+       "rule": {},
+       "team": [
+        {"hero": "phong_linh", "level": 52, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 52, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 52, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
       },
       {
        "name": "Liên Minh: cựu binh",
-       "rule": {"kind": "solo"},
+       "rule": {"kind": "hp", "p": 0.3},
        "team": [
-        {"hero": "hat_de", "level": 89, "star": 8, "card": 4},
-        {"hero": "ti_tach", "level": 89, "star": 8, "card": 4},
-        {"hero": "bo_cap", "level": 89, "star": 8, "card": 4}
+        {"hero": "hat_de", "level": 64, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 64, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 64, "star": 7, "card": 4}
        ],
        "lead": "hat_de"
       },
       {
-       "name": "Liên Minh: thủ lĩnh",
-       "rule": {"kind": "hp", "p": 0.3},
-       "team": [
-        {"hero": "thiet_phu", "level": 117, "star": 9, "card": 5},
-        {"hero": "huyen_viem", "level": 117, "star": 9, "card": 5},
-        {"hero": "chien_than", "level": 117, "star": 9, "card": 5}
-       ],
-       "lead": "thiet_phu"
-      },
-      {
-       "name": "Liên Minh: huyền thoại",
+       "name": "Liên Minh: tinh nhuệ",
        "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
        "team": [
-        {"hero": "lan_hoa", "level": 148, "star": 11, "card": 5},
-        {"hero": "thiet_phu", "level": 148, "star": 11, "card": 5},
-        {"hero": "hoa_tinh", "level": 148, "star": 11, "card": 5}
+        {"hero": "khien_bac", "level": 84, "star": 7, "card": 4},
+        {"hero": "hat_de", "level": 84, "star": 7, "card": 4},
+        {"hero": "thach_nhan", "level": 84, "star": 7, "card": 4}
+       ],
+       "lead": "khien_bac"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "tam_kiem", "level": 94, "star": 8, "card": 5},
+        {"hero": "rua_nui", "level": 94, "star": 8, "card": 5},
+        {"hero": "giong_bao", "level": 94, "star": 8, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lien_kinh", "level": 107, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 107, "star": 8, "card": 5},
+        {"hero": "chien_than", "level": 107, "star": 8, "card": 5}
+       ],
+       "lead": "lien_kinh"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "ho_kim_cuong", "level": 130, "star": 10, "card": 5},
+        {"hero": "hat_de", "level": 130, "star": 10, "card": 5},
+        {"hero": "chien_than", "level": 130, "star": 10, "card": 5}
+       ],
+       "lead": "ho_kim_cuong"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "lan_hoa", "level": 139, "star": 10, "card": 5},
+        {"hero": "giap_long", "level": 139, "star": 10, "card": 5},
+        {"hero": "cu_phu", "level": 139, "star": 10, "card": 5}
        ],
        "lead": "lan_hoa"
       },
       {
-       "name": "Nhà Vô Địch: Hải Long",
+       "name": "Liên Minh: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "giap_nham", "level": 152, "star": 11, "card": 5},
+        {"hero": "uyen_xa", "level": 152, "star": 11, "card": 5},
+        {"hero": "moc_tinh", "level": 152, "star": 11, "card": 5}
+       ],
+       "lead": "giap_nham"
+      },
+      {
+       "name": "Nhà Vô Địch: Thổ Tinh",
        "rule": {"kind": "buff", "p": 0.1},
        "team": [
-        {"hero": "hai_long", "level": 161, "star": 12, "card": 5},
-        {"hero": "rua_nui", "level": 161, "star": 12, "card": 5},
-        {"hero": "giap_long", "level": 161, "star": 12, "card": 5}
+        {"hero": "giap_nham", "level": 157, "star": 12, "card": 5},
+        {"hero": "tho_hoang", "level": 157, "star": 12, "card": 5},
+        {"hero": "long_vuot", "level": 157, "star": 12, "card": 5}
        ],
-       "lead": "hai_long"
+       "lead": "giap_nham"
       }
      ]
     },
@@ -2520,42 +2872,92 @@
       {
        "name": "Xưởng Thép: tân binh",
        "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
-       "team": [{"hero": "bo_cap", "level": 60, "star": 9, "card": 4}],
+       "team": [{"hero": "bo_cap", "level": 51, "star": 8, "card": 4}],
        "lead": "bo_cap"
       },
       {
-       "name": "Xưởng Thép: đấu sĩ",
+       "name": "Xưởng Thép: lính mới",
        "rule": {"kind": "buff", "p": 0.15},
-       "team": [{"hero": "phi_thuong", "level": 64, "star": 8, "card": 4}, {"hero": "bo_ngua", "level": 64, "star": 8, "card": 4}],
+       "team": [{"hero": "phi_thuong", "level": 43, "star": 7, "card": 4}, {"hero": "bo_ngua", "level": 43, "star": 7, "card": 4}],
        "lead": "phi_thuong"
       },
       {
-       "name": "Xưởng Thép: cựu binh",
+       "name": "Xưởng Thép: đấu sĩ",
        "rule": {},
        "team": [
-        {"hero": "thiet_phu", "level": 90, "star": 8, "card": 4},
-        {"hero": "tam_kiem", "level": 90, "star": 8, "card": 4},
-        {"hero": "phi_thuong", "level": 90, "star": 8, "card": 4}
+        {"hero": "chien_than", "level": 51, "star": 7, "card": 4},
+        {"hero": "phi_thuong", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 51, "star": 7, "card": 4}
+       ],
+       "lead": "chien_than"
+      },
+      {
+       "name": "Xưởng Thép: cựu binh",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "khien_bac", "level": 66, "star": 7, "card": 4},
+        {"hero": "chien_than", "level": 66, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 66, "star": 7, "card": 4}
+       ],
+       "lead": "khien_bac"
+      },
+      {
+       "name": "Xưởng Thép: tinh nhuệ",
+       "rule": {},
+       "team": [
+        {"hero": "ung_thep", "level": 80, "star": 7, "card": 4},
+        {"hero": "tam_kiem", "level": 80, "star": 7, "card": 4},
+        {"hero": "phi_thuong", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: đội trưởng",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thiet_phu", "level": 91, "star": 8, "card": 5},
+        {"hero": "tam_kiem", "level": 91, "star": 8, "card": 5},
+        {"hero": "chien_than", "level": 91, "star": 8, "card": 5}
        ],
        "lead": "thiet_phu"
       },
       {
        "name": "Xưởng Thép: thủ lĩnh",
-       "rule": {"kind": "picks", "n": 4},
+       "rule": {"kind": "def", "elem": "kim", "p": 0.25},
        "team": [
-        {"hero": "ung_thep", "level": 118, "star": 9, "card": 5},
-        {"hero": "tam_kiem", "level": 118, "star": 9, "card": 5},
-        {"hero": "khien_bac", "level": 118, "star": 9, "card": 5}
+        {"hero": "ung_thep", "level": 111, "star": 9, "card": 5},
+        {"hero": "khien_bac", "level": 111, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 111, "star": 9, "card": 5}
+       ],
+       "lead": "ung_thep"
+      },
+      {
+       "name": "Xưởng Thép: cao thủ",
+       "rule": {"kind": "atk", "elem": "kim", "p": 0.2},
+       "team": [
+        {"hero": "kim_nghe", "level": 123, "star": 9, "card": 5},
+        {"hero": "thiet_phu", "level": 123, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Xưởng Thép: bá chủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "ung_thep", "level": 138, "star": 10, "card": 5},
+        {"hero": "thiet_phu", "level": 138, "star": 10, "card": 5},
+        {"hero": "tam_kiem", "level": 138, "star": 10, "card": 5}
        ],
        "lead": "ung_thep"
       },
       {
        "name": "Xưởng Thép: huyền thoại",
-       "rule": {"kind": "solo"},
+       "rule": {},
        "team": [
-        {"hero": "kim_nghe", "level": 149, "star": 11, "card": 5},
-        {"hero": "ung_thep", "level": 149, "star": 11, "card": 5},
-        {"hero": "thiet_phu", "level": 149, "star": 11, "card": 5}
+        {"hero": "kim_nghe", "level": 153, "star": 11, "card": 5},
+        {"hero": "thiet_phu", "level": 153, "star": 11, "card": 5},
+        {"hero": "tam_kiem", "level": 153, "star": 11, "card": 5}
        ],
        "lead": "kim_nghe"
       }
@@ -2566,44 +2968,94 @@
       {
        "name": "Rừng Gai: tân binh",
        "rule": {"kind": "hp", "p": 0.3},
-       "team": [{"hero": "tien_la", "level": 55, "star": 8, "card": 4}],
+       "team": [{"hero": "tien_la", "level": 49, "star": 8, "card": 4}],
        "lead": "tien_la"
       },
       {
-       "name": "Rừng Gai: đấu sĩ",
+       "name": "Rừng Gai: lính mới",
        "rule": {"kind": "def", "elem": "moc", "p": 0.25},
-       "team": [{"hero": "gio_loc", "level": 65, "star": 8, "card": 4}, {"hero": "bom_la", "level": 65, "star": 8, "card": 4}],
+       "team": [{"hero": "bom_la", "level": 48, "star": 7, "card": 4}, {"hero": "mam_u", "level": 48, "star": 7, "card": 4}],
+       "lead": "bom_la"
+      },
+      {
+       "name": "Rừng Gai: đấu sĩ",
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "team": [
+        {"hero": "gio_loc", "level": 47, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 47, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 47, "star": 7, "card": 4}
+       ],
        "lead": "gio_loc"
       },
       {
        "name": "Rừng Gai: cựu binh",
-       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "rule": {"kind": "buff", "p": 0.15},
        "team": [
-        {"hero": "phong_linh", "level": 93, "star": 8, "card": 4},
-        {"hero": "gac_da", "level": 93, "star": 8, "card": 4},
-        {"hero": "bom_la", "level": 93, "star": 8, "card": 4}
+        {"hero": "phong_linh", "level": 63, "star": 7, "card": 4},
+        {"hero": "gio_loc", "level": 63, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 63, "star": 7, "card": 4}
        ],
        "lead": "phong_linh"
       },
       {
-       "name": "Rừng Gai: thủ lĩnh",
-       "rule": {"kind": "buff", "p": 0.15},
+       "name": "Rừng Gai: tinh nhuệ",
+       "rule": {},
        "team": [
-        {"hero": "moc_tinh", "level": 116, "star": 9, "card": 5},
-        {"hero": "long_vuot", "level": 116, "star": 9, "card": 5},
-        {"hero": "gio_loc", "level": 116, "star": 9, "card": 5}
+        {"hero": "tho_hoang", "level": 84, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 84, "star": 7, "card": 4},
+        {"hero": "bom_la", "level": 84, "star": 7, "card": 4}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: đội trưởng",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "long_vuot", "level": 98, "star": 8, "card": 5},
+        {"hero": "phong_linh", "level": 98, "star": 8, "card": 5},
+        {"hero": "gio_loc", "level": 98, "star": 8, "card": 5}
+       ],
+       "lead": "long_vuot"
+      },
+      {
+       "name": "Rừng Gai: thủ lĩnh",
+       "rule": {},
+       "team": [
+        {"hero": "moc_tinh", "level": 114, "star": 9, "card": 5},
+        {"hero": "phong_linh", "level": 114, "star": 9, "card": 5},
+        {"hero": "gio_loc", "level": 114, "star": 9, "card": 5}
        ],
        "lead": "moc_tinh"
       },
       {
-       "name": "Rừng Gai: huyền thoại",
-       "rule": {},
+       "name": "Rừng Gai: cao thủ",
+       "rule": {"kind": "hp", "p": 0.3},
        "team": [
-        {"hero": "thanh_long", "level": 146, "star": 11, "card": 5},
-        {"hero": "tho_hoang", "level": 146, "star": 11, "card": 5},
-        {"hero": "long_vuot", "level": 146, "star": 11, "card": 5}
+        {"hero": "tho_hoang", "level": 123, "star": 9, "card": 5},
+        {"hero": "moc_tinh", "level": 123, "star": 9, "card": 5},
+        {"hero": "long_vuot", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "tho_hoang"
+      },
+      {
+       "name": "Rừng Gai: bá chủ",
+       "rule": {"kind": "def", "elem": "moc", "p": 0.25},
+       "team": [
+        {"hero": "thanh_long", "level": 138, "star": 10, "card": 5},
+        {"hero": "moc_tinh", "level": 138, "star": 10, "card": 5},
+        {"hero": "long_vuot", "level": 138, "star": 10, "card": 5}
        ],
        "lead": "thanh_long"
+      },
+      {
+       "name": "Rừng Gai: huyền thoại",
+       "rule": {"kind": "atk", "elem": "moc", "p": 0.2},
+       "team": [
+        {"hero": "tho_hoang", "level": 153, "star": 11, "card": 5},
+        {"hero": "moc_tinh", "level": 153, "star": 11, "card": 5},
+        {"hero": "long_vuot", "level": 153, "star": 11, "card": 5}
+       ],
+       "lead": "tho_hoang"
       }
      ]
     },
@@ -2612,42 +3064,92 @@
       {
        "name": "Sóng Ngầm: tân binh",
        "rule": {"kind": "picks", "n": 4},
-       "team": [{"hero": "ha_ba", "level": 59, "star": 8, "card": 4}],
+       "team": [{"hero": "ha_ba", "level": 55, "star": 8, "card": 4}],
        "lead": "ha_ba"
       },
       {
+       "name": "Sóng Ngầm: lính mới",
+       "rule": {},
+       "team": [{"hero": "ca_den", "level": 51, "star": 7, "card": 4}, {"hero": "thach_giai", "level": 51, "star": 7, "card": 4}],
+       "lead": "ca_den"
+      },
+      {
        "name": "Sóng Ngầm: đấu sĩ",
-       "rule": {"kind": "solo"},
-       "team": [{"hero": "so_ngoc", "level": 59, "star": 7, "card": 4}, {"hero": "ca_den", "level": 59, "star": 7, "card": 4}],
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "so_ngoc", "level": 46, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 46, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 46, "star": 7, "card": 4}
+       ],
        "lead": "so_ngoc"
       },
       {
        "name": "Sóng Ngầm: cựu binh",
-       "rule": {"kind": "hp", "p": 0.3},
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
        "team": [
-        {"hero": "lien_kinh", "level": 87, "star": 8, "card": 4},
-        {"hero": "so_ngoc", "level": 87, "star": 8, "card": 4},
-        {"hero": "giong_bao", "level": 87, "star": 8, "card": 4}
+        {"hero": "giong_bao", "level": 66, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 66, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 66, "star": 7, "card": 4}
+       ],
+       "lead": "giong_bao"
+      },
+      {
+       "name": "Sóng Ngầm: tinh nhuệ",
+       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "team": [
+        {"hero": "lien_kinh", "level": 80, "star": 7, "card": 4},
+        {"hero": "ti_tach", "level": 80, "star": 7, "card": 4},
+        {"hero": "ca_den", "level": 80, "star": 7, "card": 4}
        ],
        "lead": "lien_kinh"
+      },
+      {
+       "name": "Sóng Ngầm: đội trưởng",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "uyen_xa", "level": 88, "star": 8, "card": 5},
+        {"hero": "lien_kinh", "level": 88, "star": 8, "card": 5},
+        {"hero": "han_ngac", "level": 88, "star": 8, "card": 5}
+       ],
+       "lead": "uyen_xa"
       },
       {
        "name": "Sóng Ngầm: thủ lĩnh",
-       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "rule": {},
        "team": [
-        {"hero": "lien_kinh", "level": 116, "star": 9, "card": 5},
-        {"hero": "han_ngac", "level": 116, "star": 9, "card": 5},
-        {"hero": "so_ngoc", "level": 116, "star": 9, "card": 5}
+        {"hero": "lien_kinh", "level": 113, "star": 9, "card": 5},
+        {"hero": "so_ngoc", "level": 113, "star": 9, "card": 5},
+        {"hero": "giong_bao", "level": 113, "star": 9, "card": 5}
        ],
        "lead": "lien_kinh"
       },
       {
-       "name": "Sóng Ngầm: huyền thoại",
-       "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
+       "name": "Sóng Ngầm: cao thủ",
+       "rule": {"kind": "picks", "n": 4},
        "team": [
-        {"hero": "hai_long", "level": 146, "star": 11, "card": 5},
-        {"hero": "uyen_xa", "level": 146, "star": 11, "card": 5},
-        {"hero": "han_ngac", "level": 146, "star": 11, "card": 5}
+        {"hero": "hai_long", "level": 124, "star": 9, "card": 5},
+        {"hero": "han_ngac", "level": 124, "star": 9, "card": 5},
+        {"hero": "so_ngoc", "level": 124, "star": 9, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Sóng Ngầm: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "uyen_xa", "level": 140, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "uyen_xa"
+      },
+      {
+       "name": "Sóng Ngầm: huyền thoại",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "hai_long", "level": 147, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 147, "star": 11, "card": 5},
+        {"hero": "han_ngac", "level": 147, "star": 11, "card": 5}
        ],
        "lead": "hai_long"
       }
@@ -2658,42 +3160,92 @@
       {
        "name": "Lò Lửa: tân binh",
        "rule": {"kind": "buff", "p": 0.15},
-       "team": [{"hero": "kim_su", "level": 64, "star": 9, "card": 4}],
+       "team": [{"hero": "kim_su", "level": 50, "star": 8, "card": 4}],
        "lead": "kim_su"
       },
       {
-       "name": "Lò Lửa: đấu sĩ",
+       "name": "Lò Lửa: lính mới",
        "rule": {},
-       "team": [{"hero": "hong_lien", "level": 69, "star": 8, "card": 4}, {"hero": "su_tu_lua", "level": 69, "star": 8, "card": 4}],
-       "lead": "hong_lien"
+       "team": [{"hero": "su_tu_lua", "level": 49, "star": 7, "card": 4}, {"hero": "kim_su", "level": 49, "star": 7, "card": 4}],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Lò Lửa: đấu sĩ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "nguu_quyen", "level": 50, "star": 7, "card": 4},
+        {"hero": "hong_lien", "level": 50, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "nguu_quyen"
       },
       {
        "name": "Lò Lửa: cựu binh",
-       "rule": {"kind": "picks", "n": 4},
+       "rule": {},
        "team": [
-        {"hero": "huyen_viem", "level": 93, "star": 8, "card": 4},
-        {"hero": "su_tu_lua", "level": 93, "star": 8, "card": 4},
-        {"hero": "nham_than", "level": 93, "star": 8, "card": 4}
+        {"hero": "su_tu_lua", "level": 70, "star": 7, "card": 4},
+        {"hero": "nham_than", "level": 70, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 70, "star": 7, "card": 4}
+       ],
+       "lead": "su_tu_lua"
+      },
+      {
+       "name": "Lò Lửa: tinh nhuệ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "nguu_quyen", "level": 81, "star": 7, "card": 4},
+        {"hero": "su_tu_lua", "level": 81, "star": 7, "card": 4},
+        {"hero": "kim_su", "level": 81, "star": 7, "card": 4}
+       ],
+       "lead": "nguu_quyen"
+      },
+      {
+       "name": "Lò Lửa: đội trưởng",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "huyen_viem", "level": 93, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 93, "star": 8, "card": 5},
+        {"hero": "hong_lien", "level": 93, "star": 8, "card": 5}
        ],
        "lead": "huyen_viem"
       },
       {
        "name": "Lò Lửa: thủ lĩnh",
-       "rule": {"kind": "solo"},
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
        "team": [
-        {"hero": "huyen_viem", "level": 125, "star": 10, "card": 5},
-        {"hero": "hoa_tinh", "level": 125, "star": 10, "card": 5},
-        {"hero": "nguu_quyen", "level": 125, "star": 10, "card": 5}
+        {"hero": "hoa_tinh", "level": 110, "star": 9, "card": 5},
+        {"hero": "nguu_quyen", "level": 110, "star": 9, "card": 5},
+        {"hero": "hong_lien", "level": 110, "star": 9, "card": 5}
+       ],
+       "lead": "hoa_tinh"
+      },
+      {
+       "name": "Lò Lửa: cao thủ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "lan_hoa", "level": 119, "star": 9, "card": 5},
+        {"hero": "huyen_viem", "level": 119, "star": 9, "card": 5},
+        {"hero": "giap_long", "level": 119, "star": 9, "card": 5}
+       ],
+       "lead": "lan_hoa"
+      },
+      {
+       "name": "Lò Lửa: bá chủ",
+       "rule": {},
+       "team": [
+        {"hero": "huyen_viem", "level": 140, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "giap_long", "level": 140, "star": 11, "card": 5}
        ],
        "lead": "huyen_viem"
       },
       {
        "name": "Lò Lửa: huyền thoại",
-       "rule": {"kind": "hp", "p": 0.3},
+       "rule": {"kind": "picks", "n": 4},
        "team": [
-        {"hero": "lan_hoa", "level": 151, "star": 11, "card": 5},
-        {"hero": "hoa_tinh", "level": 151, "star": 11, "card": 5},
-        {"hero": "giap_long", "level": 151, "star": 11, "card": 5}
+        {"hero": "lan_hoa", "level": 153, "star": 11, "card": 5},
+        {"hero": "huyen_viem", "level": 153, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 153, "star": 11, "card": 5}
        ],
        "lead": "lan_hoa"
       }
@@ -2704,42 +3256,92 @@
       {
        "name": "Mỏ Đá: tân binh",
        "rule": {"kind": "def", "elem": "tho", "p": 0.25},
-       "team": [{"hero": "lung_vuong", "level": 67, "star": 9, "card": 4}],
+       "team": [{"hero": "lung_vuong", "level": 57, "star": 8, "card": 4}],
        "lead": "lung_vuong"
       },
       {
-       "name": "Mỏ Đá: đấu sĩ",
+       "name": "Mỏ Đá: lính mới",
        "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
-       "team": [{"hero": "ho_khoan", "level": 65, "star": 8, "card": 4}, {"hero": "cao_da", "level": 65, "star": 8, "card": 4}],
-       "lead": "ho_khoan"
+       "team": [{"hero": "cao_da", "level": 48, "star": 7, "card": 4}, {"hero": "lung_vuong", "level": 48, "star": 7, "card": 4}],
+       "lead": "cao_da"
+      },
+      {
+       "name": "Mỏ Đá: đấu sĩ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "phu_van", "level": 43, "star": 7, "card": 4},
+        {"hero": "hat_de", "level": 43, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 43, "star": 7, "card": 4}
+       ],
+       "lead": "phu_van"
       },
       {
        "name": "Mỏ Đá: cựu binh",
-       "rule": {"kind": "buff", "p": 0.15},
+       "rule": {},
        "team": [
-        {"hero": "rua_nui", "level": 85, "star": 8, "card": 4},
-        {"hero": "cu_phu", "level": 85, "star": 8, "card": 4},
-        {"hero": "phu_van", "level": 85, "star": 8, "card": 4}
+        {"hero": "thach_nhan", "level": 69, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 69, "star": 7, "card": 4},
+        {"hero": "cao_da", "level": 69, "star": 7, "card": 4}
+       ],
+       "lead": "thach_nhan"
+      },
+      {
+       "name": "Mỏ Đá: tinh nhuệ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "ho_kim_cuong", "level": 80, "star": 7, "card": 4},
+        {"hero": "cu_phu", "level": 80, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 80, "star": 7, "card": 4}
+       ],
+       "lead": "ho_kim_cuong"
+      },
+      {
+       "name": "Mỏ Đá: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "rua_nui", "level": 95, "star": 8, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 95, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 95, "star": 8, "card": 5}
        ],
        "lead": "rua_nui"
       },
       {
        "name": "Mỏ Đá: thủ lĩnh",
-       "rule": {},
+       "rule": {"kind": "hp", "p": 0.3},
        "team": [
-        {"hero": "rua_nui", "level": 120, "star": 9, "card": 5},
-        {"hero": "ho_kim_cuong", "level": 120, "star": 9, "card": 5},
-        {"hero": "phu_van", "level": 120, "star": 9, "card": 5}
+        {"hero": "ho_kim_cuong", "level": 108, "star": 9, "card": 5},
+        {"hero": "cu_phu", "level": 108, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 108, "star": 9, "card": 5}
+       ],
+       "lead": "ho_kim_cuong"
+      },
+      {
+       "name": "Mỏ Đá: cao thủ",
+       "rule": {"kind": "def", "elem": "tho", "p": 0.25},
+       "team": [
+        {"hero": "giap_nham", "level": 123, "star": 9, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 123, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 123, "star": 9, "card": 5}
+       ],
+       "lead": "giap_nham"
+      },
+      {
+       "name": "Mỏ Đá: bá chủ",
+       "rule": {"kind": "atk", "elem": "tho", "p": 0.2},
+       "team": [
+        {"hero": "rua_nui", "level": 139, "star": 10, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 139, "star": 10, "card": 5},
+        {"hero": "cu_phu", "level": 139, "star": 10, "card": 5}
        ],
        "lead": "rua_nui"
       },
       {
        "name": "Mỏ Đá: huyền thoại",
-       "rule": {"kind": "picks", "n": 4},
+       "rule": {"kind": "buff", "p": 0.15},
        "team": [
-        {"hero": "giap_nham", "level": 143, "star": 11, "card": 5},
-        {"hero": "rua_nui", "level": 143, "star": 11, "card": 5},
-        {"hero": "ho_kim_cuong", "level": 143, "star": 11, "card": 5}
+        {"hero": "giap_nham", "level": 147, "star": 11, "card": 5},
+        {"hero": "rua_nui", "level": 147, "star": 11, "card": 5},
+        {"hero": "cu_phu", "level": 147, "star": 11, "card": 5}
        ],
        "lead": "giap_nham"
       }
@@ -2747,98 +3349,193 @@
     },
     {
      "entries": [
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "doc_giac", "level": 58, "star": 8, "card": 4}], "lead": "doc_giac"},
       {
-       "name": "Liên Minh: tân binh",
-       "rule": {"kind": "solo"},
-       "team": [{"hero": "doc_giac", "level": 56, "star": 8, "card": 4}],
-       "lead": "doc_giac"
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [{"hero": "cao_da", "level": 46, "star": 7, "card": 4}, {"hero": "mam_u", "level": 46, "star": 7, "card": 4}],
+       "lead": "cao_da"
       },
       {
        "name": "Liên Minh: đấu sĩ",
-       "rule": {"kind": "hp", "p": 0.3},
-       "team": [{"hero": "hong_lien", "level": 59, "star": 7, "card": 4}, {"hero": "cao_da", "level": 59, "star": 7, "card": 4}],
-       "lead": "hong_lien"
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "phu_van", "level": 51, "star": 7, "card": 4},
+        {"hero": "gac_da", "level": 51, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 51, "star": 7, "card": 4}
+       ],
+       "lead": "phu_van"
       },
       {
        "name": "Liên Minh: cựu binh",
-       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
-       "team": [
-        {"hero": "ung_thep", "level": 87, "star": 8, "card": 4},
-        {"hero": "hat_de", "level": 87, "star": 8, "card": 4},
-        {"hero": "bo_ngua", "level": 87, "star": 8, "card": 4}
-       ],
-       "lead": "ung_thep"
-      },
-      {
-       "name": "Liên Minh: thủ lĩnh",
        "rule": {"kind": "atk", "elem": "thuy", "p": 0.2},
        "team": [
-        {"hero": "tam_kiem", "level": 116, "star": 9, "card": 5},
-        {"hero": "hoa_tinh", "level": 116, "star": 9, "card": 5},
-        {"hero": "khien_bac", "level": 116, "star": 9, "card": 5}
+        {"hero": "so_ngoc", "level": 64, "star": 7, "card": 4},
+        {"hero": "giong_bao", "level": 64, "star": 7, "card": 4},
+        {"hero": "ho_khoan", "level": 64, "star": 7, "card": 4}
+       ],
+       "lead": "so_ngoc"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "thiet_phu", "level": 77, "star": 7, "card": 4},
+        {"hero": "phong_linh", "level": 77, "star": 7, "card": 4},
+        {"hero": "tien_la", "level": 77, "star": 7, "card": 4}
+       ],
+       "lead": "thiet_phu"
+      },
+      {
+       "name": "Liên Minh: đội trưởng",
+       "rule": {},
+       "team": [
+        {"hero": "tam_kiem", "level": 97, "star": 8, "card": 5},
+        {"hero": "hat_de", "level": 97, "star": 8, "card": 5},
+        {"hero": "giong_bao", "level": 97, "star": 8, "card": 5}
        ],
        "lead": "tam_kiem"
       },
       {
-       "name": "Liên Minh: huyền thoại",
-       "rule": {"kind": "buff", "p": 0.15},
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "picks", "n": 4},
        "team": [
-        {"hero": "tho_hoang", "level": 139, "star": 10, "card": 5},
-        {"hero": "rua_nui", "level": 139, "star": 10, "card": 5},
-        {"hero": "hoa_tinh", "level": 139, "star": 10, "card": 5}
+        {"hero": "moc_tinh", "level": 112, "star": 9, "card": 5},
+        {"hero": "long_vuot", "level": 112, "star": 9, "card": 5},
+        {"hero": "chien_than", "level": 112, "star": 9, "card": 5}
        ],
-       "lead": "tho_hoang"
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "kim_nghe", "level": 124, "star": 9, "card": 5},
+        {"hero": "uyen_xa", "level": 124, "star": 9, "card": 5},
+        {"hero": "huyen_viem", "level": 124, "star": 9, "card": 5}
+       ],
+       "lead": "kim_nghe"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "hp", "p": 0.3},
+       "team": [
+        {"hero": "thanh_long", "level": 132, "star": 10, "card": 5},
+        {"hero": "hai_long", "level": 132, "star": 10, "card": 5},
+        {"hero": "huyen_viem", "level": 132, "star": 10, "card": 5}
+       ],
+       "lead": "thanh_long"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {"kind": "def", "elem": "thuy", "p": 0.25},
+       "team": [
+        {"hero": "moc_tinh", "level": 155, "star": 12, "card": 5},
+        {"hero": "hoa_tinh", "level": 155, "star": 12, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 155, "star": 12, "card": 5}
+       ],
+       "lead": "moc_tinh"
       }
      ]
     },
     {
      "entries": [
-      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "ho_khoan", "level": 57, "star": 8, "card": 4}], "lead": "ho_khoan"},
+      {"name": "Liên Minh: tân binh", "rule": {}, "team": [{"hero": "ho_khoan", "level": 53, "star": 8, "card": 4}], "lead": "ho_khoan"},
+      {
+       "name": "Liên Minh: lính mới",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [{"hero": "ti_tach", "level": 50, "star": 7, "card": 4}, {"hero": "doc_giac", "level": 50, "star": 7, "card": 4}],
+       "lead": "ti_tach"
+      },
       {
        "name": "Liên Minh: đấu sĩ",
-       "rule": {"kind": "picks", "n": 4},
-       "team": [{"hero": "ti_tach", "level": 61, "star": 8, "card": 4}, {"hero": "thach_nhan", "level": 61, "star": 8, "card": 4}],
-       "lead": "ti_tach"
+       "rule": {},
+       "team": [
+        {"hero": "phong_linh", "level": 50, "star": 7, "card": 4},
+        {"hero": "hong_lien", "level": 50, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 50, "star": 7, "card": 4}
+       ],
+       "lead": "phong_linh"
       },
       {
        "name": "Liên Minh: cựu binh",
-       "rule": {"kind": "solo"},
-       "team": [
-        {"hero": "ti_tach", "level": 100, "star": 8, "card": 4},
-        {"hero": "ha_ba", "level": 100, "star": 8, "card": 4},
-        {"hero": "bo_ngua", "level": 100, "star": 8, "card": 4}
-       ],
-       "lead": "ti_tach"
-      },
-      {
-       "name": "Liên Minh: thủ lĩnh",
        "rule": {"kind": "hp", "p": 0.3},
        "team": [
-        {"hero": "lien_kinh", "level": 110, "star": 9, "card": 5},
-        {"hero": "ho_kim_cuong", "level": 110, "star": 9, "card": 5},
-        {"hero": "cu_phu", "level": 110, "star": 9, "card": 5}
+        {"hero": "hong_lien", "level": 62, "star": 7, "card": 4},
+        {"hero": "gio_loc", "level": 62, "star": 7, "card": 4},
+        {"hero": "bo_ngua", "level": 62, "star": 7, "card": 4}
+       ],
+       "lead": "hong_lien"
+      },
+      {
+       "name": "Liên Minh: tinh nhuệ",
+       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "team": [
+        {"hero": "lien_kinh", "level": 80, "star": 7, "card": 4},
+        {"hero": "hoa_tinh", "level": 80, "star": 7, "card": 4},
+        {"hero": "bo_cap", "level": 80, "star": 7, "card": 4}
        ],
        "lead": "lien_kinh"
       },
       {
-       "name": "Liên Minh: huyền thoại",
-       "rule": {"kind": "def", "elem": "hoa", "p": 0.25},
+       "name": "Liên Minh: đội trưởng",
+       "rule": {"kind": "atk", "elem": "hoa", "p": 0.2},
        "team": [
-        {"hero": "kim_nghe", "level": 142, "star": 11, "card": 5},
-        {"hero": "lien_kinh", "level": 142, "star": 11, "card": 5},
-        {"hero": "cu_phu", "level": 142, "star": 11, "card": 5}
+        {"hero": "moc_tinh", "level": 94, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 94, "star": 8, "card": 5},
+        {"hero": "so_ngoc", "level": 94, "star": 8, "card": 5}
        ],
-       "lead": "kim_nghe"
+       "lead": "moc_tinh"
       },
       {
-       "name": "Nhà Vô Địch: Thổ Tinh",
+       "name": "Liên Minh: thủ lĩnh",
+       "rule": {"kind": "buff", "p": 0.15},
+       "team": [
+        {"hero": "tam_kiem", "level": 106, "star": 8, "card": 5},
+        {"hero": "huyen_viem", "level": 106, "star": 8, "card": 5},
+        {"hero": "giap_long", "level": 106, "star": 8, "card": 5}
+       ],
+       "lead": "tam_kiem"
+      },
+      {
+       "name": "Liên Minh: cao thủ",
+       "rule": {},
+       "team": [
+        {"hero": "hai_long", "level": 124, "star": 9, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 124, "star": 9, "card": 5},
+        {"hero": "hat_de", "level": 124, "star": 9, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Liên Minh: bá chủ",
+       "rule": {"kind": "picks", "n": 4},
+       "team": [
+        {"hero": "moc_tinh", "level": 140, "star": 11, "card": 5},
+        {"hero": "long_vuot", "level": 140, "star": 11, "card": 5},
+        {"hero": "ho_kim_cuong", "level": 140, "star": 11, "card": 5}
+       ],
+       "lead": "moc_tinh"
+      },
+      {
+       "name": "Liên Minh: huyền thoại",
+       "rule": {},
+       "team": [
+        {"hero": "hai_long", "level": 152, "star": 11, "card": 5},
+        {"hero": "lien_kinh", "level": 152, "star": 11, "card": 5},
+        {"hero": "hoa_tinh", "level": 152, "star": 11, "card": 5}
+       ],
+       "lead": "hai_long"
+      },
+      {
+       "name": "Nhà Vô Địch: Hải Long",
        "rule": {"kind": "buff", "p": 0.1},
        "team": [
-        {"hero": "giap_nham", "level": 163, "star": 12, "card": 5},
-        {"hero": "rua_nui", "level": 163, "star": 12, "card": 5},
-        {"hero": "long_vuot", "level": 163, "star": 12, "card": 5}
+        {"hero": "hai_long", "level": 157, "star": 12, "card": 5},
+        {"hero": "lien_kinh", "level": 157, "star": 12, "card": 5},
+        {"hero": "giap_long", "level": 157, "star": 12, "card": 5}
        ],
-       "lead": "giap_nham"
+       "lead": "hai_long"
       }
      ]
     }

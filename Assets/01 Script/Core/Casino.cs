@@ -160,9 +160,15 @@ namespace PokiClash.Core
 
         public static int OwnedHeroes(SaveData s) => s.heroes.Count(kv => kv.Value.owned);
 
+        // Mở hết lều (không lưu): coi như cả ba lều may rủi đang dựng hôm nay và mục lều đã mở (bỏ mốc cấp). Lịch thật không đổi.
+        // Mặc định tắt (test, lõi); App.cs bật lúc mở game khi CHƯA PHÁT HÀNH (người dùng 2026-11-26). Editor/CasinoTestBooths.cs tắt lại khi
+        // về Edit mode (Play tắt Reload Domain nên biến tĩnh còn nguyên sau Play) để EditMode test chạy theo lịch thật.
+        public static bool TestAllBooths;
+
         public static bool Unlocked(SaveData s, GameData d, string id)
         {
             if (!Open(s, d)) return false;
+            if (TestAllBooths && id == Booths) return true;
             var u = C(d).Unlock(id);
             return u == null || (s.level >= u.level && OwnedHeroes(s) >= u.heroes);
         }
@@ -236,6 +242,7 @@ namespace PokiClash.Core
                 case Roulette: return c.roulette.daily;
                 case Slot: return c.slots.daily;
                 case Race: return c.race.daily;
+                case Underground: return c.underground.daily;
                 default: return int.MaxValue;
             }
         }
@@ -368,7 +375,18 @@ namespace PokiClash.Core
         {
             var all = C(d).events.Select(e => SpanAt(d, e, day)).Where(sp => sp != null).ToList();
             var fixedBooths = new HashSet<string>(all.Where(sp => !string.IsNullOrEmpty(sp.ev.start)).Select(sp => sp.ev.booth));
-            return all.Where(sp => !string.IsNullOrEmpty(sp.ev.start) || !fixedBooths.Contains(sp.ev.booth)).ToList();
+            var res = all.Where(sp => !string.IsNullOrEmpty(sp.ev.start) || !fixedBooths.Contains(sp.ev.booth)).ToList();
+            if (TestAllBooths)
+                foreach (var booth in new[] { Blackjack, Roulette, Slot })
+                {
+                    if (res.Any(sp => sp.ev.booth == booth)) continue;
+                    var e = C(d).events.FirstOrDefault(x => x.booth == booth);
+                    if (e == null) continue;
+                    // lần mở kế tiếp của chính sự kiện đó (khách mời trùng lần thật), chỉ kéo dài hôm nay
+                    var next = NextSpan(d, e, day);
+                    res.Add(new CasinoSpan { ev = e, occ = next?.occ ?? 0, startDay = day, endDay = day });
+                }
+            return res;
         }
 
         public static List<CasinoSpan> Active(GameData d, double now) => Active(d, Today(now));

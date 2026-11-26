@@ -522,6 +522,18 @@ def c_sulk(t, p):
         blink(p, t, 1.25)
 
 
+# ---------------------------------------------------------------- D3: lều Đêm Bài (clip_d3.py: deal, deal_self, peek, reveal, bust_self)
+import clip_d3  # noqa: E402,F401
+
+
+# ---------------------------------------------------------------- D4: lều Vòng Xoay (clip_d4.py: rl_invite, rl_no_more, rl_spin, rl_watch, rl_point)
+import clip_d4  # noqa: E402,F401
+
+
+# ---------------------------------------------------------------- D5: lều Hội Máy Quả (clip_d5.py: sl_pull; máy quả ở ArtGen/Casino/may_qua)
+import clip_d5  # noqa: E402,F401
+
+
 # ---------------------------------------------------------------- nướng
 def pose_of(fn, t):
     p = base_pose()

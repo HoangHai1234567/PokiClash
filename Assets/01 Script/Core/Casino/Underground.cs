@@ -1,8 +1,10 @@
 // Đấu trường ngầm (Hầm đấu, GD_Claude/29_DaoCasino.md mục 6.5): trận thẻ bài thường với đội địch do người thiết kế đặt theo ngày.
 // - Đội trong ngày: dates (ghi đè theo ngày yyyy-MM-dd) hoặc rotation[(ngày − mốc) mod số ngày vòng]. Mỗi ngày một đội cho mỗi bậc
 //   thường; bậc weekly (Nhà Vô Địch) chỉ chủ nhật, một lần mỗi tuần, dùng đội kế tiếp trong danh sách của ngày (nếu có).
-// - Bậc mở theo cấp người chơi; lệ phí trả lúc bấm Đánh (× bậc cấp). Thắng lần đầu trong ngày: winMult × lệ phí + mảnh tướng chủ lực +
-//   quà của bậc; thắng lại: rewinMult × lệ phí + rewin; thua: mất lệ phí.
+// - Mọi bậc đánh được ngay khi Hầm đấu mở, không khoá theo cấp người chơi (người dùng 2026-11-26; UgTier.level chỉ còn là cấp đội mẫu
+//   lúc cân). Lệ phí trả lúc bấm Đánh (× bậc cấp). Thắng lần đầu trong ngày: winMult × lệ phí + mảnh tướng chủ lực + quà của bậc;
+//   thắng lại: rewinMult × lệ phí + rewin; thua: mất lệ phí.
+// - Mỗi ngày đánh tối đa daily trận (người dùng 2026-11-26): mỗi lần trả lệ phí là một trận, thắng, thua, đánh lại đều tính.
 // - Luật ngày áp lên hai đội: atk / hp / def (+p cho tướng hệ elem, rỗng = mọi tướng), picks (số lần chọn mỗi lượt của người chơi),
 //   solo (mỗi bên một tướng), buff (đội địch mạnh thêm p).
 using System;
@@ -86,8 +88,21 @@ namespace PokiClash.Core
             return st;
         }
 
+        // không khoá bậc theo cấp người chơi (người dùng 2026-11-26): Hầm đấu mở là đánh được mọi bậc
         public static bool TierOpen(SaveData s, GameData d, int tier) =>
-            Casino.Unlocked(s, d, Casino.Underground) && tier >= 0 && tier < C(d).tiers.Count && s.level >= C(d).tiers[tier].level;
+            Casino.Unlocked(s, d, Casino.Underground) && tier >= 0 && tier < C(d).tiers.Count;
+
+        // số trận còn lại hôm nay (trần UndergroundConfig.daily; mỗi lần trả lệ phí là một trận, thắng hay thua đều tính)
+        public static int FightsLeft(SaveData s, GameData d, double now) => Casino.PlaysLeft(s, d, Casino.Underground, now);
+
+        // còn bao lâu (ms) tới lúc đổi đội ngầm (0 giờ)
+        public static double NextChange(double now) => (24 - Casino.Hour(now)) * 3600000.0;
+
+        // số tướng đội ngầm ra sân (luật "mỗi bên một tướng" chỉ ra tướng đầu)
+        public static int Count(UgEntry e) => e == null ? 0 : Math.Min(e.team.Count, TeamLimit(e));
+
+        // lực chiến đội ngầm, đã tính luật ngày phần của địch (chỉ để hiện)
+        public static int Power(GameData d, UgEntry e) => e == null ? 0 : TeamPower.Of(d.Cfg, d, Enemy(d, e));
 
         public static int Fee(SaveData s, GameData d, int tier) => Shop.RoundBalls(C(d).tiers[tier].fee * Casino.Band(s, d));
 
@@ -171,11 +186,12 @@ namespace PokiClash.Core
         public static bool Pay(SaveData s, GameData d, int tier, double now, out string why)
         {
             why = null;
-            if (!TierOpen(s, d, tier)) { why = Loc.F("Mở ở cấp {0}", C(d).tiers[Math.Max(0, Math.Min(tier, C(d).tiers.Count - 1))].level); return false; }
+            if (!TierOpen(s, d, tier)) { why = Casino.Need(s, d, Casino.Underground); return false; }
             if (!TiersToday(d, now).Contains(tier)) { why = Loc.T("Hôm nay không có trận này"); return false; }
             if (C(d).tiers[tier].weekly && WonToday(s, d, tier, now)) { why = Loc.T("Tuần này đã thắng Nhà Vô Địch"); return false; }
+            if (FightsLeft(s, d, now) <= 0) { why = Loc.T("Hết lượt đánh hôm nay"); return false; }
             if (!Casino.Spend(s, Fee(s, d, tier))) { why = Loc.T("Không đủ bi"); return false; }
-            Casino.Roll(s, d, now);
+            Casino.UsePlay(s, d, Casino.Underground, now);
             return true;
         }
 

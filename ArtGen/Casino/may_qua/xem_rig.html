@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Máy quả Háu Ăn: rig</title>
+<style>
+  :root { --paper: #f6efe1; --card: #fffaf0; --ink: #2b2018; --ink2: #6b5a4a; --line: #d9ccb4; --green: #3f7a4a; }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, "Segoe UI", sans-serif; line-height: 1.55; }
+  main { max-width: 1180px; margin: 0 auto; padding: 20px 16px 60px; }
+  h1 { font-size: 26px; margin: 4px 0 2px; }
+  h2 { font-size: 20px; margin: 34px 0 8px; border-bottom: 2px solid var(--line); padding-bottom: 4px; }
+  p.sub { color: var(--ink2); margin: 0 0 14px; }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; }
+  ul, ol { margin: 6px 0; padding-left: 20px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+  figure { margin: 0; background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 8px; }
+  figure img { width: 100%; height: auto; display: block; border-radius: 6px; background: #f3e9d6; }
+  figcaption { font-size: 14px; margin-top: 6px; }
+  figcaption b { display: block; font-size: 15px; }
+  code { background: #efe5d2; padding: 1px 5px; border-radius: 4px; font-size: 13px; }
+  table { border-collapse: collapse; width: 100%; font-size: 14px; }
+  th, td { border-bottom: 1px solid var(--line); padding: 6px 8px; text-align: left; vertical-align: top; }
+  th { background: #efe5d2; }
+  .tw { overflow-x: auto; }
+  .wide img { cursor: zoom-in; }
+  .zoom { position: fixed; inset: 0; background: rgba(0,0,0,.85); display: none; align-items: center; justify-content: center; z-index: 9; }
+  .zoom img { max-width: 96vw; max-height: 96vh; cursor: zoom-out; }
+  .note { font-size: 13px; color: var(--ink2); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Máy quả Háu Ăn: rig AtomSpine và 12 clip</h1>
+  <p class="sub">2026-11-26. Rig đã có viền mực và đã vào game (lều Hội Máy Quả). Ảnh động dưới đây kết xuất từ rig: ô cuộn để trống vì hình cuộn do game vẽ.</p>
+
+  <h2>0. Trong game (ảnh chụp lúc Play, màn 1:2)</h2>
+  <p class="sub">Lão Mực đứng sau quầy kéo cần, máy bị giật rồi quay; hình cuộn méo theo thân máy. Bấm ảnh để phóng to.</p>
+  <figure class="wide"><img src="xem/game/luot_truot.jpg" alt=""><figcaption><b>Trượt</b>chờ → Lão Mực với tay (0,28 s) → giật cần (0,47 s) → nhả → cuộn chạy → dừng → mếu</figcaption></figure>
+  <figure class="wide" style="margin-top:12px"><img src="xem/game/luot_trung.jpg" alt=""><figcaption><b>Trúng một đường</b>ô thắng sáng vàng, máy nhảy, nhả bi</figcaption></figure>
+  <figure class="wide" style="margin-top:12px"><img src="xem/game/luot_jackpot.jpg" alt=""><figcaption><b>Jackpot</b>gồng → vọt lên, rớt hàm, mắt sao, bi phun → rơi bẹp, rung màn → nhảy múa; Lão Mực ngã ngửa</figcaption></figure>
+  <figure class="wide" style="margin-top:12px"><img src="xem/game/khac.jpg" alt=""><figcaption><b>Ba Rương, bảng thông tin gập, bảng trả</b></figcaption></figure>
+  <figure class="wide" style="margin-top:12px"><img src="xem/game/cuon_nhanh.jpg" alt=""><figcaption><b>Cuộn chạy nhanh (bản sau khi bạn dặn "chạy thật nhanh như slot thật")</b>giật cần (0,47 s) → ba cuộn nổ máy lệch nhau một nhịp, hình nhoè thành vệt (38 ô / giây) → hãm gấp, dừng lần lượt trái sang phải → hình nét lại</figcaption></figure>
+
+  <h2>1. Một lượt quay trọn</h2>
+  <p class="sub">Ghép các clip theo đúng thứ tự game sẽ gọi: chờ → Lão Mực giật cần → cuộn chạy → ba cuộn dừng lần lượt → kết quả. Chỗ nối ở đây cắt thẳng; trong game runtime hoà 0,12 giây.</p>
+  <div class="grid3">
+    <figure><img src="xem/luot_truot.gif" alt=""><figcaption><b>Trượt</b>nhổm lên hy vọng rồi xẹp, mếu, đèn tắt</figcaption></figure>
+    <figure><img src="xem/luot_trung.gif" alt=""><figcaption><b>Trúng một đường</b>nén rồi nhảy hai cái, cười to, đèn nháy</figcaption></figure>
+    <figure><img src="xem/luot_jackpot.gif" alt=""><figcaption><b>Jackpot</b>nín thở ở cuộn cuối → gồng → vọt lên, treo lắc, mắt sao, rớt hàm → rơi bẹp → nhảy múa vẫy cần</figcaption></figure>
+  </div>
+
+  <h2>2. Từng clip</h2>
+  <div class="grid">
+    <figure><img src="xem/idle.gif" alt=""><figcaption><b>idle</b> 4,0 s lặp. Nhún theo phách, lắc nhẹ, gõ mũi giày, chớp mắt, đèn chạy; giây thứ 3 nhai bi bốn cái</figcaption></figure>
+    <figure><img src="xem/pull.gif" alt=""><figcaption><b>pull</b> 0,9 s. Dõi tay Lão Mực với tới (0,3 s) → nghiêng ra xa cần → bị giật, bẹp về phía cần → bật lại. Sự kiện <code>keo</code></figcaption></figure>
+    <figure><img src="xem/spin.gif" alt=""><figcaption><b>spin</b> 0,5 s lặp. Lắc hai bên, thân rung hai dáng, răng lập cập, mắt dõi ô cuộn</figcaption></figure>
+    <figure><img src="xem/stop_1.gif" alt=""><figcaption><b>stop_1</b> 0,4 s. Cuộn trái dừng: cạch, giật sang trái. Sự kiện <code>cach</code></figcaption></figure>
+    <figure><img src="xem/stop_2.gif" alt=""><figcaption><b>stop_2</b> 0,4 s. Cuộn giữa dừng, giật sang phải</figcaption></figure>
+    <figure><img src="xem/stop_3.gif" alt=""><figcaption><b>stop_3</b> 0,5 s. Cuộn cuối dừng, mạnh nhất, về dáng nghỉ</figcaption></figure>
+    <figure><img src="xem/tease.gif" alt=""><figcaption><b>tease</b> 0,5 s lặp. Hai cuộn đầu đã khớp: kiễng lên, nín thở, run, mắt lồi</figcaption></figure>
+    <figure><img src="xem/lose.gif" alt=""><figcaption><b>lose</b> 1,2 s. Nhổm lên → xẹp, rũ, mếu, cần rũ theo</figcaption></figure>
+    <figure><img src="xem/win.gif" alt=""><figcaption><b>win</b> 1,6 s. Nhảy hai cái. Sự kiện <code>nha_bi</code> hai lần (game phun bi ở miệng)</figcaption></figure>
+    <figure><img src="xem/jackpot.gif" alt=""><figcaption><b>jackpot</b> 4,0 s. Sự kiện <code>no</code>, <code>het_no</code>, <code>dap</code> (rung màn), <code>nha_bi</code></figcaption></figure>
+    <figure><img src="xem/free.gif" alt=""><figcaption><b>free</b> 1,2 s. Ba Rương: tự giật cần hai cái, mắt sao. Sự kiện <code>mien_phi</code></figcaption></figure>
+    <figure><img src="xem/appear.gif" alt=""><figcaption><b>appear</b> 1,4 s. Đang ngủ gật → giật mình bật dậy → cười. Sự kiện <code>chao</code></figcaption></figure>
+  </div>
+
+  <h2>3. Hình đem rig</h2>
+  <figure class="wide"><img src="rig/soi/ghep_thu.png" alt=""><figcaption>Trái: bản chuẩn không viền (nền hồng). Ba hình phải: các mảnh đã tách ghép lại, đổi mắt / miệng / đèn. Bấm để phóng to.</figcaption></figure>
+  <div class="tw" style="margin-top:14px">
+  <table>
+    <tr><th>Mảnh</th><th>Xương</th><th>Động thế nào</th></tr>
+    <tr><td>Thân (một lưới 774 đỉnh)</td><td>ba khối chồng nhau: hông, tấm khung cuộn, vòm đầu</td><td>nén giãn và nghiêng trễ dần lên trên; khung cuộn là tấm cứng nên hình cuộn game vẽ luôn khít</td></tr>
+    <tr><td>Mắt 8 hình, miệng 6 hình</td><td>mỗi thứ một xương</td><td>đổi hình theo cảm xúc, co giãn; mắt lồi to lúc jackpot</td></tr>
+    <tr><td>Hai nửa dải mày</td><td>xoay quanh đầu ngoài</td><td>nhướn, cau, rũ</td></tr>
+    <tr><td>Cần + núm đỏ</td><td>3 đốt + núm</td><td>bị giật xuống 105° rồi bật lại, rung dư; tay Lão Mực bám xương <code>num</code></td></tr>
+    <tr><td>Lò xo ăng ten + sao</td><td>3 đốt + sao</td><td>lò xo trễ, co giãn theo thân</td></tr>
+    <tr><td>Hai ống chân, hai giày</td><td>4 đốt mỗi ống</td><td>thân hạ xuống thì ống phình cong ra ngoài, giày ghim đất; rời đất thì giày treo, mũi chúc xuống</td></tr>
+    <tr><td>9 bóng đèn sáng (hai nhóm)</td><td>bám thân</td><td>chạy đuổi theo phách, nháy nhanh khi trúng, tắt khi trượt</td></tr>
+  </table>
+  </div>
+  <p class="note">File: <code>atom/export/may_qua.atomik</code> (2,5 MB, 31 xương, 16 lớp, 1.531 đỉnh, 12 clip). Mở rig trong AtomSpine Studio để xem từng khung và ghi nhận xét: <code>py -3 -I rig\mo_studio.py</code>.</p>
+
+  <h2>4. Đã làm thêm (đợt "làm nốt")</h2>
+  <div class="box">
+    <ul>
+      <li><b>Viền mực</b>: 50 nét trên lớp <code>vien</code> của từng ảnh mảnh trong Paint của AtomSpine (sinh bằng <code>rig/ve_vien.py</code>, sửa tay được trong Studio).</li>
+      <li><b>Lão Mực kéo cần</b>: clip <code>sl_pull</code> (1,1 s) thêm vào rig Lão Mực; bàn tay bám núm theo đúng đường núm của clip <code>pull</code> của máy, hai clip phát cùng một khung. <img src="xem/keo_can_to.png" alt="" style="width:100%;margin-top:6px;border-radius:6px"></li>
+      <li><b>Unity</b>: nền lều mới, 9 biểu tượng cuộn vẽ lại, hình cuộn trượt trong ô và méo theo thân máy, <code>SlotScene</code> viết lại, bi phun + rung màn theo sự kiện của rig, bảng thông tin gập ở góc trái dưới.</li>
+    </ul>
+  </div>
+  <h2>5. Còn lại</h2>
+  <div class="box">
+    <ul>
+      <li>Chưa thử trên máy Android thật; chưa có âm thanh riêng (đang dùng tiếng sẵn của game).</li>
+      <li>Màn 1:2 cắt mất vài px mép trái thân máy lúc nó bẹp ngang.</li>
+    </ul>
+  </div>
+</main>
+<div class="zoom" id="zoom"><img alt=""></div>
+<script>
+const zoom = document.getElementById('zoom');
+document.querySelectorAll('.wide img').forEach(im => im.addEventListener('click', () => { zoom.querySelector('img').src = im.src; zoom.style.display = 'flex'; }));
+zoom.addEventListener('click', () => zoom.style.display = 'none');
+</script>
+</body>
+</html>

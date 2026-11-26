@@ -447,6 +447,211 @@ atlas 1224 x 1216; `kiem.py`: lệch cuối so với idle giây 0 là 0,00 ở m
 (tay rũ); và tờ 10 khung của cả 12 clip. Chỗ tay chạm bàn khác đã rà: chỉ còn dáng tay rũ của `react_win_big` (đã sửa). Vẫn chưa xem
 chuyển động ở tốc độ thật, chưa chạy trong Unity.
 
+### D3 bản đầu (2026-11-26): lều Đêm Bài có Lão Mực chạy trong game
+
+Người dùng: "quét update mới, làm tiếp phần đảo casino". D2 bản 4 chưa có lời duyệt; câu "mái nhà V hay Λ trên màn" vẫn để như bản 4
+(chữ V ôm chồng chip) chờ xác nhận.
+
+**Hình** (`ArtGen/Casino/dealer/d3/`, README trong đó; Magnific GPT 2.6 1k high, ảnh mẫu là cảnh bàn `A_canh_ban_bai.png` + `world_style.png`;
+95 + 95 + phóng classic 2k 72 = **262 credit**):
+- nền lều nhìn từ ghế người chơi, dọc 9:16, không dealer, nỉ trống, khay chip 4 chồng ở mép bàn sau; tách thành **nền** (cả ảnh) và **lớp bàn**
+  (vành bàn + khay + nỉ) theo mép trên nét mực đo tay (`tach_lop.py`), Lão Mực đứng giữa hai lớp;
+- tờ đồ bàn: lưng bài, mặt bài trắng, cỗ bài, 4 chip, 2 chồng chip (`cat_do_ban.py`).
+
+**Bố cục** (sân khấu 1080 x 1920 dưới `Canvas/Nen`, phủ màn bằng tỉ lệ `max(rộng / 1080, cao / 1920)`): ảnh nền rộng 1080, mép trên ở y −150 nên
+mép bàn sau ở y −1000; Lão Mực tỉ lệ 0,79, gốc rig ở y −1395. Chọn đúng tỉ lệ này thì ô cược `CHIP` (0, 120) và khay `TRAY_Y` của clip D2 rơi đúng ô
+cược (y −1300) và khay chip trên ảnh: **không phải nướng lại `take` / `pay`**. Hàng bài dealer y −1140 (0,9 lần), bài người chơi y −1475 (1,3 lần),
+cỗ bài (330, −1092) bên phải khay. Bậc cược ở trên; tờ tin thu thành bảng nhỏ bên trái, Hũ bàn + Cách chơi + Gợi ý bảng bên phải; dòng chế độ
+trên hàng nút.
+
+**Rig** (`rig/`): slot **`la_cam`** (lưng bài trên xương `tay_pb`, vẽ sau bàn tay) thêm bằng `them_la_bai.py` (và trong `dung_rig.py` cho lần dựng
+lại); khoá `p["card"]` trong `dong_co.py`. 5 clip mới ở **`clip_d3.py`** (hoat_anh.py nạp), mọi clip hoà về idle giây 0 (`kiem.py`: lệch 0,00):
+
+| Clip | Dài | Diễn | Sự kiện |
+|---|---|---|---|
+| `deal` | 1,0 | tay phải nhón lá ở cỗ bài (kẹp, lá hiện trên tay) → rút về cạnh vai lấy đà → búng về phía người chơi, lá rời tay → bàn tay xoè quá đà → về | `bung` 0,36 |
+| `deal_self` | 1,0 | nhón lá → vòng tay đặt lá xuống hàng bài trước bụng → vỗ nhẹ → về | `bung` 0,38 |
+| `peek` | 1,5 | chồm tới, kẹp góc lá úp, nháy một mắt, miệng méo hồi hộp | |
+| `reveal` | 1,0 | tay tới lá úp, kẹp → xoay cổ tay hất (lá lật) → bàn tay xoè "ta-da", mắt cười | `lat` 0,38 |
+| `bust_self` | 2,0 | giật mình mắt lồi, há hốc → khuỷu chìa ngang, hai tay giơ hai bên đầu, lắc đầu → buông tay | |
+
+`bust_self` bản đầu nén thân 9 % làm mặt tụt sát nơ, ống tay đi từ vai lên che mặt; đã giảm nén, cho tay có khuỷu chìa ra ngoài, hạ bàn tay
+xuống ngang thái dương (lượt chụp đầu thấy tay giơ cao chạm bảng nút bên phải). `reveal` có
+cú xoay cổ tay 160 độ / khung lúc hất lá (cố ý, cùng cỡ cú quất ở `take`, `grumpy` của D2). Xuất `lao_muc.atomik` 65 xương, 12 slot, 17 clip, 2.234 KB,
+atlas 992 x 1512 (`--atlas-cap 1200`).
+
+**Unity**:
+- `Game/Casino/DealerRig.cs` (nạp `.bytes` bằng `AtomikFile.Load` như rương máy bi, một `AtomikState`, hàng chờ clip một lần → idle, sự kiện,
+  `BoneWorld`) + `DealerLayer.cs` (Graphic uGUI dựng lưới một phần slot): **hai lớp vẽ dùng chung một tư thế**, lớp sau (thân, mặt, lưỡi trai)
+  dưới mặt bàn, lớp trước (ống tay, nịt, nơ, lá trên tay, bàn tay) trên đồ bàn. `AtomikGraphic` của gói chưa tách slot được nên viết riêng.
+- `BlackjackScene` viết lại phần diễn: lõi vẫn tính trước cả ván, màn **diễn lại theo thứ tự lõi** (`Sync`): chồng chip cược trượt lên ô cược → chia
+  p-d-p-d (lá dealer thứ hai úp; mỗi lá chờ sự kiện `bung` rồi bay từ bàn tay Lão Mực theo cung, xoay, đáp nảy, lật) → `peek` khi lá ngửa là A / 10
+  (lá úp nhấc theo tay) → lá rút → tách (lá thứ hai bay sang tay 2) → `reveal` → dealer rút (`deal_self`; quá 21 thì `bust_self`) → tiền: thắng thì
+  `pay` (chồng chip thắng bám bàn tay từ khay ra tới sự kiện `tra_chip`), thua thì `take` (chồng chip bám giữa hai bàn tay từ `cham_chip` tới
+  `vo_xong` rồi vào khay), hoà thì chip trượt về; rồi `react_*`, thắng 3 ván liền `grumpy`, hết ván có thưởng `sulk`. Rig thiếu clip nào thì
+  màn tự lùi về cách cũ (lá bay từ cỗ bài), không kẹt.
+- Bong bóng thoại cạnh đầu: câu chào / ván miễn phí / ván tập lúc vào lều, "Quá 21 rồi, khè khè!", kho câu thắng / thua / hoà, "Chơi lớn hả?"
+  (bậc cược 3 trở lên kèm `bet_watch`); 19 câu có bản tiếng Anh (`d3/loc_d3.py`).
+- Lượt chụp `Editor/CasinoDealerTour.cs` (cờ `Temp/casino_bj_dealer_tour.flag`): khoá nhịp 20 khung / giây (`Time.captureDeltaTime`), chụp mọi
+  khung một ván miễn phí và các ván có cược tới khi có cả thắng lẫn thua; `d3/lam_gif.py` ghép `d3/van_bai.webp` (WebP động; GIF cùng độ dài
+  nặng ~60 MB nên chỉ xuất khi thêm `--gif`, không vào git).
+- **Đã soi** (lượt hai, 915 khung, 46 giây game, khung 617 x 1235): ván miễn phí (dealer rút 5-7-10 quá 21 → `bust_self` → `pay` chồng chip xanh
+  bám bàn tay từ khay ra), ván thắng có cược (`pay`, `react_win_small`), ván thua (người chơi quá 21 → `take`: hai bàn tay dựng thành chữ V quây
+  chồng chip đỏ kéo về khay → `react_lose`); lá trên tay ở cú búng; lá dealer thứ hai úp rồi lật ở `reveal`; `peek` khi lá ngửa là A.
+  Sửa sau lượt đầu: bài người chơi to 1,3 lần và lên gần ô cược (bản đầu nhỏ, nằm quá xa dưới đáy), bài dealer 0,9; lá Lão Mực tự đặt chỉ lượn
+  nhẹ, không xoay vòng; nhãn số bi cược sang trái chồng chip (chồng chip thắng đè lên nhãn). Lượt ba (1.226 khung) soi lại: tay của
+  `bust_self` ngang thái dương, không chạm bảng nút; nhãn số bi bên trái chồng chip. `d3/van_bai.webp` ghép từ lượt này (rộng 360).
+
+**Mở hết lều khi chưa phát hành** (người dùng 2026-11-26: "sao các lều roulette, blackjack... tôi không vào được, đều ghi là không mở", rồi "cứ để
+mở các event đi, đã phát hành đâu"): lều đóng là đúng lịch (mốc `anchor` 2026-11-23, hôm nay 26/11 là ngày nghỉ giữa Đêm Bài 23–25/11 và Vòng
+Xoay 27–29/11; lều còn cần cấp 20). Thêm `Casino.TestAllBooths` (lõi, mặc định tắt, không lưu): coi cả ba lều đang dựng hôm nay (dùng sự kiện
+vòng lặp của từng lều, khách mời như lần mở kế) và mục lều đã mở (bỏ mốc cấp). **`App.cs` bật lúc mở game**, nên trong Editor lẫn trên điện
+thoại cả ba lều luôn mở. `Editor/CasinoTestBooths.cs` tắt lại khi về Edit mode (Play tắt Reload Domain) để `CasinoTests` chạy theo lịch thật.
+**Trước khi phát hành phải xoá dòng đó trong `App.cs`** để lều theo lịch.
+
+### D3 phần hai (2026-11-26): xoè bài, tách, gấp đôi, rút hồi hộp, chip theo bậc
+
+Người dùng: "giữ chữ V, làm tiếp phần còn lại của D3" (vơ chip: hai bàn tay thành chữ V ôm chồng chip trên màn, giữ như bản 4).
+
+**Rig** (`rig/them_d3b.py` thêm vào project đang có; `dung_rig.py` cho lần dựng lại): 7 lá `xao_1..7` (xương con của root, hình lưng bài,
+slot vẽ trên ống tay, dưới bàn tay) và 2 giọt mồ hôi `mo_hoi_1..2` (xương con của head ở hai thái dương, giọt nước tô phẳng xanh nhạt viền nâu
+vẽ bằng mã, không điểm sáng). Động cơ (`dong_co.py`) nhận `p["xao"]` là hàm của vị trí / góc hai xương bàn tay vừa giải (lá bám đúng lòng bàn
+tay mỗi khung) và `p["sweat"]`. 74 xương, 21 slot, 21 clip, 2.271 KB.
+
+| Clip | Dài | Diễn | Sự kiện |
+|---|---|---|---|
+| `shuffle` | 2,5 | tay phải nhấc cỗ bài trên nỉ → hai tay nâng trước ngực → bài bắn thành vòng cung từ tay phải sang tay trái từng lá (lò xo) → khép, gõ cỗ bài xuống mép bàn → tay phải đặt cỗ bài về chỗ cũ | `nhac_bai` 0,26, `go_bai` 1,66, `dat_bai` 2,05 |
+| `split` | 1,0 | hai bàn tay dựng đứng chụm giữa bàn rồi gạt dạt ra hai bên, mắt tròn | `tach` 0,42 |
+| `double` | 1,0 | nhướn mắt tròn, chồm tới, xoa tay nhanh, lè lưỡi ("chơi lớn hả?") | |
+| `deal_self_tense` | 1,0 | như `deal_self` nhưng run, mắt lồi, miệng méo, hai giọt mồ hôi rịn ở thái dương rồi chảy (tắt trước đoạn hoà về idle) | `bung` 0,38 |
+
+Mọi clip về đúng idle giây 0 (`kiem.py` lệch 0,00). Lần đầu `shuffle` vòng cung hẹp, thấp; đã dang tay rộng hơn, vòng cung cao 195.
+
+**Unity**:
+- `DealerRig`: lớp trước chọn theo **tiền tố tên slot** (`tay_`, `nit_`, `no`, `ban_tay_`, `la_`, `xao_`) thay cho danh sách cứng, slot mới tự vào đúng
+  lớp (mồ hôi ở lớp sau cùng mặt).
+- `BlackjackScene`: ván đầu mỗi lần vào lều Lão Mực xoè bài ("Xào bài nào!"; hình cỗ bài trên nỉ ẩn từ `nhac_bai` tới `dat_bai`); Tách thì hai tay
+  gạt rồi lá mới dạt sang tay 2 ở `tach` ("Tách thì tách!"); Gấp đôi thì `double` rồi lá thêm **úp nằm ngang**, tổng tay hiện "N điểm + ?", tới
+  lượt dealer mới lật (trước lá úp của dealer); dealer rút khi đang 12–16 dùng `deal_self_tense`; chồng chip cược / thắng theo màu bậc cược
+  (đỏ, xanh dương, xanh lá, vàng; xanh lá và vàng xoay sắc độ từ chồng đỏ, `d3/doi_mau_chip.py`).
+- Lượt chụp dò trước hạt giống bằng lõi (`CasinoTableScene.SeedForTest`, `Blackjack.Deal` với `Rng` mới): ván miễn phí có đôi để Tách (kèm xoè bài),
+  ván bậc 3 Gấp đôi, ván bậc 4 dealer phải rút khi đang 12–16.
+
+**Đã soi trong game** (lượt chụp 1.101 khung, `d3/van_bai.webp`): xoè bài (cỗ bài trên nỉ ẩn / hiện đúng lúc), A-A gặp 6 → "Nên: Tách" → hai tay
+gạt, hai tay A mỗi tay một lá; 9 + 2 gặp 3 → Gấp đôi, chip xanh lá, lá Q úp nằm ngang rồi lật trước lá úp dealer; dealer 13 rút lá ba bằng
+`deal_self_tense` (mắt lồi, miệng méo, hai giọt mồ hôi). Lỗi bắt được: bong bóng thoại đặt ở x 300 rộng 420 che nửa phải mặt (mắt phải, giọt mồ
+hôi bên đó) → dời sang phải đầu, hẹp lại, đủ chỗ trên màn 1:2.
+Sau D4 (assets-52 góp ý): dòng chế độ (ván miễn phí / ván tập) chữ xanh nằm trên nỉ xanh rất chìm → đưa vào bảng tin giấy bên trái như
+Vòng Xoay (`CasinoTablesMenu.Common`, chung cho cả hai lều có dealer).
+
+**Còn lại** (mốc sau): âm thanh lầm bầm / búng ngón / "boing" (D8); viền nét vẽ sau khi người dùng chốt animation; D4 Vòng Xoay, D5 Máy Quả.
+
+### D4 bản đầu (2026-11-26): lều Vòng Xoay có Lão Mực, viên bi lăn bằng vật lý, ô ra do lõi chọn
+
+Người dùng: "làm phần roullete di, làm kĩ, lấy nhân vật đen kia vào, làm việc thả bóng nhìn thật và có vật lý hơn nhưng mình phải kiểm
+soát được tỉ lệ ra". Chi tiết file ở `ArtGen/Casino/dealer/d4/README.md`.
+
+**Tỉ lệ ra (lõi)**: `Roulette.Spin` chọn ô bằng `Roulette.Pick`: 26 ô đều nhau, hoặc theo `casino.roulette.weights` (26 số, thêm vào khối
+roulette của `ArtGen/Casino/so_lieu/gen_casino.py` rồi `--apply`, menu Nhập dữ liệu). `Roulette.Chance`, `RtpOf`, `RtpRange` tính xác suất
+và hoàn trả từng cửa theo trọng số; Cách chơi ghi "Mọi cửa hoàn trả X%" hoặc "Hoàn trả từ A% tới B% tuỳ cửa" theo số thật (luật mục 1.2:
+tỉ lệ công khai). Hiện chưa đặt trọng số: mọi cửa 25/26.
+
+**Viên bi (`Core/Casino/RouletteBall.cs`, C# thuần)**: bánh xe có hình học cố định (`RouletteWheel`: đường bi chạy, sườn dốc 8 mấu chắn, mâm
+xoay 26 ô có vách ngăn; ô xếp xen kẽ hệ quanh mâm, `PocketAt` / `SlotOf`). `Simulate` mô phỏng 480 bước/giây: bi tì vách (ma sát lăn + cản
+khí), rời vách khi lực ly tâm không thắng dốc, xoáy xuống, va mấu chắn (nảy lên, lệch hướng), lên mâm đang quay ngược chiều, nảy qua vách
+ngăn khi còn nhanh, bị mặt mâm bắt khi chậm, lắc trong ô rồi nằm yên. `Plan(vị trí, góc mâm)` thử các cú thả với lực thả ngẫu nhiên trong
+khoảng tự nhiên tới khi bi nằm đúng ô lõi đã chọn (cho lệch tối đa 3 ô rồi lùi pha mâm đúng số ô đó: bánh xe đối xứng theo từng ô nên
+đường đi không đổi), ưu tiên cú có 2–9 lần nảy qua vách; trả về đường đi ghi 120 mẫu/giây + danh sách va chạm (cho tiếng). Màn chỉ phát
+lại. Đo ngoài Unity (`d4/sim/chay.py stats`): 4.000 cú thả tự do đều nằm yên, 4,6–7,5 giây mỗi cú, ~4,7 vòng, phân bố 26 vị trí đều; 1.040
+cú theo ô chọn: sai 0, trung bình 9 cú thử (nhiều nhất 68), ~4 ms mỗi lần tìm trên máy bàn.
+
+**Hình** (`d4/`): nền lều tím nhìn từ ghế người chơi (Magnific GPT 2.6 1k high 95 + phóng classic 2k 72 = **167 credit**; ảnh mẫu là phác
+khối bố cục + nền lều Đêm Bài), tách lớp bàn theo cung mép bàn đo tay. Bánh xe **vẽ bằng mã** (`ve_banh_xe.py`: viền mực rung, tô phẳng
+có vân chì lấy từ nỉ của ảnh nền) để khớp từng số với mô phỏng: lòng chảo chiếu nghiêng, mâm nhìn từ trên (game xoay rồi ép dẹt 0,6),
+trục, bi, nửa vành gần vẽ đè lên bi. Chip dùng lại của lều bài.
+
+**Rig** (`rig/clip_d4.py`, `them_d4.py`; 74 xương, 22 slot, 26 clip, 2.362 KB; 21 clip cũ so khoá y nguyên): slot `la_bi` (viên bi trên tay
+phải, mặc định ẩn) và 5 clip:
+
+| Clip | Dài | Diễn | Sự kiện |
+|---|---|---|---|
+| `rl_invite` | 2,0 | tay phải quạt một cung trên bảng cược, nháy mắt | |
+| `rl_no_more` | 1,0 | bàn tay úp xua ngang "hết đặt" (game cắt ở 0,62 s để quất mâm luôn) | |
+| `rl_spin` | 2,0 | khoe bi → xoắn người → tay trái bắn dài xuống mép xa của mâm, quất sang trái → thu tay → tay phải ném bi chúi xuống | `quay` 0,767, `tha_bi` 1,50 |
+| `rl_watch` | 2,0 lặp | chồm tới, đầu và mắt dõi theo bi; game KÉO thời gian theo góc bi (t = 0 bi ở 40°, bi đi theo chiều kim đồng hồ khi t tăng) | |
+| `rl_point` | 1,5 | giơ ngón rồi vươn tay chỉ xuống bánh xe | `chi` 0,50 |
+
+**Unity**:
+- `DealerRig.Scrub(clip, thời điểm, dt)` / `EndScrub()`: kéo thời gian clip lặp bằng tham số ngoài, hoà 0,2 giây thật lúc bắt đầu (chụp
+  lại dáng mỗi khung nên không phụ thuộc tốc độ kéo). Chữ ký cũ giữ nguyên (Đêm Bài, Hầm đấu, Trường đua dùng chung).
+- `RouletteScene` viết lại theo mẫu sân khấu của Đêm Bài (sân khấu 1080 x 1920, rig 0,70, mép bàn y −650): bảng cược nỉ 6 x 6 (góc Sao
+  Vàng, hàng đầu 5 cửa Số, cột đầu 5 cửa Hệ, 25 ô đơn), chip theo màu bậc cược nằm ở góc ô, bánh xe to sát người chơi luôn quay chậm.
+  Bấm Quay: lõi chọn ô và tính tiền ngay → `rl_no_more` → `rl_spin`; ở `quay` mâm tăng tốc và `Plan` tìm cú thả (pha mâm được nắn dần
+  trong lúc tăng tốc cho khớp), ở `tha_bi` bi bay từ bàn tay tới điểm vào đường chạy đúng mốc → phát lại đường đi (tiếng lăn, va mấu, va
+  vách theo danh sách va chạm) → Lão Mực dõi theo → bi vào ô 0,45 s thì báo ô ra (ô trúng sáng, ô khác lùi tối, sao đánh dấu, `rl_point`)
+  → chip thua: `take` (cú đập làm chip nảy vào lòng chữ V rồi theo tay về khay), chip thắng: `pay` (chồng chip "+N bi" theo tay ra ô
+  gom) rồi về tay người chơi dọc hai bên bánh xe → `react_*` / `grumpy` (3 vòng thắng liền) / `sulk` (hết vòng có thưởng).
+  Vòng miễn phí / vòng tập: chip thua về lại người chơi. Rig thiếu clip thì bỏ qua bước diễn, không kẹt.
+- `Editor/CasinoTablesMenu.BuildRoulette` dựng prefab; `Common` cho lều có dealer nhận cả `RouletteScene` (dòng chế độ nằm trong bảng tin
+  bên trái). Lượt chụp `Editor/CasinoRouletteTour.cs` (cờ `Temp/casino_rl_dealer_tour.flag`), dò hạt giống cho lõi ra ô muốn chụp và in log
+  so ô lõi chọn với ô bi nằm.
+- Test (`CasinoTests`): `Roulette_TiLeRa_TheoTrongSo` (bốc đúng trọng số, hoàn trả theo trọng số), `Roulette_Bi_NamDungOLoiChon` (156 cú:
+  mọi ô, mọi góc mâm, bi nằm đúng ô, lực thả trong khoảng tự nhiên, không phải ép nhãn mâm). 28 test Casino đạt ngoài Unity.
+
+**Đã soi trong game** (lượt chụp hai, 1.155 khung, `d4/vong_xoay.webp`, khung 617 x 1235): log ba vòng đều "ĐÚNG" (lõi ra Hỏa 3 / Hỏa 2 /
+Sao Vàng, bi nằm đúng ô đó; 5,7–6,8 giây, 4–5,5 vòng, 1 lần va mấu, 2–6 lần nảy qua vách, 1–7 cú thử). Vòng miễn phí trúng 3 cửa (chip Sao
+Vàng thua về lại người chơi, `pay` +310 bi, `react_win_big`), vòng bậc 2 trượt hết (`take` gom 5 chip xanh về khay, `react_lose`), vòng bậc
+3 trúng Sao Vàng (`take` 1 chip rồi `pay` +1,9k bi, toast mảnh khách mời). Sửa sau lượt đầu: chip che số trên ô → dời lên góc ô; bảng
+cược còn tối sau khi hết vòng → chỉ tối trong lúc báo kết quả; dòng "ván đầu miễn phí" đè bánh xe, chữ xanh chìm trên nỉ → vào bảng tin
+trái; bi vẽ to hơn 20 %; `rl_point` bị `pay` / `take` cắt ngay ở `chi` → giữ thêm 0,5 s.
+
+**Đổi sang đỏ đen** (người dùng xem bản đầu, 2026-11-26: "để đỏ đen thôi, nhiều màu quá"): ô trên mâm xen kẽ đỏ / đen như roulette thật
+(vị trí chẵn đỏ, lẻ đen; 13 đỏ, 12 đen), Sao Vàng giữ màu vàng; hệ của ô ghi bằng biểu tượng hệ nhỏ màu kem trong lòng ô. Trên bảng cược,
+ô đơn tô đúng màu đỏ / đen của ô đó trên mâm (`RouletteWheel.SlotOf(p) % 2`), cửa Hệ và cửa Số nền giấy (biểu tượng hệ tô mực), không còn
+tô theo màu hệ. Luật và tỉ lệ không đổi (vẫn 5 hệ × số 1–5 + Sao Vàng; chưa có cửa cược Đỏ / Đen). Chip vẫn theo màu bậc cược. Lượt chụp
+ba (1.152 khung): ba vòng vẫn "ĐÚNG"; `d4/vong_xoay.webp` là bản đỏ đen.
+
+**Phần chung gom vào một bảng gập** (người dùng gửi ảnh hàng mức cược + bảng tin + Hũ bàn + Cách chơi dàn quanh đầu Lão Mực, 2026-11-26:
+"mấy cái này để trong 1 cái toggle bên trái dưới thôi, không dàn ra như này"): `CasinoTableScene` thêm `infoToggle` / `infoPanel`
+(`SetupInfo`, `SetInfo`, `InfoOpen`; prefab không gán thì như cũ). `CasinoTablesMenu.CommonCompact` dựng nút "Cược N bi" ở góc trái dưới
+(trên nút Bỏ chip, bên trái bánh xe) và một bảng giấy chứa 4 mức cược, sự kiện + khách mời, hôm nay đã cược / thắng, dòng chế độ, Hũ
+bàn, Cách chơi; chọn mức cược hoặc bấm Quay thì bảng tự gập. Vòng Xoay và Máy Quả (`Common` rẽ theo loại scene) dùng bản gọn; Đêm Bài
+vẫn bản dàn quanh đầu (chưa được dặn đổi). Lều Vòng Xoay dựng riêng bằng menu "Lều Vòng Xoay: dựng riêng" / cờ
+`Temp/casino_rl_build.flag` (không dựng lại Đêm Bài, Máy Quả). Theo lời nhờ của phiên Máy Quả (D5): `Make<T>`, `CommonCompact` thành
+`internal`, `Build()` gọi `CasinoSlotMenu.Build` theo tên, bỏ `BuildSlot` cũ. Lượt chụp bốn (1.216 khung, có mở / gập bảng): ba vòng "ĐÚNG".
+
+**Chưa làm / còn nghi**: chưa chạy trên điện thoại (thời gian `Plan` trên máy yếu, cỡ bi và ô cược khi chạm bằng ngón tay); chưa có tiếng
+riêng (đang dùng `peg`, `deal`, `bet`, `whoosh`); người dùng chưa duyệt nhịp 5 clip mới; mỗi vòng dài ~13 giây (chưa có chạm để lướt nhanh);
+bánh xe là hình vẽ bằng mã, nếu muốn nét tay hơn thì gen lại theo đúng khung rồi kiểm 26 ô; mốc D5 Máy Quả chưa làm.
+
+### D5 bản đầu (2026-11-26): lều Hội Máy Quả, máy quả sống "Háu Ăn" + Lão Mực kéo cần
+
+Người dùng đổi hướng so với mục 4.4: máy quả là một NHÂN VẬT rig xương ("nhún nhún, lắc lắc hai bên, nhảy lên lắc khi jackpot", học hoạt
+hình ống cao su), duyệt concept hướng B "Háu Ăn" (có mặt, khay bi là miệng, hai chân ống cao su), Lão Mực kéo cần, rồi "làm nốt đi".
+Chi tiết, script và thứ tự dựng lại: `ArtGen/Casino/may_qua/README.md`; trang xem `ArtGen/Casino/may_qua/xem_rig.html`.
+
+- **Rig máy** (AtomSpine, `ArtGen/Casino/may_qua/atom`, xuất `may_qua.atomik` bản 3, 31 xương, 16 slot, 1.543 đỉnh, 12 clip, 2.469 KB,
+  `--atlas-cap 1100`): thân ba khối chồng (hông, tấm khung cuộn cứng, vòm đầu) nén giãn và nghiêng trễ dần; chân ống cao su phình cong,
+  giày ghim đất; cần 3 đốt + núm, lò xo ăng ten, 8 mắt, 6 miệng, hai nửa mày, đèn sáng hai nhóm. Viền mực vẽ sau cùng bằng
+  `paint.stroke` vào lớp `vien` (50 nét, `rig/ve_vien.py`). Clip: `idle`, `pull`, `spin`, `stop_1..3`, `tease`, `lose`, `win`, `jackpot`,
+  `free`, `appear`; sự kiện `keo`, `cach`, `nha_bi`, `no`, `het_no`, `dap`, `mien_phi`, `chao`.
+- **Lão Mực**: thêm đúng một clip `sl_pull` (1,1 s; `dealer/rig/clip_d5.py`, 26 clip cũ không đổi khoá nào). Bàn tay trái (hình 10, nắm
+  cần) đi theo ĐƯỜNG NÚM lấy từ chính clip `pull` của máy (`may_qua/atom/duong_num.json`) đổi sang toạ độ rig Lão Mực theo bố cục
+  `may_qua/bo_cuc.json`; game phát hai clip cùng một khung nên tay nằm trên núm suốt cú giật (0,30 – 0,57 s). Bàn tay xoay tới
+  276 độ / khung ở cú giật (cố ý, cú quất); bản 60 khung/giây soi không thấy lật ngược.
+- **Game**: nền `Leu/sl_nen.jpg` (bục thảm đỏ, quầy bên phải, mép quầy y 1137 trên sân khấu), 9 biểu tượng `Leu/sl_bt_0..8.png`, rig
+  `MayQua/may_qua.bytes`. Máy và Lão Mực đều vẽ bằng `DealerRig` + `DealerLayer` (lớp thân Lão Mực nằm trong `RectMask2D` cắt ở mép quầy).
+  `Game/Casino/SlotReels.cs`: hình ba cuộn là Image trong Mask, mỗi khung đặt theo xương `tam_d` / `cuon` (méo theo thân máy).
+  `SlotScene` viết lại: kéo cần → cuộn giật lùi rồi chạy → dừng lần lượt (máy "cạch" từng cái) → hai cuộn đầu khớp đường lớn THẬT thì
+  cuộn cuối chạy thêm 0,7 s và máy nín thở (`tease`) → `lose` / `win` / `free` / `jackpot` (huy hiệu hoặc thắng từ 20 lần cược);
+  bi phun (pool 44 Image) và rung màn theo sự kiện của rig; Quay nhanh bỏ đoạn kéo cần. Phần chung dùng bảng gập `CommonCompact`.
+  Dựng: menu "Lều Máy Quả: dựng scene" (`Editor/CasinoSlotMenu.cs`, cờ `Temp/casino_sl_build.flag`).
+- **Kiểm**: biên dịch thử ngoài Unity rồi trong Unity sạch; tour `Temp/casino_sl_tour.flag` (trượt, trúng, jackpot, ba Rương bằng hạt
+  giống dò trước, 36 ảnh `Temp/PokiShots/casino_sl`) chạy hết không lỗi trên màn 1:2; `LocTests`, `PrefabOnlyTests`, `FontAndBuildTests`
+  11 / 13 đạt, hai cái hỏng nằm ở file của phần khác (chữ prefab Trường đua; `new GameObject` ở thẻ bài, Bến câu, màn Nhà).
+- **Chưa làm**: máy Android thật; âm thanh riêng; clip "dõi cuộn" của Lão Mực (đang về idle rồi phản ứng `react_*`); màn 1:2 cắt vài px
+  mép trái thân máy lúc bẹp.
+
 ## Nguồn
 
 - Cuphead vẽ tay 24 hình/giây, nén giãn là hình vẽ lại: [Game Developer, Animating Cuphead](https://gamedeveloper.com/art/animating-i-cuphead-i-the-verve-of-the-1930s-with-the-tech-of-now),

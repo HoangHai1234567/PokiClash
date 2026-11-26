@@ -13,7 +13,8 @@ import json, math, os, subprocess, sys
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = os.path.dirname(os.path.abspath(__file__))
 ATOM = os.path.abspath(os.path.join(HERE, "..", "atom"))
-CLI = ["node", "D:/AtomSpine/packages/cli/dist/atom.mjs"]
+sys.path.insert(0, HERE)
+from atom_cli import CLI  # noqa: E402  (tìm AtomSpine, node theo máy đang chạy)
 geo = json.load(open(os.path.join(ATOM, "geo.json"), encoding="utf-8"))
 OX, OY = geo["origin"]
 J = geo["J"]
@@ -21,6 +22,7 @@ FPS = 30          # khoá xuất
 SUB = 2           # bước mô phỏng mỗi khung (60 Hz)
 DT = 1.0 / (FPS * SUB)
 NSEG = 8
+XAO_N = 7         # D3: số lá xoè bài (dung_rig.XAO_N)
 TABLE_Y = 500.0   # mép bàn sau (thế giới): bàn che từ đây xuống; game canh rig sao cho y này trùng mép bàn
 BEAT = 0.5        # một phách (giây): 120 phách / phút
 # Bản 3 (người dùng chê "cánh tay gần vai lỏng lẻo, giống sợi chỉ hơn là mềm mại"): tay là một ỐNG có bề dày.
@@ -284,6 +286,8 @@ def base_pose():
         "arm": {"t": new_arm("t"), "p": new_arm("p")},
         "foot": {"t": (0.0, 0.0), "p": (0.0, 0.0)},
         "spring": 1.0,                    # hệ số chung cho phần trễ
+        "card": None,                     # "la_bai": tay phải đang cầm một lá (slot la_cam)
+        "ball": False,                    # D4: tay phải đang kẹp viên bi roulette (slot la_bi)
     }
 
 
@@ -503,6 +507,8 @@ class Sim:
         ch[("mieng", "translate")] = rot2(p["mouth_d"], -90)
         att["mat"] = f"mat_{p['eye']:02d}"
         att["mieng"] = f"mieng_{p['mouth']:02d}"
+        att["la_cam"] = p.get("card") or "-"   # lá bài trên tay phải (D3: chia bài)
+        att["la_bi"] = "bi" if p.get("ball") else "-"   # viên bi trên tay phải (D4: Vòng Xoay)
 
         # ---- phần trễ: gia tốc gốc xương kéo lò xo góc ----
         H_ = M["head_ns"]
@@ -552,6 +558,7 @@ class Sim:
 
         # ---- tay ----
         vang = mang(M["vai"])
+        hw = {}   # D3: vị trí (cổ tay) và góc thế giới của xương bàn tay từng bên, cho lá bài xoè bám theo
         for s in "tp":
             a = p["arm"][s]
             side = -1 if s == "t" else 1
@@ -750,11 +757,32 @@ class Sim:
             if ("rh0", s) not in self.prev_ang:
                 self.prev_ang[("rh0", s)] = round(rh / 360.0) * 360.0
             rh -= self.prev_ang[("rh0", s)]
+            hw[s] = (knots[NSEG], hr)
             ch[(f"tay_{s}b", "rotate")] = (rh,)
             ch[(f"tay_{s}b", "translate")] = (ln - SEG[s], 0.0)
             ch[(f"tay_{s}b", "scale")] = (hs * (1.0 - hsq), hs * (1.0 + hsq))
             hand = a["hand"] if a["hand"] is not None else best[1]
             att["ban_tay_trai" if s == "t" else "ban_tay_phai"] = f"tay_{hand:02d}_{s}"
+
+        # ---- D3: lá bài xoè giữa hai tay (clip shuffle) và giọt mồ hôi (deal_self_tense) ----
+        # p["xao"]: hàm hw -> [(x, y, góc, hiện)] cho từng lá (thế giới; xương xao_i con của root, dáng gốc ở 0, 0);
+        # p["sweat"]: [(dx, dy, hiện) hoặc None] cho từng giọt (dời so với chỗ gốc ở thái dương, hướng thế giới khi đầu thẳng).
+        fn = p.get("xao")
+        cards = fn(hw) if fn is not None else []
+        for i in range(XAO_N):
+            if i < len(cards):
+                x, y, r, vis = cards[i]
+                ch[(f"xao_{i + 1}", "translate")] = (x, y)
+                ch[(f"xao_{i + 1}", "rotate")] = (r,)
+                att[f"xao_{i + 1}"] = "la_xao" if vis else "-"
+            else:
+                att[f"xao_{i + 1}"] = "-"
+        sweat = p.get("sweat") or []
+        for i in range(2):
+            sw = sweat[i] if i < len(sweat) else None
+            if sw:
+                ch[(f"mo_hoi_{i + 1}", "translate")] = rot2((sw[0], sw[1]), -90)   # hệ đầu: x cục bộ = lên
+            att[f"mo_hoi_{i + 1}"] = "mo_hoi" if sw and sw[2] else "-"
 
         # ---- chân: bàn chân ghim đất ----
         hang = mang(M["hip"])

@@ -1,0 +1,9 @@
+{
+ "_": "Bố cục sân khấu lều Hội Máy Quả (1080 x 1920; x tính từ giữa, y từ mép trên xuống). Dùng chung cho rig/hoat_anh.py (đường núm cần), dealer/rig/clip_d5.py (tay Lão Mực) và Assets/01 Script/Editor/CasinoSlotMenu.cs (đổi ở đây thì sửa hằng số cùng tên ở menu rồi nướng lại clip sl_pull).",
+ "stage": [1080, 1920],
+ "nen": {"k": 0.944, "top": 0},
+ "may": {"x": -160, "y": 1452, "scale": 0.9},
+ "dealer": {"x": 350, "y": 1437, "scale": 0.60},
+ "quay_y": 1137,
+ "pull_lead": 0.30
+}

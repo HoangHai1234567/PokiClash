@@ -19,6 +19,10 @@
 //   ngọc, đợt pháo thứ hai và cả màn giật nhẹ;
 // - thưởng quý nhất vọt ra từ lòng rương lên trên rương (kéo dài, nảy, bẹt rồi đứng), vầng tia chuyển lên sau thưởng.
 // Hạt (Items/HatMayBi) neo góc trên trái nên mọi điểm phát đổi qua Fx() trước khi phát.
+// Bảng tổng kết cuộn (2026-11-26, người dùng dặn theo bảng tổng kết của máy tham khảo: scroll_reward + viewport RectMask2D + lưới):
+// tới bảng tổng kết thì ruy băng tiêu đề bay lên cất đi; ô to cố định (4 cột chiếm 92 % bề ngang, không co cả lưới cho vừa chiều cao
+// nữa); lưới nằm trong khung cắt từ sát đỉnh màn xuống trên nút; ô bật tới hàng nằm dưới mép khung thì lưới cuộn lên một hàng rồi
+// mới bật; bật hết thì người chơi kéo lên xuống xem lại.
 // Rig AtomSpine (2026-11-20, GD_Claude/23): có rig rương (Kit/Ruong con "rig") thì thay ảnh tĩnh: chờ chạm chạy "nhac" (nắp hé, sáng
 // lọt khe), gồng chạy "gong" (tốc theo thời gian gồng của bậc, code lắc nửa biên độ), bật chạy "bat" rồi "mo"; hạt, loé, giấy màu như cũ.
 using System;
@@ -29,11 +33,12 @@ using PokiClash.Core;
 using PokiClash.UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace PokiClash
 {
-    public sealed class MachineChestOpen : MonoBehaviour
+    public sealed class MachineChestOpen : MonoBehaviour, IInitializePotentialDragHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
     {
         public struct Item
         {
@@ -81,6 +86,12 @@ namespace PokiClash
         bool done, closing;
         SketchButton openAll, confirm;
         float time;
+        RectTransform title; // ruy băng tiêu đề, cất đi khi tới bảng tổng kết
+        // bảng tổng kết cuộn: khung cắt, lưới ô; sumY = đã cuộn lên bao nhiêu (0 = hàng đầu sát đỉnh khung, sumMax = hàng cuối sát đáy)
+        RectTransform sumView, sumGrid;
+        float sumBase, sumY, sumTarget, sumMax, sumVel;
+        bool sumFree, sumDrag; // sumFree: bật hết ô rồi, người chơi được kéo
+        Vector2 dragLast;
 
         static Sprite S(string n) => MachineGlow.Sprite(n);
         static string Key(SlotKind k) => k == SlotKind.ChestGold ? "vang" : k == SlotKind.ChestSilver ? "bac" : "go";
@@ -291,7 +302,7 @@ namespace PokiClash
 
         IEnumerator Title(string text)
         {
-            var holder = New("tieu_de", root);
+            var holder = title = New("tieu_de", root);
             holder.anchoredPosition = new Vector2(0, 470 * k);
             var rib = Img("ruy_bang", holder, S("pk_ruy_bang"));
             rib.enabled = rib.sprite;
@@ -846,18 +857,37 @@ namespace PokiClash
             r.k == RewardKind.Shards ? App.Data.Hero(r.res.hero).rarity : r.k == RewardKind.Card ? r.drop.rarity : r.k == RewardKind.Stones ? Rarity.Epic :
             r.k == RewardKind.EvoStones ? Rarity.Legend : r.k == RewardKind.Egg ? (Rarity)System.Math.Max(0, Eggs.TierOf(r.id)) : (Rarity?)null;
 
-        // bảng tổng kết: rương mờ đi, mọi thưởng của nhóm gộp thành lưới ô bật lần lượt
+        // bảng tổng kết: rương mờ đi, ruy băng cất đi, mọi thưởng của nhóm gộp thành lưới ô to bật lần lượt trong khung cắt; hàng nằm
+        // dưới mép khung thì lưới cuộn lên rồi mới bật
         IEnumerator Summary(int left)
         {
             foreach (var s in slots) StartCoroutine(Shrink(s.holder));
+            if (title) StartCoroutine(HideTitle());
             yield return new WaitForSecondsRealtime(0.25f);
             var all = slots.SelectMany(q => q.item.rewards ?? new List<Reward>()).ToList();
-            var grid = New("tong_ket", layer);
+            // khung cắt: từ dưới hàng nút đầu màn máy (tên màn, "Ra đảo": lớp phủ tối vẫn lộ mờ, ô đè lên thì rối) xuống ngay trên nút
+            // "Nhận"; màn 2:1 chứa vừa 5 hàng
+            var btnPrefab = Theme.Prefabs ? Theme.Prefabs.buttonBig : null;
+            float btnY = -560 * k * 0.95f, btnH = btnPrefab ? btnPrefab.Rect.sizeDelta.y : 130;
+            float top = layer.rect.height * 0.5f - 150 * k, bottom = btnY + btnH * 0.6f + 24 * k;
+            float viewH = top - bottom;
+            sumView = MachineGlow.NewMask("khung_tong_ket", layer);
+            if (!sumView) sumView = New("khung_tong_ket", layer);
+            sumView.anchoredPosition = new Vector2(0, (top + bottom) * 0.5f);
+            sumView.sizeDelta = new Vector2(layer.rect.width, viewH);
+            var grid = sumGrid = New("tong_ket", sumView);
             var tiles = tilePrefab ? ChestDialog.BuildTiles(all, tilePrefab, grid) : new List<RewardTile>();
             int cols = Mathf.Min(4, Mathf.Max(1, tiles.Count)), rows = (tiles.Count + cols - 1) / cols;
             float cw = RewardTile.W + 40, ch = RewardTile.H + 40;
-            float fit = Mathf.Min(1.25f, (root.rect.height * 0.62f) / Mathf.Max(1, rows * ch));
+            // ô to cố định: 4 cột chiếm 92 % bề ngang màn (bản cũ co cả lưới cho vừa 62 % chiều cao: 8 hàng thì ô bé và chạm ruy băng)
+            float fit = Mathf.Min(1.25f, layer.rect.width * 0.92f / (4 * cw));
             grid.localScale = Vector3.one * fit;
+            // lưới thấp hơn khung thì đứng giữa khung; cao hơn thì hàng đầu sát đỉnh khung và cuộn
+            float rowH = ch * fit, pad = rowH * 0.12f;
+            sumMax = Mathf.Max(0, rows * rowH + pad * 2 - viewH);
+            sumBase = sumMax > 0 ? viewH * 0.5f - pad - rows * rowH * 0.5f : 0;
+            sumY = sumTarget = sumVel = 0;
+            grid.anchoredPosition = new Vector2(0, sumBase);
             // ô theo thứ tự thưởng (thẻ, mảnh lật từ thẻ úp); thứ tự BuildTiles: XP, bi, đá tiềm năng, đá tiến hóa, trứng, thẻ, mảnh
             var order = new List<Rarity?>();
             int exp = all.Count(q => q.k == RewardKind.Exp) > 0 ? 1 : 0, balls = all.Any(q => q.k == RewardKind.Balls) ? 1 : 0;
@@ -877,13 +907,81 @@ namespace PokiClash
                 rt.sizeDelta = new Vector2(RewardTile.W, RewardTile.H);
                 rt.anchoredPosition = new Vector2((c - (inRow - 1) / 2f) * cw, ((rows - 1) / 2f - r) * ch);
                 rt.localScale = Vector3.zero;
-                var rar = i < order.Count ? order[i] : null;
-                StartCoroutine(PopTile(grid, rt, rar, i * 0.09f));
             }
-            yield return new WaitForSecondsRealtime(0.667f + tiles.Count * 0.09f);
-            confirm = MakeButton(left > 0 ? $"Mở tiếp ({left})" : "Nhận", new Vector2(0, -560 * k * 0.95f), Theme.Yellow, () => done = true,
+            for (int i = 0; i < tiles.Count; i++)
+            {
+                // sang hàng nằm dưới mép khung: cuộn lên cho hàng đó vừa chạm đáy khung, chờ lưới tới nơi rồi mới bật ô
+                float need = Mathf.Min(sumMax, (i / cols + 1) * rowH + pad * 2 - viewH);
+                if (need > sumTarget + 0.5f)
+                {
+                    sumTarget = need;
+                    yield return new WaitForSecondsRealtime(0.2f);
+                }
+                StartCoroutine(PopTile(grid, tiles[i].Rect, i < order.Count ? order[i] : null, 1 + i * 0.09f * 0.4f));
+                yield return new WaitForSecondsRealtime(0.09f);
+            }
+            yield return new WaitForSecondsRealtime(0.667f);
+            confirm = MakeButton(left > 0 ? $"Mở tiếp ({left})" : "Nhận", new Vector2(0, btnY), Theme.Yellow, () => done = true,
                 left > 0 ? Loc.F("Mở tiếp ({0})", left) : Loc.T("Nhận"));
+            sumFree = sumMax > 0;
         }
+
+        // ruy băng tiêu đề bay lên, mờ đi trong 0,2 giây rồi tắt
+        IEnumerator HideTitle()
+        {
+            var rt = title;
+            title = null;
+            var from = rt.anchoredPosition;
+            var gs = rt.GetComponentsInChildren<Graphic>();
+            for (float t = 0; t < 0.2f && rt; t += Time.unscaledDeltaTime)
+            {
+                float u = t / 0.2f;
+                rt.anchoredPosition = from + new Vector2(0, 170 * k * u * u);
+                foreach (var g in gs) g.canvasRenderer.SetAlpha(1 - u);
+                yield return null;
+            }
+            if (rt) rt.gameObject.SetActive(false);
+        }
+
+        // lưới tổng kết: lúc đang bật ô thì trôi êm tới sumTarget; bật hết thì theo tay kéo, thả ra trôi theo đà rồi dừng
+        void ScrollTick(float dt)
+        {
+            if (!sumGrid || sumMax <= 0) return;
+            if (!sumFree) sumY = Mathf.Lerp(sumY, sumTarget, 1 - Mathf.Exp(-dt * 12));
+            else if (!sumDrag && Mathf.Abs(sumVel) > 1)
+            {
+                sumY = Mathf.Clamp(sumY + sumVel * dt, 0, sumMax);
+                sumVel *= Mathf.Exp(-dt * 5);
+                if (sumY <= 0 || sumY >= sumMax) sumVel = 0;
+            }
+            sumGrid.anchoredPosition = new Vector2(0, sumBase + sumY);
+        }
+
+        // kéo bảng tổng kết: chỉ nhận khi lưới cao hơn khung, đã bật hết ô và chạm trong khung. Ngoài ra trả quyền kéo (pointerDrag
+        // rỗng) để chạm rương, chạm nút mà tay hơi trượt vẫn tính là bấm
+        public void OnInitializePotentialDrag(PointerEventData e)
+        {
+            if (!sumFree || closing || !sumView || !RectTransformUtility.RectangleContainsScreenPoint(sumView, e.position, e.pressEventCamera))
+                e.pointerDrag = null;
+        }
+
+        public void OnBeginDrag(PointerEventData e)
+        {
+            if (!sumFree || !sumView) return;
+            sumDrag = RectTransformUtility.ScreenPointToLocalPointInRectangle(sumView, e.position, e.pressEventCamera, out dragLast);
+            sumVel = 0;
+        }
+
+        public void OnDrag(PointerEventData e)
+        {
+            if (!sumDrag || !sumView || !RectTransformUtility.ScreenPointToLocalPointInRectangle(sumView, e.position, e.pressEventCamera, out var p)) return;
+            float d = p.y - dragLast.y;
+            dragLast = p;
+            sumY = Mathf.Clamp(sumY + d, 0, sumMax);
+            sumVel = Mathf.Lerp(sumVel, d / Mathf.Max(Time.unscaledDeltaTime, 0.001f), 0.5f);
+        }
+
+        public void OnEndDrag(PointerEventData e) => sumDrag = false;
 
         IEnumerator Shrink(RectTransform rt)
         {
@@ -897,10 +995,9 @@ namespace PokiClash
         }
 
         // một ô tổng kết: vầng tia phẳng màu độ hiếm sau ô (xoay chậm, thay quầng mềm), cỡ 0,76 → 1,18 → 1 trong 0,667 giây; ô có độ
-        // hiếm lật từ thẻ úp tô màu độ hiếm
-        IEnumerator PopTile(RectTransform grid, RectTransform rt, Rarity? rar, float delay)
+        // hiếm lật từ thẻ úp tô màu độ hiếm. pitch: cao độ tiếng bật (cao dần theo thứ tự ô); Summary lo nhịp bật
+        IEnumerator PopTile(RectTransform grid, RectTransform rt, Rarity? rar, float pitch)
         {
-            yield return new WaitForSecondsRealtime(delay);
             var col = rar.HasValue ? Theme.Of(rar.Value) : Theme.Hex("#ffe08a");
             // quầng mềm màu độ hiếm sau ô (cộng sáng, thay vầng tia răng cưa xoay 2026-11-21); thiếu ảnh sáng mềm thì vầng tia cũ
             var halo = rar.HasValue ? MachineGlow.Make("quang_o", grid, MachineGlow.Glow, MachineGlow.A(col, 0)) : null;
@@ -926,7 +1023,7 @@ namespace PokiClash
                 back.rectTransform.anchoredPosition = Vector2.zero;
                 back.color = Color.Lerp(Color.white, col, 0.65f);
             }
-            App.Audio.Play("pick", 0.45f, 1 + delay * 0.4f);
+            App.Audio.Play("pick", 0.45f, pitch);
             for (float t = 0; t < 0.667f; t += Time.unscaledDeltaTime)
             {
                 float s = t < 0.2f ? Mathf.Lerp(0.76f, 1.18f, t / 0.2f) : t < 0.4f ? Mathf.Lerp(1.18f, 1f, (t - 0.2f) / 0.2f) : 1;
@@ -993,6 +1090,7 @@ namespace PokiClash
             float dt = Time.unscaledDeltaTime;
             time += dt;
             fx?.Update(dt);
+            ScrollTick(dt);
             float rate = Mathf.Sqrt(Mathf.Max(1, slots.Count)); // nhiều rương thì thưa hạt mỗi rương (tổng hạt sống vừa điện thoại)
             for (int i = 0; i < slots.Count; i++)
             {

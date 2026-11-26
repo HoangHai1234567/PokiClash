@@ -12,8 +12,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ATOM = os.path.abspath(os.path.join(HERE, "..", "atom"))
 OUT = os.path.abspath(os.path.join(HERE, "..", "d2"))
 TMP = os.path.join(os.environ.get("TEMP", "C:/Temp"), "lao_muc_xem")
-CLI = ["node", "D:/AtomSpine/packages/cli/dist/atom.mjs"]
-TSX = ["node", "D:/AtomSpine/node_modules/tsx/dist/cli.mjs"]
+sys.path.insert(0, HERE)
+from atom_cli import CLI, TSX, ATOMSPINE  # noqa: E402  (tìm AtomSpine, node theo máy đang chạy)
 CLIPS = ["idle", "greet", "talk", "bet_watch", "take", "pay", "react_win_small", "react_win_big", "react_lose", "react_push",
          "grumpy", "sulk"]
 TABLE_Y = 500   # thế giới, trùng dong_co.TABLE_Y
@@ -88,7 +88,8 @@ def setup_tmp():
 
 def sheets(names, w, h, cols, fps=FPS):
     r = subprocess.run(TSX + [os.path.join(HERE, "khung.mts"), TMP, TMP, str(fps), ",".join(map(str, BOX)), str(w), str(h), str(cols),
-                              ",".join(names)], capture_output=True, text=True, encoding="utf-8", errors="replace")
+                              ",".join(names)], capture_output=True, text=True, encoding="utf-8", errors="replace",
+                       env=dict(os.environ, ATOMSPINE_DIR=ATOMSPINE))
     if r.returncode != 0:
         print((r.stdout + r.stderr)[-1500:])
         raise SystemExit("khung.mts lỗi")

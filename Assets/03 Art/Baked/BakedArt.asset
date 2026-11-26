@@ -244,6 +244,12 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: c88af822c8bebc44a9ed40501512c364, type: 3}
   - name: pencil
     clip: {fileID: 8300000, guid: 0ddcf52f1281bfa43b835d705b47627f, type: 3}
+  - name: pitCheer1
+    clip: {fileID: 8300000, guid: 717404d12431d96448964732a05ed71e, type: 3}
+  - name: pitCheer2
+    clip: {fileID: 8300000, guid: 9852851a5cdd18649b45daed19ec829d, type: 3}
+  - name: pitCrowd
+    clip: {fileID: 8300000, guid: c803b52a00007f04c93989002b348bcf, type: 3}
   music:
   - name: chude
     clip: {fileID: 8300000, guid: 277ae208646531048a97dea61d0aa06f, type: 3}

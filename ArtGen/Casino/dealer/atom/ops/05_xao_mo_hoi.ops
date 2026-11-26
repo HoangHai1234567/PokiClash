@@ -1,0 +1,28 @@
+bone.add xao_1 parent=root x=0 y=0 rot=0 len=20
+bone.add xao_2 parent=root x=0 y=0 rot=0 len=20
+bone.add xao_3 parent=root x=0 y=0 rot=0 len=20
+bone.add xao_4 parent=root x=0 y=0 rot=0 len=20
+bone.add xao_5 parent=root x=0 y=0 rot=0 len=20
+bone.add xao_6 parent=root x=0 y=0 rot=0 len=20
+bone.add xao_7 parent=root x=0 y=0 rot=0 len=20
+bone.add mo_hoi_1 parent=head x=150 y=1120 rot=0 len=20 world=true
+bone.add mo_hoi_2 parent=head x=-138 y=1105 rot=0 len=20 world=true
+image.add mo_hoi path=images/mo_hoi.png
+slot.add xao_1 bone=xao_1 at=before:ban_tay_trai
+att.region xao_1 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add xao_2 bone=xao_2 at=before:ban_tay_trai
+att.region xao_2 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add xao_3 bone=xao_3 at=before:ban_tay_trai
+att.region xao_3 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add xao_4 bone=xao_4 at=before:ban_tay_trai
+att.region xao_4 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add xao_5 bone=xao_5 at=before:ban_tay_trai
+att.region xao_5 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add xao_6 bone=xao_6 at=before:ban_tay_trai
+att.region xao_6 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add xao_7 bone=xao_7 at=before:ban_tay_trai
+att.region xao_7 la_xao image=la_bai x=0 y=0 rot=0 use=false
+slot.add mo_hoi_1 bone=mo_hoi_1 at=before:luoi_trai
+att.region mo_hoi_1 mo_hoi image=mo_hoi x=0 y=0 rot=0 use=false
+slot.add mo_hoi_2 bone=mo_hoi_2 at=before:luoi_trai
+att.region mo_hoi_2 mo_hoi image=mo_hoi x=0 y=0 rot=0 use=false

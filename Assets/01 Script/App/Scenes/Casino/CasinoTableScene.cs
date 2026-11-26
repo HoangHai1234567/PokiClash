@@ -20,6 +20,9 @@ namespace PokiClash
         [SerializeField] protected TextMeshProUGUI today, modeText, guestText, jarText;
         [SerializeField] protected UiBar jarBar;
         [SerializeField] protected SketchButton help;
+        // bản gọn (cả ba lều): bậc cược, tờ tin, Hũ bàn, Cách chơi nằm trong MỘT bảng gập; nút gập ở góc trái dưới ghi mức cược đang chọn
+        [SerializeField] protected SketchButton infoToggle;
+        [SerializeField] protected RectTransform infoPanel;
 
         public override string BackTo => SceneIds.Casino;
 
@@ -46,6 +49,21 @@ namespace PokiClash
             tiers = tierBtns; today = todayText; modeText = mode; guestText = guest; jarBar = jar; jarText = jarLabel; help = helpBtn;
         }
 
+        // Dùng khi dựng prefab (Editor): nút gập + bảng chứa phần chung.
+        public void SetupInfo(SketchButton toggle, RectTransform panel)
+        {
+            infoToggle = toggle; infoPanel = panel;
+        }
+
+        protected bool InfoOpen => infoPanel && infoPanel.gameObject.activeSelf;
+
+        protected void SetInfo(bool open)
+        {
+            if (!infoPanel) return;
+            infoPanel.gameObject.SetActive(open);
+            if (infoToggle) infoToggle.SetRole(open ? BtnColor.Yellow : BtnColor.Paper);
+        }
+
         public override void Enter(object args)
         {
             rng = new Rng(Rng.RandomSeed());
@@ -59,6 +77,15 @@ namespace PokiClash
             }
             help.SetText(Loc.T("Cách chơi"));
             help.SetOnClick(ShowHelp);
+            if (infoToggle)
+            {
+                infoToggle.SetOnClick(() =>
+                {
+                    if (Busy) return;
+                    SetInfo(!InfoOpen);
+                });
+                SetInfo(false);
+            }
             EnterTable();
             RenderTable();
             if (!Casino.BoothOpen(s, D, Game, Now))
@@ -76,6 +103,9 @@ namespace PokiClash
 
         protected abstract void EnterTable();
 
+        // lượt chụp: gieo lại bộ sinh số của bàn để ván kế ra đúng bài đã dò trước (Editor/CasinoDealerTour.cs)
+        public void SeedForTest(uint seed) => rng = new Rng(seed);
+
         void PickTier(int k)
         {
             if (Busy) return;
@@ -88,6 +118,7 @@ namespace PokiClash
             App.Audio.Play("bet");
             RenderTable();
             OnTierChanged();
+            SetInfo(false);   // chọn xong mức cược thì gập bảng
         }
 
         protected virtual void OnTierChanged() { }
@@ -105,6 +136,7 @@ namespace PokiClash
             var d = D;
             double now = Now;
             var st = Casino.Roll(s, d, now);
+            if (infoToggle) infoToggle.SetText(Loc.F("Cược {0} bi", NumFmt.Short(BetNow)));
             for (int i = 0; i < tiers.Length; i++)
             {
                 bool has = i < Table.bets.Length;

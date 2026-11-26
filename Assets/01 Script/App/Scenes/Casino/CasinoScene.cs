@@ -40,10 +40,6 @@ namespace PokiClash
         Coroutine chromeFade;
 
         public static readonly string[] Booths = { Casino.Blackjack, Casino.Roulette, Casino.Slot };
-        public static string Reopen; // trò mở lại ngay khi về đảo (kết trận Hầm đấu: "Về Hầm đấu")
-
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics() => Reopen = null;
 
         static SaveData S => App.Save.Data;
         static GameData D => App.Data;
@@ -169,11 +165,6 @@ namespace PokiClash
             HookBob();
             Chrome(true, false);
             // hộp các trò mở trên đảo (trò có scene riêng đi qua CasinoGames.SceneOf)
-            CasinoGames.Register(Casino.Underground, close =>
-            {
-                App.Modals.Open<UndergroundDialog>(close).Show();
-                return true;
-            });
             CasinoGames.Register(Casino.Inn, close =>
             {
                 App.Modals.Open<InnDialog>(close).Show(GoTask);
@@ -183,19 +174,13 @@ namespace PokiClash
             StartCoroutine(AfterArrive());
         }
 
-        // truyện mở đảo, thông báo trò mới, mở lại hộp: chờ chuyển cảnh xong (tàu cập bến, giao diện hiện lại) rồi mới hiện
+        // truyện mở đảo, thông báo trò mới: chờ chuyển cảnh xong (tàu cập bến, giao diện hiện lại) rồi mới hiện
         System.Collections.IEnumerator AfterArrive()
         {
             float t0 = Time.unscaledTime;
             while ((App.Router.Busy || (chrome && chrome.alpha < 0.99f)) && Time.unscaledTime - t0 < 20) yield return null;
             if (!Casino.Of(S).intro) Intro();
             else Announce();
-            if (Reopen != null)
-            {
-                string g = Reopen;
-                Reopen = null;
-                if (Casino.Unlocked(S, D, g)) CasinoGames.Open(g, Render);
-            }
         }
 
         public override void Refresh() => Render();
@@ -297,8 +282,9 @@ namespace PokiClash
                         var tiers = Underground.TiersToday(d, now);
                         int won = tiers.Count(t => Underground.TierOpen(s, d, t) && Underground.WonToday(s, d, t, now));
                         int can = tiers.Count(t => Underground.TierOpen(s, d, t));
-                        sp.Bind(NameOf(id), open ? Loc.F("Đã thắng {0}/{1} trận hôm nay", won, can) : Casino.Need(s, d, Casino.Underground),
-                            !open, open && won < can, () => Open(Casino.Underground));
+                        int left = open ? Underground.FightsLeft(s, d, now) : 0;
+                        sp.Bind(NameOf(id), open ? Loc.F("Còn {0} lượt đánh hôm nay", left) : Casino.Need(s, d, Casino.Underground),
+                            !open, open && won < can && left > 0, () => Open(Casino.Underground));
                         break;
                     }
                     case "inn":
@@ -377,7 +363,7 @@ namespace PokiClash
             if (Casino.Unlocked(s, d, Casino.Underground))
             {
                 var tiers = Underground.TiersToday(d, now);
-                bool todo = tiers.Any(t => Underground.TierOpen(s, d, t) && !Underground.WonToday(s, d, t, now));
+                bool todo = Underground.FightsLeft(s, d, now) > 0 && tiers.Any(t => Underground.TierOpen(s, d, t) && !Underground.WonToday(s, d, t, now));
                 yield return ("hang", todo ? 2f : 1f);
             }
             if (Casino.Unlocked(s, d, Casino.Inn))
@@ -490,6 +476,7 @@ namespace PokiClash
                 case Casino.Fishing: return SceneIds.CasinoFishing;
                 case Casino.Race: return SceneIds.CasinoRace;
                 case Casino.Market: return SceneIds.CasinoMarket;
+                case Casino.Underground: return SceneIds.CasinoUnderground;
                 case Casino.Blackjack: return SceneIds.CasinoBlackjack;
                 case Casino.Roulette: return SceneIds.CasinoRoulette;
                 case Casino.Slot: return SceneIds.CasinoSlot;

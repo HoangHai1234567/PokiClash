@@ -72,6 +72,9 @@ namespace PokiClash.Core
         public int elemPays = 4, numPays = 4, singlePays = 24, starPays = 24;
         public int starTier = 2; // ô Sao Vàng cho thêm mảnh khách mời khi cược từ bậc này (0-based) trở lên
         public int starShards = 2;
+        // trọng số ra của 26 ô (ô i = hệ i / 5, số i % 5 + 1; ô 25 Sao Vàng). Rỗng = 26 ô đều nhau (1/26). Đây là chỗ CHỈNH TỈ LỆ RA:
+        // viên bi trên màn chỉ diễn theo ô lõi đã chọn (Core/Casino/RouletteBall.cs). Hoàn trả hiện trong Cách chơi tính theo đây.
+        public int[] weights = new int[0];
     }
 
     // một kiểu thắng trên đường của máy quả: ba biểu tượng sym (Sao thay được), trả pays × cược mỗi đường
@@ -114,22 +117,25 @@ namespace PokiClash.Core
     [Serializable]
     public class RaceConfig
     {
+        // luật cược (người dùng 2026-11-26): đặt 1 trong runners con, betMin..betMax bi, daily lần mỗi ngày; hạng của con được chọn rút
+        // theo bảng tỉ lệ nội suy giữa oddsLow (cược thấp nhất) và oddsHigh (cược cao nhất), cược càng cao càng khó thắng
         public double seg = 60; // độ dài mỗi chặng
         public int segs = 3;
-        public double spdBase = 10, spdK = 0.02, spdMid = 60; // tốc = spdBase × (1 + spdK × (chỉ số tốc − spdMid) / 10)
-        public double starK = 0.006, lvK = 0.003, lvClamp = 40; // mỗi sao, mỗi cấp chênh với tướng máy
-        public double same = 1.15, weak = 0.9; // địa hình cùng hệ / hệ địa hình khắc tướng
-        public double noise = 0.03; // dao động mỗi chặng
-        public double[] cheer = { 0, 0.06, 0.12 }; // Hụt, Tốt, Tuyệt
-        public double cheerSec = 1.5;
-        public double lucky = 0.03; // tướng cùng hệ may mắn hôm nay (Bói sao)
-        public int daily = 20; // số lần đua có thưởng mỗi ngày
-        public int minRunners = 3, maxRunners = 5; // số tướng mỗi cuộc đua (ngẫu nhiên)
-        public double fightRate = 0.55, fightRange = 9, fightCool = 2.6; // cơ hội lao vào đánh mỗi giây, tầm, hồi chiêu (giây)
-        public double hitChance = 0.72, stunSec = 1.3, trip = 0.6; // trúng: đối thủ choáng stunSec; hụt / bị né: kẻ đánh vấp trip giây
-        public double guardSec = 1.6; // khiên né đòn khi cổ vũ Tuyệt
-        public double gustRate = 0.25, gust = 0.3, gustSec = 1.0; // gió thuận (cơ hội mỗi giây cả cuộc đua), tốc thêm, thời gian
-        public double[] placeK = { 0.55, 0.3, 0.1, 0, 0 }; // bi = lệ phí × placeK[hạng] × số tướng
+        public int daily = 5; // số lần đặt cược mỗi ngày
+        public int runners = 5; // số tướng mỗi cuộc đua
+        public int betMin = 10, betMax = 500;
+        public int[] chips = { 50, 100, 200, 500 }; // các mức cược bấm nhanh
+        public double[] pay = { 3, 2, 1, 0, 0 }; // bi nhận về = cược × pay[hạng] (nhất ×3, nhì ×2, ba hoà, còn lại mất)
+        public double[] oddsLow = { 0.18, 0.20, 0.24 }, oddsHigh = { 0.09, 0.13, 0.24 }; // tỉ lệ về nhất / nhì / ba
+        // kịch bản cuộc đua (Race.Script)
+        public double raceSec = 20; // con về nhất chạy hết đường trong bấy nhiêu giây
+        public double gapMin = 0.12, gapMax = 0.5; // hai hạng liền nhau về cách nhau (giây)
+        public double spread = 4.5; // lệch tối đa so với nhịp chung giữa cuộc đua (đơn vị đường)
+        public double keyMin = 1.3, keyMax = 2.3; // khoảng cách giữa hai mốc đổi nhịp (giây)
+        public double startSec = 0.8, endSec = 2.6; // đầu cuộc đua chạy chụm; mốc kịch tính cách đích bấy nhiêu giây
+        public double surge = 3.2, surgeSec = 0.9; // vọt lên ≥ surge đơn vị giữa hai mốc: bứt tốc dồn trong surgeSec giây
+        public double stunDrop = 3.6, stunMax = 1.2; // tụt ≥ stunDrop: bị húc choáng, đứng yên tối đa stunMax giây
+        public double comeback = 0.55, tease = 0.6; // con về nhất còn ở sau trước nước rút; con mình chọn (sẽ thua) đang dẫn trước nước rút
         public int[] points = { 3, 2, 1, 0, 0 };
         public int weekPts = 10;
         public List<RaceCup> cups = new List<RaceCup>();
@@ -247,7 +253,7 @@ namespace PokiClash.Core
     {
         public string name;
         public string Name => Loc.T(name);
-        public int level; // cấp người chơi để mở
+        public int level; // cấp đội mẫu khi cân (runner ugcal); không còn khoá bậc theo cấp người chơi (người dùng 2026-11-26)
         public int fee;
         public int shards; // mảnh tướng chủ lực khi thắng lần đầu trong ngày
         public List<CasinoItem> items = new List<CasinoItem>();
@@ -258,6 +264,7 @@ namespace PokiClash.Core
     public class UndergroundConfig
     {
         public double winMult = 2.5, rewinMult = 1; // bi thắng lần đầu / thắng lại × lệ phí
+        public int daily = 5; // số trận Hầm đấu mỗi ngày (thắng, thua, đánh lại đều tính; người dùng 2026-11-26)
         public List<CasinoItem> rewin = new List<CasinoItem>();
         public List<UgTier> tiers = new List<UgTier>(); // tier cuối có weekly = true là Nhà Vô Địch
         public List<UgDay> rotation = new List<UgDay>(); // vòng lặp ngày
@@ -328,11 +335,16 @@ namespace PokiClash.Core
                 if (t.jar.Count != t.bets.Length) err.Add($"casino.{name}: jar phải có {t.bets.Length} bậc");
                 if (t.daily <= 0) err.Add($"casino.{name}: daily phải > 0");
             }
+            if (roulette.weights.Length != 0 && (roulette.weights.Length != 26 || roulette.weights.Any(w => w < 0) || roulette.weights.Sum() <= 0))
+                err.Add("casino.roulette.weights: cần đúng 26 số không âm, tổng > 0 (hoặc bỏ trống)");
             if (slots.reels.Count != 3 || slots.reels.Any(r => r.strip.Length < 3)) err.Add("casino.slots: cần 3 cuộn, mỗi cuộn ≥ 3 ô");
             if (slots.reels.Any(r => r.strip.Any(x => x < 0 || x > 8))) err.Add("casino.slots: biểu tượng 0..8");
             if (race.cups.Count == 0) err.Add("casino.race.cups: rỗng");
-            if (race.minRunners < 2 || race.maxRunners < race.minRunners) err.Add("casino.race: minRunners / maxRunners sai");
-            if (race.placeK.Length < race.maxRunners || race.points.Length < race.maxRunners) err.Add("casino.race: placeK / points thiếu hạng");
+            if (race.runners < 2 || race.runners > 5) err.Add("casino.race: runners phải 2..5 (màn dựng sẵn 5 làn)");
+            if (race.pay.Length < race.runners || race.points.Length < race.runners) err.Add("casino.race: pay / points thiếu hạng");
+            if (race.betMin <= 0 || race.betMax < race.betMin || race.daily <= 0) err.Add("casino.race: betMin / betMax / daily sai");
+            if (race.oddsLow.Length != race.oddsHigh.Length || race.oddsLow.Sum() > 1 || race.oddsHigh.Sum() > 1) err.Add("casino.race: oddsLow / oddsHigh sai");
+            if (race.raceSec <= race.endSec + race.startSec + race.keyMax || race.gapMin < 0 || race.gapMax < race.gapMin) err.Add("casino.race: raceSec / gap sai");
             if (fishing.rods.Count == 0 || fishing.spots.Count == 0) err.Add("casino.fishing: thiếu rods / spots");
             foreach (var e in Elements.All)
                 if (fishing.fish.Count(f => f.elem == e) != 6) err.Add($"casino.fishing: hệ {Keys.Of(e)} phải có 6 loài");
@@ -472,6 +484,7 @@ namespace PokiClash.Core
                 r.starPays = J.Int(ro, "starPays", r.starPays);
                 r.starTier = J.Int(ro, "starTier", r.starTier);
                 r.starShards = J.Int(ro, "starShards", r.starShards);
+                if (ro.ContainsKey("weights")) r.weights = Ints(ro["weights"]);
             }
 
             var so = J.Obj(o, "slots");
@@ -497,32 +510,28 @@ namespace PokiClash.Core
                 var r = c.race;
                 r.seg = J.Num(rc, "seg", r.seg);
                 r.segs = J.Int(rc, "segs", r.segs);
-                r.spdBase = J.Num(rc, "spdBase", r.spdBase);
-                r.spdK = J.Num(rc, "spdK", r.spdK);
-                r.spdMid = J.Num(rc, "spdMid", r.spdMid);
-                r.starK = J.Num(rc, "starK", r.starK);
-                r.lvK = J.Num(rc, "lvK", r.lvK);
-                r.lvClamp = J.Num(rc, "lvClamp", r.lvClamp);
-                r.same = J.Num(rc, "same", r.same);
-                r.weak = J.Num(rc, "weak", r.weak);
-                r.noise = J.Num(rc, "noise", r.noise);
-                if (J.Get(rc, "cheer") != null) r.cheer = Nums(J.Get(rc, "cheer"));
-                r.cheerSec = J.Num(rc, "cheerSec", r.cheerSec);
-                r.lucky = J.Num(rc, "lucky", r.lucky);
                 r.daily = J.Int(rc, "daily", r.daily);
-                r.minRunners = J.Int(rc, "minRunners", r.minRunners);
-                r.maxRunners = J.Int(rc, "maxRunners", r.maxRunners);
-                r.fightRate = J.Num(rc, "fightRate", r.fightRate);
-                r.fightRange = J.Num(rc, "fightRange", r.fightRange);
-                r.fightCool = J.Num(rc, "fightCool", r.fightCool);
-                r.hitChance = J.Num(rc, "hitChance", r.hitChance);
-                r.stunSec = J.Num(rc, "stunSec", r.stunSec);
-                r.trip = J.Num(rc, "trip", r.trip);
-                r.guardSec = J.Num(rc, "guardSec", r.guardSec);
-                r.gustRate = J.Num(rc, "gustRate", r.gustRate);
-                r.gust = J.Num(rc, "gust", r.gust);
-                r.gustSec = J.Num(rc, "gustSec", r.gustSec);
-                if (J.Get(rc, "placeK") != null) r.placeK = Nums(J.Get(rc, "placeK"));
+                r.runners = J.Int(rc, "runners", r.runners);
+                r.betMin = J.Int(rc, "betMin", r.betMin);
+                r.betMax = J.Int(rc, "betMax", r.betMax);
+                if (J.Get(rc, "chips") != null) r.chips = Ints(J.Get(rc, "chips"));
+                if (J.Get(rc, "pay") != null) r.pay = Nums(J.Get(rc, "pay"));
+                if (J.Get(rc, "oddsLow") != null) r.oddsLow = Nums(J.Get(rc, "oddsLow"));
+                if (J.Get(rc, "oddsHigh") != null) r.oddsHigh = Nums(J.Get(rc, "oddsHigh"));
+                r.raceSec = J.Num(rc, "raceSec", r.raceSec);
+                r.gapMin = J.Num(rc, "gapMin", r.gapMin);
+                r.gapMax = J.Num(rc, "gapMax", r.gapMax);
+                r.spread = J.Num(rc, "spread", r.spread);
+                r.keyMin = J.Num(rc, "keyMin", r.keyMin);
+                r.keyMax = J.Num(rc, "keyMax", r.keyMax);
+                r.startSec = J.Num(rc, "startSec", r.startSec);
+                r.endSec = J.Num(rc, "endSec", r.endSec);
+                r.surge = J.Num(rc, "surge", r.surge);
+                r.surgeSec = J.Num(rc, "surgeSec", r.surgeSec);
+                r.stunDrop = J.Num(rc, "stunDrop", r.stunDrop);
+                r.stunMax = J.Num(rc, "stunMax", r.stunMax);
+                r.comeback = J.Num(rc, "comeback", r.comeback);
+                r.tease = J.Num(rc, "tease", r.tease);
                 if (J.Get(rc, "points") != null) r.points = Ints(J.Get(rc, "points"));
                 r.weekPts = J.Int(rc, "weekPts", r.weekPts);
                 foreach (var x in J.Arr(rc, "cups"))
@@ -594,6 +603,7 @@ namespace PokiClash.Core
             {
                 var u = c.underground;
                 u.winMult = J.Num(uo, "winMult", u.winMult);
+                u.daily = J.Int(uo, "daily", u.daily);
                 u.rewinMult = J.Num(uo, "rewinMult", u.rewinMult);
                 u.rewin = Items(J.Get(uo, "rewin"));
                 foreach (var x in J.Arr(uo, "tiers"))

@@ -1,0 +1,39 @@
+part.add can path=images/can.png at=804,427 canvas=1024,1536 origin=498,1446 bone=can1
+part.add lo_xo path=images/lo_xo.png at=467,157 canvas=1024,1536 origin=498,1446 bone=lx1
+part.add sao path=images/sao.png at=445,51 canvas=1024,1536 origin=498,1446 bone=sao
+part.add chan_t path=images/chan_t.png at=295,1052 canvas=1024,1536 origin=498,1446 bone=chan_t1
+part.add chan_p path=images/chan_p.png at=602,1052 canvas=1024,1536 origin=498,1446 bone=chan_p1
+part.add giay_t path=images/giay_t.png at=171,1274 canvas=1024,1536 origin=498,1446 bone=giay_t
+part.add giay_p path=images/giay_p.png at=515,1274 canvas=1024,1536 origin=498,1446 bone=giay_p
+part.add than path=images/than.png at=134,221 canvas=1024,1536 origin=498,1446 bone=hip_d
+part.add den_a_d path=images/den_a_d.png at=209,231 canvas=1024,1536 origin=498,1446 bone=dau_d
+part.add den_a_h path=images/den_a_h.png at=738,997 canvas=1024,1536 origin=498,1446 bone=hip_d
+part.add den_b_d path=images/den_b_d.png at=271,221 canvas=1024,1536 origin=498,1446 bone=dau_d
+part.add den_b_h path=images/den_b_h.png at=193,996 canvas=1024,1536 origin=498,1446 bone=hip_d
+part.add mieng_01 path=images/mieng_01.png at=274,953 canvas=1024,1536 origin=498,1446 bone=mieng slot=mieng
+part.add mieng_02 path=images/mieng_02.png at=273,953 canvas=1024,1536 origin=498,1446 bone=mieng slot=mieng
+part.add mieng_03 path=images/mieng_03.png at=279,953 canvas=1024,1536 origin=498,1446 bone=mieng slot=mieng
+part.add mieng_04 path=images/mieng_04.png at=397,953 canvas=1024,1536 origin=498,1446 bone=mieng slot=mieng
+part.add mieng_05 path=images/mieng_05.png at=275,953 canvas=1024,1536 origin=498,1446 bone=mieng slot=mieng
+part.add mieng_06 path=images/mieng_06.png at=268,953 canvas=1024,1536 origin=498,1446 bone=mieng slot=mieng
+part.add mat_01 path=images/mat_01.png at=359,378 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_02 path=images/mat_02.png at=359,378 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_03 path=images/mat_03.png at=350,368 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_04 path=images/mat_04.png at=359,376 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_05 path=images/mat_05.png at=359,376 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_06 path=images/mat_06.png at=358,376 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_07 path=images/mat_07.png at=358,374 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add mat_08 path=images/mat_08.png at=356,374 canvas=1024,1536 origin=498,1446 bone=mat slot=mat
+part.add may_t path=images/may_t.png at=330,357 canvas=1024,1536 origin=498,1446 bone=may_t
+part.add may_p path=images/may_p.png at=490,356 canvas=1024,1536 origin=498,1446 bone=may_p
+att.mesh than than from=than edge=18 inner=34 maxVerts=1300
+att.mesh can can from=can edge=10 inner=16
+att.mesh lo_xo lo_xo from=lo_xo edge=8 inner=12
+att.mesh chan_t chan_t from=chan_t edge=10 inner=14
+att.mesh chan_p chan_p from=chan_p edge=10 inner=14
+slot.set mat att=mat_01
+slot.set mieng att=mieng_01
+slot.set den_a_d color=FFFFFF00
+slot.set den_a_h color=FFFFFF00
+slot.set den_b_d color=FFFFFF00
+slot.set den_b_h color=FFFFFF00

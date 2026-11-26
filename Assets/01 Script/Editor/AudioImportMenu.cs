@@ -37,6 +37,8 @@ namespace PokiClash.EditorTools
             ("fx_da", "tran_fx_da.ogg"), ("fx_phep", "tran_fx_phep.ogg"),
             // bút chì sột soạt lặp liền 4 s (gen Magnific, ArtGen/Sfx/but_chi): màn mở khoá tướng, App.Audio.Loop("pencil", …) ở HeroUnlockView
             ("pencil", "ui_but_chi.ogg"),
+            // khán giả Hầm đấu (gen Magnific, ArtGen/Sfx/ham_dau): hai tiếng reo xen kẽ, ồn ào nền lặp liền 8 s (App.Audio.Loop ở UndergroundScene)
+            ("pitCheer1", "ham_reo_1.mp3"), ("pitCheer2", "ham_reo_2.mp3"), ("pitCrowd", "ham_on_loop.mp3"),
         };
 
         // khoá nhạc (AudioService.MusicFor, SceneRoot.Music) → Assets/03 Art/Audio/Music/bgm_<khoá>.mp3

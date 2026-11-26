@@ -20,7 +20,8 @@ import json, math, os, subprocess, sys
 sys.stdout.reconfigure(encoding="utf-8")
 HERE = os.path.dirname(os.path.abspath(__file__))
 ATOM = os.path.abspath(os.path.join(HERE, "..", "atom"))
-CLI = ["node", "D:/AtomSpine/packages/cli/dist/atom.mjs"]
+sys.path.insert(0, HERE)
+from atom_cli import CLI  # noqa: E402  (tìm AtomSpine, node theo máy đang chạy)
 geo = json.load(open(os.path.join(ATOM, "geo.json"), encoding="utf-8"))
 OX, OY = geo["origin"]
 J = geo["J"]
@@ -29,6 +30,12 @@ NSEG = 8
 NHAND = geo.get("n_hand", 10)   # 11 = bàn tay mở dựng đứng, 12 = nắm tay dựng nghiêng (nhìn từ phía mu, ngón cái ở trên)
 SPINE = ["hip", "bung", "nguc", "vai"]
 SPINE_Y = [J["hong"][1], J["bung"][1], J["nguc"][1], J["vai"][1], J["co"][1]]  # 1000, 900, 790, 680, 575
+
+
+LA_X, LA_Y, LA_ROT = 128, 6, -90   # lá bài trên xương tay_pb: dọc theo hướng ngón, nhô quá đầu ngón
+XAO_N = 7                          # D3: số lá bay giữa hai tay lúc xoè bài (clip shuffle), xương xao_i con của root
+MO_HOI = [(150, 1120), (-138, 1105)]  # D3: giọt mồ hôi ở hai thái dương (thế giới), xương con của head
+BI_X, BI_Y = 192, 20                  # D4: viên bi roulette trên xương tay_pb, ngay ngoài chỗ ngón cái + ngón trỏ kẹp của hình tay_05 (ló ra hơn nửa viên)
 
 
 def w(px, py):
@@ -95,6 +102,10 @@ def bones_ops():
             parent = f"tay_{s}{k + 1}"
         add(f"tay_{s}9d", parent, E, a, 10)
         add(f"tay_{s}b", parent, E, a, 60)
+    for i in range(1, XAO_N + 1):
+        L.append(f"bone.add xao_{i} parent=root x=0 y=0 rot=0 len=20")
+    for i, (x, y) in enumerate(MO_HOI, 1):
+        L.append(f"bone.add mo_hoi_{i} parent=head x={x} y={y} rot=0 len=20 world=true")
     return L
 
 
@@ -158,13 +169,30 @@ def parts_ops():
             sx = -1 if flip else 1
             L.append(f"att.region {slot} {nm}_{s} image={nm} x={x:.1f} y={y:.1f} rot={math.degrees(rot):.2f} sx={sx}"
                      + (" use=true" if i == 1 else " use=false"))
+    # D3: lá bài Lão Mực cầm ở tay phải lúc chia (lưng bài, vẽ sau bàn tay nên phần chạm ngón bị găng che); mặc định không hiện
+    L.append("image.add la_bai path=images/la_bai.png")
+    L.append("slot.add la_cam bone=tay_pb")
+    L.append(f"att.region la_cam la_bai image=la_bai x={LA_X} y={LA_Y} rot={LA_ROT} use=false")
+    # D3 phần hai: lá xoè bài (cùng hình lưng bài) và giọt mồ hôi (them_d3b.py vẽ mo_hoi.png)
+    for i in range(1, XAO_N + 1):
+        L.append(f"slot.add xao_{i} bone=xao_{i}")
+        L.append(f"att.region xao_{i} la_xao image=la_bai x=0 y=0 rot=0 use=false")
+    L.append("image.add mo_hoi path=images/mo_hoi.png")
+    for i in range(1, len(MO_HOI) + 1):
+        L.append(f"slot.add mo_hoi_{i} bone=mo_hoi_{i}")
+        L.append(f"att.region mo_hoi_{i} mo_hoi image=mo_hoi x=0 y=0 rot=0 use=false")
+    # D4: viên bi roulette kẹp ở tay phải (them_d4.py vẽ bi.png), vẽ sau bàn tay nên ngón che một phần; mặc định không hiện
+    L.append("image.add bi path=images/bi.png")
+    L.append("slot.add la_bi bone=tay_pb")
+    L.append(f"att.region la_bi bi image=bi x={BI_X} y={BI_Y} rot=0 use=false")
     L.append("att.mesh than than from=than edge=16 inner=30 maxVerts=1500")
     for n in ("trai", "phai"):
         L.append(f"att.mesh tay_{n} tay_{n} from=tay_{n} edge=9 inner=13")
     L.append("att.mesh no no from=no edge=10 inner=18")
     L.append("att.mesh luoi_trai luoi_trai from=luoi_trai edge=16 inner=30")
     # miệng vẽ DƯỚI mắt: lúc sốc (hàm rớt, mắt lồi) hai thứ chờm nhau thì mắt đè lên phần vòm miệng tối, không bị miệng cắt
-    for sl in ("mieng", "mat", "luoi_trai", "tay_trai", "tay_phai", "nit_trai", "nit_phai", "no", "ban_tay_trai", "ban_tay_phai"):
+    for sl in ("mieng", "mat", "mo_hoi_1", "mo_hoi_2", "luoi_trai", "tay_trai", "tay_phai", "nit_trai", "nit_phai", "no", "la_cam",
+               *[f"xao_{i}" for i in range(1, XAO_N + 1)], "la_bi", "ban_tay_trai", "ban_tay_phai"):
         L.append(f"slot.order {sl} to=front")
     L.append("slot.set mat att=mat_02")
     L.append("slot.set mieng att=mieng_01")

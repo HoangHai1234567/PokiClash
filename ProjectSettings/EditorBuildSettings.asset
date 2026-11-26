@@ -65,6 +65,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/00 Scenes/CasinoSlot.unity
     guid: d7cfd6d7e0ccb32458e0efa837916aef
+  - enabled: 1
+    path: Assets/00 Scenes/CasinoUnderground.unity
+    guid: a75c329f61ffc1745b9ec7bcef9a2764
   m_configObjects:
     com.unity.addressableassets: {fileID: 11400000, guid: 58293e095eb985441816269aceb0385f, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

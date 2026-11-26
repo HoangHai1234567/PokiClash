@@ -1,0 +1,3 @@
+image.add la_bai path=images/la_bai.png
+slot.add la_cam bone=tay_pb at=before:ban_tay_trai
+att.region la_cam la_bai image=la_bai x=128 y=6 rot=-90 use=false

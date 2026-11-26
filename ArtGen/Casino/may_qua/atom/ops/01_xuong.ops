@@ -1,0 +1,31 @@
+project.set name=may_qua fps=30
+bone.add move parent=root x=0 y=0
+bone.add hip parent=move x=0.0 y=299.0 rot=90.00 len=187.0 world=true
+bone.add hip_d parent=hip x=0.0 y=299.0 rot=90.00 len=60.0 world=true
+bone.add tam parent=hip x=0.0 y=486.0 rot=90.00 len=400.0 world=true
+bone.add tam_d parent=tam x=0.0 y=486.0 rot=90.00 len=60.0 world=true
+bone.add cuon parent=tam_d x=2.5 y=676.0 rot=0.00 len=40.0 world=true
+bone.add dau parent=tam x=0.0 y=886.0 rot=90.00 len=325.0 world=true
+bone.add dau_d parent=dau x=0.0 y=886.0 rot=90.00 len=60.0 world=true
+bone.add mat parent=dau_d x=8.0 y=978.0 rot=0.00 len=40.0 world=true
+bone.add may_t parent=dau_d x=-150.0 y=1054.0 rot=0.00 len=60.0 world=true
+bone.add may_p parent=dau_d x=166.0 y=1054.0 rot=180.00 len=60.0 world=true
+bone.add mieng parent=hip_d x=0.0 y=493.0 rot=0.00 len=40.0 world=true
+bone.add can1 parent=tam x=350.6 y=701.0 rot=75.46 len=84.9 world=true
+bone.add can2 parent=can1 x=371.9 y=783.2 rot=75.46 len=84.9 world=true
+bone.add can3 parent=can2 x=393.2 y=865.4 rot=75.46 len=84.9 world=true
+bone.add num parent=can3 x=414.6 y=947.6 rot=75.46 len=30.0 world=true
+bone.add lx1 parent=dau x=13.0 y=1146.0 rot=90.00 len=45.0 world=true
+bone.add lx2 parent=lx1 x=13.0 y=1191.0 rot=90.00 len=45.0 world=true
+bone.add lx3 parent=lx2 x=13.0 y=1236.0 rot=90.00 len=42.0 world=true
+bone.add sao parent=lx3 x=13.0 y=1278.0 rot=90.00 len=60.0 world=true
+bone.add chan_t1 parent=root x=-169.0 y=361.0 rot=-90.00 len=53.8 world=true
+bone.add chan_t2 parent=chan_t1 x=-169.0 y=307.2 rot=-90.00 len=53.8 world=true
+bone.add chan_t3 parent=chan_t2 x=-169.0 y=253.5 rot=-90.00 len=53.8 world=true
+bone.add chan_t4 parent=chan_t3 x=-169.0 y=199.8 rot=-90.00 len=53.8 world=true
+bone.add giay_t parent=root x=-169.0 y=146.0 rot=0.00 len=60.0 world=true
+bone.add chan_p1 parent=root x=138.0 y=361.0 rot=-90.00 len=53.8 world=true
+bone.add chan_p2 parent=chan_p1 x=138.0 y=307.2 rot=-90.00 len=53.8 world=true
+bone.add chan_p3 parent=chan_p2 x=138.0 y=253.5 rot=-90.00 len=53.8 world=true
+bone.add chan_p4 parent=chan_p3 x=138.0 y=199.8 rot=-90.00 len=53.8 world=true
+bone.add giay_p parent=root x=138.0 y=146.0 rot=0.00 len=60.0 world=true

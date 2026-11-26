@@ -1,0 +1,60 @@
+        [Test]
+        public void Roulette_TiLeRa_TheoTrongSo()
+        {
+            // rỗng = 26 ô đều nhau; đặt trọng số thì lõi bốc đúng theo trọng số, hoàn trả từng cửa tính theo đó
+            var c = new RouletteConfig();
+            Assert.AreEqual(1 / 26.0, Roulette.Chance(c, 7), 1e-12);
+            Roulette.RtpRange(c, out double lo, out double hi);
+            Assert.AreEqual(25 / 26.0, lo, 1e-9);
+            Assert.AreEqual(25 / 26.0, hi, 1e-9);
+            c.weights = Enumerable.Repeat(4, 26).ToArray();
+            c.weights[Roulette.StarPocket] = 1;   // Sao Vàng hiếm đi 4 lần
+            c.weights[0] = 0;                     // ô Kim 1 không bao giờ ra
+            double total = c.weights.Sum();
+            Assert.AreEqual(1 / total, Roulette.Chance(c, Roulette.StarPocket), 1e-12);
+            Assert.AreEqual(0, Roulette.Chance(c, 0), 1e-12);
+            Assert.AreEqual(16 / total, Roulette.Chance(c, new RlBet { kind = RlKind.Elem, v = 0 }), 1e-12);
+            Assert.AreEqual((1 / total) * (c.starPays + 1), Roulette.RtpOf(c, new RlBet { kind = RlKind.Star }), 1e-12);
+            var rng = new Rng(11);
+            var n = new int[26];
+            int rounds = 200000;
+            var none = new List<RlBet>();
+            for (int i = 0; i < rounds; i++) n[Roulette.Spin(c, none, 0, rng).pocket]++;
+            Assert.AreEqual(0, n[0]);
+            Assert.AreEqual(1 / total, n[Roulette.StarPocket] / (double)rounds, 0.002);
+            Assert.AreEqual(4 / total, n[13] / (double)rounds, 0.004);
+        }
+
+        [Test]
+        public void Roulette_Bi_NamDungOLoiChon()
+        {
+            // cách xếp ô quanh mâm: 26 vị trí, mỗi ô một chỗ, hệ xen kẽ
+            for (int p = 0; p < Roulette.Pockets; p++) Assert.AreEqual(p, RouletteWheel.PocketAt(RouletteWheel.SlotOf(p)));
+            for (int s = 0; s < 24; s++)
+                Assert.AreNotEqual(RouletteWheel.PocketAt(s) / 5, RouletteWheel.PocketAt(s + 1) / 5, "hai ô cạnh nhau cùng hệ");
+            // với mọi ô lõi chọn và mọi góc mâm: tìm được cú thả bi mà mô phỏng cho bi nằm đúng ô đó, trong khoảng lực thả tự nhiên
+            var rng = new Rng(2026);
+            int worst = 0;
+            for (int rep = 0; rep < 6; rep++)
+                for (int pocket = 0; pocket < Roulette.Pockets; pocket++)
+                {
+                    double rot0 = rng.Range(0, Math.PI * 2);
+                    var tr = RouletteBall.Plan(RouletteWheel.SlotOf(pocket), rot0, RouletteBall.OmegaSpin, rng, 3);
+                    Assert.IsNotNull(tr);
+                    Assert.AreEqual(pocket, RouletteWheel.PocketAt(tr.slot));
+                    Assert.LessOrEqual(tr.tries, 3000, "phải ép nhãn mâm");
+                    Assert.LessOrEqual(Math.Abs(tr.shift), 3);
+                    Assert.That(-tr.ballSpeed0, Is.InRange(RouletteBall.BallMin, RouletteBall.BallMax));
+                    Assert.That(tr.duration, Is.InRange(3.5f, 12f));
+                    worst = Math.Max(worst, tr.tries);
+                    // phát lại: mô phỏng lại cùng tham số ra cùng chỗ nằm (tất định); lúc nằm yên bi ở đúng ô trên mâm
+                    tr.Sample(tr.duration + 1.5f, out float x, out float y, out float z);
+                    double beta = Math.Atan2(y, x) - tr.Rotor(tr.duration + 1.5f);
+                    beta = (beta % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+                    Assert.AreEqual(tr.slot, (int)Math.Floor(beta / RouletteWheel.Step));
+                    Assert.AreEqual(0, z, 1e-6);
+                    Assert.AreEqual(RouletteWheel.RPocket, Math.Sqrt(x * x + y * y), 0.02);
+                }
+            Assert.Less(worst, 400, "số cú thử nhiều nhất");
+        }
+

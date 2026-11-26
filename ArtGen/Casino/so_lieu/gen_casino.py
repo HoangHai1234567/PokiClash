@@ -37,7 +37,12 @@ for e in ELEMS:
 kings = [{"id": k, "name": n, "elem": e, "rar": "legend", "min": a, "max": b} for k, n, e, a, b in KINGS]
 
 
-# ---------- đấu trường ngầm: 14 ngày (chỉ số 0 = thứ Hai 2026-11-23), 5 bậc; chủ nhật (6, 13) thêm Nhà Vô Địch ----------
+# ---------- đấu trường ngầm: 14 ngày (chỉ số 0 = thứ Hai 2026-11-23), 10 bậc; chủ nhật (6, 13) thêm Nhà Vô Địch ----------
+# Người dùng 2026-11-26: "làm thêm nhiều bộ tướng, lực chiến ở ô vàng đang là 68k sang ô tím là 600k, gap lớn quá". Từ đó bậc không cân
+# theo tỉ lệ thắng nữa mà theo LỰC CHIẾN: 10 bậc, lực chiến đội ra sân tăng đều theo cấp số nhân từ UG_POWER[0] tới UG_POWER[1]
+# (mỗi bậc ~1,67 lần bậc trước), Nhà Vô Địch UG_POWER[2]. Cấp từng đội do runner dò: build.py run ugpow <thấp> <cao> <vô địch>
+# (ghi ug_levels.json), rồi chạy lại script này với --apply.
+UG_POWER = (6000, 600000, 800000)
 STAR_AT = [5, 10, 16, 24, 35, 60, 85, 108, 125, 140, 155, 170, 185, 198, 200]
 
 
@@ -45,28 +50,42 @@ def star_at(level):
     return 1 + sum(1 for x in STAR_AT if x <= level)
 
 
-TIER_LV = [40, 56, 84, 114, 145]
+TIERS = 10
+TIER_LV = [40, 48, 56, 66, 78, 92, 106, 120, 134, 148]   # cấp tạm trước khi runner dò theo lực chiến
 CHAMP_LV = 165
-TIER_STAR = [2, 1, 0, 0, 0]
-TIER_CARD = [4, 4, 4, 5, 5]
-TIER_WORD = ["tân binh", "đấu sĩ", "cựu binh", "thủ lĩnh", "huyền thoại"]
+TIER_STAR = [2, 1, 1, 0, 0, 0, 0, 0, 0, 0]               # trùng extraStar của runner ugpow
+TIER_CARD = [4, 4, 4, 4, 4, 5, 5, 5, 5, 5]
+TIER_NAME = ["Đá", "Đồng", "Bạc", "Vàng", "Bạch Kim", "Lục Bảo", "Kim Cương", "Cao Thủ", "Đại Cao Thủ", "Huyền Thoại"]
+TIER_WORD = ["tân binh", "lính mới", "đấu sĩ", "cựu binh", "tinh nhuệ", "đội trưởng", "thủ lĩnh", "cao thủ", "bá chủ", "huyền thoại"]
+TIER_PLAYER_LV = [35, 45, 55, 65, 80, 95, 110, 120, 130, 140]   # cấp đội mẫu khi xem tỉ lệ thắng (runner ug); không khoá bậc
+TIER_FEE = [20, 30, 40, 55, 75, 100, 130, 165, 205, 250]
+TIER_SHARDS = [1, 1, 2, 2, 3, 4, 5, 6, 7, 8]
+TIER_ITEMS = [[], [], [{"k": "stones", "n": 1}], [{"k": "stones", "n": 2}], [{"k": "stones", "n": 3}], [{"k": "evo", "n": 1}], [{"k": "evo", "n": 1}],
+              [{"k": "evo", "n": 1}, {"k": "stones", "n": 2}], [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}], [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]]
+UG_DAILY = 5   # số trận mỗi ngày (thắng, thua, đánh lại đều tính)
 THEME = {"kim": "Xưởng Thép", "moc": "Rừng Gai", "thuy": "Sóng Ngầm", "hoa": "Lò Lửa", "tho": "Mỏ Đá"}
-TEAM_RARS = [["common", "uncommon"], ["uncommon", "rare"], ["uncommon", "rare", "epic"], ["rare", "epic"], ["epic", "legend"]]
-TEAM_SIZE = [1, 2, 3, 3, 3]
+TEAM_RARS = [["common", "uncommon"], ["common", "uncommon"], ["uncommon", "rare"], ["uncommon", "rare"], ["uncommon", "rare", "epic"],
+             ["rare", "epic"], ["rare", "epic"], ["rare", "epic", "legend"], ["epic", "legend"], ["epic", "legend"]]
+TEAM_SIZE = [1, 2, 3, 3, 3, 3, 3, 3, 3, 3]
 RULES = [("atk", True, 0.2, 0), ("hp", False, 0.3, 0), ("picks", False, 0, 4), ("buff", False, 0.15, 0), ("def", True, 0.25, 0), ("solo", False, 0, 0), (None, False, 0, 0)]
+SOLO_MAX_TIER = -1  # bỏ luật "mỗi bên một tướng" khỏi bảng (2026-11-26): một tướng gánh lực chiến cả bậc thì cấp vọt cao, đội mẫu thắng 0 %, và lực chiến hiện ra không so được với đội 3 tướng của người chơi
 
 
 def rank(hid):
     return (RAR.index(H[hid]["rarity"]), hid)
 
 
-def team_for(elem, tier, rnd, mixed):
+def team_for(elem, tier, rnd, mixed, avoid=()):
     size = TEAM_SIZE[tier]
     pool = by(None if mixed else elem, TEAM_RARS[tier])
     if len(pool) < size:
         pool = by(None if mixed else elem)
-    pick = rnd.sample(pool, size)
-    pick.sort(key=rank, reverse=True)  # tướng mạnh nhất đứng đầu (chủ lực, cũng là tướng khi luật solo)
+    # nhiều bộ tướng: thử vài lần để không trùng nguyên đội, không trùng chủ lực với bậc ngay trước
+    for _ in range(12):
+        pick = rnd.sample(pool, size)
+        pick.sort(key=rank, reverse=True)  # tướng mạnh nhất đứng đầu (chủ lực, cũng là tướng khi luật solo)
+        if not avoid or (pick[0] != avoid[0] and set(pick) != set(avoid)):
+            break
     lv = TIER_LV[tier]
     st = min(20, star_at(lv) + TIER_STAR[tier])
     card = TIER_CARD[tier]
@@ -81,8 +100,11 @@ for d in range(14):
     mixed = elem is None
     theme_elem = elem or rnd.choice(ELEMS)
     entries = []
-    for t in range(5):
+    prev = ()
+    for t in range(TIERS):
         kind, has_elem, p, n = RULES[(d + t * 3) % len(RULES)]
+        if kind == "solo" and t > SOLO_MAX_TIER:
+            kind = None
         rule = {}
         if kind:
             rule = {"kind": kind}
@@ -92,7 +114,8 @@ for d in range(14):
                 rule["p"] = p
             if n:
                 rule["n"] = n
-        team = team_for(theme_elem, t, rnd, mixed)
+        team = team_for(theme_elem, t, rnd, mixed, prev)
+        prev = [m["hero"] for m in team]
         name = ("Liên Minh" if mixed else THEME[elem]) + ": " + TIER_WORD[t]
         e = {"name": name, "rule": rule, "team": team, "lead": team[0]["hero"]}
         entries.append(e)
@@ -152,11 +175,15 @@ block = {
                 [{"k": "shards", "n": 2, "h": "*guest"}, {"k": "balls", "n": 12}], [{"k": "shards", "n": 4, "h": "*guest"}, {"k": "evo", "n": 1, "chance": 0.25}]],
     },
     "race": {
-        "seg": 60, "segs": 3, "spdBase": 10, "spdK": 0.004, "spdMid": 60, "starK": 0.002, "lvK": 0.001, "lvClamp": 40,
-        "same": 1.06, "weak": 0.96, "noise": 0.08, "cheer": [0, 0.06, 0.09], "cheerSec": 1.5, "lucky": 0.03,
-        "daily": 20, "minRunners": 3, "maxRunners": 5, "fightRate": 0.55, "fightRange": 9, "fightCool": 2.6, "hitChance": 0.72,
-        "stunSec": 1.3, "trip": 0.6, "guardSec": 0.9, "gustRate": 0.25, "gust": 0.3, "gustSec": 1.0,
-        "placeK": [0.55, 0.3, 0.1, 0, 0], "points": [3, 2, 1, 0, 0], "weekPts": 10,
+        # luật cược (người dùng 2026-11-26): đặt 1 trong 5 con, tối đa 500 bi, 5 lần mỗi ngày; nhất ×3, nhì ×2, ba hoà, còn lại mất.
+        # Hạng của con được chọn rút theo oddsLow (cược betMin) … oddsHigh (cược betMax): cược càng cao càng khó thắng.
+        # Hoàn trả trung bình: cược 10 ≈ 1,18; 100 ≈ 1,10; 200 ≈ 1,02; 350 ≈ 0,89; 500 = 0,77 (build.py run race).
+        "seg": 60, "segs": 3, "daily": 5, "runners": 5, "betMin": 10, "betMax": 500, "chips": [50, 100, 200, 500],
+        "pay": [3, 2, 1, 0, 0], "oddsLow": [0.18, 0.20, 0.24], "oddsHigh": [0.09, 0.13, 0.24],
+        # kịch bản cuộc đua: về nhất sau raceSec giây, hai hạng liền nhau cách gapMin..gapMax giây, cả đoàn lệch nhịp chung ±spread
+        "raceSec": 20, "gapMin": 0.12, "gapMax": 0.5, "spread": 4.5, "keyMin": 1.3, "keyMax": 2.3, "startSec": 0.8, "endSec": 2.6,
+        "surge": 3.2, "surgeSec": 0.9, "stunDrop": 3.6, "stunMax": 1.2, "comeback": 0.55, "tease": 0.6,
+        "points": [3, 2, 1, 0, 0], "weekPts": 10,
         "cups": [
             {"name": "Cúp Đồng", "level": 15, "oppLevel": 15, "oppStar": 2, "fee": 15, "skill": 0.45, "week": [{"k": "balls", "n": 120}, {"k": "stones", "n": 3}]},
             {"name": "Cúp Bạc", "level": 40, "oppLevel": 45, "oppStar": 5, "fee": 25, "skill": 0.55, "week": [{"k": "balls", "n": 200}, {"k": "shards", "n": 3, "h": "*carry"}]},
@@ -195,12 +222,9 @@ block = {
     },
     "underground": {
         "winMult": 2.5, "rewinMult": 1, "rewin": [{"k": "stones", "n": 1}],
-        "tiers": [
-            {"name": "Đá", "level": 35, "fee": 20, "shards": 1},
-            {"name": "Đồng", "level": 50, "fee": 40, "shards": 2},
-            {"name": "Bạc", "level": 80, "fee": 80, "shards": 3, "items": [{"k": "stones", "n": 2}]},
-            {"name": "Vàng", "level": 110, "fee": 150, "shards": 5, "items": [{"k": "evo", "n": 1}]},
-            {"name": "Huyền Thoại", "level": 140, "fee": 250, "shards": 8, "items": [{"k": "evo", "n": 1}, {"k": "crystal", "n": 1}]},
+        "daily": UG_DAILY,
+        "tiers": [dict({"name": TIER_NAME[t], "level": TIER_PLAYER_LV[t], "fee": TIER_FEE[t], "shards": TIER_SHARDS[t]},
+                       **({"items": TIER_ITEMS[t]} if TIER_ITEMS[t] else {})) for t in range(TIERS)] + [
             {"name": "Nhà Vô Địch", "level": 160, "fee": 300, "shards": 10, "weekly": True, "items": [{"k": "evo", "n": 2}, {"k": "crystal", "n": 2}]},
         ],
         "rotation": rotation,

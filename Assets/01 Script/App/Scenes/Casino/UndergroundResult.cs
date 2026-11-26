@@ -1,6 +1,6 @@
 // Kết trận Đấu trường ngầm (BattleController gọi khi trận có UgRef; GD_Claude/29_DaoCasino.md mục 6.5): thắng lần đầu trong ngày
 // được winMult × lệ phí + mảnh tướng chủ lực + quà bậc; thắng lại hoàn lệ phí + quà nhỏ; thua mất lệ phí (đã trả lúc bấm Đánh).
-// Nút: "Đánh lại" (trả lệ phí lần nữa), "Về Hầm đấu" (về đảo, mở lại hộp Hầm đấu).
+// Nút: "Đánh lại" (trả lệ phí lần nữa), "Về Hầm đấu" (về scene Hầm đấu kèm UgReturn: Lão Mực phản ứng theo kết quả).
 using System.Collections;
 using System.Collections.Generic;
 using PokiClash.Core;
@@ -45,7 +45,9 @@ namespace PokiClash
             else
                 m.Tips(Loc.T("Thua thì mất lệ phí. Thử đội khắc hệ chủ lực của đối thủ, xem luật ngày, hoặc đánh bậc dễ hơn."));
             int tier = ug.tier;
-            if (Underground.TierOpen(s, d, tier) && Underground.TiersToday(d, now).Contains(tier) && !(t.weekly && Underground.WonToday(s, d, tier, now)))
+            // hết lượt đánh trong ngày thì không mời đánh lại
+            if (Underground.FightsLeft(s, d, now) > 0 && Underground.TierOpen(s, d, tier) && Underground.TiersToday(d, now).Contains(tier)
+                && !(t.weekly && Underground.WonToday(s, d, tier, now)))
                 m.Button(Loc.F("Đánh lại · {0} bi", Underground.Fee(s, d, tier)), win ? BtnColor.Paper : BtnColor.Green, 300, () =>
                 {
                     if (!Underground.Pay(s, d, tier, SaveService.Now(), out var why))
@@ -56,11 +58,7 @@ namespace PokiClash
                     App.Save.Save();
                     App.Router.Go(SceneIds.Battle, new BattleArgs { stageId = stage.id, team = team, ug = new UgRef { tier = tier, day = Casino.Today(SaveService.Now()) } });
                 });
-            m.Button(Loc.T("Về Hầm đấu"), BtnColor.Paper, 260, () =>
-            {
-                CasinoScene.Reopen = Casino.Underground;
-                App.Router.Go(SceneIds.Casino);
-            });
+            m.Button(Loc.T("Về Hầm đấu"), BtnColor.Paper, 260, () => App.Router.Go(SceneIds.CasinoUnderground, new UgReturn { tier = tier, won = win }));
             yield return new WaitForSecondsRealtime(0.12f);
             App.Audio.Play("stamp");
             Haptics.Play(Haptic.Stamp);

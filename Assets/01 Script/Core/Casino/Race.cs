@@ -1,27 +1,30 @@
-// Đua tướng (Trường đua, GD_Claude/29_DaoCasino.md mục 6.3). Người dùng 2026-11-25: "random 3-5 tướng mỗi lane chạy đua nhau, trên
-// đường chạy tướng có thể đánh nhau cho vui vui, có tướng bị choáng stun, nó cũng kiểu random ai về nhất cho vui thôi".
-// - Mỗi cuộc đua ngẫu nhiên minRunners..maxRunners tướng (người chơi + tướng của thám hiểm gia khác), mỗi tướng một làn.
-// - Đường đua đổi theo ngày: segs chặng, mỗi chặng một địa hình theo hệ. Chỉ số tốc, sao, cấp, địa hình chỉ lệch nhẹ; dao động mỗi chặng
-//   lớn hơn, nên về nhất phần lớn là hên xui.
-// - Đánh nhau: tướng đang chạy, hết hồi chiêu, có tướng khác trong tầm fightRange thì mỗi giây có fightRate cơ hội lao vào đánh tướng gần
-//   nhất (ưu tiên tướng phía trước). Trúng (hitChance): đối thủ choáng stunSec giây (đứng yên). Hụt: kẻ đánh tự vấp, choáng trip giây.
-//   Đối thủ đang được cổ vũ (khiên guardSec giây): né, kẻ đánh vấp.
-// - Gió thuận: mỗi giây gustRate cơ hội một tướng được +gust tốc trong gustSec giây.
-// - Cổ vũ (người chơi, mỗi chặng một lần, theo vòng sáng): Tốt +cheer[1] tốc, Tuyệt +cheer[2] tốc và khiên né đòn; tướng máy cổ vũ theo độ giỏi.
-// - Thưởng: lệ phí × placeK[hạng] × số tướng (trung bình gần hoà vốn khi ai cũng như nhau), điểm cúp tuần theo hạng.
-// - Mô phỏng nhịp 1/30 giây, tất định theo hạt giống và lần chạm; Events ghi đánh nhau, né, vấp, gió để giao diện diễn.
+// Đua tướng (Trường đua, GD_Claude/29_DaoCasino.md mục 6.3). Luật cược (người dùng 2026-11-26): "đặt 1 trong 5 con ... đặt max là 500
+// bóng, mình có thể kiểm soát tỉ lệ thắng thua. nếu về nhất x3, về nhì x2, về 3 thì hòa tiền, 4, 5 mất tiền. 1 ngày được chơi 5 lần.
+// Tiền cược càng cao bạn phải cho người chơi tỉ lệ thắng càng thấp. Làm cuộc đua gay cấn hơn, các con đua nhau sát hơn, có những
+// lúc vọt lên kiểu bất ngờ."
+// - Mỗi cuộc đua 5 tướng ngẫu nhiên (Lineup), mỗi tướng một làn. Người chơi chọn một con và đặt betMin..betMax bi.
+// - Hạng của con được chọn RÚT TRƯỚC theo bảng tỉ lệ (PlaceOdds): mức cược thấp dùng oddsLow, cao dùng oddsHigh, ở giữa nội suy; phần còn
+//   lại chia đều cho các hạng không trả thưởng. Các con khác xếp ngẫu nhiên vào hạng còn lại. Đua tập (không cược): mọi hạng như nhau.
+// - Trả thưởng: cược × pay[hạng] (3, 2, 1, 0, 0); phần lời nhân hệ số Lễ Hội Đua. Điểm cúp tuần theo hạng như cũ.
+// - Cuộc đua là một kịch bản dựng sẵn từ hạt giống, không phải mô phỏng tự do: cả đoàn chạy theo một nhịp chung (về nhất sau raceSec
+//   giây), mỗi con lệch khỏi nhịp theo các mốc ngẫu nhiên cách nhau keyMin..keyMax giây, trong ±spread đơn vị, nên cả đoàn bám sát và
+//   đổi ngôi liên tục. Giữa hai mốc: vọt lên ≥ surge đơn vị thì thành cú BỨT TỐC dồn trong surgeSec giây (sự kiện Gust); tụt ≥ stunDrop
+//   thì thành BỊ HÚC CHOÁNG, đứng yên tối đa stunMax giây (sự kiện Hit, kẻ húc là con gần nhất). Mốc trước nước rút cài kịch tính: con
+//   sẽ về nhất hay còn ở sau (comeback), con mình chọn mà sẽ thua hay đang dẫn (tease). Mốc cuối đưa từng con về đích đúng giờ đã định,
+//   hai hạng liền nhau cách gapMin..gapMax giây (sát nút).
+// - Mô phỏng nhịp 1/30 giây, tất định theo hạt giống; Events ghi bứt tốc, bị húc, về đích để giao diện diễn.
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace PokiClash.Core
 {
-    public enum RaceEv { Hit, Trip, Dodge, Gust, Finish }
+    public enum RaceEv { Hit, Trip, Dodge, Gust, Finish } // Trip, Dodge: luật cũ, không còn sinh ra
 
     public sealed class RaceEvent
     {
         public double t;
-        public int a, b; // a: kẻ đánh / tướng được gió / về đích; b: đối thủ (−1 nếu không)
+        public int a, b; // Hit: a húc b; Gust, Finish: a (b = −1)
         public RaceEv kind;
     }
 
@@ -29,31 +32,29 @@ namespace PokiClash.Core
     {
         public string hero;
         public Elem elem;
-        public int star, level;
-        public bool player;
-        public double baseSpeed;
-        public double[] noise = new double[0]; // theo chặng
-        public int[] npcCheer = new int[0]; // tướng máy: chất lượng cổ vũ theo chặng
+        public bool player; // con người chơi đặt cược
+        public int place; // hạng đã định (0 = nhất)
+        public double finishAt; // giờ về đích đã định
+        // kịch bản: tại giây keyT[k] lệch keyO[k] đơn vị so với nhịp chung; keyKind[k] là cách đi tới mốc k (0 đều, 1 bứt tốc, 2 bị húc
+        // choáng keyDur[k] giây rồi chạy tiếp)
+        public double[] keyT = new double[0], keyO = new double[0], keyDur = new double[0];
+        public byte[] keyKind = new byte[0];
         // trạng thái chạy
-        public double pos, finishT = -1;
-        public int seg = -1, cheered = -1;
-        public double segT0, boostUntil, boost, stunUntil, guardUntil, cool, gustUntil;
-        public int[] cheerQ;
-        public int hits, stuns; // số lần đánh trúng, số lần bị choáng (để hiện)
+        public int key; // đang ở đoạn giữa mốc key và key + 1
+        public double pos, speed, finishT = -1, stunUntil, gustUntil;
+        public int hits, stuns; // số lần húc trúng, số lần bị choáng (để hiện)
 
         public bool Stunned(double t) => t < stunUntil;
     }
 
     public sealed class RaceGame
     {
-        public int cup;
         public Elem[] terrain = new Elem[0];
         public List<RaceRunner> runners = new List<RaceRunner>();
         public List<RaceEvent> events = new List<RaceEvent>();
-        public double t;
+        public double t, pace; // pace: tốc nhịp chung (đơn vị / giây)
         public bool done;
-        public int fee; // lệ phí đã trả (0: đua tập)
-        public Rng rng; // ngẫu nhiên lúc chạy (đánh nhau, gió), cùng hạt giống với lúc dựng
+        public int bet; // bi đã đặt (0: đua tập)
         public RaceRunner Player => runners.Find(r => r.player);
         public int PlayerIndex => runners.FindIndex(r => r.player);
         public double Length(RaceConfig c) => c.seg * c.segs;
@@ -63,13 +64,14 @@ namespace PokiClash.Core
     {
         public int place; // 0-based
         public int runners;
-        public int balls, points;
+        public int balls, points; // balls: bi nhận về (gồm cả tiền cược nếu thắng / hoà)
         public bool weekReady;
     }
 
     public static class Race
     {
-        public const double Dt = 1 / 30.0, NpcCheerDelay = 0.55;
+        public const double Dt = 1 / 30.0;
+        const byte Even = 0, Surge = 1, Stun = 2;
 
         public static Elem[] TrackOf(RaceConfig c, int day)
         {
@@ -79,213 +81,262 @@ namespace PokiClash.Core
             return t;
         }
 
-        public static double BaseSpeed(RaceConfig c, HeroDef h, int star, int levelDiff, Elem? lucky)
+        // đoàn đua: runners tướng khác nhau, ngẫu nhiên theo hạt giống
+        public static List<string> Lineup(GameData d, RaceConfig c, uint seed)
         {
-            double v = c.spdBase * (1 + c.spdK * (h.stats[5] - c.spdMid) / 10.0);
-            v *= 1 + c.starK * (Math.Max(1, star) - 1);
-            v *= 1 + c.lvK * Math.Max(-c.lvClamp, Math.Min(c.lvClamp, levelDiff));
-            if (lucky.HasValue && h.elem == lucky.Value) v *= 1 + c.lucky;
-            return v;
-        }
-
-        public static double Terrain(RaceConfig c, Elem terrain, Elem hero) =>
-            terrain == hero ? c.same : Elements.Beats(terrain) == hero ? c.weak : 1;
-
-        static int NpcQ(double skill, Rng rng)
-        {
-            double x = rng.Next();
-            if (x < skill * 0.45) return 2;
-            if (x < skill * 0.45 + 0.25 + skill * 0.2) return 1;
-            return 0;
-        }
-
-        public static int RunnerCount(RaceConfig c, Rng rng) => rng.Int(Math.Max(2, c.minRunners), Math.Max(c.minRunners, c.maxRunners));
-
-        // dựng cuộc đua: số tướng ngẫu nhiên, tướng máy chọn ngẫu nhiên (khác tướng người chơi), xáo làn
-        public static RaceGame Setup(GameData d, RaceConfig c, int cupIdx, HeroDef mine, int myStar, int myLevel, int day, uint seed, Elem? lucky)
-        {
-            var cup = c.cups[Math.Max(0, Math.Min(cupIdx, c.cups.Count - 1))];
             var rng = new Rng(seed);
-            var g = new RaceGame { cup = cupIdx, terrain = TrackOf(c, day) };
-            int n = RunnerCount(c, rng);
-            var pool = d.Heroes.Where(h => !h.minion && h.id != mine.id).ToList();
-            g.runners.Add(new RaceRunner
-            {
-                hero = mine.id, elem = mine.elem, star = myStar, level = myLevel, player = true,
-                baseSpeed = BaseSpeed(c, mine, myStar, myLevel - cup.oppLevel, lucky),
-            });
-            for (int i = 1; i < n && pool.Count > 0; i++)
+            var pool = d.Heroes.Where(h => !h.minion).ToList();
+            var list = new List<string>();
+            for (int i = 0; i < c.runners && pool.Count > 0; i++)
             {
                 var h = rng.Pick(pool);
                 pool.Remove(h);
-                int star = Math.Max(1, cup.oppStar + rng.Int(-1, 1));
-                g.runners.Add(new RaceRunner { hero = h.id, elem = h.elem, star = star, level = cup.oppLevel, baseSpeed = BaseSpeed(c, h, star, 0, null) });
+                list.Add(h.id);
             }
-            foreach (var r in g.runners)
+            return list;
+        }
+
+        // tỉ lệ con được chọn về từng hạng theo mức cược; n: số tướng. Đua tập (bet ≤ 0): đều nhau.
+        public static double[] PlaceOdds(RaceConfig c, int bet, int n)
+        {
+            var p = new double[Math.Max(1, n)];
+            if (bet <= 0)
             {
-                r.noise = new double[c.segs];
-                r.npcCheer = new int[c.segs];
-                r.cheerQ = Enumerable.Repeat(-1, c.segs).ToArray();
-                for (int k = 0; k < c.segs; k++)
-                {
-                    r.noise[k] = rng.Range(-c.noise, c.noise);
-                    r.npcCheer[k] = NpcQ(cup.skill, rng);
-                }
-                r.cool = rng.Range(0.6, 1.8); // không đánh ngay khi xuất phát
+                for (int i = 0; i < p.Length; i++) p[i] = 1.0 / p.Length;
+                return p;
             }
-            for (int i = g.runners.Count - 1; i > 0; i--)
+            double k = c.betMax > c.betMin ? Math.Max(0, Math.Min(1, (bet - c.betMin) / (double)(c.betMax - c.betMin))) : 1;
+            int paid = Math.Min(p.Length, Math.Min(c.oddsLow.Length, c.oddsHigh.Length));
+            double sum = 0;
+            for (int i = 0; i < paid; i++)
+            {
+                p[i] = Math.Max(0, c.oddsLow[i] + (c.oddsHigh[i] - c.oddsLow[i]) * k);
+                sum += p[i];
+            }
+            if (paid >= p.Length || sum >= 1)
+            {
+                for (int i = 0; i < p.Length; i++) p[i] /= Math.Max(1e-9, sum);
+                return p;
+            }
+            for (int i = paid; i < p.Length; i++) p[i] = (1 - sum) / (p.Length - paid);
+            return p;
+        }
+
+        // bi trả về trên mỗi bi cược (trung bình) ở mức cược này: để cân và để test
+        public static double Rtp(RaceConfig c, int bet, int n)
+        {
+            var p = PlaceOdds(c, bet, n);
+            double ev = 0;
+            for (int i = 0; i < p.Length; i++) ev += p[i] * (i < c.pay.Length ? c.pay[i] : 0);
+            return ev;
+        }
+
+        // dựng cuộc đua: rút hạng cho con được chọn theo mức cược, xếp các con khác, viết kịch bản đường chạy
+        public static RaceGame Setup(GameData d, RaceConfig c, IList<string> lineup, int pick, int bet, int day, uint seed)
+        {
+            var rng = new Rng(seed);
+            var g = new RaceGame { terrain = TrackOf(c, day), bet = Math.Max(0, bet) };
+            int n = lineup.Count;
+            pick = Math.Max(0, Math.Min(n - 1, pick));
+            // hạng
+            var odds = PlaceOdds(c, bet, n);
+            double x = rng.Next(), acc = 0;
+            int mine = n - 1;
+            for (int i = 0; i < n; i++)
+            {
+                acc += odds[i];
+                if (x < acc) { mine = i; break; }
+            }
+            var rest = Enumerable.Range(0, n).Where(i => i != mine).ToList();
+            for (int i = rest.Count - 1; i > 0; i--)
             {
                 int j = rng.Int(0, i);
-                (g.runners[i], g.runners[j]) = (g.runners[j], g.runners[i]);
+                (rest[i], rest[j]) = (rest[j], rest[i]);
             }
-            g.rng = new Rng(seed ^ 0x9E3779B9u);
+            double len = g.Length(c);
+            g.pace = len / Math.Max(1, c.raceSec);
+            var at = new double[n]; // giờ về đích theo hạng: hai hạng liền nhau sát nút
+            at[0] = c.raceSec;
+            for (int i = 1; i < n; i++) at[i] = at[i - 1] + rng.Range(c.gapMin, c.gapMax);
+            int k = 0;
+            for (int i = 0; i < n; i++)
+            {
+                var h = d.Hero(lineup[i]);
+                var r = new RaceRunner { hero = lineup[i], elem = h != null ? h.elem : Elem.Kim, player = i == pick, place = i == pick ? mine : rest[k++] };
+                r.finishAt = at[r.place];
+                Script(c, g, r, n, rng);
+                g.runners.Add(r);
+            }
             return g;
         }
 
-        public static double Speed(RaceConfig c, RaceGame g, RaceRunner r)
+        // kịch bản đường chạy của một con: các mốc lệch nhịp, mốc kịch tính trước nước rút, mốc về đích
+        static void Script(RaceConfig c, RaceGame g, RaceRunner r, int n, Rng rng)
         {
-            if (r.Stunned(g.t)) return 0;
-            int k = Math.Max(0, Math.Min(c.segs - 1, r.seg));
-            double v = r.baseSpeed * Terrain(c, g.terrain[k], r.elem) * (1 + r.noise[k]);
-            if (g.t < r.boostUntil) v *= 1 + r.boost;
-            if (g.t < r.gustUntil) v *= 1 + c.gust;
-            return v;
+            double len = g.Length(c), v = g.pace, s = c.spread;
+            double end = len - v * r.finishAt; // độ lệch lúc về đích (≤ 0: về sau con nhất)
+            // càng về cuối càng lộ dần hạng thật, nhưng phần lớn độ tụt dồn vào nước rút
+            double Bias(double t) => end * Math.Pow(Math.Max(0, Math.Min(1, t / r.finishAt)), 3);
+            var kt = new List<double> { 0, c.startSec };
+            var ko = new List<double> { 0, 0 };
+            double tDrama = r.finishAt - c.endSec;
+            for (double t = c.startSec + rng.Range(c.keyMin, c.keyMax); t < tDrama - c.keyMin * 0.6; t += rng.Range(c.keyMin, c.keyMax))
+            {
+                kt.Add(t);
+                ko.Add(Bias(t) + rng.Range(-s, s));
+            }
+            double drama;
+            if (r.place == 0) drama = rng.Chance(c.comeback) ? rng.Range(-s, -s * 0.35) : rng.Range(-s * 0.3, s * 0.6); // lội ngược dòng
+            else if (r.player && r.place >= 2) drama = rng.Chance(c.tease) ? rng.Range(s * 0.45, s) : rng.Range(-s, s); // dẫn rồi hụt hơi
+            else drama = rng.Range(-s, s);
+            kt.Add(tDrama);
+            ko.Add(Bias(tDrama) * 0.5 + drama);
+            kt.Add(r.finishAt);
+            ko.Add(end);
+            int m = kt.Count;
+            r.keyT = kt.ToArray();
+            r.keyO = ko.ToArray();
+            r.keyKind = new byte[m];
+            r.keyDur = new double[m];
+            for (int i = 2; i < m; i++)
+            {
+                double d = r.keyO[i] - r.keyO[i - 1], span = r.keyT[i] - r.keyT[i - 1];
+                if (d >= c.surge)
+                {
+                    r.keyKind[i] = Surge;
+                    r.keyDur[i] = Math.Min(c.surgeSec, span);
+                }
+                else if (d <= -c.stunDrop && i < m - 1) // không cho choáng ngay trước vạch đích
+                {
+                    r.keyKind[i] = Stun;
+                    r.keyDur[i] = Math.Min(Math.Min(c.stunMax, -d / v), span * 0.75);
+                }
+            }
         }
 
-        public static int CheerSeg(RaceGame g)
+        static double Smooth(double u) => u <= 0 ? 0 : u >= 1 ? 1 : u * u * (3 - 2 * u);
+
+        // độ lệch so với nhịp chung ở giây t (đoạn mốc r.key → r.key + 1)
+        static double Offset(RaceGame g, RaceRunner r, double t)
         {
-            var p = g.Player;
-            if (p == null || p.finishT >= 0 || p.seg < 0 || p.cheered >= p.seg) return -1;
-            return p.seg;
+            int k = r.key;
+            if (k >= r.keyT.Length - 1) return r.keyO[r.keyO.Length - 1];
+            double t0 = r.keyT[k], t1 = r.keyT[k + 1], o0 = r.keyO[k], o1 = r.keyO[k + 1];
+            double span = Math.Max(1e-6, t1 - t0), dur = r.keyDur[k + 1];
+            switch (r.keyKind[k + 1])
+            {
+                case Surge:
+                {
+                    double u = Math.Min(1, (t - t0) / Math.Max(1e-6, dur));
+                    return o0 + (o1 - o0) * (1 - (1 - u) * (1 - u)); // dồn vào đầu đoạn, chậm dần
+                }
+                case Stun:
+                {
+                    if (t - t0 <= dur) return o0 - g.pace * (t - t0); // đứng yên: nhịp chung chạy đi, mình tụt lại
+                    double os = o0 - g.pace * dur;
+                    return os + (o1 - os) * Smooth((t - t0 - dur) / Math.Max(1e-6, span - dur));
+                }
+                default:
+                    return o0 + (o1 - o0) * Smooth((t - t0) / span);
+            }
         }
 
-        public static double SinceSegStart(RaceGame g) => g.Player == null ? 0 : g.t - g.Player.segT0;
-
-        static void ApplyCheer(RaceConfig c, RaceGame g, RaceRunner r, int q)
-        {
-            r.cheered = r.seg;
-            if (r.seg >= 0 && r.seg < r.cheerQ.Length) r.cheerQ[r.seg] = q;
-            q = Math.Max(0, Math.Min(c.cheer.Length - 1, q));
-            r.boost = c.cheer[q];
-            r.boostUntil = g.t + c.cheerSec;
-            if (q >= 2) r.guardUntil = g.t + c.guardSec; // Tuyệt: khiên né đòn
-        }
-
-        // người chơi cổ vũ với chất lượng q (0 Hụt, 1 Tốt, 2 Tuyệt)
-        public static bool Cheer(RaceConfig c, RaceGame g, int q)
-        {
-            if (CheerSeg(g) < 0) return false;
-            ApplyCheer(c, g, g.Player, q);
-            return true;
-        }
+        // tốc đang chạy (đơn vị / giây) để giao diện chỉnh nhịp bước
+        public static double Speed(RaceConfig c, RaceGame g, RaceRunner r) => r.speed;
 
         // một nhịp Dt
         public static void Step(RaceConfig c, RaceGame g)
         {
             if (g.done) return;
-            double len = g.Length(c);
-            var rng = g.rng ?? (g.rng = new Rng(1));
+            double len = g.Length(c), t = g.t + Dt;
             int n = g.runners.Count;
-            // đánh nhau, gió
             for (int i = 0; i < n; i++)
             {
                 var r = g.runners[i];
                 if (r.finishT >= 0) continue;
-                r.cool -= Dt;
-                if (c.gustRate > 0 && rng.Chance(c.gustRate * Dt / Math.Max(1, n)))
+                // sang đoạn mới: bứt tốc / bị húc bắt đầu ở đầu đoạn
+                while (r.key < r.keyT.Length - 2 && t >= r.keyT[r.key + 1])
                 {
-                    r.gustUntil = g.t + c.gustSec;
-                    g.events.Add(new RaceEvent { t = g.t, a = i, b = -1, kind = RaceEv.Gust });
+                    r.key++;
+                    byte kind = r.keyKind[r.key + 1];
+                    if (kind == Surge)
+                    {
+                        r.gustUntil = r.keyT[r.key] + r.keyDur[r.key + 1];
+                        g.events.Add(new RaceEvent { t = g.t, a = i, b = -1, kind = RaceEv.Gust });
+                    }
+                    else if (kind == Stun)
+                    {
+                        r.stunUntil = r.keyT[r.key] + r.keyDur[r.key + 1];
+                        r.stuns++;
+                        int by = Nearest(g, i);
+                        if (by >= 0) g.runners[by].hits++;
+                        g.events.Add(new RaceEvent { t = g.t, a = by, b = i, kind = RaceEv.Hit });
+                    }
                 }
-                if (r.Stunned(g.t) || r.cool > 0 || !rng.Chance(c.fightRate * Dt)) continue;
-                // đối thủ gần nhất trong tầm, ưu tiên phía trước
-                int best = -1;
-                double bestD = double.MaxValue;
-                for (int j = 0; j < n; j++)
+                double np = Math.Max(r.pos, g.pace * t + Offset(g, r, t)); // không bao giờ lùi
+                if (t >= r.finishAt)
                 {
-                    if (j == i) continue;
-                    var o = g.runners[j];
-                    if (o.finishT >= 0 || o.Stunned(g.t)) continue;
-                    double dx = o.pos - r.pos;
-                    if (Math.Abs(dx) > c.fightRange) continue;
-                    double score = Math.Abs(dx) - (dx > 0 ? c.fightRange * 0.5 : 0);
-                    if (score < bestD) { bestD = score; best = j; }
-                }
-                if (best < 0) continue;
-                var t = g.runners[best];
-                r.cool = c.fightCool;
-                if (g.t < t.guardUntil)
-                {
-                    r.stunUntil = g.t + c.trip;
-                    g.events.Add(new RaceEvent { t = g.t, a = i, b = best, kind = RaceEv.Dodge });
-                }
-                else if (rng.Chance(c.hitChance))
-                {
-                    t.stunUntil = g.t + c.stunSec;
-                    t.cool = Math.Max(t.cool, c.stunSec + 0.6);
-                    t.stuns++;
-                    r.hits++;
-                    g.events.Add(new RaceEvent { t = g.t, a = i, b = best, kind = RaceEv.Hit });
-                }
-                else
-                {
-                    r.stunUntil = g.t + c.trip;
-                    r.stuns++;
-                    g.events.Add(new RaceEvent { t = g.t, a = i, b = best, kind = RaceEv.Trip });
-                }
-            }
-            // chạy
-            for (int i = 0; i < n; i++)
-            {
-                var r = g.runners[i];
-                if (r.finishT >= 0) continue;
-                int seg = Math.Min(c.segs - 1, (int)Math.Floor(r.pos / c.seg));
-                if (seg != r.seg)
-                {
-                    r.seg = seg;
-                    r.segT0 = g.t;
-                }
-                if (!r.player && r.cheered < r.seg && g.t - r.segT0 >= NpcCheerDelay) ApplyCheer(c, g, r, r.npcCheer[r.seg]);
-                double v = Speed(c, g, r);
-                double np = r.pos + v * Dt;
-                if (np >= len)
-                {
-                    r.finishT = g.t + (len - r.pos) / Math.Max(1e-6, v);
-                    r.pos = len;
+                    np = len;
+                    r.finishT = r.finishAt;
                     g.events.Add(new RaceEvent { t = g.t, a = i, b = -1, kind = RaceEv.Finish });
                 }
-                else r.pos = np;
+                else np = Math.Min(np, len - 0.02); // chưa tới giờ thì chưa chạm vạch: hạng về đích luôn đúng kịch bản
+                r.speed = (np - r.pos) / Dt;
+                r.pos = np;
             }
-            g.t += Dt;
+            g.t = t;
             if (g.runners.All(r => r.finishT >= 0) || g.t > 120) g.done = true;
         }
 
-        // chạy hết với chất lượng cổ vũ cố định của người chơi theo chặng (cheerAt: giây sau khi vào chặng)
-        public static void Run(RaceConfig c, RaceGame g, int[] cheers, double cheerAt = 0.6)
+        // con gần nhất còn đang chạy và không choáng (kẻ húc); −1 nếu không có
+        static int Nearest(RaceGame g, int i)
         {
-            int guard = 0;
-            while (!g.done && guard++ < 100000)
+            int best = -1;
+            double bestD = double.MaxValue;
+            for (int j = 0; j < g.runners.Count; j++)
             {
-                int k = CheerSeg(g);
-                if (k >= 0 && cheers != null && k < cheers.Length && SinceSegStart(g) >= cheerAt) Cheer(c, g, cheers[k]);
-                Step(c, g);
+                var o = g.runners[j];
+                if (j == i || o.finishT >= 0 || o.Stunned(g.t)) continue;
+                double d = Math.Abs(o.pos - g.runners[i].pos);
+                if (d < bestD) { bestD = d; best = j; }
             }
+            return best;
         }
 
+        // chạy hết
+        public static void Run(RaceConfig c, RaceGame g)
+        {
+            int guard = 0;
+            while (!g.done && guard++ < 100000) Step(c, g);
+        }
+
+        // chưa về đích xếp sau, theo quãng đã chạy
         public static List<int> Order(RaceGame g) =>
-            Enumerable.Range(0, g.runners.Count).OrderBy(i => g.runners[i].finishT < 0 ? double.MaxValue - g.runners[i].pos : g.runners[i].finishT).ThenBy(i => i).ToList();
+            Enumerable.Range(0, g.runners.Count).OrderBy(i => g.runners[i].finishT < 0 ? 1 : 0)
+                .ThenBy(i => g.runners[i].finishT < 0 ? -g.runners[i].pos : g.runners[i].finishT).ThenBy(i => i).ToList();
 
         public static int PlaceOf(RaceGame g) => Order(g).IndexOf(g.PlayerIndex);
 
-        // bi trả theo hạng: lệ phí × placeK[hạng] × số tướng
-        public static int Payout(RaceConfig c, int fee, int place, int runners, double mult = 1) =>
-            (int)Math.Round(fee * (place < c.placeK.Length ? c.placeK[place] : 0) * runners * mult);
+        // bi nhận về: cược × pay[hạng]; phần lời (trên tiền cược) nhân mult (Lễ Hội Đua)
+        public static int Payout(RaceConfig c, int bet, int place, double mult = 1)
+        {
+            double k = place >= 0 && place < c.pay.Length ? c.pay[place] : 0;
+            if (k <= 0 || bet <= 0) return 0;
+            return (int)Math.Round(bet * (k > 1 ? 1 + (k - 1) * mult : k));
+        }
 
         // ---------- trên bản lưu ----------
 
-        public static int Fee(SaveData s, GameData d, int cup) => Shop.RoundBalls(Casino.C(d).race.cups[cup].fee * Casino.Band(s, d));
-
         public static bool CupOpen(SaveData s, GameData d, int cup) => cup >= 0 && cup < Casino.C(d).race.cups.Count && s.level >= Casino.C(d).race.cups[cup].level;
+
+        // hạng cúp của tuần: hạng cao nhất đã mở theo cấp (điểm cúp và quà tuần tính cho hạng này)
+        public static int WeekCup(SaveData s, GameData d)
+        {
+            int cup = 0;
+            for (int i = 0; i < Casino.C(d).race.cups.Count; i++)
+                if (CupOpen(s, d, i)) cup = i;
+            return cup;
+        }
 
         static void RollWeek(SaveData s, GameData d, double now)
         {
@@ -316,29 +367,25 @@ namespace PokiClash.Core
 
         public static bool WeekClaimed(SaveData s, int cup) => (Casino.Of(s).cupClaimed & (1 << cup)) != 0;
 
-        // bắt đầu đua: hết lượt có thưởng thì đua tập (không lệ phí, không thưởng); why khác null nếu không đua được
-        public static RaceGame Start(SaveData s, GameData d, int cup, string hero, double now, Rng rng, out string why)
+        // Đặt cược và bắt đầu đua. bet > 0: cần còn lượt hôm nay, betMin..betMax, đủ bi (trừ ngay). bet = 0: đua tập, không tốn lượt,
+        // không thưởng. why khác null nếu không đua được.
+        public static RaceGame Start(SaveData s, GameData d, IList<string> lineup, int pick, int bet, double now, Rng rng, out string why)
         {
             why = null;
             var c = Casino.C(d).race;
             if (!Casino.Unlocked(s, d, Casino.Race)) { why = Casino.Need(s, d, Casino.Race); return null; }
-            if (!CupOpen(s, d, cup)) { why = Loc.F("Mở ở cấp {0}", c.cups[Math.Max(0, Math.Min(cup, c.cups.Count - 1))].level); return null; }
-            var p = s.Hero(hero);
-            var h = d.Hero(hero);
-            if (p == null || !p.owned || h == null) { why = Loc.T("Chưa có tướng này"); return null; }
-            int fee = 0;
-            if (Casino.PlaysLeft(s, d, Casino.Race, now) > 0)
+            if (lineup == null || lineup.Count < 2 || pick < 0 || pick >= lineup.Count) { why = Loc.T("Chọn một tướng để đặt cược"); return null; }
+            if (bet > 0)
             {
-                fee = Fee(s, d, cup);
-                if (!Casino.Spend(s, fee)) { why = Loc.T("Không đủ bi"); return null; }
+                if (Casino.PlaysLeft(s, d, Casino.Race, now) <= 0) { why = Loc.T("Hết lượt hôm nay"); return null; }
+                if (bet < c.betMin || bet > c.betMax) { why = Loc.F("Đặt từ {0} tới {1} bi", c.betMin, c.betMax); return null; }
+                if (!Casino.Spend(s, bet)) { why = Loc.T("Không đủ bi"); return null; }
                 Casino.UsePlay(s, d, Casino.Race, now);
             }
-            var g = Setup(d, c, cup, h, p.star, s.level, Casino.Today(now), (uint)(rng.Next() * uint.MaxValue), Casino.LuckyActive(s, now));
-            g.fee = fee;
-            return g;
+            return Setup(d, c, lineup, pick, bet, Casino.Today(now), (uint)(rng.Next() * uint.MaxValue));
         }
 
-        // đua xong: thưởng theo hạng và số tướng (× Lễ Hội Đua), điểm cúp tuần, nhiệm vụ quán trọ
+        // đua xong: trả thưởng theo hạng (phần lời × Lễ Hội Đua), điểm cúp tuần, nhiệm vụ quán trọ
         public static RaceResult Finish(SaveData s, GameData d, RaceGame g, double now)
         {
             var c = Casino.C(d).race;
@@ -346,14 +393,15 @@ namespace PokiClash.Core
             if (!g.done) return res;
             Casino.Track(s, d, "race", 1, now);
             if (res.place < 3) Casino.Track(s, d, "race_top3", 1, now);
-            if (g.fee <= 0) return res; // đua tập
+            if (g.bet <= 0) return res; // đua tập
             RollWeek(s, d, now);
             var st = Casino.Of(s);
-            res.balls = Payout(c, g.fee, res.place, res.runners, Casino.RaceMult(d, now));
+            int cup = WeekCup(s, d);
+            res.balls = Payout(c, g.bet, res.place, Casino.RaceMult(d, now));
             Casino.Win(s, d, res.balls, now);
             res.points = res.place < c.points.Length ? c.points[res.place] : 0;
-            if (g.cup < st.cupPts.Length) st.cupPts[g.cup] = Math.Min(c.weekPts, st.cupPts[g.cup] + res.points);
-            res.weekReady = WeekReady(s, d, g.cup, now);
+            if (cup < st.cupPts.Length) st.cupPts[cup] = Math.Min(c.weekPts, st.cupPts[cup] + res.points);
+            res.weekReady = WeekReady(s, d, cup, now);
             return res;
         }
 

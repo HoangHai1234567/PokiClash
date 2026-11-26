@@ -1,0 +1,29 @@
+REFERENCE IMAGES (open them in this order)
+image 1 = C:\Atomik\PokiWar\ArtGen\Casino\ham_dau\nen_ham_dau_1k_ban1.png: the picture to REDRAW: an underground fighting pit below a casino (empty stage for a game), made in turn 1. Keep its drawing technique, palette, line weight, crowd, bleachers, betting slate, barrels, chests, pit, rope fence, foreground silhouettes and overall composition.
+image 2 = C:\Atomik\PokiWar\ArtGen\Casino\dealer\d3\nen_leu_bai_1k.png: only a second sample of the same drawing technique (flat crayon hatching, brown ink line, no lighting).
+
+SAVE
+Save the finished picture as C:\Atomik\PokiWar\ArtGen\Casino\ham_dau\nen_ham_dau_1k.png (if that name exists, add _2, _3 ...). Do not edit, move or delete any other file.
+
+CANVAS
+One portrait picture, aspect ratio 9:16, fills the whole canvas edge to edge.
+
+TASK
+Redraw image 1 with ONE CHANGE: the bookie's booth in the centre of the back wall must be TALL AND NARROW instead of wide and low, because a tall character will stand in it later.
+
+New layout of the upper half (y measured from the top of the picture, 0 % = top edge, 100 % = bottom edge):
+1. 0 %-8 %: the vaulted stone ceiling with the two crooked wooden beams. The card-suit pennant string hangs here, high up. The four paper lanterns hang at the far left and far right, outside the booth, between 6 % and 20 %.
+2. 8 %-12 %: the booth's striped red-and-cream awning with the gold scalloped fringe, shallow, just wide enough to cover the booth.
+3. 12 %-31 %: the BOOTH OPENING: one tall rectangle of plain flat WARM CREAM-YELLOW (the back wall inside the booth), centred, about 42 % of the picture width and 19 % of the picture height. It is completely EMPTY: nobody inside, nothing on the counter, no curtain, no decoration inside. A chunky turned wooden post stands on its left and on its right.
+4. At 31 %: the TOP EDGE OF THE COUNTER, one clean, straight, horizontal brown ink line across the booth; under it a narrow strip of emerald green felt and a brass rail with rivets (down to 34 %).
+5. 34 %-43 %: the booth's FRONT PANEL of red-brown planks, same width as the booth, with four poker-chip medallions (red, yellow, blue, green) and, in its centre, one BLANK light-wood signboard hanging from two short brass hooks (about 44 % of the picture width, 6 % of its height, completely empty).
+6. 43 %-47 %: under the panel, between two grey stone pillars, the low dark iron-barred gate (closed).
+7. 12 %-47 %, left and right of the booth: the steep wooden bleachers with the crowd of dark navy-plum silhouette onlookers with round white pie-cut eyes (little hats, tiny flags, poker chips, cards), the slate betting board with chalk tally marks, the barrels, the treasure chests. Because the booth is narrower now, the crowd fills more of the wall.
+8. 47 %-82 %: the round pit of pale ochre sand, CLEAN AND EMPTY, one faint chalk ring, a few tiny pebbles near the rim; behind it the low curved plank-and-stone wall with the rope and poker chips, exactly like image 1.
+9. 82 %-100 %: the same calm dark foreground as image 1: near rim of the pit with rope, backs of heads and shoulders of the front-row onlookers as big flat dark navy-plum silhouettes, a few raised fists, one hand holding playing cards.
+
+RULES (strict)
+- Flat colours only, crayon hatching as texture. NO lighting: no shadows, no light cones, no glow or halo around lanterns, no gradients, no highlights.
+- Dark brown slightly wobbly ink outlines, same weight as image 1.
+- NO text, letters, numbers or readable signs. The signboard stays blank.
+- No main characters: the booth is empty, the pit floor is empty. No user interface, frame or logo.

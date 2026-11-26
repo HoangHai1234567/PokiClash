@@ -617,7 +617,7 @@ namespace PokiClash
                 App.Save.Save();
                 if (badge != null) App.Router.Go(SceneIds.Badges, badge.zone);
                 else if (cave != null) App.Router.Go(SceneIds.Cave);
-                else if (ug != null) App.Router.Go(SceneIds.Casino);
+                else if (ug != null) App.Router.Go(SceneIds.CasinoUnderground);
                 else App.Router.Go(SceneIds.Zone, stage.zone);
             });
         }

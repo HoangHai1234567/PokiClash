@@ -1,0 +1,60 @@
+project.set name=cau_ca fps=30
+bone.add move parent=root x=0 y=0 rot=0 len=0 world=true
+bone.add hip parent=move x=0.0 y=209.0 rot=90.0 len=55.0 world=true
+bone.add bung parent=hip x=0.0 y=264.0 rot=90.0 len=65.0 world=true
+bone.add nguc parent=bung x=0.0 y=329.0 rot=90.0 len=92.5 world=true
+bone.add co parent=nguc x=0.0 y=421.5 rot=90.0 len=20.0 world=true
+bone.add dau parent=co x=0.0 y=441.5 rot=90.0 len=172.5 world=true
+bone.add chom parent=dau x=-30.0 y=625.0 rot=63.43 len=59.3 world=true
+bone.add dui_t parent=hip x=-56.0 y=179.0 rot=-101.31 len=45.9 world=true
+bone.add ong_t parent=dui_t x=-65.0 y=134.0 rot=-107.74 len=52.5 world=true
+bone.add dui_p parent=hip x=50.0 y=179.0 rot=-83.66 len=45.3 world=true
+bone.add ong_p parent=dui_p x=55.0 y=134.0 rot=-78.69 len=51.0 world=true
+bone.add ik_chan_t parent=move x=-81.0 y=84.0 rot=0 len=0 world=true
+bone.add ik_chan_p parent=move x=65.0 y=84.0 rot=0 len=0 world=true
+bone.add ao1 parent=nguc x=0.0 y=404.0 rot=-90.0 len=80.0 world=true
+bone.add ao2 parent=ao1 x=0.0 y=324.0 rot=-90.0 len=67.5 world=true
+bone.add ao3 parent=ao2 x=0.0 y=256.5 rot=-90.0 len=67.5 world=true
+bone.add aot1 parent=nguc x=-47.0 y=404.0 rot=-114.29 len=107.0 world=true
+bone.add aot2 parent=aot1 x=-91.0 y=306.5 rot=-114.49 len=98.9 world=true
+bone.add aop1 parent=nguc x=47.0 y=404.0 rot=-65.71 len=107.0 world=true
+bone.add aop2 parent=aop1 x=91.0 y=306.5 rot=-76.26 len=92.6 world=true
+bone.add cam parent=nguc x=48.0 y=330.0 rot=90 len=0 world=true
+bone.add can1 parent=cam x=0 y=0 rot=0 len=134.6
+bone.add can2 parent=can1 x=134.6 y=0 rot=0 len=134.6
+bone.add can3 parent=can2 x=134.6 y=0 rot=0 len=134.6
+bone.add can4 parent=can3 x=134.6 y=0 rot=0 len=134.6
+bone.add dau_can parent=can4 x=134.6 y=0 rot=0 len=0
+part.add can_cau path=images/can_cau.png at=269.5,-159.5 canvas=512,768 origin=256,709 bone=can1 mesh=true
+att.weights can_cau can_cau bones=can1,can2,can3,can4
+part.add tay_t path=images/tay_t.png at=142.5,302.0 canvas=512,768 origin=256,709 bone=nguc
+part.add tay_p path=images/tay_p.png at=315.5,295.5 canvas=512,768 origin=256,709 bone=nguc
+part.add than path=images/than.png at=198.0,285.0 canvas=512,768 origin=256,709 bone=nguc
+part.add chan_t path=images/chan_t.png at=156.5,526.0 canvas=512,768 origin=256,709 bone=dui_t mesh=true
+att.weights chan_t chan_t bones=dui_t,ong_t
+part.add chan_p path=images/chan_p.png at=259.0,526.0 canvas=512,768 origin=256,709 bone=dui_p mesh=true
+att.weights chan_p chan_p bones=dui_p,ong_p
+part.add quan path=images/quan.png at=149.0,455.0 canvas=512,768 origin=256,709 bone=hip mesh=true
+att.weights quan quan bones=hip,dui_t,dui_p
+part.add ung_t path=images/ung_t.png at=115.0,593.0 canvas=512,768 origin=256,709 bone=ik_chan_t
+part.add ung_p path=images/ung_p.png at=277.0,593.0 canvas=512,768 origin=256,709 bone=ik_chan_p
+part.add ao_choang path=images/ao_choang.png at=112.0,257.0 canvas=512,768 origin=256,709 bone=nguc mesh=true
+att.weights ao_choang ao_choang bones=nguc,ao1,ao2,ao3,aot1,aot2,aop1,aop2
+part.add dau path=images/dau.png at=122.0,47.0 canvas=512,768 origin=256,709 bone=dau
+part.add toc_chom path=images/toc_chom.png at=206.5,26.0 canvas=512,768 origin=256,709 bone=chom
+ik.add chan_t bones=dui_t,ong_t target=ik_chan_t bend=-
+ik.add chan_p bones=dui_p,ong_p target=ik_chan_p bend=+
+part.add dau_quay__dau path=images/dau_quay.png at=127.5,34.0 canvas=512,768 origin=256,709 bone=dau slot=dau
+slot.set dau att=dau
+slot.order can_cau to=front
+slot.order tay_t to=front
+slot.order tay_p to=front
+slot.order than to=front
+slot.order chan_t to=front
+slot.order chan_p to=front
+slot.order quan to=front
+slot.order ung_t to=front
+slot.order ung_p to=front
+slot.order ao_choang to=front
+slot.order dau to=front
+slot.order toc_chom to=front

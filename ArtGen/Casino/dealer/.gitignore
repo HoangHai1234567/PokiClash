@@ -1,3 +1,12 @@
 # Video tham khảo và ảnh cắt khung từ video (hình của Disney / Studio MDHR): chỉ để ở máy, không vào repo
 ref/
 __pycache__/
+# D3: file sinh lại được (tach_lop.py, lam_gif.py); bản dùng trong game nằm ở Assets/03 Art/Casino/Leu
+d3/ban_leu_bai.png
+d3/nen_leu_bai.jpg
+d3/van_bai.gif
+# D4: file sinh lại được (tach_lop.py, sim/chay.py, lam_gif.py); bản dùng trong game nằm ở Assets/03 Art/Casino/Leu
+d4/ban_leu_xoay.png
+d4/nen_leu_xoay.jpg
+d4/sim/out/
+d4/vong_xoay.gif

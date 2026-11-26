@@ -142,6 +142,9 @@ namespace PokiClash
 
             LocService.Init(); // ngôn ngữ trước dữ liệu: GameDb.Build dịch tên tướng, thẻ, đảo, ải
             Casino.Region = DeviceRegion(); // đảo Casino: vùng tắt lều may rủi (casino.tablesBlock)
+            // CHƯA PHÁT HÀNH: mở cả ba lều may rủi mọi ngày, bỏ mốc cấp của lều (người dùng 2026-11-26: "cứ để mở các event đi, đã phát hành
+            // đâu"). Lịch thật vẫn ở balance.json casino.events; trước khi phát hành XOÁ dòng này để lều theo lịch (GD_Claude/31 mục D3).
+            Casino.TestAllBooths = true;
             GameDb.Build(heroDb, cardDb, zoneDb, balance);
             Theme.Init(uiAssets);
             ArtLibrary.Current = artLibrary;

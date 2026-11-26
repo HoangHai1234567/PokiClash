@@ -232,6 +232,66 @@ namespace PokiClash.Tests
         }
 
         [Test]
+        public void Roulette_TiLeRa_TheoTrongSo()
+        {
+            // rỗng = 26 ô đều nhau; đặt trọng số thì lõi bốc đúng theo trọng số, hoàn trả từng cửa tính theo đó
+            var c = new RouletteConfig();
+            Assert.AreEqual(1 / 26.0, Roulette.Chance(c, 7), 1e-12);
+            Roulette.RtpRange(c, out double lo, out double hi);
+            Assert.AreEqual(25 / 26.0, lo, 1e-9);
+            Assert.AreEqual(25 / 26.0, hi, 1e-9);
+            c.weights = Enumerable.Repeat(4, 26).ToArray();
+            c.weights[Roulette.StarPocket] = 1;   // Sao Vàng hiếm đi 4 lần
+            c.weights[0] = 0;                     // ô Kim 1 không bao giờ ra
+            double total = c.weights.Sum();
+            Assert.AreEqual(1 / total, Roulette.Chance(c, Roulette.StarPocket), 1e-12);
+            Assert.AreEqual(0, Roulette.Chance(c, 0), 1e-12);
+            Assert.AreEqual(16 / total, Roulette.Chance(c, new RlBet { kind = RlKind.Elem, v = 0 }), 1e-12);
+            Assert.AreEqual((1 / total) * (c.starPays + 1), Roulette.RtpOf(c, new RlBet { kind = RlKind.Star }), 1e-12);
+            var rng = new Rng(11);
+            var n = new int[26];
+            int rounds = 200000;
+            var none = new List<RlBet>();
+            for (int i = 0; i < rounds; i++) n[Roulette.Spin(c, none, 0, rng).pocket]++;
+            Assert.AreEqual(0, n[0]);
+            Assert.AreEqual(1 / total, n[Roulette.StarPocket] / (double)rounds, 0.002);
+            Assert.AreEqual(4 / total, n[13] / (double)rounds, 0.004);
+        }
+
+        [Test]
+        public void Roulette_Bi_NamDungOLoiChon()
+        {
+            // cách xếp ô quanh mâm: 26 vị trí, mỗi ô một chỗ, hệ xen kẽ
+            for (int p = 0; p < Roulette.Pockets; p++) Assert.AreEqual(p, RouletteWheel.PocketAt(RouletteWheel.SlotOf(p)));
+            for (int s = 0; s < 24; s++)
+                Assert.AreNotEqual(RouletteWheel.PocketAt(s) / 5, RouletteWheel.PocketAt(s + 1) / 5, "hai ô cạnh nhau cùng hệ");
+            // với mọi ô lõi chọn và mọi góc mâm: tìm được cú thả bi mà mô phỏng cho bi nằm đúng ô đó, trong khoảng lực thả tự nhiên
+            var rng = new Rng(2026);
+            int worst = 0;
+            for (int rep = 0; rep < 6; rep++)
+                for (int pocket = 0; pocket < Roulette.Pockets; pocket++)
+                {
+                    double rot0 = rng.Range(0, Math.PI * 2);
+                    var tr = RouletteBall.Plan(RouletteWheel.SlotOf(pocket), rot0, RouletteBall.OmegaSpin, rng, 3);
+                    Assert.IsNotNull(tr);
+                    Assert.AreEqual(pocket, RouletteWheel.PocketAt(tr.slot));
+                    Assert.LessOrEqual(tr.tries, 3000, "phải ép nhãn mâm");
+                    Assert.LessOrEqual(Math.Abs(tr.shift), 3);
+                    Assert.That(-tr.ballSpeed0, Is.InRange(RouletteBall.BallMin, RouletteBall.BallMax));
+                    Assert.That(tr.duration, Is.InRange(3.5f, 12f));
+                    worst = Math.Max(worst, tr.tries);
+                    // phát lại: mô phỏng lại cùng tham số ra cùng chỗ nằm (tất định); lúc nằm yên bi ở đúng ô trên mâm
+                    tr.Sample(tr.duration + 1.5f, out float x, out float y, out float z);
+                    double beta = Math.Atan2(y, x) - tr.Rotor(tr.duration + 1.5f);
+                    beta = (beta % (Math.PI * 2) + Math.PI * 2) % (Math.PI * 2);
+                    Assert.AreEqual(tr.slot, (int)Math.Floor(beta / RouletteWheel.Step));
+                    Assert.AreEqual(0, z, 1e-6);
+                    Assert.AreEqual(RouletteWheel.RPocket, Math.Sqrt(x * x + y * y), 0.02);
+                }
+            Assert.Less(worst, 400, "số cú thử nhiều nhất");
+        }
+
+        [Test]
         public void Roulette_SaoVang_ThemManhKhachMoi()
         {
             var s = Save(80);
@@ -274,78 +334,128 @@ namespace PokiClash.Tests
         }
 
         [Test]
-        public void Dua_TatDinh_3Den5Tuong_DanhNhauChoang()
+        public void Dua_KichBan_TatDinh_VeDungHang_BamSat()
         {
             var c = C.race;
-            var h = D.Heroes.First(x => !x.minion);
-            RaceGame Run(int[] cheers, uint seed)
+            var lineup = Race.Lineup(D, c, 11);
+            Assert.AreEqual(c.runners, lineup.Count);
+            Assert.AreEqual(lineup.Count, lineup.Distinct().Count(), "5 tướng khác nhau");
+            RaceGame Run(uint seed, int bet)
             {
-                var g = Race.Setup(D, c, 1, h, 5, 45, 20500, seed, null);
-                Race.Run(c, g, cheers);
+                var g = Race.Setup(D, c, lineup, 2, bet, 20500, seed);
+                Race.Run(c, g);
                 return g;
             }
-            var a = Run(new[] { 2, 1, 0 }, 77);
-            var b = Run(new[] { 2, 1, 0 }, 77);
-            CollectionAssert.AreEqual(Race.Order(a), Race.Order(b), "cùng hạt giống, cùng lần chạm: cùng kết quả");
+            var a = Run(77, 100);
+            var b = Run(77, 100);
+            CollectionAssert.AreEqual(Race.Order(a), Race.Order(b), "cùng hạt giống: cùng kết quả");
             Assert.AreEqual(a.events.Count, b.events.Count);
-            var counts = new HashSet<int>();
-            int hits = 0, trips = 0, wins = 0, n = 400;
+            int n = 300, surges = 0, hits = 0, leads = 0;
+            double maxGap = 0;
             for (uint seed = 1; seed <= n; seed++)
             {
-                var g = Run(new[] { 1, 1, 1 }, seed);
-                Assert.IsTrue(g.done);
-                Assert.That(g.runners.Count, Is.InRange(c.minRunners, c.maxRunners));
-                Assert.IsTrue(g.runners.All(r => r.finishT >= 0), "ai cũng về đích");
-                counts.Add(g.runners.Count);
+                var g = Race.Setup(D, c, lineup, (int)(seed % 5), 100, 20500, seed);
+                int lead = -1;
+                double last = -1;
+                while (!g.done)
+                {
+                    Race.Step(c, g);
+                    foreach (var r in g.runners) Assert.GreaterOrEqual(r.speed, -1e-9, "không con nào chạy lùi");
+                    if (g.runners.All(r => r.finishT < 0) && g.t > 2)
+                    {
+                        var by = g.runners.OrderByDescending(r => r.pos).ToList();
+                        maxGap = System.Math.Max(maxGap, by[0].pos - by[by.Count - 1].pos);
+                        int now = g.runners.IndexOf(by[0]);
+                        if (now != lead && g.t - last > 0.5) { leads++; lead = now; last = g.t; }
+                    }
+                }
+                var order = Race.Order(g);
+                for (int i = 0; i < order.Count; i++) Assert.AreEqual(i, g.runners[order[i]].place, "về đích đúng hạng đã định");
+                Assert.That(g.t, Is.InRange(c.raceSec, c.raceSec + c.gapMax * 4 + 0.2), "cả đoàn về sát nhau");
+                surges += g.events.Count(e => e.kind == RaceEv.Gust);
                 hits += g.events.Count(e => e.kind == RaceEv.Hit);
-                trips += g.events.Count(e => e.kind == RaceEv.Trip || e.kind == RaceEv.Dodge);
-                if (Race.PlaceOf(g) == 0) wins++;
             }
-            CollectionAssert.AreEquivalent(Enumerable.Range(c.minRunners, c.maxRunners - c.minRunners + 1), counts, "đủ các số tướng 3..5");
-            Assert.Greater(hits / (double)n, 1.0, "mỗi cuộc đua có đánh nhau, choáng");
-            Assert.Greater(trips, 0, "có lúc đánh hụt / bị né");
-            Assert.That(wins / (double)n, Is.InRange(0.15, 0.5), "về nhất phần lớn là hên xui");
+            Assert.Greater(surges / (double)n, 2.0, "mỗi cuộc đua có vài cú bứt tốc");
+            Assert.Greater(hits / (double)n, 1.0, "mỗi cuộc đua có húc nhau, choáng");
+            Assert.Greater(leads / (double)n, 4.0, "đổi ngôi đầu nhiều lần");
+            Assert.Less(maxGap, 40, "đầu đoàn và cuối đoàn không cách nhau quá một màn");
         }
 
         [Test]
-        public void Dua_Choang_DungYen()
+        public void Dua_Cuoc_CangCaoCangKhoThang()
         {
             var c = C.race;
-            var g = Race.Setup(D, c, 0, D.Heroes.First(x => !x.minion), 2, 15, 20000, 5, null);
-            var r = g.runners[0];
-            for (int i = 0; i < 30; i++) Race.Step(c, g);
-            r.stunUntil = g.t + 1;
-            double p0 = r.pos;
-            for (int i = 0; i < 15; i++) Race.Step(c, g);
-            Assert.AreEqual(p0, r.pos, 1e-9, "đang choáng thì không chạy");
+            Assert.AreEqual(5, c.daily);
+            Assert.AreEqual(500, c.betMax);
+            CollectionAssert.AreEqual(new double[] { 3, 2, 1, 0, 0 }, c.pay);
+            double prev = double.MaxValue;
+            foreach (int bet in new[] { c.betMin, 50, 100, 200, 350, c.betMax })
+            {
+                var p = Race.PlaceOdds(c, bet, 5);
+                Assert.AreEqual(1, p.Sum(), 1e-9);
+                double win = p[0] + p[1];
+                Assert.Less(win, prev + 1e-12, $"cược {bet}: tỉ lệ thắng không tăng");
+                prev = win;
+            }
+            Assert.Greater(Race.PlaceOdds(c, c.betMin, 5)[0], Race.PlaceOdds(c, c.betMax, 5)[0] + 0.03, "cược cao khó về nhất hơn hẳn");
+            Assert.Less(Race.Rtp(c, c.betMax, 5), 0.9, "cược tối đa: nhà cái lời");
+            Assert.That(Race.Rtp(c, c.betMin, 5), Is.InRange(1.0, 1.25), "cược nhỏ: người chơi hơi lời");
+            // hạng rút thật khớp bảng tỉ lệ
+            var lineup = Race.Lineup(D, c, 3);
+            foreach (int bet in new[] { 50, 500 })
+            {
+                var cnt = new int[5];
+                int n = 6000;
+                for (uint seed = 1; seed <= n; seed++) cnt[Race.Setup(D, c, lineup, 0, bet, 20500, seed * 2654435761u).Player.place]++;
+                var p = Race.PlaceOdds(c, bet, 5);
+                for (int i = 0; i < 5; i++) Assert.AreEqual(p[i], cnt[i] / (double)n, 0.025, $"cược {bet}, hạng {i + 1}");
+            }
+            Assert.AreEqual(300, Race.Payout(c, 100, 0));
+            Assert.AreEqual(200, Race.Payout(c, 100, 1));
+            Assert.AreEqual(100, Race.Payout(c, 100, 2));
+            Assert.AreEqual(0, Race.Payout(c, 100, 3));
+            Assert.AreEqual(400, Race.Payout(c, 100, 0, 1.5), "Lễ Hội Đua nhân phần lời");
         }
 
         [Test]
-        public void Dua_LePhi_Thuong_DiemTuan()
+        public void Dua_DatCuoc_NamLuot_TraThuong_DiemTuan()
         {
             var s = Save(50);
             double now = Noon(2026, 11, 25);
             var rng = new Rng(4);
-            string hero = s.heroes.First(kv => kv.Value.owned).Key;
-            int before = s.balls;
-            var g = Race.Start(s, D, 0, hero, now, rng, out var why);
-            Assert.IsNotNull(g, why);
-            Assert.AreEqual(before - Race.Fee(s, D, 0), s.balls);
-            Race.Run(C.race, g, new[] { 2, 2, 2 });
-            var res = Race.Finish(s, D, g, now);
-            Assert.AreEqual(Race.Payout(C.race, g.fee, res.place, g.runners.Count), res.balls);
-            Assert.AreEqual(C.race.points[res.place], Race.Points(s, D, 0, now));
-            // thưởng chia theo số tướng: trung bình gần hoà vốn khi ai cũng như nhau
-            for (int n = C.race.minRunners; n <= C.race.maxRunners; n++)
+            var c = C.race;
+            var lineup = Race.Lineup(D, c, 9);
+            s.balls = 5000;
+            Assert.IsNull(Race.Start(s, D, lineup, 0, c.betMax + 1, now, rng, out var why), "quá mức cược tối đa");
+            Assert.IsNotNull(why);
+            Assert.AreEqual(5000, s.balls);
+            int cup = Race.WeekCup(s, D);
+            for (int i = 0; i < c.daily; i++)
             {
-                double ev = Enumerable.Range(0, n).Sum(p => C.race.placeK[p] * n) / n;
-                Assert.That(ev, Is.InRange(0.9, 1.0), $"{n} tướng");
+                int before = s.balls, pts = Race.Points(s, D, cup, now);
+                var g = Race.Start(s, D, lineup, i % lineup.Count, 200, now, rng, out why);
+                Assert.IsNotNull(g, why);
+                Assert.AreEqual(before - 200, s.balls, "trừ tiền cược ngay");
+                Race.Run(c, g);
+                var res = Race.Finish(s, D, g, now);
+                Assert.AreEqual(Race.Payout(c, 200, res.place), res.balls);
+                Assert.AreEqual(before - 200 + res.balls, s.balls);
+                Assert.AreEqual(System.Math.Min(c.weekPts, pts + c.points[res.place]), Race.Points(s, D, cup, now));
             }
-            Casino.Of(s).cupPts[0] = C.race.weekPts;
-            Assert.IsTrue(Race.WeekReady(s, D, 0, now));
-            Assert.IsNotEmpty(Race.ClaimWeek(s, D, 0, now, rng));
-            Assert.IsFalse(Race.WeekReady(s, D, 0, now));
-            Assert.AreEqual(0, Race.Points(s, D, 0, now + 7 * Casino.Day), "tuần sau đếm lại");
+            Assert.AreEqual(0, Casino.PlaysLeft(s, D, Casino.Race, now));
+            Assert.IsNull(Race.Start(s, D, lineup, 0, 100, now, rng, out why), "hết 5 lượt hôm nay");
+            int left = s.balls;
+            var free = Race.Start(s, D, lineup, 0, 0, now, rng, out why);
+            Assert.IsNotNull(free, "đua tập không cược vẫn được");
+            Race.Run(c, free);
+            Assert.AreEqual(0, Race.Finish(s, D, free, now).balls);
+            Assert.AreEqual(left, s.balls);
+            Assert.AreEqual(c.daily, Casino.PlaysLeft(s, D, Casino.Race, now + Casino.Day), "hôm sau có lại lượt");
+            Casino.Of(s).cupPts[cup] = c.weekPts;
+            Assert.IsTrue(Race.WeekReady(s, D, cup, now));
+            Assert.IsNotEmpty(Race.ClaimWeek(s, D, cup, now, rng));
+            Assert.IsFalse(Race.WeekReady(s, D, cup, now));
+            Assert.AreEqual(0, Race.Points(s, D, cup, now + 7 * Casino.Day), "tuần sau đếm lại");
         }
 
         [Test]
@@ -359,7 +469,7 @@ namespace PokiClash.Tests
             StringAssert.Contains("mồi", why);
             Assert.IsTrue(Fishing.BuyBait(s, D));
             Assert.IsNotNull(Fishing.Cast(s, D, 0, 0.5, now, rng, out _));
-            Assert.IsNull(Fishing.Cast(s, D, 2, 0.5, now, rng, out _), "rạn đá cần cần câu cấp cao");
+            Assert.IsNotNull(Fishing.Cast(s, D, 2, 0.5, now, rng, out _), "rạn đá mở sẵn (bỏ nâng cấp cần, 2026-11-26)");
             // bắt đủ 6 loài hệ Thủy: lần đầu mỗi loài có bi, đủ bộ có mảnh
             FishCatch last = null;
             foreach (var f in C.fishing.fish.Where(x => x.elem == Elem.Thuy))
@@ -418,7 +528,34 @@ namespace PokiClash.Tests
             var r2 = Underground.Finish(s, D, 0, true, mon, rng);
             Assert.IsFalse(r2.first);
             Assert.AreEqual((int)Math.Round(fee * C.underground.rewinMult), r2.balls);
-            Assert.IsFalse(Underground.TierOpen(s, D, 4), "bậc Huyền Thoại cần cấp cao");
+            // không khoá bậc theo cấp (2026-11-26): Hầm đấu mở là đánh được mọi bậc; chưa mở Hầm đấu thì không bậc nào đánh được
+            for (int i = 0; i < C.underground.tiers.Count; i++) Assert.IsTrue(Underground.TierOpen(s, D, i), "bậc " + i);
+            Assert.IsFalse(Underground.TierOpen(Save(C.Unlock(Casino.Underground).level - 1), D, 0), "chưa mở Hầm đấu");
+            Assert.IsTrue(Underground.Pay(s, D, 4, mon, out why), why);
+            // trần trận mỗi ngày (2026-11-26): thắng, thua, đánh lại đều tính; hết lượt thì không trừ lệ phí; sang ngày mới có lại
+            Assert.AreEqual(C.underground.daily - 3, Underground.FightsLeft(s, D, mon));
+            while (Underground.FightsLeft(s, D, mon) > 0) Assert.IsTrue(Underground.Pay(s, D, 1, mon, out why), why);
+            int ballsLeft = s.balls;
+            Assert.IsFalse(Underground.Pay(s, D, 1, mon, out why));
+            Assert.AreEqual(ballsLeft, s.balls, "hết lượt thì không trừ lệ phí");
+            Assert.AreEqual(C.underground.daily, Underground.FightsLeft(s, D, mon + Casino.Day));
+            // 10 bậc thường; lực chiến đội ra sân tăng dần đều, bậc sau không quá 2,3 lần bậc trước (trước đây Vàng → Huyền Thoại gấp 9)
+            int normalTiers = Underground.NormalTiers(D);
+            Assert.AreEqual(10, normalTiers);
+            foreach (var day in C.underground.rotation)
+                for (int k = 1; k < normalTiers; k++)
+                {
+                    int p0 = Underground.Power(D, day.entries[k - 1]), p1 = Underground.Power(D, day.entries[k]);
+                    Assert.Greater(p1, p0 * 1.2, $"{day.entries[k].name}: {p0} → {p1}");
+                    Assert.Less(p1, p0 * 2.3, $"{day.entries[k].name}: {p0} → {p1}");
+                }
+            // số tướng ra sân, lực chiến, giờ đổi đội
+            foreach (var e in C.underground.rotation[0].entries)
+            {
+                Assert.AreEqual(Underground.Enemy(D, e).members.Count, Underground.Count(e));
+                Assert.Greater(Underground.Power(D, e), 0);
+            }
+            Assert.AreEqual(12 * 3600000.0, Underground.NextChange(mon), 1000);
             // đội địch áp luật ngày
             foreach (var day in C.underground.rotation)
                 foreach (var e in day.entries)

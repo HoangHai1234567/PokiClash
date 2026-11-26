@@ -19,6 +19,7 @@ namespace PokiClash
         public const string CasinoFishing = "CasinoFishing"; // Bến câu của đảo Casino (mỗi trò tương tác một scene riêng)
         public const string CasinoRace = "CasinoRace"; // Trường đua của đảo Casino
         public const string CasinoMarket = "CasinoMarket"; // Chợ đen của đảo Casino
+        public const string CasinoUnderground = "CasinoUnderground"; // Hầm đấu (Đấu trường ngầm) của đảo Casino
         public const string CasinoBlackjack = "CasinoBlackjack"; // lều Đêm Bài (Blackjack), chỉ mở theo lịch sự kiện
         public const string CasinoRoulette = "CasinoRoulette"; // lều Vòng Xoay Ngũ Hành (Roulette)
         public const string CasinoSlot = "CasinoSlot"; // lều Hội Máy Quả (máy quả 3×3)
@@ -26,7 +27,7 @@ namespace PokiClash
         public static readonly string[] Features =
         {
             Hub, Zone, Battle, Machine, Heroes, Cards, Notebook, Badges, Cave, Farm, Home, Casino, CasinoFishing, CasinoRace, CasinoMarket,
-            CasinoBlackjack, CasinoRoulette, CasinoSlot,
+            CasinoUnderground, CasinoBlackjack, CasinoRoulette, CasinoSlot,
         };
     }
 }

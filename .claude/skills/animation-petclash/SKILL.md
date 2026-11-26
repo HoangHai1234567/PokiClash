@@ -16,6 +16,7 @@ description: >
 |---|---|---|
 | Animation | `animation-petclash` (skill này) | nguyên tắc, nhịp clip, diễn, khớp với hiệu ứng, bảng kiểm |
 | Animation | `pokiclash-spine-rig` | rig xương từ ảnh, lưới có trọng số, viết clip, soi khung, xuất `.atomik` vào Unity |
+| Animation | `animation-humanoid` | nhân vật dạng người (dealer, NPC, tướng dạng người): hướng bàn tay trên bàn, tay ống cao su, biên độ |
 | VFX (bộ khác) | `vfx-petclash` → `pokiclash-vfx`, `pokiclash-hero-fx`, `pokiclash-fx-congthuc` | tia, đạn, nổ, hạt, cảm giác đánh |
 
 **Ranh giới giữa hai bộ** (người dùng dặn 2026-11-10):
@@ -41,6 +42,9 @@ Khi các quy tắc xung đột: **luật của dự án (mục 1) > đọc đư�
 - **Tướng aola** (`fightassets/pet<id>.swf`) vẽ đè lên rig vector, giữ animation aola (CLAUDE.md mục Hình tướng,
   `ArtGen/Heroes/QUY_TRINH.md`).
 - **Không vẽ VFX vào rig** (ranh giới ở trên).
+- **Viền vẽ SAU CÙNG** (người dùng dặn 2026-11-21): nhân vật có viền thì gen ảnh không viền, rig và làm xong mọi clip, người dùng
+  chốt animation, rồi mới vẽ viền bằng Paint của AtomSpine, chỉ ở mép nhìn thấy được (viền ngoài, mảnh trước đè mảnh sau), không vẽ
+  ở chỗ nối. Cách làm: `pokiclash-spine-rig` mục 000.
 - **Tướng làm từng con.** Người dùng lên ý tưởng, duyệt từng bước; không làm theo lô.
 - **Không tự đổi số chỉnh của người dùng** (`reskin/<tên>/adjust.json`).
 - **Hình và chuyển động aola là của Baitian:** không đăng công khai, kể cả artifact.
@@ -225,6 +229,8 @@ thay được việc xem chuyển động: nói rõ nếu chưa xem ở tốc đ
   mặt) thì xin GPT một ảnh "giống hệt concept, chỉ đổi chỗ đó" rồi **đổi ảnh trong một khung**, như rig thương mại (`pokiclash-spine-rig` mục 22).
 - Mảnh phủ (mí mắt, miếng che) đặt theo công thức mà không đo: hở một khe. Dò vị trí và in số điểm còn hở.
 - Chỉ soi tờ khung thu nhỏ rồi báo "mượt": chỗ gập ở khớp, chỗ hở trong miệng chỉ thấy khi soi cận hoặc xem chuyển động.
+- Gen ảnh có viền mực rồi cắt mảnh, vá viền chỗ nối bằng mã: nét đôi, vạch cắt ngang thân, viền đứt, răng cưa, chỗ khuyết lộ ra
+  khi chi vung (nhím Kim 2026-11-21, người dùng chê "nhem nhuốc"). Gen không viền, vẽ viền sau khi chốt (`pokiclash-spine-rig` mục 000).
 - Dựng thân hình cong tròn toàn bằng tờ mảnh GPT: thân thành khúc ống thẳng, lộ khe, vòng viền khớp búp bê, lệch concept. Dùng
   **cách lai** (thân cắt thẳng từ concept, mảnh GPT chỉ cho phần bị che) và kiểm bằng ảnh chồng concept + IoU (`pokiclash-spine-rig` mục 21).
 
@@ -238,4 +244,6 @@ thay được việc xem chuyển động: nói rõ nếu chưa xem ở tốc đ
   `pokiclash-spine-rig`)?
 - [ ] Đã đo góc nhảy 360° và bước dời ở 60 khung/giây; khung cuối mỗi clip khớp khung đầu idle?
 - [ ] Rig để lại xương miệng và sự kiện cho VFX, không vẽ tia, đạn, vụ nổ vào rig?
+- [ ] Nhân vật có viền: ảnh rig không viền, viền chỉ vẽ sau khi người dùng chốt animation, chỉ ở mép thấy được, đã soát mép lộ ở
+  dáng duỗi xa nhất của mọi clip?
 - [ ] Đã xem chuyển động ở tốc độ thật bằng runtime thật (tờ khung không thay được), soi cận chỗ nối ở clip giật mạnh nhất?

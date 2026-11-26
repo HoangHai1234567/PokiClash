@@ -286,6 +286,48 @@ UI.update({
     "Ở lều lữ khách từ trước tới nay: đã cược {0} bi · đã thắng {1} bi": "At the traveler tents so far: bet {0} marbles · won {1} marbles",
 })
 
+# Hầm đấu thành scene riêng (UndergroundScene, 2026-11-26)
+UI.update({
+    "Mỗi ngày một lứa đội ngầm mới. Thắng lần đầu trong ngày thưởng lớn, thua thì mất lệ phí.":
+        "A fresh set of pit teams every day. Your first win of the day pays big; losing costs the entry fee.",
+    "{0} tướng": "Heroes: {0}",
+    "Đội của bạn": "Your team",
+    "Đổi đội ngầm sau {0}": "New pit teams in {0}",
+    "Luật hôm nay: {0}": "Today's rule: {0}",
+    "Thắng lại trong ngày: hoàn lệ phí và quà nhỏ. Thua: mất lệ phí.": "Winning again the same day: fee refunded plus a small gift. Losing: the fee is gone.",
+})
+
+# Hầm đấu bản sàn đấu có Lão Mực (UndergroundScene, 2026-11-26 lượt 2): lời bình phẩm theo độ khó
+UI.update({
+    "Hừ... hên thôi! Lần sau đừng mong.": "Hmph... pure luck! Don't count on it next time.",
+    "Thắng thật à?! Cả hầm ồ lên rồi kìa.": "You actually won?! The whole pit is roaring.",
+    "Khè khè, lệ phí ta giữ nhé!": "Heh heh, I'll be keeping that fee!",
+    "Thua rồi à? Về luyện thêm đi, khách.": "Lost already? Go train some more, friend.",
+    "Xuống tới Hầm đấu rồi đấy! Chọn đối thủ đi, khách.": "Welcome down to the Pit! Pick your opponent, friend.",
+    "Hôm nay hầm đông vui lắm. Vuốt xem các đội đi.": "The Pit is packed today. Swipe to look over the teams.",
+    "Đội này khách thắng rồi còn gì. Đánh lại chỉ có quà nhỏ thôi.": "You already beat this team. A rematch only pays a small gift.",
+    "Hừ... lại tới trêu đội thua à?": "Hmph... back to tease the losers?",
+    "Nhà Vô Địch của tuần đấy. Thắng nổi thì ta phục!": "That's this week's Champion. Beat them and I'll tip my visor!",
+    "Chọn đội dễ thế này à? Khè khè!": "Picking a team this easy? Heh heh!",
+    "Bắt nạt tân binh vui lắm hả, khách?": "Having fun bullying the rookies, friend?",
+    "Đội này thì ta nhắm mắt cũng đoán được ai thắng.": "I could call this one with my eyes shut.",
+    "Kèo này cân đấy. Ta thích!": "Now that's an even match. I like it!",
+    "Ngang tài ngang sức, cả hầm đang ngó kìa.": "Evenly matched. The whole pit is watching.",
+    "Có chắc thắng được không vậy?": "Are you sure you can win this?",
+    "Lệ phí ta không trả lại đâu nhé.": "No refunds on the entry fee, mind you.",
+    "Đội này cứng đấy. Run chưa?": "This team is tough. Shaking yet?",
+    "Liều thế?! Đội này mạnh gấp mấy lần đội của khách!": "That reckless?! This team is several times stronger than yours!",
+    "Ô hô, gan to thật... hay là liều?": "Oho, real guts... or just reckless?",
+})
+
+# Hầm đấu lượt 3 (2026-11-26): 10 bậc, trần trận mỗi ngày
+UI.update({
+    "Còn {0}/{1} lượt đánh hôm nay": "{0}/{1} fights left today",
+    "Còn {0} lượt đánh hôm nay": "{0} fights left today",
+    "Hết lượt đánh hôm nay": "No fights left today",
+    "Hôm nay khách đánh đủ rồi. Mai ghé, hầm có lứa đội mới.": "You've fought enough for today. Come back tomorrow, the Pit will have fresh teams.",
+})
+
 NAMES = {
     "Đêm Bài": "Card Night",
     "Vòng Xoay Ngũ Hành": "Five Elements Wheel",
@@ -337,13 +379,68 @@ NAMES = {
     "Đá": "Stone",
     "Huyền Thoại": "Legend",
     "Nhà Vô Địch": "Champion",
+    "Đồng": "Bronze",
+    "Bạc": "Silver",
+    "Vàng": "Gold",
+    "Bạch Kim": "Platinum",
+    "Lục Bảo": "Emerald",
+    "Kim Cương": "Diamond",
+    "Cao Thủ": "Master",
+    "Đại Cao Thủ": "Grandmaster",
 }
 THEMES = {"Xưởng Thép": "Steel Works", "Rừng Gai": "Thorn Wood", "Sóng Ngầm": "Undertow", "Lò Lửa": "Furnace", "Mỏ Đá": "Quarry", "Liên Minh": "Alliance"}
-WORDS = {"tân binh": "rookies", "đấu sĩ": "fighters", "cựu binh": "veterans", "thủ lĩnh": "chiefs", "huyền thoại": "legends"}
+WORDS = {"tân binh": "rookies", "đấu sĩ": "fighters", "cựu binh": "veterans", "thủ lĩnh": "chiefs", "huyền thoại": "legends",
+         "lính mới": "recruits", "tinh nhuệ": "elites", "đội trưởng": "captains", "cao thủ": "masters", "bá chủ": "overlords"}
 for vt, et in THEMES.items():
     for vw, ew in WORDS.items():
         NAMES[f"{vt}: {vw}"] = f"{et}: {ew}"
 
+
+# Trường đua bản sân vận động (2026-11-26)
+UI.update({
+    "Đường hôm nay": "Today's track",
+    "{0} tướng vào vạch xuất phát!": "{0} heroes line up at the start!",
+    "Chạy!": "Go!",
+    "Xuất phát! Cả đoàn lao khỏi vạch!": "They're off! The whole pack bursts off the line!",
+    "{0} đang dẫn đầu!": "{0} is in the lead!",
+    "{0} vượt lên dẫn đầu!": "{0} takes the lead!",
+    "Nước rút!": "Final sprint!",
+    "Nước rút! Cả khán đài đứng hết dậy!": "Final sprint! The whole grandstand is on its feet!",
+    "Sát nút!": "Neck and neck!",
+    "{0} và {1} sát nút nhau!": "{0} and {1} are neck and neck!",
+})
+
+# Trường đua: luật đặt cược (2026-11-26)
+UI.update({
+    "Chạm vào một con để đặt cược. Về nhất, nhì thì thắng lớn!": "Tap a racer to bet on it. Finish first or second to win big!",
+    "Bạn chọn {0}. Chọn mức cược rồi bấm Đặt cược!": "You picked {0}. Choose your stake, then tap Place bet!",
+    "Trường đua: về thứ {0}/{1}, nhận {2} bi": "Racetrack: finished {0}/{1}, received {2} marbles",
+    "Cúp tuần {0}/{1}": "Weekly cup {0}/{1}",
+    "Chạm vào một con để đặt cược": "Tap a racer to bet on it",
+    "Đặt cược · {0} bi": "Place bet · {0} marbles",
+    "Đua thử (hết lượt hôm nay)": "Practice race (no bets left today)",
+    "Cố lên, {0}!": "Go, {0}!",
+    "{0} vấp ngã!": "{0} trips and falls!",
+    "Bứt tốc!": "Burst!",
+    "{0} bứt tốc vọt lên!": "{0} bursts ahead!",
+    "Đua thử: không cược, không thưởng.": "Practice race: no bet, no prize.",
+    "Thắng cược! Đặt {0} bi, nhận về {1} bi": "You won! Bet {0} marbles, got back {1} marbles",
+    "Hoà tiền: nhận lại {0} bi": "Break even: {0} marbles returned",
+    "Đặt {0} bi, nhận về {1} bi": "Bet {0} marbles, got back {1} marbles",
+    "Thua cược: mất {0} bi": "You lost the bet: {0} marbles gone",
+    "+{0} điểm cúp tuần": "+{0} weekly cup points",
+    "Chọn một tướng để đặt cược": "Pick a racer to bet on",
+    "Đặt từ {0} tới {1} bi": "Bet between {0} and {1} marbles",
+    "Lượt hôm nay": "Bets today",
+    "Đặt cược": "Place bet",
+    "Đua tiếp": "Next race",
+    "Nhất ×{0}": "1st ×{0}",
+    "Nhì ×{0}": "2nd ×{0}",
+    "Ba ×{0}": "3rd ×{0}",
+    "Nhất: hoàn tiền": "1st: stake back",
+    "Nhì: hoàn tiền": "2nd: stake back",
+    "Ba: hoàn tiền": "3rd: stake back",
+})
 
 def merge(fname, add):
     p = os.path.join(EN, fname)

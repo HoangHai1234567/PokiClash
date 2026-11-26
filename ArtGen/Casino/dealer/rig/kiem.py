@@ -36,6 +36,7 @@ def pose(a, t):
 
 
 anims = {a["name"]: a for a in j["anims"]}
+LOOPS = ("idle", "talk", "rl_watch")   # clip lặp: so khung cuối với khung đầu của chính nó
 idle0 = pose(anims["idle"], 0.0)
 print("phiên bản", j["version"], "| xương", len(j["bones"]), "| clip", len(j["anims"]))
 for name, a in anims.items():
@@ -52,7 +53,7 @@ for name, a in anims.items():
                 worst = (per_frame, f"{bones[tl['bone']]} t={k[i]:.2f}")
     end = pose(a, a["dur"])
     start = pose(a, 0.0)
-    ref = start if name in ("idle", "talk") else idle0
+    ref = start if name in LOOPS else idle0
     diff = 0.0
     who = ""
     for key in set(end) | set(ref):
@@ -62,4 +63,4 @@ for name, a in anims.items():
         if m > diff:
             diff, who = m, key[0]
     print(f"{name:16s} dur {a['dur']:.1f}  góc nhảy lớn nhất {worst[0]:6.1f} độ/khung ({worst[1]})  lệch cuối so với "
-          f"{'đầu chính nó' if name in ('idle', 'talk') else 'idle giây 0'}: {diff:.2f} ({who})  sự kiện {[(round(e['t'], 2), e['name']) for e in a.get('ev', [])]}")
+          f"{'đầu chính nó' if name in LOOPS else 'idle giây 0'}: {diff:.2f} ({who})  sự kiện {[(round(e['t'], 2), e['name']) for e in a.get('ev', [])]}")

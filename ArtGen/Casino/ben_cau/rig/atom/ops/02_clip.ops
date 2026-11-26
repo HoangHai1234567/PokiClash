@@ -1,0 +1,164 @@
+event.add tha
+event.add giat
+event.add ca_len
+anim.add idle dur=2.4 loop=true
+key idle bung.rotate 0.0:0:ease 1.2:-0.45:ease 2.4:0:ease
+key idle nguc.rotate 0.0:0:ease 1.2:-0.55:ease 2.4:0:ease
+key idle co.rotate 0.0:0:ease 1.2:-0.22:ease 2.4:0:ease
+key idle dau.rotate 0.0:0:ease 1.2:-0.98:ease 2.4:0:ease
+key idle cam.rotate 0.0:-26:ease 1.2:-23.5:ease 2.4:-26:ease
+key idle can2.rotate 0.0:-1:ease 1.2:-1.62:ease 2.4:-1:ease
+key idle can3.rotate 0.0:-1.32:ease 1.2:-2.15:ease 2.4:-1.32:ease
+key idle can4.rotate 0.0:-1.68:ease 1.2:-2.73:ease 2.4:-1.68:ease
+key idle hip.translate 0.0:0,0:ease 1.2:0,-3:ease 2.4:0,0:ease
+key idle cam.translate 0.0:0,12:ease 1.2:0.62,12.53:ease 2.4:0,12:ease
+key idle ik_chan_t.translate 0.0:0,0:ease 1.2:0,0:ease 2.4:0,0:ease
+key idle ik_chan_p.translate 0.0:0,0:ease 1.2:0,0:ease 2.4:0,0:ease
+anim.wave idle bones=ao1,ao2,ao3 amp=1.2 lag=0.15 growth=1.3
+anim.wave idle bones=aot1,aot2 amp=1.5 lag=0.18 growth=1.3 phase=0.2
+anim.wave idle bones=aop1,aop2 amp=1.5 lag=0.18 growth=1.3 phase=0.5
+anim.wave idle bones=chom amp=3 lag=0.1
+anim.loopfix idle
+anim.add ngam dur=0.8 loop=true
+key ngam bung.rotate 0.0:2.25:ease 0.4:2.25:ease 0.8:2.25:ease
+key ngam nguc.rotate 0.0:2.75:ease 0.4:2.75:ease 0.8:2.75:ease
+key ngam co.rotate 0.0:-0.45:ease 0.4:-0.45:ease 0.8:-0.45:ease
+key ngam dau.rotate 0.0:1.95:ease 0.4:1.95:ease 0.8:1.95:ease
+key ngam cam.rotate 0.0:25:ease 0.4:27:ease 0.8:25:ease
+key ngam can2.rotate 0.0:-2:ease 0.4:-2.38:ease 0.8:-2:ease
+key ngam can3.rotate 0.0:-2.64:ease 0.4:-3.14:ease 0.8:-2.64:ease
+key ngam can4.rotate 0.0:-3.36:ease 0.4:-3.99:ease 0.8:-3.36:ease
+key ngam hip.translate 0.0:-3,2:ease 0.4:-3,1:ease 0.8:-3,2:ease
+key ngam cam.translate 0.0:98.66,27.68:ease 0.4:99.65,27.6:ease 0.8:98.66,27.68:ease
+key ngam ik_chan_t.translate 0.0:0,0:ease 0.4:0,0:ease 0.8:0,0:ease
+key ngam ik_chan_p.translate 0.0:0,0:ease 0.4:0,0:ease 0.8:0,0:ease
+anim.wave ngam bones=ao1,ao2,ao3 amp=1.2 lag=0.15 growth=1.3
+anim.wave ngam bones=aot1,aot2 amp=1.5 lag=0.18 growth=1.3 phase=0.2
+anim.wave ngam bones=aop1,aop2 amp=1.5 lag=0.18 growth=1.3 phase=0.5
+anim.wave ngam bones=chom amp=3 lag=0.1
+anim.loopfix ngam
+anim.add quang dur=0.6 loop=false
+key quang bung.rotate 0.0:2.25:easeOut 0.09:3.15:snap 0.22:-4.05:easeOut 0.32:-3.15:ease 0.6:0:ease
+key quang nguc.rotate 0.0:2.75:easeOut 0.09:3.85:snap 0.22:-4.95:easeOut 0.32:-3.85:ease 0.6:0:ease
+key quang co.rotate 0.0:-0.45:easeOut 0.09:-1.05:snap 0.22:1.65:easeOut 0.32:1.4:ease 0.6:0:ease
+key quang dau.rotate 0.0:1.95:easeOut 0.09:1.95:snap 0.22:-1.95:easeOut 0.32:-1.3:ease 0.6:0:ease
+key quang cam.rotate 0.0:25:easeOut 0.09:33:snap 0.22:-45:easeOut 0.32:-55:ease 0.6:-38:ease
+key quang can2.rotate 0.0:-2:easeOut 0.09:-3:snap 0.22:3.5:easeOut 0.32:-3:ease 0.6:-1.25:ease
+key quang can3.rotate 0.0:-2.64:easeOut 0.09:-3.96:snap 0.22:4.62:easeOut 0.32:-3.96:ease 0.6:-1.65:ease
+key quang can4.rotate 0.0:-3.36:easeOut 0.09:-5.04:snap 0.22:5.88:easeOut 0.32:-5.04:ease 0.6:-2.1:ease
+key quang hip.translate 0.0:-3,2:easeOut 0.09:-5,3:snap 0.22:7,-2:easeOut 0.32:6,-3:ease 0.6:0,0:ease
+key quang cam.translate 0.0:98.66,27.68:easeOut 0.09:106.26,18.13:snap 0.22:28.2,11.71:easeOut 0.32:19.91,9.83:ease 0.6:-4,12:ease
+key quang ik_chan_t.translate 0.0:0,0:easeOut 0.09:0,0:snap 0.22:0,0:easeOut 0.32:0,0:ease 0.6:0,0:ease
+key quang ik_chan_p.translate 0.0:0,0:easeOut 0.09:0,0:snap 0.22:0,0:easeOut 0.32:0,0:ease 0.6:0,0:ease
+event quang 0.22 tha
+anim.spring quang bones=ao1,ao2,ao3 stiffness=0.22 damping=0.55
+anim.spring quang bones=aot1,aot2 stiffness=0.2 damping=0.5
+anim.spring quang bones=aop1,aop2 stiffness=0.2 damping=0.5
+anim.spring quang bones=chom stiffness=0.3 damping=0.45
+anim.add cho dur=3.0 loop=true
+key cho bung.rotate 0.0:0:ease 0.9:0:ease 1.6:0:ease 2.2:0:ease 3.0:0:ease
+key cho nguc.rotate 0.0:0:ease 0.9:0:ease 1.6:0:ease 2.2:0:ease 3.0:0:ease
+key cho co.rotate 0.0:0:ease 0.9:0.7:ease 1.6:-1.75:ease 2.2:-1.4:ease 3.0:0:ease
+key cho dau.rotate 0.0:0:ease 0.9:1.3:ease 1.6:-3.25:ease 2.2:-2.6:ease 3.0:0:ease
+key cho cam.rotate 0.0:-38:ease 0.9:-36.5:ease 1.6:-38:ease 2.2:-39:ease 3.0:-38:ease
+key cho can2.rotate 0.0:-1.25:ease 0.9:-1.62:ease 1.6:-1.25:ease 2.2:-1.25:ease 3.0:-1.25:ease
+key cho can3.rotate 0.0:-1.65:ease 0.9:-2.15:ease 1.6:-1.65:ease 2.2:-1.65:ease 3.0:-1.65:ease
+key cho can4.rotate 0.0:-2.1:ease 0.9:-2.73:ease 1.6:-2.1:ease 2.2:-2.1:ease 3.0:-2.1:ease
+key cho hip.translate 0.0:0,0:ease 0.9:2,-2:ease 1.6:3,-1:ease 2.2:1,-2:ease 3.0:0,0:ease
+key cho cam.translate 0.0:-4,12:ease 0.9:-2,14:ease 1.6:-3,15:ease 2.2:-2,13:ease 3.0:-4,12:ease
+key cho ik_chan_t.translate 0.0:0,0:ease 0.9:0,0:ease 1.6:0,0:ease 2.2:0,0:ease 3.0:0,0:ease
+key cho ik_chan_p.translate 0.0:0,0:ease 0.9:0,0:ease 1.6:0,0:ease 2.2:0,0:ease 3.0:0,0:ease
+anim.wave cho bones=ao1,ao2,ao3 amp=1.2 lag=0.15 growth=1.3
+anim.wave cho bones=aot1,aot2 amp=1.5 lag=0.18 growth=1.3 phase=0.2
+anim.wave cho bones=aop1,aop2 amp=1.5 lag=0.18 growth=1.3 phase=0.5
+anim.wave cho bones=chom amp=3 lag=0.1
+anim.loopfix cho
+anim.add giat dur=0.45 loop=false
+key giat bung.rotate 0.0:0:easeIn 0.06:0:snap 0.15:3.6:easeOut 0.45:2.7:ease
+key giat nguc.rotate 0.0:0:easeIn 0.06:0:snap 0.15:4.4:easeOut 0.45:3.3:ease
+key giat co.rotate 0.0:0:easeIn 0.06:0:snap 0.15:-1:easeOut 0.45:-1.8:ease
+key giat dau.rotate 0.0:0:easeIn 0.06:0:snap 0.15:2.6:easeOut 0.45:0:ease
+key giat cam.rotate 0.0:-38:easeIn 0.06:-44:snap 0.15:2:easeOut 0.45:-14:ease
+key giat can2.rotate 0.0:-1.25:easeIn 0.06:-2.25:snap 0.15:-5:easeOut 0.45:-6:ease
+key giat can3.rotate 0.0:-1.65:easeIn 0.06:-2.97:snap 0.15:-6.6:easeOut 0.45:-7.92:ease
+key giat can4.rotate 0.0:-2.1:easeIn 0.06:-3.78:snap 0.15:-8.4:easeOut 0.45:-10.08:ease
+key giat hip.translate 0.0:0,0:easeIn 0.06:0,0:snap 0.15:-5,3:easeOut 0.45:-4,1:ease
+key giat cam.translate 0.0:-4,12:easeIn 0.06:-10,12:snap 0.15:61.86,5.76:easeOut 0.45:-0.82,10.72:ease
+key giat ik_chan_t.translate 0.0:0,0:easeIn 0.06:0,0:snap 0.15:0,0:easeOut 0.45:-8,0:ease
+key giat ik_chan_p.translate 0.0:0,0:easeIn 0.06:0,0:snap 0.15:0,0:easeOut 0.45:8,0:ease
+event giat 0.15 giat
+anim.spring giat bones=ao1,ao2,ao3 stiffness=0.22 damping=0.55
+anim.spring giat bones=aot1,aot2 stiffness=0.2 damping=0.5
+anim.spring giat bones=aop1,aop2 stiffness=0.2 damping=0.5
+anim.spring giat bones=chom stiffness=0.3 damping=0.45
+anim.add keo dur=0.9 loop=true
+key keo bung.rotate 0.0:2.7:ease 0.22:2.7:ease 0.45:2.7:ease 0.68:2.7:ease 0.9:2.7:ease
+key keo nguc.rotate 0.0:3.3:ease 0.22:3.3:ease 0.45:3.3:ease 0.68:3.3:ease 0.9:3.3:ease
+key keo co.rotate 0.0:-1.8:ease 0.22:-1.8:ease 0.45:-1.8:ease 0.68:-1.8:ease 0.9:-1.8:ease
+key keo dau.rotate 0.0:0:ease 0.22:0:ease 0.45:0:ease 0.68:0:ease 0.9:0:ease
+key keo cam.rotate 0.0:-14:ease 0.22:-10:ease 0.45:-17:ease 0.68:-12:ease 0.9:-14:ease
+key keo can2.rotate 0.0:-6:ease 0.22:-7.5:ease 0.45:-5:ease 0.68:-7:ease 0.9:-6:ease
+key keo can3.rotate 0.0:-7.92:ease 0.22:-9.9:ease 0.45:-6.6:ease 0.68:-9.24:ease 0.9:-7.92:ease
+key keo can4.rotate 0.0:-10.08:ease 0.22:-12.6:ease 0.45:-8.4:ease 0.68:-11.76:ease 0.9:-10.08:ease
+key keo hip.translate 0.0:-4,1:ease 0.22:-6,2:ease 0.45:-3,0:ease 0.68:-5,2:ease 0.9:-4,1:ease
+key keo cam.translate 0.0:-0.82,10.72:ease 0.22:1.85,7.42:ease 0.45:0.27,11.61:ease 0.68:1.06,9.51:ease 0.9:-0.82,10.72:ease
+key keo ik_chan_t.translate 0.0:-8,0:ease 0.22:-8,0:ease 0.45:-8,0:ease 0.68:-8,0:ease 0.9:-8,0:ease
+key keo ik_chan_p.translate 0.0:8,0:ease 0.22:8,0:ease 0.45:8,0:ease 0.68:8,0:ease 0.9:8,0:ease
+anim.spring keo bones=ao1,ao2,ao3 stiffness=0.22 damping=0.55
+anim.spring keo bones=aot1,aot2 stiffness=0.2 damping=0.5
+anim.spring keo bones=aop1,aop2 stiffness=0.2 damping=0.5
+anim.spring keo bones=chom stiffness=0.3 damping=0.45
+anim.loopfix keo
+anim.add nhip dur=0.32 loop=false
+key nhip bung.rotate 0.0:2.7:snap 0.07:3.6:easeOut 0.32:2.7:ease
+key nhip nguc.rotate 0.0:3.3:snap 0.07:4.4:easeOut 0.32:3.3:ease
+key nhip co.rotate 0.0:-1.8:snap 0.07:-2.4:easeOut 0.32:-1.8:ease
+key nhip dau.rotate 0.0:0:snap 0.07:0:easeOut 0.32:0:ease
+key nhip cam.rotate 0.0:-14:snap 0.07:-1:easeOut 0.32:-14:ease
+key nhip can2.rotate 0.0:-6:snap 0.07:-3:easeOut 0.32:-6:ease
+key nhip can3.rotate 0.0:-7.92:snap 0.07:-3.96:easeOut 0.32:-7.92:ease
+key nhip can4.rotate 0.0:-10.08:snap 0.07:-5.04:easeOut 0.32:-10.08:ease
+key nhip hip.translate 0.0:-4,1:snap 0.07:-6,3:easeOut 0.32:-4,1:ease
+key nhip cam.translate 0.0:-0.82,10.72:snap 0.07:15.33,5.23:easeOut 0.32:-0.82,10.72:ease
+key nhip ik_chan_t.translate 0.0:-8,0:snap 0.07:-8,0:easeOut 0.32:-8,0:ease
+key nhip ik_chan_p.translate 0.0:8,0:snap 0.07:8,0:easeOut 0.32:8,0:ease
+anim.spring nhip bones=ao1,ao2,ao3 stiffness=0.22 damping=0.55
+anim.spring nhip bones=aot1,aot2 stiffness=0.2 damping=0.5
+anim.spring nhip bones=aop1,aop2 stiffness=0.2 damping=0.5
+anim.spring nhip bones=chom stiffness=0.3 damping=0.45
+anim.add trung dur=1.6 loop=false
+key trung bung.rotate 0.0:2.7:easeIn 0.12:1.8:easeOut 0.3:-1.35:ease 0.45:-1.35:easeIn 0.6:-1.35:easeOut 0.85:-1.35:ease 1.2:-1.35:ease 1.6:-1.35:ease
+key trung nguc.rotate 0.0:3.3:easeIn 0.12:2.2:easeOut 0.3:-1.65:ease 0.45:-1.65:easeIn 0.6:-1.65:easeOut 0.85:-1.65:ease 1.2:-1.65:ease 1.6:-1.65:ease
+key trung co.rotate 0.0:-1.8:easeIn 0.12:-1.2:easeOut 0.3:3:ease 0.45:3:easeIn 0.6:3:easeOut 0.85:3.35:ease 1.2:2.65:ease 1.6:3:ease
+key trung dau.rotate 0.0:0:easeIn 0.12:0:easeOut 0.3:3.9:ease 0.45:3.9:easeIn 0.6:3.9:easeOut 0.85:4.55:ease 1.2:3.25:ease 1.6:3.9:ease
+key trung cam.rotate 0.0:-14:easeIn 0.12:10:easeOut 0.3:17:ease 0.45:17:easeIn 0.6:14:easeOut 0.85:17:ease 1.2:18:ease 1.6:17:ease
+key trung can2.rotate 0.0:-6:easeIn 0.12:-2:easeOut 0.3:-1:ease 0.45:-1:easeIn 0.6:-2:easeOut 0.85:-1:ease 1.2:-1:ease 1.6:-1:ease
+key trung can3.rotate 0.0:-7.92:easeIn 0.12:-2.64:easeOut 0.3:-1.32:ease 0.45:-1.32:easeIn 0.6:-2.64:easeOut 0.85:-1.32:ease 1.2:-1.32:ease 1.6:-1.32:ease
+key trung can4.rotate 0.0:-10.08:easeIn 0.12:-3.36:easeOut 0.3:-1.68:ease 0.45:-1.68:easeIn 0.6:-3.36:easeOut 0.85:-1.68:ease 1.2:-1.68:ease 1.6:-1.68:ease
+key trung hip.translate 0.0:-4,1:easeIn 0.12:-2,4:easeOut 0.3:0,1:ease 0.45:0,20:easeIn 0.6:0,-6:easeOut 0.85:0,1:ease 1.2:0,1:ease 1.6:0,1:ease
+key trung cam.translate 0.0:-0.82,10.72:easeIn 0.12:109.5,22.19:easeOut 0.3:114.51,41.57:ease 0.45:107.52,41.2:easeIn 0.6:121.5,41.93:easeOut 0.85:114.51,41.57:ease 1.2:114.51,41.57:ease 1.6:114.51,41.57:ease
+key trung ik_chan_t.translate 0.0:-8,0:easeIn 0.12:0,0:easeOut 0.3:0,0:ease 0.45:0,15:easeIn 0.6:0,0:easeOut 0.85:0,0:ease 1.2:0,0:ease 1.6:0,0:ease
+key trung ik_chan_p.translate 0.0:8,0:easeIn 0.12:0,0:easeOut 0.3:0,0:ease 0.45:0,15:easeIn 0.6:0,0:easeOut 0.85:0,0:ease 1.2:0,0:ease 1.6:0,0:ease
+event trung 0.12 ca_len
+anim.spring trung bones=ao1,ao2,ao3 stiffness=0.22 damping=0.55
+anim.spring trung bones=aot1,aot2 stiffness=0.2 damping=0.5
+anim.spring trung bones=aop1,aop2 stiffness=0.2 damping=0.5
+anim.spring trung bones=chom stiffness=0.3 damping=0.45
+anim.add hut dur=1.3 loop=false
+key hut bung.rotate 0.0:2.7:snap 0.1:4.5:easeOut 0.45:-3.6:ease 0.9:-4.05:ease 1.3:-3.6:ease
+key hut nguc.rotate 0.0:3.3:snap 0.1:5.5:easeOut 0.45:-4.4:ease 0.9:-4.95:ease 1.3:-4.4:ease
+key hut co.rotate 0.0:-1.8:snap 0.1:-1.95:easeOut 0.45:-0.75:ease 0.9:-0.8:ease 1.3:-0.75:ease
+key hut dau.rotate 0.0:0:snap 0.1:1.95:easeOut 0.45:-5.85:ease 0.9:-6.5:ease 1.3:-5.85:ease
+key hut cam.rotate 0.0:-14:snap 0.1:-30:easeOut 0.45:-56:ease 0.9:-57:ease 1.3:-57:ease
+key hut can2.rotate 0.0:-6:snap 0.1:0.5:easeOut 0.45:-1.5:ease 0.9:-1.5:ease 1.3:-1.5:ease
+key hut can3.rotate 0.0:-7.92:snap 0.1:0.66:easeOut 0.45:-1.98:ease 0.9:-1.98:ease 1.3:-1.98:ease
+key hut can4.rotate 0.0:-10.08:snap 0.1:0.84:easeOut 0.45:-2.52:ease 0.9:-2.52:ease 1.3:-2.52:ease
+key hut hip.translate 0.0:-4,1:snap 0.1:-7,2:easeOut 0.45:0,-6:ease 0.9:0,-7:ease 1.3:0,-6:ease
+key hut cam.translate 0.0:-0.82,10.72:snap 0.1:3.24,-9.71:easeOut 0.45:-1.66,17.69:ease 0.9:-2.17,18.04:ease 1.3:-1.66,17.69:ease
+key hut ik_chan_t.translate 0.0:-8,0:snap 0.1:0,0:easeOut 0.45:0,0:ease 0.9:0,0:ease 1.3:0,0:ease
+key hut ik_chan_p.translate 0.0:8,0:snap 0.1:0,0:easeOut 0.45:0,0:ease 0.9:0,0:ease 1.3:0,0:ease
+anim.spring hut bones=ao1,ao2,ao3 stiffness=0.22 damping=0.55
+anim.spring hut bones=aot1,aot2 stiffness=0.2 damping=0.5
+anim.spring hut bones=aop1,aop2 stiffness=0.2 damping=0.5
+anim.spring hut bones=chom stiffness=0.3 damping=0.45
+key trung dau.attachment 0:dau 0.24:dau_quay__dau

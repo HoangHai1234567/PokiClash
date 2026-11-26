@@ -178,14 +178,31 @@ Máy bi đang có, không đổi luật. Chỉ thêm: nút "Ra đảo", cảnh l
 
 ### 6.2. Câu cá (Bến câu)
 
-**Chơi**, một ngón, màn dọc:
-1. **Quăng**: vuốt lên, độ dài vuốt là lực quăng. Xa bờ thì cá to và hiếm hơn nhưng khó kéo hơn.
-2. **Chờ**: phao nhấp nhô; cá cắn thì phao chìm, có 0,6 giây để chạm "Giật". Hụt thì mất mồi.
-3. **Kéo**: thanh dọc có vùng xanh. Giữ ngón thì vùng xanh nổi lên, thả thì chìm; giữ con cá trong vùng xanh để đầy thanh kéo. Cá vùng vẫy
-   theo kiểu của loài (cá hiếm giật mạnh, đổi hướng nhanh). Thanh kéo đầy là bắt được, cạn là sổng.
+**Chơi** (từ 2026-11-26 chép thao tác và màn chơi theo Câu cá của Clash of Critters; người dùng dặn "chỉ copy phần gameplay và màn chơi,
+khi chơi vẫn giữ logic hiện tại", nên mồi, chỗ câu, chọn cá, cần câu, Sổ Cá, bán cá, Cá Vua giữ nguyên), một ngón, màn dọc:
+1. **Câu**: chạm nút to giữa đáy (xanh "CÂU") hoặc mặt nước; phao rơi vào một chỗ **ngẫu nhiên trên hồ**, chỗ rơi (Gần bờ / Xa bờ / Rạn đá)
+   là chỗ câu. Lượt đầu đời rơi vào Gần bờ. Bỏ vuốt lấy lực: quăng như vuốt hết cỡ (lực 1). Bỏ chọn chỗ câu (người dùng 2026-11-26).
+2. **Chờ**: bóng cá bơi lại phao. Bóng nhỏ là cá nhỏ, bóng to là cá lớn, rất to là Cá Vua. Cá cắn thì phao chìm, hiện "!", **tự vào thanh
+   chạy**, không phải chạm giật (người dùng 2026-11-26: "có cá thì không cần ấn giật nữa").
+3. **Thanh chạy** (mọi con, người dùng: "căn 1 thanh chạy rồi tap đúng lúc"): tấm tím ở phần ba dưới có thanh ngang, vùng vàng và kim chạy qua
+   lại. Chạm khi kim trong vùng vàng, đủ max(1, số nhịp) trong 30 giây (cá nhỏ 1 nhịp); mỗi lần trượt mất 2 giây; hết giờ là sổng. Mỗi nhịp
+   trúng thì vùng vàng dời chỗ, kim nhanh thêm 4%.
+   - Số nhịp (`Fishing.Ticks`) = 2 × bậc độ hiếm, thêm 1 nếu hạng cân Vàng trở lên: Thường 0–1 … Huyền thoại 8; Cá Vua luôn 8 (Critters 0–8).
+   - Vùng vàng = vùng của cần câu × 0,6 (cấp 1: 18% thanh; cấp 5: 26%). Cá Vua có tướng khắc hệ phụ kéo thì to thêm 25%.
+   - Kim chạy 0,6 + 0,2 × độ vùng vẫy phần thanh mỗi giây (Thường 0,8 … Huyền thoại 1,4).
+4. **Kết quả**: thẻ cá bật ra, có tên, độ hiếm, cỡ, **hạng cân** (`Fishing.SizeClass`): Đồng, Bạc, Vàng, Cầu vồng, theo vị trí cỡ trong
+   khoảng của loài (dưới 40% / 70% / 90% / còn lại, ra khoảng 56 / 24 / 14 / 6%). Có băng "LOÀI MỚI!", "KỶ LỤC MỚI!" hoặc "CÁ VUA!", thưởng
+   và giá bán.
+
+Bố cục kiểu Critters: nút CÂU to giữa đáy, Sổ Cá và Bán cá bên trái, Mua mồi bên phải; trên cùng chỉ còn thẻ mồi. Scene vẽ tay, shader nước,
+người câu, phao 3D: `32_BenCau_Scene.md`. Không
+lấy kinh tế sự kiện của Critters (cần câu từ máy bi, hệ số nhân, đồng bạc / vàng, may mắn, đội, bảng xếp hạng). Bản rút Critters không có màn
+câu, nên luật thao tác lấy từ wiki và hướng dẫn cộng đồng.
+
+Trước 2026-11-26 thao tác là vuốt lấy lực quăng (xa thì hiếm hơn) và thanh dọc giữ / thả để vùng xanh theo cá.
 
 **Cá**: 30 loài, 6 mỗi hệ, 5 độ hiếm (Thường … Huyền thoại); mỗi con có cỡ ngẫu nhiên (S, M, L, kỷ lục). Ba chỗ câu: gần bờ, xa bờ, rạn đá
-(mở theo cấp cần câu). Loài theo chỗ và theo giờ (một số loài chỉ cắn ban đêm, dùng `DayCycle`).
+(mở sẵn cả ba; phao rơi ngẫu nhiên quyết định chỗ). Loài theo chỗ và theo giờ (một số loài chỉ cắn ban đêm, dùng `DayCycle`).
 
 **Mồi**: 10 mồi miễn phí mỗi ngày; thêm từ nhiệm vụ quán trọ, mua bằng bi ở Chợ đen. Không hồi theo giờ (không thể lực).
 
@@ -193,37 +210,52 @@ Máy bi đang có, không đổi luật. Chỉ thêm: nút "Ra đảo", cảnh l
 - Bán cá ở Chợ đen lấy bi (giá theo độ hiếm × cỡ).
 - **Sổ Cá**: bắt lần đầu mỗi loài có bi; đủ 6 loài một hệ được 5 mảnh tướng hệ đó và cúp trang trí cho Nhà (dùng lại `cup_fish`); kỷ lục cỡ có
   huy hiệu.
-- **Cá Vua** (một con mỗi tuần, cao điểm khi có "Tuần Cá Vua"): cá rất khó, được gọi **một tướng phụ kéo**: tướng khắc hệ cá thì vùng xanh to hơn
+- **Cá Vua** (một con mỗi tuần, cao điểm khi có "Tuần Cá Vua"): cá rất khó, được gọi **một tướng phụ kéo**: tướng khắc hệ cá thì vùng vàng to hơn
   25%. Thưởng: mảnh tướng, đá tiến hóa. Cho tướng có việc ngoài trận.
-- Cần câu nâng 5 cấp bằng bi (vùng xanh to hơn, mở chỗ câu xa bờ, rạn đá).
+- ~~Cần câu nâng 5 cấp bằng bi~~: bỏ (người dùng 2026-11-26 "bỏ phần nâng cấp cần đi"). Vùng vàng theo cấp cần hiện có trong bản lưu
+  (mặc định cấp 1: 18% thanh); `RodCost` / `UpgradeRod` còn trong lõi nhưng giao diện không gọi. Cá Vua không còn đòi cấp cần.
 
 **Khác Ao cá của Nhà**: Ao cá thụ động, ra bi và thẻ; Bến câu chủ động, có loài, Sổ Cá, Cá Vua. Không đổi Ao cá.
 
 ### 6.3. Đua tướng (Trường đua)
 
-**Chơi** (người dùng đổi 2026-11-25: "random 3-5 tướng mỗi lane chạy đua nhau, trên đường chạy tướng có thể đánh nhau cho vui vui, có tướng
-bị choáng stun, nó cũng kiểu random ai về nhất cho vui thôi"):
-- Mỗi cuộc đua ngẫu nhiên **3–5 tướng**, mỗi tướng một làn: tướng của người chơi + tướng ngẫu nhiên của các thám hiểm gia khác. Đường đua đổi
-  theo ngày: 3 chặng, mỗi chặng một địa hình theo hệ, hiện trước khi chọn tướng.
-- **Tốc độ** chỉ lệch nhẹ theo chỉ số (tốc, sao, cấp: vài %), địa hình cùng hệ ×1,06, bị khắc ×0,96; dao động mỗi chặng ±8% lớn hơn, nên về
-  nhất phần lớn là **hên xui**.
-- **Đánh nhau**: tướng đang chạy, hết hồi chiêu (2,6 giây), có tướng khác cách ≤ 9 đơn vị thì mỗi giây 55% cơ hội lao vào húc tướng gần nhất
-  (ưu tiên phía trước). Trúng (72%): đối thủ **choáng** 1,3 giây (đứng yên, sao xoay trên đầu). Hụt: kẻ húc vấp ngã 0,6 giây. Đối thủ đang có
-  khiên cổ vũ: né, kẻ húc vấp. Trung bình gần 7 cú trúng mỗi cuộc, mình bị choáng khoảng 2 lần.
-- **Gió thuận**: thỉnh thoảng một tướng được +30% tốc trong 1 giây.
-- **Cổ vũ**: mỗi chặng một lần, vòng sáng co về khớp nút: Tuyệt +9% tốc 1,5 giây và **khiên né một cú húc** (0,9 giây), Tốt +6%, Hụt 0.
-  Tướng máy cũng cổ vũ theo độ giỏi của hạng cúp.
-- Mô phỏng 30 nhịp mỗi giây, tất định theo hạt giống và lần chạm; lõi ghi sự kiện (húc trúng, vấp, né, gió, về đích) để giao diện diễn.
+**Luật cược** (người dùng đổi 2026-11-26, thay luật "tự chọn tướng của mình rồi đua, cổ vũ theo nhịp" của 2026-11-25): "đặt 1 trong 5 con
+kiểu tap vào 1 trong 5 con rồi hiện lên nút đặt cược, đặt max là 500 bóng, mình có thể kiểm soát tỉ lệ thắng thua. nếu về nhất x3, về nhì
+x2, về 3 thì hòa tiền, 4, 5 mất tiền. 1 ngày được chơi 5 lần. Tiền cược càng cao bạn phải cho người chơi tỉ lệ thắng càng thấp. Làm cuộc
+đua gay cấn hơn, các con đua nhau sát hơn, có những lúc vọt lên kiểu bất ngờ."
+- Mỗi lượt 5 tướng ngẫu nhiên đứng ở vạch, đủ màu; chạm vào đường đua thì con gần chỗ chạm nhất được chọn (to lên, vòng vàng dưới
+  chân, các con khác tối bớt). **Lão Mực** đứng sau quầy làm chủ quầy cược. Chọn mức cược bằng 4 đồng
+  chip (50 / 100 / 200 / 500), bấm **Đặt cược**. 5 lượt mỗi ngày; hết lượt còn **Đua thử** (không cược, không thưởng, không tính lượt).
+- **Trả thưởng**: nhất nhận cược ×3, nhì ×2, ba nhận lại tiền cược, tư và năm mất. Lễ Hội Đua nhân phần lời (×1,5: nhất nhận ×4, nhì
+  ×2,5). Điểm cúp tuần 3 / 2 / 1 cho top 3, tính cho hạng cúp cao nhất đã mở theo cấp (không còn chọn hạng cúp).
+- **Tỉ lệ do mình đặt** (`balance.json` khối `casino.race`): hạng của con được chọn RÚT TRƯỚC khi đua. Tỉ lệ về nhất / nhì / ba ở mức
+  cược thấp nhất là `oddsLow` (18% / 20% / 24%), ở mức cao nhất là `oddsHigh` (9% / 13% / 24%), ở giữa nội suy; phần còn lại chia đều cho
+  hạng tư và năm. Các con khác xếp ngẫu nhiên vào hạng còn lại.
 
-**Hạng cúp** (mở theo cấp): Đồng, Bạc, Vàng, Kim Cương, Huyền Thoại; lệ phí theo bậc cấp. Thưởng = lệ phí × hệ số hạng × số tướng (nhất 0,55,
-nhì 0,3, ba 0,1): ai cũng như nhau thì trung bình gần hoà vốn, đông tướng thì thưởng nhất to hơn. Điểm cúp 3 / 2 / 1 cho top 3; đủ 10 điểm một
-hạng trong tuần thì nhận quà tuần, tuần sau đếm lại.
+  | Cược | Nhất | Nhì | Ba | Tư + năm | Nhận về trung bình mỗi bi cược |
+  |---|---|---|---|---|---|
+  | 10 | 18,0% | 20,0% | 24% | 38,0% | 1,18 |
+  | 50 | 17,3% | 19,4% | 24% | 39,3% | 1,15 |
+  | 100 | 16,3% | 18,7% | 24% | 41,0% | 1,10 |
+  | 200 | 14,5% | 17,3% | 24% | 44,2% | 1,02 |
+  | 350 | 11,8% | 15,1% | 24% | 49,1% | 0,90 |
+  | 500 | 9,0% | 13,0% | 24% | 54,0% | 0,77 |
 
-**Cân** (đo 4000 cuộc mỗi kiểu, `build.py run race`): không cổ vũ về nhất 21% (lời 0,83× lệ phí), cổ vũ Tốt 22% (0,86×), cổ vũ Tuyệt 31%
-(1,05×); 3 tướng nhất 27–39%, 5 tướng 16–24%. Cuộc đua dài khoảng 22 giây.
+  Đo 20 000 cuộc mỗi mức (`build.py run race`): khớp bảng trong ±0,5 điểm phần trăm. Cược nhỏ người chơi hơi lời, hoà vốn quanh 220 bi,
+  cược 500 trung bình mất 115 bi mỗi lượt.
+- **Cuộc đua là kịch bản dựng sẵn** từ hạt giống (`Race.Script`), không còn mô phỏng tự do: cả đoàn chạy theo một nhịp chung (về nhất
+  sau 20 giây), mỗi con lệch khỏi nhịp theo các mốc ngẫu nhiên cách nhau 1,3–2,3 giây trong ±4,5 đơn vị. Giữa hai mốc mà vọt lên ≥ 3,2
+  đơn vị thì thành cú **bứt tốc** dồn trong 0,9 giây; tụt ≥ 3,6 thì thành **bị húc choáng** (đứng yên tới 1,2 giây, kẻ húc là con gần
+  nhất). Mốc trước nước rút cài kịch tính: con sẽ về nhất 55% còn ở phía sau (lội ngược dòng), con mình chọn mà sẽ thua 60% đang dẫn
+  (dẫn rồi hụt hơi). Hai hạng liền nhau về đích cách 0,12–0,5 giây. Không con nào chạy lùi, không choáng ngay trước vạch đích.
+- Đo: mỗi cuộc ~9 cú bứt tốc, ~9 lần bị húc, đổi ngôi đầu ~11 lần, đầu đoàn và cuối đoàn cách nhau nhiều nhất ~10 đơn vị (cả đoàn
+  nằm gọn trong màn), nhất và nhì cách nhau trung bình 0,31 giây, cuộc đua dài ~21 giây.
+- **Cổ vũ** chỉ còn để khán đài hò reo cho con mình (không đổi kết quả).
 
-**Hình**: rig tướng chưa có clip chạy. Tướng là chân dung **nhảy cóc** (nhún, nghiêng, bóp giãn do code); lao vào đối thủ khi húc, vụt nổ chỗ
-trúng, lắc lư và tối màu khi choáng, chữ nổi cạnh tướng. Bụi, lửa, nước theo hệ và hình đường đua để C8; clip chạy riêng cho từng tướng để sau.
+**Hình**: từ 2026-11-26 tướng là **rig thật** (`AolaSticker`, như màn Nhà): chạy bằng clip `walk`, húc bằng clip đánh, choáng bằng clip
+trúng đòn rồi đứng xám; dạng chưa có rig / chưa có clip walk thì lùi về chân dung nhảy cóc (bản đầu ghi nhầm "rig chưa có clip chạy").
+Lao vào đối thủ khi húc, vụt nổ chỗ trúng, sao choáng, chữ nổi cạnh tướng. Từ 2026-11-26 sân là **sân vận động cuộn ngang có khán đài hai bên** (mục "C5 bản
+sân vận động" ở phần tiến độ).
 
 ### 6.4. Chợ đen
 
@@ -248,9 +280,13 @@ Game chạy không máy chủ nên **đổi với lái buôn**, không đổi gi
 
 **Chơi**: trận thẻ bài thường (`Core/Battle`, `StagePrep`), nền riêng "hầm đấu".
 
+- (2026-11-26 lượt 3) **Mỗi ngày 10 bậc, lực chiến tăng đều, mỗi ngày đánh tối đa 5 trận**: xem mục "Hầm đấu lượt 3" ở phần tiến độ;
+  các số "5 bậc", lệ phí, mảnh ở dưới là bản đầu.
 - **Mỗi ngày 5 bậc**: Đá, Đồng, Bạc, Vàng, Huyền Thoại. Mỗi bậc một đội địch **do mình đặt**: tướng, cấp, sao, thẻ, kèm **luật ngày**
   (ví dụ "hệ Hỏa +20% công", "không Tuyệt kỹ", "máu gấp đôi", "chỉ 1 tướng mỗi bên") đi qua `BattleStart` như tiềm năng, đặc tính hệ.
-- Cấp địch cố định theo dữ liệu, không theo cấp người chơi (ví dụ Đá 20, Đồng 45, Bạc 80, Vàng 120, Huyền Thoại 170). Bậc mở theo cấp người chơi.
+- Cấp địch cố định theo dữ liệu, không theo cấp người chơi (ví dụ Đá 20, Đồng 45, Bạc 80, Vàng 120, Huyền Thoại 170). **Bậc không khoá theo
+  cấp người chơi** (người dùng 2026-11-26): Hầm đấu mở (cấp 35) là đánh được mọi bậc; `tiers[].level` chỉ còn là cấp đội mẫu khi cân
+  (`runner ugcal`). Người chơi tự so lực chiến đội mình với đội ngầm.
 - **Lệ phí** 30 / 80 / 200 / 500 / 1.200 bi (× bậc cấp), trả lúc bấm Đánh.
 - **Thưởng thắng lần đầu trong ngày**: 2,5 lần lệ phí + mảnh của tướng chủ lực đội địch (1 / 2 / 3 / 5 / 8) + đá ở bậc Vàng trở lên. Thắng lại
   cùng ngày: hoàn lệ phí + quà nhỏ. Thua: mất lệ phí.
@@ -538,7 +574,9 @@ Người dùng chọn hướng B, rồi dặn "gen đảo trống rồi gen riê
   (thanh kéo bên phải, vòng kéo đầy là bắt được, cạn là sổng), tấm kết quả (tên, độ hiếm, cỡ, lần đầu / kỷ lục, thưởng, giá bán), Sổ Cá 30 ô
   (loài chưa bắt hiện "???"), mua mồi, bán cá, nâng cần câu, 3 chỗ câu. Lượt câu đầu đời chắc trúng. Cá Vua: tự gọi tướng khắc hệ cá phụ kéo.
 - Hình tạm: nền cắt từ concept (khúc hồ có bến câu), cá là chấm màu hệ viền màu độ hiếm, cần câu là thanh gỗ. C8 thay ảnh.
-- Lượt chụp `PokiClash/Thử/Đảo Casino/Bến câu: quăng, kéo, Sổ Cá (đang Play)` (cờ `Temp/casino_fish_tour.flag`), ảnh `Temp/PokiShots/casino_cau/`.
+- Lượt chụp `PokiClash/Thử/Đảo Casino/Bến câu: câu, vùng vàng, Sổ Cá (đang Play)` (cờ `Temp/casino_fish_tour.flag`), ảnh `Temp/PokiShots/casino_cau/`.
+- 2026-11-26: thao tác và màn chơi đổi sang kiểu Clash of Critters (mục 6.2). Lõi chỉ thêm `Fishing.SizeClass`, `Fishing.Ticks`, `ReelTime`,
+  `MissCost` (test `FishingPlayTests`). `FishingPanel`, `CasinoFishingMenu` viết lại. Hình vẫn tạm: bóng cá bầu dục, cá chấm màu.
 
 ### C4 xong bản đầu (2026-11-25): Đấu trường ngầm
 
@@ -550,6 +588,121 @@ Người dùng chọn hướng B, rồi dặn "gen đảo trống rồi gen riê
   (nền theo hệ tướng chủ lực, bậc Vàng trở lên là trận boss), độ epic theo bậc; kết trận `UndergroundResult` (bi, mảnh chủ lực, quà bậc;
   "Đánh lại", "Về Hầm đấu" mở lại hộp trên đảo).
 - Lượt chụp: cờ `Temp/casino_ug_tour.flag` (mở hộp, bấm Đánh bậc đầu, chụp trận), ảnh `Temp/PokiShots/casino_ham/`.
+
+### Hầm đấu thành scene riêng (2026-11-26, người dùng dặn)
+
+Người dùng: "thiết kế lại phần đấu trường ngầm thành 1 scene riêng, thay đổi tướng định kỳ, không cần show nhiều thông tin, show đội đó có
+bao nhiêu tướng và lực chiến là được, icon các tướng, không giới hạn cấp độ tham gia".
+
+- Scene `CasinoUnderground` (`UndergroundScene`, `Screens/CasinoUnderground`, menu `PokiClash/Prefab/Đảo Casino/Hầm đấu: dựng scene`,
+  `Editor/CasinoUgMenu.cs`); `CasinoGames.SceneOf` trỏ trò `underground` sang đây, quay lại về đảo. Bỏ hộp `Dialogs/HamDau`
+  (`UndergroundDialog`) và `CasinoScene.Reopen`; kết trận "Về Hầm đấu", bỏ trận giữa chừng đều về scene này.
+- Mỗi bậc một dòng gọn: cột trái là tên bậc, **số tướng**, **lực chiến** (`Underground.Count`, `Underground.Power`, đã tính luật ngày
+  phần của địch), luật ngày (một dòng nhỏ, chỉ khi có); giữa là **ô hình các tướng** (cả con vừa ô, nền ô màu hệ); phải là nút Đánh (lệ
+  phí). Thắng rồi: dòng tô xanh, dấu "Đã thắng", nút "Đánh lại". Tên, cấp, sao từng tướng và thưởng không bày trên dòng: chạm dòng mở
+  hộp chi tiết. Các dòng đang hiện (5, chủ nhật 6) chia đều khoảng giữa theo chiều cao màn (`UndergroundScene.Layout`).
+- Dưới cùng: đội của mình (cùng bố cục: hình tướng, số tướng, lực chiến để so) và nút Đổi đội.
+- **Đổi tướng định kỳ**: giữ vòng 14 ngày đã có (mỗi ngày một chủ đề, đổi lúc 0 giờ, `dates` ghi đè ngày lễ); tờ trên cùng có đồng hồ
+  "Đổi đội ngầm sau hh:mm:ss" (`Underground.NextChange`), qua 0 giờ scene tự bày đội mới.
+- **Không khoá bậc theo cấp** (`Underground.TierOpen` chỉ còn xét Hầm đấu đã mở).
+- Nền tạm màu đá hang, hình hang cắt từ đảo; nền thật ở C8.
+- Lượt chụp: cờ `Temp/casino_ug_tour.flag` (ra đảo, mở scene, chạm dòng xem chi tiết, giả thắng bậc đầu, Đánh bậc hai, chụp trận).
+
+Bản chia dòng ở trên **đã bị thay** cùng ngày (người dùng chê "quá cũ"); lõi, scene id, luồng trận giữ nguyên.
+
+### Hầm đấu: sàn đấu có Lão Mực (2026-11-26 lượt 2, người dùng dặn)
+
+Người dùng: "chưa đủ ấn tượng và sáng tạo. Tận dụng nhân vật dealer của đảo (nhân vật đen đen). Phải làm cho đúng chất 1 đấu trường ngầm ở
+1 hòn đảo cờ bạc. Khi vào, đội địch hiện thành 3 con lấy thẳng từ animation ra đứng idle, người chơi click / swipe trái phải để chọn. Ở
+trên có nhân vật kia đứng, khi chọn con dễ nó mỉa mai (chọn con dễ như này à...), chọn đội khó thì hỏi có chắc thắng được không... Làm 1
+màn chia hàng rồi chọn thế kia thì quá cũ. Gen background đúng kiểu 1 đấu trường ngầm, học hỏi cuphead, gen bằng gpt".
+
+- **Nền** `Assets/03 Art/Casino/HamDau/hd_nen.jpg` (1144 x 2048; gói `ArtGen/Casino/ham_dau/`: hai file prompt, `HUONG_DAN.md`,
+  `dua_vao_unity.py`; Magnific GPT 2.6 + phóng classic 2k, 334 credit): hầm đá vòm dưới sòng, quầy nhà cái có mái che ở giữa tường sau
+  (lòng quầy trống), biển gỗ trống treo dưới quầy, cổng song sắt, khán đài đầy khán giả bóng đen mắt trắng, sàn cát tròn quây dây thừng,
+  lưng khán giả hàng đầu ở đáy. Nét chì sáp tô phẳng như nền lều Đêm Bài; không chữ, không bóng, không quầng sáng.
+- **Lão Mực** (`DealerRig` + `lao_muc.bytes` của mốc D3, `GD_Claude/31`, dùng nguyên) đứng trong quầy, tỉ lệ 0,38, hai tay tì mép quầy;
+  lớp quầy `hd_quay.png` cắt từ nền che thân dưới. Bong bóng thoại bên phải quầy.
+- **Đội ngầm của bậc đang chọn** đứng giữa sàn cát: mỗi tướng là rig thật (`AolaSticker`, dáng đứng, nhìn sang trái), tướng chủ lực ở
+  giữa to hơn, hai con còn lại lùi sau hai bên (`UndergroundScene.Stand` theo 1, 2, 3 tướng). Rig chưa nhập hoặc quá 0,6 giây chưa sẵn
+  thì hiện chân dung tĩnh thay.
+- **Chọn bậc**: vuốt ngang trên sàn (`SwipeArea`), hai mũi tên, hoặc chạm chip trong hàng chip bậc (màu theo bậc, bậc đang chọn to và
+  viền vàng, bậc đã thắng có sao). Đội cũ lướt ra ngang; đội mới **chạy từ cổng sắt ra chỗ đứng** (từng con, nhỏ rồi to, nhún một cái).
+  Tên bậc ghi trên biển gỗ (đã thắng: dấu "Đã thắng" đè góc biển); dưới chân đội có thẻ số tướng + lực chiến (đỏ khi hơn đội mình 15 %,
+  xanh khi kém 15 %) và thẻ luật ngày (chỉ khi có). Bậc mở đầu: bậc cao nhất chưa thắng mà đội ngầm không hơn đội mình quá 15 %.
+- **Lời Lão Mực** (`UndergroundScene.Comment`, theo lực chiến đội ngầm / đội mình; mỗi nhóm 2–3 câu chọn ngẫu nhiên, có bản dịch):
+
+  | Khi | Clip | Ví dụ |
+  |---|---|---|
+  | vừa vào | `greet` | "Xuống tới Hầm đấu rồi đấy! Chọn đối thủ đi, khách." |
+  | dưới 0,6 lần (dễ) | `react_lose` (ngửa cười) | "Chọn đội dễ thế này à? Khè khè!" |
+  | 0,6–1,15 (cân) | `talk` | "Kèo này cân đấy. Ta thích!" |
+  | 1,15–2 (khó) | `bet_watch` (xoa tay) | "Có chắc thắng được không vậy?" |
+  | trên 2 lần | `react_win_big` (giật mình, lưỡi trai bay) | "Liều thế?! Đội này mạnh gấp mấy lần đội của khách!" |
+  | bậc đã thắng | `react_win_small` | "Đội này khách thắng rồi còn gì. Đánh lại chỉ có quà nhỏ thôi." |
+  | Nhà Vô Địch | `greet` | "Nhà Vô Địch của tuần đấy. Thắng nổi thì ta phục!" |
+  | về sau trận thắng | `grumpy` (đập quầy) | "Hừ... hên thôi! Lần sau đừng mong." |
+  | về sau trận thua | `react_lose` | "Khè khè, lệ phí ta giữ nhé!" |
+
+  Chỉ diễn và nói, không gạ chơi thêm hay gạ nạp bi (`31` mục 1.2). Kết trận "Về Hầm đấu" mang `UgReturn` (bậc, thắng / thua).
+- Chạm sàn hoặc biển gỗ: hộp chi tiết (cấp, sao từng tướng, luật ngày, thưởng). Dải đáy: đội của mình (hình, số tướng, lực chiến),
+  Đổi đội, Đánh (lệ phí). Thẻ đồng hồ "Đổi đội ngầm sau hh:mm:ss" ở góc trên trái.
+- Sân khấu nằm dưới `Canvas/Nen`, rộng 1080, neo mép trên; màn dài hơn ảnh thì phần dưới tô màu đáy ảnh (`#302338`). Số đo trên ảnh
+  (mép quầy, lòng quầy, biển gỗ) là hằng số ở đầu `Editor/CasinoUgMenu.cs`, chép từ `ham_dau.json`: **gen lại nền thì đo lại**.
+- Lượt chụp `Temp/casino_ug_tour.flag`: vào hầm, từng bậc, đang chạy ra từ cổng, bậc quá khó, hộp chi tiết, về sau trận thắng, vào trận.
+- Chưa làm: tiếng reo hò và tiếng lầm bầm của Lão Mực, đuôi bong bóng thoại. (Cổng sắt, khán giả: xong ở lượt 3 bên dưới.)
+
+### Hầm đấu lượt 3 (2026-11-26, người dùng dặn): cổng sắt, khán giả nhún, 10 bậc, trần trận mỗi ngày
+
+Người dùng: "làm tiếp cổng sắt mở đóng và khán giả nhún; ngoài ra làm thêm nhiều bộ tướng, lực chiến ở ô vàng đang là 68k sang ô tím là
+600k, gap lớn quá; giới hạn số lần đánh trong 1 ngày của người chơi".
+
+**Hình động** (`ArtGen/Casino/ham_dau/tach_lop.py` tách lớp từ ảnh nền đã gen, không gen thêm):
+- **Cổng sắt**: song sắt thành lớp rời `hd_cong_song.png` nằm trong khung mặt nạ lòng vòm `hd_cong_mat_na.png` (uGUI `Mask`); nền được vá
+  cho lòng vòm trống. Đội mới ra sân: song trượt lên sau vòm đá (0,16 giây), đội chạy ra, song sập xuống rồi nảy nhẹ (0,12 giây + nảy);
+  tiếng `whoosh` / `stamp`. `UndergroundScene.MoveGate`.
+- **Khán giả** (`PitCrowd`): 5 mảnh hàng đầu ở đáy + 4 mảnh trên khán đài, cắt rời đặt đè đúng chỗ cũ; chi tiết sáng của khán giả trong
+  nền (viền, băng mũ, mắt, lá bài) đã tô lại thành mảng tối, nên mảnh chỉ nhích LÊN rồi về là không lộ mép. Nhún nhẹ lệch nhịp suốt
+  (biên độ 13 / 6 đơn vị canvas × 0,42), reo hò (nhảy cao, nhanh hơn ~1,3 giây) khi đội mới ra và khi Lão Mực cười to / giật mình / đập quầy.
+- Gen lại nền thì chạy lại `tach_lop.py` (các ngưỡng màu, khung cổng, đường cắt mảnh ghi ở đầu từng đoạn) rồi `dua_vao_unity.py`; menu
+  dựng đọc khung từng lớp ở `Assets/03 Art/Casino/HamDau/ham_dau_lop.txt`.
+
+**10 bậc, lực chiến tăng đều** (`gen_casino.py`, `ug_levels.json`):
+- Bậc thường: Đá, Đồng, Bạc, Vàng, Bạch Kim, Lục Bảo, Kim Cương, Cao Thủ, Đại Cao Thủ, Huyền Thoại; chủ nhật thêm Nhà Vô Địch.
+- Bỏ cân theo tỉ lệ thắng; cân theo **lực chiến đội ra sân** (`Underground.Power`): cấp số nhân từ 6k (Đá) tới 600k (Huyền Thoại), mỗi bậc
+  ~1,67 lần bậc trước (6 → 10 → 16,7 → 27,8 → 46,5 → 77,5 → 129 → 216 → 360 → 600 nghìn), Nhà Vô Địch 800k. Runner dò cấp từng đội:
+  `py -3 -I build.py run ugpow 6000 600000 800000` (ghi `ug_levels.json`), rồi `gen_casino.py --apply`. Test giữ bậc sau trong khoảng
+  1,2–2,3 lần bậc trước.
+- Số tướng 1 / 2 / 3 / 3...; độ hiếm của đội lên dần; đội không trùng nguyên đội và không trùng chủ lực với bậc ngay trước.
+- **Bỏ luật "mỗi bên một tướng" khỏi bảng** (lõi vẫn hiểu luật này): một tướng gánh lực chiến cả bậc thì cấp vọt cao, đội mẫu thắng 0 %,
+  và lực chiến hiện ra không so được với đội 3 tướng của người chơi.
+- Lệ phí 20 / 30 / 40 / 55 / 75 / 100 / 130 / 165 / 205 / 250 bi (× bậc cấp), mảnh chủ lực 1 / 1 / 2 / 2 / 3 / 4 / 5 / 6 / 7 / 8; đá từ bậc
+  Bạc, đá tiến hóa từ Lục Bảo, đá tinh ở hai bậc cuối. Nhà Vô Địch giữ 300 bi, 10 mảnh.
+
+**Trần trận mỗi ngày**: `casino.underground.daily` = 5. Mỗi lần trả lệ phí là một trận (thắng, thua, đánh lại đều tính; đếm chung với
+trần lượt của các trò, `CasinoState.plays`, tự về 0 lúc 0 giờ). `Underground.FightsLeft`; hết lượt thì `Pay` từ chối và không trừ bi.
+Trong scene: thẻ "Còn x/5 lượt đánh hôm nay" dưới đồng hồ, nút Đánh khoá "Hết lượt hôm nay", Lão Mực tiễn khách ("Hôm nay khách đánh đủ
+rồi. Mai ghé, hầm có lứa đội mới."); hộp kết trận không mời "Đánh lại"; bảng tên trên đảo ghi "Còn x lượt đánh hôm nay".
+
+**Cần cân lại ở C9**: 10 bậc với 5 trận mỗi ngày làm tổng thưởng ngày khác bản 5 bậc (người chơi giữa game trước thắng được 3 bậc, nay
+chọn 5 bậc cao nhất mình thắng được). Chưa đo bằng `ProgressSim`.
+
+### Hầm đấu lượt 4 (2026-11-26, người dùng dặn): nhạc trận, tiếng khán giả
+
+Người dùng: "cần thì gen thêm tiếng hò reo vào đấu trường ngầm, lấy luôn nhạc khi combat cho phần này".
+
+- **Nhạc**: `UndergroundScene.Music` = `"tran"` (bài nhạc trận `bgm_tran`); bấm Đánh thì nhạc chạy liền sang trận, không đổi bài. Về đảo
+  thì trở lại nhạc sảnh như các màn khác.
+- **Tiếng khán giả** (gen Magnific / ElevenLabs SFX, 110 credit; gói `ArtGen/Sfx/ham_dau/`: `tai_ve/` + `dua_vao_unity.py` có ghi lời gen):
+  - `pitCrowd` (`ham_on_loop.mp3`, 8 giây lặp liền): tiếng ồn ào nền của khán giả, phát lặp suốt lúc ở trong hầm (`App.Audio.Loop`, độ to
+    0,3), tắt dần khi rời scene;
+  - `pitCheer1`, `pitCheer2` (`ham_reo_1.mp3`, `ham_reo_2.mp3`, 3 giây): tiếng reo bùng lên, hai biến thể phát xen kẽ (độ to 0,75, cách
+    nhau ít nhất 1,1 giây) cùng lúc khán giả nhảy (`UndergroundScene.Cheer`): đội mới ra sân, Lão Mực cười to / giật mình / đập quầy.
+  - Khoá khai ở `Editor/AudioImportMenu.cs`, nạp bằng menu `PokiClash/Âm thanh/Nạp nhạc và tiếng` (cờ `Temp/casino_ug_audio.flag`).
+- Chưa đo độ to các file (máy ổ C chưa có thư viện đọc mp3 `soundfile`, lệnh cài bị chặn) và chưa ai nghe: độ to ở trên đặt theo ước
+  lượng, bản ồn nền lấy bản 1 trong hai bản gen. Cần người dùng nghe và chỉnh. Tiếng lầm bầm của Lão Mực, đuôi bong bóng thoại chưa làm.
+- Lưu ý khi chạy test ngoài Unity bằng bản sao `build.py` ở chỗ khác: `gen_casino.py` đọc `ug_levels.json` cạnh nó; thiếu file này thì đội
+  ngầm về cấp tạm và test lực chiến tăng đều hỏng giả. Chạy với `BASELINE=1` để test đúng `balance.json` trong Assets.
 
 ### Người dùng dặn thêm (2026-11-25, sau C8 bước 1)
 
@@ -602,6 +755,70 @@ Người dùng chọn hướng B, rồi dặn "gen đảo trống rồi gen riê
   sang trái), số hạng khi về đích; vạch xuất phát, vạch đích ca rô; dòng tường thuật dưới sân; trước khi đua hiện 4 làn mẫu (đối thủ là bóng sẫm).
   Kết quả có bảng xếp hạng cả đoàn (húc trúng, bị choáng). Rời màn giữa cuộc đua đã trả lệ phí thì chạy nốt và tính thưởng.
 - Lượt chụp chụp thêm chuỗi khung ngay sau cú húc đầu (`2b_danh_0..3`).
+
+### C5 bản sân vận động (2026-11-26): Trường đua cuộn ngang, khán đài hai bên
+
+Người dùng: "sáng tạo hơn ở màn đua, thiết kế track đua như kiểu sân vận động 2 bên có khán giả, thử tham khảo các game trên mạng".
+Luật và số liệu (`Race.cs`, `balance.json`) giữ nguyên; chỉ đổi cách diễn.
+
+- **Học từ game khác**: máy quay bám đoàn đua + thứ hạng sống + lời tường thuật + nước rút (Umamusume); khán đài có người nhún, cờ,
+  băng rôn (đường đua sân vận động của Mario Kart, Pokéathlon); quay chậm lúc về đích sát nhau (game đua ngựa cá cược); khán giả phản
+  ứng theo diễn biến, nhiều mức náo nhiệt (game thể thao). Tìm trên mạng ra ít bài phân tích; phần lớn là kinh nghiệm về các game đó.
+- **Sân** (`RaceStadium`; lượt đầu là khung 1020 x 1060 giữa màn, lượt hai phủ kín màn): thế giới cuộn ngang, 27 px mỗi đơn vị đường (cả đường ~4900 px, ~270 px/giây, khung
+  thấy được 38 đơn vị); máy quay bám tướng mình ở 40% bề ngang, lệch về phía đối thủ gần nhất (bị đuổi thì hé phía sau). Lớp từ xa tới gần: khán đài mái sọc (trôi 0,85) + cờ
+  mái phất + 3 hàng khán giả; tường trước; mặt đường nhuộm màu hệ từng chặng; cổng chặng (vạch phấn, cột cờ màu hệ, biển tên hệ),
+  vạch đích ca rô; trang trí theo hệ hai mép; tướng; hàng rào dây; hàng cổ động viên quay lưng sát máy quay (trôi 1,15).
+- **Khán giả sống**: nhún theo độ náo nhiệt (chờ 0,15 → đếm ngược 0,45 → đua 0,55 → nước rút 1); chỗ có húc / né / đổi ngôi đầu thì
+  khán giả quanh đó bật dậy; sóng người lúc xuất phát, nước rút, về nhất; người chơi cổ vũ trúng nhịp thì hàng cổ động viên sát máy
+  quay nhảy theo (Tuyệt: thêm sóng người và hoa giấy). Khán giả là 48 + 11 hình dựng sẵn xoay vòng theo chỗ đứng (không sinh lúc chạy).
+- **Diễn**: đếm ngược 3-2-1-Chạy!; bảng treo giữa khán đài hiện mặt tướng dẫn đầu + lời tường thuật (thay dòng tường thuật dưới sân);
+  số hạng đang giữ cạnh mỗi tướng; tướng ra khỏi khung có thẻ ở mép báo cách mấy mét; thanh "Đường hôm nay" thành bản đồ nhỏ (mỗi tướng
+  một chấm); 20% cuối "Nước rút!"; hai tướng đầu cách nhau ≤ 5 đơn vị trong 7 đơn vị cuối thì quay chậm 0,35× "Sát nút!"; về nhất chớp
+  trắng, hoa giấy; rung khung khi tướng mình húc / bị húc; tướng chúi về trước khi chạy, tung bụi màu chặng mỗi lần chạm đất, về đích
+  chạy trớn thêm một đoạn; ở vạch xuất phát các tướng xếp hàng chéo cho khỏi che nhau.
+- **Hình**: 4 tờ gen qua Magnific (380 credit), đóng thành 2 atlas ở `Assets/03 Art/Baked/Casino/race_*` (`ArtGen/Casino/truong_dua/`,
+  README trong đó). Lượt chụp như cũ (`Temp/casino_race_tour.flag`), thêm khung đếm ngược, nước rút, về đích.
+- **Lượt hai cùng ngày** (người dùng: "cho trường đua fullscreen, khi đua bỏ mấy cái cúp, khi đua xong có 1 màn nhận thưởng đứng podium"):
+  - Sân **phủ kín màn** (khung `san` nằm dưới `Canvas/Nen`): khán đài hai tầng 6 hàng khán giả neo mép trên, hàng rào + hai hàng cổ
+    động viên neo mép dưới, mặt đường giãn ở giữa theo chiều cao màn (màn 1080 x 2160: đường cao ~750, tướng cao tới 215; màn 16:9
+    đường còn ~510). Tướng cao theo bề cao làn.
+  - Chưa đua: tấm **sảnh ở đáy màn** (hạng cúp, dòng tin, Nhận quà tuần, tướng đang chọn, Chọn tướng, Đua). Bấm Đua thì cả tấm ẩn,
+    chỉ còn nút Cổ vũ; trên cùng là thanh đường hôm nay (bản đồ nhỏ) và bảng treo.
+  - Đua xong: **lễ trao giải**. Màn tối lại, bục 3 bậc trồi lên, hạng ba / nhì / nhất lần lượt nhảy lên bục, hoa giấy, rồi hiện
+    huy hiệu (cúp / nơ bạc / nơ đồng), hạng của mình, thưởng, bảng xếp hạng cả đoàn, Đua lại / Xong. Thẻ tên tướng mình màu vàng.
+  - Hình bục: thêm 1 tờ gen (95 credit, tổng 475), atlas `race_buc.png`.
+- **Lượt ba cùng ngày** (người dùng: "sao không lấy thẳng animation walk của tướng ra"): tướng trên đường đua và trên bục là rig thật
+  (`AolaSticker`), dựng dần mỗi khung một con trong lúc đếm ngược, huỷ khi rời cuộc đua. Clip: đứng vạch / về đích `idle`, chạy `walk`
+  (phát nhanh 1–2,5 lần theo tốc độ), húc `attack` (tối đa 0,8 giây), choáng `hit` rồi `idle` tô xám. Cỡ rig = 0,74 khung chân dung ×
+  hệ số cỡ của dạng (nén trong 0,82–1,22).
+  Sau đó người dùng: "nhìn tướng hơi mờ, bỏ tên của tướng đi": rig chụp ở cỡ gấp đôi rồi thu lại (ảnh 1024 mỗi con) và không xoay
+  nghiêng nữa; bỏ nhãn tên trên đường đua, tướng của mình nhận ra bằng vòng vàng nét đứt xoay dưới chân (tên vẫn còn ở bục nhận thưởng
+  và bảng xếp hạng).
+  Lỗi của bản rig đầu (người dùng: "sao tôi chưa thấy các tướng play animation walk"): rig của phần lớn tướng nằm trong gói nội dung nạp
+  sau, lần hỏi đầu chưa sẵn thì code coi là "không có rig" nên cả đoàn chạy bằng chân dung. Sửa: hỏi `AolaActor.Ready(dạng)` mỗi khung
+  tới khi sẵn rồi mới `AolaSticker.TryCreate`; đếm ngược chờ cả đoàn có rig (tối đa 6 giây). Đo trong Unity: 104/104 dạng tướng là rig
+  .atomik có clip walk; lượt chụp ghi `rig.txt` (từng làn: có rig không, đang phát clip gì).
+  Tiếp đó người dùng: "play animation idle cho chúng, không để icon tĩnh nhìn bị vỡ": hàng tướng mẫu lúc vừa vào màn cũng là rig diễn
+  idle (tướng mình nguyên màu, ba đối thủ bí ẩn tô sẫm); rig chưa sẵn thì để trống rồi bật ra, chân dung tĩnh chỉ còn là đường lùi khi
+  không dựng nổi rig. Rig của tướng còn có mặt được giữ lại và chuyển làn khi bấm Đua / từ bục về sảnh.
+- **Lượt cược cùng ngày** (luật ở mục 6.3): lõi `Core/Casino/Race.cs` viết lại thành cuộc đua có kịch bản (`Lineup`, `PlaceOdds`,
+  `Rtp`, `Setup`, `Script`, `Step`, `Payout`, `Start`, `WeekCup`, `Finish`); `RaceConfig` đổi sang `daily` 5, `runners`, `betMin`,
+  `betMax`, `chips`, `pay`, `oddsLow`, `oddsHigh`, `raceSec`, `gapMin/Max`, `spread`, `keyMin/Max`, `startSec`, `endSec`, `surge`,
+  `surgeSec`, `stunDrop`, `stunMax`, `comeback`, `tease` (bỏ các số của mô phỏng cũ và hệ số cổ vũ). Test: `Dua_KichBan_TatDinh_
+  VeDungHang_BamSat`, `Dua_Cuoc_CangCaoCangKhoThang`, `Dua_DatCuoc_NamLuot_TraThuong_DiemTuan` (26 test Casino đạt ngoài Unity).
+  - Màn: bỏ hàng cúp và nút Chọn tướng; chạm con ở vạch để chọn (`RaceTap`), con chưa chọn là bóng đen (người dùng: "chọn 1 trong ...
+    con này chứ không phải chọn tướng, thêm nhân vật đen vào đây").
+  - **Quầy cược** ở đáy màn thay chồng thẻ giấy và nút (người dùng: "thiết kế lại phần dưới chỗ các button nhìn xấu quá"): tấm quầy gỗ
+    mái sọc (cắt 9 mảnh), vé lượt hôm nay, điểm cúp tuần, bảng trả thưởng có cúp / nơ, 4 đồng chip, nút Đặt cược (chưa chọn con thì
+    chỗ đó là dải băng nhắc). Hình: thêm 1 tờ gen (95 credit, tổng 570), atlas `race_quay.png`.
+  - Sửa tiếp cùng ngày (người dùng: "thêm Lão Mực làm chủ quầy cược; phần tap vào nhân vật chưa đúng lắm và có chỗ hơi khó tap"):
+    Lão Mực (`DealerRig`, rig `Casino/Dealer/lao_muc.bytes` dùng chung với lều Đêm Bài, cỡ 0,5) đứng sau quầy bên phải, lớp thân vẽ
+    sau tấm quầy, lớp tay vẽ trên (hai tay tì mép quầy); clip `greet` khi vào màn, `bet_watch` khi chọn con, `react_win_big` /
+    `react_win_small` / `react_push` / `react_lose` khi quay lại quầy theo hạng lượt vừa cược. Chạm chọn: bỏ ô chạm riêng từng con
+    (đứng chéo che nhau nên chọn nhầm), thay bằng một vùng chạm chung trên đường đua, chọn con có tâm hình gần chỗ chạm nhất trong
+    260 đơn vị; hàng tướng ở vạch giãn ra hơn. "Nhân vật đen" người dùng nhắc trước đó là Lão Mực, không phải bóng đen: bỏ kiểu tô
+    đen các con chưa chọn.
+- Chưa làm: trọng tài cầm cờ (chủ quán, mục 2), âm thanh khán đài reo; chưa soi trên màn 16:9 và máy tính bảng.
 
 ### C6 xong bản đầu (2026-11-25 đêm): Chợ đen (scene riêng) + Quán trọ (hộp trên đảo)
 
@@ -697,6 +914,12 @@ cho đảo (`25_FTUE.md`); Remote Config / giờ mạng cho lịch sự kiện v
 - [ ] Người dùng duyệt bố cục kệ, giá, lời lái buôn / bà chủ quán.
 - [ ] Hình lái buôn, bà chủ quán (chủ quán, C8); nền chợ thật (đang màu gỗ tạm).
 
+**C4 Hầm đấu** (thành scene riêng 2026-11-26, chờ người dùng xem)
+- [x] Scene riêng, đồng hồ đổi đội, bỏ khoá bậc theo cấp.
+- [x] Lượt 2: sàn đấu có Lão Mực bình phẩm, đội ngầm là rig đứng idle, vuốt chọn bậc, nền hầm đấu gen bằng GPT.
+- [x] Lượt 3: cổng sắt mở đóng, khán giả nhún và reo, 10 bậc lực chiến tăng đều, trần 5 trận mỗi ngày.
+- [ ] Người dùng duyệt; âm thanh hầm (reo hò, tiếng Lão Mực); cân lại thưởng ngày (C9).
+
 **C7 Lều lữ khách: Blackjack, Roulette, Slot** (bản đầu xong, đủ tính năng; giao diện, diễn chỉnh sau)
 - [x] Blackjack, Roulette, Slot mỗi trò một scene; ván đầu miễn phí, ván tập; Hũ bàn; chặn popup bán bi ở bàn; cờ tắt theo vùng.
 - [ ] Diễn: chia / lật bài, bánh xe xoay, cuộn trượt; hình bàn, chip, nền lều (C8).
@@ -706,10 +929,10 @@ cho đảo (`25_FTUE.md`); Remote Config / giờ mạng cho lịch sự kiện v
 - [ ] Đèn đêm cho công trình (mặt nạ tự sáng như màn Nhà).
 - [ ] Đảo trên bản đồ sảnh (hình đảo nhỏ + mây), chạm đảo đi tàu như nút giữa thanh dưới.
 - [ ] Cảnh lùi camera từ mặt máy bi ra Tháp Máy Bi (nút "Ra đảo" trong máy).
-- [ ] Nền thật cho Bến câu (đang cắt tạm từ concept), Hầm đấu, Trường đua (đường đua theo hệ, bụi / lửa / nước khi chạy).
+- [ ] Nền thật cho Bến câu (đang cắt tạm từ concept), Hầm đấu. (Trường đua đã có sân vận động thật, 2026-11-26.)
 - [ ] Icon 30 loài cá (đang là chấm màu hệ), cần câu, mồi.
 - [ ] Chủ quán từng trò (NPC, mục 2), lều sự kiện có người.
-- [ ] Clip chạy riêng cho tướng ở Trường đua (để sau, hiện là chân dung nhảy cóc).
+- [x] Tướng ở Trường đua chạy bằng clip walk của rig (2026-11-26).
 
 **C9 Cân bằng, máy thật**
 - [ ] Đo tổng bi vào / ra mỗi ngày của cả đảo bằng `ProgressSim` (mục 7), chỉnh trần lượt và lệ phí.
